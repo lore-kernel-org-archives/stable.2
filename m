@@ -1,64 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.145.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.7
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793983311;
-	b=XxSl+St1XQBod86KDE14QgZDx1vsAnFBciqoB+FeZ7tDwxqLi5j2sKmryRNiGlocv2zS
-	 I8P1CnIgvQ8PXzHNcIkUQecUdtmWzwG5h5rx/e8gL7oOyIwiecKMQBGxznyvuiLSyXTBx
-	 6wCXyNP+0F9/hFo4jZ/cePrgG0dHzErTwth3Wc6VZe4zmZvqQQIgsUyH23cwbIxOc/ImX
-	 dUcN+Al9x/eym9riwx0Fwvvh1yK65IdNyXSt/9zZSkmDO5x+VwvufY/pLADjYrcPDzkyd
-	 uZoKgtxjCoC4DWnKU2TGads/wOYYOb2qAiJZW/8/3Rsn+1rywt/gTKy/XRl6mEgIOGg==
+	t=1793983314;
+	b=TzRMXtHcAjupS/L3wifofeoO5OSJfCRXHQdAC7vYbEt27jkfY4OvhKJH4qkAOiHcwSEg
+	 F0mAVbX2gM5cgBaHCMwSo3GZ9Q7ervJWU3+/zcOc//DCfWKra47XIgIWB3+TMbdQWffwr
+	 m/oryG3dfWxUB6vr5rYy+sJZLTqrMi9o2z+9wMTmm2bnaZckr1eaM4zUfSiuOjSfLm/A0
+	 x8YTeRP9IGo6HHTC0aoIIn7lYIeClEf4k4QMFPWPUXcuMVmLi+pt1HvaU18A5/lVjzxBd
+	 ZRPtF8jzg/SjCtYJxlDDioRMPwkuI/Z91cb2q/BF3c16vTfStR4cwfmNUo8WxLQ99qA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793983311;
-	h=DMARC-Filter:Received:Received:Received:Received:From:To:CC:
-	 In-Reply-To:References:Subject:Message-ID:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Mailer:X-FB-Internal:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Virus-Version;
-	bh=Qi4tRF3VXUVHtFMLZxctH/E7kZ4hP3nNCWedSjBpTnI=;
-	b=F03j8cvJEpvrG717ykrDqmfYZQ5038iNtFGF/M2suHNNwraTFFFv/aYWDansJFpMb99s
-	 wG+q7og3wc2QfsisjaZ/JwNqavdW/uT08RuubxVR0Mh4UZ6AbOMOqnRxVboBeVcVKHE+O
-	 yCLQZP35BIBMWiVMygHMYxWNO24Bfgdneh9H3Oyw42A2EnxyFuFSj2oamvjLvKh8r5bHU
-	 YVxqxzF2BP4aVnkCYqS7LCxpWg8D8K6asbjKxgEnOBYD2opP7m4EU6cbECxWhsk2CF4pN
-	 KDo1xvZf6pdoqj+Q2N43zOF1yiHl79VCVxzK2tUa5PSMCOaVOOQ5GemLGriFw9GebkQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793983314;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=oPspVz2u3sUVQrpVa7QtYannDPmyJMtXsmAP0J0uodo=;
+	b=QByB8dmsqOQaBR5eAUTb9pJ4D9YACHVBzZOrmyReMHzvXgg6BGZAiI3KTRm07SFfFnsO
+	 Z93rHhkgNnLzHTJ6yJl13XhrIl1e86XePHSSRll+hPMK0M07eOcSlMb8d8N2scLQgHt0P
+	 TwppixpU34o+3d6I5y6sxXSsLsCPCyvRtDF3DJXfMnLgfO/4nlh9GQMTOJEWmqX6NqZfW
+	 k7FB9BfruWZXVX7hhXlAq0/TZRs8xM02zeB1hGy1EupaeuBj85bfmRxQNtUUyvVpfgKiK
+	 0OuAqZlUybJhdDnTmq2nEPNkqmRYkCypJdxVoh3GjnkMKAbB990OQFhCEzMCaN2GRCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=kernel.org;
-	spf=pass smtp.mailfrom=meta.com;
-	arc=none smtp.remote-ip=67.231.145.42
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com [67.231.145.42])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZRI6UUZs;
+	arc=none smtp.remote-ip=192.198.163.7
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94E4C606A329
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 16:41:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94E4C606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=kernel.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
-Received: from pps.filterd (m0528007.ppops.net [127.0.0.1])
-	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A6GXAvl3808105
-	for <stable@vger.kernel.org>; Fri, 6 Nov 2026 08:41:49 -0800
-Received: from maileast.thefacebook.com ([163.114.135.16])
-	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hs3rb549y-2
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Fri, 06 Nov 2026 08:41:49 -0800 (PST)
-Received: from twshared16865.02.snb2.facebook.com (2620:10d:c0a8:1b::30) by
- mail.thefacebook.com (2620:10d:c0a9:6f::237c) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.56; Fri, 6 Nov 2026 16:41:48 +0000
-Received: from devbig197.nha3.facebook.com (localhost [IPv6:::1])
-	by devbig197.nha3.facebook.com (Postfix) with ESMTP id 1111B2E8C8119;
-	Fri,  6 Nov 2026 08:41:35 -0800 (PST)
-From: Keith Busch <kbusch@kernel.org>
-To: <axboe@kernel.dk>, <hch@lst.de>, <sagi@grimberg.me>,
-        Yaohan Li
-	<shunsheng1218@gmail.com>
-CC: <mkp@kernel.org>, <linux-nvme@lists.infradead.org>,
-        <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-In-Reply-To: <20261105114149.970315-1-shunsheng1218@gmail.com>
-References: <20261105114149.970315-1-shunsheng1218@gmail.com>
-Subject: Re: [PATCH v2] nvme: stop asynchronous event work before ANA
- teardown
-Message-ID: <179398329505.3869217.16360449942486789550.b4-ty@kernel.org>
-Date: Fri, 6 Nov 2026 08:41:35 -0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FDF7606A33E;
+	Fri,  6 Nov 2026 16:41:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FDF7606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZRI6UUZs
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793983315; x=1825519315;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=U41/yhPtOEbm2rdavaCV20VU455lrs9kR6LVwMJnUdQ=;
+  b=ZRI6UUZsrpdTJoMofP7J+0iCMTFMKtdzS6ighslr8kSq4IzjVc28mztZ
+   N7DGdWVPitaip7flIaPtDtZmITCDmqGoenDkFEzrQhL120ede3qprOy/b
+   VbB/134A4Kd0EZGl0kAjGBnwi+1LJpfstXgd1jy7xKW+WR6DN9zfDHdyv
+   cHJZkveglHmjM+6tkXTwc12CFdsL2UW0oJr8Kd9y4TGC9YmPVMSp1kDev
+   auMVp/3AvG9rnxfqBtYVjvpyEsjJXhOS9LmfCYgb8gm/JrqgycLg9gplM
+   +3ESdjTRrJJbQpe/vp+29Osa+gjsbAEM7zyf+XQfrAcuiFnsHbnAVgVvW
+   w==;
+X-CSE-ConnectionGUID: DVx4N3ZATNiii2beJqzfUg==
+X-CSE-MsgGUID: x6mJ02xUQpCNQCFw5fEamw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11958"; a="2669066"
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="2669066"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 08:41:54 -0800
+X-CSE-ConnectionGUID: AhncTAcSREy/LIg9F9dhYw==
+X-CSE-MsgGUID: 3Uc2TKvlSuGnHOjN8ZQ39g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="7660259"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa009.fm.intel.com with ESMTP; 06 Nov 2026 08:41:52 -0800
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id A09B699; Fri, 06 Nov 2026 17:41:50 +0100 (CET)
+Date: Fri, 6 Nov 2026 17:41:50 +0100
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Joonhoe Kim <26rote@gmail.com>
+Cc: gregkh@linuxfoundation.org, neil.armstrong@linaro.org,
+	dmitry.baryshkov@oss.qualcomm.com, tvlad744@gmail.com,
+	linux-usb@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] usb: typec: ucsi: Leave the mux to the altmode driver
+ for alt mode partners
+Message-ID: <au4DThRaGmNzZ0HU@black.igk.intel.com>
+References: <20261103135046.1654-1-26rote@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,47 +83,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13.0
-X-FB-Internal: Safe
-X-Proofpoint-GUID: rHVEDV4Q6WnAJh1XYk4djq_7HwTgtu-j
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA2MDA2NSBTYWx0ZWRfX7raHfHOJzyou
- EGHy1t/rLILqBcUVffSuFVIP94YTSO538tMl5EOrQlAFMeV+8sDW5RtRBl3BIWcYEVo6NqIBNJc
- KytUS+b8atc+x/mkGwpQveUka9Hel/U=
-X-Proofpoint-ORIG-GUID: rHVEDV4Q6WnAJh1XYk4djq_7HwTgtu-j
-X-Authority-Analysis: v=2.4 cv=TLPQ2Fla c=1 sm=1 tr=0 ts=6aee034d cx=c_pps
- a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
- a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22 a=4h92JMTCafKA-fb_NiOh:22
- a=VwQbUJbxAAAA:8 a=NhGQEf4IzQLqQlViRykA:9 a=QEXdDO2ut3YA:10 a=zZCYzV9kfG8A:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA2MDA2NSBTYWx0ZWRfX6B8f8GFM/XdI
- /5GitOlPgA0/1HL46UQP2PuEwbOVQ6nQUDoO8RkjHG8eHzsGvg7pGLHpFpG8NMip6EH+8JyQ/QD
- 6dHash89UfcRIEZDmQezm/4OGXHilQKZkRKVpXLkrxdzTDJpQ9PB7OzGJjTNReKjSvKo15UEmDU
- 35qHnyW8iveO/yzS4AFluzP8YUKekOKGJ58SczCRRLP7GKkPrwD9BHLF+Bky8an+UIVyLI3ul+C
- f4TL+Uj0BQiHoARMoessZMygCR3FI2m4DLoqirowS5Z1CCwzeveki7HAo4S9/qIvl5Hb1rBjty2
- fiXXoj0zZdTdNuRkexDMul9GJRmqJlP0e+pJRUA3GS0YtIU9NTpHJwsTEdixBVoS948kTdhhZZl
- HgOkXq+M7ZF56hvMJT2D7NFK9ewlLgsO76IG4BhV+00xLPYHo6kqpdL50c4t9VTZUORgmTyAbe1
- ypp/xhbjMcg+UB8/gmQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-06_05,2026-11-06_01,2025-10-01_01
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103135046.1654-1-26rote@gmail.com>
 
-On Thu, 5 Nov 2026 19:41:49 +0800, Yaohan Li wrote:
-> NVMe ANA work has several producers, including ANA AER completion,
-> namespace scanning and failover processing.
+On Tue, Nov 03, 2026 at 10:50:46PM +0900, Joonhoe Kim wrote:
+> Commit 25a2bc21c863 ("usb: typec: ucsi: call typec_set_mode on
+> non-altmode partner change") set TYPEC_STATE_USB only when the partner
+> flags were exactly USB, so that the altmode drivers set up the
+> switches, muxes and retimers for alt mode partners. Commit 226ff2e681d0
+> ("usb: typec: ucsi: Convert connector specific commands to bitmaps")
+> turned that into a test of the USB bit alone, so a partner that
+> reports both USB and alt mode now gets TYPEC_STATE_USB as well.
 > 
-> An AER completion can queue ana_work for an ANA notice and can
-> separately queue async_event_work, which sends the AEN uevent and
-> submits the next asynchronous event request.  These work items access
-> controller-owned state during asynchronous processing.
+> On pmic_glink platforms the altmode driver programs the same mux chain,
+> and the two notifications are not ordered. When the UCSI connector
+> change comes last, an FSA4480 switches the SBU lines off, the
+> DisplayPort AUX channel stops working and the sink is never detected.
+> On the Lenovo Y700 Gen 5 (TB323FU, Kaanapali) this happens when a
+> DisplayPort sink is plugged in during system suspend.
 > 
-> [...]
+> Set TYPEC_STATE_USB only when the partner does not report alt mode.
+> USB4 partners keep TYPEC_STATE_USB, as they do now.
+> 
+> Fixes: 226ff2e681d0 ("usb: typec: ucsi: Convert connector specific commands to bitmaps")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Joonhoe Kim <26rote@gmail.com>
 
-Thanks, applied to nvme-7.4.
+Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
 
-[1/1] nvme: stop asynchronous event work before ANA teardown
-      commit: 9b657c565984f28976b1e471e3ce2f81cc269238
---
-Keith Busch <kbusch@kernel.org>
+> ---
+>  drivers/usb/typec/ucsi/ucsi.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
+> index 2f9adf4f8bde..395554ba0312 100644
+> --- a/drivers/usb/typec/ucsi/ucsi.c
+> +++ b/drivers/usb/typec/ucsi/ucsi.c
+> @@ -1356,7 +1356,8 @@ static void ucsi_partner_change(struct ucsi_connector *con)
+>  			typec_set_mode(con->port, TYPEC_MODE_AUDIO);
+>  			break;
+>  		default:
+> -			if (UCSI_CONSTAT(con, PARTNER_FLAG_USB))
+> +			if (UCSI_CONSTAT(con, PARTNER_FLAG_USB) &&
+> +			    !UCSI_CONSTAT(con, PARTNER_FLAG_ALT_MODE))
+>  				typec_set_mode(con->port, TYPEC_STATE_USB);
+>  		}
+>  
+> 
+> base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
+> -- 
+> 2.43.0
 
+-- 
+heikki
