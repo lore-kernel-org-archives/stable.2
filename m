@@ -1,56 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793926177;
-	b=rfarOwYMtTQNV1m61JXFz6igGiPjxcDPycCWYeQWZ5NdtkAudcGtYEmTai6QqRCPg2Ct
-	 SEcgQhsifjErshMXBGWf7KPGR0WWJjSjqnCkU2poFoJTO1S8W9orjvQimBhPCR4ptoECs
-	 hogfu+6ApjGdc3B+5cjGDP9I9SfzT0Kh8NW2W3ezoAKjHnQiduHlGQYnJ9mEO3jH/l/UW
-	 srbmsYTYbfh3LjOBeK/WdlfLIcCZzvIy5qceiWk2FBVSnAvv8ZjVL1gLFHldDDimUoVJo
-	 Qvr+i2mEPy2QqFkeQ5IS2eM8hakVDypoZka/tmQjx86mqoCvxC2iJ9Hk690o8cUBh0A==
+	t=1793926594;
+	b=UcmEs+rKgk3Yyi0hBy+doPxjNaLacx/x295+8jaJu6ITBCAxWXCQn2DiUv5+VZRerRpO
+	 beQR7WuI0xzcw2ZaJiZzL6sNeXCYuiagtHOnKtwYBoOcBW7CvHzT6jFtvuHOQYAjfO/xZ
+	 9vdFVwKSIaPJp6F2pwisycEFZcynW4cZMsft2pZCca9XHScjiDJbBFRpZTZhg6n26HBSo
+	 wv/+gojkDarIt6t+6+R91F68sZ9bNSDbnhXtOfhUa0KpEG7zHPt5Mm3D78XLBHjqPcdfW
+	 V6AZ2DegGBI5YXzGLCJC6P3VNf19NjU3PNbYtoT2WmRyx9Z0i5WmfLcGjKY/ftGJLxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793926177;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=54jePDnVj9kBK3X2+ZZPS/tNJo0wkXHyvA/1b7epDOQ=;
-	b=PPV2kA45nq2kx2VjhA/8Q7CO+oL2sBKl4M+fpYQ+274/JPdMiYK/7ChC4J9YxSMCH3uW
-	 sbuLhDVCXbPJHeFxCUZuAn/gEXNnch19QmDgKXQTVQA1Dbk4jNMp39XQjuJFeERBVBGdB
-	 ES5moF4Qg8A8Xk9ZSZl/7695cqgTWUIyzspQ4SBjDyXNajt3x+UsyVbA51tQgEQwBXVMh
-	 BZp7wJI5MnwUp2V1GDODtif/4fgov0dAdQz957xyz+ZnfeRGlvnvvZVFwo+GFZUzB6oyd
-	 gT+Y6tMkT4KJYHJ+60KPJp8lZOLItERcLoY/tDW1m32WJra8FoQj+2vxe8SOfJCev1Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793926594;
+	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
+	bh=EKWa2TMCCz3OL2O52vHTa8wSAka2bAVG/T551beGLN8=;
+	b=bGxw209QrjpmIFTXbrh2duk9STkoZD4xYuc9GPrELc6+6SXJxobiOybO/yvE+CCz4GfP
+	 9sCJ+gzR6K36fykYETco1BGpQSSEkJateE3TzoNNm2NIZUbrKWQQefM9psByEp56FgFz5
+	 HHmM1OFNxj0L9wm7Iy4h4r/CD2AfTGir0FTJmYaSnwODUanM+yFjOGZU25B59OOAfjeC1
+	 5hudCiO4yv4Bdwcs2s0pncJIwUzY2IdIZSf/O9apITAjQ4ZaSuFVcA2WUlJB+O1p28VmL
+	 2EuDoBlHpwNHzbuFI2samiG9UWX4bb5S4GBfW0/T+7C1yBDw3t11t1wGL5sSgZBuDcg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ED2GlPM/";
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=YU66+k4V;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49ABC606A331
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 00:49:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB012606A31B;
+	Fri,  6 Nov 2026 00:56:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ED2GlPM/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61A111F008A4;
-	Fri,  6 Nov 2026 00:49:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793926177;
-	bh=54jePDnVj9kBK3X2+ZZPS/tNJo0wkXHyvA/1b7epDOQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ED2GlPM/NCzLV1repVjWosXYd6iIniUVcUDLK67dbDTwYJ5EUQcimD2UuVWtuM/lB
-	 124ghAd/nF4+WESN4w0LuRMC4aq1Z8Nr7wZ+PxlRmw/8y2iLEOVUhWz6ACM5qpb8Y4
-	 zfihg6vfGMgYUvdjlEr0I1o/niX3E47UEAGB5dMowCXdtrDKCT5o3vUEpcXtQjdJIw
-	 l5ochNNqhmx/iQPK51pjj+YPXvlEPsJ0NYJU71w19rYIHEz+czDfUicFnsZdoH/ype
-	 A+fW8TSsQHx+/TDKUbKEaBrsDUgAv7Cm0mMd5qJnAyA/rj4kXbEwXozmjp4xKSeL15
-	 /4UYnO6YZ9P3w==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Ratnaker Gautam <ratnaker.gautam@kuleuven.be>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] smb: client: bound POSIX lock data area by response length
-Date: Thu,  5 Nov 2026 19:49:35 -0500
-Message-ID: <20261106004500.2755780-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110408-eatery-delta-feb8@gregkh>
-References: <2026110408-eatery-delta-feb8@gregkh>
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=YU66+k4V
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F3751F0089F;
+	Fri,  6 Nov 2026 00:56:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1793926593;
+	bh=EKWa2TMCCz3OL2O52vHTa8wSAka2bAVG/T551beGLN8=;
+	h=Date:To:From:Subject;
+	b=YU66+k4V46VecmFCwH4NCQ95aNoWN3uvElLN0CtUNsx3lpdCozltn+ES12KfTil4I
+	 dOKb3C0MRTDc13Fln15fo2qej3efoCIj2daJmMWFLGr17VAB5P7y5JHTbLFP8LtbYW
+	 hC6St9A1KClRVMcQ2FU8lnnC3GdQOkNGkpkpUO/I=
+Date: Thu, 05 Nov 2026 16:56:32 -0800
+To: mm-commits@vger.kernel.org,zokeefe@google.com,ziy@nvidia.com,
+	usama.arif@linux.dev,stable@vger.kernel.org,ryan.roberts@arm.com,
+	nico.pache@linux.dev,mason@kernel.org,ljs@kernel.org,liam@infradead.org,
+	lance.yang@linux.dev,kas@kernel.org,hughd@google.com,dev.jain@arm.com,
+	baolin.wang@linux.alibaba.com,baohua@kernel.org,david@kernel.org,
+	akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-khugepaged-dont-map-folios-that-are-not-uptodate-in-madv_collapse.patch added to mm-hotfixes-unstable branch
+Message-Id: <20261106005633.2F3751F0089F@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,64 +53,91 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Ratnaker Gautam <ratnaker.gautam@kuleuven.be>
 
-[ Upstream commit 8fc9af68c57156ff64769f30e831553cd03b3000 ]
+The patch titled
+     Subject: mm/khugepaged: don't map folios that are not uptodate in MADV_COLLAPSE
+has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
+     mm-khugepaged-dont-map-folios-that-are-not-uptodate-in-madv_collapse.patch
 
-CIFSSMBPosixLock() receives a TRANS2 response whose server-provided
-DataOffset and DataCount are not required by validate_t2() to describe an
-interval inside the response. A server can therefore make the client read a
-cifs_posix_lock beyond the response buffer and return those kernel bytes
-through F_GETLK.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-khugepaged-dont-map-folios-that-are-not-uptodate-in-madv_collapse.patch
 
-Use smbCalcSize() to obtain the full response length after any multipart
-TRANS2 reassembly, then reject data areas that extend past it before
-dereferencing them.
+This patch will later appear in the mm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-Fixes: fc94cdb94462 ("[CIFS] Fix new POSIX Locking for setting lock_type correctly on unlock")
-Reported-by: Ratnaker Gautam <ratnaker.gautam@kuleuven.be>
-Cc: stable@vger.kernel.org
-Signed-off-by: Ratnaker Gautam <ratnaker.gautam@kuleuven.be>
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-[ sashal: adjusted response validation to subtract the 4-byte header from smbCalcSize() and use plain -EIO instead of traced errors ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: mm/khugepaged: don't map folios that are not uptodate in MADV_COLLAPSE
+Date: Thu, 05 Nov 2026 19:16:44 +0100
+
+madvise(MADV_COLLAPSE) can map PMD-sized pagecache folios that are not
+uptodate.  For example, shmem fallocate() can put such folios into the
+page cache.
+
+collapse_file() already refuses to proceed with folios that are not
+uptodate.  Let's just do the same in try_collapse_pte_mapped_thp() and
+skip such folios, leaving handling to the page faults.
+
+Note that collapse_file() effectively clears shmem folios through
+shmem_get_folio(); let's keep this fix simple and simply let the page
+fault path deal with that.
+
+Link: https://lore.kernel.org/20261105-set_huge_pmd_uptodate-v1-1-a78d8a1b7117@kernel.org
+Fixes: 34488399fa08 ("mm/madvise: add file and shmem support to MADV_COLLAPSE")
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: Chris Mason <mason@kernel.org>
+Acked-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Acked-by: Hugh Dickins <hughd@google.com>
+Reviewed-by: Zach O'Keefe <zokeefe@google.com>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Nico Pache <nico.pache@linux.dev>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Dev Jain <dev.jain@arm.com>
+Cc: Barry Song <baohua@kernel.org>
+Cc: Lance Yang <lance.yang@linux.dev>
+Cc: Usama Arif <usama.arif@linux.dev>
+Cc: Kiryl Shutsemau <kas@kernel.org>
+Cc: <stable@vger.kernel.org>
 ---
- fs/cifs/cifssmb.c | 7 +++++++
- 1 file changed, 7 insertions(+)
 
-diff --git a/fs/cifs/cifssmb.c b/fs/cifs/cifssmb.c
-index 67ff1669cab2a..08ae1d7d2c516 100644
---- a/fs/cifs/cifssmb.c
-+++ b/fs/cifs/cifssmb.c
-@@ -2592,6 +2592,7 @@ CIFSSMBPosixLock(const unsigned int xid, struct cifs_tcon *tcon,
- 		cifs_dbg(FYI, "Send error in Posix Lock = %d\n", rc);
- 	} else if (pLockData) {
- 		/* lock structure can be returned on get */
-+		unsigned int rsp_len;
- 		__u16 data_offset;
- 		__u16 data_count;
- 		rc = validate_t2((struct smb_t2_rsp *)pSMBr);
-@@ -2602,10 +2603,16 @@ CIFSSMBPosixLock(const unsigned int xid, struct cifs_tcon *tcon,
- 		}
- 		data_offset = le16_to_cpu(pSMBr->t2.DataOffset);
- 		data_count  = le16_to_cpu(pSMBr->t2.DataCount);
-+		rsp_len = smbCalcSize(&pSMBr->hdr) - 4;
- 		if (data_count < sizeof(struct cifs_posix_lock)) {
- 			rc = -EIO;
- 			goto plk_err_exit;
- 		}
-+		if (data_offset > rsp_len ||
-+		    data_count > rsp_len - data_offset) {
-+			rc = -EIO;
-+			goto plk_err_exit;
-+		}
- 		parm_data = (struct cifs_posix_lock *)
- 			((char *)&pSMBr->hdr.Protocol + data_offset);
- 		if (parm_data->lock_type == cpu_to_le16(CIFS_UNLCK))
--- 
-2.53.0
+ mm/khugepaged.c |    6 ++++++
+ 1 file changed, 6 insertions(+)
+
+--- a/mm/khugepaged.c~mm-khugepaged-dont-map-folios-that-are-not-uptodate-in-madv_collapse
++++ a/mm/khugepaged.c
+@@ -1888,6 +1888,12 @@ static enum scan_result try_collapse_pte
+ 		goto drop_folio;
+ 	}
+ 
++	/* Leave any uninitialized folios to the page fault path. */
++	if (!folio_test_uptodate(folio)) {
++		result = SCAN_FAIL;
++		goto drop_folio;
++	}
++
+ 	result = find_pmd_or_thp_or_none(mm, haddr, &pmd);
+ 	switch (result) {
+ 	case SCAN_SUCCEED:
+_
+
+Patches currently in -mm which might be from david@kernel.org are
+
+mm-memory-failure-fix-folio-refcount-leak-and-min_order_for_split-locking.patch
+mm-khugepaged-dont-map-folios-that-are-not-uptodate-in-madv_collapse.patch
 
