@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793930006;
-	b=uU5sNmUMdEJ5gp9K03+gQ/Tib1eIPEc4O1CW+GPGootaEWWfbRwPzk7TSxRGPfr9bIee
-	 8g0UJBO+AIe3rimIKZ86nUrvJ46ml+zQNx9T2hUWF/8c9DE3wEr4n/yw7me/8ry6yNXo2
-	 w/bxSvRYEjUUC4ctDP565BzH+wZ1d5GDAm3vC2JwulX1Gz2jAoSdLUWLKak4eTolvwiQb
-	 QMw5ym1bSKXETeIlK82eMFO7HP+7rbad6TJpe5JgQreySMlDEfMdS7f5DA1KiGqLaxdMf
-	 KLy/6IFbbRayuMVrpfV/EQR0AZ3Ys8FCao5K+JEltl3SvTjhnHcyWjrkArwXm72Gbuw==
+	t=1793930030;
+	b=CGUGqnFsvW00yIxJEt1ih+Pne/LdhFjAZnT0v8hzFRc5QPkPqGAuJ90rPoe2RL9qqbLT
+	 i1RaGkN17WczfRr4FrQhr36Y/67NddtODa13U9BQDDspUcQlLswJgKVOwB3BsNKaWArw/
+	 k3fE8DSMe/lsOzC4OfxhIj4znmT8HhPHlJdJDnL629ETogTpYmBl/yjs0H56OTcfMUU6f
+	 F3yW+J5S/Bmy6qoROyD/3N/r0G7lcbZEe7UbGC2U3B9081NqIFz1wvyDBbqpEYlX7XnI3
+	 VqSf7STBOdRcfyL1pDoocJ+K1JUFvESplS9GiDsSjBhQukpyrbGZkFRsWDiuv2F5seQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793930006;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793930030;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=hjHfqbp3YS2UWi21gIgEuexH1r+z1t7YfVeAnWiT4CY=;
-	b=Er/dTDTeHGN0JiWOe4IjqESymSpQ0OkvvDeP5QINk3VPxljktLKFEgLH/wjR56Cc6s50
-	 JpgJ5pD9sbfkh4z8A2SVscqsGqpxOMyygpeugTs3rhuYNDkCWoxGR2jq2/zuQuDh2NwBf
-	 TmGnl/zdpmaU4L2cO8fWkLQo4guroARWb5VXkA1yQ56rBvl6E1sjl6807QDLM2cqxqq7V
-	 ppVLskkL8Q8UGK/NTJCrCu5btnwi9frRyRDUQ6v3eAQ3QHhg6lvHVlJtNNLzRJWwEw6zF
-	 YuV2F1Qtv+09ln5bi8dj5PysgmegXNiEN3Ksw1zzqWeqZCCBxGKpzB7Xa5k8b2vkbTQ==
+	bh=GoKuRBkWjiLRnZSlHYSEIztZ7rc2aYDjCOkhM0WELmc=;
+	b=j+trOoC/LladNOUHUfxFMTOcosJP7PNHI9kQUtZuuTL/nl8DxGgcA8ViOIVQBCZTLKcy
+	 wj0viRCJjx/SDXbc0AGxic8nXCgA9kucBVlRZ+u2PgEaChmhnco1mT63WtLmwT5eaIsBM
+	 WjnopnbGYPmz/S0fl3BALsdcV9NbNZHdnRFYjZ7DRAetY5Tb7OV/X2A2Zd11apUy2EKtQ
+	 yGgGOhwJpj9Dr/3iuAoFYbWu4p0lgPEOlmnFJDm33VNXHzUQXnYCfjwCpn77xoDQSGMW4
+	 IIf+xrWc9TGn691HG0T4VTCrBFFYhMAM5kURcePNVxWXM/3ZBshYrksjC6CklieBIBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="JEOsx/6o";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h8TfoD1c;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA679606A326
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 01:53:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51885606A31B
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 01:53:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JEOsx/6o
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D85CE1F008A1;
-	Fri,  6 Nov 2026 01:53:24 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h8TfoD1c
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 931DA1F0089F;
+	Fri,  6 Nov 2026 01:53:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793930005;
-	bh=hjHfqbp3YS2UWi21gIgEuexH1r+z1t7YfVeAnWiT4CY=;
+	s=k20260515; t=1793930030;
+	bh=GoKuRBkWjiLRnZSlHYSEIztZ7rc2aYDjCOkhM0WELmc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JEOsx/6o1zkqjP3bGlTiCH2YAtdvMAaVdu4gXSCTyftvXNujjftwEhFXUr2gcvI0r
-	 Zf9Tsk1zOt691hWASzYJ8hMxWmXxm2risBO5bnY/T6wlqy7ne+GY+qDrZrtEQ3wp47
-	 N/7K3j9LUrTYAlIAwQJRi0Qg2z9iWAOY2Ky8gtFW1czftFUGoq2N2th5WLkLqMlzhM
-	 fQQ4HABrXAZSYzy8glBXKI1G71WfddGu6+/XXWkQskTgUpbA9N76ScbHi6Bkfudwo/
-	 unTm06p9LJ2KYsJt1Fu67RL5QepwwPcaAOKOt+oxjdXG7Sz/1u+YMq7rAEsShOz/T8
-	 Xj2xsm+2K3EGg==
+	b=h8TfoD1cOMeokDVKYXkpK7OrJCKm09xEeMKXjkhjGuBhYtdMWqSYpRRQNIYmp1dvh
+	 /SQkLjLOhlVKwwoyf/lDxIc3R6aWKzd1FGVV5jYfY8Yx+rGWZkZ5uLZPhBRZ4J92Bh
+	 ZbINjGVnU4X0CRtDhodiK6ZPmK3rML+lUWFVHF44nM4hP0FY1/Ml57pt0vBjc+MjfE
+	 HAZ8rbNl+RPSHs2A9/Our386YqoWETv88YyElqyF4qPrCwypN9sRRY4NsFwqqPXkAe
+	 I1mw3T0XtUsC1CKRsExkRarEOendeaQwG3YeHGsD5Q0J0rnlT7qkL1iPLDudNdbs6r
+	 dloFSdU5tThPA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Benjamin Coddington <ben.coddington@hammerspace.com>,
-	Benjamin Coddington <bcodding@hammerspace.com>,
+Cc: Mike Snitzer <snitzer@kernel.org>,
 	Anna Schumaker <anna.schumaker@hammerspace.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] NFSv4/pnfs: bound the CB_NOTIFY_DEVICEID array count before allocating
-Date: Thu,  5 Nov 2026 20:53:23 -0500
-Message-ID: <20261106015246.3607916-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] NFS/localio: detect a short read or write before the iterator has moved
+Date: Thu,  5 Nov 2026 20:53:47 -0500
+Message-ID: <20261106015249.3498940-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110458-subsector-balcony-5182@gregkh>
-References: <2026110458-subsector-balcony-5182@gregkh>
+In-Reply-To: <2026110458-dreamt-steering-e6da@gregkh>
+References: <2026110458-dreamt-steering-e6da@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,44 +61,101 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Benjamin Coddington <ben.coddington@hammerspace.com>
+From: Mike Snitzer <snitzer@kernel.org>
 
-[ Upstream commit 32f0967ea296d447925465c98e7eec71d4e2f755 ]
+[ Upstream commit db3ca539c1142d2c5380c5dbd3154ab7bb1c7d77 ]
 
-decode_devicenotify_args() hands the server's notification count
-straight to kmalloc_objs() as the array length, without checking it
-against the message that carried it.  Bound it the way nfs4xdr.c bounds
-an attribute length, against xdr_stream_remaining().
+nfs_local_call_read() and nfs_local_call_write() issue a misaligned
+DIO as up to three segments and must stop at the first short one, or
+the next segment lands at the wrong file offset.  They test for that
+by comparing the bytes transferred against iov_iter_count() of the
+segment, read after read_iter() or write_iter() has advanced the
+iterator, when the count is the residual rather than the request:
 
-Fixes: 1be5683b03a7 ("pnfs: CB_NOTIFY_DEVICEID")
+    before the call:  count == expected
+    after the call:   count == expected - status
+
+The test is therefore status < expected - status, and it fires only
+when less than half of the segment was transferred.  A short I/O that
+covers between 50% and 99% of a segment slips through: the loop moves
+on with ki_pos advanced by the short amount, the next segment is
+issued at the wrong offset, and the header's byte count is
+over-reported to the caller.  A write that slips through also never
+sets NFS_CONTEXT_WRITE_SYNC, which is what makes the writes that
+follow a short one synchronous.
+
+Take the segment's count before issuing it and compare against that.
+
+This is the same defect that commit 250ec14932d5 ("nfsd: fix
+partial-write detection in nfsd_direct_write") fixed in NFSD's version
+of this loop.
+
+Fixes: c817248fc831 ("nfs/localio: add proper O_DIRECT support for READ and WRITE")
+Fixes: d0497dd27452 ("nfs/localio: backfill missing partial read support for misaligned DIO")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-fable-5
-Signed-off-by: Benjamin Coddington <bcodding@hammerspace.com>
+Assisted-by: Claude:claude-fable-5-1
+Signed-off-by: Mike Snitzer <snitzer@kernel.org>
 Signed-off-by: Anna Schumaker <anna.schumaker@hammerspace.com>
-[ sashal: adapted allocation context from kmalloc_objs() to kmalloc_array() with an explicit element size and GFP_KERNEL ]
+[ sashal: adapted completion handling to the three-argument nfs_local_pgio_done() helper using force_done ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/nfs/callback_xdr.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ fs/nfs/localio.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-diff --git a/fs/nfs/callback_xdr.c b/fs/nfs/callback_xdr.c
-index 1aa6a6e14b057..34fa00f1a1c20 100644
---- a/fs/nfs/callback_xdr.c
-+++ b/fs/nfs/callback_xdr.c
-@@ -275,6 +275,13 @@ __be32 decode_devicenotify_args(struct svc_rqst *rqstp,
- 	if (n == 0)
- 		goto out;
+diff --git a/fs/nfs/localio.c b/fs/nfs/localio.c
+index 3c5891d3ab897..3138439d19109 100644
+--- a/fs/nfs/localio.c
++++ b/fs/nfs/localio.c
+@@ -682,6 +682,8 @@ static void nfs_local_call_read(struct work_struct *work)
  
-+	/* sanity check the count against the remaining stream */
-+	if (n > xdr_stream_remaining(xdr) /
-+		((4 * sizeof(uint32_t)) + NFS4_DEVICEID4_SIZE)) {
-+		status = htonl(NFS4ERR_BADXDR);
-+		goto out;
-+	}
+ 	n_iters = atomic_read(&iocb->n_iters);
+ 	for (int i = 0; i < n_iters ; i++) {
++		size_t expected;
 +
- 	args->devs = kmalloc_array(n, sizeof(*args->devs), GFP_KERNEL);
- 	if (!args->devs) {
- 		status = htonl(NFS4ERR_DELAY);
+ 		if (iocb->iter_is_dio_aligned[i]) {
+ 			iocb->kiocb.ki_flags |= IOCB_DIRECT;
+ 			/* Only use AIO completion if DIO-aligned segment is last */
+@@ -692,12 +694,14 @@ static void nfs_local_call_read(struct work_struct *work)
+ 		} else
+ 			iocb->kiocb.ki_flags &= ~IOCB_DIRECT;
+ 
++		/* read_iter() advances the iterator: measure it beforehand */
++		expected = iov_iter_count(&iocb->iters[i]);
+ 		save_cred = override_creds(filp->f_cred);
+ 		status = filp->f_op->read_iter(&iocb->kiocb, &iocb->iters[i]);
+ 		revert_creds(save_cred);
+ 
+ 		if (status != -EIOCBQUEUED) {
+-			if (unlikely(status >= 0 && status < iocb->iters[i].count))
++			if (unlikely(status >= 0 && (size_t)status < expected))
+ 				force_done = true; /* Partial read */
+ 			if (nfs_local_pgio_done(iocb, status, force_done)) {
+ 				nfs_local_read_iocb_done(iocb);
+@@ -878,6 +882,8 @@ static void nfs_local_call_write(struct work_struct *work)
+ 	file_start_write(filp);
+ 	n_iters = atomic_read(&iocb->n_iters);
+ 	for (int i = 0; i < n_iters ; i++) {
++		size_t expected;
++
+ 		if (iocb->iter_is_dio_aligned[i]) {
+ 			iocb->kiocb.ki_flags |= IOCB_DIRECT;
+ 			/* Only use AIO completion if DIO-aligned segment is last */
+@@ -888,12 +894,14 @@ static void nfs_local_call_write(struct work_struct *work)
+ 		} else
+ 			iocb->kiocb.ki_flags &= ~IOCB_DIRECT;
+ 
++		/* write_iter() advances the iterator: measure it beforehand */
++		expected = iov_iter_count(&iocb->iters[i]);
+ 		save_cred = override_creds(filp->f_cred);
+ 		status = filp->f_op->write_iter(&iocb->kiocb, &iocb->iters[i]);
+ 		revert_creds(save_cred);
+ 
+ 		if (status != -EIOCBQUEUED) {
+-			if (unlikely(status >= 0 && status < iocb->iters[i].count))
++			if (unlikely(status >= 0 && (size_t)status < expected))
+ 				force_done = true; /* Partial write */
+ 			if (nfs_local_pgio_done(iocb, status, force_done)) {
+ 				nfs_local_write_iocb_done(iocb);
 -- 
 2.53.0
 
