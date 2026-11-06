@@ -1,47 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793952063;
-	b=cK3bEHPn9hTkmOEIlE1Vym8TZrXSilHw+g1Tfs/2akuBJ1d1U+Zv4vLBmuvfy+lsyCZG
-	 jC5DCw4Ijk3Elj0xRRuyLNWJaiZjYbtvqHRJ793UFeScKLsVGiSn3viFfwH2lyxvqmKKT
-	 pCccHoe07yZ80ZEswuU/EvwcZG441B0N1kH7Kag+5Q7ajb7h4vx+bTF1Zisn4R1EVIttv
-	 cLUdcZscaIAcyD/BoBm21EYzYPVg2osomWkqv2WRrzK3OTkydmeityx1yYgR2U/i+l4EJ
-	 B4ugwtspWz9z8SLUimb4uOSTgoc5WkPa3LUN8lDsE+LEoW0swQy07Pv9k2t7dm6QiWg==
+	t=1793952150;
+	b=IG/8vD/7n8ZjoS52O+p91fqwBufG7tbmfeIhNkUzAsXmJ+55cL604vcXVd8E1TtHwHho
+	 Qwgsw+iJahVST+lGUZ8Xi+PmOON8NvjopF6jI7VdxqBog+g22mgeq3cVCTmlqy7iMJKDr
+	 nC6wawK5ISrtKv5MLYk/W5ic3ba1rOwEnyRY/GoJFxwTeBFyVhjslAnjgyeRxRvPsIewv
+	 PaqIVLHR4ZS/BVTv0jBgajR6zpr6fuhrQkDrSnb3VsqksSgC2B3aAVrFI0jImTyRq43z7
+	 cH4+0RPo07vYHlJACtKlkWnr+nGy+7EvI8GIkoyTWab6kmgK8gXm0/oznFF+zq/Nmcw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793952063;
-	h=DMARC-Filter:Received:Subject:From:To:Cc:Date:Message-ID:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=mKSuIXJLtZJlgvRY/t+P/ubAjU+hVN+y583sjkS57DM=;
-	b=Pq5+yXBpqDImDva3C9gnDMaAs0Pjc9uAMmN81SH8UweuvH+aPsV+1omPnGnyDeftUbQw
-	 olM+wSb9vI6k0I0pKdxE1/Cr4deOKMcEWpSJ0Tv/lq7gBcfvAFDr+ikLuTbryn44QUzG9
-	 dJi4BaDBYm9vk+rXrM83xxkZ4TwZR0cRMCmfDIldxeev51wSOAXP6y8QhZEN0kkryAMu0
-	 Rqy9l+bT+nOcfVf/zW9jWzjJWtmbc6kIFxSXfEiI/LgeO3f9cVwJ6n+Cn4FNJrWRh9FL1
-	 cxQzCxWKFuNODC1M+MnD27d78CrzuBjexdrFLK1D7kxIXaOQU3qYo2gWbkt3Ns+H9iw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793952150;
+	h=Received:DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=DjfUCkwD8qRA4Uhsl9jOlY4UWrPe+9W9YxmV392X8vg=;
+	b=0a7oSMBOLs3zzJ4u1kQDF2ncd1FyOHOATy3voPj93jt2d7oSWaC8fh10qkYoEvD0pWV/
+	 lKKbMceyzvfgdAcjC4fp8uUswV2uM8/+uL7TwvL0IPHq+YI99P6CoCG9KrA8QOsPkBQmb
+	 Mvyg5CutJK0DYMk35k7O8sVAWj7Up9yD14GQvVxdtiRQstEOhx+AhgJRoh2dAEM7ola4U
+	 dsEJ4cjEtWXuyNKbuB3Ch7QfTW7NhEzgcsU7UFQl/gopxZoWHGv0Gm1D+7E2EhaTKq3dQ
+	 qMyJrxtqEYvHzMho7j0jRtFDoxkQJgMvQfB6u+3UEoGHzEIqeHSBzNVI0Gi/LSFsMvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.81
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CzVCI4JC;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E782606D804;
-	Fri,  6 Nov 2026 08:01:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E782606D804
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from [172.100.0.8] (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowACntpc3ie1q8DdqAA--.5010S2;
-	Fri, 06 Nov 2026 16:00:55 +0800 (CST)
-Subject: [PATCH v2] dmaengine: fsl-edma: Fix channel leak in fsl_edma_xlate()
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Frank Li <Frank.Li@nxp.com>, Vinod Koul <vkoul@kernel.org>
-Cc: dmaengine@vger.kernel.org, imx@lists.linux.dev,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, vulab@iscas.ac.cn
-Date: Fri, 06 Nov 2026 08:01:02 -0000
-Message-ID: <179395206206.2118334.5568431940571202082@iscas.ac.cn>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23999606A326;
+	Fri,  6 Nov 2026 08:02:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CzVCI4JC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C4D31F0089F;
+	Fri,  6 Nov 2026 08:02:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793952149;
+	bh=DjfUCkwD8qRA4Uhsl9jOlY4UWrPe+9W9YxmV392X8vg=;
+	h=From:To:Cc:Subject:Date;
+	b=CzVCI4JCU/F/oSpY/lTrB7XTLJF1ErmnXMc4fVoVNy90xtkz4QbN29KCkx/RPN/L6
+	 cJeSZKBL+VO7Do57c4Y6ck8Rmbe/15FxR6nb5Fo6TDsOM9ghxspyr2BRnJ7gBnDav4
+	 bnsYr4VR3ZR8s+VSIZyDpQaLyL57XQNrvijG7Lk/WPGQTSxyaRXA+ehAdCsD7tZDvs
+	 TaeU61AQu5UMV/LiUvkFcGrpBL2Dsn40PWcT6uv8jEDQFwzpxX1BhZUfFc2BH0FY/D
+	 lHWo8IfKXDPm2XUrEbGlE0sBuynlpqe/4VjIoVSABKrDLTF5qp7S33ca/TKnSFhh30
+	 7N08RmG0bMdjg==
+Received: from johan by xi.lan with local (Exim 4.100.1)
+	(envelope-from <johan@kernel.org>)
+	id 1xPEu3-00000008FkA-0aT7;
+	Fri, 06 Nov 2026 09:02:27 +0100
+From: Johan Hovold <johan@kernel.org>
+To: Johan Hovold <johan@kernel.org>
+Cc: linux-usb@vger.kernel.org,
+	syzbot+58b2d8b19cd6761a395b@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH] USB: serial: mct_u232: fix NULL-deref on open() failure
+Date: Fri,  6 Nov 2026 09:01:55 +0100
+Message-ID: <20261106080155.1967097-1-johan@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,78 +61,37 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-CM-TRANSID:rQCowACntpc3ie1q8DdqAA--.5010S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Kw1fCw43GrW7Kw45XF1xuFg_yoW8tr45pa
-	1ftFyF9asrta1FyF4DCw40vFy0kF4rt3y5KFWDt3sFk3srtrn3Z3s8Gw4F9ryUJrWfZF4S
-	ywnxtF95WFyUC3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvI1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AE
-	w4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2
-	IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2
-	jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52
-	x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUtVWr
-	XwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrw
-	ACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij64vI
-	r41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s
-	026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_
-	JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20x
-	vEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE
-	14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf
-	9x0JUMGQDUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwMDA2rtTw3SfgAAst
+Content-Transfer-Encoding: 8bit
 
-fsl_edma_xlate() acquires a channel with dma_get_slave_channel() and only
-then validates the srcid taken from the device tree. When the srcid turns
-out to be invalid the function just returns NULL, leaving the channel
-with its client count elevated and marked private, so it can never be
-requested again.
+The driver uses a second interrupt endpoint for reading but still
+dereferences the port bulk-in URB pointer, which is no longer overridden
+by the driver, in an error path.
 
-Validate the srcid before any channel is acquired: reject a zero srcid
-and a srcid that is already in use up front. With that, no channel can be
-leaked on the error path and the release added in v1 is not needed.
+Fix the dev_err() on failure to submit the read interrupt URB to avoid
+dereferencing a NULL-pointer.
 
-Fixes: 6aa60f79e679 ("dmaengine: fsl-edma: add safety check for 'srcid'")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Fixes: 35807187e4b3 ("USB: mct_u232: clean up read implementation")
+Reported-by: syzbot+58b2d8b19cd6761a395b@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/6aed834c.dadc8e63.45095.0003.GAE@google.com
+Cc: stable@vger.kernel.org	# 3.10
+Signed-off-by: Johan Hovold <johan@kernel.org>
 ---
-Changes in v2:
-- Check dma_spec->args[1] before dma_get_slave_channel() instead of
-  releasing the channel on the error path, as Frank Li suggested. The
-  zero-srcid test is folded into the existing fsl_edma_srcid_in_use()
-  check, so the code stays where it is.
-- Link to v1: https://lore.kernel.org/all/20260916092733.2002700-1-vulab@iscas.ac.cn/
-- Sorry for the very late reply to this review.
+ drivers/usb/serial/mct_u232.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- drivers/dma/fsl-edma-main.c | 10 ++--------
- 1 file changed, 2 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/dma/fsl-edma-main.c b/drivers/dma/fsl-edma-main.c
-index 630285c85482..e2ef18ad1a3e 100644
---- a/drivers/dma/fsl-edma-main.c
-+++ b/drivers/dma/fsl-edma-main.c
-@@ -266,7 +266,8 @@ static struct dma_chan *fsl_edma_xlate(struct of_phandle_args *dma_spec,
- 		if (chan->client_count)
- 			continue;
+diff --git a/drivers/usb/serial/mct_u232.c b/drivers/usb/serial/mct_u232.c
+index a6de18917ec9..8a7aee2b26dd 100644
+--- a/drivers/usb/serial/mct_u232.c
++++ b/drivers/usb/serial/mct_u232.c
+@@ -457,7 +457,7 @@ static int  mct_u232_open(struct tty_struct *tty, struct usb_serial_port *port)
+ 	if (retval) {
+ 		dev_err(&port->dev,
+ 			"usb_submit_urb(read) failed pipe 0x%x err %d\n",
+-			port->read_urb->pipe, retval);
++			priv->read_urb->pipe, retval);
+ 		goto error;
+ 	}
  
--		if (fsl_edma_srcid_in_use(fsl_edma, dma_spec->args[1]))
-+		if (!dma_spec->args[1] ||
-+		    fsl_edma_srcid_in_use(fsl_edma, dma_spec->args[1]))
- 			return NULL;
- 
- 		if ((chan->chan_id / chans_per_mux) == dma_spec->args[0]) {
-@@ -275,13 +276,6 @@ static struct dma_chan *fsl_edma_xlate(struct of_phandle_args *dma_spec,
- 				chan->device->privatecnt++;
- 				fsl_chan = to_fsl_edma_chan(chan);
- 				fsl_chan->srcid = dma_spec->args[1];
--
--				if (!fsl_chan->srcid) {
--					dev_err(&fsl_chan->pdev->dev, "Invalidate srcid %d\n",
--						fsl_chan->srcid);
--					return NULL;
--				}
--
- 				fsl_edma_chan_mux(fsl_chan, fsl_chan->srcid,
- 						true);
- 				return chan;
 -- 
-2.34.1
+2.56.0
 
