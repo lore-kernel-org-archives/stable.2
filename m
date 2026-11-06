@@ -1,56 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.223
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793932979;
-	b=BVSEU7px4eLXvO+P8X/dqMMF3D6f/wYKPaZbKew4D+PmUf1+hRVsUxg2a8fUr8TyFS38
-	 87iVMbQ+RHVsiRlsswke5NHNywtIfx7Grst+RTtse3ubtawNHkXYxFMbu5Z0dIFSvZiwz
-	 rh1Dq78G/1jRSehv0IszjBmFF1KLJbjZDAQcChlaklUIpJe6H89irlezOphw3uX7ErT/J
-	 QEMoJV0oQ35xTz8Ud/bczY4gzXQahAlzNtRSxC8pxkA8aZhGd5onBDWBbrNxRnsV1WCHX
-	 1rJL93hEcdPp/YMxpSanDeINHP+YPqLWdWVbuT0YeNkwc29MS+wzJpyWO2VN62tfp1g==
+	t=1793933046;
+	b=BPODcicL3r1Z7wPohtr2dqMpSwu2PXPpSdc3xVwijtpA/PHOqQAME6W6vHjh5o7qdKWw
+	 U+9zlANLyvONFqQBl8Lc5d/vDyLPXBTcMU8YrvJQ+ZOwX5t+YtKGsRZNdygEg7jbpoYwv
+	 6QuLf/TlWz9IEVcVWpQxZY0hxCPQmmv6nrl2/gITTrqfNpS7tcMPy3aa1dacxWqumuQ+5
+	 lnffP/PxQQnsAqZt88xcQtlerLvwj24ookCUcScSbuNpUrthuIuzUF7wlwKmwEhqfJGAV
+	 jZTQU+8LGEvKdtGonZYJiza+lY5SXvw3Rjbwlvx+rYiYKdKePooL5zxp3ye8sstN6tA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793932979;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=4Lko5y7/8t1uUKXJ5dFrp8wJi1vH76A2kO9rkI066c0=;
-	b=V+oulgPpZ1cCmYmeh+2PojxqJstw1bYPNuTl3SrxQbNX4Yvi/5ERUIgRgoWMPn0r75D/
-	 /0K6v9Npj+hRiheILQsMUqSjNEo8DyepcD5AnoRALss7tXX6Y9ReySPmpJxkcuMHFA3/1
-	 rue1dCSH7k5j5AZE3usAqcvrn8CtJ5mLysTB+TzhgCPhEuOuxQIzu/1p8i5ASoxGbmGLa
-	 gUw5bLgVbS+SA8EYdj6jhSQKL2YgmhiHSp1FW/DDKoMK5hUrLlHwelimUUrikD619do1l
-	 Xg+dVsUhsLUZ3paXnj5BDb0rF4o5TriAaVGoEG5MUggUrk1xeTSk447jtc4eCKw6WBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793933046;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=zSAnlbuhwhmUG9bBEmOB7UE9ygtoZLL5whU9bUfyqnc=;
+	b=GV55R1hdi1jlKPy8lMyouvgQhN1Z4MHXv7CPxQy1sElYnT/3AfQDahQky6a9+nSecV6w
+	 2M8im3kE0IMJMw68EufLErCNPF25tAXVp+3L73yUPoQOXvG8lyYh8MeFtI3NrzzzE8E0x
+	 sTqM1xzo5L/DrKuS3T7j279/NO/Hnz7FL1m8Yi/x3r3jfg3UDyRuNtAT50L+hm5EIlRLp
+	 vjZ2aRmu+0Q60Ww3NUyQ9/oT3wjdJwK8uPMNiFcBeXnsDTgYgPa/ep7eTcPxLoOBg0Uzj
+	 XspA3I+hsp4+1UlCMP4ATMt9xb1xwkzEyjG8dSB8XomzhMgG3xhIqlPLVFWNogCaP4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WXikmpnd;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=p4hIGK3F;
+	arc=none smtp.remote-ip=91.218.175.223
+Received: from mta0.migadu.com (out-223.mta0.migadu.com [91.218.175.223])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C93F2606A32C
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 02:42:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36E88606A31B
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 02:44:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36E88606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WXikmpnd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC7CE1F008A4;
-	Fri,  6 Nov 2026 02:42:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793932978;
-	bh=4Lko5y7/8t1uUKXJ5dFrp8wJi1vH76A2kO9rkI066c0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WXikmpndY+3M2CjdZWVlhcs/0CVrL+8rNw9sBh0IBJnqJz3r2D9Dev2QxBVSK/ykU
-	 U7JVLVOD/vSvg92twNs+SlTn8GueehNRgAwOgDaP77YWLd2Y54+ZULw5IPF3vWcjKO
-	 oGaIblw3xwk2aJANlxnidf7AcRfqCoOX7Rva2sDfYyu2PYk1q0pBUms5WEKXVhCemg
-	 b4YqJ6E2aksfTl7Hc8PvQhhbhCZ1MgDTr908hOmizMwMRn3v+5aRC4OWO8yY06D9fm
-	 tR5fHRAaYPobI9wV0OGWFebWtaSBib4w1aSI+5gDRv3vc9y4o3/lK5JxNEUWS5Sxrp
-	 3uvZm9YAIG1Uw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Chuck Lever <cel@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] NFSD: Send a meaningful CB_RECALL_ANY keep count
-Date: Thu,  5 Nov 2026 21:42:56 -0500
-Message-ID: <20261106023407.3730085-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261106023407.3730085-1-sashal@kernel.org>
-References: <2026110428-retention-sandfish-d9c2@gregkh>
- <20261106023407.3730085-1-sashal@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=p4hIGK3F
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=BV4jydBngbK5OT+ZHvts5CVNgLwnfznFuT39h8Pecis=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793933041; v=1; x=1794537841;
+ b=p4hIGK3FvTBncEACzoquuYTKUahICVVjb+yGf0kJM0hCa8vbXeIeqBgaM5JLMbHZmxt6o5/W
+ 64Xh/rztiH19Yyid8rqfxTMTeIrFpa6d20K3WGt17QdWQhU8O3lmgNECf403fraDz70m9uVegTe
+ x5p01mJXm2W82ZxyKfNpk+Cs=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f76348987678bbc6;
+	Fri, 06 Nov 2026 02:44:01 +0000
+X-Mizu-Trace-ID: f76348987678bbc6
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <1535887c-6be2-4415-b54e-2008e6e7a35c@linux.dev>
+Date: Fri, 6 Nov 2026 10:43:53 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,91 +58,77 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/4] mm: hugetlb: fix GFP mask propagation to CMA
+To: "Oscar Salvador (SUSE)" <osalvador@kernel.org>
+Cc: muchun.song@linux.dev, osalvador@suse.de, david@kernel.org,
+ akpm@linux-foundation.org, azpijr@gmail.com, lance.yang@linux.dev,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, stable@vger.kernel.org,
+ Qi Zheng <zhengqi.arch@bytedance.com>
+References: <cover.1793850539.git.zhengqi.arch@bytedance.com>
+ <ac2de9b321f68c1025333e92e3ce94beadcb0b6c.1793850539.git.zhengqi.arch@bytedance.com>
+ <auxTwrKCeg7a3hfY@localhost.localdomain>
+From: Qi Zheng <qi.zheng@linux.dev>
+In-Reply-To: <auxTwrKCeg7a3hfY@localhost.localdomain>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Chuck Lever <cel@kernel.org>
+Hi Oscar,
 
-[ Upstream commit 9af39c0773ef956039e1ebe9c235532fe6ee1e50 ]
+On 11/5/26 6:00 PM, Oscar Salvador (SUSE) wrote:
+> On Thu, Nov 05, 2026 at 12:07:45PM +0800, Qi Zheng wrote:
+>> From: Qi Zheng <zhengqi.arch@bytedance.com>
+>>
+>> cma_alloc_frozen_compound() uses GFP_KERNEL, allowing direct reclaim
+>> during the first MPOL_PREFERRED_MANY allocation attempt even though
+>> the caller clears __GFP_DIRECT_RECLAIM.
+>>
+>> Pass the caller's GFP mask through the helper so CMA respects its
+>> reclaim constraints when trying the preferred nodes.
+>>
+>> Fixes: 9bda131c6093 ("mm: cma: add cma_alloc_frozen{_compound}()")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+> ...
+>> --- a/mm/cma.c
+>> +++ b/mm/cma.c
+>> @@ -933,9 +933,9 @@ struct page *cma_alloc_frozen(struct cma *cma, unsigned long count,
+>>   	return __cma_alloc_frozen(cma, count, align, gfp);
+>>   }
+>>   
+>> -struct page *cma_alloc_frozen_compound(struct cma *cma, unsigned int order)
+>> +struct page *cma_alloc_frozen_compound(struct cma *cma, unsigned int order, gfp_t gfp)
+>>   {
+>> -	gfp_t gfp = GFP_KERNEL | __GFP_COMP | __GFP_NOWARN;
+>> +	gfp |= __GFP_COMP | __GFP_NOWARN;
+> 
+> Do we really need __GFP_COMP | __GFP_NOWARN here?
+> It is my understanding that all allocations coming from hugetlb are
+> handled with htlb_alloc_mask(), and that should already provide
+> __GFP_COMP | __GFP_NOWARN.
 
-deleg_reaper() sets craa_objects_to_keep to zero on every
-CB_RECALL_ANY. RFC 8881 Section 20.6.3 defines that field as the
-number of objects the client may keep, leaving the client to choose
-which of the excess to return, because the server cannot read lack
-of recent use as lack of usefulness. Zero asks for every delegation
-the client holds, including the ones backing files an application
-still has open.
+Right. All current callers already supply both flags through
+htlb_alloc_mask().
 
-There is also no reason NFSD has to reclaim the entire delegation
-working set on the first sign of memory pressure.
+> We might have needed it when cma_alloc_frozen_compound() constructed its
+> own mask, but not it gets it from the caller, and that should have been
+> done via htlb_alloc_mask() up the chain.
 
-Derive the keep count from cl_deleg_count so that each callback
-asks for one delegation. Both the shrinker and the laundromat re-arm
-while their condition lasts, so a client with more to give is asked
-again on the next pass.
+Right. Now that we restore GFP propagation, setting __GFP_NOWARN here is
+redundant. I'll remove it.
 
-The Linux client ignores craa_objects_to_keep and returns unused
-delegations selected from the type mask alone, so the count changes
-nothing for it.
+I'd still prefer to keep __GFP_COMP so that
+cma_alloc_frozen_compound() itself guarantees compound allocation,
+without requiring callers to supply the flag.
 
-Fixes: 44df6f439a17 ("NFSD: add delegation reaper to react to low memory condition")
-Cc: stable@vger.kernel.org
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260817-recall-any-keep-count-v5-4-3b2cffce701e@kernel.org
-Signed-off-by: Chuck Lever <cel@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/nfsd/nfs4state.c | 19 ++++++++++++++++---
- 1 file changed, 16 insertions(+), 3 deletions(-)
+What do you think?
 
-diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
-index 222f2aadaafad..44ca5746911c8 100644
---- a/fs/nfsd/nfs4state.c
-+++ b/fs/nfsd/nfs4state.c
-@@ -7306,6 +7306,7 @@ deleg_reaper(struct nfsd_net *nn)
- {
- 	struct list_head *pos, *next;
- 	struct nfs4_client *clp;
-+	unsigned int count;
- 
- 	spin_lock(&nn->client_lock);
- 	list_for_each_safe(pos, next, &nn->client_lru) {
-@@ -7315,21 +7316,33 @@ deleg_reaper(struct nfsd_net *nn)
- 			continue;
- 		if (clp->cl_state != NFSD4_ACTIVE)
- 			continue;
--		if (list_empty(&clp->cl_delegations))
--			continue;
- 		if (atomic_read(&clp->cl_delegs_in_recall))
- 			continue;
- 		if (ktime_get_boottime_seconds() - clp->cl_ra_time < 5)
- 			continue;
- 		if (clp->cl_cb_state != NFSD4_CB_UP)
- 			continue;
-+		/*
-+		 * This read races with hash_delegation_locked() and
-+		 * unhash_delegation_locked() on other CPUs. A stale
-+		 * count only skews the keep value; the next
-+		 * laundromat pass sees a more current one.
-+		 */
-+		count = data_race(READ_ONCE(clp->cl_deleg_count));
-+		if (!count)
-+			continue;
- 		if (test_and_set_bit(NFSD4_CALLBACK_RUNNING, &clp->cl_ra->ra_cb.cb_flags))
- 			continue;
- 
- 		/* release in nfsd4_cb_recall_any_release */
- 		kref_get(&clp->cl_nfsdfs.cl_ref);
- 		clp->cl_ra_time = ktime_get_boottime_seconds();
--		clp->cl_ra->ra_keep = 0;
-+		/*
-+		 * Ask for a single delegation. Recalling one before it
-+		 * is needed costs the client an OPEN when it next
-+		 * touches the file.
-+		 */
-+		clp->cl_ra->ra_keep = count - 1;
- 		clp->cl_ra->ra_bmval[0] = BIT(RCA4_TYPE_MASK_RDATA_DLG) |
- 						BIT(RCA4_TYPE_MASK_WDATA_DLG);
- 		trace_nfsd_cb_recall_any(clp->cl_ra);
--- 
-2.53.0
+Thanks,
+Qi
+
+> 
+> So, any reason to have it here now?
+> 
+>   
+> 
 
