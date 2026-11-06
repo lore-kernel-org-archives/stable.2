@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793982975;
-	b=IKfmsartlOmnv7ig2fWyzpJKCcpUQregOQIiy4MmpTFHMGSgpPmq6ijVnqw0bO/e+qZz
-	 542v41kSxDfM80SY7BtzRFJHuFW7u0kbBFKceNVJLb01eRloJnZdxFwJsgihUWhsZGqvd
-	 sKq5wMrjTodkxvcco0mHo3G8Bt3e5uCwn7Yss5FT14vIfDLkPGb32y27dVV5w0b+EDOB6
-	 djYSIQ2AmKYYZ6Uh2ttqPqdUFkuWc/u00QQH4OzTSD7dHZpvcUWRPxY+neyTmdD3eIMrO
-	 g70VbZrMQodRzFQwim/FktHLfScL/wDj61giHIZGqSgiaQL0zNV9mYUi9huksCIc0Hg==
+	t=1793982976;
+	b=FuRw+rjqH5K/40zYQzZnFfsyA8t6rOWprRSexda8ZjDvNtrHMfCzMtwcn81VDBYnz6eR
+	 SQBpQyK1lVnQ3ogL1Nq7TZeSY1Tyadqu40F9e6K+uCgYlJZTGdNlJZm2AbmzL9V0Z7yw+
+	 Mrg/Mszd3qqiymmeBKQysxLYw15HVJkHh7VYVHahN7usm2H1nTrQyJKHPnHZGrigrC9IT
+	 KfAZNJfK0Mnvo6sPAdeJNDRp14rPjQhSJ0pLLSHZO9aJuMGmBGnABVafThodl4L2kHKf/
+	 QWT8Q+oKp2ydWG8N17kC5szAn45UmlTXoJbYhCMJD7GGOlnQXv5qWq7JT18X4lYn5+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793982975;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793982976;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ECvnvaehsbVwslM2pE++SIjcVbQTfV4LTfC0gu6PSi4=;
-	b=GV4ZPFPexEMzCy1rgWvfA2onXQpz4yCX/3XeZwdv33Tw8TlwOOWYRyTrWiFQGheIOSFK
-	 hsLCoNnyt4o2eNoAAqdAN6GMSJJyh8D0iXBngZ48ZW4wj9K8Gj98zNA2N9OIBMBhKOpr2
-	 oV8v8ZL8Z3Wtyu4UEqqR+PNNpQaEs8aOcAOMw7oY/LRKKF0cAJunxl0kTlHRq83uKrhRG
-	 Wn0dInqPP080Ms/J1VXpZLzUkJTIYrPsyQMIqxcFe4TAI3B757m4b0D19TmwgLrUIZfsz
-	 ewP+/Hvy7LKemh9C0V9VruZnu56cXShL1E8Gj1px4yzAX+4/trTYyEjiHpXBzV9HZ1Q==
+	bh=A7WNhY5wWlNAEsh+s9vBNdrySc/MG1fIwYRbNdZ1ICg=;
+	b=lXkLFB/PyFcVrt0gIFVhFemepL6hsOqPRavHWSBni4HUenGQHQUKJosAEpnZNtSXqaAA
+	 F25pijYVRkmLQRErnhZRd+CB1BZz6e3NLkQAHPAD0JxBTkinMY4qEWWZDHObolHWuItcD
+	 PKdLKS/gnfCLNBLtquRfjoLcFi3BzCOThfMstOeTZ3CruDqEFE5fl547C4Qycrf+ZeRUm
+	 yowP+yeSAgMSFArbbb1DN1gsPNAs2TYVcCYtoc7Rj5VV6qhHc6IatzZCqDBTog2tgo4k8
+	 HHKtamqwdWVidT/KqqFutVEwmVvUeLI772igsqmE/DU+pf4n0jeo3F0rwfWtZFg+hug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="L3k/TDAo";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SYOweXsj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37AF5606D813
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 16:36:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CFF5606A32E
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 16:36:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L3k/TDAo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FAF81F008A1;
-	Fri,  6 Nov 2026 16:36:14 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SYOweXsj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5477E1F008A6;
+	Fri,  6 Nov 2026 16:36:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793982975;
-	bh=ECvnvaehsbVwslM2pE++SIjcVbQTfV4LTfC0gu6PSi4=;
+	s=k20260515; t=1793982976;
+	bh=A7WNhY5wWlNAEsh+s9vBNdrySc/MG1fIwYRbNdZ1ICg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=L3k/TDAohV/XZWag9gJeR7dCpgG2JRw77cw1Fp68NiO/i9zCjDO0Lq0bx2Dy4mIbD
-	 Vd1wIDroBr1ag8JQyaVG0Iz2Hjx3vYulo39wUB2QriR3OX90jTdusi8rX7JA+oQ44l
-	 FAtEHZMLLFWF4pgLapZKF+fTJpCT26MwrrnF4gMrdqRmtMyWEFNHOs+Lz+Wy6q0C7Q
-	 p7Fmkr8EBD8eJ9OoSdi8Yz3tdquq4uDf0YgTWNErSrZuz0uup/S8cVbnXQSqTvDXE9
-	 9HrqPpXSfq7pfP7hXmH3bIYILhJnH0sDnAt19gOVSVa8ZCC94xIgBGDxovJ1FEwLOc
-	 QpiP9Zc9MDh2w==
+	b=SYOweXsjZ6fTweo9Mopj01DEFpZA0d/XkYOYI37m4002DUFzHISw9qdULRwwOhMJb
+	 mkM0BmMHS/EP4mLzy4r++Ip+pnKEEWGVau81w956Whjf4phTgTKDt54QNJadyK1mZK
+	 aMeyiQhzS3GaGTV8WiaFnbaJ14uxXHax0IOxs+7VgJ7Jdro/Pomdr8s0ur9XrAEmpW
+	 1wrVeofCpWWhbjLTK4cNqY7UhvIXCiVUkfYX4Q5Y3EaP1dM5dxVbAczARIq+p8AW7a
+	 7F+2IlodGiHnkjDy0EbbrPOTYbhygEAEiIL1vehh8mKYo6RNYcFcS659R3b5R8w01Y
+	 6moNw8M29TCvA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
@@ -49,12 +49,12 @@ Cc: Sasha Levin <sashal@kernel.org>,
 	samitolvanen@google.com,
 	FUJITA Tomonori <fujita.tomonori@gmail.com>,
 	Andreas Hindborg <a.hindborg@kernel.org>
-Subject: Re: [PATCH 7.3.y 1/2] rust: hrtimer: declare cfi_encoding for hrtimer_restart
-Date: Fri,  6 Nov 2026 11:35:51 -0500
-Message-ID: <2026-11-06-1-daily-reply-0016-rust-cfi-7.3@kernel.org>
+Subject: Re: [PATCH 6.18.y 1/2] rust: hrtimer: declare cfi_encoding for hrtimer_restart
+Date: Fri,  6 Nov 2026 11:35:52 -0500
+Message-ID: <2026-11-06-1-daily-reply-0017-rust-cfi-6.18@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261106143802.27907-1-ojeda@kernel.org>
-References: <20261106143802.27907-1-ojeda@kernel.org>
+In-Reply-To: <20261106144721.29080-1-ojeda@kernel.org>
+References: <20261106144721.29080-1-ojeda@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,9 +66,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> [PATCH 7.3.y 1/2] rust: hrtimer: declare cfi_encoding for hrtimer_restart
+> [PATCH 6.18.y 1/2] rust: hrtimer: declare cfi_encoding for hrtimer_restart
 
-Queued the series for 7.3, thanks.
+Queued the series for 6.18, thanks.
 
 -- 
 Thanks,
