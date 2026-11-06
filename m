@@ -1,120 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.141
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793936545;
-	b=MwiSISZPlUwT0Ek1agPCpbJ8qoH1fKF0xPcyeB97wG2AYATCjyTxPhKCkaW/seuVVJly
-	 u6QXQu0mHTtMieIFeghwitjA7omQ847uDRntGt6PdFzw5UEeOXkUf+EA4U1bTS5atiFSl
-	 m4GABJz7fclDiYueImYOm6q0Ag0qORTGUVazAAdev1DFUCLsdFvsMQZBpBvGiBWJMcf1R
-	 XEXMY6Wt0Rz3swa6Oa8lZdl6x0mFFm8URDW+K2FVUvuAJEkl02tu9E6eUMzAT0GkQ4QkT
-	 DKtEPd3gVhqAlJTJDeckymxQyyRQkymcQeHd5+EiChfvH+2vRieo/qUreaqJ9YmZEKg==
+	t=1793936685;
+	b=fYGVTW6y+EvsP1aZ6rDwhv7vkd2d3P5Bgx4AloDmEymJHr8NWBZFm2ynhAXHKEf/rm4i
+	 08ZBJzQoMBPciJ7xUbe72Ttx1/71JtZx0445X07zIzWqzgiLgNXE43d4ACBiaUS78fdWX
+	 H0Wa1VmuYoAxC42BSh5F2Qizpg8wa+sbN/X85Ace0w4V1tjFBg2tZwrFrIKe6YyTbbIn4
+	 Ry5V9FBeID3N4rFANOdaX6kQkoh4AnE8anyRNKoAk92Okt1YQjK7JvEJdLVGSZoRn7K5P
+	 OqB5hK47lNSjEiV4nHH8lRZep359BqUletHw/oOmVfZjqN8Vbd+sebnPkHyQxsgQztw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793936545;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=/QCjxhmVN1aQ0DukloSVJmF3e+8x0FNeoK4gOuxONVc=;
-	b=loDq4Nw87bM2M2n/n78A2rTKhyP8VDwwhG+PFQYiddHUeq9gRB7Eua8zwQdtksQgbc5D
-	 9j1ix8dz03Nweu3laSIJ3mO50AuYz7XymOYu2ScTWOzBMQJKePbK5vZ39fYkj8AF33bMC
-	 CgHn23M6AVcf/M0ibL6EOhzapcQryvHyPdgGTzrsRwMqAP1fiZJnwgGxUb3v4bkP1v4Eh
-	 wEHgQ5KGNz3oGI6olyKeuWygr3JM1OXBZIK8gl/YIlpApZqvcYGW0nXWuZqI/ymPi2BUz
-	 z5FQIiMnTirwgK8vqkkCAyRIprlUWR7sGmI74o3Ylf1rLpLsfBVQF/ojKALbE4nZOfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793936685;
+	h=DMARC-Filter:Received:Subject:From:To:Cc:In-Reply-To:References:Date:
+	 Message-ID:Content-Type:Content-Transfer-Encoding:MIME-Version:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=rxbs7nzBrtfmIOGiCSnCdjgFX+TagOLny6/gYQ3BikQ=;
+	b=GHJAuAPZOhyWPwB8oSQOpzy4BSqTWfd94zhyfI776rOGVVyF3ABYbQov6ImK1KOdefU4
+	 dPiyyo6QOp47XOCLalLDhk0LmSmzj35Sh58X+EkdmG/bSHZ5IYKLQh30tz8sqQzEYCS/8
+	 rO+z2fmHWN0BUKi8I7bxW0tWqmgkWZ9C++4oJiHPesZ+aGUk9IejV2DDQwayz/4XTzfUJ
+	 XX+w2pXPrl5UWUDcowSFPll6ePRJFwtx4itLAMM08NxKvP4LNDswrVbIACy6UCkWx9Zmd
+	 HWC9Z/KQN36eigBWoBHuomonwpjvqTBo0gwcMB10f3BMp+RMT2S2iv44Ogg1gu3RAjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=mckelvie.org;
-	spf=pass smtp.mailfrom=mckelvie.org;
-	dkim=pass header.d=mckelvie.org header.i=@mckelvie.org header.a=rsa-sha256 header.s=fm2 header.b=JabHDKpK;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=AJ1BQqrh;
-	arc=none smtp.remote-ip=103.168.172.141
-Received: from flow-a6-smtp.messagingengine.com (flow-a6-smtp.messagingengine.com [103.168.172.141])
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.21
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9FBA606A32C
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 03:42:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9FBA606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mckelvie.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mckelvie.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mckelvie.org header.i=@mckelvie.org header.a=rsa-sha256 header.s=fm2 header.b=JabHDKpK;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=AJ1BQqrh
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailflow.phl.internal (Postfix) with ESMTP id 369AB1380E31
-	for <stable@vger.kernel.org>; Thu,  5 Nov 2026 22:42:24 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-03.internal (MEProxy); Thu, 05 Nov 2026 22:42:24 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mckelvie.org; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to; s=fm2; t=1793936544; x=1793943744; bh=/QCjxhmVN1aQ0DukloSVJ
-	mF3e+8x0FNeoK4gOuxONVc=; b=JabHDKpKIqfe1CsiuR3FwcxS9HTBNot5UAxqf
-	XxaWTWLOlcCN+bhD24kQU65UFdA2NmULeB3RrXlxieIoAHOfB3AP/P7WAGoBsfBr
-	tfWN/uOaucvs2VTHgEhwrI5E+w41ovYygQLqOz7gBHF1MIgCTniHtYZA5n8rSpVQ
-	z5tuldI9Mz1MSxpXivo6XFfeI7d630CEteT/hJyCpnXIaXxBZjTZesaEbi70e7WT
-	qikyrkc5awXtZwRXixUDGj+Z7oKK2gV/kEKsx9g5dFUOo/M2J4EgUg4vHduIuNI/
-	6e5Sg6U9ls8Llm2mtgWpuUjjaa84x57FlOlSfLB4LQnHcpupw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1793936544; x=1793943744; bh=/QCjxhmVN1aQ0DukloSVJmF3e+8x0FNeoK4
-	gOuxONVc=; b=AJ1BQqrh3sTc2XTXOqCaTk7BBrGOlvgY96sSC6F1NAh17r0OACq
-	/5W3v9AmuXRQ6pYjJ4Fq1t+kc5AcmenXGenRnMa/xvJQN0szw3XI4kdZVYe3HYPx
-	bTPfHLOYmIW24UuxAQ8PzEgdMuIYUmk7wO+XPSVPkKy5F3AygB+H8YySxV37xQJs
-	NJdLUAmKAxInNiExEZmIKRnKOw7pBF/Bh9O+hovPZYs9UWUW3Lkd+kMqPU9QY2Uo
-	eOuDKxxd2QDkHBZaM8DT9HvJFDkz/A9QR2vzHvhr//pCYrDw136PJNhy7olh9ql5
-	j0j6MPl8u2nD5ARX8ats1LD5GM7V1hFkWgA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=mckelvie.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793936544; d=mckelvie.org;
-	mf=PHdhbHRAbWNrZWx2aWUub3JnPg==;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:HASVV388EIfKi8XotLz3kx2akEwyTpX5rTGScqlIpv3EGWW
-	nQ18DDDeQJPaaOcDqmmtmIGs25KRoUUXFx/PklRP+7p2CsvkABoVqC1wKPfIyPMc
-	/ppMcodjXVqlMqoXda5vrJdVBZoStvYA1xZkgx9F0Hb5eF1Rukxr21ZGtPSmUwoo
-	BSUgKW4457FIUgV1tgTQDtoenGNRkjlU158/C+9/ySFcLZit25JCt4qgMSvXYY6M
-	9vw+TBlAX3HzDo9bF/SB8fpXyFoJb7hBK1jm/H+8XarKNzm+J2/UY9HdZopA8C1R
-	pSSN+HNinRHNFNs4FFFO2vy2p+0Ynry/0gJWsxQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=9;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:WXiRCt65aIuuP/KLOyvYJ+boXDkfpnYKYOXX1OFBdJg=:XOuzhh99rJxjM1OJOjUBCkD6jR38xrBVdi38tIRFCE8=;
-X-ME-Sender: <xms:nkztanXY40l2etqachp2PeccqDxdFOOYKJ_jkSL_oHss1TMvL33kKQ>
-    <xme:nkztah1MJitVM1XQAE98O4KTfGFy6KA7uWsXuMy5z6auNkdMa9w8bOUh-s6Y9iddU
-    Geu7TphToUZqbgy-JAO50etWQVymqUXyiPvpGSVEj2_Ug-_Y5CpeyPy>
-X-ME-Received: <xmr:nkztalpSsAPeXwNFW3yY5rbpc-ewFRbvZymaeUq8lOXQxJmv2i1TDOl9uqcESmw>
-X-ME-Proxy-Cause: dmFkZTE3kdnyejC7I/OD5vfIecI86Y7WDW1ls9R/GjrFdnuFmrV2e7laF/dDaPvsdEFkCw
-    MHzQllhLwxjMkQ0RA9Znt4DrbA8uUdQoJIenuLeCHgWUBpesRwCeBxqFo++FgkmwSNGmpB
-    qiTg2+TsoYxbnZVjBS7V0Q6vy889aUmIlINYr50ZbA1e+u/aG/ZNfBdhlB1/ayxTSEzcMR
-    EzBfBhpUz2kODykjJ7CZBlbnI8m8fJavYxNPP1F7o3Pgz3ussNolkpP+v6B7AAy+qSjfTk
-    6w3HGtdpWegPiqMEys8wT64VyiJsmPV4UoLYboAriK5VH0e+UA1tlaHdJUpGYIroCRJquI
-    tmS79PtX1tDJtyl1Hk+h+Em7I9cvaFYPh96ceSuirduH7LADVqD4vYEgLlaBsbb4wMVu+e
-    EfQvFuTRbGbqKv4glWaZYM8n8uGPlCi6CiSnfq3GTWwrKAID34WCr5U2xIFNRS7+ix04y3
-    UdJn+UT/syOmQgw51BiI9kJGaGyQZu2WYsPa5MT8BBi4l4zyJ9OZSrcCcSjSH9j2UxKujF
-    wykEmMVhIV0DiheyIuCpUWUIiNdRRey6YFgUGg+ZqmniCLfsM5UAvkC0mfhbZ4+5lx1+VS
-    q9PnSwUeb2lPCg9BWIxarNpDuv6YuWODD3vQ78Ijqy+wG3PM0fD2bjcxMQpQ
-X-ME-Proxy: <xmx:nkztaoVat4HJ9u2xpPC0kxr0bnObQnHfkHXUtB8eUrSSoyEV_q8DOQ>
-    <xmx:nkztagbdtQacFAskJ_fBfz_xcBCBKx3XPDnFVagNnUDMcaGwLfEZqw>
-    <xmx:nkztalff14erzw8DQNKWDTMQlq-8fQBeL8r9xhG9oB9q_86psJb2vA>
-    <xmx:nkztaq2doJNLaT9OYFHBA9vPxXUbo-_B-irehAGzwd3vThkOe_n5Kw>
-    <xmx:oEztamu2ushQjXVmiDs7aP69f5LTPw2fI3APMPUhU5x_ka1gBwml2cnr>
-Feedback-ID: i53594642:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 5 Nov 2026 22:42:22 -0500 (EST)
-From: Walter McKelvie <walt@mckelvie.org>
-To: herbert@gondor.apana.org.au,
-	davem@davemloft.net
-Cc: linux-crypto@vger.kernel.org,
-	ebiggers@kernel.org,
-	Walter McKelvie <walt@mckelvie.org>,
-	stable@vger.kernel.org
-Subject: [PATCH] crypto: algif_aead - Allow gcm(aes) for privileged users
-Date: Thu,  5 Nov 2026 22:41:50 -0500
-Message-ID: <20261106034150.1159818-1-walt@mckelvie.org>
-X-Mailer: git-send-email 2.55.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5858606A31B;
+	Fri,  6 Nov 2026 03:44:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5858606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from [172.100.0.8] (unknown [36.110.52.2])
+	by APP-01 (Coremail) with SMTP id qwCowAC33_kjTe1qAOReAA--.15432S2;
+	Fri, 06 Nov 2026 11:44:35 +0800 (CST)
+Subject: Re: [PATCH] soc: microchip: mpfs: Fix flash leak in
+ mpfs_sys_controller_probe()
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Conor Dooley <conor@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>
+Cc: conor.dooley@microchip.com, daire.mcnamara@microchip.com,
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+ stable@vger.kernel.org, vulab@iscas.ac.cn
+In-Reply-To: <20261008-47741881fb032091ea3d7f0c@squawk>
+References: <20260917153550.2160672-1-vulab@iscas.ac.cn>
+ <20261002-garnish-president-6e8abfdacf4c@spud>
+ <20261008-47741881fb032091ea3d7f0c@squawk>
+Date: Fri, 06 Nov 2026 03:44:44 -0000
+Message-ID: <179393668487.2060453.14381920142402581273@iscas.ac.cn>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -124,41 +57,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qwCowAC33_kjTe1qAOReAA--.15432S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7GF47KryxZF4ktF48AFyrZwb_yoWkJrX_Wa
+	yktFW3u348AFyxJF4FqFy7ZrsrK3y09ryrA3y8Wr45Jry5Ar4IkFZakwnxZr1SvFW0vF1D
+	ur9xJ3y2krnFvjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbs8Fc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AK
+	wVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20x
+	vE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j6F4UM28EF7xvwVC2z280
+	aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVWxJr0_GcWle2I262IYc4CY6c
+	8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jw0_
+	WrylYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI4
+	8JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWUAVWUtwCF04k20xvY0x0E
+	wIxGrwCF04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI
+	8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AK
+	xVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI
+	8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280
+	aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43
+	ZEXa7VUbkhL5UUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAADA2rtCZf4iQAAsk
 
-iwd (via ell) implements TLS for the EAP-TLS/TTLS/PEAP authentication
-methods and uses AF_ALG for the AES-GCM AEAD of the
-TLS_*_WITH_AES_{128,256}_GCM_SHA{256,384} cipher suites.  With
-af_alg_restrict=1 these suites are silently dropped from the
-ClientHello, and authentication fails against RADIUS servers that only
-accept GCM suites (common for eduroam deployments).  This contradicts
-the stated intent of commit 2f204fe718f5 ("crypto: af_alg - Add
-af_alg_restrict sysctl, defaulting to 1"), which was to keep iwd
-working under the default restriction level.
+Hi Krzysztof, Conor,
 
-iwd runs with CAP_NET_ADMIN, so add gcm(aes) to the privileged part of
-the AEAD allowlist, next to ccm(aes) which iwd also uses.
+Thank you both for the detailed review.
 
-Fixes: 2f204fe718f5 ("crypto: af_alg - Add af_alg_restrict sysctl, defaulting to 1")
-Link: https://github.com/NixOS/nixpkgs/issues/583203
-Cc: stable@vger.kernel.org
-Signed-off-by: Walter McKelvie <walt@mckelvie.org>
----
- crypto/algif_aead.c | 1 +
- 1 file changed, 1 insertion(+)
+Sorry for the late reply, and for the mess it caused.
 
-diff --git a/crypto/algif_aead.c b/crypto/algif_aead.c
-index 5574e2d70539..a5c9e29b64be 100644
---- a/crypto/algif_aead.c
-+++ b/crypto/algif_aead.c
-@@ -36,6 +36,7 @@
- 
- static const struct af_alg_allowlist_entry aead_allowlist[] = {
- 	{ "ccm(aes)" }, /* bluez */
-+	{ "gcm(aes)" }, /* iwd */
- 	{},
- };
- 
--- 
-2.55.0
+This is a v2 of the earlier patch, but I sent it without the v2 prefix,
+without a changelog, and without referring back to Conor's review from
+8 October:
+
+  https://lore.kernel.org/all/20261008-47741881fb032091ea3d7f0c@squawk/
+
+You are also right that the patches were sent in bulk across unrelated
+subsystems, without being grouped into patchsets, without running checkpatch
+on them, and without documenting what was and was not tested. I am sorry for
+the extra work this has caused you.
+
+In particular, thank you for pointing me to the kernel documentation on
+subsystem identification, patchset organization and testing, and for the
+guidance on how this work should be submitted. This is an important lesson
+for me, and from now on I will go through all the remaining feedback
+manually, one by one, and reply in a timely manner.
+
+Going forward, I will also not send patches in large batches, so that I do
+not exceed my own capacity to respond.
+
+Best regards,
+Wentao Liang
 
