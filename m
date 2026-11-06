@@ -1,53 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794004957;
-	b=pOKji7UoNw1yTt6U0w1fzDQQnS3MoSGY7/q3ORZ/2wUceGlPlGYRLk9gfBBf0Ty37ITF
-	 4AmZGGespTta1a52/X/Uom7VJVma7zqC4C8hY6GgC9cEZhzHN9fhS77KcRlcMw+3UdBJZ
-	 s40GoTGt4uHDacClNfnp6O2uZBCloJ4olo4l1dSMPxNaewdWouc8Dtq3BPClSc/4JRQ7C
-	 2SDWDR1hly0Os4ZqkQsZ0kiYbZybT3ADWytPi+5YPgcrmJbJamY5ACnCLr92VJYW4X0os
-	 Ke/1TFV7eiyKtDwdZGTWGahWI+APAv0kXEZnL1hpALCav3JymuKtn/jAr4BPcbPfd+w==
+	t=1794004972;
+	b=JXG1PBX5RP0RCe5wt7Br4pwh4Gpy39HiJ7uI/WdwePoHLRshk1qCu7erRiiT4W0tfvFM
+	 1NqHuc9JrkOB0C78+xN74Z0shHZ/agYDgUMbLy0cf+J19QdQF/BRPDbd/8Qa4uy4sSRuO
+	 MAogBlNcfdQytUOgainsj6PvJTSB0UVNlUmvtaCr2Xq+66keRYxqWTstjTUhUoOiUt294
+	 N2hAPhWI2tnpX0BN3w7+WHRI6uwMZn8KD58AM/9myu3yrg/u5e4cZ1fM+oj9IV8AXF1rl
+	 oj/D2X80WkLvrt46IJ0VIKiXmNg5pDPtdpOkp2D+GdFI5DYE1OdeqVfJ00KGK84TIcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794004957;
-	h=Received:DKIM-Signature:Date:To:Cc:From:Subject:Message-Id;
-	bh=Wu5QSCeeWEbc5SWADeD5o7TpwIb80eoQ0aGlQNpP1dc=;
-	b=vBAWeCwAsSuXrAB6fmbIElCY/vqixvt+BJcxu54yN+p7FnOY/zdEIdi1ssxju7YRIU9N
-	 bfkXGdDAJwbxOR++dSUpujV5je1QSD7o57MAeAA8XBhGsttTuJC4szZ1lesCzCFELbl4+
-	 TGPPLN5BOqddidFF+oBKXu/V6UtvepGNNh3UPrh7Xd+BXmJEnesmvlfSgPJZxIjTlKLNy
-	 zGunGmGDF+7xqERLF0zKKXs4JUmSEKzSMs77PTi1Cut1RTNIcsw6+rjNmwjErSS0G8VYE
-	 2H7atvuEbDNdMbM0AE3PT+mWGSxyP6xkrrGCLo10mEIXiMsknuaAMcudOPHdRNjLeBA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794004972;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=xrGWYrqGixJhZjc6cA3u15ineEoMPVTqbCNBS3vO/E8=;
+	b=1mIslP96p1kLHlqhA3763SVe9k1E0Nxjp4PLV1S4ICSUa/TT9KM4+L9cIF/YXhHoyuSA
+	 oIDkh0mkqEJPT64SMM+2VZMLbnCCOKzseejPjc7mV2VFkouCPVQe7N8q6YRj5h0CnOsnK
+	 45AYZxbf+vaYqhuIiZ0k0TL6BbeS0nEzYwwpeqHlUKa0BAXbexxACHU0QwFP5NT4t7EpB
+	 NR5bJR0SEb1t/6jBmGhKxAVct4T+dPAG8Exp4+1Oi/7vP78fN5Oo74CHCY7VRavgpOlE4
+	 09RKMHp3w4ZbA5MHzVX2V0a60xi15Nf2MA92g5Xi9ayYLw8tzzWC3HnjbF1321mn5Lg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=f4pqdlX5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L63UwzrP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B92D6606A335;
-	Fri,  6 Nov 2026 22:42:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA998606A326;
+	Fri,  6 Nov 2026 22:42:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=f4pqdlX5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 389E21F0089F;
-	Fri,  6 Nov 2026 22:42:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1794004956;
-	bh=Wu5QSCeeWEbc5SWADeD5o7TpwIb80eoQ0aGlQNpP1dc=;
-	h=Date:To:Cc:From:Subject;
-	b=f4pqdlX56lfzso2loPsG0AqqIzTVTA3iYuGsBBkluGJK421BHKbLvGCJ85G521aw4
-	 iHLe/cERULslMJ2PcnTG9r/1rW7llVoj+EXyHY+LGdkIYTArpXRzEPKDPuqNUpqWoQ
-	 06+yGnHCMCy0kM/Xnz5U4d4rvjkZWgIvLMtgf9T8=
-Date: Fri, 06 Nov 2026 14:42:35 -0800
-To: mm-commits@vger.kernel.org, ziy@nvidia.com, usama.arif@linux.dev,
- stable@vger.kernel.org, shuah@kernel.org, ryan.roberts@arm.com,
- ritesh.list@gmail.com, peterx@redhat.com, nico.pache@linux.dev,
- maddy@linux.ibm.com, loic.molinari@collabora.com, ljs@kernel.org,
- liam@infradead.org, lance.yang@linux.dev, kas@kernel.org, jgg@ziepe.ca,
- dev.jain@arm.com, baolin.wang@linux.alibaba.com, baohua@kernel.org,
- azpijr@gmail.com, alex@shazbot.org, akpm@linux-foundation.org,
- khorenko@virtuozzo.com
-Cc: David Hildenbrand <david@kernel.org>
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged] mm-rmap-duplicate-a-pmd-mapping-as-one-in-folio_dup_file_rmap_pmd.patch removed from -mm tree
-Message-Id: <20261106224236.389E21F0089F@smtp.kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L63UwzrP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 019D31F0089F;
+	Fri,  6 Nov 2026 22:42:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794004971;
+	bh=xrGWYrqGixJhZjc6cA3u15ineEoMPVTqbCNBS3vO/E8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=L63UwzrPS2ataztpBxby6ngbB/ads9+t+yjRipL316Dhw0VSCOCocujlpDrXQuR92
+	 8cHpI5LF473Ryale/9WffhFi44DKGSYK/ZKvCx/DE/l3c1ItJmN6w0NuBhoDgnTVim
+	 R0DJ5yQCaHR1w6HEmo9gpud9qnI/d42WwKGteXUoEtngqrw8LxtvSBXHqCXAOCRQK8
+	 DCWqGNxp8pGnD9fk5PGtMcnSu4BYj3TXiWyH31as3EUW4+fGpL7NWJmAsPyq4O1QVu
+	 UWgmOZlW8cQq63VBB2npIDRUKf9QYGivudLkoE0YWyW/Nw19B2w3UDUxxAcWiNZ6/d
+	 Zm3KgmdtNVSrQ==
+Message-ID: <9c86902c-b942-4641-aee0-672adcc84823@kernel.org>
+Date: Fri, 6 Nov 2026 23:42:17 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -56,181 +50,181 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5/5] mm/gup: limit pagecache folio refcount when grabbing
+ references
+To: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, "Matthew Wilcox (Oracle)"
+ <willy@infradead.org>, Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
+ Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ Song Liu <songliubraving@fb.com>, Rik van Riel <riel@surriel.com>,
+ Hugh Dickins <hughd@google.com>, Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
+ <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Kevin Tian <kevin.tian@intel.com>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Robin Murphy <robin.murphy@arm.com>,
+ Steve Sistare <steven.sistare@oracle.com>, John Hubbard <jhubbard@nvidia.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
+ iommu@lists.linux.dev, stable@vger.kernel.org
+References: <20261105-refcount_overflow_stable-v1-0-70b9c655da3e@kernel.org>
+ <20261105-refcount_overflow_stable-v1-5-70b9c655da3e@kernel.org>
+ <4763a039-60f8-4263-8124-beb0f9ab3366@gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <4763a039-60f8-4263-8124-beb0f9ab3366@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 11/6/26 11:13, Jose A. Perez de Azpillaga wrote:
+> On 11/5/26 2:10 PM, David Hildenbrand (Arm) wrote:
+>> Let's replace our existing safety check by the new
+>> folio_ref_count_over_limit() check in fast and slow GUP before acquiring
+>> additional references or pins.
+>>
+>> Keep it simple and use the check for all folio types.
+>>
+>> Drop the WARN_ON_ONCE(), because apparently these things can currently
+>> happen with large pagecache folios.
+>>
+>> Keep the zero-refcount rejection if the refcount is 0.
+>>
+>> Fixes: 800d8c63b2e9 ("shmem: add huge pages support")
+>> Fixes: 99cb0dbd47a1 ("mm,thp: add read-only THP support for (non-shmem) FS")
+>> Fixes: 793917d997df ("mm/readahead: Add large folio readahead")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+>> ---
+>>  mm/gup.c | 12 ++++++++----
+>>  1 file changed, 8 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/mm/gup.c b/mm/gup.c
+>> index 2ab42fc6834e5..db9db6b2a4662 100644
+>> --- a/mm/gup.c
+>> +++ b/mm/gup.c
+>> @@ -77,7 +77,7 @@ static inline struct folio *try_get_folio(struct page *page, int refs)
+>>  
+>>  retry:
+>>  	folio = page_folio(page);
+>> -	if (WARN_ON_ONCE(folio_ref_count(folio) < 0))
+>> +	if (unlikely(folio_ref_count_over_limit(folio)))
+>>  		return NULL;
+>>  	if (unlikely(!folio_ref_try_add(folio, refs)))
+>>  		return NULL;
+>> @@ -140,7 +140,11 @@ static void gup_put_folio(struct folio *folio, int refs, unsigned int flags)
+>>  int __must_check try_grab_folio(struct folio *folio, int refs,
+>>  				unsigned int flags)
+>>  {
+>> -	if (WARN_ON_ONCE(folio_ref_count(folio) <= 0))
+>> +	if ((flags & (FOLL_GET | FOLL_PIN)) &&
+>> +	    unlikely(folio_ref_count_over_limit(folio)))
+>> +		return -ENOMEM;
+>> +
+>> +	if (WARN_ON_ONCE(!folio_ref_count(folio)))
+>>  		return -ENOMEM;
+>>  
+>>  	if (unlikely(!(flags & FOLL_PCI_P2PDMA) && folio_is_pci_p2pdma(folio)))
+>> @@ -1482,8 +1486,8 @@ static long __get_user_pages(struct mm_struct *mm,
+>>  				struct folio *folio = page_folio(page);
+>>  
+>>  				/*
+>> -				 * Since we already hold refcount on the
+>> -				 * large folio, this should never fail.
+>> +				 * Grabbing more references can fail once we
+>> +				 * hit folio refcount limits.
+>>  				 */
+>>  				if (try_grab_folio(folio, page_increm - 1,
+>>  						   gup_flags)) {
+> 
+> this can fail now, so shouldn't the error path below return -ENOMEM like
+> the first page does, instead of -EFAULT?
 
-The quilt patch titled
-     Subject: mm/rmap: duplicate a PMD mapping as one in folio_dup_file_rmap_pmd()
-has been removed from the -mm tree.  Its filename was
-     mm-rmap-duplicate-a-pmd-mapping-as-one-in-folio_dup_file_rmap_pmd.patch
+Hm, indeed, that's inconsistent. The issue is that we have this -EREMOTEIO check
+mangled in there. But the ordinary path would already have checked that and
+failed with he same error.
 
-This patch was dropped because it was merged into mainline or a subsystem tree
+So this hunk would become:
 
-------------------------------------------------------
-From: Konstantin Khorenko <khorenko@virtuozzo.com>
-Subject: mm/rmap: duplicate a PMD mapping as one in folio_dup_file_rmap_pmd()
-Date: Wed, 04 Nov 2026 21:40:55 +0100
+                                /*
+-                                * Since we already hold refcount on the
+-                                * large folio, this should never fail.
++                                * Grabbing more references can fail once we
++                                * hit folio refcount limits.
+                                 */
+-                               if (try_grab_folio(folio, page_increm - 1,
+-                                                  gup_flags)) {
++                               ret = try_grab_folio(folio, page_increm - 1,
++                                                    gup_flags);
++                               if (ret) {
+                                        /*
+-                                        * Release the 1st page ref if the
+-                                        * folio is problematic, fail hard.
++                                        * Release the folio reference we
++                                        * already took.
+                                         */
+                                        gup_put_folio(folio, 1, gup_flags);
+-                                       ret = -EFAULT;
+                                        goto out;
+                                }
+                        }
 
-Patch series "mm/huge_memory: copy PMDs at fork like the PTE path does",
-v5.
+-- 
+Cheers,
 
-copy_huge_pmd() decides what to copy at fork by its own rules, apart
-from copy_present_ptes(): a lockless check for special PMDs, and a skip
-of every file THP. Following David's review of v3, this series makes it
-decide the way the PTE path does, under the page table lock, with
-vm_normal_page_pmd(). That fixes the two bugs v1-v3 were about. The
-patches:
-
-1. folio_dup_file_rmap_pmd() duplicated a PMD mapping as HPAGE_PMD_NR
-   PTE mappings. It had no caller until patch 2.
-2. File THPs are copied at fork instead of being refaulted by the
-   child, as their PTEs would be.
-3. The special-PMD read moves under the lock. That closes the race with
-   a driver zap (vfio-pci, panthor) and the missing page table deposit
-   on ppc64 hash that Sashiko found in v1.
-4. A selftest for 1 and 2.
-
-Stable
-======
-
-The race (since v6.12) and the ppc64 hash NULL deref (since v7.1) are
-fixed in patch 3, which only works on top of the copy rework in patch
-2, and patch 2 is the first caller of the helper patch 1 fixes. So
-patches 1-3 carry Cc: stable, as David suggested on v4. They will not
-apply to 6.12 as they are, I will do the backports.
-
-A related refcount bug in copy_huge_pud() for device DAX is fixed in
-a separate series, as it does not depend on this one:
-https://patch.msgid.link/20261021-vstor-150143-copy_huge_pud-folio-refcount-v1-0-8bd88551f9be@virtuozzo.com
-
-Testing
-=======
-
-v5 on v7.4-rc1, x86_64 with 4 NUMA nodes, the series with
-CONFIG_DEBUG_VM, KASAN and lockdep:
-
-- fork_file_thp (patch 4) skips on v7.4-rc1, where fork leaves file
-  THPs to a refault, and fails in both cases without patch 1, where
-  ShmemPmdMapped drops when the child exits and the kernel reports
-  "Bad page cache";
-- with the series it passes, also under migrate_pages() of the parent
-  and under reclaim in a small memcg, where some runs skip; with other
-  processes churning PMD-mapped shmem it passes or skips, never fails;
-- cow, guard-regions, uffd-unit-tests, uffd-wp-mremap,
-  split_huge_page_test, mremap_test, soft-dirty, pagemap_ioctl,
-  migration, madv_populate, transhuge-stress and khugepaged pass as on
-  v7.4-rc1.
-
-The runs below are from v4, on v7.3-rc7 in a KVM guest with 4 vCPUs,
-x86_64. Patches 1-3 changed since only by the device private CoW check.
-
-Race with a driver zap. The guest's QXL device is bound to vfio-pci in
-no-IOMMU mode, BAR0 of 64 MB mapped with PMDs. The reproducer below
-forks while a second thread clears PCI_COMMAND_MEMORY through the vfio
-config region after a random delay of up to 1 ms; the child waits for
-the write to finish and reads one byte of each 2 MB of the BAR. A child
-that reads anything without SIGBUS kept a stale mapping. I have not hit
-it without help, so a test-only debugfs knob adds an mdelay(2) between
-copy_pmd_range()'s lockless pmd_is_huge() and the PMD locks:
-
-  +-----------------------+-------+-------+----------------+
-  | kernel                | delay | forks | stale children |
-  +-----------------------+-------+-------+----------------+
-  | 7.3-rc7               | none  | 20900 | 0              |
-  | 7.3-rc7               | 2 ms  | 150   | 128            |
-  | 7.3-rc7 + this series | none  | 3000  | 0              |
-  | 7.3-rc7 + this series | 2 ms  | 400   | 0              |
-  +-----------------------+-------+-------+----------------+
-
-ppc64 hash is not tested on hardware. On x86 a test-only hack makes
-arch_needs_pgtable_deposit() true and mremap move the table, as on
-ppc64 hash. Without the series the first child of the reproducer oopses
-at exit in pgtable_trans_huge_withdraw(); with it the reproducer and
-the mm selftests pass.
-
-Cost
-====
-
-fork() now copies file THPs instead of leaving them to a refault, which
-costs fork() a reference, an rmap update and a counter per huge PMD and
-saves the child a fault per huge PMD it touches. fork() of a process
-with 4 GB of shmem THPs mapped MAP_PRIVATE and an anon_vma on the VMA,
-medians of 2000 forks:
-
-  +-----------------------+------------+-------------------------+
-  | kernel                | fork()     | fork(), child reads all |
-  +-----------------------+------------+-------------------------+
-  | 7.3-rc7               | 86-129 us  | 2380-2620 us            |
-  | 7.3-rc7 + this series | 230-355 us | 820-930 us              |
-  +-----------------------+------------+-------------------------+
-
-Notes
-=====
-
-- drm_gem_shmem and mshv_vtl map special PMDs with
-  vmf_insert_pfn_pmd() as well.
-- copy_huge_pud() still differs from the PMD tail in that it does not
-  mark a shared PUD clean in the child or handle uffd bits.
-- A reproducer is at the Link:
-
-
-This patch (of 4):
-
-folio_dup_file_rmap_pmd() passes PGTABLE_LEVEL_PTE to
-__folio_dup_file_rmap() for HPAGE_PMD_NR pages, so it adds HPAGE_PMD_NR
-PTE mappings to the folio instead of one PMD mapping.
-
-The helper has no caller yet, the next patch adds the first one. Pass
-PGTABLE_LEVEL_PMD, as folio_try_dup_anon_rmap_pmd() does.
-
-Link: https://lore.kernel.org/20261104-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v5-0-c56d0d26f970@virtuozzo.com
-Link: https://lore.kernel.org/20261104-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v5-1-c56d0d26f970@virtuozzo.com
-Fixes: d8ef5e311d7b ("mm/rmap: convert page_dup_file_rmap() to folio_dup_file_rmap_[pte|ptes|pmd]()")
-Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
-Tested-by: Andrew Morton <akpm@linux-foundation.org>
-  Link: https://lore.kernel.org/20261106084856.4b254c973694345ee58a9b63@linux-foundation.org
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Nico Pache <nico.pache@linux.dev>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Dev Jain <dev.jain@arm.com>
-Cc: Barry Song <baohua@kernel.org>
-Cc: Lance Yang <lance.yang@linux.dev>
-Cc: Usama Arif <usama.arif@linux.dev>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: Alex Williamson <alex@shazbot.org>
-Cc: Loïc Molinari <loic.molinari@collabora.com>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Shuah Khan <shuah@kernel.org>
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>
-Cc: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: <stable@vger.kernel.org>
----
-
- include/linux/rmap.h |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
---- a/include/linux/rmap.h~mm-rmap-duplicate-a-pmd-mapping-as-one-in-folio_dup_file_rmap_pmd
-+++ a/include/linux/rmap.h
-@@ -558,7 +558,7 @@ static inline void folio_dup_file_rmap_p
- 		struct page *page, struct vm_area_struct *dst_vma)
- {
- #ifdef CONFIG_TRANSPARENT_HUGEPAGE
--	__folio_dup_file_rmap(folio, page, HPAGE_PMD_NR, dst_vma, PGTABLE_LEVEL_PTE);
-+	__folio_dup_file_rmap(folio, page, HPAGE_PMD_NR, dst_vma, PGTABLE_LEVEL_PMD);
- #else
- 	WARN_ON_ONCE(true);
- #endif
-_
-
-Patches currently in -mm which might be from khorenko@virtuozzo.com are
-
-mm-huge_memory-copy-file-thps-at-fork-like-copy_present_ptes-does.patch
-mm-huge_memory-read-a-special-pmd-under-the-lock-in-copy_huge_pmd.patch
-selftests-mm-test-fork-of-pmd-mapped-shmem-thps.patch
-
+David
