@@ -1,80 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794002246;
-	b=2n7hvBYuYi1bO/KFwoEHcb0Ax0w4u0/U6L4O2dPmsHcFkVlUFxh6HHEOw8hcNi3iqM2N
-	 DRE4Oy8XhlNtsQHUoy6qMEYxyOShNdPRIbkZy/6M85v9nBYMe+z11dqq18B9DCq7RIkKX
-	 q/kNLM1ODl/aD5aRC3KctT02mVQWRpymIYqHovJtm6Ue5Mexdba6baXcpcuefSzKyuw1D
-	 j2EOxRHccjXRez5CzvF6ONiGVyrGdaVivN55p3cz1G3/Y9TD157u0BwcY4hzas9TvBcfX
-	 nkHEclhNOPY2XJFz02oKnAxe5u3kmyS1Ftv4rDTq6N1mPLXRdgGaUDFUJgWGiU7wFJg==
+	t=1794002245;
+	b=a9tsPCa/bsMmtzJYeqBo+RvkwlI6MqvTT68pagPffvyJpemFts7wku+nQdYMIqeVttSS
+	 gpfuftJJW0wdGth27iE0rrmbYSWM1qFaoTwLQnCF65AcV7GIOpfIvq+6pheSYpn4fMFSt
+	 V2K9i2MD9yV58Vj2KNh1EOegRmmzdD2WbdAeZSzURol1RH51T5w6aNtTkIUZw6PgH5bN1
+	 xDi13MNYSgXsNtDsGutaT3P16iKPQOhgWFR4vtmCryM7+rCaUCo0lrjVPkEeiO28t6T7M
+	 LIb4Y4be/ob+2TZfF/XSCmLgqPftPBLLPWBBzSCX7CIfpbO18ldP6WXEBgGcgARop2w==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794002246;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=4hTF15KGZnWZXaxkczJaxpuVmQOPU5K6aaPcUmXIxUQ=;
-	b=kGra/X7YgnHH57i6K/DykpFuU+1EIX7sVwMsc5+K7cpPLo6jB77p1GyFETGGMgxEK3ue
-	 F/YsRxaq00sSzXG3asEF2vb0aN7fOj9zDY3imHMgQ7t7iSYc4gaUJLufHnhs3aLu9q4Y/
-	 FpUjNLwaaxCYo6R9xdJylUdEwmmaF6oFlj32289vF8HopL0iDKNMVVqlBVHBheJsPGuVs
-	 4kbCYlbscenHAgsKnDWH0A2x/Z/cKGuy5E4ILXGmxCkNE4q255sh6DstHvlcB1+9G8O4+
-	 yVic63Z7yFAe0wJ/pnsW65ha38ffW+9xur/fK1Z2GUDmplkAdyUSyDNStq6/qRl7FDA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794002245;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=7ybh3E16d2SUEDENtkilOBR9lZ4BgG8EeV/MZT26TyI=;
+	b=j0TDMTCjXb3pd59v5EFVWMmLBmNHJZoleGBRVJ5kaFzjeoUEX0f0DTedGyvJ9r0eFqMW
+	 ACa7rr8UPiz2EmFA2dPiu92RSXzd3+H5ofR4ZiGqvlyc+EhSGYS+ha2fv9BU4C/bIvycC
+	 dNOB4Ac8nicwsB+srSlha9fKT9jDA9WLM75aRuknu3nrkIHBx4b/0XtzAschrqperQ/go
+	 99pPc1RPqc4OXWMTw/+GFATvQoVEeI3R0uLM7DEhFIuMuwj6u0qJ0dyxyxqsMuzkxiXN0
+	 aKAvLR7T6JbV3GZlSkyYLhkEFU70qK803GeoZWr4pqZiPeTma3emeKiy6yNgR4TW1IQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BmXRZoMV;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W5nikFIQ;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3511606A33A;
-	Fri,  6 Nov 2026 21:57:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30962606A326;
+	Fri,  6 Nov 2026 21:57:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BmXRZoMV
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W5nikFIQ
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794002245;
-	b=GQFLqXs9ZSBdCVsaypa7ul4+rB/iuREMX8x+JAM/ZwvYWCLIEHkT37MuQMykjSSUxLuP
-	 7Iw98j8+vBhEh1UU4XAAAn0Gq4aOOzeobM+MLcZksrd90fxd4KXbgu/FwuHwOHy+G97zD
-	 a3DCuOatsN01DUn8pYLrzuIdk5OfZEoVufoIqVms6o687eLx2vxNECG/x93PFJqHNrip/
-	 7QS5GzqDjbLVQiTdkU+0Grx1Tx2lQ9Stch7nBelg91RZhnIV8Of39eRBMPl/CV11JBzaV
-	 7In/AJKP8LFfvBdm3FtjN8wm27lCcjUvwlAiZg9pjZqyCYJ1KhMf6gqCuRX1cpKKdoQ==
+	t=1794002244;
+	b=wo9BRt52MOj5TfOST4CARRMGcL+0AJm/7kIUQOzbe+EXWHhwflI4xVCiQFVECr8yJ7zM
+	 8huiuPI/J4lQpe4D4EPEjpnScoQ7p/mq9Yxnj1QFTG50paKFOqIEqhWKdo2mE8xm1PHIT
+	 nehgNVY3xtrXmR0DBdkxyTHvllgySqj+HXKnEiFbDsinXov3R/tHMrVdamWBJce1Dj9BZ
+	 Tvj3gZZlpGmm/sl/q41m+Uz3P1GKZCzTKOzgNIximzOUEbiZNDCvsVQdngoFhC8ayqk6q
+	 7u+IMrU2LLzJsODSJOmVkkG0GSKMVcz/gE9naqVcqlBxh4XPTa3KnOJwIxEd1WD7FjA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794002245;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=4hTF15KGZnWZXaxkczJaxpuVmQOPU5K6aaPcUmXIxUQ=;
-	b=XMA4wY13oO2feldtj9iB8YOXNB2F8mmGe2//7wSY5Rhy8KdAQrFiFSzEaDOEJUYmr/d+
-	 iiEVkEdVFcYY7+xtPB9vFfxumjp7ttFbuy82Lc9lY7dT4GkR8UUbZqi4wodG6893xGMHA
-	 j3W9RX9mJX4PKj5eHGJwwm02K0lmfRhZbBFSG2aEhx010N9wfB4Gmzwxg2pA4zQw9F19Z
-	 MRdk+IXErvKnsmSlJ9eB/DczKsCNi5XhlXEyqICQC9ZSQ1TUUQ3hVS+l14nJltjCA6isR
-	 pFFHdxa3u5NbZ46Us9MR4/VDa6fCqZBQVR7FOl9SlEItVVRZdJmHcECMAt3gePqlDmw==
+	c=relaxed/relaxed; t=1794002244;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=7ybh3E16d2SUEDENtkilOBR9lZ4BgG8EeV/MZT26TyI=;
+	b=ypoKyOpb64VAeWp9IyMY7hVAa7W4uFpAKrAEDOFCbkQG+84kFzJ0/koG2dd+abE9LOcH
+	 OIL7Ba7snm65U9gtqKvpWhpKNn6JwI4SwbZToO6tC+AVLRCQ34OplaLolQQwEA+4wCLlY
+	 JF2fq7TIQhgEZHmp1J2iWo1S1dLCW+hDK0vVWlfAVCrbpz04Ftayy8Qcu7xe4H2s8omDE
+	 076CiFtQgB9owt3RolDgDovuk0aUE8ZQ7vdzbBIx1diSOYfFwWg8JqNoL9Es7IQl83UJ1
+	 P1yeu4YDNXSOJleqng9iETpO7IiHn8yoj2FuL5rTxfZHVZ2TAlbS2fC1IGzNtIX6HDw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 068601F008A1;
+	by smtp.kernel.org (Postfix) with ESMTPS id 0636E1F0089F;
 	Fri,  6 Nov 2026 21:57:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794002245;
-	bh=4hTF15KGZnWZXaxkczJaxpuVmQOPU5K6aaPcUmXIxUQ=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=BmXRZoMVRUwrx6vKTJEE8lQTIttkKxTb9rd4NZ15y4yLfggmRPBh6TkjotfmWONCL
-	 eSD/PAh+Lm2TXi/lWQeZh8a/GeeItO/4pFknTB/gNMbgCGjgmvbO9XLGvBbksZ47aG
-	 A6LOWPartW7dCrWVT3dH2Y9FcsGtVl6KOMME2v2J9KnmVdsSYHZqK/lvLzz3hhJBJM
-	 B9sp+TruqCfV+GGwTmTFb671dLECc7Yq6PFgYofTf8NlQs98ok3uZHKTJLJFwNk6/a
-	 D7WngxUmDbC9tfKQPJ3h5HILbzG7xq1bUdAGQCYVYvZr4CNRfktqQNfAXOJOf+MlwU
-	 bYwFDDYeB8nCg==
+	s=k20260515; t=1794002244;
+	bh=7ybh3E16d2SUEDENtkilOBR9lZ4BgG8EeV/MZT26TyI=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=W5nikFIQSAle88623t11L9MWWNRYzwis8kAGioVtbDtDfzSp4+ELgdEvma0Fjs/x3
+	 0+3ZJPvxyDPkGQExXztsmdhV307fsFaZBFXfkTu8o+C1GIjWijh1Csgn66OR+OgeMJ
+	 Dh/YOevYYCKRAHAi3BcRSEsL4AZFZQLX6oegCGE6KuvI4XXXQ6RDBxhuHQ1vJxzD5E
+	 46brBqPZT4S86cP2CvZtOblip7++CrhteLxlIY6wHYrneKc+oqIW+CWV5kacM08Jto
+	 NRxZHa60hMY+TEy7nQv4PLlQ73DtfWPcsURhmFKRNxLYgL9fY9WguAyqTZz7KuCV+s
+	 IiFRgaClZnbfw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 5BF06478B1;
+	by lkml.kernel.org (Postfix) with ESMTP id 7DD33478B5;
 	Fri,  6 Nov 2026 21:57:23 +0000 (UTC)
 From: Jerome Mohm via B4 Relay <devnull+jrmmhm.kernel.eldare.de@kernel.org>
-Subject: [PATCH net v4 0/2] vsock/bpf: fix waiting and flag handling in
- recvmsg
-Date: Fri, 06 Nov 2026 22:57:20 +0100
-Message-Id: <20261106-kbh3-1-022-fix-v2-v4-0-c7d36703814d@eldare.de>
+Date: Fri, 06 Nov 2026 22:57:22 +0100
+Subject: [PATCH net v4 2/2] vsock/bpf: fix zero-length, MSG_OOB and
+ MSG_ERRQUEUE reads in recvmsg
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,12 +84,9 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NOw7CMBBErxK5ZpG9zpeKeyAKfzbEgBJkBwsU5
- e44oUmBKN/uzJuJBfKOAjtkE/MUXXBDnyDfZcx0qr8QOJuYIcdScC7gpjsJAjgitO4FEYFkK3J
- seJkLxVLv4Sl9VueJ9TSy8/cYnvpKZlxsS6xzYRz8e12OYg3/GYkisWkVNUWtRFOVR7pb5Wlva
- fVHuTFg/csggYM2vCpQo5VWbw3zPH8AJ4gEqgsBAAA=
-X-Change-ID: 20261001-kbh3-1-022-fix-v2-e3f14290641a
+Message-Id: <20261106-kbh3-1-022-fix-v2-v4-2-c7d36703814d@eldare.de>
+References: <20261106-kbh3-1-022-fix-v2-v4-0-c7d36703814d@eldare.de>
+In-Reply-To: <20261106-kbh3-1-022-fix-v2-v4-0-c7d36703814d@eldare.de>
 To: Stefano Garzarella <sgarzare@redhat.com>, 
  Bobby Eshleman <bobbyeshleman@meta.com>, 
  "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
@@ -100,84 +96,76 @@ Cc: Michal Luczaj <mhal@rbox.co>, virtualization@lists.linux.dev,
  netdev@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
  stable@vger.kernel.org, Jerome Mohm <jrmmhm.kernel@eldare.de>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794002242; l=3156;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794002242; l=2197;
  i=jrmmhm.kernel@eldare.de; s=20260928; h=from:subject:message-id;
- bh=3N1HVbW/FKojBN21DNx2VL0tmiNZKFzaJqEUw7vm67M=;
- b=dzk2bNoM+L/XeEtTJDqisAtunD/8hRkFnTCN+GQfp2y4JcrBsy04acBNPoTkUcxKfYxQm442M
- 4vz/Xn5ONiVC2M5bVBzXmgcbfqPuYtoIEKpgY5HrdJ2I16tmzZnqwXK
+ bh=dwUGR/eCK7GtoK8H9bbKU0ilJyfRtgnQIrQ7vPni5kQ=;
+ b=4nZ5slW3UfHVgJAEtqPZdz8lRe6LZIvhoXJrslECxOHSir4x5eu+lfl6KdZ04cTHPnrsnMHUi
+ AqwPFJDB60RDKoWYhN1qCGgcwQVMb13vpu1lai55X4LjYu6QHfWu1sK
 X-Developer-Key: i=jrmmhm.kernel@eldare.de; a=ed25519;
  pk=xRCxNXbnNottaHpmvPDAOC9NuMJxqKo24abkehKRVlo=
 X-Endpoint-Received: by B4 Relay for jrmmhm.kernel@eldare.de/20260928 with
  auth_id=1075
 X-Original-From: Jerome Mohm <jrmmhm.kernel@eldare.de>
 Reply-To: jrmmhm.kernel@eldare.de
+Content-Transfer-Encoding: 7bit
 
-vsock_bpf_recvmsg() holds lock_sock() while it sleeps for data, so the
-transport's delivery worker, which needs that lock to queue the data,
-deadlocks with the reader. Patch 1 releases the lock around the wait and
-makes the wait loop with the exit conditions of the native path. Patch 2
-handles the reads that should never reach the sockmap wait: len == 0,
-MSG_ERRQUEUE and MSG_OOB.
+From: Jerome Mohm <jrmmhm.kernel@eldare.de>
 
-Not addressed here, as in v3: data that sits only in psock->ingress_skb,
-and READ_ONCE()/WRITE_ONCE() for the lockless accesses; both are left for
-separate patches. Not run: the ns_* tests of vmtest.sh (they need root on
-the host); the reproducers ran in a guest over virtio-vsock (PCI) and
-vsock-loopback only.
+vsock_bpf_recvmsg() sends every read that the transport queue cannot
+serve through sk_msg_recvmsg() and the sockmap wait, which handle
+neither a zero length nor these flags:
 
-The deadlock and the MSG_ERRQUEUE case were found with the help of
-Anthropic's Claude; the other cases come from the netdev Sashiko review.
-The reproducers are available on request.
+ - with len == 0 and data in the psock ingress queue the loop spins with
+   lock_sock() held, and the delivery worker blocks on the lock;
+ - MSG_ERRQUEUE with data in the psock ingress queue consumes stream
+   bytes, and a zero-length MSG_ERRQUEUE read, as MSG_ZEROCOPY users
+   do, never reaches the error queue: it gets -EAGAIN, or waits for
+   stream data if it blocks;
+ - MSG_OOB consumes ordinary stream bytes or waits for data, where the
+   native path returns -EOPNOTSUPP.
 
-Changes in v4:
-- 1/2: comment why the wait stops on sk_err and why it checks
-  signal_pending() (Stefano).
-- 1/2: one data <= 0 check in vsock_bpf_recvmsg() (Stefano).
-- 1/2: say why this is one patch and how non-blocking reads change
-  (Stefano).
-- 2/2: say that MSG_ERRQUEUE consumed stream bytes and why the checks
-  come in this order (Stefano).
-- Shorter commit messages.
-- Rebase onto current net.
-- Retested, with a new reproducer for a dataless wakeup during a timed
-  wait.
-- Link to v3: https://patch.msgid.link/20261028-kbh3-1-022-fix-v2-v3-0-bc0752b2d3db@eldare.de
+Handle them at the top of vsock_bpf_recvmsg(). The order matters:
+MSG_ERRQUEUE goes to the native path first, as in tcp_bpf, or a
+zero-length error-queue read would return 0; MSG_OOB comes before
+len == 0, as in unix_bpf, so recv(fd, buf, 0, MSG_OOB) returns
+-EOPNOTSUPP as on a connected native socket.
 
-Changes in v3:
-- Split into two patches (Michal): 1/2 releases the lock and loops in
-  the wait, 2/2 handles len == 0, MSG_ERRQUEUE and MSG_OOB.
-- 1/2: also end the wait once the socket is no longer TCP_ESTABLISHED
-  (0 with SOCK_DONE, else -ENOTCONN, as __vsock_connectible_recvmsg()
-  does), so a reset connection whose error was read with SO_ERROR no
-  longer waits out the timeout (Sashiko review of v2).
-- 2/2: reject MSG_OOB with -EOPNOTSUPP before the len == 0 check, as
-  unix_bpf does; this also stops MSG_OOB from consuming ordinary bytes
-  (Sashiko review of v2).
-- Stefano's Acked-by on v1 is not carried: neither patch matches v1.
-- Drop the Assisted-by trailer (removed upstream); tool use is disclosed
-  above instead.
-- Rebase onto current net.
-- Link to v2: https://lore.kernel.org/netdev/20261001-kbh3-1-022-fix-v2-v1-1-cfae958a1976@eldare.de/
+The MSG_ERRQUEUE case was found with the help of Anthropic's Claude, the
+zero-length and MSG_OOB cases by the netdev Sashiko review. Each was
+reproduced in a VM with a vsock-loopback socket in a sockmap, without
+kernel changes or error injection. With the series applied the reads
+behave as on a connected native socket, and the vsock vmtest.sh
+single-VM tests and the BPF sockmap test_progs pass.
 
-Changes in v2:
-- Make vsock_msg_wait_data() loop, check sk_err and the peer
-  SEND_SHUTDOWN, and add the len == 0 guard (Sashiko review of v1);
-  route MSG_ERRQUEUE to the native path ahead of the guard.
-- Link to v1: https://lore.kernel.org/netdev/20260929-kbh3-1-022-fix-v1-1-cc97cc95d269@eldare.de/
-
+Fixes: 634f1a7110b4 ("vsock: support sockmap")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jerome Mohm <jrmmhm.kernel@eldare.de>
 ---
-Jerome Mohm (2):
-      vsock/bpf: release sock lock while waiting for data in recvmsg
-      vsock/bpf: fix zero-length, MSG_OOB and MSG_ERRQUEUE reads in recvmsg
+ net/vmw_vsock/vsock_bpf.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
- net/vmw_vsock/vsock_bpf.c | 77 ++++++++++++++++++++++++++++++++++++++---------
- 1 file changed, 63 insertions(+), 14 deletions(-)
----
-base-commit: 6d2cf411aba2aa0bd641b49be5b1964ac5097a50
-change-id: 20261001-kbh3-1-022-fix-v2-e3f14290641a
+diff --git a/net/vmw_vsock/vsock_bpf.c b/net/vmw_vsock/vsock_bpf.c
+index 6d96ff03f28c..58b32fbc1f4b 100644
+--- a/net/vmw_vsock/vsock_bpf.c
++++ b/net/vmw_vsock/vsock_bpf.c
+@@ -119,6 +119,15 @@ static int vsock_bpf_recvmsg(struct sock *sk, struct msghdr *msg,
+ 	struct vsock_sock *vsk;
+ 	int copied;
+ 
++	if (unlikely(flags & MSG_ERRQUEUE))
++		return __vsock_recvmsg(sk, msg, len, flags);
++
++	if (flags & MSG_OOB)
++		return -EOPNOTSUPP;
++
++	if (!len)
++		return 0;
++
+ 	psock = sk_psock_get(sk);
+ 	if (unlikely(!psock))
+ 		return __vsock_recvmsg(sk, msg, len, flags);
 
-Best regards,
---  
-Jerome Mohm <jrmmhm.kernel@eldare.de>
+-- 
+2.56.0
 
 
