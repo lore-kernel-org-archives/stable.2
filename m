@@ -1,54 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.253
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793933103;
-	b=JgmXa+aqTFNnOCJMkoKeC21QFKaDvBh54G5beiJYhRPUGXL4qt/vPOO4yJJfD5zTjoOH
-	 PE383cq4qAPJ7sFQdYPLA3nS3Kz21JdrkElfE68BlGHMO0H1LwKqWaiDp04C0XaUKfVGy
-	 nfblDZlfvOZ3fpfUbHn2alDzNSl2XhO7aCO4L58M6IwH3h2okP7BZDrDJGZU/f259QibF
-	 BY6at8495hRDpsfNegMf72NoXsSAGKLzsAawwWMqXPWvrwmeidZn7zlSZpl+JFJnGf7n3
-	 38XW/PcxqvFq3LBQOXDBUBHHcU9zopaBCiDBG7txcvetXsspqzTnJ6yg3AQHvQV7JdA==
+	t=1793933316;
+	b=TyrYA5efoWrTTQkXqIx+IIxd8Ad/SrBCPGw3ILvw8XfcM1tqcWgK5zaHcSaoivwcpV4X
+	 sRRDqelV83M4etxvCVmSImQsc+HD7tUzpSZBoQGmko9oiX8N8JApxYBB+7zJ4Oz4OPOTc
+	 EjJEZtXgmRQrMDEWfQF6w2omTPJ2sXRSRHlBrgwm/Z3Bfpwxz+H3f2PcIGLuOeOjcHJFa
+	 Ewai0LDPuHCcZ2wj9RiRT6oJ19jzVDzxJGhyOTuyYjeNm79AyEBy6UWijANlvWeEH/5mg
+	 kihsHclKyFzCgmRehUSp/59Xr1XRIrSAU70ILPVrebaHvNXxv6vlkG16gplkIlfumng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793933103;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=tHgv8W4A47HRFDkNoqTHL92JY62X+jVZsBZ6YMs1NBM=;
-	b=PCfpgD+E2PpnCHQTlXGG9yIC5gD6pgNw6vTDRiIWJSSBj0JEZ7L2MhkF7NaqE2kmdnBh
-	 1x0kXtDkT9o3Kb6G32wAZ29RAz3oxmRqGyYh8fwzn375p7HVBBu4r/7SMC9mJGVspVaxz
-	 x6wOPkbNdvECdhH27yCIF80g18Uis3Uf6Wv/7IMXzUOKt4WER1VJn7goDnYXKY1248Cob
-	 /QUPz8yCChVLmKbK0yAuF1jROCEj0Us4t2iVUIzGq85AlCSYi3On2wB63fBTH6qoVdNBp
-	 OQf7/oMYN9jQPP+Iu2cdQ2XOp2SgrSq/OVkeGe5KkoEywtqlapN2CbrUa7BAnwcCkjQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793933316;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Fxf58g0TgGhF1yT/rrtFZDRdTjLoj8v89GwaFQtO71M=;
+	b=e7imeI7zbIyVM9nlPUy66xCXlCjzItF8HRENL25KJmqrUPo6GaGZSP8TmhjmRmPOWkW2
+	 5eTBgk/x6rUd66Z9taWPOLpdxzUxcEAegUBGL9ALq7XYlv6NM+WunbL/YwOyMZc5BEyaU
+	 4NLslqIA0X+xwepBYwd0e5U3P2yN/zutASjE3AL5iKqPO9TCwe434zf4B+Yvfz9tMTfbV
+	 hRjxJdvnlFZs070ZF5EMJHtNotpoVScIxUO56m+QHcOv+1b8TJ6OgBPghyrHyg2AEPCxp
+	 dlQdO7WQNepOtFhgCVfXKpgQ+Jd3C/J1TC9Qv0ftr9pBSLVPAOqwEGphSBipQRzbd5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VgwKKUVP;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=uvhHOEWv;
+	arc=none smtp.remote-ip=91.218.175.253
+Received: from mta0.migadu.com (out-253.mta0.migadu.com [91.218.175.253])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1B87606A329
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 02:45:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42A28606A31B
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 02:48:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42A28606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VgwKKUVP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F9691F008A1;
-	Fri,  6 Nov 2026 02:45:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793933103;
-	bh=tHgv8W4A47HRFDkNoqTHL92JY62X+jVZsBZ6YMs1NBM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VgwKKUVP62XhWBIA8Oka3x/PTj7xgAmaaj5lOgAu1IcHHCBC9qJI1SGvrRjLpSl+t
-	 Ulv7f7qbeWyAj8HIxe/xZDP4hNqoOcFil3LvfARthtW76RpXowTUsfieg3F/8skn+7
-	 0T6Sd6MZpUo5xcviFbPz5jZ7UPyclY+ZtHCVpSOFYZ/3+GgaCtH/Z93p+2Z4RY9OaD
-	 48VoXJYBhW+TviXazxiEbZTwn02lkTfrsd5oX1CRI3ddwyMPWvRpJEIFbmr9+psOIL
-	 iUmI/ep4H93304hQWegv3WE+WM09BfLhiQlnzDIpCA3kt8x8FbQu/T9CoCWnHWhvuH
-	 4h31RuBrOouZA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Chuck Lever <cel@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3.y] NFSD: Complete a cld upcall when copying its reply fails
-Date: Thu,  5 Nov 2026 21:45:01 -0500
-Message-ID: <20261106024455.3943128-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026110443-cobweb-sloppy-a362@gregkh>
-References: <2026110443-cobweb-sloppy-a362@gregkh>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=uvhHOEWv
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=SM3myxb12+rHgjUddvdUVXaCWkzw2vEprAopNzsf1mo=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793933313; v=1; x=1794538113;
+ b=uvhHOEWvqy6sAM+6/gXJCojsIjwPbYdBuRvyNSCuCZGq7nDWRPS2zgPwJ18brhhfnbADc8RN
+ LQ9p6yaGheoLRIam3txDylQTEsCj6oZNCTcy2H1oYoJBjiVzpgY6RyQh3EfVITHKR5v7BeIuAlK
+ IzmDph8NWpbTX+fWe7imLkQs=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 63fa14448a3d1f35;
+	Fri, 06 Nov 2026 02:48:32 +0000
+X-Mizu-Trace-ID: 63fa14448a3d1f35
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <39b7ecd4-e5a1-48d9-8d34-4bf8f8ad4ca2@linux.dev>
+Date: Fri, 6 Nov 2026 10:48:28 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,52 +58,119 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/4] mm: gup: allow long-term pins of CMA-allocated
+ HugeTLB folios
+To: Muchun Song <muchun.song@linux.dev>
+Cc: osalvador@suse.de, David Hildenbrand <david@kernel.org>,
+ akpm@linux-foundation.org, azpijr@gmail.com,
+ Lance Yang <lance.yang@linux.dev>, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, stable@vger.kernel.org,
+ Qi Zheng <zhengqi.arch@bytedance.com>
+References: <cover.1793850539.git.zhengqi.arch@bytedance.com>
+ <818fb0b4bbb234e4a2bd0552d61634f1a8431616.1793850539.git.zhengqi.arch@bytedance.com>
+ <8F5F930D-A05E-4255-8E70-2567921A92A0@linux.dev>
+From: Qi Zheng <qi.zheng@linux.dev>
+In-Reply-To: <8F5F930D-A05E-4255-8E70-2567921A92A0@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Chuck Lever <cel@kernel.org>
 
-[ Upstream commit 8cef2b0a01d28647facc57501a3df7ccd8d13ccd ]
 
-cld_pipe_downcall() removes the matching upcall from cn_list before
-copying the daemon's reply. When that copy_from_user() faults, the
-downcall returns -EFAULT without completing the upcall, and a
-retried write cannot reach it because its xid is no longer on the
-list. __cld_pipe_upcall() waits on cu_done uninterruptibly, so the
-nfsd thread that sent the upcall is stuck, and nfsd shutdown hangs
-behind it. The pipe is mode 0600, so only a broken or hostile
-nfsdcld can trigger the fault.
+On 11/5/26 1:13 PM, Muchun Song wrote:
+> 
+> 
+>> On Nov 5, 2026, at 12:07, Qi Zheng <qi.zheng@linux.dev> wrote:
+>>
+>> From: Qi Zheng <zhengqi.arch@bytedance.com>
+>>
+>> Long-term pinning treats explicitly CMA-allocated HugeTLB folios as
+>> unpinnable, causing unnecessary migration or pinning failures.
+>>
+>> These folios already own their CMA bitmap ranges, and memory blocks
+>> overlapping CMA areas cannot be offlined. Allow HugeTLB folios with
+>> HPG_cma to be pinned directly, including in ZONE_MOVABLE.
+>>
+>> Fixes: cf11e85fc08c ("mm: hugetlb: optionally allocate gigantic hugepages using cma")
+>> Cc: stable@vger.kernel.org
+>> Suggested-by: Muchun Song <muchun.song@linux.dev>
+>> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+> 
+> Acked-by: Muchun Song <muchun.song@linux.dev>
 
-Record the fault in the upcall's pipe message and complete it, so
-the waiter returns the error to its client tracking operation.
+Thanks.
 
-Fixes: f3f8014862d8 ("nfsd: add the infrastructure to handle the cld upcall")
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260901-alemi-v2-3-e163f94a3a6e@kernel.org
-Signed-off-by: Chuck Lever <cel@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
-Depends on <20261106022847.3726614-1-sashal@kernel.org>
+> 
+> But a nit bellow.
+> 
+>> ---
+>> include/linux/mm.h | 29 +----------------------------
+>> mm/gup.c           | 31 +++++++++++++++++++++++++++++++
+>> 2 files changed, 32 insertions(+), 28 deletions(-)
+>>
+>> diff --git a/include/linux/mm.h b/include/linux/mm.h
+>> index 2d0b8a4c9974f..75dd40265d3f4 100644
+>> --- a/include/linux/mm.h
+>> +++ b/include/linux/mm.h
+>> @@ -2975,35 +2975,8 @@ static inline bool is_zero_folio(const struct folio *folio)
+>> 	return is_zero_page(&folio->page);
+>> }
+>>
+>> -/* MIGRATE_CMA and ZONE_MOVABLE do not allow pin folios */
+>> #ifdef CONFIG_MIGRATION
+>> -static inline bool folio_is_longterm_pinnable(struct folio *folio)
+>> -{
+>> -#ifdef CONFIG_CMA
+>> -	int mt = folio_migratetype(folio);
+>> -
+>> -	if (mt == MIGRATE_CMA || mt == MIGRATE_ISOLATE)
+>> -		return false;
+>> -#endif
+>> -	/* The zero page can be "pinned" but gets special handling. */
+>> -	if (is_zero_folio(folio))
+>> -		return true;
+>> -
+>> -	/* Coherent device memory must always allow eviction. */
+>> -	if (folio_is_device_coherent(folio))
+>> -		return false;
+>> -
+>> -	/*
+>> -	 * Filesystems can only tolerate transient delays to truncate and
+>> -	 * hole-punch operations
+>> -	 */
+>> -	if (folio_is_fsdax(folio))
+>> -		return false;
+>> -
+>> -	/* Otherwise, non-movable zone folios can be pinned. */
+>> -	return !folio_is_zone_movable(folio);
+>> -
+>> -}
+>> +bool folio_is_longterm_pinnable(struct folio *folio);
+>> #else
+>> static inline bool folio_is_longterm_pinnable(struct folio *folio)
+>> {
+>> diff --git a/mm/gup.c b/mm/gup.c
+>> index 2b405cce2ca5c..e8503141bb275 100644
+>> --- a/mm/gup.c
+>> +++ b/mm/gup.c
+>> @@ -2216,6 +2216,37 @@ struct page *get_dump_page(unsigned long addr, int *locked)
+>>
+>> #ifdef CONFIG_MIGRATION
+>>
+>> +bool folio_is_longterm_pinnable(struct folio *folio)
+>> +{
+>> +#ifdef CONFIG_CMA
+>> +	int mt = folio_migratetype(folio);
+>> +
+>> +	/* Explicit HugeTLB CMA allocations own their bitmap ranges. */
+> 
+> The description of "bitmap ranges" is weird, making me think what's the meaning of
+> bitmap. Please use more generic description here.
 
- fs/nfsd/nfs4recover.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+How about this:
 
-diff --git a/fs/nfsd/nfs4recover.c b/fs/nfsd/nfs4recover.c
-index 0b033688aa0b5..907a914b04cd1 100644
---- a/fs/nfsd/nfs4recover.c
-+++ b/fs/nfsd/nfs4recover.c
-@@ -839,8 +839,11 @@ cld_pipe_downcall(struct file *filp, const char __user *src, size_t mlen)
- 	if (status == -EINPROGRESS)
- 		return __cld_pipe_inprogress_downcall(cmsg, nn);
- 
--	if (copy_from_user(&cup->cu_u.cu_msg_v2, src, mlen) != 0)
-+	if (copy_from_user(&cup->cu_u.cu_msg_v2, src, mlen) != 0) {
-+		cup->cu_pipe_msg.errno = -EFAULT;
-+		complete(&cup->cu_done);
- 		return -EFAULT;
-+	}
- 
- 	complete(&cup->cu_done);
- 	return mlen;
--- 
-2.53.0
+/* These HugeTLB folios own the CMA memory, so they can be long-term 
+pinned. */
 
+Thanks,
+Qi
