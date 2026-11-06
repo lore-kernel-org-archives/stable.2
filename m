@@ -1,51 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793931799;
-	b=2L6sxQBWBm8U6M01U7jAnbmtUJJ3eQ9Yps1w6kc62/KUvgRipSXFFxM6TnY7qqXYR2RZ
-	 obFA3uG6FHPnqLDyBfizbCNpPPPmy55ihlXYSCwOMrt6djE6aFaDLv8T1r8t98qJeS01g
-	 S87Tz9nISBY0FEm0EukFXSuKnHzdYo6ZVnwcGWLOIro+FmOLjBqjD0eJUQFshMSFouReg
-	 CdTDjWBZU8NUeTGhQatZ+QfN0ErTntssFtpUQl+EFmdr/oQV01ZQaICgIYdXm03ctAjTE
-	 b8YzexUFHtZH9PJTFtGle0IjonCTdULpHGs3TbQO7PcqHyplhaVH+O/X1nlGg5sKWfQ==
+	t=1793932137;
+	b=X0vsSbtaZcX1+d/V6nfyg+3T0t5t7a1AncReMLKw/gS96N7KsvzJE/kZ19KqBSUznAnP
+	 JGRBiOVrPA38d0lPPukARIGDQ+kILdi3Nq0jlbgzmNWjMxPm3gVo2FFz2O7n/20Pj6vOH
+	 AFdf+G2OzTXT14obB2VjheHJxjKgRqEZ5Hwx+Vev2zpTS4pDsP7Rq7SdAiqUvyI2rsOY3
+	 I2xEhQ2zj568g/81sYEX6Ufs9uDv3YCSjOdrUFQHZrXPo7rUEhQIHO+s/Hkrj4O4NWGNO
+	 7y+CdOQWOB4uNbRmZDJM3FQJN8IbH8MBBaGxzV+teDhmVMJkuJ+AIUElUApl5OiFvxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793931799;
-	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
-	 X-Coremail-Antispam;
-	bh=noEq/oDfxdHv3ZN0zalPXPeXSKk0a1Plk07yiuVI0G4=;
-	b=K6oQQZfXrmsR/trYzkdY44I1uzL18BydMSzBfaKuEZ1CRfIq0q78aScQpMbgA18ofVhh
-	 VshBJLrld0NHL8wHyD78Z1XT8CAodtZO6KIEjhxzoL6g5l7+Zg4jydwjKNo0E4yBZdUNH
-	 uQgPE6qjqRNJ0Tt0B2y2PvMsqX74zwLJ0odbxMfPJ8izkQTWXM4FSXmYKig6RiBMuvMD2
-	 0iDpXsMGX3ZqcxKqXpBi52Cwn6lXwZf7BXIhDeIuZFG76KxPMLuZ49gsZz4ReuJyb92Cx
-	 Z/MYKfJf8+BepMttrY3+VEo97BCbQ1M8zgou5oiy1VtCd4m4D7OWRL/MxX1nvKRvfug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793932137;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=gVzjapyzThtpHqYy+zr59ZaHq8o+YwoG8UCKDQvTEjY=;
+	b=oThO3+eJ9bZGcXBx9HMuLmqqVf0ST77BZjAol6lB0jkJxvLdP+CWqRKffdY27GQ3seyh
+	 pK/dbqQi+9T18L1JC6ek10VpgbQ4M79KcA5C4znHHMsnDkWaWqTLnzx/khJYWv7aZ/b8j
+	 AxkXNLKkqqUasXsWesFSCqnUPA6sXqs1zZ9jheYqhgB+ZjS+UGU8YCnY4ejo6Am+hDgV5
+	 XNqXknrTbfTIutbBp3pgQpte8JRDKiNaYaIXvzBpYlspDKSBqWM0ycMcsGCLMm0eVm7Xm
+	 co98jAv6mecLm3dvVq//2R7goMuGectdofyYexbouEQebW4qMUfkjylai1Z0jEIwreQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=loongson.cn;
-	spf=pass smtp.mailfrom=loongson.cn;
-	arc=none smtp.remote-ip=114.242.206.163
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 18254606A326
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 02:23:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18254606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.101])
-	by gateway (Coremail) with SMTP id _____8Cx+9EMOu1q0+ccAA--.18156S3;
-	Fri, 06 Nov 2026 10:23:08 +0800 (CST)
-Received: from loongson-pc.loongson.cn (unknown [127.0.0.1])
-	by front1 (Coremail) with SMTP id qMiowJDxE+QCOu1qCq8yAA--.19503S4;
-	Fri, 06 Nov 2026 10:23:05 +0800 (CST)
-From: Hongliang Wang <wanghongliang@loongson.cn>
-To: Hongliang Wang <wanghongliang@loongson.cn>
-Cc: Binbin Zhou <zhoubinbin@loongson.cn>,
-	Xi Ruoyao <xry111@xry111.site>,
-	Huacai Chen <chenhuacai@loongson.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH v11 2/2] i2c: ls2x: Add clocks property parsing and adjust bus speed
-Date: Fri,  6 Nov 2026 10:22:56 +0800
-Message-Id: <20261106022256.30514-3-wanghongliang@loongson.cn>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20261106022256.30514-1-wanghongliang@loongson.cn>
-References: <20261106022256.30514-1-wanghongliang@loongson.cn>
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DBYgjl0Z;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66EBB606A31B
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 02:28:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DBYgjl0Z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 801891F0089F;
+	Fri,  6 Nov 2026 02:28:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793932137;
+	bh=gVzjapyzThtpHqYy+zr59ZaHq8o+YwoG8UCKDQvTEjY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=DBYgjl0ZRptryXgIwlKIFGx01/+SHFJrU0C3jcPYVN/oBOHnqImhqb0O1wEedOn/5
+	 3/M7dIG3RIUFj8Nxh2GJckRbx/fJy0EMKKrusIsA4y3hKMG9r6t3b2CMpSzWkmHICX
+	 4spJBgWm+axdeHof7rSAFFUdy/KM5W2AvVJtsiDVH2SBVVol390hFcmPWmltzKSMHW
+	 UMv1RQrDs+m23ZcrKvLcLWfzry9wS4p132eo+Vt5W/DIutEuCd6d4dO23CtVUTxwvm
+	 ZOxbBpjEeO1vJMH7fvQOWyoHaxbHzGNtkBHAaygQ4QFYV0iw4bNHSGu0o8u+gPEI9W
+	 9Zf/mrrAyuavg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Chuck Lever <cel@kernel.org>,
+	syzbot+d5c77cabf7a3492aa650@syzkaller.appspotmail.com,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3.y 1/2] NFSD: Move the cld upcall message out of the caller's stack frame
+Date: Thu,  5 Nov 2026 21:28:53 -0500
+Message-ID: <20261106022847.3726614-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026110452-janitor-overdraft-33cb@gregkh>
+References: <2026110452-janitor-overdraft-33cb@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -56,163 +60,87 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJDxE+QCOu1qCq8yAA--.19503S4
-X-CM-SenderInfo: pzdqwxxrqjzxhdqjqz5rrqw2lrqou0/
-X-Coremail-Antispam: 1Uk129KBj93XoWxXryrXFWktr1kGr4kAFWDtrc_yoWrKFWxpa
-	yDC34rGr4qgF12grsxJw1UZFyayws5JayxuFy2y3Zru3Z3Arn8X3WftFnIvF4ruFyxWayD
-	ZayDWFsrCFWjvrXCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUkjb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
-	Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l5I
-	8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AK
-	xVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l42xK82IYc2Ij64
-	vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
-	jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2I
-	x0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK
-	8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I
-	0E14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07UWHqcUUUUU=
 
-The original driver uses a fixed PCLK frequency(LS2X_I2C_PCLK_FREQ) and
-fixed div(5) for I2C bus speed calculation. As PCLK frequency and div
-vary on different SoCs and ACPI platforms, this leads to inaccurate I2C
-bus speed calculation and poor adaptability across platforms.
+From: Chuck Lever <cel@kernel.org>
 
-Improve the accuracy of I2C bus speed calculation across different
-platforms by parsing the real I2C bus reference clock (PCLK) and div.
-Support both DTS and ACPI.
+[ Upstream commit c559b05610557fa3c6c30259261f6dae523b3f23 ]
 
-For DTS:
-- Retrieve I2C bus reference clock via the common clock framework
-- Fetch div from match data for LS2K/LS7A series
-- Fallback to default values if clock lookup fails or the obtained
-  pclk or div is zero
+__cld_pipe_upcall() builds its struct rpc_pipe_msg on the stack and
+hands it to rpc_queue_upcall(), which links it into a list the pipe
+owns until the message is released. Only the completion rules keep that
+frame alive for as long as the pipe refers to it, and the peer that
+drives those rules is an untrusted userspace daemon. The gss and idmap
+upcalls do not take that on: each keeps the message in the object it
+already allocates.
 
-For ACPI:
-- Parse "clocks" property to get I2C bus reference clock
-- Parse "clock-div" property to get div
-- Fallback to the default values if property parsing fails or the
-  obtained pclk or div is zero
+Do the same here and put the message in struct cld_upcall, beside the
+reply buffer it carries. cld_pipe_destroy_msg() then reaches the upcall
+from the message directly rather than through msg->data.
 
-Calculate the I2C clock prescaler based on reference clock, div and
-target bus frequency with the formula:
-
-prescale = (pclk * 10) / (div * bus_freq_hz) - 1
-
-Dynamically acquiring PCLK and div per platform ensures accurate I2C bus
-speed calculation and reliable operation across different platforms.
-
-Reviewed-by: Binbin Zhou <zhoubinbin@loongson.cn>
-Tested-by: Xi Ruoyao <xry111@xry111.site>
-Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
-Cc: stable@vger.kernel.org
-Signed-off-by: Hongliang Wang <wanghongliang@loongson.cn>
+Reported-by: syzbot+d5c77cabf7a3492aa650@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=d5c77cabf7a3492aa650
+Link: https://patch.msgid.link/20260901-alemi-v2-2-e163f94a3a6e@kernel.org
+Signed-off-by: Chuck Lever <cel@kernel.org>
+Stable-dep-of: 2a83fcb50f3c ("NFSD: Complete a cld upcall when the daemon closes the pipe")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/i2c/busses/i2c-ls2x.c | 44 ++++++++++++++++++++++++++++++++---
- 1 file changed, 41 insertions(+), 3 deletions(-)
+ fs/nfsd/nfs4recover.c | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/i2c/busses/i2c-ls2x.c b/drivers/i2c/busses/i2c-ls2x.c
-index ef2e2a26981e..75d08cce6b8a 100644
---- a/drivers/i2c/busses/i2c-ls2x.c
-+++ b/drivers/i2c/busses/i2c-ls2x.c
-@@ -12,6 +12,7 @@
- 
- #include <linux/bitfield.h>
- #include <linux/bits.h>
-+#include <linux/clk.h>
- #include <linux/completion.h>
- #include <linux/device.h>
- #include <linux/iopoll.h>
-@@ -63,11 +64,19 @@
- /* The default bus frequency, which is an empirical value */
- #define LS2X_I2C_FREQ_STD	(33 * HZ_PER_KHZ)
- 
-+/* The div of i2c reference clock on LS2K0500/2K1000/2K2000 */
-+#define LS2X_I2C_2K_CLOCK_DIV	40
-+
-+/* The div of i2c reference clock on LS7A1000/7A2000 */
-+#define LS2X_I2C_7A_CLOCK_DIV	50
-+
- struct ls2x_i2c_priv {
- 	struct i2c_adapter	adapter;
- 	void __iomem		*base;
- 	struct i2c_timings	i2c_t;
- 	struct completion	cmd_complete;
-+	unsigned int		div;
-+	unsigned int		pclk;
- };
- 
- /*
-@@ -107,12 +116,14 @@ static void ls2x_i2c_adjust_bus_speed(struct ls2x_i2c_priv *priv)
- 	else
- 		t->bus_freq_hz = LS2X_I2C_FREQ_STD;
- 
-+	val = div64_u64((u64)priv->pclk * 10,
-+			(u64)priv->div * t->bus_freq_hz) - 1;
-+
- 	/*
- 	 * According to the chip manual, we can only access the registers as bytes,
- 	 * otherwise the high bits will be truncated.
- 	 * So set the I2C frequency with a sequential writeb() instead of writew().
- 	 */
--	val = LS2X_I2C_PCLK_FREQ / (5 * t->bus_freq_hz) - 1;
- 	writeb(FIELD_GET(GENMASK(7, 0), val), priv->base + I2C_LS2X_PRER_LO);
- 	writeb(FIELD_GET(GENMASK(15, 8), val), priv->base + I2C_LS2X_PRER_HI);
- }
-@@ -287,6 +298,7 @@ static const struct i2c_algorithm ls2x_i2c_algo = {
- static int ls2x_i2c_probe(struct platform_device *pdev)
+diff --git a/fs/nfsd/nfs4recover.c b/fs/nfsd/nfs4recover.c
+index 6441e54283a35..6b0c51b8938b5 100644
+--- a/fs/nfsd/nfs4recover.c
++++ b/fs/nfsd/nfs4recover.c
+@@ -649,6 +649,7 @@ struct cld_upcall {
+ 	struct completion	 cu_done;
+ 	/* daemon has read the whole upcall; protected by cn_lock */
+ 	bool			 cu_inflight;
++	struct rpc_pipe_msg	 cu_pipe_msg;
+ 	union {
+ 		struct cld_msg_hdr	 cu_hdr;
+ 		struct cld_msg		 cu_msg;
+@@ -660,22 +661,22 @@ static int
+ __cld_pipe_upcall(struct rpc_pipe *pipe, void *cmsg, struct nfsd_net *nn)
  {
- 	int ret, irq;
-+	struct clk *clk;
- 	struct i2c_adapter *adap;
- 	struct ls2x_i2c_priv *priv;
- 	struct device *dev = &pdev->dev;
-@@ -304,6 +316,32 @@ static int ls2x_i2c_probe(struct platform_device *pdev)
- 	if (irq < 0)
- 		return irq;
+ 	int ret;
+-	struct rpc_pipe_msg msg;
+ 	struct cld_upcall *cup = container_of(cmsg, struct cld_upcall, cu_u);
++	struct rpc_pipe_msg *msg = &cup->cu_pipe_msg;
  
-+	if (dev_of_node(dev)) {
-+		clk = devm_clk_get_optional_enabled(dev, NULL);
-+		if (IS_ERR(clk))
-+			return PTR_ERR(clk);
-+		if (clk) {
-+			priv->pclk = clk_get_rate(clk);
-+			if (!priv->pclk)
-+				priv->pclk = LS2X_I2C_PCLK_FREQ;
-+		} else {
-+			priv->pclk = LS2X_I2C_PCLK_FREQ;
-+		}
-+
-+		priv->div = (unsigned long)device_get_match_data(dev);
-+		if (!priv->div)
-+			priv->div = LS2X_I2C_2K_CLOCK_DIV;
-+	} else {
-+		/* clocks and clock-div properties are used only in ACPI path. */
-+		ret = device_property_read_u32(dev, "clocks", &priv->pclk);
-+		if (ret || !priv->pclk)
-+			priv->pclk = LS2X_I2C_PCLK_FREQ;
-+
-+		ret = device_property_read_u32(dev, "clock-div", &priv->div);
-+		if (ret || !priv->div)
-+			priv->div = LS2X_I2C_7A_CLOCK_DIV;
-+	}
-+
- 	/* Add the i2c adapter */
- 	adap = &priv->adapter;
- 	adap->retries = 5;
-@@ -349,8 +387,8 @@ static DEFINE_RUNTIME_DEV_PM_OPS(ls2x_i2c_pm_ops,
- 				 ls2x_i2c_suspend, ls2x_i2c_resume, NULL);
+-	memset(&msg, 0, sizeof(msg));
+-	msg.data = cmsg;
+-	msg.len = nn->client_tracking_ops->msglen;
++	memset(msg, 0, sizeof(*msg));
++	msg->data = cmsg;
++	msg->len = nn->client_tracking_ops->msglen;
  
- static const struct of_device_id ls2x_i2c_id_table[] = {
--	{ .compatible = "loongson,ls2k-i2c" },
--	{ .compatible = "loongson,ls7a-i2c" },
-+	{ .compatible = "loongson,ls2k-i2c", .data = (void *)LS2X_I2C_2K_CLOCK_DIV, },
-+	{ .compatible = "loongson,ls7a-i2c", .data = (void *)LS2X_I2C_7A_CLOCK_DIV, },
- 	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(of, ls2x_i2c_id_table);
+-	ret = rpc_queue_upcall(pipe, &msg);
++	ret = rpc_queue_upcall(pipe, msg);
+ 	if (ret < 0) {
+ 		goto out;
+ 	}
+ 
+ 	wait_for_completion(&cup->cu_done);
+ 
+-	if (msg.errno < 0)
+-		ret = msg.errno;
++	if (msg->errno < 0)
++		ret = msg->errno;
+ out:
+ 	return ret;
+ }
+@@ -848,9 +849,8 @@ cld_pipe_downcall(struct file *filp, const char __user *src, size_t mlen)
+ static void
+ cld_pipe_destroy_msg(struct rpc_pipe_msg *msg)
+ {
+-	struct cld_msg *cmsg = msg->data;
+-	struct cld_upcall *cup = container_of(cmsg, struct cld_upcall,
+-						 cu_u.cu_msg);
++	struct cld_upcall *cup = container_of(msg, struct cld_upcall,
++						 cu_pipe_msg);
+ 	struct cld_net *cn = cup->cu_net;
+ 
+ 	/*
 -- 
-2.47.2
+2.53.0
 
