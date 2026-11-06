@@ -1,53 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.146
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793950696;
-	b=ufxvK/j6AEx84ukFQ4WgClEGPLo648hFh0IkR7rVWTPa+PyX/G2wPX+xqb1igUp1IBey
-	 L3z3ZP1tsS9kt/RpWriDsMg8TTd0CXHz52nubLL6dUtJOm/BF7JECj9xadKrOl9TmorZQ
-	 gCdNhMx6B07ZlKQ0lJt4eyjdnV5DQn8yFQOZ17v5oqN/K42IQOH5qo80s/bZkTj3kHGln
-	 NFdd3JUME8IH9vvkc20bJeyjD4G03azLR7+tmBDfok29YUXRAYGz4o2TaKw3urcoxqvcs
-	 scx4cWK4N9EIFMryQ56j2/gn/8Qmtr5fdnSSIzLF2HkRulnrLt0/zx+DZAlpWOubL+Q==
+	t=1793951056;
+	b=qm12/ON3hTqweOHvwrDFZZWS2wjvzTZ9DCQMnJuYYinawk6fl3kAjLWAtzJxFHbVyDge
+	 u9Rvj28U+FXuL0olr7QjN9zKp/mGtk6qNWjOdm6mKHtVbiBN1PkNzBYIf5X+CRQXTQ4Vs
+	 CGoYzZZPgQ7OmDp3zTVNKmP32VKARwPq+xalspyH+J4ns2zrUkn3hElp5/NKH/nodEdVP
+	 D0TpS8nuKRIIT/MRjgnr5C0ebSokqW6Awb3Jqe4+B1JIdeTCDP0A92y1UnBPAHk9oyM7C
+	 A+sNbHBF94mWyUCsfksiuwaOsyRzZiRP8M7Sd9ugHtlg8kXYJwW8C2fsaF0+hQcFrGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793950696;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:In-Reply-To:
-	 References:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=nup/d5xUjvEo1vx4q2sZoM+/UF0zitralJNNC5zemuA=;
-	b=Urc1ZzL/tjdEiY7poPDNea+LFPPkzD/eGYaCIYpQaxgTGyW0cDUVFvGLWngwvHtu8IDR
-	 yTOaZPTMwZWWxgTb9XMHh1TSedSK1gryQaswXBbLlcAAE1Gn6Ql8del9rUVEHq4Fz8q7D
-	 /kJINvtXMVROzBSapRWYe9eiy/vycPpI2H7WjVxNmGxoQSFzeonWTKIwvLgOsZKR2zDcP
-	 S6tTCoWl8Wq/tLM4tgriSVeGqAUdAu3vFaCPv9t3lY31EZUnTENl0ML8UqK/SJyfo/lKt
-	 i7MNTSfLH5tNadbbWPiLXM+cTE7sXDK7t1WLojiENlrL1LcfWh5j+aYc0rthX04YKfQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793951056;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=y8qhiqARfxFzaYI3aWMwAYvEikMUtZJKpEmPutTvlBE=;
+	b=mlMoIv80ObI3fn7y3lhSKPTk4Wn4IaFa1S/IWhOxV4jnV8+lAjFl1/VaNvMyoNbfTXZD
+	 5UtztLsOvgZyLBtmTa1KPyz4EZudbX3FUsmGgxKcojb883xYS/bTCdoW6iUfOgks8kgN5
+	 Pimft2LfzfPAaKiImmfnpZwbBNVb+N5tSO/kp14O+UTKiAzqI6fsV2w29c0B0m0cZ5ozx
+	 2Ov4qVtnuPMPpRKEM7p4/X6pFedAJj1y6HyGfkesSerIb33ROkuv06F8SVsN6Tzk5+Nlg
+	 J0Xhh06+o+9xne0RizrA0YmdkHm7+IZ0ugguq5ObnDDiyWBpz+VAkzHQugi0nQEGqLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.81
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	dmarc=pass header.from=pobox.com;
+	spf=pass smtp.mailfrom=pobox.com;
+	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b="WUqcy/v3";
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=CDwDhsAV;
+	arc=none smtp.remote-ip=103.168.172.146
+Received: from fout-a3-smtp.messagingengine.com (fout-a3-smtp.messagingengine.com [103.168.172.146])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59953606A326;
-	Fri,  6 Nov 2026 07:38:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59953606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from [172.100.0.8] (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowADn9Zbdg+1qc_JpAA--.4027S2;
-	Fri, 06 Nov 2026 15:38:05 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Herbert Xu <herbert@gondor.apana.org.au>
-Cc: ayush.sawal@chelsio.com,
-	harsh@chelsio.com,
-	davem@davemloft.net,
-	linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>
-Subject: [PATCH v2] crypto: chelsio - Fix wrcount leak in AES encrypt and decrypt
-Date: Fri, 06 Nov 2026 07:38:14 -0000
-Message-Id: <179395069486.2116632.4190811765560584696@iscas.ac.cn>
-In-Reply-To: <arNk6ujyrvTsFBfS@gondor.apana.org.au>
-References: <20260916092359.2001753-1-vulab@iscas.ac.cn>
-	<arNk6ujyrvTsFBfS@gondor.apana.org.au>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D675606A326
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 07:44:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D675606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=WUqcy/v3;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=CDwDhsAV
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfout.phl.internal (Postfix) with ESMTP id 62C33EC012A
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 02:44:15 -0500 (EST)
+Received: from phl-frontend-02 ([10.202.2.161])
+  by phl-compute-10.internal (MEProxy); Fri, 06 Nov 2026 02:44:15 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1793951055;
+	 x=1794037455; bh=y8qhiqARfxFzaYI3aWMwAYvEikMUtZJKpEmPutTvlBE=; b=
+	WUqcy/v38OdFizXhKFa42SjkeUgNKrVr4G13qQgbJWFR/bLLcIDoVLfz8tGJQ2Jm
+	TC7h6ssYptm4AB27zPIJQWRmq5CX69XhRCNQpK8fJqF+0l5eYIojFJH96sbu76y7
+	4q8rvvVElWZHd7blP/ND1bZey1FbFzCQmLm4IJEKB1bjTOA4i1JzJ48madc10F/g
+	Gzn26tEdzsSGYMjFGuBu46/EPNmWr2KzHVMUkxt/6qd7iPt0c5ZBfBHh1MR2AxwY
+	/KjwZlTegjaGuSHGh0rnMhcROAJgcmKh5wBO52btlcEScdVFqGgAWVz78b4EcsXI
+	xnqCYkRjbtrpwKW98XbKSA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1793951055; x=
+	1794037455; bh=y8qhiqARfxFzaYI3aWMwAYvEikMUtZJKpEmPutTvlBE=; b=C
+	DwDhsAVytTAkboRkgbLepfG+t2iFxo2OGg+i7ghtuA9ib0KmVFLZtOabQdu5+o5x
+	bja8h5mndmqj46TpLvqdwpvcSO5CilKDFNlb03oZgCZ/SXOtR2w/DMt22iqceJG0
+	x55EYn+p03pZlJAo1BMh3V0FO9gkxU6XMVDneLPrbpvptDZZeerIdrm5Yke7Lmp3
+	B42MA15+jsnRsMI4blIkHFwy+lYmxvhxhf4yMzCOi5e8XKmOCDOjS+Bbmy2VFtwT
+	YNxazkbCGwbO3n0SY7MnpxqgY1MLcS+AvRlaEHRxJ/PmngWGV6PE0NfZ1vi367yn
+	8EwJmU6cdNvDHfyk8N1CQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=pobox.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793951055; d=pobox.com;
+	mf=PGJhcnJ5bkBwb2JveC5jb20+;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:ljsLT2twzer3Prxc0PNypTWOY5/PMiGN3FCQ67jR21jX6mx
+	2GQU0WZx0RGicvpa1tGPeNN6yJ7DC8gI3Jlx43UC/Zja+4x6TL4oP9yS0I0dhsqr
+	etK/zAI+JcCc4rt965YclMAdXE8QJLvBpJZDeZCuob0QEX6gkvDVJ0b6prT7F1lC
+	u94Dx7qchOj2N51K3Qq9kb75C99UYYIOe/ozRZ7capk1s08DbVLKbVrxLmeUQW/n
+	Tm9kBpVoYXTQncJsnUXY9JOAIAIb29bzJNECksK/2IZ7E0Cl1HBeZPSyulXJ78X3
+	KgUE53GfR55LalWO/93GvaojCf4LE/aXClhqxbg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=14;
+	hn=cc,content-language,content-transfer-encoding,content-type,
+	date,feedback-id,from,in-reply-to,message-id,mime-version,
+	references,subject,to,user-agent;
+Message-Instance: m=1; h=sha256:bExF4Tplnp70lURcFsV6gVRqFZbcMVUBWV7NbCxAw/s=:dSKiFnUpLIC7lNd/GW2N8p2qwhBAunoKaT9r/ZeOR3w=;
+X-ME-Sender: <xms:ToXtahZoyZZ12vykhMM3P2SByyYQi5Qsz4JIMVqOyblhXdOK8IGOcQ>
+    <xme:ToXtakRkkAtmy6VsDf03yOBGrL5q5YEx4LOc7h6gumV2_SzSrXpiUwKWSNhnsrUXC
+    gWZ-tsIL8n0fB-f5GqVPnagREXTcynYVQ9O1iLMaFBbQXBxrl3tCgI>
+X-ME-Received: <xmr:ToXtavevUxZpX0vY-MOfD-c20QaDjaMaMyvwftM1VAfOTbwMu1m8Kk8-fN74eVPtInJdvF-g_2QBWQrKcZuHJBfSN2QXzpJJ>
+X-ME-Proxy-Cause: dmFkZTFd9YvhNJTDJzCilqWKUyzxBLIOK5Q4TBXoLdmRmYepOjUJGZk5Gu4lZg3mrUOdVm
+    M5ObmYN32fHmHm0XlCl2pk4U7CnFh0tvsH8MCfNoHP5cz0sFNIf/tdQtVxIGXVb2i2oW38
+    SNdb0ZItUQweJwo9Tf7updxI5+YpLy6RpgNoKhWsbwgetCdX4zynZ3pF4R0Yhmd9sZTr2k
+    lZX03ujJKHUs4QsPJCGQvQ1TieWA3JvAHpzN+hBziWEnKVBbBCbotfa5fgjXtmTkb+4opV
+    O74NEW6ZY3fHTpvXxIoYpCcfXpWsWrIbClovIUfIc6uWZq0VDPdxjtqhVVRlR0HS0ouGO3
+    kErnIfE4dE2ZJmDeTmG7tk88GnCmCknVjiMdd9t76uczjAaCBRYjbJbt85OaVp6/ZvbPkK
+    k5UlF6qkp49NCtBxGEKEeLqi0G5EN+nLWoiWwZCpGbGBhGqAoKLWWVGrUcrx9Wle1AlPba
+    0TQGumOM1FrqioN4rS03xNgcXNfvmZoDd/tG6mdzfo8wBeaM49ESAhtsGUixTqalpJ0yO+
+    1jlbLPyYu9iNNJqCpvDSEyB/uNiG+8xQ/6eNNzWeQTTDoX7My/dzdT5QrKdDxbw3r4RqYu
+    8kQvbUK0Y9aYb4gruOejvQppjjQJxM84V1P71ir+i+fH4an6hS5CsS16WgYw
+X-ME-Proxy: <xmx:ToXtajnA4G5c12XJWTd6_DdYdhqGDU6Y83HGO-KzxyMyH5h9G_Vt0Q>
+    <xmx:ToXtakjHXEAqgdGv6BzXpsWWwCRTDamtd9HswBLNsnGpUoqtApSYXA>
+    <xmx:ToXtakEgR6m7CCBRppx6qXYWKEMq-UjkDN30lAoeJt-Kq91zmXiurg>
+    <xmx:ToXtajxD-R2zq7E8jWI6BnAoEN5RnjxLLkSRQv2IvmBOd0cgK42hWA>
+    <xmx:T4XtauuEpGuw1uZdz6qg7DewhkxnVhQCHKCKh0GiejlhI2bPVmjxqX19>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 6 Nov 2026 02:44:12 -0500 (EST)
+Message-ID: <ab245a95-bb31-4d43-9dda-0350307a3ede@pobox.com>
+Date: Thu, 5 Nov 2026 23:44:11 -0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,94 +119,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowADn9Zbdg+1qc_JpAA--.4027S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxWFWxXFy5Ww1xtryxJrykGrg_yoW5Xw13pF
-	s8CFZayr95Jry7GF97Jw4rWFy3uw43Cr13Kr4rt3W8uws8t3yxJ39rZF1YvF1UJF4kJ34U
-	X3yq9a4rZa4DZFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvS1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AE
-	w4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2
-	IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2
-	z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcV
-	Aq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1q
-	6rW5McIj6I8E87Iv67AKxVWxJr0_GcWlOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI4
-	8JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWUAVWUtwCF04k20xvY0x0E
-	wIxGrwCF04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI
-	8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AK
-	xVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI
-	8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280
-	aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43
-	ZEXa7VU1pnQUUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAADA2rtTzW++AAAs3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.18 0000/1005] 6.18.61-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261104211043.516122098@linuxfoundation.org>
+Content-Language: en-US
+From: "Barry K. Nathan" <barryn@pobox.com>
+In-Reply-To: <20261104211043.516122098@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-chcr_aes_encrypt() and chcr_aes_decrypt() increment the device inflight
-count with chcr_inc_wrcount() before building the work request, but both
-can return early without dropping the count.
+On 11/4/26 12:55 PM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.18.61 release.
+> There are 1005 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Fri, 06 Nov 2026 21:07:23 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.61-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-chcr_aes_encrypt() leaks the count when process_cipher() fails or
-returns no skb. chcr_aes_decrypt() leaks it when the tx queue is full or
-when process_cipher() fails and returns no skb. No completion can
-balance those increments, so every failed request permanently skews the
-count and eventually blocks the device from being detached, with the
-detach worker warning "CHCR:request Still Pending".
+I tested 6.18.60 + stable-queue as of commit
+aa65920a134b0366b65f438be80335f2060ed664 ("fuzz cleanup"). This is
+after the broken xfs patch was reverted, but before the tun patch
+was added to the queue.
 
-chcr_aes_encrypt() already has an error label that calls
-chcr_dec_wrcount(), so jump to it on the remaining failure path. Add the
-same label to chcr_aes_decrypt() and jump to it from both of its failure
-paths, mirroring the encrypt side.
+Tested on an amd64 laptop (Lenovo ThinkPad T14 Gen 1) and an arm64
+virtual machine. Working well, no regressions observed.
 
-Fixes: fef4912b66d6 ("crypto: chelsio - Handle PCI shutdown event")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
-Changes in v2:
-- Fix chcr_aes_encrypt() and chcr_aes_decrypt() in a single patch, as
-  requested. Sorry for the late reply.
-- Link to v1: https://lore.kernel.org/all/20260916092527.2002187-1-vulab@iscas.ac.cn/
-  https://lore.kernel.org/all/20260916092359.2001753-1-vulab@iscas.ac.cn/
----
- drivers/crypto/chelsio/chcr_algo.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+Tested-by: Barry K. Nathan <barryn@pobox.com>
 
-diff --git a/drivers/crypto/chelsio/chcr_algo.c b/drivers/crypto/chelsio/chcr_algo.c
-index e2f2b2a6200e..9ce9eefef777 100644
---- a/drivers/crypto/chelsio/chcr_algo.c
-+++ b/drivers/crypto/chelsio/chcr_algo.c
-@@ -1359,7 +1359,7 @@ static int chcr_aes_encrypt(struct skcipher_request *req)
- 	err = process_cipher(req, u_ctx->lldi.rxq_ids[reqctx->rxqidx],
- 			     &skb, CHCR_ENCRYPT_OP);
- 	if (err || !skb)
--		return  err;
-+		goto error;
- 	skb->dev = u_ctx->lldi.ports[0];
- 	set_wr_txq(skb, CPL_PRIORITY_DATA, reqctx->txqidx);
- 	chcr_send_wr(skb);
-@@ -1397,16 +1397,21 @@ static int chcr_aes_decrypt(struct skcipher_request *req)
- 
- 	if (unlikely(cxgb4_is_crypto_q_full(u_ctx->lldi.ports[0],
- 						reqctx->txqidx) &&
--		(!(req->base.flags & CRYPTO_TFM_REQ_MAY_BACKLOG))))
--			return -ENOSPC;
-+		(!(req->base.flags & CRYPTO_TFM_REQ_MAY_BACKLOG)))) {
-+		err = -ENOSPC;
-+		goto error;
-+	}
- 	err = process_cipher(req, u_ctx->lldi.rxq_ids[reqctx->rxqidx],
- 			     &skb, CHCR_DECRYPT_OP);
- 	if (err || !skb)
--		return err;
-+		goto error;
- 	skb->dev = u_ctx->lldi.ports[0];
- 	set_wr_txq(skb, CPL_PRIORITY_DATA, reqctx->txqidx);
- 	chcr_send_wr(skb);
- 	return -EINPROGRESS;
-+error:
-+	chcr_dec_wrcount(dev);
-+	return err;
- }
- static int chcr_device_init(struct chcr_context *ctx)
- {
 -- 
-2.34.1
-
+-Barry K. Nathan  <barryn@pobox.com>
