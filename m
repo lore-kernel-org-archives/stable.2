@@ -1,76 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793980571;
-	b=GLt2j8gpKGd4d6XOs7XuOXJ7xDe24ED3K/BZ8fycB0y+mmnRA6HCUvZznUAxUzEs6TXK
-	 8M0G9qiS5Wsof8uxtRI/NXSVNrPZsD32GNqoZVxfvNWM0OnENljQ9c4nk9Ear4emzxMyP
-	 OXyyxeNfZf9/KkDz8ROCyBxe2xjyWqQT8CbeYSVBUtQSLJwA3fTiQW5Z3wTsiRdILbsNJ
-	 qndHLEvSlQefwdjYs9Rl6fgjXwcT8v947iQ/eyCNBwlePBWectuaQUt+k1IJ7hN5UHAuz
-	 0LsU6UGYmPr0MF0NTWsQHGSocYBW3Gx0ImLjumYCxha22yYoq56Od3BWOnETu6fL3Yw==
+	t=1793980641;
+	b=j6Pt76tV9tzt9nWaFHb4m4aAV2FatiX9dhnteEXvEYVI+Gok1BqdbXn0rdzW+jbXv2Iz
+	 7/54mvP9gSaxuL52wIidtQs38f0lHlBOhIJYyJd8AyK+L2FjWCRgrTeNEwtrE5SfVruDn
+	 pbrrr2a0hsp6+2odseLgz0EjvenOZ9aDdyou7O0fRfEv5tPPkCZQaCy/4wGdxYwwcR1lE
+	 fNPcCaEl79n1HvRKuhcayssyIMoFP4kM01tkkFWvQHjn+Ju6YoMdBHAYoDSKEcB6zujmj
+	 5SX1AAK4Q1HBVLRQ4BPGULsaq3fRXc+HK+EeU3Kl5N0NVq1YxcUwHBH3K7QbGCphRKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793980571;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793980641;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=UfD8ZnH6BJz/4LIcV1+SpPJwWoacvDCqotJJBOhRHbY=;
-	b=z5SduuzOcfU+ITOWj6EudjlcPmwLK5xYTUZvzPpQUBXhU/wY5MjO79GlWZEAqC8lpaop
-	 4LkGmG3HIeXfqlyUieiEQDc3Rz/PyDV2pAmwfDAmgI5mWMM5Cu8iglR5TismdzIq3idY3
-	 fkT//KKIlx9/SnMsrl8jW6ck+ZX6iuQod3JusmB+YZ9aRqdCLk129SJiYNToXz7dphidc
-	 OBjGqNZC1+JauqD0ij81Tf6OJJ2DRh7OuOr+9LRjD1A5RarPXRYj7tnicgH3qrl+HpPG/
-	 P88F9+lefbVMZiSAh9H7d4PJ8uDWZvRIAEh1KxKKmqTUGok13kya8fvUlufeFKKdKiw==
+	bh=kGLkV2arTsITsFBFDWHaARE2+eYeJRko9HB2FvywEtA=;
+	b=5qsQ0SNWyEcxgfJVlQjqdsZjVnePeb/2pRraOhrOQQjB24gbLRkpNpClBawsJXyxok9p
+	 lgCdOuWKSafjgevRQ0c8YMbP0Z0cr2Y9d2VE653v6oNCDTg4umbLfEd0Y7Yp415+5ukmm
+	 Bh3yjD+D0KYe40KtXJdkpHXlyM7KLZ9y1kTcMcbHbaqFm4WkYVRQI7nN3yGoaVa16TMjq
+	 oJ/vECfCiCf69WDWFLdGG+LlxA48CQQJfqFYnYiP2yjAZq1wE/IBwF9FXXEDb0YoxBoRo
+	 XtUlrp6BU0bG8riPF5Ch4/N1fXPGxU8OdY0cZTGMMxsIaANOCk/75sHHTAawLC9ygVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nIN9eJWk;
-	arc=none smtp.remote-ip=95.215.58.9
-Received: from mta1.migadu.com (out-9.mta1.migadu.com [95.215.58.9])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=iicvIvre;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C1F4606A32C
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 15:56:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C1F4606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8AA7606A329;
+	Fri,  6 Nov 2026 15:57:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nIN9eJWk
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=IUxtcrSK4ScUgL4iwrR/fCWoiD4BzoTR6aRMHmOVWZw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793980567; v=1; x=1794585367;
- b=nIN9eJWkx0/Zp/tqNTNTIvfGLDUajdmUzVXC0+QaFWbCFAy2R9/Ih25xdkqBZ7HDtFUqSmKE
- oPvIQGjNMhiMAfVLoJ2QIEZ8nrCHtV1dqzun4eQFtCp9m72m0pGRyYmw5EW+soHwI2Rp+Zzrph5
- VW24hOtLjtiGG7UAilnor9hg=
-X-Envelope-To: stable@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 7a7c6486c02f11c8;
-	Fri, 06 Nov 2026 15:56:07 +0000
-X-Mizu-Trace-ID: 7a7c6486c02f11c8
-X-Migadu-Flow: FLOW_OUT
-From: Usama Arif <usama.arif@linux.dev>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Usama Arif <usama.arif@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Hugh Dickins <hughd@google.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] mm: don't allocate a page table under RCU in do_set_pmd()
-Date: Fri,  6 Nov 2026 07:56:03 -0800
-Message-ID: <20261106155604.3999641-1-usama.arif@linux.dev>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261106-khugepaged_set_pmd-v2-2-d2457b5e377a@kernel.org>
-References: 
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=iicvIvre
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E850F1F0089F;
+	Fri,  6 Nov 2026 15:57:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1793980640;
+	bh=kGLkV2arTsITsFBFDWHaARE2+eYeJRko9HB2FvywEtA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=iicvIvreJ71pkcvw1woL/L4zbavYkDErAVrArRIp0dsEjS5KXngMPY+bjbp3m/FKb
+	 c036lM6d9y2HoPzyRIKUUF/5Wiq9g9Q/PPMtAupq43FycCfj8H/teRDPmstoA13Uf8
+	 FnWskYgGKvCK7CeatILM3S21WjlcHZAT6gBX4HoM=
+Date: Fri, 6 Nov 2026 07:57:19 -0800
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Krystian Kaniewski <krystianmkaniewski@gmail.com>
+Cc: "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>, Pedro Falcato
+ <pfalcato@suse.de>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan
+ Kara <jack@suse.cz>, David Hildenbrand <david@kernel.org>,
+ linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] mm/filemap: stop fault-around when the walk steps
+ back
+Message-Id: <20261106075719.5ae53a9d248c9219381ee60e@linux-foundation.org>
+In-Reply-To: <4284c2d3-75cb-4e41-aa45-f7311e60ab4a@gmail.com>
+References: <20261031-jf-mm-filemap-map-pages-lower-bound-v2-1-21029744e589@linux.dev>
+	<aunPI5eOUOAEUa8d@pedro-suse.tail5790ac.ts.net>
+	<20261104-jf-filemap-v2-pedro-reply-r2-74c87c6fbcf@linux.dev>
+	<auxvLCiljPhy0n_q@pedro-suse.tail5790ac.ts.net>
+	<au0GBdGqu6cv5PMy@linux.dev>
+	<4284c2d3-75cb-4e41-aa45-f7311e60ab4a@gmail.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -79,133 +64,176 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Fri, 06 Nov 2026 13:36:13 +0100 "David Hildenbrand (Arm)" <david@kernel.org> wrote:
+On Fri, 6 Nov 2026 12:36:05 +0100 Krystian Kaniewski <krystianmkaniewski@gmail.com> wrote:
 
-> do_fault_around() skips PTE table preallocation when the PMD already points
-> to a PTE table. A concurrent collapse can then retract that table and
-> clear the PMD before filemap_map_pages() locks the new PMD-sized folio.
-> 
-> filemap_map_pmd() can then call do_set_pmd() with an empty PMD and no
-> preallocated table. On PowerPC hash MMU, do_set_pmd() then tries
-> allocating a PTE table to deposit. But filemap_map_pmd() calls
-> do_set_pmd() under RCU, so allocating from that context is not good.
-> 
-> This race became possible when retract_page_tables() stopped taking the
-> mmap and VMA locks. Previously, those locks excluded retraction while
-> the fault was in progress.
-> 
-> Add a may_alloc argument to do_set_pmd() and pass false from
-> filemap_map_pmd(), so we can fail with VM_FAULT_FALLBACK instead of
-> trying to allocate.
-> 
-> This issue should be fairly hard to hit in practice.
->
+> Andrew, Jose's Tested-by for the xarray patch is on the filemap patch
+> in mm-hotfixes-unstable.
 
-Yes, I imagine it was very difficult to reproduce, doing a sleeping
-pte_alloc_one() inside filemap_map_pmd()'s RCU read-side section
-when a concurrent retract_page_tables() empties the PMD. Only
-possible on PowerPC.
+So it is, thanks.  I've moved that into "xarray: fix index jumping
+backwards in xas_find()":
 
-> Fixes: 1d65b771bc08 ("mm/khugepaged: retract_page_tables() without mmap or vma lock")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
 
-Acked-by: Usama Arif <usama.arif@linux.dev>
+From: Krystian Kaniewski <krystianmkaniewski@gmail.com>
+Subject: xarray: fix index jumping backwards in xas_find()
+Date: Fri, 4 Sep 2026 14:12:59 +0200
 
->  include/linux/mm.h |  3 ++-
->  mm/filemap.c       |  2 +-
->  mm/khugepaged.c    |  2 +-
->  mm/memory.c        | 10 +++++++---
->  4 files changed, 11 insertions(+), 6 deletions(-)
-> 
-> diff --git a/include/linux/mm.h b/include/linux/mm.h
-> index a2dd76cc5bbfe..bd144fec5f5da 100644
-> --- a/include/linux/mm.h
-> +++ b/include/linux/mm.h
-> @@ -2156,7 +2156,8 @@ static inline pte_t maybe_mkwrite(pte_t pte, struct vm_area_struct *vma)
->  	return pte;
->  }
->  
-> -vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *page);
-> +vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *page,
-> +		bool may_alloc);
->  void set_pte_range(struct vm_fault *vmf, struct folio *folio,
->  		struct page *page, unsigned int nr, unsigned long addr);
->  
-> diff --git a/mm/filemap.c b/mm/filemap.c
-> index 86297841f9955..9871b4f32a916 100644
-> --- a/mm/filemap.c
-> +++ b/mm/filemap.c
-> @@ -3745,7 +3745,7 @@ static bool filemap_map_pmd(struct vm_fault *vmf, struct folio *folio,
->  
->  	if (pmd_none(*vmf->pmd) && folio_test_pmd_mappable(folio)) {
->  		struct page *page = folio_file_page(folio, start);
-> -		vm_fault_t ret = do_set_pmd(vmf, folio, page);
-> +		vm_fault_t ret = do_set_pmd(vmf, folio, page, /* may_alloc= */ false);
->  		if (!ret) {
->  			/* The page is mapped successfully, reference consumed. */
->  			folio_unlock(folio);
-> diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-> index 8d9f05a39afb3..5836e08abc984 100644
-> --- a/mm/khugepaged.c
-> +++ b/mm/khugepaged.c
-> @@ -1826,7 +1826,7 @@ static enum scan_result set_huge_pmd(struct vm_area_struct *vma, unsigned long a
->  	}
->  
->  	vmf.pmd = pmdp;
-> -	if (do_set_pmd(&vmf, folio, page))
-> +	if (do_set_pmd(&vmf, folio, page, /* may_alloc= */ true))
->  		return SCAN_FAIL;
->  
->  	folio_get(folio);
-> diff --git a/mm/memory.c b/mm/memory.c
-> index 421064aef3cf0..6eeed43b05a19 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -5682,7 +5682,8 @@ static void deposit_prealloc_pte(struct vm_fault *vmf)
->  	vmf->prealloc_pte = NULL;
->  }
->  
-> -vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *page)
-> +vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *page,
-> +		bool may_alloc)
->  {
->  	struct vm_area_struct *vma = vmf->vma;
->  	bool write = vmf->flags & FAULT_FLAG_WRITE;
-> @@ -5723,6 +5724,8 @@ vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *pa
->  	 * related to pte entry. Use the preallocated table for that.
->  	 */
->  	if (arch_needs_pgtable_deposit() && !vmf->prealloc_pte) {
-> +		if (!may_alloc)
-> +			return VM_FAULT_FALLBACK;
->  		vmf->prealloc_pte = pte_alloc_one(vma->vm_mm);
->  		if (!vmf->prealloc_pte)
->  			return VM_FAULT_OOM;
-> @@ -5764,7 +5767,8 @@ vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *pa
->  	return ret;
->  }
->  #else
-> -vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *page)
-> +vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *page,
-> +		bool may_alloc)
->  {
->  	return VM_FAULT_FALLBACK;
->  }
-> @@ -5888,7 +5892,7 @@ vm_fault_t finish_fault(struct vm_fault *vmf)
->  
->  	if (pmd_none(*vmf->pmd)) {
->  		if (!needs_fallback && folio_test_pmd_mappable(folio)) {
-> -			ret = do_set_pmd(vmf, folio, page);
-> +			ret = do_set_pmd(vmf, folio, page, /* may_alloc= */ true);
->  			if (ret != VM_FAULT_FALLBACK)
->  				return ret;
->  		}
-> 
-> -- 
-> 2.43.0
-> 
-> 
+A bug in the XArray iterator xas_find() causes the iterator's index
+(xas->xa_index) to jump backwards when iterating over a multi-index entry
+(like a THP) that resides in a non-leaf node and is concurrently split.
+
+When iterating over a multi-index entry in a non-leaf node, xas_load()
+sets xas->xa_offset to the base offset of the entry, but leaves
+xas->xa_index at the requested index.  When the caller subsequently wants
+to advance to the next entry, xas_find() is called.  xas_find() attempts
+to synchronize xas->xa_offset with xas->xa_index before advancing. 
+However, the fixup logic was incorrectly restricted to leaf nodes
+(!xas->xa_node->shift).  Because the THP resides in a non-leaf node, the
+fixup is skipped.
+
+As a result, xas_find() simply increments xas->xa_offset and recalculates
+xas->xa_index based on this new offset.  This causes xas->xa_index to jump
+backwards.  If the THP was concurrently split, the entry at the new offset
+is a node pointer, so xas_find() descends into it and returns the folio at
+the backwards index.  The caller (filemap_map_pages()) then calculates the
+PTE pointer based on this backwards index, resulting in an invalid memory
+access such as an out-of-bounds read or use-after-free on a page-table
+page freed via tlb_remove_table_rcu().
+
+A userspace access that faults in a file-backed mapping can trigger this
+path.  When the index moves backwards, filemap_map_pages() can calculate a
+PTE outside the page locked for fault-around and dereference a freed
+page-table page, resulting in a KASAN-detected use-after-free read.
+
+To fix this, check if xas->xa_offset matches get_offset(xas->xa_index,
+xas->xa_node).  If it does not and the node is a non-leaf node, set
+xas->xa_offset to get_offset(xas->xa_index, xas->xa_node) before
+advancing.  Also add test cases in test_xarray to verify xas_find()
+behavior when iterating over and splitting multi-index entries.
+
+Link: https://lore.kernel.org/20260904121301.200049-1-krystianmkaniewski@gmail.com
+Fixes: b803b42823d0 ("xarray: Add XArray iterators")
+Reported-by: syzbot+b72767277f29b6407083@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=b72767277f29b6407083
+Closes: https://syzkaller.appspot.com/ai_job?id=a01c56bd-74d0-411c-afb4-ee6f0cb6cb61
+Signed-off-by: Krystian Kaniewski <krystianmkaniewski@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Tested-by: Jose Fernandez (Anthropic) <jose.fernandez@linux.dev>
+  Link: https://lore.kernel.org/20261104-jf-filemap-v2-pedro-reply-r2-74c87c6fbcf@linux.dev
+Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: <stable@vger.kernel.org>
+---
+
+ lib/test_xarray.c |   70 ++++++++++++++++++++++++++++++++++++++++++++
+ lib/xarray.c      |    8 +++--
+ 2 files changed, 75 insertions(+), 3 deletions(-)
+
+--- a/lib/test_xarray.c~xarray-fix-index-jumping-backwards-in-xas_find
++++ a/lib/test_xarray.c
+@@ -1247,6 +1247,75 @@ static noinline void check_multi_find_3(
+ 	}
+ }
+ 
++static noinline void check_multi_find_4(struct xarray *xa)
++{
++#ifdef CONFIG_XARRAY_MULTI
++	unsigned int order = XA_CHUNK_SHIFT + 1;
++	unsigned long next = 1UL << order;
++	unsigned long start = next - 1;
++	XA_STATE(xas, xa, start);
++	XA_STATE_ORDER(split, xa, 0, 0);
++	void *entry;
++	unsigned long i;
++
++	/* Multi-index entry in two slots of a non-leaf node. */
++	xa_store_order(xa, 0, order, xa_mk_index(0), GFP_KERNEL);
++	XA_BUG_ON(xa, xa_store_index(xa, next, GFP_KERNEL) != NULL);
++
++	rcu_read_lock();
++	entry = xas_find(&xas, ULONG_MAX);
++	XA_BUG_ON(xa, entry != xa_mk_index(0));
++	XA_BUG_ON(xa, xas.xa_index != start);
++
++	entry = xas_find(&xas, ULONG_MAX);
++	XA_BUG_ON(xa, entry != xa_mk_index(next));
++	XA_BUG_ON(xa, xas.xa_index != next);
++
++	entry = xas_find(&xas, ULONG_MAX);
++	XA_BUG_ON(xa, entry != NULL);
++	rcu_read_unlock();
++
++	xa_erase_index(xa, next);
++	xa_erase_index(xa, 0);
++	XA_BUG_ON(xa, !xa_empty(xa));
++
++	/* Split the multi-index entry after a lookup begins inside it. */
++	xa_store_order(xa, 0, order, xa_mk_index(0), GFP_KERNEL);
++	XA_BUG_ON(xa, xa_store_index(xa, next, GFP_KERNEL) != NULL);
++
++	xas_set(&xas, start);
++	rcu_read_lock();
++	entry = xas_find(&xas, ULONG_MAX);
++	XA_BUG_ON(xa, entry != xa_mk_index(0));
++	XA_BUG_ON(xa, xas.xa_index != start);
++	rcu_read_unlock();
++
++	xas_split_alloc(&split, xa_mk_index(0), order, GFP_KERNEL);
++	if (xas_error(&split)) {
++		XA_BUG_ON(xa, true);
++		goto out;
++	}
++	xas_lock(&split);
++	xas_split(&split, xa_mk_index(0), order);
++	for (i = 0; i < next; i++)
++		__xa_store(xa, i, xa_mk_index(i), 0);
++	xas_unlock(&split);
++
++	rcu_read_lock();
++	entry = xas_find(&xas, ULONG_MAX);
++	XA_BUG_ON(xa, entry != xa_mk_index(next));
++	XA_BUG_ON(xa, xas.xa_index != next);
++
++	entry = xas_find(&xas, ULONG_MAX);
++	XA_BUG_ON(xa, entry != NULL);
++	rcu_read_unlock();
++
++out:
++	xa_destroy(xa);
++	XA_BUG_ON(xa, !xa_empty(xa));
++#endif
++}
++
+ static noinline void check_find_1(struct xarray *xa)
+ {
+ 	unsigned long i, j, k;
+@@ -1370,6 +1439,7 @@ static noinline void check_find(struct x
+ 		check_multi_find_1(xa, i);
+ 	check_multi_find_2(xa);
+ 	check_multi_find_3(xa);
++	check_multi_find_4(xa);
+ }
+ 
+ /* See find_swap_entry() in mm/shmem.c */
+--- a/lib/xarray.c~xarray-fix-index-jumping-backwards-in-xas_find
++++ a/lib/xarray.c
+@@ -1410,9 +1410,11 @@ void *xas_find(struct xa_state *xas, uns
+ 		entry = xas_load(xas);
+ 		if (entry || xas_not_node(xas->xa_node))
+ 			return entry;
+-	} else if (!xas->xa_node->shift &&
+-		    xas->xa_offset != (xas->xa_index & XA_CHUNK_MASK)) {
+-		xas->xa_offset = ((xas->xa_index - 1) & XA_CHUNK_MASK) + 1;
++	} else if (xas->xa_offset != get_offset(xas->xa_index, xas->xa_node)) {
++		if (!xas->xa_node->shift)
++			xas->xa_offset = ((xas->xa_index - 1) & XA_CHUNK_MASK) + 1;
++		else
++			xas->xa_offset = get_offset(xas->xa_index, xas->xa_node);
+ 	}
+ 
+ 	xas_next_offset(xas);
+_
+
