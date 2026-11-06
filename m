@@ -1,113 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793987931;
-	b=khx8Tfzk33tr07tKSvhgr1bIi8r2TrzvsVuQOLPYQpnKA8YUyO/TCp0UR0AHGVQ8h2FH
-	 6xdVH3xuO3fVv6lUFFpGR0AomLTpp5VixwSsIRYg85iTRukm878FBElHA4eY+8v3bTzUG
-	 igSMlwB0ACiPn9tLmiGeZ2QRIt9JWc86ek7W2aANpswIpgdZ6xa28fBzUoQ7Q5QNEWvjh
-	 WDZYe4iZ99xzFj9Z4tBsL9DlYTKOF/3EkXWZ6MEFkCRTWfyiJBgoD8fAaNWPp8fFUJdo0
-	 juWv1nBQe9ymGNtcSqLnlFR5OFZBmJFDt8s2/i89ftg690eBe8wgvDcRCmMOzNEb1uw==
+	t=1793987966;
+	b=Rtnn3Kk+OplwxtFhR2w8U1AcJOpuLNuxXFJ7O/XeWPtKnYZGPqsQKcT11swZsLZ7rQ6g
+	 mECpKmkkWVm16GpmBSqzxlS6WjUU8lLYdDdxdfDzGVSM1WnLSd8radXm8oE792WnRFAem
+	 mRD4YgJVg83PSXOl42grjJGYu9q8eKY43otJwMgvkf6QQmTl5wXzlVNPuQbcYpVL3Hm2e
+	 jm+NeC5e3d/ApF+plZFPG0Nbem0xFDHbB4sN7L7J3eve6mCxrCPJQgZ8CkG2ZCjHqlQW4
+	 uAm6o8WEqR/fmOVVxoxw511Y3IXjrNqeE/iPgHU56EtWe+wNpgwgSpzBPKLvuqM1FFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793987931;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=KoOh0KgSmAnOjKaKpi/0YYF58G7PTa1KHqz+Z6PRDOg=;
-	b=j3Emt7C4VxeUTpaQuubkUcfIZKH2RhJw2nt9EXvEVMll91wp69PTKcq2GcM1Q3VxPShb
-	 02QMmzXHy3GnxohN4qfn2p/QfAQ8dpJn8dp5JwdxJnRQamK8j2QjrCZzBwoZWkTJSY8I2
-	 J6ygDuRwRnP7/5hOfkkAVP0hWugeSZY065ZEdn/+OK3Rr/1BOmgcNPTIlm3h6nfa80C/e
-	 qyMCpbut1iBrk8uJ4XryeisoHdtRocIA08fTw31A2hkkjwS2GGOIQw9m8jZAYA7o++6Mw
-	 mPa5Sag79Vu7p8JAj9LFCWMqlph9A1MykrOUvJLhxlUqP6T8Ql1k3GUgM5Klb6ZJpTw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793987966;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=mau6wi4WBxkR3IUCa/DnigVPfDnFpcLTbh4y8+jSHa8=;
+	b=QIPfC70kBqjffTxE5KJ+J8XCzcWCypWJ096UfuBXwddAyA1xZAvBy8qarFkDgNPYktUL
+	 yNfKGWA1D95lNT68NTfib9+NJB2zIVLVKoI4htWEOxyZ5SM9uq0vIzkbHm5p9WASdt7wK
+	 NyIQWjFxB8ufuenCkzAMREjFUAmjijmY3elt8+U/DB4/hDSiszYL6lqLvurNb5dqKUcpN
+	 GM4rhHxZVzF0dHhPZi4d2hZw0HB8aU3MD6Fex00EL4txu8CYkOixMOLaNLtZW38UW/YhZ
+	 50zB5J+kJp2+oYowBvM97l2YEEE1Bl2iUkV6xMhV5PqQuCfETgxsseJs5oxwoWL+eEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=toxicpanda.com;
-	spf=pass smtp.mailfrom=toxicpanda.com;
-	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=ckldtfAp;
-	arc=none smtp.remote-ip=209.85.160.182
-Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yh7z9mnh;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEC3D606A329
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 17:58:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEC3D606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C8CC606A326
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 17:59:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=ckldtfAp
-Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-5365f9a04c5so12377981cf.1
-        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 09:58:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1793987929; x=1794592729; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=KoOh0KgSmAnOjKaKpi/0YYF58G7PTa1KHqz+Z6PRDOg=;
-        b=ckldtfApc2a+8xtbx8tMkucEhxUCvF+Cw+JJDVJ6f2f8qLw6otsyHydoCal9Y8PQVE
-         wSqegXOmaHckcVudPQ6CSb2Ruksh9t0YwF/s+5BHasjKno/b/Le3QZHOw9O0Wc9bTYas
-         64ujbEgDlUftzzRM+Sn0H/9m6rO6xhL4b6YUYLPi6ml4aKmlxBzTkTsjvjBY/T4aOWRE
-         Tt8FwlEUCSShEOsz+aE75gU78VQ7uHBKnzZICLAFdSlDCyXdndFhhzq7QHroTgLCaOhy
-         ZDPDzp6HoM1U3pQJpMpalCQZ3F3o6QTXHe2VyZogcz6GpPK/vb29LOX3GA5Sf3zaycH6
-         LJRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793987929; x=1794592729;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KoOh0KgSmAnOjKaKpi/0YYF58G7PTa1KHqz+Z6PRDOg=;
-        b=JbTzGeH1/F9h/EnOzj2zfVEcMBQmzfE9/zlzLsxVfkWCvPSE5uZ+Fbv5LokrY6jRDc
-         kDHSw0ZbWs2l5lc23REwFz4KxqmQnj7JZ0vpxfAozjd6w0S8o+92Da2HlWpkkIyv2XWI
-         ZqdqYQgabDxBz0KjOviIAzXgbAuuZz0pkICFA7fmzKvdojyjSeGkUhTiPZBdsWCZC10a
-         9qiVbgou4IVQMriNSv83sTMyKT8v315XGLQNqwGHVW3BSVFE1Dh//u0jTVVveZMIbklY
-         PMfn7w3bOVKQMLakfCGo0CitemMBFRDtojPOW3jZIxs3xbUfB4gMTqWiynyh5TCtr7mx
-         nbrQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzladg/MpEoy0jS7qhjxcKvK7vnDYmWpC3gLe8xRvVyJpR6Ig/TkF7RA11PdAjkZ68sYTr3Zb0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+3t+1T+R4Hi3zok7ynoDfWQlYucodrtLpPAbqS5Na17YTkEuwd
-	IoJlrpB+wZQd1QoEHWBS2hO2XzpiZK8FG7pBi5M5Ih59tE2ep+hZBz/tKmyPWbHYKEo=
-X-Gm-Gg: AYBFou0kWZdBUsB5mkzoKJvgykB8ZjA2rNWEcu6DORzreFcT9HRUWm3i7x5SEJFhUev
-	zA+Q4QLgMIwKt035ionah4OvLQhd9BuTMfBcb1nmw9P9vYZkOYpXSrVwmWYCmSXeOEkSDUVLc8Y
-	MB04CHfhILCM0xIAJN61zvVLsEY1nTtn1UBqFWwRy3U4rZE3rz0nfAF+86ungJW7QKBsuxf94NV
-	YV9H2QC7FBFoqeM82+21QLHNvDuHEnk86vtWGODJJvpKOC4xbGPARLEH4sqwy9UhCXp6gJaxFs3
-	i4fq4VXOcFVKuCq1OMYm1D4v3Tt+woHNq8KYLoqANtjXmLYM7qubzUujRPxDrkzp7vq7dJwHwdb
-	3ujM/tQY9czsk0LD8cvQDEpYjTyh8kdu4Oo9PWRk7CTmOu7KTL+YtzFL3qrmKeFKkj5pcI/wjTu
-	evrOOVPYf/KwUiVXSQD7SHWfhuGcPVGFmykGLbgBnlmhROpvIBxfAURxelaP7a6YxUnPjMDVHZ7
-	N4SpTsnM8DT56LScRHp0tCwa3Q6MQXi+oSIDtUy9xa4OaQo9qtbXsVRt0vzNXVbrSxo6e/sED/H
-	FzHQceWzyJMZ5UYJs2Jlatjyc3sksaEjtXJFxoWdQJaB
-X-Received: by 2002:ac8:5d08:0:b0:536:699d:9a22 with SMTP id d75a77b69052e-54e157646f3mr53331201cf.57.1793987929323;
-        Fri, 06 Nov 2026 09:58:49 -0800 (PST)
-Received: from toxicpanda.com ([153.61.196.254])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-54e27013e83sm25509581cf.24.2026.11.06.09.58.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 09:58:48 -0800 (PST)
-Date: Fri, 6 Nov 2026 17:58:36 +0000
-From: Josef Bacik <josef@toxicpanda.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
-	Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
-	Alistair Popple <apopple@nvidia.com>, Peter Xu <peterx@redhat.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Song Liu <songliubraving@fb.com>, 
-	Rik van Riel <riel@surriel.com>, Hugh Dickins <hughd@google.com>, Will Deacon <will@kernel.org>, 
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
-	Peter Zijlstra <peterz@infradead.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	Kevin Tian <kevin.tian@intel.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
-	Robin Murphy <robin.murphy@arm.com>, Steve Sistare <steven.sistare@oracle.com>, 
-	John Hubbard <jhubbard@nvidia.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org, iommu@lists.linux.dev, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH 2/5] mm: limit pagecache folio refcount when splicing
- into pipes
-Message-ID: <n3l2cnx6d25jovloqyoxiz566mh62janclmiewjvumtmqfezo7@zmsmco5vvssn>
-References: <20261105-refcount_overflow_stable-v1-0-70b9c655da3e@kernel.org>
- <20261105-refcount_overflow_stable-v1-2-70b9c655da3e@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yh7z9mnh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C5F11F0089F;
+	Fri,  6 Nov 2026 17:59:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793987966;
+	bh=mau6wi4WBxkR3IUCa/DnigVPfDnFpcLTbh4y8+jSHa8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Yh7z9mnhsOxE4mvzwSCotpNwvFnlY4E0wFX0IVnE5g1q5WpdQ0sE1ph62NkQU+HL1
+	 G3hkM4ojdt7JA5c6qkJtK8uCuAC6cuRKApkwhiGMbwteAMuQt3DJJXrQPkUFOOcBc8
+	 nADqjHl0qBBupQNXWXlKyYyq9dE+WDJArqSeJVaj4f6VO8PBNBIyvRXlSJ0J0QMjJP
+	 U5MNd4X59MF5YRItbRT8iiRDlgzdQe3xYfGjmTqqapg7mSdg2q5b6AwRfhuuxS25Ez
+	 NsNe6pGiXjN2qi+McK3eljWFQFQFbhLfhXRlaZcfUwf7scXmn2cgU4rwjZJO+bTNOq
+	 zSm+Z1O1c9nqg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Keqiang Duan <duankeqiangcym@gmail.com>,
+	Qinguang Chen <chenqinguang@kuaishou.com>,
+	Zhiping Du <duzhiping@kuaishou.com>,
+	Chao Gao <chao.gao@intel.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] KVM: x86: Clear hardware HLT state when userspace makes a vCPU not-halted
+Date: Fri,  6 Nov 2026 12:59:24 -0500
+Message-ID: <20261106175842.749570-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026110438-starving-entwine-fc77@gregkh>
+References: <2026110438-starving-entwine-fc77@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -117,51 +62,127 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105-refcount_overflow_stable-v1-2-70b9c655da3e@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 05, 2026 at 02:10:11PM +0100, David Hildenbrand (Arm) wrote:
-> Similar to mapping pagecache folios into page tables, let's reject splicing
-> folios into a pipe if the refcount is at it's limit, similar to how we
-> handle it during GUP.
-> 
-> This will prevent more cases of possible folio refcount overflows with
-> large pagecache folios.
-> 
-> Let's keep it simple and check in the two callers of
-> splice_folio_into_pipe().
-> 
-> Also check in try_get_page() to cover pipe-buffer duplication by tee()
-> and partial pipe-to-pipe splicing.
-> 
-> Fixes: 800d8c63b2e9 ("shmem: add huge pages support")
-> Fixes: 99cb0dbd47a1 ("mm,thp: add read-only THP support for (non-shmem) FS")
-> Fixes: 793917d997df ("mm/readahead: Add large folio readahead")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
->  include/linux/mm.h | 9 ++++++---
->  mm/filemap.c       | 4 ++++
->  mm/shmem.c         | 4 ++++
->  3 files changed, 14 insertions(+), 3 deletions(-)
-> 
-> diff --git a/include/linux/mm.h b/include/linux/mm.h
-> index 79ae8fc0d6bb4..a82cfbce18215 100644
-> --- a/include/linux/mm.h
-> +++ b/include/linux/mm.h
-> @@ -2287,10 +2287,13 @@ static inline void get_page(struct page *page)
->  
->  static inline __must_check bool try_get_page(struct page *page)
->  {
-> -	page = compound_head(page);
-> -	if (WARN_ON_ONCE(page_ref_count(page) <= 0))
-> +	struct folio *folio = page_folio(page);
-> +
-> +	if (WARN_ON_ONCE(folio_ref_count(folio) <= 0))
+From: Keqiang Duan <duankeqiangcym@gmail.com>
 
-Since you're here anyway can you change this to something other than
-WARN_ON_ONCE, since that results in an OOPS with panic_on_warn set?
-Thanks,
+[ Upstream commit 883719f57f5d3898637b130d6db4742471cad618 ]
 
-Josef
+Force a vCPU out of its hardware-tracked halted state when userspace puts
+the vCPU into any state other than HALTED via KVM_SET_MP_STATE, i.e. clear
+VMCS.GUEST_ACTIVITY_STATE if it says the vCPU is halted.  Add an optional
+kvm_x86_ops hook to do the clearing, as SVM has no equivalent VMCB field.
+
+When HLT-exiting is disabled for a VM (KVM_CAP_X86_DISABLE_EXITS with
+KVM_X86_DISABLE_EXITS_HLT, e.g. QEMU's "-overcommit cpu-pm=on"), a guest
+HLT halts the physical CPU instead of exiting to KVM, and hardware saves
+GUEST_ACTIVITY_STATE=HLT into the VMCS on the next VM-Exit.  That field is
+sticky: it survives VM-Exit/VM-Enter and is only cleared by vmx_clear_hlt()
+on event injection, or by vmx_vcpu_reset() on INIT / vCPU creation.
+
+Nothing clears it on a userspace-driven state change.  KVM_SET_REGS only
+writes the software register cache and KVM_SET_MP_STATE only writes
+vcpu->arch.mp_state; kvm_vcpu_running() likewise consults software state
+only.  A VMM that emulates a machine reset therefore ends up with a vCPU
+that KVM happily VM-Enters while hardware refuses to fetch instructions.
+
+Reproduce with a Linux guest by triggering a panic/kdump on a non-boot
+vCPU: nmi_shootdown_cpus() parks the other vCPUs -- including vCPU0 -- in
+crash_nmi_callback(), which does local_irq_disable() followed by a bare
+HLT.  The capture kernel then resets the machine via port 0xCF9.  QEMU
+rewrites RIP to 0xfff0 and sets mp_state to RUNNABLE, but vCPU0's
+GUEST_ACTIVITY_STATE is still HLT, so the BSP never executes the reset
+vector, never sends SIPIs, and the entire VM hangs at "reboot: machine
+restart" forever.  Only destroying and recreating the VM recovers it.
+
+Key off "not HALTED" rather than "is RUNNABLE" as HALTED is the only target
+state for which retaining the hardware halted state is meaningful; every
+other transition either can't be reached on VMX, e.g. AP_RESET_HOLD, or
+goes through vmx_vcpu_reset(), which stuffs GUEST_ACTIVITY_ACTIVE anyways.
+This also captures the intent more directly: KVM only ever drops the
+hardware halted state, it never installs it.
+
+Hook KVM_SET_MP_STATE rather than the VM-Enter path so that the clearing
+is driven by an explicit userspace declaration, and so that no work is
+added to vmx_vcpu_run().  Gate the call on kvm_hlt_in_guest() even though
+vmx_clear_hlt() checks it as well, as the check is cheap and makes it
+obvious in common code when the hardware state can exist at all.
+
+Do nothing for TDX vCPUs as TDX doesn't support disabling HLT-exiting and
+KVM cannot access a TD's VMCS, i.e. the VMCS used to run the vCPU can't
+in HALTED state, and even if it were, KVM can't change it.
+
+Fixes: caa057a2cad6 ("KVM: X86: Provide a capability to disable HLT intercepts")
+Cc: stable@vger.kernel.org
+Tested-by: Qinguang Chen <chenqinguang@kuaishou.com>
+Signed-off-by: Zhiping Du <duzhiping@kuaishou.com>
+Signed-off-by: Keqiang Duan <duankeqiangcym@gmail.com>
+Reviewed-by: Chao Gao <chao.gao@intel.com>
+Link: https://patch.msgid.link/20260820123512.87236-1-duankeqiangcym@gmail.com
+[sean: drop claim that spurious wakeups are ok, massage changelog]
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+[ sashal: adapted clear_hlt dispatch to a NULL-checked kvm_x86_ops call after the existing MP-state assignment. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ arch/x86/include/asm/kvm_host.h |  7 +++++++
+ arch/x86/kvm/vmx/vmx.c          |  1 +
+ arch/x86/kvm/x86.c              | 13 +++++++++++++
+ 3 files changed, 21 insertions(+)
+
+diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
+index d13db9173603e..950e8796ad7fb 100644
+--- a/arch/x86/include/asm/kvm_host.h
++++ b/arch/x86/include/asm/kvm_host.h
+@@ -1171,6 +1171,13 @@ struct kvm_x86_ops {
+ 	int (*nmi_allowed)(struct kvm_vcpu *vcpu, bool for_injection);
+ 	bool (*get_nmi_mask)(struct kvm_vcpu *vcpu);
+ 	void (*set_nmi_mask)(struct kvm_vcpu *vcpu, bool masked);
++	/*
++	 * Force the vCPU out of any hardware-tracked halted/inactive state so
++	 * that it will fetch and execute instructions on the next VM-Enter.
++	 * Only needed by VMX, where VMCS.GUEST_ACTIVITY_STATE persists across
++	 * VM-Exit/VM-Enter; SVM has no equivalent VMCB field.
++	 */
++	void (*clear_hlt)(struct kvm_vcpu *vcpu);
+ 	void (*enable_nmi_window)(struct kvm_vcpu *vcpu);
+ 	void (*enable_irq_window)(struct kvm_vcpu *vcpu);
+ 	void (*update_cr8_intercept)(struct kvm_vcpu *vcpu, int tpr, int irr);
+diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
+index 0fb9cdc012124..a814de8e3dc53 100644
+--- a/arch/x86/kvm/vmx/vmx.c
++++ b/arch/x86/kvm/vmx/vmx.c
+@@ -7862,6 +7862,7 @@ static struct kvm_x86_ops vmx_x86_ops __initdata = {
+ 	.nmi_allowed = vmx_nmi_allowed,
+ 	.get_nmi_mask = vmx_get_nmi_mask,
+ 	.set_nmi_mask = vmx_set_nmi_mask,
++	.clear_hlt = vmx_clear_hlt,
+ 	.enable_nmi_window = enable_nmi_window,
+ 	.enable_irq_window = enable_irq_window,
+ 	.update_cr8_intercept = update_cr8_intercept,
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index 1b8860a1c7c28..6f5a6fe42d874 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -9893,6 +9893,19 @@ int kvm_arch_vcpu_ioctl_set_mpstate(struct kvm_vcpu *vcpu,
+ 		set_bit(KVM_APIC_SIPI, &vcpu->arch.apic->pending_events);
+ 	} else
+ 		vcpu->arch.mp_state = mp_state->mp_state;
++
++	/*
++	 * Force the vCPU out of any hardware-tracked halted state, e.g. VMX's
++	 * GUEST_ACTIVITY_STATE=HLT, when userspace puts the vCPU into a state
++	 * other than HALTED.  The hardware state is sticky across VM-Exit and
++	 * VM-Enter and is not touched by any other ioctl, so a vCPU that halted
++	 * with HLT-exiting disabled stays wedged even after userspace rewrites
++	 * its registers, e.g. when a VMM emulates a machine reset.
++	 */
++	if (kvm_hlt_in_guest(vcpu->kvm) &&
++	    mp_state->mp_state != KVM_MP_STATE_HALTED && kvm_x86_ops.clear_hlt)
++		kvm_x86_ops.clear_hlt(vcpu);
++
+ 	kvm_make_request(KVM_REQ_EVENT, vcpu);
+ 
+ 	ret = 0;
+-- 
+2.53.0
+
