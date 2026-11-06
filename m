@@ -1,80 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.246.77.92
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.13.214.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794002906;
-	b=yIPmYYqMm7E1xEx7pzIrkkqKt7DiknW5nQhigV4vd8DA95/dhRup0ZKHn9VsHLKCNKaQ
-	 NozKAIbYqRjoOd/lPJWA8LyzAP91GkbHxVmgo4XEvLw4zuwHA7c6I7CM4iD2vYFPETJef
-	 P/69Sz0yi+uSnxx50s119npALMtoEMg/n9ip5G4Qyb/P/8t1V/fDE90DTpD3CiYvU/JqC
-	 BBWlcxMiaBQdFbyDoFPixPd21dufotoUf2URk80LQWHCID/Eoi0eMIYRJ5W8IjLSV3VI6
-	 +gav/ygPvuBJMeiKgZGWk/0Oi0bkhsiYbBwQnbrgMXSMIy0i/gmmNrWsQKrathR+O4A==
+	t=1794002907;
+	b=LF0SezB/n/WEoZFt5mwaIddQq9z0K6jr/LMyI1IQB8LGfOg0eqX5poZWkYmaNdUtgGxK
+	 sp0H6yM08VbuKe1DgwIs3qgSeLSKBJLNMWr+EBRgBhE7lfBnN2Nf0SlnTMiYZtFUJdl/+
+	 viUEKbk8OI6DECIp5lyjAiK4Vh8MIGpkZu8d8qy1WzMvyaSeEA+ZL0K7MwS5+o9dgXG4D
+	 w/lC6+j61I11jZwZjrc7eDqg6SuTv7Ldp9NeQxTgi03P8OqMtuGCEOYMASNOetiwl9U4L
+	 7/y70LSlYBWN4BP/eDNXXmQwuJFblzWeKg1ufOlo54s9ih1F1fI3bcIvmuwIn1kg46w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794002906;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794002907;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
 	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
 	 X-ClientProxiedBy;
-	bh=zbAyuPi9NzogI7nzwmpN6mlrG30lt5BbfxmYWVdevPw=;
-	b=v1k+0V69s1RDysfcKP+1jc1/JZng++gVbxj8a/kjIEnZSvJuvJuom2WudehY0Xz/of+l
-	 Xc21czf+3/Gj/vUB3wuoFSbBO8B8S4Eft7nQugqpyZ3bUbYCVyMk9uetVZyHO8nWFLnEb
-	 zD9I2sQUAMq0b/tDL2/5b9CTdzQk87LoOyeN3DZg95Cohc9mLEwk5uNhgqtHDTguox5TS
-	 BkOSooDmNGmwOnrPjtgCmgMgydWcsbtYU2bl7GBz3l4zXEfWU9NRiRqFsl+v0512XP8C5
-	 81D6cMhWO1BvFkLwd8xOPI2MQacGOiYYulUVGCkUi8MWUwKJka3/WSxHQ0dPilQf9XA==
+	bh=jLqM6V8VBqdfy8Cr2EI35hQ07IhfGvj0PLYGKQ3rD60=;
+	b=JCiV3ug0JEobGCu21jHidPgzEQC3WjWR5GAW5kPqHeaWtOyrwppiXFFRJqDR6K9cz+ku
+	 Wb6Eu1/cwKLvH02xQai3bMQAT6o7pFUzfnNBRgHvDasXm2fYltScIXOSNspvoPLUwuy8C
+	 PxukvmZQy9Qqf3AnuArSEZgeLq52NIWe1/eKAI6YcS23mmNZyucyZZR4ud7YpLC0Vgp6t
+	 w/4D8HPK8V7yh5rcTDccKsWyaA/CoWgfE3kLSZlLwct3vTNbCHi4rZhA2t5u4dLZ2+7jQ
+	 w4emQGaeuzup1m8vw+fYx6fOqlajehwaksVdMAasYIr6B5JSO8een8zaAZILmrEZRhQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=amazon.com;
 	spf=pass smtp.mailfrom=amazon.com;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=FpnXxi3t;
-	arc=none smtp.remote-ip=44.246.77.92
-Received: from pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.77.92])
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=hRyuC4N9;
+	arc=none smtp.remote-ip=52.13.214.179
+Received: from pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.13.214.179])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A634A606A32C
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 22:08:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A634A606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36DDA606A32F
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 22:08:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36DDA606A32F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=FpnXxi3t
+	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=hRyuC4N9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
   d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1794002905; x=1825538905;
+  t=1794002906; x=1825538906;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=zbAyuPi9NzogI7nzwmpN6mlrG30lt5BbfxmYWVdevPw=;
-  b=FpnXxi3tcfJT+mAnEQ5t323BrlMswmM4dpEBD6g3wfy9WJKqXGV1XW+Q
-   wK0LqxUoD62V8U84FAzGqvt7DIwn5vPHf4ZHa0aZcaoWJ0uHIjX0MUEsz
-   jyJZePgqjbKq1UBZly+xpzzAU7Y6ADLgNEKYvwhZeNZTkfLgH+X6wVbue
-   Pmd7d31xeVKUCXRIswC/vrmD7MP/9mftSRfcQwkIZaRU0/YiL4MmbE7S1
-   zI886t0CqSYmmggH1nXPf6LNdNanzzcWXVyUKH+9fBM3AxVcqo18DFzNl
-   CmnT/QfktA2oy+RrnaQDI9p8fqqsEMcF+fJf6YnsISKjoDqhT2qSBefK5
-   A==;
-X-CSE-ConnectionGUID: 3ENr6ptMQUSK2l/xUV/pPQ==
-X-CSE-MsgGUID: Yi2gD4WHRgil/XVulWwqyw==
+  bh=jLqM6V8VBqdfy8Cr2EI35hQ07IhfGvj0PLYGKQ3rD60=;
+  b=hRyuC4N9rMos6uNDZ+Ez9F6EFUmH+c9dqqz4d6cfWwvZ9XGKIiovM57p
+   98FNbKYAQf2Z/Co8ChWoiay8AB0HqWhLcc4nEw6+av80GakxSPLDT/Tkn
+   Y4iSMbAJe6zkys4dFjshtRdEqSL9an5DCMmfvs79OejsEVMsCQNxEWg6K
+   VbPw15Xyi2t/lFXG6j61UpshQx3gy0VqjKHRa3ZVGQE9H+P9XaoUOMUVG
+   BN4t22OMekGG5DmkDx/nY1alHxgAef1J3gS5+aM2DKM+IOdyrYYL07Ndf
+   4MdGXVL6LD3LllOk7FUyv+DCVn+sz+lDbTWXL5kUzuscVp6AUwavcg4nF
+   g==;
+X-CSE-ConnectionGUID: KHl2S+aFQsq8QpPlInUoLg==
+X-CSE-MsgGUID: 15MnRTM2SJqnne6M+fsImQ==
 X-IronPort-AV: E=Sophos;i="6.27,199,1787011200"; 
-   d="scan'208";a="33359550"
-Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
-  by internal-pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 22:08:25 +0000
-Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.53:22828]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.22.238:2525] with esmtp (Farcaster)
- id 28dd1e93-96a6-4fda-9cdb-1e308285329d; Fri, 6 Nov 2026 22:08:25 +0000 (UTC)
-X-Farcaster-Flow-ID: 28dd1e93-96a6-4fda-9cdb-1e308285329d
+   d="scan'208";a="33336464"
+Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
+  by internal-pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Nov 2026 22:08:25 +0000
+Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.111:25472]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.49.48:2525] with esmtp (Farcaster)
+ id 6fb40d93-d1b6-4ce4-972f-cfac947f2c52; Fri, 6 Nov 2026 22:08:25 +0000 (UTC)
+X-Farcaster-Flow-ID: 6fb40d93-d1b6-4ce4-972f-cfac947f2c52
 Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
+ EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Fri, 6 Nov 2026 22:08:24 +0000
+ Fri, 6 Nov 2026 22:08:25 +0000
 Received: from dev-dsk-mkbund-2b-9ea2efba.us-west-2.amazon.com (10.2.100.138)
  by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
  Fri, 6 Nov 2026 22:08:24 +0000
 From: Mark Bundschuh <mkbund@amazon.com>
 To: <stable@vger.kernel.org>
-CC: <sashal@kernel.org>, <linux-mm@kvack.org>, <david@kernel.org>, yangge
-	<yangge1116@126.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, Barry Song
-	<21cnbao@gmail.com>, David Hildenbrand <david@redhat.com>, SeongJae Park
-	<sj@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, Mark Bundschuh
-	<mkbund@amazon.com>
-Subject: [PATCH v2 6.6 1/2] mm: replace free hugepage folios after migration
-Date: Fri, 6 Nov 2026 22:08:11 +0000
-Message-ID: <20261106220812.2874571-2-mkbund@amazon.com>
+CC: <sashal@kernel.org>, <linux-mm@kvack.org>, <david@kernel.org>, Ge Yang
+	<yangge1116@126.com>, Muchun Song <muchun.song@linux.dev>, Oscar Salvador
+	<osalvador@suse.de>, Baolin Wang <baolin.wang@linux.alibaba.com>, Barry Song
+	<21cnbao@gmail.com>, David Hildenbrand <david@redhat.com>, Andrew Morton
+	<akpm@linux-foundation.org>, Mark Bundschuh <mkbund@amazon.com>
+Subject: [PATCH v2 6.6 2/2] mm/hugetlb: fix kernel NULL pointer dereference when replacing free hugetlb folios
+Date: Fri, 6 Nov 2026 22:08:12 +0000
+Message-ID: <20261106220812.2874571-3-mkbund@amazon.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20261106220812.2874571-1-mkbund@amazon.com>
 References: <20261105070431.3100950-1-mkbund@amazon.com>
@@ -93,184 +93,110 @@ Content-Type: text/plain
 X-ClientProxiedBy: EX19D031UWC004.ant.amazon.com (10.13.139.246) To
  EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-From: yangge <yangge1116@126.com>
+From: Ge Yang <yangge1116@126.com>
 
-[ Upstream commit 04f13d241b8b146b23038bffd907cb8278391d07 ]
+[ Upstream commit 113ed54ad276c352ee5ce109bdcf0df118a43bda ]
 
-My machine has 4 NUMA nodes, each equipped with 32GB of memory.  I have
-configured each NUMA node with 16GB of CMA and 16GB of in-use hugetlb
-pages.  The allocation of contiguous memory via cma_alloc() can fail
-probabilistically.
+A kernel crash was observed when replacing free hugetlb folios:
 
-When there are free hugetlb folios in the hugetlb pool, during the
-migration of in-use hugetlb folios, new folios are allocated from the free
-hugetlb pool.  After the migration is completed, the old folios are
-released back to the free hugetlb pool instead of being returned to the
-buddy system.  This can cause test_pages_isolated() check to fail,
-ultimately leading to the failure of cma_alloc().
+BUG: kernel NULL pointer dereference, address: 0000000000000028
+PGD 0 P4D 0
+Oops: Oops: 0000 [#1] SMP NOPTI
+CPU: 28 UID: 0 PID: 29639 Comm: test_cma.sh Tainted 6.15.0-rc6-zp #41 PREEMPT(voluntary)
+RIP: 0010:alloc_and_dissolve_hugetlb_folio+0x1d/0x1f0
+RSP: 0018:ffffc9000b30fa90 EFLAGS: 00010286
+RAX: 0000000000000000 RBX: 0000000000342cca RCX: ffffea0043000000
+RDX: ffffc9000b30fb08 RSI: ffffea0043000000 RDI: 0000000000000000
+RBP: ffffc9000b30fb20 R08: 0000000000001000 R09: 0000000000000000
+R10: ffff88886f92eb00 R11: 0000000000000000 R12: ffffea0043000000
+R13: 0000000000000000 R14: 00000000010c0200 R15: 0000000000000004
+FS:  00007fcda5f14740(0000) GS:ffff8888ec1d8000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000000000000028 CR3: 0000000391402000 CR4: 0000000000350ef0
+Call Trace:
+<TASK>
+ replace_free_hugepage_folios+0xb6/0x100
+ alloc_contig_range_noprof+0x18a/0x590
+ ? srso_return_thunk+0x5/0x5f
+ ? down_read+0x12/0xa0
+ ? srso_return_thunk+0x5/0x5f
+ cma_range_alloc.constprop.0+0x131/0x290
+ __cma_alloc+0xcf/0x2c0
+ cma_alloc_write+0x43/0xb0
+ simple_attr_write_xsigned.constprop.0.isra.0+0xb2/0x110
+ debugfs_attr_write+0x46/0x70
+ full_proxy_write+0x62/0xa0
+ vfs_write+0xf8/0x420
+ ? srso_return_thunk+0x5/0x5f
+ ? filp_flush+0x86/0xa0
+ ? srso_return_thunk+0x5/0x5f
+ ? filp_close+0x1f/0x30
+ ? srso_return_thunk+0x5/0x5f
+ ? do_dup2+0xaf/0x160
+ ? srso_return_thunk+0x5/0x5f
+ ksys_write+0x65/0xe0
+ do_syscall_64+0x64/0x170
+ entry_SYSCALL_64_after_hwframe+0x76/0x7e
 
-Call trace:
+There is a potential race between __update_and_free_hugetlb_folio() and
+replace_free_hugepage_folios():
 
-cma_alloc()
-    __alloc_contig_migrate_range() // migrate in-use hugepage
-    test_pages_isolated()
-        __test_page_isolated_in_pageblock()
-             PageBuddy(page) // check if the page is in buddy
+CPU1                              CPU2
+__update_and_free_hugetlb_folio   replace_free_hugepage_folios
+                                    folio_test_hugetlb(folio)
+                                    -- It's still hugetlb folio.
 
-To address this issue, we introduce a function named
-replace_free_hugepage_folios().  This function will replace the hugepage
-in the free hugepage pool with a new one and release the old one to the
-buddy system.  After the migration of in-use hugetlb pages is completed,
-we will invoke replace_free_hugepage_folios() to ensure that these
-hugepages are properly released to the buddy system.  Following this step,
-when test_pages_isolated() is executed for inspection, it will
-successfully pass.
+  __folio_clear_hugetlb(folio)
+  hugetlb_free_folio(folio)
+                                    h = folio_hstate(folio)
+                                    -- Here, h is NULL pointer
 
-Additionally, when alloc_contig_range() is used to migrate multiple in-use
-hugetlb pages, it can result in some in-use hugetlb pages being released
-back to the free hugetlb pool and subsequently being reallocated and used
-again.  For example:
+When the above race condition occurs, folio_hstate(folio) returns NULL,
+and subsequent access to this NULL pointer will cause the system to crash.
+To resolve this issue, execute folio_hstate(folio) under the protection
+of the hugetlb_lock lock, ensuring that folio_hstate(folio) does not
+return NULL.
 
-[huge 0] [huge 1]
-
-To migrate huge 0, we obtain huge x from the pool.  After the migration is
-completed, we return the now-freed huge 0 back to the pool.  When it's
-time to migrate huge 1, we can simply reuse the now-freed huge 0 from the
-pool.  As a result, when replace_free_hugepage_folios() is executed, it
-cannot release huge 0 back to the buddy system.  To address this issue, we
-should prevent the reuse of isolated free hugepages during the migration
-process.
-
-Link: https://lkml.kernel.org/r/1734503588-16254-1-git-send-email-yangge1116@126.com
-Link: https://lkml.kernel.org/r/1736582300-11364-1-git-send-email-yangge1116@126.com
-Signed-off-by: yangge <yangge1116@126.com>
+Link: https://lkml.kernel.org/r/1747884137-26685-1-git-send-email-yangge1116@126.com
+Fixes: 04f13d241b8b ("mm: replace free hugepage folios after migration")
+Signed-off-by: Ge Yang <yangge1116@126.com>
+Reviewed-by: Muchun Song <muchun.song@linux.dev>
+Reviewed-by: Oscar Salvador <osalvador@suse.de>
 Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
 Cc: Barry Song <21cnbao@gmail.com>
 Cc: David Hildenbrand <david@redhat.com>
-Cc: SeongJae Park <sj@kernel.org>
+Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Signed-off-by: Mark Bundschuh <mkbund@amazon.com>
 ---
- include/linux/hugetlb.h |  7 +++++++
- mm/hugetlb.c            | 42 +++++++++++++++++++++++++++++++++++++++++
- mm/page_alloc.c         | 12 +++++++++++-
- 3 files changed, 60 insertions(+), 1 deletion(-)
+ mm/hugetlb.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
-index 6ecf2907172b..996fee996517 100644
---- a/include/linux/hugetlb.h
-+++ b/include/linux/hugetlb.h
-@@ -745,6 +745,7 @@ struct huge_bootmem_page {
- };
- 
- int isolate_or_dissolve_huge_page(struct page *page, struct list_head *list);
-+int replace_free_hugepage_folios(unsigned long start_pfn, unsigned long end_pfn);
- struct folio *alloc_hugetlb_folio(struct vm_area_struct *vma,
- 				unsigned long addr, int avoid_reserve);
- struct folio *alloc_hugetlb_folio_nodemask(struct hstate *h, int preferred_nid,
-@@ -1049,6 +1050,12 @@ static inline int isolate_or_dissolve_huge_page(struct page *page,
- 	return -ENOMEM;
- }
- 
-+static inline int replace_free_hugepage_folios(unsigned long start_pfn,
-+		unsigned long end_pfn)
-+{
-+	return 0;
-+}
-+
- static inline struct folio *alloc_hugetlb_folio(struct vm_area_struct *vma,
- 					   unsigned long addr,
- 					   int avoid_reserve)
 diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index 8bfaaa84bb3f..2ef28c49b9d0 100644
+index 2ef28c49b9d0..b755fe95f9fc 100644
 --- a/mm/hugetlb.c
 +++ b/mm/hugetlb.c
-@@ -47,6 +47,7 @@
- #include <linux/page_owner.h>
- #include "internal.h"
- #include "hugetlb_vmemmap.h"
-+#include <linux/page-isolation.h>
+@@ -3069,12 +3069,20 @@ int replace_free_hugepage_folios(unsigned long start_pfn, unsigned long end_pfn)
  
- int hugetlb_max_hstate __read_mostly;
- unsigned int default_hstate_idx;
-@@ -1344,6 +1345,9 @@ static struct folio *dequeue_hugetlb_folio_node_exact(struct hstate *h,
- 		if (folio_test_hwpoison(folio))
+ 	while (start_pfn < end_pfn) {
+ 		folio = pfn_folio(start_pfn);
++
++		/*
++		 * The folio might have been dissolved from under our feet, so make sure
++		 * to carefully check the state under the lock.
++		 */
++		spin_lock_irq(&hugetlb_lock);
+ 		if (folio_test_hugetlb(folio)) {
+ 			h = folio_hstate(folio);
+ 		} else {
++			spin_unlock_irq(&hugetlb_lock);
+ 			start_pfn++;
  			continue;
+ 		}
++		spin_unlock_irq(&hugetlb_lock);
  
-+		if (is_migrate_isolate_page(&folio->page))
-+			continue;
-+
- 		list_move(&folio->lru, &h->hugepage_activelist);
- 		folio_ref_unfreeze(folio, 1);
- 		folio_clear_hugetlb_freed(folio);
-@@ -3048,6 +3052,44 @@ int isolate_or_dissolve_huge_page(struct page *page, struct list_head *list)
- 	return ret;
- }
- 
-+/*
-+ *  replace_free_hugepage_folios - Replace free hugepage folios in a given pfn
-+ *  range with new folios.
-+ *  @start_pfn: start pfn of the given pfn range
-+ *  @end_pfn: end pfn of the given pfn range
-+ *  Returns 0 on success, otherwise negated error.
-+ */
-+int replace_free_hugepage_folios(unsigned long start_pfn, unsigned long end_pfn)
-+{
-+	struct hstate *h;
-+	struct folio *folio;
-+	int ret = 0;
-+
-+	LIST_HEAD(isolate_list);
-+
-+	while (start_pfn < end_pfn) {
-+		folio = pfn_folio(start_pfn);
-+		if (folio_test_hugetlb(folio)) {
-+			h = folio_hstate(folio);
-+		} else {
-+			start_pfn++;
-+			continue;
-+		}
-+
-+		if (!folio_ref_count(folio)) {
-+			ret = alloc_and_dissolve_hugetlb_folio(h, folio,
-+							       &isolate_list);
-+			if (ret)
-+				break;
-+
-+			putback_movable_pages(&isolate_list);
-+		}
-+		start_pfn++;
-+	}
-+
-+	return ret;
-+}
-+
- struct folio *alloc_hugetlb_folio(struct vm_area_struct *vma,
- 				    unsigned long addr, int avoid_reserve)
- {
-diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index 06c493b908ed..7c8dffb7f05f 100644
---- a/mm/page_alloc.c
-+++ b/mm/page_alloc.c
-@@ -6254,7 +6254,17 @@ int alloc_contig_range(unsigned long start, unsigned long end,
- 	ret = __alloc_contig_migrate_range(&cc, start, end);
- 	if (ret && ret != -EBUSY)
- 		goto done;
--	ret = 0;
-+
-+	/*
-+	 * When in-use hugetlb pages are migrated, they may simply be released
-+	 * back into the free hugepage pool instead of being returned to the
-+	 * buddy system.  After the migration of in-use huge pages is completed,
-+	 * we will invoke replace_free_hugepage_folios() to ensure that these
-+	 * hugepages are properly released to the buddy system.
-+	 */
-+	ret = replace_free_hugepage_folios(start, end);
-+	if (ret)
-+		goto done;
- 
- 	/*
- 	 * Pages from [start, end) are within a pageblock_nr_pages
+ 		if (!folio_ref_count(folio)) {
+ 			ret = alloc_and_dissolve_hugetlb_folio(h, folio,
 -- 
 2.50.1
 
