@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793955268;
-	b=jccC8M++FXXbIndUkjW2XYY86zeoYTcd1rBW92KdDNKuhhx5B1beYjRQ1Vr3rnT6nFJ3
-	 BeITuZbPFDMKmbPxyoCx8f65/O6r3NsWmdrQBKeluy/g5OSQf4GCBHTDxAyhIlgIj4kOq
-	 Wsnj7ssCqPEaiqGC27S7JLii+QpSGH1EYwDECqVJvs8aRHIXLImEu5Tz7on3z6hLOfNz6
-	 xtuwCqS8Afc5xWyYvGJRAycZ3SHoquNaBmCNqgqI4GiEhnjgApwicXPISZsRPQMhTmx+v
-	 k3v8DGw1nMAFJANnVZ8bI0mSLg67qkYN3FFVWex/DSQ9SjsFUoWKTqEbetN/HoHpWNQ==
+	t=1793955375;
+	b=b53qldcv5RUT9Vbe3nuZFayB3sAcLZjT8W11XeZR8rxpBvrgfOtG8d7mwZPviccMRUfC
+	 qVUz6f6zUvMGb56RyViZw8JieebK6PxP94PJHUcnzpBVWC4P/lj7ABzt7WfqGll9sc5hk
+	 ctIRF7j3QSkXRmJDFtEQsytWVEd7LDhx773TwZyNJHZ1fIjzOun2yD+8qFvCe5kEvYUBr
+	 7kQ44nwj2eBRylB5wQ2bbibkz+bIiWrJDQvwqhuvx8LSuvYH1tUh+ICmaCL4LNLOL8+w6
+	 nlzb4id/DjO014fdG4/qc4TP4r7KbjJG65lsW2r7qXsTdHZrcaPkQXEpCuIF2o8lu8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793955268;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793955375;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
 	 Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition;
-	bh=sUzcAlOh1tDnLyf378WJT7o2uJV2q4YP9q2EG+2XQHQ=;
-	b=XM/LA5pdJAJ8EER5PFwbpFKViYkwvSeRKYN8jkJq4dDL/YStTJaVVeXULR1GjT2EC3dL
-	 I+cnOIwY4BhSS5WOV/37pAw39eHQwZortaQYTMOI/EC4Qzf9/zxdaoDcka+iZ27k4kDZy
-	 w/qZta5JSxiWe0Jbtg7Z+WYNcGjlPSWvLsRh+qvYh/ExrqNRX1agUnjEuWuzZJH98ljau
-	 yQ9C+ofpbu4564+SE8TmvUg6qxw1PV+kTt/XOIiiq8QhrOfF6OLE3nFSjBlvW7I95Vq7c
-	 sn/9/WSd8R0Wpsn7YsbyYV977vGURSLhqg1LXlKpJkdGxYaF1mYYqta8e7Kf07pDIpQ==
+	bh=1KvSywno3zvw2xlVVsbViw+H+QqK4pYdi2f2DUSowoo=;
+	b=PqrZzhDgg7xHrcdAd6fvAATY8WEfSWprN4WuBR1q17BVY9RQyNQ9sgSVVnWKj9s+JOUX
+	 HlH4VbUMHfOWk5ROjqNJ6thWFk+jelgB5CoMRnGBktpTRJ8UgWLBZo1yBCVbucdT92v2o
+	 0J+gRsv1rmaK/TcFiFLyDQmYQfBhq2aYSyDMLMggYhHhOO4dRBvtx3J8zaWc1+vHctzpv
+	 QaLMCsMm8mhNE17kvn7T6+Gntc7T3vLkS1T88oiudgxXLldOI4aKOv9JOipQV+sLgT+4H
+	 aMqX5BQo40oOoaEk//zj360lz3CVMy20zU0f8EZx7lEFguozfgP7a8r86QsNOVW5kzg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qvcPuqaQ;
-	arc=none smtp.remote-ip=209.85.214.179
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=J6oJW51v;
+	arc=none smtp.remote-ip=209.85.215.179
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 716A2606A326
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 08:54:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 716A2606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55D64606A328
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 08:56:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55D64606A328
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qvcPuqaQ
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2ea138a3497so2235515ad.2
-        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 00:54:28 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=J6oJW51v
+Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cdab938dc83so161314a12.3
+        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 00:56:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793955268; x=1794560068; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793955375; x=1794560175; darn=vger.kernel.org;
         h=content-disposition:content-type:mime-version:message-id:subject:cc
          :to:from:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=sUzcAlOh1tDnLyf378WJT7o2uJV2q4YP9q2EG+2XQHQ=;
-        b=qvcPuqaQznkzhKYZ2ctsJE2BEM/GBHUKzR7e9wY55jJznRyirGQR4w0JXCk2VTZEo/
-         EQVKcTrUxXMkAwKlbIX+7JLnsJROPP5Q7XYcTWO8NqCrXYOiIiOVQVcU/3glmNClsxFC
-         GWQSh52U3DFDz4j8LSj1NEoygD4THPZaBR54Orlq+FWL3ZeiSi+ykquSCTB4Qbn1jK76
-         OhIF946rTmZfI24ccWa0lAtyx/UR8H/q13rq/Gt0nU2yZQ1OR6sxidGPNCA+fa8QyobB
-         cWy5jgZuINr8lf+A99wo/aqyZPzYnJ+DToUqHShanCOAwGX011xr0U0zFN+ATfo6jU4c
-         I+jA==
+        bh=1KvSywno3zvw2xlVVsbViw+H+QqK4pYdi2f2DUSowoo=;
+        b=J6oJW51vFLKMEVeXgsneWKUDqdBaRj5KddqEL91Owa7K/E+9uV9n3VkU9NI2zcmXuJ
+         jAPM2Cs+oIt1juZpcthA5BH75Vvod96fCDpcNli4NWZ4Wi9hpUCXpeGL3GqMlXzPLpbi
+         n5DoEFSEsIf0DVO7zGlYhVCqZIkIEhh6bvLM6ZMgCINKBM+WfrJUapVnL1t5/0liNvuo
+         laIMOVK8R28F/nh2iYF1GcfUZZT5feUFo12vX869e8tGoqyxWnqUdiH3bSgWQCGpLbRd
+         M/65DdOjN5CHoPTSatATVx/GNfj8et+XcoyJ1xCxE+BpeMWDREM6ZaPTzGawUq5+67Dm
+         RXsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793955268; x=1794560068;
+        d=1e100.net; s=20260707; t=1793955375; x=1794560175;
         h=content-disposition:content-type:mime-version:message-id:subject:cc
          :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=sUzcAlOh1tDnLyf378WJT7o2uJV2q4YP9q2EG+2XQHQ=;
-        b=ILgRAr8FV0lGDIycHu2CZo9jISBKoaXZNZbYS3mtFhWAPS017o66ThISIehfRprma0
-         18nPsGnk/2PpgiPV5QsiwqvdRWbvObV3Nlh57PMIfvA0B4hkrg96oR24afu9g6Uic7l1
-         A586QoKW2TKyU6PhI3ImIa9bqEC+Z4sv9VzLhaI1Qnur149Zwm/VFj8OBhqqahLHd5Wn
-         oA4XR5c0y9meNeC/9TSPGvUMiMx/EREUe16bZ4zrDix23w4zCc/14eQ9N8TP7GZQaMC+
-         dI2erq59ACseuI/Lwai0ie2krQOljZ5T9+WHN8S5/P902TdbeySEYbAdy4/QcBM6bNQq
-         0EpQ==
-X-Gm-Message-State: APuU4Z/yseGvcxzeUgjBT8d4IpultHnGD0dM5TnvhOVuQkDOGEQMUeoQ
-	aFiQdLfBKBbBIu8Ya6e4MD/OwdpujV9rFd3jnTTX7mI5xLLQ5Pnr3KhcEjTF8Q==
-X-Gm-Gg: AYBFou3BE+LGIBPlKwtSlFIOSeveJEOSgGFhjheKQfso264rMBKn76PRH3fFJ6Q55+r
-	1wfLMUgQaOwWaI+iCMmnJnIEXqqBR/r57t9nAQTNT+S4w1eK2b8dyIFLHFWk9F9iBl33SUuAHCW
-	ajQcWlcoaK1i5jw4EyriCpUvlh1KGyh/2EEwD+hJGBWr9o22Kz1E115m0imB8DxIx3YmJiYhoSs
-	NecVlhHDfBrj2PJ/RbD5HQmSaE+UEjj89rdzh0QrE3LYmidOazrUMn9hEKc9bP0Zus/wnXeEQVG
-	c16Q9D0B4Hhoe6JD0oy/1Zvj4Nhhxi+ExOnwm3k9pnn3rwHoQnbEESAkPEyp0uvvGZ6frUoj4Nq
-	jQnN06PzO2pCqrZOvXO3XLBMw7HxdXdjqWLhzpLEJb51/1lBZw3/BnevB3xPDAeiIWZd5BtlxHv
-	5Ws2Xtt93owlOxnkTDAZKWUaAN9NFEO3ZiZbrMVD/8hQAjng6qEFk3VSjv5i9nOyp8Q6X2k60XE
-	/ATDAprznfHN2M+A9qMwa1o56pB29mDd4Ww3ZaEox+6z0tLGVj9W9Zf39bNvQDgwlwZzTzCe9ot
-	BABJerrPh4JwlQyHuswQUOVEtAB3ojXICOwsb+SlUbAJEPXUX85sx2kU9UkmQ+59O95r
-X-Received: by 2002:a17:902:e842:b0:2e9:8510:6acf with SMTP id d9443c01a7336-2ed40bda58emr24299815ad.25.1793955267572;
-        Fri, 06 Nov 2026 00:54:27 -0800 (PST)
+        bh=1KvSywno3zvw2xlVVsbViw+H+QqK4pYdi2f2DUSowoo=;
+        b=xRwzcceJVWb4meG2y9/vjAe+CjxVddhnqKp5pQUD6oSDoucUiPxU4KoM/b3xeHlzJe
+         ZU3SCG7nh9IhWQaWaxisIAPI3VsQpZT9tG1Q9et6b8Hs6njRcQ7KE7Wsz1s+sA/AyqW4
+         NLBgBRMRHG9KeN4Wx/stACSWIWIOtpdO5Ck7KclbH99yEXAcmlBzNMYRhauqVuZSJjea
+         e9lVLQaWEH4XifYeCZ3U2waLhVZIm/nUyizjrIR7kAM0fMpfLfAQ3MsYNCxz8B4ZzOk9
+         kYKMeNK1MCDlqeXtEVbF3VcnYBitKJcx/MJK/wXcVKKbwtCb39kB4z6W03SGGqDG6mft
+         JTlA==
+X-Gm-Message-State: APuU4Z9o6jarGCfslROqL6WaXJz5oe+WGDnifJWaZvoHGO55N1GKe+hP
+	xXFFejbPhPZPE3QoWLI6LSaPodfLIdYBhe4a+MTf8dgdMY4kik3ltqdGhyMowg==
+X-Gm-Gg: AYBFou23wW2Vu8nGuzQ3SnEwkZ3mxNI0vIubkJUYDHeZaoQndCmlTa7mvCDfOO/WjhX
+	u6hoYhv3c4CYKVQs2iCUWWpYvt+JI+KVVqLisE2qgmjyK2OpFAf7HWNSK9p5BtiU+p3YcNF8Y4m
+	+ozX04lZ2g99+WV5NtQD+E2vQfOaIFF+HiYVRw24LkCRHRexjeARc9xEpgdOonWMKwzxNt32ltV
+	h0dKa8ksK2rX9On1riES6h5L10GVdZmoQg5VazIhZ7an7zVqE3alcvLV6xc7RgueKP9TJgkOTg5
+	q3vGQbcF8eYMHfXq8eiwSF9Rn5wIHDkrSLm8jFBszTMC9bFlus9odPB3/sY79I48+Iw1hZ+tFcm
+	S5/8PolIFII8BT5aBi2jn6Z/Vk7H0WYj4OjTPaSVwtIQsICqr3AH7FOKluTORBt4C2TSnOXmuPv
+	5BsZUy17LLJr3mCNxZKYPTJd+qtMgTokJreBinuAzk5veNLi1hskHCsVDUYR9Bxs492yqn1+/LW
+	+AFoTLB+3o0Sera9rzgjqMkT/eh3qDhtlG2m5Z1SZkRSRJdqwxvwIhUZ9jnaWobppOEWZdxVelj
+	Se7/w8++RAB/BmAMorLz6ZcuQ55IiK66pHqy1IZSSmlJ3qk=
+X-Received: by 2002:a17:90b:3811:b0:3b0:9976:c1c6 with SMTP id 98e67ed59e1d1-3b0db7019d5mr1725794a91.66.1793955374610;
+        Fri, 06 Nov 2026 00:56:14 -0800 (PST)
 Received: from v4bel ([58.123.110.97])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed47d3fd77sm3227575ad.27.2026.11.06.00.54.25
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0d7c8a3d9sm3179698a91.10.2026.11.06.00.56.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 00:54:27 -0800 (PST)
-Date: Fri, 6 Nov 2026 17:54:24 +0900
+        Fri, 06 Nov 2026 00:56:14 -0800 (PST)
+Date: Fri, 6 Nov 2026 17:56:11 +0900
 From: Hyunwoo Kim <imv4bel@gmail.com>
 To: stable@vger.kernel.org, gregkh@linuxfoundation.org
 Cc: Eric Dumazet <edumazet@kernel.org>,
 	Kuniyuki Iwashima <kuniyu@google.com>,
 	Paolo Abeni <pabeni@redhat.com>, imv4bel@gmail.com
-Subject: [PATCH 5.10.y] inet: reject unhashed sockets during established
+Subject: [PATCH 5.15.y] inet: reject unhashed sockets during established
  lookups
-Message-ID: <au2VwORvjv7XG64y@v4bel>
+Message-ID: <au2WK6rhgkDcs8eu@v4bel>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -174,22 +174,60 @@ Reviewed-by: Eric Dumazet <edumazet@kernel.org>
 Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
 Link: https://patch.msgid.link/20261029214219.1035176-2-imv4bel@gmail.com
 Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-[ Hyunwoo Kim: Request migration is not present in 5.10.y, so omit the
-  net/ipv4/inet_connection_sock.c changes. Keep the pre-rename
-  INET_MATCH() function name used by 5.10.y. ]
+[ Hyunwoo Kim: Keep the pre-rename INET_MATCH() function name used by
+  5.15.y. ]
 Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
 ---
- net/ipv4/inet_hashtables.c  | 5 +++--
- net/ipv4/syncookies.c       | 2 ++
- net/ipv4/tcp_input.c        | 4 +++-
- net/ipv6/inet6_hashtables.c | 4 +++-
- 4 files changed, 11 insertions(+), 4 deletions(-)
+ net/ipv4/inet_connection_sock.c | 10 +++++++---
+ net/ipv4/inet_hashtables.c      |  5 +++--
+ net/ipv4/syncookies.c           |  2 ++
+ net/ipv4/tcp_input.c            |  4 +++-
+ net/ipv6/inet6_hashtables.c     |  4 +++-
+ 5 files changed, 18 insertions(+), 7 deletions(-)
 
+diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_sock.c
+index ac9f18861aa7..3bf75aa16dcb 100644
+--- a/net/ipv4/inet_connection_sock.c
++++ b/net/ipv4/inet_connection_sock.c
+@@ -939,10 +939,14 @@ static void reqsk_timer_handler(struct timer_list *t)
+ 	 */
+ 	if (nreq) {
+ 		__NET_INC_STATS(net, LINUX_MIB_TCPMIGRATEREQFAILURE);
++		/* The timer was not armed, drop its reference here. */
++		reqsk_put(nreq);
+ no_ownership:
+ 		reqsk_migrate_reset(nreq);
+ 		reqsk_queue_removed(queue, nreq);
+-		__reqsk_free(nreq);
++		/* Drop the temporary reference and the one reserved for ehash. */
++		reqsk_put(nreq);
++		reqsk_put(nreq);
+ 	}
+ 
+ drop:
+@@ -1226,7 +1230,7 @@ struct sock *inet_csk_complete_hashdance(struct sock *sk, struct sock *child,
+ 
+ 			__NET_INC_STATS(sock_net(sk), LINUX_MIB_TCPMIGRATEREQFAILURE);
+ 			reqsk_migrate_reset(nreq);
+-			__reqsk_free(nreq);
++			reqsk_put(nreq);
+ 		} else if (inet_csk_reqsk_queue_add(sk, req, child)) {
+ 			return child;
+ 		}
+@@ -1282,7 +1286,7 @@ void inet_csk_listen_stop(struct sock *sk)
+ 					__NET_INC_STATS(sock_net(nsk),
+ 							LINUX_MIB_TCPMIGRATEREQFAILURE);
+ 					reqsk_migrate_reset(nreq);
+-					__reqsk_free(nreq);
++					reqsk_put(nreq);
+ 				}
+ 				rcu_read_unlock();
+ 
 diff --git a/net/ipv4/inet_hashtables.c b/net/ipv4/inet_hashtables.c
-index 9b7c84524527..ff5c972d7dea 100644
+index a7d11b82fe64..e7c7b24011d7 100644
 --- a/net/ipv4/inet_hashtables.c
 +++ b/net/ipv4/inet_hashtables.c
-@@ -420,8 +420,9 @@ struct sock *__inet_lookup_established(struct net *net,
+@@ -383,8 +383,9 @@ struct sock *__inet_lookup_established(struct net *net,
  		if (likely(INET_MATCH(net, sk, acookie, ports, dif, sdif))) {
  			if (unlikely(!refcount_inc_not_zero(&sk->sk_refcnt)))
  				goto out;
@@ -202,7 +240,7 @@ index 9b7c84524527..ff5c972d7dea 100644
  				goto begin;
  			}
 diff --git a/net/ipv4/syncookies.c b/net/ipv4/syncookies.c
-index 29fb93cb3228..c9eed9bb4b15 100644
+index 5a61f9a364ad..941d1629c7ad 100644
 --- a/net/ipv4/syncookies.c
 +++ b/net/ipv4/syncookies.c
 @@ -217,6 +217,8 @@ struct sock *tcp_get_cookie_sock(struct sock *sk, struct sk_buff *skb,
@@ -215,10 +253,10 @@ index 29fb93cb3228..c9eed9bb4b15 100644
  	__reqsk_free(req);
  
 diff --git a/net/ipv4/tcp_input.c b/net/ipv4/tcp_input.c
-index 111d582dbba3..58e92af1398e 100644
+index 4a481dd4579b..8b8c892810ee 100644
 --- a/net/ipv4/tcp_input.c
 +++ b/net/ipv4/tcp_input.c
-@@ -7009,7 +7009,9 @@ int tcp_conn_request(struct request_sock_ops *rsk_ops,
+@@ -7069,7 +7069,9 @@ int tcp_conn_request(struct request_sock_ops *rsk_ops,
  		if (!inet_csk_reqsk_queue_add(sk, req, fastopen_sk)) {
  			bh_unlock_sock(fastopen_sk);
  			sock_put(fastopen_sk);
@@ -230,7 +268,7 @@ index 111d582dbba3..58e92af1398e 100644
  		sk->sk_data_ready(sk);
  		bh_unlock_sock(fastopen_sk);
 diff --git a/net/ipv6/inet6_hashtables.c b/net/ipv6/inet6_hashtables.c
-index 21b4fc835487..69aefbae1712 100644
+index 869173f176cc..dd64191db364 100644
 --- a/net/ipv6/inet6_hashtables.c
 +++ b/net/ipv6/inet6_hashtables.c
 @@ -77,7 +77,9 @@ struct sock *__inet6_lookup_established(struct net *net,
