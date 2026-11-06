@@ -1,79 +1,151 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.69
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793941307;
-	b=Pzrw+hKbDLmpdWpGv2nj45DpffqDNcf3MYVRD1Qk2s7nqFkkMdPp8z8yPWfG3mifUTjG
-	 p95j04dueuM2XxooYmVZDVtF4vLn4MJaNOmLzm0WswDIKSQYM99zS1xjDdizFFvqhbR1/
-	 hcOH2u1FRRP3LtysfmsdBMnePNgy96RmPdl4xbTD8rasBIPm2qRPHgycJxof/dhzU+eaE
-	 tXWARCzUbyVDsLhCCMbsJp1aoLQpFmReG7pRzsZrOyPvKZE/aPKX0Ic1JnXMPGA2Ac0vz
-	 7QBNwIGI81r8Id9mE0KfcrEtbhwlipmcKdR2rCCm6W8Qh7gN9BKYdMjTR0rrdO+GOVQ==
+	t=1793941747;
+	b=3xvJwJWaz936n0rpH9PYlmnVyhlkBmokJCaHhNGzslNLxi39CNtMYxzuWXhpXvrJDtjD
+	 Ir+MCd1+R1aAbW0q3keiWFqyCQiRGhZnuYMKQxv0p0kKc3fqZnOohMdvPf/Q660BlhQ89
+	 i20MH0nhtdm6YdiTT0mRLnM7O4sEyRuGza/FlOgsmYBVqsythpXcrNyt//RTtF168DNnN
+	 7Kx7UZ5xc0L3YaPv0OiSs4V6K2pVDsreqQwZdRFDPYlELuMGVPIlvVob/rXQWwZnpjPv9
+	 GneWU2AI0/uR2+3mlIt3Z+7cPZC97dieYSZmXT5KLbqUMo2uk0S9xeFk6/eqep4gbdQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793941307;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=XYNLpZZA6D3B9ZCH1XsjfFEUFEQlwdWP8FZ6G9m3nJ4=;
-	b=RL9XQHh/CdtL+9lZFm461IrBwgFZJH0bSEfnCRlUieOJFfKURgvmAoSAjnO9VwORqFDN
-	 z2vxzdNzuqrVOHnLBp0QmL33lh7v5U4ennotBCHbPXK+bu2UKPbYKvKuVHueu9PNBnp6Q
-	 yNiwhOePf/XwpeQWBtDjz+POgaNZYOqUCK+ChqYZG9v6iolxqQv2yE7bZLFW7mjGkogzo
-	 gRe4zgvx1NdnjKGs5lK9O1mro9btSX17+1VdK4o3t+pP4uttCZqx4zMiSfdCqez8AsqDp
-	 2O9WZEpyL4AlNOboQa1K4oBdNSkV6n/XF/X+jYGuPwHbSTDaIWtkO2Tye899J1srR9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793941747;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
+	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 msip_labels:x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=MBHbLslr389j//83MkfywuyGralPV80DViS8tU9jTlo=;
+	b=Z+2SClaHdqLPh4F0slG/33Eyr6EV00Qr0IVdmxO+w3D4SH8Ba7bS2rJZOIWvYWSP+rqW
+	 DNrxYvYiDS4WYEJf7kKXaAeLFBq8DU/e9rmtsplaldIUOQG4XI3Fq60LNe9UiZcAPxQjh
+	 VN1I9j+3eua3djB1ST3NJTiyy6wlcv8n66Azrn8amqoFqu+SGyZChaRp47P7lXP+mphhp
+	 USofcw01YDCR7R0BatcX7mYSAqYxmKQfBUFsJp78bS5zunU3HzP8fBCVkQyU3plIAs+VK
+	 dLqX08llPMwkE9deWcCDCLWj6nr6WxxxaW0RJWZrs1gZ47uPJxUmZgiskqHSP6DDa+w==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LVMwZXaL;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=E7li3ePP;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.69
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010069.outbound.protection.outlook.com [52.101.56.69])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D441606A31B;
-	Fri,  6 Nov 2026 05:01:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2257606A31B;
+	Fri,  6 Nov 2026 05:09:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2257606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LVMwZXaL
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793941306;
-	b=n+TFh+2S+Qj0EQ8kwZ+HbwEVpVbWXvqry5tjPI0owwmABkj2Q+2HInoUehwBMh3zwjGP
-	 0gD2+L6UHQWur33xCf653L9HmYx3z9Sr9tznjTT1L2O3QRfy0Eo+ltsLued6YiS1J3wst
-	 n1/nD9W4TouvTfQQrGmsWej3nLtHotL5k/x855OZ1cNvSuntYRzSkr03c9BWZetp4Homp
-	 5IJQUMJXOlh9yFOHuo6g0laPvqeJMctHyH7FRt6Imd7duygD1HgLeluBFABaXQJdoyovf
-	 RbQwjMuQr/jVshoe8b05rHPx2WBsNhjhQI/W30YjA/iydTWDQnMVX0TlG/GlMmvtvaw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793941306;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=XYNLpZZA6D3B9ZCH1XsjfFEUFEQlwdWP8FZ6G9m3nJ4=;
-	b=qEPiWNwfLwa1XPDzGHm2LTHFVIMt/jp1oS0G69QS9pdwTVhvPWe/GUkFymgEWHZnYrcH
-	 jOs+Seqe7Urvs0ETPpEQKEo4EgXhLmQV0lu9fE4h3UtZMlkDKjmbv/aqlR5IaxTlzVR4W
-	 wslOrqSA31GD3cT7XdlWAOFVYEXOaSyCaiXaBpURikzCQu9VhQBffaVn1Qh/wuhHg2h+o
-	 4JXwxDOjKZnLRmex26/lIvTZmr/8r6ezbgWuhki6/CfpUYa3wQg4P3oCQAjeCRISIUelP
-	 pE+GnQ/IfKdnXOU+5PD5meiCBqN+KceFAbheHpml8Jk+dCGMRFN+RDqIjpSd3KPlmpQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 069D71F0089F;
-	Fri,  6 Nov 2026 05:01:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793941306;
-	bh=XYNLpZZA6D3B9ZCH1XsjfFEUFEQlwdWP8FZ6G9m3nJ4=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=LVMwZXaLnCrC7bQ8/kH+3rIgfrN+QRv/2vP+T/BkebpuUQSmK09vA+SMGUPg6jqrZ
-	 7X9BJbUUgM/rKzT6sG6UDjZePIxu0bN7nyuhh7RGrEPWVGX3BlSJSZhDVnExAN27gp
-	 ANE5gwa3A7sYI7xYlNQBLdxWvuon+ZMQiv+WbokNT+xLtrnGWNIJqq0AGmbncZ53p5
-	 /gAR85YUFvWI+qnRoT7ND1eUrKJtUhVGy8EzJIGfX9POKJUXMtRUAuWxl/A7GalSjn
-	 U7P6prKfk70030CgZtyr0muCusb8aJB4UVwAjAJtEOZakwWW5Pj9pei+pwYu0N1rxl
-	 nRJWm1sVxQpCQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 5751D45BD7;
-	Fri,  6 Nov 2026 05:01:45 +0000 (UTC)
-From: =?utf-8?q?Dani=C3=ABl_Trujillo_via_B4_Relay?= <devnull+datrujillo.nvidia.com@kernel.org>
-Date: Fri, 06 Nov 2026 05:02:23 +0000
-Subject: [PATCH net v3] ipv4: fib_trie: prevent speculative out-of-bounds
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=E7li3ePP
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=IAgop6elOKTKAHD9rWtZr4d+yV5IqDlTLFGiY4tyYDHvB4AdZNhescqcMbvwEKtRQif3b+bH4sXFvUZvwSTVk0E7xbooh24nm7fi+e1vnIoxt8iAc8sTcRlWS6QS1YUMeIVz/OCWM7NLCPKySwccKst2zMuQacuOmT32myk36xsBVlj/EJNaJZSrQyUMkGw5v5Zr8cmNF8i5nTzgnfugWAvX0rAoa25DXd7ukI79lSEgvMIDcGiC0Max8Ut3V5sXqkDFeCaF2eoiSF1bCikLyKXdgFdW656PAIZRVMnwilapLUaQRvhe4AnWRKOzIKldKRmVILjorbM52++QRx1+vg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MBHbLslr389j//83MkfywuyGralPV80DViS8tU9jTlo=;
+ b=N2v1rIUCpIRhwjDmOj8LkiBo6t5H8ftJgkoKLyn+tP+nvLaGxUDtJS45JDoH0MOfrQf5l60OXcCRGl7NU92CMX1xn54FHlAASB+rGH233jjsaNTw0BJlxU48rCYmIl8/2gM7u/d43Wxp1a2V+IIaXhkWxH2i4bU9uL2NRCwPRzvpHOU5XDbuXn7yTMVsFy2PSWJhrjnc7So3fI/OPVmVGXFe5XCs7ZojbMpGojkrVfM6DuqZ7JJ4WYfh4xKt/6U6CFveNSIRUue428d5sbByDmJF6a2x7J1+AX8Qx8m2acUoRumCfn1BY+/8pA6omgP7lxcAqDKGQ/ul6MHHivnPdQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MBHbLslr389j//83MkfywuyGralPV80DViS8tU9jTlo=;
+ b=E7li3ePPwT7EP6iZD0e485GRrnbGhhSlw0s+IGsbwfuAIkQtxL0340AEcofjVuHqDwRP3hy+pvRUp0ZdKG9HyhNGXYhQK6DIY7PZXsNLrn0Xo7OfOdq5YjaesVGkSK+l2v0zfTMCfqM8o9I0ceVqeEBgpB+5gq0hXD4w5AjtcTpPirvGftysGL/bl4BFf/tpUjA1KsMxxtjLRyCwRyyX5GUqoAm56M9dghJvGBczz18YJVzAM9JZIe1NnVqyjKWEHDuciAsehR3HA0r5w46MeKBWCfdm3GisIhSBejy3R/eQxHy4xVMpW/CzQSufq1pOEhKzRcTdZYwmvruQSJ+Wlg==
+Received: from PH7PR12MB8794.namprd12.prod.outlook.com (2603:10b6:510:27d::22)
+ by SN7PR12MB6715.namprd12.prod.outlook.com (2603:10b6:806:271::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Fri, 6 Nov
+ 2026 05:09:02 +0000
+Received: from PH7PR12MB8794.namprd12.prod.outlook.com
+ ([fe80::275a:bcb7:918e:7313]) by PH7PR12MB8794.namprd12.prod.outlook.com
+ ([fe80::275a:bcb7:918e:7313%3]) with mapi id 15.21.0569.011; Fri, 6 Nov 2026
+ 05:09:02 +0000
+From: Daniel Trujillo <datrujillo@nvidia.com>
+To: "netdev-bot+sashiko@kernel.org" <netdev-bot+sashiko@kernel.org>
+CC: "dsahern@kernel.org" <dsahern@kernel.org>, Ido Schimmel
+	<idosch@nvidia.com>, "davem@davemloft.net" <davem@davemloft.net>,
+	"edumazet@kernel.org" <edumazet@kernel.org>, "kuba@kernel.org"
+	<kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
+	"horms@kernel.org" <horms@kernel.org>, "netdev@vger.kernel.org"
+	<netdev@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>, "alexander.h.duyck@redhat.com"
+	<alexander.h.duyck@redhat.com>
+Subject: Re: [PATCH net v2] ipv4: fib_trie: prevent speculative out-of-bounds
  child access
+Thread-Topic: [PATCH net v2] ipv4: fib_trie: prevent speculative out-of-bounds
+ child access
+Thread-Index: AQHdWHl1kW8JApKlHk2ofqWtKk1FMbb32KkAgCjP51I=
+Date: Fri, 6 Nov 2026 05:09:02 +0000
+Message-ID:
+ <PH7PR12MB8794FE0E2AE05E38AB9EAA81B2762@PH7PR12MB8794.namprd12.prod.outlook.com>
+References: <20261010-fib-trie-nospec-v2-1-30319b4db8d0@nvidia.com>
+ <179169799489.434549.6127227149225091641@kernel.org>
+In-Reply-To: <179169799489.434549.6127227149225091641@kernel.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH7PR12MB8794:EE_|SN7PR12MB6715:EE_
+x-ms-office365-filtering-correlation-id: ba44fbc1-380a-4fd7-b0b0-08df3bc412ee
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|23010399003|1800799024|7416014|376014|10067099003|18002099003|22082099003|38070700021|4143699003|56012099006|11063799006;
+x-microsoft-antispam-message-info:
+ JUCkoV4OQqUnZgNW91Ibq90v91bRYvtKAUgqfmHdZOWTklwdpeEOydFebp5/TKPnyRtODtIMIYL/KfhjZCCwraVn6kk00t3EkHezQEDx3zwNdvUlQREwCcjSm4I0zzo41lSjlkgRrqqh8p4PCpYJZzvm7ccXK+LiW+hvB65Wd1306bWSFfHw3yIcSukxmcQ0EYvGRGhqXF5tn/M/c4qv40enjnF1NU1unGE1vvAzBnDbCoM3AElq8tYoNl0N/nmDbMoX2rUdSHDIQJRtRwJ12wy0P6Fa1f4BUzSJYCXifyipWO6QfNYMs8bUI/6hUV+ueaXNYewmHV5ckw4Ee6XNliroKC8E7vaOLJDUJYqCWTe9ZSEKDeyelOR7HlFDn1+Fes5CsLVS2YoV2aS3PL1SThwWHKniWKtjd32ralH/mObWb1jALI2M1ZB96Yc4yENRu9eSANFzDMRXUvIYlFkPTPXyJ5i9BvG80yjze+MErMcN9irGS0U1OBmIV1BLM8OTgaYNhgqEuAi56ht356Nb3eW+iDNZUVN8LiohxRGDuCZh5oilhpUUqPvnVjUgsADZD7BucD+uAFShdidaAumV5dAsfQWTUChB600NBEL/ROLPmDFSoyVhhRSYMj1ruZlJC/yd2TPhGMqoFgi4qHyjJxCvQ05/ebpdo6Gg3jozigE8dOpX7dWlvvZhtWMG4dVu+u5iNEG8pOXalv5rKRCEmzYLuYVCES6A4Zm9dPk4lGc=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB8794.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(7416014)(376014)(10067099003)(18002099003)(22082099003)(38070700021)(4143699003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?WiCiL9CImPNUJguIeTI8guC6J/530pbdJ3KV+aLchs67KSIY9WN5IaC5nR?=
+ =?iso-8859-1?Q?CeduXyKpo1vkoxIzb2Q0BOdK1bnFp/cCqi4gjW+vS357SqwmJ2S2/x/zqC?=
+ =?iso-8859-1?Q?V50gVhtU0PaD3Rrxbd53V43jY+LYz3+loduGY35ybOGPXw9u4tVOtv7Rv6?=
+ =?iso-8859-1?Q?fW/pFlJVYWQNpzQGBIvCuhyvPz09uZ6Oi98gAO8IpRRhEUzKphnwzrQyBN?=
+ =?iso-8859-1?Q?SA8ESFRNnj8rMs403M/X+ERga2RqREoGNRomujD52TiWc5NzqU1Vz668Qc?=
+ =?iso-8859-1?Q?jMDsjYw1iIjkW/xyXq3GhFmhlF27iXXsjbjQre0Iw5cac7qfRWxu4ldHUQ?=
+ =?iso-8859-1?Q?KD1K/+CWM7GXm150kFBokwd8q/6JO4vgmTFAo/tv4T0Qy7719tFUNMCu4n?=
+ =?iso-8859-1?Q?CacExaSoBvzNNI7MWoLwcou+uEFEJLKk2Im5qDsUY0JddCK/kvXCvPjLHq?=
+ =?iso-8859-1?Q?U+mo0r13WY42kjlALVX0Jf6BycyQnogyxKUPFA1NcCcFpIAqPGxPMaQkmC?=
+ =?iso-8859-1?Q?QYHAqkqPLn+d8V/e72wbWg+ILk+fpxEdJJ8AOEIWrrmAj6ClNb6vrFFyzc?=
+ =?iso-8859-1?Q?9yZ13p8kmyzfdbo+fQd327+MeiTntmCJvlymo1H5EKVv0OriwRhvdsDTyI?=
+ =?iso-8859-1?Q?bUI+RNbJVDyoP8y+MhQK0gREZJRQAC75YR/YsRNonRHJsrhuWzvIGByshM?=
+ =?iso-8859-1?Q?63Tx4m3Cb6e9ORzhSiirxIma5vRHTlqyIQ6FF/2baWECYW//CTwV+60Txj?=
+ =?iso-8859-1?Q?KJc7yHaRQIXGZbDZeq49BbFVkD20Fd3t0Nx8wG5q8zjWM/JwRyxghVV2J0?=
+ =?iso-8859-1?Q?cxI84ZSADEyMqxz3shII2YYT8JYZtmi8p/wy++kv6aAU5qmXx3XJ9qRiNy?=
+ =?iso-8859-1?Q?9XePlGRM/7OYq++LckfNjBvAiVpPdBSsbS7GSi5OI7RGRjAu0lfXe7VYwe?=
+ =?iso-8859-1?Q?IaLcKPfVBEPEKvZtxwyrZNGj3RjvKcBdQl5MSV1nmSI7Ce29i8mfHbHZ5e?=
+ =?iso-8859-1?Q?1M69IPEW42KtrcsVdjp1h9eYej0AhjvSi/Q5XHlGfz/9+xGB1M6qB5Ojw9?=
+ =?iso-8859-1?Q?pfRAl9KAyEadvAHFj/guRZcWrNf5QHoPG9T2BhKJueWQPSs1EvFP/n/nYO?=
+ =?iso-8859-1?Q?qi1zDUYN67Nq1mwtVuSxFrHZ58pF3Qv20v23JmbhHH+1eK195SMuL5dzQo?=
+ =?iso-8859-1?Q?h9EHnsHubt/5zW7eS/UIC7OFW6KgiD7nCa3fR55IPzgbbMBhOvUqHYedBC?=
+ =?iso-8859-1?Q?RwY0kpsG+XSKmFfySwhRTzvtDDdevr+bS4e8mzqgY9fYWQoJuCEolP2AKg?=
+ =?iso-8859-1?Q?2V2v4lqAF/9tuIVWhnAHdxkRYZQe3l4HYu14F6Tp4RYoxdeySXpT3x8s1k?=
+ =?iso-8859-1?Q?JOE7vynhEtWMPhpXCx3qmSEcQ9vI4zNKI0krR1JAxaOEJIgEUyA5RZKulM?=
+ =?iso-8859-1?Q?WqlNYOO9OAm0orNIXL/kn/37gXlvIucAQwnnMW8wziwslxyR1HFsUJ7wE4?=
+ =?iso-8859-1?Q?fzVttH2vmemjV8RXN4iXvygxCe8R/IJ/3m2E9vaxYWkYAsmvTbsxLrglm2?=
+ =?iso-8859-1?Q?HSuwVhxGG6cqVwjpSt2cBXkhPdiAedIrmus8uxySOaFKMyExH2xIzFNrNl?=
+ =?iso-8859-1?Q?4n1g4qySUoYm0M1P9w0iFhQZWmx7KDBQey1dzPc8TuvQ/8aB5/Ujbdr9xf?=
+ =?iso-8859-1?Q?0hGqi4MafbrPfksYqJTjVPSAzrd1e0SGuyqYzyhJt50UooyVokIZgk5l/M?=
+ =?iso-8859-1?Q?a57J2dNSMcGhJxEK0OMoP71BaqltVTN8jRCOSpxcOL1mseDiWRiwYxJYlh?=
+ =?iso-8859-1?Q?b/e+VJc4yA=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,168 +155,19 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261106-fib-trie-nospec-v3-1-53da6550dcf8@nvidia.com>
-X-B4-Tracking: v=1; b=H4sIAF5f7WoC/3XNTQ7CIBAF4KsY1mKA/qEr72FcFJjaMREaQKJpe
- ncpbjTG5Zu8981MAniEQA6bmXhIGNDZHKrthuixtxegaHImgomWMybpgIrGPKHWhQk0bXTXMiG
- 1hE6TvJo8DPgo4olYiOT8Poa7uoKOq7XWRgzR+Wf5m3gp/32ROOV06LnsRGtq2cDRJjTY77S7F
- T6JD4CzX0BkoGIV36vaKGnYF7AsywtOGBkaBwEAAA==
-X-Change-ID: 20261008-fib-trie-nospec-5c76028c8e7c
-To: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, 
- =?utf-8?q?Dani=C3=ABl_Trujillo?= <datrujillo@nvidia.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793941344; l=5447;
- i=datrujillo@nvidia.com; s=20261008; h=from:subject:message-id;
- bh=5c7YINK8sjo1SrfVNltMm2KMO1jVWrBXalQL2Wr8bkA=;
- b=Z6qQ/lszbof05Q5gSAbauvuwAu6MsKLFgkjXGFMRArOgu5BrHZ1In+z4rdMR/2GTgXIdoOUOH
- 49V2s6kwhXeByzS36DUIbQ4XixZDpouTIYi3o9h8Eu0zV2+hF4X1TeL
-X-Developer-Key: i=datrujillo@nvidia.com; a=ed25519;
- pk=AP24zUwENFy2geglpKJAA8oaT41tkteCL9hTWGd88rs=
-X-Endpoint-Received: by B4 Relay for datrujillo@nvidia.com/20261008 with
- auth_id=1128
-X-Original-From: =?utf-8?q?Dani=C3=ABl_Trujillo?= <datrujillo@nvidia.com>
-Reply-To: datrujillo@nvidia.com
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB8794.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ba44fbc1-380a-4fd7-b0b0-08df3bc412ee
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Nov 2026 05:09:02.6623
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: PIbU2fcAa0Mpf6ytSIqBZgIpSBJxZvz+S70oqQZh5hEMg1p4VUlJjkop5AyDlWMIG5jvXbofc8PXiLvmsg9S+Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6715
 
-From: Daniël Trujillo <datrujillo@nvidia.com>
-
-fib_table_lookup() checks the child index against the bounds before
-passing it to get_child_rcu().
-
-The index is derived from the lookup key, which in turn is derived from
-flp->daddr. A userspace process can therefore influence the index by
-triggering lookups for chosen destination IPv4 addresses.
-
-If this bounds check is mispredicted as in-bounds, an out-of-bounds index
-can be transiently passed to get_child_rcu(). The value loaded beyond the
-child array is then treated as a node pointer. A later transient
-dereference of that pointer can cause a data-dependent cache footprint.
-
-This was found during Spectre-v1 research. Leakage was demonstrated with
-instrumentation that delays branch resolution with a CLFLUSH before the
-mispredicted branch and makes the leaked location deterministic for
-reproducible measurement. In that setup, a userspace-controlled IPv4
-lookup key was able to trigger a transient out-of-bounds child access.
-The transient use of the loaded value as a pointer caused a
-data-dependent cache footprint that was recoverable from userspace using
-Prime+Probe. A real-world attacker would likely need to delay branch
-resolution, which was not demonstrated end-to-end without the added
-CLFLUSH.
-
-Sanitize the index with array_index_nospec() before accessing the child
-array. This removed the observed leakage in the described setup.
-
-Apply the hardening before setting cindex in fib_table_lookup(), because
-cindex can later be used by the backtrace path to load another child
-pointer. fib_find_node() has the same pattern, with the checked index
-derived from a user-provided key in fib_table_insert() and
-fib_table_delete(). leaf_walk_rcu() has a similar checked cindex before
-get_child_rcu(), and the traversed state can be influenced by userspace
-actions. fib_find_node() runs under RTNL and leaf_walk_rcu() is not on
-the packet lookup hot path, so harden those analogous accesses in the
-same way. Also harden fib_trie_get_next(), where a mispredicted loop
-condition could transiently read one child past the array.
-
-I see a slowdown of roughly 10% in a microbenchmark where we call
-fib_table_lookup() with 64 routes directly from inside the kernel. I
-observed no slowdown in a loopback UDP sendto() microbenchmark.
-
-Fixes: 9f9e636d4f89 ("fib_trie: Optimize fib_table_lookup to avoid wasting time on loops/variables")
-Cc: stable@vger.kernel.org
-Reviewed-by: Eric Dumazet <edumazet@kernel.org>
-Signed-off-by: Daniël Trujillo <datrujillo@nvidia.com>
----
-Changes in v3:
-- Harden fib_trie_get_next() against a speculative one-past-the-end child
-  access, as suggested by Sashiko.
-- Explain the procfs iterator case in the changelog.
-- Add direct lookup and UDP send-path benchmark results to the changelog.
-- Link to v2: https://patch.msgid.link/20261010-fib-trie-nospec-v2-1-30319b4db8d0@nvidia.com
-
-Changes in v2:
-- Move array_index_nospec() before cindex is set in
-  fib_table_lookup() so the backtrace path cannot use an out-of-bounds index
-  (Eric Dumazet).
-- Apply the same hardening to fib_find_node() and leaf_walk_rcu()
-  (Eric Dumazet).
-- Add discovery/testing details of the gadget to the changelog.
-- Link to v1: https://patch.msgid.link/20261008-fib-trie-nospec-v1-1-fa18726d485e@nvidia.com
----
- net/ipv4/fib_trie.c | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
-
-diff --git a/net/ipv4/fib_trie.c b/net/ipv4/fib_trie.c
-index be1e40780ad7..394df1de1281 100644
---- a/net/ipv4/fib_trie.c
-+++ b/net/ipv4/fib_trie.c
-@@ -61,6 +61,7 @@
- #include <linux/export.h>
- #include <linux/vmalloc.h>
- #include <linux/notifier.h>
-+#include <linux/nospec.h>
- #include <net/net_namespace.h>
- #include <net/inet_dscp.h>
- #include <net/ip.h>
-@@ -961,6 +962,8 @@ static struct key_vector *fib_find_node(struct trie *t,
- 			break;
- 		}
- 
-+		index = array_index_nospec(index, 1ul << n->bits);
-+
- 		/* keep searching until we find a perfect match leaf or NULL */
- 	} while (IS_TNODE(n));
- 
-@@ -1467,6 +1470,8 @@ int fib_table_lookup(struct fib_table *tb, const struct flowi4 *flp,
- 		if (IS_LEAF(n))
- 			goto found;
- 
-+		index = array_index_nospec(index, 1ul << n->bits);
-+
- 		/* only record pn and cindex if we are going to be chopping
- 		 * bits later.  Otherwise we are just wasting cycles.
- 		 */
-@@ -1770,6 +1775,8 @@ static struct key_vector *leaf_walk_rcu(struct key_vector **tn, t_key key)
- 		if (cindex >> pn->bits)
- 			break;
- 
-+		cindex = array_index_nospec(cindex, 1ul << pn->bits);
-+
- 		/* descend into the next child */
- 		n = get_child_rcu(pn, cindex++);
- 		if (!n)
-@@ -1791,6 +1798,8 @@ static struct key_vector *leaf_walk_rcu(struct key_vector **tn, t_key key)
- 			continue;
- 		}
- 
-+		cindex = array_index_nospec(cindex, 1ul << pn->bits);
-+
- 		/* grab the next available node */
- 		n = get_child_rcu(pn, cindex++);
- 		if (!n)
-@@ -2437,7 +2446,10 @@ static struct key_vector *fib_trie_get_next(struct fib_trie_iter *iter)
- 
- 	while (!IS_TRIE(pn)) {
- 		while (cindex < child_length(pn)) {
--			struct key_vector *n = get_child_rcu(pn, cindex++);
-+			struct key_vector *n;
-+
-+			cindex = array_index_nospec(cindex, child_length(pn));
-+			n = get_child_rcu(pn, cindex++);
- 
- 			if (!n)
- 				continue;
-
----
-base-commit: f66469d9905b39d2c260a15d7d6db450f4db67c1
-change-id: 20261008-fib-trie-nospec-5c76028c8e7c
-
-Best regards,
---  
-Daniël Trujillo <datrujillo@nvidia.com>
-
-
+Agreed that this access can be hardened as well for consistency. I've added=
+ array_index_nospec() to fib_trie_get_next() in v3.=0A=
+=0A=
+pw-bot: cr=
