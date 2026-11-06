@@ -1,108 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.222
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793934896;
-	b=Nv3nF5/Dg8m3Uw03nwtTuBP2Ei8/oAj5dI/P5yxiPIqqaBSuGgB4flUXI/j8di+Mbda6
-	 Ow6I9ZHZuJxfSMbxDh+7hrVLejbo6DDg7IvAhH55injm6sQmDnrzJSbXIOGhpx2kL0aX5
-	 GapVz6UthllnClvV20YJXVbHbe/vzpZugXevr7LVRLlk8tYDWMVX3xVNJGH/a/dSH33VT
-	 0M8EQmO6ur98x/u37Ka8sCQ8cbllXHhqsv0+UG677DsoIOsBmQuv63+KHCAOnHnvRWbar
-	 K96juz9XA1/0XZUvTq9I7LtPcxIj4sXZvDdi6g8eBesUa98hd8ncC6msHEuliNSIl5g==
+	t=1793935073;
+	b=3W6lJxe/V724tVsNl/caYTBstu7KIozdVmpo3k7FtEKX51VKjvEgny/J6CmjnVQkIAFV
+	 xdL+lMkwNeOj/5vN6pBuxYyptQZY5rZUZV7siZjXDUdRxnaaXKGZ11E2HS/yhLrx5iKKy
+	 slY/fOHOHpitK7FnqL1mlzKM/Qexb1wAeSk5mP/cYYVdVkMeyuI4cOCjYd94xEULka8VZ
+	 Pz9gsB1botnGpW0ggJ1oGrHpPXs4TZg7s9nKmnIrudyoTJS3sZq2SGjmsZJSwEB537Y4U
+	 EBgP7Kna5NZg4+620MODYfztsUllC9+5Rd5cjaft3E0jTuNz0nvaUtXE2R18gmf4wuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793934896;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=wJj0oR2pSKsMay/M1e8Ih51asYPlBe9zasBmF6ztsDo=;
-	b=3GWD+VzOqHcnVnqdwiW6eJFVe0ZAUZ8VA1Zwu09ygfvwBo+QF0QDjX/zNX7KrfxQztEm
-	 JIS9b7Xr71Wjl/O1iRqcx079SY67P4RbVC8UTXX+VSEYdS7Zu+GkV0+ojE+9qLMS8Hr5q
-	 BUi7H/RIujP+sokVwODA4DEvXyPo/w2OGaEFptHtf04rJ+QWvvaW9H/lUn8XPqZ/JN+eZ
-	 kfPAPwIBnEWJZwzRycSerle4rBovHFLYGKgDDOlgH++3ajN31E5eJc3V+kBzkBS3HwoHH
-	 BLAHyofxK5mxGhc3nYLefOK+lnHVyYjk/pCSKo+AkZRTMp12cpjQ85BAyOsgatnDmgA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793935073;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=03M13Azwyy0KMcFaGycRciB1g2jPBnLm5WvZcLiXzPk=;
+	b=b0844yyCCPr56vo7i22r3FRjQGIslMzj0XrSppfUDzqMzOQ2KE4/am/vJMqiJKlp++Qk
+	 Gg4KeRg4Tdl/l1liIQJ8gpIr78TMstnBiiorx5HJ/suKNLL5IS3oZ1zvR6evUL7TSz5Ue
+	 TseLyuFHlaaCpwwuMBPnF12CxOmswo+DfkC5VhrpEan5WQ3Uszy1qBTG5jvD7WQ3d5pAu
+	 YHxPNdfSBwzmA4xl86Z+mFDKs75zoGc3YttokCH2enYCta6BEfmeTFaiYKmKX1rEE0Tfx
+	 CNXE4GAqYSG4h1fUSxE6+LqS3o4wgo7xjSOWRnqTjuuHgDoF061ULSv+FjsoXR6cIPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=y2gj7zZJ;
-	arc=none smtp.remote-ip=209.85.221.180
-Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com [209.85.221.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=o7ID0tMj;
+	arc=none smtp.remote-ip=113.46.200.222
+Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77048606A326
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 03:14:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77048606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92609606A31B;
+	Fri,  6 Nov 2026 03:17:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92609606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=y2gj7zZJ
-Received: by mail-vk1-f180.google.com with SMTP id 71dfb90a1353d-5eafa528803so76320e0c.1
-        for <stable@vger.kernel.org>; Thu, 05 Nov 2026 19:14:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793934894; x=1794539694; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=wJj0oR2pSKsMay/M1e8Ih51asYPlBe9zasBmF6ztsDo=;
-        b=y2gj7zZJ0s84u8Y3vAQA6OUE3k6+rRtGJ8LpvPBLcpePX2omhpXxg5HJV5wz5jodfw
-         6Zz9Ondu5uJBs0o0jaDhhgOVSCpujT6TiBFw1OBCN9+LBcZkhH11J2CltoZbCEj11ytS
-         tcSyV4q8ap42K0iPksccTp7UMzX6jMkZdygmrx+mgjw1tapU4z78oDH1tokeDA3dHFdR
-         HP4Kt6YqVDtbe9r7OwpsfRF/dIIJw9lPEqkPdWbw03xjxM/Dz3m9fMAwwj7n2mUeyrWI
-         65F5Gs01U4R0z2zvaup+YqCw+iU+jjjK3WjNHAXuMoKcK35Uuiyqlm/OKBtMPgJJaEQY
-         5BfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793934894; x=1794539694;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wJj0oR2pSKsMay/M1e8Ih51asYPlBe9zasBmF6ztsDo=;
-        b=JzNsvwPea73ct/wbZ6MEJJsPcpROpAgNz/pjOOBGEzeEDp9L6OLM4Ta7Hlo/Kuu11d
-         KisLX29JY9v8qoKCcs/Dl9QnYnovLC5L+/gypkKS+A85aoybx2L5sisOiXgo3cUIj/+z
-         AqVpS9dCTbGLntrOJf2t7r28HEV8LNChoj3BPILBt+HRHT8Don6L4sley1kIgqIz6jpu
-         AQjNX0IUm6I1Rgdk0jZ//BLudfHJ4E3V30FSU2bstsrkoI3SHq7tM5E75m62Z3qJ6BJi
-         nJ9F9rVMqJvuCl6K7S/Ut4i3FopdEsZf4EYtjjvq0d6bGY0Kwf3bzRihPGmG+nj1W/aC
-         O2dg==
-X-Forwarded-Encrypted: i=1; AKwUvByRY3qYtsLkkk+ZE5ou8qHpAphkAGWvkmOa4Nks5/UpeWzcmCBizXB2LvZj+86d5/ZEp5NIHuc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8WTAlsixDHUhyiY7KW/aUr+VWLjDwLt0fyHv5hZDFEipHbxRJS
-	xgzonOF/0m9QoX6sRwTd3gfr39lD9uopJVMos4Ee66yviSLhEmgob409
-X-Gm-Gg: AYBFou1BZpiuBooMevr6lPqflyWGE7UQ52Bzh0Xqv64qDz+ayUz0tAZY0gUaWtQbrR7
-	FTeCkZs93tmGPNqMPdhKGSlYB+KyuaoCLisb6r0Mip1DPFB9ezeFs1shtRn/t0miRTkewFan9hX
-	BjVEu4TJD+q26wCkvgsW423ej7jOCRRzvTFzOeL1jpk7NHW1lWGpMXbLyZ0xN+56VpaQGUWMzRk
-	HsMEuK5dOb9LgzBF1Oja7XLpPPXnF+6ZdmrDFq43PRqMLjYfVv6YBGKiz66XOPmdBphBaOFwRt5
-	xwC9gFCzkQF7Wb16yVFe2kwhvPuxD6prwl5PCmo1vEJgYP8emaP5rsX6jsfbH8S8lEO3zhl8uz8
-	Yc3J4MsX+OYW5L1ntHziYifTa+WK1hvSAUR/s99ySOMeQxtmQeTfAFrftLwoV6KkSDMHhp61bsU
-	udFVUaq9lQtA1hGeJFlPshHEjoBisAH5VOpQE2RJNYa5fk2TCqqOn+TmboGiRgg6w0WeDHLmxjq
-	jWOfvZsUL9xzwa6xshlpCvUq+r2l7+FA+ph27E+z/8suq0hFXcD8QYqTnYCvtbnAYNPusjZqsq+
-	qTA//4c0DqQFF54mqOhKWkO0ylfvJz/dO3XUvVX/ACpFQpZp2AieRd3NGkdF3pLrghcqmW+6FUi
-	+Cw9G55uD9VktRjju4kUE0BIFvziGSJ96IVfCq+0ZCkbiWyxeSt76H8SYy1coo5Fuf0aSlnQ=
-X-Received: by 2002:a05:6122:ec5:b0:5ea:dbae:3cb1 with SMTP id 71dfb90a1353d-5ecc4431e09mr715241e0c.19.1793934894431;
-        Thu, 05 Nov 2026 19:14:54 -0800 (PST)
-Received: from gmail.com (223.230.150.34.bc.googleusercontent.com. [34.150.230.223])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ecc64cb602sm473888e0c.7.2026.11.05.19.14.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 19:14:54 -0800 (PST)
-Date: Thu, 05 Nov 2026 22:14:53 -0500
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: Xia Yan <yanxia@cmss.chinamobile.com>, 
- netdev@vger.kernel.org
-Cc: dsahern@kernel.org, 
- idosch@nvidia.com, 
- davem@davemloft.net, 
- edumazet@kernel.org, 
- kuba@kernel.org, 
- pabeni@redhat.com, 
- horms@kernel.org, 
- willemdebruijn.kernel@gmail.com, 
- linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, 
- yana06070@163.com, 
- shuah@kernel.org, 
- linux-kselftest@vger.kernel.org, 
- willemb@google.com
-Message-ID: <willemdebruijn.kernel.1e0038bcc3ef8@gmail.com>
-In-Reply-To: <20261104092240.15649-1-yanxia@cmss.chinamobile.com>
-References: <20261104092240.15649-1-yanxia@cmss.chinamobile.com>
-Subject: Re: [PATCH net v2 1/2] ipv6: fix cached route reuse for SO_MARK
- control messages
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=o7ID0tMj
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=03M13Azwyy0KMcFaGycRciB1g2jPBnLm5WvZcLiXzPk=;
+	b=o7ID0tMj+vAhkN5NlLSPSi3OenycoPtYa2YIuF/rZcrZB80TE7RdcPkiFAzf8o2+CL9vXMsnq
+	n4Trg3YXhm25CX8LgoBuW32fpJp8dN082PEiz+h0j+VqSSUvplGgr8HEFDepKu2sLuJCsOGrnj+
+	JUBppBfPofEDRox2+fxOtgg=
+Received: from mail.maildlp.com (unknown [172.19.163.200])
+	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4jLPVz0W2SzLlWs;
+	Fri,  6 Nov 2026 11:17:31 +0800 (CST)
+Received: from whupemk100010.china.huawei.com (unknown [7.152.184.41])
+	by mail.maildlp.com (Postfix) with ESMTPS id 0114740563;
+	Fri,  6 Nov 2026 11:17:43 +0800 (CST)
+Received: from vm.huawei.com (7.238.34.231) by whupemk100010.china.huawei.com
+ (7.152.184.41) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 6 Nov
+ 2026 11:17:42 +0800
+From: Pengfei Lv <lvpengfei20@huawei.com>
+To: <gregkh@linuxfoundation.org>
+CC: <stern@rowland.harvard.edu>, <michal.pecio@gmail.com>,
+	<linux-usb@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>, <xuhaiyang5@hisilicon.com>, <xuetao09@huawei.com>,
+	<caiyadong@huawei.com>, <suzhuangluan@hisilicon.com>, Pengfei Lv
+	<lvpengfei20@huawei.com>
+Subject: [PATCH v2] usb: core: hub: Re-guess ep0 maxpacket size on reset
+Date: Fri, 6 Nov 2026 11:16:25 +0800
+Message-ID: <20261106031625.1824732-1-lvpengfei20@huawei.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261104124402.1269650-1-lvpengfei20@huawei.com>
+References: <20261104124402.1269650-1-lvpengfei20@huawei.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -112,146 +73,189 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ whupemk100010.china.huawei.com (7.152.184.41)
 
-Xia Yan wrote:
-> A connected IPv6 UDP or ping socket can reuse a route selected for the
-> socket mark when an SO_MARK control message supplies a different mark. A
-> packet can then bypass a prohibit rule for its per-message mark instead
-> of failing with EACCES.
-> 
-> ip6_sk_dst_lookup_flow() consults the socket dst cache even when
-> connected is false. That argument only controls whether a new route is
-> cached. The cache check does not compare the mark used for the lookup.
-> 
-> Record whether SO_MARK was supplied by the control messages, including
-> an explicit zero. For UDP and ping sends with that flag, call
-> ip6_dst_lookup_flow() directly. Keep the cache handling for sends
-> without SO_MARK unchanged.
+Per USB 2.0 spec section 5.5.3, the ep0 maxpacket size is fixed for
+all device speeds except full-speed devices, where it can be 8, 16,
+32, or 64 bytes and can only be determined by reading the device
+descriptor.  During the initial enumeration of a full-speed device,
+the USB core guesses 64 bytes (hub_port_init() with initial=true);
+after reading the descriptor, the real value (e.g. 8) is stored in
+udev->ep0.desc.wMaxPacketSize and propagated to the xHCI ep0 context
+via an Evaluate Context command.
 
-The extra cookie flag is unfortunate. Only to handle mark 0 as different
-from not set?
+After a port reset (usb_reset_and_verify_device() -> hub_port_init()
+with initial=false), the "if (initial)" guard added by commit
+ff33299ec8bb ("USB: core: Fix race by not overwriting udev->descriptor in hub_port_init()")
+skips the ep0 maxpacket guess block, so
+udev->ep0.desc.wMaxPacketSize retains the real value (e.g. 8).  The
+xHCI Reset Device command preserves the ep0 context as well, so the
+xHC ep0 max_packet also stays at 8.
 
-Another approach that may avoid this and simultaneously also solves the
-other inputs to policy routing:
+When the subsequent re-enumeration then uses the "new scheme" and
+issues a 64-byte GET_DESCRIPTOR (get_bMaxPacketSize0 with size=64),
+the xHC queues a Data TRB of length 64 but applies ep0 max_packet=8
+for short-packet detection.  If the device's first data packet is
+exactly 8 bytes and it sends no ZLP, the xHC does not recognise a
+short packet, keeps issuing IN tokens for the remaining 56 bytes, and
+the control transfer hangs in the Data stage until URB timeout.
 
-    IPv4 udp_sendmsg() avoids all of these with one rule: if
-    ip_cmsg_send() ran, connected = 0, and then sk_dst_check() is skipped
-    entirely. udpv6_sendmsg() already sets connected = false in that same
-    case. The only gap is that ip6_sk_dst_lookup_flow() ignores the flag
-    for the cache read.
+This is not merely theoretical.  It was observed in production on a
+6.6 LTS kernel with a Full-Speed USB banking token (bMaxPacketSize0
+= 8) in a virtual-machine USB passthrough scenario; the reset
+re-enumeration hangs 100% of the time after the VM issues
+USBDEVFS_RESET.  Bus captures with an Ellisys analyzer confirm that
+the device sends exactly one 8-byte packet for the 64-byte request
+and then stops responding to IN tokens, relying on the host's
+short-packet detection with max_packet=64 to terminate the transfer.
+For the subsequent 18-byte GET_DESCRIPTOR (usb_get_device_descriptor,
+wLength=18) the same device sends the full 18 bytes as 8 + 8 + 2;
+the final 2-byte packet is always a short packet regardless of
+max_packet, so that transfer succeeds on both kernels.  This is why
+the device completes initial enumeration yet hangs on reset
+re-enumeration.
 
-    Simpler and more complete: consult the cache only when connected, e.g.
+The device is not strictly compliant (it should continue answering
+IN tokens for the 64-byte request), but this class of USB banking
+token is widely deployed in enterprise environments, and the
+regression introduced by commit ff33299ec8bb ("USB: core: Fix race by not overwriting udev->descriptor in hub_port_init()") breaks a configuration that
+previously worked.
 
-        struct dst_entry *dst = NULL;
+Fix this by removing the "if (initial)" guard so that the ep0 maxpacket
+size is re-guessed from udev->speed on every reset, and by calling
+usb_ep0_reinit() afterwards when !initial so that the new software
+value is propagated to the xHCI ep0 context via an Evaluate Context
+command before the GET_DESCRIPTOR data stage.
 
-        if (connected) {
-            dst = sk_dst_check(sk, inet6_sk(sk)->dst_cookie);
-            dst = ip6_sk_dst_check(sk, dst, fl6);
-            if (dst)
-                return dst;
-        }
+The usb_ep0_reinit() call is necessary because commit e34900f46cd6
+("xhci: Reconfigure endpoint 0 max packet size only during endpoint reset")
+moved the ep0 maxpacket sync point from xhci_urb_enqueue()
+(xhci_check_maxpacket, lazy per-URB) to xhci_endpoint_reset()
+(xhci_check_ep0_maxpacket, eager), reachable only via
+usb_ep0_reinit() -> usb_enable_endpoint(reset_ep=true) ->
+usb_hcd_reset_endpoint() -> xhci_endpoint_reset().  Without the
+explicit usb_ep0_reinit() after the re-guess, no Evaluate Context
+command is issued on the reset path: the pre-existing
+usb_ep0_reinit() in usb_reset_and_verify_device() runs before
+hub_port_init() and thus syncs the stale value, and the subsequent
+hub_enable_device() -> xhci_setup_device(SETUP_CONTEXT_ONLY) returns
+early when the slot is already in SLOT_STATE_DEFAULT.
 
-Would this be a viable alternative solution?
+The !initial guard on the new usb_ep0_reinit() call ensures that
+initial enumeration is unaffected: on first enumeration the ep0
+context is initialised by the Address Device command, so no extra
+Evaluate Context is needed.  For high-speed, low-speed, and
+SuperSpeed-or-faster devices, xhci_endpoint_reset() returns early
+(speed != USB_SPEED_FULL), so the call is a no-op on xHCI, and on
+non-xHCI host controllers endpoint_reset for control endpoints is
+likewise a no-op (e.g. ehci_endpoint_reset only handles bulk and
+interrupt endpoints).  The descriptor-immutability checks (!initial
+&& maxp0 != udev->descriptor.bMaxPacketSize0) remain unchanged;
+udev->ep0.desc is not part of udev->descriptor and is not the field
+involved in the read_descriptors() race that commit ff33299ec8bb ("USB: core: Fix race by not overwriting udev->descriptor in hub_port_init()") fixed, so
+restoring the wMaxPacketSize re-guess does not reopen that race.
 
-> The concurrent SO_MARK case was identified in the review of v1.
-> 
-> The issue was reproduced on UML with connected sockets and mark-based
-> routing. A separate test kernel paused the sender after it acquired a
-> cached dst reference; another thread then changed the socket mark to the
-> per-message mark. The old code still sent the packet. The fix bypasses
-> that cache path and returns EACCES. The 50 UDP/ping route checks and all
-> 54 cmsg_so_mark.sh cases pass with the fix.
+Fixes: ff33299ec8bb ("USB: core: Fix race by not overwriting udev->descriptor in hub_port_init()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Pengfei Lv <lvpengfei20@huawei.com>
+---
 
-this can be skipped
+Changes in v2:
+- Add usb_ep0_reinit(udev) after the ep0 maxpacket re-guess block,
+  guarded by !initial, to propagate the new wMaxPacketSize to the
+  xHCI ep0 context.  v1 only removed the if(initial) guard, which
+  is insufficient after commit e34900f46cd6 ("xhci: Reconfigure endpoint 0 max packet size only during endpoint reset")
+  moved the xHCI ep0
+  maxpacket sync point from xhci_urb_enqueue() (xhci_check_maxpacket,
+  lazy per-URB) to xhci_endpoint_reset() (xhci_check_ep0_maxpacket,
+  eager), reachable only via usb_ep0_reinit().  The !initial guard
+  avoids a redundant Evaluate Context on first enumeration, where the
+  Address Device command already initialises the ep0 context to 64.
+  (Sashiko AI review)
+- Expand commit message with observed-in-production evidence and the
+  wLength=64 vs wLength=18 device behavior distinction, per Alan
+  Stern's review.
+- Note: on kernels before e34900f46cd6 (e.g. 6.6 LTS), the xHCI ep0
+  maxpacket sync happens lazily in xhci_urb_enqueue() via
+  xhci_check_maxpacket(), so removing the if(initial) guard alone is
+  sufficient and the extra usb_ep0_reinit() call is a no-op for ep0
+  maxpacket sync (xhci_endpoint_reset returns early for control
+  endpoints on those kernels).  This patch targets current mainline
+  where e34900f46cd6 is already present.  Would the maintainers
+  prefer a separate, simpler patch (without the usb_ep0_reinit()
+  addition) for stable branches predating e34900f46cd6, or is this
+  single patch acceptable for backport given that the
+  usb_ep0_reinit() call is harmless on those kernels?
+---
+ drivers/usb/core/hub.c | 49 +++++++++++++++++++++---------------------
+ 1 file changed, 25 insertions(+), 24 deletions(-)
 
-> Fixes: c6af0c227a22 ("ip: support SO_MARK cmsg")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Xia Yan <yanxia@cmss.chinamobile.com>
-> ---
-> v2:
->   - Replace the current sk_mark comparison with a flag recording whether
->     SO_MARK was supplied, and bypass the cache for those UDP/ping sends.
->   - Add connected-socket regression coverage in patch 2.
-> 
-> v1: https://lore.kernel.org/netdev/20261030141435.779302-1-yanxia@cmss.chinamobile.com/T/
-> Review: https://lore.kernel.org/netdev/179371875338.488856.4546363285391899557@kernel.org/
-> 
-> Tested on net cb284914e749388eef402938bdb3115fe1f6d337 with GCC 12.3.1:
->   - UML normal: baseline 41/50, v1 and v2 50/50; the same extended
->     cmsg_so_mark.sh has 2/54 failures on baseline and passes on v1/v2.
->   - Test-only pause: baseline/v1 retain the old cached dst and send after
->     the socket mark changes; v2 skips the cache helper and gets EACCES.
->   - x86_64 W=1: full vmlinux, bzImage and modules builds pass on baseline
->     and v2 using configs derived from allmodconfig and allyesconfig.
->     WERROR, KASAN and KCSAN are disabled; KUNIT_ALL_TESTS is also disabled
->     for allyesconfig. The unmodified configs fail on the same existing
->     GCC 12.3.1 Werror diagnostics on both sides. Derived-build diagnostics
->     are identical on both sides, including their occurrence counts.
-> 
-> 
->  include/net/ipv6.h  | 1 +
->  net/ipv6/datagram.c | 2 ++
->  net/ipv6/ping.c     | 5 ++++-
->  net/ipv6/udp.c      | 5 ++++-
->  4 files changed, 11 insertions(+), 2 deletions(-)
-> 
-> diff --git a/include/net/ipv6.h b/include/net/ipv6.h
-> --- a/include/net/ipv6.h
-> +++ b/include/net/ipv6.h
-> @@ -353,6 +353,7 @@
->  	__s16 tclass;
->  	__u16 gso_size;
->  	__s8  dontfrag;
-> +	bool mark_set;
->  	struct ipv6_txoptions *opt;
->  };
->  
-> diff --git a/net/ipv6/datagram.c b/net/ipv6/datagram.c
-> --- a/net/ipv6/datagram.c
-> +++ b/net/ipv6/datagram.c
-> @@ -819,6 +819,8 @@
->  			err = __sock_cmsg_send(sk, cmsg, &ipc6->sockc);
->  			if (err)
->  				return err;
-> +			if (cmsg->cmsg_type == SO_MARK)
-> +				ipc6->mark_set = true;
->  			continue;
->  		}
->  
-> diff --git a/net/ipv6/udp.c b/net/ipv6/udp.c
-> --- a/net/ipv6/udp.c
-> +++ b/net/ipv6/udp.c
-> @@ -1693,7 +1693,10 @@
->  
->  	fl6->flowlabel = ip6_make_flowinfo(ipc6.tclass, fl6->flowlabel);
->  
-> -	dst = ip6_sk_dst_lookup_flow(sk, fl6, final_p, connected);
-> +	if (ipc6.mark_set)
-> +		dst = ip6_dst_lookup_flow(sock_net(sk), sk, fl6, final_p);
-> +	else
-> +		dst = ip6_sk_dst_lookup_flow(sk, fl6, final_p, connected);
->  	if (IS_ERR(dst)) {
->  		err = PTR_ERR(dst);
->  		dst = NULL;
-> diff --git a/net/ipv6/ping.c b/net/ipv6/ping.c
-> --- a/net/ipv6/ping.c
-> +++ b/net/ipv6/ping.c
-> @@ -148,7 +148,10 @@
->  
->  	fl6.flowlabel = ip6_make_flowinfo(ipc6.tclass, fl6.flowlabel);
->  
-> -	dst = ip6_sk_dst_lookup_flow(sk, &fl6, daddr, false);
-> +	if (ipc6.mark_set)
-> +		dst = ip6_dst_lookup_flow(sock_net(sk), sk, &fl6, daddr);
-> +	else
-> +		dst = ip6_sk_dst_lookup_flow(sk, &fl6, daddr, false);
->  	if (IS_ERR(dst))
->  		return PTR_ERR(dst);
->  	rt = dst_rt6_info(dst);
-> 
-> 
-
+diff --git a/drivers/usb/core/hub.c b/drivers/usb/core/hub.c
+index 199d3f535a89..a6c260d39094 100644
+--- a/drivers/usb/core/hub.c
++++ b/drivers/usb/core/hub.c
+@@ -4969,33 +4969,34 @@ hub_port_init(struct usb_hub *hub, struct usb_device *udev, int port1,
+ 	}
+ 	oldspeed = udev->speed;
+ 
+-	if (initial) {
+-		/* USB 2.0 section 5.5.3 talks about ep0 maxpacket ...
+-		 * it's fixed size except for full speed devices.
++	/* USB 2.0 section 5.5.3 talks about ep0 maxpacket ...
++	 * it's fixed size except for full speed devices.
++	 */
++	switch (udev->speed) {
++	case USB_SPEED_SUPER_PLUS:
++	case USB_SPEED_SUPER:
++		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(512);
++		break;
++	case USB_SPEED_HIGH:		/* fixed at 64 */
++		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
++		break;
++	case USB_SPEED_FULL:		/* 8, 16, 32, or 64 */
++		/* to determine the ep0 maxpacket size, try to read
++		 * the device descriptor to get bMaxPacketSize0 and
++		 * then correct our initial guess.
+ 		 */
+-		switch (udev->speed) {
+-		case USB_SPEED_SUPER_PLUS:
+-		case USB_SPEED_SUPER:
+-			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(512);
+-			break;
+-		case USB_SPEED_HIGH:		/* fixed at 64 */
+-			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
+-			break;
+-		case USB_SPEED_FULL:		/* 8, 16, 32, or 64 */
+-			/* to determine the ep0 maxpacket size, try to read
+-			 * the device descriptor to get bMaxPacketSize0 and
+-			 * then correct our initial guess.
+-			 */
+-			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
+-			break;
+-		case USB_SPEED_LOW:		/* fixed at 8 */
+-			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(8);
+-			break;
+-		default:
+-			goto fail;
+-		}
++		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
++		break;
++	case USB_SPEED_LOW:		/* fixed at 8 */
++		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(8);
++		break;
++	default:
++		goto fail;
+ 	}
+ 
++	if (!initial)
++		usb_ep0_reinit(udev);
++
+ 	speed = usb_speed_string(udev->speed);
+ 
+ 	/*
+-- 
+2.34.1
 
