@@ -1,127 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.147
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.21.23.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793965688;
-	b=JYQkw6jxDqh+0Kg6WmtnbN/RRUWARPDp6IDEyyyI1kQSHFoQu0BqVnvph/GVrRM0Rg3z
-	 u8cWTaYiDeuswNH0mgZRCkBKVC94nGFyWG8iVnLV7/l5aZ31wt+aldIFB5Ek47SH9P8J/
-	 JEvQtKdaen/lbfiU4z3zmyTyuBHc1S5oik81Usfhflkz5JNs03XDgkZVpIpuYPSfU5JY3
-	 ERT4Q462MUuHlQi6+zGRXL7U96ubjgJDm9GIocNabe1XwC/OyChc8nY9cpRhuSXoRiwW9
-	 MzVCZvpPbPdVnkS6wW48q25lPr85qip2OrAHVPmoo633PZGMQKz1OXzTT43foXhr7Dw==
+	t=1793965915;
+	b=uRAvaxhFWWoInBXs9sHdtEW7Ev4iFUiag0miignNGVmdi5vlw3hi2zMMH7rzT6/WeWxG
+	 6/VbeKqV70sfxmFXmYYkMLZBKlI46O4jRe4qThatvJrtip7OrFCf2OjFM7UbH5zdLC4S3
+	 HPfbrR0ihznZCAu/s7VcSvjAbzIfMy867EW4mO8Ztq1bzzXQDOx20k6HYF5y7Kvc308fP
+	 N6wVUFluF8VNIJ6YUy7j7NkTaIRNrFZkAk2VwtxiwQJFtpnC/nUFvhZszA/U+Iylgn0Xr
+	 xygZXdSjQFVBJUQyfs/h+QH2DENwR0Sg/3YQyH3xqsGG1D6aHEbTZ1ddMhMcbIo3fxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793965688;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=2Yu0+6yyRJOK09C6VPDdgbU03joVf17Ur+yrOL92GCs=;
-	b=cfwf5XI6C3F4UeHbEDS/uwgNuQUBtCTYZnyHBFmaXzMXvD64uV9L3w9W6VfYkglXsFzh
-	 QMbxpJQrfBaGMWoQbHLynKmagjiZcaSvdKZMVLXEneuRF2ucFlSuZT+wYKj0IwJZP/vYw
-	 RaEGbsDADmsHLFCYPNtxd04aWK3eMaZHt3nA42sCGSCKiSDxygASyPZyTuMltFpAVKjyw
-	 T6Es27NLLf0Gj/aI8CBsGQCilvWv0lz/mLLHbkEQPvOgBx2vaKGHVb8y+vn/2ZsF4bawR
-	 3mGxSyq6sXq1gBZG1g8eWZ6qI4pYApwpS3gT3sOgOQA3Sb52LxS3AayPXBLmAfuJezA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793965915;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:From:
+	 To:Cc:Subject:Date:Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=sowS8VlK0YFuxRXUqxju6orwyRWV15bvieZJXVvCSf8=;
+	b=zo3WgIoFTMDHCMbrd/MJcrEAuV/9lBNfFpWpRIbq5iChSApCiTS0+GZKMt+TyoCzUXuJ
+	 NtPGLXpXdQGSrqnjQmBRst0GR5bxiTvGgr0yy3XgBbsIqfzwbovu/J9H7QMCHzKzd7JJE
+	 p4zgO3OpSpUMkioaBHNkFdJto+KdVc7PTD8i+dWZbrbweELj64Qll8ekg1t/nmktlpBba
+	 alT1fxkR7bfuh2YTrKPyS0r+U4AZXYkDu9/CytM3FLaq8npFU/oPs4jxRwQdQAyz3KXln
+	 7loZE/PofXIhnlJBz9l08yn7KWBpY4Mt7Ks73a7k7zhNE4Vj8M5Hi36b7pLfGNuhdKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=shutemov.name;
-	spf=pass smtp.mailfrom=shutemov.name;
-	dkim=pass header.d=shutemov.name header.i=@shutemov.name header.a=rsa-sha256 header.s=fm1 header.b=S2QXcn4R;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b="PR4/Dmfl";
-	arc=none smtp.remote-ip=202.12.124.147
-Received: from fout-b4-smtp.messagingengine.com (fout-b4-smtp.messagingengine.com [202.12.124.147])
+	dmarc=pass header.from=disroot.org;
+	spf=pass smtp.mailfrom=disroot.org;
+	dkim=pass header.d=disroot.org header.i=@disroot.org header.a=rsa-sha256 header.s=mail header.b=ADpUlpgz;
+	arc=none smtp.remote-ip=178.21.23.139
+Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E15B606A92E
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 11:48:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E15B606A92E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DECBF606A329;
+	Fri,  6 Nov 2026 11:51:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DECBF606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=shutemov.name header.i=@shutemov.name header.a=rsa-sha256 header.s=fm1 header.b=S2QXcn4R;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=PR4/Dmfl
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfout.stl.internal (Postfix) with ESMTP id 9F8301D00189
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 06:48:06 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-06.internal (MEProxy); Fri, 06 Nov 2026 06:48:06 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1793965683; x=
-	1794052083; bh=2Yu0+6yyRJOK09C6VPDdgbU03joVf17Ur+yrOL92GCs=; b=S
-	2QXcn4RT9dWI2zlFvAypefz+0IYHq3oU6Oi6Pl1tzpW1AeLstop83UJQgHe8yEOn
-	dQqPvW9+ZE6SmrS327Gm9xpsEp3lOdHzAzxArFZtB6jJf7xPoySSOtapYuKmkgZR
-	5gTzxhHO/+5hE1oXVLZEZleZ6Of6tk3QxC0dJfr3OGbqqrJsVaVfNqaLEQN07VVC
-	5Br3g0MAlYt3rHJH8kS7zBxvrTdEncSgYrQCsPrK4vaHnwVNQyNoQ0nLjq5Cq+Ew
-	7Wx0mgwFUuhLAEygJJff4S9Snmq0VI6ZXTfmDqiOp6/xFFaT6I4onc8ow0p1Z/r/
-	cuSyT9+mhZiLqrD6orVJA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1793965683; x=1794052083; bh=2Yu0+6yyRJOK09C6VPDdgbU03joVf17Ur+y
-	rOL92GCs=; b=PR4/Dmfl8Mdq1TS6LXKLCUfEl7iCen9pfMVgRSbZd6CwQQhArr9
-	A6nVYXmGzR+J8O9aGqJLeMZ7xRlovgfNjIFypxqV27z6sQhZSe79O8Dfi1mDfj/H
-	yB/gOmAT83LP2QDy6Bg1fFvFvZAp1KylilQ+yUA2ygRLZKItk/YC0Vh4+cmJxKSA
-	06ZZNCL29VPU1CrKHAA5iBME7/npMZ1I/+Mpb6Kn3jrxfIG8saSizvZiHqO/f82N
-	YozAwc5YroZHEr4jBhhDcIgcYKg1RhURwJRM5+1whvrIbNV5VeHwZhWGfQH6JhZL
-	2BtoRp1RIQvE5mfw+9ut31o04KJQCZaFBAQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=shutemov.name a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793965683; d=shutemov.name;
-	mf=PGtpcmlsbEBzaHV0ZW1vdi5uYW1lPg==;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:maM13a8tgnTXRHW2LfcMVHhrhYXvfpEUvgZG+AzbEpdsHJC
-	vsOZu0l1pcj4nUZcvQmxDmeucOFYd0L/CieIr2CA3w0XrhRnidZKnyeNdFLLzDP9
-	nx9Am3x99JYyc5trHbTrJOh6lYg597voBFtmt2SfqO7JA0iZ1RDnq4wcxEgrpiI5
-	3cw3qne46d3ybk4YK/jUR+eOIH7KW+nWTf5o32yKQWb5Y1XgLjFfmOAiaDLeYgyd
-	eYye7HML05ydhw6FPd+M1SlZyqXtWScCvu6BpNrqf0kPv16QC3OjNNlt+uPUuMjG
-	upToLwVV9ioCA3Z4rKo80c6DMXaB065oWylggKQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:FmEDi1WRQcklZBu57Cd/S7wSjHsUwH00f8wV7s5cSYI=:CAwZkgiAf0SgLFydBf5LAB4mhQO23W7Kk0zf8AYfp0k=;
-X-ME-Sender: <xms:cr7taphnteCOd-mfnf55XdPbxsN_wZBVDEC32FieJWcOMQjrGKC9hw>
-    <xme:cr7tahKuk8trk2ZTlMfB_M3hMe_tMcaMx2HAuPmqwdoMchKffWaItAvRz1JVlWkjQ
-    meh-QJPbCHp2Z_y5coZ1IPjLy7n0DXL7wLQ4ENVLuRotv2fSGuR_ynQ>
-X-ME-Received: <xmr:cr7tamjbHZUSTsk5BXOqJ2KZtfMJ_Qv7fITMTlS3VwatxlIFDLqAMYcuNGo>
-X-ME-Proxy-Cause: dmFkZTEiP1kE5K2AjXPUGYL4V08xpaDYMmso/I3ZYp5NQ0mOY8VtVcT+3RreC8z2zSjnIj
-    8XGwylpC/E32VYxSND/PJg3iKj4y3As5QXupte01kfviCQF7g1D7gxMnAOjOyE5Zr+hzkT
-    33xzjOP2MI13X7E4Y2Qf+9hmgqdREAwWEz/0c0FPFkZWREY3jPnfv2WCE68RdEfW1T8RfP
-    vMasPkCAbpQwmVYnSxS4JTGiRzx7nS85KyizJXI1ZMlj1eYdiB1Ebv05Ea7TicR2hLANIL
-    JEOaLreHdqcIPuW0axq0aDWX+VvBCC8B/Rn1sPZh+0wSMtKC2eo1s2lm92ylORrXCYf+Z1
-    DrhceeY7DzK6E5Cx6mrw1O/0ss6gQ3rwUQaH4EM4Cuhg1tQiYQMtx+E+WYKn+8tw4GD6T7
-    lOp8h+EZHmw8klpYGZ1RS1MPj5cW5F3GJ9cnGT2Hbijz8AMOeOZqc6Hh62oudB/EpuFuJS
-    RB2mAihyoWDGgnMs2Wzh7tFD6nLFs3amBnW6mDsAtkMEN/2OYz2JtSU5Qi70HwMnOoVGvx
-    mUJaVahLbJ3AeGFzzUa/PiY2CXW+7yKKaIEUqnK/8hDh928QFJXf7Bx+BF78b5bDvxEnOr
-    ABjbIOsAou5FWBXBDhn49M+D2occqn2qbKwnjm+S4uUIvP0JYtuIwOrptuEw
-X-ME-Proxy: <xmx:cr7tai1a2NN1Wfb-8gnJU_CtSMIAYzG2Z_e2CFXKzK26adlsy6LWCg>
-    <xmx:cr7talYBfPY7T7JjORebcD4YAd90QwTDfD1SrdvYnUHkLEqX4Zqi-w>
-    <xmx:cr7taii50ihsTw0GtDdOjV244lhz_F0L-b5tSl2qFwsKdcny9j4tvw>
-    <xmx:cr7taud3JN8H0iC_0FrE4G2qMD6SKoUAAT_UvNhgE08sqNPAmqGBrw>
-    <xmx:c77taj2B3ADjw-KNQp6DSH_54H1PPdDXS0Q0xro1Y02FnjXsyqoiCs6P>
-Feedback-ID: ie3994620:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 6 Nov 2026 06:48:02 -0500 (EST)
-Date: Fri, 6 Nov 2026 11:48:00 +0000
-From: Kiryl Shutsemau <kirill@shutemov.name>
-To: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
-	James Morse <james.morse@arm.com>, Usama Arif <usama.arif@linux.dev>, Marc Zyngier <maz@kernel.org>, 
-	Doug Anderson <dianders@chromium.org>, Breno Leitao <leitao@debian.org>, 
-	Jinjie Ruan <ruanjinjie@huawei.com>, Ada Couprie Diaz <ada.coupriediaz@arm.com>, 
-	Vladimir Murzin <vladimir.murzin@arm.com>, Linus Walleij <linusw@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Thomas Huth <thuth@redhat.com>, Dawei Li <dawei.li@linux.dev>, 
-	mrigendrachaubey <mrigendra.chaubey@gmail.com>, kernel-team@meta.com, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] arm64: sdei: Run the event handler on the kernel
- vectors
-Message-ID: <au2-GegBg8kRmBs0@thinkstation>
-References: <20261105120835.3321912-1-kirill@shutemov.name>
- <20261105120835.3321912-2-kirill@shutemov.name>
- <auzM-l40BLsT3clg@arm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=disroot.org header.i=@disroot.org header.a=rsa-sha256 header.s=mail header.b=ADpUlpgz
+Received: from mail01.layka.lan (localhost [127.0.0.1])
+	by disroot.org (Postfix) with ESMTP id 29B26806EC;
+	Fri, 06 Nov 2026 12:51:52 +0100 (CET)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from layka.disroot.org ([127.0.0.1])
+ by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id W4gt2lxuuIWH; Fri,  6 Nov 2026 12:51:51 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+	t=1793965911; bh=2RDJyczQMowvvA1k3+Z+TXrpMLlqD8QWh6I1S4yjCY8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ADpUlpgzIKc2V9n81xWTWSQ87qA/slREk3XS40Uj5B133nv8i0ZiW1mNDe9lN8Yaa
+	 YeLJSriuTZC9gBgMGWPKQxlk0d1tXRPHt5LqyS2O2sZoR2YJDth0SRMcNgSt3n/xov
+	 KsPMgS6jTaIGvK8LskxXs6MDyWPxcifspQ1UoRz26KxJGMpYmzJCEf+nj7h2+zwxw8
+	 xV4+nyY8mbATSpVntKScHfx8puriMd16sKhT+sU+movyq7ahiacg12cKv2VGvnMzmf
+	 XkUg3cvwPGzc7Q7UsFfdt0IjFd9IBXhcvYCBLBfzlhMFKlOXpT3umOxIN+0OfpXddd
+	 BtEjsBQaqfndw==
+From: Florian Maurer <fmaurer@disroot.org>
+To: Felix Fietkau <nbd@nbd.name>,
+	Lorenzo Bianconi <lorenzo@kernel.org>
+Cc: Ryder Lee <ryder.lee@mediatek.com>,
+	Shayne Chen <shayne.chen@mediatek.com>,
+	Sean Wang <sean.wang@mediatek.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	stable@vger.kernel.org
+Subject: [PATCH wireless 1/2] wifi: mt76: npu: return rx slots to the NPU only after refilling them
+Date: Fri,  6 Nov 2026 11:51:12 +0000
+Message-ID: <d6314f34e0965464207656d38a145490b6437aa5.1793927986.git.fmaurer@disroot.org>
+In-Reply-To: <cover.1793927986.git.fmaurer@disroot.org>
+References: <cover.1793927986.git.fmaurer@disroot.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -131,23 +76,95 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auzM-l40BLsT3clg@arm.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 05, 2026 at 06:37:46PM +0000, Catalin Marinas wrote:
-> Worth a separate patch to fix SDEI handling with pseudo-NMI on and no
-> changes to __this_cpu_read() above needed. So, for this patch:
-> 
-> Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+mt76_npu_dequeue() writes the new tail to the dma_idx register of the
+NPU rx ring as soon as it has consumed a frame, while the slots are
+only refilled with new buffers by mt76_npu_rx_poll() after the whole
+NAPI budget. Until then, the descriptors of the released slots still
+point to the buffers that were passed up the stack, and on the first
+round of the ring the slot that was never filled points to address 0.
+If the NPU completes one of these slots, the host processes an entry
+without buffer, which crashes in dma_sync_single_for_cpu() under heavy
+rx load:
 
-Thanks!
+  Unable to handle kernel paging request at virtual address ffffffff80000700
+  pc : dcache_inval_poc+0x28/0x58
+  lr : arch_sync_dma_for_cpu+0x28/0x38
+  Call trace:
+   dcache_inval_poc+0x28/0x58 (P)
+   __dma_sync_single_for_cpu+0xe4/0xf8
+   mt76_npu_rx_poll+0x184/0x390 [mt76]
+   __napi_poll+0x34/0x180
 
-Would it still make sense to switch to raw_cpu_read() in this patch for
-stable@? The splat is new with this patch, so without it stable trees
-would also need the PMR fix.
+Write dma_idx after refilling the ring instead, up to the slot kept
+free in front of the tail, which is the same value as before once the
+ring is full.
 
-Let me know if you want a re-spin with raw_cpu_read().
+Also check that all slots of a frame are queued and complete before
+building the skb. So far a frame whose later slots were not yet
+done was freed together with the buffers of its first slots, which
+were then used again on the next poll.
 
+Fixes: 7fb554b1b623 ("wifi: mt76: Introduce the NPU generic layer")
+Cc: stable@vger.kernel.org
+Signed-off-by: Florian Maurer <fmaurer@disroot.org>
+---
+ drivers/net/wireless/mediatek/mt76/npu.c | 21 +++++++++++++++------
+ 1 file changed, 15 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/net/wireless/mediatek/mt76/npu.c b/drivers/net/wireless/mediatek/mt76/npu.c
+index c4c7c0af6321..6e503a4a890c 100644
+--- a/drivers/net/wireless/mediatek/mt76/npu.c
++++ b/drivers/net/wireless/mediatek/mt76/npu.c
+@@ -40,6 +40,11 @@ int mt76_npu_fill_rx_queue(struct mt76_dev *dev, struct mt76_queue *q)
+ 		nframes++;
+ 	}
+ 
++	/* Hand the slots back to the NPU only once they have a new buffer,
++	 * up to the one kept free in front of the tail.
++	 */
++	Q_WRITE(q, dma_idx, (q->head + 1) % q->ndesc);
++
+ 	return nframes;
+ }
+ 
+@@ -69,17 +74,22 @@ static struct sk_buff *mt76_npu_dequeue(struct mt76_dev *dev,
+ 
+ 	nframes = FIELD_GET(NPU_RX_DMA_PKT_COUNT_MASK, desc[index].info);
+ 	nframes = max_t(int, nframes, 1);
++	if (nframes > q->queued)
++		return NULL;
++
++	/* Only take the frame once all of its slots are complete */
++	for (i = 0; i < nframes; i++) {
++		int idx = (index + i) % q->ndesc;
++
++		if (!FIELD_GET(NPU_RX_DMA_DESC_DONE_MASK, desc[idx].ctrl))
++			return NULL;
++	}
+ 
+ 	for (i = 0; i < nframes; i++) {
+ 		struct mt76_queue_entry *e = &q->entry[index];
+ 		int len = FIELD_GET(NPU_RX_DMA_DESC_CUR_LEN_MASK,
+ 				    desc[index].ctrl);
+ 
+-		if (!FIELD_GET(NPU_RX_DMA_DESC_DONE_MASK, desc[index].ctrl)) {
+-			dev_kfree_skb(skb);
+-			return NULL;
+-		}
+-
+ 		dma_sync_single_for_cpu(dev->dma_dev, e->dma_addr[0],
+ 					e->dma_len[0],
+ 					page_pool_get_dma_dir(q->page_pool));
+@@ -108,7 +118,6 @@ static struct sk_buff *mt76_npu_dequeue(struct mt76_dev *dev,
+ 	}
+ 	q->tail = index;
+ 	q->queued -= i;
+-	Q_WRITE(q, dma_idx, q->tail);
+ 
+ 	return skb;
+ }
 -- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+2.47.3
+
