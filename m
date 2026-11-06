@@ -1,97 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.56.87.12
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793964775;
-	b=P3tOAa9IELYZztn4fEd7aQaao1AhfaqWzZwKPnyNstaxBDhI498W068C+PIdIvtuQzbD
-	 OLCFYTsLDJXHRF0qLdSf7O6ITkLLqTdgJOGN9/zBRLzksvuFxyjhaYV6Uhv7sIQg3KU3U
-	 mEApxO/Ss6BNIQmMAnc+8oJiI4xK8QompPXxul9gjl0EEf7jNQ97qSzeUWUwze6mJsWdE
-	 STpMJMSVmr1Kbk+A6j/52RMJUozauKBU3xtGYeg/JC9D5gTwK0WWkV/13x4z79dgbb4ba
-	 lQ6GYd4cpt0Lgoo40W0FteP2+VeJWZpSHPJD5uK2r2a3IQg9J8L5KcbFx7Jn1q2B/vw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793964775;
-	h=DMARC-Filter:DKIM-Signature:Received:DKIM-Signature:Received:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-Source:X-Source-Args:X-Source-Dir:
-	 X-SGantispam-id:X-AntiAbuse:AntiSpam-DLS:AntiSpam-DLSP:AntiSpam-DLSRS:
-	 AntiSpam-TS:CFBL-Address:CFBL-Feedback-ID;
-	bh=2ilPdXoV+AvhK0fC2FnOFsRUV3deUGZ/dhGNf11FY8g=;
-	b=Q01iRKUcNYADz1+DM6UqBPVbeerABlf29XRG4/B0lUIf3G58v4lkqU9KjWmP1B2724Fc
-	 ll0j7xrwe5NMF0Ye9vO1HvzLvWUMNNF5WYj1GzQVZE0DKJymUQvPrAXBlkulo/3tVyr0k
-	 ctud8sxNJJYozobTGL7jwS2Sj/K2fZiZ70UJbFQ6XFMM3FZcezeSO9zEyumlEE/A29nXB
-	 kkVezVEaWNvYqmGYIwHp+3QKvlUADLeKl3gHU3cSKA8q9vdsR4wQjR1MmxMLDNb1UCEc8
-	 IBHJM6F4VUGW6nV+HFkC3Wq7pM/hKy/DFVDyu5U8IJyPgOuMz20cuX1nmV667ESTsaw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=valla.it;
-	spf=pass smtp.mailfrom=valla.it;
-	dkim=pass header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.a=rsa-sha256 header.s=default header.b=rmWAGRuh;
-	dkim=pass header.d=valla.it header.i=@valla.it header.a=rsa-sha256 header.s=default header.b=mMMA7T9E;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.56.87.12
-Received: from delivery.antispam.mailspamprotection.com (delivery.antispam.mailspamprotection.com [185.56.87.12])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793964795;
+	b=rdLEF1ILoEEXBKLHrnIQtppa0HkAzS9H5FzKU0CLS8oMXzNiB6ChF1ocEtmkHsTV/FP1
+	 z/oSSjJYoHRXuDilCD6nc47QUitnMjo7NXKnDFaFH0zzqdyNa4PiVAMJY6y9a9GlpX6N+
+	 xZBW25SxrfcRaJjz45R9QEf+/bSEPM7/NOTAmGjXdANokQvqIEl6os2q0ZR+oHfKa7Z0f
+	 28ZsHg1hgweFlr+VZQF/H76170aeSqfPJAls9wE9QSnqbgDRgzCMeFuqPJ+dAlpYgP85B
+	 9EQGrNFx1gs/EpdCcbSaeddxcqYhKmGiwNwfVcRVzEGdFrnAKZNd7VRzx9DZepbgtTw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793964795;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=dwhjR2jVQFrycXPK2wViGRifyfXgiVWt6Joh/0g230U=;
+	b=ozhHueefxfyPWqxJdXjrPDntluIoa3146YA8shyCqnUxjC1PV8jLWbC0g/ahJ7kaqiEV
+	 ryXzu7dTT7e38GhwOY5R8Sg9W7qG0y3vMhK7i/fJQ2sWDfh7c+frmcOKhCi9UdaI6ii07
+	 Tjre/vqubNvkAcsxuT8I9JeICSFLdoiZMg7OWRLuKb4fODozed2HVu/QZjZTNPkoD47Pa
+	 eEEYn6cSA7aShxI5Xsqj9IkkXbwcgfTOP7apUYPOivs6oK6tFgsm2cXsbjQOj6fqBj5Io
+	 v7cC9Q7WHrC84lyucVo3miMqRNk2EtbyA/6UPCg//Lns7EqQd10XPB2s2F025Fr7hww==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KoqO1Qim;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48870606C7FA;
-	Fri,  6 Nov 2026 11:32:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48870606C7FA
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valla.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A1026070969
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 11:33:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.a=rsa-sha256 header.s=default header.b=rmWAGRuh;
-	dkim=pass (1024-bit key, unprotected) header.d=valla.it header.i=@valla.it header.a=rsa-sha256 header.s=default header.b=mMMA7T9E
-ARC-Seal: i=1; cv=none; a=rsa-sha256; d=outgoing.instance-europe-west4-c9nw.prod.antispam.mailspamprotection.com; s=arckey; t=1793964774;
-	 b=kfOUArOBMFPD4MpPe4knPJCoevtre6hOM1O3k3HviQ+mKLSlu48QlW7giwUc/8OJpm7zpyw+w4
-	  ND9jGsp1Yss0wa2yzP4AZcGGwO8004Gm7NpMitTI/spGt09CA6U5LW1pWziThdPi0M3EfxASZ/
-	  iAj/MIUtiqr7DKKrUtesJZJROjW1Q8i9iKFsN3iD/fPrdpK2K3APAtnzpLjSl7ZcepK24m4QcF
-	  jE8uaQ7nYg4KL+CBfyxgh4P0IimrJvRPObPHEPX6I8vQhlLQp8GIFUL4KLXoM0n2P6Y8E5QTuR
-	  1rrmx5GLxbR9auFwhZpZJn6t2Ftw6gJUcRsquzRO9ZjN2g==;
-ARC-Authentication-Results: i=1; outgoing.instance-europe-west4-c9nw.prod.antispam.mailspamprotection.com; smtp.remote-ip=35.214.173.214;
-	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
-	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
-	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
-	arc=none
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=outgoing.instance-europe-west4-c9nw.prod.antispam.mailspamprotection.com; s=arckey; t=1793964774;
-	bh=StTLOIlH+mOroSjglTjzO+dphxU2ZLCcVyqxkOymtxI=;
-	h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:
-	  From:Date:DKIM-Signature:DKIM-Signature;
-	b=Y6ZB1+1/RXyx46KwpnmWyJDxZQVt+igXFVJ3w6WwXBzLoxbjtc9RkjPAPEFh+X7QK/TIbOfhBA
-	  03PYf60UkGfJ/JGBkscsdLMqezh7J4JRI+FyhDbteqRs4Vmj/FoKAQO38GQnvthN4DkP6UgP/4
-	  Ha8i1PnBvXuHDnVvpvRfi1SOcJOivJqOK8vevfRw31F0DNQRJuOQkNnui/gCw2NjWw38O87PPP
-	  T5S4d8eKMlprjyaNOgkmMkJ5ATf6pjRXAbZic2I2KrzyU0JkyMHxVk0FWbOnFVv5/m5+1Lxn7r
-	  E+ZCj81oX/WQ8dtg2UVf25TaqIZnVYrEayG1X7wsWSBzJQ==;
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
-	:Content-Type:MIME-Version:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	List-Unsubscribe:Content-Transfer-Encoding;
-	bh=2ilPdXoV+AvhK0fC2FnOFsRUV3deUGZ/dhGNf11FY8g=; b=rmWAGRuh7HPXPkObP3TO+apeSS
-	v5i4ExD5XPt+aizpJINqvD2AH49DlUPV30PppZY0RnjlHKNszpf6qySdkzT3inPgH9nr7XF6CUcEt
-	4JPT07mM9eMgZQrXVXJPOWGQOAlw7LTBya2dPIoqJMX3mv3bGM5ukQHh4K+lXp4QSW2A=;
-Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214] helo=esm19.siteground.biz)
-	by instance-europe-west4-c9nw.prod.antispam.mailspamprotection.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <francesco@valla.it>)
-	id 1xPIBZ-0000000GzWr-3puy;
-	Fri, 06 Nov 2026 11:32:46 +0000
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
-	s=default; h=Subject:Cc:To:From:Date:list-help:list-unsubscribe:
-	list-subscribe:list-post:list-owner:list-archive;
-	bh=2ilPdXoV+AvhK0fC2FnOFsRUV3deUGZ/dhGNf11FY8g=; b=mMMA7T9E18+dT9qqIUcQKG0CiI
-	ZDCL797OJOhaIXVu2eXVqoT6Fje3mLrU896F6tTXMECzRJe5+5tPFnsk7LzmAD/CXjZWraYcXmlld
-	J1HNbVFh7yoLSlPlXhRQ0GBLfVj90Rlu10wahyuS7CbaqdTGQ8cGeXuQuapFsP1pbd08=;
-Received: from [79.17.15.196] (port=63381 helo=bywater)
-	by esm19.siteground.biz with essmtpa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <francesco@valla.it>)
-	id 1xPIBU-000000008gE-29Yl;
-	Fri, 06 Nov 2026 11:32:40 +0000
-Date: Fri, 6 Nov 2026 12:32:39 +0100
-From: Francesco Valla <francesco@valla.it>
-To: Yuqiang Sun <izaiahsun@gmail.com>
-Cc: andersson@kernel.org, mathieu.poirier@linaro.org, 
-	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] remoteproc: core: Do not put the device when
- device_add() fails
-Message-ID: <au24I4glFZ0S30A5@bywater>
-References: <20261106065100.44269-1-izaiahsun@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KoqO1Qim
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 876741F0089F;
+	Fri,  6 Nov 2026 11:33:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793964794;
+	bh=dwhjR2jVQFrycXPK2wViGRifyfXgiVWt6Joh/0g230U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KoqO1Qim6fhPciC3HrjGQpiNGTwfFkaaXnbHF/sP3XEWozhHAXPaWtoWRY5xXxTze
+	 eoeBWbY+1e+iiei4kEtpDFZkgWVi1NnJjmmD5F8Cp1ysUYb0CFCThB71XKqLhs6Nr+
+	 TSHxDqrRA1Nk4MJkHxtKif7C5VT1dbiGt2+HXmlV5ve0AnML+weKBLu7Xza/Y2j3vH
+	 0XuZnoQlmW/YQ2MwmJlpufFDS4W3DNSthfkON++SKyn7Qzy8SAkajdVWr0Q8vJ25Va
+	 T3dQpWZfOXJuAZYXgBTtazrbQUwosSq5FlT+W9+lViaQx4kjtlYjoS8Gm3JiJ9EOfD
+	 D7+ozfAk3yCXg==
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 725E6198003A;
+	Fri,  6 Nov 2026 06:33:09 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-03.internal (MEProxy); Fri, 06 Nov 2026 06:33:11 -0500
+X-ME-Sender: <xms:9Lrtaqkp9-3qkexNMvtLxgPrPnal44LmqtyIgUdwLB4SmxkS8dGE1Q>
+    <xme:9LrtakI3cPRKr4852ao8p7a2WlMa65T0MWCOFdxesHhJ83q3rl9YZllV-pvXxREAG
+    3TEBByUImzVX4Za3JlhhvmQ1vIgAMAsID2k9o4d_TJGi8RnelAkbgm9>
+X-ME-Received: <xmr:9LrtanUwGC87sY1OI40EDIoynU-OFR5U63teqDTIuCXa8opSVure6Gds49o>
+X-ME-Proxy-Cause: dmFkZTEEFydlobSPmqq0NWC3mdnVpucy8xcvPzschiasYSG+OlRLasLiG9TZecSqeMAclu
+    7ECEtWVEhVpFWw9L6x3TGu7nLR1O8zMFRELSlvLmXKF62TGeSu+644g+WtnosqAEJIBj3U
+    1C1xys8WSxfv9kl/qzdvEzw3Cmj6rt7AE0u4GPfINkxDQ8zw5DYnQjjQtbTR4RRoqjyH3J
+    xSUHuMOjWG/Jv5cLkhX/zTYDAz1ltDGIqG6hWds/QusvUCZGhIPZDTiXfUTJ7XCWMS2Inv
+    DKk+mMT3lijC1m0RacMemu8D1Nvwd5LmLGsePLgiHP+eq5CrM0rj8rw3sU2o8aU0G/aqZY
+    A69lcB4t4u/6I3XF0CLKZG7/FrHRMbIFy91zFZsNq52tbDvUbCUw92oGtyfOeBsfeeHeww
+    szcOiH3p4asmaQMuWqhZSIJATRQx6Yr1IMLeUQMILL65RAq7YfKG+2GdkT/+LIcpxUBzwR
+    XqFgJ8wxShaUOclMoMCNjGFiRyWU2+xFwKDBGiHXON7plZ5a0RyLEHmhszCw6SdkseHAUi
+    iQvRY+kFYPLRCy8uR2wh+SKRWNDRH6kJe8WsrQ9L5nRgDt4qaub4NojRxEwuzGRpYfEmTk
+    JXgOWukBYX8wmNJNrd8qNKlhsASz34Kb9aA7VBHVdrD+CSShqlN4PNWOK6sA
+X-ME-Proxy: <xmx:9LrtarjV3mOSTqEcSTQaGqQ2WA_JhkjmAFoYe-W-js3fCWW1Rhs4Rw>
+    <xmx:9LrtamdsFe3goRTjxc25y1zLrqNTxsgWzYZAgDmI_q9uhStOCjquiw>
+    <xmx:9LrtatthR6KhOJSalUybeoTVfZ8N3aeen0odPHYe4f9nfn4kmqSvJg>
+    <xmx:9LrtajmCqGSLd0xyR7P5i5lLOhaPZJNytvL5pCRdx8z8e1yoZXVm9g>
+    <xmx:9brtahOQu1ng3v8YW7uyxKi-JWtXj0BnCwjxZwKEUJ6w-uO2HTj4DZXi>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 6 Nov 2026 06:33:08 -0500 (EST)
+Date: Fri, 6 Nov 2026 11:33:07 +0000
+From: Kiryl Shutsemau <kas@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Qi Zheng <qi.zheng@linux.dev>, Hugh Dickins <hughd@google.com>, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/khugepaged: free unused page table when setting a
+ huge PMD fails
+Message-ID: <au263-sEU03puJQm@thinkstation>
+References: <20261105-khugepaged_set_pmd-v1-1-cb79ab117199@kernel.org>
+ <aux9liPvdZgpKCpa@thinkstation>
+ <aux-ZdKu97JHLY96@thinkstation>
+ <c13cdd25-7d7b-4059-a22d-af0a48fabaac@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,83 +95,72 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261106065100.44269-1-izaiahsun@gmail.com>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - esm19.siteground.biz
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - valla.it
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-SGantispam-id: 13ca5306e4263fd04c114629ffd1e83e
-X-AntiAbuse: ID - 13ca5306e4263fd04c114629ffd1e83e
-AntiSpam-DLS: false
-AntiSpam-DLSP: 
-AntiSpam-DLSRS: 
-AntiSpam-TS: 1.0
-CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
-CFBL-Feedback-ID: 1xPIBZ-0000000GzWr-3puy-feedback@antispam.mailspamprotection.com
-Authentication-Results: outgoing.instance-europe-west4-c9nw.prod.antispam.mailspamprotection.com;
-	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
-	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
-	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
-	arc=none
+In-Reply-To: <c13cdd25-7d7b-4059-a22d-af0a48fabaac@kernel.org>
 
-On Fri, Nov 06, 2026 at 02:51:00PM +0800, Yuqiang Sun wrote:
-> In rproc_add(), put_device() is called when device_add() fails.
-> But st_slim_rproc_alloc(), xlnx_r5_remoteproc and the other 23
-> drivers (which use devm_rproc_alloc() and so devm_rproc_free()) then
-> call rproc_free(), which puts the device again. The reference is
-> dropped twice, and st_slim_rproc_alloc() uses the rproc after it is
-> freed.
+On Thu, Nov 05, 2026 at 05:40:39PM +0100, David Hildenbrand (Arm) wrote:
+> On 11/5/26 14:04, Kiryl Shutsemau wrote:
+> > On Thu, Nov 05, 2026 at 01:02:08PM +0000, Kiryl Shutsemau wrote:
+> >> On Thu, Nov 05, 2026 at 01:16:05PM +0100, David Hildenbrand (Arm) wrote:
+> >>> do_set_pmd() can allocate vmf.prealloc_pte on architectures that need a
+> >>> deposited page table, such as PowerPC with the hash MMU. If the PMD is
+> >>> no longer empty when it takes the PMD lock, it returns VM_FAULT_FALLBACK
+> >>> without consuming that table.
+> >>>
+> >>> Since collapse_pte_mapped_thp() uses mmap_read_lock(), a concurrent
+> >>> userfaultfd operation can install a PTE table before taking the folio
+> >>> lock. If that races with set_huge_pmd(), the unused preallocated table
+> >>> is lost when its local vm_fault goes out of scope.
+> >>>
+> >>> Free vmf.prealloc_pte on failure, as do_fault() already does. Successful
+> >>> PMD installation consumes the table and clears the pointer.
+> >>>
+> >>> Having to do this cleanup outside of do_set_pmd() is rather nasty, but
+> >>> other callers depend on it already having been allocated. This needs a
+> >>> cleanup at some point.
+> >>
+> >> I hate this being outside of do_set_pmd().
+> >>
+> >> What about making do_set_pmd() freeing ->prealloc_pte if it was
+> >> allocated inside? Nothing changes for caller.
+> >  
+> > Or if we want to keep in set_huge_pmd() then set_huge_pmd() has to
+> > allocate it too. At least, it makes some sense.
 > 
-> Remove the put_device() in rproc_add() and add a comment saying why.
+> It's all rather nasty.
 > 
-> Fixes: 7dbdb8bd7c02 ("remoteproc: core: Cleanup device in case of failure")
+> I thought the callers depend on it, but if we just free in the function
+> it will behave the same way independent of arch_needs_pgtable_deposit(),
+> so that makes sense.
+> 
+> From 4e8d0a928f0b21e0583dac9234fb1821f3c973b2 Mon Sep 17 00:00:00 2001
+> From: "David Hildenbrand (Arm)" <david@kernel.org>
+> Date: Wed, 4 Nov 2026 20:56:37 +0100
+> Subject: [PATCH] mm: free unused page table allocated by do_set_pmd()
+> 
+> do_set_pmd() can allocate vmf->prealloc_pte on architectures that need a
+> deposited page table, such as PowerPC with the hash MMU. If the PMD is
+> no longer empty when it takes the PMD lock, it returns VM_FAULT_FALLBACK
+> without consuming that table.
+> 
+> Since collapse_pte_mapped_thp() uses mmap_read_lock(), a concurrent
+> userfaultfd operation can install a PTE table before taking the folio
+> lock. If that races with set_huge_pmd(), the unused preallocated table
+> is lost when its local vm_fault goes out of scope.
+> 
+> Track whether do_set_pmd() allocated the table and free it after dropping
+> the PMD lock if it was not consumed. Preserve any preallocated table
+> supplied by the caller for PTE fallback. Successful PMD installation
+> consumes the table and clears the pointer.
+> 
+> Returning without a preallocated table matches the existing behavior on
+> architectures that do not need a deposited table. All callers
+> already handle that case.
+> 
+> Fixes: 1043173eb5eb ("mm/khugepaged: collapse_pte_mapped_thp() with mmap_read_lock()")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Yuqiang Sun <izaiahsun@gmail.com>
-> ---
-> 
-> Notes:
->     Changes in v2:
->     - Comment in the device_add() failure branch (Mathieu).
->     - Shorter changelog.
->     - Rebased on rproc-next.
->     
->     Bug was found by kbound, an internal static analysis prototype.
->     The reproduction was assisted by Claude Opus 5.5.
->     
->     v1: https://lore.kernel.org/linux-remoteproc/20261029130037.5505-1-izaiahsun@gmail.com/
-> 
->  drivers/remoteproc/remoteproc_core.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
-> index d5fa9d23bd5c..d0b1f6ee49d3 100644
-> --- a/drivers/remoteproc/remoteproc_core.c
-> +++ b/drivers/remoteproc/remoteproc_core.c
-> @@ -2312,7 +2312,10 @@ int rproc_add(struct rproc *rproc)
->  
->  	ret = device_add(dev);
->  	if (ret < 0) {
-> -		put_device(dev);
-> +		/*
-> +		 * Do not put_device() here: the caller's rproc_free() does
-> +		 * it, and the reference would be dropped twice.
-> +		 */
->  		goto rproc_remove_cdev;
->  	}
->  
-> 
-> base-commit: b16b5a4fdf7d1f4ec15a53622d9b66081325fbf9
-> -- 
-> 2.53.0
-> 
->
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Reviewed-by: Francesco Valla <francesco@valla.it>
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 
-Regards,
-Francesco
-
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
