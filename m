@@ -1,49 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793928453;
-	b=oClcgdThynBWlVcXqgPzFmXKx5rpJ3t6v4wb9jWYpHkuLliHAtHRMw1dOsPNUzHDdBMA
-	 NXm/nwxYQa2QBthnonJMxAzsxMIGCFokaHYdn++qNMOahjDLR5WG5UTOn4tkFCd2pQVT3
-	 nDtRkCSLWOwBwJIwSHWtwidEmwbZqbIiSkJn1RJqTUwChpfkrFWbmnVx9HmKDuVjstK9p
-	 3hTCUZHct6qR8X9uIo8Xcr2HxmTSXmWBaUFPVWIOpLqzwZQNiwymx5/zS2vCnXr4piWBC
-	 JMW/Y6bA+dVbjL5mUtrWBIFJtbJKhYXb3d50AGIeS5HZlfURcPgMleY72HBGGJH97Sg==
+	t=1793929381;
+	b=LEE1GsRwJFHVlpLznmQun/tKyGDioaa3yTVn+5EqKowdbVQWONZEY/iUQbdGcqDZUvzC
+	 evTFldSbbhhFMhviN/HyouUF8VWNPr2dmxAUaKOg1KutHfhJkJa1WBnTt5hZfnQnZC5QF
+	 4f86eNfgSbwnNIQwE8QcCBkmka/JkxqJ39BHKrkKn0O3VXd6qTW71NKKWw0PimAIrRSLe
+	 5r1HakdgOwLWlvR0GN79vjNLsYxHbvnB1T35wORiCWkpCcquO8haRnEmE+GGEwaJYkuRB
+	 qIptLn11Sv3lke5lPMiPAkUhUv9Oy4JSDKJ0CXyk8tjVlRGWsZHA3OwYmdwZzgOgTNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793928453;
-	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=Ggexvz+DRBtx3a3Vl/nT0GwYPhBHbH2HXrv6jdI2Fj8=;
-	b=SMvK+woAMRmKJRXV1y05mraqjlR42f2aTnusfT4/JtgV/DUSa7RNnAlMVpLRl0bth14O
-	 WkrUBIFom8MJwBU5cs6QVJntKwGh64lTV0DFjxYthVQQzqHJgjDdmiEMbPxjNrOYl/mx7
-	 auGYXeHE4tooiRZwLuMR7gRwDDcfvpaGAQ5K/aFnGbQIPviLdbyYIM5OeqXNtqwgItvxH
-	 lEkRNllc40NKn2DnFYfiW+r98Uv0p/EyCP5rDQ2ZHsS3Hg97Bw0Yv70Y7Rfp4dBBlcuvl
-	 HkT6LjfLvCN+hVjOM0b5WFv8nrfaNc6HeTe8EN3MAjMkS2EZyqNOddFSCrNQWf72x5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793929381;
+	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
+	 In-Reply-To:References:Subject:From:To:Cc:Date;
+	bh=GjkzxdDNrHpcrRXQYuGZ1ch8vMOkUN2uuaOmdGbEb5Q=;
+	b=UqqVPOAkG0qGVfdhvDvbSESAOnnHe20L8SXFdIepmschr0ZyIrRZdDYEXrgqcPZ+mTBs
+	 AcZ8ONJdu691kqPKBjtRT/XdCjsJeZ2BFyzXelFchRMtx80boD2C9E63eHU46qq7amBv7
+	 eRGZnDJYi8N7hzT32fP5r+nr6Oc47areWlzeirn8T78ZcF80oHqlHothZoCtaItH57wCX
+	 TlIr1UEevaHWqx0l2XrCoQ0AsmXjRg9UeEw/qIL28x/WCl2egZN8A2fv0aMzmNT/FTMQg
+	 aXLb4kRwYDUZIl+QL9LVpuRi3L984dKbSk6B3FOtIuqV10tgM5uNyRG3KfFNSBZiEvw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=eYN+GB9N;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Shi//a8+";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D872606A31B;
-	Fri,  6 Nov 2026 01:27:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D45E606A31B;
+	Fri,  6 Nov 2026 01:43:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=eYN+GB9N
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E234C1F0089F;
-	Fri,  6 Nov 2026 01:27:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793928453;
-	bh=Ggexvz+DRBtx3a3Vl/nT0GwYPhBHbH2HXrv6jdI2Fj8=;
-	h=Date:To:From:Subject;
-	b=eYN+GB9NCVGDJg4IFBd+Jr5EjLWAkPTbMmIvnlrvzwhdBlmGvC2csIo+SpByAXDOP
-	 hUhsPhQb3tHtVMHfXRt1Qz9s9GjkzJkysIAP4339f773bRsFekvWDT7BSRVSyNEvFL
-	 K7V4bDF6VCEZ5STnY0fMlZI0lDCb29sFyfHq5FAU=
-Date: Thu, 05 Nov 2026 17:27:32 -0800
-To: mm-commits@vger.kernel.org,vbabka@kernel.org,stable@vger.kernel.org,
-	sarthak.sharma@arm.com,pfalcato@suse.de,osalvador@suse.de,
-	muchun.song@linux.dev,ljs@kernel.org,liam@infradead.org,jannh@google.com,
-	david@kernel.org,azpijr@gmail.com,josef@toxicpanda.com,
-	akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-mremap-fix-hugetlb-reservation-leak-on-partial-move.patch added to mm-new branch
-Message-Id: <20261106012732.E234C1F0089F@smtp.kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Shi//a8+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62DEE1F008A4;
+	Fri,  6 Nov 2026 01:43:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793929380;
+	bh=GjkzxdDNrHpcrRXQYuGZ1ch8vMOkUN2uuaOmdGbEb5Q=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=Shi//a8+jokMV7YNWTI/vK0PThm2YAxJpcpyrErcuwvEbZuh1oFhsOrdrVFN1HL91
+	 1aBX6mluUAmejHcOMKu7aNIREc/+lXQa3bnM1bfuP98AHMrFk667P4WC/BOAojE2fQ
+	 jKYrUhJsYTEOVaW1iKQ+5N2ok6hcguPDNCwx2CI84/FhyM9xoNMLVPw6p54ptCT36N
+	 JXOCEEODbnEeEz4UploEdpA6UoGlw3W88K2WuGbNLjwsMH1xe1e7XtjCvXo8RCmnBd
+	 2dbBIeP9TAXk6C2lUTwFEGavH4DsJmY8iwxPGzoo9NogSXw7E3G0JMnWqSOgdLAXC8
+	 XnVqdY5VxQ/iA==
+Content-Type: multipart/mixed; boundary="===============0551742847628527584=="
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,170 +48,83 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Message-Id: <cf7d9bcb8b837cf8cae8db37cb9a0f53b977e7c59df6de47e8f416222d5f7ed8@mail.kernel.org>
+In-Reply-To: <20261106010535.2137162-3-andrey.grodzovsky@crowdstrike.com>
+References: <20261106010535.2137162-3-andrey.grodzovsky@crowdstrike.com>
+Subject: Re: [PATCH bpf-next v2 2/2] kprobes: mark ftrace-based kprobe ops permanent
+From: bot+bpf-ci@kernel.org
+To: andrey.grodzovsky@crowdstrike.com,bpf@vger.kernel.org,linux-trace-kernel@vger.kernel.org,rostedt@goodmis.org
+Cc: ast@kernel.org,daniel@iogearbox.net,song@kernel.org,jolsa@kernel.org,mhiramat@kernel.org,stable@vger.kernel.org,linux-open-source@crowdstrike.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Fri,  6 Nov 2026 01:43:00 +0000 (UTC)
+
+--===============0551742847628527584==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+> kprobes: mark ftrace-based kprobe ops permanent
+
+TL;DR: Commit message only: the ftrace_enabled=0 problem seems unreachable in
+this tree, since the sysctl no longer clears it, so the patch has no effect
+here; changelog should say it targets only older stable kernels.
+
+>     kprobes: mark ftrace-based kprobe ops permanent
+>
+>     kernel.ftrace_enabled=0 silently disables ftrace-based
+>     kprobes/kretprobes: arming succeeds, the probe stops firing, and
+>     re-enabling restores it. Unlike trampolines, they never had this
+>     protection.
+>     kprobe_ftrace_ops and kprobe_ipmodify_ops are used only by
+>     ftrace-based kprobes, so FTRACE_OPS_FL_PERMANENT, as livepatch uses,
+>     is safe here.
+>     kprobe.multi, kretprobe.multi and kprobe.session (fprobe-based) are
+>     not covered: their return path shares the function-graph subops
+>     manager with unrelated tracers.
+>     Cc: stable@vger.kernel.org
+>     Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@crowdstrike.com>
+>     Acked-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+>     Acked-by: Steven Rostedt <rostedt@goodmis.org>
+
+Is the problem described in the first paragraph still reachable in this
+tree?
+
+Commit b0c857049153 ("ftrace: deprecate disabling via ftrace_enabled
+sysctl") is an ancestor of this commit.  ftrace_enable_sysctl() now refuses
+to clear the flag:
+
+    } else {
+        /*
+         * Disabling ftrace at runtime via this knob is deprecated.
+         */
+        ftrace_enabled = true;
+        pr_warn_once("The ftrace_enabled file is deprecated and no longer disables ftrace\n");
+        return -EOPNOTSUPP;
+    }
+
+That commit also removed is_permanent_ops_registered().  After it,
+ftrace_enabled is only 0 transiently: inside the sysctl handler under
+ftrace_lock (which every ftrace_startup() caller also holds), after
+ftrace_kill() (where ftrace_disabled already makes ftrace_startup() return
+-ENODEV), and in the kexec point-of-no-return paths.
+
+So the statement "kernel.ftrace_enabled=0 silently disables ftrace-based
+kprobes/kretprobes" does not hold here, and this patch has no observable
+effect in this tree.
+
+The v2 cover letter says the change is meant for stable kernels where the
+sysctl can still clear ftrace_enabled.  The commit message does not say
+this, so a reader of mainline history, or the stable team picking it up
+without a Fixes: tag, learns neither that mainline is unaffected nor which
+trees need it.
+
+Could the changelog say this is only needed for kernels without
+b0c857049153?
 
 
-The patch titled
-     Subject: mm/mremap: fix hugetlb reservation leak on partial move
-has been added to the -mm mm-new branch.  Its filename is
-     mm-mremap-fix-hugetlb-reservation-leak-on-partial-move.patch
-
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-mremap-fix-hugetlb-reservation-leak-on-partial-move.patch
-
-This patch will later appear in the mm-new branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Note, mm-new is a provisional staging ground for work-in-progress
-patches, and acceptance into mm-new is a notification for others take
-notice and to finish up reviews.  Please do not hesitate to respond to
-review feedback and post updated versions to replace or incrementally
-fixup patches in mm-new.
-
-The mm-new branch of mm.git is not included in linux-next
-
-If a few days of testing in mm-new is successful, the patch will me moved
-into mm.git's mm-unstable branch, which is included in linux-next
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Josef Bacik <josef@toxicpanda.com>
-Subject: mm/mremap: fix hugetlb reservation leak on partial move
-Date: Thu, 05 Nov 2026 14:02:03 +0000
-
-Patch series "mm/mremap: fix accounting on a partial move", v3.
-
-
-This patch (of 5):
-
-Moving a part of a private hugetlb mapping with mremap() leaks the huge
-page reservations of the parts that stay.  They are not returned when the
-mapping is unmapped, when the process exits or when the pool is resized.
-
-fixup_hugetlb_reservations() takes the reservation map away from the old
-VMA while that VMA still spans its whole range, because the moved part is
-only split off by the unmap at the end of the move.  hugetlb_vm_op_close()
-then finds no map in the parts that remain and returns nothing for them:
-
-    mmap() of 4 pages, MAP_PRIVATE | MAP_HUGETLB    HugePages_Rsvd: 4
-    mremap() of the second page to a new address    HugePages_Rsvd: 4
-    munmap() of all of it                           HugePages_Rsvd: 3
-
-The source is unmapped in this case, so the number of VMAs ends up where
-it did before and the check against sysctl_max_map_count stays as it is.
-
-Fix by splitting a hugetlb VMA in prep_move_vma() before a part of it is
-moved, as commit 597e4b9ab48a ("mm/mremap: fix locked_vm leak by splitting
-VMA for MREMAP_DONTUNMAP") does for an mlock()'d VMA.  A backport needs
-that commit, which is tagged for stable itself.
-
-Link: https://lore.kernel.org/20261105-b4-mremap-pre-split-v3-0-f8789de76849@toxicpanda.com
-Link: https://lore.kernel.org/20261105-b4-mremap-pre-split-v3-1-f8789de76849@toxicpanda.com
-Fixes: 550a7d60bd5e ("mm, hugepages: add mremap() support for hugepage backed vma")
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Jann Horn <jannh@google.com>
-Cc: Pedro Falcato <pfalcato@suse.de>
-Cc: Muchun Song <muchun.song@linux.dev>
-Cc: Oscar Salvador <osalvador@suse.de>
-Cc: Sarthak Sharma <sarthak.sharma@arm.com>
-Cc: <stable@vger.kernel.org>
 ---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
- mm/mremap.c |   27 ++++++++++++++++++---------
- 1 file changed, 18 insertions(+), 9 deletions(-)
-
---- a/mm/mremap.c~mm-mremap-fix-hugetlb-reservation-leak-on-partial-move
-+++ a/mm/mremap.c
-@@ -1038,7 +1038,7 @@ static void vrm_stat_account(struct vma_
- }
- 
- static bool __check_map_count_against_split(struct mm_struct *mm,
--					    bool pre_split,
-+					    bool source_stays,
- 					    bool before_unmaps)
- {
- 	const int sys_map_count = get_sysctl_max_map_count();
-@@ -1092,14 +1092,14 @@ static bool __check_map_count_against_sp
- 	 */
- 	map_count += 2;
- 
--	/* If pre-split, the -1 observed above doesn't apply. */
--	if (pre_split)
-+	/* If the split off source stays, the -1 observed above doesn't apply. */
-+	if (source_stays)
- 		map_count++;
- 
- 	return map_count <= sys_map_count;
- }
- 
--static bool needs_pre_split(struct vma_remap_struct *vrm)
-+static bool split_source_stays(struct vma_remap_struct *vrm)
- {
- 	/*
- 	 * An MREMAP_DONTUNMAP of a mlock()'d VMA needs to unlock the
-@@ -1109,11 +1109,23 @@ static bool needs_pre_split(struct vma_r
- 		vma_test(vrm->vma, VMA_LOCKED_BIT);
- }
- 
-+static bool needs_pre_split(struct vma_remap_struct *vrm)
-+{
-+	/*
-+	 * fixup_hugetlb_reservations() takes the reservations away from the
-+	 * source VMA.  The parts of it that do not move have to keep theirs.
-+	 */
-+	if (vma_is_hugetlb(vrm->vma))
-+		return true;
-+
-+	return split_source_stays(vrm);
-+}
-+
- /* Do we violate the map count limit if we split VMAs when moving the VMA? */
- static bool check_map_count_against_split(struct vma_remap_struct *vrm)
- {
- 	return __check_map_count_against_split(current->mm,
--		needs_pre_split(vrm), /*before_unmaps=*/false);
-+		split_source_stays(vrm), /*before_unmaps=*/false);
- }
- 
- /* Do we violate the map count limit if we split VMAs prior to early unmaps? */
-@@ -1162,10 +1174,7 @@ static unsigned long prep_move_vma(struc
- 	if (err)
- 		return err;
- 
--	/*
--	 * To account mlock()'d pages correctly in the MREMAP_DONTUNMAP
--	 * case perform any split ahead of time for an mlock()'d VMA.
--	 */
-+	/* Perform any split ahead of time if the source VMA has to be distinct. */
- 	if (needs_pre_split(vrm)) {
- 		VMA_ITERATOR(vmi, vma->vm_mm, old_addr);
- 
-_
-
-Patches currently in -mm which might be from josef@toxicpanda.com are
-
-mm-zswap-drop-the-stale-zswap-entry-of-a-zero-folio.patch
-mm-swap-account-synchronous-swap-reads-as-memory-stall.patch
-mm-mremap-fix-hugetlb-reservation-leak-on-partial-move.patch
-selftests-mm-test-a-partial-mremap-of-hugetlb-memory.patch
-mm-mremap-reaccount-on-unmap-failure-only-if-accounted.patch
-mm-mremap-restore-vma_account_bit-if-the-unmap-fails.patch
-selftests-mm-test-mremap-with-an-old-size-of-0.patch
-zram-lz4-lz4hc-accept-dictionaries-of-more-than-64-kib.patch
-
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/42143371906
+--===============0551742847628527584==--
