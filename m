@@ -1,66 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.97
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.217
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793951499;
-	b=QMVuXbPpXyoEK3aHmsOT2eZyVBQPSb2Rjt1RS4M5ChMoNSKav2ajIWdcjui7t7hKZ1kL
-	 sU+JhIjtkoegtOBiSQzVgLHLdkp9+MfFNCL7eaFcmEBSkz65R+wN9kmuZ4i0PKwCpURVv
-	 9ia3Z/K5KisT0Q+K2Q25EL9HhKWxSWORrLTHT0I4mU0QKWo2w64JNkv9B6o0+pUpxYlSi
-	 C8EvvTSOH5LmtoYj8o29Pm6hnu6R0iJA2AF2FrKeCAYpTymKqPwVjvV2KT4HxQ99Eubz2
-	 SzKXS2jh7KpMqRSfZUqI0p2zYYmnkAwq+qjlQ2wnFVGJjtyyRNKgM8l4KJ8VxzZcCrA==
+	t=1793951500;
+	b=Dj5CQ5RxHGdB10q7q3EyTZlEV842dyIbc3uqebLBnGfHgNRx3GCfu9Ywf/S3boWmnMHQ
+	 POyGDA+3j8JaAs52darK/XXEutqnd35Lpq9lMMFsaZLg4XwbymXE2RKf97++QT7MDhP42
+	 uzQ0DoMSivf3VDvMM3PwY5w+RkW+JkzBkle4yIOCnkdeXesSTamN/qD14V2qAzREqY3eA
+	 n9IDrQ8rpCKsgL46dVVghzrgdCPCacECvlp1ruWEegV0ekiofm3r6dBcVxjL6GeF8jVVz
+	 RZgkB+k8rcP5jp0AmoScmH+vLuSegk0NzgrI9ekqErzk65Z5bnxHeIxX2zak1vKZ+fA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793951499;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793951500;
 	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=X3nxSXG+H2J8k8t3k6poogjxQFJaTHXAguqehE2TWiY=;
-	b=W4cQHTbnMn0NwDBruLxGkAt3JN9MZpev8qUFxYsTW0lX/lBet741qs6GuwNG3rL+ZwLS
-	 ns0XluXDb8ZpXVG6bRX/odgSlJ8OZs0TFpoz3W3MPsCwCiCIcKkKZGbeYk2FFkwLZcY8+
-	 6AxYHrPXvaE8hushfAQ/yci5GioU8W2bxXk0WUEP/bntw9mpUGe8gZB0EYr9oGQYeXUxv
-	 yT5t0NgGwYhOzr+mgn8rTeAg6SsJSmYtT5jrGdf5YD021lXtxeXJNq9a9B0z3TDD+vAPD
-	 YQjXeweja2MllTmNXxAl37aMhv/PXBvbOSV/JboTBR9pR2+aYbhzsKFdG1p3jAheetg==
+	bh=BxfnrvZCaIXbpGJqIJIbJ0IIadnlSyqid91Q14S6WvY=;
+	b=c6wjHqGatcADTeKjVfRUnIwJ0Zule53KbMZ7swbAWjYsoV/RRBseikzQsz+XuhC7vLXk
+	 axplDoB2RglMyBSgLqOcHIAKzOkpamfKR8TLvvixUD/EuOiwMlIOads3LdXrf+B7CofP+
+	 tExcmF9RvWE/CSU8TqAKStJp1WOKmqS/cT7aOLUI5KTRqeNMvPPQ3MIc2ItuRnFkbotxv
+	 FX9/57b0YJtoIH4KfYJiIXi2mbX2dlKRG/nqaELNcvLCZM4qWr5Q4etFjQ98EwV7ldBgY
+	 K4KkEUo8eO8sLnxARBjprXN/RLDsqYsigGzmMAAsuXlHUw8vT3+iKKDpPONNpkhlXhg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=xiaopeng.com;
 	spf=pass smtp.mailfrom=xiaopeng.com;
-	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=EdBOOO5d;
-	arc=none smtp.remote-ip=115.124.28.97
-Received: from out28-97.mail.aliyun.com (out28-97.mail.aliyun.com [115.124.28.97])
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b="b1Xx/h/R";
+	arc=none smtp.remote-ip=115.124.28.217
+Received: from out28-217.mail.aliyun.com (out28-217.mail.aliyun.com [115.124.28.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 576A7606A326;
-	Fri,  6 Nov 2026 07:51:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 576A7606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E817606A330;
+	Fri,  6 Nov 2026 07:51:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E817606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=EdBOOO5d
+	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=b1Xx/h/R
 DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=xiaopeng.com; s=default;
-	t=1793951489; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=X3nxSXG+H2J8k8t3k6poogjxQFJaTHXAguqehE2TWiY=;
-	b=EdBOOO5d/HlK/xdK+U63qbsCipbHTOjNjstrXi49twguHyNCSFWfk4udWTjT++l+gs7f4/JjR6BY1sbl1pNhGqsabFd7UqgnLXopyDkZIJKCx6lqYgei7RSKnt1Kbx0fYVrLo9zU5ulAIWNisZgvIILVcRMU1/NTFOLmymFqTVY=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07707597|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.003847-0.000952075-0.995201;FP=12758894924369871956|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037034254;MF=liuc63@xiaopeng.com;NM=1;PH=DS;RN=15;RT=15;SR=0;TI=SMTPD_---.jy77D-U_1793951487;
-Received: from localhost(mailfrom:liuc63@xiaopeng.com fp:SMTPD_---.jy77D-U_1793951487 cluster:ay29)
+	t=1793951490; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=BxfnrvZCaIXbpGJqIJIbJ0IIadnlSyqid91Q14S6WvY=;
+	b=b1Xx/h/Rd1fbig3KKltcO1N4alNxKwQfp5usj7YbAC8BSjCdEgxyd92Glni69LKkT8Gu78CpFW8TAz85nVKK+USVXx59dd8vVVFluxL+jbsTcu4Btj/+B1hQ2pz+LVgFs9lAPgHJuMVmum3Gu/8s4qisUZZ6iCwv/VUQzB3rMe4=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.08866221|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00219219-0.00171057-0.996097;FP=11930222591969111232|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037071049;MF=liuc63@xiaopeng.com;NM=1;PH=DS;RN=7;RT=7;SR=0;TI=SMTPD_---.jyElgNY_1793951489;
+Received: from localhost(mailfrom:liuc63@xiaopeng.com fp:SMTPD_---.jyElgNY_1793951489 cluster:ay29)
           by smtp.aliyun-inc.com;
-          Fri, 06 Nov 2026 15:51:28 +0800
+          Fri, 06 Nov 2026 15:51:30 +0800
 From: Liu Chao <liuc63@xiaopeng.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Markus Schneider-Pargmann <msp@baylibre.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Juergen Borleis <jbe@pengutronix.de>,
-	Denis Carikli <denis@eukrea.com>,
-	Lee Jones <lee@kernel.org>,
+To: Hans de Goede <hansg@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Bastien Nocera <hadess@hadess.net>,
 	fangxy@xiaopeng.com,
 	linux-input@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] Input: mx25-tcq - clamp the FIFO sample count to the buffer size
-Date: Fri,  6 Nov 2026 15:51:27 +0800
-Message-ID: <20261106075127.3105907-1-liuc63@xiaopeng.com>
+Subject: [PATCH] Input: goodix - reject a bak_ref length that cannot hold the checksum
+Date: Fri,  6 Nov 2026 15:51:29 +0800
+Message-ID: <20261106075129.3106093-1-liuc63@xiaopeng.com>
 X-Mailer: git-send-email 2.50.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -73,33 +65,47 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-MX25_ADCQ_SR_FDN() reports up to 31 pending samples.  The IRQ thread
-aligns the count down to a multiple of the sample count but never
-bounds it by the size of sample_buf, so a FIFO backlog larger than
-TSC_MAX_SAMPLES overruns the stack buffer.
+driver_num and sensor_num are taken from the touchscreen config.  A
+config with driver_num 1 and sensor_num 0 yields a bak_ref length of
+0, for which devm_kzalloc() returns ZERO_SIZE_PTR.  That pointer
+passes the !ts->bak_ref check and the subsequent
+ts->bak_ref[ts->bak_ref_len - 1] = 1 writes before the allocation.
 
-Clamp the count before the alignment so that the result stays a
-multiple of sample_count.
+Reject a length that leaves no room for the trailing checksum before
+allocating, and skip saving a bak_ref that was never allocated.
+Without the second check a rejected length leaves bak_ref NULL while
+bak_ref_len still holds the bogus value, and goodix_save_bak_ref()
+then writes through the same index on suspend.
 
-Fixes: 4f7ed234f2a5 ("Input: touchscreen: Add imx25 TCQ driver")
+Fixes: 09182ed20c04 ("Input: goodix - add support for controllers without flash")
 Cc: stable@vger.kernel.org
 Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
 ---
- drivers/input/touchscreen/fsl-imx25-tcq.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/input/touchscreen/goodix_fwupload.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/input/touchscreen/fsl-imx25-tcq.c b/drivers/input/touchscreen/fsl-imx25-tcq.c
-index ff270b3b8572..fa8d8b736723 100644
---- a/drivers/input/touchscreen/fsl-imx25-tcq.c
-+++ b/drivers/input/touchscreen/fsl-imx25-tcq.c
-@@ -319,6 +319,7 @@ static irqreturn_t mx25_tcq_irq_thread(int irq, void *dev_id)
- 	 */
- 	regmap_read(priv->regs, MX25_ADCQ_SR, &stats);
- 	samples = MX25_ADCQ_SR_FDN(stats);
-+	samples = min_t(unsigned int, samples, TSC_MAX_SAMPLES);
- 	samples -= samples % priv->sample_count;
+diff --git a/drivers/input/touchscreen/goodix_fwupload.c b/drivers/input/touchscreen/goodix_fwupload.c
+index 5ae9a109ba0d..888da7538c06 100644
+--- a/drivers/input/touchscreen/goodix_fwupload.c
++++ b/drivers/input/touchscreen/goodix_fwupload.c
+@@ -281,6 +281,8 @@ static int goodix_prepare_bak_ref(struct goodix_ts_data *ts)
+ 		driver_num, sensor_num, have_key);
  
- 	if (!samples)
+ 	ts->bak_ref_len = (driver_num * (sensor_num - 2) + 2) * 2;
++	if (ts->bak_ref_len < 2)
++		return -EINVAL;
+ 
+ 	ts->bak_ref = devm_kzalloc(&ts->client->dev,
+ 				   ts->bak_ref_len, GFP_KERNEL);
+@@ -409,7 +411,7 @@ void goodix_save_bak_ref(struct goodix_ts_data *ts)
+ 	int error;
+ 	u8 val;
+ 
+-	if (!ts->firmware_name)
++	if (!ts->firmware_name || !ts->bak_ref)
+ 		return;
+ 
+ 	error = goodix_i2c_read(ts->client, GOODIX_REG_STATUS, &val, 1);
 -- 
 2.50.1
 
