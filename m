@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793932158;
-	b=notZdtL28ECLZXRCe1jIQHd53b+5csB3J09q0uSoTQBoCN3fXsnWhfR5cwqJoFHkapYW
-	 pe3We2Esfghn/mpDxjV0rss+RKlWmTKQLB57kZoKSqTNFLKuuVxw+AbWCDmhJ1UMW/u58
-	 Yl+t7jR3slv70ywzrGKm8DAcRx4rr5Wx2q762WCeeMa+eviENpqmDn+jdpV2fgDOc7Uys
-	 RhAyvR9lFSWWghBWjqMRRAGcqrsULs5P0tLvavd0kXsDcMmSdmKUJKZ6xNlBf2jHPle8g
-	 293vBzTi/xQoLOp7+VU2S3GBdJ5nOP2K5tjBpBrKSIH20HkSEp6vqc+CgpV160n19/Q==
+	t=1793932187;
+	b=2dstAavyDXMxkM0i9+8HzODw3clcmOLZaL/EwI7C4PY8pucIdS2aPDZqgXjo3dBfg+0D
+	 heNY5ICgWaAJGjKyv6QLiaCMGo5kQD7nI7EOZlywwJZHX3Qf2mOH2P7l9O6O1p1xqhzHz
+	 8rnayrUrTKh/uJBjkGA/kyhLhI2uLwdcy65q05zkX1o7YX5Lmu2+gh+P0IYjwmZR+CEdz
+	 eVUsEskwBsS8CaeTo4aVzslGZ8gJEkyGpqIK+xD1Jug7C/mzUo7eQOHJQVzEQaxehV+QP
+	 o1I0HNeZN7S9qOBL04ixUujZHsmbeYSpH1Ei8oXYGaR1WyqZg5TGgS/TTXoQUTWmzUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793932158;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793932187;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=8HFyvdbZasmtkyhh9+y28XzweWqF8QOA2ZZwCVTIt94=;
-	b=aCR688VxA1NVjAapWMWXOfCodDB2VrByeYRo1VaPdA26uvo16DNKaWfv7vFwSddhHtRs
-	 hQT13UvYBgTtLE5dYXP6myFwgQhzQ6/Ri7NQcLT1ginl88WIbAbD35SLtwWNMnFp/zwpw
-	 0/7/rV8y8IMzVEPh0HylfUAoFUZAgJdKHBJaKHw6L2tB08TN5h4PTP8QtKd0/oom610YA
-	 CcMyfl5IU++/TdEkNjnaRn8rqm4Y24MNgJGoSoXX63bqZHYi9nHpd6g97KbxRfV7Tqflc
-	 3IF8s7bml6VaViRQO1VRdJSxZhwNEFl/7DS6J8hA2DBY3lbQOTm2OE2uRi9AeoC+KqA==
+	bh=wvrQBoqgZFThbL4TLdHkhLS7fsz01PH61NErtG2+PQI=;
+	b=yXCxsvMxZt+OyNFUMn0rudqKKsqYSbqEiutWj43MZDl1zbjHfT/ahuUZGdFc9ZNY0qDj
+	 3PK+bN0kT62B+BoCBXKLWDm++N1op9oORNYTHNCoQgMRaQI4SOMXRvNblC8NcN4BtSvfq
+	 nk7JOa5bz149NbSSlUX8yMmj7d4n5KbHptvhakbmi+my+ma6n2xToO+ioSWh5bdaM12mR
+	 s0fK+TXUvK+gmIpKl8n4fNCRpnQAQlUSC/RhkKIIdUgN/dYig8QgkNWLPxnjLfHC1xbJ/
+	 EIt0hPcJ9KoQj+YCINOLzIk+devaJiLxB3gSaDkw+fnPTiRV6wT9hyzuEy+7CMISIug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mbmg4IWR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jt2Ar2ef;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DBD6606A32E
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 02:29:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE867606A31B
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 02:29:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mbmg4IWR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D23E21F008A7;
-	Fri,  6 Nov 2026 02:29:17 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jt2Ar2ef
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AF421F008A5;
+	Fri,  6 Nov 2026 02:29:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793932158;
-	bh=8HFyvdbZasmtkyhh9+y28XzweWqF8QOA2ZZwCVTIt94=;
+	s=k20260515; t=1793932186;
+	bh=wvrQBoqgZFThbL4TLdHkhLS7fsz01PH61NErtG2+PQI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mbmg4IWRQSmitYrsp41emL/nrHOeRvc6yhLPBHdeLlMlCXjCfsPoVxzWdMxGJKb6z
-	 pCNIb7WGUrTaiy/oOkADQVAwTdIlP/1wfylXOt2ZlcwsRVj17i4iUD7hFEmfc+ZMwt
-	 ML+jEgAzuHsgUTnN3W4GYhETF3WleP32G2yoiRhflOaWaKgsuHgbJsTihngoqQQlCP
-	 Cy/FGN68mxFm7fJG0EcWNKuxyNPQZsgu/+V74hy9a00GoP2XWNChmchfokhMSw1Lt3
-	 BDc6552iv1h8UIkrwxalRuewUxRmRspefEtyXrmA+Dnd6FTx05q4LOobp6DmT91v2Y
-	 AkNlDv5al/j6Q==
+	b=jt2Ar2efaO19W6ADtIwTqMaS8OK984h/ZrJU4Yyh0YvdnKjN6OeCiaIi5h839FEep
+	 udiJelKOKRDGvVUJLppJ/rWo1np5TjwJ1od4yJUtVYgKSBhDgzcJQrPS+Cf2v3Kz6q
+	 omP1E+VAgaFSejVNOojPOguwXZbWoPDq2L6NelGKVPOxzK2VchfM8d7d4pbxGbbpDU
+	 gn3iBhEwkQjAZu2PgXlEq1mzGnnqpVCivoN7dkyKo450VhSjaLt8BRdRnMwDQ/lxim
+	 YV52uVqy1Tt0/MfzA6sWS4UVZkIXkZStQm6dMMVRZX88SwVG1eFl0K1dob0byUNnIX
+	 BNRAILidI8wqA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chuck Lever <cel@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
+Cc: Benjamin Coddington <ben.coddington@hammerspace.com>,
+	Benjamin Coddington <bcodding@hammerspace.com>,
+	Anna Schumaker <anna.schumaker@hammerspace.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 3/3] NFSD: map fh_verify() status codes for NFS_ACLv2 replies
-Date: Thu,  5 Nov 2026 21:29:14 -0500
-Message-ID: <20261106022850.3722633-3-sashal@kernel.org>
+Subject: [PATCH 6.6.y] NFSv4/pnfs: bound the CB_NOTIFY_DEVICEID array count before allocating
+Date: Thu,  5 Nov 2026 21:29:44 -0500
+Message-ID: <20261106022849.3724035-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261106022850.3722633-1-sashal@kernel.org>
-References: <2026110437-anatomist-emptier-0eda@gregkh>
- <20261106022850.3722633-1-sashal@kernel.org>
+In-Reply-To: <2026110459-utility-dropkick-7942@gregkh>
+References: <2026110459-utility-dropkick-7942@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,91 +62,44 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chuck Lever <cel@kernel.org>
+From: Benjamin Coddington <ben.coddington@hammerspace.com>
 
-[ Upstream commit ccfc4db5ab740175b9958ea0cf5986957bf4e659 ]
+[ Upstream commit 32f0967ea296d447925465c98e7eec71d4e2f755 ]
 
-The NFS_ACL v2 protocol shares its status code space with NFSv2,
-which has no NFSERR_BADHANDLE and no NFSERR_NOFILEHANDLE. An
-NFS_ACLv2 GETACL, SETACL, GETATTR, or ACCESS request that carries a
-malformed or empty file handle gets a reply with status 10001 or
-10020, values the client cannot interpret.
+decode_devicenotify_args() hands the server's notification count
+straight to kmalloc_objs() as the array length, without checking it
+against the message that carried it.  Bound it the way nfs4xdr.c bounds
+an attribute length, against xdr_stream_remaining().
 
-Commit 1459ad57673b ("nfsd: Move error code mapping to per-version
-proc code.") removed the version check from fh_verify() that turned
-those codes into NFSERR_STALE for any version 2 program. The NFSv2
-procedures gained nfsd_map_status() in exchange, but the NFS_ACL v2
-procedures did not, so the unmapped status reaches the encoder.
-
-Add the same mapping to the NFS_ACL v2 procedures.
-
-Fixes: 1459ad57673b ("nfsd: Move error code mapping to per-version proc code.")
+Fixes: 1be5683b03a7 ("pnfs: CB_NOTIFY_DEVICEID")
 Cc: stable@vger.kernel.org
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260916004240.141975-1-cel@kernel.org
-Signed-off-by: Chuck Lever <cel@kernel.org>
+Assisted-by: Claude:claude-fable-5
+Signed-off-by: Benjamin Coddington <bcodding@hammerspace.com>
+Signed-off-by: Anna Schumaker <anna.schumaker@hammerspace.com>
+[ sashal: adjusted context for kmalloc_array() instead of kmalloc_objs() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/nfsd/nfs2acl.c | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+ fs/nfs/callback_xdr.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/fs/nfsd/nfs2acl.c b/fs/nfsd/nfs2acl.c
-index 537097ce8c767..87269be93d0f6 100644
---- a/fs/nfsd/nfs2acl.c
-+++ b/fs/nfsd/nfs2acl.c
-@@ -57,6 +57,20 @@ static const struct nfsd_access_maps nfsd2_access_maps = {
- 	.other		= nfsd2_otheraccess,
- };
+diff --git a/fs/nfs/callback_xdr.c b/fs/nfs/callback_xdr.c
+index 9e6176ae9ca54..9e78f73474224 100644
+--- a/fs/nfs/callback_xdr.c
++++ b/fs/nfs/callback_xdr.c
+@@ -272,6 +272,13 @@ __be32 decode_devicenotify_args(struct svc_rqst *rqstp,
+ 	if (n == 0)
+ 		goto out;
  
-+static __be32 nfsacld_map_status(__be32 status)
-+{
-+	switch (status) {
-+	case nfserr_nofilehandle:
-+	case nfserr_badhandle:
-+		status = nfserr_stale;
-+		break;
-+	case nfserr_wrongsec:
-+		status = nfserr_acces;
-+		break;
++	/* sanity check the count against the remaining stream */
++	if (n > xdr_stream_remaining(xdr) /
++		((4 * sizeof(uint32_t)) + NFS4_DEVICEID4_SIZE)) {
++		status = htonl(NFS4ERR_BADXDR);
++		goto out;
 +	}
-+	return status;
-+}
 +
- /*
-  * NULL call.
-  */
-@@ -121,6 +135,7 @@ static __be32 nfsacld_proc_getacl(struct svc_rqst *rqstp)
- 
- 	/* resp->acl_{access,default} are released in nfssvc_release_getacl. */
- out:
-+	resp->status = nfsacld_map_status(resp->status);
- 	return rpc_success;
- 
- fail:
-@@ -179,6 +194,7 @@ static __be32 nfsacld_proc_setacl(struct svc_rqst *rqstp)
- 
- out:
- 	/* argp->acl_{access,default} are released in nfsaclsvc_release_setacl. */
-+	resp->status = nfsacld_map_status(resp->status);
- 	return rpc_success;
- 
- out_drop_lock:
-@@ -205,6 +221,7 @@ static __be32 nfsacld_proc_getattr(struct svc_rqst *rqstp)
- 		goto out;
- 	resp->status = fh_getattr(&resp->fh, &resp->stat);
- out:
-+	resp->status = nfsacld_map_status(resp->status);
- 	return rpc_success;
- }
- 
-@@ -229,6 +246,7 @@ static __be32 nfsacld_proc_access(struct svc_rqst *rqstp)
- 		goto out;
- 	resp->status = fh_getattr(&resp->fh, &resp->stat);
- out:
-+	resp->status = nfsacld_map_status(resp->status);
- 	return rpc_success;
- }
- 
+ 	args->devs = kmalloc_array(n, sizeof(*args->devs), GFP_KERNEL);
+ 	if (!args->devs) {
+ 		status = htonl(NFS4ERR_DELAY);
 -- 
 2.53.0
 
