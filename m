@@ -1,47 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.181.231.80
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793964026;
-	b=ygfDybN25gg+WOKk51ZDkmnjVFxPVSiZaortaLXaJBwwoA47+7hEMvXFkUE4WgRcasKc
-	 wcVoogtK5ZdC/uL63wBvB/P2cdEVKP0H3dX8a8VKLgHWVdMlKbpSpaWlhQBSEhGUZBmrK
-	 Z4l7OiWTFC62l3OgwltBrO+AuGM1pW8Yjizwq2D5Cbkf4wltIt1OarJvOqRQFTdxwsnIT
-	 rF5jfhXOdh+Uhq4oWSu604c2G4Y63NnMIynJ7ozpH1xsyMjVL0J6I1P0oZXy3Xf69IxuM
-	 K5YO0W+LJH81DVJHwBurSIoRGeRp4aPlYiRJRK+2XIDju0UmwI+rn1Wi4giMAYMnyQg==
+	t=1793964440;
+	b=QNvCcFmQAFCgRgqubCuVtqqlJz6uI7NIrmQn7kvt6u9PzjD8zNDBj3YcZvJKLfUvp5pC
+	 joRQGEQiW9YNpLfduqQC5nNzcQSb5XjAosegUYzUKt8E9X+pIbR/TsWdkhsQ/JINiWyZm
+	 2LTw0TNlnmP+Z9If8AOb9dmVBHwGcCIGbVbdWOOK28/JcNLcpJGU1IoU+AR4An7+i7QaJ
+	 m6yDkQJC1pQ3LOmd5BCFFrEZT0QGYtqXmf2s8to5kWlrMs1SP/eowkY3S6uRoQ4TfvrLU
+	 OtcZJRzDZ3ehjGMRkIMu/Q7+bq593Fsf9fByr8L0/+KhygrMkXHBu50Mo+VpALbX4SA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793964026;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=jRMte+ocGxfAdSPglXppsWHCcRQIM7g3aw87DoBkH44=;
-	b=Ol8kONtNTVf0KsRfINIngNkQRZGxKvX9RtaVnqbgWcfOtpqTyJSuq1bOUN89IObgP97y
-	 lpIVw8Q6OuZF4x53zDT2XLX6qpYtYOG7MO+ivkVeAm8fPSt0sDf+yv8QbaJr+71qX9JGQ
-	 LXdUpoVdp+mrLuYjuhOtpBIoGbsLdoBDI6S4M7c0M9cqMWygLfPdeLMBGtGrZCPHfJBS8
-	 XVlBk1LDjWN6MbR0BxKt+I1nFlU+wS1Rmk5AQoig7we+L1oX94k1MxljBbObB+EDXqdf4
-	 /hw/p9FYuCw1Y7avVh8tSapD21G3Os/uyCejUpZTjxcmwKZkyPuTm4I/bA/sok3LZ8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793964440;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=dMkNie5jgxNx3G5eTbxj6pYOJmObSXEtjaZ2+ZMR9Vg=;
+	b=Ol70R3L0/f6OVABh9ECcJEV6B5HXm0qHU3wu1WSFuzyD8FitodrT185CEsQGkr2eBZtl
+	 tZAtL5zvsoAsiV6cBAYKTLAPv7/DpGvZ4wFFLiauhaP+BlrFU20RmuLDZCdpizw7y5slu
+	 GvKqo9XLmRZnxptvkD3KTzRqev+o8N10rmqCHs6F1FhA8HmQNW4fwKX6hqbdSf5zhrRZ5
+	 uj9EGX2yRrpfIDEU5guBzVZZFs2vfeg4eilPTX9P0HT0jvxENQsIsBYfNabJ4OTD/PDMr
+	 cmXZ64w96+pfuOs4f9K8mW1Cxnr1H5lCrhcjAoghZCtUlqcmhbqd0V6pf+3ngOiVGeg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Yd4+/syN";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=gondor.apana.org.au;
+	spf=pass smtp.mailfrom=gondor.apana.org.au;
+	dkim=pass header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=rqgmO3jP;
+	arc=none smtp.remote-ip=180.181.231.80
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FE5A606A335;
-	Fri,  6 Nov 2026 11:20:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47852606D808;
+	Fri,  6 Nov 2026 11:27:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47852606D808
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yd4+/syN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB59B1F008BE;
-	Fri,  6 Nov 2026 11:20:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793964025;
-	bh=jRMte+ocGxfAdSPglXppsWHCcRQIM7g3aw87DoBkH44=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Yd4+/syNsPWEnmDHqKmPI5i2YlWwyeRA6UGyp3nQ4ziEgRZRmqoanEP6UYkdWTWal
-	 5HaXeGfte+hLOGkZsHdBhMbG1ahYI5BGaw8DyCYUA19MtldN2IeXnG60nyfcmss4Dv
-	 TpRPZH2Y3kI56xoK3i7Uj51Mx45OfFA0tTuaCDKJDdjLA2+NfPV2x1Htw6/0E4mtJ2
-	 IBCxe8CoOBoyKkR0l4nqdd+D6yGrIZIOu3xpJjXeruB1Zff/Nzz6URWhNwI6OYb9QH
-	 P9+vYoyHpNTGycOakQ+Uc//spRARKBykHHSy41TNtWB6vhA35xw+xAfsv6ozkMlhiv
-	 d5AfC1UmORilw==
-Message-ID: <4f6be43f-0554-4245-b9e0-4f089836521f@kernel.org>
-Date: Fri, 6 Nov 2026 12:20:20 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=rqgmO3jP
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=dMkNie5jgxNx3G5eTbxj6pYOJmObSXEtjaZ2+ZMR9Vg=; 
+	b=rqgmO3jPmin9pHdVJ4zE2o9W4BOcMg7B9hoOiF6gDqhwSEILw7ca9oXdjkYoMHWOp+i8EUs1nvt
+	mE8alVOvr/wjDzVATMlRgDo5GcI+WQMb9/5ilqM8RwxD3pC3lv7OW9q/jElmYAXFaKdLk7Re9eT3m
+	YeLePMswocDe6jEUon3nGFr9EJnHVEKc6zOuQf5jNdxdN6UaNb2QE8NhvoFhAEs4tLFNFDI8Q1LoV
+	6ByIiJ0qhzRMcMSfbtr8mDlmT5Wj/xr+rlewD2yrfr09JBCy5yuyf90rpS6Lkaf5zvVsLuPpwtwAq
+	atRQ80VLfXm4DDZc/6UMMGR8lyACC5Yrjxvg==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1xPI6G-0000000Br29-197x;
+	Fri, 06 Nov 2026 19:27:17 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 06 Nov 2026 19:27:16 +0800
+Date: Fri, 6 Nov 2026 19:27:16 +0800
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: ZhaoJinming <zhaojinming@uniontech.com>
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Lokesh Vutla <lokeshvutla@ti.com>, Tero Kristo <t-kristo@ti.com>,
+	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-omap@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] crypto: omap-aes - fix NULL pointer dereference in
+ omap_aes_remove()
+Message-ID: <au25lCTnY1FmsPuT@gondor.apana.org.au>
+References: <20261016-omap-aes-remove-null-deref-v1-1-195d36295ed4@uniontech.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,99 +67,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.3 000/547] 7.3.2-rc1 review
-To: Ronald Warsow <rwarsow@gmx.de>, Sasha Levin <sashal@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20261104211038.406938024@linuxfoundation.org>
- <3dfb9b8d-3bf7-4fa2-89ec-6561c1b7b70e@gmx.de>
- <2026-11-05-1-daily-reply-0007-7.3.2-rc1-wx@kernel.org>
- <3d2ae531-b076-4dd2-8afe-2f30c7c1d928@gmx.de>
- <fb15f855-e306-4b08-87df-f31a6bbb2a51@kernel.org>
- <ebebc4d2-c2e5-4f48-ae05-d048bb350755@gmx.de>
-Content-Language: en-US
-From: Jiri Slaby <jirislaby@kernel.org>
-Autocrypt: addr=jirislaby@kernel.org; keydata=
- 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
-In-Reply-To: <ebebc4d2-c2e5-4f48-ae05-d048bb350755@gmx.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261016-omap-aes-remove-null-deref-v1-1-195d36295ed4@uniontech.com>
 
-On 06. 11. 26, 11:11, Ronald Warsow wrote:
-> On 06.11.26 07:26, Jiri Slaby wrote:
->> On 05. 11. 26, 20:58, Ronald Warsow wrote:
->>> On 05.11.26 19:39, Sasha Levin wrote:
->>>>> I need to revert:
->>>>>
->>>>> "x86/mm/pat: Fix effective RW computation in 
->>>>> lookup_address_in_pgd_attr()"
->>>>>
->>>>> otherwise I get:
->>>>>
->>>>> [    0.108037] ------------[ cut here ]------------
->>>>> [    0.108037] CPA detected W^X
->>>>
->>
->> There is ea6fd393cb9e6811a748c7551de0dd3090f9dcde to avoid this false 
->> pos. Care to try that?
->>
->> thanks,
+On Fri, Oct 16, 2026 at 04:30:04PM +0800, ZhaoJinming wrote:
+> omap_aes_remove() unconditionally dereferences dd->pdata->aead_algs_info,
+> but only omap_aes_pdata_omap4 initializes that field:
 > 
-> I'm a little overwhelmed and don't really know what to do.
+> 	static const struct omap_aes_pdata omap_aes_pdata_omap2 = {
+> 		.algs_info	= omap_aes_algs_info_ecb_cbc,
+> 		...
+> 	};
 > 
-> I don't have much experience with Git.
+> 	static const struct omap_aes_pdata omap_aes_pdata_omap3 = {
+> 		.algs_info	= omap_aes_algs_info_ecb_cbc_ctr,
+> 		...
+> 	};
+> 
+> 	static const struct omap_aes_pdata omap_aes_pdata_omap4 = {
+> 		...
+> 		.aead_algs_info	= &omap_aes_aead_info,
+> 		...
+> 	};
+> 
+> For omap2 and omap3 the field stays NULL, so on those SoCs unbinding
+> the bound device (e.g. via sysfs unbind) or unloading the module (rmmod)
+> dereferences a NULL pointer:
+> 
+> 	crypto_engine_unregister_aeads(dd->pdata->aead_algs_info->algs_list,
+> 				       dd->pdata->aead_algs_info->registered);
+> 	dd->pdata->aead_algs_info->registered = 0;
+> 
+> This is a hard crash, reachable from the teardown path only; probe
+> errors do not get here.  The asymmetry dates back to the commit that
+> introduced GCM support, which guarded the registration of the AEAD
+> algorithms but not their unregistration.  The registration path in
+> omap_aes_probe() already guards the same access with
+> "if (dd->pdata->aead_algs_info && ...)", so add the matching check to
+> the remove path.
+> 
+> Fixes: ad18cc9d0f91 ("crypto: omap-aes - Add support for GCM mode")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: ZhaoJinming <zhaojinming@uniontech.com>
+> ---
+>  drivers/crypto/omap-aes.c | 8 +++++---
+>  1 file changed, 5 insertions(+), 3 deletions(-)
 
-You might try applying this patch made of the commit:
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/patch/?id=ea6fd393cb9e6811a748c7551de0dd3090f9dcde
-
-thanks,
+Patch applied.  Thanks.
 -- 
-js
-suse labs
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
