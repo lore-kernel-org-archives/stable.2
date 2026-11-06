@@ -1,60 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.196
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793929791;
-	b=p4BX1EGMNBBYvBi4FmNNpXs9iYUgq/nQq4W91Ff+RT4ecSk+4IT5rzFe3oABIC5OdK/D
-	 mIoRlh9WTimzMU3/gQtTRq7eFmo0DHyBpxZPcu3I7eCw/kHauxjw3xN9o/+WgYsuUpAt0
-	 Dl2/sEV9nICRITqZjYmIYhykcQc+nFa3ANcV/CMNY+MQd88RWWr77MaAOQm3DGY1DEI0c
-	 73oQ3v97839jnDYncUCT5yZRoY84VWOEP7QSSfKEFxGlXvYLb0dGpNrdn2MvYv/Nw2nzW
-	 SUM/ieVHiW5rA9rbwuhLXbWwD1nuHZ+lZXM/VjzzuVxZSYyVscjb4fKxSgqSOz2aE3g==
+	t=1793929792;
+	b=Q6YZG46L52pIe7H4xck3e0l8VDv8rTJr539Zrg+AR1ZezfNhwbtYYhIJM24RZiLivf3u
+	 dfqAFd3ZJLmQw5fefGEu+5hmcTrSWgE+d+3mQIAfQCSj4EkB62oKIi1EHlpeix+NCUNv+
+	 XsmYEbQ17HO+ILuTvSdm9cNX9ZIvi669NAsgzOa6FrEiJcSWemMfRr13PHZNhvvzjeWqH
+	 62279wVBmJZJzsHvT37jOIdB2CZKnNTwG8GvV/hzM+i/vSAoPDSDnkuq/MtU4LNWJ4K8d
+	 ASCu9nR7bvsTnTBSf6swozt3314k91uJgYlPqSDVFSkRNdmdlwa/f8Wxjhv8dEV18AQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793929791;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793929792;
 	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=FDEdvRW2qMYa9xxlAN0aPEzctXRxc4Lt0+J1Enj5sqc=;
-	b=BFxpf8myR+OHGqE0RGunWu5TOWPJud2qOIDVpSBDxG1vvGDwA/P8PctzOAHWAigYG6ZQ
-	 b62AFtQ0031A5IXzynYUJ1+OZUmWBH9hME8r/8kboOUC6VlI/IUZHxVrlXfHGLu3guRvR
-	 wPJ6aoAxaWBAsXOAAQUui6YUWbNqOeTPQj1gcj/yF5y4zpMfteHndAehV8I7sgwHMoLtZ
-	 GQXe1NNVTsbM55OhXlFeG/wcdUqn41ucDJW228dbIiMlXkSH3OHA3mLQG3n84L6B1ux0K
-	 1AH575RAra4Li+aBdL84+h5+6Ol4+riOn6wIsB+/owrTnjgtTiqadLjduwAjejB4ZUg==
+	bh=NnTn0Ia9l5NUTREGcxxA3UJ00sB7jgz3g4XdKs+soTg=;
+	b=Rr6t5o1IeYHm5BREoeNMnWSVT7UUuAuTIfjzM5DEMgoBHu06b/zMoAi7/c0NDwLjUcq5
+	 vEOkUdFcdMkidR/+Cq4dccawEPZTYgez0BRXcGpofIvNBeXQj1Twhi/BJDtNyEdpvAIdM
+	 aNsJCu8UCChKd+cyG9CMEv+DOStjxxYvFuzBfFwcTHq6AUtWpIxpRQ3FbZieENnb0dU3A
+	 +w3RozA5PLuQcFWKf2AWUEeZYabdLzBzhBP9SY1Bk+CsZvclAKaI5/khEY79ARWFLVxWS
+	 YNJkF6qAXuqniEtO/pAejPAq3BVLEWxB1NefR1KnTXrO8X0sku+BSc3z984Mg31cSjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=xiaopeng.com;
 	spf=pass smtp.mailfrom=xiaopeng.com;
-	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=CTSKEtoJ;
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=q2+HlJhi;
 	arc=none smtp.remote-ip=115.124.28.196
 Received: from out28-196.mail.aliyun.com (out28-196.mail.aliyun.com [115.124.28.196])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CE3C606D803;
-	Fri,  6 Nov 2026 01:49:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CE3C606D803
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D04BD606D808;
+	Fri,  6 Nov 2026 01:49:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D04BD606D808
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=CTSKEtoJ
+	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=q2+HlJhi
 DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=xiaopeng.com; s=default;
-	t=1793929787; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=FDEdvRW2qMYa9xxlAN0aPEzctXRxc4Lt0+J1Enj5sqc=;
-	b=CTSKEtoJMy6T5RYIqYD19AHvezcw0RRCLuIe2GZ86uuzE6kGACELMd37iMZjvIYCW+ygtOHPR+r7I/G+ak4pCQuqr/uT4OsWVRE4rr3D4htLJe6cRNjw0PQDLxCZC0747iYcERtQIrtyVx6KMiBcl3e0HZrrx2Sx/MnE6IJCe8Q=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07680749|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.00595435-0.00433875-0.989707;FP=13129445745589044890|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033032065030;MF=guozh23@xiaopeng.com;NM=1;PH=DS;RN=9;RT=9;SR=0;TI=SMTPD_---.jxsQSWC_1793929786;
-Received: from localhost(mailfrom:guozh23@xiaopeng.com fp:SMTPD_---.jxsQSWC_1793929786 cluster:ay29)
+	t=1793929788; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=NnTn0Ia9l5NUTREGcxxA3UJ00sB7jgz3g4XdKs+soTg=;
+	b=q2+HlJhiLGBterG9qGa1UJ/xmvWm1SAe/RRF+NAkYUUlgZ355yekUrpBTh+iVNHSrjtPg/RnvQFZj6McEPgLjjr+pbGJ9r3IKX4acErpxII77mXvIO9nkNyNo3SyeKiRe/O2rf/ljDOZodh0m1hw4qWRY6wzkhz03/7IT7l1UYw=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.1010723|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.00350199-0.000410909-0.996087;FP=3059557656939865650|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037026024;MF=guozh23@xiaopeng.com;NM=1;PH=DS;RN=5;RT=5;SR=0;TI=SMTPD_---.jxwwjER_1793929787;
+Received: from localhost(mailfrom:guozh23@xiaopeng.com fp:SMTPD_---.jxwwjER_1793929787 cluster:ay29)
           by smtp.aliyun-inc.com;
-          Fri, 06 Nov 2026 09:49:47 +0800
+          Fri, 06 Nov 2026 09:49:48 +0800
 From: Guo Zihao <guozh23@xiaopeng.com>
-To: Peter Huewe <peterhuewe@gmx.de>,
-	Jarkko Sakkinen <jarkko@kernel.org>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>,
-	Ashley Lai <adlai@linux.vnet.ibm.com>,
-	Kent Yoder <key@linux.vnet.ibm.com>,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-integrity@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+To: Jonathan Buzzard <jonathan@buzzard.org.uk>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] tpm: ibmvtpm: check the response size against the buffer size
-Date: Fri,  6 Nov 2026 09:49:46 +0800
-Message-ID: <20261106014946.4128696-1-guozh23@xiaopeng.com>
+Subject: [PATCH] char: toshiba: restrict the SMM device to root
+Date: Fri,  6 Nov 2026 09:49:47 +0800
+Message-ID: <20261106014947.4128799-1-guozh23@xiaopeng.com>
 X-Mailer: git-send-email 2.50.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -67,63 +63,53 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The send path validates the transfer size against the size of the
-RTCE buffer:
+The toshiba misc device is registered without a .mode member:
 
-	if (count > ibmvtpm->rtce_size) {
-		dev_err(ibmvtpm->dev,
-			"Invalid size in send: count=%zd, rtce_size=%d\n",
-			count, ibmvtpm->rtce_size);
-		return -EIO;
-	}
+static struct miscdevice tosh_device = {
+	TOSH_MINOR_DEV,
+	"toshiba",
+	&tosh_fops
+};
 
-The receive path has no such check: the response length is whatever
-the hypervisor reported in the completion CRQ, and it is only
-compared against the size the caller asked for before being used to
-copy and clear the RTCE buffer:
+misc_devnode() only overrides the default when ->mode is non-zero, so
+/dev/toshiba is created with the default 0666: every local user can
+open it and issue TOSH_SMM ioctls.
 
-	len = ibmvtpm->res_len;
+tosh_ioctl() copies caller-supplied SMMRegisters into the CPU and
+enters System Management Mode via inb $0xb2. The filter in front of
+the call only rejects two HCI selectors (ax 0xff00/0xfe00 with
+bx > 0x0069), so every other SMM entry point the BIOS offers, along
+with caller-chosen register values, is reachable by unprivileged
+userspace.
 
-	if (count < len) {
-		...
-		return -EIO;
-	}
+Give the misc device a mode of 0600 so the node is only usable by
+root, which is what a ring -2 firmware interface should require.
 
-	spin_lock(&ibmvtpm->rtce_lock);
-	memcpy((void *)buf, (void *)ibmvtpm->rtce_buf, len);
-	memset(ibmvtpm->rtce_buf, 0, len);
-
-A response length larger than the RTCE buffer makes the memcpy read
-past the buffer and the memset clear past it.
-
-Reject a response that does not fit in the RTCE buffer, mirroring
-the check the send path already performs.
-
-Fixes: 132f76294744 ("drivers/char/tpm: Add new device driver to support IBM vTPM")
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
 Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
 ---
- drivers/char/tpm/tpm_ibmvtpm.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/char/toshiba.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/char/tpm/tpm_ibmvtpm.c b/drivers/char/tpm/tpm_ibmvtpm.c
-index 6fb4d30eb..bfef4bc14 100644
---- a/drivers/char/tpm/tpm_ibmvtpm.c
-+++ b/drivers/char/tpm/tpm_ibmvtpm.c
-@@ -121,6 +121,13 @@ static int tpm_ibmvtpm_recv(struct tpm_chip *chip, u8 *buf, size_t count)
- 		return -EIO;
- 	}
+diff --git a/drivers/char/toshiba.c b/drivers/char/toshiba.c
+index 776abbfd8..bea2643ec 100644
+--- a/drivers/char/toshiba.c
++++ b/drivers/char/toshiba.c
+@@ -87,9 +87,10 @@ static const struct file_operations tosh_fops = {
+ };
  
-+	if (len > ibmvtpm->rtce_size) {
-+		dev_err(ibmvtpm->dev,
-+			"Invalid size in recv: res_len=%d, rtce_size=%d\n",
-+			len, ibmvtpm->rtce_size);
-+		return -EIO;
-+	}
-+
- 	spin_lock(&ibmvtpm->rtce_lock);
- 	memcpy((void *)buf, (void *)ibmvtpm->rtce_buf, len);
- 	memset(ibmvtpm->rtce_buf, 0, len);
+ static struct miscdevice tosh_device = {
+-	TOSH_MINOR_DEV,
+-	"toshiba",
+-	&tosh_fops
++	.minor	= TOSH_MINOR_DEV,
++	.name	= "toshiba",
++	.fops	= &tosh_fops,
++	.mode	= 0600,
+ };
+ 
+ /*
 -- 
 2.50.1
 
