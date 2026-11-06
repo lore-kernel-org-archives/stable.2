@@ -1,53 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793978504;
-	b=QDgHCMXkf5q9duu6Z1yjBSY/Mqa6SZ3Pzse4ehAbT07ab02M/uSzPVFDZCV0k0ncu8vh
-	 G8WXiNddPNOSeGAP3ruEkupYrvMLSNlAZc0DdKSFZNJID6KIWpVt5pX6bjM4oxY2kKUV9
-	 MmrJ1+EBzan38GjXCcee+sJLCohVTpg9lcN3mwVWflgGH/u3j7GV2IClOzP1v+b0ZDCsy
-	 4lA38L3UQK/Ik0sLAxBWOmepnNBc1pFE4OpQDmvm86U7g5ZVuhoCMzJS8AFY++0eMQ5Gr
-	 4Wh7JKotACLVarnFcCaTNJnwZCciTTesYzYLtX3++mLdJ5Tk5Q5h5AM/FACYS9xyNjg==
+	t=1793978519;
+	b=Ju8p2Q6tGVdhJrrdIrzxaN2ugJoyTuzt2ysAjgQqkXGnJwdA0tAuB4Sys/5hCeupjljz
+	 jYwkLAiDpnPTguvvd6hfollXHb+SbQJNRsssSDjUEcaf4LUIvuJx9UFNZ+JAxj5BWdtfo
+	 82Yixv4drcEoFqKnboXYMDELIzY8n428nuVhk6cd58Xi2v2yyF7lwrzLGab0+QhuVexBt
+	 NnIUktZmAQStgCawM4XDF/NJVF359cw6+n7nEfV818f2CEXM4L7Yx4Df7fDTyFpOqy2FZ
+	 OYk04AtLvrSu1uPYS+Lpr1Q4frb1ZryCTZLeOT3z6LM6tp8EjfozyxW87SR2E1aFmsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793978504;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793978519;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=5gB9agqiKxDvndp3lmIXDvsPb7cXS92VWUZhkG9w6fA=;
-	b=R83FEgjKXNLss9a/OYP2BzABtLHLTS5DSnKN4pjWOGG8Yzt5o8dhZ8mdPJgO3VzL4Qg9
-	 shT45PCFQvgHebHytx2acYSGRI8+ZzFi43WV4jAwWuqQy73NEtdAZ7dsCiQ1+6fotkDzP
-	 VxCboZI/3AwfOS3i3w2mJvuVvYJi/TBxfxStQQ0tbVsjmRAxwXc+JrvAHKfWjF4CryPlQ
-	 Ua8QFk1yfhMuOZZlk+su6Zu34tpOMJ6++gb7iDAawPX53REKamPbCeoErXmjc3aj+54t1
-	 pKLtIs1E0qqNoJDevz7qBJnxXM67SLFZiGmd/REoq3Mea2n4PGv/0H6wbP3EcJo2+Cg==
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=YTHJ8+MpM8193qn5WoJpMEdilL1LiuEkd+kPgOio/gg=;
+	b=tZ7RVBDIjyfPNYHxXqRJM7AjDm7TEze8Qi4m8099PQ3nzG2p6QZFvGzkQ9KbfmwI5BE0
+	 +ko9Yv6T3shSjorPNK2iNAPqtcArMMkRF4bEQo9COdc6GQOZwNrV4zUYGq07N5Gy7fQcA
+	 C5d/tqepMG7cOogfk2KofavTEpTKo97oVdhHkbMdShApSQOUb/VlQWRpfxuYPWlr9zF1P
+	 uEeqzfnGIoJPYq2PiUcRzafIAj/mxasC8wNN/sOjNCG0fosPXi8rzxEWXMAmW3aZu+8u4
+	 +1mxtPQWkg98LDnCtYhrZpRnRoc/MGQepvlfIXbdTWWaPLwJ/j1QNe0xaXGSKX+E9Cg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lbSoHxWS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yq5aTuLL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E980606A333;
-	Fri,  6 Nov 2026 15:21:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 0256C606D80E;
+	Fri,  6 Nov 2026 15:21:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lbSoHxWS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A7151F008BD;
-	Fri,  6 Nov 2026 15:21:44 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yq5aTuLL
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 294A81F008A7;
+	Fri,  6 Nov 2026 15:21:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793978504;
-	bh=5gB9agqiKxDvndp3lmIXDvsPb7cXS92VWUZhkG9w6fA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=lbSoHxWSGmbZ0Y4ylVLrt0KQrv1abH9lj5Dv8Ma9ErwCszbZxCRpFIjyn9dBrV3Rv
-	 /DH+Iu1+C2YUEQ9cDab6W6H+jP9UxhhV/OksRg899zIvZ54rTyF5coy+cT4kNAQv02
-	 U3DEWrFGQdTe4Op0MJLQ8/jv30gSUpMVNgL4njZCkKv37tZ8HTf7s+0pgv5gcbjDA8
-	 pecKPqCCXAjI2BPM279rrA+1haptIJ7VjucLWSspIN6T42WFK5td835kLB4/+qlcL+
-	 iwVFwNExqdXvsM3IidRER0FJZhj0nN41PursuvFwCHDxyZO2nc9R9UCAxBDGDir1hZ
-	 SyWUfYyP0thfw==
-Date: Fri, 6 Nov 2026 09:21:43 -0600
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: "Ziyou Wang (Lenovo)" <ziyou.dev@foxmail.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, Lukas Wunner <lukas@wunner.de>,
-	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] PCI/DPC: Increase recovery timeout to 60 seconds
-Message-ID: <20261106152143.GA1621130@bhelgaas>
+	s=k20260515; t=1793978518;
+	bh=YTHJ8+MpM8193qn5WoJpMEdilL1LiuEkd+kPgOio/gg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Yq5aTuLLFna6cHSMgBty/+ZT8blngfZawZPcRtQTuHXQak4fp1zdcfI2a1Xr22qf0
+	 JbLBr2UKFzFBKE1wkoebjsF1yvyKqr/20M3kSqzmkZ7e+tAgGeSY8RUHymvVicjpSQ
+	 27T4tX3/UcToB4wmoLjhrxM5LNR6ZVOOJt3lTi5UQx5BMapNw4d33YgXk3p1Q8Lm5l
+	 kZ7zwhFppL3SdJKdpo11cQuOecDLmdjusTb2sUnHcNaUx8CAhsBKAgbBYb+xp8HAyq
+	 g3OLvB0GKEaVi0/Vi9xVtk8TUnHgbochRCIAoFsCt6Zx9QPxCdqp/PPdxrZ/MP2CE6
+	 HwocXofcAy16A==
+Date: Fri, 6 Nov 2026 17:21:55 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Guo Zihao <guozh23@xiaopeng.com>
+Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
+	James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Ard Biesheuvel <ardb@kernel.org>, linux-integrity@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 2/2] tpm: sessions: bound the parameter decryption by the
+ response size
+Message-ID: <au3wk32xa9RjdFy4@kernel.org>
+References: <20261106014937.4127650-1-guozh23@xiaopeng.com>
+ <20261106014937.4127650-2-guozh23@xiaopeng.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,50 +62,33 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <tencent_BB887B4DB8D2131AF5026893E0FE567D6D05@qq.com>
+In-Reply-To: <20261106014937.4127650-2-guozh23@xiaopeng.com>
 
-On Fri, Nov 06, 2026 at 04:56:55PM +0800, Ziyou Wang (Lenovo) wrote:
-> Some NVMe devices need more than 5 seconds to recover after DPC
-> containment, but pci_dpc_recovered() waits only 4 seconds.  If the device
-> hasn't recovered by then, pciehp reports "device recovery failed" and
-> the device is re-enumerated.
+On Fri, Nov 06, 2026 at 09:49:36AM +0800, Guo Zihao wrote:
+> tpm_buf_check_hmac_response() decrypts the parameter area of a
+> response for sessions with TPM2_SA_ENCRYPT set:
 > 
-> Move PCIE_RESET_READY_POLL_MS definition from pci.c to pci.h so it can be
-> used in dpc.c.  Use PCIE_RESET_READY_POLL_MS (60 seconds) as the timeout
-> so pciehp waits as long as pci_dev_wait() does, which is sufficient for
-> all known devices.
+> 	len = tpm_buf_read_u16(buf, &offset_p);
+> 	aes_prepareenckey(&auth->aes_key, auth->scratch, AES_KEY_BYTES);
+> 	aescfb_decrypt(&auth->aes_key, &buf->data[offset_p],
+> 		       &buf->data[offset_p], len,
+> 		       auth->scratch + AES_KEY_BYTES);
 > 
-> Tested with INNOGRIT NVMe SSD [1dbe:5668] with ACS Fatal error
-> injection:
+> The length is read from the response itself and never checked
+> against the buffer: every other size taken from a session response
+> is compared to tpm_buf_length(), but not this one. A TPM that
+> reports an oversized parameter area makes aescfb_decrypt() walk
+> past the end of the buffer, and since the decryption is done in
+> place, this both reads and writes whatever follows the received
+> data.
 > 
-> Upstream kernel (7.3.0-master+, 4s timeout):
->   [123.018691] nvme: not ready 1023ms after DPC; waiting
->   [124.106690] nvme: not ready 2047ms after DPC; waiting
-
-Was there a "not ready ... after DPC; giving up" message here?
-pci_dev_wait() should log *something* about how it resolved this
-situation.
-
->   [125.642703] pciehp: Slot(64): Link Down
->   [126.218696] AER: subordinate device reset failed
->   [126.218700] AER: device recovery failed
->   Device re-enumerated as nvme1
+> Check that the encrypted parameters fit in the response before
+> decrypting them.
 > 
-> With this patch (60s timeout):
->   [74.894811] nvme: not ready 1023ms after DPC; waiting
->   [75.982813] nvme: not ready 2047ms after DPC; waiting
->   [78.094810] nvme: ready 4095ms after DPC
->   [78.094816] nvme: restart after slot reset
->   [78.111620] AER: device recovery successful
->   Device works normally
-> 
-> Fixes: a97396c6eb13 ("PCI: pciehp: Ignore Link Down/Up caused by DPC")
+> Fixes: 1085b8276bb4 ("tpm: Add the rest of the session HMAC API")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Ziyou Wang (Lenovo) <ziyou.dev@foxmail.com>
-> ---
+> Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
 
-30 minutes after v1 is too soon to post a v2.  A couple days is a
-reasonable interval.
+Ditto.
 
-v2 should include a note here (after the "---") about what changed
-since v1 and ideally a lore link to the v1 posting.
+Br, Jarkko
