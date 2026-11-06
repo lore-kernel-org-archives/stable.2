@@ -1,87 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793966973;
-	b=mQBSUjCMjgEnQ7PDR4i/yb0gCtcmGeR4RGQizJGJXlXmwoN+9MwvN5uE3bur0vwnG9jQ
-	 px+8E6/xxU47btX5GiMPMZ/3mZp2UbvCYwDKPyd45ZKpyoVuZURqvebeymv7+qSFJtIWz
-	 MKhcSMSmjsBlYAiYm9gG89hD7T0QcFaTnbiujxQpCoDRuqDUZ2t3Wwk8NRO79ZNY8Yhy0
-	 v1qYSemDBdOfppa3CHUka/faoa5j61Nu3lQkGyS0H3fMRtqSCPBoL0ltOcqGfNq9aI7C+
-	 N/ysunjAZ4dS0cgF3uO4Lc+nf1nfZk7npb3UexC/a3HC1bLQRB9yFH7hEYJh/6Q+5og==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793966973;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=3b/3qYRDMXJenPydA6vHboyvASPjz0NdoyZJUNW0tcQ=;
-	b=ya43ERGBFEi1z/TSHpCk0aEO/nPH3ltAlbvAc6NITLpght60VxN/tnl5GWv4ceHn8TPZ
-	 nDKri17ccj6mTpnQ0He0zMPybtHxXwr8ABKlGYegarU05Oxlf0JpZu4onJgTV0t1a7b/0
-	 p11rTUKyCYVt11ZVsryoHZkVCya+odB6psBDi3VZIg5YFbqn5rJYxl0KizrZuKFCxovbO
-	 UzirsNbMjvZoyjv3jkttT/EBlVr8f4B1MM66ILnU0JCy2G8IwetjNXuFtDqFOXu7Ynbh1
-	 ZXv/24wQTJnCPuoB6j9V3BEoV0zulPFhdRDeBwcmft4sVsUENThRFjRsG0DrEA8Hy8Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SSV8AS27;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793967170;
+	b=Tw5F+l7CITLd9CljhIfCaUkCKFh/6IPrNZsMCzJkXSFfLbwRR+rBHZKp8CC6IjoICPay
+	 +r//A3X5ZQsM6ManhZQaLkkSrmYybjPfLL8kALH7NoontUQ+vAdYVc9lUAlNPGDGodiRM
+	 pE28WCvrMey8WzKkTy5Ev45/8xfOSsCLpDx+AX34glJG1cP993Y2u3e42ATQKEsfT/bt9
+	 5KNsjyaeCMNleemP+75AAypXcQDagf1phmibLpPa6TU4m2nuWtkoFFpuUrl/3RKaRipI1
+	 EvpAaHgpqNsKffA7JrS7ezRo0X+FS/k15ZzEW/OLwZcr4av7nsFf9dXIBVxBZD7dyCg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793967170;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=x1/cuWPUTv0vs8CRRmZ6/x/mFtko9mxhwsi/tFyavW0=;
+	b=o+VQAVnDlaptmnZQpOhS05O4oWhttMWS8XjTQyetcVktZ+sQqL1DVPWZdt7s9GsYiylN
+	 hnU6yMai+t8tzy/1+9J1KZ1grSA8JVCH86El5pg+yAJgPo02p3NllQkVGQvF3j+54SCHR
+	 uKmcagWkZVKBKENQmZur0tP5TNPHNtXQ8ac46x3HSmgm1v7wc5eQFT2ztg+1kC4VKfufp
+	 Vi0EgMwAO7S0BEiKCNrmHCpAyQGqT5q8xtpqPXTyYb0efZbvDnoOpDmWxBFLa/zsmCr9h
+	 dCAY+3zF+ofRRkRkYSN0fzg3FyaWyHgEr3qDohH3SURs4DCqe817R5/V8BjQzk4JN4w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xDYrVneH;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D168A606EEA9
-	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 12:09:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B2B8606A333
+	for <stable@vger.kernel.org>; Fri,  6 Nov 2026 12:12:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B2B8606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SSV8AS27
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E85FA1F008A3;
-	Fri,  6 Nov 2026 12:09:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793966972;
-	bh=3b/3qYRDMXJenPydA6vHboyvASPjz0NdoyZJUNW0tcQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SSV8AS2751IGaedM251Pc4kK1DfG/a5bXt5MUyMNuFjb3V6Vn4xUp3iR/L8tIzXEg
-	 fW4QFbnPW9W7EFxJK14UemEGPM3sJH8q9j+G7WwaoQm9O8Df1ERa66qRD3/FAlWTxP
-	 nWUN+s/FNTSF/IFYYiRX6jmkcO0Mt1AF6vtN0rX+pwFm65+yXDKIlIIJfYN1GjRDLT
-	 KHa+J7Uc512zgU/qKs5v0uq/r6j8OxdzBWrasIoTrJry2k59HpAyPhqYtJ5oUuZAMy
-	 rq+F+fgBjIH1SumhykP5qDVrutk32EhXAjAhaJXPidbzARM6gy4/UgMIXctumJc/sr
-	 tndge1RuvYGKg==
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfauth.ams.internal (Postfix) with ESMTP id A07FB1980047;
-	Fri,  6 Nov 2026 07:09:26 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-02.internal (MEProxy); Fri, 06 Nov 2026 07:09:29 -0500
-X-ME-Sender: <xms:dsPtaqxrJTBKMp7OtKltwm2epPFXcBPMCXjHSnvSTBZiEgpTCoszRw>
-    <xme:dsPtaivhymwhYzphNsED75O-jVH3wrP7jKUF-fcFhrf_ltrIPQ1Mzf5fbdobahiN0
-    DXR0fXbL_820ZYAyXeNBir1bUGTL_6fHcfbQL5d88PmyZsoB-KaOpjJ>
-X-ME-Received: <xmr:dsPtajnMMIFZRQqyyuMajejjm8d7hjO0epIrwV9knfZzeapZLHElEqOGctw>
-X-ME-Proxy-Cause: dmFkZTFX6YYaRab9TtEmMZcJX+vH22GvpLmKiqkJD2aksNON1/L0ndlQvnX8flK4ouosr5
-    YGDUsiJ7BeAviv4JgQQ7uP7Q+wJ/EXSI9CRs9yYssUQBr42HFWwk4wrtc4JQdlkef7n68F
-    nkAp48OZv+C6deWppFMl1GEzsmXrXcRCtNlS1Qjs+aP6RV1JNO9OgT6J+XnDi7YVbuR8De
-    igCglYK6lQoAS4zHclSb0LfjyhmpZ/wcRoRbFIW9Kn8GxKsVqVGW+GF6OeO+8eok3lBCtN
-    1D4Z9CbSWh1tkn1l7VRQwMsJnnSTVAwraXBCXqv6KiYwLXUWwr7wRmk/4JXWi7hqf99OBt
-    0SzFoIlQgDEpMlYLsmsV44GLRWl8+6hUNbvse1m9zA3MICJRu2RPFptHarOrLNY4CY9lHd
-    cmD82b0qW6ldXjXoIYNwPaaIwA0Q1zJXsfoLpowA0oUagELfqFgfzmKhi9i7/hYJNMOboS
-    I80WilBCOxVz/X+dB1z4YwMbbGsJxJ0YGcdxwQ+oHybZTSxD49/KuR4HEZryIuuvDqnvYE
-    3NpNfqDnIjTqqTUq5Hcxvfxv3tsbi9yVToFzcrI3NWelhh3yRDTy2trG/3lYRieRDRkKmE
-    QS6adowkJkf/1ha5D61Y49oD8WyVzsZKzFUIOwtIblhjfFzxbZ8NKjXzIhHw
-X-ME-Proxy: <xmx:dsPtanBGI0m3xopWzemDYTi6JuRs1JLnAPlsouh3Y_0c8HYJfcb_CA>
-    <xmx:dsPtasQCcTihdD87s1X0vrmqulaZ4IXi8iL-xm-1W4DFdbuO3MPh_A>
-    <xmx:dsPtanI8ymsHX5TW3iOzWHpISJ_hH6rm0IAbh5X-NisdFWL8tDRDpA>
-    <xmx:dsPtal0dZAG_OiwyPICzFkV9pDGpdlM5nDgnzQIMZkTnC1gpHob_1A>
-    <xmx:dsPtajuRiOMZHIW4dzpShBuOzRcwTMEriXB5q7BFJkzYYX3quu2Zor2y>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 6 Nov 2026 07:09:25 -0500 (EST)
-Date: Fri, 6 Nov 2026 12:09:24 +0000
-From: Kiryl Shutsemau <kas@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Hugh Dickins <hughd@google.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
-	Zach O'Keefe <zokeefe@google.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	Chris Mason <mason@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/khugepaged: don't map folios that are not uptodate in
- MADV_COLLAPSE
-Message-ID: <au3C8lNElGg4LnR1@thinkstation>
-References: <20261105-set_huge_pmd_uptodate-v1-1-a78d8a1b7117@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xDYrVneH
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b6e7a05225so511038a12.0
+        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 04:12:50 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793967169; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QrfGHepKtDQeImzaLnaMoQDTIMQDGr7XIKFQK9K82gB06Jtp4pdkiNTW5agXQuIU6S
+         oUlPkF5qqkxqYpkMf6XcYZpRlPPv4LhvqShaiJVotRcKWgLjFEpi27Wwwdo+K3Vf5phJ
+         CJD7GU4jMUuWlJbbBANfprrjGr6N+DmEvOb1AMX4qKsSFlcdIKdIcfw0CoqY1C99PAxa
+         vinx7YsKSVtu8CbG4pm0/Pz8kBzoE5ucHQLU0YkgmTLVdISC7rot26+/pUvu+cDb1EyG
+         WWjDkmxvkCf1nYaRITipwy+htZ3xSZ2NwMk6AkH5i40JBNRxuTESK3oUhHBhtCXZNizX
+         BtGg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=x1/cuWPUTv0vs8CRRmZ6/x/mFtko9mxhwsi/tFyavW0=;
+        fh=KVBiR/4iS3BzN1kvf0JG2j9AYl6TduvqBzx0Zrybr9E=;
+        b=V47kLbzhe/i7ljT0k9P8qInUe/8aEeKAiOgvFuzLn2zuiuZQaWHzhlLYFV2HU7uZW6
+         68waKz71HtVQmCrAcu2WaxbvKmhrIPFlVI67WebCuMu6Sa9nyI9tn1m9eF/VX9Qtap06
+         7qR9hYC0bpHayinv9yxk1pTN3beFCYqJG6CcEf+xa88HdindWkHiLUUlq7MvS80V0K67
+         dKnVXM2PDln4oBHYg+8TVvs8I5GtpywSYFnqkEWKo+kA0Rnbfhw3f/R53H2yR4epA7gx
+         J8ogS3bSmUzMoo/BJL23/ib1xAEBp1WagGrt8hru1/iAii77zXQg8LMuCapMBMrvPbc0
+         KE2g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793967169; x=1794571969; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=x1/cuWPUTv0vs8CRRmZ6/x/mFtko9mxhwsi/tFyavW0=;
+        b=xDYrVneHd9NtSZJg0aPJWE2CrXqH1XhMoEBmuZu1Aq20xV6zyQmbDXClWwhR5sMHH1
+         RifzHNcrt9zUYGkUN0udrQlRIcs28wCcQZt8AY3ZsXmNAG0m1KfOViGsnbgKseghiwis
+         OEoziMx0kBGsIQWK/5GDVyMw6GnwIKEBEQhZ0m4L5moDCZUpWRoHJNOg+xxtJEDD2VB3
+         UK1PBd+qffmb0RXq92LwXbuXDPw8lios74hyBidrpWWaeOsqVwEIpaCKo2sLUtO5OQxo
+         1zL0DGnTQcMTY6sYyHvCqLGEe0kev4324IiqG1ZzM7ttp2pJK1cr86cPsszoMSCf4Z75
+         cG8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793967169; x=1794571969;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=x1/cuWPUTv0vs8CRRmZ6/x/mFtko9mxhwsi/tFyavW0=;
+        b=oObGfFIEvMzq/uRXw8WnSFt0TSpT+25d7R+PUH3GKPLRZf4gJ0D65ArSCuRTyTbJKP
+         B3kclef+WyiVRP/KmLM2MoNZy3FHzcFf9595W4uAeUU28oc7qSHyAO15jfH92HNHhGU3
+         La0KML7q44g064hCBX6xJ1Wa5BC9HaOqCjXipEbLqXyfywjGADcPZSXAC8r2oxbeJlge
+         /aXM787zmAEgYxT45HYTPWjSA4+oG0xgRLU0ncPl/Du7eoZPm+7yDKk1D/fUcDA90kE1
+         ozWlGTaEKZ7IvYnKE8PvbLZcnSQpb43okp6mJuknu4WwxrmMlqvl/rr7WAH4Hb64xiI1
+         ihaw==
+X-Gm-Message-State: APuU4Z9wJWMDQtsGZMKYPAxiKs2frrmXyxEOG+fHfFYLcFD08ARikHd6
+	DuosgdzJdAW+mvN4PL5yBgBMR/zNuorkkLXXXm4D9m1Hnn2ZJAEsNp6CbSqtIhDJJAritgiKNW6
+	u07Fbu+8GD7UM73FSlonFJqI+3l1HosI=
+X-Gm-Gg: AYBFou3btagjW4oUWwIYFZWp75FsEfem9zcy0O2jfa3m+iAn3KvvKoF1BXkb5bu2FQo
+	wXoy0kanHkKOB3S20GaqttXXtpqfc2b6Avgcy1pH66QSMgsxJ9xGGNEXcbTDx+xdmVMkd5yqtwI
+	OU/CUquOe6nf4Xod7hYjjLQ3IxwKkdZBaZ3Fca/sjKvHtMgvLKibn1fGomyAmgf51C5CK0ewRDI
+	/PcldVoAnvUfqtArI4wmpjPvsPxw8yiMpQAHC6EDVhrJkOE+S36qNemmbiaNoIIByFV4vVunoPv
+	VL7Yugxuqf5YZQ+MesS7eabtxuBgtzJ357/fcaTuIjoYpNehF+oYJPa6u14Vh8je222+6PKdCKj
+	bBVLokRUIn9WQ22V9+5sVEFv0+4Z5EvEs1G7SG4+rrQnThN0GVepVJXSG8r2Oo84iKLdFh1cHLY
+	pYwhF2uylTd2SGEdyiXbg6Lg==
+X-Received: by 2002:a05:6402:2708:b0:6b5:96e9:ae95 with SMTP id
+ 4fb4d7f45d1cf-6b5977c05b4mr1611439a12.10.1793967168580; Fri, 06 Nov 2026
+ 04:12:48 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -91,42 +104,124 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105-set_huge_pmd_uptodate-v1-1-a78d8a1b7117@kernel.org>
+References: <20261105-alpha-force-success-fix-v1-1-8c26d60c5fff@gmail.com>
+In-Reply-To: <20261105-alpha-force-success-fix-v1-1-8c26d60c5fff@gmail.com>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Fri, 6 Nov 2026 13:12:36 +0100
+X-Gm-Features: AclHuK-imma2RB3IIgOI8b1RYP__FJLRZ_l9IgLeNTSprdfcIZVW6dvD-NI_UWw
+Message-ID: <CA+=Fv5RXzRvCwmzJ8FY8=fxmHCF1X6XAj=LtfbVD5gVJJxi1mQ@mail.gmail.com>
+Subject: Re: [PATCH 7.1.y 7.2.y 7.3.y] alpha: honor force_successful_syscall_return()
+ again
+To: Matt Turner <mattst88@gmail.com>
+Cc: stable@vger.kernel.org, Richard Henderson <richard.henderson@linaro.org>, 
+	linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Nov 05, 2026 at 07:16:44PM +0100, David Hildenbrand (Arm) wrote:
-> madvise(MADV_COLLAPSE) can map PMD-sized pagecache folios that are not
-> uptodate. For example, shmem fallocate() can put such folios into the
-> page cache.
-> 
-> collapse_file() already refuses to proceed with folios that are not
-> uptodate. Let's just do the same in try_collapse_pte_mapped_thp() and skip
-> such folios, leaving handling to the page faults.
-> 
-> Note that collapse_file() effectively clears shmem folios through
-> shmem_get_folio(); let's keep this fix simple and simply let the page
-> fault path deal with that.
-> 
-> Fixes: 34488399fa08 ("mm/madvise: add file and shmem support to MADV_COLLAPSE")
-> Reported-by: Chris Mason <mason@kernel.org>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Hi Matt,
 
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+On Fri, Nov 6, 2026 at 12:39=E2=80=AFAM Matt Turner <mattst88@gmail.com> wr=
+ote:
+>
+> This fix is for 7.1.y, 7.2.y and 7.3.y only.  Mainline is not affected
+> since commit 83bd31c2840b ("alpha: enable GENERIC_ENTRY") in v7.4-rc1,
+> which replaced the saved-r0 check with a flag in thread_info.  That
+> conversion is far too large for stable, so this patch fixes the old
+> entry code instead.
+>
+> Syscalls that return data rather than a status, such as PTRACE_PEEKUSR,
+> PTRACE_PEEKTEXT/PEEKDATA, osf_sigprocmask and shmat, call
+> force_successful_syscall_return() so that a result with the top bit set
+> is not mistaken for an error.  On alpha that clears the saved r0, and
+> $syscall_error and $strace_error used to check for this and take the
+> success path.
+>
+> Commit 55b22075f784 ("alpha: add support for SECCOMP and
+> SECCOMP_FILTER") moved the restart syscall number to r2 and dropped both
+> checks, so any negative result now comes back to userspace as an
+> error with a3 set.  PTRACE_PEEKUSR of a register holding -1 fails with
+> EPERM, which makes sandbox abort when it traces static binaries during
+> Gentoo package builds, and PTRACE_PEEKUSR of a register holding
+> 0xffffffffffffe000 fails with errno 8192, which breaks unwinding of a
+> ptrace-stopped thread in elfutils (run-backtrace-native.sh).
+>
+> Restore the checks on both exit paths.  On the traced path the success
+> path also has to stop falling through into
+> SYSCALL_SKIP_RETURN_RESTART_GATE, which is meant for skipped syscalls
+> and would turn a forced-success result of -1 into ENOSYS.
+>
+> Link: https://bugs.gentoo.org/985765
+> Fixes: 55b22075f784 ("alpha: add support for SECCOMP and SECCOMP_FILTER")
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Matt Turner <mattst88@gmail.com>
+> ---
+> This is a stable-only fix for 7.1.y, 7.2.y and 7.3.y; it applies to all
+> three (with a 16-line offset on 7.1.y and 7.2.y).  Mainline fixed the
+> same problem differently by switching alpha to GENERIC_ENTRY in v7.4-rc1,
+> which is too large to backport.
+> ---
+>  arch/alpha/kernel/entry.S | 14 ++++++++++++++
+>  1 file changed, 14 insertions(+)
+>
+> diff --git a/arch/alpha/kernel/entry.S b/arch/alpha/kernel/entry.S
+> index 9f2608de2544..fe88cd598492 100644
+> --- a/arch/alpha/kernel/entry.S
+> +++ b/arch/alpha/kernel/entry.S
+> @@ -603,6 +603,14 @@ ret_to_kernel:
+>
+>         .align 3
+>  $syscall_error:
+> +       /*
+> +        * force_successful_syscall_return() zeroes the saved r0 (the
+> +        * syscall number): the negative return value is data, not an
+> +        * error number.
+> +        */
+> +       ldq     $18, 0($sp)
+> +       beq     $18, $ret_success
+> +
+>          /* Restart syscall nr comes from saved r2 (preserved even if r0 =
+overwritten). */
+>         ldq     $18, 16($sp)    /* old syscall nr for restart */
+>
+> @@ -700,9 +708,11 @@ ret_from_straced:
+>  $strace_success:
+>         stq     $31, 72($sp)            /* a3=3D0 =3D> no error */
+>         stq     $0, 0($sp)              /* save return value */
+> +       br      $strace_leave
+>
+>  $strace_skip_call:
+>         SYSCALL_SKIP_RETURN_RESTART_GATE
+> +$strace_leave:
+>         DO_SWITCH_STACK
+>         jsr     $26, syscall_trace_leave
+>         UNDO_SWITCH_STACK
+> @@ -710,6 +720,10 @@ $strace_skip_call:
+>
+>         .align  3
+>  $strace_error:
+> +       /* See $syscall_error. */
+> +       ldq     $18, 0($sp)
+> +       beq     $18, $strace_success
+> +
+>         ldq     $18, 16($sp)    /* restart syscall nr */
+>         ldq     $19, 72($sp)    /* .. and this a3 */
+>
+>
+> ---
+> base-commit: f2c53ea949c5048f96b3dbb5a5ee7131ce4ff2de
+> change-id: 20261105-alpha-force-success-fix-6df76c50033a
+>
+> Best regards,
+> --
+> Matt Turner <mattst88@gmail.com>
+>
 
-Separately from this fix: nothing on the mapping side catches this.
-Every caller checks uptodate on its own (next_uptodate_folio(),
-filemap_fault(), shmem_get_folio()), and khugepaged was the one that
-went straight from filemap_lock_folio() to do_set_pmd().
+Built and boot-tested on v7.1, v7.2 and v7.3 using Alpha QEMU
+with stock Clipper PALcode, with one and four CPUs.
 
-Should do_set_pmd() and set_pte_range() assert it? Something like
+All 56 raw r0/a3 checks passed with the patch, covering traced
+and untraced ptrace PEEK returns, including -1 and -8192,
+other forced-success returns, and normal success/error cases.
+Unpatched controls reproduced 32 failures on each release.
 
-        VM_WARN_ON_ONCE_FOLIO(folio->mapping && !folio_test_anon(folio) &&
-                              !folio_test_uptodate(folio), folio);
-
-The ->mapping test is for set_pte_range(): finish_fault() also maps
-driver pages that never get PG_uptodate.
-
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+Tested-by: Magnus Lindholm <linmag7@gmail.com>
