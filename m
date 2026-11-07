@@ -1,54 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047139;
-	b=b6/Wvf6LcSMKLACxDhnYI7Wu0Q4X2wJ+jY42f8goJKF4QWclZsaouwJQCsw7S63C6+cJ
-	 ShtytpeIpYKDRuo2f1QL4SCsWL87T1QDqLhg5NprlKxZRotvbnKXWeiI4l7UMU0Lzzmg5
-	 fj6KlpYxRPdL6vq0KEsjCI599gk0Heu97Z39DW7Eki4e0mm5RWvCGTeRB+hBXdL3JdX3A
-	 ZYyBedkQuHQW/zErS1mLOJYdbnd27cQOyKQ4/e3BB1U7AOjdkyj3RJBsNemspmd/SlF/j
-	 C90rZFwv4SyD74aEPK5BhSwy6u5qh8GH6VnjkRbf2pbM3V6YELuKBbulco5R4mHIBjw==
+	t=1794047141;
+	b=oLlw8+fmM+2EtEgk2Hl2XJ2x7MXpSHybNy03nHAFUJ0MukMTM6u7xylqRL2Y6ZfUsUtU
+	 ZrHbmi4BFBPb0UA6gc5MiZ7zUkqk3YvyLv+FDQm2mcZYT9T3UcKkoLYETrSSSeu6TFjXi
+	 KxIiLcd7fxMe9BuQtBwgf4ph4feuTU07c6w1nxWm85FNZGGgk+8/8LCP/1gwBU5yyyFxc
+	 pBiT9WBzLyyxHk0gdRGbmLO0TLWFbVLU9dCgZNjspOGRthPLjJYWv+ZL8mv3z8Z0CHAE1
+	 8cvDpyURevpEd37i/Ze765YtgwUIYgplAdOpHczcrhKiRwyFxDKJr9kzEDE8zs1bpuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047139;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047141;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=fxKWhZ6zNR0IOB7TdHzGdAcaf3W1v0v4pVqd0PFNh0w=;
-	b=1c2WSkpLHBqZH2ckeimCX37AAalf7yhjTkLEDdoViY+ZV0c0xeBcGeDasyr7Xdq/05QY
-	 LrEheJm93EWGfGZA5ABbpk30AKkdZMMFjJD0eHC2QThmomXvmbkwB6eU9sV8ZxDyAevYn
-	 aiHYGr0VmIe1n9W5W1jUhT1yCTX6k81mt11Qe3aw28rvDUyYXCV4MMUrbKf6+2EUav4RF
-	 Q2jI13BwH++Tf0AoQ3GdJiz7iN9/cbVIsMwdceDlOw7gIq9xA+SVtmFMB/tlUcSyYGfhe
-	 q89JdXvE146ACXND7m26TlSXS7IRPsSOAxSiJDqf3zcFmgZOKvXm3nCRnGFfdeZYn/A==
+	bh=QGLUdS86hqMCgHejQBPrCtdvVp/CsQEQQYzqkXuVilc=;
+	b=UnHhWGe1A07cT7ud9YfsjGzVGlx0QI6duLWrkYz4mfY7W4sMc382IYYGzYd5kqZcd6Ub
+	 szXCWz6kAYS8OkSXNKcqbKHkBrHG+dJQxFtRnDFSLUcrrJr63F4HDdgtIZfLepGFVEHwL
+	 KNt3z/Asj1Sbwg17AbFXEjlUHY5OPqNQt22wmGi0+WSKDVnWsa0vKy1Ujo4OwhRJd8r/1
+	 Y8YGVd5/wICE+IkCD7UtwNYHZcTzTF70i87/OD+obd56+Bpi+9JnPw4/qtQZuPKv4sjxP
+	 jliWTL0h7Vdgrugs9C7RpCl61UVEHIwNYcMk+ICZ1ZBoUouAtsa6wwyCz+h16sFYCLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DuHaoEeJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NNIwsMNM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B724606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:25:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 419B0606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:25:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DuHaoEeJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0611E1F0089F;
-	Sat,  7 Nov 2026 10:25:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NNIwsMNM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F89D1F0089F;
+	Sat,  7 Nov 2026 10:25:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047138;
-	bh=fxKWhZ6zNR0IOB7TdHzGdAcaf3W1v0v4pVqd0PFNh0w=;
+	s=k20260515; t=1794047141;
+	bh=QGLUdS86hqMCgHejQBPrCtdvVp/CsQEQQYzqkXuVilc=;
 	h=From:To:Cc:Subject:Date;
-	b=DuHaoEeJsJGvg4Mms62eKuQ610jRzL2HaPz6OYOhSi2YYp3WExKPHIpT/aUpKvH3a
-	 y4RH1OLmA3MX+5zJgxuiqYwFzXObbHDYHs/yWntocTP/Kp9Yy6dS7PF96n4ye4R6t1
-	 ZtTYP8BBkHbkficTrvF/TorROqQ9w/uswaZUeaJs1FV+4IkSuDKgo5mGub5W/VEsvF
-	 NoBrIBtvlD38cCHfgAyFsKeDkHYycv4El0d0nQ/cR/Z0f0GAU0+HcX+iAjmcdzfORZ
-	 Loq6czTV1wMracN2FFbNvkNKFOkbqD2asS3f0MUGWRYRp2IKCbIanV0uhDUn9ZDkj8
-	 ZmHay1f8GYqIg==
+	b=NNIwsMNMFdtczGI230Nka4+SifGf2ov6tOebc6+vb0yIHZ4DIWK3dEw+AHbVKl/PI
+	 FzaFtrMKVoxvDl+UeZob+Ck/4S7rz5gQjTMZmUJTFH6Pz/0vgVd70zbxInhY+/FW1L
+	 1aCTxILrmweWXqf7T1QIoVReOwF3K3tNHV43J5O7WsiHIGl8EDGJNqc7KdxN4gO2Eu
+	 E4AppwQQ93sRNGPBgs2bPRAvQt/fEM0HhGAU0rXH6NInUvif2C1OzcvLCkFJr1gnOb
+	 8LpdzIXYFbZuw0G8vO6N69JvgIuIUY8tNX3Z8JidoR9w1vspMFJDo1STkdgAigyweH
+	 M5poH1CkYQC+g==
 From: Sasha Levin <sashal@kernel.org>
 To: stanleyjhu@google.com,
-	bvanassche@acm.org,
 	beanhuo@micron.com,
 	peter.wang@mediatek.com,
+	bvanassche@acm.org,
 	mkp@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] scsi: ufs: core: Add a helper for clearing hba->outstanding_reqs" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:25:36 -0500
-Message-ID: <20261107052536-failed-6.12-22d14117ec18@kernel.org>
+Subject: FAILED: patch "[PATCH] scsi: ufs: bsg: Reject UIC commands with a non-zero result byte" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:25:39 -0500
+Message-ID: <20261107052539-failed-6.12-1ae42513205a@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,129 +71,58 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 22d14117ec1845a81acb3a5c4be325f7e8332f70
+git cherry-pick -x 1ae42513205a38b811afedb6797f9f9c4de37b90
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052536-failed-6.12-22d14117ec18@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052539-failed-6.12-1ae42513205a@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 22d14117ec1845a81acb3a5c4be325f7e8332f70 Mon Sep 17 00:00:00 2001
+From 1ae42513205a38b811afedb6797f9f9c4de37b90 Mon Sep 17 00:00:00 2001
 From: Stanley Jhu <stanleyjhu@google.com>
-Date: Thu, 22 Oct 2026 11:44:39 +0800
-Subject: [PATCH] scsi: ufs: core: Add a helper for clearing
- hba->outstanding_reqs
+Date: Thu, 15 Oct 2026 08:18:54 +0800
+Subject: [PATCH] scsi: ufs: bsg: Reject UIC commands with a non-zero result
+ byte
 
-ufshcd_poll() and ufshcd_abort() each have their own copy of the code that
-clears bits in hba->outstanding_reqs under hba->outstanding_lock.
+ufs_bsg_request() passes the user-supplied UIC argument2 unchanged,
+including the result byte (bits 7:0) that only the host controller
+writes. A non-zero value triggers the WARN_ON_ONCE() in
+ufshcd_dispatch_uic_cmd() and corrupts the reported result. Found by
+syzkaller.
 
-Move that code into ufshcd_clear_outstanding_reqs() and its locked variant
-__ufshcd_clear_outstanding_reqs(), and use them in both functions. No
-functional change.
+Reject UIC commands that have the result byte set with -EINVAL.
 
+Fixes: e77044c5a842 ("scsi: ufs-bsg: Add support for uic commands in ufs_bsg_request()")
+Fixes: 9fb4c793223b ("scsi: ufs: core: Complain if UIC argument 2 is invalid")
 Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/r/3779e125-9acc-42c8-9489-51b9e3c6716d@acm.org
-Suggested-by: Bart Van Assche <bvanassche@acm.org>
+Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
 Reviewed-by: Bean Huo <beanhuo@micron.com>
 Reviewed-by: Peter Wang <peter.wang@mediatek.com>
-Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
 Reviewed-by: Bart Van Assche <bvanassche@acm.org>
-Link: https://patch.msgid.link/20261022034443.3034432-3-stanleyjhu@google.com
+Link: https://patch.msgid.link/20261015001855.3450573-5-stanleyjhu@google.com
 Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
 ---
- drivers/ufs/core/ufshcd.c | 48 +++++++++++++++++++++++++++++----------
- 1 file changed, 36 insertions(+), 12 deletions(-)
+ drivers/ufs/core/ufs_bsg.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
-index f03a8d39fb7a8..f2e3b782f1fe8 100644
---- a/drivers/ufs/core/ufshcd.c
-+++ b/drivers/ufs/core/ufshcd.c
-@@ -5997,6 +5997,37 @@ static void ufshcd_clear_polled(struct ufs_hba *hba,
- 	}
- }
- 
-+/*
-+ * Return a bitmask of the transfer requests cleared from
-+ * @hba->outstanding_reqs.
-+ */
-+static unsigned long __ufshcd_clear_outstanding_reqs(struct ufs_hba *hba,
-+						     unsigned long mask,
-+						     bool from_irq)
-+	__must_hold(&hba->outstanding_lock)
-+{
-+	unsigned long completed_reqs = mask & hba->outstanding_reqs;
-+
-+	if (from_irq) {
-+		/* Do not complete polled requests from interrupt context. */
-+		ufshcd_clear_polled(hba, &completed_reqs);
-+	}
-+	hba->outstanding_reqs &= ~completed_reqs;
-+
-+	return completed_reqs;
-+}
-+
-+/*
-+ * Return a bitmask of the transfer requests cleared from
-+ * @hba->outstanding_reqs.
-+ */
-+static unsigned long ufshcd_clear_outstanding_reqs(struct ufs_hba *hba,
-+						   unsigned long mask)
-+{
-+	guard(spinlock_irqsave)(&hba->outstanding_lock);
-+	return __ufshcd_clear_outstanding_reqs(hba, mask, false);
-+}
-+
- /*
-  * Return: > 0 if one or more commands have been completed or 0 if no
-  * requests have been completed.
-@@ -6007,6 +6038,7 @@ static int ufshcd_poll(struct Scsi_Host *shost, unsigned int queue_num)
- 	unsigned long completed_reqs, flags;
- 	u32 tr_doorbell;
- 	struct ufs_hw_queue *hwq;
-+	bool from_irq;
- 
- 	if (hba->mcq_enabled) {
- 		hwq = &hba->uhq[queue_num];
-@@ -6016,12 +6048,9 @@ static int ufshcd_poll(struct Scsi_Host *shost, unsigned int queue_num)
- 
- 	spin_lock_irqsave(&hba->outstanding_lock, flags);
- 	tr_doorbell = ufshcd_readl(hba, REG_UTP_TRANSFER_REQ_DOOR_BELL);
--	completed_reqs = ~tr_doorbell & hba->outstanding_reqs;
--	if (queue_num == UFSHCD_POLL_FROM_INTERRUPT_CONTEXT) {
--		/* Do not complete polled requests from interrupt context. */
--		ufshcd_clear_polled(hba, &completed_reqs);
--	}
--	hba->outstanding_reqs &= ~completed_reqs;
-+	from_irq = queue_num == UFSHCD_POLL_FROM_INTERRUPT_CONTEXT;
-+	completed_reqs = __ufshcd_clear_outstanding_reqs(hba, ~tr_doorbell,
-+							 from_irq);
- 	spin_unlock_irqrestore(&hba->outstanding_lock, flags);
- 
- 	if (completed_reqs)
-@@ -8056,7 +8085,6 @@ static int ufshcd_abort(struct scsi_cmnd *cmd)
- 	struct ufshcd_lrb *lrbp = scsi_cmd_priv(cmd);
- 	unsigned long flags;
- 	int err = FAILED;
--	bool outstanding;
- 	u32 reg;
- 
- 	ufshcd_hold(hba);
-@@ -8151,11 +8179,7 @@ static int ufshcd_abort(struct scsi_cmnd *cmd)
- 	 * Clear the corresponding bit from outstanding_reqs since the command
- 	 * has been aborted successfully.
- 	 */
--	spin_lock_irqsave(&hba->outstanding_lock, flags);
--	outstanding = __test_and_clear_bit(tag, &hba->outstanding_reqs);
--	spin_unlock_irqrestore(&hba->outstanding_lock, flags);
--
--	if (outstanding)
-+	if (ufshcd_clear_outstanding_reqs(hba, BIT(tag)))
- 		ufshcd_release_scsi_cmd(hba, cmd);
- 
- 	err = SUCCESS;
+diff --git a/drivers/ufs/core/ufs_bsg.c b/drivers/ufs/core/ufs_bsg.c
+index 0db830e54ef0f..cadde515f040b 100644
+--- a/drivers/ufs/core/ufs_bsg.c
++++ b/drivers/ufs/core/ufs_bsg.c
+@@ -179,6 +179,10 @@ static int ufs_bsg_request(struct bsg_job *job)
+ 		break;
+ 	case UPIU_TRANSACTION_UIC_CMD:
+ 		memcpy(&uc, &bsg_request->upiu_req.uc, UIC_CMD_SIZE);
++		if (uc.argument2 & MASK_UIC_COMMAND_RESULT) {
++			ret = -EINVAL;
++			break;
++		}
+ 		ret = ufshcd_send_bsg_uic_cmd(hba, &uc);
+ 		if (ret)
+ 			dev_err(hba->dev, "send uic cmd: error code %d\n", ret);
 -- 
 2.53.0
 
