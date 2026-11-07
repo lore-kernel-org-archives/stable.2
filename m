@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049709;
-	b=aGjavL7geF73EOZoFUr2NsWkPGxGZC5hFZv13M1JaPY0mNnO43h5HnkrX/u7Z1YdnD0Q
-	 /Vy55rOywnAK533E69oHRKNcoLo+4BzEF0QSFO1pcIICSJM9zjl1G8giVZLkmDN7uP/BA
-	 cgQ0oPx4oQK8X2bQPmb8j4Y2Rp9XM3OwplQHb1blydfCXu9PEKcT+Mrvjnay5k/DXZmlz
-	 12jyvbX57eHT20Q6Cg0JEtRZTS0KyihkxeKsMm++ZIDi758ubduFB/FYd8xnH94GTnbSZ
-	 GX2owq6v1A0V/3p4aS6soskwg8/15QdauZ7CBZBydaJzupb66m7sisTE8MokOuByIwA==
+	t=1794049712;
+	b=KASThWDwTFLWmjo1tiJPGeAmYwcoWvsfzRTdil/uWdu6Ozf0L+SDJM8TSRl9BExF2GdM
+	 ewilMfHCXH38DakBpy+z0v9kKj6METwAQQ1vI+O3lSjbTBq/Y2vDewLoX4srPKQ+1Wz7u
+	 sR8hL+I42IHuFtbWZvOIZYiThhIiEbsrxNVjB0H9aWyeJ4CRofMWJxE/Oib6tiwGSqr7F
+	 adHmNp6Oj90WH3/SU6aIzCqhiTxdkV/KIyrP9Oou+lNmNA1E9SFGOaHso83m6mm4XZ+Go
+	 oqjp1sAtSxHnK4WSTCTngPuKh3wTFyvs3cELGOAN+GHH2FCSyXF7Y0m1PU8G4g/Tq+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049709;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049712;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=qAPIwa0DSyit4jJfea34uCdyWZ6mlj/Ljt/2OZEbRj8=;
-	b=Fc8fdhF1XuoDGv3J8MXaC3KhNHl1CBlmcTq88VjCpNEHoqoq1pKPV8IaNIUz5Z15qtQ+
-	 0CsJkM3gI0rRvyx/MzXWVsOcu5rYhoNcGbrL/45eLABjQ7joxPijC7i1/qjZypupgyzLE
-	 UFeIOl+n2vQTE5nTg5D4QMaoPNG8XYVGbu0M2mYx/D4U6+H800AbJVl0wIgTowByFJxTU
-	 KYgmD/Ya1KvmNEhH0kGnYE+7KMig5z0NrgFwL8XvzBF50RcziEiE3PeFADa4Z94Xasuco
-	 eIxdgF+RjynByH4osr5ILU4HiasfQo+v08S6zYlY7lhgh8o7FdP6h3qEXuG7UxebJhA==
+	bh=ADMAL3jIv/5ISeDb/iAuJI8WaYey6lIJzfT6jdQHdEs=;
+	b=ptgLWkTM+S/Ic4ICtky197Y4DkNyDb17G0tAzqR8S9bdxHDd4AjnL3qONeJjfNpoxW+D
+	 ZtNGE0XLISZ69VYJfrrPL5yBcFWhA1Nhb6f43dcF5ilgFzjiJBH/lBTGIHp94tNIHDgUe
+	 vU7h8N6BIaVtAo6ZuiZta5FLZM8uFyjHwhXGBQWqSlclIjOfUNU1R+AYKd0Xq8YlIwwR+
+	 a1Ah88nebqcJNSvsPHt57Nl+p5cDk3voasuOp64Gq+NdI4SL4pG0VYC8fs9gA59f8xym5
+	 xGgVv9x0Ioh1tHnlFVduTRtkBw6cB/1aeBzndrwF5R2jS9wt4f1yMj2ThRZDUNcarmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i+aJgLvb;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ONERALQy;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AA3B606A32F
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:08:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33080606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:08:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i+aJgLvb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBDD91F0089F;
-	Sat,  7 Nov 2026 11:08:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ONERALQy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 925651F0089F;
+	Sat,  7 Nov 2026 11:08:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049709;
-	bh=qAPIwa0DSyit4jJfea34uCdyWZ6mlj/Ljt/2OZEbRj8=;
+	s=k20260515; t=1794049712;
+	bh=ADMAL3jIv/5ISeDb/iAuJI8WaYey6lIJzfT6jdQHdEs=;
 	h=From:To:Cc:Subject:Date;
-	b=i+aJgLvbpiQG8lPv611qP/GXtE6K1+uzjXQDdQpM60MNgieJqHRR7Pco+UsboxO7l
-	 VqqWmnHBC6cvhQL6AxcpaZQV7vCr5lwpFusB5PpGa2vvv/Re2Mle7EipNl9e3IxCN8
-	 tdTb/IhMGHFTA9Zu9wTyO0a94ej7XOBoDqC0F0HOAQVZoHirNLpk49dNDUkBtpiGr/
-	 klqZbCQccGKVagRmiP7ZHqgDfMCg8S9w8UIAfA3hL5KUvzOOdHPu7jhZFs1XFaJUki
-	 /KxIdITK6Wxt1jytvorceBYMjWAAHXEXEEMUAd0iniR7s33UpEnaM1+FRcha25wQHc
-	 LrPMNRh6CdA4g==
+	b=ONERALQyBJXL+WLlHm6tq+oUKG9LvnFFkEPdtSuhQzKsiML5LIi4GmgC0D54G29fV
+	 Pqgo9WokK6GsOC+7FDcJFzuSGn++hNfmpJjZYJQaaMYhOagyo7BO049KGEy8r6GJZj
+	 wecrcC1NwLJ7QQRxJ2bGm6e3MKec130nRe/XiWaYgPsgyMAmWz5wHSnsMBDzUlKq6s
+	 fyu/2UgccxwANHyDemMfN5zhHbom/anM7u+HvCjYnPQbw3vS4+381zd3oKn65rJ6AI
+	 6tK2IUt1DtkwRGHSNXA4uhrj0UkQz+sEGq+s1YaiKQXCuLuLGVBIB3gzA/7Yj7ZbS9
+	 csrujIdP3vLTw==
 From: Sasha Levin <sashal@kernel.org>
-To: gourry@gourry.net,
-	alexandre.belloni@bootlin.com
+To: w_armin@gmx.de,
+	github@firefishy.com,
+	linux@roeck-us.net
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] rtc: cmos: Honor explicit use_acpi_alarm parameter value" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:08:27 -0500
-Message-ID: <20261107060827-failed-5.15-3c7acb209e1d@kernel.org>
+Subject: FAILED: patch "[PATCH] hwmon: (acpi_power_meter) Fix 18.45 TW bug" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 06:08:30 -0500
+Message-ID: <20261107060830-failed-5.15-0b6eda22f9ab@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,88 +69,77 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 3c7acb209e1d630b734a2ec72bd988f5da2ac55c
+git cherry-pick -x 0b6eda22f9ab67ddb2a872b0c3fc578ad9f4e27e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060827-failed-5.15-3c7acb209e1d@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060830-failed-5.15-0b6eda22f9ab@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 3c7acb209e1d630b734a2ec72bd988f5da2ac55c Mon Sep 17 00:00:00 2001
-From: Gregory Price <gourry@gourry.net>
-Date: Thu, 15 Oct 2026 13:30:29 -0400
-Subject: [PATCH] rtc: cmos: Honor explicit use_acpi_alarm parameter value
+From 0b6eda22f9ab67ddb2a872b0c3fc578ad9f4e27e Mon Sep 17 00:00:00 2001
+From: Armin Wolf <W_Armin@gmx.de>
+Date: Wed, 7 Oct 2026 01:45:34 +0200
+Subject: [PATCH] hwmon: (acpi_power_meter) Fix 18.45 TW bug
 
-An explicit rtc_cmos.use_acpi_alarm=0 command-line argument is ignored
-on systems where use_acpi_alarm_quirks() enables ACPI RTC alarms. The
-argument appears in /proc/cmdline, but the read-only parameter reports Y.
+The ACPI specification says:
 
-The boolean parameter defaults to false, so the driver cannot distinguish
-an omitted argument from an explicit false value. Use a custom setter to
-record whether parsing occurred and skip automatic selection when it did.
-Preserve the bool parameter type metadata. Automatic selection remains
-unchanged when the parameter is omitted.
+"If an error occurs while obtaining the meter reading or if the value
+is not available then an Integer with all bits set is returned"
 
-On the affected system, the explicit false value reports N after this
-change. The HPET-emulated path completed 100 test runs without a failure
-while the ACPI RTC event counter remained at zero.
+This integer can also be 64-bit wide on ACPI 2.0 and later systems,
+so we have to check for that too.
 
-Fixes: 36d91a4d401c ("rtc: cmos: introduce quirks to enable use_acpi_alarm mode")
+Compile-tested only.
+
+Reported-by: Grant Slater <github@firefishy.com>
+Closes: https://github.com/lm-sensors/lm-sensors/issues/460
+Fixes: 1fefca6c57fb ("hwmon: (acpi_power_meter) Fix 4.29 MW bug")
 Cc: stable@vger.kernel.org
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-Link: https://patch.msgid.link/20261015173029.3091872-3-gourry@gourry.net
-Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Signed-off-by: Armin Wolf <W_Armin@gmx.de>
+Link: https://patch.msgid.link/20261006234618.10943-1-W_Armin@gmx.de
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
 ---
- drivers/rtc/rtc-cmos.c | 26 +++++++++++++++++++++++++-
- 1 file changed, 25 insertions(+), 1 deletion(-)
+ drivers/hwmon/acpi_power_meter.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/rtc/rtc-cmos.c b/drivers/rtc/rtc-cmos.c
-index fe514b1aa3433..209aa4ec732c8 100644
---- a/drivers/rtc/rtc-cmos.c
-+++ b/drivers/rtc/rtc-cmos.c
-@@ -57,7 +57,28 @@
-  */
+diff --git a/drivers/hwmon/acpi_power_meter.c b/drivers/hwmon/acpi_power_meter.c
+index d8e8715094055..3891962f03db1 100644
+--- a/drivers/hwmon/acpi_power_meter.c
++++ b/drivers/hwmon/acpi_power_meter.c
+@@ -10,6 +10,7 @@
+ #include <linux/hwmon.h>
+ #include <linux/hwmon-sysfs.h>
+ #include <linux/jiffies.h>
++#include <linux/limits.h>
+ #include <linux/mutex.h>
+ #include <linux/dmi.h>
+ #include <linux/slab.h>
+@@ -30,7 +31,12 @@
+ #define POWER_METER_CAN_NOTIFY	(1 << 3)
+ #define POWER_METER_IS_BATTERY	(1 << 8)
+ #define UNKNOWN_HYSTERESIS	0xFFFFFFFF
+-#define UNKNOWN_POWER		0xFFFFFFFF
++/*
++ * ACPI integers can either be 32-bit or 64-bit wide, so
++ * we have to check for both values.
++ */
++#define UNKNOWN_POWER_32	U32_MAX
++#define UNKNOWN_POWER_64	U64_MAX
  
- static bool use_acpi_alarm;
--module_param(use_acpi_alarm, bool, 0444);
-+static bool use_acpi_alarm_explicit;
-+
-+static int set_use_acpi_alarm(const char *val, const struct kernel_param *kp)
-+{
-+	int ret;
-+
-+	ret = param_set_bool(val, kp);
-+	if (!ret)
-+		use_acpi_alarm_explicit = true;
-+
-+	return ret;
-+}
-+
-+static const struct kernel_param_ops use_acpi_alarm_ops = {
-+	.flags = KERNEL_PARAM_OPS_FL_NOARG,
-+	.set = set_use_acpi_alarm,
-+	.get = param_get_bool,
-+};
-+
-+param_check_bool(use_acpi_alarm, &use_acpi_alarm);
-+module_param_cb(use_acpi_alarm, &use_acpi_alarm_ops, &use_acpi_alarm, 0444);
-+__MODULE_PARM_TYPE(use_acpi_alarm, "bool");
- 
- static inline int cmos_use_acpi_alarm(void)
- {
-@@ -822,6 +843,9 @@ static void rtc_wake_off(struct device *dev)
- #ifdef CONFIG_X86
- static void use_acpi_alarm_quirks(void)
- {
-+	if (use_acpi_alarm_explicit)
-+		return;
-+
- 	if (acpi_gbl_FADT.flags & ACPI_FADT_FIXED_RTC)
- 		return;
- 
+ #define METER_NOTIFY_CONFIG	0x80
+ #define METER_NOTIFY_TRIP	0x81
+@@ -452,7 +458,7 @@ static int power_meter_read(struct device *dev, enum hwmon_sensor_types type,
+ 		ret = update_meter(res);
+ 		if (ret)
+ 			return ret;
+-		if (res->power == UNKNOWN_POWER)
++		if (res->power == UNKNOWN_POWER_32 || res->power == UNKNOWN_POWER_64)
+ 			return -ENODATA;
+ 		*val = res->power * 1000;
+ 		break;
 -- 
 2.53.0
 
