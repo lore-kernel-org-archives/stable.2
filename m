@@ -1,59 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794079084;
-	b=ChHjX4SbhSy6oJ//lel16C/U8KJQf9ibP0oWy1hCGZcCQf5FphRNPNdOHYgpgIcYXa9M
-	 LumxNb3Wc0EeF43fKZ9hrwZI0ssRbgYvd2g4Wr322lItgGaOCQua6Im8GiZdzMGvsOOp4
-	 WKFhI+0nOMsfojDh8RXSgOU00OTgHA6lMs4DIZuSF9DoXQlxjQgmmNaSpYNxkKgfQFCdH
-	 HfyN6voXKhA9sDb/9+HdWIcLbiIaJ3BaHpklAGRSCAVsclx5t3Evqs4JHLIEJGfvZw71y
-	 W6w6FNm68ndouncvmIPb2VmtgPic3iJ0axSOSQYd2r3IoPLr43n+pnD0r5wQeU2T0lw==
+	t=1794079395;
+	b=15vCvL7wHsgCsCDUGQ5XMHodzJe8JZtsJJUcKN3YbGMxB3+d8XjzojyUHVBb4g2NwYRY
+	 n3GpeiGOfb3eAieF5xywHgjWXKEJk+IJVsc8dhXuh411S5M0HMIW3tMpMLvFXkr2q7YPE
+	 htSZpy1w4uuqeSszQxZywp9VTo/kdokVM76yOZC8nKoTsRVa+juTP/A8/dhDUGQqXDnBr
+	 2DZuVF1LXbZVpeB1Y3bcbYFgtxp/ugFWQYZ7lxdSqU3jZs/MwaEP8AIlZqv5wun8sRJDa
+	 SbBZeD/TuLaK+C/h7KFTmE4hu68kUM8sEkL8LOZiZ/UsDpx/zIFGHZ7l2JUmn3otQ+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794079084;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=pMDXsVQlo53B/Jea2d02cSt/QDq/uqMOwjNLuSiLXBA=;
-	b=mEZVYibC2RWayvhzVC4PyrlZkZCl7MlEoWWctr3cpMwSoL+il8HQVGc39N8whlzLjBna
-	 CMfgILO4qqakRssO8ei4Mh5YwyO9jb7GsUrPxQe4/vfBN/Gj+Uqjl2WFfi7QvajyFWsB1
-	 eTuTWJ0FpyHaFldNH9CeBfs2TuiOsgHzTf3LH79hGy4UHhB0r733Wab9w4Pc8bnM/q2iA
-	 Pd0kPsjaHatkF1uA5Kar600SHDZlMuaJ3LgV+1dtsY8f5sdSGAs+FNJJDwKZwGy5lvXFS
-	 C4mNjfrlgIH4yfBuLkZSyvIudEp5fqPn5tWiIVA7YxoCrDLGMXYRcZqpHhs+50kvJ5A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794079395;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=3zUI8NUITzTee2M7T0uV8NYDOEa0o8UX4A6U1gqrzZs=;
+	b=sUkMr3g74Kkz19xTj9QHA9UY0psBlWqMFPNQo2XX+/hUi4DLisBE8wNkz4W4wiu88Yxx
+	 wCaO5hsINOT7VcLh9sDr0KVRhPIekh+8XZuXprtJEWV+vRkg1OIyzAP8hrnCG0xYJexNY
+	 HFs0cIZovL1urc+kSzOAEknMLGMvWWEmlqyBsY2/PsgBHFoWsq31eQVUBnXRRy2ESGm57
+	 saA77NBKNXvDqnQMlrkb1E4BYwwzp1nSAPvSUMd/YVzfeTUi3MYKyhSp4RJsefLAk+fLG
+	 +sJJRiJ7aVYvtmW5nO5sfCz1VK7f3GO/s6ghdIsFobLkuRJUiKW+z0VSwdnfTKB8AmQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JwGeSl7o;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UxECBn+h;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1832F606A326;
-	Sat,  7 Nov 2026 19:18:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74FCD606A32E
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 19:23:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JwGeSl7o
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 031FC1F0089F;
-	Sat,  7 Nov 2026 19:18:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UxECBn+h
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E29771F0089F;
+	Sat,  7 Nov 2026 19:23:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794079083;
-	bh=pMDXsVQlo53B/Jea2d02cSt/QDq/uqMOwjNLuSiLXBA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JwGeSl7osPilXOn4fEOKFGCmH4FoCFFT43dvV1v7/SA2WHYnE7cG9JAOP1gzTXmYo
-	 /tsk+gWfXR1SCdMBypJM+XLo+vUiEGbkDHRNIGZGOyfCRy7IqGyQCEZY8J3vMNUuIt
-	 r1dprwiCEtlYoBctP5HUeohOqW+HgU+hZsvJO1DpyG9Hh6SF/Ut7BhPepvVBPIMjH7
-	 yO7Qh9+iIFYPiOLYINGWzzwgYU8YqNNyiLSarw7iRmhG915/0N0yl7QyO9pTtQ3LRN
-	 Q1aL5zOBCD7bQYQM+ybKhGTvi14qspVRQ5fvD6DZvfPU2ZUGwJW6ZZm+40ORhCQHqm
-	 Es9+O5LwkIn4A==
-From: SJ Park <sj@kernel.org>
+	s=k20260515; t=1794079395;
+	bh=3zUI8NUITzTee2M7T0uV8NYDOEa0o8UX4A6U1gqrzZs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UxECBn+hJDfgB4S1ShyJaCImQJEb4WLPK8Lflg/YSgybPWVbv26z5j58pTD5U9c0N
+	 5LL73D8UF2/QMnaVKAiNsmLsLrDpAgSA3XNl8yasQBEeUSQ0LExoJyaISEsize9E20
+	 6JpDYoh/estD93ldUIHmY8mfvKQ67IiRi2xADyXFZJvTRnjkR9pQ460ErWlDveYg4n
+	 gunccIVNb8gJLjIEzZ460Dx6J4P32sv+cOsHutkQ6fcbYWmWtR2VDI3PjQC83Cgy+Y
+	 8I8H6SGQL5CexLLf6WjEpshvocSQ6OUy97DVTks0tr/X2s11KGNjW0+gJuA6cmBvZr
+	 oA/AhvKoQIleg==
+Date: Sat, 7 Nov 2026 11:23:13 -0800
+From: Eric Biggers <ebiggers@kernel.org>
 To: Sasha Levin <sashal@kernel.org>
-Cc: SJ Park <sj@kernel.org>,
-	kmehltretter@gmail.com,
-	akpm@linux-foundation.org,
-	kunwu.chan@gmail.com,
-	lianux.mm@gmail.com,
-	stable@vger.kernel.org,
-	damon@lists.linux.dev
-Subject: Re: FAILED: patch "[PATCH] mm/damon/core: keep the temporal tuner quota over an unmeasured PSI round" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 11:17:50 -0800
-Message-ID: <20261107191751.195278-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261107050853-failed-6.18-df7d9a0f8d91@kernel.org>
-References: 
+Cc: herbert@gondor.apana.org.au, stable@vger.kernel.org
+Subject: Re: FAILED: patch "[PATCH] crypto: sa2ul - Fix HMAC key preparation"
+ failed to apply to 6.18-stable tree
+Message-ID: <20261107192313.GB6049@quark>
+References: <20261107050806-failed-6.18-780cd10c8e78@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,80 +56,26 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261107050806-failed-6.18-780cd10c8e78@kernel.org>
 
-Hello,
-
-
-On Sat,  7 Nov 2026 05:08:54 -0500 Sasha Levin <sashal@kernel.org> wrote:
-
+On Sat, Nov 07, 2026 at 05:08:06AM -0500, Sasha Levin wrote:
 > The patch below does not apply to the 6.18-stable tree.
 > If someone wants it applied there, or to any other stable or longterm
 > tree, then please email the backport, including the original git commit
 > id to <stable@vger.kernel.org>.
-
-TL;DR: the patch is not needed for 6.18.y.  Please ignore this failure.
-
 > 
 > To reproduce the conflict and resubmit, you may use the following commands:
 > 
 > git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 > git checkout FETCH_HEAD
-> git cherry-pick -x df7d9a0f8d916eeea375430ae3360724afecde15
+> git cherry-pick -x 780cd10c8e78f97ed768be229acff0ffd5483477
 > # <resolve conflicts, build, test, etc.>
 > git commit -s
-> git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050853-failed-6.18-df7d9a0f8d91@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
-> 
-> Thanks,
-> Sasha
-> 
-> ------------------ original commit in Linus's tree ------------------
-> 
-> >From df7d9a0f8d916eeea375430ae3360724afecde15 Mon Sep 17 00:00:00 2001
-> From: Karl Mehltretter <kmehltretter@gmail.com>
-> Date: Tue, 22 Sep 2026 22:51:37 -0700
-> Subject: [PATCH] mm/damon/core: keep the temporal tuner quota over an
->  unmeasured PSI round
-> 
-> The patch in mm-unstable of subject "mm/damon/core: handle uninitialized
-> damos_quota_goal->last_psi_total" scores a PSI quota goal without a
-> previous sample as achieved.  This leaves the consist tuner's input
-> unchanged, but the temporal tuner sets its quota to zero for an achieved
-> goal.  A running scheme with a nonzero temporal quota therefore loses a
-> charge window after a quota-goal commit.
+> git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050806-failed-6.18-780cd10c8e78@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
-This patch was meant to be squashed into the mm-unstable patch before being
-mainlined.  But seems I failed at clearly communicating it to Andrew, and
-checking it further.
+Actually a clean cherry-pick, and failed to Cc the linux-crypto mailing
+list.
 
-This fixup is needed for only temporal tuner available kernel.  Temporal tuner
-was merged on 7.1.  So, this patch is not needed for 6.18.y.
-
-> 
-> Use the effective quota to preserve the temporal tuner's previous
-> goal-achievement state during an unmeasured round, as SJ suggested [1].
-> Score the goal as achieved when the effective quota is zero and as not
-> achieved otherwise.  A new scheme's initially zero quota stays zero, and
-> the consist tuner's behavior is unchanged.
-> 
-> Move the PSI current-value calculation and last_psi_total update into a
-> helper that takes the current PSI total.  This lets a unit test cover the
-> unmeasured and measured rounds without depending on system memory
-> pressure.
-> 
-> Link: https://lore.kernel.org/20260923055139.2982-1-sj@kernel.org
-> Link: https://lore.kernel.org/damon/20260916001311.101024-1-sj@kernel.org/ [1]
-> Fixes: 2dbb60f789cb ("mm/damon/core: implement PSI metric DAMOS quota goal")
-
-FWIW, the above Fixes: is the Fixes: of the mm-unstable patch that this patch
-was intended to be squashed into.  Hence the above is incorrect.  Correct one
-should be below:
-
-Fixes: 29c6084658af ("mm/damon/core: handle uninitialized damos_quota_goal->last_psi_total")
-Cc: <stable@vger.kernel.org> # 7.4.x
-
-
-Thanks,
-SJ
-
-[...]
+- Eric
