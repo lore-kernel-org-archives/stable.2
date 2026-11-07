@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048335;
-	b=Kh9CPZYE6/FGELzjFaKaux6t32bnaJCpwpaKdQyIlk1LIwHOuGGf6zdnj1lRWycCDums
-	 TbjqpODefFdQf80pusQcmL3IZA4FXx4dXMhqusD+XDgxvwK1pLjF0eD3YgeliDj0885h2
-	 Um9MhbUjgncZFAIvi3drpV8o+EyEGdRcsbJr5+bqt07p6P4GgB6HNpgW+NkchTMCEsyCh
-	 5tD8h6fcBXyAcnSeD20+sa5caJYJnD8ajHChNjM9wSHrPzRWaBUOPfbQWYQqksp40pr7T
-	 vlTxMWgrnsxxZdhiRssmwU3tulQ+E743q8oSTgviyNcETHdo49B0+r+QaRxoGYajChA==
+	t=1794048338;
+	b=Xz3NHrtIU/GdhTMlhWo2lMxUvviL6sT6VY6Iqw01BU0qLwTNDuh8+kTDbOHKJLdGYZUB
+	 kUsgFPuy9IBjl85W1f201r5T4KKy3mTsz+5u63fbEkc4DeGlQkO3/SfLelOFASnFGaxDa
+	 yzZ9Fpx335kE5Xkv98qweqqwqf6jWllKDEVQtUpX45YBOtXMQl2cSkzzfEBGCyAL/Qnkg
+	 rZNnOZ/toUVwetmhV5MSfySVPq41+9n8Aoayf/utg889ZmunFMF888YJQmgglwL34SHoE
+	 4150jXkbLyGwHGIqDTP/RcL+JzAv8MFVLjgthKEFrhXwl2wEtowY5PUBu+rlgsGkiyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048335;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048338;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=OsXeTp9+6MfgWJg+0cRmSTu8qU9H4o8R++FrqWUh8Ac=;
-	b=FfYeAWAp2QtRWfY1swmS5SF6V0Q+lZMZKknHWZhzM8iRtMxIlTjkawQZcq+XaTSUgCnN
-	 CWsg7k2VdUFP/y4HjlT92SCv+La2H1Igb9TN84lul8RMp4q/d3JfTRd3iSy2HgoAdCvb9
-	 mkAwZFTW1Gzujq3+43fA7eMeryUFpQr1XVsrwaYOWh5wPj/uUEtaPHtolzHdUxXOVKygW
-	 rxO0zj1yTYNn8TfWiH9C796OB0JsQv9mPkfAavYHrZGzDhpKBDMuvLfbZvjRFORASVz/5
-	 Qle7kD/mhQIn7RmlFcLPyZ2fAUkZJu8yi3BgVut2Ql3tItBnc6bW6DJIXhgBhOqEbyQ==
+	bh=ygWGMKlG7H4rAgGfDZMtOo5O5YZu42HOrSQkSRwt/qc=;
+	b=Y+6/S/PN09P8lPleU8M52HQZAaDwaNVQqSww4RXaUgUpDRzTK5zQgnnI2xwvTM+LMgx3
+	 Y2naseu+nv3fuE0yAv+ftSMFfyUl5EJGBUOXcAkcN515VjW84Lz70Z0F4z2ZKkHsgD/La
+	 do3iO7k/vQcJqAMkpe3VUboLgBsOpw2YLU/MFX1QvMZDbz1oE2PwVs70BmCzCbSBGDLAg
+	 BaO7MA4tF32CzUZTDjGIf8hSmyjWqx21PiVqaXw5JL6DH0s/HyrWPboiWQ8RJpu9UjMZV
+	 noVFG8k0XxP3tZKC3DlC9y450DaUh1pG2m3ncAVDo2DtYBjtEWLIyWJwiwB7hCJEZ7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iP4Tp1zA;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E92FiAfN;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24A35606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:45:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F7AC606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:45:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iP4Tp1zA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 559421F0089F;
-	Sat,  7 Nov 2026 10:45:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E92FiAfN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 349C41F0089F;
+	Sat,  7 Nov 2026 10:45:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048334;
-	bh=OsXeTp9+6MfgWJg+0cRmSTu8qU9H4o8R++FrqWUh8Ac=;
+	s=k20260515; t=1794048337;
+	bh=ygWGMKlG7H4rAgGfDZMtOo5O5YZu42HOrSQkSRwt/qc=;
 	h=From:To:Cc:Subject:Date;
-	b=iP4Tp1zAn7eLltgBbRy1oUPsJkLAqWlXubQCc8zpLVnvMIhmqp5TSkEIfEUTo9pWr
-	 8udwzCLGeoKMTHB1RPd0yFA4p/mxvKuPwFO5Qy7mED0a64+BbGoGaaJKDlOIleA00g
-	 zz8FV1DfiqgO24D1k7OoaWvrKykOspeVucnx5OvHvEYj5al5Hk8aKwSM0t823SKqy4
-	 iAAzZnX19hYgnqJo+e12/VR4ZUXv+Yjf5pUMaBncDYg7Nh5MgM63R+Ba9PITEgYZB7
-	 j5ybR8RvlZNJCbjRCmHiTqYh/YdH1S0SisEp3FafoCrbfos2QBc1Z2byVZLHDOFYhm
-	 la9zq4yGJu4tw==
+	b=E92FiAfNXtTfAf5Bpe6MsGBlAPJKDTu6aIF/ibx6DBfqxRdhEETXP/V0yEGBCEj1/
+	 fQKZLYX9lnY+FxFIsgVa2IFAVi01Mt+KtQcyFIPXWciGoMPcospLDv2PadjKz1Ssgx
+	 G5J4JXjO55pHM05gnxPSK2HEzNJG+f6Tx6x+u0szquu1uuVAaKvmNyIYsKYvIdkX/4
+	 IalbUW2w3w5LIacmMmrkzTRyPvSqPceR7iGDO5HIAa4iG08nFY3AOiI8RoloRcQ0/f
+	 4wO5TS+AtS2cNXpAwWnGeN96AwAQfwxlv7sVct9rfZPlmHRkKSlpFjmMGmIjoOjnoC
+	 c8650qFX6RnzA==
 From: Sasha Levin <sashal@kernel.org>
-To: peter.ujfalusi@linux.intel.com,
-	tiwai@suse.de
+To: 4ncienth@gmail.com,
+	herbert@gondor.apana.org.au
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ALSA: hda/hdmi: clamp sad_count in ELD proc write handler" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:45:33 -0500
-Message-ID: <20261107054533-failed-6.1-b3e7ddd694f8@kernel.org>
+Subject: FAILED: patch "[PATCH] crypto: algif_skcipher - rewind rounded output bytes" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:45:36 -0500
+Message-ID: <20261107054535-failed-6.1-2f90facc7b94@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,61 +68,78 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x b3e7ddd694f8429217ba509b55b910a0e4361dfb
+git cherry-pick -x 2f90facc7b94934653eb7ebfadcc25d503b89196
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054533-failed-6.1-b3e7ddd694f8@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054535-failed-6.1-2f90facc7b94@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From b3e7ddd694f8429217ba509b55b910a0e4361dfb Mon Sep 17 00:00:00 2001
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Date: Thu, 8 Oct 2026 11:51:33 +0300
-Subject: [PATCH] ALSA: hda/hdmi: clamp sad_count in ELD proc write handler
+From 2f90facc7b94934653eb7ebfadcc25d503b89196 Mon Sep 17 00:00:00 2001
+From: Daehyeon Ko <4ncienth@gmail.com>
+Date: Sun, 4 Oct 2026 14:09:46 +0900
+Subject: [PATCH] crypto: algif_skcipher - rewind rounded output bytes
 
-snd_hdmi_write_eld_info() parses a "sad_count N" line from the
-root-writable ELD proc interface and assigns N directly to
-e->sad_count with no upper bound, unlike the per-index "sadN_*" lines
-a few lines below which are already bounded to ELD_MAX_SAD.
+af_alg_get_rsgl() advances the receive iterator by the unrounded RX
+scatterlist length.  For a continuing skcipher request,
+_skcipher_recvmsg() then rounds its local length down to a whole chunksize
+without restoring the iterator.
 
-snd_hdmi_eld_update_pcm_info() later iterates
-"for (i = 0; i < e->sad_count; i++)" over the fixed
-e->sad[ELD_MAX_SAD] array, so an oversized sad_count read from the
-proc file causes it to walk past the array.
+A later chunk starts after bytes which the provider never wrote, while the
+syscall returns only the processed length.  When copy_splice_read()
+supplies non-zeroed pages and publishes that return as a dense prefix, the
+gap exposes stale bytes from a previous page lifetime.
 
-Reject sad_count values above ELD_MAX_SAD, matching the existing
-per-index guard.
+With unprivileged xts(aes), a 31-byte MSG_MORE request followed by one
+final byte advances a 47-byte destination while returning 32 bytes.  A
+hardened v7.2-rc5 image retained all 15 seeded stale bytes in 4,829 of
+4,829 records.  With init_on_alloc enabled, all 72,345 gap bytes observed
+were zero.
 
-Fixes: acb059938810 ("ALSA: hda - ELD proc interface write updates")
+Rewind the iterator by the tail excluded during rounding, before rejecting
+a zero processed length.  The crypto request uses only the rounded length;
+af_alg_free_resources() releases the entire RX list before another receive
+iteration.
+
+The fixed target-like kernel returned byte-identical dense 48-byte output
+in 4,771 of 4,771 rounds.  The unmodified kernel returned the vulnerable
+32-byte short record in 2,409 of 2,409 rounds.
+
+Fixes: e870456d8e7c ("crypto: algif_skcipher - overhaul memory management")
 Cc: stable@vger.kernel.org
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Link: https://patch.msgid.link/20261008085133.9528-1-peter.ujfalusi@linux.intel.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Assisted-by: LLM
+Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
 ---
- sound/hda/codecs/hdmi/eld.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ crypto/algif_skcipher.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/sound/hda/codecs/hdmi/eld.c b/sound/hda/codecs/hdmi/eld.c
-index 1464fd1c675bc..fc6fe1b0873c3 100644
---- a/sound/hda/codecs/hdmi/eld.c
-+++ b/sound/hda/codecs/hdmi/eld.c
-@@ -155,9 +155,11 @@ void snd_hdmi_write_eld_info(struct hdmi_eld *eld,
- 			e->aud_synch_delay = val;
- 		else if (!strcmp(name, "speakers"))
- 			e->spk_alloc = val;
--		else if (!strcmp(name, "sad_count"))
-+		else if (!strcmp(name, "sad_count")) {
-+			if (val > ELD_MAX_SAD)
-+				continue;
- 			e->sad_count = val;
--		else if (!strncmp(name, "sad", 3)) {
-+		} else if (!strncmp(name, "sad", 3)) {
- 			sname = name + 4;
- 			n = name[3] - '0';
- 			if (name[4] >= '0' && name[4] <= '9') {
+diff --git a/crypto/algif_skcipher.c b/crypto/algif_skcipher.c
+index 1e61fe6e24b99..291dbd6989325 100644
+--- a/crypto/algif_skcipher.c
++++ b/crypto/algif_skcipher.c
+@@ -135,12 +135,16 @@ static int _skcipher_recvmsg(struct socket *sock, struct msghdr *msg,
+ 	 * full block size buffers.
+ 	 */
+ 	if (ctx->more || len < ctx->used) {
+-		if (len < bs) {
++		size_t excess = len % bs;
++
++		len -= excess;
++		iov_iter_revert(&msg->msg_iter, excess);
++
++		if (!len) {
+ 			err = -EINVAL;
+ 			goto free;
+ 		}
+ 
+-		len -= len % bs;
+ 		cflags |= CRYPTO_SKCIPHER_REQ_NOTFINAL;
+ 	}
+ 
 -- 
 2.53.0
 
