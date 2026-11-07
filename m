@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050528;
-	b=0A43NCIAuWbGmUOPAFdBExVLG197JRyqWXtctcp6LxkqkeGONRQZHISW394cEBMWEJu+
-	 Aq7GSkr08ONH1yrh9dSCUHIJJV3bj1QlnY2WQS8b4frbHLDChNKOhiPO8Dudo06718pmZ
-	 9JBulfPoOzqJXH+VG+0HD46jif2jxQg3kG5FnI8fa54OZHEK4W8K+NOv/aNcvIK/W5JYG
-	 Ow+jJrv5ELzQa398cbJb8qnjYxskLyWKckbW0Kwvh59MWoiiUKIzNSg4DSuvUd8LNXHuH
-	 ItlinF71UyFfhPFMzV5ixAXtrBrF0vEK2FVdXsW/a+IPtRjQyqDY5czHm1Ed7pv2JVQ==
+	t=1794050531;
+	b=C6n4hH7E6txwqwQ7338RjCZDj8kUhGNInffQbCwt386WsTNdLiZXQF6kTC1vZGq/PMRd
+	 i4E1CGWNjJX63lXrbUyzJng7Gra9tr307+1BU19n8p56gdRe93oRDPf5HRjqsurrvKd4R
+	 Kh53m2y7WHI8vQMRKdNFV2Qf5jMXdDuU7HpS0JNcfB+xvOD3QBueCJFO+p/NQvypXaAPf
+	 f6cF8+qzwx7242br4kfvqHvAB8IGFYmSPx3c6RFRKq1fIbZJSuP8HRCNbt6MRDkFvnGLD
+	 LQDyyFWlTbFaYH2D9ZIuDGvYwl41YmyFtao8THJaEIG4JZGmG+mwabh0T/aroBwWg4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050528;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050531;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=KKyT4tCm73wi4YpN+Xdr1SP7yZUkeOWXfxeZ+LNRUxA=;
-	b=OlPJsvloaKgsgR9uLfKW9oBQn1SD8pSLdC2b4wC5YNyGwPZz6Ru4TspQyWZ14pQ3YYR0
-	 EfOPvzSZJL9qGb11yx3LyExpeyGgAHE40mmB3jBmeA5FarDwnt+UvlVHlrxN4WhfRQWCX
-	 S4nibKbL4a0ceLpwG3tz79VQ7DdyILiNoQlw3OdYDSFm+cyWnAq5FSJFW9QQmDuBiAF6x
-	 KFkb3CsmP3dmaFeXHeB3x5HbKMSA96BcfwJhrqaBPUBBi72hvg3HHUHrpYPYicN8z3URj
-	 V9d8Ynv0oiDadm7tcq648zyTnG2cqMYmjTbpD8sJSxqm2qGnZsPd7bl5nml259mq/rg==
+	bh=ckzBpUrSUUGnAQN0eSo8gX3GC1yB5lnRtNCEY1dT798=;
+	b=4ftgx1QRukfT7PVFpD4YxnR3hnPDZyPjWq7XHun9xph3J2Wo/aDt1ZLZovbIADjx8Qy3
+	 Rl1agiux6vauI3P7GUhQWZWgFM/jwB1/wERlUoULc1UZZGFy7ZkVypgBLxQvn3tIsu4bT
+	 2E1lUcgXLzqMxL4ykY8dprWiLoKmCpdyjqvdZF/msbGSHLnS01kTeWg1inAaCGT09nP10
+	 cubyIIlaQ+8Q8a4SuSyF3lWSeSO8Tcuvz2b3PBV24cGNginFETFrLcCi7UxSf7+uk4Me9
+	 5hcAFIBm15Pkh7oFJmy05LXAwTdepv0o1d5uidLJlwouonmadN+nnsBjrNpZqrpP6sA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dzDbElkS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mTY0aR44;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAF08606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:22:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D581D606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:22:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dzDbElkS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 461A91F0089F;
-	Sat,  7 Nov 2026 11:22:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mTY0aR44
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54FEC1F0089F;
+	Sat,  7 Nov 2026 11:22:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050527;
-	bh=KKyT4tCm73wi4YpN+Xdr1SP7yZUkeOWXfxeZ+LNRUxA=;
+	s=k20260515; t=1794050530;
+	bh=ckzBpUrSUUGnAQN0eSo8gX3GC1yB5lnRtNCEY1dT798=;
 	h=From:To:Cc:Subject:Date;
-	b=dzDbElkSEV9iGdkRJJiwUbEKQmiTafYunqafdGZh/yFQj1xqfokU0A+/0kN0ToPqm
-	 k2O5gGxW+UwtyoREwsGXusttayL7xcnxrDsdQ9Ohexu4fLBTx8WOV/lfEZvK9kOdAg
-	 JOZjUDtNCrMHxKlkI4R9JGVmb/zjtupvoDSbsyqL4hns+BVSpdviU4EVqYXE/WWQyp
-	 tWz6dk5fCzTWObDGEP8H9tIJLe+f65qFxj1+jmHFAKYijp/Hi2/91BOg5z8jgTp/Yp
-	 338hpBEcsnlItrybfJRmtBHlerb97eBXN/gHoWYmLF5ChgGOWPLPeof9Mcv+TOwbxC
-	 fhGLqIJQHhxjw==
+	b=mTY0aR44muB0Wbq4ya3TQJ3+llOCGj6Dd2jlw3y4CXDsFQkc4jxcoypRGIbxfliC7
+	 tTLqxOQtkO/j478T62Ab9WFFTuafpMcSyHl+QnYM7OkVGnHYQirtn9ByebNWSZtzWo
+	 MFEO6tgCsdDRSn9uVL9aTT6RnFH7msaAu7mY0UA4xiPBeXmOypOql08ivzX4MZbEvq
+	 2rpgBJ4X9wjhQn9kd7kXvc0vNnjT8VQKjJlVaH7dShlfr1LqplHZCKLcNLEjJg4rr1
+	 lClR/jkRi3Hh80xHTJ3vIUelWu8ecjbvKTYxc8nwNQRZONYIl/OvoOBMLubTgI+4BV
+	 ufk7UyyJp1/YQ==
 From: Sasha Levin <sashal@kernel.org>
-To: ljs@kernel.org,
-	deller@gmx.de
+To: martin.fuzzey@flowbird.group,
+	gregkh@linuxfoundation.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] fbdev: smscufx: check for fb_deferred_io_init() error" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:22:05 -0500
-Message-ID: <20261107062205-failed-5.10-8ea6c6e77ccf@kernel.org>
+Subject: FAILED: patch "[PATCH] serial: sc16is7xx: fix data corruption due to unexpected xon/xoff" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:22:09 -0500
+Message-ID: <20261107062208-failed-5.10-8bb50e95c0ab@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,78 +68,70 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 8ea6c6e77ccf887f3e68c64f4c261071a345da1e
+git cherry-pick -x 8bb50e95c0abd44607bc60a43032c1dbf7470d5a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062205-failed-5.10-8ea6c6e77ccf@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062208-failed-5.10-8bb50e95c0ab@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 8ea6c6e77ccf887f3e68c64f4c261071a345da1e Mon Sep 17 00:00:00 2001
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Sat, 26 Sep 2026 14:17:03 +0100
-Subject: [PATCH] fbdev: smscufx: check for fb_deferred_io_init() error
+From 8bb50e95c0abd44607bc60a43032c1dbf7470d5a Mon Sep 17 00:00:00 2001
+From: Martin Fuzzey <martin.fuzzey@flowbird.group>
+Date: Thu, 1 Oct 2026 10:05:35 +0000
+Subject: [PATCH] serial: sc16is7xx: fix data corruption due to unexpected
+ xon/xoff
 
-fb_deferred_io_init() allocates deferred I/O state, populating
-info->fbdefio_state, or leaving it NULL if an error occurs.
+The hardware supports automatically sending XON/OFF based on the
+FIFO status and that is already implemented by the driver.
+However that capability was not announced with the UPF_SOFT_FLOW bit.
 
-Currently ufx_ops_open() ignores its return value.
+When the port is opened with the default of XON enabled the driver
+configures that in the hardware.
+If userspace does not want XON/OFF (which is normally the case) it will
+use TCSETS to disactivate it. However the serial core optimises this
+to only notify the driver if someting imporant has changed, and for
+XON/XOFF thit is only if the  driver declares UPF_SOFT_FLOW.
 
-Therefore if an error arises in fb_deferred_io_init() (for instance, due to
-an allocation failure) info->fbdefio_state is left NULL.
+So we end up with unwanted XON/XOFF in the data stream.
 
-fb_open() will then dereference a NULL pointer (calling
-fb_deferred_io_open()) as soon as ufx_ops_open() returns.
+The problem only occurs if nothing else needed to be set by termios,
+ie if the user space requested values are the same as the default values,
+except for XON/XOFF.
+Since the default speed is 9600 this means that the problem only occurs
+when requesting 9600, otherwise the call to the driver will be made to
+change the speed, and that will also clear the XON/XOFF.
+As 9600 is quite rare these days that probably explains why this hasn't
+already been seen.
 
-Additionally, if the allocation of info->fbdefio itself fails,
-ufx_ops_open() sets info->fbdefio to NULL and invokes
-fb_deferred_io_init() regardless, hitting BUG_ON(!fbdefio).
+It also only occurs on the first port open after boot since the subsequent
+opens will use the "logical state" set by TCSETS but not communicated to
+the driver the first time.
 
-Fix this by only invoking fb_deferred_io_init() if the allocation
-succeeded, and checking for the error.
-
-The driver already supports operating without deferred I/O, so in either
-case fall back to that by setting info->fbdefio to NULL.
-
-The ignored return value was introduced in commit 56c134f7f1b5 ("fbdev:
-Track deferred-I/O pages in pageref struct").
-
-However, the BUG_ON() issue originates from the earlier
-commit 3c8a63e22a08 ("Add support for SMSC UFX6000/7000 USB display
-adapters"), so target that for the fix.
-
-Fixes: 3c8a63e22a08 ("Add support for SMSC UFX6000/7000 USB display adapters")
-Cc: stable@vger.kernel.org
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Signed-off-by: Helge Deller <deller@gmx.de>
+Signed-off-by: Martin Fuzzey <martin.fuzzey@flowbird.group>
+Fixes: dfeae619d781 ("serial: sc16is7xx")
+Cc: stable@kernel.org
+Link: https://patch.msgid.link/20261001100534.1225894-1-martin.fuzzey@flowbird.group
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/video/fbdev/smscufx.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ drivers/tty/serial/sc16is7xx.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/video/fbdev/smscufx.c b/drivers/video/fbdev/smscufx.c
-index 5704f60e1741b..34d8abd5b3544 100644
---- a/drivers/video/fbdev/smscufx.c
-+++ b/drivers/video/fbdev/smscufx.c
-@@ -1041,10 +1041,13 @@ static int ufx_ops_open(struct fb_info *info, int user)
- 		if (fbdefio) {
- 			fbdefio->delay = UFX_DEFIO_WRITE_DELAY;
- 			fbdefio->deferred_io = ufx_dpy_deferred_io;
--		}
- 
--		info->fbdefio = fbdefio;
--		fb_deferred_io_init(info);
-+			info->fbdefio = fbdefio;
-+			if (fb_deferred_io_init(info)) {
-+				kfree(fbdefio);
-+				info->fbdefio = NULL;
-+			}
-+		}
- 	}
- 
- 	pr_debug("open /dev/fb%d user=%d fb_info=%p count=%d",
+diff --git a/drivers/tty/serial/sc16is7xx.c b/drivers/tty/serial/sc16is7xx.c
+index 296079c16fdb9..7ddc8a38adab4 100644
+--- a/drivers/tty/serial/sc16is7xx.c
++++ b/drivers/tty/serial/sc16is7xx.c
+@@ -1516,7 +1516,7 @@ static int sc16is7xx_setup_channel(struct sc16is7xx_one *one, int i,
+ 	/* Initialize port data */
+ 	port->type	= PORT_SC16IS7XX;
+ 	port->fifosize	= SC16IS7XX_FIFO_SIZE;
+-	port->flags	= UPF_FIXED_TYPE | UPF_LOW_LATENCY;
++	port->flags	= UPF_FIXED_TYPE | UPF_LOW_LATENCY | UPF_SOFT_FLOW;
+ 	port->iotype	= UPIO_BUS;
+ 	port->rs485_config = sc16is7xx_config_rs485;
+ 	port->rs485_supported = sc16is7xx_rs485_supported;
 -- 
 2.53.0
 
