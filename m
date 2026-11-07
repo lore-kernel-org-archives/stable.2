@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794062087;
-	b=aApVRbT59MUZ9WELHrRdV8Hqpgn6bFvBJ8GkswDbxhXgdmcaz5w1Way06zoeh0e+JbzN
-	 uEjA2RfSX2jmTZPOHP2/sfmO2P0RQZCvMzf5vtVPGuQHkVN9V2H85rJ5kUMC8q71j6lup
-	 YgCexQhSlUoy/NrdEiZf8GHMbzEDyM3vtT781rXq058ByPLFkXVnWW3cDd1ZuGYOrz2b7
-	 RBlOciYIQnBissQCY8afc/Q+rwuK+ifZlpGdYLL44kbgfQYX+7bRfnrxJf0HWzTLnBG65
-	 TUnyO9UE4digMscXAcFmugGpIwNkw0eDtGpWHVr10SxZQ0b6Pa8vB7oKf16W5T8gAWA==
+	t=1794062077;
+	b=EvBF3gEqqNz2h5rHqoWJTMhdvMbRNBU6BfHJzSivjVEhkVh+2Jw/IKONQ2JcRYbwYS+b
+	 GqkytYvNF90OmEKRWJSeZt4aYdvvnAf4+x7PE92ZBs53RhKKMos9FEzTpK0iEVHCoCHuL
+	 NNxhgwjQU5kCVwGotcACDhS2SCuIk/CKMB0kWZlR0M4r8HCcZYieltLI7yc/QE0RYEeQT
+	 XNBMUDJrxJ+bg9rwMcl/VFhnFAwaOvqL9xKMUIitN5YoOrsJMAQAAbPWGo5bDN37GgOjV
+	 De2fuez+/IAWInFIAJRI8xXVzrU4dL/ZUpBAgc7hr8FTefr35kMlKwm4gQBBOM/muwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794062087;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794062077;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=qjUsj0UDP1dqjC4c5/m8g9RPqgrAfNXNZwShyfHO9SQ=;
-	b=s848/PDhsIDC5EloZ7Y9RJJmJBfC471iaW/vXQ8kUIEEJz4syQE5aGCC5XGfiRxjzA42
-	 M4+0eU82MBwSolC1o2Bp7+z/zUu/HXvGP+yxcv990puA4yvisVB05KHIzc54DeJlKPjvG
-	 ajuKnaisFbGaURm8MkCtDmyLrR6liJh28vEVjWcdhe09ngd59BLRJ3Zh+Kip3jmfd/qWL
-	 6cRsSZj9Vu+iUSpY/pdn/NGEHu4MsSF+UxexQ9gkBTmULH/qRoENr4abJwdB0SyhA+Vkz
-	 fYzHTZy5EFVq1QfXfxQfXk5wH9CQPmD69qtQyVl4rjWJ0jOuUn8a0sMsWBV7dq8ENfA==
+	bh=ZQQgsNfUKJAm/6PQbFzclseo/DsOr+vtNFrAq750BkM=;
+	b=Fc6YoNsTLBiIRzBWPGEZD9ooLStA7fcBSHciCiM3cww3oGB2tjZKAlZbrY2z3PeMntmd
+	 cPxYEBh12I5VikBHNQvVwOkYDof783zTDRoFLYHvmXGHytv2V4r1F8dYzlg44+STxLTn1
+	 l9Qiknd+SlylnHR8oHyH6ElPBv+EXCW6QXW+mfUCw4aFOJCTcMrm1KJuUbpqnkA0QeWmZ
+	 DJ8F1oDWIK0mi53Y0XQbkKYGWSKU37W22eM9H3YDrYhz3qTmi8WnZmeC72YYXDq2OIqHk
+	 FnwFvIpeq1ffQd2FjJTuChqt1w6VqAcNx9nfb0iKZU+lwW877zmxIDBa22VKw6f3eZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="0jYTrB/w";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=bm5Fvavi;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29D936082BEC;
-	Sat,  7 Nov 2026 14:34:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57A96606A33D;
+	Sat,  7 Nov 2026 14:34:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0jYTrB/w
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FDB31F008BE;
-	Sat,  7 Nov 2026 14:34:46 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=bm5Fvavi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 045681F0089F;
+	Sat,  7 Nov 2026 14:34:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794062086;
-	bh=qjUsj0UDP1dqjC4c5/m8g9RPqgrAfNXNZwShyfHO9SQ=;
+	s=korg; t=1794062077;
+	bh=ZQQgsNfUKJAm/6PQbFzclseo/DsOr+vtNFrAq750BkM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=0jYTrB/w+YmI4HNpN1DwGWqH6WMlBrjyx10chfs3K6cx7TVGnFUG4ghuUwpeASQMB
-	 HdTOCTqZkiegLBTaWMfiTbekNsRejSbR8JBBzre/oJi+nGtedKyX5Be/Hh8/cOEn/R
-	 g1uqrFmX1TEwemAf9iWvt2YdYQYPqobYSqEwdXgQ=
+	b=bm5FvaviVdFNvr9kS0kjmzb5Tb27k8Z+nIdYywU8+OUPFejTyq1UTOFSa7qp25Wsx
+	 PbNFL27hTF5NRNGUL78321QTNDDY0lQ5HOQte0ayiLWIaftxJoVmlkBqdhZ3A9CMCH
+	 3bGimDt2BUKQV2/y9flP2woeMl3Sdx5kArC0rj3E=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Junjie Cao <junjie.cao@intel.com>,
-	Mark Brown <broonie@kernel.org>,
+	David Heidelberg <david@ixit.cz>,
+	Lee Jones <lee@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 1061/1536] ASoC: rt712-sdca-dmic: fix drvdata type in the gain controls
-Date: Sat,  7 Nov 2026 08:51:17 -0500
-Message-ID: <20261107135027.482129852@linuxfoundation.org>
+Subject: [PATCH 6.12 1054/1536] mfd: wcd934x: set DMA mask on parent to silence "DMA mask not set"
+Date: Sat,  7 Nov 2026 08:51:10 -0500
+Message-ID: <20261107135027.284851983@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261107134957.653319350@linuxfoundation.org>
 References: <20261107134957.653319350@linuxfoundation.org>
@@ -68,66 +68,50 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Junjie Cao <junjie.cao@intel.com>
+From: David Heidelberg <david@ixit.cz>
 
-[ Upstream commit 0bc42544a4a06e8d76eb412d2b1414db910a311d ]
+[ Upstream commit b296be1dc008fe3a536341afae01f66bb302e67f ]
 
-rt712_sdca_dmic_set_gain_get() and rt712_sdca_dmic_set_gain_put() take
-the component drvdata as struct rt712_sdca_priv, but this driver stores
-a struct rt712_sdca_dmic_priv.
+The wcd934x MFD parent (a slim_device) never initializes its
+dma_mask/coherent_dma_mask. When the DT-aware children pass through
+of_dma_configure() this triggers the "DMA mask not set" warning for
+each child.
 
-regmap and mbq_regmap are at the same offsets in both structs, so the
-register accesses work. slave is not: rt712_sdca_priv has dmic_component
-in front of it, so its slave overlays rt712_sdca_dmic_priv's params,
-which this driver never writes. When regmap_write() fails in the put
-handler, dev_err() is called with &NULL->dev (RSI below):
-
-  rt712-sdca-dmic sdw:0:3:025d:1713:01: Defer on undeferrable control: 40800f13
-  BUG: kernel NULL pointer dereference, address: 0000000000000058
-  RIP: 0010:__dev_printk+0x10/0x70
-  RDX: ffffcdac45f83cd0 RSI: 0000000000000008 RDI: ffffffffa09cb5cb
-  Call Trace:
-   _dev_err+0x7f/0x99
-   rt712_sdca_dmic_set_gain_put.cold+0x20/0x25 [snd_soc_rt712_sdca_dmic]
-   snd_ctl_elem_write+0x19a/0x1f0 [snd]
-   snd_ctl_ioctl+0x658/0x8a0 [snd]
-
-Seen on a Dell Precision 5690 running 7.2.5-200.fc44, with alsactl
-writing the control during boot. Compile-tested only.
-
-Fixes: 63a511284c9e ("ASoC: rt712-sdca: Add RT712 SDCA driver for Mic topology")
-Closes: https://bugzilla.redhat.com/show_bug.cgi?id=2532834
 Cc: stable@vger.kernel.org
-Signed-off-by: Junjie Cao <junjie.cao@intel.com>
-Link: https://patch.msgid.link/20260920024232.710189-1-junjie.cao@intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Fixes: f959dcd6ddfd ("dma-direct: Fix potential NULL pointer dereference")
+Assisted-by: tencent:hy3
+Signed-off-by: David Heidelberg <david@ixit.cz>
+Link: https://patch.msgid.link/20260903-wcd-dma-v2-1-189cff560a28@ixit.cz
+Signed-off-by: Lee Jones <lee@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/rt712-sdca-dmic.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/mfd/wcd934x.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/sound/soc/codecs/rt712-sdca-dmic.c b/sound/soc/codecs/rt712-sdca-dmic.c
-index 74c67990b5fb6..3576bd283fd49 100644
---- a/sound/soc/codecs/rt712-sdca-dmic.c
-+++ b/sound/soc/codecs/rt712-sdca-dmic.c
-@@ -248,7 +248,7 @@ static int rt712_sdca_dmic_set_gain_get(struct snd_kcontrol *kcontrol,
- 		struct snd_ctl_elem_value *ucontrol)
- {
- 	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
--	struct rt712_sdca_priv *rt712 = snd_soc_component_get_drvdata(component);
-+	struct rt712_sdca_dmic_priv *rt712 = snd_soc_component_get_drvdata(component);
- 	struct rt712_sdca_dmic_kctrl_priv *p =
- 		(struct rt712_sdca_dmic_kctrl_priv *)kcontrol->private_value;
- 	unsigned int regvalue, ctl, i;
-@@ -283,7 +283,7 @@ static int rt712_sdca_dmic_set_gain_put(struct snd_kcontrol *kcontrol,
- 	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
- 	struct rt712_sdca_dmic_kctrl_priv *p =
- 		(struct rt712_sdca_dmic_kctrl_priv *)kcontrol->private_value;
--	struct rt712_sdca_priv *rt712 = snd_soc_component_get_drvdata(component);
-+	struct rt712_sdca_dmic_priv *rt712 = snd_soc_component_get_drvdata(component);
- 	unsigned int gain_val[4];
- 	unsigned int i, adc_vol_flag = 0, changed = 0;
- 	unsigned int regvalue[4];
+diff --git a/drivers/mfd/wcd934x.c b/drivers/mfd/wcd934x.c
+index fcd182d519811..6f9e8e5fb20b8 100644
+--- a/drivers/mfd/wcd934x.c
++++ b/drivers/mfd/wcd934x.c
+@@ -2,6 +2,7 @@
+ // Copyright (c) 2019, Linaro Limited
+ 
+ #include <linux/clk.h>
++#include <linux/dma-mapping.h>
+ #include <linux/gpio/consumer.h>
+ #include <linux/interrupt.h>
+ #include <linux/kernel.h>
+@@ -217,6 +218,11 @@ static int wcd934x_slim_probe(struct slim_device *sdev)
+ 	struct gpio_desc *reset_gpio;
+ 	int ret;
+ 
++	ret = dma_coerce_mask_and_coherent(dev, DMA_BIT_MASK(32));
++	if (ret)
++		return dev_err_probe(dev, ret,
++				     "Failed to set DMA mask\n");
++
+ 	ddata = devm_kzalloc(dev, sizeof(*ddata), GFP_KERNEL);
+ 	if (!ddata)
+ 		return	-ENOMEM;
 -- 
 2.53.0
 
