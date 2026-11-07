@@ -1,52 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047546;
-	b=VejQnpMG+dCQ47SIonluIBk72B3MdtdDBUqi/qTj5pFEri0MWZZIAuRAFFBzxtZa0i1t
-	 gZf/DQIu8ZkuqReVuVmMnSK+VxjDuUISNEEEwp4pHeuwOmp2rYlW/KYa1Q+kEcxGeInv9
-	 eLB262zpj3IJuMyy/WWespbYpDME6wcxKKfX4bb6lHtF06UnC4sUkCaexZTsNXp99PmON
-	 rkXvA8EVteZmEUIUAPovGUj5Ph8/u/IFs9XBRRKvzaeTfnIx/0d057Njwm8SRu1Ttt2Pu
-	 kiC3qR1eTa1k+Gh7MNJbWTfuvDDRX/UB2mWeVyLq/PJmvocAh9B3vWrhNHYD8+TJFAQ==
+	t=1794047549;
+	b=L3z6uv5W586ps0a/YPMaJaC/2WmfCwqMdWkVuRJTdLFOXcmXT5hC/6OPJ08F/T4Ohv9R
+	 me0sJ3/1arV4CeBBzIHhOPO8DLjVAY20YckICh4QBjxRBJmuAF8arJlxJlckxMOfuqWFV
+	 AUXate8OgYge77WbTXfichjmnqWp3z3J4tmDYCu9ha/TPR5Ayu1oqiv8Ir0zhcQHUhQTc
+	 Zw092dAULSGQJoShuDIHY3tGREZjRm8JNJR0SAA/53AE5oriFVdQeBXAsNn9t5tMgy7y7
+	 wLjI0b39gNhPHjZaOmfDeJswX/TFTMtlSv97Fgne/w0VQmTxI2GUxe9efeNNQRmcKHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047546;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047549;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=AwQjnmWDTSF5ElG8dDLjyWL7/5tfIkPlKqV1RMMK/kY=;
-	b=M5oBIZgyCzqEsyO7RlwdlEljS3f2SjbKYr7oX6wu7RAHx/0WLEDr6xK6hunegRsH3q9A
-	 sxdDmyZYsshWmn1ydeNxcxOyePh72VE3pymriQUjr/io72uGN60qD2AaMjuNGh50NY1uN
-	 3e6Sc3JMBt5Hh5dzrbTAxOzdT0+ryUL5EBfMgzEC0Av0WRLaqmlKMudChiJOEEif7VGsm
-	 J8IAOnavGgjFO0oh1gje0VFVa2vo2tNfUtMV7mFD/W8S7YYEqlr1uTDpu5XP+akkjhN0J
-	 0ltdDn6bdkyELegI3ly+loHdBGzbbvzTUvny3jkiPCvbsdgFWRskABsT3l9T0VPxNeg==
+	bh=h/w3CtOPlI7L8uPwwCMwqxA+WvwenLh/8BZKVja6yTQ=;
+	b=ojoWb0/Dg3C+LZdsccMhAQIxBWnJQxrCBxiJPje2LILk3HnugzYcUNgv/aK8jIAwhA2Y
+	 YZmM/OmpfSPAyY/k+iAsfUMqWNcgM/MlndYZY6g7L4+U1TukxuM2D/JEV64TpcOjY3wVj
+	 nZoFQF3ENo0FtWxyvN1gikjtZ+EFBtbmXc/X0Bn5AFTjWsOqMI5BXE39n7kvxWPN3gJV0
+	 pfTWwZenuzuRqIQFLt/XpkKCcSa7oJB7Ok+pOU2xwowOVW1mUHQizOzLmKO6TsY4pcHI0
+	 SSOcsScVYzJYhDGKph5buYL83/nvj+zA0xJy8gQ04Vo3Ktn/McjxIZ/yN4N6BYfQoFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ais/MYRB";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hc2Fu6dR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AD7E606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:32:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2623606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:32:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ais/MYRB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FC031F0089F;
-	Sat,  7 Nov 2026 10:32:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hc2Fu6dR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D09C31F0089F;
+	Sat,  7 Nov 2026 10:32:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047546;
-	bh=AwQjnmWDTSF5ElG8dDLjyWL7/5tfIkPlKqV1RMMK/kY=;
+	s=k20260515; t=1794047548;
+	bh=h/w3CtOPlI7L8uPwwCMwqxA+WvwenLh/8BZKVja6yTQ=;
 	h=From:To:Cc:Subject:Date;
-	b=ais/MYRB5k8CygaENlp/mKYuE/E9nyFA2wG4Oz7pkBRD0y5jqMCO24Y5BCO/3IPMh
-	 R0V+WfwatofT6lAeIRyTnlCbp7XotJstYk8FNAxKX4cthrvoMy9U/tOdmXAuXaJsnm
-	 fyh5RC/JF4T7Q2zD6muR5ITegzwI25lRipUezll3oRcdAzIH8NOtehrnGe6ujf1coy
-	 boGQOPg4vSDKWXDnrsfgiqhpKlxheJeXKSC3RBxt0gmPGhrO3D9npybSoDorskgi2i
-	 BAbVzy6YtATo941mV3x+9sexoEViq78+N5AIs9PwzvdXCOVXZwyplbVULMJ68ygHhV
-	 LpLQhsqLCtC+w==
+	b=Hc2Fu6dRk+EiAegpgMgazl3v0GkulEDR0CDUQ2UhxFciUTWpZfqq6P0SWcZzCbBiY
+	 SlfcmYB4MDBwEbQy62pRTW8s4y3zimQr5VH/5f8bcDH5z1lEytp/FvorJe1itrWcY2
+	 greoyfyNjJcD0cP3dWAnJLk5mYlMVpQSz1mV61kanRDncWVWHt5jZRsacRWviNIG1l
+	 s9pHD+UPdYDwvkmV0qEqZt94C3U76Nr2d1kDYePN+q4Jk/8b7oz4jCQ6D3L2kNbupq
+	 Rs+zMyuLjcwFG5bSZ8kUAkiJiaVNZsWEyRbFLf6BdxEQQD7DwjUKvHfnnHWSknVysI
+	 EWMquE1hv8eww==
 From: Sasha Levin <sashal@kernel.org>
-To: fuad.tabba@linux.dev,
-	yuzenghui@huawei.com,
-	maz@kernel.org
+To: joseph.qi@linux.alibaba.com,
+	akpm@linux-foundation.org,
+	gechangwei@live.cn,
+	heming.zhao@suse.com,
+	jlbec@evilplan.org,
+	piaojun@huawei.com,
+	junxiao.bi@oracle.com,
+	mark@fasheh.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] KVM: arm64: timers: Compute an offset-applied CVAL from the current count" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:32:24 -0500
-Message-ID: <20261107053224-failed-6.6-49930b1b557c@kernel.org>
+Subject: FAILED: patch "[PATCH] ocfs2: restrict OCFS2_INVALID_SLOT suballoc slot to system inodes" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:32:26 -0500
+Message-ID: <20261107053226-failed-6.6-25bf9e549360@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,179 +74,153 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 49930b1b557ceb698e0ab7f985ea41c99dc8bf22
+git cherry-pick -x 25bf9e549360b656a6763232e0e9e58a00c3aff7
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053224-failed-6.6-49930b1b557c@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053226-failed-6.6-25bf9e549360@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 49930b1b557ceb698e0ab7f985ea41c99dc8bf22 Mon Sep 17 00:00:00 2001
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Wed, 7 Oct 2026 08:43:41 +0100
-Subject: [PATCH] KVM: arm64: timers: Compute an offset-applied CVAL from the
- current count
+From 25bf9e549360b656a6763232e0e9e58a00c3aff7 Mon Sep 17 00:00:00 2001
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+Date: Tue, 1 Sep 2026 20:52:18 +0800
+Subject: [PATCH] ocfs2: restrict OCFS2_INVALID_SLOT suballoc slot to system
+ inodes
 
-When the hardware won't apply a timer's offset, KVM programs CVAL +
-offset and lets it compare that against the raw counter. The compare is
-unsigned (IsTimerConditionMet, DDI0487M_c J1.4.3.29):
+Patch series "ocfs2: validate suballoc slot and bit of metadata blocks", v3.
 
-  condition_met = (UInt(PhysicalCountInt() - offset) -
-                   UInt(compare_value)) >= 0;
+The ocfs2 metadata validators trust the on-disk suballoc slot and bit
+without checking them against the slot range of the mounted filesystem and
+the capacity of the block group bitmap.  A corrupted image can carry
+OCFS2_INVALID_SLOT or another out-of-range slot, or a suballoc bit beyond
+the bitmap, and once the corresponding inode, extent block, xattr block,
+dir index root or refcount block gets freed, the bad value goes straight
+into ocfs2_get_system_file_inode() or _ocfs2_free_suballoc_bits() and hits
+a BUG_ON() or runs off the end of local_system_inodes[].
 
-so adding the offset to both sides holds only while both sums wrap or
-neither does. A guest whose counter is ahead of the host's by more than
-CVAL has an expired timer that never fires, and one behind it can have
-a far-future timer fire at once.
+This series rejects such values at read time, in the existing validators,
+so corrupted objects fail with -EROFS (and a read-only remount) instead of
+crashing:
 
-On a CNTPOFF_EL2 host the first case livelocks: each entry reloads the
-guest's CVAL, the timer fires, and the exit rewrites it as CVAL + offset
-before the host can take the interrupt. Without CNTPOFF_EL2 the timer
-hangs until the vCPU is next loaded, which is what Zenghui reported on
-a Kunpeng920.
+  patch 1 restricts OCFS2_INVALID_SLOT dinodes to system inodes,
+        completing fe7a283b3916 ("ocfs2: add suballoc slot check in
+        ocfs2_validate_inode_block()"), and turns the "system file
+        state is ambiguous" BUG_ON() in ocfs2_read_locked_inode() into
+        an ocfs2_error();
+  patch 2 rejects oversized dinode suballoc bits;
+  patch 3 validates the suballoc slot and bit of xattr and dir index
+        blocks;
+  patch 4 validates the suballoc slot and bit of extent and refcount
+        blocks.
 
-Program the value from the current count instead: CVAL + offset while
-the deadline is ahead, 0 once the timer has expired for the guest, ~0
-past the counter's wrap. KVM recomputes it at load, at exit and on a
-trapped CVAL write, and an expired timer stays expired in between. The
-value can't be inverted, so with an offset timer_save_state() keeps the
-memory copy, and kvm_hyp_handle_timer() returns that copy for a guest
-hypervisor's read of its physical CVAL rather than subtracting the
-offset back out.
+The checks only enforce what the kernel and mkfs.ocfs2 already write: a
+valid slot from meta_ac->ac_alloc_slot and a bit within the block group
+bitmap, with system inodes carrying OCFS2_INVALID_SLOT plus
+OCFS2_SYSTEM_FL and extent blocks using slot 0.  Nothing changes for
+healthy filesystems.
 
-Fixes: c605ee245097 ("KVM: arm64: timers: Allow physical offset without CNTPOFF_EL2")
-Fixes: 9404673293b0 ("KVM: arm64: timers: Correctly handle TGE flip with CNTPOFF_EL2")
-Fixes: 0bc9a9e85fcf ("KVM: arm64: Work around x1e's CNTVOFF_EL2 bogosity")
-Reported-by: Zenghui Yu <yuzenghui@huawei.com>
-Closes: https://lore.kernel.org/r/460258be-0102-e922-c342-4e87cd94b9e5@huawei.com
-Cc: stable@vger.kernel.org
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-Link: https://patch.msgid.link/20261007074343.324269-2-fuad.tabba@linux.dev
-Signed-off-by: Marc Zyngier <maz@kernel.org>
+Each new check was exercised under QEMU by corrupting the field in
+question with an out-of-range value; with the series applied the access
+fails with -EROFS and the filesystem remounts read-only instead of hitting
+the BUG_ON().
+
+
+This patch (of 4):
+
+ocfs2_validate_inode_block() currently permits i_suballoc_slot to be
+OCFS2_INVALID_SLOT for any dinode.  Only system inodes created by
+mkfs.ocfs2 are allocated from the global allocator and thus legitimately
+carry this value; regular inodes are always allocated from a per-slot
+suballocator and hence must have a valid slot.
+
+If a corrupted regular inode with OCFS2_INVALID_SLOT is accepted,
+ocfs2_remove_inode() will pass the slot to ocfs2_get_system_file_inode()
+and get_local_system_inode() will hit BUG_ON(slot == OCFS2_INVALID_SLOT)
+when the inode is deleted.  This can be triggered by an unprivileged user
+unlinking such a corrupted file.
+
+Reject OCFS2_INVALID_SLOT for non-system dinodes during validation, while
+still accepting it for system inodes.  Note that a crafted dinode carrying
+OCFS2_SYSTEM_FL passes the check above, yet a plain lookup of it still
+used to BUG() in ocfs2_read_locked_inode() ("system file state is
+ambiguous").  Since i_flags comes from disk, handle that mismatch with
+ocfs2_error() instead of BUG_ON() as well.
+
+Link: https://lore.kernel.org/20260901125221.1634686-1-joseph.qi@linux.alibaba.com
+Link: https://lore.kernel.org/20260901125221.1634686-2-joseph.qi@linux.alibaba.com
+Fixes: fe7a283b3916 ("ocfs2: add suballoc slot check in ocfs2_validate_inode_block()")
+Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Cc: Changwei Ge <gechangwei@live.cn>
+Cc: Heming Zhao <heming.zhao@suse.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Jun Piao <piaojun@huawei.com>
+Cc: Junxiao Bi <junxiao.bi@oracle.com>
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: <stable@vger.kernel.org>
 ---
- arch/arm64/kvm/arch_timer.c     | 27 ++++++++++++---------------
- arch/arm64/kvm/hyp/vhe/switch.c | 11 ++++++-----
- include/kvm/arm_arch_timer.h    | 15 +++++++++++++++
- 3 files changed, 33 insertions(+), 20 deletions(-)
+ fs/ocfs2/inode.c | 37 ++++++++++++++++++++++++++++---------
+ 1 file changed, 28 insertions(+), 9 deletions(-)
 
-diff --git a/arch/arm64/kvm/arch_timer.c b/arch/arm64/kvm/arch_timer.c
-index 6ac3321f4c575..9278b5383c044 100644
---- a/arch/arm64/kvm/arch_timer.c
-+++ b/arch/arm64/kvm/arch_timer.c
-@@ -528,17 +528,11 @@ static void timer_save_state(struct arch_timer_context *ctx)
- 		goto out;
+diff --git a/fs/ocfs2/inode.c b/fs/ocfs2/inode.c
+index 180107a11046c..9228d6ef23c24 100644
+--- a/fs/ocfs2/inode.c
++++ b/fs/ocfs2/inode.c
+@@ -638,14 +638,18 @@ static int ocfs2_read_locked_inode(struct inode *inode,
+ 	fe = (struct ocfs2_dinode *) bh->b_data;
  
- 	switch (index) {
--		u64 cval;
--
- 	case TIMER_VTIMER:
- 	case TIMER_HVTIMER:
- 		timer_set_ctl(ctx, read_sysreg_el0(SYS_CNTV_CTL));
--		cval = read_sysreg_el0(SYS_CNTV_CVAL);
--
--		if (has_broken_cntvoff())
--			cval -= timer_get_offset(ctx);
--
--		timer_set_cval(ctx, cval);
-+		if (!has_broken_cntvoff() || !timer_get_offset(ctx))
-+			timer_set_cval(ctx, read_sysreg_el0(SYS_CNTV_CVAL));
+ 	/*
+-	 * This is a code bug. Right now the caller needs to
+-	 * understand whether it is asking for a system file inode or
+-	 * not so the proper lock names can be built.
++	 * The caller must know whether it is asking for a system file inode
++	 * or not so the proper lock names can be built.  Since i_flags comes
++	 * from disk, a mismatch is filesystem corruption instead of a code
++	 * bug, so handle it with ocfs2_error() rather than BUG_ON().
+ 	 */
+-	mlog_bug_on_msg(!!(fe->i_flags & cpu_to_le32(OCFS2_SYSTEM_FL)) !=
+-			!!(args->fi_flags & OCFS2_FI_FLAG_SYSFILE),
+-			"Inode %llu: system file state is ambiguous\n",
+-			(unsigned long long)args->fi_blkno);
++	if (!!(fe->i_flags & cpu_to_le32(OCFS2_SYSTEM_FL)) !=
++	    !!(args->fi_flags & OCFS2_FI_FLAG_SYSFILE)) {
++		status = ocfs2_error(osb->sb,
++				     "Inode %llu: system file state is ambiguous\n",
++				     (unsigned long long)args->fi_blkno);
++		goto bail;
++	}
  
- 		/* Disable the timer */
- 		write_sysreg_el0(0, SYS_CNTV_CTL);
-@@ -564,11 +558,12 @@ static void timer_save_state(struct arch_timer_context *ctx)
- 	case TIMER_PTIMER:
- 	case TIMER_HPTIMER:
- 		timer_set_ctl(ctx, read_sysreg_el0(SYS_CNTP_CTL));
--		cval = read_sysreg_el0(SYS_CNTP_CVAL);
--
--		cval -= timer_get_offset(ctx);
--
--		timer_set_cval(ctx, cval);
-+		/*
-+		 * With an offset, memory already holds the guest's CVAL (the
-+		 * trap handler or __deactivate_traps() wrote it).
-+		 */
-+		if (!timer_get_offset(ctx))
-+			timer_set_cval(ctx, read_sysreg_el0(SYS_CNTP_CVAL));
- 
- 		/* Disable the timer */
- 		write_sysreg_el0(0, SYS_CNTP_CTL);
-@@ -647,7 +642,8 @@ static void timer_restore_state(struct arch_timer_context *ctx)
- 		offset = timer_get_offset(ctx);
- 		if (has_broken_cntvoff()) {
- 			set_cntvoff(0);
--			cval += offset;
-+			if (offset)
-+				cval = timer_apply_offset(cval, offset, kvm_phys_timer_read());
- 		} else {
- 			set_cntvoff(offset);
- 		}
-@@ -660,7 +656,8 @@ static void timer_restore_state(struct arch_timer_context *ctx)
- 		cval = timer_get_cval(ctx);
- 		offset = timer_get_offset(ctx);
- 		set_cntpoff(offset);
--		cval += offset;
-+		if (offset)
-+			cval = timer_apply_offset(cval, offset, kvm_phys_timer_read());
- 		write_sysreg_el0(cval, SYS_CNTP_CVAL);
- 		isb();
- 		write_sysreg_el0(timer_get_ctl(ctx), SYS_CNTP_CTL);
-diff --git a/arch/arm64/kvm/hyp/vhe/switch.c b/arch/arm64/kvm/hyp/vhe/switch.c
-index 7875911c05063..14aada311bac4 100644
---- a/arch/arm64/kvm/hyp/vhe/switch.c
-+++ b/arch/arm64/kvm/hyp/vhe/switch.c
-@@ -175,7 +175,8 @@ static void __deactivate_traps(struct kvm_vcpu *vcpu)
- 		offset = read_sysreg_s(SYS_CNTPOFF_EL2);
- 
- 		if (map.direct_ptimer && offset) {
--			write_sysreg_el0(val + offset, SYS_CNTP_CVAL);
-+			val = timer_apply_offset(val, offset, arch_timer_read_cntpct_el0());
-+			write_sysreg_el0(val, SYS_CNTP_CVAL);
- 			isb();
- 		}
+ 	if (S_ISCHR(le16_to_cpu(fe->i_mode)) ||
+ 	    S_ISBLK(le16_to_cpu(fe->i_mode)))
+@@ -1520,8 +1524,23 @@ int ocfs2_validate_inode_block(struct super_block *sb,
+ 		goto bail;
  	}
-@@ -296,10 +297,10 @@ static bool kvm_hyp_handle_timer(struct kvm_vcpu *vcpu, u64 *exit_code)
- 		break;
- 	case SYS_CNTP_CVAL_EL0:
- 		if (vcpu_el2_e2h_is_set(vcpu)) {
--			val = read_sysreg_el0(SYS_CNTP_CVAL);
--
--			if (!has_cntpoff())
--				val -= timer_get_offset(vcpu_hptimer(vcpu));
-+			if (!has_cntpoff() && timer_get_offset(vcpu_hptimer(vcpu)))
-+				val = __vcpu_sys_reg(vcpu, CNTHP_CVAL_EL2);
-+			else
-+				val = read_sysreg_el0(SYS_CNTP_CVAL);
- 		} else {
- 			val = __vcpu_sys_reg(vcpu, CNTP_CVAL_EL0);
- 		}
-diff --git a/include/kvm/arm_arch_timer.h b/include/kvm/arm_arch_timer.h
-index bc6f2fdd7ad33..80f96ea59f1ae 100644
---- a/include/kvm/arm_arch_timer.h
-+++ b/include/kvm/arm_arch_timer.h
-@@ -195,4 +195,19 @@ static inline void timer_set_offset(struct arch_timer_context *ctxt, u64 offset)
- 	WRITE_ONCE(*ctxt->offset.vm_offset, offset);
- }
  
-+/*
-+ * CVAL to program when the hardware won't apply the timer's offset, so that
-+ * its compare against the raw counter matches the guest's at 'now'. An
-+ * expired timer stays expired; one past the wrap never fires.
-+ */
-+static inline u64 timer_apply_offset(u64 cval, u64 offset, u64 now)
-+{
-+	u64 hw = cval + offset;
-+
-+	if (now - offset >= cval)
-+		return 0;
-+
-+	return hw > now ? hw : U64_MAX;
-+}
-+
- #endif
+-	if (le16_to_cpu(di->i_suballoc_slot) != (u16)OCFS2_INVALID_SLOT &&
+-	    (u32)le16_to_cpu(di->i_suballoc_slot) > OCFS2_SB(sb)->max_slots - 1) {
++	/*
++	 * Only system inodes created by mkfs.ocfs2 are allocated from the
++	 * global allocator and thus legitimately carry OCFS2_INVALID_SLOT.
++	 * Regular inodes are always allocated from a per-slot suballocator.
++	 * If a regular inode with OCFS2_INVALID_SLOT was accepted here,
++	 * deleting it would pass the slot to get_local_system_inode() via
++	 * ocfs2_remove_inode() and trigger BUG_ON(slot == OCFS2_INVALID_SLOT).
++	 */
++	if (le16_to_cpu(di->i_suballoc_slot) == (u16)OCFS2_INVALID_SLOT) {
++		if (!(le32_to_cpu(di->i_flags) & OCFS2_SYSTEM_FL)) {
++			rc = ocfs2_error(sb,
++					 "Invalid dinode %llu: suballoc slot %u for non-system inode\n",
++					 (unsigned long long)bh->b_blocknr,
++					 le16_to_cpu(di->i_suballoc_slot));
++			goto bail;
++		}
++	} else if ((u32)le16_to_cpu(di->i_suballoc_slot) > OCFS2_SB(sb)->max_slots - 1) {
+ 		rc = ocfs2_error(sb, "Invalid dinode %llu: suballoc slot %u\n",
+ 				 (unsigned long long)bh->b_blocknr,
+ 				 le16_to_cpu(di->i_suballoc_slot));
 -- 
 2.53.0
 
