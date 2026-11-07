@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048156;
-	b=eMyVsCxj46dKTMj7vXLK+ri7uYVaInyErBKUvR/p3a3uq2SgJmvsBxse2efD8kCc0skr
-	 aFYl23I/cGp2I7pAd6pk/c91sJSYQaOBctkZYlrJ/Wq9/GMkdtzBN38v1DMpNFV0m6R73
-	 GJkYfdTS1KGNtdTWUZCYH+lkX0GA8XGW4fAAvWDHD10/XU1jsfoXObLZugbGiIihzjUye
-	 NfAyWRs71CHbYUFYNA4923eEBSv6imzPGpvE1J4jrqIq2U6WlPfKtpMbjzs33e+y8Tn76
-	 K9MMV88mECOGOXKjbHzI9GfGLgsWO46+pGa5xHOTudTekAj5BCNHBdzBgRxwbJ4YYZQ==
+	t=1794048157;
+	b=OA/uHSsLIBQB0Ad3VohhDI+aNg2kGxdl4HbpFgJqW2XL2yeg0/xIopxbZko+Rb3K4zYm
+	 6BqNAPdbT85pig/GbzuC1cHltyeeNz3DjgL2z7WcOE3D8m2P6tj2pKqG27MihDZMiiu4q
+	 wtu+TG2FjEEvM0Sfb/EjnehiVxArpC9WeoJrioTXRGJu+8pYUUQniKD5IinK9xVVoG9Vp
+	 LEDFXhsBRbVX1q78I7p8NXQHxLK+MXrp/D8sDvs23bQhdR3JyBWIb2AfjsXMdcX6bjxDA
+	 HP59mhhneNJ82FyafcbtLftoaebNhSCCm5oYLC0/aqUW60yzd2R8pHs8j7M9ogOCP1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048156;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048157;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=42JKTL1JN0qLpZmzsKzhb06BRm7pBvnbNNHnaEhmZC4=;
-	b=rpRId5nq2V+pqrpcr514CYbVfi6MFqpFA8u5UU65D+TCHbQckYzQCf+TF3MC7AvhJnVP
-	 R/eEMeWVOL0/DYPoFei84eVlMF5i+Hlog3jMMmLzJffgCYB3Cy8pd8Ms/jYMgCfnULuwu
-	 1T5BIgIzz4q+xEV1+cTr0c9SbEkGo+91apFXWYQp+kPkQJ8lRiagH2ihvJ+qMVa+dw6vy
-	 W74n60n39S5mSKt7WnSC7bIVqtyzN+hMdsk3/fxfSeS99ljV1nC9JK3BVC4PEMow5rscO
-	 SXbRRWWw8xt9Z4o1MODIYrGMQkLELOKdMmaz6dSVBVlmltczV01lfmJ6CCtOn987Nvw==
+	bh=DPXrNlaO6E8WtYEVSx20JINKmDa0j+1HcrXXGAKQIPI=;
+	b=Ljx6EmG1WN7F/gIFA6YW+YL2eFQWRI1WhOWfs3Ky3hEYlWX67awQyEca89EDzQzGU8+N
+	 BWrhrLRwedbs2HSPAQ0ytd5O82jAlARPaKtRaZeySCageYz9kSoMqyzX0FRJbg5Dldo8E
+	 4wReMd//rN4I+rbg/QcdXDtBEE8LmYc5M2C8tpJEZpIOqs62Xty8atf2Aj+3l/qB9/Edg
+	 NSmsNY5kJPcEjsX65hPd0p+Cri3je5+ZkvPi3liewcBsGKgBeDv6OufAsNrQMj96EK1uK
+	 zCR+tU8T/X2ulJhmEQuYccEnff8ZnsAk6FOCo9Tje/U2mginEbzakH7ZjaQXzSNmTNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hVm0Ipfd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=REePSPJr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9E75606A32E
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:42:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E787606A32E
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:42:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hVm0Ipfd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE2D01F0089F;
-	Sat,  7 Nov 2026 10:42:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=REePSPJr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F03681F0089F;
+	Sat,  7 Nov 2026 10:42:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048155;
-	bh=42JKTL1JN0qLpZmzsKzhb06BRm7pBvnbNNHnaEhmZC4=;
+	s=k20260515; t=1794048157;
+	bh=DPXrNlaO6E8WtYEVSx20JINKmDa0j+1HcrXXGAKQIPI=;
 	h=From:To:Cc:Subject:Date;
-	b=hVm0IpfdsKgv4cPky6FDjPxVlXjluE4uFFlHes7D5CTz/S/m6cCKVKlGneJVGzu/g
-	 zko6bW401YFMRBpE3ag9NqpaMB0jR7+9gBTwZ1xMgoShrkEBSZ00IbtJlbn16+CdF7
-	 XuSzxrFpqBL6yUNF6HxdRtZi/5pHeC5lf3s2qELd38tv95cYbGII5iFEVu8DRxONx2
-	 2LS0UPqarmcIFOVh9VGGgCpLa40S6F2xkQItXiiNtZLbjGE4w4dRAujgaKK8B1aOt9
-	 IyV9TCCB4HP0iM9s9CggIH4JUCBMglJ/50TBzjMAVeO5vapjfLL3px7dnh3ZSlL90u
-	 rzZmZv/q587UA==
+	b=REePSPJrU5aO06mnxJL/Lk4nDIc0WjyaO3WL5D+s4/IF7ugsVn+VNhLsYJBYPdJFa
+	 j3Wv2rq/Jrl0eq3JWoiSI72di7mXjXG8sL7i1TvURDsnkFREHoWDhv9Np2pFi3nL8L
+	 +XB6jUsm8H+ONNbd2GGLo+aWLI9QxNFtqSWWsRrTHpSYTf02Qp3MJUrmXJZaveEdEH
+	 CEpK07YQnBZvyeF251ztoFWGuJERG5ACXwewiJZ1guPA6ggAJExgf3Fi4/SM2uz0r9
+	 pJsVCa23SPG8KS3WQ/SGxPGQjYm6Gl57Imbpz29WvAYW9IGGHP2QQnX3gYqcAKXN9M
+	 v+QBNEeGg6R3w==
 From: Sasha Levin <sashal@kernel.org>
-To: sean@mess.org,
-	hverkuil+cisco@kernel.org
+To: seanjc@google.com,
+	david@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] media: serial_ir: Fix race condition where timer can be re-armed" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:42:33 -0500
-Message-ID: <20261107054233-failed-6.1-d74ac4016ba6@kernel.org>
+Subject: FAILED: patch "[PATCH] KVM: guest_memfd: Split bind() into prepare()+commit() phases" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:42:35 -0500
+Message-ID: <20261107054235-failed-6.1-83411f32b8ad@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,45 +68,217 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x d74ac4016ba64cb3b20f395511d0b18025ca0ba9
+git cherry-pick -x 83411f32b8ad96c6b05b1511d1a588daab44bd25
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054233-failed-6.1-d74ac4016ba6@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054235-failed-6.1-83411f32b8ad@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From d74ac4016ba64cb3b20f395511d0b18025ca0ba9 Mon Sep 17 00:00:00 2001
-From: Sean Young <sean@mess.org>
-Date: Tue, 1 Sep 2026 16:20:18 +0100
-Subject: [PATCH] media: serial_ir: Fix race condition where timer can be
- re-armed
+From 83411f32b8ad96c6b05b1511d1a588daab44bd25 Mon Sep 17 00:00:00 2001
+From: Sean Christopherson <seanjc@google.com>
+Date: Mon, 21 Sep 2026 17:13:30 -0700
+Subject: [PATCH] KVM: guest_memfd: Split bind() into prepare()+commit() phases
 
-Ensure the timer cannot be re-armed.
+Split binding a memslot to a guest_memfd instance into prepare() and
+commit() phases so that KVM can separate preparing the memslot from binding
+the memslot to the gmem instance, i.e. from committing the memslot.  This
+will allow waiting to commit the memslot+gmem binding until the memslot is
+fully prepared, which is necessary as the memslot becomes reachable when
+the binding is created.
 
-Fixes: 2940c7e49775 ("[media] serial_ir: generate timeout")
-Signed-off-by: Sean Young <sean@mess.org>
+As a bonus, drop the unwind-on-failure from the commit phase (other than
+nullifying the bindings), as the only reason bind() did the full unwind is
+because it technically didn't own the memslot, i.e. "needed" to leave
+memslot in the same state it started in.
+
+No functional change intended (the unwinding down on bind() failure was
+effectively dead code since KVM simply deletes the memslot on failure,
+i.e. there was nothing that could actually observe the unwind).
+
 Cc: stable@vger.kernel.org
-Acked-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
+Link: https://patch.msgid.link/20260922001332.1121266-5-seanjc@google.com
+Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- drivers/media/rc/serial_ir.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ virt/kvm/guest_memfd.c | 68 ++++++++++++++++++++++++------------------
+ virt/kvm/guest_memfd.h | 19 ++++++++----
+ virt/kvm/kvm_main.c    | 18 ++++++++++-
+ 3 files changed, 70 insertions(+), 35 deletions(-)
 
-diff --git a/drivers/media/rc/serial_ir.c b/drivers/media/rc/serial_ir.c
-index 992fff82b5245..f6702b3df9a03 100644
---- a/drivers/media/rc/serial_ir.c
-+++ b/drivers/media/rc/serial_ir.c
-@@ -798,7 +798,7 @@ static int __init serial_ir_init_module(void)
- 
- static void __exit serial_ir_exit_module(void)
- {
--	timer_delete_sync(&serial_ir.timeout_timer);
-+	timer_shutdown_sync(&serial_ir.timeout_timer);
- 	serial_ir_exit();
+diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
+index 751d0ad94f746..c813c20de7f30 100644
+--- a/virt/kvm/guest_memfd.c
++++ b/virt/kvm/guest_memfd.c
+@@ -642,15 +642,14 @@ int kvm_gmem_create(struct kvm *kvm, struct kvm_create_guest_memfd *args)
+ 	return __kvm_gmem_create(kvm, size, flags);
  }
  
+-int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
+-		  unsigned int fd, uoff_t offset)
++int kvm_gmem_prepare_memory_region(struct kvm *kvm, struct kvm_memory_slot *slot,
++				   unsigned int fd, uoff_t offset)
+ {
+ 	uoff_t size = slot->npages << PAGE_SHIFT;
+-	unsigned long start, end;
+ 	struct gmem_file *f;
+ 	struct inode *inode;
+ 	struct file *file;
+-	int r = -EINVAL;
++
+ 
+ 	BUILD_BUG_ON(sizeof(gpa_t) != sizeof(offset));
+ 	BUILD_BUG_ON(sizeof(gfn_t) != sizeof(slot->gmem.pgoff));
+@@ -674,44 +673,55 @@ int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
+ 	if (!PAGE_ALIGNED(offset) || offset + size > i_size_read(inode))
+ 		goto err;
+ 
+-	filemap_invalidate_lock(inode->i_mapping);
+-
+-	start = offset >> PAGE_SHIFT;
+-	end = start + slot->npages;
+-
+-	if (!xa_empty(&f->bindings) &&
+-	    xa_find(&f->bindings, &start, end - 1, XA_PRESENT)) {
+-		r = -EEXIST;
+-		filemap_invalidate_unlock(inode->i_mapping);
+-		goto err;
+-	}
+-
+ 	/*
+ 	 * memslots of flag KVM_MEM_GUEST_MEMFD are immutable to change, so
+ 	 * kvm_gmem_bind() must occur on a new memslot.  Because the memslot
+ 	 * is not visible yet, kvm_gmem_get_pfn() is guaranteed to see the file.
+ 	 */
+ 	WRITE_ONCE(slot->gmem.file, file);
+-	slot->gmem.pgoff = start;
++	slot->gmem.pgoff = offset >> PAGE_SHIFT;
+ 	if (kvm_gmem_supports_mmap(inode))
+ 		slot->flags |= KVM_MEMSLOT_GMEM_ONLY;
+ 
+-	r = xa_err(xa_store_range(&f->bindings, start, end - 1, slot, GFP_KERNEL));
+-	if (r) {
+-		xa_store_range(&f->bindings, start, end - 1, NULL, GFP_KERNEL);
+-		slot->gmem.file = NULL;
+-		slot->gmem.pgoff = 0;
+-		slot->flags &= ~KVM_MEMSLOT_GMEM_ONLY;
+-	}
+-	filemap_invalidate_unlock(inode->i_mapping);
+-
+ 	/*
+-	 * Drop the reference to the file, even on success.  The file pins KVM,
+-	 * not the other way 'round.  Active bindings are invalidated if the
+-	 * file is closed before memslots are destroyed.
++	 * Gift the caller a reference to the file.  The reference will be
++	 * dropped after bindings are established, or if installing the new
++	 * memslot ultimately fails.
+ 	 */
++	return 0;
++
+ err:
+ 	fput(file);
++	return -EINVAL;
++}
++
++int kvm_gmem_commit_memory_region(struct kvm *kvm, struct kvm_memory_slot *slot)
++{
++	struct gmem_file *f = slot->gmem.file->private_data;
++	struct inode *inode = file_inode(slot->gmem.file);
++	unsigned long start, end;
++	int r;
++
++	if (WARN_ON_ONCE(slot->gmem.file->f_op != &kvm_gmem_fops))
++		return -EIO;
++
++	filemap_invalidate_lock(inode->i_mapping);
++
++	start = slot->gmem.pgoff;
++	end = start + slot->npages;
++
++	if (!xa_empty(&f->bindings) &&
++	    xa_find(&f->bindings, &start, end - 1, XA_PRESENT)) {
++		filemap_invalidate_unlock(inode->i_mapping);
++		return -EEXIST;
++	}
++
++	r = xa_err(xa_store_range(&f->bindings, start, end - 1, slot, GFP_KERNEL));
++	if (r)
++		xa_store_range(&f->bindings, start, end - 1, NULL, GFP_KERNEL);
++
++	filemap_invalidate_unlock(inode->i_mapping);
++
+ 	return r;
+ }
+ 
+diff --git a/virt/kvm/guest_memfd.h b/virt/kvm/guest_memfd.h
+index 0f9c6f8408389..01bd359d27e30 100644
+--- a/virt/kvm/guest_memfd.h
++++ b/virt/kvm/guest_memfd.h
+@@ -8,8 +8,9 @@
+ int kvm_gmem_init(struct module *module);
+ void kvm_gmem_exit(void);
+ int kvm_gmem_create(struct kvm *kvm, struct kvm_create_guest_memfd *args);
+-int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
+-		  unsigned int fd, uoff_t offset);
++int kvm_gmem_prepare_memory_region(struct kvm *kvm, struct kvm_memory_slot *slot,
++				   unsigned int fd, uoff_t offset);
++int kvm_gmem_commit_memory_region(struct kvm *kvm, struct kvm_memory_slot *slot);
+ void kvm_gmem_unbind(struct kvm_memory_slot *slot);
+ #else
+ static inline int kvm_gmem_init(struct module *module)
+@@ -17,9 +18,17 @@ static inline int kvm_gmem_init(struct module *module)
+ 	return 0;
+ }
+ static inline void kvm_gmem_exit(void) {};
+-static inline int kvm_gmem_bind(struct kvm *kvm,
+-					 struct kvm_memory_slot *slot,
+-					 unsigned int fd, uoff_t offset)
++
++static inline int kvm_gmem_prepare_memory_region(struct kvm *kvm,
++						 struct kvm_memory_slot *slot,
++						 unsigned int fd, uoff_t offset)
++{
++	WARN_ON_ONCE(1);
++	return -EIO;
++}
++
++static inline int kvm_gmem_commit_memory_region(struct kvm *kvm,
++						struct kvm_memory_slot *slot)
+ {
+ 	WARN_ON_ONCE(1);
+ 	return -EIO;
+diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+index c53a88cea1f23..c7526c1617f7a 100644
+--- a/virt/kvm/kvm_main.c
++++ b/virt/kvm/kvm_main.c
+@@ -2107,7 +2107,23 @@ static int kvm_set_memory_region(struct kvm *kvm,
+ 	new->flags = mem->flags;
+ 	new->userspace_addr = mem->userspace_addr;
+ 	if (change == KVM_MR_CREATE && (mem->flags & KVM_MEM_GUEST_MEMFD)) {
+-		r = kvm_gmem_bind(kvm, new, mem->guest_memfd, mem->guest_memfd_offset);
++		r = kvm_gmem_prepare_memory_region(kvm, new, mem->guest_memfd,
++						   mem->guest_memfd_offset);
++		if (r)
++			goto out;
++
++		r = kvm_gmem_commit_memory_region(kvm, new);
++
++		/*
++		 * Drop the reference to the file, even on success.  The file
++		 * pins KVM, not the other way 'round.  Active bindings are
++		 * invalidated if the file is closed before memslots are
++		 * destroyed.
++		 */
++#ifdef CONFIG_KVM_GUEST_MEMFD
++		 fput(new->gmem.file);
++#endif
++
+ 		if (r)
+ 			goto out;
+ 	}
 -- 
 2.53.0
 
