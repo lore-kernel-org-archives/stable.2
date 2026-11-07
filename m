@@ -1,94 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794052977;
-	b=OZ9k3azpatwf3YTXjzuj+dwMHZ+CV3/+BZbDE+GzkPdhimN6fiqN7/06HrHQvkpLvpma
-	 RehdNs29UHfQH2kd6MwXcHDwe25IeZ8KBj2LXTC2Wd2s9JjHabfdyUMEh3YnqKlM05elI
-	 FfEToWopuYR0+w/sTC6qM0sn4bAf/Pzw/79d7Gq+C2cNdLaZPBpIZeOYrFxD+KJh9441c
-	 ovWgDuY1paEOT3ib+g/5JTKwMcj5W6bERdK2goLj54oskEejeLpk42Xzv8UBXaK4f1h1S
-	 rrT7cKDd+2dAqWkz5ETvLVzo1wfDGhEn9L6iWUWh4j4vycsxj30DB/WcMDS+ETp8+Xw==
+	t=1794053034;
+	b=s90ohCvQD2Hr3bOYLwcKLG4IGvK4qn6LQeRWnHTWwIlDoTSCmrnbSsrSlGv7Lzg6xGCz
+	 sLHDjtdvaJOff46DB/K9WKJRbUORBd8rtF/QxbfbhBBIOpyjsGfSq5q4ZoyPY3QFDbEG3
+	 LJBH1KLOXM0DGotPLtnOXdgEhZQSjoqQUV0iz/nkozx8EWllhqejxx9Lx6511Xf6VY5CK
+	 0JHsXs36jHamNq8hB7M4ztklp4iMvEALIDgw6Gy2EyFWH2dq9LfBnY6AWYz73nK21Pm4i
+	 rm/j/TsDxgUBPLHSZ+oHt5HBakuOKavjDfFV/Wxt77VYy4NkN+6hvBvNGBCyqcW8Y8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794052977;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794053034;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=tqqd9Qn7XH6yaCoHROgHbyoaW5MULnhvtXp8QpnIYQY=;
-	b=mhTtrdpmsJPipj00XG6T3882UgxHhW6G6XipxUmV0cim1lFn1hXM4a/ONFuBBzhu9QMD
-	 1LEyOZZz1WbawMpPGKe2hvTSgZwLrlPdsJmZqBTXTnMXrI3bHLAN4XF88jN1kzX90itjn
-	 8RrXR6JSNIKIopdh9h1EQehhOxojrtLJN180+FzE2L54eIMDlnJkQWcl2Rlb/ZH7oXoOf
-	 T6MhVWdmdPgNvl/mpvI40kTfP9afMSaH0i5k3cGWDNQLOQ6/soAXCtmXsemn6VirIA7sQ
-	 10IxTNKaLhgUZCdKMw2KlHevN5CjOORjPQ4oL0Qc5bqE2urS3ZdJ79JIPaXvlLq9H2Q==
+	bh=colwCFulLNMicTRI6Mx9C/ru9VurgUyIQ449HmkAprI=;
+	b=BBPeZ1Qp+h35cjnRvvi85NDWwS7nxsP+vZ+XaHBrS2w0blq2mxupkQRZUrSL5HjBMgCL
+	 MvUgwAGa7Z6GsKL5PZ04dMOYVrQ00NCn0okoDdirbFhxNrZePvafz/bKEbP1pvXPVDK1b
+	 IRYQAWA7kQ7CdBJEqFN5A77heIOD8cc6Euejh+XSe5apsdO1skt709RvtNFEJsyxSNuvI
+	 Eh8NbkwoSAQmvf3o9lPOqgr68nFM5W9bFb59JBJbO4n3sdN98zUR4gAhoiCnMeGDN0DQI
+	 wgrBJlWInBpeWZGYm4SAj7hENYx2hsNER78fDpEK8QPfPhcQvzuTTJiiUgirCgFNqmQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yQhJ1pz4;
-	arc=none smtp.remote-ip=209.85.208.47
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iaiF6W7h;
+	arc=none smtp.remote-ip=209.85.208.50
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BA45606A338
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 12:02:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BA45606A338
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 814E3606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 12:03:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 814E3606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yQhJ1pz4
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b577addee9so1766530a12.1
-        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 04:02:57 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iaiF6W7h
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6ae305e3bd9so2317547a12.0
+        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 04:03:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794052976; x=1794657776; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794053033; x=1794657833; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=tqqd9Qn7XH6yaCoHROgHbyoaW5MULnhvtXp8QpnIYQY=;
-        b=yQhJ1pz4YyOreNQp5KdXS+QHl7KMd9b9k8p7LETWwf2PtCe+0D87xaWgkW0SRHqx0B
-         OaR7wc0QhfXKGZNOT/hNK/U7nCA9FtJR21dC/Xm5a1TYvPQ/AFVwOIKPt7nf1XNvKiRT
-         FieUowpC2lpNfLKQbqV7fZ//MHf2RDsYRmf8cZtwg0zDtYyPYmMf+DrzQaakTo3Zdaqh
-         VvA51vuQPZCOSJZf9YZwgn0Axu+GcdSMyquTjRVMEgf7oHTOPc00FmqM9xcUvn3VzK29
-         4pVLRedMgeWPBAVmwqPibHXn/h2dvp1u40/QlCAFM9hQv9vNptUig8LrCTvoDV3q9xeB
-         A8+A==
+        bh=colwCFulLNMicTRI6Mx9C/ru9VurgUyIQ449HmkAprI=;
+        b=iaiF6W7hE8EbZOmXZo45o2QHiyj43t+DloNWJJNbPcz1Mcj0sTiUdF1xL8gp+tHdPl
+         BWpJVPpbfjbwCpYrcmL/ZfNDoy2UmGHAkbAed+SN9020QaOquyKoayn/pjKZSxkSKzgq
+         h6GedoSkZ+Phg8FSWaWCa8SjBkY4v9MrOIhPb9cYRWSCw9wvG24b3uJNY0pds6RS3MDr
+         zoLvdOjpYTy7Q3b7isYkrcJ+a3BmkC45UnNFZHeQvX52TUCgM436yZQfXte+tZwki5jk
+         tg3H9L2EicBFRZhOSpWjYW665mZ28IFNdgPNWcg5d5VqRW/EGYxMw1rgttjKt6qBi01c
+         xpaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794052976; x=1794657776;
+        d=1e100.net; s=20260707; t=1794053033; x=1794657833;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tqqd9Qn7XH6yaCoHROgHbyoaW5MULnhvtXp8QpnIYQY=;
-        b=oGvzVVMI3xLHAMKDDyrvxHfvWO/pJ4ROUFjgEazvKHd/HJXaawtsOvJC6jdGXGZ3fi
-         AE+Jnb2c/XN1ZrE6PCx9ZBO0TUpecLU5qRzDwnZdDnZ49ho6VqcyznbJqzxhEi44CH7O
-         ymtv2D4pX/YVr91/qPBOiVRJcmMMONLeyotk0cC2qPJvDylELuqIDHnPuAP2R/wuz67E
-         W+sukZi9gqbSWGwAqSTrxxjdv3tYMeOSa6X9nr7y8sD1E4qzlCNnoZnynDZuauomXVoB
-         VecSv5lVl3jyo8Qjfi28Y0rMLuDeHSWyt2U5K8UUuUW7Lk/r1fInLQwJH3S3pUplwAHF
-         SF0g==
-X-Gm-Message-State: APuU4Z+bLxWhwI4TSmXMF75gRy9dpm9gFSgKBUqXsHz7HgvJ4KHiat/H
-	ueUyAYORaSHOR6rQTXTKFe610tgno9zGiIAIY0+Mi1HzK6LldxRluq7pMv6ntA==
-X-Gm-Gg: AYBFou2V99U5e4vNaDFGdQkkmLuc/CQ+3uMUVEEY3E6TXAHrrT5DwNelf43n1kvN1cX
-	ubWkIv2BxEl+rnYx8HEUnsg9P6MLtEqnv/P0ThyzFUqAoENF1qrSyUv9jOOnW4+SYSFk+dhLXUj
-	Xtc101rwzmb10jAu7TztL+byUKSff9RgG8SRkE9J25HgY2SCkcYip2xUdVDU0zEFYsmlsDhj93s
-	B3kmh4TmL8Y72rO+wJET98hwIGf6aVMJsgtjbyM95yu2o24YEfRNpcVFX6lobdprOKf++cIzM/R
-	W0y9OqabhSVYsdhH888Y+5hKLXyFo3pdczEcr0D+VjyPe/Y4WsrNDcXsnA61vqlc/pHWW+MkBUE
-	0gA3Z+0HCFtD9sZ34bbXtV2muxKLjCULPagw7F7AIAyL4cpdyJwVNROPVvmxSs60YzRqe7p83zE
-	0bISrCGbCZYAek1SpAAdl/EK/IbGug9+CtFer/EtBy5DxVYPMOfGQTLMLeUFeoFakOx8Qx2BHQt
-	uVW3lLpYYVc6j0Fk36fXzWddtMnHi2Rp76cjeReqIH4+5xoSby49mp9xHbyB5wvxz763eelgQA0
-	G/6DSk5SczCX6+9Ch6nw0gYITP9fjbUbkAQN0QonaVpjknFeHd1OvTONFTrhmne5
-X-Received: by 2002:a05:6402:210c:b0:6b7:6f9:2ef7 with SMTP id 4fb4d7f45d1cf-6b706f93056mr666729a12.11.1794052975560;
-        Sat, 07 Nov 2026 04:02:55 -0800 (PST)
+        bh=colwCFulLNMicTRI6Mx9C/ru9VurgUyIQ449HmkAprI=;
+        b=yC829o6qGnlbZjLXD1/AlkTHlD0ZV7KztVIHXRMzC/nlwpKCb1bvhVZJ9BvHfRpAuB
+         G0xPYDkx+HNxs1yaUQ8yj0uBAqeCY3BCyTPiNR9TyVzUXo0vlEt6FcPbptTsf8L/mWnY
+         oaTI7xqq249yZEzt0A3/+5LJo1taJ9+E1e1r0eC8XhtfdXBa4KD5txzkSxCdvWDV7b3r
+         lAbnSB/+1ep+4ZrxORbAH/Ft7LdQe64Q1FSZ7qtPtaXN+L+cIe9ueh7oCl/y9VmzKpfs
+         8ta4QozA79z7ieJOX+AVPO0ukh1rOz8+Rk79H0Yzj1kowAdtyjTiycuLBM/JsZ/Wnfbk
+         O9Cw==
+X-Gm-Message-State: APuU4Z/YBOKbvgYIJGPDGqW8jeVJS7uOfvVqJFkNT67fBcJKFDNC8m1X
+	Mwg5fH9YnMW6E2HT5bxlcsy2//QR+LxcTD59vqxjhYyf2EkGDvAi0HFy0ApHfw==
+X-Gm-Gg: AYBFou0sy0FUjC3bujg47jLGzIxcD8sxfryqeS5FM24VDQ0+O0jHiHPhC7kPQVAvMcP
+	/J1xbneVYdslQh57mO3ijnWveJw3Ghxkm4Gy+oHDNR3QlaOVNuNgn7YoaaHnMECWEPDAMgys+Ot
+	N1tF+Y1BGIH0WZq2LoImNagGLxUgMPwgK20SJWKz6Pbmnr2KMEeviW2L1/ncxAxDPDOWilbLz6S
+	q/Cicnvv4OZucdFSUy0s39MihA2c750rpmySSaGPGywVYnZcJkWdDfVefj/p7K416NF/rMUzFlR
+	2uT+0dagq2Yp2rTzBf7cBk6i/Wq8MwccgGeLJHWtsSxA7eLFBLaLuUwzuAcja0auVBvmwSVNrd3
+	x6NJsx2Qv+d7clJY4neqiWzEzngS7Pl7dp/GvTKCorkXMj55XaB5HNJ4Y3KqvASSwaGN2VzOay9
+	L1PePnambqicvLCpReqGwcFMTOinf2k18KjLrmOAe3rZoe7ekCqZMQQ4ELLAyAq8EVz2hBXHZ5H
+	skmRf6cHMnJraBcG9U33kjmR79x8iB3TbtvX3lzBl2eamA8UICnc5QX/d2gzzyY1NJ6xMTiv1SD
+	mG+i5CSKc2XkB7vBogPjk1Zftp9PMDVE8Z80TkL/+WrLUoS9x9uSmrqf0NhBkxE3PStDPF1u2zb
+	1bQ4hbGqv7Q==
+X-Received: by 2002:a05:6402:e8a:b0:6b5:7792:d82c with SMTP id 4fb4d7f45d1cf-6b59781621fmr3575800a12.16.1794053032789;
+        Sat, 07 Nov 2026 04:03:52 -0800 (PST)
 Received: from kali (83.11.29.10.ipv4.supernova.orange.pl. [83.11.29.10])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b664b07d24sm1796492a12.27.2026.11.07.04.02.53
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b664b0239csm1846795a12.26.2026.11.07.04.03.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 04:02:54 -0800 (PST)
+        Sat, 07 Nov 2026 04:03:51 -0800 (PST)
 From: Kamil Sawicki <user148783812897@gmail.com>
 To: stable@vger.kernel.org
 Cc: willemb@google.com,
 	kuniyu@google.com,
 	edumazet@kernel.org,
 	kuba@kernel.org
-Subject: [PATCH 6.6.y] net: limit priority VLAN untag depth
-Date: Sat,  7 Nov 2026 07:01:51 -0500
-Message-ID: <20261107120151.28321-1-user148783812897@gmail.com>
+Subject: [PATCH 6.12.y] net: limit priority VLAN untag depth
+Date: Sat,  7 Nov 2026 07:03:30 -0500
+Message-ID: <20261107120330.29162-1-user148783812897@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107054017-failed-6.6-d3ff07f5acc5@kernel.org>
-References: <20261107054017-failed-6.6-d3ff07f5acc5@kernel.org>
+In-Reply-To: <20261107052727-failed-6.12-d3ff07f5acc5@kernel.org>
+References: <20261107052727-failed-6.12-d3ff07f5acc5@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -134,13 +135,13 @@ Reviewed-by: Eric Dumazet <edumazet@kernel.org>
 Link: https://patch.msgid.link/20261024004835.17862-1-user148783812897@gmail.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 
-[ Backport to 6.6.y: __netif_receive_skb_core() has no local
+[ Backport to 6.12.y: __netif_receive_skb_core() has no local
   drop_reason variable, and this branch does not define
   SKB_DROP_REASON_RECURSION_LIMIT. Omit the upstream assignment
   and keep the existing SKB_DROP_REASON_UNHANDLED_PROTO drop path. ]
 Signed-off-by: Kamil Sawicki <user148783812897@gmail.com>
 ---
-Backport based on linux-6.6.y b5a1dc3ad4822c6edfb53429e9a3759c9b0ac2be (Linux 6.6.161).
+Backport based on linux-6.12.y 03bae623ec326c2738198739625832aab0eb120a (Linux 6.12.115).
 W=1 net/core/dev.o built without warnings. Full KASAN/ftrace
 bzImage built with W=1 CONFIG_WERROR=; unrelated files emitted
 pre-existing W=1 warnings.
@@ -154,10 +155,10 @@ KASAN report, oops or panic was observed.
  1 file changed, 6 insertions(+)
 
 diff --git a/net/core/dev.c b/net/core/dev.c
-index f9436563a2e84a..19d3149d320dbf 100644
+index 397fd0f9cc7a27..058965698004dc 100644
 --- a/net/core/dev.c
 +++ b/net/core/dev.c
-@@ -5618,6 +5618,8 @@ static int __netif_receive_skb_core(struct sk_buff **pskb, bool pfmemalloc,
+@@ -5760,6 +5760,8 @@ static int __netif_receive_skb_core(struct sk_buff **pskb, bool pfmemalloc,
  	}
  
  	if (unlikely(skb_vlan_tag_present(skb)) && !netdev_uses_dsa(skb->dev)) {
@@ -166,7 +167,7 @@ index f9436563a2e84a..19d3149d320dbf 100644
  check_vlan_id:
  		if (skb_vlan_tag_get_id(skb)) {
  			/* Vlan id is non 0 and vlan_do_receive() above couldn't
-@@ -5629,6 +5631,10 @@ static int __netif_receive_skb_core(struct sk_buff **pskb, bool pfmemalloc,
+@@ -5771,6 +5773,10 @@ static int __netif_receive_skb_core(struct sk_buff **pskb, bool pfmemalloc,
  			 * 802.1Q or 802.1AD and vlan_do_receive() above could
  			 * not find vlan dev for vlan id 0.
  			 */
