@@ -1,51 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048751;
-	b=F35SC43AP5NcA/MRxlvOwRXuuJoQCsYKTmMmg5Sud/z80um0U3f12O2FP03eMpCjV29R
-	 3qryZMhRTQXPUMhZ00w/0crcqiahFj9U60qw7R/jXfeIn8Lou7D57t4a9xox6lMBDj8C7
-	 HzKEAu151/FKn2bcDXafYqSEgAxr0G7pdmB13Tq2Y5TtoUzi2fldREoTZpyNKQa+17Zt5
-	 jPaSFMIBR45+kcWqllse5DtizvKBEGB3Yhrh2g8/LGUGeRBm+bTsYqd67XnuqXYOEi5cL
-	 bZEUFav9iDwUFeBo2g/uF4zZPQEe4ZIp77L0IF0/d2hJILBVuYuFFwtx/AYi3DZoUpg==
+	t=1794048755;
+	b=IWrPW4Ba011bX5/P1aPUhLF5qN+NiGuKL+zHFA+PKp0xanojLnvRDpbDj4tJ1MCjxAMK
+	 3yRMX3Vy5TeMcnLteo6qz9lI260mJ3MBTB9SuhJxogD/yVGt8eh2Alv9C4CQkNnW2LCjm
+	 /o0XSE4PfX09/G9jTLzpQqIAormDO4Rh3of4DPYEMNUUhX0t8vkENDgvCGQ3kSw2K8x9z
+	 vlbqRNVNEJG9NbyZd+Tz7NiH8IahAwbrH3Swf6guLTcRY2XG0KEDo3Ts+L5bvnUszjcxg
+	 W5GNWYMZd4KqV0X/TBx5ib5mya5gorYJCfSAGMFFXIfmoBIvuJ8nVAqJhUQ2+qTnjQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048751;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048755;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Ac2FBm30ticaGJ8kTKAkDdT1ofpZZSyaEYpSkLjp6jM=;
-	b=a8QseDVSwzuUp5Eh6+4+KiorBY8UyZQ3sWQZaeKV2LM8dKinw+bxGlfiCvnH5tvLjd9Q
-	 EAQvMWDr1Yynb5dMmSH7nr3iWcFyrxgtKTh2e59lSui+BsdE01dnhktBbvgkxhLTIDFoO
-	 /JcJln4Zw5mINySwSfp2D422LRdEru0Mo3TQ3P/8cs60fx2UBE3183lT0mDqghK9QRiUP
-	 ZYef4IpVIAsCrATIw5qwQxI4ZSFXhf8pztxFM/4Dzp/My0lHDlGP/KUY9+6zdi17F4mxl
-	 XyXuwsGNMgUdasAruKxFnK86bqbxq3hwmk23dAQvfZBhkZL6NepBT3aGoGX4sGNFxiQ==
+	bh=+hMyjWFMFKvzP/n6Vh4oBepCvOCr1I6xbiomsXNlHXI=;
+	b=b3xZ2oVZMvWvddH0+D8mvTGpamuC4IaDxHhaZ/m5YvkrQTcDAuHGkG0T4JmUmB0Q1ois
+	 TaJunO/aFHeHz4vx84qWQ+7u+k3GaVeWWP0eWL5EBNV5DztS/mzEJGXQ9eYo++XrTrVBN
+	 wlFRef6ewGn9skDPtx4gFQghYjNEU+erO47lqqVj/K3S8a9VX78JtflMTlnDC2wL6Xd+d
+	 UEOPd+jVCSVuq5JGQwdy30dhzY1Mqe70yKMo+KSTCQiQT1PmwTtDTFp00cTAHEUQcg5B4
+	 LT45/fBwkcVQG0bclH1ndvaePkngEWCPBkD6iSYSXZAAWPIolLKmMxUQh0wYzP3oOBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A93f4XvM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P6c08Y6J;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 897B2606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:52:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2481A606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:52:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A93f4XvM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 055D41F0089F;
-	Sat,  7 Nov 2026 10:52:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P6c08Y6J
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0966E1F0089F;
+	Sat,  7 Nov 2026 10:52:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048751;
-	bh=Ac2FBm30ticaGJ8kTKAkDdT1ofpZZSyaEYpSkLjp6jM=;
+	s=k20260515; t=1794048754;
+	bh=+hMyjWFMFKvzP/n6Vh4oBepCvOCr1I6xbiomsXNlHXI=;
 	h=From:To:Cc:Subject:Date;
-	b=A93f4XvMJmniDkw8+D5LxDkZ5If3TYhGkCDyltbMltGH4MY7feuFA9kwzuN5UOcdQ
-	 IKSL7+CztnjsbHrnpYsT1hTbg7KqI9T+ynM6kuDSgYRBcIKEncBL/S6h38WkURNm2u
-	 zZQqLyCWHQGtYRsNBeUPZTslo5UfCTYDOh3g4/Jn5J3QzslV2NGo0sk4+mh8tzQzC4
-	 4FcqRDqKGT71nmulsFe/IlIqEK3uU11V9tU45SaYYywy1YmPqdqLEKUlgCneblIceU
-	 ehCvYdQnWIRiwvMhcZ6VWq1iuk647eHLKDO5DFKIHdgpiTc5sXZ1o5yJgMvV8lW49e
-	 8jNKkVBKbvImQ==
+	b=P6c08Y6JORJRY555E0mFMz02KNRPCfzkhiRLOLSSt2KwZ9tVOoQNScYUm7IJlLfTs
+	 G8R6A9mnBpPR/6MDPuWTZ03O/BOQJac3lQfeGi11oGih9tfVb8rTqpC/yeQnOXmlhh
+	 ohDfgd2f8O0HZXDTnUSHftx3a7o2EvacsFaDrcthrWJd/3U4RBPOV+Gn0BdJW6dOK7
+	 BNAzm/wpjvcbv45idIgKjet2TGFxgeVY1jlT4UuC9uzcxRWnpbAil8wAsrjoBRVZzU
+	 h60Djx5JIq+TY+ZfXzbVGCHI/2z3RfJ83RRM5Auy4KTUVy6YLW7G4Vo/RL2Q+mpGMZ
+	 VyUL9OvLiis4g==
 From: Sasha Levin <sashal@kernel.org>
-To: chao@kernel.org,
-	jaegeuk@kernel.org
+To: zhen.han@amd.com,
+	philip.yang@amd.com,
+	mukul.joshi@amd.com,
+	lijo.lazar@amd.com,
+	alexander.deucher@amd.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] f2fs: zone: fix to don't fail to grab GC target block on zoned device" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:52:29 -0500
-Message-ID: <20261107055229-failed-6.1-fd106ada4dee@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/amdkfd: correct vram_available calculation" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:52:32 -0500
+Message-ID: <20261107055232-failed-6.1-9131cc85d0de@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,94 +71,415 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x fd106ada4dee4b8adefec791ee9b9681b7b77501
+git cherry-pick -x 9131cc85d0dedd8ba4cae60dbe5985d081551f30
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055229-failed-6.1-fd106ada4dee@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055232-failed-6.1-9131cc85d0de@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From fd106ada4dee4b8adefec791ee9b9681b7b77501 Mon Sep 17 00:00:00 2001
-From: Chao Yu <chao@kernel.org>
-Date: Mon, 19 Oct 2026 09:00:32 +0000
-Subject: [PATCH] f2fs: zone: fix to don't fail to grab GC target block on
- zoned device
+From 9131cc85d0dedd8ba4cae60dbe5985d081551f30 Mon Sep 17 00:00:00 2001
+From: Zhen Han <Zhen.Han@amd.com>
+Date: Sun, 20 Sep 2026 02:31:31 +0000
+Subject: [PATCH] drm/amdkfd: correct vram_available calculation
 
-With out-of-memory fault injection (inject_type=0x0080800f) on a zoned
-device, f2fs stopped checkpoint during GC:
+reserve_mem_limit() computes available VRAM as
+	vram_size - reserved - vram_pin_size - kfd.vram_used
+However, kfd.vram_used already includes BOs that are later pinned.
+Pinning does not consume extra VRAM. Subtracting
+vram_pin_size counts those bytes twice and causes fake-OOM
+while VRAM is still free.
 
- F2FS-fs (dm-0): inject kmalloc in f2fs_kmalloc of move_data_block+0xc0b/0x12b0
- Workqueue: dm-1_zwplugs blk_zone_wplug_bio_work
- Call Trace:
-  <TASK>
-  dump_stack_lvl+0x4d/0x70
-  f2fs_stop_checkpoint+0x1df/0x5d0
-  f2fs_write_end_bio+0xdbb/0x1320
-  blk_zone_wplug_bio_work+0x2aa/0x7d0
-  process_one_work+0x5c6/0xde0
-  worker_thread+0x403/0xb70
-  kthread+0x235/0x2e0
-  ret_from_fork+0x2f/0x70
-  ret_from_fork_asm+0x1a/0x30
-  </TASK>
- F2FS-fs (dm-0): Stopped filesystem due to reason: 3
+Reuse get_available_memory() in reserve_mem_limit(). Move
+ALIGN_DOWN to the ioctl so the userspace ABI is unchanged. The
+VRAM counter is a parameter: the ioctl passes vram_used_aligned[],
+the gate passes vram_used[] so a 4K BO is not charged 2MB.
 
-In move_data_block(), the target block is grabbed from the meta cache
-after f2fs_allocate_data_block() has allocated newaddr. If grabbing it
-fails w/ -ENOMEM, recover_block calls f2fs_do_replace_block() to restore
-the old block address and curseg's next_blkoff, which already points
-past newaddr, so newaddr is never written. That leaves a hole in a
-sequential zone: the next write to the zone is not at the write pointer,
-the zone write plug fails it, and f2fs_write_end_bio() stops checkpoint
-w/ STOP_CP_REASON_WRITE_FAIL.
+kfd.vram_pinned is only updated in gpuvm_pin_bo(). dma-buf pin
+calls amdgpu_bo_pin() only, so the counter stays zero. Update it
+from amdgpu_bo_pin() through a KFD helper, on first pin and last
+unpin, matching vram_pin_size.
 
-move_data_block() allocates newaddr before grabbing its meta page and
-goes to recover_block if the grab fails since commit 4356e48e6437
-("f2fs crypto: fix incorrect positioning for GCing encrypted data page"),
-the meta cache only replaced the meta page w/ a meta cache entry. That
-is harmless on a regular device, but it leaves the hole since f2fs
-supports host-managed SMR (now zoned block) devices, which only accept
-writes at the write pointer of a sequential zone.
+Track per-XCP pins in vram_pin_size_xcp[] and kfd.vram_pinned[].
+Pins that are not owned by a single partition go to
+vram_pin_size_common, which every partition subtracts.
 
-If newaddr is in a sequential zone, grab the target block w/
-F2FS_CACHE_NOFAIL, so nothing can fail between allocating newaddr and
-writing it. In a conventional zone or on a regular device, skipping
-newaddr is harmless, so keep the error handling for them.
+A KFD VRAM BO always carries a partition, so the KFD credit is only
+correct for xcp >= 0. Call the helper for both branches and let it
+warn once and skip if that ever stops holding: without the credit the
+BO would be subtracted through vram_pin_size_common and never added
+back, which is the double counting this patch removes, and
+kfd.vram_pinned[] would be indexed out of bounds.
 
-Cc: stable@kernel.org
-Fixes: 52763a4b7a21 ("f2fs: detect host-managed SMR by feature flag")
-Fixes: d1b959c87702 ("f2fs: Check zoned block feature for host-managed zoned block devices")
-Signed-off-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+Suggested-by: Philip Yang <Philip.Yang@amd.com>
+Signed-off-by: Zhen Han <Zhen.Han@amd.com>
+Reviewed-by: Mukul Joshi <mukul.joshi@amd.com>
+Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 894cbb31c50e3cf49657130396bbf6c0475304e4)
+Cc: stable@vger.kernel.org
 ---
- fs/f2fs/gc.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h           | 11 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    | 20 +++-
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 94 +++++++++++--------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c    | 33 +++++++
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      | 12 ++-
+ 5 files changed, 127 insertions(+), 43 deletions(-)
 
-diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
-index 18aa6a12e805d..5b948c92f9813 100644
---- a/fs/f2fs/gc.c
-+++ b/fs/f2fs/gc.c
-@@ -1453,8 +1453,16 @@ static int move_data_block(struct inode *inode, block_t bidx,
- 		goto up_out;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index ce671731b7007..c7577b608f3e4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -844,8 +844,17 @@ struct amdgpu_device {
+ 	struct mutex	mn_lock;
+ 	DECLARE_HASHTABLE(mn_hash, 7);
+ 
+-	/* tracking pinned memory */
++	/* tracking pinned memory
++	 *
++	 *	vram_pin_size = sum(vram_pin_size_xcp[]) + vram_pin_size_common
++	 *
++	 * vram_pin_size         total pin size in device
++	 * vram_pin_size_xcp[i]  pins owned by partition i (bo->xcp_id = i, i >= 0)
++	 * vram_pin_size_common  pins not owned by any partition, bo->xcp_id = -1
++	 */
+ 	atomic64_t vram_pin_size;
++	atomic64_t vram_pin_size_xcp[MAX_XCP];
++	atomic64_t vram_pin_size_common;
+ 	atomic64_t visible_pin_size;
+ 	atomic64_t gart_pin_size;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+index a53d7e4a1eb5c..77c0504cc158d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+@@ -42,6 +42,12 @@
+ 
+ extern uint64_t amdgpu_amdkfd_total_mem_size;
+ 
++/*
++ * Align VRAM availability to 2MB to avoid fragmentation caused by 4K
++ * allocations in the tail 2MB BO chunk.
++ */
++#define VRAM_AVAILABLITY_ALIGN (1 << 21)
++
+ enum TLB_FLUSH_TYPE {
+ 	TLB_FLUSH_LEGACY = 0,
+ 	TLB_FLUSH_LIGHTWEIGHT,
+@@ -106,7 +112,7 @@ struct amdgpu_kfd_dev {
+ 	struct kfd_dev *dev;
+ 	int64_t vram_used[MAX_XCP];
+ 	uint64_t vram_used_aligned[MAX_XCP];
+-	atomic64_t vram_pinned;
++	atomic64_t vram_pinned[MAX_XCP];
+ 	bool init_complete;
+ 	struct work_struct reset_work;
+ 
+@@ -390,6 +396,8 @@ void amdgpu_amdkfd_gpuvm_destroy_cb(struct amdgpu_device *adev,
+  * Allows KFD to release its resources associated with the GEM object.
+  */
+ void amdgpu_amdkfd_release_notify(struct amdgpu_bo *bo);
++void amdgpu_amdkfd_account_vram_pin(struct amdgpu_bo *bo, int xcp_id);
++void amdgpu_amdkfd_account_vram_unpin(struct amdgpu_bo *bo, int xcp_id);
+ void amdgpu_amdkfd_reserve_system_mem(uint64_t size);
+ #else
+ static inline
+@@ -407,6 +415,16 @@ static inline
+ void amdgpu_amdkfd_release_notify(struct amdgpu_bo *bo)
+ {
+ }
++
++static inline
++void amdgpu_amdkfd_account_vram_pin(struct amdgpu_bo *bo, int xcp_id)
++{
++}
++
++static inline
++void amdgpu_amdkfd_account_vram_unpin(struct amdgpu_bo *bo, int xcp_id)
++{
++}
+ #endif
+ 
+ #if IS_ENABLED(CONFIG_HSA_AMD_SVM)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index 129acb88dc11e..ff77e8ae9fe6f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -46,12 +46,6 @@
+ #define AMDGPU_USERPTR_RESTORE_DELAY_MS 1
+ #define AMDGPU_RESERVE_MEM_LIMIT			(3UL << 29)
+ 
+-/*
+- * Align VRAM availability to 2MB to avoid fragmentation caused by 4K allocations in the tail 2MB
+- * BO chunk
+- */
+-#define VRAM_AVAILABLITY_ALIGN (1 << 21)
+-
+ /* Impose limit on how much memory KFD can use */
+ static struct {
+ 	uint64_t max_system_mem_limit;
+@@ -73,6 +67,8 @@ static const char * const domain_bit_to_string[] = {
+ #define domain_string(domain) domain_bit_to_string[ffs(domain)-1]
+ 
+ static void amdgpu_amdkfd_restore_userptr_worker(struct work_struct *work);
++static size_t __get_available_memory(struct amdgpu_device *adev,
++				     uint8_t xcp_id, int64_t vram_used);
+ 
+ static bool kfd_mem_is_attached(struct amdgpu_vm *avm,
+ 		struct kgd_mem *mem)
+@@ -169,13 +165,8 @@ void amdgpu_amdkfd_reserve_system_mem(uint64_t size)
+ int amdgpu_amdkfd_reserve_mem_limit(struct amdgpu_device *adev,
+ 		uint64_t size, u32 alloc_flag, int8_t xcp_id)
+ {
+-	uint64_t reserved_for_pt =
+-		ESTIMATE_PT_SIZE(amdgpu_amdkfd_total_mem_size);
+-	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+-	uint64_t reserved_for_ras = (con ? con->reserved_pages_in_bytes : 0);
+ 	size_t system_mem_needed, ttm_mem_needed, vram_needed;
+ 	int ret = 0;
+-	uint64_t vram_size = 0;
+ 
+ 	system_mem_needed = 0;
+ 	ttm_mem_needed = 0;
+@@ -196,7 +187,6 @@ int amdgpu_amdkfd_reserve_mem_limit(struct amdgpu_device *adev,
+ 		if (WARN_ONCE(xcp_id < 0, "invalid XCP ID %d", xcp_id))
+ 			return -EINVAL;
+ 
+-		vram_size = KFD_XCP_MEMORY_SIZE(adev, xcp_id);
+ 		if (adev->apu_prefer_gtt) {
+ 			system_mem_needed = size;
+ 			ttm_mem_needed = size;
+@@ -232,14 +222,11 @@ int amdgpu_amdkfd_reserve_mem_limit(struct amdgpu_device *adev,
+ 	 * VRAM check since ttm_mem_limit check already cover this allocation
+ 	 */
+ 
+-	if (adev && xcp_id >= 0 && (!adev->apu_prefer_gtt || adev->gmc.is_app_apu)) {
+-		uint64_t vram_available =
+-			vram_size - reserved_for_pt - reserved_for_ras -
+-			atomic64_read(&adev->vram_pin_size);
+-		if (adev->kfd.vram_used[xcp_id] + vram_needed > vram_available) {
+-			ret = -ENOMEM;
+-			goto release;
+-		}
++	if (adev && xcp_id >= 0 && (!adev->apu_prefer_gtt || adev->gmc.is_app_apu) &&
++	    vram_needed > __get_available_memory(adev, xcp_id,
++						 adev->kfd.vram_used[xcp_id])) {
++		ret = -ENOMEM;
++		goto release;
  	}
  
-+	/*
-+	 * If newaddr is in a sequential zone, it must be written once it is
-+	 * allocated, otherwise it leaves a hole in the zone, and the following
-+	 * write to the zone will fail as an unaligned write, so don't fail
-+	 * here.
-+	 */
- 	tentry = f2fs_grab_cache(META_CACHE(fio.sbi), newaddr,
--					F2FS_CACHE_LOCK_CREATE);
-+			F2FS_CACHE_LOCK_CREATE |
-+			(f2fs_is_sequential_zone_area(fio.sbi, newaddr) ?
-+			 F2FS_CACHE_NOFAIL : 0));
- 	if (IS_ERR(tentry)) {
- 		err = PTR_ERR(tentry);
- 		f2fs_put_cache(sentry, true);
+ 	/* Update memory accounting by decreasing available system
+@@ -318,6 +305,30 @@ void amdgpu_amdkfd_release_notify(struct amdgpu_bo *bo)
+ 	kfree(bo->kfd_bo);
+ }
+ 
++void amdgpu_amdkfd_account_vram_pin(struct amdgpu_bo *bo, int xcp_id)
++{
++	if (!bo->kfd_bo)
++		return;
++
++	if (WARN_ONCE(xcp_id < 0, "KFD BO pinned in VRAM with no partition"))
++		return;
++
++	atomic64_add(amdgpu_bo_size(bo),
++		     &amdgpu_ttm_adev(bo->tbo.bdev)->kfd.vram_pinned[xcp_id]);
++}
++
++void amdgpu_amdkfd_account_vram_unpin(struct amdgpu_bo *bo, int xcp_id)
++{
++	if (!bo->kfd_bo)
++		return;
++
++	if (WARN_ONCE(xcp_id < 0, "KFD BO unpinned in VRAM with no partition"))
++		return;
++
++	atomic64_sub(amdgpu_bo_size(bo),
++		     &amdgpu_ttm_adev(bo->tbo.bdev)->kfd.vram_pinned[xcp_id]);
++}
++
+ /**
+  * create_dmamap_sg_bo() - Creates a amdgpu_bo object to reflect information
+  * about USERPTR or DOOREBELL or MMIO BO.
+@@ -1537,10 +1548,6 @@ static int amdgpu_amdkfd_gpuvm_pin_bo(struct amdgpu_bo *bo, u32 domain)
+ 
+ 	amdgpu_bo_sync_wait(bo, AMDGPU_FENCE_OWNER_KFD, false);
+ 
+-	if (!ret && bo->tbo.resource->mem_type == TTM_PL_VRAM)
+-		atomic64_add(amdgpu_bo_size(bo),
+-			&amdgpu_ttm_adev(bo->tbo.bdev)->kfd.vram_pinned);
+-
+ out:
+ 	amdgpu_bo_unreserve(bo);
+ 	return ret;
+@@ -1564,10 +1571,6 @@ static void amdgpu_amdkfd_gpuvm_unpin_bo(struct amdgpu_bo *bo)
+ 
+ 	amdgpu_bo_unpin(bo);
+ 
+-	if (bo->tbo.resource->mem_type == TTM_PL_VRAM)
+-		atomic64_sub(amdgpu_bo_size(bo),
+-			&amdgpu_ttm_adev(bo->tbo.bdev)->kfd.vram_pinned);
+-
+ 	amdgpu_bo_unreserve(bo);
+ }
+ 
+@@ -1671,8 +1674,9 @@ int amdgpu_amdkfd_criu_resume(void *p)
+ 	return ret;
+ }
+ 
+-size_t amdgpu_amdkfd_get_available_memory(struct amdgpu_device *adev,
+-					  uint8_t xcp_id)
++/* Caller must hold kfd_mem_limit.mem_limit_lock. */
++static size_t __get_available_memory(struct amdgpu_device *adev,
++				     uint8_t xcp_id, int64_t vram_used)
+ {
+ 	uint64_t reserved_for_pt =
+ 		ESTIMATE_PT_SIZE(amdgpu_amdkfd_total_mem_size);
+@@ -1681,15 +1685,17 @@ size_t amdgpu_amdkfd_get_available_memory(struct amdgpu_device *adev,
+ 	ssize_t available;
+ 	uint64_t vram_available, system_mem_available, ttm_mem_available;
+ 
+-	spin_lock(&kfd_mem_limit.mem_limit_lock);
++	lockdep_assert_held(&kfd_mem_limit.mem_limit_lock);
++
+ 	if (adev->apu_prefer_gtt && !adev->gmc.is_app_apu)
+ 		vram_available = KFD_XCP_MEMORY_SIZE(adev, xcp_id)
+-			- adev->kfd.vram_used_aligned[xcp_id];
++			- vram_used;
+ 	else
+ 		vram_available = KFD_XCP_MEMORY_SIZE(adev, xcp_id)
+-			- adev->kfd.vram_used_aligned[xcp_id]
+-			- atomic64_read(&adev->vram_pin_size)
+-			+ atomic64_read(&adev->kfd.vram_pinned)
++			- vram_used
++			- atomic64_read(&adev->vram_pin_size_xcp[xcp_id])
++			- atomic64_read(&adev->vram_pin_size_common)
++			+ atomic64_read(&adev->kfd.vram_pinned[xcp_id])
+ 			- reserved_for_pt
+ 			- reserved_for_ras;
+ 
+@@ -1704,19 +1710,29 @@ size_t amdgpu_amdkfd_get_available_memory(struct amdgpu_device *adev,
+ 
+ 		available = min3(system_mem_available, ttm_mem_available,
+ 				 vram_available);
+-		available = ALIGN_DOWN(available, PAGE_SIZE);
+ 	} else {
+-		available = ALIGN_DOWN(vram_available, VRAM_AVAILABLITY_ALIGN);
++		available = vram_available;
+ 	}
+ 
+-	spin_unlock(&kfd_mem_limit.mem_limit_lock);
+-
+ 	if (available < 0)
+ 		available = 0;
+ 
+ 	return available;
+ }
+ 
++size_t amdgpu_amdkfd_get_available_memory(struct amdgpu_device *adev,
++					  uint8_t xcp_id)
++{
++	size_t available;
++
++	spin_lock(&kfd_mem_limit.mem_limit_lock);
++	available = __get_available_memory(adev, xcp_id,
++					   adev->kfd.vram_used_aligned[xcp_id]);
++	spin_unlock(&kfd_mem_limit.mem_limit_lock);
++
++	return available;
++}
++
+ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
+ 		struct amdgpu_device *adev, uint64_t va, uint64_t size,
+ 		void *drm_priv, struct kgd_mem **mem,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+index 2a6a5bc01eb40..6aa895f63aeaf 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -923,6 +923,19 @@ void amdgpu_bo_unref(struct amdgpu_bo **bo)
+ 	*bo = NULL;
+ }
+ 
++/* Map a BO onto vram_pin_size_xcp[]. bo->xcp_id < 0 means "any partition":
++ * such pins are not owned by a single partition and go to
++ * vram_pin_size_common, which every partition subtracts.
++ */
++static int amdgpu_bo_get_xcp(struct amdgpu_bo *bo)
++{
++	s8 xcp = bo->xcp_id;
++
++	if (xcp >= 0 && xcp < MAX_XCP)
++		return xcp;
++	return -1;
++}
++
+ /**
+  * amdgpu_bo_pin - pin an &amdgpu_bo buffer object
+  * @bo: &amdgpu_bo buffer object to be pinned
+@@ -1003,7 +1016,17 @@ int amdgpu_bo_pin(struct amdgpu_bo *bo, u32 domain)
+ 	ttm_bo_pin(&bo->tbo);
+ 
+ 	if (bo->tbo.resource->mem_type == TTM_PL_VRAM) {
++		int xcp = amdgpu_bo_get_xcp(bo);
++
+ 		atomic64_add(amdgpu_bo_size(bo), &adev->vram_pin_size);
++		if (xcp >= 0) {
++			atomic64_add(amdgpu_bo_size(bo),
++				     &adev->vram_pin_size_xcp[xcp]);
++		} else {
++			atomic64_add(amdgpu_bo_size(bo),
++				     &adev->vram_pin_size_common);
++		}
++		amdgpu_amdkfd_account_vram_pin(bo, xcp);
+ 		atomic64_add(amdgpu_vram_mgr_bo_visible_size(bo),
+ 			     &adev->visible_pin_size);
+ 	} else if (bo->tbo.resource->mem_type == TTM_PL_TT) {
+@@ -1036,7 +1059,17 @@ void amdgpu_bo_unpin(struct amdgpu_bo *bo)
+ 		dma_buf_unpin(bo->tbo.base.import_attach);
+ 
+ 	if (bo->tbo.resource->mem_type == TTM_PL_VRAM) {
++		int xcp = amdgpu_bo_get_xcp(bo);
++
+ 		atomic64_sub(amdgpu_bo_size(bo), &adev->vram_pin_size);
++		if (xcp >= 0) {
++			atomic64_sub(amdgpu_bo_size(bo),
++				     &adev->vram_pin_size_xcp[xcp]);
++		} else {
++			atomic64_sub(amdgpu_bo_size(bo),
++				     &adev->vram_pin_size_common);
++		}
++		amdgpu_amdkfd_account_vram_unpin(bo, xcp);
+ 		atomic64_sub(amdgpu_vram_mgr_bo_visible_size(bo),
+ 			     &adev->visible_pin_size);
+ 	} else if (bo->tbo.resource->mem_type == TTM_PL_TT) {
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index 3831451240e97..cad60ccdb2166 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -1110,11 +1110,19 @@ static int kfd_ioctl_get_available_memory(struct file *filep,
+ {
+ 	struct kfd_ioctl_get_available_memory_args *args = data;
+ 	struct kfd_process_device *pdd = kfd_lock_pdd_by_id(p, args->gpu_id);
++	struct amdgpu_device *adev;
++	size_t available;
+ 
+ 	if (!pdd)
+ 		return -EINVAL;
+-	args->available = amdgpu_amdkfd_get_available_memory(pdd->dev->adev,
+-							pdd->dev->node_id);
++
++	adev = pdd->dev->adev;
++	available = amdgpu_amdkfd_get_available_memory(adev, pdd->dev->node_id);
++	if (adev->apu_prefer_gtt)
++		args->available = ALIGN_DOWN(available, PAGE_SIZE);
++	else
++		args->available = ALIGN_DOWN(available, VRAM_AVAILABLITY_ALIGN);
++
+ 	kfd_unlock_pdd(pdd);
+ 	return 0;
+ }
 -- 
 2.53.0
 
