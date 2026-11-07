@@ -1,54 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794063863;
-	b=3tA/894c6r713o3uaSXdsLzDiJ25+hOFDZeGBHw8bFOROFVXDXZMlAQxa5zJHQJCk0Lo
-	 6avauBvF2VZCjCK3Mi+oBZADzO5FBpqvUkfNoucjSPRwZs6DMMG3P/mpBxhX3+czQPhoM
-	 SLgqGzWOtp9eMnmhh0hTk45WZXswOp3Nl4e/EWVF1zA+G23NNWcnZwcsaLXf4Qd0SsNyL
-	 scf3alQxBLPcW87YO6a/PZBYBrEaR8GIHkRHLnMidpG6ecOq3iOvGlaDyxW5/QOu8b4CU
-	 9VUSsA8XcE4m78TMSZsgump3Bmi+i8WdNqBO7OL8zOTwIL590kh7ThgxCPwK0f8GGJg==
+	t=1794063868;
+	b=vq/mRA7ZQCs1ibq9C20x/UxeEUMKo1LP3Sal+v7pSUlhugWiSV1dBACBJgmixCBw73kQ
+	 +AB6VydNNalT4iJUftKhdBKm+st5yexLgUFNjau/kdYIwxcRb4IPdwfULtC+GzJdJ1n5+
+	 sz7ilm2Ptu/3rrfl06vZVsUb555eszQK31OsDIU7/wUHST+aATaZxlN5erhzTLEa9AiTr
+	 JwxnR+n6ncvfITOrIFFnVmejssE+JZSGMv/7igQDO6IC919BHn+OnOTiZAYCs2Xu5mRzf
+	 V4l1U2XbBO8bsFeMv3gWFq2EUQTBBajFmvNKn8xnv6pyGmQG8gzgxqQKjM048uxLUUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794063863;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794063868;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=lRXtN041X6iTmUFAInZW48v/QOffO6bTrwt48Dz3wWY=;
-	b=iJN8LHZDuQiUcHVnC9NowzksE+rjQceHJQ+7m0NYXRbxDN2cvYwKMkeTWmwAem2pCoQB
-	 mUfNnUHd75Cr+eRqbjy90RwNPPwxqPQvAvJ2iQEyfgAcH95//zv0NV0ZXNLiJH1FHyJfn
-	 rhzUjSxmatRRaaWd3CLU39G2tCWFfKpEchQMgwihX/ne2wAGVm1SBi9/f2yzf/AGzpbHE
-	 tPCmTEB27Tw/i7nevs3wgSCXxvppf1O+GX3TnLWRZ2/dhoy6WuRfgpLsSBmTHoEIDskEX
-	 Q1JkJXaKJ1w8jYx2TcJPRGyAStR82JXL4gdpU1dlb2nox58MoO9qecAA162pYxMOsMQ==
+	bh=4e8eWveKfWl1/WQrhm4+gMQO+g2THkHhc+NShKAFmgU=;
+	b=jh1bt/E5AWp+65ux5IVPuES+2sTgsZvWL+ML1Ig1UflKTCY9+DxOFjEIP80M7gXLgom9
+	 YXSy9nrXDa6qDHKJ2Jso2SreL+Uz4zkB9bFaSEuyeyZkVQf9Ne5qW01bLsI+QHX0EvLwQ
+	 K7k1A2tjlrUCb/ru5lNm02Isb81kgEn9vBpEqIcJpT3ugpuKGKYsHOn1ZdA9+ckYXss4U
+	 yNrJ6Cq0aNhNssGBbPqyRUOgag7S2uO90yyBDZq3KiTkgcfJffZSeZpM6Z6gsH7SYE2kK
+	 1Ahre7tUypHEIeKYhuBrisUTD9Uc7QOOWdWH3ExOqo+LxUGHu07UqBfQYcNCV0WvBkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=1JmTzr9W;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hjlljJ9+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6794606CE5D;
-	Sat,  7 Nov 2026 15:04:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 812C7606A33E;
+	Sat,  7 Nov 2026 15:04:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=1JmTzr9W
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BB5B1F008A1;
-	Sat,  7 Nov 2026 15:04:21 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hjlljJ9+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DC631F0089F;
+	Sat,  7 Nov 2026 15:04:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794063862;
-	bh=lRXtN041X6iTmUFAInZW48v/QOffO6bTrwt48Dz3wWY=;
+	s=korg; t=1794063868;
+	bh=4e8eWveKfWl1/WQrhm4+gMQO+g2THkHhc+NShKAFmgU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=1JmTzr9WG9ftFuqW9lie7r/l81cm4ZAs3pw6lPPX0OCxS8fcdIuE+Y9FGDnZFC8in
-	 LLqN2UUzGJhWxYWwNr5Tg72wxAMSmL4hF2Versq+ddD3JToGPPLkTlPiqyhy5SfqId
-	 wenqaxa7vZtPVfW4mrxLAyk5gyuPcdLl0d0n7SVU=
+	b=hjlljJ9+evvp9LezbZEDOt1GTue1ssnEwzpVU63uy3B1nEd/3WVQE96jVQjpCCCEU
+	 okCbab1dTR9dhtf41inLhwZYtqarnElV1X8jTifNOqM4+0r2qdeNMcHTh0P54NCmbf
+	 vSQk1Zs1hZ2dHEzqXqRbbvIbFGQ2nq8vBL+Jtx1g=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Baochen Qiang <baochen.qiang@oss.qualcomm.com>,
-	Abdun Nihaal <nihaal@cse.iitm.ac.in>,
-	Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>,
-	Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
+	HyeongJun An <sammiee5311@gmail.com>,
+	Michael Walle <mwalle@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 0069/1257] wifi: ath11k: Fix possible memory leak in ath11k_dp_srng_setup()
-Date: Sat,  7 Nov 2026 08:39:25 -0500
-Message-ID: <20261107134941.295724427@linuxfoundation.org>
+Subject: [PATCH 7.3 0073/1257] mtd: spi-nor: sfdp: check the length of the xSPI Profile 1.0 table
+Date: Sat,  7 Nov 2026 08:39:29 -0500
+Message-ID: <20261107134941.404405416@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261107134939.434104957@linuxfoundation.org>
 References: <20261107134939.434104957@linuxfoundation.org>
@@ -70,50 +68,58 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Abdun Nihaal <nihaal@cse.iitm.ac.in>
+From: HyeongJun An <sammiee5311@gmail.com>
 
-[ Upstream commit 6132d70d0890c03546f6970893fd71938efb2a2f ]
+[ Upstream commit b9f34a95a81021fa1f3c9cb8cfd458e66824cad6 ]
 
-In ath11k_dp_srng_setup(), the memory allocated for
-ring->vaddr_unaligned is not freed in the error paths that follow.
-Fix that by calling ath11k_dp_srng_cleanup() in those error paths.
+The spi_nor_parse_profile1() sizes its buffer from the table length the
+flash reports in the SFDP parameter header. But it then reads DWORD1,
+DWORD4 and DWORD5 without ever checking the table is that long.
 
-Compile tested only. Issue found using a prototype static analysis tool
-built on the LLVM compiler infrastructure.
+So if a flash reports a length of one, the buffer is only four bytes
+while DWORD4 and DWORD5 sit at byte offsets 12 and 16. With a length of
+zero kmalloc() returns ZERO_SIZE_PTR rather than an error, so the NULL
+check doesn't catch it and the first read dereferences it. And the value
+doesn't just get thrown away. It ends up as the dummy cycle count for
+8D-8D-8D fast reads.
 
-Fixes: d5c65159f289 ("ath11k: driver for Qualcomm IEEE 802.11ax devices")
+To fix this, reject a table that's too short for the highest DWORD the
+parser reads, the way spi_nor_parse_4bait() already does. The table is
+optional, so this isn't fatal. The spi_nor_parse_sfdp() warns and
+carries on.
+
+Fixes: fb27f198971a ("mtd: spi-nor: sfdp: parse xSPI Profile 1.0 table")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-sonnet-4-6
-Reviewed-by: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
-Signed-off-by: Abdun Nihaal <nihaal@cse.iitm.ac.in>
-Reviewed-by: Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>
-Link: https://patch.msgid.link/20260801114911.91483-1-nihaal@cse.iitm.ac.in
-Signed-off-by: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
+Signed-off-by: Michael Walle <mwalle@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/wireless/ath/ath11k/dp.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/mtd/spi-nor/sfdp.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/net/wireless/ath/ath11k/dp.c b/drivers/net/wireless/ath/ath11k/dp.c
-index f389b97acbdd5..be65d73b904b6 100644
---- a/drivers/net/wireless/ath/ath11k/dp.c
-+++ b/drivers/net/wireless/ath/ath11k/dp.c
-@@ -313,6 +313,7 @@ int ath11k_dp_srng_setup(struct ath11k_base *ab, struct dp_srng *ring,
- 	case HAL_RXDMA_DIR_BUF:
- 		break;
- 	default:
-+		ath11k_dp_srng_cleanup(ab, ring);
- 		ath11k_warn(ab, "Not a valid ring type in dp :%d\n", type);
- 		return -EINVAL;
- 	}
-@@ -324,6 +325,7 @@ int ath11k_dp_srng_setup(struct ath11k_base *ab, struct dp_srng *ring,
+diff --git a/drivers/mtd/spi-nor/sfdp.c b/drivers/mtd/spi-nor/sfdp.c
+index 4600983cb5799..ece8bbd4bc47d 100644
+--- a/drivers/mtd/spi-nor/sfdp.c
++++ b/drivers/mtd/spi-nor/sfdp.c
+@@ -1175,6 +1175,7 @@ static int spi_nor_parse_4bait(struct spi_nor *nor,
+ #define PROFILE1_DWORD5_DUMMY_166MHZ		GENMASK(31, 27)
+ #define PROFILE1_DWORD5_DUMMY_133MHZ		GENMASK(21, 17)
+ #define PROFILE1_DWORD5_DUMMY_100MHZ		GENMASK(11, 7)
++#define SFDP_PROFILE1_DWORD_MIN			5
  
- 	ret = ath11k_hal_srng_setup(ab, type, ring_num, mac_id, &params);
- 	if (ret < 0) {
-+		ath11k_dp_srng_cleanup(ab, ring);
- 		ath11k_warn(ab, "failed to setup srng: %d ring_id %d\n",
- 			    ret, ring_num);
- 		return ret;
+ /**
+  * spi_nor_parse_profile1() - parse the xSPI Profile 1.0 table
+@@ -1192,6 +1193,9 @@ static int spi_nor_parse_profile1(struct spi_nor *nor,
+ 	int ret;
+ 	u8 dummy, opcode;
+ 
++	if (profile1_header->length < SFDP_PROFILE1_DWORD_MIN)
++		return -EINVAL;
++
+ 	len = profile1_header->length * sizeof(*dwords);
+ 	dwords = kmalloc(len, GFP_KERNEL);
+ 	if (!dwords)
 -- 
 2.53.0
 
