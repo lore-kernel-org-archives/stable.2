@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794061073;
-	b=Xdi3eqJdHxx87MdY/JlsvYg4Am89Hx08a8VwIfnm5zZ/0cZvvhBPfJY2ZvG9B9R6kdZn
-	 aVjTsljxRtEEFUussU2VrXQ4/N9/C+rDzWUPLDd0HQUx2eXOaIgN4shTbMwezzvEXLu7d
-	 xT9lUpPeYPNA0UGBKwQHD1UKSm5qlcWNyARs8d+e51LFFRG6kiXyPeaHP9FiXoW7xR3Jf
-	 L+pw4reO6gJKsHL27OYaCTR9RXjK+h1zNuM3h/eVM63PAepLp2uqqiuMkgQWQif/kX74Y
-	 XE97c0z6a/7ZcP9xL6LtuwiRU2onjlMHOKne892XI2LFlkSEStLnw32zgrpj+SyrZYw==
+	t=1794061078;
+	b=uy8TiHNvTxpht1+8ylmjuashAbMD+/rVPrwKKBcLXjoxI8RE6NMyiSHyzop960rBwHpk
+	 5zZ29PpvscDaPTevlTywmvDWMhp/Wr1vwmFyLy7r9ttHK727wd0rDXwEqp7+8NiZPEkhI
+	 eRLqInfpanQ0OC2bkeSxmqao08A5RuP/qjZJ7wUOLfdIy9/Z+n5VynJre2PVgUCk/zp8V
+	 z05MvpD3svh0enNHZfhN82hl2UM6ZeZeGp+nQBHNHPnXECdMRTnCWF0k+vi+SBk+AaD2e
+	 alWkOy6JtFKA6qSMMUhf1cWNJU2xLWppHPr0Jj8PZiDeXzrqUHKv7OxBpC6RXkeGYeA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794061073;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794061078;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=V/byLz1wPodOf2azukHDgZ8q6TzmJj95DXWy/c5AoFY=;
-	b=VXw7INCVYuXGk2SiLR/N5LbM99sUfpfA2f+vR51XSZMqvBCXpe1PZVkCwo99rIS4eNod
-	 6kE7sTfuiaD3d8pZWO5cU2p5PhMLcd1dWcQkqyZOjId+89zIYSTaCjzZaBpFeislwg2tn
-	 HnXYwVGaa8uxi6VTnGpl4ry9MK8bjT2mIP0hrrPi5PqMQBhkbW+hCtX4DTK8CuYaEzVQe
-	 4S9PLCoXGqtwI6he/giACedBtIiWq9XfdgWeKO54Qa4aNl/04lITRfrgpBcAAA4x/VT2C
-	 KyJefTJCxtitDmK8k65Ue7gYcwcBu1flVRsCDWHYqmm3Egn+olf3fAmQaGppOfj36Vg==
+	bh=Jv3cTumzdc3cAYrG4L01rRIJX7szilCr4uD0NEav9S4=;
+	b=eE+EMG2zOI9zCDHG6VZ1SadQ1oTh5LWTrsoYkvL+u93UiUpuNOcd4GJCHgSQgyDMpc9g
+	 4O29QwfK9/JsIZ6DLeY8/oquX/PEobjBk7joUS3JvARi+yFBlDyhTQcQ2MM1f4GsEmUOn
+	 IK85e8490JGHk6yzvmlvgktg4ot6aiuefWOl7uL1IW+BI+RJwpM08samcvGrQYuTe3O17
+	 oQQwXbqn6gfltpwL63cWR9zpYF8aUrNO/sBzwJLbrfUEFYN5aOEUWbz+5Ui5NpmqCVVGe
+	 67pnRknnPBXsvFbY7z/T1+zEYBOlUb3342kcO5J1MiZxoaoy/PTIBjFerdm5+q57GYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=pBAULcLt;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=GktuWOA4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D0D1606D80D;
-	Sat,  7 Nov 2026 14:17:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E637606A33B;
+	Sat,  7 Nov 2026 14:17:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=pBAULcLt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73FED1F0089F;
-	Sat,  7 Nov 2026 14:17:51 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=GktuWOA4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DAAE1F0089F;
+	Sat,  7 Nov 2026 14:17:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794061071;
-	bh=V/byLz1wPodOf2azukHDgZ8q6TzmJj95DXWy/c5AoFY=;
+	s=korg; t=1794061078;
+	bh=Jv3cTumzdc3cAYrG4L01rRIJX7szilCr4uD0NEav9S4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=pBAULcLtcbnuK/0kbJ8NjDK2VUGlINu/nbiQumuhYbA9McMZh2D8jYzrxW+Uv/Lo+
-	 +7Mf+HVFBK7ehDR2eiE/Vu1MlgPpmq/2A1gw7bIPA3/K27X0ndo8woSZLSfT82LnlP
-	 Wd2hz1KbhWhPDNeOWYYy27nqSuJPpfBXVPAZPmR0=
+	b=GktuWOA4RkQsAKSEuiUncCYegCC7gZ8N3tDKXP5bXWByzq5AYJMWd3EMy7mvclKvd
+	 E1lXh1fiiZUHLb5YY90Ql3DCkIweFZjOMzsEmOd5L/w6FVUBXT6f1FT/mFoKS5Sa93
+	 4oH50GzdT5/pRt9re8aClLtRGdfVFqxqaCG55k7I=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Bob Song <songxiebing@kylinos.cn>,
-	Takashi Iwai <tiwai@suse.de>,
+	Namjae Jeon <linkinjeon@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 0398/1536] ALSA: hda/conexant: Always enable the headset-mic pin on plugin
-Date: Sat,  7 Nov 2026 08:40:14 -0500
-Message-ID: <20261107135008.769535667@linuxfoundation.org>
+Subject: [PATCH 6.12 0402/1536] ksmbd: handle allocated range queries on dense files
+Date: Sat,  7 Nov 2026 08:40:18 -0500
+Message-ID: <20261107135008.876518461@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261107134957.653319350@linuxfoundation.org>
 References: <20261107134957.653319350@linuxfoundation.org>
@@ -68,53 +67,84 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Bob Song <songxiebing@kylinos.cn>
+From: Namjae Jeon <linkinjeon@kernel.org>
 
-[ Upstream commit 9642a5e843758686e02a7f0d1df9eb0f7f96603c ]
+[ Upstream commit 350684e0498512d06963858b810101f58563810b ]
 
-Rename the function to cx_process_headset_detect_plug_type() to reflect
-that it only reports the detected plug type, and move the pin control
-write into cx_update_headset_mic_vref() so that node 0x19 is always set
-to enable the headset mic with the 80% VREF whenever the mic is
-present, regardless of the type detection result.
+FSCTL_QUERY_ALLOCATED_RANGES currently relies on SEEK_DATA and SEEK_HOLE
+for every file. That works for files with holes, but it is not a good
+match for dense files.
 
-Signed-off-by: Bob Song <songxiebing@kylinos.cn>
-Link: https://patch.msgid.link/20260826115344.2128835-1-songxiebing@kylinos.cn
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+A zeroed range in a dense file may be represented as an unwritten extent
+and skipped by SEEK_DATA. The server can then return no allocated ranges
+even though the file should still be treated as allocated from the
+protocol point of view.
+
+For dense files, report the requested range clipped to EOF as allocated
+instead of probing holes. Keep using SEEK_DATA and SEEK_HOLE for files
+marked with FILE_ATTRIBUTE_SPARSE_FILE, and wait for writeback before
+probing so punch-hole updates are visible to the filesystem seek
+implementation.
+
+This fixes the case where a query after zeroing data could return no
+ranges for a dense file.
+
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/pci/hda/patch_conexant.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ fs/smb/server/vfs.c | 29 ++++++++++++++++++++++++++---
+ 1 file changed, 26 insertions(+), 3 deletions(-)
 
-diff --git a/sound/pci/hda/patch_conexant.c b/sound/pci/hda/patch_conexant.c
-index 6b688832d71d4..4e72ddde7165e 100644
---- a/sound/pci/hda/patch_conexant.c
-+++ b/sound/pci/hda/patch_conexant.c
-@@ -213,7 +213,7 @@ static void cx_auto_free(struct hda_codec *codec)
- 	snd_hda_gen_free(codec);
- }
- 
--static void cx_process_headset_plugin(struct hda_codec *codec)
-+static void cx_process_headset_detect_plug_type(struct hda_codec *codec)
+diff --git a/fs/smb/server/vfs.c b/fs/smb/server/vfs.c
+index 32ef9618a4af6..ed0702cdbf3e9 100644
+--- a/fs/smb/server/vfs.c
++++ b/fs/smb/server/vfs.c
+@@ -1031,7 +1031,8 @@ int ksmbd_vfs_fqar_lseek(struct ksmbd_file *fp, loff_t start, loff_t length,
  {
- 	unsigned int val;
- 	unsigned int count = 0;
-@@ -249,10 +249,12 @@ static void cx_update_headset_mic_vref(struct hda_codec *codec, struct hda_jack_
- 	 * Check hp&mic tag to process headset plugin & plugout.
- 	 */
- 	mic_present = snd_hda_codec_read(codec, 0x19, 0, AC_VERB_GET_PIN_SENSE, 0x0);
--	if (!(mic_present & AC_PINSENSE_PRESENCE)) /* mic plugout */
-+	if (!(mic_present & AC_PINSENSE_PRESENCE)) { /* mic plugout */
- 		snd_hda_codec_write(codec, 0x19, 0, AC_VERB_SET_PIN_WIDGET_CONTROL, 0x20);
--	else
--		cx_process_headset_plugin(codec);
-+	} else {
-+		cx_process_headset_detect_plug_type(codec);
-+		snd_hda_codec_write(codec, 0x19, 0, AC_VERB_SET_PIN_WIDGET_CONTROL, 0x24);
-+	}
- }
+ 	struct file *f = fp->filp;
+ 	struct inode *inode = file_inode(fp->filp);
+-	loff_t maxbytes = (u64)inode->i_sb->s_maxbytes, end;
++	loff_t maxbytes = (u64)inode->i_sb->s_maxbytes, end, query_start;
++	loff_t query_length, size;
+ 	loff_t extent_start, extent_end;
+ 	int ret = 0;
  
- static int cx_auto_suspend(struct hda_codec *codec)
+@@ -1047,11 +1048,33 @@ int ksmbd_vfs_fqar_lseek(struct ksmbd_file *fp, loff_t start, loff_t length,
+ 	if (length > maxbytes || (maxbytes - length) < start)
+ 		length = maxbytes - start;
+ 
+-	if (start + length > inode->i_size)
+-		length = inode->i_size - start;
++	size = i_size_read(inode);
++	if (start >= size)
++		return 0;
++
++	if (!length)
++		return 0;
++
++	if (start + length > size)
++		length = size - start;
+ 
+ 	*out_count = 0;
++	query_start = start;
++	query_length = length;
+ 	end = start + length;
++	if (!(fp->f_ci->m_fattr & FILE_ATTRIBUTE_SPARSE_FILE_LE)) {
++		ranges[0].file_offset = cpu_to_le64(query_start);
++		ranges[0].length = cpu_to_le64(query_length);
++		*out_count = 1;
++		return 0;
++	}
++
++	if (start < end) {
++		ret = file_write_and_wait_range(f, start, end - 1);
++		if (ret)
++			return ret;
++	}
++
+ 	while (start < end && *out_count < in_count) {
+ 		extent_start = vfs_llseek(f, start, SEEK_DATA);
+ 		if (extent_start < 0) {
 -- 
 2.53.0
 
