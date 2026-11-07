@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050114;
-	b=guVt95LFUaf2C1/OA4/FqxQp8xVI9pBgoD3pipTPl10mN1dChJlthf/xiYNjdg5058yP
-	 lFVUY3gdE//ZAAIy55foWy3vlOtmf1gqqjnsYLxVYskfwhA3LVRhINbUtvuOvW1Q4cUbD
-	 Kw0DJlMXXdWkMgKpPIbeSvudxFvhLsB7WCkVEySDMlMnuhS0Ze7uu2W3EH5bc3s1E/SUw
-	 couIgw5c8gM/SNQJGn0Dw48OPNWyg0xtqK5SEiF++ptVchz65QYSf+j3IowZkBX/dMhfW
-	 Ltff6rSz9j9tSy2Y7i1h9CTHlGauucmI9sBZM9W6kbrJQTFN6woI+FxaTLDMQqvplGA==
+	t=1794050116;
+	b=y3iMO0beZFhFvx77/fQCyWThG7bSAFRcaVfaWRKLf5iTyAgBfJpfnf85wShW/lMg8Zsb
+	 kM1wPNzTAV8Wn1ug8S+rRvSPhrLIL9zuaYdy61CAzVoDBcF/omLvpR0Rz1BoXuNz9jC2E
+	 hkrTBZ4M9FdBgfvISLTvTE9/kEbFmyskV4/Y5u7k9IJbaJqp6GL5QQfpy+vKW/W0roEJs
+	 lZtELmPk+BNoEn5CCWx7D0zlagYtT14K2gbMl6yzsKl08lF6zxI9TvEM4KmxKF2kDMuIy
+	 /2vazvgJridiujyRvD8c49sz5q8zoXoAjUeyrJQDPY130d38PMRMVFCWtvVu8zW4Lvw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050114;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050116;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=zCffoh2tGhavnbskLyX83Keq53JuclyIFAMh0sw7q0E=;
-	b=HCZugP/y88Gb1oBfkiYlwfuDNlD17JxAc3Fywb3eI7oOZcrLYtberkqHAWSbAzU0Dg1L
-	 erkFdS/ddjMvgn7w2hfviOpA7WdesrldbcRcoC0km9u4cIdgNe1dzdOn+FwKJNwU5VUB1
-	 AUpbgkEvguBWRMKVf+yVqfKUHZ3jo75zPeQ7RulMZufngZDNT8zuZHBvt7QTO7hKQRhFv
-	 hpjB9370i3K//EyIi9tiUwR2Za5fmlK7xdEzW3ZxBi/+UDRcy7gfrDtUY36CX6hXlGvR5
-	 GkUD5B7W2MSVQ6wa1F6ELEwEP2irKhNPmzLZf6cNK5hGn6/2zJ5zHOwhWJENYVJh5pA==
+	bh=hztmqY7Y+MGcUg1JzJTU+IazNJVURSMUYIBtmKLPn2U=;
+	b=XiFwdEbwtqNwmN+6z6UMqY+ygIJp5bMZGt7737Znf+V0c4wrzQm5FBXUV3OmoZoS4p88
+	 0DZfZtJm9rholwOpf3/XbhbUAIQuKWCbAKJY0rGmqQw7NY72Mkprjd9JhNhjig0R2xSfK
+	 ULUl+p2YrJdbKnoEt73Bbof9ZZyB95aMhK6k0AdccwoDPmiuCJB42f4yqxdths0BazUmQ
+	 JH5tizmQUcIQo/lYjeum+udWO4pP8DCeXq5mNptVya9boBftVsXzkoYgLi5I6inaMucg1
+	 O02vqTW3ZMWaxsqp8yCxoJKdxp8s8K2KaznRcguPt7Qlzz80B5oZivVpr4m5DDrMZsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dMqtHNvc;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lhUN3bvh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACA48606A330
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:15:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E1D6606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:15:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dMqtHNvc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 154B31F0089F;
-	Sat,  7 Nov 2026 11:15:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lhUN3bvh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08F351F0089F;
+	Sat,  7 Nov 2026 11:15:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050113;
-	bh=zCffoh2tGhavnbskLyX83Keq53JuclyIFAMh0sw7q0E=;
+	s=k20260515; t=1794050116;
+	bh=hztmqY7Y+MGcUg1JzJTU+IazNJVURSMUYIBtmKLPn2U=;
 	h=From:To:Cc:Subject:Date;
-	b=dMqtHNvcMH2bxgmhBEffl3z4P7+dRqvwZh+31c+NM6MwDNkptQ0D8UN8pI2fxsRtb
-	 zQv+f13h1iQ/HXtNkE5rc/aNm/1rQSZG4DJ+7+/KGIy26evqWNgz4dfe3DTL/I5YaF
-	 5W17NbO+mg8ul/G3+F0i2LSo8mGz/MgMe9qD9ZTaBPFrbJkf1BIsJFBTVy2vcgxJHo
-	 m++WyAC9CWqhaBmUU4xpE0VnzsUxhYXGDj1AhEk9e9aBNIp9ZeubQYM1gx8EXsD0wR
-	 stL+y9+4cP1ZXm+eJAgAvs9+gQErF/MPo3dgaqX0uUDNB/uSdC9ySQcTzJ+0SbjTW4
-	 FXbe+bpcYcOqg==
+	b=lhUN3bvhGXCQNQo6Nmc8W0+M5Vjj8bfppgyyn3TfvDRp/G0OnDrtIyUdAJtcpyBRI
+	 51ebgdbh0l57KWSlfcizPk2YtntLIDfLy8LGGfzbwQXL0K1qm0uTE8Z1FildAcfey4
+	 5SLNsh9jicZscpGyvw6Vi6IMdvfaW3h1L3BWRcxtJvQUKJNNTGYwpMg/POW6wY3uEO
+	 0oATGXaI09NFsAElgF5G17dftORuQbE5UfkuKp2RGjgYDf5nLYC2RS+4DDfOFsBwcs
+	 MZvi/YQG0iD423lNIqhmrtolD965poyehmM283riDG6oMjASyVhLw2jnjz7NhvcyXq
+	 ANPzAmwlIhRvA==
 From: Sasha Levin <sashal@kernel.org>
-To: balakrishnan.s@microchip.com,
-	ehristev@kernel.org,
+To: pengpeng@iscas.ac.cn,
 	hverkuil+cisco@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] media: microchip-isc: don't sleep in the clk .is_enabled callback" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:15:11 -0500
-Message-ID: <20261107061511-failed-5.10-61490ff518c7@kernel.org>
+Subject: FAILED: patch "[PATCH] media: require two-byte Cypress type 04 records" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:15:14 -0500
+Message-ID: <20261107061514-failed-5.10-e22872703386@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,64 +68,67 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 61490ff518c7b3ea3ff1cd16bbc012e9e4f1ab74
+git cherry-pick -x e22872703386c3885d8c6bd595124587bc4e5081
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061511-failed-5.10-61490ff518c7@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061514-failed-5.10-e22872703386@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 61490ff518c7b3ea3ff1cd16bbc012e9e4f1ab74 Mon Sep 17 00:00:00 2001
-From: Balakrishnan Sambath <balakrishnan.s@microchip.com>
-Date: Wed, 19 Aug 2026 11:49:20 +0530
-Subject: [PATCH] media: microchip-isc: don't sleep in the clk .is_enabled
- callback
+From e22872703386c3885d8c6bd595124587bc4e5081 Mon Sep 17 00:00:00 2001
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Date: Fri, 14 Aug 2026 16:08:02 +0800
+Subject: [PATCH] media: require two-byte Cypress type 04 records
 
-isc_clk_is_enabled() calls pm_runtime_resume_and_get() and
-pm_runtime_put_sync(), which can sleep and are not safe here, as
-.is_enabled must run in atomic context. clk_disable_unused() calls it so
-at boot, and CONFIG_DEBUG_ATOMIC_SLEEP reports a "sleeping function
-called from invalid context" BUG.
+Both Cypress Intel HEX parsers read two address bytes from type 04
+records. Generic record framing permits any record length, so a short
+record can make the parser consume the checksum or bytes beyond the
+firmware record. A longer record also violates the Intel HEX type 04
+layout.
 
-Use the atomic-safe pm_runtime_get_if_active() and pm_runtime_put()
-instead. A suspended ISC has its clocks gated, so report the clock
-disabled when the device is not already active.
+Require the type 04 payload length to be exactly two bytes in both
+implementations.
 
-Fixes: 01192aa1c5c2 ("media: atmel-isc: Enable the clocks during probe")
-Cc: stable@vger.kernel.org
-Signed-off-by: Balakrishnan Sambath <balakrishnan.s@microchip.com>
-Reviewed-by: Eugen Hristev <ehristev@kernel.org>
+Fixes: 79a63c60a6a2 ("[media] media: move dvb-usb-v2/cypress_firmware.c to media/common")
+Fixes: 776338e121b9 ("[PATCH] dvb: Add generalized dvb-usb driver")
+Cc: stable@kernel.org
+Assisted-by: Codex:gpt-5
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 ---
- drivers/media/platform/microchip/microchip-isc-clk.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+ drivers/media/common/cypress_firmware.c      | 2 ++
+ drivers/media/usb/dvb-usb/dvb-usb-firmware.c | 2 ++
+ 2 files changed, 4 insertions(+)
 
-diff --git a/drivers/media/platform/microchip/microchip-isc-clk.c b/drivers/media/platform/microchip/microchip-isc-clk.c
-index 24358d804e75d..66dc522a61908 100644
---- a/drivers/media/platform/microchip/microchip-isc-clk.c
-+++ b/drivers/media/platform/microchip/microchip-isc-clk.c
-@@ -98,15 +98,14 @@ static int isc_clk_is_enabled(struct clk_hw *hw)
- {
- 	struct isc_clk *isc_clk = to_isc_clk(hw);
- 	u32 status;
--	int ret;
+diff --git a/drivers/media/common/cypress_firmware.c b/drivers/media/common/cypress_firmware.c
+index 66274fdf52438..d0f66ed01c4b1 100644
+--- a/drivers/media/common/cypress_firmware.c
++++ b/drivers/media/common/cypress_firmware.c
+@@ -59,6 +59,8 @@ static int cypress_get_hexline(const struct firmware *fw,
+ 	if (hx->type == 0x04) {
+ 		/* b[4] and b[5] are the Extended linear address record data
+ 		 * field */
++		if (hx->len != 2)
++			return -EINVAL;
+ 		hx->addr |= (b[4] << 24) | (b[5] << 16);
+ 	}
  
--	ret = pm_runtime_resume_and_get(isc_clk->dev);
--	if (ret < 0)
-+	/* Runs in atomic context, so must not sleep to resume the ISC. */
-+	if (pm_runtime_get_if_active(isc_clk->dev) <= 0)
- 		return 0;
+diff --git a/drivers/media/usb/dvb-usb/dvb-usb-firmware.c b/drivers/media/usb/dvb-usb/dvb-usb-firmware.c
+index 0fb3fa6100e4a..675d9d1d4f472 100644
+--- a/drivers/media/usb/dvb-usb/dvb-usb-firmware.c
++++ b/drivers/media/usb/dvb-usb/dvb-usb-firmware.c
+@@ -141,6 +141,8 @@ int dvb_usb_get_hexline(const struct firmware *fw, struct hexline *hx,
  
- 	regmap_read(isc_clk->regmap, ISC_CLKSR, &status);
- 
--	pm_runtime_put_sync(isc_clk->dev);
-+	pm_runtime_put(isc_clk->dev);
- 
- 	return status & ISC_CLK(isc_clk->id) ? 1 : 0;
- }
+ 	if (hx->type == 0x04) {
+ 		/* b[4] and b[5] are the Extended linear address record data field */
++		if (hx->len != 2)
++			return -EINVAL;
+ 		hx->addr |= (b[4] << 24) | (b[5] << 16);
+ /*		hx->len -= 2;
+ 		data_offs += 2; */
 -- 
 2.53.0
 
