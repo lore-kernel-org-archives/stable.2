@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049857;
-	b=Q61XUiOQr3tW5yL9hxAhabgSpf2rviR2U/M4vkPPtAzK3H3KeSfPw4uhitFmRfZZbRBn
-	 FENRyaz4JPKyiDdjmBmmjmCw3WIk5+R6EUt681nnb6Rid+9uiVW2P2vAKJtoaAP+lQcCi
-	 I9PJihisdgW9Psl2vbWoDZB88XSrSPEfjiQ821AvWik/kONOfpPcgp/dnbDb86y1AOf74
-	 tJAgMs+y8+sD+q/PIMCACbzQbmGkWRcVIgNhB9zElp6wO0kHelRBxDEBfCjVZgcbYheXJ
-	 RD9LHTMFRCbkdNyVZL/Riwp40UJEbha+V8nG8oOuMbfuV3hnrrOustiZySQfOn752JA==
+	t=1794049860;
+	b=qy4FrqXMDHc9tUdXUjNyGwZ+SpDHpg+WmBIyZS9K2gxVINYANQfjqEOruc7fToTlnx0B
+	 ma9rGvhHZCWrW4I+jERz1vwmS2kluiq+gcElFQNHXrhIN+dSR5ruqLZc8zi/DuUL84log
+	 /ySexVjTECC8rPOPc5gUNHTxLdeiZe/OemU+TbnYd5nmRVKzuJ4WVeX5c6gLb7wElLCmP
+	 hWDmr+snIL9fEtX+Dd5hynzXDR5iKtTY7fxZwPehiMvCZ2FW0lpBG/H3olQmJpFK3A/7d
+	 RLfuMneHnqRCSVE+U00d9TSAWHxZYkzzXrp+V4aSK6aluunoZA3C7mvRNZ3uSI7mo6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049857;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049860;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=nM/cnVc3CLuot/k94U0/r3DXHN/aWGrm5v1Sn4oASBE=;
-	b=EBN4dFqIDegis3cAu/Udoe0fq8oD2Adr2k0SKnruSRt3a8rRKTHbdHM3HR010ivtwq8o
-	 YmlhmOb3/l77VpyFP4buUfeaKhoP6wW2Zir+Ad3ewSi/E0qeL/8RWhnCGF8XOTg+uwfJ/
-	 oEQzsKPX420GyLcHfCHolnzArygNIfsK7oSi53qPdbcNEZGdtDfpEKMD4K0L9NhGsOdKz
-	 wlWdproyV8LwAmghRojPMDBpOzRVmroJRHqGUDG3ct3S5l/vb7Y944ghBBBaVmqOy2RPX
-	 yFK9lpr7MBWzoVOxA2J4zzRqqFHCHNn3nlg6x/3ZUaymmDOiRa4gcWP83xOleb6yp9w==
+	bh=bSDowyH4qKe5/IVFFQVOXAJwnQjNVeipncLQ1CPywVA=;
+	b=i61UX68EiMe2cKFjRZkib6sSnHXQTiD8XmKbgsmn1HGmAm0P1hHsye7uAYNE7gMIjBnT
+	 ERH8vP3/ijly1a9F54/sTEGAHszimNYFqoBw7WklyBbZo4y/3BZY5iNrq+AhoZJ4mTZw/
+	 O8p4X4aoQgQpvG/EAhW5p/Jy3fXl/jE20AcurBrCFPJb65aLo9NythrkxwHtH9+UCeQ/1
+	 6YboC3Z+IrZhxtMM4A75woABrWtjYNmo8mPyN3YD6Hz1CyMW5ljsYOBYtndjNi2TeF6iy
+	 bL2WFYRURuYGTtD/b0sQwHvyRfM5/c7SC9Qsrb4KoF4666T5TjwEjKT2pyyDuKNiJcw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bpWwukvA;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="JanE8/Im";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35AC2606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:10:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1688D606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:11:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bpWwukvA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA48D1F008A1;
-	Sat,  7 Nov 2026 11:10:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JanE8/Im
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E7C61F0089F;
+	Sat,  7 Nov 2026 11:10:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049857;
-	bh=nM/cnVc3CLuot/k94U0/r3DXHN/aWGrm5v1Sn4oASBE=;
+	s=k20260515; t=1794049859;
+	bh=bSDowyH4qKe5/IVFFQVOXAJwnQjNVeipncLQ1CPywVA=;
 	h=From:To:Cc:Subject:Date;
-	b=bpWwukvAknoNm+LjJXVo9Qz9UgahjbvhrzCtoWqADuuqAReb2kczbHA+ORfenHjfK
-	 x1mGnE1MfovKvSWKnAyidOZsVOQg4iyFZgcmLNGclRd1ESCOl/kwK8jdQ3Niu+zx9Y
-	 TC7tqq80oGuIKOFb17PQLwJ3QjIM3HkRVlaAFfH0S2tAJLkIp1x7PCq4tqNQ0Ne3G0
-	 yj8SyF5rlMJJqSmqfRbC/t5Fs7U983lub2ZDFOwoOMGZjNWqcvgHEuc3wbxI1WVXSi
-	 uJKws7oGeZtCwiiFl4G6GhYSUktyN8pKI5s27F5yKPORyRdeuM7SBVIeXkPvjOb3Xy
-	 dsTNniRjCch1g==
+	b=JanE8/ImCXihiEqJZLhMiMlwQafqv7wryrOPauGyNe9nl/eI6DG/Zs7YYf5037lO8
+	 aj+B9pf5Lm36x8myzRNAbulO8awxilLhJD9njmkyMDjvNbhY8pDYPxR+mAe9OIAJo6
+	 NZw+xLEREGBtoH1jWCc+CcRThBO2NMPprlePvKImu8YqeLUtm0VeJCJ6UAVTxy/b7X
+	 FmKEYnuy/6BDdCJ7OifgADsBSoRD1QCoiXNcCE6BLfJ9YVbBQ3l+TBBA+sKdChAavA
+	 Ch3n9Uoc9HesQifHpwse0NpRWQJLzjc3rbUbO4PwxYcA9L0GykSnJs6KP8T7iuGcBh
+	 jCp1rEfQc7ilg==
 From: Sasha Levin <sashal@kernel.org>
-To: cyan2254650260@gmail.com,
-	broonie@kernel.org
+To: iav@iav.lv,
+	tglx@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] spi: zynq-qspi: fix address buffer corruption and support 4-byte address" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:10:55 -0500
-Message-ID: <20261107061055-failed-5.15-dc5ca34f5e8d@kernel.org>
+Subject: FAILED: patch "[PATCH] genirq/kexec: Do not take the bus lock of an interrupt chip on the crash path" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 06:10:58 -0500
+Message-ID: <20261107061058-failed-5.15-717862eac6ef@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,97 +68,141 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x dc5ca34f5e8dc10c566ef39aa3b1a201a17ca734
+git cherry-pick -x 717862eac6eff0eea8ac30a0c0de0bed84922aab
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061055-failed-5.15-dc5ca34f5e8d@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061058-failed-5.15-717862eac6ef@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From dc5ca34f5e8dc10c566ef39aa3b1a201a17ca734 Mon Sep 17 00:00:00 2001
-From: Pufan Jin <cyan2254650260@gmail.com>
-Date: Fri, 16 Oct 2026 21:08:12 +0800
-Subject: [PATCH] spi: zynq-qspi: fix address buffer corruption and support
- 4-byte address
+From 717862eac6eff0eea8ac30a0c0de0bed84922aab Mon Sep 17 00:00:00 2001
+From: Igor Velkov <iav@iav.lv>
+Date: Thu, 15 Oct 2026 21:51:50 +0300
+Subject: [PATCH] genirq/kexec: Do not take the bus lock of an interrupt chip
+ on the crash path
 
-In zynq_qspi_exec_mem_op(), when transmitting address bytes, the driver
-iterates over op->addr.nbytes and populates xqspi->txbuf[i]. However,
-xqspi->txbuf is never re-assigned before populating the address, meaning
-it still points to (u8 *)&op->cmd.opcode from the command phase.
+machine_kexec_mask_interrupts() calls irq_set_irqchip_state() for every
+started interrupt. That function takes the bus lock of the chip and
+desc->lock, and syncs the chip when it drops them. On the crash path
+interrupts are off and the other CPUs are stopped, so a chip whose bus
+transfer is completed by an interrupt never returns from the sync.
 
-This causes two severe issues:
-1. Memory corruption: Writing into xqspi->txbuf writes past the opcode
-   buffer on the stack (which was passed as const struct spi_mem_op *).
-   If opcode is zero, xqspi->txbuf is uninitialized.
-2. In zynq_qspi_supports_op(), operations with op->addr.nbytes > 3 are
-   rejected. When paired with SPI NOR flashes larger than 16MB (such as
-   Winbond W25Q256), spi_nor_spimem_check_read_pp_op() tests 4-byte address
-   support, which fails and causes spi_nor_select_read() to drop all read
-   capabilities, failing probe with -EINVAL (-22).
+On RK3399 boards with an RK808 PMIC the RTC alarm interrupt belongs to
+the regmap-irq chip of the RK808, which sits on I2C. rk808_irq_chip sets
+init_ack_masked, so regmap_irq_sync_unlock() writes the ack register on
+every unlock, and the I2C controller needs its own interrupt to finish
+the transfer. A panic with a crash kernel loaded prints
 
-The Zynq-7000 QSPI controller hardware in manual I/O mode natively supports
-transmitting 1 to 4 address bytes via its TXD FIFO registers
-(ZYNQ_QSPI_TXD_00_00_OFFSET).
+  SMP: stopping secondary CPUs
 
-Fix this by introducing a local opaddr[4] buffer in zynq_qspi_exec_mem_op()
-and explicitly setting xqspi->txbuf = opaddr before populating address
-bytes. Also allow up to 4 address bytes in zynq_qspi_supports_op().
+and then nothing until the watchdog resets the board.
 
-Fixes: 67dca5e580f1 ("spi: spi-mem: Add support for Zynq QSPI controller")
+machine_kexec_mask_interrupts() takes neither lock for the other
+operations on the descriptor. Move the search for the chip that
+implements irq_set_irqchip_state() into __irq_set_irqchip_state(), which
+takes no locks, and call it from machine_kexec_mask_interrupts().
+
+Fixes: 78fd584cdec0 ("arm64: kdump: implement machine_crash_shutdown()")
+Suggested-by: Thomas Gleixner <tglx@kernel.org>
+Signed-off-by: Igor Velkov <iav@iav.lv>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
 Cc: stable@vger.kernel.org
-Signed-off-by: Pufan Jin <cyan2254650260@gmail.com>
-Link: https://patch.msgid.link/20261016130812.282624-1-cyan2254650260@gmail.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Link: https://patch.msgid.link/20261015-kexec-irq-bus-lock-v2-1-2af15f0757b6@iav.lv
 ---
- drivers/spi/spi-zynq-qspi.c | 13 +++++++------
- 1 file changed, 7 insertions(+), 6 deletions(-)
+ kernel/irq/internals.h |  1 +
+ kernel/irq/kexec.c     |  2 +-
+ kernel/irq/manage.c    | 43 +++++++++++++++++++++++-------------------
+ 3 files changed, 26 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/spi/spi-zynq-qspi.c b/drivers/spi/spi-zynq-qspi.c
-index d762aaf452afd..bfcbcfe85b918 100644
---- a/drivers/spi/spi-zynq-qspi.c
-+++ b/drivers/spi/spi-zynq-qspi.c
-@@ -229,11 +229,10 @@ static bool zynq_qspi_supports_op(struct spi_mem *mem,
- 		return false;
+diff --git a/kernel/irq/internals.h b/kernel/irq/internals.h
+index 0ce21dd454047..4dff3ccae1812 100644
+--- a/kernel/irq/internals.h
++++ b/kernel/irq/internals.h
+@@ -81,6 +81,7 @@ enum {
+ #include "settings.h"
  
- 	/*
--	 * The number of address bytes should be equal to or less than 3 bytes.
-+	 * The number of address bytes should be equal to or less than 4 bytes.
- 	 */
--	if (op->addr.nbytes > 3)
-+	if (op->addr.nbytes > 4)
- 		return false;
--
- 	return true;
+ extern int __irq_set_trigger(struct irq_desc *desc, unsigned long flags);
++extern int __irq_set_irqchip_state(struct irq_desc *desc, enum irqchip_irq_state which, bool val);
+ extern void __disable_irq(struct irq_desc *desc);
+ extern void __enable_irq(struct irq_desc *desc);
+ 
+diff --git a/kernel/irq/kexec.c b/kernel/irq/kexec.c
+index 1a3deffe6b5b6..f245b98764225 100644
+--- a/kernel/irq/kexec.c
++++ b/kernel/irq/kexec.c
+@@ -25,7 +25,7 @@ void machine_kexec_mask_interrupts(void)
+ 			 * First try to remove the active state from an interrupt which is forwarded
+ 			 * to a VM. If the interrupt is not forwarded, try to EOI the interrupt.
+ 			 */
+-			check_eoi = irq_set_irqchip_state(i, IRQCHIP_STATE_ACTIVE, false);
++			check_eoi = __irq_set_irqchip_state(desc, IRQCHIP_STATE_ACTIVE, false);
+ 		}
+ 
+ 		if (check_eoi && chip->irq_eoi && irqd_irq_inprogress(&desc->irq_data))
+diff --git a/kernel/irq/manage.c b/kernel/irq/manage.c
+index 57eff26fa646a..bdb47837c66fc 100644
+--- a/kernel/irq/manage.c
++++ b/kernel/irq/manage.c
+@@ -2735,6 +2735,28 @@ int irq_get_irqchip_state(unsigned int irq, enum irqchip_irq_state which, bool *
  }
+ EXPORT_SYMBOL_GPL(irq_get_irqchip_state);
  
-@@ -526,6 +525,7 @@ static int zynq_qspi_exec_mem_op(struct spi_mem *mem,
- 				 const struct spi_mem_op *op)
- {
- 	struct zynq_qspi *xqspi = spi_controller_get_devdata(mem->spi->controller);
-+	u8 opaddr[4] __aligned(4);
- 	int err = 0, i;
- 	u8 *tmpbuf;
- 
-@@ -547,12 +547,13 @@ static int zynq_qspi_exec_mem_op(struct spi_mem *mem,
- 	}
- 
- 	if (op->addr.nbytes) {
--		for (i = 0; i < op->addr.nbytes; i++) {
--			xqspi->txbuf[i] = op->addr.val >>
-+		for (i = 0; i < op->addr.nbytes; i++)
-+			opaddr[i] = op->addr.val >>
- 					(8 * (op->addr.nbytes - i - 1));
--		}
- 
- 		reinit_completion(&xqspi->data_completion);
-+		xqspi->txbuf = opaddr;
++int __irq_set_irqchip_state(struct irq_desc *desc, enum irqchip_irq_state which, bool val)
++{
++	struct irq_data *data = irq_desc_get_irq_data(desc);
++	struct irq_chip *chip;
 +
- 		xqspi->rxbuf = NULL;
- 		xqspi->tx_bytes = op->addr.nbytes;
- 		xqspi->rx_bytes = op->addr.nbytes;
++	do {
++		chip = irq_data_get_irq_chip(data);
++
++		if (WARN_ON_ONCE(!chip))
++			return -ENODEV;
++
++		if (chip->irq_set_irqchip_state)
++			break;
++
++		data = irqd_get_parent_data(data);
++	} while (data);
++
++	if (data)
++		return chip->irq_set_irqchip_state(data, which, val);
++	return -EINVAL;
++}
++
+ /**
+  * irq_set_irqchip_state - set the state of a forwarded interrupt.
+  * @irq:	Interrupt line that is forwarded to a VM
+@@ -2749,25 +2771,8 @@ EXPORT_SYMBOL_GPL(irq_get_irqchip_state);
+  */
+ int irq_set_irqchip_state(unsigned int irq, enum irqchip_irq_state which, bool val)
+ {
+-	scoped_irqdesc_get_and_buslock(irq, 0) {
+-		struct irq_data *data = irq_desc_get_irq_data(scoped_irqdesc);
+-		struct irq_chip *chip;
+-
+-		do {
+-			chip = irq_data_get_irq_chip(data);
+-
+-			if (WARN_ON_ONCE(!chip))
+-				return -ENODEV;
+-
+-			if (chip->irq_set_irqchip_state)
+-				break;
+-
+-			data = irqd_get_parent_data(data);
+-		} while (data);
+-
+-		if (data)
+-			return chip->irq_set_irqchip_state(data, which, val);
+-	}
++	scoped_irqdesc_get_and_buslock(irq, 0)
++		return __irq_set_irqchip_state(scoped_irqdesc, which, val);
+ 	return -EINVAL;
+ }
+ EXPORT_SYMBOL_GPL(irq_set_irqchip_state);
 -- 
 2.53.0
 
