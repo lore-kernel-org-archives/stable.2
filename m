@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049870;
-	b=Tt0aipAAbzTT1F9N/IYUYHtw84UiMW6RIpezod1ou3YzbLXbvSIfsFU1ewx4IsAwxooW
-	 6Rm3916LxwrzaFiVkgW8nML6jAetrxjCgwj1RMPmybc09slP8Pq4vt6Y+QDxf41WaACud
-	 eyHfwsdefnY57V0yf8GC6xjF+a1aJUUrqxz4IOyIzDOjXH7VSYkctjBSF1Mso005YZr4L
-	 djrMHB4KWb8Y2+ADg0OwxVmyqkYPZF8iZTJqntf2ulkDlpBWrhXrf7pbgax1KfcNXEJdO
-	 ya+bosd48VarckylFeyhuAdol6KuL6vfp4of1xBnBbeJ8SoesWkqFhD5SUpw1Tti8fA==
+	t=1794049874;
+	b=aN09ILU2pQmBQoLo3b8RghdZ0JXh2EwxL3mk2RWSeq9VEWbJn3NUf4NZdsHUI580jaPf
+	 aOMUA/Q0djkjlJCPQJHHqGXQ/dU5vsPYgtw9ekQ8O0fstCFnd+WjocGEflboM11TIsHcR
+	 kIziFDtGAkx79NPPMwHfSgzrZ+QEIjy+5ZY/V/UzFQ7EKS7G5Y34PBqoYtBQeZbMrXw23
+	 gR1shDf4Jg01ZSnTQYxm7FBKIZUPXd2+YVVaEtZJK1GnmIa3JqePuIZyPHKUyG1OZH2BL
+	 INoGK4eX+EX3D0Y7Q0jRpxWMlCmKLUwan+emGx7XzwthmdOQdmCLIP2ugSxtys1Ba9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049870;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049874;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=a0rToSo1reiylm/TLu6k3MA4INxsX5VfAbllL6XJfrs=;
-	b=t/uMe8XG19k3MTDM8pAuCwF0j5YYdUkqNCG3Fqw4VQn49r9khvoTRZk3FZ+lpSCl/0wt
-	 Wwoz/2OtvkLuQK6ptUo27s+u1XYXDSgxLiq1s3NGD1z3Z+RVv1OcjCjwPb91xLzwKoGn+
-	 oHHFMNJgkPLYwrAsOMhs7L493HJIdyyuTFH6ELdE1WeqeoSa4pd387g4URTnjlmqFQcHP
-	 I80Y5UqUG5ZyJxKmipf9Yt9eRG9GmENEOpvNeNpBjaqtBg3YAj5bthwvZd5OzKobU/+Pu
-	 FUX0HrVTpvWw1x8Vp1obqAyv0DjCyZjnXnCcsYqrmCGDSuWr56G3jYZ8WKEbYboN2VQ==
+	bh=3KCAyI3toiNsOr5GnruCIie9yDz8gYI2NJN8IA5sdjI=;
+	b=FvU1DrIJHPFqZzqAamH+ZeeHv+PH0RbBncrWWPT1hxmwIClnHohjvikttqAaJ6yaqBnc
+	 QibQRFp0Yvn8aduEwHLi/LMEBb3MtyGEJGg9npAho1Lz+RH3S/siADRSbj1JBtzi/xnJT
+	 9IvhQNHJ/CI89TEcyQ+cvxuKhyGu5ph2+BP7Gvw/aB/73GbG86+J7CBDppgfsJ3gOL/Nf
+	 QIRe06Xn1OMFXsWe/2/k5UUjF1Qf0/WGY0ztOEqsW2CJnAZs6W6GeGEaDZ+L791ScWxFR
+	 aFUv2fzHAf+2iEs7cmYNOB/f3xiaAFRl/sUYsJu7/3J8i3jeo/DH1NE5mgYEhBmbK6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eDa6SNCM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ew+OEHTL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35C94606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:11:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1F84606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:11:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eDa6SNCM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C4BF1F0089F;
-	Sat,  7 Nov 2026 11:11:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ew+OEHTL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97A591F0089F;
+	Sat,  7 Nov 2026 11:11:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049870;
-	bh=a0rToSo1reiylm/TLu6k3MA4INxsX5VfAbllL6XJfrs=;
+	s=k20260515; t=1794049873;
+	bh=3KCAyI3toiNsOr5GnruCIie9yDz8gYI2NJN8IA5sdjI=;
 	h=From:To:Cc:Subject:Date;
-	b=eDa6SNCMs5AU+7WrOoESZ+rVsM2LduPzNxKx/kiLO78HOQ2ynDIy2KisKOBmsp16q
-	 7adaQQ5PwH0OjxPyaMGGFELDwCHRAHo/wkgOTTkzsKRm3lIsVe8+0VSCbZYKK6Jsnx
-	 0U88zgovvMMHcicTJeIpTWCP30S5IBLD6Cs+T5N4hZJqxF6sr0CtWYudjpc9W8fBeC
-	 iObT8cUkWxgH6t5l8jv80HZzsFAFzXIy0atkdvLNvOOj55zxRh8rgu33iz34wDlRns
-	 vkLMwYQeHeyM/rUgzPzT7Su2xr1Vnh1rXGX/5IuvnEdlsNc0cGzVuQAOSw+IDzCn2D
-	 q1XEWEi9ZDaMg==
+	b=ew+OEHTLionqOWPaU2FaBN7AFAxYwUFCiqpLYffJHk6epDyo8jvQ06UyP0gfnsGAE
+	 VKzBOsXanEM2JO0vJb418+mRePU5DQxVxlBZThDgYbKrbkRNplmIje94FQc89JoAb6
+	 TNKftzGLO1ERrluhaLTKMNEU6ltkv6Ovy2mY+IUgGZutHx1qRLEOzdDcw+rfm+WMFu
+	 X7uNCFtNTNqSX+g8sW/su/qk6K1SKN0/iTsZOW27Z4R0q/r4e109fr6yFFKGDMOgjD
+	 ZDxQgzKaMnyIWj9HN6smIIaRoBMPmFpmAXhY4g9yA+As3RETS51lGOK0r9vg7Rk6u1
+	 1NUdbH8GwW3mg==
 From: Sasha Levin <sashal@kernel.org>
 To: stanleyjhu@google.com,
 	beanhuo@micron.com,
@@ -46,9 +46,9 @@ To: stanleyjhu@google.com,
 	bvanassche@acm.org,
 	mkp@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] scsi: ufs: bsg: Complete the job on error" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:11:08 -0500
-Message-ID: <20261107061107-failed-5.15-cc0ce3fe8fac@kernel.org>
+Subject: FAILED: patch "[PATCH] scsi: ufs: bsg: Clear the reply buffer before use" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 06:11:11 -0500
+Message-ID: <20261107061111-failed-5.15-2e63ac76cc08@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,65 +71,52 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x cc0ce3fe8fac073ecded4f32c8ee5b89da1397e8
+git cherry-pick -x 2e63ac76cc08ea376ba61fef52f7b7849e35024d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061107-failed-5.15-cc0ce3fe8fac@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061111-failed-5.15-2e63ac76cc08@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From cc0ce3fe8fac073ecded4f32c8ee5b89da1397e8 Mon Sep 17 00:00:00 2001
+From 2e63ac76cc08ea376ba61fef52f7b7849e35024d Mon Sep 17 00:00:00 2001
 From: Stanley Jhu <stanleyjhu@google.com>
-Date: Thu, 15 Oct 2026 08:18:51 +0800
-Subject: [PATCH] scsi: ufs: bsg: Complete the job on error
+Date: Thu, 15 Oct 2026 08:18:52 +0800
+Subject: [PATCH] scsi: ufs: bsg: Clear the reply buffer before use
 
-When ufs_bsg_request() fails, it returns a non-zero status without calling
-bsg_job_done(). bsg_queue_rq() then ends the request with BLK_STS_IOERR
-without running bsg_complete(), leaking the job's device reference and
-mapped scatterlists.
+The reply buffer is allocated once per tag and reused. Requests that
+complete with a positive status do not fill all of it, so user space
+receives bytes from an earlier request on the same tag.
 
-Always complete the job via bsg_job_done() and return 0, matching other BSG
-transports. Requests failing with a negative errno now return it from SG_IO
-with the 4-byte result in the reply, while positive status codes still
-return 0 from SG_IO with the reply header.
+Clear the whole reply buffer on entry to ufs_bsg_request().
 
-Fixes: b13a3539eb2a ("scsi: ufs-bsg: complete ufs-bsg job only if no error")
+Fixes: 95e34bf930ea ("scsi: ufs-bsg: Add support for raw upiu in ufs_bsg_request()")
 Cc: stable@vger.kernel.org
 Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
 Reviewed-by: Bean Huo <beanhuo@micron.com>
 Reviewed-by: Peter Wang <peter.wang@mediatek.com>
 Reviewed-by: Bart Van Assche <bvanassche@acm.org>
-Link: https://patch.msgid.link/20261015001855.3450573-2-stanleyjhu@google.com
+Link: https://patch.msgid.link/20261015001855.3450573-3-stanleyjhu@google.com
 Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
 ---
- drivers/ufs/core/ufs_bsg.c | 8 +++-----
- 1 file changed, 3 insertions(+), 5 deletions(-)
+ drivers/ufs/core/ufs_bsg.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/ufs/core/ufs_bsg.c b/drivers/ufs/core/ufs_bsg.c
-index 7a66917b3fc0e..18c318d781224 100644
+index 18c318d781224..545ef7b79ceb5 100644
 --- a/drivers/ufs/core/ufs_bsg.c
 +++ b/drivers/ufs/core/ufs_bsg.c
-@@ -195,14 +195,12 @@ static int ufs_bsg_request(struct bsg_job *job)
- 	ufshcd_rpm_put_sync(hba);
- 	kfree(buff);
- 	bsg_reply->result = ret;
--	/* complete the job here only if no error */
--	if (ret == 0) {
-+	if (ret == 0)
- 		job->reply_len = rpmb ? sizeof(struct ufs_rpmb_reply) :
- 					sizeof(struct ufs_bsg_reply);
--		bsg_job_done(job, ret, bsg_reply->reply_payload_rcv_len);
--	}
-+	bsg_job_done(job, ret, bsg_reply->reply_payload_rcv_len);
+@@ -140,7 +140,7 @@ static int ufs_bsg_request(struct bsg_job *job)
+ 	int ret;
+ 	bool rpmb = false;
  
--	return ret;
-+	return 0;
- }
+-	bsg_reply->reply_payload_rcv_len = 0;
++	memset(job->reply, 0, job->reply_len);
  
- /**
+ 	ufshcd_rpm_get_sync(hba);
+ 
 -- 
 2.53.0
 
