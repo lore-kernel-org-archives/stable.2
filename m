@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050209;
-	b=muWVnagMHWHBMn5hABD98dhaeblY6wNj3D4oAP4TzwumQOdsiKOXrALC+R90llhYUQap
-	 Eo6zEWmzhPLQrMvMiTXK6UICh5TpvlVHhzFzj0QMBDOzcDZphQ7BujWTy7WlOfVj21TkP
-	 nRTQwkOqMZynrGu5vpmXoR8dpNbQC7/718uWNyqxu6Ps4okqNGxC3pdVIjKdZ75vssFsR
-	 za2Salc4aImuwJJLYW2WpZmqWalL0iGhr24XsSFFEydCh4/csCVI9JOvYnqVWUT6lBCFq
-	 7QCv93Kahjyq2Dvi7J/lhyyJK7Zpc+deC+1d3cvVguyrtDdp44GW+t2n16jyPvTvmdg==
+	t=1794050212;
+	b=2M4sw6NPzySFs/BHOzHozy2VEEufn2IiQqzoBk/KJ0LxQnbN3YdA8UBKoTG+XABbPaNS
+	 df85+hZNLCPsAEqpX7bXCBHNFynDio+zeZasc0JmOEJv1Pj/yQvgl4Z9FYVJZFXYsPPvd
+	 FUK0veeyUPCUNp89c+QdiXSEMlwxU0AZStNlSQGkwwdnK7qUYwWXsalhUXARi2VZX7r5+
+	 jPa6S7R/W9UYd2rxYbguBUf8hNt0/6LXnc5b3zjZFyZAuon+OsgEneAEE50gkGHpV+SO2
+	 KDB+C6HeWvfxHBcCyFqNu0vAygY54wzp1psOxZtu4iWskmglb3e3PitGRTdGlPcoHwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050209;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050212;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=atc3t1qdRJ/N0Enco2WN+An2mJ/liMRXuI3veZWvxK4=;
-	b=dMAsjIZuhpCqJnYvADFNtTCHc1Ps8Dqc2jwz1HNi9Zab3y6e+Mxsf2BFIc5WjGCAZI9z
-	 eYDyAin1/S+Dcs1fl8CjeEQkMcSJUm0VFoyhLufHHbKTBwiQUGb7CnOEjgPnrYSzhhn4H
-	 jkhPc0GCVvuV+77lFQ5VydXxLZtDSCffwlqWc5M2AeJmmIPjTzPZCa4PMuCns9Rz+DPR1
-	 tQ+I+fTzkKIvKYC8cHDflIk1KLSQnU+r74Nd3HOvSOIKYOd39AKDdDsdffjyA4Co7435i
-	 gp8rA88F3KfkQdL7UuDWvBiKVw9BsvYafyk6L6EbXcj+JIXKdivNaxWlNrGLhnYYHig==
+	bh=1YgW7hoKGWNizxc1QA6MwT0ljR+mg4X+RaKV5LhUhjU=;
+	b=LRsR3Xj+4EnJOgpRPvvPjkn2UQCdHE2Ozrp0sB5TnSlvE3S8inwL6wCXSZtvg1Gi2T92
+	 mxukEhdfxxqSxegLfL/26sLP1Jz6fbxDx/EqPZ5WoMMMsouTLOEIOKUxGAK5uEkssGKcR
+	 HU757eyOVRn69pIsNxSuiXMHeldgEaRL7JHGd0mZvimBNislPwzXTHjaM/tpRbEb2sXO9
+	 t9pICob+7BxZJx/FkOHd9vdmGUYXrml0g8dnMF7aZoLARM3N81vJUEawJXcqI1DwZIxpK
+	 bTKp7C6DkQnP1rsWo/o0xM0m0LThLrBQWADuU9wJKiyQ6dUO2nOx8gLJ3dKFYxxMPRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="I4Lo/sKL";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pi92xreW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4CF2606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:16:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 150B2606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:16:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I4Lo/sKL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4800E1F0089F;
-	Sat,  7 Nov 2026 11:16:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pi92xreW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80E291F0089F;
+	Sat,  7 Nov 2026 11:16:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050208;
-	bh=atc3t1qdRJ/N0Enco2WN+An2mJ/liMRXuI3veZWvxK4=;
+	s=k20260515; t=1794050211;
+	bh=1YgW7hoKGWNizxc1QA6MwT0ljR+mg4X+RaKV5LhUhjU=;
 	h=From:To:Cc:Subject:Date;
-	b=I4Lo/sKLkTfopN045aWFm2zHFHMbDPZQYDVPwy3Bbnpw6I5o/3KRenSlPXd7k7qVd
-	 8m8pv2t+T+8hx/vkJ/AzDfF69BGdhkWH/GzzaTTn+6kmVXz7vgAi7CPgSZhOlTC0Z7
-	 qiUw0RT8/wG61B1h0HNmf4j7MHBpa1TQV/T0tOv2LUZbUdvG0qN6WDXUdzYReGAElZ
-	 lCKEx3+exDLQGcp+g0RAhG0pxIxFn8iPvtYc1y6owOOgy5AwGha8+NtQ/ulopIvpYn
-	 vz/ZL8KuDzwlsl+RhGcC6DmyXCcm3lqPV7IuxgJc+d1jg9xcCUJ/xOX+VDTvGuIYkc
-	 F0snL4kS1PkcA==
+	b=Pi92xreWRDZs9tyUWrxmSWuD7gqMmPLMXySTauvkQ2XU/joSuZhoAgE3n22XrU8pF
+	 iMm019HRB8TVCw3hwA8j4iF5KIGD0X6pTOOv8BJDvX9+PGoVOdaromFyw5e+yfSJLb
+	 g9BPe6cV8KzxN04gJY8HZpWX8xcPWop+jJPpjUIgr0VhEeCrkS3i/8K4ntgja1GURm
+	 +CwNI4wH5tLK7iey7PnLT7DLph8sUgF8aDxqj0LWOIPuuSCvzxnZIyWxKxUTyZGiae
+	 7t2n0wzkkSipF0826yp1sbmK+bNH28nEFqjZZQ1XWStRfYJQgikr5eCQy3nu8p66oo
+	 4D8FToIkt9mmA==
 From: Sasha Levin <sashal@kernel.org>
-To: lgs201920130244@gmail.com,
-	ehristev@kernel.org,
-	sakari.ailus@linux.intel.com
+To: getshell@seu.edu.cn,
+	lee@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] media: atmel-isi: release unregistered video device on remove" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:16:47 -0500
-Message-ID: <20261107061646-failed-5.10-c0a6d78dad3a@kernel.org>
+Subject: FAILED: patch "[PATCH] mfd: da903x: Cancel IRQ work during teardown" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:16:50 -0500
+Message-ID: <20261107061649-failed-5.10-fd2258999ecd@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,77 +68,127 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x c0a6d78dad3af1def80f04df82bfd70456ec406c
+git cherry-pick -x fd2258999ecdc7164ef0cda2d4102e4558a5660f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061646-failed-5.10-c0a6d78dad3a@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061649-failed-5.10-fd2258999ecd@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From c0a6d78dad3af1def80f04df82bfd70456ec406c Mon Sep 17 00:00:00 2001
-From: Guangshuo Li <lgs201920130244@gmail.com>
-Date: Tue, 15 Sep 2026 19:25:10 +0800
-Subject: [PATCH] media: atmel-isi: release unregistered video device on remove
+From fd2258999ecdc7164ef0cda2d4102e4558a5660f Mon Sep 17 00:00:00 2001
+From: Hongyan Xu <getshell@seu.edu.cn>
+Date: Fri, 14 Aug 2026 23:30:19 +0800
+Subject: [PATCH] mfd: da903x: Cancel IRQ work during teardown
 
-atmel_isi_probe() allocates the video device before registering the
-V4L2 async notifier. The video device is registered later from the
-notifier complete callback once the remote subdevice has been bound.
+The IRQ handler disables the IRQ and schedules irq_work. Releasing the
+IRQ does not drain that work, which can continue to use the devm-allocated
+chip and notifier state.
 
-The remove path relies on the notifier unbind callback to unregister
-the video device. However, if the remote subdevice is never bound, or
-the complete callback fails before video_register_device() succeeds,
-the video device remains unregistered. In that case the unbind path
-does not release the object allocated by video_device_alloc(), and the
-remove path leaks it.
+Manage both IRQ-work cancellation and subdevice removal with devres.
+Register the subdevice-removal action before requesting the IRQ, then add
+the IRQ-work action after the request. This avoids leaving a live IRQ
+without work cancellation if action registration fails. Devres cleanup
+then disables the IRQ and drains the work before releasing the IRQ and
+removing child devices. Register both actions before creating the children
+so partial probe failures use the same ordering.
 
-Only unregister the video device from the unbind callback when it has
-actually been registered, and clear the driver pointer afterwards.
-After unregistering and cleaning up the notifier, release the video
-device directly if the pointer is still present. This covers devices
-that were allocated but never registered while avoiding a second
-release of successfully registered devices.
+This issue was found by the author's in-house static analysis tool.
+The patch was reviewed by the author against the latest mainline tree.
 
-This issue was found by manual code inspection.
-
-Fixes: d12c9088c0b2a ("[media] atmel-isi: remove dependency of the soc-camera framework")
+Fixes: 26b8f5e1e2d1 ("mfd: add base support for Dialog DA9030/DA9034 PMICs")
 Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-Reviewed-by: Eugen Hristev <ehristev@kernel.org>
-Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Suggested-by: Lee Jones <lee@kernel.org>
+Assisted-by: Codex:GPT-5
+Signed-off-by: Hongyan Xu <getshell@seu.edu.cn>
+Link: https://patch.msgid.link/20260814153019.1114-1-getshell@seu.edu.cn
+Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/media/platform/atmel/atmel-isi.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/mfd/da903x.c | 34 +++++++++++++++++++++++++---------
+ 1 file changed, 25 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/media/platform/atmel/atmel-isi.c b/drivers/media/platform/atmel/atmel-isi.c
-index f5e85271a275a..fa33d11f736fc 100644
---- a/drivers/media/platform/atmel/atmel-isi.c
-+++ b/drivers/media/platform/atmel/atmel-isi.c
-@@ -1121,10 +1121,13 @@ static void isi_graph_notify_unbind(struct v4l2_async_notifier *notifier,
- {
- 	struct atmel_isi *isi = notifier_to_isi(notifier);
+diff --git a/drivers/mfd/da903x.c b/drivers/mfd/da903x.c
+index e86b39de3303a..e4ad48e1f139b 100644
+--- a/drivers/mfd/da903x.c
++++ b/drivers/mfd/da903x.c
+@@ -421,6 +421,14 @@ static irqreturn_t da903x_irq_handler(int irq, void *data)
+ 	return IRQ_HANDLED;
+ }
  
-+	if (!video_is_registered(isi->vdev))
-+		return;
++static void da903x_cancel_irq_work(void *data)
++{
++	struct da903x_chip *chip = data;
 +
- 	dev_dbg(isi->dev, "Removing %s\n", video_device_node_name(isi->vdev));
- 
--	/* Checks internally if vdev have been init or not */
- 	video_unregister_device(isi->vdev);
-+	isi->vdev = NULL;
++	disable_irq(chip->client->irq);
++	cancel_work_sync(&chip->irq_work);
++}
++
+ static const struct da903x_chip_ops da903x_ops[] = {
+ 	[0] = {
+ 		.init_chip	= da9030_init_chip,
+@@ -456,6 +464,13 @@ static int da903x_remove_subdevs(struct da903x_chip *chip)
+ 	return device_for_each_child(chip->dev, NULL, __remove_subdev);
  }
  
- static int isi_graph_notify_bound(struct v4l2_async_notifier *notifier,
-@@ -1323,6 +1326,8 @@ static void atmel_isi_remove(struct platform_device *pdev)
- 	pm_runtime_disable(&pdev->dev);
- 	v4l2_async_nf_unregister(&isi->notifier);
- 	v4l2_async_nf_cleanup(&isi->notifier);
-+	if (isi->vdev)
-+		video_device_release(isi->vdev);
- 	v4l2_device_unregister(&isi->v4l2_dev);
++static void da903x_remove_subdevs_action(void *data)
++{
++	struct da903x_chip *chip = data;
++
++	da903x_remove_subdevs(chip);
++}
++
+ static int da903x_add_subdevs(struct da903x_chip *chip,
+ 					struct da903x_platform_data *pdata)
+ {
+@@ -484,7 +499,6 @@ static int da903x_add_subdevs(struct da903x_chip *chip,
+ 	return 0;
+ 
+ failed:
+-	da903x_remove_subdevs(chip);
+ 	return ret;
  }
+ 
+@@ -520,6 +534,11 @@ static int da903x_probe(struct i2c_client *client)
+ 	chip->ops->mask_events(chip, chip->events_mask);
+ 	chip->ops->read_events(chip, &tmp);
+ 
++	ret = devm_add_action_or_reset(&client->dev,
++				       da903x_remove_subdevs_action, chip);
++	if (ret)
++		return ret;
++
+ 	ret = devm_request_irq(&client->dev, client->irq, da903x_irq_handler,
+ 			IRQF_TRIGGER_FALLING,
+ 			"da903x", chip);
+@@ -529,14 +548,12 @@ static int da903x_probe(struct i2c_client *client)
+ 		return ret;
+ 	}
+ 
+-	return da903x_add_subdevs(chip, pdata);
+-}
+-
+-static void da903x_remove(struct i2c_client *client)
+-{
+-	struct da903x_chip *chip = i2c_get_clientdata(client);
++	ret = devm_add_action_or_reset(&client->dev, da903x_cancel_irq_work,
++				       chip);
++	if (ret)
++		return ret;
+ 
+-	da903x_remove_subdevs(chip);
++	return da903x_add_subdevs(chip, pdata);
+ }
+ 
+ static struct i2c_driver da903x_driver = {
+@@ -544,7 +561,6 @@ static struct i2c_driver da903x_driver = {
+ 		.name	= "da903x",
+ 	},
+ 	.probe		= da903x_probe,
+-	.remove		= da903x_remove,
+ 	.id_table	= da903x_id_table,
+ };
  
 -- 
 2.53.0
