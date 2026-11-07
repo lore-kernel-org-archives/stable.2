@@ -1,55 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794046588;
-	b=GK/DJoo6WCypcMunf17LbuKsKfe4++gmTESBwgEO+XKNXFAw0LU1lGugIfp3dDBiW428
-	 mlosoPRWyX7wAowfnao1qR5KNCSFTbbJl4+96no1zlcnZQxmQr0RIImFMjlqIh0jJws56
-	 ARhoh2FlktXDM4SAOFvuGkI26RulNBllKiYuQDhHWHeGBq/d/IzIBn1blLZ6G3I1f9h6o
-	 u6L8IpWh33nExbtUTqMJCsGcVRytJW28cVElVeksf9T/uKUjI5B26lFDPTIID8mGIzD1M
-	 iF2TUdezsb//voiHuXAsFUY4S3zNasYq1S89/1Rft54DfGYXvIVTs4hFqjdjtAdwDvQ==
+	b=IL093ypJ+aWJQBjMAyGB7chT7Tpy4Fbcoa8lt3eEK57B2WCpEO9gqsu6g0SPT+w5hJQc
+	 jtvGa78q7Bk+DjQZyQgekT7VgVUok8wg5QeqwxdWW4peVyS7aYo+xyw236epFP1pjgjpo
+	 slIlVAy/2KQBlgOn986I4w7OX9TnpmaBC1kx4QMffCShOgH5GA6JiJGIbXKmvm7ySgDti
+	 iInd4nhG7y5u1LBU8v09ThjZh9zIcmvf5e+HnEUgbxUGGss18/I9pSLN26XHzrXd/34Ck
+	 8kIiyobDxMJmHglHpn5U8ZTeIbjL4xfIxTtvN7RhO62i17RjDS+uDsW3T7m84zSUaiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794046588;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=G0Qs+5R8mnhgdBoai98XbYbVX/EkPyfskbsdqedeKio=;
-	b=CBRajXok3T4xBKfoT1T6XfI1te9ZHpXsV41AdM4G7X0H4N3PA53LjXoM56z8OJGjU0xZ
-	 hUJlq0OXEZRNVATmr6SLLbvfHqygKbXgduYfmULLISlES2BkH7Q1GJMTt/ksXGstvyGmQ
-	 dEvXWgk4ZmVfghjzeeAbXLnFh23Ta01xQMlNaAiHOe9wT+APMOuYaF2/GVNZcD3dbc1bL
-	 SIuaCy4YpxgfLME6aBLLcs/kiscLKdPHhaT4YkgcCbKVBIe7Yez9kDGLgHAdpDN/KRHWj
-	 tSSWD+vm/U5mai2WI76cKo5rq3dG0l8dY9oPnGh71NQGkV9fuTzFjsHdCVO6f0UtDOg==
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=/qFqvbFurN4PEJpXMJPKtOAq4hdCyVwSYAR6O028L8Y=;
+	b=DfYk2MKOaTPJ+AfvQ3DKdzhcxKuyIFSjOmvt2PagRTf/fmmcClSCwLO89FeMQzPMheW0
+	 0vsccaewwDbreJq3BZiVgLVqxox2xfEAUGoNnMINsmdT+0SI2gveFLll/MvLce7V4vlHi
+	 EyXikRDb+m+L/Pl0biOSfvm37aOELQdl+zwNJHbYt3uCVJCoWF2/hk2UuXnFgytstcIqL
+	 wzyAwFaYu2XtcU4niFU7U6/kmfCHxAZiy0z7l3BHtaHCVtUozBnE3HW+ghxx4/vyiDoAq
+	 sm0PGTc/a+XcppGg05ysiftHsPRKg1Wp6fooXEP7vBDwGnS3H2cJTvSjMXxJIsyUKyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HQw4fv7z;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S5w+IW73;
+	arc=none smtp.remote-ip=209.85.210.49
+Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com [209.85.210.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5AFD606D80F
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:16:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93C17606D823
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:16:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93C17606D823
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HQw4fv7z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01D371F0089F;
-	Sat,  7 Nov 2026 10:16:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046587;
-	bh=G0Qs+5R8mnhgdBoai98XbYbVX/EkPyfskbsdqedeKio=;
-	h=From:To:Cc:Subject:Date;
-	b=HQw4fv7z2oi2tese1/QFwpE25wC9zTvNm4VkGStl1974DLepJtDy1ll7cAJAj+jow
-	 NITAZJpU40FAo6L2YbsQmrLwHmQsqFvVokqeQEZ63QETiO1IkIS24JGRRsHppfkNAo
-	 QSDLLXpOfx28FqD+a5/OSdHwI4X7jgbkHvd8fH3HGplxR5OBj51pAJwZOoWEuEzW+A
-	 4lDLp+z1fPlxs/do+7/hvqw+3dIGqqDO+fdZFjwesQF7MdcWczzO5WZQHVUuTHtMax
-	 moqVEsqM3kec96nb3Wx8PsdY/cDHe8S6iMbbRuFmvhMdhkuC6evTZfBLIawxdWk8i6
-	 GPdrvl36hX5gQ==
-From: Sasha Levin <sashal@kernel.org>
-To: shionthanatos@gmail.com,
-	gmwgg05@gmail.com,
-	npczmd@qq.com,
-	jupmouse@gmail.com,
-	jack@suse.cz
-Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] udf: validate the device specification EA before using it" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:16:25 -0500
-Message-ID: <20261107051625-failed-6.12-9a2390959685@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S5w+IW73
+Received: by mail-ot1-f49.google.com with SMTP id 46e09a7af769-8470d7d430fso687355a34.3
+        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 02:16:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794046587; x=1794651387; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/qFqvbFurN4PEJpXMJPKtOAq4hdCyVwSYAR6O028L8Y=;
+        b=S5w+IW73HwNOdviSfxc3ToScB56IBx+6OXe8sIz3hOujOgzKextwtnP4S42U8vbMCR
+         7epfL8sFsH5jwQO1O60m5OI5WdVUud6E+qn4Tk3aA4TLJMrhnHchBUFSULwEiTDqnnue
+         b5DK7M/XRDH6X/YzGzl3jY3Qrwb2jmZa4dnA3oHkYQaMQaRzCeoeHL//imtOSbT56zXk
+         cpfcnqoZBxNr5NRD36h+fk6GK5/Ez4NKZNg+7sM+27ituJGiPcfuX/qyy/ZEQn6OfFm2
+         dT5eVrHSx7oTur1Tkb+nNh6LIs/Wk1U4ZncMEL8C7wd/L7tl1+anURIN5/gp1y9bPdBg
+         Ll2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794046587; x=1794651387;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/qFqvbFurN4PEJpXMJPKtOAq4hdCyVwSYAR6O028L8Y=;
+        b=KOakgO2rneOQtEqAhwC4VOaylwSbhhcceBLEgY7e4GZlQPlb8MXt03bK6zHd/b4Hdw
+         kM0gpHE+aFQX1p0h542OJQge0zRAoTc3JkjJVlI34MK8jNTleILncSs+nl7ZQO2YqoxD
+         PQt7QbZl8e3M9RwSBwBKZ1LMOrlfmGJ45pAnQ44R9iiT0IOw/4127RLlIOfkqXDaeQl0
+         m5vXmWIPf8z277vkDTiapR7jfZRhlE6mpAlfDLyO1/TYZREn6BhZ8T1tHVhLywsjBLya
+         hKf+9yx0GfYUGEveNM94OHoT9ZcPHH+2MCNpa0UbwauAu3UW6stLN/QdB3XDfLXbs8Jw
+         1XFQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx3eBsKpfQSbCmYE3xEAd8ZZhS7McTggipA0t1CS3veuFeilf6bEE/g/SJ5g2I2eU26S2WdbAI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9UU7BGIIKU/kfCCwPnjAZKeCNgrpEevKtk7Z1nbsDWqOR2jpTR
+	u56/ovLWwWLUC2tQk4zBxYmkF0VDbE99AeJ0YFZV286EptLEH4BClxT1
+X-Gm-Gg: AYBFou0KY40LgsA6j7gd4Vnsqa1Yqv1tLKKsaRpVoPp/A13XGRL3zDx8xkQjZmCdB8B
+	ejjZ7TC0dhtZRXF8fqDzhjee01dflnKgt/1ffyJ7aCKLxIZX9MeYqnZzoIOChCJZrH3hTmVEgBs
+	q01Ef7cG/Ih3vNR24yILj2DUb1tag9FtSclY4Lqw7l1diHN93yW2ViN0n8BzXemBzR6UPgbGtaO
+	A/OtZF3UwSfjm1ZmOPgqAczhlhAU05a1HMX4U4GQ1U3Ub+xULVuRb3wYilxMpQhqkIkmJJael9m
+	0kibXB3JJZhdTpX/XnMcfXhgDr7StVzmVZOUYXbTccLH3EB2u7ERm8aVlgObMIihUAY35I904J+
+	ViONr4Yt9M1LUNn5f0mvylrt70hssoDaMGYgEUpFebuloNivI2dTPMR0VJzjfOxrhfklT6H26RL
+	SSehJJRDNd/RZ1uxh8vw4nF84vtFw3x2r2WEDayAl8yewBmzBKhw+yHfEUWxQJ9QRrVKuFNjBih
+	LLcfYgofpTwhKUCgh01BI2pTI0wLaGQBZ+k2ygh1K9ilzy/Jvc55kcB5VhDVGnSL4SpvTnc51OO
+	HClw1LX2znb9hOHLta65vswuUHU78GWdmmyibWX8eUdBA0EXXbHVHx1tV48qGzuRvLUhyxV43sW
+	JAFRTwUV9SqOOGzznMbCNTuTKi3baECcU1S3BqW/6uAXgYOon8pbvFzqdRPEX0r/5GMvfFrmbrB
+	Ar69uxBoAovOzhvMRAfKfpeSxxErB8TkYiqhVAYEkrdnFVQcSFny9N
+X-Received: by 2002:a05:6830:4101:b0:844:4959:e856 with SMTP id 46e09a7af769-85f1cf2dfcbmr4924112a34.11.1794046587358;
+        Sat, 07 Nov 2026 02:16:27 -0800 (PST)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85f1dbef224sm3990269a34.12.2026.11.07.02.16.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 07 Nov 2026 02:16:26 -0800 (PST)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Sat, 07 Nov 2026 03:15:58 -0700
+Subject: [PATCH 01/58] mtd: clear OTP provider pointers after unregistering
+ them
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,152 +94,140 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261107-submit-rawnand-retained-handle-lifetime-v1-v1-1-0181ef0cc4c8@gmail.com>
+References: <20261107-submit-rawnand-retained-handle-lifetime-v1-v1-0-0181ef0cc4c8@gmail.com>
+In-Reply-To: <20261107-submit-rawnand-retained-handle-lifetime-v1-v1-0-0181ef0cc4c8@gmail.com>
+To: Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
+ Brian Norris <computersforpeace@gmail.com>, 
+ Boris Brezillon <bbrezillon@kernel.org>, 
+ Arseniy Krasnov <AVKrasnov@sberdevices.ru>, Chen-Yu Tsai <wens@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Vitaly Wool <vitalywool@gmail.com>, David Woodhouse <dwmw2@infradead.org>, 
+ Russell King <rmk+kernel@arm.linux.org.uk>, 
+ David Woodhouse <David.Woodhouse@intel.com>, 
+ Mike Rapoport <rppt@kernel.org>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Christophe Kerello <christophe.kerello@st.com>, 
+ Jason Roberts <jason.e.roberts@intel.com>, 
+ Michal Simek <michal.simek@amd.com>, 
+ Boris Brezillon <boris.brezillon@collabora.com>, 
+ Mason Yang <masonccyang@mxic.com.tw>, 
+ Ramuthevar Vadivel Murugan <vadivel.muruganx.ramuthevar@linux.intel.com>, 
+ Stefan Agner <stefan@agner.ch>, Lucas Stach <dev@lynxeye.de>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, Dmitry Osipenko <digetx@gmail.com>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>, 
+ Heiko Stuebner <heiko@sntech.de>, Yifeng Zhao <yifeng.zhao@rock-chips.com>, 
+ Nicolas Ferre <nicolas.ferre@microchip.com>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
+ Keguang Zhang <keguang.zhang@gmail.com>, Jacky Huang <ychuang3@nuvoton.com>, 
+ Shan-Chun Hung <schung@nuvoton.com>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Han Xu <han.xu@nxp.com>, 
+ Liang Yang <liang.yang@amlogic.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Manivannan Sadhasivam <mani@kernel.org>, 
+ Kamal Dasu <kamal.dasu@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Vladimir Zapolskiy <vz@mleia.com>, 
+ Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>, 
+ Paul Cercueil <paul@crapouillou.net>, 
+ Harvey Hunt <harveyhuntnexus@gmail.com>, 
+ Maxim Levitsky <maximlevitsky@gmail.com>, Michael Walle <michael@walle.cc>, 
+ Srinivas Kandagatla <srini@kernel.org>
+Cc: Tze Yee Ng <tze.yee.ng@altera.com>, linux-mtd@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-sunxi@lists.linux.dev, linux-tegra@vger.kernel.org, 
+ linux-mediatek@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-mips@vger.kernel.org, imx@lists.linux.dev, 
+ linux-renesas-soc@vger.kernel.org, linux-amlogic@lists.infradead.org, 
+ linux-arm-msm@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.15.2
 
-The patch below does not apply to the 6.12-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+If factory OTP discovery or registration fails after user OTP was
+registered, mtd_otp_nvmem_add() unregisters the user provider but leaves
+its pointer set. mtd_device_parse_register() then unregisters it again
+while unwinding the error, accessing a freed provider or dropping a
+reference still owned by a consumer.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+The same stale pointer survives when the factory OTP error is
+-EOPNOTSUPP, which mtd_otp_nvmem_add() treats as success. In that case
+mtd_device_unregister() can release the provider a second time later.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
-git checkout FETCH_HEAD
-git cherry-pick -x 9a2390959685ac35a58c80c8016120849a2babf6
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051625-failed-6.12-9a2390959685@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+Centralize removal of the OTP providers and clear each pointer after
+unregistering it so subsequent cleanup cannot repeat the put.
 
-Thanks,
-Sasha
-
------------------- original commit in Linus's tree ------------------
-
-From 9a2390959685ac35a58c80c8016120849a2babf6 Mon Sep 17 00:00:00 2001
-From: Yunpeng Tian <shionthanatos@gmail.com>
-Date: Mon, 31 Aug 2026 17:31:16 +0200
-Subject: [PATCH] udf: validate the device specification EA before using it
-
-udf_get_extendedattr() bounds an extended attribute only against
-struct genericFormat, which is 12 bytes.  A type-12 device
-specification is struct deviceSpec, which is 24 bytes plus a flexible
-impUse array. Thus a corrupted filesystem can contain extended attribute
-that is accepted by udf_get_extendedattr() but udf_write_inode() or
-udf_read_inode() may access beyond the end of provided buffer.
-
-Provide a udf_device_spec_valid() check to validate correctness of
-extended attribute that is a deviceSpec. While here, check the result of
-udf_add_extendedattr() before dereferencing it as it can return NULL in
-case of error.
-
-[JK: Removed duplicated validity checks]
-
-Reported-by: Yunpeng Tian <shionthanatos@gmail.com>
-Reported-by: Gongming Wang <gmwgg05@gmail.com>
-Reported-by: Mingda Zhang <npczmd@qq.com>
-Reported-by: Qinrun Dai <jupmouse@gmail.com>
+Fixes: e0489f6e221f ("mtd: core: fix error path for nvmem provider")
 Cc: stable@vger.kernel.org
-Signed-off-by: Yunpeng Tian <shionthanatos@gmail.com>
-Signed-off-by: Jan Kara <jack@suse.cz>
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- fs/udf/inode.c | 43 ++++++++++++++++++++++++++++++++++++++-----
- 1 file changed, 38 insertions(+), 5 deletions(-)
+ drivers/mtd/mtdcore.c | 19 ++++++++++++-------
+ 1 file changed, 12 insertions(+), 7 deletions(-)
 
-diff --git a/fs/udf/inode.c b/fs/udf/inode.c
-index e45e546a739a9..baf9845ac06b0 100644
---- a/fs/udf/inode.c
-+++ b/fs/udf/inode.c
-@@ -1336,6 +1336,26 @@ int udf_setsize(struct inode *inode, loff_t newsize)
- 	return err;
+diff --git a/drivers/mtd/mtdcore.c b/drivers/mtd/mtdcore.c
+index 8efa2d88556e..558a605ba749 100644
+--- a/drivers/mtd/mtdcore.c
++++ b/drivers/mtd/mtdcore.c
+@@ -1016,6 +1016,14 @@ static int mtd_nvmem_fact_otp_reg_read(void *priv, unsigned int offset,
+ 	return retlen == bytes ? 0 : -EIO;
  }
  
-+/*
-+ * Verify validity of struct deviceSpec on disk. udf_get_extendedattr() has
-+ * already verified the generic header and made sure attribute fits in the
-+ * inode so we just have to make sure attribute space is large enough for
-+ * deviceSpec struct and required impUse information.
-+ */
-+static bool udf_device_spec_valid(struct deviceSpec *dsea)
++static void mtd_otp_nvmem_remove(struct mtd_info *mtd)
 +{
-+	u32 attr_length, imp_use_length;
-+
-+	attr_length = le32_to_cpu(dsea->attrLength);
-+	imp_use_length = le32_to_cpu(dsea->impUseLength);
-+	if (attr_length < sizeof(struct deviceSpec) ||
-+	    imp_use_length < sizeof(struct regid) ||
-+	    imp_use_length > attr_length - sizeof(struct deviceSpec))
-+		return false;
-+
-+	return true;
++	nvmem_unregister(mtd->otp_user_nvmem);
++	mtd->otp_user_nvmem = NULL;
++	nvmem_unregister(mtd->otp_factory_nvmem);
++	mtd->otp_factory_nvmem = NULL;
 +}
 +
- /*
-  * Maximum length of linked list formed by ICB hierarchy. The chosen number is
-  * arbitrary - just that we hopefully don't limit any real use of rewritten
-@@ -1654,13 +1674,12 @@ static int udf_read_inode(struct inode *inode, bool hidden_inode)
- 	if (S_ISCHR(inode->i_mode) || S_ISBLK(inode->i_mode)) {
- 		struct deviceSpec *dsea =
- 			(struct deviceSpec *)udf_get_extendedattr(inode, 12, 1);
--		if (dsea) {
--			init_special_inode(inode, inode->i_mode,
-+
-+		if (!dsea || !udf_device_spec_valid(dsea))
-+			goto out;
-+		init_special_inode(inode, inode->i_mode,
- 				MKDEV(le32_to_cpu(dsea->majorDeviceIdent),
- 				      le32_to_cpu(dsea->minorDeviceIdent)));
--			/* Developer ID ??? */
--		} else
--			goto out;
- 	}
- 	ret = 0;
- out:
-@@ -1757,6 +1776,7 @@ int udf_write_inode(struct inode *inode, struct writeback_control *wbc)
- 	struct udf_sb_info *sbi = UDF_SB(inode->i_sb);
- 	unsigned char blocksize_bits = inode->i_sb->s_blocksize_bits;
- 	struct udf_inode_info *iinfo = UDF_I(inode);
-+	int err;
- 
- 	bh = sb_getblk(inode->i_sb,
- 			udf_get_lb_pblock(inode->i_sb, &iinfo->i_location, 0));
-@@ -1821,6 +1841,10 @@ int udf_write_inode(struct inode *inode, struct writeback_control *wbc)
- 				udf_add_extendedattr(inode,
- 						     sizeof(struct deviceSpec) +
- 						     sizeof(struct regid), 12, 0x3);
-+			if (!dsea) {
-+				err = -ENOSPC;
-+				goto out_unlock;
-+			}
- 			dsea->attrType = cpu_to_le32(12);
- 			dsea->attrSubtype = 1;
- 			dsea->attrLength = cpu_to_le32(
-@@ -1828,6 +1852,10 @@ int udf_write_inode(struct inode *inode, struct writeback_control *wbc)
- 						sizeof(struct regid));
- 			dsea->impUseLength = cpu_to_le32(sizeof(struct regid));
- 		}
-+		if (!udf_device_spec_valid(dsea)) {
-+			err = -EFSCORRUPTED;
-+			goto out_unlock;
-+		}
- 		eid = (struct regid *)dsea->impUse;
- 		memset(eid, 0, sizeof(*eid));
- 		strcpy(eid->ident, UDF_ID_DEVELOPER);
-@@ -1962,6 +1990,11 @@ int udf_write_inode(struct inode *inode, struct writeback_control *wbc)
- 	set_inode_metadata_writeback(inode);
- 
+ static int mtd_otp_nvmem_add(struct mtd_info *mtd)
+ {
+ 	struct device *dev = mtd->dev.parent;
+@@ -1082,7 +1090,7 @@ static int mtd_otp_nvmem_add(struct mtd_info *mtd)
  	return 0;
-+
-+out_unlock:
-+	unlock_buffer(bh);
-+	brelse(bh);
-+	return err;
- }
  
- struct inode *__udf_iget(struct super_block *sb, struct kernel_lb_addr *ino,
+ err:
+-	nvmem_unregister(mtd->otp_user_nvmem);
++	mtd_otp_nvmem_remove(mtd);
+ 	/* Don't report error if OTP is not supported. */
+ 	if (err == -EOPNOTSUPP)
+ 		return 0;
+@@ -1180,10 +1188,8 @@ int mtd_device_parse_register(struct mtd_info *mtd, const char * const *types,
+ 	}
+ 
+ out:
+-	if (ret) {
+-		nvmem_unregister(mtd->otp_user_nvmem);
+-		nvmem_unregister(mtd->otp_factory_nvmem);
+-	}
++	if (ret)
++		mtd_otp_nvmem_remove(mtd);
+ 
+ 	if (ret && device_is_registered(&mtd->dev)) {
+ 		err = del_mtd_device(mtd);
+@@ -1210,8 +1216,7 @@ int mtd_device_unregister(struct mtd_info *master)
+ 		memset(&master->reboot_notifier, 0, sizeof(master->reboot_notifier));
+ 	}
+ 
+-	nvmem_unregister(master->otp_user_nvmem);
+-	nvmem_unregister(master->otp_factory_nvmem);
++	mtd_otp_nvmem_remove(master);
+ 
+ 	if (IS_REACHABLE(CONFIG_MTD_VIRT_CONCAT)) {
+ 		err = mtd_virt_concat_destroy(master);
+
 -- 
 2.53.0
-
-
-
 
