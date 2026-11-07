@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046331;
-	b=b8pSKk+7rCmrH5lgPo08l9C2tCiti10SBBUTW7Qhs3ruw3eKpHpB0eH7tytkgTvogKiT
-	 z5zK7RRyeXo2eYIrayzBGtyS9iho6m8kA6xjyhH4s7GNZ8lUvqHqWQ5NEeP/eaZJOM95+
-	 HDEl7ysgSKmUlE8WZwKTstDZc9mw7GFY5M6CW8W9CN3w//FACjg+zm/n4Hj29iARVLWeM
-	 Dyn7+K50k6Okhz4sz+etxPNmRpBTSzWHPgUCDZt1fvtyz7OAFwrgpRpC8uggdDq2jDDvI
-	 AGbow7r+VjYAbiKh4Ew0/Y+tUPh6xaGqysL+LOnuu9rH98I4gV/73L9Cpc6suoY5CeA==
+	t=1794046334;
+	b=Wiwzale+TuZhKxCPikiYKN+iN5mYlolLYebDeKoSKQ654hje9XPOV670qKM86hnGTB1j
+	 8HqMghOyv05mwSE5j9UPC5eVOk01908yn+oG47FcS1wGtsqMmSt/d+3m/4NRERBY5Gfya
+	 9as7TA+psaUoZvMamhtAnKJz1JdcH1kFNw48k7DRv8cQaUnd9CSQiRVZRowpCu1CbGZxZ
+	 Yd2QZy9Xk0FjuhhS+APdIf+NcTxuNXjV94NFgrlCNS1hzgmhmUeYiwLmqLk5ti62OZ95s
+	 n41KSv+m6CWzcICbq57dMdUIx/SCXAvt4GAr12gUghtQ5hTo5Kv0zPQjoduPdmsqTKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046331;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046334;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=tNmdSfIbjB45Kf6Yy1dhD75zCbE7tslroozV9Sucevw=;
-	b=OHEbY/nZFhmRBNftTOcOx2evYqnwPkcc/bP35sRTg1U8Lyhg01el0hBB4Yj4vjwPUmk5
-	 uVkAXStsweTbbz/n1liw4SWMuQC8hQN6uRWAOGc6mFCviMv0xndm2kpjwL82ZAaXG/CAK
-	 tI0isBAEjnr5dq9hCDCT3iQFftDW0VRJTvybv08qE/FjtHvlYA2oltE4jeBoRCERBJXFA
-	 dzPZnh1BPy/WXK+UgqbKO69xgff/LTZ9C8oEO0Wmw5ZimczY7Ux73AmngP/Gdft2UBJGx
-	 rz0j+sgisdJVeUCw3RkZHA4Y3bQuzq1Ne4lLtCcSickPh1ITdYHK7gf4yeq4aBRyWMg==
+	bh=VGOWi1ooGyEJfUZ6eB9lGS9KUzPV8HFjymFUOitFSaI=;
+	b=z7y7gq1opT+am/CfaIV060fTiqZq7HCsmfbAYS3LWd1pQi0/6dm6WttsNCOTETNTqH+Y
+	 qRnP4pkjSbgcOAKciCQCoQBvv6bCSeckLRri7b5fmtfmvTtefvnT3WtAOzG9sB0IBCcSo
+	 1sEpCyNY5S3ZO3BzRzCftr7DgvIdMB602qEHbZTuAoEqSXjAyCZjIQhqMuCbooPCb93Vg
+	 FENn2mPde7TOT15HcB7am0o+nZqIMw+eywpV550RefdODuwjKz+imbmqe8dnsCaAQ6O/j
+	 Q4RHlj3vLSAbpZsu+tp6uphK8wYJfGPyxn5rscqddXQ6EvPqea0SDbmR5OCN5gHlS1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bHyO1QkG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FcDN4dWE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CFA9606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:12:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF43D606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:12:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bHyO1QkG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E558D1F0089F;
-	Sat,  7 Nov 2026 10:12:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FcDN4dWE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31C2E1F0089F;
+	Sat,  7 Nov 2026 10:12:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046331;
-	bh=tNmdSfIbjB45Kf6Yy1dhD75zCbE7tslroozV9Sucevw=;
+	s=k20260515; t=1794046333;
+	bh=VGOWi1ooGyEJfUZ6eB9lGS9KUzPV8HFjymFUOitFSaI=;
 	h=From:To:Cc:Subject:Date;
-	b=bHyO1QkG1b8N2H+/L9OdAHd1bRhVPUBClFi6ecWZH6155p8L2gINeRlpH3dxKj340
-	 kIwlG11z7XK4O0rzTnSQ0oqmaAqUrQk7y1Gt9SVahB5W6afRgvu8mtCQlnra6rd+io
-	 sOPqw8rKozNaY0VIquJVTOWslRtSsW09iTPocFytwqswR9o8ZLduDScL6qW/EscWQO
-	 qjenQjYo4s58bSLwIqCgzznIPdfE6IPmpFZ3cZ1a8km4EWtZqCBSvRN+ZsM1PtURo9
-	 ITv99tw+TzumBX3iMKrSfB57BPXtVkBJGyYYGL1ikmtA/EEbu2nYIBe5dRofciUMpV
-	 ZVM3yvn1dtAUA==
+	b=FcDN4dWEsU3NScZ69EJJp5/6TgfKTKpST9dN8nVXTyXwdiTZsHvkeoBo53QCRhJ/H
+	 61mQERp33uK+SLcHh4WyZ2oTOjXFWlbyx9WaNt7Z6B2/jZqvY25Zpv57mnG5HPaKAc
+	 h8T+u72h32oAEIxcrR6E9xEdBeKc01fZoWjPA8FTjxpaCoJ5n/rvPpHuX3XNlGL9mk
+	 O9oxiAxCnFcXIz8wjB8/xC1j4fhsZPt8+tMjQyVajyY+Pgye5fUnseYzRvOHvxu2PU
+	 cO5TG6+jLGsTPSK2prGa9vWl2P54XzWNgnHg8MRLru4WQtOmQlg0rB8P+7jDF3MUGf
+	 bEczzfolg1e1A==
 From: Sasha Levin <sashal@kernel.org>
-To: bsdhenrymartin@gmail.com,
-	achender@kernel.org,
-	kuba@kernel.org
+To: tom.leiming@gmail.com,
+	josef@toxicpanda.com,
+	axboe@kernel.dk
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] rds: fix out-of-bounds conn_path walks via handshake exthdrs" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:12:09 -0500
-Message-ID: <20261107051209-failed-6.18-50f2103fce43@kernel.org>
+Subject: FAILED: patch "[PATCH] ublk: let STOP_DEV cancel the server's commands before its release" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:12:12 -0500
+Message-ID: <20261107051212-failed-6.18-c8b349f9daf6@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,78 +69,259 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 50f2103fce43922b6e562937b2d2fc62089ff7ec
+git cherry-pick -x c8b349f9daf6d88ff21033028167d00e819dafb6
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051209-failed-6.18-50f2103fce43@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051212-failed-6.18-c8b349f9daf6@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 50f2103fce43922b6e562937b2d2fc62089ff7ec Mon Sep 17 00:00:00 2001
-From: Henry Martin <bsdhenrymartin@gmail.com>
-Date: Mon, 12 Oct 2026 10:53:36 +0800
-Subject: [PATCH] rds: fix out-of-bounds conn_path walks via handshake exthdrs
+From c8b349f9daf6d88ff21033028167d00e819dafb6 Mon Sep 17 00:00:00 2001
+From: Ming Lei <tom.leiming@gmail.com>
+Date: Sun, 11 Oct 2026 01:35:50 -0500
+Subject: [PATCH] ublk: let STOP_DEV cancel the server's commands before its
+ release
 
-Both the lane and the connection-generation negotiation are driven by
-extension headers in handshake packets, and both are processed
-unconditionally, even on transports that are not multipath capable.
-A non-MP connection (t_mp_capable unset) owns exactly one
-rds_conn_path slot, so a peer claiming up to RDS_MPATH_WORKERS lanes
-makes every subsequent fan-out walk conn->c_path[0..7] at 504-byte
-strides past the single allocated slot (KASAN: "Read of size 8 in
-rds_conn_path_connect_if_down"); the generation negotiation opens a
-similar out-of-bounds walk on the same array.
+STOP_DEV cancels the fetched commands after dropping ub->mutex, so
+START_DEV and FETCH can run in between:
 
-Only process handshake extension headers when the connection's
-transport is multipath capable, so a peer can never make us walk
-lanes that do not exist.  Both call sites in rds_recv_incoming() are
-gated.
+  STOP_DEV                          START_DEV / FETCH
+  lock ub->mutex
+    ublk_stop_dev_unlocked()        (not started: does nothing)
+  unlock ub->mutex
+                                    START_DEV goes live, schedules scan
+                                    FETCH publishes a new command
+  cancel_work_sync(scan)            cancels the new disk's scan
+  ublk_cancel_dev()                 takes the new command: NULL io->cmd
+                                    on a queue which isn't canceling
 
-This is a port of the Oracle UEK fix for the same issue, picked up
-where Paula's series of the same change left off.
+A START_DEV after STOP_DEV also goes live over the canceled commands.
 
-This issue was discovered by Tencent CodeBuddy Security.
+Hold a reference on the server's /dev/ublkcN while canceling:
 
+  STOP_DEV
+  lock ub->mutex
+    ublk_stop_dev_unlocked()
+    cancel_work_sync(scan)
+    server attached: take a reference on its file, set STOPPING
+  unlock ub->mutex
+  ublk_cancel_dev()
+  drop the reference
+
+ - STOPPING makes FETCH and PREP get UBLK_IO_RES_ABORT and START_DEV
+   -EBUSY; a START_DEV or END_USER_RECOVERY waiting for the device
+   to get ready wakes up too; the reset in the server's release
+   clears it
+ - the release can't run before the reference is dropped, so no new
+   server can attach, and the cancel only meets this server's commands
+ - the cancel still runs after the unlock: io_uring_cmd_done() may take
+   uring_lock, under which FETCH takes ub->mutex
+
+ublk_ch_open() saves the file in ->ch_file and ublk_ch_release() clears
+it, under cancel_mutex. The release runs after the last reference is
+gone, so take ours with file_ref_get(). Drop it with __fput_sync(): if
+it is the last one, fput() would defer the release to this task, which
+DEL_DEV then makes wait for the device to be freed.
+
+A server which opened the device but hasn't fetched is stopped too.
+Document what a server sees after STOP_DEV in ublk.rst.
+
+Fixes: 85248d670b71 ("ublk: move ublk_cancel_dev() out of ub->mutex")
 Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/netdev/20260825120132.51636-1-pamoutafpro@gmail.com/
-Link: https://github.com/oracle/linux-uek/commit/2fdeb0513f18
-Fixes: 840df162b3eb ("rds: reduce memory footprint for RDS when transport is RDMA")
-Fixes: 905dd4184e07 ("RDS: TCP: Track peer's connection generation number")
-Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
-Reviewed-by: Allison Henderson <achender@kernel.org>
-Link: https://patch.msgid.link/20261012025336.54756-1-bsdhenrymartin@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Reported-by: Josef Bacik <josef@toxicpanda.com>
+Closes: https://lore.kernel.org/linux-block/20260928-b4-ublk-cancel-stop-v1-0-4a4360232a46@toxicpanda.com/
+Tested-by: Josef Bacik <josef@toxicpanda.com>
+Signed-off-by: Ming Lei <tom.leiming@gmail.com>
+Link: https://patch.msgid.link/20261011063555.1142277-8-tom.leiming@gmail.com
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
 ---
- net/rds/recv.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ Documentation/block/ublk.rst |  7 ++++
+ drivers/block/ublk_drv.c     | 80 ++++++++++++++++++++++++++++++++----
+ 2 files changed, 79 insertions(+), 8 deletions(-)
 
-diff --git a/net/rds/recv.c b/net/rds/recv.c
-index 6204e577a90ae..93ee4546ae362 100644
---- a/net/rds/recv.c
-+++ b/net/rds/recv.c
-@@ -379,7 +379,8 @@ void rds_recv_incoming(struct rds_connection *conn, struct in6_addr *saddr,
- 		rds_stats_inc(s_recv_ping);
- 		rds_send_pong(cp, inc->i_hdr.h_sport);
- 		/* if this is a handshake ping, start multipath if necessary */
--		if (RDS_HS_PROBE(be16_to_cpu(inc->i_hdr.h_sport),
-+		if (conn->c_trans->t_mp_capable &&
-+		    RDS_HS_PROBE(be16_to_cpu(inc->i_hdr.h_sport),
- 				 be16_to_cpu(inc->i_hdr.h_dport))) {
- 			rds_recv_hs_exthdrs(&inc->i_hdr, cp->cp_conn);
- 			rds_start_mprds(cp->cp_conn);
-@@ -387,7 +388,8 @@ void rds_recv_incoming(struct rds_connection *conn, struct in6_addr *saddr,
- 		goto out;
- 	}
+diff --git a/Documentation/block/ublk.rst b/Documentation/block/ublk.rst
+index 28300fee22bfc..ed3285e361ad5 100644
+--- a/Documentation/block/ublk.rst
++++ b/Documentation/block/ublk.rst
+@@ -126,6 +126,13 @@ managing and controlling ublk devices with help of several control commands:
+   ublk server will release resources (such as destroying I/O handler threads &
+   io_uring).
  
--	if (be16_to_cpu(inc->i_hdr.h_dport) ==  RDS_FLAG_PROBE_PORT &&
-+	if (conn->c_trans->t_mp_capable &&
-+	    be16_to_cpu(inc->i_hdr.h_dport) ==  RDS_FLAG_PROBE_PORT &&
- 	    inc->i_hdr.h_sport == 0) {
- 		rds_recv_hs_exthdrs(&inc->i_hdr, cp->cp_conn);
- 		/* if this is a handshake pong, start multipath if necessary */
++  If a server has ``/dev/ublkc*`` open, its fetched I/O commands complete with
++  ``UBLK_IO_RES_ABORT``. Until it closes ``/dev/ublkc*``, new
++  ``UBLK_IO_FETCH_REQ`` and ``UBLK_U_IO_PREP_IO_CMDS`` commands complete with
++  ``UBLK_IO_RES_ABORT`` too, and ``UBLK_CMD_START_DEV`` fails with ``-EBUSY``,
++  even if the server hadn't fetched anything. The device can be started again
++  by a server that opens ``/dev/ublkc*`` after that.
++
+ - ``UBLK_CMD_DEL_DEV``
+ 
+   Remove ``/dev/ublkc*``. When this command returns, the allocated ublk device
+diff --git a/drivers/block/ublk_drv.c b/drivers/block/ublk_drv.c
+index c0a112a9bf426..e315d10ba21cc 100644
+--- a/drivers/block/ublk_drv.c
++++ b/drivers/block/ublk_drv.c
+@@ -321,6 +321,8 @@ struct ublk_device {
+ #define UB_STATE_OPEN		0
+ #define UB_STATE_USED		1
+ #define UB_STATE_DELETED	2
++/* STOP_DEV canceled the server's commands, until its release */
++#define UB_STATE_STOPPING	3
+ 	unsigned long		state;
+ 	int			ub_number;
+ 
+@@ -334,6 +336,8 @@ struct ublk_device {
+ 	u16			nr_queue_ready;
+ 	bool 			unprivileged_daemons;
+ 	struct mutex cancel_mutex;
++	/* the open /dev/ublkcN, protected by cancel_mutex */
++	struct file *ch_file;
+ 	/*
+ 	 * A cancel started in this FETCH round. Set by ublk_set_canceling(),
+ 	 * cleared only by ublk_reset_ch_dev() when a new round starts. While
+@@ -2406,6 +2410,9 @@ static int ublk_ch_open(struct inode *inode, struct file *filp)
+ 		return -EBUSY;
+ 	filp->private_data = ub;
+ 	ub->ublksrv_tgid = current->tgid;
++	mutex_lock(&ub->cancel_mutex);
++	ub->ch_file = filp;
++	mutex_unlock(&ub->cancel_mutex);
+ 	return 0;
+ }
+ 
+@@ -2432,6 +2439,7 @@ static void ublk_reset_ch_dev(struct ublk_device *ub)
+ 	ub->nr_queue_ready = 0;
+ 	ub->unprivileged_daemons = false;
+ 	ub->ublksrv_tgid = -1;
++	clear_bit(UB_STATE_STOPPING, &ub->state);
+ }
+ 
+ static struct gendisk *ublk_get_disk(struct ublk_device *ub)
+@@ -2635,6 +2643,9 @@ static int ublk_ch_release(struct inode *inode, struct file *filp)
+ {
+ 	struct ublk_device *ub = filp->private_data;
+ 
++	mutex_lock(&ub->cancel_mutex);
++	ub->ch_file = NULL;
++	mutex_unlock(&ub->cancel_mutex);
+ 	/*
+ 	 * Grab ublk device reference, so it won't be gone until we are
+ 	 * really released from work function.
+@@ -3026,13 +3037,54 @@ static void ublk_stop_dev_unlocked(struct ublk_device *ub)
+ 	put_disk(disk);
+ }
+ 
++static struct file *ublk_get_ch_file(struct ublk_device *ub)
++{
++	struct file *file;
++
++	mutex_lock(&ub->cancel_mutex);
++	file = ub->ch_file;
++	if (file && !file_ref_get(&file->f_ref))
++		file = NULL;
++	mutex_unlock(&ub->cancel_mutex);
++	return file;
++}
++
+ static void ublk_stop_dev(struct ublk_device *ub)
+ {
++	struct file *file;
++
++	/*
++	 * FETCH, PREP and START_DEV take ub->mutex. If a server has
++	 * /dev/ublkcN open, set STOPPING, which turns it away, and hold a
++	 * reference on the file: the server's release, whose reset clears
++	 * STOPPING and lets a new server attach, can't run before we drop it.
++	 * So the cancel can run after the unlock and only meets this server's
++	 * commands; it has to: io_uring_cmd_done() may take uring_lock, under
++	 * which FETCH takes ub->mutex.
++	 */
+ 	mutex_lock(&ub->mutex);
+ 	ublk_stop_dev_unlocked(ub);
+-	mutex_unlock(&ub->mutex);
+ 	cancel_work_sync(&ub->partition_scan_work);
++	file = ublk_get_ch_file(ub);
++	if (file) {
++		/*
++		 * The server has to close /dev/ublkcN before this device can
++		 * be started again: the reset in its release clears STOPPING.
++		 */
++		set_bit(UB_STATE_STOPPING, &ub->state);
++		/* for wake_up_var() below, see wake_up_bit() */
++		smp_mb__after_atomic();
++	}
++	mutex_unlock(&ub->mutex);
++
++	/* no server: nothing to cancel */
++	if (!file)
++		return;
++
++	/* wake a START_DEV waiting for the device to get ready */
++	wake_up_var(&ub->nr_queue_ready);
+ 	ublk_cancel_dev(ub);
++	__fput_sync(file);
+ }
+ 
+ static void ublk_reset_io_flags(struct ublk_queue *ubq, struct ublk_io *io)
+@@ -3297,6 +3349,9 @@ static int ublk_check_fetch_buf(const struct ublk_device *ub, __u64 buf_addr)
+ static int __ublk_fetch(struct io_uring_cmd *cmd, struct ublk_device *ub,
+ 			struct ublk_io *io, u16 q_id)
+ {
++	if (test_bit(UB_STATE_STOPPING, &ub->state))
++		return UBLK_IO_RES_ABORT;
++
+ 	/* UBLK_IO_FETCH_REQ is only allowed before dev is setup */
+ 	if (ublk_dev_ready(ub))
+ 		return -EBUSY;
+@@ -4476,22 +4531,27 @@ static bool ublk_validate_user_pid(struct ublk_device *ub, pid_t ublksrv_pid)
+ 	return ub->ublksrv_tgid == ublksrv_pid;
+ }
+ 
++static bool ublk_dev_ready_or_stopping(const struct ublk_device *ub)
++{
++	return ublk_dev_ready(ub) || test_bit(UB_STATE_STOPPING, &ub->state);
++}
++
+ /*
+- * Wait until all queues have fetched their I/O commands, and return with
+- * ub->mutex held and readiness guaranteed. The queues stay canceling if
+- * this round saw a cancel, see ublk_queue_reset_io_flags(). Ready may
+- * regress between wakeup and mutex_lock() (F_BATCH UNPREP, daemon death),
+- * so re-check it under the mutex and wait again.
++ * Wait until all queues have fetched their I/O commands, or STOP_DEV set
++ * UB_STATE_STOPPING, and return with ub->mutex held. The queues stay
++ * canceling if this round saw a cancel, see ublk_queue_reset_io_flags().
++ * Ready may regress between wakeup and mutex_lock() (F_BATCH UNPREP,
++ * daemon death), so re-check it under the mutex and wait again.
+  */
+ static int ublk_wait_dev_ready_and_lock(struct ublk_device *ub)
+ {
+ 	while (true) {
+ 		if (wait_var_event_interruptible(&ub->nr_queue_ready,
+-						 ublk_dev_ready(ub)))
++						 ublk_dev_ready_or_stopping(ub)))
+ 			return -EINTR;
+ 
+ 		mutex_lock(&ub->mutex);
+-		if (ublk_dev_ready(ub))
++		if (ublk_dev_ready_or_stopping(ub))
+ 			return 0;
+ 		mutex_unlock(&ub->mutex);
+ 	}
+@@ -4591,6 +4651,10 @@ static int ublk_ctrl_start_dev(struct ublk_device *ub,
+ 		ret = -EEXIST;
+ 		goto out_unlock;
+ 	}
++	if (test_bit(UB_STATE_STOPPING, &ub->state)) {
++		ret = -EBUSY;
++		goto out_unlock;
++	}
+ 
+ 	disk = blk_mq_alloc_disk(&ub->tag_set, &lim, NULL);
+ 	if (IS_ERR(disk)) {
 -- 
 2.53.0
 
