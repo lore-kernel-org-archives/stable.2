@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794045755;
-	b=F5sTKficrNFAescdW68jD1Vtoh47wi1qJhWwWLGD7qsWwY9ytjhHncZHJpMsBOCB5agA
-	 jY/LkN1/8/Jxd+UgKBcsWfuaJKg6aE/9ESMbfyzSBRXkAT8Q+yx6d6OnfChQK1XnAo+vZ
-	 S5upp/fXKS7ZuhvSQpx3Ye3BOyeSLxEvZQXQW8pwoIuyoT2gr7qG0W9dnBYAqYgXmgJpq
-	 RQqPL0H/UMEKyLd6XHmZC79KFNxG9VInCjN1+7A6P93HGEhtAK94PYL38XvSPp3VivrRE
-	 EB/m1IBBbC5wFfLmDOShDmbzBi8ZytXgOPAKnJ6yOiXcVlXeAJC+Rpkk2qRBmqj3+aQ==
+	t=1794045757;
+	b=PeaqccG7nowOXeiVEXW6kkam+F1VsoBrpFI6oOPsiC9zHtVNLtVVNQeLgTGRaq7DuR/4
+	 8UibkUYM6ioD/MeXTqETphtzxy3vocu3naZSg3Nq5PUeZjnuBFkhP8H+2AxOVDc6J3EOb
+	 8sG/C+z9Jug2fxot1+XxlpC4r37Db7GvJoPqTfVjHgAGHQh6LdopG8V7SZMjG4gbqdvXn
+	 RvFE8iU3XtiRpo65SgCpwlMB6cArAWgNi3ajO20ip1I15r5oP8lA3UayBP6/mG1rYTLi2
+	 Nc+krtc+UHbb8LitXsuXkPrmt8GKBtueSRaPxh1h89vALbyovf46svMHWlHKO+qudpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794045755;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794045757;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=NO5KJ5pcsXAG+kFZDskS3eh8fgYXBx+VoFwuMzVLtTk=;
-	b=mCJ7JSXRYXXgfG9PF80qFTgfubrMx1zyC+9MvmuK6I07aD/MMgvwSnRH2fD/C3UWFnBY
-	 DkdYIcid8UZ4nPhGm8em0sPZIFKMjkW4MWLGxD5FT7vRU0DEwfgjD1Q5V6O0hX36op/fX
-	 V29UjTKXpuo8QKs+XvflF/2Z8QSz6DW06p1KoXPz1qw+XwufrJwcF4ZO6F41I1hLBW9VV
-	 HQKppj8PXIsNhCFHZ2HCMG8/LkMCiqXD+ubR6Y2X8G34XlCkaF3Gd8dLb/jzyEljSgM4P
-	 DtZpWG9IUclW4j4+qGkwUYC+bQV5OdO4WQo494gMUbs5UkYo/Kd/47JPrzEEcMQu4+Q==
+	bh=GyBqAaguIQ+FE0MDEAjOmWxWyxdL8hkUPQ1Cb1MIjHY=;
+	b=p13m3Wti5TPlIjdS2lcX7x+clgFt2IgpvwGliQsIGAYp4Goz3icTYWIX4FAbJJ2jFiEU
+	 DcdS9suFoKzYz5JPiXm52qT8v3+wWOIwckindA/e08hPIp8rTLw3lMKdnUjAAyJXTvWfx
+	 HfvwyaL4zKNoJfX37XcUj/HJ6xIT6EoNTRHRA2Iwc7/HJ4va2KeIksE5uJCYZNaO//JRh
+	 4W5pp6jFmTZt00J3qazW72P1BEBUFKYIxXabcX7AtlKfuLGqmvtCX2jnr3GXUUj0GcWYO
+	 G9oZCjk1wnEiba8dMIi5KTlw3J2DnVMGvvrPJH+Wj+/n4P0QttPZjWiif7SDU5kSigw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NCDQExrw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="b2lV/aYk";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 803B8606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:02:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7092C606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:02:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NCDQExrw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B22D91F0089F;
-	Sat,  7 Nov 2026 10:02:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b2lV/aYk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB6581F0089F;
+	Sat,  7 Nov 2026 10:02:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794045755;
-	bh=NO5KJ5pcsXAG+kFZDskS3eh8fgYXBx+VoFwuMzVLtTk=;
+	s=k20260515; t=1794045757;
+	bh=GyBqAaguIQ+FE0MDEAjOmWxWyxdL8hkUPQ1Cb1MIjHY=;
 	h=From:To:Cc:Subject:Date;
-	b=NCDQExrw724PYSEGo4Mweqq0amEbzxTv2oXrc8zA1gPLEA50kKzAbZ+TJHZJq++PU
-	 h7UHQ4E8BZRm4ooNA//hAKc+CDomS8rI4UmQ0VPUTn0sHSAS71s66r7vmRyc/Gzatc
-	 UlVNEALZuw/krGBKJj+GYODXu87z3IJmTeMgfm8rgzUfHFK8x687Fh/etHJjLjFVX6
-	 izaNF+7Oy9P2dYw9iis+ejZxWif9vylhBTb4fwCIU1d5jshIph0h6x6tJSUsP/qpoZ
-	 YnnEh5Ot0zYz0oK4ipLSwT6GwvJIy1bY7KMKPZjzSOjAtNW7630Su/O1QfrTEU924c
-	 JlEyUQCEdtjKw==
+	b=b2lV/aYklgYu73BZ8dlN4p/bOQrX4m++DXJNjxCHH0ORy8iUF4pHcQchRA01Hql3m
+	 sXMvCf7lk9EKsTw/b58ad9VJTIsEfLWaud5MvsXip+3MF1IUWpov+c7ymW498lPUB5
+	 28BJs5w4eVSAxG5vwIg9mv2WmSQWH8q5pK4XO3g1PDcGDcCzHot8wX9LA3SwP8K2Lj
+	 SIQ7eNFU4T38gsbpOBhCwUMzIuQPvwi/k4N0Nce7C4S2lsNsCUbaUrsiIyOwGsU47h
+	 uh2vnjl3pQ4DSASEUvZBT3PIho3HQSSyUqiSOAP4tcjZMmiuudHBqUV2o11xzZe8uT
+	 fC6JHfiZ2HlGA==
 From: Sasha Levin <sashal@kernel.org>
-To: heikki.krogerus@linux.intel.com,
-	rodrigo.vivi@intel.com
+To: ville.syrjala@linux.intel.com,
+	suraj.kandpal@intel.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/xe/i2c: Keep the i2c controller always enabled" failed to apply to 7.3-stable tree
-Date: Sat,  7 Nov 2026 05:02:33 -0500
-Message-ID: <20261107050233-failed-7.3-76cc14e2faed@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/i915/cdclk: Avoid spurious cdclk sanitization on PTL+" failed to apply to 7.3-stable tree
+Date: Sat,  7 Nov 2026 05:02:35 -0500
+Message-ID: <20261107050235-failed-7.3-1786d2688781@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,135 +68,58 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x 76cc14e2faed1adae20f4ee144ead0e3a7566c49
+git cherry-pick -x 1786d26887817a779641d3a093c66ac91382113b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050233-failed-7.3-76cc14e2faed@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050235-failed-7.3-1786d2688781@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 76cc14e2faed1adae20f4ee144ead0e3a7566c49 Mon Sep 17 00:00:00 2001
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Date: Tue, 11 Aug 2026 14:10:08 +0200
-Subject: [PATCH] drm/xe/i2c: Keep the i2c controller always enabled
+From 1786d26887817a779641d3a093c66ac91382113b Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
+Date: Fri, 17 Jul 2026 18:51:06 +0300
+Subject: [PATCH] drm/i915/cdclk: Avoid spurious cdclk sanitization on PTL+
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Some platforms make an assumption that the i2c controller's
-enabled state indicates also the power state of the
-controller. This can create a problem when the controller is
-in disabled state, because the hardware may assume
-incorrectly that it is then also in low-power state.
+Apparently PTL+ no longer has the cd2x pipe select field in
+CDCLK_CTL. Take that into account during CDCLK sanitization.
 
-To fix this, the controller is kept enabled by taking over
-the IC_ENABLE register. The controller has to be disabled
-when the configuration is updated and when the target
-address or the slave address are assigned, so disabling it
-when IC_CON, IC_TAR or IC_SAR registers are programmed, and
-then re-enabling it again.
+This currently triggers a spurious CDCLK sanitization during
+driver load on PTL+ which will causes a visible glitch on all
+active displays.
 
-Fixes: f0e53aadd702 ("drm/xe: Support for I2C attached MCUs")
 Cc: stable@vger.kernel.org
-Signed-off-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Link: https://patch.msgid.link/20260811121008.1493015-4-heikki.krogerus@linux.intel.com
-Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8550
+Fixes: 3f9de66f8acb ("drm/i915/cdclk: Fix up CDCLK_FREQ_DECIMAL without a full PLL re-enable")
+Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Link: https://patch.msgid.link/20260717155107.17801-1-ville.syrjala@linux.intel.com
+Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
 ---
- drivers/gpu/drm/xe/xe_i2c.c | 49 ++++++++++++++++++++++++++++++++++++-
- drivers/gpu/drm/xe/xe_i2c.h |  1 +
- 2 files changed, 49 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_cdclk.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_i2c.c b/drivers/gpu/drm/xe/xe_i2c.c
-index 32767570e43d4..d8fa68206f418 100644
---- a/drivers/gpu/drm/xe/xe_i2c.c
-+++ b/drivers/gpu/drm/xe/xe_i2c.c
-@@ -8,6 +8,7 @@
- #include <drm/drm_print.h>
- #include <linux/array_size.h>
- #include <linux/container_of.h>
-+#include <linux/delay.h>
- #include <linux/device.h>
- #include <linux/err.h>
- #include <linux/i2c.h>
-@@ -215,11 +216,40 @@ void xe_i2c_irq_postinstall(struct xe_device *xe)
- 	xe_mmio_rmw32(mmio, I2C_CONFIG_CMD, PCI_COMMAND_INTX_DISABLE, 0);
- }
- 
-+/* See "Disabling DW_apb_i2c" in the DesignWare DW_abp_i2c databook. */
-+static void xe_i2c_disable(struct xe_i2c *i2c)
-+{
-+	int timeout = 100;
-+	u32 status;
-+
-+	xe_mmio_rmw32(i2c->mmio, I2C_REG(DW_IC_ENABLE), DW_IC_ENABLE_ENABLE, 0);
-+
-+	do {
-+		status = xe_mmio_read32(i2c->mmio, I2C_REG(DW_IC_ENABLE_STATUS));
-+		if (!(status & DW_IC_ENABLE_ENABLE))
-+			return;
-+		/* Can't sleep here. */
-+		udelay(25);
-+	} while (timeout--);
-+
-+	dev_warn(i2c->drm_dev, "timeout in disabling i2c adapter\n");
-+}
-+
- static int xe_i2c_read(void *context, unsigned int reg, unsigned int *val)
- {
- 	struct xe_i2c *i2c = context;
- 
--	*val = xe_mmio_read32(i2c->mmio, XE_REG(reg + I2C_MEM_SPACE_OFFSET));
-+	*val = xe_mmio_read32(i2c->mmio, I2C_REG(reg));
-+
-+	switch (reg) {
-+	case DW_IC_ENABLE:
-+	case DW_IC_ENABLE_STATUS:
-+		FIELD_MODIFY(DW_IC_ENABLE_ENABLE, val,
-+			     i2c->ic_enable & DW_IC_ENABLE_ENABLE);
-+		break;
-+	default:
-+		break;
+diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
+index a53d887271778..9e5e15b0c4d12 100644
+--- a/drivers/gpu/drm/i915/display/intel_cdclk.c
++++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
+@@ -2381,8 +2381,10 @@ static void bxt_sanitize_cdclk(struct intel_display *display)
+ 	 * dividers both syncing to an active pipe, or asynchronously
+ 	 * (PIPE_NONE).
+ 	 */
+-	cdctl &= ~bxt_cdclk_cd2x_pipe_mask(display);
+-	cdctl |= bxt_cdclk_cd2x_pipe(display, INVALID_PIPE);
++	if (DISPLAY_VER(display) < 30) {
++		cdctl &= ~bxt_cdclk_cd2x_pipe_mask(display);
++		cdctl |= bxt_cdclk_cd2x_pipe(display, INVALID_PIPE);
 +	}
  
- 	return 0;
- }
-@@ -229,6 +259,23 @@ static int xe_i2c_write(void *context, unsigned int reg, unsigned int val)
- 	struct xe_i2c *i2c = context;
- 
- 	switch (reg) {
-+	case DW_IC_CON:
-+	case DW_IC_TAR:
-+	case DW_IC_SAR:
-+		/* Disable the controller. */
-+		xe_i2c_disable(i2c);
-+
-+		/* Write the register. */
-+		xe_mmio_write32(i2c->mmio, I2C_REG(reg), val);
-+
-+		/* Enable the controller. */
-+		xe_mmio_rmw32(i2c->mmio, I2C_REG(DW_IC_ENABLE), 0, DW_IC_ENABLE_ENABLE);
-+		return 0;
-+	case DW_IC_ENABLE:
-+		i2c->ic_enable = val;
-+		/* Other fields can be updated except the enable bit. */
-+		val |= DW_IC_ENABLE_ENABLE;
-+		break;
- 	case DW_IC_SMBUS_INTR_MASK:
- 		/* Make sure the Alert is never masked. */
- 		val |= DW_IC_SMBUS_INTR_ALERT;
-diff --git a/drivers/gpu/drm/xe/xe_i2c.h b/drivers/gpu/drm/xe/xe_i2c.h
-index b200966b00484..d63adacfefe71 100644
---- a/drivers/gpu/drm/xe/xe_i2c.h
-+++ b/drivers/gpu/drm/xe/xe_i2c.h
-@@ -37,6 +37,7 @@ struct xe_i2c {
- 	struct platform_device *pdev;
- 	struct i2c_adapter *adapter;
- 	struct i2c_client *client[XE_I2C_MAX_CLIENTS];
-+	unsigned int ic_enable;
- 
- 	struct notifier_block bus_notifier;
- 	struct work_struct work;
+ 	if (cdctl != expected) {
+ 		if (DISPLAY_VER(display) < 20) {
 -- 
 2.53.0
 
