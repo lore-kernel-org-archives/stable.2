@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050388;
-	b=BqbpuCfJvB5RR7oe4sb4BJYISZKKJSDaeYSUHjWaj8M5s+9WoxNSLMQ0ti7WcVBTp+5z
-	 u3HPAuY/piEqWxPRDWEcCky5+oRhZaIp7CJoJ+NYHov6UT6X88dpYBJLShAi5faFo9Xf7
-	 luXZCHuwilzK4z9V+K+puAx/N60xlDOH9neWyvhIXY04vb9GZVLmmw87aRGpSX5iDZPqX
-	 b+aBGWqrrny7YhApmMcjj7QPU//WmJ9HzsWdrkCYD/z5mv4/4cxDVXThnnf3JZPJ0821R
-	 vZ5lBsVDtRKoakdPwwXVRMk8PPQI5IRvg08nNXGEk7AwB55UDoflQXp2xUXZpIz4RxQ==
+	t=1794050391;
+	b=V/jF1QoiCQZn8jMrPNeTViyWbb7Zjsizf8YMTtCkiUp6RchqSxlIAC9V+nEAGbWX9YzC
+	 KrhTZwdsXSg5aDXRhbg61lmnCUtD+Lh7zNSUwP2poK/ywj3iiZ1jEGDk8y+hPelWbwH6A
+	 l6m4+TiGSzqxUAMnqFGkcCcHdhFlsma+T5lz9hLLk2FzW/+heVp7kyOvu3/eTBF9Q5tYZ
+	 f0xNjnz+Gtd9yt7hQlB2ABdeS7M+7es2NF47Iz8sVSklmpypAqM2ARE9CcQvAJuJA61gN
+	 079n1rAbZuCZL6G4ayEpIVjpsuJtxFXsRJ2bkq0+33s/pVol+LblE2pXj7fygF81nbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050388;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050391;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=bC9bWihiJhBDCUGzpZmxYmvG4mZZ8bXfPVit132ST4g=;
-	b=On7mCb7ION5zNVKUuRtwSMApS1/L/qz4fdVgk52ZBdlgor8LqFxrOXvuSB1mxuqFEDTD
-	 0YALbF4zuDPuqnJBakNgy1+I4crkBU8fyYC7r2DjmaKOIeUdDalHHDdsFvyvl1ckjpZv+
-	 Di7gcISuB/O1YtgCNwB0HHicoFpP0wtXf3dcjTW49ahyU7xNjxeLh4HxLFHkaUJL7E+Bj
-	 wBWJLuAFgpERDG6kJvOcwZSAnxjsjFrLkSMf4s4Jx97NhRK60yq7jJekS8G2LkePESOk5
-	 B3iHqhLB77e9dnwfqTbH9sY4UuXSd/dtV7GemABhSNJGHdCiI9Rf2W4zo4WfIkjzw6A==
+	bh=T59scfimlSt/RdoCOGymTo9JVVO/T4NbfAE24OUrmk8=;
+	b=OGOdHqPGAEvq7HvkGOaqjcRFi2es58hAdV4yiz1ncKw23W0Q7rZlY9YGHxZn3l2S+Nl5
+	 IYwPYZue4yiiFkxjNkHP0EBp1MESQsMFRRcB3eAreFRiVIUJWuIBFyV1yTphAHVHpFnzQ
+	 TL7EVf3MnvWmSZXtzg9HX7MQxcGGIS6/3jc02e0xx3RtFixvZtDmpI3GREbJ9opz7Uc7k
+	 NtdVVX5HPen8PC85CTxWa08SQbbfOoJmbadlFGv53YGUNrxMMgzxUSBNup4Ezp5OAA1zz
+	 w0PzHZgDrfKyUBuocJisREUkGWpM3v+dtU8pYiP2UKaChaLLe5hsz9oahI37s6EHrdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fqo4WLNW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c5k8czzB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38BFC606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:19:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 500E4606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:19:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fqo4WLNW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A0E91F008A2;
-	Sat,  7 Nov 2026 11:19:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c5k8czzB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8F7B1F0089F;
+	Sat,  7 Nov 2026 11:19:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050388;
-	bh=bC9bWihiJhBDCUGzpZmxYmvG4mZZ8bXfPVit132ST4g=;
+	s=k20260515; t=1794050391;
+	bh=T59scfimlSt/RdoCOGymTo9JVVO/T4NbfAE24OUrmk8=;
 	h=From:To:Cc:Subject:Date;
-	b=Fqo4WLNWsfICFNAw9z9b2pa94mjEAhutzMDE8HTApHL1erp9sKMr1Sx22Y3zF86RP
-	 QSiPdy6Gvid5kuZZMZlv7PPUAAVgcjfGRtspblFLXzeTl7yhRXc4YZTnBtbNAy3ym1
-	 QwQT2c3NRL0AI/pBoZLExC8uRP6MD6VsjxI8C6mj6uOxGz0Q/2+ZShQHrehYBcqKGU
-	 Xls2B90KH2+i8+MfYwC+Pm+OYeJ3wr1Lim9C7ZNQ5ZnxadPal8XHE2t7gali7rlG6I
-	 A974mJtdbli5SE7JOn9Xv98TaT4DUor/5gq0GuDo2eq5uzilkp6toiJ/PlnnNXqo1j
-	 uZJjKWu5voFYA==
+	b=c5k8czzBJdlwsrWYyDtKOmx/YMyrnDnSQwR9A2lKNJuUo50jFDyPWDoLh/ZFa1608
+	 OqGn2CBGvfw+/m3miFBpx7P52sO5eTlO+7RD2TbtfcImyM9AEqhJjj93f1eSXv1ZKM
+	 F6YPwfc7QZjhxMrnGsnMGFq6RlHrh9mznbPtV8yJLhK18nWG7iEK+RzuOfUgQMX+dc
+	 YObQxaSz4B00IzH5TVKoqvH0s2h89sgLpE+QvV1Hi6LKBM2i9sKTwQ5hpkhPUGnMN8
+	 Ju/qyHEJVtWLgEB+aGxtevjG3q2+2PqCe8/31YSbJE3REvdP8S4t8DqXdI9jfVOBQP
+	 JpRU9ivrh/Gag==
 From: Sasha Levin <sashal@kernel.org>
-To: daejun7.park@samsung.com,
-	junzheyu1@gmail.com,
+To: swinds24@gmail.com,
 	jack@suse.cz,
 	tytso@mit.edu
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] jbd2: don't advance j_fc_off before the buffer is recorded" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:19:46 -0500
-Message-ID: <20261107061945-failed-5.10-9f359c031885@kernel.org>
+Subject: FAILED: patch "[PATCH] ext4: fix fast commit replay failing on a read-only mount" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:19:49 -0500
+Message-ID: <20261107061949-failed-5.10-e1a881ea4674@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,91 +69,124 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 9f359c031885bb50add7d23c7a5a0e9755b134c9
+git cherry-pick -x e1a881ea4674876721cab97680d1d8308f90e9a4
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061945-failed-5.10-9f359c031885@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061949-failed-5.10-e1a881ea4674@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 9f359c031885bb50add7d23c7a5a0e9755b134c9 Mon Sep 17 00:00:00 2001
-From: Daejun Park <daejun7.park@samsung.com>
-Date: Wed, 19 Aug 2026 15:09:39 +0900
-Subject: [PATCH] jbd2: don't advance j_fc_off before the buffer is recorded
+From e1a881ea4674876721cab97680d1d8308f90e9a4 Mon Sep 17 00:00:00 2001
+From: Hsiu-Hsien Lee <swinds24@gmail.com>
+Date: Wed, 12 Aug 2026 12:43:53 +0800
+Subject: [PATCH] ext4: fix fast commit replay failing on a read-only mount
 
-jbd2_fc_get_buf() increments journal->j_fc_off before jbd2_journal_bmap()
-and __getblk() have had a chance to fail.  When either does, the slot
-j_fc_wbuf[fc_off] is never assigned, but j_fc_off already counts it.
+A filesystem with fast_commit that needs recovery cannot be mounted
+read-only:
 
-ext4 then fails the fast commit and falls back, and the fallback path
-reaches jbd2_fc_release_bufs() via ext4_fc_commit ->
-jbd2_fc_end_commit_fallback -> __jbd2_fc_end_commit -> ext4_fc_cleanup.
-That walks down from j_fc_off - 1 and put_bh()es every slot until it
-sees NULL, so it also touches the slot that was never written.
-j_fc_wbuf comes from a plain kmalloc() and is never zeroed, so a slot
-used for the first time holds uninitialised heap data.
+  EXT4-fs (dm-0): INFO: recovery required on readonly filesystem
+  EXT4-fs (dm-0): write access will be enabled during recovery
+  WARNING: CPU: 22 PID: 5544 at fs/ext4/ext4_jbd2.c:73
+   ext4_journal_check_start
+   __ext4_journal_start_sb
+   __ext4_unlink
+   ext4_fc_replay
+   do_one_pass
+   jbd2_journal_recover
+   jbd2_journal_load
+   __ext4_fill_super
+  JBD2: journal recovery failed
+  EXT4-fs (dm-0): error loading journal
 
-Advance j_fc_off only after the buffer head has been stored.  That
-restores the invariant that j_fc_off covers exactly the filled slots,
-which is what jbd2_fc_release_bufs() relies on: the live buffers of the
-current fast commit sit above the NULLs the previous one released, so
-stopping at the first NULL is correct.
+Fast commit replay runs ext4 metadata operations instead of writing
+blocks through the buffer cache: ext4_fc_replay_{unlink,link,create}()
+reach __ext4_unlink() and __ext4_link(), which start a handle.
+ext4_journal_check_start() returns -EROFS on a read-only sb, and as
+that is not -ENOENT it propagates out of jbd2_journal_recover() and
+kills the whole recovery.  The EXT4_FC_REPLAY check that would hand
+out a no-journal handle sits after the sb_rdonly() test, so replay can
+never complete read-only.
 
-Reproduced on a KASAN kernel with an ext4 fast_commit filesystem on a
-loop device, truncating the backing file under the live mount so that
-only the journal's fast-commit region falls past the end of the device.
-__getblk() then fails for the first fast-commit block while the rest of
-the journal is still addressable, so the journal is not aborted and the
-fast commit reaches the fallback path.  j_fc_wbuf was poisoned to make
-the read of the never-written slot visible:
+ext4_load_journal() has already promised that write access will be
+enabled during recovery, so make that true for the superblock as well:
+clear SB_RDONLY across jbd2_journal_load() when recovery is needed on a
+read-only mount and the devices are writable, as ext4_orphan_cleanup()
+does.  Unlike ext4_handle_error(), which avoids SB_RDONLY because it
+would need s_umount, the sb here is still inside ext4_fill_super() and
+not published, so nothing can observe it.
 
-  BUG: KASAN: wild-memory-access in jbd2_fc_release_bufs+0x6b/0xd0
-  Write of size 4 at addr 5a5a5a5a5a5a5ab2 by task sync/961
-   jbd2_fc_release_bufs+0x6b/0xd0
-   ext4_fc_cleanup+0x97/0x830
-   __jbd2_fc_end_commit+0x37/0xc0
-   ext4_fc_commit+0x524/0x560
-   ext4_sync_file+0x3c4/0x4b0
-   __x64_sys_fsync+0x20/0x30
+The failure is not clean either: the replay handlers passing a NULL
+handle (ext4_fc_replay_inode(), _add_range(), _del_range()) never hit
+ext4_journal_check_start() and do write, leaving a partially applied
+fast commit behind.
 
-With this patch the same run leaves j_fc_off at 0 across repeated
-__getblk() failures and completes cleanly.
+Reproducer, where the unlink only ever reaches the fast commit area:
 
-Fixes: ff780b91efe9 ("jbd2: add fast commit machinery")
-Cc: stable@kernel.org
-Reported-by: Yu Junzhe <junzheyu1@gmail.com>
-Closes: https://lore.kernel.org/linux-ext4/7e4b109d-64c3-444f-a5dc-93c2ca4576cc@gmail.com/
-Signed-off-by: Daejun Park <daejun7.park@samsung.com>
+  mke2fs -q -F -t ext4 -O fast_commit -b 4096 /dev/sdb3 262144
+  mount /dev/sdb3 /mnt
+  dd if=/dev/zero of=/mnt/victim bs=4k count=1 conv=fsync
+  sync                          # victim now in a full commit
+  rm /mnt/victim
+  dd if=/dev/zero of=/mnt/trigger bs=4k count=1 conv=fsync
+  <crash, or snapshot the device while mounted and write it back>
+  mount -o ro /dev/sdb3 /mnt
+
+Without this patch that mount fails; with it recovery completes and
+victim is gone, i.e. the UNLINK record was really replayed.
+
+Fixes: 8016e29f4362 ("ext4: fast commit recovery path")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hsiu-Hsien Lee <swinds24@gmail.com>
 Reviewed-by: Jan Kara <jack@suse.cz>
-Link: https://patch.msgid.link/20260819060939epcms2p37bb8589b2f8a52a2b14bef38fadcf69d@epcms2p3
+Link: https://patch.msgid.link/20260812044353.1018268-1-swinds24@gmail.com
 Signed-off-by: Theodore Ts'o <tytso@mit.edu>
 ---
- fs/jbd2/journal.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/ext4/super.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/fs/jbd2/journal.c b/fs/jbd2/journal.c
-index 00f5a98f3d4fe..55b4ce0102289 100644
---- a/fs/jbd2/journal.c
-+++ b/fs/jbd2/journal.c
-@@ -843,7 +843,6 @@ int jbd2_fc_get_buf(journal_t *journal, struct buffer_head **bh_out)
+diff --git a/fs/ext4/super.c b/fs/ext4/super.c
+index bca0dc87d0b7c..ab243a02a493c 100644
+--- a/fs/ext4/super.c
++++ b/fs/ext4/super.c
+@@ -6123,6 +6123,7 @@ static int ext4_load_journal(struct super_block *sb,
+ 	int err = 0;
+ 	int really_read_only;
+ 	int journal_dev_ro;
++	bool enable_write = false;
  
- 	fc_off = journal->j_fc_off;
- 	blocknr = journal->j_fc_first + fc_off;
--	journal->j_fc_off++;
- 	ret = jbd2_journal_bmap(journal, blocknr, &pblock);
- 	if (ret)
- 		return ret;
-@@ -853,6 +852,7 @@ int jbd2_fc_get_buf(journal_t *journal, struct buffer_head **bh_out)
- 		return -ENOMEM;
+ 	if (WARN_ON_ONCE(!ext4_has_feature_journal(sb)))
+ 		return -EFSCORRUPTED;
+@@ -6179,6 +6180,7 @@ static int ext4_load_journal(struct super_block *sb,
+ 			}
+ 			ext4_msg(sb, KERN_INFO, "write access will "
+ 			       "be enabled during recovery");
++			enable_write = true;
+ 		}
+ 	}
  
- 	journal->j_fc_wbuf[fc_off] = bh;
-+	journal->j_fc_off++;
- 
- 	*bh_out = bh;
- 
+@@ -6195,7 +6197,19 @@ static int ext4_load_journal(struct super_block *sb,
+ 		if (save)
+ 			memcpy(save, ((char *) es) +
+ 			       EXT4_S_ERR_START, EXT4_S_ERR_LEN);
++		/*
++		 * Fast commit replay performs regular ext4 metadata updates
++		 * (see ext4_fc_replay()) which refuse to run on a read-only
++		 * superblock.  We promised write access above, so make that
++		 * true for the duration of the recovery, the same way
++		 * ext4_orphan_cleanup() does.  The superblock is not published
++		 * yet, so nothing can observe the transient state.
++		 */
++		if (enable_write)
++			sb->s_flags &= ~SB_RDONLY;
+ 		err = jbd2_journal_load(journal);
++		if (enable_write)
++			sb->s_flags |= SB_RDONLY;
+ 		if (save && memcmp(((char *) es) + EXT4_S_ERR_START,
+ 				   save, EXT4_S_ERR_LEN)) {
+ 			memcpy(((char *) es) + EXT4_S_ERR_START,
 -- 
 2.53.0
 
