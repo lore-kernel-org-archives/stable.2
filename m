@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046603;
-	b=MlMpCCuXmS3haHUNLXyzvk1mimpvQ3hQ1cmnvSIXHeq219dOnfRBwPP0jDI1vvU5j4OU
-	 DN4hAxLSKjfmthEqdk9Hm6RmlBLewjfoNhBqYjj3XuP6+M40f4+yD59V5V49zsR0fsVPt
-	 kqqBBqXO2drj6Wn1ZLMigSSo6qvgo2yIRQaZEgNb7QyhSo4JBWyi6Jg41aAsE8RZTSNfQ
-	 3L/F3dxQ+m9O2RK5uv+9t2IVzR5pf96A9TZWwwjRPfPlg3hKxy4Nmagp6i7B+l4WUs4ch
-	 CMmYLMV2y3vCdKJSm+fJsSwd/3Zysxun3q2cj+qvwyzQW5KOYqT/sDBZzRORbRhiJOQ==
+	t=1794046614;
+	b=WCsdLCVYVkWkXkhervqIH6v878EDazLCWRfra44lBrlMl0ld9OzYO3seyt2qtLsa7c6g
+	 ByPXsQ8DQpHWMc96KWGdL8jdB3zVNjXEpJ5LvlFWLVO0lLeWfxQ9fZ10+B2ldHQn4AwA7
+	 sDSyABAj/7PzRLppvF94qvRZ9PNQKE5mKXPgL03h4INieR5s0EUXbtPG/QslyDqLy3p5V
+	 Fn+iAIt1414YSdLYwlM+M/rgj2IwumHJExlX0u5txZ79qxdse5g3dOlrfWm/y80ZvMLsL
+	 6aT0Niai6QPPP42CkFTQReTm3BHN7JIMufvt7NHZVOXqBOsbJgkAVo+iRvj9EgiXviw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046603;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046614;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ZUFILCuYS9JDLUsR4Z6jMQlPrEGSne42+Rz0GNYjQEs=;
-	b=XPuXZjy5bQWpuPYDbO1kOKnDMHxbSoXdDKT3J+Vf3GAUEw6+gDJqnXGfbCIDwOoYl+66
-	 eXZxKWPNOt4mMBBi7IAeCcRn+dneF1uioliAGBFSUoD59F8mggS/o21425JROo8FSqiRC
-	 8Mhjhqb0MO7V07T7Za2VCCnBnZMBKleZldfWHU+N1hh7E3ykpYxuEM/P7VEFLBqZ4qKqc
-	 +giZeEudtlzKxnTSZVQ0I9x5DjphCj+E5LF32R/Eo8kCQO7mqKO6o4lO9nyuoDmwMYeFx
-	 AktrI15x0iKj+AyiZTeTz4ancROTV49DAZmTnN2zOJ1vz6YuHc1TpgbAfLVt+LGkJWg==
+	bh=2vWUbAZanzps2fWyRTyrpNEw/hLwqNf3bGQxSolpl3A=;
+	b=D7IXMA2sADC7rHFjkHWTNcVjptMWXTBFBxYgQFpwP0zmRPda0VKw/kZcqmw5HmVYWyPg
+	 YwUodg1/bKX7UgzNa9qs11vv/g9VGeW5N2wqbnn9TZ80NwGl+3ARPO8Ot3ZktRdV1re2d
+	 uUzR16wYLciJgj/TCJKx3CzySQ7FZv7t06hD/LzHKRDuPd3FojrbVl2T3/dUuzG5Od4kp
+	 J0CW8ZJ1dZ9foN/nW/NKvXFCG/N47wVBXPiVf+AErQMN0SINfN6K7C/Ip70xXux1yeqDB
+	 MoHsUwWpdI0Z8D6ItzLfu5BpTXyx23g1OoDOx6wuLACkMqw9k+K7bQRSGqAaPsvgVNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ya6XaM3M;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cFHGZXy8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A116B606EEB7
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:16:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54D7E6083623
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:16:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ya6XaM3M
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0304D1F008A3;
-	Sat,  7 Nov 2026 10:16:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cFHGZXy8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A718B1F008A1;
+	Sat,  7 Nov 2026 10:16:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046603;
-	bh=ZUFILCuYS9JDLUsR4Z6jMQlPrEGSne42+Rz0GNYjQEs=;
+	s=k20260515; t=1794046614;
+	bh=2vWUbAZanzps2fWyRTyrpNEw/hLwqNf3bGQxSolpl3A=;
 	h=From:To:Cc:Subject:Date;
-	b=Ya6XaM3MSjQiRZi4CnjXNWldtTFqpd5Ms79y2cQMD+fGm6mHtgXVqdvm1drpPEJaV
-	 7l2e5AmgbnrVTZIqwLBy3LfY5gecIPAZJ/0r9Vl+zNbeIKOTAst8fDUSoDeY0P/Gl0
-	 D5Nukk68I+C8rvfJtDwgSbepav26piCiDRmWB7iOtnJWsEwDBoE9GIPwbTssOdN4zm
-	 vn9ALKBXXEoNQ/X2mnj/u3gia3Di0qnkjp1lhX096Zc5D2AdZoYqM2JpjU8+NMM63p
-	 alzH0JJsyAe90+soAxSp7zc6042Q2cp7SXsstfpJddWYDyPJDQi3PVaOkuMOhYnWao
-	 tmCQRnF5rsySw==
+	b=cFHGZXy8OqauvrkCmiwYYduuG01QYA0PtSDg0SRCE5JaF6LkrdlYmOTRMY/3PdeGx
+	 cjUntfo24340tX06T7AGxmep3olCPREquvIarzoNTPsxqsvcKxnNI4mYQChlqtu+zU
+	 rdgPIElSHig4jP0vrOSg906GBJoapgNzZOODTBpDNSpHBuAz8aaP9/w2EmKIozunrB
+	 dMETFmQ5b3crY9Rfq8Qpn8mFolRQz7PwGs433b0AfpH8pk0TDGZfgcY56Xik3gsZIQ
+	 FEOlGnI2Euqe1xdbxVkPiqs2Or4wCwMU1fK48mmKNqdQtWsXtGmIws42dXP3EvMdM/
+	 ZJs5TGvDCHc6w==
 From: Sasha Levin <sashal@kernel.org>
-To: balakrishnan.s@microchip.com,
-	ehristev@kernel.org,
-	hverkuil+cisco@kernel.org
+To: fanwu01@zju.edu.cn,
+	songl@zju.edu.cn,
+	sebastian.reichel@collabora.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] media: microchip-isc: fix WB offset and gain register field masking" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:16:41 -0500
-Message-ID: <20261107051641-failed-6.12-6e9eaa3b9387@kernel.org>
+Subject: FAILED: patch "[PATCH] power: supply: bq27xxx: Ensure poll work is cancelled on remove" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:16:52 -0500
+Message-ID: <20261107051652-failed-6.12-db560f4b1c52@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,83 +69,89 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 6e9eaa3b93870e4edac1bd2539fe113c24663eaf
+git cherry-pick -x db560f4b1c5253853f978385db066220e0c218dc
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051641-failed-6.12-6e9eaa3b9387@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051652-failed-6.12-db560f4b1c52@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 6e9eaa3b93870e4edac1bd2539fe113c24663eaf Mon Sep 17 00:00:00 2001
-From: Balakrishnan Sambath <balakrishnan.s@microchip.com>
-Date: Mon, 17 Aug 2026 12:22:07 +0530
-Subject: [PATCH] media: microchip-isc: fix WB offset and gain register field
- masking
+From db560f4b1c5253853f978385db066220e0c218dc Mon Sep 17 00:00:00 2001
+From: Fan Wu <fanwu01@zju.edu.cn>
+Date: Thu, 3 Sep 2026 08:13:12 +0000
+Subject: [PATCH] power: supply: bq27xxx: Ensure poll work is cancelled on
+ remove
 
-ISC_WB_O_* and ISC_WB_G_* each pack two 13-bit fields. A negative offset
-sign-extends and corrupts the adjacent field. Add masks for the two
-fields and write them with FIELD_PREP(), which masks each value into its
-field, so sign extension can no longer bleed across.
+The di->work poll work is queued from the poll callback itself and from
+bq27xxx_external_power_changed(). The cancel_delayed_work_sync() in
+bq27xxx_battery_teardown() runs while the power_supply is still
+registered, so external_power_changed() can re-arm the work after the
+cancel, and it runs after the driver data has been freed.
 
-Fixes: 73c1a577b839 ("media: atmel: atmel-isc: reworked white balance feature")
+Register a devm_delayed_work_autocancel() before
+devm_power_supply_register(), so on unwind the power_supply is
+unregistered first, after which no new external_power_changed()
+callback can be dispatched, and the poll work is cancelled only then.
+Drop the now-redundant cancel from bq27xxx_battery_teardown().
+
+This issue was found by an in-house static analysis tool.
+
+Fixes: 740b755a3b34 ("bq27x00: Poll battery state")
 Cc: stable@vger.kernel.org
-Reviewed-by: Eugen Hristev <ehristev@kernel.org>
-Signed-off-by: Balakrishnan Sambath <balakrishnan.s@microchip.com>
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Assisted-by: Codex:gpt-5.6
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Link: https://patch.msgid.link/20260903081312.225535-1-fanwu01@zju.edu.cn
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- .../platform/microchip/microchip-isc-base.c      | 16 ++++++++--------
- .../platform/microchip/microchip-isc-regs.h      |  6 ++++++
- 2 files changed, 14 insertions(+), 8 deletions(-)
+ drivers/power/supply/bq27xxx_battery.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/media/platform/microchip/microchip-isc-base.c b/drivers/media/platform/microchip/microchip-isc-base.c
-index e5ecf6ffd24a8..963d5fd53b589 100644
---- a/drivers/media/platform/microchip/microchip-isc-base.c
-+++ b/drivers/media/platform/microchip/microchip-isc-base.c
-@@ -63,17 +63,17 @@ static inline void isc_update_awb_ctrls(struct isc_device *isc)
- 	/* In here we set our actual hw pipeline config */
+diff --git a/drivers/power/supply/bq27xxx_battery.c b/drivers/power/supply/bq27xxx_battery.c
+index 4d4809a70b622..cd30993b8a89e 100644
+--- a/drivers/power/supply/bq27xxx_battery.c
++++ b/drivers/power/supply/bq27xxx_battery.c
+@@ -43,6 +43,7 @@
+  */
  
- 	regmap_write(isc->regmap, ISC_WB_O_RGR,
--		     ((ctrls->offset[ISC_HIS_CFG_MODE_R])) |
--		     ((ctrls->offset[ISC_HIS_CFG_MODE_GR]) << 16));
-+		     FIELD_PREP(ISC_WB_O_LO, ctrls->offset[ISC_HIS_CFG_MODE_R]) |
-+		     FIELD_PREP(ISC_WB_O_HI, ctrls->offset[ISC_HIS_CFG_MODE_GR]));
- 	regmap_write(isc->regmap, ISC_WB_O_BGB,
--		     ((ctrls->offset[ISC_HIS_CFG_MODE_B])) |
--		     ((ctrls->offset[ISC_HIS_CFG_MODE_GB]) << 16));
-+		     FIELD_PREP(ISC_WB_O_LO, ctrls->offset[ISC_HIS_CFG_MODE_B]) |
-+		     FIELD_PREP(ISC_WB_O_HI, ctrls->offset[ISC_HIS_CFG_MODE_GB]));
- 	regmap_write(isc->regmap, ISC_WB_G_RGR,
--		     ctrls->gain[ISC_HIS_CFG_MODE_R] |
--		     (ctrls->gain[ISC_HIS_CFG_MODE_GR] << 16));
-+		     FIELD_PREP(ISC_WB_G_LO, ctrls->gain[ISC_HIS_CFG_MODE_R]) |
-+		     FIELD_PREP(ISC_WB_G_HI, ctrls->gain[ISC_HIS_CFG_MODE_GR]));
- 	regmap_write(isc->regmap, ISC_WB_G_BGB,
--		     ctrls->gain[ISC_HIS_CFG_MODE_B] |
--		     (ctrls->gain[ISC_HIS_CFG_MODE_GB] << 16));
-+		     FIELD_PREP(ISC_WB_G_LO, ctrls->gain[ISC_HIS_CFG_MODE_B]) |
-+		     FIELD_PREP(ISC_WB_G_HI, ctrls->gain[ISC_HIS_CFG_MODE_GB]));
- }
+ #include <linux/device.h>
++#include <linux/devm-helpers.h>
+ #include <linux/module.h>
+ #include <linux/mutex.h>
+ #include <linux/param.h>
+@@ -2234,7 +2235,6 @@ int bq27xxx_battery_setup(struct bq27xxx_device_info *di)
+ 	};
+ 	int ret;
  
- static inline void isc_reset_awb_ctrls(struct isc_device *isc)
-diff --git a/drivers/media/platform/microchip/microchip-isc-regs.h b/drivers/media/platform/microchip/microchip-isc-regs.h
-index 9ddbbb6dd68bf..fe145b142b826 100644
---- a/drivers/media/platform/microchip/microchip-isc-regs.h
-+++ b/drivers/media/platform/microchip/microchip-isc-regs.h
-@@ -149,6 +149,12 @@
- /* ISC White Balance Gain for B, GB Register */
- #define ISC_WB_G_BGB	0x0000006c
+-	INIT_DELAYED_WORK(&di->work, bq27xxx_battery_poll);
+ 	ret = devm_mutex_init(di->dev, &di->lock);
+ 	if (ret)
+ 		return ret;
+@@ -2255,6 +2255,12 @@ int bq27xxx_battery_setup(struct bq27xxx_device_info *di)
+ 	psy_desc->get_property = bq27xxx_battery_get_property;
+ 	psy_desc->external_power_changed = bq27xxx_external_power_changed;
  
-+/* Each WB offset/gain register packs two 13-bit fields, low and high */
-+#define ISC_WB_O_LO	GENMASK(12, 0)	/* R or B  offset [12:0]  */
-+#define ISC_WB_O_HI	GENMASK(28, 16)	/* GR or GB offset [28:16] */
-+#define ISC_WB_G_LO	GENMASK(12, 0)	/* R or B  gain [12:0]  */
-+#define ISC_WB_G_HI	GENMASK(28, 16)	/* GR or GB gain [28:16] */
++	/* Cancel the poll work after the power_supply is unregistered. */
++	ret = devm_delayed_work_autocancel(di->dev, &di->work,
++					   bq27xxx_battery_poll);
++	if (ret)
++		return ret;
 +
- /* ISC Color Filter Array Control Register */
- #define ISC_CFA_CTRL    0x00000070
+ 	di->bat = devm_power_supply_register(di->dev, psy_desc, &psy_cfg);
+ 	if (IS_ERR(di->bat))
+ 		return dev_err_probe(di->dev, PTR_ERR(di->bat),
+@@ -2281,8 +2287,6 @@ void bq27xxx_battery_teardown(struct bq27xxx_device_info *di)
+ 	mutex_lock(&di->lock);
+ 	di->removed = true;
+ 	mutex_unlock(&di->lock);
+-
+-	cancel_delayed_work_sync(&di->work);
+ }
+ EXPORT_SYMBOL_GPL(bq27xxx_battery_teardown);
  
 -- 
 2.53.0
