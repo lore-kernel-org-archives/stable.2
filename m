@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049127;
-	b=gnLGapPDBCMfqFwWOEgdwfar6CBl0fExU8v6uEax4WS5a0YDwWKLxN5WCrz1/kqdXMlj
-	 QCCFX4ee5XvMfCw5vDQiHV++vwps7w4E9cyDDQHahnjsH/vGyvHyvwZUYRdRgiOt8gVkH
-	 WwftxMBZKA/ViXQNeZH77P99misRKYWywBGqi6/p3ao6piHjaqpXkmb/H/RaFWNUh2bD5
-	 iKOVUMg/j5x0V5blas5uhLji3VZp41Q1WuQusPmmVZ8vtUIzI+IDlv82LoWhBTnIjrzJ5
-	 vy2WCcg2TDO1d/e37/UrdYpmNcOXdD+1wA7vM4nu27BLd2A15halEmawrjapynN/vjw==
+	t=1794049130;
+	b=s/kSrdyJPYjBqD/tBfgqAFptX/ToGr5sx+PXtMkE2DpIloHuCQthyI4bYlKV7vvu4stS
+	 H+EDpc846kUluGpK8CysOg4e7vXoEoR7Ff3nb6tOPUxrjJ4UvTkXwOzQtBDzvobWTGO4Y
+	 3G5Nebniji21nJys8nL5C4tb3U/yP7JhwLAt6yS0zRLTp5/cZ+KK6bhzzBKEAxX3Z7MnN
+	 /0SwdyIKSGitKsfRzmrB7rOFcq7IxPriFJebKoTPd2+cx7sOJ84RW8KkYLzsfb7a3zV6F
+	 pJMKu6JtwXXsTmuM/6FpMMqUkRDwNhnZ8J8xMS2TcMqPuUTLQMVyEE8M1l6jO7dF1aw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049127;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049130;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=odS6LfWtGHihrTsC3JaeGBdAvJrDqJ58o2TyLvX9Bgk=;
-	b=aUyt0eRqBc9EUqYW96DvQ48i8BSNCG7xbXRNdkw3vAJLBuoquBG5DHwFsgD/VApOLn2o
-	 AKscuqbYJTSn3raSyuaBrPsxthddKIT9sHrPWjuTuSauwRvZyHBv+029Cl+lyKtQfKjbH
-	 xPFzrDq9zV05/WALL/Cz3hZ4DOhANk9b6h7nUV/1YHApjvfHi+1KjHsqTxpwm/ACMe9ET
-	 9/50cI3ERH6t7MGxokffHJDHvI9Ne+mMxMADFf/PL1DmfNKbo8r7xjKQIOtHKT6YThPcC
-	 RKVGGFUYBORPLSpcWcKVCZgXilvzPs4e+uib8QIvqhmz1trO4XwD1aQtNdwmuk9Vwdw==
+	bh=cDLEq0LkR6GUN4b0BDsHyZNX810By/KpEGmhQeCWKO4=;
+	b=p/5MyMaG9L9g/9qZrHOFppSFoW0ZQ20a8jV/7Hw3CIKAUJR5bpTaTH7wwN5ExeJFk1FF
+	 fP1SsJ6b8RqX7TJk0MWf/bZDGQdzRR+Lo5W9piHVX/WMuVUrggyWbfUiHcSLwJbQqmzXb
+	 8eYXq/JoeKZmUa1LofVqOrKIBcemS07Dd0R6hjWYnOfcw+qO8ll9ZRIKm/WiCUlVY8dGs
+	 uMkETrPIPllVgzXC5mvy7b/tlUidq9VLxbKlZMQkSS+5MkuqrM732NdUt6cnXLjI1oMfr
+	 zVo1VBvVil72SJZLwt0veuYOaU4psV5Nrf8ALjzyY43HIrhKugtBPKsfSmjRxEKgwbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cjZGbb0e;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PY16FJu0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB748606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:58:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7C4E606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:58:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cjZGbb0e
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06F5E1F0089F;
-	Sat,  7 Nov 2026 10:58:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PY16FJu0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08CCE1F0089F;
+	Sat,  7 Nov 2026 10:58:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049126;
-	bh=odS6LfWtGHihrTsC3JaeGBdAvJrDqJ58o2TyLvX9Bgk=;
+	s=k20260515; t=1794049129;
+	bh=cDLEq0LkR6GUN4b0BDsHyZNX810By/KpEGmhQeCWKO4=;
 	h=From:To:Cc:Subject:Date;
-	b=cjZGbb0eHNSMkZvoAsYPb+mVxZYGMq7o0b8ZWBO2MR0vutpsGkIFEyC1Kzje9Ix+A
-	 8cJzX0UP9uJPioVcUjLkVmiEG0VZhLJibitt0lwtajxaKy9rZw2YwnIdy6LfDZJEia
-	 DDVSCL9CkOLcruWEjmgOCgDha8ZTXg8PYzsOJj7Q9r6nwGFbMOxHebNOAHopyKfjDV
-	 XL6qRU2WTT6Db70Kw1g6EwQ4FCyCZdfZWAtK1qTIkimh6ZrlikmNgBv24KyAogH/ZF
-	 wFo2oM8Xjl5SWOd3jdA/6GDPojCuBdypZVx1gbwtdoCNkY/+FYx5fA+5bvpniOYHoJ
-	 lFBole+uCQHeA==
+	b=PY16FJu01PlwSQ7h1iu7rDB+Dj87dYo0nRixu9W8u6XRKox9uQEMxe6ULYsUx2Y5m
+	 OMpfZoijMQ8D8d7bjn+VaBaRoj51gaFk9HNShQTO+V4R09EBp8jSuUikZf+2rpxEp2
+	 9da+Xr67WraPyafK8matRVuw54Gzz0hsZbQwyhOfj6B3d3n9S45ewLmiAVlJH6ReKe
+	 D7CMLiyXco8ALUZZwvpPPfLdXMszSUm3A7Hpkbs+X+TTK7eLMO6NIDlKwlZv4Ls2Cn
+	 TUH4g6rkIVQ+o1KCL4hTQ2zVuET+drR5N2Om50thsyN9Xdi17wIPJ25XluAlJoO55A
+	 AGpif7Cv03lzA==
 From: Sasha Levin <sashal@kernel.org>
-To: den@valinux.co.jp,
-	manivannan.sadhasivam@oss.qualcomm.com,
-	bhelgaas@google.com,
-	frank.li@nxp.com
+To: jiucheng.xu@amlogic.com,
+	chao@kernel.org,
+	jaegeuk@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] PCI: endpoint: pci-epf-vntb: Manage virtual NTB and PCI bus lifetime" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 05:58:44 -0500
-Message-ID: <20261107055844-failed-5.15-5cdbd6d3a3a1@kernel.org>
+Subject: FAILED: patch "[PATCH] f2fs: force out-place update for all writes on compressed file" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 05:58:47 -0500
+Message-ID: <20261107055847-failed-5.15-a64a3fec11e7@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,252 +69,77 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 5cdbd6d3a3a147fa9975e35f2602cbec9a72a932
+git cherry-pick -x a64a3fec11e77a3a0dc0009bdc58b925e45a1bb4
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055844-failed-5.15-5cdbd6d3a3a1@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055847-failed-5.15-a64a3fec11e7@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 5cdbd6d3a3a147fa9975e35f2602cbec9a72a932 Mon Sep 17 00:00:00 2001
-From: Koichiro Den <den@valinux.co.jp>
-Date: Tue, 1 Sep 2026 15:32:38 +0900
-Subject: [PATCH] PCI: endpoint: pci-epf-vntb: Manage virtual NTB and PCI bus
- lifetime
+From a64a3fec11e77a3a0dc0009bdc58b925e45a1bb4 Mon Sep 17 00:00:00 2001
+From: Jiucheng Xu <jiucheng.xu@amlogic.com>
+Date: Mon, 7 Sep 2026 19:35:42 +0800
+Subject: [PATCH] f2fs: force out-place update for all writes on compressed
+ file
 
-The virtual PCI driver registers an ntb_dev but has no remove callback.
-Unbinding the endpoint function can therefore free BARs while the NTB
-device and its client still use them. It also leaves the virtual PCI
-devices and root bus allocated.
+For compressed file, compressed write may fail and fall back to raw
+write.
 
-Allocate an ntb_dev for each virtual PCI probe and unregister it from the
-matching remove callback. Start command processing only after registration.
-Publish the device for doorbell IRQs at the same point. During remove, stop
-the command work and drain IRQ handlers before unregistering the device.
+-Thread A                                         - Thread B
+  - f2fs_write_multi_pages                          - f2fs_down_write(&sbi->cp_rwsem);
+   - f2fs_write_compressed_pages                    - ...
+    - f2fs_trylock_op                               - ...
+     - f2fs_down_read_trylock(&sbi->cp_rwsem);      - ...
+   - f2fs_write_raw_pages                           - ...
 
-Retain the root bus returned by pci_scan_bus() so it can be removed on
-unbind. Unregister the virtual PCI driver before releasing endpoint
-resources. Stop and remove the root bus under the PCI rescan/remove lock,
-then release its host bridge.
+Thread B acquires the lock first, which causes Thread A to fail lock
+acquisition and fall back to raw-data write.
+IPU_FORCE is enabled on small-capacity storage devices (< 16GB),
+so f2fs_write_raw_pages() overwrites the original compressed data
+in-place.
 
-Fixes: e35f56bb0330 ("PCI: endpoint: Support NTB transfer between RC and EP")
-Signed-off-by: Koichiro Den <den@valinux.co.jp>
-Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Cc: stable@vger.kernel.org # 6.0+
-Link: https://patch.msgid.link/20260901063238.631166-3-den@valinux.co.jp
+The in-memory node has been updated with raw-data addresses, while the
+node metadata stored on eMMC still remains in compressed state.
+If a power-cut occurs before the node is flushed to disk, on-disk
+inconsistency arises: disk data is raw, yet metadata treats it as a
+compressed cluster, leading to decompression failure.
+
+To eliminate this risk completely, force out-place update for all
+write operations on compressed file.
+
+Cc: stable@kernel.org
+Fixes: 4c8ff7095bef ("f2fs: support data compression")
+Signed-off-by: Jiucheng Xu <jiucheng.xu@amlogic.com>
+Reviewed-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
 ---
- drivers/pci/endpoint/functions/pci-epf-vntb.c | 85 +++++++++++++++----
- 1 file changed, 70 insertions(+), 15 deletions(-)
+ fs/f2fs/data.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/pci/endpoint/functions/pci-epf-vntb.c b/drivers/pci/endpoint/functions/pci-epf-vntb.c
-index 544e00bdf50fb..07ba338732d4e 100644
---- a/drivers/pci/endpoint/functions/pci-epf-vntb.c
-+++ b/drivers/pci/endpoint/functions/pci-epf-vntb.c
-@@ -132,7 +132,7 @@ struct epf_ntb_ctrl {
- } __packed;
+diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+index bc53ac21efeee..22de00754678c 100644
+--- a/fs/f2fs/data.c
++++ b/fs/f2fs/data.c
+@@ -2914,10 +2914,12 @@ bool f2fs_should_update_outplace(struct inode *inode, struct f2fs_io_info *fio)
+ 		return true;
+ 	if (f2fs_used_in_atomic_write(inode))
+ 		return true;
+-	/* rewrite low ratio compress data w/ OPU mode to avoid fragmentation */
+-	if (f2fs_compressed_file(inode) &&
+-		F2FS_OPTION(sbi).compress_mode == COMPR_MODE_USER &&
+-		is_inode_flag_set(inode, FI_ENABLE_COMPRESS))
++	/*
++	 * rewrite low ratio compress data w/ OPU mode to avoid fragmentation.
++	 * If IO comes from compressed write path and fallback to raw write,
++	 * force out‑place to prevent metadata‑data inconsistency.
++	 */
++	if (f2fs_compressed_file(inode))
+ 		return true;
  
- struct epf_ntb {
--	struct ntb_dev ntb;
-+	struct ntb_dev *ntb;
- 	struct pci_epf *epf;
- 	struct config_group group;
- 
-@@ -166,10 +166,15 @@ struct epf_ntb {
- 	void __iomem *vpci_mw_addr[MAX_MW];
- 
- 	struct delayed_work cmd_handler;
-+	struct pci_bus *vpci_bus;
- };
- 
- #define to_epf_ntb(epf_group) container_of((epf_group), struct epf_ntb, group)
--#define ntb_ndev(__ntb) container_of(__ntb, struct epf_ntb, ntb)
-+
-+static struct epf_ntb *ntb_ndev(struct ntb_dev *ntb)
-+{
-+	return ntb->pdev->sysdata;
-+}
- 
- static struct pci_epf_header epf_ntb_header = {
- 	.vendorid	= PCI_ANY_ID,
-@@ -195,7 +200,7 @@ static int epf_ntb_link_up(struct epf_ntb *ntb, bool link_up)
- 	else
- 		ntb->reg->link_status &= ~LINK_STATUS_UP;
- 
--	ntb_link_event(&ntb->ntb);
-+	ntb_link_event(ntb->ntb);
- 	return 0;
- }
- 
-@@ -284,7 +289,7 @@ static void epf_ntb_cmd_handler(struct work_struct *work)
- 	     i++) {
- 		if (ntb->epf_db[i]) {
- 			atomic64_or(1 << (i - EPF_IRQ_DB_START), &ntb->db);
--			ntb_db_event(&ntb->ntb, i - EPF_IRQ_DB_START);
-+			ntb_db_event(ntb->ntb, i - EPF_IRQ_DB_START);
- 			ntb->epf_db[i] = 0;
- 		}
- 	}
-@@ -348,12 +353,18 @@ static void epf_ntb_cmd_handler(struct work_struct *work)
- static irqreturn_t epf_ntb_doorbell_handler(int irq, void *data)
- {
- 	struct epf_ntb *ntb = data;
-+	struct ntb_dev *ndev;
- 	int i;
- 
-+	/* Pair with smp_store_release() in pci_vntb_probe() */
-+	ndev = smp_load_acquire(&ntb->ntb);
-+	if (!ndev)
-+		return IRQ_HANDLED;
-+
- 	for (i = EPF_IRQ_DB_START; i < ntb->db_count; i++)
- 		if (irq == ntb->epf->db_msg[i].virq) {
- 			atomic64_or(1 << (i - EPF_IRQ_DB_START), &ntb->db);
--			ntb_db_event(&ntb->ntb, i - EPF_IRQ_DB_START);
-+			ntb_db_event(ndev, i - EPF_IRQ_DB_START);
- 		}
- 
- 	return IRQ_HANDLED;
-@@ -985,7 +996,6 @@ static int epf_ntb_epc_init(struct epf_ntb *ntb)
- 	}
- 
- 	INIT_DELAYED_WORK(&ntb->cmd_handler, epf_ntb_cmd_handler);
--	queue_work(kpcintb_workqueue, &ntb->cmd_handler.work);
- 
- 	atomic64_set(&ntb->peer_db_pending, 0);
- 	enable_work(&ntb->peer_db_work);
-@@ -1340,6 +1350,7 @@ static int vpci_scan_bus(void *sysdata)
- 		pci_unlock_rescan_remove();
- 		return -EINVAL;
- 	}
-+	ndev->vpci_bus = vpci_bus;
- 
- 	pci_bus_add_devices(vpci_bus);
- 
-@@ -1425,7 +1436,7 @@ static int vntb_epf_mw_set_trans(struct ntb_dev *ndev, int pidx, int idx,
- 	int ret;
- 	struct device *dev;
- 
--	dev = &ntb->ntb.dev;
-+	dev = &ndev->dev;
- 	barno = ntb->epf_ntb_bar[BAR_MW1 + idx];
- 	epf_bar = &ntb->epf->bar[barno];
- 	epf_bar->phys_addr = addr;
-@@ -1564,7 +1575,7 @@ static void vntb_epf_peer_db_work(struct work_struct *work)
- 			ret = pci_epc_raise_irq(epf->epc, func_no, vfunc_no,
- 						PCI_IRQ_MSI, interrupt_num);
- 			if (ret)
--				dev_err(&ntb->ntb.dev,
-+				dev_err(&epf->dev,
- 					"Failed to raise IRQ for interrupt_num %u: %d\n",
- 					interrupt_num, ret);
- 		}
-@@ -1682,13 +1693,18 @@ static const struct ntb_dev_ops vntb_epf_ops = {
- 
- static int pci_vntb_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- {
--	int ret;
- 	struct epf_ntb *ndev = (struct epf_ntb *)pdev->sysdata;
- 	struct device *dev = &pdev->dev;
-+	struct ntb_dev *ntb;
-+	int ret;
-+
-+	ntb = devm_kzalloc(dev, sizeof(*ntb), GFP_KERNEL);
-+	if (!ntb)
-+		return -ENOMEM;
- 
--	ndev->ntb.pdev = pdev;
--	ndev->ntb.topo = NTB_TOPO_NONE;
--	ndev->ntb.ops =  &vntb_epf_ops;
-+	ntb->pdev = pdev;
-+	ntb->topo = NTB_TOPO_NONE;
-+	ntb->ops = &vntb_epf_ops;
- 
- 	ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(32));
- 	if (ret) {
-@@ -1696,16 +1712,41 @@ static int pci_vntb_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 		return ret;
- 	}
- 
--	ret = ntb_register_device(&ndev->ntb);
-+	ret = ntb_register_device(ntb);
- 	if (ret) {
- 		dev_err(dev, "Failed to register NTB device\n");
- 		return ret;
- 	}
- 
-+	/* Publish after ntb_register_device() succeeds */
-+	smp_store_release(&ndev->ntb, ntb);
-+	queue_delayed_work(kpcintb_workqueue, &ndev->cmd_handler, 0);
-+
- 	dev_dbg(dev, "PCI Virtual NTB driver loaded\n");
- 	return 0;
- }
- 
-+static void pci_vntb_remove(struct pci_dev *pdev)
-+{
-+	struct epf_ntb *ndev = pdev->sysdata;
-+	struct ntb_dev *ntb;
-+	unsigned int i;
-+
-+	/* Stop the work reader, then close and drain the IRQ gate */
-+	cancel_delayed_work_sync(&ndev->cmd_handler);
-+
-+	ntb = xchg(&ndev->ntb, NULL);
-+
-+	if (ndev->msi_doorbell)
-+		for (i = 0; i < ndev->db_count; i++) {
-+			if (epf_ntb_db_irq_is_duplicated(ndev->epf, i))
-+				continue;
-+			synchronize_irq(ndev->epf->db_msg[i].virq);
-+		}
-+
-+	ntb_unregister_device(ntb);
-+}
-+
- static struct pci_device_id pci_vntb_table[] = {
- 	{
- 		PCI_DEVICE(0xffff, 0xffff),
-@@ -1717,6 +1758,7 @@ static struct pci_driver vntb_pci_driver = {
- 	.name           = "pci-vntb",
- 	.id_table       = pci_vntb_table,
- 	.probe          = pci_vntb_probe,
-+	.remove         = pci_vntb_remove,
- };
- 
- /* ============ PCIe EPF Driver Bind ====================*/
-@@ -1797,12 +1839,25 @@ static int epf_ntb_bind(struct pci_epf *epf)
-  */
- static void epf_ntb_unbind(struct pci_epf *epf)
- {
-+	struct pci_host_bridge *bridge;
- 	struct epf_ntb *ntb = epf_get_drvdata(epf);
- 
-+	pci_unregister_driver(&vntb_pci_driver);
-+
-+	if (ntb->vpci_bus) {
-+		bridge = to_pci_host_bridge(ntb->vpci_bus->bridge);
-+
-+		pci_lock_rescan_remove();
-+		pci_stop_root_bus(ntb->vpci_bus);
-+		pci_remove_root_bus(ntb->vpci_bus);
-+		ntb->vpci_bus = NULL;
-+		pci_unlock_rescan_remove();
-+
-+		pci_free_host_bridge(bridge);
-+	}
-+
- 	epf_ntb_epc_cleanup(ntb);
- 	epf_ntb_config_spad_bar_free(ntb);
--
--	pci_unregister_driver(&vntb_pci_driver);
- }
- 
- // EPF driver probe
+ 	/* swap file is migrating in aligned write mode */
 -- 
 2.53.0
 
