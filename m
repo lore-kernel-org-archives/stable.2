@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048036;
-	b=2z4SeCOT4me1hdOU/cNGKjCiu2U0mffQd6hTATrn02rJ6SPCx8u9kNkWipA4NbVc2GVX
-	 W3bEB7xb8YrIIGwTXj/t2PK+75FqP6EZU8TQrDKH1L7rFvCdiQLOA/qAylk10wzIJ9bRA
-	 4K+32lEiDrbjSZ+oExdoJ8aQYO+6GeOuzjTWXrL7XqlVKJfpUOlp91AsUj9Ta5jYz4+gp
-	 qkaupxSIxDh1LZx95D6StYbQsq2nKyeNoKyw6KkNfuV4XDt+uc8vOFaDKCrq+RMMwQzbs
-	 U+4jHN3MlKCa4b8KBKZ/ihuQLwSxZ9+G0wpUvKxaLul0zmunjqptMBlM+1+N18yXMKw==
+	t=1794048038;
+	b=FU/ElconMmJF8TpkXn3uz3bOi6EQMFzmzkQhnvZsSOKns3Hx80cDXVeQ/8178DGlTQBz
+	 Y2hPu0L42wy4687BEuy3yKez70zZJbmcjn0pTaA6u8VMHzGvS/1ARn2G4Dc54xCg5kdsU
+	 3m39EKHmgsHHk1PW2cVNfS/XbJim1qd9FhqGM+6WICUjBCaOPCS9DzNmi/YV/CiHJLLYn
+	 zZW9B6hhgJYlLAyGz+oOuaCrfcj+0sugANJzFIDjRVsuUQcv43+Vi2w2jhEAfOE4kYgWW
+	 x6PP0bMHNdP/JiXe0uAgloR+lwaXnCuJZQpQ1mfngwtc+OOA1rGC2zWCXu6oM6MIyhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048036;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048038;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=7FuFKpZMolS7/hkfhncBYcF0y2gNd6aUMTUeeo3yXqE=;
-	b=H7hzCiukalicVbHBhPCO64DBoLLxYGkwT0QAzXYSUxiyPk2yeheRnmkNOXT3uzmP3A7f
-	 rgGL8m+upqIZuCGDZroKopfG2h7nPeO17I8HqraLJ7S0jPWme7W4t+av1acZCle29Kb4b
-	 4xibjCsukpUtTNMM9NtxoDkL3YcfWdRRcjHlwE3Nzg23gzpdFtd8zD3LG0mdkSiDMATOP
-	 dlJ4X5kCM1Gzv3j6Kl8kmzcOa5SjvNIQyWIZHrmPBPIjNBJlFux7RT0de1PwNVxJ6mmYm
-	 fFE4J66Q1rcP20nCDNgkwJ+mljjz/R16Su37xNrVbS4y2yh97oc7hXSComs44dr4alA==
+	bh=gDceMt3mmmWONq4efqYKCtunMLg4VGthflw5XsOhEiY=;
+	b=bh6nxgIVhFcu885cV6PFj8I0Co3WzaOZYjiLivryR3u8+uWT8aaVPpuy2yzV3LU0tnkw
+	 6lzWqL7gTDmwqfzK15fXCPiNqHkKyabAlbDBlh268ExXh/ujbjIk1VgYmNtpeMeCECMaR
+	 /zz8nrf2sRQmaOREV59dBzl4FUI5t/aitLqWAG+NqdFI8MxUblT9RMwr5WVmFycfqv3fQ
+	 EUHhtMGUghDRTDu6J5Q9quqIy1fkiyPz87OlTdCC6q0vZ/8JJug6MxnHKHubNs1SVR0Pe
+	 R+2N9wOB1w1GYlHC3jzFWNikXuki+c+uyqU3QuvJ232Xyci6D1gaMm0EMESaL2Z27pQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n+bIzwQM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OL6RikR8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2800D606A32E
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:40:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 463B7606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:40:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n+bIzwQM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D2441F0089F;
-	Sat,  7 Nov 2026 10:40:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OL6RikR8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B14511F0089F;
+	Sat,  7 Nov 2026 10:40:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048036;
-	bh=7FuFKpZMolS7/hkfhncBYcF0y2gNd6aUMTUeeo3yXqE=;
+	s=k20260515; t=1794048038;
+	bh=gDceMt3mmmWONq4efqYKCtunMLg4VGthflw5XsOhEiY=;
 	h=From:To:Cc:Subject:Date;
-	b=n+bIzwQMt3ZOVT8GImgJvPGThyHG2BThtesNmDUEzfO7IrgaH53RfwMhDitv4+9Wg
-	 LQQYlEonIRp/l/ouTvcMtXtt+RFJlbtm/nG7QplS7khaRz55pNXdQz41AOuPs+BCeS
-	 zkagVYy4CwvaxAew0WM9CIOKFWAtynkJT3v9QqUEIcBPbFdGRjVmNmuXRSbBBzOL9j
-	 RcLrSfoXZGufnnkCNRGaeveDQ/L6ef2zKVvc5Xkeo0LijxxJcDSh4SeiNVcVEmz2Zy
-	 oG2dGFSQeVfP8iOq1gAqusdoXp63m9ZdQp4s3eFm5Ua9URJFJMqcPYrEmyoIlFtbRP
-	 w22z90h9WeXlw==
+	b=OL6RikR8k117xfBlv8AITXgXJFrA2axHDJS0ufj3iYMWndVYkUhHKpaue15L6djUb
+	 pnIUeTRs5W626JQ1eVB9qyuRkacFAb7HPjY89p1jzlbtlaIXdHzg5eHsPmBN0A91km
+	 pivGpE7WU9BG6vgdq1Zt3ikGwJ07j7rNNWBkXIgZb2eLHVJ/1cZpUfQzGs1JWz0/fH
+	 hzdox7aILi2lMeAVviersJLb0COCA3URbGWY0tP34BJh+gmiVe1rb0NItuC6ge6MlD
+	 Iy7kAGyk5VWQd2F1cJYve7v7PVlx3RpRrDQdLn4frECpMzHGOo9hL4ACM8K1E6elxD
+	 Dfjhz1j2B0WJQ==
 From: Sasha Levin <sashal@kernel.org>
-To: brauner@kernel.org,
-	josef@toxicpanda.com
+To: zhugl3@xiaopeng.com,
+	john.johansen@canonical.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] iomap: don't mark unwritten parts of a folio uptodate" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:40:34 -0500
-Message-ID: <20261107054034-failed-6.6-a4193b4af359@kernel.org>
+Subject: FAILED: patch "[PATCH] apparmor: check accept index + 1 is in bounds" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:40:36 -0500
+Message-ID: <20261107054036-failed-6.6-afe5d5a74739@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,83 +68,63 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x a4193b4af359db84b2cdf3a040752861984c636b
+git cherry-pick -x afe5d5a747393cb3d00795db31d7fce5108a766a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054034-failed-6.6-a4193b4af359@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054036-failed-6.6-afe5d5a74739@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From a4193b4af359db84b2cdf3a040752861984c636b Mon Sep 17 00:00:00 2001
-From: Christian Brauner <brauner@kernel.org>
-Date: Thu, 29 Oct 2026 11:34:48 +0100
-Subject: [PATCH] iomap: don't mark unwritten parts of a folio uptodate
+From afe5d5a747393cb3d00795db31d7fce5108a766a Mon Sep 17 00:00:00 2001
+From: Guanglei Zhu <zhugl3@xiaopeng.com>
+Date: Wed, 16 Sep 2026 19:53:07 +0800
+Subject: [PATCH] apparmor: check accept index + 1 is in bounds
 
-For a buffered write into a hole, an unwritten or new extent, or past
-EOF __iomap_write_begin() zeroes the parts of the blocks outside of the
-write and then marks the blocks uptodate. That includes the range of the
-write itself which still holds whatever was in the folio before. It only
-becomes valid once the copy from userspace has filled it in.
+aa_lookup_condperms() returns perms[index + 1] when an accept entry has
+ACCEPT_FLAG_OWNER set and the subject uid does not match the file uid,
+so such an entry consumes two slots in the perms table.  But
+verify_dfa_accept_index() only checks that index is within the perms
+table, so a policy that sets the owner flag on the last entry is
+accepted, and the runtime lookup then reads perms[index + 1] one entry
+past the end of the table.
 
-But the copy can come up short and __iomap_write_end() only rejects a
-short copy if the folio isn't uptodate. If the zeroed blocks were all
-that was missing the folio is uptodate by then, the short copy is
-accepted, and the rest of the range is exposed to readers and can end up
-on disk. A source buffer that ends in an unmapped page is enough:
+The perms table is allocated by unpack_perms_table() with a u16 size
+read from the policy blob, so a crafted policy can place the owner flag
+at index size - 1 to reach the out-of-bounds read.
 
-        ftruncate(fd, 4096);
-        pwrite(fd, p, 3000, 100);    /* 16 bytes at p, then PROT_NONE */
-        pread(fd, buf, 4096, 0);
+Check that index + 1 is also in bounds when the owner flag is set.
 
-The write returns 16 and the read returns 2984 bytes of whatever was in
-that page before. If other blocks of the folio aren't uptodate the short
-copy is rejected but the zeroed blocks keep their uptodate bits and the
-retry with the copied length leaves the same bytes behind.
-
-Only mark blocks uptodate in __iomap_write_begin() after reading them.
-__iomap_write_end() marks the zeroed blocks uptodate once the copy has
-succeeded and rejects a short copy.
-
-Willy reported this back in 2024 (cf. [1]) and Zhang Yi posted the same
-fix (cf. [2]) but it never got merged.
-
-[1]: https://lore.kernel.org/all/ZqsN5ouQTEc1KAzV@casper.infradead.org
-[2]: https://lore.kernel.org/all/20240812121159.3775074-6-yi.zhang@huaweicloud.com
-
-Fixes: 9dc55f1389f9 ("iomap: add support for sub-pagesize buffered I/O without buffer heads")
-Reported-by: Josef Bacik <josef@toxicpanda.com>
+Fixes: 6f442d42c0d89 ("apparmor: fix profile verification and enable it")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261029-work-iomap-ai-fixes-v1-1-7eda63bc1b13@kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
+Signed-off-by: John Johansen <john.johansen@canonical.com>
 ---
- fs/iomap/buffered-io.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ security/apparmor/policy_unpack.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/fs/iomap/buffered-io.c b/fs/iomap/buffered-io.c
-index 678f4c5329e79..a6ab6f31cbbf3 100644
---- a/fs/iomap/buffered-io.c
-+++ b/fs/iomap/buffered-io.c
-@@ -920,6 +920,7 @@ static int __iomap_write_begin(const struct iomap_iter *iter,
- 		if (iomap_block_needs_zeroing(iter, block_start)) {
- 			if (WARN_ON_ONCE(iter->flags & IOMAP_UNSHARE))
- 				return -EIO;
-+			/* uptodate once copied, see __iomap_write_end() */
- 			folio_zero_segments(folio, poff, from, to, poff + plen);
- 		} else {
- 			const struct iomap *iomap = iomap_iter_srcmap(iter);
-@@ -943,8 +944,8 @@ static int __iomap_write_begin(const struct iomap_iter *iter,
- 
- 			if (iomap->flags & IOMAP_F_ZERO_TAIL)
- 				folio_zero_segment(folio, to, poff + plen);
-+			iomap_set_range_uptodate(folio, poff, plen);
- 		}
--		iomap_set_range_uptodate(folio, poff, plen);
- 	} while ((block_start += plen) < block_end);
- 
- 	return 0;
+diff --git a/security/apparmor/policy_unpack.c b/security/apparmor/policy_unpack.c
+index 3ffbab46eec30..7ebffb4ff74fa 100644
+--- a/security/apparmor/policy_unpack.c
++++ b/security/apparmor/policy_unpack.c
+@@ -1495,6 +1495,15 @@ static bool verify_dfa_accept_index(const struct aa_dfa *dfa, int table_size)
+ 	for (i = 0; i < dfa->tables[YYTD_ID_ACCEPT]->td_lolen; i++) {
+ 		if (ACCEPT_TABLE(dfa)[i] >= table_size)
+ 			return false;
++		/*
++		 * Accept indexes for owner-conditional permissions come in
++		 * pairs, so the non-owner entry at index + 1 must also be
++		 * in bounds.
++		 */
++		if (dfa->tables[YYTD_ID_ACCEPT2] &&
++		    (ACCEPT_TABLE2(dfa)[i] & ACCEPT_FLAG_OWNER) &&
++		    ACCEPT_TABLE(dfa)[i] + 1 >= table_size)
++			return false;
+ 	}
+ 	return true;
+ }
 -- 
 2.53.0
 
