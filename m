@@ -1,72 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794062477;
-	b=ngAwCTJ3x/hOsjU6KfCiRtNLO+cnM/mEf+/+c6sP6+0Ij6Bwc8Q6MRQz3+Cbv8htigeG
-	 F3+ChjqZ6vrB4bnppBJxcsJ+/vVi3g+6dq2oUWji1cR0CgTiNiNx0vSo+u69dXCHcZx/I
-	 gOgiw8aij0+cGwTOGAdLBBbVtsTwuK9rJsy9MwkYpR63RPouc8uu7Syzf4SYyt0FsSfBS
-	 Cwc3ldCr5v5/XU2NTgafqLoDASu5l/Yc5LVchEK/qvMoVZBb5K0f7zd3QDBApqml38rNJ
-	 Muxpz9Z6HhxwL6hXdKeqjPBcBMKxG6lL5RpFKLE28xLhl5aDQ79xERnxv+cDv2oZCTQ==
+	t=1794062483;
+	b=ii9B8yzezUxLWrFyC4/P9iSCmMCaaD1SyS4MfGQmOsYTFxlSahrfgk0dMTV3XQ86DyM0
+	 wcMCF1WoaIG7y8YmYTFFzA5F7yCp0DeS9NlXHWL+9RhS07J7xdKJXAN8Br44EvdLEb8/c
+	 S6le2MpO3PCwqbV2Gq2K7Q6OO8Gx4pgPSz4HNjVC3bby5G+DNeM9fGk4MxTzwseNYdIox
+	 YAKqWkpsxZmD4LdkZ/Ntcc0mm/JXZ0qxeP6iZ9HVPv4P3BVXnYzCcazDj0pVHhMbCpK29
+	 9rNVfBeNYD11uVxCXQxojz18dFiGi8krlBbUdl8V4zqtus1BybD+4IVsNTMMk+FAqcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794062477;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type;
-	bh=MTKqzeN2qzSEwB7wgpPDqmDOm1XJz5MFsmhF4czrNrI=;
-	b=N9/oimPhIKZAihwbnKUqnL+Z0kFf65FNRmsKRu9B756NDyjnS3A8QY0SgnRCQGd7GwGr
-	 +QUnwAUv96CQyQNOipA/sX+pwuSUJWgiRxuby4dt4SujRZIJA0KZOHWPVRy7/9LQ+HBUk
-	 rl79FtlvlD4JDQNO5C9hj+0/22EQB7qF0y6TJ4JxAHswY5L9+EZRuyfvLfJ1fOp9Fk9hZ
-	 qg7PGKBsKCBtxEfvuVtMDyr3kYB7/l79hDmHLrkl5pJsgP7L0oTznaIW0RINge6VRyDFz
-	 65mkFDYu1ZATlbc0Dr2RrECn748cUmIwjuMwlhhCcklhhiK3GfXA2iaOKIRJmHsPG/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794062483;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=OoR9VLe609Z4dJqpT+WsGn1jiPCY3B9ro/ccfizqF6w=;
+	b=ClGEVxkVeQkfEmTEi7TySzdgOnG06309nw7tLqVUDh/sZOpjNyXic6Y46thSqblcxIww
+	 hVyEuzqnCi1ZZIOsi4qqez2mm9XZ92iEYf3JUsBV+NvwipS6b5QfYzh5vKN1JpfOOa/+n
+	 0VqMpQzX1eU1ftznO63xtc6PZ0bCLDZPe2kkExqMEfadyET9dUbbn011lvKT+KE7IcHKl
+	 Ez46CIPWfEWvna/6UMW+fMxFJGZiMkpow7HCLLhvwMERCvZO0V3KNiT0eRnE7Ot4M+2tJ
+	 rvWYfAv317YUNJhNWnj584zTGT1XFNlceHl0oFwI8AkyxdO99EVVTW6MhmO2PhhCXzg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sntech.de;
-	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=AKfQpOEc;
-	arc=none smtp.remote-ip=185.11.138.130
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=MgoUFOcA;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E517606D822;
-	Sat,  7 Nov 2026 14:41:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E517606D822
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D720D6082BC5;
+	Sat,  7 Nov 2026 14:41:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=AKfQpOEc
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=MTKqzeN2qzSEwB7wgpPDqmDOm1XJz5MFsmhF4czrNrI=; b=AKfQpOEcyMJuFY5WDsAYJCTPjL
-	pgnw4g5N7gDR3sRbLbFgG73J6zge7zNIO0U5Km4Qo/IoKiabt/e8uLUdTA7R2zZXc/s+9IS57fvvF
-	72zVqn2IdV6MrKoyzu9pOjZqKdtb5zyu7j2UkFKUk67ed7AEm0Dh+jLxuLdUY4pItdnHYV8H1Tev5
-	vD+2hx89y6foUzJmwrEnK7jzdalIL2ZDOVxos10lo20RajGCi5S8fwui/nYnLxiTYpETen3FkgD0+
-	f2wq6OjDIi1cpxq//uoGJdNTDNcF3XxMPt37xeImwXJZqfUKmYQx0vNtV0j1Hj+XlF3mdU7+Hu8F8
-	tZjG+fog==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Marc Kleine-Budde <mkl@pengutronix.de>,
- Vincent Mailhol <mailhol@kernel.org>,
- "David S. Miller" <davem@davemloft.net>,
- Wolfgang Grandegger <wg@grandegger.com>,
- Oliver Hartkopp <socketcan@hartkopp.net>, kernel <kernel@pengutronix.de>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, Cunhao Lu <1579567540@qq.com>
-Cc: linux-can <linux-can@vger.kernel.org>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
- linux-rockchip <linux-rockchip@lists.infradead.org>,
- netdev <netdev@vger.kernel.org>, linux-doc <linux-doc@vger.kernel.org>,
- stable <stable@vger.kernel.org>
-Subject:
- Re: [PATCH net v7 0/7] can: fix bus-off restart and device close races
-Date: Sat, 07 Nov 2026 15:40:55 +0100
-Message-ID: <6105577.1B3tZ46Xf9@phil>
-In-Reply-To: <tencent_B3369A1199D0849091BB8015C41BBFF0A607@qq.com>
-References:
- <20261106-rockchip-canfd-restart-close-v7-0-accdb11bc845@qq.com>
- <16255046.uLZWGnKmhe@diego>
- <tencent_B3369A1199D0849091BB8015C41BBFF0A607@qq.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=MgoUFOcA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 848381F0089F;
+	Sat,  7 Nov 2026 14:41:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1794062482;
+	bh=OoR9VLe609Z4dJqpT+WsGn1jiPCY3B9ro/ccfizqF6w=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=MgoUFOcAOtqk5oifmYywV/YSU2GxvB0gv7fs9Ouwqe6zAMnqRWPcsJe0DXZ2tiE/M
+	 aQvSxEFNiRch2SV6S9AID86sAqlQigRvwSoEJVFqij8/J9PSQxsobN6/1x/ileEA7N
+	 ++bQBspp/QJO4NsI3yfCBYzVOaYq2xYjGsq40asY=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Keita Morisaki <kmta1236@gmail.com>,
+	Dan Wheeler <daniel.wheeler@amd.com>,
+	Roman Li <roman.li@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12 1384/1536] drm/amd/display: Fix swap in median3() for DSC rate control
+Date: Sat,  7 Nov 2026 08:56:40 -0500
+Message-ID: <20261107135036.704401287@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261107134957.653319350@linuxfoundation.org>
+References: <20261107134957.653319350@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -76,49 +64,65 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-Hi,
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-Am Samstag, 7. November 2026, 03:57:26 Mitteleurop=C3=A4ische Normalzeit sc=
-hrieb Cunhao Lu:
-> > > This series depends on the three patches in "can: skb: make CAN skb
-> > > freeing safe in any IRQ context" [1] and the three patches in "can:
-> > > rockchip_canfd: fix TX stalls and races" [2].
-> > >=20
-> > > [1] https://lore.kernel.org/linux-can/tencent_CD05F020BAFB2537F5D1F4C=
-BB425588EA80A@qq.com/
-> > > [2] https://lore.kernel.org/linux-can/tencent_E25C9BE6689264E4138A464=
-803B810FDFD09@qq.com/
-> >=20
-> > Both these series are from july and seemingly from before you started
-> > using the b4-relay. So they may or may not have survived the kernel
-> > releases and their threading is broken both on lore and in any maibox
-> > they arrived in.
-> >=20
-> > And if there haven't been any responses to them since then, I'd think
-> > they have been lost or so.
-> >=20
-> > So I'd suggest rolling both your dependencies forward on top of the can
-> > tree and sending them as a new version, so that reviewers can find them?
->=20
-> Thank you very much for the guidance! :-P
->=20
-> I just checked: the "can: skb: make CAN skb freeing safe in any IRQ
-> context" series was merged into mainline yesterday, so I won't send a
-> new version of it. I'll remove its link from the cover letter.
->=20
-> The "can: rockchip_canfd: fix TX stalls and races" series still has some
-> issues reported by the bots during submission to the net tree that I
-> need to address. Since those patches overlap with this series, I plan
-> to fold them into the next version (v8) and send them together.
+------------------
 
-As that series is also "just" for the Rockchip CAN driver, merging both
-sounds like a good plan - especially as it makes it easier to keep track
-of things :-) .
+From: Keita Morisaki <kmta1236@gmail.com>
 
+[ Upstream commit 7b23bf82ccbdb4cf0752f2b8686e7319a7ce497f ]
 
-Heiko
+median3() is meant to return the median of three values, but its last
+compare-and-swap step swaps b and c instead of a and b. When c is
+smaller than both a and b, it returns max(a, b) instead of min(a, b).
+For example, median3(2, 3, 1) returns 3 instead of 2.
+
+_do_calc_rc_params() always passes 0 as the first argument, and the
+second argument is never below 12. So whenever the third argument is
+negative, first_line_bpg_offset (and second_line_bpg_offset for 4:2:0)
+is set to the second argument instead of 0.
+
+Fix this by swapping a and b in the last step, as intended.
+
+Note that this change does not affect valid DSC configurations. The
+third argument is negative only when bits per pixel exceeds the
+uncompressed rate of the colour format:
+
+ - 3 * bpc for 4:4:4, 3 * bpc + 2 for RGB
+
+ - 2 * bpc for 4:2:2
+
+ - 1.5 * bpc for 4:2:0
+
+Fixes: 97bda0322b8a ("drm/amd/display: Add DSC support for Navi (v2)")
+Signed-off-by: Keita Morisaki <kmta1236@gmail.com>
+Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
+Reviewed-by: Roman Li <roman.li@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 1ddc4bc97a62fc89d9d3681413d9f977e1fa1a83)
+Cc: stable@vger.kernel.org
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c
+index ef75eb7d5adc3..940de620e3308 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c
+@@ -46,7 +46,7 @@ static int median3(int a, int b, int c)
+ 	if (b > c)
+ 		swap(b, c);
+ 	if (a > b)
+-		swap(b, c);
++		swap(a, b);
+ 
+ 	return b;
+ }
+-- 
+2.53.0
+
 
 
