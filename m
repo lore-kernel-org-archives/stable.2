@@ -1,91 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794068210;
-	b=HA9XYyY510f79LGnvaHE43WCdwy1uADA4mGcFiNPpN5Sna2N3MT5Dej+Yt5ehFMWvV6F
-	 FDen+hMDB6yj4YnnwCq/BMy4mQHcuO4rHZyWY2A+fsPUuCuJaTCKfMqwCIdn1DcWViKjD
-	 Hn5Stvw2/AMzVgpJ1IhO8JkxokRmCkOl/p28P931s743KWUuzctmyt9C5TKZszPfgXRGf
-	 RYpcdJeEPcLmgqgxyCK5V/iCyq11+ULjf9afkBEXkKXlX/A+H2GMSvn4iLzVznJplMbqX
-	 XvEsjxAAT4nkJNYw+ROFMdq+9jZn21tsj2hQKvlTjpaLTOUhUpkM04DAbz+aB1YgXcQ==
+	t=1794068211;
+	b=UF6jwVrfX0NualFBUrCbvtg0yqXWXV6b9DtCKVpPLQxjQgdRUrZyFxEfDkcdyVHh6xI9
+	 iZ6YuyELdKn+NaFtzOvCmtiL5ZL4sUA3QVJxPKTE4Gs3d+Jy2NFJRMxf5yXRYlpAc314X
+	 20E8feGQWZvs0V6hY+ZYNSET2wETzFEF6E5vWCORJs6h/m6h31MO1XIJvreQSUje9xjgC
+	 HokipfN/GqjBzHc4wjTCyWhleYGkdFFNuHPKOqWNAdm43PoW8AUT/ue6x8Drt16ESJdsM
+	 SUReuAClCXRWWRWaSpH9bA+LHileP3wCD5Y1sMxLa3kAPWdGwkCR5y71Kx04qUtuJDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794068210;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794068211;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=bA2msMLXm8v/LnNLG/MT8NCmiogg+FlfeLVFRIZY6EU=;
-	b=MEL3lORegoPOIva7PGUwBcWoPtuQCVefw1Qe0Z+ftdjRnlDxPisY4uquMhnXZhXYbloL
-	 n8S063fBHtPz8oSm8ooOFP4xFGSJFMAsRSwA9h1ekPRthjpqZJleUCBmWfe5BAWnyT1ns
-	 JyDF3kA/78QdhhO3qgOi+Wlh3BkmBEuKMDe6zL6DlFdGH0VnDgvrQoOFuplOmSLUYn3Ie
-	 MZMOXNgXmS2cV37yr47G/xhJ8qCOxl7P4g3/9d5vfmWmXgU/otMhiLANBcps1PoytGPJ/
-	 XEm307nwubRpGOddZmpGI3P3X88zxPUFEzQLWHW/9o6DVzHQCdLjaZoVY+JuGUgVVoA==
+	bh=Ox9A+C5MWzJzcgqrj3KM01u0fes4m/cjWGP8DBUs7Hg=;
+	b=isQlXqyCuYSnJlDsZueWgTaYKJFJVLpdTCzxJWT2vT+8W9ck8iSPBzrNX7FeOwHfCkNd
+	 peM+PKAY5QtxPflJdM2CqL2NDAXgABfclTuCa2YuirEWKKivjjrGY60AVCCjfOP8mnndx
+	 yLXCUsykWHq+aew4/OiYbwo+egQeT0s6cr2Gv+iGfOb9lQ2EdXxF+v58HkTNCfhN1wdTq
+	 yFwa9yXfvVOFdWN1EXLjhpvG0r2i0OYBqcP6cPiSjlMqNlBtEarzsRCLcix5/iuKJZpiU
+	 vWQx56cUvbv1ahrN18T0w9YKbU7P8vigGUGlzIBvNSHMv1gCyFNZkCWHys1I87EjahQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=kernel.dk;
 	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=sdUE2s0i;
-	arc=none smtp.remote-ip=209.85.216.47
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=cnNpb7Td;
+	arc=none smtp.remote-ip=209.85.216.49
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2841606A33F
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 16:16:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2841606A33F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 480B4606D3C5
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 16:16:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 480B4606D3C5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=sdUE2s0i
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3b094e649d3so960016a91.0
-        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 08:16:49 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=cnNpb7Td
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3ac91ac8924so879457a91.1
+        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 08:16:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1794068209; x=1794673009; darn=vger.kernel.org;
+        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1794068210; x=1794673010; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=bA2msMLXm8v/LnNLG/MT8NCmiogg+FlfeLVFRIZY6EU=;
-        b=sdUE2s0i4ZhayX5RO96KVAcKOqMDSHQUiWCQqYB1o+gh7gehdwCgkk5x2LSyo9dESa
-         6jDFiKsL817pL9Vza5/bHz8vs65I3GwvDkszeTkQENDdnSoaBojiHKYPdNflrApLb5L8
-         f8+eAmBdXdxTDue3yaDrsCwr2WrYzggTE708gWy1pfGshD3XwQzdNdZnd0dozFum9l33
-         zd959BvygXxC/hTwcOgmFLH4HxT5JF4K5pDa0cFlyWi7o9v1Q4ph2p0VAa8VNKhqYrYP
-         vUACvxzRUhxI3f2uDCr/cA58eHQz3D735/nGkLDTMUluEsGLdCwYpfxVKP5dL5ZHzUKn
-         jLsA==
+        bh=Ox9A+C5MWzJzcgqrj3KM01u0fes4m/cjWGP8DBUs7Hg=;
+        b=cnNpb7Td6Adu2LA3KZyt+XzT5GlTNepo3FG6A9UKCZhkwMNWVweeqLDvW7KiKkdkCC
+         Jqoog6j8y+9a9ytjXR5/ZZKP668emtwKFc4foFFjcwUZ3Gyic3CDzy1JhctHpJQn6kG3
+         EdOFtTot9FqgVFXpU2S3+q7cYGxLohN+sV4pWD25xhPKc9foD278VOSbKNG+E1LxNDzB
+         dbZ4FK7tCf9ftRqNHsybK8pWX5YiKJtjWSICdgcMRRskUnra1VaicEu/7gheUZYEqEwa
+         1XfGslq0QoMyBk7yBx7Pc63AQnDCyVQ7jYFlg2Rq5qmGXSiVj3l1TDJGUtprFi3mg+4N
+         8uEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794068209; x=1794673009;
+        d=1e100.net; s=20260707; t=1794068210; x=1794673010;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=bA2msMLXm8v/LnNLG/MT8NCmiogg+FlfeLVFRIZY6EU=;
-        b=QVxWlFT0jkClm1/s7u2k3Hn3dmcCZB8P3wtUVJG2A0Btwu60iTmGnRU1uKGpszGh0y
-         inrtv+yl29uGyN1JJ2Dkqyt5FGeSsgjAwi0zKi/W1YGoxz0+86jsnct8sZiaZbU95Wxu
-         gSBbL7vJgaY6/miatWPrUfr0pESSr7CRKshkPr0oqwjcVv2Jmu7g4UJdL4IlVDJB9icH
-         hzaMXb7fSDrh7k0ZBy9saNX3pJFGJabwNiiDjSs5NRjBNmni39IvFn3pyXvMGarv2Cfd
-         7bvJ5XQAqXH3Hm3Ee4EUP4kQDrP/U/3ZR2YztMtv5eokCgRPJuclQ/nAEHBCkGqhkCLb
-         FeRw==
-X-Gm-Message-State: APuU4Z/H8og3ulx9hpkdsgom6CrKk6blLop84TtY+yB10r2yRfJ9h01y
-	lZPyUfxw8+VrOaeKKg9lNaHK6yTx6Jvgu+nxvAayaSeL/dQ1CDwDviG/N4kLMNUXY4jzi+qoSiS
-	jglrM
-X-Gm-Gg: AYBFou2aLLA6ykNwsSIWKlx99SCceYsYJhRz/BRBxZpBlwu4TGWeuixFwSfB0509l3u
-	p1EVR8JFHyZFtU+dYwI/8A2AnrhmbH/C90WM/2H/rhukWCWWyGoFhDacOoxWsiE6SW/+x9tiHnO
-	uba2FRMhJNlYn21h16OiH3jj186oXSxN0OCvdhG84HpRAkijc4Gr6ui/QDwxG0haJF15HSspd81
-	CgvRX8oAmI2tVqC6vpZI97hXgLe9mjAl7bgskBfXiBTNsPPWPUZ2Q+wItuVnHJYYb2Adhs/tqNe
-	aGGs/YQs8oENwN7xlB3Lx39/cTnEBNZw8jDxtKEt76kk6R1nz/jgsYd+2EcKjukRbKYpmCtX4JB
-	RcmVYmz0LXPHLszhJZgatf8qzGIHX9IBJ8n2XC7xeZi0PPCvFr76h7Y121SXhAHL91Semi9Emea
-	TIi1IITyDNDvkO7r09klJKb/GuXj3BNEHAVOkM3+Z9oH8YYRQuiBd/LvzIr7sOBbOQfVF72vG8i
-	vy3CuI7XrbKr3EHt9rLyz5lgXlgsNSIFoqLoKUjDvtHAfE9MjC28TJ7koNZhf+TasUFxFiluwjk
-	2s2DFuirbln6xD5YMXWrFdW3cz1Fg5FHobE1bD2wwKa4ovxNJVHuyHA5LhmZ+ulEH9KaOxBlGXU
-	=
-X-Received: by 2002:a17:90a:fc50:b0:3b0:9a2e:b491 with SMTP id 98e67ed59e1d1-3b0db71a89amr5863824a91.66.1794068209073;
-        Sat, 07 Nov 2026 08:16:49 -0800 (PST)
+        bh=Ox9A+C5MWzJzcgqrj3KM01u0fes4m/cjWGP8DBUs7Hg=;
+        b=eVm/kZUHGP6vmk86ayhwcbrApXpQEBHdnLjRrPFTajMLYw1ehPwhGgP8Sz6PbIdI2w
+         tjJT4Cba7AvAaqv6BOpaQBJfe9K8eEXh96vBMHNy8BsSDO758F8fn3igCFw6cV8pnwKj
+         Q/5Wy5lWgd1Di6JfgzZ2ASh+oTK+pCbq0LpPjL5GEP+TUCCdoSjEhcBruMjYEQkdhuNx
+         VwPHgGB3z+vBazLCjxqG/2x62stfcbpPKg3/PinOC/BSjvmNJXL8+sdCgQIenyaOQQBf
+         JBEA+s9e1MQqquB+PSl5locTfsGErLdvfdBITOLde2DDclPAUsGxI50NJWaCzxk6+QuT
+         /Txw==
+X-Gm-Message-State: APuU4Z+HqUMTrsrSP7Kcc+TtTj7AhFtjTsl/oAm4LlDcC2MXPL74yBxy
+	jmOLUq5LHOoCx+rH0bD6BqNlR8pqQWSVT5gy/A52nNvWWd7mABVh/9n70nZTtlsxXeSAhdQUZMi
+	HIUruyIA=
+X-Gm-Gg: AYBFou0puP1Cb0gBS2CYKrJIyFd+LXIT+WaieRQ9d2xezorLHeJDB08ld74BU5Ld0Ru
+	MCjqluE6cFyyDasBLoUbSVJQd2ff0Cc1P5HZcQT5971Dn5Qax5fcyTH0XWXA2cV+qm9OsSiRPO2
+	Z8jk+qzE+HNjE5Z0kplmOGnsSsgmzwmZDIFGNkVJk4Qprf9PVK1EOQepS1YlyuD/iwGWxkzdIN8
+	xKhIDHNVhbVYzejnw9VDUb4ilYRiMY8HsjNURAHmtRinkh0cTYBcI3CXVJxPwIGKIniI3DHc1bE
+	ptfOeeys73g1j98VrtlIhzBzNC+ERIt5zLpp/wZFqo3hiH2UGrFUGupBnaa4SUXbEHqv3tYCSYi
+	xzg6Bd25hYlPOeLG2W36xlP8LuN1l06mwWQxK+d6ly7uKoI75ztrpcrJ91BJZbm2et6ranIwQgs
+	2laQch97M/qco1ehpJXxnpkD9Ak3rcRjYIPF/lnqyWlKp2/gJ+v0uft2kOUz63TEJ76QiyF4Dkt
+	3cf5ycs5bH6OQ4xfsYfvE0VuoiyDHcsoN28p3DMvfJzQPw+aA5adD1DZDnlX+9aKeq20NSg47IT
+	GJ6iaq4N0SYTd7PnVFz5rSVy8JYwrTiFADMgfZCKeiv/rBynJE1KaANGvSv1oCYtvsVUA4vbtBV
+	x
+X-Received: by 2002:a17:90b:53cf:b0:3aa:f4af:1e0b with SMTP id 98e67ed59e1d1-3b0db5f1550mr5773014a91.8.1794068210469;
+        Sat, 07 Nov 2026 08:16:50 -0800 (PST)
 Received: from xps16 ([198.8.77.135])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b10581caccsm3753898a91.10.2026.11.07.08.16.46
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b10581caccsm3753898a91.10.2026.11.07.08.16.49
         for <stable@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 08:16:47 -0800 (PST)
+        Sat, 07 Nov 2026 08:16:49 -0800 (PST)
 From: Jens Axboe <axboe@kernel.dk>
 To: stable@vger.kernel.org
-Subject: [PATCH 6.18.y 7/9] io_uring/poll: don't poll a writer for a read side hangup
-Date: Sat,  7 Nov 2026 09:16:32 -0700
-Message-ID: <20261107161634.2500557-8-axboe@kernel.dk>
+Subject: [PATCH 6.18.y 8/9] io_uring/poll: don't poll a writer for urgent data
+Date: Sat,  7 Nov 2026 09:16:33 -0700
+Message-ID: <20261107161634.2500557-9-axboe@kernel.dk>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261107161634.2500557-1-axboe@kernel.dk>
 References: <20261107161634.2500557-1-axboe@kernel.dk>
@@ -101,71 +101,53 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Commit 74c1f1048e4401d6a953ab2299b14ace1ad6a899 upstream.
+Commit edeac4546a71b6c1db4ba006a2dbf7c863f54e9a upstream.
 
-io_init_poll_iocb() adds EPOLLRDHUP to every poll, including the async
-poll of a send that waits for buffer space. Once the peer has shut down
-its sending side, the socket keeps reporting EPOLLRDHUP, so each re-arm
-in __io_arm_poll_handler() finds a ready mask and the request is issued
-again. The send still can't make progress, the request burns through
-APOLL_MAX_RETRY in a few milliseconds and ends up in io-wq.
+io_arm_poll_handler() starts the mask of every async poll with EPOLLPRI,
+for a reader and a writer alike. A TCP socket reports EPOLLPRI for as
+long as urgent data sits unread, so once the peer has sent a byte with
+MSG_OOB, the async poll of a send that waits for buffer space is ready
+on every re-arm. The request spins through task_work and
+__io_arm_poll_handler() until APOLL_MAX_RETRY is used up and io-wq takes
+it, the same spin that EPOLLRDHUP caused for a half-closed peer.
 
-A send in io-wq blocks until the peer reads, but sendmsg and writev go
-through ____sys_sendmsg() and sock_write_iter(), which turn O_NONBLOCK
-into MSG_DONTWAIT, and the application gets -EAGAIN for a request that
-never asked for a non-blocking send.
+While it spins, the request is neither in the poll hash nor in io-wq. A
+cancel issued right after the send gets -ENOENT and the send stays
+pending, until a later cancel finds it in io-wq.
 
-Only add EPOLLRDHUP for polls that want to read. A peer that stopped
-sending is no event for a writer, and a poll that asks for it explicitly
-still gets it.
+Only add EPOLLPRI for polls that want to read. Urgent data is an event
+for a recv, not for a writer.
 
-Fixes: 464dca612bc6 ("io_uring: mask in error/nval/hangup consistently for poll")
+Fixes: d7718a9d25a6 ("io_uring: use poll driven retry for files that support it")
 Reported-by: Lukáš Lalinský <lukas@lalinsky.com>
 Signed-off-by: Jens Axboe <axboe@kernel.dk>
 ---
- io_uring/poll.c | 18 +++++++++++++++---
- 1 file changed, 15 insertions(+), 3 deletions(-)
+ io_uring/poll.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
 diff --git a/io_uring/poll.c b/io_uring/poll.c
-index 6af64c7618e5..3239bc3039fb 100644
+index 3239bc3039fb..2594c1f04e70 100644
 --- a/io_uring/poll.c
 +++ b/io_uring/poll.c
-@@ -128,12 +128,24 @@ static void io_poll_req_insert(struct io_kiocb *req)
- 	hlist_add_head(&req->hash_node, &table->hbs[index].list);
- }
- 
-+#define IO_POLL_UNMASK	(EPOLLERR|EPOLLHUP|EPOLLNVAL)
-+
-+static __poll_t io_poll_unmask(__poll_t events)
-+{
-+	/*
-+	 * A peer that stopped sending is an event for a reader, but a write
-+	 * only poll must stay armed until the file is writable again.
-+	 */
-+	if (events & (EPOLLIN | EPOLLRDNORM | EPOLLRDBAND))
-+		return IO_POLL_UNMASK | EPOLLRDHUP;
-+	return IO_POLL_UNMASK;
-+}
-+
- static void io_init_poll_iocb(struct io_poll *poll, __poll_t events)
+@@ -736,7 +736,7 @@ int io_arm_apoll(struct io_kiocb *req, unsigned issue_flags, __poll_t mask)
+ int io_arm_poll_handler(struct io_kiocb *req, unsigned issue_flags)
  {
- 	poll->head = NULL;
--#define IO_POLL_UNMASK	(EPOLLERR|EPOLLHUP|EPOLLNVAL|EPOLLRDHUP)
- 	/* mask in events that we always want/need */
--	poll->events = events | IO_POLL_UNMASK;
-+	poll->events = events | io_poll_unmask(events);
- 	INIT_LIST_HEAD(&poll->wait.entry);
- 	init_waitqueue_func_entry(&poll->wait, io_poll_wake);
- }
-@@ -1003,7 +1015,7 @@ int io_poll_remove(struct io_kiocb *req, unsigned int issue_flags)
+ 	const struct io_issue_def *def = &io_issue_defs[req->opcode];
+-	__poll_t mask = POLLPRI | POLLERR;
++	__poll_t mask = EPOLLERR;
  
- 			poll->events &= ~0xffff;
- 			poll->events |= poll_update->events & 0xffff;
--			poll->events |= IO_POLL_UNMASK;
-+			poll->events |= io_poll_unmask(poll->events);
- 		}
- 		if (poll_update->update_user_data)
- 			preq->cqe.user_data = poll_update->new_user_data;
+ 	if (!def->pollin && !def->pollout)
+ 		return IO_APOLL_ABORTED;
+@@ -744,7 +744,8 @@ int io_arm_poll_handler(struct io_kiocb *req, unsigned issue_flags)
+ 		return IO_APOLL_ABORTED;
+ 
+ 	if (def->pollin) {
+-		mask |= EPOLLIN | EPOLLRDNORM;
++		/* urgent data is an event for a reader only */
++		mask |= EPOLLIN | EPOLLRDNORM | EPOLLPRI;
+ 
+ 		/* If reading from MSG_ERRQUEUE using recvmsg, ignore POLLIN */
+ 		if (req->flags & REQ_F_CLEAR_POLLIN)
 -- 
 2.56.0
 
