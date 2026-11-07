@@ -1,79 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794041219;
-	b=jLdCqr+E/NFP9GsU6ZNmB2I5RJYS4rGqjamY6PkyqRh+Xo5/1CLat5Reoi8nwIHPD28G
-	 +7jRTbVh7Geu1QSpYEViVp2pZlPrb1VdDIoRAPU5QYX4FjjenJzZLJFg51OfNYlgTmoTU
-	 2+BQU8qmmJvZGRmXopCXSy9QKeatn6TB9KTBi0bpTlVzoGCLgQYPYYKsiWId71uUsCE34
-	 DHdVBScs7mwrP5+yvpdJZj9p4BWpcrN+RF02iLYVREgbp4f42pWftXfH5mcGK1558HlNL
-	 aulbljjid7HmON3zspdcqbAkzjlBgQet86DUIE7tw0sytQGadGFwttXGQ7fyXsXuj5w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794041219;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=bAtNJeQQZtV0gJf8mO/hJSLFnMdkjTPe0Tyts98GCi0=;
-	b=aKBizN1gOqhUyirb1nOtYdggex1LqPY+s8qwxwwNHJCzj9uU2kx8YzZn816WZTftY305
-	 ZwdzKKkQiCcuwH02TlTZSoQh1JYeY+kJ3xssBx8viPnljuTE/FsfyOBFXNFcYVagOE1c/
-	 Tyo1YLc35MpBQgC+CwkW9jh5U6dyZxMPv+msIwRUNzqLgwaXAbxeoQFVOfG1FF821BTxj
-	 kHnVuo3AVRLahXygQJiN91QlDFS7f1HuFZYXr2xtU8UiLfWxXd6uMU3eftMYIVL8LF7JL
-	 S+Ud+hWMH22NL1Xt5sFXsBsuOoXKncDhBR2IQICk0BUf7k4pqvPBXiaskOYSwjvgXSg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FF8RqXYn;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.190.28.75
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794041785;
+	b=ZMK/aM2enf7eQ8nb3Ah4iTQcysgu+q8MIkFn9rKPO4UZXlR3bL8Id8byVxhfj29gUrN5
+	 Br6xeJpEB1KGx9GpXd163LUdC66U+IqvmkLwCyG9GEyfgBXCQdMPQgR97etKXIa+ejvBF
+	 LpEczy3xjavZEh9gd76Kq91gfq5AhIMiiHoMBUpuQQC2sx9d8OArQ/kriyEHEqjxrNANs
+	 R9aCbE43xiwM87kTC9VMdib5QnqOl9sOW3cK3C5ShZmZ7vX9VuUaxMJQxVoDwDeNl7OoD
+	 T0xnQh0XFHXmFRMdrL3jhlxvXDAKbk2lrCQUI1OFOMBPawCaQhNBUIuhzvEHkUvJ1ig==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794041785;
+	h=DMARC-Filter:DKIM-Signature:Message-ID:Date:MIME-Version:Subject:To:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=KqgTANG32Er6Jg57cJtaPHmu/UQaqMgRjuWUu0ykUL0=;
+	b=BwLhTgmCOgbmCW8vCn33kdPH/JXQFblqJpTkqLbT1KkGhJz4wGqFyeqxlsbdG3vzjH7F
+	 Dzxol99qA2LZrwM3RCY3/rfThkrvFNdko+kqop1mlm+bPu/1FneS6P5y0ohzrWHtdk6ZW
+	 l9vHx3Uhd57Gi94dUqL9zMfHT8VkTvHxcFpq7UlpgYbzb+yYayWsyrXdXZpxZTH2M9LCu
+	 o9Q6DVF4CHSVp0L+cL9rMBEkHrJMDEuRTRlfTXkQnU1Fx0Lz7ThGYw4D0eOD8Ax4i0gF0
+	 r3ht+LjyT9si8PYyWOHKB11P4Hj8FL7I0mdnQrOhT1Czj504m3KNujbbMgKQUSLy2Xw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=hardfalcon.net;
+	spf=pass smtp.mailfrom=hardfalcon.net;
+	dkim=pass header.d=hardfalcon.net header.i=@hardfalcon.net header.a=ed25519-sha256 header.s=dkim_2024-02-03 header.b=NPyK2wCD;
+	arc=none smtp.remote-ip=213.190.28.75
+Received: from 0.smtp.remotehost.it (0.smtp.remotehost.it [213.190.28.75])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X448 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3A91606A326;
-	Sat,  7 Nov 2026 08:46:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64B64606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 08:56:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64B64606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hardfalcon.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hardfalcon.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FF8RqXYn
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794041218;
-	b=g5jUbZ7i6+5hbtQKE547WWTYXfZ22ih1P5M6ILXhqLR5T5/YbsLTOBv2IZsC5Wg+fXOW
-	 VQr+C5ZQk7K5unNodxK7nBpWvu5tBdZCwrZNunAk4gVuShd8QIAHZLtjS6TFALovbdZPb
-	 6kIruiE1DdZw0dWLFJR21o3xfxokufcGdvbxGg/lXvIi+Dfz0NXLKUuQfSvVelemFCYx2
-	 WTzcz47tAKpNIeybnjQejk0QuKup0vTBj6mEavXjab4WHiVp+GFZS4ESbnnWbxV7/5Rty
-	 uk6ozCtipyym++xUKeJ6dDFpFIWvrvDJeodcvaZfVBJ+ueyv92WH04HPd2NPKaYgQFg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794041218;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=bAtNJeQQZtV0gJf8mO/hJSLFnMdkjTPe0Tyts98GCi0=;
-	b=SgE43hTHLKfsZmRifaLKmcFPUJWZfW6I4orNVpdr3bkiSuwwCwPqNk01Ldk5JdgL4+E/
-	 4HsaDSzahzF9i1QcQqdsUbixxUqGTVdwpgsFAhsJB09M7br4TYAYNRM8WpCbp74fWAjpS
-	 +T8AmLfKtBQEI2OXfy8eXGNwgB519X0TiRE+5Vn0mY/dJYK+MbvaLQkFQaN9385B2PdCd
-	 tIpV96e9GKPTU2aL5ahnUSNUfkFVteFlA/NW2ByX9yhLKj4uEMDlkDC86BffGWyzsAx+Z
-	 NB2IA0UbYD5Xhj5k5RRGDChf8jJivJTpNoKg8RRSlWQfYOgdAzTiy3DcKsRbgWZHtxA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id B28671F0089F;
-	Sat,  7 Nov 2026 08:46:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794041218;
-	bh=bAtNJeQQZtV0gJf8mO/hJSLFnMdkjTPe0Tyts98GCi0=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=FF8RqXYntGFx92+sfkOztEgA4WIAyQcpfDrN5w6rcRI4PN/aC/aikAS+NjSvOT/0N
-	 vJvvYAQRcf7sIzfPnGj5gehP7i3fxpAsDjwL4dTIEJ3Pt35Lp+TCjFg9cHU3TCqeUf
-	 Eca9sLD/bKlApKMdYImE6f+1xe68TgiuePOpSja7IEkBc/HmLjWkaY1CSykrcv6kIx
-	 QagCqkKMKCYYWh5dBwbrDehR8zjQM9LvnedxhAzOiCRgzJ3rzl+vKa5dYEAFEVgKLu
-	 IrfHBjWPon79bxCmQKqlCS7yhMbUjY1qQWvVGr/Qy6YDeGTuD9Y/z97pFk0m+DECiN
-	 g7zfpJ7j6KQsg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 10B8B47B20;
-	Sat,  7 Nov 2026 08:46:57 +0000 (UTC)
-From: Han Gao via B4 Relay <devnull+gaohan.iscas.ac.cn@kernel.org>
-Date: Sat, 07 Nov 2026 16:46:40 +0800
-Subject: [PATCH] firmware/sysfb: Avoid simple-framebuffer behind DT PCI
- host bridges
+	dkim=pass header.d=hardfalcon.net header.i=@hardfalcon.net header.a=ed25519-sha256 header.s=dkim_2024-02-03 header.b=NPyK2wCD
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=hardfalcon.net;
+	s=dkim_2024-02-03; t=1794041772;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KqgTANG32Er6Jg57cJtaPHmu/UQaqMgRjuWUu0ykUL0=;
+	b=NPyK2wCD0FM3LSgqkb9xPWAk04rEXIalQnc4K5qdR+57QmNmSPZjFKuv5GkdAgIkVi5TAs
+	bHtCQ2Ksxwov4xCA==
+Message-ID: <c2569e78-f102-429a-a4a6-0b59d14226e1@hardfalcon.net>
+Date: Sat, 7 Nov 2026 09:56:10 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,142 +53,170 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261107-sysfb-dt-pci-efifb-v1-1-86d6c598671a@iscas.ac.cn>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqEMAyF4atI1gbaOqjMVQYXto0aFyqNilK8+
- 1Rdfg/eH0EoMAl8swiBdhaepwSdZ+CGduoJ2SeDUabUWlUop3QW/YqLY6SOb1SFVbUn/7EG0nE
- JaT+e6K95LZsdya13Ca7rDywKGgR2AAAA
-X-Change-ID: 20261107-sysfb-dt-pci-efifb-d73b08ded4b2
-To: Ard Biesheuvel <ardb@kernel.org>, 
- Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, 
- Javier Martinez Canillas <javierm@redhat.com>, Borislav Petkov <bp@suse.de>, 
- Simona Vetter <simona.vetter@ffwll.ch>
-Cc: linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-riscv@lists.infradead.org, 
- Han Gao <rabenda.cn@gmail.com>, stable@vger.kernel.org, 
- Han Gao <gaohan@iscas.ac.cn>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794041216; l=3936;
- i=gaohan@iscas.ac.cn; s=20261021; h=from:subject:message-id;
- bh=kYFDOzF/Itut71CnG8RI8WDwvweu0YIXUO3C925lonU=;
- b=f49pP12LVp3nDhY5/qNCdRrn7GKGKv+PAeF7rRNnQhocxFGvzzftFz+q/x/2lTZdiAgXP2VPM
- Spx0r81cSHOD19AjA6XvuruJdovxQmXrcjLGkzR1exrcTYj1jtHjwTP
-X-Developer-Key: i=gaohan@iscas.ac.cn; a=ed25519;
- pk=J8WHEK3filS86QaCaIHDGafqhxKyQ4K7+vFgRirTIiY=
-X-Endpoint-Received: by B4 Relay for gaohan@iscas.ac.cn/20261021 with
- auth_id=1262
-X-Original-From: Han Gao <gaohan@iscas.ac.cn>
-Reply-To: gaohan@iscas.ac.cn
+Subject: Re: Patch "sched_ext: Fix the stall watchdog testing and blaming the
+ wrong sched under bypass" has been
+To: Sasha Levin <sashal@kernel.org>, Tejun Heo <tj@kernel.org>,
+ stable@vger.kernel.org
+References: <20261107013319.2604965-1-sashal () kernel ! org>
+Content-Language: en-US, de-DE, en-US-large
+From: Pascal Ernster <git@hardfalcon.net>
+In-Reply-To: <20261107013319.2604965-1-sashal () kernel ! org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-From: Han Gao <gaohan@iscas.ac.cn>
+[2026-11-07 02:33] Sasha Levin:
+> This is a note to let you know that I've just added the patch titled
+> 
+>     sched_ext: Fix the stall watchdog testing and blaming the wrong sched under bypass
+> 
+> to the 7.3-stable tree which can be found at:
+>     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
+> 
+> The filename of the patch is:
+>      sched_ext-fix-the-stall-watchdog-testing-and-blaming.patch
+> and it can be found in the queue-7.3 subdirectory.
+> 
+> If you, or anyone else, feels it should not be added to the stable tree,
+> please let <stable@vger.kernel.org> know about it.
+> 
+> 
+> 
+> commit f62968b215d2977aef31c6c9eab21e3272c9f766
+> Author: Tejun Heo <tj@kernel.org>
+> Date:   Mon Oct 26 14:08:59 2026 -1000
+> 
+>     sched_ext: Fix the stall watchdog testing and blaming the wrong sched under bypass
+>     
+>     [ Upstream commit 93b1512ca69fbe3da66bbd2bab76e9ed74277679 ]
+>     
+>     While a sched is bypassing, its tasks are run by its host, the nearest
+>     ancestor that isn't bypassing. check_rq_for_timeouts() tests a runnable task
+>     against its owner's timeout. Since 2c91169377f4 ("sched_ext: Blame the DSQ's
+>     owning scheduler for a runnable stall"), it ejects the sched owning the DSQ
+>     the task waits on. The sched tested, the sched ejected and the sched running
+>     the task can all differ.
+>     
+>     - Timeouts are per sched. A bypassing sub-scheduler with a 2s timeout under
+>       a root with the default 30s has its tasks on the root's bypass DSQ. The
+>       root, not bypassing itself, consumes that DSQ before calling
+>       ops.dispatch() only on every other pass, and on the others only after
+>       ops.dispatch() yields nothing. A task that waits 2s there ejects the root,
+>       disabling all of sched_ext.
+>     
+>     - A bypassing owner's task on the local DSQ is blamed on the owner, which
+>       places nothing while bypassing. If the owner is already exiting, e.g.
+>       during its own disable, the exit is a no-op and nothing is ejected. If the
+>       host isn't running the task, the owner's disable, which waits on it, may
+>       never finish.
+>     
+>     - The wait isn't restarted when bypass moves a task. The time it waited
+>       under its owner counts against the host once it is on the host's bypass
+>       DSQ, and its time there against the owner once bypass lifts.
+>     
+>     The sched running a task is its owner, or the host while the owner is
+>     bypassing. Test the task against that sched's timeout and blame it. A bypass
+>     requeue can change the sched running a task, so restart the wait of every
+>     task scx_bypass() requeues except the root's own, which the root runs
+>     bypassing or not. Single-scheduler behavior is unchanged.
+>     
+>     A task that migrates while scx_bypass() works through the cpus, leaving one
+>     before its requeue and arriving on another after it, is requeued by neither
+>     and keeps its wait, which then counts against the sched now running it. That
+>     is what happened to every task before this patch. This might be worth
+>     addressing in the future, but the race is rare and the real-world
+>     implications should be limited.
+>     
+>     Fixes: 2c91169377f4 ("sched_ext: Blame the DSQ's owning scheduler for a runnable stall")
+>     Cc: stable@vger.kernel.org # v7.3+: 30fb2b1e4d41: sched_ext: Fix the running task keeping its protection into bypass
+>     Cc: stable@vger.kernel.org # v7.3+: 5809f749fbdb: sched_ext: Fix a bypassed task stalling on a cpu its scheduler has no caps on
+>     Cc: stable@vger.kernel.org # v7.3+
+>     Reported-by: Andrea Righi <arighi@nvidia.com>
+>     Link: https://lore.kernel.org/all/at4l0yXTk7T_ouk0@gpd4/
+>     Reported-by: Sashiko <sashiko-bot@kernel.org>
+>     Signed-off-by: Tejun Heo <tj@kernel.org>
+>     Reviewed-by: Andrea Righi <arighi@nvidia.com>
+>     Signed-off-by: Sasha Levin <sashal@kernel.org>
+> 
+> diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+> index 84774147a1d5b..28e04d1043a28 100644
+> --- a/kernel/sched/ext/ext.c
+> +++ b/kernel/sched/ext/ext.c
+> @@ -2235,7 +2235,8 @@ static void ops_dequeue(struct rq *rq, struct task_struct *p, u64 deq_flags)
+>  	/*
+>  	 * Don't reset runnable_at. If @p is waiting, the wait continues across
+>  	 * temporary dequeues, e.g. for a migration or an attribute change.
+> -	 * scx_disable_task() ends it if @p leaves its scheduler.
+> +	 * scx_disable_task() ends it if @p leaves its scheduler. scx_bypass()
+> +	 * restarts it when its requeue can change the sched running @p.
+>  	 */
+>  	clr_task_runnable(p, false);
+>  
+> @@ -3844,24 +3845,17 @@ static bool check_rq_for_timeouts(struct rq *rq)
+>  		goto out_unlock;
+>  
+>  	list_for_each_entry(p, &rq->scx.runnable_list, scx.runnable_node) {
+> -		struct scx_sched *sch = scx_task_sched(p);
+> +		/*
+> +		 * @p's owner schedules @p, or its host while the owner is
+> +		 * bypassing. Test @p against that sched's timeout and blame it.
+> +		 */
+> +		struct scx_sched *sch = scx_exec_sched(scx_task_sched(p), cpu_of(rq));
+>  		unsigned long last_runnable = p->scx.runnable_at;
+>  
+>  		if (unlikely(time_after(jiffies,
+>  					last_runnable + READ_ONCE(sch->watchdog_timeout)))) {
+> -			struct scx_dispatch_q *dsq = READ_ONCE(p->scx.dsq);
+>  			u32 dur_ms = jiffies_to_msecs(jiffies - last_runnable);
+>  
+> -			/*
+> -			 * A task can be stuck on a DSQ that a sched other than
+> -			 * its owner is responsible for draining, e.g. an
+> -			 * ancestor's bypass DSQ while the owner is bypassing.
+> -			 * Blame the drainer. The local DSQ is consumed by the
+> -			 * cpu itself and keeps blame on the owner.
+> -			 */
+> -			if (dsq && dsq->sched && dsq->id != SCX_DSQ_LOCAL)
+> -				sch = dsq->sched;
+> -
+>  			__scx_exit(sch, SCX_EXIT_ERROR_STALL, 0, cpu_of(rq),
+>  				   "%s[%d] failed to run for %u.%03us",
+>  				   p->comm, p->pid, dur_ms / 1000,
+> @@ -6369,7 +6363,9 @@ void scx_bypass(struct scx_sched *sch, bool bypass)
+>  		 */
+>  		list_for_each_entry_safe_reverse(p, n, &rq->scx.runnable_list,
+>  						 scx.runnable_node) {
+> -			if (!scx_is_descendant(scx_task_sched(p), sch))
+> +			struct scx_sched *owner = scx_task_sched(p);
+> +
+> +			if (!scx_is_descendant(owner, sch))
+>  				continue;
+>  
+>  			/*
+> @@ -6381,7 +6377,19 @@ void scx_bypass(struct scx_sched *sch, bool bypass)
+>  
+>  			/* cycling deq/enq is enough, see the function comment */
+>  			scoped_guard (sched_change, p, DEQUEUE_SAVE | DEQUEUE_MOVE) {
+> -				/* nothing */ ;
+> +				/*
+> +				 * The requeue can change the sched running @p,
+> +				 * and the watchdog counts @p's wait against
+> +				 * that sched. Restart the wait unless @owner is
+> +				 * the root, which runs its own tasks bypassing
+> +				 * or not.
+> +				 *
+> +				 * A dispatch in flight writes p->scx.flags
+> +				 * without @p's rq lock. The dequeue waits it
+> +				 * out, so set the flag after it.
+> +				 */
+> +				if (scx_parent(owner))
+> +					p->scx.flags |= SCX_TASK_RESET_RUNNABLE_AT;
+>  			}
+>  		}
+>  
 
-With SYSFB_SIMPLEFB, sysfb registers a simple-framebuffer device that
-claims the framebuffer memory when it is added. On DT systems, the PCI
-host bridge may probe later and then fails to claim its memory window.
-On QEMU RISC-V virt with EDK2, a bochs-display and pci-host-generic
-built as a module:
 
-  [    0.703813] pci-host-generic 30000000.pci: resource collision: [mem 0x40000000-0x7fffffff] conflicts with BOOTFB [mem 0x40000000-0x403e7fff]
-
-In that case, register an efi-framebuffer device instead. It claims no
-memory before it probes, and commit 64c8a0cd0a53 ("efi/arm: Defer probe
-of PCIe backed efifb on DT systems") makes it wait for the host bridge.
-
-Tested on a HiFive Unmatched with EDK2 and a PCIe graphics card, and on
-QEMU.
-
-Fixes: 8633ef82f101 ("drivers/firmware: consolidate EFI framebuffer setup for all arches")
-Cc: stable@vger.kernel.org
-Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
----
-In QEMU, efifb takes over with SYSFB_SIMPLEFB and efidrm without it.
-With pci-host-generic built in, simpledrm is still used.
----
- drivers/firmware/efi/sysfb_efi.c | 16 ++++++++++++++++
- drivers/firmware/sysfb.c         |  8 +++++++-
- include/linux/sysfb.h            |  6 ++++++
- 3 files changed, 29 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/firmware/efi/sysfb_efi.c b/drivers/firmware/efi/sysfb_efi.c
-index 2338de73c62c..5c2cb87178ff 100644
---- a/drivers/firmware/efi/sysfb_efi.c
-+++ b/drivers/firmware/efi/sysfb_efi.c
-@@ -421,6 +421,22 @@ __init void sysfb_apply_efi_quirks(struct screen_info *si)
- 		dmi_check_system(efifb_dmi_swap_width_height);
- }
- 
-+/* Returns true if the EFI framebuffer is in a DT PCI host bridge window */
-+__init bool sysfb_efifb_behind_dt_pci(const struct screen_info *si)
-+{
-+	struct device_node *np;
-+
-+	if (si->orig_video_isVGA != VIDEO_TYPE_EFI || !IS_ENABLED(CONFIG_PCI))
-+		return false;
-+
-+	np = find_pci_overlap_node();
-+	if (!np)
-+		return false;
-+
-+	of_node_put(np);
-+	return true;
-+}
-+
- __init void sysfb_set_efifb_fwnode(const struct screen_info *si, struct platform_device *pd)
- {
- 	if (si->orig_video_isVGA == VIDEO_TYPE_EFI && IS_ENABLED(CONFIG_PCI)) {
-diff --git a/drivers/firmware/sysfb.c b/drivers/firmware/sysfb.c
-index 8833582c1883..8853a74560b9 100644
---- a/drivers/firmware/sysfb.c
-+++ b/drivers/firmware/sysfb.c
-@@ -164,8 +164,14 @@ static __init int sysfb_init(void)
- 		goto unlock_mutex;
- 	}
- 
--	/* try to create a simple-framebuffer device */
-+	/*
-+	 * Try to create a simple-framebuffer device. It claims the memory
-+	 * when it is added, so a DT PCI host bridge that probes later would
-+	 * fail. Use an efi-framebuffer device there; it waits for the bridge.
-+	 */
- 	compatible = sysfb_parse_mode(si, &mode);
-+	if (compatible && !parent && sysfb_efifb_behind_dt_pci(si))
-+		compatible = false;
- 	if (compatible) {
- 		pd = sysfb_create_simplefb(si, &mode, parent);
- 		if (!IS_ERR(pd))
-diff --git a/include/linux/sysfb.h b/include/linux/sysfb.h
-index ed23d6516223..b136fdebc746 100644
---- a/include/linux/sysfb.h
-+++ b/include/linux/sysfb.h
-@@ -95,6 +95,7 @@ static inline bool sysfb_handles_screen_info(void)
- 
- extern struct efifb_dmi_info efifb_dmi_list[];
- void sysfb_apply_efi_quirks(struct screen_info *si);
-+bool sysfb_efifb_behind_dt_pci(const struct screen_info *si);
- void sysfb_set_efifb_fwnode(const struct screen_info *si, struct platform_device *pd);
- 
- #else /* CONFIG_EFI */
-@@ -103,6 +104,11 @@ static inline void sysfb_apply_efi_quirks(struct screen_info *si)
- {
- }
- 
-+static inline bool sysfb_efifb_behind_dt_pci(const struct screen_info *si)
-+{
-+	return false;
-+}
-+
- static inline void sysfb_set_efifb_fwnode(const struct screen_info *si,
- 					  struct platform_device *pd)
- {
-
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261107-sysfb-dt-pci-efifb-d73b08ded4b2
-
-Best regards,
---  
-Han Gao <gaohan@iscas.ac.cn>
+Hi, this breaks the build for kernel 7.3.3 with the patches from stable-queue/queue-7.3 at commit id 77ecab77b25567c54df997dcb8030dea6bca03ed (which should be the equivalent of linux-stable-rc at commit id 11a9a1b1063f5f401fecb0ce486defa701c4cbe3), because the changed code tries to use the scx_exec_sched() function although that function doesn't exist (yet?) in the 7.3 branch. Removing this single patch *appears* to make the kernel compile again (I can't tell with 100% certainty at this point because my compile run hasn't finished yet).
 
 
+Regards
+Pascal
