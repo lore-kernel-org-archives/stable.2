@@ -1,55 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050394;
-	b=wt39TpRLP55fDpYAikWANG99cq8S/NfBJkWldkmAki+3mOM30ho8aKH3yPNcTbOq31E1
-	 4j5pL8xSVGK8uwWvxi8sjW/EKn/DizuCwhmpMRnOq/6TLrHoPs4HN+kLzxYVdP3+cvPVI
-	 q5JlTZ5bQ0RuQkT78FUF3zFnffe3sgNn3311/hSmXz4pyHyGdD0t59bSkEl0ru+akZZ3K
-	 k+e75/GYVaGfpw2kt/MHxvtLYxt6SIBB36/c5RQdEWT7zGx756w4EEd0c8PhYKSlV+VLm
-	 DadUTHNaoWgZt40YK4k24VbM7sJ/xLRrkj2LvVsdOFqa5xcTttxMI71zMqkReF4iInQ==
+	t=1794050398;
+	b=GfaKRUyEVkln3GgstQ5iA4jFlqZkBnGLd61a1EdkrdzUt3h+mOo3S1enjQS50NwGVCEg
+	 8YjeOm+vTmBl1jTRTg1dl+/kZVtbeQtajpxf3BCVsazzMjOI1GIJIvVuYjhXmPODPZBh3
+	 +yToi+EncMqQAvjSGTzg4rzuM1Pa0VEH0BMYF1DLEi9jn34eLZZH9dfQXxApzPkoJ3MGQ
+	 +ILevWRXvhoNZ4qjzE7oz/Ff2BJeUpiu/1xMF67ayekkzrEV3IXpTnkIcEKVGFHQLDHni
+	 YoAzB9hu9Kz+M2Rsn+37prIOrhiwaA1HWBcI57L4LDd4E/HoyRAmkLX0k6wTpwrXkWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050394;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050398;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=FvJt+A2vKLZVQIlnjiBliXSYoy33wtEwgBOOWQNPajM=;
-	b=DgcywpBqREJ4BWB/fFA+U7SvT5DmNZzuyZwIQqU5eSv/8r1KooIFy+HiUfRpZJCHfQOQ
-	 IVPw6X/QTtKB70SPRnwCxZD3pu+ynfHgaVzNq5eAaQVXEyFafVczMCUN+AWvk7II1KkEI
-	 MwuypcUjS9GTbLa9pX7N0mQ958dhnvAvxQl+fRJCUGzC4jB6Yb0S1PeT2XRX9UdGcyxkk
-	 FNlNsQmPytNw4BQWh100Afd0CTMxGcYt0sCTsNfSqFlmaTaDueKC1C9sTUCij91lMW//M
-	 Bbm/yScpg5bIVH/Ycx68P3ISLeYmjQBONX2jKA88EC5HjiEqeJWI1bEhD/Z/MxxpbgA==
+	bh=mfC5qahCFlF6iakLOSSOC9LpHOoAo71KcsELd0RLK9w=;
+	b=llhyx/904M8uPZEjSc6FZcr/37Wf4L6iMluo4DLbWO13hf0/U0EFl+Tw/xZ2mnO96veU
+	 nn8BIun7OtQa4XIoqdwp/JOiwoKEGjVsczgvSQcuM1YEP4DjizD4SO5jQrfvUz1hzQuDU
+	 +EIMux22BKl+2DGknHIoI4/4VsgFODgPovLQgR80Uu0PlQE1U/nzarGW9qjP68JDTiRyF
+	 TyBJmtIFC52+61TMMvQtNclyPcR6yZJ+0V3kSAw0YZ/VVI82prT/8Z3aiiWUpi4dklvkN
+	 rA3pdDnu/jlaZwZHoz4T7UIHxq7eSG3CHmqkkCfGWronXr4jVriJjam1shf+betnxhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ESPAYGDQ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AbpoNdaW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EF5A606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:19:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03F07606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:19:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ESPAYGDQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA1961F0089F;
-	Sat,  7 Nov 2026 11:19:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AbpoNdaW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D5271F0089F;
+	Sat,  7 Nov 2026 11:19:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050394;
-	bh=FvJt+A2vKLZVQIlnjiBliXSYoy33wtEwgBOOWQNPajM=;
+	s=k20260515; t=1794050397;
+	bh=mfC5qahCFlF6iakLOSSOC9LpHOoAo71KcsELd0RLK9w=;
 	h=From:To:Cc:Subject:Date;
-	b=ESPAYGDQHZkaZcE7IsMg9v+RStPM586umCJnF28nOLGTEePcqx8/BzmHsMMSfBs3U
-	 3h/TidvWNIXwE9ccUjwmqpDtMeNKbBdeB8xyYiq39PmOBzLKQ68uFSzPMyh6Z+yvU1
-	 Q9GoPWI+v2gXBEdQhxqsfGREXNWGnUIxUAuD9VYdyxDsjkA+E22xJ/ut8j52U4GbVG
-	 kqL9ioKZlj6eywhv1b1Zi0J8AOsNrPrHD7/T+DIACePcPjcGM3RByc8SI1uoHto8+B
-	 ceLzhmsGCQdl4IEDaDGdOj4Isiah6oQeA0SaZp0iJhf0au5wznRf2+mOAVF3Eamfmc
-	 NTNAbuVIu25zA==
+	b=AbpoNdaWy58IBEg6VY+0pRa+Diqa/xkqsIf0ZqyBVb5FmUZGKVCGIwh/6e6xeNIUk
+	 ouh8H+C86mN8cC97g03w8DlHZxKVRJOdhWZ+az+QWllAKxK8ekJ4eXepqbjgzMKoSA
+	 zBdWXUkAi5JsKuYxbzh6c5Ljd45ReUKPe8yQT3uTd25x3hohGkLVI1PNUYbaHuwkqq
+	 yD3yqY2ouR51nyUrEfpnQZaA5ICZueFG1Fy4k5MxOMF2fZ6H4t+mxK919pCNhzIcm4
+	 NWGJDFePiV50hypLHEjleBOWygrJh9CJoU+P87WvSf8rDHoYXTK+PMB0lEykpalCVY
+	 7PKj7fZpDGz7Q==
 From: Sasha Levin <sashal@kernel.org>
-To: senozhatsky@chromium.org,
-	sarthakkukreti@google.com,
-	jack@suse.cz,
-	libaokun@linux.alibaba.com,
-	yi.zhang@huawei.com,
-	tytso@mit.edu
+To: southampton.jake.labelle@gmail.com,
+	konishi.ryusuke@gmail.com,
+	slava@dubeyko.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ext4: fix ABBA deadlock in ext4_rmdir()" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:19:52 -0500
-Message-ID: <20261107061952-failed-5.10-19e16597f9ba@kernel.org>
+Subject: FAILED: patch "[PATCH] nilfs2: validate directory position after llseek in readdir" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:19:55 -0500
+Message-ID: <20261107061955-failed-5.10-de7f49c12566@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -72,125 +69,103 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 19e16597f9baf1b5719a3a6c710486446f6808fd
+git cherry-pick -x de7f49c12566cc5c7437a2f26c6c754b9d4d5648
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061952-failed-5.10-19e16597f9ba@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061955-failed-5.10-de7f49c12566@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 19e16597f9baf1b5719a3a6c710486446f6808fd Mon Sep 17 00:00:00 2001
-From: Sergey Senozhatsky <senozhatsky@chromium.org>
-Date: Thu, 27 Aug 2026 21:50:20 +0900
-Subject: [PATCH] ext4: fix ABBA deadlock in ext4_rmdir()
+From de7f49c12566cc5c7437a2f26c6c754b9d4d5648 Mon Sep 17 00:00:00 2001
+From: Jake Labelle <southampton.jake.labelle@gmail.com>
+Date: Thu, 8 Oct 2026 20:52:48 +0900
+Subject: [PATCH] nilfs2: validate directory position after llseek in readdir
 
-We observe the following ABBA deadlock (casefolding enabled):
+nilfs_readdir() uses ctx->pos, which userspace can set to an arbitrary
+value via llseek, as an offset into the directory folio and parses
+whatever bytes sit there as a directory entry.  A position pointing
+into the middle of an entry -- or at unused bytes of a corrupted image
+that the page validator never inspected -- makes dir_emit() copy up to
+255 (name_len) bytes from a bogus entry, possibly reading past the end
+of the folio and returning unrelated memory contents to userspace.
 
- INFO: task jbd2/dm-13-8:447 blocked for more than 720 seconds.
- task:jbd2/dm-13-8    state:D stack:0     pid:447   tgid:447   ppid:2
- Call Trace:
-  <TASK>
-  __schedule+0xc2c/0xe60
-  schedule+0x40/0xe0
-  jbd2_journal_wait_updates+0x8f/0xf0
-  jbd2_journal_commit_transaction+0x321/0x1850
-  kjournald2+0xa9/0x230
-  kthread+0x226/0x2a0
-  ret_from_fork+0x101/0x1e0
-  ret_from_fork_asm+0x1a/0x30
+Snap unaligned positions onto a valid entry boundary by walking the
+rec_len chain from the chunk start before parsing, as ext2 does in
+ext2_validate_entry().
 
- INFO: task Thread-10:4161 blocked for more than 720 seconds.
- task:Thread-10       state:D stack:0     pid:4161  tgid:3848  ppid:540
- Call Trace:
-  <TASK>
-  __schedule+0xc2c/0xe60
-  schedule+0x40/0xe0
-  wait_transaction_locked+0x8c/0xd0
-  start_this_handle+0x252/0x870
-  jbd2__journal_start+0x120/0x280
-  __ext4_journal_start_sb+0x11a/0x250
-  ext4_evict_inode+0x208/0x760
-  iput+0x222/0x5c0
-  dput+0x293/0x690
-  ____fput+0x145/0x2b0
-  task_work_run+0x7a/0xb0
-  exit_to_user_mode_loop+0xc0/0xd0
-  do_syscall_64+0x14b/0xf10
-  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+[ryusuke: fixed offset wrap-around in nilfs_validate_entry() and
+ conformed AI tag to guidelines]
 
- NMI backtrace for cpu 0
- CPU: 0 UID: 1010216 PID: 4160 Comm: Thread-7
- RIP: 0010:d_walk+0x0/0x290
-[..]
- Call Trace:
- <TASK>
-  shrink_dcache_parent+0xb2/0x100
-  d_invalidate+0x50/0x110
-  ext4_rmdir+0x3a2/0x3d0
-  vfs_rmdir+0x9d/0x1d0
-  do_rmdir+0xf0/0x330
-  __x64_sys_unlinkat+0x34/0x50
-  do_syscall_64+0x61/0xf10
-
-The problem is that ext4_rmdir() calls d_invalidate() before stopping
-the jbd2 transaction handle.  Because d_invalidate() traverses child
-dentries it can encounter dying or in-use dentries.  If a concurrent
-thread executing __dentry_kill() on a child dentry invokes ext4_evict_inode(),
-it requests a new transaction handle via ext4_journal_start(), which
-waits for all running handles to close.  However, the thread executing
-ext4_rmdir() still holds its active transaction handle while looping
-in shrink_dcache_parent() waiting for the dying child dentry to complete
-eviction.
-
-Stop transaction handle in ext4_rmdir() before calling d_invalidate().
-
-Cc: stable@kernel.org
-Fixes: b886ee3e778e ("ext4: Support case-insensitive file name lookups")
-Co-developed-by: Sarthak Kukreti <sarthakkukreti@google.com>
-Signed-off-by: Sarthak Kukreti <sarthakkukreti@google.com>
-Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
-Reviewed-by: Jan Kara <jack@suse.cz>
-Reviewed-by: Baokun Li <libaokun@linux.alibaba.com>
-Reviewed-by: Zhang Yi <yi.zhang@huawei.com>
-Link: https://patch.msgid.link/20260827125158.4030598-1-senozhatsky@chromium.org
-Signed-off-by: Theodore Ts'o <tytso@mit.edu>
+Fixes: 2ba466d74ed7 ("nilfs2: directory entry operations")
+Assisted-by: Claude:claude-mythos-5
+Signed-off-by: Jake Labelle <southampton.jake.labelle@gmail.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
+Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
 ---
- fs/ext4/namei.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+ fs/nilfs2/dir.c | 34 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 34 insertions(+)
 
-diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
-index a6386c1d237f1..231a274b814ec 100644
---- a/fs/ext4/namei.c
-+++ b/fs/ext4/namei.c
-@@ -3209,19 +3209,20 @@ static int ext4_rmdir(struct inode *dir, struct dentry *dentry)
- 	ext4_fc_track_unlink(handle, dentry);
- 	retval = ext4_mark_inode_dirty(handle, dir);
- 
-+end_rmdir:
-+	brelse(bh);
-+	if (handle)
-+		ext4_journal_stop(handle);
-+
- 	/* VFS negative dentries are incompatible with Encoding and
- 	 * Case-insensitiveness. Eventually we'll want avoid
- 	 * invalidating the dentries here, alongside with returning the
- 	 * negative dentries at ext4_lookup(), when it is better
- 	 * supported by the VFS for the CI case.
- 	 */
--	if (IS_ENABLED(CONFIG_UNICODE) && IS_CASEFOLDED(dir))
-+	if (!retval && IS_ENABLED(CONFIG_UNICODE) && IS_CASEFOLDED(dir))
- 		d_invalidate(dentry);
- 
--end_rmdir:
--	brelse(bh);
--	if (handle)
--		ext4_journal_stop(handle);
- 	return retval;
+diff --git a/fs/nilfs2/dir.c b/fs/nilfs2/dir.c
+index 8b53802b6ebd7..7686ca9228fc8 100644
+--- a/fs/nilfs2/dir.c
++++ b/fs/nilfs2/dir.c
+@@ -231,11 +231,27 @@ static struct nilfs_dir_entry *nilfs_next_entry(struct nilfs_dir_entry *p)
+ 					  nilfs_rec_len_from_disk(p->rec_len));
  }
  
++static inline unsigned int
++nilfs_validate_entry(char *base, unsigned int offset, unsigned int mask)
++{
++	struct nilfs_dir_entry *de = (struct nilfs_dir_entry *)(base + offset);
++	struct nilfs_dir_entry *p =
++		(struct nilfs_dir_entry *)(base + (offset & mask));
++
++	while ((char *)p < (char *)de) {
++		if (p->rec_len == 0)
++			break;
++		p = nilfs_next_entry(p);
++	}
++	return (char *)p - base;
++}
++
+ static int nilfs_readdir(struct file *file, struct dir_context *ctx)
+ {
+ 	loff_t pos = ctx->pos;
+ 	struct inode *inode = file_inode(file);
+ 	struct super_block *sb = inode->i_sb;
++	unsigned int chunk_size = nilfs_chunk_size(inode);
+ 	unsigned int offset = pos & ~PAGE_MASK;
+ 	unsigned long n = pos >> PAGE_SHIFT;
+ 	unsigned long npages = dir_pages(inode);
+@@ -254,6 +270,24 @@ static int nilfs_readdir(struct file *file, struct dir_context *ctx)
+ 			ctx->pos += PAGE_SIZE - offset;
+ 			return -EIO;
+ 		}
++		/*
++		 * ctx->pos comes from userspace via llseek and may point
++		 * into the middle of an entry -- or at unvalidated bytes
++		 * of a crafted image. offset is only nonzero here on the
++		 * very first iteration (subsequent pages always start at
++		 * offset 0, which -- like any chunk boundary -- is always
++		 * a legitimate entry start, since no rec_len chain crosses
++		 * a chunk boundary). Snap a non-chunk-aligned offset onto
++		 * a real entry boundary by walking the chain from the
++		 * enclosing chunk's start, as ext2 does; otherwise
++		 * dir_emit() copies name_len bytes from a fake entry,
++		 * reading past the end of the folio.
++		 */
++		if (offset & (chunk_size - 1)) {
++			offset = nilfs_validate_entry(kaddr, offset,
++					~(chunk_size - 1));
++			ctx->pos = ((loff_t)n << PAGE_SHIFT) + offset;
++		}
+ 		de = (struct nilfs_dir_entry *)(kaddr + offset);
+ 		limit = kaddr + nilfs_last_byte(inode, n) -
+ 			NILFS_DIR_REC_LEN(1);
 -- 
 2.53.0
 
