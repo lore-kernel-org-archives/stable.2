@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048142;
-	b=VYHlZgK8SxBe+3DUdb5t9WGACzPURLCD3FoR0qNN83JiUcU7H7AoYKkRPd2i7gPeWTyJ
-	 2/RbzoKM8l1d+GS0NyS4LQR8OYp2sJ9JVV7y0UbVPeWdPr5kPohuwY/9woSDIVXND+yM5
-	 4R/10QJblL+eqaZdLHH+VpLDbb1JXG3GY455q/wajyDf2dyGA614s30QEZSWeE+Yd+3xX
-	 csFJr6CHfXTTOUmuilHHBG+ijp2k2YxECKzoGU6qmr9Vt5aJ+YHyNez/b8CrGJqW3IiMY
-	 j/i4xqDjGaTVJvBY9p5W/wFgNLtAMKQFuYJYT0DR7QpEoW8PC/0bxaeiA72uWCjsZ6w==
+	t=1794048144;
+	b=3izfbTnkn4gIuHBEb1Cjm1SqWqPnQOJnrW3ZHqvMb8FgO9uopIv9wWPMmifQ+87TXvXW
+	 cJP7LAM309uT6zpPtZYtDhYivv+QvPnHXoxFI9DbmvXySL4QWUhhfTksw8dgbJnBvHvl4
+	 AW5pYdvHyusQSD0H8za9/dTAbcTfiK12ysttdmXH2HQRoxdtGRVEtzeqgzZZw0hlF24fY
+	 cVThkrCao596tjOTnunZA9bxOKbp7L6pxDKsSYgRLgu64PJYMLdRDFzIAEU2M55/XlgVe
+	 M9QkqEsooPWlS0fd2bJ1MYEAW3pX5iKkt0a6GYS82mcKJqMtdAgywMlMJKvBtgcVhqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048142;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048144;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=gfX42KCbVNUKUcQVW68AVDxp4zCOFW6y2XziQl/N2Yw=;
-	b=0NYRqfZ2WZbtW+csT+F7D1EquZRGZ1xAmhmEw5ludhfeBEk8Qaf9bzC9T4DFoNpvM2r4
-	 8P9BW6nv3wFTw3AQkSg3JjHcJVGDilSjcEFFfZu/npFozV66EQCEyD0JUa+fotDfJ8qYe
-	 ajVideyjdhPg64xVYrepZiKFEp+VtF2Q+bBjB07Nj9at7A7CU93EbXocAarBr+OWw/QHT
-	 WcgxUO8Rw8keu+iSzyMvROiEiQpg1bckl5QH2nLllUhpfly+Hd0J8OBx+2AaQnkHo413k
-	 dQT4sxSjs7lRAJkjGB4En8qexR+m3rwm9YGdeiYtnI5KoJUl0qlu8qFA/tl+09AmsXg==
+	bh=l4ipS0lH+Y/+vxjx0Lq9eNmNCZ9hZOCRWa9LUXrcaus=;
+	b=pm6OwMizPNe9dHcIojqOYI4fWQOo/gxOd+g4M/HoiE6Ubv97q99CRnw4AUHKgKjBUOPx
+	 qhrI2xE0XS5PVBmEiBxi17Q+m9nnjx9H+/UeXH4DHwfiucwlIZz1Xu1MlWnfgQoNcHYiJ
+	 0eutsWKA/HNnO30ycxp0t+xFL0OtN7Tt15c/gDpk/JnMsaudiPImaAafmF31KKSvxScu8
+	 KhMcYmaHGMBD53P+tuqls8Sg7u+J0iBA3icwYZ2gs9kgKqoyJp9M0ljOnxLw9gcZPJR7Z
+	 InMTPXV2MZIHhZiDNxAmUzCRlzIqo9Z3TDLn8EJZTiyhyrvXsbWQUE5EN+DkJFbxOJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="GuvuC/XU";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ph9BPPR0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ECC4606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:42:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C675606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:42:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GuvuC/XU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAA861F0089F;
-	Sat,  7 Nov 2026 10:42:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ph9BPPR0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECD131F0089F;
+	Sat,  7 Nov 2026 10:42:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048142;
-	bh=gfX42KCbVNUKUcQVW68AVDxp4zCOFW6y2XziQl/N2Yw=;
+	s=k20260515; t=1794048144;
+	bh=l4ipS0lH+Y/+vxjx0Lq9eNmNCZ9hZOCRWa9LUXrcaus=;
 	h=From:To:Cc:Subject:Date;
-	b=GuvuC/XUSc2xLZAZDqlrapF7WMGN+xvU7nFJmSM5ofclqh6ZCT2IbdSAU0YilfGwk
-	 qqdZBL7gYTlmBW+wo9o001F9iRMMKzs+awX3yzBJRF5wItBOIpUH2dR8JjjF9n4OCT
-	 fIFjNeiT3jYENAtZ87CIQOETe19SLBuSJ2ufJaFeChAignnRz8+sOqKq3G4vnzKVK5
-	 vFqW2b9kFI4/wULXOZzWLekIOXlCFvVWyW+RqfwFBA2cATgtPAtYFfYk9WX9QUEdk0
-	 VIUnf2Gw9AZI7GBbIfFCQlDh0k0K9IIJqbgrxDFBW8qLpnFaqdRUAoX3+3BY0iTU7Y
-	 n6hu3MZ0NbM/w==
+	b=Ph9BPPR0+HGD6WOIvhG5DwbxCAZyW0wrn5O5hXFPRBFfaT+8YiIm7Ox9xylcmOCkC
+	 PuzXf1clHU8HFiT95jkc5tVtkY/1j4iWY+R91BeeW+FgrZ6ENcQn0MG6SinOZKrABz
+	 +uYUHre//crpRPjxT6GJFe89JdGNbvx8e3m2NFITmxFQTskdiQyAgSiR6FmkiFkqFV
+	 4WvUOQie6tce1Y4e+uRjzwA0o+5i08t6XZEqDx1+iSMxPCz6kSVAbZwUzl1yKrIVES
+	 m4hgTL0NOxy3lr1r0JE5jrVqatlEyYIMFfyldGAQvzinQZA2+JOaiITIFvw/9PB2Y/
+	 PYZbVzk86kRMQ==
 From: Sasha Levin <sashal@kernel.org>
-To: oleg@redhat.com,
-	kusaram@devineni.in,
-	kees@kernel.org
+To: jean-baptiste.maneyrol@tdk.com,
+	jonathan.cameron@oss.qualcomm.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] signalfd: don't dequeue the forced fatal signals" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:42:20 -0500
-Message-ID: <20261107054220-failed-6.1-d72e0fb3b00c@kernel.org>
+Subject: FAILED: patch "[PATCH] iio: imu: inv_icm42600: force accel odr change when switching power mode" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:42:22 -0500
+Message-ID: <20261107054222-failed-6.1-d52047d84963@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,121 +68,115 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x d72e0fb3b00c6a1146bcfd7186ad9f6f609ba236
+git cherry-pick -x d52047d84963e5cf7c8ad502e0adf003fb0669de
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054220-failed-6.1-d72e0fb3b00c@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054222-failed-6.1-d52047d84963@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From d72e0fb3b00c6a1146bcfd7186ad9f6f609ba236 Mon Sep 17 00:00:00 2001
-From: Oleg Nesterov <oleg@redhat.com>
-Date: Mon, 6 Apr 2026 15:37:32 +0200
-Subject: [PATCH] signalfd: don't dequeue the forced fatal signals
+From d52047d84963e5cf7c8ad502e0adf003fb0669de Mon Sep 17 00:00:00 2001
+From: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+Date: Mon, 14 Sep 2026 14:43:42 +0200
+Subject: [PATCH] iio: imu: inv_icm42600: force accel odr change when switching
+ power mode
 
-These signals should act like SIGKILL, in that userspace must never dequeue
-them. But as Kusaram explains, io_uring-driven signalfd_read_iter() called
-from get_signal() -> task_work_run() paths can do this before get_signal()
-has a chance to dequeue such a signal and notice SA_IMMUTABLE.
+When accel must switch from low-power mode to low-noise due to a change in
+ODR, there is an hardware bug that sometimes prevent the ODR change flag
+to be set in the FIFO header. If this happens, the driver is stuck waiting
+for the ODR change flag that is never happening.
 
-Change signalfd_poll() and signalfd_dequeue() to add pending SA_IMMUTABLE
-signals to ctx->sigmask.
+Fix this by using accel_force_odr flag set when switching mode for forcing
+apply of ODR change. Do the apply after parsing FIFO data to let the flag
+do the job if it is here.
 
-TODO: we should probably change force_sig_info_to_task(HANDLER_EXIT) to
-make fatal_signal_pending() true, or add a fatal_or_forced_signal_pending()
-helper. Then signalfd_dequeue() could just return -EINTR in this case.
-This also makes sense for get_signal(), which could prioritize a fatal
-signal sent by (say) force_sig_seccomp(force_coredump => true), just like
-it already prioritizes SIGKILL.
-
-Cc: stable@kernel.org
-Reported-by: syzbot+0a4c46806941297fecb9@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=0a4c46806941297fecb9
-Tested-by: syzbot+0a4c46806941297fecb9@syzkaller.appspotmail.com
-Link: https://lore.kernel.org/all/69d122fd.050a0220.2dbe29.001c.GAE@google.com/
-Suggested-by: Kusaram Devineni <kusaram@devineni.in>
-Signed-off-by: Oleg Nesterov <oleg@redhat.com>
-Reviewed-by: Kees Cook <kees@kernel.org>
-Link: https://patch.msgid.link/adO3HG8bvwRPcmte@redhat.com
-Signed-off-by: Kees Cook <kees@kernel.org>
+Fixes: ec74ae9fd37c ("iio: imu: inv_icm42600: add accurate timestamping")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 ---
- fs/signalfd.c | 28 ++++++++++++++++++++++------
- 1 file changed, 22 insertions(+), 6 deletions(-)
+ drivers/iio/imu/inv_icm42600/inv_icm42600.h        | 1 +
+ drivers/iio/imu/inv_icm42600/inv_icm42600_accel.c  | 9 ++++++++-
+ drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c | 2 ++
+ drivers/iio/imu/inv_icm42600/inv_icm42600_core.c   | 9 +++++++++
+ 4 files changed, 20 insertions(+), 1 deletion(-)
 
-diff --git a/fs/signalfd.c b/fs/signalfd.c
-index dff53745e3524..22bc0870a824d 100644
---- a/fs/signalfd.c
-+++ b/fs/signalfd.c
-@@ -48,17 +48,30 @@ static int signalfd_release(struct inode *inode, struct file *file)
+diff --git a/drivers/iio/imu/inv_icm42600/inv_icm42600.h b/drivers/iio/imu/inv_icm42600/inv_icm42600.h
+index f6c7c84c7e45f..e56943931b6a0 100644
+--- a/drivers/iio/imu/inv_icm42600/inv_icm42600.h
++++ b/drivers/iio/imu/inv_icm42600/inv_icm42600.h
+@@ -179,6 +179,7 @@ struct inv_icm42600_state {
+ 	struct {
+ 		s64 gyro;
+ 		s64 accel;
++		bool accel_force_odr;
+ 	} timestamp;
+ 	struct inv_icm42600_apex apex;
+ 	struct inv_icm42600_fifo fifo;
+diff --git a/drivers/iio/imu/inv_icm42600/inv_icm42600_accel.c b/drivers/iio/imu/inv_icm42600/inv_icm42600_accel.c
+index 65d29de8ecf9c..cc8c074777c9d 100644
+--- a/drivers/iio/imu/inv_icm42600/inv_icm42600_accel.c
++++ b/drivers/iio/imu/inv_icm42600/inv_icm42600_accel.c
+@@ -1236,9 +1236,11 @@ int inv_icm42600_accel_parse_fifo(struct iio_dev *indio_dev)
+ 			return size;
+ 
+ 		/* update odr */
+-		if (odr & INV_ICM42600_SENSOR_ACCEL)
++		if (odr & INV_ICM42600_SENSOR_ACCEL) {
+ 			inv_sensors_timestamp_apply_odr(ts, st->fifo.period,
+ 							st->fifo.nb.total, no);
++			st->timestamp.accel_force_odr = false;
++		}
+ 
+ 		/* skip packet if no accel data or data is invalid */
+ 		if (accel == NULL || !inv_icm42600_fifo_is_data_valid(accel))
+@@ -1251,5 +1253,10 @@ int inv_icm42600_accel_parse_fifo(struct iio_dev *indio_dev)
+ 		iio_push_to_buffers_with_timestamp(indio_dev, &buffer, ts_val);
+ 	}
+ 
++	if (st->timestamp.accel_force_odr) {
++		inv_sensors_timestamp_apply_odr(ts, 0, 0, 0);
++		st->timestamp.accel_force_odr = false;
++	}
++
  	return 0;
  }
+diff --git a/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c b/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c
+index ded45dfe46a25..2bf9fc29d7d29 100644
+--- a/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c
++++ b/drivers/iio/imu/inv_icm42600/inv_icm42600_buffer.c
+@@ -384,6 +384,8 @@ static int inv_icm42600_buffer_postdisable(struct iio_dev *indio_dev)
+ 	mutex_lock(&st->lock);
  
-+static void refine_sigmask(struct signalfd_ctx *ctx, sigset_t *sigmask)
-+{
-+	struct k_sigaction *k = current->sighand->action;
-+	int n;
-+
-+	*sigmask = ctx->sigmask;
-+	for (n = 1; n <= _NSIG; ++n, ++k) {
-+		if (k->sa.sa_flags & SA_IMMUTABLE)
-+			sigaddset(sigmask, n);
-+	}
-+}
-+
- static __poll_t signalfd_poll(struct file *file, poll_table *wait)
- {
- 	struct signalfd_ctx *ctx = file->private_data;
- 	__poll_t events = 0;
-+	sigset_t sigmask;
+ 	inv_sensors_timestamp_apply_odr(ts, 0, 0, 0);
++	if (sensor == INV_ICM42600_SENSOR_ACCEL)
++		st->timestamp.accel_force_odr = false;
  
- 	poll_wait(file, &current->sighand->signalfd_wqh, wait);
- 
- 	spin_lock_irq(&current->sighand->siglock);
--	if (next_signal(&current->pending, &ctx->sigmask) ||
--	    next_signal(&current->signal->shared_pending,
--			&ctx->sigmask))
-+	refine_sigmask(ctx, &sigmask);
-+	if (next_signal(&current->pending, &sigmask) ||
-+	    next_signal(&current->signal->shared_pending, &sigmask))
- 		events |= EPOLLIN;
- 	spin_unlock_irq(&current->sighand->siglock);
- 
-@@ -155,11 +168,13 @@ static ssize_t signalfd_dequeue(struct signalfd_ctx *ctx, kernel_siginfo_t *info
- 				int nonblock)
- {
- 	enum pid_type type;
--	ssize_t ret;
- 	DECLARE_WAITQUEUE(wait, current);
-+	sigset_t sigmask;
-+	ssize_t ret;
- 
- 	spin_lock_irq(&current->sighand->siglock);
--	ret = dequeue_signal(&ctx->sigmask, info, &type);
-+	refine_sigmask(ctx, &sigmask);
-+	ret = dequeue_signal(&sigmask, info, &type);
- 	switch (ret) {
- 	case 0:
- 		if (!nonblock)
-@@ -174,7 +189,7 @@ static ssize_t signalfd_dequeue(struct signalfd_ctx *ctx, kernel_siginfo_t *info
- 	add_wait_queue(&current->sighand->signalfd_wqh, &wait);
- 	for (;;) {
- 		set_current_state(TASK_INTERRUPTIBLE);
--		ret = dequeue_signal(&ctx->sigmask, info, &type);
-+		ret = dequeue_signal(&sigmask, info, &type);
- 		if (ret != 0)
- 			break;
- 		if (signal_pending(current)) {
-@@ -184,6 +199,7 @@ static ssize_t signalfd_dequeue(struct signalfd_ctx *ctx, kernel_siginfo_t *info
- 		spin_unlock_irq(&current->sighand->siglock);
- 		schedule();
- 		spin_lock_irq(&current->sighand->siglock);
-+		refine_sigmask(ctx, &sigmask);
+ 	ret = inv_icm42600_buffer_set_fifo_en(st, st->fifo.en & ~sensor);
+ 	if (ret)
+diff --git a/drivers/iio/imu/inv_icm42600/inv_icm42600_core.c b/drivers/iio/imu/inv_icm42600/inv_icm42600_core.c
+index be8cbecdd92e4..cd2e53416f5b1 100644
+--- a/drivers/iio/imu/inv_icm42600/inv_icm42600_core.c
++++ b/drivers/iio/imu/inv_icm42600/inv_icm42600_core.c
+@@ -325,6 +325,15 @@ int inv_icm42600_set_accel_conf(struct inv_icm42600_state *st,
+ 		break;
  	}
- 	spin_unlock_irq(&current->sighand->siglock);
  
++	/*
++	 * If we change mode from low-power to low-noise because of odr,
++	 * we need to force odr change.
++	 */
++	if (oldconf->mode == INV_ICM42600_SENSOR_MODE_LOW_POWER &&
++	    conf->mode == INV_ICM42600_SENSOR_MODE_LOW_NOISE &&
++	    conf->odr != oldconf->odr)
++		st->timestamp.accel_force_odr = true;
++
+ 	/* set ACCEL_CONFIG0 register (accel fullscale & odr) */
+ 	if (conf->fs != oldconf->fs || conf->odr != oldconf->odr) {
+ 		val = INV_ICM42600_ACCEL_CONFIG0_FS(conf->fs) |
 -- 
 2.53.0
 
