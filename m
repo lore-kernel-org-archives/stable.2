@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050260;
-	b=KnwokpoIs/o/Jv/BQ4EnpKgS5TwhkaEA0DxTiPM/fsvIo4fIdyRJaCLiSEqxYTrJnL7H
-	 LjHQ1m0g0lKoVijvv31yCGnqwV9OD6Bg8rI6lnmEjnC8CuFH9JsB5CXLu4XPSJPTUUKmt
-	 Cmj1JjEtbycL5e3ySYrFhO0npwoqRS9leuXQioxAimjmhn+UWG3DpEIpN2RC6dPmbAu7C
-	 Tl4fldJx9/SNkWFfsjFcS/tJpu+g1MjEqFqblXNNb/ZPWsVCdQ0QHUQTG3z/ToCXbuh8H
-	 jAXG1pAUAzHqi+fT5qNPQx1R8qCIySrgwyBIuqmPad+LdalO3sjOecyVQbe6CiTkWyA==
+	t=1794050263;
+	b=w4fjLon4qzXBPT54l7KzlDuTOcewFWpjSTTs5h6xr7XDIU6zc/L3Ontonw8D4/bmxFef
+	 htoN0TyRykrb18a9AgPRhgHGzd16ZY/7SnWKP3FpzY1f5jC9zoQGUHiNMYZl61agOIVbF
+	 +knyP+mURpvAwrpPCIY03gPOO3fArzOUYEBDHmkYBYxd+VX2sPBCgh6eYyqm8jj2z+fBg
+	 qEhdKEUM32SzjkFDV3EAIDKqXl0mxoA/Fi2zHu6lvJ86OLQ9GkAtHiXt/2XSVgSlgUuLv
+	 p63LDbtRmDvvrslXC+Q1bUTDAalW9kvloREzVw6eBvEZaGvdDU50Ut0+YGJiWYiOhxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050260;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050263;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=lsvkBHqczs2PBx7oQQ7XZUfZIIUTj0OM6jGae6NQo/A=;
-	b=5LGzwFrPQpIzFh6P72+YTbwni+lSNjLEhN3h0jnowX7jxDdaAjmxj7LVpSdyp5d29SdS
-	 0HMTZZMXoYueiu+aZEiwO8UL9iqWXwdDNaMcVUtVtdF0HnniOcMPXQjXDlDAbsKwcl4j6
-	 eYLNz0lIGlNOUroNHAldnC8bORM7zrp33u2H1G75zA2r++0P7Dk9FXmizvzwRO9z86lOd
-	 Z0SjL9ebSKINPUgv3dNCXa0lxJDGEaWfITJfKZ/SJMxDHoBtYUT07D0w2d9NhUbLdy4Bb
-	 ZzhzLHENPmh8nMZMjk9QL4Vu8WRO+qMqVkhhUSGGzX/s96CPpTMcJiwNgyn7CY5C/9A==
+	bh=dsc1r8Yk1vRfM/tlvZfaZ1hz50HdfVsUtw4ocFBzNwA=;
+	b=jTU4sYRAXJdEVmJVYxZR/wkJhkVs6V86fwF791EL1aupsxS4Foua3ROdquJjzC2cMCCz
+	 SUQ2KxOg0W9rhRoFjcZdIYAq9jpdHFeG7EEr8lkX7mi3XA67o3R+uPYKnRe9enF/heooh
+	 pStgVmQmZzh6Rx6ZgRtqQfaHs5MoJ6+t3ixk8K8tSajUSKdqiteNqbXVra6X1O+NzsPjz
+	 MCNVGIug2YpnhBusdKGV7Q2wL9n9rlpwrY3x6hK8IyCNufvb8xQGMgbc60UgUqH7Duqxy
+	 1p3qhKbk6/2BfzB9FfjY8czczjJN/quyGI4Op9H2Yw4ZEhnEQ3c+pR2tlBOdRyp/LaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VzMfYLw3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QOjHYwHi;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F19C7606A33E
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:17:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 210A2606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:17:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VzMfYLw3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CA6F1F008A1;
-	Sat,  7 Nov 2026 11:17:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QOjHYwHi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 928661F0089F;
+	Sat,  7 Nov 2026 11:17:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050259;
-	bh=lsvkBHqczs2PBx7oQQ7XZUfZIIUTj0OM6jGae6NQo/A=;
+	s=k20260515; t=1794050263;
+	bh=dsc1r8Yk1vRfM/tlvZfaZ1hz50HdfVsUtw4ocFBzNwA=;
 	h=From:To:Cc:Subject:Date;
-	b=VzMfYLw3OXfwK8i1qT3dlos6m3e4ruG5xVBOnsapkvOIvivX5T3KcIvhhifsCVbEb
-	 wP2pFjzWq3JxO/G2D5vh896OdEJellYBQQPrMxZY9s62u/6o1Iidi7umeSh8TiChuS
-	 kB+Jw2RhGM3stC9DiCMCRmc2U6oERqeRlwUQIy3hlOUxdkwrsVYf6gdNSrCJp4Z7MI
-	 gBDGDl6p5TT/ZyRx9ZD2LGK/F/nHAnLD23DaxB8Bl4u0MtWG5nrXZ5Sgj0xe5Uzawo
-	 QhsriM80osYzJimVR1CaM3vaZkmxTfrrG0jwUZ+dQSkMbjBSjoMfLfAWzNIom5evUq
-	 dSi83CEO5FEww==
+	b=QOjHYwHisBObtquH5H06GpQqaO/JPKtnBwlFB41G1CGcizlLNoNGJjewHVOdQG94g
+	 1bAt2n5oQ3PEGhDG8xZZnIFsx1L+050D41R/l6pIpvOyge5bdRsz6Ay6V1x4YdzLuB
+	 qYclKCMriHh+s5eLC9bWgOKIrSA7kMp77LXqEeTHkDmuz2S5IzD7JasDUILljEZRqs
+	 Di8Yg6t4vvHOEs/K8/uY1LmmR8P02aV8HaoiV03zLwtNaEBf5x3uiGzk9EXuD+FB4c
+	 LVh+O18r/lkF/dfNXm28b3oGIMItuZIq/U/6hZcSczkVAVJC9oMgk14jII42hFdmIQ
+	 S3f1SN7bc/tyQ==
 From: Sasha Levin <sashal@kernel.org>
-To: tiwai@suse.de,
-	farhad.alemi@berkeley.edu
+To: runyu.xiao@seu.edu.cn,
+	tiwai@suse.de
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ALSA: control: Fix UAF in snd_ctl_elem_add() on card disconnect" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:17:38 -0500
-Message-ID: <20261107061738-failed-5.10-d4febca239be@kernel.org>
+Subject: FAILED: patch "[PATCH] ALSA: usb-audio: Protect Roland control activation" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:17:41 -0500
+Message-ID: <20261107061741-failed-5.10-19b42c1fff7f@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,76 +68,116 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x d4febca239be3c91498762dd0535a87d4af1eabc
+git cherry-pick -x 19b42c1fff7f220a6346c614d79ce1bda6d95b40
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061738-failed-5.10-d4febca239be@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061741-failed-5.10-19b42c1fff7f@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From d4febca239be3c91498762dd0535a87d4af1eabc Mon Sep 17 00:00:00 2001
-From: Takashi Iwai <tiwai@suse.de>
-Date: Tue, 29 Sep 2026 14:53:42 +0200
-Subject: [PATCH] ALSA: control: Fix UAF in snd_ctl_elem_add() on card
- disconnect
+From 19b42c1fff7f220a6346c614d79ce1bda6d95b40 Mon Sep 17 00:00:00 2001
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Date: Tue, 29 Sep 2026 22:17:26 +0800
+Subject: [PATCH] ALSA: usb-audio: Protect Roland control activation
 
-A use-after-free can be triggered via SNDRV_CTL_IOCTL_ELEM_ADD when a
-USB audio card is disconnected while an ELEM_ADD ioctl is in flight.
+The USB MIDI driver changes the Roland MIDI Input Mode control's access
+flags directly from the rawmidi open and close paths.  These changes are
+not protected by the ALSA control core and the corresponding notifications
+can race with control access.
 
-The reproducer parks the ioctl thread inside copy_from_user() using
-userfaultfd, then tears down the USB device.  Unlike every other
-ALSA control _user handler (ELEM_INFO, ELEM_READ, ELEM_WRITE, TLV_*),
-snd_ctl_elem_add_user() never calls snd_power_ref_and_wait(), so the
-parked thread holds no power reference.  snd_card_disconnect() therefore
-cannot observe it via snd_power_sync_ref() and proceeds unimpeded:
+Use snd_ctl_activate_id() so that the control core updates the access flags
+and sends the notification under its lock.  Release the USB MIDI mutex
+before calling it because the control write path holds controls_rwsem while
+roland_load_put() takes the USB MIDI mutex.
 
-  1. card->shutdown is set to 1
-  2. device_del(&card->card_dev) drops the kobject reference on the
-     parent USB interface device (card->dev = &intf->dev)
-  3. The USB core drops its own reference and calls device_release(),
-     freeing the struct usb_interface, including the embedded struct
-     device that card->dev points to
+Keep the state transition and alternate-setting change under the USB MIDI
+mutex; rawmidi's open mutex serializes the enclosing open and close paths.
 
-When the userfaultfd is resolved and the thread resumes,
-snd_ctl_elem_add() acquires controls_rwsem without checking
-card->shutdown and calls __snd_ctl_add_replace().  Because the
-reproducer pre-registered the same control, the CTL_ADD_EXCLUSIVE
-path calls dev_err(card->dev, ...) on the freed USB interface:
-
-  KASAN: slab-use-after-free Read in __dev_printk
-
-Add a card->shutdown guard immediately after acquiring controls_rwsem
-in snd_ctl_elem_add().  At that point card->shutdown is guaranteed to
-be stable: snd_card_disconnect() sets it before freeing the parent
-device, and it never transitions back to 0.  A thread that acquired
-the lock before disconnect sees shutdown=0 and holds the write lock
-through the rest of the operation, preventing concurrent disconnect
-from proceeding past its own controls_rwsem-less shutdown=1 store
-(which happened earlier, outside the lock) from racing with dev_err().
-
-Reported-by: Farhad Alemi <farhad.alemi@berkeley.edu>
+Fixes: 96f61d9ade82 ("sound: usb-audio: allow switching altsetting on Roland USB MIDI devices")
 Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Link: https://patch.msgid.link/20260929141726.2166899-1-runyu.xiao@seu.edu.cn
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Link: https://patch.msgid.link/20260929125346.1478631-3-tiwai@suse.de
 ---
- sound/core/control.c | 2 ++
- 1 file changed, 2 insertions(+)
+ sound/usb/midi.c | 53 ++++++++++++++++++++++++------------------------
+ 1 file changed, 27 insertions(+), 26 deletions(-)
 
-diff --git a/sound/core/control.c b/sound/core/control.c
-index 4199342d4ffe0..535ceba294acf 100644
---- a/sound/core/control.c
-+++ b/sound/core/control.c
-@@ -1802,6 +1802,8 @@ static int snd_ctl_elem_add(struct snd_ctl_file *file,
- 	alloc_size = compute_user_elem_size(private_size, count);
+diff --git a/sound/usb/midi.c b/sound/usb/midi.c
+index 0480a9b89e8f3..e3d1575540613 100644
+--- a/sound/usb/midi.c
++++ b/sound/usb/midi.c
+@@ -1150,41 +1150,42 @@ static int substream_open(struct snd_rawmidi_substream *substream, int dir,
+ 			  int open)
+ {
+ 	struct snd_usb_midi *umidi = substream->rmidi->private_data;
+-	struct snd_kcontrol *ctl;
++	struct snd_ctl_elem_id ctl_id;
++	bool activate_ctl = false;
++	bool active;
  
- 	guard(rwsem_write)(&card->controls_rwsem);
-+	if (card->shutdown)
-+		return -ENODEV;
- 	if (check_user_elem_overflow(card, alloc_size))
- 		return -ENOMEM;
+ 	guard(rwsem_read)(&umidi->disc_rwsem);
+ 	if (umidi->disconnected)
+ 		return open ? -ENODEV : 0;
+ 
+-	guard(mutex)(&umidi->mutex);
+-	if (open) {
+-		if (!umidi->opened[0] && !umidi->opened[1]) {
+-			if (umidi->roland_load_ctl) {
+-				ctl = umidi->roland_load_ctl;
+-				ctl->vd[0].access |=
+-					SNDRV_CTL_ELEM_ACCESS_INACTIVE;
+-				snd_ctl_notify(umidi->card,
+-				       SNDRV_CTL_EVENT_MASK_INFO, &ctl->id);
+-				update_roland_altsetting(umidi);
++	scoped_guard(mutex, &umidi->mutex) {
++		if (open) {
++			if (!umidi->opened[0] && !umidi->opened[1]) {
++				if (umidi->roland_load_ctl) {
++					ctl_id = umidi->roland_load_ctl->id;
++					activate_ctl = true;
++					active = false;
++					update_roland_altsetting(umidi);
++				}
+ 			}
+-		}
+-		umidi->opened[dir]++;
+-		if (umidi->opened[1])
+-			snd_usbmidi_input_start(&umidi->list);
+-	} else {
+-		umidi->opened[dir]--;
+-		if (!umidi->opened[1] && !umidi->keep_input_running)
+-			snd_usbmidi_input_stop(&umidi->list);
+-		if (!umidi->opened[0] && !umidi->opened[1]) {
+-			if (umidi->roland_load_ctl) {
+-				ctl = umidi->roland_load_ctl;
+-				ctl->vd[0].access &=
+-					~SNDRV_CTL_ELEM_ACCESS_INACTIVE;
+-				snd_ctl_notify(umidi->card,
+-				       SNDRV_CTL_EVENT_MASK_INFO, &ctl->id);
++			umidi->opened[dir]++;
++			if (umidi->opened[1])
++				snd_usbmidi_input_start(&umidi->list);
++		} else {
++			umidi->opened[dir]--;
++			if (!umidi->opened[1] && !umidi->keep_input_running)
++				snd_usbmidi_input_stop(&umidi->list);
++			if (!umidi->opened[0] && !umidi->opened[1]) {
++				if (umidi->roland_load_ctl) {
++					ctl_id = umidi->roland_load_ctl->id;
++					activate_ctl = true;
++					active = true;
++				}
+ 			}
+ 		}
+ 	}
++	if (activate_ctl)
++		snd_ctl_activate_id(umidi->card, &ctl_id, active);
+ 	return 0;
+ }
  
 -- 
 2.53.0
