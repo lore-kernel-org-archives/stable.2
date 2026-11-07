@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046091;
-	b=mFcTvEXjC5YzH61tE9RReQIqbzurMOcev4+86+ExLKpazS33021X4sf1i+eGYIckTPXZ
-	 vDHnWKUZw4fK8EqnGVSrrbeTbUZCF3YAu9egIb2nCmnNulUckg45QKLMsoJ+tRDuVDu26
-	 IOwhgC7TBn8wVmg7hPHIsqHi3gjwT6qeMtRHPCENpvkfvJ3KV2QWM3cGAEDKAeWDJGrnF
-	 aMcVnNeidW4UBV5MW8TcUHxiXH+BBhFhTaO39E7MVQhYsjwKVOyU1Q+wGC3tcB7FCuRKr
-	 ezT5lnbjFq6V3Kb/q4t8t/B9SwFpjR2JHHDoL6CVMRMBROgAja8h8lOaHHJSWsxlmCA==
+	t=1794046093;
+	b=lzbD5jLOyXGB0pto926Je4c0n7dt77z9BpmLp1jOWSGmLqYO3nspz/PF/lJj2rXaPwA2
+	 SAYvQhsDs+XXok9HAW0ymkA9sBOkC48RSXD0nYwqWzAlDu24MvdAYu3QL9mbst+HAvf5Q
+	 wVCCenS+bgl/vG8BErlJJuDoVKok+pKExat2B/TmLjQ8EC9UxIhR1PH+o17LOOZnDoIf7
+	 1UmXHscAdo7asBdwmjL7yCQdVtlCA0KWxi0ss7ktmtdtL0fgZkwr0mJ3sLp+Eclrb0M3P
+	 4mgnQCvpO1JjkJ2zg8C3onFwIowiOGH2ubHzqRFevhLyZFq/Krz3gWJYaF1VIonnBvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046091;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046093;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=edvjr8eW6eRlyFsYT8YeSGYM9Zb0Al1ozvckj2fuC0U=;
-	b=35zYxogNdtqTvxu6bJ4AImYjROyY45kcSZyI/bowbpVUcyNXt+r9/pN6FqmoGUcwX3HU
-	 6wHPQiD4XiSZ6qLD0QILsZBaqYuEgJSs/pQ0FZboLVgMrGUtJjHP29R+lcZGFHrq9mEZY
-	 jUMOUnnkLyJRu/pQkuABx+iRl6JIjuS+OjbycVzVO8idvpYxwR3rCW6O+Tn03D9UMPW5A
-	 ZBjEvOaXP2/80uJSnsRc9I50j6hmKEboh/cH98QIth1bljO8T/BB2QqLVCLPq7aekUwEc
-	 S0+6/3xZYaddaXlyKBw9tU5eF+0hXYWB3SJA1jkJClWuP3nljaiU6I/BdmqSICIA6ZQ==
+	bh=np7LMJEHMeU2YkpTVbyjIOa9jP10aC4bFA8QRcvloNo=;
+	b=SaqPCJoKg4VxCMTcacjQSYHF0DRcYIFishKHFGF1pj7ad1H+xJfr3jO3z94huB0Wt5NU
+	 yOYC348+v6c+hWdnE0ebWKBV/nHai7/RWWnxymf5GxrogBm9bTcxOHcQBFGZ9Ow8kbiFQ
+	 YptHcSMuopBVGZRQ0Yx2hSv37NT/umSMZQRDAcTJufOgHNQUGcy23vCrlvXKWkJe6w1RS
+	 ssuW2RNmCG/LRP+bIP4FShq5tGswEeGb6UBy+xOD6guOE0HjHBmw9QrSXN6YctikK38vA
+	 w9lEEXf4tPHtnLCLV05haq1p4RR/wFLufsDLj+FRMJpwP/+cOXYGrt9khshH3QKBN5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jHRsDtie;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="h+fiP/qG";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF452606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:08:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E389D606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:08:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jHRsDtie
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 115661F0089F;
-	Sat,  7 Nov 2026 10:08:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h+fiP/qG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A2001F0089F;
+	Sat,  7 Nov 2026 10:08:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046090;
-	bh=edvjr8eW6eRlyFsYT8YeSGYM9Zb0Al1ozvckj2fuC0U=;
+	s=k20260515; t=1794046092;
+	bh=np7LMJEHMeU2YkpTVbyjIOa9jP10aC4bFA8QRcvloNo=;
 	h=From:To:Cc:Subject:Date;
-	b=jHRsDtie7WM4v9jzgruJVrS9Nfd/D5yHs+nkLZwWL5jtWHzAYLBLz0LTbu+J4ftDl
-	 erHBQyB1OSUQzxiC5+ysyVFopq1GQ0rZT6OC2OQDVB/vFybmbiVkFqLmoYKZ3r60jJ
-	 hSQwQGEDUT7IRqWM6XZgec07ICm+07babxlXYJZRK6KpQN0stBaPEWBgWILyTadSPN
-	 tEmx6USKtRcDXVAOt+4qAoe30BrpZGVtR6MdIBgtLe0UtoSWPnJy11YhrGMUJoKHSI
-	 7seN5QIK30C0/WkJGudzRa8MYDIali7DrKiitCll7e/dAQ2UMHIMwlRBWg/6DoHx4e
-	 DWslHzooQj37w==
+	b=h+fiP/qGUSXLUk0W3Dc22+BBeVovQ1LRVDYyzuLzh7ZE+5KkIkUPoSCFh5mbHjT+w
+	 kgRx/9oxG4O1a1Eys5nolBW5OeNmeqrqBd5ivConNgdZIsJ7npSJmsuDhKLbKDLppv
+	 9LPLROmFEmszUvn0WsfXzAPCSleqG+2+lfHznFN6TuIWvgBNI9B8RTnkMyx+dNkb/Q
+	 idLVk5E8LARM15R/Awlko8S7q2lXZXCSjdHtS9sT0hCLkl+e3D0BAhJEU/8LXRmjlb
+	 2aUOr5z4hEdxQCM+h6UzhfvpqSsQGRlnMxmep/fP6Ehs+g7NEUJRDA5r+Ov4lTD0p7
+	 vQwsGl4V8SAZA==
 From: Sasha Levin <sashal@kernel.org>
-To: fuad.tabba@linux.dev,
-	vdonnefort@google.com,
-	joey.gouly@arm.com,
-	maz@kernel.org
+To: fanwu01@zju.edu.cn,
+	nicolas.dufresne@collabora.com,
+	hverkuil+cisco@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] KVM: arm64: Pin the host vCPU before adjusting its PC under pKVM" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:08:08 -0500
-Message-ID: <20261107050808-failed-6.18-a2bb5f5c67a9@kernel.org>
+Subject: FAILED: patch "[PATCH] media: rockchip: rga: quiesce IRQ before releasing m2m state" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:08:11 -0500
+Message-ID: <20261107050811-failed-6.18-a875c43dd95e@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,77 +69,75 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x a2bb5f5c67a95ac97fcd6859dab51be421cf26fe
+git cherry-pick -x a875c43dd95ee4f9c4e3e5ae1cb8362cc6d7817d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050808-failed-6.18-a2bb5f5c67a9@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050811-failed-6.18-a875c43dd95e@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From a2bb5f5c67a95ac97fcd6859dab51be421cf26fe Mon Sep 17 00:00:00 2001
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Thu, 1 Oct 2026 14:56:56 +0100
-Subject: [PATCH] KVM: arm64: Pin the host vCPU before adjusting its PC under
- pKVM
+From a875c43dd95ee4f9c4e3e5ae1cb8362cc6d7817d Mon Sep 17 00:00:00 2001
+From: Fan Wu <fanwu01@zju.edu.cn>
+Date: Sat, 4 Jul 2026 08:46:59 +0000
+Subject: [PATCH] media: rockchip: rga: quiesce IRQ before releasing m2m state
 
-Under pKVM, a page the host shares with EL2 is mapped at EL2 only while
-it's pinned, and the host vCPU is pinned at its first KVM_RUN.
-KVM_SET_VCPU_EVENTS with ext_dabt_pending reaches __kvm_adjust_pc() at
-EL2 before that, and dereferencing the unmapped host vCPU panics the
-hypervisor. Any process holding /dev/kvm on a pKVM host can trigger it.
+rga_remove() releases the m2m state before the IRQ is freed. The IRQ is
+devm-managed and is only released once rga_remove() returns, so rga_isr()
+can still run while the m2m device state is being torn down.
 
-Pin the host vCPU around the adjustment when no hyp vCPU is loaded for
-it. A loaded hyp vCPU implies it's pinned. A pin fails only for memory
-the host isn't sharing, and the request is then dropped like any other
-bad host pointer.
+Store the IRQ number in struct rockchip_rga, unregister the video device
+first, and free the IRQ before releasing the m2m state so the handler
+cannot run against the freed state.
 
-Fixes: efa1368ba9f4b ("KVM: arm64: Commit exceptions from KVM_SET_VCPU_EVENTS immediately")
-Reviewed-by: Vincent Donnefort <vdonnefort@google.com>
-Reviewed-by: Joey Gouly <joey.gouly@arm.com>
+Fixes: f7e7b48e6d79 ("[media] rockchip/rga: v4l2 m2m support")
 Cc: stable@vger.kernel.org
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-Link: https://patch.msgid.link/20261001135711.1640520-4-fuad.tabba@linux.dev
-Signed-off-by: Marc Zyngier <maz@kernel.org>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 ---
- arch/arm64/kvm/hyp/nvhe/hyp-main.c | 21 ++++++++++++++++++++-
- 1 file changed, 20 insertions(+), 1 deletion(-)
+ drivers/media/platform/rockchip/rga/rga.c | 4 +++-
+ drivers/media/platform/rockchip/rga/rga.h | 1 +
+ 2 files changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-main.c b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-index b6bfe502bcd04..8b9d76e5336bb 100644
---- a/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-+++ b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-@@ -546,8 +546,27 @@ static void handle___pkvm_host_mkyoung_guest(struct kvm_cpu_context *host_ctxt)
- static void handle___kvm_adjust_pc(struct kvm_cpu_context *host_ctxt)
- {
- 	DECLARE_REG(struct kvm_vcpu *, vcpu, host_ctxt, 1);
-+	struct pkvm_hyp_vcpu *hyp_vcpu;
-+	struct kvm_vcpu *host_vcpu;
-+
-+	host_vcpu = __get_host_hyp_vcpus(vcpu, &hyp_vcpu);
-+	if (host_vcpu) {
-+		__kvm_adjust_pc(host_vcpu);
-+		return;
-+	}
-+
-+	/*
-+	 * With no hyp vCPU loaded for it, the host vCPU may be unpinned,
-+	 * and so unmapped at EL2: its first run pins it. A pin fails only
-+	 * for memory the host isn't sharing, a bad pointer, so the request
-+	 * is dropped.
-+	 */
-+	host_vcpu = kern_hyp_va(vcpu);
-+	if (hyp_pin_shared_mem(host_vcpu, host_vcpu + 1))
-+		return;
+diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
+index b3cb6bf8eb863..fbc99462dce28 100644
+--- a/drivers/media/platform/rockchip/rga/rga.c
++++ b/drivers/media/platform/rockchip/rga/rga.c
+@@ -797,6 +797,7 @@ static int rga_probe(struct platform_device *pdev)
+ 		ret = irq;
+ 		goto err_put_clk;
+ 	}
++	rga->irq = irq;
  
--	__kvm_adjust_pc(kern_hyp_va(vcpu));
-+	__kvm_adjust_pc(host_vcpu);
-+	hyp_unpin_shared_mem(host_vcpu, host_vcpu + 1);
- }
+ 	ret = devm_request_irq(rga->dev, irq, rga_isr,
+ 			       rga_has_internal_iommu(rga) ? 0 : IRQF_SHARED,
+@@ -876,8 +877,9 @@ static void rga_remove(struct platform_device *pdev)
  
- static void handle___kvm_flush_vm_context(struct kvm_cpu_context *host_ctxt)
+ 	v4l2_info(&rga->v4l2_dev, "Removing\n");
+ 
+-	v4l2_m2m_release(rga->m2m_dev);
+ 	video_unregister_device(rga->vfd);
++	devm_free_irq(rga->dev, rga->irq, rga);
++	v4l2_m2m_release(rga->m2m_dev);
+ 	v4l2_device_unregister(&rga->v4l2_dev);
+ 
+ 	pm_runtime_disable(rga->dev);
+diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/platform/rockchip/rga/rga.h
+index bd431534d0d39..7bcdf36c11b4d 100644
+--- a/drivers/media/platform/rockchip/rga/rga.h
++++ b/drivers/media/platform/rockchip/rga/rga.h
+@@ -73,6 +73,7 @@ struct rockchip_rga {
+ 	struct device *dev;
+ 	struct regmap *grf;
+ 	void __iomem *regs;
++	int irq;
+ 	struct clk_bulk_data *clks;
+ 	int num_clks;
+ 	struct rockchip_rga_version version;
 -- 
 2.53.0
 
