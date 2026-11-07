@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049758;
-	b=mGSdd7OlBJumnaw8dCju4JIbFcT55YNV1ENPmJ07ZAMngS5bW1+lrctR0fsId1m6d0tn
-	 RA9e1LYzvyWnHAQwyh9H68O6V8sOpsg5io5oX+XxNaSv2yJdC+cObhb+30RhKvu6MqlRt
-	 zQykSpx3bd915+CdVS27WvIk2Z4ykGTKf3SwxaBBG58do6YO3AaXLOVqpmrudAqm4gdJb
-	 SUMFQjqWw2a3HEIJlpHwsDKfLn5Xvk+7ZlmXossedE7Ku4ECnAPD7wp6pL9Ek5l2ZCl7s
-	 7SrheUjw3zUxjygULFKsx7VPW6wD+lwQ0t635mhAtAqsIutMuSZHSAcPQkJIMhoAiyA==
+	t=1794049762;
+	b=GSJg8R7zHbosh7q/o5r1/FWhiwpQreukRtnDVtK08agJtRh45DAj3tRpY7wXn6vGq1cV
+	 JUXnDqoiAMF6hpL5GEa8yrpcxlXJK0i9IwQP+/gQ53vyxs+oKD8Cg5BP/PBXjjSO05IVH
+	 s79AT98s4MiDcus8dfnwqoetAJ1tukNBfsNGz7EI1Q3CkY5yxAzfMxvgT9EvH6+lp8XnP
+	 NgdWc/qdS4AfxkEdnH4Gy4A9o/EQnMTI32LtReT4qSf4bh2fIvgW8TCX2N78+faXF/40X
+	 y4lRBnq42JhnwAo9rNSiA1cwCTNLjcz3HeMs6Ono3hZ6Vkn7BMmC0LlQxQdO7p3su6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049758;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049762;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=uTzeTHg9ZZ1UyzUSk7i2srsrsqt3kgAhrN7NTU5xCF0=;
-	b=5lepJjtmOqMgaVT0uMIsgQwCM3v2JEO2Q3vNLrUC9kr0ADzlbwtxjF1SVQvRALa/B4H2
-	 3E6k5Mm5r+CSxv2d75SIcQtOLp+ikQqfybb2C/UZvblaygU0/9zFA75Mhid0OsnomJ3qY
-	 XKALX/P1YZjSpRkAs2pr14tByYpVn/ddyRpRQZwWvZ03AuP6pxWpiJ2uK7qPfJ+cOjuNv
-	 FuUlUeNaULZnIps31pBUNu8b7Jlggqxd3EnPUeJ6bvZlFvma7dh9lQURn960DcRf3Hflq
-	 I6Kym9kGvhZbhsIkkaFfgCIsYPLxso8DAHX9uZWYknhEytEfcCu6f66mIZjEUDbywIw==
+	bh=LdywdZpVpyoxyMmGJbGC0AJo9PAMK3knCcVg1d809Ms=;
+	b=19VWRKUpJdFe2cWFqslz5KlQJxawutM8xluaekGU4fBEHJ/scIP2YvuhoCF0sW4nYT1x
+	 RLqfmfwTPUewwAMjMVACNseOhCe7/oRg8Ih5/g1Wc5GPJB1KbTAbxYkPeoQb2Lck2svcC
+	 3L0Kj8GPuDamCw1jhrCi9cGJXP8jn8MuXiTm3LBiOJlfjrP4CWb1YHLFbcZMFL4Nexq/7
+	 UWr/6jLifHNMRHmMewkNxE7Ps+7mnGxPNKxUq5Ry6m4a/iYw0iR0zsJ8KpbWWCbPjYp/U
+	 hj2lhGBK4BQD9QJgfOTixkZ0HZebJ1P3YKZyQMhb78LFq6zGZRX0pRhnrv9p7CeVUcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U45mUELs;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e80SXbrQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 998E4606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:09:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 223A2606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:09:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U45mUELs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1509D1F008A1;
-	Sat,  7 Nov 2026 11:09:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e80SXbrQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FE5D1F008A1;
+	Sat,  7 Nov 2026 11:09:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049758;
-	bh=uTzeTHg9ZZ1UyzUSk7i2srsrsqt3kgAhrN7NTU5xCF0=;
+	s=k20260515; t=1794049761;
+	bh=LdywdZpVpyoxyMmGJbGC0AJo9PAMK3knCcVg1d809Ms=;
 	h=From:To:Cc:Subject:Date;
-	b=U45mUELsQJC10vh89nDSZPXGCBNuFx4s1w67Q+/fDiIPjgOTYwA93McEVPJFqyMrh
-	 l9+OLq/HHT3GMPKcykZRCu4XknKkO5qlWXTD4uf7cDyXyRs0JTqX/bE105h2eLtkd9
-	 QM68T1CfmrgBh1YFVnH4Fi5kodFNNTcXOiBHPcl8Qviy/uUl2AQRgVuZRXZ1nxtwBS
-	 WyzFlO2oWsxpDkmWpidJdevgwnVz/Nj9dA2j/pb4M5JGhBOrR8WIksNAGUiKH6wwvB
-	 hfIQl50i92GJYFOjqsACEVeVCLp5g2XLdCdY6LClWn+j2WXGeRUH6p3ZLtcngkrhIi
-	 m6QYs4sEdEYDw==
+	b=e80SXbrQbdvsERp3hxC9FA1n3AoPkeywtj19gsOiBIjm9wwqLsunGKUYvUInpNJSn
+	 fiTrtmFKq85TlFB9ycAXbWqgn8QLUdIYgmt41Yz25vxHl3W+IytzA2DKGKcqC3eG/B
+	 EQPRwMZH8vSta8KIj5yFGvx1xr53aM94uJqrl87ElYF41TzQMadMYeoG6WivxsAF0r
+	 wNc29BGdtmdTkQxARrlXivHdKd5EQFjmxSzJq0KtBFo7arBgXHcqFYyiJaRn+1oYj8
+	 r/xQTbCxazZzhiYU3e7zHPn/ywoHx1N2UQJIaPreNroPTvpRRNfv1oxgZ3WY4Z7J1O
+	 JmkFeS8V0JBKQ==
 From: Sasha Levin <sashal@kernel.org>
-To: tiwai@suse.de,
-	sashiko-bot@kernel.org
+To: sahaj123.sc@gmail.com,
+	geert+renesas@glider.be,
+	bartosz.golaszewski@oss.qualcomm.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ALSA: line6: Handle period elapsed calls outside the locks" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:09:16 -0500
-Message-ID: <20261107060916-failed-5.15-443ed4edc267@kernel.org>
+Subject: FAILED: patch "[PATCH] gpio: pca953x: Preserve wakeup accounting on parent IRQ failure" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 06:09:19 -0500
+Message-ID: <20261107060919-failed-5.15-a38bf551726a@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,210 +69,71 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 443ed4edc2678cc51c5a01e7dffc4c890be40051
+git cherry-pick -x a38bf551726a21c9bcc001b02164f30378b64b64
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060916-failed-5.15-443ed4edc267@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060919-failed-5.15-a38bf551726a@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 443ed4edc2678cc51c5a01e7dffc4c890be40051 Mon Sep 17 00:00:00 2001
-From: Takashi Iwai <tiwai@suse.de>
-Date: Tue, 20 Oct 2026 13:31:17 +0200
-Subject: [PATCH] ALSA: line6: Handle period elapsed calls outside the locks
+From a38bf551726a21c9bcc001b02164f30378b64b64 Mon Sep 17 00:00:00 2001
+From: Sahaj Chaudhari <sahaj123.sc@gmail.com>
+Date: Sun, 18 Oct 2026 21:40:42 +0530
+Subject: [PATCH] gpio: pca953x: Preserve wakeup accounting on parent IRQ
+ failure
 
-LINE6 driver may call snd_pcm_period_elapsed() for both playback and
-capture substreams at processing the playback substream, and this may
-lead to a ABBA deadlock.
+pca953x_irq_set_wake() updates wakeup_path before asking the parent
+IRQ controller to change its wake state. If irq_set_irq_wake() fails,
+the IRQ core rolls back its wake state but the driver's counter remains
+changed.
 
-Move the actual calls of snd_pcm_period_elapsed() outside the locks
-for avoiding it.  The capture period notification at submitting the
-initial playback URBs (only with the impulse mode) is simply skipped,
-as it's done in the lock context; it'll be caught up at the next
-period.
+A failed enable can therefore leave the expander marked as part of the
+wakeup path when no child IRQ has successfully enabled wakeup. A failed
+disable can make the driver stop retaining power even though wakeup is
+still enabled. The suspend and resume paths use this counter to decide
+whether to disable or enable the regulator.
 
-Fixes: f56742cc4189 ("ALSA: line6: Add LINE6_CAP_IN_NEEDS_OUT, a void playback stream during capture")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/bug/linux-5a9de389-e6ea-410d-8322-e74e14152603
-Cc: <stable@vger.kernel.org>
-Link: https://patch.msgid.link/20261020113118.234689-1-tiwai@suse.de
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Update wakeup_path only after the parent operation succeeds, leaving it
+unchanged on error.
+
+Fixes: f70fbc15bae2 ("gpio: pca953x: Configure wake-up path when wake-up is enabled")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sahaj Chaudhari <sahaj123.sc@gmail.com>
+Fixes: f70fbc15bae2c89f ("gpio: pca953x: Configure wake-up path when wake-up is enabled")
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Link: https://patch.msgid.link/20261018161042.3298045-1-sahaj123.sc@gmail.com
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 ---
- sound/usb/line6/capture.c  | 25 ++++++++++++++++---------
- sound/usb/line6/capture.h  |  2 +-
- sound/usb/line6/playback.c | 31 +++++++++++++++++++++----------
- 3 files changed, 38 insertions(+), 20 deletions(-)
+ drivers/gpio/gpio-pca953x.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/sound/usb/line6/capture.c b/sound/usb/line6/capture.c
-index 3e1f40d6b481a..17f49f567efbf 100644
---- a/sound/usb/line6/capture.c
-+++ b/sound/usb/line6/capture.c
-@@ -126,24 +126,21 @@ void line6_capture_copy(struct snd_line6_pcm *line6pcm, char *fbuf, int fsize)
- 		line6pcm->in.pos_done -= runtime->buffer_size;
- }
- 
--void line6_capture_check_period(struct snd_line6_pcm *line6pcm, int length)
-+/* update the capture position and check whether we need period_elapsed call */
-+bool line6_capture_check_period(struct snd_line6_pcm *line6pcm, int length)
+diff --git a/drivers/gpio/gpio-pca953x.c b/drivers/gpio/gpio-pca953x.c
+index aac9ea7520b60..869ed4264d48a 100644
+--- a/drivers/gpio/gpio-pca953x.c
++++ b/drivers/gpio/gpio-pca953x.c
+@@ -838,13 +838,18 @@ static int pca953x_irq_set_wake(struct irq_data *d, unsigned int on)
  {
--	struct snd_pcm_substream *substream =
--	    get_substream(line6pcm, SNDRV_PCM_STREAM_CAPTURE);
--
- 	line6pcm->in.bytes += length;
- 	if (line6pcm->in.bytes >= line6pcm->in.period) {
- 		line6pcm->in.bytes %= line6pcm->in.period;
--		spin_unlock(&line6pcm->in.lock);
--		snd_pcm_period_elapsed(substream);
--		spin_lock(&line6pcm->in.lock);
-+		return true;
- 	}
-+	return false;
- }
- 
- /*
-  * Callback for completed capture URB.
-  */
--static void audio_in_callback(struct urb *urb)
-+static bool handle_audio_in(struct urb *urb)
- {
- 	int i, index, length = 0, shutdown = 0;
- 	struct snd_line6_pcm *line6pcm = (struct snd_line6_pcm *)urb->context;
-@@ -208,8 +205,18 @@ static void audio_in_callback(struct urb *urb)
- 
- 		if (!test_bit(LINE6_STREAM_IMPULSE, &line6pcm->in.running) &&
- 		    test_bit(LINE6_STREAM_PCM, &line6pcm->in.running))
--			line6_capture_check_period(line6pcm, length);
-+			return line6_capture_check_period(line6pcm, length);
- 	}
+ 	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
+ 	struct pca953x_chip *chip = gpiochip_get_data(gc);
++	int ret;
 +
-+	return false;
-+}
-+
-+static void audio_in_callback(struct urb *urb)
-+{
-+	struct snd_line6_pcm *line6pcm = (struct snd_line6_pcm *)urb->context;
-+
-+	if (handle_audio_in(urb))
-+		snd_pcm_period_elapsed(get_substream(line6pcm, SNDRV_PCM_STREAM_CAPTURE));
- }
++	ret = irq_set_irq_wake(chip->client->irq, on);
++	if (ret)
++		return ret;
  
- /* open capture callback */
-diff --git a/sound/usb/line6/capture.h b/sound/usb/line6/capture.h
-index 90572dae134ee..628315389efcf 100644
---- a/sound/usb/line6/capture.h
-+++ b/sound/usb/line6/capture.h
-@@ -17,7 +17,7 @@ extern const struct snd_pcm_ops snd_line6_capture_ops;
+ 	if (on)
+ 		atomic_inc(&chip->wakeup_path);
+ 	else
+ 		atomic_dec(&chip->wakeup_path);
  
- extern void line6_capture_copy(struct snd_line6_pcm *line6pcm, char *fbuf,
- 			       int fsize);
--extern void line6_capture_check_period(struct snd_line6_pcm *line6pcm,
-+extern bool line6_capture_check_period(struct snd_line6_pcm *line6pcm,
- 				       int length);
- extern int line6_create_audio_in_urbs(struct snd_line6_pcm *line6pcm);
- extern int line6_submit_audio_in_all_urbs(struct snd_line6_pcm *line6pcm);
-diff --git a/sound/usb/line6/playback.c b/sound/usb/line6/playback.c
-index aa6ddf8746a0a..e93a16f6958e3 100644
---- a/sound/usb/line6/playback.c
-+++ b/sound/usb/line6/playback.c
-@@ -136,6 +136,8 @@ static void add_monitor_signal(struct urb *urb_out, unsigned char *signal,
- /*
- 	Find a free URB, prepare audio data, and submit URB.
- 	must be called in line6pcm->out.lock context
-+	Returns 1 if snd_pcm_period_elapsed() needs to be called for the
-+	capture stream after releasing the lock, 0 if not, or a negative error
- */
- static int submit_audio_out_urb(struct snd_line6_pcm *line6pcm)
- {
-@@ -151,6 +153,7 @@ static int submit_audio_out_urb(struct snd_line6_pcm *line6pcm)
- 		line6pcm->properties->rates.rats[0].den *
- 		(line6pcm->line6->intervals_per_second / LINE6_ISO_INTERVAL);
- 	struct urb *urb_out;
-+	bool capture_period_elapsed = false;
- 
- 	index = find_first_zero_bit(&line6pcm->out.active_urbs,
- 				    line6pcm->line6->iso_buffers);
-@@ -260,8 +263,9 @@ static int submit_audio_out_urb(struct snd_line6_pcm *line6pcm)
- 						   urb_out->transfer_buffer,
- 						   urb_out->
- 						   transfer_buffer_length);
--				line6_capture_check_period(line6pcm,
--					urb_out->transfer_buffer_length);
-+				capture_period_elapsed =
-+					line6_capture_check_period(line6pcm,
-+								   urb_out->transfer_buffer_length);
- 			}
- 		} else {
- 			if (!(line6pcm->line6->properties->capabilities & LINE6_CAP_HWMON)
-@@ -283,24 +287,26 @@ static int submit_audio_out_urb(struct snd_line6_pcm *line6pcm)
- 		dev_err(line6pcm->line6->ifcdev,
- 			"URB out #%d submission failed (%d)\n", index, ret);
- 
--	return 0;
-+	return capture_period_elapsed;
- }
- 
- /*
- 	Submit all currently available playback URBs.
- 	must be called in line6pcm->out.lock context
-+	The capture period notification is skipped here since we can't call
-+	snd_pcm_period_elapsed() in the lock; it'll be caught up at the next one.
-  */
- int line6_submit_audio_out_all_urbs(struct snd_line6_pcm *line6pcm)
- {
--	int ret = 0, i;
-+	int ret, i;
- 
- 	for (i = 0; i < line6pcm->line6->iso_buffers; ++i) {
- 		ret = submit_audio_out_urb(line6pcm);
- 		if (ret < 0)
--			break;
-+			return ret;
- 	}
- 
--	return ret;
+-	return irq_set_irq_wake(chip->client->irq, on);
 +	return 0;
  }
  
- /*
-@@ -316,6 +322,8 @@ static void audio_out_callback(struct urb *urb)
- 	const int bytes_per_frame =
- 		line6pcm->properties->bytes_per_channel *
- 		line6pcm->properties->playback_hw.channels_max;
-+	bool capture_period_elapsed = false;
-+	bool playback_period_elapsed = false;
- 
- #if USE_CLEAR_BUFFER_WORKAROUND
- 	memset(urb->transfer_buffer, 0, urb->transfer_buffer_length);
-@@ -358,19 +366,22 @@ static void audio_out_callback(struct urb *urb)
- 		shutdown = 1;
- 
- 	if (!shutdown) {
--		submit_audio_out_urb(line6pcm);
-+		capture_period_elapsed = submit_audio_out_urb(line6pcm) > 0;
- 
- 		if (test_bit(LINE6_STREAM_PCM, &line6pcm->out.running)) {
- 			line6pcm->out.bytes += length;
- 			if (line6pcm->out.bytes >= line6pcm->out.period) {
- 				line6pcm->out.bytes %= line6pcm->out.period;
--				spin_unlock(&line6pcm->out.lock);
--				snd_pcm_period_elapsed(substream);
--				spin_lock(&line6pcm->out.lock);
-+				playback_period_elapsed = true;
- 			}
- 		}
- 	}
- 	spin_unlock_irqrestore(&line6pcm->out.lock, flags);
-+
-+	if (capture_period_elapsed)
-+		snd_pcm_period_elapsed(get_substream(line6pcm, SNDRV_PCM_STREAM_CAPTURE));
-+	if (playback_period_elapsed)
-+		snd_pcm_period_elapsed(substream);
- }
- 
- /* open playback callback */
+ static void pca953x_irq_bus_lock(struct irq_data *d)
 -- 
 2.53.0
 
