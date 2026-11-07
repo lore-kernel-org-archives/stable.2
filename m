@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047833;
-	b=lmSvqwSFqC3awrFpy8EptypFmV1qrT4do4Tpgn1hHAnSMTFdnTmGJNXepOthzOdbG/eg
-	 +81ehLL+6WafZDNb+arcBOy8lDzv/d9dAV9g2G+tEzoUNehwI5KLQjKiI74ZchtqM7Wbh
-	 EMTfP2qG782uuuU7V9C2DhzJmRi8AdXHwt1NV8TbjZrNBgtcUKXZ/vCF4keTSNoBskvve
-	 qHE6KvjW8w2vfmEOi76V4duSvjXNfrcxvB0jcAIfhSMJvoWfWzfnPVweoLY5df13kYfO8
-	 daQksmOFNo0ZwhaVlns//B2Ha90GOukwz9i5UDMVy1sHOw/+tKJnq7tpDF8eh55qhsg==
+	t=1794047835;
+	b=h09TfveI/NuqNCMuvr72XzCFRWc8baF6glSlTCVISkWss1WEyFqJOUug7MgKaU0JHnDE
+	 4z2QPOY46D1ot+525Xf+pKS37arKhH0nt+e/ywWoUorltYQtAskysCjDe+qLaUwc64EsP
+	 o1v5xCZNZamPvk4YNzXXJHf8ssCWoGR4aPWH2iledV6iRf0yXhZO2M/9+sTFhWfOSBTO1
+	 t3MbZGMm4jykCXlLKPOnu0omDwx+NhsC5flbfGgIsHNNZyYsL587jsKGLXrf+/UUXV/1c
+	 du3QCgpkOtcD3meyld9Md8XfUT3OLO6BD41ENH4oc65TpTlNrxhsEsKS8W+BHySEJIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047833;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047835;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=aXjp/KrV+iOaC96I/IvSAoBuuEqOQjdbea4t0Q6iqXE=;
-	b=uzcpLoYyuVUm2MJHcKNYrvvNG97ae4Y4jX+TDJCFXV68DX+2hD+tuynKvqsMuTedawfF
-	 PeeqgPNUCp5qBWOrKnE2w9UILKOaFdJFZC3cnlPZut74nlINBWxCOJC843acc9kxmNMYp
-	 jwaGD/7ikhvLRQvzE4MtG+ZLS7w+bJdYI7gVFs3njlLUZoBMB1GXgcpi/d07akNmaIPxA
-	 9K0EVpXOYYwCLHwuWkOmdKjG/n8js9oVRNkrdYdjq20OO81I1Umm9hACMYpbvMf/glrF1
-	 VJqqBcNFx9zDLuZbB/3tDWA0nRJkkekIT0QzKUqA5qRONPoSIaHeD0+f2nN0eItOFDw==
+	bh=m76tmNtFf4K31zZgoNCfHfOZl+Upy+7GY8EIP6X7NbQ=;
+	b=KckGHFF5hzb3n5DUNNk7cZEM3S3A95U0JsFemKHnKLzQ25U6TE2Y6DeTRaSie6tbn9D+
+	 cAWBIq3NbMTqg+vvkI0vhgPzoos2UxSQgbK6l7AJMaepB9S+AjGgxgHyGInQlCNftcq4T
+	 rMu7bnxOAp2hSKnxm3Uloi3hh1rlVveHnRMhUNiASmnRSeQisG4y6zpcu0Do42mWln80q
+	 PROpF7Xuc1d6BO75Uz+AxZTU7N8E27Kq51nnwLCo8Jv0IlZV+mnv7ZysPqrb5lASCeJqn
+	 Zjd4H7MFFBCbS8+esvitwUAH04JNyn5b3PDm+8eFq9rafK3KIpu1Bl7HEhU1yVzc0dw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="l4/PAJLe";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dmjoS9M7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 878E0606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:37:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71C74606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:37:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l4/PAJLe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 842701F0089F;
-	Sat,  7 Nov 2026 10:37:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dmjoS9M7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBE961F0089F;
+	Sat,  7 Nov 2026 10:37:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047833;
-	bh=aXjp/KrV+iOaC96I/IvSAoBuuEqOQjdbea4t0Q6iqXE=;
+	s=k20260515; t=1794047835;
+	bh=m76tmNtFf4K31zZgoNCfHfOZl+Upy+7GY8EIP6X7NbQ=;
 	h=From:To:Cc:Subject:Date;
-	b=l4/PAJLeInYQXvNZyz8SzYrntL3KMtv5ubQQdLEDc5NUIPt3OPAi3lCXFOkSXGHGf
-	 gKdkzjHhYhOfoRfGf5A5fb5sTLU+wcgwsWBu87U2VG2dlczisYmB6vhYOW5ErMgiwA
-	 u9mmMcwGEMB+7wGr3nVrP/nZ/BerGvqSjy9o/jQhG5IRw2R+aHIWpRmwGCtH3CKa+j
-	 /6EcdJq7oHtbFcpv3y8Zh/Xid/CqOswLz4VM00nVL2T8EFOaZay88Hou5JoPp3vG4s
-	 keBqYxHtwrKfMjFHKSb/Tp9gs1d2PaBLbDul+6UxCDGFPg66TAPsVlshsvXJVR7M7/
-	 eAdylGk2OlBqA==
+	b=dmjoS9M7R/2VvxZ1Fc6wSlzJHQ9+HCEEfpaoEXA89yCIuiAmFf6dyM37ZqlcIZsfH
+	 cVlzofEQk6Nt7MX5y0L6V96MC6BuZ3QeJNSAsUEgqyH81UgDmCj/C4FzYUqMySBOL7
+	 CS3bq1pFwM+q7VwNV1PkQDtpWIXXdYEdb+UkFqP1cY9KmXEpwb4dUWynRG/dGuqivB
+	 8Q0CA9SS6CytkRxNJmsE3jZCZEkpc4m8xs+n4LNqKg9oIlFd0oEGkiYIAJ0Blo95Ch
+	 B6VsHNmNVlv3avlymaUJaMcjo+UcCl1mnQ8tRAZBLQwVXyb2tt3IjlnvnXMjVNxRbz
+	 K8/1hMuuGIOQA==
 From: Sasha Levin <sashal@kernel.org>
-To: zenghongling@kylinos.cn,
-	liubaolin@kylinos.cn,
+To: matthias.goergens@gmail.com,
 	hyc.lee@gmail.com,
 	linkinjeon@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ntfs: check the dirty-state commit on remount and unmount" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:37:11 -0500
-Message-ID: <20261107053711-failed-6.6-1a3883b3685c@kernel.org>
+Subject: FAILED: patch "[PATCH] ntfs: add a runlist merge that leaves the source runlist to the caller" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:37:13 -0500
+Message-ID: <20261107053713-failed-6.6-c6ee0986b807@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,171 +69,303 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 1a3883b3685cc4c8bc41927cc9df539239d7c961
+git cherry-pick -x c6ee0986b80715c44d547e9cbdc1a72ad855071c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053711-failed-6.6-1a3883b3685c@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053713-failed-6.6-c6ee0986b807@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 1a3883b3685cc4c8bc41927cc9df539239d7c961 Mon Sep 17 00:00:00 2001
-From: Hongling Zeng <zenghongling@kylinos.cn>
-Date: Tue, 15 Sep 2026 16:32:51 +0800
-Subject: [PATCH] ntfs: check the dirty-state commit on remount and unmount
+From c6ee0986b80715c44d547e9cbdc1a72ad855071c Mon Sep 17 00:00:00 2001
+From: Matthias Goergens <matthias.goergens@gmail.com>
+Date: Fri, 2 Oct 2026 12:34:58 +0800
+Subject: [PATCH] ntfs: add a runlist merge that leaves the source runlist to
+ the caller
 
-The remount-to-read-only path commits the updated volume flags with
-ntfs_commit_inode(), a void wrapper around __ntfs_write_inode(), and
-ignores the blkdev_issue_flush() return value, so a failed commit or
-flush is reported as success.  Once the remount has succeeded no
-persistence point is ever reached again: ntfs_put_super() skips
-read-only superblocks and the VFS never syncs one, so fail the
-remount unless the commit and the flush succeed.  The superblock
-then stays read-write and ntfs_put_super() retries the persistence
-at unmount.  The errors=remount-ro downgrade does not go through
-ntfs_reconfigure() and is unchanged.
+ntfs_runlists_merge() frees the source runlist once its runs are in the
+destination.  A caller that may have to undo the merge then has to work
+out its runs again from the merged runlist, where the first and the
+last of them may have been coalesced with neighbouring runs.
 
-A zero-return commit is not trusted blindly: write_mft_record()
-redirties the record on allocation failure and reports success, so
-the $Volume inode is required to be clean afterwards.
+Add ntfs_runlists_merge_keep_src(), which neither modifies nor frees
+the source runlist.  For that, ntfs_rl_append() and ntfs_rl_replace()
+now merge the right-hand end into the copied run in the destination
+instead of into the last source run before copying it, and the merge
+helpers take the source as const, so the compiler checks that none of
+them writes to it.  The merged runlist is the same as before.
 
-ntfs_put_super() discards the same commit error.  Call
-__ntfs_write_inode() there with the same dirty re-check and warn on
-failure, as put_super() cannot return an error.  The commit is
-skipped when the dirty-state sync itself failed, as that could write
-back an inconsistent flag state; a record left dirty by an earlier
-update is still committed at evict time.
+For every caller, a source runlist without any mapped run, which the
+merge already warns about, now fails with -EINVAL instead of carrying
+on with nothing to insert: with no run copied, the right-hand merge
+into the destination would index before the insertion point.
 
-NVolErrors() is deliberately not used to detect the failure: it is
-sticky for the lifetime of the mount, so it cannot distinguish a
-fresh commit failure from errors recorded before the remount.
+The next patch uses ntfs_runlists_merge_keep_src() to free exactly the
+clusters it allocated when it has to undo an $MFT data extension.
 
-Hibernated volumes: ntfs_sync_volume_dirty_state() is a no-op for
-them and never dirties the $Volume inode on such a mount, since the
-on-disk flags are already dirty and ntfs_set_volume_flags() has
-nothing to change.  The commit only runs if something dirtied the
-inode independently, as before this patch; mounting hibernated
-volumes read-only removes even that.
-
-Reported-by: Baolin Liu <liubaolin@kylinos.cn>
-Cc: stable@vger.kernel.org
-Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
-Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
-Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
+Suggested-by: Hyunchul Lee <hyc.lee@gmail.com>
+Cc: stable@vger.kernel.org # needed by the next patch
+Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
 Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 ---
- fs/ntfs/super.c | 76 +++++++++++++++++++++++++++++++++++--------------
- 1 file changed, 54 insertions(+), 22 deletions(-)
+ fs/ntfs/runlist.c | 98 ++++++++++++++++++++++++++++++++++++++---------
+ fs/ntfs/runlist.h |  3 ++
+ 2 files changed, 82 insertions(+), 19 deletions(-)
 
-diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
-index a08523457fe01..0ec4d2ddf6219 100644
---- a/fs/ntfs/super.c
-+++ b/fs/ntfs/super.c
-@@ -269,6 +269,7 @@ static int ntfs_reconfigure(struct fs_context *fc)
+diff --git a/fs/ntfs/runlist.c b/fs/ntfs/runlist.c
+index f13d28c15887d..76ba6ab72b8a6 100644
+--- a/fs/ntfs/runlist.c
++++ b/fs/ntfs/runlist.c
+@@ -47,7 +47,7 @@ static inline void ntfs_rl_mm(struct runlist_element *base, int dst, int src, in
+  * @srcbase.
+  */
+ static inline void ntfs_rl_mc(struct runlist_element *dstbase, int dst,
+-		struct runlist_element *srcbase, int src, int size)
++		const struct runlist_element *srcbase, int src, int size)
  {
- 	struct super_block *sb = fc->root->d_sb;
- 	struct ntfs_volume *vol = NTFS_SB(sb);
-+	int err;
+ 	if (likely(size > 0))
+ 		memcpy(dstbase + dst, srcbase + src, size * sizeof(*dstbase));
+@@ -152,8 +152,8 @@ static inline struct runlist_element *ntfs_rl_realloc_nofail(struct runlist_elem
+  * Return: true   Success, the runlists can be merged.
+  *	   false  Failure, the runlists cannot be merged.
+  */
+-static inline bool ntfs_are_rl_mergeable(struct runlist_element *dst,
+-		struct runlist_element *src)
++static inline bool ntfs_are_rl_mergeable(const struct runlist_element *dst,
++		const struct runlist_element *src)
+ {
+ 	/* We can merge unmapped regions even if they are misaligned. */
+ 	if ((dst->lcn == LCN_RL_NOT_MAPPED) && (src->lcn == LCN_RL_NOT_MAPPED))
+@@ -186,7 +186,8 @@ static inline bool ntfs_are_rl_mergeable(struct runlist_element *dst,
+  *
+  * It is up to the caller to serialize access to the runlists @dst and @src.
+  */
+-static inline void __ntfs_rl_merge(struct runlist_element *dst, struct runlist_element *src)
++static inline void __ntfs_rl_merge(struct runlist_element *dst,
++		const struct runlist_element *src)
+ {
+ 	dst->length += src->length;
+ }
+@@ -214,10 +215,11 @@ static inline void __ntfs_rl_merge(struct runlist_element *dst, struct runlist_e
+  * On error, return -errno. Both runlists are left unmodified.
+  */
+ static inline struct runlist_element *ntfs_rl_append(struct runlist_element *dst,
+-		int dsize, struct runlist_element *src, int ssize, int loc,
++		int dsize, const struct runlist_element *src, int ssize, int loc,
+ 		size_t *new_size)
+ {
+ 	bool right = false;	/* Right end of @src needs merging. */
++	s64 right_length = 0;	/* Length of the run merged at the right. */
+ 	int marker;		/* End of the inserted runs. */
  
- 	ntfs_debug("Entering with remount");
+ 	/* First, check if the right hand end needs merging. */
+@@ -235,9 +237,9 @@ static inline struct runlist_element *ntfs_rl_append(struct runlist_element *dst
+ 	 * original runlists.
+ 	 */
  
-@@ -331,14 +332,39 @@ static int ntfs_reconfigure(struct fs_context *fc)
- 		 * and ntfs_put_super() skips them, so the only remaining
- 		 * write would be the evict-time commit at unmount, which
- 		 * a crash never reaches.  An error recorded only after
--		 * the remount is still never persisted.
-+		 * the remount is still never persisted; a failed commit
-+		 * or flush fails the remount, leaving the superblock
-+		 * read-write so ntfs_put_super() retries at unmount.
- 		 */
--		if (ntfs_sync_volume_dirty_state(vol)) {
-+		err = ntfs_sync_volume_dirty_state(vol);
-+		if (err) {
- 			ntfs_warning(sb,
- 				"Failed to update dirty bit in volume information flags.  Run chkdsk.");
--		} else if (NInoDirty(NTFS_I(vol->vol_ino))) {
--			ntfs_commit_inode(vol->vol_ino);
--			blkdev_issue_flush(sb->s_bdev);
-+			return err;
-+		}
-+		if (NInoDirty(NTFS_I(vol->vol_ino))) {
-+			/* ntfs_commit_inode() would discard the error. */
-+			err = __ntfs_write_inode(vol->vol_ino, 1);
-+			if (err) {
-+				ntfs_warning(sb,
-+					"Failed to commit volume information flags.  Run chkdsk.");
-+				return err;
-+			}
-+			/*
-+			 * write_mft_record() redirties the record on
-+			 * -ENOMEM and still reports success.
-+			 */
-+			if (NInoDirty(NTFS_I(vol->vol_ino))) {
-+				ntfs_warning(sb,
-+					"Volume information flags remain dirty after commit.  Run chkdsk.");
-+				return -EIO;
-+			}
-+			err = blkdev_issue_flush(sb->s_bdev);
-+			if (err) {
-+				ntfs_warning(sb,
-+					"Failed to flush volume information flags.  Run chkdsk.");
-+				return err;
-+			}
- 		}
- 	}
+-	/* First, merge the right hand end, if necessary. */
++	/* Remember the run that the right hand end absorbs, if any. */
+ 	if (right)
+-		__ntfs_rl_merge(src + ssize - 1, dst + loc + 1);
++		right_length = dst[loc + 1].length;
  
-@@ -1944,26 +1970,32 @@ static void ntfs_put_super(struct super_block *sb)
- 		if (ntfs_sync_volume_dirty_state(vol)) {
- 			ntfs_warning(sb,
- 				"Failed to sync dirty bit in volume information flags.  Run chkdsk.");
--		} else if (NVolErrors(vol)) {
-+		} else {
- 			/*
--			 * The dirty bit is on disk now; only warn when the
--			 * sync actually succeeded, or this message would
--			 * contradict the one above.
-+			 * __ntfs_write_inode(), not the void
-+			 * ntfs_commit_inode() wrapper: the error can only
-+			 * be warned about here.  The mirror inode is only
-+			 * released below: writing the $Volume record (mft
-+			 * record number 3, below vol->mftmirr_size) mirrors
-+			 * it through ntfs_sync_mft_mirror(), which fails
-+			 * with -EIO once vol->mftmirr_ino is gone.
- 			 */
--			ntfs_warning(sb,
--				"Volume has errors.  Leaving volume marked dirty.  Run chkdsk.");
-+			if (__ntfs_write_inode(vol->vol_ino, 1)) {
-+				ntfs_warning(sb,
-+					"Failed to commit volume information flags.  Run chkdsk.");
-+			} else if (NInoDirty(NTFS_I(vol->vol_ino))) {
-+				ntfs_warning(sb,
-+					"Volume information flags remain dirty after commit.  Run chkdsk.");
-+			} else if (NVolErrors(vol)) {
-+				/*
-+				 * Only warn once the commit has succeeded,
-+				 * or this could contradict a failure
-+				 * reported above.
-+				 */
-+				ntfs_warning(sb,
-+					"Volume has errors.  Leaving volume marked dirty.  Run chkdsk.");
-+			}
- 		}
--		/*
--		 * Commits the updated volume flags if they were written.
--		 * The mft mirror must still be around for this: the
--		 * $Volume record (mft record number 3, below
--		 * vol->mftmirr_size) is mirrored by write_mft_record()
--		 * through ntfs_sync_mft_mirror(), which fails with -EIO
--		 * and leaves the mirror stale once vol->mftmirr_ino is
--		 * gone, so the mirror inode is only released after this
--		 * commit.
--		 */
--		ntfs_commit_inode(vol->vol_ino);
- 	}
+ 	/* First run after the @src runs that have been inserted. */
+ 	marker = loc + ssize + 1;
+@@ -246,6 +248,9 @@ static inline struct runlist_element *ntfs_rl_append(struct runlist_element *dst
+ 	ntfs_rl_mm(dst, marker, loc + 1 + right, dsize - (loc + 1 + right));
+ 	ntfs_rl_mc(dst, loc + 1, src, 0, ssize);
  
++	/* Merge the right hand end into the copy, leaving @src intact. */
++	dst[marker - 1].length += right_length;
++
+ 	/* Adjust the size of the preceding hole. */
+ 	dst[loc].length = dst[loc + 1].vcn - dst[loc].vcn;
+ 
+@@ -279,7 +284,7 @@ static inline struct runlist_element *ntfs_rl_append(struct runlist_element *dst
+  * On error, return -errno. Both runlists are left unmodified.
+  */
+ static inline struct runlist_element *ntfs_rl_insert(struct runlist_element *dst,
+-		int dsize, struct runlist_element *src, int ssize, int loc,
++		int dsize, const struct runlist_element *src, int ssize, int loc,
+ 		size_t *new_size)
+ {
+ 	bool left = false;	/* Left end of @src needs merging. */
+@@ -374,12 +379,13 @@ static inline struct runlist_element *ntfs_rl_insert(struct runlist_element *dst
+  * On error, return -errno. Both runlists are left unmodified.
+  */
+ static inline struct runlist_element *ntfs_rl_replace(struct runlist_element *dst,
+-		int dsize, struct runlist_element *src, int ssize, int loc,
++		int dsize, const struct runlist_element *src, int ssize, int loc,
+ 		size_t *new_size)
+ {
+ 	int delta;
+ 	bool left = false;	/* Left end of @src needs merging. */
+ 	bool right = false;	/* Right end of @src needs merging. */
++	s64 right_length = 0;	/* Length of the run merged at the right. */
+ 	int tail;		/* Start of tail of @dst. */
+ 	int marker;		/* End of the inserted runs. */
+ 
+@@ -405,9 +411,12 @@ static inline struct runlist_element *ntfs_rl_replace(struct runlist_element *ds
+ 	 * original runlists.
+ 	 */
+ 
+-	/* First, merge the left and right ends, if necessary. */
++	/*
++	 * Remember the run that the right hand end absorbs, if any, then
++	 * merge the left hand end.
++	 */
+ 	if (right)
+-		__ntfs_rl_merge(src + ssize - 1, dst + loc + 1);
++		right_length = dst[loc + 1].length;
+ 	if (left)
+ 		__ntfs_rl_merge(dst + loc - 1, src);
  	/*
+@@ -432,6 +441,13 @@ static inline struct runlist_element *ntfs_rl_replace(struct runlist_element *ds
+ 	ntfs_rl_mm(dst, marker, tail, dsize - tail);
+ 	ntfs_rl_mc(dst, loc, src, left, ssize - left);
+ 
++	/*
++	 * Merge the right hand end into the last run of @src, now in @dst at
++	 * @marker - 1 (or into @dst[@loc - 1] if that absorbed all of @src),
++	 * leaving @src intact.
++	 */
++	dst[marker - 1].length += right_length;
++
+ 	/* We may have changed the length of the file, so fix the end marker. */
+ 	if (dsize - tail > 0 && dst[marker].lcn == LCN_ENOENT)
+ 		dst[marker].vcn = dst[marker - 1].vcn + dst[marker - 1].length;
+@@ -461,7 +477,7 @@ static inline struct runlist_element *ntfs_rl_replace(struct runlist_element *ds
+  * On error, return -errno. Both runlists are left unmodified.
+  */
+ static inline struct runlist_element *ntfs_rl_split(struct runlist_element *dst, int dsize,
+-		struct runlist_element *src, int ssize, int loc,
++		const struct runlist_element *src, int ssize, int loc,
+ 		size_t *new_size)
+ {
+ 	/* Space required: @dst size + @src size + one new hole. */
+@@ -488,11 +504,12 @@ static inline struct runlist_element *ntfs_rl_split(struct runlist_element *dst,
+ }
+ 
+ /*
+- * ntfs_runlists_merge - merge two runlists into one
++ * __ntfs_runlists_merge - merge two runlists into one
+  * @d_runlist: destination runlist structure to merge into
+  * @srl: source runlist to merge from
+  * @s_rl_count: number of elements in @srl (0 to auto-detect)
+  * @new_rl_count: on success, set to the new combined runlist size
++ * @keep_srl: leave @srl to the caller instead of deallocating it
+  *
+  * First we sanity check the two runlists @srl and @drl to make sure that they
+  * are sensible and can be merged. The runlist @srl must be either after the
+@@ -515,13 +532,14 @@ static inline struct runlist_element *ntfs_rl_split(struct runlist_element *dst,
+  * On success, return a pointer to the new, combined, runlist. Note, both
+  * runlists @drl and @srl are deallocated before returning so you cannot use
+  * the pointers for anything any more. (Strictly speaking the returned runlist
+- * may be the same as @dst but this is irrelevant.)
++ * may be the same as @dst but this is irrelevant.)  If @keep_srl is true,
++ * @srl is neither modified nor deallocated, and @drl must not be NULL.
+  *
+  * On error, return -errno. Both runlists are left unmodified.
+  */
+-struct runlist_element *ntfs_runlists_merge(struct runlist *d_runlist,
+-				     struct runlist_element *srl, size_t s_rl_count,
+-				     size_t *new_rl_count)
++static struct runlist_element *__ntfs_runlists_merge(struct runlist *d_runlist,
++		struct runlist_element *srl, size_t s_rl_count,
++		size_t *new_rl_count, bool keep_srl)
+ {
+ 	int di, si;		/* Current index into @[ds]rl. */
+ 	int sstart;		/* First index with lcn > LCN_RL_NOT_MAPPED. */
+@@ -553,6 +571,8 @@ struct runlist_element *ntfs_runlists_merge(struct runlist *d_runlist,
+ 
+ 	/* Check for the case where the first mapping is being done now. */
+ 	if (unlikely(!drl)) {
++		if (WARN_ON(keep_srl))
++			return ERR_PTR(-EINVAL);
+ 		drl = srl;
+ 		/* Complete the source runlist if necessary. */
+ 		if (unlikely(drl[0].vcn)) {
+@@ -582,7 +602,8 @@ struct runlist_element *ntfs_runlists_merge(struct runlist *d_runlist,
+ 		si++;
+ 
+ 	/* Can't have an entirely unmapped source runlist. */
+-	WARN_ON(!srl[si].length);
++	if (WARN_ON(!srl[si].length))
++		return ERR_PTR(-EINVAL);
+ 
+ 	/* Record the starting points. */
+ 	sstart = si;
+@@ -652,7 +673,8 @@ struct runlist_element *ntfs_runlists_merge(struct runlist *d_runlist,
+ 		ntfs_error(NULL, "Merge failed.");
+ 		return drl;
+ 	}
+-	kvfree(srl);
++	if (!keep_srl)
++		kvfree(srl);
+ 	if (marker) {
+ 		ntfs_debug("Triggering marker code.");
+ 		for (ds = dend; drl[ds].length; ds++)
+@@ -713,6 +735,44 @@ struct runlist_element *ntfs_runlists_merge(struct runlist *d_runlist,
+ 	return drl;
+ }
+ 
++/*
++ * ntfs_runlists_merge - merge two runlists into one
++ * @d_runlist: destination runlist structure to merge into
++ * @srl: source runlist to merge from, deallocated on success
++ * @s_rl_count: number of elements in @srl (0 to auto-detect)
++ * @new_rl_count: on success, set to the new combined runlist size
++ *
++ * See __ntfs_runlists_merge().
++ */
++struct runlist_element *ntfs_runlists_merge(struct runlist *d_runlist,
++		struct runlist_element *srl, size_t s_rl_count,
++		size_t *new_rl_count)
++{
++	return __ntfs_runlists_merge(d_runlist, srl, s_rl_count, new_rl_count,
++			false);
++}
++
++/*
++ * ntfs_runlists_merge_keep_src - merge two runlists, keeping the source
++ * @d_runlist: destination runlist structure to merge into, not empty
++ * @srl: source runlist to merge from
++ * @s_rl_count: number of elements in @srl (0 to auto-detect)
++ * @new_rl_count: on success, set to the new combined runlist size
++ *
++ * Like ntfs_runlists_merge(), but @srl is neither modified nor deallocated,
++ * on success or on error, and remains the caller's to kvfree().  Even when
++ * runs of @srl are coalesced with runs of @d_runlist, @srl keeps describing
++ * exactly its own runs, e.g. the clusters a caller has to free to undo the
++ * merge.
++ */
++struct runlist_element *ntfs_runlists_merge_keep_src(struct runlist *d_runlist,
++		struct runlist_element *srl, size_t s_rl_count,
++		size_t *new_rl_count)
++{
++	return __ntfs_runlists_merge(d_runlist, srl, s_rl_count, new_rl_count,
++			true);
++}
++
+ /*
+  * ntfs_mapping_pairs_decompress - convert mapping pairs array to runlist
+  * @vol: ntfs volume
+diff --git a/fs/ntfs/runlist.h b/fs/ntfs/runlist.h
+index cc92e09fbf682..0d4c32b1a338f 100644
+--- a/fs/ntfs/runlist.h
++++ b/fs/ntfs/runlist.h
+@@ -68,6 +68,9 @@ enum {
+ struct runlist_element *ntfs_runlists_merge(struct runlist *d_runlist,
+ 		struct runlist_element *srl, size_t s_rl_count,
+ 		size_t *new_rl_count);
++struct runlist_element *ntfs_runlists_merge_keep_src(struct runlist *d_runlist,
++		struct runlist_element *srl, size_t s_rl_count,
++		size_t *new_rl_count);
+ struct runlist_element *ntfs_mapping_pairs_decompress(const struct ntfs_volume *vol,
+ 		const struct attr_record *attr, struct runlist *old_runlist,
+ 		size_t *new_rl_count);
 -- 
 2.53.0
 
