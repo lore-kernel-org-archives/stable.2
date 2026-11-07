@@ -1,50 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=143.255.12.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794024587;
-	b=IHvNc6trSd3sSzHSDqRYGVzXNkCitV9R0WU/14XSNTDsXn5snhP/6b/cC5igHlF7fDO+
-	 Q17u20mudPrX7QY1LHTOL5Wyq4daAi/eXRhbqfOvkH/5Fy10YzXskkmi1cHN8PcThKJsw
-	 D1/9ZxeQz4M8NwNPCmqjhxSHYPau3A6HWlkJbmtq2MwrrJ1jgV+gUMiw2n0+wNpQR8pKV
-	 n1v2E4qz28yjx15vbXFqCfxcZE/GwpRFC7fxX0YSKndULqk8HvLeGpwaFRP99WhWZqMu5
-	 Xol0x7N9fAiI3LYKHY9VubXuPRIwxNETbN+x/euNmOp19SCbbcHz+uKpY0tpXtfTNQQ==
+	b=FWLfwRsPFgw/U1XBmceRoY1QxPjHOSHJU0FTQm1YSrWKwBvkfHaSQ+ElV7bBc059fYzQ
+	 RMF2Mwdjy0RwE8l0ipEXT6RA1F5eFj4nREEMAQw/4nxX2gPnBQz3B10GNYIw+LfzakLcD
+	 BugWrQanv0n1kF2t5NDyaLJndNQH+IZgBoI5Yq2SNwTuhTwS2tpmHNNas+1Z1UwsB8Ymj
+	 2OzxMSbiUpFxqdvYHnIiwsQ76Qg6boOMiUxbfHbbn9faXRZIal/d/FIJIP2UrtTpcDv8a
+	 yhH4lpAl3afdwzWxjZ6EilXjETUz5UCH/tPTcKwBARu5noj0qTfKF8p0V985G270Ghw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794024587;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=IBwfieRPIka76G7Cq1DpiJDEAb5M15wjIM/UYMHCko0=;
-	b=OcVKSIFOgwpWVqC3pftMgPlNqigXdRsYGwU64LvY1l/mpbMZY09jjqOHW46dpcYTSzDX
-	 9pcL6027CTn84DWwOA1LFK1sHc71T/TklgHD4clqbpeHr253dakgPKXBkUp+xDlorrFia
-	 160P1r0TTuylTqfzvSamNY0eGqhYjpxeYXya/oyfYh2NHkF9ucWauTMYVauZmtRFG8KRK
-	 EpoOMoYrUUdZhcJm0gki4GwbDDiYNcqidfGYNqwLy8PYqGdzWPU3ag+YhToV6PfPrDkCq
-	 2B8eZD9CQ/nKvyBnhWgK75Smxdt+ErSHsHA3D1F2RCeLftsGB73QYCLO8Z+faSCsE2A==
+	bh=zbKLAnuBZe+4yKtzTOQDfDyNndD4zkvcGnWOdV0jqwo=;
+	b=RbL2M7FRqbG6aZLHjV3Nb06n5Rn+LzCBrEM9x0k/6xERE5CwI4MgftXMXQUL8F8ANBI9
+	 OOych8kcXZ9NenAOMyPIYJkUxf0pwJqnWpHQnwJedyvIgYep3ZaePiDkOttfMQX05D1/A
+	 bcOM6fimUlTe5rKJSrjtDEYFPjJ4525gMQ//cffowj3Wf4AKfxIvibzv66vDoRTKbjcZb
+	 9tV217K3YbD5sa4keaAKpk1bf97WWFAMrwLrk4Zl+xHvJOnVYL4FDgGlOFTqZFHpachUm
+	 5QZd20YLRgWRLl8cple/R1FqslXa1uLRkXkvODftlY8lMxL0WtRcmCxkDupQKcg7pnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=manguebit.org;
 	spf=pass smtp.mailfrom=manguebit.org;
-	dkim=pass header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=YF99EJae;
+	dkim=pass header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=k6KnVMHE;
 	arc=none smtp.remote-ip=143.255.12.172
 Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBA00606A337;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67766606A336;
 	Sat,  7 Nov 2026 04:09:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BBA00606A337
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67766606A336
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=YF99EJae
+	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=k6KnVMHE
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=manguebit.org; s=dkim; h=Content-Transfer-Encoding:MIME-Version:References:
 	In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Content-Type:Reply-To:
 	Content-ID:Content-Description;
-	bh=IBwfieRPIka76G7Cq1DpiJDEAb5M15wjIM/UYMHCko0=; b=YF99EJaevBQgjL258u+ii8dD21
-	4tjl4rm6o80M1RGoVHP+iXlXESiQ3vd+LBym0aUnV305FQgg2qasf/knHhigtWSRUt/LXZcD9LW7c
-	+mq+vTivcLdx4w87Rm2Usn5iR25iQ7GAhqYEsSPlYWYrTYSQrKqMJLvS338yJ9z1uLeaYDLygUtHD
-	Dho2smQw95WjJJEHJ5Q8PAAb716637xhgBf+nwnKSfU4Ew+Ghabdwb+dLfeYA1NejMQAgxo/FzbpV
-	1FOt5EyG5H+4WRfVxMU/p0iZAwpJ6hrPi0qsbpX6jHrlor8HYYPpr1Rt2vSUatb2z10L2Rr4ncMzz
-	UjToco6w==;
+	bh=zbKLAnuBZe+4yKtzTOQDfDyNndD4zkvcGnWOdV0jqwo=; b=k6KnVMHEuTvHJBB7gOSngWxjBC
+	w1JgaMdsssIZVHpmHK3SaKYZY6WGC8FqQ6Etogq1OnDl4XQCscnx9zXppJzxFoJx1Kx4rcznzkFrR
+	3gdTnkVY+NkRSEDU4DcSpaka4ij4CdsCS6R7VJpj4CfSJ9Yp1RniDyYw9TH5/AEq+qV72dglVgQIj
+	iMUAGS7Uxhg4gLax8ShUZGAWrWXIqSHofgJrG5+TvByMh2us1Z9j07ikBqeG4uwBIHAOMg4J01jBE
+	3It1uScMTgr9G+prmdxK7CFpuBvKnnGdYDd7qrTuolL//jUzIP0TCxtx6D8kJM9l/LQjAcliAs0vM
+	2dOfWorA==;
 Received: from pc by mx1.manguebit.org with local (Exim 4.100.1)
-	id 1xPXkO-000000015NQ-0jJo;
+	id 1xPXkN-000000015NF-3VR4;
 	Sat, 07 Nov 2026 01:09:45 -0300
 From: Paulo Alcantara <pc@manguebit.org>
 To: linux-cifs@vger.kernel.org,
@@ -57,9 +57,9 @@ Cc: Namjae Jeon <linkinjeon@kernel.org>,
 	Bharath SM <bharathsm@microsoft.com>,
 	Christian Brauner <brauner@kernel.org>,
 	stable@vger.kernel.org
-Subject: [PATCH v8 12/19] smb: client: retry writeback on interrupts and allocation failures
-Date: Sat,  7 Nov 2026 01:09:33 -0300
-Message-ID: <20261107040940.2692656-13-pc@manguebit.org>
+Subject: [PATCH v8 11/19] smb: client: don't fail writeback preparation if the task is dying
+Date: Sat,  7 Nov 2026 01:09:32 -0300
+Message-ID: <20261107040940.2692656-12-pc@manguebit.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261107040940.2692656-1-pc@manguebit.org>
 References: <20261107040940.2692656-1-pc@manguebit.org>
@@ -74,111 +74,146 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Issuing writes from a worker only helps when the task is already dying
-at issue time.  A fatal signal can still arrive after that check and
-before __smb_send_rqst() checks again, or while waiting for a credit in
-cifs_call_async(), or in the middle of a send.  The write then fails
-with -ERESTARTSYS, which isn't a replayable error, so netfs marks the
-subrequest failed and drops its folios clean:
+cifs_prepare_write() may need to reopen an invalidated handle and to wait
+for credits, both from the context of the task doing writeback.  A dying
+task gets the reopen refused at send time and the killable credit wait
+interrupted, so the subrequest is failed and, as with refused sends, its
+folios end writeback clean and the data is lost.
 
-  netfs_sreq: R=000041f6[2] UPLD SUBMT ... s=400000 0/400000
-  smb3_write_err: R=000041f6[2] ... offset=0x400000 len=0x400000 rc=-512
-  netfs_failure: R=000041f6[2] UPLD ... upload e=-512
+For writeback in a dying task, skip both and prepare a credit-less
+subrequest capped at SMB2_MAX_BUFFER_SIZE, as already done when the
+server is low on credits.  It gets issued from cifswritebackd, which
+reopens the handle if needed and takes a single credit when sending,
+neither of which can be interrupted there.  Do the same when the reopen
+or credit wait fails because a fatal signal arrived meanwhile.
 
-losing 4MiB of a 64MiB file closed by a task killed meanwhile.  A failed
-memory allocation while building or sending a write drops its data the
-same way.
-
-No server status maps to an interrupt error or to -ENOMEM, so for
-writeback such errors always mean the client gave up locally.  Mark the
-subrequest for retry, with backoff and giving up on umount -f, as cifs
-did with is_retryable_error() before switching to netfslib and as NFS
-does for these errors.  netfs collects writeback from a workqueue, so
-the retry gets prepared and issued with no signals pending.
-
-Only the SMB2 read and write paths sleep before replaying, so SMB1 would
-resend such writes right away.  Move the sleep to cifs_issue_read() and
-__cifs_issue_write().
+cifs_begin_writeback() reopens the handle too when all the writable ones
+got invalidated, e.g. by a reconnect.  If that fails, there is no
+upload stream, so netfs ends writeback of every folio clean with no
+error recorded.  Take an invalidated handle as is there and leave
+reopening it to cifs_prepare_write().  If there is no writable handle at
+all, record -EIO for the mapping, so that the loss gets reported.
 
 Fixes: 3ee1a1fc3981 ("cifs: Cut over to using netfslib")
 Signed-off-by: Paulo Alcantara <pc@manguebit.org>
 Cc: stable@vger.kernel.org
 ---
- fs/smb/client/file.c    | 14 ++++++++++++++
- fs/smb/client/smb2pdu.c | 12 ++----------
- 2 files changed, 16 insertions(+), 10 deletions(-)
+ fs/smb/client/cifsglob.h |  1 +
+ fs/smb/client/file.c     | 37 ++++++++++++++++++++++++++++++-------
+ 2 files changed, 31 insertions(+), 7 deletions(-)
 
+diff --git a/fs/smb/client/cifsglob.h b/fs/smb/client/cifsglob.h
+index e211dea91e6e..064a2cdab4d9 100644
+--- a/fs/smb/client/cifsglob.h
++++ b/fs/smb/client/cifsglob.h
+@@ -1894,6 +1894,7 @@ enum cifs_find_flags {
+ 	FIND_NO_PENDING_DELETE	= (1U << 2),
+ 	FIND_OPEN_FLAGS		= (1U << 3),
+ 	FIND_NO_DIRECT		= (1U << 4),
++	FIND_NO_REOPEN		= (1U << 5),
+ };
+ 
+ #define   MID_FREE 0
 diff --git a/fs/smb/client/file.c b/fs/smb/client/file.c
-index 396524c3f2b6..abbf6a1be9e2 100644
+index 1bd8edbc8d7b..396524c3f2b6 100644
 --- a/fs/smb/client/file.c
 +++ b/fs/smb/client/file.c
-@@ -212,6 +212,9 @@ static void __cifs_issue_write(struct netfs_io_subrequest *subreq)
- 	if (wdata->req->cfile->invalidHandle)
- 		goto fail;
+@@ -135,12 +135,17 @@ static void cifs_prepare_write(struct netfs_io_subrequest *subreq)
+ 		cifs_negotiate_wsize(server, cifs_sb->ctx,
+ 				     tlink_tcon(req->cfile->tlink));
  
-+	if (wdata->replay && wdata->cur_sleep)
-+		msleep(wdata->cur_sleep);
++	if (cifs_writeback_dying(subreq))
++		goto defer;
 +
- 	wdata->server->ops->async_writev(wdata);
- out:
- 	return;
-@@ -350,6 +353,9 @@ static void cifs_issue_read(struct netfs_io_subrequest *subreq)
- 	    subreq->rreq->origin != NETFS_DIO_READ)
- 		__set_bit(NETFS_SREQ_CLEAR_TAIL, &subreq->flags);
- 
-+	if (rdata->replay && rdata->cur_sleep)
-+		msleep(rdata->cur_sleep);
-+
- 	trace_netfs_sreq(subreq, netfs_sreq_trace_submit);
- 	rc = rdata->server->ops->async_readv(rdata);
- 	if (rc)
-@@ -2754,6 +2760,14 @@ void cifs_write_subrequest_terminated(struct cifs_io_subrequest *wdata, ssize_t
- 		spin_unlock(&inode->i_lock);
+ retry:
+ 	if (open_file->invalidHandle) {
+ 		rc = cifs_reopen_file(open_file, false);
+ 		if (rc < 0) {
+ 			if (rc == -EAGAIN)
+ 				goto retry;
++			if (cifs_writeback_dying(subreq))
++				goto defer;
+ 			subreq->error = rc;
+ 			return netfs_prepare_write_failed(subreq);
+ 		}
+@@ -149,10 +154,17 @@ static void cifs_prepare_write(struct netfs_io_subrequest *subreq)
+ 	rc = server->ops->wait_mtu_credits(server, wsize, &stream->sreq_max_len,
+ 					   &wdata->credits);
+ 	if (rc < 0) {
++		if (cifs_writeback_dying(subreq))
++			goto defer;
+ 		subreq->error = rc;
+ 		return netfs_prepare_write_failed(subreq);
  	}
++	goto out;
  
-+	if ((is_interrupt_error(result) || result == -ENOMEM) &&
-+	    wreq->origin == NETFS_WRITEBACK && cifs_io_should_replay(wdata)) {
-+		wdata->replay = true;
-+		trace_netfs_sreq(&wdata->subreq,
-+				 netfs_sreq_trace_io_retry_needed);
-+		__set_bit(NETFS_SREQ_NEED_RETRY, &wdata->subreq.flags);
-+	}
-+
- 	netfs_write_subrequest_terminated(&wdata->subreq, result);
++defer:
++	wdata->credits = (struct cifs_credits){};
++	stream->sreq_max_len = min_t(size_t, wsize, SMB2_MAX_BUFFER_SIZE);
++out:
+ 	wdata->credits.rreq_debug_id = subreq->rreq->debug_id;
+ 	wdata->credits.rreq_debug_index = subreq->debug_index;
+ 	wdata->credits.in_flight_check = 1;
+@@ -216,10 +228,15 @@ static void __cifs_issue_write(struct netfs_io_subrequest *subreq)
+ 
+ static void cifs_issue_write_worker(struct work_struct *work)
+ {
+-	struct netfs_io_subrequest *subreq;
++	struct cifs_io_subrequest *wdata;
++	struct cifsFileInfo *cfile;
+ 
+-	subreq = container_of(work, struct netfs_io_subrequest, work);
+-	__cifs_issue_write(subreq);
++	wdata = container_of(work, struct cifs_io_subrequest, subreq.work);
++	cfile = wdata->req->cfile;
++	while (cfile->invalidHandle &&
++	       cifs_reopen_file(cfile, false) == -EAGAIN)
++		;
++	__cifs_issue_write(&wdata->subreq);
  }
  
-diff --git a/fs/smb/client/smb2pdu.c b/fs/smb/client/smb2pdu.c
-index be003200efa8..bf22e7f6445d 100644
---- a/fs/smb/client/smb2pdu.c
-+++ b/fs/smb/client/smb2pdu.c
-@@ -4880,12 +4880,8 @@ smb2_async_readv(struct cifs_io_subrequest *rdata)
+ static void cifs_issue_write(struct netfs_io_subrequest *subreq)
+@@ -354,15 +371,17 @@ static void cifs_begin_writeback(struct netfs_io_request *wreq)
+ 	struct cifs_io_request *req = container_of(wreq, struct cifs_io_request, rreq);
+ 	int ret;
  
- 	shdr = (struct smb2_hdr *)buf;
- 
--	if (rdata->replay) {
--		/* Back-off before retry */
--		if (rdata->cur_sleep)
--			msleep(rdata->cur_sleep);
-+	if (rdata->replay)
- 		smb2_set_replay(server, &rqst);
--	}
- 
- 	if (rdata->credits.value > 0) {
- 		shdr->CreditCharge = cpu_to_le16(DIV_ROUND_UP(io_parms.length,
-@@ -5285,12 +5281,8 @@ smb2_async_writev(struct cifs_io_subrequest *wdata)
+-	ret = cifs_get_writable_file(CIFS_I(wreq->inode), FIND_NO_DIRECT,
++	ret = cifs_get_writable_file(CIFS_I(wreq->inode),
++				     FIND_NO_REOPEN | FIND_NO_DIRECT,
+ 				     &req->cfile);
+ 	if (ret) {
+-		ret = cifs_get_writable_file(CIFS_I(wreq->inode), FIND_ANY,
+-					     &req->cfile);
++		ret = cifs_get_writable_file(CIFS_I(wreq->inode),
++					     FIND_NO_REOPEN, &req->cfile);
  	}
- #endif
+ 	if (ret) {
+ 		cifs_dbg(VFS, "%s: couldn't find writable handle: %d\n",
+ 			 __func__, ret);
++		mapping_set_error(wreq->mapping, -EIO);
+ 		return;
+ 	}
  
--	if (wdata->replay) {
--		/* Back-off before retry */
--		if (wdata->cur_sleep)
--			msleep(wdata->cur_sleep);
-+	if (wdata->replay)
- 		smb2_set_replay(server, &rqst);
--	}
+@@ -2828,7 +2847,7 @@ int __cifs_get_writable_file(struct cifsInodeInfo *cifs_inode,
+ 	}
  
- 	cifs_dbg(FYI, "async write at %llu %u bytes iter=%zx\n",
- 		 io_parms->offset, io_parms->length, iov_iter_count(&wdata->subreq.io_iter));
+ 	if (test_bit(CIFS_INO_TMPFILE, &cifs_inode->flags))
+-		find_flags &= FIND_NO_DIRECT;
++		find_flags &= FIND_NO_REOPEN | FIND_NO_DIRECT;
+ 
+ 	cifs_sb = CIFS_SB(cifs_inode);
+ 
+@@ -2888,6 +2907,10 @@ int __cifs_get_writable_file(struct cifsInodeInfo *cifs_inode,
+ 	spin_unlock(&cifs_inode->open_file_lock);
+ 
+ 	if (inv_file) {
++		if (find_flags & FIND_NO_REOPEN) {
++			*ret_file = inv_file;
++			return 0;
++		}
+ 		rc = cifs_reopen_file(inv_file, false);
+ 		if (!rc) {
+ 			*ret_file = inv_file;
 -- 
 2.56.0
 
