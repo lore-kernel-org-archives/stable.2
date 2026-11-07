@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794051043;
-	b=dV6Nfe+20aKOYuYKFvSAldRDiWWteIyGjH42qPS7eVZl3t2M92D5uE09wO7EsJyEq/xz
-	 UcmS2A+M3A2jaf/xYn+G54qvUvRqW+LLFLlthNGE36lBvhCQ4ET9AgV3XOU/IggH86zf8
-	 8WHNZCQI7mRY+6+z7Fq0YkCYFeVoX6a3Ogjk12fxNsPFE5CBhoYn6L5rA/nnxoIjvQlSU
-	 6MYJR97BQTC1N9SK271ab3/WRolYOr2hfGn4Bl9q+zUJwJAqlQ4uvH6rLcf9qUt+ihIsi
-	 jDLlfr6zmQfjZGf8TBJUF2wIZtOrYWBEVIzkNGXyFezGAD0Q8VQxPZ+lGr6c1coE8KA==
+	t=1794051046;
+	b=lFqixUWaVTieZdV2O7EA/P6d5yUcFe25gwCVAbX8JUg+JMDi/pVws7CCzMC/5Y0JLMkd
+	 FCPVfaKkqzWQVD3qvSz7nvoINB5FxTJSt+6EB5SUHxxUmhbBrUIpZE6dq2vd2/QyGBmG9
+	 17lFvY6K6FCSlFm9kwrMo2nCVwDf4z4on4yWUXR53Cf/oZljEVNdq6LBnupHPqVOxArOd
+	 hOB1vVtzQatQzf9w/iYsk0A0Xg1GJbA6YyoUVZAEIIpMJYMnym8QM3K5nZHJ/SFFM59MP
+	 ViI9ddtuhGYmRmKNRLaauRe8jlc5sbgwb0MrfgRXLyGetUrJbAaVYV7u7llUrdp5TAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794051043;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794051046;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Qo7EMTMKbMbUpg+5ATKMJZoGWFSZlwIzRA486QPJfOw=;
-	b=ycEwq39mJ4F6PHqXyHOb9m8tFFTRmQ2gz0bohRLPzrtzOPgTFnw4R6dK0RSxDA7m7Igi
-	 V3hrPPEfT8G5+Yi2def6l1Zs77aCmficD7gGfcOHvq3yP8yz+riUjga4xKUA1/+mRR0gh
-	 Q4UJwo4idP5j4tvqzri+9k0/RDQ+9jdSPOYWBRZQXkdjJ2lX8USgpMgiharokqGCgNMP7
-	 9cVKf+nM7mXTwsXETi1LbJ5Tlb2i93ypbvIZLhEAVD6GWnYC6mtzCf/cNk3GiByciUElN
-	 5x4jST7qrEmrjoHf1RQDEE2zoAMptIzrxuW2RP7X8rl1bAO19qfjVuSn5vE+36KnR5A==
+	bh=J+kQw+JANQ8wW5X3GIr0Bnc+HWBonEvF42VGRpUXGoM=;
+	b=4+a0BW4fR1fqR5vmfcYq48uun7K8/ljFSTkoAHk7TSfVnjSfFEQL2dd13nqivg9bRC8b
+	 WcX0yh8cWG5sNLWWxIY0ywW2pPiNSRSfzbEx6xPoAQRu7XvFjxTOh98nvloHCIQx5BVri
+	 DgAZPJgwStC4vPTopGl1ubuPuuJvlXXYnRl8S0V0zQRuk2SUdU+tbMtDf79a1rtiefsKP
+	 F6kPwJ5nX5FDwPEJgn7mKY61MF7CTUw6IZukgXV/E9qGPVIo1J6MgCXPjIldnp5Gzo1Ad
+	 7P4+sRZb1LVl5oyNdSJHRUo569L3a+MU4GIbNua7FuFpmdtbN8G0yqzb0i9f1THyBiA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="lf/SE4SM";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aNMXf0RP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4026606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:30:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A941A606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:30:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lf/SE4SM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5F841F0089F;
-	Sat,  7 Nov 2026 11:30:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aNMXf0RP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23CD41F0089F;
+	Sat,  7 Nov 2026 11:30:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794051042;
-	bh=Qo7EMTMKbMbUpg+5ATKMJZoGWFSZlwIzRA486QPJfOw=;
+	s=k20260515; t=1794051045;
+	bh=J+kQw+JANQ8wW5X3GIr0Bnc+HWBonEvF42VGRpUXGoM=;
 	h=From:To:Cc:Subject:Date;
-	b=lf/SE4SMgOk43WY3qxrNqYV45TlDQlQ4ShB1RiYu4n0gDzpsSf9oCamNYOoB9goVP
-	 BkDg5p28UUg+HyjLHvkajmgtOPY2J1X7KZ+BXXCwB7pW9yi4FTAw5FOKSls/KQgNUl
-	 kSTnUULloXLCgCch+xKHTyEsHQethDuLvVW5W1J8ZumqfZCGIq+j4BQlOFijmZnSx2
-	 qdchajxGj6Vc8cUEcftkJIQgNm41HSlF6Rd6AikCdRT14o3PknqWtUoSccx18jY1j+
-	 2YCZxYvxQJSE/7uHEYVRN99f+KLrA5KznHKo1FX6t/RXxz5wtXj4LpygJP79+5cOFP
-	 r884RMuR4goSg==
+	b=aNMXf0RPrvZayD4wJR2nemCfEBdTl1wjDa6Hs+kSPWl7vdB/RN/oGa2+4Wk2lGNTW
+	 ptPlv1ei/p7D/FfPqMXYTeKJF988O/zGk+JxtrTfIhW62mMrrciiXCA6FK7Km+cIxF
+	 Us2ZEzqivKz+HS0bgaDa15IM/FVeFLb3CEu1R32fNzQgXVDlHBsIQ96xpWhAuHPukW
+	 37QUOtCinxydqIW+8KUz5s/VT5/EyIlnbztL979pk1ReWiimcN7GYkSumyeYSQ3Uut
+	 /cqeQryGTHAu9D8epWoscOXEW8Ozs4QBbHqyB7VTAwePLSbFH5V6DS1ZVfQKVOEUuy
+	 fhkyH6tLwU/Vw==
 From: Sasha Levin <sashal@kernel.org>
-To: brauner@kernel.org,
-	jack@suse.cz,
-	aleksa@amutable.com
+To: teel4res@gmail.com,
+	axboe@kernel.dk
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] proc: don't let an entry below /proc/<pid>/net be a mountpoint" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:30:40 -0500
-Message-ID: <20261107063040-failed-5.10-eeecea75ece2@kernel.org>
+Subject: FAILED: patch "[PATCH] io_uring/timeout: count cancelled timeouts in cq_timeouts" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:30:43 -0500
+Message-ID: <20261107063043-failed-5.10-1c8b49851543@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,257 +68,69 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x eeecea75ece2ba894bee4d3c53ed2e40abda8f0e
+git cherry-pick -x 1c8b49851543f41fc8bb18bcd1f15cc93d14b530
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107063040-failed-5.10-eeecea75ece2@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107063043-failed-5.10-1c8b49851543@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From eeecea75ece2ba894bee4d3c53ed2e40abda8f0e Mon Sep 17 00:00:00 2001
-From: Christian Brauner <brauner@kernel.org>
-Date: Sat, 24 Oct 2026 12:38:27 +0200
-Subject: [PATCH] proc: don't let an entry below /proc/<pid>/net be a
- mountpoint
+From 1c8b49851543f41fc8bb18bcd1f15cc93d14b530 Mon Sep 17 00:00:00 2001
+From: Cheng Yongkang <teel4res@gmail.com>
+Date: Thu, 29 Oct 2026 07:12:20 -0700
+Subject: [PATCH] io_uring/timeout: count cancelled timeouts in cq_timeouts
 
-proc_net_d_revalidate() always returns 0 so that a dentry below
-/proc/<pid>/net is never reused after setns(). So lookup_fast() will end
-up calling d_invalidate(), which unhashes the dentry and detaches every
-mount on it, in every mount namespace; including locked mounts.
+io_timeout_cancel() posts the cancelled timeout's -ECANCELED CQE without
+advancing ctx->cq_timeouts.  io_timeout_fn() and io_kill_timeout()
+advance it for every timeout CQE they post, and io_flush_timeouts()
+computes the number of non-timeout completions as
 
-Then lookup_slow() creates a new dentry for the same entry. So a mount
-on /proc/<pid>/net/dev succeeds and goes away with the first lookup of
-the name by anybody with search permission on the directory. Given it's
-0555 that's everyone's grandma. A mask on such a name hides nothing as
-the repro below shows.
+    seq = cached_cq_tail - cq_timeouts
 
-Treat those entries like I did fd/, fdinfo/ and map_files/ and refuse to
-mount on them in the first place. It's nonsensical theater otherwise:
+to compare against each off timeout's target_seq.  The cancelled
+timeout's CQE is therefore counted as a regular completion, so every
+cancellation makes an already armed off timeout fire one completion
+early.
 
-  procnet net/dev stat
+A ring with a keep-alive timeout of off=4 completes it after two NOPs
+when one off=100 victim is cancelled through IORING_OP_ASYNC_CANCEL, and
+before any NOP when two victims are cancelled.  The cancel CQE should
+count, but the cancelled timeouts' -ECANCELED CQEs must not: the
+expected counts are three and two NOPs respectively.
 
-  // SPDX-License-Identifier: GPL-2.0
-  /*
-   * procnet: cover an entry of /proc/<pid>/ with a bind mount, lock the mount,
-   * then look the name up.
-   *
-   * The first task stays alive, <pid> is its pid. The "container" task has its
-   * own mount namespace. There it binds a mask on /proc/<pid>/<name>. It drops to
-   * uid 1000 and enters a new user namespace with a new mount namespace, so that
-   * the mask is locked. Then one task looks the name up:
-   *
-   *   stat    the container calls stat() on the name
-   *   umount  the container calls umount2(MNT_DETACH) on the name
-   *   nobody  a task with uid 65534 in the first namespaces calls stat()
-   *
-   * The container lists its mounts before and after (that does not look the
-   * name up) and then reads the name. MASK is fine. Anything else means that
-   * the lookup uncovered the entry.
-   *
-   * usage: procnet <name> stat|umount|nobody
-   *   name "status" is the control, "net/dev" is a file below net, "net/stat" is
-   *   a directory below net
-   */
-  #define _GNU_SOURCE
-  #include <dirent.h>
-  #include <errno.h>
-  #include <fcntl.h>
-  #include <sched.h>
-  #include <stdio.h>
-  #include <stdlib.h>
-  #include <string.h>
-  #include <time.h>
-  #include <unistd.h>
-  #include <sys/mount.h>
-  #include <sys/prctl.h>
-  #include <sys/stat.h>
-  #include <sys/wait.h>
+Advance cq_timeouts when io_timeout_extract() succeeds, under
+timeout_lock and before the -ECANCELED completion is queued, matching
+io_timeout_fn() and io_kill_timeout().  The -ENOENT and -EALREADY paths
+post no new timeout CQE and keep their accounting.  Both the
+ASYNC_CANCEL and the TIMEOUT_REMOVE path go through io_timeout_cancel().
 
-  #define WORK "/run/pn"
-
-  static char target[128];
-
-  static void die(const char *what)
-  {
-  	fprintf(stderr, "FATAL %s: %s\n", what, strerror(errno));
-  	exit(2);
-  }
-
-  static void write_str(const char *path, const char *s, int flags)
-  {
-  	int fd = open(path, O_WRONLY | flags, 0644);
-
-  	if (fd < 0 || write(fd, s, strlen(s)) < 0)
-  		die(path);
-  	close(fd);
-  }
-
-  /* list the mounts below /proc without a lookup of the target */
-  static void mounts(const char *when)
-  {
-  	char line[512];
-  	FILE *f = fopen("/proc/self/mountinfo", "r");
-  	int n = 0;
-
-  	if (!f)
-  		die("mountinfo");
-  	while (fgets(line, sizeof(line), f)) {
-  		if (!strstr(line, " /proc/"))
-  			continue;
-  		printf("container: %s: mount: %s", when, line);
-  		n++;
-  	}
-  	fclose(f);
-  	if (!n)
-  		printf("container: %s: nothing is mounted below /proc\n", when);
-  }
-
-  static void show(const char *when, int isdir)
-  {
-  	char buf[48] = "";
-  	int fd;
-
-  	if (isdir) {
-  		struct dirent *de;
-  		DIR *d = opendir(target);
-  		int hit = 0;
-
-  		if (!d) {
-  			printf("container: %s: opendir(%s) = %s\n", when, target, strerror(errno));
-  			return;
-  		}
-  		printf("container: %s: readdir(%s) =", when, target);
-  		while ((de = readdir(d))) {
-  			if (de->d_name[0] == '.')
-  				continue;
-  			printf(" %s", de->d_name);
-  			hit |= strcmp(de->d_name, "MASK");
-  		}
-  		closedir(d);
-  		printf("%s\n", hit ? "   <-- HIT" : "");
-  		return;
-  	}
-  	fd = open(target, O_RDONLY);
-  	if (fd < 0) {
-  		printf("container: %s: open(%s) = %s\n", when, target, strerror(errno));
-  		return;
-  	}
-  	if (read(fd, buf, sizeof(buf) - 1) < 0)
-  		die("read");
-  	close(fd);
-  	if (strchr(buf, '\n'))
-  		*strchr(buf, '\n') = 0;
-  	printf("container: %s: read(%s) = \"%s\"%s\n", when, target, buf,
-  	       strncmp(buf, "MASK", 4) ? "   <-- HIT" : "");
-  }
-
-  int main(int argc, char **argv)
-  {
-  	const char *name = argc > 1 ? argv[1] : "net/dev";
-  	const char *op = argc > 2 ? argv[2] : "stat";
-  	int isdir = !strcmp(name, "net/stat");
-  	int to_host[2], to_cont[2];
-  	struct stat st;
-  	pid_t pid;
-  	char c;
-
-  	setvbuf(stdout, NULL, _IOLBF, 0);
-  	snprintf(target, sizeof(target), "/proc/%d/%s", getpid(), name);
-  	if (unshare(CLONE_NEWNS) || mount(NULL, "/", NULL, MS_REC | MS_PRIVATE, NULL))
-  		die("unshare");
-  	mkdir(WORK, 0755);
-  	if (mount("W", WORK, "tmpfs", 0, NULL))
-  		die("mount W");
-  	write_str(WORK "/mask", "MASK", O_CREAT);
-  	mkdir(WORK "/maskdir", 0755);
-  	write_str(WORK "/maskdir/MASK", "MASK", O_CREAT);
-  	if (pipe(to_host) || pipe(to_cont))
-  		die("pipe");
-
-  	pid = fork();
-  	if (pid < 0)
-  		die("fork");
-  	if (!pid) {
-  		if (unshare(CLONE_NEWNS))
-  			die("container unshare");
-  		if (mount(isdir ? WORK "/maskdir" : WORK "/mask", target, NULL, MS_BIND, NULL)) {
-  			printf("container: bind the mask on %s: %s\n", target, strerror(errno));
-  			exit(0);
-  		}
-  		printf("container: bind the mask on %s: ok\n", target);
-  		if (setgid(1000) || setuid(1000) || prctl(PR_SET_DUMPABLE, 1))
-  			die("setuid");
-  		/* lock the mount: a new user namespace with a copy of the tree */
-  		if (unshare(CLONE_NEWUSER | CLONE_NEWNS))
-  			die("container userns");
-  		write_str("/proc/self/setgroups", "deny", 0);
-  		write_str("/proc/self/uid_map", "0 1000 1", 0);
-  		write_str("/proc/self/gid_map", "0 1000 1", 0);
-  		mounts("before");
-  		errno = 0;
-  		if (!strcmp(op, "stat")) {
-  			stat(target, &st);
-  			printf("container: stat(%s): %s\n", target, strerror(errno));
-  		} else if (!strcmp(op, "umount")) {
-  			umount2(target, MNT_DETACH);
-  			printf("container: umount2(%s, MNT_DETACH): %s\n", target, strerror(errno));
-  		} else if (write(to_host[1], "g", 1) != 1 || read(to_cont[0], &c, 1) != 1) {
-  			die("sync");
-  		}
-  		mounts("after");
-  		show("after", isdir);
-  		exit(0);
-  	}
-  	close(to_host[1]);
-  	if (read(to_host[0], &c, 1) == 1) {
-  		pid_t p2 = fork();
-
-  		if (!p2) {
-  			if (setgid(65534) || setuid(65534))
-  				die("setuid");
-  			errno = 0;
-  			stat(target, &st);
-  			printf("nobody: uid %u: stat(%s): %s\n", getuid(), target, strerror(errno));
-  			exit(0);
-  		}
-  		waitpid(p2, NULL, 0);
-  		if (write(to_cont[1], "g", 1) != 1)
-  			die("sync");
-  	}
-  	waitpid(pid, NULL, 0);
-  	return 0;
-  }
-
-Fixes: 1fde6f21d90f ("proc: fix /proc/net/* after setns(2)")
+Fixes: bfe68a221905 ("io_uring: off timeouts based only on completions")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261024-work-procfs-fixes-v1-1-46b03c3a8fac@kernel.org
-Acked-by: Jan Kara <jack@suse.cz>
-Reviewed-by: Aleksa Sarai <aleksa@amutable.com>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Assisted-by: LLM
+Signed-off-by: Cheng Yongkang <teel4res@gmail.com>
+Link: https://patch.msgid.link/179328314078.648427.13761781546953594668@gmail.com
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
 ---
- fs/proc/generic.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ io_uring/timeout.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/fs/proc/generic.c b/fs/proc/generic.c
-index 2b1971da4a85a..4c3fcaf68ef40 100644
---- a/fs/proc/generic.c
-+++ b/fs/proc/generic.c
-@@ -256,9 +256,10 @@ struct dentry *proc_lookup_de(struct inode *dir, struct dentry *dentry,
- 		inode = proc_get_inode(dir->i_sb, de);
- 		if (!inode)
- 			return ERR_PTR(-ENOMEM);
-+		/* never reused and so never a mountpoint for long */
- 		if (de->flags & PROC_ENTRY_FORCE_LOOKUP)
--			return d_splice_alias_ops(inode, dentry,
--						  &proc_net_dentry_ops);
-+			return proc_splice_unmountable(inode, dentry,
-+						       &proc_net_dentry_ops);
- 		return d_splice_alias_ops(inode, dentry,
- 					  &proc_misc_dentry_ops);
- 	}
+diff --git a/io_uring/timeout.c b/io_uring/timeout.c
+index 8a2108aa14ae7..fa7b0d9a81d69 100644
+--- a/io_uring/timeout.c
++++ b/io_uring/timeout.c
+@@ -370,6 +370,9 @@ int io_timeout_cancel(struct io_ring_ctx *ctx, struct io_cancel_data *cd)
+ 
+ 	raw_spin_lock_irq(&ctx->timeout_lock);
+ 	req = io_timeout_extract(ctx, cd);
++	if (!IS_ERR(req))
++		atomic_set(&ctx->cq_timeouts,
++			   atomic_read(&ctx->cq_timeouts) + 1);
+ 	raw_spin_unlock_irq(&ctx->timeout_lock);
+ 
+ 	if (IS_ERR(req))
 -- 
 2.53.0
 
