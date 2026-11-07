@@ -1,51 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047905;
-	b=vdk2kamR3kUI85xZnU5arDp2AHiUh/amTriL/fRL0tWwGufLUjz4u4IQjd8OF7puMhXu
-	 Hk/Dbz80YX8id3DiWj1twohzfxH14nV2pCm1zmjZr5UdQrnFu9fyrP5AMkb4p0Vaqyzzm
-	 EAQg+vqKXrRAddSaOffHkq3yxJowK4vIxBoQ6ur1xiEQS4vWR6hq8unoq9NS6ZNQf2NbI
-	 vdflva+GzpPGZKP9GmiO728I59XAJVAhDxq0S93Xg5iUyAeFRgxG9oE8B+p+GhlXTDlJC
-	 1zYBLv1aOSzo8d4bD5dmyGKDm3DH7VwRYf6RuwaAZB+OyQPi3MHkAleU0m65BywuGZg==
+	t=1794047907;
+	b=EAxfOAYRQTuPC2IKjgNGhFDk7fwamvl6gqhcY41vMmfdq7OLC2Colzt7qnGkHrh3HTzc
+	 5FvKGM3vG/vhsZ2hW5AIkT+g9MiDt1K9wwgNiPda6R8JKkkgeHNcEHTCNWiRocIEeLeyO
+	 pbeeAH8MVC3y4tghaC5RL5sfkSX6d60bzEM4AA6CLZh/PwR2tV7uOVGyTz+wZcM20hH4Y
+	 Ht932Y97CIjjfy4PtdnA8lsr58rPIqNDivZeLKHnG0N/IuROQ2AArgLCLypNB1MHJiDZ+
+	 8UPDDoxWbkpxWoDfK+smkledFseovQWlaqcgcuGORDYjv8tc0NxkPJ35LvrTF+eUoVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047905;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047907;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=66QbGKaaLlZDAv0xzTAeFfq01iyFXQ5G9W5VgVWuUAA=;
-	b=H7q7czNQFmz5FSzGk+ELR46e3a3hw6zmIhgzHBlR8J/YLJJvX5DMv8esagdeH+RMuyrW
-	 R7aKkKOVGxCibrJRXKW/0Jw9D4zWcB3QnhJFj9wBf4o5up6L16OLkZWub5W8Cmgn1y6TB
-	 w24WX5t5vtI/riAl4mRu66OlVWHq4xpMv81ls/DBYKlwrYMgvgEcvBRgI9QB2PRlHQVHG
-	 qJs/6iOyrLX+193XrJqasOYLy/i/uy72MLMNqQZg9/zN9n6Oziazk3+QtnoSccljrdRno
-	 NEcNru2N8Yi0TSfHLLPlmdMlXvrq1C4BMDFtTZL2kg/1eBONVQF26aOzeaXMOosZepQ==
+	bh=wKLdWtu5IflhYAzS3Z6Am92s1X/hQTlO/0kPDk/iz+I=;
+	b=DfkFzpgnq6YfFSpSjfuFBCu8l0I7gOVZttZbPA6AqeccbWaICBDJJjs2QyfsBmQ76sqb
+	 9dPpnWG19as6g2IshO18mGXL7hDaaCPRvEBULlDoWY8ZspAPmEtB7qItfGddMiOaangPk
+	 sIOutXObPqDNVh3aNbgByk0F3LCaGgxdU8nv3ZjhoTvNEQo0u2TAmTwXb5Ss6xxQLyNgM
+	 Cq/xnZEDiZDAApL3i22JxtJfvbR43ZNQE0HGKNX4Q+nIyulru2LqZbk8Ll1QJyVtQ/SWq
+	 g34q2h45SLgYKF5Cs0yo42whxe+ctd2w8jccaaZ8NjRQO3f0eli6XuG+Yh8fV2/Ba8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U5HrB+sF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SXEB8eXe;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDC31606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:38:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37285606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:38:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U5HrB+sF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49E031F0089F;
-	Sat,  7 Nov 2026 10:38:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SXEB8eXe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 679561F0089F;
+	Sat,  7 Nov 2026 10:38:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047904;
-	bh=66QbGKaaLlZDAv0xzTAeFfq01iyFXQ5G9W5VgVWuUAA=;
+	s=k20260515; t=1794047907;
+	bh=wKLdWtu5IflhYAzS3Z6Am92s1X/hQTlO/0kPDk/iz+I=;
 	h=From:To:Cc:Subject:Date;
-	b=U5HrB+sFPSiP0osC61MGq2ilvuXNULWPnWEmUB+hLfKpwdX4dukbxW4x17YATUJA+
-	 pbTaKNR0S59pl6sOy92hoFWid5wDImN1Bmkuhs0JJ1OEVkMCIXRAvoRfq8o/iZsHtr
-	 A8e5LEXnB4yL/RHx5fupSYr0Ei/yoXVBixpU2iZ1b4emow/OrMioTznDFNOBEsjXa0
-	 g6DLrayN5JGR6SEnQZ3G4+/7ykkXDZlARMpb4+7w52d3UZXUzoOn1vdVf3Z8PrBETa
-	 P3EpSS2vDzC06gl36syhPZQCTQwLAV2zmHsNxJhGWMjowGXsIjyqt/U0QXxwV03LSL
-	 0EuVDBGfu0tVw==
+	b=SXEB8eXeQILHKcseEXMkkg6vrdRQ3eX3CwYYDiQtEKIz+PENzHGSVpCw8gSSpAJtL
+	 WKGuq8aAzaMFkR1YFVB3BbbY7FgAvECvUVX2E6ss1mqXrsbxHm6wXbf7RK73MmtNO/
+	 fRmFTjLESY4oS8kw9/KOws6i6p1jB0G+VB9i9DbNNDoPA/0Xn+Heq7LW9KR0S7/9NN
+	 TSC9ugtFQAAcqxux9DPCoQS5L/ut1lkaK+z3XMUk/h8N/l4zDCkGTGKz4WbY2ZZIzJ
+	 tILaVvXibHq5LaDSSLtqSCuUL/uFy+LRCb5kzP7fu1tFXQ+b8obE3mZ5XIqShlb4nt
+	 BwZPnqsRez6Bw==
 From: Sasha Levin <sashal@kernel.org>
-To: iav@iav.lv,
-	tglx@kernel.org
+To: stanleyjhu@google.com,
+	beanhuo@micron.com,
+	peter.wang@mediatek.com,
+	bvanassche@acm.org,
+	mkp@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] genirq/kexec: Do not take the bus lock of an interrupt chip on the crash path" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:38:23 -0500
-Message-ID: <20261107053823-failed-6.6-717862eac6ef@kernel.org>
+Subject: FAILED: patch "[PATCH] scsi: ufs: bsg: Validate request_len before accessing request" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:38:25 -0500
+Message-ID: <20261107053825-failed-6.6-42aa44371810@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,141 +71,74 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 717862eac6eff0eea8ac30a0c0de0bed84922aab
+git cherry-pick -x 42aa443718104d10dbdb6f258810b425eb2451f8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053823-failed-6.6-717862eac6ef@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053825-failed-6.6-42aa44371810@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 717862eac6eff0eea8ac30a0c0de0bed84922aab Mon Sep 17 00:00:00 2001
-From: Igor Velkov <iav@iav.lv>
-Date: Thu, 15 Oct 2026 21:51:50 +0300
-Subject: [PATCH] genirq/kexec: Do not take the bus lock of an interrupt chip
- on the crash path
+From 42aa443718104d10dbdb6f258810b425eb2451f8 Mon Sep 17 00:00:00 2001
+From: Stanley Jhu <stanleyjhu@google.com>
+Date: Thu, 15 Oct 2026 08:18:53 +0800
+Subject: [PATCH] scsi: ufs: bsg: Validate request_len before accessing request
 
-machine_kexec_mask_interrupts() calls irq_set_irqchip_state() for every
-started interrupt. That function takes the bus lock of the chip and
-desc->lock, and syncs the chip when it drops them. On the crash path
-interrupts are off and the other CPUs are stopped, so a chip whose bus
-transfer is completed by an interrupt never returns from the sync.
+ufs_bsg_request() and ufs_bsg_exec_advanced_rpmb_req() read the request
+buffer without checking job->request_len, which userspace controls. A short
+request causes an out-of-bounds read. Found by syzkaller.
 
-On RK3399 boards with an RK808 PMIC the RTC alarm interrupt belongs to
-the regmap-irq chip of the RK808, which sits on I2C. rk808_irq_chip sets
-init_ack_masked, so regmap_irq_sync_unlock() writes the ack register on
-every unlock, and the I2C controller needs its own interrupt to finish
-the transfer. A panic with a crash kernel loaded prints
+Reject requests shorter than the structure each path reads.
 
-  SMP: stopping secondary CPUs
-
-and then nothing until the watchdog resets the board.
-
-machine_kexec_mask_interrupts() takes neither lock for the other
-operations on the descriptor. Move the search for the chip that
-implements irq_set_irqchip_state() into __irq_set_irqchip_state(), which
-takes no locks, and call it from machine_kexec_mask_interrupts().
-
-Fixes: 78fd584cdec0 ("arm64: kdump: implement machine_crash_shutdown()")
-Suggested-by: Thomas Gleixner <tglx@kernel.org>
-Signed-off-by: Igor Velkov <iav@iav.lv>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Fixes: 64d4864714c2 ("scsi: ufs: bsg: Remove unnecessary length checkup")
+Fixes: 6ff265fc5ef6 ("scsi: ufs: core: bsg: Add advanced RPMB support in ufs_bsg")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261015-kexec-irq-bus-lock-v2-1-2af15f0757b6@iav.lv
+Reviewed-by: Bean Huo <beanhuo@micron.com>
+Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
+Reviewed-by: Peter Wang <peter.wang@mediatek.com>
+Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+Link: https://patch.msgid.link/20261015001855.3450573-4-stanleyjhu@google.com
+Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
 ---
- kernel/irq/internals.h |  1 +
- kernel/irq/kexec.c     |  2 +-
- kernel/irq/manage.c    | 43 +++++++++++++++++++++++-------------------
- 3 files changed, 26 insertions(+), 20 deletions(-)
+ drivers/ufs/core/ufs_bsg.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/kernel/irq/internals.h b/kernel/irq/internals.h
-index 0ce21dd454047..4dff3ccae1812 100644
---- a/kernel/irq/internals.h
-+++ b/kernel/irq/internals.h
-@@ -81,6 +81,7 @@ enum {
- #include "settings.h"
+diff --git a/drivers/ufs/core/ufs_bsg.c b/drivers/ufs/core/ufs_bsg.c
+index 545ef7b79ceb5..0db830e54ef0f 100644
+--- a/drivers/ufs/core/ufs_bsg.c
++++ b/drivers/ufs/core/ufs_bsg.c
+@@ -73,6 +73,9 @@ static int ufs_bsg_exec_advanced_rpmb_req(struct ufs_hba *hba, struct bsg_job *j
+ 	if (hba->ufs_version < ufshci_version(4, 0) || !hba->dev_info.b_advanced_rpmb_en)
+ 		return -EINVAL;
  
- extern int __irq_set_trigger(struct irq_desc *desc, unsigned long flags);
-+extern int __irq_set_irqchip_state(struct irq_desc *desc, enum irqchip_irq_state which, bool val);
- extern void __disable_irq(struct irq_desc *desc);
- extern void __enable_irq(struct irq_desc *desc);
++	if (job->request_len < sizeof(*rpmb_request))
++		return -EINVAL;
++
+ 	if (rpmb_request->ehs_req.length != 2 || rpmb_request->ehs_req.ehs_type != 1)
+ 		return -EINVAL;
  
-diff --git a/kernel/irq/kexec.c b/kernel/irq/kexec.c
-index 1a3deffe6b5b6..f245b98764225 100644
---- a/kernel/irq/kexec.c
-+++ b/kernel/irq/kexec.c
-@@ -25,7 +25,7 @@ void machine_kexec_mask_interrupts(void)
- 			 * First try to remove the active state from an interrupt which is forwarded
- 			 * to a VM. If the interrupt is not forwarded, try to EOI the interrupt.
- 			 */
--			check_eoi = irq_set_irqchip_state(i, IRQCHIP_STATE_ACTIVE, false);
-+			check_eoi = __irq_set_irqchip_state(desc, IRQCHIP_STATE_ACTIVE, false);
- 		}
+@@ -142,6 +145,11 @@ static int ufs_bsg_request(struct bsg_job *job)
  
- 		if (check_eoi && chip->irq_eoi && irqd_irq_inprogress(&desc->irq_data))
-diff --git a/kernel/irq/manage.c b/kernel/irq/manage.c
-index 57eff26fa646a..bdb47837c66fc 100644
---- a/kernel/irq/manage.c
-+++ b/kernel/irq/manage.c
-@@ -2735,6 +2735,28 @@ int irq_get_irqchip_state(unsigned int irq, enum irqchip_irq_state which, bool *
- }
- EXPORT_SYMBOL_GPL(irq_get_irqchip_state);
+ 	memset(job->reply, 0, job->reply_len);
  
-+int __irq_set_irqchip_state(struct irq_desc *desc, enum irqchip_irq_state which, bool val)
-+{
-+	struct irq_data *data = irq_desc_get_irq_data(desc);
-+	struct irq_chip *chip;
++	if (job->request_len < sizeof(*bsg_request)) {
++		ret = -EINVAL;
++		goto out_complete;
++	}
 +
-+	do {
-+		chip = irq_data_get_irq_chip(data);
-+
-+		if (WARN_ON_ONCE(!chip))
-+			return -ENODEV;
-+
-+		if (chip->irq_set_irqchip_state)
-+			break;
-+
-+		data = irqd_get_parent_data(data);
-+	} while (data);
-+
-+	if (data)
-+		return chip->irq_set_irqchip_state(data, which, val);
-+	return -EINVAL;
-+}
-+
- /**
-  * irq_set_irqchip_state - set the state of a forwarded interrupt.
-  * @irq:	Interrupt line that is forwarded to a VM
-@@ -2749,25 +2771,8 @@ EXPORT_SYMBOL_GPL(irq_get_irqchip_state);
-  */
- int irq_set_irqchip_state(unsigned int irq, enum irqchip_irq_state which, bool val)
- {
--	scoped_irqdesc_get_and_buslock(irq, 0) {
--		struct irq_data *data = irq_desc_get_irq_data(scoped_irqdesc);
--		struct irq_chip *chip;
--
--		do {
--			chip = irq_data_get_irq_chip(data);
--
--			if (WARN_ON_ONCE(!chip))
--				return -ENODEV;
--
--			if (chip->irq_set_irqchip_state)
--				break;
--
--			data = irqd_get_parent_data(data);
--		} while (data);
--
--		if (data)
--			return chip->irq_set_irqchip_state(data, which, val);
--	}
-+	scoped_irqdesc_get_and_buslock(irq, 0)
-+		return __irq_set_irqchip_state(scoped_irqdesc, which, val);
- 	return -EINVAL;
- }
- EXPORT_SYMBOL_GPL(irq_set_irqchip_state);
+ 	ufshcd_rpm_get_sync(hba);
+ 
+ 	msgcode = bsg_request->msgcode;
+@@ -194,6 +202,7 @@ static int ufs_bsg_request(struct bsg_job *job)
+ out:
+ 	ufshcd_rpm_put_sync(hba);
+ 	kfree(buff);
++out_complete:
+ 	bsg_reply->result = ret;
+ 	if (ret == 0)
+ 		job->reply_len = rpmb ? sizeof(struct ufs_rpmb_reply) :
 -- 
 2.53.0
 
