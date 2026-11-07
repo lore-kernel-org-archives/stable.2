@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047325;
-	b=c5qb5v/tvSD7qZkiV7yTWaeG2+FpIBFaoLK97fU/y4gPNY6qwsKbRE/ztzCDJzLDNfmC
-	 PRwKypgDIFvAjz3FJxQ1yRceIQLUVtrOZd47cVeO3XLJGxAXjrr48I1LuN8SIZWR1kjef
-	 6ZLabpB4GVF4WJoNfL9l5riBTLCQ6AHEuVN6GSnTpUCOdekXBCCv1LZdQZjDjIuqxIqW8
-	 GGVDH8kWzvHXRv3c63+/ns32NHfasfAHZh72hYE9re5feDfHZSFPrjhHlFPAaeTJSFe/L
-	 tclhhe0idragWABaESWyfZYqY6BxREKGAMNDVBLRnXMyUF0AQMANjORJwPCsa7hyEqw==
+	t=1794047327;
+	b=ghHrPxXpZ/4iviAZwu77wsgvJZD1BFd/I0YwekMAWT/CRYsTnm/To/RJs+nUsHo0kdz+
+	 kcNuVV+uYkDNCFz3CRXssNAtcGxglqdBwMZa/eANTDKsxXxYZuEYyqLfcpedHHw58EP4q
+	 RFPRfvWLwgzxnqYqXQCesiyj8uHh9K7UiBmQCxpKjBfxApWRqRa12AGAxOLxJ4CK+jLQ+
+	 fb+zv6qENeIsW3WZoG2EVxZSCGays6LcJBN5OkJYc2e3st0g373zJxCU+jG4k/ahKCHPp
+	 lZfoBV9FnNQpraSGry1ILe0GYFyGnDqt7708j3+jo01isDypUTVQAopDgiT3RtdsoVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047325;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047327;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ROQSFL1v78o/xtHI7MIhMJDpEmJNrR273jFNw4Ex6mQ=;
-	b=3tC30ZwmK5YFmh3F57ef9K7oUorWlKV4kNm+evS22Hyrw5WfHh4kylkP+yx6yFy1ETcn
-	 CHe2P/XAXU3vl+XpqCH+JJa++RT+8CnN7HdboDEs/t73+UAzFRdMw8foJYNqeleiNb338
-	 pGJi7n93WTb0qmwte8EEmJ6NjEB2Znr5Ifdnm2wklqsSr23XXfVaPaR3ga2Z9a8pnC+Vt
-	 TqTCTqYOfjLbJd88JylR7siTMJcPWygOAXXL2HliIsgSFWhGibmsk4YyhV+wi32O86xBD
-	 aZ81NWlqgagDuqTmm5QCLBySDalQ15Q0x9XxlN+wJbjrviI3L5+RkNqCMJoEEZ0Qo1Q==
+	bh=W9oU7NGVA83T+DnkKydvhMGB199trldIZa3lFz2r6hY=;
+	b=zm/iPa2b8wmGAfZ1G3uDsjlDjwdASo/i66OVnzo4V+HtUWFzAUrFLPkhCnpjnsWgWR0M
+	 crAFjeo/SgjV3jlKlWBOVA+CZqWBvm2J34MqcRLYI2gP5vFGHzIo61KjDtnKN2rgAcjKb
+	 K1os3K3VxfyLVkluOlSwxyRexloHn/9yInilO4AZ5MjyHdK9V44oBYfR9g7/knstvm7rr
+	 ZsgQ7NxDsHvqcnHZtYH5L45Vgxfa6imWeupih2eYQUc6iNQV0DQcYdclZLuTlZ/KpOks8
+	 U0Aza0xOQex1ijx35r0nvVMKjyenHQw7rqAmyUNbAeqp7J71zSHw2y9x3dJTPsNRscw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="EZBmw/XR";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dQJKbNMj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C75E5606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:28:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8BCB606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:28:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EZBmw/XR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4396A1F0089F;
-	Sat,  7 Nov 2026 10:28:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dQJKbNMj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 557241F0089F;
+	Sat,  7 Nov 2026 10:28:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047324;
-	bh=ROQSFL1v78o/xtHI7MIhMJDpEmJNrR273jFNw4Ex6mQ=;
+	s=k20260515; t=1794047326;
+	bh=W9oU7NGVA83T+DnkKydvhMGB199trldIZa3lFz2r6hY=;
 	h=From:To:Cc:Subject:Date;
-	b=EZBmw/XRTrzWtxgkqMDietSKVSCMHsVDhM9UHlu7ksJC0SYvDVo1pqQqwPxcJ7UGs
-	 TlvQJmfcKbA2i1L+VxkMQG1p2am3PGo74exb0wXbmGU8/fpyprx5FR+IRkn8UotYNi
-	 OEbMMjXSDxRPT0QRpGc7SDF5cG4DZdjx1/2LMhhvni7Dsf3Fy+zUD3mM2NFP2xyTK3
-	 rxQ68gcTLzE5QTQqcMtAir/8OttMXoMejUdGE6W/2yRygH7oswwsIjP9nlREdLXaHs
-	 Gugks8PW/tZ3sVFQ8JceEdWRx51varEkYWTa4hWQiJBxUxDVcELn4hYJgWjTJs6FFG
-	 SN7b7PgMs/y7w==
+	b=dQJKbNMjJr2YG29q/YVuc7NwGrezaFiMD2z7HG0/Yf74PAg/r+3RjPUdBMgh8OmIM
+	 KhgnNPeKXgBhZjeQTG+yp2FfnoWp05ZTAUwX/vioVkuz2+yOmQ2SS0ydnNC1bh0eBJ
+	 6T7I7qMYUz8VqhIZT/shwiSGkayr4RLm4Jxyen2mh6epNdSWK9d0rRPicyITN7/Aqm
+	 IM5WF8PR9FLK7YpVhDKzH41YFhCBgmQF1fy7U23h0Iv8TtDbbDIozl/iLL2ZKgeE3s
+	 MTxMzKFvQApRSg55nAYjOsUvD49eTcQjMmmiDarLaVmFjmtWLD2rEJ+Pok/XTP0Kcd
+	 lAoRZAdI4oHyA==
 From: Sasha Levin <sashal@kernel.org>
-To: fanwu01@zju.edu.cn,
-	hverkuil+cisco@kernel.org
+To: stf_xl@wp.pl,
+	johannes.berg@intel.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] media: cx231xx-audio: drain wq_trigger before audio fini" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:28:43 -0500
-Message-ID: <20261107052843-failed-6.6-a691c5498641@kernel.org>
+Subject: FAILED: patch "[PATCH] wifi: mac80211: queue frames while off-channel" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:28:45 -0500
+Message-ID: <20261107052845-failed-6.6-13e51269b665@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,99 +68,162 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x a691c54986412e1fa87f036d2577d5a78a75e658
+git cherry-pick -x 13e51269b6656768dc595ed6025e4974f2026543
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052843-failed-6.6-a691c5498641@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052845-failed-6.6-13e51269b665@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From a691c54986412e1fa87f036d2577d5a78a75e658 Mon Sep 17 00:00:00 2001
-From: Fan Wu <fanwu01@zju.edu.cn>
-Date: Wed, 29 Jul 2026 07:26:13 +0000
-Subject: [PATCH] media: cx231xx-audio: drain wq_trigger before audio fini
+From 13e51269b6656768dc595ed6025e4974f2026543 Mon Sep 17 00:00:00 2001
+From: Stanislaw Gruszka <stf_xl@wp.pl>
+Date: Tue, 8 Sep 2026 14:46:51 +0200
+Subject: [PATCH] wifi: mac80211: queue frames while off-channel
 
-audio_trigger() is deferred work (dev->wq_trigger) armed from
-snd_cx231xx_capture_trigger() on every PCM START/STOP; it dereferences
-dev->adev state and may free the URBs via cx231xx_isoc_audio_deinit().
-cx231xx_audio_fini() tore down that state without draining wq_trigger,
-so work armed before or racing fini ran against freed state.
+Drivers without FAST_XMIT and hardware scan support currently drop TX
+frames during software scanning while being off-channel. This happens
+in ieee80211_tx_h_check_assoc() before frames reach internal TX queue.
 
-Use disable_work_sync() in fini to drain the work and prevent further
-queueing.  Initialize the work, lock and stream_started counter at the
-top of cx231xx_audio_init(), before any fallible allocation, and clear
-the partially-built audio state on its error path, so fini is safe even
-if a later step fails.
+Move the off-channel check to invoke_tx_handlers_late(), after
+ieee80211_queue_skb(). Frames can then remain queued and be transmitted
+when the interface returns on-channel. This how TX works currently when
+code goes via ieee80211_xmit_fast() path.
 
-This issue was found by an in-house static analysis tool.
+Below is rt2x00 driver ping output example while scanning, before and
+after the fix. After the fix, packets are no longer lost. Some have
+increased latency, what is expected behavior.
 
-Fixes: 61b04cb24a12 ("[media] cx231xx-audio: fix some locking issues")
-Cc: stable@vger.kernel.org # v6.10+
-Link: https://lore.kernel.org/r/8c7e1294-b906-4636-890c-b64d03b0e1d0@kernel.org
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+BEFORE:
+64 bytes from 192.168.0.1: icmp_seq=29 ttl=64 time=3.61 ms
+64 bytes from 192.168.0.1: icmp_seq=31 ttl=64 time=3.33 ms # Missed 30
+64 bytes from 192.168.0.1: icmp_seq=32 ttl=64 time=4.03 ms
+64 bytes from 192.168.0.1: icmp_seq=34 ttl=64 time=3.10 ms # Missed 33
+64 bytes from 192.168.0.1: icmp_seq=36 ttl=64 time=3.04 ms # Missed 35
+64 bytes from 192.168.0.1: icmp_seq=38 ttl=64 time=3.05 ms # Missed 37
+64 bytes from 192.168.0.1: icmp_seq=40 ttl=64 time=4.14 ms # Missed 39
+64 bytes from 192.168.0.1: icmp_seq=41 ttl=64 time=4.50 ms
+
+AFTER:
+64 bytes from 192.168.0.1: icmp_seq=29 ttl=64 time=3.40 ms
+64 bytes from 192.168.0.1: icmp_seq=30 ttl=64 time=6.10 ms
+64 bytes from 192.168.0.1: icmp_seq=31 ttl=64 time=4.69 ms
+64 bytes from 192.168.0.1: icmp_seq=32 ttl=64 time=4.49 ms
+64 bytes from 192.168.0.1: icmp_seq=33 ttl=64 time=148 ms
+64 bytes from 192.168.0.1: icmp_seq=34 ttl=64 time=6.83 ms
+64 bytes from 192.168.0.1: icmp_seq=35 ttl=64 time=8.66 ms
+64 bytes from 192.168.0.1: icmp_seq=36 ttl=64 time=13.0 ms
+64 bytes from 192.168.0.1: icmp_seq=37 ttl=64 time=4.78 ms
+64 bytes from 192.168.0.1: icmp_seq=38 ttl=64 time=3.85 ms
+
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Stanislaw Gruszka <stf_xl@wp.pl>
+Link: https://patch.msgid.link/20260908124651.2995-1-stf_xl@wp.pl
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
 ---
- drivers/media/usb/cx231xx/cx231xx-audio.c | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
+ net/mac80211/tx.c | 52 +++++++++++++++++++++++++----------------------
+ 1 file changed, 28 insertions(+), 24 deletions(-)
 
-diff --git a/drivers/media/usb/cx231xx/cx231xx-audio.c b/drivers/media/usb/cx231xx/cx231xx-audio.c
-index b24ceef497e4c..af04fb104cc4e 100644
---- a/drivers/media/usb/cx231xx/cx231xx-audio.c
-+++ b/drivers/media/usb/cx231xx/cx231xx-audio.c
-@@ -581,12 +581,19 @@ static int cx231xx_audio_init(struct cx231xx *dev)
- 	dev_dbg(dev->dev,
- 		"probing for cx231xx non standard usbaudio\n");
- 
-+	/*
-+	 * Extension init errors are ignored by the cx231xx core, so fini()
-+	 * must be safe even if initialization fails part way through.
-+	 */
-+	spin_lock_init(&adev->slock);
-+	INIT_WORK(&dev->wq_trigger, audio_trigger);
-+	atomic_set(&dev->stream_started, 0);
-+
- 	err = snd_card_new(dev->dev, index[devnr], "Cx231xx Audio",
- 			   THIS_MODULE, 0, &card);
- 	if (err < 0)
- 		return err;
- 
--	spin_lock_init(&adev->slock);
- 	err = snd_pcm_new(card, "Cx231xx Audio", 0, 0, 1, &pcm);
- 	if (err < 0)
- 		goto err_free_card;
-@@ -601,8 +608,6 @@ static int cx231xx_audio_init(struct cx231xx *dev)
- 	strscpy(card->shortname, "Cx231xx Audio", sizeof(card->shortname));
- 	strscpy(card->longname, "Conexant cx231xx Audio", sizeof(card->longname));
- 
--	INIT_WORK(&dev->wq_trigger, audio_trigger);
+diff --git a/net/mac80211/tx.c b/net/mac80211/tx.c
+index fd79814661376..d85c84a738f79 100644
+--- a/net/mac80211/tx.c
++++ b/net/mac80211/tx.c
+@@ -269,7 +269,6 @@ ieee80211_tx_h_dynamic_ps(struct ieee80211_tx_data *tx)
+ static ieee80211_tx_result debug_noinline
+ ieee80211_tx_h_check_assoc(struct ieee80211_tx_data *tx)
+ {
 -
- 	err = snd_card_register(card);
- 	if (err < 0)
- 		goto err_free_card;
-@@ -656,8 +661,10 @@ static int cx231xx_audio_init(struct cx231xx *dev)
+ 	struct ieee80211_hdr *hdr = (struct ieee80211_hdr *)tx->skb->data;
+ 	struct ieee80211_tx_info *info = IEEE80211_SKB_CB(tx->skb);
+ 	bool assoc = false;
+@@ -277,20 +276,6 @@ ieee80211_tx_h_check_assoc(struct ieee80211_tx_data *tx)
+ 	if (unlikely(info->flags & IEEE80211_TX_CTL_INJECTED))
+ 		return TX_CONTINUE;
  
- err_free_pkt_size:
- 	kfree(adev->alt_max_pkt_size);
-+	adev->alt_max_pkt_size = NULL;
- err_free_card:
- 	snd_card_free(card);
-+	adev->sndcard = NULL;
+-	if (unlikely(test_bit(SCAN_SW_SCANNING, &tx->local->scanning)) &&
+-	    test_bit(SDATA_STATE_OFFCHANNEL, &tx->sdata->state) &&
+-	    !ieee80211_is_probe_req(hdr->frame_control) &&
+-	    !ieee80211_is_any_nullfunc(hdr->frame_control))
+-		/*
+-		 * When software scanning only nullfunc frames (to notify
+-		 * the sleep state to the AP) and probe requests (for the
+-		 * active scan) are allowed, all other frames should not be
+-		 * sent and we should not get here, but if we do
+-		 * nonetheless, drop them to avoid sending them
+-		 * off-channel. See __ieee80211_start_scan() for more.
+-		 */
+-		return TX_DROP;
+-
+ 	if (tx->sdata->vif.type == NL80211_IFTYPE_OCB)
+ 		return TX_CONTINUE;
  
- 	return err;
+@@ -839,6 +824,33 @@ ieee80211_tx_h_rate_ctrl(struct ieee80211_tx_data *tx)
+ 	return TX_CONTINUE;
  }
-@@ -674,6 +681,8 @@ static int cx231xx_audio_fini(struct cx231xx *dev)
- 		return 0;
+ 
++static ieee80211_tx_result debug_noinline
++ieee80211_tx_h_check_offchannel(struct ieee80211_tx_data *tx)
++{
++	struct ieee80211_hdr *hdr = (struct ieee80211_hdr *)tx->skb->data;
++	struct ieee80211_tx_info *info = IEEE80211_SKB_CB(tx->skb);
++
++	if (unlikely(info->flags & IEEE80211_TX_CTL_INJECTED))
++		return TX_CONTINUE;
++
++	if (unlikely(test_bit(SCAN_SW_SCANNING, &tx->local->scanning)) &&
++	    test_bit(SDATA_STATE_OFFCHANNEL, &tx->sdata->state) &&
++	    !ieee80211_is_probe_req(hdr->frame_control) &&
++	    !ieee80211_is_any_nullfunc(hdr->frame_control)) {
++		/*
++		 * When software scanning only nullfunc frames (to notify
++		 * the sleep state to the AP) and probe requests (for the
++		 * active scan) are allowed, all other frames should not be
++		 * sent and we should not get here, but if we do
++		 * nonetheless, drop them to avoid sending them
++		 * off-channel. See __ieee80211_start_scan() for more.
++		 */
++		return TX_DROP;
++	}
++
++	return TX_CONTINUE;
++}
++
+ static __le16 ieee80211_tx_next_seq(struct sta_info *sta, int tid)
+ {
+ 	u16 *seq = &sta->tid_seq[tid];
+@@ -1905,6 +1917,7 @@ static int invoke_tx_handlers_late(struct ieee80211_tx_data *tx)
+ 		goto txh_done;
  	}
  
-+	disable_work_sync(&dev->wq_trigger);
-+
- 	if (dev->adev.sndcard) {
- 		snd_card_free_when_closed(dev->adev.sndcard);
- 		kfree(dev->adev.alt_max_pkt_size);
++	CALL_TXH(ieee80211_tx_h_check_offchannel);
+ 	CALL_TXH(ieee80211_tx_h_michael_mic_add);
+ 	CALL_TXH(ieee80211_tx_h_sequence);
+ 	CALL_TXH(ieee80211_tx_h_fragment);
+@@ -4720,10 +4733,6 @@ static void ieee80211_8023_xmit(struct ieee80211_sub_if_data *sdata,
+ 	queue = ieee80211_select_queue(sdata, sta, skb);
+ 	skb_set_queue_mapping(skb, queue);
+ 
+-	if (unlikely(test_bit(SCAN_SW_SCANNING, &local->scanning)) &&
+-	    test_bit(SDATA_STATE_OFFCHANNEL, &sdata->state))
+-		goto out_free;
+-
+ 	skb = skb_share_check(skb, GFP_ATOMIC);
+ 	if (unlikely(!skb))
+ 		return;
+@@ -4785,11 +4794,6 @@ static void ieee80211_8023_xmit(struct ieee80211_sub_if_data *sdata,
+ 	ieee80211_tpt_led_trig_tx(local, len);
+ 
+ 	ieee80211_tx_8023(sdata, skb, sta, false);
+-
+-	return;
+-
+-out_free:
+-	kfree_skb(skb);
+ }
+ 
+ static bool ieee80211_check_mcast_offload(struct ieee80211_sub_if_data *sdata,
 -- 
 2.53.0
 
