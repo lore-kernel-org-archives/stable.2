@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047065;
-	b=z46f0pkxr3x1bbwBnNddxHErFSg+NT6i6WxUkfrzJojReCA4W7NkRJkaTteewJuxo/X6
-	 KzvSF8U26TO7kNyAZ5oWFo3Fa/VOtT+aSmUUGrqTNymDygllBfOCyjLKLWTvvjWOfRJHe
-	 jIjoCMLEmo1+H+FK58tbwA+2xGGYkkbuZ9kQ5lByv5oqKB11mAmhWUkDfapEe5I1Rh78p
-	 Xx51EHlxB7t568Kr+yRTu7xebVDAbxkqaFgm+yfDlr2+Xe4qGZQ69vkI5+6uu30OwwIWX
-	 tbNmfLgEOsoJszNnCvLKXLHcefk8/UKwRb71MU8lEVULt1bfZk317PthfnAboyoXFaw==
+	t=1794047067;
+	b=nuQiXVFhm7V8Rfdv7uXruwifgQ3cG5+m5BN8Y/pvkU+R5CGRKww52wGGqfFx5AHdLXy3
+	 uoZPqjWbCVmz8sCYz58j7coBze1J6EooqpPG0tLbGSD7U7zccPq4ayXXA5R9pXo+jfBrH
+	 7xu6Q07FsArWqjdR4iceflo3K5kka27398cyZgnc85m9FTi1NKpMEq2Qa1waXrkmtJspZ
+	 kQwH2P5E6LR2I3rl5XTGFQz9yASyOAmaLdDMr+6f9v6m/+B9ye9VLQcf/MoSD0mYHgLIX
+	 wbuQPcS4yJuLcdmE3HRU2Q8TkwB/0igzqzw9J0i2pG2mP1I2GxA5dV7Qz0pb+OA6KPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047065;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047067;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=QHDstRpQIUrLne5ICw6XU/IWuvypgnNU2i10LvSMPgM=;
-	b=C0f9eBJwkfu+R3fwKASZxWaF+9VGqNgmXdqLkdAUVDU7rhDNuJXjkmPZst76EF4+5g4c
-	 +TaS1bxN+2+HAJIgNOaYxgAMX+WF3/A3E7t6xqfDXuCJQq2Pw3JqMuPYoLLWVhhcTA4+5
-	 k6i3CMogIbIWCVuog1pZTTHueOqfl+MY/EpUsIp5Iwk2iTA4TlmfUs1GZQXUtgwtLLez2
-	 UEUWP5mhj4Jv6fNlJ61wyX41tbrrGv/fVHzfjVrMC3FD3/gwLw1t+IGEv2w2XUIstVUWG
-	 LEHr3AIMTB7bsi4fm/yaMjFGkvbqT6y+QQBmleFclbCCqR5HXQoENfJ2jVXK9kIQDVA==
+	bh=UYFZgyMOtCuhvoidj4KnAvd9XaRAY4paPU9UdJvuGBI=;
+	b=YGVCTTMURQR2pJV4OmpXwYOjj9FMZOd9uVdav1Tk+7iMXriNxbx+PIQFijZ7OEV73uKq
+	 XVct19karOiZ03l3cQFxzPiBVNhujlgv3CEIbzf8gH7fHEJhajRy2Dk9Ou6MUNYyDQGvm
+	 c1ZlT5oLbFnCanNxUqkJstlgfUqYsuxO9j01Ozb+T0trtpfpuRMaO+UqY4lxxW688XG3v
+	 zh18W6ZHp6fyBok544zKdynVjkuLrwcwSIBDBeEnlkuizKO2woHubkiPHyQvnSBieigCT
+	 LkKWAZ12AtgmK56y+d3/arbPceHpl8SvUqwEF6ApmC1XiBLOhaWL8mUe0L/RBqa96ZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RbKX0Uu3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gxvjq7ux;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01FD3606A32D
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:24:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EDB3606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:24:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RbKX0Uu3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48AA01F0089F;
-	Sat,  7 Nov 2026 10:24:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gxvjq7ux
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91FC01F0089F;
+	Sat,  7 Nov 2026 10:24:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047064;
-	bh=QHDstRpQIUrLne5ICw6XU/IWuvypgnNU2i10LvSMPgM=;
+	s=k20260515; t=1794047067;
+	bh=UYFZgyMOtCuhvoidj4KnAvd9XaRAY4paPU9UdJvuGBI=;
 	h=From:To:Cc:Subject:Date;
-	b=RbKX0Uu3zNg+WbSE6HbFeRgUrl5UhocuwN337hxZwrVrQnN03Zzp55FCYdCeMYvUf
-	 XFjmwM0WZarwRiwUhE7MvYoB7o3xKKLLYiTWo4/Jmp9DnXTcGl6R7uUs0UcOKmrOqQ
-	 Vc7XSpAmMdu/IaadkGpZ2LJ0R/NUIv2vnFYkHohADs1VqzgsgoHxxXFhqT38wHe6/2
-	 3WWJfCQj2s5ImY0uxxyMWCTPVEfm0ulUPzHSmtAFpgZzMRHaTJtDZD2t7UEZbvIrQk
-	 yyAm5jz/St6T8+lUSP2HCQZZrXPdVTxRvljEaA0Ar3f7rbEkAmbvBr1lg8OKuy+14O
-	 4LQunXzBHUiog==
+	b=gxvjq7ux3oUBCImpf2CiWGExXJzxieQ+PeR7Y1j4ghFyQhqnO7g2WgFvOUTdptdeL
+	 kKQaJJmYkY15PXS1GPOdd5QpJoRE/IogbvzJ9hOUeBTCirCbfSLNzuVlhcsk1UM30l
+	 Vf7wikB/4JL1MAkGSuKb5sz+5IAUWudm7jFzy7fs0cpmiza99WfutNhYL+1oLa+y2O
+	 khU1OpjwK2fRcYbMzTJa7I3pXzKnRdkzbq4W4VHOfrLHPhaMwTWrKSlfNSoFEMT+6u
+	 5oS/MG6Da2elsSN84jj/4VlOowHeNGJF7/Zj8MdYUnV/UcetNoKfY1g57mipRIZr8F
+	 A+UbFN7ftyTPA==
 From: Sasha Levin <sashal@kernel.org>
 To: zenghongling@kylinos.cn,
 	hyc.lee@gmail.com,
 	liubaolin@kylinos.cn,
 	linkinjeon@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ntfs: fix volume flag update races" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:24:23 -0500
-Message-ID: <20261107052423-failed-6.12-56a64ee0f99d@kernel.org>
+Subject: FAILED: patch "[PATCH] ntfs: sync the volume dirty bit with the recorded error state" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:24:25 -0500
+Message-ID: <20261107052425-failed-6.12-521978c4f444@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,39 +70,74 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 56a64ee0f99d4ca1756cf743f951c110d39401e5
+git cherry-pick -x 521978c4f4441953d67297286e5804485ae05698
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052423-failed-6.12-56a64ee0f99d@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052425-failed-6.12-521978c4f444@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 56a64ee0f99d4ca1756cf743f951c110d39401e5 Mon Sep 17 00:00:00 2001
+From 521978c4f4441953d67297286e5804485ae05698 Mon Sep 17 00:00:00 2001
 From: Hongling Zeng <zenghongling@kylinos.cn>
-Date: Tue, 15 Sep 2026 16:32:46 +0800
-Subject: [PATCH] ntfs: fix volume flag update races
+Date: Tue, 15 Sep 2026 16:32:48 +0800
+Subject: [PATCH] ntfs: sync the volume dirty bit with the recorded error state
 
-ntfs_set_volume_flags() and ntfs_clear_volume_flags() both read
-vol->vol_flags outside any lock to compute the new value before handing
-it to ntfs_write_volume_flags(), which only takes ni->mrec_lock around
-the actual write. The read-modify-write is therefore not atomic, and two
-concurrent callers can lose an update: ntfs_sync_fs() may derive a
-"clean" value from vol->vol_flags while a writer concurrently records an
-error and sets VOLUME_IS_DIRTY; the locked write then silently
-overwrites the freshly-set dirty bit. The on-disk volume looks clean
-despite the recorded errors, so chkdsk will not run on the next mount
-and corrupted metadata can persist.
+The runtime metadata-corruption paths in fs/ntfs only record the
+in-memory NVolErrors() flag; whether VOLUME_IS_DIRTY ever reaches disk
+depends on ntfs_set_volume_flags() being called by some other path,
+which for most error sites never happens.  A volume can therefore
+unmount with a clean on-disk flag despite recorded corruption, and
+chkdsk will not run on the next mount.
 
-Fix by moving the read-modify-write inside the mrec_lock: pass the bits
-to set and to clear separately, and combine them with the current flag
-state under the lock inside ntfs_write_volume_flags(). The set/clear
-helpers pass only the bits to modify, not the complete flag state. The
-bit manipulation is done on CPU-endian values, and the result is
-converted back to little-endian before storing it. The wrappers keep
-their signatures so callers are unchanged.
+Persisting the dirty bit from the error paths themselves does not work:
+they run under a wide variety of ntfs locks, and the dirty-bit write
+takes the $Volume mrec_lock and maps the $Volume mft record, which on
+an $MFT page-cache miss takes the $MFT runlist lock for writing.  That
+is enough to self-deadlock or form ABBA cycles from several of them:
+the $MFT extend undo paths hold the $MFT runlist lock and then take
+vol->lcnbmp_lock inside ntfs_cluster_free(); the cluster allocation and
+free rollback paths hold vol->lcnbmp_lock; and the whole mft record
+allocation tree is reachable from ntfs_write_volume_label()'s
+attribute-list maintenance while it holds the $Volume mrec_lock itself.
+
+Instead, make the persistence a property of the sync paths, which run
+without ntfs locks held.  The new ntfs_sync_volume_dirty_state() sets
+VOLUME_IS_DIRTY when NVolErrors() is recorded and clears it otherwise,
+evaluating the error flag under the $Volume mrec_lock.  It is called
+from ntfs_sync_fs(), from the remount-to-read-only path of
+ntfs_reconfigure(), and from ntfs_put_super(), which previously
+evaluated NVolErrors() outside the lock before clearing the dirty bit
+unconditionally, and which now also persists the dirty bit for volumes
+with recorded errors so they unmount with chkdsk scheduled.  The
+ntfs_clear_volume_flags() wrapper, whose last callers this patch
+replaces, has no users left and is removed.
+
+The guarantee this provides is eventual, not instantaneous: the error
+paths record NVolErrors() with a lock-free set_bit(), so a persistence
+point that evaluates the flag just before an error is recorded can
+still leave the on-disk bit clean until the next one.  This is sound
+because NVolErrors() is sticky for the lifetime of the mount and every
+persistence point re-derives the on-disk bit from it; the last one,
+ntfs_put_super(), runs after evict_inodes() on a quiesced filesystem,
+so a volume that is read-write at unmount time cannot unmount clean.
+A volume that is already read-only when the error is recorded
+(errors=remount-ro flips the superblock on the first error, as does an
+earlier remount-ro) has no persistence point left and keeps whatever
+on-disk bit it had; that behaviour is unchanged.  The residual window
+is a crash between the error and the next persistence point.
+
+The persistence paths never write a hibernated volume: resuming Windows
+from a modified image corrupts it.  Record the mount-time hibernation
+verdict in the new NV_Hibernated volume flag and make
+ntfs_sync_volume_dirty_state() a no-op while it is set, so the dirty
+bit is left exactly as it is on disk and only the in-memory error
+state is kept.  Without this, an rw mount of a hibernated volume with
+the default errors=continue would gain a filesystem-internal write on
+the first sync, remount or unmount.  Other writes to such a mount,
+like the mount-time logfile emptying, are pre-existing and unchanged.
 
 Cc: stable@vger.kernel.org
 Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
@@ -110,136 +145,269 @@ Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
 Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
 Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 ---
- fs/ntfs/super.c | 63 +++++++++++++++++++++++++++++++++++--------------
- 1 file changed, 45 insertions(+), 18 deletions(-)
+ fs/ntfs/ntfs.h   |   1 -
+ fs/ntfs/super.c  | 129 ++++++++++++++++++++++++++++++++---------------
+ fs/ntfs/volume.h |   4 ++
+ 3 files changed, 93 insertions(+), 41 deletions(-)
 
+diff --git a/fs/ntfs/ntfs.h b/fs/ntfs/ntfs.h
+index 1bee1626abdf6..dd56894762a91 100644
+--- a/fs/ntfs/ntfs.h
++++ b/fs/ntfs/ntfs.h
+@@ -219,7 +219,6 @@ struct option_t {
+ };
+ extern const struct option_t on_errors_arr[];
+ int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags);
+-int ntfs_clear_volume_flags(struct ntfs_volume *vol, __le16 flags);
+ int ntfs_write_volume_label(struct ntfs_volume *vol, char *label);
+ 
+ /* From fs/ntfs/mst.c */
 diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
-index f7b3140049c40..5c71aaa0e25d5 100644
+index 5c71aaa0e25d5..785f5b2222934 100644
 --- a/fs/ntfs/super.c
 +++ b/fs/ntfs/super.c
-@@ -360,31 +360,45 @@ void ntfs_handle_error(struct super_block *sb)
+@@ -263,6 +263,8 @@ static int ntfs_parse_param(struct fs_context *fc, struct fs_parameter *param)
+ 	return 0;
  }
  
- /*
-- * ntfs_write_volume_flags - write new flags to the volume information flags
-+ * ntfs_write_volume_flags - apply flag changes to the volume information flags
++static int ntfs_sync_volume_dirty_state(struct ntfs_volume *vol);
++
+ static int ntfs_reconfigure(struct fs_context *fc)
+ {
+ 	struct super_block *sb = fc->root->d_sb;
+@@ -319,10 +321,24 @@ static int ntfs_reconfigure(struct fs_context *fc)
+ 		}
+ 	} else if (!sb_rdonly(sb) && (fc->sb_flags & SB_RDONLY)) {
+ 		/* Remounting read-only. */
+-		if (!NVolErrors(vol)) {
+-			if (ntfs_clear_volume_flags(vol, VOLUME_IS_DIRTY))
+-				ntfs_warning(sb,
+-					"Failed to clear dirty bit in volume information flags.  Run chkdsk.");
++		/*
++		 * With errors recorded the dirty bit is set rather than
++		 * cleared, and it is committed right away: the VFS does
++		 * not sync the filesystem during a remount, and once the
++		 * remount succeeds no further persistence point exists -
++		 * ntfs_sync_fs() is only ever invoked for read-write
++		 * superblocks (all its VFS callers skip read-only ones)
++		 * and ntfs_put_super() skips them, so the only remaining
++		 * write would be the evict-time commit at unmount, which
++		 * a crash never reaches.  An error recorded only after
++		 * the remount is still never persisted.
++		 */
++		if (ntfs_sync_volume_dirty_state(vol)) {
++			ntfs_warning(sb,
++				"Failed to update dirty bit in volume information flags.  Run chkdsk.");
++		} else if (NInoDirty(NTFS_I(vol->vol_ino))) {
++			ntfs_commit_inode(vol->vol_ino);
++			blkdev_issue_flush(sb->s_bdev);
+ 		}
+ 	}
+ 
+@@ -364,9 +380,10 @@ void ntfs_handle_error(struct super_block *sb)
   * @vol:	ntfs volume on which to modify the flags
-- * @flags:	new flags value for the volume information flags
-+ * @set_bits:	bits to set in the volume information flags
-+ * @clear_bits:	bits to clear in the volume information flags
+  * @set_bits:	bits to set in the volume information flags
+  * @clear_bits:	bits to clear in the volume information flags
++ * @dirty_if_errors:	force VOLUME_IS_DIRTY on when NVolErrors() is set
   *
   * Internal function.  You probably want to use ntfs_{set,clear}_volume_flags()
-  * instead (see below).
+- * instead (see below).
++ * or ntfs_sync_volume_dirty_state() instead (see below).
   *
-- * Replace the volume information flags on the volume @vol with the value
-- * supplied in @flags.  Note, this overwrites the volume information flags, so
-- * make sure to combine the flags you want to modify with the old flags and use
-- * the result when calling ntfs_write_volume_flags().
-+ * Combine @set_bits and @clear_bits with the current in-memory flag state and
-+ * write the result back.  The set/clear helpers pass only the bits to modify,
-+ * not the complete flag state.  The read-modify-write happens under
-+ * ni->mrec_lock so that concurrent set/clear operations cannot lose updates.
-+ * All bit manipulation is done on CPU-endian values, and the result is
-+ * converted back to little-endian before storing it.
+  * Combine @set_bits and @clear_bits with the current in-memory flag state and
+  * write the result back.  The set/clear helpers pass only the bits to modify,
+@@ -375,11 +392,18 @@ void ntfs_handle_error(struct super_block *sb)
+  * All bit manipulation is done on CPU-endian values, and the result is
+  * converted back to little-endian before storing it.
   *
++ * When @dirty_if_errors is true and errors have been recorded on @vol,
++ * VOLUME_IS_DIRTY is forced on after the requested changes.  NVolErrors() is
++ * evaluated under the same mrec_lock, which orders this against other
++ * locked flag updates; the runtime error paths themselves record the flag
++ * lock-free, so see ntfs_sync_volume_dirty_state() for the guarantee this
++ * provides against them.
++ *
   * Return 0 on success and -errno on error.
   */
--static int ntfs_write_volume_flags(struct ntfs_volume *vol, const __le16 flags)
-+static int ntfs_write_volume_flags(struct ntfs_volume *vol,
-+		const __le16 set_bits, const __le16 clear_bits,
-+		const bool skip_if_errors)
+ static int ntfs_write_volume_flags(struct ntfs_volume *vol,
+ 		const __le16 set_bits, const __le16 clear_bits,
+-		const bool skip_if_errors)
++		const bool dirty_if_errors)
  {
  	struct ntfs_inode *ni = NTFS_I(vol->vol_ino);
  	struct volume_information *vi;
- 	struct ntfs_attr_search_ctx *ctx;
-+	u16 flags;
- 	int err;
+@@ -389,12 +413,11 @@ static int ntfs_write_volume_flags(struct ntfs_volume *vol,
  
--	ntfs_debug("Entering, old flags = 0x%x, new flags = 0x%x.",
--			le16_to_cpu(vol->vol_flags), le16_to_cpu(flags));
  	mutex_lock(&ni->mrec_lock);
--	if (vol->vol_flags == flags)
-+
-+	if (skip_if_errors && NVolErrors(vol))
-+		goto done;
-+
-+	flags = le16_to_cpu(vol->vol_flags);
-+	flags |= le16_to_cpu(set_bits) & le16_to_cpu(VOLUME_FLAGS_MASK);
-+	flags &= ~(le16_to_cpu(clear_bits) & le16_to_cpu(VOLUME_FLAGS_MASK));
-+	ntfs_debug("Entering, old flags = 0x%x, new flags = 0x%x.",
-+			le16_to_cpu(vol->vol_flags), flags);
-+
-+	if (le16_to_cpu(vol->vol_flags) == flags)
- 		goto done;
  
- 	ctx = ntfs_attr_get_search_ctx(ni, NULL);
-@@ -400,7 +414,7 @@ static int ntfs_write_volume_flags(struct ntfs_volume *vol, const __le16 flags)
+-	if (skip_if_errors && NVolErrors(vol))
+-		goto done;
+-
+ 	flags = le16_to_cpu(vol->vol_flags);
+ 	flags |= le16_to_cpu(set_bits) & le16_to_cpu(VOLUME_FLAGS_MASK);
+ 	flags &= ~(le16_to_cpu(clear_bits) & le16_to_cpu(VOLUME_FLAGS_MASK));
++	if (dirty_if_errors && NVolErrors(vol))
++		flags |= le16_to_cpu(VOLUME_IS_DIRTY);
+ 	ntfs_debug("Entering, old flags = 0x%x, new flags = 0x%x.",
+ 			le16_to_cpu(vol->vol_flags), flags);
  
- 	vi = (struct volume_information *)((u8 *)ctx->attr +
- 			le16_to_cpu(ctx->attr->data.resident.value_offset));
--	vol->vol_flags = vi->flags = flags;
-+	vol->vol_flags = vi->flags = cpu_to_le16(flags);
- 	mark_mft_record_dirty(ctx->ntfs_ino);
- 	ntfs_attr_put_search_ctx(ctx);
- done:
-@@ -421,13 +435,14 @@ static int ntfs_write_volume_flags(struct ntfs_volume *vol, const __le16 flags)
-  * @flags:	flags to set on the volume
-  *
-  * Set the bits in @flags in the volume information flags on the volume @vol.
-+ * The bits are combined with the current flag state under the lock in
-+ * ntfs_write_volume_flags(), so concurrent updates are not lost.
-  *
-  * Return 0 on success and -errno on error.
-  */
- int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags)
- {
--	flags &= VOLUME_FLAGS_MASK;
--	return ntfs_write_volume_flags(vol, vol->vol_flags | flags);
-+	return ntfs_write_volume_flags(vol, flags, 0, false);
+@@ -446,31 +469,43 @@ int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags)
  }
  
  /*
-@@ -436,14 +451,27 @@ int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags)
-  * @flags:	flags to clear on the volume
+- * ntfs_clear_volume_flags - clear bits in the volume information flags
+- * @vol:	ntfs volume on which to modify the flags
+- * @flags:	flags to clear on the volume
++ * ntfs_sync_volume_dirty_state - persist the dirty bit per the error state
++ * @vol:	ntfs volume whose dirty bit to persist
   *
-  * Clear the bits in @flags in the volume information flags on the volume @vol.
-+ * The bits are combined with the current flag state under the lock in
-+ * ntfs_write_volume_flags(), so concurrent updates are not lost.
+- * Clear the bits in @flags in the volume information flags on the volume @vol.
+- * The bits are combined with the current flag state under the lock in
+- * ntfs_write_volume_flags(), so concurrent updates are not lost.
++ * Set VOLUME_IS_DIRTY if errors have been recorded on @vol and clear it
++ * otherwise, under the $Volume mrec_lock.
   *
-  * Return 0 on success and -errno on error.
-  */
- int ntfs_clear_volume_flags(struct ntfs_volume *vol, __le16 flags)
- {
--	flags &= VOLUME_FLAGS_MASK;
--	flags = vol->vol_flags & cpu_to_le16(~le16_to_cpu(flags));
--	return ntfs_write_volume_flags(vol, flags);
-+	return ntfs_write_volume_flags(vol, 0, flags, false);
-+}
-+
-+/*
-+ * ntfs_clear_volume_dirty_if_no_errors - clear dirty bit if no errors exist
-+ * @vol:	ntfs volume whose dirty bit should be cleared
+- * Return 0 on success and -errno on error.
+- */
+-int ntfs_clear_volume_flags(struct ntfs_volume *vol, __le16 flags)
+-{
+-	return ntfs_write_volume_flags(vol, 0, flags, false);
+-}
+-
+-/*
+- * ntfs_clear_volume_dirty_if_no_errors - clear dirty bit if no errors exist
+- * @vol:	ntfs volume whose dirty bit should be cleared
++ * The guarantee this provides is eventual, not instantaneous: the runtime
++ * error paths record NVolErrors() with a lock-free set_bit(), so a
++ * persistence point that evaluates the flag just before an error is
++ * recorded can still leave the on-disk bit clean.  This is sound because
++ * NVolErrors() is sticky (nothing clears it for the lifetime of the mount)
++ * and every persistence point re-derives the on-disk bit from it; the
++ * last one, ntfs_put_super(), runs after evict_inodes() on a quiesced
++ * filesystem, so a volume that is read-write at unmount time cannot
++ * unmount clean.  A volume that is already read-only when the error is
++ * recorded (errors=remount-ro flips the superblock on the first error,
++ * as does an earlier remount-ro) has no persistence point left and
++ * keeps whatever on-disk bit it had; that behaviour is unchanged.  The
++ * residual window is a crash between the error and the next
++ * persistence point.
 + *
-+ * Check NVolErrors() and clear VOLUME_IS_DIRTY under the same mrec_lock so
-+ * ntfs_sync_fs() cannot clear the dirty bit after a concurrent error has been
-+ * recorded.
-+ */
-+static int ntfs_clear_volume_dirty_if_no_errors(struct ntfs_volume *vol)
-+{
-+	return ntfs_write_volume_flags(vol, 0, VOLUME_IS_DIRTY, true);
++ * This is the single point that persists the in-memory error state to disk.
++ * The runtime error paths only record NVolErrors() because they run under a
++ * variety of ntfs locks the dirty-bit write cannot be taken under (runlist
++ * locks, vol->lcnbmp_lock, vol->mftbmp_lock, mrec_locks); the first
++ * ntfs_sync_fs(), a remount, or the unmount then persists the flag here.
++ *
++ * A hibernated volume is not written from these persistence paths:
++ * resuming Windows from a modified image corrupts it, so the dirty bit
++ * is left as it is on disk and only the in-memory error state is kept.
+  *
+- * Check NVolErrors() and clear VOLUME_IS_DIRTY under the same mrec_lock so
+- * ntfs_sync_fs() cannot clear the dirty bit after a concurrent error has been
+- * recorded.
++ * Return 0 on success and -errno on error.
+  */
+-static int ntfs_clear_volume_dirty_if_no_errors(struct ntfs_volume *vol)
++static int ntfs_sync_volume_dirty_state(struct ntfs_volume *vol)
+ {
++	if (NVolHibernated(vol))
++		return 0;
+ 	return ntfs_write_volume_flags(vol, 0, VOLUME_IS_DIRTY, true);
  }
  
- int ntfs_write_volume_label(struct ntfs_volume *vol, char *label)
-@@ -1926,8 +1954,7 @@ static int ntfs_sync_fs(struct super_block *sb, int wait)
+@@ -1683,6 +1718,11 @@ static bool load_system_files(struct ntfs_volume *vol)
+ 			ntfs_error(sb, "%s.  Mounting read-only%s", es1, es2);
+ 		}
+ 		NVolSetErrors(vol);
++		/*
++		 * Remember it for the lifetime of the mount: see
++		 * ntfs_sync_volume_dirty_state().
++		 */
++		NVolSetHibernated(vol);
+ 	}
+ 
+ 	/* If (still) a read-write mount, empty the logfile. */
+@@ -1840,22 +1880,31 @@ static void ntfs_put_super(struct super_block *sb)
+ 	ntfs_commit_inode(vol->mft_ino);
+ 
+ 	/*
+-	 * If a read-write mount and no volume errors have occurred, mark the
+-	 * volume clean.  Also, re-commit all affected inodes.
++	 * If a read-write mount, persist the error state in the volume flags:
++	 * mark the volume clean if no volume errors have occurred, and make
++	 * sure VOLUME_IS_DIRTY is on disk if any have, so chkdsk runs on the
++	 * next mount.  Also, re-commit all affected inodes.
+ 	 */
+ 	if (!sb_rdonly(sb)) {
++		if (ntfs_sync_volume_dirty_state(vol)) {
++			ntfs_warning(sb,
++				"Failed to sync dirty bit in volume information flags.  Run chkdsk.");
++		} else if (NVolErrors(vol)) {
++			/*
++			 * The dirty bit is on disk now; only warn when the
++			 * sync actually succeeded, or this message would
++			 * contradict the one above.
++			 */
++			ntfs_warning(sb,
++				"Volume has errors.  Leaving volume marked dirty.  Run chkdsk.");
++		}
++		/* Commits the updated volume flags if they were written. */
++		ntfs_commit_inode(vol->vol_ino);
+ 		if (!NVolErrors(vol)) {
+-			if (ntfs_clear_volume_flags(vol, VOLUME_IS_DIRTY))
+-				ntfs_warning(sb,
+-					"Failed to clear dirty bit in volume information flags.  Run chkdsk.");
+-			ntfs_commit_inode(vol->vol_ino);
+ 			ntfs_commit_inode(vol->root_ino);
+ 			if (vol->mftmirr_ino)
+ 				ntfs_commit_inode(vol->mftmirr_ino);
+ 			ntfs_commit_inode(vol->mft_ino);
+-		} else {
+-			ntfs_warning(sb,
+-				"Volume has errors.  Leaving volume marked dirty.  Run chkdsk.");
+ 		}
+ 	}
+ 
+@@ -1954,8 +2003,8 @@ static int ntfs_sync_fs(struct super_block *sb, int wait)
  		return 0;
  
  	/* If there are some dirty buffers in the bdev inode */
--	if (!NVolErrors(vol) &&
--	    ntfs_clear_volume_flags(vol, VOLUME_IS_DIRTY)) {
-+	if (ntfs_clear_volume_dirty_if_no_errors(vol)) {
- 		ntfs_warning(sb, "Failed to clear dirty bit in volume information flags.  Run chkdsk.");
+-	if (ntfs_clear_volume_dirty_if_no_errors(vol)) {
+-		ntfs_warning(sb, "Failed to clear dirty bit in volume information flags.  Run chkdsk.");
++	if (ntfs_sync_volume_dirty_state(vol)) {
++		ntfs_warning(sb, "Failed to sync dirty bit in volume information flags.  Run chkdsk.");
  		err = -EIO;
  	}
+ 	sync_inodes_sb(sb);
+diff --git a/fs/ntfs/volume.h b/fs/ntfs/volume.h
+index 8c17a66b4f22c..fdb57279de84c 100644
+--- a/fs/ntfs/volume.h
++++ b/fs/ntfs/volume.h
+@@ -189,6 +189,8 @@ struct ntfs_volume {
+  *				Windows-reserved names (CON, AUX, NUL, COM1,
+  *				LPT1, etc.) or invalid characters.
+  *
++ * NV_Hibernated		Windows is hibernated on the volume; the sync
++ *				paths must not write the volume flags.
+  * NV_Discard			Issue discard/TRIM commands for freed clusters.
+  * NV_DisableSparse		Disable creation of sparse regions.
+  * NV_NativeSymlinkRel		Translate absolute Windows reparse targets (native_symlink=rel).
+@@ -207,6 +209,7 @@ enum {
+ 	NV_ShowHiddenFiles,
+ 	NV_HideDotFiles,
+ 	NV_CheckWindowsNames,
++	NV_Hibernated,
+ 	NV_Discard,
+ 	NV_DisableSparse,
+ 	NV_NativeSymlinkRel,
+@@ -245,6 +248,7 @@ DEFINE_NVOL_BIT_OPS(SysImmutable)
+ DEFINE_NVOL_BIT_OPS(ShowHiddenFiles)
+ DEFINE_NVOL_BIT_OPS(HideDotFiles)
+ DEFINE_NVOL_BIT_OPS(CheckWindowsNames)
++DEFINE_NVOL_BIT_OPS(Hibernated)
+ DEFINE_NVOL_BIT_OPS(Discard)
+ DEFINE_NVOL_BIT_OPS(DisableSparse)
+ DEFINE_NVOL_BIT_OPS(NativeSymlinkRel)
 -- 
 2.53.0
 
