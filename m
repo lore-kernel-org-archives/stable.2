@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046052;
-	b=yKZYFOnsDOxpvdokFg6LDRWrISawcsbj11/V9KC3l/OvkKjUW1dq37ZEZ74lC8rlMp3x
-	 GuFKroFGoITYXOQiznQbDlJ0K2Cb/9HE1qPmGg577kxBiQIn4DH2O0UGYND/xBKQc/7+Y
-	 /VEKFPfy/1mlvywMoU43tG5gwZZg9EzFsz1EZWTCAZRDq1d1CpJ7OS1aCRyT2h3Nh0g56
-	 sKwfxBAhxdYLuKn8XLnNs+iCDd2x005YqLYErqzZtIJFWoere1yqZhT3sVoUE5skbfH/J
-	 VjwVOdk6alMpvsJMWXS9P/W++4MgmsckjGvW//M8P9GUqr9ZwoBE+JNVPRiY6BYQr9Q==
+	t=1794046055;
+	b=dUYDiXhXP7pML1A6PHVvoAGeM/5i8XgPV04ioxDKwocp+pUzeEzFL3I6v9BEFNz34uzO
+	 4xhz2BrUJi7t4dTCAk7GbhJacezAgdUwU/aNGDMNAMx7RF1P6CyQpzqljFsG0kxyFQNYH
+	 PWvmcAnJ08lGYGKEPJioWUwYC7s0SkW/qkDt4IPpZ1HltlOOr6gXoSCvtLlYmLCtTBQJb
+	 Kwpa/iib2+d+JopMsWBCmzxiVjCWlvgC5KtuUm+WYEr5qs+gvUI1Yqe5TgSeHP0TJoX6R
+	 d+PcwgOjImhjPLH2FWdvS0Ylc0cKkzvwt2lRP37JESB2jd2zqEtppdxEPUuCGNE9qqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046052;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046055;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=5MOk0AuN+y/C1q4WPBVNtNoSv9iSQJ/bUFfHxduS3JU=;
-	b=Gc7Z1Y+ZK1luhh+NG2NI4Fczy2IGAE1s6ybkkoNkLIEAA+jB6RrEBSXVMB7Op+HtfAF+
-	 yxJl09RlEN9VYwEGxWraTHlk9aHzqTTKEgsh2bGnDN2jVKviSt6QoDBt9C1lL+9BV0oTZ
-	 AtHyrBx0q8RHClsd2H5G58Bxhizuvmi+JDY3e1V3Op95kPsYjSBYNsdY8rj1+/dhpIx4k
-	 ICekI+Ci5KiM9FnV+WYKX/bKLjTZ1CtWGTM4MiusPKNyGbyuab/2xJgwCtBV/SNlPIitr
-	 pBfu+kALS7lCGT2/gJRe+wJCx5BsJGCFKLij8LldOPaTbcvLrt0x/E71SOi8xuZLUrw==
+	bh=BlowYOdipRzXy3PDLlZo3B1cflb7SAji0kegcsLa+0Y=;
+	b=wpS0SGdOKRl4sssm1pBmjrtrxiatki83rT7OJIeBCjuePsZySzq8q4qEU8IuIL2Gt3Pr
+	 60xUzo2qE1+Vlm5Dfq0uSOSBhkuRzyqAbBc4H+d88nZ2zbcEOEokB4Of8qlq95o8DJdgE
+	 xERzHA9z4LJxPtoFXU0zJ+V5Na2S94b5YbyK4Po/2dtLfvND6j77UWyJxbsGeS9In+sXn
+	 wtF0AqlN28pe28MfGOKQCooRBZiBO96XGGP04xNc05ZinJFl2CQMRWW7mBDqloCwppOhn
+	 qZwWtn0iPOf4SdFAteqAkNRWjBzvQYj42neBbG+6x3tgwXAVwephLAhw3NILCDmw68Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=czyq9SxC;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="aS/DHzlD";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C0A5606A32F
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:07:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8A9B606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:07:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=czyq9SxC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E627D1F0089F;
-	Sat,  7 Nov 2026 10:07:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aS/DHzlD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34BB21F0089F;
+	Sat,  7 Nov 2026 10:07:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046052;
-	bh=5MOk0AuN+y/C1q4WPBVNtNoSv9iSQJ/bUFfHxduS3JU=;
+	s=k20260515; t=1794046054;
+	bh=BlowYOdipRzXy3PDLlZo3B1cflb7SAji0kegcsLa+0Y=;
 	h=From:To:Cc:Subject:Date;
-	b=czyq9SxCd02RYspKBHtRRc58CesWxaO5p3qGAWDFzZlhNeMz4vfbLOs0KMza03G5g
-	 ft42qklMB7+sgHQFdRkIwWJInUSQOGqZGJSCElAamhvQ9zqPPuFpDVBJ3RkYbTBL0i
-	 0MKt1MA1tiD9l/WDHw0Uy7vXjQEhjRI8H5AFr4u/Tzf3qF3weE0k4g5WLrKNOoCjbI
-	 Kr0BvwCkVkoN0SWm7nvTK2bo6L43x5zPE8lXtArxkh8+ufIlAtpq51x0W903awTErp
-	 292wsXakRZ2URGOZd8lgM5ZC60JFYzDa7KG51fiMDQQ/bEZuQGF/kmiTP8Bsd+coaF
-	 7WwY0eJdfLcjg==
+	b=aS/DHzlDRODhYUg9ZMYIQ3NFywtifJyB1dfNczn9mva4S2YXconVv2ErybKjfzy4q
+	 bKlHgBqYR/PFVZkrfmzORfL0udiCFAOcAdj7H7FwrwaQkJVdQ68ISdm6D2dYdlUuhL
+	 g6weJKdm1mDjI9TNA0Q7nFeV6/wW8C92/Ju22IQlPENpafFADmGq5WBCJlTIwJIEU1
+	 NXiFosPGs7XlUQ3C7JnwteV6kL/OZz/L3XCLT5LGJ50kNVFNCfbGmTFc8aaeamvp4U
+	 keVGig/UEzC5XHZuyrJ2bDSHwHGSt91B921+wYI4qQJr/l7pRD5727KYx5agkExR/2
+	 esRL/YEk1pYxg==
 From: Sasha Levin <sashal@kernel.org>
-To: antoniu.miclaus@analog.com,
-	nuno.sa@analog.com,
+To: yaojiale02@163.com,
 	jonathan.cameron@oss.qualcomm.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] iio: adc: ad4080: enable address ascension for chip identification" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:07:30 -0500
-Message-ID: <20261107050730-failed-6.18-c051d08d9877@kernel.org>
+Subject: FAILED: patch "[PATCH] iio: adc: ad7192: reject devices without match data" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:07:33 -0500
+Message-ID: <20261107050733-failed-6.18-7f7a119a370e@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,57 +68,54 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x c051d08d98771132868abf0cb95b6de95ab3060a
+git cherry-pick -x 7f7a119a370ecf6c8d4ab9e9ee0a8cdd77afedd3
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050730-failed-6.18-c051d08d9877@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050733-failed-6.18-7f7a119a370e@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From c051d08d98771132868abf0cb95b6de95ab3060a Mon Sep 17 00:00:00 2001
-From: Antoniu Miclaus <antoniu.miclaus@analog.com>
-Date: Tue, 22 Sep 2026 14:09:58 +0300
-Subject: [PATCH] iio: adc: ad4080: enable address ascension for chip
- identification
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 7f7a119a370ecf6c8d4ab9e9ee0a8cdd77afedd3 Mon Sep 17 00:00:00 2001
+From: Jiale Yao <yaojiale02@163.com>
+Date: Fri, 25 Sep 2026 20:57:39 +0800
+Subject: [PATCH] iio: adc: ad7192: reject devices without match data
 
-The two byte bulk read at AD4080_REG_PRODUCT_ID_L expects PRODUCT_ID_L
-followed by PRODUCT_ID_H. After a software reset the AD408x defaults to
-descending address mode, so the second byte comes from CHIP_TYPE (0x03)
-instead. CHIP_TYPE reads 0x07 on all AD408x parts, so an AD4080 reports
-0x0750 rather than 0x0050 and every part logs "Unrecognized CHIP_ID".
+SPI driver_override allows a device to bind to this driver without
+matching either the OF or SPI device ID table. In that case,
+spi_get_device_match_data() returns NULL.
 
-Set ADDR_ASC along with SDO_ENABLE before the read. This is the only
-multi byte transfer in the driver, so no other access is affected.
+ad7192_probe() immediately dereferences the returned chip information
+to initialize the IIO device, causing a NULL pointer dereference.
 
-Fixes: b66cddc8be72 ("iio: adc: ad4080: fix chip identification")
-Signed-off-by: Antoniu Miclaus <antoniu.miclaus@analog.com>
-Reviewed-by: Nuno Sá <nuno.sa@analog.com>
+Commit 572a00852635 ("iio: dac: ad5686: missing NULL check on match
+data") fixed the same driver_override issue in another SPI driver.
+Reject devices without match data before using the chip information.
+
+Fixes: c3708c829a06 ("iio: adc: ad7192: Convert from of specific to fwnode property handling")
 Cc: stable@vger.kernel.org
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
 Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 ---
- drivers/iio/adc/ad4080.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/iio/adc/ad7192.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/iio/adc/ad4080.c b/drivers/iio/adc/ad4080.c
-index 4843ecdd91a83..4ed82aa42400b 100644
---- a/drivers/iio/adc/ad4080.c
-+++ b/drivers/iio/adc/ad4080.c
-@@ -710,7 +710,8 @@ static int ad4080_setup_channel(struct ad4080_state *st, unsigned int ch)
- 		return ret;
+diff --git a/drivers/iio/adc/ad7192.c b/drivers/iio/adc/ad7192.c
+index d8f5886fcf694..8bd8105463111 100644
+--- a/drivers/iio/adc/ad7192.c
++++ b/drivers/iio/adc/ad7192.c
+@@ -1406,6 +1406,9 @@ static int ad7192_probe(struct spi_device *spi)
+ 	st->int_vref_mv = ret == -ENODEV ? avdd_mv : ret / MILLI;
  
- 	ret = regmap_write(st->regmap[ch], AD4080_REG_INTERFACE_CONFIG_A,
--			   AD4080_INTERFACE_CONFIG_A_SDO_ENABLE);
-+			   AD4080_INTERFACE_CONFIG_A_SDO_ENABLE |
-+			   AD4080_INTERFACE_CONFIG_A_ADDR_ASC);
- 	if (ret)
- 		return ret;
- 
+ 	st->chip_info = spi_get_device_match_data(spi);
++	if (!st->chip_info)
++		return -ENODATA;
++
+ 	indio_dev->name = st->chip_info->name;
+ 	indio_dev->modes = INDIO_DIRECT_MODE;
+ 	indio_dev->info = st->chip_info->info;
 -- 
 2.53.0
 
