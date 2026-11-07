@@ -1,52 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049308;
-	b=Lu1+OoVtd48rKuYUoXIAea+rMKmKBH5F6l+qchnn82SZGMIZZs5UaGejNODOZmNg435F
-	 uS2+UL2dGdAswi1liRhdIjImGtSofKi2mPUW6u9cocB4cuHTSbHwucX9oCbTUBvMZBr0q
-	 mDukPfLcKpb0wW5r+at3tGcGTBrrHcmwIJY3DJ9gJ/bqexmwD88fG9WlziXRhwexs8fiB
-	 NY06eHGiMwVqeFHbu+qf/LnpB59oBhYRw88PKcQ8IAeO3VU9+3xh5FFrUtcA3nNwibzPY
-	 D4DKsE8kxKStbNLPCqGBocI5ZNJ3qlsMMD/clSiIq/0yyUn8hq9em/DPJNqz+nbv2zA==
+	t=1794049311;
+	b=rqCn0tlYYa0xYZEsKGWo5WlzyY8haSPzk5g+jApWE6Shx0y7cOOZe03eoYwCeAF+tvsp
+	 J9LW3ywcg5szXN+Iv7lZIpy95lEv+FeYMWUQe0B6u/gjXLrEwEyV1OrzqRkuSVtaTDScM
+	 iatYOI/YzzDDXVv6gBIoAKojPtKv80XaD/2U7XCzUN5Y8c6cYUhJW1CfAuQC1mXwKuSfg
+	 kFFCvB13XivQCDh7FX7G9guaPqRx3j4HhmCgz+CX2+TxWWAig9t2fTRCi0iGq6j388gD/
+	 Q1yuaEa4CkE3/st8i7KcqXeYP1hUC7/0Nla21UD5xM+yGTpFtoXVoz8nSRB7On73alQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049308;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049311;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=bT86LsVxuXpb7GlgqpfyBm5PMhqrC6tJWeDTm4/XnQg=;
-	b=u6XL0gCvm7mJXasvm5JDCeW+fmHgXdFQ6jccEQA2uktbp0dbHuc4PSZZoHKcUbMaTfg0
-	 Q11UhZcTO9SPJt09br5jBUA9m92m+Chnvn/gbNLMzlOsdtI3JWu1XntpZamJ9QkFg6Ss1
-	 hVs6oFMhrlnCO2bBgoqwQZmZUU/pUG5jpmjBBxUZ5nQL+UqYY3/EhWSyAW+7JlMNRVTmz
-	 M5K9Hp9D82wH53aLj6q4EY7ZU8kIUmXZ32YAidHznilFTam0AkB3GV0szywZk4e8VF7ns
-	 Yu6iseUg5sAMBeYJLLiXx5OaUmXEve59nP3GQjxFnlaw63Ez4UBX1dEQ/9a6sOOgNCA==
+	bh=uD9e9VQ8AMxo3JkGW8GoOUFmWmQ++ZsJxjyygRaFx5w=;
+	b=TEsUxFPRsAekIFeA+RlU9oTv6EUdh8BRoLXcVHGtkg+HFVoRo479FjaukONtaTuRah8h
+	 woicgs841Al2/lo58SLVKMpr9ZnzhSJEJZ7PGq7awAoJCq7bVgz67e+Szvl+67XvfE0Oj
+	 NOcQHz8oAD3c0NkxlL3JUaZra4dHlOu7Z4Xmxbfz9M4uzMV+PyRYDhojjdNa+udr2Ps2o
+	 +FD7zyVTUlcJl0W+g85jep2VPAe0JcKN6MjGIzhdf5ip/0HmSHCwoWDOICDHs3qOZBD/Y
+	 R1Kmp05ctRpzJTr1t/9xkEINMPMykUmfvSAMkN/+dfoVRN2e1iZXs4btBypVaC3eD6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HxTL+JQl;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HFfTzI+k;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A2FC606A333
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:01:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6237D606A331
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:01:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HxTL+JQl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 751A01F0089F;
-	Sat,  7 Nov 2026 11:01:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HFfTzI+k
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A512E1F0089F;
+	Sat,  7 Nov 2026 11:01:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049308;
-	bh=bT86LsVxuXpb7GlgqpfyBm5PMhqrC6tJWeDTm4/XnQg=;
+	s=k20260515; t=1794049311;
+	bh=uD9e9VQ8AMxo3JkGW8GoOUFmWmQ++ZsJxjyygRaFx5w=;
 	h=From:To:Cc:Subject:Date;
-	b=HxTL+JQllW1MTXUrHEmgAqsVnRBLplE8kBgrV5BQUhr4ptTQMvjcqeLMMRGznZBJV
-	 HClBJDC1PqFIyUOXWYXCdbBiJTd5iJrsYBwcOav3Aufp3WgvoV+ePj7eM8NpyWurZZ
-	 dVK908FMrjqx1FrZ22jWlOEZ+OYyEl/CAQjjc8Bn0gFYGxZjBdrK+JBnJ1fbwTRhDR
-	 5HKfuVzJw8eotnlj4kYw35d+XX8hKSrqsa9qWBH5JarvMqxJy0DZcuuSGQb23W2dqX
-	 v7BGQNuyW8UwhzmSIoLNQExFHkrPOrsD4ZOJS7J6ejkjJZY+HE+pf0LymV7mwPrfk/
-	 Nj6+hAUqI4xbw==
+	b=HFfTzI+kQcXCKUccIKQWIB1RYbiQEet5c86XEcNCLtNSDbu9fW9d4dllBtKEF4itU
+	 WfnhahYTguh8wQxGUicB5lTENCVQq6X0c3PFNbfTneRASzDBF1YcCg7eAew7/OxcXH
+	 cPHuEJcN7XUHFJptkqKehne+U09is+ytAQeL0sXwmbpCqz9iFfnX1VFb5ONTqWJBll
+	 F8vBJluwUz154YCdWu8E6+CKdJLXGZ1P96DNVIrwEp6k6+SAmJnhkExXNtqlZ2u1cq
+	 EGTRDJBl+hWOMjVh9py4WKJJNSiH9Z0LxdZR5ZfcPF3FsFilD7WLoE2HG3wOq8Bkng
+	 he+Le4jvdRiiQ==
 From: Sasha Levin <sashal@kernel.org>
 To: fanwu01@zju.edu.cn,
+	songl@zju.edu.cn,
 	nicolas.dufresne@collabora.com,
 	hverkuil+cisco@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] media: rockchip: rga: quiesce IRQ before releasing m2m state" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:01:46 -0500
-Message-ID: <20261107060145-failed-5.15-a875c43dd95e@kernel.org>
+Subject: FAILED: patch "[PATCH] media: mediatek: vpu: free IRQ before destroying watchdog workqueue" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 06:01:49 -0500
+Message-ID: <20261107060149-failed-5.15-2c50b58d4105@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,75 +70,58 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x a875c43dd95ee4f9c4e3e5ae1cb8362cc6d7817d
+git cherry-pick -x 2c50b58d4105f6dbaa36d6306087954b9100e9ae
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060145-failed-5.15-a875c43dd95e@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060149-failed-5.15-2c50b58d4105@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From a875c43dd95ee4f9c4e3e5ae1cb8362cc6d7817d Mon Sep 17 00:00:00 2001
+From 2c50b58d4105f6dbaa36d6306087954b9100e9ae Mon Sep 17 00:00:00 2001
 From: Fan Wu <fanwu01@zju.edu.cn>
-Date: Sat, 4 Jul 2026 08:46:59 +0000
-Subject: [PATCH] media: rockchip: rga: quiesce IRQ before releasing m2m state
+Date: Wed, 23 Sep 2026 08:59:21 +0000
+Subject: [PATCH] media: mediatek: vpu: free IRQ before destroying watchdog
+ workqueue
 
-rga_remove() releases the m2m state before the IRQ is freed. The IRQ is
-devm-managed and is only released once rga_remove() returns, so rga_isr()
-can still run while the m2m device state is being torn down.
+mtk_vpu_remove() destroys the watchdog workqueue while the interrupt
+handler requested with devm_request_irq() is still registered: the
+devres core frees the interrupt only after remove() has returned. If
+the VPU watchdog fires in that window, vpu_irq_handler() queues
+vpu->wdt.ws on the already destroyed vpu->wdt.wq.
 
-Store the IRQ number in struct rockchip_rga, unregister the video device
-first, and free the IRQ before releasing the m2m state so the handler
-cannot run against the freed state.
+Fix this by calling devm_free_irq() before destroy_workqueue(), which
+releases the interrupt and waits for a running handler, so no new work
+can be queued while the workqueue is drained and freed.
 
-Fixes: f7e7b48e6d79 ("[media] rockchip/rga: v4l2 m2m support")
+This issue was found by an in-house static analysis tool.
+
+Fixes: 3003a180ef6b ("[media] VPU: mediatek: support Mediatek VPU")
 Cc: stable@vger.kernel.org
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
 Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 ---
- drivers/media/platform/rockchip/rga/rga.c | 4 +++-
- drivers/media/platform/rockchip/rga/rga.h | 1 +
- 2 files changed, 4 insertions(+), 1 deletion(-)
+ drivers/media/platform/mediatek/vpu/mtk_vpu.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
-index b3cb6bf8eb863..fbc99462dce28 100644
---- a/drivers/media/platform/rockchip/rga/rga.c
-+++ b/drivers/media/platform/rockchip/rga/rga.c
-@@ -797,6 +797,7 @@ static int rga_probe(struct platform_device *pdev)
- 		ret = irq;
- 		goto err_put_clk;
- 	}
-+	rga->irq = irq;
- 
- 	ret = devm_request_irq(rga->dev, irq, rga_isr,
- 			       rga_has_internal_iommu(rga) ? 0 : IRQF_SHARED,
-@@ -876,8 +877,9 @@ static void rga_remove(struct platform_device *pdev)
- 
- 	v4l2_info(&rga->v4l2_dev, "Removing\n");
- 
--	v4l2_m2m_release(rga->m2m_dev);
- 	video_unregister_device(rga->vfd);
-+	devm_free_irq(rga->dev, rga->irq, rga);
-+	v4l2_m2m_release(rga->m2m_dev);
- 	v4l2_device_unregister(&rga->v4l2_dev);
- 
- 	pm_runtime_disable(rga->dev);
-diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/platform/rockchip/rga/rga.h
-index bd431534d0d39..7bcdf36c11b4d 100644
---- a/drivers/media/platform/rockchip/rga/rga.h
-+++ b/drivers/media/platform/rockchip/rga/rga.h
-@@ -73,6 +73,7 @@ struct rockchip_rga {
- 	struct device *dev;
- 	struct regmap *grf;
- 	void __iomem *regs;
-+	int irq;
- 	struct clk_bulk_data *clks;
- 	int num_clks;
- 	struct rockchip_rga_version version;
+diff --git a/drivers/media/platform/mediatek/vpu/mtk_vpu.c b/drivers/media/platform/mediatek/vpu/mtk_vpu.c
+index 8d8319f0cd221..b6bd80b684459 100644
+--- a/drivers/media/platform/mediatek/vpu/mtk_vpu.c
++++ b/drivers/media/platform/mediatek/vpu/mtk_vpu.c
+@@ -962,6 +962,7 @@ static void mtk_vpu_remove(struct platform_device *pdev)
+ #ifdef CONFIG_DEBUG_FS
+ 	debugfs_remove(vpu_debugfs);
+ #endif
++	devm_free_irq(&pdev->dev, vpu->reg.irq, vpu);
+ 	if (vpu->wdt.wq)
+ 		destroy_workqueue(vpu->wdt.wq);
+ 	vpu_free_ext_mem(vpu, P_FW);
 -- 
 2.53.0
 
