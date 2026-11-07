@@ -1,51 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794045857;
-	b=QB3pmRKCQYFEjsXpzxe2qDUCa20h19ECmxZMxbRC+pBELCRQMOh0ImQN2kCb4s5lraAp
-	 AlaOTq2XhJYUJDLCceN7a02OiM9GUt8rcXo8NqvDprVQJrXVCen/6YCkSJMFMAVR1sk2e
-	 vK1jvngktumxdU80snRscg6iD1SAx+haJgJe1rY6+urlJyZeyWIlKd/6yM9v5B4XDQW7e
-	 nZ6/JxJYlJyRCpsDbuzn+rJ84X4S8I8ITCpiTtRvuIJddGVW1baIoo39RlW1Ysbo7XCMk
-	 qGP605BBDmPTpAVYZrAVcjgcicEorB+XdnDdj7FtC1p2+ipwn5C1IuqGsUZX/OHrfLQ==
+	t=1794045859;
+	b=h5iZC3N7Uc2mPxhmRwnEJuA7fPfpnfoVlaG8uAeV1Lqr0/IOKUCbCklqdPD5NeEvuJbR
+	 fwNVlT/62zTDnBHXYY2APBKaLrjmjVuspbTXgbc3CAI6bfcuBfQn8PxC1+OMrjeEnAI4f
+	 Cg5Il3v2WQLb/H3TFyI0lHZIsSGJ+lWrcsEOkF+qF1fuP4GG8fd1hf1EDQdMLhVmEqRwW
+	 vLYaGh5ZCJhdO8/YFNtqCJtm3jcn8JYv0+Kk1QdRQvuh/6eJ7pN7dWKDmNBWoFUqsQjBh
+	 fGpMoUlVL6F7EPP83b9b+dcBtZdrI76BzY0YvuRGA9ZBbY3jLPqFQRQYIQeh/owcAbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794045857;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794045859;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=dLCRYXStTEYXwIr9ZxlRcAIipABN9VKz5Mul+sgbAPo=;
-	b=ThyTeYE8JcLspQRwm/LhtS/wDSHNmSOqePqrZDJ6bvxxMNNjPJXsbYbnKfxUg0KOIzFE
-	 Zcx+ql/kmrq2+AY2xGRWplwav1Bvricnuaa0LwwQFq2BqfKTrAohj7EZVKtAZsPqE5iOz
-	 bXBfkV5Q32NHWDoJl8fGEebivXIOfns3iSOUmzMxJ95JT/KVv8rp1GiyN6+6EjNFHmj8c
-	 OJudLgN4TxELSvlo2ftaip2iNKfHhz3jy9hb5xc+Ywfp7l187djwmSGfLRWYYKYyjh6Zc
-	 ShQFiJCDccwdObM8gAt3d8eJxAdccBCZ1Hd+ZHbPH1VfFuc97Pl15As0cg3ynZ/CPaA==
+	bh=rlDWeTdWhi8f1EZ8y3vh9ZuSFkpO8kFqmgmdP2eJeSQ=;
+	b=KZWMkXkN/CgJK00UzFZjqwy3EG5UbLc9BsVUohfOGBeCdaqKkc6hPT13E9xTatb5/Kqo
+	 xBiU6yWXji9dQ8EOWt73yQICzPjSFbDq1uCYBVk+ccm2HrBgiSACogyLwnqKEGUV/pCmm
+	 0i4xJ+rVNzVSPcsXitWs0uh5+j6baMZqL026C39S6j5hsLf/B9spiGeZZ1HdNR3FiLzdJ
+	 m3zSVy8qIg0oaGBTmOlQp/4aBNNhcv64bEd7SUMuMclDXs/m6XatVObfj/s0DH9JS6PmK
+	 Vo1BZIRChhKR2ba5bXH2K4cCaP4M9owwdk67zEXmVOginsMNhGWxvaKFhh8ocCSOMRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SNZKrInZ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kq0Iyd3H;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5BD3606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:04:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D99FB606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:04:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SNZKrInZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2E421F0089F;
-	Sat,  7 Nov 2026 10:04:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kq0Iyd3H
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A17F1F0089F;
+	Sat,  7 Nov 2026 10:04:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794045856;
-	bh=dLCRYXStTEYXwIr9ZxlRcAIipABN9VKz5Mul+sgbAPo=;
+	s=k20260515; t=1794045858;
+	bh=rlDWeTdWhi8f1EZ8y3vh9ZuSFkpO8kFqmgmdP2eJeSQ=;
 	h=From:To:Cc:Subject:Date;
-	b=SNZKrInZN2RC8OfYt5e5HYvSY1e2jmFGrGTTQeFc1LEGliK1bR8gS7huBj7nRoRGf
-	 TXgtcRdfS7O47PoxNmwVqX+hteycwEwqGkdIxHnnvZ9+Y5DRjGy8EUPbrMOQ9SUwoN
-	 AvaDsfZ1Vg3fVEA1/24b6THrt/ITHFMv85m/TCC8GEb8BrFzNywo0HOHVdNZ8E+NLu
-	 y8R8BymWfkPbJ7gJkEUkJP81n1dllD/J/KuZEcLzLH/4/1bEKaOn3EGnwS8hqBhtTD
-	 xi3K8xnDD52HZU22YeXE4D8DEkBRbMyBi4N3Svglo/OooJf3/URaBpCpPDJiWgUG6+
-	 ghS6EoqVLNPFw==
+	b=kq0Iyd3HCAvrgVj7Cwb+WZRpRS4wnmXb1U6UhKdnQ3GNz9+Y/cevGXdlk3njQibgi
+	 eLALP9MbCHwrsE/6kT7YKG/74Auh7C6mMt0hMnYqQCk/ItAa+vIos7eHM4gymuZe9v
+	 9PTxJWNuC9yKm2jtab0K2R9/jZIdTNrn0a/5j2jJMbxh0iAwE4evjbinlVWKZUPHUW
+	 7eZpTI7pNJNN9Js6Fv0FX4rSzvA1SI3FNAgHcuVj7bYZLOteEVRmPrfkHTGWHQhViQ
+	 lInx3O5VvmLzRMGgiBGAWMPJtYrxcLuxt8M34yA7ebJ6ylL38SJtMrJmM3FvAknUAO
+	 JdJwXnqQ6BzZw==
 From: Sasha Levin <sashal@kernel.org>
-To: qwe.aldo@gmail.com,
-	almaz.alexandrovich@paragon-software.com
+To: bartosz.golaszewski@oss.qualcomm.com,
+	sashiko-bot@kernel.org,
+	mani@kernel.org,
+	vkoul@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] fs/ntfs3: validate that EA entry size covers its name and value" failed to apply to 7.3-stable tree
-Date: Sat,  7 Nov 2026 05:04:14 -0500
-Message-ID: <20261107050414-failed-7.3-60bd50014cc9@kernel.org>
+Subject: FAILED: patch "[PATCH] dmaengine: qcom: bam_dma: free interrupt before the clock in error path" failed to apply to 7.3-stable tree
+Date: Sat,  7 Nov 2026 05:04:17 -0500
+Message-ID: <20261107050416-failed-7.3-82eed160cfa7@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,95 +70,85 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x 60bd50014cc9a97c5e34a8bddd2bad4d2dc5acb7
+git cherry-pick -x 82eed160cfa7a296ae4eb5acb8dd8f493323eea7
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050414-failed-7.3-60bd50014cc9@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050416-failed-7.3-82eed160cfa7@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 60bd50014cc9a97c5e34a8bddd2bad4d2dc5acb7 Mon Sep 17 00:00:00 2001
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Date: Thu, 23 Jul 2026 19:10:45 -0300
-Subject: [PATCH] fs/ntfs3: validate that EA entry size covers its name and
- value
+From 82eed160cfa7a296ae4eb5acb8dd8f493323eea7 Mon Sep 17 00:00:00 2001
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Date: Thu, 8 Oct 2026 11:54:35 +0200
+Subject: [PATCH] dmaengine: qcom: bam_dma: free interrupt before the clock in
+ error path
 
-ntfs_read_ea() walks the on-disk $EA attribute and checks each EA_FULL
-entry for consistency.  For an entry with a non-zero ef->size (the
-offset to the next entry) the loop only verifies that this stride fits
-in the remaining buffer, and then continues:
+The BAM interrupt is requested with a devres helper and so on error it's
+freed after probe() returns. We disable the clock before freeing or
+masking it so it may still fire and we may end up reading BAM registers
+with clock disabled.
 
-	if (ef->size) {
-		ea_size = le32_to_cpu(ef->size);
-		if (ea_size > bytes)
-			goto out1;
-		continue;
-	}
+Stop using devres for interrupts as we free it in remove() manually
+anyway. Add an appropriate label and free the interrupt before disabling
+the clock in error path and in remove().
 
-It never verifies that the entry's own name (ef->name_len) and value
-(ef->elength) actually fit inside ef->size.  A later reader trusts
-ef->elength unconditionally; ntfs_get_ea() does:
-
-	len = le16_to_cpu(ea->elength);		/* up to 0xffff */
-	...
-	if (len > size)				/* size is the user buffer */
-		return -ERANGE;
-	memcpy(buffer, ea->name + ea->name_len + 1, len);
-
-A crafted image with a small but valid ef->size (e.g. 24) and
-ef->elength == 0xffff therefore passes validation, and a getxattr()
-with a large enough user buffer copies up to 64 KiB starting just past
-the short entry -- an out-of-bounds read of the ea_all allocation that
-leaks adjacent kernel heap memory to userspace.
-
-  BUG: KASAN: slab-out-of-bounds in ntfs_get_ea+0x2b8/0x3f0
-  Read of size 65535 ...
-   ntfs_get_ea -> ntfs_getxattr -> vfs_getxattr -> do_getxattr
-
-The zero-ef->size branch already computes the same struct_size() to
-derive the stride; mirror that in the non-zero branch and reject the
-entry when its declared size cannot hold the name and value.
-
-Fixes: 0e8235d28f3a ("fs/ntfs3: Check fields while reading")
 Cc: stable@vger.kernel.org
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Signed-off-by: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+Fixes: e7c0fe2a5c84 ("dmaengine: add Qualcomm BAM dma driver")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260427-qcom-qce-cmd-descr-v16-0-945fd1cafbbc%40oss.qualcomm.com?part=2
+Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Link: https://patch.msgid.link/20261008-bam-dma-free-irq-v28-1-5e5b10de441e@oss.qualcomm.com
+Signed-off-by: Vinod Koul <vkoul@kernel.org>
 ---
- fs/ntfs3/xattr.c | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+ drivers/dma/qcom/bam_dma.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/fs/ntfs3/xattr.c b/fs/ntfs3/xattr.c
-index 7f77df9c46f85..2cf45bdd93d54 100644
---- a/fs/ntfs3/xattr.c
-+++ b/fs/ntfs3/xattr.c
-@@ -167,6 +167,24 @@ static int ntfs_read_ea(struct ntfs_inode *ni, struct EA_FULL **ea,
- 				goto out1;
- 			if (bytes < offsetof(struct EA_FULL, name))
- 				goto out1;
-+
-+			/* Check if we can use fields ef->name_len and ef->elength. */
-+			if (bytes < offsetof(struct EA_FULL, name))
-+				goto out1;
-+
-+			/*
-+			 * The declared entry size (ef->size) must be large
-+			 * enough to hold the name and value.  Otherwise a later
-+			 * reader such as ntfs_get_ea() copies ef->elength bytes
-+			 * starting past the entry, reading out of bounds of the
-+			 * ea buffer and leaking adjacent heap memory to
-+			 * userspace via getxattr().
-+			 */
-+			if (struct_size(ef, name,
-+					1 + ef->name_len +
-+						le16_to_cpu(ef->elength)) >
-+			    ea_size)
-+				goto out1;
- 			continue;
- 		}
+diff --git a/drivers/dma/qcom/bam_dma.c b/drivers/dma/qcom/bam_dma.c
+index 94cb957d4b187..f67a93a37d48c 100644
+--- a/drivers/dma/qcom/bam_dma.c
++++ b/drivers/dma/qcom/bam_dma.c
+@@ -1332,8 +1332,8 @@ static int bam_dma_probe(struct platform_device *pdev)
+ 	for (i = 0; i < bdev->num_channels; i++)
+ 		bam_channel_init(bdev, &bdev->channels[i], i);
  
+-	ret = devm_request_irq(bdev->dev, bdev->irq, bam_dma_irq,
+-			IRQF_TRIGGER_NONE, "bam_dma", bdev);
++	ret = request_irq(bdev->irq, bam_dma_irq, IRQF_TRIGGER_NONE,
++			  "bam_dma", bdev);
+ 	if (ret)
+ 		goto err_bam_channel_exit;
+ 
+@@ -1366,7 +1366,7 @@ static int bam_dma_probe(struct platform_device *pdev)
+ 	ret = dma_async_device_register(&bdev->common);
+ 	if (ret) {
+ 		dev_err(bdev->dev, "failed to register dma async device\n");
+-		goto err_bam_channel_exit;
++		goto err_free_irq;
+ 	}
+ 
+ 	ret = of_dma_controller_register(pdev->dev.of_node, bam_dma_xlate,
+@@ -1385,6 +1385,8 @@ static int bam_dma_probe(struct platform_device *pdev)
+ 
+ err_unregister_dma:
+ 	dma_async_device_unregister(&bdev->common);
++err_free_irq:
++	free_irq(bdev->irq, bdev);
+ err_bam_channel_exit:
+ 	for (i = 0; i < bdev->num_channels; i++)
+ 		tasklet_kill(&bdev->channels[i].vc.task);
+@@ -1410,7 +1412,7 @@ static void bam_dma_remove(struct platform_device *pdev)
+ 	/* mask all interrupts for this execution environment */
+ 	writel_relaxed(0, bam_addr(bdev, 0,  BAM_IRQ_SRCS_MSK_EE));
+ 
+-	devm_free_irq(bdev->dev, bdev->irq, bdev);
++	free_irq(bdev->irq, bdev);
+ 
+ 	for (i = 0; i < bdev->num_channels; i++) {
+ 		bam_dma_terminate_all(&bdev->channels[i].vc.chan);
 -- 
 2.53.0
 
