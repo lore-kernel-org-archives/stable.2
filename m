@@ -1,67 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794064074;
-	b=iBt36GF/1pgPmxPWBYAfM8pmGWMdfw4bk7yaWn+DgjW/v5uN7X4gghPcHmJgE10J0CqJ
-	 sKm1JA5uDf/bcz3QYs6IcgtsBppFIMNCO75TALETsawx6OumXUeV8K8f7HbbtMzt2MkUF
-	 5cyYKzSTrCasFo1pty3nTGQFwwUy9RhadwSW09Gxia+8b3Lcg4wD7/vmDwe4UCv1xtq9/
-	 Ifdbiu03ZM6J86RKXat7tw3Z8SO8o+d+Bl0nY4hfsAET1R6yD67+nE0dfVFBR1EAcHqxL
-	 M1bKjuAf1FKnl3NCNPAm0v1mdJ3OiRqOi6RUtprQlWIk1V+R2djpHfclc+LB7MiSYpQ==
+	t=1794064080;
+	b=n/evZKUkkuZvku1dmzu/ADFZ1kUpqk+l8T3knIVsNGn493VYT0+f025CahK4bj4JfGB0
+	 yafl95gX++v6I9C5jS/DLdm2mekGsiXpiPKZEAxJL91ND3u28VJpDpDYcQxx1rdEsLZer
+	 mtXbEx3Jw5h3OSEFZ5RsqbAzIClmmtXdZL9RoF81fsdZArUbgnE8b6iGvQsm+oV1mGCQH
+	 HoPC7MKPRiLV/NODlPGMEcD6gSgBNrmQNm++ipS4ENqAMwWqVw79nQHjHrs4TlqY7Y4ll
+	 v1C2utUsZk3ssJCcTD1l6L/Z3P7wOBHfOnpz/81xoWi3ljINw/7bW3zJx3PgCuCcUaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794064074;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=SIIbZJRteDk7lfiVpVQ7ZVtmuUKJZZxsXp/vVISgb4o=;
-	b=CWfxgOJjtiXcrcZa4IxiPlnyOoW/FP9f6gkNbB8aF5r2gbZDl6bveK/NgURbGBtgfOyO
-	 Ajl61iZy+vlyKmBNtUkEYy0XrzVz0gQAEcVoVdd25QUVv84Ej2P+nWkBR2FUnwkZ6Eg2w
-	 HIRU6zp7ZLv+pLcQeEYgkkOsc2KZqpKKPcW1cximYIpQ7iK1Mi2uLqCzSbhD6KY4QJcnZ
-	 wqdnwDxA/px5nAjPBtTb1u8Y2ZFlje+nJwjhgUjSxDG7Pr9hVuUIenEuQnP2PYcMQaV0Z
-	 hmumCowF+g2EgqQQc8IVzXcVm2g8+0PBhHX21Mxpoa7tyu6hhddXSjQvbUnFjHS0wqA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794064080;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=vRbCxOePjlicgHfS+P2GbOQgUFYIfL4ol2aIlu4DJCY=;
+	b=OwMXl5fM/dna9waQDC3VdNZHjYL9uCPh1zhgYYJXbdFmZAv7K8X0U1nmqy0uxZrdniGF
+	 8eBkkcv4v2HvRU7sqL8jxvc3avzd90dbT5ZuEPuP7k18HYgDgnGs4N6y7d+d1LZJEWWCa
+	 wDQgT9XQBTcD/YLC3w0tN2T5YB0oQIH4GK1oYsmfpD3v/4cgPPZLjqmtMRa2y8A72fWtc
+	 trI3d2K31IU1E3LKQ+7+1BAQlJzKpbQktzrYVe9iqnlCteECNUCHd6DXqt3a61cHbS2nX
+	 xER94i/bhlz2747ckI1QM63xbWuPEf4Bjadv2Bkk93lZ+YSyznGtyQhdCi5/66mugcA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=fsOLGJzS;
-	arc=none smtp.remote-ip=111.22.67.135
-Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DD999606A9F0;
-	Sat,  7 Nov 2026 15:07:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD999606A9F0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=W1VhY31s;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 819F3606A9E4;
+	Sat,  7 Nov 2026 15:08:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=fsOLGJzS
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=fsOLGJzSPi0Ebi+TD9FCGosq6BXI4skxpBf7ZiXhkL7Gob9MGD4H6F7sKaQM/njU48uZZ4ylcH664
-	 iH4jD1dlqeVJeN0/LmQsEkftCwi45qzrmnKKZaWLXLcGMJCZMfaGAIdiF1XU63qXNcZGZKOVnkyTVf
-	 iqtTXDzvQQ3ZQwII=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app03-12003 (RichMail) with SMTP id 2ee36aef3ec5283-8385e;
-	Sat, 07 Nov 2026 23:07:49 +0800 (CST)
-X-RM-TRANSID:2ee36aef3ec5283-8385e
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from DESKTOP-3K8GUTQ (unknown[112.0.144.25])
-	by rmsmtp-syy-appsvr02-12002 (RichMail) with SMTP id 2ee26aef3ec3728-48d1d;
-	Sat, 07 Nov 2026 23:07:49 +0800 (CST)
-X-RM-TRANSID:2ee26aef3ec3728-48d1d
-From: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
-To: mdf@kernel.org,
-	yilun.xu@intel.com
-Cc: trix@redhat.com,
-	linux-fpga@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	laixiangwu <laixiangwu@cmss.chinamobile.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] fpga: altera-hps2fpga: Fix reset control leak
-Date: Sat,  7 Nov 2026 23:07:47 +0800
-Message-ID: <20261107150747.1152-1-laixiangwu@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.50.1.windows.1
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=W1VhY31s
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E85AC1F0089F;
+	Sat,  7 Nov 2026 15:07:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1794064080;
+	bh=vRbCxOePjlicgHfS+P2GbOQgUFYIfL4ol2aIlu4DJCY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=W1VhY31s2sy3ta49lQzJNZyh+zKxCaU/5FTQt8KmrDBVxGCAm6DfawjL14RtSmAIe
+	 YJqBgKVm7EEeN6mFVDj8bhbWK9SWJSxBqCv6nyBMZmTyMrFTF3Dlf3mCPo8AGOcEGr
+	 c+Ci+92JcVyqTSui0kibZM/hCKTNR6zeahUCRYaM=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	Nishanth Menon <nm@ti.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3 0245/1257] arm64: dts: ti: k3-am62p5-verdin: build zinnia dtbs
+Date: Sat,  7 Nov 2026 08:42:21 -0500
+Message-ID: <20261107134946.279130503@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261107134939.434104957@linuxfoundation.org>
+References: <20261107134939.434104957@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -73,51 +64,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: laixiangwu <laixiangwu@cmss.chinamobile.com>
+7.3-stable review patch.  If anyone has any objections, please let me know.
 
-alt_fpga_bridge_probe() acquires the bridge reset control with
-of_reset_control_get_exclusive_by_index(), which is not
-device-managed. None of the probe error paths release it, and
-alt_fpga_bridge_remove() does not call reset_control_put() either,
-so the reset control reference leaks both on a failed probe and on
-every bind/unbind cycle.
+------------------
 
-Since the leaked exclusive reset remains acquired, rebinding the
-driver afterwards also fails with -EBUSY.
+From: Francesco Dolcini <francesco.dolcini@toradex.com>
 
-Use devm_reset_control_get_exclusive_by_index() so the reset control
-is released automatically when the driver is unbound or the probe
-fails.
+[ Upstream commit 237fda81c2b4984c2212f0d3f510405aad8b25db ]
 
-Fixes: e5f8efa5c8bf ("ARM: socfpga: fpga bridge driver support")
+Add the zinnia dtbs to the Makefile, they were forgotten when zinnia
+support was added and were therefore never built.
+
+Fixes: 71c2a8124527 ("arm64: dts: ti: k3-am62p-verdin: Add Zinnia")
 Cc: stable@vger.kernel.org
-Signed-off-by: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+Link: https://patch.msgid.link/20260914174651.6195-1-francesco@dolcini.it
+Signed-off-by: Nishanth Menon <nm@ti.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Changes in v2:
-- Drop the enumeration of probe error path examples from the commit
-  message, as suggested by Xu Yilun.
-- Add Cc: stable@vger.kernel.org for backporting.
+ arch/arm64/boot/dts/ti/Makefile | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Link: https://lore.kernel.org/r/20261103014240.1194-1-laixiangwu@cmss.chinamobile.com
- drivers/fpga/altera-hps2fpga.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
-
-diff --git a/drivers/fpga/altera-hps2fpga.c b/drivers/fpga/altera-hps2fpga.c
-index f2f125068..6d9798bb9 100644
---- a/drivers/fpga/altera-hps2fpga.c
-+++ b/drivers/fpga/altera-hps2fpga.c
-@@ -134,8 +134,7 @@ static int alt_fpga_bridge_probe(struct platform_device *pdev)
+diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
+index 795978e962ee8..ec03d594f23a6 100644
+--- a/arch/arm64/boot/dts/ti/Makefile
++++ b/arch/arm64/boot/dts/ti/Makefile
+@@ -91,6 +91,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-am62p5-verdin-nonwifi-dev.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am62p5-verdin-nonwifi-ivy.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am62p5-verdin-nonwifi-mallow.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am62p5-verdin-nonwifi-yavia.dtb
++dtb-$(CONFIG_ARCH_K3) += k3-am62p5-verdin-nonwifi-zinnia.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am62p5-verdin-ov5640-24mhz.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-am62p5-verdin-ov5640.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-am62p5-verdin-wifi-dahlia.dtb
+@@ -98,6 +99,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-am62p5-verdin-wifi-dev.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am62p5-verdin-wifi-ivy.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am62p5-verdin-wifi-mallow.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am62p5-verdin-wifi-yavia.dtb
++dtb-$(CONFIG_ARCH_K3) += k3-am62p5-verdin-wifi-zinnia.dtb
  
- 	priv = (struct altera_hps2fpga_data *)device_get_match_data(dev);
- 
--	priv->bridge_reset = of_reset_control_get_exclusive_by_index(dev->of_node,
--								     0);
-+	priv->bridge_reset = devm_reset_control_get_exclusive_by_index(dev, 0);
- 	if (IS_ERR(priv->bridge_reset)) {
- 		dev_err(dev, "Could not get %s reset control\n", priv->name);
- 		return PTR_ERR(priv->bridge_reset);
+ # Common overlays for SK-AM62* family of boards
+ dtb-$(CONFIG_ARCH_K3) += k3-am62x-sk-csi2-ov5640.dtbo
 -- 
-2.50.1.windows.1
+2.53.0
 
 
 
