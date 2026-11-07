@@ -1,45 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794066241;
-	b=aAlHRPbnMEwBuro0Yk1+kcR0hoLgakXk4hF5nx+lzwkx9VyOv2KQLgskqM/jfCn1yj4l
-	 QpGxQTtqoMcOdS+VsQ0QuWi+IG6CxOrm7xqW7PdbTrG/k2NlWkmirhT9Gk3P82tu5fkE3
-	 Yn4mv/r+Cbqw+WW3J4Q4zsHzpqCexyMNPUhlDvLzSiII1EWg2nPurVtmqJYmntYrOSQ4d
-	 vba0U1xNCO/b/6D9ZC7ClY78vQWY+kLo/I9qSQ/CE3kqrXlUIi3L5DSon/bptdAdRr2ur
-	 4ilsE2xHSjzrbkGVWg9scrt0iYItEDIVM/pRq1LibV1jCtdGxDgjr6RxH5gF/NcBUoQ==
+	t=1794066754;
+	b=ch/zXz6zHDuNfT9SvNf3aEk+mE8xTqHLZ7cIuQiIgSo/LAh1z5afGxZz+Y1+UmafjHbG
+	 AqurWXmgZ7Z0EUVvc/GrDZCaPp0bZ+rTsOGffVvv1ewOl3UHoZObad4dqWN0YQpAVRVuT
+	 agoelQPCDjeYu6kgRpY5FHMinIvzI+CEI4PiYtYY//DpOPYb/3PJM3Vp1lBLIiE0uOvH9
+	 cBtMpCm8tC29PjJ+/lrqUuOLR/eGwkFO7b/Zk9qkEsa1vUGcyb67Nn8i+7YzUw87gex1n
+	 vj6fBBvNmDVf7sNR5JLsHqJhorE7+9mUwq4gCoiYIxyY9rZ0IsZGdt9p+bWUQ4np5CQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794066241;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=eYxgXranWoSQlhCoeNmLdUDwCImCfxZkTrCYXT55ZLU=;
-	b=cpMFXskbrTvwZoInPxvIYTjrx9cnVxOttefrCoXWl9IMSzlL0rXiGO4WecXKFdvPZE+4
-	 Gf37AZ1wTJ0RsxGm59D64UK9ylu1dklyB7Bkze3Kyi3UjJGhb7dFWnRjS4fTOWbQRWmLw
-	 nr3WNRy5DAimlXxmCGFKJ4gsuY0lGFSo9qppfTuNhPlOZB8ivs59z0krOA1NpnWAR//CA
-	 qQjmkLSIZBsQCGOGK3TDRZngXIbeKrLAN6fmpDbDXUCOJNIRDJGnHFML3zilk3YLDy8vN
-	 z+6A4BXdveskKMZytIMRxqsecNXMrItig4zTQNnXtYY3JbzpnagdRDTltI+EvImcWVg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794066754;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=yuOm98ddy3CrTpXMOnjEupRAHFolxTG7obkIbDJArDc=;
+	b=dgfGcYdlhrVMDmbock9WkLv2TgVJ4zbumKf/xQ/R9OFPhBfquPBvpvSE4hHpJ7Qc61Xm
+	 QpGCU/UqcZ0Bu9olizgCDwMU1I9JlH5JbrzfFvPAcKngS2SKmcpJWkduK+7RlKlB2aBr8
+	 54w+v02bzRIviWHH6fFZO8RPpYgK+q8E3gEqHc4s/xhxkqDl+3Ob1d/hj1xuGDOBEMokA
+	 2Jb1H1LMf55Z4gZBTjMC7sm3ETkImKLiM/AJA2lW/sQd6ziKIre40mfw9ET9+BqiEqtyd
+	 MLFMUYwL/cYTnssaY5qUl2TWJz4hGEyPbTbQHjF4k7ZT3p9MPYnV5NtEq+QbDBpmUKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kusi7ac0;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PudG8zIv;
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65A6C606A32C;
-	Sat,  7 Nov 2026 15:44:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9642C606A32D
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 15:52:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9642C606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kusi7ac0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 764801F0089F;
-	Sat,  7 Nov 2026 15:43:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794066240;
-	bh=eYxgXranWoSQlhCoeNmLdUDwCImCfxZkTrCYXT55ZLU=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=kusi7ac0w4ZreYG2a6XTbtQyXG4p6FRKlPIzlZOMRnZBmkH2TqqAQIk+E6Bms1rJx
-	 zbz6d/RSXwozO+IKr2M2kUCWl85K6wWtsZLRRsGv8itFwX3yasXpug6aTLE/Lt0fcj
-	 gVHyVcq1Nui1HY5r5BFMD+hiw703YT6bjMCRGBm+rZn6kILhDLb3x4sTS67GL93SBF
-	 xWaJzGqFMZybHGLimMfA/qrRZD/Yuafd8PXqVny7ADnRujsuh0b/vBYAWUkYuH7a8N
-	 uEokovwOalO3BOoJKroPLZTUnkxfSa01HfcrcJ1T2F3Vturm/4UNSMAeKS8KdWUSVd
-	 /Gtd+w7cJLnQg==
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PudG8zIv
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4b7252a32c8so14071735e9.0
+        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 07:52:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794066753; x=1794671553; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yuOm98ddy3CrTpXMOnjEupRAHFolxTG7obkIbDJArDc=;
+        b=PudG8zIv4x/GlPwRCQPXkKYUKOMUE92KqaWx7BF4nUAAKigRhIYuBkGVabXdSH4NoC
+         ZuCFOhdzAgT7iuD25esyOKQ8oYD0j7fBo/eLXy9CrO4O6lOK0AZ0MiE6+H9pt6hx0PRF
+         gzBLWSOkdObawigK1ABirnEOwVuJTD5jpj3jDq8cLtMk5BvlBldKck/++GJpXB9lAXkj
+         uF+qi2NZmsWJR7HynkodJWmnDF8QbtUkzRBuD2hJPR2Lf7gn8BwwHESLcULyCzM1En4M
+         YGcy01ZHlwrlszHaa+leTHO/Lpnkn4Pknxw45n+qyBwxW8NZ7Mj1fZ1dVR/5UKFt97/X
+         5N9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794066753; x=1794671553;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yuOm98ddy3CrTpXMOnjEupRAHFolxTG7obkIbDJArDc=;
+        b=GYK+Rw58xrZfG6+eM0iDer9MNQI0d4HpltGeXl2pohk2hFo2AXJIhh79jbnUO/SKyC
+         5AkuN4zJreMoUpcfXva5cYF1hcAPnjlpr3PR5KDYvqcECZ8zqYyFcrgO8bCfYTOS2v44
+         wVzpC0ohzeFDGF618bQI5YVZw1x3M/I4Q4ZTbbCQ0heFgDQo+7tFwfFEaejxVe83be0f
+         o46mqi7PiSpkZwDA7IEiglCx4AvT3Jx/d/iNSblNdYnkOaydot7t0y2OZ8RSb0ERhZqa
+         hy9L6UnvnTCoYl1qONLVr4yEoyL2mDI3M0gs/bGnM7FmUwDpRWHIq+f8wBEP1aF7zaFD
+         by3A==
+X-Forwarded-Encrypted: i=1; AKwUvByQizfKJ9M3XBLFtDCMySSs8VUYrD3XCKUKIxJWgtrj7kKpnfvmi9tE9+p9RO6tzSlfWGx06RE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8oNheVAi1VwgkLuZy8cCQUFHF8e6DcgUe6DwVlbbIOUshbmM7r
+	5h8ths24CRwrE1UK9O7C+mjRjAmWANJ5zvtFMd/B9CC2gmVqHxMxVCvC
+X-Gm-Gg: AYBFou0GMZlvIwEA2l0cqd/T65GlWVyWkAaBUV349CCyFR88cZeHu95uEafxLK5OOUB
+	MzsQYfy76czRMq97A3eDQQb2Vvbt/X5WByvS5XFn6NNhGZ9qOftwz1Skw4ybx8AX8q/ztpHAgJN
+	B8U+FIkCcUAq17Gj4Vbu3cIf616Fz2IQb+qk8iiSJJnhG6kgtb3YUKR+5KUAUF9vDHTytt7zSEz
+	KQdTNIJp2TCvA2CwKvbNLQJER7VGlIV87OcSUYGI043j0pcciFYlgbFS81nv8yW7ivmJQHDCbPR
+	8/wVUtJne7uoGMOkAKrAf4lQq7qMAhyKFiTu8cahYpCIVwY/ZK25OI4bEu0TGo9myf+SbQfyNYs
+	vH3FuFi5FYifvusoUq6yZHuUorYF8LL+/JKJq8FvCtG3dA3Ih/V8SqpUJw8XxSGaj732aSi7CTm
+	X8OQowbOrEmWBxrqBSYVDiWNVLCrpZmS4ITNY7RyBKRqUzvuwmWiD0l5iXwRKKPCitHOgX0wkCO
+	8zg/INk08T0ft8CaZ777olibHAJhDN+ZHmJ/e2dtsyejdBmvX5J8mAzf58absVGOdvFslo/cwZg
+	MLuliRtBNE2ofzW/ZriW7F8o+5rJiwh2cjFSYvnMDoUcfxiKdujWw6VO7/0gEB33zU17Q3mTxaU
+	By8ZqkB3HV5EKEJzDsbY=
+X-Received: by 2002:a05:600d:82e3:b0:4a1:9661:14b5 with SMTP id 5b1f17b1804b1-4b6dff87583mr116421135e9.29.1794066752809;
+        Sat, 07 Nov 2026 07:52:32 -0800 (PST)
+Received: from localhost.localdomain (bba-217-164-30-115.alshamil.net.ae. [217.164.30.115])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7d2ad9b95sm86011515e9.0.2026.11.07.07.52.31
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 07 Nov 2026 07:52:32 -0800 (PST)
+From: Ximing Zhang <xzhangjr@gmail.com>
+To: Ricardo Neri <ricardo.neri-calderon@linux.intel.com>
+Cc: Ximing Zhang <xzhangjr@gmail.com>,
+	Sasha Levin <sashal@kernel.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	stable@vger.kernel.org
+Subject: Re: FAILED: patch "[PATCH] hwmon: (coretemp) Return -ENODATA for invalid temperature readings" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 19:52:29 +0400
+Message-ID: <20261107155229.30955-1-xzhangjr@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261107053626-failed-6.6-f63aaa529cbc@kernel.org>
+References: <20261107053626-failed-6.6-f63aaa529cbc@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -49,62 +100,13 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH] media: venus: vdec: Clear streamon flags on streaming
- errors
-From: bod@kernel.org
-To: fengchenguang@kylinos.cn
-Cc: vikash.garodia@oss.qualcomm.com, dikshita.agarwal@oss.qualcomm.com, 
- bod@kernel.org, mchehab@kernel.org, linux-media@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-In-Reply-To: <20260930042417.191675-1-fengchenguang@kylinos.cn>
-References: <20260930042417.191675-1-fengchenguang@kylinos.cn>
-Date: Sat, 07 Nov 2026 15:43:55 +0000
-Message-Id: <179406623573.650304.7316804357231787933.b4-reply@b4>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1204; i=bod@kernel.org;
- h=from:subject:message-id; bh=zLU9b3PfIsD8Jz99iK2c9VmRUcnT4iDkqCQDMoxJujw=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBq70c9+UqbkesHh0vb4BCptwx8RIhgnJLC3hHBq
- ePya98qtJaJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCau9HPQAKCRAicTuzoY3I
- Oid2EACGmzztFGQH3bO9/HTyq15xv9zcOvMYAEpSZIg7IigHYTsQwcnnUt8cjbwYl9RUTfgLeiK
- rEzTZMiXspyCRVlq3LUF9+bIrNwAqNGj9daaQ8w5GLNZYteUfc1C11BrgRMvkk0C7cYPMW9YE1J
- 19JXqOlpqXvjB1ZEHtfb5pMmR8fV3IKjapjCFcfe2khepdzYghj6kH8S7dRJDukS21/+P9hAQ9W
- dnIiP83apCQ0TL84XUieT2CbkLuMBlMd0IlY02ikrLvV00iRRy3wW2TYezM/u/iSISlzZpSD946
- J6ArJOT4jJN2eRlVWTRJ1sqKfRrKCXIiSietAGRUSLalEDsCFaEpjLB7VAep87KsqS+48EunyLq
- LPSSrnPQCSFW7pzXbKKowQY0nvBgreIqFkCm6LPfpW9WFP50t+dfCUND5dIFeKt4orT2Z9L5r/+
- HGonRXQqSDuiUDS+138URvfcSYmdaSANFOGpQB9HDa4HR3C+Az5T/rUEEUAeIhpV/ZZakwP6bYp
- d2zbcVRTGhJYDALmGKbDBE4NDO05eK+tgPT1SrxAM8HQ9mw74EEFqiAVyg3TogZE7YZ83yd7YEv
- KfXNTJLJjllXigbX42472DEQX3q9/6PzgvuF6CJ0RZ+qITZLLarR6nQxnEuzr0E928BdqeR+rHi
- dQ9wDBxmqjg/SlA==
-X-Developer-Key: i=bod@kernel.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
+Content-Transfer-Encoding: 8bit
 
-On 2026-09-30 12:24 +0800, fengchenguang@kylinos.cn wrote:
-> From: Chenguang Feng <fengchenguang@kylinos.cn>
-> 
-> The decoder only clears inst->streamon_out and inst->streamon_cap on
-> the success path.  When vdec_start_output() runs with the decoder in
-> the INIT or CAPTURE_SETUP state, it still sets streamon_out at its
-> done: label even if venus_helper_process_initial_out_bufs() failed,
-> and the error path of vdec_start_streaming() does not reset the
-> flags.  vdec_stop_streaming() skips the clearing as well whenever
-> the hfi flush fails.
-> 
-> In both cases the driver and vb2 disagree about the streaming state:
-> vdec_decoder_cmd() and delayed_process_buf_func() keep going as if
-> the queue were still streaming, and a later capture streamon assumes
-> the output queue is streaming too.
-> 
-> The encoder clears both flags unconditionally in the same
-> situations, so make the decoder do the same and print an error when
-> the flush fails.
-> 
-> Fixes: beac82904a87 ("media: venus: make decoder compliant with stateful codec API")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Chenguang Feng <fengchenguang@kylinos.cn>
+Hi Ricardo,
 
-Reviewed-by: Bryan O'Donoghue <bod@kernel.org>
+I'm considering preparing a 6.6.y backport of this fix, including checking
+its prerequisites and coverage in newer stable trees. Are you already
+working on these backports?
 
-
+Thanks,
+Ximing
