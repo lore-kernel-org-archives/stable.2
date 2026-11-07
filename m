@@ -1,52 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794062074;
-	b=oPugvwbekY1zePnjB9kA4kJyMEVENXNXB1p5DZXTfifMlQkgl2ditA8hMRE7L9/QCdOT
-	 7pDtigFiCykQtqPIRXryq+1J6jvFFbAo7YkRB2hxCmA2f3EdiJOGbHQ50q35zBeMcl4X7
-	 AfO3yfEfuv21mCd4S+PQPD/hVjYCMDXCgR3Ktm0j+mG10IdlcPOQaOu7bou1JdpPmH9FQ
-	 6BzylD770WLqnzvioz2vZ54H6LHHXN/OL8wzkXOKODeJsPsq1PwMDRzRaUclQbHH2Pxe+
-	 WFracaa5YQMOMcfiydtKy6dsmbw+dUqszb0sUrvVT1zvhakEieTgFQmcb4Diqtdw+HQ==
+	t=1794062075;
+	b=yBYbuvVS5wngNIk1d3z5Q459q6zUMFf5MKgMDmNkh9x0QMj6POJz2aztK0LJ24xY+8Pq
+	 uDUinpx1LaxG5/Dbjc6FSiTnI004ZWLppizN1ikC3HtQrbhQIFNOz+6LIqhtccvo0OubZ
+	 F51D3v9p+8hELOgHcB0Zx3BzJSNeS9JUJ6tjYeRiRDf0ABHupzD1aDLyTmWOtgl61Vdqt
+	 zC6uKVnEyDsOzpmtvBY2RKuwNPdqMzNKhWbD57UOElHen2Yh2M1VBijI+qwUdgW9inJbq
+	 far7lkOyk0acBmGuQMRHyoKsFCT8e1C56rp30bK9LtemfrVT+hNV+dmevRxHqCiz+4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794062074;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794062075;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=ufeiSyOOqHnURJh59AcJvHLR/VOTBuiv4ZeVCAU1Xbw=;
-	b=ANjH4ZW+dIuUwF9cFfXHlN1OmRHSVx8jV9imaUGPuXAEbXjnRPoIosylAjfemKdHRjcA
-	 lY7JqJAHMfinWSfW/n+2SRtuL6V489KY+14L53RDNpBnULlUEgrnYB1yyV8FwNKN9pdG+
-	 /13HXcXe8yS16XIPKWIR/aVQs2Hzy/S5Im35DmUDcqeGjHfuDAxCh4xiDPpmvNVP/7tFj
-	 5vYfv3z2QTYuO+MOnMInjWUjP5dIeQJ7lNoHrNxmoJwoOLnAJsL/8ab5i/t6aD5Y57VBA
-	 Xw/a2hfCWABvDVYeHoyPXMQGirpn0+BibOCbw6J4fDKFpIyMoVPbCeyuhRpSU2lnVIg==
+	bh=8ewo5xYL79lPjV7INuPWOkUqkY/0v/i291OOAatiMtk=;
+	b=iK5+A/LHbHqnqPT2uChcloUFVqRRaFCUdgvczxwdOimqKQmacG56cM44jkdXXPffQ/NI
+	 lE4ji4JFmSn3x4JNw/L6Qsftn/oASGcn1k1AFNwM3zU3Uwjxqar+Zv952WBP1X8JwYoP5
+	 TwV7TPxLWfSZhlRl4wnpStHVv4tde/Ac892LkVt+6SHzf/S6/bvBalwtDQSLnTXx4LyiI
+	 51vj4mOltNYCqdmtm7lLT8mcal545DnHuuSMUWuBGNl4LjORsFDFazzLz3Nmq94RnLMu4
+	 HdgbAldxZumO45PpS3/gpdRE8zDH6SiM/78JE7MqhitQwFiOi0CX1Y5dUNWUnyoQghA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=az8goWyO;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="LKLN/XMW";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A98D606D80F;
-	Sat,  7 Nov 2026 14:34:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35E99606D836;
+	Sat,  7 Nov 2026 14:34:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=az8goWyO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EEA81F0089F;
-	Sat,  7 Nov 2026 14:34:33 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=LKLN/XMW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D9421F008A1;
+	Sat,  7 Nov 2026 14:34:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794062073;
-	bh=ufeiSyOOqHnURJh59AcJvHLR/VOTBuiv4ZeVCAU1Xbw=;
+	s=korg; t=1794062074;
+	bh=8ewo5xYL79lPjV7INuPWOkUqkY/0v/i291OOAatiMtk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=az8goWyOa8oebhF8fU/0sDXDdOGvjvjqtJAhdMzCMc8U23JNOSrBexdOfsMrYcvmZ
-	 PAT7AEGfI8VtntwymWLvMGMGWJmwrbVq7imb+Jibz7e5UJmXp0AD/CnTiwH2JWJjs9
-	 Euq/SzlA8gXzKqqiKFn0us0K3IskJLw+6y+V7w2w=
+	b=LKLN/XMW8pt1wGwe4zBRavEO8c1iu/kCn6xBTeMbrCD8sMnLQz+XYl77af4bWX+aV
+	 bBMbj8svYVHdhhZCNChNzospk1Um4avGF0z8DKtfKDsZyoE70051+wpqb7K901X0BK
+	 smqO4xfteW/8XwUE3+MLdoYuDtdaCnIcgjzrBNAc=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	Frank Li <Frank.Li@nxp.com>,
+	Gabor Juhos <j4g8y7@gmail.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Mieczyslaw Nalewaj <namiltd@yahoo.com>,
+	Stanislaw Pal <kuncy7@gmail.com>,
+	Bjorn Andersson <andersson@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 1051/1536] arm64: dts: freescale: imx8mp-verdin-yavia: fix external GPIOs
-Date: Sat,  7 Nov 2026 08:51:07 -0500
-Message-ID: <20261107135027.198783290@linuxfoundation.org>
+Subject: [PATCH 6.12 1052/1536] clk: qcom: gcc-ipq5018: mark gpll0_main clock as critical
+Date: Sat,  7 Nov 2026 08:51:08 -0500
+Message-ID: <20261107135027.228808121@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261107134957.653319350@linuxfoundation.org>
 References: <20261107134957.653319350@linuxfoundation.org>
@@ -68,49 +71,65 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Francesco Dolcini <francesco.dolcini@toradex.com>
+From: Gabor Juhos <j4g8y7@gmail.com>
 
-[ Upstream commit f377ac5999a5d045168ddd25d204691c6653c06a ]
+[ Upstream commit 33f9cb56cc28d002511e471be74f8ff241984178 ]
 
-pinctrl_gpios_ext_yavia (SODIMM 64/66) is defined but never applied to
-gpio3, so those pins stay at their NAND reset function instead of GPIO.
+On IPQ5018, the APCS core clock feeds the CPUs. It can use
+different clocks as its parent, but during system boot it
+utilizes GPLL0.
 
-Fix SODIMM 64 to the correct pad, MX8MP_IOMUXC_NAND_READY_B (GPIO3_IO16).
+Under some cicumstances, the 'gpll0_main' clock is getting
+disabled during kernel start which results in a system hang
+then the hardware watchdog restarts the board after a while.
 
-Fixes: b694fbe2ff40 ("arm64: dts: imx8mp-verdin: Add yavia carrier board")
+This can happen when a driver gets a clock in its probe function,
+then releases it either directly or by devres cleanup on probe
+failure.
+
+For example, since v6.18 the kernel often fails to boot on the
+TP-Link Archer AX55 v1 board by using the in-tree dts. In the
+failing configuration, the 'ipq-cmn-pll' driver is built into
+the kernel and the problem is caused by the pm_runtim_put()
+call in the ipq_cmn_pll_clk_probe() function. Due to this call,
+runtime pm disables the 'gcc_cmn_blk_ahb_clk' clock asynchronously
+which results in disabling 'gpll0_main' as well.
+
+Mark the clock as critical in order to avoid such hangs.
+
 Cc: stable@vger.kernel.org
-Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
-Signed-off-by: Frank Li <Frank.Li@nxp.com>
+Fixes: e3fdbef1bab8 ("clk: qcom: Add Global Clock controller (GCC) driver for IPQ5018")
+Signed-off-by: Gabor Juhos <j4g8y7@gmail.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Reviewed-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
+Tested-by: Stanislaw Pal <kuncy7@gmail.com>
+Link: https://lore.kernel.org/r/20260918-ipq5018-mark-gpll0_main-critical-v1-1-fbe8f27a0106@gmail.com
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm64/boot/dts/freescale/imx8mp-verdin-yavia.dtsi | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/clk/qcom/gcc-ipq5018.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-verdin-yavia.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-verdin-yavia.dtsi
-index cc389cda2af2e..20d99012d4f32 100644
---- a/arch/arm64/boot/dts/freescale/imx8mp-verdin-yavia.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-verdin-yavia.dtsi
-@@ -117,6 +117,11 @@ &flexcan1 {
- 	status = "okay";
+diff --git a/drivers/clk/qcom/gcc-ipq5018.c b/drivers/clk/qcom/gcc-ipq5018.c
+index ee45ba9f13e06..1a47e7e58ab85 100644
+--- a/drivers/clk/qcom/gcc-ipq5018.c
++++ b/drivers/clk/qcom/gcc-ipq5018.c
+@@ -69,6 +69,15 @@ static struct clk_alpha_pll gpll0_main = {
+ 			.parent_data = gcc_xo_data,
+ 			.num_parents = ARRAY_SIZE(gcc_xo_data),
+ 			.ops = &clk_alpha_pll_stromer_ops,
++			/*
++			 * During system boot, this PLL feeds the CPUs.
++			 * Mark it as critical to ensure that CCF does
++			 * not disable it, even if there are no active
++			 * consumers. This is needed to avoid a system
++			 * hang caused by turning off the clock driving
++			 * the CPUs.
++			 */
++			.flags = CLK_IS_CRITICAL,
+ 		},
+ 	},
  };
- 
-+&gpio3 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_gpios_ext_yavia>;
-+};
-+
- &gpio4 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_ctrl_sleep_moci>;
-@@ -262,7 +267,7 @@ MX8MP_IOMUXC_NAND_DATA03__GPIO3_IO09	0x106	/* SODIMM 62 */
- 
- 	pinctrl_gpios_ext_yavia: gpiosextyaviagrp {
- 		fsl,pins = <
--			MX8MP_IOMUXC_NAND_CE1_B__GPIO3_IO02	0x106	/* SODIMM 64 */
-+			MX8MP_IOMUXC_NAND_READY_B__GPIO3_IO16	0x106	/* SODIMM 64 */
- 			MX8MP_IOMUXC_NAND_DQS__GPIO3_IO14	0x106	/* SODIMM 66 */
- 		>;
- 	};
 -- 
 2.53.0
 
