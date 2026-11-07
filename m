@@ -1,96 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794085365;
-	b=qLQqyOpSoJsVlHa4RKqGZ1PR1/5KagAD6aZlf8gqiCWDzMnNjnGSxlc7RfQhKspQIYQB
-	 69gpYnautPcVff1rd3pD42PeVTlizThfg6vKY8dQKLLY0rdKcTUijCBTFnPmipDZaMrld
-	 RUZpo+/IO/64eTYvvNa3t4ispYC/qO9CnjODJROjognfVKOJtGvvg5Y96WSHAtfaU7/9m
-	 hQ2GXKAcpbzTdpXswQQcoueILeQyw7kO3z2EwrRa216mvcRXX6MnFbAtysBJbmWT0ksDT
-	 /6zMIPQUNmlXGPvNr7MfUAu+K5QoWREjcLnkgX9AqjaCmNjSy7RKRJHP+RoIe/9hNEQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794085365;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=MKHU+4DRXS0RhctV74r2rIwlyFr1nl/RYdFCsfJXTkQ=;
-	b=0eLjuYAcFZFDrQtxr+Ix0y3R8Yqai8V05YIo2CxGdosW/iwf+fE2ob8RWngz0nO0TbEP
-	 mmOSk87bMOzta1Djjtfn/Lz6OReZ+fzid1+iSCJCVo2cgk97HcW9ObAUd0Ca8qKhBtji3
-	 GTwkodI1JNRpkBlPAUPD3nbUfY7wBJwbd9AaaK0w+3JhqJ3JpOwsBtQS96b+0mTdD7SJw
-	 QPz3VD5I30rDnomPh2epn1KKrDmSYc6bK2sQZlFRcbDNFnc23IcCKgeZ7PG1y4rtdysQz
-	 njP/42PvupHV0helWaiLSbr1JEAeh4LqLsxL4mR4CcHDH5zsmCdXO/jW/4E+6nj918w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nokia.com;
-	spf=fail smtp.mailfrom=nokia.com;
-	dkim=pass header.d=nokia.com header.i=@nokia.com header.a=rsa-sha256 header.s=selector1 header.b=STl5LA0r;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.50
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011050.outbound.protection.outlook.com [40.107.208.50])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794085573;
+	b=l2PfpjN5xt2ZiAVp+gdSb+W9Okc+iIkd/WgopYNMo+lxZoBsJLL66yQ86wvfx5ADWo0w
+	 li/AbYF52aeyOthWtUVvJI5OX/pWk6ROxxgJkKasf4vnGdt7u5X+L+3xWNBDHZDtt+xuu
+	 uU5cL/65YKruJMlQq3gfKNAoTUzYklzVppoxBX1FfmDD+AkCrjMdyBuxddPv7rLA90MTN
+	 sIOp/h0vLUjRNpp/Yp+PESKd3mOTBAQdNS5LiKUM7b7rjN+71BiIzcy5W8+sesVQ9igDD
+	 1KFKcFNs1MeW3K5zF5L6h1o+9yPynCVGhR4pAbmTMjUavGbEz5LLF1JMQY10y3P4KHg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794085573;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=GXAkWtV0fCcGEA/twUd5fTTQKgnBfg+V+HOTAGhnJcw=;
+	b=GSOknX/lz/WBT2M1ifdt3srF+wy9DOjb82LlQpzjEDbuw9gJ9lpV/iMAHEdVIltouXI5
+	 TmuHLmSvOvZJhxbIIdunH/IiFt8ZvxI0VoBmRmZy7wLErQDBt3MurkzJjZ2FRCpzxRIDk
+	 9eZastSmSpmeVMWt6SHKcGsbO5Uz1yu/hgfbS7Gpq5Uodxq32uLdbd0Tllw+GOR0ube9K
+	 dv/0i7x0vr/7OfA3FHUy3L9OGCYCTymkotISFkkPcwKN6loV2RygLDNWGraX3UWBkp1cj
+	 NQv/N2NKzV9LkS8N6OECXfvmyiGx+51gCFmEUYXMffevOWqnP3h4+MrQ42ZrYgF7a+Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YeiL4vYX;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C1A1606A32C;
-	Sat,  7 Nov 2026 21:02:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C1A1606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nokia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nokia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAF35606A326;
+	Sat,  7 Nov 2026 21:06:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nokia.com header.i=@nokia.com header.a=rsa-sha256 header.s=selector1 header.b=STl5LA0r
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kz/rdUZOJrwRYCO8LOcwpFsCjuqJvOtSw8BOr8w9rDJCfY7lXxyQMFmUQW38nTlwXmnt5bNeD90dHREo5xA09u6Th0kEy6ocEQXCLw84y32PHuNwgwgJVORkBhhP+LlACkmQqSRZ49uZcsHyblogHZFA+lAbnKzMQy58nWJxpmf28AOxH9AFUVPLMTl6gUwJuJPkJ96Mdb+OZm4cyQzaGwQCZZyUbDM8hxegnMg5jwPHjj/6WtALUVqkye7gFBueMiZkINal5Zv+YB628uPCjkqsvl50iAaMc8MEXq6jnvKVNAL/y6V3y3oqNsbpnIIEhMANstzIMQAfn/eGXzRx7g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MKHU+4DRXS0RhctV74r2rIwlyFr1nl/RYdFCsfJXTkQ=;
- b=DT0KWj5p3AbHLfGaw04VNAplBtz5BxmB4cv3ylJwMdyh5EnZRhD2httSggfFpZLaeKx9MVuoP383cgMDvBXXX9SVpOL0o7Efr251jkTKRXcqcvENK8rphhzpOQ71ZPGMt/k0EL3IzrL6OTMJYbJmzIxAsSKH/8XAOatTILMFBf6WCV31r5M18Era/huWmBQUuFn81qNUtGXSILFl1nAu+O0qkFBrNl2vk8JOKrzyiJBMJB06S2+zKarJGVV2DvWJMrkczbWoPLXcM6djP+K/1sigpXPlskNvA7knPwVXHnLN4qsbCjbPtxJYmCPRbExO6og050jkJ99h4qLGxvoMPQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nokia.com; dmarc=pass action=none header.from=nokia.com;
- dkim=pass header.d=nokia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nokia.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MKHU+4DRXS0RhctV74r2rIwlyFr1nl/RYdFCsfJXTkQ=;
- b=STl5LA0rfbnxco0/2lGBXYtthXGzHqWmRGjrgjtwREhdcCuEwQcZM2G6tdHMqLLMHbeGug841NFdxa564NkT/pwE7OlNYwMo6eWRGq2YYrCQNQMOhgXyJTHZ70GkKAyX8xfS4F/HavWQ76xbwFZoeQ+L2PUzWw2biCWkW5ToqoUoMPA8HdlN4lJS5fqzrRubK2H4uQ+ErMnzgT5nkv1PqY0akVgf/s6xqkLohy/loz7yzYvWMjXeLRbla/gea4Cdl6TET6TJoBhJFApKECP8Cilw9KbIUgk+OiCv2I8pN7TzU51ABXflmiA5phfeB9B7aWGw4jGNutC2Q+BDBgzvZg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nokia.com;
-Received: from BN0PR08MB6951.namprd08.prod.outlook.com (2603:10b6:408:128::14)
- by PH0PR08MB6988.namprd08.prod.outlook.com (2603:10b6:510:a0::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Sat, 7 Nov
- 2026 21:02:39 +0000
-Received: from BN0PR08MB6951.namprd08.prod.outlook.com
- ([fe80::4dd1:e1e:56b0:b178]) by BN0PR08MB6951.namprd08.prod.outlook.com
- ([fe80::4dd1:e1e:56b0:b178%4]) with mapi id 15.21.0592.010; Sat, 7 Nov 2026
- 21:02:38 +0000
-From: Anthony Pighin <anthony.pighin@nokia.com>
-To: netdev@vger.kernel.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Xiangqian Zhang <zhangxiangqian@kylinos.cn>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net v2] net: mii: Accept link settings read back while the link is down
-Date: Sat,  7 Nov 2026 16:02:36 -0500
-Message-ID: <20261107210236.721901-1-anthony.pighin@nokia.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YeiL4vYX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DAB51F0089F;
+	Sat,  7 Nov 2026 21:06:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794085572;
+	bh=GXAkWtV0fCcGEA/twUd5fTTQKgnBfg+V+HOTAGhnJcw=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=YeiL4vYXBQfRq9SSN60+Hvuvqp8PneRDdXdJ0a3jAp7CwaRoCpMIMYjQUXHHqBquU
+	 asnHVbI5D5T1hJcCshOJl8U66G67JkbD9ptyLzoefXHlCoU7Xq3w7HSQ7FjyPDl+/w
+	 iZz+jfFLje3lL6ZEC34Tjrl31AHQv/VZq6BQ1O4erd49zyMEh8fxpZtfxC75d8COvd
+	 pLkKb7CS7AsvwKzn7TgnXFQNgHmpOgAog03gUKzG5/AKvenHZqeKxrEQv/duJX1EDv
+	 Pwm2Odrx9D0i5k97/KEufQHicFa/GLET8z5nsHrCGDdnZPwsylNsMNwo4Ds8HZT7v2
+	 CQR6Zhoka3ERw==
+Subject:
+ Re: [PATCH net v3 2/2] xfrm: fix selector matching for IPv6 atomic fragments
+From: netdev-bot+sashiko@kernel.org
+To: Jeremy.Jean@oss.cyber.gouv.fr
+Cc: steffen.klassert@secunet.com, herbert@gondor.apana.org.au,
+ davem@davemloft.net, dsahern@kernel.org, idosch@nvidia.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ kuba@kernel.org
+Date: Sat, 07 Nov 2026 21:06:11 +0000
+Message-ID: <179408557152.994134.2903061781051597708@kernel.org>
+In-Reply-To: <20261106202910.723098-6-Jeremy.Jean@oss.cyber.gouv.fr>
+References: <20261106202910.723098-6-Jeremy.Jean@oss.cyber.gouv.fr>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: CH2PR14CA0052.namprd14.prod.outlook.com
- (2603:10b6:610:56::32) To BN0PR08MB6951.namprd08.prod.outlook.com
- (2603:10b6:408:128::14)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,147 +64,143 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN0PR08MB6951:EE_|PH0PR08MB6988:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5487de31-0431-478d-8e2c-08df3d127496
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|11063799006|261022075727099003|261021123027099003|56012099006|261021121427099003|261022105027099003|261009223027099003|261028144727099003|261102123227099003|261026121527099003|261026140227099003|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	UaQUBmKAqYbdfXpf5+4wZZ5bt/TaCpffWirkjYERybCqYpO1tyVwFVg1HRAESPNl7X1CEnYMSiOYGipoJdAJuo5ZaVKnUM8VsLhKwkty3btfhEFBSQzaLKI1W5KXkxgEGtvFqb1v0fAYgZB4qcNzA4XP2CWV8xrxCg6DRafIldSXOtBTunSXEk4i0pRyfEyNNfil2qKODMAB0uFQwNrHsjbtJCYlB5xHJjw0OqTw8tvzuvcabmUWuMFel0X4oWmdWNjqw1UbZZR90cN0yFuKkGTaKfj0vMZBG0bdM/E/5k1W72KtanpmB3J4/1EdfHKB3/rhcEgSTt68JYo1KZHZEjyk7sKloP6fp9BcZ0TEKGfckIt3LGjb2htDEBel9xOeDQNVOj7WyqpyKJ7Q8OtnjmU6g+qxY4yWXslZt2LeqJHPBj2JUKAs2fsrKUQQgYBV0OZ0OX5UoR7zliQ+hCpaMq+6nzvkapZ8VwYzR1Jzv2qpSLQ7uyZ0u+agdf8N+Cqf0PSTGfyy2NgmXVEiglTzzSI729diAuhhKaltbIDO1bQhTuQ9rBA+v90lKmGcBDKDtNZ750iAFBxoC5qAe3DYPqgtsbnQWtJ6OE+WbZlSPEOqmYgfR27KAKwCm334ywku
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN0PR08MB6951.namprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(11063799006)(261022075727099003)(261021123027099003)(56012099006)(261021121427099003)(261022105027099003)(261009223027099003)(261028144727099003)(261102123227099003)(261026121527099003)(261026140227099003)(10067099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?kX0anRbBCfQ75MvnzUTd9hsSZm4pbBhLk6ojRpwz1ccU/CjNXNy0tjQWkFSj?=
- =?us-ascii?Q?Mxk5MujEb8xvA0mxxufsOWYDSOa5S5an4CvUYfyV81qV0paBcVHAlUcV2Bx0?=
- =?us-ascii?Q?8hGnNVjA1fODvKq6NFtdhGcJ8FOuvwkH+Z0WKorB/55U/BuyCH6TTxnG+3Yb?=
- =?us-ascii?Q?MPaiOKOAvgMvplLFam/3KG6vF43h5Yf/1CTj/k+qBUcNRKwgRz0hfy2ZBbGy?=
- =?us-ascii?Q?4+Q7XAnptZCOVyMyLDM1/cpwdlpgMNgFuv59YQuM+6G6aVYrdlHwZljZh+6/?=
- =?us-ascii?Q?7grGkn9Zd2bsW0AbdH56KrwYQj7fq+JSVP8hxG7Frvhtna9PiWgsDGD11d3k?=
- =?us-ascii?Q?XhnvcvkWyymuiqQkgW8ke5CuuDSM0Z+bQyN/mboh7mDkfJ1TfnyCfKUQY47V?=
- =?us-ascii?Q?iWAHwhmsLR6kX0ir/JepVSuveeZacT9ejoNlCV6i+wX7ETy5uWZY442rm/VH?=
- =?us-ascii?Q?mJJ6QFSy7IvcWUnbcKO79ZEA0k0GKmmH+YIMt/t5s1l4p2Euywa5yspumPIq?=
- =?us-ascii?Q?uJzyk7yEyWmU8LxgLVWWlzlSBpgn7L67Sz+5X+wul80/fPlYZSjv/q0uz8Qh?=
- =?us-ascii?Q?PW+B0+XAeuAK1ajaHh0N08eQScv4jfh0lyECX3qACYBVwHlWMPMM9z+TNMTu?=
- =?us-ascii?Q?huZKNNZWT1ZAkZCr/tK7HlEL6LRaUFjQJb3gAWGa7eyfShV1Hi6u8hJ6VY/8?=
- =?us-ascii?Q?Q4hDpkZgddQo+xPjVThJ67mp4sRDFXk66Gs/2LrSowrVFaSWOah/k/PYlUmx?=
- =?us-ascii?Q?BpgYDOUdOHQFDUtdF34fo+peJghyPdd+QvLLsWPMUM+0MKS3GpB0SzW9yZ9L?=
- =?us-ascii?Q?VqhTwj0yb8Y/+SrSayeNkORCsKAlxIbIyf7q46phekdwR7EsSD0LarSDYSdN?=
- =?us-ascii?Q?buphdkOf55SSvJ/zdbe7ZMJlnO7WAiGNvYbdc9D8ssx65FU3mwPoX0za7TZH?=
- =?us-ascii?Q?igJq2g1Fv001dgSAFG7rNAmwRFWwClGhIXsKNmBzBN33qCUbu8Az7OsbLfiq?=
- =?us-ascii?Q?aPydAUfxC/1qNlq7wAML7p8rZvud+wjipkcfE2c20r+N8lqrFQoEwdB8D/wP?=
- =?us-ascii?Q?S0tOKSND/tpL8wmHQ0TC05ATXDNJHiOXRn2a6JYsTEzoOC381OT2o1ZnOz1W?=
- =?us-ascii?Q?1Dzj1E8p0tLdsvWs7IPcRnDXBxteCF3LYz7pTqWfLzQlwmkGtl0c7j1VOA0M?=
- =?us-ascii?Q?G1wOHQneddytF92c7r5vs1GCq0Fr3CACs96bd/PEOQ2rR6Fif47m61mR/Dj6?=
- =?us-ascii?Q?QuaBFZ4b4bywXiYazhlJJFk80rpxAg0EytBZbGi8vahu6GBcCsd3O6hpWs/G?=
- =?us-ascii?Q?eVoyY5iC/dT+s4xMM7qsyfBUquaNcBmOZlBEdaK1+jj5kfw0U5iOQQYNrur0?=
- =?us-ascii?Q?6Wax2Udj/78jRnU3ydWbBACI6UAMf+Qyn114EBx0Ip7mzYpQoST1jqfnKax9?=
- =?us-ascii?Q?haHctz5nOqt2FvcVX+MymKWRUeMg4XizYka6z0lqwOxjRs/A1YlWVvNbJD2+?=
- =?us-ascii?Q?SVmoE4DLXovKyzxQwGZgMM5XN7AVm+jNjBVkQvE7gn4jgJDgmYeuarF3+RxF?=
- =?us-ascii?Q?Sr/vY+TiaoCq4ibNrEivmU3E7hBmT7NCt9/QGUO47Sw3PS7nud9q78ux/pn/?=
- =?us-ascii?Q?2Wena6kflJHWwFYGnLSdDoQkctDpGwIEqe3KQUFJWJtFKNfM1UsHZ1yP/M89?=
- =?us-ascii?Q?lzDkbGh+dxQK/VUcTXr1lDBHtOhc+yTNp6ws5BOSANoS37E0OpLOni+OY5Kl?=
- =?us-ascii?Q?FAwCvPR6ZQ=3D=3D?=
-X-OriginatorOrg: nokia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5487de31-0431-478d-8e2c-08df3d127496
-X-MS-Exchange-CrossTenant-AuthSource: BN0PR08MB6951.namprd08.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2026 21:02:38.6940
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 5d471751-9675-428d-917b-70f44f9630b0
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AWbgA9nI3uWbEzpyw2kJmI5mqPk/E5Ld2Ik5+wwca8Rsh2pUx15axO3ATyO0GywVnWfqDQM96FLe6HdSwG5wXR50CG7+8+1wI5ytU99G8Yk=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR08MB6988
 
-Since commit f6f2e946aa4d ("net: mii: Fix the Speed display when the
-network cable is not connected"), mii_ethtool_get_link_ksettings()
-reports SPEED_UNKNOWN whenever the link is down. ethtool changes link
-settings by reading the current ones, updating only the requested
-fields, and writing the result back. mii_ethtool_set_link_ksettings()
-rejects the unknown speed with -EINVAL, in both autoneg and forced mode.
-For example, on an ax88179_178a USB adapter while the link is down:
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-  # ethtool -s eth0 autoneg on advertise 0x2f
-  Cannot set new settings: Invalid argument
-    not setting autoneg
+Critical: 0 · High: 1 · Medium: 1 · Low: 0
 
-  # ethtool -s eth0 speed 1000 duplex full autoneg off
-  # ethtool -s eth0 duplex half
-  Cannot set new settings: Invalid argument
-    not setting duplex
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-pch_gbe_set_link_ksettings() already works around the same failure by
-replacing an unknown speed with SPEED_1000 before it calls
-mii_ethtool_set_link_ksettings().
+- [High] The fix does nothing on the local-input (XFRM_POLICY_IN) path,
+  which is the main bypass the commit message says it closes.
+- [Medium] The new pskb_network_may_pull() call turns
+  __xfrm_decode_session() from a read-only helper into one that can…
 
-In forced mode, BMCR holds the configured speed whether or not the link
-is up, so report SPEED_UNKNOWN only when autoneg is enabled, as
-genphy_read_status() does. In autoneg mode the speed is not used, so
-accept SPEED_UNKNOWN there. All other speed and duplex checks are
-unchanged.
+--
 
-Fixes: f6f2e946aa4d ("net: mii: Fix the Speed display when the network cable is not connected")
-Cc: stable@vger.kernel.org
-Signed-off-by: Anthony Pighin <anthony.pighin@nokia.com>
----
-Changes in v2:
-- Report SPEED_UNKNOWN only with autoneg enabled, so writing back the
-  settings also works in forced mode.
-- With autoneg enabled, accept only SPEED_UNKNOWN and keep the other
-  speed and duplex checks. v1 accepted any speed and duplex there.
-- New subject, since speed is still checked with autoneg enabled.
-- Tested on an ax88179_178a adapter running v6.18.54, where
-  drivers/net/mii.c is identical to net. Both ethtool examples above now
-  succeed. A direct ETHTOOL_SLINKSETTINGS with autoneg enabled accepts
-  SPEED_UNKNOWN and still rejects an invalid speed.
+xfrm: fix selector matching for IPv6 atomic fragments
 
-v1: https://lore.kernel.org/netdev/20261106195544.4146568-1-anthony.pighin@nokia.com/
+This patch makes __xfrm_decode_session() recover the ports, the ICMPv6
+type and code, and the GRE key for IPv6 atomic fragments. Before this,
+those fields were left zero for any packet with a Fragment header. It
+adds an IP6_FH_F_NON_ATOMIC flag to ipv6_find_hdr() so the caller can
+tell whether every Fragment header in the chain is atomic, and it pulls
+the base IPv6 header before calling ipv6_find_hdr().
 
- drivers/net/mii.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+> diff --git a/net/xfrm/xfrm_policy.c b/net/xfrm/xfrm_policy.c
+> index 4f6a5b81e3b5a..b7deeb03276e4 100644
+> --- a/net/xfrm/xfrm_policy.c
+> +++ b/net/xfrm/xfrm_policy.c
+> @@ -3530,9 +3530,24 @@ int __xfrm_decode_session(struct net *net, struct sk_buff *skb, struct flowi *fl
+>  		decode_session4(&flkeys, fl, reverse);
+>  		break;
+>  #if IS_ENABLED(CONFIG_IPV6)
+> -	case AF_INET6:
+> +	case AF_INET6: {
+> +		unsigned int offset = 0;
+> +		int fh_flags = 0;
+> +
+> +		if ((flkeys.control.flags & FLOW_DIS_IS_FRAGMENT) &&
+> +		    pskb_network_may_pull(skb, sizeof(struct ipv6hdr)) &&
 
-diff --git a/drivers/net/mii.c b/drivers/net/mii.c
-index 37bc3131d31a..225488f2438b 100644
---- a/drivers/net/mii.c
-+++ b/drivers/net/mii.c
-@@ -199,6 +199,9 @@ void mii_ethtool_get_link_ksettings(struct mii_if_info *mii,
- 			cmd->base.speed = SPEED_10;
- 			cmd->base.duplex = !!(nego & ADVERTISED_10baseT_Full);
- 		}
-+
-+		if (!(bmsr & BMSR_LSTATUS))
-+			cmd->base.speed = SPEED_UNKNOWN;
- 	} else {
- 		cmd->base.autoneg = AUTONEG_DISABLE;
- 
-@@ -213,9 +216,6 @@ void mii_ethtool_get_link_ksettings(struct mii_if_info *mii,
- 		lp_advertising = 0;
- 	}
- 
--	if (!(bmsr & BMSR_LSTATUS))
--		cmd->base.speed = SPEED_UNKNOWN;
--
- 	mii->full_duplex = cmd->base.duplex;
- 
- 	ethtool_convert_legacy_u32_to_link_mode(cmd->link_modes.supported,
-@@ -333,9 +333,11 @@ int mii_ethtool_set_link_ksettings(struct mii_if_info *mii,
- 	struct net_device *dev = mii->dev;
- 	u32 speed = cmd->base.speed;
- 
-+	/* Autoneg ignores speed, which is SPEED_UNKNOWN while the link is down */
- 	if (speed != SPEED_10 &&
- 	    speed != SPEED_100 &&
--	    speed != SPEED_1000)
-+	    speed != SPEED_1000 &&
-+	    !(cmd->base.autoneg == AUTONEG_ENABLE && speed == SPEED_UNKNOWN))
- 		return -EINVAL;
- 	if (cmd->base.duplex != DUPLEX_HALF && cmd->base.duplex != DUPLEX_FULL)
- 		return -EINVAL;
+[Severity: High]
+Can this check ever succeed on the local input path?
 
-base-commit: 30c71476d842b094651bd7712f6c8ee8716147d0
+When xfrm6_policy_check(XFRM_POLICY_IN) runs for a locally delivered
+packet, skb->data already points at the transport header.
+ip6_protocol_deliver_rcu() does:
+
+    if (!pskb_pull(skb, skb_transport_offset(skb)))
+        goto discard;
+    ...
+        if (!xfrm6_policy_check(NULL, XFRM_POLICY_IN, skb)) {
+
+tcp_v6_rcv() and the UDP and ICMPv6 receive paths run their own IN checks
+from the same position.
+
+ipv6_frag_rcv() does not reassemble an atomic fragment. It only moves the
+transport header forward:
+
+    if (!(fhdr->frag_off & htons(IP6_OFFSET | IP6_MF))) {
+        /* It is not a fragmented frame */
+        skb->transport_header += sizeof(struct frag_hdr);
+
+So skb_network_offset(skb) is negative here: -48 for a plain atomic
+fragment carrying TCP. pskb_network_may_pull_reason() then computes:
+
+    return pskb_may_pull_reason(skb, skb_network_offset(skb) + len);
+
+Because len is unsigned, -48 + 40 wraps to 0xFFFFFFF8.
+pskb_may_pull_reason() then returns SKB_DROP_REASON_PKT_TOO_SMALL from
+the len > skb->len check.
+
+The && chain stops at that point and FLOW_DIS_IS_FRAGMENT stays set.
+decode_session6() then still leaves the ports, the ICMPv6 type and code,
+and the GRE key at zero.
+
+Wouldn't a plaintext atomic fragment sent to a local TCP, UDP or ICMPv6
+endpoint still miss an IN policy that selects on those fields? If so,
+only the FWD and OUT directions actually get the fix.
+
+With CONFIG_DEBUG_NET, wouldn't each such packet also hit
+DEBUG_NET_WARN_ON_ONCE(len > INT_MAX) in pskb_may_pull_reason()? One
+remote packet would then be enough to cause a WARN, or a panic with
+panic_on_warn set.
+
+Instead of pskb_network_may_pull(), could the base header be read with
+skb_header_pointer() at skb_network_offset(skb)? Another option would be
+to pass an explicit offset to ipv6_find_hdr().
+
+[Severity: Medium]
+Could this pull leave stale header pointers in callers of
+xfrm6_policy_check()?
+
+Before this patch, __xfrm_decode_session() only read the skb through the
+flow dissector, and the dissector uses skb_header_pointer().
+
+pskb_may_pull_reason() calls skb_might_realloc() before any length check.
+Under CONFIG_FAIL_SKB_REALLOC that does
+pskb_expand_head(skb, 0, 0, GFP_ATOMIC). __pskb_pull_tail() can also call
+pskb_expand_head() when the base header is not linear.
+
+Several callers keep header pointers across the policy check. For
+example, tcp_v6_rcv() does:
+
+    th = (const struct tcphdr *)skb->data;
+    hdr = ipv6_hdr(skb);
+    ...
+    if (!xfrm6_policy_check(NULL, XFRM_POLICY_IN, skb))
+        goto discard_it;
+
+    tcp_v6_fill_cb(skb, hdr, th);
+
+The TIME_WAIT path in tcp_v6_rcv() follows the same pattern, and
+tcp_inbound_hash() is passed &hdr->saddr and &hdr->daddr. ip6_forward()
+saves hdr on entry and reads hdr->hop_limit after
+xfrm6_policy_check(XFRM_POLICY_FWD).
+
+If the head is reallocated here, wouldn't those reads touch the freed
+head?
+
+A concrete trigger was only found with CONFIG_FAIL_SKB_REALLOC.
+ip6_rcv_core() already makes the base header linear for forwarded
+packets. On local input, the wrapped length fails before
+__pskb_pull_tail() is reached.
+
+The pull seems to exist only to protect the ipv6_hdr(skb)->nexthdr read
+at the start of ipv6_find_hdr(). Would a skb_header_pointer() read that
+doesn't modify the skb, or an explicit start offset, cover that read?
+
+> +		    ipv6_find_hdr(skb, &offset, -1, NULL, &fh_flags) >= 0 &&
+> +		    (fh_flags & IP6_FH_F_FRAG) &&
+> +		    !(fh_flags & IP6_FH_F_NON_ATOMIC)) {
+
+[ ... ]
+
 -- 
-2.43.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261106202910.723098-2-Jeremy.Jean%40oss.cyber.gouv.fr
