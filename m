@@ -1,54 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794064001;
-	b=dqvcqiPy6ooOqmkkA/XKgKpDqiYGOwHkFO5kdJLH8xR0T03T12nm7RO+6OJWF1UeP/Lk
-	 x85GKH7vPBPQc47Ak4nRLCI1AhAXmJ7jLDayhwnqq4G4puBWNLVp4o90OL0Qw3yZGcDfN
-	 P1oZ5TRoi1hHGXiYEFTEmw1LxFcVT263xyz98PSvmsIr4g7cbP11+9q/MwAJaU9Z/jISO
-	 cUu7TLcbv87y+Zg6suCnuasjEWUnsq33s9cdVTJVFg7/4qUKhWZ3OrlVnSF1/+GLOwFgf
-	 4BMiA7NbCS+E2xqmde7PUhBqw0QHAVzypzENvLK2pj2A8FTiXbD7nJvGJgYIMjPxrCg==
+	t=1794064008;
+	b=Bn7dCiQcKwA+ylJrFkY0caIw4eDgHc+goGn4p1vD106mxkWow+kdpww/P8WQRKlSAyd8
+	 I1vBSk3JcaD2r7jam0fkxarf4vR6x182wCnQDlFR1Jm2B9CW33/hJA80kjZfaoNQ8d7wT
+	 9+JPF8Wxyzolp5wBtAwkkSyPmk5l4tA5X9T3qclGLdOATuSCp/O90x0eT6CSLeK9c59Ne
+	 upwHYcQv/nlGBG3I9Ta58l+eR1UYx28DkQwOkIA2yZNvT0aPkYH+ucpNzv7tE0BLtKjTs
+	 Ix3CK9vq8X+cwkGWfbpasD0RaL6664Wew/RQ+jEvMQwICLsuFWJDTn0i1F0NyRNCbmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794064001;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794064008;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=cGJLuEgpH8Uz3mLNZSlMSlTI2wShI5X1eE2QYPUVu9U=;
-	b=eAjPRK7zWsiG/ZxmVAilSiANyi12DeM6/jiNvSfgePd3g05YHvRXlSPkEcMeaSSwPReB
-	 PNOLtoWm+wvQWCttXNxJMUY7NkM0zkni3WlzXG1jR9z4iI7pLDxW3ZEVwrUTtbFIfBQhk
-	 wEwiCjfXsGY1SeuwXXRmDgx5FP3gO2D5OegTQlaA3IU4Yu07oVWgTQoLYXGX8ihPdRq3+
-	 oTMD9SzXKtur0Ds+1lq7eZRvpjnCCc4WCF1wRsMC4rBw0H1n/08yvjUIBCUlNMM85JOZy
-	 GU9A4trM5nrCQ4zjZVHRtc2tSYZtB9tjNvDmfys7O+ii+an8Y7mKXrOjBhV/ABu/m1w==
+	bh=mOLDRAF/40izTIIPbFszGTJQgiUnGs/0OIO/v/w7GA0=;
+	b=lN/XyVtVMDOg1/gpCEHbVs1BYyRXyRg4vfcCR2bws39qpwXZayO4Ltzsr6hrP9Hner3K
+	 CvoauJQP95eGgZQrBA593npcZJyqIawDGuOLU09DtDypsU8kKmvVUzfsHekMZC6JhJtpl
+	 wvNtbC2ffe3Qpmgd6udEw5CX8ARJVRsn2ajCMy/1mhv6B9HmOcwUkKIpVS8yJ6IlNuzYE
+	 Zs0B6kaGXqzbu3cuPmI7zrGAJJ5L2VVaX25DLQO0Tw2RqENLNrXkJir7SamdiG+bo4dCk
+	 gxQVSJIfZLXMn5IIGewbHq7E6pcOCkTI2URoU84YajtIcc+nQ7dCAkWLmLchG/nvsqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=MWxxhlcO;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zV0r4wnr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 261F960A2636;
-	Sat,  7 Nov 2026 15:06:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40C0A606EE9E;
+	Sat,  7 Nov 2026 15:06:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=MWxxhlcO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8F241F008A5;
-	Sat,  7 Nov 2026 15:06:40 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zV0r4wnr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E08801F0089F;
+	Sat,  7 Nov 2026 15:06:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794064001;
-	bh=cGJLuEgpH8Uz3mLNZSlMSlTI2wShI5X1eE2QYPUVu9U=;
+	s=korg; t=1794064008;
+	bh=mOLDRAF/40izTIIPbFszGTJQgiUnGs/0OIO/v/w7GA0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MWxxhlcO4vv/so/f93thDFS8dEcwO3VJeS5djW+Pvu5sk7OSjOhoYtsTE0BCnaHSb
-	 PLlrBYtMr9zdj3obPKrwuYUBlWedC1HwVu/Wk4Vt7QvIjN4x/UJAYRmE4RDt22DX1s
-	 6zBhM7sKb4GqgMjQUb9THdoTF7smG9C/l50HWp+s=
+	b=zV0r4wnrFOQ4pIZxHHaWhx7X8Lief8d5F8WZzSSt1LkieeuQ8E3sM1Hw0eF+isVjm
+	 BFyTNiHRKujOs3mRMMjhsDYHMgH4KQKmIZqRkaozuvNMyeX+LXYkeA69x9sJOo1m8X
+	 l8n/DqPhJG4NZfuBqLS9Tvuj2uC6Tuptt4FKcVWw=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Guangshuo Li <lgs201920130244@gmail.com>,
-	Joshua Crofts <joshua.crofts1@gmail.com>,
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+	Cao Guanghui <caoguanghui@kylinos.cn>,
+	Yu Kuai <yukuai@fygo.io>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 0182/1257] iio: accel: kxcjk-1013: Disable autosuspend on remove
-Date: Sat,  7 Nov 2026 08:41:18 -0500
-Message-ID: <20261107134944.479595296@linuxfoundation.org>
+Subject: [PATCH 7.3 0187/1257] md/raid5: fix NULL pointer dereference in raid5_free_percpu
+Date: Sat,  7 Nov 2026 08:41:23 -0500
+Message-ID: <20261107134944.620898230@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261107134939.434104957@linuxfoundation.org>
 References: <20261107134939.434104957@linuxfoundation.org>
@@ -70,48 +68,50 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Guangshuo Li <lgs201920130244@gmail.com>
+From: Cao Guanghui <caoguanghui@kylinos.cn>
 
-[ Upstream commit 1de1206a42741adfb72ca8b37dc71a6bc80cb074 ]
+[ Upstream commit 41742e35268d6a45161b187f51f42bc2ade14d0d ]
 
-kxcjk1013_probe() enables runtime PM autosuspend with
-pm_runtime_use_autosuspend(). The probe error path correctly undoes
-this setting with pm_runtime_dont_use_autosuspend(), but the normal
-remove path only disables runtime PM.
+If cpuhp_state_add_instance() fails in raid5_alloc_percpu() (e.g., the
+startup callback raid456_cpu_up_prepare fails due to an allocation
+failure), conf->node is never added to the cpuhp instance list and
+its pprev remains NULL (from kzalloc initialization).
 
-The runtime PM API requires pm_runtime_use_autosuspend() to be undone
-with pm_runtime_dont_use_autosuspend() at driver exit unless runtime PM
-was enabled with devm_pm_runtime_enable(). Leaving the autosuspend flag
-set therefore leaves the runtime PM state incompletely cleaned up after
-the driver is unbound.
+When setup_conf() then jumps to abort, free_conf() calls
+raid5_free_percpu(), which checks conf->percpu (non-NULL, since it was
+allocated before the cpuhp failure) and proceeds to call
+cpuhp_state_remove_instance().  This calls hlist_del() on the unhashed
+node, which dereferences node->pprev (NULL), causing a kernel panic.
 
-Add the missing pm_runtime_dont_use_autosuspend() call to the remove
-path.
+Guard the removal with hlist_unhashed_lockless() so that the cpuhp
+instance is only removed if it was actually added.  The lockless variant
+uses READ_ONCE() for the pprev read, which is safe here because the
+actual removal is synchronized by cpuhp_state_mutex inside
+cpuhp_state_remove_instance().
 
-This issue was found by manual code inspection.
-
-Fixes: 124e1b1d0924 ("iio: accel: kxcjk-1013: support runtime pm")
+Fixes: 29c6d1bbd7a2 ("md/raid5: Convert to hotplug state machine")
 Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
-Acked-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Signed-off-by: Cao Guanghui <caoguanghui@kylinos.cn>
+Link: https://patch.msgid.link/20260827080341.112296-2-ghuicao@163.com
+Signed-off-by: Yu Kuai <yukuai@fygo.io>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/iio/accel/kxcjk-1013.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/md/raid5.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/iio/accel/kxcjk-1013.c b/drivers/iio/accel/kxcjk-1013.c
-index 8994c9e8e048d..b3d753bd94761 100644
---- a/drivers/iio/accel/kxcjk-1013.c
-+++ b/drivers/iio/accel/kxcjk-1013.c
-@@ -1547,6 +1547,7 @@ static void kxcjk1013_remove(struct i2c_client *client)
+diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
+index e5838bf516e38..bc5f4b048eeda 100644
+--- a/drivers/md/raid5.c
++++ b/drivers/md/raid5.c
+@@ -7539,7 +7539,8 @@ static void raid5_free_percpu(struct r5conf *conf)
+ 	if (!conf->percpu)
+ 		return;
  
- 	iio_device_unregister(indio_dev);
- 
-+	pm_runtime_dont_use_autosuspend(&client->dev);
- 	pm_runtime_disable(&client->dev);
- 	pm_runtime_set_suspended(&client->dev);
+-	cpuhp_state_remove_instance(CPUHP_MD_RAID5_PREPARE, &conf->node);
++	if (!hlist_unhashed_lockless(&conf->node))
++		cpuhp_state_remove_instance(CPUHP_MD_RAID5_PREPARE, &conf->node);
+ 	free_percpu(conf->percpu);
+ }
  
 -- 
 2.53.0
