@@ -1,51 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046818;
-	b=mpTJYBAla12XnojmSpZoO/8Z9bsfCQKYVL72SjhogNWQI1x1on58gQxHa5S0kniEL4pL
-	 fHDazy+Eogl4uNufFaV5LlEnYVGBIVgAbc8/nBCxoYqE5XqWhRhDDuxwRFM072DB3vH6t
-	 cBroz1IfW7ua2vFFPKQwTSbke5wz7zojNKwFe3CjvGpyav0DwGbEV6IJcKKhLIwhTOmRR
-	 vf6W8SUwl5Ihn0ErszeY4l1REi1pNmH527BrHR81ad5a4KR/VnvVKrJcTsLDZMXN7cFcq
-	 HCeupy22I8f36uZXvLD39m6btpZE53aGS0lWwTqSeajE+oQEPnMp4OWkVj/YdsNM8BQ==
+	t=1794046820;
+	b=iDa+Pz80FtQDV2IF1JDTgZjL6kp6zii6jZbJKpSWjqrCkrWQwdBekdYUSSCUtrS6fTEr
+	 NeN/s7aq8jvYDUpFvo0P4agPUOwUX+VOePafBM3Md/cMAq7NlexPtBIkJRT+8Xe72uEvO
+	 pont90INFCOIUXjDydFg+jdTUJIUpOGvwZi/Mzzogi4avxockAv2jyuSEJNK6rswf7Cvt
+	 kXo2L/7Bspcct+MxsmpJtFk99SGjN6K1rr5NRI+uBl74wokqwgc26nwluJ5FTZYcuDv7c
+	 s5rJC9Bf64kqo7EW2ZO/N/Et0Y5Cr44cZ9CkySAhfuUM4mwO32gN8L65ehcp2/hzNjQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046818;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046820;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=1LmFu0Dt3fpDvpEJnOnXo3NTMkqjMaoFbDwjX2MCQME=;
-	b=XocGXxXt0B6r3Xx7lpOIzkGFJQYtBlRMo1W1mmfAoyL0smO0wfzoX6n96f/8A+LY6RUn
-	 JnRxUURQYVko8f6Hun00lVEXCpCNwgGGcFK3C42i1rsAQchhmznCMudCqCGSw5hLmQNIT
-	 ZELRXXpWRRyaJVzRSn2eq6JDhmfucYKQxjkvXOp8cnymN8NRFpMJQUCuARdvhjI63zHNk
-	 6T388EZVxC6iEWe77PL9++2xPowxkRkYnwEZEgo2mLklh/UuEApabxTWXBT1qWaKTqaUj
-	 mQ0AgkLeU+WoTVnbBCxg7BbBq07QIRvtynDeuPcjCJxEB2rxbeoN6l/OFGxlFPXPodg==
+	bh=05JAFfqns/a4WR97LMJaWxHTdQVCaPxWJl9jKWOmwD0=;
+	b=QHFXva7ibF/ej0j3Jh4+KIr86oj4OPhlFppjwgioyRec0CMgVP2Bjviw6j1ne0uvmdHQ
+	 psQyFg8IPwPaQVux4HOzumwv0TsWhKlISKaYJl20d/ANo8Yt1hqFFNNsCLa90JOa6iOZJ
+	 wFTbdfIYeok1v7UfiDBxs6usXAqLQrHvphEidGbXCyLoQId4tGxC+fRppAXthnvCvjzEC
+	 GcWGy4NJF7LNFutcUxQZ2enHztrOtzBB5LLdr8A8HKM3WSPvoXshimbv1/8/V20zEoy0W
+	 lv/1GwDb9YyZiPF1D/xRs02IEKGU7AjXX/2Vm8fD2xriDrnQ8xwzCvVWxyU/8A2N4Eg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="g9jV/O5o";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TvUpjtjt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1987606A8C7
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:20:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 004E4606A8C7
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:20:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g9jV/O5o
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E7361F0089F;
-	Sat,  7 Nov 2026 10:20:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TvUpjtjt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 459D71F0089F;
+	Sat,  7 Nov 2026 10:20:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046817;
-	bh=1LmFu0Dt3fpDvpEJnOnXo3NTMkqjMaoFbDwjX2MCQME=;
+	s=k20260515; t=1794046819;
+	bh=05JAFfqns/a4WR97LMJaWxHTdQVCaPxWJl9jKWOmwD0=;
 	h=From:To:Cc:Subject:Date;
-	b=g9jV/O5ofu0waLInCw9G4sSD0DtGrnc2s6+3P3sjpXC10xsD5Q0++ARyzwFDo0lzN
-	 feaumB68mOjrjMXTbtxbcsdXf1qkVSbYzAo+9BLdDcTvUxEyoFB/ZwxAT2k0eJvHYN
-	 7+lVix0paihmctzeCyr7j5OUwQADxp51yJ433Q2CC68V2oaVFUZcmjDdpKhRPUzkrT
-	 dhjLo+kpwaHD87pqEmLjrTi6yWXiikd0nVx3WgbmAmGym+xUfV68LZBGwR7JGB0xKD
-	 mQmST+AIl9bQPr19JRzplojLzcOKWY9mhhGt71ZWupzrZNUk8YN5wbm9D5K92h3fJB
-	 vt+x623tnphMA==
+	b=TvUpjtjtvdZd7stK5p/K1E9g8VnKfksnL6zSx0hSNjVH08RxrDdE59gRJnWgvGyUs
+	 L1C1gSkpu9VDJsaELxUI8obbv+rRW6EigRfL/jObnb6yWsdhcsZR24BQsKJShcaLmP
+	 t27Kb1YDr3JNibZdgThkln33qTb/NmUsfOHX+WNasZcKc14tuWcfXFFw+eSFUU41nQ
+	 zZLbLTP6o/nn7N+Q7e1+z5+iVmrPQR5yy2Rm3HPYxy8jZWnx6W4FIMkbvvWd3IeXH/
+	 l6p/nyYeN8dribfx1/qppJjDq+JMQnFVEPkS2sRPguSNQEGY7kQ6mrf5BVFIpbSoBZ
+	 j3F/6gYf8JqZA==
 From: Sasha Levin <sashal@kernel.org>
-To: peter.ujfalusi@linux.intel.com,
-	tiwai@suse.de
+To: bartosz.golaszewski@oss.qualcomm.com,
+	sashiko-bot@kernel.org,
+	mani@kernel.org,
+	vkoul@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ALSA: hda/hdmi: clamp sad_count in ELD proc write handler" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:20:16 -0500
-Message-ID: <20261107052016-failed-6.12-b3e7ddd694f8@kernel.org>
+Subject: FAILED: patch "[PATCH] dmaengine: qcom: bam_dma: free interrupt before the clock in error path" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:20:18 -0500
+Message-ID: <20261107052018-failed-6.12-82eed160cfa7@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,61 +70,85 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x b3e7ddd694f8429217ba509b55b910a0e4361dfb
+git cherry-pick -x 82eed160cfa7a296ae4eb5acb8dd8f493323eea7
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052016-failed-6.12-b3e7ddd694f8@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052018-failed-6.12-82eed160cfa7@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From b3e7ddd694f8429217ba509b55b910a0e4361dfb Mon Sep 17 00:00:00 2001
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Date: Thu, 8 Oct 2026 11:51:33 +0300
-Subject: [PATCH] ALSA: hda/hdmi: clamp sad_count in ELD proc write handler
+From 82eed160cfa7a296ae4eb5acb8dd8f493323eea7 Mon Sep 17 00:00:00 2001
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Date: Thu, 8 Oct 2026 11:54:35 +0200
+Subject: [PATCH] dmaengine: qcom: bam_dma: free interrupt before the clock in
+ error path
 
-snd_hdmi_write_eld_info() parses a "sad_count N" line from the
-root-writable ELD proc interface and assigns N directly to
-e->sad_count with no upper bound, unlike the per-index "sadN_*" lines
-a few lines below which are already bounded to ELD_MAX_SAD.
+The BAM interrupt is requested with a devres helper and so on error it's
+freed after probe() returns. We disable the clock before freeing or
+masking it so it may still fire and we may end up reading BAM registers
+with clock disabled.
 
-snd_hdmi_eld_update_pcm_info() later iterates
-"for (i = 0; i < e->sad_count; i++)" over the fixed
-e->sad[ELD_MAX_SAD] array, so an oversized sad_count read from the
-proc file causes it to walk past the array.
+Stop using devres for interrupts as we free it in remove() manually
+anyway. Add an appropriate label and free the interrupt before disabling
+the clock in error path and in remove().
 
-Reject sad_count values above ELD_MAX_SAD, matching the existing
-per-index guard.
-
-Fixes: acb059938810 ("ALSA: hda - ELD proc interface write updates")
 Cc: stable@vger.kernel.org
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Link: https://patch.msgid.link/20261008085133.9528-1-peter.ujfalusi@linux.intel.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Fixes: e7c0fe2a5c84 ("dmaengine: add Qualcomm BAM dma driver")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260427-qcom-qce-cmd-descr-v16-0-945fd1cafbbc%40oss.qualcomm.com?part=2
+Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Link: https://patch.msgid.link/20261008-bam-dma-free-irq-v28-1-5e5b10de441e@oss.qualcomm.com
+Signed-off-by: Vinod Koul <vkoul@kernel.org>
 ---
- sound/hda/codecs/hdmi/eld.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/dma/qcom/bam_dma.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/sound/hda/codecs/hdmi/eld.c b/sound/hda/codecs/hdmi/eld.c
-index 1464fd1c675bc..fc6fe1b0873c3 100644
---- a/sound/hda/codecs/hdmi/eld.c
-+++ b/sound/hda/codecs/hdmi/eld.c
-@@ -155,9 +155,11 @@ void snd_hdmi_write_eld_info(struct hdmi_eld *eld,
- 			e->aud_synch_delay = val;
- 		else if (!strcmp(name, "speakers"))
- 			e->spk_alloc = val;
--		else if (!strcmp(name, "sad_count"))
-+		else if (!strcmp(name, "sad_count")) {
-+			if (val > ELD_MAX_SAD)
-+				continue;
- 			e->sad_count = val;
--		else if (!strncmp(name, "sad", 3)) {
-+		} else if (!strncmp(name, "sad", 3)) {
- 			sname = name + 4;
- 			n = name[3] - '0';
- 			if (name[4] >= '0' && name[4] <= '9') {
+diff --git a/drivers/dma/qcom/bam_dma.c b/drivers/dma/qcom/bam_dma.c
+index 94cb957d4b187..f67a93a37d48c 100644
+--- a/drivers/dma/qcom/bam_dma.c
++++ b/drivers/dma/qcom/bam_dma.c
+@@ -1332,8 +1332,8 @@ static int bam_dma_probe(struct platform_device *pdev)
+ 	for (i = 0; i < bdev->num_channels; i++)
+ 		bam_channel_init(bdev, &bdev->channels[i], i);
+ 
+-	ret = devm_request_irq(bdev->dev, bdev->irq, bam_dma_irq,
+-			IRQF_TRIGGER_NONE, "bam_dma", bdev);
++	ret = request_irq(bdev->irq, bam_dma_irq, IRQF_TRIGGER_NONE,
++			  "bam_dma", bdev);
+ 	if (ret)
+ 		goto err_bam_channel_exit;
+ 
+@@ -1366,7 +1366,7 @@ static int bam_dma_probe(struct platform_device *pdev)
+ 	ret = dma_async_device_register(&bdev->common);
+ 	if (ret) {
+ 		dev_err(bdev->dev, "failed to register dma async device\n");
+-		goto err_bam_channel_exit;
++		goto err_free_irq;
+ 	}
+ 
+ 	ret = of_dma_controller_register(pdev->dev.of_node, bam_dma_xlate,
+@@ -1385,6 +1385,8 @@ static int bam_dma_probe(struct platform_device *pdev)
+ 
+ err_unregister_dma:
+ 	dma_async_device_unregister(&bdev->common);
++err_free_irq:
++	free_irq(bdev->irq, bdev);
+ err_bam_channel_exit:
+ 	for (i = 0; i < bdev->num_channels; i++)
+ 		tasklet_kill(&bdev->channels[i].vc.task);
+@@ -1410,7 +1412,7 @@ static void bam_dma_remove(struct platform_device *pdev)
+ 	/* mask all interrupts for this execution environment */
+ 	writel_relaxed(0, bam_addr(bdev, 0,  BAM_IRQ_SRCS_MSK_EE));
+ 
+-	devm_free_irq(bdev->dev, bdev->irq, bdev);
++	free_irq(bdev->irq, bdev);
+ 
+ 	for (i = 0; i < bdev->num_channels; i++) {
+ 		bam_dma_terminate_all(&bdev->channels[i].vc.chan);
 -- 
 2.53.0
 
