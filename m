@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048194;
-	b=28XWvJYsPwycsnajDkjR9FVoD3MJWVEYf2WMXlxmx8klUHESkeCjQMxR3fGqnlQvjDfM
-	 q2wllKPBuZB7KME6AZxVTzSj8crc27cFJNnK5kZKRfEgN7lwg545m3iBH31F3N9gGgHXZ
-	 WqbjEKZFpjV2ggfPpNe7iGnYiLPSAC2brfTnuzKCCxniER1ZjcAtvCgd16xOwQ6zrCZgX
-	 EcbVX5RJ6mm+TAoFfuGm+UFnwbdWwV6uGRdPSaqsxYtmzOCrOBqCw6KAcAQHhrb1kobH9
-	 WQhLW/h7+4C6FVcHXJRpjJhWqptGFDivCGJy8sp4OlIVpPECbaoBxskJ2QkgJNEAQeA==
+	t=1794048196;
+	b=KoG2dqW4jdy0RD/cRuEj0EEjsbqZKApatya6ToMpZMuZl0EjrychDa0/3oDYjbKAJuYk
+	 rEPVqcsdBcqpd/5+7VTBNuh0DKtVb7r9nsehmJAVk/4w/t7mqZ50ARt8AyJqho4dgwhSv
+	 pgBvSIJAr1sog2YppO9jy5gj0eBxkCAsEnHhZQbXTmds49HUgPHvmzhKKY7yZn+OVCJxc
+	 w+hVPQutDaR7Vhgkp3gqlZgT+W8gncA/TxWg17Ryrp8byNfmwJ3/1gNCsyoxO/fTwROII
+	 lsvqwRClzSTYAEfnafXP6P7+6p6o5oWpwwGFXzq/2TqNeIbElbZv7ig8pM8OwaxzNBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048194;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048196;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=cTjCzvI3Sw+Yh238Jcr/9qJT3Bc/1XrBj4NiDRtfRM0=;
-	b=zwHQ9cVfZR5YjkjOgGXu4ZsRgQsGtILga0gWTuKbYIaOjcWj/ZUngp2IeW97Fye4K5E1
-	 2/79UI8HY/JN4f3Z5hoC/z+BWvvTDOi5OM+ORU+Ud7yY6Fnz3HzPhEQjwrCBEOmdpSHpA
-	 4pUrqBzj0WU3Xv2p8Dn+D5X5F5RLT7OS0xNGkh+g7vLKiuFKeO9gmPePybb3txt9vABbS
-	 /XcbsmSNFVRQl3S9C2k2Yq3R/JpXVIF3sup61ndHwdxlfm/D8G6r8uRXOPx2XanWlcksF
-	 Y101q3+jV77ZBlpQQ2n2cY42478WiO40hiFRexR31yPiI2Bi+oQRBPCzYw7cvGp1v8g==
+	bh=OA8dK19BIdB3a1I86Ts0sBY6MQjWoB0425zj0jKZZDk=;
+	b=f6BqNWURrdsFs9OADwLPFBO0KYp/6WFkBBPJq77gwkDtjom696LBxXIVqG3eIhMvyxFR
+	 gvcMzDKtn1qzYc1/XQR+smMD9jBwvd8aKuEO/Enklh7mzJPUkbtBO0rDlp9cA0SMdXAuN
+	 RzNTa9HtvVVW9UjgnvXB57WOc3Vhl9CPR1EKOs7jOncrZftniNxnETCOvmY0xpwEHXN2Y
+	 9vasY8JRuLSadcAK7LlQjQlF4wFgq953bcKFpyRXnL5ARCBCwKJdb9nazNw3n/FJwaE/E
+	 ZF5vOlglx4YlUF3zh6NFTiCbWnWUQz0+2N7LK6m6HVmnOXWiTVM62d6nPhzzMrFxmTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VBCsV0DN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i4VB9XA7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBCB5606A32F
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:43:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3974606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:43:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VBCsV0DN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4800D1F0089F;
-	Sat,  7 Nov 2026 10:43:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i4VB9XA7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CA951F0089F;
+	Sat,  7 Nov 2026 10:43:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048193;
-	bh=cTjCzvI3Sw+Yh238Jcr/9qJT3Bc/1XrBj4NiDRtfRM0=;
+	s=k20260515; t=1794048195;
+	bh=OA8dK19BIdB3a1I86Ts0sBY6MQjWoB0425zj0jKZZDk=;
 	h=From:To:Cc:Subject:Date;
-	b=VBCsV0DNeOrkHbxlZ6cYvwSCbG+VXPxU4zkrUQ91t5JHRN/qpnf28BdxNlFZlCRrd
-	 aIojWz6i6Ay6/mruqXtO21HmtdPGxHCrau4K/AnCZpwA4yT4wNPUZIhBxAW8l9Ndlp
-	 5QTllEdBCuo10NxN/XgBE/z340II5TjGcJPOVqm/lkhladcTpwObxIBX/+P79EUXfW
-	 HN5clPO4N/PaaeMMB68GGH7A1XFqucQnBAsBMStQ9fbwCGFV7u6R7Al8NBkQ0uLV7l
-	 np6WeNN+GVBouAMqJjAOYIPOmx68IfU0ZCcp3E6KnCmVMGFD3fxr3vkUF0Gj0RHGjw
-	 xLPhJ2H1hpd9Q==
+	b=i4VB9XA7XH0Pnw1FGj3GB2rKHQDvIo8pAu9kghW8ElNvDR4DgRVzedBM7uKPWsruK
+	 7BIb8P/kCYMW1DKSMzpuKQoXghzUA7DzFgmroMEphFtwplwgTXf1VyKz+C/vEsRivD
+	 Tw9crc10Un8vt6rErAgsXjtz+++5tBbn0cthtz+ascuYIxkcXf6WUTutx39oGae0HI
+	 uctNynzm5ruMT3d3svx7PMHokowpTdb+oEmQwOYaHnCAJI8MwKuWhTb4JnmQcBVVpP
+	 nOl7S45x7LKBGGhTlpm8OVaODU6tnUQoNHslrsG2DLkct3CGim2tD2rK1F54JZJ3VS
+	 49VAbSU6W4CeQ==
 From: Sasha Levin <sashal@kernel.org>
-To: zoone.rupert@gmail.com,
-	jonathan.cameron@oss.qualcomm.com
+To: hitesh@ebytelogic.com,
+	bryan.odonoghue@linaro.org,
+	bod@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] iio: pressure: dps310: fix CFG_REG bit definitions" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:43:12 -0500
-Message-ID: <20261107054312-failed-6.1-4334dc4092c2@kernel.org>
+Subject: FAILED: patch "[PATCH] media: qcom: camss: vfe: Fix VFE reset while another line is streaming" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:43:14 -0500
+Message-ID: <20261107054314-failed-6.1-e5d4b0e69a40@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,58 +69,102 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 4334dc4092c271e6cd010c2ee70b7f4415c4c199
+git cherry-pick -x e5d4b0e69a4017fd39354499c9d7583f625f0524
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054312-failed-6.1-4334dc4092c2@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054314-failed-6.1-e5d4b0e69a40@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 4334dc4092c271e6cd010c2ee70b7f4415c4c199 Mon Sep 17 00:00:00 2001
-From: Rupesh Majhi <zoone.rupert@gmail.com>
-Date: Mon, 21 Sep 2026 21:31:23 +0300
-Subject: [PATCH] iio: pressure: dps310: fix CFG_REG bit definitions
+From e5d4b0e69a4017fd39354499c9d7583f625f0524 Mon Sep 17 00:00:00 2001
+From: Hitesh Patel <hitesh@ebytelogic.com>
+Date: Mon, 28 Sep 2026 17:45:05 +0530
+Subject: [PATCH] media: qcom: camss: vfe: Fix VFE reset while another line is
+ streaming
 
-Driver defines them as BIT(4), BIT(5) and BIT(6). Per datasheet P_SHIFT
-is bit 2, FIFO_EN is bit 1 and SPI_MODE is bit 0.
+vfe_disable_output() stops the write masters of the line being
+disabled and then resets the whole VFE. The reset is not limited to
+that line.
 
-Only P_SHIFT has a user. dps310_set_pres_precision() sets it at
-oversampling 16 or above, so with wrong bit the result register is never
-shifted and stops matching the scale factor compensation divides by.
-in_pressure_input returns -ERANGE at oversampling 16, 32 and 64.
+When two lines of one VFE stream at the same time, which is the case
+whenever a CSID demultiplexes several virtual channels to different
+RDIs, stopping the first line resets the VFE underneath the second
+line. The second line's write master configuration is wiped, the
+buffers it had in flight are never completed, and the VFE is left in
+a state in which the next global reset is not acknowledged. Stopping
+or restarting the second line then fails with:
 
-FIFO_EN needed by FIFO support later in this series.
+  VFE reset timeout
 
-Fixes: ba6ec48e76bc ("iio: Add driver for Infineon DPS310")
-Fixes: d711a3c7dc82 ("iio: dps310: Add pressure sensing capability")
+Move the reset to vfe_disable() and do it under stream_lock, as part
+of the decrement that makes the count reach zero, so that exactly one
+caller resets and no line can be enabled while the reset runs.
+Stopping the line's write masters is enough to quiesce that line on
+its own. With a single line streaming, the reset happens exactly as
+before.
+
+Fixes: 7319cdf189bb ("media: camss: Add support for VFE hardware version Titan 170")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Rupesh Majhi <zoone.rupert@gmail.com>
-Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Signed-off-by: Hitesh Patel <hitesh@ebytelogic.com>
+Suggested-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+[bod: Converted vfe_disable_output to void]
+Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
 ---
- drivers/iio/pressure/dps310.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/media/platform/qcom/camss/camss-vfe.c | 14 +++++---------
+ 1 file changed, 5 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/iio/pressure/dps310.c b/drivers/iio/pressure/dps310.c
-index 45bdb8c7670f0..35260b3993903 100644
---- a/drivers/iio/pressure/dps310.c
-+++ b/drivers/iio/pressure/dps310.c
-@@ -50,9 +50,9 @@
- #define DPS310_CFG_REG		0x09
- #define  DPS310_INT_HL		BIT(7)
- #define  DPS310_TMP_SHIFT_EN	BIT(3)
--#define  DPS310_PRS_SHIFT_EN	BIT(4)
--#define  DPS310_FIFO_EN		BIT(5)
--#define  DPS310_SPI_EN		BIT(6)
-+#define  DPS310_PRS_SHIFT_EN	BIT(2)
-+#define  DPS310_FIFO_EN		BIT(1)
-+#define  DPS310_SPI_EN		BIT(0)
- #define DPS310_RESET		0x0c
- #define  DPS310_RESET_MAGIC	0x09
- #define DPS310_COEF_BASE	0x10
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
+index c14d97a131f69..2680a9914765f 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe.c
++++ b/drivers/media/platform/qcom/camss/camss-vfe.c
+@@ -808,7 +808,7 @@ int vfe_put_output(struct vfe_line *line)
+ 	return 0;
+ }
+ 
+-static int vfe_disable_output(struct vfe_line *line)
++static void vfe_disable_output(struct vfe_line *line)
+ {
+ 	struct vfe_device *vfe = to_vfe(line);
+ 	struct vfe_output *output = &line->output;
+@@ -820,8 +820,6 @@ static int vfe_disable_output(struct vfe_line *line)
+ 		vfe->res->hw_ops->vfe_wm_stop(vfe, output->wm_idx[i]);
+ 	output->gen2.active_num = 0;
+ 	spin_unlock_irqrestore(&vfe->output_lock, flags);
+-
+-	return vfe_reset(vfe);
+ }
+ 
+ /*
+@@ -833,21 +831,19 @@ static int vfe_disable_output(struct vfe_line *line)
+ int vfe_disable(struct vfe_line *line)
+ {
+ 	struct vfe_device *vfe = to_vfe(line);
+-	int ret;
++	int ret = 0;
+ 
+-	ret = vfe_disable_output(line);
+-	if (ret)
+-		goto error;
++	vfe_disable_output(line);
+ 
+ 	vfe_put_output(line);
+ 
+ 	mutex_lock(&vfe->stream_lock);
+ 
+-	vfe->stream_count--;
++	if (--vfe->stream_count == 0)
++		ret = vfe_reset(vfe);
+ 
+ 	mutex_unlock(&vfe->stream_lock);
+ 
+-error:
+ 	return ret;
+ }
+ 
 -- 
 2.53.0
 
