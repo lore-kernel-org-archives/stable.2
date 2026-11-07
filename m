@@ -1,51 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046066;
-	b=bsgTX/IdkMHj/sjHae4/lydpZMAZ80Fg1x+bxhJTZ3eWs36l0TtVcPMj/uDQ9JPzooYz
-	 EODhrGY2EiabftCRRvkWBhOMbOuE7e622fdwX8oewimxpRfbgYnmoA5A+gEvV5sEuM4Zj
-	 Pa8CPmJ7ig2Tfr5iw7YkYOmhL1kMZugKhulttZ+ERx8fq7tNWxzi/y7ynU0YM5GcSb46H
-	 y+QXQu/LEp1hK6ty6KprTGr4OV2uR6/X7OWSUnyRr0Eny6f/2Dyknx1TD05eu5dGn9dY3
-	 icz90Cu8dUuWYi/ugsyeY0rxaNGRmSg2c8Z+qNd1TqIUHS3J1tewneAyC6lAG23MdLQ==
+	t=1794046068;
+	b=IuATM+XrA/Yiu3sZL8MxEPLysAAEa6avriAOd+pgrfAuzvB3B9Nt2tzqWke99IQ33+Sf
+	 V5WXbRkhEOFt3gy+6jnnfbIPhJ248vOTyij722yMxsyqmX0Jksa3VLeLhU4mB2Q0Posz0
+	 An8x7zRjuvYrCryJOZZaxClc2nNStwSCsJhG8/rU73/+n5C0CGAOCQ2hcKwYtrSlfD9Wp
+	 QIJgkgPDS0QGraqEJJe2BNMrJFusdGRuAY3xGYfQa8xyIC6UrKrVAVB4dAHU0gF6pWUsI
+	 yuRXY9JyiWgWvkafadI9jIwqq2Ey9zk5C2pl37ol/On1YvW0jE9Syct4AR+7JfULfDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046066;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046068;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=GW0hYIN7+IceEmMSeevV4pIzk2+GIFsu79mR7Humawg=;
-	b=ZbXXStVU6TyobPL9IFyrnqcjDo8zd7TVjbrZM66ly4Wd8JO6TAV0IVgv49y1QBYJKE3r
-	 YPrjb0Cz6Us1+opLZS91yY+SXFCIcyC9wgKpiXrxV77/53D8INhJqA8dUTaq29U78ndl+
-	 VeXKgiroftT9dzf0/5icTJTwArVkSkTuxK273o00s+uOHQvj81BMc6UwGyvtP1KXSHXGv
-	 0lK9Pg6fWi6ssxvMOGMMLgqLX9YkCO3rClMRfBbRz7z559XDbNI/iJ9R6TSckZzmszEeh
-	 R6nLo9R3FyzTzqL88fZkLxBQgt79lmiug30G3Fn1af83NO/F1/31tSagP7kGmpYZQaw==
+	bh=T7IgbrVq5ALA9n9PbYPkOZD0BsJ95YyqAsdQhcm09AA=;
+	b=Z35kYqjbbrNwV0eJI1xTuOELHludSlK/7h9i47UDUoLZBlUQY3xkuE1GOfXluTniSaAX
+	 NDTqvIfPVtuWPLwZh75xgGC/who4FA68tGrAPMENbKLbUZn1hw+9cXCxMSwoiDAyF7LMq
+	 gIEetl1q7pF5lZ8WQXMULjaeHVu+QeBLx6pQTIbEXpBQiBcGAtZQb/uX1JesgXzANS4vn
+	 iTKmpMs7f0BDoqh3ASfetPFeEKUmubKMsUBTHC/xZ/UXGQeG1XZXKBc+6zhnF7YYnZI19
+	 QN31Kwn8tQeh41zqYA1FE8J+vwTN+34AyerVzNFjz2xDDhGXP/HyCcQyNe5Dow9mCVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gY5H3FMV;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="O1/rZG0h";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE7E8606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:07:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42B83606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:07:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gY5H3FMV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A9491F0089F;
-	Sat,  7 Nov 2026 10:07:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O1/rZG0h
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4872B1F0089F;
+	Sat,  7 Nov 2026 10:07:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046065;
-	bh=GW0hYIN7+IceEmMSeevV4pIzk2+GIFsu79mR7Humawg=;
+	s=k20260515; t=1794046068;
+	bh=T7IgbrVq5ALA9n9PbYPkOZD0BsJ95YyqAsdQhcm09AA=;
 	h=From:To:Cc:Subject:Date;
-	b=gY5H3FMVftRNCxW1bmp6I+afKAqar/xGLhdYhrVhEzt/RHPFbS6zfkGAfJW79hyFS
-	 DW846UBegj0FqpK7ozF4lwh56gRsChjmJnVHXt7RDf+zPpuzmqnmRW525hFJQWetwf
-	 vcCk3Viug+c1KlVeV1hJ9LNGcBrdT0fi5ldw4CAm1V9ASzxsN69GNYOByRN1tL+FMP
-	 xZTz2a6q7BMftgJ6PT8BN26pCp83pq1ylqzUc1u77pylyfPhVIq/nzJKBhBpix+SKk
-	 nHrpqcW3cW7dnJxSlii09wBbDTkQre9u4d67QQWfvm2SYqPf7MHoZ9yFUNno7HJjAn
-	 OaubZHblOEERg==
+	b=O1/rZG0h15Cx5jNzgXVQQ63Sg8eLVFd69iK+Gf07M2C5SUd1C+tv9yY7Fzpr8KiqO
+	 S3shSEJ26pAHPfGUPYGYGNvXkJP/oRX37Cfzez70MI4O3DhkO6UVZ5DW1Bfu8iTuvF
+	 +4+I7XlMc0aJyWJq9nq3bwC+wHzTRj9jWshzzizGQTpMW9HCbe1JmujgFHbzArBrWM
+	 xf147XVaQHUlyYBLd5+grx7ktZCWIWyWdPyyD10WADz3aYbaZft8fqy6Fvdalx8P0+
+	 u9c7Z1N/2MskppScFC4gY71YrTpDgp7cOMUf5rnoQGDdYxN7aLl/SQnNzr6I3YqIAt
+	 /sBFz4IR8wHOQ==
 From: Sasha Levin <sashal@kernel.org>
-To: runyu.xiao@seu.edu.cn,
-	tiwai@suse.de
+To: adubey@linux.ibm.com,
+	sashiko-bot@kernel.org,
+	hbathini@linux.ibm.com,
+	skb99@linux.ibm.com,
+	yeswanth@linux.ibm.com,
+	rnsastry@linux.ibm.com,
+	maddy@linux.ibm.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ALSA: usb-audio: Protect Roland control activation" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:07:44 -0500
-Message-ID: <20261107050744-failed-6.18-19b42c1fff7f@kernel.org>
+Subject: FAILED: patch "[PATCH] powerpc/bpf: fix buffer overflow in JIT for large BPF programs" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:07:46 -0500
+Message-ID: <20261107050746-failed-6.18-78ce55b7913a@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,117 +73,172 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 19b42c1fff7f220a6346c614d79ce1bda6d95b40
+git cherry-pick -x 78ce55b7913a78e1687306668e078b86bc6508ee
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050744-failed-6.18-19b42c1fff7f@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050746-failed-6.18-78ce55b7913a@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 19b42c1fff7f220a6346c614d79ce1bda6d95b40 Mon Sep 17 00:00:00 2001
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Date: Tue, 29 Sep 2026 22:17:26 +0800
-Subject: [PATCH] ALSA: usb-audio: Protect Roland control activation
+From 78ce55b7913a78e1687306668e078b86bc6508ee Mon Sep 17 00:00:00 2001
+From: Abhishek Dubey <adubey@linux.ibm.com>
+Date: Mon, 28 Sep 2026 10:43:52 +0530
+Subject: [PATCH] powerpc/bpf: fix buffer overflow in JIT for large BPF
+ programs
 
-The USB MIDI driver changes the Roland MIDI Input Mode control's access
-flags directly from the rawmidi open and close paths.  These changes are
-not protected by the ALSA control core and the corresponding notifications
-can race with control access.
+During size calculation in pass-0, exit_addr is 0 since addrs[fp->len]
+is not yet populated. bpf_jit_emit_exit_insn() treats a zero exit_addr
+as in-range and skips bpf_jit_build_epilogue(), so the alternate inline
+epilogue instructions are not counted in alloclen.
 
-Use snd_ctl_activate_id() so that the control core updates the access flags
-and sends the notification under its lock.  Release the USB MIDI mutex
-before calling it because the control write path holds controls_rwsem while
-roland_load_put() takes the USB MIDI mutex.
+In later passes, if the real exit_addr falls outside the 32MB branch
+range, the full inline epilogue is emitted into the already-allocated
+buffer, writing past its end and corrupting adjacent memory.
 
-Keep the state transition and alternate-setting change under the USB MIDI
-mutex; rawmidi's open mutex serializes the enclosing open and close paths.
+Fix by ensuring exit_addr is non-zero before treating it as in-range,
+so pass-0 always falls through to bpf_jit_build_epilogue() and
+conservatively accounts for all epilogue instructions in alloclen.
+Also range check alt_exit_addr directly in the else-if condition.
 
-Fixes: 96f61d9ade82 ("sound: usb-audio: allow switching altsetting on Roland USB MIDI devices")
+Since exit_addr handling now falls through to the epilogue, two
+related issues in bpf_int_jit_compile() must also be addressed:
+
+1. Reset cgctx.alt_exit_addr before the second size-calculation pass.
+   Without this, a stale alt_exit_addr from the first pass causes the
+   second pass to emit a single jump instead of the full epilogue,
+   undercounting alloclen and reintroducing the overflow.
+
+2. Recompute addrs[fp->len] at the end of each code-generation pass.
+   The larger pass-0 body can shrink in later passes as out-of-range
+   exits settle into in-range jumps; a stale addrs[fp->len] would
+   leave exit branches targeting past the real (shrunken) epilogue.
+
+Because shrinkage in a later pass can move the epilogue offset, the
+fixed two-pass loop is no longer sufficient: an exit that was out of
+range in an earlier pass may fall in range once the epilogue offset
+shrinks, shrinking the body further and overwriting the start of the
+epilogue. Convert the code-generation loop to iterate until the
+program size converges, bounded by CODEGEN_MAX_PASSES, and fail the
+JIT if it does not converge.
+
+Reported-by: sashiko-bot@kernel.org
+Closes: https://lore.kernel.org/bpf/20260529015855.364704-2-adubey@linux.ibm.com/T/#mfcb23909d977b949727cca4f59ee56a13fd69b92
+Fixes: 0ffdbce6f4a8 ("powerpc/bpf: Handle large branch ranges with BPF_EXIT")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Link: https://patch.msgid.link/20260929141726.2166899-1-runyu.xiao@seu.edu.cn
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Hari Bathini <hbathini@linux.ibm.com>
+Signed-off-by: Abhishek Dubey <adubey@linux.ibm.com>
+Signed-off-by: Saket Kumar Bhaskar <skb99@linux.ibm.com>
+Tested-by: Yeswanth Krishna Tellakula <yeswanth@linux.ibm.com>
+Tested-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
+Link: https://lore.kernel.org/bpf/20260529015855.364704-2-adubey@linux.ibm.com/T/#mfcb23909d977b949727cca4f59ee56a13fd69b92
+Signed-off-by: Madhavan Srinivasan <maddy@linux.ibm.com>
+Link: https://patch.msgid.link/eebffa997e07781b384c4480e2b03c5b87c1aeb1.1789982239.git.skb99@linux.ibm.com
 ---
- sound/usb/midi.c | 53 ++++++++++++++++++++++++------------------------
- 1 file changed, 27 insertions(+), 26 deletions(-)
+ arch/powerpc/net/bpf_jit.h      |  7 +++++++
+ arch/powerpc/net/bpf_jit_comp.c | 34 +++++++++++++++++++++++++--------
+ 2 files changed, 33 insertions(+), 8 deletions(-)
 
-diff --git a/sound/usb/midi.c b/sound/usb/midi.c
-index 0480a9b89e8f3..e3d1575540613 100644
---- a/sound/usb/midi.c
-+++ b/sound/usb/midi.c
-@@ -1150,41 +1150,42 @@ static int substream_open(struct snd_rawmidi_substream *substream, int dir,
- 			  int open)
+diff --git a/arch/powerpc/net/bpf_jit.h b/arch/powerpc/net/bpf_jit.h
+index 35015d7ecb768..6d58df3616489 100644
+--- a/arch/powerpc/net/bpf_jit.h
++++ b/arch/powerpc/net/bpf_jit.h
+@@ -14,6 +14,13 @@
+ #include <asm/ppc-opcode.h>
+ #include <linux/build_bug.h>
+ 
++/*
++ * We need at least 2 passes for proper code generation, and may need
++ * additional passes if code size changes between passes.
++ */
++#define CODEGEN_MIN_PASSES    2
++#define CODEGEN_MAX_PASSES    3
++
+ #ifdef CONFIG_PPC64_ELF_ABI_V1
+ #define FUNCTION_DESCR_SIZE	24
+ #else
+diff --git a/arch/powerpc/net/bpf_jit_comp.c b/arch/powerpc/net/bpf_jit_comp.c
+index 8f7501954d9f0..11981d2270a9d 100644
+--- a/arch/powerpc/net/bpf_jit_comp.c
++++ b/arch/powerpc/net/bpf_jit_comp.c
+@@ -99,11 +99,10 @@ void bpf_jit_build_fentry_stubs(u32 *image, struct codegen_context *ctx)
+ 
+ int bpf_jit_emit_exit_insn(u32 *image, struct codegen_context *ctx, int tmp_reg, long exit_addr)
  {
- 	struct snd_usb_midi *umidi = substream->rmidi->private_data;
--	struct snd_kcontrol *ctl;
-+	struct snd_ctl_elem_id ctl_id;
-+	bool activate_ctl = false;
-+	bool active;
- 
- 	guard(rwsem_read)(&umidi->disc_rwsem);
- 	if (umidi->disconnected)
- 		return open ? -ENODEV : 0;
- 
--	guard(mutex)(&umidi->mutex);
--	if (open) {
--		if (!umidi->opened[0] && !umidi->opened[1]) {
--			if (umidi->roland_load_ctl) {
--				ctl = umidi->roland_load_ctl;
--				ctl->vd[0].access |=
--					SNDRV_CTL_ELEM_ACCESS_INACTIVE;
--				snd_ctl_notify(umidi->card,
--				       SNDRV_CTL_EVENT_MASK_INFO, &ctl->id);
--				update_roland_altsetting(umidi);
-+	scoped_guard(mutex, &umidi->mutex) {
-+		if (open) {
-+			if (!umidi->opened[0] && !umidi->opened[1]) {
-+				if (umidi->roland_load_ctl) {
-+					ctl_id = umidi->roland_load_ctl->id;
-+					activate_ctl = true;
-+					active = false;
-+					update_roland_altsetting(umidi);
-+				}
- 			}
--		}
--		umidi->opened[dir]++;
--		if (umidi->opened[1])
--			snd_usbmidi_input_start(&umidi->list);
--	} else {
--		umidi->opened[dir]--;
--		if (!umidi->opened[1] && !umidi->keep_input_running)
--			snd_usbmidi_input_stop(&umidi->list);
--		if (!umidi->opened[0] && !umidi->opened[1]) {
--			if (umidi->roland_load_ctl) {
--				ctl = umidi->roland_load_ctl;
--				ctl->vd[0].access &=
--					~SNDRV_CTL_ELEM_ACCESS_INACTIVE;
--				snd_ctl_notify(umidi->card,
--				       SNDRV_CTL_EVENT_MASK_INFO, &ctl->id);
-+			umidi->opened[dir]++;
-+			if (umidi->opened[1])
-+				snd_usbmidi_input_start(&umidi->list);
-+		} else {
-+			umidi->opened[dir]--;
-+			if (!umidi->opened[1] && !umidi->keep_input_running)
-+				snd_usbmidi_input_stop(&umidi->list);
-+			if (!umidi->opened[0] && !umidi->opened[1]) {
-+				if (umidi->roland_load_ctl) {
-+					ctl_id = umidi->roland_load_ctl->id;
-+					activate_ctl = true;
-+					active = true;
-+				}
- 			}
- 		}
+-	if (!exit_addr || is_offset_in_branch_range(exit_addr - (ctx->idx * 4))) {
++	if (exit_addr && is_offset_in_branch_range(exit_addr - (long)(ctx->idx * 4))) {
+ 		PPC_JMP(exit_addr);
+-	} else if (ctx->alt_exit_addr) {
+-		if (WARN_ON(!is_offset_in_branch_range((long)ctx->alt_exit_addr - (ctx->idx * 4))))
+-			return -1;
++	} else if (ctx->alt_exit_addr && is_offset_in_branch_range(
++			(long)(ctx->alt_exit_addr) - (long)(ctx->idx * 4))) {
+ 		PPC_JMP(ctx->alt_exit_addr);
+ 	} else {
+ 		ctx->alt_exit_addr = ctx->idx * 4;
+@@ -274,6 +273,7 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_verifier_env *env, struct bpf_pr
+ 	 */
+ 	if (cgctx.seen & SEEN_TAILCALL || !is_offset_in_branch_range((long)cgctx.idx * 4)) {
+ 		cgctx.idx = 0;
++		cgctx.alt_exit_addr = 0;
+ 		if (bpf_jit_build_body(fp, NULL, NULL, &cgctx, addrs, 0, false))
+ 			goto out_err;
  	}
-+	if (activate_ctl)
-+		snd_ctl_activate_id(umidi->card, &ctl_id, active);
- 	return 0;
- }
+@@ -306,10 +306,13 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_verifier_env *env, struct bpf_pr
+ 	code_base = (u32 *)(image + FUNCTION_DESCR_SIZE);
+ 	fcode_base = (u32 *)(fimage + FUNCTION_DESCR_SIZE);
  
+-	/* Code generation passes 1-2 */
+-	for (pass = 1; pass < 3; pass++) {
++	/* Code generation passes 1-2+, loop until program size converges. */
++	for (pass = 1; pass <= CODEGEN_MAX_PASSES; pass++) {
++		u32 prev_proglen = proglen;
++
+ 		/* Now build the prologue, body code & epilogue for real. */
+ 		cgctx.idx = 0;
++		cgctx.exentry_idx = 0;
+ 		cgctx.alt_exit_addr = 0;
+ 		bpf_jit_build_prologue(code_base, &cgctx);
+ 		if (bpf_jit_build_body(fp, code_base, fcode_base, &cgctx, addrs, pass,
+@@ -318,11 +321,26 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_verifier_env *env, struct bpf_pr
+ 			bpf_jit_binary_pack_free(fhdr, hdr);
+ 			goto out_err;
+ 		}
++		addrs[fp->len] = cgctx.idx * 4;
+ 		bpf_jit_build_epilogue(code_base, &cgctx);
+ 
++		proglen = cgctx.idx * 4;
++
+ 		if (bpf_jit_enable > 1)
+ 			pr_info("Pass %d: shrink = %d, seen = 0x%x\n", pass,
+-				proglen - (cgctx.idx * 4), cgctx.seen);
++				prev_proglen - proglen, cgctx.seen);
++
++		/* Check if program size has converged, but ensure minimum passes */
++		if (pass >= CODEGEN_MIN_PASSES && proglen == prev_proglen)
++			break;
++
++		if (pass == CODEGEN_MAX_PASSES && proglen != prev_proglen) {
++			pr_err("BPF JIT: Program did not converge after %d passes\n",
++								CODEGEN_MAX_PASSES);
++			bpf_arch_text_copy(&fhdr->size, &hdr->size, sizeof(hdr->size));
++			bpf_jit_binary_pack_free(fhdr, hdr);
++			goto out_err;
++		}
+ 	}
+ 
+ 	if (bpf_jit_enable > 1)
+@@ -399,7 +417,7 @@ int bpf_add_extable_entry(struct bpf_prog *fp, u32 *image, u32 *fimage, int pass
+ 	u32 *fixup;
+ 
+ 	/* Populate extable entries only in the last pass */
+-	if (pass != 2)
++	if (pass < CODEGEN_MIN_PASSES)
+ 		return 0;
+ 
+ 	if (!fp->aux->extable ||
 -- 
 2.53.0
 
