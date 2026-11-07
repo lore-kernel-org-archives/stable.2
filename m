@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046258;
-	b=k5Gb5ci1iy9diBKkXjnAy/564/k6GiQJF4O5ok/JRwMRG56HWo0SB0l8uWKYlYtAS9pf
-	 KlH5GNaYqUrf8r82flwfiKWi09d83i5RajlhAufN1taHh33Lk6jp/cMGN42p12u5BDEcK
-	 KzmtM14ao366HmaXArXNBrF1ZYsBVdDpchXpuwrzUS+2d/340HZ0H1TZgWJ6AyoDyEh9V
-	 CHSJzk0xApFxVR5c2hxE6QlsAam6n9aBTbW5q7g2Ph7wwDqI61LkkfDf3c3YG22Z+A2AS
-	 J75zxUfaX7edXQtPXDA2gHDuIIh4wCnKoFm4q9TG3LFWJHDgq8/SaBxZYUIWCN7atug==
+	t=1794046260;
+	b=pNLB9FbuLcUSgnQXBDjOycPLK6UhV9bR8szPL1oJ3GvWgZ58yrnq6y6WM9FpNfgr+6EX
+	 Tjio31gwYMZ1eX50gQ8W8wJVxCPLBIY3VnYtd6APa7jhkfJppfvzzYQqvmUgIdOtyyAde
+	 zctZu83VA+kYBwh2GGh2A9yMLAT+4xtWKlYVeQGngRckqyjLTkR4s4j7NcDEYP2QRG1a4
+	 xhZgc/g/+h1smkygJErme3PHqf9t38L2ALKTkk9bXFrZzk+4/yym0OpIveeGyxT2tB7Vu
+	 +H53H148p5efYv7QLJfaV/emYopjE2O7GyORk19Snr+gu+Aj8kPoN6QOyMQ7+jrlZ0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046258;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046260;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=RUYgjtvm3EytjnpRhNQkuqp1/1YarXfWa64tR1HmJf4=;
-	b=HFdb8uTUDmfmBqhQq4fOurF7O3JDAQJDLDucqnRqcIJKfznMNNb/h7jTnrXLQ/jQsLGb
-	 yo3FaaD/5GOJh5MvcDIsYwVywUhO/5QSYxMZ/kXu3Z+evOSNFyf1L5Qo9/F1pZAx31mHM
-	 JuHSBNfz1FDn2zaPPWeo+MfTIIFsZTNDXaMUAPcCdPGuaAV0ayeV5pbCbQVQx10AnaJwR
-	 bVpVbmKmlDLwWk9e2N3Lt8LXdDYvoUtP4AdPVSMkaIg43IkA/EyykNaEbDaBuhewpS17K
-	 qaqLqySdbuW3J6z3phiq9M0Horzw2t3kJ73fU+94B0gtBDXrOkFLvOa+Cx4mSfqgMHQ==
+	bh=Z2uZS2rLn6YHpuH02R1AGL2VQefZ/SJ149nymj41owA=;
+	b=MTViFDPJZ0HbrXqAeYm1ijbsTliLj9yU/L45ziDnpFv+0koVYK/khvKoLikoTbOMY/co
+	 9P3WLpmlVDmXsj7HH8FM05zg0uUYmu27AjJG9SH+8rEnUYtvPPPSUD3SQ9W8XP6kt2QZu
+	 GuDIcX+MVhccqbuVwzW5mZ8bGxi2vpPhDL1PlMb3YixSzBg2zQSVqZOPpKBKObEs4VZD9
+	 HAdHnhn3NqfAUg0x3orBTVay9eBXOenCspEWkr1M8aXdqZjW/viZV+HoXM4zGqOlUUikF
+	 nHjenlUEwgqpZZU7MWeCAIDdv9rjr6QPkazoj18UEtJ0a+7DQohzMYeT3nl8ZhRr1fg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FftpJ4X1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j4Yi+9LB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E56C5606A330
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:10:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D9BA606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:11:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FftpJ4X1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61D201F0089F;
-	Sat,  7 Nov 2026 10:10:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j4Yi+9LB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 957CE1F0089F;
+	Sat,  7 Nov 2026 10:10:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046257;
-	bh=RUYgjtvm3EytjnpRhNQkuqp1/1YarXfWa64tR1HmJf4=;
+	s=k20260515; t=1794046260;
+	bh=Z2uZS2rLn6YHpuH02R1AGL2VQefZ/SJ149nymj41owA=;
 	h=From:To:Cc:Subject:Date;
-	b=FftpJ4X16jVu37GIB3tyDiexO5oEzYb9Uq41WU4zkNqOdQ7BDb54LFs6AdH/n9OeO
-	 b4HeIIRNVZs3fZ74cYbRM//dQy1R/dliM1bMXD2akNi2CGDOrloo5OQEsA2fGwcYeC
-	 +Z/rC4qbbAHnQaP4/M1kMg7DPrliKdu+A5MdbVL2Su4doaMCftZpk7PsyWKx6f+4v4
-	 yVLf7csBerv0VbbjSJUL3Jk9VpXsBRbyI1CVtfPHKQ7lPqDGdcvWmO9KpeK5V85Enh
-	 u/yjoHKQIQ7V13e2DusPtTmqysCGMFpDd7ZLtT/45J0UIusdUHfweRBr7fK1FCOR8f
-	 BgabpKLXURYgA==
+	b=j4Yi+9LBJQ3HlUwR3wTDJEVHh6CrITmZqkn24MhY3JSqRG/2h4NLDkAMTa5qV2ouH
+	 QKJ2gVUEuXoFJE11cp1zBNNqX1wS00npBF7Ze7iUT9vG2u0aAw8je7v3SsG9yh/qq/
+	 cu/1/t3Dzkk+JzckkYnafuFO1rBrzZ2Y2LfrpnCzkqKNwSchGQKXDFJ32SLBYXbCZv
+	 C1loSEC1wWdffLBuL9hc3Lrv5/CqztOrEWyb1/di+M/HHLXQEyd6NI9s7abIjzRAw+
+	 rmpSfix6ws8C8uoQRgZsK5BPdWdQvqUVL8SqE8NCtaewl4n78Pf4efUp/hn2SBs0Ve
+	 IkZ02FyWBx8wQ==
 From: Sasha Levin <sashal@kernel.org>
-To: andrey.misyrov@gmail.com,
-	deller@gmx.de
+To: hvilleneuve@dimonoff.com,
+	gregkh@linuxfoundation.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] fbdev: core: Initialize modelist in framebuffer_alloc()" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:10:56 -0500
-Message-ID: <20261107051056-failed-6.18-0c9cb9321cb3@kernel.org>
+Subject: FAILED: patch "[PATCH] serial: sc16is7xx: declare MCR and IER as volatile registers" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:10:58 -0500
+Message-ID: <20261107051058-failed-6.18-1c41d09dcd07@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,87 +68,53 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 0c9cb9321cb3863b52bdea4b8ae5a27705762c9e
+git cherry-pick -x 1c41d09dcd07ee9648e20aa8238e404c2e6a12fb
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051056-failed-6.18-0c9cb9321cb3@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051058-failed-6.18-1c41d09dcd07@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 0c9cb9321cb3863b52bdea4b8ae5a27705762c9e Mon Sep 17 00:00:00 2001
-From: Andrey Misiurov <andrey.misyrov@gmail.com>
-Date: Mon, 12 Oct 2026 19:53:38 +0200
-Subject: [PATCH] fbdev: core: Initialize modelist in framebuffer_alloc()
+From 1c41d09dcd07ee9648e20aa8238e404c2e6a12fb Mon Sep 17 00:00:00 2001
+From: Hugo Villeneuve <hvilleneuve@dimonoff.com>
+Date: Tue, 6 Oct 2026 15:25:37 -0400
+Subject: [PATCH] serial: sc16is7xx: declare MCR and IER as volatile registers
 
-framebuffer_alloc() returns zeroed memory, so info->modelist starts out
-with NULL next and prev pointers. The list head is initialized only
-later, by fb_videomode_to_modelist() or by do_register_framebuffer().
+MCR register has the same address as XON1 register.
+IER register has the same address as DLH register.
 
-The "fix potential memory leak" commits listed below added
-fb_destroy_modelist(&info->modelist) to the probe error paths of s3fb,
-tdfxfb, tridentfb, i740fb and carminefb. These paths can run before
-the list head is initialized:
+Which register is accessed depends on bits configuration in some
+other registers.
 
- - s3fb, tdfxfb, tridentfb and i740fb call fb_videomode_to_modelist()
-   only after a successful EDID read, and tridentfb can also hit the
-   error path on an ioremap() or kmalloc() failure before that;
- - carminefb jumps to the error path when fb_find_mode() fails, before
-   its fb_videomode_to_modelist() call.
+To prevent potential access errors, declare MCR and IER as volatile
+registers.
 
-fb_destroy_modelist() then dereferences the NULL head. Reproduced on
-Debian 12 (6.1.180) by binding s3fb to a VGA device without EDID and
-forcing fb_alloc_cmap() to fail:
-
-  s3fb 0000:00:03.0: cannot allocate colormap
-  BUG: kernel NULL pointer dereference, address: 0000000000000000
-  RIP: 0010:fb_destroy_modelist+0x10/0x80
-  Call Trace:
-   s3_pci_probe.cold+0x12b/0x2bf [s3fb]
-   local_pci_probe+0x41/0x80
-   pci_device_probe+0xc3/0x240
-   really_probe+0xde/0x380
-   __driver_probe_device+0x84/0x150
-   driver_probe_device+0x1f/0x90
-   __driver_attach+0xce/0x1c0
-   bus_for_each_dev+0x87/0xd0
-   bus_add_driver+0x1ae/0x200
-   driver_register+0x89/0xe0
-   do_one_initcall+0x59/0x220
-   do_init_module+0x4a/0x1f0
-
-Initialize the list head in framebuffer_alloc(), so info->modelist is
-always a valid, possibly empty, list and fb_destroy_modelist() is safe
-on every error path. Keep the lazy initialization in
-do_register_framebuffer(), as drivers that embed struct fb_info rather
-than calling framebuffer_alloc() still depend on it.
-
-Fixes: 3b0ed04bc852 ("fbdev: s3fb: fix potential memory leak in s3_pci_probe()")
-Fixes: bb019d755366 ("fbdev: tdfxfb: fix potential memory leak in tdfxfb_probe()")
-Fixes: 7a35ec619d9a ("fbdev: tridentfb: fix potential memory leak in trident_pci_probe()")
-Fixes: 5936063409af ("fbdev: i740fb: fix potential memory leak in i740fb_probe()")
-Fixes: 6fcca16a2b19 ("fbdev: carminefb: fix potential memory leak in alloc_carmine_fb()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Andrey Misiurov <andrey.misyrov@gmail.com>
-Signed-off-by: Helge Deller <deller@gmx.de>
+Fixes: dfeae619d781 ("serial: sc16is7xx")
+Cc: stable@kernel.org
+Signed-off-by: Hugo Villeneuve <hvilleneuve@dimonoff.com>
+Link: https://patch.msgid.link/20261006192540.234402-1-hugo@hugovil.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/video/fbdev/core/fb_info.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/tty/serial/sc16is7xx.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/video/fbdev/core/fb_info.c b/drivers/video/fbdev/core/fb_info.c
-index 52f9bd2c5417a..05988a936bebb 100644
---- a/drivers/video/fbdev/core/fb_info.c
-+++ b/drivers/video/fbdev/core/fb_info.c
-@@ -43,6 +43,7 @@ struct fb_info *framebuffer_alloc(size_t size, struct device *dev)
- 	info->device = dev;
- 	info->fbcon_rotate_hint = -1;
- 	info->blank = FB_BLANK_UNBLANK;
-+	INIT_LIST_HEAD(&info->modelist);
- 
- #if IS_ENABLED(CONFIG_FB_BACKLIGHT)
- 	mutex_init(&info->bl_curve_mutex);
+diff --git a/drivers/tty/serial/sc16is7xx.c b/drivers/tty/serial/sc16is7xx.c
+index 7ddc8a38adab4..fba5885595957 100644
+--- a/drivers/tty/serial/sc16is7xx.c
++++ b/drivers/tty/serial/sc16is7xx.c
+@@ -501,7 +501,9 @@ static bool sc16is7xx_regmap_volatile(struct device *dev, unsigned int reg)
+ {
+ 	switch (reg) {
+ 	case SC16IS7XX_RHR_REG: /* Shared address space with THR & DLL */
++	case SC16IS7XX_IER_REG: /* Shared address space with DLH */
+ 	case SC16IS7XX_IIR_REG: /* Shared address space with FCR & EFR */
++	case SC16IS7XX_MCR_REG: /* Shared address space with XON1 */
+ 	case SC16IS7XX_LSR_REG: /* Shared address space with XON2 */
+ 	case SC16IS7XX_MSR_REG: /* Shared address space with TCR & XOFF1 */
+ 	case SC16IS7XX_SPR_REG: /* Shared address space with TLR & XOFF2 */
 -- 
 2.53.0
 
