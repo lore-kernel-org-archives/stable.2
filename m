@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048274;
-	b=IdzzcTXLfp5BaSGFZzQDFNwSQVbvXjbgsYCwqXIhyE7EjAz1eBPhckTRm9O2JchxUiCT
-	 PYnZgY6Crts+y4ojCP1Fpde3Ld8za7N74wIrZdjcT2lb/DCuQv/w6BpeizntneRgWI+1G
-	 H3X/7CmHoB/5JIgy+lleufYamUdvEz2z+uTFEycXjFly00RrlkzjNvs0JvZFUpxB9+BP7
-	 M17Yx8Ti3mx/msRlLekZ6TiStUacS9aF7NtRTqh+KUoflPyb1pAcibiY2vYou0LmVRDB+
-	 UDgBv/npPQh9CZ//7aFoEpogzIULNWZLyBtGaneBeZPkXVxAPYT8Ba1UCUuPNV3Riyg==
+	t=1794048277;
+	b=wYgxX4ui6P2hzE1frA3OsgRATy3Rz25icbL6UaMram3edTqP1M4JyFJJ1kB/1DHFY2co
+	 rzPU1H2cnJ74/MtABdjWmroD036x6ZJI03TSEu3d42K2bR9g+xlJKjBsh9lf3D7foC9TK
+	 Am+rUZyjZrnHPMwdoJLi0eTbSeip+cBP2TXuUVD6XbM/2nGV069EE6a7A8KekjBrVo5Uj
+	 AItF3+qJnjGEfT0LUaIYdwDtY00hf4u3Sjv1GQmVgV46ALqrGZpVjbi3u52+mfEQzwUzU
+	 NJulXk53EfjSvOo9weFGxlyStLfZrbknXl9jBh4Oxx4BQ4/CDoGWudxKZ2bYnDXzoag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048274;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048277;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=5eqKb1m/6pD2peHseSDwwZCCM8yMmeGP+l7inUgBdy4=;
-	b=fheAE8+oB/T6mCIbMQ7hSuBEz/wvloDy2VoyUqfu+gwwlrreQQn7tyycKSyg9Yj97XHn
-	 XnHVKp0TMHdoJFsbm1AqDDmq2ftTIoMydsmX2LKA5pQsEmQ2DsT7WKq37uUyU/CfqVsBf
-	 nptL/pxHyeOt2kyLsvum5BwNU5TuNH1IqOCbgqhCom3WsD7kkU9LZM4sBuJukpGQGtDUC
-	 PvSZ7HUcUs43Ntdhq2qgk7HGjJMvvhywnCnNpOCPhAynrJV2wrhJPQo9p1BkptgFFEZ4m
-	 6jZozDg0Q2ogwe2ytB42Kx3/uuI4WAsCrSMtTdGyJ+HxBWtrHBouymkKcgaOIA3Utrg==
+	bh=Fyk87+vQKwE3kFOUJ90CE8Kf4wRMeGB5UO7WVPj4xjE=;
+	b=4srW0V8ILGshf7RuuE1DZhyalpN2BhziFczCSnLSFzgGfikhEvOm4X0FZcWvDCFhLG5j
+	 kznxKT33R/5m23dut7eDSFGN37vjutPcPBAn49FlHjQlsRLD2JUgtfcBgaaniOXvIqYTa
+	 TXVLNXYylXZb79YhF4zV2Fl0Ln+adh1nEPvq0HtEyoW8d/uY/i8VAmY9tcPq3UOy5LgiD
+	 mH3wEtFI6YUONCL2qTUdfiRkaDM9jy4bNbdzXIaDu4r0InuqMFzBM1iBDLHYF6hg937Wp
+	 5cujWYcNdTkmAceb4zqAKdtipre33Py5QH2oQXCYrB7o8/xXlEWPlj7RA3/YfCnjVDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="cTE4v/6T";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kCv0nVfr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8447606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:44:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCDB6606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:44:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cTE4v/6T
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F1E71F0089F;
-	Sat,  7 Nov 2026 10:44:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kCv0nVfr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 382211F0089F;
+	Sat,  7 Nov 2026 10:44:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048273;
-	bh=5eqKb1m/6pD2peHseSDwwZCCM8yMmeGP+l7inUgBdy4=;
+	s=k20260515; t=1794048276;
+	bh=Fyk87+vQKwE3kFOUJ90CE8Kf4wRMeGB5UO7WVPj4xjE=;
 	h=From:To:Cc:Subject:Date;
-	b=cTE4v/6TPFjXYpjW3w6OP1Z9ZaI4tvnzVUE5dtiJcPUQUcKqfa6OVDsiBGx8R4tyF
-	 xqywTQEEqOCxJmwdDV4TuPdyy9kQYRSM+oZQaX2Tg1XBHoRDKUveIRas51tz/JXtaj
-	 S1lVA43RCepwMHXIvq2heFT8qp8p9tQCqY7QI25jIpCecQzupLFZCmvwjR5cVBoaCO
-	 E62WJZ3WALNi/dY3xnTtZiUZJqhtPnAuGkEXVbPVdArZmyVvTKB8d0S56TaARGcmix
-	 5lktVEWR8HbTGeBs00gG31helVlpPkDnXrHwRyatDzcxBjUjX6h/wO4jxIZluLqpEw
-	 NXjDtxiAu4dUw==
+	b=kCv0nVfrZDz4LZSfEN2DDawRENB4hwi3tf7s0MXKeTfopNc3sJyif2m6fejhO5kf7
+	 kvo774/KXcCD8wTRm1eSjT4QOgpm3WCoYowPgqrVAACnn1cKmE6zWgc/8sWdpqsb04
+	 IAIhGqFRLayHNT3OkQ4s+EJF3TD98yJ8zuhc2ojd3wfu8aESf81b+EyUKG27L8sf8U
+	 ar3poQ79kOMEZvHKBsLg45RFEKN8PboqsJqyqMEsLALFLVsbtAGc1EPB4r0U9fk38a
+	 gW70whYaEz/wG+wg3QT04SdkCmSOJGDRICtCjlHSM03PAHr9G2RIReysosdHir4gHE
+	 s18qItF+vNoMw==
 From: Sasha Levin <sashal@kernel.org>
 To: mhun512@gmail.com,
 	ae878000@gmail.com,
 	broonie@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ASoC: stm: stm32_i2s: request IRQ after regmap initialization" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:44:31 -0500
-Message-ID: <20261107054431-failed-6.1-1b207c85551f@kernel.org>
+Subject: FAILED: patch "[PATCH] ASoC: codecs: rt5682s: disable jack detection work on shutdown" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:44:34 -0500
+Message-ID: <20261107054434-failed-6.1-ca552e3140e7@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,97 +69,62 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 1b207c85551fd74854d632116849295b2305245f
+git cherry-pick -x ca552e3140e736ed6704fe5d47439d8f2d40b42e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054431-failed-6.1-1b207c85551f@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054434-failed-6.1-ca552e3140e7@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 1b207c85551fd74854d632116849295b2305245f Mon Sep 17 00:00:00 2001
+From ca552e3140e736ed6704fe5d47439d8f2d40b42e Mon Sep 17 00:00:00 2001
 From: Myeonghun Pak <mhun512@gmail.com>
-Date: Sun, 4 Oct 2026 00:34:51 -0400
-Subject: [PATCH] ASoC: stm: stm32_i2s: request IRQ after regmap initialization
+Date: Sat, 3 Oct 2026 00:10:45 -0400
+Subject: [PATCH] ASoC: codecs: rt5682s: disable jack detection work on
+ shutdown
 
-The ISR accesses the managed regmap, but probe requests the IRQ before
-creating it. An early interrupt can reach an uninitialized regmap.
-Reverse-order cleanup can free the regmap while the IRQ remains active.
+The jack detection and button check works can queue each other. The
+shutdown path cancels jack_detect_work first, but jd_check_work can
+queue it again after that cancellation returns. Canceling jd_check_work
+then leaves jack_detect_work pending or running while the device is
+reset and, on removal, its managed resources are released.
 
-Request the IRQ after regmap initialization so probe unwind and
-removal free and synchronize it before releasing the regmap.
+Disable and drain both delayed works so neither callback can revive the
+other after its cancellation. The I2C remove callback uses the same
+shutdown path.
 
-The teardown ordering issue was found by static analysis.
+This issue was identified during our ongoing static-analysis research
+while reviewing kernel code.
 
-Fixes: e4e6ec7b127c ("ASoC: stm32: Add I2S driver")
-Cc: stable@vger.kernel.org
+Fixes: c07ac3ee76e5 ("ASoC: rt5682s: Fix the wrong jack type detected")
+Cc: stable@vger.kernel.org # 6.10+
 Assisted-by: LLM
 Co-developed-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-Link: https://patch.msgid.link/20261004043451.1138613-1-mhun512@gmail.com
+Link: https://patch.msgid.link/20261003041045.650207-1-mhun512@gmail.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/stm/stm32_i2s.c | 23 +++++++++++------------
- 1 file changed, 11 insertions(+), 12 deletions(-)
+ sound/soc/codecs/rt5682s.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/stm/stm32_i2s.c b/sound/soc/stm/stm32_i2s.c
-index a59ad94423726..22196f789ae4a 100644
---- a/sound/soc/stm/stm32_i2s.c
-+++ b/sound/soc/stm/stm32_i2s.c
-@@ -1197,7 +1197,7 @@ static int stm32_i2s_parse_dt(struct platform_device *pdev,
- 	struct device_node *np = pdev->dev.of_node;
- 	struct reset_control *rst;
- 	struct resource *res;
--	int irq, ret;
-+	int ret;
+diff --git a/sound/soc/codecs/rt5682s.c b/sound/soc/codecs/rt5682s.c
+index 0f80e4c32f573..49ed7793d3a20 100644
+--- a/sound/soc/codecs/rt5682s.c
++++ b/sound/soc/codecs/rt5682s.c
+@@ -3318,8 +3318,8 @@ static void rt5682s_i2c_shutdown(struct i2c_client *client)
+ 	struct rt5682s_priv *rt5682s = i2c_get_clientdata(client);
  
- 	if (!np)
- 		return -ENODEV;
-@@ -1243,16 +1243,6 @@ static int stm32_i2s_parse_dt(struct platform_device *pdev,
- 			return ret;
- 	}
+ 	disable_irq(client->irq);
+-	cancel_delayed_work_sync(&rt5682s->jack_detect_work);
+-	cancel_delayed_work_sync(&rt5682s->jd_check_work);
++	disable_delayed_work_sync(&rt5682s->jack_detect_work);
++	disable_delayed_work_sync(&rt5682s->jd_check_work);
  
--	/* Get irqs */
--	irq = platform_get_irq(pdev, 0);
--	if (irq < 0)
--		return irq;
--
--	ret = devm_request_irq(&pdev->dev, irq, stm32_i2s_isr, 0,
--			       dev_name(&pdev->dev), i2s);
--	if (ret)
--		return ret;
--
- 	/* Reset */
- 	rst = devm_reset_control_get_optional_exclusive(&pdev->dev, NULL);
- 	if (IS_ERR(rst))
-@@ -1277,7 +1267,7 @@ static int stm32_i2s_probe(struct platform_device *pdev)
- {
- 	struct stm32_i2s_data *i2s;
- 	u32 val;
--	int ret;
-+	int irq, ret;
- 
- 	i2s = devm_kzalloc(&pdev->dev, sizeof(*i2s), GFP_KERNEL);
- 	if (!i2s)
-@@ -1303,6 +1293,15 @@ static int stm32_i2s_probe(struct platform_device *pdev)
- 		return dev_err_probe(&pdev->dev, PTR_ERR(i2s->regmap),
- 				     "Regmap init error\n");
- 
-+	irq = platform_get_irq(pdev, 0);
-+	if (irq < 0)
-+		return irq;
-+
-+	ret = devm_request_irq(&pdev->dev, irq, stm32_i2s_isr, 0,
-+			       dev_name(&pdev->dev), i2s);
-+	if (ret)
-+		return ret;
-+
- 	ret = snd_dmaengine_pcm_register(&pdev->dev, &stm32_i2s_pcm_config, 0);
- 	if (ret)
- 		return ret;
+ 	rt5682s_reset(rt5682s);
+ }
 -- 
 2.53.0
 
