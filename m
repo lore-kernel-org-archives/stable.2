@@ -1,54 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794061070;
-	b=oOkP3JPvPrblyPfyv2iPXLbv4RnbL09WpD8Cuntlc2/oQJj5WIJJBiPSZEnAJYIIRM0i
-	 trjtF0pXBbIW4oSO1bNGomxDupAL/YMzZsuWCbuYIdlqjqUBkjwCtTsznmUX2W+ETL5/G
-	 /dD3de55ygLxRh/dDfiGNtOCGuYELOGK/3sy/mt7FiE7GsjvwKrUaLZMzUhqxWAQT75Az
-	 qHlN1orLrV0jmfOTWxYeHJIKDTdo2qGboOYIobNghKzZHNSxaYntZk6L197rp+JY34sw+
-	 MaINJNXiIAUX7ODM+7uO3mvxnYyR7X2YwHpfcdzmCQwsLWuW3bbaA35iLeaBn4qKQnw==
+	t=1794061073;
+	b=VdRF2sWnq7YdkMHz0+kCJu+Aci9d5mXxON9l7N55fEfWDAFoHyvKNlNf15fx2Xqhtln0
+	 u6grqWTu2p8+Rsa9wVX8vmiqt+AcefzmE5GTPcPIQ7eRIwohclYJVMOXjk+Gaww8V5io2
+	 lgfPyH9N6KUAiQ/Iad0k/TGzJx5uKH3IqznuDHnApIVMYhg+6YZivMwYjbx4BNSQ7xeux
+	 sfZwGS0nJm/iyOAPUQ0/rucAc/UFLRcG00Y9/Tt5rSGozCVD3v+Cn8U3w5eWC4/h21liH
+	 zXI+LqISQaJWArtlAZuTDWSswnZECwH2954hjsDIQM1A0aUS7RL740o9LIWh3uFZBYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794061070;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794061073;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=HiNXxvND8fbAlPg04DnETYxu8p3UNii6FWN6+46pXIk=;
-	b=CYnxus3D56Cz+XGOw9Ee+hlVZsexZETntvOw7SE5zZzwjtKT7XNQBGoKyOW9faD1B29O
-	 9HMnr24pi32fygIYRYSRq9+/17j14ZT8UT5h6GHnIi5cuwsJx3Ip7NKMn7zG+zzPtOWmD
-	 qcX2KTY4Z8HFmwte3+tAXGvoKQe43ynNtaoyNjizR113IPII+SmGz1OeAwxVxjr72FF7R
-	 NZfbgCTLfrmPumPASFEhCF5NEIT3cAnHeh44vvGgpidF5NKR3gDtaB1DJBOoa3TDl0pDc
-	 0pu/Y37S0TWXhZCGHIYlzJrZwO4UZ7k4qYxkVwaVkkfLaa1xck8G0+00GFpzb+Xrwrw==
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=aiIBHQw/BQ8iBNWjoQpSeqETwq+rbwSlye0+md8cFik=;
+	b=vg9veS9GcdEn8ApHUtDBKqcwJEn293N+7dh7zMo77x0YNJfbwHG/YW8rt/enWalWVOim
+	 LaVbWB6oyyZFoO/NAqiVLgHxRrTuCa2dAn56Mc9R2rNcP+NBh8P43fRFsqPkwhjykyPQ4
+	 1cnMUTMpxXH5rGnacaEi76WyI7zqxV0vmnaOr6hf9ELtsi5LzXKlCy5HegFwOvM11iB2/
+	 zc7Ra7Iyl7G6/nSFVT9TCFSaJU3pnKIGDp/W/vvckWJCtL6MB6Ae3oS7xbYtm+N0DglXa
+	 1OzRiJITcBaCVeomsck/9094DGmhUvuE65p//pHhlleaL3nzGX+g/2pHO7h9/+wIs7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=R6xj666i;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=uAaJhZTI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AE55606A336;
-	Sat,  7 Nov 2026 14:17:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01C3A606D80C;
+	Sat,  7 Nov 2026 14:17:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=R6xj666i
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47AE31F0089F;
-	Sat,  7 Nov 2026 14:17:50 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=uAaJhZTI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A27051F008A3;
+	Sat,  7 Nov 2026 14:17:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794061070;
-	bh=HiNXxvND8fbAlPg04DnETYxu8p3UNii6FWN6+46pXIk=;
+	s=korg; t=1794061072;
+	bh=aiIBHQw/BQ8iBNWjoQpSeqETwq+rbwSlye0+md8cFik=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=R6xj666i3GJ2GrvRYFiT3PhLilXYPK+rsJhJylBx5QM+PGPDBagcAkCz7BYvUUBSa
-	 bZak1Azqe2X5chhU64BxVXhkKFKRlIE2/QyKVJ6RYI7/ybR+1Kf92MejJK5DTzv/k1
-	 RL2cS3siXMx/3TUjVhIwKenWnaYBmK71wtGZqCgU=
+	b=uAaJhZTIltd2/8MdkJS702/inH+bujx3bFxO5S5hLGuY6hSsYhyEkc2MN6BB75yLH
+	 8zOsg+ZoULMqjvH47BS65XqagpDLmieO+9JdcSLWKSFoSW79AoTqXplaM14nU8EaY8
+	 8Y9IR9pEwAUgJ8o3yqSo92cenhS20VrTX0+bhfl4=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Andras Pataki <apataki@flatironinstitute.org>,
-	Xiubo Li <xiubo.li@clyso.com>,
-	Viacheslav Dubeyko <slava@dubeyko.com>,
-	Ilya Dryomov <idryomov@gmail.com>,
+	Robert Leussler <robert.leussler@leica-geosystems.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 0397/1536] ceph: do not cache negative dentries for snapped directories
-Date: Sat,  7 Nov 2026 08:40:13 -0500
-Message-ID: <20261107135008.742706828@linuxfoundation.org>
+Subject: [PATCH 6.12 0372/1536] rtc: ds1307: fix RX8130 wakeup alarm WADA bit for day-of-month mode
+Date: Sat,  7 Nov 2026 08:39:48 -0500
+Message-ID: <20261107135008.090852234@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261107134957.653319350@linuxfoundation.org>
 References: <20261107134957.653319350@linuxfoundation.org>
@@ -64,86 +62,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 6.12-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
-From: Xiubo Li <xiubo.li@clyso.com>
+From: Robert Leussler <robert.leussler@leica-geosystems.com>
 
-[ Upstream commit af59562a5b3d34fb3aa7753f2543393578d06dbf ]
+[ Upstream commit 878d93aaa596a861dbc8d71f7c38e62a2e805f01 ]
 
-When a LOOKUP/LOOKUPSNAP in a snapped directory returns ENOENT
-without a trace, ceph_finish_lookup() creates a negative dentry
-via d_add(dentry, NULL).  For live directories this is fine — the
-dentry naturally expires.  But for snapped directories,
-ceph_d_revalidate() unconditionally trusts all cached dentries
-(valid = 1), so a negative dentry created by a transient error
-persists forever, hiding entries that genuinely exist in the
-snapshot.
+The RX8130 wakeup alarm never fired when set via
+/sys/class/rtc/rtc0/wakealarm. The root cause is that the WADA bit
+(bit 3) in the Extension register (0x1c) was never set before
+programming the alarm registers.
 
-Only cache negative dentries for live (non-snapshotted) parent
-directories.  For snapped parents, skip the negative dentry so
-that VFS retries the lookup on the next access.  Since the
-conditions that trigger a negative dentry (MDS transient error,
-local ENOENT shortcut, or MDS null dentry lease) are all rare in
-snapped directories, the performance impact of this change is
-negligible.
+Per the RX8130 datasheet:
+WADA=0 - Week alarm: register 0x19 is compared against day-of-week
+WADA=1 - Day alarm:  register 0x19 is compared against day-of-month
 
-Link: https://tracker.ceph.com/issues/78529
-Reported-by: Andras Pataki <apataki@flatironinstitute.org>
-Signed-off-by: Xiubo Li <xiubo.li@clyso.com>
-Reviewed-by: Viacheslav Dubeyko <slava@dubeyko.com>
-Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
+rx8130_set_alarm() always writes a BCD day-of-month value to alarm
+register 0x19, so WADA must be 1. With WADA=0 the hardware matched the
+day-of-month value (e.g. 15) as a day-of-week index, which is always
+out of range (valid weekdays are 0-6), so the alarm interrupt was never
+asserted.
+
+Fix by setting the WADA bit in rx8130_set_alarm() before writing the
+Extension register back to the device.
+
+This is consistent with rx8130_read_alarm(), which decodes the same
+register under the same assumption (24-hour and day-of-month mode).
+
+Signed-off-by: Robert Leussler <robert.leussler@leica-geosystems.com>
+Link: https://patch.msgid.link/20260721081907.3518648-1-robert.leussler@leica-geosystems.com
+Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ceph/dir.c   | 10 ++++++++--
- fs/ceph/inode.c |  3 ++-
- 2 files changed, 10 insertions(+), 3 deletions(-)
+ drivers/rtc/rtc-ds1307.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/ceph/dir.c b/fs/ceph/dir.c
-index 90ab0d55d9478..4896e27583e1d 100644
---- a/fs/ceph/dir.c
-+++ b/fs/ceph/dir.c
-@@ -774,8 +774,13 @@ struct dentry *ceph_finish_lookup(struct ceph_mds_request *req,
- 				d_drop(dentry);
- 				err = -ENOENT;
- 			} else {
--				if (d_unhashed(dentry))
--					d_add(dentry, NULL);
-+				if (d_unhashed(dentry)) {
-+					struct inode *parent =
-+						d_inode(dentry->d_parent);
-+					if (!parent ||
-+					    ceph_snap(parent) == CEPH_NOSNAP)
-+						d_add(dentry, NULL);
-+				}
- 			}
- 		}
- 	}
-@@ -840,6 +845,7 @@ static struct dentry *ceph_lookup(struct inode *dir, struct dentry *dentry,
- 			    dentry->d_name.len) &&
- 		    !is_root_ceph_dentry(dir, dentry) &&
- 		    ceph_test_mount_opt(fsc, DCACHE) &&
-+		    ceph_snap(dir) == CEPH_NOSNAP &&
- 		    __ceph_dir_is_complete(ci) &&
- 		    __ceph_caps_issued_mask_metric(ci, CEPH_CAP_FILE_SHARED, 1)) {
- 			__ceph_touch_fmode(ci, mdsc, CEPH_FILE_MODE_RD);
-diff --git a/fs/ceph/inode.c b/fs/ceph/inode.c
-index 92ea6085957c7..32f612934f839 100644
---- a/fs/ceph/inode.c
-+++ b/fs/ceph/inode.c
-@@ -1782,7 +1782,8 @@ int ceph_fill_trace(struct super_block *sb, struct ceph_mds_request *req)
- 				ceph_dir_clear_ordered(dir);
- 				d_delete(dn);
- 			} else if (have_lease) {
--				if (d_unhashed(dn))
-+				if (d_unhashed(dn) &&
-+				    ceph_snap(dir) == CEPH_NOSNAP)
- 					d_add(dn, NULL);
- 			}
+diff --git a/drivers/rtc/rtc-ds1307.c b/drivers/rtc/rtc-ds1307.c
+index 858c29494f5f5..0b32e94f4fe51 100644
+--- a/drivers/rtc/rtc-ds1307.c
++++ b/drivers/rtc/rtc-ds1307.c
+@@ -662,7 +662,7 @@ static int rx8130_set_alarm(struct device *dev, struct rtc_wkalrm *t)
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	ctl[0] &= RX8130_REG_EXTENSION_WADA;
++	ctl[0] |= RX8130_REG_EXTENSION_WADA;
+ 	ctl[1] &= ~RX8130_REG_FLAG_AF;
+ 	ctl[2] &= ~RX8130_REG_CONTROL0_AIE;
  
 -- 
 2.53.0
