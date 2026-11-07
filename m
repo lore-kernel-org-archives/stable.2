@@ -1,85 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794063554;
-	b=cgC9EcIq1vNRUhgIzli2pgs6KP6+Jjti4UUWZuzQ5ABsarhrgGl8y6o1ThZF5c5CIY48
-	 Yp/kw7NWNvI431XuwhSpcmKwQomIQPZIEFEeMqqxtS+0GUMqLrV3Da2rYL6aRbbYNhARe
-	 2RXDQWqsWprP8WNEEYXZD7IVH38OrxxLTS98klxDWANQtYSBCA1MZcRP1dsMdohIJoUPa
-	 ShoTFNT3DXLLpbYiDHs8ZSMcZ9jHviZUmMQuQpJVk79b1QXNpZY0IFhXmEjtY9floaM2N
-	 QOFVnfoEoT+mGr9LBdODwpLNwoL+kKEZnQFmmrl93nHRJCcF2ZYoef85QN1WNTliM+w==
+	b=kS93cxqAd+AwC2VPX7WpZ+tBU/95V4F6RQ8BMXeFYNwdLM1QnlZLV6NuP3VD2XFzR2mT
+	 qFa+XtevKmuWlEgVlBxuTQORrOlIcmkXUhXmxMRnrXaoAHPT7WVw3R2vZQBNDdwudAOEp
+	 pvZIqI6Ngdqxqs4qYSjxPHq/EgIApnCMtpAvjS52JODq7zzuLghj/Lb3bhZPII3Uk9e+x
+	 KJmLojVCSN2Sd44z+xLIysm1Ps0VEujyLK+NwnX4GOGsdWuZMMUJHhDtJBGPcy/morfxg
+	 zsMCvfhf+jcKR8+GLrtdwGJMyEFRbLNMFdhPvWHBHRtlg1KAVvDNWVA5x9a+ivxpEnQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794063554;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Content-Type:
-	 MIME-Version:Content-Transfer-Encoding:Subject:From:To:Cc:Reply-To:
-	 Date:Message-ID;
-	bh=fR2GTGjHyhNDJbNdPktknSrLvBkncXuHVFTgw++MrmA=;
-	b=f7fzeyNUEbqi7+ZmhOlcMP4dHJbe9BoAC4FOgM1bgUN8ak8wtcothpantQRVrzgE4fQo
-	 ShAd/jQqgmGvqMRUzLkHUzA8wPnoUBI1g7arSBjQLwfdf5bSB3DUEQk47rIrlGK+PLp0q
-	 Z4lW0HXzE1RWy58BEht16DfYmhHEp39ZacTTJWxZxoH+VjsPNNAA9RhmzJeVzv7qNXrRH
-	 iFg8Elann1U/JTE7Hvo69SKV98j6e7zs2FPrK2bojV7RNJZ/8Os+Ve2xufvucWrjg6O6R
-	 +AsFNWn1YTQeCDl1jZ7O44JwNbEF9rEvkdS8b9Tx1aDAor+nIS34MP1hdSA9Yn6k6oA==
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=5zA03uRruqUA+9yeF88H8oNrmlPZZ41QfJsyuZgIR0k=;
+	b=cytSDYi7o4Ta/pk2SCcn9zhvQ/zJDsfzUaIit89F65cXri3JzU9t6vubVpYhyNeKOJuY
+	 x04BvAUzAJS0xGFYcQ7qog1DannxUJrTJFVLsNkx0hgmDQzVCSq19jMru9sIpLJXYq2AL
+	 gMH1i85EJKOx1hJL4sDu/YewOpDR/19o5I0iscKJawGuYtDbmk4lpGMXp+wkV2bV3FSdo
+	 tCn6TxfTkd2634tI+dzgZEGTeqvJlpBd+Bmt8x3ANL30+qCDBbwVtEihGhsuF9EiTc3Xr
+	 6oABO/9yUXC6/o/S5dGo2iWz01/ggCIe1goAfNbBgOQSgVYEM8s1rOgL3Hzz9CGHnnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kernelci.org;
-	spf=pass smtp.mailfrom=kernelci.org;
-	dkim=pass header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=UWkPcUsE;
-	arc=none smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0aUInpos;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E12E608361F
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 14:59:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E12E608361F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AC916082BCF;
+	Sat,  7 Nov 2026 14:59:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=UWkPcUsE
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-36eb1cb7aabso2499645eec.0
-        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 06:59:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernelci.org; s=google; t=1794063552; x=1794668352; darn=vger.kernel.org;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=fR2GTGjHyhNDJbNdPktknSrLvBkncXuHVFTgw++MrmA=;
-        b=UWkPcUsED+EAitXNVMW2meLr+PPSXD3zAwE+GPCzNJihenbHHoZMosGh+J+5UAGZRF
-         3Qms3ZVGaA0Z4Q22n+eGKlJeq7rmYtCBkGJYsINEHDA0XOHiXNObS3sYIVi/TcSG03Mw
-         utXxMj9kS+DJAQagu5SakMg9uw9nxc3slgSosN3igUzMX8EG5OZvsHSSeOARNFTbx1vO
-         so/f0zZGNGUGe5c2ZP8H2SWxEnWKROi+fZOyvDPZlUV8gz2cL8bKhzh9gx8dPdFsBihw
-         fUOMGus9KOt1ISoNiA5lMYlOT/EnBrhF4FQaLq6jpecMseLdt0qLzFhL5ARNEnFQEKir
-         nsAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794063552; x=1794668352;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fR2GTGjHyhNDJbNdPktknSrLvBkncXuHVFTgw++MrmA=;
-        b=iD8uQeTalTiYoR1VZssDi6SPzsX5/cXRDDahDX7QqiXFB6UwhPr36nPshuBd/SFhHJ
-         VpDR+nipWQ5KERwVO5EJWLsiQSA8hpAoFelRGeKvMzbNgJwGk2lY687VnrI9dX2ZO1JQ
-         XibVK9W+tqrUTBRUcmzdtfXYxH51ojeO0CNOHCmbwmgxtVXh7hhvZRa29G4onRcHubLz
-         HalJJLGcyUUUFM8rbyJddU6nauh8+jpfBVlg++FtnS+I+ajbCgqKwGz0w3jfWLCEL+XV
-         5UDNzGJe184TscYX6puzYLKXp17Zny+RZR1pPK64ezyWNYlytMz5WLBOoT3e9Bl2rIVp
-         elVA==
-X-Gm-Message-State: APuU4Z+qevX1kyCWeKpDiCpoTloTcoauoIYLkT+7O9//VdoyV70E3t0X
-	0I4J859TQXOrHx/U+LCg7hE8rUiKcbSug1F0ce7UMRSHxPMc957aN1TrnWYG+kpJ0kO/KbWkLvT
-	9yfZ6
-X-Gm-Gg: AYBFou2UkTS8UokfIr91JvmMyje17ht0ymNhRPtyiSm25EPYdlC2+jnfqcI6przOgNu
-	pZKvKigCYA5nxiS3gSgCPkSiLf4m3zHwGx6t7dONMWS3hMB0Jvl1O8GFkr6518P/EX3U5t+DzSp
-	3N9HaW01sy+4fPmKddZrsBkFvF2RQ2c8gK7fbNjOPR2BpXV2k5lHeOwtHwInRvgFcrY3QdenRWh
-	Q3g2ddLyMeXPXLC+TSZ2iGjN0QN+jgnKiGCaGQeMQ9DdqgPMG6roPrRuwY02/JS4PeIfVZc+1g2
-	7+fKiuOniWZxKwL2jUOD9dx7ovdQ7PAA+BTAVgOhBU/+FRsEt2aReu28FHY4JpVM9svEuUqgkc3
-	i4eHLVKztAPxkwowJvvXsLJJ6807uJVzRyI1rsQanQ8r8xc4TSgB1n93UIDwlSPHS1dxfMCULeE
-	C6v6VGrIZGHTFEBiHLiq4XREAFFkVGnp7vakZs3acxVbaKArNx2n7AodRDRl+3Ac3Gu10KZKywu
-	/HLCBytdRz0GDyvQJUPpgcPSEoKFbM2ivoXXxPtY2r4tV1OsjfMliu8cwE96Glar22p+hmTH536
-	2ixY4kiSCZWw7IaTkJvz+A==
-X-Received: by 2002:a05:7300:10c:b0:36a:1e9e:ae61 with SMTP id 5a478bee46e88-36f7710a6e3mr7904937eec.38.1794063552310;
-        Sat, 07 Nov 2026 06:59:12 -0800 (PST)
-Received: from 34406640b1f4 ([20.38.40.137])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa8e3a718sm18222128eec.4.2026.11.07.06.59.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 06:59:10 -0800 (PST)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0aUInpos
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF17F1F008A6;
+	Sat,  7 Nov 2026 14:59:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1794063554;
+	bh=5zA03uRruqUA+9yeF88H8oNrmlPZZ41QfJsyuZgIR0k=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=0aUInpos9LWHzZ+x8q0pC4X9HK//IYVnKZtJ+qcdC1DTTmhxfciPNK6mu5MsGdXfe
+	 a3TruakM8f85qvfPxgPLuuFh92pNCZqAoPdfd2KgPltb2wjE1oUKHDooMI3ZTQdPjY
+	 jJ5FVWC2jwpVne/zyxvgmW0Z3XaOdlEEGFdJGLkg=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Felix Kuehling <felix.kuehling@amd.com>,
+	William Palacek <William.Palacek@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18 681/869] drm/amdkfd: wait for a GPU reset before freeing a BO
+Date: Sat,  7 Nov 2026 08:56:03 -0500
+Message-ID: <20261107134916.154321674@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261107134852.069646174@linuxfoundation.org>
+References: <20261107134852.069646174@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -89,70 +63,103 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: [REGRESSION] stable-rc/linux-5.10.y: (build)linux/cfi_types.h: No
- such file or
- directory in arch/arm/mach-omap2...
-From: KernelCI bot <bot@kernelci.org>
-To: kernelci-results@groups.io
+Content-Transfer-Encoding: 8bit
+
+6.18-stable review patch.  If anyone has any objections, please let me know.
+
+------------------
+
+From: William Palacek <William.Palacek@amd.com>
+
+[ Upstream commit 47d799a718439764432d8ef3a0952af45f025f76 ]
+
+When a GPU reset takes the reset domain, KFD eviction cannot unmap
+user queues: execute_queues_cpsch() fails its trylock with -EIO, so
+the queues keep running until the ASIC is reset. The TLB flush is also
+skipped while the reset is in progress. If the process unmaps and frees
+a BO in that window, its pages are released while a queue can still
+access them through stale translations.
+
+On MI300X, munmap() then crashes in free_swap_cache() on a small bogus
+page pointer in its mmu_gather batch page:
+
+  BUG: unable to handle page fault for address: 0000000000002900
+  RIP: 0010:free_swap_cache+0x5/0xb0
+  Call Trace:
+   free_pages_and_swap_cache+0x3a/0x60
+   tlb_batch_pages_flush+0x43/0x80
+   tlb_flush_mmu+0x3d/0x110
+   zap_pte_range+0x80d/0xcd0
+   ...
+   do_vmi_align_munmap+0x3e8/0x5b0
+   do_vmi_munmap+0xdf/0x190
+   __vm_munmap+0xad/0x180
+   __x64_sys_munmap+0x1b/0x30
+
+In a traced crash the bogus pointer was the read pointer value of an SDMA
+queue the process had just destroyed, at the read pointer's page offset:
+the queue's writeback landed in its freed rptr page after the page was
+reused as the batch page.
+
+commit f0b4440cdc18 ("drm/amdkfd: Fix mode1 reset crash issue") fixed
+this race on process exit by waiting for the reset to complete before
+freeing the process's BOs. Free through the ioctl has the same race.
+Wait for the reset there too, using the same helper.
+
+Fixes: 9c33e5fd4fb6 ("drm/amdgpu: fix locking scope when flushing tlb")
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+Signed-off-by: William Palacek <William.Palacek@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 06ff8ce77726b15a98fcc285dd6005cb3f48558b)
 Cc: stable@vger.kernel.org
-Reply-To: kernelci@lists.linux.dev
-Date: Sat, 07 Nov 2026 14:59:09 -0000
-Message-ID: <179406354853.477229.7656181427115001030@kernelci.org>
-
-New build issue found on stable-rc/linux-5.10.y:
-
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-linux/cfi_types.h: No such file or directory in arch/arm/mach-omap2/sleep44xx.o (arch/arm/mach-omap2/sleep44xx.S) [logspec:kbuild,kbuild.compiler.fatal error]
----
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 3 +++
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h    | 1 +
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c | 2 +-
+ 3 files changed, 5 insertions(+), 1 deletion(-)
 
-Log excerpt:
-=====================================================
-/tmp/kci/linux/arch/arm/mach-omap2/sleep44xx.S:9:10: fatal error: linux/cfi_types.h: No such file or directory
-    9 | #include <linux/cfi_types.h>
-      |          ^~~~~~~~~~~~~~~~~~~
-compilation terminated.
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index c224d78a770a1..1ec77554da503 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -1222,6 +1222,9 @@ static int kfd_ioctl_free_memory_of_gpu(struct file *filep,
+ 		goto err_unlock;
+ 	}
+ 
++	/* Queues a reset could not stop may still access the buffer */
++	kfd_process_wait_gpu_reset_complete(p);
++
+ 	ret = amdgpu_amdkfd_gpuvm_free_memory_of_gpu(pdd->dev->adev,
+ 				(struct kgd_mem *)mem, pdd->drm_priv, &size);
+ 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index ef1afeaa8d85d..1f5f528188980 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -1084,6 +1084,7 @@ void kfd_unref_process(struct kfd_process *p);
+ int kfd_process_evict_queues(struct kfd_process *p, uint32_t trigger);
+ int kfd_process_restore_queues(struct kfd_process *p);
+ void kfd_suspend_all_processes(void);
++void kfd_process_wait_gpu_reset_complete(struct kfd_process *p);
+ int kfd_resume_all_processes(void);
+ 
+ struct kfd_process_device *kfd_process_device_data_by_id(struct kfd_process *process,
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index 0b760aab11c6f..1c591953cc80d 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -1144,7 +1144,7 @@ static void kfd_process_remove_sysfs(struct kfd_process *p)
+ /*
+  * If any GPU is ongoing reset, wait for reset complete.
+  */
+-static void kfd_process_wait_gpu_reset_complete(struct kfd_process *p)
++void kfd_process_wait_gpu_reset_complete(struct kfd_process *p)
+ {
+ 	int i;
+ 
+-- 
+2.53.0
 
-=====================================================
 
-When fixing this issue, please attribute this report according to the
-patch submission rules:
 
-Reported-by: kernelci.org bot <bot@kernelci.org>
-
-For complete logs and details about the environment used, see the issue
-on the KernelCI dashboard:
-
-- dashboard: https://d.kernelci.org/i/maestro:342a33d4e71e4485572152211755444ef71491a8
-- giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
-- commit HEAD:  7a87f3505170e2196b67ec5e2713c06767ef1601
-
-# Builds where the incident occurred:
-
-## multi_v7_defconfig on (arm):
-- compiler: gcc-14
-- config: None
-- dashboard: https://d.kernelci.org/build/maestro:6aef38ea5b429d354e114f0b
-
-## multi_v7_defconfig on (arm):
-- compiler: gcc-15
-- config: None
-- dashboard: https://d.kernelci.org/build/maestro:6aef38d95b429d354e114efc
-
-## multi_v7_defconfig+kselftest on (arm):
-- compiler: gcc-14
-- config: None
-- dashboard: https://d.kernelci.org/build/maestro:6aef38e35b429d354e114f05
-
-## multi_v7_defconfig+netdev+nfs-root-boot+ltp+crypto+ima on (arm):
-- compiler: gcc-15
-- config: None
-- dashboard: https://d.kernelci.org/build/maestro:6aef38dc5b429d354e114eff
-
-#kernelci issue maestro:342a33d4e71e4485572152211755444ef71491a8
-
---
-This is an experimental report format. Please send feedback in!
-Talk to us at kernelci@lists.linux.dev
-
-Made with love by the KernelCI team - https://kernelci.org
