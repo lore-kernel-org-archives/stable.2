@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794065496;
-	b=VuPvGsML0+1wgfFKRatDO0eD20NTxgURTcb8rbOOzu2/9rznAZxwJCsEhgm0nPTlVyvx
-	 k46xBN8ljSlb8U2nA+uE3hS/F1kkGQ4oemR3mNVbY89uTBzyTxdMmXQWqXycT3AAvq4oM
-	 9wfSFVisLUaMTVoDWevrZ17Dh57U61Ke7Qg3569yVYtacAS9X14+KCj0nj4DeBn5RNd1f
-	 H5bPMdsHpmPMZHcKDTE8RJa28ipivrgpOkhrsyM9JVepFCBBW2PX5osf/PG9+b0wrhxhf
-	 Fc+zxIRLR8OmERf10JjdjeOiZAgjDxCeAGL+11D1AK/S0l/8qHd6Jv3ND3jdVZIA8UQ==
+	t=1794065498;
+	b=wMpU1fKQxuu3A4suK3Suhra4YAbPO0RaTOFicWPz7obIamr/yNH6Z6dMKwaQ6LmUgx1C
+	 VPJdis+1aEtcNXM2yPl11pxu2BfezDTBEJITghYjRM5XBmLU2jjKivWj4IUoL+cr50sNL
+	 TqGIsoN/1cl70U/9uRL/9TLESvhQNyBeZQsy9CIib3254aoLtEJcctG3iQHCiKWD0seqS
+	 YCLrlLusiKLuM3EvAmiaWz/fDCaszfIx2lFNqRB40HmmBbC2CmBkn2VtpAD4RpgdxyBxf
+	 Z8U0HHctPTxZVF5uNRGz051zJwohE0lH4sTN1M11zcs8yXwEOKr2Ji/FtXt8YvPC2Gg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794065496;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794065498;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=T/S25njRCD1jknjKhkopVyIdxZQyCANEN/JrM7jpR3E=;
-	b=ekxtb35vDaZhO5ekI0RdMxnUPZshpm4QURt0hiY7/xBBLQ5jJ6yqL3XMps0Wz7B9eIwb
-	 n9rGfszgWj2yMsqawbx5cdaS6SI1Q0M+okE4uiHmW+Bo4fas/I6pil6BNJadN1dzWx6E4
-	 kkTP3heVXVJmzExaAF48PkbjE5k1YPR5VJY1tSxTXItL7r4T9MZuQFERymApddIwauSEv
-	 wySmvM16SsMzbTO1rmoNF9ehiTxKKEnvo61btzA3lvtQS4+oD6EgPlKzYdAXGwO0km5zt
-	 bF+mmfTQa5BQhZUykVcDcQy3arzDDnC5tGOPZX2nl/DhaVG/oHChM2JkZQjoeSBe7Nw==
+	bh=2TRIaqwBbjbwvE9lrg4NRQvw2ox1SMkplE1ua6qSiH8=;
+	b=MlRqQpFDNlET3qGVCzhgkCzxla2wiG5U2kMwiUiaT2kbJlPaUgIY3aNkRa7j7vYvTiUT
+	 Gk3GwqKIwJUXAsujSQSPwgfLb6sTLwTyA+SelXn99xaIaK48wQ51LQWnT/BQrJxgraCSn
+	 ZCeGuPTXhq75G+W6XDgF2BRdSfLyj32F0iStM1tcwy2LotJLrcVrewXMOWheGsUNQxNTw
+	 /lU7GWNG97OqnNRR5AblFJqhU5rO2ue8oshTciiTdkfZcDSHxPK7D9LTBM5pmYBUkz00T
+	 NXXmZ3k5kAA/YKfkqbtIw5rnItlU/OZEYZKrIDPre0gQUlnfZL7WFkbkBUL0czNukuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=tx5jMnmM;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=SH5UcOQH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60C85606D825;
-	Sat,  7 Nov 2026 15:31:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A943606D804;
+	Sat,  7 Nov 2026 15:31:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=tx5jMnmM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD8B21F008A2;
-	Sat,  7 Nov 2026 15:31:35 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=SH5UcOQH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 999351F0089F;
+	Sat,  7 Nov 2026 15:31:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794065496;
-	bh=T/S25njRCD1jknjKhkopVyIdxZQyCANEN/JrM7jpR3E=;
+	s=korg; t=1794065497;
+	bh=2TRIaqwBbjbwvE9lrg4NRQvw2ox1SMkplE1ua6qSiH8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=tx5jMnmMYGNJxUBH0lroKvEsjwr/coa+ve2SL2Qmmomd8k7fDpj+LNlgmx9km3LAB
-	 na/ekzNtVlvNVnjVIGPko1hcaMCIUrr4bcNL19aFVMbKeU73XnfEz7U9kwakD9l7k1
-	 8a1iNiOHt1Lfv6q3wsYvJzGMWa4LyfhenVANIba0=
+	b=SH5UcOQHAphkPGUEkTWH1nStbObwZxlLEowuoROVvZjdGlJn4DpKCT/qyjJT9MAwa
+	 YLoC/9ohH0Oic3MXd3uNcGO9GiXZH6WmghN3y0Y4hLUzTWnmCTdoO111S5dgDBHLST
+	 PTqGiWLgX7Lo0VvI5fJ+1fbL7dKtT0MwF1Y4bGi4=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Kevin Wang <kevin.wang@amd.com>,
-	Kenneth Feng <kenneth.feng@amd.com>,
 	Alex Deucher <alexander.deucher@amd.com>,
+	Jiale Yao <yaojiale02@163.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 1185/1257] drm/amd/pm: preserve committed OD features for SMU 14.0.2
-Date: Sat,  7 Nov 2026 08:58:01 -0500
-Message-ID: <20261107135011.898269136@linuxfoundation.org>
+Subject: [PATCH 7.3 1186/1257] drm/amdkfd: validate SRAT subtables before parsing
+Date: Sat,  7 Nov 2026 08:58:02 -0500
+Message-ID: <20261107135011.923764474@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261107134939.434104957@linuxfoundation.org>
 References: <20261107134939.434104957@linuxfoundation.org>
@@ -69,423 +68,102 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Kevin Wang <kevin.wang@amd.com>
+From: Jiale Yao <yaojiale02@163.com>
 
-[ Upstream commit 9b0890e72d19b0c430fe62bad290c7c79baa78e4 ]
+[ Upstream commit 9866cb13ba4d39aa8fed34b765d4aecabe04f02e ]
 
-PMFW treats FeatureCtrlMask as the complete set of active OD features.
-Uploads containing only newly edited bits can drop earlier settings.
+The KFD SRAT walker reads the first subtable length without checking
+that a header is present and trusts subsequent lengths when accessing
+CPU and generic affinity records. Invalid firmware lengths can therefore
+cause out-of-bounds reads.
 
-Fix the OD state handling to:
+Validate the table header, every generic subtable range, and each
+supported typed record before reading its fields.
 
-- preserve committed features across later commits
-- keep fan-curve and legacy-fan bits mutually exclusive
-- keep staged OD settings out of power-cap writes
-- update cached state only after successful uploads
-- clear restored features only after they return to defaults
-- restore PPT for the current AC/DC source after resume
-
-Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/3625
-Signed-off-by: Kevin Wang <kevin.wang@amd.com>
-Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
+Fixes: ddec8d3be0f8 ("drm/amdkfd: add ACPI SRAT parsing for topology")
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 8d4ce79aff1cd1ff4feea4967c30e04eb6be8c2d)
+(cherry picked from commit d76b655c98e8cc9e791b31502ad274f47dee2aae)
 Cc: stable@vger.kernel.org
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c  | 230 +++++++++++++-----
- 1 file changed, 171 insertions(+), 59 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_crat.c | 35 ++++++++++++++++++---------
+ 1 file changed, 24 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-index 566b7f2b00f0e..6a12d6f8c9dd3 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-@@ -91,6 +91,10 @@ static const struct smu_feature_bits smu_v14_0_2_dpm_features = {
- #define PP_OD_FEATURE_FAN_ZERO_RPM_ENABLE		11
- #define PP_OD_FEATURE_FAN_ZERO_RPM_STOP_TEMP		12
- 
-+#define SMU_14_0_2_OD_FAN_FEATURE_MASK \
-+	(BIT(PP_OD_FEATURE_FAN_CURVE_BIT) | \
-+	 BIT(PP_OD_FEATURE_FAN_LEGACY_BIT))
-+
- static struct cmn2asic_msg_mapping smu_v14_0_2_message_map[SMU_MSG_MAX_COUNT] = {
- 	MSG_MAP(TestMessage,			PPSMC_MSG_TestMessage,                 1),
- 	MSG_MAP(GetSmuVersion,			PPSMC_MSG_GetSmuVersion,               1),
-@@ -963,6 +967,84 @@ static bool smu_v14_0_2_is_od_feature_supported(struct smu_context *smu,
- 	return feature_enabled;
- }
- 
-+static u32
-+smu_v14_0_2_filter_od_feature_mask(struct smu_context *smu, u32 feature_mask)
-+{
-+	PPTable_t *pptable = smu->smu_table.driver_pptable;
-+	u32 supported_mask =
-+		pptable->SkuTable.OverDriveLimitsBasicMax.FeatureCtrlMask;
-+
-+	return feature_mask & supported_mask;
-+}
-+
-+static u32
-+smu_v14_0_2_get_od_feature_mask(struct smu_context *smu, u32 pending_mask)
-+{
-+	u32 supported_mask = smu_v14_0_2_filter_od_feature_mask(smu, ~0U);
-+	u32 fan_mask = supported_mask & SMU_14_0_2_OD_FAN_FEATURE_MASK;
-+	u32 mask = smu->smu_table.user_od_feature_mask;
-+
-+	if (pending_mask & fan_mask)
-+		mask &= ~fan_mask;
-+	mask |= pending_mask;
-+
-+	return smu_v14_0_2_filter_od_feature_mask(smu, mask);
-+}
-+
-+static bool smu_v14_0_2_fan_is_default(const OverDriveTable_t *od,
-+				       const OverDriveTable_t *boot)
-+{
-+	return !memcmp(od->FanLinearPwmPoints, boot->FanLinearPwmPoints,
-+			sizeof(od->FanLinearPwmPoints)) &&
-+		!memcmp(od->FanLinearTempPoints, boot->FanLinearTempPoints,
-+			sizeof(od->FanLinearTempPoints)) &&
-+		od->AcousticTargetRpmThreshold == boot->AcousticTargetRpmThreshold &&
-+		od->AcousticLimitRpmThreshold == boot->AcousticLimitRpmThreshold &&
-+		od->FanTargetTemperature == boot->FanTargetTemperature &&
-+		od->FanMode == boot->FanMode;
-+}
-+
-+static bool smu_v14_0_2_legacy_fan_is_default(const OverDriveTable_t *od,
-+					      const OverDriveTable_t *boot)
-+{
-+	return od->FanMinimumPwm == boot->FanMinimumPwm &&
-+		od->FanMode == boot->FanMode;
-+}
-+
-+static bool smu_v14_0_2_zero_fan_is_default(const OverDriveTable_t *od,
-+					    const OverDriveTable_t *boot)
-+{
-+	return od->FanZeroRpmEnable == boot->FanZeroRpmEnable &&
-+		od->FanZeroRpmStopTemp == boot->FanZeroRpmStopTemp;
-+}
-+
-+static u32 smu_v14_0_2_normalize_feature_mask(const OverDriveTable_t *od,
-+					      const OverDriveTable_t *boot,
-+					      u32 feature_mask)
-+{
-+	if (od->GfxclkFoffset == boot->GfxclkFoffset)
-+		feature_mask &= ~BIT(PP_OD_FEATURE_GFXCLK_BIT);
-+	if (od->UclkFmin == boot->UclkFmin &&
-+	    od->UclkFmax == boot->UclkFmax)
-+		feature_mask &= ~BIT(PP_OD_FEATURE_UCLK_BIT);
-+	if (!memcmp(od->VoltageOffsetPerZoneBoundary,
-+		    boot->VoltageOffsetPerZoneBoundary,
-+		    sizeof(od->VoltageOffsetPerZoneBoundary)))
-+		feature_mask &= ~BIT(PP_OD_FEATURE_GFX_VF_CURVE_BIT);
-+	if ((feature_mask & BIT(PP_OD_FEATURE_FAN_CURVE_BIT)) &&
-+	    smu_v14_0_2_fan_is_default(od, boot))
-+		feature_mask &= ~BIT(PP_OD_FEATURE_FAN_CURVE_BIT);
-+	if ((feature_mask & BIT(PP_OD_FEATURE_FAN_LEGACY_BIT)) &&
-+	    smu_v14_0_2_legacy_fan_is_default(od, boot))
-+		feature_mask &= ~BIT(PP_OD_FEATURE_FAN_LEGACY_BIT);
-+	if (smu_v14_0_2_zero_fan_is_default(od, boot))
-+		feature_mask &= ~BIT(PP_OD_FEATURE_ZERO_FAN_BIT);
-+	if (!od->Ppt)
-+		feature_mask &= ~BIT(PP_OD_FEATURE_PPT_BIT);
-+
-+	return feature_mask;
-+}
-+
- static void smu_v14_0_2_get_od_setting_limits(struct smu_context *smu,
- 					      int od_feature_bit,
- 					      int32_t *min,
-@@ -2317,6 +2399,38 @@ static int smu_v14_0_2_upload_overdrive_table(struct smu_context *smu,
- 	return ret;
- }
- 
-+static int
-+smu_v14_0_2_upload_ppt_overdrive_table(struct smu_context *smu, s16 ppt)
-+{
-+	struct smu_table_context *table_context = &smu->smu_table;
-+	OverDriveTableExternal_t *od_table = table_context->overdrive_table;
-+	OverDriveTableExternal_t *user_od_table = table_context->user_overdrive_table;
-+	OverDriveTableExternal_t upload_table;
-+	u32 next_mask = table_context->user_od_feature_mask;
-+	int ret;
-+
-+	/* Do not commit OD settings staged after the last c operation. */
-+	memcpy(&upload_table, user_od_table, sizeof(upload_table));
-+	upload_table.OverDriveTable.Ppt = ppt;
-+	if (ppt)
-+		next_mask |= BIT(PP_OD_FEATURE_PPT_BIT);
-+	else
-+		next_mask &= ~BIT(PP_OD_FEATURE_PPT_BIT);
-+	upload_table.OverDriveTable.FeatureCtrlMask =
-+		smu_v14_0_2_filter_od_feature_mask(smu, next_mask);
-+
-+	ret = smu_v14_0_2_upload_overdrive_table(smu, &upload_table);
-+	if (ret)
-+		return ret;
-+
-+	table_context->user_od_feature_mask =
-+		upload_table.OverDriveTable.FeatureCtrlMask;
-+	od_table->OverDriveTable.Ppt = ppt;
-+	user_od_table->OverDriveTable.Ppt = ppt;
-+
-+	return 0;
-+}
-+
- static void smu_v14_0_2_set_supported_od_feature_mask(struct smu_context *smu)
- {
- 	struct amdgpu_device *adev = smu->adev;
-@@ -2375,6 +2489,7 @@ static int smu_v14_0_2_set_default_od_settings(struct smu_context *smu)
- 	memcpy(od_table,
- 	       boot_od_table,
- 	       sizeof(OverDriveTableExternal_t));
-+	od_table->OverDriveTable.FeatureCtrlMask = 0;
- 
- 	/*
- 	 * For S3/S4/Runpm resume, we need to setup those overdrive tables again,
-@@ -2384,6 +2499,7 @@ static int smu_v14_0_2_set_default_od_settings(struct smu_context *smu)
- 		memcpy(user_od_table,
- 		       boot_od_table,
- 		       sizeof(OverDriveTableExternal_t));
-+		user_od_table->OverDriveTable.FeatureCtrlMask = 0;
- 		smu->user_dpm_profile.user_od = false;
- 		smu->smu_table.user_od_feature_mask = 0;
- 	} else if (smu->user_dpm_profile.user_od) {
-@@ -2420,6 +2536,14 @@ static int smu_v14_0_2_set_default_od_settings(struct smu_context *smu)
- 			user_od_table_bak.OverDriveTable.FanZeroRpmEnable;
- 		user_od_table->OverDriveTable.FanZeroRpmStopTemp =
- 			user_od_table_bak.OverDriveTable.FanZeroRpmStopTemp;
-+		user_od_table->OverDriveTable.FanMode =
-+			user_od_table_bak.OverDriveTable.FanMode;
-+		user_od_table->OverDriveTable.FeatureCtrlMask = 0;
-+	}
-+	if (smu->adev->in_suspend) {
-+		user_od_table->OverDriveTable.Ppt = 0;
-+		smu->smu_table.user_od_feature_mask &=
-+			~BIT(PP_OD_FEATURE_PPT_BIT);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+index 6e0df685503d0..32d7573dffc94 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+@@ -2056,27 +2056,33 @@ static void kfd_find_numa_node_in_srat(struct kfd_node *kdev)
+ 		return;
  	}
  
- 	smu_v14_0_2_set_supported_od_feature_mask(smu);
-@@ -2432,14 +2556,22 @@ static int smu_v14_0_2_restore_user_od_settings(struct smu_context *smu)
- 	struct smu_table_context *table_context = &smu->smu_table;
- 	OverDriveTableExternal_t *od_table = table_context->overdrive_table;
- 	OverDriveTableExternal_t *user_od_table = table_context->user_overdrive_table;
-+	OverDriveTableExternal_t upload_table;
-+	u32 next_mask;
- 	int res;
- 
--	user_od_table->OverDriveTable.FeatureCtrlMask =
--		table_context->user_od_feature_mask;
--	res = smu_v14_0_2_upload_overdrive_table(smu, user_od_table);
--	user_od_table->OverDriveTable.FeatureCtrlMask = 0;
--	if (res == 0)
-+	next_mask = smu_v14_0_2_filter_od_feature_mask(smu,
-+						       table_context->user_od_feature_mask);
-+	memcpy(&upload_table, user_od_table, sizeof(upload_table));
-+	upload_table.OverDriveTable.FeatureCtrlMask = next_mask;
-+	res = smu_v14_0_2_upload_overdrive_table(smu, &upload_table);
-+	if (res == 0) {
-+		table_context->user_od_feature_mask = next_mask;
-+		smu->user_dpm_profile.user_od =
-+			!!(next_mask & ~BIT(PP_OD_FEATURE_PPT_BIT));
- 		memcpy(od_table, user_od_table, sizeof(OverDriveTableExternal_t));
-+		od_table->OverDriveTable.FeatureCtrlMask = 0;
-+	}
- 
- 	return res;
- }
-@@ -2463,43 +2595,30 @@ static int smu_v14_0_2_od_restore_table_single(struct smu_context *smu, long inp
- 					boot_overdrive_table->OverDriveTable.FanLinearPwmPoints[i];
- 		}
- 		od_table->OverDriveTable.FanMode = FAN_MODE_AUTO;
--		od_table->OverDriveTable.FeatureCtrlMask |= BIT(PP_OD_FEATURE_FAN_CURVE_BIT);
--		od_table->OverDriveTable.FeatureCtrlMask &= ~BIT(PP_OD_FEATURE_FAN_LEGACY_BIT);
- 		break;
- 	case PP_OD_EDIT_FAN_ZERO_RPM_ENABLE:
- 		od_table->OverDriveTable.FanZeroRpmEnable =
- 					boot_overdrive_table->OverDriveTable.FanZeroRpmEnable;
--		od_table->OverDriveTable.FeatureCtrlMask |= BIT(PP_OD_FEATURE_ZERO_FAN_BIT);
- 		break;
- 	case PP_OD_EDIT_FAN_ZERO_RPM_STOP_TEMP:
- 		od_table->OverDriveTable.FanZeroRpmStopTemp =
- 					boot_overdrive_table->OverDriveTable.FanZeroRpmStopTemp;
--		od_table->OverDriveTable.FeatureCtrlMask |= BIT(PP_OD_FEATURE_ZERO_FAN_BIT);
- 		break;
- 	case PP_OD_EDIT_ACOUSTIC_LIMIT:
- 		od_table->OverDriveTable.AcousticLimitRpmThreshold =
- 					boot_overdrive_table->OverDriveTable.AcousticLimitRpmThreshold;
--		od_table->OverDriveTable.FanMode = FAN_MODE_AUTO;
--		od_table->OverDriveTable.FeatureCtrlMask |= BIT(PP_OD_FEATURE_FAN_CURVE_BIT);
- 		break;
- 	case PP_OD_EDIT_ACOUSTIC_TARGET:
- 		od_table->OverDriveTable.AcousticTargetRpmThreshold =
- 					boot_overdrive_table->OverDriveTable.AcousticTargetRpmThreshold;
--		od_table->OverDriveTable.FanMode = FAN_MODE_AUTO;
--		od_table->OverDriveTable.FeatureCtrlMask |= BIT(PP_OD_FEATURE_FAN_CURVE_BIT);
- 		break;
- 	case PP_OD_EDIT_FAN_TARGET_TEMPERATURE:
- 		od_table->OverDriveTable.FanTargetTemperature =
- 					boot_overdrive_table->OverDriveTable.FanTargetTemperature;
--		od_table->OverDriveTable.FanMode = FAN_MODE_AUTO;
--		od_table->OverDriveTable.FeatureCtrlMask |= BIT(PP_OD_FEATURE_FAN_CURVE_BIT);
- 		break;
- 	case PP_OD_EDIT_FAN_MINIMUM_PWM:
- 		od_table->OverDriveTable.FanMinimumPwm =
- 					boot_overdrive_table->OverDriveTable.FanMinimumPwm;
--		od_table->OverDriveTable.FanMode = FAN_MODE_AUTO;
--		od_table->OverDriveTable.FeatureCtrlMask |= BIT(PP_OD_FEATURE_FAN_LEGACY_BIT);
--		od_table->OverDriveTable.FeatureCtrlMask &= ~BIT(PP_OD_FEATURE_FAN_CURVE_BIT);
- 		break;
- 	default:
- 		dev_info(adev->dev, "Invalid table index: %ld\n", input);
-@@ -2517,9 +2636,17 @@ static int smu_v14_0_2_od_edit_dpm_table(struct smu_context *smu,
- 	struct smu_table_context *table_context = &smu->smu_table;
- 	OverDriveTableExternal_t *od_table =
- 		(OverDriveTableExternal_t *)table_context->overdrive_table;
-+	OverDriveTableExternal_t *user_od_table =
-+		(OverDriveTableExternal_t *)table_context->user_overdrive_table;
-+	OverDriveTableExternal_t *boot_od_table =
-+		(OverDriveTableExternal_t *)table_context->boot_overdrive_table;
-+	OverDriveTableExternal_t upload_table;
-+	OverDriveTable_t *od = &od_table->OverDriveTable;
-+	OverDriveTable_t *boot = &boot_od_table->OverDriveTable;
- 	struct amdgpu_device *adev = smu->adev;
- 	uint32_t offset_of_voltageoffset;
- 	int32_t minimum, maximum;
-+	u32 next_mask;
- 	int i, ret = 0;
- 
- 	switch (type) {
-@@ -2691,6 +2818,7 @@ static int smu_v14_0_2_od_edit_dpm_table(struct smu_context *smu,
- 		od_table->OverDriveTable.AcousticLimitRpmThreshold = input[0];
- 		od_table->OverDriveTable.FanMode = FAN_MODE_AUTO;
- 		od_table->OverDriveTable.FeatureCtrlMask |= BIT(PP_OD_FEATURE_FAN_CURVE_BIT);
-+		od_table->OverDriveTable.FeatureCtrlMask &= ~BIT(PP_OD_FEATURE_FAN_LEGACY_BIT);
- 		break;
- 
- 	case PP_OD_EDIT_ACOUSTIC_TARGET:
-@@ -2713,6 +2841,7 @@ static int smu_v14_0_2_od_edit_dpm_table(struct smu_context *smu,
- 		od_table->OverDriveTable.AcousticTargetRpmThreshold = input[0];
- 		od_table->OverDriveTable.FanMode = FAN_MODE_AUTO;
- 		od_table->OverDriveTable.FeatureCtrlMask |= BIT(PP_OD_FEATURE_FAN_CURVE_BIT);
-+		od_table->OverDriveTable.FeatureCtrlMask &= ~BIT(PP_OD_FEATURE_FAN_LEGACY_BIT);
- 		break;
- 
- 	case PP_OD_EDIT_FAN_TARGET_TEMPERATURE:
-@@ -2735,6 +2864,7 @@ static int smu_v14_0_2_od_edit_dpm_table(struct smu_context *smu,
- 		od_table->OverDriveTable.FanTargetTemperature = input[0];
- 		od_table->OverDriveTable.FanMode = FAN_MODE_AUTO;
- 		od_table->OverDriveTable.FeatureCtrlMask |= BIT(PP_OD_FEATURE_FAN_CURVE_BIT);
-+		od_table->OverDriveTable.FeatureCtrlMask &= ~BIT(PP_OD_FEATURE_FAN_LEGACY_BIT);
- 		break;
- 
- 	case PP_OD_EDIT_FAN_MINIMUM_PWM:
-@@ -2812,44 +2942,38 @@ static int smu_v14_0_2_od_edit_dpm_table(struct smu_context *smu,
- 		       table_context->boot_overdrive_table,
- 		       sizeof(OverDriveTableExternal_t));
- 			od_table->OverDriveTable.FeatureCtrlMask = 0;
--			table_context->user_od_feature_mask = 0;
- 		}
- 		fallthrough;
- 	case PP_OD_COMMIT_DPM_TABLE:
--		/*
--		 * PMFW interprets FeatureCtrlMask as the complete set of OD
--		 * features that are currently overridden, not as a delta
--		 * describing this single operation. Any feature whose bit is
--		 * clear gets reset to its default on import. od_table's mask
--		 * has accumulated every feature the user touched since the
--		 * last full restore, so record it and keep restating it on
--		 * subsequent uploads.
--		 */
--		table_context->user_od_feature_mask =
--			od_table->OverDriveTable.FeatureCtrlMask;
--
- 		offset_of_voltageoffset = offsetof(OverDriveTable_t, VoltageOffsetPerZoneBoundary);
--		if (memcmp((u8 *)od_table + offset_of_voltageoffset,
--			   table_context->user_overdrive_table + offset_of_voltageoffset,
--			   sizeof(OverDriveTableExternal_t) - offset_of_voltageoffset)) {
--			smu_v14_0_2_dump_od_table(smu, od_table);
-+		next_mask = smu_v14_0_2_get_od_feature_mask(smu,
-+							    od->FeatureCtrlMask);
-+		next_mask = smu_v14_0_2_normalize_feature_mask(od, boot,
-+							       next_mask);
- 
--			ret = smu_v14_0_2_upload_overdrive_table(smu, od_table);
-+		if (memcmp((u8 *)od_table + offset_of_voltageoffset,
-+			   (u8 *)user_od_table + offset_of_voltageoffset,
-+			   sizeof(OverDriveTableExternal_t) - offset_of_voltageoffset) ||
-+		    next_mask != table_context->user_od_feature_mask) {
-+			memcpy(&upload_table, od_table, sizeof(upload_table));
-+			upload_table.OverDriveTable.FeatureCtrlMask = next_mask;
-+			smu_v14_0_2_dump_od_table(smu, &upload_table);
++	if (table_header->length < sizeof(struct acpi_table_srat))
++		goto invalid_srat;
 +
-+			ret = smu_v14_0_2_upload_overdrive_table(smu, &upload_table);
- 			if (ret) {
- 				dev_err(adev->dev, "Failed to upload overdrive table!\n");
- 				return ret;
- 			}
+ 	table_end = (unsigned long)table_header + table_header->length;
  
--			memcpy(table_context->user_overdrive_table + offset_of_voltageoffset,
-+			table_context->user_od_feature_mask = next_mask;
-+			od_table->OverDriveTable.FeatureCtrlMask = 0;
-+			memcpy((u8 *)user_od_table + offset_of_voltageoffset,
- 			       (u8 *)od_table + offset_of_voltageoffset,
- 			       sizeof(OverDriveTableExternal_t) - offset_of_voltageoffset);
-+			user_od_table->OverDriveTable.FeatureCtrlMask = 0;
+ 	/* Parse all entries looking for a match. */
+ 	sub_header = (struct acpi_subtable_header *)
+ 			((unsigned long)table_header +
+ 			sizeof(struct acpi_table_srat));
+-	subtable_len = sub_header->length;
  
--			if (!memcmp(table_context->user_overdrive_table,
--				    table_context->boot_overdrive_table,
--				    sizeof(OverDriveTableExternal_t)))
--				smu->user_dpm_profile.user_od = false;
--			else
--				smu->user_dpm_profile.user_od = true;
-+			smu->user_dpm_profile.user_od =
-+				!!(next_mask & ~BIT(PP_OD_FEATURE_PPT_BIT));
- 		}
- 		break;
+-	while (((unsigned long)sub_header) + subtable_len  < table_end) {
+-		/*
+-		 * If length is 0, break from this loop to avoid
+-		 * infinite loop.
+-		 */
+-		if (subtable_len == 0) {
+-			pr_err("SRAT invalid zero length\n");
+-			break;
+-		}
++	while ((unsigned long)sub_header < table_end) {
++		unsigned long start = (unsigned long)sub_header;
++
++		if (table_end - start < sizeof(*sub_header))
++			goto invalid_srat;
++
++		subtable_len = sub_header->length;
++		if (subtable_len < sizeof(*sub_header) ||
++		    subtable_len > table_end - start)
++			goto invalid_srat;
  
-@@ -2867,10 +2991,8 @@ static int smu_v14_0_2_set_ppt_limit(struct smu_context *smu,
- 	PPTable_t *pptable = smu->smu_table.driver_pptable;
- 	uint32_t msg_limit = pptable->SkuTable.MsgLimits.Power
- 		[PPT_THROTTLER_PPT0][POWER_SOURCE_AC];
--	struct smu_table_context *table_context = &smu->smu_table;
--	OverDriveTableExternal_t *od_table =
--		(OverDriveTableExternal_t *)table_context->overdrive_table;
- 	OverDriveTableExternal_t current_od_table;
-+	s16 ppt;
- 	int ret = 0;
+ 		switch (sub_header->type) {
+ 		case ACPI_SRAT_TYPE_CPU_AFFINITY:
+ 			cpu = (struct acpi_srat_cpu_affinity *)sub_header;
++			if (subtable_len < sizeof(*cpu))
++				goto invalid_srat;
++
+ 			pxm = *((u32 *)cpu->proximity_domain_hi) << 8 |
+ 					cpu->proximity_domain_lo;
+ 			if (pxm > max_pxm)
+@@ -2084,6 +2090,9 @@ static void kfd_find_numa_node_in_srat(struct kfd_node *kdev)
+ 			break;
+ 		case ACPI_SRAT_TYPE_GENERIC_AFFINITY:
+ 			gpu = (struct acpi_srat_generic_affinity *)sub_header;
++			if (subtable_len < sizeof(*gpu))
++				goto invalid_srat;
++
+ 			bdf = *((u16 *)(&gpu->device_handle[0])) << 16 |
+ 					*((u16 *)(&gpu->device_handle[2]));
+ 			if (bdf == pci_id) {
+@@ -2100,9 +2109,13 @@ static void kfd_find_numa_node_in_srat(struct kfd_node *kdev)
  
- 	if (limit_type != SMU_PPT_LIMIT_PPT0)
-@@ -2882,13 +3004,7 @@ static int smu_v14_0_2_set_ppt_limit(struct smu_context *smu,
- 			return ret;
+ 		sub_header = (struct acpi_subtable_header *)
+ 				((unsigned long)sub_header + subtable_len);
+-		subtable_len = sub_header->length;
+ 	}
  
- 		if (current_od_table.OverDriveTable.Ppt) {
--			od_table->OverDriveTable.Ppt = 0;
--			table_context->user_od_feature_mask &=
--				~(1U << PP_OD_FEATURE_PPT_BIT);
--			od_table->OverDriveTable.FeatureCtrlMask =
--				table_context->user_od_feature_mask;
--
--			ret = smu_v14_0_2_upload_overdrive_table(smu, od_table);
-+			ret = smu_v14_0_2_upload_ppt_overdrive_table(smu, 0);
- 			if (ret) {
- 				dev_err(smu->adev->dev, "Failed to upload overdrive table!\n");
- 				return ret;
-@@ -2900,12 +3016,8 @@ static int smu_v14_0_2_set_ppt_limit(struct smu_context *smu,
- 		if (ret)
- 			return ret;
++	goto out;
++
++invalid_srat:
++	pr_err("SRAT contains an invalid subtable\n");
++out:
+ 	acpi_put_table(table_header);
  
--		od_table->OverDriveTable.Ppt = (limit * 100) / msg_limit - 100;
--		table_context->user_od_feature_mask |= 1U << PP_OD_FEATURE_PPT_BIT;
--		od_table->OverDriveTable.FeatureCtrlMask =
--			table_context->user_od_feature_mask;
--
--		ret = smu_v14_0_2_upload_overdrive_table(smu, od_table);
-+		ppt = (limit * 100) / msg_limit - 100;
-+		ret = smu_v14_0_2_upload_ppt_overdrive_table(smu, ppt);
- 		if (ret) {
- 		  dev_err(smu->adev->dev, "Failed to upload overdrive table!\n");
- 		  return ret;
+ 	/* Workaround bad cpu-gpu binding case */
 -- 
 2.53.0
 
