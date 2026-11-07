@@ -1,51 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047137;
-	b=jlAarNlScZZE8K2ZLVk14398Tp9r5G+TlrHZwRX0PTcvhDRuaMzDrEEdZ+eQmKC7yU0+
-	 iz+HQJ7Y8wV6GqqiWhfAguW0rHVMDVpmjD1v1AGuLydlLoGySqe4sqyw9cS0hzkf3yEW8
-	 PB0Y3dwOoZ4mEf15rYjt0JoByGYRNx3TszLA6lXnRnLFfM5XVaYuGuaDiHs/39t5zf1ps
-	 EmW3ZGrgRRJjFh91jQyXkpg8cxIsGzKy4OcUb9eEAOI0G/XN5QVJWVDpakJ7jJbcapcaP
-	 BLAoXRvg1YwwlwbIydjYdjwzz95GiYssFbu/NfvDUYs+RBmALZbrGwgoqrUq20QQciA==
+	t=1794047139;
+	b=b6/Wvf6LcSMKLACxDhnYI7Wu0Q4X2wJ+jY42f8goJKF4QWclZsaouwJQCsw7S63C6+cJ
+	 ShtytpeIpYKDRuo2f1QL4SCsWL87T1QDqLhg5NprlKxZRotvbnKXWeiI4l7UMU0Lzzmg5
+	 fj6KlpYxRPdL6vq0KEsjCI599gk0Heu97Z39DW7Eki4e0mm5RWvCGTeRB+hBXdL3JdX3A
+	 ZYyBedkQuHQW/zErS1mLOJYdbnd27cQOyKQ4/e3BB1U7AOjdkyj3RJBsNemspmd/SlF/j
+	 C90rZFwv4SyD74aEPK5BhSwy6u5qh8GH6VnjkRbf2pbM3V6YELuKBbulco5R4mHIBjw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047137;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047139;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=yBDDxenxJ3eFjJAuDxkc14N3Ygxc2TU0icK7aRqT3ho=;
-	b=N54pEWfT52UbNwx/jc+zZ5kKbFEC4Uot5PKGV0wK+90i7KRRUzLtPqieneduOzHChRl7
-	 d3tg7/Jb8X+FfJ4JhVQYJYZEKj8kwpP94YqEOmuFIbMiVZrc7WpSuHkjAME8DXssUjv1f
-	 NvLeDgvEvqUVdn21CnOfJDsn+wlbr/pzxl2pPeMMtZXTNQp9qmQmBFKTsJLrJS0zq3ZXj
-	 ggabN1RDCT0lhgL13KD2Qbp1iIzgLos8bdfasEkBkcyQogSHLKNoFZhhuUt/ILLY5SUQr
-	 R5QjKllx3s6mQ1Lzv+PrH7DvatSDTENc8yB6sVdjKEzMrRM/fSJKxqtMJUIN4+EcyDg==
+	bh=fxKWhZ6zNR0IOB7TdHzGdAcaf3W1v0v4pVqd0PFNh0w=;
+	b=1c2WSkpLHBqZH2ckeimCX37AAalf7yhjTkLEDdoViY+ZV0c0xeBcGeDasyr7Xdq/05QY
+	 LrEheJm93EWGfGZA5ABbpk30AKkdZMMFjJD0eHC2QThmomXvmbkwB6eU9sV8ZxDyAevYn
+	 aiHYGr0VmIe1n9W5W1jUhT1yCTX6k81mt11Qe3aw28rvDUyYXCV4MMUrbKf6+2EUav4RF
+	 Q2jI13BwH++Tf0AoQ3GdJiz7iN9/cbVIsMwdceDlOw7gIq9xA+SVtmFMB/tlUcSyYGfhe
+	 q89JdXvE146ACXND7m26TlSXS7IRPsSOAxSiJDqf3zcFmgZOKvXm3nCRnGFfdeZYn/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QycUpHZo;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DuHaoEeJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD9BD606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:25:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B724606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:25:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QycUpHZo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC8F41F0089F;
-	Sat,  7 Nov 2026 10:25:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DuHaoEeJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0611E1F0089F;
+	Sat,  7 Nov 2026 10:25:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047136;
-	bh=yBDDxenxJ3eFjJAuDxkc14N3Ygxc2TU0icK7aRqT3ho=;
+	s=k20260515; t=1794047138;
+	bh=fxKWhZ6zNR0IOB7TdHzGdAcaf3W1v0v4pVqd0PFNh0w=;
 	h=From:To:Cc:Subject:Date;
-	b=QycUpHZo5RaOCYIoL/EUFVlKU4fU38k7JDV60r7sTnIeSitf4zwIw1go+TUqGIA0W
-	 IrJ65fTAz8GH6hk/fzh6QhOIxSne0Y18BUPn6UqRpSyjVlCjgiePVsgX+oeDPKYGR7
-	 Gmm9MiGLJsr9Ih0G9G5DrLd0z24ldIyDtMkwlT9G4MKPw9w/UfJj0nD7AwPzWSrOVz
-	 jrpfxrKr9ly6hT3pJmqqLDV0fkZb/rBMF04+r3ENH9T6sGW0GOm0KZLSB3aGygSC8r
-	 JK4HUqRfIeVHYiOU7B8SMHXUzNsPqtgK8NH8yOZ5wZsneoA7oHONcIHqjS0bOwo9Rx
-	 jOaLoAlCDfLaw==
+	b=DuHaoEeJsJGvg4Mms62eKuQ610jRzL2HaPz6OYOhSi2YYp3WExKPHIpT/aUpKvH3a
+	 y4RH1OLmA3MX+5zJgxuiqYwFzXObbHDYHs/yWntocTP/Kp9Yy6dS7PF96n4ye4R6t1
+	 ZtTYP8BBkHbkficTrvF/TorROqQ9w/uswaZUeaJs1FV+4IkSuDKgo5mGub5W/VEsvF
+	 NoBrIBtvlD38cCHfgAyFsKeDkHYycv4El0d0nQ/cR/Z0f0GAU0+HcX+iAjmcdzfORZ
+	 Loq6czTV1wMracN2FFbNvkNKFOkbqD2asS3f0MUGWRYRp2IKCbIanV0uhDUn9ZDkj8
+	 ZmHay1f8GYqIg==
 From: Sasha Levin <sashal@kernel.org>
-To: iav@iav.lv,
-	tglx@kernel.org
+To: stanleyjhu@google.com,
+	bvanassche@acm.org,
+	beanhuo@micron.com,
+	peter.wang@mediatek.com,
+	mkp@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] genirq/kexec: Do not take the bus lock of an interrupt chip on the crash path" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:25:34 -0500
-Message-ID: <20261107052534-failed-6.12-717862eac6ef@kernel.org>
+Subject: FAILED: patch "[PATCH] scsi: ufs: core: Add a helper for clearing hba->outstanding_reqs" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:25:36 -0500
+Message-ID: <20261107052536-failed-6.12-22d14117ec18@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,141 +71,129 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 717862eac6eff0eea8ac30a0c0de0bed84922aab
+git cherry-pick -x 22d14117ec1845a81acb3a5c4be325f7e8332f70
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052534-failed-6.12-717862eac6ef@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052536-failed-6.12-22d14117ec18@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 717862eac6eff0eea8ac30a0c0de0bed84922aab Mon Sep 17 00:00:00 2001
-From: Igor Velkov <iav@iav.lv>
-Date: Thu, 15 Oct 2026 21:51:50 +0300
-Subject: [PATCH] genirq/kexec: Do not take the bus lock of an interrupt chip
- on the crash path
+From 22d14117ec1845a81acb3a5c4be325f7e8332f70 Mon Sep 17 00:00:00 2001
+From: Stanley Jhu <stanleyjhu@google.com>
+Date: Thu, 22 Oct 2026 11:44:39 +0800
+Subject: [PATCH] scsi: ufs: core: Add a helper for clearing
+ hba->outstanding_reqs
 
-machine_kexec_mask_interrupts() calls irq_set_irqchip_state() for every
-started interrupt. That function takes the bus lock of the chip and
-desc->lock, and syncs the chip when it drops them. On the crash path
-interrupts are off and the other CPUs are stopped, so a chip whose bus
-transfer is completed by an interrupt never returns from the sync.
+ufshcd_poll() and ufshcd_abort() each have their own copy of the code that
+clears bits in hba->outstanding_reqs under hba->outstanding_lock.
 
-On RK3399 boards with an RK808 PMIC the RTC alarm interrupt belongs to
-the regmap-irq chip of the RK808, which sits on I2C. rk808_irq_chip sets
-init_ack_masked, so regmap_irq_sync_unlock() writes the ack register on
-every unlock, and the I2C controller needs its own interrupt to finish
-the transfer. A panic with a crash kernel loaded prints
+Move that code into ufshcd_clear_outstanding_reqs() and its locked variant
+__ufshcd_clear_outstanding_reqs(), and use them in both functions. No
+functional change.
 
-  SMP: stopping secondary CPUs
-
-and then nothing until the watchdog resets the board.
-
-machine_kexec_mask_interrupts() takes neither lock for the other
-operations on the descriptor. Move the search for the chip that
-implements irq_set_irqchip_state() into __irq_set_irqchip_state(), which
-takes no locks, and call it from machine_kexec_mask_interrupts().
-
-Fixes: 78fd584cdec0 ("arm64: kdump: implement machine_crash_shutdown()")
-Suggested-by: Thomas Gleixner <tglx@kernel.org>
-Signed-off-by: Igor Velkov <iav@iav.lv>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261015-kexec-irq-bus-lock-v2-1-2af15f0757b6@iav.lv
+Link: https://lore.kernel.org/r/3779e125-9acc-42c8-9489-51b9e3c6716d@acm.org
+Suggested-by: Bart Van Assche <bvanassche@acm.org>
+Reviewed-by: Bean Huo <beanhuo@micron.com>
+Reviewed-by: Peter Wang <peter.wang@mediatek.com>
+Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
+Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+Link: https://patch.msgid.link/20261022034443.3034432-3-stanleyjhu@google.com
+Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
 ---
- kernel/irq/internals.h |  1 +
- kernel/irq/kexec.c     |  2 +-
- kernel/irq/manage.c    | 43 +++++++++++++++++++++++-------------------
- 3 files changed, 26 insertions(+), 20 deletions(-)
+ drivers/ufs/core/ufshcd.c | 48 +++++++++++++++++++++++++++++----------
+ 1 file changed, 36 insertions(+), 12 deletions(-)
 
-diff --git a/kernel/irq/internals.h b/kernel/irq/internals.h
-index 0ce21dd454047..4dff3ccae1812 100644
---- a/kernel/irq/internals.h
-+++ b/kernel/irq/internals.h
-@@ -81,6 +81,7 @@ enum {
- #include "settings.h"
- 
- extern int __irq_set_trigger(struct irq_desc *desc, unsigned long flags);
-+extern int __irq_set_irqchip_state(struct irq_desc *desc, enum irqchip_irq_state which, bool val);
- extern void __disable_irq(struct irq_desc *desc);
- extern void __enable_irq(struct irq_desc *desc);
- 
-diff --git a/kernel/irq/kexec.c b/kernel/irq/kexec.c
-index 1a3deffe6b5b6..f245b98764225 100644
---- a/kernel/irq/kexec.c
-+++ b/kernel/irq/kexec.c
-@@ -25,7 +25,7 @@ void machine_kexec_mask_interrupts(void)
- 			 * First try to remove the active state from an interrupt which is forwarded
- 			 * to a VM. If the interrupt is not forwarded, try to EOI the interrupt.
- 			 */
--			check_eoi = irq_set_irqchip_state(i, IRQCHIP_STATE_ACTIVE, false);
-+			check_eoi = __irq_set_irqchip_state(desc, IRQCHIP_STATE_ACTIVE, false);
- 		}
- 
- 		if (check_eoi && chip->irq_eoi && irqd_irq_inprogress(&desc->irq_data))
-diff --git a/kernel/irq/manage.c b/kernel/irq/manage.c
-index 57eff26fa646a..bdb47837c66fc 100644
---- a/kernel/irq/manage.c
-+++ b/kernel/irq/manage.c
-@@ -2735,6 +2735,28 @@ int irq_get_irqchip_state(unsigned int irq, enum irqchip_irq_state which, bool *
+diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
+index f03a8d39fb7a8..f2e3b782f1fe8 100644
+--- a/drivers/ufs/core/ufshcd.c
++++ b/drivers/ufs/core/ufshcd.c
+@@ -5997,6 +5997,37 @@ static void ufshcd_clear_polled(struct ufs_hba *hba,
+ 	}
  }
- EXPORT_SYMBOL_GPL(irq_get_irqchip_state);
  
-+int __irq_set_irqchip_state(struct irq_desc *desc, enum irqchip_irq_state which, bool val)
++/*
++ * Return a bitmask of the transfer requests cleared from
++ * @hba->outstanding_reqs.
++ */
++static unsigned long __ufshcd_clear_outstanding_reqs(struct ufs_hba *hba,
++						     unsigned long mask,
++						     bool from_irq)
++	__must_hold(&hba->outstanding_lock)
 +{
-+	struct irq_data *data = irq_desc_get_irq_data(desc);
-+	struct irq_chip *chip;
++	unsigned long completed_reqs = mask & hba->outstanding_reqs;
 +
-+	do {
-+		chip = irq_data_get_irq_chip(data);
++	if (from_irq) {
++		/* Do not complete polled requests from interrupt context. */
++		ufshcd_clear_polled(hba, &completed_reqs);
++	}
++	hba->outstanding_reqs &= ~completed_reqs;
 +
-+		if (WARN_ON_ONCE(!chip))
-+			return -ENODEV;
-+
-+		if (chip->irq_set_irqchip_state)
-+			break;
-+
-+		data = irqd_get_parent_data(data);
-+	} while (data);
-+
-+	if (data)
-+		return chip->irq_set_irqchip_state(data, which, val);
-+	return -EINVAL;
++	return completed_reqs;
 +}
 +
- /**
-  * irq_set_irqchip_state - set the state of a forwarded interrupt.
-  * @irq:	Interrupt line that is forwarded to a VM
-@@ -2749,25 +2771,8 @@ EXPORT_SYMBOL_GPL(irq_get_irqchip_state);
-  */
- int irq_set_irqchip_state(unsigned int irq, enum irqchip_irq_state which, bool val)
- {
--	scoped_irqdesc_get_and_buslock(irq, 0) {
--		struct irq_data *data = irq_desc_get_irq_data(scoped_irqdesc);
--		struct irq_chip *chip;
--
--		do {
--			chip = irq_data_get_irq_chip(data);
--
--			if (WARN_ON_ONCE(!chip))
--				return -ENODEV;
--
--			if (chip->irq_set_irqchip_state)
--				break;
--
--			data = irqd_get_parent_data(data);
--		} while (data);
--
--		if (data)
--			return chip->irq_set_irqchip_state(data, which, val);
++/*
++ * Return a bitmask of the transfer requests cleared from
++ * @hba->outstanding_reqs.
++ */
++static unsigned long ufshcd_clear_outstanding_reqs(struct ufs_hba *hba,
++						   unsigned long mask)
++{
++	guard(spinlock_irqsave)(&hba->outstanding_lock);
++	return __ufshcd_clear_outstanding_reqs(hba, mask, false);
++}
++
+ /*
+  * Return: > 0 if one or more commands have been completed or 0 if no
+  * requests have been completed.
+@@ -6007,6 +6038,7 @@ static int ufshcd_poll(struct Scsi_Host *shost, unsigned int queue_num)
+ 	unsigned long completed_reqs, flags;
+ 	u32 tr_doorbell;
+ 	struct ufs_hw_queue *hwq;
++	bool from_irq;
+ 
+ 	if (hba->mcq_enabled) {
+ 		hwq = &hba->uhq[queue_num];
+@@ -6016,12 +6048,9 @@ static int ufshcd_poll(struct Scsi_Host *shost, unsigned int queue_num)
+ 
+ 	spin_lock_irqsave(&hba->outstanding_lock, flags);
+ 	tr_doorbell = ufshcd_readl(hba, REG_UTP_TRANSFER_REQ_DOOR_BELL);
+-	completed_reqs = ~tr_doorbell & hba->outstanding_reqs;
+-	if (queue_num == UFSHCD_POLL_FROM_INTERRUPT_CONTEXT) {
+-		/* Do not complete polled requests from interrupt context. */
+-		ufshcd_clear_polled(hba, &completed_reqs);
 -	}
-+	scoped_irqdesc_get_and_buslock(irq, 0)
-+		return __irq_set_irqchip_state(scoped_irqdesc, which, val);
- 	return -EINVAL;
- }
- EXPORT_SYMBOL_GPL(irq_set_irqchip_state);
+-	hba->outstanding_reqs &= ~completed_reqs;
++	from_irq = queue_num == UFSHCD_POLL_FROM_INTERRUPT_CONTEXT;
++	completed_reqs = __ufshcd_clear_outstanding_reqs(hba, ~tr_doorbell,
++							 from_irq);
+ 	spin_unlock_irqrestore(&hba->outstanding_lock, flags);
+ 
+ 	if (completed_reqs)
+@@ -8056,7 +8085,6 @@ static int ufshcd_abort(struct scsi_cmnd *cmd)
+ 	struct ufshcd_lrb *lrbp = scsi_cmd_priv(cmd);
+ 	unsigned long flags;
+ 	int err = FAILED;
+-	bool outstanding;
+ 	u32 reg;
+ 
+ 	ufshcd_hold(hba);
+@@ -8151,11 +8179,7 @@ static int ufshcd_abort(struct scsi_cmnd *cmd)
+ 	 * Clear the corresponding bit from outstanding_reqs since the command
+ 	 * has been aborted successfully.
+ 	 */
+-	spin_lock_irqsave(&hba->outstanding_lock, flags);
+-	outstanding = __test_and_clear_bit(tag, &hba->outstanding_reqs);
+-	spin_unlock_irqrestore(&hba->outstanding_lock, flags);
+-
+-	if (outstanding)
++	if (ufshcd_clear_outstanding_reqs(hba, BIT(tag)))
+ 		ufshcd_release_scsi_cmd(hba, cmd);
+ 
+ 	err = SUCCESS;
 -- 
 2.53.0
 
