@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048430;
-	b=EU7Yg3PWuuKJFXDCqptkydp4EOmrrz8HuvlI6ooq+51HEKcQvjfBeSqyeDr78tDaoxW4
-	 +PrCqyxHJu2MuzlqdzmpPPWcyn6HvhBq8FaU6dIHIzyAp5CyPKchmwBPPYHzTJpEfQ06y
-	 SOdm2cwqVd/fF8zZWESMUg9ErqcrQvFxzXjS3R6zo4T03gpT5QUcu96nHZAjBvBXJA4W2
-	 R2x6Uvz/MbYPJo24ph+tcovlacw/EbxEOQLwapP26fo12WbXfhLMOnHNIE+9ne/VEpBZ9
-	 EUjgg9gN3+/OHwctPpjm9kFCOCJ8La19ZtsovRzNbvcT91vv+QoF0Ep7JMoTN0CbBKQ==
+	t=1794048434;
+	b=Ql4uu7D0wlbDOBJAIEuZPMvLJ3R0TRb5VSQ+w6Ctzl2zF7zYV2ejSlCw8wJqohaUo4fc
+	 G4mGGimtvrFiK26KawgTY+bWCw9vIcrZ3CxmbpHEdlXb4X46t71dAueEgcscvO8DxnH4W
+	 DYIaF43MgxKG96DZEbNyMt9qoTTEFrqlko0zKCVvYIULSVeaNyaEmcsJFKV863hE09P4d
+	 E8hdyrkv8lrXGe21cpY7kv1EM+a/rltvOcyQvuECh/akaxLQRja9o6tcVB7RX0Fplcpma
+	 jTBCSUDmppVPjlRVuRNuqV8spjJmNZi/xPUrHYugbY6XH5sfqG4Lto/tQxPegy24E+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048430;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048434;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=SxWvkJxq1xWNqzwf2lMTvYfTWMFHRcIXPxcV7reo9to=;
-	b=PfSpoUtZyF/HlE6clAg/rHgNdC4TnCdDqvzEnOIU8+rV1cKg6/pcgx2iSJetEUTQrF5p
-	 SDJxfBmHnO20CQVs0v0piKXwHl1o9hDQFhNGxPXnrCFoEPEbO5J9UPy9+6jYQ61+x7wcU
-	 aQyRXtZnHwCKfczTBzfAbUYY7O+Jl6M53GFsfJa3ra2Uj7SYb16FnWs5FVt35/uzwh5LC
-	 Qyc0fhI87dVf65qN6wLQTiyGlKlzp3Dyw9PXNQ58HY6PbGpVKTHJ2iORwGNafpTgN+nxI
-	 Qev+2wQDCxIlc/f5q+wuYM88s7gU+76+NO7kWAzGR9PeLOsMr4xPu1b5m01SWmqB8pQ==
+	bh=e0XsY88RfbVKUczZPmgW/bG2UMvXsZhbmPIbcbgXYNM=;
+	b=Q2zN1MZMXLESDmn350Riq0j43PcfiIG0S5qHzo0Evs9GMYmKAYkzMdCvtYP9TlXAjS8W
+	 Q/DNNR5jO5boPWcSrKv0OjK9Gndu76a6PttTO0tmW7u44I3FKhZPBJuh6kEfJAOr1w1JJ
+	 GFJbVZTWwUv3623UxmJCeUX9oTVLCqCOGrcLNe2yovEf3pLk9dV9clnDnL1PvMvpFtqHZ
+	 bf2/PE1LInZMyLrNGoPHEGOclWMtyVxkRpntj99nNALi4BN0pn9wCRINhURB14XzRDWrc
+	 eJXC438WjrbeoXRtnQqY8oIjrxilU8X1ap9r4+4pWUOzgy5zlm6XjmfdIfV1UT20hJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fFw2AAWT;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=emkPc2iQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80C00606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:47:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D36D0606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:47:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fFw2AAWT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B04031F008A1;
-	Sat,  7 Nov 2026 10:47:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=emkPc2iQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DA901F0089F;
+	Sat,  7 Nov 2026 10:47:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048430;
-	bh=SxWvkJxq1xWNqzwf2lMTvYfTWMFHRcIXPxcV7reo9to=;
+	s=k20260515; t=1794048433;
+	bh=e0XsY88RfbVKUczZPmgW/bG2UMvXsZhbmPIbcbgXYNM=;
 	h=From:To:Cc:Subject:Date;
-	b=fFw2AAWT+PsbqsHOXXvX9rJNlIv7RIOMxX9l7nmmLKTvskxz5e9LXEg9h8hKeqgpZ
-	 8/1UCYXPGePOvpLBvrWGy/FwnNms+s/eVUjvIBM2TjEMVcu8tfpRo5IttnvT1jIKy/
-	 1hAvbQJH2YdfXrzja1TiFUIrd0blvvFJnbFq3HeZ444sGMUNTcI9tconNYHaFCWYuI
-	 G9BxegXz90OTC5YfKn2AxWJpr6aDR1DXwXeTeD2VhvWNhuT7iPbkniYgoxpPenfErf
-	 e80a0iwUbfNO+P+2bxi0Gj7SO/wcaWdLW75V5CT7I49DkwDs7ftYrM6qinxAsgzfXl
-	 lcLBTDB64uANQ==
+	b=emkPc2iQMOYnA4iNDtSa73QMtnqf/uHerR3U5TJHqePpwR/ZyX19M6JZsY6uelCcB
+	 VXCYgSrjDI6IIrbER+fiOL41nYqljvrWx3n4uldATfg6FnXefDwYcXJAtSxsQvodWN
+	 odAiSzBBKLAT2ETPMYknTLcaDOrNdV2/kev2Y+BBPp2QzvQnZQAD606JihrQS0cnz8
+	 V5Wp0B2bENCLY1p9y998vrA/39cF5uH6MraViQkqWeK7MWLsGwWB22P4nUDUjtjHDI
+	 JgXbhSBa9lmiIsJibxe9CAfEm5BX7n8ENHoMJUHE+4ThrFAGIdxrba9cnuqxjwfkor
+	 nWb/pH4PEBLnQ==
 From: Sasha Levin <sashal@kernel.org>
 To: sj@kernel.org,
 	akpm@linux-foundation.org,
@@ -46,9 +46,9 @@ To: sj@kernel.org,
 	davidgow@davidgow.net,
 	usamaarif642@gmail.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/damon/core-kunit: extend damos_commit_filter_for() for wrong input" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:47:08 -0500
-Message-ID: <20261107054708-failed-6.1-a1c7fdaf1657@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/damon/core-kunit: test invalid damos filter commits" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:47:11 -0500
+Message-ID: <20261107054711-failed-6.1-409d2ab6d982@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,29 +71,25 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x a1c7fdaf165755fff928a6c25b69d7e0966b6910
+git cherry-pick -x 409d2ab6d98209c30d45123920721710475a30b4
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054708-failed-6.1-a1c7fdaf1657@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054711-failed-6.1-409d2ab6d982@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From a1c7fdaf165755fff928a6c25b69d7e0966b6910 Mon Sep 17 00:00:00 2001
+From 409d2ab6d98209c30d45123920721710475a30b4 Mon Sep 17 00:00:00 2001
 From: SJ Park <sj@kernel.org>
-Date: Mon, 14 Sep 2026 07:23:24 -0700
-Subject: [PATCH] mm/damon/core-kunit: extend damos_commit_filter_for() for
- wrong input
+Date: Mon, 14 Sep 2026 07:23:25 -0700
+Subject: [PATCH] mm/damon/core-kunit: test invalid damos filter commits
 
-damos_commit_filter_for() supposes damos_commit_filter() to always succeed
-with given inputs.  damos_commit_filter() could return an error for
-invalid inputs.  Existing callers always pass only valid inputs, but they
-may pass invalid inputs in future, for test purposes.  Extend the function
-to be able to be used for wrong inputs-caused error testing.
+Add test cases for testing the validation of damos filter arguments in
+commit time.
 
-Link: https://lore.kernel.org/20260914142327.92510-8-sj@kernel.org
+Link: https://lore.kernel.org/20260914142327.92510-9-sj@kernel.org
 Signed-off-by: SJ Park <sj@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Cc: Brendan Higgins <brendan.higgins@linux.dev>
@@ -101,86 +97,41 @@ Cc: David Gow <davidgow@davidgow.net>
 Cc: Usama Arif <usamaarif642@gmail.com>
 Cc: <stable@vger.kernel.org>
 ---
- mm/damon/tests/core-kunit.h | 24 +++++++++++++++---------
- 1 file changed, 15 insertions(+), 9 deletions(-)
+ mm/damon/tests/core-kunit.h | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
 diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
-index c01e6a75cadc1..2b0931cf6fb32 100644
+index 2b0931cf6fb32..527abc2570616 100644
 --- a/mm/damon/tests/core-kunit.h
 +++ b/mm/damon/tests/core-kunit.h
-@@ -1116,9 +1116,15 @@ static void damos_test_commit_dests(struct kunit *test)
- }
- 
- static void damos_test_commit_filter_for(struct kunit *test,
--		struct damos_filter *dst, struct damos_filter *src)
-+		struct damos_filter *dst, struct damos_filter *src,
-+		bool expect_fail)
- {
--	damos_commit_filter(dst, src);
-+	int err;
-+
-+	err = damos_commit_filter(dst, src);
-+	KUNIT_EXPECT_EQ(test, err != 0, expect_fail);
-+	if (expect_fail)
-+		return;
- 	KUNIT_EXPECT_EQ(test, dst->type, src->type);
- 	KUNIT_EXPECT_EQ(test, dst->matching, src->matching);
- 	KUNIT_EXPECT_EQ(test, dst->allow, src->allow);
-@@ -1157,47 +1163,47 @@ static void damos_test_commit_filter(struct kunit *test)
- 			.type = DAMOS_FILTER_TYPE_ANON,
- 			.matching = true,
- 			.allow = true,
--			});
-+			}, false);
- 	damos_test_commit_filter_for(test, &dst,
- 			&(struct damos_filter){
- 			.type = DAMOS_FILTER_TYPE_MEMCG,
- 			.matching = false,
- 			.allow = false,
- 			.memcg_id = 123,
--			});
-+			}, false);
- 	damos_test_commit_filter_for(test, &dst,
- 			&(struct damos_filter){
- 			.type = DAMOS_FILTER_TYPE_YOUNG,
- 			.matching = true,
- 			.allow = true,
--			});
-+			}, false);
- 	damos_test_commit_filter_for(test, &dst,
- 			&(struct damos_filter){
- 			.type = DAMOS_FILTER_TYPE_HUGEPAGE_SIZE,
- 			.matching = false,
+@@ -1184,6 +1184,13 @@ static void damos_test_commit_filter(struct kunit *test)
  			.allow = false,
  			.sz_range = {.min = 234, .max = 345},
--			});
-+			}, false);
+ 			}, false);
++	damos_test_commit_filter_for(test, &dst,
++			&(struct damos_filter){
++			.type = DAMOS_FILTER_TYPE_HUGEPAGE_SIZE,
++			.matching = false,
++			.allow = false,
++			.sz_range = {.min = 456, .max = 123},
++			}, true);
  	damos_test_commit_filter_for(test, &dst,
  			&(struct damos_filter){
  			.type = DAMOS_FILTER_TYPE_UNMAPPED,
- 			.matching = true,
- 			.allow = true,
--			});
-+			}, false);
- 	damos_test_commit_filter_for(test, &dst,
- 			&(struct damos_filter){
- 			.type = DAMOS_FILTER_TYPE_ADDR,
- 			.matching = false,
+@@ -1197,6 +1204,13 @@ static void damos_test_commit_filter(struct kunit *test)
  			.allow = false,
  			.addr_range = {.start = 456, .end = 567},
--			});
-+			}, false);
+ 			}, false);
++	damos_test_commit_filter_for(test, &dst,
++			&(struct damos_filter){
++			.type = DAMOS_FILTER_TYPE_ADDR,
++			.matching = false,
++			.allow = false,
++			.addr_range = {.start = 567, .end = 456},
++			}, true);
  	damos_test_commit_filter_for(test, &dst,
  			&(struct damos_filter){
  			.type = DAMOS_FILTER_TYPE_TARGET,
- 			.matching = true,
- 			.allow = true,
- 			.target_idx = 6,
--			});
-+			}, false);
- }
- 
- static void damos_test_help_initailize_scheme(struct damos *scheme)
 -- 
 2.53.0
 
