@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047442;
-	b=WwfEML4OKDEl9qLlW0XNNKib2StHY4s5JRRRE58tTs6UOhwP7PdAAF3u2djT5rMA4BIc
-	 K2zfFQF+TAJ1szOzU2xeBZQHybfCkYxUhEWcH7JV9gKBz6DNqWXQ+7p81Sl5UBSv6Z4Pb
-	 P2ILa/R/Oj7i/FTClgfuTAlCZ1+C1e6aYagyMYt5Luz+Zi9fH1mqxr0O7z2NALkcdG6Ek
-	 XcBs1nKSU7NIbG1Cx1n/MdUF08ng4vSo8htl1Gxt1OymN0ZEeWBJWpe+4JFgTQotWujYH
-	 2GmirUV9KCRd/8plU/KN2IFgYs/dvLLf3xSrtml2n+VJ1iSDe1YKjRkPK08m1q5dVEA==
+	t=1794047444;
+	b=SAgXK+vLukfefYvNyswmHPq5aTGI8l6zP8p9pr0Hti/nyRYB/mL86wreOrcVx+vzHX9f
+	 10mkG+NxqJTjCw7gZ3AgJeE9kz9bSFaSWQ5U+/8nprOc4OwMpZmey8AX3aQo7PjYUkwXM
+	 zWuKWsIU5Ve4io9kZS2HzsXG0d8xoVppXg3LgEEehweO0WVhZH8DyQduZ4bWqYJ3PCKAl
+	 vlczhCHbJNzK8Ctn7MvAZSdBrdh956hgiBKHwoAL+5OuKWV0ixQ4Ch0MILILMyPIq3Fgs
+	 0VXMFBhiXKFyCQ0mLKLpXunB590CimJgcHE2v3RzvZ2Jvw7Xcwn1NdQa3oxJlQr1vpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047442;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047444;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=k8jLTDSFiX4fUUKd3MI0BpH+m9ccM5YWjDTuGcdS398=;
-	b=DIdoeh0W8vFvrtiQRfwkkX46O89bQUSKT/SzH6uzECA+6FFXiKj82E59lDlGpusZeY0P
-	 qv2GBabQkCft+Si62CiKTn8TUyHIoZmk8nJzwRclzgOvm4/s9Gtp5sbRqkFDTpHvGe6fo
-	 wAbUynZqphm9g6y4Mq6nh/9FLbCbAjlnNe0AilYOITxpCtf3LWI6ArPT/GAkIiixNshrK
-	 VkGSdPzVvmVskvSDxRGodBQn5Z+omQFm/f9AZtapjSduYm2vGVC2rWsk7zWgAEHL8bnqm
-	 333l3IfDaZoHAKPWr9wW5BgWW5w9XBfHSJdaphA+8uzx0y/J1J84FGi5AP04Y9wuIvQ==
+	bh=a2m/1rfqdINrIJixiFMvgqEdneNPPQvTnSLFxRuxklc=;
+	b=24q+fAdi7AdE9mxRmPDfuJ2nKfoBp7UK4awDOQS/F+Qt5HcqoGPjeEXazCiuE93Q7A9o
+	 Up47ouTFBzHSOblgqU2Kt+z0+i/bZii79VX4oNdHo4c4MAv021yoqL4Fs/2+QzIgHDkT4
+	 PyyKYng7HixbRD0rYmJAedZuW2aVbBPSUfk+2cOPTPmY4Dm3Cgvlvx7Kx4x+u5Oym5C4t
+	 CPrb9z9dX0NYR7rn5rawOnMHlXVDnHs4gGXSJx96elieloIWQU5yLgxYDiMh1vfZDarvR
+	 YLZYtnh4+bNnB1CMzf9GrjGjlgrRiWkuzgKyJX48mKqKKR9dj16enSRL4BHgdI0r8Gw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="a4MP/PgN";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eLEoHOYC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD9EE606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:30:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC687606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:30:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a4MP/PgN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22DEB1F0089F;
-	Sat,  7 Nov 2026 10:30:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eLEoHOYC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B2091F0089F;
+	Sat,  7 Nov 2026 10:30:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047441;
-	bh=k8jLTDSFiX4fUUKd3MI0BpH+m9ccM5YWjDTuGcdS398=;
+	s=k20260515; t=1794047443;
+	bh=a2m/1rfqdINrIJixiFMvgqEdneNPPQvTnSLFxRuxklc=;
 	h=From:To:Cc:Subject:Date;
-	b=a4MP/PgN5aSgaxCleR0mz69pXKwZezzg3IF20taEnh98DtLVoJVXfnwBl1r9vzCg3
-	 /rDbQaQVd96HPIRAJUvGD0tHVmJdbW0lxuEDu9QsEMrsBJhKMkVuacKSkAE4w8n+8i
-	 cpyivnjlB28lnJzoIt8pUiJWJY2qgd9zKUdYgm8sZ8EZyelPLA1FfKTgROJ1iIW0n7
-	 q6awfWYfFPSbxmX9txFz3T/aLTvPd3bziHVWC5fB56yoWI8YWALlVCXR54UqccmqAS
-	 iVOAJnRY1ZJadEv3C6lmmDV8hmDeDefiZJ9VDnKgSYzQRbBhmMl2wEBik1BOeSCLrj
-	 bRgERtXnOQXzA==
+	b=eLEoHOYC2rJkPTAhk1W2JItVftkvn9g+1CrFV3lnwfw20ih62nrTK2vhuhA0VENyp
+	 ZSbleKkxAIW9iH/FRdEvd13gks8UeeHpNtKrgS+kgd+iZbLuYP6g2KxUMNyNw7mgko
+	 sxycDxLxMjqVTeIeQiNxkkeSoiBv0Bv+fdxLhsHylygm4PyZ0e9aAGflgCE7TnVrc6
+	 TUw7vImihIKwg3kAclurXrnjb93jlBXwtRrpXNBmxO4p3HaTlkMbVX6IQQq7809gZP
+	 ROLFMXPltk5cMZdy/7FflyzcpK5azpP5LIhAVm4kCYL7hsKzmcD9GzppkQiBbVSzaq
+	 svUljLcdz6lmg==
 From: Sasha Levin <sashal@kernel.org>
-To: hitesh@ebytelogic.com,
-	bryan.odonoghue@linaro.org,
-	bod@kernel.org
+To: runyu.xiao@seu.edu.cn,
+	tiwai@suse.de
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] media: qcom: camss: vfe: Fix VFE reset while another line is streaming" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:30:40 -0500
-Message-ID: <20261107053039-failed-6.6-e5d4b0e69a40@kernel.org>
+Subject: FAILED: patch "[PATCH] ALSA: usb-audio: Protect Roland control activation" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:30:42 -0500
+Message-ID: <20261107053042-failed-6.6-19b42c1fff7f@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,100 +68,115 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x e5d4b0e69a4017fd39354499c9d7583f625f0524
+git cherry-pick -x 19b42c1fff7f220a6346c614d79ce1bda6d95b40
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053039-failed-6.6-e5d4b0e69a40@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053042-failed-6.6-19b42c1fff7f@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From e5d4b0e69a4017fd39354499c9d7583f625f0524 Mon Sep 17 00:00:00 2001
-From: Hitesh Patel <hitesh@ebytelogic.com>
-Date: Mon, 28 Sep 2026 17:45:05 +0530
-Subject: [PATCH] media: qcom: camss: vfe: Fix VFE reset while another line is
- streaming
+From 19b42c1fff7f220a6346c614d79ce1bda6d95b40 Mon Sep 17 00:00:00 2001
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Date: Tue, 29 Sep 2026 22:17:26 +0800
+Subject: [PATCH] ALSA: usb-audio: Protect Roland control activation
 
-vfe_disable_output() stops the write masters of the line being
-disabled and then resets the whole VFE. The reset is not limited to
-that line.
+The USB MIDI driver changes the Roland MIDI Input Mode control's access
+flags directly from the rawmidi open and close paths.  These changes are
+not protected by the ALSA control core and the corresponding notifications
+can race with control access.
 
-When two lines of one VFE stream at the same time, which is the case
-whenever a CSID demultiplexes several virtual channels to different
-RDIs, stopping the first line resets the VFE underneath the second
-line. The second line's write master configuration is wiped, the
-buffers it had in flight are never completed, and the VFE is left in
-a state in which the next global reset is not acknowledged. Stopping
-or restarting the second line then fails with:
+Use snd_ctl_activate_id() so that the control core updates the access flags
+and sends the notification under its lock.  Release the USB MIDI mutex
+before calling it because the control write path holds controls_rwsem while
+roland_load_put() takes the USB MIDI mutex.
 
-  VFE reset timeout
+Keep the state transition and alternate-setting change under the USB MIDI
+mutex; rawmidi's open mutex serializes the enclosing open and close paths.
 
-Move the reset to vfe_disable() and do it under stream_lock, as part
-of the decrement that makes the count reach zero, so that exactly one
-caller resets and no line can be enabled while the reset runs.
-Stopping the line's write masters is enough to quiesce that line on
-its own. With a single line streaming, the reset happens exactly as
-before.
-
-Fixes: 7319cdf189bb ("media: camss: Add support for VFE hardware version Titan 170")
+Fixes: 96f61d9ade82 ("sound: usb-audio: allow switching altsetting on Roland USB MIDI devices")
 Cc: stable@vger.kernel.org
-Signed-off-by: Hitesh Patel <hitesh@ebytelogic.com>
-Suggested-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-[bod: Converted vfe_disable_output to void]
-Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
+Assisted-by: LLM
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Link: https://patch.msgid.link/20260929141726.2166899-1-runyu.xiao@seu.edu.cn
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- drivers/media/platform/qcom/camss/camss-vfe.c | 14 +++++---------
- 1 file changed, 5 insertions(+), 9 deletions(-)
+ sound/usb/midi.c | 53 ++++++++++++++++++++++++------------------------
+ 1 file changed, 27 insertions(+), 26 deletions(-)
 
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
-index c14d97a131f69..2680a9914765f 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe.c
-@@ -808,7 +808,7 @@ int vfe_put_output(struct vfe_line *line)
+diff --git a/sound/usb/midi.c b/sound/usb/midi.c
+index 0480a9b89e8f3..e3d1575540613 100644
+--- a/sound/usb/midi.c
++++ b/sound/usb/midi.c
+@@ -1150,41 +1150,42 @@ static int substream_open(struct snd_rawmidi_substream *substream, int dir,
+ 			  int open)
+ {
+ 	struct snd_usb_midi *umidi = substream->rmidi->private_data;
+-	struct snd_kcontrol *ctl;
++	struct snd_ctl_elem_id ctl_id;
++	bool activate_ctl = false;
++	bool active;
+ 
+ 	guard(rwsem_read)(&umidi->disc_rwsem);
+ 	if (umidi->disconnected)
+ 		return open ? -ENODEV : 0;
+ 
+-	guard(mutex)(&umidi->mutex);
+-	if (open) {
+-		if (!umidi->opened[0] && !umidi->opened[1]) {
+-			if (umidi->roland_load_ctl) {
+-				ctl = umidi->roland_load_ctl;
+-				ctl->vd[0].access |=
+-					SNDRV_CTL_ELEM_ACCESS_INACTIVE;
+-				snd_ctl_notify(umidi->card,
+-				       SNDRV_CTL_EVENT_MASK_INFO, &ctl->id);
+-				update_roland_altsetting(umidi);
++	scoped_guard(mutex, &umidi->mutex) {
++		if (open) {
++			if (!umidi->opened[0] && !umidi->opened[1]) {
++				if (umidi->roland_load_ctl) {
++					ctl_id = umidi->roland_load_ctl->id;
++					activate_ctl = true;
++					active = false;
++					update_roland_altsetting(umidi);
++				}
+ 			}
+-		}
+-		umidi->opened[dir]++;
+-		if (umidi->opened[1])
+-			snd_usbmidi_input_start(&umidi->list);
+-	} else {
+-		umidi->opened[dir]--;
+-		if (!umidi->opened[1] && !umidi->keep_input_running)
+-			snd_usbmidi_input_stop(&umidi->list);
+-		if (!umidi->opened[0] && !umidi->opened[1]) {
+-			if (umidi->roland_load_ctl) {
+-				ctl = umidi->roland_load_ctl;
+-				ctl->vd[0].access &=
+-					~SNDRV_CTL_ELEM_ACCESS_INACTIVE;
+-				snd_ctl_notify(umidi->card,
+-				       SNDRV_CTL_EVENT_MASK_INFO, &ctl->id);
++			umidi->opened[dir]++;
++			if (umidi->opened[1])
++				snd_usbmidi_input_start(&umidi->list);
++		} else {
++			umidi->opened[dir]--;
++			if (!umidi->opened[1] && !umidi->keep_input_running)
++				snd_usbmidi_input_stop(&umidi->list);
++			if (!umidi->opened[0] && !umidi->opened[1]) {
++				if (umidi->roland_load_ctl) {
++					ctl_id = umidi->roland_load_ctl->id;
++					activate_ctl = true;
++					active = true;
++				}
+ 			}
+ 		}
+ 	}
++	if (activate_ctl)
++		snd_ctl_activate_id(umidi->card, &ctl_id, active);
  	return 0;
- }
- 
--static int vfe_disable_output(struct vfe_line *line)
-+static void vfe_disable_output(struct vfe_line *line)
- {
- 	struct vfe_device *vfe = to_vfe(line);
- 	struct vfe_output *output = &line->output;
-@@ -820,8 +820,6 @@ static int vfe_disable_output(struct vfe_line *line)
- 		vfe->res->hw_ops->vfe_wm_stop(vfe, output->wm_idx[i]);
- 	output->gen2.active_num = 0;
- 	spin_unlock_irqrestore(&vfe->output_lock, flags);
--
--	return vfe_reset(vfe);
- }
- 
- /*
-@@ -833,21 +831,19 @@ static int vfe_disable_output(struct vfe_line *line)
- int vfe_disable(struct vfe_line *line)
- {
- 	struct vfe_device *vfe = to_vfe(line);
--	int ret;
-+	int ret = 0;
- 
--	ret = vfe_disable_output(line);
--	if (ret)
--		goto error;
-+	vfe_disable_output(line);
- 
- 	vfe_put_output(line);
- 
- 	mutex_lock(&vfe->stream_lock);
- 
--	vfe->stream_count--;
-+	if (--vfe->stream_count == 0)
-+		ret = vfe_reset(vfe);
- 
- 	mutex_unlock(&vfe->stream_lock);
- 
--error:
- 	return ret;
  }
  
 -- 
