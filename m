@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047203;
-	b=AS6uSDrn3HOvI3aJQry5gsw+RVGQ37R8apU+YphNuH3P2cxDhkN0xD3a9/NDdSRhyjUU
-	 1r54hfsSsv1FnZVcDSZUKbL0GAn+xJf+0Cnp8yBCY67SbyJqOhd49yzRadeoR3GVgHGHO
-	 +cMPq+62vZgiVwESJiIWw2ZMnUjUvUANLPj0t85F2C52/6DuHHw0MbCWRX5y25Q0g/g3d
-	 etoRwS5be76pXwMs7IRnt6FwRbfKrO7gDSVPKHp54p2wAWhNNSsxORc8/o4QiKIITOfVH
-	 ptuX/QT1ooiJEbZstQBbxIwiAa/rpahfD67ondL+mDpadTRWDB9WDRshzqynBEcoQ7w==
+	t=1794047205;
+	b=zE/F9i30Scx/kbymgZbby8iSZHkqsuYCenidDWVykjjnYHDBs+jmaftEUxirQoyGd8Cu
+	 I8kHt2VZIL6DyBHEr0ngws2s5EEWCRgoELBTKhT4ORA0x/buIgUny5D+YZ7d/Fo/shKT6
+	 k13wmdelZ7YbnTzOWt0SdbH1+myxdMFufRB7aJymHgqd6vO+7I6d9VimNsV4SMYG+l7Vq
+	 s1XryfOm3BeH+KrrhjbBoDNY9tag/DmA1Hj5R/jO/pMvqXOitGvw9aintt+454HOt90E0
+	 /0bxkhbsgpXkiq5NOpDMp6EZmHQiCFzFiYVGGmtOPz0J9LG4549sS+Pdt2TxS3dBkaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047203;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047205;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=lzvOS5gIDEQTGroZlc7K452UfMMu2bd5kauJLjCJLYE=;
-	b=s56ymXcnvQuBAzpAcQaIKvah8dtijyCb2PCc/r4iFzIL9FuvuEeeeavU5VT6s83SnjLC
-	 /gL6lpa+ghDTHRsgzc7WW83wTLTmnLwyhvjWQkdzOvErydiRR0mV8RCzVdH/jvB2Ja81C
-	 PTD5DODaTHa82+/0gLN2WRnuTtZMq0H98LSypOySl0m4Rd+BKdqfGheNjnzl1jE6wWOvq
-	 Bt3FwAlMpRTwy67m4QkNS5TSEEMdYhhpQCWIdcBKyBcQNh3JrG9fvTVyvK6rc4E2qGHV4
-	 58QWHaBm4CZCVZOc512vjy7f1gEflb9Ijxmt8CK6jWm6pNck1a9klljDpv7LZso2gpQ==
+	bh=IVEOp9sz1hps5m7tb3/ZtA8A7AfpaNcbc1wT5V852mU=;
+	b=O7EH/iZt2G/5MSOH6SUtmETrcdSGkCRd0BaGq0y/zgfhdJklGlC7NCSzFE3ZJ+Uf10No
+	 j2xk5zZpjdcrwKL8L2h/sSZ+u2CspIJlfngg7zFIXz6oceGHo4yzl6Uw6d3/GY8SKvofi
+	 Of2QfY5XVlPsIiY36zkCeN+3woSbBIe9vf55Wp9o7jHNUpDM1H0lVUGlLPzh0WKo/1R1I
+	 a1pzB82pY07Q7LvWw42RTMvSTCYKCmKwDcwdOZSB+MGI97vxFN7uJ3vG9Jmd9E7mhc20U
+	 2ug1LPiG6koQcmNZ4qKGWTNUX6xHYLnH7KeTIzIbbNmlVw/ptQofXxHl+ER8nYVllMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ASp1rw1g;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M8aQDdCe;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F4C3606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:26:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7676C606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:26:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ASp1rw1g
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6532F1F0089F;
-	Sat,  7 Nov 2026 10:26:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M8aQDdCe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 970671F0089F;
+	Sat,  7 Nov 2026 10:26:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047202;
-	bh=lzvOS5gIDEQTGroZlc7K452UfMMu2bd5kauJLjCJLYE=;
+	s=k20260515; t=1794047205;
+	bh=IVEOp9sz1hps5m7tb3/ZtA8A7AfpaNcbc1wT5V852mU=;
 	h=From:To:Cc:Subject:Date;
-	b=ASp1rw1g1HD4PabgmWzZ29rUwztP9XccqKkc1avA16Drmlcn2lbOvXJTFLVOWwE95
-	 gzy1zUnFTlc3XI8xbMdNNNpyjw7WtzzIgFJLsZthok14iG5f1xDfFRC4YJFXDUaEUr
-	 9ZPV2AU72z8/U6LH+w3DlucaL4r9pDOn+vCZve3B8vzT9X+UX7mq5AmNomBookZTsO
-	 KuUZ/6lyIwyKkH5a79UojtySzRevjZyB+lp0NKATzKal6OGyMrQCYAhDcOGC7ltOU6
-	 Qg+XKmfM/uv6NXSOZuxYQnowt5AIM95925fKaT+TLl2r+vB18fYatchV7Ysbsr8/31
-	 pP2nD4zl0dCeA==
+	b=M8aQDdCeXtblPCPSqjGBEfoBerT9/gujggiClxkvxQpBPb1kS8MCVJXyJUA+wUCbf
+	 0hteedALTwOEN1g7mpz5uyLCRYzAgDw8UYUC65qJGFuUM5izUtUeQdLffxBEOHmWyX
+	 z/C9q6nPfO0RT2BmV6PdQ+g03ncbpQ/hL03FnP2986HVzvnW7m0YFRtAkWyJYRffMG
+	 fPkoE78CCBIYBbogP4DhMpS6+izJEyuJPjrWLzzexlM3+Tkl+0XphlxBn0iiB+Ir1R
+	 /sppqnwXCRwU2BQSf/Cb+JvgumRTscy9Ejxmw1QxmMK1OzMIkObun7h0uBXRA2dzzz
+	 eb7BefzLV4DAg==
 From: Sasha Levin <sashal@kernel.org>
-To: yijiangshan@kylinos.cn,
+To: zhugl3@xiaopeng.com,
 	amarkuze@redhat.com,
 	idryomov@gmail.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ceph: fix longname buffer overflow in ceph_fname_to_usr()" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:26:40 -0500
-Message-ID: <20261107052640-failed-6.12-71975d6e0db1@kernel.org>
+Subject: FAILED: patch "[PATCH] ceph: clamp the inline data length in ceph_fill_inline_data()" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:26:43 -0500
+Message-ID: <20261107052643-failed-6.12-9c1d14d3b66b@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,75 +69,57 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 71975d6e0db17646102488cf54480fda9de0f7a7
+git cherry-pick -x 9c1d14d3b66b3e1dd96ee664c0dd2548f2b77a52
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052640-failed-6.12-71975d6e0db1@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052643-failed-6.12-9c1d14d3b66b@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 71975d6e0db17646102488cf54480fda9de0f7a7 Mon Sep 17 00:00:00 2001
-From: Jiangshan Yi <yijiangshan@kylinos.cn>
-Date: Tue, 8 Sep 2026 11:18:23 +0800
-Subject: [PATCH] ceph: fix longname buffer overflow in ceph_fname_to_usr()
+From 9c1d14d3b66b3e1dd96ee664c0dd2548f2b77a52 Mon Sep 17 00:00:00 2001
+From: Guanglei Zhu <zhugl3@xiaopeng.com>
+Date: Thu, 10 Sep 2026 11:00:35 +0800
+Subject: [PATCH] ceph: clamp the inline data length in ceph_fill_inline_data()
 
-Snapshot longname reconstruction formats "_<name>_<inode>" via snprintf()
-and memcpy()s the result into oname->name.  Checking the length against
-NAME_MAX only protects the LOOKUPNAME/export callers, whose buffer is
-allocated with fscrypt_fname_alloc_buffer(NAME_MAX).  The readdir path
-points oname->name straight at the altname in the MDS reply, whose
-capacity is altname_len; the reconstructed name can exceed that while
-still fitting under NAME_MAX, overflowing the in-place destination.
+The MDS decides how much inline data to attach to a reply, and the
+client parses inline_len without any upper bound: ceph_decode_need()
+only verifies that the message actually carries that many bytes.
+ceph_fill_inline_data() then copies the data into a single folio
+with no length check, so a malicious or buggy MDS returning more
+inline data than the folio can hold writes past its end.
 
-Save the actual oname->len before the decryption overwrites it, and fail
-with -ENAMETOOLONG when the reconstructed name would not fit.
+Clamp the length to folio_size() so both callers, handle_cap_grant()
+and fill_inode(), are covered.
 
 Cc: stable@vger.kernel.org
-Fixes: dd66df0053ef ("ceph: add support for encrypted snapshot names")
-Suggested-by: Alex Markuze <amarkuze@redhat.com>
-Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
+Fixes: 31c542a199d7 ("ceph: add inline data to pagecache")
+Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
 Reviewed-by: Alex Markuze <amarkuze@redhat.com>
 Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
 ---
- fs/ceph/crypto.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ fs/ceph/addr.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/fs/ceph/crypto.c b/fs/ceph/crypto.c
-index bc0a097a4cea9..845b69ba890c3 100644
---- a/fs/ceph/crypto.c
-+++ b/fs/ceph/crypto.c
-@@ -313,6 +313,7 @@ int ceph_fname_to_usr(const struct ceph_fname *fname, unsigned char *tname,
- 	struct fscrypt_str iname;
- 	char *name = fname->name;
- 	int name_len = fname->name_len;
-+	int dst_len;
- 	int ret;
+diff --git a/fs/ceph/addr.c b/fs/ceph/addr.c
+index ae6aa9db5eb24..86fe0e76cdf07 100644
+--- a/fs/ceph/addr.c
++++ b/fs/ceph/addr.c
+@@ -2245,6 +2245,12 @@ void ceph_fill_inline_data(struct inode *inode, struct folio *locked_folio,
+ 	doutc(cl, "%p %llx.%llx len %zu locked_folio %p\n", inode,
+ 	      ceph_vinop(inode), len, locked_folio);
  
- 	if (WARN_ON_ONCE(tname && is_vmalloc_addr(tname)))
-@@ -387,6 +388,9 @@ int ceph_fname_to_usr(const struct ceph_fname *fname, unsigned char *tname,
- 		iname.len = fname->ctext_len;
- 	}
- 
-+	/* oname->len is overwritten by the decryption below */
-+	dst_len = oname->len;
++	if (len > folio_size(folio)) {
++		pr_warn_ratelimited_client(cl, "oversized inline data %zu\n",
++					   len);
++		len = folio_size(folio);
++	}
 +
- 	_oname.name = unlikely(is_vmalloc_addr(oname->name)) ? tname : oname->name;
- 	_oname.len = oname->len;
+ 	if (len > 0)
+ 		memcpy_to_folio(folio, 0, data, len);
  
-@@ -403,6 +407,10 @@ int ceph_fname_to_usr(const struct ceph_fname *fname, unsigned char *tname,
- 
- 		name_len = snprintf(tmp_buf, sizeof(tmp_buf), "_%.*s_%llu",
- 				    oname->len, oname->name, dir->i_ino);
-+		if (name_len > dst_len) {
-+			ret = -ENAMETOOLONG;
-+			goto out;
-+		}
- 		memcpy(oname->name, tmp_buf, name_len);
- 		oname->len = name_len;
- 	}
 -- 
 2.53.0
 
