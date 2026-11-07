@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047480;
-	b=mnm+n0WfDaBONHPY2s+rA1lYF1oYeFCd7cUzAU46MVIIHMb2r9lwQP/6TX/BmOCtCC1o
-	 R7Am2cImBT/Rb8AHmYO0m56aMaBcbrKVcSVPxqkraGePQbk3YYBmiv8DmR9VTjB/h44/j
-	 Zvl4wACKqfCTR92DreySeqYRt/J8Bli29we5FyKUmMSn9H061MeVaCF1OvvX3Kg07M78u
-	 ccAJa/a6XswyrW1MXkZ1Rj4oMz5usaZcy4hWbmXThQ83PubxcCmpfL140oEsgQ9EUoJqU
-	 nx0Y7scQnpU7VihjnL8YF7/IeBF9lygWVfXpiWKQTMB5Mj9v0NViPrEHWbzSV4TN9+A==
+	t=1794047483;
+	b=xpJtL+t0rwUm6UvCvjpQHuemn3DKrwDhO3W2vDsqQipBCQL2/kUozwMWsL32zFxjtCn+
+	 dcYvQWfdUqRuNPEFAQnLZ2s3If+hDS/OzIui3+1MAc9DikNonEI5rxuI9c/ZP18qsPxii
+	 pD30sTwXDGQp665+f1pDBhDkfJxLG8LnSx3l4FJ1n/+fnvs26ECf1zrUkDi+kaS3XyEvm
+	 798IMCMwg8ATgg2ZBXlGJNl1VznBDwRdCnwzbzKDKo9p1nY4qejkVIgY+2PPjvqewISNB
+	 eY5HV0IQugqMjlgh0L+Vj+/vNa+4c8mnk1rKgn+7rpFYJbJGcZW+5iidBbX+KeA3P1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047480;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047483;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=YKmg1NcHoQGNwKI0Hg+UrpYDALdr36DASXUitGa3E94=;
-	b=eqU5I3D03I1k2byq9Dnm3YLQUWy6YUqZ4BLdC/BQOBA716AXaEbqmY/VogEPR4zlWjGU
-	 lANh8S4d/kJWe43W8nk2ZS4kn315jKQhhbOvqaoHkh4lx0gVVgXemGRfXQyy3c3AIMQVt
-	 D0EGM9ZGlk9IPDFL9wW7T+c6+oRyJb2gnbMkvodJPaOmaIUIuC7BRu7SFJlLYSLnoyfnU
-	 /Krg2FE0SQudIIOtbizT6/iEhfn5iBh9An2g6D3K6fGtIMNmy8PHG7KjmKLFZOewCuIpP
-	 KvTaui3bLBuHexjQlvllgMQqzhkSNLuzvLRyhyhvASCIMTRAwOajzP9KHtucP0xUnzA==
+	bh=rfYnYtkosBydImSTQwqvPJQ116isT23hENG64fP54Ng=;
+	b=n5WCXU5xMAEqqMUgq/huDgz1OBs+9X3TMPjYhKgwIFoyG9SsgznqFD0i2syrb81/l742
+	 IjYEhasUPomCWSMtIcnPCPDuFHoFWUAYFReU3QQx2/8D+546hvRzC0WgEor6UEEsBhWyW
+	 Xww2pnKFpI/mznnawODfJf7X9Xn6Xf8xNfxebPvjQoZQYBrF20teasJ9iloDSVB/M+ZUu
+	 S6AE9IPwxlFLCJ7t9jgm/qVF9ve4/cXHNXrQD5B6f8HHUZsSRuKa84vMQeBa8ftN7dRrI
+	 lo8EEVx7BkN2JemAe1Zf4vcIt0YSc12VDYCEtc2pVdt501kfvAI15frtMceBgj34CSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e0u4ZCGb;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gzQi9oO1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BBD7606D824
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:31:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B77AB606A333
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:31:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e0u4ZCGb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 969111F008A3;
-	Sat,  7 Nov 2026 10:31:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gzQi9oO1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA81C1F008A2;
+	Sat,  7 Nov 2026 10:31:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047480;
-	bh=YKmg1NcHoQGNwKI0Hg+UrpYDALdr36DASXUitGa3E94=;
+	s=k20260515; t=1794047482;
+	bh=rfYnYtkosBydImSTQwqvPJQ116isT23hENG64fP54Ng=;
 	h=From:To:Cc:Subject:Date;
-	b=e0u4ZCGb5D1dK4n43uEbO8JH9AFfIVUvCVC2zU6dp0bSFesg9C/WSRAAfvPVIeoDG
-	 TL2RtBHzJ0WkZnIhqw9Ns9Rt3ewm6pisJYxhnB8ZLoWVTPVWwBcXXmVmaP+oC/lHV7
-	 UuBl6vpVEvrNn/nRWqK8pjffqMgRBxcgb4BKgvV1AD/iv29UIOqnp4yN4+g4ezAjA0
-	 FxXGEIPTV+XcbsrxlOmi8LaORsIsPfIin2YbvHh0vBbq/fQMhXDGwr3E9hAOZpR63+
-	 vHUzk6+XrWAo/X6C0/3BzimKFGYnQGklIqZ9KIbLrvYgcwI7aLirwhCPdv5AE8oHvd
-	 hxUmTnVoWh4tA==
+	b=gzQi9oO1LsQYbhiFTFzlqMYnA2/z+s7f7AxjiwUIOn++M8qVMPo6ZEjaJ+ShnDjXQ
+	 /7Kgznn0tw7t9TIJW5Afi7tEWamtI/ab+ifo5O9hhaIxH1tBOcVDjWemKsZTQxOWnB
+	 KQzbNtYhuSTzhWayAhmFtkR0kgccGiIHkic5oiKU1rOJTtUZEYcB7wyaXwwXrumErG
+	 gmpm+lwKV/IhaW0FY4rOWIqAB7LKc/Q9OuB/dNrpCd93bX45WOzgJZemRpupP/+79k
+	 GPRWprhZS7SnZCrZCYf2yiB2Ke2JCtpAVRlmZrpoV5mo5GWZkTbf2lyz79ende/zbb
+	 l8eqUz90/vSNw==
 From: Sasha Levin <sashal@kernel.org>
-To: runyu.xiao@seu.edu.cn,
+To: jkeeping@inmusicbrands.com,
 	nicolas.dufresne@collabora.com,
 	hverkuil+cisco@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] media: sti: delta: use unaligned accessors for MJPEG SOF fields" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:31:18 -0500
-Message-ID: <20261107053118-failed-6.6-fdc5bf02aeae@kernel.org>
+Subject: FAILED: patch "[PATCH] media: rockchip: rga: fix rotation on rev0 hardware" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:31:20 -0500
+Message-ID: <20261107053120-failed-6.6-a67578c01798@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,79 +69,78 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x fdc5bf02aeaef04e7d13895db9b6eaf8083953f9
+git cherry-pick -x a67578c0179850e80cf08b1e0b8b1eb857f0fc46
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053118-failed-6.6-fdc5bf02aeae@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053120-failed-6.6-a67578c01798@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From fdc5bf02aeaef04e7d13895db9b6eaf8083953f9 Mon Sep 17 00:00:00 2001
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Date: Wed, 1 Jul 2026 23:06:10 +0800
-Subject: [PATCH] media: sti: delta: use unaligned accessors for MJPEG SOF
- fields
+From a67578c0179850e80cf08b1e0b8b1eb857f0fc46 Mon Sep 17 00:00:00 2001
+From: John Keeping <jkeeping@inmusicbrands.com>
+Date: Tue, 29 Sep 2026 10:41:42 +0100
+Subject: [PATCH] media: rockchip: rga: fix rotation on rev0 hardware
 
-delta_mjpeg_read_header() scans a compressed MJPEG access unit byte by
-byte and passes the bytes after an SOF marker to delta_mjpeg_read_sof().
-The SOF parser then reads 16-bit big-endian fields directly from that
-byte stream.
+On RK3288 where the RGA reports version zero [1], rotating a buffer
+gives corrupt output where one edge will be truncated.  This is a result
+of some adjustment done specifically for hardware revision zero.  But it
+seems this is not necessary and there is no evidence for why this
+adjustment should be applied on these hardware revisions.
 
-The SOF payload is not an aligned object. The marker scan can find the
-payload at any byte position, and the SOF layout also puts frame_height
-and frame_width after a one-byte sample_precision field. Those fields
-therefore sit at odd offsets within the payload even when the payload
-base happens to be 2-byte aligned.
+Comparing the TRMs between RK3288 with revision zero and RK3588 with
+revision 3.2 there is evidence of new features supported by later
+hardware, but nothing indicating any difference in behaviour for
+rotation which is supported by all hardware revisions.
 
-Avoid casting the byte stream to __be16 pointers and use
-get_unaligned_be16() for the SOF length, height, and width fields.
+The logic here looks wrong anyway, since it's bizarre that minor
+revision zero would need the adjustment for _all_ major revisions.  This
+was added with the initial version of the driver in commit f7e7b48e6d796
+("[media] rockchip/rga: v4l2 m2m support") so there is no detail in the
+Git history to indicate why this special-case might be needed.
 
-This issue was detected by our static analysis tool and confirmed by
-manual audit. A focused UBSAN alignment validation of the same typed
-load shape reported a misaligned __be16 access in delta_mjpeg_read_sof().
+[1] Comparing with the vendor code, it seems this is actually 1.3 with
+    the hardware reporting zero more by coincidence than design since the
+    version register is not defined for RK3288.
 
-Fixes: 433ff5b4a29b ("[media] st-delta: add mjpeg support")
+Fixes: f7e7b48e6d796 ("[media] rockchip/rga: v4l2 m2m support")
 Cc: stable@vger.kernel.org
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Signed-off-by: John Keeping <jkeeping@inmusicbrands.com>
 Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 ---
- drivers/media/platform/st/sti/delta/delta-mjpeg-hdr.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/media/platform/rockchip/rga/rga-hw.c | 8 --------
+ 1 file changed, 8 deletions(-)
 
-diff --git a/drivers/media/platform/st/sti/delta/delta-mjpeg-hdr.c b/drivers/media/platform/st/sti/delta/delta-mjpeg-hdr.c
-index 90e5b2f72c82b..849a5e118aec4 100644
---- a/drivers/media/platform/st/sti/delta/delta-mjpeg-hdr.c
-+++ b/drivers/media/platform/st/sti/delta/delta-mjpeg-hdr.c
-@@ -4,6 +4,7 @@
-  * Author: Hugues Fruchet <hugues.fruchet@st.com> for STMicroelectronics.
-  */
+diff --git a/drivers/media/platform/rockchip/rga/rga-hw.c b/drivers/media/platform/rockchip/rga/rga-hw.c
+index be1bc8ddbd03b..2e7ec8b7c20f7 100644
+--- a/drivers/media/platform/rockchip/rga/rga-hw.c
++++ b/drivers/media/platform/rockchip/rga/rga-hw.c
+@@ -158,7 +158,6 @@ static void rga_cmd_set_dst_addr(struct rga_ctx *ctx, dma_addr_t dma_addr)
  
-+#include <linux/unaligned.h>
- #include "delta.h"
- #include "delta-mjpeg.h"
- 
-@@ -48,13 +49,13 @@ static int delta_mjpeg_read_sof(struct delta_ctx *pctx,
- 		goto err_no_more;
- 
- 	memset(header, 0, sizeof(*header));
--	header->length           = be16_to_cpu(*(__be16 *)(data + offset));
-+	header->length           = get_unaligned_be16(data + offset);
- 	offset += sizeof(u16);
- 	header->sample_precision = *(u8 *)(data + offset);
- 	offset += sizeof(u8);
--	header->frame_height     = be16_to_cpu(*(__be16 *)(data + offset));
-+	header->frame_height     = get_unaligned_be16(data + offset);
- 	offset += sizeof(u16);
--	header->frame_width      = be16_to_cpu(*(__be16 *)(data + offset));
-+	header->frame_width      = get_unaligned_be16(data + offset);
- 	offset += sizeof(u16);
- 	header->nb_of_components = *(u8 *)(data + offset);
- 	offset += sizeof(u8);
+ static void rga_cmd_set_trans_info(struct rga_ctx *ctx)
+ {
+-	struct rockchip_rga *rga = ctx->rga;
+ 	u32 *dest = ctx->cmdbuf_virt;
+ 	unsigned int scale_dst_w, scale_dst_h;
+ 	unsigned int src_h, src_w, dst_h, dst_w;
+@@ -251,13 +250,6 @@ static void rga_cmd_set_trans_info(struct rga_ctx *ctx)
+ 	 */
+ 	if (src_info.data.rot_mode == RGA_SRC_ROT_MODE_90_DEGREE ||
+ 	    src_info.data.rot_mode == RGA_SRC_ROT_MODE_270_DEGREE) {
+-		if (rga->version.major == 0 || rga->version.minor == 0) {
+-			if (dst_w == src_h)
+-				src_h -= 8;
+-			if (abs(src_w - dst_h) < 16)
+-				src_w -= 16;
+-		}
+-
+ 		scale_dst_h = dst_w;
+ 		scale_dst_w = dst_h;
+ 	} else {
 -- 
 2.53.0
 
