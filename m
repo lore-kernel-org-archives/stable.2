@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046362;
-	b=uicT17shnVlKwJxBtl1wValLGOTJ02NiuoXNGh7K6aT235P6//yjP7ESRI1NUnZRSMYv
-	 MqyWdUMgOzJ3ggqd/xTyNEX03MfldpeydMK+gS0BPvcUvBqp/EGUjLX+4tKyzAE1+OZEO
-	 +NQOV/gJC6UJnOCnKwR3QwV1OcMhROjai2L9ArTXMwSyT17NJPv3iOJLUmjQrF7YUN4dG
-	 oxLKCbQ+qS56o0Jsc1I1KwNZ91ONUWIGhnQJgW/ctsfEIJ3YaR6ehQidjKFgf4m7odhtb
-	 bPEeT+Waz38ubPEWmybyIXIrzBAWCExIOBGOLLjpUZJkBJlI4EEWbYL3GahrK2dz1Tw==
+	t=1794046365;
+	b=Z8aykDeKZcsw+l7uL61OoHdjyy9rjkXzbFb0y3USwXnKxJSiorcpPLTEYQYDpziuMyA4
+	 aefcQ7hqewFG6B5wn2SsbqgsMWUIF1oOMpTcU0jIsNZSvwhUlomuVeVxPU/f20w5/7lex
+	 3n3AP/wyXXQBlRGmwIB//IRqa70vffzxdC800BFPmA8ZIGODpsFcKNZcdWl5vqte6WcMN
+	 D61L2aNIcxC8rmKMtSa3eRKfv5kvHYSI60K28POVcKFtuiwZpaKQOPFJ4LKKbaUFtolpq
+	 YPBpEct6fUg2XlwwSiPvOM604nSyZPBhSQiwnJfWc8Uiq57MkRDTTygEIUPYZ9yZGEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046362;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046365;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=VLhZ14W84aa9HMreZvRY/6UEzhuEeh9jx2uZZminK+s=;
-	b=U1xHRhuNcTgCQt4+5vfp1okU+qz1f5VQiR9jGSVdxMb7kh6SxSkHgxzH5ktfmeg/z5Ab
-	 DHI6kruPc6AIvm01ytp8ZzpqiqtGDOj/hXyvqbOYVFFca0KqDmzL7rpmai062FwmaZT0v
-	 RtlbMFnlsFeMHc787Jrc+YXfVkhSwTyli0XBFSHXR6dBsEnzsgi7dNetbMHC8P8qvUsQf
-	 i81PV/VsQKcH0uvBKACJ2W8bPppLhrcdW+4sV4WYJPiJlW7HGhszBH0chbU268f95XLb0
-	 5VAsH/L/crPb576/WdTgM+nNhb9UMt49Y7sV4GOhpqHonNfvb1spt8ju/7WSuHQRZZg==
+	bh=YlgS89O3AgHySIejmsrZQw7xl/BE0ZLHa2N5TBEACaQ=;
+	b=l5/66hRMjmhGuGt2zzgZFT37in3SXcl1y7fuOgB56uaOv2jLvYFphO9V56oiJE9XzKjN
+	 1bKhk4kUv4az8Jivhvc82tooquopYEAwZEwSFBKQG9PCwkl84K7KE7N6P0tFaJBaqp1Cv
+	 LHlJKo/bi4B+m4FRatfURfGOgpceHVU9l68rZ82fZVYincX77VhmAobTq06c7zuzVsdCM
+	 tBu06yVgTAk1ngtia987cZBLdav/MQ98Ya7c0rRwUxeKlH02IwTA2MJvsejlicyuCg8cx
+	 /2J7tKFEDCOJshhF+aWyg5tsF7Gm9+ntg5ROJHO5yVlSYSZkC4OVpkqL6lsbBIPrvYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=adKb5wDx;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QlFCPaEY;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7610E606A330
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:12:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4EED606A339
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:12:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=adKb5wDx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1F7E1F0089F;
-	Sat,  7 Nov 2026 10:12:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QlFCPaEY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 480191F008A5;
+	Sat,  7 Nov 2026 10:12:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046362;
-	bh=VLhZ14W84aa9HMreZvRY/6UEzhuEeh9jx2uZZminK+s=;
+	s=k20260515; t=1794046364;
+	bh=YlgS89O3AgHySIejmsrZQw7xl/BE0ZLHa2N5TBEACaQ=;
 	h=From:To:Cc:Subject:Date;
-	b=adKb5wDxhGLpL1hwi967UdVREGX3Jo1JDB0BEHpB4HkwUa6q07RSAA39P2v+ff9kG
-	 YikpYveMI9CgnrKauEDuagDgU497TZyxR3RdBAVIsrtphInR0ZNUP8JqpAAkCVqHMb
-	 klO6GlwT6Zq2FGW39IhIe2923hGxZBEpLLf43D06k8G7r51Qtv22BDd/SAOliDvJSm
-	 +kDFY0yiBTFup3c+P7me5JXMWcoAqIKpou1EAD93f+jTGvGxtNqe734nK+3MZhTNFE
-	 Bzrm4lNLn+flk5KEt7CJ/7TKoZA8yBRjarkFK9i683K5O5chF7xUFrsNwD5CECdH3x
-	 jY3TmTgvUVm1A==
+	b=QlFCPaEY7gDXDXzqtm24ssSZgbg7ZRMBcsT5wYsXM9wLaouaCRoC5xWUXK/YEboTx
+	 yJ7xeY2inhQhrN6tMAI2nliKpIXNRBuaen7KJygOaqxFRim3ZwzUJlV5xcQu6mwUvE
+	 Fu3+LuUzgrj2bPtPvunJ7seq0kOYamQ7EjRu2m8+zGYb4RwaE0CvcyJ3qfdy7h5IOu
+	 uFutiaz9oj04vz1+PW8BjhoB9PNEygYLAsvy+LkHOp+L0GZS8TwUbSYssnZcs8fCQ/
+	 ZCzpMeE2Bzs/8Co+HC4A1pRmRUZ3eALfI8dKW8ZcJHAapBaTSjE6jL41mS2tOCRbo4
+	 RjFyxd1msqQXA==
 From: Sasha Levin <sashal@kernel.org>
-To: michalblk@google.com,
-	arighi@nvidia.com,
-	tj@kernel.org
+To: zenghongling@kylinos.cn,
+	liubaolin@kylinos.cn,
+	linkinjeon@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] sched_ext: Reset runnable_at when a task leaves its scheduler" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:12:40 -0500
-Message-ID: <20261107051240-failed-6.18-993e8fbfecbb@kernel.org>
+Subject: FAILED: patch "[PATCH] ntfs: NULL vol->vol_ino in the load_system_files() error teardown" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:12:43 -0500
+Message-ID: <20261107051243-failed-6.18-a0c022c1da5b@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,90 +69,75 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 993e8fbfecbbf284b9644c6f10741b28fb914094
+git cherry-pick -x a0c022c1da5b0fa30c61bd5b28db9f639ace5bf5
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051240-failed-6.18-993e8fbfecbb@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051243-failed-6.18-a0c022c1da5b@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 993e8fbfecbbf284b9644c6f10741b28fb914094 Mon Sep 17 00:00:00 2001
-From: Michal Blaszczyk <michalblk@google.com>
-Date: Mon, 19 Oct 2026 12:41:45 +0000
-Subject: [PATCH] sched_ext: Reset runnable_at when a task leaves its scheduler
+From a0c022c1da5b0fa30c61bd5b28db9f639ace5bf5 Mon Sep 17 00:00:00 2001
+From: Hongling Zeng <zenghongling@kylinos.cn>
+Date: Mon, 7 Sep 2026 15:08:52 +0800
+Subject: [PATCH] ntfs: NULL vol->vol_ino in the load_system_files() error
+ teardown
 
-The watchdog measures how long a task has been waiting from
-p->scx.runnable_at, which set_task_runnable() resets when the task becomes
-runnable after it last ran. ops_dequeue() never asks for a reset, as the
-dequeue of a waiting task is temporary, e.g. for a migration or an
-attribute change.
+The error unwind of load_system_files() drops vol->vol_ino on two
+paths but leaves the stale pointer in place while it keeps iput()ing
+the remaining system inodes ($Bitmap, $MFT bitmap, $MFTMirr; $MFT
+itself is dropped by the caller, ntfs_fill_super()).  A third path
+carried an iput() that can never execute: it sits inside the
+IS_ERR(vol->vol_ino) branch guarded by !IS_ERR(vol->vol_ino), and is
+removed along with the stale pointers.  Nothing in the teardown
+dereferences vol_ino today, so this is pure hygiene, but a stale
+pointer to a freed inode surviving the unwind is a trap for any
+future code walking the volume during teardown.
 
-Leaving the scheduler isn't temporary. A task which is switched out of
-SCHED_EXT while it's waiting keeps its runnable_at. When it's switched back
-and becomes runnable, its wait appears to have started before it left, and
-the time it spent in another class counts towards the timeout. If the
-watchdog checks before the task runs, it aborts the scheduler:
+ntfs_put_super() and the ntfs_fill_super() error path already NULL it
+after their iput(); do the same here.
 
-  sched_ext: class_switch_stall: runner[418] failed to run for 3.010s
-
-Here, the task waited for a few milliseconds before it was switched to
-SCHED_OTHER, slept outside of SCHED_EXT for three seconds, and was charged
-for all of it as soon as it woke up on SCHED_EXT again.
-
-The same happens when scx_sub_enable_workfn() hands a waiting task over to
-a new sub-scheduler, which can then be blamed for time the task waited
-under the parent. scx_rehome_task() isn't affected, as it moves the task
-through SCX_TASK_INIT, which resets runnable_at. The stale runnable_at also
-skews the default core-sched ordering in scx_prio_less().
-
-Reset runnable_at in scx_disable_task(), when the task leaves the control
-of its scheduler.
-
-Fixes: 8a010b81b3a5 ("sched_ext: Implement runnable task stall watchdog")
-Cc: stable@vger.kernel.org # v6.12+
-Assisted-by: LLM
-Signed-off-by: Michal Blaszczyk <michalblk@google.com>
-Reviewed-by: Andrea Righi <arighi@nvidia.com>
-Signed-off-by: Tejun Heo <tj@kernel.org>
+Cc: stable@vger.kernel.org
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 ---
- kernel/sched/ext/ext.c | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
+ fs/ntfs/super.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index aa00b75371822..6fec09fd09707 100644
---- a/kernel/sched/ext/ext.c
-+++ b/kernel/sched/ext/ext.c
-@@ -2454,7 +2454,11 @@ static void ops_dequeue(struct rq *rq, struct task_struct *p, u64 deq_flags)
- 	struct scx_sched *sch = scx_task_sched(p);
- 	unsigned long opss;
+diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
+index 49ec1eb1520c1..9f5cf65fd3a55 100644
+--- a/fs/ntfs/super.c
++++ b/fs/ntfs/super.c
+@@ -1536,8 +1536,7 @@ static bool load_system_files(struct ntfs_volume *vol)
+ 	 */
+ 	vol->vol_ino = ntfs_iget(sb, FILE_Volume);
+ 	if (IS_ERR(vol->vol_ino)) {
+-		if (!IS_ERR(vol->vol_ino))
+-			iput(vol->vol_ino);
++		vol->vol_ino = NULL;
+ volume_failed:
+ 		ntfs_error(sb, "Failed to load $Volume.");
+ 		goto iput_lcnbmp_err_out;
+@@ -1546,6 +1545,7 @@ static bool load_system_files(struct ntfs_volume *vol)
+ 	if (IS_ERR(m)) {
+ iput_volume_failed:
+ 		iput(vol->vol_ino);
++		vol->vol_ino = NULL;
+ 		goto volume_failed;
+ 	}
  
--	/* dequeue is always temporary, don't reset runnable_at */
-+	/*
-+	 * Don't reset runnable_at. If @p is waiting, the wait continues across
-+	 * temporary dequeues, e.g. for a migration or an attribute change.
-+	 * scx_disable_task() ends it if @p leaves its scheduler.
-+	 */
- 	clr_task_runnable(p, false);
- 
- retry:
-@@ -4554,6 +4558,14 @@ static void scx_disable_task(struct scx_sched *sch, struct task_struct *p)
- 	scx_set_task_slice(p, 0);
- 	p->scx.reenq_cnt = 0;
- 
-+	/*
-+	 * If @p is runnable but not running, its wait started at runnable_at,
-+	 * which ops_dequeue() didn't reset. Leaving @sch ends the wait. Reset
-+	 * runnable_at the next time @p is enqueued on SCX, so that the watchdog
-+	 * doesn't count the time @p spends elsewhere.
-+	 */
-+	p->scx.flags |= SCX_TASK_RESET_RUNNABLE_AT;
-+
- 	/*
- 	 * Verify the task is not in BPF scheduler's custody. If flag
- 	 * transitions are consistent, the flag should always be clear
+@@ -1706,6 +1706,8 @@ static bool load_system_files(struct ntfs_volume *vol)
+ 	if (vol->logfile_ino)
+ 		iput(vol->logfile_ino);
+ 	iput(vol->vol_ino);
++	/* Do not leave a stale pointer behind for the rest of the teardown. */
++	vol->vol_ino = NULL;
+ iput_lcnbmp_err_out:
+ 	iput(vol->lcnbmp_ino);
+ iput_attrdef_err_out:
 -- 
 2.53.0
 
