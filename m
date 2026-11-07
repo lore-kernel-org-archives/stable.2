@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048108;
-	b=PeofCa1/m1AgzPSZWtu0phIn4g+i0tfZD9Nbj4XbvTQd9T2LIMIrwbGyPG3G/azazncy
-	 5OHsZAAFxYUMxKmWpJIRIIntKPrUT/PivwWBwffkfjG2BSGrcQ/KHJFr62ogr3vN/9KWx
-	 i3UlAktNo9RvIMPZURZVLux/p1ANl+Yk4v8OYd1G+76cNuHNv6sIZNxQz8zntXaqZZsyP
-	 FTTnFJ0fBEkbTLMseCUofhRmQaSFJheJi9OEQdUiX7V2+HYZmTve38HJ3jj54CGhNSEhF
-	 f9se/5wYeWat1ut//KxnsKtBABdbNJnjF00xYxbkYcXyPnz1M9dDlCMeafiCedHWPRw==
+	t=1794048110;
+	b=lB2LATbJ3u/Ook+WzPheQ5tQ60q+3CS6kYy3fMmPk/G2Gh1QjXhGoNP9dSEGGQhaWrRi
+	 Pjj1nvyY8ebe3n+NHbCs5GwA5sT1+vod6s5rknIfe2TJnFpDPUDY0Q7BQjDaT6hoBxeSm
+	 v+B036mqXV9y7RHc44X0QoQIS2r3ITLp1IWum/ACjbZStToSevPJDA0fOUsOHPrrWGCrZ
+	 iS4ZFjyJTXnL2j8JqrhB2v/gpe/EcoEMs2qm6At49OaxPdDbflF+q9loTzOlptpf0KdP5
+	 3V57szdywxmoF0rz+n8sEiEhD4GhWXxkVHtXk+AMs9E9lGJakr9TCQwIzOxOf4a2lDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048108;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048110;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=z3fp1Oy9QcgNzbfGA7ucxY/kB983Gz5FuNjKXvxzspk=;
-	b=gbRvlyK1ZmuuXLRuSppmOV9d+JkKLqmOV08yCYYvKIpAQ4hDrlGwD5A2b9E+wOs0visR
-	 cFY81XvI3RelgM4L5nlNtVSbH+BHvz0SxuNAySBgE9YS2oveAuyLoCic5sN1i8FMCaOIy
-	 Vi2yOw77j9AyF4CGsUcCCYQVu/dnxHGsoEF5T1dcuBzIy4eNeG77uS4Gjq8rfqYkeHASL
-	 Ih5zOQDdom+qKkJs2D1jesdtnf1sK/afHU4H2ppCp9/VvjjgXxJxefdekamLF08CaSWsy
-	 RmtPHhSfm/98Igi13nLLss/2w9eKVLV7uvIqnLbELCscxaXfaIz5tcVeO/2JNC4FNxg==
+	bh=XDtEFrlLqWfYWaUI03f2Xg2X3qAHB7rOe1k79YfGrF0=;
+	b=IfoBGjqUQFZkSWjhLRQmytuiMLs6/G/UieYVeacyErbSXSpCn6BCexwVO5rEUKbnGPCP
+	 zvuAntBsHnvn+Pl/LxOZoKTbxYY4+9jTQNdNSEMPxqIuWcrPMQqRIcFR6btTZbtjdGHTw
+	 jHjDTR3tsHjRcQb4UIDFnqyAsJcI5tDImA9nZ7ciZKUBHGwmPi+U0M1HK0slA9wBB5brP
+	 iOUQx8ghRYQXKqbygEmDkY0ll/tdw32A7wCOO9y+Gcs6GYK+vjVNJVFRziQolNyL61070
+	 Vq0iBIkJy2jrY1O7UveTC8O8GDYOKdwdC8A3SrKe3rg3fddN758U/UhLPiVe9HTIvsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kTz3AeS8;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VVJRTLEL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C80FC606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:41:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDBEF606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:41:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kTz3AeS8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 451DD1F0089F;
-	Sat,  7 Nov 2026 10:41:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VVJRTLEL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DAEB1F0089F;
+	Sat,  7 Nov 2026 10:41:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048107;
-	bh=z3fp1Oy9QcgNzbfGA7ucxY/kB983Gz5FuNjKXvxzspk=;
+	s=k20260515; t=1794048109;
+	bh=XDtEFrlLqWfYWaUI03f2Xg2X3qAHB7rOe1k79YfGrF0=;
 	h=From:To:Cc:Subject:Date;
-	b=kTz3AeS8YrniDttK0dura8LKEM/pFB521g1yDU4LmV7b4B6AdOT/+dTrTkZfGoPkR
-	 hPSy/NASNcBZZNaniPGdwBUCUceoJ/TDzqFJ/aPcNCtzs4aDhdvvfFj/N7PmQCNi7p
-	 4VEBS4onp3Lef3GyKAq0eT0lBjLP5hC98k1fx4G5OtUP68RHOGzrDJ3danypDljNE7
-	 5dQ9arDVSAYIfMNjqg70InO/KQ6u20ilQ5GnbQcVg5+g5G+IzRPRelWAG3qO9RAbIc
-	 noKP3EnXmCxpd9/xmH//PlgiuCNdCprm5ttzvHNuxvUGskqoGazcMOsge41ODyr6Ql
-	 ik+2Obanr/wHg==
+	b=VVJRTLELAyIoLsJArU9IZaZMyCkL6+CTm+T7AgTJEpzlq4xpXXAuiOyPP+deCMMY6
+	 v5dkfFC5VoteLnvSVJd6QGao4oBKJvFsCHMtw6RF78276IrZS5bSpxRU0i2gVFT6no
+	 H3xKGKCUTOjUyAQ696By9a6f+uo5EC1Gk25SQE2CiYPU8iOht8f1/0K8eydK76UQep
+	 jESSrIwy2/FaaxGFm6xoMOCkC5L9R7EXCw88xfQqcXdtfYodK3xXNpBpwqI+BW7iTG
+	 E5fZzwwgaNl2yqUeAZ228eguduVn4OS8unoTj7RHTUmVOpFDhWac/jhKoGFqkMz7qc
+	 2AzCd78LX9bPw==
 From: Sasha Levin <sashal@kernel.org>
-To: r772577952@gmail.com,
-	agruenba@redhat.com
+To: msakai@redhat.com,
+	mpatocka@redhat.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] gfs2: reject invalid inode sizes" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:41:46 -0500
-Message-ID: <20261107054146-failed-6.1-33ed0a0567e0@kernel.org>
+Subject: FAILED: patch "[PATCH] dm vdo indexer: prevent delta list overflow on load" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:41:48 -0500
+Message-ID: <20261107054148-failed-6.1-936293c9f3f4@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,83 +68,78 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 33ed0a0567e0abe66ea65e89dad2e35082890fbe
+git cherry-pick -x 936293c9f3f4f2a0d1b80df9332e96c552ac3b37
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054146-failed-6.1-33ed0a0567e0@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054148-failed-6.1-936293c9f3f4@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 33ed0a0567e0abe66ea65e89dad2e35082890fbe Mon Sep 17 00:00:00 2001
-From: Jiaming Zhang <r772577952@gmail.com>
-Date: Mon, 31 Aug 2026 18:54:25 +0800
-Subject: [PATCH] gfs2: reject invalid inode sizes
+From 936293c9f3f4f2a0d1b80df9332e96c552ac3b37 Mon Sep 17 00:00:00 2001
+From: Matthew Sakai <msakai@redhat.com>
+Date: Tue, 11 Aug 2026 15:02:33 -0400
+Subject: [PATCH] dm vdo indexer: prevent delta list overflow on load
 
-A corrupted GFS2 image can store a dinode size that is larger than what VFS
-i_size can represent. gfs2_dinode_in() reads the on-disk di_size as a u64 and
-writes it directly into inode->i_size. If the value is larger than S64_MAX, the
-incore i_size becomes negative. That negative value can bypass the existing
-stuffed inode size check:
+Check for corrupted delta lists sizes that overflow the
+memory available for the delta_lists. An overflow can
+cause the delta list data to be written outside the
+reserved delta memory space.
 
-inode->i_size > gfs2_max_stuffed_size(ip)
-
-Later, gfs2_quotad may try to sync the quota file and unstuff the quota inode.
-gfs2_unstuffer_folio() reads the negative i_size into an unsigned length and
-passes it to memcpy(), turning it into a huge copy size and triggering a
-out-of-bound issue.
-
-Reject dinodes whose size exceeds sb->s_maxbytes before storing the value in
-inode->i_size. Also make the stuffed inode check use the raw on-disk size while
-it is still unsigned.
-
-Fixes: 70376c7ff312 ("gfs2: Always check inode size of inline inodes")
-Closes: https://lore.kernel.org/lkml/CANypQFaF6bvORKKbRALvEL0k_epFaneFiOQqco4gjdmKVbdURg@mail.gmail.com/
-Assisted-by: Codex:gpt-5.5-xhigh
+Signed-off-by: Matthew Sakai <msakai@redhat.com>
+Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Jiaming Zhang <r772577952@gmail.com>
-Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
 ---
- fs/gfs2/glops.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ drivers/md/dm-vdo/indexer/delta-index.c | 17 ++++++++++++++---
+ 1 file changed, 14 insertions(+), 3 deletions(-)
 
-diff --git a/fs/gfs2/glops.c b/fs/gfs2/glops.c
-index 662d033fd2caf..2597e1cf2315c 100644
---- a/fs/gfs2/glops.c
-+++ b/fs/gfs2/glops.c
-@@ -393,6 +393,7 @@ static int gfs2_dinode_in(struct gfs2_inode *ip, const void *buf)
- 	umode_t mode = be32_to_cpu(str->di_mode);
- 	struct inode *inode = &ip->i_inode;
- 	bool is_new = inode_state_read_once(inode) & I_NEW;
-+	u64 size;
+diff --git a/drivers/md/dm-vdo/indexer/delta-index.c b/drivers/md/dm-vdo/indexer/delta-index.c
+index b288749067dee..257612b81a9d9 100644
+--- a/drivers/md/dm-vdo/indexer/delta-index.c
++++ b/drivers/md/dm-vdo/indexer/delta-index.c
+@@ -800,7 +800,7 @@ static void compute_new_list_offsets(struct delta_zone *delta_zone, u32 growing_
+ 		(delta_zone->size * BITS_PER_BYTE - delta_lists[tail_guard_index].size);
+ }
  
- 	if (unlikely(ip->i_no_addr != be64_to_cpu(str->di_num.no_addr))) {
- 		gfs2_consist_inode(ip);
-@@ -418,7 +419,12 @@ static int gfs2_dinode_in(struct gfs2_inode *ip, const void *buf)
- 	i_uid_write(inode, be32_to_cpu(str->di_uid));
- 	i_gid_write(inode, be32_to_cpu(str->di_gid));
- 	set_nlink(inode, be32_to_cpu(str->di_nlink));
--	i_size_write(inode, be64_to_cpu(str->di_size));
-+	size = be64_to_cpu(str->di_size);
-+	if (unlikely(size > inode->i_sb->s_maxbytes)) {
-+		gfs2_consist_inode(ip);
-+		return -EIO;
+-static void rebalance_lists(struct delta_zone *delta_zone)
++static int rebalance_lists(struct delta_zone *delta_zone)
+ {
+ 	struct delta_list *delta_lists;
+ 	u32 i;
+@@ -811,9 +811,17 @@ static void rebalance_lists(struct delta_zone *delta_zone)
+ 	for (i = 0; i <= delta_zone->list_count + 1; i++)
+ 		used_space += get_delta_list_byte_size(&delta_lists[i]);
+ 
++	if (delta_zone->size < used_space) {
++		return vdo_log_warning_strerror(UDS_CORRUPT_DATA,
++						"delta zone lists overflow zone size %zu",
++						delta_zone->size);
 +	}
-+	i_size_write(inode, size);
- 	gfs2_set_inode_blocks(inode, be64_to_cpu(str->di_blocks));
- 	atime.tv_sec = be64_to_cpu(str->di_atime);
- 	atime.tv_nsec = be32_to_cpu(str->di_atime_nsec);
-@@ -462,7 +468,7 @@ static int gfs2_dinode_in(struct gfs2_inode *ip, const void *buf)
- 		return -EIO;
++
+ 	compute_new_list_offsets(delta_zone, 0, 0, used_space);
+ 	for (i = 1; i <= delta_zone->list_count + 1; i++)
+ 		delta_lists[i].start = delta_zone->new_offsets[i];
++
++	return UDS_SUCCESS;
+ }
+ 
+ /* Start restoring a delta index from multiple input streams. */
+@@ -941,8 +949,11 @@ int uds_start_restoring_delta_index(struct delta_index *delta_index,
  	}
  
--	if (gfs2_is_stuffed(ip) && inode->i_size > gfs2_max_stuffed_size(ip)) {
-+	if (gfs2_is_stuffed(ip) && size > gfs2_max_stuffed_size(ip)) {
- 		gfs2_consist_inode(ip);
- 		return -EIO;
- 	}
+ 	/* Prepare each zone to start receiving the delta list data. */
+-	for (z = 0; z < delta_index->zone_count; z++)
+-		rebalance_lists(&delta_index->delta_zones[z]);
++	for (z = 0; z < delta_index->zone_count; z++) {
++		result = rebalance_lists(&delta_index->delta_zones[z]);
++		if (result != UDS_SUCCESS)
++			return result;
++	}
+ 
+ 	return UDS_SUCCESS;
+ }
 -- 
 2.53.0
 
