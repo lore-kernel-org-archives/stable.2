@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794045896;
-	b=Mtjc4EwGDbFttwDt2PrNAfgWyR7yauPp6Z4tPhmeXcrcOoPL9uJNJjkNea8uoaywyGKm
-	 XZqCPYscOVCY+1e7dvi4UoILCYMddFVLp5pQpXJl0RLIIPXrBI/PbWkuT64wsBXCjS/nB
-	 ioB/AZPxFiscwQFtWJYplavKXtpoD/++FAht0PhyLBQ7UrPk7VtWc9P/9u+x+ve10vEWQ
-	 TwnYr1ZiBhrQOcRMZOc3TRDEYic3mW2aVGzWDQ06OkTBSDY+LtojvHxw76ux5hPWor+2+
-	 izEWaDnck2i+LCq/j0F4UJ9cc/UopHoMKCSA6yZ+0pFgZXYVbMHZUPFk3iWDEK1unHQ==
+	t=1794045898;
+	b=evSM2+2WOSQnC+hqu4eRH2txfA6fXXBfXm8+Np4+ocUSXAb44SpSCbktjYXt+5T/u4eg
+	 zObn9ZGlMuAegQGKZFT8eqG2JxB/6Ss6UPf28jOt5FC0BnXLQyMD8Da0bItl/ZY8BZ/qM
+	 iJ1MdeIjLOJ7+WLi7D905NRQhQ7UI4mkvVG/jOWzDA8DDNX4jwWBGHM3JrsXIif8N/A4d
+	 KHI4KMzmffqwY9P36MkxjlZpcpcuZMt67plHIpEG9bEqQqO+lkoLsYSvLIfMQvBRyk2Vq
+	 E6lnHiPDNGyXryc+JcF6MqemVIbu5SRaf48gvmYovifb6E3CMbs4XApYx2QkXDDDTlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794045896;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794045898;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Mb4KdWH/f83YVwEgUrk/PijBYFwimeMrr6ICHV7NJRs=;
-	b=FApRie31qmDTnM31kM8jvzbbYooMFZrpCCGr53jWL4I/cFOmRcT52pLYk8L9v6VoVq4q
-	 218xS30RhiOViT9WBZcd1h21LrupM2iL8tVXK3oulCqyCITU+dFyTg4AGtvk3FFtvANvp
-	 1wEgID1kSdAEq6RwzmHWipPnN2epGEPGveAniZ6WLmtpbhIm6wLqSPR0Qw8bydd8v+qgL
-	 YlsW0fAiU7rTAfkBYnqAEqqgjIWaK8joX2pM7bPcHPoaqN60You98SX7+J9R/SKwOOHbY
-	 pJCjtLZUmkWRV/8Pzuy07qoqKfTB+Jy1KQijbtCTUEkDSPdpj1Vl4CND4UDUoAI5/nw==
+	bh=JD/Zr3Me4ndj15qc7QaMhuYbPKeC4bjylL0vHA9TCVI=;
+	b=D5CIdChALKOnjZOLnCkfZ5oGaoOgbywO0ZXu8gZQKDvDRPgehocpcQu8VW1fRO/AluTa
+	 aGbk0u6gv6jmw+iGtW6OYz9xbiLJfFAQ83evsr298PeVhq0sfSYV2Pd0rsETckqa0AawI
+	 MuNMGff3Hz7BZ3C2lC1ANLVhX7ZsHsz0xJhidzaqCm1qX0CjQfsg6e04wbqHkthsx3Fmg
+	 V+K9+fvCTrfRhOC9GkF3FX3YQEtjjVXUBxUgkM6tW954dUzn+ZOFgQ0zrnIppVVcqEwhQ
+	 2sz3seG48w5TmG4/nM0Ku8JYb4VZkmIn4YLIzL2B/dKvA+z6ybm7CgZo807bTZ765cg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QUtS67wt;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jxGvb1Z4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2DF1606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:04:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B353606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:04:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QUtS67wt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35B871F0089F;
-	Sat,  7 Nov 2026 10:04:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jxGvb1Z4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A0001F0089F;
+	Sat,  7 Nov 2026 10:04:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794045895;
-	bh=Mb4KdWH/f83YVwEgUrk/PijBYFwimeMrr6ICHV7NJRs=;
+	s=k20260515; t=1794045897;
+	bh=JD/Zr3Me4ndj15qc7QaMhuYbPKeC4bjylL0vHA9TCVI=;
 	h=From:To:Cc:Subject:Date;
-	b=QUtS67wtMUFkBUuQo9D/6inVtnCVvbLgAYdqrUihujtHIKPsy5RpD2Zz/dpoB2u+4
-	 Jc9T651MhJbe9e7E7if9q/gw5AfA51hjNMqS8GkJ4D9CsIG3peyMdbTkVWSiDoKBtx
-	 QzB8Vh0WfXECXedlAnye+UWRJhFJ/8SUTXsMP05oa4jLfVwbDguKWY0f3Jc8akD4lK
-	 vtt2eEzXZFOCcMIMxOEKtMvgXsib6GzA9gMwHjsbJf9vV1yQP7o25Sp+RjW9jx8luG
-	 9rTmTjgf4iJOQdCVe8bXYSh7nTODNQZVyisLd4Obp5F527CjIzn4glvcvE2GQJA8pr
-	 cbfSrgg9pPCbw==
+	b=jxGvb1Z4o5BaIh1Enl7Xu7oMsMv6UhDbfiqyBUFAq9kcbvM3axNIeWvcNrDllzdrd
+	 hTqGqd43wE3M1sRXK1LV9adigOCwLv1WzcDCltrg+AwOZnNg1CFvA16nmUtCqLwo4x
+	 PhIGlq57XbxraTjZgAOpUsoOWTuo2OCb/hgkZsYYJXDCZj1Y2RELf5aToshen78gQL
+	 nXDbbJ8w0wmpohhhpmOpCf1MHUnXXn1WunGrMiqQyqtof23dXCdIFJD6B6m2Gic5nO
+	 3yDO7hfjnYH1981vfC3v+KQGiSAZb0Lz1oWlVbxVLSeWUmjGN5WzEs/UOeXf8D4/YU
+	 URNJQF63thnDQ==
 From: Sasha Levin <sashal@kernel.org>
-To: maz@kernel.org,
-	oupton@kernel.org,
-	fuad.tabba@linux.dev
+To: parri.andrea@gmail.com,
+	jgg@nvidia.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] KVM: arm64: vgic: Stop the target vcpu when disabling LPIs" failed to apply to 7.3-stable tree
-Date: Sat,  7 Nov 2026 05:04:54 -0500
-Message-ID: <20261107050454-failed-7.3-a1b4bd2c2c26@kernel.org>
+Subject: FAILED: patch "[PATCH] iommufd/iova_bitmap: Ensure that iova_bitmap_set() handles the full IOVA" failed to apply to 7.3-stable tree
+Date: Sat,  7 Nov 2026 05:04:56 -0500
+Message-ID: <20261107050456-failed-7.3-e21952d72b47@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,67 +68,86 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x a1b4bd2c2c262b8094c86afb99364d16ac08cb66
+git cherry-pick -x e21952d72b4740f08a272d694cca223b6b0099ca
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050454-failed-7.3-a1b4bd2c2c26@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050456-failed-7.3-e21952d72b47@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From a1b4bd2c2c262b8094c86afb99364d16ac08cb66 Mon Sep 17 00:00:00 2001
-From: Marc Zyngier <maz@kernel.org>
-Date: Thu, 15 Oct 2026 11:05:38 +0100
-Subject: [PATCH] KVM: arm64: vgic: Stop the target vcpu when disabling LPIs
+From e21952d72b4740f08a272d694cca223b6b0099ca Mon Sep 17 00:00:00 2001
+From: Andrea Parri <parri.andrea@gmail.com>
+Date: Fri, 25 Sep 2026 18:11:37 +0200
+Subject: [PATCH] iommufd/iova_bitmap: Ensure that iova_bitmap_set() handles
+ the full IOVA
 
-Disabling LPIs is pretty nasty, as it directly messes with the AP list
-of the affected CPU, which could be running... This has the potential to
-lead to really bad behaviours, and we should not be doing that.
+Generally userspace is going to step the dirty bitmap through the IOVA
+space. However if the bitmap ends in the middle of a large PTE this is
+problematic. The first step will clear the dirty bit and report dirty to
+the end of its bitmap while the second step will see the clear'd dirty and
+report clean for the start of the bitmap. If it happens this ends up
+losing dirties.
 
-Take example on the way the Active state is handled and simply pause the
-the vcpu so that we are sure it is in a quiescent state, and the state be
-safely manipulated.
+Further this function is missing bounds checking so if this does happen
+ther is a good chance it will write memory beyond what the userspace was
+expecting.
 
-Nobody has any expectation of performance for this anyway.
+Return an error code if this illegal condition happens.
 
-Fixes: 96085b949672d ("KVM: arm/arm64: vgic-v3: Retire pending interrupts on disabling LPIs")
-Co-developed-by: Oliver Upton <oupton@kernel.org>
-Signed-off-by: Oliver Upton <oupton@kernel.org>
+Fixes: 58ccf0190d19 ("vfio: Add an IOVA bitmap support")
 Cc: stable@vger.kernel.org
-Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
-Tested-by: Fuad Tabba <fuad.tabba@linux.dev>
-Link: https://patch.msgid.link/20261015100539.1011760-7-maz@kernel.org
-Signed-off-by: Marc Zyngier <maz@kernel.org>
+Assisted-by: LLM
+Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
+Link: https://patch.msgid.link/20260925161142.189813-2-parri.andrea@gmail.com
+Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
 ---
- arch/arm64/kvm/vgic/vgic-mmio-v3.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ drivers/iommu/iommufd/iova_bitmap.c | 12 ++++++++++++
+ include/uapi/linux/iommufd.h        |  6 ++++++
+ 2 files changed, 18 insertions(+)
 
-diff --git a/arch/arm64/kvm/vgic/vgic-mmio-v3.c b/arch/arm64/kvm/vgic/vgic-mmio-v3.c
-index 5913a20d83019..f5bd29fbe3a90 100644
---- a/arch/arm64/kvm/vgic/vgic-mmio-v3.c
-+++ b/arch/arm64/kvm/vgic/vgic-mmio-v3.c
-@@ -303,9 +303,19 @@ static void vgic_mmio_write_v3r_ctlr(struct kvm_vcpu *vcpu,
- 		if (ctlr != GICR_CTLR_ENABLE_LPIS)
- 			return;
+diff --git a/drivers/iommu/iommufd/iova_bitmap.c b/drivers/iommu/iommufd/iova_bitmap.c
+index 483f0cc846466..953f6a57d0ca7 100644
+--- a/drivers/iommu/iommufd/iova_bitmap.c
++++ b/drivers/iommu/iommufd/iova_bitmap.c
+@@ -409,6 +409,18 @@ void iova_bitmap_set(struct iova_bitmap *bitmap,
+ 	struct iova_bitmap_map *mapped = &bitmap->mapped;
+ 	unsigned long cur_bit, last_bit, last_page_idx;
  
-+		/*
-+		 * Yes, disabling LPIs is painful, since it can be done from
-+		 * a *remote* vcpu! So let's not take any chance, and make
-+		 * sure that the target vCPU has written their LRs back to the
-+		 * irq structures, and release any reference they would have.
-+		 *
-+		 * If it hurts, don't do it.
-+		 */
-+		kvm_pause_vcpu(vcpu);
- 		vgic_flush_pending_lpis(vcpu);
- 		vgic_its_invalidate_all_caches(vcpu->kvm);
- 		atomic_set_release(&vgic_cpu->ctlr, 0);
-+		kvm_resume_vcpu(vcpu);
- 	} else {
- 		ctlr = atomic_cmpxchg_acquire(&vgic_cpu->ctlr, 0,
- 					      GICR_CTLR_ENABLE_LPIS);
++	/*
++	 * If the range cannot be recorded then the system call returns failure.
++	 * This is to prevent loosing dirties if userspace is expecting to step
++	 * the bitmap through the IOVA space.
++	 */
++	if (!length || length > bitmap->length || iova < bitmap->iova ||
++	    iova - bitmap->iova > bitmap->length - length) {
++		if (!bitmap->err)
++			bitmap->err = -EPROTO;
++		return;
++	}
++
+ update_indexes:
+ 	if (unlikely(!iova_bitmap_mapped_range(mapped, iova, length))) {
+ 		/*
+diff --git a/include/uapi/linux/iommufd.h b/include/uapi/linux/iommufd.h
+index b4c7194cb08d2..010f47f7d3d23 100644
+--- a/include/uapi/linux/iommufd.h
++++ b/include/uapi/linux/iommufd.h
+@@ -871,6 +871,12 @@ enum iommufd_hwpt_get_dirty_bitmap_flags {
+  * Walk the IOMMU pagetables for a given IOVA range to return a bitmap
+  * with the dirty IOVAs. In doing so it will also by default clear any
+  * dirty bit metadata set in the IOPTE.
++ *
++ * The IOVA range given must fully enclose any IOPTE. If the range starts or
++ * ends inside a dirty IOPTE then the ioctl will fail. This avoids partially
++ * reporting a dirty range.
++ *
++ * On failure the dirty state becomes unknown and the userspace must restart.
+  */
+ struct iommu_hwpt_get_dirty_bitmap {
+ 	__u32 size;
 -- 
 2.53.0
 
