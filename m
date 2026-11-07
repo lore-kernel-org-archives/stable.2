@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047670;
-	b=P5l4gpH2XCnhcGNTYoDjdCHykdasb4e85Hm3VjAGWsGgENgmrxvZpOA5YAYnJ6lDVIM6
-	 P2utEijlGfgToquAldgDrzxl8H7zGanytK68HkcB6hNe3tV4AsV/WAR+K7x11Vk95M+VM
-	 yxcwKjSOPPHjQ7ZDTexWvzn+jBNZIwnNoqnYWgsZZRpuXrOHPgH1xiEHGL5sO30vPnDUm
-	 FHElPnrPfT3VtvvSAf9sF9rxHTdOcGNLWaGtqelv4S+21wO86HU8onhV3PwiZgulhuN6G
-	 ZjMvpuJQylRgtGcfvN33cQTFOvEBTDZdrLQ+SkK0jeAhdqD7qeKZQb7UIXRtqQOaAPg==
+	t=1794047672;
+	b=nzQg96rCOHVtNkTGh5VpIhrJc2yTuylV9zdzxefW4YVyPKG2DF3R8jvr5FSeFceq5Yn/
+	 T7R0028CXtLWOpGxkkXa/feUBpf9AySfsac0lKRQZkxn2peqX0TI17BkTEBKXn3G7o9qZ
+	 7794mWC97sExdF7bFmeLXM8P9VWJ1DtDQRhIWFLgj5upZD+XJXU6CR2VQC/J2RzETJq+k
+	 M3q90nu70Icg+4oxUKE/eHTeec0RLhWM3rwEUh3cDjwQlcZif8IKq5D66o1ZJphvbnunB
+	 tcHwssqexPMViOfFB7JQ9ENvCyCmZusUYVp0lCLQXxF7Lk06TUaSarHiORh/Kq+s/xA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047670;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047672;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=5iytAk5ulRT5v+JCYVCmaYx/8wuopglsqPMzbuHPF1Y=;
-	b=Kh6igZQf2WJZDwBN1TDf8/Prrj9nNKYTAB959WGwlNt0WNJdqp/b0HMHfi9VL3Lpxsn8
-	 cOVeUS6dizGtd21cTtI9O7U9CB4yHUeOuFVbCmJm0KMEnTD27ZvnGFJ537SZ5QaD3P6oh
-	 9dAzK8G2kbT6SnstLKUKjz1U7aciT05Tf1IRHojAEqd3TcfFEydUoqN/c+4wcZ3zMgLQW
-	 Asch20F9asyGP2uSY3HdxRrs2yLYMaLXxZ3IilG8GOupzSO4wO+XFHWatA7SjYN2icoO5
-	 uABG/7Sc+tempP7uhIuvm1+IBriwXDDpv4dF0vU5oYWJac71wF4KAZ0EuTijAOr0nDQ==
+	bh=Pfl3XNtdlDfgHw3J6yDEVXK98M4y5qAiOUQL+WHJKGY=;
+	b=2kXHRGzOXo/0Z2p/ysTKJGBvDXcd2ZvPjbpGZPdsSEsSmK/bpepSRkji3bBF7SIIalMS
+	 II5PISRPQZqn0alY1AOtJ1ojlLijkQMLI/GxCO0oIbaEeM5+hsJcm6rGRep4tpekb/C00
+	 FRlt6pdUao6/Uv1pGVcLpFgt+BVymRDwOAubDC81QNX2mM0HWXjxZBEneOVKLqss55pS/
+	 Q1DTJAmVLL+N6uHnMGNrqKrZFlR2vohxwv9ZTO/mlh96WaLtCtspkKNwBZMbBwH638GrN
+	 XuLcVoRDXrt+gQV738olkPQKpvCTc0/nKSfbv3rkTYve7+cU9jFn18CksLjmxOICpCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dnZLdir0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aX9uLblM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17A4D606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:34:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B7F8606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:34:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dnZLdir0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B4B61F0089F;
-	Sat,  7 Nov 2026 10:34:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aX9uLblM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A20081F0089F;
+	Sat,  7 Nov 2026 10:34:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047669;
-	bh=5iytAk5ulRT5v+JCYVCmaYx/8wuopglsqPMzbuHPF1Y=;
+	s=k20260515; t=1794047672;
+	bh=Pfl3XNtdlDfgHw3J6yDEVXK98M4y5qAiOUQL+WHJKGY=;
 	h=From:To:Cc:Subject:Date;
-	b=dnZLdir07qKDXdMrLuMbCdKPXZA0gfRaCsJHiuzCBhJpa0uj5FryfzIG8iVJI3G8g
-	 TZZ1baMIrxWekYF6nRg3xtiWFdAsOp+e+Wiz9nL7ivzRjTArtBVpbJtWU9Tu52RBTq
-	 EE+JhQ/M40URs9ogx55OHJLZVYMwEbaXYmAGR+Grn9kTRDvOlu/dpqmnD7cPjJec8o
-	 yM1elKJR8bVphZ36u6q9OP5mIfHlPFiQLak1yihALjSe2E5itf6qTdvIntp2n+ND60
-	 Wg1zIqWCclBwleDE9MBg23ohCCZnhaXcmzEY5/oOe9Qw4dB+bW0wdIZ206CWzvNZO1
-	 QpwKcpfp/SkJw==
+	b=aX9uLblMOHTeTOgr8uWAZ45ZFw1lsFBqknCH5KDX9WVRaFpXlf+/C3yD5xOyNVm9+
+	 ei+Zon3WcjLugCt1WUUo+ZATtj9GntDZla/fOEzwAIJWS6KXCNhq4A1KxmAkGoug63
+	 myU5tVOAXVTQ/veCDqtF+yQfK+264XvYFgSR420kHm6r5Lm1431NLwyjO55KhTT6/e
+	 o31UoPQ4nc2QT/LiVHcVZTVmWYh6OwnbYiTRCyciBUenikaCrXdKGG8Akf7kRzRrEq
+	 lcb0CtVyARoLXWWEcISXm7+uWYrdGKe8W9b72bzNxL1N8hMVjFGNECXSkqc4I5NJh0
+	 h/FjMvdWSFkcQ==
 From: Sasha Levin <sashal@kernel.org>
-To: yhlee@isslab.korea.ac.kr,
-	hare@kernel.org,
-	hch@lst.de,
-	kbusch@kernel.org
+To: ts@linux.ibm.com,
+	schnelle@linux.ibm.com,
+	hca@linux.ibm.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] nvme-auth: fail when the controller does not authenticate itself" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:34:28 -0500
-Message-ID: <20261107053428-failed-6.6-f9e43d924bc7@kernel.org>
+Subject: FAILED: patch "[PATCH] s390/pci: Add error cleanup in zpci_directed_irq_init()" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:34:30 -0500
+Message-ID: <20261107053430-failed-6.6-769f66f595c1@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,82 +69,91 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x f9e43d924bc74feeb56197de82b2845de2a4b85a
+git cherry-pick -x 769f66f595c11185c66913ea5d96420504bfebc3
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053428-failed-6.6-f9e43d924bc7@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053430-failed-6.6-769f66f595c1@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From f9e43d924bc74feeb56197de82b2845de2a4b85a Mon Sep 17 00:00:00 2001
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-Date: Tue, 6 Oct 2026 22:48:05 +0900
-Subject: [PATCH] nvme-auth: fail when the controller does not authenticate
- itself
+From 769f66f595c11185c66913ea5d96420504bfebc3 Mon Sep 17 00:00:00 2001
+From: Tobias Schumacher <ts@linux.ibm.com>
+Date: Fri, 9 Oct 2026 08:15:52 +0200
+Subject: [PATCH] s390/pci: Add error cleanup in zpci_directed_irq_init()
 
-nvme_auth_process_dhchap_success1() returns success as soon as the
-controller clears the rvalid flag in its DH-HMAC-CHAP success1 message,
-without looking at whether the host had asked the controller to
-authenticate.  A host configured with a controller secret sends a
-challenge in its reply, computes the expected controller response, and
-sets chap->bi_directional; if the controller then answers with
-rvalid = 0 the response is never compared, the host still sends
-success2, and the queue is marked as authenticated.
+If per-CPU airq_iv allocation fails in the loop, previously allocated
+vectors and arrays leak. Add proper error path to release all resources
+on failure.
 
-A malicious or man-in-the-middle controller therefore only has to clear
-one flag to turn the configured bidirectional authentication into a
-one-way one, without holding any secret of its own.  The target side
-already treats the mirror image of this as fatal: when the host supplied
-a challenge but no controller key is configured, nvmet_auth_success1()
-fails the authentication rather than answering with rvalid = 0.
+The error path frees zpci_sbv, but SIC_IRQ_MODE_DIRECT has already
+programmed its address into the hardware. Set the directed interrupt
+mode only after all allocations have succeeded, so a failed init leaves
+no freed memory registered with the hardware.
 
-Refuse the connection if the controller returns no response although
-bidirectional authentication was requested.  chap->bi_directional is the
-right condition rather than ctrl->ctrl_key, because secure concatenation
-sends a challenge only to derive the PSK and deliberately clears
-bi_directional; a one-way setup without a controller secret keeps
-returning success as before.
-
-Fixes: f50fff73d620 ("nvme: implement In-Band authentication")
+Fixes: e979ce7bced2 ("s390/pci: provide support for CPU directed interrupts")
 Cc: stable@vger.kernel.org
-Reviewed-by: Hannes Reinecke <hare@kernel.org>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-Signed-off-by: Keith Busch <kbusch@kernel.org>
+Signed-off-by: Tobias Schumacher <ts@linux.ibm.com>
+Reviewed-by: Niklas Schnelle <schnelle@linux.ibm.com>
+Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
 ---
- drivers/nvme/host/auth.c | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
+ arch/s390/pci/pci_irq.c | 26 +++++++++++++++++++-------
+ 1 file changed, 19 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/nvme/host/auth.c b/drivers/nvme/host/auth.c
-index e55920642f2c1..cbb38935fa227 100644
---- a/drivers/nvme/host/auth.c
-+++ b/drivers/nvme/host/auth.c
-@@ -358,8 +358,21 @@ static int nvme_auth_process_dhchap_success1(struct nvme_ctrl *ctrl,
- 			 nvme_auth_hmac_name(chap->hash_id),
- 			 nvme_auth_dhgroup_name(chap->dhgroup_id));
+diff --git a/arch/s390/pci/pci_irq.c b/arch/s390/pci/pci_irq.c
+index c5fabad381395..bcf11585df8d8 100644
+--- a/arch/s390/pci/pci_irq.c
++++ b/arch/s390/pci/pci_irq.c
+@@ -569,14 +569,9 @@ static int __init zpci_directed_irq_init(void)
+ 	if (!zpci_sbv)
+ 		return -ENOMEM;
  
--	if (!data->rvalid)
-+	if (!data->rvalid) {
-+		/*
-+		 * The controller did not return a response.  If we asked it to
-+		 * authenticate itself the session must not be used, otherwise
-+		 * mutual authentication would silently degrade to one-way.
-+		 */
-+		if (chap->bi_directional) {
-+			dev_warn(ctrl->device,
-+				 "qid %d: controller did not authenticate\n",
-+				 chap->qid);
-+			chap->status = NVME_AUTH_DHCHAP_FAILURE_FAILED;
-+			return -ECONNREFUSED;
-+		}
- 		return 0;
+-	iib.diib.isc = PCI_ISC;
+-	iib.diib.nr_cpus = num_possible_cpus();
+-	iib.diib.disb_addr = virt_to_phys(zpci_sbv->vector);
+-	zpci_set_irq_ctrl(SIC_IRQ_MODE_DIRECT, 0, &iib);
+-
+ 	zpci_dibv = kzalloc_objs(*zpci_dibv, num_possible_cpus());
+ 	if (!zpci_dibv)
+-		return -ENOMEM;
++		goto out_free_sbv;
+ 
+ 	for_each_possible_cpu(cpu) {
+ 		/*
+@@ -589,13 +584,30 @@ static int __init zpci_directed_irq_init(void)
+ 						AIRQ_IV_CACHELINE |
+ 						(!cpu ? AIRQ_IV_ALLOC : 0), NULL);
+ 		if (!zpci_dibv[cpu])
+-			return -ENOMEM;
++			goto out_free_dibv;
+ 	}
++
++	iib.diib.isc = PCI_ISC;
++	iib.diib.nr_cpus = num_possible_cpus();
++	iib.diib.disb_addr = virt_to_phys(zpci_sbv->vector);
++	zpci_set_irq_ctrl(SIC_IRQ_MODE_DIRECT, 0, &iib);
+ 	on_each_cpu(cpu_enable_directed_irq, NULL, 1);
+ 
+ 	zpci_irq_chip.irq_set_affinity = zpci_set_irq_affinity;
+ 
+ 	return 0;
++
++out_free_dibv:
++	for_each_possible_cpu(cpu) {
++		if (zpci_dibv[cpu])
++			airq_iv_release(zpci_dibv[cpu]);
 +	}
++	kfree(zpci_dibv);
++	zpci_dibv = NULL;
++out_free_sbv:
++	airq_iv_release(zpci_sbv);
++	zpci_sbv = NULL;
++	return -ENOMEM;
+ }
  
- 	/* Validate controller response */
- 	if (crypto_memneq(chap->response, data->rval, data->hl)) {
+ static int __init zpci_floating_irq_init(void)
 -- 
 2.53.0
 
