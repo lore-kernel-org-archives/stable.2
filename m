@@ -1,94 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794053060;
-	b=AV/kf4U3ZjfxnBKdTh+DV/vFKv8PDYC8DmtGYBLzn/JpzVgPATmG+HUi70oIa8PZgP1e
-	 Ba4GW7kQsDhwdRzIELAgwKpVuycB9aPRtRPCtIUDHcuwNc5EPoZ9pqYg4eeqEOUKNEPD7
-	 RlhJdSmLFNQdTw3N2vqQcN4TGqQEF1+p9k7UpezL0zGK02ee3+21ZQ14ALA5jFcC6eobL
-	 PuyyF2z8M6rafxhWW/R2zgQKsKPIWE6Xc9247EYJtqv5auLf4Nnt2pAYhtp7FkTcA9IsU
-	 VFRpSgGTsJKuN1715JAU/meXgcLX+NVK0Gbta+25eHqyxvS50Od0OywsJFj6tVDvLUg==
+	t=1794053239;
+	b=vZanYSqyeHECk2+D9xF4/VX992001KhKnRD1BewaFsJN6OcK4B65hdR/ItaK09V1i4u4
+	 gOkdFHzX9eYEI2HmLwjGY+veZAIDZ7j4wHLrtcX3lAYKsSHs/bwPWtSdgyHXu+KZwGGqO
+	 h3ur+2yvJ8JNFX9FbNy2KY0etkl4dGsUbnF3HK7/wJUsQNDF1vbiyt9ABWrFFwbREIAK6
+	 yr/GKr6fikiCKLhpYfs7x1Vn/0s284KTupJgpdjMoRFNgKGRaO+fsM4jdF7n/1aiiVvYR
+	 P66m0DrGa1+52ftFNdY9zmlBNdMtq8Y5WJZt59ym855Y0c4AOArjoW1LIME6HDkDN1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794053060;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=0wEPOPRkzmcCVluHi7awEBcRiIpVo6w+uyJsThFok18=;
-	b=t91byCc9qzh9YJIPzJUWmIOnVBsyXThW/r9zDmKcd+/QYLt7SZGUyFHwIb1dRnVzHH4E
-	 9SFrIBDWxbmmunPMOrCH5er4zT/YG4wDxhH5gNFLdPSJ7HGLiVZmY0DcLfMboIhsjebnL
-	 vOXv1T+Q+7sGHE6XaNdWohLaDM7fSEHbsDBaGWoWSZAomiOlenlJn/BLKfLNnaJu8A83h
-	 5ZOmhfBAR4aHAOwkW1AO7fj4ouDjNdw2pLt4CHwtP1Y4mGBXgUSNvT+pdaTa4kPYMi2No
-	 uX8K8zso2ciZFZRKtV9Vo3OBpD0/CI5DGW5FbbemsT4rCxvjdEDRk4qXzQCJBhz8FtQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794053239;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=T4DQgQD6BZb0zJ5cyJeM3EcgoStNMi0qYJ/wpTmwtr4=;
+	b=qjskhAug/jC4amQgMQH0lYjHRuvV13Hujeen74sn3iZmrrqFBj6Z8T6PS4OeKinLfnRQ
+	 ZUrSGbEYiMPL77bC/6sGDRsLuUKQfw9sDQqUmvPjeyyXRyq+IZpuODVzCUSCHRmRiiChC
+	 5T1RxMOjJW/SbwptpfqrJT+Q0Zw4CgZg2d2Uu1c/NWUESia3ljUr/btWjGTZEhca9XSHW
+	 K0Z3L0KWbE+y+zmXInnMZVECNFB7EJWH9uiMUsd/6lhLJv2GOgNrQknuceHvvG6sFgrCA
+	 7byiiIjNEtMyCvkPPMpUvyHVMF4uFZNXteIG00h8QBJ28jMDJlBD7Mkw0ZxejLt/EWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XmftnUCu;
-	arc=none smtp.remote-ip=209.85.208.54
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Wg2L/Ac5";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24F61606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 12:04:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24F61606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B27FD606A32F;
+	Sat,  7 Nov 2026 12:07:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XmftnUCu
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6b58cb69927so721713a12.0
-        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 04:04:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794053058; x=1794657858; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0wEPOPRkzmcCVluHi7awEBcRiIpVo6w+uyJsThFok18=;
-        b=XmftnUCuM3ejrgBzOC0vQZVP2FAU6H4KefgwOeeWd7dwI6MBhxBKVnKm/Xh726AZ7R
-         e+ARdbzecb6d10m77ndqLpuZnmNkdwkDRqTwog07wQj9abtmqFXQrEIFpMUglcGBSuid
-         xX09WxoFtAwlrqABREk7yLdGGCCuS0YZx3WfTOWd7vCLRx4xB4IcpnTUsL/wILhJTEIA
-         JAqHglKaNg/VpmJBvhYYmNuX2QfftTHmvX9X1Dsq/yvIZJGKM7DAZYDyu9mpqaKMwxj8
-         ot615bqxc04N8y+mDMi8JVle6OrmsAGHeyHVJUA+y6JnCBHny5YChIjTnAoHeE31ruXi
-         ofGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794053058; x=1794657858;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0wEPOPRkzmcCVluHi7awEBcRiIpVo6w+uyJsThFok18=;
-        b=CnbQB96c8F0pi/oPkaTFxeYm7jTr9v8EZRCst9okNz3iAdBc4u+G6y9M0QPUxgrgli
-         y4om5DPnCssJ6feZmvq/3S5c2gCAMwt9nV4Yk8KZiZJN9k2RPAui2oWNJ3bGl54HpPoj
-         zjtSs7Hq1OH51f71eQ9CJ6JP6L0Ygl0WLbK3aycNlS1KR9m/mr1TUQfQXOjzP2HJpDC4
-         zwHAOK8tCEFgmGdlswf7NUO0zBNYva3slVCFhYHCx8FAwKzIG2CrznW8r4cXuw+5Gbyo
-         XpRA6+Cd12mlPZFVdQ7jbUZ2UVZJ/irC2U1rMzbsWdyNIGIRch94G4hGpffGJmq7rpoh
-         LATQ==
-X-Gm-Message-State: APuU4Z8FdTINXwE9ULVfxVj5YSdttZh8dNsDoF1A1Omv1DwfImeUjSCp
-	XRciObmK2eWbyfBI9g6haIFKwjkuDY5ndUCDIfE0lSqcoCqbLKsbPHKf2w8Xbg==
-X-Gm-Gg: AYBFou3ihphzQZzDgKVtkh0sVt+N7bdMZf5PCms6Jfhaxkwp9VLQOFy4fYcXtZLc1a1
-	s7Pzk50ngEbopfA/PAOBJL1ypUvxT3a3zO6lkGUKaI2+5pCt0dQZfNEQIXS0YyTspKiJ+ppp9Bt
-	qBsWrx0hCDTporwTVNYugjQse3LseeX1M+y7xMLvJZFa95MVjyAD9+g4bThCg+ws66gzRkDRm74
-	+BHHxmJ+7aeFnt55UYVE0O8MuVe3uaYBZH7xgrzjVk29UbR2WWHXRZLatrPjPpKBfqQMPl34zqU
-	rYQVjBjBd7qlzcOG//gynaLs/Gru/tpjICtgQ0R/7hklwF0Mgxre5ItxXM1wjquAHbgq+gUhHQI
-	oYerz/rhs5RhTYpr7dWbNlDkPKS6E9zPm4/XLn+c/oA7radJbgQucEzj1UzjYO5dzoFcwPQ9mmF
-	emypJll0faKINKG86gB8DqNBYoWGVtVOk9B279m05LSm6qGmrT9CaIQCdA+EBlu8LDVr9nwZHOP
-	F8QIOICVLyqWcvMMQp87XSpn0W42HBsE/CAFLnE5wXzji6Om2+sc0JhAyUbF4m+PK7tkODJ1cFH
-	sn92ixKdsZFaKQ6YibnxYvxEH2IKZmtcfWvPOCiBvBrqt0AYN2q7RY7KvPPXFNnE
-X-Received: by 2002:a05:6402:11cd:b0:6b5:76bb:4522 with SMTP id 4fb4d7f45d1cf-6b6fad28dfcmr1067709a12.2.1794053058446;
-        Sat, 07 Nov 2026 04:04:18 -0800 (PST)
-Received: from kali (83.11.29.10.ipv4.supernova.orange.pl. [83.11.29.10])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b664ad2901sm1807772a12.6.2026.11.07.04.04.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 04:04:17 -0800 (PST)
-From: Kamil Sawicki <user148783812897@gmail.com>
-To: stable@vger.kernel.org
-Cc: willemb@google.com,
-	kuniyu@google.com,
-	edumazet@kernel.org,
-	kuba@kernel.org
-Subject: [PATCH 6.1.y] net: limit priority VLAN untag depth
-Date: Sat,  7 Nov 2026 07:04:08 -0500
-Message-ID: <20261107120408.29497-1-user148783812897@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107055616-failed-6.1-d3ff07f5acc5@kernel.org>
-References: <20261107055616-failed-6.1-d3ff07f5acc5@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wg2L/Ac5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD3C11F008A1;
+	Sat,  7 Nov 2026 12:07:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794053238;
+	bh=T4DQgQD6BZb0zJ5cyJeM3EcgoStNMi0qYJ/wpTmwtr4=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Wg2L/Ac5CiE1owO1n/ALeS0Fr2aktZ01dK3drBIzfVpfJTTYFUpy7bKRUFXBfIZwT
+	 8foTK49KOHVNZEmpioGzfaX8xdL6Db/S0qF90qSQs6QulwRSMUHd9Rpjgvtiw8F6/7
+	 SwR7uhXkricVzPD9dTwPQ/6C9pChv9/IAJqEUp3Y7N5mzdFN8zXrOXIrjxm5751MYt
+	 CQ++bZgMIrf4Iboz7M8ASUQhg/shNHPKt+tJks/gkpr1Pabj7D0zTeruwtlv9sfKF3
+	 785Ei2N3Qr+CV+WCb8FLJ/Fj1qpUG7mSgIcyxhq26Fr+Tt0tQNjIAlVXDkRSGl+p6I
+	 flxslhFeB5jBA==
+Subject: Re: [PATCH] mlxsw: spectrum_ptp: release parsing depth on MTPPPC
+ write failure
+From: netdev-bot+sashiko@kernel.org
+To: vulab@iscas.ac.cn
+Cc: idosch@nvidia.com, petrm@nvidia.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Sat, 07 Nov 2026 12:07:17 +0000
+Message-ID: <179405323723.994134.11947248661617076904@kernel.org>
+In-Reply-To: <20261103102851.1340480-1-vulab@iscas.ac.cn>
+References: <20261103102851.1340480-1-vulab@iscas.ac.cn>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -98,82 +63,184 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-[ Upstream commit d3ff07f5acc573e5f72bf1c581bae5d05191ba61 ]
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-The priority VLAN receive path can repeatedly remove VID 0 tags and retry
-packet processing. Unlike the read-only VLAN protocol parser, this path has
-no limit on the number of nested tags it consumes.
+Critical: 0 · High: 1 (1) · Medium: 0 · Low: 0 (1)
 
-Each skb_vlan_untag() advances skb->data and resets header offsets. The
-offsets are stored in 16-bit fields. With enough nested tags, the network
-or transport offset can wrap. A later protocol handler can then derive a
-large pull length from the wrapped offsets and access memory outside the
-skb allocation.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Apply the existing VLAN_MAX_DEPTH limit to the exceptional VID 0 retry.
-Count the tag already stored in skb VLAN metadata as the first level, then
-stop before untagging a ninth level. Keep the accounting inside this
-uncommon branch so the regular VLAN receive path is unaffected.
+- [High] The patch fixes the enable-path leak but adds the same leak on
+  the port-removal path.
 
-A single VID 0 priority tag before a real VLAN tag is valid. No normal
-deployment was found that intentionally emits multiple consecutive VID 0
-tags; permitting eight levels is therefore conservative.
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but
+  mlxsw_sp1_ptp_mtpppc_update() has no serialization between its two…
+- [Low] The new rollback in mlxsw_sp1_ptp_mtpppc_update()
+  (spectrum_ptp.c:1223-1226) calls mlxsw_sp_parsing_depth_dec().
 
-The issue was found while researching the Linux network receive path for
-Google kvmCTF, with OpenAI Codex (gpt-5.6-sol) assisting the analysis. The
-affected path, reproducer and fix were manually reviewed and tested.
+--
 
-Fixes: 36b2f61a42c2 ("net: handle 802.1P vlan 0 packets properly")
-Cc: stable@vger.kernel.org
-Reviewed-by: Willem de Bruijn <willemb@google.com>
-Signed-off-by: Kamil Sawicki <user148783812897@gmail.com>
-Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
-Reviewed-by: Eric Dumazet <edumazet@kernel.org>
-Link: https://patch.msgid.link/20261024004835.17862-1-user148783812897@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+mlxsw: spectrum_ptp: release parsing depth on MTPPPC write failure
 
-[ Backport to 6.1.y: __netif_receive_skb_core() has no local
-  drop_reason variable, and this branch does not define
-  SKB_DROP_REASON_RECURSION_LIMIT. Omit the upstream assignment
-  and keep the existing SKB_DROP_REASON_UNHANDLED_PROTO drop path. ]
-Signed-off-by: Kamil Sawicki <user148783812897@gmail.com>
----
-Backport based on linux-6.1.y 08889840163ebcdb7e24bf7ec311bc2e6fc3aaea (Linux 6.1.191).
-W=1 net/core/dev.o built without warnings. Full KASAN/ftrace
-bzImage built with W=1 CONFIG_WERROR=; unrelated files emitted
-pre-existing W=1 warnings.
-Boundary test on two isolated KVM hosts: the eight-tag packet
-was delivered and the nine-tag packet was dropped.
-Original nested vhost/TAP trigger on each host: ftrace recorded
-eight skb_vlan_untag() calls and zero tcp_v4_rcv() calls; no
-KASAN report, oops or panic was observed.
+This patch reorders mlxsw_sp1_ptp_mtpppc_update() so the MTPPPC register is
+written before the parsing depth reference is adjusted. If the write fails,
+the reference taken on the first enable is released. On the disable
+transition, the reference is now dropped only after the write succeeds.
 
- net/core/dev.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+> diff --git a/drivers/net/ethernet/mellanox/mlxsw/spectrum_ptp.c b/drivers/net/ethernet/mellanox/mlxsw/spectrum_ptp.c
+> index 9c5862f4e16a3..0db77af4828f1 100644
+> --- a/drivers/net/ethernet/mellanox/mlxsw/spectrum_ptp.c
+> +++ b/drivers/net/ethernet/mellanox/mlxsw/spectrum_ptp.c
 
-diff --git a/net/core/dev.c b/net/core/dev.c
-index 7c0d0905dd31b0..4140ef78e56deb 100644
---- a/net/core/dev.c
-+++ b/net/core/dev.c
-@@ -5546,6 +5546,8 @@ static int __netif_receive_skb_core(struct sk_buff **pskb, bool pfmemalloc,
- 	}
- 
- 	if (unlikely(skb_vlan_tag_present(skb)) && !netdev_uses_dsa(skb->dev)) {
-+		unsigned int priority_tag_depth = 1;
-+
- check_vlan_id:
- 		if (skb_vlan_tag_get_id(skb)) {
- 			/* Vlan id is non 0 and vlan_do_receive() above couldn't
-@@ -5557,6 +5559,10 @@ static int __netif_receive_skb_core(struct sk_buff **pskb, bool pfmemalloc,
- 			 * 802.1Q or 802.1AD and vlan_do_receive() above could
- 			 * not find vlan dev for vlan id 0.
- 			 */
-+			if (unlikely(priority_tag_depth >= VLAN_MAX_DEPTH))
-+				goto drop;
-+
-+			priority_tag_depth++;
- 			__vlan_hwaccel_clear_tag(skb);
- 			skb = skb_vlan_untag(skb);
- 			if (unlikely(!skb))
+[ ... ]
+
+> @@ -1214,12 +1215,21 @@ static int mlxsw_sp1_ptp_mtpppc_update(struct mlxsw_sp_port *mlxsw_sp_port,
+>  			netdev_err(mlxsw_sp_port->dev, "Failed to increase parsing depth");
+>  			return err;
+>  		}
+> +		depth_inc = true;
+>  	}
+> +
+> +	err = mlxsw_sp1_ptp_mtpppc_set(mlxsw_sp_port->mlxsw_sp,
+> +				       ing_types, egr_types);
+> +	if (err) {
+> +		if (depth_inc)
+> +			mlxsw_sp_parsing_depth_dec(mlxsw_sp);
+
+[Severity: Low]
+This is a pre-existing issue, but mlxsw_sp_parsing_depth_dec() ignores the
+result of the MPRS write and sets the cached depth anyway:
+
+drivers/net/ethernet/mellanox/mlxsw/spectrum.c:mlxsw_sp_parsing_depth_dec() {
+    ...
+	mlxsw_reg_write(mlxsw_sp->core, MLXSW_REG(mprs), mprs_pl);
+	mlxsw_sp->parsing.parsing_depth = MLXSW_SP_DEFAULT_PARSING_DEPTH;
+    ...
+}
+
+Suppose the MPRS write also fails on this new rollback path. Would the ASIC
+then stay at the increased parsing depth while software records the default
+depth with no references held?
+
+The existing VXLAN and IPIP callers have the same behaviour. The next MPRS
+write would bring hardware and software back in line.
+
+> +		return err;
+> +	}
+> +
+>  	if (!(ing_types || egr_types) && (orig_ing_types || orig_egr_types))
+>  		mlxsw_sp_parsing_depth_dec(mlxsw_sp);
+
+[Severity: High]
+Can this leak the parsing depth reference when a port is removed?
+
+mlxsw_sp_port_remove() calls mlxsw_sp_port_ptp_clear(), and that helper
+ignores the return value of hwtstamp_set():
+
+drivers/net/ethernet/mellanox/mlxsw/spectrum.c:mlxsw_sp_port_ptp_clear() {
+	struct kernel_hwtstamp_config config = {};
+
+	mlxsw_sp_port->mlxsw_sp->ptp_ops->hwtstamp_set(mlxsw_sp_port, &config,
+						       NULL);
+}
+
+Take the case where the removed port is the last one with timestamping
+enabled and the MTPPPC write fails during this clear. This can happen on
+devlink reload, port split/unsplit, line card removal or driver unbind.
+
+mlxsw_sp1_ptp_mtpppc_update() now returns before the disable-path
+mlxsw_sp_parsing_depth_dec(). mlxsw_sp1_ptp_hwtstamp_set() then returns
+before it clears ptp.ing_types and ptp.egr_types.
+
+mlxsw_sp_port_remove() carries on regardless:
+
+	mlxsw_sp_port_ptp_clear(mlxsw_sp_port);
+	mlxsw_sp_port_vlan_classification_set(mlxsw_sp_port, true, true);
+	mlxsw_sp->ports[local_port] = NULL;
+	...
+	free_netdev(mlxsw_sp_port->dev);
+
+After the port leaves mlxsw_sp->ports[], no later orig_ing_types or
+orig_egr_types scan can see it, so nothing ever drops that reference.
+
+The next first enable on another port sees orig == 0 and takes the
+reference again, so the count goes to 2. Disabling that port only brings it
+back to 1, and MPRS stays at the increased depth even though MTPPPC has
+been written to 0.
+
+mlxsw_sp1_ptp_fini() then writes MTPPPC to 0 without releasing anything,
+and mlxsw_sp_parsing_fini() would hit:
+
+	WARN_ON_ONCE(refcount_read(&mlxsw_sp->parsing.parsing_depth_ref));
+
+The old code dropped the reference before the write. That is the behaviour
+this caller depends on, since it throws away the port's software state
+whatever the result.
+
+The commit message says:
+
+    so that the reference count always matches the programmed state.
+
+Would the removal path need a forced release, for example in
+mlxsw_sp_port_ptp_clear(), for this to hold?
+
+>  
+> -	return mlxsw_sp1_ptp_mtpppc_set(mlxsw_sp_port->mlxsw_sp,
+> -				       ing_types, egr_types);
+> +	return 0;
+>  }
+
+[Severity: High]
+This is a pre-existing issue, but is mlxsw_sp1_ptp_mtpppc_update()
+serialized against port removal at all?
+
+The ndo_hwtstamp_set path runs under RTNL only: dev_ioctl() takes
+rtnl_net_lock() for SIOCSHWTSTAMP. mlxsw_sp_port_remove() calls
+mlxsw_sp_port_ptp_clear() after unregister_netdev() has already released
+RTNL, so that path holds only the devlink instance lock.
+
+The function reads every port's types with no common lock held:
+
+	for (i = 1; i < mlxsw_core_max_ports(mlxsw_sp->core); i++) {
+		tmp = mlxsw_sp->ports[i];
+		if (tmp) {
+			orig_ing_types |= tmp->ptp.ing_types;
+	...
+
+It then decides whether to inc or dec and writes the global MTPPPC
+register. The per-port types are published only afterwards, in
+mlxsw_sp1_ptp_hwtstamp_set(). parsing.lock is taken only inside the inc/dec
+helpers, so it does not cover the check-then-act sequence.
+
+Start with port A as the only timestamping port (ref = 1):
+
+CPU0 (removing port A)              CPU1 (enabling port B)
+mtpppc_update()
+  orig != 0, new == 0
+                                    mtpppc_update()
+                                      sees A's types, skips inc
+                                      MTPPPC = A|B
+  MTPPPC = 0
+  parsing_depth_dec() -> ref = 0
+
+Port B now believes timestamping is enabled, but MTPPPC is 0 and the parsing
+depth is back at the default. When B is disabled later it decrements again.
+That either underflows the refcount or drops a reference held by VXLAN or
+IPIP.
+
+There is also a lifetime problem. CPU1 loads tmp = mlxsw_sp->ports[i] and
+then dereferences tmp->ptp.*. In the meantime CPU0 can set
+mlxsw_sp->ports[local_port] = NULL and call free_netdev(). The port is
+netdev_priv(), so can this read freed memory?
+
+Under this concurrency, the "always matches the programmed state" claim in
+the commit message doesn't seem to hold either.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261103102851.1340480-1-vulab%40iscas.ac.cn
