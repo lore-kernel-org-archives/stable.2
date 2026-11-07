@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046310;
-	b=WYfun7/AyDXK1m/yu6FlmrlUcsdGmBtQkK539kFIkYPOgvdX/eYU6+kA1+4/qaV3SWnh
-	 0yBd06yia/VdpexUmwF4bVohFmy7iR9dsXpkXJx+0PkwVvaeOOnwgf++Tljd77u3wXQxQ
-	 grQ9F4L9udf416vJZzTmmhdSuqASG+TNMGJyFu+WL4J/xnjQJqvrH2plt5WEV0cSP/Zkc
-	 NBfR0BMNYZ4W8kA2/2piC9NEnItwRMPkXz/eDE5S1WAHxi32daixTnyzprjOvmmse6eL7
-	 YboMPTvC0yn8SbD3zNJT6lR0oYIiRYWNP/g9y+eJnlLQuDvIlRXYmaGGoewv+rA0DXQ==
+	t=1794046311;
+	b=i02454OMgkT74x8htxVZYfsSBGhAw8NJ/o1N8CmYrpwih2PiVYKyWRWbgWFJ9n4y/N9+
+	 wiZmHlGcvaGGvK43rAIVLYe0uTRfvIIMWYnDav1whTQZ1O6e6TjAH0d4TlpsMKejKDHrK
+	 fa6qsrN0SEUO+QSgXzC91hgFo80pD0q4OWbG8LU/J3WoB6f15+KdRG9uTird43lh5SjjR
+	 J4C9t9IEyaxivK97bEeu7t/RJ2N4CPEkWu+BAHAIswlcyVjPvP87QX7i+za4pxqIvBzqp
+	 wh9i2SWJqzCYLDiTtZxCsgZMbqGNiAD80vYpffjRVD6lgpSrgEOgCikjFptjIcgH54A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046310;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046311;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=mu9FNT8WDN6dvZMEcR+nkvOAwLqDvUqsJkJFvP8hOk0=;
-	b=OioshuymxImGNA2M+BGhkP0XreHk8iptgyWah66loa+hN3XZlgGqgzJVMwWLhy9V/VFA
-	 j3RpvkADCRZaOz1sCJU8e1usJxPCBGDdcJG3X25DDbtEfrKUHYKtM+pouNjvEpIynuY2l
-	 WNAj22I5kdb0/FnxsxaMZQ6pEzL4Nkks7jT00RnMvx9Gu3T/KWwIoQVv2AcGqHKx0/Leb
-	 fL79jJf4fUaJ3IQYKC9jCA9WYp8307z2ZW0/IjwpXe8BWATWNMY9sHVd7f1XqIFonINeW
-	 BebqPAkRbSg0lgegpRhQkqi2ZvoOWDQ0SY2Bux+htTekt1eexESJsFDG/R03dfTJhNA==
+	bh=B+tgDg/5nixWbm9iLQkY5+8Qs/CdGSltQyDKZquMnAo=;
+	b=ZmRsM77O4jV38INJSaqbEu2GvlhiRpEaSuSAaQL7ObjNIf3C66ascJ8Gw5ViUBfMDnc2
+	 /l1E6ZCv4smH9nxIWzb5rT0bRf8YOO7yYgyHiXflBkvkAWZXQlCjacDFV0IuNC74k3Csx
+	 dm+1DeCuPOkIEUM7GjK/7UQdc/Bjhvv+Sqa3vNvTgTMHVwFSO7P6ev3Ls02m6X6NikqY1
+	 inmYgqavMsJ8Ift0E+R23xGLhjFu9PFDMiQJz1DeDzFelETW1yT2EGc8YvIpgpGxEq8RC
+	 NsaKzJRynHB/MmS66N6JvjBanSatqXDe6guDlNiyQna1gG75CgGGYfmMeGa/04ssC6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ts7p1uOk;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j3sIl1Pp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10D10606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:11:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 974F1606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:11:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ts7p1uOk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBDDB1F0089F;
-	Sat,  7 Nov 2026 10:11:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j3sIl1Pp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F269C1F0089F;
+	Sat,  7 Nov 2026 10:11:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046309;
-	bh=mu9FNT8WDN6dvZMEcR+nkvOAwLqDvUqsJkJFvP8hOk0=;
+	s=k20260515; t=1794046311;
+	bh=B+tgDg/5nixWbm9iLQkY5+8Qs/CdGSltQyDKZquMnAo=;
 	h=From:To:Cc:Subject:Date;
-	b=Ts7p1uOk3VHQMC+++ONXkQefOCLekljmS6k6ARf3BI87fIbPnT+07oZOnimNbl96N
-	 l7dr4xPr214KN5zmXFxzdB71IEuL5/w6KUKVCLvqA8KjZlx8OWHtdnjrwsDoi0T7zJ
-	 G08oElCf9bEy1SHDJtPNIepzqgixWQnewSJdzduhCecYi/DoVautlnhu46vBgv3yQH
-	 KszJy2lAK+NALNJe7u5+OvsIw4ikfQkp1PBw05ZVSqJfwn3+1BwTwdL/5fYsoMXBIa
-	 XtTQuoIgujsy02dGAk047g0t3FdHWw+7e5FauP1UIgv/LWXW8/w1IuA6r5OIE0yjtl
-	 yBqrGBNclu+IA==
+	b=j3sIl1PpwveTrq2W13IekLKABcYL0XLuk85H6vzINFNgW+4L68o92vwSnKnMyO4Ox
+	 j0rZSeLQCZvZ5lrthhyWxPQdMFk5XpwrtKCSxrxZdZSPjJMy2ixlLJwYTGeSLpvB2k
+	 oKADdr826dKxSElGZ/6mYLhFFRgpz9tYrZ6U0LoD3zwEs28QOcrNyz7OZBcDiY6wzZ
+	 0rD+j+5uu6BT2/RmB+qWJ5JbY3GScU7e/1EwuBoW/E0ztrzOL6wodYwSo/YAlYnIuD
+	 oS1WVcCNW0dhtaY7o8HFp7mo0EWI8QmLEoVVqhpDoyweDnS3t6PIf8PRO1MecFepGp
+	 T6a/YC8G9rLuQ==
 From: Sasha Levin <sashal@kernel.org>
-To: tvlad744@gmail.com,
-	srinivas.kandagatla@oss.qualcomm.com,
-	broonie@kernel.org
+To: kanie@linux.alibaba.com,
+	dave.jiang@intel.com,
+	jonathan.cameron@oss.qualcomm.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ASoC: qcom: q6apm-dai: wrap the position of a full ring to 0" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:11:47 -0500
-Message-ID: <20261107051147-failed-6.18-0ea3e0b196f9@kernel.org>
+Subject: FAILED: patch "[PATCH] cxl/events: Test CME counter expiry with equality, not bitwise AND" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:11:49 -0500
+Message-ID: <20261107051149-failed-6.18-b94ba9a1f2d5@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,84 +69,80 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 0ea3e0b196f9dcc17b40ac881a6efef06459975b
+git cherry-pick -x b94ba9a1f2d5c57f2eec67d502bb8fdd1e53c87a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051147-failed-6.18-0ea3e0b196f9@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051149-failed-6.18-b94ba9a1f2d5@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 0ea3e0b196f9dcc17b40ac881a6efef06459975b Mon Sep 17 00:00:00 2001
-From: Vladyslav Tymoshchuk <tvlad744@gmail.com>
-Date: Wed, 14 Oct 2026 19:27:00 +0300
-Subject: [PATCH] ASoC: qcom: q6apm-dai: wrap the position of a full ring to 0
+From b94ba9a1f2d5c57f2eec67d502bb8fdd1e53c87a Mon Sep 17 00:00:00 2001
+From: Guixin Liu <kanie@linux.alibaba.com>
+Date: Tue, 22 Sep 2026 16:22:14 +0800
+Subject: [PATCH] cxl/events: Test CME counter expiry with equality, not
+ bitwise AND
 
-q6apm_dai_pointer() turns the number of period buffers the DSP has
-returned in the current lap, 1..periods, into a position and reports
-one frame less than that. Commit a93dad6f4e6a ("ASoC: q6apm-dai: make
-use of q6apm_get_hw_pointer") added the "- 1" so that the end of the
-ring is not reported as a position equal to the buffer size.
+The Memory Event Type field in the General Media and DRAM event records
+is an enumeration, not a bitmask. The validity checks for the advanced
+programmable CME counter expiration event (05h) test the field with a
+bitwise AND, so types 01h, 03h, 04h and 06h match it as well.
 
-One frame short has a cost once the application stops feeding the
-stream. The DSP returns the last queued buffer and the position stops
-at appl_ptr - 1, so avail stays at buffer_size - 1, below the default
-stop_threshold. The DSP sends nothing more as its queue is empty, so
-no period interrupt comes either: ALSA never detects the underrun and
-the stream stays RUNNING. A poll-driven application that missed its
-last wakeup waits forever, and drain only ends on its timeout, with
--EIO. On capture, the last frame of each period is held back until
-the next one.
+A device reporting one of those types trips WARN_ON_ONCE once the
+general media or DRAM tracepoint is enabled, which is the case anywhere
+rasdaemon collects CXL events. Under panic_on_warn=1 that kills the
+machine.
 
-Before that commit the position wrapped to 0 at the end of the ring.
-Do that again. A full lap is the start of the ring, and
-snd_pcm_update_hw_ptr0() accounts for the wrap: the position cannot
-move by more than one lap between two updates, as each returned buffer
-calls snd_pcm_period_elapsed() and the DSP holds at most periods
-buffers.
+Compare the type field for equality instead. Type 05h records that do
+violate the spec conditions still warn.
 
-Seen on a OnePlus Pad 3 (SM8750) with PipeWire in interrupt-driven
-scheduling: after a stall the PCM sat at hw_ptr 78239, appl_ptr 78240
-(avail 3839 of 3840) for two hours.
-
-Fixes: a93dad6f4e6a ("ASoC: q6apm-dai: make use of q6apm_get_hw_pointer")
+Fixes: cd3b36cfc659 ("cxl/events: Add extra validity checks for corrected memory error count in General Media Event Record")
+Fixes: d8145bb8af5c ("cxl/events: Add extra validity checks for CVME count in DRAM Event Record")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Vladyslav Tymoshchuk <tvlad744@gmail.com>
-Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Tested-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Link: https://patch.msgid.link/20261014162703.10172-2-tvlad744@gmail.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Assisted-by: LLM
+Signed-off-by: Guixin Liu <kanie@linux.alibaba.com>
+Reviewed-by: Dave Jiang <dave.jiang@intel.com>
+Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Link: https://patch.msgid.link/20260922082214.3526355-1-kanie@linux.alibaba.com
+Signed-off-by: Dave Jiang <dave.jiang@intel.com>
 ---
- sound/soc/qcom/qdsp6/q6apm-dai.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+ drivers/cxl/core/mbox.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/qcom/qdsp6/q6apm-dai.c b/sound/soc/qcom/qdsp6/q6apm-dai.c
-index b0b10ba51c99d..58beaf906b9ff 100644
---- a/sound/soc/qcom/qdsp6/q6apm-dai.c
-+++ b/sound/soc/qcom/qdsp6/q6apm-dai.c
-@@ -613,11 +613,15 @@ static snd_pcm_uframes_t q6apm_dai_pointer(struct snd_soc_component *component,
- 		ptr = bytes_to_frames(runtime, index);
- 		return ptr;
- 	}
--	ptr = q6apm_get_hw_pointer(prtd->graph, substream->stream) * runtime->period_size;
--	if (ptr)
--		return ptr - 1;
-+	/*
-+	 * The hw pointer counts the period buffers the DSP has returned in
-+	 * this lap, 1..periods. A full lap is the start of the ring again:
-+	 * report 0 rather than one frame less, so that the position of a
-+	 * drained buffer reaches appl_ptr and ALSA sees the underrun.
-+	 */
-+	ptr = q6apm_get_hw_pointer(prtd->graph, substream->stream) % runtime->periods;
+diff --git a/drivers/cxl/core/mbox.c b/drivers/cxl/core/mbox.c
+index 55828a836c01a..01341f524a937 100644
+--- a/drivers/cxl/core/mbox.c
++++ b/drivers/cxl/core/mbox.c
+@@ -942,11 +942,11 @@ void cxl_event_trace_record(struct cxl_memdev *cxlmd,
  
--	return 0;
-+	return ptr * runtime->period_size;
- }
+ 			if (evt->gen_media.media_hdr.descriptor &
+ 			    CXL_GMER_EVT_DESC_THRESHOLD_EVENT)
+-				WARN_ON_ONCE((evt->gen_media.media_hdr.type &
++				WARN_ON_ONCE((evt->gen_media.media_hdr.type ==
+ 					      CXL_GMER_MEM_EVT_TYPE_AP_CME_COUNTER_EXPIRE) &&
+ 					     !get_unaligned_le24(evt->gen_media.cme_count));
+ 			else
+-				WARN_ON_ONCE(evt->gen_media.media_hdr.type &
++				WARN_ON_ONCE(evt->gen_media.media_hdr.type ==
+ 					     CXL_GMER_MEM_EVT_TYPE_AP_CME_COUNTER_EXPIRE);
  
- static int q6apm_dai_hw_params(struct snd_soc_component *component,
+ 			trace_cxl_general_media(cxlmd, type, cxlr, hpa,
+@@ -957,11 +957,11 @@ void cxl_event_trace_record(struct cxl_memdev *cxlmd,
+ 
+ 			if (evt->dram.media_hdr.descriptor &
+ 			    CXL_GMER_EVT_DESC_THRESHOLD_EVENT)
+-				WARN_ON_ONCE((evt->dram.media_hdr.type &
++				WARN_ON_ONCE((evt->dram.media_hdr.type ==
+ 					      CXL_DER_MEM_EVT_TYPE_AP_CME_COUNTER_EXPIRE) &&
+ 					     !get_unaligned_le24(evt->dram.cvme_count));
+ 			else
+-				WARN_ON_ONCE(evt->dram.media_hdr.type &
++				WARN_ON_ONCE(evt->dram.media_hdr.type ==
+ 					     CXL_DER_MEM_EVT_TYPE_AP_CME_COUNTER_EXPIRE);
+ 
+ 			trace_cxl_dram(cxlmd, type, cxlr, hpa, hpa_alias,
 -- 
 2.53.0
 
