@@ -1,51 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049917;
-	b=U0ZLIga0ngzhTfP6F9bVFe7p7VqeQl9TAi7D3ub/lz5FYvgS9Fv5uLcIwTiLAeNqFw32
-	 h9GzFF+44VV3PRzWObezg9ibI6K6opwpJC9hmTVVCWHmCMPWFmcS9JKNQ87LsLzIESRv3
-	 pqO/NzEcnkHCVQkwlVsKkf74vs6wg2Mu8UZ3D24WsbS1FQ2HOdfCAAJFMKjDWPEILFEo5
-	 VDfFLhLgSE9zH2gkzSdSaZIx5RpiPBRaJUHZTYRg4eZ4KGjYb+IOILx8wxttpgHZzF6KX
-	 LnwiymoVAugztRmFzigXOO8yem4jWL4mYavk4Y9QFsjIQkSGrtxjfB/KPdmqFmctn3Q==
+	t=1794049920;
+	b=gXhV6SX5NWm2MJ6/bbXn6V0kMrtrRN8/VuGWPcs98yNFE2utbPhBJcnrj1I9ZjoNzaTt
+	 +KZontvqbaOzXizZSwWE9A1R78dfbgpDgSDNbtenNAbH+9RzmWoU9LjSdqcJU6VrDPkef
+	 kXe8kQxsT0O/ie+8cxjWglElyfuBsYDse8ee3WMdQc3leoJhku4ZgGwZZtSM64G28fS6U
+	 IAiDqqSXu1BIpn+a/1Zu+/poH2yEE3c4HN1oil7Ys+WHZacnstSJYPBYIS7yTU0hVau17
+	 IdZ6AySL9W3n+FHGLKemKxgt4IuTYgP0Ey4ZSlXjP0Hv9JhxDPMwWVysIXNnmcC7HzA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049917;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049920;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=DBd2ei7sMdEXMsSmlOPcjM64XOxarooUfWKp2OKeozA=;
-	b=0j7YiNGa22dsqsssX/HLaPvkDDs6zjP5tfM4xui/j4c6VgjRxZyBgBL1HUSU3mgqPNZk
-	 oGuXVa3y6HsOel/C9X19w/SGELRr7cGhQ+950RDkdqpGZzpl/a4lfNp7WOkI762F8WaUS
-	 zcZ7Q1vLROQR3nUmnTSPllYOYBj7sDHklhBM8ybgBsG+grCUpr8aprLs/kj/EwRHwq8VW
-	 GrBP3vgOeOZqQArtuwl3Z9N8PhuAqlAy8tb5iCwZRAnmwllHFPRQLaaWfgKcNrae4MQRo
-	 rH5o8ceMfnxS1KFOsxnpt5tINWdjaoFfiQw9KzNBHSqytJyWfMBKDvyGMC49Ib+nRrQ==
+	bh=F1JasCfj79KBXo9iphg32XJewx/2db7l0RNY/faGOSQ=;
+	b=COd9WAnMK5PZb7XQIgDLazXxkX0duJGsydUjc0YL9W39oj22iX+J4mT+UnwbV6JBRtMF
+	 dU3xAzVojP+HrEt8dAaGuaHri1WnVqQAH04ELOM/CPNkLBc7UImXD1uFU66hvQ8AysTa0
+	 8wX8Ol+9icql2pXyqQMqQ5riMfdqSHuq+UXlslKmHp11QGDmC3W/4FABrivJderxdi4FS
+	 PZGXQebXyKhpZGMal0TnE6Qesfl8omceac7ynmcXpRWypOCEJ+uo/hmuHHk5AE6ZIYNLe
+	 fxNvwerUIxsEE+a/mtE5vUtv2+86qjmFaeXlBKPyJGp3w+nNuvBXpIj+72uFxdhAE4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MUboDuvu;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dt1G0BB0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48719606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:11:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37414606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:12:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MUboDuvu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72AF21F0089F;
-	Sat,  7 Nov 2026 11:11:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dt1G0BB0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B5771F0089F;
+	Sat,  7 Nov 2026 11:11:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049916;
-	bh=DBd2ei7sMdEXMsSmlOPcjM64XOxarooUfWKp2OKeozA=;
+	s=k20260515; t=1794049920;
+	bh=F1JasCfj79KBXo9iphg32XJewx/2db7l0RNY/faGOSQ=;
 	h=From:To:Cc:Subject:Date;
-	b=MUboDuvuOmR2OwIBHOiCNH/bY7Z2Dz5UmjIz7AQxsRtC9xCBdIoa035Whc1/MpxHF
-	 ffQIcSoYql75GIp2NjrRmW5seKVv1DV/h2ADFNu7WLn6Fj3RqtVmBmd2HSKqttOSjg
-	 RAIQcvs5M2pRs+oRO16DLhpMqM703kOSfrr+nDzKeL4r8BvWXqBUDL7EDz85iBn8WV
-	 rhCi0MtUEcz4j3szGgZfXsBmThb/YMNgjvYMyOx2iJW54iO4I9kJjEig46KTTBgDre
-	 h5mXzHE5oR/gRNdsu17/SkR+7UvavYpZS4C13c8SmN4INTvOzFov7OKuz8iQ3oDSgw
-	 iByQATulBATcg==
+	b=dt1G0BB0kQIyfR4YkwBqSPGqlS9prQdB/l8NRG3ocrWPJPae8YKsoX1C9EFreIWm+
+	 VELF5z0BhzW3XhPSzcQNmSDXCG9yF+xiCaTDORBcUcTAgW1cH5VJ85t6ikjowJaogd
+	 +Os0mm30F8LREM+Sf8rkdbb7J14X12powmkPrXNQYa31/H70v5ZUPalqy02Fv/ZgAb
+	 OS70qY+g0uIDXQRbK+nz9dBXyhKR10bvRK/rvRDL0cc7PMAnaZNyTLbei9Qy3NVdtZ
+	 +MJwRI3kqSyysqUBElq6h2ygyGdPOenhC2u3hgbRTqASyxNT86tSDeXaG23VgPBxZD
+	 nOR9dmS/4FOng==
 From: Sasha Levin <sashal@kernel.org>
-To: dennylin0707@gmail.com,
+To: peng_wang@linux.alibaba.com,
+	frederic@kernel.org,
+	herongguang@linux.alibaba.com,
 	tglx@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] posix-timers: Accept NULL clock_getres() output in stubs" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:11:55 -0500
-Message-ID: <20261107061155-failed-5.15-5b819071e434@kernel.org>
+Subject: FAILED: patch "[PATCH] tick/nohz: Reevaluate the tick for kicks flushed outside hardirq" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 06:11:58 -0500
+Message-ID: <20261107061158-failed-5.15-e389ae428847@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,61 +70,74 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 5b819071e4346256c4edbae5cc2095dff25694fc
+git cherry-pick -x e389ae428847a2e6a3b698b5967df68ccf90361c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061155-failed-5.15-5b819071e434@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061158-failed-5.15-e389ae428847@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 5b819071e4346256c4edbae5cc2095dff25694fc Mon Sep 17 00:00:00 2001
-From: Hungyu Lin <dennylin0707@gmail.com>
-Date: Tue, 20 Oct 2026 16:11:21 +0000
-Subject: [PATCH] posix-timers: Accept NULL clock_getres() output in stubs
+From e389ae428847a2e6a3b698b5967df68ccf90361c Mon Sep 17 00:00:00 2001
+From: Peng Wang <peng_wang@linux.alibaba.com>
+Date: Fri, 23 Oct 2026 22:51:00 +0800
+Subject: [PATCH] tick/nohz: Reevaluate the tick for kicks flushed outside
+ hardirq
 
-With CONFIG_POSIX_TIMERS disabled, clock_getres() returns -EFAULT for a
-supported clock when the result pointer is NULL. POSIX permits a NULL
-result pointer to suppress returning the clock resolution.
+The nohz full kick relies on interrupt exit to reevaluate the
+tick. However, a remote kick can also be flushed from task context without
+an interrupt exit guaranteed to follow. If a tick dependency is set or an
+earlier timer is queued after the idle-exit reevaluation, the required tick
+update can be delayed until another interrupt.
 
-Only copy the result when a destination is provided, in both the native
-and time32 stubs. This matches the full POSIX timer implementation and
-preserves clock ID validation.
+Reevaluate the tick directly from the callback outside hardirq context.
+Keep the existing interrupt exit handling for hardirq callbacks. The
+offline flush remains harmless because tick_sched_timer_dying() has already
+cleared TS_FLAG_NOHZ.
 
-Fixes: baa73d9e478f ("posix-timers: Make them configurable")
-Fixes: d822cdcce43f ("posix-timers: Move compat versions of clock_gettime/settime/getres")
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+Fixes: 4b44a21dd640 ("irq_work, smp: Allow irq_work on call_single_queue")
+Fixes: a5183862e76f ("tick/nohz: Conditionally restart tick on idle exit")
+Suggested-by: Frederic Weisbecker <frederic@kernel.org>
+Co-developed-by: He Rongguang <herongguang@linux.alibaba.com>
+Signed-off-by: He Rongguang <herongguang@linux.alibaba.com>
+Signed-off-by: Peng Wang <peng_wang@linux.alibaba.com>
 Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Reviewed-by: Frederic Weisbecker <frederic@kernel.org>
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261020161121.85042-1-dennylin0707@gmail.com
+Link: https://patch.msgid.link/20261023145101.8217-1-peng_wang@linux.alibaba.com
 ---
- kernel/time/posix-stubs.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ kernel/time/tick-sched.c | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
 
-diff --git a/kernel/time/posix-stubs.c b/kernel/time/posix-stubs.c
-index 9b6fcb8d85e78..5a27335a917ec 100644
---- a/kernel/time/posix-stubs.c
-+++ b/kernel/time/posix-stubs.c
-@@ -83,7 +83,7 @@ SYSCALL_DEFINE2(clock_getres, const clockid_t, which_clock, struct __kernel_time
- 	case CLOCK_REALTIME:
- 	case CLOCK_MONOTONIC:
- 	case CLOCK_BOOTTIME:
--		if (put_timespec64(&rtn_tp, tp))
-+		if (tp && put_timespec64(&rtn_tp, tp))
- 			return -EFAULT;
- 		return 0;
- 	default:
-@@ -166,7 +166,7 @@ SYSCALL_DEFINE2(clock_getres_time32, clockid_t, which_clock,
- 	case CLOCK_REALTIME:
- 	case CLOCK_MONOTONIC:
- 	case CLOCK_BOOTTIME:
--		if (put_old_timespec32(&rtn_tp, tp))
-+		if (tp && put_old_timespec32(&rtn_tp, tp))
- 			return -EFAULT;
- 		return 0;
- 	default:
+diff --git a/kernel/time/tick-sched.c b/kernel/time/tick-sched.c
+index 6c3fea3867139..baa3ac9b48f88 100644
+--- a/kernel/time/tick-sched.c
++++ b/kernel/time/tick-sched.c
+@@ -400,9 +400,21 @@ static bool can_stop_full_tick(int cpu, struct tick_sched *ts)
+ 	return true;
+ }
+ 
++static void tick_nohz_full_update_tick(struct tick_sched *ts);
++
+ static void nohz_full_kick_func(struct irq_work *work)
+ {
+-	/* Empty, the tick restart happens on tick_nohz_irq_exit() */
++	struct tick_sched *ts = this_cpu_ptr(&tick_cpu_sched);
++
++	if (WARN_ON_ONCE(!tick_nohz_full_cpu(smp_processor_id())))
++		return;
++
++	/* Task-context flushes may not be followed by an IRQ exit. */
++	if (!in_hardirq()) {
++		if (WARN_ON_ONCE(tick_sched_flag_test(ts, TS_FLAG_INIDLE)))
++			return;
++		tick_nohz_full_update_tick(ts);
++	}
+ }
+ 
+ static DEFINE_PER_CPU(struct irq_work, nohz_full_kick_work) =
 -- 
 2.53.0
 
