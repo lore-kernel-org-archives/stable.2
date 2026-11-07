@@ -1,58 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794082211;
-	b=2Hl6d/EElLesIQVXaKSCSoQ9ldpwgdVzMzluxr+F0r9hDJ/rlY+H2qVpy7JQSxEG6olK
-	 GVhMWNsuO29bgitIc4DoOgxGcUpZ0vbkJxnzPl0kkYb6YeVPCx1GSOKqYOo97wX9JR9Qy
-	 Y72D5RMmhoMC4M0wNhyuioJoZPpERPA7al0ssH5ISpOGB+jvM2vamxEpbA/cE/hGckjE1
-	 rM3oDzXlj2cki3HJqCSCuORTQ1BQ1dKMS/3JVZW6D6C8J/WQedyykcbAT5MRz2zYniudX
-	 A4hymdETnCsXvG0OXuwP5f1/Hih/CoUa7SrkieFavweVkM0hRg+pOt7x5rw6KTRscQQ==
+	b=NiN1ycbNJbmAsarpZ+Z01v6AtkwxTIL2SQSHL8PNMYJWVlvg1zYfKOBA9c+LF96RkfhJ
+	 mfUmvrEcrsHUrYbsiXjxTrJeQ5N9p0swLRXQoEJgpJ8NYDrayfbVN1YHZtjvz7S0+rgal
+	 sIhnH0DWe2coCC3xrwid3aKZjeLHicRnlUOHi2jZYm62lpI9IQ+oJMZkKcEJjLGdIEWYC
+	 w6ZLVZoUcOqpneTzAX0KdnaH4FJybWU3+ZRWqpd57vhVbooLQqQNMR29BpsMeAsf5eoN1
+	 zNc3Q/HXm8nd2TDeOl6L377KR5CPRsWVIuVWbUkQXyLo4trKoXewLJ+b1N82Jh0+AgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794082211;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=1FTxpkWekBlYDp/UoERMc8KBJg6cu9CB4RQQpW9Xqac=;
-	b=MmhqjqsiUcblXakzQDTRQbb1r7MJQPv44Gm6Q8o+HA2jE753D7EqO/xAclwxkXnU7aJ4
-	 pWQb1Xs2H53YHZ+REcE9m/3IoVzF++k4wgdBvL3+m3AWr4Pm44XviLMqroRFGDnFkqk7T
-	 CW7akHJRY0DJU6RZRSvYvXr4r1aMeyUd94HEMBD1n3IPzoExGhJhIYzcJlOu8X2QtW7d7
-	 t3KpgSngg85cvtfn7t/kgVp2F/9K7qyM+wgmWWgIOZzWHcIG7a0MAClG9U7+Hv/mGU5UG
-	 OZra6w6SVhPi+EtEZhF04kblxiDvv1H0NG12Xxf7WYk0DCiMLj+ZL/5kktdtAE9h6UQ==
+	bh=oUgpNIq5y7P8hrOoDRzoRBlVsghumVDo96fytymZU4o=;
+	b=akhSK4jYcAFwUnNdZCwmcZ8V4epug4UB2ZLFxM2Tk+mULlp2mY0bO39ej9lsg602LXug
+	 5+kGrzstlj/khhefnS0SFmtSgwhO/D7otuLnBwKfjHC/pE0U33zwuqZ1AxDc5cl3Dn7Xr
+	 lTLFbP67zDLVY6bT0RgI48FngRWnZh0NLP3lvZ62aMWE7gLay/aUavndGVRlHyYLtzRKJ
+	 4EcIyujxJBw1Nt4rT5RG2lxt4cvL2/3vkk0Q7NrGBM42zGkcfSWyaYEK8tuoyIpiPXQAY
+	 DyHaMKMwPzYosvcNiQ0bFovghpuvchbWz0f8khxDix/DMZt8/onmWqSxVmUoRK6TxOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="G/Jxmopc";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c8GiealS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 258B0606D813;
-	Sat,  7 Nov 2026 20:10:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55C6A606D820;
+	Sat,  7 Nov 2026 20:10:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G/Jxmopc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C27D1F008A1;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c8GiealS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAC091F008A7;
 	Sat,  7 Nov 2026 20:10:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794082210;
-	bh=1FTxpkWekBlYDp/UoERMc8KBJg6cu9CB4RQQpW9Xqac=;
+	s=k20260515; t=1794082211;
+	bh=oUgpNIq5y7P8hrOoDRzoRBlVsghumVDo96fytymZU4o=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=G/JxmopcOvg0rAmmnZebR2qYHC5gTkH3JI07UamM8CjbLw04fADnRq11h1rY4xY6Q
-	 BNMigWOw48azYVCplHgJjv4y4MmMLuWkSlJ7iiBQrPlCboUd+Qpf9J6cABkggGXPth
-	 ih10HLkwsfv/KljYgYI+HJm/+V0b06QRaoKm52Su4l6g4S8mTYBo6AA1vniPFozkXV
-	 /CcbQr8OazMRCOmvVK5b1GxJiOswamMEjhBBMQt1aW5IndlzWV+ZgMOgqfTJhZzgZ8
-	 qNhp6OzBwyk/fabJNMtb/Tq2eFxKbUvsUQmsNcWxwx2CsEy12gVC7xsrynS9t6Kxbg
-	 tRe4Mlyf1Us4w==
+	b=c8GiealSX7kI27Hkj91eti8JBokuozsH9hmLJ2W+cHpUKvghW7FhbRPdGgKqdIImM
+	 5MVOfYeYluV3UkNGpqzbB90EiRcgKcT25oJrfVu7Pu+tQu6qn/vK01Fg53jesd9FCI
+	 4/5h0ACmiirgOTFGbgzFUfD8Oe/TGZ6H9bnCD8BV+IibAKWyUpNQghLscLvQp1MRQE
+	 8tXNithdLu9suG7QjyiOLWuDZy6+NHUUd1c/qLRJnbAvNYszj+dW0JUfdV8YwAmb9o
+	 uOjd+lD+sdGF5J3wCQYXfSzn4/4v58IVs9sBUhzFm+l8AQLVgePEKHvp3HufUPsy2A
+	 35BW5Dp2u7rEA==
 From: SJ Park <sj@kernel.org>
 To: 
 Cc: SJ Park <sj@kernel.org>,
 	stable@vger.kernel.org,
 	Andrew Morton <akpm@linux-foundation.org>,
-	Brendan Higgins <brendan.higgins@linux.dev>,
-	David Gow <davidgow@davidgow.net>,
-	Usama Arif <usamaarif642@gmail.com>,
 	damon@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [RFC PATCH 6.18.y 3/5] mm/damon/sysfs-schemes: read sysfs_filter->sz_range only once
-Date: Sat,  7 Nov 2026 12:09:59 -0800
-Message-ID: <20261107201001.206120-4-sj@kernel.org>
+Subject: [RFC PATCH 6.18.y 4/5] mm/damon/core: remove unreachable damos charge_{target,addr}_from
+Date: Sat,  7 Nov 2026 12:10:00 -0800
+Message-ID: <20261107201001.206120-5-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261107201001.206120-1-sj@kernel.org>
 References: <20261107201001.206120-1-sj@kernel.org>
@@ -67,53 +64,79 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-DAMON sysfs interface reads the user-provided size range arguments for
-hugepage_size type DAMOS filter twice.  Once for validation, and once
-again for assignments to the variable that will be passed to the core
-layer.  If the user updates the arguments in parallel, an invalid size
-range could be passed to the core layer.  Avoid it by doing the
-assignments first, and then validating the assigned variables before
-passing those to the core layer.
+damos_quota->charge_{target,addr}_from saves the target and region the
+scheme's quota limit is reached.  damos_skip_charged_region() skips the
+target and regions before the point.  The target that was assigned to
+charge_target_from could be dynamically removed from the context by the
+runtime parameters update (aka commit) feature.  In this case,
+damos_skip_charged_region() cannot find if the point is passed or not,
+so the scheme is effectively disabled.
 
-User impact of the bug should be trivial.  From the core layer's
-perspective, the invalid size range is not really invalid.  It just works
-as having a weird size range.  No critical issues such as a crash or a
-leak could happen.  And sane users ain't do such parallel arguments update
-anyway.  If they do, such racy behavior is arguably somewhat expected and
-deserved.  That said, there is no reason to keep such races.
+Similarly, the user could also remove all the regions of the target
+using the runtime parameters update feature.  It would be uncommon to do
+that, but it is a supported feature.  Because the skip pointer detection
+logic (damos_skip_charged_region()) works for each region of targets,
+this result in the logic is entirely skipped and the scheme is
+effectively disabled again.
 
-Link: https://lore.kernel.org/20260914142327.92510-3-sj@kernel.org
-Fixes: ea1f204ba29a ("mm/damon/sysfs-schemes: add files for setting damos_filter->sz_range")
+The user impact is that the DAMOS scheme could suddenly stop working
+under certain uses of the runtime parameters update feature.  It could
+surprise users. No crash or leak happens though.  Users could also
+simply work around by re-installing the scheme.
+
+Catch the corner cases in damos_adjust_quota() and reset the pointers.
+
+Link: https://lore.kernel.org/20261020023958.108276-1-sj@kernel.org
+Fixes: da87878010e5 ("mm/damon/sysfs: support online inputs update")
 Signed-off-by: SJ Park <sj@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: Brendan Higgins <brendan.higgins@linux.dev>
-Cc: David Gow <davidgow@davidgow.net>
-Cc: Usama Arif <usamaarif642@gmail.com>
-Cc: <stable@vger.kernel.org>
-(cherry picked from commit af19aff38d6faea35b10f26cca32d0e54f8aea5e)
+Closes: https://sashiko.dev/#/bug/linux-cd0c55fc-0cc8-45d8-9637-3334811c49b8
+Cc: <stable@vger.kernel.org> # 5.19.x
+(cherry picked from commit 5695abc4e742b947f586bfb6a080a80ad9957e5d)
 Signed-off-by: SJ Park <sj@kernel.org>
 ---
- mm/damon/sysfs-schemes.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ mm/damon/core.c | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
-diff --git a/mm/damon/sysfs-schemes.c b/mm/damon/sysfs-schemes.c
-index 37e0a8bef4b1f..0f945ef043709 100644
---- a/mm/damon/sysfs-schemes.c
-+++ b/mm/damon/sysfs-schemes.c
-@@ -2493,12 +2493,11 @@ static int damon_sysfs_add_scheme_filters(struct damos *scheme,
- 		} else if (filter->type == DAMOS_FILTER_TYPE_TARGET) {
- 			filter->target_idx = sysfs_filter->target_idx;
- 		} else if (filter->type == DAMOS_FILTER_TYPE_HUGEPAGE_SIZE) {
--			if (sysfs_filter->sz_range.min >
--					sysfs_filter->sz_range.max) {
-+			filter->sz_range = sysfs_filter->sz_range;
-+			if (filter->sz_range.min > filter->sz_range.max) {
- 				damos_destroy_filter(filter);
- 				return -EINVAL;
- 			}
--			filter->sz_range = sysfs_filter->sz_range;
- 		}
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index f2666770b5436..00cd0e2a1e341 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -2261,6 +2261,26 @@ static void damos_trace_esz(struct damon_ctx *c, struct damos *s,
+ 	trace_damos_esz(cidx, sidx, quota->esz);
+ }
  
- 		damos_add_filter(scheme, filter);
++static void damos_fix_stale_charge_pointers(struct damon_ctx *c,
++		struct damos *s)
++{
++	struct damos_quota *quota;
++	struct damon_target *t;
++
++	quota = &s->quota;
++	if (!quota->charge_target_from)
++		return;
++	damon_for_each_target(t, c) {
++		if (t == quota->charge_target_from) {
++			if (damon_nr_regions(t) > 0)
++				return;
++			break;
++		}
++	}
++	quota->charge_target_from = NULL;
++	quota->charge_addr_from = 0;
++}
++
+ static void damos_adjust_quota(struct damon_ctx *c, struct damos *s)
+ {
+ 	struct damos_quota *quota = &s->quota;
+@@ -2297,6 +2317,8 @@ static void damos_adjust_quota(struct damon_ctx *c, struct damos *s)
+ 			damos_trace_esz(c, s, quota);
+ 	}
+ 
++	damos_fix_stale_charge_pointers(c, s);
++
+ 	if (!c->ops.get_scheme_score)
+ 		return;
+ 
 -- 
 2.47.3
