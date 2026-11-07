@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794045810;
-	b=pzvB5Z9O4vjS+gVfLblO+/SCZvsOcqBbdtVsPcgBQ4+kEi7XPrdffMJxqwvfJ4VKSBaT
-	 ebzTW5ZignYBjSRLlfAYh/4DpZj8qVovsumg5lAaT3vyz3eblG6pya+K42SZ0HGGG9iZj
-	 5Fw1139OPhGIvo9Tu76YN93oLLp1AoKVdXNYy4timR6czN7cwIR3jmjul6LJdGs6PjCM1
-	 g5ngNAAyAbIgzmAoU/3MXIAYvVX0b3bCRfXBZf8/9OT4+FKxBNpmrsVbRrUMlUXLs1xVH
-	 yO5IyXKht0AkouawxrtkaKSXKITplbA+tr9Jk9IghXxRGMgcAEtlSCfj/u7mF/rGr5Q==
+	t=1794045812;
+	b=lGV50FEopwVx/ZAUGZnZ+BXh1WlS3HuQMura/HKSip02lGIvnQV+TaIHqpgTDe3oeA1Y
+	 9UR2cFZHjnOpG9Pg8OnpwVDYnxvdwLuL2zgnxETwa2h0HA9hEli0um6AkbW61+Z/hb6YP
+	 y52qsHj7ur/0grYn94nnY52NumKTLFLx9d/JNhapCtP1SczjgHT5vOnrXs8TW00LF42IX
+	 n2fF7ugGshozG2eTPVR16zSvM0mLmrwKMzOHbHmvmd2RanfZ3/4s81hMInpFQ9nS4p/LL
+	 DnwJvdIayA3Fprl4Ak9gHbnPEG2L2uCOnYDbaScmhAvt7qJ70OrQff0AMdPu/Xj3RCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794045810;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794045812;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=tYuvXerWjoulZ4fzjpVAu3T1gb5Z38TErwn7Zp+/VQ8=;
-	b=KsM/Rw+GcaubQ9d+vLO867L3Kc2tMTyGoX+Y5Osda38/HFpXmHcsrI6pbos9r2dpE1Lv
-	 dQcK+bUrYzK6CWXRsUeMXmPJVfFNauXNI295b+7vfaZRDfuqdFTAQJaCclLEsahahzr7t
-	 uUdZ6ihBDOZPWtND36iCiOxLZTWIV2MiownZgSyO3Ra5YN4TzCNCNk3EY+Ka6r6Eqo4gw
-	 w8SoHxxNVt3Xjxpa98EXCu1VxTpsRitcGkBFlKgc8FQB0WfYWPQv+nRYvCPE+DSbD7xxw
-	 qVgyiPd6ofcDAGyzlL26JwXyXaKs/eub6IWQ4oiI/+l4fzfMdhxOKOKvPXRQkfHUFOg==
+	bh=TCZ6qA3TyAiqwGHgA4jPdcFAEDJMFwP4TyiIavt6za8=;
+	b=rYfaT14si1J3Vtls5+imkdEBhr7pSqH49dr8n4EGhh/KxycDV7P/t4nvoQYQe1cZSOYH
+	 f/UkNHY4FbpY7kE/ye8Ivn+4tQw4wayxYBvfODgsI/+VR1ICZfOqf0qYa37ZyRQmhk/dc
+	 8rcXU1a0fm1quYJe6m+kwmdSh2CgXDG9CZbp5r0282Co9C5mk4RbDAseTXg/OuK56hUH4
+	 57JmaaEUIk336LudKnxOWj6LPe0uQf3egJ1mlgR4W/IILEXj3M7P+blHg0FLulqOws/ky
+	 EOCTNocZhZx08gHSjpAExJk9JLu/T9LcnNIFo+5eLaojYTtpbH6fmGFd7XtLAbkVzwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lk3soqQH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gmGdjJPt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DE80606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:03:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 255F1606A32D
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:03:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lk3soqQH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F68B1F0089F;
-	Sat,  7 Nov 2026 10:03:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gmGdjJPt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 830A91F0089F;
+	Sat,  7 Nov 2026 10:03:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794045809;
-	bh=tYuvXerWjoulZ4fzjpVAu3T1gb5Z38TErwn7Zp+/VQ8=;
+	s=k20260515; t=1794045812;
+	bh=TCZ6qA3TyAiqwGHgA4jPdcFAEDJMFwP4TyiIavt6za8=;
 	h=From:To:Cc:Subject:Date;
-	b=Lk3soqQH0yLF+2f5hHPH/4m3ZF8uGXWj8dH3O2156o0/NJh1lDPNjiWhUhmqObQnA
-	 xfJDjJbcaVm8JqfbPCmhEWIz7Yw4JdFqSE0mp291WjRtIOJOgcHgonV99vJLc1scfQ
-	 ihaNvuZuwlfWegmQmIB/lvpgg11n2GwTdQpG+zRBP3XYNv6hXnglGav3vMJtaDUmzF
-	 p81A5jW7iiXiaTfnBCIfEvh49bdmxEFu5Bwy4UWzfRCfYmCcpJcdE7W8HO//oT33GG
-	 Z1fXg8ICF8QPiGLbBVyImmY2jQlAF9OADn7ysytHVeiTbx8EoOGYTw811o/MgWbwGF
-	 8qoAA4vUnxTJQ==
+	b=gmGdjJPtLHb53nla5UAOMv4xH9Abf/Bf36SSqo2f79ZQbqjDrUEpcmtQ/CJTXWEpU
+	 1rZd1crIBrc63CJBPT/tzIx/vLrVd4GnsNVUHsMsZPW92t02zaC3pUfakX2mVK7BE2
+	 RFQyv4y/SUGLJOkb9WkTDGBqMwHG4FC6fXLAGY1gw3uIwL5ZTNJ09mKR8pGQyDVLRv
+	 2XJKhSc6Kw/XHGiPjyt6b70cAturln3JejueJor3ZyNY9iFbfgwpxNxDRGHQJBt9dR
+	 R/JExYp4h/Inb1LempHCpAgG5hXt4HU2YkB4PO7HvtWiBWilNJga7goeX2OS9Qv3fp
+	 blg6/IL5X90ng==
 From: Sasha Levin <sashal@kernel.org>
-To: christian.loehle@arm.com,
-	sumitg@nvidia.com,
-	rafael.j.wysocki@intel.com
+To: matthew.auld@intel.com,
+	thomas.hellstrom@linux.intel.com,
+	matthew.brost@intel.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] cpufreq: CPPC: Select the frequency-invariance callback per CPU" failed to apply to 7.3-stable tree
-Date: Sat,  7 Nov 2026 05:03:28 -0500
-Message-ID: <20261107050328-failed-7.3-21e018235d99@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/xe/vm: nuke PTs only after unlinking contested VMAs" failed to apply to 7.3-stable tree
+Date: Sat,  7 Nov 2026 05:03:30 -0500
+Message-ID: <20261107050330-failed-7.3-c28636489594@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,87 +69,98 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x 21e018235d99bc86249b034c06646df8757b2852
+git cherry-pick -x c2863648959489767f08892fd6e90577d2ea0b6a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050328-failed-7.3-21e018235d99@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050330-failed-7.3-c28636489594@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 21e018235d99bc86249b034c06646df8757b2852 Mon Sep 17 00:00:00 2001
-From: Christian Loehle <christian.loehle@arm.com>
-Date: Wed, 16 Sep 2026 17:28:04 +0100
-Subject: [PATCH] cpufreq: CPPC: Select the frequency-invariance callback per
- CPU
+From c2863648959489767f08892fd6e90577d2ea0b6a Mon Sep 17 00:00:00 2001
+From: Matthew Auld <matthew.auld@intel.com>
+Date: Fri, 18 Sep 2026 14:10:35 +0100
+Subject: [PATCH] drm/xe/vm: nuke PTs only after unlinking contested VMAs
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-cppc_cpufreq_cpu_fie_init() initializes deferred work only for CPUs whose
-feedback counters use PCC. However, if any CPU in a shared policy uses PCC,
-it installs the PCC tick callback for the entire policy. With FIE enabled,
-a non-PCC CPU then queues an uninitialized irq_work and can call a NULL
-function pointer when that work runs.
+In xe_vm_close_and_put(), external-BO VMAs are queued on the contested
+list for deferred destruction via xe_vma_destroy_unlocked(). However,
+xe_vm_pt_destroy() was previously invoked before processing contested
+VMAs, destroying vm->pt_root while those VMAs were still linked to their
+respective buffer objects (vm_bo->list.gpuva).
 
-Choose the frequency-invariance callback separately for each CPU using
-the recorded work-initialization state. Processor removal can unpublish
-the CPC descriptor before callback registration, so querying its counter
-transport again can incorrectly select direct reads for a PCC CPU.
+If a concurrent thread evicts one of those shared buffer objects,
+xe_bo_trigger_rebind() holding only bo->resv walks the BO's VMAs and, in
+fault mode, calls xe_vm_invalidate_vma() -> xe_pt_zap_ptes(). Because
+vm->pt_root[tile->id] is already NULL, dereferencing pt->level causes a
+NULL ptr deref.
 
-Register the callbacks after all counter initialization has completed, so
-a failed initial read for an online CPU cannot leave a partially
-registered policy. PCC CPUs use their initialized deferred work, while
-non-PCC CPUs read their own counters directly from the tick.
+Fix this by deferring xe_vm_free_scratch() and xe_vm_pt_destroy() until
+after all contested VMAs have been unlinked and destroyed.
 
-Fixes: 997c021abc6e ("cpufreq: CPPC: Update FIE arch_freq_scale in ticks for non-PCC regs")
-Cc: All applicable <stable@vger.kernel.org>
-Signed-off-by: Christian Loehle <christian.loehle@arm.com>
-Tested-by: Sumit Gupta <sumitg@nvidia.com>
-Link: https://patch.msgid.link/20260916162805.1039247-20-christian.loehle@arm.com
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+User is reporting hitting a NULL ptr deref in xe_pt_zap_ptes(), which
+could be explained by this race.
+
+Assisted-by: LLM
+Fixes: b06d47be7c83 ("drm/xe: Port Xe to GPUVA")
+Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9290
+Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: <stable@vger.kernel.org> # v6.12+
+Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+Link: https://patch.msgid.link/20260918131034.598078-2-matthew.auld@intel.com
 ---
- drivers/cpufreq/cppc_cpufreq.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/xe/xe_vm.c | 21 +++++++++------------
+ 1 file changed, 9 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/cpufreq/cppc_cpufreq.c b/drivers/cpufreq/cppc_cpufreq.c
-index 9dde24d3e6455..c0fa9073e4d3e 100644
---- a/drivers/cpufreq/cppc_cpufreq.c
-+++ b/drivers/cpufreq/cppc_cpufreq.c
-@@ -150,7 +150,7 @@ static struct scale_freq_data cppc_sftd_pcc = {
- 
- static void cppc_cpufreq_cpu_fie_init(struct cpufreq_policy *policy)
- {
--	struct scale_freq_data *sftd = &cppc_sftd;
-+	struct scale_freq_data *sftd;
- 	struct cppc_freq_invariance *cppc_fi;
- 	int cpu, ret;
- 
-@@ -165,7 +165,6 @@ static void cppc_cpufreq_cpu_fie_init(struct cpufreq_policy *policy)
- 			kthread_init_work(&cppc_fi->work, cppc_scale_freq_workfn);
- 			init_irq_work(&cppc_fi->irq_work, cppc_irq_work);
- 			cppc_fi->pcc_work_initialized = true;
--			sftd = &cppc_sftd_pcc;
- 		}
- 
- 		ret = cppc_get_perf_ctrs(cpu, &cppc_fi->prev_perf_fb_ctrs);
-@@ -181,8 +180,15 @@ static void cppc_cpufreq_cpu_fie_init(struct cpufreq_policy *policy)
- 		}
+diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
+index 6b793ef31537f..64a1d27eccb62 100644
+--- a/drivers/gpu/drm/xe/xe_vm.c
++++ b/drivers/gpu/drm/xe/xe_vm.c
+@@ -1979,21 +1979,13 @@ void xe_vm_close_and_put(struct xe_vm *vm)
+ 		vma->gpuva.flags |= XE_VMA_DESTROYED;
  	}
  
--	/* Register for freq-invariance */
--	topology_set_scale_freq_source(sftd, policy->cpus);
-+	/* A shared policy may contain both PCC and non-PCC counters. */
-+	for_each_cpu(cpu, policy->cpus) {
-+		cppc_fi = &per_cpu(cppc_freq_inv, cpu);
-+		if (cppc_fi->pcc_work_initialized)
-+			sftd = &cppc_sftd_pcc;
-+		else
-+			sftd = &cppc_sftd;
-+		topology_set_scale_freq_source(sftd, cpumask_of(cpu));
-+	}
- }
+-	/*
+-	 * All vm operations will add shared fences to resv.
+-	 * The only exception is eviction for a shared object,
+-	 * but even so, the unbind when evicted would still
+-	 * install a fence to resv. Hence it's safe to
+-	 * destroy the pagetables immediately.
+-	 */
+-	xe_vm_free_scratch(vm);
+-	xe_vm_pt_destroy(vm);
+ 	xe_vm_unlock(vm);
  
- /*
+ 	/*
+-	 * VM is now dead, cannot re-add nodes to vm->vmas if it's NULL
+-	 * Since we hold a refcount to the bo, we can remove and free
+-	 * the members safely without locking.
++	 * Unlink and destroy all contested external-BO VMAs before destroying
++	 * the page tables. Otherwise, concurrent eviction holding only bo->resv
++	 * can walk the BO's VMAs and attempt to invalidate/zap page tables that
++	 * have already been freed.
+ 	 */
+ 	list_for_each_entry_safe(vma, next_vma, &contested,
+ 				 combined_links.destroy) {
+@@ -2001,6 +1993,11 @@ void xe_vm_close_and_put(struct xe_vm *vm)
+ 		xe_vma_destroy_unlocked(vma);
+ 	}
+ 
++	xe_vm_lock(vm, false);
++	xe_vm_free_scratch(vm);
++	xe_vm_pt_destroy(vm);
++	xe_vm_unlock(vm);
++
+ 	xe_svm_fini(vm);
+ 
+ 	up_write(&vm->lock);
 -- 
 2.53.0
 
