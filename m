@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047526;
-	b=rQfM1rf7TvHngBuTebeieYktsS2bTcsGr0RhEXt+q0TkG7Akauii07vEc969ODWy52q1
-	 yY8tjGKPXc1FlRNAEb7GYdve2eU9/9Ssqwv/UJHATZ0Swe+3VvcfYheIyYv1RhscrX9Ma
-	 hXW5qDEQyM/6+SgOUMgFS35Z7ddMi4vOrfOnJ+KZnvf9pZFAuz4W4f8qFc6Tsy/0HCHQn
-	 gLbwWHGCEOdP2krh/G/b/UFj2y+b6lknxN2hYyON0gBq/terW+DC+vBEn46+my87IjKic
-	 klP2Ejizw5pnqcgzC25GTMwHBM3Odq1OmKMrG6tVZkUm2R0WMqsfw/FuBB2YhhLkRFQ==
+	t=1794047529;
+	b=ZyofWqOeiQ4qB1SOP/zYfSXb+7vQYFY9vNW09hPwiPV4781TqE8pMZfSyf18TlLukW6r
+	 h82C1uN0pYqggOsxoje28fqR2Ze7dsuvM2N6pwFBnQOPZokVlN5a8UTVB5gWxwGbjXAje
+	 2Iwf5O/S2WD/fbs9/m4Jyy/r1YaKQXZJycfOhnTyntagXfbQPR2rKIl1kzN3pKjHxaYpG
+	 29oMj4E/L2EIMbM4q32VMhxrZUk+MEx1Lx7oa4iNUethr6Gbk0BFl5GpjWN/YTvIJDS8/
+	 9qulcWXa98v6zDwfJ20i+GZqOsYk2TvlI7hidYkLOAHgtmEPAi/3/AJ40pXixezF79w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047526;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047529;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=SEINEF4N6aCmI3lKgaXGwxr91MvmhN+uTGJK23iz/60=;
-	b=OMesXTppy86JMt707Qzp4ralNFh8rl0B/O9kiArdN/RjLJnOZoTYeAs8XvdvA/JGEA73
-	 yo2QOib4mPSs4thYUI4ZHjnA2N48o+Isp7Z0gHRKYK2pp9bfE7tqHTjnZUIFntebGK33p
-	 2dTmb9JveGMvnjtd+X0JUFzLU8ryQy46eeanUwPxrTCUJGBPu4aZEsrYqH4j8lTWZY9+o
-	 hvOEwgIBXu1M3COA97KquZTpTYuwdcF7XkodQSsrlYtHSoa3TuvLmCphP55YlSdiJqmd/
-	 LmwgMFhW+r0Zdq/mjL/I+a/KMj7edV9mvUWhcVtWuA/8VvcRLOUubjCtuMerImTDqiQ==
+	bh=H2kEnTvJbzlcXZRilaXPtEkGsbvQmwTaybTs1wmf0iU=;
+	b=fFU3TgopNZhTfMC+b/DjIy0McNQIQJU1wTTv8FzrSFXGkemjEdyUfq0UzFtS9IyHLXzJ
+	 SrAuZnKm8ZFDub5h2V8HzuConmQAyOkCGlVurAfaSkIUUF2HuG1S6aR+AT+HT+aQeOw43
+	 nLAmxkv0YW5sDe8Hx8M/NG4dNWnCLB+p9WFLjqb9uH07D3OrJTsJ3Z49+jp0z4R8A7APO
+	 lp8rkuzLhegm0BMKgiipBrJimv/aXg4uapGmVJtuelQuRabndiLgBfbAnxKc+eIntDGW0
+	 +hyvE4soMhmgmhCihApuGHXy9dxyYTPXPlKS8PcAxCssSovimbnxoVAWwpeK9gXQxUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YqlCVabF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="h/HqylUO";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8CDD606A32D
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:32:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA3DE606A339
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:32:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YqlCVabF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1B3F1F0089F;
-	Sat,  7 Nov 2026 10:32:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h/HqylUO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70A7A1F0089F;
+	Sat,  7 Nov 2026 10:32:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047525;
-	bh=SEINEF4N6aCmI3lKgaXGwxr91MvmhN+uTGJK23iz/60=;
+	s=k20260515; t=1794047528;
+	bh=H2kEnTvJbzlcXZRilaXPtEkGsbvQmwTaybTs1wmf0iU=;
 	h=From:To:Cc:Subject:Date;
-	b=YqlCVabFod4SNM/Xmk+WzacA188edRp3O8ZlCzAIOFQgGcTLYG8gOx4cB1OcThqzc
-	 tBRlD582xGs1325UD3PgQ3yhwPKhebHiw0efmFtr+cCvL5weNHapPwjKUxUyBu+8N5
-	 NcAtgW6Xzf/h3C5OuJDLhRmKIGRIaN+GSs8Ka7JudJkna+Xwhmllp0MQ07wbqReqlK
-	 lniYDgJvi/hGUuG+arImTAN+770wnJHqdv/X6VtWKMnJy52T4nrmAD4DQpvz3v2Lqy
-	 iwmHxohuUgaeK/AdqJ8y0s5kgW+T/B7hYcI7SC1Y9HMEGxTrTT2QDGW0zWGRU4xJa5
-	 rRPm2X08djHKQ==
+	b=h/HqylUOkli4Zvqe1ub2Sc7ZqGs8OYWlPDbyoazWOPbwLOYxh9XlnRnbG6rFc+I+z
+	 nMxgRwmjw2tsEANM48BBAxmohOAaB3mA2MRTsQSvguJCpG5kpYs4YyXEjsE3VcX8BB
+	 9ePYFL1d/OU1FL15ZFLBvQaclRb4awbz/Mek0/XkNF+tTijrMIflRcHTb05sap1Smx
+	 lB9XBAOlv2IDYDO2pQHwaVZMiiL6kS5MYQR6jaRPD3yc+XX50xhj691Uv6BMJtqZ6i
+	 +oTjN/p8guUTjz5G4FkOsfEQGfTArj+9FHQptyFWIgZADUzP0LZpAbHMAE0gbDje00
+	 toAUThwuK6XDg==
 From: Sasha Levin <sashal@kernel.org>
-To: riel@surriel.com,
-	mhocko@suse.com,
-	shakeel.butt@linux.dev,
+To: joe@dama.to,
 	akpm@linux-foundation.org,
+	shakeel.butt@linux.dev,
 	hannes@cmpxchg.org,
+	mhocko@kernel.org,
 	muchun.song@linux.dev,
 	roman.gushchin@linux.dev
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/memcontrol: fix stuck FLUSHING_CACHED_CHARGE bit on isolated cpus" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:32:03 -0500
-Message-ID: <20261107053203-failed-6.6-d2f28a1a652e@kernel.org>
+Subject: FAILED: patch "[PATCH] mm: memcontrol: raise MEMCG_MAX for charges that fail without reclaiming" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:32:06 -0500
+Message-ID: <20261107053206-failed-6.6-374f65b14819@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -73,101 +73,131 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x d2f28a1a652e0a43f6f63de9b4e4d8d5f2716803
+git cherry-pick -x 374f65b1481992eb6b9c6bffd53f3afa5c2e94cf
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053203-failed-6.6-d2f28a1a652e@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053206-failed-6.6-374f65b14819@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From d2f28a1a652e0a43f6f63de9b4e4d8d5f2716803 Mon Sep 17 00:00:00 2001
-From: Rik van Riel <riel@surriel.com>
-Date: Fri, 28 Aug 2026 13:50:36 -0400
-Subject: [PATCH] mm/memcontrol: fix stuck FLUSHING_CACHED_CHARGE bit on
- isolated cpus
+From 374f65b1481992eb6b9c6bffd53f3afa5c2e94cf Mon Sep 17 00:00:00 2001
+From: Joe Damato <joe@dama.to>
+Date: Mon, 31 Aug 2026 10:48:35 -0700
+Subject: [PATCH] mm: memcontrol: raise MEMCG_MAX for charges that fail without
+ reclaiming
 
-When drain_all_stock() sets FLUSHING_CACHED_CHARGE before checking
-isolation, schedule_drain_work() can drop the work in a separate RCU
-critical section, and housekeeping_update()'s synchronize_rcu() can race
-that second check, leaving the flag set.
+Charges that exceed memory.max and return through the nomem label can
+raise no event and simply return -ENOMEM.
 
-drain_local_stock() only clears the bit for work that ran, so the flag
-remains set and the stock is never drained again.
+A non-blocking charge can hit the limit, get rejected, but is not visible
+in memory.events.
 
-Have schedule_drain_work() return whether the work was queued, and clear
-FLUSHING_CACHED_CHARGE in drain_all_stock() when the remote CPU is
-isolated, so future drains can retry.
+This was noticed in a production setting where bpf_mem_alloc() attempted
+to refill its per-cpu freelists, which triggered a non-blocking charge
+while at the limit.
 
-Link: https://lore.kernel.org/20260828135036.7d44361f@fangorn
-Fixes: 6a792697a53a ("memcg: do not drain charge pcp caches on remote isolated cpus")
-Suggested-by: Michal Hocko <mhocko@suse.com>
-Suggested-by: Shakeel Butt <shakeel.butt@linux.dev>
-Signed-off-by: Rik van Riel <riel@surriel.com>
+Commit d6e103a757fa ("mm: memcontrol: do not miss MEMCG_MAX events for
+enforced allocations") added raised_max_event to cover charges that are
+force charged without ever reaching reclaim, but charges that are rejected
+outright were left out.  Getting an allocation failure without the
+corresponding MEMCG_MAX event is unexpected and makes debugging and
+monitoring harder.
+
+Raise the event on the way out for rejected charges as well, by routing
+the -ENOMEM return through the same exit path that already covers forced
+charges.  The existing behavior of raising a MEMCG_MAX event on every
+charge/reclaim/retry iteration is left unchanged.
+
+Tested with a module that performs accounted GFP_NOWAIT page allocations
+from a task in a cgroup at its memory.max, and measures the resulting
+memory.events:max delta.  Without this patch the rejected charges raise no
+event at all; with it the delta matches the number of rejected charges
+exactly.  A GFP_KERNEL|__GFP_NORETRY control, which reaches reclaim,
+raises the same two events per failed charge before and after, confirming
+the existing charge/reclaim/retry accounting is unchanged.
+
+Link: https://lore.kernel.org/20260831174836.3102406-1-joe@dama.to
+Fixes: d6e103a757fa ("mm: memcontrol: do not miss MEMCG_MAX events for enforced allocations")
+Signed-off-by: Joe Damato <joe@dama.to>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Suggested-by: Shakeel Butt <shakeel.butt@linux.dev>
 Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
-Acked-by: Michal Hocko <mhocko@suse.com>
 Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Michal Hocko <mhocko@kernel.org>
 Cc: Muchun Song <muchun.song@linux.dev>
 Cc: Roman Gushchin <roman.gushchin@linux.dev>
 Cc: <stable@vger.kernel.org>
 ---
- mm/memcontrol.c | 19 ++++++++++++-------
- 1 file changed, 12 insertions(+), 7 deletions(-)
+ mm/memcontrol.c | 28 ++++++++++++++++------------
+ 1 file changed, 16 insertions(+), 12 deletions(-)
 
 diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index 1709ac96bbdec..c6b85e3a5a0b3 100644
+index d5ebe83eae3ef..aeaa09e01d70e 100644
 --- a/mm/memcontrol.c
 +++ b/mm/memcontrol.c
-@@ -2306,7 +2306,7 @@ static bool is_memcg_drain_needed(struct memcg_stock_pcp *stock,
- 	return flush;
- }
+@@ -2685,10 +2685,11 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
+ 	bool raised_max_event = false;
+ 	unsigned long pflags;
+ 	bool allow_spinning = gfpflags_allow_spinning(gfp_mask);
++	int ret = 0;
  
--static void schedule_drain_work(int cpu, struct work_struct *work)
-+static bool schedule_drain_work(int cpu, struct work_struct *work)
- {
- 	/*
- 	 * Protect housekeeping cpumask read and work enqueue together
-@@ -2315,8 +2315,11 @@ static void schedule_drain_work(int cpu, struct work_struct *work)
- 	 * pending work on newly isolated CPUs.
+ retry:
+ 	if (consume_stock(memcg, nr_pages))
+-		return 0;
++		return ret;
+ 
+ 	if (!allow_spinning)
+ 		/* Avoid the refill and flush of the older stock */
+@@ -2799,16 +2800,11 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
+ 	 * put the burden of reclaim on regular allocation requests
+ 	 * and let these go through as privileged allocations.
  	 */
- 	guard(rcu)();
--	if (!cpu_is_isolated(cpu))
--		queue_work_on(cpu, memcg_wq, work);
-+	if (cpu_is_isolated(cpu))
-+		return false;
+-	if (!(gfp_mask & (__GFP_NOFAIL | __GFP_HIGH)))
+-		return -ENOMEM;
++	if (!(gfp_mask & (__GFP_NOFAIL | __GFP_HIGH))) {
++		ret = -ENOMEM;
++		goto out;
++	}
+ force:
+-	/*
+-	 * If the allocation has to be enforced, don't forget to raise
+-	 * a MEMCG_MAX event.
+-	 */
+-	if (!raised_max_event)
+-		__memcg_memory_event(mem_over_limit, MEMCG_MAX, allow_spinning);
+-
+ 	/*
+ 	 * The allocation either can't fail or will lead to more memory
+ 	 * being freed very soon.  Allow memory usage go over the limit
+@@ -2818,7 +2814,15 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
+ 	if (do_memsw_account())
+ 		page_counter_charge(&memcg->memsw, nr_pages);
+ 
+-	return 0;
++out:
++	/*
++	 * Don't forget to raise a MEMCG_MAX event for forced or rejected
++	 * requests.
++	 */
++	if (!raised_max_event)
++		__memcg_memory_event(mem_over_limit, MEMCG_MAX, allow_spinning);
 +
-+	queue_work_on(cpu, memcg_wq, work);
-+	return true;
++	return ret;
+ 
+ done_restock:
+ 	if (batch > nr_pages)
+@@ -2877,7 +2881,7 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
+ 	    !(current->flags & PF_MEMALLOC) &&
+ 	    gfpflags_allow_blocking(gfp_mask))
+ 		__mem_cgroup_handle_over_high(gfp_mask);
+-	return 0;
++	return ret;
  }
  
- /*
-@@ -2348,8 +2351,9 @@ void drain_all_stock(struct mem_cgroup *root_memcg)
- 				      &memcg_st->flags)) {
- 			if (cpu == curcpu)
- 				drain_local_memcg_stock(&memcg_st->work);
--			else
--				schedule_drain_work(cpu, &memcg_st->work);
-+			else if (!schedule_drain_work(cpu, &memcg_st->work))
-+				clear_bit(FLUSHING_CACHED_CHARGE,
-+					  &memcg_st->flags);
- 		}
- 
- 		if (!test_bit(FLUSHING_CACHED_CHARGE, &obj_st->flags) &&
-@@ -2358,8 +2362,9 @@ void drain_all_stock(struct mem_cgroup *root_memcg)
- 				      &obj_st->flags)) {
- 			if (cpu == curcpu)
- 				drain_local_obj_stock(&obj_st->work);
--			else
--				schedule_drain_work(cpu, &obj_st->work);
-+			else if (!schedule_drain_work(cpu, &obj_st->work))
-+				clear_bit(FLUSHING_CACHED_CHARGE,
-+					  &obj_st->flags);
- 		}
- 	}
- 	migrate_enable();
+ static inline int try_charge(struct mem_cgroup *memcg, gfp_t gfp_mask,
 -- 
 2.53.0
 
