@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049967;
-	b=5qnO9OOFmXQnfZXsy7QK2kMzFLe0Gpx6/mDdmyBefz90WirBP/pwlHBIKlbYu55oTiBz
-	 aindHoN6cIxFVj6bGcfgA+cKaD83RnOlRqePukrllqAHjD/h1X3LB757vHPRQAomWVR1D
-	 qwfHKgvi4Kxg60NMlN0encN+E3vcvnkASTA5SZyKanRGq9Ns6tfPu3VqFS3xLgy30AZa3
-	 h0/82sZCXRov0pNt0SkSBtMO5kC+FpVFaM0mA3KyShsxwiFm5EfslazMEpO7lxhmGtPyZ
-	 3547lCu7a5S17DhG4xm0W+JrXk2fotZX/Y3HRyS4nzeY7Xvcyw5HvaSKuLQUSJhADSw==
+	t=1794049969;
+	b=p7X/fFDBknRtYysbcyiAWLUZc31kuG95iRSOUPFRCsU6lkzO32Zjvs7wkec+eiu9D3St
+	 geFVY9ijskGEt3/p+ILL9VtYVRuNdMyswS8NSMqEqjvk/USGmm2KFkynRCxZOlXDTGzqB
+	 U2dwR8DvBNf5e2B2Zxfijz1qZGObEo3rJ+upTustiWV/emCkhVgkA/xQxwTk3f6ZdGvi5
+	 2xz1nLNfLdg3ls/sLKVHH8hIYLTX9NfVh3frSlTll+ezMZ3O02xx0YW8X1+mYsAJMSpuP
+	 dGXxMC1WGZ1v8viYFJ5AlTmdtM0HUfXl4BHpyflJuwo3C/fORNbrPYtJAltA5XecZDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049967;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049969;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=HO+nLb56sf3aehiboSsMjO/g5lAnQSdYvHF6pEhQsus=;
-	b=xtyjxmRBGHQQ2MfIDCKv+LePujr8on4OKGnjmwPZAdDkHwj3AjxW+lflRZbO976iwTJ2
-	 URxrxeTiT8vS7urTZ1C69Bfs8PIZMvTEqpVTy0DYA9x697umlbixqMdqBvFPd+sGy7K1Y
-	 PE3tYKwWTT9YYS5gkN3GVw7Qp9UIowN7ncWWmUwFPzYM/XmPHZ/DO2hBKPKjXOtpNw1Et
-	 g4gA+pihDZoT7QxrC9jjPR3aXcWfF8ejaD/olh2jhpZZtg9sPlb7UP+zf1aFEF7WX2Gsa
-	 QZ2VbSxKOD8IOQqmCpJCNwodWu2+icgXEJuvPiCZGDG4BYYe1HRdK2wRXcOk502X63Q==
+	bh=+BRlVpAEEN+SAeMVLPVJ+K9udmDh1gGWtDzGvI/bxsw=;
+	b=N4DvED83FunzdzLcWW57ORcAZ2ThcSLnBxOewHra42Ycv9+T99hzrqWh95luGvbB9GKk
+	 Rvw30erG/tUbCNkR2yPE5liRsTUcGr4kAenwCg+kgsg4PUi4udjyiRf7DOKQn2K0+V9n9
+	 qABhIb4w/cNzGXQZPe1HXJkZ38Q1oeKW3Tbqb+mFRDQ3/2qyCqIkJhWJDs3fmSRfMV2pG
+	 vQNDGQ/FU9x6AHiyL9lUngQIXu5i6qk1H6avIpIo0XOqxaC9stUTdaQ873jPdQAJ6RUOl
+	 x4B5J3nHUFWIXHnRhw3uR10qNWh5uZYu43ZVTBij3p9QZ9E2n2vNKrzsIvLhw5v3mHg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lEQvHll6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a8eWU30G;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFC28606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:12:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94270606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:12:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lEQvHll6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E7FB1F0089F;
-	Sat,  7 Nov 2026 11:12:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a8eWU30G
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A88F1F0089F;
+	Sat,  7 Nov 2026 11:12:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049966;
-	bh=HO+nLb56sf3aehiboSsMjO/g5lAnQSdYvHF6pEhQsus=;
+	s=k20260515; t=1794049969;
+	bh=+BRlVpAEEN+SAeMVLPVJ+K9udmDh1gGWtDzGvI/bxsw=;
 	h=From:To:Cc:Subject:Date;
-	b=lEQvHll6YQWRg/lMa/Y0VJohSx34NEn8eOjR5ZIe2W6Q17N3IpUVoYq/ebyhZoDAk
-	 ixPFJukX2iwyd9TfKyZ2xkFPLMojs0vMeTlzPiiX7F+769ebU71JtpuO8PHosXsoMK
-	 75gD0ZT0cSnFDdtSh8WxeDZ039L+rVHRAEy7DjPUmz/L4z/S88AFc0A8VJ8xtLhKQb
-	 wjplJf2DqmOMyUQHYu5qguqp7220FQVeI1fsxbYguVMBPMRKQce9Q2KJn+CXzPgA1X
-	 U6+Pq+VXYJr0FeeIES35/6UGTwTMa+E577eVT1ugedqgtLK/U3NueHTK5sMko7Mg8O
-	 UOFYGJpbA7X2w==
+	b=a8eWU30GkaOHIBgpBkDKqDsLkMKLavJ3qtBzA8iUUIjw+cUY/ls1z4kXv0UQ1Sy0k
+	 Rr6BApCRg7e4nLwwfYOvV8kztZ7p5Ye1yp+Bln4k1nnRq+pQQvyolp2cY9HSFYr9jm
+	 euk/720UYlCYx7zng+pi/AuPngZdQM1lN8j5c5uH5K6kcSRKu2Y0g+xkBASUdW2VvH
+	 hTGjrZwrO+2iwxGqRv6VecLS8T/YY+/KjnBzX0lErczM+ZqVFhIWgxe+hI+VSsbcoD
+	 QU29VC4kqZ87tdDNFdb3wfrTJUPHDo8Raw3bjqzR5rBs/1HsO3DzjwoZrf45qgo5nC
+	 Sh6naVRnBo7uw==
 From: Sasha Levin <sashal@kernel.org>
-To: enscrpt@pm.me,
-	tiwai@suse.de
+To: peter.ujfalusi@linux.intel.com,
+	broonie@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ALSA: usb-audio: Bound packet copies by the PCM buffer size" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:12:44 -0500
-Message-ID: <20261107061244-failed-5.15-06be918062ad@kernel.org>
+Subject: FAILED: patch "[PATCH] ASoC: hdac_hda: Restore the codec device type on unbind" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 06:12:47 -0500
+Message-ID: <20261107061247-failed-5.15-08a44bde821d@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,106 +68,72 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 06be918062adc1a5a76dc346803b136b20bdb5ae
+git cherry-pick -x 08a44bde821d4fe22c0b6e63da04b3c59ac243a8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061244-failed-5.15-06be918062ad@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061247-failed-5.15-08a44bde821d@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 06be918062adc1a5a76dc346803b136b20bdb5ae Mon Sep 17 00:00:00 2001
-From: Sinan Turunc <enscrpt@pm.me>
-Date: Mon, 26 Oct 2026 22:36:39 +0000
-Subject: [PATCH] ALSA: usb-audio: Bound packet copies by the PCM buffer size
+From 08a44bde821d4fe22c0b6e63da04b3c59ac243a8 Mon Sep 17 00:00:00 2001
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Date: Tue, 27 Oct 2026 10:38:39 +0200
+Subject: [PATCH] ASoC: hdac_hda: Restore the codec device type on unbind
 
-retire_capture_urb() and prepare_playback_urb() assume that one USB
-packet never carries more data than the whole ALSA ring buffer. Nothing
-enforces that: the packet size comes from the device (wMaxPacketSize,
-and curpacksize == maxpacksize when the class-specific endpoint
-descriptor sets MaxPacketsOnly), while the PCM hardware constraints only
-require 64-byte periods, two periods and a period time of one data
-interval. An 8 kHz mono U8 stream on a 128-byte buffer is legal, and a
-full-speed device can send 1023-byte packets into it.
+hdac_hda_codec_probe() changes the type of the codec device to
+HDA_DEV_ASOC to prevent snd_hda_codec_unregister() from unregistering
+the device when the card is freed.
 
-On the first oversized packet hwptr_done is wrapped once and stays
-beyond buffer_bytes (895 for 1023 bytes into 128). On the next packet
-the wrap arithmetic in the copy path computes
+The type is never restored, and hda_bus_match() requires the device and
+driver types to be equal. After unbinding the codec driver via sysfs the
+HDA_DEV_LEGACY codec drivers no longer match the device and bind fails
+with -ENODEV.
 
-    bytes1 = subs->buffer_bytes - oldptr
+Restore HDA_DEV_LEGACY with a device managed action registered before
+the component, so it runs after the component and the card are gone.
 
-with oldptr > buffer_bytes, so bytes1 wraps to about 4 GB and memcpy()
-runs off the end of the URB buffer and of the vmalloc'd DMA buffer:
-
-  BUG: KASAN: slab-out-of-bounds in retire_capture_urb+0x251/0x870
-  Read of size 4294966529 at addr ffff88800c1e2800 by task vhci_rx/82
-
-and for playback, where copy_to_urb() has the same shape:
-
-  BUG: KASAN: vmalloc-out-of-bounds in copy_to_urb.isra.0+0x188/0x430
-  Read of size 4294966529 at addr ffffc9000004537f by task vhci_rx/79
-   prepare_playback_urb+0x98a/0x1fc0
-
-Truncate an oversized capture packet to the buffer size, and stop
-filling a playback URB once it holds a whole buffer. With bytes <=
-buffer_bytes the single wrap of hwptr_done and the two-part memcpy()
-in both copy paths stay inside the buffer. A device whose packets do
-not fit the buffer at all was never going to play correctly anyway.
-
-Reproduced on 7.3-rc7 with a USB/IP device (dummy_hcd cannot carry
-isochronous data) advertising a UAC1 endpoint with MaxPacketsOnly and
-wMaxPacketSize 1023, and a PCM client using period_size 64, periods 2.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: b60ee2e281b6 ("ASoC: hdac_hda: overwrite hdev type to HDA_DEV_ASOC")
 Cc: stable@vger.kernel.org
-Signed-off-by: Sinan Turunc <enscrpt@pm.me>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Link: https://patch.msgid.link/20261026223543.620-2-enscrpt@pm.me
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Link: https://patch.msgid.link/20261027083840.28813-3-peter.ujfalusi@linux.intel.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/usb/pcm.c | 20 +++++++++++++++++++-
- 1 file changed, 19 insertions(+), 1 deletion(-)
+ sound/soc/codecs/hdac_hda.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
-index 682b6c1fe76ba..c2f7b08607ac8 100644
---- a/sound/usb/pcm.c
-+++ b/sound/usb/pcm.c
-@@ -1343,6 +1343,18 @@ static void retire_capture_urb(struct snd_usb_substream *subs,
- 			bytes -= adj;
- 			subs->stream_offset_adj -= adj;
- 		}
-+		/*
-+		 * A packet can be as large as the endpoint's maxpacksize, which
-+		 * the device chooses, while the ring buffer can be as small as
-+		 * two 64-byte periods. The hwptr_done wrap below handles one
-+		 * wrap only, so never take more than one buffer from a packet.
-+		 */
-+		if (unlikely(bytes > subs->buffer_bytes)) {
-+			dev_warn_ratelimited(&subs->dev->dev,
-+					     "%u-byte packet exceeds %u-byte buffer, truncating\n",
-+					     bytes, subs->buffer_bytes);
-+			bytes = subs->buffer_bytes;
-+		}
- 		frames = bytes / stride;
- 		if (!subs->txfr_quirk)
- 			bytes = frames * stride;
-@@ -1553,8 +1565,14 @@ static int prepare_playback_urb(struct snd_usb_substream *subs,
+diff --git a/sound/soc/codecs/hdac_hda.c b/sound/soc/codecs/hdac_hda.c
+index 46617fc88277e..cae5711e979c3 100644
+--- a/sound/soc/codecs/hdac_hda.c
++++ b/sound/soc/codecs/hdac_hda.c
+@@ -617,6 +617,13 @@ static const struct snd_soc_component_driver hdac_hda_hdmi_codec = {
+ 	.endianness		= 1,
+ };
  
- 		for (i = 0; i < ctx->packets; i++) {
- 			counts = snd_usb_endpoint_next_packet_size(ep, ctx, i, avail);
-+			/*
-+			 * Bound by the ring buffer as well as by the URB:
-+			 * copy_to_urb() wraps hwptr_done once, so one URB must
-+			 * never carry more than the whole buffer.
-+			 */
- 			if (counts < 0 ||
--			    (frames + counts) * stride > ctx->buffer_size)
-+			    (frames + counts) * stride > ctx->buffer_size ||
-+			    (frames + counts) * stride > subs->buffer_bytes)
- 				break;
- 			/* set up descriptor */
- 			urb->iso_frame_desc[i].offset = frames * stride;
++static void hdac_hda_restore_dev_type(void *data)
++{
++	struct hdac_device *hdev = data;
++
++	hdev->type = HDA_DEV_LEGACY;
++}
++
+ static int hdac_hda_dev_probe(struct hdac_device *hdev)
+ {
+ 	struct hdac_hda_priv *hda_pvt;
+@@ -634,6 +641,11 @@ static int hdac_hda_dev_probe(struct hdac_device *hdev)
+ 		hda_pvt->need_display_power = true;
+ 	dev_set_drvdata(&hdev->dev, hda_pvt);
+ 
++	/* Allow the legacy codec driver to match again after unbind */
++	ret = devm_add_action(&hdev->dev, hdac_hda_restore_dev_type, hdev);
++	if (ret)
++		return ret;
++
+ 	/* hold the ref while we probe */
+ 	hlink = snd_hdac_ext_bus_get_hlink_by_name(hdev->bus, dev_name(&hdev->dev));
+ 	if (!hlink) {
 -- 
 2.53.0
 
