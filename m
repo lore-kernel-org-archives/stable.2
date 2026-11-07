@@ -1,51 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047212;
-	b=JnzdlTlVeY1GdvGp3MV62AotV2p8y+vwZEnqsoFpwmtBxSDCz+sjUZpfeAUyxmODq219
-	 mbL64YNU8M9eHA2nW0Z8umIJ6VJp/Eg9p9squtJSXUIfCayH470lbzoEtDO8kbthHtqB+
-	 p9FxKg6gnrwVa+b9+iF0kNuPN1u5XOFERR7UF/eZAHyv9ssleRe+kySzut66pPE2HFxL5
-	 gEl7rW5hH15GE2K89aqTq120JTeiRAcg2/HLcUAimMULAuGN0Zb/0aFht9czyUisUM78G
-	 uJmhM585RUSYWEw36lAJSdhHZP4cAB/dRQ+48oRPCGiBuGxwVNCpSK9nrkmFZXW5LNw==
+	t=1794047214;
+	b=oiqe82wG0sbpV0QbzIvSYrvpNajteEHPhS9veon+BhnkaS3XVPU0I+vYdWDx6xHtn65H
+	 lStL+gK+l9RCunXdQypw71oeNkjTgcaXv4iFnwBm2bBmkIg1YmnumvyFoiWXY2Zrq97rd
+	 g5TcqA7nuCCRF3XriOyLn36o/4/SMTlgtuwtCVJD/pwi8wvIfpWQlFbL7CejeagknYZEM
+	 8MAp/i2DnvoOCvoBSD92oW6YBYVIUq2QstkSyM0HnBm2pTol1i4aPnB9X6iiMj2P2XKhh
+	 EKOjVpHVkYsimLJhTJnFHwKtwppzibxWyeHcwLRUC+xosIIqLigx+QvirqWYeADZNzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047212;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047214;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=1YyZRR0AAlzPFCbOW1YsND4zTd35IKRX6y+VPDmlMzA=;
-	b=oYznFNw5FvGW0TSfZwHuiOOP0KoQhwJ76SGsW6yHhvAMLbkiwRCSph3171Eg63U0wquY
-	 kfHFYl8FNHRZzvW28VbsOf9o2weuqQ2MMnLkQYLM/5zJvARGkm1hq2mv/p3v4smYJ4Smr
-	 RQw46RLofkr3D3jVHcoeriQFiBG3sYwNxgCd6tiPAl37hJ7/ioW9MjTyAjsQ8+QV+9vK3
-	 oI8pU3shQY4Ci9hX93cT/XYjIecf6Sh/sXisiY7mVSrvsW7Od9j1Pj+CCpCvU+67W3pm1
-	 Y8R5evwUElhPwO8DU06lxGgOs4HdK7509C3va0K1pPW8Ql6A6qVCmDEnKQ1N0TR3Y+A==
+	bh=9DIiruk2w2cBpOeGJ+1pFMDVuFzFPqvU2/PsW46nEXA=;
+	b=rpq1snplXTbqJXjGoVUlatWAcneDLHaIe9YRszfiGamj9BCrmigcg/N2vxNL84cudjCv
+	 PWs/mZ52hN+iBFTwgyg/RWq8grsXfkcexzWAp3Qlot53rQjtZOyHwsTXSH1sP+30epQaa
+	 7Vb8uCEdgmOYZBz9qj0rDPqPJwFCijYaOpUjjCmEPpBnLECUq6AAzUxAiwApxXXfPiQrO
+	 8XDfDWp7ftDHi34A/mv0OEdveUc7WYz2cDe1VU5rAAtGaiCrf9kLcLOo0gBkh5RLwFUL7
+	 ci34SJkMt4rDijdQdH7//0yrqdXH7KbYU/9nWyU7zBoZ5S3r1P+eMDjPJ5h/+VtvXGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BVGC2RgR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ec2Q16aA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0298F606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:26:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7583A606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:26:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BVGC2RgR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D0CB1F0089F;
-	Sat,  7 Nov 2026 10:26:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ec2Q16aA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F41D1F0089F;
+	Sat,  7 Nov 2026 10:26:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047211;
-	bh=1YyZRR0AAlzPFCbOW1YsND4zTd35IKRX6y+VPDmlMzA=;
+	s=k20260515; t=1794047214;
+	bh=9DIiruk2w2cBpOeGJ+1pFMDVuFzFPqvU2/PsW46nEXA=;
 	h=From:To:Cc:Subject:Date;
-	b=BVGC2RgRker3YVKO+doiSpuNN+wYxc37LnfJT8clWU0vixgtqKML228jMlAutYeyw
-	 4rlTVdaFdb4R+3IA7SErCXPSaVY+gpube4ZNSE+bbyvGOnEEYTHySZOKloyPRzqb25
-	 IVvnGQbeSwI48B87nM5PyJUQZKoZ3rI3hNTuIIPxrEDK4Z4/LFFAEWegcWKRwqxQLK
-	 dOOJcirHgFaIjNibbOdhlYHSW+uXG+gluQJF/Ss/KkdXmfzTlYkTbCzK8l+NWMn+v4
-	 jCq04VNQeP00FeqiHgwgGv37ObRplRBmMrcrkiVJ52m/ToxYqrpcm0vO2rUUwZE3h+
-	 LvFip/bdkk5Cw==
+	b=Ec2Q16aAIQB4BXlQVmmuTLmHpJYjbrZvQYcUQjQcyuJTNiAABywWYIsnVBt829JJO
+	 5cfTPWFjqGctlbIc/Xpri/3mCxbrHCHshKHd++PvUaT53+axqMOivA8bYJz/eZyr1O
+	 LL5o7uyhd8194gIn0/pYS4/pwrsIh00daw3sG0Gbk8UrgeVNZGmCWf2QSfAaLFuZoZ
+	 WzB+Aw1E+ypr6e1aZm8DJMdjPNhq+eiX81A8r6oFI+uogb0kM95JtnSeLj7qdZY5vn
+	 2BIKn7c9NGNqMpK3XV8FqyHU4fMDJW9zc3qQBxv0i/T5l6Z6Oy/Yz87OX893mAp8fi
+	 OHRXPa2ogA9cw==
 From: Sasha Levin <sashal@kernel.org>
-To: chao@kernel.org,
-	jaegeuk@kernel.org
+To: idosch@nvidia.com,
+	netdev-bot+sashiko@kernel.org,
+	liuhangbin@kylinos.cn,
+	edumazet@kernel.org,
+	kuba@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] f2fs: fix to fetch ino via ino_of_node() under cache lock" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:26:50 -0500
-Message-ID: <20261107052650-failed-6.12-cd6d8b189139@kernel.org>
+Subject: FAILED: patch "[PATCH] ipmr, ip6mr: validate packets injected into the register vif on xmit" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:26:52 -0500
+Message-ID: <20261107052652-failed-6.12-aa1799e93f5e@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,54 +71,113 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x cd6d8b1891395b681f2060916a4b83880b765698
+git cherry-pick -x aa1799e93f5ebb973252aec649d84d12d9c7fd1c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052650-failed-6.12-cd6d8b189139@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052652-failed-6.12-aa1799e93f5e@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From cd6d8b1891395b681f2060916a4b83880b765698 Mon Sep 17 00:00:00 2001
-From: Chao Yu <chao@kernel.org>
-Date: Mon, 26 Oct 2026 08:23:49 +0800
-Subject: [PATCH] f2fs: fix to fetch ino via ino_of_node() under cache lock
+From aa1799e93f5ebb973252aec649d84d12d9c7fd1c Mon Sep 17 00:00:00 2001
+From: Ido Schimmel <idosch@nvidia.com>
+Date: Sun, 25 Oct 2026 09:17:29 +0200
+Subject: [PATCH] ipmr, ip6mr: validate packets injected into the register vif
+ on xmit
 
-In f2fs_writeback_node_caches(), it's better to fetch ino via ino_of_node()
-under cache lock, otherwise, node cache content may become stale after cache
-is unlocked due to racing w/ truncation.
+reg_vif_xmit() passes the packet to ipmr_cache_report() which copies its
+IP header into the IGMPMSG_WHOLEPKT report that is queued to the mroute
+socket. Nothing guarantees that the packet contains a full IP header, so
+when a short packet is injected on the register device (e.g., using
+AF_PACKET), the copy reads past the end of the packet and a recvmsg() on
+the mroute socket leaks the uninitialized bytes to user space [1].
 
-Commit 493b9dc8b52c ("f2fs: cache: use node cache") fixes similar issue in
-f2fs_flush_inline_data() introduced in commit 34c061ad85a2 ("f2fs: Avoid double
-lock for cp_rwsem during checkpoint").
+IPv6 has the same problem [2]. Its reg_vif_xmit() does call
+pskb_inet_may_pull(), but the helper keys off skb->protocol and does not
+pull anything when the protocol is neither IPv4 nor IPv6.
 
-Cc: stable@kernel.org
-Fixes: 2049d4fcb057 ("f2fs: avoid multiple node page writes due to inline_data")
-Signed-off-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+Fix by dropping packets whose protocol does not match the address family
+of the register device or that do not contain a full network header.
+
+[1]
+BUG: KMSAN: kernel-infoleak in _copy_to_iter
+ raw_recvmsg
+
+Uninit was stored to memory at:
+ ipmr_cache_report
+ reg_vif_xmit
+ packet_sendmsg
+
+Uninit was created at:
+ __alloc_skb
+ sock_alloc_send_pskb
+ packet_sendmsg
+
+Bytes 1-3 of 21 are uninitialized
+
+[2]
+BUG: KMSAN: kernel-infoleak in _copy_to_iter
+ rawv6_recvmsg
+
+Uninit was stored to memory at:
+ ip6mr_cache_report
+ reg_vif_xmit
+ packet_sendmsg
+
+Uninit was created at:
+ __alloc_skb
+ sock_alloc_send_pskb
+ packet_sendmsg
+
+Bytes 8-23 of 41 are uninitialized
+
+Fixes: 14fb64e1f449 ("[IPV6] MROUTE: Support PIM-SM (SSM).")
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko <netdev-bot+sashiko@kernel.org>
+Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/0545f0c83f5ee2f6696210f87268e811ef655715.1792476357.git.zhilinz%40nebusec.ai
+Signed-off-by: Ido Schimmel <idosch@nvidia.com>
+Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
+Reviewed-by: Eric Dumazet <edumazet@kernel.org>
+Link: https://patch.msgid.link/20261025071729.34967-3-idosch@nvidia.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 ---
- fs/f2fs/node.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ net/ipv4/ipmr.c  | 6 ++++++
+ net/ipv6/ip6mr.c | 2 +-
+ 2 files changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
-index 424e95ca58789..44f94000d452c 100644
---- a/fs/f2fs/node.c
-+++ b/fs/f2fs/node.c
-@@ -2195,9 +2195,11 @@ int f2fs_writeback_node_caches(struct f2fs_sb_info *sbi, long nr_to_write,
+diff --git a/net/ipv4/ipmr.c b/net/ipv4/ipmr.c
+index 4a22d9f234254..915b210c4512b 100644
+--- a/net/ipv4/ipmr.c
++++ b/net/ipv4/ipmr.c
+@@ -539,6 +539,12 @@ static netdev_tx_t reg_vif_xmit(struct sk_buff *skb, struct net_device *dev)
+ 	};
+ 	int err;
  
- 			/* flush inline_data */
- 			if (f2fs_cache_test_inline(entry)) {
-+				nid_t ino = ino_of_node(sbi, entry);
++	if (skb->protocol != htons(ETH_P_IP) || !pskb_inet_may_pull(skb)) {
++		DEV_STATS_INC(dev, tx_errors);
++		kfree_skb(skb);
++		return NETDEV_TX_OK;
++	}
 +
- 				f2fs_cache_clear_inline(entry);
- 				f2fs_unlock_cache(entry);
--				flush_inline_data(sbi, ino_of_node(sbi, entry));
-+				flush_inline_data(sbi, ino);
- 				goto lock_node;
- 			}
+ 	rcu_read_lock();
+ 	err = ipmr_fib_lookup(net, &fl4, &mrt);
+ 	if (err < 0) {
+diff --git a/net/ipv6/ip6mr.c b/net/ipv6/ip6mr.c
+index 3a551be30f153..a628acf50b0d8 100644
+--- a/net/ipv6/ip6mr.c
++++ b/net/ipv6/ip6mr.c
+@@ -642,7 +642,7 @@ static netdev_tx_t reg_vif_xmit(struct sk_buff *skb,
+ 		.flowi6_mark	= skb->mark,
+ 	};
  
+-	if (!pskb_inet_may_pull(skb))
++	if (skb->protocol != htons(ETH_P_IPV6) || !pskb_inet_may_pull(skb))
+ 		goto tx_err;
+ 
+ 	rcu_read_lock();
 -- 
 2.53.0
 
