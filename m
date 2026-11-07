@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046853;
-	b=s/0ePvhM9pYHXYhqdAaenDWnqZ/BMK+gIjX9urhdloC6cpa8lzqzq1ShKjR4AjwwHgY1
-	 bM8RfGJ+BpMUzF9dUNNzJrZROw/f4wSyCJKlI2ZbwqjwwQC7DUjH8ixvnynLnKezKFIdx
-	 J95Mq93KTVJv0XSzblFUPv76tRKFwoJ+9FQn2Pulv/U9++MNy36wBZffFcvf+ykwlNGBk
-	 PMw71fCl0KAOt4mBkK6GrUfg9cgLU1HyuYEPp+OZ/N2OGQzHD7WW2WLX1KcRSrXuhcnpm
-	 UHPRipiVZDEVpEzctIX3eaeRCSvsW2T8deWMACr1W/RU7+LvFhB27HJPDOxtcO0SQOw==
+	t=1794046855;
+	b=RPT8c9IUP+P1+la1DB1oSXyOv/VsxRr2SGWJZ92oTyONFvSOXs9pj0gbu0ELQyxABj4X
+	 GdgFH0nCM/M2mbGaBFYXuZJ5GJTqKzbFwg/2IC7T1uMJfGaq6/3fy8yI3z+In+eXX3Iv5
+	 U5Gipd4NEO/yX9C17ak7JQzp2Xdy7wu1Tw24EA3UtaRX8McdWis+7mcuMgdl/ATcbJPyl
+	 cwJm4tcB4TBm1VSZBqKLrJENNCmSJ/WfzXNzRNBsJUOndRx19ZLrB3HsBb3dszo+f/xP3
+	 N7RCr9XEYuvU8VQSZtixlpZyh59zOk9gjZrRLfSEujce9dTXKtUmA5gQdOIR4KxEruw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046853;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046855;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=JfV+KLaZ5+NSWQ6PmMirVeX+xKwf3MSITu65s6C+hh0=;
-	b=VUoLgvqZyYr/xXaqmYYlMqzSn200CpdQsWE65zLKCS8G4doIvVV8+oReKwwfzOBHwUbZ
-	 DP6yNnvH/mlpZNskUENqXlHTDufkkgNXKMiPAWjPKJhODGeBsKWGTEq1mAO5wuy6giImo
-	 +x6KbLP/jw4OwF7dix4dA2zCyPdTfJ3DvCAvkF1dzhAQbYAySaaNtXVGJovGUvCZW1P1M
-	 /rXtZCtEw4becFTcbH3lFK0yRyg2uP/tsSuhqz+d9pFd2yGbPRz1T5uC6YO+jHyFv7lbE
-	 lJ/uQyZh0BRnSM/7rvhi9dNMxgBEnhEWvQPHDBA7Hc2VYfvpysESF6tXweWRDseIZ+Q==
+	bh=BB5uRvvDKv4Z6dCAskfy6AOr/0l5IL93QfpZJ9tNE6E=;
+	b=EDLioXZ4JSaQ9pgcf+cKxH3gPOgYWkbSGjdlNJvHfkJm/TwFVNRn6um7+8/0xCDE845u
+	 3Xr/LH11gI5+Gr74VFiZoTDb6FQiCv17sfQ3E4O2D3veHlJ3JEzaVjpMf6FOPg14YYOCj
+	 SCLQ6qV3Cc7BoN027PlJg+Hvjd/9BR8AmRMRgYPjKb77VhZlGPJ7Ap3acglzuwZjzdzwA
+	 Pw6kPw8RoIuEGYglFQDypjuPcXRqrC309VMzIo72oevLXqqpFpwVxB1T2ooecQOgHY7sT
+	 aIFl6EEsEWmwalPQx2Z4+CS2/kMePUBubUGvOePwFcY6c8EEjs2T2EokC4e0Jz4YUkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DNA8fV9i;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JN68b4MM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43AB3606A330
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:20:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77EF8606A330
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:20:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DNA8fV9i
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E8B31F0089F;
-	Sat,  7 Nov 2026 10:20:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JN68b4MM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE6441F0089F;
+	Sat,  7 Nov 2026 10:20:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046853;
-	bh=JfV+KLaZ5+NSWQ6PmMirVeX+xKwf3MSITu65s6C+hh0=;
+	s=k20260515; t=1794046855;
+	bh=BB5uRvvDKv4Z6dCAskfy6AOr/0l5IL93QfpZJ9tNE6E=;
 	h=From:To:Cc:Subject:Date;
-	b=DNA8fV9idh5lrSjx8esLotj8MAIvQWumEpA0TVTWG3wjva7PFjkZO5oZid1AMNB3/
-	 Wo8h+FlPyhQAgS66HC6t0jKRInWROdDNl34BR3NQ1G9l3B+Fzl/1A2K207jRGGlS7J
-	 11O1Epw6YaeHockhq2scnbTsiSOMUzcL5xmmKNyLtZ70qkwiTmXvD4U6loKzT7C5Qc
-	 h/vK408fBqMExhVm59uAvIV17cMCeBtdNiyzIakEUyVsbm2uo/LJChqfcAosq04+Qh
-	 2ZbzDMc+epyBN47ZNSYiyC24HuilbL/C8RFC2klNDhXkf+MDFusP/85Btc3U3J8BAN
-	 dABoY+pBORGsw==
+	b=JN68b4MM/AYDD/r9P9vXqD921ZF5TOGcLvUp+8juNAhcskk7Xw/GV0QjKXmpGKIy8
+	 S6dt9WnybSBLmGgpr61f0jdUhWLIFR04pgx2KuEnd3PWPRj3C9y/1+OKalskv2ZJsH
+	 Ql2zSUYBPqV/zeMg6PJgmQtQDU8Nbxpn+47HjU6J+4D2fIyVteqVwy1sSbOPEt4yKe
+	 dnZ6m5AeN24IAExSnkPHVwqfCasxhWhq/CIQXPaFu009I3vznnGzlGbKwpOpd5LJrw
+	 1TSzmWCmos41jbMnc99qLR/M859WAN3HmK3u3McXSwpm4TYm3RKMeQBzYyl/N6cLNB
+	 kdzc05Q6GiKCA==
 From: Sasha Levin <sashal@kernel.org>
-To: alchark@flipper.net,
-	miquel.raynal@bootlin.com,
+To: gyf161023@gmail.com,
+	ekansh.gupta@oss.qualcomm.com,
 	srini@kernel.org,
 	gregkh@linuxfoundation.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] nvmem: rockchip-otp: Serialize reads" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:20:51 -0500
-Message-ID: <20261107052051-failed-6.12-9fc6a1592d84@kernel.org>
+Subject: FAILED: patch "[PATCH] misc: fastrpc: fix double-free in fastrpc_map_attach() error path" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:20:53 -0500
+Message-ID: <20261107052053-failed-6.12-09fa66ec1b48@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,111 +70,83 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 9fc6a1592d844c0397f115ee8cbd935169b9a71e
+git cherry-pick -x 09fa66ec1b4896ab841da085ca58b6433f28f07f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052051-failed-6.12-9fc6a1592d84@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052053-failed-6.12-09fa66ec1b48@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 9fc6a1592d844c0397f115ee8cbd935169b9a71e Mon Sep 17 00:00:00 2001
-From: Alexey Charkov <alchark@flipper.net>
-Date: Fri, 2 Oct 2026 11:13:26 +0100
-Subject: [PATCH] nvmem: rockchip-otp: Serialize reads
+From 09fa66ec1b4896ab841da085ca58b6433f28f07f Mon Sep 17 00:00:00 2001
+From: Yifei Gao <gyf161023@gmail.com>
+Date: Fri, 2 Oct 2026 11:12:19 +0100
+Subject: [PATCH] misc: fastrpc: fix double-free in fastrpc_map_attach() error
+ path
 
-The OTP controller is driven through a single set of registers holding a
-state machine which has to be stepped through for every word read, yet
-nothing keeps two readers out of each other's way. Concurrent reads
-interleave, and the outcome is either a reader bailing out:
+map->table is assigned right after dma_buf_map_attachment_unlocked()
+succeeds. The two failure checks that follow, the len > map->size test
+and, where subsystem VMIDs are configured, a failed qcom_scm_assign_mem(),
+jump to map_err with map->table already set.
 
-  rockchip-otp 2a580000.otp: timeout during read setup
+map_err manually calls dma_buf_detach() and dma_buf_put() and then falls
+through to fastrpc_map_put(). Since that change the error path tail is
+fastrpc_map_put() -> fastrpc_free_map(), and fastrpc_free_map() already
+unmaps, detaches and puts the dma-buf whenever map->table is set.
+The two operations therefore run twice: the second dma_buf_put() drops an
+extra reference on map->buf, and dma_buf_unmap_attachment_unlocked()
+dereferences the map->attach already freed by the manual dma_buf_detach().
+kref_init() sets the refcount to 1 with no intervening get, so the final
+fastrpc_map_put() frees the map synchronously and the redundant cleanup is
+deterministic.
 
-or, worse, one of them silently taking delivery of the other's data.
+The len > map->size branch is reachable by an unprivileged process via
+FASTRPC_IOCTL_MEM_MAP with an fd whose dma-buf is smaller than the
+requested length, before any DSP invocation.
 
-Reading two cells in parallel from userspace on RK3576 reproduces both
-within 150 iterations - 53 read errors and 9 corrupted results, the latter
-either losing their first word or, in one case, ending in the two bytes
-which belong to the other reader's cell - whereas the same reads issued
-sequentially never fail. Concurrency is not hypothetical here, as six
-thermal sensors source their trim values from the OTP and reach the driver
-straight from asynchronous driver probing.
+Route both map->table-is-set failure branches to get_err instead of
+map_err, so fastrpc_free_map() is the single owner of the
+unmap/detach/put sequence. map_err is retained for the
+dma_buf_map_attachment_unlocked() failure, which is reached with
+map->table still NULL and an attachment that fastrpc_free_map() will not
+clean up, so its dma_buf_detach()/dma_buf_put() must still run manually.
 
-Guard the read path with a mutex. Reads are the only way into the hardware,
-as the driver registers no write callback, and they always run in process
-context, so a plain mutex spanning the whole clock-enable, read,
-clock-disable sequence is enough.
-
-Fixes: 755864feb729 ("nvmem: add Rockchip OTP driver")
+Fixes: 334f1a1cbe03 ("misc: fastrpc: Use fastrpc_map_put in fastrpc_map_create on fail")
 Cc: stable@vger.kernel.org
-Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
-Signed-off-by: Alexey Charkov <alchark@flipper.net>
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Yifei Gao <gyf161023@gmail.com>
+Reviewed-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
 Signed-off-by: Srinivas Kandagatla <srini@kernel.org>
-Link: https://patch.msgid.link/20261002101329.1084348-2-srini@kernel.org
+Link: https://patch.msgid.link/20261002101220.1084101-2-srinivas.kandagatla@oss.qualcomm.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/nvmem/rockchip-otp.c | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
+ drivers/misc/fastrpc.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/nvmem/rockchip-otp.c b/drivers/nvmem/rockchip-otp.c
-index 2c0feb036f3fd..f8a8c7cece98d 100644
---- a/drivers/nvmem/rockchip-otp.c
-+++ b/drivers/nvmem/rockchip-otp.c
-@@ -12,6 +12,7 @@
- #include <linux/io.h>
- #include <linux/iopoll.h>
- #include <linux/module.h>
-+#include <linux/mutex.h>
- #include <linux/nvmem-provider.h>
- #include <linux/reset.h>
- #include <linux/slab.h>
-@@ -80,6 +81,8 @@ struct rockchip_otp {
- 	void __iomem *base;
- 	struct reset_control *rst;
- 	const struct rockchip_data *data;
-+	/* Serializes access to the OTP controller state machine */
-+	struct mutex mutex;
- 	struct clk_bulk_data clks[];
- };
- 
-@@ -272,10 +275,12 @@ static int rockchip_otp_read(void *context, unsigned int offset,
- 	if (!otp->data || !otp->data->reg_read)
- 		return -EINVAL;
- 
-+	mutex_lock(&otp->mutex);
-+
- 	ret = clk_bulk_prepare_enable(otp->data->num_clks, otp->clks);
- 	if (ret < 0) {
- 		dev_err(otp->dev, "failed to prepare/enable clks\n");
--		return ret;
-+		goto unlock;
+diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+index 53ad9a3f10699..904f538f0dd0e 100644
+--- a/drivers/misc/fastrpc.c
++++ b/drivers/misc/fastrpc.c
+@@ -927,7 +927,7 @@ static int fastrpc_map_attach(struct fastrpc_user *fl, int fd,
+ 		dev_dbg(sess->dev, "Bad size passed len 0x%llx map size 0x%llx\n",
+ 				len, map->size);
+ 		err = -EINVAL;
+-		goto map_err;
++		goto get_err;
  	}
- 
- 	offset += otp->data->read_offset;
-@@ -308,6 +313,9 @@ static int rockchip_otp_read(void *context, unsigned int offset,
- err:
- 	clk_bulk_disable_unprepare(otp->data->num_clks, otp->clks);
- 
-+unlock:
-+	mutex_unlock(&otp->mutex);
-+
- 	return ret;
- }
- 
-@@ -431,6 +439,11 @@ static int rockchip_otp_probe(struct platform_device *pdev)
- 
- 	otp->data = data;
- 	otp->dev = dev;
-+
-+	ret = devm_mutex_init(dev, &otp->mutex);
-+	if (ret)
-+		return ret;
-+
- 	otp->base = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(otp->base))
- 		return dev_err_probe(dev, PTR_ERR(otp->base),
+ 	map->va = sg_virt(map->table->sgl);
+ 	map->len = len;
+@@ -950,7 +950,7 @@ static int fastrpc_map_attach(struct fastrpc_user *fl, int fd,
+ 			dev_err(sess->dev,
+ 				"Failed to assign memory with dma_addr %pad size 0x%llx err %d\n",
+ 				&map->dma_addr, map->len, err);
+-			goto map_err;
++			goto get_err;
+ 		}
+ 	}
+ 	spin_lock(&fl->lock);
 -- 
 2.53.0
 
