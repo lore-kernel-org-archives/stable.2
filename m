@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048243;
-	b=Agiyy7h7tPHP+BWI1b0L2lz5vXQxXGflnlGbDKoFCFItmBGvRxgsrOYFTU4FHj+UfViE
-	 ne0BdYeCMkLe1I/g9g+vmcWfgnhKOO+G+LFMrFk0T7ov97W3575Gh7rZubjbb3rWAVQym
-	 ei2D50pzW0mcWMdHR+dnk+l8mpwPFqX+E9emq9RNCovQV4eFd/V/HA6qOw4maiWsMoqNC
-	 iBrbXsv2khKAAjLPrHdiCD+LbfKiT4DMV4oHExja4bgfou465v35y3lAMKcGo7J/MrZH7
-	 WJlo2+HowhzhxwBSngHiNIJK5ehuuJWes7fMEJdhloWhBL3DOIOLm83fcrGTNzBN5kg==
+	t=1794048245;
+	b=zkUeasP/opOaqTmCeT0+FEOD8TPLEg96Ci3U2A8XSQx5yaHMYHRk1qi2h6vhSK+Y3mDk
+	 3RjtIC0cd0snfW0G8cF+XF764bwEK63Xn/0Subu5DvZF5ei1Roi9KEsD30IuwQ90DN42w
+	 Vqhm6RLkAVv8YtdiDa3cSfdxSkrWsNuj6R76oRHqO4L0hheyuyce8qIMx+slr4cCZVhHd
+	 N60VfhSE1pHwV08iGEaeHM1AySFJOUkpru9tRzw97RQljsXP9vdYOcxttqB4aMiaJxsk6
+	 xkO2twMx0ZgUTPxgemJqicw14z5773K81v4XsQRr3UAK0yQKoR3EY3D2tQKW6yQx0mw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048243;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048245;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=dnUALRqCYEF6t/uFzaCAbbZuzyjn0SGUgwqNM4Qvdj4=;
-	b=DYpHw3OkWC+fQ97gPeNhKNA8kSd/+t05CzHYt+ESKYIO0BMb/NWgQCzbMZYcEF3yMYeJ
-	 SEFRPe3+5/3nejsD0DWxM0G3scX4aPJasJRSxuUVnAS3+BOb3P6TJwSQazxl6PSFP4sPb
-	 QtZYaE37FkSu28Ee+HZJzPZxRrrsc1XX0m0sMBOzSkp0Fkv+dZrkHChBSrw489aU+saOe
-	 LKQIRtRSdBHZ10DsgS6KgBd2HV/d7lp8UL/THjSwfPiEiahz7y4PjKaxA/ah06ZK4SHa+
-	 ZP+u5xFbes1o30QJlXMsERwVLze4BU0ykwkkum98PbdQaxRq2q6uE1jGT+ZKknIbScA==
+	bh=qRVuTPj3l3jK1M8O66OTWI2790U6iEN9qrwB85yhoTY=;
+	b=4N86Nv6+7Usj9K+NiAOnHrqktJ8MiR7uyM8DcavuQpkWg2BTBP8V5h4rl4f5kWmepBdB
+	 IbWTOU1foe+u5KsIOp8SR3AKGhUP4KTOaT/gNh37I3mWR00WvcBw1ipVpexQ4oifIgtUz
+	 k4F0koGFN4/w1NvLxCButAMeZq2pphU0cmLh6huzxnQRGzig1elJkPseC/ip0nPg6k5F+
+	 fNjTWi9U0RKxZTpuXQAdKjUTGlhkX6OHT5LWghujpQye6a2fPi9jXeD0s7bvp3f7SQfnR
+	 wj7wrV/HuPYwrMxA20Y6gul/ekzOY6IAo3D924GYnuqeJxTZkyhzfEXsBGeyBmo371Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BMGJ12Pb;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NgCsr7rB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8E84606A32F
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:44:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04651606A32E
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:44:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BMGJ12Pb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F40B1F0089F;
-	Sat,  7 Nov 2026 10:44:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NgCsr7rB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E4B91F0089F;
+	Sat,  7 Nov 2026 10:44:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048242;
-	bh=dnUALRqCYEF6t/uFzaCAbbZuzyjn0SGUgwqNM4Qvdj4=;
+	s=k20260515; t=1794048244;
+	bh=qRVuTPj3l3jK1M8O66OTWI2790U6iEN9qrwB85yhoTY=;
 	h=From:To:Cc:Subject:Date;
-	b=BMGJ12PbzdRptopL2FL55Z6J1o+KMWBtmtihoeUvt7kyHtvFhxUoXS06pY+7NpOuz
-	 ddwepvTnAzrhXhRD6MRX5zf0jMNOPtU+meVsLHSoxRS2JBbbjBU5i+Piua80olQAzE
-	 i7Yue5froayrHGujlM04PG71jNh/5q60nVnm3k5rzcEaFjFl7aQ5rnrf44Z1dfOxNF
-	 EWOSel4uHE5mg5SCKoV3x0QBf6QOoFILwH/JRHLpT9uLONhFDILLy4gmiz8nRaR8wC
-	 LroOrBy+760EwhnjxHcCtjUQFMaa+AFiQ7l1ZAoBl9m2C2V0r5Q0yamhzKbz10d14V
-	 KnumZ74no3Rkg==
+	b=NgCsr7rBNCytMnPCBaCVZqEbKVLkegZrkRyPcnSfV3zg1H8OHsRGAhqRUZp8quHtf
+	 oAai0GaouwstUiayE0hynLYo5emb2FnRxdnfyPUAw/Md1TvmuTTscSvFHoXqlQccxr
+	 wrHUoOJqS9V7L+RkszOrSCLFh7Rfhol+L2eJU3GGQ/LK9TOA/lRQAMPcL6wiGpiFva
+	 I3s0CfRY54Gm9VYqPigSkNYn4rR4zEBpugnGTghD7vWkRCZkOwZB1m3xTZsIqF/CNY
+	 mdX1uFIbjMbRB97HXf1hT0kyTWpBQExh+Bx1vUp1p2jEmeigWVwMl2gVma/3xQR4sP
+	 cinam+F4rg8xg==
 From: Sasha Levin <sashal@kernel.org>
-To: jkeeping@inmusicbrands.com,
+To: hnkz.64@gmail.com,
 	nicolas.dufresne@collabora.com,
 	hverkuil+cisco@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] media: rockchip: rga: fix rotation on rev0 hardware" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:44:00 -0500
-Message-ID: <20261107054400-failed-6.1-a67578c01798@kernel.org>
+Subject: FAILED: patch "[PATCH] media: mediatek: jpeg: Avoid context access after job finish" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:44:03 -0500
+Message-ID: <20261107054403-failed-6.1-7c7f31405b76@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,78 +69,65 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x a67578c0179850e80cf08b1e0b8b1eb857f0fc46
+git cherry-pick -x 7c7f31405b76acd95a628c834ee8a2d6da439782
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054400-failed-6.1-a67578c01798@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054403-failed-6.1-7c7f31405b76@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From a67578c0179850e80cf08b1e0b8b1eb857f0fc46 Mon Sep 17 00:00:00 2001
-From: John Keeping <jkeeping@inmusicbrands.com>
-Date: Tue, 29 Sep 2026 10:41:42 +0100
-Subject: [PATCH] media: rockchip: rga: fix rotation on rev0 hardware
+From 7c7f31405b76acd95a628c834ee8a2d6da439782 Mon Sep 17 00:00:00 2001
+From: Kazuki Hanai <hnkz.64@gmail.com>
+Date: Wed, 2 Sep 2026 20:22:28 +0900
+Subject: [PATCH] media: mediatek: jpeg: Avoid context access after job finish
 
-On RK3288 where the RGA reports version zero [1], rotating a buffer
-gives corrupt output where one edge will be truncated.  This is a result
-of some adjustment done specifically for hardware revision zero.  But it
-seems this is not necessary and there is no evidence for why this
-adjustment should be applied on these hardware revisions.
+v4l2_m2m_job_finish() publishes job completion and wakes waiters
+before it returns. A concurrent file release can therefore finish
+v4l2_m2m_ctx_release() and free the context while the single-core IRQ
+handler continues with its tail.
 
-Comparing the TRMs between RK3288 with revision zero and RK3588 with
-revision 3.2 there is evidence of new features supported by later
-hardware, but nothing indicating any difference in behaviour for
-rotation which is supported by all hardware revisions.
+Both handlers only need the device for the matching runtime PM put.
+Use the IRQ-owned jpeg pointer instead of dereferencing ctx after
+completion has been published. This preserves the get/put pairing and
+removes the post-completion context access.
 
-The logic here looks wrong anyway, since it's bizarre that minor
-revision zero would need the adjustment for _all_ major revisions.  This
-was added with the initial version of the driver in commit f7e7b48e6d796
-("[media] rockchip/rga: v4l2 m2m support") so there is no detail in the
-Git history to indicate why this special-case might be needed.
-
-[1] Comparing with the vendor code, it seems this is actually 1.3 with
-    the hardware reporting zero more by coincidence than design since the
-    version register is not defined for RK3288.
-
-Fixes: f7e7b48e6d796 ("[media] rockchip/rga: v4l2 m2m support")
+Fixes: 45f13a57d813 ("media: platform: Add jpeg enc feature")
+Fixes: 5827e4b14ee7 ("media: platform: Improve power on and power off flow")
 Cc: stable@vger.kernel.org
-Signed-off-by: John Keeping <jkeeping@inmusicbrands.com>
+Assisted-by: Codex:gpt-5
+Signed-off-by: Kazuki Hanai <hnkz.64@gmail.com>
 Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 ---
- drivers/media/platform/rockchip/rga/rga-hw.c | 8 --------
- 1 file changed, 8 deletions(-)
+ drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/platform/rockchip/rga/rga-hw.c b/drivers/media/platform/rockchip/rga/rga-hw.c
-index be1bc8ddbd03b..2e7ec8b7c20f7 100644
---- a/drivers/media/platform/rockchip/rga/rga-hw.c
-+++ b/drivers/media/platform/rockchip/rga/rga-hw.c
-@@ -158,7 +158,6 @@ static void rga_cmd_set_dst_addr(struct rga_ctx *ctx, dma_addr_t dma_addr)
+diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+index 515c216058749..640ae30736f91 100644
+--- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
++++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+@@ -1574,7 +1574,7 @@ static irqreturn_t mtk_jpeg_enc_done(struct mtk_jpeg_dev *jpeg)
+ 	v4l2_m2m_buf_done(src_buf, buf_state);
+ 	v4l2_m2m_buf_done(dst_buf, buf_state);
+ 	v4l2_m2m_job_finish(jpeg->m2m_dev, ctx->fh.m2m_ctx);
+-	pm_runtime_put(ctx->jpeg->dev);
++	pm_runtime_put(jpeg->dev);
+ 	return IRQ_HANDLED;
+ }
  
- static void rga_cmd_set_trans_info(struct rga_ctx *ctx)
- {
--	struct rockchip_rga *rga = ctx->rga;
- 	u32 *dest = ctx->cmdbuf_virt;
- 	unsigned int scale_dst_w, scale_dst_h;
- 	unsigned int src_h, src_w, dst_h, dst_w;
-@@ -251,13 +250,6 @@ static void rga_cmd_set_trans_info(struct rga_ctx *ctx)
- 	 */
- 	if (src_info.data.rot_mode == RGA_SRC_ROT_MODE_90_DEGREE ||
- 	    src_info.data.rot_mode == RGA_SRC_ROT_MODE_270_DEGREE) {
--		if (rga->version.major == 0 || rga->version.minor == 0) {
--			if (dst_w == src_h)
--				src_h -= 8;
--			if (abs(src_w - dst_h) < 16)
--				src_w -= 16;
--		}
--
- 		scale_dst_h = dst_w;
- 		scale_dst_w = dst_h;
- 	} else {
+@@ -1856,7 +1856,7 @@ static irqreturn_t mtk_jpeg_dec_irq(int irq, void *priv)
+ 	v4l2_m2m_buf_done(src_buf, buf_state);
+ 	v4l2_m2m_buf_done(dst_buf, buf_state);
+ 	v4l2_m2m_job_finish(jpeg->m2m_dev, ctx->fh.m2m_ctx);
+-	pm_runtime_put(ctx->jpeg->dev);
++	pm_runtime_put(jpeg->dev);
+ 	return IRQ_HANDLED;
+ }
+ 
 -- 
 2.53.0
 
