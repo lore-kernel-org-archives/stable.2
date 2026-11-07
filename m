@@ -1,69 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049029;
-	b=vXSiPahPXUuPsK9PgM+P3furhzgxqnlF2oUrWk5oE11IAf3BeaTx+iA2QY/e7nOAD9Qk
-	 yx8+WZVBpOuCEk9YDp3SKMdCMs6gwjVA+8xyp8KtkXchaE2PUxE+YyPLZMeG7jyewre+H
-	 ny90Hp0WGnZawyyByJ6wBpEyjxxOhmJcQPk0UvHctExKQxAmAl7uC8BuR1KKiayoCYd1Q
-	 H90Is/eiy4d2ipDSGKxJu0D1y8K8KD3xyj2XZdlR269Z/xZZXXV2TbuvO8OL68nnamJEN
-	 1F8DNnhOhhCqCAc5as9pHxjKxgbC0eMNWe1rWNL8QcLxXVBJUXwUTYPHRV5szx9t3kg==
+	t=1794049035;
+	b=y7yCDUek85ksDg0NchuhfwOInHTeXMnl2dKzKxb166PVQ+KEzqksrqMTwn2NDgB9p7Y0
+	 rKkmKSLcBB5pUmWudXHiYxB2i5h3FOHzJxYZZT7ohdIRJHAs1yCz8ukwdQC5IS4XqTlzF
+	 bCcxBVd07k9gj1iTrNBfjny3oHNd28af4Sf3OO+ZK2v8tlMihc+p997LiCsy6Iv22h8I8
+	 9a15+AsW/Ans8a88stYx3X3NC7i1Tnedxj0btT6uQFhEZhyPzKY7BWWa+qB+v/snHUlJh
+	 bABPT9DAw/KBVKdrO29EXdw2LuPiZIHbIdo4Awo2lB/GQ93ALQal56EfyuaUoaoldmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049029;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=JdwdSsgCSRZo7XC3ucq5IHGTcHkTS0sHmKyRiIdO+98=;
-	b=FyWadQpY8AdWsas6XtMDRHR74QdK7V/DMc8nVPa76QLrGajXnp4DAYQZuddECttugVLD
-	 zzfijqiMn0s5+6VNza+D4+RLdPy8nW9SB5S7+iiqNtORSwKf24W6oftiXczI3dvc33tu8
-	 /ozJehAipVLmLkqzX/EX0l4ptAV0MYp2C5aKd7YqbBKQ+tntdefm7SyZDDw4JiFUgEXX3
-	 KWo+7GRC9PoHCddJO0Yv5C3zsqwjtTnXHqSJ5anywXbS3bGkZEdOG46I9DHeZPyMXZIfr
-	 GvnoXjsZAa6ujvHBEDGwm2NTaJ+8cJ8Ryi7UOX5S6Dde4+HcNa+u0iF89ufrC6qt2yA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049035;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=v6EJtZZ3jQdmGd/kdV3OshYFH+txYQNqhWXuEIwp1wY=;
+	b=H2RI/pjBxjmfZiO5lgi3QiK83aiIAj2ACGQa3SnDqPS86QaW1lHwuhx9zxJH0LYGGK8D
+	 QBgGfg7bjeJM94cZChJOlzFcoBy9tJqpVo4RBAY8HHsgqd+ssVichdTqS4HmmEXeHlS2S
+	 b49SdyW9nMGiFu9Vxye+kslasgp6EBDSQhWACh5VJkhbGrukNZtLu2D6I1BPw09uNNsqy
+	 BOapzKvmRk61b+byW98mFZu6TU7jxTt6dQcyLQBCkHTZd9pyQ/wirFXpXQ9xDhDGxn2gn
+	 x8uKBlTcIZMDT9Yk4eU8WLfLbOetTjzrZozsYmGg8y/IeBMeFV9mUOEMEAFnmt+F8tA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=i3orLZz+;
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bKIEgiRb;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFA1A606A32C;
-	Sat,  7 Nov 2026 10:57:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFA1A606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2059D606A32F
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:57:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=i3orLZz+
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=JdwdSsgCSRZo7XC3ucq5IHGTcHkTS0sHmKyRiIdO+98=; b=i3orLZz+oxIMB9zxIuJhvl5HX+
-	qRbdwgGb2ToUtKRkoRdmpfyceggoxLYexALNnOJYjDSohCuWePEW4EIWgSbpeLbIeNKAHvmjjndv/
-	akakHjCExX/uijFm6fwkY8cRAvSnoRbZWxo0u7XmCpTLg30zMhkrIuMGL213fGm7e1GLENCuwq6cH
-	AdHSjikigHShJTKnNhDSAoiloRn36rymX3iKTEhI5ydbqIS6XrUzRyZLRHuSwgCurjZDAzNDlqkDW
-	u1/gU0PzlTGAqB0Qf1FIoGmD/Zx+D46qJWTP+J8MH3SGtGeK7zqRpcZI7GnpijE1xLKOZwHnB8Efr
-	+ZpXg4Dw==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xPe6a-0000000GtoW-48ZW;
-	Sat, 07 Nov 2026 10:57:05 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 8B6CB300339; Sat, 07 Nov 2026 11:57:04 +0100 (CET)
-Date: Sat, 7 Nov 2026 11:57:04 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: tglx@kernel.org, mingo@redhat.com, linux-kernel@vger.kernel.org,
-	will@kernel.org, boqun@kernel.org, longman@redhat.com,
-	rostedt@goodmis.org, bigeasy@linutronix.de, clrkwllms@kernel.org,
-	dvhart@infradead.org, dave@stgolabs.net, andrealmeid@igalia.com,
-	shuah@kernel.org, juri.lelli@redhat.com,
-	linux-rt-devel@lists.linux.dev, linux-kselftest@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 3/5] locking/rtmutex: Clone a waiter's sort keys as it
- enters pi_waiters
-Message-ID: <20261107105704.GB2668564@noisy.programming.kicks-ass.net>
-References: <20261106235931.1478800-1-mathieu.desnoyers@efficios.com>
- <20261106235931.1478800-4-mathieu.desnoyers@efficios.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bKIEgiRb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C4921F0089F;
+	Sat,  7 Nov 2026 10:57:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794049034;
+	bh=v6EJtZZ3jQdmGd/kdV3OshYFH+txYQNqhWXuEIwp1wY=;
+	h=From:To:Cc:Subject:Date;
+	b=bKIEgiRbC9y8sJPhg4qIwd9kLFiZBnBeD33h1qvtp4MtmMKNBlYU4V7YIp6oOIztl
+	 Ipc+4g6tBMAp94s8d6P8kh5mPy62mjEIgT1VVIFEzfzghXmjVc8WSGVr1vKZ6dApZ0
+	 4ZwlA0svZ4s8I0PyOk4juSNYAkV1O+OXQy6+vdubI3JVyttj93wHkR8yO1ofZD045n
+	 5UCE9p1fyL4bRv8CLiQdBB9wz6rw3i8Z3xGUaodYJ4IpxAYIvfwCtTiSbv3jrAccAd
+	 rWbU3L3LfEkSZoRo62Kt97cEr5vtyvOO0FsuoAPTrdyhPvnwvRCbMhohacmoc6QWfJ
+	 8bxYNqflkB04Q==
+From: Sasha Levin <sashal@kernel.org>
+To: esben@geanix.com,
+	sathyanarayanan.kuppuswamy@linux.intel.com,
+	andriy.shevchenko@intel.com,
+	jonathan.cameron@oss.qualcomm.com
+Cc: stable@vger.kernel.org
+Subject: FAILED: patch "[PATCH] iio: light: ltr501: Power down chip if request irq fails" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 05:57:12 -0500
+Message-ID: <20261107055712-failed-5.15-8a9bcd587d7d@kernel.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -73,81 +58,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106235931.1478800-4-mathieu.desnoyers@efficios.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 06, 2026 at 06:59:29PM -0500, Mathieu Desnoyers wrote:
+The patch below does not apply to the 5.15-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-snip unreadable changelog
+To reproduce the conflict and resubmit, you may use the following commands:
 
-> Fixes: f7853c342418 ("locking/rtmutex: Fix task->pi_waiters integrity")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-> ---
->  kernel/locking/rtmutex.c | 11 ++++++++---
->  1 file changed, 8 insertions(+), 3 deletions(-)
-> 
-> diff --git a/kernel/locking/rtmutex.c b/kernel/locking/rtmutex.c
-> index 323973be2074..e89f0f0e604b 100644
-> --- a/kernel/locking/rtmutex.c
-> +++ b/kernel/locking/rtmutex.c
-> @@ -512,11 +512,19 @@ static __always_inline bool __pi_waiter_less(struct rb_node *a, const struct rb_
->  	return rt_waiter_node_less(__node_2_rt_node(a), __node_2_rt_node(b));
->  }
->  
-> +/*
-> + * Enqueue @waiter in the pi_waiters of @task, its lock's owner, with the
-> + * sort keys of its lock tree copy, current under the wait_lock held here:
-> + * the chain walk updates the tree copy of a waiter that is not the top
-> + * waiter of its lock, and does not clone it, so a copy cloned before would
-> + * enter @task's pi_waiters with the keys of a priority it no longer has.
-> + */
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git checkout FETCH_HEAD
+git cherry-pick -x 8a9bcd587d7d768e6c8e9fff88bb89645e412731
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055712-failed-5.15-8a9bcd587d7d@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
-Oh gawd, Mathieu, can you please tell your AI thing to never write a
-Changelog or comment? This is again unreadable soup.
+Thanks,
+Sasha
 
->  static __always_inline void
->  rt_mutex_enqueue_pi(struct task_struct *task, struct rt_mutex_waiter *waiter)
->  {
->  	lockdep_assert_held(&task->pi_lock);
->  
-> +	waiter_clone_prio(waiter, task);
->  	rb_add_cached(&waiter->pi_tree.entry, &task->pi_waiters, __pi_waiter_less);
->  }
->  
-> @@ -1005,7 +1013,6 @@ static int __sched rt_mutex_adjust_prio_chain(struct task_struct *task,
->  		 * and adjust the priority of the owner.
->  		 */
->  		rt_mutex_dequeue_pi(task, prerequeue_top_waiter);
-> -		waiter_clone_prio(waiter, task);
->  		rt_mutex_enqueue_pi(task, waiter);
->  		rt_mutex_adjust_prio(lock, task);
->  
-> @@ -1022,7 +1029,6 @@ static int __sched rt_mutex_adjust_prio_chain(struct task_struct *task,
->  		 */
->  		rt_mutex_dequeue_pi(task, waiter);
->  		waiter = rt_mutex_top_waiter(lock);
-> -		waiter_clone_prio(waiter, task);
->  		rt_mutex_enqueue_pi(task, waiter);
->  		rt_mutex_adjust_prio(lock, task);
->  	} else {
-> @@ -1243,7 +1249,6 @@ static int __sched task_blocks_on_rt_mutex(struct rt_mutex_base *lock,
->  	waiter->task = task;
->  	waiter->lock = lock;
->  	waiter_update_prio(waiter, task);
-> -	waiter_clone_prio(waiter, task);
+------------------ original commit in Linus's tree ------------------
 
-Reverse engineering the problem leads me to think this is the problem
-spot. Because this is the one site that is not immediately followed by
-rt_mutex_enqueue_pi().
+From 8a9bcd587d7d768e6c8e9fff88bb89645e412731 Mon Sep 17 00:00:00 2001
+From: Esben Haabendal <esben@geanix.com>
+Date: Mon, 17 Aug 2026 19:08:53 +0200
+Subject: [PATCH] iio: light: ltr501: Power down chip if request irq fails
 
-I'm thinking there's race due to dropping pi_lock between this copy and
-the subsequent enqueue?
+In case devm_request_threaded_irq() failed, we were leaving the chip
+powered instead of powering it down again. Power down the chip switching
+ALS and PS modes to standby.
 
->  
->  	/* Get the top priority waiter on the lock */
->  	if (rt_mutex_has_waiters(lock))
-> -- 
-> 2.47.3
-> 
+Fixes: 7ac702b3144b ("iio: ltr501: Add interrupt support")
+Cc: stable@vger.kernel.org
+Acked-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Signed-off-by: Esben Haabendal <esben@geanix.com>
+Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+---
+ drivers/iio/light/ltr501.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/iio/light/ltr501.c b/drivers/iio/light/ltr501.c
+index fa0d16890c8bf..b36bd10a02624 100644
+--- a/drivers/iio/light/ltr501.c
++++ b/drivers/iio/light/ltr501.c
+@@ -1538,7 +1538,7 @@ static int ltr501_probe(struct i2c_client *client)
+ 						"ltr501_thresh_event",
+ 						indio_dev);
+ 		if (ret)
+-			return ret;
++			goto powerdown_on_error;
+ 	} else {
+ 		indio_dev->info = data->chip_info->info_no_irq;
+ 	}
+-- 
+2.53.0
+
+
+
+
