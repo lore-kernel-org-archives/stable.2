@@ -1,52 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050858;
-	b=s+B3mhR9HSie1AuhaFMIsqGqpU7GUtby3OdC44Uu9/cGA84MqSxu/xb4ppgqi5sbFDbA
-	 oLEfy5hgHBC3qQpcl/HB90dMOURlayhsp1tZWvl52IvBj8qUhhBtEjm2ODWo8DXaU0lJF
-	 SzJ0waqTkiwOTrB4aR4G6WF+3WTTjYT/v+m/FLOgE6VMuSMoz3qF9S+n82dvqaapR2Xjg
-	 W+Z1aF9L/3FbzmegFbMwVsY2Ml1m7LPehhtmuxPhqcKAc5UDNJysQmsgJzDmxp67P7dpO
-	 ZPkAysimesjABh0Twbve7PMA6m7NCyTfDJEF+/4SF1ahCUwGsS2wTkfF3HyUi4GiIBw==
+	t=1794050862;
+	b=cqx+HqjxoZNkrpUtRMaZfj269gQxWjkqK3ydzt23vZ9G7yXnEpD/TtVV2G54H168frap
+	 mm35ixKpzGFmyGyC3Xnu1L+FdCVd8srf2cd9svgMUnbpyGmRwEe9nzBLOWfFvsoybzemT
+	 urxwbpTJ45+MlOIs+Chq5Y0JfaUeumV2OPvgUjtdcYL+Kou2w9z/+zv7kH8kGdqlhoD0h
+	 +fb5S4QVUKxVHD8tkElEl3M9IOyLMXID6TjOxivikzBsCaC17Y6aMRrW+TF0D+DvPeFyI
+	 Dgzk9PJfO8NPOI5yzrJATrxeGSb1MV/gt4pzR32g7bunFcSo+zBxGOANQuoULI5P/9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050858;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050862;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=0YwMh4qtot8z36FjFURZ/feEFl/2gVbyfMOEqSipMfI=;
-	b=3TnUS2KhPtsZmsg8osE1av7io5DjHLgr0TaCzFqkVOiIyIvF3fIv7dPLNL5GBVh+t1GE
-	 QRWfUIS72RzIwcqn0jgfWO131EA4FbFOgrxnC+SQ3KsJZ4hKvOOxhzwGm22eDrxAzBQjf
-	 dCcZIfnuZnxH1g2c6CWabeOul719/GZi/baOM3F4G7lzH5wyq3mgMcxgcfO+JU/dThc5p
-	 Q7NF9ViT70Mwg5TTAFAhmtQ98QAtFgQongqt3p7+jpEy9RBnDnsuLlmsi1DM+GJi8Xhdj
-	 Dwm7LO6KTnlwapb1KWab3rOgNiFbP7O6TcBClhiNKrUURnsUdO+3vVEXy0LfNI4CqLQ==
+	bh=DbkHAGjR6g9go8+RjgQr56+2CxfKnAC10aiuFOu0pbA=;
+	b=gFHmEnZlgf7Y9Y4UCm3K1tPZMOO794KNF1977K23DUWF11dUnGVGx1181u2myGIGwjaI
+	 d+mtTPSP6XXejcey5iiyafbVx/UbNt2LuYhm/sAqFEdlfmORaAyU/AUNhQwWTr0OS9Ry+
+	 byNYV0eX8CbS7xOFi6aB0JuzVNUS/pZ2v9zugm5TYzDKrCai0kaLaVzZ0jitnnLFRjnco
+	 Q4Btu5NjifByhxV/STpXN1nQJ98KXq7pMl4ibg3VRxtcNnmTw7rRXpJ740lRl7q7knOdX
+	 kBIbGut3ECfA7P7xYH6N51AQGwLtc8F79EKMeuFAc5Y6Tllk9z1P3T5ESQ+872R22RQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gMHGDA4N;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="dDAVs90/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86055606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:27:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22D34606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:27:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gMHGDA4N
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD3921F0089F;
-	Sat,  7 Nov 2026 11:27:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dDAVs90/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2432E1F0089F;
+	Sat,  7 Nov 2026 11:27:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050858;
-	bh=0YwMh4qtot8z36FjFURZ/feEFl/2gVbyfMOEqSipMfI=;
+	s=k20260515; t=1794050861;
+	bh=DbkHAGjR6g9go8+RjgQr56+2CxfKnAC10aiuFOu0pbA=;
 	h=From:To:Cc:Subject:Date;
-	b=gMHGDA4NXg0QEyone113vb9p+YbN4HNlBdPHrE1ckgnx5h9Iks/YXETvsH7qQunXS
-	 1eCxLPQ1rMCPHXIr+2oFf0luAglU70YKTmh/rUdjErL1i4L3uT5mNk/+kqQ07veqfp
-	 ZxvXhCv5AE/4ya4vSrDeBCyLgURRHSO7FKPmkniCqVBM8sCG2XDhQPmWcqpbLwOX4e
-	 zibItXlswTLbat53pQvga9j6f5bsTUuQpVNLK7qSk1LBvmpmX/78HvG9b6/BY8kOBL
-	 AF9wOL6xrR+bJgzD5L5hCLfZtzwoiOZRc4YdAp9FdTBwAhsNITW9ba6uy7r8mK69Bl
-	 aAf5E87H3YkrQ==
+	b=dDAVs90/6gqyuUDX0JnW5aYSZvpOzrgfGVdohb0bd0AK6FGZHI3eQZAgN/liq+3M8
+	 dbkiyS3kAoLuF6Mks5JiF+Zkiid8HJWx19NVRvhpDONMYy0CAbRgMO/b0SZ/DDveZU
+	 ShZc8kszgfMT3IkPVt+piga5FDWUbNsT6N/BTk/AqovJMqeG4KauCAELS4SRok1W8r
+	 1jDeZCTi6WMo86lFGzkf0YRF02FEDSVnZu7P0xYbKFZe6G7h+SiceeA8NGd+5o9N9Q
+	 0EqkFzQv/9WMGVSaxt2eqhOCnK3GnfjIDM775CigzOSomFIBE5pbuNP2cWwH43H3lg
+	 DS03NWRmMdbvQ==
 From: Sasha Levin <sashal@kernel.org>
-To: aliamemis@disroot.org,
-	i@rong.moe,
-	rafael.j.wysocki@intel.com
+To: cel@kernel.org,
+	danny_pidutti@hotmail.com,
+	danny@lightningiq.io,
+	bcodding@hammerspace.com,
+	brauner@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] platform/x86: ideapad-laptop: Evaluate ACPI methods exclusively" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:27:36 -0500
-Message-ID: <20261107062736-failed-5.10-f91c2cd6dbce@kernel.org>
+Subject: FAILED: patch "[PATCH] exportfs: Release the get_name() directory file synchronously" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:27:39 -0500
+Message-ID: <20261107062739-failed-5.10-49184daab016@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,95 +71,79 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x f91c2cd6dbcedf52e227b2eea8d7b99ecbac7552
+git cherry-pick -x 49184daab01674ca400cbef58ee101dba6dbbb9d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062736-failed-5.10-f91c2cd6dbce@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062739-failed-5.10-49184daab016@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From f91c2cd6dbcedf52e227b2eea8d7b99ecbac7552 Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?Ali=20Ahmet=20Memi=C5=9F?= <aliamemis@disroot.org>
-Date: Sun, 18 Oct 2026 15:23:48 +0300
-Subject: [PATCH] platform/x86: ideapad-laptop: Evaluate ACPI methods
- exclusively
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 49184daab01674ca400cbef58ee101dba6dbbb9d Mon Sep 17 00:00:00 2001
+From: Chuck Lever <cel@kernel.org>
+Date: Thu, 8 Oct 2026 10:09:03 -0400
+Subject: [PATCH] exportfs: Release the get_name() directory file synchronously
 
-On some Lenovo IdeaPad and Yoga models, the battery _BIX takes the EC
-AML mutex and then calls the serialized RDER through RDIF, while GBMD
-calls RDER first and then takes the EC mutex. When the two run
-interleaved they deadlock until the mutex acquisition in RDER times
-out, and GBMD returns garbage that is reported as both charge types
-being enabled.
+get_name() opens the parent directory with dentry_open() and
+releases it with fput(). From a kernel thread, fput() defers the
+final __fput() to the delayed_fput work item. NFSD threads are
+kernel threads, and NFSD reaches get_name() through
+exportfs_decode_fh() whenever a file handle's dentry is not
+connected to the root.
 
-Evaluate all methods with the exclusive helpers, so that GBMD never runs
-interleaved with the battery methods.
+On a filesystem with more directories than the dcache retains,
+nearly every READDIRPLUS needs a reconnect. The deferred releases
+arrive faster than the work item retires them, and each pending
+file pins the directory's readdir state. On ext4 that state is the
+htree fname cache for the last leaf block read. A 64-thread NFSv3
+server under a parallel tree walk showed unreclaimable slab growing
+by about 90 MB per second, and the same workload on a 5.15 kernel
+ended in a global OOM.
 
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=221065
-Link: https://lore.kernel.org/all/58586fa666f09c209f9d7fe8c692a8bdda6d4410.camel@rong.moe/
-Signed-off-by: Ali Ahmet Memiş <aliamemis@disroot.org>
-Reviewed-by: Rong Zhang <i@rong.moe>
-Cc: All applicable <stable@vger.kernel.org> # 80892972ff23 ACPI: utils: Add exclusive AML evaluation helpers
-Link: https://patch.msgid.link/20261018122348.679126-1-aliamemis@disroot.org
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Commit 5ff318f645eb ("nfsd: use __fput_sync() to avoid delayed
+closing of files.") stopped NFSD's own closes from feeding the
+delayed_fput queue but did not cover the exportfs reconnect path.
+
+Release the file with __fput_sync(). get_name() opened the file
+itself, read-only, on a directory, so __fput() involves nothing
+that could wait on the caller.
+
+Note for LTS backports: Kernels before v6.6 need the __fput_sync()
+call guarded by current->flags & PF_KTHREAD, with a plain fput()
+otherwise.
+
+Fixes: 4a9d4b024a31 ("switch fput to task_work_add")
+Cc: stable@vger.kernel.org # see above, needs adjustments for < v6.2
+Reported-by: Danny Pidutti <danny_pidutti@hotmail.com>
+Closes: https://lore.kernel.org/linux-fsdevel/DS4PR04MB9846BA3C16BC5ACED8B589228D952@DS4PR04MB9846.namprd04.prod.outlook.com/
+Tested-by: Danny Pidutti <danny@lightningiq.io>
+Reviewed-by: Benjamin Coddington <bcodding@hammerspace.com>
+Signed-off-by: Chuck Lever <cel@kernel.org>
+Link: https://patch.msgid.link/20261008140903.2784-1-cel@kernel.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- drivers/platform/x86/lenovo/ideapad-laptop.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+ fs/exportfs/expfs.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/platform/x86/lenovo/ideapad-laptop.c b/drivers/platform/x86/lenovo/ideapad-laptop.c
-index 8213524504eeb..1335f4e488702 100644
---- a/drivers/platform/x86/lenovo/ideapad-laptop.c
-+++ b/drivers/platform/x86/lenovo/ideapad-laptop.c
-@@ -297,12 +297,16 @@ static void ideapad_shared_exit(struct ideapad_private *priv)
- #define IDEAPAD_EC_POLL_MIN_US 150
- #define IDEAPAD_EC_POLL_MAX_US 300
+diff --git a/fs/exportfs/expfs.c b/fs/exportfs/expfs.c
+index eafd99507afee..b5768f94fbb59 100644
+--- a/fs/exportfs/expfs.c
++++ b/fs/exportfs/expfs.c
+@@ -336,7 +336,11 @@ static int get_name(const struct path *path, char *name, struct dentry *child)
+ 	}
  
-+/*
-+ * On some models GBMD and the battery _BIX take the EC mutex and a
-+ * serialized method in opposite order, so evaluate all methods exclusively.
-+ */
- static int eval_int(acpi_handle handle, const char *name, unsigned long *res)
- {
- 	unsigned long long result;
- 	acpi_status status;
- 
--	status = acpi_evaluate_integer(handle, (char *)name, NULL, &result);
-+	status = acpi_evaluate_integer_exclusive(handle, (char *)name, NULL, &result);
- 	if (ACPI_FAILURE(status))
- 		return -EIO;
- 
-@@ -324,7 +328,7 @@ static int eval_int_with_arg(acpi_handle handle, const char *name, unsigned long
- 	in_obj.type = ACPI_TYPE_INTEGER;
- 	in_obj.integer.value = arg;
- 
--	status = acpi_evaluate_integer(handle, (char *)name, &params, &result);
-+	status = acpi_evaluate_integer_exclusive(handle, (char *)name, &params, &result);
- 	if (ACPI_FAILURE(status))
- 		return -EIO;
- 
-@@ -336,7 +340,7 @@ static int eval_int_with_arg(acpi_handle handle, const char *name, unsigned long
- 
- static int exec_simple_method(acpi_handle handle, const char *name, unsigned long arg)
- {
--	acpi_status status = acpi_execute_simple_method(handle, (char *)name, arg);
-+	acpi_status status = acpi_execute_simple_method_exclusive(handle, (char *)name, arg);
- 
- 	return ACPI_FAILURE(status) ? -EIO : 0;
+ out_close:
+-	fput(file);
++	/*
++	 * @file is the read-only directory opened above, so __fput()
++	 * cannot block on anything the caller holds.
++	 */
++	__fput_sync(file);
+ out:
+ 	return error;
  }
-@@ -394,7 +398,7 @@ static int eval_vpcw(acpi_handle handle, unsigned long cmd, unsigned long data)
- 	in_obj[1].type = ACPI_TYPE_INTEGER;
- 	in_obj[1].integer.value = data;
- 
--	status = acpi_evaluate_object(handle, "VPCW", &params, NULL);
-+	status = acpi_evaluate_object_exclusive(handle, "VPCW", &params, NULL);
- 	if (ACPI_FAILURE(status))
- 		return -EIO;
- 
 -- 
 2.53.0
 
