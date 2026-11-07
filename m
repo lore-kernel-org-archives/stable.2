@@ -1,55 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794049780;
-	b=Lw5iE+pPxdpKt3ldPwbAYSnAV/MEhd/m9S8CqTJiEbLaWN9bCf02Y0BaGfZbGZVKxgZP
-	 2Y+IiN8fR9ZKoWU0xUofG8V00nI90czD8N5gJTNnbL9frZYUPVUIlJSiuvtaM+dltCUXi
-	 yURHHXwOCXzxLBfkjKlVr7iVp20jBrqXPn4vLmusCQQXQZdSgXieZv+v22YAT2xHjVsJf
-	 xinf73RWM0LSGq6/NzBsNQGEIJS8fKOE9BqwYd9wM3msvWptu0s0ySi0XoTUaPZV/Tudz
-	 sXZM1JH4oSvdKK6RoOzEM330gKHG0lO8voIycwtoO2Tn4lHQKB2wA1anrlF9VjtoOuQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	b=GfKvRrIHUh0S79TWBMZzOw5P3BcP8vI9nJQ5Z8oqnTb7wK/LDcRe22GA09BOg1I9FP/U
+	 SG2J82OoGLY06jlICP/xUsPP+9PO+bqTbepSc82IzWXNJymwkyFSCV/11rLlEmod62h1B
+	 gS07kqU5+kzIzt4bg/QMYFrU0+9pyrGe6EgZV8anosK38KDujyDTaMbkVIVkYjrTrmeu8
+	 d51wt4IZpaqh97EETnEphhPMMKkC2VLTUFdNMHAy2ccnMVaiz+k5SjcRNIkBXoNlzSpOX
+	 kPpdSMh5+MB46z3r0MqKmdwtQ8mkj5qkH4cZN4qvObCHZ7FgMHocqcMuFD5O9dQUDcw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794049780;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=M31RERcyEEwYB9mHSwgzgDvIcnOWQc++GiAHpbXkEMk=;
-	b=gz3eNb+4nBBX4wkBiyx1bNEa3XDY+CCkokcLehhC5g7wIMFhFpYm4US9r8YEmjKnYAhq
-	 hhGfFk+GJHnBI/Xlj1GJVD7GN/lODxWTRD9+BP2zNMyzIa3y1ozOXkppbdZpyNurBTH7d
-	 0WaiUp4HUmqDbXuNXm9nzDL6LhWfksNE91yrKAnt/EiDP0zTBayRcN4SG/7ARc3vlxJ1B
-	 Fh2U2/08es1u7qMnuDsEo9r5UfI/+1cTEyR2u98rD0VNnYL6mBxBNgeB8yxGW63pPF4tt
-	 ko2eLYtMtQOIWW89a01noM53fMgEUyuJsl6Prz6FxiAZ+3ASACZcYyjrbVCvaNBhZHQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JIwXxZeU;
-	arc=none smtp.remote-ip=100.103.45.18
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=neb1Pm3VUu3QzsGpdwql7eQhsQbPn8IiR/3LY1PC9Bw=;
+	b=lwYDTldMf+B3x/Qz/y0dSRy/r71l43LY8rQdbRbvxDq9PtmD+2/FNrxndZ8lygEnfhso
+	 CJ1Fu3HVfZMaoFbm4pQ7FFqkZxVAd/oVfG5gJFXbUIBq4QgGda+IrBGENVefXGzzpXfSS
+	 vqJWg4yYGphXyXxzbPNqj38/TIfTiMCepPHDWnwtWOKTrLUSNiji+YNxjAxjvs+Td7jLy
+	 nLR9naVTJu2TgYLzRlRGNPlZ+QTNXcTHubGZynmkbqkWhPw1xmII420NT7RfaM33c1Bfa
+	 KiLxp9rSA8E1in6VfeVUlvdqEI+BlE/AzyAD5ju7s5tEzkp57usBaSqUL8P9Wn9yfvg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PxbTz3v3;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7401A606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:09:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EDFE606A32C;
+	Sat,  7 Nov 2026 11:09:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JIwXxZeU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3E201F008A1;
-	Sat,  7 Nov 2026 11:09:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PxbTz3v3
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794049780;
+	b=kugV2qi2xsc6CnK0AU/UeUI9O4Hz8HMA7z2NGhj2r2p6i5JWUMCdoXWK2wbnRvVU1C5+
+	 aePhWv5aov+rO78U6AyrGKDKnJzRZmLINIcvUpcqbfc5wz0vRhR+S2w8g7ZGrZULYDBOq
+	 8oZCptOF/rsk8onOdwduApDVxrjU4SJhId1USouXjQv3Mv3dMT7eTpK2/74a+JfEazcOs
+	 vw0/SFkgB0RbfUc/YG3Idp30cTdMBZjqmkyc6luMAWphJ62ewhaxrwS3jk9taSbQXTVpG
+	 n1yHfYYVEnUCQAvga4Tmh2al5AzI9U2Wsfd/soUFmqJhUkIFz+okkhU/M49DKLRo+fw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794049780;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=neb1Pm3VUu3QzsGpdwql7eQhsQbPn8IiR/3LY1PC9Bw=;
+	b=VONUzrJaVpnRVJhddr8f+lDG/NPgXXMXZBkU8mgs4vTYGO9j+6+6SvZn/jmoeutOFtzu
+	 ZFGMrbB2tj0Xd+BpIqvAhq4n8/kXIbKhf/NVgLR+WHmYNV59GcX1RSR27q/dKAY4qmlzZ
+	 fsqqmlKR3sJMMjCeQ5rTthqc58s+mnXVfehFTL6Y1pFUnD3wO6ydTgw9AUMERsV+iSVgv
+	 bhLmvJIPysZTjQ7BAE7R+anEL1AOGCv0cBh0xteMQALPYHOQpo70NO89RMYezXdicPGHM
+	 yu+zD1iQSN3URlQjIF7ckx/X6C98Lb5oDRRJf3gp1EP9QXqRBdkFGnuW/cWyuKah0mA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 13BC81F008A2;
+	Sat,  7 Nov 2026 11:09:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794049780;
-	bh=M31RERcyEEwYB9mHSwgzgDvIcnOWQc++GiAHpbXkEMk=;
-	h=From:To:Cc:Subject:Date;
-	b=JIwXxZeUCPfiEkKPTs/k/JsdXFtuxFJikP+kLuKwdo4k1T84sX+fF1yeTvkNc6Hir
-	 QJMitw7ClnC052P1NQTtz3ARHwR9zMLhmUmWJHnqZ8BYoLcdD1RGA/YaiqKvpHepOu
-	 yjUZ8YFxAOvnRPG9YaFx/kzXT5AB7+fH1tMO/mk7DlaSmHBHI8YfruAVFmNrTZS8gk
-	 EUkWhcK03src5qRps4Cy0yPyFsFW7DCQexs2TdlmB+sUl+N+EkPROWWbNNZMy62Hb3
-	 BF5oaRBFCnnC5a4+8qXu3UGJkaVjpWIXUEjCDY4KgFZvf1pcIbkV3rZ4foUX1MV10L
-	 a3tNXZVky+tnw==
-From: Sasha Levin <sashal@kernel.org>
-To: zhen.han@amd.com,
-	philip.yang@amd.com,
-	mukul.joshi@amd.com,
-	lijo.lazar@amd.com,
-	alexander.deucher@amd.com
-Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/amdkfd: correct vram_available calculation" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:09:38 -0500
-Message-ID: <20261107060938-failed-5.15-9131cc85d0de@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	bh=neb1Pm3VUu3QzsGpdwql7eQhsQbPn8IiR/3LY1PC9Bw=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=PxbTz3v3uuTuqIy3eZo+R27eJTf3bMidYfy3Itf05XNarG/XyYhqF+rUTMYVCMgjH
+	 2+KyEi8xHvCRXNul+MEVph0TOUd/4NZex8Sieykq7At4+4iYQz/x58e1mFJHBLTMvc
+	 nocl3CPpTpBGaX5J7g9McWQbhcPaCrVHJ5UVqw+zusIlH129HAxHQ/j5YE1BHmKWbE
+	 vdnEzbWfHrkPuZP933DfBlDhZXLL5t7w9CBKnVDyMPCoLbOm0TZ0uAbk4G7KPQuCRf
+	 n2nyJC2heDMZ9ntKAcBIjkaTCxqYdP18EeTvcTuHbGIMtJAohZNXeEvPFch7lVzSgO
+	 GUsxH5varN7aA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 867E747B6F;
+	Sat,  7 Nov 2026 11:09:39 +0000 (UTC)
+From: Rui Cao via B4 Relay <devnull+i.udp0.com@kernel.org>
+Date: Sat, 07 Nov 2026 19:09:36 +0800
+Subject: [PATCH] power: supply: mt6360_charger: Set the input voltage limit
+ in CHG_CTRL6
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,430 +83,76 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261107-mt6360-charger-mivr-v1-1-ae6fcfb21bb9@udp0.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/yXMUQqDMBCE4avIPnchibBir1L6UJNRt6AtGxVBv
+ HvT9vFjmP+gDFNkulYHGTbN+poL/KWiOD7mAaypmIIL4r1reFqkFsdltAHGk27GdWrRRIj0KVB
+ 5vg297r/q7f53Xrsn4vJN0Xl+AKY5/ox3AAAA
+X-Change-ID: 20261107-mt6360-charger-mivr-3d9e7ce66fd2
+To: Sebastian Reichel <sre@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ stable@vger.kernel.org, Rui Cao <i@udp0.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794049778; l=1708;
+ i=i@udp0.com; s=20261107; h=from:subject:message-id;
+ bh=NPOAHTLtaaexfTH0i/P9IAyN1qGjNjezFTQY55cDejE=;
+ b=24QLSek8cMBjCn+fV0DFLLs5uhUl1By3RsW5vERTdOt7I/qC5khu7TXxFtXcFiRARw5suDHJZ
+ uTrousjJyxYDHY0mD2B+7hQyb0GD+LofX2iDGcNVkNZDpK3LfSVyc2B
+X-Developer-Key: i=i@udp0.com; a=ed25519;
+ pk=XZJKcKgnUUjjyw8KuKy7u2QeIX0JLY/L1Fxzwwje41w=
+X-Endpoint-Received: by B4 Relay for i@udp0.com/20261107 with auth_id=1443
+X-Original-From: Rui Cao <i@udp0.com>
+Reply-To: i@udp0.com
+Content-Transfer-Encoding: 7bit
 
-The patch below does not apply to the 5.15-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+From: Rui Cao <i@udp0.com>
 
-To reproduce the conflict and resubmit, you may use the following commands:
+mt6360_charger_set_mivr() updates the MIVR field (bits 7:1) of
+CHG_CTRL3, but MIVR lives in CHG_CTRL6, where mt6360_charger_get_mivr()
+reads it and MediaTek's own MT6360 charger driver writes it. CHG_CTRL3
+holds the input current limit (AICR, bits 7:2) instead.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
-git checkout FETCH_HEAD
-git cherry-pick -x 9131cc85d0dedd8ba4cae60dbe5985d081551f30
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060938-failed-5.15-9131cc85d0de@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+Writing input_voltage_limit therefore never changed the voltage limit
+and replaced the input current limit with the MIVR selector: 4.5 V, for
+example, set AICR to 250 mA.
 
-Thanks,
-Sasha
+Write the MIVR field of CHG_CTRL6.
 
------------------- original commit in Linus's tree ------------------
+Tested on a Redmi Note 13 5G (MT6833 with an MT6360): with this change,
+writing 4.6 V to input_voltage_limit only moves CHG_CTRL6 from 0x0d to
+0x0f and reads back as 4.6 V, while CHG_CTRL3 stays at 0x72 and
+input_current_limit at 1.5 A.
 
-From 9131cc85d0dedd8ba4cae60dbe5985d081551f30 Mon Sep 17 00:00:00 2001
-From: Zhen Han <Zhen.Han@amd.com>
-Date: Sun, 20 Sep 2026 02:31:31 +0000
-Subject: [PATCH] drm/amdkfd: correct vram_available calculation
-
-reserve_mem_limit() computes available VRAM as
-	vram_size - reserved - vram_pin_size - kfd.vram_used
-However, kfd.vram_used already includes BOs that are later pinned.
-Pinning does not consume extra VRAM. Subtracting
-vram_pin_size counts those bytes twice and causes fake-OOM
-while VRAM is still free.
-
-Reuse get_available_memory() in reserve_mem_limit(). Move
-ALIGN_DOWN to the ioctl so the userspace ABI is unchanged. The
-VRAM counter is a parameter: the ioctl passes vram_used_aligned[],
-the gate passes vram_used[] so a 4K BO is not charged 2MB.
-
-kfd.vram_pinned is only updated in gpuvm_pin_bo(). dma-buf pin
-calls amdgpu_bo_pin() only, so the counter stays zero. Update it
-from amdgpu_bo_pin() through a KFD helper, on first pin and last
-unpin, matching vram_pin_size.
-
-Track per-XCP pins in vram_pin_size_xcp[] and kfd.vram_pinned[].
-Pins that are not owned by a single partition go to
-vram_pin_size_common, which every partition subtracts.
-
-A KFD VRAM BO always carries a partition, so the KFD credit is only
-correct for xcp >= 0. Call the helper for both branches and let it
-warn once and skip if that ever stops holding: without the credit the
-BO would be subtracted through vram_pin_size_common and never added
-back, which is the double counting this patch removes, and
-kfd.vram_pinned[] would be indexed out of bounds.
-
-Suggested-by: Philip Yang <Philip.Yang@amd.com>
-Signed-off-by: Zhen Han <Zhen.Han@amd.com>
-Reviewed-by: Mukul Joshi <mukul.joshi@amd.com>
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 894cbb31c50e3cf49657130396bbf6c0475304e4)
+Fixes: 0402e8ebb8b8 ("power: supply: mt6360_charger: add MT6360 charger support")
 Cc: stable@vger.kernel.org
+Signed-off-by: Rui Cao <i@udp0.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu.h           | 11 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    | 20 +++-
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 94 +++++++++++--------
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c    | 33 +++++++
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      | 12 ++-
- 5 files changed, 127 insertions(+), 43 deletions(-)
+ drivers/power/supply/mt6360_charger.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index ce671731b7007..c7577b608f3e4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -844,8 +844,17 @@ struct amdgpu_device {
- 	struct mutex	mn_lock;
- 	DECLARE_HASHTABLE(mn_hash, 7);
+diff --git a/drivers/power/supply/mt6360_charger.c b/drivers/power/supply/mt6360_charger.c
+index b4d46234315..ccd5c200629 100644
+--- a/drivers/power/supply/mt6360_charger.c
++++ b/drivers/power/supply/mt6360_charger.c
+@@ -414,7 +414,7 @@ static int mt6360_charger_set_mivr(struct mt6360_chg_info *mci,
  
--	/* tracking pinned memory */
-+	/* tracking pinned memory
-+	 *
-+	 *	vram_pin_size = sum(vram_pin_size_xcp[]) + vram_pin_size_common
-+	 *
-+	 * vram_pin_size         total pin size in device
-+	 * vram_pin_size_xcp[i]  pins owned by partition i (bo->xcp_id = i, i >= 0)
-+	 * vram_pin_size_common  pins not owned by any partition, bo->xcp_id = -1
-+	 */
- 	atomic64_t vram_pin_size;
-+	atomic64_t vram_pin_size_xcp[MAX_XCP];
-+	atomic64_t vram_pin_size_common;
- 	atomic64_t visible_pin_size;
- 	atomic64_t gart_pin_size;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-index a53d7e4a1eb5c..77c0504cc158d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-@@ -42,6 +42,12 @@
- 
- extern uint64_t amdgpu_amdkfd_total_mem_size;
- 
-+/*
-+ * Align VRAM availability to 2MB to avoid fragmentation caused by 4K
-+ * allocations in the tail 2MB BO chunk.
-+ */
-+#define VRAM_AVAILABLITY_ALIGN (1 << 21)
-+
- enum TLB_FLUSH_TYPE {
- 	TLB_FLUSH_LEGACY = 0,
- 	TLB_FLUSH_LIGHTWEIGHT,
-@@ -106,7 +112,7 @@ struct amdgpu_kfd_dev {
- 	struct kfd_dev *dev;
- 	int64_t vram_used[MAX_XCP];
- 	uint64_t vram_used_aligned[MAX_XCP];
--	atomic64_t vram_pinned;
-+	atomic64_t vram_pinned[MAX_XCP];
- 	bool init_complete;
- 	struct work_struct reset_work;
- 
-@@ -390,6 +396,8 @@ void amdgpu_amdkfd_gpuvm_destroy_cb(struct amdgpu_device *adev,
-  * Allows KFD to release its resources associated with the GEM object.
-  */
- void amdgpu_amdkfd_release_notify(struct amdgpu_bo *bo);
-+void amdgpu_amdkfd_account_vram_pin(struct amdgpu_bo *bo, int xcp_id);
-+void amdgpu_amdkfd_account_vram_unpin(struct amdgpu_bo *bo, int xcp_id);
- void amdgpu_amdkfd_reserve_system_mem(uint64_t size);
- #else
- static inline
-@@ -407,6 +415,16 @@ static inline
- void amdgpu_amdkfd_release_notify(struct amdgpu_bo *bo)
- {
+ 	linear_range_get_selector_within(&mt6360_chg_range[MT6360_RANGE_VMIVR], val->intval, &sel);
+ 	return regmap_update_bits(mci->regmap,
+-				  MT6360_PMU_CHG_CTRL3,
++				  MT6360_PMU_CHG_CTRL6,
+ 				  MT6360_VMIVR_MASK,
+ 				  sel << MT6360_VMIVR_SHFT);
  }
-+
-+static inline
-+void amdgpu_amdkfd_account_vram_pin(struct amdgpu_bo *bo, int xcp_id)
-+{
-+}
-+
-+static inline
-+void amdgpu_amdkfd_account_vram_unpin(struct amdgpu_bo *bo, int xcp_id)
-+{
-+}
- #endif
- 
- #if IS_ENABLED(CONFIG_HSA_AMD_SVM)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index 129acb88dc11e..ff77e8ae9fe6f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -46,12 +46,6 @@
- #define AMDGPU_USERPTR_RESTORE_DELAY_MS 1
- #define AMDGPU_RESERVE_MEM_LIMIT			(3UL << 29)
- 
--/*
-- * Align VRAM availability to 2MB to avoid fragmentation caused by 4K allocations in the tail 2MB
-- * BO chunk
-- */
--#define VRAM_AVAILABLITY_ALIGN (1 << 21)
--
- /* Impose limit on how much memory KFD can use */
- static struct {
- 	uint64_t max_system_mem_limit;
-@@ -73,6 +67,8 @@ static const char * const domain_bit_to_string[] = {
- #define domain_string(domain) domain_bit_to_string[ffs(domain)-1]
- 
- static void amdgpu_amdkfd_restore_userptr_worker(struct work_struct *work);
-+static size_t __get_available_memory(struct amdgpu_device *adev,
-+				     uint8_t xcp_id, int64_t vram_used);
- 
- static bool kfd_mem_is_attached(struct amdgpu_vm *avm,
- 		struct kgd_mem *mem)
-@@ -169,13 +165,8 @@ void amdgpu_amdkfd_reserve_system_mem(uint64_t size)
- int amdgpu_amdkfd_reserve_mem_limit(struct amdgpu_device *adev,
- 		uint64_t size, u32 alloc_flag, int8_t xcp_id)
- {
--	uint64_t reserved_for_pt =
--		ESTIMATE_PT_SIZE(amdgpu_amdkfd_total_mem_size);
--	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
--	uint64_t reserved_for_ras = (con ? con->reserved_pages_in_bytes : 0);
- 	size_t system_mem_needed, ttm_mem_needed, vram_needed;
- 	int ret = 0;
--	uint64_t vram_size = 0;
- 
- 	system_mem_needed = 0;
- 	ttm_mem_needed = 0;
-@@ -196,7 +187,6 @@ int amdgpu_amdkfd_reserve_mem_limit(struct amdgpu_device *adev,
- 		if (WARN_ONCE(xcp_id < 0, "invalid XCP ID %d", xcp_id))
- 			return -EINVAL;
- 
--		vram_size = KFD_XCP_MEMORY_SIZE(adev, xcp_id);
- 		if (adev->apu_prefer_gtt) {
- 			system_mem_needed = size;
- 			ttm_mem_needed = size;
-@@ -232,14 +222,11 @@ int amdgpu_amdkfd_reserve_mem_limit(struct amdgpu_device *adev,
- 	 * VRAM check since ttm_mem_limit check already cover this allocation
- 	 */
- 
--	if (adev && xcp_id >= 0 && (!adev->apu_prefer_gtt || adev->gmc.is_app_apu)) {
--		uint64_t vram_available =
--			vram_size - reserved_for_pt - reserved_for_ras -
--			atomic64_read(&adev->vram_pin_size);
--		if (adev->kfd.vram_used[xcp_id] + vram_needed > vram_available) {
--			ret = -ENOMEM;
--			goto release;
--		}
-+	if (adev && xcp_id >= 0 && (!adev->apu_prefer_gtt || adev->gmc.is_app_apu) &&
-+	    vram_needed > __get_available_memory(adev, xcp_id,
-+						 adev->kfd.vram_used[xcp_id])) {
-+		ret = -ENOMEM;
-+		goto release;
- 	}
- 
- 	/* Update memory accounting by decreasing available system
-@@ -318,6 +305,30 @@ void amdgpu_amdkfd_release_notify(struct amdgpu_bo *bo)
- 	kfree(bo->kfd_bo);
- }
- 
-+void amdgpu_amdkfd_account_vram_pin(struct amdgpu_bo *bo, int xcp_id)
-+{
-+	if (!bo->kfd_bo)
-+		return;
-+
-+	if (WARN_ONCE(xcp_id < 0, "KFD BO pinned in VRAM with no partition"))
-+		return;
-+
-+	atomic64_add(amdgpu_bo_size(bo),
-+		     &amdgpu_ttm_adev(bo->tbo.bdev)->kfd.vram_pinned[xcp_id]);
-+}
-+
-+void amdgpu_amdkfd_account_vram_unpin(struct amdgpu_bo *bo, int xcp_id)
-+{
-+	if (!bo->kfd_bo)
-+		return;
-+
-+	if (WARN_ONCE(xcp_id < 0, "KFD BO unpinned in VRAM with no partition"))
-+		return;
-+
-+	atomic64_sub(amdgpu_bo_size(bo),
-+		     &amdgpu_ttm_adev(bo->tbo.bdev)->kfd.vram_pinned[xcp_id]);
-+}
-+
- /**
-  * create_dmamap_sg_bo() - Creates a amdgpu_bo object to reflect information
-  * about USERPTR or DOOREBELL or MMIO BO.
-@@ -1537,10 +1548,6 @@ static int amdgpu_amdkfd_gpuvm_pin_bo(struct amdgpu_bo *bo, u32 domain)
- 
- 	amdgpu_bo_sync_wait(bo, AMDGPU_FENCE_OWNER_KFD, false);
- 
--	if (!ret && bo->tbo.resource->mem_type == TTM_PL_VRAM)
--		atomic64_add(amdgpu_bo_size(bo),
--			&amdgpu_ttm_adev(bo->tbo.bdev)->kfd.vram_pinned);
--
- out:
- 	amdgpu_bo_unreserve(bo);
- 	return ret;
-@@ -1564,10 +1571,6 @@ static void amdgpu_amdkfd_gpuvm_unpin_bo(struct amdgpu_bo *bo)
- 
- 	amdgpu_bo_unpin(bo);
- 
--	if (bo->tbo.resource->mem_type == TTM_PL_VRAM)
--		atomic64_sub(amdgpu_bo_size(bo),
--			&amdgpu_ttm_adev(bo->tbo.bdev)->kfd.vram_pinned);
--
- 	amdgpu_bo_unreserve(bo);
- }
- 
-@@ -1671,8 +1674,9 @@ int amdgpu_amdkfd_criu_resume(void *p)
- 	return ret;
- }
- 
--size_t amdgpu_amdkfd_get_available_memory(struct amdgpu_device *adev,
--					  uint8_t xcp_id)
-+/* Caller must hold kfd_mem_limit.mem_limit_lock. */
-+static size_t __get_available_memory(struct amdgpu_device *adev,
-+				     uint8_t xcp_id, int64_t vram_used)
- {
- 	uint64_t reserved_for_pt =
- 		ESTIMATE_PT_SIZE(amdgpu_amdkfd_total_mem_size);
-@@ -1681,15 +1685,17 @@ size_t amdgpu_amdkfd_get_available_memory(struct amdgpu_device *adev,
- 	ssize_t available;
- 	uint64_t vram_available, system_mem_available, ttm_mem_available;
- 
--	spin_lock(&kfd_mem_limit.mem_limit_lock);
-+	lockdep_assert_held(&kfd_mem_limit.mem_limit_lock);
-+
- 	if (adev->apu_prefer_gtt && !adev->gmc.is_app_apu)
- 		vram_available = KFD_XCP_MEMORY_SIZE(adev, xcp_id)
--			- adev->kfd.vram_used_aligned[xcp_id];
-+			- vram_used;
- 	else
- 		vram_available = KFD_XCP_MEMORY_SIZE(adev, xcp_id)
--			- adev->kfd.vram_used_aligned[xcp_id]
--			- atomic64_read(&adev->vram_pin_size)
--			+ atomic64_read(&adev->kfd.vram_pinned)
-+			- vram_used
-+			- atomic64_read(&adev->vram_pin_size_xcp[xcp_id])
-+			- atomic64_read(&adev->vram_pin_size_common)
-+			+ atomic64_read(&adev->kfd.vram_pinned[xcp_id])
- 			- reserved_for_pt
- 			- reserved_for_ras;
- 
-@@ -1704,19 +1710,29 @@ size_t amdgpu_amdkfd_get_available_memory(struct amdgpu_device *adev,
- 
- 		available = min3(system_mem_available, ttm_mem_available,
- 				 vram_available);
--		available = ALIGN_DOWN(available, PAGE_SIZE);
- 	} else {
--		available = ALIGN_DOWN(vram_available, VRAM_AVAILABLITY_ALIGN);
-+		available = vram_available;
- 	}
- 
--	spin_unlock(&kfd_mem_limit.mem_limit_lock);
--
- 	if (available < 0)
- 		available = 0;
- 
- 	return available;
- }
- 
-+size_t amdgpu_amdkfd_get_available_memory(struct amdgpu_device *adev,
-+					  uint8_t xcp_id)
-+{
-+	size_t available;
-+
-+	spin_lock(&kfd_mem_limit.mem_limit_lock);
-+	available = __get_available_memory(adev, xcp_id,
-+					   adev->kfd.vram_used_aligned[xcp_id]);
-+	spin_unlock(&kfd_mem_limit.mem_limit_lock);
-+
-+	return available;
-+}
-+
- int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
- 		struct amdgpu_device *adev, uint64_t va, uint64_t size,
- 		void *drm_priv, struct kgd_mem **mem,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-index 2a6a5bc01eb40..6aa895f63aeaf 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-@@ -923,6 +923,19 @@ void amdgpu_bo_unref(struct amdgpu_bo **bo)
- 	*bo = NULL;
- }
- 
-+/* Map a BO onto vram_pin_size_xcp[]. bo->xcp_id < 0 means "any partition":
-+ * such pins are not owned by a single partition and go to
-+ * vram_pin_size_common, which every partition subtracts.
-+ */
-+static int amdgpu_bo_get_xcp(struct amdgpu_bo *bo)
-+{
-+	s8 xcp = bo->xcp_id;
-+
-+	if (xcp >= 0 && xcp < MAX_XCP)
-+		return xcp;
-+	return -1;
-+}
-+
- /**
-  * amdgpu_bo_pin - pin an &amdgpu_bo buffer object
-  * @bo: &amdgpu_bo buffer object to be pinned
-@@ -1003,7 +1016,17 @@ int amdgpu_bo_pin(struct amdgpu_bo *bo, u32 domain)
- 	ttm_bo_pin(&bo->tbo);
- 
- 	if (bo->tbo.resource->mem_type == TTM_PL_VRAM) {
-+		int xcp = amdgpu_bo_get_xcp(bo);
-+
- 		atomic64_add(amdgpu_bo_size(bo), &adev->vram_pin_size);
-+		if (xcp >= 0) {
-+			atomic64_add(amdgpu_bo_size(bo),
-+				     &adev->vram_pin_size_xcp[xcp]);
-+		} else {
-+			atomic64_add(amdgpu_bo_size(bo),
-+				     &adev->vram_pin_size_common);
-+		}
-+		amdgpu_amdkfd_account_vram_pin(bo, xcp);
- 		atomic64_add(amdgpu_vram_mgr_bo_visible_size(bo),
- 			     &adev->visible_pin_size);
- 	} else if (bo->tbo.resource->mem_type == TTM_PL_TT) {
-@@ -1036,7 +1059,17 @@ void amdgpu_bo_unpin(struct amdgpu_bo *bo)
- 		dma_buf_unpin(bo->tbo.base.import_attach);
- 
- 	if (bo->tbo.resource->mem_type == TTM_PL_VRAM) {
-+		int xcp = amdgpu_bo_get_xcp(bo);
-+
- 		atomic64_sub(amdgpu_bo_size(bo), &adev->vram_pin_size);
-+		if (xcp >= 0) {
-+			atomic64_sub(amdgpu_bo_size(bo),
-+				     &adev->vram_pin_size_xcp[xcp]);
-+		} else {
-+			atomic64_sub(amdgpu_bo_size(bo),
-+				     &adev->vram_pin_size_common);
-+		}
-+		amdgpu_amdkfd_account_vram_unpin(bo, xcp);
- 		atomic64_sub(amdgpu_vram_mgr_bo_visible_size(bo),
- 			     &adev->visible_pin_size);
- 	} else if (bo->tbo.resource->mem_type == TTM_PL_TT) {
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 3831451240e97..cad60ccdb2166 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -1110,11 +1110,19 @@ static int kfd_ioctl_get_available_memory(struct file *filep,
- {
- 	struct kfd_ioctl_get_available_memory_args *args = data;
- 	struct kfd_process_device *pdd = kfd_lock_pdd_by_id(p, args->gpu_id);
-+	struct amdgpu_device *adev;
-+	size_t available;
- 
- 	if (!pdd)
- 		return -EINVAL;
--	args->available = amdgpu_amdkfd_get_available_memory(pdd->dev->adev,
--							pdd->dev->node_id);
-+
-+	adev = pdd->dev->adev;
-+	available = amdgpu_amdkfd_get_available_memory(adev, pdd->dev->node_id);
-+	if (adev->apu_prefer_gtt)
-+		args->available = ALIGN_DOWN(available, PAGE_SIZE);
-+	else
-+		args->available = ALIGN_DOWN(available, VRAM_AVAILABLITY_ALIGN);
-+
- 	kfd_unlock_pdd(pdd);
- 	return 0;
- }
--- 
-2.53.0
 
+---
+base-commit: d48723711bae9b8cdc56719c448ba42fef28cbee
+change-id: 20261107-mt6360-charger-mivr-3d9e7ce66fd2
 
+Best regards,
+--  
+Rui Cao <i@udp0.com>
 
 
