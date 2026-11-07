@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046568;
-	b=upG+CYAUkcqtXcP3t8frNLAEGFWGmmLLnRmgPB/qi71vs04On4aV8dJdB+t1GNbURFkF
-	 YBnMw1eBb4FfOnpDhRRyDuyUSAo9BDBmJRgiMcHkUl1BCc7OgxgAf+Nln0ejq0UBOEYn9
-	 HJWWae3PiveFy0E7FLTAZ7RHzVIRPwqpKlBO5fQ0Q8KfrygdDl06emDq/UL006tFMzuz+
-	 dwkZ7zWgUVb0FLFVMbv/+5bb/UGbiZZdWhceioVR53Lv8dBqkJgyYdi7bf6+TLqa/ld9H
-	 UxjEUOUsfghWH0NzUspjwogk1e3bdVCv3qtp6+kWQUIAwkRuOIo8YCr0IkJT7pCk6pQ==
+	t=1794046570;
+	b=CCxTpNjtZCu9yW4DpkqVoz5ouffD/0V+bNua16JPIX8nSbeV4oUAAkrtijtweOg1pL8L
+	 425zyUdhiJM5ZSJYA0CwzkyRA02PVEOn8P0Jjjcut6uPgrXWBVu0kcEEOtxrDO1PTLWd4
+	 N97a/5L4+o9i+d2anU1anTe2I9HkT/pxaFdR+HI7JiO6m0w6B2pPc4GLFiy+UdsRaGiWL
+	 6MLNVGlT1/zzNMrHCstSUPtD/pU07wVLr5q5JTnk/Ps3IfQ/7AShdRGMI3qfNz53bO0jj
+	 O6oPcFE6Qja0h5GxaibuyBFrpR7H3vMmZpbPOPVQknBKLjhgEi1cB5310IpJ39n7a4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046568;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046570;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=5Eu0ky/4OqxxeJea8ZLZyeq0WbBvPhzFBNsjYqP3Xho=;
-	b=Vclc+y/2TWvUlVDfuRcWSbTizBi3MQY12HjhwQKrnYvwoXHHWD0QG/Ss4EQlnHhjwlKH
-	 fqMLVcswKmAS7/VBqRiB1vRlPOR5E6gJHqvxiuwHhxQtdDrifnqWD3PY9NZ/HIjn/dJ2q
-	 zDYHdPMVSGQEIEPXh0B0LS7GSyvKDfpGwWNNRGDaZFrSWPGlgSAK70zuP4nkph6rsSDnX
-	 Ej4xHo4rqLMYAGEAJR6l2jF79g/9l5A5XUwsSHSXuT8Z85Ud8QPrEZ3KROnzW4YW6p6iI
-	 fQfh5DPT2fe3HH+xm3uiQI4uv84QPfFi1X1VDAb9QyQNOra5BdAQswbv6Dz+nGC5Paw==
+	bh=+ZA6soZQyHlPPmhWPAX2+Z2s26YGzW3QNYpIJSBFY/Y=;
+	b=fH+rNBzstoH5QdiciWDghpcgJy+q0jRva4HvaXTL1QcZaL3U/tREV2JLOI6WIsx3ridR
+	 QfjNYkEu9Rd58Une/uMZ+A83opYMUe0yxGmqPp8norhOjFA1/v7lY0GKwi5dif9bB7mjG
+	 zuNzYjhsxttWv6VbMKsgDu8U3t1I3Zp5wsylJfxn17apJt7/qfU1GxtYv/SQxouUjsUVZ
+	 9dn5GjBtZc1DX/s+/d3UEqr4xiPJg3bsWK20YPKEaKeTu6Is4GwQIQymy3aYA/kL+fsIb
+	 iLmoG0ItdA2vZTDqHWImRQTwi9bMK3tzIajALCA6hFPm54u5UUSUaaVZ8UN5T9PogQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HeAjdRiI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R3chEsI+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8449606A331
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:16:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 151D3606A32D
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:16:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HeAjdRiI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 300941F008A1;
-	Sat,  7 Nov 2026 10:16:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R3chEsI+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70A6D1F0089F;
+	Sat,  7 Nov 2026 10:16:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046567;
-	bh=5Eu0ky/4OqxxeJea8ZLZyeq0WbBvPhzFBNsjYqP3Xho=;
+	s=k20260515; t=1794046569;
+	bh=+ZA6soZQyHlPPmhWPAX2+Z2s26YGzW3QNYpIJSBFY/Y=;
 	h=From:To:Cc:Subject:Date;
-	b=HeAjdRiIjBW33+A0g/Ocu/V1G2JHmEtIEYNLFf2yuWpN4j8NCAYr5BJyXZemn46/i
-	 bjnTq6ZtKpconxQiJFI/V/gr5rkP/LSmmFfQyX2Hv97dTUdnUHCuE5yCe12eHkEmgk
-	 xM05wgBW6dTug+2svNPV1qQ3ESmeBDOoHTMZocij8sSua44t4bZXy5O3WpLiwyuECm
-	 nbYDNnWT1xjJaljuIAmpop5l+OivVQ8YN0xp6n5D5fOTCvMUBKjb8curiYou17mYUj
-	 ERH7QpyhtK/I0CrydPskvnU1nYd7ZG8vJTxjUpmlGouv1x0wTk404538BSwDv7e4Z7
-	 UtRXixJmltivw==
+	b=R3chEsI+XaVbSCz/KobHMX+OBTurZmFbJgzvSquFArqD+VcKP/PnkS1eLraioMLgT
+	 c8Xx9h1We7Okp8jhYVf9C/7CQa1K0q6l1for4idVIorMHoSr4npvs6gO74hbmtyuyd
+	 L/Le17IfceLsh839vX8mMvrdV2tgPXcVkbWrgni4joWnVlvYGl3Zf9PsjmPauCLaRk
+	 7aegolJlbvye+uyXY0oobLbpworDp3Iwz4vZ+S5sIW41I9w8MhOy7gMY1ANCMT2v4i
+	 zg564k20vWJdqcw0bcDBmxiHwzNHlo8DVWfEpISZQD7r6oXSXxHObAMB3lOXLD7WJ3
+	 6aMiPbFTLiwkw==
 From: Sasha Levin <sashal@kernel.org>
-To: nemesa.garg@intel.com,
-	jouni.hogander@intel.com,
-	animesh.manna@intel.com
+To: marek@czernohous.de,
+	fabstz-it@yahoo.fr,
+	lyude@redhat.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/i915/display: Clear SEL_FETCH_PLANE_CTL on plane disable" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:16:06 -0500
-Message-ID: <20261107051606-failed-6.12-600a7c9d40e5@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/nouveau/pci: use config-space MSI rearm on MCP79/MCP7A (NVAC)" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:16:08 -0500
+Message-ID: <20261107051608-failed-6.12-354d47fb3f35@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,139 +69,147 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 600a7c9d40e5e0c5544f42d1c9592c8d15224dc0
+git cherry-pick -x 354d47fb3f35461b7f942831c1b2a7105e92b57f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051606-failed-6.12-600a7c9d40e5@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051608-failed-6.12-354d47fb3f35@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 600a7c9d40e5e0c5544f42d1c9592c8d15224dc0 Mon Sep 17 00:00:00 2001
-From: Nemesa Garg <nemesa.garg@intel.com>
-Date: Tue, 18 Aug 2026 15:21:49 +0530
-Subject: [PATCH] drm/i915/display: Clear SEL_FETCH_PLANE_CTL on plane disable
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 354d47fb3f35461b7f942831c1b2a7105e92b57f Mon Sep 17 00:00:00 2001
+From: Marek Czernohous <marek@czernohous.de>
+Date: Sun, 16 Aug 2026 15:09:04 +0200
+Subject: [PATCH] drm/nouveau/pci: use config-space MSI rearm on MCP79/MCP7A
+ (NVAC)
 
-icl_plane_disable_sel_fetch_arm() wrote SEL_FETCH_PLANE_CTL = 0 only when
-crtc_state->enable_psr2_sel_fetch was set. If a plane was disabled after
-selective fetch had been turned off, the guard fired early and left the
-register's enable bit set in hardware.
+NVAC (MCP79/MCP7A) uses g94_pci_func, whose .msi_rearm is
+nv40_pci_msi_rearm(): a re-arm write through the MMIO mirror of PCI
+config space.  On this IGP that path is unreliable; when a re-arm is
+missed the interrupt line stays dead, command submission times out and
+the GPU appears hung until reboot.  On an Apple Mac mini (early 2009,
+MCP79, boot0 0x0ac080b1) this showed as sporadic fifo timeouts and GPU
+hangs under load unless MSI was disabled via config=NvMSI=0.
 
-The bit is harmless until selective fetch is re-enabled.  When it is, the
-hardware resumes fetching for the now-disabled plane and keeps its old DDB
-range reserved.
+Give NVAC its own pci func that re-arms through real PCI config space
+(nv46_pci_msi_rearm) instead.  This follows existing precedent: nv46.c
+documents the MMIO-mirror re-arm as broken on several related parts,
+and commit 5112abc6a433 ("drm/nouveau/pci/g92: Fix rearm") fixed g92
+the same way while moving the remaining chipsets, NVAC included, into
+the newly added shared g94 table, where NVAC stayed on the MMIO path.
+This change completes that fix for NVAC.  The sibling IGP NVAA
+(MCP77/MCP78) has MSI disabled entirely as "reported broken" in
+nvkm_pci_new_(); NVAC works correctly once the re-arm goes through
+config space, so disabling MSI is not necessary.
 
-i9xx_cursor_disable_sel_fetch_arm() has the same guard on SEL_FETCH_CUR_CTL
-and is fixed the same way.
+Only NVAC is switched: that is the hardware this has been validated
+on.  The other users of g94_pci_func (G94/G96/G98/GT2xx and the
+MCP77/MCP89 IGPs) keep their current behavior; MCP77 and MCP89
+plausibly want the same treatment but were not tested.
 
-v2: Add same check for cursor also. [sashiko]
+Tested on the Mac mini as a daily driver for two months with MSI
+enabled and zero fifo timeouts.  Independently confirmed stable on an
+iMac9,1 (MCP79) running 6.12.90 with the v1 form of this change (the
+same one-line functional switch, applied to that kernel's g94
+implementation).
 
-Cc: stable@vger.kernel.org
-Fixes: b1f5279b5981 ("drm/i915/psr: Move plane sel fetch configuration into plane source files")
-Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8739
-Assisted-by: GitHub-Copilot:claude-opus-4.6
-Signed-off-by: Nemesa Garg <nemesa.garg@intel.com>
-Reviewed-by: Jouni Högander <jouni.hogander@intel.com>
-Signed-off-by: Animesh Manna <animesh.manna@intel.com>
-Link: https://patch.msgid.link/20260818095149.2172935-1-nemesa.garg@intel.com
+Fixes: 5112abc6a433 ("drm/nouveau/pci/g92: Fix rearm")
+Cc: <stable@vger.kernel.org> # v6.16+
+Tested-by: Fab Stz <fabstz-it@yahoo.fr>
+Assisted-by: Claude:claude-opus-4-7
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Marek Czernohous <marek@czernohous.de>
+Reviewed-by: Lyude Paul <lyude@redhat.com>
+Signed-off-by: Lyude Paul <lyude@redhat.com>
+Link: https://patch.msgid.link/178688574401.522643.12812428444459119913@gmail.com
 ---
- drivers/gpu/drm/i915/display/intel_cursor.c       | 15 ++++++++++-----
- .../gpu/drm/i915/display/skl_universal_plane.c    | 15 ++++++++++-----
- 2 files changed, 20 insertions(+), 10 deletions(-)
+ .../gpu/drm/nouveau/include/nvkm/subdev/pci.h |  1 +
+ .../gpu/drm/nouveau/nvkm/engine/device/base.c |  2 +-
+ .../gpu/drm/nouveau/nvkm/subdev/pci/Kbuild    |  1 +
+ .../gpu/drm/nouveau/nvkm/subdev/pci/mcp79.c   | 35 +++++++++++++++++++
+ 4 files changed, 38 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/gpu/drm/nouveau/nvkm/subdev/pci/mcp79.c
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cursor.c b/drivers/gpu/drm/i915/display/intel_cursor.c
-index 0673f16f6fd0d..86bb96ac449b0 100644
---- a/drivers/gpu/drm/i915/display/intel_cursor.c
-+++ b/drivers/gpu/drm/i915/display/intel_cursor.c
-@@ -530,13 +530,18 @@ static int i9xx_check_cursor(struct intel_crtc_state *crtc_state,
- }
- 
- static void i9xx_cursor_disable_sel_fetch_arm(struct intel_dsb *dsb,
--					      struct intel_plane *plane,
--					      const struct intel_crtc_state *crtc_state)
-+					      struct intel_plane *plane)
- {
- 	struct intel_display *display = to_intel_display(plane);
- 	enum pipe pipe = plane->pipe;
- 
--	if (!crtc_state->enable_psr2_sel_fetch)
-+	/*
-+	 * Clear this whenever the hardware has selective fetch, not just when
-+	 * the current state uses it. The cursor may have been enabled with
-+	 * selective fetch earlier and had its enable bit orphaned when the
-+	 * feature was switched off.
-+	 */
-+	if (!HAS_PSR2_SEL_FETCH(display))
- 		return;
- 
- 	intel_de_write_dsb(display, dsb, SEL_FETCH_CUR_CTL(pipe), 0);
-@@ -586,7 +591,7 @@ static void i9xx_cursor_update_sel_fetch_arm(struct intel_dsb *dsb,
- 		if (crtc_state->enable_psr2_su_region_et)
- 			wa_16021440873(dsb, plane, crtc_state, plane_state);
- 		else
--			i9xx_cursor_disable_sel_fetch_arm(dsb, plane, crtc_state);
-+			i9xx_cursor_disable_sel_fetch_arm(dsb, plane);
- 	}
- }
- 
-@@ -695,7 +700,7 @@ static void i9xx_cursor_update_arm(struct intel_dsb *dsb,
- 	if (plane_state)
- 		i9xx_cursor_update_sel_fetch_arm(dsb, plane, crtc_state, plane_state);
- 	else
--		i9xx_cursor_disable_sel_fetch_arm(dsb, plane, crtc_state);
-+		i9xx_cursor_disable_sel_fetch_arm(dsb, plane);
- 
- 	if (plane->cursor.base != base ||
- 	    plane->cursor.size != fbc_ctl ||
-diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-index 07a6832933521..5cda1ab90e40f 100644
---- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
-+++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-@@ -879,13 +879,18 @@ skl_plane_disable_arm(struct intel_dsb *dsb,
- }
- 
- static void icl_plane_disable_sel_fetch_arm(struct intel_dsb *dsb,
--					    struct intel_plane *plane,
--					    const struct intel_crtc_state *crtc_state)
-+					    struct intel_plane *plane)
- {
- 	struct intel_display *display = to_intel_display(plane);
- 	enum pipe pipe = plane->pipe;
- 
--	if (!crtc_state->enable_psr2_sel_fetch)
-+	/*
-+	 * Clear this whenever the hardware has selective fetch, not just when
-+	 * the current state uses it. The plane may have been enabled with
-+	 * selective fetch earlier and had its enable bit orphaned when the
-+	 * feature was switched off.
-+	 */
-+	if (!HAS_PSR2_SEL_FETCH(display))
- 		return;
- 
- 	intel_de_write_dsb(display, dsb, SEL_FETCH_PLANE_CTL(pipe, plane->id), 0);
-@@ -921,7 +926,7 @@ icl_plane_disable_arm(struct intel_dsb *dsb,
- 
- 	skl_write_plane_wm(dsb, plane, crtc_state);
- 
--	icl_plane_disable_sel_fetch_arm(dsb, plane, crtc_state);
-+	icl_plane_disable_sel_fetch_arm(dsb, plane);
- 
- 	if (plane_has_normalizer(plane))
- 		intel_de_write_dsb(display, dsb,
-@@ -1641,7 +1646,7 @@ static void icl_plane_update_sel_fetch_arm(struct intel_dsb *dsb,
- 		intel_de_write_dsb(display, dsb, SEL_FETCH_PLANE_CTL(pipe, plane->id),
- 				   SEL_FETCH_PLANE_CTL_ENABLE);
- 	else
--		icl_plane_disable_sel_fetch_arm(dsb, plane, crtc_state);
-+		icl_plane_disable_sel_fetch_arm(dsb, plane);
- }
- 
- static void
+diff --git a/drivers/gpu/drm/nouveau/include/nvkm/subdev/pci.h b/drivers/gpu/drm/nouveau/include/nvkm/subdev/pci.h
+index 112b674ed9c8a..0172e0d200f81 100644
+--- a/drivers/gpu/drm/nouveau/include/nvkm/subdev/pci.h
++++ b/drivers/gpu/drm/nouveau/include/nvkm/subdev/pci.h
+@@ -46,6 +46,7 @@ int nv4c_pci_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct n
+ int g84_pci_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct nvkm_pci **);
+ int g92_pci_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct nvkm_pci **);
+ int g94_pci_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct nvkm_pci **);
++int mcp79_pci_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct nvkm_pci **);
+ int gf100_pci_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct nvkm_pci **);
+ int gf106_pci_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct nvkm_pci **);
+ int gk104_pci_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct nvkm_pci **);
+diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c b/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c
+index ea62dc97f1189..f7e02a16e5bc4 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c
++++ b/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c
+@@ -1237,7 +1237,7 @@ nvac_chipset = {
+ 	.mc       = { 0x00000001, g98_mc_new },
+ 	.mmu      = { 0x00000001, mcp77_mmu_new },
+ 	.mxm      = { 0x00000001, nv50_mxm_new },
+-	.pci      = { 0x00000001, g94_pci_new },
++	.pci      = { 0x00000001, mcp79_pci_new },
+ 	.therm    = { 0x00000001, g84_therm_new },
+ 	.timer    = { 0x00000001, nv41_timer_new },
+ 	.volt     = { 0x00000001, nv40_volt_new },
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/pci/Kbuild b/drivers/gpu/drm/nouveau/nvkm/subdev/pci/Kbuild
+index a14ea0f7b1c87..90f03baeb22ac 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/pci/Kbuild
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/pci/Kbuild
+@@ -9,6 +9,7 @@ nvkm-y += nvkm/subdev/pci/nv4c.o
+ nvkm-y += nvkm/subdev/pci/g84.o
+ nvkm-y += nvkm/subdev/pci/g92.o
+ nvkm-y += nvkm/subdev/pci/g94.o
++nvkm-y += nvkm/subdev/pci/mcp79.o
+ nvkm-y += nvkm/subdev/pci/gf100.o
+ nvkm-y += nvkm/subdev/pci/gf106.o
+ nvkm-y += nvkm/subdev/pci/gk104.o
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/pci/mcp79.c b/drivers/gpu/drm/nouveau/nvkm/subdev/pci/mcp79.c
+new file mode 100644
+index 0000000000000..e2ae242f1aa77
+--- /dev/null
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/pci/mcp79.c
+@@ -0,0 +1,35 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright 2026 Marek Czernohous
++ *
++ * MCP79/MCP7A (NVAC): like g94, but MSI re-arm goes through real PCI
++ * config space.  The MMIO-mirror re-arm is unreliable on this IGP and a
++ * missed re-arm kills the interrupt line (see the nv46 comment; g92
++ * already re-arms through config space for the same reason).
++ */
++#include "priv.h"
++
++static const struct nvkm_pci_func
++mcp79_pci_func = {
++	.cfg = { .addr = 0x088000, .size = 0x1000 },
++
++	.init = g84_pci_init,
++	.msi_rearm = nv46_pci_msi_rearm,
++
++	.pcie.init = g84_pcie_init,
++	.pcie.set_link = g84_pcie_set_link,
++
++	.pcie.max_speed = g84_pcie_max_speed,
++	.pcie.cur_speed = g84_pcie_cur_speed,
++
++	.pcie.set_version = g84_pcie_set_version,
++	.pcie.version = g84_pcie_version,
++	.pcie.version_supported = g92_pcie_version_supported,
++};
++
++int
++mcp79_pci_new(struct nvkm_device *device, enum nvkm_subdev_type type, int inst,
++	      struct nvkm_pci **ppci)
++{
++	return nvkm_pci_new_(&mcp79_pci_func, device, type, inst, ppci);
++}
 -- 
 2.53.0
 
