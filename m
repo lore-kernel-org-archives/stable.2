@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794045939;
-	b=L5WJDtqWFs2kASK4etQHM+yBVDdwQN575F3q9P5pmvJKskMCt+l0xJuq0g5evyPhYn75
-	 1pbUW8ctasCJjPhU9NF3I9ibBMo6A+X9czjd+d32fFaHRYjSkIUWyklG+/nsOmTpmho9Y
-	 ZhbMewTirXOrt/gtKGslqZEafOBjv6NwRqu3fvd6/8GnWXBi6xC3oWm6I9ikbH91qb0mu
-	 J5B1Jq0MRkyPxg5pUTKa6JeI4jIaISTeHZ5Yjp5quVFH6aqEDOrjCbWfh6lFmZosZmRvI
-	 gVqy5/QhmLL5Nwz9cKWK3SHS8wnLi1xHRz1BbQ9gr1Zqdb2pM6tZxq9N2B0IlOWzRFA==
+	t=1794045941;
+	b=nUdtaANUVN293BeUKXNmU6btcjsA+FE4llA6W762MyyBOuPMFBIzRZKkVs9CbCxMrVR4
+	 1yYY8/NJ5WPWEK8r3KwXPJdLVFyaES7WmY2ooaZYA/DfBpto25+efKI6g3VOQTfRFPPDW
+	 3YXMggRzLjDostpnM8/o9Do3Pz69eMBEkLB7/fzsqxabzcG3xzZJyTnnmjOGAa/GyuHpB
+	 ZU5CDM0p60MJKY95DKAuUExOy2PNe8aZZ1Cy45/Smajw8vtnty/2TgNTUe7K4hlrx34oI
+	 0P4CLY9+lDNF8ROdgNTkFOtHOIVd3Ww0eL18YFOl5niguLSxPMT1naHxv6XRJZ60y1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794045939;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794045941;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=X/h0nBs4qkNjliocJfwy4NkXu2ZqByN4LrUR/wFKgfE=;
-	b=Sw9lHjTqOx+J8J17MzObVfKko4XfZ1QJnseXVRFlAHYXiX7zqijNWFwsKNU06I/YxIQ+
-	 T50hGo+TBD1I5rAewuKKxQh74ygFXoRxa1tPPzpEp2jr+fIqJTQbrlQSG3F0K92owJz0T
-	 5qymE4mSNxPO7Bm/OuphbYv9yKpCNA7s0H+k/4GFPdyS5k+MukHBu39UuXiFL+N325lgv
-	 ARx1ePwYn1McgW2zfjeYaL1WVaMnVXtUVZL0Gh0LHF6xOxuVYXjgu6vAzxZT5h4nss+pY
-	 CQlCP7kfPoFW8W3GcbKggLNw0afDIzo+dUpsF0wJ9mljiDYlKG632X+6N+qBJii9iDg==
+	bh=5kv91XVHiSxRx9kPeaCWmVCrQ8lE4cW/yCntd0VWB/4=;
+	b=kWxSgwpN8mXdSeoxyRbhEBbKsvndPU3D2uUxKNLe7NRtIb1lsvWyOnQus689vDgXVrxD
+	 1wxxl4vD71FDPzG+14MZwAwLcokX6qLvDTQtIzlpJVLM2tbOW+aOcLf28YBburNdDCK0W
+	 a2IPWRmiFzEWNf+th7SPpifJQDee4ziRGg60k74Mv6p9hTCMFFb30LoPUwPtHH65JT3d2
+	 hG0bsK176N0JKlWuKtjpvZhi+MAt6BxwWzpYitbnpXY37RF47ovhgNcsoK4ZE35JEaRpP
+	 XMTrBRiqRcU2/gQYtLE0TVxnlqU61OG/bmcWVJuX8Fb4413Yt97NCPARrkmhp1krhjA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mEOtOfZa;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ki4T4h2o;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18637606A330
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:05:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41093606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:05:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mEOtOfZa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86DE51F0089F;
-	Sat,  7 Nov 2026 10:05:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ki4T4h2o
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B32351F008A1;
+	Sat,  7 Nov 2026 10:05:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794045938;
-	bh=X/h0nBs4qkNjliocJfwy4NkXu2ZqByN4LrUR/wFKgfE=;
+	s=k20260515; t=1794045941;
+	bh=5kv91XVHiSxRx9kPeaCWmVCrQ8lE4cW/yCntd0VWB/4=;
 	h=From:To:Cc:Subject:Date;
-	b=mEOtOfZa5TscuKFQqMAVWvXTXmzwGmJD9XcPb2RkbQvuonkf40fcErK1UCo3i+Sv5
-	 pFewuLiAPhSdnwmf5O7SbP+Mo72sjn8oLjA7SkJQNdWZUYlYTgJgQNFU5xV61GHTU7
-	 cm5uahe5TB5zpYal4Chh32/2pa/8aSrO3m0rKiGf8Q/1ui0bvTum09WSofn5jAJHCT
-	 j67ctSbirpTNo0W2fa96B7fXvFWuLhoAenbZgvvcHco0/D7R43FwuWc2gZDPSaNL+o
-	 baJdFnMFd1d8n5naMyCPUlfZiFcOGMyXnilfNZMvs3sCID9cVKaZxQdM0f4j2q9Nla
-	 jK6wQcOq9bMGQ==
+	b=Ki4T4h2o3molkjBFYxfs3I4BiatG6StH9WLELsb2fctVytsBZQ6gZLc3ERO8BUr9/
+	 WHfya3KvLmoq39LHCSvOTPAj8Qvu/opnDX4UEmRZNZ7xpjdFSMUcdMu3rmELF3p7z9
+	 g6Jd2apiuaqL8dzBUqQk5PDHNQlrPxWeRGMPWiBcnxzEW5W2OCzgSUAAnidz4C/g7f
+	 3+yi7tUUNp4AomxYW1M3AnP9am/Ii09HsHvLEYpvHnni/EiFu+pbAQ73SbRfc89JIT
+	 VM128bC4L/2C3vxMJTWefokSPciYwGOoX/sFBGJNInumG5nIhkjh9XeNWMt6O/LViQ
+	 Vbc7fXg7Lcr/A==
 From: Sasha Levin <sashal@kernel.org>
-To: sj@kernel.org,
-	akpm@linux-foundation.org
+To: hengyul@cs.unc.edu,
+	xiang@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/damon/core: remove unreachable damos charge_{target,addr}_from" failed to apply to 7.3-stable tree
-Date: Sat,  7 Nov 2026 05:05:37 -0500
-Message-ID: <20261107050537-failed-7.3-5695abc4e742@kernel.org>
+Subject: FAILED: patch "[PATCH] erofs: fix metadata reads at the end of file-backed images" failed to apply to 7.3-stable tree
+Date: Sat,  7 Nov 2026 05:05:39 -0500
+Message-ID: <20261107050539-failed-7.3-52dceb88082b@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,94 +68,93 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x 5695abc4e742b947f586bfb6a080a80ad9957e5d
+git cherry-pick -x 52dceb88082b4c7983d1c8c7de1c181f018055ac
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050537-failed-7.3-5695abc4e742@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050539-failed-7.3-52dceb88082b@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 5695abc4e742b947f586bfb6a080a80ad9957e5d Mon Sep 17 00:00:00 2001
-From: SJ Park <sj@kernel.org>
-Date: Mon, 19 Oct 2026 19:39:56 -0700
-Subject: [PATCH] mm/damon/core: remove unreachable damos
- charge_{target,addr}_from
+From 52dceb88082b4c7983d1c8c7de1c181f018055ac Mon Sep 17 00:00:00 2001
+From: Hengyu Liang <hengyul@cs.unc.edu>
+Date: Fri, 23 Oct 2026 15:00:51 -0400
+Subject: [PATCH] erofs: fix metadata reads at the end of file-backed images
 
-damos_quota->charge_{target,addr}_from saves the target and region the
-scheme's quota limit is reached.  damos_skip_charged_region() skips the
-target and regions before the point.  The target that was assigned to
-charge_target_from could be dynamically removed from the context by the
-runtime parameters update (aka commit) feature.  In this case,
-damos_skip_charged_region() cannot find if the point is passed or not,
-so the scheme is effectively disabled.
+Commit e587a984d332 ("erofs: use dedicated meta inodes for file-backed
+mounts") made erofs_read_meta_folio() read the metadata of a
+file-backed mount one whole folio at a time.
 
-Similarly, the user could also remove all the regions of the target
-using the runtime parameters update feature.  It would be uncommon to do
-that, but it is a supported feature.  Because the skip pointer detection
-logic (damos_skip_charged_region()) works for each region of targets,
-this result in the logic is entirely skipped and the scheme is
-effectively disabled again.
+However, an image only has to be a multiple of its block size. With a
+block size below the page size, it can end in the middle of a page. The
+read of that last page is then short, and erofs_fileio_ki_complete()
+fails it with -EIO. As of now, inodes in the last page of such an image
+cannot be read, and an image smaller than a page cannot be mounted.
 
-The user impact is that the DAMOS scheme could suddenly stop working
-under certain uses of the runtime parameters update feature.  It could
-surprise users. No crash or leak happens though.  Users could also
-simply work around by re-installing the scheme.
+The issue can be reproduced with util-linux 2.41, whose mount uses the
+image file directly:
 
-Catch the corner cases in damos_adjust_quota() and reset the pointers.
+    mkdir src
+    for i in $(seq 50); do echo $i > src/$i; done
+    mkfs.erofs -b512 test.erofs src
+    mount -t erofs test.erofs /mnt
+    ls -l /mnt
 
-Link: https://lore.kernel.org/20261020023958.108276-1-sj@kernel.org
-Fixes: da87878010e5 ("mm/damon/sysfs: support online inputs update")
-Signed-off-by: SJ Park <sj@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Closes: https://sashiko.dev/#/bug/linux-cd0c55fc-0cc8-45d8-9637-3334811c49b8
-Cc: <stable@vger.kernel.org> # 5.19.x
+Before that commit, ls -l lists all 50 files. After it, ls -l reports
+"Input/output error" for 24 of them.
+
+This patch reads the folio only up to the end of the backing file and
+zeroes the rest, as the page cache of the backing file did before. A
+folio that lies wholly past the end is zeroed without a read.
+
+Fixes: e587a984d332 ("erofs: use dedicated meta inodes for file-backed mounts")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+Reviewed-by: Gao Xiang <xiang@kernel.org>
+Signed-off-by: Gao Xiang (Docker) <xiang@kernel.org>
 ---
- mm/damon/core.c | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
+ fs/erofs/fileio.c | 18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
 
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 479169dc9ac75..eb1fcdabc0075 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -3383,6 +3383,26 @@ static void damos_trace_esz(struct damon_ctx *c, struct damos *s,
- 	trace_damos_esz(cidx, sidx, quota->esz);
- }
+diff --git a/fs/erofs/fileio.c b/fs/erofs/fileio.c
+index c36a90a1a4cbb..e13293ec70de8 100644
+--- a/fs/erofs/fileio.c
++++ b/fs/erofs/fileio.c
+@@ -142,17 +142,29 @@ int erofs_read_meta_folio(struct file *file, struct folio *folio)
+ 		.dev = { .m_pa = folio_pos(folio), },
+ 	};
+ 	struct inode *inode = folio_inode(folio);
++	size_t len = folio_size(folio);
++	loff_t pos, isize;
+ 	int err;
  
-+static void damos_fix_stale_charge_pointers(struct damon_ctx *c,
-+		struct damos *s)
-+{
-+	struct damos_quota *quota;
-+	struct damon_target *t;
-+
-+	quota = &s->quota;
-+	if (!quota->charge_target_from)
-+		return;
-+	damon_for_each_target(t, c) {
-+		if (t == quota->charge_target_from) {
-+			if (damon_nr_regions(t) > 0)
-+				return;
-+			break;
+ 	err = erofs_map_dev(inode->i_sb, &io.dev);
+ 	if (err)
+ 		return err;
+ 
++	pos = io.dev.m_dif->fsoff + io.dev.m_pa;
++	isize = i_size_read(file_inode(io.dev.m_dif->file));
++	if (pos + folio_size(folio) > isize) {
++		len = isize > pos ? isize - pos : 0;
++		folio_zero_segment(folio, len, folio_size(folio));
++		if (!len) {
++			folio_end_read(folio, true);
++			return 0;
 +		}
 +	}
-+	quota->charge_target_from = NULL;
-+	quota->charge_addr_from = 0;
-+}
 +
- static void damos_adjust_quota(struct damon_ctx *c, struct damos *s)
- {
- 	struct damos_quota *quota = &s->quota;
-@@ -3418,6 +3438,8 @@ static void damos_adjust_quota(struct damon_ctx *c, struct damos *s)
- 			damos_trace_esz(c, s, quota);
- 	}
- 
-+	damos_fix_stale_charge_pointers(c, s);
-+
- 	if (damos_quota_is_full(quota, c->min_region_sz))
- 		return;
- 	if (!c->ops.get_scheme_score)
+ 	io.rq = erofs_fileio_rq_alloc(inode->i_sb, io.dev.m_dif->file);
+ 	io.rq->bio.bi_end_io = erofs_fileio_meta_endio;
+-	io.rq->bio.bi_iter.bi_sector =
+-		(io.dev.m_dif->fsoff + io.dev.m_pa) >> 9;
+-	bio_add_folio_nofail(&io.rq->bio, folio, folio_size(folio), 0);
++	io.rq->bio.bi_iter.bi_sector = pos >> 9;
++	bio_add_folio_nofail(&io.rq->bio, folio, len, 0);
+ 	erofs_fileio_rq_submit(io.rq);
+ 	return 0;
+ }
 -- 
 2.53.0
 
