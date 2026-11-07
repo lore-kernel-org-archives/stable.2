@@ -1,52 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794045798;
-	b=UlsjaMKnzYk4ddal0VOkM2MjfMnE/lqy91uBIJM3Zp08wo/L+2+xF7WiTZur457s7T+0
-	 LCYOMRFbbrkkdNw8UoRhGnVlTfU7skx24/dclVDckCUjq8ECch2BIgQQeWkldrCSUAfPh
-	 w1XJ7yvk2AznazABgZwE4mmEJ55OfEwy9MZ63M984QE13Y8MjAOKMC59eGgIUgCl3sdXM
-	 BwLXZDv1JkeJ+v+9oxogMftVvoWH2srvyaYcqRZxnoVmStv0jphCoqntTa7ScxlyygqTT
-	 WvfiADG1VIMh0z7LUNiszMUPH0F3IKDXDSVmVZbRcyT2Bin+xPLe+ccYWdL94x3AwVg==
+	t=1794045801;
+	b=XwhYh0OW/bKWdw3SvOi5/5HMUdT44FRQg9W0mUhw/EWxtM8mz5cmG1cpfwF2cgg1gAz3
+	 eIoGfLoIjUtngU5x+fdscGi2fmL41Q96cToAKxHWslVAOHN7Rl9RYfNGIK6b2xgNB1Vfm
+	 ADlppRGsTBg89WGBnlOBMsvxOE8ixjDn5bbNT0eP0HvjnXilgK41Ng7U4Luu+g+ZJAiAs
+	 D2tnXshtte0U48w7DbVIqvsUFHzDb3uBx9r0olm9f/3y7V+PNJuKAK/PU/vJMUgfnttPF
+	 VM7HC5nGiC9KXEoG/JND7Kn9z+w0EamuaX+JLKItComCpjjlhbhDlMc3UnwsP7XIF6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794045798;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794045801;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=DcAmRD8cD5nfkuOTtG9Ju67kAIfXKWUV+G74ZkKVqU8=;
-	b=GCzXQyT7XgDABNVCQm8w2m0MR/7K4D4QD8TYV1qvWFa9jlIlsSlV/sq6EwyUH+/1FRTE
-	 PPtQaC88jOGNVXMX65yoWG/0/JjyTVYqICogXZvbQDCV1BJOqbPGrht1nxM9B1T7IZDn2
-	 VgsgIYJmMQaVAA9vCJeqMCaWkNHxU/8O0GmvKviFV8kbSMQy6Vm1AYHp0olnThpvxCPkc
-	 AATrc63445lDbpKQ5why0VkPPNn7CFORsS5nxCbhotx0jJfc/EXoAOuCxy24fz1HUB0oe
-	 /q61o1qiQu8IP7pMPhLE9DdHHq9GkppJQgO8oaTQgsBygWf5HefLUiieKpefTRnRT5Q==
+	bh=31WUwSz3MrJUEzBYvQxjLl7hCO9J+2t/dAWOBbbng5w=;
+	b=xZE+vZfrEOIYtendqCWyobrrst+vNgUkBozwGfN35ePs5hfZNOmJMzGTNH3Hb6QsTHLM
+	 H5tQTtQGPRtwnqYmGTKqARnHYdk9b1rJD4168m1bixFeTcT9LcPEYy99mpZisleNHucQc
+	 JIvxWSKK8Ogx67FQfMHmMIOb9egexObV2VKY+ptW990ItPhIaMET6uvVLw77E222cRjbI
+	 TVUgCT5XSUKmd/dj9lxt0ljMyhUNNbVM6gbkqs3IfGx6nz8WiMcmc7uHV4VKMVhQdj2H6
+	 UW2SE9uL8y3mqaCgr8r5as+PmWOC+4klsKuofCZQB89e93ZAous5rJmxNn1I4rk/2rA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hqT9dAu3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=erdrLmUA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40020606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:03:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0498606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:03:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hqT9dAu3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9798C1F0089F;
-	Sat,  7 Nov 2026 10:03:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=erdrLmUA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEFC11F0089F;
+	Sat,  7 Nov 2026 10:03:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794045798;
-	bh=DcAmRD8cD5nfkuOTtG9Ju67kAIfXKWUV+G74ZkKVqU8=;
+	s=k20260515; t=1794045800;
+	bh=31WUwSz3MrJUEzBYvQxjLl7hCO9J+2t/dAWOBbbng5w=;
 	h=From:To:Cc:Subject:Date;
-	b=hqT9dAu3IHEMPxuhMs4r4VOEMSRYOfaXDqfwV2UUxQ6uddi5cbwjjPlFtWH904smA
-	 zcjS72iIifu3mp4RgIvYNIWAe4jxsRWfVp1eMytS9ATPFXWh24HXN/j6sUGtgFT/Go
-	 cuCQ6Jo2JmQ/0vl8F2BBabQlsn/G926q9FuMZBbhzBZ9K0UExM1ODTg4LngCTOhals
-	 4d98nX138MWY+4BoDN0MObrWpZANBfX0NxnS5AmWeFuUL/SN2eT3+MsUSEseLq3AeT
-	 pTPRmE5sZLpjya8POJion/dbw2/Xk5WNWwcrr4u/nNnzdOQ1pUXqqtvGiQLG6H3Ydx
-	 ioJYPbp5XBAkg==
+	b=erdrLmUAGztsQidZOc64lH6Mc7OIOKBXvXMtZfo4I0Um5IJX8miLGe7S4cCeNmGgs
+	 Km+Q+zUXppf3MI/f6ZnjXorWAr45y2J2MJjaKuJTrMDkhSmrRD72kwgHFDInzLc98x
+	 Vk+yJCQfJrsm0Hi96QUsVMKfT/7hmnbx7GTvXCZhrcdyOwTszprfVR/Jwr8s3ftQZk
+	 1K1ec2tkoFzOlxgrqkAMj8zfQ96ZXIo7M6188uoDC873ykNj4ngQp1unSucGnoQasa
+	 7MLE4qmlfePt+7u8rQBg/KjM7Fy3ceY8uKZLIpE9xuDe8OHXDw7Zd660MFU3fO/wJK
+	 JU+daf/92Rz1Q==
 From: Sasha Levin <sashal@kernel.org>
-To: ankit.k.nautiyal@intel.com,
-	annoycc@gmail.com,
-	nemesa.garg@intel.com
+To: ckoenig.leichtzumerken@gmail.com,
+	christian.koenig@amd.com,
+	tvrtko.ursulin@igalia.com,
+	tursulin@ursulin.net
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/i915/quirks: Limit eDP rate to HBR2 on HP Pavilion Plus 14-ew1" failed to apply to 7.3-stable tree
-Date: Sat,  7 Nov 2026 05:03:16 -0500
-Message-ID: <20261107050316-failed-7.3-550b703fdbb2@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/i915: fix incorrect RCU teardown order" failed to apply to 7.3-stable tree
+Date: Sat,  7 Nov 2026 05:03:18 -0500
+Message-ID: <20261107050318-failed-7.3-511347955602@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,62 +70,77 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x 550b703fdbb2a2022faa75b4b11ab135241afbd9
+git cherry-pick -x 5113479556025093bf8133bb2dcaa33be2d50921
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050316-failed-7.3-550b703fdbb2@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050318-failed-7.3-511347955602@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 550b703fdbb2a2022faa75b4b11ab135241afbd9 Mon Sep 17 00:00:00 2001
-From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Date: Mon, 7 Sep 2026 09:15:55 +0530
-Subject: [PATCH] drm/i915/quirks: Limit eDP rate to HBR2 on HP Pavilion Plus
- 14-ew1
+From 5113479556025093bf8133bb2dcaa33be2d50921 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Date: Thu, 3 Sep 2026 13:36:21 +0200
+Subject: [PATCH] drm/i915: fix incorrect RCU teardown order
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-The eDP panel on the HP Pavilion Plus Laptop 14-ew1xxx advertises HBR3
-while leaving the TPS4 support bit clear. The output however flickers, once
-link is trained with HBR3.
+i915_gem_busy_ioctl uses dma_resv_for_each_fence_unlocked() to iterate
+over the fences in an GEM object without holding a reference but only
+the RCU read side lock.
 
-Until commit 8c9006283e4b ("Revert "drm/i915/dp: Reject HBR3 when sink
-doesn't support TPS4"") such sinks were capped at HBR2 by the TPS4 check
-which incidentally kept this panel stable. That check was reverted because
-other panels legitimately need HBR3 without advertising TPS4, and the
-per-machine QUIRK_EDP_LIMIT_RATE_HBR2 was introduced to handle the affected
-machines instead.
+What can happen here is that the GEM object is destroyed concurrently
+while i915_gem_busy_ioctl is still running. This won't free the GEM
+objects memory, but still drops all the dma_fence references.
 
-Add the machine to the list of devices that need the
-QUIRK_EDP_LIMIT_RATE_HBR2.
+Now when dma_resv_for_each_fence_unlocked() sees a destroyed dma_fence it
+assumes that a new fence list was installed and re-starts the loop.
 
-Fixes: 8c9006283e4b ("Revert "drm/i915/dp: Reject HBR3 when sink doesn't support TPS4"")
-Reported-by: Annoy Cc <annoycc@gmail.com>
-Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16743
-Cc: <stable@vger.kernel.org> # v6.18+
-Tested-by: Annoy Cc <annoycc@gmail.com>
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Reviewed-by: Nemesa Garg <nemesa.garg@intel.com>
-Link: https://patch.msgid.link/20260907034555.2753846-1-ankit.k.nautiyal@intel.com
+But in the case of a destroyed GEM object a new fence list is never
+installed, only the old one freed and therefore the iteration never
+finishes resulting in an endless loop.
+
+The solution is to drop the fence references only after the RCU grace
+period.
+
+The fixes tag is not necessary the patch introducing the problem, but the
+one making it so worse that we need to address it.
+
+This problem was pointed out by Sashiko-bot.
+
+Signed-off-by: Christian König <christian.koenig@amd.com>
+Fixes: 912ff2ebd695 ("drm/i915: use the new iterator in i915_gem_busy_ioctl v2")
+CC: stable@vger.kernel.org
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Signed-off-by: Tvrtko Ursulin <tursulin@ursulin.net>
+Link: https://lore.kernel.org/r/20260903113621.54660-1-christian.koenig@amd.com
 ---
- drivers/gpu/drm/i915/display/intel_quirks.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/i915/gem/i915_gem_object.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
-index 33245f44c0d50..7d7db774d8c7b 100644
---- a/drivers/gpu/drm/i915/display/intel_quirks.c
-+++ b/drivers/gpu/drm/i915/display/intel_quirks.c
-@@ -257,6 +257,9 @@ static struct intel_quirk intel_quirks[] = {
- 	/* Dell XPS 13 7390 2-in-1 */
- 	{ 0x8a52, 0x1028, 0x08b0, quirk_edp_limit_rate_hbr2 },
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+index 5172d39826548..9e01f8b2079ab 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
+@@ -89,6 +89,7 @@ struct drm_i915_gem_object *i915_gem_object_alloc(void)
  
-+	/* HP Pavilion Plus Laptop 14-ew1xxx */
-+	{ 0x7d55, 0x103c, 0x8c31, quirk_edp_limit_rate_hbr2 },
-+
- 	/* Xiaomi Book Pro 14 2026 */
- 	{ 0xb081, 0x1d72, 0x2424, quirk_disable_psr2 },
- };
+ void i915_gem_object_free(struct drm_i915_gem_object *obj)
+ {
++	dma_resv_fini(&obj->base._resv);
+ 	return kmem_cache_free(slab_objects, obj);
+ }
+ 
+@@ -144,7 +145,6 @@ void __i915_gem_object_fini(struct drm_i915_gem_object *obj)
+ {
+ 	mutex_destroy(&obj->mm.get_page.lock);
+ 	mutex_destroy(&obj->mm.get_dma_page.lock);
+-	dma_resv_fini(&obj->base._resv);
+ }
+ 
+ /**
 -- 
 2.53.0
 
