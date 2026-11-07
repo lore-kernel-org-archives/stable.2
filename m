@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050697;
-	b=rqMwmxPjQQoSTRcz1mHL7RwS6HBj6eaEUKE9VWDnRVV0y6s9kbG0bgZ3hh0B0Ngrpah8
-	 smPCt8dy1ttkRrn6F7/53KBQyXXp/Updh8PMvnSUEyiN/65kkYQuv1Z+uFDm1zllrwkbm
-	 +I2Z+4TNRDqo5zh15OTjW4w3WHv5QnkbA7j06uC5scajOCDrHSIcFFOn/Tej8lEcRcPDM
-	 plp38M1I8FQaBLOxoi1mq3s8PhimYFaAtDUUN2oNcf6Iscrn3AUTw8flgw4OTFnIzto5X
-	 ilx5PUVFmo90ZjqGpN/DKA63u8A9A8o63QgViFDCWxaFrk2Q3wMwcytcIm/cTiERcgw==
+	t=1794050700;
+	b=4XFmgfsxFFxEMpcjauEysUYDMlwBzhtjGmzYL9B1Yto48BwTyJVdARSg254gnFNxavcp
+	 iAbc8YYn4YIOYcqEYXoVBKTL1LICKicKrUWygzLpIC1IdJAb8osGnzEoOLjEbrAklpHrY
+	 Hn+/h8iFvSOX7/NpIqgJuZW8P+eByX0u1/FLHsHi8IPJLuNtyhhq0vTJOrRAKna6RXzSt
+	 AUmRWe45HZ3lNP1mFKmCsvn0ecPALYSu7lDowjrXi16ca8mpZr508FdQk1eyDCaUWGvce
+	 lOlHgJJPFiJk5yMq6dywm0JMSEvBNBMq6RGl8EqcV8WFvflmxsfl5aVDTRHHCcI6U/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050697;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050700;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=LWNYJnJ8or7VCKHbpIhUHgyyWwRapIg3Dx1DspoR29I=;
-	b=G60GogOSAFbR1z2SdbrgyFMHiUL93+atVaFf0E+C9qBIf73eglyjcH0cz4bBZTbeKKsU
-	 S982vC8HE0N3jjmDceuolZahtYtHJVX3bkM+SjfKnBnKvesFWu8MJ1I6VzJ53qa0arWap
-	 wDNddGQ53uegXMjYN9Hb/NEBissQEsZhrSngMWKlM9jHoQWRLDYDZTHxN842PV4wazg0q
-	 jrR/tVSXtDyGMwNEwQWtKeoy8g5xx5dhdQmY+tCbP1KP7McXUtYaJLC8ljjgZjCJ7hZI0
-	 TWtdKMIlnLK1G4MRJwXoGtUya39O+Ly7Aw7l54J8RlSMGR3hNzguAwDded6kkeZOwAA==
+	bh=w6t27MacjZ/+5PkEPwCkjr05QXbEELOX4nQhMC1hF10=;
+	b=tKIRehbPSnmcPiKGtS3QEoRrTvRAhefb9qe5A947zsBYNYaQn2oUMjl+Q0PxpywXUdl9
+	 x9+nomjLF9VARhxCkwXyrFAsuKZf2MdAZjIWIMXoXwQhR7wYTBVzX3uSkFOpMQ/7TEkFO
+	 UoEiRo0jYGny22joSEFgtfpBBrVosgOjpFgvqXDZ3rQMG4N+d6bVZn10R4Zvy8pbD3KhU
+	 whSv0EbHiV7RZaVu3J0f4IMVN92sXGVt2suIZ2/DMjil09CmIIAy1ycn5jqhgGwDBx8+u
+	 6nVdYjTEhyN+yKEqvOM2sJ+V3qTbCJg9UjFG82Yu46fxa0fuyrEWnctwp5rDmz2pTlA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZfwpmzFp;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Izl2vTOu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FAED606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:24:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FF67606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:25:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZfwpmzFp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F98B1F0089F;
-	Sat,  7 Nov 2026 11:24:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Izl2vTOu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BAC61F0089F;
+	Sat,  7 Nov 2026 11:24:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050696;
-	bh=LWNYJnJ8or7VCKHbpIhUHgyyWwRapIg3Dx1DspoR29I=;
+	s=k20260515; t=1794050700;
+	bh=w6t27MacjZ/+5PkEPwCkjr05QXbEELOX4nQhMC1hF10=;
 	h=From:To:Cc:Subject:Date;
-	b=ZfwpmzFpQSncktScu6Bp0HZp7T2WqkbHbllScEBgj3OqwTa/3NuXrs5CX0lgwZaIh
-	 cu5IuOufZ57Rz9NYx6tYIyZNudOEZAc6/qBLIuEUJCo9EUjqzfpgFbOEZWqdqJqCtQ
-	 zGY84Ks5n06h5r9ynRTKuzfo5mvMcMcWcEkyX2DhT5Ys9LWJ1qgnuYAi7XGuJMZr+j
-	 MAEElqmVHL3191i8kq5/rWEP5nlhqbL5hY7hK4xmkS7ryCAsLB2t9XJTlWRrma+KFo
-	 q5Kg4sOgqO6duErBlZifXxB6b/6h3H3GIaL2koP6bdOvTQELyUK9/Y+iGZ9YPy1d50
-	 Fp30W785YPphw==
+	b=Izl2vTOunTH5fPpgqOIUCZM0BAs3EfKNRRv+F3Q/wzsOxWJd16JkNuuP4WwTNXq3/
+	 qTpFkTFZYSWHLXKr0JU0TjZ1wQ4HOJWe0n+n/d7mvGvCkhasmAobxWjR90yd027JRc
+	 oIQMX2mjNVVDjKoIopOHunkI22UcSepLYGl3xqsnBjNtmCfX5u6KznXIi0XdtGDx3D
+	 qzQWLPZKwuZdeutOe6fMwP378OFG9E/Kqkym/ikYOfK+7r2odtlAiXX3Lk58w+jfCk
+	 tcLBlYwLNJ67LD7SlXHg+r7peqFkzYxTBgZyZy4ALsnb7AyAc40lsur24u3TMReddG
+	 9cUVXzTxjFSow==
 From: Sasha Levin <sashal@kernel.org>
-To: linmag7@gmail.com,
-	mattst88@gmail.com
+To: ricardo.neri-calderon@linux.intel.com,
+	linux@roeck-us.net
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] alpha: load the MMU context when switch_mm() switches the current task" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:24:55 -0500
-Message-ID: <20261107062455-failed-5.10-9b8be19d5dc9@kernel.org>
+Subject: FAILED: patch "[PATCH] hwmon: (coretemp) Return -ENODATA for invalid temperature readings" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:24:58 -0500
+Message-ID: <20261107062458-failed-5.10-f63aaa529cbc@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,105 +68,122 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 9b8be19d5dc9525a408942e2e8012873199e7455
+git cherry-pick -x f63aaa529cbc73146ff0d52235e5479042285cae
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062455-failed-5.10-9b8be19d5dc9@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062458-failed-5.10-f63aaa529cbc@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 9b8be19d5dc9525a408942e2e8012873199e7455 Mon Sep 17 00:00:00 2001
-From: Magnus Lindholm <linmag7@gmail.com>
-Date: Sat, 10 Oct 2026 16:24:27 +0200
-Subject: [PATCH] alpha: load the MMU context when switch_mm() switches the
- current task
+From f63aaa529cbc73146ff0d52235e5479042285cae Mon Sep 17 00:00:00 2001
+From: Ricardo Neri <ricardo.neri-calderon@linux.intel.com>
+Date: Tue, 6 Oct 2026 06:04:56 -0700
+Subject: [PATCH] hwmon: (coretemp) Return -ENODATA for invalid temperature
+ readings
 
-ev5_switch_mm() only prepares the incoming PCB. The context is installed
-by PAL_swpctx, which alpha_switch_to() issues against that PCB on the way
-out of the scheduler.
+IA32_THERM_STATUS and IA32_PACKAGE_THERM_STATUS have a valid bit, bit 31.
+The Intel SDM documents it only for the former, but the package register
+implements it too: x86_pkg_temp_thermal has required it since commit
+f1a18a105660 ("Thermal: CPU Package temperature thermal").
 
-Direct callers reach switch_mm() without going through alpha_switch_to():
-kthread_use_mm(), which borrows an mm for the current kernel thread,
-sched_force_init_mm() on the CPU-hotplug teardown path, and
-do_shoot_lazy_tlb(), which switches to init_mm from an IPI. None explicitly
-loads the context, so the task can carry on running under whatever was
-loaded before. For kthread_use_mm(), current->mm then names the borrowed
-mm even though its context has not been loaded. The other two callers
-change active_mm while leaving current->mm NULL.
+This driver checked the bit for both registers as well, until
+commit bf6ea084ebb5 ("hwmon: (coretemp) Do not return -EAGAIN for low
+temperatures") made it ignore the bit because some CPUs clear it while
+the temperature is too low to be measured. Since then, temp%d_input
+reports such a reading as a real temperature. Userspace cannot tell it
+apart from a genuinely low one.
 
-The stale page-table root need not be swapper_pg_dir; it may belong to a
-user process that ran on the CPU earlier, and the kthread's user accesses
-can then read and write that process's memory wherever the stale mappings
-allow. Translations taken that way can also end up tagged with the
-borrowed mm's ASN: ev5_switch_mm() writes that ASN into the PCB, which the
-next PAL_swpctx installs against the stale ptbr. An address the stale
-tables do not map faults instead, and since do_page_fault() resolves
-faults against current->mm without reloading the context, the same access
-can fault again on return.
+Fail the read with -ENODATA while the CPU reports the reading as invalid.
+On a CPU that clears the bit, reading temp%d_input now fails where it
+used to return a low value. sensors(1) shows N/A in its place.
 
-sched_force_init_mm() needs CONFIG_HOTPLUG_CPU and do_shoot_lazy_tlb()
-needs CONFIG_MMU_LAZY_TLB_SHOOTDOWN. Alpha selects neither, so only
-kthread_use_mm() is reachable in practice. Test the caller's identity
-rather than special-casing individual callers.
-
-The scheduler passes the incoming task, which is not current until
-alpha_switch_to() runs; all three direct callers pass current. Test for
-that and load the context the way activate_mm() does. All three run with
-interrupts disabled across the switch, so this completes before any
-shootdown can be taken and needs no asn_lock handshake.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Tested-by: Matt Turner <mattst88@gmail.com>
-Reviewed-by: Matt Turner <mattst88@gmail.com>
-Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
-Link: https://lore.kernel.org/r/20261010142533.974797-2-linmag7@gmail.com
-Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
+Suggested-by: Guenter Roeck <linux@roeck-us.net>
+Link: https://lore.kernel.org/all/46f9f319-de71-412f-a424-6cb801478456@roeck-us.net/
+Signed-off-by: Ricardo Neri <ricardo.neri-calderon@linux.intel.com>
+Link: https://patch.msgid.link/20261006-coretemp-enodata-v2-1-64e788acc7dc@linux.intel.com
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
 ---
- arch/alpha/include/asm/mmu_context.h | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+ Documentation/hwmon/coretemp.rst |  3 +++
+ drivers/hwmon/coretemp.c         | 21 +++++++++++++++------
+ 2 files changed, 18 insertions(+), 6 deletions(-)
 
-diff --git a/arch/alpha/include/asm/mmu_context.h b/arch/alpha/include/asm/mmu_context.h
-index eee8fe836a59e..d366f89fee585 100644
---- a/arch/alpha/include/asm/mmu_context.h
-+++ b/arch/alpha/include/asm/mmu_context.h
-@@ -130,6 +130,8 @@ __get_new_mm_context(struct mm_struct *mm, long cpu)
- 	return next;
+diff --git a/Documentation/hwmon/coretemp.rst b/Documentation/hwmon/coretemp.rst
+index 3493016833814..09f885a847e30 100644
+--- a/Documentation/hwmon/coretemp.rst
++++ b/Documentation/hwmon/coretemp.rst
+@@ -50,6 +50,9 @@ All sysfs entries are named with their core_id (represented here by 'X').
+ 
+ ================= ========================================================
+ tempX_input	  Core temperature (in millidegrees Celsius).
++		  Reading fails with -ENODATA while the CPU reports the
++		  temperature as invalid. Some CPUs do this when the
++		  temperature is too low to be measured.
+ tempX_max	  Maximum recommended operating temperature (Tcontrol).
+ 		  All cooling devices should be turned on.
+ tempX_crit	  Maximum junction temperature (in millidegrees Celsius).
+diff --git a/drivers/hwmon/coretemp.c b/drivers/hwmon/coretemp.c
+index ace51e08e72dc..bee2c9896d4c5 100644
+--- a/drivers/hwmon/coretemp.c
++++ b/drivers/hwmon/coretemp.c
+@@ -60,6 +60,8 @@ enum coretemp_attr_index {
+ 
+ /*
+  * Per-Core Temperature Data
++ * @temp_valid: Whether the CPU reported @temp as valid. @temp is not
++ *		reported when this is false.
+  * @tjmax: The static tjmax value when tjmax cannot be retrieved from
+  *		IA32_TEMPERATURE_TARGET MSR.
+  * @last_updated: The time when the current temperature value was updated
+@@ -72,6 +74,7 @@ enum coretemp_attr_index {
+  */
+ struct temp_data {
+ 	int temp;
++	bool temp_valid;
+ 	int tjmax;
+ 	unsigned long last_updated;
+ 	unsigned int cpu;
+@@ -398,7 +401,8 @@ static ssize_t show_temp(struct device *dev,
+ {
+ 	struct msr val;
+ 	struct temp_data *tdata = container_of(devattr, struct temp_data, sd_attrs[ATTR_TEMP]);
+-	int tjmax;
++	int tjmax, temp;
++	bool valid;
+ 
+ 	mutex_lock(&tdata->update_lock);
+ 
+@@ -407,17 +411,22 @@ static ssize_t show_temp(struct device *dev,
+ 	if (time_after(jiffies, tdata->last_updated + HZ)) {
+ 		rdmsrq_on_cpu(tdata->cpu, tdata->status_reg, &val.q);
+ 		/*
+-		 * Ignore the valid bit. In all observed cases the register
+-		 * value is either low or zero if the valid bit is 0.
+-		 * Return it instead of reporting an error which doesn't
+-		 * really help at all.
++		 * Bit 31 indicates whether the reading is valid. Some CPUs
++		 * clear it while the temperature is too low to be measured.
++		 * Such a reading is not a temperature. Do not report it.
+ 		 */
++		tdata->temp_valid = (val.l >> 31) & 1;
+ 		tdata->temp = tjmax - ((val.l >> 16) & 0xff) * 1000;
+ 		tdata->last_updated = jiffies;
+ 	}
+ 
++	valid = tdata->temp_valid;
++	temp = tdata->temp;
+ 	mutex_unlock(&tdata->update_lock);
+-	return sprintf(buf, "%d\n", tdata->temp);
++
++	if (!valid)
++		return -ENODATA;
++	return sprintf(buf, "%d\n", temp);
  }
  
-+extern void __load_new_mm_context(struct mm_struct *);
-+
- __EXTERN_INLINE void
- ev5_switch_mm(struct mm_struct *prev_mm, struct mm_struct *next_mm,
- 	      struct task_struct *next)
-@@ -139,6 +141,16 @@ ev5_switch_mm(struct mm_struct *prev_mm, struct mm_struct *next_mm,
- 	unsigned long mmc;
- 	long cpu = smp_processor_id();
- 
-+	/*
-+	 * kthread_use_mm(), sched_force_init_mm() and do_shoot_lazy_tlb()
-+	 * switch current's mm without alpha_switch_to(), which loads the
-+	 * context. The latter two require options Alpha does not select.
-+	 */
-+	if (next == current) {
-+		__load_new_mm_context(next_mm);
-+		return;
-+	}
-+
- #ifdef CONFIG_SMP
- 	cpu_data[cpu].asn_lock = 1;
- 	barrier();
-@@ -160,7 +172,6 @@ ev5_switch_mm(struct mm_struct *prev_mm, struct mm_struct *next_mm,
- 	task_thread_info(next)->pcb.asn = mmc & HARDWARE_ASN_MASK;
- }
- 
--extern void __load_new_mm_context(struct mm_struct *);
- asmlinkage void do_page_fault(unsigned long address, unsigned long mmcsr,
- 			      long cause, struct pt_regs *regs);
- 
+ static int create_core_attrs(struct temp_data *tdata, struct device *dev)
 -- 
 2.53.0
 
