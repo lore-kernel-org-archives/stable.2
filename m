@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046329;
-	b=1VhWiYZwFJkne0fyTRFkkqLs7GdbTLupDj/hMvSKUpS8fGWufrlHmd+MZl4pcIcLJDlQ
-	 R55RNU8Qnps3Czo7GubNxUbT6cFeynGjk5fBIduG2qeFfdDDjzdT9kzjL0TrcOhG2EOnb
-	 3RTfcMN0WzpBLVShyt37BeWwb1HaXwhOob/R7KAGYp3Lut+RMx+62hQinnX1Jh/6c0DTZ
-	 oM11bStiIMKQkZxW6fiKZ5LnF0lY6i4uguxvZRJmEI0Jg+ZLsxzR0fzLg53dMxGlquAkH
-	 gEFyiEnYB2+zNAm/QEgQZ+OjFkKb45c2Ecdcs6ZYucOTfMYvqgKbf41Woa1CbNF36Sg==
+	t=1794046331;
+	b=b8pSKk+7rCmrH5lgPo08l9C2tCiti10SBBUTW7Qhs3ruw3eKpHpB0eH7tytkgTvogKiT
+	 z5zK7RRyeXo2eYIrayzBGtyS9iho6m8kA6xjyhH4s7GNZ8lUvqHqWQ5NEeP/eaZJOM95+
+	 HDEl7ysgSKmUlE8WZwKTstDZc9mw7GFY5M6CW8W9CN3w//FACjg+zm/n4Hj29iARVLWeM
+	 Dyn7+K50k6Okhz4sz+etxPNmRpBTSzWHPgUCDZt1fvtyz7OAFwrgpRpC8uggdDq2jDDvI
+	 AGbow7r+VjYAbiKh4Ew0/Y+tUPh6xaGqysL+LOnuu9rH98I4gV/73L9Cpc6suoY5CeA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046329;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046331;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=5Nnr7/MJHCfX3DhKqlYgQEvVQhIKg3KcsyWjJeWd5YY=;
-	b=zQGqbY0loLqpEBSlus3Rjjz7yXlrBmrI7Op43E2JvujF6XrzAd9ynxGOPyXQqTlPrwIW
-	 EWxi8lWCmAQxYZpQQDZz2Alw2OcJVW9QXyV/FQtlRYINUT0Smh+J69Kdxh6FqKVkuaa6G
-	 G86X+wXO2eYfSzlHIyQwNvRkBEqlSOh0BmsDkm1waa95hOLsydVy5qqddxsAYgExQnLI1
-	 myfFnNu42qEeeLQ8gA6wlmbsz7jtwPIY2Sm6TPOe0qZ3N+kABRYlFJbu9tsv47X65uOTG
-	 tIhYGcFDk64VsibwsCvFK30kGKRKW/X+Vx8km5LO0vbSBncLRj8v5lBTgMRBJqdXf8A==
+	bh=tNmdSfIbjB45Kf6Yy1dhD75zCbE7tslroozV9Sucevw=;
+	b=OHEbY/nZFhmRBNftTOcOx2evYqnwPkcc/bP35sRTg1U8Lyhg01el0hBB4Yj4vjwPUmk5
+	 uVkAXStsweTbbz/n1liw4SWMuQC8hQN6uRWAOGc6mFCviMv0xndm2kpjwL82ZAaXG/CAK
+	 tI0isBAEjnr5dq9hCDCT3iQFftDW0VRJTvybv08qE/FjtHvlYA2oltE4jeBoRCERBJXFA
+	 dzPZnh1BPy/WXK+UgqbKO69xgff/LTZ9C8oEO0Wmw5ZimczY7Ux73AmngP/Gdft2UBJGx
+	 rz0j+sgisdJVeUCw3RkZHA4Y3bQuzq1Ne4lLtCcSickPh1ITdYHK7gf4yeq4aBRyWMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tc8dx4Ut;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bHyO1QkG;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50733606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:12:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CFA9606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:12:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tc8dx4Ut
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB4A71F008A1;
-	Sat,  7 Nov 2026 10:12:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bHyO1QkG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E558D1F0089F;
+	Sat,  7 Nov 2026 10:12:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046329;
-	bh=5Nnr7/MJHCfX3DhKqlYgQEvVQhIKg3KcsyWjJeWd5YY=;
+	s=k20260515; t=1794046331;
+	bh=tNmdSfIbjB45Kf6Yy1dhD75zCbE7tslroozV9Sucevw=;
 	h=From:To:Cc:Subject:Date;
-	b=Tc8dx4Ut1Ue+202C5hBu6Pf4E8XR91bKd1L6ZN6QsTiPRyZPD1GfZQDyKxwA2CKZu
-	 TTpXaqlNDiQylihYshNRP7DzfhGLqoebz10X0rwXJ660qICsbu4CK7S6TGrg+O5VSc
-	 LERaQUumRoonH+KFtTQMWEsPMHY//iDsBhTOqOqJbEZwi1ZMmObMtb4tJCsVTfQOvC
-	 Plv9ewShh6NkmZglYjHcJLnlIHFs5sTeiuMITq3GyboFpPrgA7tpu/H1nfXvlfAAPg
-	 I1orHKVHamt3GetyhpNmizz2QKaa6Xn3s9tClT7r/07K1s0AJUqDlRL0cZf8BS+Orq
-	 Y2nzG3Y0n38vA==
+	b=bHyO1QkG1b8N2H+/L9OdAHd1bRhVPUBClFi6ecWZH6155p8L2gINeRlpH3dxKj340
+	 kIwlG11z7XK4O0rzTnSQ0oqmaAqUrQk7y1Gt9SVahB5W6afRgvu8mtCQlnra6rd+io
+	 sOPqw8rKozNaY0VIquJVTOWslRtSsW09iTPocFytwqswR9o8ZLduDScL6qW/EscWQO
+	 qjenQjYo4s58bSLwIqCgzznIPdfE6IPmpFZ3cZ1a8km4EWtZqCBSvRN+ZsM1PtURo9
+	 ITv99tw+TzumBX3iMKrSfB57BPXtVkBJGyYYGL1ikmtA/EEbu2nYIBe5dRofciUMpV
+	 ZVM3yvn1dtAUA==
 From: Sasha Levin <sashal@kernel.org>
-To: tom.leiming@gmail.com,
-	josef@toxicpanda.com,
-	axboe@kernel.dk
+To: bsdhenrymartin@gmail.com,
+	achender@kernel.org,
+	kuba@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ublk: mark the io command cancelable before publishing it" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:12:07 -0500
-Message-ID: <20261107051207-failed-6.18-a261f0cacacc@kernel.org>
+Subject: FAILED: patch "[PATCH] rds: fix out-of-bounds conn_path walks via handshake exthdrs" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:12:09 -0500
+Message-ID: <20261107051209-failed-6.18-50f2103fce43@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,142 +69,78 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x a261f0cacacc022e4fab5b8e38c59f74ce4942e8
+git cherry-pick -x 50f2103fce43922b6e562937b2d2fc62089ff7ec
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051207-failed-6.18-a261f0cacacc@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051209-failed-6.18-50f2103fce43@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From a261f0cacacc022e4fab5b8e38c59f74ce4942e8 Mon Sep 17 00:00:00 2001
-From: Ming Lei <tom.leiming@gmail.com>
-Date: Sun, 11 Oct 2026 01:35:45 -0500
-Subject: [PATCH] ublk: mark the io command cancelable before publishing it
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 50f2103fce43922b6e562937b2d2fc62089ff7ec Mon Sep 17 00:00:00 2001
+From: Henry Martin <bsdhenrymartin@gmail.com>
+Date: Mon, 12 Oct 2026 10:53:36 +0800
+Subject: [PATCH] rds: fix out-of-bounds conn_path walks via handshake exthdrs
 
-FETCH, COMMIT_AND_FETCH and NEED_GET_DATA publish the command in io->cmd
-before marking it cancelable. A cancel from the control path (STOP_DEV,
-QUIESCE_DEV) can complete it in between:
+Both the lane and the connection-generation negotiation are driven by
+extension headers in handshake packets, and both are processed
+unconditionally, even on transports that are not multipath capable.
+A non-MP connection (t_mp_capable unset) owns exactly one
+rds_conn_path slot, so a peer claiming up to RDS_MPATH_WORKERS lanes
+makes every subsequent fan-out walk conn->c_path[0..7] at 504-byte
+strides past the single allocated slot (KASAN: "Read of size 8 in
+rds_conn_path_connect_if_down"); the generation negotiation opens a
+similar out-of-bounds walk on the same array.
 
-  issue path                       control-path cancel
-  io->cmd = C
-                                   take C, io_uring_cmd_done(C):
-                                     C not marked, nothing to unlink
-  ublk_prep_cancel(C)
-    the completed C is linked on the cancelable list
-  ring exit: the cancel walk hits it → GPF (KASAN, with a delay added)
+Only process handshake extension headers when the connection's
+transport is multipath capable, so a peer can never make us walk
+lanes that do not exist.  Both call sites in rds_recv_incoming() are
+gated.
 
-Mark the command before ublk_fill_io_cmd() publishes it. The handlers
-run with uring_lock held, as io_uring's cancel walk does, so marking
-takes no lock and the walk can't see a marked command before it is
-published. smp_wmb() orders the mark before the io->cmd store; the
-cancel loads cmd with READ_ONCE(io->cmd) before reading cmd->flags.
+This is a port of the Oracle UEK fix for the same issue, picked up
+where Paula's series of the same change left off.
 
-A marked command has to be completed by io_uring_cmd_done(), so a failed
-FETCH and the inline UBLK_IO_RES_OK of NEED_GET_DATA now do that. The CQE
-is the same.
+This issue was discovered by Tencent CodeBuddy Security.
 
-Fixes: 216c8f5ef0f2 ("ublk: replace monitor with cancelable uring_cmd")
 Cc: stable@vger.kernel.org
-Tested-by: Josef Bacik <josef@toxicpanda.com>
-Signed-off-by: Ming Lei <tom.leiming@gmail.com>
-Link: https://patch.msgid.link/20261011063555.1142277-3-tom.leiming@gmail.com
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
+Link: https://lore.kernel.org/netdev/20260825120132.51636-1-pamoutafpro@gmail.com/
+Link: https://github.com/oracle/linux-uek/commit/2fdeb0513f18
+Fixes: 840df162b3eb ("rds: reduce memory footprint for RDS when transport is RDMA")
+Fixes: 905dd4184e07 ("RDS: TCP: Track peer's connection generation number")
+Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+Reviewed-by: Allison Henderson <achender@kernel.org>
+Link: https://patch.msgid.link/20261012025336.54756-1-bsdhenrymartin@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 ---
- drivers/block/ublk_drv.c | 27 +++++++++++++++++++++------
- 1 file changed, 21 insertions(+), 6 deletions(-)
+ net/rds/recv.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/block/ublk_drv.c b/drivers/block/ublk_drv.c
-index 125f45ce0392f..c105826a095bb 100644
---- a/drivers/block/ublk_drv.c
-+++ b/drivers/block/ublk_drv.c
-@@ -2800,7 +2800,8 @@ static void ublk_cancel_cmd(struct ublk_queue *ubq, u16 tag,
- 	done = !!(io->flags & UBLK_IO_FLAG_CANCELED);
- 	if (!done) {
- 		io->flags |= UBLK_IO_FLAG_CANCELED;
--		cmd = io->cmd;
-+		/* dependency ordered against smp_wmb() in ublk_prep_cancel() */
-+		cmd = READ_ONCE(io->cmd);
- 		io->cmd = NULL;
- 	}
- 	spin_unlock(&ubq->cancel_lock);
-@@ -3162,6 +3163,12 @@ ublk_fill_io_cmd(struct ublk_io *io, struct io_uring_cmd *cmd)
- 	return req;
- }
- 
-+/*
-+ * Call before ublk_fill_io_cmd() publishes @cmd in io->cmd: a control-path
-+ * cancel may complete any command found there, and io_uring_cmd_done() only
-+ * takes it off the cancelable list if it is marked already. The handlers
-+ * hold uring_lock, so marking takes no lock.
-+ */
- static inline void ublk_prep_cancel(struct io_uring_cmd *cmd,
- 				    unsigned int issue_flags,
- 				    struct ublk_queue *ubq, u16 tag)
-@@ -3175,6 +3182,8 @@ static inline void ublk_prep_cancel(struct io_uring_cmd *cmd,
- 	pdu->ubq = ubq;
- 	pdu->tag = tag;
- 	io_uring_cmd_mark_cancelable(cmd, issue_flags);
-+	/* pairs with the cancel loading cmd from io->cmd, then cmd->flags */
-+	smp_wmb();
- }
- 
- static void ublk_io_release(void *priv)
-@@ -3422,11 +3431,11 @@ static int ublk_ch_uring_cmd_local(struct io_uring_cmd *cmd,
- 		ret = ublk_check_fetch_buf(ub, addr);
- 		if (ret)
- 			goto out;
-+		/* before ublk_fetch() publishes io->cmd, see ublk_prep_cancel() */
-+		ublk_prep_cancel(cmd, issue_flags, ubq, tag);
- 		ret = ublk_fetch(cmd, ub, io, addr, q_id);
- 		if (ret)
--			goto out;
--
--		ublk_prep_cancel(cmd, issue_flags, ubq, tag);
-+			goto out_done;
- 		return -EIOCBQUEUED;
- 	}
- 
-@@ -3470,6 +3479,7 @@ static int ublk_ch_uring_cmd_local(struct io_uring_cmd *cmd,
- 		if (ret)
- 			goto out;
- 		io->res = result;
-+		ublk_prep_cancel(cmd, issue_flags, ubq, tag);
- 		req = ublk_fill_io_cmd(io, cmd);
- 		ublk_apply_io_buf(ub, io, cmd, addr, &auto_buf, &buf_idx);
- 		if (buf_idx != UBLK_INVALID_BUF_IDX)
-@@ -3488,19 +3498,24 @@ static int ublk_ch_uring_cmd_local(struct io_uring_cmd *cmd,
- 		 * uring_cmd active first and prepare for handling new requeued
- 		 * request
- 		 */
-+		ublk_prep_cancel(cmd, issue_flags, ubq, tag);
- 		req = ublk_fill_io_cmd(io, cmd);
- 		io->buf.addr = addr;
- 		if (likely(ublk_get_data(ubq, io, req))) {
- 			__ublk_prep_compl_io_cmd(io, req);
--			return UBLK_IO_RES_OK;
-+			ret = UBLK_IO_RES_OK;
-+			goto out_done;
- 		}
- 		break;
- 	default:
+diff --git a/net/rds/recv.c b/net/rds/recv.c
+index 6204e577a90ae..93ee4546ae362 100644
+--- a/net/rds/recv.c
++++ b/net/rds/recv.c
+@@ -379,7 +379,8 @@ void rds_recv_incoming(struct rds_connection *conn, struct in6_addr *saddr,
+ 		rds_stats_inc(s_recv_ping);
+ 		rds_send_pong(cp, inc->i_hdr.h_sport);
+ 		/* if this is a handshake ping, start multipath if necessary */
+-		if (RDS_HS_PROBE(be16_to_cpu(inc->i_hdr.h_sport),
++		if (conn->c_trans->t_mp_capable &&
++		    RDS_HS_PROBE(be16_to_cpu(inc->i_hdr.h_sport),
+ 				 be16_to_cpu(inc->i_hdr.h_dport))) {
+ 			rds_recv_hs_exthdrs(&inc->i_hdr, cp->cp_conn);
+ 			rds_start_mprds(cp->cp_conn);
+@@ -387,7 +388,8 @@ void rds_recv_incoming(struct rds_connection *conn, struct in6_addr *saddr,
  		goto out;
  	}
--	ublk_prep_cancel(cmd, issue_flags, ubq, tag);
- 	return -EIOCBQUEUED;
  
-+ out_done:
-+	/* marked cancelable: complete through io_uring_cmd_done() */
-+	io_uring_cmd_done(cmd, ret, issue_flags);
-+	return -EIOCBQUEUED;
-  out:
- 	pr_devel("%s: complete: cmd op %d, tag %d ret %x io_flags %x\n",
- 			__func__, cmd_op, tag, ret, io ? io->flags : 0);
+-	if (be16_to_cpu(inc->i_hdr.h_dport) ==  RDS_FLAG_PROBE_PORT &&
++	if (conn->c_trans->t_mp_capable &&
++	    be16_to_cpu(inc->i_hdr.h_dport) ==  RDS_FLAG_PROBE_PORT &&
+ 	    inc->i_hdr.h_sport == 0) {
+ 		rds_recv_hs_exthdrs(&inc->i_hdr, cp->cp_conn);
+ 		/* if this is a handshake pong, start multipath if necessary */
 -- 
 2.53.0
 
