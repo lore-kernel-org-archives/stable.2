@@ -1,58 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.21
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794036591;
-	b=KUmrL/Rkps+IPt8mWtyxZVzSx1+/xjH2VzEUfoLiE0pvJQqKzSEF432f8vhSME35Q9CI
-	 qMHBIT2YYdxDT1u+VYuA2EAGWuiwhdOlXXTCiMd5ZrMzeqhRXQkj2mga3i+WN/g9E6ADb
-	 vMMq1Jw2qKbD1/lkIVV9LaLHu8JTba3ZzJqy3aO0GMFQJbxRcovpCViWUhEynf9Qju4Hy
-	 pzlpPYwPFS84J8zTYMYc3tQd9koM6DF80trXdSD35+Fhpt4h8WQzaGa6US1Pnbql5mINU
-	 aoxAfeKnAyUH0fQVqIfHU+EEHzdWld2y1m5mDHvVRGuc7iuQFLQAhIa/Z9FuIF4SO+Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794036591;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
-	 References:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=zTLPhYoAUqZ3E8rSlJCnfKyWQg7GEvKe+ZthoEnnDdc=;
-	b=xv1Iym/JwT//3+R2ae1JTDlZeQflPqwAX2XNxh9tam0SNQq95rknUxRyXRBbHA2gV1BQ
-	 4Rsq1aVYoCvqubzG54NlHCvw+aGDcULLE4lOv7k4l2jjaIHS2cyswOIclvZ2ONyIIGyTA
-	 ZMKzYNsk+RYkM1ml+W93en6KcV4hpPhE5LISvRpz1/vkJRU3CJnn3aHNoVA0Tlu6AQAGD
-	 q9PQPXxHF9hj7xI7g54nWaY49qLcSVp8BrrYsQ9h3Gq8pmwwmQihCUccTQ/VLaQJip7r7
-	 ofSzdzZKyTabPPDx1+p7LPaSFQWKGAq6E8/HSA5KduVYT66xq1EFYgXrOcBqUuAAJ3g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.21
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794036594;
+	b=B+SDPwN+djtsLusZUuw03GAT1VbAUJ7f3yuMD4Kpa2fpaqsLT9Z8Nrs2f9MgW/+hjj06
+	 qZdIGgIfRN0kKFySrZv33Sw9rWCKQ84kA4oJ99PhQGpH56tfB6JaLCJk9P/78/iyWS5fA
+	 27jGOzhJceMM23OUATb2VFA8+fKlzF3DGe3am/NkMmfz1pAqhVbc3sD9FRIpzNxsN6pBv
+	 AIqx1IZctxxEMtTZv23iug9pi8XS0N9Wtw9KxcO0llTXgB1/Cn3/b88YBtDJBN/CLmelZ
+	 5uhRAMFUp+Hj42tJ6pd1noIlkzMgaOWQTQOTJI9sd9a8huKIxmwQ3bzL6PaauSy60Sw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794036594;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Sent-From:X-URL:X-Accept-Language:
+	 X-Accept-Content-Type;
+	bh=zhFos9pLRdck+HNko2pfxCI2Qo5ud3StbNFSwWcCUlk=;
+	b=U0IB70KTcnCcJfQ7JxQBpI/TUqENNqmboCxen+jff6HPMEO61GQhrnwQ6l4zvxqzkcCm
+	 6oBc6FVB3nWC8sngqJ0aI8voeWq2YRXQ4E7jpZkmOLrQwj/+6W67hWopBymlrT10WGVja
+	 +FIDyCbmo6xDcV/nuSoVjEXl1emIGwtEOuvipxKBMb/wRDwJq+Zb4FEl0pPHQz7YgMPmu
+	 ARkp1Ebtm5jL6abfV54Tw7+Y56XvgOsdKBOrP30+/pdnEu+de6uS4ZhQNOMOEhAKmMs0I
+	 GZ/VcdjprCTOP31C5L+qWI9zS/yidDYBpHyvN9Tc8FhPw5iThx4spTLDM79l6Ck7YeA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=PUKk83Ya;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32A50606A326;
-	Sat,  7 Nov 2026 07:29:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32A50606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from [172.100.0.8] (unknown [36.110.52.2])
-	by APP-01 (Coremail) with SMTP id qwCowABXgPpU0+5q4nVxAA--.12684S2;
-	Sat, 07 Nov 2026 15:29:25 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Simon Horman <horms@kernel.org>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Madalin Bucur <madalin.bucur@nxp.com>,
- nsaenz@kernel.org,
- Sean Anderson <sean.anderson@linux.dev>,
- netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- stable@vger.kernel.org,
- vulab@iscas.ac.cn
-Subject: [PATCH v2] fsl/fman: Fix fm_node reference leak in read_dts_node()
-Date: Sat, 07 Nov 2026 07:29:41 +0000
-Message-ID: <20261107072941.314160-1-vulab@iscas.ac.cn>
-In-Reply-To: <20260921101757.GE13925@horms.kernel.org>
-References: <20260917110342.2148155-1-vulab@iscas.ac.cn>
- <20260921101757.GE13925@horms.kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8C50606A32E;
+	Sat,  7 Nov 2026 07:29:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8C50606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=PUKk83Ya
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 615392006B6;
+	Sat, 07 Nov 2026 08:29:49 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794036589;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zhFos9pLRdck+HNko2pfxCI2Qo5ud3StbNFSwWcCUlk=;
+	b=PUKk83Ya5v7q1FFEP1aHvP7tbTC5KZFYVU6QFtcHISJXJjsSTcPOdtvVV3O583Rv91h3nT
+	Ho9cpdbjiEQCnwxb433cxmcqgLNhkOawa6Ssy51WjV9x6UCDW6UAkTwkou+HMIeIkB2Y/6
+	jOd59yDr1glR3nmTkV0PiKgiku9KLqOoj0FhYqC3RAeZ5gzVmadDTQo6/caK18RWxVXUDz
+	QJar3yTFVo7VjcZXkDYdQneaJXqTTGnHNmVCwAhFU4doCxUol72QIUU52nCGeBSzlhlrwJ
+	8XACFmyXoQi84QvLOtVVYfZMjjOB+Yn7PFDMs9qJIjivFXgkT72CnBmwKjsgdQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794036589;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zhFos9pLRdck+HNko2pfxCI2Qo5ud3StbNFSwWcCUlk=;
+	b=EhF7yMhuTpptWCWqCmCx9FhL3Nv1ftHkLv+tOyhjQlMeIDXAMulTO3+EJ5DYEFv1OnnsjG
+	ex83l6DnELlN8NXZv+x2DfmfVVd6ChjuP/vW5h+c8+3oKHQcBcbHacQYUK5hCscdcZSYk5
+	OCNs9mqU3wRbMfU3+2IgySYIwx5h+r3kbXC7ADGCzOU0wL0eKdHDBMiNBcWAGT856+L/Qr
+	t49au/398GGcvPMoirnpQtFC4WG67j+ZakSAzhh33oWZTR0qbqB98rcu6kD9yJwHoyTA2V
+	1ZTaCSLs7wb9eDNEykOX+vLz3Fpe/g/hfu76lJSxCci9GES+05g9yriznthzTw==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794036589; a=rsa-sha256;
+	cv=none;
+	b=Dr2oArMp/FV3NFobM9t7qxTNEhceCyP4DhRDPciFsHYFEFhsNbAj87fyFdma2epsdVvdAQ
+	GnF9QhGEnuLq5A4ZOWdf7jZuztbwRLpx3ecHJtugmp8HUbv32lwUnIqPh8qpvgFq3Lzyx9
+	0pQ3ct1VJoid7qblsJYk2XIOeij7rxhjwHPLmyJyLElpNe/e0VYvUkmwc9mT6+ysHcoF9j
+	1lCtJ8pHwFL8Z7WiZruV1ViI7dR0HyQzRqgjU0Y5USOu2O67J9t2aEDbIQ2vySf3i8kAXz
+	8Tj2xkFAvubT/H7bRMcrtjXtQL6mgPTNYgr36QD0GLXPMiFFQ5wL6dyW1NfmdQ==
+Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <ore@pengutronix.de>)
+	id 1xPas1-0031FW-12;
+	Sat, 07 Nov 2026 08:29:49 +0100
+Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
+	(envelope-from <ore@pengutronix.de>)
+	id 1xPas1-00000003HIZ-0u96;
+	Sat, 07 Nov 2026 08:29:49 +0100
+Date: Sat, 7 Nov 2026 08:29:49 +0100
+From: Oleksij Rempel <o.rempel@pengutronix.de>
+To: Sun Yiqi <sunyiqi2@huawei.com>
+Cc: robin@protonic.nl, kernel@pengutronix.de, socketcan@hartkopp.net,
+	mkl@pengutronix.de, linux-can@vger.kernel.org,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+	stable@vger.kernel.org, luoxiaoxing@huawei.com
+Subject: Re: [PATCH net] can: j1939: transport: validate the DPO packet offset
+Message-ID: <au7TbcX4A8LqOjss@pengutronix.de>
+References: <20261105065931.1302-1-sunyiqi2@huawei.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,130 +99,40 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qwCowABXgPpU0+5q4nVxAA--.12684S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxZr1UXFyfCFWkZF13XF1DKFg_yoWrGFy5pF
-	W7G3ya9rZ5GF1fCrWxXws7ZFyjya1Ut3yrKr97Gw4Sv3s0vr1qvr4YvFy0gr43AFZ3Cw1U
-	JrZFvrZ5A3Wqvw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9C1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AE
-	w4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2
-	IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2
-	jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Cr1j6rxdM2AIxVAIcxkEcV
-	Aq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r12
-	6r1DMcIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwI
-	xGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAa
-	w2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJw
-	CFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE
-	14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2
-	IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxK
-	x2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI
-	0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUJWrAUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAAEA2rucfyZAwABsZ
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261105065931.1302-1-sunyiqi2@huawei.com>
+X-Sent-From: Pengutronix Hildesheim
+X-URL: http://www.pengutronix.de/
+X-Accept-Language: de,en
+X-Accept-Content-Type: text/plain
 
-of_node_get() takes a reference on the FMan device node. That reference
-is released neither on the success path, which returns straight after
-of_platform_populate(), nor on the failure paths that jump to fman_free
-without going through fman_node_put(). Neither read_dts_node() nor its
-caller keeps fm_node around to release it later.
+On Thu, Nov 05, 2026 at 02:59:31PM +0800, Sun Yiqi wrote:
+> j1939_xtp_rx_dpo_one() stores the packet offset from a received ETP DPO
+> command without checking it against the session's total packet count.
+> An offset greater than or equal to that count makes
+> j1939_session_skb_get() return NULL. A subsequent EOMA can then cause
+> j1939_session_completed() to pass the NULL skb to j1939_sk_recv(),
+> resulting in a NULL pointer dereference.
+> 
+> Reject an out-of-range offset before storing it and abort the session
+> with J1939_XTP_ABORT_BAD_EDPO_OFFSET. Keeping the previous valid offset
+> also prevents this lookup failure if an EOMA arrives while the session
+> is waiting for the abort to complete.
+> 
+> Fixes: 9d71dd0c7009 ("can: add support of SAE J1939 protocol")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Sun Yiqi <sunyiqi2@huawei.com>
 
-Release the reference on the success path, and route the remaining
-failure paths through fman_node_put(). The latter leaves the fman_free
-label without any user, so drop it as well: fman_node_put already falls
-through to kfree(fman).
+Acked-by: Oleksij Rempel <o.rempel@pengutronix.de>
+Tested-by: Oleksij Rempel <o.rempel@pengutronix.de>
 
-The candidate was found with static analysis tools; DeepSeek and GPT-6.1
-Sol were used to audit it and to help prepare this fix.
+Thank you for your work!
 
-Fixes: ecb239d96d36 ("ethernet: fman: fix wrong of_node_put() in probe function")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
-Changes in v2:
-- Remove the fman_free label, which no longer has a user once the failure
-  paths go through fman_node_put(). With W=1 the leftover label is an
-  -Werror=unused-label build failure, as Simon reported.
-- Rebuilt with W=1 on v7.4-rc1 (x86_64 defconfig + COMPILE_TEST,
-  CONFIG_FSL_FMAN=m); drivers/net/ethernet/freescale/fman/ now builds
-  without warnings.
-- Link to v1: https://lore.kernel.org/all/20260917110342.2148155-1-vulab@iscas.ac.cn/
-- Sorry for the late reply, and thanks for catching the build failure.
-
- drivers/net/ethernet/freescale/fman/fman.c | 15 ++++++++-------
- 1 file changed, 8 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/net/ethernet/freescale/fman/fman.c b/drivers/net/ethernet/freescale/fman/fman.c
-index 46cc28895e56..5507002097fd 100644
---- a/drivers/net/ethernet/freescale/fman/fman.c
-+++ b/drivers/net/ethernet/freescale/fman/fman.c
-@@ -2760,7 +2760,7 @@ static struct fman *read_dts_node(struct platform_device *of_dev)
- 		err = -EINVAL;
- 		dev_err(&of_dev->dev, "%s: could not find MURAM node\n",
- 			__func__);
--		goto fman_free;
-+		goto fman_node_put;
- 	}
- 
- 	err = of_address_to_resource(muram_node, 0,
-@@ -2769,7 +2769,7 @@ static struct fman *read_dts_node(struct platform_device *of_dev)
- 		of_node_put(muram_node);
- 		dev_err(&of_dev->dev, "%s: of_address_to_resource() = %d\n",
- 			__func__, err);
--		goto fman_free;
-+		goto fman_node_put;
- 	}
- 
- 	of_node_put(muram_node);
-@@ -2779,7 +2779,7 @@ static struct fman *read_dts_node(struct platform_device *of_dev)
- 	if (err < 0) {
- 		dev_err(&of_dev->dev, "%s: irq %d allocation failed (error = %d)\n",
- 			__func__, irq, err);
--		goto fman_free;
-+		goto fman_node_put;
- 	}
- 
- 	if (fman->dts_params.err_irq != 0) {
-@@ -2789,7 +2789,7 @@ static struct fman *read_dts_node(struct platform_device *of_dev)
- 		if (err < 0) {
- 			dev_err(&of_dev->dev, "%s: irq %d allocation failed (error = %d)\n",
- 				__func__, fman->dts_params.err_irq, err);
--			goto fman_free;
-+			goto fman_node_put;
- 		}
- 	}
- 
-@@ -2797,7 +2797,7 @@ static struct fman *read_dts_node(struct platform_device *of_dev)
- 	if (IS_ERR(base_addr)) {
- 		err = PTR_ERR(base_addr);
- 		dev_err(&of_dev->dev, "%s: devm_ioremap() failed\n", __func__);
--		goto fman_free;
-+		goto fman_node_put;
- 	}
- 
- 	fman->dts_params.base_addr = base_addr;
-@@ -2809,7 +2809,7 @@ static struct fman *read_dts_node(struct platform_device *of_dev)
- 	if (err) {
- 		dev_err(&of_dev->dev, "%s: of_platform_populate() failed\n",
- 			__func__);
--		goto fman_free;
-+		goto fman_node_put;
- 	}
- 
- #ifdef CONFIG_DPAA_ERRATUM_A050385
-@@ -2817,11 +2817,12 @@ static struct fman *read_dts_node(struct platform_device *of_dev)
- 		of_property_read_bool(fm_node, "fsl,erratum-a050385");
- #endif
- 
-+	of_node_put(fm_node);
-+
- 	return fman;
- 
- fman_node_put:
- 	of_node_put(fm_node);
--fman_free:
- 	kfree(fman);
- 	return ERR_PTR(err);
- }
+Best Regards,
+Oleksij
 -- 
-2.43.0
-
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
