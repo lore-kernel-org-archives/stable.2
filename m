@@ -1,52 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048344;
-	b=f1PpG2wruHqezN09bD7nckXu0lrvGiAblkUxa3XrdWsItxrIGibbHaneOjj1E/5lZZac
-	 a/p1ImKoU4wd45oF/h3yIodJPmIHA3JxYivjAHjbdXI/uo/+MVGHywb/OZsK9Hu8haR81
-	 6uVfNkzILcuuosdroTnAkBKzn2DQ9fuv+YkegGFNjYHcV5dw2LFuS2QDYcS747UCLDFw8
-	 gNHfz2r4n1xg5HHisKfTxcimiOCqh10991bvgtunHrAQtnDmrax/FPHyru9rx/W2wnmRi
-	 do08ZgLubU9CHvSXCRHFprzWhsCcHpNe5mRdg2B1rultxN1UZBgzBpmle0mMY9IBg/g==
+	t=1794048347;
+	b=AwwgtyoAqgmaI3IbC3mFq/HaC7zH9XPQwmLpy4pJ3B+U8T5Iy5sCSFua66aIj3HhCo2p
+	 ggyIDlDuSK31trVBSzkT1mJC5Cn1bN9GaYIeqFMEA+AWK2y4jXx1W9T/8tL9VUyftN336
+	 pCus9pBZmsB5e2HNp2j4ZCh3Nla/YvWJHGsLYqF280sH+oNZFOtG0grcARF9jyOAYkZzW
+	 GZx+y8S+NaiminIQsN1Fa1bahae59IOdowOwFwK88hy8VNnZwt/QPQ2WKzjmiE/Dqm9b3
+	 3ipon7Hqm4mF7qdhRDpCU005fIKV096OYuvATO2R6RkjkpA2T2sEEsStJQ0RogZg+eQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048344;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048347;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=E6IrQqLaRDpLH/sT3GJJTO4m8ZqWBJ1h3o7duZOEWTE=;
-	b=KxnZhfTFj7G4p7LeoNoYKewXAtgno2rMzErO5Eeo+mkkh5QQ5DZeAcylijHi9lkszXcM
-	 l3Q2AIyK+CAneYI9PEh0AGRtQxhAzGGnNcv9+AySC1shMwNjkjmCe4HBDa0ZxgrFgC0lr
-	 qrvGEDEhft5eY3WJB7Y3ZUWeC+bSNkXDcC5jk6CQvkm8ZEVcH94cty5Fd70A01MeDZTeq
-	 KJ3zMaO6SlBB6isvOeAZkNKb5aMJ5dUTLf+ohJkzWQTmmT9Ww8hRxWe2jsBKBFWbh/pW9
-	 Gd1icxR8Rr/wQUsLKhkdRlPrOe0CHOM0hylSiMSizfx8jhk/XxhnaigEW/gmcHz29jg==
+	bh=F2CbrkojNIhHguYmMbiKhpTqkdUfN9CXLngxdA6MiIU=;
+	b=0HpkBkfyT8RcO9CrNyGUnu2URkMoZi/4JpfxpRwcxaGG8KpLqqtxb2uqcCLPAUhP4i5A
+	 M1OEMszCKByIZpvH5Gjf6Uie4zJQjDtl2IThcQOLjwcFLKJCMZoCTn66990UUOKyRhVGE
+	 OdmjCtg1Ye+GjVg2sh7EqgYjKXisADWZKXVVpRp/w0dsLjjEninhslM8e0RcAewiuU4p9
+	 vmIuhNUI3rHhxFIWpYMaGGLRCpwFy4Au+G2nB8GHBPN0mV1r5sR6tvokJFTqe+qeAjUcp
+	 ghHLTB2kQBp1dKJLJNmTqpQhmQMJtL5Fr/qeRyVgZHFW6ENCTUfSqSQY8jFRiTCPaRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FazwWfYI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MdfYSG3f;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D839606A32D
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:45:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BF72606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:45:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FazwWfYI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48EA71F0089F;
-	Sat,  7 Nov 2026 10:45:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MdfYSG3f
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6215C1F0089F;
+	Sat,  7 Nov 2026 10:45:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048343;
-	bh=E6IrQqLaRDpLH/sT3GJJTO4m8ZqWBJ1h3o7duZOEWTE=;
+	s=k20260515; t=1794048347;
+	bh=F2CbrkojNIhHguYmMbiKhpTqkdUfN9CXLngxdA6MiIU=;
 	h=From:To:Cc:Subject:Date;
-	b=FazwWfYI5pUbMFsMSiMU5MYNx5ybA53Nuk3IaGx74mMNpnDcV9mFPzajo5Xmv1cBt
-	 VN0vgPjkJTrC6JVq5m478Al/cn5EJtjb6L2HWed7/E/hxsPif88Jedmay4TotlpErE
-	 hXZCqil24KfLKUoSa8hzlILKpEbUfyU+iFVIqIGrBWTq1S6ELgfXOjYHZ4NqEHU0fF
-	 lsFWbHoM4jxcZObzKMkvWtvs6oS7VSQwPp7lFT64jbjoM7YGr7d0Y9o5+viTRqTKPg
-	 ySxNrv3JLyxfQ7a2P5734rYk5ZookqztRI5aRmwF5BgX+MfwlbJUA5gyAnEAJl8K35
-	 cib/FVVU1shdA==
+	b=MdfYSG3fQ/p93UDmS2vsQ9tY2cgQ48njVMB11nMo6+ozMtGAVH/D9/NN/hsXzaLkD
+	 PNNMGH6Gd0taGRSm+UDmA2bSanfCb8rqkEgMr5CkG/cIEc9QDlq4WHHf6Zrz4eXdFk
+	 QzNispscua6rCT/fVNP7Ri8vWojsYwTlpA8dFOo18TsgoK7bxoeEbRJqJ/x1BmYRGB
+	 OkjbavnPQuVnCsGqw/tbcJLEzW9s/jnukmB9T661ALvbS1DdDkzFOsX+c2/FZY+Kry
+	 XCRhrARxTXHm8rGdII3gyhPx++pOhcDmsMls5xvh8TEklgHSoLgZylVL7if51sloxp
+	 5nBNg10lTM73A==
 From: Sasha Levin <sashal@kernel.org>
-To: southampton.jake.labelle@gmail.com,
-	konishi.ryusuke@gmail.com,
-	slava@dubeyko.com
+To: daejun7.park@samsung.com,
+	junzheyu1@gmail.com,
+	jack@suse.cz,
+	tytso@mit.edu
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] nilfs2: validate directory position after llseek in readdir" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:45:41 -0500
-Message-ID: <20261107054541-failed-6.1-de7f49c12566@kernel.org>
+Subject: FAILED: patch "[PATCH] jbd2: don't advance j_fc_off before the buffer is recorded" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:45:45 -0500
+Message-ID: <20261107054544-failed-6.1-9f359c031885@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,103 +70,91 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x de7f49c12566cc5c7437a2f26c6c754b9d4d5648
+git cherry-pick -x 9f359c031885bb50add7d23c7a5a0e9755b134c9
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054541-failed-6.1-de7f49c12566@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054544-failed-6.1-9f359c031885@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From de7f49c12566cc5c7437a2f26c6c754b9d4d5648 Mon Sep 17 00:00:00 2001
-From: Jake Labelle <southampton.jake.labelle@gmail.com>
-Date: Thu, 8 Oct 2026 20:52:48 +0900
-Subject: [PATCH] nilfs2: validate directory position after llseek in readdir
+From 9f359c031885bb50add7d23c7a5a0e9755b134c9 Mon Sep 17 00:00:00 2001
+From: Daejun Park <daejun7.park@samsung.com>
+Date: Wed, 19 Aug 2026 15:09:39 +0900
+Subject: [PATCH] jbd2: don't advance j_fc_off before the buffer is recorded
 
-nilfs_readdir() uses ctx->pos, which userspace can set to an arbitrary
-value via llseek, as an offset into the directory folio and parses
-whatever bytes sit there as a directory entry.  A position pointing
-into the middle of an entry -- or at unused bytes of a corrupted image
-that the page validator never inspected -- makes dir_emit() copy up to
-255 (name_len) bytes from a bogus entry, possibly reading past the end
-of the folio and returning unrelated memory contents to userspace.
+jbd2_fc_get_buf() increments journal->j_fc_off before jbd2_journal_bmap()
+and __getblk() have had a chance to fail.  When either does, the slot
+j_fc_wbuf[fc_off] is never assigned, but j_fc_off already counts it.
 
-Snap unaligned positions onto a valid entry boundary by walking the
-rec_len chain from the chunk start before parsing, as ext2 does in
-ext2_validate_entry().
+ext4 then fails the fast commit and falls back, and the fallback path
+reaches jbd2_fc_release_bufs() via ext4_fc_commit ->
+jbd2_fc_end_commit_fallback -> __jbd2_fc_end_commit -> ext4_fc_cleanup.
+That walks down from j_fc_off - 1 and put_bh()es every slot until it
+sees NULL, so it also touches the slot that was never written.
+j_fc_wbuf comes from a plain kmalloc() and is never zeroed, so a slot
+used for the first time holds uninitialised heap data.
 
-[ryusuke: fixed offset wrap-around in nilfs_validate_entry() and
- conformed AI tag to guidelines]
+Advance j_fc_off only after the buffer head has been stored.  That
+restores the invariant that j_fc_off covers exactly the filled slots,
+which is what jbd2_fc_release_bufs() relies on: the live buffers of the
+current fast commit sit above the NULLs the previous one released, so
+stopping at the first NULL is correct.
 
-Fixes: 2ba466d74ed7 ("nilfs2: directory entry operations")
-Assisted-by: Claude:claude-mythos-5
-Signed-off-by: Jake Labelle <southampton.jake.labelle@gmail.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
+Reproduced on a KASAN kernel with an ext4 fast_commit filesystem on a
+loop device, truncating the backing file under the live mount so that
+only the journal's fast-commit region falls past the end of the device.
+__getblk() then fails for the first fast-commit block while the rest of
+the journal is still addressable, so the journal is not aborted and the
+fast commit reaches the fallback path.  j_fc_wbuf was poisoned to make
+the read of the never-written slot visible:
+
+  BUG: KASAN: wild-memory-access in jbd2_fc_release_bufs+0x6b/0xd0
+  Write of size 4 at addr 5a5a5a5a5a5a5ab2 by task sync/961
+   jbd2_fc_release_bufs+0x6b/0xd0
+   ext4_fc_cleanup+0x97/0x830
+   __jbd2_fc_end_commit+0x37/0xc0
+   ext4_fc_commit+0x524/0x560
+   ext4_sync_file+0x3c4/0x4b0
+   __x64_sys_fsync+0x20/0x30
+
+With this patch the same run leaves j_fc_off at 0 across repeated
+__getblk() failures and completes cleanly.
+
+Fixes: ff780b91efe9 ("jbd2: add fast commit machinery")
+Cc: stable@kernel.org
+Reported-by: Yu Junzhe <junzheyu1@gmail.com>
+Closes: https://lore.kernel.org/linux-ext4/7e4b109d-64c3-444f-a5dc-93c2ca4576cc@gmail.com/
+Signed-off-by: Daejun Park <daejun7.park@samsung.com>
+Reviewed-by: Jan Kara <jack@suse.cz>
+Link: https://patch.msgid.link/20260819060939epcms2p37bb8589b2f8a52a2b14bef38fadcf69d@epcms2p3
+Signed-off-by: Theodore Ts'o <tytso@mit.edu>
 ---
- fs/nilfs2/dir.c | 34 ++++++++++++++++++++++++++++++++++
- 1 file changed, 34 insertions(+)
+ fs/jbd2/journal.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/nilfs2/dir.c b/fs/nilfs2/dir.c
-index 8b53802b6ebd7..7686ca9228fc8 100644
---- a/fs/nilfs2/dir.c
-+++ b/fs/nilfs2/dir.c
-@@ -231,11 +231,27 @@ static struct nilfs_dir_entry *nilfs_next_entry(struct nilfs_dir_entry *p)
- 					  nilfs_rec_len_from_disk(p->rec_len));
- }
+diff --git a/fs/jbd2/journal.c b/fs/jbd2/journal.c
+index 00f5a98f3d4fe..55b4ce0102289 100644
+--- a/fs/jbd2/journal.c
++++ b/fs/jbd2/journal.c
+@@ -843,7 +843,6 @@ int jbd2_fc_get_buf(journal_t *journal, struct buffer_head **bh_out)
  
-+static inline unsigned int
-+nilfs_validate_entry(char *base, unsigned int offset, unsigned int mask)
-+{
-+	struct nilfs_dir_entry *de = (struct nilfs_dir_entry *)(base + offset);
-+	struct nilfs_dir_entry *p =
-+		(struct nilfs_dir_entry *)(base + (offset & mask));
-+
-+	while ((char *)p < (char *)de) {
-+		if (p->rec_len == 0)
-+			break;
-+		p = nilfs_next_entry(p);
-+	}
-+	return (char *)p - base;
-+}
-+
- static int nilfs_readdir(struct file *file, struct dir_context *ctx)
- {
- 	loff_t pos = ctx->pos;
- 	struct inode *inode = file_inode(file);
- 	struct super_block *sb = inode->i_sb;
-+	unsigned int chunk_size = nilfs_chunk_size(inode);
- 	unsigned int offset = pos & ~PAGE_MASK;
- 	unsigned long n = pos >> PAGE_SHIFT;
- 	unsigned long npages = dir_pages(inode);
-@@ -254,6 +270,24 @@ static int nilfs_readdir(struct file *file, struct dir_context *ctx)
- 			ctx->pos += PAGE_SIZE - offset;
- 			return -EIO;
- 		}
-+		/*
-+		 * ctx->pos comes from userspace via llseek and may point
-+		 * into the middle of an entry -- or at unvalidated bytes
-+		 * of a crafted image. offset is only nonzero here on the
-+		 * very first iteration (subsequent pages always start at
-+		 * offset 0, which -- like any chunk boundary -- is always
-+		 * a legitimate entry start, since no rec_len chain crosses
-+		 * a chunk boundary). Snap a non-chunk-aligned offset onto
-+		 * a real entry boundary by walking the chain from the
-+		 * enclosing chunk's start, as ext2 does; otherwise
-+		 * dir_emit() copies name_len bytes from a fake entry,
-+		 * reading past the end of the folio.
-+		 */
-+		if (offset & (chunk_size - 1)) {
-+			offset = nilfs_validate_entry(kaddr, offset,
-+					~(chunk_size - 1));
-+			ctx->pos = ((loff_t)n << PAGE_SHIFT) + offset;
-+		}
- 		de = (struct nilfs_dir_entry *)(kaddr + offset);
- 		limit = kaddr + nilfs_last_byte(inode, n) -
- 			NILFS_DIR_REC_LEN(1);
+ 	fc_off = journal->j_fc_off;
+ 	blocknr = journal->j_fc_first + fc_off;
+-	journal->j_fc_off++;
+ 	ret = jbd2_journal_bmap(journal, blocknr, &pblock);
+ 	if (ret)
+ 		return ret;
+@@ -853,6 +852,7 @@ int jbd2_fc_get_buf(journal_t *journal, struct buffer_head **bh_out)
+ 		return -ENOMEM;
+ 
+ 	journal->j_fc_wbuf[fc_off] = bh;
++	journal->j_fc_off++;
+ 
+ 	*bh_out = bh;
+ 
 -- 
 2.53.0
 
