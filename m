@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047025;
-	b=kGaY3Upj2Wn+HX8YWLFLlPuDYpf3C2bizozdIGcFsSQ1Um/FzdsKOS4aWQAKDZtpaYts
-	 V0czZeUyJe0aC5ATvK2dquZYiP5o3d18JqO8PFc2/W/tvOnCWoKTXjGOkMgbbX6qrblPy
-	 W9QdK3uG3i7xAEDZRfxWsCpdI8Jrny4DNlWxZuVFj0+ncxdej3xC6/ZR6W3Xyst3NlfGz
-	 IzZhFHICDTcsYtQq3+gMYwCEegDQlapkw6mIzrDLiEE9AJutSwdEOqc1zeFgcGwEWG5H8
-	 Kqi7wz/MAWjw2anMxoXviQvhC11bXSFK2aqsWTEADivi3yudHD8m16ZYWWzbNEHg1uw==
+	t=1794047027;
+	b=h9UA1vxEdVjXoN8xKg00Yd8qtNDu+USRTsfXTf3XEJxZZspJ6Lz3VoV7h1w+d2EFPUcb
+	 Wxc3FZWAU2wpaA8/q4de/LpuHZb6yIBwsaP1jhyrV7vs8Vaj6TLHbfEAW24BJtL4Dwc6S
+	 NZg5zKfr3oxf6I9I3ndJev8E0JA9eX2i+MgrtrpaA4Gz2MwrA/bKJ7aeyA1Q4Srg/Il3I
+	 z06KNUARb5N/3tbj9DhTiB+wJFM+IhJyTSIQwWmGZB+VyXnlS6ooVmvfTiwi80O1/n1A8
+	 DiExZZdUsG7ywN+W0xcmdMrVu2lWsVSWqe47wiFKtSKWJqWzGs5grpJKxhQOHwlACdg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047025;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047027;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=yp72GomLNA694fK27iAGKNcHYKq6TJF480gXiQcpdL0=;
-	b=oU5d1jRGsfhBTIweoGa8qQsXsKT+KEK09W53eaqWPjPoS/C89Jx6rhbOp2QlxiJu+JFa
-	 j5RIj5clNrAjYNPSlxELK6U4DvOqWtXO4iQ7T46zGjgFQldTorwJP2Ub7qqGDUP+fdk4u
-	 FvpPDXcyYi+qlpRZXvYrpeHkIM2gITK2vtNAUA9Kq4n2EA02g7guZzXKKO4uTGKpyund9
-	 wZqkr5SfdJM2X3/EyKToHeeJ/LfVBg14CCyDMPhdCSjjyaD2bJUeuX5/VpD2dItvmiVXE
-	 ndP8MV+880LnqCayKDSnnVKJUECXPWpVnAfe2I7PmiOIHiAzqwtCrN/u+pDzKfW4dWA==
+	bh=seNd/RNBBITnnUv90s2AJ9wlkaVuuT0NesMOUGuwvwQ=;
+	b=Loe5nPBBfdWUv/YH2Y3+g6Vs1GjhERoYOxs/33t1Kjkb5XasZADzp4MGb/ECNwb3uBUK
+	 YzzfvONB+jy1dJc5k3KWc+awPNSe4GPfYhE2NGnF8UoNtYsMIZ86SxDd9o/fIGhuyHI+n
+	 Vhdrd7nnSVfxZEI9ZF3myMuNfazAWjuHOChNoxzuunEtcGYzm2M8FDj1c+kfez8L6MsZU
+	 YV1UBqn56D612JAZsoawds5sOUn/qzUVij6MCXCEDHT0DQwbadxBO+gPcb5gZihsP5naR
+	 fzsjGeBhBMN9JpMU5wzZE1wu5ok17XchUxAmSV5y/3v4U5rYBM/C1gdxMohDpGQd6Dw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jeNKss1I;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="hRrD/hgD";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A529606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:23:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41E53606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:23:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jeNKss1I
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B7871F0089F;
-	Sat,  7 Nov 2026 10:23:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hRrD/hgD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B02731F0089F;
+	Sat,  7 Nov 2026 10:23:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047024;
-	bh=yp72GomLNA694fK27iAGKNcHYKq6TJF480gXiQcpdL0=;
+	s=k20260515; t=1794047027;
+	bh=seNd/RNBBITnnUv90s2AJ9wlkaVuuT0NesMOUGuwvwQ=;
 	h=From:To:Cc:Subject:Date;
-	b=jeNKss1ICDcEHxbWWJOUyptAx1nBaQ8NqjKW5+DV7BMEQzIRaGnxYU5VRcj/9qDpM
-	 Lf17Xskm3b7YmKVbOuC07L5TKorh2EAf/7jT9UNSsTNX8utKWaog5kK6cLp1X8AIim
-	 r9m0HCCzMrPwHHpVjMy5/T/aqojo0MBrYJxNWX64DMQrjLJR4biEnDcwZSqWlAXyZD
-	 2ubQfwO0sLd6017XuyAKrwWrxSC8j9mG+79v7O/NBCHfkwpAORxP/j9EcSg/VUsEwn
-	 IBl5Dpvs3cHepEMRf+rNJ2zOS2lmbgs7K/LnRrYtQaA7O1/J/iMucEXwDMgAP5H8Jj
-	 0VeUcxlZImmBA==
+	b=hRrD/hgDmjShcpNwdVeecM5hBdajWcRjCVXSf2rp6kulXnVy0Vy8jEgpUOBp0Niyz
+	 shP78OcYRMkIaCDJkpWohhRyc2vdk5SpefUhybPQZ2IdwjNcWOfbuHKBeSBWnmwcSK
+	 /PepAdg9wFruq7EDGYo6jl8pMHm9G12QAjmKurGLwYKmgKyUb2JPSDvnC85BvLBv91
+	 WVdm7HWDcBlEccsp6zURE+IE2XxlUIOhEhCTSKXhRmE2lMHVspHGMJk2WaeNP0rmjY
+	 dqsHudSz2nkYv6sWzwahWJxJmni8+Nj2CvJv0g6016HPmK/fL6Zc3cQct1QiFjWLdy
+	 7bwo17oir9otw==
 From: Sasha Levin <sashal@kernel.org>
-To: josstamy@gmail.com,
-	tiwai@suse.de
+To: turbine.bmw@gmail.com,
+	sebastian.reichel@collabora.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ALSA: hda/realtek: Enable mute LEDs on HP OmniBook X Flip 14-fm0xxx" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:23:43 -0500
-Message-ID: <20261107052343-failed-6.12-c80286aaa4ac@kernel.org>
+Subject: FAILED: patch "[PATCH] power: supply: qcom_battmgr: Notify charger supplies of online changes" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:23:45 -0500
+Message-ID: <20261107052345-failed-6.12-87fd20da8ca8@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,67 +68,91 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x c80286aaa4acd52f9bd0b0d4914d2069fe6ba3a8
+git cherry-pick -x 87fd20da8ca8bacdaa9bff5860167f208077dc51
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052343-failed-6.12-c80286aaa4ac@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052345-failed-6.12-87fd20da8ca8@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From c80286aaa4acd52f9bd0b0d4914d2069fe6ba3a8 Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?Jos=C3=A9=20Miguel=20Castellanos=20Valladolid?=
- <josstamy@gmail.com>
-Date: Fri, 16 Oct 2026 23:06:15 -0600
-Subject: [PATCH] ALSA: hda/realtek: Enable mute LEDs on HP OmniBook X Flip
- 14-fm0xxx
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 87fd20da8ca8bacdaa9bff5860167f208077dc51 Mon Sep 17 00:00:00 2001
+From: Brandon Williams <turbine.bmw@gmail.com>
+Date: Tue, 13 Oct 2026 13:34:51 -0400
+Subject: [PATCH] power: supply: qcom_battmgr: Notify charger supplies of
+ online changes
 
-The HP OmniBook X Flip Laptop 14-fm0xxx (subsystem ID 0x103c8d9f, ALC245
-with two CS35L41 amplifiers over I2C) is currently handled by
-ALC287_FIXUP_CS35L41_I2C_2. That binds the amplifiers but does not set up
-the mute LEDs, so neither the speaker mute key LED nor the microphone mute
-key LED lights up under Linux. With that fixup the codec GPIOs stay
-disabled (IO[0..2] enable=0).
+On SC8280XP and X1E80100 the AC, USB and wireless supplies take their
+online state from the charging source in the battery status response.
+The firmware sends no notification for those supplies when the charging
+source changes, and the driver only announces the battery, so userspace
+never learns that the charger was plugged in or out. UPower keeps the
+state it read at startup: a laptop booted on the charger never goes on
+battery.
 
-Switch the entry to ALC287_FIXUP_CS35L41_I2C_2_HP_MUTE_LEDS, which chains
-cs35l41_fixup_i2c_two with ALC245_FIXUP_HP_X360_MUTE_LEDS. This keeps the
-amplifier setup and adds the speaker mute LED through the ALC245 COEF
-register and the mic mute LED through codec GPIO2. It is the same fixup
-already used for the 17 Turbine OmniBook 7 DIS (0x103c8d9c).
+Call power_supply_changed() for a supply whose online state changes when
+a status response is parsed. A supply that is not registered yet, when
+the battery is read during probe, reports its state when it registers.
 
-Tested on the affected laptop with v7.2.11 using the equivalent
-ALC245_FIXUP_HP_ENVY_X360_15_FH0XXX fixup, which has the identical
-cs35l41_fixup_i2c_two + ALC245_FIXUP_HP_X360_MUTE_LEDS chain: hda::mute
-and hda::micmute LED class devices appear and both key LEDs light up
-when muting.
+Tested on a Microsoft Surface Pro 11 (X1E80100): after restarting UPower
+on the charger, unplugging now sets OnBattery, and plugging in clears it.
 
-Fixes: 29951021367f ("ALSA: hda/realtek: Add support for various HP Laptops using CS35L41 HDA")
+Fixes: 29e8142b5623 ("power: supply: Introduce Qualcomm PMIC GLINK power supply")
 Cc: stable@vger.kernel.org
-Signed-off-by: José Miguel Castellanos Valladolid <josstamy@gmail.com>
-Link: https://patch.msgid.link/20261017050615.14481-1-josstamy@gmail.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Brandon Williams <turbine.bmw@gmail.com>
+Link: https://patch.msgid.link/20261013-upstream-battmgr-charger-online-v1-1-731973e133a0@gmail.com
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- sound/hda/codecs/realtek/alc269.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/power/supply/qcom_battmgr.c | 26 +++++++++++++++++++++++---
+ 1 file changed, 23 insertions(+), 3 deletions(-)
 
-diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-index 36d3bc23a2df4..c33a385982f2b 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -7957,7 +7957,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x103c, 0x8d9c, "HP 17 Turbine OmniBook 7 DIS", ALC287_FIXUP_CS35L41_I2C_2_HP_MUTE_LEDS),
- 	SND_PCI_QUIRK(0x103c, 0x8d9d, "HP 17 Turbine OmniBook X UMA", ALC287_FIXUP_CS35L41_I2C_2),
- 	SND_PCI_QUIRK(0x103c, 0x8d9e, "HP 17 Turbine OmniBook X DIS", ALC287_FIXUP_CS35L41_I2C_2),
--	SND_PCI_QUIRK(0x103c, 0x8d9f, "HP 14 Cadet (x360)", ALC287_FIXUP_CS35L41_I2C_2),
-+	SND_PCI_QUIRK(0x103c, 0x8d9f, "HP 14 Cadet (x360)", ALC287_FIXUP_CS35L41_I2C_2_HP_MUTE_LEDS),
- 	SND_PCI_QUIRK(0x103c, 0x8da0, "HP 16 Clipper OmniBook 7(X360)", ALC287_FIXUP_CS35L41_I2C_2),
- 	SND_PCI_QUIRK(0x103c, 0x8da1, "HP 16 Clipper OmniBook X", ALC287_FIXUP_CS35L41_I2C_2),
- 	SND_PCI_QUIRK(0x103c, 0x8da7, "HP 14 Enstrom OmniBook X", ALC287_FIXUP_CS35L41_I2C_2),
+diff --git a/drivers/power/supply/qcom_battmgr.c b/drivers/power/supply/qcom_battmgr.c
+index 3529d4a564ca6..99ae0920f7264 100644
+--- a/drivers/power/supply/qcom_battmgr.c
++++ b/drivers/power/supply/qcom_battmgr.c
+@@ -1255,6 +1255,23 @@ static unsigned int qcom_battmgr_sc8280xp_convert_temp(unsigned int temperature)
+ 	return DIV_ROUND_CLOSEST(temperature, 10);
+ }
+ 
++/*
++ * The charger supplies' online state comes from the battery status response,
++ * and the firmware sends no notification of its own when it changes, so
++ * announce the change here. A supply that is not registered yet announces its
++ * state when it is.
++ */
++static void qcom_battmgr_sc8280xp_set_online(struct power_supply *psy,
++					     bool *online, bool value)
++{
++	if (*online == value)
++		return;
++
++	*online = value;
++	if (psy)
++		power_supply_changed(psy);
++}
++
+ static void qcom_battmgr_sc8280xp_callback(struct qcom_battmgr *battmgr,
+ 					   const struct qcom_battmgr_message *resp,
+ 					   size_t len)
+@@ -1324,9 +1341,12 @@ static void qcom_battmgr_sc8280xp_callback(struct qcom_battmgr *battmgr,
+ 		battmgr->status.temperature = qcom_battmgr_sc8280xp_convert_temp(le32_to_cpu(resp->status.temperature));
+ 
+ 		source = le32_to_cpu(resp->status.charging_source);
+-		battmgr->ac.online = source == BATTMGR_CHARGING_SOURCE_AC;
+-		battmgr->usb.online = source == BATTMGR_CHARGING_SOURCE_USB;
+-		battmgr->wireless.online = source == BATTMGR_CHARGING_SOURCE_WIRELESS;
++		qcom_battmgr_sc8280xp_set_online(battmgr->ac_psy, &battmgr->ac.online,
++						 source == BATTMGR_CHARGING_SOURCE_AC);
++		qcom_battmgr_sc8280xp_set_online(battmgr->usb_psy, &battmgr->usb.online,
++						 source == BATTMGR_CHARGING_SOURCE_USB);
++		qcom_battmgr_sc8280xp_set_online(battmgr->wls_psy, &battmgr->wireless.online,
++						 source == BATTMGR_CHARGING_SOURCE_WIRELESS);
+ 		if (battmgr->info.last_full_capacity != 0) {
+ 			/*
+ 			 * 100 * battmgr->status.capacity can overflow a 32bit
 -- 
 2.53.0
 
