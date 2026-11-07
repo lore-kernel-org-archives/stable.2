@@ -1,53 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794078892;
-	b=ESdKnBAHubm3jKA+MDEguEF1Jse1Mhi0Z8v52Co0yUBu/5oieVOM8Nwx2kuhvqimbA9X
-	 QYeVCjBAaQCrrRZlYQl1ULPUSQVTXPg7l7hiNEALOuEAaDlDHnAjzDfm0qM5Iwo9PTChG
-	 s5Xk9Hj+wO4+VkNylCgw39w3Uko0qf7ZlMxQXMFrtA2K6Eqcw68cE+NH0QBdlKM+ufF9r
-	 ybrqWeFZYcbo/0vQoRj6XWAfrkScYaFoE0pH95lgsnmWBxmZTyW2UebCzZAarT3W+kXSr
-	 1aTh99KvuBvmhC4AskedqFElBcK2jHXsI2P/nEFVotXUDzKSWvj/BCDFSao6syrhEVg==
+	t=1794079084;
+	b=ChHjX4SbhSy6oJ//lel16C/U8KJQf9ibP0oWy1hCGZcCQf5FphRNPNdOHYgpgIcYXa9M
+	 LumxNb3Wc0EeF43fKZ9hrwZI0ssRbgYvd2g4Wr322lItgGaOCQua6Im8GiZdzMGvsOOp4
+	 WKFhI+0nOMsfojDh8RXSgOU00OTgHA6lMs4DIZuSF9DoXQlxjQgmmNaSpYNxkKgfQFCdH
+	 HfyN6voXKhA9sDb/9+HdWIcLbiIaJ3BaHpklAGRSCAVsclx5t3Evqs4JHLIEJGfvZw71y
+	 W6w6FNm68ndouncvmIPb2VmtgPic3iJ0axSOSQYd2r3IoPLr43n+pnD0r5wQeU2T0lw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794078892;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794079084;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Q40vr2Cuq0ydvo5nF+Yg5CTa2y/FTbCDRX+QJ+acIOM=;
-	b=FSL47+h6GkaGynfJlA5J140u3pq7jl38hsaZot2GNswAcOBvSVrrUGsECE1lQIt26R7l
-	 ZOu2UOKNF8cKGQQvZ4Jwc9RO24VFjU7dNpjnTOmXpIgjQpLvJ8C3VsP0QL9PBrlltkdHi
-	 PAU2JqkAaNse3s5nibGMbqXeTXGx/maJOstDeptXccjft1zMk+ESSmoeg/zryTpymR2Nr
-	 z6SdLoin02ySQin942SV4z2rCapgq973cH69O2mz1IgfNJtAxXUFUhrT1B22t9bogfO4S
-	 lXFbp2RRBLiQTVDaFeP1JoRfRhKTYAWyUQjfdOnyBX8w5HKqwoZD0qa41o799nNR0aQ==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=pMDXsVQlo53B/Jea2d02cSt/QDq/uqMOwjNLuSiLXBA=;
+	b=mEZVYibC2RWayvhzVC4PyrlZkZCl7MlEoWWctr3cpMwSoL+il8HQVGc39N8whlzLjBna
+	 CMfgILO4qqakRssO8ei4Mh5YwyO9jb7GsUrPxQe4/vfBN/Gj+Uqjl2WFfi7QvajyFWsB1
+	 eTuTWJ0FpyHaFldNH9CeBfs2TuiOsgHzTf3LH79hGy4UHhB0r733Wab9w4Pc8bnM/q2iA
+	 Pd0kPsjaHatkF1uA5Kar600SHDZlMuaJ3LgV+1dtsY8f5sdSGAs+FNJJDwKZwGy5lvXFS
+	 C4mNjfrlgIH4yfBuLkZSyvIudEp5fqPn5tWiIVA7YxoCrDLGMXYRcZqpHhs+50kvJ5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MiqNa0XZ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JwGeSl7o;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C719606A326;
-	Sat,  7 Nov 2026 19:14:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1832F606A326;
+	Sat,  7 Nov 2026 19:18:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MiqNa0XZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A40981F0089F;
-	Sat,  7 Nov 2026 19:14:51 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JwGeSl7o
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 031FC1F0089F;
+	Sat,  7 Nov 2026 19:18:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794078891;
-	bh=Q40vr2Cuq0ydvo5nF+Yg5CTa2y/FTbCDRX+QJ+acIOM=;
-	h=From:To:Cc:Subject:Date;
-	b=MiqNa0XZF+0HvP2LorQgTctBCau471oOj8/sxvn+iSs7O9QPStXI6P2y3uhyTXCec
-	 RGBMRT54L4RgNOcOVkdKAdwzOmP3Esskl9lUvMYiPuJ0jenAInaoJnn2xXYAN51TiN
-	 ROkjvFw9Gb475rGJcgUk5PQ27tMo0d8V6pU8+n9ADn8fzpqpnwr1FD7DYz4Qk6vGye
-	 V2E/J/fZWL1Rtdupr5jVqOd5hKumLK/hqt7lxCMeMPH7lQdCBBCRF8gKCxm9JU1xg7
-	 vEhRhwFRSeLaBy0B3oOB1fE6UqGE2V9NomEBkzj5JZwvmMZmL5JdLQMo/9x9eVnCho
-	 fkGNH2vxg2acQ==
-From: Eric Biggers <ebiggers@kernel.org>
-To: stable@vger.kernel.org
-Cc: fsverity@lists.linux.dev,
-	Eric Biggers <ebiggers@kernel.org>,
-	Andrey Albershteyn <aalbersh@kernel.org>
-Subject: [PATCH 5.10] fsverity: Explicitly require FMODE_READ to retrieve hashes
-Date: Sat,  7 Nov 2026 11:14:08 -0800
-Message-ID: <20261107191408.43437-1-ebiggers@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	s=k20260515; t=1794079083;
+	bh=pMDXsVQlo53B/Jea2d02cSt/QDq/uqMOwjNLuSiLXBA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=JwGeSl7osPilXOn4fEOKFGCmH4FoCFFT43dvV1v7/SA2WHYnE7cG9JAOP1gzTXmYo
+	 /tsk+gWfXR1SCdMBypJM+XLo+vUiEGbkDHRNIGZGOyfCRy7IqGyQCEZY8J3vMNUuIt
+	 r1dprwiCEtlYoBctP5HUeohOqW+HgU+hZsvJO1DpyG9Hh6SF/Ut7BhPepvVBPIMjH7
+	 yO7Qh9+iIFYPiOLYINGWzzwgYU8YqNNyiLSarw7iRmhG915/0N0yl7QyO9pTtQ3LRN
+	 Q1aL5zOBCD7bQYQM+ybKhGTvi14qspVRQ5fvD6DZvfPU2ZUGwJW6ZZm+40ORhCQHqm
+	 Es9+O5LwkIn4A==
+From: SJ Park <sj@kernel.org>
+To: Sasha Levin <sashal@kernel.org>
+Cc: SJ Park <sj@kernel.org>,
+	kmehltretter@gmail.com,
+	akpm@linux-foundation.org,
+	kunwu.chan@gmail.com,
+	lianux.mm@gmail.com,
+	stable@vger.kernel.org,
+	damon@lists.linux.dev
+Subject: Re: FAILED: patch "[PATCH] mm/damon/core: keep the temporal tuner quota over an unmeasured PSI round" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 11:17:50 -0800
+Message-ID: <20261107191751.195278-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261107050853-failed-6.18-df7d9a0f8d91@kernel.org>
+References: 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,91 +65,78 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit 1acb4fd2d011c4bd6cc961095ae17361c71ff61a upstream.
+Hello,
 
-The comment in fsverity_ioctl_read_metadata(), which justifies not
-checking for FMODE_READ, doesn't consider that the nonstandard access
-mode 3 (ioctl-only) exists.
 
-Opening an ioctl-only fd generally requires read (and write) permission.
-However, there are gaps with certain LSMs: an ioctl-only fd requests
-read (and write) permission via security_inode_permission, but not
-security_file_open.  With certain LSMs relying on the latter, such as
-Landlock and AppArmor, an ioctl-only fd can be opened without the LSM
-granting read (and write) permission.
+On Sat,  7 Nov 2026 05:08:54 -0500 Sasha Levin <sashal@kernel.org> wrote:
 
-Since FS_IOC_READ_VERITY_METADATA returns hashes of file contents
-blocks, it should require read permission.  This also applies to
-FS_IOC_MEASURE_VERITY, which returns a hash for the whole file.
+> The patch below does not apply to the 6.18-stable tree.
+> If someone wants it applied there, or to any other stable or longterm
+> tree, then please email the backport, including the original git commit
+> id to <stable@vger.kernel.org>.
 
-Meanwhile, ioctl-only fds are a rarely-used feature, not known to be
-used with either ioctl.
+TL;DR: the patch is not needed for 6.18.y.  Please ignore this failure.
 
-Therefore, just disallow these ioctls on ioctl-only file descriptors,
-similar to what was already done with FS_IOC_ENABLE_VERITY.
+> 
+> To reproduce the conflict and resubmit, you may use the following commands:
+> 
+> git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+> git checkout FETCH_HEAD
+> git cherry-pick -x df7d9a0f8d916eeea375430ae3360724afecde15
+> # <resolve conflicts, build, test, etc.>
+> git commit -s
+> git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050853-failed-6.18-df7d9a0f8d91@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+> 
+> Thanks,
+> Sasha
+> 
+> ------------------ original commit in Linus's tree ------------------
+> 
+> >From df7d9a0f8d916eeea375430ae3360724afecde15 Mon Sep 17 00:00:00 2001
+> From: Karl Mehltretter <kmehltretter@gmail.com>
+> Date: Tue, 22 Sep 2026 22:51:37 -0700
+> Subject: [PATCH] mm/damon/core: keep the temporal tuner quota over an
+>  unmeasured PSI round
+> 
+> The patch in mm-unstable of subject "mm/damon/core: handle uninitialized
+> damos_quota_goal->last_psi_total" scores a PSI quota goal without a
+> previous sample as achieved.  This leaves the consist tuner's input
+> unchanged, but the temporal tuner sets its quota to zero for an achieved
+> goal.  A running scheme with a nonzero temporal quota therefore loses a
+> charge window after a quota-goal commit.
 
-More specifically, explicitly check for FMODE_READ.  This also covers
-write-only fds to non-verity files which otherwise would have failed
-with ENODATA.  This change in error code for write-only fds should be
-fine too, as these ioctls cannot be usefully used with write-only fds
-anyway, but it's worth noting as another technicality.
+This patch was meant to be squashed into the mm-unstable patch before being
+mainlined.  But seems I failed at clearly communicating it to Andrew, and
+checking it further.
 
-Fixes: 4dd893d832cf ("fs-verity: implement FS_IOC_MEASURE_VERITY ioctl")
-Fixes: e17fe6579de0 ("fs-verity: add FS_IOC_READ_VERITY_METADATA ioctl")
-Cc: stable@vger.kernel.org
-Reviewed-by: Andrey Albershteyn <aalbersh@kernel.org>
-Link: https://patch.msgid.link/20261022211522.1489943-1-ebiggers@kernel.org
-(5.10: dropped the FS_IOC_READ_VERITY_METADATA changes, since that ioctl
- does not exist in this version)
-Signed-off-by: Eric Biggers <ebiggers@kernel.org>
----
- Documentation/filesystems/fsverity.rst |  2 ++
- fs/verity/measure.c                    | 10 ++++++++++
- 2 files changed, 12 insertions(+)
+This fixup is needed for only temporal tuner available kernel.  Temporal tuner
+was merged on 7.1.  So, this patch is not needed for 6.18.y.
 
-diff --git a/Documentation/filesystems/fsverity.rst b/Documentation/filesystems/fsverity.rst
-index 895e9711ed881..4bd6f25e1a4b3 100644
---- a/Documentation/filesystems/fsverity.rst
-+++ b/Documentation/filesystems/fsverity.rst
-@@ -146,6 +146,7 @@ fatal signal), no changes are made to the file.
- FS_IOC_ENABLE_VERITY can fail with the following errors:
- 
- - ``EACCES``: the process does not have write access to the file
-+- ``EBADF``: the file descriptor is not open for reading
- - ``EBADMSG``: the signature is malformed
- - ``EBUSY``: this ioctl is already running on the file
- - ``EEXIST``: the file already has verity enabled
-@@ -207,6 +208,7 @@ regardless of the size of the file.
- 
- FS_IOC_MEASURE_VERITY can fail with the following errors:
- 
-+- ``EBADF``: the file descriptor is not open for reading
- - ``EFAULT``: the caller provided inaccessible memory
- - ``ENODATA``: the file is not a verity file
- - ``ENOTTY``: this type of filesystem does not implement fs-verity
-diff --git a/fs/verity/measure.c b/fs/verity/measure.c
-index df409a5682edf..be3628f9e557f 100644
---- a/fs/verity/measure.c
-+++ b/fs/verity/measure.c
-@@ -28,6 +28,16 @@ int fsverity_ioctl_measure(struct file *filp, void __user *_uarg)
- 	const struct fsverity_hash_alg *hash_alg;
- 	struct fsverity_digest arg;
- 
-+	/*
-+	 * This ioctl returns a hash of the file contents, so it should require
-+	 * read permission.  Disallow it on ioctl-only (i.e., nonstandard access
-+	 * mode 3) fds, which can in some cases be acquired without passing all
-+	 * LSM read-permission checks.  Also disallow write-only fds, which can
-+	 * refer only to non-verity files which would fail with ENODATA anyway.
-+	 */
-+	if (!(filp->f_mode & FMODE_READ))
-+		return -EBADF;
-+
- 	vi = fsverity_get_info(inode);
- 	if (!vi)
- 		return -ENODATA; /* not a verity file */
+> 
+> Use the effective quota to preserve the temporal tuner's previous
+> goal-achievement state during an unmeasured round, as SJ suggested [1].
+> Score the goal as achieved when the effective quota is zero and as not
+> achieved otherwise.  A new scheme's initially zero quota stays zero, and
+> the consist tuner's behavior is unchanged.
+> 
+> Move the PSI current-value calculation and last_psi_total update into a
+> helper that takes the current PSI total.  This lets a unit test cover the
+> unmeasured and measured rounds without depending on system memory
+> pressure.
+> 
+> Link: https://lore.kernel.org/20260923055139.2982-1-sj@kernel.org
+> Link: https://lore.kernel.org/damon/20260916001311.101024-1-sj@kernel.org/ [1]
+> Fixes: 2dbb60f789cb ("mm/damon/core: implement PSI metric DAMOS quota goal")
 
-base-commit: 3a323bc22b881a5bdc1646080f93f5ecb22850bf
--- 
-2.56.0
+FWIW, the above Fixes: is the Fixes: of the mm-unstable patch that this patch
+was intended to be squashed into.  Hence the above is incorrect.  Correct one
+should be below:
 
+Fixes: 29c6084658af ("mm/damon/core: handle uninitialized damos_quota_goal->last_psi_total")
+Cc: <stable@vger.kernel.org> # 7.4.x
+
+
+Thanks,
+SJ
+
+[...]
