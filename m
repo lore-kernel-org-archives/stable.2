@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047566;
-	b=fYCo3b8JH0L6y8VsjhyaMKpTi/2AFI3Umq0CEzjxuqhjqQuGQ55nI96I7zcxam8+Obti
-	 5nH+1uG3qwj/RM2O2KelS8jZ7Q+RGYstW9e+1R6YNIwiPIwbP25UtYT4J9XBJD8tlE6vx
-	 gCktookwjKM6dvsfAKTgHt8XMM7UAVQfj3wY/Ihv8VCHM3ofIeb7p/hnRtnnRrIa9rBk9
-	 EXha6r/nx024Awzx6BiTJv4zWcGacjm5aD+76JgkaF/eLL8JdbErb3pU1Il82CqSvq+kc
-	 gXoCz/ZeciiF9E7EB0p06gfUO+J6IZSbUpTjGMQD5TVlVlaHcVO7M/kl2qpK3nsPYQw==
+	t=1794047568;
+	b=RtfdlgfBosM6i1ntg+Ol86QafTzAhIha3bXGyZj1/QpZuZsoXXJyXRyLGCyefvr7w/k1
+	 3CQj35E+6WmZr5zVPdmyZClrRo9Gm97T72z4klCZq6rlA5hdiTAIdsLdQixMu7iaWYg3g
+	 P5HCtWBZQh2wp1jtkaKt8Q5teJZq70Xl4ANuk3bi1SQDRP5p8PO0gp0f6+2Nm6dznmkJE
+	 TeS8wigVbe3HCTjDGekTQR4kTZleVCYIfJ1N33DH6kIB/GlvbjFBaO+GVDRcFT7obQHGc
+	 u/3rakgGZB74UxEEcuhv0HRRZsW+xSFI0rmToSxccJ+dLjjqU5n37+xfo1s/ZWsmr9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047566;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047568;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=xBI4LJObbGWqVucWcEoVPA1PjDU0ng6/TTVfXzubj3o=;
-	b=L/hIALTxm2sU0J1j8qrPZeAL8xDPtAmrVwWZFsGY5nViicuS+YTRxi6sdEw/jeZ9XGbq
-	 cyHMfVOh2YR0LGboEnZKKiYyKFlOYIcgIAEs4N5IPlu8UQj7zCISSPyInxN3+e/6QalOW
-	 eXfvVj6NmluCtTHEvUi7nMaJq6kvbecA8RzRnGoo+9GWTgsWzf5XuWHQmCT5dW15QPYMo
-	 VG4vxn3ovuYo4QNXbY17ff8BRZxcurp9pUdN/P25WwJu8PQmXp8yHIA7Ewq1WTin6rbXe
-	 V+n5bg409LYZy0cXSNeXkHMBCbrcVZguXKlEnz3BDpT3oF1ry4JX5mO/pfJEv653+Sw==
+	bh=VIt3BKSp3noupiAXdI98fI/wpabFVZupCt6sWNdo/b0=;
+	b=eOdfhnRyv2O83lP1RQwrEbdMF8CvebyrPH/CiRl/3izrY5OOQAxEXsHhFwzmRIrXNlRN
+	 dm/5ZeKkx1DNF1VLBFXxhyRMe2aQEvgdk4UDtatESa6aplMTo4F4pjJKk7LzH5EnZMxWh
+	 /HUsIVUz10/dH8hA6aIaRgyrUTgPRU1xvEp6DiT0UlJcaB3YOFWqP3etGaLOfZpAHR6Oz
+	 kieMKKxDa1qN1pDHP1AXvdUfWh293yslNjyXjUIDQTzaq/ZDBbkx4UsHoysiO35BxZ2pc
+	 kuWZlbtAv2FESrSSmvBZiPrODBV/Siynq2TSroGM9kQCA1XbcGKczOHKTCNwBR8WsIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KNFmY+7T;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PqmgGcDq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47FAF606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:32:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 286B6606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:32:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KNFmY+7T
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E8F91F0089F;
-	Sat,  7 Nov 2026 10:32:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PqmgGcDq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91DB71F0089F;
+	Sat,  7 Nov 2026 10:32:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047565;
-	bh=xBI4LJObbGWqVucWcEoVPA1PjDU0ng6/TTVfXzubj3o=;
+	s=k20260515; t=1794047568;
+	bh=VIt3BKSp3noupiAXdI98fI/wpabFVZupCt6sWNdo/b0=;
 	h=From:To:Cc:Subject:Date;
-	b=KNFmY+7TOkjsshudiQkwCQSn3carF8u++5nh+eYcydF6xiqxi9K8bVLhYmd3XWEFD
-	 wFK54DkwjfrtV86Bo/wO7LR6k7OjE7KhKoo31v85vZhDv3EHCXHOWpSkqv5PscnE5g
-	 C+i97c7g/KUZ5SyAYelrI6kg/hyqUZayoyYvjPUO3H+GpNzMdH6PH23gtb2LrCrYDT
-	 4qSk78vOKV6asafOnn/s1Q8W2Yf2KEvQKlR158vbOIhZs6v2XYUH8dNjyZCEPFj5Vb
-	 jl0v81KSAz4vrIvqPpFMv0c8luxnPKU5phxvup0/BVm/TfuB5815dxO26GoWwqZfN6
-	 yTQ/z4AIlaGfQ==
+	b=PqmgGcDq7zCsLs9WJHrkQP31fxZg39mf9q4U7FoQtDUp/JR5CPgppt4bnekn2nCJo
+	 Bbg/wu8z757PpuTang+0QER/WM3holgrP5HPl2hgyIPYMG5UZqeiric5KrIzSXFJwe
+	 MxHLhamlCdOlmwDfI2nHfwNOhCQFNtGZCMJxgwD2lIfJIynicYAqLcEwC/34cDaIKY
+	 pjXh1EOqq39jsK4rfDxG/k41jEjbh6UEWU97PmDZ33zjaZaY2+PKx9kHLQbyDpeKrB
+	 EqCtbNs6HTSF6ZKAKXPlsS1bcyrBsHCYMuokKM4QhW8zZ39hIlsfHeIsLcc8WACnK7
+	 r3SmqrLgqkz+Q==
 From: Sasha Levin <sashal@kernel.org>
 To: peter.ujfalusi@linux.intel.com,
 	tiwai@suse.de
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ALSA: hda/hdmi: clamp num_cvts against cvt_nids[] in hdmi_read_pin_conn" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:32:44 -0500
-Message-ID: <20261107053244-failed-6.6-6cf3ab38b0d5@kernel.org>
+Subject: FAILED: patch "[PATCH] ALSA: hda/hdmi: clamp sad_count in ELD proc write handler" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:32:46 -0500
+Message-ID: <20261107053246-failed-6.6-b3e7ddd694f8@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,63 +68,61 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 6cf3ab38b0d53d41f00fe594b2986849bdf994ae
+git cherry-pick -x b3e7ddd694f8429217ba509b55b910a0e4361dfb
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053244-failed-6.6-6cf3ab38b0d5@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053246-failed-6.6-b3e7ddd694f8@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 6cf3ab38b0d53d41f00fe594b2986849bdf994ae Mon Sep 17 00:00:00 2001
+From b3e7ddd694f8429217ba509b55b910a0e4361dfb Mon Sep 17 00:00:00 2001
 From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Date: Thu, 8 Oct 2026 11:51:22 +0300
-Subject: [PATCH] ALSA: hda/hdmi: clamp num_cvts against cvt_nids[] in
- hdmi_read_pin_conn
+Date: Thu, 8 Oct 2026 11:51:33 +0300
+Subject: [PATCH] ALSA: hda/hdmi: clamp sad_count in ELD proc write handler
 
-hdmi_add_cvt() stores each converter's NID into the fixed-size
-spec->cvt_nids[] array (used only by the Intel Haswell pin-connection
-fixup), but only when spec->num_cvts is still within
-ARRAY_SIZE(cvt_nids); the num_cvts counter itself is incremented
-unconditionally regardless of whether the store happened. A codec
-that reports more converters than cvt_nids[] can hold therefore ends
-up with num_cvts > ARRAY_SIZE(cvt_nids).
+snd_hdmi_write_eld_info() parses a "sad_count N" line from the
+root-writable ELD proc interface and assigns N directly to
+e->sad_count with no upper bound, unlike the per-index "sadN_*" lines
+a few lines below which are already bounded to ELD_MAX_SAD.
 
-hdmi_read_pin_conn(), on the intel_hsw_fixup path, copies num_cvts
-elements from cvt_nids[] with memcpy(), so once num_cvts exceeds the
-array size this reads past cvt_nids[] and writes the resulting
-garbage NIDs into per_pin->mux_nids[].
+snd_hdmi_eld_update_pcm_info() later iterates
+"for (i = 0; i < e->sad_count; i++)" over the fixed
+e->sad[ELD_MAX_SAD] array, so an oversized sad_count read from the
+proc file causes it to walk past the array.
 
-Clamp the copy length to the actual size of cvt_nids[] instead of
-trusting num_cvts, which is also used unbounded as the size of the
-separate, dynamically-sized spec->cvts array and must not be
-truncated at the source.
+Reject sad_count values above ELD_MAX_SAD, matching the existing
+per-index guard.
 
-Fixes: bce0d2a80e42 ("ALSA: hda - Allow unlimited pins and converters in patch_hdmi.c")
+Fixes: acb059938810 ("ALSA: hda - ELD proc interface write updates")
 Cc: stable@vger.kernel.org
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Link: https://patch.msgid.link/20261008085122.9442-1-peter.ujfalusi@linux.intel.com
+Link: https://patch.msgid.link/20261008085133.9528-1-peter.ujfalusi@linux.intel.com
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/hda/codecs/hdmi/hdmi.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ sound/hda/codecs/hdmi/eld.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/sound/hda/codecs/hdmi/hdmi.c b/sound/hda/codecs/hdmi/hdmi.c
-index a8aac0b36c73f..355fd3e731836 100644
---- a/sound/hda/codecs/hdmi/hdmi.c
-+++ b/sound/hda/codecs/hdmi/hdmi.c
-@@ -983,7 +983,8 @@ static int hdmi_read_pin_conn(struct hda_codec *codec, int pin_idx)
- 	snd_hda_set_dev_select(codec, pin_nid, dev_id);
- 
- 	if (spec->intel_hsw_fixup) {
--		conns = spec->num_cvts;
-+		/* spec->cvt_nids[] only has ARRAY_SIZE(spec->cvt_nids) slots */
-+		conns = min_t(int, spec->num_cvts, ARRAY_SIZE(spec->cvt_nids));
- 		memcpy(per_pin->mux_nids, spec->cvt_nids,
- 		       sizeof(hda_nid_t) * conns);
- 	} else {
+diff --git a/sound/hda/codecs/hdmi/eld.c b/sound/hda/codecs/hdmi/eld.c
+index 1464fd1c675bc..fc6fe1b0873c3 100644
+--- a/sound/hda/codecs/hdmi/eld.c
++++ b/sound/hda/codecs/hdmi/eld.c
+@@ -155,9 +155,11 @@ void snd_hdmi_write_eld_info(struct hdmi_eld *eld,
+ 			e->aud_synch_delay = val;
+ 		else if (!strcmp(name, "speakers"))
+ 			e->spk_alloc = val;
+-		else if (!strcmp(name, "sad_count"))
++		else if (!strcmp(name, "sad_count")) {
++			if (val > ELD_MAX_SAD)
++				continue;
+ 			e->sad_count = val;
+-		else if (!strncmp(name, "sad", 3)) {
++		} else if (!strncmp(name, "sad", 3)) {
+ 			sname = name + 4;
+ 			n = name[3] - '0';
+ 			if (name[4] >= '0' && name[4] <= '9') {
 -- 
 2.53.0
 
