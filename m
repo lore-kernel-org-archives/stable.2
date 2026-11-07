@@ -1,91 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794018409;
-	b=c7Wuz5coIYPtn2YyrfVOS7ghahtkuOsDWm3Z7g4v18HWoC035Avik7jFuALpfg1JP5vS
-	 Q+HPpcidFRLqJwdxElrMfnUrz2FddC5exTHozymA8nTWXu5KIaRKP4Rsv8CTEZnBQef0a
-	 u9KbFzg8LIX0rR2BwkTrnyWP+t9oSbF3e/mTa4ZQ7ICIBtBVWsEigDxrpy3kBmxN12rIJ
-	 B6UPwVzHmZsQ+zRgTW5Axb2En1dW1qisr/aqePgW6rRW8DKgRc7OAXFripMoA0cqGoY4T
-	 AhAV7MwXwFFNikZb5HzO4Zf9PhL9QeKaNtQAFTGusq+FoEQQ+XdRJiyUUS4w2JnVWyw==
+	t=1794018558;
+	b=ZF9DbaoP0ra0lzZWvEodTyGgdGC5uHqZPjpuw+YNfrgDFUsSmni8xj77y04phg6MezCi
+	 RSjb86CngmyJh81oilsPuWxvppmvvekH1R94ZE7asXDEMijYSLzGyvva6FeMuJTiYf1nw
+	 ZE00x0avYbs4l/TJvbe84dThUDeYwEhxHIwLLIZM/LorUKkY+e8CPmgakSQgTHkIL+yu/
+	 Hvlo0HKKqOHMJoqqkBHUifr9NPmxHAT8RzAsDTIDiRNnRXjcWtCM1DXqIahtO/9+RNpsu
+	 oQny2Bf9twBOhPUfoM+2j98VaQnuu3wW5GZzXgND1AeBx6C9H7FoCShFc6bG32cpUlg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794018409;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794018558;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=4NbOECnSKC2AUNIuqP3Ssdsa8prET02+IbfFdfmCMKg=;
-	b=o6MBgySRuMW5KLY4GPwgEfagDuaVsKnYe0t3rfJH7d0XbHgh3Wdf/b+on9GuA9x72ii8
-	 q8Y3zTiPx/i/mYmugMQqQDe7koUUHmSqir/wAOwxpVZBGPBMCrzLHIMH+bpTJqpkUgyFM
-	 R/5b2ba5ZD4ChfMrAknuqlelK+XuXF+lHaTYkWRpZ03K1CzZzzqLFO9g5Y6AsUP9+qT01
-	 VMNQYVExJXnXoIJKZVltuWmraazniV5KgbWzwq33kYQTlzokPIzSWlWDAgEC1YJORXGWD
-	 QH3t4ch0P9yVjoHfsyFEmHdDkQ4Xbeu7toktM9Ux1Zx4zzHqHnZgs45Mg+1ITfqWEZw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=NQXpLd3G80J/dmpcLqjd+RdJWhUp5qcgTvnxnG9ug9I=;
+	b=3I/KBnWdc49rrcLk3nrx+kJzHCsuBgTtCr1hsZbEHLhc4j5fCgR+HuW0vCyPjbDpvLX9
+	 amssRgWryaHwOYLFAKpRmSCNgVevIz2zu4kAJO5aghN3tMfBOikNvYjWM9qoLan4qyRJ9
+	 YGji4n8wMT4sAclwxhczrNhIUH8wo/YpjsuOOVBMX8XWCMtVfoF192g9iEsrWSXwW7Dpp
+	 +n5Tc1/tI29RtQLRDemgCRCBuVX95f5vmWQHvuzxyHlQrE8YfNLJso0N1XLCjr1x4E+iK
+	 YdVkaFs3/NHU/Bds/L2T7kg5lV6N8LITwDL8RX46NL0JEOUMkqNcAsXZq1F6OxUPKAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="c/BtaKQd";
-	arc=none smtp.remote-ip=209.85.128.176
-Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b="Hv/gbKSz";
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7F85606A331
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 02:26:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7F85606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08075606A333
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 02:29:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08075606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=c/BtaKQd
-Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-8b0db268bd8so9277767b3.1
-        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 18:26:48 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=Hv/gbKSz
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso2049918eec.0
+        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 18:29:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794018407; x=1794623207; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4NbOECnSKC2AUNIuqP3Ssdsa8prET02+IbfFdfmCMKg=;
-        b=c/BtaKQdoUSyw7MhMbhuqe8PF01x8kwtH85nic69RzP4R8bS6AcU1lqV6IQtKG3BjM
-         RgBQx0u403/OhjWB3anJi+j9YsxwocOzAhvHtvRSmihQimbL5KWJQ28fH6eV5rMP6y1A
-         FB7USgxqmcd7LTEIds/Amz/LOdsuFMkg/Ud5qSWwP2HU+AkSk6y2C3Q468lVjDbV03la
-         Gtwp89oU0J94uUZmnyXBn8hJo4Gcw18wQ93TyO10zvaGIj23Hs0/SLQoGahL3c6jvK7K
-         R0CoWiVcvIoFeSV1ChPokgSEgN1QMV4+frMfZIBdpmimZkOv/E9cGsKaqz1Y8MaRuzO9
-         2FUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794018407; x=1794623207;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=bytedance.com; s=google; t=1794018557; x=1794623357; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4NbOECnSKC2AUNIuqP3Ssdsa8prET02+IbfFdfmCMKg=;
-        b=eAmgosZivDgakFqgaIue9dLRd9H1IUChLYpMXGfUPfU88zclDhg5mg7akrPufUN1Us
-         1MsLwqxrLIbwDabK8NX+RDaKuvS9Ph6mz9+b7OzX+AX4/kE0wrv+luqkhtBNyKg6THSe
-         GKmfSQeUjYwGinOi49U6Vrt5srE6QGDc4mYGiu3BLx7V5P0qaO20sGgkMKvT4KVeDzhx
-         3IK4W9hqMg6yuNFSDyZTH6TEtVN0tvG6zlFQ70gcSBWJCP1dPZwXZaZCswYuL/+hxtKk
-         uSbDunxp6CGigMqbqO3JZU28wNV/KCHOpyQmQW71hpBME3f4rl/2GKs8WNELU+xCvrLP
-         72gA==
-X-Forwarded-Encrypted: i=1; AL+hErG3VsxIYZL57ijklFJQQBEMDiBdLBAEGOvkY2mEzRfDHAkDP4+MyVcevlmrolnXaYmLycngQfc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z99oMPQnIf/J+86E1jExpME+Qvze1jOwpTVcTmNB2MmJtYpA2la
-	J7jkST76CRtS2AFvjdiWq5veH+xL4wl9y+X4FrUWbY+Rj9lKwqvmopCpUYrqQAhqlDw=
-X-Gm-Gg: AYBFou2ulYyAD2stQKBbkvE0I7DLnPd8vmunLHoOOumoG91oOYFNmp1gCtnSCvY3/mS
-	n5X4pevJzMmLHAEdB9jH7UEzfWDAu5EE7FmSEAyx2DovY6B7qR9+RVGaKyUgmV2lAgEBOuhloG6
-	iQCY/9205OzVxRvZkFbgYStQBs0toQfsA5ikA7GuQ45MVlzosfrHBK4aEqzoEouxDbSNvxAXztk
-	MXPztd5mCUnT+t3hdVeuLljUX6pMvUb102R/IHPHkqEFzL1BUhSCwuMZN23cs3hTWpONbOlrJEV
-	sYBVg4GsBs4oeNbS9rvUtFJU5tswv7ODEXOqIpU/FaH7dgt4TlZJ1zty4KFqBzdXeopFeRjPNuc
-	uMVG9Kg9fkCgLzkD6Z6+3F9PgH5knfj1BxmV+eHRyvxTpXtvnix7HcRVcLVUmC4/tVgdVNlz0k1
-	Ye6xGecUlCwTKaPdIhlBr3ij2NzNLeZW47UYg3lsv7atZesYLYTIV8CAg1+9L3IxbuPARqRduQk
-	oShx3bqu+y8ZMXJk6otiG2CCcCRxlJ5y+ikFPhvOxsYljvGeuR/kQlhHq3TtYEuApZVOFvBSPUl
-	wE4B+b01rHoUGXDzFuyH9ubcRLNV9ypm8MRWcmazVGVrQaU4opUKkKZijIs=
-X-Received: by 2002:a05:690e:b8b:b0:67c:1b55:8b27 with SMTP id 956f58d0204a3-67c1b558dd0mr1454574d50.5.1794018407574;
-        Fri, 06 Nov 2026 18:26:47 -0800 (PST)
-Received: from pop-os.local ([2804:868:d047:aeb1:207f:64c4:29d4:b099])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b33f5f5243sm32755517b3.3.2026.11.06.18.26.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 18:26:47 -0800 (PST)
-From: Cristiano Souza <cristianocps@gmail.com>
-To: linux-sound@vger.kernel.org
-Cc: tiwai@suse.com,
-	Cristiano Souza <cristianocps@gmail.com>,
+        bh=NQXpLd3G80J/dmpcLqjd+RdJWhUp5qcgTvnxnG9ug9I=;
+        b=Hv/gbKSz/ftIDOEtIkiFWg0RDYwGA3nNLsTF3VxBJug1HdaXrjmOBxKB2omceRrLpL
+         RsW6fw+In/lT7WbO3sXFtKKbiPkqqNcN/OtJS5f4P6kJQuRzLdTjexpbJg9oI2uzPHhq
+         zRViPcuSQwruAeFu9SL5g5545lKYg0cAxul5rhTc4DVzyAIUVzxTHnIYlSm/itJ5xj1E
+         T4vsfuaqqw5EQMPsO+goEZRKQ+FZRbMwsW3Iyt0k5YQZnWwj7SLRa0o+rAbk3Uletiq7
+         jUzkRvvz1Pa9dFH753ndANtmhJxVvbKmkPsqvgxUhrDlAU4+6JqVn7YZbgUIHxJnaEOW
+         MPUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794018557; x=1794623357;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NQXpLd3G80J/dmpcLqjd+RdJWhUp5qcgTvnxnG9ug9I=;
+        b=pwL21/vp46Xas9/BnLu+QJRnRUkeDPlgjqsHUFFkD7kXF+3aY8qR/TDHgL4ycDpKOI
+         UhVcI713SsUOYtdkVqblEqlEvJHpa+XcEPxyasfhb3pn3D3dTI5DOrNiUFbN75waHtmJ
+         9pk9xhx76ZjaHLHk+nBoKiesAgBHVeyPNNYzDMAGpmud3G62yyEKFRYj6ZhHwGtUiO2q
+         eb3IawdQjuvy0T0Z8fMAJyh04rwbArRBmANKHgcYy2NOSocKXXiRh8m12b8w5kTxmKWL
+         ys63J4Udp3qlYt4ihOQ4R2PnZFP1vOTOh241YL5KnNNYGyn2sOUYpaB44sZLwaZoIoPb
+         uPlw==
+X-Forwarded-Encrypted: i=1; AL+hErHgSxHfxCR+t9uBGX01WVtIkbyqX8Edj5kJTkjQHWwKZQVLs67YF/K+TNVTPo+aFkd4xmKvX6U=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+wxkZroEUB01PNw4kjGsuswY4D7siCDRJizq3PLt7MLZDJhzLT
+	DjO41DAX0wHmclcrFle7fnEESpBUj287kCVT86oTBqNvjWQ27uBK+KG/IDiVMIsuQCE=
+X-Gm-Gg: AYBFou0AxoW8e0R7FILpE5KXjJQt+O9YjghXtJLsk2m04RIGpB353jbVOnU7ScBop25
+	9aBYABY3qP4xiD2acfbrVc+qy1vrZ+T1RaPYVEeqdVWhPWJR3jCsjplguTpjNkobWFq/zCvVTim
+	H/SJWlnkN/xj2YuXVO7cjIXvAhqHZLajSnkzpPcaArLV41K8LInYQ7jOoiYKlM04tT3/1nvg3qc
+	+IhTzBIZEeyD6s4qYKV5X/R5x2XbjXmZsirrdXwqzTKvqB/UkY1PEePF6Mv7eUm6AFkiRzJuuKC
+	0GN0z5qLiylEEb6XCpjsL33yTGErmys9dbJeBebEouWfBRL1YqhhE6T0BsBkyakjERmXABtDMuL
+	EkiehAvL7mK+iAj9TstX8YMk+kOGMp0k7kfLlK7ogDCSuJQ5yIAKbSrakS0GUfrhGJMTCaSvRrj
+	LlhS0zA6JRBtKMqOd/shhU3zW4EdReoqw84mE2wegDDrjNV6MxAwZUjOFNvcJ0DWZNIghIPb7Yf
+	jCE+4bwhBYmTD1vYUxAsyF3zcszN+2tAE2d8JQf8R0Oa/twjhPTfEo5qc2ce7FR1SnRBR0P7rSH
+	u1s5jIOOupuDHD92kp+TPv3Al8qhJ/2hK9C2Jd+OZcC9PCDgH/VV5FNdBz2E
+X-Received: by 2002:a05:7301:dc2:b0:35e:5ca:e0df with SMTP id 5a478bee46e88-36f76b18abcmr6279268eec.35.1794018556813;
+        Fri, 06 Nov 2026 18:29:16 -0800 (PST)
+Received: from G6L4RL2QG9 ([2409:8a00:1832:6900:c8de:13da:804b:a0fa])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36faa4b8aacsm10457077eec.23.2026.11.06.18.29.10
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 06 Nov 2026 18:29:15 -0800 (PST)
+From: Muchun Song <songmuchun@bytedance.com>
+To: Oscar Salvador <osalvador@suse.de>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Mike Rapoport <rppt@kernel.org>
+Cc: Qi Zheng <qi.zheng@linux.dev>,
+	Lance Yang <lance.yang@linux.dev>,
+	James Houghton <jthoughton@google.com>,
+	David Hildenbrand <david@kernel.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Yili Zhang <zhangyili01@baidu.com>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Muchun Song <songmuchun@bytedance.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v3] ALSA: usb-audio: Skip broken playback feature unit on XiiSound chips
-Date: Fri,  6 Nov 2026 23:26:43 -0300
-Message-ID: <20261107022643.135168-1-cristianocps@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Subject: [PATCH v4 01/13] mm: hugetlb_vmemmap: fix OOM during head page allocation
+Date: Sat,  7 Nov 2026 10:27:44 +0800
+Message-ID: <20261107022756.77731-2-songmuchun@bytedance.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261107022756.77731-1-songmuchun@bytedance.com>
+References: <20261107022756.77731-1-songmuchun@bytedance.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -97,166 +110,62 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Weltrend XiiSound-based devices (040b:0897, e.g. Redragon H878
-wireless headset) expose a UAC1 playback feature unit whose volume
-and mute controls are unusable in practice: the reported per-channel
-dB range is only 0..+0.39dB, yet setting any volume below the
-maximum mutes one or even both channels, and the mapping between
-logical and physical channels is unreliable.  Any attempt by
-userspace to drive the hardware volume therefore results in muted
-or one-sided audio.
+From: Yili Zhang <zhangyili01@baidu.com>
 
-Ignore the playback feature unit via a usbmix_name_map so that
-userspace falls back to software volume, and pin the unit's master
-and per-channel volumes to the reported maximum with mutes cleared
-when the mixer is created, so the signal path always stays fully
-open.  The capture path (microphone feature unit) is not affected
-and keeps working.
+The head page used during HugeTLB vmemmap optimization is allocated with
+a bare GFP_KERNEL mask. When boot-time hugepage allocation drains free
+memory, parallel optimization workers can enter OOM handling before
+userspace exists, leaving the kernel with no killable process and causing
+a panic.
 
-Tested with a Redragon H878 wireless headset on PipeWire/PulseAudio:
-stereo output works on both channels at any volume, software volume
-applies smoothly, and mute/unmute works.
+hugetlb_pages_alloc_boot_node() invokes HVO on the folios accumulated so
+far when available memory reaches zero, allowing the released vmemmap pages
+to support further hugepage allocations. If allocating the HVO head page
+returns -ENOMEM, the bulk HVO path frees any vmemmap pages it has already
+accumulated and retries, while callers can continue with an unoptimized
+folio if the retry still fails. Therefore, neither an allocation warning
+nor OOM handling helps this best-effort allocation. Use GFP_KERNEL |
+__GFP_NOWARN | __GFP_RETRY_MAYFAIL to allow reclaim retries while avoiding
+both.
 
+Fixes: c0b495b91a47 ("mm/hugetlb: refactor code around vmemmap_walk")
 Cc: stable@vger.kernel.org
-Signed-off-by: Cristiano Souza <cristianocps@gmail.com>
+Signed-off-by: Yili Zhang <zhangyili01@baidu.com>
+Co-developed-by: Muchun Song <songmuchun@bytedance.com>
+Signed-off-by: Muchun Song <songmuchun@bytedance.com>
 ---
-Changes in v3:
-- Re-pin the playback feature unit on resume via
-  snd_usb_mixer_resume_quirk(), as the device may lose its state
-  over suspend (Sashiko AI review).
-- Validate the UAC_GET_MAX read length instead of only checking for
-  negative errors, to avoid pinning with a short read (Sashiko AI
-  review).
+v4:
+- Split this patch out from patch 4.
+- After splitting it out, the resulting change was almost identical to the
+  patch at:
+  https://lore.kernel.org/r/20261104133938.50974-1-zhangyili01@baidu.com/
+  Retain the author of that patch and only rework the subject and commit
+  message.
+---
+ mm/hugetlb_vmemmap.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Changes in v2:
-- Skip the broken playback feature unit via a usbmix_name_map in
-  mixer_maps.c instead of open-coding the skip in the FU parser, as
-  suggested by Takashi Iwai.
- sound/usb/mixer_maps.c   | 19 +++++++++++++
- sound/usb/mixer_quirks.c | 59 ++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 78 insertions(+)
-
-diff --git a/sound/usb/mixer_maps.c b/sound/usb/mixer_maps.c
-index 98b4146..9218ca6 100644
---- a/sound/usb/mixer_maps.c
-+++ b/sound/usb/mixer_maps.c
-@@ -374,6 +374,20 @@ static const struct usbmix_name_map dell_alc4020_map[] = {
- 	{ 0 }
- };
- 
-+/*
-+ * Weltrend XiiSound chips (040b:0897, e.g. Redragon H878):
-+ * the playback feature unit is broken; its volume controls act like
-+ * mute switches below the maximum value and the channel mapping is
-+ * unreliable, so any hardware volume change mutes one or both
-+ * channels.  Skip the unit entirely and let userspace fall back to
-+ * software volume; the unit is pinned to maximum/unmuted by the
-+ * mixer quirk in mixer_quirks.c.
-+ */
-+static const struct usbmix_name_map xiisound_map[] = {
-+	{ 5, NULL },	/* playback feature unit */
-+	{ 0 }
-+};
-+
- /*
-  * Corsair Virtuoso calls everything "Headset" without this, leading to
-  * applications moving the sidetone control instead of the main one.
-@@ -790,6 +804,11 @@ static const struct usbmix_ctl_map usbmix_ctl_maps[] = {
- 		.id = USB_ID(0x1395, 0x0025),
- 		.map = sennheiser_pc8_map,
- 	},
-+	{
-+		/* Weltrend XiiSound (Redragon H878) */
-+		.id = USB_ID(0x040b, 0x0897),
-+		.map = xiisound_map,
-+	},
- 	{
- 		/* Microsoft USB Link headset */
- 		.id = USB_ID(0x045e, 0x083c),
-diff --git a/sound/usb/mixer_quirks.c b/sound/usb/mixer_quirks.c
-index 5839719..4c7d683 100644
---- a/sound/usb/mixer_quirks.c
-+++ b/sound/usb/mixer_quirks.c
-@@ -4603,6 +4603,59 @@ static int snd_audiofuse_controls_create(struct usb_mixer_interface *mixer)
- 	return err;
- }
- 
-+/*
-+ * Weltrend XiiSound chips (040b:0897, e.g. Redragon H878):
-+ * the playback feature unit (id 5) is broken; its volume controls act like
-+ * mute switches below the maximum value and the channel mapping is
-+ * unreliable, so the unit is hidden from userspace entirely (see the
-+ * quirk in mixer_maps.c) and userspace falls back to software volume.
-+ * Pin the unit's master and channel volumes to the reported maximum
-+ * and unmute them, so the audio path stays fully open.
-+ */
-+static int snd_xiisound_init_fu_pins(struct usb_mixer_interface *mixer)
-+{
-+	struct snd_usb_audio *chip = mixer->chip;
-+	unsigned char buf[2];
-+	int ifnum, ch, err;
-+
-+	if (mixer->protocol != UAC_VERSION_1)
-+		return 0;
-+
-+	ifnum = snd_usb_ctrl_intf(chip->ctrl_intf);
-+
-+	/* unit 5 is the playback feature unit on these chips */
-+	for (ch = 0; ch <= 2; ch++) {
-+		err = snd_usb_ctl_msg(chip->dev, usb_rcvctrlpipe(chip->dev, 0),
-+				      UAC_GET_MAX,
-+				      USB_DIR_IN | USB_TYPE_CLASS |
-+				      USB_RECIP_INTERFACE,
-+				      (UAC_FU_VOLUME << 8) | ch,
-+				      (5 << 8) | ifnum, buf, 2);
-+		if (err < 2)
-+			return 0; /* no such unit/channels, nothing to pin */
-+
-+		err = snd_usb_ctl_msg(chip->dev, usb_sndctrlpipe(chip->dev, 0),
-+				      UAC_SET_CUR,
-+				      USB_DIR_OUT | USB_TYPE_CLASS |
-+				      USB_RECIP_INTERFACE,
-+				      (UAC_FU_VOLUME << 8) | ch,
-+				      (5 << 8) | ifnum, buf, 2);
-+		if (err < 0)
-+			return err;
-+
-+		buf[0] = 0; /* unmute */
-+		err = snd_usb_ctl_msg(chip->dev, usb_sndctrlpipe(chip->dev, 0),
-+				      UAC_SET_CUR,
-+				      USB_DIR_OUT | USB_TYPE_CLASS |
-+				      USB_RECIP_INTERFACE,
-+				      (UAC_FU_MUTE << 8) | ch,
-+				      (5 << 8) | ifnum, buf, 1);
-+		if (err < 0)
-+			return err;
-+	}
-+	return 0;
-+}
-+
- int snd_usb_mixer_apply_create_quirk(struct usb_mixer_interface *mixer)
+diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
+index b8ce014ba6e6..7fcc97b12773 100644
+--- a/mm/hugetlb_vmemmap.c
++++ b/mm/hugetlb_vmemmap.c
+@@ -501,6 +501,7 @@ static int __hugetlb_vmemmap_optimize_folio(const struct hstate *h,
  {
- 	int err = 0;
-@@ -4616,6 +4669,9 @@ int snd_usb_mixer_apply_create_quirk(struct usb_mixer_interface *mixer)
- 	case USB_ID(0x0644, 0x8047):
- 		err = snd_us16x08_controls_create(mixer);
- 		break;
-+	case USB_ID(0x040b, 0x0897):
-+		err = snd_xiisound_init_fu_pins(mixer);
-+		break;
- 	case USB_ID(0x041e, 0x3020):
- 	case USB_ID(0x041e, 0x3040):
- 	case USB_ID(0x041e, 0x3042):
-@@ -4807,6 +4863,9 @@ void snd_usb_mixer_resume_quirk(struct usb_mixer_interface *mixer)
- 	case USB_ID(0x0bda, 0x4014): /* Dell WD15 dock */
- 		dell_dock_mixer_init(mixer);
- 		break;
-+	case USB_ID(0x040b, 0x0897): /* Weltrend XiiSound (Redragon H878) */
-+		snd_xiisound_init_fu_pins(mixer);
-+		break;
- 	}
- }
+ 	unsigned long vmemmap_start, vmemmap_end;
+ 	struct page *vmemmap_head, *vmemmap_tail;
++	gfp_t gfp_mask = GFP_KERNEL | __GFP_NOWARN | __GFP_RETRY_MAYFAIL;
+ 	int nid, ret = 0;
  
+ 	VM_WARN_ON_ONCE_FOLIO(!folio_test_hugetlb(folio), folio);
+@@ -527,7 +528,7 @@ static int __hugetlb_vmemmap_optimize_folio(const struct hstate *h,
+ 	 */
+ 	folio_set_hugetlb_vmemmap_optimized(folio);
+ 
+-	vmemmap_head = alloc_pages_node(nid, GFP_KERNEL, 0);
++	vmemmap_head = alloc_pages_node(nid, gfp_mask, 0);
+ 	if (!vmemmap_head) {
+ 		ret = -ENOMEM;
+ 		goto out;
 -- 
-2.43.0
+2.54.0
 
