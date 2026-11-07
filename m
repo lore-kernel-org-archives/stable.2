@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794045956;
-	b=FstOJvHXOczvrEJc5qQIAnER34Oi54bX7jvE6kVyO09uXamB3y+3OMuIXYIH7pHazbwO
-	 VU0dzOn0bUivVMRBjpbjCsawodyhE6eNMiuBrfS0uVGGQxqY5qli6AO+zGm9fXsk0U4+w
-	 21SfGzD0FRxNA6aRNwUT/pYRbytmdPjpCZK50N3FCQ60wq8j/Wjn8TXOISb0/u5ACj1ny
-	 gCNe0IqE2i0rOFsp48AbaaI57ReSuheQvJTj03k7kEUlhrHZ/SxaRNNX40T80rMy7vleL
-	 L1MbPRuO4dw6he/weDbTlPb3anFSj+ihnVGA+8Dmezck85ia5tPpWIQl50VA90sZntQ==
+	t=1794045959;
+	b=eMB17r67AMTpLZlXhKV00VCD17lZ8AAZw8IA6klcEBtMer1EZ1otp26Z3/C+nZDMj+VQ
+	 D1egiGL4IRfA8QEYswk9GRLPoIGXpHLIryys7jK1d9ptG5Ylw+9e9AiuzRnlFxRXCXChN
+	 XktWNslizKirx7qfin6jFNSJ+QNff0AE/zAXxej/cpYcOO7y8wQhENAPpzc62Fjx0cJHU
+	 QyGLtaXsEzK+viruSKxWbchveEBJxaojnBbPHynspHKEfaUq63N7+l+YcHhJJrrry9g1a
+	 xw08dGY2MkvFyQFfR8NwvQfoZVa1KKCipbwh5UNmEr2j5xysf3GEWy48Cmb4uNJb3Vw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794045956;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794045959;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=zxMz7wg60qHof8KE+dXNXUBoJBO9nb3BPr+vDgGoHgA=;
-	b=XZSoJoEv/+jcLOXSbNL7ro3xpSByeveeuhfKbNX0WZd7mZEKHUHVJlBx1Y8KKbMZkRiT
-	 KKo1pPFSMxKuNDYnnl5iBIAxlrDR3Iq+CnW5cDjrGSokG+zMA6G4hPJcGjZ4Qo8Ant68D
-	 QcUduMIgXBABaaX2v0fb6sshS3htOQHipImcUx3ADLHqzsOo016FxbmVm9/ry+944tcJ6
-	 pK3NTZUc71lUQdZoCetB1Os8AxCJ7MswrLTmNdBjm4Qr+7grEB/485Y7G/MXA+s8m/vsP
-	 wydvlRYMFKC5QNvcNsbbifHOhMsWEKni1k7WZPSMtrEI9szYmi0196YoYoHtTL6UYow==
+	bh=yqdFnvpfGPMF7Bj8ib9IrzjP4L7ga9YQAj7d0rLinR0=;
+	b=IGpm+rtrt034JaHQnpmUCrsF5tSuHGSB9HKRUjlLmiO/QhWwBN198K7BmsVyFOKsmmTh
+	 uBeIWVrDOxebFSdlOrV2jpqXN9Nn31cXW4xKyq6ltVyGeBsepiTuudwfB+DLFQM1Hogvh
+	 MNFMLUlz5fwhKw/wZtlvqybHbFsthWoNkZmsQGcphBcJCoosKobaVExy0noM+spSoMGEV
+	 dMS3W+vTYej8FZyCihvJJmT5Nc54zgc1+naZd8BE3wcIYxJ4pWXXd1rz9cUVVXoBlbAYo
+	 FxNOF/yxLMtUXeGFJEc35OokivAb+ia7a7DrHa3v+cqJIAVmS3eeRzBleMsCReOCZ9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hqsheABJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IairX1Pp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A0FE606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:05:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0197606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:05:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hqsheABJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E21871F0089F;
-	Sat,  7 Nov 2026 10:05:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IairX1Pp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3846E1F0089F;
+	Sat,  7 Nov 2026 10:05:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794045956;
-	bh=zxMz7wg60qHof8KE+dXNXUBoJBO9nb3BPr+vDgGoHgA=;
+	s=k20260515; t=1794045958;
+	bh=yqdFnvpfGPMF7Bj8ib9IrzjP4L7ga9YQAj7d0rLinR0=;
 	h=From:To:Cc:Subject:Date;
-	b=hqsheABJZMI5vlbErjI1RFAUX3N69qacWD37QMij8ePuDP2pmnHawK1hVU3vcpuiK
-	 e0z7KJAL4NEaxYWsmfcErgiWhqX415TLquchnJaoJI80Aw2PkVmli0eaZBT1nJvSHk
-	 eg2Uf4YggHl1zFdsQJxNap/b3duHoUh2rhn7iR7Cfw3mPObkXJ5B0ZGp8xsXj8f4EB
-	 BDNfBGG/hyBPwxC56FS5fRqA2Zq+jg2FnkRPZ0Bk0gh8CNNr+1NUlbfDjeY9IQyWqA
-	 8nGPqaTISDbLbnE2pyStcqhGW3N+6OaDZZgQS7y5J79xqyk2mG1rBryOAuFkHGrwzu
-	 mVrnLvt4TB1Lw==
+	b=IairX1PpsrtcAYmRcqOcpYNi6q+jFdy1h1NPVb0aAiNEIUMJS+AYm0gmIdR/EI0rb
+	 W2zS5qIv7aWrQ/3dZbZ9+ug/IaL9kKwl1p6mW+kc2gw7YEGEwUjzFZeujDSOnQwAaA
+	 3Rz6cNAHze2SoMXqsghmWBZdiBWMRcoFD7n1JHV8toU8pmG/4QdTzStbRTiWtdmEID
+	 bbwdT18LLWrREtMKhQnQFUIg/wz5TtNHrHrImv0yZ4kBnAqdycEM/tcdggOw+RR0pG
+	 1IfUK3Gq6f53tXCaqvcxMYCqFrDKN3i8IV1BvR06TJL9cjQtDl2Jbfni6X1mwUxf1b
+	 YvPhbBwSPiEzw==
 From: Sasha Levin <sashal@kernel.org>
-To: kenneth.feng@amd.com,
-	kevin.wang@amd.com,
-	alexander.deucher@amd.com
+To: syjcnss@gmail.com,
+	almaz.alexandrovich@paragon-software.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/amd/pm: add zero fan stop temperature support on smu 14.0.2" failed to apply to 7.3-stable tree
-Date: Sat,  7 Nov 2026 05:05:54 -0500
-Message-ID: <20261107050554-failed-7.3-af52c8fd45fb@kernel.org>
+Subject: FAILED: patch "[PATCH] fs/ntfs3: validate the EA value length in ntfs_read_ea()" failed to apply to 7.3-stable tree
+Date: Sat,  7 Nov 2026 05:05:57 -0500
+Message-ID: <20261107050557-failed-7.3-351817226fbf@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,142 +68,177 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x af52c8fd45fbd5e3b7a329858733ac674abe539c
+git cherry-pick -x 351817226fbf0031c4c63d1f5d7f15c3172312eb
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050554-failed-7.3-af52c8fd45fb@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050557-failed-7.3-351817226fbf@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From af52c8fd45fbd5e3b7a329858733ac674abe539c Mon Sep 17 00:00:00 2001
-From: Kenneth Feng <kenneth.feng@amd.com>
-Date: Thu, 8 Oct 2026 20:28:09 +0800
-Subject: [PATCH] drm/amd/pm: add zero fan stop temperature support on smu
- 14.0.2
+From 351817226fbf0031c4c63d1f5d7f15c3172312eb Mon Sep 17 00:00:00 2001
+From: Yuejie Shi <syjcnss@gmail.com>
+Date: Mon, 3 Aug 2026 12:34:32 +0800
+Subject: [PATCH] fs/ntfs3: validate the EA value length in ntfs_read_ea()
 
-add zero fan stop temperature support on smu 14.0.2
+ntfs_read_ea() checks the $EA list for consistency, but it only
+recomputes the packed size of an entry when the entry's own size field is
+zero:
 
-Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5905
-Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
-Reviewed-by: Kevin Wang <kevin.wang@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit f990c94a2633d0ead477eb1b174e254a6d292e66)
+	for (off = 0; off < size; off += ea_size) {
+		const struct EA_FULL *ef = Add2Ptr(ea_p, off);
+		u32 bytes = size - off;
+		...
+		if (ef->size) {
+			ea_size = le32_to_cpu(ef->size);
+			if (ea_size > bytes)
+				goto out1;
+			continue;              /* <- elength never checked */
+		}
+		...
+		ea_size = ALIGN(struct_size(ef, name,
+					    1 + ef->name_len +
+						    le16_to_cpu(ef->elength)),
+				4);
+		if (ea_size > bytes)
+			goto out1;
+	}
+
+ef->size is non-zero for every entry except the last one, and it is what
+ntfs3 itself writes (ntfs_set_ea() stores exactly that aligned packed
+size), so in practice elength is not validated at all.  find_ea() then
+uses unpacked_ea_size(), which also prefers ea->size when it is set, so
+it agrees and hands the entry back.
+
+ntfs_get_ea() copies elength bytes with no further bound of its own:
+
+	len = le16_to_cpu(ea->elength);
+	...
+	if (len > size) {              /* size is the *caller's* buffer */
+		err = -ERANGE;
+		...
+	}
+	memcpy(buffer, ea->name + ea->name_len + 1, len);
+
+so a caller that supplies a large enough buffer receives up to 64 KiB of
+whatever follows the small $EA allocation -- straight to userspace via
+getxattr(2).
+
+Compute the packed size unconditionally and require it to fit in the
+entry.  Hoist the "bytes < offsetof(struct EA_FULL, name)" test above the
+ef->size branch as well: name_len and elength were being read there
+without it, which is itself a small over-read of the kmalloc'd buffer
+when fewer than 8 bytes are left.  The old "bytes < sizeof(ef->size)"
+test is subsumed by it.
+
+  # mkntfs image; create /mnt/ntfs/poc with user.ntfs6 set, then rewrite
+  # that EA_FULL's elength from 0xf to 0xff00 on the raw device
+  mount -t ntfs3 -o ro /dev/vda /mnt/ntfs
+  getxattr("/mnt/ntfs/poc", "user.ntfs6", buf, 128 * 1024);
+
+  BUG: KASAN: slab-out-of-bounds in ntfs_get_ea+0x294/0x3e0
+  Read of size 65280 at addr ffff0000cca53acf by task xattr_probe/142
+   __asan_memcpy+0x3c/0xa0
+   ntfs_get_ea+0x294/0x3e0
+   ntfs_getxattr+0x284/0x318
+   __vfs_getxattr+0x104/0x160
+   vfs_getxattr+0x1b4/0x1e0
+   do_getxattr+0xcc/0x230
+   path_getxattrat+0x184/0x270
+   __arm64_sys_getxattr+0x64/0x80
+  Allocated by task 142:
+   __kmalloc_noprof+0x294/0x668
+   ntfs_read_ea+0x1e4/0x420
+   ntfs_get_ea+0x2c8/0x3e0
+  The buggy address belongs to the object at ffff0000cca53a80
+   which belongs to the cache kmalloc-96 of size 96
+
+The object being over-read is the one ntfs_read_ea() just allocated, and
+it is 96 bytes.
+
+Entries written by ntfs3 and by Windows set size to the aligned packed
+size, so the new test does not reject anything a working filesystem
+produces.
+
+Fixes: be71b5cba2e6 ("fs/ntfs3: Add attrib operations")
 Cc: stable@vger.kernel.org
+Signed-off-by: Yuejie Shi <syjcnss@gmail.com>
+[almaz.alexandrovich@paragon-software.com: applied as-is, logic is the same but the code is cleaner]
+Signed-off-by: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
 ---
- .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c  | 55 ++++++++++++++++++-
- 1 file changed, 54 insertions(+), 1 deletion(-)
+ fs/ntfs3/xattr.c | 45 ++++++++++++++-------------------------------
+ 1 file changed, 14 insertions(+), 31 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-index 549716349117d..566b7f2b00f0e 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-@@ -89,6 +89,7 @@ static const struct smu_feature_bits smu_v14_0_2_dpm_features = {
- #define PP_OD_FEATURE_FAN_TARGET_TEMPERATURE		9
- #define PP_OD_FEATURE_FAN_MINIMUM_PWM			10
- #define PP_OD_FEATURE_FAN_ZERO_RPM_ENABLE		11
-+#define PP_OD_FEATURE_FAN_ZERO_RPM_STOP_TEMP		12
+diff --git a/fs/ntfs3/xattr.c b/fs/ntfs3/xattr.c
+index d6ad06415318d..e1fa58aa03611 100644
+--- a/fs/ntfs3/xattr.c
++++ b/fs/ntfs3/xattr.c
+@@ -146,49 +146,32 @@ static int ntfs_read_ea(struct ntfs_inode *ni, struct EA_FULL **ea,
+ 	for (off = 0; off < size; off += ea_size) {
+ 		const struct EA_FULL *ef = Add2Ptr(ea_p, off);
+ 		u32 bytes = size - off;
+-		size_t need;
+-
+-		/* Check if we can use field ea->size. */
+-		if (bytes < sizeof(ef->size))
+-			goto out1;
++		u32 packed_size;
  
- static struct cmn2asic_msg_mapping smu_v14_0_2_message_map[SMU_MSG_MAX_COUNT] = {
- 	MSG_MAP(TestMessage,			PPSMC_MSG_TestMessage,                 1),
-@@ -1020,6 +1021,10 @@ static void smu_v14_0_2_get_od_setting_limits(struct smu_context *smu,
- 		od_min_setting = overdrive_lowerlimits->FanZeroRpmEnable;
- 		od_max_setting = overdrive_upperlimits->FanZeroRpmEnable;
- 		break;
-+	case PP_OD_FEATURE_FAN_ZERO_RPM_STOP_TEMP:
-+		od_min_setting = pptable->SkuTable.MsgLimits.FanStopTempMin;
-+		od_max_setting = pptable->SkuTable.MsgLimits.FanStopTempMax;
-+		break;
- 	default:
- 		od_min_setting = od_max_setting = INT_MAX;
- 		break;
-@@ -1244,6 +1249,24 @@ static int smu_v14_0_2_emit_clk_levels(struct smu_context *smu,
- 				      min_value, max_value);
- 		break;
+ 		/* Check if we can use fields ef->name_len and ef->elength. */
+ 		if (bytes < offsetof(struct EA_FULL, name))
+ 			goto out1;
  
-+	case SMU_OD_FAN_ZERO_RPM_STOP_TEMP:
-+		if (!smu_v14_0_2_is_od_feature_supported(smu,
-+							 PP_OD_FEATURE_ZERO_FAN_BIT))
-+			break;
-+
-+		size += sysfs_emit_at(buf, size, "FAN_ZERO_RPM_STOP_TEMPERATURE:\n");
-+		size += sysfs_emit_at(buf, size, "%d\n",
-+					(int)od_table->OverDriveTable.FanZeroRpmStopTemp);
-+
-+		size += sysfs_emit_at(buf, size, "%s:\n", "OD_RANGE");
-+		smu_v14_0_2_get_od_setting_limits(smu,
-+						  PP_OD_FEATURE_FAN_ZERO_RPM_STOP_TEMP,
-+						  &min_value,
-+						  &max_value);
-+		size += sysfs_emit_at(buf, size, "ZERO_RPM_STOP_TEMPERATURE: %u %u\n",
-+				      min_value, max_value);
-+		break;
-+
- 	case SMU_OD_RANGE:
- 		if (!smu_v14_0_2_is_od_feature_supported(smu, PP_OD_FEATURE_GFXCLK_BIT) &&
- 		    !smu_v14_0_2_is_od_feature_supported(smu, PP_OD_FEATURE_UCLK_BIT) &&
-@@ -2311,7 +2334,9 @@ static void smu_v14_0_2_set_supported_od_feature_mask(struct smu_context *smu)
- 					    OD_OPS_SUPPORT_FAN_MINIMUM_PWM_RETRIEVE |
- 					    OD_OPS_SUPPORT_FAN_MINIMUM_PWM_SET |
- 					    OD_OPS_SUPPORT_FAN_ZERO_RPM_ENABLE_RETRIEVE |
--					    OD_OPS_SUPPORT_FAN_ZERO_RPM_ENABLE_SET;
-+					    OD_OPS_SUPPORT_FAN_ZERO_RPM_ENABLE_SET |
-+					    OD_OPS_SUPPORT_FAN_ZERO_RPM_STOP_TEMP_RETRIEVE |
-+					    OD_OPS_SUPPORT_FAN_ZERO_RPM_STOP_TEMP_SET;
- }
+-		/* Size needed to hold this record's name and value. */
+-		need = struct_size(ef, name,
+-				   1 + ef->name_len + le16_to_cpu(ef->elength));
++		/*
++		 * The name and the value have to fit in the entry whether or
++		 * not ef->size is set, because ntfs_get_ea() copies elength
++		 * bytes out of this buffer and checks them only against the
++		 * caller supplied buffer size.
++		 */
++		packed_size =
++			ALIGN(struct_size(ef, name,
++					  1 + ef->name_len +
++						  le16_to_cpu(ef->elength)),
++			      4);
  
- static int smu_v14_0_2_get_overdrive_table(struct smu_context *smu,
-@@ -2393,6 +2418,8 @@ static int smu_v14_0_2_set_default_od_settings(struct smu_context *smu)
- 			user_od_table_bak.OverDriveTable.FanMinimumPwm;
- 		user_od_table->OverDriveTable.FanZeroRpmEnable =
- 			user_od_table_bak.OverDriveTable.FanZeroRpmEnable;
-+		user_od_table->OverDriveTable.FanZeroRpmStopTemp =
-+			user_od_table_bak.OverDriveTable.FanZeroRpmStopTemp;
+ 		if (ef->size) {
+ 			ea_size = le32_to_cpu(ef->size);
+-			/* ef->size must fit the list and cover the record. */
+-			if (ea_size > bytes || ea_size < need)
+-				goto out1;
+-			if (bytes < offsetof(struct EA_FULL, name))
+-				goto out1;
+-
+-			/* Check if we can use fields ef->name_len and ef->elength. */
+-			if (bytes < offsetof(struct EA_FULL, name))
+-				goto out1;
+-
+-			/*
+-			 * The declared entry size (ef->size) must be large
+-			 * enough to hold the name and value.  Otherwise a later
+-			 * reader such as ntfs_get_ea() copies ef->elength bytes
+-			 * starting past the entry, reading out of bounds of the
+-			 * ea buffer and leaking adjacent heap memory to
+-			 * userspace via getxattr().
+-			 */
+-			if (struct_size(ef, name,
+-					1 + ef->name_len +
+-						le16_to_cpu(ef->elength)) >
+-			    ea_size)
++			if (ea_size > bytes || packed_size > ea_size)
+ 				goto out1;
+ 			continue;
+ 		}
+ 
+-		ea_size = ALIGN(need, 4);
++		ea_size = packed_size;
+ 		if (ea_size > bytes)
+ 			goto out1;
  	}
- 
- 	smu_v14_0_2_set_supported_od_feature_mask(smu);
-@@ -2444,6 +2471,11 @@ static int smu_v14_0_2_od_restore_table_single(struct smu_context *smu, long inp
- 					boot_overdrive_table->OverDriveTable.FanZeroRpmEnable;
- 		od_table->OverDriveTable.FeatureCtrlMask |= BIT(PP_OD_FEATURE_ZERO_FAN_BIT);
- 		break;
-+	case PP_OD_EDIT_FAN_ZERO_RPM_STOP_TEMP:
-+		od_table->OverDriveTable.FanZeroRpmStopTemp =
-+					boot_overdrive_table->OverDriveTable.FanZeroRpmStopTemp;
-+		od_table->OverDriveTable.FeatureCtrlMask |= BIT(PP_OD_FEATURE_ZERO_FAN_BIT);
-+		break;
- 	case PP_OD_EDIT_ACOUSTIC_LIMIT:
- 		od_table->OverDriveTable.AcousticLimitRpmThreshold =
- 					boot_overdrive_table->OverDriveTable.AcousticLimitRpmThreshold;
-@@ -2749,6 +2781,27 @@ static int smu_v14_0_2_od_edit_dpm_table(struct smu_context *smu,
- 		od_table->OverDriveTable.FeatureCtrlMask |= BIT(PP_OD_FEATURE_ZERO_FAN_BIT);
- 		break;
- 
-+	case PP_OD_EDIT_FAN_ZERO_RPM_STOP_TEMP:
-+		if (!smu_v14_0_2_is_od_feature_supported(smu, PP_OD_FEATURE_ZERO_FAN_BIT)) {
-+			dev_warn(adev->dev, "Zero RPM setting not supported!\n");
-+			return -ENOTSUPP;
-+		}
-+
-+		smu_v14_0_2_get_od_setting_limits(smu,
-+						  PP_OD_FEATURE_FAN_ZERO_RPM_STOP_TEMP,
-+						  &minimum,
-+						  &maximum);
-+		if (input[0] < minimum ||
-+		    input[0] > maximum) {
-+			dev_info(adev->dev, "zero RPM stop temperature setting(%ld) must be within [%d, %d]!\n",
-+				 input[0], minimum, maximum);
-+			return -EINVAL;
-+		}
-+
-+		od_table->OverDriveTable.FanZeroRpmStopTemp = input[0];
-+		od_table->OverDriveTable.FeatureCtrlMask |= BIT(PP_OD_FEATURE_ZERO_FAN_BIT);
-+		break;
-+
- 	case PP_OD_RESTORE_DEFAULT_TABLE:
- 		if (size == 1) {
- 			ret = smu_v14_0_2_od_restore_table_single(smu, input[0]);
 -- 
 2.53.0
 
