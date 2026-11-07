@@ -1,52 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046642;
-	b=bd8ikwrkx3v4uI8g1DEN3GA1oVjPsMqZYe2iBY7cuyruAeUBQ6ImniemiFwrGFSD86DK
-	 KWEP8F+JXnzmYx0TK1GR9psEDpneMdvwPS/QL/kLchG90HaNydVeWryaDCwlPiFD/Ylea
-	 cfgHpcV9/omaSgwGxlt3xf2lwRt6cuAqs0TcqUzRntTuIDg4l8wgBv65YlZG6xBavRyxT
-	 K4ahk4is7Ci13I+1yTWCqc8UbUBfl1NeDacOo+CncMBjSDAIlC8hvdCtidYHtF9g7EuZ/
-	 Rwa3cylC3DrbN5BUpV29wVVr3OkZNTPo2jZzGGPQdyIunafxGNtW918AIEMQxEc+aGw==
+	t=1794046645;
+	b=PWRl+7Rd6yGw49NZW5nb+c+pRQ2LVs2LQY82heqL9KK3YLLjheohn7rfmrpqOZasnPyL
+	 WN/sE+CUIH3QQHHW2a4Zyoah6l9ENOC4pjszpkb2WH1AvtOfSrci4vYKk6OAkqA4w2KWl
+	 ZJmbGhPBDhvpmDCnpH68lJ5zyBGF6JB8gcTK0V9YvHVI0ND79Tt/JNq0VI1x06HMw7U1R
+	 kYVH1V557776eax70XjwavOvsnF2I54VsORh/uS94ES675wK0rvDepwsKryEFmGCxqiGO
+	 v9kZYiKg7cBKioVLmpQFIzSMcamiICrJSfa/IziDAAFWjAoaIwnwuKGk+cnLEhggTXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046642;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046645;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=IkIlwLjvWlKW8K7aV8hDYAb16op/kH5ci8AWEINNNvU=;
-	b=v1LNZ4HX/dbp1cHR9FHzzinpXgtFk5bp12BtyNULREgk6h02dlXOKZAJm5GTVDBX8wbr
-	 5z/0YASwtt225H5r9vjyAzZ/AJDNAE2gumCU3rjtf+n+ZyZ6O1LKzRQ/irXwJZfttpbFB
-	 62a/LBWEqwlYlxu+rjdz46hngc/rWlDVxF8GjwEJukWh83lxkHnSksTo4M2soGJNWka8d
-	 /HE9PY21KQmUd969221MpZoMNordQ9B7nCGrd5Bhpyfi3ENfEjHwN+47eqAyo93QvcF9+
-	 0ScTVeKLrth+zrqokVYvMnBiiqZeNapgeuuLQ3YrllQhA66Yr9eHttE+IMUnKUOC0Zw==
+	bh=DLHjiRmBv/Djj2HmJM7NJOo6RKucVTYqYXXp+/Rxw08=;
+	b=tYiHleZKTwskHyTdvDN+obDbIeELNczoeBSAnoYHv7/BmGZLQ4+7BVuK2+jp2mg2Khei
+	 ol3Al15iYf/b69xqFqtRJMTv9HQxLMw1Ztf3hg2hMdYCqDHK9lETseVtIlZOiSa7Tubso
+	 hpoA1amkgT5yIYtJs6tZg8VDV6CDEW8xcq1gSHmHLwZKwHOJmRriuz9XHZeX5h3vkG78u
+	 Y/eI3+uV/Sb73iOB0pQ6LQu3QFu31pKBWVrZGWFs9rMTJ9+73B+KqNg/TVIUpoP4Ht2ch
+	 tKZfgPNZzddKwmAbM3GfIRl384zUwyd6gcSBLy5LAuD4MFsAJLXqUu5me9n2ZFVVqTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BGuBrSyw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="c+XrHSV/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2A58606EEBC
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:17:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE95460A6F56
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:17:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BGuBrSyw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 090B31F008A1;
-	Sat,  7 Nov 2026 10:17:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c+XrHSV/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 438E71F0089F;
+	Sat,  7 Nov 2026 10:17:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046642;
-	bh=IkIlwLjvWlKW8K7aV8hDYAb16op/kH5ci8AWEINNNvU=;
+	s=k20260515; t=1794046644;
+	bh=DLHjiRmBv/Djj2HmJM7NJOo6RKucVTYqYXXp+/Rxw08=;
 	h=From:To:Cc:Subject:Date;
-	b=BGuBrSywb4fWkwR1+BVSFklGCchDW3b9fZlBSWoS9Il8o4KX+k+43lnFgjfA0Lnhl
-	 GT938hE5ryqJHLvLZSp8H+xWa7asZetaOpYO7H+fPTkiuea2/uHCis4trjiCQzOJxL
-	 NaMVnqm9pOlYZ3WpXupsHFWE3bJ7zfiWRAywdD/ly8YzQtsefidL84yEQdeTndPRb8
-	 TuywJHXyTDSyAeE6HoY4+fvCQNl5WCkGlZCg/w4mIyoxMe+nFPiYSrHz+KcSAo5ROT
-	 Sb3B2AZK3gU4YtapbvNgBFwYP+lPyCnifIPEBDP7sEADgcC5s5ZEdhKQXhOc2u/gsA
-	 JYQz0/lZ2pSKw==
+	b=c+XrHSV/j9s8pjcvE9tOvAHqlMVk8U0t/YL7pQzgcWXJOSu3d3gHQjX+E6RN03B1G
+	 Q0bpv3j0kpnCr9sqp1ALOwx4kEBQ+XJH43XI7IjDcU0z7h8WVgWKX6D+Ff1W9X3Jo0
+	 rJMoRUhAbV4PBu37Pio0Pn3OXp4polgcSybB6Nq1aS8tKum48ZxE9GyG1jnYL0ORYk
+	 hhfOPk0QrGGCTw4bCjYjhj+vmYlmCzKKwubZXA1zzx7w/r/GyFEsjEI+MbXiKJZUAp
+	 9wM0vgyvAGEt5M6x0y3U/SH5eXBfJtlH2KlWtblf5U1MzA8OTifDA9jD05kU/RpRcb
+	 5gFTZjdPnRfng==
 From: Sasha Levin <sashal@kernel.org>
-To: christian.loehle@arm.com,
-	sumitg@nvidia.com,
-	rafael.j.wysocki@intel.com
+To: seanjc@google.com,
+	xiaoyao.li@intel.com,
+	kai.huang@intel.com,
+	binbin.wu@linux.intel.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ACPI: CPPC: Propagate errors from cross-CPU FFH calls" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:17:21 -0500
-Message-ID: <20261107051720-failed-6.12-36e96b469da2@kernel.org>
+Subject: FAILED: patch "[PATCH] KVM: VMX: Disallow using to_vmx() in common VT code" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:17:23 -0500
+Message-ID: <20261107051723-failed-6.12-f305fd31f52a@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,135 +70,66 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 36e96b469da24868f727b4cd168d7cf01cbd163d
+git cherry-pick -x f305fd31f52a8d3ce4d2bf0c88c45bb7a373809c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051720-failed-6.12-36e96b469da2@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051723-failed-6.12-f305fd31f52a@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 36e96b469da24868f727b4cd168d7cf01cbd163d Mon Sep 17 00:00:00 2001
-From: Christian Loehle <christian.loehle@arm.com>
-Date: Wed, 16 Sep 2026 17:28:02 +0100
-Subject: [PATCH] ACPI: CPPC: Propagate errors from cross-CPU FFH calls
+From f305fd31f52a8d3ce4d2bf0c88c45bb7a373809c Mon Sep 17 00:00:00 2001
+From: Sean Christopherson <seanjc@google.com>
+Date: Thu, 3 Sep 2026 18:03:46 -0700
+Subject: [PATCH] KVM: VMX: Disallow using to_vmx() in common VT code
 
-The arm64 and RISC-V CPPC FFH accessors ignore the return value of
-smp_call_function_single(). If the target CPU is offline, the call can
-return -ENXIO without running the callback. The accessors then consume
-callback output which was never initialized and may report success.
+Poison to_vmx() in main.c and posted_intr.c so that attempting to interpret
+the vCPU as a VMX vCPU will fail at compile time, as opposed to failing at
+runtime, or worse corrupting state without outright failing.
 
-CPU offlining leaves the CPU's CPPC sysfs attributes present. On arm64,
-the AMU feature mask does not exclude an offline CPU, so a paired counter
-read can expose uninitialized stack values through feedback_ctrs. RISC-V
-has the same problem in both SBI and CSR reads, and its write paths also
-inspect an uninitialized callback status after a failed cross-CPU call.
+Note, to_tdx() is buried in tdx.c, i.e. isn't broadly reachable, and so
+doesn't need the same treatment as to_vmx().
 
-Return the SMP call error before using callback output. The arm64 single
-and paired counter readers already check the helper's return value. For
-RISC-V, also check the callback status before copying a read value: an
-unsupported CSR sets the error but does not initialize the value.
-
-Fixes: 68c5debcc06d ("arm64: implement CPPC FFH support using AMUs")
-Fixes: 30f3ffbee86b ("ACPI: RISC-V: Add CPPC driver")
-Cc: All applicable <stable@vger.kernel.org>
-Signed-off-by: Christian Loehle <christian.loehle@arm.com>
-Tested-by: Sumit Gupta <sumitg@nvidia.com>
-Link: https://patch.msgid.link/20260916162805.1039247-18-christian.loehle@arm.com
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
+Reviewed-by: Kai Huang <kai.huang@intel.com>
+Tested-by: Kai Huang <kai.huang@intel.com>
+Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260904010353.3175819-2-seanjc@google.com
+Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- arch/arm64/kernel/topology.c |  2 +-
- drivers/acpi/riscv/cppc.c    | 26 ++++++++++++++++++++------
- 2 files changed, 21 insertions(+), 7 deletions(-)
+ arch/x86/kvm/vmx/main.c        | 2 ++
+ arch/x86/kvm/vmx/posted_intr.c | 2 ++
+ 2 files changed, 4 insertions(+)
 
-diff --git a/arch/arm64/kernel/topology.c b/arch/arm64/kernel/topology.c
-index 2c030e78d5e45..55bd8fa3e95cf 100644
---- a/arch/arm64/kernel/topology.c
-+++ b/arch/arm64/kernel/topology.c
-@@ -427,7 +427,7 @@ int counters_read_on_cpu(int cpu, smp_call_func_t func, void *val)
- 			return -EPERM;
- 		func(val);
- 	} else {
--		smp_call_function_single(cpu, func, val, 1);
-+		return smp_call_function_single(cpu, func, val, 1);
- 	}
+diff --git a/arch/x86/kvm/vmx/main.c b/arch/x86/kvm/vmx/main.c
+index 4c52ab8d07869..ea0d825e556d2 100644
+--- a/arch/x86/kvm/vmx/main.c
++++ b/arch/x86/kvm/vmx/main.c
+@@ -10,6 +10,8 @@
+ #include "tdx.h"
+ #include "tdx_arch.h"
  
- 	return 0;
-diff --git a/drivers/acpi/riscv/cppc.c b/drivers/acpi/riscv/cppc.c
-index 42c1a90524707..4ea4ddedd91f1 100644
---- a/drivers/acpi/riscv/cppc.c
-+++ b/drivers/acpi/riscv/cppc.c
-@@ -97,6 +97,7 @@ bool cpc_ffh_supported(void)
- int cpc_read_ffh(int cpu, struct cpc_reg *reg, u64 *val)
- {
- 	struct sbi_cppc_data data;
-+	int ret;
++#pragma GCC poison to_vmx
++
+ #ifdef CONFIG_KVM_INTEL_TDX
+ static_assert(offsetof(struct vcpu_vmx, vt) == offsetof(struct vcpu_tdx, vt));
  
- 	if (WARN_ON_ONCE(irqs_disabled()))
- 		return -EPERM;
-@@ -107,19 +108,27 @@ int cpc_read_ffh(int cpu, struct cpc_reg *reg, u64 *val)
+diff --git a/arch/x86/kvm/vmx/posted_intr.c b/arch/x86/kvm/vmx/posted_intr.c
+index 4a6d9a17da238..24221ba553be1 100644
+--- a/arch/x86/kvm/vmx/posted_intr.c
++++ b/arch/x86/kvm/vmx/posted_intr.c
+@@ -14,6 +14,8 @@
+ #include "vmx.h"
+ #include "tdx.h"
  
- 		data.reg = FFH_CPPC_SBI_REG(reg->address);
- 
--		smp_call_function_single(cpu, sbi_cppc_read, &data, 1);
-+		ret = smp_call_function_single(cpu, sbi_cppc_read, &data, 1);
-+		if (ret)
-+			return ret;
-+		if (data.ret.error)
-+			return sbi_err_map_linux_errno(data.ret.error);
- 
- 		*val = data.ret.value;
- 
--		return (data.ret.error) ? sbi_err_map_linux_errno(data.ret.error) : 0;
-+		return 0;
- 	} else if (FFH_CPPC_TYPE(reg->address) == FFH_CPPC_CSR) {
- 		data.reg = FFH_CPPC_CSR_NUM(reg->address);
- 
--		smp_call_function_single(cpu, cppc_ffh_csr_read, &data, 1);
-+		ret = smp_call_function_single(cpu, cppc_ffh_csr_read, &data, 1);
-+		if (ret)
-+			return ret;
-+		if (data.ret.error)
-+			return data.ret.error;
- 
- 		*val = data.ret.value;
- 
--		return data.ret.error;
-+		return 0;
- 	}
- 
- 	return -EINVAL;
-@@ -128,6 +137,7 @@ int cpc_read_ffh(int cpu, struct cpc_reg *reg, u64 *val)
- int cpc_write_ffh(int cpu, struct cpc_reg *reg, u64 val)
- {
- 	struct sbi_cppc_data data;
-+	int ret;
- 
- 	if (WARN_ON_ONCE(irqs_disabled()))
- 		return -EPERM;
-@@ -139,14 +149,18 @@ int cpc_write_ffh(int cpu, struct cpc_reg *reg, u64 val)
- 		data.reg = FFH_CPPC_SBI_REG(reg->address);
- 		data.val = val;
- 
--		smp_call_function_single(cpu, sbi_cppc_write, &data, 1);
-+		ret = smp_call_function_single(cpu, sbi_cppc_write, &data, 1);
-+		if (ret)
-+			return ret;
- 
- 		return (data.ret.error) ? sbi_err_map_linux_errno(data.ret.error) : 0;
- 	} else if (FFH_CPPC_TYPE(reg->address) == FFH_CPPC_CSR) {
- 		data.reg = FFH_CPPC_CSR_NUM(reg->address);
- 		data.val = val;
- 
--		smp_call_function_single(cpu, cppc_ffh_csr_write, &data, 1);
-+		ret = smp_call_function_single(cpu, cppc_ffh_csr_write, &data, 1);
-+		if (ret)
-+			return ret;
- 
- 		return data.ret.error;
- 	}
++#pragma GCC poison to_vmx
++
+ /*
+  * Maintain a per-CPU list of vCPUs that need to be awakened by wakeup_handler()
+  * when a WAKEUP_VECTOR interrupted is posted.  vCPUs are added to the list when
 -- 
 2.53.0
 
