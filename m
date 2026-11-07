@@ -1,61 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048357;
-	b=ibfANUFe7tCgbERohmr+MXEhyRF/upCRd3qqCsZKdkTmean5/8qWF0D7N9FCfp0glv5U
-	 usGgaeq7BxgsM8Iz1lFS27pJdy2FRArYjAv19iguzpmsSHSsunf/OXTiiPhnPAZG5lvMy
-	 v1eqAeSlwNM+So7mn42cShMqiccq4mScospqJMVhZSP2mNYzjLQ2HmDST7xqnQp15GSzz
-	 dCsFw13c8Afn+EK5jhcwqPAXN8LGBVYR8LsyTa2dGCWYGwflYO3cfpVD6rHPcDgBu7/fF
-	 dfzPsMHdWhgMRtp4G2aKgLSD+2VMKedHg+9meY+TAF8TBCDqWG3gaD4LJfXuS6EM4NA==
+	t=1794048362;
+	b=O5zt+A7xKPleajIwijqa90ZC3PdLVu4WMZm14BLIZaQzaTeYW/+KvGNtJwITWLYE7JWd
+	 rLiKb4cW31Y3n+4SIK7fVJiNbnadfXd2ESwpM5oOg61AsPzWt3iu3UqDLgSx9p7883PKe
+	 AEYm8wOczgDqABVJ1WZJQ2Epjz2PXzccGxtADQU4wpzzs6zAflM5+nJ91HJOUbppg/wy5
+	 6Lo3sEMzOZcy/nuxRr8jactTouKzR9kNDnsmrQ7d0F3l+t2ixU0wOjze3dQbW7EiGjWbw
+	 d09Qhlh79XWxEHhR/8Y4llQ9bvhqp9UbgQXyZyKW8dYQd1FqKezes+r1SlKldr5TxbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048357;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048362;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=HLOwUv3+pQC8JCq0jU/zn0JwPbzHdzAhW53AqGAmcng=;
-	b=1kwrzrxSOHCcSyMOfOI6tYK14T+NcrTLhhpOyX9Zl+TV2OD9TC4CH6mhkBfR3e7thju0
-	 2ozMiIj4zyOh11X8uRpc7LIhjyAqRi5T9b9gOhwwxj5GSE4tej9W240UN0zRaA6zClgIj
-	 lxWIjYlpZJBZyFSlAwXft77jGzoJlYwJBLGzMwyWQBJsG+bGtaXavD38HarvZppNVhg2M
-	 2CD6fOZam/9Fuke9sENLFGxDNqF83wT2DlyTkiPAoOb/Pe0qzHj3TzVITD28Hz5bdpITY
-	 cXoD9Bn1cpUTzLiqwW76n2MQHuBqKNF3nykdp0Y8LqPpyAuJCEicDZHUHkct8YknfzQ==
+	bh=hgISpY2JCDTGTCgNDoep7J5fv46qtX2mowO5u7FVewI=;
+	b=0k8dR20AC/tHbuuANyRrwb5/Db+rOG56oq936WMoNEfK0NHbs5qlEtG3WN9e/bABebyL
+	 c6opSfOF7mRdHguYmqRVkNG4mKtz/JoWjgkgjoMvxDTr7rA2Xh5MBFNHFSTg7EtS6+ptl
+	 Dc/Y42iEGjZdqwsVa/NaC4T7u5RRYGJWKs3nY7IjBZt282jENMfSlDrdNLjflAIH/SwcM
+	 Jdp8J4Z1TmexTi5CaUjIcUnc06mLG5/WlmhXIhyaYHstB6DSfpbUNT8nO4XOaM8bT3OTY
+	 sC0J5/cjTWw0pZxw1ub/QT2aPSaK1SR8w1Gf+q13lNfn5qSC9BIX5HlrcY5+RfT9TNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oOcSuuWG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eZEYSC2M;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CE93606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:45:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C837C606A32D
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:46:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oOcSuuWG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6A501F0089F;
-	Sat,  7 Nov 2026 10:45:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eZEYSC2M
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9261C1F0089F;
+	Sat,  7 Nov 2026 10:45:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048357;
-	bh=HLOwUv3+pQC8JCq0jU/zn0JwPbzHdzAhW53AqGAmcng=;
+	s=k20260515; t=1794048361;
+	bh=hgISpY2JCDTGTCgNDoep7J5fv46qtX2mowO5u7FVewI=;
 	h=From:To:Cc:Subject:Date;
-	b=oOcSuuWGu2mVV94Rj9DyibXWvW+kAC05M254Hw8yTdfGqK3jWoyk8fAorqeWuyV1V
-	 RWpurI0K4H991o6L+DdzcSiJOEPrfw5cRYTQdhsCkj6aPa/JRy1yNJEpXHzhlgUn7v
-	 qbZ1nvO9HmG/0w7Q/OCQ//igy4lbga205FZ6aRqZYyLMsVtvw92cBBgTqww7jBA61I
-	 1baqZXcbSf/SEV+gOosMsmqjC9h2Thtcf7D+9smdCQ2ZtSe4zpjAcv/J3AY73KKY+y
-	 nUo5uuxXWDnchd/UG7rQyZqSqKJZ57rdYY2iBcKLmPWVtObRqzBFpwpy/NJ81gNHdi
-	 WD1WVKABz3chw==
+	b=eZEYSC2Mp2+k5X5ar4cFF40nmEC8Hfjc+BHjVgGmWurWxn0Jk7KdqMrKwSc85z8OA
+	 FYo1voBbuL/Dyvp6gsRH6ItqJA1GPiRzHdARauGLUo4hxjgiYyTOBfvm5pcAQ7EpDM
+	 LTml9g6ASW3tnBKCqOgHlh7jxLKZsjngEa0Ct9wKIxdSayNNLN3cn3zg6dRL46DDKA
+	 LmS685VK0CdolJJz+A94fJ0fiKiXvDu7FGjuM6kYbhJYxfOKDjFVgqdo4NNv2wHPJC
+	 SyvZVMIoBw4w/o18abpMkdSt0vFfAm5kCDJ2cKpmUvDWEFS+gbit5a+MCuzf+X/blt
+	 nSaIVTbJBFW4g==
 From: Sasha Levin <sashal@kernel.org>
-To: rakukuip@gmail.com,
-	weir@nebusec.ai,
+To: chenridong@xiaomi.com,
+	baohua@kernel.org,
+	hannes@cmpxchg.org,
 	akpm@linux-foundation.org,
-	vega@nebusec.ai,
+	axelrasmussen@google.com,
+	chris@chrisdown.name,
 	david@kernel.org,
-	notasas@gmail.com,
-	liam@infradead.org,
+	kasong@tencent.com,
 	ljs@kernel.org,
-	mhocko@suse.com,
-	rppt@kernel.org,
-	surenb@google.com,
-	vbabka@kernel.org
+	mhocko@kernel.org,
+	muchun.song@linux.dev,
+	roman.gushchin@linux.dev,
+	shakeel.butt@linux.dev,
+	tj@kernel.org,
+	weixugc@google.com,
+	yuanchu@google.com,
+	yuzhao@google.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/memory: constrain generic_access_phys() to page boundary" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:45:54 -0500
-Message-ID: <20261107054554-failed-6.1-ae0298a5fbef@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/page_counter: avoid integer overflow in effective_protection()" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:45:58 -0500
+Message-ID: <20261107054558-failed-6.1-7809ce47b056@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -78,101 +83,130 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x ae0298a5fbeff32951c0d31398ccec97ec6aa0ea
+git cherry-pick -x 7809ce47b05671e1fa6d74bead892d6ad6c1403b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054554-failed-6.1-ae0298a5fbef@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054558-failed-6.1-7809ce47b056@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From ae0298a5fbeff32951c0d31398ccec97ec6aa0ea Mon Sep 17 00:00:00 2001
-From: Luxiao Xu <rakukuip@gmail.com>
-Date: Thu, 10 Sep 2026 11:42:50 +0800
-Subject: [PATCH] mm/memory: constrain generic_access_phys() to page boundary
+From 7809ce47b05671e1fa6d74bead892d6ad6c1403b Mon Sep 17 00:00:00 2001
+From: Ridong Chen <chenridong@xiaomi.com>
+Date: Mon, 7 Sep 2026 10:54:44 +0800
+Subject: [PATCH] mm/page_counter: avoid integer overflow in
+ effective_protection()
 
-This patch addresses an issue in generic_access_phys() where accessing
-memory across page boundaries in PFNMAP VMAs assumes physical pages are
-contiguous, which can lead to accessing unintended physical memory or
-exceeding VMA boundaries.
+Patch series "mm/mglru: fix ineffective memory protection for non-kswapd
+reclaim", v4.
 
-generic_access_phys() improperly validates the memory access range: it
-only validates the start address using follow_pfnmap_start() and passes
-PAGE_ALIGN(len + offset) to ioremap_prot().
+For MGLRU, memory.min/low is not honored during non-kswapd global reclaim
+(global direct reclaim and root-level memory.reclaim), because these paths
+shrink memcgs using stale protection (emin/elow).
 
-This poses two problems:
-1. In PFNMAP VMAs, consecutive virtual pages are not guaranteed to be
-   physically contiguous, and individual PTEs may have different access
-   permissions or writability.
-2. The mapping may cross VMA boundaries if len extends beyond vma->vm_end.
+Patch 2 is the actual fix.  Patch 1 is a prerequisite: an integer overflow
+in effective_protection(), spotted by the sashiko review tool, which patch
+2's new caller would also be exposed to.
 
-Constrain the access in generic_access_phys() to at most the current page
-boundary (PAGE_SIZE - offset) and map only a single PAGE_SIZE via
-ioremap_prot().  Since the caller __access_remote_vm() already loops over
-the requested length and handles partial transfers, it will naturally
-iterate over the remaining pages.
 
-Also add a missing (resource_size_t) cast during PFN re-validation to
-avoid truncation on 32-bit PAE systems.
+This patch (of 2):
 
-Link: https://lore.kernel.org/e06e28a46c2a176238f03b5740df0913e57c2861.1788842306.git.rakukuip@gmail.com
-Fixes: 9cb12d7b4cca ("mm/memory.c: actually remap enough memory")
-Signed-off-by: Luxiao Xu <rakukuip@gmail.com>
-Signed-off-by: Ren Wei <weir@nebusec.ai>
+effective_protection() scales a parent's protection by a ratio of page
+counts, e.g.  for recursive protection:
+
+	(parent_effective - siblings_protected) * (usage - protected)
+		/ (parent_usage - siblings_protected)
+
+The multiply is done at unsigned long width before dividing.  On systems
+with >= 16TB RAM the product can exceed 2^64 and wrap, giving a bogus
+protection value and silently breaking memory.min/low enforcement.
+
+Use mul_u64_u64_div_u64() to multiply in a 128-bit intermediate.  Because
+usage and parent_usage are not read atomically (a child is charged before
+its parent), usage - protected can briefly exceed the divisor, making the
+quotient overflow 64 bits and trap (#DE on x86).  Cap it so the ratio
+stays <= 1.
+
+Reported by the sashiko review tool [1].
+
+Link: https://lore.kernel.org/20260907025445.1836238-1-ridong.chen@linux.dev
+Link: https://lore.kernel.org/20260907025445.1836238-2-ridong.chen@linux.dev
+Link: https://sashiko.dev/#/patchset/20260826133054.88529-1-ridong.chen@linux.dev?part=1 [1]
+Fixes: bc50bcc6e00b ("mm: memcontrol: clean up and document effective low/min calculations")
+Fixes: 8a931f801340 ("mm: memcontrol: recursive memory.low protection")
+Reviewed-by: Barry Song <baohua@kernel.org>
+Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
+Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: Vega <vega@nebusec.ai>
-Suggested-by: David Hildenbrand <david@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Assisted-by: LLM
-Cc: Grazvydas Ignotas <notasas@gmail.com>
-Cc: Liam R. Howlett <liam@infradead.org>
+Assisted-by: Claude:claude-opus-4-8
+Cc: Axel Rasmussen <axelrasmussen@google.com>
+Cc: Chris Down <chris@chrisdown.name>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Kairui Song <kasong@tencent.com>
 Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Michal Hocko <mhocko@kernel.org>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Tejun Heo <tj@kernel.org>
+Cc: Wei Xu <weixugc@google.com>
+Cc: Yuanchu Xie <yuanchu@google.com>
+Cc: Yu Zhao <yuzhao@google.com>
 Cc: <stable@vger.kernel.org>
 ---
- mm/memory.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ mm/page_counter.c | 21 +++++++++++++++------
+ 1 file changed, 15 insertions(+), 6 deletions(-)
 
-diff --git a/mm/memory.c b/mm/memory.c
-index ec63dd6212ac5..926276d419202 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -7131,6 +7131,12 @@ int generic_access_phys(struct vm_area_struct *vma, unsigned long addr,
- 	bool writable;
- 	struct follow_pfnmap_args args = { .vma = vma, .address = addr };
+diff --git a/mm/page_counter.c b/mm/page_counter.c
+index 450543f4b318b..98322803941a7 100644
+--- a/mm/page_counter.c
++++ b/mm/page_counter.c
+@@ -8,6 +8,7 @@
+ #include <linux/page_counter.h>
+ #include <linux/atomic.h>
+ #include <linux/kernel.h>
++#include <linux/math64.h>
+ #include <linux/string.h>
+ #include <linux/sched.h>
+ #include <linux/bug.h>
+@@ -376,7 +377,8 @@ static unsigned long effective_protection(unsigned long usage,
+ 	 * otherwise get a smaller chunk than what they claimed.
+ 	 */
+ 	if (siblings_protected > parent_effective)
+-		return protected * parent_effective / siblings_protected;
++		return mul_u64_u64_div_u64(protected, parent_effective,
++					   siblings_protected);
  
-+	/*
-+	 * Limit access to one page at a time, as that's what follow_pfnmap_start()
-+	 * guarantees; expect the caller to retry to read larger ranges.
-+	 */
-+	len = min_t(int, len, PAGE_SIZE - offset);
+ 	/*
+ 	 * Ok, utilized protection of all children is within what the
+@@ -417,13 +419,20 @@ static unsigned long effective_protection(unsigned long usage,
+ 	if (parent_effective > siblings_protected &&
+ 	    parent_usage > siblings_protected &&
+ 	    usage > protected) {
+-		unsigned long unclaimed;
++		unsigned long parent_unclaimed, parent_unprotected, unprotected;
+ 
+-		unclaimed = parent_effective - siblings_protected;
+-		unclaimed *= usage - protected;
+-		unclaimed /= parent_usage - siblings_protected;
++		parent_unclaimed = parent_effective - siblings_protected;
++		parent_unprotected = parent_usage - siblings_protected;
+ 
+-		ep += unclaimed;
++		/*
++		 * The usages aren't read atomically, so a child can transiently
++		 * appear to use more than its parent, making the ratio exceed 1
++		 * and the quotient overflow 64 bits (#DE on x86).  Cap it.
++		 */
++		unprotected = min(usage - protected, parent_unprotected);
 +
- retry:
- 	if (follow_pfnmap_start(&args))
- 		return -EINVAL;
-@@ -7142,7 +7148,7 @@ int generic_access_phys(struct vm_area_struct *vma, unsigned long addr,
- 	if ((write & FOLL_WRITE) && !writable)
- 		return -EINVAL;
++		ep += mul_u64_u64_div_u64(parent_unclaimed, unprotected,
++					  parent_unprotected);
+ 	}
  
--	maddr = ioremap_prot(phys_addr, PAGE_ALIGN(len + offset), prot);
-+	maddr = ioremap_prot(phys_addr, PAGE_SIZE, prot);
- 	if (!maddr)
- 		return -ENOMEM;
- 
-@@ -7150,7 +7156,7 @@ int generic_access_phys(struct vm_area_struct *vma, unsigned long addr,
- 		goto out_unmap;
- 
- 	if ((pgprot_val(prot) != pgprot_val(args.pgprot)) ||
--	    (phys_addr != (args.pfn << PAGE_SHIFT)) ||
-+	    (phys_addr != ((resource_size_t)args.pfn << PAGE_SHIFT)) ||
- 	    (writable != args.writable)) {
- 		follow_pfnmap_end(&args);
- 		iounmap(maddr);
+ 	return ep;
 -- 
 2.53.0
 
