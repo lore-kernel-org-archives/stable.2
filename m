@@ -1,53 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047881;
-	b=RrGdlMTS83+whMTDcB0qesIp/CeJqJl3D1mI0DVAabPH/BUnBamQV3mM+ujUa9KljwxX
-	 IJOozZdsphBJfzUalnmfCg1IWQUU0mMTITnaqzlHeldJfL3zy5IE7g1GnR1usKYnsB9OZ
-	 uEtUSkW9NgX4g0Drtf6qmkg2JJDrsnz7DuH6VGaH57Rjajuvs/AzciWkZ2EAWpgjAHaY1
-	 uKITFmCqL46p9Nh6dg+Phm3D0Bm0uJD3WscsQ0GVUuJqLyaSFTE+Ozt8MKUQT1/nu87yt
-	 a03bGSLpro1PPI2SnKap5JWyW2wKVxtm6+jne9lyu5IjuO87XaM8z9OVea0Cb7funWQ==
+	t=1794047883;
+	b=frJkPpfrTnIXpi071akL7FJdX+VEqFyR8KZjbSGU3Xg4Y7iPiuwuHNoTRa3O7JiX91x1
+	 dcHHEzCGI4cukTxOaoOyeRupWN15mNiDKhLnsspeZMLs0MZDHqaPx7Jz8I8/ozvfhmdnW
+	 2QwER5yOn3yV847iv0HxG9VlhVFSi+d1t+04s2pa7sNu5lwAVGnmpFjLIi0hv49ov1NjM
+	 VfU6GIrqOFcTDh4bQ6eY8fJP6CbiRlLUAX4UauSy7yxjyaTV8v+9ckeOezhkQ8ixKiePM
+	 71aHw0yQ/072bsx1N3FN2SWx9vVE8Wq14QKzknDTItLTSn7fh+Y05DfsxkGHYVQlanA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047881;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047883;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=DypwD0G+EL++7T9AOQr7f7kjr1ygrGkJeHL+GmpUXzs=;
-	b=p/A04eIoJX3udBO4MD0ZcwU6tkAyYtDp0I/VFdxz6yS9T2FX4ll15nLDck9xRyxGSrMN
-	 A7vhOGzr8n9TLUutPGfxeHppYnniP25IZGF+bbtLofPIaztOIGSZN2RcgHosD8s38L9/p
-	 rw1P/JaQzSmBpdBRj08PNPe6tI/aW5gxchc9mx1EKGmvQBYHcUVSOZwTOxceiGTGrr6w9
-	 tXCCabq2XCNv2RtCJ0C3QYwiiGH7nO51u7T/grwoiUpYzl0BMRndklp6QGy6VQQspZ+dz
-	 O2ZXMkHkdF2L55xQRYG0Z8GXiYneHelwg3GTucixR7dQ/bK14wTeN0I4EOLgjx+qOfQ==
+	bh=pLqQtgdGOncDtIHmgG3aBk/Ry0Fi785CqghmarbY6gM=;
+	b=Dof4WGJleIOpVujg1jvoPTVw1b53CtE9GdlsCz+ZjYDhwlPq+YW/JAgkttOUiRswKRTk
+	 TNJVQXE6zHN2VHHUhdPd+tTcUTSJRIRxM35yR7Z3XedjsIyaM2GzfSZxHlr02TXfVKbGx
+	 QKAJFon1AJPkCPVUdYGI4+aCdnaG4AWxqF8W8o5LODEhOX79p9OhL/fR9LqD7eE6MRDqL
+	 SIGwaQbA17GOeu0z/JBNTEQk0hRUQNT+1JmBBLfe/qr2z3FKsJ27snKsjEKeNL5qmP9yW
+	 gl3k+rkY5nwPwxvlmm4J+nKIDaPZdkm5LEsdw8giZlCL1t7d4IdnAZ0otu5Jt+/OuEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VvbI1PbI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q0ZeNM0r;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BD17606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:38:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E431606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:38:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VvbI1PbI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 707731F0089F;
-	Sat,  7 Nov 2026 10:38:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q0ZeNM0r
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FB921F0089F;
+	Sat,  7 Nov 2026 10:38:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047881;
-	bh=DypwD0G+EL++7T9AOQr7f7kjr1ygrGkJeHL+GmpUXzs=;
+	s=k20260515; t=1794047883;
+	bh=pLqQtgdGOncDtIHmgG3aBk/Ry0Fi785CqghmarbY6gM=;
 	h=From:To:Cc:Subject:Date;
-	b=VvbI1PbImqOKr3/eSDCwDSeHl8hjKu0o+3fqBCu8Q8y2aWoW1p/ff6NWTXEq59/2l
-	 2ZLckqTS5/YItshMqVNiBXFSGjHX1zecGIDIf1G0mz0u+uq28zNf/OsB8c+Z4zYc+P
-	 tJVxCehNW47fc0yJH8CnLZu1fqJhCZ9uPlVBAd8PBJrKw7crRlHXCctXIW/00KxvgE
-	 tHVy+ivaxs9PJtsD5m1cBgeA/elJp4NbuTH7EDYQ8Fm9iE4eaNtFr8ZAnHFs1aEd7d
-	 GJZlYvnuPv9EzpDJj1A29i6Gfs+ml2q51gh31mouCrB6u6EO32s6tyZYSnDzrhpVQl
-	 Ftz6YcUjlchtw==
+	b=Q0ZeNM0rffL3l4LNpNFgodfzrr9CZw8cxrq+PNzEYFHOGcQaCJjbpZhmvP/qAjn9L
+	 TDBQfZU0QSbLU9zCuCVYZEL/pAecwGcogMqcmhVjG8OErQPiWT8ptgxgfFjN6s6lOt
+	 4EHzsuSEn9zMxSoVcVfv0LmmbpPPN8tNjI7YIt8hudvjVB0+KoydS8RMAH2RZc4jXo
+	 DCAhRG9icq7w3x7He0dMl5A7kR//nB6YfGt9p+F4RTKOOuUUbERdfXaTNnSbWDOGqw
+	 hx7WIjHx2EwceWIY+PL3epEnZwLdMjwqN1Xi7Pi/61c+YZ7JLD0Vo1Dd2kh3mIk317
+	 vJgxzTtM/Zmdg==
 From: Sasha Levin <sashal@kernel.org>
-To: armaan.sandhu0504@gmail.com,
-	akpm@linux-foundation.org,
-	lzsx618@gmail.com,
-	andriy.shevchenko@intel.com
+To: bartualev@gmail.com,
+	ilpo.jarvinen@linux.intel.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] lib/cmdline: fix get_options() count and overflow with large ranges" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:37:59 -0500
-Message-ID: <20261107053759-failed-6.6-5d72266218b1@kernel.org>
+Subject: FAILED: patch "[PATCH] platform/x86: asus-wmi: fix TUF keyboard power state shutdown naming" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:38:01 -0500
+Message-ID: <20261107053801-failed-6.6-3d9a175707ee@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,142 +68,83 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 5d72266218b1c4dd2917f1df2b86f3b0e0a605c9
+git cherry-pick -x 3d9a175707eeb15a2d577af1e669b98e0236719b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053759-failed-6.6-5d72266218b1@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053801-failed-6.6-3d9a175707ee@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 5d72266218b1c4dd2917f1df2b86f3b0e0a605c9 Mon Sep 17 00:00:00 2001
-From: Armaan Sandhu <armaan.sandhu0504@gmail.com>
-Date: Mon, 5 Oct 2026 17:39:45 -0400
-Subject: [PATCH] lib/cmdline: fix get_options() count and overflow with large
- ranges
+From 3d9a175707eeb15a2d577af1e669b98e0236719b Mon Sep 17 00:00:00 2001
+From: Bartu Alev <bartualev@gmail.com>
+Date: Sat, 10 Oct 2026 13:15:58 +0300
+Subject: [PATCH] platform/x86: asus-wmi: fix TUF keyboard power state shutdown
+ naming
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-get_range() stops writing once the array is full, but get_options() still
-advances its index by the whole range.  So "1-100" parsed into four ints
-reports 99 numbers, and a range like "0-2147483647" wraps the index
-negative and writes outside the array.
+The fourth state flag of kbd_rgb_state_index is named "keyboard" and has
+long been treated as having no effect.  In hardware the flag, BIT(7) of
+the payload sent to the TUF RGB state device, gates whether the keyboard
+backlight stays lit while the machine powers off: with the bit set the
+keyboard lights up white during the ACPI S5 sequence, with the bit clear
+the machine powers off dark.  Verified by A/B testing both values on a
+TUF Gaming A15 (FA507NV).
 
-Stop once a range fills the array, bail out in validation mode before the
-count overflows, and saturate the range length in get_range().  Add KUnit
-cases; without the fix "0-2147483647" panics the test kernel.
+Rename the fourth field and its index entry from "keyboard" to
+"shutdown".  The write format is unchanged, the value is still
+positional, and the diff is two variable names and one string, so it
+backports cleanly.
 
-Only root can supply this input, so this is a robustness fix.
-
-[akpm@linux-foundation.org: add additional test case from Leizhen]
-Link: https://lore.kernel.org/20261005213945.359905-1-armaan.sandhu0504@gmail.com
-Fixes: 22f2e2801799 ("[PATCH] get_options to allow a hypenated range for isolcpus")
-Signed-off-by: Armaan Sandhu <armaan.sandhu0504@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: Leizhen Zhang <lzsx618@gmail.com>
-Reviewed-by: Leizhen Zhang <lzsx618@gmail.com>
-Cc: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: <stable@vger.kernel.org>
+Fixes: 61f64515299e ("platform/x86: asus-wmi: Implement TUF laptop keyboard power states")
+Cc: stable@vger.kernel.org
+Signed-off-by: Bartu Alev <bartualev@gmail.com>
+Link: https://patch.msgid.link/20261010101601.888709-3-bartualev@gmail.com
+Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 ---
- lib/cmdline.c             | 13 ++++++++++++-
- lib/tests/cmdline_kunit.c | 39 +++++++++++++++++++++++++++++++++++++++
- 2 files changed, 51 insertions(+), 1 deletion(-)
+ drivers/platform/x86/asus-wmi.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/lib/cmdline.c b/lib/cmdline.c
-index 16cce6621cec1..40b98d943a9ae 100644
---- a/lib/cmdline.c
-+++ b/lib/cmdline.c
-@@ -11,6 +11,7 @@
- 
- #include <linux/export.h>
- #include <linux/kernel.h>
-+#include <linux/overflow.h>
- #include <linux/string.h>
- #include <linux/ctype.h>
- 
-@@ -26,7 +27,9 @@ static int get_range(char **str, int *pint, int n)
- 
- 	(*str)++;
- 	upper_range = simple_strtol((*str), NULL, 0);
--	inc_counter = upper_range - *pint;
-+	/* Keep the sign of the result when the difference doesn't fit */
-+	if (check_sub_overflow(upper_range, *pint, &inc_counter))
-+		inc_counter = upper_range < *pint ? -1 : INT_MAX;
- 	for (x = *pint; n && x < upper_range; x++, n--)
- 		*pint++ = x;
- 	return inc_counter;
-@@ -122,6 +125,14 @@ char *get_options(const char *str, int nints, int *ints)
- 			range_nums = get_range((char **)&str, pint, n);
- 			if (range_nums < 0)
- 				break;
-+			/* The range didn't fit, so the array is full */
-+			if (!validate && range_nums > n) {
-+				i = nints;
-+				break;
-+			}
-+			/* Leave room for the upper number of the range */
-+			if (range_nums >= INT_MAX - i)
-+				break;
- 			/*
- 			 * Decrement the result by one to leave out the
- 			 * last number in the range.  The next iteration
-diff --git a/lib/tests/cmdline_kunit.c b/lib/tests/cmdline_kunit.c
-index 3f61ff8d31782..12b85f255b651 100644
---- a/lib/tests/cmdline_kunit.c
-+++ b/lib/tests/cmdline_kunit.c
-@@ -140,6 +140,44 @@ static void cmdline_test_range(struct kunit *test)
- 	} while (++i < ARRAY_SIZE(cmdline_test_range_strings));
- }
- 
-+static const struct {
-+	const char *in;
-+	int parsed[4];
-+	int validated;
-+} cmdline_test_range_overflow_cases[] = {
-+	{ "1-100",         { 3, 1, 2, 3, },    100,        },
-+	{ "1,5-100,7",     { 3, 1, 5, 6, },    98,         },
-+	{ "1-2147483646",  { 3, 1, 2, 3, },    2147483646, },
-+	{ "0-2147483647",  { 3, 0, 1, 2, },    0,          },
-+	{ "-5-2147483647", { 3, -5, -4, -3, }, 0,          },
-+	{ "2147483647--5", { 0, 2147483647, }, 0,          },
-+	{ "1,0-2147483647", { 3, 1, 0, 1, },   1, },
-+};
-+
-+static void cmdline_test_range_overflow(struct kunit *test)
-+{
-+	unsigned int i, j;
-+
-+	for (i = 0; i < ARRAY_SIZE(cmdline_test_range_overflow_cases); i++) {
-+		const char *in = cmdline_test_range_overflow_cases[i].in;
-+		const int *e = cmdline_test_range_overflow_cases[i].parsed;
-+		/* Two guard elements past the array handed to get_options() */
-+		int r[ARRAY_SIZE(cmdline_test_range_overflow_cases[0].parsed) + 2];
-+		int n;
-+
-+		memset(r, 0, sizeof(r));
-+		get_options(in, ARRAY_SIZE(r) - 2, r);
-+		for (j = 0; j < ARRAY_SIZE(r) - 2; j++)
-+			KUNIT_EXPECT_EQ_MSG(test, r[j], e[j], "Pattern: %s at %u", in, j);
-+		for (; j < ARRAY_SIZE(r); j++)
-+			KUNIT_EXPECT_EQ_MSG(test, r[j], 0, "Pattern: %s out of bound at %u", in, j);
-+
-+		get_options(in, 0, &n);
-+		KUNIT_EXPECT_EQ_MSG(test, n, cmdline_test_range_overflow_cases[i].validated,
-+				    "Pattern: %s (validated)", in);
-+	}
-+}
-+
- static void cmdline_test_next_arg_quoted_value(struct kunit *test)
+diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
+index d1341adc1b3b3..3348ce162ad3f 100644
+--- a/drivers/platform/x86/asus-wmi.c
++++ b/drivers/platform/x86/asus-wmi.c
+@@ -1130,10 +1130,10 @@ static ssize_t kbd_rgb_state_store(struct device *dev,
+ 				 struct device_attribute *attr,
+ 				 const char *buf, size_t count)
  {
- 	char in[] = "foo=\"bar baz\" qux=1";
-@@ -258,6 +296,7 @@ static struct kunit_case cmdline_test_cases[] = {
- 	KUNIT_CASE(cmdline_test_lead_int),
- 	KUNIT_CASE(cmdline_test_tail_int),
- 	KUNIT_CASE(cmdline_test_range),
-+	KUNIT_CASE(cmdline_test_range_overflow),
- 	KUNIT_CASE(cmdline_test_next_arg_quoted_value),
- 	KUNIT_CASE(cmdline_test_next_arg_bare_quote_regression),
- 	KUNIT_CASE(cmdline_test_next_arg_mixed_tokens),
+-	u32 flags, cmd, boot, awake, sleep, keyboard;
++	u32 flags, cmd, boot, awake, sleep, shutdown;
+ 	int err;
+ 
+-	if (sscanf(buf, "%d %d %d %d %d", &cmd, &boot, &awake, &sleep, &keyboard) != 5)
++	if (sscanf(buf, "%d %d %d %d %d", &cmd, &boot, &awake, &sleep, &shutdown) != 5)
+ 		return -EINVAL;
+ 
+ 	if (cmd)
+@@ -1146,7 +1146,7 @@ static ssize_t kbd_rgb_state_store(struct device *dev,
+ 		flags |= BIT(3);
+ 	if (sleep)
+ 		flags |= BIT(5);
+-	if (keyboard)
++	if (shutdown)
+ 		flags |= BIT(7);
+ 
+ 	/* 0xbd is the required default arg0 for the method. Nothing happens otherwise */
+@@ -1160,7 +1160,7 @@ static ssize_t kbd_rgb_state_store(struct device *dev,
+ static DEVICE_ATTR_WO(kbd_rgb_state);
+ 
+ static DEVICE_STRING_ATTR_RO(kbd_rgb_state_index, 0444,
+-			     "cmd boot awake sleep keyboard");
++			     "cmd boot awake sleep shutdown");
+ 
+ static struct attribute *kbd_rgb_state_attrs[] = {
+ 	&dev_attr_kbd_rgb_state.attr,
 -- 
 2.53.0
 
