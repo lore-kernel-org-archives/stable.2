@@ -1,52 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047753;
-	b=wOI4Z9q1N8v2Hr6FAuy8dfeIjNa/y5WtaZeYJbmB6dMPrRnYq0orWFjUgw/JSD3S7GJ1
-	 odhtkc+ub5B/FiFTBfMzdElG56mrR9Ciu1VABvVgHIpqs1zE/oG3FI765sh5gSp4dmYaA
-	 TXQh0K0qRbCdnV4ZcOZpk5Hg6tml7moYOoXUnn+oErDe6fcSzeL7yzzGltQwdrVFkiv+i
-	 Fe+K8eCUrILkeu6Q8ATM5O9xTB5YI212Ebxjz5msNmI4vtQroL9IsHQOXmmQxyECk8hrS
-	 FkLvIc5061fBoepxlEXANtVDqa/WtEwY33ig4GNB6jhDHiokNSv/hA1w7I29py9AhMg==
+	t=1794047757;
+	b=uWV3kstfiL92iBF8BG854pRcxzS3MqNdN4PlamZkuBDEP/CI/tTddtal09t3DoNdKzma
+	 wwRoKUIvikUuB3UtYq7NRNRcwObXa6E6MCw7ZEqYkHv2TAI5iZShZcnunUDSLMTZ3+fTo
+	 dC8b4+oSmtiiXfmm0hwLEtjiOdz0Le4XHDbwkWutvJKnSfTKOpj2Z0fGTg4STgqvJYx+I
+	 sXlErD9b80Y/dlnl8wSewIxgNPOATyHZYAQYg7i0EQb4zwdXKQpHWhG0wJNbBxsJKLS/X
+	 wXgCM2ecSVpnw/mbtUh7ouMOrC9tPixyA6ydJ4Qg7YYMwaD2UQGZFhT/geiaSEQM2DQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047753;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047757;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=tg99t07T65DYD4OxGmip//QMz09Mu/b178DCtKsjs24=;
-	b=xbuTRF1U+DSI1raErWAwx3V+xtHxSTymvTcA684zxJ9UlKnV0OFdR9es6gi3dtY9wTZK
-	 5JmMmBZaGsuVcPyJVBibZ8Y4KS4Z57qd2GaxtMnvHJ/F/hiFsKqxudL/SQ1ELMaEyxIV3
-	 2cQ9flbtmHm4kvqsUZjQ0al8IZZrGSwB94gMqAwsj3sHBLP2GcdIR7goImmVvQrlLpEkE
-	 h9ihZ2acdAAFlIb2uDtfpJzwL5EBWKOhrp4qMgxxoJtNz5qId/F/XxvL51QfrlfK5PNoF
-	 8PD5f1Qae9LNEUXi9MqNnSW6KSyUZdB4SaViRyudROKssMOfC+SQxyzhXHO5534pYog==
+	bh=2bJxSQNP/lxfad/VRFKiPscY4GcArVs9F6rlsehuauk=;
+	b=wOl7LQWRbzSpAMdQinH3LvkryOe4sSGNc9LYe6LdOunxLmHzFODzip51yn5thyhHe315
+	 gp5ahPz5MU7MLDSDl+rjTFNpM80ywSk68T0CWLGfcweEzyjcgLD6xdHffdurbPVYP453f
+	 WMF+yGcexTjMY2iPlKNSrTwg9Hq+S89gZMOljlTUapgwkUpEwaP180FwRs/S3/Om8E4ba
+	 yURFGwV/sfcux0eFD4lz7YKv5cl6inmF5xh7x++FJsRqTERScCXMLjDHMY2pFm+Ze9aF2
+	 qwtc3RAtBsMcZs08qn1Yvn9lDF22yhTgSXl1TRLfG7oazkoTrQflO8US+SQkvpUCpgQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ScGBqKpV;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bHhoEEVP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8501C606D80C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:35:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B97D0606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:35:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ScGBqKpV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1EED1F008A5;
-	Sat,  7 Nov 2026 10:35:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bHhoEEVP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B21B1F008A4;
+	Sat,  7 Nov 2026 10:35:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047753;
-	bh=tg99t07T65DYD4OxGmip//QMz09Mu/b178DCtKsjs24=;
+	s=k20260515; t=1794047755;
+	bh=2bJxSQNP/lxfad/VRFKiPscY4GcArVs9F6rlsehuauk=;
 	h=From:To:Cc:Subject:Date;
-	b=ScGBqKpV3hPtqdsAePCR9HH5hKaeCWpM7X5hCOpfst1H5hrAuPRCxWkvkv1i277sW
-	 PgdD7IkdsYlXT3PfHUm1Nb5L7gJxYC9MacAh7L+DUY8LuLuhe/+d5P3f57xQJK7nzH
-	 VQNKEsfwkvBilWw/2UnVGERoFgcpjgi3cYvGSbwxKklVOogrpKoxvEBeNBk94LH39l
-	 RIJOXuqYyr6kcxNVznHHrUS1Y6RFPEiBiSNij4dTHrklhLo1+gqMdL1VDHJj3zPwIx
-	 pC4cFDGkzQc12M+B9BhfSu+9d/M/mKQOjxBW2xXZKD7Dw7C2OvFsuDTK0SFKLFzVOD
-	 +wOomitmSV/0g==
+	b=bHhoEEVPRiKIOKN+/aL0eFvm7lbfQkcmMYNu9pJfFUOeS+Qm2mt4QjxIME0d1nb7t
+	 WpYhjsgaLxysMzHCOx3lr0Y6n/HCcO7pClCC3Mj21pNS9WdjQ8KKCMGDypNllZquRo
+	 jHoPSfi17Nq3Z6INlSVdBrAJ5ChI5g/RXtF1xtzf7Tn/k62/bMV6XIH99A9jTcATr1
+	 2qjKgSROzykVcpx0IuSloVwZlqdIMcYIW8d9J6VMWbxCBXxtAWqIQZkgcnLIiCU87B
+	 jp8OH0QScrC5av+8Jna5DIzIva5FDQYLIs2odgxxcuiiHxUlJ/bE0WNfkwQp6/H5dL
+	 7B3iX8tbOTl8A==
 From: Sasha Levin <sashal@kernel.org>
-To: yun.zhou@windriver.com,
-	idosch@nvidia.com,
+To: junvyyang@tencent.com,
+	corvus@tencent.com,
+	lucien.xin@gmail.com,
 	kuba@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] net: erspan: set lltx to avoid sch_direct_xmit deadlock" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:35:51 -0500
-Message-ID: <20261107053551-failed-6.6-2d36ec73836e@kernel.org>
+Subject: FAILED: patch "[PATCH] sctp: re-point retained control chunks on association migration" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:35:54 -0500
+Message-ID: <20261107053553-failed-6.6-52ffeaa358d1@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,80 +70,171 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 2d36ec73836e83175deb467fd494c61006107e5d
+git cherry-pick -x 52ffeaa358d1f3d91aa87a26ad90d77769cff74b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053551-failed-6.6-2d36ec73836e@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053553-failed-6.6-52ffeaa358d1@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 2d36ec73836e83175deb467fd494c61006107e5d Mon Sep 17 00:00:00 2001
-From: Yun Zhou <yun.zhou@windriver.com>
-Date: Thu, 8 Oct 2026 17:38:24 +0800
-Subject: [PATCH] net: erspan: set lltx to avoid sch_direct_xmit deadlock
+From 52ffeaa358d1f3d91aa87a26ad90d77769cff74b Mon Sep 17 00:00:00 2001
+From: Jun Yang <junvyyang@tencent.com>
+Date: Fri, 9 Oct 2026 15:42:32 +0800
+Subject: [PATCH] sctp: re-point retained control chunks on association
+ migration
 
-The ERSPAN xmit path re-enters the network stack, causing nested
-acquisition of _xmit_lock on the underlay device while already holding
-the ERSPAN device's _xmit_lock, creating an ABBA deadlock. This happens
-for both IPv4 ERSPAN (erspan_xmit() -> ip_tunnel_xmit()) and IPv6 ERSPAN
-(ip6erspan_tunnel_xmit() -> ip6_tnl_xmit()):
+sctp_sock_migrate() transfers DATA chunk ownership but leaves retained
+control chunks pointing at the old socket. A later retransmission can
+therefore access the socket after it has been freed.
 
-  sch_direct_xmit [lock erspan] -> erspan_xmit -> ip_tunnel_xmit ->
-  ip_output -> __dev_queue_xmit -> sch_direct_xmit [lock underlay]
+Extend the migration walk to cover retained control chunks and use
+sctp_control_set_owner_w() to assign their new owner. Reuse the DATA
+ownership check so each chunk is processed once per pass, even when it
+is reachable through multiple lists or retained pointers.
 
-  sch_direct_xmit [lock erspan] -> ip6erspan_tunnel_xmit -> ip6_tnl_xmit ->
-  ip6_output -> __dev_queue_xmit -> sch_direct_xmit [lock underlay]
+Preserve a control chunk's existing authentication key across migration
+so its final release can still generate SCTP_AUTH_FREE_KEY when needed.
 
-Set dev->lltx = true so HARD_TX_LOCK() skips the spinlock for ERSPAN.
-This is safe as the ERSPAN xmit path has no shared mutable state: o_seqno
-is atomic, TX stats are per-CPU u64_stats, dst_cache is per-CPU, and
-o_flags is no longer modified in the xmit path since commit 9958e69b9893
-("gre: fix ERSPAN o_flags race/corruption in xmit and fill_info").
-GRETAP, the sibling device with identical xmit structure, already sets
-lltx.
-
-Reported-by: syzbot+9bda1b9fbb7fbdf9b62b@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=9bda1b9fbb7fbdf9b62b
-Fixes: 84e54fe0a5ea ("gre: introduce native tunnel support for ERSPAN")
-Fixes: 5a963eb61b7c ("ip6_gre: Add ERSPAN native tunnel support")
-Cc: stable@vger.kernel.org # 9958e69b9893 ("gre: fix ERSPAN o_flags race/corruption in xmit and fill_info")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yun Zhou <yun.zhou@windriver.com>
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
-Link: https://patch.msgid.link/20261008093824.119453-1-yun.zhou@windriver.com
+Fixes: d04adf1b3551 ("sctp: reset owner sk for data chunks on out queues when migrating a sock")
+Cc: stable@kernel.org
+Reported-by: TencentOS Corvus AI <corvus@tencent.com>
+Signed-off-by: Jun Yang <junvyyang@tencent.com>
+Acked-by: Xin Long <lucien.xin@gmail.com>
+Link: https://patch.msgid.link/20261009074244.3718-3-juny24602@gmail.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 ---
- net/ipv4/ip_gre.c  | 1 +
- net/ipv6/ip6_gre.c | 1 +
- 2 files changed, 2 insertions(+)
+ include/net/sctp/sm.h    |  1 +
+ net/sctp/sm_make_chunk.c |  5 ++--
+ net/sctp/socket.c        | 53 ++++++++++++++++++++++++++++++----------
+ 3 files changed, 44 insertions(+), 15 deletions(-)
 
-diff --git a/net/ipv4/ip_gre.c b/net/ipv4/ip_gre.c
-index e4878e9aa6367..149a4e83b6925 100644
---- a/net/ipv4/ip_gre.c
-+++ b/net/ipv4/ip_gre.c
-@@ -1367,6 +1367,7 @@ static int erspan_tunnel_init(struct net_device *dev)
- 	dev->features		|= GRE_FEATURES;
- 	dev->hw_features	|= GRE_FEATURES;
- 	dev->priv_flags		|= IFF_LIVE_ADDR_CHANGE;
-+	dev->lltx = true;
- 	netif_keep_dst(dev);
+diff --git a/include/net/sctp/sm.h b/include/net/sctp/sm.h
+index 3bfd261a53cc9..76605d1ee8391 100644
+--- a/include/net/sctp/sm.h
++++ b/include/net/sctp/sm.h
+@@ -252,6 +252,7 @@ struct sctp_chunk *sctp_make_fwdtsn(const struct sctp_association *asoc,
+ 				    struct sctp_fwdtsn_skip *skiplist);
+ struct sctp_chunk *sctp_make_auth(const struct sctp_association *asoc,
+ 				  __u16 key_id);
++void sctp_control_set_owner_w(struct sctp_chunk *chunk);
+ struct sctp_chunk *sctp_make_strreset_req(const struct sctp_association *asoc,
+ 					  __u16 stream_num, __be16 *stream_list,
+ 					  bool out, bool in);
+diff --git a/net/sctp/sm_make_chunk.c b/net/sctp/sm_make_chunk.c
+index 84a4c97d0f755..ddc31a5dbad32 100644
+--- a/net/sctp/sm_make_chunk.c
++++ b/net/sctp/sm_make_chunk.c
+@@ -94,7 +94,7 @@ static void sctp_control_release_owner(struct sk_buff *skb)
+ 	}
+ }
  
- 	return ip_tunnel_init(dev);
-diff --git a/net/ipv6/ip6_gre.c b/net/ipv6/ip6_gre.c
-index 04f7c70b7320e..3429543ec77e7 100644
---- a/net/ipv6/ip6_gre.c
-+++ b/net/ipv6/ip6_gre.c
-@@ -1864,6 +1864,7 @@ static int ip6erspan_tap_init(struct net_device *dev)
- 		dev->mtu -= 8;
+-static void sctp_control_set_owner_w(struct sctp_chunk *chunk)
++void sctp_control_set_owner_w(struct sctp_chunk *chunk)
+ {
+ 	struct sctp_association *asoc = chunk->asoc;
+ 	struct sk_buff *skb = chunk->skb;
+@@ -107,7 +107,8 @@ static void sctp_control_set_owner_w(struct sctp_chunk *chunk)
+ 	 *  For now don't do anything for now.
+ 	 */
+ 	if (chunk->auth) {
+-		chunk->shkey = asoc->shkey;
++		if (!chunk->shkey)
++			chunk->shkey = asoc->shkey;
+ 		sctp_auth_shkey_hold(chunk->shkey);
+ 	}
+ 	skb->sk = asoc ? asoc->base.sk : NULL;
+diff --git a/net/sctp/socket.c b/net/sctp/socket.c
+index 696e679362512..8cf3e955ae180 100644
+--- a/net/sctp/socket.c
++++ b/net/sctp/socket.c
+@@ -155,9 +155,24 @@ static void sctp_clear_owner_w(struct sctp_chunk *chunk)
  
- 	dev->priv_flags |= IFF_LIVE_ADDR_CHANGE;
-+	dev->lltx = true;
- 	ip6erspan_tnl_link_config(tunnel, 1);
+ static void sctp_set_owner_w_migrate(struct sctp_chunk *chunk)
+ {
+-	sctp_set_owner_w(chunk);
+-	if (chunk->shkey)
+-		sctp_auth_shkey_release(chunk->shkey);
++	struct sctp_shared_key *shkey = chunk->shkey;
++
++	if (chunk->msg)
++		sctp_set_owner_w(chunk);
++	else
++		sctp_control_set_owner_w(chunk);
++
++	if (shkey)
++		sctp_auth_shkey_release(shkey);
++}
++
++static void sctp_process_tx_chunk(struct sctp_association *asoc,
++				  struct sctp_chunk *chunk, bool clear,
++				  void (*cb)(struct sctp_chunk *))
++{
++	if ((clear && asoc->base.sk == chunk->skb->sk) ||
++	    (!clear && asoc->base.sk != chunk->skb->sk))
++		cb(chunk);
+ }
  
- 	netdev_hold(dev, &tunnel->dev_tracker, GFP_KERNEL);
+ #define traverse_and_process()	\
+@@ -165,17 +180,14 @@ do {				\
+ 	msg = chunk->msg;	\
+ 	if (msg == prev_msg)	\
+ 		continue;	\
+-	list_for_each_entry(c, &msg->chunks, frag_list) {	\
+-		if ((clear && asoc->base.sk == c->skb->sk) ||	\
+-		    (!clear && asoc->base.sk != c->skb->sk))	\
+-			cb(c);	\
+-	}			\
++	list_for_each_entry(c, &msg->chunks, frag_list)	\
++		sctp_process_tx_chunk(asoc, c, clear, cb);	\
+ 	prev_msg = msg;		\
+ } while (0)
+ 
+-static void sctp_for_each_tx_datachunk(struct sctp_association *asoc,
+-				       bool clear,
+-				       void (*cb)(struct sctp_chunk *))
++static void sctp_for_each_tx_chunk(struct sctp_association *asoc,
++				   bool clear,
++				   void (*cb)(struct sctp_chunk *))
+ 
+ {
+ 	struct sctp_datamsg *msg, *prev_msg = NULL;
+@@ -198,6 +210,21 @@ static void sctp_for_each_tx_datachunk(struct sctp_association *asoc,
+ 
+ 	list_for_each_entry(chunk, &q->out_chunk_list, list)
+ 		traverse_and_process();
++
++	list_for_each_entry(chunk, &q->control_chunk_list, list)
++		sctp_process_tx_chunk(asoc, chunk, clear, cb);
++
++	list_for_each_entry(chunk, &asoc->asconf_ack_list, transmitted_list)
++		sctp_process_tx_chunk(asoc, chunk, clear, cb);
++
++	list_for_each_entry(chunk, &asoc->addip_chunk_list, list)
++		sctp_process_tx_chunk(asoc, chunk, clear, cb);
++
++	if (asoc->strreset_chunk)
++		sctp_process_tx_chunk(asoc, asoc->strreset_chunk, clear, cb);
++
++	if (asoc->addip_last_asconf)
++		sctp_process_tx_chunk(asoc, asoc->addip_last_asconf, clear, cb);
+ }
+ 
+ static void sctp_for_each_rx_skb(struct sctp_association *asoc, struct sock *sk,
+@@ -9645,9 +9672,9 @@ static int sctp_sock_migrate(struct sock *oldsk, struct sock *newsk,
+ 	 * paths won't try to lock it and then oldsk.
+ 	 */
+ 	lock_sock_nested(newsk, SINGLE_DEPTH_NESTING);
+-	sctp_for_each_tx_datachunk(assoc, true, sctp_clear_owner_w);
++	sctp_for_each_tx_chunk(assoc, true, sctp_clear_owner_w);
+ 	sctp_assoc_migrate(assoc, newsk);
+-	sctp_for_each_tx_datachunk(assoc, false, sctp_set_owner_w_migrate);
++	sctp_for_each_tx_chunk(assoc, false, sctp_set_owner_w_migrate);
+ 
+ 	/* If the association on the newsk is already closed before accept()
+ 	 * is called, set RCV_SHUTDOWN flag.
 -- 
 2.53.0
 
