@@ -1,51 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048067;
-	b=lBWM8Dth8r6ew0Yz4OKMrssfmZ5vWc7YxwxCbSG5wU9WnvtJLwa3tr62CF9FLqG4oPUt
-	 KOJHazB8V0rJgQ80t0bJJpNpHa2d01bcLO8iXJpRAus5yxRNRhSXU64reXRTux3duV105
-	 iVx3tBKDQWFe/zVHBWPSykmJyOeIkh6cqrNDIccNc0JCqknnZKeLKM/Cqea3rX3x7N/sk
-	 0+h1SuOdue8cw1vRPpWh5kWy+Hpv7FPXx1VS19tqf1KQABB9Cv8ocCYyoumtT/209DLi4
-	 hCGunESFMBDecy4ZqNAs3/by1h/VWe+EROPnheNJihedyTjaQM5S+sMlNn9K4R2QyBw==
+	t=1794048069;
+	b=G5yoPRd0en7sA3vGkxbIhS0Xt5Rn3bWxruyl5cuLsqu5CMxxCxWfzp/dBxDarNQWStoi
+	 oyS29MJPs9uxIXFueMks7GAcKDiuPRdYjpAghI3Ok0U+fVDp0NKeAhnDQVThG8WIQ5dwv
+	 59nHmruPJRFk74QIMLv7bECnIW5JhBIss1bcMdRYs4aAperTVoq6aIPME3SexoOuBCmZD
+	 K9i9su8pWwFvBPKnUbMoeuNFrYvUrvYMGBPnQ7r2u7JtFS4Hz+146qaw+4MMqqCv8rGHl
+	 gT9gS6ie3+U8KjjyF2piZ22FA1UMGo4yBGnJMykFA0b2H+0Mcqpfeiu7aoLM9YU49Og==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048067;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048069;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=tPmB7jaikNnv4ObGkHuDlTAKGTiARXfujTSgJF11laU=;
-	b=Eo2fRcisUIqSzXbVmZ4cdk0MP66wUwmZ+KhG2E5tfDZD20Z+QJ48VJ1wwzlGGoBERFJE
-	 Y6c9L28fbqUKvX0FnJWLuUuevdx6YkIGKfIuT4P1FA4iyyTtA9qLON6u3YGYoj4OPcGUV
-	 e0beZTm1WJDjHDBjdOSqWM4SlIgqS95OLtssQWx+kdFi0spYX4vzMbrJB3AhYlHYvk9Nr
-	 DOUZXqZvUKDnoHdiRztpS7m2YVL4/YhkQKzHiiqec0uUqbGTVBgs/16HkPTjKnHTW8FXA
-	 SO6S9n0SQaeF/lDYtOsF3tFGruq813wHQt9Epo9O9W15TNLr64Hy0dAWN9sNGcOJvHA==
+	bh=vpN7pMx4GK5qCm1QS//6uOvQeJo9iqStJLpPmjl9aJw=;
+	b=r09tIqXhkTwJDo28H1tttU9CcFOX1DxwiwNOQCfVIu++EiTMcxdGT4eLh/aLrA7t7W5j
+	 FkHXwZWqz/oufg5zNl2O56LT1pl4BAgJuIf77N/Db0FumoeQ8twE2N6/YPFgrgUh8CRdE
+	 uq1FnHkebhFkCc2VliOibsTgEKVWQnMFupZJ0IDvUjKdzMXSgqSkdRA4RRSWN+Z6aZIio
+	 8zT53BY1EzLiSpU+NVSZ4uBoph1q3jBHRBZ47OxW6/FJF8/p+9NHb30sKzZE7LCaMCUC0
+	 dFmlhoktaiwYNRyRiGKsJjZ1b39sdiH2rcfpXvLOtyY7hzgq8wCNks8ahC5RPzX6Tng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZThuhNAa;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="fBQ3/FeJ";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16C07606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:41:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66280606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:41:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZThuhNAa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 848A41F008A1;
-	Sat,  7 Nov 2026 10:41:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fBQ3/FeJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9A401F0089F;
+	Sat,  7 Nov 2026 10:41:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048066;
-	bh=tPmB7jaikNnv4ObGkHuDlTAKGTiARXfujTSgJF11laU=;
+	s=k20260515; t=1794048069;
+	bh=vpN7pMx4GK5qCm1QS//6uOvQeJo9iqStJLpPmjl9aJw=;
 	h=From:To:Cc:Subject:Date;
-	b=ZThuhNAaARWtHZLAJ7fhF7KK4IjDhbUdQjrzdw8wtj/ZASJm7RHgm1TNLuVG8yFPl
-	 jvZPoK3SBaUNd8hZCaAk4tb8kw7dD2Chc+9yCtGalXdIgabOBxfMnEmd5Rl1ZRHyFX
-	 cS4qgnVV6ooLII89B5UTcij/THUh2AOZAc5q0XFYqPNl68P5a/7D3LK9vGG0K18SYt
-	 ALp1c/EFeUWT6JGze6XHAVkG75d5k8b3owEdbLnQgr6az4yWyqj5KoDa6x3j7JT3I7
-	 p565aUpMHd8AEAz8JYty/CBo6AoLE1JZWZXK/zR7Kz3oOYezMticKW+Zxp+e7wMOjg
-	 CwE6hOcl4BH5w==
+	b=fBQ3/FeJdiFhH5AVob8BpnvymupuFy+wVbQDkrD3pk+HeFdDkqxD/EMTQXfXxfdih
+	 tNs8xP4/zruAmYDpyUcXWLerMINejgqvYmr7+zD5tNXoTOBVwPU9k6bQ15om+wt2Qp
+	 Zy/BpcxT/5W0hJ5GQHau7b63AeXBMxbgxYN2+FPBseKtTX5pQ96lE8546Q6fPDDai7
+	 0CkDxcTdRjousctTmt37fq7lqMhKs4Y+KjhyolcJFw+vzNSKVqNttLfZllBG0LWHMQ
+	 8j0ciyq2LYW4Q1/UT0Et8j2aTdQg9gW+s//HpBJBUmvClZn7j+A81PLJzvZcbN8qbL
+	 4TnwBxtOfWxkQ==
 From: Sasha Levin <sashal@kernel.org>
-To: acharyalaxman8848@gmail.com,
-	pkshih@realtek.com
+To: amir73il@gmail.com,
+	4ncienth@gmail.com,
+	jack@suse.cz,
+	brauner@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] wifi: rtw89: cap firmware section_num before parsing" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:41:05 -0500
-Message-ID: <20261107054105-failed-6.1-273b0a8be083@kernel.org>
+Subject: FAILED: patch "[PATCH] fs: make sure to call fsnotify_inoderemove() only once when inode is dead" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:41:07 -0500
+Message-ID: <20261107054107-failed-6.1-669bb5af15d4@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,94 +70,115 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 273b0a8be083df6d0319ce62caa870e927f94a31
+git cherry-pick -x 669bb5af15d41a21359d00a441490f87a88eb52a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054105-failed-6.1-273b0a8be083@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054107-failed-6.1-669bb5af15d4@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 273b0a8be083df6d0319ce62caa870e927f94a31 Mon Sep 17 00:00:00 2001
-From: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
-Date: Tue, 25 Aug 2026 23:29:38 +0545
-Subject: [PATCH] wifi: rtw89: cap firmware section_num before parsing
+From 669bb5af15d41a21359d00a441490f87a88eb52a Mon Sep 17 00:00:00 2001
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Wed, 2 Sep 2026 18:49:25 +0200
+Subject: [PATCH] fs: make sure to call fsnotify_inoderemove() only once when
+ inode is dead
 
-rtw89_fw_bin_info.section_info has FWDL_SECTION_MAX_NUM (10) entries.
-The v0/v1 header parsers take section_num from an 8-bit firmware field
-(0..255) and write info->section_info[i] with no cap.
-rtw89_fw_download_suit() keeps that object on the stack, so a crafted
-firmware blob overflows the stack.
+Daehyeon reported a race wherein fsnotify_removeinode() can be called
+when inode still has a live alias.  This can lead to several undesired
+outcomes such as crashes in fsnotify code or avoidance of inode mark
+notifications.
 
-Reject a truncated header and a section table that does not fit in the
-firmware image before reading fw_hdr->sections[i].
+Check that inode is really "dead", meaning no nlink and no more aliases
+before calling fsnotify_inoderemove() for final cleanup of inode marks.
+Also do not allow open_by_handle() to add new aliases to a "dead" inode.
 
-Fixes: e3ec7017f6a2 ("rtw89: add Realtek 802.11ax driver")
-Cc: stable@vger.kernel.org
-Acked-by: Ping-Ke Shih <pkshih@realtek.com>
-Signed-off-by: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
-Signed-off-by: Ping-Ke Shih <pkshih@realtek.com>
-Link: https://patch.msgid.link/20260825174438.63168-1-acharyalaxman8848@gmail.com
+Ideally, we'd call fsnotify_inoderemove() once last inode reference is
+dropped to make things simpler. Alas fsnotify inode marks currently hold
+inode references and thus this doesn't work. Once we teach fsnotify to
+avoid holding inode references, these games with dead inodes can go as
+well.
+
+Reported-and-tested-by: Daehyeon Ko <4ncienth@gmail.com>
+Closes: https://lore.kernel.org/linux-fsdevel/20260827045007.3831259-1-4ncienth@gmail.com/
+CC: stable@vger.kernel.org
+Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+Signed-off-by: Jan Kara <jack@suse.cz>
+Link: https://patch.msgid.link/20260902164924.1333135-2-jack@suse.cz
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- drivers/net/wireless/realtek/rtw89/fw.c | 32 +++++++++++++++++++++++++
- 1 file changed, 32 insertions(+)
+ fs/dcache.c | 27 ++++++++++++++++++++++++---
+ 1 file changed, 24 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/net/wireless/realtek/rtw89/fw.c b/drivers/net/wireless/realtek/rtw89/fw.c
-index 0099c5c03e7a6..b2991bc93f852 100644
---- a/drivers/net/wireless/realtek/rtw89/fw.c
-+++ b/drivers/net/wireless/realtek/rtw89/fw.c
-@@ -156,8 +156,24 @@ static int rtw89_fw_hdr_parser_v0(struct rtw89_dev *rtwdev, const u8 *fw, u32 le
- 	if (!info)
- 		return -EINVAL;
+diff --git a/fs/dcache.c b/fs/dcache.c
+index 1b1a81f10da67..8f17db2724b38 100644
+--- a/fs/dcache.c
++++ b/fs/dcache.c
+@@ -450,6 +450,17 @@ static void dentry_free(struct dentry *dentry)
+ 		call_rcu(&dentry->d_rcu, __d_free);
+ }
  
-+	if (len < sizeof(*fw_hdr)) {
-+		rtw89_err(rtwdev, "[ERR]fw header truncated\n");
-+		return -EINVAL;
-+	}
++/*
++ * If inode is unlinked and doesn't have any aliases (i.e., all fds pointing to
++ * it are closed), it is pretty much dead. Except that file handle lookup could
++ * still revive it which causes issues to fsnotify. So once inode reaches this
++ * state we make sure to block creating any new aliases.
++ */
++static bool inode_notify_dead(struct inode *inode)
++{
++	return !inode->i_nlink && hlist_empty(&inode->i_dentry);
++}
 +
- 	info->section_num = le32_get_bits(fw_hdr->w6, FW_HDR_W6_SEC_NUM);
-+	if (!info->section_num || info->section_num > FWDL_SECTION_MAX_NUM) {
-+		rtw89_err(rtwdev, "[ERR]invalid fw section num %u\n",
-+			  info->section_num);
-+		return -EINVAL;
-+	}
-+
- 	base_hdr_len = struct_size(fw_hdr, sections, info->section_num);
-+	if (base_hdr_len > len) {
-+		rtw89_err(rtwdev, "[ERR]fw header truncated\n");
-+		return -EINVAL;
-+	}
-+
- 	info->dynamic_hdr_en = le32_get_bits(fw_hdr->w7, FW_HDR_W7_DYN_HDR);
- 	info->idmem_share_mode = le32_get_bits(fw_hdr->w7, FW_HDR_W7_IDMEM_SHARE_MODE);
+ /*
+  * Release the dentry's inode, using the filesystem
+  * d_iput() operation if defined.
+@@ -459,6 +470,7 @@ static void dentry_unlink_inode(struct dentry * dentry)
+ 	__releases(dentry->d_inode->i_lock)
+ {
+ 	struct inode *inode = dentry->d_inode;
++	bool notify_dead;
  
-@@ -455,9 +471,25 @@ static int rtw89_fw_hdr_parser_v1(struct rtw89_dev *rtwdev, const u8 *fw, u32 le
- 	int ret;
- 	u32 i;
+ 	raw_write_seqcount_begin(&dentry->d_seq);
+ 	__d_clear_type_and_inode(dentry);
+@@ -469,9 +481,10 @@ static void dentry_unlink_inode(struct dentry * dentry)
+ 	 */
+ 	dentry->waiters = NULL;
+ 	raw_write_seqcount_end(&dentry->d_seq);
++	notify_dead = inode_notify_dead(inode);
+ 	spin_unlock(&dentry->d_lock);
+ 	spin_unlock(&inode->i_lock);
+-	if (!inode->i_nlink)
++	if (notify_dead)
+ 		fsnotify_inoderemove(inode);
+ 	if (dentry->d_op && dentry->d_op->d_iput)
+ 		dentry->d_op->d_iput(dentry, inode);
+@@ -2237,7 +2250,12 @@ static struct dentry *__d_obtain_alias(struct inode *inode, bool disconnected)
  
-+	if (len < sizeof(*fw_hdr)) {
-+		rtw89_err(rtwdev, "[ERR]fw header truncated\n");
-+		return -EINVAL;
-+	}
-+
- 	info->section_num = le32_get_bits(fw_hdr->w6, FW_HDR_V1_W6_SEC_NUM);
-+	if (!info->section_num || info->section_num > FWDL_SECTION_MAX_NUM) {
-+		rtw89_err(rtwdev, "[ERR]invalid fw section num %u\n",
-+			  info->section_num);
-+		return -EINVAL;
-+	}
-+
- 	info->dsp_checksum = le32_get_bits(fw_hdr->w6, FW_HDR_V1_W6_DSP_CHKSUM);
- 	base_hdr_len = struct_size(fw_hdr, sections, info->section_num);
-+	if (base_hdr_len > len) {
-+		rtw89_err(rtwdev, "[ERR]fw header truncated\n");
-+		return -EINVAL;
-+	}
-+
- 	info->dynamic_hdr_en = le32_get_bits(fw_hdr->w7, FW_HDR_V1_W7_DYN_HDR);
- 	info->idmem_share_mode = le32_get_bits(fw_hdr->w7, FW_HDR_V1_W7_IDMEM_SHARE_MODE);
+ 	sb = inode->i_sb;
+ 
+-	res = d_find_any_alias(inode); /* existing alias? */
++	spin_lock(&inode->i_lock);
++	if (!inode_notify_dead(inode))
++		res = __d_find_any_alias(inode);	/* existing alias? */
++	else
++		res = ERR_PTR(-ESTALE);
++	spin_unlock(&inode->i_lock);
+ 	if (res)
+ 		goto out;
+ 
+@@ -2249,7 +2267,10 @@ static struct dentry *__d_obtain_alias(struct inode *inode, bool disconnected)
+ 
+ 	security_d_instantiate(new, inode);
+ 	spin_lock(&inode->i_lock);
+-	res = __d_find_any_alias(inode); /* recheck under lock */
++	if (!inode_notify_dead(inode))
++		res = __d_find_any_alias(inode);	/* recheck under lock */
++	else
++		res = ERR_PTR(-ESTALE);
+ 	if (likely(!res)) { /* still no alias, attach a disconnected dentry */
+ 		unsigned add_flags = d_flags_for_inode(inode);
  
 -- 
 2.53.0
