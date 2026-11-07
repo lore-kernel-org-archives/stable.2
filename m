@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048010;
-	b=ABZjAr1cLldMAOI4dht6irfmPMdkA0m9pu4aQzijo2uwpV4tZ5OeunOa25Xp792Hzq2h
-	 sjccsMgvbg7WwPGVbhZdbyqvLk1SYXr7TeBu/twOtyh4NzUtVEz82vTIylw3A8oXOv+Oq
-	 vQhNWihW6DHKXXNg8luNh+G16bW/TB2hGnL7aU8sfcQSd3wf5oGGHdkvSacDKYgf0vCW0
-	 iBp9VFYoOwUT5Zcs7sqwC8TInMW3wWbcjyyj9sE8WNn7VwNKRckW+3Q8kYiybmyHD11wG
-	 6P+gE9Ysu+97Zh4xs8ssHH8nwClMmOS9vluH/OgvuBUkOcgiS7EOKzI/CbZgLVwtsOA==
+	t=1794048012;
+	b=m3zZVFN8OmvoGwWz/YtqzKlMyaT+3ddjSx+fulcJJapaDhDul0M+ZwG5ZnBqOx1Xl92d
+	 jwod6wJsg5LZJq0F2Nhm/04EiVxrnCR2E34glkJOzAkhdHSw3P7UlaST2XAXb3e3Va2v1
+	 +o74f7d/u4S3VbXJKBoYKGlsSUDBYB9+jcNub7FwSG6bgrJgAzkLzCRpp3akW6NhJ4dKP
+	 Nl4VMIgNPNlxqlEKuX6NKVVBze2Vw/YqMxNz6mc67WU1ZNyZKeqod4CAmbvmVvErLPdcj
+	 SL4/AUXWNDDO3O5p2vlFAQ+NCo5Uc7LpESt5qdi/v1sjIaC0WFHxV008Bt0CKxLTCsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048010;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048012;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=4meAOj6FQumTBMYU2pjPWtXVRdYViMaz3vXTK4ar+1Q=;
-	b=Egelp9XkBylETjwDEAhByt8WReSTqzbzm1Yoe7JRThMaGLOCrjNDKraEvWY9wPdmu8n/
-	 bfRqEd2E805d5tePmJtnV6xWScb5hsVFxiuD50qqrfrPqfKKbp6VXgxgwqBej2xCJIppr
-	 8SmSyPDvU9cNeN2a9J/2gHIb2FAt8ZiGI9W3UNZNGhd1sG5gOKrQoZYXg2vV5wUDDSK5Y
-	 +TUEigflKab2p4eLJkoyXWZJF51DukYXGbdmj0epAOuNbe/lRWmippYEzT5RMdVgAgVrw
-	 GJHEAyN/Kbj2a45aTMaWngFfnAv/NvZpg/hMPkzFHWCMcC1t+L36fOrXPFLBtx5/WNA==
+	bh=pwZxHVguWiMiBBTpNlfYObJJXbzQH0bmiuQ2DCZyFFA=;
+	b=bVedcMmB+m+TANPShNSC5yzUcTyEIJw5j3WeGwtsveZSvBE3I8T2omnDy2DIn00PR1R0
+	 uV1YYsnkpIp48Id+0XniNgxAvpwPdyd0bsYqQqIMJBvez5IS0W64C4JTCgSpMQhTfyaB0
+	 xcrqYAFJA3z2EX2voTAdpZeoreadaJ3ZF6K+N5j3OFezk6mM58QKhgcTluaLixONUtFTC
+	 brX+QXhHUzMgCVmf7XUXlR2ddZQF2NcU5n2Du5Xxlly/6bmPr49zkqWw2kh9bfr0uWN1P
+	 SFI0fVNw5V4Y6GXeNeKCvAa/2EeE3FAmFNAWSbjxTNJcoaFT53fHvp59IO89dEVQGig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hHB6g4xO;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P5d0oL5R;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43261606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:40:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 643F1606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:40:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hHB6g4xO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3BC11F0089F;
-	Sat,  7 Nov 2026 10:40:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P5d0oL5R
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1F2B1F0089F;
+	Sat,  7 Nov 2026 10:40:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048010;
-	bh=4meAOj6FQumTBMYU2pjPWtXVRdYViMaz3vXTK4ar+1Q=;
+	s=k20260515; t=1794048012;
+	bh=pwZxHVguWiMiBBTpNlfYObJJXbzQH0bmiuQ2DCZyFFA=;
 	h=From:To:Cc:Subject:Date;
-	b=hHB6g4xOjLqDIeW+iMa//8eHuQElXIibLFZbsCr1wOdqypBNwIn9djzmHxAWyiO4J
-	 QXHqOvUDSECteyZ3NWoyUBq+JfjKaVyeh/L8o9hMEPUjHpEZDlcejn9yBvXKd2xiOn
-	 63rIpzpUCpGe3zeBzmjKZzAb6d/+9EUPMlpMmwhLeN2OewhcNF+WDxZA1FjicFDH+d
-	 tQdpF2fD3kMHCZ37Babo3IaVjp3rppwBe9C28zqGbIADELlhunusjM9tKehqwROvVo
-	 mj2KGAwsuneI/OMYjxoWOROmvw1NmOX8kri1tIFPSOaJG0BUl1OGSVZf5PDK8QYanP
-	 lznqEcR7wZ/fA==
+	b=P5d0oL5RUt3PNYw/c/Ke9Imz3t9tFYwypWJXvT4ED+7hYmSzHHCOqF55WoVMn7HJF
+	 qkxMPfz8qIWDMLyDROiVmpo4r0XkBvzFwH1CPYtde/+D/xl17tYZ2AXNKYWw+uy8+r
+	 cemRKIaXOsj1RX9tqTyTfufSLdljIzNc6jJyT8k9NFjpJHjhxRPYBSDgv847LMlRTI
+	 y/Lc3hz4oZfuSDaKNlKK5C5P2QAbqbLMRaXf6n80aJgV3VaW378EvknFG+Bok3l8AM
+	 Q6JSoc8+ZvKTUJ/DW4fmVub5+Yffuu7v4gsmEpiiXhTf7Y2kZiTQ0G3OWMIAqGp3xU
+	 8LS18PXnFECbw==
 From: Sasha Levin <sashal@kernel.org>
-To: william.palacek@amd.com,
-	alexander.deucher@amd.com
+To: yangtiezhu@loongson.cn,
+	chenhuacai@loongson.cn
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/amdkfd: Validate the control stack of a restored queue" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:40:08 -0500
-Message-ID: <20261107054008-failed-6.6-90d91a192751@kernel.org>
+Subject: FAILED: patch "[PATCH] LoongArch: Fix one-shot limitation for perf hardware breakpoints" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:40:10 -0500
+Message-ID: <20261107054010-failed-6.6-5e0b00fd000a@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,229 +68,278 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 90d91a192751cd9a7d9d2286299bc72ec1c28179
+git cherry-pick -x 5e0b00fd000a53a5428fed6c96be74019bd0ad17
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054008-failed-6.6-90d91a192751@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054010-failed-6.6-5e0b00fd000a@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 90d91a192751cd9a7d9d2286299bc72ec1c28179 Mon Sep 17 00:00:00 2001
-From: William Palacek <William.Palacek@amd.com>
-Date: Mon, 19 Oct 2026 15:41:15 -0400
-Subject: [PATCH] drm/amdkfd: Validate the control stack of a restored queue
+From 5e0b00fd000a53a5428fed6c96be74019bd0ad17 Mon Sep 17 00:00:00 2001
+From: Tiezhu Yang <yangtiezhu@loongson.cn>
+Date: Tue, 27 Oct 2026 22:51:35 +0800
+Subject: [PATCH] LoongArch: Fix one-shot limitation for perf hardware
+ breakpoints
 
-kfd_criu_restore_queue() takes the control stack size from the
-checkpoint image without the topology check create-queue does in
-kfd_queue_acquire_buffers(), which restore stopped calling in
-commit 1cafa8b29e02 ("drm/amdkfd: Don't acquire buffers
-during CRIU queue restore."). An image size of 0x300000 is accepted and
-sizes the MQD allocation, and 0xFFFFFFFF trips a page allocator warning
-in kmalloc().
+In breakpoint_handler() and watchpoint_handler(), the code disables the
+hardware slot by executing update_bp_registers(regs, 0, ...). This design
+forces the active hardware breakpoint configuration to be wiped out upon
+its first hit, turning standard perf hardware breakpoints into "one-shot"
+events.
 
-restore_mqd() also keeps the image's cp_hqd_cntl_stack_size,
-cp_hqd_cntl_stack_offset and cp_hqd_wg_state_offset. With offset > size
-or wave state offset < size, get_wave_state() returns wrapped sizes.
+Furthermore, while the ptrace single-step path in do_watch() executes a
+hardware single-step skip mechanism to advance the PC, the standard perf
+path lacks any mechanism to bypass the original triggering instruction.
 
-Take the per-XCC size from topology, 0 for queues without a control
-stack, and reject larger images. In restore_mqd(), set the size to it
-and bound both offsets as init_mqd() does.
+To maintain the long-term persistence of hardware breakpoints for perf
+usage, eliminate the disruptive calls to update_bp_registers() within
+the handler loops to keep the breakpoint configuration enabled.
 
-Fixes: 626f7b3190b4 ("drm/amdkfd: CRIU add queues support")
-Fixes: 42c6c48214b7 ("drm/amdkfd: CRIU checkpoint and restore queue mqds")
-Signed-off-by: William Palacek <William.Palacek@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 92249023caee17bfc6f29c71d6aaa5f2298cf507)
+Concurrently, execute a single, unified register write outside the loop
+to atomize the state transition and explicitly enforce the hardware skip
+mechanism once per exception return, ensuring the processor safely steps
+forward without lockups.
+
+Meanwhile, in order to prevent status contamination during single-core
+context switches or cross-core thread migrations, the hardware register
+skip state of the previous thread is saved first. Then, the skip state
+is restored and its software skip flag is also cleared only if the next
+thread has the skip flag; otherwise, 0 is written to clear the FWPS and
+MWPS registers, which explicitly clears the skip bit according to the
+architectural specification.
+
+Additionally, explicitly clear hbp_break_skip and hbp_watch_skip inside
+ptrace_hw_copy_thread() which is called by copy_thread() during the task
+creation. This guarantees that a newly cloned child task starts with a
+clean slate.
+
+Here is a user-space reproducer to demonstrate the issue.
+
+(1) Test program (test_perf_continuous.c):
+
+  #include <stdio.h>
+  #include <unistd.h>
+  #include <sys/syscall.h>
+  #include <sys/ioctl.h>
+  #include <linux/perf_event.h>
+  #include <linux/hw_breakpoint.h>
+
+  static int var = 0;
+
+  int main(void)
+  {
+  	size_t count = 0;
+  	struct perf_event_attr attr = {
+  		.type = PERF_TYPE_BREAKPOINT,
+  		.size = sizeof(attr),
+  		.bp_type = HW_BREAKPOINT_W,
+  		.bp_addr = (unsigned long)&var,
+  		.bp_len = HW_BREAKPOINT_LEN_1,
+  		.exclude_kernel = 1,
+  	};
+
+  	int fd = syscall(__NR_perf_event_open, &attr, 0, -1, -1, 0);
+  	ioctl(fd, PERF_EVENT_IOC_ENABLE, 0);
+
+  	asm volatile("st.b %1, %0" : "=m"(var) : "r"(11) : "memory");
+  	asm volatile("st.b %1, %0" : "=m"(var) : "r"(22) : "memory");
+  	asm volatile("st.b %1, %0" : "=m"(var) : "r"(33) : "memory");
+
+  	ioctl(fd, PERF_EVENT_IOC_DISABLE, 0);
+  	read(fd, &count, sizeof(size_t));
+
+  	printf("Watchpoint counts: expected = 3, actual = %zu\n", count);
+
+  	close(fd);
+  	return 0;
+  }
+
+(2) Test steps:
+
+  $ gcc test_perf_continuous.c -o test_perf_continuous
+  $ ./test_perf_continuous
+
+(3) Test results:
+
+Without this patch:
+
+  Watchpoint counts: expected = 3, actual = 1
+
+With this patch:
+
+  Watchpoint counts: expected = 3, actual = 3
+
 Cc: stable@vger.kernel.org
+Fixes: 3eb2a8b23598 ("LoongArch: Fix multiple hardware watchpoint issues")
+Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
+Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h  |  9 ++++++
- .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c  |  2 ++
- .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c  |  2 ++
- .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c  |  2 ++
- .../drm/amd/amdkfd/kfd_mqd_manager_v12_1.c    |  2 ++
- .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c   |  2 ++
- .../gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c   |  2 ++
- .../amd/amdkfd/kfd_process_queue_manager.c    | 30 +++++++++++++------
- 8 files changed, 42 insertions(+), 9 deletions(-)
+ arch/loongarch/include/asm/hw_breakpoint.h |  4 +--
+ arch/loongarch/include/asm/loongarch.h     |  3 ++
+ arch/loongarch/include/asm/processor.h     |  1 +
+ arch/loongarch/include/asm/switch_to.h     |  2 +-
+ arch/loongarch/kernel/hw_breakpoint.c      | 39 +++++++++++++++++++---
+ 5 files changed, 41 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
-index 38b46b696243c..d63f7e9fae303 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
-@@ -138,6 +138,15 @@ struct mqd_manager {
- 	uint32_t ctl_stack_size;
- };
+diff --git a/arch/loongarch/include/asm/hw_breakpoint.h b/arch/loongarch/include/asm/hw_breakpoint.h
+index d202052df8a16..f4478936787d6 100644
+--- a/arch/loongarch/include/asm/hw_breakpoint.h
++++ b/arch/loongarch/include/asm/hw_breakpoint.h
+@@ -121,12 +121,12 @@ bool watchpoint_handler(struct pt_regs *regs);
  
-+/* Keep offset <= size <= wave state offset, as init_mqd() and CP do */
-+static inline void kfd_mqd_restore_ctl_stack(u32 *size, u32 *offset, u32 *wg_offset,
-+					     u32 ctl_stack_size)
-+{
-+	*size = ctl_stack_size;
-+	*offset = min(*offset, ctl_stack_size);
-+	*wg_offset = max(*wg_offset, ctl_stack_size);
-+}
+ #ifdef CONFIG_HAVE_HW_BREAKPOINT
+ extern void ptrace_hw_copy_thread(struct task_struct *task);
+-extern void hw_breakpoint_thread_switch(struct task_struct *next);
++extern void hw_breakpoint_thread_switch(struct task_struct *prev, struct task_struct *next);
+ #else
+ static inline void ptrace_hw_copy_thread(struct task_struct *task)
+ {
+ }
+-static inline void hw_breakpoint_thread_switch(struct task_struct *next)
++static inline void hw_breakpoint_thread_switch(struct task_struct *prev, struct task_struct *next)
+ {
+ }
+ #endif
+diff --git a/arch/loongarch/include/asm/loongarch.h b/arch/loongarch/include/asm/loongarch.h
+index 32bbff337c5c4..28eff8b49d1ba 100644
+--- a/arch/loongarch/include/asm/loongarch.h
++++ b/arch/loongarch/include/asm/loongarch.h
+@@ -1133,6 +1133,9 @@
+ #define CSR_FWPS_SKIP_SHIFT		16
+ #define CSR_FWPS_SKIP			(_ULCAST_(1) << CSR_FWPS_SKIP_SHIFT)
+ 
++#define CSR_MWPS_SKIP_SHIFT		16
++#define CSR_MWPS_SKIP			(_ULCAST_(1) << CSR_MWPS_SKIP_SHIFT)
 +
- struct mqd_user_context_save_area_header {
- 	/* Byte offset from start of user context
- 	 * save area to the last saved top (lowest
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
-index 4f8a8a1a61860..6c9bafa3962ea 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
-@@ -305,6 +305,8 @@ static void restore_mqd(struct mqd_manager *mm, void **mqd,
- 	addr = mqd_mem_obj->gpu_addr;
+ /*
+  * CSR_ECFG IM
+  */
+diff --git a/arch/loongarch/include/asm/processor.h b/arch/loongarch/include/asm/processor.h
+index ce8b953f8c793..a884f964ec983 100644
+--- a/arch/loongarch/include/asm/processor.h
++++ b/arch/loongarch/include/asm/processor.h
+@@ -138,6 +138,7 @@ struct thread_struct {
+ 	struct loongarch_lbt lbt; /* Also conditionally copied */
  
- 	memcpy(m, mqd_src, sizeof(*m));
-+	kfd_mqd_restore_ctl_stack(&m->cp_hqd_cntl_stack_size, &m->cp_hqd_cntl_stack_offset,
-+				  &m->cp_hqd_wg_state_offset, qp->ctl_stack_size);
+ 	/* Hardware breakpoints pinned to this task. */
++	bool hbp_break_skip, hbp_watch_skip;
+ 	struct perf_event *hbp_break[LOONGARCH_MAX_BRP];
+ 	struct perf_event *hbp_watch[LOONGARCH_MAX_WRP];
+ };
+diff --git a/arch/loongarch/include/asm/switch_to.h b/arch/loongarch/include/asm/switch_to.h
+index 27acbf9137744..ab9e0292c7f37 100644
+--- a/arch/loongarch/include/asm/switch_to.h
++++ b/arch/loongarch/include/asm/switch_to.h
+@@ -34,7 +34,7 @@ extern asmlinkage struct task_struct *__switch_to(struct task_struct *prev,
+ do {										\
+ 	lose_fpu_inatomic(1, prev);						\
+ 	lose_lbt_inatomic(1, prev);						\
+-	hw_breakpoint_thread_switch(next);					\
++	hw_breakpoint_thread_switch(prev, next);				\
+ 	set_current(next);							\
+ 	(last) = __switch_to(prev, next,					\
+ 		 __builtin_return_address(0), __builtin_frame_address(0));	\
+diff --git a/arch/loongarch/kernel/hw_breakpoint.c b/arch/loongarch/kernel/hw_breakpoint.c
+index 1a05350159f7b..df149ff06dd50 100644
+--- a/arch/loongarch/kernel/hw_breakpoint.c
++++ b/arch/loongarch/kernel/hw_breakpoint.c
+@@ -156,6 +156,9 @@ static int hw_breakpoint_slot_setup(struct perf_event **slots, int max_slots,
  
- 	*mqd = m;
- 	if (gart_addr)
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
-index bf015dc5b8684..5709949de2eb2 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
-@@ -340,6 +340,8 @@ static void restore_mqd(struct mqd_manager *mm, void **mqd,
- 	addr = mqd_mem_obj->gpu_addr;
- 
- 	memcpy(m, mqd_src, sizeof(*m));
-+	kfd_mqd_restore_ctl_stack(&m->cp_hqd_cntl_stack_size, &m->cp_hqd_cntl_stack_offset,
-+				  &m->cp_hqd_wg_state_offset, qp->ctl_stack_size);
- 
- 	*mqd = m;
- 	if (gart_addr)
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c
-index 6ea09b031caf8..aea80266d254e 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c
-@@ -393,6 +393,8 @@ static void restore_mqd(struct mqd_manager *mm, void **mqd,
- 
- 	memset(m, 0, AMDGPU_MQD_SIZE_ALIGN(mm->mqd_size));
- 	memcpy(m, mqd_src, sizeof(*m));
-+	kfd_mqd_restore_ctl_stack(&m->cp_hqd_cntl_stack_size, &m->cp_hqd_cntl_stack_offset,
-+				  &m->cp_hqd_wg_state_offset, qp->ctl_stack_size);
- 
- 	/* Update MQD base address to the newly allocated location */
- 	m->cp_mqd_base_addr_lo = lower_32_bits(addr);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c
-index d508ac5a18f85..33f0ecbe6b0a8 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c
-@@ -690,6 +690,8 @@ static void restore_mqd_v12_1(struct mqd_manager *mm, void **mqd,
- 	memset(m, 0, AMDGPU_MQD_SIZE_ALIGN(mm->mqd_size) *
- 		     NUM_XCC(mm->dev->xcc_mask));
- 	memcpy(m, mqd_src, sizeof(*m));
-+	kfd_mqd_restore_ctl_stack(&m->cp_hqd_cntl_stack_size, &m->cp_hqd_cntl_stack_offset,
-+				  &m->cp_hqd_wg_state_offset, qp->ctl_stack_size);
- 
- 	/* Update MQD base address to the newly allocated location */
- 	m->cp_mqd_base_addr_lo = lower_32_bits(addr);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-index 6e6bc1ec0b645..fca43017ee7e6 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-@@ -462,6 +462,8 @@ static void restore_mqd(struct mqd_manager *mm, void **mqd,
- 	addr = mqd_mem_obj->gpu_addr;
- 
- 	memcpy(m, mqd_src, sizeof(*m));
-+	kfd_mqd_restore_ctl_stack(&m->cp_hqd_cntl_stack_size, &m->cp_hqd_cntl_stack_offset,
-+				  &m->cp_hqd_wg_state_offset, qp->ctl_stack_size);
- 
- 	*mqd = m;
- 	if (gart_addr)
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
-index 029572548c149..5ead0d5613b6d 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
-@@ -317,6 +317,8 @@ static void restore_mqd(struct mqd_manager *mm, void **mqd,
- 	addr = mqd_mem_obj->gpu_addr;
- 
- 	memcpy(m, mqd_src, sizeof(*m));
-+	kfd_mqd_restore_ctl_stack(&m->cp_hqd_cntl_stack_size, &m->cp_hqd_cntl_stack_offset,
-+				  &m->cp_hqd_wg_state_offset, qp->ctl_stack_size);
- 
- 	*mqd = m;
- 	if (gart_addr)
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-index a15a826519ad6..78ab759ad8549 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-@@ -26,6 +26,7 @@
- #include <linux/list.h>
- #include "kfd_device_queue_manager.h"
- #include "kfd_priv.h"
-+#include "kfd_topology.h"
- #include "kfd_kernel_queue.h"
- #include "amdgpu_amdkfd.h"
- #include "amdgpu_reset.h"
-@@ -983,7 +984,7 @@ int kfd_criu_checkpoint_queues(struct kfd_process *p,
- }
- 
- static void set_queue_properties_from_criu(struct queue_properties *qp,
--					  struct kfd_criu_queue_priv_data *q_data, uint32_t num_xcc)
-+					  struct kfd_criu_queue_priv_data *q_data)
+ void ptrace_hw_copy_thread(struct task_struct *tsk)
  {
- 	qp->is_interop = false;
- 	qp->queue_percent = q_data->q_percent;
-@@ -996,11 +997,6 @@ static void set_queue_properties_from_criu(struct queue_properties *qp,
- 	qp->eop_ring_buffer_size = q_data->eop_ring_buffer_size;
- 	qp->ctx_save_restore_area_address = q_data->ctx_save_restore_area_address;
- 	qp->ctx_save_restore_area_size = q_data->ctx_save_restore_area_size;
--	if (q_data->type == KFD_QUEUE_TYPE_COMPUTE)
--		qp->ctl_stack_size = q_data->ctl_stack_size / num_xcc;
--	else
--		qp->ctl_stack_size = q_data->ctl_stack_size;
--
- 	qp->type = q_data->type;
- 	qp->format = q_data->format;
++	tsk->thread.hbp_break_skip = 0;
++	tsk->thread.hbp_watch_skip = 0;
++
+ 	memset(tsk->thread.hbp_break, 0, sizeof(tsk->thread.hbp_break));
+ 	memset(tsk->thread.hbp_watch, 0, sizeof(tsk->thread.hbp_watch));
  }
-@@ -1012,6 +1008,7 @@ int kfd_criu_restore_queue(struct kfd_process *p,
+@@ -485,6 +488,7 @@ NOKPROBE_SYMBOL(update_bp_registers);
+ bool breakpoint_handler(struct pt_regs *regs)
  {
- 	uint8_t *mqd, *ctl_stack, *q_extra_data = NULL;
- 	struct kfd_criu_queue_priv_data *q_data;
-+	struct kfd_topology_device *topo_dev;
- 	struct kfd_process_device *pdd;
- 	uint64_t q_extra_data_size;
- 	struct queue_properties qp;
-@@ -1048,6 +1045,24 @@ int kfd_criu_restore_queue(struct kfd_process *p,
- 		goto exit;
+ 	int i;
++	unsigned int clear_mask = 0;
+ 	bool need_sigtrap = false;
+ 	struct perf_event *bp, **slots;
+ 
+@@ -500,11 +504,13 @@ bool breakpoint_handler(struct pt_regs *regs)
+ 			if (bp->attr.sigtrap)
+ 				need_sigtrap = true;
+ 
+-			csr_write32(0x1 << i, LOONGARCH_CSR_FWPS);
+-			update_bp_registers(regs, 0, 0);
++			clear_mask |= (0x1 << i);
+ 		}
  	}
  
-+	memset(&qp, 0, sizeof(qp));
-+	set_queue_properties_from_criu(&qp, q_data);
++	if (clear_mask)
++		csr_write32(clear_mask | CSR_FWPS_SKIP, LOONGARCH_CSR_FWPS);
 +
-+	/* Per-XCC control stack size from topology, as create-queue requires */
-+	if (qp.type == KFD_QUEUE_TYPE_COMPUTE && pdd->dev->kfd->cwsr_enabled) {
-+		topo_dev = kfd_topology_device_by_id(pdd->dev->id);
-+		if (!topo_dev) {
-+			ret = -EINVAL;
-+			goto exit;
+ 	return need_sigtrap;
+ }
+ NOKPROBE_SYMBOL(breakpoint_handler);
+@@ -512,6 +518,7 @@ NOKPROBE_SYMBOL(breakpoint_handler);
+ bool watchpoint_handler(struct pt_regs *regs)
+ {
+ 	int i;
++	unsigned int clear_mask = 0;
+ 	bool need_sigtrap = false;
+ 	struct perf_event *wp, **slots;
+ 
+@@ -527,11 +534,13 @@ bool watchpoint_handler(struct pt_regs *regs)
+ 			if (wp->attr.sigtrap)
+ 				need_sigtrap = true;
+ 
+-			csr_write32(0x1 << i, LOONGARCH_CSR_MWPS);
+-			update_bp_registers(regs, 0, 1);
++			clear_mask |= (0x1 << i);
+ 		}
+ 	}
+ 
++	if (clear_mask)
++		csr_write32(clear_mask | CSR_MWPS_SKIP, LOONGARCH_CSR_MWPS);
++
+ 	return need_sigtrap;
+ }
+ NOKPROBE_SYMBOL(watchpoint_handler);
+@@ -555,7 +564,7 @@ static int __init arch_hw_breakpoint_init(void)
+ }
+ arch_initcall(arch_hw_breakpoint_init);
+ 
+-void hw_breakpoint_thread_switch(struct task_struct *next)
++void hw_breakpoint_thread_switch(struct task_struct *prev, struct task_struct *next)
+ {
+ 	u64 addr, mask;
+ 	struct pt_regs *regs = task_pt_regs(next);
+@@ -567,6 +576,26 @@ void hw_breakpoint_thread_switch(struct task_struct *next)
+ 			csr_write32(CSR_FWPS_SKIP, LOONGARCH_CSR_FWPS);
+ 		regs->csr_prmd |= CSR_PRMD_PWE;
+ 	} else {
++		unsigned int fwps = csr_read32(LOONGARCH_CSR_FWPS);
++		unsigned int mwps = csr_read32(LOONGARCH_CSR_MWPS);
++
++		prev->thread.hbp_break_skip = !!(fwps & CSR_FWPS_SKIP);
++		prev->thread.hbp_watch_skip = !!(mwps & CSR_MWPS_SKIP);
++
++		if (!next->thread.hbp_break_skip)
++			csr_write32(0, LOONGARCH_CSR_FWPS);
++		else {
++			csr_write32(CSR_FWPS_SKIP, LOONGARCH_CSR_FWPS);
++			next->thread.hbp_break_skip = 0;
 +		}
-+		qp.ctl_stack_size = topo_dev->node_props.ctl_stack_size;
-+	}
 +
-+	if (q_data->ctl_stack_size > (u64)qp.ctl_stack_size * NUM_XCC(pdd->dev->xcc_mask)) {
-+		ret = -EINVAL;
-+		goto exit;
-+	}
++		if (!next->thread.hbp_watch_skip)
++			csr_write32(0, LOONGARCH_CSR_MWPS);
++		else {
++			csr_write32(CSR_MWPS_SKIP, LOONGARCH_CSR_MWPS);
++			next->thread.hbp_watch_skip = 0;
++		}
 +
- 	*priv_data_offset += sizeof(*q_data);
- 	q_extra_data_size = (uint64_t)q_data->ctl_stack_size + q_data->mqd_size;
- 
-@@ -1077,9 +1092,6 @@ int kfd_criu_restore_queue(struct kfd_process *p,
- 	mqd = q_extra_data;
- 	ctl_stack = mqd + q_data->mqd_size;
- 
--	memset(&qp, 0, sizeof(qp));
--	set_queue_properties_from_criu(&qp, q_data, NUM_XCC(pdd->dev->xcc_mask));
--
- 	print_queue_properties(&qp);
- 
- 	ret = pqm_create_queue(&p->pqm, pdd->dev, &qp, &queue_id, q_data, mqd, ctl_stack, NULL);
+ 		/* Update breakpoints */
+ 		update_bp_registers(regs, 1, 0);
+ 		/* Update watchpoints */
 -- 
 2.53.0
 
