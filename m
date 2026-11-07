@@ -1,63 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046188;
-	b=CSrZd2yBUC/5B9JksxC0Bob1a08uaxW2bZN5/gx7yROGCsWkdGKomcHM2PAWhFtWTcb5
-	 K0GvHgf24udVmAJsrA3s9T+WKSU9DlxTW0uLVRwJGwk0sd4R0iJ3Cf45CpG3TBNANOK4S
-	 eHtFuC11Zr5E4DD0iqweYZEUapidNVXMABEuRMlVvQcKz+MwLqtLgqKKTKt1jekKEefvF
-	 NWtyOHDRdDmtUT9T/JUTgcKYYD1VrGkjUPIecMMWUpnSWbAlytoasgYL9w8xRa+q997Gy
-	 ou1EXcbSsSZGNR3EJX4JyrSWKn1ZrqHsTChm3kGjoQEdzG1UCTOtxpT/PjYW3TUL7pQ==
+	t=1794046190;
+	b=Ku7ZR2dp0HaCgQU5ip+xI02gVfApkGaV0+pOrMCYFRwdI+27Hd2vZ9Qif93CroGz1HKq
+	 9tDSacn8X/XPn7spheXZDJgIcJ5TfRJHI/Xx21+CCgqPdYTksGaok9nmFpWv7rC/A4ms/
+	 ZNU4WpZfoGFDCUWswnMTIYDz724OAM8+9P4hwL4zwf/yDNxtZ0vRGMjunb1bbkGEFKvqx
+	 l8yCqbdJFkq1fJtF4K5Vn6L85wBFMZ7L7/L5LT7smBwSp6sC8DW14yRsxuQO45Tfp8W49
+	 lNL2Q5n7Lu0qbe9Wcg3k7NgAfGIyDkSKAHurxHQbTyVlv1Ozq2fK2ayVETN6pXx1U8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046188;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046190;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=EcnXpgEdDgLdS4wZfMZkQ//fmr/HAufPekfjJBddUIk=;
-	b=p/nTfWILJXN8+jZ5XUcJcJNiCOiuPfhy/xt6Gp9015ohlDC92jyd1T+2HhZfTmGyL/TV
-	 xMbblv7WFLilEYJJYIaAjSJ47LkwsIHFROAcMY2XSVUxybLuq78zRQGtOHJiJdIDU9u+L
-	 zv1gHceSm/q2mUDgKlwlFbilcWpFaZWVVvEYLL95gr5Qo//TNkKGVjATOI1l2AoZZ7mNC
-	 Ypfwii/u2TwcsJAdtH5VMJPhUK3ksporLcbk5DeZ6U0lFcwi73svuIAeCwrYeLi4cc5iu
-	 5d9ERyAS0GltbPfa8KjNZeeKN3ZXbIird3Io5XSZIxxJk4H5GiBd6C9KP99RkKB30eA==
+	bh=TMNoGreY1qWdbOm5UKTVMWjSKCLRBdydGrYanKYDzPM=;
+	b=F01fdh6k3MpUhjtXo6ppadEF/c/CHJMGxk4s5eiqojn/fKXPXRDnqS9jOilNP9thXyy5
+	 ZzACVBjHkJ+PtNzSVdxi5zmjyC284P2ftrmbhqygsBh+2LyS3C3+qFzUCsy8WxgB9rUXI
+	 D7lNzGvEGwKuYq4EVdkrSWC63IoTt3ypUHJcvM1fpK5x35NC3myTKH0RbbZ7fbFrRKF4h
+	 ZNS24IJykagAr+DQ8HJFLq3W56cWviAOTcOm21C9xNn+71xsgdgYhFteuRvTfwKEwu0mK
+	 6UcBXyDJCW38aWBGBc4VOQ1EtUQnmSREVKIxVitQWIzdXSu9cDg5uAGwlDD45nKBM9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W5Bb8BwS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KQFwAPHx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B406606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:09:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 779A3606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:09:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W5Bb8BwS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3F581F0089F;
-	Sat,  7 Nov 2026 10:09:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KQFwAPHx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E670D1F0089F;
+	Sat,  7 Nov 2026 10:09:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046188;
-	bh=EcnXpgEdDgLdS4wZfMZkQ//fmr/HAufPekfjJBddUIk=;
+	s=k20260515; t=1794046190;
+	bh=TMNoGreY1qWdbOm5UKTVMWjSKCLRBdydGrYanKYDzPM=;
 	h=From:To:Cc:Subject:Date;
-	b=W5Bb8BwSdezo5TMERnziNNIxiiHqAMMZ9rNyuxNOH2gke1vUGpWXxiXC4sXP3t9eb
-	 ibnaJ6oqWVnMOiu/mg2Oq935eCvRyOz3CLMuFiIoKHQOXGyjO2WpY/aNNrHhhWgd6F
-	 LgPBFihcQrDa+E/VEH3X3wG8XMyvdDXQWHPIaOtDd9nCD9Dpc6wf4meuSdjckrVvsW
-	 5EOCddcGA9MBTeVMLfv88nQRL8PnYulCFhzv1cuk95HQkiB6cUaqBnjhLsZv+YhgW3
-	 DK7SEbEReT6M4mL3XEzLrVBPnoUMiu/J6Az07SFBXMQFvz3dY3EE1Xty0j5CCvpQWJ
-	 8eH7S9c47pLjA==
+	b=KQFwAPHxzPXX9R8mJSD8Kk09EGB9h0hHf3oUgOspqDCm9qY+I2gjL9+Er6tEYKw7l
+	 JFvuNFFqhcJ54hRngs51ZvjC64ODfuMEZb28WbHWZDNa5FE+QUc3hLrOGrwdKoqagW
+	 p1k/mwJL6wUmyAJfxa3d6OrU/HceBBDw9ZUTzUHg3iGrjIv3Qr02EwrRhPduzoSBM4
+	 Q2q/fShK3vnmR8dxPYTDBLYPY2C2u4LPTTBMZkF8Hzb886q0WGGj6nzTCtnwap8+yJ
+	 0f1WhRPt3W4tZrK6BmrNxrTPP+GrEQaAo4om5pF3ZjrBZUDvzk7u0kNl0WH+PIrwCh
+	 XQl5E6sf/NGuA==
 From: Sasha Levin <sashal@kernel.org>
-To: gourry@gourry.net,
-	akpm@linux-foundation.org,
-	sashiko-bot@kernel.org,
-	ljs@kernel.org,
-	david@kernel.org,
-	ziy@nvidia.com,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	jannh@google.com,
-	joshua.hahnjy@gmail.com,
-	rakie.kim@sk.com,
-	ying.huang@linux.alibaba.com,
-	peterx@redhat.com,
-	jgg@ziepe.ca
+To: yhlee@isslab.korea.ac.kr,
+	jgross@suse.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/madvise: use vm_normal_folio_pmd() in cold/pageout PMD range" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:09:45 -0500
-Message-ID: <20261107050945-failed-6.18-0bd719cb607e@kernel.org>
+Subject: FAILED: patch "[PATCH] xen/scsifront: check for a NULL shadow entry on a backend response" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:09:48 -0500
+Message-ID: <20261107050948-failed-6.18-992df081bc88@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -80,103 +68,61 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 0bd719cb607ef14bcd554e044bbd80dd901b9996
+git cherry-pick -x 992df081bc8878d11e1eb5ae4a609910fd35c62b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050945-failed-6.18-0bd719cb607e@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050948-failed-6.18-992df081bc88@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 0bd719cb607ef14bcd554e044bbd80dd901b9996 Mon Sep 17 00:00:00 2001
-From: Gregory Price <gourry@gourry.net>
-Date: Sat, 26 Sep 2026 06:51:10 -0400
-Subject: [PATCH] mm/madvise: use vm_normal_folio_pmd() in cold/pageout PMD
- range
+From 992df081bc8878d11e1eb5ae4a609910fd35c62b Mon Sep 17 00:00:00 2001
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Date: Mon, 5 Oct 2026 21:35:54 +0900
+Subject: [PATCH] xen/scsifront: check for a NULL shadow entry on a backend
+ response
 
-mmap a VM_MIXEDMAP region whose ->huge_fault installs a PMD through
-vmf_insert_pfn_pmd() - mshv_vtl_low does this, and needs CAP_SYS_ADMIN
-to open - then:
+scsifront_do_response() validates the rqid in a backend response against
+VSCSIIF_MAX_REQS before using it to index info->shadow[], but then
+dereferences the entry to test ->inflight without checking that the slot
+is populated.  Shadow slots are NULL before a command is submitted (the
+host private area is zeroed at allocation) and are reset to NULL in
+_scsifront_put_rqid() once a request completes, so an in-range rqid that
+does not correspond to an outstanding request makes the frontend
+dereference a NULL pointer.
 
-  madvise(p, PMD_SIZE, MADV_PAGEOUT);
+A malicious or buggy backend can thus crash the guest by returning a
+response whose rqid is in range but not in flight -- for example a
+spurious response before any command has been issued, or a duplicate of
+one already completed.  The ring has only VSCSIIF_MAX_REQS (16) slots, so
+before the first command every in-range rqid selects a NULL slot.
 
-With a stand-in module for the driver:
+Reject a response whose shadow slot is not populated.
 
-  BUG: unable to handle page fault for address: fffff587c0000008
-  RIP: 0010:madvise_cold_or_pageout_pte_range+0x410/0x9b0
-   walk_pgd_range+0x52b/0xaf0
-   __walk_page_range+0x6a/0x1d0
-   walk_page_range_vma_unsafe+0x8e/0x120
-   madvise_pageout+0xb2/0x180
-   madvise_vma_behavior+0x46b/0xa90
-   do_madvise+0x108/0x190
-   __x64_sys_madvise+0x26/0x30
-
-Nothing validates the pfn on the way in:
-
-  can_madv_lru_vma()     rejects VM_PFNMAP, but not VM_MIXEDMAP
-  can_fault()            *pfn = vmf->pgoff & ~(mask >> PAGE_SHIFT);
-  vmf_insert_pfn_pmd()   no pfn_valid() check
-  pmd_folio()            pfn_to_page() -> unpopulated vmemmap
-
-Even with a valid pfn the path is wrong.  The mapping carries no rmap, so
-folio_maybe_mapped_shared() sees mapcount 0, and the walker goes on to
-folio_deactivate(), or folio_isolate_lru() plus reclaim_pages(), against a
-folio this mapping does not own.
-
-Use vm_normal_folio_pmd() and skip on NULL, as the PTE half of this same
-walker already does with vm_normal_folio().  This also filters the huge
-zero PMD, so its separate check is no longer needed.
-
-Link: https://lore.kernel.org/20260926105110.2156652-3-gourry@gourry.net
-Fixes: 3c8e44c9b369 ("mm: mark special bits for huge pfn mappings when inject")
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260817220810.1175596-1-gourry%40gourry.net
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Assisted-by: LLM
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Jann Horn <jannh@google.com>
-Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: Rakie Kim <rakie.kim@sk.com>
-Cc: Ying Huang <ying.huang@linux.alibaba.com>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: <stable@vger.kernel.org> # v6.19+
+Fixes: 6d1c2f48f3fc ("xen/scsifront: harden driver against malicious backend")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Reviewed-by: Juergen Gross <jgross@suse.com>
+Signed-off-by: Juergen Gross <jgross@suse.com>
+Message-ID: <20261005123555.253995-1-yhlee@isslab.korea.ac.kr>
 ---
- mm/madvise.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+ drivers/scsi/xen-scsifront.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/mm/madvise.c b/mm/madvise.c
-index 963337f93a7a1..6c52f699222b2 100644
---- a/mm/madvise.c
-+++ b/mm/madvise.c
-@@ -394,16 +394,15 @@ static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
- 			return 0;
+diff --git a/drivers/scsi/xen-scsifront.c b/drivers/scsi/xen-scsifront.c
+index f86a47056ea8c..9d7e12e400896 100644
+--- a/drivers/scsi/xen-scsifront.c
++++ b/drivers/scsi/xen-scsifront.c
+@@ -367,6 +367,7 @@ static void scsifront_do_response(struct vscsifrnt_info *info,
+ 	struct vscsifrnt_shadow *shadow;
  
- 		orig_pmd = *pmd;
--		if (is_huge_zero_pmd(orig_pmd))
--			goto huge_unlock;
--
- 		if (unlikely(!pmd_present(orig_pmd))) {
- 			VM_WARN_ON_ONCE(!pmd_is_migration_entry(orig_pmd) &&
- 					!pmd_is_device_private_entry(orig_pmd));
- 			goto huge_unlock;
- 		}
- 
--		folio = pmd_folio(orig_pmd);
-+		folio = vm_normal_folio_pmd(vma, addr, orig_pmd);
-+		if (!folio)
-+			goto huge_unlock;
- 
- 		if (folio_is_zone_device(folio))
- 			goto huge_unlock;
+ 	if (ring_rsp->rqid >= VSCSIIF_MAX_REQS ||
++	    !info->shadow[ring_rsp->rqid] ||
+ 	    !info->shadow[ring_rsp->rqid]->inflight) {
+ 		scsifront_set_error(info, "illegal rqid returned by backend!");
+ 		return;
 -- 
 2.53.0
 
