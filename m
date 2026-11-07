@@ -1,69 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048872;
-	b=t+mP2KgfxDmns6+LvdjJDPgXfgvGEV5cfD1b56vh7ets0cjBX+e3MLEa7LvN9etjVAZY
-	 6r3YlZO7fSU1U7XbFslPdOjyhzKrnEu22PBE8mHvfxHELhCcnoEG+P90y3ux6fx26XxOS
-	 Iu9rck6uotYd2kirZhnyz/qyzrvunM5qgoY9KVCrqjxskNik7ggYnS3VO7Gvy7jvPKj5H
-	 hCmkGiH1X6mZBTTSinBIMeoHKFAIGd67THZZuSS0yxx61YePjtPFUhZGsuocDycEYciwj
-	 qe/FCbVHUEozSwsygQL7YQbAUDUHEIAznII3HL6aLVAzaldZvw8BdEKQ+A0ha5+E10g==
+	t=1794048875;
+	b=l/u2eNkcM7QWuAt/079N/iQAARzGSsai+IdXeWO4DxHcVBmcLMdeVZInAc1bPDVhoYj+
+	 LL0yaSX0UnsgdSnqHyGq3Hm+NHi9M1LPURmnnZ6qnszD5wBvY7ly6WE4Uak2u7Nhdvvvb
+	 4RuyNylgGTuAUF5rw4AO4q74uz4jol2RZnmSyHl+zbweZ+Gmyrol27KxztGMwGH7q+zIM
+	 KvZightwREB8pi69+QNPggjsoqq24kMy2WVWNxy/b020J/EYcQO9vAXfWS9sACJJbj6eP
+	 nifLo2fMG3XA5VyPJaZX7IAjCdH+WYwrYwul3D4dl7P8cryJzUduNzNgz9zZKKZj22Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048872;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048875;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=NHyCOefpm2Kj0/eVfJeNQOA7skDP/NXfi87e5TtmTRU=;
-	b=iPo33WBYzbMHB/hwQmhl3js+chGshOf3pViKeazNGBQ85yDmkDc9tGaoErnrczBEwQPY
-	 wZEOQHAz8WpViTYztroltE7ZraFNCq/h1mRIOSvm4PCCJznMClutshVVE8yqjQckDzyaK
-	 V5ixqM1Iy+OUrG2PmRst8Yb3NyG4Fm6ML98TfY79uIn+OuT5GotYKnnGXU7TXyUz/inns
-	 CSnFQyWw+gDuYfd5tNtvGH2/cR1Xo+w1ab9A8fIRjg83XYF+kKgv0aUqnuk3KjP9LF1Vq
-	 3IRulqVpHGlcP8RK4Ho9dedvvGQf7gIF0+Eu5Kv4xAREfBnLsrmE6GT/tnIoJIC9pCQ==
+	bh=OfyReqbyyxiiLsp/o+mz7CLMT7XGFUETbpGTQDjx8lc=;
+	b=nOz96vSOE9n1QkThGpJagd3o/SI1auz/LKDxHf7awPZE18bP66a2bxARGx3xmd8HxTJ/
+	 fBh4gLAOCtO/rx4oUeRoHLSoV8PU9Kc+1CiCMsYzxgJDeen3oUE9Hyxob/gVHkGx5dBfh
+	 z1o/Nj3IoVQXLYCnKT0gNLucTj6j2gmsmXSkOJKgbLuZGz1jJfs8TCYRVA0r9jcsutV88
+	 VuWme6PgI9UaIK2QTf0Ccjdn5F2UaqFWfDAQj3v2Ec46Hid9hYZ4v+VFUPHX5QuOMQmpr
+	 igYk/mQ3AaNU5R+Zq4AOoMF1RnLOepdTiHZ7MrjA5p6ia6Ovo9kj6P/ruKCeX9HjEDg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HgbM0bqZ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=neOndq9q;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3613606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:54:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A5F1606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:54:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HgbM0bqZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C2A51F008A1;
-	Sat,  7 Nov 2026 10:54:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=neOndq9q
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A0DB1F0089F;
+	Sat,  7 Nov 2026 10:54:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048871;
-	bh=NHyCOefpm2Kj0/eVfJeNQOA7skDP/NXfi87e5TtmTRU=;
+	s=k20260515; t=1794048875;
+	bh=OfyReqbyyxiiLsp/o+mz7CLMT7XGFUETbpGTQDjx8lc=;
 	h=From:To:Cc:Subject:Date;
-	b=HgbM0bqZ9lGtdFFrFGGjF2hxXpGGfDxxXq8GiSrRXC04x+UnXJbCBHzUd4+ATVQmt
-	 NCFMaAClfM8gLgEGAYmx5VrU9TntSvxnO9JqH9PPSL6sNHvdwyj11BSeKg96AfjawI
-	 O1P2Jj5LBfkqecsGAkDbjGZUsGMHrEPQxf69uw6CNhnRnleM7h2H08Ya4oxHSdapTp
-	 R/QnFV3f929SPGJkWfFJeaWslSguycnJg3FMV/VSkWBIY+thFWYLb/CcoZlT6ZFx6J
-	 XTgtthNPOB0NiiLFDIU3TTvIWlyeG0vtCRZLChCRigUe3kqgbH2ofrtt/h0kTxiptz
-	 70cF6htlclkdA==
+	b=neOndq9qvu1cX2Qys8NxX4O8XXZx3EOOoM8qhOz9U+dZEg3aY6nUbH/jNmljTY2EM
+	 UDFHPVsxpUBCRKWIux7oABAFLghhB0M0ODtbAkQiw/zoFhDpI6lGxDLx6dOHula2J8
+	 cnoNVvmsOA3XZkiUhSiUPhFaZFnCVyVpmUZ/A96gAgHisZdPPf/o4/7sx8jsrzTrpj
+	 Qt44ai+Er1O58FG8UeT4GImQVNpboRYkaCz/Zxvk4fjYAvBj0Q08C9v2MFl917lQru
+	 z2CuVEiXQMmzJUVtY8bXnNxRs6AWibNxZk3FBDCAEiEDWK645jIARZsWPsq5q4Pwwc
+	 5x5daD1X+/fkw==
 From: Sasha Levin <sashal@kernel.org>
-To: josef@toxicpanda.com,
-	david@kernel.org,
-	rppt@kernel.org,
+To: david@kernel.org,
 	akpm@linux-foundation.org,
-	mason@kernel.org,
+	ngocthang2710.1999@gmail.com,
 	ljs@kernel.org,
+	rppt@kernel.org,
 	lance.yang@linux.dev,
 	liam@infradead.org,
 	vbabka@kernel.org,
-	jannh@google.com,
-	pfalcato@suse.de,
-	muchun.song@linux.dev,
-	osalvador@suse.de,
-	linmiaohe@huawei.com,
-	nao.horiguchi@gmail.com,
-	agl@us.ibm.com,
-	mgorman@techsingularity.net,
-	riel@surriel.com,
-	peterx@redhat.com,
-	kas@kernel.org
+	surenb@google.com,
+	mhocko@suse.com,
+	benh@kernel.crashing.org,
+	a.p.zijlstra@chello.nl,
+	riel@redhat.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/hugetlb: fix endless write fault on a leftover uffd bit" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:54:28 -0500
-Message-ID: <20261107055428-failed-6.1-f61e1cf15fb4@kernel.org>
+Subject: FAILED: patch "[PATCH] mm: disallow ioremap'ing ordinary RAM in generic_access_phys()" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:54:32 -0500
+Message-ID: <20261107055432-failed-6.1-4590752e20aa@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -86,100 +79,108 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x f61e1cf15fb44f9cf89d43d8ef01f926322bb1c4
+git cherry-pick -x 4590752e20aa393cc0d4fe538c0747d14a98c97a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055428-failed-6.1-f61e1cf15fb4@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055432-failed-6.1-4590752e20aa@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From f61e1cf15fb44f9cf89d43d8ef01f926322bb1c4 Mon Sep 17 00:00:00 2001
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Thu, 15 Oct 2026 18:07:12 +0200
-Subject: [PATCH] mm/hugetlb: fix endless write fault on a leftover uffd bit
+From 4590752e20aa393cc0d4fe538c0747d14a98c97a Mon Sep 17 00:00:00 2001
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Tue, 13 Oct 2026 13:41:24 +0200
+Subject: [PATCH] mm: disallow ioremap'ing ordinary RAM in
+ generic_access_phys()
 
-hugetlb_fault() resolves the uffd bit on a write fault only if the VMA is
-registered for userfaultfd write protection, and hugetlb_wp() bails out
-for any entry with the uffd bit set assuming hugetlb_fault() has already
-resolved it.
+generic_access_phys() can end up getting called on CoW PFNMAP mappings,
+resulting in it trying to ioremap anonymous folios, which especially
+the x86 code doesn't enjoy, and which is in general just odd/wrong.
 
-When a read-only hugetlb entry with the uffd bit set is mapped in a VMA
-that is not registered for uffd-wp, a write fault to it never makes
-progress. If the access comes from the kernel, e.g. read(2) from
-/dev/zero into such page, the task spins in the page fault handler,
-ignores SIGKILL and keeps holding the locks taken by the system call.
+E.g., with a CoW mapping of a PCI BAR:
 
-Such entries should not exist, but an unprivileged user can create them,
-for example with MADV_DONTNEED of a page protected with UFFDIO_RWPROTECT
-or with UFFDIO_COPY in MODE_WP racing with UFFDIO_UNREGISTER.
+ioremap on RAM at 0x0000000045623000 - 0x0000000045623fff
+  WARNING: arch/x86/mm/ioremap.c:216 at __ioremap_caller.isra.0+0x4c2/0x5f0
+  Call Trace:
+   generic_access_phys+0x130/0x4d0 mm/memory.c:7178
+   kernfs_vma_access+0x1ce/0x280 fs/kernfs/file.c:437
+   __access_remote_vm+0x58f/0x890 mm/memory.c:7256
+   mem_rw+0x2a1/0x670 fs/proc/base.c:912
 
-Clear the uffd bit when the VMA is not registered for uffd-wp and let the
-fault proceed to hugetlb_wp(), like do_wp_page() does for regular pages.
+But more generically, we should disallow access to anything that looks
+like ordinary RAM in the system: including allocating memory (e.g.,
+alloc_pages) and mapping them in a VM_PFNMAP.
 
-Note that a FOLL_FORCE write to a page protected with UFFDIO_RWPROTECT in
-a private VMA that was made PROT_NONE now drops the RWP protection of
-that page.
+For pages with an online memmap, allow only pages marked as reserved
+(PageReserved). This also includes memblock allocations, however,
+distinguishing them from other MMIO is tricky, and nobody should really
+be mapping them in a PFNMAP (except someone abusing /dev/mem, which we
+do not care about).
 
-Original fix generated by an LLM and sent in private by Josef.
+So only allow access if there is no online memmap, or if the pages are
+marked reserved. Reject other pages with -EINVAL.
 
-[rppt@kernel.org: massage commit message]
-[david@kernel.org: convert comment into a TODO]
-Link: https://lore.kernel.org/20261015-urgent_fixes-v1-6-42796911043b@kernel.org
-Fixes: 60d5b473d61b ("mm/hugetlb: fix uffd wr-protection for CoW optimization path")
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Note that, just like other pfn_to_online_page() users, we won't care about
+concurrent memory offlining; mapping memory that can concurrently get
+offlined is highly dubious.
+
+Link: https://lore.kernel.org/20261013-generic_access_phys-v1-1-b3963ef76e37@kernel.org
+Fixes: 28b2ee20c7cb ("access_process_vm device memory infrastructure")
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: Chris Mason <mason@kernel.org>
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Reported-by: <syzbot+49b1021becba70c1f3f6@syzkaller.appspotmail.com>
+Closes: https://syzkaller.appspot.com/bug?extid=49b1021becba70c1f3f6
+Reported-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Closes: https://lore.kernel.org/r/20261001152524.171115-1-ngocthang2710.1999@gmail.com/
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Tested-by: Lance Yang <lance.yang@linux.dev>
 Cc: Liam R. Howlett <liam@infradead.org>
 Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Jann Horn <jannh@google.com>
-Cc: Pedro Falcato <pfalcato@suse.de>
-Cc: Muchun Song <muchun.song@linux.dev>
-Cc: Oscar Salvador <osalvador@suse.de>
-Cc: Miaohe Lin <linmiaohe@huawei.com>
-Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
-Cc: Adam Litke <agl@us.ibm.com>
-Cc: Mel Gorman <mgorman@techsingularity.net>
-Cc: Rik van Riel <riel@surriel.com>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: Kiryl Shutsemau <kas@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Cc: Peter Zijlstra <a.p.zijlstra@chello.nl>
+Cc: Rik van Riel <riel@redhat.com>
 Cc: <stable@vger.kernel.org>
 ---
- mm/hugetlb.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ mm/memory.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index 4a7c52802cde5..d3adafbea160b 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -6226,15 +6226,19 @@ vm_fault_t hugetlb_fault(struct mm_struct *mm, struct vm_area_struct *vma,
- 		goto out_ptl;
- 
- 	/* Handle userfault-wp first, before trying to lock more pages */
--	if (userfaultfd_wp(vma) && huge_pte_uffd(huge_ptep_get(mm, vmf.address, vmf.pte)) &&
-+	if (huge_pte_uffd(huge_ptep_get(mm, vmf.address, vmf.pte)) &&
- 	    (flags & FAULT_FLAG_WRITE) && !huge_pte_write(vmf.orig_pte)) {
--		if (!userfaultfd_wp_async(vma)) {
-+		if (userfaultfd_wp(vma) && !userfaultfd_wp_async(vma)) {
- 			spin_unlock(vmf.ptl);
- 			hugetlb_vma_unlock_read(vma);
- 			mutex_unlock(&hugetlb_fault_mutex_table[hash]);
- 			return handle_userfault(&vmf, VM_UFFD_WP);
- 		}
- 
-+		/*
-+		 * TODO: fix all cases where uffd PTE bits remain in VMAs that
-+		 * are no longer registered with uffd.
-+		 */
- 		vmf.orig_pte = huge_pte_clear_uffd(vmf.orig_pte);
- 		set_huge_pte_at(mm, vmf.address, vmf.pte, vmf.orig_pte,
- 				huge_page_size(hstate_vma(vma)));
+diff --git a/mm/memory.c b/mm/memory.c
+index ed64455c73bdb..34e60a5baf7ce 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -7129,6 +7129,7 @@ int generic_access_phys(struct vm_area_struct *vma, unsigned long addr,
+ 	resource_size_t phys_addr;
+ 	pgprot_t prot = __pgprot(0);
+ 	void __iomem *maddr;
++	struct page *page;
+ 	int offset = offset_in_page(addr);
+ 	int ret = -EINVAL;
+ 	bool writable;
+@@ -7143,6 +7144,19 @@ int generic_access_phys(struct vm_area_struct *vma, unsigned long addr,
+ retry:
+ 	if (follow_pfnmap_start(&args))
+ 		return -EINVAL;
++
++	/*
++	 * Reject anything that looks like ordinary RAM, including anonymous
++	 * folios in CoW mappings or allocated kernel memory. Note that we
++	 * cannot distinguish memblock allocations from non-RAM reliably, so
++	 * we cannot easily reject them here.
++	 */
++	page = pfn_to_online_page(args.pfn);
++	if (page && !PageReserved(page)) {
++		follow_pfnmap_end(&args);
++		return -EINVAL;
++	}
++
+ 	prot = args.pgprot;
+ 	phys_addr = (resource_size_t)args.pfn << PAGE_SHIFT;
+ 	writable = args.writable;
 -- 
 2.53.0
 
