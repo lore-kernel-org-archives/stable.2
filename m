@@ -1,41 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794031277;
-	b=BskajzNzYHAq44gBNVZ9cLzQNXmzdfIOZp2pBpIiVNbHrLVyITcjhI/BXeY4jLQMG9NR
-	 t0iPqdV2j7cjAEXK8B4MZw2TFG4cRhpn57Lpqy2QwhjfaX1NqV2U1/4hUIakhst+Z5NiT
-	 INm704oiWpY2yvMmXpQMo1slGRWGMsi5rFJOHUASip86FwEVEivW6phIm8iT1QRgOHiFn
-	 oCy/8W0XtGaYP7jRRUd7XRslag8o5qgOQLvHZZmmOjIyzSJ8njbfB0M3B0D6TGFU8LWNV
-	 aA5mjIMLoy1DMP+w9fmHelVI9bl9XNnL2TXuHT8iUFJit3G92Ys8gJOXNZFSu55BD5A==
+	t=1794032185;
+	b=rUOlgU5rGTF4gYKgnabkNnY7NoLCFWWCkVCTadRnlDdMlWV1DXwS1v/6gsHtg2Wnzht1
+	 nC8yNx2i06OQSj5zDVn5bkZjBPfz+kL4OPsTJfgCihVym82fHIQ/VTlhEN6jZAnJFcuIK
+	 GKjFPwngP3ELR2AUVGjHBfhXvZJB+O5UAIhGfAMUVSSETJnBTDTo/g3da5mPsWaRxFpW1
+	 wE0wy841vHBJQenQp2vR1ql99r5qwrHtggiv/k8LIr2onn353kwJTK4zJO2yFDNPYbnpA
+	 4DCaA3fK6Uz2dT5wt4ZUnu1tEA/2svu8F3hA++AClf4RKAEQhyhI6eZ1hvE9Wj+IYyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794031277;
-	h=DMARC-Filter:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
-	 X-Coremail-Antispam;
-	bh=VApiiAu4y4jzk0oNRwNpWoUyNlZ1jI1NbfuSJXJZy6I=;
-	b=aOEx7H5iareX/3tzSS41sqYQS+QrvjpI9u3bdgesdxHyCcoWLlSEwLBXmCTCJ+Y8XMHh
-	 zbMmPVA09VYN3ptL7SGCEt3LcWFm21uIa7LlRyWayzp07oVUw7uM7vexLayb1LrUt17bi
-	 dWeGpTbiOq7U4UuZm82fnItRyXibC4kTEe9cP5jsZ2gZM8Fa7i1FkEwOC3oHIRHjxdiFy
-	 JedZLTD8JQSgqAIjHdnPoLClNdSSaKbk3Ow4SjqvVjcRVFuEQRdc0BCheSKBrSboVlJS+
-	 GQueh1JbHwH9N8W6Anz69nECLytUv6gTqUrHCkyib5BOVkKraXOqXGI/QSonqdNmyqQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794032185;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=PBM2nSAybAfiialNHVzu3HSG2mME3T0XPb7p1fQfDMc=;
+	b=Dv2K+wV/E2jyTXObs7VKATLvt6UTGjexAR/WZwvivOS7yJDuAZoX21UjSadCKDiRJevP
+	 GeH//n9U6lWaZUuEtg9vl/ivBaohpNE0iIhQY4w6Ea6BA6U22PXpQ3WBg0r+QasaXgU6d
+	 BxC7hzYRHJBxPhmkznpcJXNJJLmsTRom0bndHoA5kSW/XLDVQqKY+wDkBnnolqdKn+gBr
+	 BAVXFCgpc96WJCjmruNAkrG/UbXvbuUPldae9vXQu1jQlhZv5b/m84UjXIMJafG2sLTj4
+	 uDzQiyGqn2y7npj8EJ8cxepupHp6u+PQoSh5yEqgvGuTR4Ox0MhENSS9JwkxsfQnh7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=loongson.cn;
-	spf=pass smtp.mailfrom=loongson.cn;
-	arc=none smtp.remote-ip=114.242.206.163
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3F1B6606A32C;
-	Sat,  7 Nov 2026 06:01:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F1B6606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [223.64.69.17])
-	by gateway (Coremail) with SMTP id _____8DxD9Okvu5qf1QdAA--.19351S3;
-	Sat, 07 Nov 2026 14:01:08 +0800 (CST)
-Received: from [127.0.0.1] (unknown [223.64.69.17])
-	by front1 (Coremail) with SMTP id qMiowJCxNs2fvu5q3uQyAA--.24809S2;
-	Sat, 07 Nov 2026 14:01:04 +0800 (CST)
-Message-ID: <8ffdb96e-c082-42b6-b895-2badc12285ca@loongson.cn>
-Date: Sat, 7 Nov 2026 14:01:02 +0800
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Jg1PHzYa;
+	arc=none smtp.remote-ip=209.85.216.52
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01653606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 06:16:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01653606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Jg1PHzYa
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3acdcfa2bd3so1114960a91.3
+        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 22:16:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794032184; x=1794636984; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PBM2nSAybAfiialNHVzu3HSG2mME3T0XPb7p1fQfDMc=;
+        b=Jg1PHzYa3kliZFxL8EDIl7AnZD6yAFza/XkwkesjfHzw9/J7RtYqcT7RkpKZDqJiJO
+         5Jn7wS7BFrvoDHdH0in+NHNwus7zA9QPU/7Wmbxll6hInRKkcrjvfyytdQlzfVq1fZwh
+         xz34+A6JeIqPsTNkZFMyCsE3cME5E3MnHJRoc8YQVKfomjMW4tRcxYWcNwCDUZEEP90k
+         yo8A2p0tdFyycGTYuXTLBFWFajJkRmBuUP8NILuqwpnxiAINV4ARudH6rBDMm4X3Z6FD
+         jAAoL1TjMvgUoYEG9UWLPoTZzcbuzO+4ULm1DmAKJLbNP6iSH9OCLECzaQFLE3q4Ggab
+         FqoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794032184; x=1794636984;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PBM2nSAybAfiialNHVzu3HSG2mME3T0XPb7p1fQfDMc=;
+        b=LN+eaf78QYc5YrUJ34OjQD2Co+ycf5LQBemDhz7uOKujYQ4h56erQxO4WPes77Tr+c
+         +aYauaIh5M1S521Nax99QGy+vF5USDQdQjXip/Z1H3sRPxYCQXae++mxhaayNh04TpFv
+         VQmkpa2M/EpYfP1hIzgn/an4mj/A5XJo0Veid0ICijCyg+6/p0KsRklN1AyzJULtfC4x
+         +Kfx5csUadNlegA7TbZMEHr20x+gW/2MfVCspCLSWAnJkVgvkDxMldMaEyHs7QTvvvpP
+         ABV8EsOU8ipSI1IZ9Sz2H37zfJrT+RfphDuJgKmwi/3lPKYNhhh7J2IJSzx0bd4Dk+EX
+         x5Kw==
+X-Gm-Message-State: APuU4Z+Y1/xOSZNDNV4eRkuX8sZjdkf/ppdtg+re5/RrGoYP76Um/Vms
+	53VTTbnbiNjQcwMNqb/UpG7Fwm2QHMydVkmKuK4zFZrmKgR1ZS62A6Rdp/2GWw==
+X-Gm-Gg: AYBFou2hT8gInwXf5QBziwKGoGClhClwlmeqCwgH5HNnkyMJnhH8AJXIAbBLXAzhXqo
+	iAb4AXALwApyrQQ1gyTAjj+O7k5KlyrSnWwIEffSIz9nhhvyHJgQV1w0vkdD9ysl9/g2vQBdDWq
+	ajMVUdEu9calRvBq3+xQ0BkaFmZaMXOEKARNYFR0Ad6bQI8FhdL5CK025OdibjLAai5kYM1mSMQ
+	zxKFda29nDTmZgfXytRaEJhNJ8wk3xmIqKKH8X9cnFBiA96t12YhuoI3C3DmHsFDt1LVh0Km+4J
+	2kZYhIJOt/KPrnULBw8zufaFCmdEF4QhvrDJPp573sLUArsYcBHl7Bhw7cBHrdDocoph4Y35wEm
+	D1kIp9CPjvPE/VRMldLopYdtQR+b98RfK9C2yBmKuiI7o1b6GvzziipCN7iXe0MD54ex9AzMJkM
+	PB5/Y9rdDh/ABRDowJ7z1qXlZt1yoIaBTL/inemtrYLu/yZaQw8v2/KdTLu1TRUvZAvb7rXe/MU
+	bTBcSuzUI7glFB4tWMaRiqBDaUCBiQj2y6nHihVLO1hBcNFKvDODkSOG1WJALOYA21wS7yGDCu7
+	D2ykQUD8FVBvp6dgjv18/AqlMyfNbUE6JQmrVzkTlhFFlZ54BWET7QF21H41zpKs76x7Mtya1aH
+	BL6edZ/B92Y1VSdE8VTnMYdM5V3bJ
+X-Received: by 2002:a17:90b:3b8f:b0:3ab:1285:dfd6 with SMTP id 98e67ed59e1d1-3b0db6e4139mr4880614a91.38.1794032184100;
+        Fri, 06 Nov 2026 22:16:24 -0800 (PST)
+Received: from codespaces-2362ac.ktkhmpmw22vebpok31ngjx2qsb.ix.internal.cloudapp.net ([23.97.62.119])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b10580ca47sm1987238a91.8.2026.11.06.22.16.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 22:16:23 -0800 (PST)
+From: Seongjae Jeong <jsjlee1020@gmail.com>
+To: jsjlee1020@gmail.com
+Cc: stable@vger.kernel.org
+Subject: [PATCH v2] f2fs: skip further SIT updates for already invalidated blocks
+Date: Sat,  7 Nov 2026 06:15:46 +0000
+Message-ID: <20261107061547.29197-1-jsjlee1020@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -45,99 +92,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mfd: ls2kbmc: cancel the reset work before the driver
- data is freed
-To: hyunjungg <hj351016@gmail.com>, Chong Qiao <qiaochong@loongson.cn>,
- Lee Jones <lee@kernel.org>
-Cc: mfd@lists.linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261107053218.3326443-1-hj351016@gmail.com>
-From: Binbin Zhou <zhoubinbin@loongson.cn>
-In-Reply-To: <20261107053218.3326443-1-hj351016@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:qMiowJCxNs2fvu5q3uQyAA--.24809S2
-X-CM-SenderInfo: p2kr3uplqex0o6or00hjvr0hdfq/1tbiAgEECGrulv0ArQAAsN
-X-Coremail-Antispam: 1Uk129KBj93XoW7ZrWfWryUWw17CFWkXry8CrX_yoW8Kw45pF
-	Z8KFWYyrWDJr1Uta4DWr1I9FyYgr4rCr1xK348tw17W34aqr1qvr40vF90qF98CrWkGFWY
-	grWSq34v9a45ZFXCm3ZEXasCq-sJn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUyCb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
-	Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l5I
-	8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AK
-	xVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41l42xK82IYc2Ij64vIr4
-	1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK
-	67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI
-	8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAv
-	wI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14
-	v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07jUsqXUUUUU=
+Content-Transfer-Encoding: 8bit
 
-Hi:
+When update_sit_entry_for_release() encounters a block whose bit is
+already cleared in cur_valid_map, it reports the inconsistency and
+corrects se->valid_blocks and del. However, it still proceeds with
+the discard bitmap and checkpoint accounting updates.
 
-On 2026/11/7 13:32, hyunjungg wrote:
-> From: Hyunjung Ko <hj351016@gmail.com>
-> 
-> ls2k_bmc_init() INIT_WORK()s ddata->bmc_reset_work (ls2k_bmc_events_fn)
-> and requests two device-managed interrupts (ls2k_bmc_interrupt) that
-> schedule_work(&ddata->bmc_reset_work).  The work handler dereferences
-> ddata via container_of().
-> 
-> ddata is devm_kzalloc()'d, so devres frees it when the device is
-> unbound.  Nothing cancels bmc_reset_work: free_irq() (run by devres)
-> only waits for the interrupt handler to finish, not for a work item it
-> has already queued.  If a BMC reset interrupt fires shortly before
-> unbind, the queued ls2k_bmc_events_fn() can run after ddata has been
-> freed -> use-after-free.
-> 
-> Register the work for device-managed cancellation with
-> devm_work_autocancel(), before the devm_request_irq() calls that arm
-> it, so devres (LIFO) frees the interrupts first, then cancels the work,
-> and only then frees ddata.
-> 
-> Found by code review; not reproduced (needs Loongson-2K BMC hardware and
-> a reset interrupt racing driver unbind).
-> 
-> Fixes: d952bba3fbb5 ("mfd: ls2kbmc: Add Loongson-2K BMC reset function support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
-> ---
->   drivers/mfd/ls2k-bmc-core.c | 6 +++++-
->   1 file changed, 5 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/mfd/ls2k-bmc-core.c b/drivers/mfd/ls2k-bmc-core.c
-> index 408056b..c44291e 100644
-> --- a/drivers/mfd/ls2k-bmc-core.c
-> +++ b/drivers/mfd/ls2k-bmc-core.c
-> @@ -12,6 +12,7 @@
->   #include <linux/aperture.h>
->   #include <linux/bitfield.h>
->   #include <linux/delay.h>
-> +#include <linux/devm-helpers.h>
->   #include <linux/errno.h>
->   #include <linux/init.h>
->   #include <linux/iopoll.h>
-> @@ -371,7 +372,10 @@ static int ls2k_bmc_init(struct ls2k_bmc_ddata *ddata)
->   
->   	ls2k_bmc_save_pci_data(pdev, ddata);
->   
-> -	INIT_WORK(&ddata->bmc_reset_work, ls2k_bmc_events_fn);
-> +	ret = devm_work_autocancel(ddata->dev, &ddata->bmc_reset_work,
-> +				   ls2k_bmc_events_fn);
-> +	if (ret)
-> +		return ret;
+This can clear the discard bit unnecessarily and incorrectly decrement
+the segment and section ckpt_valid_blocks counters when the block is
+not marked in ckpt_valid_map.
 
+Continue to the next block after correcting se->valid_blocks and del,
+so that an already invalidated block does not trigger further discard
+bitmap or checkpoint counter updates.
 
-Lee had already fixed this issue:
+Cc: stable@vger.kernel.org
+Fixes: 81ffbd224e5f ("f2fs: update_sit_entry_for_release() supports consecutive blocks.")
+Fixes: a66cdd985532 ("f2fs: introduce discard_map for f2fs_trim_fs")
+Signed-off-by: Seongjae Jeong <jsjlee1020@gmail.com>
+---
+V1 -> V2:
+- Add Cc: stable@vger.kernel.org.
+- Add a Fixes tag for the discard bitmap handling.
 
-https://lore.kernel.org/all/20261027093306.2812695-4-lee@kernel.org/
->   
->   	ret = devm_request_irq(&pdev->dev, pdev->irq, ls2k_bmc_interrupt,
->   			       IRQF_SHARED | IRQF_TRIGGER_FALLING, "ls2kbmc pcie", ddata);
+Fixes tags:
+- 81ffbd224e5f introduced the segment checkpoint accounting regression
+  by replacing the del-based adjustment with a fixed decrement.
+- a66cdd985532 introduced the discard bitmap update that still runs
+  when the block is already invalid.
 
+ fs/f2fs/segment.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
+index 51858f64e43e..fc2f0fd8e318 100644
+--- a/fs/f2fs/segment.c
++++ b/fs/f2fs/segment.c
+@@ -2560,7 +2560,10 @@ static int update_sit_entry_for_release(struct f2fs_sb_info *sbi, struct seg_ent
+ 			f2fs_bug_on(sbi, 1);
+ 			se->valid_blocks++;
+ 			del += 1;
+-		} else if (unlikely(is_sbi_flag_set(sbi, SBI_CP_DISABLED))) {
++			continue;
++		}
++
++		if (unlikely(is_sbi_flag_set(sbi, SBI_CP_DISABLED))) {
+ 			/*
+ 			 * If checkpoints are off, we must not reuse data that
+ 			 * was used in the previous checkpoint. If it was used
 -- 
-Thanks.
-Binbin
+2.53.0
 
