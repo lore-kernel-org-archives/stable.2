@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047537;
-	b=C0ugA5FfoKXamFGMbxwQjCRntx2YItkN0lqyDZus5xMJJfrBj+zqjw8hl2bEiO9XBftx
-	 K5wOomLvd+9xjC2ANIW1qXqqZ62Mt5zyWdu7TGrSH0I2eicbgU/fsmHK4fcAlf4nH6X35
-	 lwmESufoJLDcOaKrGTMVt70SuU/w4mCzX4AGLHurp7rGYHKpGFl5uoik3AvSlzuW33t5F
-	 0dZlU+Crmx76eFibcMz0dYg8DpWF1tk3yfHNTikVQ4wt5UCoXH5wZp4cmBwS30ew13i2V
-	 f1Woz4OcNKPF8bC6R79KLXqs8LKnXJbAEYy8yNXgkckSkAFtRiRVCQ3DL8LQUGNZt8A==
+	t=1794047539;
+	b=FA0ONxdXpHCEK6OhfZDI0yPU6qR00+K3OqQ+wSLk/cjClgZprKOflbCRDMzUYiWjw7wT
+	 MHEyn91y/23Qlk6R6w2EU9GqY1SsY/YdHXlijJgxSV1NA3gK4uG+jUMU+0PyYXUSXNUSM
+	 t3NOin8Ka2flgWCReMmP2bic6fTpxaKoxBUtySnd12pD+y5UyGWKb61Hv+PlxjuVNZlT8
+	 univX1NZyQeyAm6Ho09FLC3CcUZ4ILs3bi98f3PIW5dsdEMjmvRa9BWkFNdtp6B4BnyIU
+	 Onuis1OwSguGB20GJpVS4encyGMtX47/bOIK39VKXYDDYKrg0SSJLE8oT968A0ejDyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047537;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047539;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=gyWp/4up6te1c+o1zGL41/iw+I5CDdPq0JfOTi34aF8=;
-	b=IuFJg50OjjcEvs/EatdeUH7NQGZVXjuWMSIBrBoSSBGthwemUVaZV9qJL0G0xMmeaSHY
-	 9Lpo0AHm95AxZ7+d37BOlc4cOokyYCh1baqi4Is0h5DrIJVkgcqvC+I/1ts8L7LogH3EM
-	 lB4bsI9LEQau6jb0ycXFufFMk17KSql1pvo3+r7sd6qDK5KzUZkUgTI8i0jnihS8f0XAf
-	 lhbH6/HqnW/qWpemj4RoOZHW1Kq30ogaOirOCc6n93tvOTMzCxTT+RPC7/cLoU18dwer8
-	 8JC9I+ezoLDH8qPTL/cMKCgjqfrmHf2NvX0upRPvBTGf00iC1wCe4SAlpxJ5zmFrF7Q==
+	bh=zHeesGOrjKSYO41GbkkUebByljASdNdk+rgeMJGkdHs=;
+	b=xHfWp21oCL2c5gbBvWwU+OwA+usWQse9BgRGUPHDZ9tuPgNr/UtblDxFnOMG7svQAc3S
+	 zugaL/aTTgl/SrF52nEdI8idn+lV/6MSO20BzMbCBmE72QWn4VqO3N66VFnGzsuwTNhNc
+	 OAVT50A37xYVS0K86lCZge8GZx9NLvUDL3DJhRdHCg7ytjDwoPMW/ltFQHYsv3H0I+2WB
+	 iu6mLkscD13IOG/soWDJsN8C/fSbQO7rP/vPOgBsqKUZBu3rIdJJA2ExvWpsngVYALL6Q
+	 tmBzjqNCCvoc7zhglJsoO/l+Z6dTwWh9hcj73shtW/lXtN2iyaioGYe8y7y40eKjqUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=arcLyqaK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HVnT54n0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6088B606A33C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:32:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BFA6606A32D
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:32:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=arcLyqaK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB70C1F0089F;
-	Sat,  7 Nov 2026 10:32:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HVnT54n0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 029EE1F0089F;
+	Sat,  7 Nov 2026 10:32:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047537;
-	bh=gyWp/4up6te1c+o1zGL41/iw+I5CDdPq0JfOTi34aF8=;
+	s=k20260515; t=1794047539;
+	bh=zHeesGOrjKSYO41GbkkUebByljASdNdk+rgeMJGkdHs=;
 	h=From:To:Cc:Subject:Date;
-	b=arcLyqaKadOJVG5GmelRp4fSFQsuWMdDJtfm6NdYcGjvqJwEeGbtIsdPEMArbxCpJ
-	 1XDwga5xd59UG1OxijJdPrJchTvs2OnyURPBsMLtDSQlG/Q5zX4JyqWQfAqkQayJTl
-	 pH+EsDo1zOOEAoq4PKo2vAfScGn78VrLxCFSKA9OgWQVqUhSIqobpL44vuWb7qXY29
-	 t7G0+FIZoZzETDfnPWzFPfFh1d96Y1i3tTKNdFWH3DX/hhS++TQaGA2GzrWJnYrKOf
-	 d/jSyPASui0xHtZsTQlJsmpaCiYk68umeHZ0wkUR8QW6tAnqHA1/7IxtwAjdJg5JyQ
-	 fWun1K/EaIvog==
+	b=HVnT54n0yGWj2MAiLIQ9vDN8j4YPnXRrWOMUwPGoNYAohk97aivoz88PVWhOOvOTa
+	 kZzeMv9c7dNOngeI+zt5wWNU79BIoXjGL2p784ZV1Q2XZ5/HsbA1DRyP/0B3IAvada
+	 O+igsJsGBwNc9RjxMqvagoUeXs6pqbL7vZBKb7ePZqiO/23WcoVnQZLIza0acQC2ii
+	 wL12/LXQyjz73Be0Ffo6L5ec8vSmE8q7Ltd8sLohicGeav9x04lElLQHiRRA20uO3E
+	 mCwrPXjy+7BOFzjyUqikhveSrHcbk76O8uOTwMHcjSAaZNE0QUyUxpO9sxH3Xdlpvd
+	 hCg9uxh8jKUdA==
 From: Sasha Levin <sashal@kernel.org>
-To: blum@kernel.org,
+To: ebiggers@kernel.org,
 	akpm@linux-foundation.org,
-	dmoulding@me.com
+	hch@lst.de
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] init: fix early boot crash with bare hostname parameter" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:32:15 -0500
-Message-ID: <20261107053215-failed-6.6-b6bec5b63a5b@kernel.org>
+Subject: FAILED: patch "[PATCH] xor: add missing vzeroupper to AVX code" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:32:17 -0500
+Message-ID: <20261107053217-failed-6.6-7b8fc26c40d6@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,52 +69,47 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x b6bec5b63a5b812145e53aaad1e63661c7214f93
+git cherry-pick -x 7b8fc26c40d6cf4c6751a045c9e42bbb7e78d81b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053215-failed-6.6-b6bec5b63a5b@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053217-failed-6.6-7b8fc26c40d6@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From b6bec5b63a5b812145e53aaad1e63661c7214f93 Mon Sep 17 00:00:00 2001
-From: Thorsten Blum <blum@kernel.org>
-Date: Wed, 26 Aug 2026 12:09:03 +0200
-Subject: [PATCH] init: fix early boot crash with bare hostname parameter
+From 7b8fc26c40d6cf4c6751a045c9e42bbb7e78d81b Mon Sep 17 00:00:00 2001
+From: Eric Biggers <ebiggers@kernel.org>
+Date: Mon, 31 Aug 2026 14:22:48 -0700
+Subject: [PATCH] xor: add missing vzeroupper to AVX code
 
-When a bare hostname parameter is specified on the kernel command line
-without the '=' separator, early parameter parsing passes NULL to
-early_hostname(), which dereferences it in strscpy() and can crash the
-system during early boot.
+Since the AVX optimized XOR code uses YMM registers, execute vzeroupper
+before returning from it.  This is needed to avoid degrading the
+performance of any later SSE code that may happen to be executed.
 
-Reject NULL values in early_hostname() and return -EINVAL instead.
-
-Link: https://lore.kernel.org/20260826100904.296151-2-blum@kernel.org
-Fixes: 5a704629f2c1 ("init: add "hostname" kernel parameter")
-Signed-off-by: Thorsten Blum <blum@kernel.org>
+Link: https://lore.kernel.org/20260831212248.213805-1-ebiggers@kernel.org
+Fixes: ea4d26ae24e5 ("raid5: add AVX optimized RAID5 checksumming")
+Signed-off-by: Eric Biggers <ebiggers@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: Dan Moulding <dmoulding@me.com>
+Cc: Christoph Hellwig <hch@lst.de>
 Cc: <stable@vger.kernel.org>
 ---
- init/version.c | 3 +++
- 1 file changed, 3 insertions(+)
+ lib/raid/xor/x86/xor-avx.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/init/version.c b/init/version.c
-index 94c96f6fbfe6a..0bd5c45aabc46 100644
---- a/init/version.c
-+++ b/init/version.c
-@@ -23,6 +23,9 @@ static int __init early_hostname(char *arg)
- 	size_t maxlen  = bufsize - 1;
- 	ssize_t arglen;
+diff --git a/lib/raid/xor/x86/xor-avx.c b/lib/raid/xor/x86/xor-avx.c
+index f7777d7aa269b..95b21e7225e8d 100644
+--- a/lib/raid/xor/x86/xor-avx.c
++++ b/lib/raid/xor/x86/xor-avx.c
+@@ -147,6 +147,7 @@ static void xor_gen_avx(void *dest, void **srcs, unsigned int src_cnt,
+ {
+ 	kernel_fpu_begin();
+ 	xor_gen_avx_inner(dest, srcs, src_cnt, bytes);
++	asm volatile("vzeroupper");
+ 	kernel_fpu_end();
+ }
  
-+	if (!arg)
-+		return -EINVAL;
-+
- 	arglen = strscpy(init_uts_ns.name.nodename, arg, bufsize);
- 	if (arglen < 0) {
- 		pr_warn("hostname parameter exceeds %zd characters and will be truncated",
 -- 
 2.53.0
 
