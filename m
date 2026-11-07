@@ -1,54 +1,77 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046136;
-	b=2UMH7pZnJFqK8myO8E9WTHBflc7BQo2nv2wPXKE7r7DYzD0G5a0/i9KhmkuYFzs27BZj
-	 fxo/Ad3BRmhc7Avh3i0XtdUhogXA9oTwiXlP/9DfYgNaXZvgEWG6O4ONhc628aTK6uVRM
-	 yWRr8YtFL8mBNUcxvChw4sBnLRCjFoiYn18izxPixtGjYX01sG4aRRX5BQoUjzSsIqpPy
-	 tFm15j9dyKES4FlZNlxbSMytvWXwblLACfCHvd+Xam2budtF/Bu0iMEr8BdoBVfnn8rtr
-	 ll5ddqaz5Mk807714gIPQtsYlgXU1N3djfiTmdj3KuR+NaDaGv9jDwxf/D6ync+S2MA==
+	t=1794046141;
+	b=yHoSm7dtrV5TeoHJCDouiDu25MnQrxSlSWfKTD9EMDGbkkxMI9csDH6Bdsb/25NDUZ9I
+	 X98rbwFhYqd6eAt36fSunnHqGAXHLeG7362hihqEzt5IS27fZLtebzpnglHcIkSIdJeK9
+	 ie3vQUf4A2xGfaociZL94+sFx4SG87/Cgh1Bqvst9S1YoWfgftnDqmwQWM1F9Ceog7fTM
+	 yZG2fcEcBi5+lgDOTrSbViq8yxdA4M7swzycjO1wnWLZn6PXpSoMKWAq9Rg2VOo0PQru7
+	 ntqOZ/XoUmpTvchUxfDkK28BlfN3oqvorHzBiZYGxvPGaAEWwFP/3t0/Og0TiUa2r2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046136;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046141;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=SAmLEHMj9g1iGWa9alP+3PpTscT3uLacngLCcO6DFik=;
-	b=bK7YSnDJgtJZPq81VXxvLkWvJB5Ud4wy98NY4ybCNxGutYJxvVeNKnf0qKUL7XzGgl15
-	 kCeIXINn0MTnLMffz9Bvmy2DGk5Xa7vrw5reHIztQniuEzhw4x3FGD7APmYhDtTE+lXcF
-	 NMxIG5mTE+xxVhctRY8lP2okNbuXBiKYTxbC5RDhB2luLzqXaAqhsO48HrXXSYrgsgWBb
-	 GQTMTu13dDmu9oNaLqsh1Cxcvr0GnK69eC/rohc6mrcmj+3rqVVBealoOORPFzzNbz+dD
-	 +uigEBM+nLntFUYvVmaayWzmxj++r1ISfia0zdh01Oq+ttSOsB1R9dVXoXPZnZxTamg==
+	bh=NGazPAm3F38YYvtUUM+56I0Md9q0G5iKM09J8x1w1o4=;
+	b=WIcJEYsio3lSCnDOOfKSWS4JWGOMT6pjd91HYBktSKHKhU2oIRraH9HWzdWDOt/VzDGr
+	 YJf0Uy2zWPdfEEWhyhES4OwJWx+Tgd5Fz6kr4HWbrMiC4zXzvJ1nQpmIavw1IJnusQgPD
+	 eXuGXH1o/PbodXY0IzumzYzjnyec0GLIGWJ21x+VWt2pkQmgpbr7GdsJ4qyrS8V1HQ+jd
+	 WLIDQ66Oxv6bXlyFxN6qDY79omFQyz9HMPQzDexmgpWFUqEdS7cIdskijPocAY0g544CS
+	 bsA1hFEAyX4aJ0WDSjgqYxbPSKhN/RwvdToe69vDiftBAqqLNY8gooSgcRF4YD6WACw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KE6B3tKS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OKm005T5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC874606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:08:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3242606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:09:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KE6B3tKS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 192E11F0089F;
-	Sat,  7 Nov 2026 10:08:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OKm005T5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AD2A1F0089F;
+	Sat,  7 Nov 2026 10:08:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046135;
-	bh=SAmLEHMj9g1iGWa9alP+3PpTscT3uLacngLCcO6DFik=;
+	s=k20260515; t=1794046140;
+	bh=NGazPAm3F38YYvtUUM+56I0Md9q0G5iKM09J8x1w1o4=;
 	h=From:To:Cc:Subject:Date;
-	b=KE6B3tKSS0xy+gu+kKFe4QsCYR2NCx36haP3/tuy/kx6F3Sw0orVzbNIn0HyUkXgL
-	 kkAUlnJHZ3DQnK3G8tevJdXxWFdCCabK30h/mhp9zuIDv75/n8jkbXhv6uasoO2JII
-	 xz6IeyUjFbmBPdVUEwKn4Ls9ClG5OBbBfHDCm6AI7tgjqP5fDXOrmkGRcN+97E88pw
-	 4Od8KsZ6wqT8cCwhuZEY894Re/Uuj/l09tUo7wlAIeYmzZwdu/BznF3mkAublm4jNT
-	 9cnI9fL+0MLBJzMrjdr2s6/vFN+E5/27DTfxnEr9yjcxMlN0LG+xIjASkfs7nlcViQ
-	 kpvWaYVRVDfuw==
+	b=OKm005T5kzxSrPZB2dZ8La6Uiw+QsKgVrKptI03txjgH0orQc5x0ts6HAcMkRon4v
+	 FEn5BOVAO9XLxWOs5rC7Vh+szo6jVjvXhDRFd4PPVrgeKa9IEb76rRaw/kO98XX9JC
+	 HGJ8yMPPgJewCT+QWf3/Avkp9fZaRX5RgSHP+x8LIaTl11rTJc8tYe+5POjQrJxr1d
+	 C3GLdskvqxEjNjXGc5ni/5LaqV3GNr0CNftXInUfph58CwFJs0QXRKzv4ww21wnsBu
+	 S7G5akMNkn1JZbFo4Lc5MItBepuZRtUOP7rV2a1kzmu5bCg5a0SUK8OVm3lhlN9Fsn
+	 w55QPqSu7haEg==
 From: Sasha Levin <sashal@kernel.org>
-To: kmehltretter@gmail.com,
-	sj@kernel.org,
+To: ackerleytng@google.com,
 	akpm@linux-foundation.org,
-	kunwu.chan@gmail.com,
-	lianux.mm@gmail.com
+	muchun.song@linux.dev,
+	joshua.hahnjy@gmail.com,
+	alexs@kernel.org,
+	david@kernel.org,
+	rientjes@google.com,
+	dzm91@hust.edu.cn,
+	fvdl@google.com,
+	louhongxiang@huawei.com,
+	jthoughton@google.com,
+	hannes@cmpxchg.org,
+	corbet@lwn.net,
+	liam@infradead.org,
+	ljs@kernel.org,
+	mawupeng1@huawei.com,
+	linmiaohe@huawei.com,
+	mhocko@kernel.org,
+	rppt@kernel.org,
+	nphamcs@gmail.com,
+	osalvador@suse.de,
+	peterx@redhat.com,
+	roman.gushchin@linux.dev,
+	shakeel.butt@linux.dev,
+	surenb@google.com,
+	vannapurve@google.com,
+	vbabka@kernel.org,
+	si.yanteng@linux.dev
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/damon/core: keep the temporal tuner quota over an unmeasured PSI round" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:08:54 -0500
-Message-ID: <20261107050853-failed-6.18-df7d9a0f8d91@kernel.org>
+Subject: FAILED: patch "[PATCH] mm: hugetlb: return -ENOSPC on memcg charge failure" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:08:56 -0500
+Message-ID: <20261107050856-failed-6.18-956aeff185e7@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,104 +94,112 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x df7d9a0f8d916eeea375430ae3360724afecde15
+git cherry-pick -x 956aeff185e7e16b989202bde0bb29859adba99d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050853-failed-6.18-df7d9a0f8d91@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050856-failed-6.18-956aeff185e7@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From df7d9a0f8d916eeea375430ae3360724afecde15 Mon Sep 17 00:00:00 2001
-From: Karl Mehltretter <kmehltretter@gmail.com>
-Date: Tue, 22 Sep 2026 22:51:37 -0700
-Subject: [PATCH] mm/damon/core: keep the temporal tuner quota over an
- unmeasured PSI round
+From 956aeff185e7e16b989202bde0bb29859adba99d Mon Sep 17 00:00:00 2001
+From: Ackerley Tng <ackerleytng@google.com>
+Date: Wed, 9 Sep 2026 10:11:00 -0700
+Subject: [PATCH] mm: hugetlb: return -ENOSPC on memcg charge failure
 
-The patch in mm-unstable of subject "mm/damon/core: handle uninitialized
-damos_quota_goal->last_psi_total" scores a PSI quota goal without a
-previous sample as achieved.  This leaves the consist tuner's input
-unchanged, but the temporal tuner sets its quota to zero for an achieved
-goal.  A running scheme with a nonzero temporal quota therefore loses a
-charge window after a quota-goal commit.
+Patch series "Fix bugs in HugeTLB allocation when
+mem_cgroup_charge_hugetlb() fails", v2.
 
-Use the effective quota to preserve the temporal tuner's previous
-goal-achievement state during an unmeasured round, as SJ suggested [1].
-Score the goal as achieved when the effective quota is zero and as not
-achieved otherwise.  A new scheme's initially zero quota stays zero, and
-the consist tuner's behavior is unchanged.
+In hugetlb_alloc_folio(), when mem_cgroup_charge_hugetlb() fails, there
+are 2 issues:
 
-Move the PSI current-value calculation and last_psi_total update into a
-helper that takes the current PSI total.  This lets a unit test cover the
-unmeasured and measured rounds without depending on system memory
-pressure.
+1. free_huge_folio() expects a non-refcounted folio and will
+   VM_BUG_ON_FOLIO().
 
-Link: https://lore.kernel.org/20260923055139.2982-1-sj@kernel.org
-Link: https://lore.kernel.org/damon/20260916001311.101024-1-sj@kernel.org/ [1]
-Fixes: 2dbb60f789cb ("mm/damon/core: implement PSI metric DAMOS quota goal")
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-Signed-off-by: SJ Park <sj@kernel.org>
+2. -ENOMEM is returned, causing an infinite loop retrying the fault.
+
+
+This patch (of 2):
+
+When mem_cgroup_charge_hugetlb() fails with -ENOMEM, alloc_hugetlb_folio()
+currently propagates this error.  This results in the page fault handler
+returning VM_FAULT_OOM.
+
+Because HugeTLB allocations are high-order and use __GFP_RETRY_MAYFAIL,
+they bypass the OOM killer.  Returning VM_FAULT_OOM to the #PF handler
+without triggering the OOM killer (or having it make progress) leads to an
+infinite loop of retrying the fault.
+
+Avoid this loop by returning -ENOSPC when charging fails, which maps to
+VM_FAULT_SIGBUS, terminating the process cleanly.
+
+Make mem_cgroup_charge_hugetlb() fault handling use a common error
+handling path, the same handling used for
+hugetlb_cgroup_uncharge_cgroup{,_rsvd}(), which also don't trigger the OOM
+killer and hence opt to terminate the process with a SIGBUS.
+
+Link: https://lore.kernel.org/20260909-hugetlb-alloc-folio-memcg-charge-error-handling-v2-1-4b4a8a19a7f7@google.com
+Fixes: 991135774c0e ("memcg/hugetlb: introduce mem_cgroup_charge_hugetlb")
+Signed-off-by: Ackerley Tng <ackerleytng@google.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Suggested-by: SJ Park <sj@kernel.org>
-Reviewed-by: SJ Park <sj@kernel.org>
-Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
-Assisted-by: LLM
-Cc: Lian Wang <lianux.mm@gmail.com>
-Cc: <stable@vger.kernel.org> # 6.9.x
+Reviewed-by: Muchun Song <muchun.song@linux.dev>
+Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: Alex Shi <alexs@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: David Rientjes <rientjes@google.com>
+Cc: Dongliang Mu <dzm91@hust.edu.cn>
+Cc: Frank van der Linden <fvdl@google.com>
+Cc: Hongxiang Lou <louhongxiang@huawei.com>
+Cc: James Houghton <jthoughton@google.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Jonathan Corbet <corbet@lwn.net>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Ma Wupeng <mawupeng1@huawei.com>
+Cc: Miaohe Lin <linmiaohe@huawei.com>
+Cc: Michal Hocko <mhocko@kernel.org>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Nhat Pham <nphamcs@gmail.com>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Vishal Annapurve <vannapurve@google.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Yanteng Si <si.yanteng@linux.dev>
+Cc: <stable@vger.kernel.org>
 ---
- mm/damon/core.c | 30 +++++++++++++++++++++++-------
- 1 file changed, 23 insertions(+), 7 deletions(-)
+ mm/hugetlb.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index f950a3b9fcb99..71e8cedbc6439 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -2891,6 +2891,28 @@ static inline u64 damos_get_some_mem_psi_total(void)
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index 84552c993cbbb..a16d04aae6196 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -2851,7 +2851,6 @@ void wait_for_freed_hugetlb_folios(void)
+  *
+  * Return: A pointer to the allocated folio, or an ERR_PTR on failure.
+  *         -ENOSPC if cgroup charging fails or no folio is available.
+- *         -ENOMEM if mem cgroup charging fails.
+  */
+ struct folio *hugetlb_alloc_folio(struct hstate *h,
+ 		struct mempolicy_interpreted *mpoli, u8 alloc_flags)
+@@ -2924,7 +2923,11 @@ struct folio *hugetlb_alloc_folio(struct hstate *h,
+ 		 * were committed to the folio and freeing the folio
+ 		 * would have cleared those up.
+ 		 */
+-		return ERR_PTR(ret);
++		/*
++		 * Return -ENOSPC, since retrying the fault is futile:
++		 * the OOM killer is not triggered for HugeTLB.
++		 */
++		return ERR_PTR(-ENOSPC);
+ 	}
  
- #endif	/* CONFIG_PSI */
- 
-+static void damos_set_psi_current_val(u64 now_psi_total,
-+		struct damos_quota_goal *goal, struct damos *s)
-+{
-+	u64 last_psi_total = goal->last_psi_total;
-+
-+	goal->last_psi_total = now_psi_total;
-+	if (last_psi_total != U64_MAX) {
-+		goal->current_value = now_psi_total - last_psi_total;
-+		return;
-+	}
-+	/* uninitialized last_psi_total; make no effect this round */
-+	if (s->quota.goal_tuner == DAMOS_QUOTA_GOAL_TUNER_CONSIST) {
-+		goal->current_value = goal->target_value;
-+		return;
-+	}
-+	/* let temporal tuner show the same achievement as in the last round */
-+	if (!s->quota.esz)
-+		goal->current_value = goal->target_value;
-+	else
-+		goal->current_value = 0;
-+}
-+
- #ifdef CONFIG_NUMA
- static bool invalid_mem_node(int nid)
- {
-@@ -3143,13 +3165,7 @@ static void damos_set_quota_goal_current_value(struct damon_ctx *c,
- 		break;
- 	case DAMOS_QUOTA_SOME_MEM_PSI_US:
- 		now_psi_total = damos_get_some_mem_psi_total();
--		/* uninitialized last_psi_total; make no effect this round */
--		if (goal->last_psi_total == U64_MAX)
--			goal->current_value = goal->target_value;
--		else
--			goal->current_value = now_psi_total -
--				goal->last_psi_total;
--		goal->last_psi_total = now_psi_total;
-+		damos_set_psi_current_val(now_psi_total, goal, s);
- 		break;
- 	case DAMOS_QUOTA_NODE_MEM_USED_BP:
- 	case DAMOS_QUOTA_NODE_MEM_FREE_BP:
+ 	return folio;
 -- 
 2.53.0
 
