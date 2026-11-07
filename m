@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794068201;
-	b=UqLMDOXuAHC9PrH6Z8CP4tgq/d3QFNoclqhPIl2ZclinNwFuCZZ/r+JMBkeZa59DMw9h
-	 HQdzQYhhD0VbapgqurZULK1TiGw3HIiBuS9yOWspL4RIKIFnuF2w8Yv5zFwimkWC22rL8
-	 7yBy5db/VJT/l1/dgc6EB1gCkCwoR5vnx8/3AZkU6yEJXsgL1QzH5dEmvlvv64qdY/ZML
-	 BSTm6CAxLf92OKw79KGwSeo071lIKqJP+rS4DfM2RxD0GnqopwmJMEHH/NUiZYiJNjVcp
-	 K8jJIGSxUaSL+ADOnoFYifYeh592rlZBYUc3pgOebQfKsiZo0IObhH0mNkRJ0Q7RzhA==
+	t=1794068202;
+	b=ytI3O8Jzsk5FxCgUxCW6kGZcI3nqdC0lwlECyNTVIDlS/92MMdjL8+PteSWcNxsfdEeK
+	 goZv1TR0ufhfr9/3P1akVui6TS6NN5ViDiySmC8LabYmtkfYI+on1X3A/7B2ZIIoBy7ID
+	 +S4c257ZdTR0XWhcyx+Dr2ojc1legH4DDpXf77A90AoD3LRNQAj/QmSeSqOWqZ+zt/FrY
+	 LNRyWm/yNV2J/78phnGgyTymCDcV15ZTWyuptmv7QYqsQeG0Lyh7IwMx1ez0aB4oI9BOr
+	 QiiucxbrvsVLPE0WKD6vj1j1e7mj118ElbqQM7SxrRQNfL6guUH5TNv4sUQucNbHBiQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794068201;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794068202;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=PdgozSx6HOc+Pg7LBxQiboa2njUZ1gM7CjeOMOBinyw=;
-	b=ke3IAxDSMmToyDqF5Wld87qQ2JX6oDML5sS1vmSnK8+w8khKMmkf8qldpI5NHekWIX3Z
-	 XTiannbfx1gxFMBROdf4RPEwcWsbRv/2fPLRI8vnc0lMLmiQjdTwIFWU7hsR1evIJETB5
-	 w/040zQM7v8+L1TGyiO+vMPOm3bNvXxD/mNWj6fNSbMh/LAgq2qXMwozgOg4FP2/sUa3N
-	 bapPNxdZhQ8uNcWLJkt3YrLU+z5axVVfNjZJ/V5A09UDZVfPfj+vpa4gALA7LNfwmLeS0
-	 tHPvt6DrTE1Ano0RgqkSVa7nOMThiNvFvwEFRJURR4OXD97SyNRAcZVE85AtDETZOXQ==
+	bh=bM1hTVbW2nweBH/A6UcgC0OeSKooruA4eo//lcpz250=;
+	b=w13y/fQKeLeuy6yQ4pd6qgKA982e3LSqDV9dSKpRw2zowm/oMDHtly57FBkc/C299+Ih
+	 UTFYHhr+zuEIZwMn+XcjCVfBF2qNbC4eTO/xQaCaJOQLS7ge6QCgw3FlXjSlT/B0edrEH
+	 v57wCT2XO+KeZXsd73P6Iq5box8COsaN/8ZwxQQI+EwUb0tViO3yOv3gYtpcKjfYObg+f
+	 G6pabdR2DC+aysCSylC448+5fMRbbjFonjRVYGU9Dr+uElyj7jfmENaH1aJgNhzj2ipkn
+	 gX81ShyxrJDqU7oEeys6QxmH0l0yHs9w92KmB31X3CVFG25v1B3l+lD8qtCKDC3yTeg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=kernel.dk;
 	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b="A/lhsXw1";
-	arc=none smtp.remote-ip=209.85.215.172
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=DULWFsHd;
+	arc=none smtp.remote-ip=209.85.216.41
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8FCD606AC24
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 16:16:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8FCD606AC24
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ED9A606AC32
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 16:16:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2ED9A606AC32
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=A/lhsXw1
-Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cdb760113d5so357569a12.2
-        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 08:16:40 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=DULWFsHd
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3ae1d0caaedso735420a91.2
+        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 08:16:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1794068200; x=1794673000; darn=vger.kernel.org;
+        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1794068201; x=1794673001; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=PdgozSx6HOc+Pg7LBxQiboa2njUZ1gM7CjeOMOBinyw=;
-        b=A/lhsXw1SSRsAm1+lb6Gan0qHRC16DfbGWbdh/DKLsemo8Ar17Y5FQOC37XrGoL4bh
-         nCaXJCxtA2r5SkqfKoSst7OT9pxlGvfd4dKl2DfhtUDGAIPVYZPTwyJIOKYdkNBq74M8
-         H9rLcYdMmukALIWEHHVxJuVypSi+n++1uMzXWxfW5PJFoyV3AGDCMriUJHv40TSaKptM
-         SnzZg2ttmvxO0j+W/AqTkocZqCNYofp4/pn0FvPJh8GbGP++MVSUhZq8r03rpeUE8heZ
-         PlgJDVu/cXVK9YQLZBJ7fJJAqxjc+mV1+/GVSFxcm+fDonPbYLjVpNsEGWZzg/t81Ub6
-         6WMA==
+        bh=bM1hTVbW2nweBH/A6UcgC0OeSKooruA4eo//lcpz250=;
+        b=DULWFsHdf6ZSwSCSgnl2++lNc+Q0x2h6m4oFeLD1wHT6I2O3rl+pysZI9RLPwBzke4
+         aWBjOd+La4mhabaF9jWVbX8/JVa3UgRYa1LMhefThfK/k2fs5vxPsSHWiH/mjvx4tg+U
+         vlHCX432QqXQeb/kaZ/w19jRL7GLuNHUTOIILFl+71+JBanm162hSb/f1JL8iHAG1prt
+         PZTLPFS7ROX7j9H14WcSwfq1G+RH0RgU50CxDjiCvJmVYEAMlbGxhLd9sohSHmNQjm3D
+         MdqlA9YK43hDoJ3BHRySznKTsydgMpYjWW6IYpZAqlLLTpk3E8jvDuvkJGMd6WD811Cy
+         ulBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794068200; x=1794673000;
+        d=1e100.net; s=20260707; t=1794068201; x=1794673001;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=PdgozSx6HOc+Pg7LBxQiboa2njUZ1gM7CjeOMOBinyw=;
-        b=UsuJjW1Ynpje6EN3iAOND6fwYYRRfbHK/Fr0QkDPjP1clsDl0BKk1eLI1n2jiEvCVO
-         1YcFmWKnQNfHgi2Rz0JGTKCbQE/lnG1h/HOBJB3WLINu4qAeoxqVtGcqPFCqvHHEMkJQ
-         5F8MsmFZiY0ENm3JLKHMTGufk6gVzt8EEFEBu8OZKymBDsoYOTvZQuAxA0wCTkqyn785
-         SLBaiJJeoUmQtU36s9q2ULrnsAVXflSM8sw9rHHC0k8M5fXWIMbD9h2anAhK56oZ+3Iy
-         vm3K7xN9qEOOIilMEgjbiYfeKPPXB95M6kXPlrihuK7CoWOwSUPvCqLOdx7pgftT+VNe
-         nviw==
-X-Gm-Message-State: APuU4Z/aZ6V9/mDwHgY+3aJvSuQRItOpsMwz1WUtAFBMu6EucApHWtaM
-	+KVZpyQ8IygyaMEYif+XJ1JiIplVRicsQzaeL/n510UrR+B4t63kDsQEPArT2z0fCmdaFkCVagB
-	J61NN
-X-Gm-Gg: AYBFou0Bu8mDFLV8C2wEFfTRvUiAJ3KNkIJUFpzA6DAQE9k32Av0n+3RaRUMI2OQh6V
-	NTRQn9nTGecqSvuE1FxZn1HWuKBNa9MuACZfijh+PcBp2LA1oTWk4YQVhUKfl346gFpyfdx5uJ2
-	7sycmTierht2buO4XQ6CjQ52H8Ukzg4X579ORkLJJhXpP0HnBdY4eGQeD4x+NShJbYcLMvp0joP
-	QM5ir6G8VYSPcnWvCHs+hK+ND2bWwWvlVtVd/x9hi+ww1z08QAHH/OM0vCOpswyXr/mVehwfYeP
-	uJ7atZSq4mtb8ZCHpzwgz6HWk8T4kaSt4HK7RvzOwthLgY/Ew4JmZuYErhoxCf2MBknWzQ+aMes
-	Wdk1Usz6W9MQQgaQlnv9YU7mUWn2K6/geTIyL4OsRAjRnhA858D3/eC3vZpr8q0WanDBUni1EiX
-	RJlkopTfecf17yl7hPkrle5/9tOzR9lRa8+7hnzgB9IFeIv0XQ7bNVPUGL//tFu3Ylb6eDVwW6J
-	3hPK0PQMNlvNWddjh0kBVEMCSUYVcNQBtz0wtzw68JHGfVKFLohbMrtwDAxz1gNiEZFhmKYZ1vG
-	Biq6ToTWnYmXAZucZvt+otz9adXc/iNeZNpPc7JG+ktrJ5NeVXpwQMj22ZHoGWhYuI9p5njUtdH
-	t22WmuIO9OeUDX94X6U51
-X-Received: by 2002:a17:90b:4b0f:b0:39e:4c81:6c5f with SMTP id 98e67ed59e1d1-3b0db6e5c68mr5970891a91.26.1794068199805;
-        Sat, 07 Nov 2026 08:16:39 -0800 (PST)
+        bh=bM1hTVbW2nweBH/A6UcgC0OeSKooruA4eo//lcpz250=;
+        b=CqIl8Hq4N6HLb75480/gyR3rwiGsQlPPelsDbVkF1S9ScvA/vj6VbtAHS8mQ3aS5Ao
+         SvyVWhlmQg/uvYGxXXSlZs0jS9AYakgXWLWSN/lpUgsBhM2sSzAW0YOwCbbyFO+mvau/
+         0rl4qjm5AsaqoUFm9ZmrnpZElzTq2BoFgsJB38gUW0EN2p4bcMdgfELopZIgN73NFuVB
+         /gyiRl338AoeiToUSMRHrYdHHals9zZK72kipw730ZFO4Eo2Nvb46XTfdddfcv4bC/Xo
+         4UotKbzs17/5CX6JB3eudI6c9RGsRiMk69GsZtIyqjqpT5ViK1wCierCjvQ6m2Bkc7W2
+         hX8g==
+X-Gm-Message-State: APuU4Z8dMjAyO3HW9yC59u4eW50pXW6yLQ6UVszW9v7hj9VP5T0A/CqJ
+	26L3f6j/0Zq0/8UvUE89E7IzPy4FQs30Ngrly4CqLGTeOIgpnmApjxJ6QkblpYc9Xu4ZQCOqOt9
+	YUJd8
+X-Gm-Gg: AYBFou3TuwQ65jR9r0Nx35pTSEeH2GAupXdX1OAdtxKYpfGjUqlStRywg8J25TQN76K
+	ImwGF7RAmGWAj4Ha5cwQikV8dH3BEs9kbT5OzUvQw6G6zTK1eRsR9QCHs5olD4Ote+TizFuoUq4
+	/728LSzCctt0TpqbHFQmFZwYYTcyxc0oXbPSODv/qrDbILhZfaxuQNSV7zfczDQgH+f/KPBdLmF
+	h2X6rz7vOaTYyqGXNFwe8xfw1VRPxcvx7r2GAMhru/52DZzVQfptTi3mj7hMaYCZdv06hF/jc+A
+	f99L9krqhbOp3jxyjbGwxoLPAnXttc5p6/6Va3g6XxRUdKnKtmSfYE26vHCSN4wykcWrBsdeEDC
+	Bnq4JHjTYY8oQ3ce8DTnqA54SdXJluWZ1J5HJOI1yX8VQ04WzahIzB6xy0udk33F6V5BksExHvu
+	jN9Hp/buaJtulKtXYAbI/K1XatW97dOcFNiouEb0VRNeMLZk85cciXczSb9GB0TUqLwIMfERz9g
+	hA6yIgXeyK2zdyEGNombEtTofu4L4JAvNoxYV0Qxghutp5RWZF6GSdssvbRbRfCKro1ZPZux4Nb
+	yixg+FBzXko+mEPvsmq2S7D3Cf3rXKSKe0Usx7w0+Hborq5ectb8Aa/XhTU0FgUCNj6yQZItRFE
+	KyjgHdgKUIvd4lBt80OP0
+X-Received: by 2002:a17:90b:270e:b0:3ab:188b:c5bc with SMTP id 98e67ed59e1d1-3b0db6d79f6mr5138851a91.14.1794068201339;
+        Sat, 07 Nov 2026 08:16:41 -0800 (PST)
 Received: from xps16 ([198.8.77.135])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b10581caccsm3753898a91.10.2026.11.07.08.16.38
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b10581caccsm3753898a91.10.2026.11.07.08.16.40
         for <stable@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 08:16:38 -0800 (PST)
+        Sat, 07 Nov 2026 08:16:40 -0800 (PST)
 From: Jens Axboe <axboe@kernel.dk>
 To: stable@vger.kernel.org
-Subject: [PATCH 6.18.y 2/9] io_uring/sqpoll: don't attach to a thread that is canceling
-Date: Sat,  7 Nov 2026 09:16:27 -0700
-Message-ID: <20261107161634.2500557-3-axboe@kernel.dk>
+Subject: [PATCH 6.18.y 3/9] io_uring/sqpoll: don't set IO_SQ_THREAD_SHOULD_STOP on thread exit
+Date: Sat,  7 Nov 2026 09:16:28 -0700
+Message-ID: <20261107161634.2500557-4-axboe@kernel.dk>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261107161634.2500557-1-axboe@kernel.dk>
 References: <20261107161634.2500557-1-axboe@kernel.dk>
@@ -99,59 +99,86 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Commit 22d9db9fd64a493525d692b32c556875b7254665 upstream.
+From: Shuai Liu <847807867@qq.com>
 
-io_sq_offload_create() refuses to attach a ring to an SQPOLL thread
-that has already gone, by checking sqd->thread under sqd->lock. Since
-the thread drops the lock while io_uring_cancel_generic() waits for its
-requests, that check can run while the thread is on its way out and
-still see it. The new ring is then added to ctx_list, io_uring_setup()
-succeeds, the thread finishes canceling and exits without ever having
-looked at the ring, and io_uring_enter() fails with -EOWNERDEAD.
+Commit fca3ff9e2eee7d285585daf51942e0b5e2be354a upstream.
 
-Only a thread that exits on a fatal signal can be caught like this, as
-the stop bit is set once the last ring has let go of the sqd, when no fd
-is left to attach through. A fatal signal is group wide and attaching
-needs the same thread group, so the attacher is on its way out as well.
-Still, make the check see it: set the stop bit before canceling,
-whatever the reason for the exit, and test it when attaching.
+io_sq_thread_stop() carries a WARN_ON_ONCE() asserting that
+IO_SQ_THREAD_SHOULD_STOP isn't set yet, i.e. that stopping the SQPOLL
+thread is never attempted twice. Since commit 22d9db9fd64a
+("io_uring/sqpoll: don't attach to a thread that is canceling"), the
+SQPOLL thread itself sets that bit on its way out, so that
+io_sq_offload_create() won't attach a new ring to a thread that is
+canceling.
 
-Reported-by: Karl Mehltretter <kmehltretter@gmail.com>
-Fixes: cb0306c52ffa ("io_uring/cancel: drop sqd->lock while SQPOLL waits")
+When the thread exits on a fatal signal, the bit is thus set before the
+ring teardown gets to io_sq_thread_stop(), which now triggers the
+warning on every such exit:
+
+  WARNING: io_uring/sqpoll.c:88 at io_sq_thread_stop
+  Workqueue: iou_exit io_ring_exit_work
+  Call Trace:
+   io_put_sq_data
+   io_sq_thread_finish
+   io_ring_ctx_free
+   io_ring_exit_work
+
+Introduce a separate IO_SQ_THREAD_EXITING bit for the thread marking
+itself as on its way out, and check it in io_sq_offload_create() along
+with IO_SQ_THREAD_SHOULD_STOP. IO_SQ_THREAD_SHOULD_STOP regains its
+original meaning, "a stop has been requested", and the WARN_ON_ONCE()
+holds again.
+
+Reproduced with an SQPOLL ring and an immediate fatal signal: the
+warning fires on v7.3.0+ (22d9db9fd64a present) and is gone with this
+change.
+
+Reported-by: syzbot+675af112519ca34f5502@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=675af112519ca34f5502
+Fixes: 22d9db9fd64a ("io_uring/sqpoll: don't attach to a thread that is canceling")
+Signed-off-by: Shuai Liu <847807867@qq.com>
+Link: https://patch.msgid.link/tencent_BB08960D79E0261B5C1EB1E589787734E907@qq.com
+[axboe: trim excessive comment]
 Signed-off-by: Jens Axboe <axboe@kernel.dk>
 ---
- io_uring/sqpoll.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+ io_uring/sqpoll.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
 diff --git a/io_uring/sqpoll.c b/io_uring/sqpoll.c
-index 406029c14fbc..1c7f84192c0a 100644
+index 1c7f84192c0a..1d31a4b1a9aa 100644
 --- a/io_uring/sqpoll.c
 +++ b/io_uring/sqpoll.c
-@@ -438,6 +438,12 @@ static int io_sq_thread(void *data)
- 	if (retry_list)
- 		io_sq_tw(&retry_list, UINT_MAX);
+@@ -28,6 +28,7 @@
+ enum {
+ 	IO_SQ_THREAD_SHOULD_STOP = 0,
+ 	IO_SQ_THREAD_SHOULD_PARK,
++	IO_SQ_THREAD_EXITING,
+ };
  
-+	/*
-+	 * Cancelation drops sqd->lock while it waits, and a ring could attach
-+	 * to a thread that is on its way out. A fatal signal doesn't set the
-+	 * bit, so set it here for io_sq_offload_create() to see.
-+	 */
-+	set_bit(IO_SQ_THREAD_SHOULD_STOP, &sqd->state);
+ void io_sq_thread_unpark(struct io_sq_data *sqd)
+@@ -441,9 +442,10 @@ static int io_sq_thread(void *data)
+ 	/*
+ 	 * Cancelation drops sqd->lock while it waits, and a ring could attach
+ 	 * to a thread that is on its way out. A fatal signal doesn't set the
+-	 * bit, so set it here for io_sq_offload_create() to see.
++	 * stop bit, so mark the thread as exiting here for
++	 * io_sq_offload_create() to see.
+ 	 */
+-	set_bit(IO_SQ_THREAD_SHOULD_STOP, &sqd->state);
++	set_bit(IO_SQ_THREAD_EXITING, &sqd->state);
  	io_uring_cancel_generic(true, sqd);
  	rcu_assign_pointer(sqd->thread, NULL);
  	put_task_struct(current);
-@@ -506,7 +512,10 @@ __cold int io_sq_offload_create(struct io_ring_ctx *ctx,
- 		list_add(&ctx->sqd_list, &sqd->ctx_list);
- 		io_sqd_update_thread_idle(sqd);
+@@ -514,7 +516,8 @@ __cold int io_sq_offload_create(struct io_ring_ctx *ctx,
  		/* don't attach to a dying SQPOLL thread, would be racy */
--		ret = (attached && !sqd->thread) ? -ENXIO : 0;
-+		ret = 0;
-+		if (attached && (!sqd->thread ||
-+		    test_bit(IO_SQ_THREAD_SHOULD_STOP, &sqd->state)))
-+			ret = -ENXIO;
+ 		ret = 0;
+ 		if (attached && (!sqd->thread ||
+-		    test_bit(IO_SQ_THREAD_SHOULD_STOP, &sqd->state)))
++		    test_bit(IO_SQ_THREAD_SHOULD_STOP, &sqd->state) ||
++		    test_bit(IO_SQ_THREAD_EXITING, &sqd->state)))
+ 			ret = -ENXIO;
  		io_sq_thread_unpark(sqd);
  
- 		if (ret < 0)
 -- 
 2.56.0
 
