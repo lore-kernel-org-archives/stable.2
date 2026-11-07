@@ -1,23 +1,22 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794038846;
-	b=RyC7YCo2gnNp0LWFgZ/Ipg5aoqBvEqibz1U6/6I0/6dkg3eg4XBFqwy7wGfWZVc5eo2K
-	 FofR4PGSHEW/OxDqTH63Kvw9N4y4yd1IB0qjZ3r0OpbHTd+QWUzkiThP9yY0N62bkBIGL
-	 4Jr10T5t473ZXc1sKbAAtNCVOHdpoId/EHtpi3i76qhDiZFA1LMGaYJtPY+S8JQN1gKEp
-	 5l/1g/xMbD2swa7TqN+GyHJFz5qWQ8zocqjNzUB4hpKqVJxoLevInHo2O0cURoScuEXak
-	 n94rIp9mPoHJZv3jO5FSqwadFkNrhGVGXqDo0Dcl071pQIVwl3jtBb2vzvxLIGdGe4A==
+	t=1794038845;
+	b=f3WwojplIL21EqERdJxOfkkrEBs3/bZ6bRFQd7qKe6e1zcrWOYtRkyoLIK2/770ERZaL
+	 FX6R8JZJTkTFazxwEaEhuUItQ3rKAIk6hcqKWx8ZdGqT1swsJB0Z0XcBFGeV9XEm1v8hS
+	 ZhPgUbAjUr+FiBLzmXRmhY8dXE2WLg10/DCNlnK3CIdrlEazaJnNEV3UD+dueNPi+LUFO
+	 uPgtloPItwX0+0x15rN7uYV3V/BGa98aTEM7ampVGZSZWK1tbWLFNeOOecgmDj1c3Sp3j
+	 vqPZH82EMQ3xby/D8TcFJ92mmNhkBeKeQ9iLSoahY6SMr4kPCyV9XpeSbXnuYQVw1Xg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794038846;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
-	 References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-Originating-IP:X-CM-SenderInfo;
-	bh=37Q/M3b5464XwrQ37wekA+4vcvzkDiOdS3nwiJzbO3w=;
-	b=KEivJZeZQ23WXfFHkvuLg645cewoRc4ruQWOEb+wAaA6m8Zcp9KC8pNSVEtYLvYFipkX
-	 z66eKqDBEHZW3ECOtZ8m+D2F9LXRQdOQhJEDSKv5WqvvCm1g9KQkcP4jNQdmOjXE9hxA2
-	 teSrkdisdrdH/Fu9mdIhhQ07OIj3sOCyrS0y6To8SOCi2lwSdCGKNVFTyFOQICatU6SBq
-	 T03kZumY0o3w7c351/FtwrI/5W26HEj6lKLMtgwcPIt58OCrGiRQvKESHRKZXIX2xC552
-	 zuK/fF8Jks1J0lBtHgO2E7LmXOJVKH/tW/NnLnAr1Fqhn7jgkiUQhHP+gpuSyi0tgJQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794038845;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=ZP9NtSrlooK9VhB0rSMTcWQqhg5ZFlrIy3RevyzKXN8=;
+	b=XSHSOEG17wq/ffMNuvnmKGQIv0Kxnhm1S5QeV4bFtCF44OACvrwTuPg4um5U8DFkymjn
+	 k3664EIpUPfVDg70mQPuLjJGgKKo7erYCZJwoCZ0YzNV9VDpeVG+pRurrmryQ3aAPe8wT
+	 Wu+PfA5TE65363V8NsEqZKo7yqgP2CtbJ/l17FqrRFSVK7SSaI8GqB2GCL0KVt0JYJBaP
+	 w3ny0Y7W/PpQE1UFHg82y7MLXfN5JnbmXQllaiSMyGN/RIklEGI0QK3UfeUfUBu5BZyef
+	 fYGS762GkyRbToM8XeOLrKSaNjZDRy6Y5rP1k+9vlkvF3JmV6xAuR6gP16ya1sHYFFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=iscas.ac.cn;
 	spf=pass smtp.mailfrom=iscas.ac.cn;
@@ -26,25 +25,23 @@ Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DC7F606A336;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DB2B606A330;
 	Sat,  7 Nov 2026 08:07:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DC7F606A336
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DB2B606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from [172.100.0.8] (unknown [36.110.52.2])
-	by APP-01 (Coremail) with SMTP id qwCowABXhP443O5qzr5xAA--.13418S3;
+	by APP-01 (Coremail) with SMTP id qwCowABXhP443O5qzr5xAA--.13418S2;
 	Sat, 07 Nov 2026 16:07:20 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
 To: Hans de Goede <hansg@kernel.org>
 Cc: Ilpo =?utf-8?q?J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
  Maximilian Luz <luzmaximilian@gmail.com>, platform-driver-x86@vger.kernel.org,
  linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: [PATCH v2 1/2] platform/surface: aggregator: Fix wrong completion
- list for pending packets
+Subject: [PATCH v2 0/2] platform/surface: aggregator: Fix packet list handling
+ in ssh_ptl_shutdown()
 Date: Sat, 07 Nov 2026 08:07:30 +0000
-Message-ID: <20261107080730.1-vulab@iscas.ac.cn>
-In-Reply-To: <20261107080730.0-vulab@iscas.ac.cn>
-References: <20261107080730.0-vulab@iscas.ac.cn>
+Message-ID: <20261107080730.0-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -57,10 +54,10 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qwCowABXhP443O5qzr5xAA--.13418S3
-X-Coremail-Antispam: 1UD129KBjvJXoW7AryUKry7tr1fWFy7ArWkJFb_yoW8ZFW8p3
-	y0g3yfCw1kJr17tw48Xw1Uuw47Zws8Xr4Yk3yYv3s0v3s8Xr9Iq3WI9F15uFZ8Cr1kt3y7
-	Kr48Gr4Dua18ZrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+X-CM-TRANSID:qwCowABXhP443O5qzr5xAA--.13418S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Cr4rZF1rAr1rAry7Ar4fXwb_yoW8XFy8p3
+	yrG3yvy3yDJr17tF17W3Wa9FWfZF45Xay5KrZ8u34jvrn8JFW0vr109w1j9FyDuasxW3W7
+	Kr4vqrn09F4DAaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
 	9KBjDU0xBIdaVrnRJUUUvab7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
 	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
 	AK021l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
@@ -71,50 +68,43 @@ X-Coremail-Antispam: 1UD129KBjvJXoW7AryUKry7tr1fWFy7ArWkJFb_yoW8ZFW8p3
 	I48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2
 	IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v2
 	6r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2
-	IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv
+	IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv
 	67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyT
 	uYvjxUgUKsDUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwIEA2rucYK7ZwAAsp
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgIEA2rub5HADAAAs1
 
-ssh_ptl_shutdown() takes the packets it has to cancel out of the queue
-and out of the pending set and collects them in two local lists, which
-are drained once both locks have been dropped. Packets from the pending
-set are moved to complete_p through pending_node, as their queue_node
-may still be in use by the queue when a pending packet is re-queued for
-retransmission. The move itself, however, targets complete_q.
+Hi Maximilian, Ilpo,
 
-An entry added that way is linked into complete_q via pending_node,
-while the loop that drains complete_q looks the entry up with
-queue_node. The two nodes are at different offsets in struct
-ssh_packet, so list_for_each_entry() derives a packet pointer that is
-shifted by that difference: the state bit is updated at the wrong
-offset and the completion and reference-drop run on an object that is
-not the packet the list entry belongs to. At the same time complete_p
-stays empty and its drain loop never runs.
+this is a split of the single patch I sent in September, following the
+review comments from Ilpo and Maximilian. The two problems in
+ssh_ptl_shutdown() are independent, so patch 1 corrects the list that
+pending packets are moved to, and patch 2 makes both drain loops safe
+against the packet being released while iterating.
 
-Move the pending packets to complete_p as intended.
+Changes in v2:
+ - Sorry for the delay in getting back to this review.
+ - Split into two patches as requested, instead of one patch that mixes
+   two independent problems.
+ - The pending/complete list mismatch has its own changelog describing
+   the effect of the wrong list node, as Maximilian asked for.
+ - Both patches carry Maximilian's Acked-by.
 
-Fixes: c167b9c7e3d6 ("platform/surface: Add Surface Aggregator subsystem")
-Cc: stable@vger.kernel.org
-Acked-by: Maximilian Luz <luzmaximilian@gmail.com>
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/platform/surface/aggregator/ssh_packet_layer.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Link: https://lore.kernel.org/all/20260917135607.2154130-1-vulab@iscas.ac.cn/
 
-diff --git a/drivers/platform/surface/aggregator/ssh_packet_layer.c b/drivers/platform/surface/aggregator/ssh_packet_layer.c
-index 3dd22856570f..a51395942747 100644
---- a/drivers/platform/surface/aggregator/ssh_packet_layer.c
-+++ b/drivers/platform/surface/aggregator/ssh_packet_layer.c
-@@ -1983,7 +1983,7 @@ void ssh_ptl_shutdown(struct ssh_ptl *ptl)
- 		smp_mb__before_atomic();
- 		clear_bit(SSH_PACKET_SF_PENDING_BIT, &p->state);
- 
--		list_move_tail(&p->pending_node, &complete_q);
-+		list_move_tail(&p->pending_node, &complete_p);
- 	}
- 	atomic_set(&ptl->pending.count, 0);
- 	spin_unlock(&ptl->pending.lock);
+The candidate was found with our static analysis tooling; the audit and
+the fix were then assisted by DeepSeek and GPT-6.1 Sol. The patches are
+based on mainline as of d4872371bae (v7.4-rc1) and were built for x86_64
+with CONFIG_SURFACE_AGGREGATOR=m, without new warnings; checkpatch.pl
+reports no issues. I could not test them at runtime, as that needs a
+Surface device shutting down with packets still queued or pending.
+
+Wentao Liang (2):
+  platform/surface: aggregator: Fix wrong completion list for pending
+    packets
+  platform/surface: aggregator: Fix use-after-free in ssh_ptl_shutdown()
+
+ drivers/platform/surface/aggregator/ssh_packet_layer.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 -- 
 2.34.1
