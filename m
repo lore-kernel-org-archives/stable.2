@@ -1,53 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049346;
-	b=LQJVHdsCZGnNEpuEM3eKpCpHqW2ZvY+k8OZbgMGMOTqkzQs/g+j6gqDy9+6WTRaU0uUF
-	 0htJfb84BaZA3r1Epl2z66xX1RtV5TrzQKI5XK/EjORrX8+xDNHke0kwYfPmUFkYz6lMK
-	 KQ0PqNiZ8VUP7VImlEInw50DoXSSGDhWcC40E817V6oXz4PJ5Nm0HEgfRX4WjO1EcFWWS
-	 KwCIYF0l+fwei4Jj4M+OQO402LWfQ8ZWfZuqQEeNPQyGkE4wN5go3ZBKMp9wnQFWcNroA
-	 5xb2UETkLWc95vj8cmSPCtSXbNAGBVq5Bxr2CyhSyyMHHCG8IxBAxj2e6QOcDEcA2Zg==
+	t=1794049349;
+	b=S2pdOfHfSOXXYuqWId+dDYP7gCci+SvzPnJsgn7qgvnuBgLh2pdyz4nLh9Yoyh1k14zd
+	 bZdJPnN8wCf1bw5g9cVpj23AawUOxhoV+clVbGV3xAE28kPR82HZSEYKB6rGfb7wm3rOV
+	 sPWCHZITEADyiz+NgG9usZHknw00t1j100KwsnTowSuoSJ3F9dQccGI0Yvxve+3G+e4Iy
+	 VFY2rCamgjXK7pIhLyh5+G1Y9nQclm0rxqFuwFNzMzd/QwbiJ95CzoTi62NxSeHV99zCW
+	 lUy4byza/8s2AFYkx1oMUkM7q2PLAvsORhNwOkfFo3IvIJB+DVHDJ8QQQNOy4obqj5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049346;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049349;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=tzZJpIjkDleqLUnD6okYIvkpMbrSpzmh1g+wWV0bKvM=;
-	b=eGsi6ZA1EVwwmj4Cg1q38bp55uyMRtK5YtoHiSRJ14A0gVWjn3fbo0A4UPtmJjwlrLr2
-	 4qKfVVmcZ7uXCuZcH6SiCC7xsqdHZmLoPNLeQPi1yJtYF6IzImoDhaNG2F8hR+HpELzy7
-	 SCjTkjk1kzlxjJhC2YW6ll5674YeHmN8gpx3dOFbgVKKfSYW2tsRFqDBm9+qChbtFNsla
-	 scGSVlY7RY9KrEdh2Wb4NWSf1vAAvWdepJSpqm60QE4Gi0JHlv50IELTX8FXfP4HdsFZJ
-	 E0A+i4MCC1fMvJF3ziGv7pwCs2uh2sFDd1kpl1r6C/YWH/Rm7LOUoDBH0aB4hEG7h2Q==
+	bh=I4eONazqWFVheYYqtepRusL7d2PJZwOWbV8RYYmjYss=;
+	b=4rCaWMIiFdBE9Ma8WXj20jAMEi5kjwjDbPIerN0sgKH7jMQGbl7wC2Ia5a6WjtSbEZKi
+	 MqmqLkIRcDvOVhyFl/0NO+KqPqUQfciI6M2gh6b5vfaGK6dBmB0NfUASOpuipM+wf3sO3
+	 DDWE09OTeKJ9oU5Q/Y+VAMA+XF905KDrdD11YyRDkeg+2SgWnWwQ3967z724ll2zE+ypl
+	 PYCv1jb1lMAlQ24vxmvw+QmcD568KpoYKv5pZ7IsHrwTnPSIg4fjva7YF+G10685n6liX
+	 Qzi3lWr3pirsXtf3qAee5SB0hRm/1mFlHqUPEdiTq7FnPGEAxIFliOwClNak8/Xz4Hg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="jg/33h+L";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QCbVhpge;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1997B606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:02:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4729E606A32D
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:02:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jg/33h+L
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E4741F0089F;
-	Sat,  7 Nov 2026 11:02:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QCbVhpge
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 742461F0089F;
+	Sat,  7 Nov 2026 11:02:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049346;
-	bh=tzZJpIjkDleqLUnD6okYIvkpMbrSpzmh1g+wWV0bKvM=;
+	s=k20260515; t=1794049349;
+	bh=I4eONazqWFVheYYqtepRusL7d2PJZwOWbV8RYYmjYss=;
 	h=From:To:Cc:Subject:Date;
-	b=jg/33h+LUZAyN9b/dbjJF7AMDFL24m7O7lpq75d5hqCQ8Zr791tAfB0xkX3U11OaH
-	 +csGW7MS4jAL+uzDXdZ02AnVvuZFIrsnlHs11QXiLWnopHSGUSIlaX8dPUbKcUqLVQ
-	 eusuv4VFXXZvbtaxZyi0L5wtSh6JDVN84q/15Qc0imEKE2XPc3Hslo0MzSNNWPDBVF
-	 1QhlC4WJXSIgX17UM6+kxF/OO8TKBB7WwtBdL6FhCZkwbiBpGnbEh2S86K9wQEovDK
-	 4S6xDH652GLrpL98JcdpV0/1PzZOZgN6zCyJn245kEFsSuXqF1mL1REFQ3h9gRv+qg
-	 AHXI1noTEWF7w==
+	b=QCbVhpgeU8PKvHTwhsZbC8RrWUE/UWk+KmNO2F68aVewovnSITQaj+viUIbyAx8oJ
+	 SIEtEcAJirHd+77fEHCitNH0q6IeIiNflYWCy/qQg7qF2AICFxfpCt+tS4kcHzu9IX
+	 7E/0KqspsxioGhso8r9rCMVsQR7BtRwu2duDvcEjVyB6pqDoTqS4j47NRt2Eg0jxLI
+	 0RBWUSZBALXCfiIA57fwTdRKUBYHX7MmxSRWX77jYkSFpkHUdeMmr9y0fCmF4+H9Gx
+	 bBeDkZjtD5eXrSd24C5YupSCekglGcaGxy4qXEFui4MvZ/y9Z3SwqGPn/V7AfAlZli
+	 SuV7EfvDK7aQg==
 From: Sasha Levin <sashal@kernel.org>
-To: j@jannau.net,
-	neal@gompa.dev,
-	arend.vanspriel@broadcom.com,
-	johannes.berg@intel.com
+To: edumazet@kernel.org,
+	teigland@redhat.com,
+	aahringo@redhat.com,
+	kuniyu@google.com,
+	kuba@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] wifi: brcmfmac: cfg80211: Report port_authorized for 4-way HS offload" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:02:24 -0500
-Message-ID: <20261107060223-failed-5.15-6fff9de5c5b4@kernel.org>
+Subject: FAILED: patch "[PATCH] dlm: fix send buffer backpressure handling" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 06:02:27 -0500
+Message-ID: <20261107060227-failed-5.15-e234d7625598@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,93 +71,96 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 6fff9de5c5b425817588eeed42bd56d665751c13
+git cherry-pick -x e234d7625598b2eaded84fa99f53c8062650828f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060223-failed-5.15-6fff9de5c5b4@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060227-failed-5.15-e234d7625598@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 6fff9de5c5b425817588eeed42bd56d665751c13 Mon Sep 17 00:00:00 2001
-From: Janne Grunau <j@jannau.net>
-Date: Tue, 15 Sep 2026 21:17:38 +0200
-Subject: [PATCH] wifi: brcmfmac: cfg80211: Report port_authorized for 4-way HS
- offload
+From e234d7625598b2eaded84fa99f53c8062650828f Mon Sep 17 00:00:00 2001
+From: Eric Dumazet <edumazet@kernel.org>
+Date: Tue, 29 Sep 2026 07:17:35 +0000
+Subject: [PATCH] dlm: fix send buffer backpressure handling
 
-Since commit 416386060 ("Mark authorization completed on driver
-indication during 4-way HS offload") [0] wpa_supplicant expects
-NL80211_CMD_PORT_AUTHORIZED to complete the authentication when the
-driver supports 4-way handshake offload.
-This was apparently never tested with the upstream brcmfmac driver as it
-does not report this. This broke authentication on Apple silicon devices
-(BRCM4378, BRMC4387, BRMC4388) and other devices when wpa_supplicant
-2.11 was released [1]. This was initially dealt with by reverting the
-commit in Fedora [2] and other Linux distributions.
-Instead of carrying the revert over to wpa_supplicant 2.12 add the
-expected NL80211_CMD_PORT_AUTHORIZED when the connection is established.
+lowcomms.c tests and clears SOCKWQ_ASYNC_NOSPACE in con->sock->flags,
+but this bit has not been stored there for ten years.
 
-The "Fixes:" tag is not fully accurate as this has only became an issue
-after userspace changes years after the change. Since the change is
-expected to be required in all active stable branches for wpa_supplicant
-2.11 / 2.12 compatibility it is helpful even though
-BRCMF_PROFILE_FWSUP_SAE did not exists then.
+Commit 9cd3e072b0be ("net: rename SOCK_ASYNC_NOSPACE and
+SOCK_ASYNC_WAITDATA") mechanically renamed the two dlm users, then
+commit ceb5d58b2170 ("net: fix sock_wake_async() rcu protection") moved
+the bit from socket->flags to the RCU protected socket_wq->flags, where
+it is reachable only through sk_set_bit() and sk_clear_bit(), and is
+only maintained for sockets having SOCK_FASYNC set.  dlm uses kernel
+sockets, which never have SOCK_FASYNC set, and never sets the bit
+itself, so the test in send_to_sock() has been false ever since.
 
-Link: https://github.com/zephyrproject-rtos/hostap/commit/41638606054a09867fe3f9a2b5523aa4678cbfa5 [0]
-Link: https://lists.infradead.org/pipermail/hostap/2024-August/042893.html [1]
-Link: https://bugzilla.redhat.com/show_bug.cgi?id=2302577 [2]
-Link: https://lore.kernel.org/linux-wireless/20260911065656.1269623-5-Jason.Huang2@infineon.com/ [3]
+The consequence is that when sock_sendmsg() returns -EAGAIN because the
+socket send buffer is full, dlm no longer sets CF_APP_LIMITED, does not
+increment sk_write_pending, and does not return DLM_IO_END to wait for
+lowcomms_write_space().  It returns DLM_IO_RESCHED instead, and
+process_send_sockets() immediately requeues the send work.  A connection
+to a peer that is slow to drain thus keeps cycling through
+sock_sendmsg() and -EAGAIN, burning CPU, instead of sleeping until TCP
+reports that space is available again.
+
+Test SOCK_NOSPACE instead.  This is the bit that lives in socket->flags,
+that TCP sets whenever sendmsg() returns -EAGAIN for lack of send buffer
+space (tcp_sendmsg_locked() and sk_stream_wait_memory()), and that
+lowcomms_write_space() already clears.  This restores the semantics dlm
+had before the bit moved.
+
+Also remove the clear_bit() of SOCKWQ_ASYNC_NOSPACE from
+lowcomms_write_space(), for the same reason.
+
+SCTP connections are deliberately left as they are.  SCTP does not set
+SOCK_NOSPACE, and it never calls sk->sk_write_space(): sctp_wfree() ends
+up in sctp_wake_up_waiters(), which calls sctp_write_space() directly.
+lowcomms_write_space() is thus never invoked for an SCTP connection, and
+the test added here stays false, so send_to_sock() keeps returning
+DLM_IO_RESCHED as it does today.  This is the only safe behavior, as
+returning DLM_IO_END would wait for a callback that never comes.
+
+Fixes: ceb5d58b2170 ("net: fix sock_wake_async() rcu protection")
 Cc: stable@vger.kernel.org
-Fixes: b8a64f0e96c2 ("brcmfmac: support 4-way handshake offloading for WPA/WPA2-PSK")
-Signed-off-by: Janne Grunau <j@jannau.net>
-Reviewed-by: Neal Gompa <neal@gompa.dev>
-Acked-by: Arend van Spriel <arend.vanspriel@broadcom.com>
-Link: https://patch.msgid.link/20260915-brcmfmac-4way-handshake-offload-authenticated-event-v2-1-fbb9cc7ac177@jannau.net
-Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+Cc: David Teigland <teigland@redhat.com>
+Acked-by: Alexander Aring <aahringo@redhat.com>
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+Signed-off-by: Eric Dumazet <edumazet@kernel.org>
+Link: https://patch.msgid.link/20260929071743.23624-2-edumazet@kernel.org
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 ---
- .../broadcom/brcm80211/brcmfmac/cfg80211.c    | 20 +++++++++++++++----
- 1 file changed, 16 insertions(+), 4 deletions(-)
+ fs/dlm/lowcomms.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-index fc08c5b2d572f..e32b46b7cbe25 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-@@ -6588,6 +6588,21 @@ brcmf_bss_roaming_done(struct brcmf_cfg80211_info *cfg,
- 	return err;
- }
+diff --git a/fs/dlm/lowcomms.c b/fs/dlm/lowcomms.c
+index 2aff1c7c17de4..abe9ae4c643fa 100644
+--- a/fs/dlm/lowcomms.c
++++ b/fs/dlm/lowcomms.c
+@@ -522,10 +522,8 @@ static void lowcomms_write_space(struct sock *sk)
+ 	clear_bit(SOCK_NOSPACE, &con->sock->flags);
  
-+static bool
-+brcmf_fwsup_is_authorized(struct brcmf_cfg80211_profile *profile,
-+			  struct cfg80211_connect_resp_params *conn_params)
-+{
-+	if ((profile->use_fwsup == BRCMF_PROFILE_FWSUP_1X ||
-+	     profile->use_fwsup == BRCMF_PROFILE_FWSUP_ROAM) &&
-+	    brcmf_has_pmkid(conn_params->req_ie, conn_params->req_ie_len))
-+		return true;
-+	if (profile->use_fwsup == BRCMF_PROFILE_FWSUP_SAE ||
-+	    profile->use_fwsup == BRCMF_PROFILE_FWSUP_PSK)
-+		return true;
-+
-+	return false;
-+}
-+
- static s32
- brcmf_bss_connect_done(struct brcmf_cfg80211_info *cfg,
- 		       struct net_device *ndev, const struct brcmf_event_msg *e,
-@@ -6625,10 +6640,7 @@ brcmf_bss_connect_done(struct brcmf_cfg80211_info *cfg,
- 		conn_params.resp_ie = conn_info->resp_ie;
- 		conn_params.resp_ie_len = conn_info->resp_ie_len;
- 		authorized = completed &&
--			     (profile->use_fwsup == BRCMF_PROFILE_FWSUP_1X ||
--			      profile->use_fwsup == BRCMF_PROFILE_FWSUP_ROAM) &&
--			     brcmf_has_pmkid(conn_params.req_ie,
--					     conn_params.req_ie_len);
-+			     brcmf_fwsup_is_authorized(profile, &conn_params);
- 		cfg80211_connect_done(ndev, &conn_params, GFP_KERNEL);
- 		if (authorized)
- 			cfg80211_port_authorized(ndev, profile->bssid, NULL, 0,
+ 	spin_lock_bh(&con->writequeue_lock);
+-	if (test_and_clear_bit(CF_APP_LIMITED, &con->flags)) {
++	if (test_and_clear_bit(CF_APP_LIMITED, &con->flags))
+ 		con->sock->sk->sk_write_pending--;
+-		clear_bit(SOCKWQ_ASYNC_NOSPACE, &con->sock->flags);
+-	}
+ 
+ 	lowcomms_queue_swork(con);
+ 	spin_unlock_bh(&con->writequeue_lock);
+@@ -1391,7 +1389,7 @@ static int send_to_sock(struct connection *con)
+ 	if (ret == -EAGAIN || ret == 0) {
+ 		lock_sock(con->sock->sk);
+ 		spin_lock_bh(&con->writequeue_lock);
+-		if (test_bit(SOCKWQ_ASYNC_NOSPACE, &con->sock->flags) &&
++		if (test_bit(SOCK_NOSPACE, &con->sock->flags) &&
+ 		    !test_and_set_bit(CF_APP_LIMITED, &con->flags)) {
+ 			/* Notify TCP that we're limited by the
+ 			 * application window size.
 -- 
 2.53.0
 
