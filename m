@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049025;
-	b=rYm/5xVe5SEE8G5U6/z8TJTdVbPgXf8ufm857RL6go/SgbdkPCuUgmtv6bl5FkWJQ4EK
-	 Zu/UszGPs/arw++yZzJadihoqciIKI8ITViSB/P1fookkSrR5GRkajjSvxn/5l3+1wWOv
-	 WmKyGvUi0UDOB4zG877ltcKChqH28W0G9LZ6+F5PkKMAbXzIA4f4i/+zV6CgoFpszHB/m
-	 g0gUOfIp5wthw0XjRsNx+2PBeuTJVs4NqVZc8Y5oDz8Jx4kJgAeAXzL7frTrxxU1njeiN
-	 veDm6MujwjEWR+ZIieyT+rFh/RNhnqgAqec+jORYqZykU8nPzbdKbJc4qk0KZqbsPqg==
+	t=1794049029;
+	b=EmBDOJronu3WJlOoYgMEAPyX7CGo8V8fK6UgaxiQtF2OuGQr/upzc3IXEAj+u5pxxsoO
+	 jTQlOlIFE4CFpYZAyCrWBDKeXCYTfIwODJ+5U3MegRqz4Zc6WO1xBLHvzGi2lewaX9Hn+
+	 c/jF0AnLo/qU8rJUYkJ4xCSnnx7l4QXecTcgs3YzQ8xtGfORINcviQJtJd0r3jDJmLs4p
+	 D63oD32ucB8Y77RxZc/9GkZITUBg7q7vIrqJ5/aJO97qCJyli9prGCFFa0X8bU81kIO7f
+	 bC3eqFaGLvV1/bbJzlBIr9VKnSIDjMnAme8hzl+KefxAd5FJrdEaELO+KJMgI3pejvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049025;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049029;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=jbjoOzVVmDa3ek1nFdAza/HDGovN2YJUoBb32GieUkM=;
-	b=nVAJ3z1fyjJ3b6nrwJpX8+125M7vwhD2QYP4ytINuYCbHKJ7EDhF5NCEH/9aHsxJel5v
-	 uoui2zF/TNvS319Gk17ZQ0Xns6PMD1joCx/VPlaLjjMOvEPxfCj0jTc5wopDjexbhXlXK
-	 C2Q/F+Q7Lk62PxuZLZR6ZvG4HSifHVYWgzpqH+fkZ6mRnQJg9uNAMauMI58jcKMoY3zMG
-	 U6CfdIS+yd51uNEIwJ1brnCSV+FTErZd3Kxd3GawnHDTEtfHQBUZCu54r8GWcN8qhAMU6
-	 x6wUjnkDHxI0jNQk5zMBW8MqcKyWB1XAs9VyN+eMllcljRpPbjcvjLdZb6HFdSRF1Yg==
+	bh=p8Qi2Vx7iuIO/0P8qF7cGwH8c7n/1r9BIuX66riZs+U=;
+	b=pPJ3A4pF5uYwrVV7wRMSayZc+aCoNvAbo7fQKyqmVVJVoBAaOP/1Bs8O0LWJnzXx+gX+
+	 UMVSi/592WxMy1xrW8KaZR6YgOFXBkFIeCjT6UnCLdfOtB3QeAL4tSSPCeZJ11+D4IFNa
+	 sdwkMeULc9EivW4IyvpoBDM0lV/YH+fvEwOBbwc43f/ogQpas5Z/8jT7lvROwQVI9oftx
+	 5MD6XS0AE+WtqJS/IZrABjlGeiBKrxWEDRkDZc/fsdeggp2T01lki05chwcx+M89pDJYm
+	 GKvNtXiMOJYY7kGRdeRstqgGUDvvDZUjOKEA6CF7uO3EkQRPO1HHnq12IwP5KfO4TwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bmFvMvbM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZzIqd1JV;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CDA2606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:57:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4F9E606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:57:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bmFvMvbM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E202A1F008A3;
-	Sat,  7 Nov 2026 10:57:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZzIqd1JV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CBA51F008A2;
+	Sat,  7 Nov 2026 10:57:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049025;
-	bh=jbjoOzVVmDa3ek1nFdAza/HDGovN2YJUoBb32GieUkM=;
+	s=k20260515; t=1794049028;
+	bh=p8Qi2Vx7iuIO/0P8qF7cGwH8c7n/1r9BIuX66riZs+U=;
 	h=From:To:Cc:Subject:Date;
-	b=bmFvMvbMXJRcK+6ZtMCgYiuNgJopwMNaC/5GGy1DWSCVBO76jLZp3m8pjZKCrXFoM
-	 WvCcow/5Pt71EWUinkq8q+0bS8fk9Zbg7+d3rb8m+DGPqY54zT6Moky9Jt5QY+3tGz
-	 0EXDleisn65O64HPlqviqve1MJrlDjeUq6hkZXxGU6oNo0B5VbG8On6lIBxUZXTQlX
-	 eZXMRfl2or3nKodWD79CL+DbI3j5TGYXsulPlmi1X+cIjqlJNnDd6qPb1r8Q+tl7+t
-	 m+eMD0GDZITX5d4odlx4ZQpWZmGfL6ZPxgqpnDutL7hLken9dUDwpAlzu+Lbx45ZxE
-	 hSj2s+R5WSGXQ==
+	b=ZzIqd1JV9K+yvl2l0TB9EtjPdx5blYkHaOgC6MvGKgZESF124N9d77DDBy5fVJx78
+	 T84cQ1D4xTNh87k5Dvi+CaP6oiEQF5jAeLIuoFPAyX5W5hCc2rwOJBMgKxmPK6ztIq
+	 dv5ES0TzGxy5p1otKvM5warDPxL9MBmtyZvJOhy+LGYTQj4sELgP+w7S67LMMfTawx
+	 SLcFGJPbsVSCHM2oGwcRgViBSS+1t30znz6k6rbtukHO6ajLH/+MCs8ce3ylU2jEhW
+	 mkESnkQpqVvDjVLVDBz4bMfLHr9a+NnB0Taa99Ccs0AReOZoN91IoVIwhHUCY7Et6h
+	 dbmTgMH7xaNUg==
 From: Sasha Levin <sashal@kernel.org>
-To: harry.wentland@amd.com,
-	alex.hung@amd.com,
-	robert.mader@collabora.com
+To: whi4ed0g@gmail.com,
+	danisjiang@gmail.com,
+	lyude@redhat.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/amd/display: Force GAMCOR for subsampled surfaces with PQ/Gamma22/HLG" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 05:57:03 -0500
-Message-ID: <20261107055703-failed-5.15-2ffaa7c40506@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/nouveau/svm: drain fault handler before freeing svmm" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 05:57:06 -0500
+Message-ID: <20261107055706-failed-5.15-b46ddaf08234@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,63 +69,77 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 2ffaa7c4050605cb27756f5336f778d1b21268b9
+git cherry-pick -x b46ddaf0823405f81e681eb26ec98508f3eb9a07
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055703-failed-5.15-2ffaa7c40506@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055706-failed-5.15-b46ddaf08234@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 2ffaa7c4050605cb27756f5336f778d1b21268b9 Mon Sep 17 00:00:00 2001
-From: Harry Wentland <harry.wentland@amd.com>
-Date: Fri, 14 Aug 2026 17:18:16 -0400
-Subject: [PATCH] drm/amd/display: Force GAMCOR for subsampled surfaces with
- PQ/Gamma22/HLG
+From b46ddaf0823405f81e681eb26ec98508f3eb9a07 Mon Sep 17 00:00:00 2001
+From: Zhenhao Wan <whi4ed0g@gmail.com>
+Date: Fri, 14 Aug 2026 18:00:05 +0800
+Subject: [PATCH] drm/nouveau/svm: drain fault handler before freeing svmm
 
-The ROM early-return checks for PQ, Gamma 2.2, and HLG in
-mod_color_calculate_degamma_params() do not consider the map_user_ramp
-parameter. When map_user_ramp is true (indicating a subsampled surface
-that requires post-scaler degamma via GAMCOR), the function still takes
-the ROM path, programming PRE_DEGAM instead.
+The SVM fault handler nouveau_svm_fault() looks up each fault's
+nouveau_svmm under svm->mutex, caches it in the fault array, then drops
+svm->mutex and dereferences the svmm across blocking faults
+(mmu_interval_notifier_insert(), hmm_range_fault()).
 
-For subsampled formats the chroma channels must be upsampled by the
-scaler before degamma is applied. PRE_DEGAM sits before the scaler in
-the pipeline (CNVC domain), while GAMCOR sits after it (CM domain).
-Using the ROM for subsampled surfaces means degamma is applied to
-subsampled chroma before upsampling, producing incorrect results.
+nouveau_svmm is not refcounted. On DRM file close nouveau_svmm_fini() ->
+mmu_notifier_put() frees it asynchronously via call_srcu() without
+waiting for the handler, and mmget_not_zero() pins the mm, not the svmm.
+flush_work() on the fault buffer otherwise runs only at device removal
+and suspend, never on close, so a fault handled concurrently with a close
+can dereference a freed svmm.
 
-Fix by gating the dcn_arch ROM capability checks on !map_user_ramp,
-forcing PQ/Gamma22/HLG through the GAMCOR LUT path when the surface
-is subsampled.
+The instance is already unlinked by nouveau_svmm_part() earlier in the
+same close, so no new fault can resolve to it. Drain the handler in
+nouveau_svmm_fini() before the free, guarding the flush with a NULL check
+on drm->svm: on device teardown nouveau_svm_fini() runs first and frees
+drm->svm (NULL) after blocking the notify and flushing the buffer, so the
+handler is already drained; on per-client close drm->svm is alive and the
+flush runs.
 
-Fixes: a8bf71649088 ("drm/amd/display: Internal refactoring to abstract color caps")
+Fixes: eeaf06ac1a55 ("drm/nouveau/svm: initial support for shared virtual memory")
+Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+Assisted-by: Claude:claude-opus-5
 Cc: stable@vger.kernel.org
-Assisted-by: Copilot:claude-opus-4.6
-Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-Reviewed-by: Alex Hung <alex.hung@amd.com>
-Tested-by: Robert Mader <robert.mader@collabora.com>
-Link: https://patch.msgid.link/20260814211816.1219597-11-harry.wentland@amd.com
+Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
+Reviewed-by: Lyude Paul <lyude@redhat.com>
+Signed-off-by: Lyude Paul <lyude@redhat.com>
+Link: https://patch.msgid.link/20260814-nouveau-svm-svmm-uaf-v2-1-8e6590519f07@gmail.com
 ---
- drivers/gpu/drm/amd/display/modules/color/color_gamma.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/nouveau/nouveau_svm.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
-index 03d88e78165d5..5786ef5787ac6 100644
---- a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
-+++ b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
-@@ -1696,7 +1696,8 @@ bool mod_color_calculate_degamma_params(struct dc_color_caps *dc_caps,
- 			return true;
- 
- 		if (dc_caps != NULL &&
--			dc_caps->dpp.dcn_arch == 1) {
-+			dc_caps->dpp.dcn_arch == 1 &&
-+			!map_user_ramp) {
- 
- 			if (input_tf->tf == TRANSFER_FUNCTION_PQ &&
- 					dc_caps->dpp.dgam_rom_caps.pq == 1)
+diff --git a/drivers/gpu/drm/nouveau/nouveau_svm.c b/drivers/gpu/drm/nouveau/nouveau_svm.c
+index dcc92131488ea..a87406d3da300 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_svm.c
++++ b/drivers/gpu/drm/nouveau/nouveau_svm.c
+@@ -304,6 +304,19 @@ nouveau_svmm_fini(struct nouveau_svmm **psvmm)
+ {
+ 	struct nouveau_svmm *svmm = *psvmm;
+ 	if (svmm) {
++		struct nouveau_svm *svm = svmm->vmm->cli->drm->svm;
++
++		/* The fault handler caches svmm pointers under svm->mutex and
++		 * dereferences them after dropping it, across blocking faults.
++		 * The instance is already unlinked (nouveau_svmm_part), so drain
++		 * the handler before the free to release any in-flight reference.
++		 *
++		 * On device teardown nouveau_svm_fini() ran first and freed
++		 * drm->svm (NULL) after draining the buffer; nothing to flush.
++		 */
++		if (svm)
++			flush_work(&svm->buffer[0].work);
++
+ 		mutex_lock(&svmm->mutex);
+ 		svmm->vmm = NULL;
+ 		mutex_unlock(&svmm->mutex);
 -- 
 2.53.0
 
