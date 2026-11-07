@@ -1,52 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046028;
-	b=pXsDvJKrZH+ceiac/FPn+knRBlO5av7L1dqGqat2SrW7CNMe1CqdAwsaueh93+g5/n6z
-	 nc8iHV6yxqrnrrXpl3ioC5yt7hanMtlGylx84wAWUVipek5u8SQ7r0LTjBNk6bnqOn3Jp
-	 kf1fNRsp060lCpYDJjsKdm8EXDuHtrDj2WZGlDGBbsQvLciyadBE4/iKLRIgyElHXL703
-	 Pq4oPQk8JCqY1KPktPUXZjO0gavXazCZWs2eWyAZCNiJegs8+sBOMgtehJeGS1nWXg5s8
-	 e5wgI7cDn8uoOwtdncZR+wGcbtFSNi9WVyLT+6n6aU9PRVbMl0SiYUBpnTX6Ic2IoPg==
+	t=1794046030;
+	b=SAucIGio7c4ywNZF9sIK0je3Iw6njeNnSQe6XmhbRZOKsIR61pX03zh/gRHR/trG0vGd
+	 5ks+21PykwW1D+QGJR3p4f5wka5tOXjt6cjciFGS/TEV4VZTN7jUFA46eCM1PX222hkhv
+	 lEY7MKzIopzXnb+wcVs7Q8NilgNDsr6jVv0vw+3a+7uez99rsGqLivk+j4XqpBj9UCAaR
+	 KcsQoE03ospWakx7RjjDqPw+4oB4T/jBZsbbiDWJ8zZ71rvwIQeRDaN7k+nLiFWLvehYO
+	 kP6tZmV49WnYCVxz1Dp4041Fst/g3ViKIWxfi3tZpzs1KD25lRKnZcuIpZCEABV859w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046028;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046030;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=qzSUrt5r+rWPod9tLCoQQ+vyEkQW1BBoiCFtCMUsErc=;
-	b=AM7Efucz7H5eQg47lm05fYGCe6vY40cNnLwV1Gwc+pI5Vpe5259uLsZ/MsKIE9tIuNuX
-	 icWXkX0WBv6ra7qhxBqOhW2NPcPjtV82nRNEsiFiB0gtgmfEGAIUc23JdSF/W7TgrRFQK
-	 DHa0K64/RpdC56eCppCLJbPqDuXcLloztuN0o2RtnwCdsSfVX/CkCR3KvBY4zsEP+7Vrh
-	 6kkKjG+7JcdXjwNYAhQp5SlbxmIDGSzXrlmyG1kwNG3Ls5rOgE2H4IKWUp1Vf7Ftjh12W
-	 Cevw5BwhBk+n+JOK0MTe8PwvFNbEthr7T6PHOFrUD84nJEtSBvNMjPhhHV/BejqN7Lg==
+	bh=S8fjUKcRBvHFg9gFCqizASFSX+NDZLjrQWOMPpNITLU=;
+	b=dJ7d8U6tT8sHDYhH4MVec+9rV48KTuCk5Rgh1xh+yEpG8bmPo4vBZz+rlZXzriv1uJ03
+	 bF7dlDZj6hNlp9P83iT8tGO5TK5T3Jb2y9BgCwGT8KsjtOBJmUF39unjHk8auBHyDjm2P
+	 4NtERXdWXjCYM8tqKlf9YSlVQTKOqd1M16Sga7hDr8FoJ9ujOPcGl/GKDLaC2EYt3atbQ
+	 n2v81CWQEjSc7D5Fbs9YlByLXafDmQMqGvtnS9Q9/9B0cAvA8D7qcectqf7JNl/zFPWuv
+	 EFkAMU4BCt3DeaDSjNa8Sfm49uOmJQ8kU66TVrJiyhTSfJi32Df+AVrQGmUF0iDDUjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hgYJBQRh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S192mC74;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E9FC606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:07:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E454606A32E
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:07:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hgYJBQRh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D8F61F0089F;
-	Sat,  7 Nov 2026 10:07:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S192mC74
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5F991F0089F;
+	Sat,  7 Nov 2026 10:07:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046027;
-	bh=qzSUrt5r+rWPod9tLCoQQ+vyEkQW1BBoiCFtCMUsErc=;
+	s=k20260515; t=1794046030;
+	bh=S8fjUKcRBvHFg9gFCqizASFSX+NDZLjrQWOMPpNITLU=;
 	h=From:To:Cc:Subject:Date;
-	b=hgYJBQRhkwpckNwJqLjaYIUor2M/IuK/vJOC+OD3TttvlC49tlMa/ki9qHSVJCQwN
-	 4jqhklwTr/sm3mzRRNXa9EC2otcg/+4dajAtgSp8SmmGfuxK6NVvUy1a0wXUGMvFZB
-	 31e8MgzUQXAckdUm3xXNlrrT5/x1ecO/wUenrYf6Gc9W5Tikm390hXsBLaqCZn+3r0
-	 SLZ9IGe7azXmsd0BSepHpms+FAriTbqsGtuJ3p5pmHTqosywt57Pv15HPHbENGhUOW
-	 2mQ8UEFvK79rZEVQZe3d4aTRzoQRAL5J5XCZRJXmVSMNUMHH1m3In36zTGXsW0oAWB
-	 Hz5RVe5sWM7GQ==
+	b=S192mC74cQMvSF/hNMUC4kMKAZbS0fYVLwZWyoKBwNdJVkncDDrEnAX/o2YLuMr9d
+	 PV33sonK5XCgpAMxZ+EtTXE6XQLkyu43OcLKYbvgtK/BZ4+EdrenGrtkrSsrFWKQnA
+	 EK2r71pIQ0gWCYdVIAeGVfrNlkg4X22raL0/ZOnLbBhwYp82eL8yLfEj3uWEYvSPUP
+	 EoCjCELV7ozFyZCWqVm6t/Sfo/ooDPWJokbOX+TcNPQ5KY7lHBdfMicQBJjVnFrZ/z
+	 THilR7IGfWCDRDi/y8UIm1+dka77ccRSyllgqoJouX9CUqbNHDmGeWhd//1FKJogYq
+	 sA8N3L+udGeeg==
 From: Sasha Levin <sashal@kernel.org>
-To: christian.loehle@arm.com,
-	sumitg@nvidia.com,
-	rafael.j.wysocki@intel.com
+To: xiaoyao.li@intel.com,
+	chenyi.qiang@intel.com,
+	nik.borisov@suse.com,
+	seanjc@google.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ACPI: CPPC: Accept requests to retain immutable autonomous selection" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:07:06 -0500
-Message-ID: <20261107050706-failed-6.18-4bcc60d326c5@kernel.org>
+Subject: FAILED: patch "[PATCH] KVM: TDX: Enable Bus Lock VM exit" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:07:08 -0500
+Message-ID: <20261107050708-failed-6.18-63d196e2e204@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,241 +70,106 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 4bcc60d326c5acaa28c5913259decb22a33a83a1
+git cherry-pick -x 63d196e2e20429de5ba501f1b6059d9b93140007
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050706-failed-6.18-4bcc60d326c5@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050708-failed-6.18-63d196e2e204@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 4bcc60d326c5acaa28c5913259decb22a33a83a1 Mon Sep 17 00:00:00 2001
-From: Christian Loehle <christian.loehle@arm.com>
-Date: Wed, 16 Sep 2026 17:28:03 +0100
-Subject: [PATCH] ACPI: CPPC: Accept requests to retain immutable autonomous
- selection
+From 63d196e2e20429de5ba501f1b6059d9b93140007 Mon Sep 17 00:00:00 2001
+From: Xiaoyao Li <xiaoyao.li@intel.com>
+Date: Wed, 19 Aug 2026 17:49:02 +0800
+Subject: [PATCH] KVM: TDX: Enable Bus Lock VM exit
 
-ACPI permits Autonomous Selection Enable to be Integer 1 when the platform
-always selects performance autonomously. cppc_get_auto_sel() returns that
-value, but cppc_set_auto_sel() rejects the Integer even when asked to keep
-autonomous selection enabled. AMD shared-memory initialization consequently
-fails in active or guided mode after successfully reading the capability.
+Enable Bus Lock VM exit functionality for TDX guests.
 
-Accept a request to keep this immutable field enabled without issuing a
-register access. Expose the immutable encoding to callers, separately from
-the current value of a writable register.
+Bus Lock VM exit is an existing feature supported by KVM.  Userspace can
+enable Bus Lock VM exit through KVM_BUS_LOCK_DETECTION_EXIT when it's
+reported as supported.  However, KVM reports the support of this CAP
+just based on the hardware capability but doesn't differentiate between
+VMX and TDX.  This leads to the issue that userspace can enable this cap
+for TDX guests without getting an error, but the feature is not actually
+enabled because KVM doesn't call the TDX module API to program the
+relevant TD VMCS fields.
 
-Before an AMD shared-memory transition to passive mode, reject immutable
-autonomous selection on any present CPU. Otherwise a guided-to-passive
-transition ignores the failed disable and reports the wrong mode, while
-active-to-passive unregisters the working driver before passive policy
-initialization fails. Check under the driver mode lock before invoking
-either transition, including known offline CPUs.
+Enable Bus Lock VM exit for TDX guests by programming the
+BUS_LOCK_DETECTION control in the TD VMCS and by adding the exit handler.
 
-Serialize this capability query with descriptor publication and removal.
-ACPI processor removal drops the descriptor before taking the CPU hotplug
-write lock, so the caller's cpus_read_lock() alone cannot protect the
-lookup. Unpublish under the same mutex before releasing a descriptor,
-including when adding its kobject fails.
+Note, there is no enumeration bit for this feature by TDX module because
+all TDX modules support it and allow to set the TD VMCS as long as the
+hardware supports the feature.
 
-The cppc-cpufreq auto_select attribute can also request one while
-autonomous selection is already enabled. If the subsequent bounds update
-fails, its rollback requests zero and clears the cached mode regardless
-of the previous state. For an immutable field the disable request fails,
-leaving the cached mode wrong. Save and restore the previous mode instead.
-This also avoids disabling an already-enabled writable control on that
-error path.
-
-Fixes: c984f5d5d45b ("ACPI: CPPC: Add auto select register read/write support")
-Fixes: ea3db45ae476 ("cpufreq: cppc: Update MIN_PERF/MAX_PERF in target callbacks")
-Cc: All applicable <stable@vger.kernel.org>
-Signed-off-by: Christian Loehle <christian.loehle@arm.com>
-Tested-by: Sumit Gupta <sumitg@nvidia.com>
-Link: https://patch.msgid.link/20260916162805.1039247-19-christian.loehle@arm.com
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Fixes: 161d34609f9b ("KVM: TDX: Make TDX VM type supported")
+Cc: stable@vger.kernel.org
+Originally-by: Chenyi Qiang <chenyi.qiang@intel.com>
+Signed-off-by: Xiaoyao Li <xiaoyao.li@intel.com>
+Reviewed-by: Nikolay Borisov <nik.borisov@suse.com>
+Link: https://patch.msgid.link/20260819094903.3060020-9-xiaoyao.li@intel.com
+Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- drivers/acpi/cppc_acpi.c       | 42 +++++++++++++++++++++++++++++++---
- drivers/cpufreq/amd-pstate.c   | 21 +++++++++++++----
- drivers/cpufreq/cppc_cpufreq.c |  5 ++--
- include/acpi/cppc_acpi.h       |  7 ++++++
- 4 files changed, 65 insertions(+), 10 deletions(-)
+ arch/x86/kvm/vmx/tdx.c | 24 +++++++++++++++++++++++-
+ 1 file changed, 23 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
-index 96a94df242312..80e2e6b32ce35 100644
---- a/drivers/acpi/cppc_acpi.c
-+++ b/drivers/acpi/cppc_acpi.c
-@@ -100,6 +100,15 @@ static DEFINE_PER_CPU(int, cpu_pcc_subspace_idx);
-  */
- static DEFINE_PER_CPU(struct cpc_desc *, cpc_desc_ptr);
- 
-+/* Protect immutable capability queries against descriptor removal. */
-+static DEFINE_MUTEX(cpc_desc_lock);
-+
-+static void cpc_set_desc(unsigned int cpu, struct cpc_desc *desc)
-+{
-+	guard(mutex)(&cpc_desc_lock);
-+	per_cpu(cpc_desc_ptr, cpu) = desc;
-+}
-+
- struct cpc_sysmem_node {
- 	struct rb_node rb;
- 	u64 subtree_last;
-@@ -2314,12 +2323,12 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
- 	}
- 
- 	/* Plug PSD data into this CPU's CPC descriptor. */
--	per_cpu(cpc_desc_ptr, pr->id) = cpc_ptr;
-+	cpc_set_desc(pr->id, cpc_ptr);
- 
- 	ret = kobject_init_and_add(&cpc_ptr->kobj, &cppc_ktype, &cpu_dev->kobj,
- 			"acpi_cppc");
- 	if (ret) {
--		per_cpu(cpc_desc_ptr, pr->id) = NULL;
-+		cpc_set_desc(pr->id, NULL);
- 		cpc_unregister_non_mmio_desc(cpc_ptr);
- 		cpc_unregister_sysmem_desc(cpc_ptr);
- 		kobject_put(&cpc_ptr->kobj);
-@@ -2363,7 +2372,7 @@ void acpi_cppc_processor_exit(struct acpi_processor *pr)
- 	}
- 
- 	pcc_ss_id = per_cpu(cpu_pcc_subspace_idx, pr->id);
--	per_cpu(cpc_desc_ptr, pr->id) = NULL;
-+	cpc_set_desc(pr->id, NULL);
- 	kobject_del(&cpc_ptr->kobj);
- 	cpc_unregister_non_mmio_desc(cpc_ptr);
- 	cpc_unregister_sysmem_desc(cpc_ptr);
-@@ -2766,6 +2775,11 @@ static int cppc_set_reg_val(int cpu, enum cppc_regs reg_idx, u64 val)
- 
- 	reg = &cpc_desc->cpc_regs[reg_idx];
- 
-+	/* Integer 1 describes autonomous selection that is always enabled. */
-+	if (reg_idx == AUTO_SEL_ENABLE && reg->type == ACPI_TYPE_INTEGER &&
-+	    reg->cpc_entry.int_value == 1)
-+		return val == 1 ? 0 : -EOPNOTSUPP;
-+
- 	/* if a register is writeable, it must be a buffer and not null */
- 	if (!cpc_is_writable(reg)) {
- 		pr_debug("CPC register is not supported\n");
-@@ -3310,6 +3324,28 @@ int cppc_get_auto_sel(int cpu, bool *enable)
+diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
+index 6762724a80f57..3d093efe8820b 100644
+--- a/arch/x86/kvm/vmx/tdx.c
++++ b/arch/x86/kvm/vmx/tdx.c
+@@ -2050,7 +2050,7 @@ int tdx_complete_emulated_msr(struct kvm_vcpu *vcpu, int err)
  }
- EXPORT_SYMBOL_GPL(cppc_get_auto_sel);
  
-+/**
-+ * cppc_auto_sel_is_immutable - Check for always-enabled autonomous selection.
-+ * @cpu: CPU whose _CPC descriptor to check.
-+ *
-+ * Context: Process context.
-+ * Return: true for Integer 1, false for a register or an absent descriptor.
-+ */
-+bool cppc_auto_sel_is_immutable(int cpu)
-+{
-+	struct cpc_desc *cpc_desc;
-+	struct cpc_register_resource *reg;
-+
-+	guard(mutex)(&cpc_desc_lock);
-+	cpc_desc = per_cpu(cpc_desc_ptr, cpu);
-+	if (!cpc_desc)
-+		return false;
-+
-+	reg = &cpc_desc->cpc_regs[AUTO_SEL_ENABLE];
-+	return reg->type == ACPI_TYPE_INTEGER && reg->cpc_entry.int_value == 1;
-+}
-+EXPORT_SYMBOL_GPL(cppc_auto_sel_is_immutable);
-+
- /**
-  * cppc_set_auto_sel - Write autonomous selection register.
-  * @cpu    : CPU to which to write register.
-diff --git a/drivers/cpufreq/amd-pstate.c b/drivers/cpufreq/amd-pstate.c
-index 6ee2d43b7b952..0a8b1aaa26600 100644
---- a/drivers/cpufreq/amd-pstate.c
-+++ b/drivers/cpufreq/amd-pstate.c
-@@ -1794,7 +1794,7 @@ EXPORT_SYMBOL_FOR_PSTATE_UT(amd_pstate_get_status);
  
- int amd_pstate_update_status(const char *buf, size_t size)
+-int tdx_handle_exit(struct kvm_vcpu *vcpu, fastpath_t fastpath)
++static int __tdx_handle_exit(struct kvm_vcpu *vcpu, fastpath_t fastpath)
  {
--	int mode_idx;
-+	int cpu, mode_idx;
+ 	struct vcpu_tdx *tdx = to_tdx(vcpu);
+ 	u64 vp_enter_ret = tdx->vp_enter_ret;
+@@ -2151,6 +2151,8 @@ int tdx_handle_exit(struct kvm_vcpu *vcpu, fastpath_t fastpath)
+ 	case EXIT_REASON_NOTIFY:
+ 		/* NMI blocking state is handled by TDX module */
+ 		return __vt_handle_notify(vcpu, vmx_get_exit_qual(vcpu));
++	case EXIT_REASON_BUS_LOCK:
++		return vt_handle_bus_lock_vmexit(vcpu);
+ 	default:
+ 		break;
+ 	}
+@@ -2160,6 +2162,22 @@ int tdx_handle_exit(struct kvm_vcpu *vcpu, fastpath_t fastpath)
+ 	return 0;
+ }
  
- 	if (size > strlen("passive") || size < strlen("active"))
- 		return -EINVAL;
-@@ -1803,12 +1803,23 @@ int amd_pstate_update_status(const char *buf, size_t size)
- 	if (mode_idx < 0)
- 		return mode_idx;
- 
--	if (mode_state_machine[cppc_state][mode_idx]) {
--		guard(mutex)(&amd_pstate_driver_lock);
--		return mode_state_machine[cppc_state][mode_idx](mode_idx);
-+	guard(mutex)(&amd_pstate_driver_lock);
++int tdx_handle_exit(struct kvm_vcpu *vcpu, fastpath_t fastpath)
++{
++	int ret = __tdx_handle_exit(vcpu, fastpath);
 +
-+	if (!mode_state_machine[cppc_state][mode_idx])
-+		return 0;
-+
-+	if (mode_idx == AMD_PSTATE_PASSIVE &&
-+	    !cpu_feature_enabled(X86_FEATURE_CPPC)) {
-+		guard(cpus_read_lock)();
-+
-+		/* Check offline CPUs too, before changing or removing the driver. */
-+		for_each_present_cpu(cpu) {
-+			if (cppc_auto_sel_is_immutable(cpu))
-+				return -EOPNOTSUPP;
++	/* Exit to user space when bus lock was detected */
++	if (vmx_get_exit_reason(vcpu).bus_lock_detected) {
++		if (ret > 0) {
++			vcpu->run->exit_reason = KVM_EXIT_X86_BUS_LOCK;
++			ret = 0;
 +		}
- 	}
- 
--	return 0;
-+	return mode_state_machine[cppc_state][mode_idx](mode_idx);
- }
- EXPORT_SYMBOL_FOR_PSTATE_UT(amd_pstate_update_status);
- 
-diff --git a/drivers/cpufreq/cppc_cpufreq.c b/drivers/cpufreq/cppc_cpufreq.c
-index af46f913e907a..9dde24d3e6455 100644
---- a/drivers/cpufreq/cppc_cpufreq.c
-+++ b/drivers/cpufreq/cppc_cpufreq.c
-@@ -882,6 +882,7 @@ static ssize_t store_auto_select(struct cpufreq_policy *policy,
- 				 const char *buf, size_t count)
- {
- 	struct cppc_cpudata *cpu_data = policy->driver_data;
-+	bool old_auto_sel = cpu_data->perf_ctrls.auto_sel;
- 	bool val;
- 	int ret;
- 
-@@ -910,8 +911,8 @@ static ssize_t store_auto_select(struct cpufreq_policy *policy,
- 		if (ret) {
- 			cpu_data->perf_ctrls.min_perf = old_min_perf;
- 			cpu_data->perf_ctrls.max_perf = old_max_perf;
--			cppc_set_auto_sel(policy->cpu, false);
--			cpu_data->perf_ctrls.auto_sel = false;
-+			cppc_set_auto_sel(policy->cpu, old_auto_sel);
-+			cpu_data->perf_ctrls.auto_sel = old_auto_sel;
- 			return ret;
- 		}
- 	}
-diff --git a/include/acpi/cppc_acpi.h b/include/acpi/cppc_acpi.h
-index 4b5d94f853dc7..3f0005abac648 100644
---- a/include/acpi/cppc_acpi.h
-+++ b/include/acpi/cppc_acpi.h
-@@ -197,6 +197,7 @@ extern int cppc_set_epp(int cpu, u64 epp_val);
- extern int cppc_get_auto_act_window(int cpu, u64 *auto_act_window);
- extern int cppc_set_auto_act_window(int cpu, u64 auto_act_window);
- extern int cppc_get_auto_sel(int cpu, bool *enable);
-+bool cppc_auto_sel_is_immutable(int cpu);
- extern int cppc_set_auto_sel(int cpu, bool enable);
- extern int cppc_get_perf_limited(int cpu, u64 *perf_limited);
- extern int cppc_set_perf_limited(int cpu, u64 bits_to_clear);
-@@ -298,6 +299,12 @@ static inline int cppc_get_auto_sel(int cpu, bool *enable)
- {
- 	return -EOPNOTSUPP;
- }
 +
-+static inline bool cppc_auto_sel_is_immutable(int cpu)
-+{
-+	return false;
++		vcpu->run->flags |= KVM_RUN_X86_BUS_LOCK;
++	}
++	return ret;
 +}
 +
- static inline int cppc_set_auto_sel(int cpu, bool enable)
+ void tdx_get_exit_info(struct kvm_vcpu *vcpu, u32 *reason,
+ 		u64 *info1, u64 *info2, u32 *intr_info, u32 *error_code)
  {
- 	return -EOPNOTSUPP;
+@@ -3186,6 +3204,10 @@ static int tdx_vcpu_init(struct kvm_vcpu *vcpu, struct kvm_tdx_cmd *cmd)
+ 				vcpu->kvm->arch.notify_window);
+ 	}
+ 
++	if (vcpu->kvm->arch.bus_lock_detection_enabled)
++		td_vmcs_setbit32(tdx, SECONDARY_VM_EXEC_CONTROL,
++				 SECONDARY_EXEC_BUS_LOCK_DETECTION);
++
+ 	tdx->state = VCPU_TD_STATE_INITIALIZED;
+ 
+ 	return 0;
 -- 
 2.53.0
 
