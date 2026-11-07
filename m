@@ -1,53 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794079442;
-	b=grFnmQ6tdYLKRkDoHMXo/7H3GdjnAP2r1HncIOD3CA1PEWvCC/heTcWS6ydRH4HEHzHc
-	 AC+AdYrmC63NE4tf+eWMIH9BaUrhEhY6wENgYRCIpJXY3YpKTtGG1tMdR6/i36oSpVWpw
-	 aro8hl4sXw7a+TRazodwqq9HBwHaSH1PdvGWoesGySTt8CA+1n2gbv/U7VqCNzotNJb8z
-	 2Ne9VWJV/fwP++8miJI3rn0Qg6X08fsi6Osmm2IX6J5HwlDCoSB6u8mhBm8VSWQ1VgDVK
-	 yIgqx9/FRXbGlCzXliSkkASiA4ArsCLoMZPH1NuOq+W10kk7hUYepm8cM69A6g0Mutw==
+	t=1794079725;
+	b=wZw4w73Z7beZcM9aqo7zhD6E9k0/Gi8lieiCxaFwz0loa/OoKCcJB7KyWGUUbn/pmROt
+	 ASsFshUBnAx0KsMvHT/XDpr9rt4I9cq48yOKAC9dtvu+WKXZon/de2Ndiviz3BAOsc5tT
+	 gucbNJq5IGFxLutvxMtepCPp+SuiNqxm24jM9gdOFb6L2iDj5xq9dd5wC94WMN4ZeZugx
+	 /ZkRVQS8oUR7QhZTeeA0WYfCSVdMcMCA4BEODoEEfcLe5hZ+gvXpwdqyUN2ioUaP3oYB6
+	 nDuTqwjsX8ckOJGyyEEcl79M8zaAS0BdnjVkj6phpeVzxjOt/4wgnrpIvDg+nYXOj7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794079442;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794079725;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=Tj7A+nNxl300TnvbdmgDp5e3hHcjxYoZiUayzlMeFbQ=;
-	b=b3le0YMMQAfgLRmCHVb5Ja39W9Y+sSs6piC2CmAs4rCZ7CSNsmfqBYzLcX7JBj3AfBI0
-	 qAJsbpM3vZE/0ULk3CUwR0G8xAENNN5OZzuTW5XJbNJ2m1s0R3WEczzg77vYrwRVnkUpt
-	 4kvZ9zCVwoJup7SFghomAWWIDa2n0OahS+Zj0z00TfM4X6SwM45LNSLHytyrufsl6t5MO
-	 DsTQBQRZkqicTGzYR2ByFsdNnOiZXvxC/YMBVvyrGE7Fa5GtAFXhbZ1YBbdx/iI4/8TTu
-	 0yaJ4i0oc+/ycda1wmK06q3Fw84oEVH4x3P7z8YPUUZehg5CO7BrBzpBE5d2iOrD8Gg==
+	bh=w90szJpdzekfEVNOhw/amrduU9AsVHLVBfjyoWv/t+A=;
+	b=LWjle3JhQb3urgH2bWtBGE2SyHxyrogAQrtoaIAH9PUkpBRVf6DJVoW56Fz3Rt0gYUvG
+	 NgQFJ4OeZ7f0yDPXlUOX/N/de5nZQmoZWso0IxzFzf4dPi7IJi9pqqZhXLGQSE6wQ68fl
+	 awYviJqS62ilHDzK38PYfpdXPuOke4jajUvnFpSHlIrCiMctOIy4cHKYZQjL+9tIeJ8Cv
+	 /95LTRH/Ab/2tmooqQX75Plga2lGVlLo/FuIVgkwL3oIjiV7cYHBlGm8kSRKLYIrao7BJ
+	 4reboYUYG3n9M7lpZtXES/krl9Ww7qbILo86KKMBGsLMf0p7Muz5xVVlHRKE/Jm9ZOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=be0kRX1p;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RGr0hTsv;
+	arc=none smtp.remote-ip=74.125.82.170
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8397606A326;
-	Sat,  7 Nov 2026 19:24:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFE80606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 19:28:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFE80606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=be0kRX1p
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A9941F0089F;
-	Sat,  7 Nov 2026 19:24:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794079441;
-	bh=Tj7A+nNxl300TnvbdmgDp5e3hHcjxYoZiUayzlMeFbQ=;
-	h=From:To:Cc:Subject:Date;
-	b=be0kRX1pSD/9caGh1Q7zsEBf8382XT1LHThTioWI4MZ5ruGJ8oDF3bKBNKEvRapVe
-	 N9ylMP5LA5IvUZfKRdhdQpaWdxnsyf4LOETtjdOGwlZZ/h37LsJX0W/Sx5Ndh19l0Q
-	 Eg07wl/2dZ6oHk2oNySOaKExKtPRcqqZKui5j2uOevDW0nv3Hl4AkM8u6JtYt7v/K0
-	 KlyYKsLxkfUL3OmgE/AfZvuxqKRHpvZR9g+/e8WXrkeNU+xMqShIouTfrC4YaAUR5r
-	 h0JlUxWZ0GesT8XaCpznz0747z0cT+ovFWC/slcIsGjFseAqm13TA6NfhcBdJE16Q7
-	 eGe7UDg+NaNIg==
-From: Eric Biggers <ebiggers@kernel.org>
-To: stable@vger.kernel.org
-Cc: linux-crypto@vger.kernel.org,
-	Eric Biggers <ebiggers@kernel.org>,
-	Herbert Xu <herbert@gondor.apana.org.au>
-Subject: [PATCH 6.18] crypto: sa2ul - Fix HMAC key preparation
-Date: Sat,  7 Nov 2026 11:23:58 -0800
-Message-ID: <20261107192358.47287-1-ebiggers@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RGr0hTsv
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-37000e7234bso22623eec.1
+        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 11:28:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794079724; x=1794684524; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=w90szJpdzekfEVNOhw/amrduU9AsVHLVBfjyoWv/t+A=;
+        b=RGr0hTsvyDG9kcYi8oObA5cl5JlsF0oZFUgGMVMyW8SLmtQ+h3JpPrwQSS6D++cvR9
+         gxcXj7JBZbHOaEGrZR85aG5xKyZH645cimD0jAa53sNhV7jREcwQqyuMSesdSatcYJGl
+         AhdLbRTc7u8WhkGQVklb8nnBxcyYt4ARztUYWEikdVYbbYuZu4QMxVwYSeACdwo/mWjz
+         6CxVV5iz6AzfZc7ilsiNQPhd4MkdP+5szujUtQ3OoC47FTWmgivZLyqreQN+oPFwSaZk
+         tLBkd2vlNoYbwEGXAsHOfT1IOz6WgsnDfhmhdz/7EsskpmeqeEriFXHjU6PSwjiYBabF
+         BKYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794079724; x=1794684524;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=w90szJpdzekfEVNOhw/amrduU9AsVHLVBfjyoWv/t+A=;
+        b=h8v2+VPNmgBoAhrH2mUClu4I7CQT9F8+a6pD5PdvdR/PVBlUzcCZ7bpg3gtGJNd4tJ
+         KKjU8DrxsI9P7dpM5lQNb1RTlMLurj+V7Vi2cCy2p/1kyYelhYW6UetfzLH+BxPBPmU3
+         NLe7eONbzWle9daEPMin5Oir/364LFw9mAgWlmtYbBDgbdoFBSvWH8W+6AP5pbQdWpxy
+         VXwLW265GhQbUrMoy1TWQAhqE3xrvBu9DnQw2o5o5MHc5EgY1Os5TbzeCslA75DvMxgG
+         katb0JMNApibD8RPnzWo4wuqZrx83DLFXkEGN5XrcoGDePOliCUqcBhmLetD7lEp+Vjd
+         h4LQ==
+X-Forwarded-Encrypted: i=1; AL+hErEgW8Uws2QVOxEhssIsFYnKmVxbj/hzo96OzTED/7fC6VX6+8FEbqnWI5ol05Wd+WXC8Sr/2WE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/kWq41N2VpwOnaUY90n++YrQS+8Khg41hQd82DQ39TlCptZhR+
+	c6yFpVmgJe+o+hXF0jJfEVe9I4uE141PlRqMXoA2sQPq8PQgw002FUhd
+X-Gm-Gg: AYBFou2oZbm0vGxRhFTh0Ovxr/nvvtINtt5/sHVr3G6GcGltnCv+lbJYsiZKWE2T7L2
+	4oC5zZCnToKowPmhOfFOGNp+4ut8x1hZbuiDLLxoezzLO1qo5DghNjGq2wON4YuK73yeDhjGGSB
+	HJcObV+m16BDFPEJo1Nq0+N5yhaHjp4wWyJDNBRzZDJVr0E/Ddth62L5+vucNDf600Igad8miPw
+	IPOGEoY9Mk86qycRKheJwRtKJaRff1wWzDYZKOYKS/zRKmWYpRR2Qk+jKJJ0QnkjJmN2QIN5xC4
+	bvVFC63LycE/2VJ3aj/lkh0mkXp3VBv7U5W9rqNlv4DW0sidG+8NFYuDWuYn9iwIxZ9+5leZdqi
+	T4hnmKxjIfVrzrdkrg/lD7EkcR1xP56cxYMZ+nF+6VYZbH+/APF8uy12lTperagsqhmR+NhBHtF
+	eRCtmLHlytDCboB89axnmMDS6TcCQwHtBtGkyl/PLsEf7hhZsCpYJ6R1DENAMGEITUiFJCsXFS7
+	cLIWufCma/n/ChnhJ0R6fgQNXjXQOtoZ9q2Gx30waH0o/Go9Tgfxjd11dnFz+bujibLaY7XGKhM
+	xcbgLJ3vBfuro5IXUlwyT2UCrvmFGIgCIDeEdGFkxQFcyV1T1frdk+xcIoz7fMCKTUwSy+Hruc0
+	6B8rQ6u5NHPI=
+X-Received: by 2002:a05:7300:f498:b0:369:fe4c:b48f with SMTP id 5a478bee46e88-3724ff5b718mr132577eec.0.1794079723626;
+        Sat, 07 Nov 2026 11:28:43 -0800 (PST)
+Received: from anon-laptop ([103.187.196.132])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa9fc92fasm23026419eec.19.2026.11.07.11.28.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 07 Nov 2026 11:28:43 -0800 (PST)
+From: Wahid Khan <wahidzk0091@gmail.com>
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: Hyunchul Lee <hyc.lee@gmail.com>,
+	ntfs@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Wahid Khan <wahidzk0091@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v3] ntfs: open a named $DATA stream by name when making room in a record
+Date: Sun,  8 Nov 2026 00:58:36 +0530
+Message-ID: <20261107192836.3908453-1-wahidzk0091@gmail.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <CAKYAXd-68oCuAU=x0TV6BMsNJZkmBcdVZTtOQXh3iEm6BptJSg@mail.gmail.com>
+References: <CAKYAXd-68oCuAU=x0TV6BMsNJZkmBcdVZTtOQXh3iEm6BptJSg@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,240 +104,61 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit 780cd10c8e78f97ed768be229acff0ffd5483477 upstream.
+When an attribute has to grow and the mft record is full,
+ntfs_resident_attr_resize() walks the other resident attributes and
+converts them to non-resident ones. For $DATA it always opens the
+unnamed data inode of the base inode, even if the attribute found is a
+named stream:
 
-sa_prepare_iopads() has multiple bugs, as discussed at
-https://lore.kernel.org/linux-crypto/20260831055141.1632832-1-s-vadapalli@ti.com/T/#u
+  tvi = ntfs_iget(sb, base_ni->mft_no);
+  ntfs_attr_make_non_resident(NTFS_I(tvi), value_len);
 
-- Commit 3bf533787910 ("crypto: sha256 - Use the partial block API")
-  introduced a 1-byte buffer overflow in the SHA-256 case by making the
-  crypto_shash_export() write 1 more than sizeof(struct sha256_state).
+value_len is the length of the stream, so it does not match the
+attribute that ntfs_attr_make_non_resident() looks up for the unnamed
+inode, and the WARN_ON() on entry fires:
 
-- It never worked for HMAC keys longer than 64 bytes in the first place.
+  WARNING: fs/ntfs/attrib.c:2115 at ntfs_attr_make_non_resident
+   ntfs_resident_attr_resize
+   ntfs_attr_expand_locked
+   ntfs_expand_for_write
+   ntfs_file_write_iter
+   vfs_write
 
-Fix both of these bugs by just using the crypto library to prepare the
-key, like what the chelsio and qat drivers do.  Also remove the
-pointless use of an indirect call.
+With debug output the values were attr_size 13 (unnamed $DATA) and
+data_size 550 (named stream) for the same mft record.
 
-Fixes: 3bf533787910 ("crypto: sha256 - Use the partial block API")
-Fixes: d2c8ac187fc9 ("crypto: sa2ul - Add AEAD algorithm support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Eric Biggers <ebiggers@kernel.org>
-Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+It does not need a damaged volume. A file with an alternate data stream
+whose record has no room left is enough. The fuzzer found it through a
+single changed byte in a file name of an image from mkntfs, which made
+a write grow a resident attribute in such a record.
+
+Use ntfs_attr_iget() with the name of the attribute for a named $DATA
+stream, as is already done for the other attribute types in this loop,
+and keep ntfs_iget() for the unnamed one.
+
+Fixes: 495e90fa3348 ("ntfs: update attrib operations")
+Cc: stable@vger.kernel.org # v7.1+
+Signed-off-by: Wahid Khan <wahidzk0091@gmail.com>
 ---
- drivers/crypto/sa2ul.c | 121 +++++++++--------------------------------
- 1 file changed, 27 insertions(+), 94 deletions(-)
+v3: open a named $DATA stream with ntfs_attr_iget(), as suggested, instead
+    of skipping it (v2). Same change as v1 of this patch.
 
-diff --git a/drivers/crypto/sa2ul.c b/drivers/crypto/sa2ul.c
-index 4a766e4351970..563e0f0d574ad 100644
---- a/drivers/crypto/sa2ul.c
-+++ b/drivers/crypto/sa2ul.c
-@@ -125,9 +125,7 @@ struct sa_cmdl_cfg {
-  * @mci_enc: Mode Control Instruction for Encryption algorithm
-  * @mci_dec: Mode Control Instruction for Decryption
-  * @inv_key: Whether the encryption algorithm demands key inversion
-- * @ctx: Pointer to the algorithm context
-  * @keyed_mac: Whether the authentication algorithm has key
-- * @prep_iopad: Function pointer to generate intermediate ipad/opad
-  */
- struct algo_data {
- 	struct sa_eng_info enc_eng;
-@@ -141,10 +139,7 @@ struct algo_data {
- 	u8 *mci_enc;
- 	u8 *mci_dec;
- 	bool inv_key;
--	struct sa_tfm_ctx *ctx;
- 	bool keyed_mac;
--	void (*prep_iopad)(struct algo_data *algo, const u8 *key,
--			   u16 key_sz, __be32 *ipad, __be32 *opad);
- };
- 
- /**
-@@ -381,86 +376,36 @@ static void sa_swiz_128(u8 *in, u16 len)
- 	}
- }
- 
--/* Prepare the ipad and opad from key as per SHA algorithm step 1*/
--static void prepare_kipad(u8 *k_ipad, const u8 *key, u16 key_sz)
-+static void sa_prepare_iopads(struct algo_data *data, const u8 *key, u16 key_sz,
-+			      __be32 *ipad, __be32 *opad)
- {
--	int i;
--
--	for (i = 0; i < key_sz; i++)
--		k_ipad[i] = key[i] ^ 0x36;
--
--	/* Instead of XOR with 0 */
--	for (; i < SHA1_BLOCK_SIZE; i++)
--		k_ipad[i] = 0x36;
--}
--
--static void prepare_kopad(u8 *k_opad, const u8 *key, u16 key_sz)
--{
--	int i;
--
--	for (i = 0; i < key_sz; i++)
--		k_opad[i] = key[i] ^ 0x5c;
--
--	/* Instead of XOR with 0 */
--	for (; i < SHA1_BLOCK_SIZE; i++)
--		k_opad[i] = 0x5c;
--}
--
--static void sa_export_shash(void *state, struct shash_desc *hash,
--			    int digest_size, __be32 *out)
--{
--	struct sha1_state *sha1;
--	struct sha256_state *sha256;
--	u32 *result;
--
--	switch (digest_size) {
--	case SHA1_DIGEST_SIZE:
--		sha1 = state;
--		result = sha1->state;
-+	union {
-+		struct hmac_sha1_key sha1;
-+		struct hmac_sha256_key sha256;
-+	} k;
-+
-+	switch (data->aalg_id) {
-+	case SA_AALG_ID_HMAC_SHA1:
-+		hmac_sha1_preparekey(&k.sha1, key, key_sz);
-+		cpu_to_be32_array(ipad, k.sha1.istate.h,
-+				  ARRAY_SIZE(k.sha1.istate.h));
-+		cpu_to_be32_array(opad, k.sha1.ostate.h,
-+				  ARRAY_SIZE(k.sha1.ostate.h));
- 		break;
--	case SHA256_DIGEST_SIZE:
--		sha256 = state;
--		result = sha256->state;
-+	case SA_AALG_ID_HMAC_SHA2_256:
-+		hmac_sha256_preparekey(&k.sha256, key, key_sz);
-+		cpu_to_be32_array(ipad, k.sha256.key.istate.h,
-+				  ARRAY_SIZE(k.sha256.key.istate.h));
-+		cpu_to_be32_array(opad, k.sha256.key.ostate.h,
-+				  ARRAY_SIZE(k.sha256.key.ostate.h));
- 		break;
- 	default:
--		dev_err(sa_k3_dev, "%s: bad digest_size=%d\n", __func__,
--			digest_size);
-+		dev_err(sa_k3_dev, "%s: bad aalg_id=%d\n", __func__,
-+			data->aalg_id);
- 		return;
- 	}
- 
--	crypto_shash_export(hash, state);
--
--	cpu_to_be32_array(out, result, digest_size / 4);
--}
--
--static void sa_prepare_iopads(struct algo_data *data, const u8 *key,
--			      u16 key_sz, __be32 *ipad, __be32 *opad)
--{
--	SHASH_DESC_ON_STACK(shash, data->ctx->shash);
--	int block_size = crypto_shash_blocksize(data->ctx->shash);
--	int digest_size = crypto_shash_digestsize(data->ctx->shash);
--	union {
--		struct sha1_state sha1;
--		struct sha256_state sha256;
--		u8 k_pad[SHA1_BLOCK_SIZE];
--	} sha;
--
--	shash->tfm = data->ctx->shash;
--
--	prepare_kipad(sha.k_pad, key, key_sz);
--
--	crypto_shash_init(shash);
--	crypto_shash_update(shash, sha.k_pad, block_size);
--	sa_export_shash(&sha, shash, digest_size, ipad);
--
--	prepare_kopad(sha.k_pad, key, key_sz);
--
--	crypto_shash_init(shash);
--	crypto_shash_update(shash, sha.k_pad, block_size);
--
--	sa_export_shash(&sha, shash, digest_size, opad);
--
--	memzero_explicit(&sha, sizeof(sha));
-+	memzero_explicit(&k, sizeof(k));
- }
- 
- /* Derive the inverse key used in AES-CBC decryption operation */
-@@ -544,7 +489,7 @@ static void sa_set_sc_auth(struct algo_data *ad, const u8 *key, u16 key_sz,
- 
- 	/* Copy the keys or ipad/opad */
- 	if (ad->keyed_mac)
--		ad->prep_iopad(ad, key, key_sz, ipad, opad);
-+		sa_prepare_iopads(ad, key, key_sz, ipad, opad);
- 	else {
- 		/* basic hash */
- 		sc_buf[1] |= SA_BASIC_HASH;
-@@ -1697,8 +1642,7 @@ static void sa_aead_dma_in_callback(void *data)
- 	aead_request_complete(req, err);
- }
- 
--static int sa_cra_init_aead(struct crypto_aead *tfm, const char *hash,
--			    const char *fallback)
-+static int sa_cra_init_aead(struct crypto_aead *tfm, const char *fallback)
- {
- 	struct sa_tfm_ctx *ctx = crypto_aead_ctx(tfm);
- 	struct sa_crypto_data *data = dev_get_drvdata(sa_k3_dev);
-@@ -1707,12 +1651,6 @@ static int sa_cra_init_aead(struct crypto_aead *tfm, const char *hash,
- 	memzero_explicit(ctx, sizeof(*ctx));
- 	ctx->dev_data = data;
- 
--	ctx->shash = crypto_alloc_shash(hash, 0, CRYPTO_ALG_NEED_FALLBACK);
--	if (IS_ERR(ctx->shash)) {
--		dev_err(sa_k3_dev, "base driver %s couldn't be loaded\n", hash);
--		return PTR_ERR(ctx->shash);
--	}
--
- 	ctx->fallback.aead = crypto_alloc_aead(fallback, 0,
- 					       CRYPTO_ALG_NEED_FALLBACK);
- 
-@@ -1744,14 +1682,12 @@ static int sa_cra_init_aead(struct crypto_aead *tfm, const char *hash,
- 
- static int sa_cra_init_aead_sha1(struct crypto_aead *tfm)
- {
--	return sa_cra_init_aead(tfm, "sha1",
--				"authenc(hmac(sha1),cbc(aes))");
-+	return sa_cra_init_aead(tfm, "authenc(hmac(sha1),cbc(aes))");
- }
- 
- static int sa_cra_init_aead_sha256(struct crypto_aead *tfm)
- {
--	return sa_cra_init_aead(tfm, "sha256",
--				"authenc(hmac(sha256),cbc(aes))");
-+	return sa_cra_init_aead(tfm, "authenc(hmac(sha256),cbc(aes))");
- }
- 
- static void sa_exit_tfm_aead(struct crypto_aead *tfm)
-@@ -1759,7 +1695,6 @@ static void sa_exit_tfm_aead(struct crypto_aead *tfm)
- 	struct sa_tfm_ctx *ctx = crypto_aead_ctx(tfm);
- 	struct sa_crypto_data *data = dev_get_drvdata(sa_k3_dev);
- 
--	crypto_free_shash(ctx->shash);
- 	crypto_free_aead(ctx->fallback.aead);
- 
- 	sa_free_ctx_info(&ctx->enc, data);
-@@ -1785,7 +1720,6 @@ static int sa_aead_setkey(struct crypto_aead *authenc,
- 	if (key_idx >= 3)
- 		return -EINVAL;
- 
--	ad->ctx = ctx;
- 	ad->enc_eng.eng_id = SA_ENG_ID_EM1;
- 	ad->enc_eng.sc_size = SA_CTX_ENC_TYPE1_SZ;
- 	ad->auth_eng.eng_id = SA_ENG_ID_AM1;
-@@ -1795,7 +1729,6 @@ static int sa_aead_setkey(struct crypto_aead *authenc,
- 	ad->inv_key = true;
- 	ad->keyed_mac = true;
- 	ad->ealg_id = SA_EALG_ID_AES_CBC;
--	ad->prep_iopad = sa_prepare_iopads;
- 
- 	memset(&cfg, 0, sizeof(cfg));
- 	cfg.enc = true;
+ fs/ntfs/attrib.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-base-commit: c3f63d70f236bb7685e6d11d1d9b5b351552e600
+diff --git a/fs/ntfs/attrib.c b/fs/ntfs/attrib.c
+index ce7c1b524180..c92d1b06afc3 100644
+--- a/fs/ntfs/attrib.c
++++ b/fs/ntfs/attrib.c
+@@ -4933,7 +4933,7 @@ static int ntfs_resident_attr_resize(struct ntfs_inode *attr_ni, const s64 newsi
+ 		if (a->type == AT_DATA && !value_len)
+ 			continue;
+ 
+-		if (a->type == AT_DATA)
++		if (a->type == AT_DATA && !a->name_length)
+ 			tvi = ntfs_iget(sb, base_ni->mft_no);
+ 		else
+ 			tvi = ntfs_attr_iget(VFS_I(base_ni), a->type,
 -- 
 2.56.0
 
