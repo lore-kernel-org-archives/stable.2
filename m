@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046311;
-	b=i02454OMgkT74x8htxVZYfsSBGhAw8NJ/o1N8CmYrpwih2PiVYKyWRWbgWFJ9n4y/N9+
-	 wiZmHlGcvaGGvK43rAIVLYe0uTRfvIIMWYnDav1whTQZ1O6e6TjAH0d4TlpsMKejKDHrK
-	 fa6qsrN0SEUO+QSgXzC91hgFo80pD0q4OWbG8LU/J3WoB6f15+KdRG9uTird43lh5SjjR
-	 J4C9t9IEyaxivK97bEeu7t/RJ2N4CPEkWu+BAHAIswlcyVjPvP87QX7i+za4pxqIvBzqp
-	 wh9i2SWJqzCYLDiTtZxCsgZMbqGNiAD80vYpffjRVD6lgpSrgEOgCikjFptjIcgH54A==
+	t=1794046314;
+	b=FMrxyvRM0gpaCdb6sAk3YATBOhBdyHzbDBV3pdKLTUaa+AaA5VSCYPFKHc2BbEEfMYMj
+	 zl02SXF34cwXsp97F2lyw4sPpQVukbOblnxDJjtNcVqvjbL48mvjNGMuIaE4UdFK5Ti1n
+	 Fz/y2JmmzVbM5ERrJ1/ynJr6HpJjf+mDcPQYi4+Da4wW2csdtVC2vrB7ExP86qNJUYXSK
+	 LXvyYXmhra4yiT+MFllrStSsTR6WGk1wqLA7dOqhfaYd+0j4yWEL19r7K4R6rQZRCj5d9
+	 bfgREcwXQFMH6vT/RR3aDQL+OSWTtQP+by/TA1gJ6ZjJM92nHW/JpF4baNfOYJt06Zg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046311;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046314;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=B+tgDg/5nixWbm9iLQkY5+8Qs/CdGSltQyDKZquMnAo=;
-	b=ZmRsM77O4jV38INJSaqbEu2GvlhiRpEaSuSAaQL7ObjNIf3C66ascJ8Gw5ViUBfMDnc2
-	 /l1E6ZCv4smH9nxIWzb5rT0bRf8YOO7yYgyHiXflBkvkAWZXQlCjacDFV0IuNC74k3Csx
-	 dm+1DeCuPOkIEUM7GjK/7UQdc/Bjhvv+Sqa3vNvTgTMHVwFSO7P6ev3Ls02m6X6NikqY1
-	 inmYgqavMsJ8Ift0E+R23xGLhjFu9PFDMiQJz1DeDzFelETW1yT2EGc8YvIpgpGxEq8RC
-	 NsaKzJRynHB/MmS66N6JvjBanSatqXDe6guDlNiyQna1gG75CgGGYfmMeGa/04ssC6Q==
+	bh=La8I1VnveRPdaxG6HRvcZwPG5OnO2GCnCPLo5A2RV6Y=;
+	b=tYLIE5oKg+elfQOJmuTSOLI6A5+F/2mngi2R4j41gc3H6S3nuMPHyKWuwyq+H+vivS41
+	 cpgzQnBgK5vda3xdhoiVIL/u8oKErpK+0GXzueM3+QDUpzd2v31H3LZmiMplO8I1Ajed8
+	 NUJvi+LGHuhidzDzdOKDEUOnd9wjTnQwO78cS7xRXWR6VK3rtvkR+6ViF9nEeaeCH98NA
+	 er9DLFNIKCd/5hVEMtn27M4uUBJCx1ihkIhYiYdOX18XsIX0KcT5odM64U6NU3MJ+iBti
+	 Zxm9OLmC009XyREC6fAdogrxGqjVb9kDBVxXIiehjvrr/lDvq/79M7uLVvDcmkeZdbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j3sIl1Pp;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cGWA6bKI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 974F1606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:11:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFD78606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:11:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j3sIl1Pp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F269C1F0089F;
-	Sat,  7 Nov 2026 10:11:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cGWA6bKI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 353AD1F0089F;
+	Sat,  7 Nov 2026 10:11:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046311;
-	bh=B+tgDg/5nixWbm9iLQkY5+8Qs/CdGSltQyDKZquMnAo=;
+	s=k20260515; t=1794046313;
+	bh=La8I1VnveRPdaxG6HRvcZwPG5OnO2GCnCPLo5A2RV6Y=;
 	h=From:To:Cc:Subject:Date;
-	b=j3sIl1PpwveTrq2W13IekLKABcYL0XLuk85H6vzINFNgW+4L68o92vwSnKnMyO4Ox
-	 j0rZSeLQCZvZ5lrthhyWxPQdMFk5XpwrtKCSxrxZdZSPjJMy2ixlLJwYTGeSLpvB2k
-	 oKADdr826dKxSElGZ/6mYLhFFRgpz9tYrZ6U0LoD3zwEs28QOcrNyz7OZBcDiY6wzZ
-	 0rD+j+5uu6BT2/RmB+qWJ5JbY3GScU7e/1EwuBoW/E0ztrzOL6wodYwSo/YAlYnIuD
-	 oS1WVcCNW0dhtaY7o8HFp7mo0EWI8QmLEoVVqhpDoyweDnS3t6PIf8PRO1MecFepGp
-	 T6a/YC8G9rLuQ==
+	b=cGWA6bKItJFOIFO04sXlWFG/WCLt7jqQlfj4aYS78Zc3n1uMfi9zNZmX+AQ3kRnkK
+	 PiM50f3DNX/Ysdbh7CIyLXBUPzMHamvAEeESnyWwVwUnJLmybG9AuF0KryVGALV0Dm
+	 cmbizOR48KBFcRd3c319WxOdSgX6XCHjBzO5edCaSr1wPeL6IowT9o1YmYu33cpbIo
+	 2rcyspw/pezdVZGbqd6Hsn9KfBH6hdSOQtv4903U7QRJCGUDjYZFVo2qNfTYalSDC0
+	 waUxcrTJxN4fOPqxzJ0TmcDhQkKrMctxFqjOnotJUsqAHSq3IHEpMRDJEIsAhLR04D
+	 tBt+dfRK0hopQ==
 From: Sasha Levin <sashal@kernel.org>
-To: kanie@linux.alibaba.com,
-	dave.jiang@intel.com,
-	jonathan.cameron@oss.qualcomm.com
+To: parri.andrea@gmail.com,
+	jgg@nvidia.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] cxl/events: Test CME counter expiry with equality, not bitwise AND" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:11:49 -0500
-Message-ID: <20261107051149-failed-6.18-b94ba9a1f2d5@kernel.org>
+Subject: FAILED: patch "[PATCH] iommufd/iova_bitmap: Ensure that iova_bitmap_set() handles the full IOVA" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:11:52 -0500
+Message-ID: <20261107051152-failed-6.18-e21952d72b47@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,80 +68,86 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x b94ba9a1f2d5c57f2eec67d502bb8fdd1e53c87a
+git cherry-pick -x e21952d72b4740f08a272d694cca223b6b0099ca
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051149-failed-6.18-b94ba9a1f2d5@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051152-failed-6.18-e21952d72b47@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From b94ba9a1f2d5c57f2eec67d502bb8fdd1e53c87a Mon Sep 17 00:00:00 2001
-From: Guixin Liu <kanie@linux.alibaba.com>
-Date: Tue, 22 Sep 2026 16:22:14 +0800
-Subject: [PATCH] cxl/events: Test CME counter expiry with equality, not
- bitwise AND
+From e21952d72b4740f08a272d694cca223b6b0099ca Mon Sep 17 00:00:00 2001
+From: Andrea Parri <parri.andrea@gmail.com>
+Date: Fri, 25 Sep 2026 18:11:37 +0200
+Subject: [PATCH] iommufd/iova_bitmap: Ensure that iova_bitmap_set() handles
+ the full IOVA
 
-The Memory Event Type field in the General Media and DRAM event records
-is an enumeration, not a bitmask. The validity checks for the advanced
-programmable CME counter expiration event (05h) test the field with a
-bitwise AND, so types 01h, 03h, 04h and 06h match it as well.
+Generally userspace is going to step the dirty bitmap through the IOVA
+space. However if the bitmap ends in the middle of a large PTE this is
+problematic. The first step will clear the dirty bit and report dirty to
+the end of its bitmap while the second step will see the clear'd dirty and
+report clean for the start of the bitmap. If it happens this ends up
+losing dirties.
 
-A device reporting one of those types trips WARN_ON_ONCE once the
-general media or DRAM tracepoint is enabled, which is the case anywhere
-rasdaemon collects CXL events. Under panic_on_warn=1 that kills the
-machine.
+Further this function is missing bounds checking so if this does happen
+ther is a good chance it will write memory beyond what the userspace was
+expecting.
 
-Compare the type field for equality instead. Type 05h records that do
-violate the spec conditions still warn.
+Return an error code if this illegal condition happens.
 
-Fixes: cd3b36cfc659 ("cxl/events: Add extra validity checks for corrected memory error count in General Media Event Record")
-Fixes: d8145bb8af5c ("cxl/events: Add extra validity checks for CVME count in DRAM Event Record")
+Fixes: 58ccf0190d19 ("vfio: Add an IOVA bitmap support")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
-Signed-off-by: Guixin Liu <kanie@linux.alibaba.com>
-Reviewed-by: Dave Jiang <dave.jiang@intel.com>
-Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Link: https://patch.msgid.link/20260922082214.3526355-1-kanie@linux.alibaba.com
-Signed-off-by: Dave Jiang <dave.jiang@intel.com>
+Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
+Link: https://patch.msgid.link/20260925161142.189813-2-parri.andrea@gmail.com
+Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
 ---
- drivers/cxl/core/mbox.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/iommu/iommufd/iova_bitmap.c | 12 ++++++++++++
+ include/uapi/linux/iommufd.h        |  6 ++++++
+ 2 files changed, 18 insertions(+)
 
-diff --git a/drivers/cxl/core/mbox.c b/drivers/cxl/core/mbox.c
-index 55828a836c01a..01341f524a937 100644
---- a/drivers/cxl/core/mbox.c
-+++ b/drivers/cxl/core/mbox.c
-@@ -942,11 +942,11 @@ void cxl_event_trace_record(struct cxl_memdev *cxlmd,
+diff --git a/drivers/iommu/iommufd/iova_bitmap.c b/drivers/iommu/iommufd/iova_bitmap.c
+index 483f0cc846466..953f6a57d0ca7 100644
+--- a/drivers/iommu/iommufd/iova_bitmap.c
++++ b/drivers/iommu/iommufd/iova_bitmap.c
+@@ -409,6 +409,18 @@ void iova_bitmap_set(struct iova_bitmap *bitmap,
+ 	struct iova_bitmap_map *mapped = &bitmap->mapped;
+ 	unsigned long cur_bit, last_bit, last_page_idx;
  
- 			if (evt->gen_media.media_hdr.descriptor &
- 			    CXL_GMER_EVT_DESC_THRESHOLD_EVENT)
--				WARN_ON_ONCE((evt->gen_media.media_hdr.type &
-+				WARN_ON_ONCE((evt->gen_media.media_hdr.type ==
- 					      CXL_GMER_MEM_EVT_TYPE_AP_CME_COUNTER_EXPIRE) &&
- 					     !get_unaligned_le24(evt->gen_media.cme_count));
- 			else
--				WARN_ON_ONCE(evt->gen_media.media_hdr.type &
-+				WARN_ON_ONCE(evt->gen_media.media_hdr.type ==
- 					     CXL_GMER_MEM_EVT_TYPE_AP_CME_COUNTER_EXPIRE);
- 
- 			trace_cxl_general_media(cxlmd, type, cxlr, hpa,
-@@ -957,11 +957,11 @@ void cxl_event_trace_record(struct cxl_memdev *cxlmd,
- 
- 			if (evt->dram.media_hdr.descriptor &
- 			    CXL_GMER_EVT_DESC_THRESHOLD_EVENT)
--				WARN_ON_ONCE((evt->dram.media_hdr.type &
-+				WARN_ON_ONCE((evt->dram.media_hdr.type ==
- 					      CXL_DER_MEM_EVT_TYPE_AP_CME_COUNTER_EXPIRE) &&
- 					     !get_unaligned_le24(evt->dram.cvme_count));
- 			else
--				WARN_ON_ONCE(evt->dram.media_hdr.type &
-+				WARN_ON_ONCE(evt->dram.media_hdr.type ==
- 					     CXL_DER_MEM_EVT_TYPE_AP_CME_COUNTER_EXPIRE);
- 
- 			trace_cxl_dram(cxlmd, type, cxlr, hpa, hpa_alias,
++	/*
++	 * If the range cannot be recorded then the system call returns failure.
++	 * This is to prevent loosing dirties if userspace is expecting to step
++	 * the bitmap through the IOVA space.
++	 */
++	if (!length || length > bitmap->length || iova < bitmap->iova ||
++	    iova - bitmap->iova > bitmap->length - length) {
++		if (!bitmap->err)
++			bitmap->err = -EPROTO;
++		return;
++	}
++
+ update_indexes:
+ 	if (unlikely(!iova_bitmap_mapped_range(mapped, iova, length))) {
+ 		/*
+diff --git a/include/uapi/linux/iommufd.h b/include/uapi/linux/iommufd.h
+index b4c7194cb08d2..010f47f7d3d23 100644
+--- a/include/uapi/linux/iommufd.h
++++ b/include/uapi/linux/iommufd.h
+@@ -871,6 +871,12 @@ enum iommufd_hwpt_get_dirty_bitmap_flags {
+  * Walk the IOMMU pagetables for a given IOVA range to return a bitmap
+  * with the dirty IOVAs. In doing so it will also by default clear any
+  * dirty bit metadata set in the IOPTE.
++ *
++ * The IOVA range given must fully enclose any IOPTE. If the range starts or
++ * ends inside a dirty IOPTE then the ioctl will fail. This avoids partially
++ * reporting a dirty range.
++ *
++ * On failure the dirty state becomes unknown and the userspace must restart.
+  */
+ struct iommu_hwpt_get_dirty_bitmap {
+ 	__u32 size;
 -- 
 2.53.0
 
