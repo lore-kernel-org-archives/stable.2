@@ -1,53 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794063851;
-	b=4quky1QnW1goD0FRsq+9TKUbXQQIRMLqrVQ+12AQEwgMf27oo4O+eqo6SXXyYGgvOtaT
-	 yp0sDa2fTF7vZ8qyROARsZRJ/BikGz+O7IvcY3wH/RDUC7aiCd+5SJWkBnf8eX1PG6NTX
-	 /pTJZN46dx6VGznwNEdmGZ3ELQyVsMIeH/++YTbjsOI+0CuE8bY1baBV1IL1UBKMv9Xhh
-	 vo7rXEwnYkD3rzaaqqkHSfQKte1rH/nj6EP2eGiJW1Fj7gfkrqbMfYIIfGGGmu7tnDU3W
-	 F3FVCbJwKzMciM7CuThwf9XA6xE7MVoV2lAUjLaftg8Kprrw9o6KpOPHuiAy/BoYtPA==
+	t=1794063864;
+	b=zaELoZ/PtyYtLZTfWa1Cru7LXpjTEJcruJ2+jEnou/aRGG7ezseGRlBQSQugZRUjOFF9
+	 8vK9FTGxDUzSc6BObcftzlIoB++6+mbiA4N2a1Qvoq8m+CMdOMXbLhLthE6KFTrj5Vbpr
+	 rvtgnuu0H3MhzR6Bcvk3CyqVrigV7gYrdkRLWVaDhgY9IsUNZl9R7JMWls2pyY5I4ix//
+	 7P8Lqjccpl8Ay0m7M0H5ETF40+g8SAA2o2dl+cZu5GUpOtVCQ1rwdDytieownsR/gG5Ax
+	 cCYl1IzVXEJQJlcoHiMz1AZeoyR6vLhDBnymNkcRa8IoZAm8nChERpeuk+hi5yXxZnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794063851;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794063864;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=q7AncIuv2aTF9efxI4uC4XcMAEGa9qMs/9IrNUUmbqs=;
-	b=1Q+5amVKytKUeIci4aigiUv0U7zDSbytL6mC8rkAnF+RE0EIPlh1yIqrqi2rto++gi0L
-	 pJaCVkvH0QLK8C9csr6wgXte2GBteGqlu0hR/gNPPidtLwJ1K36ssS3MvrF/DyEiMCCnc
-	 TCx0M+TYOxZR/7jn4KvyIGM2XzwnKoTZ7aMlUTS1iDkh6lfWCQcCx+U3PPV9sPeM5yiR7
-	 sjdzd3H+qxf1XTx6SfDL8uyT1b6jnJDpcFYcvDXXeTeodQxaUrWUmQYqiZqfJorLD69V0
-	 tyJ6RjE8tvXdA21lbDpnLRONqAONMcpt1Iajyt1f0YiicPoJ+9wENBzly+frz8QbFyw==
+	bh=SrN6Zbx3xNmmRNuCy2O4UoN/WEeCRf5BjOPKSvIA4tM=;
+	b=TEQnmCt+IxUk9qS0+QriSLT+enCBRrZzfb9xuR41D9W2rOlIxDqmIS28IvOoa0enyJWR
+	 msIUBUo+rp6FXtNKfIJxcwevHbZY770zulHwfdiWLEjSzXED3u88V5hGN6W4EKNshVPF2
+	 H1QL4GtR9rnwrHj6GpBHCzq+DoRWgEyBsJB8gpmQtxdT++bMhMYh5oo17KglDqPEVI6xw
+	 i3wV8URro3xXINzfKotY/zP1FyE/f67cZ4X0gzvyfmyeNZ0l3YIbIfxkqkAsaGilqwXft
+	 YhEdP4ibCpolaM70y0Gyq6vfDVdLdnArxiiZOroFo4m+fPc95U96Fv5sIoqN9lZlDlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=I7IHvbyE;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=g6qoCD3L;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B3AA606A9EE;
-	Sat,  7 Nov 2026 15:04:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1DD2606CE63;
+	Sat,  7 Nov 2026 15:04:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=I7IHvbyE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E06601F008A1;
-	Sat,  7 Nov 2026 15:04:10 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=g6qoCD3L
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A7841F008A1;
+	Sat,  7 Nov 2026 15:04:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794063851;
-	bh=q7AncIuv2aTF9efxI4uC4XcMAEGa9qMs/9IrNUUmbqs=;
+	s=korg; t=1794063863;
+	bh=SrN6Zbx3xNmmRNuCy2O4UoN/WEeCRf5BjOPKSvIA4tM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=I7IHvbyEb3wX+r4S2Ec7b9d2cfgNdnQ9eOXksnnvqiAPic2sD0o8oJwgT+wgc5FNY
-	 RyVDwiaag60okG0VG/AzNnBp7yTTWPa7rabdSbgD526JOxlknduLc19ITB6LNTRlXJ
-	 Iag5c/r55vOnJZv+HdG6X3FbXyUTd0az/U8yfZG0=
+	b=g6qoCD3Lu61OtwIzwlIokhbAu+E50+B1UBYVkCUZIa2+zAOKR+zcg0j8RQcOVH2aw
+	 AAvx1ym6nUvzw7wdsUXKUrFX0ZD5UyNpYkzI80eEmCj3x/86z1OIwCTzKOyOYc7xaZ
+	 lK2w5gBX8+1dncFR9M8rZI5WgxGHbcWUncDJmQJU=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	James Alexander <opensource@inspiredexperts.com>,
-	Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	Serin Yeh <serin.yeh@intel.com>,
+	Bryan ODonoghue <bryan.odonoghue@linaro.org>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
 	Sakari Ailus <sakari.ailus@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 0061/1257] platform/x86: int3472: Increase handshake GPIO delay to 200 ms
-Date: Sat,  7 Nov 2026 08:39:17 -0500
-Message-ID: <20261107134941.086207273@linuxfoundation.org>
+Subject: [PATCH 7.3 0070/1257] media: i2c: ov8856 : remove ACPI node bypass mechanism
+Date: Sat,  7 Nov 2026 08:39:26 -0500
+Message-ID: <20261107134941.322111150@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261107134939.434104957@linuxfoundation.org>
 References: <20261107134939.434104957@linuxfoundation.org>
@@ -69,76 +70,97 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Hans de Goede <johannes.goede@oss.qualcomm.com>
+From: Serin Yeh <serin.yeh@intel.com>
 
-[ Upstream commit 844982d3b99340c21dd2125f44e1ad04ace6a38e ]
+[ Upstream commit 609a71568664acb7ee57b42de002ca782e3769e8 ]
 
-There have been several reports of the sensor not properly powering on,
-on laptops where an INT3472 handshake GPIO is used. Both with ov08x40 and
-hi556 sensors.
+On Intel platforms the sensor is enumerated via ACPI, and an INT3472
+"discrete" companion device (the power-logic-control driver under
+drivers/platform/x86/intel/int3472) registers the sensor's
+reset/powerdown GPIOs and the regulator supply. These resources are
+therefore discoverable and usable through the standard gpiod/regulator
+lookups at probe time.
 
-Testing has shown that a delay of 200 ms is necessary in some cases.
-The handshake GPIO is typically used to signal an extra bridge or other IC
-with that IC running the full sensor power sequence based on the handshake
-signal and also possible controlling I2C pass-through.
+However, the driver guarded both the GPIO/regulator acquisition in
+ov8856_get_hwcfg() and the whole power-on/off sequence with
+is_acpi_node() and skipped them on ACPI. As a result the sensor was
+never powered or reset by the driver, and probe failed when reading the
+chip ID in ov8856_identify_module().
 
-It seems that in some cases that extra IC takes up to 200 ms to before
-the sensor is fully powered up and ready for I2C communication.
+Remove the is_acpi_node() checks so the GPIO/regulator resources are
+acquired and the full power sequence runs regardless of the firmware
+interface. The driver now behaves consistently across DT and ACPI
+platforms and initialises the hardware correctly.
 
-With the default handshake signal delay increased to 200 ms the quirk to
-increase it to 45 ms for the ov08x40 is no longer necessary and is actually
-undesirable since some ov08x40 setups also need the longer delay, drop it.
+Tested on Intel platforms with kernel 6.17 and 7.0.
 
-Fixes: 30359c239ba8 ("platform/x86: int3472: Increase ov08x40 handshake GPIO delay to 45 ms")
-Closes: https://lore.kernel.org/platform-driver-x86/20260816204247.2844986-1-opensource@inspiredexperts.com/
-Reported-by: James Alexander <opensource@inspiredexperts.com>
-Closes: https://bugzilla.redhat.com/show_bug.cgi?id=2333331
-Closes: https://bugzilla.redhat.com/show_bug.cgi?id=2333647
+Fixes: d2fa1134a48b ("media: i2c: ov8856: Use V4L2 legacy sensor clock helper")
 Cc: stable@vger.kernel.org
-Signed-off-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+Signed-off-by: Serin Yeh <serin.yeh@intel.com>
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Reviewed-by: Kieran Bingham <kieran.bingham@ideasonboard.com>
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/platform/x86/intel/int3472/discrete.c | 12 +++---------
- 1 file changed, 3 insertions(+), 9 deletions(-)
+ drivers/media/i2c/ov8856.c | 29 ++++++++++-------------------
+ 1 file changed, 10 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/platform/x86/intel/int3472/discrete.c b/drivers/platform/x86/intel/int3472/discrete.c
-index 9cd4f78875abf..6bc0ab3e8d1f4 100644
---- a/drivers/platform/x86/intel/int3472/discrete.c
-+++ b/drivers/platform/x86/intel/int3472/discrete.c
-@@ -15,6 +15,7 @@
- #include <linux/platform_data/x86/int3472.h>
- #include <linux/platform_device.h>
- #include <linux/string_choices.h>
-+#include <linux/time64.h>
- #include <linux/uuid.h>
+diff --git a/drivers/media/i2c/ov8856.c b/drivers/media/i2c/ov8856.c
+index 8bedb47cd7cf6..9d2b0469a5761 100644
+--- a/drivers/media/i2c/ov8856.c
++++ b/drivers/media/i2c/ov8856.c
+@@ -2082,9 +2082,6 @@ static int ov8856_power_on(struct device *dev)
+ 	struct ov8856 *ov8856 = to_ov8856(sd);
+ 	int ret;
  
- /*
-@@ -178,13 +179,6 @@ static const struct int3472_gpio_map int3472_gpio_map[] = {
- 		.type_to = INT3472_GPIO_TYPE_RESET,
- 		.con_id = "enable",
- 	},
--	{	/* ov08x40's handshake pin needs a 45 ms delay on some HP laptops */
--		.hids = (const char * const[]) { "OVTI08F4", NULL },
--		.type_from = INT3472_GPIO_TYPE_HANDSHAKE,
--		.type_to = INT3472_GPIO_TYPE_HANDSHAKE,
--		.con_id = "dvdd",
--		.enable_time_us = 45 * USEC_PER_MSEC,
--	},
- 	{	/* Sensors which expect "vana" as con_id for power enable */
- 		.hids = power_enable_hids_vana,
- 		.type_from = INT3472_GPIO_TYPE_POWER_ENABLE,
-@@ -273,8 +267,8 @@ static void int3472_get_con_id_and_polarity(struct int3472_discrete_device *int3
- 	case INT3472_GPIO_TYPE_HANDSHAKE:
- 		*con_id = "dvdd";
- 		*gpio_flags = GPIO_ACTIVE_HIGH;
--		/* Setups using a handshake pin need 25 ms enable delay */
--		*enable_time_us = 25 * USEC_PER_MSEC;
-+		/* Powering up the sensor through the handshake pin takes up to 200 ms */
-+		*enable_time_us = 200 * USEC_PER_MSEC;
- 		break;
- 	default:
- 		*con_id = "unknown";
+-	if (is_acpi_node(dev_fwnode(dev)))
+-		return 0;
+-
+ 	ret = clk_prepare_enable(ov8856->xvclk);
+ 	if (ret < 0) {
+ 		dev_err(dev, "failed to enable xvclk\n");
+@@ -2120,9 +2117,6 @@ static int ov8856_power_off(struct device *dev)
+ 	struct v4l2_subdev *sd = dev_get_drvdata(dev);
+ 	struct ov8856 *ov8856 = to_ov8856(sd);
+ 
+-	if (is_acpi_node(dev_fwnode(dev)))
+-		return 0;
+-
+ 	gpiod_set_value_cansleep(ov8856->reset_gpio, 1);
+ 	regulator_bulk_disable(ARRAY_SIZE(ov8856_supply_names),
+ 			       ov8856->supplies);
+@@ -2293,21 +2287,18 @@ static int ov8856_get_hwcfg(struct ov8856 *ov8856)
+ 		dev_warn(dev, "external clock rate %u is unsupported",
+ 			 xvclk_rate);
+ 
+-	if (!is_acpi_node(fwnode)) {
+-		ov8856->reset_gpio = devm_gpiod_get_optional(dev, "reset",
+-							     GPIOD_OUT_LOW);
+-		if (IS_ERR(ov8856->reset_gpio))
+-			return PTR_ERR(ov8856->reset_gpio);
++	ov8856->reset_gpio = devm_gpiod_get_optional(dev, "reset",
++						     GPIOD_OUT_LOW);
++	if (IS_ERR(ov8856->reset_gpio))
++		return PTR_ERR(ov8856->reset_gpio);
+ 
+-		for (i = 0; i < ARRAY_SIZE(ov8856_supply_names); i++)
+-			ov8856->supplies[i].supply = ov8856_supply_names[i];
++	for (i = 0; i < ARRAY_SIZE(ov8856_supply_names); i++)
++		ov8856->supplies[i].supply = ov8856_supply_names[i];
+ 
+-		ret = devm_regulator_bulk_get(dev,
+-					      ARRAY_SIZE(ov8856_supply_names),
+-					      ov8856->supplies);
+-		if (ret)
+-			return ret;
+-	}
++	ret = devm_regulator_bulk_get(dev, ARRAY_SIZE(ov8856_supply_names),
++				      ov8856->supplies);
++	if (ret)
++		return ret;
+ 
+ 	ep = fwnode_graph_get_next_endpoint(fwnode, NULL);
+ 	if (!ep)
 -- 
 2.53.0
 
