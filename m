@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050779;
-	b=2VfkjycmwPVElBaqCqb3nB3op268rwR6QBE0I/0b9UlCNswaIG817VEK1XgevXqwXiwp
-	 X8ArsR0Q688/3jff9MGudxbgZcAVxSkEYQg0yZBS/kr01kmyJY0Ig391udtiK9gekDfZ2
-	 FbibZ9CBwYg9JtXxjw36qwr4CqhvndEJYLuuGmHaOEwGM/U7Og2QWrXZK/7RmKe3XgvPG
-	 pZribNBYFBSokRE8OaByIn2U+xeAaKVJj/YO6R15hxSKTToBnKKdcrUfLeIrhGzg8psII
-	 QSUm8jcjp3IsSJfc87WOPEj41uZ5/4w+qHnuFBxDlDxIHSRZumj6eemDpt5LHxtRPeQ==
+	t=1794050783;
+	b=YC6cJ+Ge2rKt23pSoTKxl+uhl/4+wOJW+ZJKE6RunMchrQTjjMbNUA7UjGfkUmUArx60
+	 iPHGtgapA1s6ho+352dqSiPasCpZqzQ8LZR59D0GC2K5a5c5KRlD+9ipmIiOSxwHDKy6O
+	 EgKrUp9UbBGs51lvsWaURvX4O0owRxy5+NXCWmNZ20vZiaGk3dQYssN+Wfa+/GXLESfIM
+	 DL15Z3Fe35cxThTSnDnRZ0LLh1Hd3WV9VX/hT1WJtZx91yR9ZgXTMIk6M06bBaLQ58mmQ
+	 BYmu7q9qp0oAoJOCaJdxFk2XMZ3ZtZCdkqbnTALkPAlDfOCJq17HuNIneLswzSkERbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050779;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050783;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=tV2mhpbg7Q/ffacRVX0Funjqt5qzccJ+s+dF5AxjMBA=;
-	b=KLVGxH2eupfwr7uQsOKBysSsNObat34rSLWDjhPsiFloQX5SbUsj4Zb7d23pSc9+Xk3M
-	 1BKlf8ojxp8eXEYSsD58U4Atj73MKkZtjcMhayRQUPue53OV3nQiS/0QxuS2I4VA5l9g8
-	 KgpyAPk/E8A7dFLv0U/opNrRJmGcoWv+sj0Rk5+fW69Gad5P5Ck3uxWyORUsv68Xun2/0
-	 c/+MGKeHU1p3RHYKEq5Pm7weaY7EYSuLpiAc+RfTTI6n16kA+YLUtFouc8vgL+ewxvU1m
-	 qbeYdc8YpEQ7ab0tX5wCOGHM3Ene0Rcpe/ywZoELFLyRYXvWbhO1cqdludRtgpyMXAQ==
+	bh=a8VoYqlg0uu4FYT3l72KXkMoxHeBpHU9XhA8S15Idms=;
+	b=KY4CxnbEfAtEqbE3F+KTg8vIEIjYRXEEykqsvkVC38FjYjLe9sz4LxJAUTEN4gYDGJTo
+	 k1VaFciHYJEkmOGCDruYGYfGUq5upBMqcnM8J3dZmbRh3x4nrRhd3gqtexiJbsf5gbQZe
+	 0Oghc4sd4dEAdagyzAIefH5F6Iuu5HQUlS55ydOQ/DzyQqNeG9pMKAAO2Dp9wAD2yKANz
+	 tz3Lg1MNbTodPZqhPYULgIn2RBec9tj/9W+R8AoNjuA0lmas5iiY8CtyaKSX3kpzv5VfZ
+	 a9WeWxo2ySZ7Tdzgo31C2J5IEjzmnE8APECNeJ6+R1SQwqDfVnO6YXjFL2rFPwkh/Gg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MDbzOY1B;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HKOhOykR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EB43606A32D
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:26:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3000606A32D
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:26:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MDbzOY1B
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C2811F0089F;
-	Sat,  7 Nov 2026 11:26:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HKOhOykR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1910E1F0089F;
+	Sat,  7 Nov 2026 11:26:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050779;
-	bh=tV2mhpbg7Q/ffacRVX0Funjqt5qzccJ+s+dF5AxjMBA=;
+	s=k20260515; t=1794050782;
+	bh=a8VoYqlg0uu4FYT3l72KXkMoxHeBpHU9XhA8S15Idms=;
 	h=From:To:Cc:Subject:Date;
-	b=MDbzOY1BKlVx2MkvbCc2G8fBR5DUEgJZkB8dZ/qxy0u+n9ambap/8bCSskvP/jIcK
-	 fvzhbEKpCTwlB66G8bspUToWjysIu6VSubfR0MTmGmRWVd2IC+eMbsS2ugqLVDdjs0
-	 ee5rN6QQCCvpHzpYdas5Wep5GABbgAa+FFDvgHmeYSUjjFVhABEGHuwpyv1JW1sFCS
-	 punqpBEZXEr3NIvI1IV7blZlgnfKxNV1yBGu5SmcbR8PaESisC1tdw8NPHaTLrYmX9
-	 +HvwJKEnXufu4KZBTsTDDc4FzYV8mIzGTXvV/8GSTveghzrc3hibHrFNEkkOldIHdb
-	 LDE8FRHKV0x4g==
+	b=HKOhOykRQK0cwE4+74NcnMNh69ZZyCLXQKH234I4IzMax/fvti30j4Fq8XFICrU3D
+	 a8mHJH6ReqIP30ujFrzTxXARfphfFqHT/hYWoF0dZglw+CcyqVobFvZi34E/1SsQIn
+	 AZ2EO43QroGP91KP4f/mEcr7HYFYtep6HUGYn4/4dPOC5ASjOPFyn7fxNKPPnbMYTu
+	 w0mLSZ2UdVDv3Jq5iBkD1YfKgv6phofgPa7g/d7bPTneGm/s70kpUPToTObn7+5Pf0
+	 xwkfN91Bjn1Orx/FHdV5lsldrCWgZsmB1wb+UOkO4T1VVSv0TEA2q4uDVUFvZBgtdj
+	 RuHawg9YTlM/Q==
 From: Sasha Levin <sashal@kernel.org>
-To: luigi.lauro@gmail.com,
+To: qchcio@gmail.com,
 	alexander.deucher@amd.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/amdgpu: require _PR3 for BOCO" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:26:17 -0500
-Message-ID: <20261107062617-failed-5.10-28f3d169f162@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/amdgpu: reset SI ASIC on MacBookPros with VRAM at 0" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:26:20 -0500
+Message-ID: <20261107062620-failed-5.10-5b56ede88031@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,77 +68,91 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 28f3d169f162ca7e803c5a1f7e1bb55bdc915d1c
+git cherry-pick -x 5b56ede880317bd912f914d5cd38ba1d357677fa
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062617-failed-5.10-28f3d169f162@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062620-failed-5.10-5b56ede88031@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 28f3d169f162ca7e803c5a1f7e1bb55bdc915d1c Mon Sep 17 00:00:00 2001
-From: Luigi Lauro <luigi.lauro@gmail.com>
-Date: Wed, 14 Oct 2026 15:33:56 +0200
-Subject: [PATCH] drm/amdgpu: require _PR3 for BOCO
+From 5b56ede880317bd912f914d5cd38ba1d357677fa Mon Sep 17 00:00:00 2001
+From: Maciej Kucharek <qchcio@gmail.com>
+Date: Thu, 15 Oct 2026 11:57:11 +0200
+Subject: [PATCH] drm/amdgpu: reset SI ASIC on MacBookPros with VRAM at 0
 
-amdgpu_device_supports_boco() returns true for an AMD_IS_PX device on a
-system with a hybrid ATPX method even when the device has no ACPI power
-resource (_PR3). On an APU mini PC with a discrete GPU attached over
-OCuLink, the iGPU's ATPX method reports hybrid graphics, the dGPU is
-flagged AMD_IS_PX, and runtime PM in auto mode picks BOCO:
+On MacBookPros with switchable graphics, the firmware puts VRAM at MC
+address 0 when the iGPU is enabled.  The EFI stub enables the iGPU on
+these machines through apple_set_os().  On a MacBookPro11,5 (Radeon R9
+M370X, 1002:6821, subsystem 106b:0149), the driver adopts this layout
+at init:
 
-  amdgpu: ATPX Hybrid Graphics
-  amdgpu 0000:c6:00.0: Using BOCO for runtime pm
+  MC_VM_FB_LOCATION=0x007f0000, HDP_NONSURFACE_BASE=0
+  VRAM at 0x0-0x7fffffff, GART table at 0x1400000
 
-In BOCO mode the driver leaves powering the device off to the PCI core,
-which can only do it through _PR3 on the upstream bridge. No device on
-this dGPU's path has _PR3, so when it runtime suspends the card stays
-powered, with its fans at about 700 rpm.
+The driver posts the ASIC again on S3 resume and after a GPU reset.
+The VBIOS asic_init table then moves VRAM back to the VBIOS default:
 
-Require has_pr3 for BOCO, as the function's description ("dGPU with ACPI
-power resources") says. The same card then picks BACO, which powers it
-down:
+  MC_VM_FB_LOCATION=0xf47ff400, HDP_NONSURFACE_BASE=0xf4000000
 
-  amdgpu 0000:c6:00.0: Using BACO for runtime pm
+gmc_v6_0 does not reprogram these registers.  The GART table is then
+no longer in VRAM, and the gfx ring test times out:
 
-This only changes systems with a hybrid ATPX method and no _PR3 on the
-dGPU's upstream bridge, where BOCO cannot cut the power today. Tested on
-one such system only, an RX 9070 XT (Navi 48) over OCuLink with a Ryzen
-AI 9 HX 470, with the change backported to 7.2.9: the stock module logs
-"Using BOCO", the patched one "Using BACO"; BACO runtime suspend powers
-the card off and it resumes cleanly. Not tested on a hybrid laptop or a
-Thunderbolt eGPU.
+  amdgpu: ring gfx test failed (-110)
+  amdgpu: resume of IP block <gfx_v6_0> failed -110
 
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5980
+Reset and post the ASIC at driver load on Apple boards with VRAM at 0.
+The driver then uses the VBIOS layout (VRAM at 0xf400000000) from the
+start, and later posts keep it.  After the reset, FB_BASE is not 0, so
+a module reload does not reset the ASIC again.
+
+The test is the same one that commit c54e4d105077 ("drm/amdgpu: make
+Mac FB workaround generic") uses: an Apple subsystem vendor and VRAM at
+0.  The VI quirk for the MacBookPro14,3 resets at load for the same
+reason:
+
+  commit b6b1d9721851 ("drm/amdgpu: reset VI ASIC on MacBookPro14,3")
+
+Other Apple SI boards get the same reset if FB_BASE reads 0 at load.
+
+Tested on a MacBookPro11,5 with 7.2.5 and this patch: the panel comes
+up at boot, and 4 of 4 deep S3 cycles resume.  Without the patch, S3
+resume fails every time.  The GPU reset path is not tested.
+
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5978
 Assisted-by: Claude:claude-opus-5-5
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Luigi Lauro <luigi.lauro@gmail.com>
+Signed-off-by: Maciej Kucharek <qchcio@gmail.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 1a039805354a44aab7abb2a6e685212d48b17a5e)
+(cherry picked from commit 60dd16ae10f286cb9cce5b6027b2d5ee869637af)
 Cc: stable@vger.kernel.org
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/si.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 48279392d385a..866e83de950d2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -593,10 +593,8 @@ bool amdgpu_device_supports_boco(struct amdgpu_device *adev)
- 	if (!IS_ENABLED(CONFIG_HOTPLUG_PCI_PCIE))
- 		return false;
+diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu/si.c
+index 0adfd4b101aaf..e5e590425f42e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/si.c
++++ b/drivers/gpu/drm/amd/amdgpu/si.c
+@@ -1512,6 +1512,16 @@ static void si_invalidate_hdp(struct amdgpu_device *adev,
  
--	if (adev->has_pr3 ||
--	    ((adev->flags & AMD_IS_PX) && amdgpu_is_atpx_hybrid()))
--		return true;
--	return false;
-+	/* BOCO needs a platform power resource (_PR3) to cut the power */
-+	return adev->has_pr3;
+ static bool si_need_reset_on_init(struct amdgpu_device *adev)
+ {
++	/*
++	 * MacBookPros with switchable graphics put VRAM at 0 when the iGPU
++	 * is enabled.  Any later post (S3 resume, GPU reset) moves it back to
++	 * the vbios default, so reset and post on load to start with the
++	 * vbios layout.
++	 */
++	if (adev->pdev->subsystem_vendor == PCI_VENDOR_ID_APPLE &&
++	    !(RREG32(mmMC_VM_FB_LOCATION) & MC_VM_FB_LOCATION__FB_BASE_MASK))
++		return true;
++
+ 	return false;
  }
  
- /**
 -- 
 2.53.0
 
