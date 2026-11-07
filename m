@@ -1,60 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794056720;
-	b=cAzsIugb0StJYgue37QnXAvr+MQYgMK8dSPkBaB3LnrfGl+BpQcTdjfzM6HQk3YDeAGA
-	 ZB1ABY0qVwRSJCt/SbdJ3sTLdyf2lOaNvCGlIu9r1X/dole8A8sYtmfHOAwCbjDdTyrot
-	 aNKCcCFRfSTiOWlXl/Dd5XksXmD6qdaawnGItYYuMbvmNHoEV8gHyX3IWwfWtK01dEnc6
-	 VJdcCXrL48R30X6+4xLFMl9VMa8zpFrUlvi+wsvyXoihNYefy+qDF3Z7SkyYqkg6R8ye9
-	 I7cmvmrLAnz/+8NmRWWrh7rH3tmDv7RLd7zZ7JuC404WCHiUSYJX9UFIIUl883LzbGA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794056720;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=bY5y/UpFh5i7nT5MZ0PdGQ5Q5A6XBRtLcJX0AZBBR4U=;
-	b=fY264O1aPx9fmRO383fpAAg1d2oHaT2R8b4Bqihlon6NmV8l3qFoWlMAAlbz2g/Fb+C8
-	 YK5EpIp7w7MrLMBawyQAxe0CnD1vnbJFJ8HMYaJd39nooWfirB5zJtc/mrK3Qk5B6UxV6
-	 ZGv9SOtrWGPPwkR7Gd1Bv4m+TiV8n0bTFi4voEs9LttdKFGBvv03QJbm6xiX2H/ekEa2z
-	 d3cSitWRYmg66ptg/DhiNpvq43ZpzLag8Aj88ASlv+wHjp33KrgVKbZ2IHcOtZP6d5OTc
-	 xWMlHUD9UTsXMbMX0FoDi96ZlCgq7upC7LRO58S9PWl36rPWve5UVvxFbMF180h00Bw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PU04oNnE;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.216.49
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794056751;
+	b=zOZgQN50R5tdSKf2RZGnothbEtGxFE7i7vEetII9+dOoIxSqBGFAsNfpQPORSfLzS8mW
+	 z8ie7RwAUyyQEq9LUdbdckntUHGpwx3sSt3apg0PPDdQo4m3cC9v7IFYdrW1IklRM9faS
+	 NIAu2rRfzwea2EJWSNOZWCXyQAzVcFlSc5u5JGkaf764LpK9umwKivOeAM5jDMHwcI9Om
+	 3TONdsAGYFA+kXRrD6Kxdx9mIBcQnZUgqAVn/VycmFRFypHSzcxTgVBkx8hjpCTAvXVYQ
+	 1yWEMdnSrFrcV6OyIaM/SOHTzaSlqBMyGxc6qay4MQ7xISn+0UvWWqUQjsANSxdllTg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794056751;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:From:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
+	bh=oQJywcCCzEM8mXQiNt3fOzLIyIQh4hJRiekOYxmYR74=;
+	b=rTrD5ks1QcnvMgvpRjoMmLtxB1D5H6Nq2PYBaofQ0i+4IPHLFOT67G7C22Ls/F8NJnFV
+	 mJyFleHmpD1OKbR7qGfGWlRBocIMjDGn+8i1jM9aqNCE3cliXJcp8jDNE5eUqPfsv7HQr
+	 fGbeQ2mk66OEdgPrVhuNThj3+7Drz+nxMz28ZtWY+S8S1AFdDAVkF3iNY4hwXXYFYP3M8
+	 1kzaPBCfEe4d9wMLga5Q5yOSw4SPg9BrdzXIqmV0tTLxudS4C6D5P+J4yxjPL2GYPnsid
+	 Tqc0Fas2BOl9+XP9rAEYsBwoELmtQUyvpvTehEA0kwhbxyVtI7NELotPJUYiTxapyXw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FLbKviSq;
+	arc=fail smtp.remote-ip=209.85.216.49
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6154E606A326;
-	Sat,  7 Nov 2026 13:05:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5561E606A32D
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 13:05:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5561E606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PU04oNnE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7561C1F0089F;
-	Sat,  7 Nov 2026 13:05:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794056720;
-	bh=bY5y/UpFh5i7nT5MZ0PdGQ5Q5A6XBRtLcJX0AZBBR4U=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=PU04oNnEZ2a79nE9+6dLinYdrWVrs3mu9neB8uYlLChA6jT5+HmBurhUeEWgL84hn
-	 Jjb+2BDPkH8vKa/DEZsUKCo/gY0rZw+kC00a+QE/rDpBKfb0AUfFdm7zXacNSvDATh
-	 f+m2ikejvLmjbgiM7Bfb24OqBLGJQk2+jkSrDhehHYUnoGTgDyLntOc3iPFmKGnS6+
-	 /lxbF4gLKdo/2ZJI2WWiXqIzBBvBgM5oUZ1A8O8V1V6Vy4F2pXzTs2mfuStxLZnudM
-	 erdgfHk2r9h7GSx0NLMw0mo9h8oixyT/EZhdgIMa1Cxujf+HMCZyVWwNy4dDSojWKq
-	 JMSVQVKlF7qRw==
-Subject: Re: [PATCH] net/mlx5e: TC, release meter if rule offload fails
-From: netdev-bot+sashiko@kernel.org
-To: vulab@iscas.ac.cn
-Cc: saeedm@nvidia.com, tariqt@nvidia.com, mbloch@nvidia.com, leon@kernel.org,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
- linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Date: Sat, 07 Nov 2026 13:05:18 +0000
-Message-ID: <179405671897.994134.13525993179862980932@kernel.org>
-In-Reply-To: <20261103102856.1340672-1-vulab@iscas.ac.cn>
-References: <20261103102856.1340672-1-vulab@iscas.ac.cn>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FLbKviSq
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3b0ae87069dso706868a91.2
+        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 05:05:51 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794056751; cv=none;
+        d=google.com; s=arc-20260327;
+        b=oArS3ezuYBfCboq2+3gU5sPi3sGC2GLRdYqcuvTuaMi4/kJMQ/7xhUBWCSocOrV6j7
+         kSBHdCJROHU4UxNdgWH9sTzxM15+t0zQnfmeO2HF/3eLOdDh5SKm/es0/DCRMMOJo6Cg
+         zTPVNkIvj3lCoj4z8B7I45UvN41S1HBuZZ8aVjob2NoWbago4NRoOlr6KcSRx96x38X/
+         pc5JS+HbzsK7lzGRnpP10sUAihBPJ5VQh3GRhC3LnoOiRkCtaWJ4vVZluWpVZ5qeImuc
+         lObY0kr9w1hw7q/FgUBIfFHAfoQVsZlBkjC9BFqTZPJxkTpriK7Uu1c94gwmHx/SOYxs
+         5Jrg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=oQJywcCCzEM8mXQiNt3fOzLIyIQh4hJRiekOYxmYR74=;
+        fh=n5ciFnu1NuUVKzXfcNVnqcq4F4/zud9insWqgejXN/k=;
+        b=Fk5wuqO1JwmrO6iD62eROu5zsX4SJM8E0YUHQpE2vLIfnlOaJITA/y5AtUPutQIFIu
+         CUOldIqg60uAOBuj/RyO0AX/EEjtHz7i5+gf7cgTEdgv9zl1prkCEN1CdO37eozqGkev
+         FbLxTYKqHo0JlgFXuNwCAs+8irE9loe+uXyrQ3uKzItQfYakxwYzzgaySOni5quaXDXg
+         Bf70+VhNCbh29FR3O5P7q/OEm+XRl3KTjIVoMynNxkuMiNwH+3Ua34rAsoCOjl5QgB4x
+         niN/MWiqWakxK8TZCAKAgHp6Yg44qG5gtYBZR6Gadmr8F30WIpM8H5C6Cx5W3QFGDhYa
+         rCYg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794056751; x=1794661551; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oQJywcCCzEM8mXQiNt3fOzLIyIQh4hJRiekOYxmYR74=;
+        b=FLbKviSqVPHw0jjOiHqL8zF9TZPiXOyLOoY7/ZzZCprYr8XeFPQ0JBXf9NuEhgyXP0
+         /6vE0gCRNIMa2jibUdJ54+IKM0kGvbgE5pCIUoWxCS+Byl9bCH95305djdXHPGgIzRbq
+         986x3HLgc1RmLfOEoug1djDbKhB+HAdsFYa7VMuHP9uP40audXgnfwPZbap6Eq9zWvu6
+         RZXc13ych4UUrTtpEpTpnsM8nH94JnvPbaZkTjw1Vp3Mv8Qa6Vh8sHANeh5ZosRh2ibT
+         uqbTI+m6HnLks/VxIpCGYWULfmhZCdC4B98QMHd6huAAowXrJRP1EeupKYNgarYPdCcl
+         a5wg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794056751; x=1794661551;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=oQJywcCCzEM8mXQiNt3fOzLIyIQh4hJRiekOYxmYR74=;
+        b=1DnN4j92yAR83B4pU0QVv8RgWDfb8onb9AxZRfHXsiW32Cs+/ihY3BsWcIMf1Ere42
+         8Xm1SqU452a+fznktxkLF6oIHsu2etctiS4MbWCwBzSVJ2mnTEqeC/H9oFYwT2dRzKO6
+         2kY7z/A6simfg4PnGgCs3EBoh4ve7vITKlp0JQ5aOQ3tmWLbfI8uUvtbymppfMQ+4pZK
+         gNrk9KiTUaK3Be0b83rlFFOrXxOBOLOGh/GsPwtx7F2IeKFF9Rrb1HZr41aj9RQ4ZAOS
+         xSP5TLdFPf7kOtt6CPeQgRvR33zQbk1WiIM1aUaSv7GIQ7cvvkh3M3pWu4YwzKaFaF7t
+         UQ7w==
+X-Gm-Message-State: APuU4Z9vzG7keHBnxzhD7n5D6rmhUs6wXA2Sb4WDkDWjrM+5hUZxucKh
+	zzM97Vxm19lo9U4JsGhZIQ2fBvrwojDnkRg9rbTC3F+bd9WP0B8xQbIiQgLDTYIaeKfbfERDY4V
+	xhT3aHi4amBHWLntsgpoFYaTV1EZnDqU0yPTtRKo=
+X-Gm-Gg: AYBFou3hF3xA/R/Mfhc/QDisoBBV9RxFTHQmCwokopSm6eR5IRVQhTiG1PAwrYgWfLF
+	tCo82SOZSDn9l9kwpHeJDrAvn1Ex86/94+cUDtlRVp4w0MT0J1njctVufcPaZ5poXfnqobRS4ZS
+	KpV47AZDYUjYqtfDaJOgbWvkpaVgaVmWDPrJmK7uv/6y8GxkmspcIGNIPA99OeGrcM/OKYSAGN4
+	awnj8nrgzHTdWTXfw3MrpFeGqvNoXqcw/LpZei9pgRhEDn2IS77c9TEUnc68JF91BdIslfqKUrA
+	2152X04tHevPysokjtPs+SC/Kowxk6fynWGPmJ3CF9rd5msnycZ0PMCWklRi8CUOer0mzJCp9nF
+	tdjFGw0k4wd0k1vZPVeXdjy4AJfbAjSGeDDasng==
+X-Received: by 2002:a17:90a:d88e:b0:3ad:c482:ae9a with SMTP id
+ 98e67ed59e1d1-3b0db5ed5f3mr5380332a91.1.1794056750595; Sat, 07 Nov 2026
+ 05:05:50 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,134 +99,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+From: Laszlo Burian <blktk2000@gmail.com>
+Date: Sat, 7 Nov 2026 08:05:39 -0500
+X-Gm-Features: AclHuK_Nu6d4jiQSpYGFEFSB-JOYChIi0OQWBT09P6aoABeV0XFldC_HzcBMWc0
+Message-ID: <CAFgCxzCT2uo7ujUJN6V7gsKHcC=61A=oqptzX0Ktnnb7qeqnVw@mail.gmail.com>
+Subject: [REGRESSION 6.12.y] ALSA: usb-audio: please backport 70b4db7d2581
+ ("ALSA: usb-audio: Use the right limit for PCM OOB check")
+To: stable@vger.kernel.org
+Cc: regressions@lists.linux.dev, linux-sound@vger.kernel.org, tiwai@suse.de
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Hi,
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+please backport the following commit to 6.12.y:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+  70b4db7d2581 ("ALSA: usb-audio: Use the right limit for PCM OOB check")
 
-- [Medium] The new failure path in mlx5e_tc_rule_offload()
-  (drivers/net/ethernet/mellanox/mlx5/core/en_tc.c) calls…
+It fixes ef5749ef8b30 ("ALSA: usb-audio: Prevent excessive number of
+frames"), which was backported to 6.12.114 as 81e4b0009f2a, but the fix
+itself is not in 6.12.y yet (checked up to 6.12.116).
 
---
+Upstream, ef5749ef8b30 caused choppy sound on a Behringer UMC2020HD
+(https://bugzilla.kernel.org/show_bug.cgi?id=220997). I see what looks like
+the same regression on a Fractal Audio Axe-Fx III (USB 2466:8010,
+snd-usb-audio, implicit-feedback playback):
 
-net/mlx5e: TC, release meter if rule offload fails
+  - 6.12.113 (Debian 6.12.113-1): playback works
+  - 6.12.115 (Debian 6.12.115-2): playback stalls. The PCM is RUNNING
+    but never moves; /proc/asound/cardN/pcm0p/sub0/status shows hw_ptr
+    stuck at 0, and clients like PipeWire/Firefox hang waiting on the sink.
 
-When mlx5_eswitch_add_offloaded_rule() fails, this patch makes
-mlx5e_tc_rule_offload() release the flow meter and the post meter state
-that mlx5e_tc_add_flow_meter() set up. Before the patch, that meter
-reference leaked when mlx5e_tc_add_fdb_flow() failed.
+Going back to 6.12.113 makes it work again. The only usb-audio change
+between those two releases is 81e4b0009f2a. Its check
+"frames + counts >= ep->max_urb_frames" cuts playback URBs off early,
+and 70b4db7d2581 replaces it with a check against ctx->buffer_size.
 
-> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_tc.c b/drivers/net/ethernet/mellanox/mlx5/core/en_tc.c
-> index 708b7987ea4cd..17bd92529a44a 100644
-> --- a/drivers/net/ethernet/mellanox/mlx5/core/en_tc.c
-> +++ b/drivers/net/ethernet/mellanox/mlx5/core/en_tc.c
+The later 06be918062ad ("ALSA: usb-audio: Bound packet copies by the PCM
+buffer size", Cc: stable) touches the same lines and depends on
+70b4db7d2581.
 
-[ ... ]
+#regzbot introduced: 81e4b0009f2a
+#regzbot link: https://bugzilla.kernel.org/show_bug.cgi?id=220997
 
-> @@ -503,9 +505,14 @@ mlx5e_tc_rule_offload(struct mlx5e_priv *priv,
->  		err = mlx5e_tc_add_flow_meter(priv, attr);
->  		if (err)
->  			return ERR_PTR(err);
-> +		meter_added = true;
->  	}
->  
-> -	return mlx5_eswitch_add_offloaded_rule(esw, spec, attr);
-> +	rule = mlx5_eswitch_add_offloaded_rule(esw, spec, attr);
-> +	if (IS_ERR(rule) && meter_added)
-> +		mlx5e_tc_del_flow_meter(esw, attr);
-
-[Severity: Medium]
-Can this lead to a double free of the post meter and an extra meter put?
-
-mlx5e_tc_del_flow_meter() kfree()s attr->meter_attr.post_meter and drops
-the attr->meter_attr.meter reference, but it does not clear either
-pointer:
-
-mlx5e_tc_del_flow_meter() {
-	mlx5e_post_meter_cleanup(esw, attr->meter_attr.post_meter);
-	mlx5e_tc_meter_put(attr->meter_attr.meter);
-}
-
-attr->dest_ft and the FWD_DEST action bit set by
-mlx5e_tc_add_flow_meter() also stay in place.
-
-mlx5e_tc_rule_unoffload() treats a non-NULL meter pointer as a live
-reference:
-
-	if (attr->meter_attr.meter)
-		mlx5e_tc_del_flow_meter(esw, attr);
-
-So any later unoffload of the same attr releases the meter again.
-
-That later unoffload looks reachable through mlx5e_reoffload_encap() in
-en/tc_tun_encap.c. Consider a fast path FDB flow with a police or MTU
-meter that redirects to an encap device:
-
-mlx5e_invalidate_encap()
-  mlx5e_tc_unoffload_fdb_rules(esw, flow, flow->attr)
-    releases meter ref #1 and post_meter P1
-
-mlx5e_reoffload_encap()
-  mlx5e_tc_offload_fdb_rules()
-    mlx5e_tc_rule_offload()
-      mlx5e_tc_add_flow_meter()          takes ref #2 and P2
-      mlx5_eswitch_add_offloaded_rule()  fails
-      mlx5e_tc_del_flow_meter()          frees P2, puts ref #2,
-                                         attr->meter_attr still set
-
-mlx5e_reoffload_encap() then marks the flow as offloaded even when this
-step fails:
-
-		rule = mlx5e_tc_offload_fdb_rules(esw, flow, spec, flow->attr);
-		if (IS_ERR(rule)) {
-			mlx5e_tc_unoffload_flow_post_acts(flow);
-			...
-		}
-		...
-		flow_flag_set(flow, OFFLOADED);
-
-The flow is now OFFLOADED and not SLOW. The next flow delete
-(mlx5e_tc_del_fdb_flow()) or route event (mlx5e_invalidate_encap()) goes
-through:
-
-mlx5e_tc_unoffload_fdb_rules()
-  mlx5e_tc_rule_unoffload()
-    mlx5e_tc_del_flow_meter()
-      mlx5e_post_meter_cleanup()  reads freed P2->type, destroys its HW
-                                  objects again, kfree()s P2 again
-      mlx5e_tc_meter_put()        drops a reference that is no longer
-                                  held
-
-The extra mlx5e_tc_meter_put() could also destroy a meter that other
-flows using the same police index still rely on.
-
-Before this patch, P2 and ref #2 leaked at the failure point and were
-released exactly once by the later unoffload. With this patch they are
-released twice.
-
-The same mlx5e_tc_rule_unoffload() call also passes the stale
-flow->rule[0] to mlx5_eswitch_del_offloaded_rule() on this path. That
-problem already existed and comes from the unconditional OFFLOADED in
-mlx5e_reoffload_encap(). The split_count failure branch in
-mlx5e_tc_offload_fdb_rules() already left similar stale meter state
-before this patch. The main path this commit targets, where
-mlx5e_tc_add_fdb_flow() fails, does look correct.
-
-Would it help to set attr->meter_attr.meter and
-attr->meter_attr.post_meter to NULL, and undo the attr->dest_ft change,
-after mlx5e_tc_del_flow_meter() in this failure path? A later unoffload
-would then skip the meter release.
-
-> +
-> +	return rule;
->  }
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261103102856.1340672-1-vulab%40iscas.ac.cn
+Thanks,
+Laszlo
