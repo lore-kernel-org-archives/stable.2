@@ -1,59 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794064589;
-	b=dDYkl3IVSPwU6XlxRG9sNfLK994Vze7aLfxiAlZDDDvyIrVP9m/JEvfKRhrgfx3IQb+O
-	 mPrZ/z5YmqydEMh/MKD1/PLqkdoZZiwJ9gnFpgprYOjHt8X6W73Z+KX4GdXYQuV08TBiC
-	 6nvZfUW2aEoyzRRm3kBgy8auyIeDdinGT3zi9g4iOUZ0nsUMP+tsEfUWEP0dUGSWBS2at
-	 pwLe058OVpZ29rJXIUEd9UwgpVg60no1NHo24kmj0iuCbJMnyPtMqt45aCP/GYC3HpEfh
-	 +C7ClcuSt1V5ebd642dKl1I687uIhUEDeMk2J4L/UOCEbq1NpRdnhQAcxMM6ZkqIfsw==
+	t=1794064585;
+	b=ceoWCc0ebmI7Mo2h7k9nIDDs3NJG8VmOJIn8z4SIu+nNUi+l3T0mLOO7QAYjMBlEAIJx
+	 dDUHOGaYgTXdFcdohWTFjwjVWmxM8r0yWclzecIdUDS4G9DMnEDNz4268IJJzJMd+wusW
+	 PCegYgmZ53S/Xo+ndFnebk0fev+G7r4ehP1QKTADCeyMfnKiLMDSWKlhWrtdosyB25u5n
+	 LKiF+x93OwYq6owNxLSiS1khhbBeiWSUF9CoyB7IZ9X/dQovTU7xxYAKvaoRVWTr3iznq
+	 k+/lT5c/A1ENG8hK5sQbU0sKBbUShmECWaMouZJZPgZ7n7FF/hxeUEOmtFsy/oL7CVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794064589;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=wkz5nWVk2Vp1e3sOveQCTjT9ji5M+NH0emVjMiYY2W8=;
-	b=wsk8Q6sH0J0GVpCsOWINalqgC5NgJ2I2OxgKNhlaNF4iSwSzgG8vvzN6HSYjetVDZh2o
-	 1VCpE0fLmnKd2Je9ikL1JnXvF4oIbRoTgu3gt+6KJn2C/dYJxuyibSCvffQr19oXu/psx
-	 pDBxCyCQ+1ilGsxAsQIA7NZYvovFjK3373mZfUUE4zb+xwvWjlmetYps/cqZkRxeT1i+Z
-	 /ufvxbuFB5VKP+3r0oK/PHPxsH3tf7aEcxgP8D77mCpQOpgAwsX+IEkv/+Ava9IYhmGNy
-	 vT8FuxnedUtJ8fTWvWrBAVMrkxixQ4kqLO85dA3CVOKVA+XIVeHuX7hHfWIJwsnk88Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794064585;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=fmTPVOyd1cQq/DQTsVIa0U0d4oxVcQ44aVcpPa+R3AU=;
+	b=Hqiesm+qacwq9MWM06DMfQ1R/Vlzawnu192gCfD/2jDpPedrpv5x6A7dP6X7aFxsapAN
+	 lfcgyI+TXwCvr1OxB89ehiMPEJuDQBQnJ78Fi5h6JVC2y6sMoxwXo1DcKHr5iUBFk30dk
+	 LNN9KLUvxOGgEtlERbvigh9M+rgdUaY8LHCGX46rJh9ztITxAJqyo9I2Vz0oe7pWc28Wi
+	 7R9K8c8/VvQAZypxdrItn4NCuo0+1HiOSBRfWG0dMa75NRJlPAjR+8y+/bUMVPwWde1JN
+	 DFi9o5lSHsx+JZwAyTUTyZluehoqZH1LdKEF/oX7T+rlkzf7v0B7ULWkWoD8tdLfwYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=s3EwsXh5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hIr3afK1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 535DC606A332;
-	Sat,  7 Nov 2026 15:16:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9A61606A9C0;
+	Sat,  7 Nov 2026 15:16:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=s3EwsXh5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F26A51F0089F;
-	Sat,  7 Nov 2026 15:16:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794064589;
-	bh=wkz5nWVk2Vp1e3sOveQCTjT9ji5M+NH0emVjMiYY2W8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=s3EwsXh58YOf+8JLv2us1QRYJKivn8jzb4ij0n7Fph7osMjxRmJ8eerflcG5phzhP
-	 doq6p76R6BxIMQbu0a4qGeSP7TblP/Q9F/YjdBlV7PdtnLAYzbJSUawU3U7YlCyTLy
-	 S7fIHfi5vu8ESi0zmy1+uHxrqwgqwBkTuvz4b1Wc=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Yifei Gao <gyf161023@gmail.com>,
-	Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 0605/1257] misc: fastrpc: fix double-free in fastrpc_map_attach() error path
-Date: Sat,  7 Nov 2026 08:48:21 -0500
-Message-ID: <20261107134956.023691657@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261107134939.434104957@linuxfoundation.org>
-References: <20261107134939.434104957@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hIr3afK1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E683D1F008A1;
+	Sat,  7 Nov 2026 15:16:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794064584;
+	bh=fmTPVOyd1cQq/DQTsVIa0U0d4oxVcQ44aVcpPa+R3AU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=hIr3afK1NEdfK2hUtPa73OpNAiYqypYV3mbFMFhq9F9bMZq6ANRoashrX79qOZqoW
+	 mH/iay2XCs1hRG/mRtvy7MQh9T8JJ+Og83+qGBUEBRJPOyV1pRwuBteWEp7tjOd5/0
+	 RPvNZPDkPTmSjUQAjsCsnru7Ns+IWwhCHJ4+qv/Va6S4IIO/RDYtUm/9sYcS1/aosY
+	 CwlycAC6Abmr8oTuE57AbdUNqpboa/vwnMWmuuUOSE67/YtHRvjVeXTLz4TctQpdBx
+	 v5OLDL0ke80B5y44JHtNhvKvHO4gbeDkFeDnWTgr1wmxQzD3Ki3iDXLyXRuWLTqXJp
+	 b4/U1CUOuZ2Og==
+Subject: Re: [PATCH net v3 2/2] net/sched: sch_teql: keep skb->dev consistent
+ on the arp-queue path
+From: netdev-bot+sashiko@kernel.org
+To: jhs@mojatatu.com
+Cc: netdev@vger.kernel.org, victor@mojatatu.com, jiri@resnulli.us,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, stable@vger.kernel.org, sashiko-bot@kernel.org
+Date: Sat, 07 Nov 2026 15:16:23 +0000
+Message-ID: <179406458348.994134.6942745655171316289@kernel.org>
+In-Reply-To: <QDISC-6HS9.v3.r0.20261103062649-2@mojatatu.com>
+References: <QDISC-6HS9.v3.r0.20261103062649-2@mojatatu.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,80 +63,137 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-7.3-stable review patch.  If anyone has any objections, please let me know.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-------------------
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
-From: Yifei Gao <gyf161023@gmail.com>
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-[ Upstream commit 09fa66ec1b4896ab841da085ca58b6433f28f07f ]
+- [Medium] The new gate in neigh_update_process_arp_queue()
+  (net/core/neighbour.c), `if (!n1->dev->header_ops) skb->dev =…
+- [Low] The comment added in neigh_update_process_arp_queue()
+  (net/core/neighbour.c), '/* headerless outputs (teql, shaper) transmit…
 
-map->table is assigned right after dma_buf_map_attachment_unlocked()
-succeeds. The two failure checks that follow, the len > map->size test
-and, where subsystem VMIDs are configured, a failed qcom_scm_assign_mem(),
-jump to map_err with map->table already set.
+--
 
-map_err manually calls dma_buf_detach() and dma_buf_put() and then falls
-through to fastrpc_map_put(). Since that change the error path tail is
-fastrpc_map_put() -> fastrpc_free_map(), and fastrpc_free_map() already
-unmaps, detaches and puts the dma-buf whenever map->table is set.
-The two operations therefore run twice: the second dma_buf_put() drops an
-extra reference on map->buf, and dma_buf_unmap_attachment_unlocked()
-dereferences the map->attach already freed by the manual dma_buf_detach().
-kref_init() sets the refcount to 1 with no intervening get, so the final
-fastrpc_map_put() frees the map synchronously and the redundant cleanup is
-deterministic.
+net/sched: sch_teql: keep skb->dev consistent on the arp-queue path
 
-The len > map->size branch is reachable by an unprivileged process via
-FASTRPC_IOCTL_MEM_MAP with an fd whose dma-buf is smaller than the
-requested length, before any DSP invocation.
+The commit sets skb->dev to the teql slave before teql_resolve(). This
+means an skb parked on the slave's arp_queue no longer points at a master
+that teql_exit() can free on module unload. It also changes
+neigh_update_process_arp_queue() to set skb->dev to the top-level
+neighbour's device when that device has no header_ops, so the skb goes
+back through teql_master_xmit().
 
-Route both map->table-is-set failure branches to get_err instead of
-map_err, so fastrpc_free_map() is the single owner of the
-unmap/detach/put sequence. map_err is retained for the
-dma_buf_map_attachment_unlocked() failure, which is reached with
-map->table still NULL and an attachment that fastrpc_free_map() will not
-clean up, so its dma_buf_detach()/dma_buf_put() must still run manually.
+Link: https://lore.kernel.org/netdev/20260824115928.4099988-1-victor@mojatatu.com/
+Link: https://lore.kernel.org/netdev/20261026160747.283702-1-horms@kernel.org/
+Link: https://lore.kernel.org/netdev/20261031165925.780930-1-horms@kernel.org/
+Link: https://lore.kernel.org/netdev/179363700308.3131.11778179538290251434@kernel.org/
 
-Fixes: 334f1a1cbe03 ("misc: fastrpc: Use fastrpc_map_put in fastrpc_map_create on fail")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Yifei Gao <gyf161023@gmail.com>
-Reviewed-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-Signed-off-by: Srinivas Kandagatla <srini@kernel.org>
-Link: https://patch.msgid.link/20261002101220.1084101-2-srinivas.kandagatla@oss.qualcomm.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/misc/fastrpc.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+> diff --git a/net/core/neighbour.c b/net/core/neighbour.c
+> index d6e9c7c59a892..541cf699abae4 100644
+> --- a/net/core/neighbour.c
+> +++ b/net/core/neighbour.c
+> @@ -1339,6 +1339,9 @@ static void neigh_update_process_arp_queue(struct neighbour *neigh)
+>  			if (n2)
+>  				n1 = n2;
+>  		}
+> +		/* headerless outputs (teql, shaper) transmit on skb->dev */
 
-diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index d4fac2caca867..b35751212095d 100644
---- a/drivers/misc/fastrpc.c
-+++ b/drivers/misc/fastrpc.c
-@@ -927,7 +927,7 @@ static int fastrpc_map_attach(struct fastrpc_user *fl, int fd,
- 		dev_dbg(sess->dev, "Bad size passed len 0x%llx map size 0x%llx\n",
- 				len, map->size);
- 		err = -EINVAL;
--		goto map_err;
-+		goto get_err;
- 	}
- 	map->va = sg_virt(map->table->sgl);
- 	map->len = len;
-@@ -950,7 +950,7 @@ static int fastrpc_map_attach(struct fastrpc_user *fl, int fd,
- 			dev_err(sess->dev,
- 				"Failed to assign memory with dma_addr %pad size 0x%llx err %d\n",
- 				&map->dma_addr, map->len, err);
--			goto map_err;
-+			goto get_err;
- 		}
- 	}
- 	spin_lock(&fl->lock);
+[Severity: Low]
+This isn't a bug, but the shaper driver is no longer in the tree. There
+is no entry for it in drivers/net/Makefile, and the older comment block
+just above also names it.
+
+Would it be clearer to name in-tree devices this gate is meant for, such
+as teql and eql?
+
+> +		if (!n1->dev->header_ops)
+> +			skb->dev = n1->dev;
+> +		READ_ONCE(n1->output)(n1, skb);
+
+[Severity: Medium]
+This gate is in generic neighbour code, and it doesn't check whether
+sch_teql parked the skb. n1 comes from the skb's retained dst via
+dst_neigh_lookup_skb().
+
+Can it fire for any skb parked on an arp_queue whose original route uses
+a device with NULL header_ops? Examples include ppp, geneve in L3 mode,
+vxlan when header_ops is NULL, rmnet, qmi_wwan, mhi_net, ipa, iosm,
+mhi_wwan_mbim, eql and teql.
+
+Two producers park skbs on another device's neighbour while keeping the
+original dst.
+
+The first is nft_fwd_neigh_eval(), which nft_fwd_validate() allows on
+NF_NETDEV_EGRESS:
+
+	ip_decrease_ttl(iph);
+	...
+	skb->dev = dev;
+	skb_clear_tstamp(skb);
+
+	nf_dev_xmit_recursion_inc();
+	neigh_xmit(neigh_table, dev, addr, skb);
+
+The second is bpf_redirect_neigh() with an explicit nexthop.
+__bpf_redirect_neigh_v4() replaces the dst only when nh == NULL:
+
+	if (!nh) {
+	...
+		skb_dst_drop(skb);
+		skb_dst_set(skb, &rt->dst);
+	}
+
+bpf_out_neigh_v4() then sets skb->dev to the target and calls
+neigh_output() with the old dst still attached.
+
+When the target device X's neighbour resolves, the drain takes this path
+(Y is the original route device):
+
+neigh_update_process_arp_queue()
+  dst_neigh_lookup_skb()  -> Y's neighbour (Y has no header_ops)
+  skb->dev = Y
+  neigh_direct_output()
+    dev_queue_xmit() on Y
+
+Does this run Y's egress hooks a second time? In __dev_queue_xmit(),
+nf_hook_egress() runs before nf_skip_egress(skb, true) is set, so the
+nft egress chain runs again. sch_handle_egress() and tc BPF also run
+again.
+
+For nft fwd, this would decrement TTL/hop_limit twice. A packet that
+reaches Y's egress with TTL 2 would then be dropped.
+
+Counters, quotas and limits would also be applied twice. A tc BPF program
+that encapsulates could encapsulate twice. If the second pass gives a
+different verdict, the packet would leave through Y and not through the
+device it was forwarded to.
+
+Before this patch these skbs went out X without a link header, which was
+also wrong. Running Y's egress hooks a second time is new, though.
+
+The commit message acknowledges this:
+
+  "Those forwards supply their own device and nexthop and do not consult
+  the retained dst, so dropping it at those two sites is where that is
+  fixed; that is a separate change to the producers, not part of this
+  series."
+
+The patch is tagged Cc: stable. Would stable trees get the new behaviour
+without the producer-side fix?
+
+Should the dst drop in nft_fwd_neigh_eval() and in the bpf_redirect_neigh()
+explicit nexthop path go in the same series as this change?
+
+>  		if (n2)
+>  			neigh_release(n2);
+
 -- 
-2.53.0
-
-
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/QDISC-6HS9.v3.r0.20261103062649%40mojatatu.com
