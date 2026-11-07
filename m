@@ -1,51 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794045921;
-	b=GgJGkmSvaeQw3YPrbPUT8Z+WhxXi/zjcGUbeSaDSvrovPHxeaG+ZEuRW98W0rc6GEdcc
-	 12uQaTemOn5mFWqzyfwWivcKbfmKIh8QB25qMVdQ+vTMwEverPV1Pl166AnAV36YPyWss
-	 urUx6t6KY0BzNeTTkHGHbTPLnmbosPBRJYQpTQHmBuoUufhRs94UxNs6CbTds2WrX78sI
-	 5L/lZL5bNJJIMhxS7ntIavw3EBYgOzJC7ZvC0y43fhtaU6ieqRBKD0mYoRDNtvX06NXsX
-	 xFkD2t9/YB2KTBBAvY1UXCg+7PTpJ/By6dH+9HXV5TCF5pzyj20jvXAL4Fno66cfQdA==
+	t=1794045923;
+	b=rcIDDIWybE4oIs7Umh9lJ9CGvNusl70Sc0oGdgK95TwdeDwJFA1QQJJiwXPJQpDPS2gA
+	 3w/DeObdBpSjz7kEW72AYfFTbB1gNFuMj4YsUQDaRCruooONZzGfzpcrCgjT/JZkPv+AS
+	 4R2SjMLxz8UhOPAxi+GJprkdkhtaDNqLhklsCuExeMUjBtUjhgx0PRz2ThSUFcEnoIkoD
+	 LehVtAZBcfO94bKGdyNMhlDGoRW0l0LBIXde1u2gUK8GseYK8BakpX3yBmOKK0ytm44xV
+	 Zu654NYMx7kCIW7m5TN0XPfoJAMsFp+LjnbjchMm3YDgeIAaOVf/C2cmHfo7ISTXfbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794045921;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794045923;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=oI/EgRK2Qxg0RnFVHEr6l1q2eyHGZsRDvCfnW42TElE=;
-	b=umWrUzEYKbdmHm818zFeObVSsiLoXu1GVrJci625klY5++zmNNnnKxbrkoJkOLZlSvRq
-	 p36BOyVDJ+sF5J4YkT2iQL1KpSgLcjVrLMQKtFc14S45MGkUD6e1c03n+wjo838z4+wMP
-	 h/z6IRmRAW5EfaMV/aoN9PPFIQP/Qbq9wGLpXfQuwEaaw2R2LYqQ1NKW1kihDC9JIE2D7
-	 jLTWNbEcubrJpuNO+s8+3bzj7drnWOg/HmgfnEylwbEVl3zasGWeLDg9rzrCVhaRy6Y3u
-	 9SIU/Qkf+4ovbwKGvKGRuz7IXxKFLwMrrllU9F07C6Cil/FpG5jp4AtjRbFF+nQgFNg==
+	bh=7NOTbamsIhnYoarFY1EPP1iQ7GVM9nsb1LD1JvpCORE=;
+	b=U/Gz6qTuxEYVr/Cg//6LSCGzlfhlFkJyvn2U4advtmIgVwV6+1bAlyTzZvPNdPzc0LS7
+	 1sq4qyNA0fRgpq0Dde4Bg3+bD2WWrT2Yw6k9ldal8hegRelktutYfSSDwATHVCs3NiONG
+	 N4WaAsdOBT15fS6B3Ody8VvNHWxZvBG0jPFBo7xVKh1eKnBpyoqWGA+eU2jirFUpRof87
+	 aEHqNwr2VYvOqy14VfpKUyGRabW7cIQ/JUXJb0KbCuKesVi6zxKX1Murz7eDHuTeB23G6
+	 USA9FlekDG43qeVG/Gn+fpBUJyJjldUpDsIF0t21AOKkrKjkP4CtyLwVBoYTzB09E7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="I1j0pP/g";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QvvzxLIn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACE20606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:05:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FBD5606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:05:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I1j0pP/g
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27AEB1F0089F;
-	Sat,  7 Nov 2026 10:05:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QvvzxLIn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A5AD1F0089F;
+	Sat,  7 Nov 2026 10:05:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794045920;
-	bh=oI/EgRK2Qxg0RnFVHEr6l1q2eyHGZsRDvCfnW42TElE=;
+	s=k20260515; t=1794045923;
+	bh=7NOTbamsIhnYoarFY1EPP1iQ7GVM9nsb1LD1JvpCORE=;
 	h=From:To:Cc:Subject:Date;
-	b=I1j0pP/gl8pYMvZeAlw8T1yVsofF7uC43F0VLUNNzSVMJyyyNHKixzdqsNezlAORz
-	 RAc8nSaVuyzk+HbAV/iRTMNu7VSv3OVCxm/Yqyngz6nxHcRWZ10GkgsKRBnewDLH8q
-	 JRx09KU0XRvbIud/SUQMcnr8osaL8HN9JWQ5A2tqxgQxm0wFTJ+U6RoiraTjm+0Tqc
-	 wWVX7uHFhx/EABN4fCCwPyJEWt7Tka4lZf/rE0bl+6oW/ViVFdjc+WyjILySOOSvhL
-	 d0wpsn32B1V8Hch2w4IitRXqO4DCfAJPHApLTa8bItH31lPWKR0dkKBH7Df+cPSowS
-	 aFgIab4+/Bzqg==
+	b=QvvzxLIn8/kkBmdLw2vHqrDuDXnRVcodKXdbDYLey24r/eATUVaGv2PklhSewjhhV
+	 rfz2JrNy8p5lZXi8LYuqd0lVX8fuIJkyG15r5X5emE6xLUue/okNUeEGGJv/A3YPs5
+	 +jWKj5UZthS+5AyCvbeMxT/HOd+Hb5y4+zk1yEs2nSYajIn4qKERQmNvEyPkdFCw4D
+	 OkDrUHKbDXNSA4SK41AA4W5hpiZd+WYam6qnvyNLu3WmfsfnzsGJXFAeR31NtrD3GI
+	 Lrr2u95glbHYFi+666P8M6vuE/iurDv+RcTc3K15I3Z6Q9Tb+BIEEJdYDgDklD1OF4
+	 nrDgirm2uKYOg==
 From: Sasha Levin <sashal@kernel.org>
-To: chao@kernel.org,
-	jaegeuk@kernel.org
+To: akpm@linux-foundation.org,
+	l1za0.sec@gmail.com,
+	axboe@kernel.dk,
+	kbusch@kernel.org,
+	hch@lst.de,
+	tz2294@columbia.edu,
+	4ncienth@gmail.com,
+	viro@zeniv.linux.org.uk,
+	hare@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] f2fs: zone: fix to don't fail to grab GC target block on zoned device" failed to apply to 7.3-stable tree
-Date: Sat,  7 Nov 2026 05:05:18 -0500
-Message-ID: <20261107050518-failed-7.3-fd106ada4dee@kernel.org>
+Subject: FAILED: patch "[PATCH] block: restore the iterator when rejecting a misaligned bio" failed to apply to 7.3-stable tree
+Date: Sat,  7 Nov 2026 05:05:21 -0500
+Message-ID: <20261107050521-failed-7.3-40d070cbb190@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,94 +75,88 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x fd106ada4dee4b8adefec791ee9b9681b7b77501
+git cherry-pick -x 40d070cbb1906896d6fd65c39722d2411830ed9f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050518-failed-7.3-fd106ada4dee@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050521-failed-7.3-40d070cbb190@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From fd106ada4dee4b8adefec791ee9b9681b7b77501 Mon Sep 17 00:00:00 2001
-From: Chao Yu <chao@kernel.org>
-Date: Mon, 19 Oct 2026 09:00:32 +0000
-Subject: [PATCH] f2fs: zone: fix to don't fail to grab GC target block on
- zoned device
+From 40d070cbb1906896d6fd65c39722d2411830ed9f Mon Sep 17 00:00:00 2001
+From: Andrew Morton <akpm@linux-foundation.org>
+Date: Sun, 18 Oct 2026 17:30:00 -0700
+Subject: [PATCH] block: restore the iterator when rejecting a misaligned bio
 
-With out-of-memory fault injection (inject_type=0x0080800f) on a zoned
-device, f2fs stopped checkpoint during GC:
+bio_iov_iter_get_pages() can extract some iovecs before encountering a
+misaligned one.  It releases the pages and rejects the entire bio, but
+leaves the supplied iterator advanced.
 
- F2FS-fs (dm-0): inject kmalloc in f2fs_kmalloc of move_data_block+0xc0b/0x12b0
- Workqueue: dm-1_zwplugs blk_zone_wplug_bio_work
- Call Trace:
-  <TASK>
-  dump_stack_lvl+0x4d/0x70
-  f2fs_stop_checkpoint+0x1df/0x5d0
-  f2fs_write_end_bio+0xdbb/0x1320
-  blk_zone_wplug_bio_work+0x2aa/0x7d0
-  process_one_work+0x5c6/0xde0
-  worker_thread+0x403/0xb70
-  kthread+0x235/0x2e0
-  ret_from_fork+0x2f/0x70
-  ret_from_fork_asm+0x1a/0x30
-  </TASK>
- F2FS-fs (dm-0): Stopped filesystem due to reason: 3
+An iomap direct-I/O caller may subsequently reexpand the iterator's
+byte count and fall back to buffered I/O.  The reexpanded count then
+includes bytes before the iterator's current segment, potentially
+causing iterate_iovec() to read beyond the imported iovec array.
 
-In move_data_block(), the target block is grabbed from the meta cache
-after f2fs_allocate_data_block() has allocated newaddr. If grabbing it
-fails w/ -ENOMEM, recover_block calls f2fs_do_replace_block() to restore
-the old block address and curseg's next_blkoff, which already points
-past newaddr, so newaddr is never written. That leaves a hole in a
-sequential zone: the next write to the zone is not at the write pointer,
-the zone write plug fails it, and f2fs_write_end_bio() stops checkpoint
-w/ STOP_CP_REASON_WRITE_FAIL.
+In a reproducer using an initial empty iovec followed by 10-byte and
+1015-byte segments, writev() returned 1015 instead of 1025 and KASAN
+reported an 8-byte read beyond the nine-element iovec allocation.
+Saving and restoring the iterator on the rejected-bio path makes
+writev() return 1025 and eliminates the KASAN report.
 
-move_data_block() allocates newaddr before grabbing its meta page and
-goes to recover_block if the grab fails since commit 4356e48e6437
-("f2fs crypto: fix incorrect positioning for GCing encrypted data page"),
-the meta cache only replaced the meta page w/ a meta cache entry. That
-is harmless on a regular device, but it leaves the hole since f2fs
-supports host-managed SMR (now zoned block) devices, which only accept
-writes at the write pointer of a sequential zone.
+Restore the entire iterator rather than reverting a byte count:
+advancing past an empty segment changes its position without consuming
+any bytes.
 
-If newaddr is in a sequential zone, grab the target block w/
-F2FS_CACHE_NOFAIL, so nothing can fail between allocating newaddr and
-writing it. In a conventional zone or on a regular device, skipping
-newaddr is harmless, so keep the error handling for them.
+Leave successful and partially accepted bio paths unchanged.
 
-Cc: stable@kernel.org
-Fixes: 52763a4b7a21 ("f2fs: detect host-managed SMR by feature flag")
-Fixes: d1b959c87702 ("f2fs: Check zoned block feature for host-managed zoned block devices")
-Signed-off-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+Fixes: 14b007e17881 ("block: validate user space vectors during extraction")
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: Haocheng Yu <l1za0.sec@gmail.com>
+Closes: https://lore.kernel.org/20261018081203.2431035-1-l1za0.sec@gmail.com
+Cc: Jens Axboe <axboe@kernel.dk>
+Cc: Keith Busch <kbusch@kernel.org>
+Cc: Christoph Hellwig <hch@lst.de>
+Cc: Tal Zussman <tz2294@columbia.edu>
+Cc: Daehyeon Ko <4ncienth@gmail.com>
+Cc: Al Viro <viro@zeniv.linux.org.uk>
+Cc: Hannes Reinecke <hare@kernel.org>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20261020170250.014BD1F000C9@smtp.kernel.org
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
 ---
- fs/f2fs/gc.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ block/bio.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
-index 18aa6a12e805d..5b948c92f9813 100644
---- a/fs/f2fs/gc.c
-+++ b/fs/f2fs/gc.c
-@@ -1453,8 +1453,16 @@ static int move_data_block(struct inode *inode, block_t bidx,
- 		goto up_out;
- 	}
+diff --git a/block/bio.c b/block/bio.c
+index a1e9ffd5982d5..41d9f1c5992d2 100644
+--- a/block/bio.c
++++ b/block/bio.c
+@@ -1311,6 +1311,7 @@ int bio_iov_iter_get_pages(struct bio *bio, struct iov_iter *iter,
+ 			   unsigned mem_align_mask, unsigned len_align_mask)
+ {
+ 	iov_iter_extraction_t flags = 0;
++	struct iov_iter saved_iter;
+ 	int ret;
  
-+	/*
-+	 * If newaddr is in a sequential zone, it must be written once it is
-+	 * allocated, otherwise it leaves a hole in the zone, and the following
-+	 * write to the zone will fail as an unaligned write, so don't fail
-+	 * here.
-+	 */
- 	tentry = f2fs_grab_cache(META_CACHE(fio.sbi), newaddr,
--					F2FS_CACHE_LOCK_CREATE);
-+			F2FS_CACHE_LOCK_CREATE |
-+			(f2fs_is_sequential_zone_area(fio.sbi, newaddr) ?
-+			 F2FS_CACHE_NOFAIL : 0));
- 	if (IS_ERR(tentry)) {
- 		err = PTR_ERR(tentry);
- 		f2fs_put_cache(sentry, true);
+ 	if (WARN_ON_ONCE(bio_flagged(bio, BIO_CLONED)))
+@@ -1330,6 +1331,7 @@ int bio_iov_iter_get_pages(struct bio *bio, struct iov_iter *iter,
+ 	if (bio->bi_bdev && blk_queue_pci_p2pdma(bio->bi_bdev->bd_disk->queue))
+ 		flags |= ITER_ALLOW_P2PDMA;
+ 
++	saved_iter = *iter;
+ 	do {
+ 		ssize_t size;
+ 
+@@ -1371,6 +1373,7 @@ int bio_iov_iter_get_pages(struct bio *bio, struct iov_iter *iter,
+ 	bio_release_pages(bio, false);
+ 	bio_clear_flag(bio, BIO_PAGE_PINNED);
+ 	bio->bi_vcnt = 0;
++	*iter = saved_iter;
+ 	return -EINVAL;
+ }
+ 
 -- 
 2.53.0
 
