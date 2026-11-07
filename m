@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048476;
-	b=PGI5IO0pbtzCta5jqiDk3BSheJs6etGnZlWBZKPsrAXJyEldX0mSJKTK7Ls8MJKAYTL5
-	 ygPnTYQDPcnQQOTZQXgScTkCRtV2POcyqCaIzKnqmfdkR/zKQm+1zhvO6ujqsmz5Gbewi
-	 jkkh68QPPH5vYnmO8RHUhka/1ALARRPXfDhN18js85EZA0aHRGkPelrtZE4+XmVi+0msN
-	 m+5Je8e9Os5bJ8H9AZwKVmEmwRHgRmHUJNx2zmJPh3Z1PG71y6il4qhyugNmnMcTYxK41
-	 3JCx1ZZkor1hV3NQzWnYG5CVaCVQ+A+W2JCOG0MNE0ZVHcwjA6Gs5Ue/un2QbbwrcYQ==
+	t=1794048478;
+	b=miEYu+MvxicWmnulNmh4rdNGqy/tyQj0SQRPS12Q7JFHl7+661ovv4UVGsePdkkF5ZbI
+	 e7RxsA9q+NUyRe6zCUPNCjL7NaMZxgOGHJVsxHZSfNGahO2XFgw6gaBi2fn7u1r0D8cCq
+	 GGnZO5IIseVqSTsCHOF6EHnw9+JTkdZ5KJE2tvwrOdttH2ff0z326SirO05R3fAdEEjUV
+	 CdE9Ey9uUTVLuKmjszlBc4xasbq1ru7KB4V2By4UiHTBMjtoO6WG15bcue7heqeQ70Hdl
+	 lMKcZ09ReVrfhzAf9vArIUrWNKzzB/gRyPh28evLxBkim3Ravg/kvTyd0dEEXnemSew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048476;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048478;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=LSGM7D6FL1+KS+pGopS5AtGmbMLZ/BkrbEM5Cil2z3A=;
-	b=ka5b+CZEaIQ074ySOU/n6ea//EMJMB4LBL00nJER6WoVtXVaJKXXu9V9feAQZNr7BMhm
-	 2Ed3suEhbNxk5LH1i6N+K689Q9D2SB4QdDuV1aKN1lk1amrufbcQFlVEmYinTrL90HyQ1
-	 M7P0i1aU7ZXHc0Xxe1LRQqFsza6PxBjo06ou1i2NDc6hnAfmzu3fqjb2yliR8ywEDGBg9
-	 XrmaBA/2pQJtkJuNE0jSZgxF313Spa2aeeWqfWiISRYQg8rLLPUxCZYCeB24oRaWwnn3v
-	 PVXc3gTZ+PuJvSloIxEjaen+flTU3jzmqLnwXJKeTkeyia1/Z2/0NZjQof+kmCipoOw==
+	bh=R7LSUlRcNpKNmwJGaHF3+zBP7VrtRjn/VirNAwzut+Y=;
+	b=k7bcGL0evz2eyf/C3BwgxmuP7TuYe9zsBYW0+t45nVZ5D1nFU/FkXuZeqZdggwb07Uop
+	 WZIY4dTHcLdKgRDS3oBTG6Go4AtzNw/lkkyBFa1+2TY97LREDCuHc0UbdEQoSep/FY2rS
+	 6OAcgmJ1f2xRL9uORWEglfo3EZ408DDscNiz90MvvpXEOA3ppp7DmUDsJqMd9IjbXp9AV
+	 FDZaBsoK2H6pzBuliL7wnFuwSDV5ZQ3UAu6nlpV7xAkdUWt5rvSmk4Npy8x4S6IjB0IXf
+	 o2Qvaj7lP9IlpHkvWwECSsjXl6yMkO17V7IqYNY4fFZHUntLmqTRs4jvFBj5TtxeHSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WZQcKk0h;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LfvqSbza;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D073F606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:47:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0782606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:47:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WZQcKk0h
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1623B1F008A4;
-	Sat,  7 Nov 2026 10:47:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LfvqSbza
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CA3B1F0089F;
+	Sat,  7 Nov 2026 10:47:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048475;
-	bh=LSGM7D6FL1+KS+pGopS5AtGmbMLZ/BkrbEM5Cil2z3A=;
+	s=k20260515; t=1794048478;
+	bh=R7LSUlRcNpKNmwJGaHF3+zBP7VrtRjn/VirNAwzut+Y=;
 	h=From:To:Cc:Subject:Date;
-	b=WZQcKk0hPGdZ1L8ei5SGzsUx/FxtKzzYSwyegX8Y01We9jNaO/tu6qnHECnlXuP6M
-	 Z7aBeYmUN85rI+kdMSfMv7/TnmDS7qfeLaER0c3ka9Bkq2hkJpcq+tHEKCyVg0H4Y0
-	 lqaiJrnhHmxFKrzlR/o3LtSYilM9UpOP+HlQrPfNHC7iD7PNvVyFxD8oeUbcy/9VSw
-	 /1smZ2/mNDUzERwnmVRL/TxgKgATF/XPFtCqw1liL9LIqmO99a829xRmJrly2o2cuf
-	 0/FGZ/NPJc+8g2iUs9NgrE9PA4XobGaeJJBUNdk3cZT5+qljIboLbmSKXLeuBPAmpj
-	 jaSkdraSQ+n/A==
+	b=LfvqSbza9ZGho00c154mpyft+gEPSEWTO1sDk13qEo6Jq9mC77I9Ldzo+T052hCP1
+	 kHdtjrBlq021Meq0Es1QkAfYIla2wdG4BFrKd8Y8eyAwum9093MtkhVO1qkNGwmbrQ
+	 7CH+ancWEILIr1bGy01uhihR8a0ormD0HRQ1G7r/5zDZRsHh7gTFsg8YwaRsTL6NWh
+	 P2w7+ZicvdPz7WWLbVpplKGR0gaeUVKtEhrSvfOiakMUZz3pBvjXGxfYuDfU008omf
+	 7gjYbGeukTeOsvJBSzyCgKZpT9kyj+ZFtWg7fA/RxE9UsmZxi9xpYBfIOZ0a+s+uKN
+	 STXwDFw9Ro1FA==
 From: Sasha Levin <sashal@kernel.org>
-To: andrey.misyrov@gmail.com,
-	deller@gmx.de
+To: martin.fuzzey@flowbird.group,
+	gregkh@linuxfoundation.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] fbdev: core: Initialize modelist in framebuffer_alloc()" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:47:53 -0500
-Message-ID: <20261107054753-failed-6.1-0c9cb9321cb3@kernel.org>
+Subject: FAILED: patch "[PATCH] serial: sc16is7xx: fix data corruption due to unexpected xon/xoff" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:47:56 -0500
+Message-ID: <20261107054756-failed-6.1-8bb50e95c0ab@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,87 +68,70 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 0c9cb9321cb3863b52bdea4b8ae5a27705762c9e
+git cherry-pick -x 8bb50e95c0abd44607bc60a43032c1dbf7470d5a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054753-failed-6.1-0c9cb9321cb3@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054756-failed-6.1-8bb50e95c0ab@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 0c9cb9321cb3863b52bdea4b8ae5a27705762c9e Mon Sep 17 00:00:00 2001
-From: Andrey Misiurov <andrey.misyrov@gmail.com>
-Date: Mon, 12 Oct 2026 19:53:38 +0200
-Subject: [PATCH] fbdev: core: Initialize modelist in framebuffer_alloc()
+From 8bb50e95c0abd44607bc60a43032c1dbf7470d5a Mon Sep 17 00:00:00 2001
+From: Martin Fuzzey <martin.fuzzey@flowbird.group>
+Date: Thu, 1 Oct 2026 10:05:35 +0000
+Subject: [PATCH] serial: sc16is7xx: fix data corruption due to unexpected
+ xon/xoff
 
-framebuffer_alloc() returns zeroed memory, so info->modelist starts out
-with NULL next and prev pointers. The list head is initialized only
-later, by fb_videomode_to_modelist() or by do_register_framebuffer().
+The hardware supports automatically sending XON/OFF based on the
+FIFO status and that is already implemented by the driver.
+However that capability was not announced with the UPF_SOFT_FLOW bit.
 
-The "fix potential memory leak" commits listed below added
-fb_destroy_modelist(&info->modelist) to the probe error paths of s3fb,
-tdfxfb, tridentfb, i740fb and carminefb. These paths can run before
-the list head is initialized:
+When the port is opened with the default of XON enabled the driver
+configures that in the hardware.
+If userspace does not want XON/OFF (which is normally the case) it will
+use TCSETS to disactivate it. However the serial core optimises this
+to only notify the driver if someting imporant has changed, and for
+XON/XOFF thit is only if the  driver declares UPF_SOFT_FLOW.
 
- - s3fb, tdfxfb, tridentfb and i740fb call fb_videomode_to_modelist()
-   only after a successful EDID read, and tridentfb can also hit the
-   error path on an ioremap() or kmalloc() failure before that;
- - carminefb jumps to the error path when fb_find_mode() fails, before
-   its fb_videomode_to_modelist() call.
+So we end up with unwanted XON/XOFF in the data stream.
 
-fb_destroy_modelist() then dereferences the NULL head. Reproduced on
-Debian 12 (6.1.180) by binding s3fb to a VGA device without EDID and
-forcing fb_alloc_cmap() to fail:
+The problem only occurs if nothing else needed to be set by termios,
+ie if the user space requested values are the same as the default values,
+except for XON/XOFF.
+Since the default speed is 9600 this means that the problem only occurs
+when requesting 9600, otherwise the call to the driver will be made to
+change the speed, and that will also clear the XON/XOFF.
+As 9600 is quite rare these days that probably explains why this hasn't
+already been seen.
 
-  s3fb 0000:00:03.0: cannot allocate colormap
-  BUG: kernel NULL pointer dereference, address: 0000000000000000
-  RIP: 0010:fb_destroy_modelist+0x10/0x80
-  Call Trace:
-   s3_pci_probe.cold+0x12b/0x2bf [s3fb]
-   local_pci_probe+0x41/0x80
-   pci_device_probe+0xc3/0x240
-   really_probe+0xde/0x380
-   __driver_probe_device+0x84/0x150
-   driver_probe_device+0x1f/0x90
-   __driver_attach+0xce/0x1c0
-   bus_for_each_dev+0x87/0xd0
-   bus_add_driver+0x1ae/0x200
-   driver_register+0x89/0xe0
-   do_one_initcall+0x59/0x220
-   do_init_module+0x4a/0x1f0
+It also only occurs on the first port open after boot since the subsequent
+opens will use the "logical state" set by TCSETS but not communicated to
+the driver the first time.
 
-Initialize the list head in framebuffer_alloc(), so info->modelist is
-always a valid, possibly empty, list and fb_destroy_modelist() is safe
-on every error path. Keep the lazy initialization in
-do_register_framebuffer(), as drivers that embed struct fb_info rather
-than calling framebuffer_alloc() still depend on it.
-
-Fixes: 3b0ed04bc852 ("fbdev: s3fb: fix potential memory leak in s3_pci_probe()")
-Fixes: bb019d755366 ("fbdev: tdfxfb: fix potential memory leak in tdfxfb_probe()")
-Fixes: 7a35ec619d9a ("fbdev: tridentfb: fix potential memory leak in trident_pci_probe()")
-Fixes: 5936063409af ("fbdev: i740fb: fix potential memory leak in i740fb_probe()")
-Fixes: 6fcca16a2b19 ("fbdev: carminefb: fix potential memory leak in alloc_carmine_fb()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Andrey Misiurov <andrey.misyrov@gmail.com>
-Signed-off-by: Helge Deller <deller@gmx.de>
+Signed-off-by: Martin Fuzzey <martin.fuzzey@flowbird.group>
+Fixes: dfeae619d781 ("serial: sc16is7xx")
+Cc: stable@kernel.org
+Link: https://patch.msgid.link/20261001100534.1225894-1-martin.fuzzey@flowbird.group
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/video/fbdev/core/fb_info.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/tty/serial/sc16is7xx.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/video/fbdev/core/fb_info.c b/drivers/video/fbdev/core/fb_info.c
-index 52f9bd2c5417a..05988a936bebb 100644
---- a/drivers/video/fbdev/core/fb_info.c
-+++ b/drivers/video/fbdev/core/fb_info.c
-@@ -43,6 +43,7 @@ struct fb_info *framebuffer_alloc(size_t size, struct device *dev)
- 	info->device = dev;
- 	info->fbcon_rotate_hint = -1;
- 	info->blank = FB_BLANK_UNBLANK;
-+	INIT_LIST_HEAD(&info->modelist);
- 
- #if IS_ENABLED(CONFIG_FB_BACKLIGHT)
- 	mutex_init(&info->bl_curve_mutex);
+diff --git a/drivers/tty/serial/sc16is7xx.c b/drivers/tty/serial/sc16is7xx.c
+index 296079c16fdb9..7ddc8a38adab4 100644
+--- a/drivers/tty/serial/sc16is7xx.c
++++ b/drivers/tty/serial/sc16is7xx.c
+@@ -1516,7 +1516,7 @@ static int sc16is7xx_setup_channel(struct sc16is7xx_one *one, int i,
+ 	/* Initialize port data */
+ 	port->type	= PORT_SC16IS7XX;
+ 	port->fifosize	= SC16IS7XX_FIFO_SIZE;
+-	port->flags	= UPF_FIXED_TYPE | UPF_LOW_LATENCY;
++	port->flags	= UPF_FIXED_TYPE | UPF_LOW_LATENCY | UPF_SOFT_FLOW;
+ 	port->iotype	= UPIO_BUS;
+ 	port->rs485_config = sc16is7xx_config_rs485;
+ 	port->rs485_supported = sc16is7xx_rs485_supported;
 -- 
 2.53.0
 
