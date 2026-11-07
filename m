@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048189;
-	b=qzII6LI/XWFdLNmowLJxQ+dp7PXf1++k4lOHqj0w5W1bGry8IGpqUAiPL3DgdG8k3PXE
-	 88P3CKwf4VLLWn/rwag4UJI4YdDPZv7Zx9mUPErTT7IOZ1/Fp7vWLk2kYG5EWnuVH9ABd
-	 VvTf8fCkpEtUyi0cZunhz6iOk3bGCdRBL5UcCbnTqcEV31qMWTcH8F9KkUTK5IBRl0wzz
-	 YjD23NGxeeji58Gi/yvxbSwNqPeuxm4hRyGMz1Zbn8O379UVKB7I/UDse8N7wlQfbwiNF
-	 YHfPzirKAU6HZWZVIGd3mIqWt0I51yiw24idYexbL/0NpCtQOYcUmP7c9gXRkof4H7g==
+	t=1794048192;
+	b=V4uEi7NkQP/wij9Ucdh8n6lTcIko8Ic8Gzgs45v4/luf4qNHKwwRY/zOVcRMmB7gGOBf
+	 As393sa0dzmSXMmBghXqzBaMjLM56uhmTIRg1we6OR0NVM8O1MbqHDChTtCnMcvAkDZAo
+	 N43NXAM1vTtPEIg1sNQwfmTeGNvhTuCj9+DE+bcdaGJ+Xgl6JujBsNLEWJKnjNiAGVjGk
+	 7ANR4TvpEMpto0XWNs1U270/FzD7XQi0W2rKJG6yVPYnn1r60vfRu8P/slMNHbCgZuLfh
+	 E5MKo/zWWSM50qlFASQv0FN8dmmfn2199No7Ns6OKsCP8waFRh5c0PQq1wQo0DWDWwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048189;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048192;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=02ji+xI7o3fyPrpF/pU+jGfsndxgkw5qT8K3/o14ADA=;
-	b=Nhnef+k0/WQ/Pf4BpUw0mm1ubT1NN22PtJNPbsgQWHeoh6OaGE44fKNWfhGYPpBhuclp
-	 k9jGklYTHq9NEgwtnTtGqb9LDvBACLS8m+GpBphYzHr+q5TzqcJMCZpoS+CYSAyWEua5C
-	 Gm2BbbSRX7oY6WpPJG0OAj61X5sqzCeUY8Ps/ejNh+SSGxhrBqA/IcT3sgNFM/5m+LWNZ
-	 t6vVZEanMaToVTYKrlQnlfjMam3gPHj7qcpZBCy2Mmq23iid4ToCokOhNVBMV3c/CgzN8
-	 5QGIkR+glQTi5SCwVBLPzXDxXrRcw6KHBZt0kUJZiwGQDEftmmxyNocWNWNW2fHJyRA==
+	bh=ncKz3oa33CGzb5JCMiIvvOwbQrI61uWf3II44B4kk7M=;
+	b=wNB6nj6l4hjHosHJJNNfOfTfR9LrSsiBQE+LRCKT/6HfW8FesU9VWDK1VVo8GAJiEsqC
+	 Gyth/De4v6ged9dewxmlwDA/IH64tgzaGTfHV1HLmYswloa6FBTaPXtZXNakoRUtvZ8Gp
+	 FqRS4M6SfuXnYhRVMzMxCYx+mpgtB2QDFdwpQvk6zQtB24dC/g5OFDXesXiPG4+3DRvRK
+	 xsX6LuKdeT1k4sfG0fN9aDjCAJeHEsO1EFWgt+9s9wxkN9HcAdUbw8ybuYjgExW9roCzv
+	 6Zy0yTujibA6/Wr6MAvoemrwH9XTsltDIUpbK9rnNtsulHci7Jild1spB/V2TZt47sg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kTUtMTDU;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MfebcsqD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97A65606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:43:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2D28606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:43:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kTUtMTDU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 146FE1F0089F;
-	Sat,  7 Nov 2026 10:43:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MfebcsqD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3004E1F0089F;
+	Sat,  7 Nov 2026 10:43:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048189;
-	bh=02ji+xI7o3fyPrpF/pU+jGfsndxgkw5qT8K3/o14ADA=;
+	s=k20260515; t=1794048191;
+	bh=ncKz3oa33CGzb5JCMiIvvOwbQrI61uWf3II44B4kk7M=;
 	h=From:To:Cc:Subject:Date;
-	b=kTUtMTDUarshVZFs4CDNbYrnEffZoZwjXrxMIAzztcvlHCxx1kCEGAxIPyovs9+ER
-	 qQIA7Kb3tJeSBY78W9lwAbXyugt+sTGz4dxPIXSCPw2NAohjepkMIV2ra3HCU26EOM
-	 QFuepw0JOuB9Sk0P+m3UBuSSElWupKuKEbIm/Un2C3jvAV2aReqTu0Xu8QCC8jLEJj
-	 owdtD4DlgxOFn/o9DYIvU6C4RaRpIyzYIz8aUagnqtw+WdGEoDFuQZEPWCpT6F0GET
-	 fjVYgPzg393Fo1Hrhb6ZiJgWdWmAu09+LzO6u16ECr1pHBybw5VKhfpEMfgrDb+Pb3
-	 R+J/b0bTpmOaw==
+	b=MfebcsqDhsmS5MZEThBiOCzPWzzwS1rpN1g+t5+I78H4L1Hoh+sp1gzpe/qKmuNd2
+	 lrTArV790N2U2uIcLFmkneuCL7Vk9La3ctBk3KNuQ3z8zPiq+eMVTimPXGKjLybYg+
+	 b+y5Uz3zGnLIy1LcL7A5RDllZrlOLsnSiSFBP46PNcuSHpWBztXYqA+E9F8PjWzzg/
+	 GizB3YdpXDbywB6VBGZEz4Hq30QQuOm1IONDT1KgfCSkLcauhRI3yrOgpl+uwtMwyS
+	 rS/d/mwwuUVpm9A54itBXZYivu1cq48aUEGbUEKjMGWpcpa6EUt878DBjnjqqapiad
+	 rAKuTjEUstUdw==
 From: Sasha Levin <sashal@kernel.org>
-To: runyu.xiao@seu.edu.cn,
-	tiwai@suse.de
+To: vulab@iscas.ac.cn,
+	broonie@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ALSA: mpu401: shut down timer before freeing MPU" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:43:08 -0500
-Message-ID: <20261107054307-failed-6.1-9332af5220d4@kernel.org>
+Subject: FAILED: patch "[PATCH] ASoC: codecs: wcd9335: Fix SLIM interface device leak in wcd9335_slim_status()" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:43:10 -0500
+Message-ID: <20261107054310-failed-6.1-082723fee626@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,88 +68,80 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 9332af5220d42341bb1446a62c545c0518e990ef
+git cherry-pick -x 082723fee626532f176727b6438b666a96d5246c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054307-failed-6.1-9332af5220d4@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054310-failed-6.1-082723fee626@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 9332af5220d42341bb1446a62c545c0518e990ef Mon Sep 17 00:00:00 2001
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Date: Sun, 27 Sep 2026 17:38:09 +0800
-Subject: [PATCH] ALSA: mpu401: shut down timer before freeing MPU
+From 082723fee626532f176727b6438b666a96d5246c Mon Sep 17 00:00:00 2001
+From: Wentao Liang <vulab@iscas.ac.cn>
+Date: Thu, 17 Sep 2026 16:48:53 +0000
+Subject: [PATCH] ASoC: codecs: wcd9335: Fix SLIM interface device leak in
+ wcd9335_slim_status()
 
-When an MPU401 interface has no usable IRQ, the driver polls raw-MIDI
-input and output with a timer. During raw-MIDI teardown, the timer callback
-can already be running when snd_mpu401_uart_remove_timer() clears the last
-mode bit and calls timer_delete(). That API neither waits for a running
-callback nor prevents it from rearming the timer, and free_irq() does not
-synchronize timer callbacks. snd_mpu401_uart_free() can therefore release
-mpu while the timer callback still uses it.
+of_slim_get_device() returns a device with an elevated reference count,
+and wcd->slim_ifc_dev is intentionally kept for the codec lifetime on
+success. However, all the failure paths of wcd9335_slim_status() return
+without dropping that reference, leaking the SLIM interface device
+whenever the register maps cannot be created or the codec fails to come
+up.
 
-Initialize the timer once when the MPU object is created and only rearm it
-while a timer mode is active. Shut it down synchronously after freeing the
-IRQ so an in-flight callback completes before mpu and its resources are
-released.
+Put the device on each of those error paths.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: 20aedafdf492 ("ASoC: wcd9335: add support to wcd9335 codec")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Link: https://patch.msgid.link/20260927093809.681726-1-runyu.xiao@seu.edu.cn
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Link: https://patch.msgid.link/20260917164853.2163184-1-vulab@iscas.ac.cn
+Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/drivers/mpu401/mpu401_uart.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ sound/soc/codecs/wcd9335.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
-diff --git a/sound/drivers/mpu401/mpu401_uart.c b/sound/drivers/mpu401/mpu401_uart.c
-index 6de03d72a9087..fcf2b686f9f5e 100644
---- a/sound/drivers/mpu401/mpu401_uart.c
-+++ b/sound/drivers/mpu401/mpu401_uart.c
-@@ -155,20 +155,20 @@ static void snd_mpu401_uart_timer(struct timer_list *t)
+diff --git a/sound/soc/codecs/wcd9335.c b/sound/soc/codecs/wcd9335.c
+index 9332082092c79..a98d1fd789251 100644
+--- a/sound/soc/codecs/wcd9335.c
++++ b/sound/soc/codecs/wcd9335.c
+@@ -5135,25 +5135,32 @@ static int wcd9335_slim_status(struct slim_device *sdev,
+ 	slim_get_logical_addr(wcd->slim_ifc_dev);
  
- 	scoped_guard(spinlock_irqsave, &mpu->timer_lock) {
- 		/*mpu->mode |= MPU401_MODE_TIMER;*/
--		mod_timer(&mpu->timer,  1 + jiffies);
-+		if (mpu->timer_invoked)
-+			mod_timer(&mpu->timer,  1 + jiffies);
+ 	wcd->regmap = regmap_init_slimbus(sdev, &wcd9335_regmap_config);
+-	if (IS_ERR(wcd->regmap))
++	if (IS_ERR(wcd->regmap)) {
++		put_device(&wcd->slim_ifc_dev->dev);
+ 		return dev_err_probe(dev, PTR_ERR(wcd->regmap),
+ 				     "Failed to allocate slim register map\n");
++	}
+ 
+ 	wcd->if_regmap = regmap_init_slimbus(wcd->slim_ifc_dev,
+ 						  &wcd9335_ifc_regmap_config);
+-	if (IS_ERR(wcd->if_regmap))
++	if (IS_ERR(wcd->if_regmap)) {
++		put_device(&wcd->slim_ifc_dev->dev);
+ 		return dev_err_probe(dev, PTR_ERR(wcd->if_regmap),
+ 				     "Failed to allocate ifc register map\n");
++	}
+ 
+ 	ret = wcd9335_bring_up(wcd);
+ 	if (ret) {
+ 		dev_err(dev, "Failed to bringup WCD9335\n");
++		put_device(&wcd->slim_ifc_dev->dev);
+ 		return ret;
  	}
- 	if (mpu->rmidi)
- 		_snd_mpu401_uart_interrupt(mpu);
- }
  
- /*
-- * initialize the timer callback if not programmed yet
-+ * arm the timer if it is not already active
-  */
- static void snd_mpu401_uart_add_timer (struct snd_mpu401 *mpu, int input)
- {
- 	guard(spinlock_irqsave)(&mpu->timer_lock);
- 	if (mpu->timer_invoked == 0) {
--		timer_setup(&mpu->timer, snd_mpu401_uart_timer, 0);
- 		mod_timer(&mpu->timer, 1 + jiffies);
- 	} 
- 	mpu->timer_invoked |= input ? MPU401_MODE_INPUT_TIMER :
-@@ -474,6 +474,7 @@ static void snd_mpu401_uart_free(struct snd_rawmidi *rmidi)
- 	struct snd_mpu401 *mpu = rmidi->private_data;
- 	if (mpu->irq >= 0)
- 		free_irq(mpu->irq, (void *) mpu);
-+	timer_shutdown_sync(&mpu->timer);
- 	release_and_free_resource(mpu->res);
- 	kfree(mpu);
- }
-@@ -528,6 +529,7 @@ int snd_mpu401_uart_new(struct snd_card *card, int device,
- 	spin_lock_init(&mpu->input_lock);
- 	spin_lock_init(&mpu->output_lock);
- 	spin_lock_init(&mpu->timer_lock);
-+	timer_setup(&mpu->timer, snd_mpu401_uart_timer, 0);
- 	mpu->hardware = hardware;
- 	mpu->irq = -1;
- 	mpu->rmidi = rmidi;
+ 	ret = wcd9335_irq_init(wcd);
+-	if (ret)
++	if (ret) {
++		put_device(&wcd->slim_ifc_dev->dev);
+ 		return ret;
++	}
+ 
+ 	wcd9335_probe(wcd);
+ 
 -- 
 2.53.0
 
