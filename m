@@ -1,92 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794033439;
-	b=Vkl7G5ym+EBfsp2lMMrCr+MED4+/yFDzCkjxB/Ltvo/EjqqNelo3sX7qtNvUZtMBAJQ9
-	 604/y0QERzaECO+BTRGhQNj+Ez9ksdKiTNAWSWWIPjtjk6BAAnd/9QuAeg1j+eoKkZl+N
-	 zFoetw5VkWQ6fin7Y/6hk6Uy0OMO9+H6luRs5XMDBXIRek1gItxSBoijgoLYqDgH2tnv6
-	 ULo5YeAxV+8RqXpZ0Nza70gEcOkzVqTL71mV4qoOLLPnIHO6aqLpioO3Z3Kumti45eHup
-	 936Is6FEEIxHBP1gQObf27T40ZWccwOmTSpDFzSMYVjoQZOUUV3uqs5jj8A8WiobdVA==
+	t=1794033457;
+	b=E7Y9OT5uC3qkndhX7M0igAnz6fxULEmdHgtJDJcs1uWVqbYxJQ4iZGHjGIrAawj+G7ML
+	 2ErAqCVGnKSacKca8HrOfdEzUrLvxlBAbCo3CqRPYGyyDRTiytjQh8BQYAjoe+J1D8Gnj
+	 KiGHiEWy6n0iQRtav4Y0FATP3wXTZlyKESvM6GJcs9geu9YczdFN+533Uhjv+YtU6lFm+
+	 vcmCXz0Az6/Xc0TxIvY9egHggkspn9mbiSGXgs2A+UZsaCXzg6A0clrriy23vEnj9tBbZ
+	 dV5veFVvl3gqWOguSUysqjuiAYw5McdCbLfmvjFEAp0QMmeI6kMkEgDeog6IfETGkLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794033439;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794033457;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=t0SasdD5O78Tua3GaSrEY4WvAvJVfv0N4XP5fK5UX6k=;
-	b=QQw5kAIibv7IfXmuVSEYiS5ZdAG5EvDrTehNbbPW3HsU+q+H9s08aBxRiustGvLxRyqn
-	 eTgd1ZsMb2ekp8ddjHSrpILYPgQZebJRECc1dBLiyrlH73kUJuV+UgvtE9X4d+uF+Z33H
-	 GAuUo/QHae5ALvxch6jcOg4n6t3g+et1B+52E54GWAMGD+mDTSrKHpWK9FPFSpRPcccif
-	 Si+2tU1uRrvJZ1qtqH2zSkVUa5jCdX584NI0OKruA0a/foPUxliPOp6kNC5ARMoVLlGsl
-	 Il/ss06AtJb1hO9GtpswOu7FR3T5npLZfyxmCysN9vhi7Kvpro6O3HlQNa47r4MaVgQ==
+	bh=LHL2l3rOn22wCea5M4iQzvY4HHhth4DONcB31HGYom0=;
+	b=sN4pyVAhU2+CF5qIHR6LsMItI+4P1RWYA75zNT4nBMZyEiOvc4sT1Ev/DHqEjazDjKcG
+	 huAZP12koFy3Do2F+EcA38iIoLK5J1oclza2YAJrqTB0wJe2WZ+tz/1qxnk7+puJK5hO7
+	 RBg7cSiMa8YiFn2YdKn8ZLck6z72Ekspi7dZOFpe24VfGpdN9jQPSWklcG5HeOi1hZd/S
+	 xZ/W8wpfbhFHRMEQA+RjClJ548IWzZtYMXTwgawdiRSwAwKG3XkVj/Hda8ngmqnHe3OHl
+	 rQbwxO6MV3FoeX/3UteEpiiQA2CoLSckobL+OguYxnA2LvBffBf2k0qPFg0Nop/WsUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=R52Okyr8;
-	arc=none smtp.remote-ip=209.85.214.177
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Fu7kgJQA;
+	arc=none smtp.remote-ip=209.85.214.169
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C00BF606A330
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 06:37:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C00BF606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1380606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 06:37:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1380606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=R52Okyr8
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2e9d7791b00so10157925ad.0
-        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 22:37:18 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Fu7kgJQA
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2ed1b9e8f43so5660575ad.1
+        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 22:37:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794033438; x=1794638238; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794033456; x=1794638256; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=t0SasdD5O78Tua3GaSrEY4WvAvJVfv0N4XP5fK5UX6k=;
-        b=R52Okyr8y2WeBJ90NdR32XbxQ4qgbDLtcRNASwCSEPonXO5Kc5v1Pd5JlH7qxg8t7c
-         HPY9y5VlzGvRuhP4EaDj7pc7SUMPeyuDIQTQiLL1DUvL9dIqtGl4Nzt2muqstyyb7q2v
-         PdKzpQhDr7TUrNFAC5DkaiGkscPsqeALksYrgIGWZnMrELUFQYBAu36r3nLl8hwCx8wo
-         c8VvuWTirrGqgVcKY1fghZht8PDF26snR6l+PqYD0WOqF1kQlvUjzY+EsQA7Bmbh8jkj
-         VsJT3HQTR+TrAfRHK7Qla5uR4B6przejXtwubtfe6IGpJF+HeO7J1TIXySmkxCLAwBW3
-         /sfQ==
+        bh=LHL2l3rOn22wCea5M4iQzvY4HHhth4DONcB31HGYom0=;
+        b=Fu7kgJQAT1614CBoJ/v0QNumGTnN/XUwli/MO4kPZrVn02UGb3hXhv0UJ8xGiIno5h
+         VGMRKshITnOzwHw1He0nsL8KGGbk6zAuorEA2hAvA/EEyQzQWnaQ9bGh/Zos4PRJszvU
+         pauSU4gZxBeZb5H9xjnRSiFhV7SBhoB4crHhtV2Am9bxSj2E96Vy1nkaAwfCgDk5RaWS
+         ZcnWEJ0Rd0xVZhd81TTQvkGu2mwVAFtlXxC3QDhP0KnL3o5OQKENwpjJUH6n4/qtD0zu
+         0yu7LrqB+xWnnKugjwas6+PvPI39yp5p88b3J8LeoIKVFH60Yvp14bi3LgZ/Cp6Ni84Q
+         Id+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794033438; x=1794638238;
+        d=1e100.net; s=20260707; t=1794033456; x=1794638256;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=t0SasdD5O78Tua3GaSrEY4WvAvJVfv0N4XP5fK5UX6k=;
-        b=dSlhVEvfE0ri4cxK1CN2dg0GDKxFK6QEbTNBgCMQ4DhCxpufFK0baeWF7PDaQ3WbCE
-         hC3Y+OhJD/w4Fuow7cDFPfa3M1E7ewkItglSn6ReNQFhqZYbBPkkZ3gQ1WFFFfnTprtX
-         IH12kiSmpoQ8+wRrNLLr2lJ9WNcmuwHQTQS6C73t48idk7SEnw0RGd7+1W7DLaL1F8pU
-         LhPeWnoEKuL0I6ChXUkDSvIAEXZ9YUDLkVFPDjBWQshUnVHwSIVvmW4D7Oqd4Xz473OP
-         xUgE7N5AXfaaWy0oCdnWXjRoWiHocdxZdpfKPF2yGyad379yXhOA7ZqrRSNtdDlQOuDJ
-         hsGw==
-X-Forwarded-Encrypted: i=1; AL+hErFPWCI9MkcfTWD/wqQucqhjKF73as99zUek5fAhFkQvGhe5W/AXNYxlReM4EQlWsvrhlJ4Le2U=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8QgwyBKvL78KjRWmd302iB6tynmPZKwDqCk+e9bAzTDjhunTdz
-	GqTd2A22U3z7k04Zwmg51Ic2zWd0f3Hr3lHRQXOd0SU1aaEGx3RXJ851
-X-Gm-Gg: AYBFou2DqYEAV99+/O/HkN6AQs0JxDqEou0WaYzY2FCDO0YFY7kZT/XoOpyihv9RLn+
-	gyGPbKPluA0V0zTYFcUoUXN1AItz/3c9um3fDE1ijws5zEOsangNntLIlaUi1ya05KuYmcD23+4
-	ZFH5qU1YlvlMhz+xP0iC7xantMw0wwfuTJX16x2vy/so+fZzZO2DiKoIr1c+xIuIst4Eh8H63LC
-	0xto4/2gKUq1CXkq3Py8Ccat4PzR79Tw9rkQs+FLqRYpDymlWX9SjskDKxWX25+v7Dok8fOAz3d
-	1lwxT2EC3M/iVS9c/NlL0a7GjD4KiBmDAktumhUtTF+A5f+WC3pUsUvw4PlHg2BhSu3yomhTc3w
-	01BM4UOFWi0NXWZOfYUcI06aEjf0h35jcD4BqdGyEjZtdyhP5LkUlZ5/9Xa1HP726oKeHGdLpsP
-	iLETMeTao6xWC8CnVN9EWRcOl/lLi1CglqFIajDUyHfSKJqmZB5HdIg4dAFLV7ujkWvJhJ5x9af
-	AS3HvJHVcVz6bi+Jbh8A2iwMeiaw9j1WRrpxhqtQ6aeGM4FBZhG6z9Fmd0v0ac4AMn05Udin76m
-	xi+DAsWr/T2+1V8ayuwAZ1f8mnt+pQ3BDDh1pYbeXoW+Km7OdeQsSIgGaArf8uRY5sDPVQ==
-X-Received: by 2002:a17:90b:510f:b0:3a5:c08:4c41 with SMTP id 98e67ed59e1d1-3b0db724f88mr4471992a91.50.1794033438122;
-        Fri, 06 Nov 2026 22:37:18 -0800 (PST)
+        bh=LHL2l3rOn22wCea5M4iQzvY4HHhth4DONcB31HGYom0=;
+        b=VEH4yQBj78Dtm1cCg8hRm8aFsbAMM7fsF19tk+QKTVn3HT1laT+IN+hfO5NOtMhRjU
+         zSrlX1uQfSPVssV7R5lC49wUdHmpvl/tng1u8Rs5o0oh9u149V5nd9Gk5Md5JHsodsID
+         DKzuZv3Uk+LWgchR6LoBMpCZ0zqovf8Y41qJ/+HK3R0MHo5Dp7nSt5WUEySsBzO2FyU1
+         34CgqzpMy6UPzD+5n0ZCm2p8fybY++CsvctMeJ80Rve8JV2vHHlepH6X2JoDkMRWSuSq
+         SgZiA5RSMNPNuXJziBBzFlJXRm4D6BirhwKQcYgjT0JxpYs5fVnmBaZZSuG/93KCn2jR
+         6pVA==
+X-Forwarded-Encrypted: i=1; AL+hErFpOOZ47IFbJ59FY1u4toCBmIM8lzk2/KyMmE6fRyKFyTd/DQ0g7Nu+zhIndo/IJdDsQkTBlOs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+K62A3V62JE+RalCXG+XUT3cdVDaV9eDhXk2rj4cztTrrqIfOP
+	yfj9odaBWVjzPFcukou0rlkxAGEFADEtLFSi0n9Z0qAwxCKPvV5QM1NO
+X-Gm-Gg: AYBFou0q6SjP/eYrDAaOhZ8mErXgBvi9iZsR1/TB/4qvNTPuwKknTgz/AYl2K5mramp
+	x+vzk2xXuo8N6kqJ6CNrhDXxjqWSXFA++aUkf/K/TRZVKx+E4VOvXh/VkgX0ld9jTkTrMaJ0Zpq
+	ZkR54pB4X+JCKj8qfTQ6WH+WGhb+lXj7OaQ+lQY41M8CB4dVWeJWHKFRDBoJ9G+92gFrGQwWajR
+	IkZh2QVjtwYjWGAtFbIAmkgzJXpnI7bhCFp77kDJAjvPtSg4wzB1aYYA6/u7asNuAj5BVKubaR9
+	eR8cNmGe+Yiy0wvCfIi8QewDPCzt+C8kFX8ONMYIMXCbw/apol8k6PlKMvQLe34RP88jyEHmJ9b
+	kZxOFC+Wsh+et2dKpFmaQeCGlTT27I4YVPr3Kach1P5wVLyuiSttHmPSmmHFXxgqQPs5vi46nYA
+	nykExQo7oWGo/WaRc1rmeAJMHHiWp7006CM1HCjTJZ4SlO44uJRZVyIDMox+0GCSaSPm6/ev8Y5
+	Kl/sbIjZEd8qKXffWuE493gx2CvGMX6rvDu7Mx8O6EC/4iUwG+XAIc6uMHPblDGE1zOGzB7pPO0
+	ElBibxwDbpgdgUy6AZ8wdTx/QWzKpAZcmN4gPY/PZ0YlBHyJ
+X-Received: by 2002:a17:902:c403:b0:2ed:892:584b with SMTP id d9443c01a7336-2ed40c4950cmr61777055ad.32.1794033456039;
+        Fri, 06 Nov 2026 22:37:36 -0800 (PST)
 Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0fc23b547sm1597066a91.0.2026.11.06.22.37.16
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed477a9301sm11315185ad.23.2026.11.06.22.37.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 22:37:17 -0800 (PST)
+        Fri, 06 Nov 2026 22:37:35 -0800 (PST)
 From: hyunjungg <hj351016@gmail.com>
-To: CL Wang <cl634@andestech.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	linux-rtc@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
+To: MD Danish Anwar <danishanwar@ti.com>,
+	Roger Quadros <rogerq@kernel.org>,
+	netdev@vger.kernel.org
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
 	Hyunjung Ko <hj351016@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] rtc: atcrtc100: drain the alarm work before the RTC device is freed
-Date: Sat,  7 Nov 2026 15:37:11 +0900
-Message-ID: <20261107063711.3388440-1-hj351016@gmail.com>
+Subject: [PATCH net] net: ti: icss-iep: fix deadlock when disabling PPS
+Date: Sat,  7 Nov 2026 15:37:26 +0900
+Message-ID: <20261107063726.3388730-1-hj351016@gmail.com>
 X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -101,94 +107,70 @@ Content-Transfer-Encoding: 8bit
 
 From: Hyunjung Ko <hj351016@gmail.com>
 
-atcrtc_alarm_isr() schedules atcrtc_dev->rtc_work (atcrtc_alarm_clear),
-whose handler obtains the atcrtc_dev via container_of() and dereferences
-rtc->rtc_dev (guard(rtc_ops)(rtc->rtc_dev)).
+icss_iep_pps_enable() holds iep->ptp_clk_mutex across the whole function.
+When PPS is being disabled it calls cancel_work_sync(&iep->work) while that
+mutex is still held.
 
-atcrtc_probe() requested the alarm IRQ with devm_request_irq() *before*
-allocating rtc_dev with devm_rtc_allocate_device(), and INIT_WORK()'d
-rtc_work last with no teardown cancel.  Because devres unwinds in reverse
-registration order, on unbind the RTC device is freed before the IRQ, and
-rtc_work is never cancelled at all: an alarm interrupt arriving around
-unbind can run atcrtc_alarm_clear() after rtc->rtc_dev (and the devm
-driver data) have been freed -> use-after-free.
+The work handler, icss_iep_cap_cmp_work(), acquires iep->ptp_clk_mutex at
+its start. The capture-compare IRQ (icss_iep_cap_cmp_irq) schedules this
+work on every CMP1 event while PPS is enabled, so a handler instance can be
+running when userspace disables PPS. In that case cancel_work_sync() blocks
+waiting for the handler to finish while holding ptp_clk_mutex, and the
+handler blocks trying to acquire the same ptp_clk_mutex -> deadlock.
+lockdep reports this as a possible circular locking dependency between
+the work and ptp_clk_mutex.
 
-Allocate the RTC device first, then register rtc_work for device-managed
-cancellation with devm_work_autocancel(), and only then request the IRQ.
-devres now frees the IRQ first (so it can no longer schedule the work),
-then drains the work while rtc_dev is still valid, then frees rtc_dev and
-the driver data.
+Unlike a teardown path, the capture-compare IRQ is not disabled here, so
+the race is reachable at runtime simply by toggling PPS off while the
+hardware is generating CMP events.
 
-Found by code review; not reproduced (requires ATCRTC100 hardware and an
-alarm interrupt racing device unbind).
+Drain the work only after dropping ptp_clk_mutex. The hardware compare is
+already disabled by icss_iep_perout_enable_hw() before the drain, so no new
+work can be scheduled once the mutex is released.
 
-Fixes: 7adca706fe16 ("rtc: atcrtc100: Add ATCRTC100 RTC driver")
+Fixes: f18ad402cd8b ("net: ti: icss-iep: Enable compare events")
 Cc: stable@vger.kernel.org
 Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
 ---
- drivers/rtc/rtc-atcrtc100.c | 30 +++++++++++++++++++++---------
- 1 file changed, 21 insertions(+), 9 deletions(-)
+---
+ drivers/net/ethernet/ti/icssg/icss_iep.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/rtc/rtc-atcrtc100.c b/drivers/rtc/rtc-atcrtc100.c
-index 2433df3..51a38f0 100644
---- a/drivers/rtc/rtc-atcrtc100.c
-+++ b/drivers/rtc/rtc-atcrtc100.c
-@@ -7,6 +7,7 @@
+diff --git a/drivers/net/ethernet/ti/icssg/icss_iep.c b/drivers/net/ethernet/ti/icssg/icss_iep.c
+index ec08589..6264061 100644
+--- a/drivers/net/ethernet/ti/icssg/icss_iep.c
++++ b/drivers/net/ethernet/ti/icssg/icss_iep.c
+@@ -579,6 +579,7 @@ static int icss_iep_pps_enable(struct icss_iep *iep, int on)
+ {
+ 	struct ptp_clock_request rq;
+ 	struct timespec64 ts;
++	bool drain_work = false;
+ 	int ret = 0;
+ 	u64 ns;
  
- #include <linux/bitfield.h>
- #include <linux/delay.h>
-+#include <linux/devm-helpers.h>
- #include <linux/interrupt.h>
- #include <linux/math64.h>
- #include <linux/module.h>
-@@ -301,6 +302,26 @@ static int atcrtc_probe(struct platform_device *pdev)
- 				     "Failed to get IRQ for alarm\n");
- 	atcrtc_dev->alarm_irq = ret;
- 
-+	atcrtc_dev->rtc_dev = devm_rtc_allocate_device(&pdev->dev);
-+	if (IS_ERR(atcrtc_dev->rtc_dev))
-+		return dev_err_probe(&pdev->dev, PTR_ERR(atcrtc_dev->rtc_dev),
-+				     "Failed to allocate RTC device\n");
-+
-+	set_bit(RTC_FEATURE_ALARM, atcrtc_dev->rtc_dev->features);
-+	atcrtc_dev->rtc_dev->ops = &rtc_ops;
-+
-+	/*
-+	 * Register rtc_work for device-managed cancellation after the RTC
-+	 * device it dereferences and before the IRQ that schedules it, so on
-+	 * unbind devres frees the IRQ, then drains the work, then frees the
-+	 * RTC device and driver data -- never the reverse (atcrtc_alarm_clear()
-+	 * touches rtc->rtc_dev).
-+	 */
-+	ret = devm_work_autocancel(&pdev->dev, &atcrtc_dev->rtc_work,
-+				   atcrtc_alarm_clear);
-+	if (ret)
-+		return ret;
-+
- 	ret = devm_request_irq(&pdev->dev,
- 			       atcrtc_dev->alarm_irq,
- 			       atcrtc_alarm_isr,
-@@ -312,12 +333,6 @@ static int atcrtc_probe(struct platform_device *pdev)
- 				     "Failed to request IRQ %d for alarm\n",
- 				     atcrtc_dev->alarm_irq);
- 
--	atcrtc_dev->rtc_dev = devm_rtc_allocate_device(&pdev->dev);
--	if (IS_ERR(atcrtc_dev->rtc_dev))
--		return dev_err_probe(&pdev->dev, PTR_ERR(atcrtc_dev->rtc_dev),
--				     "Failed to allocate RTC device\n");
--
--	set_bit(RTC_FEATURE_ALARM, atcrtc_dev->rtc_dev->features);
- 	ret = device_init_wakeup(&pdev->dev, true);
- 	if (ret)
- 		return dev_err_probe(&pdev->dev, ret,
-@@ -330,9 +345,6 @@ static int atcrtc_probe(struct platform_device *pdev)
- 				     "Failed to set wake IRQ\n");
+@@ -607,7 +608,7 @@ static int icss_iep_pps_enable(struct icss_iep *iep, int on)
+ 	} else {
+ 		ret = icss_iep_perout_enable_hw(iep, &rq.perout, on);
+ 		if (iep->cap_cmp_irq)
+-			cancel_work_sync(&iep->work);
++			drain_work = true;
  	}
  
--	atcrtc_dev->rtc_dev->ops = &rtc_ops;
--
--	INIT_WORK(&atcrtc_dev->rtc_work, atcrtc_alarm_clear);
- 	return devm_rtc_register_device(atcrtc_dev->rtc_dev);
+ 	if (!ret)
+@@ -616,6 +617,15 @@ static int icss_iep_pps_enable(struct icss_iep *iep, int on)
+ exit:
+ 	mutex_unlock(&iep->ptp_clk_mutex);
+ 
++	/*
++	 * Drain the capture-compare work only after dropping ptp_clk_mutex.
++	 * icss_iep_cap_cmp_work() acquires ptp_clk_mutex itself, so calling
++	 * cancel_work_sync() while the mutex is held deadlocks when a handler
++	 * instance is already running and waiting for that same mutex.
++	 */
++	if (drain_work)
++		cancel_work_sync(&iep->work);
++
+ 	return ret;
  }
  
 -- 
