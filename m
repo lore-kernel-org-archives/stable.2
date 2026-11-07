@@ -1,53 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049845;
-	b=mT54VKwB+J8WnwHA1uyDmdqJ539pI04rU6HXca6f8wLAeSLpREGGObQ/td3eefeGGDZt
-	 T1rz+JXgxaxHCAbad/t4DIgCd8Yi3Zkm6XsIUZWLM9Z7UM8ymAypaXGO1oH8Ca0uNeTdj
-	 J7My2vLd+qaJNvVqEK5pK/CITqv2LT4AuSk38Dc2iN69tmrFDWEd/3BqsliSWdXCSVYly
-	 aSNdVTi8lRu6Kn2L6l0KLXtmXJn8xlrkHkoeASfPEu5WyOGHjtZFLbe7UHwS+5LCkxtZI
-	 uFF8eIj2/d6gyX7Y5zMGZVDyW89xxsz/wJDFXNj5uv/F0NinRAur7Er79Ah82PtoQ1Q==
+	t=1794049848;
+	b=TE7p7lZzDlmCAfsmAs0h14T0EaKLMjyEljFWCKOcXdwSaF70du81ZkXAanzmEXgFvA2R
+	 1uAPIF4W4BM7sbWQUvNcHlXMGKOVzqA8lBBgKqWLj4vv2S/UENKgXKeRrzsWQdBnj0r/i
+	 2ikugHFnF3juKbE0wtgAQmaOxNM4L/O84BaIIxVNbtW2ArgrZhbYa8ihDzPqq0GWRb56z
+	 jrg0cN3R4GCRmCbJAxjixX2Jvf9k1Ue3UWbZUNgf3jrtbGlPMFksAYrDvgn9+dAJKHcp7
+	 9oVv3S8s7JoLYZEWedwVBZZLdStZ/g/P+14fz2FL+bnOCUqlaVvK++nBwE/aZBN2zAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049845;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049848;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Ux9PrsLVTIqOyZErZTLlqPBmr1r8sJm+ywlCMCEg1pE=;
-	b=DtoOAuFaGEFQ0INSe+46dPuysUSl6xxVs6ZzCnjXJ2/fziatGVzlrKMxTNECJ6C1peKW
-	 nTlDyDb8Pu9ZOQli8nUivDQftgvrH3zV2qn2nMl5U+Rsq0YXzpnZL15l/vTEZDZ7Hwfyn
-	 OfIvBtGo4PYJeepVgZeMOd2dDPazijsTbWyDinFs66qHG6p5DmbO5M+M9LiAzsxvRjX/u
-	 DIuf8qL8FdqQbFGIT+s7+hNy7d36d98V7HR47RcfNcgjcUeY0src1RiVbYqGUaxGRp+td
-	 d2Z5Iu/38TZ2q7TjSmDI1WlWiQCnccqkNNXv4NgeX6lRMBWgEPeA94mdMpeuIV11SJQ==
+	bh=1RFdybfjjtX9OxredLn7LtYD8CjVxZNuizXzjIliqjk=;
+	b=gind1ujxN5ZpsAOJFY73Ufh1rawZpaEcdqoaup232jIZX3YGuyRjythunLdResylZhHY
+	 QM6gYrfAD5NBMxkp6fXdryUPjQ5nhlj4oth3x+cgkANw0/E646KzncNlR9QXO3RDSFa1o
+	 6+vyq0skc35sx9wtLaPAfhRXzmUd4tAJeZSbAmcbqPcuz2iOUDd/ZaMiHWZb501uzSRRM
+	 i2Bf3K7YzGtrQyB1aumwKZSQBvbXTeJQYN3ERTrpKl/HLErCQHj+NL+jJMujSw1y2YJe6
+	 RmmiRwLqII0aUnaKiv6N7qvtzKQBi+lxzSiwK8oNIcS4WLhhj2okyAmZEvfCVO905dw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="OeuH/PhD";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="CMQ2T1/E";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EBFF606A32D
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:10:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E37D606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:10:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OeuH/PhD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4E551F008A1;
-	Sat,  7 Nov 2026 11:10:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CMQ2T1/E
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C06201F008A1;
+	Sat,  7 Nov 2026 11:10:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049845;
-	bh=Ux9PrsLVTIqOyZErZTLlqPBmr1r8sJm+ywlCMCEg1pE=;
+	s=k20260515; t=1794049848;
+	bh=1RFdybfjjtX9OxredLn7LtYD8CjVxZNuizXzjIliqjk=;
 	h=From:To:Cc:Subject:Date;
-	b=OeuH/PhDHUJD0YG+91ObdZRBTEdoAofhvXjJQmbidbNmFXLKz/naTVOOt3UiQPuHu
-	 6Nfe0ryaN1ltZ7D8T3+dCUGze7C7wSkqEfepHExAA8VmFW1PhTkpS4/hTifr3ZAItj
-	 uiBpzP37E5AoRY4/MBpdPSrEFtqUHc9LdV+fncKIgmSgKBgqfkhKTmSQTnSBnbIDze
-	 LwH9WzjFXH55dHrt6wGQHzWeS4gFO2OBHP7qxcw6yu/AQ9J8eGGb+edysXLxxOCrY5
-	 9oTQxe4+UKIF7BU6yX5P3XYsrD9CpCd+SbPIq6/ftlIMZgWbmKIli9SrfzyX0C7jlp
-	 mWzC8VsUk88dw==
+	b=CMQ2T1/EfhuCDyty3O5s0mGTyKGU4PMWKEsZmJIQ1P9cq6JMrNx9rHoiUUkH+gwgW
+	 CoF+6FXTlZcr36B6o3RpcUe+EeikoMPsaOYxV95RNYPRL8eaZiK+wRmf5gb1pDmYny
+	 5LiCXN7ymX82Oh9IJyXlYok05GVFDNod9kHqq39C7MUOWy9OnU8DLTvTg9EG91s0MN
+	 8sV0Q2ddj/2SbjO0S3UDWusKRBVaLBBMo70aVLI+k2Eppe35kv1lB6JJwTMW9xhxLw
+	 0wJe1zycB9v5kB/2dUQreftW9xHwEV1+KrLbQT4Tq7o78SSFbjzt/dhfjuxGINlAGt
+	 K7clgkZ9SDCvQ==
 From: Sasha Levin <sashal@kernel.org>
-To: nick@karaolidis.com,
-	chengzhihao1@huawei.com,
-	jack@suse.cz,
-	brauner@kernel.org
+To: make_ruc2021@163.com,
+	andi.shyti@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] fs: don't lose inodes that another LRU walker is isolating" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:10:43 -0500
-Message-ID: <20261107061043-failed-5.15-8dc4116041e2@kernel.org>
+Subject: FAILED: patch "[PATCH] i2c: acpi: Fix adapter reference leak in i2c_acpi_new_device_by_fwnode()" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 06:10:46 -0500
+Message-ID: <20261107061046-failed-5.15-a65917d0a22f@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,78 +68,87 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 8dc4116041e2b377e5e1b62ba98b37636f9f3968
+git cherry-pick -x a65917d0a22f9b10694853b725f9cd399fc3ef4d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061043-failed-5.15-8dc4116041e2@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061046-failed-5.15-a65917d0a22f@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 8dc4116041e2b377e5e1b62ba98b37636f9f3968 Mon Sep 17 00:00:00 2001
-From: Nikolaos Karaolidis <nick@karaolidis.com>
-Date: Fri, 9 Oct 2026 14:24:31 +0000
-Subject: [PATCH] fs: don't lose inodes that another LRU walker is isolating
+From a65917d0a22f9b10694853b725f9cd399fc3ef4d Mon Sep 17 00:00:00 2001
+From: Ma Ke <make_ruc2021@163.com>
+Date: Mon, 12 Oct 2026 09:34:21 +0800
+Subject: [PATCH] i2c: acpi: Fix adapter reference leak in
+ i2c_acpi_new_device_by_fwnode()
 
-When inode_lru_isolate() finds an unused inode that still has page
-cache, it sets I_LRU_ISOLATING, drops i_lock and the list_lru lock,
-invalidates the page cache, clears the flag again and returns
-LRU_RETRY so that the restarted walk can free the inode.
+i2c_acpi_new_device_by_fwnode() obtains an i2c_adapter through
+i2c_acpi_find_adapter_by_handle(). That helper uses bus_find_device()
+internally, so it returns the adapter with a reference held:
 
-Another walker of the same list can reach the inode in that window.
-It sees a non-zero i_state and takes the inode off the LRU, as it
-would an inode that is in use. Page cache deletion requeues the inode
-once the mapping is shrinkable, so this is harmless if it happens
-before the last deletion. If it happens after, nothing puts the inode
-back: it stays in memory, unused, clean and without page cache, out
-of reach of the shrinker and of drop_caches, until it is looked up
-again or the filesystem is unmounted.
+        adapter = i2c_verify_adapter(dev);
+        if (!adapter)
+                put_device(dev);
 
-Before commit 2a0629834cd8 ("vfs: Don't evict inode under the inode
-lru traversing context") the pin was an i_count reference, and the
-final iput() put the inode back on the LRU.
+        return adapter;
 
-Skip inodes that are being isolated and leave them to the walker that
-pinned them, which restarts its walk once it has unpinned them.
+The reference is only put on the failure path inside that helper. The
+caller owns it otherwise. i2c_acpi_new_device_by_fwnode() never drops
+it, neither on the -EPROBE_DEFER path nor after
+i2c_new_client_device(), so every call leaks one reference on the
+adapter and the adapter can never be released.
 
-The window is reached by any unused inode with page cache on
-CONFIG_HIGHMEM kernels, and otherwise by inodes whose page cache is a
-single shadow entry at index 0. On an i386 HIGHMEM guest, eight
-concurrent "echo 2 > /proc/sys/vm/drop_caches" over 2000 freshly read
-one-page ext4 files leave roughly 400 of the inodes off the LRU per
-round; on x86_64, with the files' pages first evicted through
-memory.reclaim, 3 to 4 per round. With this patch, none in either case.
+i2c_new_client_device() does not consume that reference. It registers
+the new client with the adapter as its parent, and device_add() takes
+its own reference on the parent, which device_del() releases when the
+client goes away.  The reference obtained by the lookup is a separate
+one and has to be dropped here.
 
-Fixes: 2a0629834cd8 ("vfs: Don't evict inode under the inode lru traversing context")
-Cc: stable@vger.kernel.org
-Signed-off-by: Nikolaos Karaolidis <nick@karaolidis.com>
-Link: https://patch.msgid.link/20261009142431.713875-1-nick@karaolidis.com
-Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>
-Reviewed-by: Jan Kara <jack@suse.cz>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+i2c_acpi_notify() in the same file already does exactly this. It takes
+the adapter from the same helper, registers the client through
+i2c_acpi_register_device(), which calls i2c_new_client_device(), and
+then puts the reference.
+
+i2c_new_client_device() gives the client its own reference on the
+adapter, so ours can be dropped unconditionally.
+
+Found by code review.
+
+Fixes: 605f8fc22442 ("i2c: core: Add new i2c_acpi_new_device helper function")
+Signed-off-by: Ma Ke <make_ruc2021@163.com>
+Cc: <stable@vger.kernel.org> # v4.12+
+Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
+Link: https://patch.msgid.link/20261012013421.3597430-1-make_ruc2021@163.com
 ---
- fs/inode.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/i2c/i2c-core-acpi.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/fs/inode.c b/fs/inode.c
-index d6353b8d1e634..f63535ee36291 100644
---- a/fs/inode.c
-+++ b/fs/inode.c
-@@ -941,6 +941,12 @@ static enum lru_status inode_lru_isolate(struct list_head *item,
- 	if (!spin_trylock(&inode->i_lock))
- 		return LRU_SKIP;
+diff --git a/drivers/i2c/i2c-core-acpi.c b/drivers/i2c/i2c-core-acpi.c
+index 703588e9990a6..84841ed134874 100644
+--- a/drivers/i2c/i2c-core-acpi.c
++++ b/drivers/i2c/i2c-core-acpi.c
+@@ -549,6 +549,7 @@ struct i2c_client *i2c_acpi_new_device_by_fwnode(struct fwnode_handle *fwnode,
+ {
+ 	struct i2c_acpi_lookup lookup;
+ 	struct i2c_adapter *adapter;
++	struct i2c_client *client;
+ 	struct acpi_device *adev;
+ 	LIST_HEAD(resource_list);
+ 	int ret;
+@@ -576,7 +577,10 @@ struct i2c_client *i2c_acpi_new_device_by_fwnode(struct fwnode_handle *fwnode,
+ 	if (!adapter)
+ 		return ERR_PTR(-EPROBE_DEFER);
  
-+	/* Another walker is dropping its page cache, leave it to that one */
-+	if (inode_state_read(inode) & I_LRU_ISOLATING) {
-+		spin_unlock(&inode->i_lock);
-+		return LRU_SKIP;
-+	}
+-	return i2c_new_client_device(adapter, info);
++	client = i2c_new_client_device(adapter, info);
++	put_device(&adapter->dev);
 +
- 	/*
- 	 * Inodes can get referenced, redirtied, or repopulated while
- 	 * they're already on the LRU, and this can make them
++	return client;
+ }
+ EXPORT_SYMBOL_GPL(i2c_acpi_new_device_by_fwnode);
+ 
 -- 
 2.53.0
 
