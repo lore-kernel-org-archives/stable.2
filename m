@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049197;
-	b=thlScKaDFBYiIPVctUZmJJY56AD2NccHHv62jTQ1f2lXCCU6vV6l/azQTTWrwYe450U2
-	 ngZ8qo2zxHYQSO9AIEEo73tSBBzGrg5SRm83VfXrS5qndzubd3KD2IE5SsCu/xRP2Ex5u
-	 7pLrnkchdAPQIxxrVxrwfxndtdCuqvM/1O1ciL8hoIJXihrg70wGsD0T7MPj66oZWBmbJ
-	 ih5vuxtPAZPScWB7waZgo52NuMP2ev8mXvjSFw04OOtFhjhaJgaQOsimxs5NQ1WeBJmhE
-	 sWWD8D3KUpdZsyvfZNEasPdJocarvGPlYbdSKpZ2ZulGH9DSWhdgaCmwnSfB1i6KB+A==
+	t=1794049201;
+	b=unsODUT22ZWtRSGg0oLp/H+YsXdhgo6HvK2ckjwG1Dn9rzVvNSuajm3s8dJRoABqwXZA
+	 TwC8N1gVUtyylqPmo16mqch4NliNZxdJ+2RYMCcygY12QhEeiAheIdsuBdgB6m4NztLOj
+	 jsuQEg/dVEBNIrFl5eoMKJWgtFwWnP/1p1miNp19B00+Er8G2GLEx5Q9mUTFUun/3jIM2
+	 OBToxVjtS5riidFhO2wHWVKE2P69q8yK11vvuSDxIGQ96v0TYVgWH54qTQ8Ajzq8jqff/
+	 noc6+Il4HLMz+E7viOjKVnCPyzC/ytUNO3yspFn6EhVoWvVqsawhKcLO6nfF2ygk35A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049197;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049201;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=rXwYIFokLA5dT/DP4PH7+UruTSLHb29nl2aacItLNXY=;
-	b=LrCL0KYgcSNE7/8vpIjXNvlXuMXuB7txCau/zTIZePSS2A6WCI3LXkGX/Mp/laN5rNF/
-	 XH4s9L3vhNtrxSL29Cy2aQSPQROB1q2isMxQjk7dMrpEQWX2nyWtQNLvnyfoeucTmaGej
-	 0DeZP94ButHDRJ1zq/S0os4NoVJOYfB4WxSav0AT/ZzqcaV0D5gSl+ORPjLIynhuWQo3A
-	 uXpW2LrjkBS3GFxy5XdZy09xKptSjzHWT9GHQwUa/0WaGWfnCoO7A0OL61SP2wAQxQCPf
-	 g6UhvYg1YjEeIWq2fZUg0h2ajjqph69fQbp6SRJpdTgi4Gr0ohdebuWMwVxxqyWGo1Q==
+	bh=A25EProh8+PwIb7grCzoga5hNlMdugUHzHQ8OEhxNa8=;
+	b=E50+QZ61tiCrk9EGbyY6CP3ULXSUw84iGbINcvCbTOYz4T1sGLOQhqdM7+l74AFRif2x
+	 TPpMEWzRofT4Jp7BQ/JPYXPQocLh7o5yW9GhmCh4FQxSACX4rygTdulRbNhOY0p3Sz+Jj
+	 zTXyjvzBUYE9d4Mhto5Fz6en9ZbFIxFDNtsFJDabJg/cWUhJ2TZ+CIqOIEVbMZCGxoGqE
+	 lQAdvu0RNChIrqoSK5wlB3SWoyxMljJHhoLGI4jBDwkBrDNCePma0quch9wqw+aG8DFpC
+	 p8u+jia6IYJQZsxFbd0p9Dlzy4NFw83YUo7rWMxCHBpKZRL+3wzkb+lJuEY86I9ZDBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DHLa8MMI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qyy3HbEx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 317C7606D802
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:59:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC1FC606D80B
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:00:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DHLa8MMI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DBC11F008A1;
-	Sat,  7 Nov 2026 10:59:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qyy3HbEx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA0BF1F008A2;
+	Sat,  7 Nov 2026 10:59:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049197;
-	bh=rXwYIFokLA5dT/DP4PH7+UruTSLHb29nl2aacItLNXY=;
+	s=k20260515; t=1794049200;
+	bh=A25EProh8+PwIb7grCzoga5hNlMdugUHzHQ8OEhxNa8=;
 	h=From:To:Cc:Subject:Date;
-	b=DHLa8MMI0YYgkZNvtckN6lfJMnCll7wCijTfv8rhdhicwPH/uClMnRLMjDwWVZsVN
-	 WJwRFcNDsS44oOKzaoCkAIlzkb9yBfkrlp7qLL4XHYASj8/dt30Ps8pS6R4HdHRKaz
-	 jzTOQC30SxeL3wLUp+eSeCVx8+MjTreW8i8oI7pVoQTvOiSfJezVRaPbA3CX+CpeAH
-	 rg1n5ZxGl196nHrOOuyk3wnQyP7UsNvzfi0DWlEDsZFhz1siPSytYLckMixDAUhAHs
-	 7WuXOek0VgPBHN8jHpDBVKehox38lbn6EGIl3D7/fNHR2ALd17kaVVdTooB3cIL9nr
-	 SwmkKpJnG99RA==
+	b=Qyy3HbExug4f+P6VaP3mP0x36kM6nWhVJXmtcnHD4QARdaswD0jCS2QH234aFZfQN
+	 AG1makZkXqpzFiSJaCHkQ60/nAqzcE0eERVpsJmHMx7MYDI0QLMld7iRAzUoHj1bPM
+	 NJV4qZpdIiJgXrUU3JinwWgoiJxXP5fr04HyY4Oq/36nybmvIq7wb9NU25osgwNzvB
+	 +72816zK48nDSgpX8HADjHtBinKWivi5WLLSt5lUP1H8l/8FpAh4EyAFmWza6Isj5O
+	 oTv9ojJOoEvfwD1QyCxk434rUKmYVnGkEb4OdJXZ1PrtdTTzkvJRmk9c/1Fl8+XcW5
+	 VYBoSr6P1IHTg==
 From: Sasha Levin <sashal@kernel.org>
 To: lgs201920130244@gmail.com,
-	ehristev@kernel.org,
+	dave.stevenson@raspberrypi.com,
 	sakari.ailus@linux.intel.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] media: atmel-isi: release unregistered video device on remove" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 05:59:55 -0500
-Message-ID: <20261107055955-failed-5.15-c0a6d78dad3a@kernel.org>
+Subject: FAILED: patch "[PATCH] media: i2c: ov5647: fix power cleanup on remove" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 05:59:58 -0500
+Message-ID: <20261107055958-failed-5.15-6e81cfc38548@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,78 +69,54 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x c0a6d78dad3af1def80f04df82bfd70456ec406c
+git cherry-pick -x 6e81cfc38548109021ab761b94ecdd01f8753154
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055955-failed-5.15-c0a6d78dad3a@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055958-failed-5.15-6e81cfc38548@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From c0a6d78dad3af1def80f04df82bfd70456ec406c Mon Sep 17 00:00:00 2001
+From 6e81cfc38548109021ab761b94ecdd01f8753154 Mon Sep 17 00:00:00 2001
 From: Guangshuo Li <lgs201920130244@gmail.com>
-Date: Tue, 15 Sep 2026 19:25:10 +0800
-Subject: [PATCH] media: atmel-isi: release unregistered video device on remove
+Date: Tue, 22 Sep 2026 16:40:09 +0800
+Subject: [PATCH] media: i2c: ov5647: fix power cleanup on remove
 
-atmel_isi_probe() allocates the video device before registering the
-V4L2 async notifier. The video device is registered later from the
-notifier complete callback once the remote subdevice has been bound.
+ov5647_remove() disables runtime PM without powering off the sensor if
+it is still runtime active. pm_runtime_disable() does not invoke the
+runtime suspend callback, so the sensor can remain powered on.
 
-The remove path relies on the notifier unbind callback to unregister
-the video device. However, if the remote subdevice is never bound, or
-the complete callback fails before video_register_device() succeeds,
-the video device remains unregistered. In that case the unbind path
-does not release the object allocated by video_device_alloc(), and the
-remove path leaks it.
-
-Only unregister the video device from the unbind callback when it has
-actually been registered, and clear the driver pointer afterwards.
-After unregistering and cleaning up the notifier, release the video
-device directly if the pointer is still present. This covers devices
-that were allocated but never registered while avoiding a second
-release of successfully registered devices.
+If the device is not already runtime suspended, call ov5647_power_off()
+and mark the runtime PM state as suspended.
 
 This issue was found by manual code inspection.
 
-Fixes: d12c9088c0b2a ("[media] atmel-isi: remove dependency of the soc-camera framework")
+Fixes: 089b7c70f0d8 ("media: ov5647: Use pm_runtime infrastructure")
 Cc: stable@vger.kernel.org
 Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-Reviewed-by: Eugen Hristev <ehristev@kernel.org>
+Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
- drivers/media/platform/atmel/atmel-isi.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/media/i2c/ov5647.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/media/platform/atmel/atmel-isi.c b/drivers/media/platform/atmel/atmel-isi.c
-index f5e85271a275a..fa33d11f736fc 100644
---- a/drivers/media/platform/atmel/atmel-isi.c
-+++ b/drivers/media/platform/atmel/atmel-isi.c
-@@ -1121,10 +1121,13 @@ static void isi_graph_notify_unbind(struct v4l2_async_notifier *notifier,
- {
- 	struct atmel_isi *isi = notifier_to_isi(notifier);
- 
-+	if (!video_is_registered(isi->vdev))
-+		return;
-+
- 	dev_dbg(isi->dev, "Removing %s\n", video_device_node_name(isi->vdev));
- 
--	/* Checks internally if vdev have been init or not */
- 	video_unregister_device(isi->vdev);
-+	isi->vdev = NULL;
+diff --git a/drivers/media/i2c/ov5647.c b/drivers/media/i2c/ov5647.c
+index 4824013454f59..e1120ca688283 100644
+--- a/drivers/media/i2c/ov5647.c
++++ b/drivers/media/i2c/ov5647.c
+@@ -1273,6 +1273,10 @@ static void ov5647_remove(struct i2c_client *client)
+ 	v4l2_ctrl_handler_free(&sensor->ctrls);
+ 	v4l2_device_unregister_subdev(sd);
+ 	pm_runtime_disable(&client->dev);
++	if (!pm_runtime_status_suspended(&client->dev)) {
++		ov5647_power_off(&client->dev);
++		pm_runtime_set_suspended(&client->dev);
++	}
  }
  
- static int isi_graph_notify_bound(struct v4l2_async_notifier *notifier,
-@@ -1323,6 +1326,8 @@ static void atmel_isi_remove(struct platform_device *pdev)
- 	pm_runtime_disable(&pdev->dev);
- 	v4l2_async_nf_unregister(&isi->notifier);
- 	v4l2_async_nf_cleanup(&isi->notifier);
-+	if (isi->vdev)
-+		video_device_release(isi->vdev);
- 	v4l2_device_unregister(&isi->v4l2_dev);
- }
- 
+ static const struct dev_pm_ops ov5647_pm_ops = {
 -- 
 2.53.0
 
