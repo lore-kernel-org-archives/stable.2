@@ -1,51 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049280;
-	b=jyvlUhDZ8dZEn6CBzoGGOE50DYsghyZ3grMZyEzc3GiHSlimhhtECgdk71Lg6a0WR/GF
-	 ipfAwePRGClV9c9N/0sfCN/CoHPYrNtgS70pat3sPX2M319+BSH80hskzLUSPnBDLdCe3
-	 EgLMFSzBPTJCHqGVnReKm/HI0PBiysa5Buh30aD/BlLth4hsp78xsTahQUiksqOcFLttk
-	 kud+767jlaF1b2bcWYvw0wXZ++7S26Hr11CdgI8HG7K5nUZ0goByhfvinxJEgNm508gOi
-	 aOWXwo8bg7vyfKOPed6AN/4QYkP276/ZL4QTFFnVXJW02kImjLdhkeJb6pqzFbsdQXA==
+	t=1794049283;
+	b=myvm4nXQx0c5pTMsz/7SsKzQkYPwjzCLnWlt7hP5O5M+gG4xs4Szyn82RhWmLUI05uwb
+	 iWGQxEMX0njVbEhSil6eHJfdfRKu9ac9enA7oWISRjagj4jZZQrcIGoaALGbW4oOb/nRq
+	 Z8mCds4vleEoso6XPHrZUaX8ymXzwBY6WFtujW8CcD7HNctv41JhLNgCiY1MPQ4RV7KrL
+	 UUimZ56AgTRb2KVAQmEQv9FWU5rqBua28hbPed7ex0kvzsuKFU7jRGVcbHNYh7oaWacO2
+	 T5LGIJi9dXGG6trPZOj4rRTuvoaOfSwfSxIgdir+1gw8NSmfFspDi9stzqmE4Wm2IZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049280;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049283;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=MsH6PT/LXHntF97kvEZWI1QsklXcIN7rtsjEaiK6rpw=;
-	b=DDFeBMPwKBs/8Aw56tqBMedVd8Jdz7I9ySzeuFes+4eHDbc7HykeXKnYA3zaeMVQpRWZ
-	 fTV+CMof26MmA5kOKlw3U8RxcGrLEk3CbZ4158dswvM8VA/S482S/+0+Ld9euZYsSphec
-	 kS/0k7WdhKBL80NiS9LYV+P4ejDAV5mtmpwUHP2ex/O5Z2mlYKUcLHMUlE8UrzibpPjJq
-	 JWLCPZ9D6svPt8v9snr/SR3ylh13wm18K9YybSYqkasfqBMz9cgZ5hXlk3ErC5nZ2BHRh
-	 3BcawIxV+RgPSwd7g34pU3do+BIDiYSMNkoZlOmH09mp2uNS9CTxe4KeR3fwuLd9IAQ==
+	bh=ZG02YtCWlItD3n2tyHZvuB73ie0W4MTagLAouTG0FXA=;
+	b=UErC9zihAJv7Cilj1Y3MHDhdF3QbLovTwvIxeEaQcJrTHkfNSGPczB8+ZNq7BK5Yz5Os
+	 /6ChC0nKi9klDH6p3IUNSv+tlaRjpu/nVqGkkScuXK/0t8kGs82deBEj5BH0CAoj/bANC
+	 erALKSKBXGHVx6/3G/rpQOf+QC7LMi+uIPJgpUKAErigeyl+kcE2hQdhD87RSSilKPwLO
+	 8Csj6lN9VpCGVuUlpFCS69KPXMozTJFY2+gsBryZ/RXk3xbkYzQOyZuEG0W0zx+LgnR6C
+	 dnNPnRQz07K+MfpB1o8WjyjSSwh+2h7VhpHzo1ChTVVXTc54eYKkGsm6oTdoqjt+o1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JUl3ee1Z;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mjNI2ggk;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E543D606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:01:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6811606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:01:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JUl3ee1Z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62B411F008A1;
-	Sat,  7 Nov 2026 11:01:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mjNI2ggk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A8AB1F0089F;
+	Sat,  7 Nov 2026 11:01:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049279;
-	bh=MsH6PT/LXHntF97kvEZWI1QsklXcIN7rtsjEaiK6rpw=;
+	s=k20260515; t=1794049282;
+	bh=ZG02YtCWlItD3n2tyHZvuB73ie0W4MTagLAouTG0FXA=;
 	h=From:To:Cc:Subject:Date;
-	b=JUl3ee1ZmYh9wdprCaRaTOR/7HRdj+86MBG3kUcf8PTUhnWcWf527d7eMrSPjtxMf
-	 XrAG1aRSLfB6lodQPxMDIKnK3K7U1grzO7LZQMYyShFSfz42wwams9faefUWbeUhwl
-	 XKqPJIT9Sc1e8pfeMJq9b5ZErDFeqs5SFriIhw628Jx4Nu/FFHaTHNUv7vI4RScYZn
-	 UDAuAC8nIJKjv8RqfOAbtebHSvoz/qhRIkFU1TXsgK4G2F7ROcAJziIiGl5Zbe+htw
-	 ZX8D63sB0lf+pVyYFTOD/taWE1YKMJ2SJkEWWjNTC8AEwIlgqNIlcSt90mLjGBHrma
-	 CcJI4v2hPIKoQ==
+	b=mjNI2ggkuTnyeN15GaHxJz5V+LTlG8GJS4mswFOK2Gx98pa94NGZhfGnNaX0+nrOg
+	 /WTkifm3W4CpotphekLtDLwJLDNpkcEJz7HlobZNIR4tpt9uQS4soHHzXdvPvlntzM
+	 eJMlyVChwU/VXLwfnygyHLZsWzmVtkwl/zAoP+Bp0M+KkbF5D6nxyrXc28OspLvCsg
+	 mriLIxKQkNNitzYf2ASuYrHRXxmVdY0pFRrjvV7D1VzdHbGkBF8VUgqTm9h//w2zuO
+	 Xrp/Nw/9AvAJO1+mjvTORp+6jExdFcDYSOSLmnBC1ePgR5SResqy/lmvHYwgDqcLE/
+	 pc17yRxPZ95Bg==
 From: Sasha Levin <sashal@kernel.org>
-To: krzysztof.kozlowski@oss.qualcomm.com,
-	dmitry.baryshkov@oss.qualcomm.com
+To: mpatocka@redhat.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/msm/hdmi: Handle msm_hdmi_power_on() errors during .atomic_pre_enable()" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:01:18 -0500
-Message-ID: <20261107060117-failed-5.15-dd6ecace5785@kernel.org>
+Subject: FAILED: patch "[PATCH] dm-writecache: fix REQ_FUA processing" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 06:01:21 -0500
+Message-ID: <20261107060120-failed-5.15-c0df022cb0fa@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,102 +67,170 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x dd6ecace57851878e62367a6f1a26dd5b9aa217f
+git cherry-pick -x c0df022cb0fa2bbee74bd9b90c66790bcd4e3050
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060117-failed-5.15-dd6ecace5785@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060120-failed-5.15-c0df022cb0fa@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From dd6ecace57851878e62367a6f1a26dd5b9aa217f Mon Sep 17 00:00:00 2001
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Date: Fri, 11 Sep 2026 12:29:35 +0200
-Subject: [PATCH] drm/msm/hdmi: Handle msm_hdmi_power_on() errors during
- .atomic_pre_enable()
+From c0df022cb0fa2bbee74bd9b90c66790bcd4e3050 Mon Sep 17 00:00:00 2001
+From: Mikulas Patocka <mpatocka@redhat.com>
+Date: Wed, 30 Sep 2026 21:43:26 +0200
+Subject: [PATCH] dm-writecache: fix REQ_FUA processing
 
-Properly handle power up failures during .atomic_pre_enable() by
-aborting the .atomic_pre_enable() to avoid accessing registers why
-blocks did not bring up.  Otherwise this could lead to imprecise aborts
-when accessing MMIO while entire power domain is off.
+REQ_FUA did not flush metadata in SSD mode, this commit fixes it.
 
-Cc: <stable@vger.kernel.org>
-Fixes: ba3d7bf3a7ab ("drm/msm/hdmi: Convert PHY files according to new design")
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Patchwork: https://patchwork.freedesktop.org/patch/752652/
-Link: https://lore.kernel.org/r/20260911-drm-msm-hdmi-fixes-before-eliza-v4-2-87bdb9f1987f@oss.qualcomm.com
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+Cc: stable@vger.kernel.org
+Fixes: c1005322ff02 ("dm writecache: handle REQ_FUA")
+Assisted-by: Claude:claude-opus-5
+Assisted-by: Codex:gpt-6-sol
 ---
- drivers/gpu/drm/msm/hdmi/hdmi_bridge.c | 30 ++++++++++++++++++--------
- 1 file changed, 21 insertions(+), 9 deletions(-)
+ drivers/md/dm-writecache.c | 45 +++++++++++++++++++++++++++++---------
+ 1 file changed, 35 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-index 157f19bd90b4e..db85400e574e4 100644
---- a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-+++ b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-@@ -13,14 +13,16 @@
- #include "msm_kms.h"
- #include "hdmi.h"
+diff --git a/drivers/md/dm-writecache.c b/drivers/md/dm-writecache.c
+index a38780a7b1be9..6f977fb8c9397 100644
+--- a/drivers/md/dm-writecache.c
++++ b/drivers/md/dm-writecache.c
+@@ -188,6 +188,7 @@ struct dm_writecache {
+ 	struct task_struct *endio_thread;
  
--static void msm_hdmi_power_on(struct drm_bridge *bridge)
-+static int msm_hdmi_power_on(struct drm_bridge *bridge)
+ 	struct task_struct *flush_thread;
++	spinlock_t flush_list_lock;
+ 	struct bio_list flush_list;
+ 
+ 	struct dm_kcopyd_client *dm_kcopyd;
+@@ -1289,9 +1290,11 @@ static int writecache_flush_thread(void *data)
+ 		struct bio *bio;
+ 
+ 		wc_lock(wc);
++		spin_lock_irq(&wc->flush_list_lock);
+ 		bio = bio_list_pop(&wc->flush_list);
+ 		if (!bio) {
+ 			set_current_state(TASK_INTERRUPTIBLE);
++			spin_unlock_irq(&wc->flush_list_lock);
+ 			wc_unlock(wc);
+ 
+ 			if (unlikely(kthread_should_stop())) {
+@@ -1302,6 +1305,7 @@ static int writecache_flush_thread(void *data)
+ 			schedule();
+ 			continue;
+ 		}
++		spin_unlock_irq(&wc->flush_list_lock);
+ 
+ 		if (bio_op(bio) == REQ_OP_DISCARD) {
+ 			writecache_discard(wc, bio->bi_iter.bi_sector,
+@@ -1323,9 +1327,12 @@ static int writecache_flush_thread(void *data)
+ 
+ static void writecache_offload_bio(struct dm_writecache *wc, struct bio *bio)
  {
- 	struct drm_device *dev = bridge->dev;
- 	struct hdmi_bridge *hdmi_bridge = to_hdmi_bridge(bridge);
- 	struct hdmi *hdmi = hdmi_bridge->hdmi;
- 	int ret;
- 
--	pm_runtime_resume_and_get(&hdmi->pdev->dev);
-+	ret = pm_runtime_resume_and_get(&hdmi->pdev->dev);
-+	if (ret)
-+		return ret;
- 
- 	if (hdmi->extp_clk) {
- 		DBG("pixclock: %lu", hdmi->pixclock);
-@@ -29,9 +31,14 @@ static void msm_hdmi_power_on(struct drm_bridge *bridge)
- 			DRM_DEV_ERROR(dev->dev, "failed to set extp clk rate: %d\n", ret);
- 
- 		ret = clk_prepare_enable(hdmi->extp_clk);
--		if (ret)
-+		if (ret) {
- 			DRM_DEV_ERROR(dev->dev, "failed to enable extp clk: %d\n", ret);
-+			pm_runtime_put(&hdmi->pdev->dev);
-+			return ret;
-+		}
- 	}
-+
-+	return 0;
++	unsigned long flags;
++	spin_lock_irqsave(&wc->flush_list_lock, flags);
+ 	if (bio_list_empty(&wc->flush_list))
+ 		wake_up_process(wc->flush_thread);
+ 	bio_list_add(&wc->flush_list, bio);
++	spin_unlock_irqrestore(&wc->flush_list_lock, flags);
  }
  
- static void power_off(struct drm_bridge *bridge)
-@@ -287,13 +294,18 @@ static void msm_hdmi_bridge_atomic_pre_enable(struct drm_bridge *bridge,
+ enum wc_map_op {
+@@ -1437,6 +1444,8 @@ static void writecache_bio_copy_ssd(struct dm_writecache *wc, struct bio *bio,
+ static enum wc_map_op writecache_map_write(struct dm_writecache *wc, struct bio *bio)
+ {
+ 	struct wc_entry *e;
++	enum wc_map_op ret = WC_MAP_SUBMIT;
++	bool need_flush = false;
  
- 	msm_hdmi_set_timings(hdmi, &crtc_state->adjusted_mode);
+ 	do {
+ 		bool found_entry = false;
+@@ -1473,7 +1482,8 @@ static enum wc_map_op writecache_map_write(struct dm_writecache *wc, struct bio
+ 				writecache_map_remap_origin(wc, bio, e);
+ 				wc->stats.writes_around += bio->bi_iter.bi_size >> wc->block_size_bits;
+ 				wc->stats.writes += bio->bi_iter.bi_size >> wc->block_size_bits;
+-				return WC_MAP_REMAP_ORIGIN;
++				ret = WC_MAP_REMAP_ORIGIN;
++				goto flush_pmem_and_ret;
+ 			}
+ 			wc->stats.writes_blocked_on_freelist++;
+ 			writecache_wait_on_freelist(wc);
+@@ -1487,21 +1497,25 @@ static enum wc_map_op writecache_map_write(struct dm_writecache *wc, struct bio
+ 		if (WC_MODE_PMEM(wc)) {
+ 			bio_copy_block(wc, bio, memory_data(wc, e));
+ 			wc->stats.writes++;
++			need_flush = true;
+ 		} else {
+ 			writecache_bio_copy_ssd(wc, bio, e, search_used);
+ 			return WC_MAP_REMAP;
+ 		}
+ 	} while (bio->bi_iter.bi_size);
  
--	mutex_lock(&hdmi->state_mutex);
--	if (!hdmi->power_on) {
--		msm_hdmi_phy_resource_enable(phy);
--		msm_hdmi_power_on(bridge);
--		hdmi->power_on = true;
-+	scoped_guard(mutex, &hdmi->state_mutex) {
-+		if (!hdmi->power_on) {
-+			if (msm_hdmi_phy_resource_enable(phy))
-+				return;
-+
-+			if (msm_hdmi_power_on(bridge)) {
-+				msm_hdmi_phy_resource_disable(phy);
-+				return;
-+			}
-+			hdmi->power_on = true;
+-	if (unlikely(bio->bi_opf & REQ_FUA || wc->uncommitted_blocks >= wc->autocommit_blocks)) {
+-		writecache_flush(wc);
+-		if (writecache_has_error(wc))
+-			bio->bi_status = BLK_STS_IOERR;
+-	} else {
+-		writecache_schedule_autocommit(wc);
++flush_pmem_and_ret:
++	if (need_flush) {
++		if (unlikely(bio->bi_opf & REQ_FUA || wc->uncommitted_blocks >= wc->autocommit_blocks)) {
++			writecache_flush(wc);
++			if (writecache_has_error(wc))
++				ret = WC_MAP_ERROR;
++		} else {
++			writecache_schedule_autocommit(wc);
 +		}
  	}
--	mutex_unlock(&hdmi->state_mutex);
  
- 	if (connector->display_info.is_hdmi)
- 		msm_hdmi_audio_update(hdmi);
+-	return WC_MAP_SUBMIT;
++	return ret;
+ }
+ 
+ static enum wc_map_op writecache_map_flush(struct dm_writecache *wc, struct bio *bio)
+@@ -1591,7 +1605,10 @@ static int writecache_map(struct dm_target *ti, struct bio *bio)
+ 
+ 	case WC_MAP_REMAP:
+ 		/* make sure that writecache_end_io decrements bio_in_progress: */
+-		bio->bi_private = (void *)1;
++		if (unlikely(bio->bi_opf & REQ_FUA) && bio_op(bio) == REQ_OP_WRITE)
++			bio->bi_private = (void *)3;
++		else
++			bio->bi_private = (void *)1;
+ 		atomic_inc(&wc->bio_in_progress[bio_data_dir(bio)]);
+ 		wc_unlock(wc);
+ 		return DM_MAPIO_REMAPPED;
+@@ -1621,12 +1638,19 @@ static int writecache_end_io(struct dm_target *ti, struct bio *bio, blk_status_t
+ {
+ 	struct dm_writecache *wc = ti->private;
+ 
+-	if (bio->bi_private == (void *)1) {
++	if (bio->bi_private == (void *)1 || bio->bi_private == (void *)3) {
+ 		int dir = bio_data_dir(bio);
++		bool fua = bio->bi_private == (void *)3;
+ 
+ 		if (atomic_dec_and_test(&wc->bio_in_progress[dir]))
+ 			if (unlikely(waitqueue_active(&wc->bio_in_progress_wait[dir])))
+ 				wake_up(&wc->bio_in_progress_wait[dir]);
++
++		if (fua && likely(*status == BLK_STS_OK)) {
++			bio->bi_private = NULL;
++			writecache_offload_bio(wc, bio);
++			return DM_ENDIO_INCOMPLETE;
++		}
+ 	} else if (bio->bi_private == (void *)2) {
+ 		dm_iot_io_end(&wc->iot, 1);
+ 	}
+@@ -2519,6 +2543,7 @@ static int writecache_ctr(struct dm_target *ti, unsigned int argc, char **argv)
+ 
+ 		wc->memory_map_size -= (uint64_t)wc->start_sector << SECTOR_SHIFT;
+ 
++		spin_lock_init(&wc->flush_list_lock);
+ 		bio_list_init(&wc->flush_list);
+ 		wc->flush_thread = kthread_run(writecache_flush_thread, wc, "dm_writecache_flush");
+ 		if (IS_ERR(wc->flush_thread)) {
 -- 
 2.53.0
 
