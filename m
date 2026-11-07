@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048380;
-	b=hAKnmzuxDGzsQNlAamouNTP1MdknWLRc27zUWow+xp9oz5ohaSYuqdILW5GllIZmD22k
-	 xU0LWACfYhbzTi4DCSbfIOsrmP06MJPNBezwQuu3bl9lg2s9wZSRRbbVLbRbGACakWrMW
-	 DFbVC8Jvw899KXy9ylRLIyH2moE8FHDItCaZ6SgLmBtpVxFukJ7q2EdK6uPiMIGiWI5Ft
-	 BbGfhXA8H1XQZllwGbQToQV8JXBM8WRgCC1ZapP+shqzXctSLFovcsYreEeGHektH5a+y
-	 GiN8LHDtlULsPoOUKrTYB3yB9boDkyyvr1TE5HLvYoSnxjN/hjyzxVwpPhcVBar8r5A==
+	t=1794048383;
+	b=cCAceUQ5IGqO9tHr9iW4oPPsAGtDSvd+iGMHI0PRpIpT5QcT+DerZmeO4sR5RHuzrOrn
+	 3mSYFTN2JSAtLuSAL1uqQzmIDEY2GejWtHhKuG2l/9Vs7kGvypuoS0KBTtu+ChgDEe5Ct
+	 WGBfrDbwvC/cPCZsxowQI/EymbeCv91lKtIvhyge2b13k7VOfbauUaWK/CUDJDKaocHH0
+	 EBFjykOZ3IpUFkSJGjkAXPuAHkogEFHDSpBoHIhMKt5eah2fNSYPLejS5YHqyzwqKnbwP
+	 F1yaLfdubFiKs6GwLUsWTRCILTWP0FaeY2q1ODSj4LGVY3xrmKw8bk8/Kovky/hw57Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048380;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048383;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Om/PMZppHyZlUoSVY1KwU2Uqa5p7xLaexa63JcfnGT4=;
-	b=ycx6ovKqRcOcdx5vQWx7xML0KQmR33HRjYYeBQYrSL7Ln0rkZ/GO3WZJ1QZoPhK/Mf5t
-	 GB7J6RJnLjAEUtsoPltQTJKl3b20sC5ZBKBrIqUz85fL7stZocQpeFadovUwYr36yuLsV
-	 prDGyX8OFL2wvfx1ykeU0FaItmOJGRc/p3ueqJoRp3WFptxUfBDidJg7PTshHJkaml0Kk
-	 HCin/AN0lNuh0G7/eIBVg2YpNM33wGBDmEWksctnIMbM9ezmSCz0IoM0Ap8H12FLX/Ii2
-	 g0lz+h4hIZebYOOGKGSLsLMuiC/Z0/fz2xBKdfZ2DbpmGcBEN6dCgoho9zvjkPXxExg==
+	bh=oh3G9cs+mjPUeQutabidoaalZ4hjH45izJW/B6oEVmE=;
+	b=teGO5lAGtgc0K8jFl1DxB6qx5m+jJQwoWIk0KwSJ2w+yf5zL1WoTfnh0xpgbgYzDP7jp
+	 fIIEtHt7UcdDykQbu7rHKku67bf50b3MrMxCOyjg2HgxxNcsqHuUg5NwZXGMT9aPLwhTi
+	 GI3SVWPlKRgVO2SnoxYUVZ/u2dI67Mjsz1Gud57HrDNW7p6K/LJ7ihorKUG03NFXotirb
+	 VmfGt7+4dwB1JgrfZ0JV7AUiQp0nbgirTrXhVBoqyy40HWpEVZUlsE703Z/8C9z4ZgJVt
+	 typobL0pJIABqZyv3qJ1g5/3efaL4pU2MwpgaoYA4qPYMmesWlOM7Rl/VOQRq5ZqxdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OLZw0N5Y;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LHyH5ySX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07398606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:46:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E835606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:46:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OLZw0N5Y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EA4A1F0089F;
-	Sat,  7 Nov 2026 10:46:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LHyH5ySX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 805C51F0089F;
+	Sat,  7 Nov 2026 10:46:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048379;
-	bh=Om/PMZppHyZlUoSVY1KwU2Uqa5p7xLaexa63JcfnGT4=;
+	s=k20260515; t=1794048382;
+	bh=oh3G9cs+mjPUeQutabidoaalZ4hjH45izJW/B6oEVmE=;
 	h=From:To:Cc:Subject:Date;
-	b=OLZw0N5YZRQE6y4+85PcG0CuvsLzwdRVH5HV8uFN15ciyf8AMy/rWHnafjjvUXY9I
-	 EtYws/CmKgrzKWT0dhlXjjh7Ey5jwBulF6pjWFjJPAtq1m4ePnCW1D4PNgPAxe08+p
-	 E9ctMi9IBKsyXkxZPR1WTKluEw3ywAifO3JgXsnFZ+XYqTIY1rxM5T85UysjWH5Qo4
-	 +oJVGPv33ZYSS8kYe4AymbrUjKWYPXAVekARjCtrnlr5rt8sTS/Om5GRvnxbXi9z4w
-	 dQtRQbP4l87bhMqgmoemV3rL+jJ7OIxHaPvBUYbcy6t/bTsgHun95RynjzaNhbbUAv
-	 J9GGfp2RPFdKQ==
+	b=LHyH5ySXhfdsYT+4FEknY7aA74xAM+YbKFsH7Ol/HqdPYSi5lFssDjZ7N1xjST4yY
+	 migOeKip98J1pKdSnm8ScwDtNOsHosdTCjZ5mC0UkuMtsSnlTTvemKQXm0CeB3Czj1
+	 i01CIMUSJoSk1V+CdUw+MBy8ktkqWqpOVO6Xb8RMsaZavDd5LKuF32js7IE9y/vx9V
+	 6UeG9B/wNnUj+w0G284JyYZAFieFc02kv3se2mnEhfpD/TDS7DrDkkJOH1HEm0cpx+
+	 DLZO0I14inKno+JZVSPwksxwk+VVUwoh8psR2eo2OREqJ8JzASAD1oGmB+3jab6ZWV
+	 6v5+9CwxUROwQ==
 From: Sasha Levin <sashal@kernel.org>
-To: jesse.zhang@amd.com,
-	christian.koenig@amd.com,
-	arunpravin.paneerselvam@amd.com
+To: vulab@iscas.ac.cn,
+	jgross@suse.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/ttm: return an error when kmapping a BO without pages" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:46:18 -0500
-Message-ID: <20261107054617-failed-6.1-fd485d47437b@kernel.org>
+Subject: FAILED: patch "[PATCH] xen/gntdev: Fix gntdev_dmabuf ref leak in dmabuf_exp_wait_released()" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:46:21 -0500
+Message-ID: <20261107054621-failed-6.1-6f165abe2b40@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,94 +68,59 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x fd485d47437ba1700dd47205a63b9f389a00aa36
+git cherry-pick -x 6f165abe2b40ede71c98956cd74cd17c18505e75
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054617-failed-6.1-fd485d47437b@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054621-failed-6.1-6f165abe2b40@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From fd485d47437ba1700dd47205a63b9f389a00aa36 Mon Sep 17 00:00:00 2001
-From: Jesse Zhang <Jesse.Zhang@amd.com>
-Date: Fri, 9 Oct 2026 18:33:39 +0800
-Subject: [PATCH] drm/ttm: return an error when kmapping a BO without pages
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 6f165abe2b40ede71c98956cd74cd17c18505e75 Mon Sep 17 00:00:00 2001
+From: Wentao Liang <vulab@iscas.ac.cn>
+Date: Wed, 16 Sep 2026 17:09:56 +0000
+Subject: [PATCH] xen/gntdev: Fix gntdev_dmabuf ref leak in
+ dmabuf_exp_wait_released()
 
-ttm_tt objects for imported sg tables (ttm_bo_type_sg, set up by
-ttm_sg_tt_init() with TTM_TT_FLAG_EXTERNAL) only have DMA addresses and
-no pages array. ttm_bo_kmap() and ttm_bo_vmap() still dereference
-ttm->pages for them, so a driver that tries to CPU map such a BO oopses
-instead of getting an error:
+dmabuf_exp_wait_released() takes a reference on the exported
+gntdev_dmabuf with dmabuf_exp_wait_obj_get_dmabuf() and passes it to
+dmabuf_exp_wait_obj_new(), which drops that reference after adding the
+wait object to the wait list.  When the wait object allocation fails,
+dmabuf_exp_wait_obj_new() returns ERR_PTR(-ENOMEM) early and the
+reference is never dropped, leaking a reference to the exported
+gntdev_dmabuf.
 
-  BUG: kernel NULL pointer dereference, address: 0000000000000000
-  RIP: 0010:ttm_bo_kmap+0x26c/0x300 [ttm]
-  Call Trace:
-   amdgpu_bo_kmap+0x89/0xb0 [amdgpu]
-   amdgpu_userq_fence_read_wptr+0x116/0x170 [amdgpu]
-   amdgpu_userq_signal_ioctl+0x3fe/0xbb0 [amdgpu]
+Drop the reference on the allocation failure path so the reference is
+consumed whether the wait object is created or not.
 
-Return -EINVAL in that case, like ttm_bo_kmap_try_from_panic() already
-checks for a missing pages array.
-
-Fixes: 75a57669cbc8 ("drm/ttm: add ttm_sg_tt_init")
+Fixes: 932d6562179e ("xen/gntdev: Add initial support for dma-buf UAPI")
 Cc: stable@vger.kernel.org
-Suggested-by: Christian König <christian.koenig@amd.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
-Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-Link: https://patch.msgid.link/20261009103419.4122940-1-Jesse.Zhang@amd.com
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Reviewed-by: Juergen Gross <jgross@suse.com>
+Signed-off-by: Juergen Gross <jgross@suse.com>
+Message-ID: <20260916170956.2086505-1-vulab@iscas.ac.cn>
 ---
- drivers/gpu/drm/ttm/ttm_bo_util.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ drivers/xen/gntdev-dmabuf.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/ttm_bo_util.c
-index bd0b23ac2cc4b..f9458a4d5a09d 100644
---- a/drivers/gpu/drm/ttm/ttm_bo_util.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
-@@ -356,6 +356,10 @@ static int ttm_bo_kmap_ttm(struct ttm_buffer_object *bo,
- 	if (ret)
- 		return ret;
+diff --git a/drivers/xen/gntdev-dmabuf.c b/drivers/xen/gntdev-dmabuf.c
+index 83b0df4608941..df1883aca850e 100644
+--- a/drivers/xen/gntdev-dmabuf.c
++++ b/drivers/xen/gntdev-dmabuf.c
+@@ -96,8 +96,10 @@ dmabuf_exp_wait_obj_new(struct gntdev_dmabuf_priv *priv,
+ 	struct gntdev_dmabuf_wait_obj *obj;
  
-+	/* Imported sg tables only come with DMA addresses, no pages to map. */
-+	if (!ttm->pages)
-+		return -EINVAL;
-+
- 	if (num_pages == 1 && ttm->caching == ttm_cached &&
- 	    !(man->use_tt && (ttm->page_flags & TTM_TT_FLAG_DECRYPTED))) {
- 		/*
-@@ -419,7 +423,7 @@ EXPORT_SYMBOL(ttm_bo_kmap_try_from_panic);
-  *
-  * Returns
-  * -ENOMEM: Out of memory.
-- * -EINVAL: Invalid range.
-+ * -EINVAL: Invalid range or the BO has no pages to map.
-  */
- int ttm_bo_kmap(struct ttm_buffer_object *bo,
- 		unsigned long start_page, unsigned long num_pages,
-@@ -493,7 +497,7 @@ EXPORT_SYMBOL(ttm_bo_kunmap);
-  *
-  * Returns
-  * -ENOMEM: Out of memory.
-- * -EINVAL: Invalid range.
-+ * -EINVAL: Invalid range or the BO has no pages to map.
-  */
- int ttm_bo_vmap(struct ttm_buffer_object *bo, struct iosys_map *map)
- {
-@@ -537,6 +541,9 @@ int ttm_bo_vmap(struct ttm_buffer_object *bo, struct iosys_map *map)
- 		if (ret)
- 			return ret;
+ 	obj = kzalloc_obj(*obj);
+-	if (!obj)
++	if (!obj) {
++		kref_put(&gntdev_dmabuf->u.exp.refcount, dmabuf_exp_release);
+ 		return ERR_PTR(-ENOMEM);
++	}
  
-+		if (!ttm->pages)
-+			return -EINVAL;
-+
- 		/*
- 		 * We need to use vmap to get the desired page protection
- 		 * or to make the buffer object look contiguous.
+ 	init_completion(&obj->completion);
+ 	obj->gntdev_dmabuf = gntdev_dmabuf;
 -- 
 2.53.0
 
