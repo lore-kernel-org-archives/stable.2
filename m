@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049520;
-	b=oBKqyXwmejoept1ibNi09usxqcjAFCO81pNw3IoZQnXsrl94m+JsHZoaPjgFZQNoYT9V
-	 5QgA9Eudbq8PYism0IQWcvqR+x8M6QYy3eHI3Xs/+/2XjvHe1YSW4wcZTpv0d1L8IRJXR
-	 nwvd9EWvb4EEwPPbPOpNnv9iGcxLzG+MHbhT8wDVQiJYa3CFXcKvMWzB04dY95+GqAHQS
-	 kBtGJyxKqIOC53fzPDRJY9lq3k6wVlcQOnmSDbl785Ur6ZWjcUHtfFyiqRxEoIEQ0orPD
-	 j1CCYAiFXovDXFFR2Vb5BMPU/GJos8+psGfb3V6d7OpImVgH4aErlHK2AotEzLLEZ8w==
+	t=1794049523;
+	b=bR4zpjl0p5IiUd6NEF6z/hmir2WRwbyfXv79Cy4EEaHIHImafN+dak2O3AX4e8yT1jXT
+	 SiwKaesaiVsDatfcfjLeUekEGaFT7z03yf8H180h3zzI0V9Rio2r1EmkdyWubgY10yTOi
+	 +7iF55Q7s51P/CqYMKauoE1m8aYMZkagQ/0yKTiRYQtABwmqTcsODKUK8bB/YlKHczZT/
+	 ocjbwt+T4Q7CWlbCYRp+calaUEdWWZDQz89bfYW4VR1ieETG7r2Of3jyOf43th5d9Q0RX
+	 P9dKy2SjQhdAF0v1BdxFgLarnHnhlgMc8n0QePTXp/U+IvXOwD//r6wDXo4CJkDpN8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049520;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049523;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=+8eXRpCT7V3hF+T+UT21ylD+n5T2jHL4FdpNhdCkScg=;
-	b=etiVoNSb7v5RQ4ukdAfcnOz/6Qe57wGQthujtEMme4ASeMhoX4vSkq6vARVfQF5thi/b
-	 vwXFFJlI+0MZ/K8ghBmHri3GUV6XXZ6XeJmGYYdmovQ6Q9Un3pESYtYQRjfjlFmRsysXX
-	 Y+5N7pRmQj7+IAV78DBS4XKW3zHVv/2/uC/GsdE5aEASGsV1iaN5GuDjpo5d3w8rfDXmD
-	 auqtUFDa/eIBGIp1hrrUpoD+9CLaHqif+LfOjmP5RILc7nze4gWo1TnyIQJFRwfLjlHmm
-	 EtVv6MtkWum/2cqqepq3eWVb76j1ivMwt+u5LlC6rmWdSR6EK6BFFBNrq29ZQJ2H9YQ==
+	bh=5CG/qY0128dAEnCVftLslGFkc7ZrW7d34X/6mh0KwJE=;
+	b=Y7cJ0uRzdi0NUPc+aVCq9Vrmr7fzxJpYGUICATw35Wh2Wp0nAQCz/KCZLlesXZyXV79z
+	 GhoU8mMiQS7O5ORIwqbTsbXvtG67zglxrUAT3MGXSPooD7hmcIgwkQ1ZfzDZrQnHEydyo
+	 zLB4rmgvhbKlzA/UyExdbF+oA6ubX7EMtwqcU/9DOrt1gIj8bJAcaZr4EWebziJWeGp1O
+	 klB29m5+R1cY934aMiGjrKOhjMkNLVwhOV58RBsqJ4akwyci8qfeFMD+3OmfPOHoZYMZQ
+	 dDn0o44gTeYfzZDqJtwgkIts6Nxn8pdqc8OJWXuL0a7O6ZUdGFRAshqldw/HeYKT+5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LR1Yu5nL;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LufHzRs6;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FBF0606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:05:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AB32606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:05:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LR1Yu5nL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFFEA1F0089F;
-	Sat,  7 Nov 2026 11:05:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LufHzRs6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD5DD1F0089F;
+	Sat,  7 Nov 2026 11:05:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049520;
-	bh=+8eXRpCT7V3hF+T+UT21ylD+n5T2jHL4FdpNhdCkScg=;
+	s=k20260515; t=1794049523;
+	bh=5CG/qY0128dAEnCVftLslGFkc7ZrW7d34X/6mh0KwJE=;
 	h=From:To:Cc:Subject:Date;
-	b=LR1Yu5nLbIraHvlN/rUEE762GJYaVAOEafqilToR/yZPuvav4ePdwpPTpfCLfQkot
-	 o5GwEUdvXnTWG3SC6740oSoKACReKFFxeLgJlKie+CXWSTeZHBfmn/u1dyyaZDdyRx
-	 XnkpK5xZRu2mbdzzKMOi56pTVDo05RF5DluFaEDWkeXs2lg8xE5xDl2UUytqodctA4
-	 CEUQ466MSsEZvrHLHmhZp16LlnFqouubrgDhgOr1Bx4Bfis96XXI20JaW69liAwgZe
-	 WBwu9V9Twjo2n3solunSASzFHYb/lMTBpOV7XHbZiDAoMnzvQkWCajt79Beecu3D/X
-	 vb7XEpdzlI2cQ==
+	b=LufHzRs6Z9IRWPV0Ewk3ScmFbr997AM4pjZlPNmflhS9eQKDY201VOkoaf5BjMaZu
+	 h7IrQAnEitBcFhBm7DrXKyglVLogohC4c3+anbeafo0rhoxYsU9LjAuqXO8+upiRKU
+	 el2K7ADtXStA7zXeVJ4F0GUxm341Y0EHKgxa8Lo9llZaUGrMklKoJmbHj4AATcvDE3
+	 OwRceCYttYVBAOWnL3Rp4K/Eh9Cu06VlmciiQxKmuT1PIH+Nfp11pFy5ppKlDe+ntD
+	 B4rYiAloGtcPPDYL/eWdQnAZ4TRU4Soa8eL1a4akeBWDurG3bnTeoP1EuBN9A3QlH8
+	 6PCwbqT/sEUSQ==
 From: Sasha Levin <sashal@kernel.org>
-To: hvilleneuve@dimonoff.com,
+To: martin.fuzzey@flowbird.group,
 	gregkh@linuxfoundation.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] serial: sc16is7xx: declare MCR and IER as volatile registers" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:05:18 -0500
-Message-ID: <20261107060518-failed-5.15-1c41d09dcd07@kernel.org>
+Subject: FAILED: patch "[PATCH] serial: sc16is7xx: fix data corruption due to unexpected xon/xoff" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 06:05:21 -0500
+Message-ID: <20261107060521-failed-5.15-8bb50e95c0ab@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,53 +68,70 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 1c41d09dcd07ee9648e20aa8238e404c2e6a12fb
+git cherry-pick -x 8bb50e95c0abd44607bc60a43032c1dbf7470d5a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060518-failed-5.15-1c41d09dcd07@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060521-failed-5.15-8bb50e95c0ab@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 1c41d09dcd07ee9648e20aa8238e404c2e6a12fb Mon Sep 17 00:00:00 2001
-From: Hugo Villeneuve <hvilleneuve@dimonoff.com>
-Date: Tue, 6 Oct 2026 15:25:37 -0400
-Subject: [PATCH] serial: sc16is7xx: declare MCR and IER as volatile registers
+From 8bb50e95c0abd44607bc60a43032c1dbf7470d5a Mon Sep 17 00:00:00 2001
+From: Martin Fuzzey <martin.fuzzey@flowbird.group>
+Date: Thu, 1 Oct 2026 10:05:35 +0000
+Subject: [PATCH] serial: sc16is7xx: fix data corruption due to unexpected
+ xon/xoff
 
-MCR register has the same address as XON1 register.
-IER register has the same address as DLH register.
+The hardware supports automatically sending XON/OFF based on the
+FIFO status and that is already implemented by the driver.
+However that capability was not announced with the UPF_SOFT_FLOW bit.
 
-Which register is accessed depends on bits configuration in some
-other registers.
+When the port is opened with the default of XON enabled the driver
+configures that in the hardware.
+If userspace does not want XON/OFF (which is normally the case) it will
+use TCSETS to disactivate it. However the serial core optimises this
+to only notify the driver if someting imporant has changed, and for
+XON/XOFF thit is only if the  driver declares UPF_SOFT_FLOW.
 
-To prevent potential access errors, declare MCR and IER as volatile
-registers.
+So we end up with unwanted XON/XOFF in the data stream.
 
+The problem only occurs if nothing else needed to be set by termios,
+ie if the user space requested values are the same as the default values,
+except for XON/XOFF.
+Since the default speed is 9600 this means that the problem only occurs
+when requesting 9600, otherwise the call to the driver will be made to
+change the speed, and that will also clear the XON/XOFF.
+As 9600 is quite rare these days that probably explains why this hasn't
+already been seen.
+
+It also only occurs on the first port open after boot since the subsequent
+opens will use the "logical state" set by TCSETS but not communicated to
+the driver the first time.
+
+Signed-off-by: Martin Fuzzey <martin.fuzzey@flowbird.group>
 Fixes: dfeae619d781 ("serial: sc16is7xx")
 Cc: stable@kernel.org
-Signed-off-by: Hugo Villeneuve <hvilleneuve@dimonoff.com>
-Link: https://patch.msgid.link/20261006192540.234402-1-hugo@hugovil.com
+Link: https://patch.msgid.link/20261001100534.1225894-1-martin.fuzzey@flowbird.group
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/tty/serial/sc16is7xx.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/tty/serial/sc16is7xx.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/tty/serial/sc16is7xx.c b/drivers/tty/serial/sc16is7xx.c
-index 7ddc8a38adab4..fba5885595957 100644
+index 296079c16fdb9..7ddc8a38adab4 100644
 --- a/drivers/tty/serial/sc16is7xx.c
 +++ b/drivers/tty/serial/sc16is7xx.c
-@@ -501,7 +501,9 @@ static bool sc16is7xx_regmap_volatile(struct device *dev, unsigned int reg)
- {
- 	switch (reg) {
- 	case SC16IS7XX_RHR_REG: /* Shared address space with THR & DLL */
-+	case SC16IS7XX_IER_REG: /* Shared address space with DLH */
- 	case SC16IS7XX_IIR_REG: /* Shared address space with FCR & EFR */
-+	case SC16IS7XX_MCR_REG: /* Shared address space with XON1 */
- 	case SC16IS7XX_LSR_REG: /* Shared address space with XON2 */
- 	case SC16IS7XX_MSR_REG: /* Shared address space with TCR & XOFF1 */
- 	case SC16IS7XX_SPR_REG: /* Shared address space with TLR & XOFF2 */
+@@ -1516,7 +1516,7 @@ static int sc16is7xx_setup_channel(struct sc16is7xx_one *one, int i,
+ 	/* Initialize port data */
+ 	port->type	= PORT_SC16IS7XX;
+ 	port->fifosize	= SC16IS7XX_FIFO_SIZE;
+-	port->flags	= UPF_FIXED_TYPE | UPF_LOW_LATENCY;
++	port->flags	= UPF_FIXED_TYPE | UPF_LOW_LATENCY | UPF_SOFT_FLOW;
+ 	port->iotype	= UPIO_BUS;
+ 	port->rs485_config = sc16is7xx_config_rs485;
+ 	port->rs485_supported = sc16is7xx_rs485_supported;
 -- 
 2.53.0
 
