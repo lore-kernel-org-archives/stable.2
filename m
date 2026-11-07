@@ -1,52 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049242;
-	b=Qwh/tVhLWFExkFWhEYOOFMLTy/YUIYdLQceCTQKPuAqDijLs2FAOQYF/SrMOSHkxjIyf
-	 M7mMEMgHAoVbpb9LRssBT1zT7NGtth+YAk/dKqUD80snR+FC1ITOytrClhY5U0WI3nOhj
-	 VtNMxn/XdplH5DQxeX6Uylb1/M/3bqXk9Ha1y4MrbA8ySgcIksjMYUIWC4wBMfJmPVqHi
-	 jyeVDZGPGfkTTdJS5fPZmJP7nDqlObG9YzqdKM80Q6s5OanQ4vRsjWJ3/wJg/UpsPj12r
-	 f9YkgTHTi0PNadHGkvmzEXTt8ItTyMqUt8uCd/va1A9k6aQDNXCXw8wgIUXFAuvDHJA==
+	t=1794049245;
+	b=uC5Nc/fyFWloWTsKz0mgcSUcL+svvIaNbrJ9KBQtRG6M7mgxHEnTrmaG+rM4ZMKQYMPd
+	 Wc0OlvnxZIzA7S70Rf4doNlk6LJuKsefCCUl92/gZLtdTY95EiIvdqAz6wthxK1uMmMdo
+	 /u/Se8UHG2DmPWHgy88GOeGjpmPdqRj6J+tqhjZyV+hWrV7wGzt7Jcq154GRAqDpBuWBy
+	 e9RohxuROrvDAclZdKHBqMgd6hpNE0d5nSowqnSwOUkhPx4CNBgcvmShLY32anlmPd72L
+	 JCPkT3aTHJbeam6IJsRO7ig7IdlQwQpMmeb6yU83hkh/Q+/QnO11t24QyECjAzE4Eng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049242;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049245;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=55oIIr/yjFYbYMJghGsHSZnTyPXm0qB89O2QqRiGqBo=;
-	b=LHCLhHwHvXWhiDlNrjHSb6FwAItuIyHUoiedXLbyMKhU6q23HjKlzrplPg3FzQmLm++g
-	 dkvXz12/7cHPWtKF+QUU7f2Xc0w5LtMs5ZvT0QzLL/d9MjRqn0wrCI5y/Q/3CEdBXVRPz
-	 bCDnOwSjDPS8rU0+FQXqtzMjVkp3twnLeDn8BB2mWDtCx6IcDqgalAkG9DRVEzsrpgS9a
-	 pkMun90vsCLbaDlFYU1i3r4Y8vUm72EGw3jWuccocFJIt7gvBlO+bscpQi3fWlM8NlLYM
-	 DH+l7GdjEiPwnRT5WI7Aiujpo2Wr+mx9Bl7CtpLJ3VfbUY7DoXQnSd9epXwYHEsTwfQ==
+	bh=OHUb8d15uWxvSxnE3N7eQMHcIH14zJStmXLTE1uKIU8=;
+	b=iuciySPuhT5LcZNrUovn3VOcQwH8c74nMoaSoyqc5pI4kXR7WFwCVgw0Rh8+ox0SbGQo
+	 5hsxrV3MLQZqF3+6BfLNFugSnNlyXtDe+GNvwH9pubZy3+XmtwiG99w6HqrNjPSVpei9p
+	 zNaVpJaOegrfF/UmFyUH/vSjVg06mPW3RPkdNGAC6dfvUTp2/QIaOHq5gu2/mSxbXtjWa
+	 mNHbpv5SrdGLGeq+iy9H+Wjr3THpWcuOiIiXi546p6bw4WwDqTjG85ECSvTkxQTLnTLZv
+	 fxx3cGu1xNAxovom6h5GVfpMROM50ODul+Aa754cxueeXxL24XamsC68AKJr6rn80EQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="PsDV/RS9";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="YPI/0XUD";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E8A1606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:00:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6906F606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:00:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PsDV/RS9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B81D11F0089F;
-	Sat,  7 Nov 2026 11:00:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YPI/0XUD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDF5A1F008A1;
+	Sat,  7 Nov 2026 11:00:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049242;
-	bh=55oIIr/yjFYbYMJghGsHSZnTyPXm0qB89O2QqRiGqBo=;
+	s=k20260515; t=1794049245;
+	bh=OHUb8d15uWxvSxnE3N7eQMHcIH14zJStmXLTE1uKIU8=;
 	h=From:To:Cc:Subject:Date;
-	b=PsDV/RS9lBgoP6xqC6eG+0Fj64IWxUnYNZ8Syc+eLJZzpDC12RmZs7tU8z5ubiQm1
-	 K+NZ72xe3QcRipMAAfzV8p5aryz4ADJLKrVQqrQUEQm5R0NNSDu5gfYZvwkMTC3bGX
-	 5t4EpO4H9k78N7+EAFWQ9N8W2hxKvFEQ94jHBdbCisjladiJ8w4NQtt2sm9rTVFvY4
-	 +d88aUB8CDwxnZkXbgLXlYG3Yhzg8XuGXTIHWW09RA/8CWLSo7jPa6sweIkJFIVLQ7
-	 lbwtIOoZnSt68SV1tNlC0VnaB6IvxxuFrd1HgvvA5fXs+V2LkxZs14C4Jps9rWgNS4
-	 I2spDIvF2HVCQ==
+	b=YPI/0XUDuDD48C5DYotp9W/ARQ/BTtXtSoCV4D1oD2yMrIGvpg00aTQkUnY2erZ/Z
+	 ygccLoUwmqlVWkGPT1yt4PPrOqojH0O8nIuzjFFYI5kocgVL1IhnD4/alJ3NevTEw9
+	 mulMgvcVChu0UMTGtDft5609h4JWwpNnhnL1dQd6ly3pi5DKtLWF0y95NPY7++jZOm
+	 muPGcXiWQHIiNmTVIGUSqlUltGlw9a6JGsln9F2RTqCiobwr17bXMf8ukdqP/lndvb
+	 LfQyPNotIgcNEvCHIj48KptPdK2YDTCPKY4quAPT9gOpBklBmrihVVnDzkqgHmdq5/
+	 diN65XZdfVxZQ==
 From: Sasha Levin <sashal@kernel.org>
-To: yaojiale02@163.com,
-	jonathan.cameron@oss.qualcomm.com,
-	dave.jiang@intel.com
+To: tiwai@suse.de
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] cxl/acpi: Check ACPI companion before use" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:00:40 -0500
-Message-ID: <20261107060040-failed-5.15-371c2ad16242@kernel.org>
+Subject: FAILED: patch "[PATCH] ALSA: core: Check shutdown flag at D0 power-state, too" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 06:00:43 -0500
+Message-ID: <20261107060043-failed-5.15-ad63c5b62843@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,79 +67,60 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 371c2ad1624283b6c7a62a28199f5161d388a738
+git cherry-pick -x ad63c5b62843895e8c3cd7291ed07cc659df0355
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060040-failed-5.15-371c2ad16242@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060043-failed-5.15-ad63c5b62843@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 371c2ad1624283b6c7a62a28199f5161d388a738 Mon Sep 17 00:00:00 2001
-From: Jiale Yao <yaojiale02@163.com>
-Date: Sat, 26 Sep 2026 15:16:05 +0800
-Subject: [PATCH] cxl/acpi: Check ACPI companion before use
+From ad63c5b62843895e8c3cd7291ed07cc659df0355 Mon Sep 17 00:00:00 2001
+From: Takashi Iwai <tiwai@suse.de>
+Date: Tue, 29 Sep 2026 14:53:41 +0200
+Subject: [PATCH] ALSA: core: Check shutdown flag at D0 power-state, too
 
-Platform drivers can be forced to match devices outside their ID tables
-through driver_override.  cxl_acpi_probe() assumes that every bound device
-has an ACPI companion and dereferences adev->dev.bus without checking the
-result of ACPI_COMPANION().  Force-binding cxl_acpi to a platform device
-without a companion therefore causes a NULL pointer dereference.
+The snd_power_ref_and_wait() skips the card->shutdown check when the
+card is already in D0 state and immediately returns as successful, by
+assuming the all-green in D0.  This assumption makes the code after
+this sync point behaving as if all power is up and ready, even though
+actually it might have been already at the disconnected state.
 
-This was reproduced by setting the driver override for the pcspkr platform
-device to cxl_acpi and binding it through sysfs:
+Add the missing check of shutdown flag there for the more consistent
+behavior.
 
-  BUG: kernel NULL pointer dereference, address: 0000000000000280
-  #PF: supervisor read access in kernel mode
-  RIP: cxl_acpi_probe+0xf4/0x220
-  Call Trace:
-   platform_probe+0x4d/0x80
-   really_probe+0x106/0x370
-   device_driver_attach+0x4c/0xa0
-   bind_store+0xd0/0x100
-
-Commit 2b3a5dabe89e ("platform/surface: acpi-notify: Check ACPI
-companion before use") fixed the same force-binding issue in another
-platform driver.  Check the companion before setting up the CXL root and
-return -ENODEV when it is absent.
-
-Fixes: 7d4b5ca2e2cb ("cxl/acpi: Add downstream port data to cxl_port instances")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
-Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Link: https://patch.msgid.link/20260926071605.3013893-1-yaojiale02@163.com
-Signed-off-by: Dave Jiang <dave.jiang@intel.com>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Link: https://patch.msgid.link/20260929125346.1478631-2-tiwai@suse.de
 ---
- drivers/cxl/acpi.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ sound/core/init.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/cxl/acpi.c b/drivers/cxl/acpi.c
-index 3b818adbd38b5..fb09a5ff48c16 100644
---- a/drivers/cxl/acpi.c
-+++ b/drivers/cxl/acpi.c
-@@ -885,13 +885,17 @@ static int pair_cxl_resource(struct device *dev, void *data)
- 
- static int cxl_acpi_probe(struct platform_device *pdev)
+diff --git a/sound/core/init.c b/sound/core/init.c
+index 1bcb6a2e75507..a51b71812fd9b 100644
+--- a/sound/core/init.c
++++ b/sound/core/init.c
+@@ -1174,12 +1174,12 @@ EXPORT_SYMBOL(snd_card_file_remove);
+ int snd_power_ref_and_wait(struct snd_card *card)
  {
--	int rc;
-+	struct cxl_cfmws_context ctx;
-+	struct acpi_device *adev;
- 	struct resource *cxl_res;
- 	struct cxl_root *cxl_root;
- 	struct cxl_port *root_port;
- 	struct device *host = &pdev->dev;
--	struct acpi_device *adev = ACPI_COMPANION(host);
--	struct cxl_cfmws_context ctx;
-+	int rc;
-+
-+	adev = ACPI_COMPANION(host);
-+	if (!adev)
-+		return -ENODEV;
- 
- 	device_lock_set_class(&pdev->dev, &cxl_root_key);
- 	rc = devm_add_action_or_reset(&pdev->dev, cxl_acpi_lock_reset_class,
+ 	snd_power_ref(card);
+-	if (snd_power_get_state(card) == SNDRV_CTL_POWER_D0)
+-		return 0;
+-	wait_event_cmd(card->power_sleep,
+-		       card->shutdown ||
+-		       snd_power_get_state(card) == SNDRV_CTL_POWER_D0,
+-		       snd_power_unref(card), snd_power_ref(card));
++	if (snd_power_get_state(card) != SNDRV_CTL_POWER_D0) {
++		wait_event_cmd(card->power_sleep,
++			       card->shutdown ||
++			       snd_power_get_state(card) == SNDRV_CTL_POWER_D0,
++			       snd_power_unref(card), snd_power_ref(card));
++	}
+ 	if (card->shutdown) {
+ 		snd_power_unref(card);
+ 		return  -ENODEV;
 -- 
 2.53.0
 
