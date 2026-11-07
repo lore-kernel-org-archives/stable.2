@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050041;
-	b=iP5LIwqkiCVfYY/c56YTq0cH5eVOeii/ffipaRz5QV9EOlEooiIk55NsbQgTGdoJVJs+
-	 ap/u/f0vDhJBcUzosl6rGOL8KEm4QbgcAXP/WlcASYdXcxTb65nwQjc+6W+pETAQpVYD2
-	 YTlrTYcnBxYxwDiMDLlQQU1UrMP0zhQj7EInbOM05hrOyDFEE9uhxlMsji+SNEF21bj0b
-	 3JzHdyvDDShBhlBJdYTb3o67jvk72D2yAwtbZcv1n711cDSYn5IkqpmjVW8g/GA3TsR4G
-	 63kkc73A+cIMq05dRFWLXWVbSQhBvRUXnGGa6p+vbRsw8pA4Syumfz5fN1We5mS2aRA==
+	t=1794050044;
+	b=kzoC3e08LBdDXjEhlX5It0kOvwr9QqZnyrY40a/KdaYRQpocgSJhZOC3QGT0n4DszTDw
+	 aQM8E8JCEzQCCj5HVLlDEZAcAfKs2BZXYzf5MCYDHwn12qtRVTebdOOEGlPIGcQ7N7NnC
+	 glD6wW/Xm+iIbpdSXZEQ5XIRqRPD5krvvjQ8wE/mM5ZWUqKVBtuUw/m7fS3K3Rs5jFvng
+	 M8aTRM5KBPzlwfobM185SYgXS/0cX3bQ3fI/fZKtIqWrD5y5xd/H7S/aQDKKX0N7ERNhl
+	 bD0jBRe2v1Sc858u/gcDbqmL+61eSisd3oBg9Rj382KFMqNvAVzll0LevgmETkAQ7QA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050041;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050044;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=utgtPf08pFjuwaD2qmWxtJEHOyfLBr+RQ+yjPM7XSLQ=;
-	b=Tc9ziAPAFAaoSy1tr/hYlhXlXbrFj/iZ/zqf5Vyi5sFESO0Z2Zc4qtnMT4QXtkxprD63
-	 NwRc+bl22DXmTFRKNKBztI+nHkYi4o5uIPJtE4PCstq/Z/qaB5ee7cSPIbo7A2TaPWph/
-	 K5ClaRfJSBpf60pzBydHKJJubbaxEkDW03WotIGOZj9fScuxFxlgcmJMXt0wPHD3xr9nB
-	 YfEgHEf3E0bfHW8YNuyUKCG7dG0EzyWxywsq4eH96GaZI87ca897fb7QDmNf4WPz1tGY9
-	 GivWEu3p0d57QJee22FF2pfC2LeVMkwTv2mKBkH92LSDNvBR4JR7P7nEXfybyAeT5dg==
+	bh=ekucqzTk0teoLdXXfjtFrupZ4TkEC1omNK1imssMazw=;
+	b=VDNfejA4cuWN+DBfEAZupozJXcYfAS1l/rOw5QtQssz9x7I4LrYT4NUdFFRcMa6doCt2
+	 x5YAlGGYsLMRQUQGHLXdRpUzKNnHE/PzGPMWS4t+lki1b8XYEOzTfjrrG9TYKFklBZqlD
+	 SXa72pGFhQ3lLMSgAfFRhA0JJ9QaAjKWQOSdqgsR9a6/oVQAXDVwo//eAck6QPlDxyaFJ
+	 sNtaU1PYFnbvFbve6a8yRgMCL/aEeP/LmqeiNpefjMpmAGORazy2u6Ebh6Q1mzpUtqhRs
+	 BELZqNFLrNvlcsbB0sX4mXoWTudVBAm5t7Yd9fwsHwg7aX4d5XQNkq9sELfp9fyc5WQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HCW3BfOz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mh8TABuV;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7160F606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:14:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AB80606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:14:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HCW3BfOz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA4911F008A1;
-	Sat,  7 Nov 2026 11:14:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mh8TABuV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3D9C1F0089F;
+	Sat,  7 Nov 2026 11:14:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050041;
-	bh=utgtPf08pFjuwaD2qmWxtJEHOyfLBr+RQ+yjPM7XSLQ=;
+	s=k20260515; t=1794050044;
+	bh=ekucqzTk0teoLdXXfjtFrupZ4TkEC1omNK1imssMazw=;
 	h=From:To:Cc:Subject:Date;
-	b=HCW3BfOzAMVbNPMLEH7hTP5Nf8/466/a6nx0yNblTzUDVxUjXz6hORUtow8idQYNg
-	 Tk4K44pXYSLwgRiXTCqNHAwELYYRvkrQopZTTg3WPDm7wjZYBYK44edz8PA4Ve3AEs
-	 KxG3xdAHwJjI7vMfaR+gWawHg729lgO/2gUXCjXcoNGRhec7IELwZwyVnSk9l+7hof
-	 ezFjsqowcJcTBLEIFLMirXwondrRb/jwjv4mJzzd5qOcDcNEVVgUJUKo2cMn7E/5xT
-	 VgYJjgk10pyqw72RXt8pBxm82l3Cs5D+v7gBZB3TZehU6bdB3YJYtqoMcZai4cunBO
-	 fZwxt5T9MMGog==
+	b=Mh8TABuVdWbD7iYBOhN7FijrLYgL4+L3A8VbEV+I+D7AxJi00th4p3u9GatgsATpJ
+	 7sWhGR1skpFNOj4g3w5C1RgcARAP/rr8B+XDsA45NTgHrrJdZLUUQOZDSqWOnWZWj5
+	 3KKGXGMck2ld2hdSItqT2w+nrcYZJkhTPi7St3fVdqnP+DjNQz4ES6GwBIznMEGTsv
+	 w96dtozPgKL5jtAMWyk52xV9dnmcytZjN0rnRxbGczl7qjuiuvt0d8xiu8fNPWoDuH
+	 Wz6QFMyEpsmr4LYBgDpeJ7jnrfNSPkVYN0y4UJSkVGvHUEXOWMU6S3dwz7UAnNVmBi
+	 LCaSNZm5FTAtw==
 From: Sasha Levin <sashal@kernel.org>
-To: mason@kernel.org,
-	amir73il@gmail.com,
-	brauner@kernel.org
+To: yubiao.wang@amd.com,
+	christian.koenig@amd.com,
+	alexander.deucher@amd.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] backing-file: always end a queued write" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:13:59 -0500
-Message-ID: <20261107061359-failed-5.15-627cdcbc2a2e@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/amdgpu: recompute the dw estimate after allocating a new VM update job" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:14:02 -0500
+Message-ID: <20261107061402-failed-5.10-a74c7832b118@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -60,96 +60,73 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 627cdcbc2a2eceb0452078a0c14370f9f1f17a91
+git cherry-pick -x a74c7832b11827907de560169c7d4ac94505fd87
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061359-failed-5.15-627cdcbc2a2e@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061402-failed-5.10-a74c7832b118@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 627cdcbc2a2eceb0452078a0c14370f9f1f17a91 Mon Sep 17 00:00:00 2001
-From: Chris Mason <mason@kernel.org>
-Date: Thu, 29 Oct 2026 19:03:19 +0100
-Subject: [PATCH] backing-file: always end a queued write
+From a74c7832b11827907de560169c7d4ac94505fd87 Mon Sep 17 00:00:00 2001
+From: YuBiao Wang <YuBiao.Wang@amd.com>
+Date: Wed, 29 Jul 2026 17:53:57 +0800
+Subject: [PATCH] drm/amdgpu: recompute the dw estimate after allocating a new
+ VM update job
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Writes to a loop device with direct I/O on an overlay file make the
-next freeze of the upper filesystem hang for ever.
+amdgpu_vm_sdma_update() keeps the number of free dwords of the current
+job in a local variable. When the job runs out of room it is committed
+and a new one is allocated, but that local variable is not refreshed and
+still describes the job which was just submitted.
 
-Every kiocb_start_write() needs a kiocb_end_write(). For a write that
-is queued, vfs_iocb_iter_write() leaves the end to the completion, and
-backing_aio_rw_complete() only calls kiocb_end_write() when IOCB_WRITE
-is set in the flags copied from the submitter. In-kernel submitters
-such as loop do not set that flag, so each queued write keeps the
-freeze protection of the backing filesystem.
+The stale value is then used to decide how many PTEs fit into the new
+job. If it happens to be copy_pte_num_dw + 7, or one more than that, the
+result is zero. copy_pte() encodes the transfer size as count * 8 - 1,
+so a count of zero asks the engine for a 1GB copy starting inside the IB
+pool. That runs off the end of the pool, faults on the first unmapped
+GART page above it and hangs the ring.
 
-Direct writes to a loop device with direct I/O backed by an overlay
-file left fsfreeze of the ext4 upper filesystem, and a later touch
-there, blocked in D state. It takes write access to the node of the
-loop device, which root has by default, to attach the file and to write.
+Re-initialize the estimate from the newly allocated job, which is empty
+and therefore has its full budget available.
 
-The fix used here is to mark a write in struct backing_aio and to call
-kiocb_end_write() on completion of every marked write.
-
-Reproduced under qemu without KVM, on v7.3-rc6-21-g602042bf29f6 with
-earlier fixes of this series applied, with and without this change,
-once each. The kernel was not changed for the run. With this change
-fsfreeze finished in about a second. Not run: the nvmet and LIO file
-backends, which do not set IOCB_WRITE either, FUSE passthrough, and an
-xfs upper filesystem.
-
-Fixes: 2406a307ac7d ("ovl: implement async IO routines")
 Cc: stable@vger.kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
-[amir: use aio->is_write to explicitly mark a write aio]
-Signed-off-by: Amir Goldstein <amir73il@gmail.com>
-Link: https://patch.msgid.link/20261029180319.2852090-1-amir73il@gmail.com
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Signed-off-by: YuBiao Wang <YuBiao.Wang@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- fs/backing-file.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/fs/backing-file.c b/fs/backing-file.c
-index 2424dc38d21ac..ad573f5153c7c 100644
---- a/fs/backing-file.c
-+++ b/fs/backing-file.c
-@@ -96,6 +96,7 @@ struct backing_aio {
- 	refcount_t ref;
- 	struct kiocb *orig_iocb;
- 	/* used for aio completion */
-+	bool is_write;
- 	void (*end_write)(struct kiocb *iocb, ssize_t);
- 	struct work_struct work;
- 	long res;
-@@ -136,7 +137,8 @@ static void backing_aio_rw_complete(struct kiocb *iocb, long res)
- 	struct backing_aio *aio = container_of(iocb, struct backing_aio, iocb);
- 	struct kiocb *orig_iocb = aio->orig_iocb;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+index 50cc0779c340e..eb8cf0d9d9c59 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+@@ -254,6 +254,11 @@ static int amdgpu_vm_sdma_update(struct amdgpu_vm_update_params *p,
+ 						     AMDGPU_KERNEL_JOB_ID_VM_UPDATE);
+ 			if (r)
+ 				return r;
++
++			/* The estimate above describes the job which was just
++			 * submitted, take the budget of the newly allocated one.
++			 */
++			ndw = p->num_dw_left;
+ 		}
  
--	if (iocb->ki_flags & IOCB_WRITE)
-+	/* Pairs with kiocb_start_write() in vfs_iocb_iter_write() */
-+	if (aio->is_write)
- 		kiocb_end_write(iocb);
- 
- 	backing_aio_cleanup(aio, res);
-@@ -251,6 +253,7 @@ static int do_backing_file_write_iter(struct file *file, struct iov_iter *iter,
- 		return -ENOMEM;
- 
- 	aio->orig_iocb = iocb;
-+	aio->is_write = true;
- 	aio->end_write = end_write;
- 	kiocb_clone(&aio->iocb, iocb, get_file(file));
- 	aio->iocb.ki_flags = flags;
+ 		if (!p->pages_addr) {
 -- 
 2.53.0
 
