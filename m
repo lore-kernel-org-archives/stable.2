@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049380;
-	b=UHM+1d0A7rle9eWCjZV+mRoxm/SrnSfhNOPMqA8d38yVcz0m2uv+1+tgvdFvTpMUW8aG
-	 qzTcSyJcGWbwzfURpL4azCmdof4yUDU9N+k0FLM+puCoZZONsep0O7UJA7mEnIpj+1RHw
-	 o9AsUz7+WVw5hogtw0PZc0C4Cex8stQHeTG/YHsRbIOP+EDms3WSJHdtHmP3/pgQLJegI
-	 J3PsOhcaIU2cpbNR11LKY34fVI/IKZJWBhlz/cTci6dv1nxBBBD0+8mnvjRZXYCmtQBpB
-	 QsAqx3YaKE2I9/vVR0vUE5zI2SGQok2J90mEn32bvdsNqr2Eqvh1Yw+EhDFZK1Ye2aw==
+	t=1794049383;
+	b=ZVFFA7vsnVahyOikVNg8034+FNmp3b1HAfASn7ZMTK0Nn3o8p3GOUe4ADDHcg0P7JPc1
+	 FPUJUAPD/gTOtyenwoTPVzQ1SmYnvURLgg6+ox9DQP3ZZyNr+2chOkuOoXHCYZDsj1iYx
+	 OPIDwtKFfixQmFi0X+IrDuP+KjJnHiQPa7PpglPVgEI6skuTM1aNLpLgum09Wxya0lZcE
+	 qChcPb70OJMW05PD8QceQ5EibAnMqqmmROxUyWzigOW6etH1Xb/lUoRCh8GiBQWr1nDLr
+	 dJeQ3o48xeOs+/hmxr5nRw5bZHzbaETCBb+4Ld5oyhMpNz4Eo7BENyhp0Z1Y94xyCCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049380;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049383;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=zJLMvucbz+TuKQo8upqf4HknqyWuTmFVJZoDNEI0318=;
-	b=mUYiOxhO8mz3g5SmoyQeFog8rjbuploaB5jgQ+4wHa+mXNiwPjqOzx1luaRI3y2IIe2x
-	 bqZ9W+Tk0HYXdTx/CB1o6nesVBFiTm6bWFwWWW6S+MN3Ho8xdcgLbJ61Iv/f1xlVogcGY
-	 gIP2Ad6Vwg6i2rpGJnKqI4zoodjODGPUsl1gfKA3uk6sYSv8ex6cU/Vsbab2XVhZANzaX
-	 Gv9E0+qXwjK51tIhurMhLFnT0j9LoqoTaKqYd3WYoQJ1+2LlVfg9u2NdMxxLNQsbJAskv
-	 x/tA5AKETk8EJS4AwhJfV9YDc4XWk0aZ8zTUWaUUcEHeGp1IpUPG7+5yzSkTe9ZS90Q==
+	bh=D0M8oYylGji9iHb+iHHgx5WqdGAsNdQbF7adBmuM6mo=;
+	b=lNlROinl8YGOGLVZcPAIo2gapyNZnVdazPmhO9PUd1A11BWruBK+3IplV5U/GQETp3u/
+	 5o978SIAlR3G/RtkPDJoye0M6cat5HfcfAXUzbD6rYzUzZriXFw2mCP4FHCiFy7U3KNoy
+	 v/AG5AiF8BiXfTufcqVb7WUwHzft/9tKbvS0rxJ9yB99shSYCDUxxIOsGnv8umedGc3RZ
+	 TFAI7XLsmhbLNzdDvHPUlFt8ESWnp8FyNnPiT58z/82ktpNKiIa3l4+7/uNErugElVTsT
+	 q7CcGLv/DVdQrZSI53iCeYN9efim2mNftRZzAhQT8y1Ogal6icVDPoSuEhL70uHEewA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jKK5fEMa;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FZSOcKA3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6EB3606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:02:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF4D6606A32F
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:03:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jKK5fEMa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6656A1F0089F;
-	Sat,  7 Nov 2026 11:02:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FZSOcKA3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68DEE1F0089F;
+	Sat,  7 Nov 2026 11:03:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049379;
-	bh=zJLMvucbz+TuKQo8upqf4HknqyWuTmFVJZoDNEI0318=;
+	s=k20260515; t=1794049382;
+	bh=D0M8oYylGji9iHb+iHHgx5WqdGAsNdQbF7adBmuM6mo=;
 	h=From:To:Cc:Subject:Date;
-	b=jKK5fEMafbrEF2SyN8IIxXeE/PQko9sERPgDvM9wm5L8u7L4DTiZ7um7JLXyd9Cqb
-	 P/Hdd8vF7WcI9HnR2yf0BGynDNgqr34asLxz6bsyThaQioiQbtij2eTwdgZDq38GAl
-	 8uJQB7JOlCFlLd3ZpMkgrotR3oSzT40DF0DtGCj35ntKBBw9RoEZiJV/OiOE8gOUT/
-	 dxVyAIyabP8g1HByMKtjHl/Aj4U9MagSYk3a3xdwSTh/ZowteIMwiHbXDXE8Ivmzht
-	 T5f6qMSVKIPWjO9sr77GUneQOdwuYEcQ4myJGUpJMtClifdL2A3516yij6tuSOFFC+
-	 T0qtCQvvZaKtQ==
+	b=FZSOcKA3obR79oqw4K778zR9jen0kYqy1wcBavXAgbgmvsSTDU4nSTnSKow/qPo/R
+	 vS94qExxLjD75hcwxhNXqg0AIcoTmXBf6GstZdc7m55V/UqK24P2w82rNWS9aGMLlQ
+	 CXwPSFZt0k1AB2ko0GnO7chUEX0YGc9DHPBIVbaI/3DNgjNG8NSGftDuaFKYIvpsfa
+	 Lt3y0HmlWf70jduDZ7sG3Zqzes6KUBR10SWkj1+VMWIv8rbIZS3xu8jeRB8eWVQO23
+	 h0rZ6pfjihWQSdbu9rxir67P0F/t852r/n4rB46wWy4aO3t0cceYjOvsi6yjqtQkcg
+	 fZgxhzjjQfbcA==
 From: Sasha Levin <sashal@kernel.org>
-To: peter.ujfalusi@linux.intel.com,
-	tiwai@suse.de
+To: qwe.aldo@gmail.com,
+	almaz.alexandrovich@paragon-software.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ALSA: hda/hdmi: clamp sad_count in ELD proc write handler" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:02:58 -0500
-Message-ID: <20261107060258-failed-5.15-b3e7ddd694f8@kernel.org>
+Subject: FAILED: patch "[PATCH] fs/ntfs3: validate that EA entry size covers its name and value" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 06:03:01 -0500
+Message-ID: <20261107060301-failed-5.15-60bd50014cc9@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,61 +68,95 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x b3e7ddd694f8429217ba509b55b910a0e4361dfb
+git cherry-pick -x 60bd50014cc9a97c5e34a8bddd2bad4d2dc5acb7
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060258-failed-5.15-b3e7ddd694f8@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060301-failed-5.15-60bd50014cc9@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From b3e7ddd694f8429217ba509b55b910a0e4361dfb Mon Sep 17 00:00:00 2001
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Date: Thu, 8 Oct 2026 11:51:33 +0300
-Subject: [PATCH] ALSA: hda/hdmi: clamp sad_count in ELD proc write handler
+From 60bd50014cc9a97c5e34a8bddd2bad4d2dc5acb7 Mon Sep 17 00:00:00 2001
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Date: Thu, 23 Jul 2026 19:10:45 -0300
+Subject: [PATCH] fs/ntfs3: validate that EA entry size covers its name and
+ value
 
-snd_hdmi_write_eld_info() parses a "sad_count N" line from the
-root-writable ELD proc interface and assigns N directly to
-e->sad_count with no upper bound, unlike the per-index "sadN_*" lines
-a few lines below which are already bounded to ELD_MAX_SAD.
+ntfs_read_ea() walks the on-disk $EA attribute and checks each EA_FULL
+entry for consistency.  For an entry with a non-zero ef->size (the
+offset to the next entry) the loop only verifies that this stride fits
+in the remaining buffer, and then continues:
 
-snd_hdmi_eld_update_pcm_info() later iterates
-"for (i = 0; i < e->sad_count; i++)" over the fixed
-e->sad[ELD_MAX_SAD] array, so an oversized sad_count read from the
-proc file causes it to walk past the array.
+	if (ef->size) {
+		ea_size = le32_to_cpu(ef->size);
+		if (ea_size > bytes)
+			goto out1;
+		continue;
+	}
 
-Reject sad_count values above ELD_MAX_SAD, matching the existing
-per-index guard.
+It never verifies that the entry's own name (ef->name_len) and value
+(ef->elength) actually fit inside ef->size.  A later reader trusts
+ef->elength unconditionally; ntfs_get_ea() does:
 
-Fixes: acb059938810 ("ALSA: hda - ELD proc interface write updates")
+	len = le16_to_cpu(ea->elength);		/* up to 0xffff */
+	...
+	if (len > size)				/* size is the user buffer */
+		return -ERANGE;
+	memcpy(buffer, ea->name + ea->name_len + 1, len);
+
+A crafted image with a small but valid ef->size (e.g. 24) and
+ef->elength == 0xffff therefore passes validation, and a getxattr()
+with a large enough user buffer copies up to 64 KiB starting just past
+the short entry -- an out-of-bounds read of the ea_all allocation that
+leaks adjacent kernel heap memory to userspace.
+
+  BUG: KASAN: slab-out-of-bounds in ntfs_get_ea+0x2b8/0x3f0
+  Read of size 65535 ...
+   ntfs_get_ea -> ntfs_getxattr -> vfs_getxattr -> do_getxattr
+
+The zero-ef->size branch already computes the same struct_size() to
+derive the stride; mirror that in the non-zero branch and reject the
+entry when its declared size cannot hold the name and value.
+
+Fixes: 0e8235d28f3a ("fs/ntfs3: Check fields while reading")
 Cc: stable@vger.kernel.org
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Link: https://patch.msgid.link/20261008085133.9528-1-peter.ujfalusi@linux.intel.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Signed-off-by: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
 ---
- sound/hda/codecs/hdmi/eld.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ fs/ntfs3/xattr.c | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
-diff --git a/sound/hda/codecs/hdmi/eld.c b/sound/hda/codecs/hdmi/eld.c
-index 1464fd1c675bc..fc6fe1b0873c3 100644
---- a/sound/hda/codecs/hdmi/eld.c
-+++ b/sound/hda/codecs/hdmi/eld.c
-@@ -155,9 +155,11 @@ void snd_hdmi_write_eld_info(struct hdmi_eld *eld,
- 			e->aud_synch_delay = val;
- 		else if (!strcmp(name, "speakers"))
- 			e->spk_alloc = val;
--		else if (!strcmp(name, "sad_count"))
-+		else if (!strcmp(name, "sad_count")) {
-+			if (val > ELD_MAX_SAD)
-+				continue;
- 			e->sad_count = val;
--		else if (!strncmp(name, "sad", 3)) {
-+		} else if (!strncmp(name, "sad", 3)) {
- 			sname = name + 4;
- 			n = name[3] - '0';
- 			if (name[4] >= '0' && name[4] <= '9') {
+diff --git a/fs/ntfs3/xattr.c b/fs/ntfs3/xattr.c
+index 7f77df9c46f85..2cf45bdd93d54 100644
+--- a/fs/ntfs3/xattr.c
++++ b/fs/ntfs3/xattr.c
+@@ -167,6 +167,24 @@ static int ntfs_read_ea(struct ntfs_inode *ni, struct EA_FULL **ea,
+ 				goto out1;
+ 			if (bytes < offsetof(struct EA_FULL, name))
+ 				goto out1;
++
++			/* Check if we can use fields ef->name_len and ef->elength. */
++			if (bytes < offsetof(struct EA_FULL, name))
++				goto out1;
++
++			/*
++			 * The declared entry size (ef->size) must be large
++			 * enough to hold the name and value.  Otherwise a later
++			 * reader such as ntfs_get_ea() copies ef->elength bytes
++			 * starting past the entry, reading out of bounds of the
++			 * ea buffer and leaking adjacent heap memory to
++			 * userspace via getxattr().
++			 */
++			if (struct_size(ef, name,
++					1 + ef->name_len +
++						le16_to_cpu(ef->elength)) >
++			    ea_size)
++				goto out1;
+ 			continue;
+ 		}
+ 
 -- 
 2.53.0
 
