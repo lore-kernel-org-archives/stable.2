@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046414;
-	b=NVLJDVq70+FURov1eNK3/qszVjFW8BzpEjHe8EM7J/Us2d/kVMcrwuE6AVA4qw+3bpwg
-	 z5yYcT4fRu8nOqEMxy9l0FaSYLygqzi1JoOigdattBacAtQlW++3gy4CYm3X8rIo3GNRY
-	 C48FgZTG//LMa4PngguyIzWuDq9xx/LNNGLrDP3FH57nn9xsyfxykqhnkEo5KwN02k+Kq
-	 GwSdmtyhE/ghTJeEmaofyzpSfg1Qa2s8HVw1bv+iWhCxUpUTiTyCQ2HYcekOImuFjLEJ4
-	 Epxi7z3P9BGExVOz4PEv7LkzQrs/vSSikQcfUsCd9BlFNDY57HnZByIPRo6MonrEHIQ==
+	t=1794046416;
+	b=D02Zfe+m18GeQAyGdye02kCZNzF5dc+S3B+UyEuJ2+oUi99N4klBXxA3/ZUUopN1V2cb
+	 3lNQYXOrKOiOa+2R2lUvWsbxw2a/bCx5c439Hl/cXk50ectRQQ277HXyLmNNlwq3sU/1x
+	 psSpDqYNXG/dmzzIaBQEWLN++a6W5SZcdG7z7bVvgw4vvvbYrhLqBeu/E7P2JdxvARg3i
+	 V1yuJQ2qWnjO9tLMlECZKL9xNLnvDKaNFe8rd+baJZvEe8v2eXuyItEqva6a5ZsM1919t
+	 qniaTRCFxZDTg/CR+PuzPBWbl6bGVaITighz7XPRr2QWy02FUVSucyqK6srLjcZ443g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046414;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046416;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=cERq41rHSIkHv1Y+Dht9v4sJG8YYtkYttL4pyTsmLvM=;
-	b=jV7RPWUQl9XJp5yAmeCeC9YHtTxdFf9ApK3aOrIXlKb2SvXWbx7V0rQGtN/W/Krk7aKF
-	 TDweA8R8SGQfR/rrPrtD51eO1ceSsl5H/no+1qED+c+2PIDmsGrjh7Kd5grwz3v0L6fBW
-	 t2fE40AleeX18jQasSYmbbkWwitSocMMrwxPgu3dExVbUo2C292rYJbO5MdM6dKZ1C4I6
-	 IG1T6/LomsgZwdlDcZ4yCArKlUASaPbbvEpRszY4sUegTgCtP+9hK+J4z6+dHenUBoT8F
-	 vdfiYD3s19KQChL5jNuEVZZOJXGNoNphxWj23tAeKz3DzHKj7VPjY9ypWqUpLteXMdg==
+	bh=AGu1tfkSjyF5WC/jeOPNHMLbDdzfxMGVuhiqi4EPEvo=;
+	b=ES/7Ofr5kgNBSV03tD+iFv/dvoppGAi512/q6ozDo59mc4z9qwhFO20zNZd6S7kdQ+Fy
+	 RURg5Smw2QEOneB4zwTJx17ysMygJ5d5nHEH0e2pgkMdwV2WAc5XtyxXGHcgPJ0gHp67H
+	 J2xV42/t1l4lKK+gI4iDEk8ZHMn6CopGAnbfZ+QcXDbYFxNRfIK3RoFUf+ByJ1eiWy7n+
+	 Mn2qM8auFdK2doMGLHAccrqYnCKDyv3eSYOa6j+U3GPav3VxbpJix5DGvtLlIzXAHXPGI
+	 +21YzdqeAi5dIbTSmkS9ysJS+DQq5BRb9xKzj3xOU2n5yLDOKiU+FwyfxLBCYvSDq2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kaRjAKrj;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aI6O6vbD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28011606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:13:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B9DA606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:13:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kaRjAKrj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CC6F1F0089F;
-	Sat,  7 Nov 2026 10:13:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aI6O6vbD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD5231F0089F;
+	Sat,  7 Nov 2026 10:13:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046414;
-	bh=cERq41rHSIkHv1Y+Dht9v4sJG8YYtkYttL4pyTsmLvM=;
+	s=k20260515; t=1794046416;
+	bh=AGu1tfkSjyF5WC/jeOPNHMLbDdzfxMGVuhiqi4EPEvo=;
 	h=From:To:Cc:Subject:Date;
-	b=kaRjAKrjQa64Qt1SZHLAk0IxZg+3sfS/OupkVHBZv0CzGZhY2KIek0nR5ctqFlAFp
-	 VJWPdSrbgZOAXTO2J34kIMjYveYYidK00ohPFTCyOx3yJjvVuK/TjEUu9qCqIL/Hps
-	 wLOG7sk6ClX1VlJNV/y4RH1WQAUBXg2wR85WINgLluIfZRcMqxd4L13EHe6KKcdk1U
-	 oGIMNX3Rn1B+vbYk2XxaXufevnQoTFJmwFoYXmmdqNRl/eZ6s2Ac++0AIzoBxlkaL+
-	 V2JNU0n2+xeONtaf/nDCw6xHW2zSdIeSsgKiy5/QIekUXry90wRWy+nk/9QsiwasiN
-	 D67qe+Pd+6dxA==
+	b=aI6O6vbDH8Ur2axdi4OIwS5P1o4e4xOQXVVTKVpSrvIeGukDk3oOYgEHSzXdcLl1/
+	 h+j0vKgy6ue/QA7aIZTW/yuMMlTVRCQb1uPkTmXrmp1/b/u+pZTd2LuzlLBfqW/tR6
+	 ENzBSG3/Z6N0eeZWqSVXHFhg0btLb8Je6d+FiSvHHqM9WSDHSYfmgnf0chTgGWY7Jl
+	 i6dmwlYALGD2RJfa6N5dwNE9YO3l05/ec2GIbMnU0PWF7YhrvEVTonRauQ/j4q9JJB
+	 khki+4frod3dpo4QpetVKYiwf3+vafkUqnbz5asPP8P5PqroCtaZXkuvm4DlG+594M
+	 j6KKmWEBmgeag==
 From: Sasha Levin <sashal@kernel.org>
-To: alchark@flipper.net,
-	bhelgaas@google.com,
-	bartosz.golaszewski@oss.qualcomm.com
+To: qingfang.deng@linux.dev,
+	kuba@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] PCI/pwrctrl: generic: Fix leaking array from of_regulator_bulk_get_all()" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:13:32 -0500
-Message-ID: <20261107051332-failed-6.18-ee450e3a2d33@kernel.org>
+Subject: FAILED: patch "[PATCH] pppoe: delete session hash entries by pointer match" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:13:34 -0500
+Message-ID: <20261107051334-failed-6.18-b5b8c81836e2@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,50 +68,113 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x ee450e3a2d334c7e6383d8a55ad2d53b3822bacc
+git cherry-pick -x b5b8c81836e2bec7b444dfa2b14fd14e912e9d63
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051332-failed-6.18-ee450e3a2d33@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051334-failed-6.18-b5b8c81836e2@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From ee450e3a2d334c7e6383d8a55ad2d53b3822bacc Mon Sep 17 00:00:00 2001
-From: Alexey Charkov <alchark@flipper.net>
-Date: Wed, 30 Sep 2026 20:07:45 +0400
-Subject: [PATCH] PCI/pwrctrl: generic: Fix leaking array from
- of_regulator_bulk_get_all()
+From b5b8c81836e2bec7b444dfa2b14fd14e912e9d63 Mon Sep 17 00:00:00 2001
+From: Qingfang Deng <qingfang.deng@linux.dev>
+Date: Tue, 20 Oct 2026 17:21:11 +0800
+Subject: [PATCH] pppoe: delete session hash entries by pointer match
 
-of_regulator_bulk_get_all() allocates the consumers array and returns it to
-the caller, who is expected to free it at an appropriate time.  PCI pwrctrl
-never did, leading to a memory leak.
+pppoe_connect() copies the requested PPPoE address to a socket before
+attempting to insert the socket into the session hash table. If the
+tuple already exists, __set_item() returns -EALREADY, but the copied
+address and ifindex remain set on the failed socket.
 
-Add an explicit kfree() for the consumers array.
+Closing that socket then deletes the existing socket's hash entry
+through pppoe_release(), preventing it from receiving further session
+traffic. An unprivileged process in the same network namespace can
+trigger this through a duplicate connection attempt.
 
-Fixes: 75996c92f4de ("PCI/pwrctrl: Add pwrctrl driver for PCI slots")
-Signed-off-by: Alexey Charkov <alchark@flipper.net>
-Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+To avoid the accidental delete, pass the pppox_sock to __delete_item(),
+and unlink only an entry whose pointer matches the requested socket.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260930-pci-pwrctrl-kfree-v1-1-f09bbffd8da3@flipper.net
+Signed-off-by: Qingfang Deng <qingfang.deng@linux.dev>
+Link: https://patch.msgid.link/20261020092118.47416-1-qingfang.deng@linux.dev
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 ---
- drivers/pci/pwrctrl/generic.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/net/ppp/pppoe.c | 22 ++++++++--------------
+ 1 file changed, 8 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/pci/pwrctrl/generic.c b/drivers/pci/pwrctrl/generic.c
-index d56171e0ee244..4b6cbbb522480 100644
---- a/drivers/pci/pwrctrl/generic.c
-+++ b/drivers/pci/pwrctrl/generic.c
-@@ -63,6 +63,7 @@ static void devm_slot_pwrctrl_release(void *data)
- 	struct slot_pwrctrl *slot = data;
- 
- 	regulator_bulk_free(slot->num_supplies, slot->supplies);
-+	kfree(slot->supplies);
+diff --git a/drivers/net/ppp/pppoe.c b/drivers/net/ppp/pppoe.c
+index bf7414b46a260..ee0e318d6a2a4 100644
+--- a/drivers/net/ppp/pppoe.c
++++ b/drivers/net/ppp/pppoe.c
+@@ -194,18 +194,16 @@ static int __set_item(struct pppoe_net *pn, struct pppox_sock *po)
+ 	return 0;
  }
  
- static int slot_pwrctrl_probe(struct platform_device *pdev)
+-static void __delete_item(struct pppoe_net *pn, __be16 sid,
+-					char *addr, int ifindex)
++static void __delete_item(struct pppoe_net *pn, const struct pppox_sock *po)
+ {
+-	int hash = hash_item(sid, addr);
++	int hash = hash_item(po->pppoe_pa.sid, po->pppoe_pa.remote);
+ 	struct pppox_sock *ret, __rcu **src;
+ 
+ 	ret = rcu_dereference_protected(pn->hash_table[hash], lockdep_is_held(&pn->hash_lock));
+ 	src = &pn->hash_table[hash];
+ 
+ 	while (ret) {
+-		if (cmp_addr(&ret->pppoe_pa, sid, addr) &&
+-		    ret->pppoe_ifindex == ifindex) {
++		if (ret == po) {
+ 			struct pppox_sock *next;
+ 
+ 			next = rcu_dereference_protected(ret->next,
+@@ -236,11 +234,10 @@ static inline struct pppox_sock *get_item(struct pppoe_net *pn, __be16 sid,
+ 	return po;
+ }
+ 
+-static inline void delete_item(struct pppoe_net *pn, __be16 sid,
+-					char *addr, int ifindex)
++static void delete_item(struct pppoe_net *pn, const struct pppox_sock *po)
+ {
+ 	spin_lock(&pn->hash_lock);
+-	__delete_item(pn, sid, addr, ifindex);
++	__delete_item(pn, po);
+ 	spin_unlock(&pn->hash_lock);
+ }
+ 
+@@ -570,8 +567,7 @@ static int pppoe_release(struct socket *sock)
+ 	 * protect "po" from concurrent updates
+ 	 * on pppoe_flush_dev
+ 	 */
+-	delete_item(pn, po->pppoe_pa.sid, po->pppoe_pa.remote,
+-		    po->pppoe_ifindex);
++	delete_item(pn, po);
+ 
+ 	sock_orphan(sk);
+ 	sock->sk = NULL;
+@@ -621,8 +617,7 @@ static int pppoe_connect(struct socket *sock, struct sockaddr_unsized *uservaddr
+ 	if (stage_session(po->pppoe_pa.sid)) {
+ 		pppox_unbind_sock(sk);
+ 		pn = pppoe_pernet(sock_net(sk));
+-		delete_item(pn, po->pppoe_pa.sid,
+-			    po->pppoe_pa.remote, po->pppoe_ifindex);
++		delete_item(pn, po);
+ 		if (po->pppoe_dev) {
+ 			dev_put(po->pppoe_dev);
+ 			po->pppoe_dev = NULL;
+@@ -672,8 +667,7 @@ static int pppoe_connect(struct socket *sock, struct sockaddr_unsized *uservaddr
+ 
+ 		error = ppp_register_net_channel(dev_net(dev), &po->chan);
+ 		if (error) {
+-			delete_item(pn, po->pppoe_pa.sid,
+-				    po->pppoe_pa.remote, po->pppoe_ifindex);
++			delete_item(pn, po);
+ 			goto err_put;
+ 		}
+ 
 -- 
 2.53.0
 
