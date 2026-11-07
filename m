@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049207;
-	b=LL9/pfKmWvAR7mQvc1HDsYAiCm2D5qGx0AUX3MqGNtZY5KuEUMD/xnUfZkLgU+EovUM+
-	 klrOWMlqDdlr3G5VjrAXKUKlTnCPOsMTQk/qDc3v79zMWZNZQEC/mNI52KFs7BiHBA4FJ
-	 suEGHx+XsTvJjxTwjcYBV58TkbQjAXb4GFbVoDSTj95QUFCYNC235TNtfk6FvG52cvN6i
-	 xCoGDaRi+Wp2/bAqGwse2vK8wBxZt3yaTbaK6FNG8FWVVU+Sb1TyMKBd8xl3Ja458qdHy
-	 rGybDUO7BcSf/8aJjITKvzot92Rrtx6L/n0XvJqg2gjsCYOFxmfeOTedRZ7OfZmGRpQ==
+	t=1794049209;
+	b=bgcx+OwcCSVEqikHpLp2ZpPpQeNbUVW6B+CN7DEAfPsJ5FIAocTTXzIpHAK6Cusw/hUz
+	 T9npP9Y22FNXyJh9fPE+mZfSSUf31RfdxOBZjR9p74W4bYpqz5MOVHYoNS05CqhDTwMAx
+	 KsGFrrnF0cnNAtreAGgh4daf9iv9atOjbyhNkjPIHDd5s5d5Am1AQUmRA/cn1nXSosVrl
+	 vKCjxLL6YGtKKJOb6LHqXQQ9L21Tpu0ROwLpfmxR9A7/kOFeu8ZhyBcJGeDOTEtMCOusO
+	 BLHdqNQDXqREI7kNEt4Gs10XYN3JpkSXz6Eu5JAuaRglXW8KMrZdyIMHR4P5iv15yeA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049207;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049209;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=kpFsFhGT+onI4UruuCX7jMijZkabn0pfml9X3/73G2w=;
-	b=m8EKwtlQG4bacdtbxOmohWI5Forx5KCQwVdpW6sMUuXmAEIzY89/DfzQp7U8bjWEY1Jg
-	 7CRegf47MaDZUWhko2DPyURXDgv3fGAySyvFvDpT4PgZKqwNpg9dXHZU/2BlJCg0SHuIy
-	 tE4IMDqnVImu9gRGgkFv8lbWpA3FROHimjO55W2UZBk8jR/tFmDN2bMHV7WbRPkfOTh9p
-	 ac/mgirfMe6B36YjepVBZMx8oYtkY9wnsoHdz51bxTRW53Dbqt3dVt+9SbUFcAp/nVB3Y
-	 BtWrmBEQsx5E0hnw3/lisGA/UckhK0jGgxCe+FGYApg0FhRVzxl3QElhsIDq3HRrHmg==
+	bh=gPxtRzSxUEpPqSDMxPl67CnSYF3HELrxIEULOwxwjPs=;
+	b=MfJRD+3bhgXcrHI84bYky+FREGRy43ze5yMeZ9Z+XjYsTdUPGa//hwWR3NA3MVoQJBiy
+	 ZT6PlIQhrSHUgq5HGxXJd6SKKeFfMh5oAbwiZK+1oXLR2rhOOH0HLDu6i01/V9WlS7gth
+	 /197XlGYFQaoMIr2r9I8L/QMRqSww4wY3tkQFBEvnLS7JGtcO1RSeZUQsuxmwZBdks0qO
+	 0hUz8f2xSX8gqQBwvKbdF4sdztyDw7egfL7tg1v3RKdd2fnmUl3zO3Ygbi8YNLQzzmt8R
+	 vKPDvwhPMzZrvdut5watH2wMb2GwNJrnZ+VeJkZCqDvpfFGRT2E89+HGytJcc5bu7pQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kHEOa6Tb;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aTYUn2qI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9274606D81A
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:00:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BFAE606A33C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:00:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kHEOa6Tb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20D291F0089F;
-	Sat,  7 Nov 2026 11:00:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aTYUn2qI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1534A1F008A1;
+	Sat,  7 Nov 2026 11:00:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049206;
-	bh=kpFsFhGT+onI4UruuCX7jMijZkabn0pfml9X3/73G2w=;
+	s=k20260515; t=1794049209;
+	bh=gPxtRzSxUEpPqSDMxPl67CnSYF3HELrxIEULOwxwjPs=;
 	h=From:To:Cc:Subject:Date;
-	b=kHEOa6TbVM9GyuuZy/b90DjTPbG5TvEsyZbPQF1dsGH0zqwz18kd7FKUcsuTVfdTv
-	 AsMG8zHswj23udYXCC2N5fuBXWvnlEfNU3884drC9tgqniTnQBuNW3FBIVN8NurNc8
-	 lui6qYCElZNQA0oqj+jVxsVE2EcDnpMVwVlHPUgE04nDDo0lEc+ub+jEPq0+VMRtyr
-	 OiGakuLrXh5bJzqlmBd72If6UdzlWecLfDvacQpnprKrdWIEGLW7ARqLiu45GT8GtL
-	 pfYaW+MoZXuqrnN8kUXebODe1ld6wVtfs9tH2m/BlO/XMAgjomZON7dBQtC5DxS6af
-	 nvshR/u5ZyMVg==
+	b=aTYUn2qIiWoEoL+ctdl7SRfR/xR6nVkow8H/Yz/u8CDF9LJUrl2v+/auURusnKAC8
+	 uYZDKAmXkuuY1w7sIkzHj6cRceh9mtJaECHQ67lL2GufUT/GVirKy3UcRkZQqw+kiR
+	 nnbNq3AbSBizk+8EynbKydSoZ7FthRx1VHWVpp3Bcte4TZalsC4OvzeBxppNeblZuY
+	 HyVw79czjb2WiPkDo9mo7yIosJSBgWWcA2Sh2IieT2Ppn8+UD5hQFLllzHw3RvRKJm
+	 YP/jLDrDdgzq0w3qebO/ybEpj0iXH4rQOCDol/YjLvy/NNt+mvmzHppy+X3Hv4iHAB
+	 MHC59UgUxnS+g==
 From: Sasha Levin <sashal@kernel.org>
-To: david@ixit.cz,
+To: getshell@seu.edu.cn,
 	lee@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mfd: wcd934x: set DMA mask on parent to silence "DMA mask not set"" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:00:04 -0500
-Message-ID: <20261107060004-failed-5.15-b296be1dc008@kernel.org>
+Subject: FAILED: patch "[PATCH] mfd: da903x: Cancel IRQ work during teardown" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 06:00:07 -0500
+Message-ID: <20261107060007-failed-5.15-fd2258999ecd@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,61 +68,128 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x b296be1dc008fe3a536341afae01f66bb302e67f
+git cherry-pick -x fd2258999ecdc7164ef0cda2d4102e4558a5660f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060004-failed-5.15-b296be1dc008@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060007-failed-5.15-fd2258999ecd@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From b296be1dc008fe3a536341afae01f66bb302e67f Mon Sep 17 00:00:00 2001
-From: David Heidelberg <david@ixit.cz>
-Date: Thu, 3 Sep 2026 16:42:05 +0200
-Subject: [PATCH] mfd: wcd934x: set DMA mask on parent to silence "DMA mask not
- set"
+From fd2258999ecdc7164ef0cda2d4102e4558a5660f Mon Sep 17 00:00:00 2001
+From: Hongyan Xu <getshell@seu.edu.cn>
+Date: Fri, 14 Aug 2026 23:30:19 +0800
+Subject: [PATCH] mfd: da903x: Cancel IRQ work during teardown
 
-The wcd934x MFD parent (a slim_device) never initializes its
-dma_mask/coherent_dma_mask. When the DT-aware children pass through
-of_dma_configure() this triggers the "DMA mask not set" warning for
-each child.
+The IRQ handler disables the IRQ and schedules irq_work. Releasing the
+IRQ does not drain that work, which can continue to use the devm-allocated
+chip and notifier state.
 
+Manage both IRQ-work cancellation and subdevice removal with devres.
+Register the subdevice-removal action before requesting the IRQ, then add
+the IRQ-work action after the request. This avoids leaving a live IRQ
+without work cancellation if action registration fails. Devres cleanup
+then disables the IRQ and drains the work before releasing the IRQ and
+removing child devices. Register both actions before creating the children
+so partial probe failures use the same ordering.
+
+This issue was found by the author's in-house static analysis tool.
+The patch was reviewed by the author against the latest mainline tree.
+
+Fixes: 26b8f5e1e2d1 ("mfd: add base support for Dialog DA9030/DA9034 PMICs")
 Cc: stable@vger.kernel.org
-Fixes: f959dcd6ddfd ("dma-direct: Fix potential NULL pointer dereference")
-Assisted-by: tencent:hy3
-Signed-off-by: David Heidelberg <david@ixit.cz>
-Link: https://patch.msgid.link/20260903-wcd-dma-v2-1-189cff560a28@ixit.cz
+Suggested-by: Lee Jones <lee@kernel.org>
+Assisted-by: Codex:GPT-5
+Signed-off-by: Hongyan Xu <getshell@seu.edu.cn>
+Link: https://patch.msgid.link/20260814153019.1114-1-getshell@seu.edu.cn
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/mfd/wcd934x.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/mfd/da903x.c | 34 +++++++++++++++++++++++++---------
+ 1 file changed, 25 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/mfd/wcd934x.c b/drivers/mfd/wcd934x.c
-index 3c3080e8c8cf7..7bea64fc09562 100644
---- a/drivers/mfd/wcd934x.c
-+++ b/drivers/mfd/wcd934x.c
-@@ -2,6 +2,7 @@
- // Copyright (c) 2019, Linaro Limited
+diff --git a/drivers/mfd/da903x.c b/drivers/mfd/da903x.c
+index e86b39de3303a..e4ad48e1f139b 100644
+--- a/drivers/mfd/da903x.c
++++ b/drivers/mfd/da903x.c
+@@ -421,6 +421,14 @@ static irqreturn_t da903x_irq_handler(int irq, void *data)
+ 	return IRQ_HANDLED;
+ }
  
- #include <linux/clk.h>
-+#include <linux/dma-mapping.h>
- #include <linux/gpio/consumer.h>
- #include <linux/interrupt.h>
- #include <linux/kernel.h>
-@@ -217,6 +218,11 @@ static int wcd934x_slim_probe(struct slim_device *sdev)
- 	struct gpio_desc *reset_gpio;
- 	int ret;
- 
-+	ret = dma_coerce_mask_and_coherent(dev, DMA_BIT_MASK(32));
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "Failed to set DMA mask\n");
++static void da903x_cancel_irq_work(void *data)
++{
++	struct da903x_chip *chip = data;
 +
- 	ddata = devm_kzalloc(dev, sizeof(*ddata), GFP_KERNEL);
- 	if (!ddata)
- 		return	-ENOMEM;
++	disable_irq(chip->client->irq);
++	cancel_work_sync(&chip->irq_work);
++}
++
+ static const struct da903x_chip_ops da903x_ops[] = {
+ 	[0] = {
+ 		.init_chip	= da9030_init_chip,
+@@ -456,6 +464,13 @@ static int da903x_remove_subdevs(struct da903x_chip *chip)
+ 	return device_for_each_child(chip->dev, NULL, __remove_subdev);
+ }
+ 
++static void da903x_remove_subdevs_action(void *data)
++{
++	struct da903x_chip *chip = data;
++
++	da903x_remove_subdevs(chip);
++}
++
+ static int da903x_add_subdevs(struct da903x_chip *chip,
+ 					struct da903x_platform_data *pdata)
+ {
+@@ -484,7 +499,6 @@ static int da903x_add_subdevs(struct da903x_chip *chip,
+ 	return 0;
+ 
+ failed:
+-	da903x_remove_subdevs(chip);
+ 	return ret;
+ }
+ 
+@@ -520,6 +534,11 @@ static int da903x_probe(struct i2c_client *client)
+ 	chip->ops->mask_events(chip, chip->events_mask);
+ 	chip->ops->read_events(chip, &tmp);
+ 
++	ret = devm_add_action_or_reset(&client->dev,
++				       da903x_remove_subdevs_action, chip);
++	if (ret)
++		return ret;
++
+ 	ret = devm_request_irq(&client->dev, client->irq, da903x_irq_handler,
+ 			IRQF_TRIGGER_FALLING,
+ 			"da903x", chip);
+@@ -529,14 +548,12 @@ static int da903x_probe(struct i2c_client *client)
+ 		return ret;
+ 	}
+ 
+-	return da903x_add_subdevs(chip, pdata);
+-}
+-
+-static void da903x_remove(struct i2c_client *client)
+-{
+-	struct da903x_chip *chip = i2c_get_clientdata(client);
++	ret = devm_add_action_or_reset(&client->dev, da903x_cancel_irq_work,
++				       chip);
++	if (ret)
++		return ret;
+ 
+-	da903x_remove_subdevs(chip);
++	return da903x_add_subdevs(chip, pdata);
+ }
+ 
+ static struct i2c_driver da903x_driver = {
+@@ -544,7 +561,6 @@ static struct i2c_driver da903x_driver = {
+ 		.name	= "da903x",
+ 	},
+ 	.probe		= da903x_probe,
+-	.remove		= da903x_remove,
+ 	.id_table	= da903x_id_table,
+ };
+ 
 -- 
 2.53.0
 
