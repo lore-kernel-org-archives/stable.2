@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047457;
-	b=x1CxEMEDtYQ0rZO6ysbXH+S6ww0Uz3Ky8xZzfOZZhZWM8wYedeLtVQBT/T5iM9BK08Aw
-	 zW0/BfvbqO60EeP7KG/xJamA4XEt5Fjaopq+6SkXIHFcW3357Yyy/7iUD8f0AScArUY32
-	 mkLMAAKE2i/hwZUyFog1IbL1V1DxiVxoGeMPL7VW3IQmnOOpr2/zWIX7exYUQezl6/Zq0
-	 sSgIRX1E2h7KhK2AHy+01CBRLXAuI5lipPF2enU87y2ILoYonvZcJGIMQCR7KFlXQj5Xa
-	 vxAzcrDctzHBjz7j2KnfO21PJBc4t2AbDz52w5OxA/tM8mQ60OXJ0eqSyYAbEl+xq2Q==
+	t=1794047459;
+	b=0y1bQ0SHH6eQrck+POnbn8t8p/Jw3+WwoJyEOIv3kDsJW3jd82bytj5YaUOTYBNSHkh7
+	 Z5KsRbRFwJTxr9PtMg1b7zCtzbRMMaryKq2PJcaBS0e4/UXwZkzFXF0BMCoCGnpiYtDrY
+	 sv8FV65GVGX0cu5rUjRJe3pXH4Say7czREi4HRoiseYehGcOJQkETwyJj/7jnDXOly1KM
+	 RE8qabpfjYIhHqbfdFWkvDNT9OzccFqxgJdI9fF/C5/NWOGuTe0MPjC27hF5A0AUAjoaw
+	 g22cupI6ED89cSkRENNvjWVSTkgjt/SF3Pzguf+/ON1w/TVwjBeHV6ES5rCCqJl5gog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047457;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047459;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=PVMFNmuABl811UwUbn7cf2iBtBW7u9eQRLhcD1wrpJc=;
-	b=V8fX47Rqe2nrE16u6qMVU9a2ejLlUVMplK+ZX+xR6u1Dyl+0b9L726qXCPAc0tQJ5rx+
-	 9V1+pFZao/24xjiYikMnUX5PtoYEEEIaFIMxRgw8rOfWczimWQWxKgeH3o0Ftu7IkthO2
-	 gi/5Ofu2QuQ3wGUUWaIuAqvzwbBPqSNg1rTIVGNDq5HOxmqdKqOw8FEphFwOMawXvHtlU
-	 j1Jrdaxh0Z4jGK0E9LuK3uYDYkM+j9eMimqlNhnKL6Z30pra5CNLWkNXEf7QuelXNinNw
-	 KXlrGkoquYfNSb42fJno58QPcixmMZ+uz5ymOegH4DhWnakeJBvCwQGcUU98yG5lQJA==
+	bh=eih51eZ62+NzHLFQBK/Y8prS71WW6isj18aECPenKBw=;
+	b=D++3z2IUWKoK+DJ9cuHswpHZgtnuTWX/9Tz9wSmbzu+IkSwOFhiKvAv/VT6vLV4v4pCp
+	 PJT0Q+C0iJw5ZEqAsduayM0fhWQG3XNADKmAS8Xp0Orwd1lVnoQ+UoFmrMuuBL5yBziBv
+	 4rl69hUMvRCy3yw46XV4nzFKf54BquYnxqaL+AZYQwt82/DYZ1r24vCvzj9m/wa8o2z9u
+	 ibzgyULsCmTSKyMMg5X6JzyVq37oxKJvHkLtUSITEwIt+BRxn8fxEBq5evMzzvjtqubEW
+	 HV/5ay1xquu3hL/HKLldI4cw7OZP1Iu5leVRXNcKu/1SLbPjkLLaCZPrnslJisnAx4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gfbtgJjN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K5nyl3Gf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D5C0606A32D
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:30:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32E72606A336
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:30:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gfbtgJjN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C1BA1F0089F;
-	Sat,  7 Nov 2026 10:30:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K5nyl3Gf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A09041F0089F;
+	Sat,  7 Nov 2026 10:30:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047457;
-	bh=PVMFNmuABl811UwUbn7cf2iBtBW7u9eQRLhcD1wrpJc=;
+	s=k20260515; t=1794047459;
+	bh=eih51eZ62+NzHLFQBK/Y8prS71WW6isj18aECPenKBw=;
 	h=From:To:Cc:Subject:Date;
-	b=gfbtgJjNIbjO1K2zYoOtY+1dnFmCZQu+L8EgdvAmpMyPfwJipRyT+VDalUhk85N51
-	 AOp8NXeNiuxmv1s8+hbPwHwZngECodIMRGPIuOa/HexfyPPOysK4ULbTJMx+5/fxMn
-	 xz3J2J1PILeh57iUSZuMwcdyKVc0ICI03A+fibHCOsM5A3uxmTiwQRMKPt05pnZijh
-	 EmfTavBg52gZkBt+oPruiUMUyojV7ueJ9p9rkSNm/TnLc0BbT4dso0wymeUWVXuYhG
-	 ocO9QuK/26uY+jIrWRCDvk9Y5bUe7OFP8ueA0YZWxfZ8ryWFxn40cf6SEi5++Gv6NA
-	 5Yqx4sKNjQLkQ==
+	b=K5nyl3Gf6xa7qYYI6XdXhl/zukBGrtc7vkmRBR3vzu4LSzTxcGS7vr205Jf8QC0hf
+	 dH4Y8itEF+uuAs+xnpwVx5k4V3/MzQGVgLlkcsInP0nd/rR16Ma5NRXObnL7paCBGf
+	 b9dop9vNANmhmyd5ERB5PBsIhETgxYg5VCNZ70g7uRPTGdtzmVneMH8VCVyItbnD9z
+	 xs9gVAK0sADl/czTqhcx81H/+ft87kV427quoTNrK98F1WC4Ugw7FH28gWjQF2LS1G
+	 NzLqevlp4oE2+z4I6u6/JyQFK5Hg6Ak6MG/Nz3yMXnz/ZeoakzWCliGYHzK20hUfH8
+	 ZvI46Kj1O7DzA==
 From: Sasha Levin <sashal@kernel.org>
-To: runyu.xiao@seu.edu.cn,
-	leon@kernel.org
+To: krzysztof.kozlowski@oss.qualcomm.com,
+	dmitry.baryshkov@oss.qualcomm.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] IB/hfi1: Shutdown self-rearming timers before freeing" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:30:55 -0500
-Message-ID: <20261107053055-failed-6.6-9d3259e41ccd@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/msm/hdmi: Handle msm_hdmi_power_on() errors during .atomic_pre_enable()" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:30:57 -0500
+Message-ID: <20261107053057-failed-6.6-dd6ecace5785@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,65 +68,102 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 9d3259e41ccd5016cd2c6d013232b89df6d73011
+git cherry-pick -x dd6ecace57851878e62367a6f1a26dd5b9aa217f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053055-failed-6.6-9d3259e41ccd@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053057-failed-6.6-dd6ecace5785@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 9d3259e41ccd5016cd2c6d013232b89df6d73011 Mon Sep 17 00:00:00 2001
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Date: Wed, 30 Sep 2026 15:04:55 +0800
-Subject: [PATCH] IB/hfi1: Shutdown self-rearming timers before freeing
+From dd6ecace57851878e62367a6f1a26dd5b9aa217f Mon Sep 17 00:00:00 2001
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Date: Fri, 11 Sep 2026 12:29:35 +0200
+Subject: [PATCH] drm/msm/hdmi: Handle msm_hdmi_power_on() errors during
+ .atomic_pre_enable()
 
-The HFI1 receive error and synthetic counter timers rearm themselves from
-their callbacks. Their cleanup paths use timer_delete_sync(), which only
-waits for a running callback and does not prevent a concurrent or
-subsequent rearm.
+Properly handle power up failures during .atomic_pre_enable() by
+aborting the .atomic_pre_enable() to avoid accessing registers why
+blocks did not bring up.  Otherwise this could lead to imprecise aborts
+when accessing MMIO while entire power domain is off.
 
-Use timer_shutdown_sync() when releasing these timers. This prevents a
-callback from enqueueing either timer after cleanup begins, before the
-containing hfi1_devdata is freed.
-
-Preserve the existing work cancellation and workqueue destruction ordering
-for synthetic counters.
-
-Fixes: 7724105686e7 ("IB/hfi1: add driver files")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Link: https://patch.msgid.link/20260930070455.2934286-1-runyu.xiao@seu.edu.cn
-Signed-off-by: Leon Romanovsky <leon@kernel.org>
+Cc: <stable@vger.kernel.org>
+Fixes: ba3d7bf3a7ab ("drm/msm/hdmi: Convert PHY files according to new design")
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Patchwork: https://patchwork.freedesktop.org/patch/752652/
+Link: https://lore.kernel.org/r/20260911-drm-msm-hdmi-fixes-before-eliza-v4-2-87bdb9f1987f@oss.qualcomm.com
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
- drivers/infiniband/hw/hfi1/chip.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/msm/hdmi/hdmi_bridge.c | 30 ++++++++++++++++++--------
+ 1 file changed, 21 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/infiniband/hw/hfi1/chip.c b/drivers/infiniband/hw/hfi1/chip.c
-index 592e330e74bf1..faa724ca33bd7 100644
---- a/drivers/infiniband/hw/hfi1/chip.c
-+++ b/drivers/infiniband/hw/hfi1/chip.c
-@@ -5567,7 +5567,7 @@ static int init_rcverr(struct hfi1_devdata *dd)
- static void free_rcverr(struct hfi1_devdata *dd)
+diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
+index 157f19bd90b4e..db85400e574e4 100644
+--- a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
++++ b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
+@@ -13,14 +13,16 @@
+ #include "msm_kms.h"
+ #include "hdmi.h"
+ 
+-static void msm_hdmi_power_on(struct drm_bridge *bridge)
++static int msm_hdmi_power_on(struct drm_bridge *bridge)
  {
- 	if (dd->rcverr_timer.function)
--		timer_delete_sync(&dd->rcverr_timer);
-+		timer_shutdown_sync(&dd->rcverr_timer);
+ 	struct drm_device *dev = bridge->dev;
+ 	struct hdmi_bridge *hdmi_bridge = to_hdmi_bridge(bridge);
+ 	struct hdmi *hdmi = hdmi_bridge->hdmi;
+ 	int ret;
+ 
+-	pm_runtime_resume_and_get(&hdmi->pdev->dev);
++	ret = pm_runtime_resume_and_get(&hdmi->pdev->dev);
++	if (ret)
++		return ret;
+ 
+ 	if (hdmi->extp_clk) {
+ 		DBG("pixclock: %lu", hdmi->pixclock);
+@@ -29,9 +31,14 @@ static void msm_hdmi_power_on(struct drm_bridge *bridge)
+ 			DRM_DEV_ERROR(dev->dev, "failed to set extp clk rate: %d\n", ret);
+ 
+ 		ret = clk_prepare_enable(hdmi->extp_clk);
+-		if (ret)
++		if (ret) {
+ 			DRM_DEV_ERROR(dev->dev, "failed to enable extp clk: %d\n", ret);
++			pm_runtime_put(&hdmi->pdev->dev);
++			return ret;
++		}
+ 	}
++
++	return 0;
  }
  
- static void handle_rxe_err(struct hfi1_devdata *dd, u32 unused, u64 reg)
-@@ -12300,7 +12300,7 @@ static void free_cntrs(struct hfi1_devdata *dd)
- 	int i;
+ static void power_off(struct drm_bridge *bridge)
+@@ -287,13 +294,18 @@ static void msm_hdmi_bridge_atomic_pre_enable(struct drm_bridge *bridge,
  
- 	if (dd->synth_stats_timer.function)
--		timer_delete_sync(&dd->synth_stats_timer);
-+		timer_shutdown_sync(&dd->synth_stats_timer);
- 	cancel_work_sync(&dd->update_cntr_work);
- 	ppd = (struct hfi1_pportdata *)(dd + 1);
- 	for (i = 0; i < dd->num_pports; i++, ppd++) {
+ 	msm_hdmi_set_timings(hdmi, &crtc_state->adjusted_mode);
+ 
+-	mutex_lock(&hdmi->state_mutex);
+-	if (!hdmi->power_on) {
+-		msm_hdmi_phy_resource_enable(phy);
+-		msm_hdmi_power_on(bridge);
+-		hdmi->power_on = true;
++	scoped_guard(mutex, &hdmi->state_mutex) {
++		if (!hdmi->power_on) {
++			if (msm_hdmi_phy_resource_enable(phy))
++				return;
++
++			if (msm_hdmi_power_on(bridge)) {
++				msm_hdmi_phy_resource_disable(phy);
++				return;
++			}
++			hdmi->power_on = true;
++		}
+ 	}
+-	mutex_unlock(&hdmi->state_mutex);
+ 
+ 	if (connector->display_info.is_hdmi)
+ 		msm_hdmi_audio_update(hdmi);
 -- 
 2.53.0
 
