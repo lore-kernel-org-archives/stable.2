@@ -1,96 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794045786;
-	b=yD1HdyU3lyKAYZlkf3xm8uCdS27eHtpQhAFnF0p56r0R5k7QaN08fj3bZCOlf1BUNkmw
-	 ii4WoGANdIGtHdScrNy0WnJ4TyRZcXfjzquwZUMdrcSmis8NKRfcakgxzRc1wNUvEL84p
-	 ZjnQ6c7Xp2KR579bOXDWdNJ+y72b1frf+HqhANQJuazDHsIq6oSnceRcjlFwhgb5qZleq
-	 le1T/FfiFgK4j1sIxb0AqmzCuXI42tBNKBwAcbDrR/30uCzwJbzM2icxeHv7w7XcyQ292
-	 h383nKQ4bmXc+BA1Gr3MQDiII9V8/hN+rteIbHDWK9GHjpJJIuiy1XG9TJ25fNtNTOQ==
+	t=1794045787;
+	b=eZvE95mVc2JynwSDtGqnUHLaTkMLQtq8ltLAZmIfqgAZW5feL75iEVZ5Zz2eCGmemiOP
+	 hudFFr1BJQVwungekpasyCvirgC/vHjf1d/AFJ4OnuiDBIYXMUkl1zBRpn5zfbPe9PSH5
+	 sb5sdvRNVSwMwEc31aa3IkZf/CtLr7MA/r/L+ySTCaT1Ebt09SMr9bktV8iNOIZ7N/Xgx
+	 6V4ZHKVquAJgqJGLZRa9LAo9h/zeCBQRd3Lz8ulPOUvAbNWsaRyHPkJgU4BgWm0D4FDzh
+	 1wG9TbD3dP2e+lR1QzYTP/S9hMOhxuwwRsmvewwa1fp2RES4X1BMJI+wYJ21GlntKOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794045786;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Hjw8ufxY1uqj/hElRvoiFVTy1rX/3DfCiEVnshIZW2A=;
-	b=vUIAKncAwrP7u5qSeD2Z0K6zYavu/IYtyubMWDNzxE7i/IWcQqQkK5aDpFo251UC/mZa
-	 P4yLA5wsFopBG31gU5Grjl53i+xCHkGzYVQ66hUVuqCOfE6sfAlNf5ob37M55V57BEpYZ
-	 8uWAAzJxf0nsyUcsMPI4jMlrqrFVQDP9J2Cqzh4BNCSrT0cHa92u8AW+5Tk7MmvTSWv6D
-	 kQYGS6E9hmcGySxsQkf1Xtc2l4C5PZXFJYwcdjFk+ZUvihaXs9UhnyrdRzO/q1Rs0BR0C
-	 1aCyw5Ok4mDozRRx0AIsQZfgRNYn0uyKe8PsvXSUer+BFF2Dzsq/f9vRdNOY4QrNxZA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794045787;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=4+q7kprI3OqUpH3xhSiABpKNCA6VQjJDxhoeYmPfzg8=;
+	b=ZX4QmVpREtifFySYn972FMpRGCOAdY2O0thCynFPOeU0ZoDxiRNOdw4KmHMe2l46l0Eh
+	 4bawhgeYJIJiXoLHD8L89VyL3bNsld2egWke8NevvNMBm2RxZHHhRFs3JNJ26M3gJx2ie
+	 2ci5XYGOIyPLmhOX1o6hLzAOJgSOKxdkkTEVGr2MmhcGNChDuoKCvQbHHkUcpV8OAKhsM
+	 Yi/oJTPCQ6VFxKIudFP4smjMZ2EZoQrdcvUKiHnXk7W4ShNQ9VmOVYL/YCQsyFBP7Sqqv
+	 bx1uPjcYtVu3ElcHcBhJz5H+E8Okep5EjPABoDlDGIRi9EmBe/6unbmLJPOTHxVKNFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lWcROtAn;
-	arc=none smtp.remote-ip=209.85.215.172
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GMuId2m8;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60F90606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:03:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60F90606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E209F606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:03:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lWcROtAn
-Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cd60c5da24cso800036a12.0
-        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 02:03:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794045785; x=1794650585; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Hjw8ufxY1uqj/hElRvoiFVTy1rX/3DfCiEVnshIZW2A=;
-        b=lWcROtAn5ro20ByT9pzIBwjOOXNBIlWks/Fn0Nn7kzh+SexDXRr99TJWnUGEVCa8yL
-         UlKZZKVZsKzKCYJk+6BMNZUd9S1eMN9b6s9WkbTROt3v04LvxGDERPFVNoZ07BGY23U6
-         ATO4Meb5Vg9izol4qgk4OxWnGDuowW3gpGWJ0BhxYAVg57b7IcynogZ0DcWLQgw+3xH2
-         0rpQdHqm2jlmAbGlsrQ/R/ve5ZBrjPSXjjKyBD7FVOjSpyRyMHLCd8SF7SHZEYnkGfs3
-         mEgYnru8FvA6WDemNBkKlFhE+3M+BR4JmyCgOqip4pPM8fAwxgLcZTLxod5HL3Xp3tGp
-         4gkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794045785; x=1794650585;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Hjw8ufxY1uqj/hElRvoiFVTy1rX/3DfCiEVnshIZW2A=;
-        b=taHdtPVEf6OtpvvGdgWi8nd+65Ra1frPrJ/qBoWwJs4k7iCJ+eyi093rKwBJx17ep8
-         eCgeLHKy0Njuxivtq3t21Y3rXyoktgc8awMNR+gx1E6YrcNUyV4w70YIDSRi9N+NOGCm
-         0QyacOopHMKfv22gqmz3Ai7+iKf619jB4XH/HxDJlGkCxbsWcGmWdGKkBQX8VwpeVbNI
-         w2Th8za9GmCWAabvVA9iXf7xlCGm1fMZgU3/XkhaTt/041qm4zEuk0ioqarAY89Li8W1
-         +7PXHnJHTmU3sQrXNLznlTjeEo/PoMznNi5PY1I8Nqs0alPFRnMsOTtTVqHRHA6kmzxY
-         ewpw==
-X-Forwarded-Encrypted: i=1; AL+hErF7AMeyVwgzWGYsajFa2kFbJGLXUOFPBZ5K2MubqK74UPIUaLb/B+xaVRT+dy9fH5UBVVaNwt8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/+u0XfYlcJBSfmureQ3vv+ANgSfSG3km2EQdScfHcjJLqsPTLq
-	9/Td/RZhiDeMceqZdwtoxG2cfudTvij6w+X6DA+7bqH8SasRPAWxtTZK
-X-Gm-Gg: AYBFou0uq6LuiFJ9J1TyHI5Oym8Wm12qI8M2YqK4+cwXkX+WIXnlKI8vJLPFsOy4EUR
-	Dom52HQDSIlHzJZ0BF88uXAXUEjFXZLgJgw0LXbdEfHWHleFmwhqdEpWjr3/P2QI7+ieSMRgbKT
-	wdZeVdeOOj2Tl5kGsK8NtH566+i3FwdfIwb85/T2eK3bzWVHRk9wPC8Zuahpyqlv3/DQwtQt/zw
-	+Oz24dtuYjnxJARXvyNaIW1ucIRunlmyOtRoYMP5TiPwcsbnKVLz+TGxTuQfmliZnuCQdOz9HMg
-	7bjctmpt7Fp9LnnUYXELRse6AKdvI7wlMCTtcMACYuEkxyQHm/e5fpCuXzXTx1un/RmXjIZBmba
-	7MA7rGPZ3u527e7PfN81r76xAal/3zLnR27C/Fw+eJZyyf6kl8grI9xXEattqyJAkPa3yEXgV6u
-	nPk8jCE+ulVCtwr4R6ZZBIqzD1VNfCg4y9Je5Dn8UqLkqWhxeyNrRzUe/tnoCjZYTOUQCLqIxNW
-	fq6Zlli7R9fspJo732crO5CMIlMcR88h9k5MY9qzi6Fc36cD9MJilwRDkbc5DOzIsJlK6ASXVE8
-	HUvDhN3ezHuNKTzJZXnNSNylPahdAXeyQco2XJRCkh0CZD2S
-X-Received: by 2002:a17:90a:c10f:b0:3b0:a3eb:759e with SMTP id 98e67ed59e1d1-3b0db6a8de8mr4788271a91.17.1794045784240;
-        Sat, 07 Nov 2026 02:03:04 -0800 (PST)
-Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1057c2bbcsm2857110a91.1.2026.11.07.02.03.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 02:03:03 -0800 (PST)
-From: hyunjungg <hj351016@gmail.com>
-To: Vinod Koul <vkoul@kernel.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	linux-phy@lists.infradead.org
-Cc: Ray Jui <rjui@broadcom.com>,
-	Scott Branden <sbranden@broadcom.com>,
-	bcm-kernel-feedback-list@broadcom.com,
-	linux-kernel@vger.kernel.org,
-	Hyunjung Ko <hj351016@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] phy: phy-bcm-ns2-usbdrd: cancel extcon work on unbind to avoid use-after-free
-Date: Sat,  7 Nov 2026 19:02:53 +0900
-Message-ID: <20261107100253.3543022-1-hj351016@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GMuId2m8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 441011F008A1;
+	Sat,  7 Nov 2026 10:03:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794045786;
+	bh=4+q7kprI3OqUpH3xhSiABpKNCA6VQjJDxhoeYmPfzg8=;
+	h=From:To:Cc:Subject:Date;
+	b=GMuId2m8WCPpfO5Lvwl7iUtA/YzjiV2gRIuGUBrOtwykPwKEYabXLvE0kjWhNnqTL
+	 sLUnXmd6gIKq2pPz/jj4G/ihZy9XbVgA44tfHttOBk9j3At+xoXrjM9bsfYNaakMTQ
+	 LKYQny9IakwVH8WGe5AKPOtb9SYaRMMJM+PaSzyla0WGUzt5fAHu8YDo98p1Fm6BxD
+	 rd4toIYtilbOVpR4PpaRPYs6Ez4+c6AJdSDKfnHf4qU32qR/Re3klpxgZAqMkJsOHA
+	 d6aIqhXXnx9gf6gGcBreh4fAYuPAjVd4MWDJjKBJtwXlamtfVsQgVVKAa5yaK7wkUf
+	 MCZh8E/GKXfRQ==
+From: Sasha Levin <sashal@kernel.org>
+To: blum@kernel.org,
+	thorsten.blum@linux.dev,
+	andi.shyti@linux.intel.com
+Cc: stable@vger.kernel.org
+Subject: FAILED: patch "[PATCH] drm/i915: Fix memory leak in query_perf_config_list()" failed to apply to 7.3-stable tree
+Date: Sat,  7 Nov 2026 05:03:05 -0500
+Message-ID: <20261107050305-failed-7.3-9977e9d84f46@kernel.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,63 +57,65 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Hyunjung Ko <hj351016@gmail.com>
+The patch below does not apply to the 7.3-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-ns2_drd_phy_probe() schedules driver->wq_extcon (extcon_work), which is
-also queued from the ID/VBUS GPIO interrupt handler gpio_irq_handler().
-The work handler dereferences the driver data via container_of().
+To reproduce the conflict and resubmit, you may use the following commands:
 
-struct ns2_phy_driver is allocated with devm_kzalloc() and the driver has
-no remove callback, so on unbind devres frees it after probe's resources
-are released. The GPIO interrupts are released with devm_request_irq(),
-but free_irq() only stops further interrupts; it does not cancel a delayed
-work that is already queued. probe() queues wq_extcon with a debounce
-delay before returning, and the GPIO interrupt can queue it too, so on
-unbind the pending work can run after ns2_phy_driver has been freed,
-dereferencing freed memory (use-after-free).
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
+git checkout FETCH_HEAD
+git cherry-pick -x 9977e9d84f46d4f12ad35fbbc0ec4638554bce87
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050305-failed-7.3-9977e9d84f46@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
-Register the work with devm_delayed_work_autocancel() instead of
-INIT_DELAYED_WORK(). It is set up before the GPIO interrupts are
-requested, so on unwind devres frees the interrupts first - after which
-the work can no longer be queued - and then cancels the work while the
-driver data is still valid. extcon_work() does not re-queue itself, so a
-single cancel drains it.
+Thanks,
+Sasha
 
-Found by static analysis and code review; not runtime-reproduced (needs
-Broadcom Northstar2 USB DRD PHY hardware).
+------------------ original commit in Linus's tree ------------------
 
-Fixes: 787f24543c4a ("phy: phy-bcm-ns2-usbdrd: Broadcom USB DRD PHY driver for Northstar2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+From 9977e9d84f46d4f12ad35fbbc0ec4638554bce87 Mon Sep 17 00:00:00 2001
+From: Thorsten Blum <thorsten.blum@linux.dev>
+Date: Sun, 23 Aug 2026 22:50:28 +0200
+Subject: [PATCH] drm/i915: Fix memory leak in query_perf_config_list()
+
+When krealloc() fails, free the original oa_config_ids before returning
+to avoid a memory leak.
+
+Fixes: 4f6ccc74a85c ("drm/i915: add support for perf configuration queries")
+Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
+Cc: <stable@vger.kernel.org> # v5.5+
+Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
+Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
+Link: https://patch.msgid.link/20260823205028.178597-2-thorsten.blum@linux.dev
 ---
- drivers/phy/broadcom/phy-bcm-ns2-usbdrd.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/i915_query.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/phy/broadcom/phy-bcm-ns2-usbdrd.c b/drivers/phy/broadcom/phy-bcm-ns2-usbdrd.c
-index 171bf09..4b8930b 100644
---- a/drivers/phy/broadcom/phy-bcm-ns2-usbdrd.c
-+++ b/drivers/phy/broadcom/phy-bcm-ns2-usbdrd.c
-@@ -6,6 +6,7 @@
- #include <linux/gpio/consumer.h>
- #include <linux/init.h>
- #include <linux/interrupt.h>
-+#include <linux/devm-helpers.h>
- #include <linux/io.h>
- #include <linux/iopoll.h>
- #include <linux/irq.h>
-@@ -339,7 +340,9 @@ static int ns2_drd_phy_probe(struct platform_device *pdev)
- 	if (ret < 0)
- 		driver->debounce_jiffies = msecs_to_jiffies(GPIO_DELAY);
+diff --git a/drivers/gpu/drm/i915/i915_query.c b/drivers/gpu/drm/i915/i915_query.c
+index 0c55fb6e9727d..11157fb14db31 100644
+--- a/drivers/gpu/drm/i915/i915_query.c
++++ b/drivers/gpu/drm/i915/i915_query.c
+@@ -403,8 +403,10 @@ static int query_perf_config_list(struct drm_i915_private *i915,
+ 		ids = krealloc(oa_config_ids,
+ 			       n_configs * sizeof(*oa_config_ids),
+ 			       GFP_KERNEL);
+-		if (!ids)
++		if (!ids) {
++			kfree(oa_config_ids);
+ 			return -ENOMEM;
++		}
  
--	INIT_DELAYED_WORK(&driver->wq_extcon, extcon_work);
-+	ret = devm_delayed_work_autocancel(dev, &driver->wq_extcon, extcon_work);
-+	if (ret)
-+		return ret;
+ 		alloc = fetch_and_zero(&n_configs);
  
- 	driver->id_irq = gpiod_to_irq(driver->id_gpiod);
- 	if (driver->id_irq < 0) {
 -- 
-2.43.0
+2.53.0
+
+
+
 
