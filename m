@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046535;
-	b=ioP9U7lC1c0ro5UUiu7dxh0SkcYUvncrR8I6k+J0s1lPDo4MM++IrROcBgX5hxcYZa0F
-	 cIvpBNyMO+q2JPeO1NPhcTS0VrqzDBxSqSCouijT24Mt+cnrp47D7rsCVTOpV7x0QfuYr
-	 9BaE0ibLCbbhQosxOfxSIiZrRJA6M8jaliSLCLzMbKzu4wjedvcnzUwKIEiDu/NP5kw3G
-	 qsIvZ56/IP530sM/SYWAFo/SeBvtCTCzOxQNp6V/cKpVO4Iusc7xxd+ZkdLGczNxs/SKS
-	 8WImddG/6ahH4+y+F5J7WMBI0swoK23ILQik9tYw/U9bheVWWGMz1XMuneGqjEPxQ3Q==
+	t=1794046537;
+	b=wS0qCLGEJsTqhDRadD+Nk8V5h5AwzRbVxY+mWXtyhUuxUa8nank6NUbBFjNRMqcGepGH
+	 WqKEu+2RTxsrDi/Y16fCBpWrEtN4AhdUZ0+5oc6enoDwBb2rqbX6MzWt03gD1k5bqUQ47
+	 8jMKpCQ9qc98xIlvVXJN1JyAosyeKAix4JBxvpSh3gOz2FugB3VDJLsXxDiBuyUorUitX
+	 5IOXd0S6KV2KMu3oHnTchD29uuTpEqaELddXTOVtt+fAfULnG31Hs3K5oeMAWEYhxDLyh
+	 A1KeOeoBd7vY8B6OiuMUPkEJZ5vBGAuobo18Q5q8xuZ+BaDAmu/1Bm1ohmLLiEj4RUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046535;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046537;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=mI43jpDwapYhQa8x3s+dN0Y616HPP/4j/7OpKJiT59g=;
-	b=RJYuvbfSZD37/ytZ6DdWWkvkQ4XdmuwmMOw3rRguYfIAzDMN5MPI7K8+120Dopn0Y9Yo
-	 QD/g+YR7Jnhw4jigZOq3fJtphtgmI8/MELhD8H3EC0oNXNHpDg0ub0I/4V9nTy4qi6tGV
-	 1QzrRQDwvr8uz1FxoZxHCk0eiN/qDKHssqfep80BPGvrirH1UseM0O6qMu6pxIYCJzQC/
-	 R0kVpctcWzftyPw1LfmyChvZuKYYxqKYUmQ2fvrgq59FSGEs66lrO6PLMWlf/nHqZ20QV
-	 pQKFUGmM2jgmzEHLKpEr1ydgNZdt97EQbxQf2F97E1F8PfEkLJSWL/LJdnNrB0IeqyQ==
+	bh=iQl7laLSu7aks/BatTdmFnaawWMq33OKim4vISFjW8A=;
+	b=NyXnya9yD6UPJateB+BD/o+PLThnAPFUeG1k+8h0b2ZA2AjNPFnwlFg2JpUsYTRSbcOB
+	 x+dGOBquMofpLmWrkJprW4YG6rAJy2VmPxzhXUduv9gUmHNYMJ/8JE7pLQPugJoDhJZy0
+	 kQKmfmmhsDX0mg07DzHkG0LEWQixRZn1o+t1VwohgiqygyGelaZqwF8twCx124buEKnEh
+	 pVbhCz6HYtvbQVN0woLKpYiOgklNHxhmOdJYHyDJzSJtdzWi2KEjgQn8YOJ2n3EZFwHTl
+	 TjrYH2LfjtyUFFI27rWGqwJ/tSaTKBK9gNfIhaGktA26OlGpQmHBvx1ZCx43I91v+hA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="IzQN2YZ/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VNL2ci5l;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57976606A32D
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:15:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C250606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:15:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IzQN2YZ/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6C781F008A1;
-	Sat,  7 Nov 2026 10:15:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VNL2ci5l
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8D2C1F0089F;
+	Sat,  7 Nov 2026 10:15:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046535;
-	bh=mI43jpDwapYhQa8x3s+dN0Y616HPP/4j/7OpKJiT59g=;
+	s=k20260515; t=1794046537;
+	bh=iQl7laLSu7aks/BatTdmFnaawWMq33OKim4vISFjW8A=;
 	h=From:To:Cc:Subject:Date;
-	b=IzQN2YZ/uJBLVa25Xbykf7+ii5Tjvv4WK9+SAeqtTm2sorc8jMjmWbic+WOlFO42k
-	 6zAIO0WuGo1yux7m3ht6/IU+uFHNL0oN4ypKFIPeBpdldibrdBDBhyWdLtGoqaOlde
-	 08Kpukq9MMMYZwX9mjuE69cDZrpN9TR4gQr6Y5HepjPJ6xns0C1YSNbRcvTWFUKdDd
-	 YmNcNl4LB+M+yFztDZG2nUtxXiMC97zywCY+12cZtF7dy0Kztx5pxCxrnLw02LULNQ
-	 dpGuMNB/dnzgOkpgPmkZ4BUoLIYlLg5XBp+0+0WJl5h4xvSZ8gXvwEs0pY7AWvEKQQ
-	 XC53se0sV5M8Q==
+	b=VNL2ci5lWyUKfzLxWfFfjq+yBg/0l/55ePFIOQG8nLwLN+pgJCpkglxce1E4DEJcM
+	 jgbjY8W3ynhDebxc9IrP4A8yrdf6mHR1LxxMzFEvzb+YU+tD3IKOIKWmErXadSEq1a
+	 V1iX0wsGkpQudfz9DzSRUkdAqS1WYKGYBtoLZ/tHHcAOP765NstALb8afUY3hgsZrc
+	 aA7W0w6VCjhFjHgbQNAR9wWDCK5cHm3Fg12+hlI/G5ROZ4lmyuuyV6NBKOQTC+CWo+
+	 CLLsFlMDRXINUdzHaspUBQQAyiX/993V6MefdKu9CtUMhOLRrJFdXJb64iDttCt+5c
+	 5EwXJCEXqO4iA==
 From: Sasha Levin <sashal@kernel.org>
-To: syjcnss@gmail.com,
-	almaz.alexandrovich@paragon-software.com
+To: astellman@stellman-greene.com,
+	hexlabsecurity@proton.me,
+	kbusch@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] fs/ntfs3: validate the EA value length in ntfs_read_ea()" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:15:33 -0500
-Message-ID: <20261107051533-failed-6.18-351817226fbf@kernel.org>
+Subject: FAILED: patch "[PATCH] nvmet-rdma: fix out-of-bounds write in nvmet_rdma_map_sgl_inline()" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:15:35 -0500
+Message-ID: <20261107051535-failed-6.18-d1512773a0d5@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,176 +69,76 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 351817226fbf0031c4c63d1f5d7f15c3172312eb
+git cherry-pick -x d1512773a0d539669440bd9f6d050b8e12923b5f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051533-failed-6.18-351817226fbf@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051535-failed-6.18-d1512773a0d5@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 351817226fbf0031c4c63d1f5d7f15c3172312eb Mon Sep 17 00:00:00 2001
-From: Yuejie Shi <syjcnss@gmail.com>
-Date: Mon, 3 Aug 2026 12:34:32 +0800
-Subject: [PATCH] fs/ntfs3: validate the EA value length in ntfs_read_ea()
+From d1512773a0d539669440bd9f6d050b8e12923b5f Mon Sep 17 00:00:00 2001
+From: Andrew Stellman <astellman@stellman-greene.com>
+Date: Wed, 21 Oct 2026 01:07:48 -0400
+Subject: [PATCH] nvmet-rdma: fix out-of-bounds write in
+ nvmet_rdma_map_sgl_inline()
 
-ntfs_read_ea() checks the $EA list for consistency, but it only
-recomputes the packed size of an entry when the entry's own size field is
-zero:
+nvmet_rdma_map_sgl_inline() bounds the host-supplied in-capsule SGL
+offset with "off + len > inline_data_size", evaluated in 64-bit
+arithmetic. off is taken straight from the host SGL descriptor
+(le64_to_cpu(sgl->addr)) and len is promoted to 64-bit, so the sum
+wraps: an off within len of 2^64 makes it small and the check passes.
+off is then used as page_idx = off / PAGE_SIZE to index the fixed-size
+rsp->cmd->inline_sg[] array (NVMET_RDMA_MAX_INLINE_SGE entries), so a
+crafted offset yields an out-of-bounds scatterlist index that is written
+through in nvmet_rdma_use_inline_sg().
 
-	for (off = 0; off < size; off += ea_size) {
-		const struct EA_FULL *ef = Add2Ptr(ea_p, off);
-		u32 bytes = size - off;
-		...
-		if (ef->size) {
-			ea_size = le32_to_cpu(ef->size);
-			if (ea_size > bytes)
-				goto out1;
-			continue;              /* <- elength never checked */
-		}
-		...
-		ea_size = ALIGN(struct_size(ef, name,
-					    1 + ef->name_len +
-						    le16_to_cpu(ef->elength)),
-				4);
-		if (ea_size > bytes)
-			goto out1;
-	}
+The mapping runs while handling a received capsule, before the command
+executes, so a remote RDMA peer can reach it (the Connect capsule is a
+write and takes this path on a queue that has no controller yet). The
+host controls only the low bits of the resulting displacement, so the
+expected impact is an out-of-bounds write that faults the target
+(remote denial of service).
 
-ef->size is non-zero for every entry except the last one, and it is what
-ntfs3 itself writes (ntfs_set_ea() stores exactly that aligned packed
-size), so in practice elength is not validated at all.  find_ea() then
-uses unpacked_ea_size(), which also prefers ea->size when it is set, so
-it agrees and hands the entry back.
+This wrap was reported, with a KASAN reproduction, on linux-nvme in May,
+and the check below was suggested in that thread. The fix that was
+applied, 48c0162f647b, reworked how the offset is mapped but kept the
+original check, and its page index turns a wrapped offset into an
+out-of-bounds index into inline_sg[].
 
-ntfs_get_ea() copies elength bytes with no further bound of its own:
+Reject the offset before it can wrap.
 
-	len = le16_to_cpu(ea->elength);
-	...
-	if (len > size) {              /* size is the *caller's* buffer */
-		err = -ERANGE;
-		...
-	}
-	memcpy(buffer, ea->name + ea->name_len + 1, len);
+Found independently by static analysis with AI assistance, not
+reproduced at runtime.
 
-so a caller that supplies a large enough buffer receives up to 64 KiB of
-whatever follows the small $EA allocation -- straight to userspace via
-getxattr(2).
-
-Compute the packed size unconditionally and require it to fit in the
-entry.  Hoist the "bytes < offsetof(struct EA_FULL, name)" test above the
-ef->size branch as well: name_len and elength were being read there
-without it, which is itself a small over-read of the kmalloc'd buffer
-when fewer than 8 bytes are left.  The old "bytes < sizeof(ef->size)"
-test is subsumed by it.
-
-  # mkntfs image; create /mnt/ntfs/poc with user.ntfs6 set, then rewrite
-  # that EA_FULL's elength from 0xf to 0xff00 on the raw device
-  mount -t ntfs3 -o ro /dev/vda /mnt/ntfs
-  getxattr("/mnt/ntfs/poc", "user.ntfs6", buf, 128 * 1024);
-
-  BUG: KASAN: slab-out-of-bounds in ntfs_get_ea+0x294/0x3e0
-  Read of size 65280 at addr ffff0000cca53acf by task xattr_probe/142
-   __asan_memcpy+0x3c/0xa0
-   ntfs_get_ea+0x294/0x3e0
-   ntfs_getxattr+0x284/0x318
-   __vfs_getxattr+0x104/0x160
-   vfs_getxattr+0x1b4/0x1e0
-   do_getxattr+0xcc/0x230
-   path_getxattrat+0x184/0x270
-   __arm64_sys_getxattr+0x64/0x80
-  Allocated by task 142:
-   __kmalloc_noprof+0x294/0x668
-   ntfs_read_ea+0x1e4/0x420
-   ntfs_get_ea+0x2c8/0x3e0
-  The buggy address belongs to the object at ffff0000cca53a80
-   which belongs to the cache kmalloc-96 of size 96
-
-The object being over-read is the one ntfs_read_ea() just allocated, and
-it is 96 bytes.
-
-Entries written by ntfs3 and by Windows set size to the aligned packed
-size, so the new test does not reject anything a working filesystem
-produces.
-
-Fixes: be71b5cba2e6 ("fs/ntfs3: Add attrib operations")
+Fixes: 0d5ee2b2ab4f ("nvmet-rdma: support max(16KB, PAGE_SIZE) inline data")
+Fixes: 48c0162f647b ("nvmet-rdma: handle inline data with a nonzero offset")
+Reported-by: Bryam Vargas <hexlabsecurity@proton.me>
+Closes: https://lore.kernel.org/all/LM21QIR-1-qJb7PViyJKCnGBnUzizeiNJVWQ3wb7ZwGezodjgKg3f-iobqOyequ-sT1jFCKJImfqNO_BKU3KO80xFITnaI5GTV_GxLUNDDc=@proton.me/
+Suggested-by: Keith Busch <kbusch@kernel.org>
 Cc: stable@vger.kernel.org
-Signed-off-by: Yuejie Shi <syjcnss@gmail.com>
-[almaz.alexandrovich@paragon-software.com: applied as-is, logic is the same but the code is cleaner]
-Signed-off-by: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Andrew Stellman <astellman@stellman-greene.com>
+Signed-off-by: Keith Busch <kbusch@kernel.org>
 ---
- fs/ntfs3/xattr.c | 45 ++++++++++++++-------------------------------
- 1 file changed, 14 insertions(+), 31 deletions(-)
+ drivers/nvme/target/rdma.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/fs/ntfs3/xattr.c b/fs/ntfs3/xattr.c
-index d6ad06415318d..e1fa58aa03611 100644
---- a/fs/ntfs3/xattr.c
-+++ b/fs/ntfs3/xattr.c
-@@ -146,49 +146,32 @@ static int ntfs_read_ea(struct ntfs_inode *ni, struct EA_FULL **ea,
- 	for (off = 0; off < size; off += ea_size) {
- 		const struct EA_FULL *ef = Add2Ptr(ea_p, off);
- 		u32 bytes = size - off;
--		size_t need;
--
--		/* Check if we can use field ea->size. */
--		if (bytes < sizeof(ef->size))
--			goto out1;
-+		u32 packed_size;
+diff --git a/drivers/nvme/target/rdma.c b/drivers/nvme/target/rdma.c
+index 075ab58d8c884..ebf4a7bde524b 100644
+--- a/drivers/nvme/target/rdma.c
++++ b/drivers/nvme/target/rdma.c
+@@ -864,7 +864,8 @@ static u16 nvmet_rdma_map_sgl_inline(struct nvmet_rdma_rsp *rsp)
+ 		return NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
+ 	}
  
- 		/* Check if we can use fields ef->name_len and ef->elength. */
- 		if (bytes < offsetof(struct EA_FULL, name))
- 			goto out1;
- 
--		/* Size needed to hold this record's name and value. */
--		need = struct_size(ef, name,
--				   1 + ef->name_len + le16_to_cpu(ef->elength));
-+		/*
-+		 * The name and the value have to fit in the entry whether or
-+		 * not ef->size is set, because ntfs_get_ea() copies elength
-+		 * bytes out of this buffer and checks them only against the
-+		 * caller supplied buffer size.
-+		 */
-+		packed_size =
-+			ALIGN(struct_size(ef, name,
-+					  1 + ef->name_len +
-+						  le16_to_cpu(ef->elength)),
-+			      4);
- 
- 		if (ef->size) {
- 			ea_size = le32_to_cpu(ef->size);
--			/* ef->size must fit the list and cover the record. */
--			if (ea_size > bytes || ea_size < need)
--				goto out1;
--			if (bytes < offsetof(struct EA_FULL, name))
--				goto out1;
--
--			/* Check if we can use fields ef->name_len and ef->elength. */
--			if (bytes < offsetof(struct EA_FULL, name))
--				goto out1;
--
--			/*
--			 * The declared entry size (ef->size) must be large
--			 * enough to hold the name and value.  Otherwise a later
--			 * reader such as ntfs_get_ea() copies ef->elength bytes
--			 * starting past the entry, reading out of bounds of the
--			 * ea buffer and leaking adjacent heap memory to
--			 * userspace via getxattr().
--			 */
--			if (struct_size(ef, name,
--					1 + ef->name_len +
--						le16_to_cpu(ef->elength)) >
--			    ea_size)
-+			if (ea_size > bytes || packed_size > ea_size)
- 				goto out1;
- 			continue;
- 		}
- 
--		ea_size = ALIGN(need, 4);
-+		ea_size = packed_size;
- 		if (ea_size > bytes)
- 			goto out1;
+-	if (off + len > rsp->queue->dev->inline_data_size) {
++	if (off > (u64)rsp->queue->dev->inline_data_size ||
++	    len > (u64)rsp->queue->dev->inline_data_size - off) {
+ 		pr_err("invalid inline data offset!\n");
+ 		return NVME_SC_SGL_INVALID_OFFSET | NVME_STATUS_DNR;
  	}
 -- 
 2.53.0
