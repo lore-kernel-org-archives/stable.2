@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048179;
-	b=gJwAjFLdU1ns4vwSzg2o/bj1E4i7tXYK5iNJSAm/Gg5Et+YeA2j0918mvyKh4R5xr1kw
-	 H34bilppUnATuB1uDsx9I1mYa2hPdbLN6NQW2d+1f3WC2WqWqjZP1yMslYqjpcW6hg2ia
-	 dz2IiZdBZ9DDpuU30LulJX/Op+VV/8iohKULFwl5gbjXDJSJkQZHscfAtfdmMSHhnL4Yt
-	 blEXItqlRes4Urln/zg4XkZdBnAddoq/ZvHiKkrHKi1BQ7H9mxSm2YKPUpDlTZPrUrBlF
-	 6Nn8aZhk/XUhdWPoDEW6/ehVn2wBlbcrhhQGl+ROu/rXKqNo7dyPGloAFyWZl0O/yaA==
+	t=1794048181;
+	b=lrpQwikcnmAyiDFGNM7177aii28pw6DeMnPSWovJWLnoJxNEzY+YmSFOnJxeXifIc5ur
+	 25v0CAJOF7isBwdHnw0tTQuCWo2UseB4CkaAOfdVuNAfgAvQyhinDKTLPFn173v57094N
+	 fxYQ3CwKRr/UHd42PxKkK9HU/RMdT2HZbojgbNQiWBca08xhL9RetLCblgmLhdKtaEu+G
+	 +6QhDG5arZP5vap+QeTnFOKzwXvAeTxhAT6yX2A2tFLGiKOyNZ4iXm2fuSPWyZJXt5nJF
+	 JGbHQ4q++IH0Oy4h2TmSP9MhfmQlBL6/tNAHgROLLvsjlDjNrg1rTKBTDlNS6hX2YSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048179;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048181;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=jN3ESkEvD4bY1aYVOLjb19WK0TiM1pVNSkK++E2Iqmw=;
-	b=LMsxZpqTU121P6RYCyb8khoc9Wx81bTjPPxQ5679sBWnUSq/Tb02OxZtUfIC2mbLRhyG
-	 GFETF9Cw5xPYMYuGW34w+HMOAkqtTPvXCGSulAc/46SM0hVMy99SR2+KK5uHlSRvTrreW
-	 yZEm5zwfQdCwAKhE30i6kMG5B3etLgDszFB1z5G/pjf2BplgccfL/ikxLiibA81akTzmk
-	 NeXuTsjq5+TrVI77D4geYDu9GdFvEzq7y7udJ70j8frf19CILRiyvfIjSNgyEV5PU5w/C
-	 /Hi6jKd/sadQVeSoHXzfsP4DrZmQCb0BWFxnccty4ewK8+c1g+fjtMTaNrb0AkW1Ppg==
+	bh=dOQdaIgJHb4w0hSjn3oQWJi4dJauFAOUPVWhWAzhV8Q=;
+	b=1tqAKnSYUVOA4TKnlp0caLvNuUhS6DbZnlJYZDpeQzjH4SBRj+L0ecx7me9Cj9SMwRQt
+	 TUlG12ka55IGyN7lsE7OZpXhM4phbGWdJmTF0Mxe4LgWv8t/Gd7i34sicn3UrEuZIXIbm
+	 EFwEfscNHuWjCJfICpF4YoSfmcKHCj7jnspPx6ugoSO6Mf3NzWcRug53A+5ciTCR8nptS
+	 Ikc0Q0XpcmQ56+mJdNRNSyr6cneiO+MTEg5bW2BKEBk+yslNmQd3V7RelEf3df7SAr42w
+	 G/TJboET38F7iakv7pzNgUpfTYCvKuEd/ZxppKavEj1eNWDIGuOhS71dQDVaNci48jA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CZrOwyZZ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mOR+tnj0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28884606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:42:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19D75606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:43:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CZrOwyZZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 662491F0089F;
-	Sat,  7 Nov 2026 10:42:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mOR+tnj0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AC331F0089F;
+	Sat,  7 Nov 2026 10:43:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048178;
-	bh=jN3ESkEvD4bY1aYVOLjb19WK0TiM1pVNSkK++E2Iqmw=;
+	s=k20260515; t=1794048181;
+	bh=dOQdaIgJHb4w0hSjn3oQWJi4dJauFAOUPVWhWAzhV8Q=;
 	h=From:To:Cc:Subject:Date;
-	b=CZrOwyZZp/LhjKhBBq+R7cyvWJyhjthDNSVg/T7MoM0ku8ODMkUgNCJKYnp6gUvKL
-	 vRXuOdx+r2nuWtZv4L5qPkxAsmKcYxQB++4HOYIE1ZzssHWOkRWe5EUzSnN7ok80z5
-	 gv3I+vVKSnHqb2BRRxEs7zshgoCEvqB9SsTKzsmQjT38qhcWodLH6XG+neyJwvD5i8
-	 Qx+zG5HwZv4TFvj17rgHi3lVhDQuP/3FiNZTyXCb8/kHUT4qn7pYe1PV2C2MnX2oJZ
-	 b5PWbf9s25x0xaRtARpfGSoRLoV1ISeU3JgNjv0RTWsp+G4WD6eV2SW7EIESBBCq46
-	 5vewfMsadG3Mw==
+	b=mOR+tnj0z0O7b/fAVjfM7Ya9ZMjVxMjmEGhKMPy9WJnCbOJtzZ581DWQRjT+CbVCf
+	 U/xNOmbgA74zZt4eS19HvVg4MhCrIon3MheHoYoWfuOsGnzLeocfwifCh+Lvdgp1VS
+	 PI1xRIwH/rMRouuA3mvjVPPfsbeDBQ96eyzO2fG5C1t2uNRTesrkdK3y3/BTEeYqqL
+	 Upe5A9vSU/gtNV2/iiGC/GyVhXz1ddo283bp2YGhV2Ttd/eFNq9k6Gy6tZANShKWs/
+	 XboQu3/yL1GXqldYbBc73Ob/0THTyBnhWtykfiOBx9lPVirsJwTM7wqSSJbnQYIXdb
+	 yx+IT3G9MCNCQ==
 From: Sasha Levin <sashal@kernel.org>
-To: joannelkoong@gmail.com,
-	mszeredi@redhat.com
+To: vulab@iscas.ac.cn,
+	miquel.raynal@bootlin.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] fuse: don't drop destination page cache on a zero byte copy reply" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:42:57 -0500
-Message-ID: <20261107054257-failed-6.1-f7585e1ce341@kernel.org>
+Subject: FAILED: patch "[PATCH] mtd: mtdsuper: Fix MTD device reference leak in mtd_get_sb()" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:42:59 -0500
+Message-ID: <20261107054259-failed-6.1-62ee3da38f41@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,72 +68,54 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x f7585e1ce3418ec282485854b3d8d31c6a961e37
+git cherry-pick -x 62ee3da38f41bef83c1cf250f6816a0ee187674b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054257-failed-6.1-f7585e1ce341@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054259-failed-6.1-62ee3da38f41@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From f7585e1ce3418ec282485854b3d8d31c6a961e37 Mon Sep 17 00:00:00 2001
-From: Joanne Koong <joannelkoong@gmail.com>
-Date: Tue, 15 Sep 2026 16:53:41 -0700
-Subject: [PATCH] fuse: don't drop destination page cache on a zero byte copy
- reply
+From 62ee3da38f41bef83c1cf250f6816a0ee187674b Mon Sep 17 00:00:00 2001
+From: Wentao Liang <vulab@iscas.ac.cn>
+Date: Thu, 17 Sep 2026 10:25:50 +0000
+Subject: [PATCH] mtd: mtdsuper: Fix MTD device reference leak in mtd_get_sb()
 
-__fuse_copy_file_range() clears the destination page cache after the
-server replies:
+mtd_get_sb() is called with a reference to the MTD device already
+taken by the caller.  When sget_dev() fails, the function returns the
+error without dropping that reference, so the device is never released
+and its refcount never reaches zero.  Every mount attempt on an MTD
+device whose superblock cannot be set up leaks a reference.
 
-	truncate_inode_pages_range(inode_out->i_mapping,
-				   ALIGN_DOWN(pos_out, PAGE_SIZE),
-				   ALIGN(pos_out + bytes_copied, PAGE_SIZE) - 1);
+Restore the put_mtd_device() that the fs_context conversion dropped on
+this path.
 
-A server may legitimately reply that it copied nothing, eg if the source
-file turns out to be shorter than the size the kernel has cached for it.
-
-If pos_out is 0 as well, the end of the range is ALIGN(0, PAGE_SIZE) - 1,
-which is -1. lend is a uoff_t and truncate_inode_pages_range() takes -1
-as its end of file sentinel, so rather than clearing nothing it drops
-every folio in the destination mapping.
-
-That is not only a cache drop. truncate_cleanup_folio() calls
-folio_cancel_dirty(), and fuse_writeback_range() only wrote back
-[pos_out, pos_out + len - 1], so dirty data elsewhere in the destination
-file is discarded without ever reaching the server.
-
-Skip the call when the server copied nothing, since there is nothing
-stale to clear in that case.
-
-Fixes: 9b46418c40fe ("fuse: copy_file_range should truncate cache")
+Fixes: 0f071004109d ("mtd: Provide fs_context-aware mount_mtd() replacement")
 Cc: stable@vger.kernel.org
-Signed-off-by: Joanne Koong <joannelkoong@gmail.com>
-Signed-off-by: Miklos Szeredi <mszeredi@redhat.com>
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 ---
- fs/fuse/file.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ drivers/mtd/mtdsuper.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/fs/fuse/file.c b/fs/fuse/file.c
-index 3bf7cb5905385..2aa575a02e054 100644
---- a/fs/fuse/file.c
-+++ b/fs/fuse/file.c
-@@ -3062,9 +3062,11 @@ static ssize_t __fuse_copy_file_range(struct file *file_in, loff_t pos_in,
- 		goto out;
- 	}
+diff --git a/drivers/mtd/mtdsuper.c b/drivers/mtd/mtdsuper.c
+index c709ff7aa6b57..02eede3fe582e 100644
+--- a/drivers/mtd/mtdsuper.c
++++ b/drivers/mtd/mtdsuper.c
+@@ -31,8 +31,10 @@ static int mtd_get_sb(struct fs_context *fc,
+ 	int ret;
  
--	truncate_inode_pages_range(inode_out->i_mapping,
--				   ALIGN_DOWN(pos_out, PAGE_SIZE),
--				   ALIGN(pos_out + bytes_copied, PAGE_SIZE) - 1);
-+	if (bytes_copied)
-+		truncate_inode_pages_range(inode_out->i_mapping,
-+					   ALIGN_DOWN(pos_out, PAGE_SIZE),
-+					   ALIGN(pos_out + bytes_copied,
-+						 PAGE_SIZE) - 1);
+ 	sb = sget_dev(fc, MKDEV(MTD_BLOCK_MAJOR, mtd->index));
+-	if (IS_ERR(sb))
++	if (IS_ERR(sb)) {
++		put_mtd_device(mtd);
+ 		return PTR_ERR(sb);
++	}
  
- 	file_update_time(file_out);
- 	fuse_write_update_attr(inode_out, pos_out + bytes_copied, bytes_copied);
+ 	if (sb->s_root) {
+ 		/* new mountpoint for an already mounted superblock */
 -- 
 2.53.0
 
