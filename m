@@ -1,54 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794082314;
-	b=1sE512KJUcNThWkmUxv0VXSpY3POFoovfA1jJ5pHr2cuHZKliKjZ2TZ0C3h8hFhFiVaO
-	 UGivGrP/p8ULBIwhkWrYnqHBFu0qG3LTS+EkfeBXZyTfWmKlJSSOtESDpVptXWLwloDX3
-	 ddARB2WqFApU2t8ZDXRNVq1tpO5Crm8v79ILyyzLwDxehDiWS1yEgwF4UmV/vl3MUqJAm
-	 siaG6L4s7tuGieQTsyDCHq0NqFJbwAg01pl8a9z++lk3o+CuXrKYncIFFicWYheHq1YiJ
-	 6E46ZS57OwftIO1+K6HYUsk0YKbmvNH07r+zUZi+6i7NWM0A/CmXgrEhbHaglq5vVfQ==
+	t=1794082353;
+	b=ztn+jlhFc4OW7DCzEPzb6vnDpqkGSIFELPGJf0trNio1pVN8eKuFHeC00D3b3YLyh3i0
+	 /Yls1DZiN682RMIm4Hz9NGhHHd1Z7Osq3xZ/bNz7cPsRbTi7/eW2IuFz+dfJaoA9dFLyb
+	 ThQxPM6tZMYR7QdbEHuD5ZjH1o6Cj6nc14TVaJx+mYEa3Crya534Fiwzn5wEr6ee+quVr
+	 MVTIk9y+K9xIhiaTk+aZzb3WHWxiaDu2dKCzqS/YXD7KoolO4oxb4FJdQz7BExeXpwiam
+	 z8sCFhchEx8VIWQuWmCmDoPVRTHTlm6hL34swev4LPTkSbL5q98pHxZaC2xydrDnasw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794082314;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=8yF8kXh43AbXd3xpQB74N6B8PNlPohdBnSrACWZP+zM=;
-	b=ullLxi11xnPW0SJlzD9aSOMNadSdNvOgdSOICLQaJssQPwt384/TBShhwS/UJfQJdIB5
-	 fYqWj0yhpJyw8nP0qxGHTQRJJVX9dci+HPHm1+5mxl91LMAtaLmMupk/FnCHBQEm8dxEJ
-	 kSw+M4yd7TbLhqwXI1INRt0BNgJvPU1FyxSrm9mUIEZBnDBclrMfq8s5FkEg0qwkb8Dl6
-	 Db0WpKVvWIcJLYonsY4F1wcXadpd8YIDg9aSEyi60io+nj5Xi3LG9OlFS5yK584KNW3k/
-	 rhR6bpLSBvyNkyjMXdk9iUQU/l9X/u4ZEwCnuYSx7tr5H5yyQcA8bLFxLh8afc5UDKQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794082353;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=Y9eqk47d/dOu35ERQnyu5l7kxx3O74fBqJydJLDSt6w=;
+	b=zuBBVenexuGVrO8cxq6nj83ctXE7v87bc4zhnom639Wzb823zARa4ypcPTdxf990qpjA
+	 1Wj08LXnuDHzjSTIGYeHtmfzGYZ/1sKdyKyuAzHuRlz5eYRqHdzBt0Ieod1/cyvLK2I9P
+	 vSj2J0fEG+76hB+i9ywFFAQnCtOsoSOm1Gwj9Pa2AH02vLkRxevnOFYhgHew0EL3Ck1Hr
+	 TSjFl+QmG4qCdKfa/IoK8mUjDOZMjR2SZ3jsnrYb8cCLe/I6ngS93mj1iGOXuGJar4YtY
+	 JB8Psm/dVqEfnXQUseNpgOkrDgSV3Ni3cwsPh866+yCxdg0S2XJY+vMBRRjyI3dUIHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ha/Ln3eV";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Wqd0/zTK";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02037606A326;
-	Sat,  7 Nov 2026 20:11:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E427C606A326;
+	Sat,  7 Nov 2026 20:12:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ha/Ln3eV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95E231F0089F;
-	Sat,  7 Nov 2026 20:11:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wqd0/zTK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6469E1F0089F;
+	Sat,  7 Nov 2026 20:12:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794082313;
-	bh=8yF8kXh43AbXd3xpQB74N6B8PNlPohdBnSrACWZP+zM=;
-	h=From:To:Cc:Subject:Date;
-	b=ha/Ln3eV1ejaQedCaccdDp8mtcZT/8mpv7hMfjrs0H3m6euxgoQZfD60DjHUCWCsB
-	 z/fNcHarM+pwGg5AmzC3bWUUZu5ZbqwQ3+YNd4/AnfDsIlVUKYFRMwK8Nkap1hTlO0
-	 BkJKbSLBIzj6cS14onUlAATiXESdM2YUPpCG6TpEzGcs7YaAvPsmmOuEVePncUfU4s
-	 f78Kz5DdXnlm7JVQPIdYbrSqNdYMSFso6crn0O3JLvia3Y5bOBPvcjDntVKube0PBR
-	 /z50bV3xEj0QkZMl/FHNCWBkbRG4xm/qyeF44ClkXR6mOqh7Kvp945BXbss/pXRpQL
-	 gEyJLMxp/kmug==
-From: Eric Biggers <ebiggers@kernel.org>
-To: stable@vger.kernel.org
-Cc: linux-raid@vger.kernel.org,
-	Eric Biggers <ebiggers@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Christoph Hellwig <hch@lst.de>
-Subject: [PATCH 5.15] raid6: add missing vzeroupper to AVX2 code
-Date: Sat,  7 Nov 2026 12:11:14 -0800
-Message-ID: <20261107201114.112659-1-ebiggers@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	s=k20260515; t=1794082352;
+	bh=Y9eqk47d/dOu35ERQnyu5l7kxx3O74fBqJydJLDSt6w=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Wqd0/zTKYUoFCvQkSEoBRb7UANTN7c1FagJKEpvMCuSQRMDCqt9ne1Gvw8xmYfC7d
+	 1z9oi1t7wmTM0LHINLEiqRV5XAzXN2pqqRHlz408uIxwVJLSG5tRTVnnSD4Z9EKsjw
+	 5hvw79d6V4TIQ+nZKqoFkx3FTHDeC4EnrerQld0OhSGW+sCLTf0pgVPC3UDD3ueQqJ
+	 jJ9wz4wAWRPgBLIl5I9Oso8sUZAeWOTIT1lSFxsgoDsHy+33KxrWTYlMeH8hKS9hKc
+	 0TRQ8XRaKibHMiUggN9BRXlvTU6ihqn1pu3cRMi8Hiqbn+ItFKQBXF2Xg1Dwx+hMsn
+	 /Q8XlexcTUuCg==
+Message-ID: <b87f518d-7f39-49a0-9ddb-25024430d706@kernel.org>
+Date: Sat, 7 Nov 2026 21:12:28 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,100 +51,50 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] usb: typec: tipd: assign partner identity to persistent
+ memory
+To: michael.reeves077@gmail.com,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Janne Grunau
+ <j@jannau.net>, Hector Martin <marcan@marcan.st>
+Cc: Neal Gompa <neal@gompa.dev>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Nicole Mazzuca <nicole@streganil.no>,
+ stable@vger.kernel.org, asahi@lists.linux.dev
+References: <20261107-tipd-stack-uaf-fix-v1-1-efcb517924ec@gmail.com>
+Content-Language: en-US
+From: Sven Peter <sven@kernel.org>
+In-Reply-To: <20261107-tipd-stack-uaf-fix-v1-1-efcb517924ec@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-commit 24f1241cdb056fd630e6710a916e0f7c8c910a70 upstream.
 
-Since the AVX2 optimized RAID6 code uses YMM registers, execute vzeroupper
-before returning from it.  This is needed to avoid degrading the
-performance of any later SSE code that may happen to be executed.
 
-Link: https://lore.kernel.org/20260831212308.213855-1-ebiggers@kernel.org
-Fixes: 2c935842bdb4 ("lib/raid6: Add AVX2 optimized gen_syndrome functions")
-Fixes: 7056741fd9fc ("lib/raid6: Add AVX2 optimized recovery functions")
-Signed-off-by: Eric Biggers <ebiggers@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: Christoph Hellwig <hch@lst.de>
-Cc: <stable@vger.kernel.org>
----
- lib/raid6/avx2.c       | 6 ++++++
- lib/raid6/recov_avx2.c | 2 ++
- 2 files changed, 8 insertions(+)
+On 11/7/26 11:06, Michael Reeves via B4 Relay wrote:
+> From: Michael Reeves <michael.reeves077@gmail.com>
+>
+> cd321x_update_work() passes a pointer to a local stack variable
+> (&st.partner_identity) to typec_register_partner(). The Type-C core
+> caches this pointer, leading to a stack-use-after-free and a kernel
+> Oops when accessed later (e.g., via get_pd_product_type()).
+>
+> Fix this by copying the identity to the heap-allocated cd321x struct
+> and passing a pointer to that persistent memory instead. Move up
+> the assignment to cd321x->cur_partner_identity, so this works.
+>
+> Reported-by: Nicole Mazzuca <nicole@streganil.no>
+> Closes: https://github.com/AsahiLinux/linux/issues/668
+> Fixes: 82432bbfb9e8 ("usb: typec: tipd: Handle mode transitions for CD321x")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Michael Reeves <michael.reeves077@gmail.com>
+> ---
 
-diff --git a/lib/raid6/avx2.c b/lib/raid6/avx2.c
-index f299476e1d764..10f2b1b4d6a69 100644
---- a/lib/raid6/avx2.c
-+++ b/lib/raid6/avx2.c
-@@ -76,6 +76,7 @@ static void raid6_avx21_gen_syndrome(int disks, size_t bytes, void **ptrs)
- 	}
- 
- 	asm volatile("sfence" : : : "memory");
-+	asm volatile("vzeroupper");
- 	kernel_fpu_end();
- }
- 
-@@ -124,6 +125,7 @@ static void raid6_avx21_xor_syndrome(int disks, int start, int stop,
- 	}
- 
- 	asm volatile("sfence" : : : "memory");
-+	asm volatile("vzeroupper");
- 	kernel_fpu_end();
- }
- 
-@@ -186,6 +188,7 @@ static void raid6_avx22_gen_syndrome(int disks, size_t bytes, void **ptrs)
- 	}
- 
- 	asm volatile("sfence" : : : "memory");
-+	asm volatile("vzeroupper");
- 	kernel_fpu_end();
- }
- 
-@@ -254,6 +257,7 @@ static void raid6_avx22_xor_syndrome(int disks, int start, int stop,
- 	}
- 
- 	asm volatile("sfence" : : : "memory");
-+	asm volatile("vzeroupper");
- 	kernel_fpu_end();
- }
- 
-@@ -347,6 +351,7 @@ static void raid6_avx24_gen_syndrome(int disks, size_t bytes, void **ptrs)
- 	}
- 
- 	asm volatile("sfence" : : : "memory");
-+	asm volatile("vzeroupper");
- 	kernel_fpu_end();
- }
- 
-@@ -457,6 +462,7 @@ static void raid6_avx24_xor_syndrome(int disks, int start, int stop,
- 		asm volatile("vmovntdq %%ymm14,%0" : "=m" (q[d+96]));
- 	}
- 	asm volatile("sfence" : : : "memory");
-+	asm volatile("vzeroupper");
- 	kernel_fpu_end();
- }
- 
-diff --git a/lib/raid6/recov_avx2.c b/lib/raid6/recov_avx2.c
-index 4e8095403ee28..a7fd1ba177f1b 100644
---- a/lib/raid6/recov_avx2.c
-+++ b/lib/raid6/recov_avx2.c
-@@ -180,6 +180,7 @@ static void raid6_2data_recov_avx2(int disks, size_t bytes, int faila,
- #endif
- 	}
- 
-+	asm volatile("vzeroupper");
- 	kernel_fpu_end();
- }
- 
-@@ -297,6 +298,7 @@ static void raid6_datap_recov_avx2(int disks, size_t bytes, int faila,
- #endif
- 	}
- 
-+	asm volatile("vzeroupper");
- 	kernel_fpu_end();
- }
- 
+Reviewed-by: Sven Peter <sven@kernel.org>
 
-base-commit: 29c6cdaac04a6989a7ed4ae4275ce4244e617f58
--- 
-2.56.0
+
+Thanks,
+
+
+Sven
+
 
