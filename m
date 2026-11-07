@@ -1,53 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050560;
-	b=u4Qh6rIrwskWnWwZOkOBJ1wHWENmCJfbz3ZOw0DKaD2BRf0CKpyLb6aLxJE5xnm+3Mc0
-	 CI1X+r6YlfbBWFeP+lXoGlQY04+gS2aebpNixEtMGD8l+GiRVenSvHPIjuJZE5DNQboND
-	 hw98giWgYG4hy4O7kVhKBfOmBjOCELemrxPlRlwh9+DRkURxkSfCSJyAGUtAzJYW+1mQD
-	 i72sX3wzfSzQELc7doKD9H7YdslLv61ILK/ImrkC2UyGtls5699xMM6J8N/FBToJek/gg
-	 KfDF8k2h7dTLRCzpZCXP3FXGqUs9OoxN1RJteZanRW3S3rLk/qjD1sYZphi9o+tH+Aw==
+	t=1794050564;
+	b=Ly0SbHmKDHNGDieOOUfGmbK7hyXfB33/jXCjpA/C+ZuryzaKH07JqlAghZjkqWoFOjM+
+	 AFDsUAn4wPHLiWCkik/IzzrNUsUfJ61881c0lcwJcp0T2CQlEQwrNbK5AeX6iGgrbueru
+	 4VOKhHKrgCIxPmISYt8D8hhmJL4hUXpm+1Akyg09UyIkEhAEEFl9XHIPduLI5h+JHB+vF
+	 ifpbg0b+lA0CuWLbHP7UkqKJt/4CloDeNohrInH5H/G1lBaJAbrdBgEMDChtvnWOqCOLF
+	 VRaq0q0n7XRB622PWWwO3WTl8OCc0OhgPs/O3Bz2QR4dUp2IG7dARY936O5W5eLe15Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050560;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050564;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=LmqGuWbLrRMU87ovpxmKvmPvTDgITKqnP/4Bi4G6LEo=;
-	b=2C4+FtyVKkKH5iN+LUXyT6ORLSulyZIdoebZ5+mscGZqTzPBEPtsJAv//Hb9Vk7Bu0tR
-	 yz1cfeQOaRMxFGOrlBqjXzrrfMXAtKV0bX6kL6V/GCHttmqFBYAPpEAI+a/gTayqbeuBB
-	 gaIXW+mRErg7iEIRZrxAnuxszjPgUOt5v5FJrtrh1VXrbfWdkCHNnbfR5cjhS+jWG+Yjq
-	 4C8Vb5r6UAFkLO2+Qw2CVJUayVeFivGItMZ1dxo+TuxMhjyPmAJavd4S9mVC+4/aCSks3
-	 771bzM0mrEBVDhUISCeImk5cfHyv8Fi7dV47wMOBdkLenqfeHmlPQriCReNDNHLJaYQ==
+	bh=iL2FWnL4QLW7t7K5kW1MlwboMKbUTmHtwCTuJECsvYI=;
+	b=5NRwz8QUE2uzleNGmkiS9rneuBTw5ztPLZtY4eKTZGlLPdaAPItKhlo3iX7DaN2bKWux
+	 oK7Cr58CUE6dF1VV65VzZjJJYvrt+sEVoGdxqbD0bJWqfbQ2BfNP9ebEHevubFRtbnquA
+	 jq43Hrt0ri6OjPytEonQqKhpRxbXtSQzSLC3woMMDLKje8OG9bdHu4B9duSuWmvXMtVxS
+	 USmgpkiDa6Dn2+LiMbISN+zVoAD38ueu05OV3aWf6vIqtuovIHtISRBBDlWjSERPYurse
+	 FotKwe92DfhZVdX/ZQOnlKjbTOC6YrTcWzhxwfL06m54rAxDJRWO9muzgclM/HUhCDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OZ6aUlt1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="kSKu4iS/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5881C606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:22:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1E66606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:22:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OZ6aUlt1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66F271F0089F;
-	Sat,  7 Nov 2026 11:22:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kSKu4iS/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDDD31F0089F;
+	Sat,  7 Nov 2026 11:22:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050560;
-	bh=LmqGuWbLrRMU87ovpxmKvmPvTDgITKqnP/4Bi4G6LEo=;
+	s=k20260515; t=1794050563;
+	bh=iL2FWnL4QLW7t7K5kW1MlwboMKbUTmHtwCTuJECsvYI=;
 	h=From:To:Cc:Subject:Date;
-	b=OZ6aUlt1dMEWqn7gTSM615LfIWbwAoYamIZyMgNY9vJ06ZxhUB83b/V6Wv02FyOec
-	 uYbGZPmmzgqIOjRAqKIrvi3/LaXv2GoyQ2HvNGnjaIFY9TCfKHen1mPXDXcukWRC0H
-	 5tal/KHx8tTmWmNvInAHanPbxbSgzi3Kt/ZvkR1H+hXvSm/1QrMBqvOzWVKbLz0TtW
-	 R8isWK2/equOldOVZVAqORcmlyKqqu3X2Lxnp+GMBY4PebA0YPlt0N/a/u6SeT/anJ
-	 8T9rPS2Jnekcgq9HA7TnjFHxaiEF615xXlYbmQJ4wXpX7KbUP6n7qLZ1VXAOgJTUMx
-	 v0mLN4tg3B7vQ==
+	b=kSKu4iS/CsUb9DtFeKd3EMn0CEo9uV7JyqAsZJCk+P3CpvxovzFnUZxhK4udxp9Ox
+	 ojQsqGwwO57W52fnIBh/y3eNS3q45lLWfHyBOHzEMg2UktkKsuu+wW7q/83nJHuW1b
+	 S6Oe0ezsrZYdtDt4YgcxmH/TU2uWa1/8nGA/IdWDkhNq2w7TEml+WM1pAR/6RbNw6L
+	 1dAiwTE5yGhs7eJ2yge7z/GHZqpDctPpxqq9CkLgMLCnHWI60u5NolvrjVrOHurghg
+	 kGNwgkEZvrI98RJyGWyHkdaGTuz9iTXxVbqIOVWBp2RX0Q3qa4bMjBMr1F+UwQ6kLz
+	 drdxgstG41iSA==
 From: Sasha Levin <sashal@kernel.org>
-To: zhanxusheng1024@gmail.com,
-	zhanxusheng@xiaomi.com,
-	chao@kernel.org,
-	jaegeuk@kernel.org
+To: brads@mainlining.org,
+	akpm@linux-foundation.org,
+	pmladek@suse.com,
+	linux@roeck-us.net,
+	sashiko-bot@kernel.org,
+	wangjinchao600@gmail.com,
+	wim@linux-watchdog.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] f2fs: fix defragment writeback range truncation on 32-bit" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:22:38 -0500
-Message-ID: <20261107062237-failed-5.10-92154fe28c37@kernel.org>
+Subject: FAILED: patch "[PATCH] panic: flatten nmi_panic control flow" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:22:41 -0500
+Message-ID: <20261107062241-failed-5.10-75eb687ff2bc@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,70 +73,51 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 92154fe28c3701bebf75176dc5522bec62519a8f
+git cherry-pick -x 75eb687ff2bcec9fba31bbe266e5f91e5c283efe
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062237-failed-5.10-92154fe28c37@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062241-failed-5.10-75eb687ff2bc@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 92154fe28c3701bebf75176dc5522bec62519a8f Mon Sep 17 00:00:00 2001
-From: Zhan Xusheng <zhanxusheng1024@gmail.com>
-Date: Mon, 5 Oct 2026 23:49:54 +0800
-Subject: [PATCH] f2fs: fix defragment writeback range truncation on 32-bit
+From 75eb687ff2bcec9fba31bbe266e5f91e5c283efe Mon Sep 17 00:00:00 2001
+From: Bradley Morgan <brads@mainlining.org>
+Date: Wed, 16 Sep 2026 18:29:53 +0000
+Subject: [PATCH] panic: flatten nmi_panic control flow
 
-f2fs_defragment_range() flushes the range it is about to defragment:
+panic() is __noreturn, so the else after panic_try_start() is dead.  Drop
+it so the force_cpu path can be added cleanly on top.
 
-	filemap_write_and_wait_range(inode->i_mapping,
-				pg_start << PAGE_SHIFT,
-				(pg_end << PAGE_SHIFT) - 1);
-
-pg_start and pg_end are pgoff_t, 32 bits on 32-bit kernels, so both
-shifts are evaluated in 32 bits and truncated before they are widened to
-the loff_t parameters.  pg_end is only capped by the file's page count,
-so for a file larger than 4 GiB the shift wraps.
-
-For a 5 GiB file pg_end is 1310720 and the range collapses from
-[0, 5 GiB) to [0, 1 GiB), leaving the rest of the dirty pages unwritten
-before the blocks are moved.  For 8 GiB the shift yields 0, the minus one
-makes it (loff_t)-1, and the range becomes [0, LLONG_MAX].
-
-The matching call in f2fs_collapse_range() already casts:
-
-	filemap_write_and_wait_range(inode->i_mapping,
-				(loff_t)index << PAGE_SHIFT,
-				((loff_t)pg_end << PAGE_SHIFT) - 1);
-
-Do the same here.  On i386 the shift changes from "shl $0xc,%ecx" to
-"shld", i.e. from a 32-bit shift to a double-precision one.
-
-Cc: stable@kernel.org
-Fixes: d323d005ac4a ("f2fs: support file defragment")
-Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
-Reviewed-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+Link: https://lore.kernel.org/20260916182957.7788-3-brads@mainlining.org
+Signed-off-by: Bradley Morgan <brads@mainlining.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Petr Mladek <pmladek@suse.com>
+Cc: Guenetr Roeck <linux@roeck-us.net>
+Cc: Sashiko <sashiko-bot@kernel.org>
+Cc: Wang Jinchao <wangjinchao600@gmail.com>
+Cc: Wim Van Sebroeck <wim@linux-watchdog.org>
+Cc: <stable@vger.kernel.org>
 ---
- fs/f2fs/file.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ kernel/panic.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-index 713fb6f49bcb3..d4d859dbef880 100644
---- a/fs/f2fs/file.c
-+++ b/fs/f2fs/file.c
-@@ -3036,8 +3036,8 @@ static int f2fs_defragment_range(struct f2fs_sb_info *sbi,
- 
- 	/* writeback all dirty pages in the range */
- 	err = filemap_write_and_wait_range(inode->i_mapping,
--						pg_start << PAGE_SHIFT,
--						(pg_end << PAGE_SHIFT) - 1);
-+						(loff_t)pg_start << PAGE_SHIFT,
-+						((loff_t)pg_end << PAGE_SHIFT) - 1);
- 	if (err)
- 		goto out;
- 
+diff --git a/kernel/panic.c b/kernel/panic.c
+index 08072bfae4221..5646d4fb82b7d 100644
+--- a/kernel/panic.c
++++ b/kernel/panic.c
+@@ -517,7 +517,8 @@ void nmi_panic(struct pt_regs *regs, const char *msg)
+ {
+ 	if (panic_try_start())
+ 		panic("%s", msg);
+-	else if (panic_on_other_cpu())
++
++	if (panic_on_other_cpu())
+ 		nmi_panic_self_stop(regs);
+ }
+ EXPORT_SYMBOL(nmi_panic);
 -- 
 2.53.0
 
