@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794060996;
-	b=0d9CRpfdI6Q6O6rPSimH7YFIQ14sWlZPM9OyTj+qbbbk0oieJeH2wW46PHOLQAPq70ul
-	 VvNcn695u1AvKIwe/Q5TyIX1bZIHZeaNzdchsNFPjURNTMoCKhH4XilEOryjYf8ZrTue2
-	 JV0Op8aNuvVPppz0u4iNMiGtz7H8+H9WKo+gGVdYJQC803cw3UTXvsPtEGGsaaiYzzDPo
-	 48wXWQ9KJpnOd7RobSzeZPzAjBYel1mMdDKIyXVp8q8WjreiEql6zPaD6ctp++tS4XKID
-	 wR6LL5FTRabpinDLvpZr5TfSvTigeKK4yWU6PXTtxEduP1YGu/8x9WFA7+h4oeNKMWA==
+	b=VF9aKNEmKaVMKSZAPejebrvVxqXHCN9/ok3JqZe+JyCC0DYTnB1BeNx3I0I9uC3dUdu8
+	 5jlV/y0J1PmkNT8DHJcs1BKUggey785WO92sM6Z/p/wrL9Le3eRNBLhqtwfEOLaAEZ6fx
+	 CqggMNsD+wRipvivQ/Ky6q4A4gVv8B04C8foaSDryJ8nxZhX3xquX0bcjBoo2v0aXOWLe
+	 ohvmrzR0l5oOLO5S+5eB/nh6d+dR/G4q12iG9QFdI7oRLDfpEEBvj67/lJpo6SlAb5npA
+	 aCG6QcmGmTGLiBuIDvZvoQPaBVEXfdG2zgQK6JB1rW2f7Cs0Wkt4S5bmoJvAw0yhlRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794060996;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=J2J640MM/jPM+DCgkkXADKcGe2U/R+ydhkLkIs7dbHU=;
-	b=21JA8ILQcdjhstOCfZrrHc8WT0UN3qd91QE+4GLg/jT6+HTV9TjlOTYqvJHrRsmZi96c
-	 VRAc7czj75CIA8mLarFF2u/gJd+p1LIWAU/qmx2mYISRNfFPnGlM40dj3YAv00zdRllLI
-	 uP8rWi3vnyOct2Oo8VWdtMLNROKPWyK5CujGNrvRdhPD2mBk+kIovtnaOExK5tb3Uc1pE
-	 8c8vIxxP5sMmJWtOIdA7EjjCE7yYWILwKQwG40YC9XpE8W8DoFrSrCrYsXysTMe8ZtCcZ
-	 +tVvxoZSUNiOPaUT9ae2Mnnc3LE9U/TT+kpdJXE+wP3o82AohjQ1DcQQU2X6u1KEbkg==
+	bh=h+mZwh2vhjokBpoHfQBQPvdEQwZinxy0RxtzsnU7i6Y=;
+	b=I1NJ0i6iThGGJF27FX//iEOfBSmxg8PrSttsljcdWV39sre7O/e+nVCqRAnrJ5xaJgft
+	 vW3wIiRespx/2zgl2y+72lFTWrjybfHT75x5amK/58j0R2SLwDdo/wQeasZ9cbQbaAC/E
+	 iJM032jUpjAwX6Bwcp9D3X4vXlRyNwmGGs4SvEHgH60IfG3kfyLngFsFV29taeFnD+2jd
+	 f8hCTBxnhC4f7lY//0WgrMKuwl1MmYfCnih70FGOk8HJ4qoUI1kW4dGKgpZaIAGAeojbm
+	 kyeGlUb9cZJeZYSIzUXdsVevUan0Hln2Cf58zOIFBUlXK5uD+c6GMarLYf/8NNZMw6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="Yzq8S/7M";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cS9XSend;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6FE1606EE86;
-	Sat,  7 Nov 2026 14:16:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AFFD606D826;
+	Sat,  7 Nov 2026 14:16:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Yzq8S/7M
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E2A41F008A4;
-	Sat,  7 Nov 2026 14:16:30 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cS9XSend
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1873A1F008A2;
+	Sat,  7 Nov 2026 14:16:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794060990;
-	bh=J2J640MM/jPM+DCgkkXADKcGe2U/R+ydhkLkIs7dbHU=;
+	s=korg; t=1794060989;
+	bh=h+mZwh2vhjokBpoHfQBQPvdEQwZinxy0RxtzsnU7i6Y=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Yzq8S/7MEOwG8D7YkpCPypf2hMZoTzkXf4x81b1V4ujTqQ8BcKaq/578a/fVWh3Wv
-	 qdzxj645nzrUqweVXLHq3Z0LGEtV6tT4QWt4CskrllunSnGltA24+MYPfRb2yKoA9V
-	 qzGtdDiRqHCRzCnbGasq/kEGHNaW6XG/JtFJ1yL8=
+	b=cS9XSend2/9UU8mqtHf1KqMl+Mgb1zabj1zUlyRsAlsB9vqA4AitfGEa6xC7nztLl
+	 kCQB9mPNRq5lqOR6m60MLT21wxzGxMzVVP8RimTNXMU7WOL9UfEu+h80KA+ejsH6fE
+	 FUYDg6TSsSrvHB54nSzbz5gbFcMRoQ/FRvrVZZG8=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
 	Namjae Jeon <linkinjeon@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 0339/1536] ksmbd: allow I/O on directory named streams
-Date: Sat,  7 Nov 2026 08:39:15 -0500
-Message-ID: <20261107135007.208831536@linuxfoundation.org>
+Subject: [PATCH 6.12 0338/1536] ksmbd: preserve access denied status for copychunk
+Date: Sat,  7 Nov 2026 08:39:14 -0500
+Message-ID: <20261107135007.181361763@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261107134957.653319350@linuxfoundation.org>
 References: <20261107134957.653319350@linuxfoundation.org>
@@ -69,47 +69,35 @@ Content-Transfer-Encoding: 8bit
 
 From: Namjae Jeon <linkinjeon@kernel.org>
 
-[ Upstream commit 8184c425a19d44f138d42b44cc363917c08e5f1c ]
+[ Upstream commit f7c0366e0a80bf8cd5eacc5479927abb50958b5e ]
 
-Named streams are stored as extended attributes on the base inode. The
-VFS read and write helpers reject directory inodes before or together
-with checking whether the handle represents a stream.
+The copychunk error mapping handles -EACCES in an independent if
+statement. The following error chain therefore reaches its final else
+clause and overwrites STATUS_ACCESS_DENIED with
+STATUS_UNEXPECTED_IO_ERROR.
 
-Permit read and write operations when a directory-backed handle is a
-named stream. Continue rejecting direct I/O on ordinary directory
-handles.
-
-This fixes creation of the directory stream in smb2.getinfo.complex.
+Join the -EACCES check to the remaining error chain so an access failure
+is returned as STATUS_ACCESS_DENIED.
 
 Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/server/vfs.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ fs/smb/server/smb2pdu.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/smb/server/vfs.c b/fs/smb/server/vfs.c
-index 967f669974861..9b973d7064988 100644
---- a/fs/smb/server/vfs.c
-+++ b/fs/smb/server/vfs.c
-@@ -374,7 +374,7 @@ int ksmbd_vfs_read(struct ksmbd_work *work, struct ksmbd_file *fp, size_t count,
- 	ssize_t nbytes = 0;
- 	struct inode *inode = file_inode(filp);
- 
--	if (S_ISDIR(inode->i_mode))
-+	if (S_ISDIR(inode->i_mode) && !ksmbd_stream_fd(fp))
- 		return -EISDIR;
- 
- 	if (unlikely(count == 0))
-@@ -502,7 +502,8 @@ int ksmbd_vfs_write(struct ksmbd_work *work, struct ksmbd_file *fp,
- 
- 	if (work->conn->connection_type) {
- 		if (!(fp->daccess & (FILE_WRITE_DATA_LE | FILE_APPEND_DATA_LE)) ||
--		    S_ISDIR(file_inode(fp->filp)->i_mode)) {
-+		    (S_ISDIR(file_inode(fp->filp)->i_mode) &&
-+		     !ksmbd_stream_fd(fp))) {
- 			pr_err("no right to write(%pD)\n", fp->filp);
- 			err = -EACCES;
- 			goto out;
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index f81b65527dddd..2f0a58f1afc9a 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -8026,7 +8026,7 @@ static int fsctl_copychunk(struct ksmbd_work *work,
+ 	if (ret < 0) {
+ 		if (ret == -EACCES)
+ 			rsp->hdr.Status = STATUS_ACCESS_DENIED;
+-		if (ret == -EAGAIN)
++		else if (ret == -EAGAIN)
+ 			rsp->hdr.Status = STATUS_FILE_LOCK_CONFLICT;
+ 		else if (ret == -EBADF)
+ 			rsp->hdr.Status = STATUS_INVALID_HANDLE;
 -- 
 2.53.0
 
