@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047267;
-	b=fE3GbDtybjkgZxuVeX9M2l7qiczIZn5SAPbm0HF1smoCXue5OJB/uwvXEdLFY4rE7uDT
-	 6znEsD6YMJcIaTcBB4B8199H7BAa9owj6PLYhGFfq77hGxxa2STXDeWG5iJm3SLT0O1lZ
-	 otWWNtyc2hLX04eRge2w4jxyZokk7snkEAlTp/GyWs9qfD7RPrgbJn0YLohTT1HdvgDwh
-	 7yu5Qdl+J580F1XroU7v3mA8KZuA5MCAhWHIExRogFDlVXhE2TJohrVaATFVAm7VlWgVk
-	 WD+2ci6W4b0cA+Z06iM0E2q6uyQ+SML9Hd7oQAYxnqjrvm/dxVrijd5bT2KdxvPZyLg==
+	t=1794047269;
+	b=bfnx2Xki09upU9GIni/aRI0f018VLnyav/Rockh03/MD8opZAfPEb0Z6fxb6c841T4TV
+	 Afsu38QQ9uscDPeBtX8GsoBGm+U6GzT2V3jlzzQlRUqNT/CD8xSIFCfXh7sgrnOSPdkaC
+	 LoJCquKCXJirx1NEGibBuuhF/nNfe+o5UPIfjfYAysGCMI7ccM/BgFTucr5bN37oJvfAv
+	 b+aKqEEMLMco3kMuy7qRYO6F8/MBT/YQOQtEI5qINRrIcDiXJ2idejL+LwQbyTxXfcn4t
+	 mUobzwtoZxJyGhf7alg/nDgL9/J0r8W28S0sHJ3N61gpGwiWgdPgOEVz49fdBiWRY8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047267;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047269;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=mIK5/moLfhZ0OvyKrfVKymfrrOjeZEWd263eFb625Ss=;
-	b=PgBS3AX4XHfvgoWX41mpYO7KoLzCEw3wYqCRhQAA4nHgbbBfdaO37atlBG1Yz4q8Ea41
-	 Be6aA0keQg4Vlmo4k5gkr5HP8+p/khevXASAB7oIjjso3A9kQGVQ36r0iiymxgw3Gkbvb
-	 XcSZ0LMnfFo2cs2foHm97h68F2VJX/jMxSBFAWQDAfcFypQ1pve03tQYkfB5//h156yDi
-	 6U0OKhlNHRTIUsrY+KfhcoCsLmk4/ftnLJv2/v92v/VLmXoLjt8q+WCJ08XjXi9B8/IAP
-	 YDAjzL2Y7cjywLavFtgfbOhJnG7gELSeiWnNfaQTL7JlhOuxj0AFVfazpgTluOMJIYw==
+	bh=UqG9eXoz7IJk5PkJ3pS4BEmIHXdSyIL02lqLJP7utQU=;
+	b=XlRrsm+6BnGcCwUkKWd4KmeXSR37+IpsivRHswQmXFSFwiI+A3Xrz5gvv6TmhP2+CIMe
+	 OkFAbKCMEbO+Lt+mhbyC/beoIaQiZW38qk3c2oFZXdRBcaYT96P2/hQA7tVAqw4q6uaT6
+	 sBUZWYVP2CtKosRf4rvxB0sG4Z2ipH1YKdkaQ8e8n5rsaoicdbKFIkoitXHLBQGQTcnsy
+	 nLAtlSwzKqA3M3EKSET3in3yjjlp3vB2fTHvdtY+FxXVuNbxLcpGcJxxuekhSY2IrFpX7
+	 /sPBnLnlSgcHhPQfgHkQn3xvXm/mQ60fCWGo3Nk6p4o+gRaHvHIK7blwWmMjoT8QuMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XlUwB+Bb;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JEkPYwQH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFF59606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:27:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FE65606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:27:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XlUwB+Bb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EBC31F0089F;
-	Sat,  7 Nov 2026 10:27:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JEkPYwQH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EF941F0089F;
+	Sat,  7 Nov 2026 10:27:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047266;
-	bh=mIK5/moLfhZ0OvyKrfVKymfrrOjeZEWd263eFb625Ss=;
+	s=k20260515; t=1794047268;
+	bh=UqG9eXoz7IJk5PkJ3pS4BEmIHXdSyIL02lqLJP7utQU=;
 	h=From:To:Cc:Subject:Date;
-	b=XlUwB+BbvlGJC62M7MXam8xsuM9NbMgoG4FP+ZYk79KHGrbCuqTSpx3EGjydGIvI7
-	 4xsKcdWQ0vC+Spo0+O2sczUaFSvxqsGYQR9+t+nox4Eyibv5OgKk8NHwn1K3Vo9Z5a
-	 aKQ4DJviBlQY2W/mI2yrJ9cdF0/kffGaqsLYZFn6PWe8gUvc3WBxY+4fOAJy5FHez6
-	 /cHeuXdnKZhdZUNTuKd5Ua62VwvmXuQDkYOZ4Y8ti0FvQIxKCNg9zcz9FmGZ29OhsY
-	 mT4leinTZhmfRYVbVHjMx0Dkj4/PaFAoSYng7ICJtNEITe9q85JIh5WwVPuK46XYQE
-	 5oS3CN6lqcBsg==
+	b=JEkPYwQH5ZXQfoBAEGGQaN2BXDWk7QZFuFCs7hDNiEzkqpLMjYTEPlBjyg7D1vvpB
+	 AsBv21BDVBvnn9VWMRzVG2IW9047MXGVJIXyg2su3oyqXwG2rkgaZyO0vvznOUO46r
+	 C/isvAynrUj2sOCcMct2DdpFYwsj29Qaq3iGZWCqdx6MYAnc+JXa7tALVLHXZJCp+s
+	 KStqc5xvfY4dzJaiP0nr4hyiYpkayVM/W+BsSP74gywZFyMqKHRZBL5kJgDuIYNISi
+	 qPaRJYvC7K8gz10Mp2ZZZIxc1R93P4Cj44pXVAPS5IMJ1eDXOiLxAwhi69ZjI86loj
+	 dkgvhrDS3Gpmw==
 From: Sasha Levin <sashal@kernel.org>
 To: ebiggers@kernel.org,
-	aalbersh@kernel.org
+	wufan@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] fsverity: Explicitly require FMODE_READ to retrieve hashes" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:27:45 -0500
-Message-ID: <20261107052745-failed-6.12-1acb4fd2d011@kernel.org>
+Subject: FAILED: patch "[PATCH] fsverity: Tell LSMs about signature only after verity is enabled" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:27:47 -0500
+Message-ID: <20261107052747-failed-6.12-28d74059fddb@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,137 +68,192 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 1acb4fd2d011c4bd6cc961095ae17361c71ff61a
+git cherry-pick -x 28d74059fddbd8ae83c7715056b303c402071f6f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052745-failed-6.12-1acb4fd2d011@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052747-failed-6.12-28d74059fddb@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 1acb4fd2d011c4bd6cc961095ae17361c71ff61a Mon Sep 17 00:00:00 2001
+From 28d74059fddbd8ae83c7715056b303c402071f6f Mon Sep 17 00:00:00 2001
 From: Eric Biggers <ebiggers@kernel.org>
-Date: Thu, 22 Oct 2026 21:15:22 +0000
-Subject: [PATCH] fsverity: Explicitly require FMODE_READ to retrieve hashes
+Date: Sun, 25 Oct 2026 13:45:34 -0700
+Subject: [PATCH] fsverity: Tell LSMs about signature only after verity is
+ enabled
 
-The comment in fsverity_ioctl_read_metadata(), which justifies not
-checking for FMODE_READ, doesn't consider that the nonstandard access
-mode 3 (ioctl-only) exists.
+FS_IOC_ENABLE_VERITY calls security_inode_setintegrity() before verity
+has finished being enabled.  That's broken because enabling verity can
+still fail at that point, e.g. due to insufficient xattr space.
 
-Opening an ioctl-only fd generally requires read (and write) permission.
-However, there are gaps with certain LSMs: an ioctl-only fd requests
-read (and write) permission via security_inode_permission, but not
-security_file_open.  With certain LSMs relying on the latter, such as
-Landlock and AppArmor, an ioctl-only fd can be opened without the LSM
-granting read (and write) permission.
+Afterwards, arbitrary contents can be written to the file, which doesn't
+actually have verity enabled.  The in-core inode stays the same, so the
+LSM considers it to have verity enabled with a valid signature.  (Or
+rather, in the case of IPE, which is the only LSM that implements
+security_inode_setintegrity(), it also checks IS_VERITY(), which can be
+bypassed by enabling verity with no signature after the file writes.)
 
-Since FS_IOC_READ_VERITY_METADATA returns hashes of file contents
-blocks, it should require read permission.  This also applies to
-FS_IOC_MEASURE_VERITY, which returns a hash for the whole file.
+Fix this by moving the call to security_inode_setintegrity() out of
+fsverity_verify_signature() and into a new function that is called from
+the appropriate places.
 
-Meanwhile, ioctl-only fds are a rarely-used feature, not known to be
-used with either ioctl.
-
-Therefore, just disallow these ioctls on ioctl-only file descriptors,
-similar to what was already done with FS_IOC_ENABLE_VERITY.
-
-More specifically, explicitly check for FMODE_READ.  This also covers
-write-only fds to non-verity files which otherwise would have failed
-with ENODATA.  This change in error code for write-only fds should be
-fine too, as these ioctls cannot be usefully used with write-only fds
-anyway, but it's worth noting as another technicality.
-
-Fixes: 4dd893d832cf ("fs-verity: implement FS_IOC_MEASURE_VERITY ioctl")
-Fixes: e17fe6579de0 ("fs-verity: add FS_IOC_READ_VERITY_METADATA ioctl")
+Fixes: 7c373e4f1445 ("fsverity: expose verified fsverity built-in signatures to LSMs")
 Cc: stable@vger.kernel.org
-Reviewed-by: Andrey Albershteyn <aalbersh@kernel.org>
-Link: https://patch.msgid.link/20261022211522.1489943-1-ebiggers@kernel.org
+Reviewed-by: Fan Wu <wufan@kernel.org>
+Tested-by: Fan Wu <wufan@kernel.org>
+Link: https://patch.msgid.link/20261025204534.122506-1-ebiggers@kernel.org
 Signed-off-by: Eric Biggers <ebiggers@kernel.org>
 ---
- Documentation/filesystems/fsverity.rst |  3 +++
- fs/verity/measure.c                    | 10 ++++++++++
- fs/verity/read_metadata.c              | 14 ++++++++++----
- 3 files changed, 23 insertions(+), 4 deletions(-)
+ fs/verity/enable.c           |  8 ++++++
+ fs/verity/fsverity_private.h |  8 ++++++
+ fs/verity/open.c             |  9 ++++++
+ fs/verity/signature.c        | 55 ++++++++++++++++++++++++++----------
+ 4 files changed, 65 insertions(+), 15 deletions(-)
 
-diff --git a/Documentation/filesystems/fsverity.rst b/Documentation/filesystems/fsverity.rst
-index 22b49b295d1f9..e5d38439bf585 100644
---- a/Documentation/filesystems/fsverity.rst
-+++ b/Documentation/filesystems/fsverity.rst
-@@ -170,6 +170,7 @@ fatal signal), no changes are made to the file.
- FS_IOC_ENABLE_VERITY can fail with the following errors:
+diff --git a/fs/verity/enable.c b/fs/verity/enable.c
+index ad4ff71d7dd95..2949fb8afb2fa 100644
+--- a/fs/verity/enable.c
++++ b/fs/verity/enable.c
+@@ -302,6 +302,14 @@ static int enable_verity(struct file *filp,
+ 	} else if (WARN_ON_ONCE(!IS_VERITY(inode))) {
+ 		fsverity_remove_info(vi);
+ 		err = -EINVAL;
++	} else {
++		/*
++		 * Now that verity is enabled, report the signature (if any) to
++		 * LSMs.  We tolerate that a process racing with this ioctl can
++		 * briefly see verity enabled with no signature reported yet.
++		 */
++		fsverity_report_valid_sig(inode, desc->signature,
++					  le32_to_cpu(desc->sig_size));
+ 	}
+ out:
+ 	kfree(params.hashstate);
+diff --git a/fs/verity/fsverity_private.h b/fs/verity/fsverity_private.h
+index 6f85f63861aaa..2c41428d484b3 100644
+--- a/fs/verity/fsverity_private.h
++++ b/fs/verity/fsverity_private.h
+@@ -160,6 +160,8 @@ void __init fsverity_init_info_cache(void);
+ extern int fsverity_require_signatures;
+ int fsverity_verify_signature(const struct fsverity_info *vi,
+ 			      const u8 *signature, size_t sig_size);
++void fsverity_report_valid_sig(const struct inode *inode, const u8 *signature,
++			       size_t sig_size);
  
- - ``EACCES``: the process does not have write access to the file
-+- ``EBADF``: the file descriptor is not open for reading
- - ``EBADMSG``: the builtin signature is malformed
- - ``EBUSY``: this ioctl is already running on the file
- - ``EEXIST``: the file already has verity enabled
-@@ -232,6 +233,7 @@ regardless of the size of the file.
+ void __init fsverity_init_signature(void);
+ #else /* !CONFIG_FS_VERITY_BUILTIN_SIGNATURES */
+@@ -170,6 +172,12 @@ fsverity_verify_signature(const struct fsverity_info *vi,
+ 	return 0;
+ }
  
- FS_IOC_MEASURE_VERITY can fail with the following errors:
- 
-+- ``EBADF``: the file descriptor is not open for reading
- - ``EFAULT``: the caller provided inaccessible memory
- - ``ENODATA``: the file is not a verity file
- - ``ENOTTY``: this type of filesystem does not implement fs-verity
-@@ -310,6 +312,7 @@ blocks from disk without actually verifying the path to the root node.
- 
- FS_IOC_READ_VERITY_METADATA can fail with the following errors:
- 
-+- ``EBADF``: the file descriptor is not open for reading
- - ``EFAULT``: the caller provided inaccessible memory
- - ``EINTR``: the ioctl was interrupted before any data was read
- - ``EINVAL``: reserved fields were set, or ``offset + length``
-diff --git a/fs/verity/measure.c b/fs/verity/measure.c
-index 68dfccb697720..0c75616dca011 100644
---- a/fs/verity/measure.c
-+++ b/fs/verity/measure.c
-@@ -31,6 +31,16 @@ int fsverity_ioctl_measure(struct file *filp, void __user *_uarg)
- 	const struct fsverity_hash_alg *hash_alg;
- 	struct fsverity_digest arg;
++static inline void fsverity_report_valid_sig(const struct inode *inode,
++					     const u8 *signature,
++					     size_t sig_size)
++{
++}
++
+ static inline void fsverity_init_signature(void)
+ {
+ }
+diff --git a/fs/verity/open.c b/fs/verity/open.c
+index 78a65154b8957..d1ac9556e9474 100644
+--- a/fs/verity/open.c
++++ b/fs/verity/open.c
+@@ -387,6 +387,15 @@ int fsverity_ensure_verity_info(struct inode *inode)
+ 		goto out_free_desc;
+ 	}
  
 +	/*
-+	 * This ioctl returns a hash of the file contents, so it should require
-+	 * read permission.  Disallow it on ioctl-only (i.e., nonstandard access
-+	 * mode 3) fds, which can in some cases be acquired without passing all
-+	 * LSM read-permission checks.  Also disallow write-only fds, which can
-+	 * refer only to non-verity files which would fail with ENODATA anyway.
++	 * Now that the signature (if any) has been verified, report it to LSMs.
++	 * Do this before inserting the fsverity_info into the hashtable, so
++	 * that anyone who concurrently retrieves the fsverity_info for the same
++	 * inode is guaranteed to see the LSM's signature status populated.
 +	 */
-+	if (!(filp->f_mode & FMODE_READ))
-+		return -EBADF;
++	fsverity_report_valid_sig(inode, desc->signature,
++				  le32_to_cpu(desc->sig_size));
 +
- 	vi = fsverity_get_info(inode);
- 	if (!vi)
- 		return -ENODATA; /* not a verity file */
-diff --git a/fs/verity/read_metadata.c b/fs/verity/read_metadata.c
-index b4c0892430cde..6694149f7b467 100644
---- a/fs/verity/read_metadata.c
-+++ b/fs/verity/read_metadata.c
-@@ -166,13 +166,19 @@ int fsverity_ioctl_read_metadata(struct file *filp, const void __user *uarg)
- 	int length;
- 	void __user *buf;
+ 	/*
+ 	 * Multiple tasks may race to set the inode's verity info, in which case
+ 	 * we might find an existing fsverity_info in the hash table.
+diff --git a/fs/verity/signature.c b/fs/verity/signature.c
+index 07657e913b22a..2f49c5d9d9870 100644
+--- a/fs/verity/signature.c
++++ b/fs/verity/signature.c
+@@ -42,13 +42,16 @@ static struct key *fsverity_keyring;
+  * @sig_size: size of signature in bytes, or 0 if no signature
+  *
+  * If the file includes a signature of its fs-verity file digest, verify it
+- * against the certificates in the fs-verity keyring. Note that signatures
+- * are verified regardless of the state of the 'fsverity_require_signatures'
+- * variable and the LSM subsystem relies on this behavior to help enforce
+- * file integrity policies. Please discuss changes with the LSM list
+- * (thank you!).
++ * against the certificates in the fs-verity keyring.
+  *
+- * Return: 0 on success (signature valid or not required); -errno on failure
++ * Note that signatures are verified regardless of the state of the
++ * 'fsverity_require_signatures' variable, and the LSM subsystem relies on this
++ * behavior to help enforce file integrity policies.  (See
++ * fsverity_report_valid_sig(), which assumes that the signature, if present,
++ * was verified here.)  Please discuss changes with the LSM list (thank you!).
++ *
++ * Return: 0 if the signature is present and valid, or absent and not required;
++ *	   -errno on failure
+  */
+ int fsverity_verify_signature(const struct fsverity_info *vi,
+ 			      const u8 *signature, size_t sig_size)
+@@ -111,18 +114,40 @@ int fsverity_verify_signature(const struct fsverity_info *vi,
+ 		return err;
+ 	}
  
+-	err = security_inode_setintegrity(inode,
+-					  LSM_INT_FSVERITY_BUILTINSIG_VALID,
+-					  signature,
+-					  sig_size);
++	return 0;
++}
+ 
+-	if (err) {
++/*
++ * If the signature exists, this tells the LSM that it was verified.
++ *
++ * fsverity_verify_signature() must have already been called with the same
++ * signature, *and* the inode must have verity enabled with the signature
++ * matching it.  If called from FS_IOC_ENABLE_VERITY, the latter means that we
++ * must be past the point of no return, i.e. verity won't fail to be enabled at
++ * a later point.  This is critical, since LSMs must be told about the signature
++ * only when the verity status is permanent in the in-core inode.
++ */
++void fsverity_report_valid_sig(const struct inode *inode, const u8 *signature,
++			       size_t sig_size)
++{
++	int err;
++
++	if (WARN_ON_ONCE(!IS_VERITY(inode)))
++		return;
++
++	if (sig_size == 0)
++		return;
++
++	err = security_inode_setintegrity(
++		inode, LSM_INT_FSVERITY_BUILTINSIG_VALID, signature, sig_size);
++	if (err)
+ 		fsverity_err(inode, "Error %d exposing file signature to LSMs",
+ 			     err);
+-		return err;
+-	}
+-
+-	return 0;
 +	/*
-+	 * This ioctl returns file contents block hashes, so it should require
-+	 * read permission.  Disallow it on ioctl-only (i.e., nonstandard access
-+	 * mode 3) fds, which can in some cases be acquired without passing all
-+	 * LSM read-permission checks.  Also disallow write-only fds, which can
-+	 * refer only to non-verity files which would fail with ENODATA anyway.
++	 * Besides the logging above, ignore errors here.  The LSM hook just
++	 * records the signature and doesn't perform access control.  And in the
++	 * case of FS_IOC_ENABLE_VERITY verity was already enabled.
 +	 */
-+	if (!(filp->f_mode & FMODE_READ))
-+		return -EBADF;
-+
- 	vi = fsverity_get_info(inode);
- 	if (!vi)
- 		return -ENODATA; /* not a verity file */
--	/*
--	 * Note that we don't have to explicitly check that the file is open for
--	 * reading, since verity files can only be opened for reading.
--	 */
+ }
  
- 	if (copy_from_user(&arg, uarg, sizeof(arg)))
- 		return -EFAULT;
+ void __init fsverity_init_signature(void)
 -- 
 2.53.0
 
