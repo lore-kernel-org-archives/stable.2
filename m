@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050635;
-	b=0FOP7R4WPioQ2r5MJVzA8faTqWdZvTDhfTP/jsL9fQttsBl2e88A8OXOHtPC4JnVDOdf
-	 4TGiq9Jx8AT02VSDTKLh2Ye8vLWRP7SCBSJ/mPTPzkYPRIL3AVjdI29LTazSA3jveroU2
-	 K82z8+ZcjkryFL/L/U7wSmszAjt1Acevuh9cJK10s6CONZ5S9vvOmR92WO7ZsNGZWdCCs
-	 M91sKECCO4Yy9A7bjDEqxvlYjjk+fNriB5uD5m2sSiBjrV7JJY2DMRQbq5IB7aghtVssD
-	 Ar8rK3Zko+L0lxCUIwhb87AKK6jg07u2vXDOwybAQbO+6GVqvGDFVVml+Vh1EZsMzCQ==
+	t=1794050638;
+	b=2KU1qpkLVnasdphgzau8tnoIs/MDUzo+APHrxxRyJXQIn6qxKgMI38E474jnelwFkblG
+	 akg8AhTuedI3RWqmjl9u5nIG7GgkzaMK314zmekk9rUpC6VLjFI1RIxfVYVu+FmuBHR73
+	 lgzCijGYpqFWEKtasqiCabICGwAZsRKJcVxFZdKl4XfrMwZPSgqXr4qvd66jC9XQQtQP5
+	 WI6D3Cw1JsJpjfO1uFwtTFz/PjobMZU9mIJp2KAPDpJ0GZB+keRyiaHDe+8JN3NqdK38H
+	 S4swOf1j1NoJG5joL5hFJVzuuKdQNgpc2xXAd28RktMYJVTIf0odTdjE+HYAkoM/YDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050635;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050638;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=q8LTY47VvNfe2YDljxue8O15BYEYJmIII3XQ/yG4rt0=;
-	b=nN+GES2zz71WQ3mxjBWTeLlgYITowd9l7yn5oj8wtIcC7w8bBMJzfI89lu8JLzSoCtGt
-	 C/2HWXq48Lthiw/BufUC6p7rmfIs7g5QMQpYc5Ah+iAEc6jaUZtlUdp58rGJXKs599/nl
-	 jNg0AWJKztwMpxx89DWKFkpucLse91NNvwzwrFBoSSxJSiRChBkFzs0g+LCmRmYuy4v5t
-	 AvCYzHSQu5mkmSkOUf8+RgB1vWnyZZ/xGeQRoTWvPH5j+G90pX8TlxARL8xL32XBuIZlx
-	 Qjv4XvGbfOPIhzvAgjaLqS2FbOz0WopbU6JEWEX6LcqjEfI54nNhZBr4mbp+Ghp8jsQ==
+	bh=po5qEd08e1ceieGMteAdsUKYMqJYk97tX4XKuOaxzkk=;
+	b=YzDJBkSwpoRa7DhJIr6WS3JGacb1sG1wryvAAl1tc5iBjEQ9IplXZTKBtur4CKMPUaFL
+	 267mlBTgi4RV18MnFXJ+09T1g2Nm70H91G5vKeJijMZ3mi9cN8Eqx2ZrhaiSnt/ErGDJe
+	 IjuumelaxhTrSLtNNmG/qTnNREb42pWt8cfqXymI26FUoRgeyLiDWGfq4lGy/ptEQzAne
+	 3dNs3pcnWYHLtuUKXVDAnqB8PHnjpsTCejTiBCsgyLavxNdBmwGxJ3q/ag9LyLQpoQaO8
+	 0ufvumgQUT++YgPE+lP16lEULVkauGELhKKTOX26ehk+rfRGLdAyw8HXLy/3cKo+t2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Smy675qN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oJeiQhDh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52EFE606A332
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:23:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C92A606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:23:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Smy675qN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6A481F0089F;
-	Sat,  7 Nov 2026 11:23:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oJeiQhDh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B87F91F0089F;
+	Sat,  7 Nov 2026 11:23:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050635;
-	bh=q8LTY47VvNfe2YDljxue8O15BYEYJmIII3XQ/yG4rt0=;
+	s=k20260515; t=1794050638;
+	bh=po5qEd08e1ceieGMteAdsUKYMqJYk97tX4XKuOaxzkk=;
 	h=From:To:Cc:Subject:Date;
-	b=Smy675qN6PFOqGJw2PJi4lIIbxxXg6mB23KwEne/MlVVDJfxTJuYQlEEsURrr+tma
-	 WiTF3AzCFrmtOFyRrUGP0VlAyLHLOCJ1jgo4Zk3zjVNHYwe5pVNfEza9uEJbhf7qpz
-	 DsC8SghDqizHI42RGzgEJMyHjeqTLem3lDIENCLYDAKFrSqmTbyjzQ8ebJQxSPAfc7
-	 cREkPWOniAJs6hF+6dscV3sW1Us9E0VVY6K1kND6wAnNvyEFD/lsSUzV9hMu1p9siC
-	 tQZYyGu0JwtoFwTZIGzEcE8IXhVIyU7ocm1eIuvY/2f8l/SKxpOmKZGXCAjoxL2FuJ
-	 OPhi+1BjsdUQg==
+	b=oJeiQhDhrjDu8HiNND2cn2GV5Gc0iWbJGu1+F6SdX/Z/iDyODcaFr06/tXdnk4jdQ
+	 2Jp6sydUWmiO4lDj7pT0kQrir/D7Wru2i7XtVPDOJTbnMnsht+kMaKNDXs3j4VLhZQ
+	 ZqTP2ixdsykBEozXHU3O6wUwY6sdj9PmFCp8mWnDYeAbU7NEM+oiMcGPKFPywcuPfD
+	 wx+/xXWfX4+NUqZjkMgcrQYCR84GEAG/+vUzmwd+GYNGrGCBCSGGAK/gu8rfmzQUPE
+	 5daCpt8Vab6OjnbnHA4mZnWKZLNClmUnExS9VX4Rt1jeSy5guT2HLnikGhGRiPcyeN
+	 1+WcZZRb6feFA==
 From: Sasha Levin <sashal@kernel.org>
 To: maz@kernel.org,
+	oupton@kernel.org,
 	fuad.tabba@linux.dev
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] KVM: arm64: Turn vcpu->arch.pause into a counter" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:23:53 -0500
-Message-ID: <20261107062353-failed-5.10-e64309198eda@kernel.org>
+Subject: FAILED: patch "[PATCH] KVM: arm64: vgic: Stop the target vcpu when disabling LPIs" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:23:56 -0500
+Message-ID: <20261107062356-failed-5.10-a1b4bd2c2c26@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,128 +69,67 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x e64309198eda29415a95113def92aa40196cd422
+git cherry-pick -x a1b4bd2c2c262b8094c86afb99364d16ac08cb66
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062353-failed-5.10-e64309198eda@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062356-failed-5.10-a1b4bd2c2c26@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From e64309198eda29415a95113def92aa40196cd422 Mon Sep 17 00:00:00 2001
+From a1b4bd2c2c262b8094c86afb99364d16ac08cb66 Mon Sep 17 00:00:00 2001
 From: Marc Zyngier <maz@kernel.org>
-Date: Thu, 15 Oct 2026 11:05:36 +0100
-Subject: [PATCH] KVM: arm64: Turn vcpu->arch.pause into a counter
+Date: Thu, 15 Oct 2026 11:05:38 +0100
+Subject: [PATCH] KVM: arm64: vgic: Stop the target vcpu when disabling LPIs
 
-We have situations where we can call kvm_arm_halt_guest() without
-holding config_lock, which means that halt and resume can overlap in
-funny ways when called from separate contexts, and result in situations
-where a vcpu is resumed while other parts of KVM assume it is halted.
-Consequences are left to the imagination of the reader.
+Disabling LPIs is pretty nasty, as it directly messes with the AP list
+of the affected CPU, which could be running... This has the potential to
+lead to really bad behaviours, and we should not be doing that.
 
-Fix this sorry situation by turning kvm_vcpu_arch::pause into an
-atomic counter, which makes the races described above harmless.
+Take example on the way the Active state is handled and simply pause the
+the vcpu so that we are sure it is in a quiescent state, and the state be
+safely manipulated.
 
-Fixes: 3b92830ad41b2 ("KVM: arm/arm64: implement kvm_arm_[halt,resume]_guest")
+Nobody has any expectation of performance for this anyway.
+
+Fixes: 96085b949672d ("KVM: arm/arm64: vgic-v3: Retire pending interrupts on disabling LPIs")
+Co-developed-by: Oliver Upton <oupton@kernel.org>
+Signed-off-by: Oliver Upton <oupton@kernel.org>
+Cc: stable@vger.kernel.org
 Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
 Tested-by: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261015100539.1011760-5-maz@kernel.org
+Link: https://patch.msgid.link/20261015100539.1011760-7-maz@kernel.org
 Signed-off-by: Marc Zyngier <maz@kernel.org>
 ---
- arch/arm64/include/asm/kvm_host.h |  7 +++----
- arch/arm64/kvm/arm.c              | 21 ++++++++++++---------
- 2 files changed, 15 insertions(+), 13 deletions(-)
+ arch/arm64/kvm/vgic/vgic-mmio-v3.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
-index cd9b9d2462f96..9c068f27f9b8a 100644
---- a/arch/arm64/include/asm/kvm_host.h
-+++ b/arch/arm64/include/asm/kvm_host.h
-@@ -889,11 +889,10 @@ struct kvm_vcpu_arch {
- 	/*
- 	 * Don't run the guest (internal implementation need).
- 	 *
--	 * Contrary to the flags above, this is set/cleared outside of
--	 * a vcpu context, and thus cannot be mixed with the flags
--	 * themselves (or the flag accesses need to be made atomic).
-+	 * Contrary to the flags above, this is updated outside of
-+	 * a vcpu context, and thus cannot be mixed with the flags.
- 	 */
--	bool pause;
-+	atomic_t pause;
+diff --git a/arch/arm64/kvm/vgic/vgic-mmio-v3.c b/arch/arm64/kvm/vgic/vgic-mmio-v3.c
+index 5913a20d83019..f5bd29fbe3a90 100644
+--- a/arch/arm64/kvm/vgic/vgic-mmio-v3.c
++++ b/arch/arm64/kvm/vgic/vgic-mmio-v3.c
+@@ -303,9 +303,19 @@ static void vgic_mmio_write_v3r_ctlr(struct kvm_vcpu *vcpu,
+ 		if (ctlr != GICR_CTLR_ENABLE_LPIS)
+ 			return;
  
- 	/*
- 	 * We maintain more than a single set of debug registers to support
-diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-index cadc82ba5a5a0..9b773ab0b51d5 100644
---- a/arch/arm64/kvm/arm.c
-+++ b/arch/arm64/kvm/arm.c
-@@ -565,6 +565,7 @@ int kvm_arch_vcpu_create(struct kvm_vcpu *vcpu)
- 	kvm_arm_pvtime_vcpu_init(&vcpu->arch);
- 
- 	vcpu->arch.hw_mmu = &vcpu->kvm->arch.mmu;
-+	atomic_set(&vcpu->arch.pause, 0);
- 
- 	/*
- 	 * This vCPU may have been created after mpidr_data was initialized.
-@@ -839,6 +840,11 @@ int kvm_arch_vcpu_ioctl_set_mpstate(struct kvm_vcpu *vcpu,
- 	return ret;
- }
- 
-+static bool vcpu_can_run(struct kvm_vcpu *vcpu)
-+{
-+	return !kvm_arm_vcpu_stopped(vcpu) && !atomic_read(&vcpu->arch.pause);
-+}
-+
- /**
-  * kvm_arch_vcpu_runnable - determine if the vcpu can be scheduled
-  * @v:		The VCPU pointer
-@@ -854,8 +860,7 @@ int kvm_arch_vcpu_runnable(struct kvm_vcpu *v)
- 		      (kvm_timer_should_notify_user(v) ||
- 		       kvm_pmu_should_notify_user(v)));
- 
--	return ((irq_lines || kvm_vgic_vcpu_pending_irq(v))
--		&& !kvm_arm_vcpu_stopped(v) && !v->arch.pause);
-+	return ((irq_lines || kvm_vgic_vcpu_pending_irq(v)) && vcpu_can_run(v));
- }
- 
- bool kvm_arch_vcpu_in_kernel(struct kvm_vcpu *vcpu)
-@@ -1018,7 +1023,7 @@ void kvm_arm_halt_guest(struct kvm *kvm)
- 	struct kvm_vcpu *vcpu;
- 
- 	kvm_for_each_vcpu(i, vcpu, kvm)
--		vcpu->arch.pause = true;
-+		atomic_inc(&vcpu->arch.pause);
- 	kvm_make_all_cpus_request(kvm, KVM_REQ_SLEEP);
- }
- 
-@@ -1028,8 +1033,8 @@ void kvm_arm_resume_guest(struct kvm *kvm)
- 	struct kvm_vcpu *vcpu;
- 
- 	kvm_for_each_vcpu(i, vcpu, kvm) {
--		vcpu->arch.pause = false;
--		__kvm_vcpu_wake_up(vcpu);
-+		if (atomic_dec_and_test(&vcpu->arch.pause))
-+			__kvm_vcpu_wake_up(vcpu);
- 	}
- }
- 
-@@ -1037,11 +1042,9 @@ static void kvm_vcpu_sleep(struct kvm_vcpu *vcpu)
- {
- 	struct rcuwait *wait = kvm_arch_vcpu_get_wait(vcpu);
- 
--	rcuwait_wait_event(wait,
--			   (!kvm_arm_vcpu_stopped(vcpu)) && (!vcpu->arch.pause),
--			   TASK_INTERRUPTIBLE);
-+	rcuwait_wait_event(wait, vcpu_can_run(vcpu), TASK_INTERRUPTIBLE);
- 
--	if (kvm_arm_vcpu_stopped(vcpu) || vcpu->arch.pause) {
-+	if (!vcpu_can_run(vcpu)) {
- 		/* Awaken to handle a signal, request we sleep again later. */
- 		kvm_make_request(KVM_REQ_SLEEP, vcpu);
- 	}
++		/*
++		 * Yes, disabling LPIs is painful, since it can be done from
++		 * a *remote* vcpu! So let's not take any chance, and make
++		 * sure that the target vCPU has written their LRs back to the
++		 * irq structures, and release any reference they would have.
++		 *
++		 * If it hurts, don't do it.
++		 */
++		kvm_pause_vcpu(vcpu);
+ 		vgic_flush_pending_lpis(vcpu);
+ 		vgic_its_invalidate_all_caches(vcpu->kvm);
+ 		atomic_set_release(&vgic_cpu->ctlr, 0);
++		kvm_resume_vcpu(vcpu);
+ 	} else {
+ 		ctlr = atomic_cmpxchg_acquire(&vgic_cpu->ctlr, 0,
+ 					      GICR_CTLR_ENABLE_LPIS);
 -- 
 2.53.0
 
