@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049939;
-	b=452J+F1ecwQDw5htPVgsCX6m8yq/tf7NINq2M2uwkGIkUUjJXHnEQlMR/ARf46i86KH4
-	 Ld6hi1LxxsvkAZ/Wn7IimAJgYdUtgrCHDdB3LZ8A6D9Qq82DjylWMVqrtYAxBDMERsboG
-	 H+Uq1Eji7YVUYUSgZb3nOXrNvup06JoguWy75xXDQMsM0pqMNvxLjDf2uvS5Y9rhCdZrM
-	 2yT9q+tMeSdBa2SIlJavV5Aqow6zI+5U1BNblDuwB24L7486ZWs1s5RXI8GY4a2Gol0Lw
-	 LM3yYkLDjJo13IQQM4b6mqBtbKKNfGkZ9spZWN7oX97TLxujoQIxDzYi7XA+BpK3Z9A==
+	t=1794049942;
+	b=XOlLZ9lgtucC9JSAJy8ZP/7x9WgYypttbiSbMKiaTdC6Je6dO7grKdO7FvTjRSFQGnzO
+	 RQwUF3fPOJCesqXDlsp8KUdzvlo05ELXC9oNBoo97rOSATBg1pbTLshidrmaWY45dTHKE
+	 CsxLudzlZYCiq3YPKIwTHlrWv+XmeyMZ53hMy9Sbtv7Bf1liVAMGKFKYxCudcHAD4idNR
+	 ZFRF+O7SYY0GPR3ufxAUdCnp5gaUx5UuWQp54/FjJnL/vP/Hvmb7TTbl18inLpJPH3Rqn
+	 nt4K1JcuozEdvPRR93nWoWtCpUJX4XKCFPfe3FCdBgQIrXlzi+qRcMpbCdGOytPlO2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049939;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049942;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ebTJivF3kCpwQ9v75mPsqaAIY63y6goa3EEW5Q9hTnA=;
-	b=xpNwMK0VMcr7tMdczPrQKgvEfW3gt/k1xR/HE8BBs/jsT0KBH12W6sowLTCPsW105y/L
-	 N/JMD3Q55I+NwlFMlixVrfHTZspLuLk8yWtRdrTKVeKv/XngmKx8i9Yp2resrQHNhF1lZ
-	 1zZGgph+mlmJ62qvznu4ErMJ3oAuiHyLVNw2czIXRAhnOcSiIeZKxTD4D4ycYNP+1g44+
-	 LMvJl4JBFfbtU8kYVoSGB+l7gQwDRXgB7Ae+DNLMJh+z5CM0cqLcvS0wM5qh16mNtQiDC
-	 iYipylk/57+h+diCAzgiXPoKuPa0P5COmdO7+kH9CC8WWZHE8eqYFqp1B4xGvyzd4Kg==
+	bh=EPkNq3WHpunvU6lHoLuXhmUNU1ze4t//1Be+gKW4Nso=;
+	b=SF8uanTGjKSgRTkyBESfxEJchn8GMWvLDepH0UKHzCleIFFkyXbOhhnIMLcFCjvD4jun
+	 +GF4F5M7iCtxfWi2GlqT7QfD+kg00eohthHQ8RjoobKgdaPdpQSQND1SrkDzEQYUqtsFQ
+	 RC+zURL93SpZBDfu515DPC83EJ0fOG0R6qupGyoO+NoXxPDiNyhmxDTqQHOTtKGRq5Y9Y
+	 eMRffnQ3ks9Anh/585hh/l8ag/PA2VxVnTL1EvNH7e7WkI96qjsFE7v3JKCXPv6LQ3Xt4
+	 kZEzQxT03P3+WxxjXqSVDl/2pGdQoyXGrblTQUuxyGpbazosu8yCP2AVHxloc9PQ2mQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b4RCcMQM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YpqVoPBZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2B8A606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:12:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28F4C606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:12:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b4RCcMQM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47C581F0089F;
-	Sat,  7 Nov 2026 11:12:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YpqVoPBZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CC531F0089F;
+	Sat,  7 Nov 2026 11:12:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049938;
-	bh=ebTJivF3kCpwQ9v75mPsqaAIY63y6goa3EEW5Q9hTnA=;
+	s=k20260515; t=1794049941;
+	bh=EPkNq3WHpunvU6lHoLuXhmUNU1ze4t//1Be+gKW4Nso=;
 	h=From:To:Cc:Subject:Date;
-	b=b4RCcMQMZOfVx2lC6OefrXlGJELkQPfDzOwBAHvXenaqg8yaZSSvAVRQvK0k/eEvn
-	 1mCF/PcdHr+ciGtfzkaiZ7UoZY935NEYFkUcV3HvxLhXXtoRqNEYDLoHqA0YhN3XaJ
-	 9tLPwE+9xzDmE/ZWOU7Sx2Yu5cf/R+zArXhA76QWmTzchNHsjw94fzlEMPvpmX6lOE
-	 QBUOiY/ApNiJGmIkxiV9sVej4kC6I/6URtd/H+7WcRGGvr5jb0yyf/EMPt5/4FSmQH
-	 RczoF9NRC7t1Po5DwNqxKX+cwhl3sP0SQXzgT5qZC4S7l2uYU7xdUhULXGe5k6PxcC
-	 Xv3Z7jqAPtJwg==
+	b=YpqVoPBZMrHOjFtpJXBAiP9Ro7Ybljq/ZoddcuIir42G4bhZIPolLgAG2pzUstR0R
+	 E4NkYd0Nc67r8GrgGyNHtcmKgWrVl98UT3HJpp/cr7gRRqpMPuks0yr3ksiDAhWAfI
+	 Ved7pD7+fdtQPepkHqYI8mwwLRf1uZl41xkjr6mEWIBqWek2djxxbooziaZq7dl8Wx
+	 cCbDe0cb0w0jjakTjgZenjEozNsjbMkf+D49ocuVGDtExrDUBnat0ujpYe9RUZEN4E
+	 rVgbajQUIpCOlUtVM/VCrpE3KxciXxY4Hq7O+s2GLeBDx8A2Auuhr4tLLJ6qGJwFa9
+	 t/N0ufa3EayUA==
 From: Sasha Levin <sashal@kernel.org>
-To: tjdqudcks0424@naver.com,
-	amarkuze@redhat.com,
-	idryomov@gmail.com
+To: chao@kernel.org,
+	jaegeuk@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ceph: validate MDS reply fragtree split array length" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:12:16 -0500
-Message-ID: <20261107061216-failed-5.15-8cab7e7461f8@kernel.org>
+Subject: FAILED: patch "[PATCH] f2fs: fix to update superblock crc in sanity_check_area_boundary()" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 06:12:20 -0500
+Message-ID: <20261107061219-failed-5.15-f8f956c7ec8c@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,78 +68,52 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 8cab7e7461f81ea1e0fd45082b50bb3c04c0bb10
+git cherry-pick -x f8f956c7ec8c0285d7a80bed497d2f7adcbded15
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061216-failed-5.15-8cab7e7461f8@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061219-failed-5.15-f8f956c7ec8c@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 8cab7e7461f81ea1e0fd45082b50bb3c04c0bb10 Mon Sep 17 00:00:00 2001
-From: sung byeongchan <tjdqudcks0424@naver.com>
-Date: Thu, 8 Oct 2026 15:07:25 +0900
-Subject: [PATCH] ceph: validate MDS reply fragtree split array length
+From f8f956c7ec8c0285d7a80bed497d2f7adcbded15 Mon Sep 17 00:00:00 2001
+From: Chao Yu <chao@kernel.org>
+Date: Mon, 26 Oct 2026 08:23:50 +0800
+Subject: [PATCH] f2fs: fix to update superblock crc in
+ sanity_check_area_boundary()
 
-parse_reply_info_in() advances over the fragtree split array using an
-unchecked count multiplication.  On a 32-bit client, nsplits=0x20000000
-wraps the byte length to zero, so the reply is accepted and
-ceph_fill_fragtree() sorts far beyond the message front.
+This patch fixes the bug reported by Sashiko:
 
-Compute the split length with size_mul() and require the complete array to
-remain in the inode record before advancing the cursor.
+We should update superblock crc along w/ raw_super->segment_count in
+sanity_check_area_boundary() if sb_checksum feature is enabled.
 
-The malformed reply faulted in frag_tree_split_cmp() twice on the tested
-i386 baseline.  It was rejected without a fault twice after this change,
-while a normal reply and a one-split control remained functional.
-
-Cc: stable@vger.kernel.org
-Fixes: 2f2dc053404f ("ceph: MDS client")
-Assisted-by: LLM
-Signed-off-by: sung byeongchan <tjdqudcks0424@naver.com>
-Reviewed-by: Alex Markuze <amarkuze@redhat.com>
-Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
+Cc: stable@kernel.org
+Fixes: d440c52d3151 ("f2fs: support superblock checksum")
+Signed-off-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
 ---
- fs/ceph/mds_client.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ fs/f2fs/super.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/fs/ceph/mds_client.c b/fs/ceph/mds_client.c
-index 456330f1d3c53..de36c83e94c0d 100644
---- a/fs/ceph/mds_client.c
-+++ b/fs/ceph/mds_client.c
-@@ -15,6 +15,7 @@
- #include <linux/ktime.h>
- #include <linux/bitmap.h>
- #include <linux/mnt_idmapping.h>
-+#include <linux/overflow.h>
+diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
+index 857cc2b299464..1071059f2cc22 100644
+--- a/fs/f2fs/super.c
++++ b/fs/f2fs/super.c
+@@ -4084,6 +4084,12 @@ static inline bool sanity_check_area_boundary(struct f2fs_sb_info *sbi,
+ 		/* fix in-memory information all the time */
+ 		raw_super->segment_count = cpu_to_le32((main_end_blkaddr -
+ 				segment0_blkaddr) >> log_blocks_per_seg);
++		if (__F2FS_HAS_FEATURE(raw_super, F2FS_FEATURE_SB_CHKSUM)) {
++			__u32 crc = f2fs_crc32(raw_super,
++					offsetof(struct f2fs_super_block, crc));
++
++			raw_super->crc = cpu_to_le32(crc);
++		}
  
- #include "super.h"
- #include "mds_client.h"
-@@ -146,6 +147,7 @@ static int parse_reply_info_in(void **p, void *end,
- 			       struct ceph_mds_client *mdsc)
- {
- 	int err = 0;
-+	size_t splits_len;
- 	u8 struct_v = 0;
- 	u8 struct_compat = 0;
- 	u32 struct_len = 0;
-@@ -166,9 +168,11 @@ static int parse_reply_info_in(void **p, void *end,
- 
- 	ceph_decode_need(p, end, sizeof(struct ceph_mds_reply_inode), bad);
- 	info->in = *p;
--	*p += sizeof(struct ceph_mds_reply_inode) +
--		sizeof(*info->in->fragtree.splits) *
--		le32_to_cpu(info->in->fragtree.nsplits);
-+	splits_len = size_mul(sizeof(*info->in->fragtree.splits),
-+			      le32_to_cpu(info->in->fragtree.nsplits));
-+	*p += sizeof(struct ceph_mds_reply_inode);
-+	ceph_decode_need(p, end, splits_len, bad);
-+	*p += splits_len;
- 
- 	ceph_decode_32_safe(p, end, info->symlink_len, bad);
- 	ceph_decode_need(p, end, info->symlink_len, bad);
+ 		if (f2fs_readonly(sb) || f2fs_hw_is_readonly(sbi)) {
+ 			set_sbi_flag(sbi, SBI_NEED_SB_WRITE);
 -- 
 2.53.0
 
