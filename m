@@ -1,54 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049536;
-	b=rsy/poLlqEWkEMg2nM5TIXM4qdsCMIX5XOEWxN7PmOlMZ7nsqLIU61wnY1vZoJDyNawb
-	 OFJoVn00zknQIKIVodggbO5ne+Ctm72YQP9r8hWRlbkVBFY4Ed6NtUh2c6ACQ7WO1FPxS
-	 C7+R2papswcnrJaGaDgnhGfVx1reqqtPy1fUHqWVm5HWYbo2wphnLwEkgxiq7uSM0RKGz
-	 QVDb6iKU0t9axvgWmshS31J7tTVo5bzxWzIWYqYvp7cRc7OQpo4p/XqgcFs29VarX+NUx
-	 eaXP2MSIIDayzs5Na99MHDAGfrPfNdIKcIomFXRj++MUsCDpDD7aM9xc0Ebwcw3OmvA==
+	t=1794049539;
+	b=I8DzVACYpzoNjkUoe34pl/Pbfev5JgtVLg2ZkuNEz3bFP3I+EilIuIHcdSb/iptb3l1F
+	 uO4gSFb++4wcW87F4JVrhmWsv3wn6PWZOyOvMbJmAFTOY+dhM76UaO47CrCHu1wubvETP
+	 uBDXNQJQMPh+u0RYD7nTEpF6HEwrwX9uYD1rKu/6Yg/TZGLE5CDw/mauEar5HrL12fQCL
+	 dmbf25Hea1VWw5vCEdkgz2jiZ4rnvffM6s0wAxOWsE+OVFLxnOTtIFSjNXBCtRHhGlDLa
+	 M8YVlpLeOZ0qF3/oOrDP5P9yNXkbZpczKShHIdIFzAAy3eKQ7NUd2rfR8qDpoUV8VDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049536;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049539;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=TTAZQzRs3dlaFCmQso/PFWc3l9JkdasPDRCZZlFlwNk=;
-	b=A/r7CT/Sfh+o0c8pc5wbqWjiGARb2cKwHD1qh5QprKCH5EFynltAdUX37jMr3k9KmaxE
-	 Dkf3udOavk8hlsCxxjnyQ2hdZ7n/5pnprIRhGTW+RAZQ1aQ2r+KXz2iZMLtDvTWrDVJ5+
-	 C88mfyvHZClfr5ZFmmEATY3dNPLcXp6UzCj+n7xJxQWB5fd9IqWRtjUJjfgKD646SrHqS
-	 SaGHCCRRWEye3vKrb1EWQ2YPm5EkOpe5EOo0kiM8wjgo4Ncy/oH87K1+lQRP4C083iNNa
-	 /3boTU78LN7ewbXNP3hBdsZXwVHn34p4n7w6viwEYNPE4GLe+aFr1MEe5TzMEqyZr1w==
+	bh=d7zssbOY50KZlDRY6sGZ6nW9FmlaKKbB/IAPScrZnHE=;
+	b=KZ0v/vvbrGAai4/4mRoQF2qilbkDEwJBJryIQa+tcPZXLVGO+awMbfPU/0QFoB1Tdofp
+	 SZhG2X9pF8OMNMZi5+INz0yq+Uh9z1x3x9UKma+AjOGbl8CW/yPofR2kfEJEeqT18E3Iu
+	 wLLIOzOK7UsG2mZCasM2RRvIu4x3lpaKP+rp705VlTM4b64FdVe7OfxVEZ4+5hmfykWyk
+	 H2ZTIuJNGh5bp6SPvJW1AFkdTfBaJNYBBH8i34+mlIsx/JFATXWwKkRzMAODSVePpPXDw
+	 C8IUzRUUpY+sYUwOx/l81MerhOpAGfP/dy9c4FjZ8jFoXgXcDMxs9pRMOIxT+YK6m8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f9oTUWxz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k8r10tOx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46DD7606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:05:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69DDD606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:05:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f9oTUWxz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CD581F0089F;
-	Sat,  7 Nov 2026 11:05:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k8r10tOx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B24671F0089F;
+	Sat,  7 Nov 2026 11:05:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049536;
-	bh=TTAZQzRs3dlaFCmQso/PFWc3l9JkdasPDRCZZlFlwNk=;
+	s=k20260515; t=1794049539;
+	bh=d7zssbOY50KZlDRY6sGZ6nW9FmlaKKbB/IAPScrZnHE=;
 	h=From:To:Cc:Subject:Date;
-	b=f9oTUWxzNxQ+N3GEgBrMbzBDyMnqITUmS1S6tRHzMoTPIWedPcbbZijgLyFq2r8SE
-	 GbQGr+2tT3bxQkS/3rpPmIxVjsBnbe7g2rjHUMcmmN6jDZv3aR3goj1/W9AlkbltCO
-	 xxFGsrk/NHDToj1X0E2yUIooBeOCvRl1swRX0fNBuQ4j0dALjINKlNqCila2Qak9PM
-	 CGzgu29IIpXpiO5STf35l38zaF8nOF1hBGHUJOMeXolfgY0ghw8/8MsBx5COMEv+sX
-	 v5r8pVBfXueYMgj1Queu7mNxMv48ObWRv6Z4Ih+0xwKikjnll775sa3woB006SnrJA
-	 GnGlvZ41Dlilw==
+	b=k8r10tOxIGgeKBtI/dX37jJb5/Fpmel5UEZbpQNFrFvwb8UnbxcG24T1Lwk2IoX+5
+	 iHTtT2YmXTCsZZZ39jiRf48NxvBpl+XqOKWR6h4oA4I6mSG3rAqtc8m2wgQdtSrVj+
+	 Ff/rXsryfc+FN37BEaI3c01RZW4t03orva//D0OhAiCr6MEabnt0R5MZpatsJHmWE5
+	 Y4mCFHiaQDBfOOUjVlqeu6JTEqwW5UizE+rchYsklyOslo/pqD7uH8WOs35iJZRBZh
+	 Y9Z2SGKcLs7lnJ1Yj4T+Ir6HlcZm+EZ3O5rpf5dt6D7xFHaelIxeZf8MXiVKom5bW0
+	 399VQX3EKmmwA==
 From: Sasha Levin <sashal@kernel.org>
-To: geraldogabriel@gmail.com,
-	dsimic@manjaro.org,
-	shawn.lin@rock-chips.com,
-	manivannan.sadhasivam@oss.qualcomm.com,
-	bhelgaas@google.com
+To: zhaonanzhe@xiaomi.com,
+	chao@kernel.org,
+	baohua@kernel.org,
+	jaegeuk@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] PCI: rockchip-host: Do not attempt 5.0 GT/s retraining" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:05:34 -0500
-Message-ID: <20261107060534-failed-5.15-2a1e6c382fb7@kernel.org>
+Subject: FAILED: patch "[PATCH] f2fs: remove mappedtodisk flag usage in mmap write path" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 06:05:37 -0500
+Message-ID: <20261107060537-failed-5.15-b3c984358925@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,81 +70,93 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 2a1e6c382fb7567679c07bd6a7060fefc7a5edc9
+git cherry-pick -x b3c9843589257631bac18f30655e82d88970688a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060534-failed-5.15-2a1e6c382fb7@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060537-failed-5.15-b3c984358925@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 2a1e6c382fb7567679c07bd6a7060fefc7a5edc9 Mon Sep 17 00:00:00 2001
-From: Geraldo Nascimento <geraldogabriel@gmail.com>
-Date: Tue, 16 Jun 2026 12:25:45 -0300
-Subject: [PATCH] PCI: rockchip-host: Do not attempt 5.0 GT/s retraining
+From b3c9843589257631bac18f30655e82d88970688a Mon Sep 17 00:00:00 2001
+From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+Date: Mon, 12 Oct 2026 11:03:15 +0800
+Subject: [PATCH] f2fs: remove mappedtodisk flag usage in mmap write path
 
-Drop the 5.0 GT/s Link Speed retraining from Rockchip PCIe Root Complex
-Mode Operation, so-called host driver.
+PG_mappedtodisk was inherited from the nobh/buffer-head era.  However,
+f2fs has no buffer heads and the flag is no longer meaningful.  The only
+user of the flag is the "no holes" shortcut in f2fs_vm_page_mkwrite(),
+which makes mmap write faults skip marking the folio dirty.  Moreover,
+it causes the following race condition with filesystem freezing:
 
-The reason is that Shawn Lin from Rockchip has reiterated that there may be
-danger of "catastrophic failure" in using their PCIe with 5.0GT/s speeds.
+ CPU0 (write fault)     CPU1 (freeze_super)
+ ----                   ----
+ f2fs_vm_page_mkwrite()
+ sb_start_pagefault()
+ /* shortcut: no dirty */
+ sb_end_pagefault()
 
-While Rockchip has done so informally without issuing a proper errata, and
-the particulars are thus unknown, this may cause data loss or worse.
+                        sb_wait_write(SB_FREEZE_PAGEFAULT)
+                        /* no waiter, passes */
+                        sync_filesystem()
+                        /* folio not dirty, skipped */
 
-This change is corroborated by RK3399 official datasheet [1], which states
-maximum link speed for this platform is 2.5 GT/s.
+ finish_fault()
+ /* PTE writable */
+ fault_dirty_shared_page()
+ folio_mark_dirty()
+ /* dirty folio on a frozen fs */
 
-[1] https://opensource.rock-chips.com/images/d/d7/Rockchip_RK3399_Datasheet_V2.1-20200323.pdf
+It will also skip APP_MAPPED_IO iostat/REQ_TIME updates and post-EOF
+folio zeroing.
 
-Fixes: e77f847df54c ("PCI: rockchip: Add Rockchip PCIe controller support")
-Reported-by: Dragan Simic <dsimic@manjaro.org>
-Reported-by: Shawn Lin <shawn.lin@rock-chips.com>
-Link: https://lore.kernel.org/all/ffd05070-9879-4468-94e3-b88968b4c21b@rock-chips.com/
-Signed-off-by: Geraldo Nascimento <geraldogabriel@gmail.com>
-Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-Reviewed-by: Dragan Simic <dsimic@manjaro.org>
-Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
+Remove this shortcut in f2fs_vm_page_mkwrite() and stop setting it in
+f2fs_read_single_page().
+
+Reported-by: Chao Yu <chao@kernel.org>
+Link: https://lore.kernel.org/linux-f2fs-devel/496b913c-eb81-4fa8-be72-c6a06a10aba2@kernel.org/
+Reviewed-by: Chao Yu <chao@kernel.org>
+Reviewed-by: Barry Song <baohua@kernel.org>
+Fixes: fbfa2cc58d53 ("f2fs: add file operations")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/68f6353e3a2ea4914de36c42b6906e41282adad3.1781622998.git.geraldogabriel@gmail.com
+Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
 ---
- drivers/pci/controller/pcie-rockchip-host.c | 20 --------------------
- 1 file changed, 20 deletions(-)
+ fs/f2fs/data.c | 1 -
+ fs/f2fs/file.c | 6 ------
+ 2 files changed, 7 deletions(-)
 
-diff --git a/drivers/pci/controller/pcie-rockchip-host.c b/drivers/pci/controller/pcie-rockchip-host.c
-index d203c4876d304..0b52f2e370f41 100644
---- a/drivers/pci/controller/pcie-rockchip-host.c
-+++ b/drivers/pci/controller/pcie-rockchip-host.c
-@@ -328,26 +328,6 @@ static int rockchip_pcie_host_init_port(struct rockchip_pcie *rockchip)
- 		goto err_power_off_phy;
- 	}
+diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+index 2613e8821af6d..348ddc8b748c5 100644
+--- a/fs/f2fs/data.c
++++ b/fs/f2fs/data.c
+@@ -2494,7 +2494,6 @@ static int f2fs_read_single_page(struct inode *inode, struct fsverity_info *vi,
+ got_it:
+ 	if ((map->m_flags & F2FS_MAP_MAPPED)) {
+ 		block_nr = map->m_pblk + block_in_file - map->m_lblk;
+-		folio_set_mappedtodisk(folio);
  
--	if (rockchip->link_gen == 2) {
--		/*
--		 * Enable retrain for gen2. This should be configured only after
--		 * gen1 finished.
--		 */
--		status = rockchip_pcie_read(rockchip, PCIE_RC_CONFIG_CR + PCI_EXP_LNKCTL2);
--		status &= ~PCI_EXP_LNKCTL2_TLS;
--		status |= PCI_EXP_LNKCTL2_TLS_5_0GT;
--		rockchip_pcie_write(rockchip, status, PCIE_RC_CONFIG_CR + PCI_EXP_LNKCTL2);
--		status = rockchip_pcie_read(rockchip, PCIE_RC_CONFIG_CR + PCI_EXP_LNKCTL);
--		status |= PCI_EXP_LNKCTL_RL;
--		rockchip_pcie_write(rockchip, status, PCIE_RC_CONFIG_CR + PCI_EXP_LNKCTL);
+ 		if (!f2fs_is_valid_blkaddr(F2FS_I_SB(inode), block_nr,
+ 						DATA_GENERIC_ENHANCE_READ)) {
+diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
+index ef4d218e694bd..4363e28056e6b 100644
+--- a/fs/f2fs/file.c
++++ b/fs/f2fs/file.c
+@@ -218,12 +218,6 @@ static vm_fault_t f2fs_vm_page_mkwrite(struct vm_fault *vmf)
+ 	/* wait for GCed page writeback via generic cache */
+ 	f2fs_wait_on_block_writeback(inode, dn.data_blkaddr);
+ 
+-	/*
+-	 * check to see if the page is mapped already (no holes)
+-	 */
+-	if (folio_test_mappedtodisk(folio))
+-		goto out_sem;
 -
--		err = readl_poll_timeout(rockchip->apb_base + PCIE_CORE_CTRL,
--					 status, PCIE_LINK_IS_GEN2(status), 20,
--					 500 * USEC_PER_MSEC);
--		if (err)
--			dev_dbg(dev, "PCIe link training gen2 timeout, fall back to gen1!\n");
--	}
--
- 	/* Check the final link width from negotiated lane counter from MGMT */
- 	status = rockchip_pcie_read(rockchip, PCIE_CORE_CTRL);
- 	status = 0x1 << ((status & PCIE_CORE_PL_CONF_LANE_MASK) >>
+ 	/* page is wholly or partially inside EOF */
+ 	if (((loff_t)(folio->index + 1) << PAGE_SHIFT) >
+ 						i_size_read(inode)) {
 -- 
 2.53.0
 
