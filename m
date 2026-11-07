@@ -1,42 +1,42 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794063752;
-	b=hRitPsbrvTyY1mxwyzYioet/vK12m0cKNJAggeDuOJmGD+jWX2d7V8XiUXUwhPLiJ/QD
-	 50+jhlMaeA1YiL209wFqzAD+X5x/0GGKaYOEuvrCpfmVIs3mI4MsCZ9QC5jZ2eB382iJ5
-	 QktXPsyqbe9oCzVUKrWI6rmgFh4akEYgJDiKODQG5iWHC4Bqnqf9ko6zVqdhCGdZSWL5R
-	 VajQFw0ihmnLvd1BSZ1MZiD5lm7DVs0kOkmDRs1Fi8q1NnWEU/wxgGMHo9CWZVD0JHYde
-	 hPkCPcYOghYAERGgTfScL1ngcXbKNvRRmS+T9p9Q1gmixIzatA4GoV0WH5jMxdwkAsQ==
+	t=1794063754;
+	b=S5x57I8h9Gi02jC4aq4Hy6ev/7gS8hVdhWZY3tEQYAUKtmjVIuvfWmTd1oVu5oKwVUCr
+	 kn5cnDHCrHnyG79qe6i/7oovcHB4sTguve3FgGTcrXav1oKULjAdNpQjaRuifZtbEKPmm
+	 0ik22tzPeyVfkYGSwrpbazYDyhpP7AKwpk0k5arx7HdTaDtORMzndEd1IS30ncnFJHmeo
+	 hjA4TGs+lqlW9YZI82jojU82OC/YEA3C0w4ZCaUy3+N1u/7qZhuGEmj1LH7Q/lfXID1Mv
+	 JoK16maxgQ4n6Ey4DSv9P/wsEUtlEc3hBbX9fu6CUBPZ1CIx2YTVnoLiFctEK5y3lig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794063752;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794063754;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=1vYUu3ScqDo9Y5xjO+dMWSx9IUKkIK6laJS9mcCP5Fo=;
-	b=IqiOjt6D4tDF8V2pZSv89Y5P+CRpEvjpKtwYDb9xp4iV00C3cKgXbq2iqaoqqQlaWSmm
-	 pJx3+kviCWFm1zm/H4a2PmHgJPIvI9mVrJAwAQtqzpjBM6imKx6rg5bRJ4Q1hTqRL3J80
-	 oHpAq2iIc1vnoS92BxiCogpwTxXaDMENfNxKtvPPwGocU9cMeWn9bhal67kfTSomK36ev
-	 2mIxAp4N5n6K42gD3ULTeJ2kb8ecAdzV1i3ckvZQJh37IuATEce7hM/qqSQ5/f/7e136j
-	 N4PdLJDF5uJNrZGo2ZuuIDUMslG8XODaA4fXzAl0ZI1xYBGjpwZddCzuN4Jtsbkbo0A==
+	bh=fQ7bpkQsliQd0NnweLBp9i/mIWCkyOIIWxeMnoIoa+M=;
+	b=uhJJPlhMvBbwQuosyHW2VCwRU3bGTXkQsW9jWquLgHkO2dmgkdf3xT2q3yMJ+EfoYjCi
+	 ZKeK6dO2G7W3EGwsIY2r39Kxol8/O5hAbTjZywqFrYReOYV18FpjQJcZ95UontftaTHO8
+	 rqvUOgodyR+gmxnCgSJnduOPgL7E76m4uAxPq8Dk0599K3SG3eLPHzM0fYNiwhNUTMLri
+	 csOIgbXK2I/4hLyGrYP7I+MLnFhj7rONckJ4kyjby60wrJ4RIC2rBz0v8xbLwPyZrOz8M
+	 N+ryRBQ1hSVRCnEZxaOVOub8nfr+Yc22L7KaFQaHc/gKgcNn2lPB/O/bKl99KP2YJpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=tPZkuHVd;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=KKZU5RU7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AE20606D809;
-	Sat,  7 Nov 2026 15:02:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9B27606D804;
+	Sat,  7 Nov 2026 15:02:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=tPZkuHVd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2885A1F008A1;
-	Sat,  7 Nov 2026 15:02:32 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=KKZU5RU7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 570111F008BD;
+	Sat,  7 Nov 2026 15:02:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794063752;
-	bh=1vYUu3ScqDo9Y5xjO+dMWSx9IUKkIK6laJS9mcCP5Fo=;
+	s=korg; t=1794063753;
+	bh=fQ7bpkQsliQd0NnweLBp9i/mIWCkyOIIWxeMnoIoa+M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=tPZkuHVdgffe+SxmUUMADOCaYNARF78zXm1f66x2YshFYA8MZ2jZuW7R9/FpClWKL
-	 T/MOxKxbYdYdK5rUMWNOvNZXIAVeVNCZ2sYai2pJLI43Z1pAfjYg9xgIZ/4y4xO4uR
-	 llaUn0pd/8Y0nDWrzgXqiKTod8aOzIRVyKeGaGho=
+	b=KKZU5RU7J9hkDVzZgqvDXDBYGIbkbflYkvJb+Z40tmchaHpcEesTaVFWogRflbzmK
+	 kg9Kt8pOc2jYX78myYPjr/bi0ma4U6cmQnNCVOTeWykvvOy1rFFqRppXQEjE10gPHb
+	 aZgl4J8gdj7xTSu+xzz0lCV7t8ef3b+IMBqNHBIA=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
@@ -44,9 +44,9 @@ Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Tiezhu Yang <yangtiezhu@loongson.cn>,
 	Huacai Chen <chenhuacai@loongson.cn>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 808/869] LoongArch: Only send SIGTRAP signal if necessary in do_watch()
-Date: Sat,  7 Nov 2026 08:58:10 -0500
-Message-ID: <20261107134920.405737893@linuxfoundation.org>
+Subject: [PATCH 6.18 809/869] LoongArch: Fix perf hardware breakpoint failure via installation
+Date: Sat,  7 Nov 2026 08:58:11 -0500
+Message-ID: <20261107134920.460654661@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261107134852.069646174@linuxfoundation.org>
 References: <20261107134852.069646174@linuxfoundation.org>
@@ -70,143 +70,97 @@ Content-Transfer-Encoding: 8bit
 
 From: Tiezhu Yang <yangtiezhu@loongson.cn>
 
-[ Upstream commit f087903018e35d38b8932e18b010ee2e8699d1a1 ]
+[ Upstream commit f5c0f8427469e703465c719c4304ce91282a32eb ]
 
-In do_watch(), the kernel unconditionally forces a SIGTRAP signal at the
-end of the handler via force_sig(SIGTRAP). This is essential for ptrace
-operations, but it severely disrupts standard perf_event usage.
+In hw_breakpoint_control(), the logic to enable CSR_PRMD_PWE (global
+watchpoint enable) incorrectly relies on TIF_LOAD_WATCH. This thread
+flag is only set during ptrace operations, meaning that the standard
+hardware breakpoints created via perf_event_open() will never have
+this flag set.
 
-Under normal perf usage, it is not necessary to force a SIGTRAP signal
-on every hit. Forcing it unnecessarily aborts the target process if no
-user-space signal handler is registered, which violates performance
-monitoring behaviors and injects context switch overheads.
+As a result, the CSR_PRMD_PWE switch is skipped, leaving the hardware
+breakpoint completely inactive in perf usage.
 
-However, a conditional check using only 'current->ptrace' would block
-legitimate user-requested signals when a perf_event is configured with
-'attr.sigtrap = 1' for asynchronous user-space tracking.
+Fix this by decoupling the CSR_PRMD_PWE from the ptrace specific flag
+TIF_LOAD_WATCH, which ensures that CSR_PRMD_PWE is enabled whenever a
+hardware breakpoint is installed.
 
-Fix this by refactoring breakpoint_handler() and watchpoint_handler()
-to return a boolean status indicating whether any triggered breakpoint
-explicitly requires a signal notification. Update do_watch() to enforce
-the SIGTRAP signal only when the process is actively being debugged via
-ptrace, or when the underlying perf_event infrastructure specifically
-demands it via 'attr.sigtrap'.
+Here is a user-space reproducer to demonstrate the issue:
+
+(1) Test program (test_perf_install.c):
+
+  #include <stdio.h>
+  #include <unistd.h>
+  #include <sys/syscall.h>
+  #include <sys/ioctl.h>
+  #include <linux/perf_event.h>
+  #include <linux/hw_breakpoint.h>
+
+  static int var = 0;
+
+  int main(void)
+  {
+  	size_t count = 0;
+  	struct perf_event_attr attr = {
+  		.type = PERF_TYPE_BREAKPOINT,
+  		.size = sizeof(attr),
+  		.bp_type = HW_BREAKPOINT_W,
+  		.bp_addr = (unsigned long)&var,
+  		.bp_len = HW_BREAKPOINT_LEN_1,
+  		.exclude_kernel = 1,
+  	};
+
+  	int fd = syscall(__NR_perf_event_open, &attr, 0, -1, -1, 0);
+  	ioctl(fd, PERF_EVENT_IOC_ENABLE, 0);
+
+  	asm volatile("st.b %1, %0" : "=m"(var) : "r"(11) : "memory");
+
+  	ioctl(fd, PERF_EVENT_IOC_DISABLE, 0);
+  	read(fd, &count, sizeof(size_t));
+
+  	printf("Watchpoint counts: expected = 1, actual = %zu\n", count);
+
+  	close(fd);
+  	return 0;
+  }
+
+(2) Test steps:
+
+  $ gcc test_perf_install.c -o test_perf_install
+  $ ./test_perf_install
+
+(3) Test results:
+
+Without this patch:
+
+  Watchpoint counts: expected = 1, actual = 0
+
+With this patch:
+
+  Watchpoint counts: expected = 1, actual = 1
 
 Cc: stable@vger.kernel.org
-Fixes: 424421a7f34c ("LoongArch: ptrace: Add hardware single step support")
+Fixes: 3892b11eac5a ("LoongArch: Check TIF_LOAD_WATCH to enable user space watchpoint")
 Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
 Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/loongarch/include/asm/hw_breakpoint.h |  4 ++--
- arch/loongarch/kernel/hw_breakpoint.c      | 18 ++++++++++++++++--
- arch/loongarch/kernel/traps.c              |  9 ++++++---
- 3 files changed, 24 insertions(+), 7 deletions(-)
+ arch/loongarch/kernel/hw_breakpoint.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/loongarch/include/asm/hw_breakpoint.h b/arch/loongarch/include/asm/hw_breakpoint.h
-index 5faa97a87a9e2..d202052df8a16 100644
---- a/arch/loongarch/include/asm/hw_breakpoint.h
-+++ b/arch/loongarch/include/asm/hw_breakpoint.h
-@@ -116,8 +116,8 @@ extern void arch_uninstall_hw_breakpoint(struct perf_event *bp);
- extern int hw_breakpoint_slots(int type);
- extern void hw_breakpoint_pmu_read(struct perf_event *bp);
- 
--void breakpoint_handler(struct pt_regs *regs);
--void watchpoint_handler(struct pt_regs *regs);
-+bool breakpoint_handler(struct pt_regs *regs);
-+bool watchpoint_handler(struct pt_regs *regs);
- 
- #ifdef CONFIG_HAVE_HW_BREAKPOINT
- extern void ptrace_hw_copy_thread(struct task_struct *task);
 diff --git a/arch/loongarch/kernel/hw_breakpoint.c b/arch/loongarch/kernel/hw_breakpoint.c
-index 7f69cf361a5e2..d009ed780cf02 100644
+index d009ed780cf02..1a05350159f7b 100644
 --- a/arch/loongarch/kernel/hw_breakpoint.c
 +++ b/arch/loongarch/kernel/hw_breakpoint.c
-@@ -482,9 +482,10 @@ NOKPROBE_SYMBOL(update_bp_registers);
- /*
-  * Debug exception handlers.
-  */
--void breakpoint_handler(struct pt_regs *regs)
-+bool breakpoint_handler(struct pt_regs *regs)
- {
- 	int i;
-+	bool need_sigtrap = false;
- 	struct perf_event *bp, **slots;
- 
- 	slots = this_cpu_ptr(bp_on_reg);
-@@ -494,17 +495,24 @@ void breakpoint_handler(struct pt_regs *regs)
- 			bp = slots[i];
- 			if (bp == NULL)
- 				continue;
-+
- 			perf_bp_event(bp, regs);
-+			if (bp->attr.sigtrap)
-+				need_sigtrap = true;
-+
- 			csr_write32(0x1 << i, LOONGARCH_CSR_FWPS);
- 			update_bp_registers(regs, 0, 0);
+@@ -233,7 +233,7 @@ static int hw_breakpoint_control(struct perf_event *bp,
  		}
- 	}
-+
-+	return need_sigtrap;
- }
- NOKPROBE_SYMBOL(breakpoint_handler);
- 
--void watchpoint_handler(struct pt_regs *regs)
-+bool watchpoint_handler(struct pt_regs *regs)
- {
- 	int i;
-+	bool need_sigtrap = false;
- 	struct perf_event *wp, **slots;
- 
- 	slots = this_cpu_ptr(wp_on_reg);
-@@ -514,11 +522,17 @@ void watchpoint_handler(struct pt_regs *regs)
- 			wp = slots[i];
- 			if (wp == NULL)
- 				continue;
-+
- 			perf_bp_event(wp, regs);
-+			if (wp->attr.sigtrap)
-+				need_sigtrap = true;
-+
- 			csr_write32(0x1 << i, LOONGARCH_CSR_MWPS);
- 			update_bp_registers(regs, 0, 1);
- 		}
- 	}
-+
-+	return need_sigtrap;
- }
- NOKPROBE_SYMBOL(watchpoint_handler);
- 
-diff --git a/arch/loongarch/kernel/traps.c b/arch/loongarch/kernel/traps.c
-index 4c2e5a13f07e4..9ce12327d64ea 100644
---- a/arch/loongarch/kernel/traps.c
-+++ b/arch/loongarch/kernel/traps.c
-@@ -807,6 +807,8 @@ asmlinkage void noinstr do_watch(struct pt_regs *regs)
- #ifndef CONFIG_HAVE_HW_BREAKPOINT
- 	pr_warn("Hardware watch point handler not implemented!\n");
- #else
-+	bool need_sigtrap = !!current->ptrace;
-+
- 	if (kgdb_breakpoint_handler(regs))
- 		goto out;
- 
-@@ -843,11 +845,12 @@ asmlinkage void noinstr do_watch(struct pt_regs *regs)
- 			}
- 		}
- 	} else {
--		breakpoint_handler(regs);
--		watchpoint_handler(regs);
-+		need_sigtrap |= breakpoint_handler(regs);
-+		need_sigtrap |= watchpoint_handler(regs);
- 	}
- 
--	force_sig(SIGTRAP);
-+	if (need_sigtrap)
-+		force_sig(SIGTRAP);
- out:
- #endif
- 	irqentry_exit(regs, state);
+ 		enable = csr_read64(LOONGARCH_CSR_CRMD);
+ 		csr_write64(CSR_CRMD_WE | enable, LOONGARCH_CSR_CRMD);
+-		if (bp->hw.target && test_tsk_thread_flag(bp->hw.target, TIF_LOAD_WATCH))
++		if (bp->hw.target)
+ 			regs->csr_prmd |= CSR_PRMD_PWE;
+ 		break;
+ 	case HW_BREAKPOINT_UNINSTALL:
 -- 
 2.53.0
 
