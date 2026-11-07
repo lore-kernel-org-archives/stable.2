@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049016;
-	b=0VIIjnjBM6vG4grOdu+EAFtTxFaqRqvpS9bC6yS60hndyqDBS3xcQQKke02iQz1bEXv2
-	 i08O6ybA5yumxBQc5eVaY1Of38GOxExoEFmvEHx7Yk7euywHcz5LT42uVCD9W/HcbN3hp
-	 EZ4J4xC0xE0C65oSc9Uh0FP4+tPBB1+YFgSk0j1ReHHAqfporCAeUy6H/EgEjOhFRnXzk
-	 9XFz5RMyxsmTfXn9bC2jQ8qTyDnx1fGbutEwWiMBPkJRWuwH4U/BlfU+d9lR3Lnd49nFT
-	 GMKPgHq+s9inIwCAI9fnIcTwIJ8xqx3NlQE6JmApfzs56ZP9JIaEjNYJcofrflXHtMA==
+	t=1794049019;
+	b=4cmdnaN26km4x5VfUD70E632EvGfdKXu/znB1gP/VBMWfCQEPFpLISmhzQqAiNUxjTQ+
+	 A+FJ+GOEkPNQSmeP3imUWAPmQHnt5zLHceeVDy0W4ulA0oJ3mp/kS+CVot42NVeFnM1Ai
+	 hUp3CjjWgXxcX8GlgS4SHfgH0jVOU9aqOzB4G0FjwA6SohXW+Z44JCa6lU2L+u8bkH68w
+	 +esmgPpamFCy1KBpQ9AxpoxArfaOvuAcbmBygzi1vYeUL0GncOgChwE/tyZxiQrUn7Y8d
+	 VQ3lUpNPJ+mx5nYAp21jAxK/aLWdCoviyPUF4mP/2Q2IiS3eATQ7QFHA10F8eDcLWxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049016;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049019;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=xXgXB8lhKk72+PsmjdcJM2AFT6E6r8pM/bwluDey7W4=;
-	b=f733aOwDQKFDfLcZblGs4LZ7dzN5hCaAx13ROV9yZGMid0FVfhoTDveuu2b/iNSs272H
-	 NF6JK+r2747KdFWifycQmXPiAfNfeK9DNtI+vjXFk0c6jx/2jRHDX9s9iQwi9ac6LjL3+
-	 BZ7Z9+ErFEpKErKw0mmGNd9KMDVpQ0iJzcJJvc5koeRKepi0IlxmBQG/lpQlOze49jmAy
-	 s/gOV4qz01Kf2eH4/bHFE/Rq2Nz3pjS0CBn49I5hQqUqcH/oiZYjmv/EvbOygRPuMP25r
-	 6+EC6Krxex3YwjAJtRfaI9bAdwUszPPmB+ZrSdLmY7690TntkpvvYcwxSyIPLzBmVyg==
+	bh=0joekEClLzdpbVYW2DkDXFQp3Xb24A2IVHBskbqEOIk=;
+	b=H7/fujHuWbSb6vl4ISw6W/BMrFvNoMljfh7VRlk/G00rDiL7yc2m7THfmy5adlD1kesQ
+	 TQzEQftJ0LcR2vKtngnP9RaXOWCV/YVC/bM/Zit1wYJN/WBJJuKazv0UW28ycDMt+E2RN
+	 zbCP0+IFFsguW2HLMsA6DHw0+blSEonHw+FPAdCAAW+WJP9GgwxcujtI9AI3nJMNl2WsH
+	 kMkkpP8o1i2s9w50hYNUXXftXiwmhfWoF2IHcWbNb0UKzBk9GLP0916YAS6i+eYdeSnfC
+	 bCYK556FhzhTuukvmQcIu7H+vk2j7nLXkM6seKws/rN2tkq/7MziJMal9t7hVL+a9Kg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A+0NhHZN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZcUy7Wy8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43C5B606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:56:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CA7D606A33E
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:56:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A+0NhHZN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 721D91F0089F;
-	Sat,  7 Nov 2026 10:56:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZcUy7Wy8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF28A1F008A3;
+	Sat,  7 Nov 2026 10:56:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049016;
-	bh=xXgXB8lhKk72+PsmjdcJM2AFT6E6r8pM/bwluDey7W4=;
+	s=k20260515; t=1794049019;
+	bh=0joekEClLzdpbVYW2DkDXFQp3Xb24A2IVHBskbqEOIk=;
 	h=From:To:Cc:Subject:Date;
-	b=A+0NhHZN6aY7pqG1ciDkQ+0C++7ZflHcyynkcJmTb/BMt0epH9jaYkxXZy4qXNRuA
-	 bbxkGngkcxHXvJYx7Avc4QADad4XmpUU5dp7AWlegPg2JWZ6zdDdquBIHY2uwGoGOF
-	 4qR1wKTnxa7jq+x9F8k3YHryFtXVaGK5dF5OeklAwtmEYmEuAPDB+JJME/fyTejO3K
-	 OXmX2YB/prZ5kruG0b75uyGur5zFyFY59HICfZkbDR/QZ2/rEbY6KLih8oSbCZ1t37
-	 /Y++HJ6Z7UOeg49PysiSr4f3IwXCWUvyBpgagoQy7yz3L6/gEJuoVYyqy0pVxKUl/k
-	 tjfsH6Zvzd3hw==
+	b=ZcUy7Wy8m+rbtl4zClA0zQ7tarRhpEArXWxaR1xBI3+n9jlkyTqSkzvI8EnmmBw7X
+	 UU+iavewO5f06x3ZhDIir6oLHOcWpRoDWBT/85Mit1DFR29PtBzBDXaFhlYMPoBZ2K
+	 qXqS81zbK5BqdXmO8DdKQqJTmQ9ewsTDHSatDk5q96rpSCi729kdXq21oke0ljQZcE
+	 ogxFy3UWdgKGXg0ErDt/sP3Dsmxg/SVrk+5Wq+8jAMV0eAKBHwL36XgW6yerSaoB0Y
+	 cwO0FEvOX7UpRdyfOsTP/mhSP/RaatKxg114Ocn2Fs6qp+7WoTjkWU4cRctkmQpQUu
+	 KkWw//s8BRFrQ==
 From: Sasha Levin <sashal@kernel.org>
-To: mason@kernel.org,
-	amir73il@gmail.com,
+To: 4ncienth@gmail.com,
 	brauner@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] backing-file: always end a queued write" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:56:54 -0500
-Message-ID: <20261107055653-failed-6.1-627cdcbc2a2e@kernel.org>
+Subject: FAILED: patch "[PATCH] splice: avoid stale f_pos writeback on error" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:56:57 -0500
+Message-ID: <20261107055657-failed-6.1-79b496ebe382@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,87 +68,78 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 627cdcbc2a2eceb0452078a0c14370f9f1f17a91
+git cherry-pick -x 79b496ebe382866e3a05090b7dc9ae95e85e65b2
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055653-failed-6.1-627cdcbc2a2e@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055657-failed-6.1-79b496ebe382@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 627cdcbc2a2eceb0452078a0c14370f9f1f17a91 Mon Sep 17 00:00:00 2001
-From: Chris Mason <mason@kernel.org>
-Date: Thu, 29 Oct 2026 19:03:19 +0100
-Subject: [PATCH] backing-file: always end a queued write
+From 79b496ebe382866e3a05090b7dc9ae95e85e65b2 Mon Sep 17 00:00:00 2001
+From: Daehyeon Ko <4ncienth@gmail.com>
+Date: Sun, 18 Oct 2026 14:17:08 +0900
+Subject: [PATCH] splice: avoid stale f_pos writeback on error
 
-Writes to a loop device with direct I/O on an overlay file make the
-next freeze of the upper filesystem hang for ever.
+do_splice() snapshots an implicit file position before calling the splice
+helper. Since splice does not take f_pos_lock, another operation on the
+same open file description can update f_pos while the helper is blocked.
+If the helper then fails, the unconditional writeback restores the stale
+snapshot.
 
-Every kiocb_start_write() needs a kiocb_end_write(). For a write that
-is queued, vfs_iocb_iter_write() leaves the end to the completion, and
-backing_aio_rw_complete() only calls kiocb_end_write() when IOCB_WRITE
-is set in the flags copied from the submitter. In-kernel submitters
-such as loop do not set that flag, so each queued write keeps the
-freeze protection of the backing filesystem.
+For a directory without ->splice_read, a file-to-pipe splice fails with
+-EINVAL. A concurrent directory mutation and getdents() call can advance
+f_pos and refresh the filesystem's revalidation cookie before that failure
+restores only the old position. The next ext2 readdir can then trust an
+offset inside a directory entry and copy data from the adjacent page to
+userspace.
 
-Direct writes to a loop device with direct I/O backed by an overlay
-file left fsfreeze of the ext4 upper filesystem, and a later touch
-there, blocked in D state. It takes write access to the node of the
-loop device, which root has by default, to attach the file and to write.
+Only update an implicit file position when splice returns a non-negative
+result, matching read and write. Keep explicit offset updates unchanged.
 
-The fix used here is to mark a write in struct backing_aio and to call
-kiocb_end_write() on completion of every marked write.
-
-Reproduced under qemu without KVM, on v7.3-rc6-21-g602042bf29f6 with
-earlier fixes of this series applied, with and without this change,
-once each. The kernel was not changed for the run. With this change
-fsfreeze finished in about a second. Not run: the nvmet and LIO file
-backends, which do not set IOCB_WRITE either, FUSE passthrough, and an
-xfs upper filesystem.
-
-Fixes: 2406a307ac7d ("ovl: implement async IO routines")
+Fixes: 7995bd287134 ("splice: don't pass the address of ->f_pos to methods")
 Cc: stable@vger.kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
-[amir: use aio->is_write to explicitly mark a write aio]
-Signed-off-by: Amir Goldstein <amir73il@gmail.com>
-Link: https://patch.msgid.link/20261029180319.2852090-1-amir73il@gmail.com
+Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+Link: https://patch.msgid.link/20261018051708.2422394-1-4ncienth@gmail.com
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- fs/backing-file.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ fs/splice.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/fs/backing-file.c b/fs/backing-file.c
-index 2424dc38d21ac..ad573f5153c7c 100644
---- a/fs/backing-file.c
-+++ b/fs/backing-file.c
-@@ -96,6 +96,7 @@ struct backing_aio {
- 	refcount_t ref;
- 	struct kiocb *orig_iocb;
- 	/* used for aio completion */
-+	bool is_write;
- 	void (*end_write)(struct kiocb *iocb, ssize_t);
- 	struct work_struct work;
- 	long res;
-@@ -136,7 +137,8 @@ static void backing_aio_rw_complete(struct kiocb *iocb, long res)
- 	struct backing_aio *aio = container_of(iocb, struct backing_aio, iocb);
- 	struct kiocb *orig_iocb = aio->orig_iocb;
+diff --git a/fs/splice.c b/fs/splice.c
+index bc243ab8dc431..f4bce35890671 100644
+--- a/fs/splice.c
++++ b/fs/splice.c
+@@ -1377,10 +1377,10 @@ ssize_t do_splice(struct file *in, loff_t *off_in, struct file *out,
+ 		ret = do_splice_from(ipipe, out, &offset, len, flags);
+ 		file_end_write(out);
  
--	if (iocb->ki_flags & IOCB_WRITE)
-+	/* Pairs with kiocb_start_write() in vfs_iocb_iter_write() */
-+	if (aio->is_write)
- 		kiocb_end_write(iocb);
+-		if (!off_out)
+-			out->f_pos = offset;
+-		else
++		if (off_out)
+ 			*off_out = offset;
++		else if (ret >= 0)
++			out->f_pos = offset;
+ 	} else if (opipe) {
+ 		if (off_out)
+ 			return -ESPIPE;
+@@ -1401,10 +1401,10 @@ ssize_t do_splice(struct file *in, loff_t *off_in, struct file *out,
  
- 	backing_aio_cleanup(aio, res);
-@@ -251,6 +253,7 @@ static int do_backing_file_write_iter(struct file *file, struct iov_iter *iter,
- 		return -ENOMEM;
+ 		ret = splice_file_to_pipe(in, opipe, &offset, len, flags);
  
- 	aio->orig_iocb = iocb;
-+	aio->is_write = true;
- 	aio->end_write = end_write;
- 	kiocb_clone(&aio->iocb, iocb, get_file(file));
- 	aio->iocb.ki_flags = flags;
+-		if (!off_in)
+-			in->f_pos = offset;
+-		else
++		if (off_in)
+ 			*off_in = offset;
++		else if (ret >= 0)
++			in->f_pos = offset;
+ 	} else {
+ 		ret = -EINVAL;
+ 	}
 -- 
 2.53.0
 
