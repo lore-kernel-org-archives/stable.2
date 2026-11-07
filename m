@@ -1,51 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046303;
-	b=mHwGwmamLwa7QNCkBHOGlH9u7vCBXNNeWDL95SMmkPK9uE+sDk6v951UA/DuO5aSh4E1
-	 3ZhaQ3j0DrnuAfOJJARu3YaNFsHuIEay1mjFJpbxIzdhpOClFRJD6Ar99myuL2Fcruypb
-	 E4QJYffnijE61gJbCeALzuUKsaob0OMzg2gBbnh8Z4NIj+W4l9Nol1JjVagX+/dMK1Qsf
-	 lG7AwockgDxDkC95sCDj4bLAjUfe6i6Df+Aey49kKmu7Rw4X7gjsgsSEsiBJeGAWu5eHC
-	 JULgAoS/qVkQuTAg9AW/Giam7K5QPVG/VUDwcYK/E951DwEFKcG90LRhYFNXOfG+rxw==
+	t=1794046305;
+	b=rJ9rDMQnChlva7AKrfT/bO52SVikEvMzSBIux6e4UdSs2T8QZ8HgJzZ4RWSfM35c8UNg
+	 lVKs+sh+mjuOVlpbccjkdAiUBDzEp/Y7RjGAlwhMAOifOP/wrEbixCQNsBDOk5/0CL/Au
+	 q5mZwhK3p8waRuSlq8JfA/jnxNHVsiEHhRnbj3m/xynVhXYjTV+KYhOD0MCudN0dGj2pI
+	 0YuNwN1+CMgRVdfmHkZI632Peq5N/1/SxLnkenEvqr95Ogv+vjW8wXekZdTVECQVAei76
+	 IJB3lW5U2vVdN31jfqTt2pO1feJHv85aUiYBPge02S75e+j+QBYKcQ3M9iX2Z+sty6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046303;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046305;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=gMwUsGvRiU2rxNT/DHvty97w/4NwuZb1lhCGh3+zRdQ=;
-	b=J2F3mbNMr230tdYwZUZKlPS2q2EeY3MOnkSieHTYc1KCvdrA3zYvhfDIoA84Z39lhk/R
-	 MW8yujuLTxMsBChhqNqrZDsr8Z7DMTXIZgID/GYfnch1TYJe9jvC9uOvyE3Znhstfw9xG
-	 zKgquXItotL2EGGjvniEiW0T71d2BTUJ1Tmh/hhVSYbYGYCSiFPlnoYGjIYOTi2axkSL5
-	 pPJgDDZ/7niOny583dhPL5yiUZtDxUzr0Psmm9yfQ9AVRwR6BIo8xhmHiNRK3FJN9Fr/z
-	 wB7WjIcucl5gTyEA5T459EgQhe+oFEsiBNQjMmZOtFbrMbedQ+Skl0/U33UQeXPfOkg==
+	bh=aDdTV/YA6i1wuTlReCcWbZ07kCdRxgFW25JUqJxNqgw=;
+	b=NzhMHLiqniV0Wtxby4whNZwRzqmJGNIBgBZh0WAlM2Igg/AqxpDTWyHdlmESnXQ6MvVP
+	 4qDbc1LxFeMZQJlht+2G792zRxdycEzHPfcy2rXbK3JoD+lV512hCedcWamQx5CZn0Ybf
+	 BfBlU2gZoxudJasGb1sUfoxZobH0GtuVXiW1vC52q/2KWLYhvrjFbondB44qSX9Be+0wf
+	 BeM3el6xUf8EFopDg9OKAFT4bhKpCrl32BgX58ginfw7WZJpQz2CDfTmZ/eVNuVmPcVDA
+	 azs3Uia9MsECMV3A/EZPa6sCPy3oHqg+FqwjR8j6ca7CIOscuq75O7N9+zl+5rK/Gsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fxIGe+os;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bQam5OBv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD22B606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:11:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED9A7606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:11:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fxIGe+os
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 099831F0089F;
-	Sat,  7 Nov 2026 10:11:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bQam5OBv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CC1B1F0089F;
+	Sat,  7 Nov 2026 10:11:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046302;
-	bh=gMwUsGvRiU2rxNT/DHvty97w/4NwuZb1lhCGh3+zRdQ=;
+	s=k20260515; t=1794046304;
+	bh=aDdTV/YA6i1wuTlReCcWbZ07kCdRxgFW25JUqJxNqgw=;
 	h=From:To:Cc:Subject:Date;
-	b=fxIGe+osUxnhjjRFCIZe87G5Pz5xm5XBz+wAr/4iPeBa5YpcNmIpOXUz6CYRq1bS0
-	 MfQ/fBofkRcIs+5Ba7I3k4CJGc8vHDg4niQ43TrxJOMuAntR3nhl5QOjGbBruhlUTM
-	 iWVJ6INZE8eTCLTyUFKsq409+x67rb1fX0AQqft9VSt41KSJm6sdM01A3wiW52EI3f
-	 eFFyWeVHdaDl3hFKgb8BYvWdUa7AWd14fLDj5+tlX5ndi2DPClkiTNJUliuAUL5MwW
-	 PB2pIUee14aAHQiJGTlgzB2ZBfMIyB6oTYJZ+0qee9wO7uDfBu6JssG/zvsisEgEhK
-	 XGFlaaQspHLAQ==
+	b=bQam5OBvp0aN93wAOYIXrBeTz66IFy7ohUx7boac5CrTrjXNN4Y3o+akLLXCoFeqm
+	 9y41GVo3SE0W3sjG1vKngV4CtchFI9ngqlJtl+vV6GJgl7r7dk2jDPiAVRGqV1Yor8
+	 9+sMEkrIo7Ogp3qHZ/734XiQtPy/+OC4jhtUVu+1bMYMA5oQEXeYOo9mBukgg1kyKl
+	 Jcf4ccSkvACBt3rYxFE7NFqw6gbcGQdIrSFPfRQGpp65j88eljJf4gVEQ6bpClf3DL
+	 BXiJeqFYQD2stJUCJVMj/Ds2bs3VeDnaBDnUTrwAbE4T6ZB1H/Bp/X6UEJmIw7pATH
+	 fcX4jodgE7gQA==
 From: Sasha Levin <sashal@kernel.org>
-To: maz@kernel.org,
-	fuad.tabba@linux.dev
+To: au.dang.jx@renesas.com,
+	tommaso.merciai.xr@bp.renesas.com,
+	tglx@kernel.org,
+	biju.das.jz@bp.renesas.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] KVM: arm64: nv: Move L2->L1 switch on interrupt early" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:11:41 -0500
-Message-ID: <20261107051141-failed-6.18-21d3b33234eb@kernel.org>
+Subject: FAILED: patch "[PATCH] irqchip/renesas-rzv2h: Preserve TIEN state in rzv2h_tint_set_type()" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:11:43 -0500
+Message-ID: <20261107051143-failed-6.18-42bedd4af8cd@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,118 +70,72 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 21d3b33234ebbb675c2a2a0fa7b12d2d83953d7a
+git cherry-pick -x 42bedd4af8cd50c32a1560d8744bd22d25be79cc
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051141-failed-6.18-21d3b33234eb@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051143-failed-6.18-42bedd4af8cd@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 21d3b33234ebbb675c2a2a0fa7b12d2d83953d7a Mon Sep 17 00:00:00 2001
-From: Marc Zyngier <maz@kernel.org>
-Date: Thu, 15 Oct 2026 11:05:33 +0100
-Subject: [PATCH] KVM: arm64: nv: Move L2->L1 switch on interrupt early
+From 42bedd4af8cd50c32a1560d8744bd22d25be79cc Mon Sep 17 00:00:00 2001
+From: Au Dang <au.dang.jx@renesas.com>
+Date: Wed, 14 Oct 2026 11:59:22 +0200
+Subject: [PATCH] irqchip/renesas-rzv2h: Preserve TIEN state in
+ rzv2h_tint_set_type()
 
-NV request generation to switch from L2 to L1 on interrupt is buried
-into the vgic flush code, while we should be able to deliver requests
-as early as possible.
+rzv2h_tint_set_type() clears TIEN while switching the TINT source and
+then unconditionally sets it again, enabling the interrupt even if it
+was disabled before the call.
 
-Similarly, MI generation happens *after* the need for a request has been
-evaluated, which means we potentially delay the maintenance interrupt by
-a full exit/entry cycle.
+Restore the previous TIEN state instead of forcing it on.
 
-Move these two things to happen much earlier in the entry code, and make
-sure the MI generation and PMU interrupt serve as input to the request
-switching back from L2 to L1.
-
+Fixes: 0d7605e75ac2 ("irqchip: Add RZ/V2H(P) Interrupt Control Unit (ICU) driver")
+Signed-off-by: Au Dang <au.dang.jx@renesas.com>
+Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Reviewed-by: Biju Das <biju.das.jz@bp.renesas.com>
 Cc: stable@vger.kernel.org
-Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
-Tested-by: Fuad Tabba <fuad.tabba@linux.dev>
-Link: https://patch.msgid.link/20261015100539.1011760-2-maz@kernel.org
-Signed-off-by: Marc Zyngier <maz@kernel.org>
+Link: https://patch.msgid.link/20261014095927.635132-1-tommaso.merciai.xr@bp.renesas.com
 ---
- arch/arm64/kvm/arm.c       | 4 ++--
- arch/arm64/kvm/nested.c    | 8 ++++++++
- arch/arm64/kvm/vgic/vgic.c | 8 +-------
- 3 files changed, 11 insertions(+), 9 deletions(-)
+ drivers/irqchip/irq-renesas-rzv2h.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-index 0576c2022ef57..73706464d2653 100644
---- a/arch/arm64/kvm/arm.c
-+++ b/arch/arm64/kvm/arm.c
-@@ -1314,11 +1314,11 @@ int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu)
- 		 */
- 		preempt_disable();
- 
--		kvm_nested_flush_hwstate(vcpu);
--
- 		if (kvm_vcpu_has_pmu(vcpu))
- 			kvm_pmu_flush_hwstate(vcpu);
- 
-+		kvm_nested_flush_hwstate(vcpu);
-+
- 		local_irq_disable();
- 
- 		kvm_vgic_flush_hwstate(vcpu);
-diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
-index b191365d97cc2..2fac0f2678122 100644
---- a/arch/arm64/kvm/nested.c
-+++ b/arch/arm64/kvm/nested.c
-@@ -2046,6 +2046,9 @@ void check_nested_vcpu_requests(struct kvm_vcpu *vcpu)
-  *
-  * What follows is some slop to (1) react to exception routing / masking and (2)
-  * preserve the pending SError state across translation regimes.
-+ *
-+ * Also generate the maintenance interrupt state, and finally check that if
-+ * we need to take an interrupt targetting the guest hypervisor.
-  */
- void kvm_nested_flush_hwstate(struct kvm_vcpu *vcpu)
+diff --git a/drivers/irqchip/irq-renesas-rzv2h.c b/drivers/irqchip/irq-renesas-rzv2h.c
+index 1a4703a353e95..485c3eea76328 100644
+--- a/drivers/irqchip/irq-renesas-rzv2h.c
++++ b/drivers/irqchip/irq-renesas-rzv2h.c
+@@ -420,9 +420,9 @@ static void rzv2h_clear_tint_int(struct rzv2h_icu_priv *priv, unsigned int hwirq
+ static int rzv2h_tint_set_type(struct irq_data *d, unsigned int type)
  {
-@@ -2054,6 +2057,11 @@ void kvm_nested_flush_hwstate(struct kvm_vcpu *vcpu)
+ 	u32 titsr, titsr_k, titsel_n, tien;
++	u32 titsr_cur, tssr_cur, tien_cur;
+ 	struct rzv2h_icu_priv *priv;
+ 	u32 tssr, tssr_k, tssel_n;
+-	u32 titsr_cur, tssr_cur;
+ 	unsigned int hwirq;
+ 	u32 tint, sense;
+ 	int tint_nr;
+@@ -477,6 +477,8 @@ static int rzv2h_tint_set_type(struct irq_data *d, unsigned int type)
+ 		if (tssr_cur == tint && titsr_cur == sense)
+ 			goto set_parent_type;
  
- 	if (unlikely(vcpu_test_and_clear_flag(vcpu, NESTED_SERROR_PENDING)))
- 		kvm_inject_serror_esr(vcpu, vcpu_get_vsesr(vcpu));
++		tien_cur = tssr & tien;
 +
-+	vgic_v3_nested_update_mi(vcpu);
-+
-+	if (vgic_state_is_nested(vcpu) && kvm_vgic_vcpu_pending_irq(vcpu))
-+		kvm_make_request(KVM_REQ_GUEST_HYP_IRQ_PENDING, vcpu);
- }
+ 		tssr &= ~(ICU_TSSR_TSSEL_MASK(tssel_n, priv->info->field_width) | tien);
+ 		tssr |= ICU_TSSR_TSSEL_PREP(tint, tssel_n, priv->info->field_width);
  
- void kvm_nested_sync_hwstate(struct kvm_vcpu *vcpu)
-diff --git a/arch/arm64/kvm/vgic/vgic.c b/arch/arm64/kvm/vgic/vgic.c
-index 5cf5a1ef86cdd..7061b4ab206c9 100644
---- a/arch/arm64/kvm/vgic/vgic.c
-+++ b/arch/arm64/kvm/vgic/vgic.c
-@@ -1152,7 +1152,7 @@ void kvm_vgic_flush_hwstate(struct kvm_vcpu *vcpu)
- 	 *
- 	 *   We do that by placing a request to ourselves which will
- 	 *   abort the entry procedure and inject the exception at the
--	 *   beginning of the run loop.
-+	 *   beginning of the run loop (see kvm_nested_flush_hwstate()).
- 	 *
- 	 * - Otherwise, do exactly *NOTHING* apart from enabling the virtual
- 	 *   CPU interface. The guest state is already loaded, and we can
-@@ -1162,16 +1162,10 @@ void kvm_vgic_flush_hwstate(struct kvm_vcpu *vcpu)
- 	 * maintenance interrupt state, as it may fire.
- 	 */
- 	if (vgic_state_is_nested(vcpu)) {
--		if (kvm_vgic_vcpu_pending_irq(vcpu))
--			kvm_make_request(KVM_REQ_GUEST_HYP_IRQ_PENDING, vcpu);
--
- 		vgic_v3_flush_nested(vcpu);
- 		return;
+@@ -489,7 +491,7 @@ static int rzv2h_tint_set_type(struct irq_data *d, unsigned int type)
+ 
+ 		rzv2h_clear_tint_int(priv, hwirq);
+ 
+-		writel_relaxed(tssr | tien, priv->base + priv->info->t_offs + ICU_TSSR(tssr_k));
++		writel_relaxed(tssr | tien_cur, priv->base + priv->info->t_offs + ICU_TSSR(tssr_k));
  	}
- 
--	if (vcpu_has_nv(vcpu))
--		vgic_v3_nested_update_mi(vcpu);
--
- 	DEBUG_SPINLOCK_BUG_ON(!irqs_disabled());
- 
- 	vgic_flush_state(vcpu);
+ set_parent_type:
+ 	return irq_chip_set_type_parent(d, IRQ_TYPE_LEVEL_HIGH);
 -- 
 2.53.0
 
