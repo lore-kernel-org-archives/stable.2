@@ -1,51 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047949;
-	b=PRQyzIIXjGF869CpIvSQ+10lwX+OLtJMoByE4tfPIv7989VpTs2RdBKN3dZUTmn3QIUl
-	 kdfv2gVPCSgy9LJTAFR8+7YwIACVCcnw+BCoD3zC0gWA+P6ssTNok4O1TcWNFlOmKN7LX
-	 ETJPRBZ02Tbcpdf6RlpyzPbukqOtHu5xIp0ccuCFh7rsaic43D/fyIlEuIsBDSycw4U2U
-	 JVxn8Bbg+cgD6VCZ/nl97dgyGolKm3MZZlB+SPUPe5J9gDvrDaB/I+DwcivXhx+JmscgE
-	 RV3IC+WJ+QM19iwoCIhLtJvHycSGYrhYl5o8HUGXcICmb7rLzbAzFL7wgNpJW/CMihw==
+	t=1794047952;
+	b=YQUHco2OXHWHeBe0fd1TgIGjO+PBcRRq0T5snv0WoCXM14bYdc077V3MOMWhcQWWnkbA
+	 FxKHskyyjcQLSaTTQHQ7bdAw4H11z+muSgnPpZQ2V7fthOASw1ULacQ006vYf8LOcFNRw
+	 SYv81vvFk3xFRu9DAOOlum0kNNGH3br+aE25rYEnmLSGR32SJWRUVNyv2VKhSK3+tGv8Z
+	 ll0w7B3JHW+vxdxYFPH+s0Px1Hi6s3GlQFPl4CI3kkFilZ1SDI8Yfli3Krx9vW3xBEliQ
+	 VKUl/pjxeSBwek4r9Iu1Ca8ynGtevC7G+wdr4eVXtlKY6OFJZfVTRp1X5Ttforh4ktw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047949;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047952;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=1AJPqVrs/yPAk4gmZrxbXi320w54XwLe/KhK4TX6Mfs=;
-	b=ZQPqBRDuXRPx1yitHXB3QI0Llj+a7PZEbjqP6245hrt6du3/U/pGgVAkFb3Lk1pI3qLF
-	 QkWKF592q0+pDwH5BOieoW1ZwdxujEXhSWzgeMwZU9kErtgiP27vmsTCXzMfdBR+dwo6f
-	 fDwZGRaMiuOhiEewSfAFSqjUpgzUo75N0pptKfDJvO0tgjRlx3SrFtBQJ/wS+IhGMhY29
-	 1TeHQcR2ewB7bLNjBcbxiD8XjQo+J36jSmfyjbHPvG/aN4FEjG+LYCHoQlaTfINbn8UOO
-	 flBLj7eZJEHJk//yzFExjNbB6LSzMkIbJHlJxrurcbOgUp8tafDpeRUFJ8yioJ1+ZqQ==
+	bh=hHwkKcE2RMwDSV4Nxx7MoyOLtql6T2QLQV3aezwKm+8=;
+	b=uzcLTi7mTmyJA5YwHC/sUAwtm7FJACuZuwEh80kCtNftL5v7rsjwYAwmO2qWzmoG7PTE
+	 tLdFiAGj5Pq0ET0WEmspL405EGN7Vki6DJ0HNyNZkstqGcWihYUFjf5qRklDGD9+DWmgN
+	 r9zbyhJ7AJladmGQWeZoxSO7TJugf+4+MWjtAEhICjuJykVOvj+/imVMBoba66AJMP5/R
+	 sUv+N30hVTIA+3ujNs+vRNgz9oVIpFZo2NpQyiUXgSWI1edcBpoInYaoLVfza8TRKiK0S
+	 kszDxZYohiJP2ElNCc0nKvBxry+RETXiHVOXnwTZL/HuCRrA0gEbP9koYfsAWJ6yTZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oAbN4QqE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CzIE7U28;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76F78606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:39:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06B4A606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:39:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oAbN4QqE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E56441F0089F;
-	Sat,  7 Nov 2026 10:39:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CzIE7U28
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEE5D1F0089F;
+	Sat,  7 Nov 2026 10:39:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047949;
-	bh=1AJPqVrs/yPAk4gmZrxbXi320w54XwLe/KhK4TX6Mfs=;
+	s=k20260515; t=1794047951;
+	bh=hHwkKcE2RMwDSV4Nxx7MoyOLtql6T2QLQV3aezwKm+8=;
 	h=From:To:Cc:Subject:Date;
-	b=oAbN4QqEFxSgY862RYWCEAEegCbkelsnizi3HEDzm5kMy6DZJjIXDMcOGn9BGMM6X
-	 hZNL+CJXxolYLQVuU3KEPoagxaJWLK7DwHTrYTrdQ/xKh2lMr7xrEKfdA7gdP+MGzy
-	 BqHDEKyZ1XE3g3JV+7GgcnDiigOQz2U5+KBXdN+R4pqB8no6l/aS6lz2yRtdum1dmW
-	 rYbvZo8acLtzCuawKY/Kwd9q/kykGZ7ZnjkcYDlpmPNh86LXgijVtreunzJnNnKG7K
-	 CexbRgWlCo5nMhReE2T1AvApG6WsL1QeJXO7kfnSJH9W07D+kH5iUlajmro2f2pYub
-	 LHy9Ss8F1/uKQ==
+	b=CzIE7U28C4apYYUZqOifCZOtKNkJ6pNUa1jA68FFj8iN+deofUS0MBflSphRfpEBn
+	 fHfU2+W8IrKNFv4hczNrFBnz52Iov2nsLNCI/5OCYI1g7jTTEsgUgFsPbRSThZ6Tbg
+	 xN23qLHhPXgADovLZWbqkfnjkCwDOo9bi5eCAN+5+0LON9B4yXc6B4mgwTcVNyYsCP
+	 FqxxBGhxJxZ++kdPKXBl4rOcJhSM8nkWi3h5LXOQVGwk1rx0dGEChm6dVCeoTrskZF
+	 4u+32nj0NKz9vyKVfpQj0zDJurP9p5lz1g/F7uAeu/2efZepQgz2EscPQT/NrUgnAn
+	 /nIxpTQaL+nBA==
 From: Sasha Levin <sashal@kernel.org>
-To: sj@kernel.org,
-	akpm@linux-foundation.org
+To: ljs@kernel.org,
+	akpm@linux-foundation.org,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	jannh@google.com,
+	pfalcato@suse.de,
+	bgeffon@google.com,
+	0x7f454c46@gmail.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/damon/core: filter out damos address filter-split failed region" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:39:07 -0500
-Message-ID: <20261107053907-failed-6.6-bbeec2d8324d@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/mremap: correctly uncharge accountable VMAs in error path" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:39:09 -0500
+Message-ID: <20261107053909-failed-6.6-65e722a74df9@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,159 +74,79 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x bbeec2d8324d7aac438bb12dd2d22b184e0a8d43
+git cherry-pick -x 65e722a74df992719676ead85a9e93fb2b5a0983
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053907-failed-6.6-bbeec2d8324d@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053909-failed-6.6-65e722a74df9@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From bbeec2d8324d7aac438bb12dd2d22b184e0a8d43 Mon Sep 17 00:00:00 2001
-From: SJ Park <sj@kernel.org>
-Date: Mon, 19 Oct 2026 17:41:18 -0700
-Subject: [PATCH] mm/damon/core: filter out damos address filter-split failed
- region
+From 65e722a74df992719676ead85a9e93fb2b5a0983 Mon Sep 17 00:00:00 2001
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Mon, 19 Oct 2026 16:57:48 +0100
+Subject: [PATCH] mm/mremap: correctly uncharge accountable VMAs in error path
 
-When an address type DAMOS filter is configured, DAMOS tries to split the
-region for the filter range, and apply DAMOS action to the filter-in
-region.  The split operation (damon_split_region_at()) could fail from
-allocation failure under extreme memory pressure.  In the case, DAMOS
-action could be applied more or less than expected, ignoring the address
-filter.
+The mremap error path is a fragile and unwieldy beast - it reverses the
+page table move then updates vma_remap_struct state to swap VMA, length and
+address between old and new VMAs in copy_vma_and_data().
 
-The issue only rarely happens under extreme memory pressure.  No crash or
-leak happens.  Occasionally not applying the action to a few regions
-shouldn't be a real problem.  But applying the action to a region that the
-user has excluded via address filter could be a surprise depending on the
-use case.  It is only theoretical.  No such real case is found yet.
+If the mremap() operation didn't specify MREMAP_DONTUNMAP then its caller,
+move_vma(), invokes unmap_source_vma(), which unmaps the new VMA rather
+than the old one.
 
-Filter out the entire region if the split is failed.  Update
-damos_filter_match() signature to receive the error from split.  Also
-update kunit tests for the updated signature.
+For accountable VMAs when MREMAP_DONTUNMAP is not specified,
+unmap_source_vma() unsets VMA_ACCOUNT_BIT during this unmap in order that
+only the delta of a VMA expansion is charged (performed by
+vrm_calc_charge() earlier).
 
-The issue was discovered [1] by sashiko.
+Therefore nothing uncharges the expanded VMA size, and there is a permanent
+leak in global Committed_AS.
 
-Link: https://lore.kernel.org/20261020004119.106690-1-sj@kernel.org
-Link: https://lore.kernel.org/20260801203121.117449-1-sj@kernel.org [1]
-Fixes: ab9bda001b68 ("mm/damon/core: introduce address range type damos filter")
-Signed-off-by: SJ Park <sj@kernel.org>
+Resolve the issue by uncharging when MREMAP_DONTUNMAP is not specified.
+
+Link: https://lore.kernel.org/20261019-other-mremap-charge-leak-v1-1-d94477fe6545@kernel.org
+Fixes: fdbef6149135 ("mm/mremap: don't account pages in vma_to_resize()")
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: <stable@vger.kernel.org> # 6.6.x
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Pedro Falcato <pfalcato@suse.de>
+Cc: Brian Geffon <bgeffon@google.com>
+Cc: Dmitry Safonov <0x7f454c46@gmail.com>
+Cc: <stable@vger.kernel.org>
 ---
- mm/damon/core.c             | 16 ++++++++++++----
- mm/damon/tests/core-kunit.h | 11 ++++++-----
- 2 files changed, 18 insertions(+), 9 deletions(-)
+ mm/mremap.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index b63e60ef89901..479169dc9ac75 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -2551,13 +2551,14 @@ static void damos_update_stat(struct damos *s,
+diff --git a/mm/mremap.c b/mm/mremap.c
+index 24827e13e617f..0d06d7f37f19a 100644
+--- a/mm/mremap.c
++++ b/mm/mremap.c
+@@ -1339,6 +1339,20 @@ static int copy_vma_and_data(struct vma_remap_struct *vrm,
+ 		pmc_revert.need_rmap_locks = true;
+ 		move_page_tables(&pmc_revert);
  
- static bool damos_filter_match(struct damon_ctx *ctx, struct damon_target *t,
- 		struct damon_region *r, struct damos_filter *filter,
--		unsigned long min_region_sz)
-+		unsigned long min_region_sz, int *err)
- {
- 	bool matched = false;
- 	struct damon_target *ti;
- 	int target_idx = 0;
- 	unsigned long start, end, wsum;
- 
-+	*err = 0;
- 	switch (filter->type) {
- 	case DAMOS_FILTER_TYPE_TARGET:
- 		damon_for_each_target(ti, ctx) {
-@@ -2583,12 +2584,13 @@ static bool damos_filter_match(struct damon_ctx *ctx, struct damon_target *t,
- 		}
- 		/* start before the range and overlap */
- 		if (r->ar.start < start) {
--			damon_split_region_at(t, r, start - r->ar.start);
-+			*err = damon_split_region_at(t, r,
-+					start - r->ar.start);
- 			matched = false;
- 			break;
- 		}
- 		/* start inside the range */
--		damon_split_region_at(t, r, end - r->ar.start);
-+		*err = damon_split_region_at(t, r, end - r->ar.start);
- 		matched = true;
- 		break;
- 	case DAMOS_FILTER_TYPE_PROBE_HITS_WSUM:
-@@ -2607,10 +2609,16 @@ static bool damos_core_filter_out(struct damon_ctx *ctx, struct damon_target *t,
- 		struct damon_region *r, struct damos *s)
- {
- 	struct damos_filter *filter;
-+	bool matching;
-+	int err;
- 
- 	s->core_filters_allowed = false;
- 	damos_for_each_core_filter(filter, s) {
--		if (damos_filter_match(ctx, t, r, filter, ctx->min_region_sz)) {
-+		matching = damos_filter_match(ctx, t, r, filter,
-+				ctx->min_region_sz, &err);
-+		if (err)
-+			return true;
-+		if (matching) {
- 			if (filter->allow)
- 				s->core_filters_allowed = true;
- 			return !filter->allow;
-diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
-index 3fbb4e4e36fac..43e2f950f8ff4 100644
---- a/mm/damon/tests/core-kunit.h
-+++ b/mm/damon/tests/core-kunit.h
-@@ -1783,6 +1783,7 @@ static void damos_test_filter_out(struct kunit *test)
- 	struct damon_target *t;
- 	struct damon_region *r, *r2;
- 	struct damos_filter *f;
-+	int err;
- 
- 	f = damos_new_filter(DAMOS_FILTER_TYPE_ADDR, true, false);
- 	if (!f)
-@@ -1803,27 +1804,27 @@ static void damos_test_filter_out(struct kunit *test)
- 	damon_add_region(r, t);
- 
- 	/* region in the range */
--	KUNIT_EXPECT_TRUE(test, damos_filter_match(NULL, t, r, f, 1));
-+	KUNIT_EXPECT_TRUE(test, damos_filter_match(NULL, t, r, f, 1, &err));
- 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
- 
- 	/* region before the range */
- 	r->ar.start = 1;
- 	r->ar.end = 2;
- 	KUNIT_EXPECT_FALSE(test,
--			damos_filter_match(NULL, t, r, f, 1));
-+			damos_filter_match(NULL, t, r, f, 1, &err));
- 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
- 
- 	/* region after the range */
- 	r->ar.start = 6;
- 	r->ar.end = 8;
- 	KUNIT_EXPECT_FALSE(test,
--			damos_filter_match(NULL, t, r, f, 1));
-+			damos_filter_match(NULL, t, r, f, 1, &err));
- 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
- 
- 	/* region started before the range */
- 	r->ar.start = 1;
- 	r->ar.end = 4;
--	KUNIT_EXPECT_FALSE(test, damos_filter_match(NULL, t, r, f, 1));
-+	KUNIT_EXPECT_FALSE(test, damos_filter_match(NULL, t, r, f, 1, &err));
- 	/* filter should have split the region */
- 	KUNIT_EXPECT_EQ(test, r->ar.start, 1);
- 	KUNIT_EXPECT_EQ(test, r->ar.end, 2);
-@@ -1839,7 +1840,7 @@ static void damos_test_filter_out(struct kunit *test)
- 	r->ar.start = 2;
- 	r->ar.end = 8;
- 	KUNIT_EXPECT_TRUE(test,
--			damos_filter_match(NULL, t, r, f, 1));
-+			damos_filter_match(NULL, t, r, f, 1, &err));
- 	/* filter should have split the region */
- 	KUNIT_EXPECT_EQ(test, r->ar.start, 2);
- 	KUNIT_EXPECT_EQ(test, r->ar.end, 6);
++		/*
++		 * When copy_vma_and_data() returns, the new VMA will be
++		 * unmapped rather than the old one.
++		 *
++		 * When an accountable move is being performed, this unmapping
++		 * will not uncharge any expansion, so do that now.
++		 *
++		 * A move is accountable if the VMA is accountable and
++		 * MREMAP_DONTUNMAP is not specified, so only do so if the
++		 * latter is true.
++		 */
++		if (!(vrm->flags & MREMAP_DONTUNMAP))
++			vrm_uncharge(vrm);
++
+ 		vrm->vma = new_vma;
+ 		vrm->old_len = vrm->new_len;
+ 		vrm->addr = vrm->new_addr;
 -- 
 2.53.0
 
