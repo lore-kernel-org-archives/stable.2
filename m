@@ -1,93 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794064739;
-	b=GlcbA1Po2XNCn5CyueKJrN+/mTWQQYe/fDb9wGNBxeEGVwLM/3dVplw/w3ydCQnQgXbn
-	 QQrqlsxisWC8kVL+tTirHyjoeZyMgDGIXsY4YVyhh9Wp0Xy42vE3dGlYtvvjA98Nmr4uk
-	 8Tl7m0u/XLuOFp6ixfgGnP6Xs/gys4xe4ET0XMc22+cVz0wTvSYyeaaLsHhuszc2qJ0G1
-	 7ng/nXuiKGCFuer6kuIAG1bJTKe/zp7pNI5Gt5vF8xlOsrIWLoMveNA7IXdvi8L5ED2VM
-	 9ysoFPCFlSfbHhPe/Jnfly0Mjq/bdOt+TUci/tXqu6eLLCTf2fOlrT6cUqyhqTNMG7Q==
+	t=1794064740;
+	b=L4340rE7R/LcQPS7FZt+6Umf/NNYlO1l0GRT22O1wUVTIpVHRhjHpktpbt+jfbGDfTZ2
+	 IUIhdxXKhvYWU1AUIwtRXiGBEWUlMk9tyWTAhdD1QUmCrokGijkFodT6jVA7Otc/t1aVk
+	 amF0DVhVReXVSDsU+e5f1jCJLxM9HQW8eyg86AJT1PpJe3JTKfRc61YohosUGhh4PE91O
+	 M21xxdjUbNpecOAMYDF44uNUfkvehFpayPN0LEg4TEmGnEwDOOQDgRFUYXy9HBM5Wootj
+	 bag4UafTdQpuS/O0YsGlFb8KitDYbm69iBBlYBR3dQbxOHWnk2rJkin85WLu61d5ZRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794064739;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=/FMecL4/Be4U19AOcEGGR/s5+PksX0yjLPbC5lOfnWY=;
-	b=iQn5HFyI21SepFQfgSCnJh5TdM32YjjiSjMinAqU53+3ZukOI1pFuJHrlD0ep94Y3tPK
-	 tFN5l8RRF2Eai3NQfIZFegAv+t4XjPgLsV/FrcFTJiwjpj2brSGNqQdMRWFJm0Vs/jrjz
-	 lgQe7vfg6mnVFQVSw81lj+sFabXyaYP7iAX6YUbel5YYeNTypGvwhDzD3weNZWBAvMDAF
-	 T2WzGUdcr8NQveeObXKGzi4pdSgRIFlpLynkhQods/sq/LUOf0lGi9pd1MMKdiQQCy4dt
-	 kIY3bKvVqaZ2MrnENyed09AaVuFSVcYpJ/JQmRWYgcfT27AgijrS1CUT2/8rjgJ6P5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794064740;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=QUmqT3yKPp04nyqmjGBR7zu6nOJ4ZKrqvU76ygCEnbY=;
+	b=3d0DENZoY7R25MR6+Y3tqEBp36kL+bBtJ3Dq2ZBvCv1B4at0U9JlNWTd4nW5QINq0XNm
+	 GF0MdeJ/IDx0FFxCneB2ak730ks/pUV7H8G9A/8m78UvWbTlLHQzznftgccae4fJWAAXy
+	 lFlWoqdAIs5nD9CGahytQuaYbygWQ7M3LtDVHkawC4syVg9QY9QuCykfCkCZRhorHdfEt
+	 Rk08QAT8r9cBcohF8HWHGhpFDYaI+Ad/7z9HCorEAB2lLEVnQebzgeJNNNnqzEJfu7A8k
+	 dEKqlvj7eRqlRSQ04dCW1ppnTsF3k6zvsbCZMPyiBGPzKE8PIxscycZ2eYqGdiakjSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TWbKXYbx;
-	arc=none smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=C14pnd4t;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 281C1606D81A
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 15:18:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 281C1606D81A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E48E5606D820;
+	Sat,  7 Nov 2026 15:18:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TWbKXYbx
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-36eb1cb7aabso2517657eec.0
-        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 07:18:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794064738; x=1794669538; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/FMecL4/Be4U19AOcEGGR/s5+PksX0yjLPbC5lOfnWY=;
-        b=TWbKXYbx7w/Wom34yDTrCrj66CgMASixb1QRY5kDrAsLcQ+8GeRlWZbp8QjFk2HMXr
-         8xPcv5OfkRP5wOz7qON0ZaB1RVFi1MEInGfO/7IfI/7JctuED/yIOd/G2ft83jl9h42M
-         VDx7pxhGLdebmulu9qy+mLr0C8dmbB3vvKhc9uKrjNP9XToGBkUYlOJ/gy0eaWp5Tl0h
-         bNtJkwjUWsuUTOofmv5qnNYpn2fPy0SfabTHOY4alEGj16k5cMdABmT3dvuzZkvIpXhv
-         55DdxZqMXdUwM0v1YTco9INseeLN1gfvEq8Y8TFC0zNYMt30qeghkT8Fq/xrprEf3Qeo
-         1IDg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794064738; x=1794669538;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/FMecL4/Be4U19AOcEGGR/s5+PksX0yjLPbC5lOfnWY=;
-        b=EzziYSK+ZzZSa60ZtzpSBJM9UeFigTQlaOq6AwagpCImBoKfKwpGe69OtKFxMQwXjk
-         DdG2lI40E8m4EbLNCIVv5zw+eXmhRjOogWRAMd5pFa6edOoGoltJXbewTnVAnCNNGsWo
-         2rKKd0gbq8QKWbaQuiXPif8ZhVVHUiNiEnxdV0K71LaRDE+ntypvfJ22b78ezYlw7Q1h
-         BnQgeEBVGN7mlQr7/p7Kd8yqkTmZe0MmUmwoj3Hksv98oU0qHbqRTWlmqMib67NcjjpU
-         tQqdNuLCRcNjN6CL38t78N1T8p/auwGbDlxB4NuOJHGJ8bxuAVASs7Vos8lJZihhDLvm
-         +yeQ==
-X-Forwarded-Encrypted: i=1; AL+hErHsYrG2knpO0DM4MjeGXuIMrjdKuKNo11XI9WwyiAeU7u/4ZcPl5BbAiJGFD0Az+hXuTcgXcxM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8ZnqBKs/6dkQvUvfL+qQYTy9vecalOBjgDGsyxLizhYJG5l0JT
-	AV4mBAab0ZW3Bsg+42o5WE57L1GSQCwFSG6hnC/mndVjJk1XfL39eTz/
-X-Gm-Gg: AYBFou3ebr2KqBsByizD6IAmb3sheVAjHytYioYwyyL2NpsWdFbMaJKHHoAJg1yKyL+
-	bjNXY5N4ilEzHFaFj3Ee3sZYs61HWgZUakCzIEXCMYZv0ISkwZDE2bBmDJrnjTuBkNRfciejv8c
-	NUEoUzXAOneub7EGRNAi7bul3lOZEPlf0pZNRUnZkUMfhNzBRo5ZugnLjjCzKdOf9JkGdx7jiTS
-	j88tzgbGtoemdABjqlJzVFGXOavll9g0T1BRDL5hsKqX133ksKSAxP/ksP74x/ouyUkNGjCQuqk
-	V2xUADEDl2I5RLATNwBIaCDUz2AtgTHbQ1/ZgOogYKYoZSAjWf2TLnDTsehDB8aALiM/ldYBS8q
-	YYQvPddfSDGIcPSLIF6vFA0TKul7hQ8ZGvwYEmPfMHAv5VjkMRKFfQU916ieeENXfg3NxGnpe/h
-	9AyZl+lQM3jgjwIAwCVdLa1OFSFHCIRLdfPlpDCrvCAE2BHCAPA85vnUQbbninxKTMEb8gJWEwW
-	/w/ix9HtIA7oOqieQ4vQDe29KLjgRY04FeezODy71fgHb8LcPs2+qsP8Y9VFpP5XIOK1vf3x9wH
-	JhsRvrWKdGESzJXQKuQsUow7mf84FmJeNqYNtMymeSxdNJK5
-X-Received: by 2002:a05:7300:dd05:b0:36c:9af3:22eb with SMTP id 5a478bee46e88-36f76e0ff40mr8378888eec.34.1794064737923;
-        Sat, 07 Nov 2026 07:18:57 -0800 (PST)
-Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa922c6c7sm22259736eec.10.2026.11.07.07.18.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 07:18:57 -0800 (PST)
-From: hyunjungg <hj351016@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org
-Cc: Alan Stern <stern@rowland.harvard.edu>,
-	linux-kernel@vger.kernel.org,
-	Hyunjung Ko <hj351016@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] usb: sl811-hcd: delete the driver timer on stop to avoid use-after-free
-Date: Sun,  8 Nov 2026 00:18:46 +0900
-Message-ID: <20261107151847.3754846-1-hj351016@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=C14pnd4t
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91E691F008A1;
+	Sat,  7 Nov 2026 15:18:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1794064739;
+	bh=QUmqT3yKPp04nyqmjGBR7zu6nOJ4ZKrqvU76ygCEnbY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=C14pnd4tenRd/x50t387cc1ty+lD8uz6iU+2/JHviCHgKCANGkxRS77fk46tReWOg
+	 eJ4wPGD6Q80xmsyUz8Iy0Yb2e51tGyZR1vG3tnd7+QX+9IJ86ktTMdo+djD7vOTymP
+	 yahJCQmveo/zz0qWyBtLPcvvSvKVHmG7IpImw24I=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Christoph Hellwig <hch@lst.de>,
+	Daejun Park <daejun7.park@samsung.com>,
+	Keith Busch <kbusch@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3 0708/1257] nvmet: fix preempt of another registrant by the reservation holder
+Date: Sat,  7 Nov 2026 08:50:04 -0500
+Message-ID: <20261107134958.807440997@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261107134939.434104957@linuxfoundation.org>
+References: <20261107134939.434104957@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,58 +65,105 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Hyunjung Ko <hj351016@gmail.com>
+7.3-stable review patch.  If anyone has any objections, please let me know.
 
-sl811h_hub_control() arms sl811->timer (sl811h_timer) with mod_timer()
-for port reset/resume timing; the timer callback dereferences the
-hcd-private struct sl811 (sl811->ctrl1, sl811->lock, sl811->port1, and
-register I/O via sl811).
+------------------
 
-sl811h_stop() deletes only the USB core's root-hub timer
-(hcd->rh_timer); it never deletes sl811->timer, and nothing else does
-either. struct sl811 lives in the HCD private area and is freed by
-usb_put_hcd() after sl811h_remove() calls usb_remove_hcd(). If
-sl811->timer is still pending when the controller is stopped and the HCD
-is freed, sl811h_timer() runs against the freed struct sl811
-(use-after-free).
+From: Daejun Park <daejun7.park@samsung.com>
 
-Delete sl811->timer at the start of sl811h_stop(), next to the existing
-hcd->rh_timer teardown and before port_power(sl811, 0) halts the
-controller, so any pending sl811h_timer() is drained before the hardware
-is halted and cannot re-enable it afterwards. usb_remove_hcd() has
-already stopped root-hub activity before sl811h_stop() runs, so the timer
-cannot be re-armed, and sl811h_timer() does not re-arm itself, so a
-single timer_delete_sync() drains it.
+[ Upstream commit d9e84d4e19994818b80846bd2abb7b396e4116a9 ]
 
-Found by static analysis and code review; not tested on real hardware
-(needs an SL811HS USB host controller).
+Unless the reservation is of an All Registrants type, nvmet_pr_preempt()
+treats every Reservation Acquire command with the Preempt or Preempt and
+Abort action that is sent by the reservation holder as the holder
+preempting itself.  It updates the reservation type to RTYPE and
+completes the command successfully without looking at PRKEY.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+NVMe Base Specification 2.1, section 8.1.22.7 makes the action depend
+on PRKEY for these reservation types, no matter which registrant sends
+the command:
+
+ - PRKEY matches the key of the reservation holder: the reservation is
+   preempted.  This is how a holder preempts itself.
+ - PRKEY does not match the key of the holder and is not 0h: the
+   registrants whose key matches PRKEY are unregistered.
+ - PRKEY does not match the key of the holder and is 0h: the command is
+   aborted with Invalid Field in Command.
+
+With the current code, a holder that preempts with the key of another
+registrant leaves that registrant registered, changes the reservation
+type to RTYPE and still gets a successful completion.  With hosts A, B
+and C registered with the keys 0xa, 0xb and 0xc, and A holding an
+Exclusive Access - Registrants Only reservation, A sends:
+
+  # nvme resv-acquire /dev/nvme1 -n 1 --crkey=0xa --prkey=0xb \
+        --rtype=4 --racqa=1
+  NVME Reservation Acquire success
+  # nvme resv-report /dev/nvme1 -n 1 --eds | grep '^regctl '
+  regctl    : 3
+
+and B can still write to the namespace.  Preempt and Abort (--racqa=2)
+gives the same result.  When C sends the preempt instead (--crkey=0xc),
+B is unregistered and its writes fail with Reservation Conflict.
+
+This defeats fencing in the pNFS SCSI layout server.  nfsd holds the
+reservation and fences a client that does not return its layout by
+calling pr_preempt() with the key of that client and the abort flag,
+which is the command RFC 9561 section 2.2.3 asks for.  On an nvmet
+namespace the preempt succeeds, nfsd logs the client as fenced, and the
+client keeps writing to the device.  In a test with an nfsd server and
+two clients on an nvmet-tcp namespace, the namespace still had three
+registrants after the fence and the fenced client went on writing to
+it.  With this patch two registrants are left and the writes of the
+fenced client fail with a reservation conflict.
+
+Take the self preempt path only when PRKEY is the key of the holder.
+Any other PRKEY sent by the holder is then handled by the code that
+already serves a non-holder registrant, for Preempt and for Preempt and
+Abort.  For a host that holds the reservation this changes the
+following:
+
+ - A preempt with the key of another registrant unregisters the
+   registrants with that key, sends them the registration preempted
+   notification and leaves the reservation type alone.
+ - A preempt with PRKEY 0h fails with Invalid Field in Command.  A
+   holder that changed its reservation type this way has to pass its
+   own key in PRKEY, which works with and without this patch.
+ - A preempt with a PRKEY that matches no registrant fails with
+   Reservation Conflict.  The specification defines that status only
+   for the All Registrants types.  It is what nvmet already returns to
+   a non-holder registrant in this case and what the SCSI target
+   returns for an unregistered key.  nfsd treats it as a successful
+   fence.
+
+Not changed: when the holder preempts itself, registrants that share
+its key stay registered.
+
+Fixes: 5a47c2080a73 ("nvmet: support reservation feature")
 Cc: stable@vger.kernel.org
-Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Daejun Park <daejun7.park@samsung.com>
+Signed-off-by: Keith Busch <kbusch@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-v2: delete sl811->timer BEFORE port_power(sl811, 0) (top of sl811h_stop(),
-    next to hcd->rh_timer) instead of after it, so a pending sl811h_timer()
-    is drained before the controller is halted and cannot re-enable it in
-    the window after the lock is dropped. Corrected the log: only
-    sl811h_hub_control() arms sl811->timer (not the transfer scheduler).
-    Both per Sashiko AI review.
+ drivers/nvme/target/pr.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- drivers/usb/host/sl811-hcd.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/usb/host/sl811-hcd.c b/drivers/usb/host/sl811-hcd.c
-index b044977..b667732 100644
---- a/drivers/usb/host/sl811-hcd.c
-+++ b/drivers/usb/host/sl811-hcd.c
-@@ -1516,6 +1516,7 @@ sl811h_stop(struct usb_hcd *hcd)
- 	unsigned long	flags;
+diff --git a/drivers/nvme/target/pr.c b/drivers/nvme/target/pr.c
+index ad13a93afb782..14eaa99f98fa3 100644
+--- a/drivers/nvme/target/pr.c
++++ b/drivers/nvme/target/pr.c
+@@ -589,7 +589,7 @@ static u16 nvmet_pr_preempt(struct nvmet_req *req,
+ 				&ctrl->hostid, abort);
+ 	}
  
- 	timer_delete_sync(&hcd->rh_timer);
-+	timer_delete_sync(&sl811->timer);
- 
- 	spin_lock_irqsave(&sl811->lock, flags);
- 	port_power(sl811, 0);
+-	if (holder == reg) {
++	if (holder == reg && prkey == holder->rkey) {
+ 		status = nvmet_pr_update_reg_attr(pr, holder,
+ 				nvmet_pr_update_holder_rtype, &rtype);
+ 		if (!status && original_rtype != rtype)
 -- 
-2.43.0
+2.53.0
+
+
 
