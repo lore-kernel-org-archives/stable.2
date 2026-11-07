@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794015908;
-	b=v9XwFx+KdqtmLzQR17D+2SQqc4Ple5yTv4TM12dO/nCQKJ0y/UF5anDdqUjcu+Q5SYZ1
-	 W4zgTw2kgwqykNCLqAhfL+T/zN7V5uiRC3Yk+OGoIe3wUz/R1g0dy5IaBIQBv5T12Lf9t
-	 PbymRlIVAWgwgzlBAc1tMa7bNIL3+BEAgbuQYEr/SnCsYCVcoveHII/f0f693GbT/2TB3
-	 z+T8HUZYAC80l6HU2AXnnwZdFHyQ/8XmyxFDUfxxKfxG2jCTNNXgo7bCu+XOoOCOmsBiw
-	 JYzfd6qMNvLEfm4mmibYQrSzAZTdvw/VH8WQWvvsxPyrSbo199ZaJ690KYBELkL99sQ==
+	t=1794015900;
+	b=GySz4QKiy3ftXZn2CDtYHUmVtcZ+2JQESCmUGjX1IV4vYdCZYL3qkmanYe4C44VvAWec
+	 nMYiwaizSxW3ZAwV5s3LxCRZ2moK6k+jQ6KgtdA7b9iz/7740u3EvHGGqTzJIyGPCD24M
+	 p5SeEr4N2Ea68HQL3u9OaV0aTcSPxjFjMeHoobxoOkFg3ZzF6ZkSY+SyxshJqavOhvPXZ
+	 MX6PJk4Xd3hq0jTQMVlsyai4bk1/4jJ2koMUs4imnPxNMZwPKgsKESnFAfJ67D7+7MFGm
+	 NjKbk/PyrHRZQN0TK4JxNFSWWK3vOZrFjHRjekAQqb+qplOkFULeJdezWKcsRIBZPww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794015908;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794015900;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=slL8NamYR9VzLcTiWfinwEGIUtzbC8eAK69Tm+qZeMU=;
-	b=U393ws7oOGhOqIu8lMb8VAoYmesRFHuUjThcFuf0MiHUWFqsUMSruVDYv5eVK7dRWzZY
-	 5OScMzxR7HEI0iY6Ds3fbVcSdL80zTlAiX+aALNIQ1uZmLxcgZhNM30RJOWIgKZS/oiMR
-	 HP94vnZjhAJQNIFD4x+rZu1hh8GabptTUVFYnQEaX3xzFolZ5rL+P4DH5jz3bcJXWA7cz
-	 IHVvPTOneyOeG41Uoonrs1vuSoz9zB2xXGpCckoiCjKqQj9BFC6tQKHMf+MrZV3/FT/lj
-	 znOTxUztS8Ry0ZKfLkkPGEt6ls7fzzO/T0Ct2WPYu6Vhq62kggj6zF5F3R+2PdZpaEg==
+	bh=86euM9Gfx67Z/jCzCvP+9zClJRgbdRmi1RRM/bKJC7A=;
+	b=cgMqlaacnvwCmKi4SfyNhjdthxf1xFoXQ2asiIIG7Z7XjkoKN/YcPaVv9tJsLrYbgddT
+	 WCYWUeZuXDIB3a7T/vrHbGmXLNghIZ7FxjlNGYJ6XNLg3MEL/fUS4pPdEYZD3COtbdFuv
+	 22CuU+FnBIkoqSOYWAzvcaoPgHm4igUp3JkTR39nQZGNBZIkkU+8VDzEft22VO0xMBQch
+	 M7gxrsXFYX1sezSsRnRAn1PftTnX0nC6eGYDw4IUtZW0SKUDdirhzDG8XZvUZFk/zEmA8
+	 dbrnBBK5sA9HOU6KTFgSBHE3fmT7gb72YoSlOdYZDFB6E4wG4gJGOqzNbk31To5l9bg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=efficios.com;
 	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=qz5T5v9T;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=sL14LSRQ;
 	arc=none smtp.remote-ip=158.69.130.18
 Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 349FD6082BE0;
-	Sat,  7 Nov 2026 01:45:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 349FD6082BE0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88915606A32F;
+	Sat,  7 Nov 2026 01:44:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88915606A32F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=qz5T5v9T
+	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=sL14LSRQ
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=smtpout1; t=1794015907;
-	bh=slL8NamYR9VzLcTiWfinwEGIUtzbC8eAK69Tm+qZeMU=;
+	s=smtpout1; t=1794015898;
+	bh=86euM9Gfx67Z/jCzCvP+9zClJRgbdRmi1RRM/bKJC7A=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=qz5T5v9THYPEcJfKyWXi4RtbeYgaIppDBM81WuINHwo5P1sr5gUMOITOHNUaRzc6Q
-	 oeA7eOKth59p6EA9lyq75VYTNYLOCP6lcFE6TFP096/A5VVoYeZzQFdQN+cYcljpMH
-	 k65RXjWe3u+2KkpKzVUqyUODVds86m1iJdz1AWyhhIWBGz5iKSGlu8VgUHzgk1apTh
-	 /u4Ea9KlrYA3/4gYeyQGGEZa1FM1LQpz8+/4G07UNgFTJX9fE7Y27cKAt83zGP+LtH
-	 88DRnrWVcZq7Uk9JK2AwSuIRJiuRlqH6FWcZYJtP4VPfS8JEtGkBUNyUW4hyiBSgmy
-	 IxbLMMVYA0l5g==
+	b=sL14LSRQ2O/7aqTYuF+0rNby+HniyA1vPz03lJ+Jtqudop7ufjjGJq47ri9wpcSQj
+	 Q/lWf1dKnadjhNJIcEVvSdPeN4azsCoIRrr51iSHASULO8WzjUqLoK1XlRG0VZpaO1
+	 uy58arcSFFkg5aZxl+EO6a8LHBcX8zfoE+n//moAEgww/2X0XqgnAvadqOhb1lHPs7
+	 w9C4iF/hmDAVNrVcEqpsP8ygOgs4XnpSE23JOUadAoijXywW/psSexX73IIJ2bLvcr
+	 cPxpv6OO3AdQXB1MAf4kNgXTlB1nhsNi7Bqw+EPM75yxVwkr85Wni8slQ046RiX1/T
+	 w5kVQ7wPiKViA==
 Received: from thinkos.internal.efficios.com (unknown [64.58.40.251])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jLzPv1lnwzMR9;
-	Fri, 06 Nov 2026 20:45:07 -0500 (EST)
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jLzPk30VqzLZ4;
+	Fri, 06 Nov 2026 20:44:58 -0500 (EST)
 From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 To: juri.lelli@redhat.com,
 	peterz@infradead.org,
@@ -79,10 +79,11 @@ Cc: linux-kernel@vger.kernel.org,
 	cgroups@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	linux-rt-devel@lists.linux.dev,
+	Sashiko <sashiko-bot@kernel.org>,
 	stable@vger.kernel.org
-Subject: [PATCH v4 22/26] sched/deadline: Count the bandwidth a boosted task is given
-Date: Fri,  6 Nov 2026 20:44:47 -0500
-Message-Id: <20261107014451.1487825-23-mathieu.desnoyers@efficios.com>
+Subject: [PATCH v4 01/26] sched: Fix cpuset_mutex double unlock in __sched_setscheduler()
+Date: Fri,  6 Nov 2026 20:44:26 -0500
+Message-Id: <20261107014451.1487825-2-mathieu.desnoyers@efficios.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20261107014451.1487825-1-mathieu.desnoyers@efficios.com>
 References: <20261107014451.1487825-1-mathieu.desnoyers@efficios.com>
@@ -97,151 +98,163 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-sched_setattr(SCHED_DEADLINE) on a task that priority inheritance
-boosted into the class leaves the this_bw of its runqueue without the
-task's new bandwidth: switched_to_dl(), which hands a sleeping task's
-bandwidth to this_bw as it enters the class, does not run for a task in
-it already. Its wake-up gives that bandwidth to running_bw alone:
+From: Andrea Parri <parri.andrea@gmail.com>
 
-	WARN_ON_ONCE(dl_rq->running_bw > dl_rq->this_bw);
+A sched_setattr() with SCHED_FLAG_KEEP_POLICY on a SCHED_DEADLINE task
+unlocks cpuset_mutex twice if the task's policy changes concurrently:
 
-and the two sums GRUB reclaims from disagree by that bandwidth until the
-task migrates, where the enqueue adds it (add_rq_bw()).
+  WARNING: bad unlock balance detected!
+  7.4.0-rc1 #1 Not tainted
+  -------------------------------------
+  repro/126 is trying to release lock (cpuset_mutex) at:
+  [<ffffffff9a17cacc>] __sched_setscheduler+0x9cc/0xc40
+  but there are no more locks to release!
+  ...
+  Call Trace:
+   print_unlock_imbalance_bug.part.0+0xfb/0x110
+   lock_release+0x286/0x2e0
+   __mutex_unlock_slowpath+0x1a/0x400
+   __sched_setscheduler+0x9cc/0xc40
+   __x64_sys_sched_setattr+0xa3/0x1b0
+   do_syscall_64+0x106/0x5f0
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-Change the bandwidth the runqueue counts in __setparam_dl(), which every
-task that gains deadline parameters goes through, rather than in
-sched_dl_overflow(), which only a task of the class reaches that way. A
-runqueue that counts nothing of the task takes the new bandwidth now,
-where "sched/deadline: Do not take a waking task's bandwidth off a
-runqueue it left" left it to the next enqueue: that enqueue finds it
-counted and adds nothing, and a waking task's task_cpu() is the runqueue
-it wakes on already. The bandwidth of a special entity stays counted
-nowhere, the request telling one, since the entity's flags are those of
-its old parameters: a sugov kthread given a reservation of its own gets
-that one counted.
+__sched_setscheduler() samples p->policy before taking any lock, and
+restarts from the recheck label if p->policy differs under the rq lock.
+The restart drops cpuset_mutex but leaves cpuset_locked set, so a pass
+that no longer needs the mutex still unlocks it on its way out:
 
-A reservation with the bandwidth the kthread had needs more:
-sched_dl_overflow() returns at once for a task of the class whose
-bandwidth does not change, before asking whether that bandwidth is
-counted, which a sugov kthread's is not, nor that of a task a rebuild
-left out. Ask first, and admit and record bandwidth that is not counted
-as new. A runqueue that counts the bandwidth a change keeps has nothing
-to change: dl_rq_change_utilization() would take a sleeping task's
-running_bw off before its 0-lag time and cancel its inactive timer for
-nothing. The early return was found by the Sashiko AI review of the
-third posting of this series.
+  CPU 1                                CPU 2
+  __sched_setscheduler(KEEP_POLICY)
+    policy = p->policy /* DEADLINE */
+                                       __sched_setscheduler(SCHED_OTHER)
+                                         p->policy = SCHED_OTHER
+    cpuset_locked = true
+    cpuset_lock()
+    rq = task_rq_lock(p)
+    oldpolicy != p->policy
+      cpuset_unlock()
+      goto recheck
+    /* no cpuset_lock() this time */
+    ...
+    if (cpuset_locked)
+      cpuset_unlock()
 
-Fixes: 8fd27231c330 ("sched/deadline: Track the "total rq utilization" too")
+Without CONFIG_DEBUG_MUTEXES, or CONFIG_DEBUG_RT_MUTEXES on PREEMPT_RT,
+nothing warns. The second unlock still clears the owner field regardless
+of who holds the mutex, so another task can lose cpuset_mutex inside its
+critical section. Entering SCHED_DEADLINE needs CAP_SYS_NICE, but a
+racing caller that owns the task does not need it if it samples a policy
+other than SCHED_DEADLINE.
+
+Clear cpuset_locked when dropping the mutex for the restart. This should be
+safe because the flag is only tested on the paths leaving the next pass,
+after that pass has set it again if it took the mutex.
+
+The following program, run as root, reproduces the splat, which no longer
+appears with this applied. On PREEMPT_RT it crashes the kernel within
+seconds, which this also fixes:
+
+  #define _GNU_SOURCE
+  #include <pthread.h>
+  #include <stdint.h>
+  #include <sys/syscall.h>
+  #include <unistd.h>
+
+  struct attr {
+      uint32_t size, policy;
+      uint64_t flags;
+      int32_t nice;
+      uint32_t prio;
+      uint64_t runtime, deadline, period;
+  };
+
+  static volatile int stop;
+  static volatile pid_t target;
+
+  static void set(struct attr a)
+  {
+      a.size = sizeof(a);
+      syscall(SYS_sched_setattr, target, &a, 0);
+  }
+
+  static void *sleeper(void *arg)
+  {
+      target = syscall(SYS_gettid);
+      while (!stop)
+          usleep(1000);
+      return arg;
+  }
+
+  static void *switcher(void *arg)
+  {
+      while (!stop) {
+          /* SCHED_DEADLINE, 2us every 1s */
+          set((struct attr){ .policy = 6, .runtime = 2000,
+                             .deadline = 1000000000,
+                             .period = 1000000000 });
+          set((struct attr){ .policy = 0 }); /* SCHED_OTHER */
+      }
+      return arg;
+  }
+
+  static void *racer(void *arg)
+  {
+      /* KEEP_POLICY | KEEP_PARAMS */
+      while (!stop)
+          set((struct attr){ .flags = 0x18 });
+      return arg;
+  }
+
+  int main(void)
+  {
+      pthread_t t[5];
+      int i;
+
+      pthread_create(&t[0], NULL, sleeper, NULL);
+      while (!target)
+          usleep(100);
+      pthread_create(&t[1], NULL, switcher, NULL);
+      for (i = 2; i < 5; i++)
+          pthread_create(&t[i], NULL, racer, NULL);
+      sleep(30);
+      stop = 1;
+      for (i = 0; i < 5; i++)
+          pthread_join(t[i], NULL);
+      return 0;
+  }
+
+An LLM helped find the PREEMPT_RT crash and write this patch and its test.
+
+Fixes: 111cd11bbc54 ("sched/cpuset: Bring back cpuset_mutex")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://sashiko.dev/#/patchset/20261016062629.2102883-1-sh_def%40163.com
+Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
 Cc: stable@vger.kernel.org
+Reviewed-by: Waiman Long <longman@redhat.com>
+Reviewed-by: Kayra Cizmeci <kayracizmeci@gmail.com>
+Reviewed-by: Juri Lelli <juri.lelli@redhat.com>
 Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 ---
- kernel/sched/deadline.c | 55 ++++++++++++++++++++++++++++++++---------
- 1 file changed, 44 insertions(+), 11 deletions(-)
+ kernel/sched/syscalls.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-index a0b05ff8c6da..ac01a0023c8f 100644
---- a/kernel/sched/deadline.c
-+++ b/kernel/sched/deadline.c
-@@ -478,22 +478,36 @@ void cancel_inactive_timer(struct sched_dl_entity *dl_se)
- 	cancel_dl_timer(dl_se, &dl_se->inactive_timer);
- }
+diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
+index 45a127deeadd..2af550f92ac6 100644
+--- a/kernel/sched/syscalls.c
++++ b/kernel/sched/syscalls.c
+@@ -640,8 +640,10 @@ int __sched_setscheduler(struct task_struct *p,
+ 	if (unlikely(oldpolicy != -1 && oldpolicy != p->policy)) {
+ 		policy = oldpolicy = -1;
+ 		task_rq_unlock(rq, p, &rf);
+-		if (cpuset_locked)
++		if (cpuset_locked) {
+ 			cpuset_unlock();
++			cpuset_locked = false;
++		}
+ 		goto recheck;
+ 	}
  
-+/*
-+ * The runqueue a sleeping task is on counts the bandwidth the task has:
-+ * give it @new_bw in place of what it counts of the task's.
-+ */
- static void dl_change_utilization(struct task_struct *p, u64 new_bw)
- {
--	WARN_ON_ONCE(p->dl.flags & SCHED_FLAG_SUGOV);
-+	struct sched_dl_entity *dl_se = &p->dl;
-+	struct rq *rq = task_rq(p);
- 
- 	if (task_on_rq_queued(p))
- 		return;
- 
- 	/*
--	 * Waking up on another CPU, the task has its bandwidth on no
--	 * runqueue: the enqueue to come charges the new one, with the new
--	 * parameters, which __setparam_dl() sets right after this.
-+	 * No runqueue counts bandwidth of the task's: this one takes the
-+	 * new one, and the enqueue to come leaves it there (add_rq_bw() of
-+	 * a task a runqueue counts). A task waking up on another CPU has
-+	 * none of its bandwidth on a runqueue, and task_cpu() points at the
-+	 * one it wakes on.
- 	 */
--	if (!p->dl.dl_bw_oncpu)
-+	if (!dl_se->dl_bw_oncpu) {
-+		__add_rq_bw(new_bw, &rq->dl);
-+		dl_se->dl_bw_oncpu = 1;
-+		return;
-+	}
-+
-+	/* Counted with the bandwidth it keeps: nothing changes. */
-+	if (new_bw == dl_se->dl_bw)
- 		return;
- 
--	dl_rq_change_utilization(task_rq(p), &p->dl, new_bw);
-+	dl_rq_change_utilization(rq, dl_se, new_bw);
- }
- 
- static void __dl_clear_params(struct sched_dl_entity *dl_se);
-@@ -4274,10 +4288,6 @@ int sched_dl_overflow(struct task_struct *p, int policy,
- 	if (attr->sched_flags & SCHED_FLAG_SUGOV)
- 		return 0;
- 
--	/* !deadline task may carry old deadline bandwidth */
--	if (new_bw == p->dl.dl_bw && task_has_dl_policy(p))
--		return 0;
--
- 	/*
- 	 * The bandwidth of a task of the class is counted in the root
- 	 * domain that took it, which the CPU the task is on does not tell:
-@@ -4289,6 +4299,16 @@ int sched_dl_overflow(struct task_struct *p, int policy,
- 	 */
- 	counted = task_has_dl_policy(p) && p->dl.dl_bw_cpu >= 0 &&
- 		  p->dl.dl_bw_gen == dl_bw_gen;
-+
-+	/*
-+	 * !deadline task may carry old deadline bandwidth. The same
-+	 * bandwidth, counted, is nothing to admit; not counted, a special
-+	 * entity given a reservation of its own, or a task a rebuild left
-+	 * out, it is admitted as new below.
-+	 */
-+	if (new_bw == p->dl.dl_bw && counted)
-+		return 0;
-+
- 	cpu = counted ? p->dl.dl_bw_cpu : task_cpu(p);
- 	dl_b = dl_bw_of(cpu);
- 
-@@ -4318,7 +4338,6 @@ int sched_dl_overflow(struct task_struct *p, int policy,
- 		if (counted)
- 			__dl_sub(dl_b, p->dl.dl_bw, cpus);
- 		__dl_add(dl_b, new_bw, cpus);
--		dl_change_utilization(p, new_bw);
- 		err = 0;
- 	} else if (!dl_policy(policy) && task_has_dl_policy(p)) {
- 		/*
-@@ -4368,6 +4387,20 @@ int sched_dl_overflow(struct task_struct *p, int policy,
- void __setparam_dl(struct task_struct *p, const struct sched_attr *attr)
- {
- 	struct sched_dl_entity *dl_se = &p->dl;
-+	u64 period = attr->sched_period ?: attr->sched_deadline;
-+
-+	/*
-+	 * The bandwidth of a special entity is counted on no runqueue, and
-+	 * the request tells one, the flags of the entity being those of the
-+	 * parameters it had. The rest have theirs changed here, where their
-+	 * parameters are:
-+	 * switched_to_dl() hands it to the runqueue of a task that enters
-+	 * the class, and a task that priority inheritance boosted into the
-+	 * class is in it already, so nothing dequeues it and enqueues it
-+	 * back for that.
-+	 */
-+	if (!(attr->sched_flags & SCHED_FLAG_SUGOV))
-+		dl_change_utilization(p, to_ratio(period, attr->sched_runtime));
- 
- 	dl_se->dl_runtime = attr->sched_runtime;
- 	dl_se->dl_deadline = attr->sched_deadline;
 -- 
 2.47.3
 
