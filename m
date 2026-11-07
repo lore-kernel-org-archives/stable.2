@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794051061;
-	b=e1t4IfQGzVMYa5Q65A7lV3ZJuLsPA9sfAfK+SRD0yN0FD8gO95VaT+HvMUnZ4WA/G7vm
-	 oQj33Dhi/nqSoiUWH73aMRZNGymuXQ8uKZFftVyBEAAM7+RCKn13AGR9PG4Id7XIrSBgu
-	 kSipRZ6YHl8nvqwz7MsomJjJgCQAj3d1pcGKuDeQ3hwkS/1Gy/ny3mvnrAc40TtX2uS8D
-	 4rk0RMw1fdUvTPBtcxgctGLf+05rfZzcxRGrppl6Vpwz9HasNt6KVV3x8ZEJ0x1WT49nt
-	 q/JUpy7Sk+OHIeE90ehk47AhVNCd5Fyqdsq1DlEKc44S9dW/Avy5g5UiBDla6eFvUeg==
+	t=1794051065;
+	b=Bhb9/UkHR+c8k6vB+vTDGe4NcFEQBu1tgH9mHH85YLZgMR+5mRoX+fzZNaxQwOGJDPjY
+	 Dm16IUl5O/U1ko/WJ0NGN2eS6qXX8aJUa/CHDLKho0kJvDtuSNKDUi6QI1ad/6idaac2k
+	 Ow62L2O1KxU2hcx1P1pCbVStjx/sBEgQfaytFvkHziG0X4b0Wgt6tVusaSgdvQexnVohr
+	 vosLc0+tlBu1dBaTODLAWs1AL9GgVPXO7jRAEiQ66P9jvdgxykIsAfTFD1UxyvzX7FdX/
+	 xer0Drfgox9460LiYPJzlEebOjs3t/KebqZLM2EvE1/fcyKlij2vTHeqpm7R6FVoRYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794051061;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794051065;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=6sO6Askn+c0tDRxRzmc1YTbR/Q/W0yPBBIUa+eOh4bc=;
-	b=ycPvW5HcN0IMAaNP7mfyWAy9ztzDBxkSIf/8viSZWJJhJhRMIpccv6Em84tn+AZqklbH
-	 39KgQ3bwlBIwKNria0fV2pB7e7hl4EPDdWGjpoLChs8BG1lYqHYrjPNrRt6dtqACIWF0K
-	 mHTBbpmcH3RqmKKXE5IdrZNmJryuhj1qKt04I/g/MLieaRfJVK3jxM8iDfpCWrzz9Fvfi
-	 c+w4Z69JmzYgupYpMt48e6pQ+4e7VmzbtaFkb8vVCnVM2CE7IMhznYPSTQiu5LQTlnYc1
-	 VJw3tW9pmjl2bprfJaQjNDu0IPWZSrnEDu0AnJgyJSsyK39sU8OMb4zL5AV/tSlEAgQ==
+	bh=jkZ1fJ/9utsx8dM5Oz4ryt9dWbUwfXNcZhe5LJHg8iM=;
+	b=Brf+xgw7uRjkXy2iPRErgApGGhWpRG2S2h3QZ89rJulHjyfDqQaOLmqZ2PL10c6iiAYZ
+	 Op60fEnNcN+s/y+jQ0lTPDv3E40je+71ZzqW9gePPVl9aGWHK83OVwpfNZ6jsJEC2TIWC
+	 gdmbq/RCTnga0FLlgs8u0ayoPhYbRP82dY3RP4tsGIKglzmmIhsGL8swbJ1f17a2dM+7M
+	 K3xgxZLV59OwXOkbMZ8eW522GlZmORAaI64gr+OKP7uivo4qd8vAq0PHwC/nxz/Z/U6qV
+	 HLGmNp0Q3nLFozVAGrN6htyv4CY/X2E4NDXM7BTVGzYL7ngqy39U6dba/jgQOQylZXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cwcXY8Gk;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ccmKA0Qu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35642606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:31:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC732606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:31:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cwcXY8Gk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A248F1F008A1;
-	Sat,  7 Nov 2026 11:31:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ccmKA0Qu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 648231F0089F;
+	Sat,  7 Nov 2026 11:31:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794051061;
-	bh=6sO6Askn+c0tDRxRzmc1YTbR/Q/W0yPBBIUa+eOh4bc=;
+	s=k20260515; t=1794051064;
+	bh=jkZ1fJ/9utsx8dM5Oz4ryt9dWbUwfXNcZhe5LJHg8iM=;
 	h=From:To:Cc:Subject:Date;
-	b=cwcXY8GkrspFMkD4kBPlcItLc6v7JslKarP90+cgQVyjbk8GcZ/Cn9+zxPg7xxEbI
-	 baQ3mV/sKHa1iwCtXp5kD7qDkJgGxT5Ejz/0uIsZVALoCvON62Fp3Z4jPvpzNXTNF1
-	 URObQgc1uDPXR9qjGpYqwnupI2ozYJE7qwcJB0f3ZRqk0CKUn62dEfGR3XZS0BpkFA
-	 4Pokmuw751dSS2zjGk2fz/ViU8C1yynDBE5/8HeIQSwBq0yAGO+se+WFcXudra+keI
-	 Iyq5XePmc3SxBwL/v1LWcx6EACzxrjmdl4J6cM64hWCxcL7lPmdLmK3extjIL8z2wL
-	 Zw3zqf0woDw7g==
+	b=ccmKA0Qur0hetBwJahfhukvwVGp4t5ctLQbsAAtXbvRnkrQf8SzUnoyPEusnMbfCx
+	 z9AHQLee9FGgq+G34SCU6DrGt8HV1d3BTIIDvL+kCY+V5hW1/oTQTRQywCD+WGDAWi
+	 kMlK2K9AFOS5QPVLEZuTJAZV4RpkKS+xgtGrodpwEkXKdcI/iUwv7vi1ORz2EMnIFa
+	 X82YORr+X+DGJa4cr4O+wXUF4KwHc0oy74qre0YMc7qH9Mb8g6HIQ+hSBQqAiJwVvD
+	 NFV4TyWT+NWo6jmq853bzq+PSXYDWw9olWaVxGXhIjzstjxJUu/DMMg4dJdahnS+Ot
+	 y3h7hC9D7pM/w==
 From: Sasha Levin <sashal@kernel.org>
-To: mason@kernel.org,
-	brauner@kernel.org
+To: georgia.garcia@canonical.com,
+	john.johansen@canonical.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] aio: fix NULL deref when a fault races ring truncation" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:30:59 -0500
-Message-ID: <20261107063059-failed-5.10-d53b5aa5cfae@kernel.org>
+Subject: FAILED: patch "[PATCH] apparmor: remove fs entries created by a failed policy load" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:31:03 -0500
+Message-ID: <20261107063102-failed-5.10-6ec46f8f1977@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,104 +68,85 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x d53b5aa5cfae27e4d236fc0ab9581085d27f7d33
+git cherry-pick -x 6ec46f8f1977d218bf2494ce276152b2d01424af
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107063059-failed-5.10-d53b5aa5cfae@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107063102-failed-5.10-6ec46f8f1977@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From d53b5aa5cfae27e4d236fc0ab9581085d27f7d33 Mon Sep 17 00:00:00 2001
-From: Chris Mason <mason@kernel.org>
-Date: Thu, 29 Oct 2026 15:00:20 +0100
-Subject: [PATCH] aio: fix NULL deref when a fault races ring truncation
+From 6ec46f8f1977d218bf2494ce276152b2d01424af Mon Sep 17 00:00:00 2001
+From: Georgia Garcia <georgia.garcia@canonical.com>
+Date: Wed, 14 Oct 2026 19:08:20 -0300
+Subject: [PATCH] apparmor: remove fs entries created by a failed policy load
 
-The aio ring lives in a file on the aio pseudo filesystem and the ring
-VMA uses filemap_fault(). aio_ctx_aops doesn't have a ->read_folio
-because aio_setup_ring() puts all folios of the ring into the page
-cache. So a fault on the ring only works as long as it finds its folio
-in the page cache. If it doesn't, filemap_fault() calls ->read_folio
-without checking and we jump to NULL.
+aa_replace_profiles() creates the raw_data/<rev> directory for the
+loaddata and the profile directories for new profiles before the last
+checks that can fail. When one of those checks fails, the fail path
+releases the ns lock without removing what this load created.
 
-We already fixed this twice this year. A forked child could inherit the
-ring mapping, fixed by commit c03ce4173c7b ("fs: aio: set
-VMA_DONTCOPY_BIT in mmap to fix NULL-pointer-dereference error"). And a
-partial mremap() could leave part of the ring mapped, fixed by
-commit 3adf7ae18bf4 ("fs: aio: reject partial mremap to avoid
-Null-pointer-dereference error"). Both times a VMA outlived the ring and
-the ring file was truncated under it.
+The raw_data directory is named after the current ns revision, and the
+revision is only bumped by a successful load. The stale directory is
+only removed once the loaddata's last profile reference is dropped, from
+a workqueue. Until then, every load fails to create raw_data/<rev> with
+-EEXIST. If the new profiles are never freed, which is the case when
+their dents are left behind pinning the proxy, that never happens and no
+policy can be loaded until reboot.
 
-There's a third way to get there. kill_ioctx() and the error path of
-ioctx_alloc() unmap the ring with vm_munmap() and ignore the return
-value. If vm_munmap() has to wait for mmap_lock and a fatal signal is
-pending it returns -EINTR and the VMA stays. free_ioctx() then calls
-put_aio_ring_file() which truncates the ring file to zero. A fault that
-passed the i_size check in filemap_fault() before that doesn't find its
-folio anymore, allocates a new one and calls ->read_folio:
+While still holding the ns lock in the fail path, remove the profile
+directories of the new profiles and, if this load created it, the
+raw_data directory.
 
-    fault on the ring                 io_destroy() with SIGKILL pending
-    =================                 =================================
-                                      vm_munmap() returns -EINTR
-    filemap_fault()
-      i_size check passes
-                                      free_ioctx()
-                                        put_aio_ring_file()
-                                          truncate_setsize(inode, 0)
-      no folio, allocate a new one
-      filemap_read_folio()
-        ->read_folio == NULL
-
-All that's needed is a second process that shares the mm. If a CLONE_VM
-child calls io_destroy() and gets SIGKILLed while it waits for mmap_lock
-the ring stays mapped for the threads of the parent. Any user can do
-that.
-
-Instead of plugging the routes one by one give the ring a ->read_folio
-that unlocks the folio and returns -EIO. All folios of a live ring are
-in the page cache so a fault can only end up there if the ring was
-truncated. The fault now gets SIGBUS. Nothing else reads the ring file
-and the aio filesystem uses noop_backing_dev_info so there's no
-readahead either.
-
-Making vm_munmap() unkillable in those two places would only close this
-one route and bring back what commit ae7987835643 ("mm: make vm_munmap
-killable") fixed.
-
-Fixes: 36bc08cc0170 ("fs/aio: Add support to aio ring pages migration")
+Fixes: 5d5182cae401 ("apparmor: move to per loaddata files, instead of replicating in profiles")
 Cc: stable@vger.kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
-Link: https://patch.msgid.link/20261029-work-fs-ai-fixes-v1-1-88f22792f6f7@kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Signed-off-by: Georgia Garcia <georgia.garcia@canonical.com>
+Signed-off-by: John Johansen <john.johansen@canonical.com>
 ---
- fs/aio.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ security/apparmor/policy.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/fs/aio.c b/fs/aio.c
-index 4f32b45cb8a0e..893db6961ad3b 100644
---- a/fs/aio.c
-+++ b/fs/aio.c
-@@ -528,7 +528,18 @@ static int aio_migrate_folio(struct address_space *mapping, struct folio *dst,
- #define aio_migrate_folio NULL
- #endif
+diff --git a/security/apparmor/policy.c b/security/apparmor/policy.c
+index 397f9ff78aeb1..f6f7cdcb62126 100644
+--- a/security/apparmor/policy.c
++++ b/security/apparmor/policy.c
+@@ -1191,6 +1191,7 @@ ssize_t aa_replace_profiles(struct aa_ns *policy_ns, struct aa_label *label,
+ 	struct aa_loaddata *rawdata_ent;
+ 	const char *op;
+ 	ssize_t count, error;
++	bool rawdata_created = false;
+ 	LIST_HEAD(lh);
  
-+/*
-+ * filemap_fault() reads a folio that it did not find in the page cache. All
-+ * folios of a live ring are there, so the ring was truncated under the fault.
-+ */
-+static int aio_read_folio(struct file *file, struct folio *folio)
-+{
-+	folio_unlock(folio);
-+	return -EIO;
-+}
-+
- static const struct address_space_operations aio_ctx_aops = {
-+	.read_folio	= aio_read_folio,
- 	.dirty_folio	= noop_dirty_folio,
- 	.migrate_folio	= aio_migrate_folio,
- };
+ 	op = mask & AA_MAY_REPLACE_POLICY ? OP_PROF_REPL : OP_PROF_LOAD;
+@@ -1330,6 +1331,7 @@ ssize_t aa_replace_profiles(struct aa_ns *policy_ns, struct aa_label *label,
+ 			ent = NULL;
+ 			goto fail_lock;
+ 		}
++		rawdata_created = true;
+ 	}
+ 	list_for_each_entry(ent, &lh, list) {
+ 		if (!ent->old) {
+@@ -1425,6 +1427,18 @@ ssize_t aa_replace_profiles(struct aa_ns *policy_ns, struct aa_label *label,
+ 	return udata_sz;
+ 
+ fail_lock:
++	/*
++	 * Remove fs entries created by this load. Nothing else references
++	 * them yet, and leaving them behind would leak the new profiles
++	 * (their dents pin the proxy) and make the next load at the same,
++	 * unbumped ns revision fail with -EEXIST on its raw_data dir.
++	 */
++	list_for_each_entry(tmp, &lh, list) {
++		if (!tmp->old)
++			__aafs_profile_rmdir(tmp->new);
++	}
++	if (rawdata_created)
++		__aa_fs_remove_rawdata(udata);
+ 	mutex_unlock(&ns->lock);
+ 
+ 	/* audit cause of failure */
 -- 
 2.53.0
 
