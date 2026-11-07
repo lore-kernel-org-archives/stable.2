@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050409;
-	b=c6zrpE2Flk76h6cU+UhJCG25SRvItsfQfunkkDr0ieF44qBxZZQaQnt0oOlhgsRcJMfT
-	 emV8ijIjRqRtKRFu/45sLLzMP0l8CXzrsetkjpDOncd5i5OBuOgfaJnfXuP/+4Eiljd0k
-	 13QoGy5C6AZabWRqEV8vmUb6DRYl6f95taZ9H4OVxw+Zw9/qWD687QJFSKb7EMJbe9vrw
-	 h58FUd9OjYnkhsSEMD6Jy8NeM6XayzZzZyiKYH3utZ5Fb+k3ITmLivOGIHk9nHO3z624P
-	 0cYE+zSrE3JTcCIFKvgjD1SXSve+vzdZPaBw/vqD/YtaMV5n9UMkKgmzCDsAXFt+3AA==
+	t=1794050412;
+	b=QqDro0DbyYwMNWmkoc9S5M6WlLcDU0cSgRut39ZbBTyH0EIZBeh1SSYs/NTQCnb3G7hS
+	 pO+MgvH6FRgj7z1slo+/YapPaAj89CskhGZ0QJd/vqUoSP/+lYQKky/31gR3+25JkYVeu
+	 2heDYyA2q/kEeiyiS1IxViqI4XckQ/BXx94I8qq/wNEYMSELfGl0EuDcb+b3HyQYWMCfU
+	 9FSNta/WfLfPTK0nb3Q6OzuCMN69IBGGaEzv39mXoXL5Xcbe6YoMU9Z0Yg0vPOvMu9tFu
+	 cJxhTemqR9LxCNP64hQns/GKDsESnJjQx0wzl8+vqf9vpCnL8u00liigRmXi1xe8v2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050409;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050412;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=38ZV6Gi/WdT0rWBHO93fyQbasLyHgkbPvz/ieAkv4aI=;
-	b=0qXWwIkigLNWuhmbsnNecz+HoRQJ7j58mFVWQabPBPyHN2T5OXhqy2yqebzOVxwV6tDt
-	 hGTiv76xMm9XbfPfGohOOuZdickIiL5r9rL52/q4bdCUjcxUzhtHCmcYcqCPSOjLZi3gm
-	 A+hi4A6mRjv5IFmyYs+i+wNlk3fB80NB8ireXXjHFzot2gMr1UFnW3w9QQp9cjLTEfgkW
-	 GRm5pElljPPceq6kZ7hMS5/MS9pm08CZo7EAtsiK5r+Rk6YqlTT9ZR6K5Q/GXYbgSrGM6
-	 3k0ytxZA7DuV0ZLZe11pSz7/2gCcyrZOy/PxjyXn5t18ke/qWvKFbU29JgY7Y7lEitw==
+	bh=EmTMpbLIgA9pFspy6tQ15CvHuoRwtKKGIiujLote7FI=;
+	b=XAcbS+yHIPVGaZulUlccqBqSFJCFGJFly0y4k8Ra3mb3zBcIpddbm2ZcMVt9TLArIekp
+	 poxkszKf0P4WHqW7RzoSFHXzhsZV9NqcNurgA04u6bqJXJAxfR6gmYyPZpXxqYNz76X0p
+	 BdfWh/QzwXQBdepiSyqMzT30jg9QvxCMDrFlfM9w6QKRDxRwrSH3QMgPdHWFf0i7zMbKD
+	 83LaP9hNpaRsUBKDtY57+MvUY4p7OOvVBWuaSF1ROgiMS+KZ+J9rW/WkUjPzPjs8srIZt
+	 PkBkKELxRuZgyJxeTYf6QrrA4GWZ8rubk1pm212XuYOlGXdTsxlaE3DSUqtLrExllUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eIHPEDAY;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LJrlJlpw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 513E7606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:20:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53878606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:20:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eIHPEDAY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0F531F0089F;
-	Sat,  7 Nov 2026 11:20:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LJrlJlpw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C24FE1F0089F;
+	Sat,  7 Nov 2026 11:20:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050409;
-	bh=38ZV6Gi/WdT0rWBHO93fyQbasLyHgkbPvz/ieAkv4aI=;
+	s=k20260515; t=1794050412;
+	bh=EmTMpbLIgA9pFspy6tQ15CvHuoRwtKKGIiujLote7FI=;
 	h=From:To:Cc:Subject:Date;
-	b=eIHPEDAYV03rBCASoniwqSqPmLdgkJaEYJ71iJX2Ys1VSEqjXyx0X2i28D4fw7Ans
-	 atrFWRKqTsRgtI9jhF2Tm68MVqxl+GW9asE3etZCyJWDt32VPTcd/A2S16SkPsbTDF
-	 Uoy3nWTNHWuuFhj3aQoMNtC2x1Xq3w9vaP2O8wdqp/nj2tHF4ac6Wj79FWmghvQVWB
-	 qHoQV/znQBPoH2Tx94LXkEOrjq/cONish7n4wpdWUswtL5XtGB1FMbNy07rlz+6WYv
-	 0VoCW74Awtb2xRu0P78Yocz/49hngz4ANPm0wUHwydWvzvagUiaUwua4n60JojSGFX
-	 jTz5lMltPKT2g==
+	b=LJrlJlpw/RbFHL2cQg3QJvmV0MXaPCpm8E0054eKd/msPKPM74gYSxrtlUVkHGBf1
+	 tkBk5g+WISHHSzFdKe1ExfpfV2lFLBPFRcu4xbEdd3alOYgRzf9N8vu3Hv0Qi0NIEq
+	 HMDt0LKYLm8a9g//A/qjw1BD/KhL9DPcqOjW1b27UkM3m4uM3lMDI1+CwirE5ESXm/
+	 48qcPhalzQ01w9jSAC3SpzZXxfj+QHTC0bZpVNqn7HzX8ijp1/Ln6B2f8TBDCtLbc3
+	 l9U8VBavDgy2Jzid6v3jHonI5sakK1EhfLWsEoLE/2f1NoowaikLLxCmLEJrtzK/Is
+	 bOwaF5ZeDUvXA==
 From: Sasha Levin <sashal@kernel.org>
-To: olivier.kaloudoff@gmail.com,
-	tiwai@suse.de
+To: suruurism@gmail.com,
+	jgross@suse.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ALSA: usb-audio: Add mic resolution quirk for Logitech Webcam C200" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:20:07 -0500
-Message-ID: <20261107062007-failed-5.10-874323b68c93@kernel.org>
+Subject: FAILED: patch "[PATCH] xen/gntdev: prevent private mappings from becoming writable" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:20:10 -0500
+Message-ID: <20261107062010-failed-5.10-2176dea8d8c1@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,57 +68,62 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 874323b68c93c6808e034dc0113681e822e6fb42
+git cherry-pick -x 2176dea8d8c19cb43a9b3651bfa1cb21eab1b31a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062007-failed-5.10-874323b68c93@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062010-failed-5.10-2176dea8d8c1@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 874323b68c93c6808e034dc0113681e822e6fb42 Mon Sep 17 00:00:00 2001
-From: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
-Date: Fri, 9 Oct 2026 01:08:44 +0200
-Subject: [PATCH] ALSA: usb-audio: Add mic resolution quirk for Logitech Webcam
- C200
+From 2176dea8d8c19cb43a9b3651bfa1cb21eab1b31a Mon Sep 17 00:00:00 2001
+From: Abdifatah Suruur <suruurism@gmail.com>
+Date: Wed, 19 Aug 2026 11:42:17 +0300
+Subject: [PATCH] xen/gntdev: prevent private mappings from becoming writable
 
-The C200 (046d:0802) reports a mic capture volume range of
-1536..7680 with a resolution of 1 (6144 steps), triggering
-"Warning! Unlikely big volume step count (=6144), linear volume or
-wrong cval->res?" at probe and exposing a uselessly fine-grained
-mixer control.  This is the same firmware behavior as the other
-UVC-era Logitech webcams already carrying QUIRK_FLAG_MIC_RES_384
-(C500, C600, C210, C270, C310, C510, C525, ...), so apply the same
-quirk: CTL_MSG_DELAY_1M (which the Logitech VENDOR_FLG would provide
-if the device-specific entry did not short-circuit the lookup) plus
-MIC_RES_384.
+gntdev_mmap() rejects writable private (non-shared) mappings of foreign
+grant pages, because a private writable mapping takes the COW path on
+pages that have no proper struct-page backing.  However, VM_MAYWRITE is
+left set, so userspace can map the grant read-only and then upgrade the
+mapping to writable with mprotect(), hitting the same COW path the
+check was written to prevent.
 
-Verified on real hardware: with the quirk the warning disappears and
-the driver logs "set resolution quirk: cval->res = 384".
+Clear VM_MAYWRITE for private mappings, as i915 does for its read-only
+objects and as fixed in drm/vc4 (CVE-2026-68445) and drm/panthor
+(CVE-2024-53071) and ptp: vmclock (commit
+a5edadbae57e2298a56cf7a4e774a027905a331f).
 
-Signed-off-by: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
+Fixes: ab31523c2fcac ("xen/gntdev: allow usermode to map granted pages")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261008230844.11246-1-olivier.kaloudoff@gmail.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/usb/quirks.c | 2 ++
- 1 file changed, 2 insertions(+)
+Signed-off-by: Abdifatah Suruur <suruurism@gmail.com>
+Reviewed-by: Juergen Gross <jgross@suse.com>
+Signed-off-by: Juergen Gross <jgross@suse.com>
 
-diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
-index 170f68db74fa4..7a5c95de86ceb 100644
---- a/sound/usb/quirks.c
-+++ b/sound/usb/quirks.c
-@@ -2494,6 +2494,8 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
- 		   QUIRK_FLAG_DISABLE_AUTOSUSPEND),
- 	DEVICE_FLG(0x045e, 0x070f, /* MS LifeChat LX-3000 Headset */
- 		   QUIRK_FLAG_MIXER_PLAYBACK_MIN_MUTE),
-+	DEVICE_FLG(0x046d, 0x0802, /* Logitech Webcam C200 */
-+		   QUIRK_FLAG_CTL_MSG_DELAY_1M | QUIRK_FLAG_MIC_RES_384),
- 	DEVICE_FLG(0x046d, 0x0807, /* Logitech Webcam C500 */
- 		   QUIRK_FLAG_CTL_MSG_DELAY_1M | QUIRK_FLAG_MIC_RES_384),
- 	DEVICE_FLG(0x046d, 0x0808, /* Logitech Webcam C600 */
+Message-ID: <20260819084217.1577-1-suruurism@gmail.com>
+---
+ drivers/xen/gntdev.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/drivers/xen/gntdev.c b/drivers/xen/gntdev.c
+index 1dcc4675580ed..b71f5bae25b63 100644
+--- a/drivers/xen/gntdev.c
++++ b/drivers/xen/gntdev.c
+@@ -1066,6 +1066,13 @@ static int gntdev_mmap(struct file *flip, struct vm_area_struct *vma)
+ 	if ((vma->vm_flags & VM_WRITE) && !(vma->vm_flags & VM_SHARED))
+ 		return -EINVAL;
+ 
++	/*
++	 * Private mappings of foreign grant pages must never become
++	 * writable: they would take the COW path on granted pages.
++	 */
++	if (!(vma->vm_flags & VM_SHARED))
++		vm_flags_clear(vma, VM_MAYWRITE);
++
+ 	pr_debug("map %d+%d at %lx (pgoff %lx)\n",
+ 		 index, count, vma->vm_start, vma->vm_pgoff);
+ 
 -- 
 2.53.0
 
