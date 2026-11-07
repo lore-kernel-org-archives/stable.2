@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794045941;
-	b=nUdtaANUVN293BeUKXNmU6btcjsA+FE4llA6W762MyyBOuPMFBIzRZKkVs9CbCxMrVR4
-	 1yYY8/NJ5WPWEK8r3KwXPJdLVFyaES7WmY2ooaZYA/DfBpto25+efKI6g3VOQTfRFPPDW
-	 3YXMggRzLjDostpnM8/o9Do3Pz69eMBEkLB7/fzsqxabzcG3xzZJyTnnmjOGAa/GyuHpB
-	 ZU5CDM0p60MJKY95DKAuUExOy2PNe8aZZ1Cy45/Smajw8vtnty/2TgNTUe7K4hlrx34oI
-	 0P4CLY9+lDNF8ROdgNTkFOtHOIVd3Ww0eL18YFOl5niguLSxPMT1naHxv6XRJZ60y1g==
+	t=1794045943;
+	b=i+6yzasgyfZ7EQS9m/CXXhffOTeIs/2gCRXbUhjBfTQztH65fTvckWIKmiOSq585O2hJ
+	 OeYs4oIAG9cgMUxSbgWzA+MMLjJQX9jTRmF0UmA7PYcv3Ym7bCjpohLYbwMhcvNRUzDk6
+	 n6kvPzN3kuJ73/Q1QSlrinrMooM/biL+ihzwY2GyJI8le3d1a/PtjZ30u7+gieMqkao1O
+	 HpVMUyxQWYul2RtepXrgneNj+UAeTOxmqexLUDti/9N4MOyapb/GRqjTX7j6ODK17bbpN
+	 RBPdVUveYHaTU55KpvAlTPJ31Uef07zgxScCvO72JHIOyjQ1gGV+3sq/KukeCNkFPSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794045941;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794045943;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=5kv91XVHiSxRx9kPeaCWmVCrQ8lE4cW/yCntd0VWB/4=;
-	b=kWxSgwpN8mXdSeoxyRbhEBbKsvndPU3D2uUxKNLe7NRtIb1lsvWyOnQus689vDgXVrxD
-	 1wxxl4vD71FDPzG+14MZwAwLcokX6qLvDTQtIzlpJVLM2tbOW+aOcLf28YBburNdDCK0W
-	 a2IPWRmiFzEWNf+th7SPpifJQDee4ziRGg60k74Mv6p9hTCMFFb30LoPUwPtHH65JT3d2
-	 hG0bsK176N0JKlWuKtjpvZhi+MAt6BxwWzpYitbnpXY37RF47ovhgNcsoK4ZE35JEaRpP
-	 XMTrBRiqRcU2/gQYtLE0TVxnlqU61OG/bmcWVJuX8Fb4413Yt97NCPARrkmhp1krhjA==
+	bh=A8ABoYBwInM9rxT0MwHZz+7uKd0WEDcRj2h6kPwQVOI=;
+	b=bCgX0gzi39Xi06meS9FVNiCXNrKTue3zKOyPUIupH6hNgEFp7uylKt7WgOZZ3rq7HFoX
+	 awqn1uigQ75irx1GLBbwNPW86GUu9FYx5jThtPT9EhcMZWoRKkAOCG46eCkg77CcXhMmv
+	 N51zTP37+Ct7HU/lOU43UR6N7uGXoQavL8OdAi/zUgHobu+I19BXGOqmn3q/56PUyI1aX
+	 sPN/ZXbc2JRSyxtksyVxC3WUJTNTRTXr3L6f8oagOnkW63G8QQuvK+nBVVxKV+1SG9bTM
+	 eUV5CRwo5QTIzGeFk+TNS3RTYxPB5NO8/ZpyuDRig/EY4iOZOxnxrYZp7dIRc9XMUZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ki4T4h2o;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YlJqPp1x;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41093606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:05:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8822B606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:05:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ki4T4h2o
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B32351F008A1;
-	Sat,  7 Nov 2026 10:05:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YlJqPp1x
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3FC61F008A1;
+	Sat,  7 Nov 2026 10:05:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794045941;
-	bh=5kv91XVHiSxRx9kPeaCWmVCrQ8lE4cW/yCntd0VWB/4=;
+	s=k20260515; t=1794045943;
+	bh=A8ABoYBwInM9rxT0MwHZz+7uKd0WEDcRj2h6kPwQVOI=;
 	h=From:To:Cc:Subject:Date;
-	b=Ki4T4h2o3molkjBFYxfs3I4BiatG6StH9WLELsb2fctVytsBZQ6gZLc3ERO8BUr9/
-	 WHfya3KvLmoq39LHCSvOTPAj8Qvu/opnDX4UEmRZNZ7xpjdFSMUcdMu3rmELF3p7z9
-	 g6Jd2apiuaqL8dzBUqQk5PDHNQlrPxWeRGMPWiBcnxzEW5W2OCzgSUAAnidz4C/g7f
-	 3+yi7tUUNp4AomxYW1M3AnP9am/Ii09HsHvLEYpvHnni/EiFu+pbAQ73SbRfc89JIT
-	 VM128bC4L/2C3vxMJTWefokSPciYwGOoX/sFBGJNInumG5nIhkjh9XeNWMt6O/LViQ
-	 Vbc7fXg7Lcr/A==
+	b=YlJqPp1xs94m8tvQ9nJfpn6100TSMUX8oU2i+WSofkru6rRpTuBTK9T+QO5Cpz6tv
+	 sPTg0oe5sSmFAIDt+iecKdeYKC8DRaAhepMYoubeNioO1xAyRm3k+uIVc+zZX9kvZI
+	 LQZIfSh9+KCKmzzKw0d+2MscXc+5YuZo0C4AsACJ5L8cP2ORkfnMFFi4MdbNEUi2zp
+	 j6SPiTp6TC6cFxrbyHYAqI4bcpNigBHNTGykLoS3isNEq1CzMSszZPasP151o4jhw6
+	 5d5xGPUkUoqjXMbBWYFX1HZBWBWIO1exNVPPjwZcnnBsgrLAvVOvzSQhEhVmnAiIv8
+	 4Pt6kJSi/RxwA==
 From: Sasha Levin <sashal@kernel.org>
-To: hengyul@cs.unc.edu,
-	xiang@kernel.org
+To: zhugl3@xiaopeng.com,
+	amarkuze@redhat.com,
+	idryomov@gmail.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] erofs: fix metadata reads at the end of file-backed images" failed to apply to 7.3-stable tree
-Date: Sat,  7 Nov 2026 05:05:39 -0500
-Message-ID: <20261107050539-failed-7.3-52dceb88082b@kernel.org>
+Subject: FAILED: patch "[PATCH] ceph: clamp the inline data length in ceph_fill_inline_data()" failed to apply to 7.3-stable tree
+Date: Sat,  7 Nov 2026 05:05:41 -0500
+Message-ID: <20261107050541-failed-7.3-9c1d14d3b66b@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,93 +69,57 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x 52dceb88082b4c7983d1c8c7de1c181f018055ac
+git cherry-pick -x 9c1d14d3b66b3e1dd96ee664c0dd2548f2b77a52
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050539-failed-7.3-52dceb88082b@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050541-failed-7.3-9c1d14d3b66b@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 52dceb88082b4c7983d1c8c7de1c181f018055ac Mon Sep 17 00:00:00 2001
-From: Hengyu Liang <hengyul@cs.unc.edu>
-Date: Fri, 23 Oct 2026 15:00:51 -0400
-Subject: [PATCH] erofs: fix metadata reads at the end of file-backed images
+From 9c1d14d3b66b3e1dd96ee664c0dd2548f2b77a52 Mon Sep 17 00:00:00 2001
+From: Guanglei Zhu <zhugl3@xiaopeng.com>
+Date: Thu, 10 Sep 2026 11:00:35 +0800
+Subject: [PATCH] ceph: clamp the inline data length in ceph_fill_inline_data()
 
-Commit e587a984d332 ("erofs: use dedicated meta inodes for file-backed
-mounts") made erofs_read_meta_folio() read the metadata of a
-file-backed mount one whole folio at a time.
+The MDS decides how much inline data to attach to a reply, and the
+client parses inline_len without any upper bound: ceph_decode_need()
+only verifies that the message actually carries that many bytes.
+ceph_fill_inline_data() then copies the data into a single folio
+with no length check, so a malicious or buggy MDS returning more
+inline data than the folio can hold writes past its end.
 
-However, an image only has to be a multiple of its block size. With a
-block size below the page size, it can end in the middle of a page. The
-read of that last page is then short, and erofs_fileio_ki_complete()
-fails it with -EIO. As of now, inodes in the last page of such an image
-cannot be read, and an image smaller than a page cannot be mounted.
+Clamp the length to folio_size() so both callers, handle_cap_grant()
+and fill_inode(), are covered.
 
-The issue can be reproduced with util-linux 2.41, whose mount uses the
-image file directly:
-
-    mkdir src
-    for i in $(seq 50); do echo $i > src/$i; done
-    mkfs.erofs -b512 test.erofs src
-    mount -t erofs test.erofs /mnt
-    ls -l /mnt
-
-Before that commit, ls -l lists all 50 files. After it, ls -l reports
-"Input/output error" for 24 of them.
-
-This patch reads the folio only up to the end of the backing file and
-zeroes the rest, as the page cache of the backing file did before. A
-folio that lies wholly past the end is zeroed without a read.
-
-Fixes: e587a984d332 ("erofs: use dedicated meta inodes for file-backed mounts")
 Cc: stable@vger.kernel.org
-Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
-Reviewed-by: Gao Xiang <xiang@kernel.org>
-Signed-off-by: Gao Xiang (Docker) <xiang@kernel.org>
+Fixes: 31c542a199d7 ("ceph: add inline data to pagecache")
+Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
+Reviewed-by: Alex Markuze <amarkuze@redhat.com>
+Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
 ---
- fs/erofs/fileio.c | 18 +++++++++++++++---
- 1 file changed, 15 insertions(+), 3 deletions(-)
+ fs/ceph/addr.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/fs/erofs/fileio.c b/fs/erofs/fileio.c
-index c36a90a1a4cbb..e13293ec70de8 100644
---- a/fs/erofs/fileio.c
-+++ b/fs/erofs/fileio.c
-@@ -142,17 +142,29 @@ int erofs_read_meta_folio(struct file *file, struct folio *folio)
- 		.dev = { .m_pa = folio_pos(folio), },
- 	};
- 	struct inode *inode = folio_inode(folio);
-+	size_t len = folio_size(folio);
-+	loff_t pos, isize;
- 	int err;
+diff --git a/fs/ceph/addr.c b/fs/ceph/addr.c
+index ae6aa9db5eb24..86fe0e76cdf07 100644
+--- a/fs/ceph/addr.c
++++ b/fs/ceph/addr.c
+@@ -2245,6 +2245,12 @@ void ceph_fill_inline_data(struct inode *inode, struct folio *locked_folio,
+ 	doutc(cl, "%p %llx.%llx len %zu locked_folio %p\n", inode,
+ 	      ceph_vinop(inode), len, locked_folio);
  
- 	err = erofs_map_dev(inode->i_sb, &io.dev);
- 	if (err)
- 		return err;
- 
-+	pos = io.dev.m_dif->fsoff + io.dev.m_pa;
-+	isize = i_size_read(file_inode(io.dev.m_dif->file));
-+	if (pos + folio_size(folio) > isize) {
-+		len = isize > pos ? isize - pos : 0;
-+		folio_zero_segment(folio, len, folio_size(folio));
-+		if (!len) {
-+			folio_end_read(folio, true);
-+			return 0;
-+		}
++	if (len > folio_size(folio)) {
++		pr_warn_ratelimited_client(cl, "oversized inline data %zu\n",
++					   len);
++		len = folio_size(folio);
 +	}
 +
- 	io.rq = erofs_fileio_rq_alloc(inode->i_sb, io.dev.m_dif->file);
- 	io.rq->bio.bi_end_io = erofs_fileio_meta_endio;
--	io.rq->bio.bi_iter.bi_sector =
--		(io.dev.m_dif->fsoff + io.dev.m_pa) >> 9;
--	bio_add_folio_nofail(&io.rq->bio, folio, folio_size(folio), 0);
-+	io.rq->bio.bi_iter.bi_sector = pos >> 9;
-+	bio_add_folio_nofail(&io.rq->bio, folio, len, 0);
- 	erofs_fileio_rq_submit(io.rq);
- 	return 0;
- }
+ 	if (len > 0)
+ 		memcpy_to_folio(folio, 0, data, len);
+ 
 -- 
 2.53.0
 
