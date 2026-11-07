@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050874;
-	b=Q+AhZzDjLeyVgY6LHMQ8bW1ppZB7W/efyMn+QClUl5+OyMk7WsxFVGAKZPDGdtwXt7kw
-	 dKwD1hkQjJ5EQ3tsc34WNlDVgsxx8XJFeEb4TSrOTgG9qeYHz6jBU6XZsoqtQ1EfYugXZ
-	 qABsbmNGYhzwYA0f7v2nrzhjzxY9xXrS+Yk+MTZ+OywqhkLickvIA0vx6NwAjz9eadDy5
-	 S/2zFx9G4LhwlQUDv0EH4dZAnL5/4JAskEJ5DwSCsFy2V8yQKhJa1oFOD8vHC9kza4YqD
-	 8e/UtToIkP1YLhC7Zhcty43wY98CaMnLGQdYLyPedLZ7G+si7cXR+DkaHZpX+Mk0Tew==
+	t=1794050877;
+	b=Ece+K/eA+6ns74Gex3zCFmnIbjdJ2qePi0un0mnJdk+EguMJHD5o4uy4I4rhG7Ugu639
+	 TBeT1njBxGoBRZ1XIqfqoKizNgiaeN3jGrcbWSNzrIGciZCVS7H5OODw9dhkQ80P/2X1L
+	 kKvSL4iW2Y2X7F7xDZ8n1nYgG86alUuDfTrka3y5Esu828TT7Yzgzupy++4cuv36pIMpp
+	 RiqPz/r2vdMXXYvPYDNuTiCAWGHbAHZVAF57zG/HNFTAoX9Nz8hI0/00fzchOGgwOmWfq
+	 8Fa3oiWUfolQZeC97ABaJJoCBfvVNBE7sFKoJH5jsdY+HC8lhLQnfUmtUEtbdKpjDhw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050874;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050877;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=3uWIUHf2GcvFRE4k1U7aobWs0/r5OiOlV5HRMJ4fJMo=;
-	b=TWVIilE2KhH5jz14y107gMsl7sYOw79vGmwpKSjqb8QTh5CXlwcLDawZ6ni9q3AlhE7A
-	 Mgsb3I08CHp07d2RBPyxGEiM8/c6glR7Ptj3H0lzvsXHaHK8zmPhaKqW7tfuxox3rT5Wl
-	 mPGMMHY6AkZLpbUd/FQ52V0uO5AuAH4ynvEb4fiUvNMAcpmmJI68G8Se58TtnHjtCwR5j
-	 sfpZRXjBauMaHlmPBh09uK+I7RrY+V77klQOEsDsNcN2R82lVle0u3W8xOl4DVlgMs3Wy
-	 YZnybIaUIqJOPWR22M/o0hc6CQr0+VtTmtkkamxnxfoEDRSJGBR7VK3NXG0VjP0fY6g==
+	bh=CHdM/OuK6Oo2jIYl1tFOiwYMT3hCTT8WM8/GvALs//o=;
+	b=4DQ5bMyl9w5QCrzUjq0v1WkqMkzNYkvGBsCe7U3E3K745VgH9IM9eg5sLY8d6PGRv5tE
+	 EKRc9WIVsTS2ZZ6IVl1rmUhWlYKiRu7PS5mcic7i0bMrrvjOWGMVPvb4AeBcF+VDZoVgZ
+	 IxK4TJZBunbyOiXYejqyMDweaPOxAllHv95/sPwByV2J7+HEuTEkmV5wispeVD4hcgmTk
+	 lsJfADxY9E3xoz9B2EqfRXav6KQcHQz1rhJc/ff4f1Ny4X3sGtKU8UY8s36/V69y6CHui
+	 +lKboCsw9B/as8TBbhLhGCog3JSHQ33P06S2t1j+jbALmpc9hKQhb1gCtqOxf3ThpTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g18GIWNi;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="kDzIzZ/y";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 307AF606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:27:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BA98606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:27:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g18GIWNi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2AEB1F0089F;
-	Sat,  7 Nov 2026 11:27:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kDzIzZ/y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0942F1F0089F;
+	Sat,  7 Nov 2026 11:27:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050874;
-	bh=3uWIUHf2GcvFRE4k1U7aobWs0/r5OiOlV5HRMJ4fJMo=;
+	s=k20260515; t=1794050877;
+	bh=CHdM/OuK6Oo2jIYl1tFOiwYMT3hCTT8WM8/GvALs//o=;
 	h=From:To:Cc:Subject:Date;
-	b=g18GIWNiqkjg2iGjZmBMpWaOju4ctxWrq6PQf/7uG1/9zrS94SkVbgpdttBljjdbB
-	 gAfSITAP+L6qzvy9HKUjyP0iBrfsRV/UaEWCFesmmwY75cUWAL7+y+lzV7fpsphryn
-	 e5mdb+6T6icNMoaoCu+u1c2McbY4mUD3e02MstmIt4X8V4k9Y6hJq+VeAw0RNOYfWr
-	 P9X/h0CBXIgbhMNW4COqXi5fe4dQ30nQqKW6viPNeP2U2NVilNXJiEbCXbfzXJD2q1
-	 XiJkotuT2oj5N5hO/1ggk74iKEKOX/oiayIuoKxz32EuKW97Hadc27GvGpqTvcZEKs
-	 RcO7oVdp13MYA==
+	b=kDzIzZ/yPQYJf3rwnGSn7BIKWg4pFinmDasXYBmTUwb74ijmKu3UtGnC1ExUcr7ea
+	 s8RBt0D8cjhZX6T8yurC3csFC895PE5gDlThbgHmKbMVlFJtiEzhSBoFzR2qRB/JwF
+	 ESL143ECjxotVzquZ3LbwqRXO6uG1+P3vkbMCeL0tKKGOcpqKlozEn4VjiBxNn0/0k
+	 rIcug340BoIw5E5Yk8VefhuYdU4ebjPGweC1CbtBWOpag2KzzKYQce+zf+f7RRGYIh
+	 Ih5CfHhIvOEFkdF1tN9n63uop2892VAyEHsDrNrIV9YUgXIcg+pl/EVAfmXByDmbPb
+	 i66LMapGBfnTA==
 From: Sasha Levin <sashal@kernel.org>
-To: alexander.sverdlin@siemens.com,
-	jarkko@kernel.org
+To: make_ruc2021@163.com,
+	andi.shyti@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] tpm: tpm2_probe: propagate transport errors" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:27:52 -0500
-Message-ID: <20261107062752-failed-5.10-7d4f1cbfe063@kernel.org>
+Subject: FAILED: patch "[PATCH] i2c: acpi: Fix adapter reference leak in i2c_acpi_new_device_by_fwnode()" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:27:55 -0500
+Message-ID: <20261107062755-failed-5.10-a65917d0a22f@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,58 +68,86 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 7d4f1cbfe063af5581dac66abe9e9c965e1031cc
+git cherry-pick -x a65917d0a22f9b10694853b725f9cd399fc3ef4d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062752-failed-5.10-7d4f1cbfe063@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062755-failed-5.10-a65917d0a22f@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 7d4f1cbfe063af5581dac66abe9e9c965e1031cc Mon Sep 17 00:00:00 2001
-From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
-Date: Thu, 1 Oct 2026 08:01:11 +0200
-Subject: [PATCH] tpm: tpm2_probe: propagate transport errors
+From a65917d0a22f9b10694853b725f9cd399fc3ef4d Mon Sep 17 00:00:00 2001
+From: Ma Ke <make_ruc2021@163.com>
+Date: Mon, 12 Oct 2026 09:34:21 +0800
+Subject: [PATCH] i2c: acpi: Fix adapter reference leak in
+ i2c_acpi_new_device_by_fwnode()
 
-tpm2_probe() reads the protocol version from the response tag and is
-documented to return -errno on failure, but it always returns 0.  A
-transport error (tpm_transmit_cmd() < 0) is thus swallowed together with
-the intentionally ignored TPM response code, leaving TPM_CHIP_FLAG_TPM2
-unset. A transient bus failure on the first command then misdetects a
-TPM 2.0 as a 1.2 and the probe fails on the TPM 1.2 path:
+i2c_acpi_new_device_by_fwnode() obtains an i2c_adapter through
+i2c_acpi_find_adapter_by_handle(). That helper uses bus_find_device()
+internally, so it returns the adapter with a reference held:
 
-  tpm_tis_i2c 0-002e: 1.2 TPM (device-id 0x1C, rev-id 22)
-  tpm tpm0: A TPM error (-62) occurred attempting to determine the timeouts
+        adapter = i2c_verify_adapter(dev);
+        if (!adapter)
+                put_device(dev);
 
-Return the transport error instead; rc >= 0 still means a valid header was
-received and the TPM's own response code is still ignored.
+        return adapter;
 
-Fixes: 94e266ba1fa3 ("tpm: migrate tpm2_probe() to use struct tpm_buf")
-Cc: stable@vger.kernel.org
-Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
-Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
-Link: https://lore.kernel.org/r/20261001060114.1582092-1-alexander.sverdlin@siemens.com
-Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+The reference is only put on the failure path inside that helper. The
+caller owns it otherwise. i2c_acpi_new_device_by_fwnode() never drops
+it, neither on the -EPROBE_DEFER path nor after
+i2c_new_client_device(), so every call leaks one reference on the
+adapter and the adapter can never be released.
+
+i2c_new_client_device() does not consume that reference. It registers
+the new client with the adapter as its parent, and device_add() takes
+its own reference on the parent, which device_del() releases when the
+client goes away.  The reference obtained by the lookup is a separate
+one and has to be dropped here.
+
+i2c_acpi_notify() in the same file already does exactly this. It takes
+the adapter from the same helper, registers the client through
+i2c_acpi_register_device(), which calls i2c_new_client_device(), and
+then puts the reference.
+
+i2c_new_client_device() gives the client its own reference on the
+adapter, so ours can be dropped unconditionally.
+
+Found by code review.
+
+Fixes: 605f8fc22442 ("i2c: core: Add new i2c_acpi_new_device helper function")
+Signed-off-by: Ma Ke <make_ruc2021@163.com>
+Cc: <stable@vger.kernel.org> # v4.12+
+Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
+Link: https://patch.msgid.link/20261012013421.3597430-1-make_ruc2021@163.com
 ---
- drivers/char/tpm/tpm2-cmd.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/i2c/i2c-core-acpi.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/char/tpm/tpm2-cmd.c b/drivers/char/tpm/tpm2-cmd.c
-index ae22295df7981..119c73a603e65 100644
---- a/drivers/char/tpm/tpm2-cmd.c
-+++ b/drivers/char/tpm/tpm2-cmd.c
-@@ -483,8 +483,9 @@ int tpm2_probe(struct tpm_chip *chip)
- 		out = (struct tpm_header *)buf->data;
- 		if (be16_to_cpu(out->tag) == TPM2_ST_NO_SESSIONS)
- 			chip->flags |= TPM_CHIP_FLAG_TPM2;
-+		return 0;
- 	}
--	return 0;
-+	return rc;
+diff --git a/drivers/i2c/i2c-core-acpi.c b/drivers/i2c/i2c-core-acpi.c
+index 703588e9990a6..84841ed134874 100644
+--- a/drivers/i2c/i2c-core-acpi.c
++++ b/drivers/i2c/i2c-core-acpi.c
+@@ -549,6 +549,7 @@ struct i2c_client *i2c_acpi_new_device_by_fwnode(struct fwnode_handle *fwnode,
+ {
+ 	struct i2c_acpi_lookup lookup;
+ 	struct i2c_adapter *adapter;
++	struct i2c_client *client;
+ 	struct acpi_device *adev;
+ 	LIST_HEAD(resource_list);
+ 	int ret;
+@@ -576,7 +577,10 @@ struct i2c_client *i2c_acpi_new_device_by_fwnode(struct fwnode_handle *fwnode,
+ 	if (!adapter)
+ 		return ERR_PTR(-EPROBE_DEFER);
+ 
+-	return i2c_new_client_device(adapter, info);
++	client = i2c_new_client_device(adapter, info);
++	put_device(&adapter->dev);
++
++	return client;
  }
- EXPORT_SYMBOL_GPL(tpm2_probe);
+ EXPORT_SYMBOL_GPL(i2c_acpi_new_device_by_fwnode);
  
 -- 
 2.53.0
