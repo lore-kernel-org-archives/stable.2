@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794067152;
-	b=rjj7/2t9+enZ3L7uP0zfrpdZKA7dOVU0SjBPp0tnv+VpvyRqNKk5rgYDVh+4VqnihYBA
-	 SkqBFgTQysXjw+oJCCQWZS133KrcobpR/H+lLOu5siyTTDCUPG4b4gVU+7D4CayAs6/1E
-	 TPH/UUR4TsoMCg2lEhWE2nZauwo44fmrXq9/pKUNN2SokQrWgDSrPLlqHSPjsYSt2c0wI
-	 dEZ7en6S9PMN+5CwcsGkwimrkAR+0Rd10/f7yjMFkBa5zBMKdJFvULfvHi407uVfKK8pY
-	 6lxEJi39l5PVYvt3CT7feRI/Q9WAIKdG+YsegJBL7fekR8UD496Lsg8qR+Mk3yYQfZA==
+	t=1794067153;
+	b=MaKXaRn7Ew/GzCkulxMtAeI0fEsYbYiTyScRskAt6JBS0UmPI/Zhf1jGB0qPtLQ9nJ/X
+	 CWKgWOGwMzbVgKrsfVSRDNrWJ+gXuJVa0EpuN4HzXjmVnWl+VulbHEoKuAPJZ5fK31dmW
+	 QRY5omDYQBVltV1OQ/8xRKUq6v8QXCzHIzrq4nYuXWB4NixoZH8wbrMqLrq88xxA1pvgX
+	 +ceuDy/wbkn+MRfhM/t5l7K8GkP+Nsj2vUPhkv9yQK1gNGVsLWH1ejs4UeoyPRqrL7nAr
+	 l//A6m92wVynxRgXPUixgYGYDmSq+pkph30/GvW5VVndMz0edOoqIncYH+159cN6syg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794067152;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794067153;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Content-Type:
 	 MIME-Version:Content-Transfer-Encoding:Subject:From:To:Cc:Reply-To:
 	 Date:Message-ID;
-	bh=Ak33MOCzItuR6VF10WzkbIPxlmjtzf/BGtPBLjZ0+3U=;
-	b=jEtY0zW50Vc2A+mRIMMThT5I+0GybhM5zdGhlEoxGSH+AbGhRhw0kpk1on6BPWiuBFoi
-	 YccTtPlEkUGRmVWujHbvP9WirgevYKgDfseOLiGwVPpNyhQ0+iB1z/cgbZ4OFkI+HzFLu
-	 YjKJ40lyztgG0ZQso3ZaLmRekPxYgkGNcsCqBDD/i+WL8Shykz/UNnw9zuXCA1/AHBQnj
-	 R1BVd9lJFxfbqHrFHJFaIFpJH6UGPn4At2c38hOwtRrfHvRHHqPuur3o9OBgX7Bw7k3an
-	 0hB39W7Zkxj0YC4zyHgYWwizwjlUTFMNtdGVwqLLJyjTwzF7XjcVbLdbhAonivx7Lfg==
+	bh=Sf6AC7hRs5XMVbwntsu0gHw56cul5YWRJyyG1ROoCpg=;
+	b=d7cv23fLsJMLkdtewPWRsBqRJEnQSwf6VEvMGlzwCktCTdI4pvST6XjUY/7mMZsn3WCT
+	 DJeZSx+9hW2jEJpi8ARrajOodHXlaeE0okfQJu4da/jI14Im2u7+cVEJEJGN2sxmIkIAw
+	 MhLq8mnPHpzIhz6YO13hhHAG0Ooz1ejLepZ6jPQLQf2POmHyV1Mumwi3nKciNsiZz7haf
+	 w/ITik0S1X137mzD0vfoAvAD25s2NNDCFFHWoxJ0Vw45Z7R+q1Fq/By4jMJ58HKiBOM8L
+	 5qLszVwu7LG27JfXLDQDPD29xvKJf0Fgit4GO4LELsrQh8hpazdHZWisx9KEswaxpLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=kernelci.org;
 	spf=pass smtp.mailfrom=kernelci.org;
-	dkim=pass header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=ZybpfMli;
-	arc=none smtp.remote-ip=74.125.82.172
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	dkim=pass header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=WAiSW176;
+	arc=none smtp.remote-ip=74.125.82.169
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 388FA606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 15:59:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 388FA606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66726606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 15:59:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66726606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=ZybpfMli
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso2812475eec.0
-        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 07:59:11 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=WAiSW176
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-36fc0a3fe93so2652328eec.0
+        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 07:59:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernelci.org; s=google; t=1794067151; x=1794671951; darn=vger.kernel.org;
+        d=kernelci.org; s=google; t=1794067153; x=1794671953; darn=vger.kernel.org;
         h=message-id:date:reply-to:cc:to:from:subject
          :content-transfer-encoding:mime-version:content-type:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=Ak33MOCzItuR6VF10WzkbIPxlmjtzf/BGtPBLjZ0+3U=;
-        b=ZybpfMligYKo95HLSp4JC3lOKe8AeU1NVPSEBwqPCHLdVBrXOXi6YnefLcflk8XmUO
-         eQknMJFgQfQPlCO2ADUKI6AaafnT93SmYSFsISSplBX5o5mTcEceF4umVbiRk1EpwLrh
-         Ehz73NmkrQAHx9vDEYaVtamzbrGe2mXTJvtoohkU1bbUxg/o7ZrOj8l3h0vteGWzZhm2
-         oyZuust7UJRrhELqdPUR+ndMvT7oUC6e5R0l4g/Lm18X7NPK8uA0j4969gCxEH6vnCIQ
-         trnQKaeolzWOfLUuIo5nyFK8JEzjSf9I/iPuHZvYArCOWnpUARAb0/68AkZr01aaobHG
-         tRkA==
+        bh=Sf6AC7hRs5XMVbwntsu0gHw56cul5YWRJyyG1ROoCpg=;
+        b=WAiSW176sA93lMc5Km4dOLEaJM/oTP5/e+elnmboWFu9l0hE6x9psFs6TvvfL/NRR4
+         YyS2fxndK9uhHYzqurLYYSsQ+LuUtd1F/onips3NnTqQIcgPD83tjb7kL1lXJayw/2fI
+         RBCIya0SNDuYSEVJgOvW/v2LPsnsQwoqAhR04PSatexzITf+jQWtTrrcyH3M2koOn/F/
+         ZonDWkNfQt1BNMz1t3MpUEHGDDXnRnQMF3VRjqUYkYBtEB10c9AfzJ1H2eVCnlb1z9f0
+         1uaswRSls00Ud8sBWNN6yxUl77SVJ06AccAZIT1iilfAdwmkOWI1Zt+CjajKJ4/RVhWM
+         AOhA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794067151; x=1794671951;
+        d=1e100.net; s=20260707; t=1794067153; x=1794671953;
         h=message-id:date:reply-to:cc:to:from:subject
          :content-transfer-encoding:mime-version:content-type:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Ak33MOCzItuR6VF10WzkbIPxlmjtzf/BGtPBLjZ0+3U=;
-        b=GqBCt6hOlIEycOIZDtO5TdY2yq/qy3Sb5Bh7ZGWZG2nL6EZVvvrw8e46OoPtdlRo6u
-         jx+MFbbw2Fovtj8e8rmshlSsUUfvYAXI9rJl8Xti+51837WEWGHGkSYXonLz7eBmMHkc
-         qB4FIbGTAbVS2yMzywQfcIm0ColRptt49wIajwvvgKrCxoqvMGFqmhE0YzV/uPvAHNKc
-         NjMXnMNiyMUSHJcxU/Rb5OtjfZkHPm9JtS6jVSVQjl4swMKwhc5WRiCC1sCt5hIJfqRX
-         hp72MbYtr+/obj995hXd+OMfAVQ4iNmyxBVtRov2hyNi6vq4NMmEf9iIR6h2HV8J+L/L
-         F3ow==
-X-Gm-Message-State: APuU4Z8IsCpFfy4N2pJXq0zn0rVCwQpL751NaDuZZuMfZctnzf2XFDiQ
-	Z3Xdv3KJryMMIbQm4u9Yo9dmUCxjwuIRGHgHzV/NvVL63kHyo2ZgPqM0CiKrqVOPr0E=
-X-Gm-Gg: AYBFou1gLfPhhrUjklHi4N0fhcpWBuuRIbMyxIDrcm2aBvuzPXlx5R9IMVQRpEI6sna
-	QacXns47N5N0kQ5YUPAm+/B80cfNrI35zWpwW/os3C8cIuwbV3OfVM0i+G7cVIny5XJGUUBwieO
-	utYrjlMgriBaOGGNp7VydX1QALUeOSHbU/g5MoTy1+iOqv9LmHtWxpmQrO4qY6x6kxT6cQNbz9V
-	6N6Srmps0WN3jn/eec1ATZWqy9+B+7LRiphVVNf4r0q7Qk8Vm1nhUz7hFJIE5/T+SutA1ZoJvWz
-	gJvM+3QQiTLp/8Hq5Bo8NH+sOvdAV7zCq964+aOq8oMQUR82heT1RXxJ54qzMWcYoMWlYqZvA4Q
-	ppK5c7f2Uy4FmIzYHZ1oPkuhVu+Za+f9yDJWSiruQaNAijeEVgMSE1qB+eeZepi/fmqFSz4w3Ud
-	WHkP622jrF7qU0VTGpcPOR8kSWD0D5gvLyXDCi9ueWB8PpgP7EauZOdIGKg+PhNFUJ11fN47KME
-	7PxU5QG6eaL63KTUs1NvTl3hFytsuqct4UdZtSMvoK9qlk031WI57JKi8NQy7I6OVAnhXspRjyi
-	BggONzimTWTljPbEcPJNAQ==
-X-Received: by 2002:a05:7301:648d:b0:36d:37c4:3759 with SMTP id 5a478bee46e88-36f76428495mr8468626eec.18.1794067151211;
-        Sat, 07 Nov 2026 07:59:11 -0800 (PST)
+        bh=Sf6AC7hRs5XMVbwntsu0gHw56cul5YWRJyyG1ROoCpg=;
+        b=tyuLUjtEG94Xhx02CNYkHnJavSucmymIVrgh6CQAys210ESc+zFYcy0f1MetYBGHFQ
+         1jEgfhYI4XSs+VSZWL5654zXC3MlnKYaT9E1qcZ3P/o6Yn1zFPGWxSDK/mqBUh4P2y7+
+         hSyMtRsIi+93rh4TANiU6rp0vwQ9WUt68CaAUjn1nQbmlzu40e01UVEctITnIEjWbUAX
+         V4mw/mkLyRRbtzPMK8efbGo3JNmjsferR3AkOeqSQytwF/3yzHEJPKvZNkqAqmQae+ZI
+         42WFnTdQI3xAMMLt5fXsazCFYn/NpP49mE0xW7Y9/jRAWLCkUo5j7siPgt7gTC3yM3xD
+         dzHw==
+X-Gm-Message-State: APuU4Z8Yt95HFvAD4aE0HU0EanIpPQUqEap2MW3zX/+5CRu0a1QDu5Y3
+	ilG2LLE9xhksFAtY+JEzJYuy2vt7IFgTV5BhpwhoeQSQR4M3jdaO623p2QP9Kopa9Ok=
+X-Gm-Gg: AYBFou3q+vV6WzQehBLO4maYCqkcVwdzIzELgQI3VZ+7/Ccy9ocGCG7c5H/d9nLvUSi
+	fqOdeQ6ogv7/TPx/CjmujXbGTUiJTRwFaAuB1ymfKO1gwaG8qbXDSqHVsBVDlJc5tO6mHtJ+q0i
+	6qM2+plgvrci1rLIS5aQBd4dLJaJc0i+Ab/NvJqRa2EjEO25nudwuVUorW1NioxLanLDgvXoKGw
+	bt/sl+HMG4mqqXFik/u8DEqsJI3IdRuyesUmBLj3CfuVJGcxMWQw1hLQzHZMDTHib9a1A3/NRpr
+	0pNDQM3UGCIjRguHhEESWPJ5pHtVBFY7Fs92ABO21tfQRUcKNTTBAq2TTBKXSc/VeZpxpnkjref
+	fDRz6xFaY2k7Vbyo5bkNT0Vzqb1DtzP8n+c/xQp8BDCkrkDeISSKYxQpqIot5MOopEXJWDidmZR
+	UUQC4FoyJTDISWGqDAB6AeReVxl1132zka0n/7F34BCuL5uOUH/B+MSqBAEkggOF0+q0x0AU07f
+	kY+QrJukdM8KZQsEeHlY6x9LOUNSlG59rHG9+xYcu8h33ilDc1DDXeuVEN7IzrKvzSWBqDgzUD6
+	Rq4Sgl2hQdiVY5N9p7PYyQ==
+X-Received: by 2002:a05:7301:1605:b0:370:d7fe:6585 with SMTP id 5a478bee46e88-370d7fe663emr3618003eec.11.1794067152467;
+        Sat, 07 Nov 2026 07:59:12 -0800 (PST)
 Received: from 34406640b1f4 ([20.38.40.137])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa651c57asm18130372eec.2.2026.11.07.07.59.10
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36fa922b205sm17413348eec.11.2026.11.07.07.59.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 07:59:10 -0800 (PST)
+        Sat, 07 Nov 2026 07:59:11 -0800 (PST)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -88,29 +88,29 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: [REGRESSION] stable-rc/linux-5.10.y: (build)'linux/cfi_types.h' file
- not found
- in arch/arm/mach-omap2/sleep44xx...
+Content-Transfer-Encoding: 8bit
+Subject: 
+ =?utf-8?b?W1JFR1JFU1NJT05dIHN0YWJsZS1yYy9saW51eC02LjYueTogKGJ1aWxkKWltcGxp?=
+ =?utf-8?b?Y2l0IGRlY2xhcmF0aW9uIG9mIGZ1bmN0aW9uIOKAmGNmaV9nZXRfZnVuY19oYXNo?=
+ =?utf-8?b?4oCZIFstV2ltcGxpY2l0LWZ1Li4u?=
 From: KernelCI bot <bot@kernelci.org>
 To: kernelci-results@groups.io
 Cc: stable@vger.kernel.org
 Reply-To: kernelci@lists.linux.dev
-Date: Sat, 07 Nov 2026 15:59:10 -0000
-Message-ID: <179406715007.479450.10240371758058533623@kernelci.org>
+Date: Sat, 07 Nov 2026 15:59:11 -0000
+Message-ID: <179406715140.479450.3416299125446737749@kernelci.org>
 
-New build issue found on stable-rc/linux-5.10.y:
+New build issue found on stable-rc/linux-6.6.y:
 
 ---
-'linux/cfi_types.h' file not found in arch/arm/mach-omap2/sleep44xx.o (arch/arm/mach-omap2/sleep44xx.S) [logspec:kbuild,kbuild.compiler.fatal error]
+implicit declaration of function ‘cfi_get_func_hash’ [-Wimplicit-function-declaration] in arch/arm/mach-imx/pm-imx6.o (arch/arm/mach-imx/pm-imx6.c) [logspec:kbuild,kbuild.compiler.error]
 ---
 
 Log excerpt:
 =====================================================
-/tmp/kci/linux/arch/arm/mach-omap2/sleep44xx.S:9:10: fatal error: 'linux/cfi_types.h' file not found
-    9 | #include <linux/cfi_types.h>
-      |          ^~~~~~~~~~~~~~~~~~~
-1 error generated.
+/tmp/kci/linux/arch/arm/mach-imx/pm-imx6.c:589:17: error: implicit declaration of function ‘cfi_get_func_hash’ [-Wimplicit-function-declaration]
+  589 |                 cfi_get_func_hash((void *)((uintptr_t)&imx6_suspend & ~1UL));
+      |                 ^~~~~~~~~~~~~~~~~
 
 =====================================================
 
@@ -122,23 +122,38 @@ Reported-by: kernelci.org bot <bot@kernelci.org>
 For complete logs and details about the environment used, see the issue
 on the KernelCI dashboard:
 
-- dashboard: https://d.kernelci.org/i/maestro:dc563ea803d634375962aeb838b35e5e3164eb50
+- dashboard: https://d.kernelci.org/i/maestro:a20c9221f215fdea99fccb2441fcad9ae87d97d3
 - giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
-- commit HEAD:  7a87f3505170e2196b67ec5e2713c06767ef1601
+- commit HEAD:  28fb23348c6d391618c8f69ffebd953abd36ea09
 
 # Builds where the incident occurred:
 
-## defconfig+allmodconfig+CONFIG_FRAME_WARN=2048 on (arm):
-- compiler: clang-21
+## imx_v6_v7_defconfig on (arm):
+- compiler: gcc-14
 - config: None
-- dashboard: https://d.kernelci.org/build/maestro:6aef38bf5b429d354e114ed5
+- dashboard: https://d.kernelci.org/build/maestro:6aef3ad95b429d354e1151c0
 
 ## multi_v7_defconfig on (arm):
-- compiler: clang-21
+- compiler: gcc-14
 - config: None
-- dashboard: https://d.kernelci.org/build/maestro:6aef38bc5b429d354e114ed2
+- dashboard: https://d.kernelci.org/build/maestro:6aef3bb25b429d354e117bd7
 
-#kernelci issue maestro:dc563ea803d634375962aeb838b35e5e3164eb50
+## multi_v7_defconfig on (arm):
+- compiler: gcc-15
+- config: None
+- dashboard: https://d.kernelci.org/build/maestro:6aef3b9d5b429d354e117bc1
+
+## multi_v7_defconfig+kselftest on (arm):
+- compiler: gcc-14
+- config: None
+- dashboard: https://d.kernelci.org/build/maestro:6aef3baa5b429d354e117bd1
+
+## multi_v7_defconfig+netdev+nfs-root-boot+ltp+crypto+ima on (arm):
+- compiler: gcc-15
+- config: None
+- dashboard: https://d.kernelci.org/build/maestro:6aef3ad55b429d354e1151bd
+
+#kernelci issue maestro:a20c9221f215fdea99fccb2441fcad9ae87d97d3
 
 --
 This is an experimental report format. Please send feedback in!
