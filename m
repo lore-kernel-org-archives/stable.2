@@ -1,122 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.152
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794093687;
-	b=uj7T/0vf+zX2y9q4xUutvHrfrFhRh5+UiI5jmn6cbPuYnClbHBFOqpWCtD7bnGTfWIxQ
-	 KEJg9VocCVWSjbtyXe6t6vZuYsDCAKfCkTYgr8uXpL9Zgl4lErhw1Cu5lP8mAYNbdRSDE
-	 cp90UuQU3vtnEoe1TGYRvIJMzVFaz9EQacY8jUnnabTomDcaUMUCAJqxDN6ePpOq37rBa
-	 hfWDxOnD3ilnpGoqMErGTyBRleEOw/QFYbM6v2Jf/rND5mvkxIXS4U2MUOV1d2M0AxJNc
-	 SaEaMIwzwZwm+OEsUuqe1QLeK7ia3lApZF2apSwPmb89yD959fBV10ZPtq+s5Q5Innw==
+	t=1794095346;
+	b=l/iYGpkflMspuUJHTIn2v2Kq+j1SMnhCwmuwi0wYvN5wnvTa2lIoZXMuoHHCRe0xGWgC
+	 jtOqcGmqZqNU3tq1Ct7moC0yGoUmoEsRrO4Yt0nlOUL+L+iHI1ztp72e1xAcGkA9/+VI1
+	 pJNJkHaM/fA/3I99+R1/CxvQEJwAz+89Rlhrnx1vwF4dTCOjbYpEVz29K3Ox86AyvbRUu
+	 Jkw9bTJ3vngbd0vbUakLNIv7s79hCGaRllLmMv1dRcpk5cFEbKiRLijATXe4O6JDdKvAH
+	 68r2Ngr/MMYkw18Oqz3byQftYkmShSDyfFJLnOPWAvh8Yvynzn+aar0gkTfX213MGeA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794093687;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794095346;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
 	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
 	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=QX9KdM6Y9Scydp4zUuERsrVtVZEqWXqlfDK/a4cMo14=;
-	b=wj1fleYJ+HwBLz+I45YomSy6pVYum4BVobnGhYzbTJQNR4LDZXBNf4cUq48cziuV4F5a
-	 MrRayqNaThLQFOR8gkGfdLjdkfuPqseOGJQTryV7s4GAxzIOhFGiUToD3uSSMgp59cRiR
-	 SvxPJH2Cbv9VK/DOChQSBP7t1hDNlZBN/eEUqLq+K3K/4zOpHrmLZNhBim2FBxi/VBnat
-	 caBgYVebCEQ3N8UfbTOKJmg1ZH9zPV+trMHZUVUQ7LW7doTM1KvBERFMJzYqY0hdIoMr9
-	 Y+oh6E8olHzzPXrELHPLbRx4Pe6oPnMHor6Z+I1jeYJTdp2u+wxrza7XOtGcPC3/lHQ==
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=gD8g1X301eqPT17aTVPdKs9fubIZ73BJDrt9THYOiPo=;
+	b=q15Ayu3otUI326INlSvYcPajwyBb4sWEciXZy5m+LpYYlRBnwVKxUTlFAYw4dD2+LuWf
+	 apI9Jps+TD3n2lOBhytNrtzwXI8u5HXvSnhUMCrRGRCk5R3QE5yUEIMHibdO8G6c3/mGn
+	 YC6lr/slpmGnaG3Tsa+qHzbahviaNnySgHfQLZeHYoEX9z5bIkgo6IBAfpRweQnwNcV6F
+	 0Kx69oO6z/NcLXzNJEYj0HZ5A9BbRJtz34QQ/3Sf+aExBqe7C+78VkT2d4CNlVetudwsO
+	 NJnFeedzmNgP9VRXmkRGUy8Q5yIJ+I0Kc8UYf4d4RW5YbO2YdsvqmTJ1hyHwLfzI2JQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fourdim.xyz;
-	spf=pass smtp.mailfrom=fourdim.xyz;
-	dkim=pass header.d=fourdim.xyz header.i=@fourdim.xyz header.a=rsa-sha256 header.s=fm2 header.b=kq4E+gj0;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b="WBrSQ/t+";
-	arc=none smtp.remote-ip=202.12.124.151
-Received: from fout-b8-smtp.messagingengine.com (fout-b8-smtp.messagingengine.com [202.12.124.151])
+	dmarc=pass header.from=pobox.com;
+	spf=pass smtp.mailfrom=pobox.com;
+	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=ApCQw8e3;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b="bD/9E/0q";
+	arc=none smtp.remote-ip=202.12.124.152
+Received: from fhigh-b1-smtp.messagingengine.com (fhigh-b1-smtp.messagingengine.com [202.12.124.152])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FEC7606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 23:21:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FEC7606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fourdim.xyz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fourdim.xyz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D5D4606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 23:49:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D5D4606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fourdim.xyz header.i=@fourdim.xyz header.a=rsa-sha256 header.s=fm2 header.b=kq4E+gj0;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=WBrSQ/t+
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfout.stl.internal (Postfix) with ESMTP id 1403A1D00113
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 18:21:26 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-05.internal (MEProxy); Sat, 07 Nov 2026 18:21:26 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fourdim.xyz; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm2; t=1794093685; x=
-	1794180085; bh=QX9KdM6Y9Scydp4zUuERsrVtVZEqWXqlfDK/a4cMo14=; b=k
-	q4E+gj0K89PqNNoxpgx1a05Xt2EuG/fjcdaZYiQ/h+BoURbuAsU2clha/SazAGpi
-	FpKFThb5pjO6v9JpEHz3AfiTRb2QIK+RPCsa0Dc6Hd5rVdtVMXRFJfjChL7kYcMW
-	1QjraAnFhUHlgKMO1kW+8zyvNlXUi8mG8lElkBQ3Q0P187r+5g71BHniYsZRpw3r
-	87koB+GdU4wOYnsg60fwPneHp+Nnsi6JhPKNPVdvOV7DJUnuYub8W/Z4303s3c8X
-	dOnJlcTeahnY0tsLUw9polfCeLgQA0Y5+1zpOg6Ir15bUXpNGtJZ8IagRPx+ylAn
-	K2x1C555WZxZAUtK4pzaw==
+	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=ApCQw8e3;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=bD/9E/0q
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id B867C7A015B
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 18:49:04 -0500 (EST)
+Received: from phl-frontend-02 ([10.202.2.161])
+  by phl-compute-06.internal (MEProxy); Sat, 07 Nov 2026 18:49:04 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1794095344;
+	 x=1794181744; bh=gD8g1X301eqPT17aTVPdKs9fubIZ73BJDrt9THYOiPo=; b=
+	ApCQw8e3ecT+wWdTsZtaeV4hhoOzn0CQ7i/x2mMEm6s43lEMHOBX/OfuMEr+toV9
+	tPa5XmTtMDecyOkxbgYXLcXpLxUXVmNFyT6DbpRihCaNV9SAbJy2jYEE9LN52emz
+	Ha+QPwLsnSPrImwJz3gMGaNVS9jtSCzuiHVxZvhElyzzX/yNkUbwz/KBx1YofLjK
+	132+fw85ruhhxs+xu5kokll6cKJ0YR0UHre9B2bl6LlA1aJpsNszq/vCU4vLu6Ay
+	EPHpc9H4GzgtDvY85znsyGuOSEBhU9jUA2pc8YBK3teUj1bhrfSCAMRKu+KEdvbs
+	ZHwmw6OBS32IPqSFNJCVsA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm3; t=1794093685; x=1794180085; bh=Q
-	X9KdM6Y9Scydp4zUuERsrVtVZEqWXqlfDK/a4cMo14=; b=WBrSQ/t+s5CIoj50F
-	QWRuSUGFWkbqQP/ovjdLnw3kZTdhxePbl2fQaaFRvJFIzoK353j2NWWYnIBEweSc
-	Y8Ey7gqrI2kok5yiTQVgYxcmTs2Yh0vD4ENaMvdAjR26eT2lHK96T3nHII8z+17r
-	fDwiElLUayzXzn/ovUZKhx6dwecp1E8rOyCb/YvgizBvyE2RyUKMwtyliza/8KSw
-	ETqC145mnVn9Hb+zRiXhmZ18y+C9KW71rkmGrYf4ECI+/iUmdAw01T3Wh8r9aD4r
-	e98JmuFfvAoBqkrrRvgZGLJWrIw251CkJa7DsGcoeZcTcDUJUsm1rchwKnCBGEhh
-	6Ohww==
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794095344; x=
+	1794181744; bh=gD8g1X301eqPT17aTVPdKs9fubIZ73BJDrt9THYOiPo=; b=b
+	D/9E/0q4yncFEnY6C4wAq3FarAyN/rWuOs78DD/AhaxRRJ2t9/fH0USOFR6GZSia
+	+3DXXuxq5D9U0sIs24lH8APL4rBFu2oRtCb/MKtqdntuP8BYvZznPmamDZvODC2s
+	DcWxZA2w+iO3/Rb4Z7XmDN2fkeirjoS0QfQwGMojuPLEpF/O9ZO+ezao6yCxlLpP
+	SsPvBMxAvWpEV/UTvgUQvsOJn68auHKZ97l5wFv8HzhHVNd4CqvNlN3s5PChZaY3
+	/vBhAkLVFh+3QjaVbhubPrPVnA2xzJdcr0XsxhNY0LMC09RpnzCoesv5A9RZQ16+
+	Ez66znG3miZDv4l9TRfIQ==
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
 	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=fourdim.xyz a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794093685; d=fourdim.xyz;
-	mf=PG9zc0Bmb3VyZGltLnh5ej4=;
+	action=sign d=pobox.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794095344; d=pobox.com;
+	mf=PGJhcnJ5bkBwb2JveC5jb20+;
 	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:pkqB6uBNjIwpjTYVtO00s7Z+mRqKiroxK/RTQLaUqUNPVeO
-	ZXDWw4wzbSKQdn5H4jbcI4knuaml2IHwYpY3Ql5VS6UBsDnHvXFTJ5Xh2nPkidLc
-	gc+okUUj5sp3FHyCNF0VivrIxZNRX1Jx5VpmZWy2HfomKGaWpRnNfTUQ4jaOnz0x
-	8M12YekrXboBP7FYohzdEa6SM5SlgRWuAc4HiwyRzZkjyLPW9xTjcAVVilgMwy0T
-	oYktwLSX3Q2yuk5vBQrmY9rsgDiKPYAoK4KOmzfl0wD27oHjtlZKmA8UgDKPAARX
-	QgltOSeAKNbVtS3iUAwjSBDoNlNGUww9WU5dSXg==;
+	s=fm2:rsa-sha256:hYY1Y55tvFUPAjHDpOiuPBSHdjOaKpKvV1jJymRZbuemcMv
+	m5CSw2IjxiYiv7OETyL39Kc+3CmXqQ4ITjT7qzgSIC0h0hXmAIRGYQhA3jkPmFE2
+	mwyi+KXBZ708B/BsEEDPbNR7W+rCSv8j7WCp88+ObevIopyZmi7v7usBUkAhdd/g
+	r3OTZcSQv7lVr3rLVWMg3DCjxtCR6Rdx6ecKh6UAnVs9ke1EAbnfOVuCl8kV84EQ
+	EF3Cay5sjEWqQImVdj118Y6UMf28uP1LD3d2Ij2oG26SX+pBmRdwbAN1AYuIHAwM
+	rf6EBISMKaudvOlE48ZQjoR8NuSqe7REVjPIvcw==;
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
 	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=11;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:iM0FINu6WmU4nODpE0f0ZPNRXZ6gv0JfS5Dmv4TCKCo=:qyARsz4SOd0j8AQpWD74L2brSGbWcyXrEMOX/XvJbrw=;
-X-ME-Sender: <xms:dbLvarVCjioxsqsm2ztWqkYSHkrv9fk7cq0laZbEguf_2XohszaBwg>
-    <xme:dbLvarWIJ0xsAQmcVsKFRAjnNzszaRr3TRBDT86dI2ehkcZKAupBdp9l3sp62nC3k
-    FmikRmTPCbwepU4ds8dHKkfNdHPS5gj56MnXpZEeB4TRY9fRpRvKwoA>
-X-ME-Received: <xmr:dbLvaqdO5VivEgXerjiZl5o34sW4rnOGJGNhK2Uuu79x29zWulgDnYB7jEeJPDGl22YcUI4>
-X-ME-Proxy-Cause: dmFkZTE2DRA88AKHqrCKvAq7hSujylkR7TEj4t6vZl0asuGgGiQn1GTOUFgI5BGA1v9ZdO
-    RE7jeYEuYiNN59e1QzYenoYsTwlVJDXqpIazRja4iRvvDEOTm2Vwv5Iu42LbJWhLyG+1To
-    ui6dG7c6oSaDbvCOyBHI6jBfD+PJH6hARwhp1MpC0OPJRp5ocrkGcbfsvl3nVhb43szH1J
-    z3cgvL9gE5nXf0hNE+/QVpap3IAUGFq3vq6DLZvpvvZCC4lRZdcULbL9/MMvaAYO70AYE4
-    oewfgGl0Au3s8DTbbExQ8AoLKDlkTE3iyH+h6y5V6FoljNt2p03DoKIoGrkdsMipMK5oXR
-    KUgdSgia/IeDHUv8nYJyq6nIAkoDTo/mhavaUSZbTgR3II5Xt/oc0PMeAHW7zZtriStyWM
-    RKRTlH16ZZOFdj5N7wPSYvykRkyfXM6qngqaWN5BP5nKxwbk6ffxSWhvIgqiV3BNpOGOYK
-    JhG1opFh7WyvEo2AayIUeLqD8XgNb/DFPU/wROYStW/ZOR4x3ZpNXUgwPfpdnwziXZbXb9
-    P5gI5EQ2JamqtDjMu97Cg35b7pePYBQ19Eiv1udwX7x0n8Jioonb0eASfHLYafpBE4WO6U
-    nKJGPMPWDLtcoMevpRveVpFX5KGnrsUayrEz7B1phcPGsGDSsEfEgi3a/9kQ
-X-ME-Proxy: <xmx:dbLvakUI0jx0hoodbvHE3pN3Mt7v3UveCICksYUw4LRaacKcJQkm1A>
-    <xmx:dbLvajeNSnyFl7QxbY8AUEFtVX5YC7szQXBzo5HPtjmj9ZIklqEurQ>
-    <xmx:dbLvagNLgCrZC6GF_52KTqet9eRg338nWtrOkcW6Gz6hkFYBZcSlgg>
-    <xmx:dbLvahiwsor1mBrJ5E5VYB58tLNxszLzSZwAGh8O6QcMSWYwYafhjQ>
-    <xmx:dbLvam10buxPD3Q7mNEaEowzG3GMNS4RFjf2mxmq2gfQ10iFI9Xe7hJr>
-Feedback-ID: if72e4b10:Fastmail
+	action=mi-m=1; hc=14;
+	hn=cc,content-language,content-transfer-encoding,content-type,
+	date,feedback-id,from,in-reply-to,message-id,mime-version,
+	references,subject,to,user-agent;
+Message-Instance: m=1; h=sha256:G1yivMZvsHaxIqxODo01QQV+NG1kXiYZ7/u+/h209x0=:EjN7Ysv9OPVIViPHOBJ0E4kLDesx+RpDcKED22Oc6z4=;
+X-ME-Sender: <xms:77jvapAMKZmxiAvLdvwTJtIIUqwb94Nlay1DB3ybF1NIq25jqGZO_A>
+    <xme:77jvalOgl5WNln9A8Z7Ekw__ak5eg1pveJz8Gmv8DR9iSmV2DTirWQN5H4DDCTLJp
+    -1q87oQEhVRArsaRgV8xYjSt9zch8JUC3-FAI_aAhsD_3uJ49cWtS_4>
+X-ME-Received: <xmr:77jvamW_kAUpxpB5Nz42LiWabjIYZs2mwQxMXh3_qXWke-kDxATcD1c95WG_e3qrnX7IBnU7ddCQc938TqAUgxepF3_JyAyC>
+X-ME-Proxy-Cause: dmFkZTGAB57/5P6KpLAWm7SdidvsjVYV1Nxgl3C+gZxBhFh5Q6vQTD22Axpa+2VmMWLl5R
+    thH9jfluodRwgs8DtezeugdHSI/WmUcj5akH8puA/kHeTnowufz9W94QAuPM1HAxXF+NgX
+    Mo6/NqH+7H2LBJRX2U7VWP5cuFNGaKR9IHwIJK8UjfIUAjcd5iDpF4WV+9lLMpJ1+CaY0D
+    8eEj3ZAztSaCTovFSxYIq9v+AYyTpr4LMRXTHPOuqyl3rKDc1LzZ+DmxWK1uztyMsCovk3
+    TWNKAPvncJFk3c3TNKWng85pEGHdAcKRiFeEP6LemsR0cPxBOYa323gxE2eV+5mI/w16mF
+    Xc8bk6QjlkrKwoOhhZ9ywQbdXZnx5ENplH6papQcs7BO9Av/tnLp1HpY5Hwn7u604Go7vb
+    xG4cHde/O+h3vpEPBV6Xjf4inwlQLtoiMMu3b1UpcsaWcnoTQSoun3SBndJe0NwRaRb1v/
+    Glv6BV1+ZWLptS2vHOG+OdIM6OK0zNyTBZYDmITK84vqFf/NRQ1sQv+WSJD5mGV3km7S9b
+    ++7WmY2mlpb16PDujREJyf38m+zuOOKpsNVR4y0m+Vr8sNJ8Tc5qPiVqZHGxW5N51MenmI
+    RrFHrN+Ie+6Ot9TznaTiZDHI6kded3C0XBLc9AT5rlOo5TGVSU4nuG3ewqKg
+X-ME-Proxy: <xmx:77jvagT1He2K9HS7jYpzWi6oZvVdX9I3_YbrlY9BPVyaA1iaBeeIgQ>
+    <xmx:77jvak2B7vc26cKq0WSnD7ZUfRKelvwawQVnqrR9xpLHZ5vHap2EqA>
+    <xmx:77jvalhdfttxUWHyBXzZI5XRnjpyyvcodj__TbUh-EJs8_UDxjvftQ>
+    <xmx:77jvaqaC2SML6z3N4cKT5vvZGaCiMci-Sbrxo17NRqtDI6qrJyBtZQ>
+    <xmx:8LjvalJzZpiueJt7Bl6l5ekBpZ6jlrcjx-wIxDcsxjmm09W3G9uvBb3G>
+Feedback-ID: i6289494f:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 7 Nov 2026 18:21:25 -0500 (EST)
-From: Siwei Zhang <oss@fourdim.xyz>
-To: stable@vger.kernel.org
-Cc: Jinwang Li <jinwang.li@oss.qualcomm.com>,
-	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-Subject: [PATCH 6.1.y 3/3] Bluetooth: L2CAP: Ignore connection responses with wrong ident
-Date: Sat,  7 Nov 2026 18:20:55 -0500
-Message-ID: <20261107232108.1873786-4-oss@fourdim.xyz>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261107232108.1873786-1-oss@fourdim.xyz>
-References: <20261107054925-failed-6.1-6320736af7dc@kernel.org>
- <20261107232108.1873786-1-oss@fourdim.xyz>
+ 7 Nov 2026 18:49:01 -0500 (EST)
+Message-ID: <f65916c7-470b-4f64-84d1-da8cf4c8e7e8@pobox.com>
+Date: Sat, 7 Nov 2026 15:49:00 -0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -126,50 +119,89 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.3 0000/1257] 7.3.4-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261107134939.434104957@linuxfoundation.org>
+Content-Language: en-US
+From: "Barry K. Nathan" <barryn@pobox.com>
+In-Reply-To: <20261107134939.434104957@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Jinwang Li <jinwang.li@oss.qualcomm.com>
+On 11/7/26 5:38 AM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.3.4 release.
+> There are 1257 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Mon, 09 Nov 2026 13:46:08 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.3.4-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.3.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-commit a9f9eeb5344fc7dc625e5700ccf09891bc2603b5 upstream.
+7.3.4-rc1, 6.18.63-rc1, and 6.12.117-rc1 are all giving me the same build
+error with clang that I previously had with 7.3.2-rc1 and 6.18.61-rc1,
+due to the same xfs patch as before ("xfs: cross-reference the primary
+superblock"):
 
-Adjusted context as stable does not have the lockdep_assert_held()
-call in l2cap_connect_create_rsp().
+fs/xfs/scrub/agheader.c:123:6: error: variable 'error' is used uninitialized
+       whenever 'if' condition is true [-Werror,-Wsometimes-uninitialized]
+   123 |         if (agno == 0)
+       |             ^~~~~~~~~
+fs/xfs/scrub/agheader.c:435:9: note: uninitialized use occurs here
+   435 |         return error;
+       |                ^~~~~
+fs/xfs/scrub/agheader.c:123:2: note: remove the 'if' if its condition is always
+       false
+   123 |         if (agno == 0)
+       |         ^~~~~~~~~~~~~~
+   124 |                 goto out_xref;
+       |                 ~~~~~~~~~~~~~
+fs/xfs/scrub/agheader.c:111:13: note: initialize the variable 'error' to silence
+       this warning
+   111 |         int                     error;
+       |                                      ^
+       |                                       = 0
+1 error generated.
+make[4]: *** [scripts/Makefile.build:287: fs/xfs/scrub/agheader.o] Error 1
 
-L2CAP/COS/CED/BI-28-C requires the IUT to ignore a Connection Response
-that carries an invalid Identifier.
+I sent an email about this earlier today, before the -rc was sent out:
+https://lore.kernel.org/stable/7840e515-e7d5-4ef9-8c1d-6390374a5b33@pobox.com/
 
-l2cap_connect_create_rsp() only checks that a connection request is
-outstanding, not that the response answers it. Add an ident check
-against the pending request so that a mismatched response is dropped.
+Reverting this patch fixes the build, or the minimal fix I proposed in
+that email also fixes the build:
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Signed-off-by: Jinwang Li <jinwang.li@oss.qualcomm.com>
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-Signed-off-by: Siwei Zhang <oss@fourdim.xyz>
----
- net/bluetooth/l2cap_core.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+--- a/fs/xfs/scrub/agheader.c	2026-11-06 22:42:57.147299404 -0800
++++ b/fs/xfs/scrub/agheader.c	2026-11-06 22:45:59.898908897 -0800
+@@ -108,7 +108,7 @@ xchk_superblock(
+  	xfs_agnumber_t		agno = sc->sm->sm_agno;
+  	uint32_t		v2_ok;
+  	__be32			features_mask;
+-	int			error;
++	int			error = 0;
+  	__be16			vernum_mask;
+  
+  	/*
 
-diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
-index 174f7a513f9d..69040c96e0e3 100644
---- a/net/bluetooth/l2cap_core.c
-+++ b/net/bluetooth/l2cap_core.c
-@@ -4319,11 +4319,11 @@ static int l2cap_connect_create_rsp(struct l2cap_conn *conn,
- 
- 	l2cap_chan_lock(chan);
- 
--	/* Only accept a response to a connection request we sent and that
--	 * is still outstanding. A channel waiting in BT_CONNECT for security
--	 * or the feature mask has not sent one yet.
-+	/* Only accept a response matching a connection request we sent and
-+	 * that is still outstanding. A channel waiting in BT_CONNECT for
-+	 * security or the feature mask has not sent one yet.
- 	 */
--	if (!l2cap_chan_connect_pending(chan))
-+	if (!l2cap_chan_connect_pending(chan) || chan->ident != cmd->ident)
- 		goto done;
- 
- 	switch (result) {
+So far I've only tried building a minimal test config. Later today or
+tomorrow I'll do testing with my normal configs, but (to make a long
+story short) I will probably experience temporary health problems
+for the next few days, so that will probably slow down my testing.
 -- 
-2.56.0
-
+-Barry K. Nathan  <barryn@pobox.com>
