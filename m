@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046959;
-	b=nnOmnAqYcdVIeg1TVNhB9w9NJm/A7wg0Vm89wTpPCSuwu8qSPdq13fUasPUWKh4r+Sz+
-	 MeeXNcIff54WEAt6ryq4GDEWuR2wjrSzcYblkK+2/kknhfzQpyTp3F9m/yFc2JRaUP/Ux
-	 Kkp0hjgMJnoPcrXEIDTKH3F3vM/vetWsrfxngO+HEIyRsEjaCyAfYoLvdxLCShGYDvK1f
-	 PXMpJXq/IIG3vuCuPspEDonDftHILLRjH1b05Ud4kNcQVasBZofdMy6Fvl1glNYrlXGD5
-	 QkWQN6Q6u7kJ9drPlbkpbbd2WXe8cF3T4tYdw3EyuEf+jwKaUaOjwkhjLqWl4bf8hxg==
+	t=1794046961;
+	b=g993OdQHTj4rvMLswHM7KcTEwNeZJz4s71c75S/To5BpFjr7Kju5nruNlpTi1OmhTdKz
+	 4gaWussuFCPZCYl+bUmRSj+kg2IZ0DxWzTGGCAP7+7t52kBrqM7QQiZ/rfwqvpq8vhmxK
+	 6M3MTUcFM3OkShQSTMr1cu6sfO5oZOA3fw4EX+s40p4jZ3oppTnxfli5VyW6DYb8wmA2y
+	 RAolmLrfneYPJQwUfujVq4cbAAEAy73OS4IHin2f8okGDmaiyl77wvD4oPjSE8MVezCBe
+	 m5a81kJbj+Zf7fYcEwKZfNR6a610wMhHtfalcBbOZc1J2HojEITXZRJKJ9BEf99JBaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046959;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046961;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=wy29YiR7et4dadusrMMGpQqWLBRbjK0nxbisrQYykMI=;
-	b=r6zK09i1zjFkVDiN6cCU5UnjqDkXOQx5vG92i0HFo25sk5FNa1bY2196p/JHa+0LGug5
-	 ldO9zqYsDD7TZgUFn/drsMpU30BJEFUrcJh18dqzNSvl0EudZPtuohQSW2vZCY1KMN3Lc
-	 VVjsLOH68hCOG61YcAkSDK/6Npb0hlliPZ/Jqq1UafoDq/iY1jJbbwYf+PsQYaNNmmgrb
-	 DbM7hCI6PWiwrsBBZluVJuaVhWUeaTOJFZ0QF8jNfAhkO8ImtRHTahls8GrHp8A9zjid5
-	 8Z9rjt7eD7JTTqxFo4nNvrgV/7UBPQyL3Wuzt48wLtBO8OkJb8YMRkFKlk9iRzMhYtw==
+	bh=crMaVT43m5wEMe49QJrVKLRwI2XecEuAsedvzKCKEg8=;
+	b=2L1JTajd6OKSnhnXAivvbsE2Wib347Xn5OTBFmKG8+5ioQAScxhxxIfnSErucKZpV3n2
+	 CCbuBkhv3ojNkegHajxLjzM7mNZg/95jiI/tA25U9nF57TWY1VP4LP3LQuqXCS+GSgOsP
+	 ITE5+1VZK4tlBFn0OHgMUnxGDcGNqxtW2zy6xiiV0+/K4xAyhTa7UO+a00fTQXK3Evn5b
+	 rgLgThccnJBl8jRsT8PpDXEOlhOd+O8kIA3XcoK8F6mb2Xx4NHHeBQ3HA4NnND6X9Xo4u
+	 pLDPwM6aIj+DSivfTmJ3cdK27Tdx/ftQdPLgzYxzaSqpfK5YHsExaEoBDULFyybE4Ag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nfn9Xwtq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XHl7po3+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19635606A8D4
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:22:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 257C9606A8D4
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:22:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nfn9Xwtq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A1B61F0089F;
-	Sat,  7 Nov 2026 10:22:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XHl7po3+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96F051F0089F;
+	Sat,  7 Nov 2026 10:22:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046959;
-	bh=wy29YiR7et4dadusrMMGpQqWLBRbjK0nxbisrQYykMI=;
+	s=k20260515; t=1794046961;
+	bh=crMaVT43m5wEMe49QJrVKLRwI2XecEuAsedvzKCKEg8=;
 	h=From:To:Cc:Subject:Date;
-	b=Nfn9XwtqN2VifQ5hbq1x8/anc5OndbnnaQ1Hghxowq+xBTqMyccc9KQo9VbRVQ9Zf
-	 GYEPyItEE0ac54YiJkpshasQlJtTLYuhHBU9MbYo6KhPXMogNyL9j4AZyxes69L2tr
-	 k0ZiBWKWyRgqqnP0cAfVIfMMb7MgwPa9r+glHaiLLyhONsjmjLJ/mwM29xs1/DPX3D
-	 K4x1WX5d9Eu73rdtrdLMqW/mefogFyqG1yod7ivTLaTGf/eD1FUkHw++mjvW72hqfB
-	 nE3vBikw71Veki4TjWyztPfYiVMh6tLF5N1JAqKYerKjmrTTgCKyQOITijyH7bgUo6
-	 L/6yFZP4DfdRA==
+	b=XHl7po3+WYPwC6Rh1OugWd//cONNDFTaSnkA3uSmffJ+N7LmrIJq0ZEN4Z5LkuxGt
+	 DrSTuzZu+AmZxwPXTc/FQ44yt6my6tpw5hgBEnLBffjBes58yyig2xhpDbyytj4eZI
+	 d4xoeFIx6oge+WZvRKo3xG9XiH/v+JfH5wryk5WL5RZ+qGepI0IZqxGxjmXrYatvC1
+	 6/aQbKpAuqq/iYZsRX1GyS64AZigH76QEa9i34FBHuHy7UKBEQi04vNRY/+DjUUFfz
+	 TAIRp4VZW+eQJVHAw97ZgSxZ5vW8kWQaB5fMRrPBqaaKVwoO7HrHfIqnFgS8VOBu+A
+	 tSav1UDwIC/kA==
 From: Sasha Levin <sashal@kernel.org>
-To: nb@tipi-net.de,
-	gregkh@linuxfoundation.org
+To: liuwb@xiaopeng.com,
+	broonie@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] serial: amba-pl011: keep transmitter enabled when disabling RS485" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:22:37 -0500
-Message-ID: <20261107052237-failed-6.12-97f85204275a@kernel.org>
+Subject: FAILED: patch "[PATCH] spi: cadence-xspi: reject SDMA transfers larger than the requested length" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:22:39 -0500
+Message-ID: <20261107052239-failed-6.12-ea9854a169e9@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,81 +68,165 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 97f85204275ae4d7fb530e451f3acc65c1ec1155
+git cherry-pick -x ea9854a169e9c1437df8829bea21c2f2e80b137c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052237-failed-6.12-97f85204275a@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052239-failed-6.12-ea9854a169e9@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 97f85204275ae4d7fb530e451f3acc65c1ec1155 Mon Sep 17 00:00:00 2001
-From: Nicolai Buchwitz <nb@tipi-net.de>
-Date: Mon, 12 Oct 2026 16:23:50 +0200
-Subject: [PATCH] serial: amba-pl011: keep transmitter enabled when disabling
- RS485
+From ea9854a169e9c1437df8829bea21c2f2e80b137c Mon Sep 17 00:00:00 2001
+From: Weibin Liu <liuwb@xiaopeng.com>
+Date: Tue, 29 Sep 2026 16:11:44 +0800
+Subject: [PATCH] spi: cadence-xspi: reject SDMA transfers larger than the
+ requested length
 
-Disabling RS485 on an open port calls pl011_rs485_tx_stop(), which
-turns off the transmitter. Only the RS485 TX path turns it back on, so
-any later output stays queued and tcdrain() hangs until the port is
-closed.
+The XSPI controller reports the size of the slave-DMA transaction
+through SDMA_SIZE_REG. Both SDMA handlers take this register at face
+value and copy the reported number of bytes between the SDMA FIFO and
+the transfer buffers, without checking it against the length of the
+transfer that was actually requested.
 
-pl011_rs485_tx_stop() also checks only the hardware FIFO. If a DMA
-transfer has started but has not filled the FIFO yet, the transmitter
-is turned off under the transfer and the DMA channel never recovers.
+While cdns_xspi_adjust_mem_op_size() clamps the size of the operations
+issued by the SPI core, the device can still report a bigger SDMA size
+than what was programmed, which makes the handlers read from or write
+to memory beyond the end of the transfer buffers.
 
-When leaving RS485 mode, cancel pending deferred starts and stops, leave
-the transmitter enabled and start any TX that was still waiting for
-delay_rts_before_send.
+Track the number of bytes requested for the current data phase in a new
+sdma_xfer_len field, set by cdns_xspi_send_stig_command() and by the
+Marvell b0 transfer path, and reject any SDMA size that exceeds it.
 
-Fixes: 8d479237727c ("serial: amba-pl011: add RS485 support")
-Cc: stable@kernel.org
-Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
-Link: https://patch.msgid.link/20261012-fix-pl011-rs485-txe-v2-1-e9bf7d218389@tipi-net.de
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Fixes: a16cc8077627 ("spi: cadence: add support for Cadence XSPI controller")
+Cc: stable@vger.kernel.org # 5.16+
+Signed-off-by: Weibin Liu <liuwb@xiaopeng.com>
+Link: https://patch.msgid.link/20260929081146.41041-2-liuwb@xiaopeng.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- drivers/tty/serial/amba-pl011.c | 25 ++++++++++++++++++++++++-
- 1 file changed, 24 insertions(+), 1 deletion(-)
+ drivers/spi/spi-cadence-xspi.c | 36 +++++++++++++++++++++++++++++-----
+ 1 file changed, 31 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/tty/serial/amba-pl011.c b/drivers/tty/serial/amba-pl011.c
-index cd8cbc9672815..3edd83ec73de1 100644
---- a/drivers/tty/serial/amba-pl011.c
-+++ b/drivers/tty/serial/amba-pl011.c
-@@ -2398,8 +2398,31 @@ static int pl011_rs485_config(struct uart_port *port, struct ktermios *termios,
- 	struct uart_amba_port *uap =
- 		container_of(port, struct uart_amba_port, port);
+diff --git a/drivers/spi/spi-cadence-xspi.c b/drivers/spi/spi-cadence-xspi.c
+index 39c868a5b171c..1f1cd45359d34 100644
+--- a/drivers/spi/spi-cadence-xspi.c
++++ b/drivers/spi/spi-cadence-xspi.c
+@@ -332,6 +332,7 @@ struct cdns_xspi_dev {
+ 	int irq;
+ 	int cur_cs;
+ 	unsigned int sdmasize;
++	unsigned int sdma_xfer_len;
  
--	if (port->rs485.flags & SER_RS485_ENABLED)
-+	if ((port->rs485.flags & SER_RS485_ENABLED) &&
-+	    !(rs485->flags & SER_RS485_ENABLED)) {
-+		bool tx_pending = uap->rs485_tx_state == WAIT_AFTER_RTS;
-+		u32 cr = pl011_read(uap, REG_CR);
-+
-+		/*
-+		 * Leaving RS485 mode, which only enables the transmitter while
-+		 * sending. Don't stop it, as that stalls a DMA transfer still
-+		 * in flight. Drop pending deferred starts and stops and keep
-+		 * it enabled.
-+		 */
-+		hrtimer_try_to_cancel(&uap->trigger_start_tx);
-+		hrtimer_try_to_cancel(&uap->trigger_stop_tx);
-+		uap->rs485_tx_state = OFF;
-+
-+		cr |= UART011_CR_TXE | UART011_CR_RXE;
-+		pl011_write(cr, uap, REG_CR);
-+
-+		/* Start TX that was still waiting for delay_rts_before_send */
-+		if (tx_pending && !uart_tx_stopped(port) &&
-+		    !pl011_dma_tx_start(uap))
-+			pl011_start_tx_pio(uap);
-+	} else if (port->rs485.flags & SER_RS485_ENABLED) {
- 		pl011_rs485_tx_stop(uap);
+ 	struct completion cmd_complete;
+ 	struct completion auto_cmd_complete;
+@@ -346,7 +347,7 @@ struct cdns_xspi_dev {
+ 	u8 hw_num_banks;
+ 
+ 	const struct cdns_xspi_driver_data *driver_data;
+-	void (*sdma_handler)(struct cdns_xspi_dev *cdns_xspi);
++	int (*sdma_handler)(struct cdns_xspi_dev *cdns_xspi);
+ 	void (*set_interrupts_handler)(struct cdns_xspi_dev *cdns_xspi, bool enabled);
+ 
+ 	bool xfer_in_progress;
+@@ -496,7 +497,7 @@ static inline void cdns_xspi_sdma_write(struct cdns_xspi_dev *cdns_xspi, size_t
+ 	iowrite8_rep(dst, (const u8 *)buf + offset, len);
+ }
+ 
+-static void cdns_xspi_sdma_handle(struct cdns_xspi_dev *cdns_xspi)
++static int cdns_xspi_sdma_handle(struct cdns_xspi_dev *cdns_xspi)
+ {
+ 	u32 sdma_size, sdma_trd_info;
+ 	u8 sdma_dir;
+@@ -505,6 +506,13 @@ static void cdns_xspi_sdma_handle(struct cdns_xspi_dev *cdns_xspi)
+ 	sdma_trd_info = readl(cdns_xspi->iobase + CDNS_XSPI_SDMA_TRD_INFO_REG);
+ 	sdma_dir = FIELD_GET(CDNS_XSPI_SDMA_DIR, sdma_trd_info);
+ 
++	if (sdma_size > cdns_xspi->sdma_xfer_len) {
++		dev_err(cdns_xspi->dev,
++			"SDMA size %u exceeds the requested length %u\n",
++			sdma_size, cdns_xspi->sdma_xfer_len);
++		return -EINVAL;
 +	}
++
+ 	switch (sdma_dir) {
+ 	case CDNS_XSPI_SDMA_DIR_READ:
+ 		cdns_xspi_sdma_read(cdns_xspi, sdma_size);
+@@ -514,6 +522,8 @@ static void cdns_xspi_sdma_handle(struct cdns_xspi_dev *cdns_xspi)
+ 		cdns_xspi_sdma_write(cdns_xspi, sdma_size);
+ 		break;
+ 	}
++
++	return 0;
+ }
  
- 	/* Make sure auto RTS is disabled */
- 	if (rs485->flags & SER_RS485_ENABLED) {
+ static int cdns_xspi_send_stig_command(struct cdns_xspi_dev *cdns_xspi,
+@@ -559,6 +569,7 @@ static int cdns_xspi_send_stig_command(struct cdns_xspi_dev *cdns_xspi,
+ 
+ 		cdns_xspi->in_buffer = op->data.buf.in;
+ 		cdns_xspi->out_buffer = op->data.buf.out;
++		cdns_xspi->sdma_xfer_len = op->data.nbytes;
+ 
+ 		cdns_xspi_trigger_command(cdns_xspi, cmd_regs);
+ 
+@@ -567,7 +578,11 @@ static int cdns_xspi_send_stig_command(struct cdns_xspi_dev *cdns_xspi,
+ 			cdns_xspi->set_interrupts_handler(cdns_xspi, false);
+ 			return -EIO;
+ 		}
+-		cdns_xspi->sdma_handler(cdns_xspi);
++		ret = cdns_xspi->sdma_handler(cdns_xspi);
++		if (ret) {
++			cdns_xspi->set_interrupts_handler(cdns_xspi, false);
++			return ret;
++		}
+ 	}
+ 
+ 	wait_for_completion(&cdns_xspi->cmd_complete);
+@@ -950,7 +965,7 @@ static void m_iowriteq(void __iomem *addr, const void *buf, int len)
+ 	}
+ }
+ 
+-static void marvell_xspi_sdma_handle(struct cdns_xspi_dev *cdns_xspi)
++static int marvell_xspi_sdma_handle(struct cdns_xspi_dev *cdns_xspi)
+ {
+ 	u32 sdma_size, sdma_trd_info;
+ 	u8 sdma_dir;
+@@ -959,6 +974,13 @@ static void marvell_xspi_sdma_handle(struct cdns_xspi_dev *cdns_xspi)
+ 	sdma_trd_info = readl(cdns_xspi->iobase + CDNS_XSPI_SDMA_TRD_INFO_REG);
+ 	sdma_dir = FIELD_GET(CDNS_XSPI_SDMA_DIR, sdma_trd_info);
+ 
++	if (sdma_size > cdns_xspi->sdma_xfer_len) {
++		dev_err(cdns_xspi->dev,
++			"SDMA size %u exceeds the requested length %u\n",
++			sdma_size, cdns_xspi->sdma_xfer_len);
++		return -EINVAL;
++	}
++
+ 	switch (sdma_dir) {
+ 	case CDNS_XSPI_SDMA_DIR_READ:
+ 		m_ioreadq(cdns_xspi->sdmabase,
+@@ -970,6 +992,8 @@ static void marvell_xspi_sdma_handle(struct cdns_xspi_dev *cdns_xspi)
+ 			     cdns_xspi->out_buffer, sdma_size);
+ 		break;
+ 	}
++
++	return 0;
+ }
+ 
+ static const struct spi_controller_mem_ops marvell_xspi_mem_ops = {
+@@ -1131,9 +1155,11 @@ static int cdns_xspi_transfer_one_message_b0(struct spi_controller *controller,
+ 				cdns_xspi_prepare_transfer(cs, 1, current_transfer_len - 1,
+ 							   cmd_regs);
+ 				cdns_xspi_trigger_command(cdns_xspi, cmd_regs);
++				cdns_xspi->sdma_xfer_len = current_transfer_len - 1;
+ 				if (!cdns_xspi_is_sdma_ready(cdns_xspi, true))
+ 					return -EIO;
+-				cdns_xspi->sdma_handler(cdns_xspi);
++				if (cdns_xspi->sdma_handler(cdns_xspi))
++					return -EIO;
+ 				if (!cdns_xspi_is_stig_ready(cdns_xspi, true))
+ 					return -EIO;
+ 
 -- 
 2.53.0
 
