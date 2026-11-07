@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048089;
-	b=DYjELeVnms776KpiXikxzbYUUsEijjTrpDLdPRvz1MJUKj9cIKLYuYeevnpVkrGRNy9G
-	 fzBtIeEK+qG/xc8105hjPTjG7kjgz/xcTf342JkQsh55s+Cwav36Fc2D6a9MsyahpykSa
-	 9HRLp3CBMfel3N0ikRKOCP6OplnmC9VQqCVGSNQ8iCC/Lop/t+tY/696lFyItiB4ByDq5
-	 Hr3s36g2mKI95JTXV4lc5/Tx50bcDLDnrCUIx4zi9lE9GmNRzfHZpeLL8WrW5vB3APZvp
-	 aWYLBgQCKefHM3clmj8AA8sUtFszhjLzkKjfej864EwvLjFTRdpjNNNKF+dY3BPRp8A==
+	t=1794048091;
+	b=uYongIA0KsgvViDDfQT53y+pNafFoQ8CrVh6HHNQAVzrsc6Q+cxDcphYCIcAZcovyDdL
+	 EoQLhLXwj5vpu+DQRsc5amsC9Hxl2qcCWpneBh+v+1ptIaGgS+nXhoipEiEjD2ZvUy9R5
+	 BNqmoT67yAWh1Z7ErineeA4wQYmfN2Y44xcPchIPR5DaSgIp74cn/zGQfVw4RtPP/+Dkc
+	 IOy0sV9pbi6XIa9mozjbYRwB3C+gS044JIMbNHAnECSS6lRVkEKk90Zl6RELre7M42hTt
+	 bjAZlM4uBaSBMjlkdXDND66Hz0LJY3EtJtbUY9syGs9ny9IL8RWv/HASwsJ5yA3bjew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048089;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048091;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=fCWZMaUvEhxkIJ4yh+bsMreFmyi4Hd/HYt/j4f2ycgc=;
-	b=ue71CWkonEXTLxP9+orMgq1OJXca6VKOH6oaNVkyWdSh7I4OOebblWrfT6L9Qn2Ts45i
-	 mz0mX9+9Fiu0GXRCe1ujycAzQluH+7YTsroJDICGMPWrOKFsSeh5E5+oh+jtbprB791Ix
-	 06WjwNl+yocLz34YoYpkksgD+Nx7wMIefVkt8Onw7Mrg+PJKy+qO5vCla0JR8QO3nlVib
-	 GGkIp/aEaNdEBftUGICQNnm7mg4JhbpAkSyYm9BQpqw59WQCpcXrmFbactfF2FGHcmoEc
-	 NWbWwugvcErzAlKj5R/RX1QO5WUx+30BdXRneWwJ7D9sdfVE3pNWEJeTboLi04LhZDw==
+	bh=j/9WWr9aYK8aY0F0vGpm9GlAcXCvgoCbn+qNyTSyRo4=;
+	b=lXuBmoCVj4koivr5TLatgbXKVs8wyXACrFIeOUcdaAKekEtTADbht9cGtouhbkuVSEk+
+	 55uwDFG20re5MTbQbcqZYjtq9GyRtl1poqsbs/TmFY6XS+e+m9omiq25adS+dLmGWgiFs
+	 32XmqHFeC6HcUV5x3LaY64jU76ufi+AcAo4s6mIdM1cgj3tlu30YibVoxNd8ASqAdgMpA
+	 Ut4UtFJOFXlpq9UjC7gOYKaOCR8ETnfHOTKRXbQGqL+qJ20zCB1FHYKe+OOBTEKIByD+Q
+	 3F+IF1+yL7U9vKpNBv9SgLV9WUml+QjNuXOUbPHRA2W5lVWvU3MVUGKcAFDZSQ+1t3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T1GmchnC;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZGS3qTJU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A92C3606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:41:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D05AA606A32D
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:41:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T1GmchnC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 105341F0089F;
-	Sat,  7 Nov 2026 10:41:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZGS3qTJU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 380201F0089F;
+	Sat,  7 Nov 2026 10:41:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048088;
-	bh=fCWZMaUvEhxkIJ4yh+bsMreFmyi4Hd/HYt/j4f2ycgc=;
+	s=k20260515; t=1794048090;
+	bh=j/9WWr9aYK8aY0F0vGpm9GlAcXCvgoCbn+qNyTSyRo4=;
 	h=From:To:Cc:Subject:Date;
-	b=T1GmchnC0hVh7sQdoIZ5T50e9Ft6kkaqJS/dmzgmbxc8CN+Q/8QBYywkwzDjqaD79
-	 zaL0j6GlWieo0BVi8oowaGz0PFEDbNOzc3ezcc+NkLKkXtciYr8WerJfVcaifWvLXl
-	 zmRQI+kNCF75MPlPZOP9zL9ifh+WAn1PMBs8yhJIZDFYJ+4vAD24rbZnZM23YlJ3So
-	 dblHwyiyCVlDEEZaRt7endW79w/PnuB1DBm48NaN33YV5U46GFDd3n3l6KtDwcib7j
-	 +BX8P+XMjYm3ymi91lxj16rdJEqfB1cwgMBiIB1/XX6a4B9ZB4mXfzk7L1PViw/zxF
-	 0R1ubXtDd5V0A==
+	b=ZGS3qTJUn8VnqaqHJ4XrJMF9hKDPPyRBOqo2ZKqEIDrK/5gpar5MzXj70TdPTeM1Q
+	 2wfAaGGDXwnDR5qMFUpIBZZZW95FXMcpvW6z0yN8Qtob/p47rj51GOr5IO4E5O3Kkx
+	 u/5DIa0iW4mYt8R9QcvJDV+iK01FOZY4d26B0eU8fjLUI3azBsuertdioF8H5R4ZBI
+	 jhYz8Fwc9m/9wJKea04Hu1YHqaXywoGYJFp+xB9GfNTqWBSkB/K4Rg4JL2sfCxu4Q8
+	 YWVJBEbKfaygLc9Rp52NpocxK8/PzNFwvlNx6ZswJ71tB8LJ4J+CCYuHTyB+MZF3nS
+	 ad6QM7Hdu+kFQ==
 From: Sasha Levin <sashal@kernel.org>
 To: balakrishnan.s@microchip.com,
 	ehristev@kernel.org,
 	hverkuil+cisco@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] media: microchip-isc: disable histogram and flush AWB work on teardown" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:41:27 -0500
-Message-ID: <20261107054127-failed-6.1-00d87c379915@kernel.org>
+Subject: FAILED: patch "[PATCH] media: microchip-isc: don't sleep in the clk .is_enabled callback" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:41:29 -0500
+Message-ID: <20261107054129-failed-6.1-61490ff518c7@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,87 +69,64 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 00d87c379915a3689b2488bd37f490875d79e20f
+git cherry-pick -x 61490ff518c7b3ea3ff1cd16bbc012e9e4f1ab74
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054127-failed-6.1-00d87c379915@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054129-failed-6.1-61490ff518c7@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 00d87c379915a3689b2488bd37f490875d79e20f Mon Sep 17 00:00:00 2001
+From 61490ff518c7b3ea3ff1cd16bbc012e9e4f1ab74 Mon Sep 17 00:00:00 2001
 From: Balakrishnan Sambath <balakrishnan.s@microchip.com>
-Date: Mon, 17 Aug 2026 12:22:01 +0530
-Subject: [PATCH] media: microchip-isc: disable histogram and flush AWB work on
- teardown
+Date: Wed, 19 Aug 2026 11:49:20 +0530
+Subject: [PATCH] media: microchip-isc: don't sleep in the clk .is_enabled
+ callback
 
-isc_stop_streaming() and the isc_start_streaming() error path dropped the
-runtime PM reference with the histogram still enabled. A HISDONE firing
-just before the stop, or a failed isc_update_profile() on the start path,
-can queue isc_awb_work(), which reads the histogram registers before
-taking its own PM reference and faults on the unclocked device.
+isc_clk_is_enabled() calls pm_runtime_resume_and_get() and
+pm_runtime_put_sync(), which can sleep and are not safe here, as
+.is_enabled must run in atomic context. clk_disable_unused() calls it so
+at boot, and CONFIG_DEBUG_ATOMIC_SLEEP reports a "sleeping function
+called from invalid context" BUG.
 
-Disable the histogram, synchronize the IRQ and flush the work before the
-device is left unclocked. isc_configure() is the one enabling the
-histogram and then calling isc_update_profile(), so do the cleanup in its
-own failure path; isc_stop_streaming() does the same on teardown.
-synchronize_irq() must come before cancel_work_sync(), so an in-flight
-handler cannot re-queue awb_work after it is cancelled.
+Use the atomic-safe pm_runtime_get_if_active() and pm_runtime_put()
+instead. A suspended ISC has its clocks gated, so report the clock
+disabled when the device is not already active.
 
-Fixes: 93d4a26c3dab ("[media] atmel-isc: add the isc pipeline function")
+Fixes: 01192aa1c5c2 ("media: atmel-isc: Enable the clocks during probe")
 Cc: stable@vger.kernel.org
 Signed-off-by: Balakrishnan Sambath <balakrishnan.s@microchip.com>
 Reviewed-by: Eugen Hristev <ehristev@kernel.org>
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 ---
- .../media/platform/microchip/microchip-isc-base.c | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
+ drivers/media/platform/microchip/microchip-isc-clk.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/media/platform/microchip/microchip-isc-base.c b/drivers/media/platform/microchip/microchip-isc-base.c
-index debbc38717de1..0f486dd5bd82c 100644
---- a/drivers/media/platform/microchip/microchip-isc-base.c
-+++ b/drivers/media/platform/microchip/microchip-isc-base.c
-@@ -289,6 +289,7 @@ static int isc_configure(struct isc_device *isc)
- 	struct regmap *regmap = isc->regmap;
- 	u32 pfe_cfg0, dcfg, mask, pipeline;
- 	struct isc_subdev_entity *subdev = isc->current_subdev;
-+	int ret;
+diff --git a/drivers/media/platform/microchip/microchip-isc-clk.c b/drivers/media/platform/microchip/microchip-isc-clk.c
+index 24358d804e75d..66dc522a61908 100644
+--- a/drivers/media/platform/microchip/microchip-isc-clk.c
++++ b/drivers/media/platform/microchip/microchip-isc-clk.c
+@@ -98,15 +98,14 @@ static int isc_clk_is_enabled(struct clk_hw *hw)
+ {
+ 	struct isc_clk *isc_clk = to_isc_clk(hw);
+ 	u32 status;
+-	int ret;
  
- 	pfe_cfg0 = isc->config.sd_format->pfe_cfg0_bps;
- 	pipeline = isc->config.bits_pipeline;
-@@ -321,7 +322,15 @@ static int isc_configure(struct isc_device *isc)
- 		isc_set_histogram(isc, false);
+-	ret = pm_runtime_resume_and_get(isc_clk->dev);
+-	if (ret < 0)
++	/* Runs in atomic context, so must not sleep to resume the ISC. */
++	if (pm_runtime_get_if_active(isc_clk->dev) <= 0)
+ 		return 0;
  
- 	/* Update profile */
--	return isc_update_profile(isc);
-+	ret = isc_update_profile(isc);
-+	if (ret) {
-+		/* flush the histogram work before the clocks are gated */
-+		isc_set_histogram(isc, false);
-+		synchronize_irq(isc->irq);
-+		cancel_work_sync(&isc->awb_work);
-+	}
-+
-+	return ret;
+ 	regmap_read(isc_clk->regmap, ISC_CLKSR, &status);
+ 
+-	pm_runtime_put_sync(isc_clk->dev);
++	pm_runtime_put(isc_clk->dev);
+ 
+ 	return status & ISC_CLK(isc_clk->id) ? 1 : 0;
  }
- 
- static int isc_prepare_streaming(struct vb2_queue *vq)
-@@ -425,9 +434,13 @@ static void isc_stop_streaming(struct vb2_queue *vq)
- 	/* Disable DMA interrupt */
- 	regmap_write(isc->regmap, ISC_INTDIS, ISC_INT_DDONE);
- 
-+	isc_set_histogram(isc, false);
-+
- 	/* let a running IRQ handler finish before the clock is disabled */
- 	synchronize_irq(isc->irq);
- 
-+	cancel_work_sync(&isc->awb_work);
-+
- 	pm_runtime_put_sync(isc->dev);
- 
- 	/* Disable stream on the sub device */
 -- 
 2.53.0
 
