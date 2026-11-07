@@ -1,59 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050929;
-	b=siMVEo+wp3tql+4oz1lMRYyVprXa8juF/5MfcZmWWrIO5c8TyrcocN8TE76PsIJFyo5J
-	 Le2WuTettj9wyUynPLCzDJVnfDz7aXFn6gUND+rhRjz5GxQS3gCX32nGnFTBoZd7nbuTZ
-	 GsvyHoXcXpt7qUu3gtmPKErL6JKnd/bpz42EECrDvf4xuBUCB2lKnxZN38yXiWm4VG0KL
-	 bPWrWfJjfK1t3lFLKjkB3ToyFPoH9bwksrddQdyonbkRabJqH78wfBESqHZMCdEVtUC/j
-	 wgOm76M3cRwczctTGlrNwVhZAL9Y5dbDfovIT8HcxE+IvIii6Ech+DO+JQDYBbP0o+Q==
+	t=1794050933;
+	b=kBlipVDs7nBF/WlFE8h8sLkYjMxlPHGTtaCwVPcn2KD6YzFimQUWs/6MpOUhOwdX9Zpc
+	 FoEtA7NUmydupQmps4+8v1Tvr9/YOZ0OfiHhyoV5QS+XMGwnOzngEubv+JgxvBHh0AzKh
+	 hJ3M4V6xKlJ5ykdzBXtLARDyqbwD/ekqlwmOD+dL59tiuC8pfnoeioPE/m/tCM9JMgHIl
+	 PLQX24US9mrbyj0N69fRwYa7uaen9s2FGx0aSsTdxuT/F3N4Fp5oAnbIUyUtrEsMnvz3v
+	 +Eagv0TPjWw+HXW7UUAoKFoE0PrLRTL/B3AooB81EKc53EXdmiSNnyZegKrp7xTKfoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050929;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050933;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=X6ErNIke0D47EGTyymDPQTFtJzVKE4yZxGz8N8Gf5ow=;
-	b=P640DIlvur1IGSdXfNN6to/DpbblyLzTocOLcdaLVy9XIIwVOczOU/vJpCXQvnmTbSB8
-	 SWfDOtERMAp/Bfx6CbmSTkmEXwMFhbhgZ+hFqRTKIk9Qxdppo/5Lr1jd/YXHy4GhFkMjH
-	 gAAlK6mRp3QtgB/T62LuXKof7msIU7D8ldfvgGl+0GCshTNtS67YMKU/y1jzWpI7p5mXA
-	 spjjHId5QTYempEQvKpxOeNXqrtRQF59kOyJ3lv/PM3flldnQksdf8XGpQdVaVh+FQz9u
-	 zNWWnu064aZhUhJFnworEkw9sIhGGYLMJYo6ISgNpuXyQjw0baDp9JmXX0qMC7oDYVA==
+	bh=com3EgPSA5PpraFEKttMi8iMKRG0ykEGKWCRwhtXWaw=;
+	b=AL4OT/ydVV0qIYcVYat7npcDfiApIc0l0Zofz8t7nJtZ2uublYe0SunHaWjKp2HVg5O2
+	 kBfQAj12SHdYe10pj15m0EE1eeBWME7KayoyAH3f08DdYyiSXj+ub4eYgssIk+hL7+4cT
+	 e3OvaLz6rVJn5vqkjPC4tESWWcNPRRnalPYj0AJFwsj6Re6BA9Cc3JZmfp3zColXJzs7p
+	 m+CljUPTbm74WQ++2Uf+18b3oyE2+PWvq0FrdnlPvWvn1Vhg8sCu/xXCi19S5n5/YB1Vj
+	 drVIccloCip86udJNX96mU8x/aZvisvZ2MqcSoy++gSX1hyCeaGvv9NaQwi+3MYpymg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="RjFX/q6F";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nmcsHGWz;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1728606D80D
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:28:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2621606D802
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:28:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RjFX/q6F
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A12D1F008A2;
-	Sat,  7 Nov 2026 11:28:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nmcsHGWz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DD441F0089F;
+	Sat,  7 Nov 2026 11:28:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050928;
-	bh=X6ErNIke0D47EGTyymDPQTFtJzVKE4yZxGz8N8Gf5ow=;
+	s=k20260515; t=1794050932;
+	bh=com3EgPSA5PpraFEKttMi8iMKRG0ykEGKWCRwhtXWaw=;
 	h=From:To:Cc:Subject:Date;
-	b=RjFX/q6FC2LQ2dKOBy4S98gfrW3HCJ1v7oz/gS9ppWLyTDsN2Lz4zklbrZ0gurW0U
-	 UG8iapRZsUSKZLAqID2CU57Vi/f41UseSPwp983U5d9HSFum3ZgZSBL5+uxVza8Om6
-	 tXYzwxxFIz0IBbK+LdasLt8HFPvCRu4VJlAh/0Acjr/WbSfhB35yhjzV5bh2Mcsxq3
-	 FJ7Do+2oDtMjm5RWuZ+5YHgjnAsd0c3BlJj9YGHLYk6/tz7RyUTQ3rlsPYbR23I+BE
-	 y4tjMv1owArGlrW3T1v3s9txS5BU3wnoWe9UT61S7brT5joroA1xj/t4J9q3F0DHEA
-	 3SCLe/V9y6Hmw==
+	b=nmcsHGWzh1vbDSU7Uuc4hFv1SmKQMBlYzzXubM4CFZ1xXkJEDvqTWKBjYV/mlhhBM
+	 8ckvDuTiHbylPOkLB8xN7JENLTAP4RASMqUKpgJZg10PEKoXeWPY/24WKSd2jEw5L1
+	 v+VP9Y4Ato8VFjrfo874zDFvsXz2jMnznsaftIMa8dmz2iI9qR2BwcPzH/LW2PpPRh
+	 97IF20GKV6A8jTDOVace8/agO+weHYcpVhrQaKxTCnCC7XhMT/n+tjScr/2TeNdXI/
+	 QjXI8oSBguV7gu4QDy4Ljhaf5v4U0Cum7Y5QoHO/td0BUudJF+JqzZ/nH1yE7mCiyP
+	 W/j5D3sqqRr2Q==
 From: Sasha Levin <sashal@kernel.org>
-To: kylebot@openai.com,
+To: ljs@kernel.org,
 	akpm@linux-foundation.org,
-	david@kernel.org,
-	ljs@kernel.org,
-	riel@surriel.com,
+	shawnq1@163.com,
+	kas@kernel.org,
+	gourry@gourry.net,
+	xueyuan.chen21@gmail.com,
 	liam@infradead.org,
 	vbabka@kernel.org,
-	harry@kernel.org,
 	jannh@google.com,
-	lance.yang@linux.dev
+	pfalcato@suse.de,
+	rppt@linux.vnet.ibm.com,
+	peterx@redhat.com,
+	david@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/page_vma_mapped: continue past nonmatching huge PMDs" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:28:46 -0500
-Message-ID: <20261107062846-failed-5.10-1a2993227e8a@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/vma: avoid broken uffd merge on mremap" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:28:50 -0500
+Message-ID: <20261107062849-failed-5.10-68cb098eadda@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -76,127 +79,103 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 1a2993227e8a27fc4cdea305bbdae82d290bc885
+git cherry-pick -x 68cb098eadda190783f8f8bdf9fe764df59f7d32
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062846-failed-5.10-1a2993227e8a@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062849-failed-5.10-68cb098eadda@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 1a2993227e8a27fc4cdea305bbdae82d290bc885 Mon Sep 17 00:00:00 2001
-From: Kyle Zeng <kylebot@openai.com>
-Date: Thu, 15 Oct 2026 18:15:49 -0700
-Subject: [PATCH] mm/page_vma_mapped: continue past nonmatching huge PMDs
+From 68cb098eadda190783f8f8bdf9fe764df59f7d32 Mon Sep 17 00:00:00 2001
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Tue, 20 Oct 2026 15:55:30 +0100
+Subject: [PATCH] mm/vma: avoid broken uffd merge on mremap
 
-A PTE-mapped large folio can straddle PMD boundaries after an unaligned
-mremap().  If the first part is discarded and replaced with an unrelated
-huge PMD, page_vma_mapped_walk() stops instead of looking for the rest of
-the folio in subsequent PMDs.
+Userfaultfd often causes unexpected interactions within mm, and does so at
+the intersection of uffd, mremap() and VMA merging.
 
-This also affects migration entries.  A walk that stops at an unrelated
-huge PMD can leave migration PTEs behind when migration or an anonymous
-folio split restores the mappings.  Those entries do not hold mapping
-references and can outlive the source folio.
+When an mremap of a VMA occurs, copy_vma_and_data() calls
+mremap_userfaultfd_prep() to notify uffd of this.
 
-This issue can lead to memory corruption and I have a reproducer for
-it.
+However, mremap_userfaultfd_prep() simply drops the UFFD context for the
+VMA if the user did not register it for remap, i.e. didn't specify the
+UFFD_FEATURE_EVENT_REMAP flag.
 
-Skip the current PMD rather than ending the walk on a flag or PFN
-mismatch.  Do the same if the PMD became nonpresent before the locked
-recheck.  Release the PMD lock, clear the per-PMD state and advance with
-step_forward(), so the existing range limit controls termination.  This
-covers present, migration and device-private huge PMDs while preserving
-the matching-PMD and split-to-PTE paths.
+This is OK for the VMA itself, as upon page table move, move_ptes() clears
+UFFD page table flags, using vma_has_uffd_without_event_remap() to
+determine whether to do so.
 
-Link: https://lore.kernel.org/20261016011549.61146-1-kylebot@openai.com
-Fixes: ace71a19cec5 ("mm: introduce page_vma_mapped_walk()")
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
+However, this doesn't account for merging with adjacent VMAs, whose page
+tables won't have received this treatment, and thus latent UFFD markers
+will be left around.
+
+Worse, it'll break UFFD for any VMAs it is merged with. This is very
+surprising behaviour for a user, who will then simply not receive UFFD
+events for VMAs they ought to.
+
+Resolve the issue by explicitly checking for this case via
+vma_has_uffd_without_event_remap() in vma_merge_copied_range(), the merge
+function explicitly designated for mremap() operations.
+
+Also update the userland VMA tests accordingly.
+
+Link: https://lore.kernel.org/20261020-uffd-remap-fix-v1-1-0f34fc181f0a@kernel.org
+Fixes: 3cfd22be0ad6 ("userfaultfd: clear flag if remap event not enabled")
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Assisted-by: LLM
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Rik van Riel <riel@surriel.com>
+Reported-by: shaos <shawnq1@163.com>
+Closes: https://lore.kernel.org/all/20261020110748.959870-1-shawnq1@163.com/
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Reviewed-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
 Cc: Liam R. Howlett <liam@infradead.org>
 Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Harry Yoo <harry@kernel.org>
 Cc: Jann Horn <jannh@google.com>
-Cc: Lance Yang <lance.yang@linux.dev>
+Cc: Pedro Falcato <pfalcato@suse.de>
+Cc: Mike Rapoport <rppt@linux.vnet.ibm.com>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: David Hildenbrand <david@kernel.org>
 Cc: <stable@vger.kernel.org>
 ---
- mm/page_vma_mapped.c | 28 +++++++++++++++++++---------
- 1 file changed, 19 insertions(+), 9 deletions(-)
+ mm/vma.c                          | 5 +++++
+ tools/testing/vma/include/stubs.h | 5 +++++
+ 2 files changed, 10 insertions(+)
 
-diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
-index 8408aee7571b5..e6b6170c2f4f7 100644
---- a/mm/page_vma_mapped.c
-+++ b/mm/page_vma_mapped.c
-@@ -265,28 +265,28 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
- 				softleaf_t entry;
+diff --git a/mm/vma.c b/mm/vma.c
+index de5ebc57e7a58..1be613044b4a5 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -1211,6 +1211,11 @@ static struct vm_area_struct *vma_merge_copied_range(struct vma_merge_struct *vm
  
- 				if (!(pvmw->flags & PVMW_MIGRATION))
--					return not_found(pvmw);
-+					goto next_pmd;
- 				entry = softleaf_from_pmd(pmde);
- 				if (!check_pmd(softleaf_to_pfn(entry), pvmw))
--					return not_found(pvmw);
-+					goto next_pmd;
- 				return true;
- 			} else if (pmd_is_device_private_entry(pmde)) {
- 				softleaf_t entry;
+ 	vmg->copied_from = vmg->middle;
+ 	vmg->middle = NULL;
++
++	/* If not registered for remap, uffd context will be cleared. */
++	if (vma_has_uffd_without_event_remap(vmg->copied_from))
++		return NULL;
++
+ 	return vma_merge_new_range(vmg);
+ }
  
- 				if (pvmw->flags & PVMW_MIGRATION)
--					return not_found(pvmw);
-+					goto next_pmd;
- 				entry = softleaf_from_pmd(pmde);
- 				if (!check_pmd(softleaf_to_pfn(entry), pvmw))
--					return not_found(pvmw);
-+					goto next_pmd;
- 				return true;
- 			} else if (!pmd_present(pmde)) {
--				return not_found(pvmw);
-+				goto next_pmd;
- 			}
- 			if (likely(pmd_trans_huge(pmde))) {
- 				if (pvmw->flags & PVMW_MIGRATION)
--					return not_found(pvmw);
-+					goto next_pmd;
- 				if (!check_pmd(pmd_pfn(pmde), pvmw))
--					return not_found(pvmw);
-+					goto next_pmd;
- 				return true;
- 			}
- 			/* THP/device-private pmd was split under us: handle on pte level */
-@@ -299,8 +299,7 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
- 			    (pvmw->nr_pages >= HPAGE_PMD_NR))
- 				sync_with_folio_pmd_zap(mm, pvmw->pmd);
+diff --git a/tools/testing/vma/include/stubs.h b/tools/testing/vma/include/stubs.h
+index be8f5161f92a2..f786a585caf05 100644
+--- a/tools/testing/vma/include/stubs.h
++++ b/tools/testing/vma/include/stubs.h
+@@ -386,6 +386,11 @@ static inline bool is_mergeable_vm_userfaultfd_ctx(struct vm_area_struct *vma,
+ 	return true;
+ }
  
--			step_forward(pvmw, PMD_SIZE);
--			continue;
-+			goto next_pmd;
- 		}
- 		if (!map_pte(pvmw, &pmde, &ptl)) {
- 			if (!pvmw->pte)
-@@ -343,6 +342,17 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
- 			pvmw->ptl = ptl;
- 		}
- 		goto this_pte;
-+next_pmd:
-+		/*
-+		 * A large folio can be PTE-mapped across PMDs, so a
-+		 * nonmatching PMD does not end the walk.
-+		 */
-+		if (pvmw->ptl) {
-+			spin_unlock(pvmw->ptl);
-+			pvmw->ptl = NULL;
-+		}
-+		pvmw->pmd = NULL;
-+		step_forward(pvmw, PMD_SIZE);
- 	} while (pvmw->address < end);
- 
- 	return false;
++static inline bool vma_has_uffd_without_event_remap(struct vm_area_struct *vma)
++{
++	return false;
++}
++
+ static inline bool anon_vma_name_eq(struct anon_vma_name *anon_name1,
+ 				    struct anon_vma_name *anon_name2)
+ {
 -- 
 2.53.0
 
