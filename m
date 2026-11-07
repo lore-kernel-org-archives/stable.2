@@ -1,52 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048168;
-	b=ThQbckfJJKR8o1+2yasFd2KBS1bXbpKZ9kc5XIYT+NNdJzfLGktzqA9HchKm3M1HEdPc
-	 m3nXYNqrZ7X/O5P5q8XP3oHC4BxynjV3F9oUc47LOopR9YZRR7s+0FoPBz4ZBY4a75Rky
-	 mchWASD5fZlI9w0m+VZFm8hDSBUw7tboA64S2VbHm148ZFarYLWLSe4Zs4ak6Hzssmrg4
-	 I9rbbhftSF3cCx9wHxIXFpbuQ6aAznHYUBh4ottpktLC6btTbcjYtkA3PiLNZXZS3g/zZ
-	 1aR8kGbKZm4iU8h3DwWTKZuhJ/MZnWztt9GvQpnTJg79n1IOO32jfDRmhSyRI5D66ig==
+	t=1794048170;
+	b=Vy35N8ddv0sXbwF8Zbm8YfWtTFUE88IGj8eOE1b+J3ZGk7THj5tnCd/nykjpRCtgomJu
+	 sLhUKSUtuDLEzcqRnx4pGv9ir2z8PrmoYDtQM0nz5EVrcMaKf1BtMS22fDOv0AHz33SyS
+	 lpswr1iCL1DgYt4/mKzWtdLgkUHVPSdjxN+JnKVi2EZjRKNH6XlgLHA48OrHM8wIIol5A
+	 XwRqTGY7vcYrA6vw8QKLoagGNyna7xFvYksoXQew0+MXfcqHFDyhGHhbEAQiERzMBHSu9
+	 L5LOLkFu+UZ0ItK0/acwlGigxyYLQMlAGRtKbBVq0Ed86J2+ZLyH7BpobyLcGSjOZLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048168;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048170;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=9hxXrdhGyHrOTjGH1r1aJdPZY5Cg5ZAu7DmTKnzyqlI=;
-	b=1k2CEOUQQTB1zg3fdbUGkTUkRwxFWV2XAAcjGMD8jZ1HYGOidZK0imOctMAk9BFbtjBI
-	 y9esEgCApbBnvWYfPBoBHedti61TkYUU5pssU2uWwnwEEvAN2jcVRv3iTuhSThTGyi8CW
-	 hq6ka/3C2v9bXRBYIY/69xQwB5KFt6oNuHFzXcUGiHQDnxIZHfOzhDeafSBKdfkVo4nWP
-	 +nP0dKdk5E21Fd4Vb7FvbVrKAhWrq0Hbz4wxxArD0nZp7rBvR17enMk/8YbAw7GT3Ne8v
-	 hkNSIFB0BMUhlwdtnNez0vc/qznM779f+Tw/CP1vkZtDFG9IXmaPDAy2fvJ9jDsqIhw==
+	bh=ErMxiKjlUd1OkFge6O39ftgFqVjlYSMBtfIyBFyixlQ=;
+	b=dsaJF4f2CU7TpDL7QgqMIeHKuxkPfhmyVvO5H37yNimgEMmIWLkQqvhQGCNpsf57yK1m
+	 GQVu7redKvJ0uzUZsgN3bv1fNoKCmZL7/lnCUwUKO+Uz697lntX5EZ7ov1Nc9yh9VfFrG
+	 7HU/BYp0H5YR8nyc84nxfFNCng0d5UqPNjvRLHelze1aHj5cHAd2Sr3vRzyX47vLkmofV
+	 iCsUF6euUAIq94CBBtR0Jm4gBclH2dH5viFYZ0jTJWmnHGUQxtBBWYd41S9jiDebk8BQj
+	 GcID5XW0t60vztSBxlsMe80uAqEYT5kyRhlr+0B8W7XeuJrLIwjWAtuc7gIbTC9/cWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OkgfQQHT;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NC3YDVgA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C21A606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:42:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83FF9606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:42:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OkgfQQHT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 728011F0089F;
-	Sat,  7 Nov 2026 10:42:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NC3YDVgA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B37DE1F0089F;
+	Sat,  7 Nov 2026 10:42:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048168;
-	bh=9hxXrdhGyHrOTjGH1r1aJdPZY5Cg5ZAu7DmTKnzyqlI=;
+	s=k20260515; t=1794048170;
+	bh=ErMxiKjlUd1OkFge6O39ftgFqVjlYSMBtfIyBFyixlQ=;
 	h=From:To:Cc:Subject:Date;
-	b=OkgfQQHTqyOkjsZiF0boqzMQJ9kPkr6vfXtB1zM1y3C7J7XSlSePxseIkceWTw1HF
-	 LYRmETQCScbCNWIKrKVyULa2L0LmdAtMzxFhYNdVE4Xg+zkB5W7+9AjXqtNlhcpqsM
-	 mKkkmGYka28QnSSEd0HGvgb73wBEcO2trr1CcrnZ1+6DhDoIqMEDPR6a0I/xtIhuZW
-	 8eso9IQb0vrTIIFyleKm9xNnDDBc4G7GYCVVz4mLxA9RpzY3vS4g6I0Xko38EMN7HW
-	 /XN1Gfkl5BNh4CUhLAOcO1k1by6Z5zOdy6J8gufitl/1jvOzNKRdnrPLYJJjwNSbF3
-	 8n33Y+LfdK2aA==
+	b=NC3YDVgAFHKfxDw6yYar24ncZmVIVxVHEjPq/iYkfUAV/X5CRvDOL4j1736ysJc2Z
+	 Ad1vPdWoWGITXt8DZiQtbXE3s15wGqiegFrCB5rWNS16/ZGpOwKhXvBBEpUZlDoXIt
+	 +U5/NJrKcBB/Ro9uSteTCpD6sfZBaGmlRN3jpxP++757M7220lfzxfR5A4c3p7qMOM
+	 QVAdRD1nzGCzs/eLjTAu/O0ZGuRiNuNzqn91WWinQnLqO9Vzu4n+aHFJKVjq2YaQmN
+	 0lvJ42Rk6l/IAj+TZ9dPls3o7IrbiqLccVKnZfcPxoSgZuqZgBNE59cv16T7XcTlCD
+	 N6fIKCClU4OjA==
 From: Sasha Levin <sashal@kernel.org>
-To: lgs201920130244@gmail.com,
-	dave.stevenson@raspberrypi.com,
-	sakari.ailus@linux.intel.com
+To: casey.connolly@linaro.org,
+	marco.mattiolo@hotmail.it,
+	neil.armstrong@linaro.org,
+	david@ixit.cz,
+	linusw@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] media: i2c: ov5647: fix power cleanup on remove" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:42:46 -0500
-Message-ID: <20261107054246-failed-6.1-6e81cfc38548@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/panel: ebbg-ft8719: Set prepare_prev_first" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:42:48 -0500
+Message-ID: <20261107054248-failed-6.1-4eeeac9d7c36@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,54 +71,50 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 6e81cfc38548109021ab761b94ecdd01f8753154
+git cherry-pick -x 4eeeac9d7c3600a6cae75b2a7bc9c5b67530923c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054246-failed-6.1-6e81cfc38548@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054248-failed-6.1-4eeeac9d7c36@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 6e81cfc38548109021ab761b94ecdd01f8753154 Mon Sep 17 00:00:00 2001
-From: Guangshuo Li <lgs201920130244@gmail.com>
-Date: Tue, 22 Sep 2026 16:40:09 +0800
-Subject: [PATCH] media: i2c: ov5647: fix power cleanup on remove
+From 4eeeac9d7c3600a6cae75b2a7bc9c5b67530923c Mon Sep 17 00:00:00 2001
+From: Casey Connolly <casey.connolly@linaro.org>
+Date: Tue, 8 Sep 2026 14:45:02 +0200
+Subject: [PATCH] drm/panel: ebbg-ft8719: Set prepare_prev_first
 
-ov5647_remove() disables runtime PM without powering off the sensor if
-it is still runtime active. pm_runtime_disable() does not invoke the
-runtime suspend callback, so the sensor can remain powered on.
+This corrects the host initialisation sequence so that we can send
+DSI/DCS commands in prepare().
 
-If the device is not already runtime suspended, call ov5647_power_off()
-and mark the runtime PM state as suspended.
-
-This issue was found by manual code inspection.
-
-Fixes: 089b7c70f0d8 ("media: ov5647: Use pm_runtime infrastructure")
 Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Fixes: b00de0e237da ("drm/panel: introduce ebbg,ft8719 panel")
+Signed-off-by: Casey Connolly <casey.connolly@linaro.org>
+Tested-by: Marco Mattiolo <marco.mattiolo@hotmail.it>
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Signed-off-by: David Heidelberg <david@ixit.cz>
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+Link: https://patch.msgid.link/20260908-ebbg-ft8719-fixups-v2-1-5454ae1f5581@ixit.cz
 ---
- drivers/media/i2c/ov5647.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/panel/panel-ebbg-ft8719.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/media/i2c/ov5647.c b/drivers/media/i2c/ov5647.c
-index 4824013454f59..e1120ca688283 100644
---- a/drivers/media/i2c/ov5647.c
-+++ b/drivers/media/i2c/ov5647.c
-@@ -1273,6 +1273,10 @@ static void ov5647_remove(struct i2c_client *client)
- 	v4l2_ctrl_handler_free(&sensor->ctrls);
- 	v4l2_device_unregister_subdev(sd);
- 	pm_runtime_disable(&client->dev);
-+	if (!pm_runtime_status_suspended(&client->dev)) {
-+		ov5647_power_off(&client->dev);
-+		pm_runtime_set_suspended(&client->dev);
-+	}
- }
+diff --git a/drivers/gpu/drm/panel/panel-ebbg-ft8719.c b/drivers/gpu/drm/panel/panel-ebbg-ft8719.c
+index fb9f9f42be4f2..1ab09c50a6306 100644
+--- a/drivers/gpu/drm/panel/panel-ebbg-ft8719.c
++++ b/drivers/gpu/drm/panel/panel-ebbg-ft8719.c
+@@ -198,6 +198,8 @@ static int ebbg_ft8719_probe(struct mipi_dsi_device *dsi)
+ 	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
+ 			  MIPI_DSI_CLOCK_NON_CONTINUOUS;
  
- static const struct dev_pm_ops ov5647_pm_ops = {
++	ctx->panel.prepare_prev_first = true;
++
+ 	ret = drm_panel_of_backlight(&ctx->panel);
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "Failed to get backlight\n");
 -- 
 2.53.0
 
