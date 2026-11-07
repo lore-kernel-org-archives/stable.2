@@ -1,51 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050440;
-	b=Jzc4gJYw+OFMdUmsqpQ7Mr5d5G9dmbci/jhXMC9DsQyslvLwSbAfAjLQC7lAoFO41bZI
-	 maiy/Qvi+x9Bm2Doj7VvINzn+97xlBH3yo2/yacaUyWCoVpqD9+tfDFN3MCqkNirZ00sz
-	 NNCRQAPRx9NkAhtMKOXajVBcyNNDdRF6wtqxtj1kV7VnZKI2Yrl9IXO0TnYtlKTSwfwPL
-	 tE5pP7XQY6+QSlVnjKwA3qNtaw5XzP/I7UuiKpaiTmO9mMMU1v59JiQUSf5howDAZZ1de
-	 iiyRwTUV2GoEb46X50Lj7nRQ06am6evWiX5opj+GOKPuloj3hjKkLLOWbSO0C71GKqw==
+	t=1794050444;
+	b=SaTsu6atdk8eebY3qGO2Uvk9aDXzeVIjGqoR5F3iCZRjvVb8kTiUHhwLnyVg3CioNA+p
+	 OaBvckg/2LQ33/WCoSE0+XtM6UinxSZ4gAO8Am+BfqTIHh/coWM27p7SyGGig1DrM8PtP
+	 xtCzPz/t6BeH9vBjRCE1NaKr6D+rI/uorM52fqEzV2YKvcVAm6zn6fOYqjCGcYpd72FE8
+	 LB9OvL2KeNwoFmXrWvlAcyX8tWhUMgH/6y9OeGBz+X/Dc4TBCh02pt+Jw/BIXae3Ma1tG
+	 58ktW8GtuqxWvJ0DMwXPVoHNq/pMgbZXR7W1ob7ULs02a69L02MztYh2551tdwrv3CQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050440;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050444;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=NJa3A5Jpb2IgPfQXdY6GjMFPk/IpjFZNgBlMk/BoE+k=;
-	b=rfh2iEc9+U+qi4xVY21VvMpQ1nf8Cb2kp3q8Wat9StLSX2ucl7kv3TYJ/awKJctb5It6
-	 piF5pAmR58mrSFHewM2QVESFjaimf+SSyw/svlztFZMxY8SI8l9BVK24q2yAXxy6ngiQi
-	 cipkSU8+840h+pxr38y0BNIt752NDeSv1ouHvqfSfDDLlHHPye880s1aAevLojaLNv1vR
-	 2KnUxvKwadtP1bWehI1zF+/TEcsY1htXlMxBhRcZjpjfBni/0amVW7U3DxpShOAUc+X22
-	 wF47Xn0mUq/aS+qOC8OwPO+Ra3QIcY+J+RV8mCIVaelb16MnO04Y+x8BRjmhDuOe8Cg==
+	bh=mViyEt1YZ73ofT7nRCHNnTDEyJOfFW6P/yzk+86KnSs=;
+	b=OC9x1A+QCnwFpYAoGYKQnUGbpRXkNzTpp4tfjDbgiO1/nYKw0CzggobgSUblmb2c4RZU
+	 zl9PrtFNnRIylO4sLagn6bQgmsf4K1io/E3joX5fmb0mA6Sqg0U4Ty6LtbvXiM3FkpxU2
+	 mEvEQ6YMdaY2XHdzXmNlUkRM3MTZQSDWcWbEQcrI/LaFalUs2Z+vPvcIMDsI7YPdnCeV5
+	 fapNQ/aiOG90pm3OAB5jeSF465jQfpKJbl5gDfbQu/IlF9j7OLqd0Wwr4AMfhpvw7k/EM
+	 RHPEVIzKAKdEfHNCMNTMzryV1s3NG5TBshe6yCJeqwvcctXzhw/zwPVDReWEfDH9hmw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HvzwoyFU;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O+4nUbjE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5844A606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:20:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3663606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:20:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HvzwoyFU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C82591F008A1;
-	Sat,  7 Nov 2026 11:20:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O+4nUbjE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E54971F0089F;
+	Sat,  7 Nov 2026 11:20:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050440;
-	bh=NJa3A5Jpb2IgPfQXdY6GjMFPk/IpjFZNgBlMk/BoE+k=;
+	s=k20260515; t=1794050443;
+	bh=mViyEt1YZ73ofT7nRCHNnTDEyJOfFW6P/yzk+86KnSs=;
 	h=From:To:Cc:Subject:Date;
-	b=HvzwoyFUAf2icMaJK37TWJfD2lhjTDEIaR75fe1sUIRwgdLfXaiMuyIPEHvdDcPvQ
-	 dxWzYcNX0GMxjdbx/b/mO96UOg+m66oivSY35tGsAGnOydQ6/pCvYsUD/yH8cIv2Xd
-	 rmL7OCm2g+j5EB4mviysmApQKOA5fpFvhvlT10Menpv2/+0zG9N6u8LIjhDs9OoAOO
-	 9qDICVd5P6AbFIbOPWJ5k49P6YT3XT9D+StpmfiqXOhVKRaolJG9GI6bNHReNbJq7Q
-	 +ogzFU7KZS7kBUkge/t9/hfygjDur9pkLwsGZUc19z8gH99YObDl0tSoCT0iZTsldC
-	 lTfWpV0U8BVVA==
+	b=O+4nUbjEGpUWFQDH51Yp7ILUn/bhjUvoQpSaqcsD4+5IAwYAJDBn2wXL3GHza03rc
+	 DDIr9v7tqDyJlFfm7Oi1QfwDV5cJGdlIhgsFUxjGrrjJSv3trLYtZdlqUba+ESVtZQ
+	 ZmimODEPSzZ69gAv1AQMDA8Ey95kOdlpQzg931GKY2FnzkAIl7UJDbUqA6f3MnkyRK
+	 x1lgGAHqrsfkpN+OVxyduRKv6AYkI8Hsay+4j3ZcAsKesWLBQMhcYoKIDmvNGbDSyw
+	 zIUfCwkaknTB4JWpAkv32uggJ/Y3rI8TCy4RcPuDDvaDLGnZ5tT+s61FYXBRbHRZ7M
+	 Xs+MATksEzCnQ==
 From: Sasha Levin <sashal@kernel.org>
-To: aliresool567@gmail.com,
+To: linux@stevetech.au,
+	shyam-sundar.s-k@amd.com,
+	hurryman2212@gmail.com,
+	mirko.jechow@gmx.de,
 	gregkh@linuxfoundation.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] USB: quirks: add USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE for GameSir G7 SE" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:20:38 -0500
-Message-ID: <20261107062038-failed-5.10-40224df29729@kernel.org>
+Subject: FAILED: patch "[PATCH] usb: xhci-pci: Add AMD 600 series to xhci-pci-prom21" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:20:41 -0500
+Message-ID: <20261107062041-failed-5.10-29381088ac50@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,61 +71,103 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 40224df29729618ecd88c5c0077e71b1e82c7a3a
+git cherry-pick -x 29381088ac50a4910d18a5f8079d9bd505f839be
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062038-failed-5.10-40224df29729@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062041-failed-5.10-29381088ac50@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 40224df29729618ecd88c5c0077e71b1e82c7a3a Mon Sep 17 00:00:00 2001
-From: Ali Resool Tuama <aliresool567@gmail.com>
-Date: Fri, 2 Oct 2026 20:42:12 +0300
-Subject: [PATCH] USB: quirks: add USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE for
- GameSir G7 SE
+From 29381088ac50a4910d18a5f8079d9bd505f839be Mon Sep 17 00:00:00 2001
+From: Stephen Horvath <linux@stevetech.au>
+Date: Sun, 4 Oct 2026 02:27:31 +0200
+Subject: [PATCH] usb: xhci-pci: Add AMD 600 series to xhci-pci-prom21
 
-The GameSir G7 SE wired controller first enumerates as 3537:10a0 and
-then re-enumerates in a mode it picks from how the host enumerated it.
+It seems the xhci-pci-prom21 module only has IDs for the 800 series
+chipsets. However, the 600 series chipsets also have Promontory 21
+chips, so we should add their IDs to the list as well.
 
-When the configuration descriptor is fetched the Linux way, 9 bytes
-followed by the full 80, the controller disconnects about 1 ms after
-its string descriptors have been read, before SET_CONFIGURATION, and
-comes back as 3537:1082, a generic HID gamepad without force feedback.
+I have tested this on my X670 board featuring DID `0x43f7`.
 
-When the configuration descriptor is fetched in one 255-byte request,
-as Windows does, it comes back as 3537:1010 in Xbox One (GIP) mode,
-which xpad already supports, including rumble.
+`1022:43f7` also appears on the PCI ID database
+(https://pci-ids.ucw.cz/read/PC/1022/43f7).
+Device IDs `0x43f9` (B665) & `0x43fa` (A620) were suggested by Shyam.
 
-Skipping the device qualifier requests (USB_QUIRK_DEVICE_QUALIFIER)
-makes no difference; the configuration descriptor request size alone
-decides the mode. Add USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE for the 10a0
-identity, as is already done for the ShanWan Wireless Gamepad.
+Also list the new IDs in Documentation/hwmon/prom21-xhci.rst.
 
-Cc: stable <stable@kernel.org>
-Assisted-by: claude-opus-5-5
-Signed-off-by: Ali Resool Tuama <aliresool567@gmail.com>
-Link: https://patch.msgid.link/20261002-master-v2-1-24b05d8792b5@gmail.com
+Cc: stable@vger.kernel.org # 7.2.x
+Cc: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
+Cc: Jihong Min <hurryman2212@gmail.com>
+Signed-off-by: Stephen Horvath <linux@stevetech.au>
+Tested-by: Mirko Jechow <mirko.jechow@gmx.de>
+[mirko.jechow@gmx.de: add new IDs to prom21-xhci.rst]
+Signed-off-by: Mirko Jechow <mirko.jechow@gmx.de>
+Link: https://patch.msgid.link/20261004002731.49927-1-mirko.jechow@gmx.de
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/usb/core/quirks.c | 3 +++
- 1 file changed, 3 insertions(+)
+ Documentation/hwmon/prom21-xhci.rst | 2 +-
+ drivers/usb/host/xhci-pci-prom21.c  | 3 +++
+ drivers/usb/host/xhci-pci.c         | 3 +++
+ drivers/usb/host/xhci-pci.h         | 3 +++
+ 4 files changed, 10 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/usb/core/quirks.c b/drivers/usb/core/quirks.c
-index b5b577f0b931c..a4bcbe9c913cf 100644
---- a/drivers/usb/core/quirks.c
-+++ b/drivers/usb/core/quirks.c
-@@ -612,6 +612,9 @@ static const struct usb_device_id usb_quirk_list[] = {
- 	/* ezcap401 - BOS descriptor fetch hangs at SuperSpeed Plus */
- 	{ USB_DEVICE(0x32ed, 0x0401), .driver_info = USB_QUIRK_NO_BOS },
+diff --git a/Documentation/hwmon/prom21-xhci.rst b/Documentation/hwmon/prom21-xhci.rst
+index 7984fb187bd8a..6c0b6e7368921 100644
+--- a/Documentation/hwmon/prom21-xhci.rst
++++ b/Documentation/hwmon/prom21-xhci.rst
+@@ -9,7 +9,7 @@ Supported chips:
  
-+	/* GameSir G7 SE */
-+	{ USB_DEVICE(0x3537, 0x10a0), .driver_info = USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE },
-+
- 	/* DELL USB GEN2 */
- 	{ USB_DEVICE(0x413c, 0xb062), .driver_info = USB_QUIRK_NO_LPM | USB_QUIRK_RESET_RESUME },
+     Prefix: 'prom21_xhci'
+ 
+-    PCI IDs: 1022:43fc, 1022:43fd
++    PCI IDs: 1022:43f7, 1022:43f9, 1022:43fa, 1022:43fc, 1022:43fd
+ 
+ Author:
+ 
+diff --git a/drivers/usb/host/xhci-pci-prom21.c b/drivers/usb/host/xhci-pci-prom21.c
+index 6486f4a093455..5f088a47d79f3 100644
+--- a/drivers/usb/host/xhci-pci-prom21.c
++++ b/drivers/usb/host/xhci-pci-prom21.c
+@@ -111,6 +111,9 @@ static void prom21_xhci_remove(struct pci_dev *dev)
+ }
+ 
+ static const struct pci_device_id pci_ids[] = {
++	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43F7) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43F9) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43FA) },
+ 	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43FC) },
+ 	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43FD) },
+ 	{ /* end: all zeroes */ }
+diff --git a/drivers/usb/host/xhci-pci.c b/drivers/usb/host/xhci-pci.c
+index a8889081ae824..b407676808fca 100644
+--- a/drivers/usb/host/xhci-pci.c
++++ b/drivers/usb/host/xhci-pci.c
+@@ -701,6 +701,9 @@ static const struct pci_device_id pci_ids_renesas[] = {
+ 
+ /* handled by xhci-pci-prom21 if enabled */
+ static const struct pci_device_id pci_ids_prom21[] = {
++	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43F7) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43F9) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43FA) },
+ 	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43FC) },
+ 	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43FD) },
+ 	{ /* end: all zeroes */ }
+diff --git a/drivers/usb/host/xhci-pci.h b/drivers/usb/host/xhci-pci.h
+index 11f435f94322a..533efc7db8012 100644
+--- a/drivers/usb/host/xhci-pci.h
++++ b/drivers/usb/host/xhci-pci.h
+@@ -4,6 +4,9 @@
+ #ifndef XHCI_PCI_H
+ #define XHCI_PCI_H
+ 
++#define PCI_DEVICE_ID_AMD_PROM21_XHCI_43F7	0x43f7
++#define PCI_DEVICE_ID_AMD_PROM21_XHCI_43F9	0x43f9
++#define PCI_DEVICE_ID_AMD_PROM21_XHCI_43FA	0x43fa
+ #define PCI_DEVICE_ID_AMD_PROM21_XHCI_43FC	0x43fc
+ #define PCI_DEVICE_ID_AMD_PROM21_XHCI_43FD	0x43fd
  
 -- 
 2.53.0
