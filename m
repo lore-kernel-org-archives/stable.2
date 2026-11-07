@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046068;
-	b=IuATM+XrA/Yiu3sZL8MxEPLysAAEa6avriAOd+pgrfAuzvB3B9Nt2tzqWke99IQ33+Sf
-	 V5WXbRkhEOFt3gy+6jnnfbIPhJ248vOTyij722yMxsyqmX0Jksa3VLeLhU4mB2Q0Posz0
-	 An8x7zRjuvYrCryJOZZaxClc2nNStwSCsJhG8/rU73/+n5C0CGAOCQ2hcKwYtrSlfD9Wp
-	 QIJgkgPDS0QGraqEJJe2BNMrJFusdGRuAY3xGYfQa8xyIC6UrKrVAVB4dAHU0gF6pWUsI
-	 yuRXY9JyiWgWvkafadI9jIwqq2Ey9zk5C2pl37ol/On1YvW0jE9Syct4AR+7JfULfDw==
+	t=1794046071;
+	b=tuBtYg82rVtKUYaT0GUWXz83DoS//8XZR552XZI56MXoFY7+4bbS9z0Wo+Fvj7+9nzrF
+	 D82vRP40bCrL43pmEgep0CnF3HmDCCCC0Au8y5ZSEU3tH4u12aEzIsTN7WKcB41XlwMMj
+	 kcOrKdO4VyCqCKozBoyVJM6giDIO5eR5VeobuiwDdnlFbZtmQOVjVEOYREWeX642ZAPfT
+	 NrMAFKM5O11IXEgRjpe3W/z4Ft/a+Ziib37G4Orni3Ko03pQ1l8toRUagCu60UTh9FLUe
+	 J8zus+iglhx/wrYKogKENJVKUn+anxX2n0DC4anm0pVlAz/GVqxzDFtJaFJYBspTcuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046068;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046071;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=T7IgbrVq5ALA9n9PbYPkOZD0BsJ95YyqAsdQhcm09AA=;
-	b=Z35kYqjbbrNwV0eJI1xTuOELHludSlK/7h9i47UDUoLZBlUQY3xkuE1GOfXluTniSaAX
-	 NDTqvIfPVtuWPLwZh75xgGC/who4FA68tGrAPMENbKLbUZn1hw+9cXCxMSwoiDAyF7LMq
-	 gIEetl1q7pF5lZ8WQXMULjaeHVu+QeBLx6pQTIbEXpBQiBcGAtZQb/uX1JesgXzANS4vn
-	 iTKmpMs7f0BDoqh3ASfetPFeEKUmubKMsUBTHC/xZ/UXGQeG1XZXKBc+6zhnF7YYnZI19
-	 QN31Kwn8tQeh41zqYA1FE8J+vwTN+34AyerVzNFjz2xDDhGXP/HyCcQyNe5Dow9mCVg==
+	bh=QtCA0KcKdJXlN3IyLduxuYzFvf+Hgbb7GwQmJWc7SFs=;
+	b=tCQ6L+8tIgPxnuagkSpeggKHzkFAHuFvF+Ub1wQPu/UOANIhovtkSKQNEUKblQCSSu1F
+	 MZHUrf0jQAu7/8xJVLAoacaVjgNk3FrXrEecx82iSaAHPzsEedsWWOc4qwUv5hgWQcVd6
+	 AKasYCzzLjIl25Zt0it6mkcsfUJ0FXfTZeZ06M99vgw2zuRWx6BnbOZ+PedhBUOj5bPPm
+	 rMvq4TTpOzgKLyPNOiR4Rp6+RzthPpZEy/xoqYwl4BQ2LiDWE2Hr5ij+xTZ4/1dlFMktH
+	 6Yh/R5qRng+CoY8avxw+/Us0XFOl2uKbPWaFNKTFgZoABW9R7+GpligyYEOPYYreJNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="O1/rZG0h";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AF0Iks18;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42B83606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:07:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB02C606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:07:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O1/rZG0h
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4872B1F0089F;
-	Sat,  7 Nov 2026 10:07:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AF0Iks18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E43821F0089F;
+	Sat,  7 Nov 2026 10:07:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046068;
-	bh=T7IgbrVq5ALA9n9PbYPkOZD0BsJ95YyqAsdQhcm09AA=;
+	s=k20260515; t=1794046070;
+	bh=QtCA0KcKdJXlN3IyLduxuYzFvf+Hgbb7GwQmJWc7SFs=;
 	h=From:To:Cc:Subject:Date;
-	b=O1/rZG0h15Cx5jNzgXVQQ63Sg8eLVFd69iK+Gf07M2C5SUd1C+tv9yY7Fzpr8KiqO
-	 S3shSEJ26pAHPfGUPYGYGNvXkJP/oRX37Cfzez70MI4O3DhkO6UVZ5DW1Bfu8iTuvF
-	 +4+I7XlMc0aJyWJq9nq3bwC+wHzTRj9jWshzzizGQTpMW9HCbe1JmujgFHbzArBrWM
-	 xf147XVaQHUlyYBLd5+grx7ktZCWIWyWdPyyD10WADz3aYbaZft8fqy6Fvdalx8P0+
-	 u9c7Z1N/2MskppScFC4gY71YrTpDgp7cOMUf5rnoQGDdYxN7aLl/SQnNzr6I3YqIAt
-	 /sBFz4IR8wHOQ==
+	b=AF0Iks18dl021dIzPZ7wfiNxitaBVXfB9+TXqLfWO1CPH9oTB2TwTAcB9CI8qp1L+
+	 U4fPWIIBxFeL1jhRAHXDH50uFjzWntLl8nnh/AS4Ouk5We1mAxEra948APdNk04kmP
+	 Rb95zG0oXk/oW12YTAzzABe2BBeuycljlWHKSv4m/+iGAQ35VhJl3CAqAtJngvhm00
+	 Hr8EZUs2T4MkJyIY+DUpVEi79BzOGzt4VaGeaQkXwmnuK49ByPETS6LEOGtMkosSe4
+	 tLAeWxoeJi0DhvmYTwe4z4fetCtfBH2djq2aLeDaqElJEPDwnIqVpqKs44XRtZC2e+
+	 ILbF1ueMAFm8w==
 From: Sasha Levin <sashal@kernel.org>
 To: adubey@linux.ibm.com,
-	sashiko-bot@kernel.org,
 	hbathini@linux.ibm.com,
 	skb99@linux.ibm.com,
 	yeswanth@linux.ibm.com,
 	rnsastry@linux.ibm.com,
 	maddy@linux.ibm.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] powerpc/bpf: fix buffer overflow in JIT for large BPF programs" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:07:46 -0500
-Message-ID: <20261107050746-failed-6.18-78ce55b7913a@kernel.org>
+Subject: FAILED: patch "[PATCH] powerpc/bpf: fix alignment of long branch trampoline address" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:07:48 -0500
+Message-ID: <20261107050748-failed-6.18-04001e8ddb97@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -73,172 +72,220 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 78ce55b7913a78e1687306668e078b86bc6508ee
+git cherry-pick -x 04001e8ddb979f463f1c3ca8ac4d6ac59fb48921
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050746-failed-6.18-78ce55b7913a@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050748-failed-6.18-04001e8ddb97@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 78ce55b7913a78e1687306668e078b86bc6508ee Mon Sep 17 00:00:00 2001
+From 04001e8ddb979f463f1c3ca8ac4d6ac59fb48921 Mon Sep 17 00:00:00 2001
 From: Abhishek Dubey <adubey@linux.ibm.com>
-Date: Mon, 28 Sep 2026 10:43:52 +0530
-Subject: [PATCH] powerpc/bpf: fix buffer overflow in JIT for large BPF
- programs
+Date: Mon, 28 Sep 2026 10:43:53 +0530
+Subject: [PATCH] powerpc/bpf: fix alignment of long branch trampoline address
 
-During size calculation in pass-0, exit_addr is 0 since addrs[fp->len]
-is not yet populated. bpf_jit_emit_exit_insn() treats a zero exit_addr
-as in-range and skips bpf_jit_build_epilogue(), so the alternate inline
-epilogue instructions are not counted in alloclen.
+Ensure the dummy trampoline address field present between the OOL stub
+and the long branch stub is 4/8-byte aligned, for memory compatibility
+when content loaded to a register.
 
-In later passes, if the real exit_addr falls outside the 32MB branch
-range, the full inline epilogue is emitted into the already-allocated
-buffer, writing past its end and corrupting adjacent memory.
-
-Fix by ensuring exit_addr is non-zero before treating it as in-range,
-so pass-0 always falls through to bpf_jit_build_epilogue() and
-conservatively accounts for all epilogue instructions in alloclen.
-Also range check alt_exit_addr directly in the else-if condition.
-
-Since exit_addr handling now falls through to the epilogue, two
-related issues in bpf_int_jit_compile() must also be addressed:
-
-1. Reset cgctx.alt_exit_addr before the second size-calculation pass.
-   Without this, a stale alt_exit_addr from the first pass causes the
-   second pass to emit a single jump instead of the full epilogue,
-   undercounting alloclen and reintroducing the overflow.
-
-2. Recompute addrs[fp->len] at the end of each code-generation pass.
-   The larger pass-0 body can shrink in later passes as out-of-range
-   exits settle into in-range jumps; a stale addrs[fp->len] would
-   leave exit branches targeting past the real (shrunken) epilogue.
-
-Because shrinkage in a later pass can move the epilogue offset, the
-fixed two-pass loop is no longer sufficient: an exit that was out of
-range in an earlier pass may fall in range once the epilogue offset
-shrinks, shrinking the body further and overwriting the start of the
-epilogue. Convert the code-generation loop to iterate until the
-program size converges, bounded by CODEGEN_MAX_PASSES, and fail the
-JIT if it does not converge.
-
-Reported-by: sashiko-bot@kernel.org
-Closes: https://lore.kernel.org/bpf/20260529015855.364704-2-adubey@linux.ibm.com/T/#mfcb23909d977b949727cca4f59ee56a13fd69b92
-Fixes: 0ffdbce6f4a8 ("powerpc/bpf: Handle large branch ranges with BPF_EXIT")
+Reported-by: Hari Bathini <hbathini@linux.ibm.com>
+Fixes: d243b62b7bd3 ("powerpc64/bpf: Add support for bpf trampolines")
 Cc: stable@vger.kernel.org
-Signed-off-by: Hari Bathini <hbathini@linux.ibm.com>
 Signed-off-by: Abhishek Dubey <adubey@linux.ibm.com>
 Signed-off-by: Saket Kumar Bhaskar <skb99@linux.ibm.com>
 Tested-by: Yeswanth Krishna Tellakula <yeswanth@linux.ibm.com>
 Tested-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
-Link: https://lore.kernel.org/bpf/20260529015855.364704-2-adubey@linux.ibm.com/T/#mfcb23909d977b949727cca4f59ee56a13fd69b92
+Reviewed-by: Hari Bathini <hbathini@linux.ibm.com>
 Signed-off-by: Madhavan Srinivasan <maddy@linux.ibm.com>
-Link: https://patch.msgid.link/eebffa997e07781b384c4480e2b03c5b87c1aeb1.1789982239.git.skb99@linux.ibm.com
+Link: https://patch.msgid.link/a8257022057cbb71928c960be589e10b89fc0899.1789982239.git.skb99@linux.ibm.com
 ---
- arch/powerpc/net/bpf_jit.h      |  7 +++++++
- arch/powerpc/net/bpf_jit_comp.c | 34 +++++++++++++++++++++++++--------
- 2 files changed, 33 insertions(+), 8 deletions(-)
+ arch/powerpc/net/bpf_jit.h        |  7 +++---
+ arch/powerpc/net/bpf_jit_comp.c   | 38 ++++++++++++++++++++++++++-----
+ arch/powerpc/net/bpf_jit_comp32.c |  7 +++---
+ arch/powerpc/net/bpf_jit_comp64.c |  7 +++---
+ 4 files changed, 44 insertions(+), 15 deletions(-)
 
 diff --git a/arch/powerpc/net/bpf_jit.h b/arch/powerpc/net/bpf_jit.h
-index 35015d7ecb768..6d58df3616489 100644
+index 6d58df3616489..4da8bde92e1ef 100644
 --- a/arch/powerpc/net/bpf_jit.h
 +++ b/arch/powerpc/net/bpf_jit.h
-@@ -14,6 +14,13 @@
- #include <asm/ppc-opcode.h>
- #include <linux/build_bug.h>
- 
-+/*
-+ * We need at least 2 passes for proper code generation, and may need
-+ * additional passes if code size changes between passes.
-+ */
-+#define CODEGEN_MIN_PASSES    2
-+#define CODEGEN_MAX_PASSES    3
-+
- #ifdef CONFIG_PPC64_ELF_ABI_V1
- #define FUNCTION_DESCR_SIZE	24
- #else
+@@ -227,10 +227,11 @@ int bpf_jit_emit_func_call_rel(u32 *image, u32 *fimage, struct codegen_context *
+ int bpf_jit_build_body(struct bpf_prog *fp, u32 *image, u32 *fimage, struct codegen_context *ctx,
+ 		       u32 *addrs, int pass, bool extra_pass);
+ void bpf_jit_build_prologue(u32 *image, struct codegen_context *ctx);
+-void bpf_jit_build_epilogue(u32 *image, struct codegen_context *ctx);
+-void bpf_jit_build_fentry_stubs(u32 *image, struct codegen_context *ctx);
++void bpf_jit_build_epilogue(u32 *image, u32 *fimage, struct codegen_context *ctx);
++void bpf_jit_build_fentry_stubs(u32 *image, u32 *fimage, struct codegen_context *ctx);
+ void bpf_jit_realloc_regs(struct codegen_context *ctx);
+-int bpf_jit_emit_exit_insn(u32 *image, struct codegen_context *ctx, int tmp_reg, long exit_addr);
++int bpf_jit_emit_exit_insn(u32 *image, u32 *fimage, struct codegen_context *ctx, int tmp_reg,
++										long exit_addr);
+ void prepare_for_fsession_fentry(u32 *image, struct codegen_context *ctx, int cookie_cnt,
+ 								int cookie_off, int retval_off);
+ void store_func_meta(u32 *image, struct codegen_context *ctx, u64 func_meta, int func_meta_off);
 diff --git a/arch/powerpc/net/bpf_jit_comp.c b/arch/powerpc/net/bpf_jit_comp.c
-index 8f7501954d9f0..11981d2270a9d 100644
+index 11981d2270a9d..8ca36a933c7ae 100644
 --- a/arch/powerpc/net/bpf_jit_comp.c
 +++ b/arch/powerpc/net/bpf_jit_comp.c
-@@ -99,11 +99,10 @@ void bpf_jit_build_fentry_stubs(u32 *image, struct codegen_context *ctx)
+@@ -49,11 +49,35 @@ asm (
+ "	.popsection				;"
+ );
  
- int bpf_jit_emit_exit_insn(u32 *image, struct codegen_context *ctx, int tmp_reg, long exit_addr)
+-void bpf_jit_build_fentry_stubs(u32 *image, struct codegen_context *ctx)
++void bpf_jit_build_fentry_stubs(u32 *image, u32 *fimage, struct codegen_context *ctx)
  {
--	if (!exit_addr || is_offset_in_branch_range(exit_addr - (ctx->idx * 4))) {
-+	if (exit_addr && is_offset_in_branch_range(exit_addr - (long)(ctx->idx * 4))) {
+ 	int ool_stub_idx, long_branch_stub_idx;
++	int ool_stub_sz;
+ 
+ 	/*
++	 * Align the mis-aligned dummy_tramp_addr field in the fimage.
++	 * The alignment NOP must appear before OOL stub, to make
++	 * ool_stub_idx & long_branch_stub_idx constant from end.
++	 *
++	 * The fimage can be non 8-byte aligned, so final alignment depends
++	 * on start of fimage and the stub's instruction count offset. The
++	 * OOL stub size is 4 instructions (with CONFIG_PPC_FTRACE_OUT_OF_LINE)
++	 * or 3 instructions (without) before dummy_tramp_addr.
++	 *
++	 * Emit a NOP here if address is not SZL aligned.
++	 *
++	 * In pass=0 when image==NULL, conservatively account for space
++	 * required to accommodate alignment NOP. In case final pass skips
++	 * emitting alignment NOP, the image buffer have 4 spare bytes and
++	 * jited_len signifies correct program size.
++	 */
++
++	ool_stub_sz = IS_ENABLED(CONFIG_PPC_FTRACE_OUT_OF_LINE) ? 16 : 12;
++	if (!image || !IS_ALIGNED((unsigned long)fimage + ctx->idx*4 + ool_stub_sz, SZL))
++		EMIT(PPC_RAW_NOP());
++
++	/*
++	 *	nop     // optional, for alignment of dummy_tramp_addr
+ 	 * Out-of-line stub:
+ 	 *	mflr	r0
+ 	 *	[b|bl]	tramp
+@@ -70,7 +94,7 @@ void bpf_jit_build_fentry_stubs(u32 *image, struct codegen_context *ctx)
+ 
+ 	/*
+ 	 * Long branch stub:
+-	 *	.long	<dummy_tramp_addr>
++	 *	.long	<dummy_tramp_addr>  // 8-byte aligned
+ 	 *	mflr	r11
+ 	 *	bcl	20,31,$+4
+ 	 *	mflr	r12
+@@ -81,6 +105,7 @@ void bpf_jit_build_fentry_stubs(u32 *image, struct codegen_context *ctx)
+ 	 */
+ 	if (image)
+ 		*((unsigned long *)&image[ctx->idx]) = (unsigned long)dummy_tramp;
++
+ 	ctx->idx += SZL / 4;
+ 	long_branch_stub_idx = ctx->idx;
+ 	EMIT(PPC_RAW_MFLR(_R11));
+@@ -97,7 +122,8 @@ void bpf_jit_build_fentry_stubs(u32 *image, struct codegen_context *ctx)
+ 	}
+ }
+ 
+-int bpf_jit_emit_exit_insn(u32 *image, struct codegen_context *ctx, int tmp_reg, long exit_addr)
++int bpf_jit_emit_exit_insn(u32 *image, u32 *fimage, struct codegen_context *ctx,
++							int tmp_reg, long exit_addr)
+ {
+ 	if (exit_addr && is_offset_in_branch_range(exit_addr - (long)(ctx->idx * 4))) {
  		PPC_JMP(exit_addr);
--	} else if (ctx->alt_exit_addr) {
--		if (WARN_ON(!is_offset_in_branch_range((long)ctx->alt_exit_addr - (ctx->idx * 4))))
--			return -1;
-+	} else if (ctx->alt_exit_addr && is_offset_in_branch_range(
-+			(long)(ctx->alt_exit_addr) - (long)(ctx->idx * 4))) {
+@@ -106,7 +132,7 @@ int bpf_jit_emit_exit_insn(u32 *image, struct codegen_context *ctx, int tmp_reg,
  		PPC_JMP(ctx->alt_exit_addr);
  	} else {
  		ctx->alt_exit_addr = ctx->idx * 4;
-@@ -274,6 +273,7 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_verifier_env *env, struct bpf_pr
- 	 */
- 	if (cgctx.seen & SEEN_TAILCALL || !is_offset_in_branch_range((long)cgctx.idx * 4)) {
- 		cgctx.idx = 0;
-+		cgctx.alt_exit_addr = 0;
- 		if (bpf_jit_build_body(fp, NULL, NULL, &cgctx, addrs, 0, false))
- 			goto out_err;
+-		bpf_jit_build_epilogue(image, ctx);
++		bpf_jit_build_epilogue(image, fimage, ctx);
  	}
-@@ -306,10 +306,13 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_verifier_env *env, struct bpf_pr
- 	code_base = (u32 *)(image + FUNCTION_DESCR_SIZE);
- 	fcode_base = (u32 *)(fimage + FUNCTION_DESCR_SIZE);
  
--	/* Code generation passes 1-2 */
--	for (pass = 1; pass < 3; pass++) {
-+	/* Code generation passes 1-2+, loop until program size converges. */
-+	for (pass = 1; pass <= CODEGEN_MAX_PASSES; pass++) {
-+		u32 prev_proglen = proglen;
-+
- 		/* Now build the prologue, body code & epilogue for real. */
- 		cgctx.idx = 0;
-+		cgctx.exentry_idx = 0;
- 		cgctx.alt_exit_addr = 0;
- 		bpf_jit_build_prologue(code_base, &cgctx);
- 		if (bpf_jit_build_body(fp, code_base, fcode_base, &cgctx, addrs, pass,
-@@ -318,11 +321,26 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_verifier_env *env, struct bpf_pr
- 			bpf_jit_binary_pack_free(fhdr, hdr);
+ 	return 0;
+@@ -286,7 +312,7 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_verifier_env *env, struct bpf_pr
+ 	 */
+ 	bpf_jit_build_prologue(NULL, &cgctx);
+ 	addrs[fp->len] = cgctx.idx * 4;
+-	bpf_jit_build_epilogue(NULL, &cgctx);
++	bpf_jit_build_epilogue(NULL, NULL, &cgctx);
+ 
+ 	fixup_len = fp->aux->num_exentries * BPF_FIXUP_LEN * 4;
+ 	extable_len = fp->aux->num_exentries * sizeof(struct exception_table_entry);
+@@ -322,7 +348,7 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_verifier_env *env, struct bpf_pr
  			goto out_err;
  		}
-+		addrs[fp->len] = cgctx.idx * 4;
- 		bpf_jit_build_epilogue(code_base, &cgctx);
+ 		addrs[fp->len] = cgctx.idx * 4;
+-		bpf_jit_build_epilogue(code_base, &cgctx);
++		bpf_jit_build_epilogue(code_base, fcode_base, &cgctx);
  
-+		proglen = cgctx.idx * 4;
-+
- 		if (bpf_jit_enable > 1)
- 			pr_info("Pass %d: shrink = %d, seen = 0x%x\n", pass,
--				proglen - (cgctx.idx * 4), cgctx.seen);
-+				prev_proglen - proglen, cgctx.seen);
-+
-+		/* Check if program size has converged, but ensure minimum passes */
-+		if (pass >= CODEGEN_MIN_PASSES && proglen == prev_proglen)
-+			break;
-+
-+		if (pass == CODEGEN_MAX_PASSES && proglen != prev_proglen) {
-+			pr_err("BPF JIT: Program did not converge after %d passes\n",
-+								CODEGEN_MAX_PASSES);
-+			bpf_arch_text_copy(&fhdr->size, &hdr->size, sizeof(hdr->size));
-+			bpf_jit_binary_pack_free(fhdr, hdr);
-+			goto out_err;
-+		}
+ 		proglen = cgctx.idx * 4;
+ 
+diff --git a/arch/powerpc/net/bpf_jit_comp32.c b/arch/powerpc/net/bpf_jit_comp32.c
+index bfdc50740da8e..f5b9441cf46aa 100644
+--- a/arch/powerpc/net/bpf_jit_comp32.c
++++ b/arch/powerpc/net/bpf_jit_comp32.c
+@@ -229,7 +229,7 @@ static void bpf_jit_emit_common_epilogue(u32 *image, struct codegen_context *ctx
+ 
+ }
+ 
+-void bpf_jit_build_epilogue(u32 *image, struct codegen_context *ctx)
++void bpf_jit_build_epilogue(u32 *image, u32 *fimage, struct codegen_context *ctx)
+ {
+ 	EMIT(PPC_RAW_MR(_R3, bpf_to_ppc(BPF_REG_0)));
+ 
+@@ -237,7 +237,7 @@ void bpf_jit_build_epilogue(u32 *image, struct codegen_context *ctx)
+ 
+ 	EMIT(PPC_RAW_BLR());
+ 
+-	bpf_jit_build_fentry_stubs(image, ctx);
++	bpf_jit_build_fentry_stubs(image, fimage, ctx);
+ }
+ 
+ /* Relative offset needs to be calculated based on final image location */
+@@ -1149,7 +1149,8 @@ int bpf_jit_build_body(struct bpf_prog *fp, u32 *image, u32 *fimage, struct code
+ 			 * we'll just fall through to the epilogue.
+ 			 */
+ 			if (i != flen - 1) {
+-				ret = bpf_jit_emit_exit_insn(image, ctx, _R0, exit_addr);
++				ret = bpf_jit_emit_exit_insn(image, fimage,
++								ctx, _R0, exit_addr);
+ 				if (ret)
+ 					return ret;
+ 			}
+diff --git a/arch/powerpc/net/bpf_jit_comp64.c b/arch/powerpc/net/bpf_jit_comp64.c
+index 53f67b3d2906d..c1e86fe0bd79f 100644
+--- a/arch/powerpc/net/bpf_jit_comp64.c
++++ b/arch/powerpc/net/bpf_jit_comp64.c
+@@ -398,7 +398,7 @@ static void bpf_jit_emit_common_epilogue(u32 *image, struct codegen_context *ctx
  	}
+ }
  
- 	if (bpf_jit_enable > 1)
-@@ -399,7 +417,7 @@ int bpf_add_extable_entry(struct bpf_prog *fp, u32 *image, u32 *fimage, int pass
- 	u32 *fixup;
+-void bpf_jit_build_epilogue(u32 *image, struct codegen_context *ctx)
++void bpf_jit_build_epilogue(u32 *image, u32 *fimage, struct codegen_context *ctx)
+ {
+ 	bpf_jit_emit_common_epilogue(image, ctx);
  
- 	/* Populate extable entries only in the last pass */
--	if (pass != 2)
-+	if (pass < CODEGEN_MIN_PASSES)
- 		return 0;
+@@ -407,7 +407,7 @@ void bpf_jit_build_epilogue(u32 *image, struct codegen_context *ctx)
  
- 	if (!fp->aux->extable ||
+ 	EMIT(PPC_RAW_BLR());
+ 
+-	bpf_jit_build_fentry_stubs(image, ctx);
++	bpf_jit_build_fentry_stubs(image, fimage, ctx);
+ }
+ 
+ /*
+@@ -1737,7 +1737,8 @@ int bpf_jit_build_body(struct bpf_prog *fp, u32 *image, u32 *fimage, struct code
+ 			 * we'll just fall through to the epilogue.
+ 			 */
+ 			if (i != flen - 1) {
+-				ret = bpf_jit_emit_exit_insn(image, ctx, tmp1_reg, exit_addr);
++				ret = bpf_jit_emit_exit_insn(image, fimage, ctx,
++								tmp1_reg, exit_addr);
+ 				if (ret)
+ 					return ret;
+ 			}
 -- 
 2.53.0
 
