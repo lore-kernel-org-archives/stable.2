@@ -1,54 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047412;
-	b=xm45NA+a6CVN3fu/IW5WNJZrn1mbX8LwIarbJivCAkqCen0e07N2jHpRU5FYDbpYbwqA
-	 T0S62YvF4T2URDuZiKGwb4jLFQ27622UwQQIJNGFn7S3KQ+lwJlAbL2NX9TSKJHcmIVMn
-	 sDnXmzv/iLnTHhqWSj1kmh0OEqbRn5lk4YEkL7tvqyWNiV/YlRYimQaTkim+ckYlpRWs7
-	 ufUJVxVbQBeZBDFbkt6HfTm8q3NMWDwI4/Hg5IC5oCPeA+S0klWXyjlCGBM9fBvUYsPrj
-	 o0xivqWGabkOrYvyyng/jZKGZqpTi6N/WlKNDkL9Eo3AXxc96iGtujhRGxd7S1EXdWg==
+	t=1794047414;
+	b=AjaSKYYE/Pt6zRN2Ll6omixDc5jT1Jccsp6mbgYnUP13cmsDky1fAMkQx+I4JXE2mZ0Q
+	 xdUweGiMXfj1Zk7K5eYTtPRX7DMH6LWhYUY8inM3lYlhOpYgZm7s8iNyunSXc1g2zoUyY
+	 P94iHTExWWqhUtygoizJBdduaW6ZDEiPxM3RGpmnZcATc8OWQLw6/YBhDwoTjPvPDEb3J
+	 G4isXKFCKR69T3z8tYaVw7GJqIrE9SbhnryE2w7xhZUgnC223uqWsigApe3n4woOe5VN5
+	 OGUdMq3s3TTEaaehZDt6mBex6X0OteVJz6gcYQYYlvSjSdy2SgHZOlsJNKL94jUbUig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047412;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047414;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=0gMg57WHHs6o4ZycYyHXqrS1bsbqYCn9ysYNY98VO6M=;
-	b=ncsCotf47ynbM/3QQOmKe3+8LGINT/YVJxYn6KpJi4QK4D+F9rB3WdC7slvCAVig5zvr
-	 aQgC9ceXJFUvzJKeumWkxKRRRvZ4pon6sGP6c5SqsInyGs4xhyrAqoWXWAIClMhPpvdZc
-	 kflZ0pO+Rqdc/lGLghF+SM5Ib6DkOeb21IpY1vyBSL91pvRlTGtGxCrqR4o1VGXsN1yAR
-	 n/KrgAaLG+dOlC5M0r2IgycEwQ2h/hVvOGzE5VOM/h7x5mfphVVH183KimPvXRsVAUfa5
-	 cgC+YajjZcHdsU4TMGaPqSlwr+mJ5OqqMdu59FvYeFvBXV3T3UGVE4YZGo3GWwmb6VQ==
+	bh=jRqoxlUlE4PZXDipzu0DB2PcomygSLCqGqoQkdoBSXE=;
+	b=muuyEdyvT+vya7v4J7pWO1h14ZN//z4HHLL2jEji4FKePQ6+R/0TMVUAyiBkaR+H9H53
+	 Ny8jzvPHkIW5urOZbHvDrDYCwa7lqz7DKb41yRVBylpjasMJ9JbXKJG36P1Ovtuv+MMdG
+	 T70hW8MotpDtekUF7iWK+v982x9dPGtSVp/MiGtnXpcSfh1qWHy3R16sDVFl1VODgJUE8
+	 yOUm02P8ofPo2kqaRD3vz9iWmp8tVdrGV/khMnl9Obfnv2a5aScl13PajsRmJy5f4Cue0
+	 jRzoKxmz5RqbFyhJdsdLO203Jr33gxAGpzWyjiQcx7vu9q+Rfh6OMpSI9ZOpwABSPCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BbU6FQIW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eYmVDkDW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEDD1606A32F
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:30:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C09C606A32F
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:30:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BbU6FQIW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BA051F008A1;
-	Sat,  7 Nov 2026 10:30:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eYmVDkDW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 641CA1F0089F;
+	Sat,  7 Nov 2026 10:30:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047411;
-	bh=0gMg57WHHs6o4ZycYyHXqrS1bsbqYCn9ysYNY98VO6M=;
+	s=k20260515; t=1794047413;
+	bh=jRqoxlUlE4PZXDipzu0DB2PcomygSLCqGqoQkdoBSXE=;
 	h=From:To:Cc:Subject:Date;
-	b=BbU6FQIWMV8+7NwP07j9MkFFIK6bmaVb0QSIzPicQLlgMAVfP4/NAqrxZrLtLM9cl
-	 KJ3OxuCXjhGZ1fyV9jJJ2xEkDNRYAf7wLsbla2oj/G0N0kGFrlAwoz2LmvME51Me0W
-	 +JQGUYpHCNkflPWClU5cNBM/mpc0LVpNMLFRJLx2ceKZmopZrrS9uwOxJ9zbKt5KHV
-	 aqBrvkBktnJwqU3tbIrK+INE5ALMkh93J9gZFeVkyeCZQ4+nzGldSje79Sf5rH1hV9
-	 RRSYSoTvCbi/H1WJU3AyNUZXerP8pMxqyvqloLkU0wKQdE/5xQzQf+gXmRCbZDrmyB
-	 8fBztbfUUChgQ==
+	b=eYmVDkDWOlVRNN6Zk9TS/BAg00xuaDZWqc17JsQ/KZQJgG4qeApR47wYsbBbthZwo
+	 eIP7Psgc7EVaqVRfPKWkMctqQYY3E5/RAC59PyXaZ8c50gOR8tz4rf6tz6956UBKRI
+	 1Nw1V83Tn7phw77YYZLLWQUZdq1fm7YjaohaUcQRKZZ8ZDsskiRgczlL7mEZN17jVZ
+	 D7RWQXaduqenC37NjZ5OnxRandvHDngfloa9rn9We6CSaZbSQLUADe7rms0buFdc4E
+	 V3y9N1w2q08KJDlCGO+hKZ4XpVMorGBMCfNcaCUTMQbHP0ZuKiW2dAggUsrNAOC9CR
+	 foN4WT59NtW0Q==
 From: Sasha Levin <sashal@kernel.org>
-To: casey.connolly@linaro.org,
-	marco.mattiolo@hotmail.it,
-	neil.armstrong@linaro.org,
-	david@ixit.cz,
-	linusw@kernel.org
+To: mhun512@gmail.com,
+	ae878000@gmail.com,
+	lee@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/panel: ebbg-ft8719: Set prepare_prev_first" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:30:09 -0500
-Message-ID: <20261107053009-failed-6.6-4eeeac9d7c36@kernel.org>
+Subject: FAILED: patch "[PATCH] mfd: twl-core: Unregister the auxiliary platform device on unbind" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:30:12 -0500
+Message-ID: <20261107053012-failed-6.6-3c5c55d979dd@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,50 +69,118 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 4eeeac9d7c3600a6cae75b2a7bc9c5b67530923c
+git cherry-pick -x 3c5c55d979ddcb0765ce531bc7ba173c87c8712a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053009-failed-6.6-4eeeac9d7c36@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053012-failed-6.6-3c5c55d979dd@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 4eeeac9d7c3600a6cae75b2a7bc9c5b67530923c Mon Sep 17 00:00:00 2001
-From: Casey Connolly <casey.connolly@linaro.org>
-Date: Tue, 8 Sep 2026 14:45:02 +0200
-Subject: [PATCH] drm/panel: ebbg-ft8719: Set prepare_prev_first
+From 3c5c55d979ddcb0765ce531bc7ba173c87c8712a Mon Sep 17 00:00:00 2001
+From: Myeonghun Pak <mhun512@gmail.com>
+Date: Sun, 13 Sep 2026 16:50:12 -0400
+Subject: [PATCH] mfd: twl-core: Unregister the auxiliary platform device on
+ unbind
 
-This corrects the host initialisation sequence so that we can send
-DSI/DCS commands in prepare().
+twl_probe() registers a standalone platform device named "twl", but keeps
+its pointer only in a local variable. Probe errors unregister the device,
+while successful probe leaves no way for twl_remove() to release it. The
+platform device therefore remains registered after the I2C driver unbinds.
 
+Register a managed action on the I2C device immediately after adding the
+platform device. This unregisters it on probe failure and driver unbind,
+and also handles failure to register the action itself. Remove the manual
+error-path unregister to avoid releasing the device twice.
+
+This issue was identified during our ongoing static-analysis research while
+reviewing kernel code.
+
+Fixes: defa6be1c821 ("mfd: Fix compile for twl-core.c by removing cpu_is_omap usage")
 Cc: stable@vger.kernel.org
-Fixes: b00de0e237da ("drm/panel: introduce ebbg,ft8719 panel")
-Signed-off-by: Casey Connolly <casey.connolly@linaro.org>
-Tested-by: Marco Mattiolo <marco.mattiolo@hotmail.it>
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-Signed-off-by: David Heidelberg <david@ixit.cz>
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
-Link: https://patch.msgid.link/20260908-ebbg-ft8719-fixups-v2-1-5454ae1f5581@ixit.cz
+Assisted-by: OpenAI:GPT-5.6
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Link: https://patch.msgid.link/20260913205013.54777-1-mhun512@gmail.com
+Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/gpu/drm/panel/panel-ebbg-ft8719.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/mfd/twl-core.c | 23 +++++++++++++++--------
+ 1 file changed, 15 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/panel/panel-ebbg-ft8719.c b/drivers/gpu/drm/panel/panel-ebbg-ft8719.c
-index fb9f9f42be4f2..1ab09c50a6306 100644
---- a/drivers/gpu/drm/panel/panel-ebbg-ft8719.c
-+++ b/drivers/gpu/drm/panel/panel-ebbg-ft8719.c
-@@ -198,6 +198,8 @@ static int ebbg_ft8719_probe(struct mipi_dsi_device *dsi)
- 	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
- 			  MIPI_DSI_CLOCK_NON_CONTINUOUS;
+diff --git a/drivers/mfd/twl-core.c b/drivers/mfd/twl-core.c
+index b7d749208131b..7fbce76efd305 100644
+--- a/drivers/mfd/twl-core.c
++++ b/drivers/mfd/twl-core.c
+@@ -719,6 +719,11 @@ static const struct mfd_cell twl6032_cells[] = {
+ 	{ .name = "twl6032-clk" },
+ };
  
-+	ctx->panel.prepare_prev_first = true;
++static void twl_unregister_device(void *data)
++{
++	platform_device_unregister(data);
++}
 +
- 	ret = drm_panel_of_backlight(&ctx->panel);
- 	if (ret)
- 		return dev_err_probe(dev, ret, "Failed to get backlight\n");
+ /* NOTE: This driver only handles a single twl4030/tps659x0 chip */
+ static int
+ twl_probe(struct i2c_client *client)
+@@ -754,17 +759,22 @@ twl_probe(struct i2c_client *client)
+ 		return status;
+ 	}
+ 
++	status = devm_add_action_or_reset(&client->dev, twl_unregister_device,
++					  pdev);
++	if (status)
++		return status;
++
+ 	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C)) {
+ 		dev_dbg(&client->dev, "can't talk I2C?\n");
+ 		status = -EIO;
+-		goto free;
++		goto out;
+ 	}
+ 
+ 	twl_priv = devm_kzalloc(&client->dev, sizeof(struct twl_private),
+ 				GFP_KERNEL);
+ 	if (!twl_priv) {
+ 		status = -ENOMEM;
+-		goto free;
++		goto out;
+ 	}
+ 
+ 	if ((id->driver_data) & TWL6030_CLASS) {
+@@ -784,7 +794,7 @@ twl_probe(struct i2c_client *client)
+ 					 GFP_KERNEL);
+ 	if (!twl_priv->twl_modules) {
+ 		status = -ENOMEM;
+-		goto free;
++		goto out;
+ 	}
+ 
+ 	for (i = 0; i < num_slaves; i++) {
+@@ -880,7 +890,7 @@ twl_probe(struct i2c_client *client)
+ 		status = devm_mfd_add_devices(&client->dev, PLATFORM_DEVID_NONE,
+ 					      cells, num_cells, NULL, 0, NULL);
+ 		if (status < 0)
+-			goto free;
++			goto out;
+ 
+ 		if (of_device_is_system_power_controller(node)) {
+ 			if (!pm_power_off)
+@@ -896,10 +906,7 @@ twl_probe(struct i2c_client *client)
+ fail:
+ 	if (status < 0)
+ 		twl_remove(client);
+-free:
+-	if (status < 0)
+-		platform_device_unregister(pdev);
+-
++out:
+ 	return status;
+ }
+ 
 -- 
 2.53.0
 
