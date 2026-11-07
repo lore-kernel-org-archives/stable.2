@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046755;
-	b=VxXAJ/bfuISov7QAZiDZEAjA8Zq4wOJYGwH0CBRI7YYQTdVmdYke1vXJQi7w0s4HsfyZ
-	 P1q6P2EasJtzpmicAoNzy+1ZUFyiCRopyh07aEoTwTVbOzdIxxNYIbX6ATDIANJ0FW9eF
-	 BOqArwGjWaczS00EZxAiH9+4QWM37weQoFmVQa7K+o1l70YQexa0M25NcV9lKooGI7HyB
-	 qslMGXAGkNUcJ7qUa61whyvQwGgsq0F335qGgbfJtRoM7KYC24c+t6csI/q+z01ZKbFQJ
-	 3rQMnYehsca59XPcH3BUO9pPSNAuYuP8criNvAJc87v0I1aDIepD/mcoTwaPysrhqNw==
+	t=1794046757;
+	b=aYIbWK8gK3p+7Es26V/s/RQy7dcOw67qeSjNFD6PctZm3pjqvCAI2zcJXChTXnnZ0/f0
+	 lkAuv42DR5sWQAa8zz7y96/n0X3xWPYAPwKIuvfuTN6UmjM1dgs5XhIQ9V6GucqOtvc4F
+	 c2yB/LwdM9Y3OJ6JRB7HzvUoxJGIn3hRGWwbINAz4IEj4uR7S2t2apnjY+d7UZ6rYgjQ0
+	 vag7WuVdRA4FfdBYywB2lNBnlWFW6xKVKdAd6NUqSrybs4ljV4r2ojG3vuRlHDwohcmmp
+	 WvDmcbxhIB8qOkxHP4LgVB2rVDmjPfmDliJLK5mDDVOS8tCZ95u82i3eZgOtIhIR5Qw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046755;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046757;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=pt0/0Zm1YX+cp3EgcZSg2lN61AgPqrSH29lz6xYI2DM=;
-	b=h4eP7ieL0zE7aAdYwMxq4Sw8O2umAxIPFszDT5EFhfOPgSfbL5LX2Jl13yUH8toW97rX
-	 hnQ0KiAOuJc861QP8BfQQD+j2S0w/GL7ijPm3F+1cGFBB8MKjCB0nWNTiQPhWNpIqwnne
-	 BGcKEDnHOkpyQsfW/PS0Ffjbx3Y6saVLSALHQbccGFzWUeDz6VFBQov8pLM2WPRpbLz6V
-	 a4JqiC0bkbRGCctUcSnp+3nR7BErOeP58mGcPbaOOb0PD99lv7x+YWGQgExn3ABQ7kQsd
-	 +vWeZQLXHgIuvfjku3Lq/RNRzCxRaw9dw1suxW2xdvu8HGAz8alcjI+4K9O2oAj1SPA==
+	bh=HC0lfnstTt4l9wCBT+lJ5xnCNq3mj/+CQ3RGpQPfaKs=;
+	b=JIDQMxk/EBfYTHYWVexJwBZtI4XTnl9kKsvwvPAVpmPbKS4x5sP+G172WRPGccqfQzlm
+	 7vZk9iHGhXZYEgwDltB1a3nNLi/0nXZKRd2jEP1eizPlddm/QVsPAzYm79ZglpW1fHDDJ
+	 ZRwafeC8NxoDq/L1020m97yzHCLOCj9NIv771goi+QgznM1nkT5HRaRfrEieZhd+oCddC
+	 H5jSVilzEn2X2UDAkVRW4hQ8IlKfp0OCanKYP4T7emrPeQnOaA3b2EjSpMWI/tYyDQlfX
+	 eLE0f5WuT5WoeXrml85wx2O7rh6wQ2ErwPCHZMcGEOn2MgRiuPgSVB2tmFAZwRguXpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NcP7rsdG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="dB+1/51J";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 535C2606EEAA
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:19:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 789B7606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:19:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NcP7rsdG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95C1C1F0089F;
-	Sat,  7 Nov 2026 10:19:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dB+1/51J
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D53191F0089F;
+	Sat,  7 Nov 2026 10:19:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046755;
-	bh=pt0/0Zm1YX+cp3EgcZSg2lN61AgPqrSH29lz6xYI2DM=;
+	s=k20260515; t=1794046757;
+	bh=HC0lfnstTt4l9wCBT+lJ5xnCNq3mj/+CQ3RGpQPfaKs=;
 	h=From:To:Cc:Subject:Date;
-	b=NcP7rsdGVX7jJ2gG1NJR71b62GpaO+zYLAZvLeslSgUVwSPEWGAcdeFnUReOaDbL0
-	 5r6QNNP8veHFJZF+AxZRHIYHZYvBGVWO9pac0Wv/KxWbXYXmezaaXJ4IMqqjUQG39m
-	 GMKlNXs6hyxitOwN6BLjRfH8vPwtnU7WfHSMKS32sHhI0fJ01NcIEhzGY9KrYp9tc6
-	 kFFJNo6tF+UvwnnQkB7eGo7sDSZKMTploJaRaNmxblFILLXaW+XgK30+DcYTdY3v4I
-	 zizYfUskdllMSnHVhvIVBG0nFASLWv7T8b1rHp9FHsjEIiIw/vHrX21EDzNnBaCj/L
-	 ugg+yMHAfTm/g==
+	b=dB+1/51JUmVxLd2yf61PjE3I9xmk0DPdSpRguUiaKcm1YExzRueI2LFfekodFajCQ
+	 OysQNn1i5Okg7O84AMULSIEZDIjMBAIIuSCRjo304oc8QY5g2pbskW9gciuMfRzsRh
+	 Wyj/2TjhTvQXsFD1snSt7/8PqktDIbEFcrV8O8CofFMtIdaYbFP+4g0OZ7t8R9a6g2
+	 0aNZxlr7PLiz/D4VWRIHPazhKeIOWjUxJ/+NoHPh7AGZFIAPWMxcrQsup1mD14Lj2t
+	 EI6yCR6DF0nnLaFZSFl36ng4qyTpXbjDVopXH+HpCwBnsuc6aSk68OBccEn1BqMa4E
+	 uET/djJtTrXog==
 From: Sasha Levin <sashal@kernel.org>
-To: j@jannau.net,
-	neal@gompa.dev,
-	arend.vanspriel@broadcom.com,
-	johannes.berg@intel.com
+To: mhun512@gmail.com,
+	ae878000@gmail.com,
+	broonie@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] wifi: brcmfmac: cfg80211: Report port_authorized for 4-way HS offload" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:19:13 -0500
-Message-ID: <20261107051913-failed-6.12-6fff9de5c5b4@kernel.org>
+Subject: FAILED: patch "[PATCH] ASoC: stm: stm32_i2s: request IRQ after regmap initialization" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:19:15 -0500
+Message-ID: <20261107051915-failed-6.12-1b207c85551f@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,93 +69,97 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 6fff9de5c5b425817588eeed42bd56d665751c13
+git cherry-pick -x 1b207c85551fd74854d632116849295b2305245f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051913-failed-6.12-6fff9de5c5b4@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051915-failed-6.12-1b207c85551f@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 6fff9de5c5b425817588eeed42bd56d665751c13 Mon Sep 17 00:00:00 2001
-From: Janne Grunau <j@jannau.net>
-Date: Tue, 15 Sep 2026 21:17:38 +0200
-Subject: [PATCH] wifi: brcmfmac: cfg80211: Report port_authorized for 4-way HS
- offload
+From 1b207c85551fd74854d632116849295b2305245f Mon Sep 17 00:00:00 2001
+From: Myeonghun Pak <mhun512@gmail.com>
+Date: Sun, 4 Oct 2026 00:34:51 -0400
+Subject: [PATCH] ASoC: stm: stm32_i2s: request IRQ after regmap initialization
 
-Since commit 416386060 ("Mark authorization completed on driver
-indication during 4-way HS offload") [0] wpa_supplicant expects
-NL80211_CMD_PORT_AUTHORIZED to complete the authentication when the
-driver supports 4-way handshake offload.
-This was apparently never tested with the upstream brcmfmac driver as it
-does not report this. This broke authentication on Apple silicon devices
-(BRCM4378, BRMC4387, BRMC4388) and other devices when wpa_supplicant
-2.11 was released [1]. This was initially dealt with by reverting the
-commit in Fedora [2] and other Linux distributions.
-Instead of carrying the revert over to wpa_supplicant 2.12 add the
-expected NL80211_CMD_PORT_AUTHORIZED when the connection is established.
+The ISR accesses the managed regmap, but probe requests the IRQ before
+creating it. An early interrupt can reach an uninitialized regmap.
+Reverse-order cleanup can free the regmap while the IRQ remains active.
 
-The "Fixes:" tag is not fully accurate as this has only became an issue
-after userspace changes years after the change. Since the change is
-expected to be required in all active stable branches for wpa_supplicant
-2.11 / 2.12 compatibility it is helpful even though
-BRCMF_PROFILE_FWSUP_SAE did not exists then.
+Request the IRQ after regmap initialization so probe unwind and
+removal free and synchronize it before releasing the regmap.
 
-Link: https://github.com/zephyrproject-rtos/hostap/commit/41638606054a09867fe3f9a2b5523aa4678cbfa5 [0]
-Link: https://lists.infradead.org/pipermail/hostap/2024-August/042893.html [1]
-Link: https://bugzilla.redhat.com/show_bug.cgi?id=2302577 [2]
-Link: https://lore.kernel.org/linux-wireless/20260911065656.1269623-5-Jason.Huang2@infineon.com/ [3]
+The teardown ordering issue was found by static analysis.
+
+Fixes: e4e6ec7b127c ("ASoC: stm32: Add I2S driver")
 Cc: stable@vger.kernel.org
-Fixes: b8a64f0e96c2 ("brcmfmac: support 4-way handshake offloading for WPA/WPA2-PSK")
-Signed-off-by: Janne Grunau <j@jannau.net>
-Reviewed-by: Neal Gompa <neal@gompa.dev>
-Acked-by: Arend van Spriel <arend.vanspriel@broadcom.com>
-Link: https://patch.msgid.link/20260915-brcmfmac-4way-handshake-offload-authenticated-event-v2-1-fbb9cc7ac177@jannau.net
-Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+Assisted-by: LLM
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Link: https://patch.msgid.link/20261004043451.1138613-1-mhun512@gmail.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- .../broadcom/brcm80211/brcmfmac/cfg80211.c    | 20 +++++++++++++++----
- 1 file changed, 16 insertions(+), 4 deletions(-)
+ sound/soc/stm/stm32_i2s.c | 23 +++++++++++------------
+ 1 file changed, 11 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-index fc08c5b2d572f..e32b46b7cbe25 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-@@ -6588,6 +6588,21 @@ brcmf_bss_roaming_done(struct brcmf_cfg80211_info *cfg,
- 	return err;
- }
+diff --git a/sound/soc/stm/stm32_i2s.c b/sound/soc/stm/stm32_i2s.c
+index a59ad94423726..22196f789ae4a 100644
+--- a/sound/soc/stm/stm32_i2s.c
++++ b/sound/soc/stm/stm32_i2s.c
+@@ -1197,7 +1197,7 @@ static int stm32_i2s_parse_dt(struct platform_device *pdev,
+ 	struct device_node *np = pdev->dev.of_node;
+ 	struct reset_control *rst;
+ 	struct resource *res;
+-	int irq, ret;
++	int ret;
  
-+static bool
-+brcmf_fwsup_is_authorized(struct brcmf_cfg80211_profile *profile,
-+			  struct cfg80211_connect_resp_params *conn_params)
-+{
-+	if ((profile->use_fwsup == BRCMF_PROFILE_FWSUP_1X ||
-+	     profile->use_fwsup == BRCMF_PROFILE_FWSUP_ROAM) &&
-+	    brcmf_has_pmkid(conn_params->req_ie, conn_params->req_ie_len))
-+		return true;
-+	if (profile->use_fwsup == BRCMF_PROFILE_FWSUP_SAE ||
-+	    profile->use_fwsup == BRCMF_PROFILE_FWSUP_PSK)
-+		return true;
+ 	if (!np)
+ 		return -ENODEV;
+@@ -1243,16 +1243,6 @@ static int stm32_i2s_parse_dt(struct platform_device *pdev,
+ 			return ret;
+ 	}
+ 
+-	/* Get irqs */
+-	irq = platform_get_irq(pdev, 0);
+-	if (irq < 0)
+-		return irq;
+-
+-	ret = devm_request_irq(&pdev->dev, irq, stm32_i2s_isr, 0,
+-			       dev_name(&pdev->dev), i2s);
+-	if (ret)
+-		return ret;
+-
+ 	/* Reset */
+ 	rst = devm_reset_control_get_optional_exclusive(&pdev->dev, NULL);
+ 	if (IS_ERR(rst))
+@@ -1277,7 +1267,7 @@ static int stm32_i2s_probe(struct platform_device *pdev)
+ {
+ 	struct stm32_i2s_data *i2s;
+ 	u32 val;
+-	int ret;
++	int irq, ret;
+ 
+ 	i2s = devm_kzalloc(&pdev->dev, sizeof(*i2s), GFP_KERNEL);
+ 	if (!i2s)
+@@ -1303,6 +1293,15 @@ static int stm32_i2s_probe(struct platform_device *pdev)
+ 		return dev_err_probe(&pdev->dev, PTR_ERR(i2s->regmap),
+ 				     "Regmap init error\n");
+ 
++	irq = platform_get_irq(pdev, 0);
++	if (irq < 0)
++		return irq;
 +
-+	return false;
-+}
++	ret = devm_request_irq(&pdev->dev, irq, stm32_i2s_isr, 0,
++			       dev_name(&pdev->dev), i2s);
++	if (ret)
++		return ret;
 +
- static s32
- brcmf_bss_connect_done(struct brcmf_cfg80211_info *cfg,
- 		       struct net_device *ndev, const struct brcmf_event_msg *e,
-@@ -6625,10 +6640,7 @@ brcmf_bss_connect_done(struct brcmf_cfg80211_info *cfg,
- 		conn_params.resp_ie = conn_info->resp_ie;
- 		conn_params.resp_ie_len = conn_info->resp_ie_len;
- 		authorized = completed &&
--			     (profile->use_fwsup == BRCMF_PROFILE_FWSUP_1X ||
--			      profile->use_fwsup == BRCMF_PROFILE_FWSUP_ROAM) &&
--			     brcmf_has_pmkid(conn_params.req_ie,
--					     conn_params.req_ie_len);
-+			     brcmf_fwsup_is_authorized(profile, &conn_params);
- 		cfg80211_connect_done(ndev, &conn_params, GFP_KERNEL);
- 		if (authorized)
- 			cfg80211_port_authorized(ndev, profile->bssid, NULL, 0,
+ 	ret = snd_dmaengine_pcm_register(&pdev->dev, &stm32_i2s_pcm_config, 0);
+ 	if (ret)
+ 		return ret;
 -- 
 2.53.0
 
