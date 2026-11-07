@@ -1,52 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047689;
-	b=z2Z64ts20alajsKnj4icLvst2pjgP8zfTc1yJEIBp9XYYeAkZiDz7ie4ymPnGvwEjz31
-	 4VaIkXMn74dyjdkl7Ac53mqkDJ/cBFgrwN4hYbfFRhneuOS1ZR1L4qUjtRKPvu+gmMnmd
-	 8zE5GOTogkwqj76o+qmvaRm95OyljfRUgJRrUAT9jgh+R6U0OI7OjsnvuD5orDA4FTYdB
-	 kePDilW3FpdnOSqasE96sKKYStFfVhwAyi/Djcghq0axNzOZgrSfEmmpQkwOkRSHeg3ZS
-	 nI1bQ+UBC7bzV6kt8+ZcvXcRjZisZMRyFTKLAr46EmIE0K/stdGXrgZlC8cIrYkXprg==
+	t=1794047691;
+	b=Cy1omJRAyA3PvtGZRkZI3bh+pDWb9pu/DCbuWEJ9swMBPkR03idTcl5jtirvA7EedOq6
+	 KrV4vI/MLX4EnGrl8autmB6itH0R9iZBim8m1s7krcgbbm63w2gndLGAH1FfpC8YUSVqz
+	 uSBPV2UYDQwMdg6W0ys+lGfpAcME4BecvHvZuXtVA3rEj2ptKCA1EtMYe5K1jtdAaST2l
+	 9y6+ksKETvWRhbHEauRvzFmiMCnRM3zQp9smSsEOS/RuNdmk8gq7wbsymUfCfOgFzEHgl
+	 OuKtSsIuvE4EHYiQV6TkAwkSAHuNzNn/V0wcO1VmsWI+T2MsEvXO5kWg+7WdMsrkfKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047689;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047691;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=6pjfbpmaIkZNT9Ie9TOBW4k1QfdABtMHSEwWsAxt7NU=;
-	b=gAWqOsYaFgvIZBuk3T/G58rcVJDuFLrVzmk/OzVvqg5hMSFyBdLR/wF3r++5iEMc4pJI
-	 S7bkO90FPmGs3SaA93UxHcNOUOV0tvcvJshfWpOeGMcwbzNXt7tA0DSUXwN0hhpwXluXH
-	 9EfDfhzryoXRXWWqOnoiajhVM7dTl55H5fMtbKLeCGyAeJTqtr6A3TUcKtwFZdB3B64y5
-	 sSSK7dM+MDJDKc7zxJjY4AJBf42fALwA00M4rcuthm5bx2p2yjefWQWT+l4WxhjarJezZ
-	 nQUedh1eUdd9rXB1Uhs2g64/NxjDBml1381VJb1LZqGQSCLyAlsbRlT2zp7pyqc+t9g==
+	bh=iVLNoZHGangElQnngP4aHG+UznvsaNpWmhO8ZXxRYlc=;
+	b=oLjP4BRk7DpWOuukLgrWUXuu5KgYMHu6ka+MCdR+9nJ7Epkv+UN9PO3jr3YWyZkxd28B
+	 ZdqIwNAJHabFuINOV8ZDSeOMWqelptHY8IpYisujFK47PGQ8P8sEinRUQlDVZr9XwObRu
+	 0B309A/1P/rXH3yMBk+V3stjmG1MkyvylylSIglmU7x1zk/wCN0DaE3rwiqyQx9DcDQ8Q
+	 ZAKapPKpNsH51SZtiHsUOxvHBHLINhMgBqvfpKap5f263XUF3PR172lDfxJsNu6D6EXtv
+	 C7M7niXF9XHj4RUnGSsvG4EGEOVkng7uAfJHgz0erwnH8TT+wihG0ec36GThqB4LGnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nr8xCJat;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eO2XMD2L;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE2EA606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:34:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E8A6606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:34:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nr8xCJat
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 407761F0089F;
-	Sat,  7 Nov 2026 10:34:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eO2XMD2L
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 743E51F0089F;
+	Sat,  7 Nov 2026 10:34:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047688;
-	bh=6pjfbpmaIkZNT9Ie9TOBW4k1QfdABtMHSEwWsAxt7NU=;
+	s=k20260515; t=1794047691;
+	bh=iVLNoZHGangElQnngP4aHG+UznvsaNpWmhO8ZXxRYlc=;
 	h=From:To:Cc:Subject:Date;
-	b=Nr8xCJatgpKJn47+SxxV6xZUtvs8xy6obncp1RfJJ0r8Im8TO7w2rMPtrq5t9cLxb
-	 +qdtmgnWTklIPF9UcTibqfqHJrDcKABcGY9nvRziJfvj5n1xDlMj8Evn3OHZgKjSPf
-	 BtaWQ837vrYpCZky3YJbM5M/zWqa70mpTSUmjcRRKony7Ic1ODJ+vW67O06FwPYhGD
-	 n1hYmmNtuSyOREFQ9RUNv4/w/9k5hQPmbOVSE1UFUWZyVAGXtWKQoYA8r1OD6RjP/U
-	 ScBKvYb7FWXO9DB/Lib5+vvPDaRMWH0WBgca+Elk2VoBJj9raD4GgVrD3EACGKtetM
-	 r1PqpICcbzEaQ==
+	b=eO2XMD2L2Gf4w+R70Le1DdN11fPzNEsRm/Geys8Ao+wjW5Q+EsJ2WZk69HjJ2AN6z
+	 bobqmKcrg2rahlgRkrftMSmVvRQja+H/ac6FKXlK309DyWieFlSbWK1fw2PTtffBex
+	 wtIxAqQZKj/rUrIom+7+Mv98yjLk+uUWLKfhbXA7YaYo3ctWycPxCFiswvvULVtzKk
+	 MvGslBOZxP1V15cawbLw94AdxPkqDwgTpF13GjVCdL4YwWnPp2+Lw553Ehdfy4A796
+	 Th/d3apJWP4l8lgknu+GN3rntnxqnVvVwBP6D+w5pFrl/PkwqXiZUORV2dKURN1zzQ
+	 mYW4mLill1yjg==
 From: Sasha Levin <sashal@kernel.org>
-To: daehojeong@google.com,
+To: zhanxusheng1024@gmail.com,
+	zhanxusheng@xiaomi.com,
 	chao@kernel.org,
 	jaegeuk@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] f2fs: disallow mmap write and data-modifying fallocate on atomic files" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:34:47 -0500
-Message-ID: <20261107053447-failed-6.6-06dfe4a7eb69@kernel.org>
+Subject: FAILED: patch "[PATCH] f2fs: fix defragment writeback range truncation on 32-bit" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:34:49 -0500
+Message-ID: <20261107053449-failed-6.6-92154fe28c37@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,101 +70,70 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 06dfe4a7eb696d868b196c2a49873142f19bd862
+git cherry-pick -x 92154fe28c3701bebf75176dc5522bec62519a8f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053447-failed-6.6-06dfe4a7eb69@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053449-failed-6.6-92154fe28c37@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 06dfe4a7eb696d868b196c2a49873142f19bd862 Mon Sep 17 00:00:00 2001
-From: Daeho Jeong <daehojeong@google.com>
-Date: Sat, 10 Oct 2026 02:41:33 +0000
-Subject: [PATCH] f2fs: disallow mmap write and data-modifying fallocate on
- atomic files
+From 92154fe28c3701bebf75176dc5522bec62519a8f Mon Sep 17 00:00:00 2001
+From: Zhan Xusheng <zhanxusheng1024@gmail.com>
+Date: Mon, 5 Oct 2026 23:49:54 +0800
+Subject: [PATCH] f2fs: fix defragment writeback range truncation on 32-bit
 
-Stores through a shared writable mapping and fallocate with
-FALLOC_FL_PUNCH_HOLE, FALLOC_FL_ZERO_RANGE, FALLOC_FL_COLLAPSE_RANGE or
-FALLOC_FL_INSERT_RANGE do not go through ->write_begin, so they bypass
-the COW inode and modify the original inode directly. Reject them while
-the file is in atomic write mode, as fallocate already does for pinned
-and compressed files. A write fault gets SIGBUS and fallocate gets
--EOPNOTSUPP.
+f2fs_defragment_range() flushes the range it is about to defragment:
 
-fallocate without these flags only preallocates blocks and stays
-allowed.
+	filemap_write_and_wait_range(inode->i_mapping,
+				pg_start << PAGE_SHIFT,
+				(pg_end << PAGE_SHIFT) - 1);
 
-f2fs_vm_page_mkwrite() cannot take inode_lock, so check the flag under
-invalidate_lock, and hold invalidate_lock in
-f2fs_ioc_start_atomic_write() from the flush until the flag is set.
-Otherwise a fault could check the flag, then start_atomic_write could
-flush and set the flag, and the fault would dirty the folio afterwards.
+pg_start and pg_end are pgoff_t, 32 bits on 32-bit kernels, so both
+shifts are evaluated in 32 bits and truncated before they are widened to
+the loff_t parameters.  pg_end is only capped by the file's page count,
+so for a file larger than 4 GiB the shift wraps.
+
+For a 5 GiB file pg_end is 1310720 and the range collapses from
+[0, 5 GiB) to [0, 1 GiB), leaving the rest of the dirty pages unwritten
+before the blocks are moved.  For 8 GiB the shift yields 0, the minus one
+makes it (loff_t)-1, and the range becomes [0, LLONG_MAX].
+
+The matching call in f2fs_collapse_range() already casts:
+
+	filemap_write_and_wait_range(inode->i_mapping,
+				(loff_t)index << PAGE_SHIFT,
+				((loff_t)pg_end << PAGE_SHIFT) - 1);
+
+Do the same here.  On i386 the shift changes from "shl $0xc,%ecx" to
+"shld", i.e. from a 32-bit shift to a double-precision one.
 
 Cc: stable@kernel.org
-Fixes: 3db1de0e582c ("f2fs: change the current atomic write way")
-Signed-off-by: Daeho Jeong <daehojeong@google.com>
+Fixes: d323d005ac4a ("f2fs: support file defragment")
+Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
 Reviewed-by: Chao Yu <chao@kernel.org>
 Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
 ---
- fs/f2fs/file.c | 20 ++++++++++++++++++--
- 1 file changed, 18 insertions(+), 2 deletions(-)
+ fs/f2fs/file.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-index d4d859dbef880..58599ab4937de 100644
+index 713fb6f49bcb3..d4d859dbef880 100644
 --- a/fs/f2fs/file.c
 +++ b/fs/f2fs/file.c
-@@ -188,6 +188,17 @@ static vm_fault_t f2fs_vm_page_mkwrite(struct vm_fault *vmf)
- 	file_update_time(vmf->vma->vm_file);
- 	filemap_invalidate_lock_shared(inode->i_mapping);
+@@ -3036,8 +3036,8 @@ static int f2fs_defragment_range(struct f2fs_sb_info *sbi,
  
-+	/*
-+	 * mmap stores bypass the COW inode and would break atomicity. Check
-+	 * under invalidate_lock: f2fs_ioc_start_atomic_write() holds it while
-+	 * flushing dirty folios and setting FI_ATOMIC_FILE, so either it sees
-+	 * our dirty folio and writes it back, or we see the flag.
-+	 */
-+	if (unlikely(f2fs_is_atomic_file(inode))) {
-+		err = -EOPNOTSUPP;
-+		goto out_sem;
-+	}
-+
- 	folio_lock(folio);
- 	/*
- 	 * A concurrent buffered write can extend isize, so we store isize in a
-@@ -2113,9 +2124,11 @@ static long f2fs_fallocate(struct file *file, int mode,
+ 	/* writeback all dirty pages in the range */
+ 	err = filemap_write_and_wait_range(inode->i_mapping,
+-						pg_start << PAGE_SHIFT,
+-						(pg_end << PAGE_SHIFT) - 1);
++						(loff_t)pg_start << PAGE_SHIFT,
++						((loff_t)pg_end << PAGE_SHIFT) - 1);
+ 	if (err)
+ 		goto out;
  
- 	/*
- 	 * Pinned file should not support partial truncation since the block
--	 * can be used by applications.
-+	 * can be used by applications. Atomic files should not either, since
-+	 * these modify the original inode directly and break atomicity.
- 	 */
--	if ((f2fs_compressed_file(inode) || f2fs_is_pinned_file(inode)) &&
-+	if ((f2fs_compressed_file(inode) || f2fs_is_pinned_file(inode) ||
-+	     f2fs_is_atomic_file(inode)) &&
- 		(mode & (FALLOC_FL_PUNCH_HOLE | FALLOC_FL_COLLAPSE_RANGE |
- 			FALLOC_FL_ZERO_RANGE | FALLOC_FL_INSERT_RANGE))) {
- 		ret = -EOPNOTSUPP;
-@@ -2403,6 +2416,8 @@ static int f2fs_ioc_start_atomic_write(struct file *filp, bool truncate)
- 
- 	f2fs_down_write(&fi->i_gc_rwsem[WRITE]);
- 	f2fs_down_write(&fi->i_gc_rwsem[READ]);
-+	/* serialize with f2fs_vm_page_mkwrite(), see the comment there */
-+	filemap_invalidate_lock(inode->i_mapping);
- 
- 	/*
- 	 * Should wait end_io to count F2FS_WB_CP_DATA correctly by
-@@ -2458,6 +2473,7 @@ static int f2fs_ioc_start_atomic_write(struct file *filp, bool truncate)
- 	f2fs_i_size_write(fi->cow_inode, isize);
- 
- out_unlock:
-+	filemap_invalidate_unlock(inode->i_mapping);
- 	f2fs_up_write(&fi->i_gc_rwsem[READ]);
- 	f2fs_up_write(&fi->i_gc_rwsem[WRITE]);
- 	if (ret)
 -- 
 2.53.0
 
