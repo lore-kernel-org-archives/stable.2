@@ -1,51 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050066;
-	b=fqNd3PE90OgwdKxD2zAWrNGWyg3SA/3WzA+dTKm0zQALmAO2YzmBAnqmKtoH2w49Qoyy
-	 i3W4zT4iXBGYCjgVkF95tvkJlxM0XSiag4mBNH3fRz3KsjHwBFpnJaSMj+u4C1fQbc/AJ
-	 72V8ZJT67we3cE6A5HrHN6p3lq/ouAJZ0gOQZseOwPZK//4BqBtTp6p6qQ+UDdQGmWUBW
-	 ov02vEtsaZ+TWqzJdHoqjCLRdzIBBwN8LSpKIEm13Gaaxpps33ObX8cPUYXWocrVXMJLx
-	 ONw7BWkpxyZZkTpnVqGbB7HHzwNadhPH6IlmDgEO5nlnA1dWZE2E6YinYgJwxqdxB2g==
+	t=1794050070;
+	b=XUqbKNPy33RikLJ/p+7/ilR+BazvB7zCUAT8vH6BNf769/U9s3JRwk9drCD+KiGgZuih
+	 2i/dDL0UWOysE2eEZdR8mZ3XZZGKQgBaBYxu4yK3owQlOi7YTaCdsyNbqRGsVSVfn2ckm
+	 +4hcH2bS7Yn27pce4iulDYl5AhBGRAJoQs5zPXly9x9iFFlnoVtXzol2UbkVOr7yZgmkg
+	 L7xPhoCQJA3JTqDWLaIgP0Cq81/6p/18P74qLsaBm/PTsBi0nlhLBNq8zxLaEPfTr0rhi
+	 26VI2+5uhSsE2OkTVEgLY1CDv+Y4Ko5ozBiQsfZ9qIGDiVXqrr9AoEXZpIcsKSjqlCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050066;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050070;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=HWApybBv8y6qEDzuAY7tKsS3WlWTCQ8q7Cw9WvpjWdY=;
-	b=gHuEthQ/JWXxH55jcnMnGu4uyxOei4xZoXuJgIEF0WgjCLkY3Bq8mQ45RF4uZDuGXv+D
-	 IXe/Sx7o1xAgq4BTd1I2gDa3bSS8DKV4vYprw4862TBhCdpUoUuaYYCyto/4heEcUK/Pe
-	 zlSSH3aPWwl81Pszo/ByD1TmRNBHQkYJTK0iwtos2x7DwM7A6SCCg+aJ46XuvY1Qzirbd
-	 QcABAKsUU/Bw+FGi4mMHWw9GB2UatXkpzyDipYI5lsxdVQa9tTZfbp3sfhMiFt2Q2Glho
-	 hEUI+cW7iPWKyrCxq2KzzHLx2p+bfqWmBgvHBGdWF7riWpU6jrqoYQWL8Owi0MLLRIA==
+	bh=jqyuwk0zQDYXOi4yZNfgSF1MiPxRdKehwHfAJUuBT4o=;
+	b=5Qr7TkN8SRjE4xCMM5r0sY+TEA9BjQ+M3D0V8JdOS0SGBgVkRPo/7h3s6eTATR8FTspw
+	 fzu+JBnuV/E5LBJXlQE3xKjU7y9tU6E9xC4TVWsxaQNidHTtCCCEashMfAyH+G7UEAIiH
+	 xUsWFbMl98jiBdkjqURMVaEj+rb7+lBvmFqI0H+dKfJlapRMXR50ePlinOjmXoo5rm583
+	 QzRweSNu+Sq6BelaY9fDoWIxujcxkPBwgPuUeVzsEsBIScqvUaWtOzAoQre+XfFG2bjB7
+	 N9a8IamLcSynmvBHoa4op8HdhvjqWCBAw5gvIA5fxlb8qHVxQ/8xbao8eHbL3NEVqsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="UBi2dp/z";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="W2+DlIw/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BEBC606A32D
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:14:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB781606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:14:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UBi2dp/z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC4DD1F0089F;
-	Sat,  7 Nov 2026 11:14:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W2+DlIw/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AEBC1F0089F;
+	Sat,  7 Nov 2026 11:14:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050066;
-	bh=HWApybBv8y6qEDzuAY7tKsS3WlWTCQ8q7Cw9WvpjWdY=;
+	s=k20260515; t=1794050069;
+	bh=jqyuwk0zQDYXOi4yZNfgSF1MiPxRdKehwHfAJUuBT4o=;
 	h=From:To:Cc:Subject:Date;
-	b=UBi2dp/ztavnKQQfzngha/5WA9wIY/+oMgVnP9Hugbkca+ZO5mCdFoH4fCSjW7VK6
-	 GNM4/3Vh0zcQMUT5ul+2OsThxsvYIhzJY1FfFcn0d7iu1qeJvTGv67rAhxKMeoJybU
-	 uq+9wN835jnE2LpCG2nkISLFPD2JWFQV6JzbtB8h0SeuuPiIkkbSjaiYkSYAJnp8tv
-	 WFg0ZpPsera/XCHKnQCCunFrLINhSlqO1IbyfgKtInr8qBeuwDmHYyQu1gvUjfLoT/
-	 Yp6dSu+ugXFJlT/DMZfohhbZIaRViYY7yIU0ifiO7ggNX55wMTxn1Vtre1PJ3cw+JS
-	 qn5mwNVivMhaQ==
+	b=W2+DlIw/iJ1nrEEWG8AJf4ZUHq/6q3ys8T8Jgi8M5s9XqxRB/p7cInuaocPGmqzWz
+	 zmLM7bT+4NyheF5+NEzUW1iTSsZM2FdU+tR1iih+rKw91wFK8uKtSg5Bx8qZ4Ua+V1
+	 1CJRMORMveY84Yr5KkHs0bV5KJSAv2N3FSO9YtqBMyrEwTx4E9fM3g+d7US65o9s6a
+	 yjJFNdn3CAeKnCaZPUhFbfmCOeoy/e2ZF7nbNhT77iL+PjOVzSzKYCzQw0gEsRmvtB
+	 aAmvWLT8V0io7WUSQgfbLI/raU1hUMKN1qxSeFyojV++/RQfFNHH7jky2d1WLdGrz+
+	 Lm9nf9h6NPRtg==
 From: Sasha Levin <sashal@kernel.org>
-To: 4ncienth@gmail.com,
-	brauner@kernel.org
+To: jack@suse.cz,
+	shionthanatos@gmail.com,
+	gmwgg05@gmail.com,
+	npczmd@qq.com,
+	jupmouse@gmail.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] aio: prevent eventfd/epoll recursion on poll" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:14:24 -0500
-Message-ID: <20261107061424-failed-5.10-398e3fa789aa@kernel.org>
+Subject: FAILED: patch "[PATCH] udf: Make sure there's enough space for LVID implementation use field" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:14:27 -0500
+Message-ID: <20261107061427-failed-5.10-a61fb39759d7@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,74 +71,56 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 398e3fa789aa5ffddc8689d8cbc7b31e1824130c
+git cherry-pick -x a61fb39759d719a4f4966742b4d28387e33d81c4
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061424-failed-5.10-398e3fa789aa@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061427-failed-5.10-a61fb39759d7@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 398e3fa789aa5ffddc8689d8cbc7b31e1824130c Mon Sep 17 00:00:00 2001
-From: Daehyeon Ko <4ncienth@gmail.com>
-Date: Thu, 13 Aug 2026 22:38:43 +0900
-Subject: [PATCH] aio: prevent eventfd/epoll recursion on poll
+From a61fb39759d719a4f4966742b4d28387e33d81c4 Mon Sep 17 00:00:00 2001
+From: Jan Kara <jack@suse.cz>
+Date: Mon, 31 Aug 2026 11:17:14 +0200
+Subject: [PATCH] udf: Make sure there's enough space for LVID implementation
+ use field
 
-aio_poll_wake() can complete a keyed poll request inline while the
-provider waitqueue lock is held.  If the polled file is an epoll instance
-and the AIO result eventfd is watched by that same instance, signaling the
-result can feed back into epoll and try to take the provider waitqueue lock
-again.
+udf_lvid_valid() verifies that the LVID has enough space for all the
+tables and the reported length of ImplementationUse field. However it
+doesn't make sure the reported length is large enough to contain
+logicalVolIntegrityDescImpUse structure which OSTA specification
+requires. This can thus lead to accesses beyond the end of LVID buffer
+for suitably corrupted UDF filesystem. Add the length check.
 
-For example, a timerfd wake can follow this path:
-
-  timerfd -> ep_poll_callback -> aio_poll_wake -> aio_complete
-          -> eventfd_signal -> ep_poll_callback -> ep_poll_safewake
-
-The second ep_poll_safewake() recursively acquires ep->poll_wait.lock.
-eventfd_signal_allowed() does not prevent this because the wake chain did
-not begin in eventfd, so the task's eventfd recursion bit is still clear
-when aio_poll_wake() decides to complete inline.
-
-An unprivileged process can construct this graph and make a CPU spin on the
-recursive lock.  DEBUG_SPINLOCK reports "BUG: spinlock recursion", and
-lockdep reports the same epoll waitqueue lock as both held and requested.
-
-Always defer eventfd-backed poll completions through the existing
-aio_poll_put_work() path.  At this point the request has already been
-detached from the waitqueue and active request list, so the work item can
-publish the completion after the provider callback releases its lock.
-Poll completions without a result eventfd remain inline.
-
-Fixes: e8693bcfa0b4 ("aio: allow direct aio poll comletions for keyed wakeups")
+Reported-by: Yunpeng Tian <shionthanatos@gmail.com>
+Reported-by: Gongming Wang <gmwgg05@gmail.com>
+Reported-by: Mingda Zhang <npczmd@qq.com>
+Reported-by: Qinrun Dai <jupmouse@gmail.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
-Link: https://patch.msgid.link/20260813133843.2933127-1-4ncienth@gmail.com
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Fixes: 781d2a9a2fc7 ("udf: Check LVID earlier")
+Signed-off-by: Jan Kara <jack@suse.cz>
 ---
- fs/aio.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ fs/udf/super.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/fs/aio.c b/fs/aio.c
-index d78acc69f4870..92241a24d9e28 100644
---- a/fs/aio.c
-+++ b/fs/aio.c
-@@ -1869,7 +1869,12 @@ static int aio_poll_wake(struct wait_queue_entry *wait, unsigned mode, int sync,
- 		list_del_init(&req->wait.entry);
- 		list_del(&iocb->ki_list);
- 		iocb->ki_res.res = mangle_poll(mask);
--		if (iocb->ki_eventfd && !eventfd_signal_allowed()) {
-+		/*
-+		 * We hold an arbitrary provider waitqueue lock here.  Signaling a
-+		 * result eventfd can feed back through epoll and try to take the same
-+		 * lock again.  Defer all eventfd-backed poll completions.
-+		 */
-+		if (iocb->ki_eventfd) {
- 			iocb = NULL;
- 			INIT_WORK(&req->work, aio_poll_put_work);
- 			schedule_work(&req->work);
+diff --git a/fs/udf/super.c b/fs/udf/super.c
+index 2ba5973ef4dd4..5351755aca3ec 100644
+--- a/fs/udf/super.c
++++ b/fs/udf/super.c
+@@ -1617,7 +1617,10 @@ static bool udf_lvid_valid(struct super_block *sb,
+ 
+ 	parts = le32_to_cpu(lvid->numOfPartitions);
+ 	impuselen = le32_to_cpu(lvid->lengthOfImpUse);
+-	if (parts >= sb->s_blocksize || impuselen >= sb->s_blocksize ||
++	if (sizeof(struct logicalVolIntegrityDescImpUse) > impuselen ||
++	    impuselen >= sb->s_blocksize)
++		return false;
++	if (parts >= sb->s_blocksize ||
+ 	    sizeof(struct logicalVolIntegrityDesc) + impuselen +
+ 	    2 * parts * sizeof(u32) > sb->s_blocksize)
+ 		return false;
 -- 
 2.53.0
 
