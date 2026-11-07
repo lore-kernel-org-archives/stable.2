@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047760;
-	b=OLiq+YT0Anqx3yT2GxzJTtYCtWvq9IveUOoYbThLx6WoFSc64FuXuusDgFQDUznCwLTl
-	 pF7RAsEYc1C8HZBD/jOWm32mmZ3a+IgPi/VpLp2fuuKBG1/qk7MXe5gw7Uj/ri0Ebd5VX
-	 RoB4JNFZRba9UoZ5r+LVWaZZMQS0QIJluKBmzU7St7kSa6jYlDdgn74tT93rdah3PXmDn
-	 7hhCF0N7mAdW7Csszwo9AyMDPfZUceNAX4ATFfHAT9S5KayH9KmaE4jWi7jN0E3OF/vTk
-	 TVjc2w9R2KrSKqbHJ4Ik5FoRa/C0eVv4n3XcU1oQ0b0yVsNRs6s/8CO0TFbEb0qzrhA==
+	t=1794047762;
+	b=V8b6bmQe00FR5ItfHUoP6TryGq3CugLXJBcFT0DXDarGZRTbBrO/tmv4Np3+dhxkcrNQ
+	 znl+l8xZF6b/HAIIgWehJScJFo7gH8gPbR3mDzVmud5PLyKp8k9bolKBk9ppf6+kJXN7E
+	 EVr9TIB8ZHfON5M/TxzwfKO7uTDTFHiffiJ6dGW4B6kkQbsYUXX+DaZiRMb/pizfwKBwS
+	 HAOCNz/bzQekuSSx28FOcKgsKvX1Yki3Gz7Ytks6Qnzlz73RcgQndd0cuH7bW0wLemYE5
+	 yIpfGTmYhAogxYlyrkUUua+gkxYHhV8kgbtPsYZ2wxPIOpIpr1CPSlDmU4aC7kueL2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047760;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047762;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=+g/+8uUWNH1K/jIkswVqueM4pQKWRHj8m0tLDyhqYrQ=;
-	b=IurrdRqckfEIxMksNy1aURqwDRO5sE2iyT4rYM1XSHcR54r6RaXmHxdPLlwT3RqMJ7Jc
-	 6OzwneBOAI14wwp9fvcIm8l2d4dQUmhuzcDmQ7ROMcICnvwUAX0274s3dzUwlJaklu9LO
-	 X4DW/yuwDQPda/xsLjJNtZ+I5Ygg5U5jiKLHFZXPZ8Sok8Xk+JKbhnrm+F488FAM55weg
-	 kEFlXBIw3/dMTqznfyBgWWLvWdwejZKx6AT1RIFF7dNikXAvHf5LsGCoxQR5HgAiHazZU
-	 oKO0celHRDa8j0L243GRdIeliQ4C0hAKZsUWHFrvOdf0ddkkFg7I7hSD2LdpPZnT2LQ==
+	bh=MjDo4IOLkoyH+vpJsStTP+QpKn8su8BH80qlL2NL7ew=;
+	b=QjGrPiOkGQp6Jm82YVaxOR1vVnZeoVta0ASTHjgE00pqsoVM/pNU12rfNgA0LufXswAV
+	 11syQyol8u7+LOSAENJFoVtNfIdjZ94AVHxwmW/v2rNWL4nFUTs9Jjs62x6liFaXYHU3H
+	 Ak5Ss2JNAT1DJu2lBXE0JfLbX8EiUshHe6m0MUtkSyZBkdOHlYanHD6Hrw6oIm5Ql2iQD
+	 hUHWL/7RzOisUquqaRcU8bqyGEzUTcXt6jlMIJT3Hw2pruBmihozURtsxhYd9YqIsiQZJ
+	 p7VkE4qXS9A27sptmgQ2tK616349YORj6QOCWHFIyNinU/4wf33AGQNEZJkUdg4e82g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CMog5Pfd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FLnD78lf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23B1F606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:36:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6587E606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:36:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CMog5Pfd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 749661F0089F;
-	Sat,  7 Nov 2026 10:35:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FLnD78lf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C06761F0089F;
+	Sat,  7 Nov 2026 10:36:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047760;
-	bh=+g/+8uUWNH1K/jIkswVqueM4pQKWRHj8m0tLDyhqYrQ=;
+	s=k20260515; t=1794047762;
+	bh=MjDo4IOLkoyH+vpJsStTP+QpKn8su8BH80qlL2NL7ew=;
 	h=From:To:Cc:Subject:Date;
-	b=CMog5PfdcnbZFGr7R/zxPfQx/5ctHlfVrGlQb4SdVBAfvsR9+LpCm9Tk23C/ln7tr
-	 /ySpCiIGY0gA9AOKqSe9A3021P9AMOgLo0hDWblEzpjrb9AQVwWXaXHIjKq9fWXAL/
-	 cf5KYo/BCYL2NIgHq7WVK1l9HMj6dN1KT7qt3+ZAJvZCMnkbboAQuPCuc1TMo04TOf
-	 MKFOH4c8u9qmws5ksdGoMI1DL7VfxUGZET2rqhX+/BDEV1y+UPM/oE7hvUdM6XhaBV
-	 4/IElgMx2nAcfcRduU4EI2oSxoGBi3X8fbmUpV7LolpcFvvz36Wm2c6PHKtgBveGte
-	 bIvRNuzJBcVFA==
+	b=FLnD78lfYGVLqgfiULn2vbf7+q+cMQ7FXXTAED44WaIpad3fmiV3k50rnmp2rjmzt
+	 qr0Lj95WIuFyG1oSswuS7A0P+nL6LmlaNhmMtqR6yb7oDSmi7bhKSUhLOpdRBeKcnw
+	 0/snY9+MDYT14AiFWW0mIGuF3frdWKDesxs5ZFo1Hvl2dRStNHyAKKGMoqVvtJQPsa
+	 yE1XIpsHl45Ls07IPiLqo+iEdq/cqDrbGBXsvmSfuqNFfTZ9RPrIyMUpVMhBJv346E
+	 3rmejjqV/VI+6us71PuR8owC0S95DZt8l5TuDF0cA60uJapQGWFg10E6bNdxNoCFYh
+	 N5pEu4qguQIeA==
 From: Sasha Levin <sashal@kernel.org>
-To: rosenp@gmail.com,
-	daniel.machon@microchip.com,
-	kuba@kernel.org
+To: tom.leiming@gmail.com,
+	josef@toxicpanda.com,
+	axboe@kernel.dk
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] net: bgmac: enable interrupts only after NAPI is ready" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:35:58 -0500
-Message-ID: <20261107053558-failed-6.6-ac1f6e58cb77@kernel.org>
+Subject: FAILED: patch "[PATCH] ublk: let STOP_DEV cancel the server's commands before its release" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:36:00 -0500
+Message-ID: <20261107053600-failed-6.6-c8b349f9daf6@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,87 +69,259 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x ac1f6e58cb77bb66b8811f7d98703e0f076a8f65
+git cherry-pick -x c8b349f9daf6d88ff21033028167d00e819dafb6
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053558-failed-6.6-ac1f6e58cb77@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053600-failed-6.6-c8b349f9daf6@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From ac1f6e58cb77bb66b8811f7d98703e0f076a8f65 Mon Sep 17 00:00:00 2001
-From: Rosen Penev <rosenp@gmail.com>
-Date: Sat, 10 Oct 2026 00:00:11 -0700
-Subject: [PATCH] net: bgmac: enable interrupts only after NAPI is ready
+From c8b349f9daf6d88ff21033028167d00e819dafb6 Mon Sep 17 00:00:00 2001
+From: Ming Lei <tom.leiming@gmail.com>
+Date: Sun, 11 Oct 2026 01:35:50 -0500
+Subject: [PATCH] ublk: let STOP_DEV cancel the server's commands before its
+ release
 
-bgmac_open() calls bgmac_chip_init(), which unmasks the interrupts and
-enables the MAC receiver, before request_irq() and napi_enable().
-bgmac_enet_resume() also enables NAPI only after bgmac_chip_init().
+STOP_DEV cancels the fetched commands after dropping ub->mutex, so
+START_DEV and FETCH can run in between:
 
-When frames arrive in that window, the first RX interrupt masks all
-interrupts in bgmac_interrupt() and calls napi_schedule() on a NAPI
-instance that is still disabled, so nothing is scheduled. Nothing
-unmasks the interrupts again, the RX ring fills up and the interface
-stays deaf until it is brought down and up without traffic.
+  STOP_DEV                          START_DEV / FETCH
+  lock ub->mutex
+    ublk_stop_dev_unlocked()        (not started: does nothing)
+  unlock ub->mutex
+                                    START_DEV goes live, schedules scan
+                                    FETCH publishes a new command
+  cancel_work_sync(scan)            cancels the new disk's scan
+  ublk_cancel_dev()                 takes the new command: NULL io->cmd
+                                    on a queue which isn't canceling
 
-On an Asus RT-N16 (BCM4716) a single "ip link set eth0 down/up" while
-a host sends UDP to the router left INT_MASK at 0, INT_STATUS with RX
-pending and the RX DMA idle on a full ring, with the RX packet and
-interrupt counters no longer moving. With this change, 10 of 10 such
-cycles recovered on their own.
+A START_DEV after STOP_DEV also goes live over the canceled commands.
 
-Request the IRQ and enable NAPI before the chip is initialized.
+Hold a reference on the server's /dev/ublkcN while canceling:
 
-Fixes: dd4544f05469 ("bgmac: driver for GBit MAC core on BCMA bus")
-Fixes: f3537b3494c0 ("net: ethernet: bgmac: driver power manangement")
+  STOP_DEV
+  lock ub->mutex
+    ublk_stop_dev_unlocked()
+    cancel_work_sync(scan)
+    server attached: take a reference on its file, set STOPPING
+  unlock ub->mutex
+  ublk_cancel_dev()
+  drop the reference
+
+ - STOPPING makes FETCH and PREP get UBLK_IO_RES_ABORT and START_DEV
+   -EBUSY; a START_DEV or END_USER_RECOVERY waiting for the device
+   to get ready wakes up too; the reset in the server's release
+   clears it
+ - the release can't run before the reference is dropped, so no new
+   server can attach, and the cancel only meets this server's commands
+ - the cancel still runs after the unlock: io_uring_cmd_done() may take
+   uring_lock, under which FETCH takes ub->mutex
+
+ublk_ch_open() saves the file in ->ch_file and ublk_ch_release() clears
+it, under cancel_mutex. The release runs after the last reference is
+gone, so take ours with file_ref_get(). Drop it with __fput_sync(): if
+it is the last one, fput() would defer the release to this task, which
+DEL_DEV then makes wait for the device to be freed.
+
+A server which opened the device but hasn't fetched is stopped too.
+Document what a server sees after STOP_DEV in ublk.rst.
+
+Fixes: 85248d670b71 ("ublk: move ublk_cancel_dev() out of ub->mutex")
 Cc: stable@vger.kernel.org
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
-Reviewed-by: Daniel Machon <daniel.machon@microchip.com>
-Link: https://patch.msgid.link/20261010070011.60403-1-rosenp@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Reported-by: Josef Bacik <josef@toxicpanda.com>
+Closes: https://lore.kernel.org/linux-block/20260928-b4-ublk-cancel-stop-v1-0-4a4360232a46@toxicpanda.com/
+Tested-by: Josef Bacik <josef@toxicpanda.com>
+Signed-off-by: Ming Lei <tom.leiming@gmail.com>
+Link: https://patch.msgid.link/20261011063555.1142277-8-tom.leiming@gmail.com
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
 ---
- drivers/net/ethernet/broadcom/bgmac.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ Documentation/block/ublk.rst |  7 ++++
+ drivers/block/ublk_drv.c     | 80 ++++++++++++++++++++++++++++++++----
+ 2 files changed, 79 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/net/ethernet/broadcom/bgmac.c b/drivers/net/ethernet/broadcom/bgmac.c
-index 3e9c57196a397..1835266fdd09f 100644
---- a/drivers/net/ethernet/broadcom/bgmac.c
-+++ b/drivers/net/ethernet/broadcom/bgmac.c
-@@ -1183,9 +1183,6 @@ static int bgmac_open(struct net_device *net_dev)
- 	if (err)
- 		return err;
+diff --git a/Documentation/block/ublk.rst b/Documentation/block/ublk.rst
+index 28300fee22bfc..ed3285e361ad5 100644
+--- a/Documentation/block/ublk.rst
++++ b/Documentation/block/ublk.rst
+@@ -126,6 +126,13 @@ managing and controlling ublk devices with help of several control commands:
+   ublk server will release resources (such as destroying I/O handler threads &
+   io_uring).
  
--	/* Specs say about reclaiming rings here, but we do that in DMA init */
--	bgmac_chip_init(bgmac);
--
- 	err = request_irq(bgmac->irq, bgmac_interrupt, IRQF_SHARED,
- 			  net_dev->name, net_dev);
- 	if (err < 0) {
-@@ -1195,6 +1192,9 @@ static int bgmac_open(struct net_device *net_dev)
++  If a server has ``/dev/ublkc*`` open, its fetched I/O commands complete with
++  ``UBLK_IO_RES_ABORT``. Until it closes ``/dev/ublkc*``, new
++  ``UBLK_IO_FETCH_REQ`` and ``UBLK_U_IO_PREP_IO_CMDS`` commands complete with
++  ``UBLK_IO_RES_ABORT`` too, and ``UBLK_CMD_START_DEV`` fails with ``-EBUSY``,
++  even if the server hadn't fetched anything. The device can be started again
++  by a server that opens ``/dev/ublkc*`` after that.
++
+ - ``UBLK_CMD_DEL_DEV``
+ 
+   Remove ``/dev/ublkc*``. When this command returns, the allocated ublk device
+diff --git a/drivers/block/ublk_drv.c b/drivers/block/ublk_drv.c
+index c0a112a9bf426..e315d10ba21cc 100644
+--- a/drivers/block/ublk_drv.c
++++ b/drivers/block/ublk_drv.c
+@@ -321,6 +321,8 @@ struct ublk_device {
+ #define UB_STATE_OPEN		0
+ #define UB_STATE_USED		1
+ #define UB_STATE_DELETED	2
++/* STOP_DEV canceled the server's commands, until its release */
++#define UB_STATE_STOPPING	3
+ 	unsigned long		state;
+ 	int			ub_number;
+ 
+@@ -334,6 +336,8 @@ struct ublk_device {
+ 	u16			nr_queue_ready;
+ 	bool 			unprivileged_daemons;
+ 	struct mutex cancel_mutex;
++	/* the open /dev/ublkcN, protected by cancel_mutex */
++	struct file *ch_file;
+ 	/*
+ 	 * A cancel started in this FETCH round. Set by ublk_set_canceling(),
+ 	 * cleared only by ublk_reset_ch_dev() when a new round starts. While
+@@ -2406,6 +2410,9 @@ static int ublk_ch_open(struct inode *inode, struct file *filp)
+ 		return -EBUSY;
+ 	filp->private_data = ub;
+ 	ub->ublksrv_tgid = current->tgid;
++	mutex_lock(&ub->cancel_mutex);
++	ub->ch_file = filp;
++	mutex_unlock(&ub->cancel_mutex);
+ 	return 0;
+ }
+ 
+@@ -2432,6 +2439,7 @@ static void ublk_reset_ch_dev(struct ublk_device *ub)
+ 	ub->nr_queue_ready = 0;
+ 	ub->unprivileged_daemons = false;
+ 	ub->ublksrv_tgid = -1;
++	clear_bit(UB_STATE_STOPPING, &ub->state);
+ }
+ 
+ static struct gendisk *ublk_get_disk(struct ublk_device *ub)
+@@ -2635,6 +2643,9 @@ static int ublk_ch_release(struct inode *inode, struct file *filp)
+ {
+ 	struct ublk_device *ub = filp->private_data;
+ 
++	mutex_lock(&ub->cancel_mutex);
++	ub->ch_file = NULL;
++	mutex_unlock(&ub->cancel_mutex);
+ 	/*
+ 	 * Grab ublk device reference, so it won't be gone until we are
+ 	 * really released from work function.
+@@ -3026,13 +3037,54 @@ static void ublk_stop_dev_unlocked(struct ublk_device *ub)
+ 	put_disk(disk);
+ }
+ 
++static struct file *ublk_get_ch_file(struct ublk_device *ub)
++{
++	struct file *file;
++
++	mutex_lock(&ub->cancel_mutex);
++	file = ub->ch_file;
++	if (file && !file_ref_get(&file->f_ref))
++		file = NULL;
++	mutex_unlock(&ub->cancel_mutex);
++	return file;
++}
++
+ static void ublk_stop_dev(struct ublk_device *ub)
+ {
++	struct file *file;
++
++	/*
++	 * FETCH, PREP and START_DEV take ub->mutex. If a server has
++	 * /dev/ublkcN open, set STOPPING, which turns it away, and hold a
++	 * reference on the file: the server's release, whose reset clears
++	 * STOPPING and lets a new server attach, can't run before we drop it.
++	 * So the cancel can run after the unlock and only meets this server's
++	 * commands; it has to: io_uring_cmd_done() may take uring_lock, under
++	 * which FETCH takes ub->mutex.
++	 */
+ 	mutex_lock(&ub->mutex);
+ 	ublk_stop_dev_unlocked(ub);
+-	mutex_unlock(&ub->mutex);
+ 	cancel_work_sync(&ub->partition_scan_work);
++	file = ublk_get_ch_file(ub);
++	if (file) {
++		/*
++		 * The server has to close /dev/ublkcN before this device can
++		 * be started again: the reset in its release clears STOPPING.
++		 */
++		set_bit(UB_STATE_STOPPING, &ub->state);
++		/* for wake_up_var() below, see wake_up_bit() */
++		smp_mb__after_atomic();
++	}
++	mutex_unlock(&ub->mutex);
++
++	/* no server: nothing to cancel */
++	if (!file)
++		return;
++
++	/* wake a START_DEV waiting for the device to get ready */
++	wake_up_var(&ub->nr_queue_ready);
+ 	ublk_cancel_dev(ub);
++	__fput_sync(file);
+ }
+ 
+ static void ublk_reset_io_flags(struct ublk_queue *ubq, struct ublk_io *io)
+@@ -3297,6 +3349,9 @@ static int ublk_check_fetch_buf(const struct ublk_device *ub, __u64 buf_addr)
+ static int __ublk_fetch(struct io_uring_cmd *cmd, struct ublk_device *ub,
+ 			struct ublk_io *io, u16 q_id)
+ {
++	if (test_bit(UB_STATE_STOPPING, &ub->state))
++		return UBLK_IO_RES_ABORT;
++
+ 	/* UBLK_IO_FETCH_REQ is only allowed before dev is setup */
+ 	if (ublk_dev_ready(ub))
+ 		return -EBUSY;
+@@ -4476,22 +4531,27 @@ static bool ublk_validate_user_pid(struct ublk_device *ub, pid_t ublksrv_pid)
+ 	return ub->ublksrv_tgid == ublksrv_pid;
+ }
+ 
++static bool ublk_dev_ready_or_stopping(const struct ublk_device *ub)
++{
++	return ublk_dev_ready(ub) || test_bit(UB_STATE_STOPPING, &ub->state);
++}
++
+ /*
+- * Wait until all queues have fetched their I/O commands, and return with
+- * ub->mutex held and readiness guaranteed. The queues stay canceling if
+- * this round saw a cancel, see ublk_queue_reset_io_flags(). Ready may
+- * regress between wakeup and mutex_lock() (F_BATCH UNPREP, daemon death),
+- * so re-check it under the mutex and wait again.
++ * Wait until all queues have fetched their I/O commands, or STOP_DEV set
++ * UB_STATE_STOPPING, and return with ub->mutex held. The queues stay
++ * canceling if this round saw a cancel, see ublk_queue_reset_io_flags().
++ * Ready may regress between wakeup and mutex_lock() (F_BATCH UNPREP,
++ * daemon death), so re-check it under the mutex and wait again.
+  */
+ static int ublk_wait_dev_ready_and_lock(struct ublk_device *ub)
+ {
+ 	while (true) {
+ 		if (wait_var_event_interruptible(&ub->nr_queue_ready,
+-						 ublk_dev_ready(ub)))
++						 ublk_dev_ready_or_stopping(ub)))
+ 			return -EINTR;
+ 
+ 		mutex_lock(&ub->mutex);
+-		if (ublk_dev_ready(ub))
++		if (ublk_dev_ready_or_stopping(ub))
+ 			return 0;
+ 		mutex_unlock(&ub->mutex);
  	}
- 	napi_enable(&bgmac->napi);
+@@ -4591,6 +4651,10 @@ static int ublk_ctrl_start_dev(struct ublk_device *ub,
+ 		ret = -EEXIST;
+ 		goto out_unlock;
+ 	}
++	if (test_bit(UB_STATE_STOPPING, &ub->state)) {
++		ret = -EBUSY;
++		goto out_unlock;
++	}
  
-+	/* Specs say about reclaiming rings here, but we do that in DMA init */
-+	bgmac_chip_init(bgmac);
-+
- 	phy_start(net_dev->phydev);
- 
- 	netif_start_queue(net_dev);
-@@ -1608,10 +1608,10 @@ int bgmac_enet_resume(struct bgmac *bgmac)
- 	if (rc)
- 		return rc;
- 
--	bgmac_chip_init(bgmac);
--
- 	napi_enable(&bgmac->napi);
- 
-+	bgmac_chip_init(bgmac);
-+
- 	netif_tx_lock(bgmac->net_dev);
- 	netif_device_attach(bgmac->net_dev);
- 	netif_tx_unlock(bgmac->net_dev);
+ 	disk = blk_mq_alloc_disk(&ub->tag_set, &lim, NULL);
+ 	if (IS_ERR(disk)) {
 -- 
 2.53.0
 
