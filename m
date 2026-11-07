@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046557;
-	b=RE8GxXODP3TH9MJ9Muxs4lM/YG+pCFPSvftllO2B0EmvTYNpfQR53YNNwK8nQGUeqCjL
-	 VwqsM1M0gZkfPrrO959QDd5dwLux4Q31uo7U16+e70fOeYqFxZL1vThY4RzInrKh2MHnb
-	 m9v8Wuhhj09Tmrh/OIfqsRVp85WpNcaMmui/Yfb0EgXYRJW14YIzY3HjdNVxME3KBD6xm
-	 iHd5o6+boTzuc3V/dwmr+p5DL7rs0ExapDB4r+ht1Q8h8m26eG0TSW9Z/RZS/h3t7EUp+
-	 lCscULefesBa3dVvhPn2888iEGDPI04bGZnBCE9puEIzhU8yh9nvvPSsL2UmIjd/35w==
+	t=1794046559;
+	b=BMZ8NyUdFtgNGpBrLSZLdmug5/glCH+pt4FDsMaRkcOpoAOZhXQawXhGHiBxptoibHo9
+	 ctn+tiE8WtNcl37XzSz+T3/YpjqNEeqVwQ6ufN31awlkPkl2wfizgd2ja67YHyGPqKaJE
+	 IzGLaZzHz0ibrgyUJXkJXf1Ng45bHwg1m+EBUNtyGNCpsVTopGVsxfFssDzx4/+ajQE8g
+	 PWqfeSWx/Zsr0GVv99fvUfiRm+C0pcqGtJC0+12PqrB4SIh2n2qicEGX4W/com3LfwNw1
+	 mm0MZNEMPHSrUjyvPfP0kLHBSqzwGwJLrjaBi0G6nRojygeao3NvKFwsdSEgykxwDFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046557;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046559;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=2n6Mzdub620oKlGVQEU2q0xzgywKIa6ZecbakL+qbWk=;
-	b=uMR/QNk05p09b5lKNC6Y9Ya96fiX+GG9hObNu1Rzt4x6tpm09hPSp299uRZd92mjeMEk
-	 ZxdGaczc/yiWPfSqVPaVi6DT76d5alnaD7YUBGgrA+YrrVUYzN8yL7oOvZy0vz0hlPJ9I
-	 QWh2Q4euG9i+JjDo56QfeNDjLqz8ZWcaqcgFHM1zKIXzJr3UWpO5paf5UGkzTOcy/BW5Y
-	 uy9RMD/2A4YlOsEkmYJ99Zh2+4DuR1QFB2OWo0QvG0NaDaumEuEXV8m/vGALuM6IpX1Aw
-	 3CQ0fzFlaKezfRfuYZ1MSJCfHbu4rUf7hPYGbBCDrb951pOUb/q3eUCXsjmZCbAFODg==
+	bh=2jUl4c2d4LgRAez5JNLadjN+QsUfAQydXm+yRa/xqSY=;
+	b=zusYxTL6BqHcMQj7k0NTdLBBE5FlmbJpu9YC5+kJWE5dTcUAjYwFRZAnIEhwrE/87cAI
+	 nvQzuwOLH8tUcYnqIqV6c8gRlHNkCSj26sdXNyecX2x5qHcYbZZMREQqSu9W49KYt90uC
+	 gOnQVvHf9LFkMHi1IB3gqIm6cu2uRQS2PV4wDNEHTAKId1cwro58EIGUAFJSopIVJAWdb
+	 uRRZLR59x+yrQ+RPqf6lCRGpxadWFYs/Na8ZlnQH+wYew8nK5DcO8T7a3FG9mOgyCLqgG
+	 4TQFBQphEVRcMRj8ZRivuft3XQCaRvwJtjqD5/vxma4mWqgPvxM+Tnuq2KLRkVg3ZmQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JkXU1Rnb;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UTzz+4p0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2306606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:15:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09AC3606A32D
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:15:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JkXU1Rnb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 338A51F0089F;
-	Sat,  7 Nov 2026 10:15:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UTzz+4p0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 785521F0089F;
+	Sat,  7 Nov 2026 10:15:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046556;
-	bh=2n6Mzdub620oKlGVQEU2q0xzgywKIa6ZecbakL+qbWk=;
+	s=k20260515; t=1794046558;
+	bh=2jUl4c2d4LgRAez5JNLadjN+QsUfAQydXm+yRa/xqSY=;
 	h=From:To:Cc:Subject:Date;
-	b=JkXU1RnbwTwPYfaIJMpTCf3Da7v5yQzrUErKHQZVL/YG1KG7YACdMMuGDbTT8ngl9
-	 U3ErRDA3PNEhmFFdbD/PDdICtOVzWv4k+j00U7icKcEug9dbDoTtjaWgwMkPLdnOKW
-	 7g0/x3IFuK6CevV/naJjQzktadadRGHD9cfm1hf5mI9oturKeqJYKXrWJUscUJ7s3a
-	 AR1a8AdOnIbBrnMzkeiKGtILPCXyUUrJWlg9SyMtDsin3aCJ5gjCTLwbtT0u2ZWpcY
-	 Tea2h6en+g/cjnEHzXCHu82O3BvF1d+6Df9klzt5fMuBeJG7Wp6q4KdHykQtjZvd+s
-	 EdI96J2LmGsrQ==
+	b=UTzz+4p0d/ntrqDhAhf4+jm1I6oMFVdcM2Cou7H/NsTI0NepeBz3v/pWeDhwcBsPd
+	 kgxm4jLs6GAEfKQsT158fblMqILCpADh48e4HUoGGhcY9V2qlcIBnmoQwHqRP0Mivy
+	 DuJq97lmbf5E0KaHsdSSj2Le1WXvLY8qt0CWfR5/ReBiRimi/Ysnu0BcMtIzhz/p0H
+	 W6qUPTfC8mzPvlOf3nevihFKI3BOGkqsuuApwpzyTrsM0v9ErgmlXS15dIVlB1ER/m
+	 v58h46sbiAwIe6tVP+2WG6urzfLylBmJEVqSFPU5e4zzzs0cKNOAkcv6b29iVC30Ru
+	 J1WE8JMMUFwEQ==
 From: Sasha Levin <sashal@kernel.org>
-To: ivanrwcm25@gmail.com,
-	broonie@kernel.org,
-	catalin.marinas@arm.com
+To: georgia.garcia@canonical.com,
+	john.johansen@canonical.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] arm64/gcs: release GCS on failed fork" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:15:55 -0500
-Message-ID: <20261107051555-failed-6.18-078e122f3bf0@kernel.org>
+Subject: FAILED: patch "[PATCH] apparmor: fix profile leak when a policy load fails" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:15:57 -0500
+Message-ID: <20261107051557-failed-6.18-ce94927fa417@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,107 +68,116 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 078e122f3bf000dd45965997b66deac10ee580fa
+git cherry-pick -x ce94927fa4173fcc1eca27bdc65a140064c8f1e6
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051555-failed-6.18-078e122f3bf0@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051557-failed-6.18-ce94927fa417@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 078e122f3bf000dd45965997b66deac10ee580fa Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?Iv=C3=A1n=20Ezequiel=20Rodriguez?= <ivanrwcm25@gmail.com>
-Date: Wed, 28 Oct 2026 12:43:12 -0300
-Subject: [PATCH] arm64/gcs: release GCS on failed fork
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From ce94927fa4173fcc1eca27bdc65a140064c8f1e6 Mon Sep 17 00:00:00 2001
+From: Georgia Garcia <georgia.garcia@canonical.com>
+Date: Wed, 14 Oct 2026 19:08:21 -0300
+Subject: [PATCH] apparmor: fix profile leak when a policy load fails
 
-copy_thread() can map a CLONE_VM GCS and still return 0. A later
-copy_process() failure calls exit_thread(), but arm64 did not
-implement it, so the VMA stayed in the parent's mm. Wire
-HAVE_EXIT_THREAD to gcs_free().
+The error paths of aa_replace_profiles() and aa_unpack() do not break
+the refcount cycle between label and proxy. They just aa_put_profile()
+the new profiles, which drops the label refcount from 2 to 1, and the
+proxy keeps the profile alive. Every failed atomic policy load
+(e.g. "profile can not be replaced", or a later profile in the blob
+failing to unpack) leaks every new profile in the set, along with its
+proxy, rules and its loaddata reference.
 
-Kernel threads created with CLONE_VM (io_uring and vhost workers)
-inherit the parent's gcs_base/gcs_size from arch_dup_task_struct()
-without allocating their own GCS. When such a thread exits,
-exit_mm() -> mm_release() -> deactivate_mm() -> gcs_free() unmaps the
-parent's GCS. With the new exit_thread(), a failed copy_process() for
-one of these threads would do the same. Clear these fields in
-copy_thread().
+The leak is usually not visible from userspace, because the raw_data
+directory for a failed load is not created, but it becomes visible
+when the blob is deduplicated onto an existing loaddata, which then
+keeps its policy/raw_data/<rev> directory forever.
 
-Fixes: 506496bcbb42 ("arm64/gcs: Ensure that new threads have a GCS")
+Add aa_put_unpublished_profile(), which drops the profile's own proxy
+before putting the profile, and use it on those error paths. The
+proxy of an unpacked profile is always freshly allocated and not
+referenced by anything else before the profile is published, so
+putting it is safe.
+
+Fixes: 637f688dc3dc ("apparmor: switch from profiles to using labels on contexts")
 Cc: stable@vger.kernel.org
-Cc: Mark Brown <broonie@kernel.org>
-Assisted-by: LLM
-Signed-off-by: Iván Ezequiel Rodriguez <ivanrwcm25@gmail.com>
-Reviewed-by: Mark Brown <broonie@kernel.org>
-Tested-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Catalin Marinas <catalin.marinas@arm.com>
+Signed-off-by: Georgia Garcia <georgia.garcia@canonical.com>
+Signed-off-by: John Johansen <john.johansen@canonical.com>
 ---
- arch/arm64/Kconfig          |  1 +
- arch/arm64/kernel/process.c | 17 +++++++++++++++++
- 2 files changed, 18 insertions(+)
+ security/apparmor/include/policy.h | 20 ++++++++++++++++++++
+ security/apparmor/policy.c         |  3 +++
+ security/apparmor/policy_unpack.c  |  4 +++-
+ 3 files changed, 26 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-index 8593ad10a9c48..7587cf86d9411 100644
---- a/arch/arm64/Kconfig
-+++ b/arch/arm64/Kconfig
-@@ -199,6 +199,7 @@ config ARM64
- 	select HAVE_SAMPLE_FTRACE_DIRECT_MULTI
- 	select HAVE_BUILDTIME_MCOUNT_SORT
- 	select HAVE_EFFICIENT_UNALIGNED_ACCESS
-+	select HAVE_EXIT_THREAD
- 	select HAVE_GUP_FAST
- 	select HAVE_FTRACE_GRAPH_FUNC
- 	select HAVE_FUNCTION_TRACER
-diff --git a/arch/arm64/kernel/process.c b/arch/arm64/kernel/process.c
-index 581f80e9b9b73..42b15b0c069ff 100644
---- a/arch/arm64/kernel/process.c
-+++ b/arch/arm64/kernel/process.c
-@@ -320,9 +320,18 @@ static int copy_thread_gcs(struct task_struct *p,
- 	return 0;
+diff --git a/security/apparmor/include/policy.h b/security/apparmor/include/policy.h
+index 0dcbf8cf1029a..bb851654cb80f 100644
+--- a/security/apparmor/include/policy.h
++++ b/security/apparmor/include/policy.h
+@@ -436,6 +436,26 @@ static inline void aa_put_profile(struct aa_profile *p)
+ 		kref_put(&p->label.count.count, aa_label_kref);
  }
  
-+static void gcs_reset_thread(struct task_struct *task)
++/**
++ * aa_put_unpublished_profile - put a profile that was never made visible
++ * @p: profile  (MAYBE NULL)
++ *
++ * A newly allocated profile and its proxy reference each other
++ * (proxy->label holds a label refcount). That cycle is normally broken
++ * when the profile is replaced or removed, which redirects the proxy.
++ * A profile that is discarded before being added to the policy tree
++ * never goes through either path, so break the cycle here, otherwise
++ * the profile, its proxy and its rawdata are leaked.
++ */
++static inline void aa_put_unpublished_profile(struct aa_profile *p)
 +{
-+	task->thread.gcs_base = 0;
-+	task->thread.gcs_size = 0;
-+	task->thread.gcspr_el0 = 0;
++	if (p && p->label.proxy) {
++		aa_put_proxy(p->label.proxy);
++		p->label.proxy = NULL;
++	}
++	aa_put_profile(p);
 +}
 +
- #else
- 
- static void flush_gcs(void) { }
-+static void gcs_reset_thread(struct task_struct *task) { }
-+
- static int copy_thread_gcs(struct task_struct *p,
- 			   const struct kernel_clone_args *args)
+ static inline int AUDIT_MODE(const struct aa_profile *profile)
  {
-@@ -341,6 +350,12 @@ void flush_thread(void)
- 	flush_gcs();
- }
+ 	if (aa_g_audit != AUDIT_NORMAL)
+diff --git a/security/apparmor/policy.c b/security/apparmor/policy.c
+index bfe969b869577..63f7821b4dfff 100644
+--- a/security/apparmor/policy.c
++++ b/security/apparmor/policy.c
+@@ -1462,6 +1462,9 @@ ssize_t aa_replace_profiles(struct aa_ns *policy_ns, struct aa_label *label,
+ 	}
+ 	list_for_each_entry_safe(ent, tmp, &lh, list) {
+ 		list_del_init(&ent->list);
++		/* new was never added to the policy tree */
++		aa_put_unpublished_profile(ent->new);
++		ent->new = NULL;
+ 		aa_load_ent_free(ent);
+ 	}
  
-+void exit_thread(struct task_struct *tsk)
-+{
-+	/* Failed fork after copy_thread(); deactivate_mm() does not run. */
-+	gcs_free(tsk);
-+}
-+
- void arch_release_task_struct(struct task_struct *tsk)
- {
- 	fpsimd_release_task(tsk);
-@@ -503,6 +518,8 @@ int copy_thread(struct task_struct *p, const struct kernel_clone_args *args)
+diff --git a/security/apparmor/policy_unpack.c b/security/apparmor/policy_unpack.c
+index 7ebffb4ff74fa..35dfa3b451f39 100644
+--- a/security/apparmor/policy_unpack.c
++++ b/security/apparmor/policy_unpack.c
+@@ -1822,13 +1822,15 @@ int aa_unpack(struct aa_loaddata *udata, struct list_head *lh,
  
- 		p->thread.cpu_context.x19 = (unsigned long)args->fn;
- 		p->thread.cpu_context.x20 = (unsigned long)args->fn_arg;
-+		/* Kernel threads sharing the parent's mm must not free its GCS. */
-+		gcs_reset_thread(p);
+ fail_profile:
+ 	kfree(ns_name);
+-	aa_put_profile(profile);
++	aa_put_unpublished_profile(profile);
  
- 		if (system_supports_poe())
- 			p->thread.por_el0 = POR_EL0_INIT;
+ fail:
+ 	if (compressed_data)
+ 		kvfree(compressed_data);
+ 	list_for_each_entry_safe(ent, tmp, lh, list) {
+ 		list_del_init(&ent->list);
++		aa_put_unpublished_profile(ent->new);
++		ent->new = NULL;
+ 		aa_load_ent_free(ent);
+ 	}
+ 
 -- 
 2.53.0
 
