@@ -1,49 +1,165 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.190.28.75
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794041785;
-	b=ZMK/aM2enf7eQ8nb3Ah4iTQcysgu+q8MIkFn9rKPO4UZXlR3bL8Id8byVxhfj29gUrN5
-	 Br6xeJpEB1KGx9GpXd163LUdC66U+IqvmkLwCyG9GEyfgBXCQdMPQgR97etKXIa+ejvBF
-	 LpEczy3xjavZEh9gd76Kq91gfq5AhIMiiHoMBUpuQQC2sx9d8OArQ/kriyEHEqjxrNANs
-	 R9aCbE43xiwM87kTC9VMdib5QnqOl9sOW3cK3C5ShZmZ7vX9VuUaxMJQxVoDwDeNl7OoD
-	 T0xnQh0XFHXmFRMdrL3jhlxvXDAKbk2lrCQUI1OFOMBPawCaQhNBUIuhzvEHkUvJ1ig==
+	t=1794042020;
+	b=GFYNnpJhMKFyG79CAan5ZM2IF2ESdLqASWoXu6/W247jj6C/92GPNqOzBCCL/sSQCDJH
+	 x1vkGJn/8UJwDi/zyK3RhRj/pN9DeQUCXcdktIhkPh3bw5NHqnTqaGQqIBWwAhe/rxr9r
+	 UCG7QlWyNEWEUOQgFOEabCaBH8QY0Y1UMkYRu9vggMroR+oUXFtfikpyNIp5j9og4w4HU
+	 Pm6kBc79/Eym8SiMyUIWpjFDk5O115e+jJhQXluq2Du9xn7UL9QAPdPd5TdM1dEgl0v18
+	 i5sMdphEXcKl7Pmy7UBVbDSjnrmrc4DCCJtY6trZVCgwlBhVrK/12bUV4sXmJ1XjNyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794041785;
-	h=DMARC-Filter:DKIM-Signature:Message-ID:Date:MIME-Version:Subject:To:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=KqgTANG32Er6Jg57cJtaPHmu/UQaqMgRjuWUu0ykUL0=;
-	b=BwLhTgmCOgbmCW8vCn33kdPH/JXQFblqJpTkqLbT1KkGhJz4wGqFyeqxlsbdG3vzjH7F
-	 Dzxol99qA2LZrwM3RCY3/rfThkrvFNdko+kqop1mlm+bPu/1FneS6P5y0ohzrWHtdk6ZW
-	 l9vHx3Uhd57Gi94dUqL9zMfHT8VkTvHxcFpq7UlpgYbzb+yYayWsyrXdXZpxZTH2M9LCu
-	 o9Q6DVF4CHSVp0L+cL9rMBEkHrJMDEuRTRlfTXkQnU1Fx0Lz7ThGYw4D0eOD8Ax4i0gF0
-	 r3ht+LjyT9si8PYyWOHKB11P4Hj8FL7I0mdnQrOhT1Czj504m3KNujbbMgKQUSLy2Xw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794042020;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
+	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
+	bh=2pUKIrJSjwOPfwhHfcJFzwrup6gCdhbZ3XgMEjE3Sk8=;
+	b=KuwS2jSo5XWw5XXEEnb6gdWKTPYMHCiWQCiFbfC0LwFqOUJp6Z6mZVSAAjSo18SYDzCy
+	 6EfrAN+54+saNncl05UMeuiyTvZTMRTnhuY2RaHp7C9dR9fmNXSczCmiwKho0jmITbiOG
+	 KzXGW7egzMf+7QVE3/e/12lsNVdPrdEFzQDU4PNQ+XSjF6Ia3BwkqEKGtxDTcFGwQH1jY
+	 Fgqr3dkQIzSV/0iGYtFNe7YPnrB4LnlyEF31Q40YGDcFxT0iIhMGd2XLhQVaLNMWVJ45D
+	 019WAu8h5PkIzGJDDVr0Nmu/Ffhq33QnpSN4r6JhDZZwJDnF3F/jskMeS3VOXrHE9Iw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=hardfalcon.net;
-	spf=pass smtp.mailfrom=hardfalcon.net;
-	dkim=pass header.d=hardfalcon.net header.i=@hardfalcon.net header.a=ed25519-sha256 header.s=dkim_2024-02-03 header.b=NPyK2wCD;
-	arc=none smtp.remote-ip=213.190.28.75
-Received: from 0.smtp.remotehost.it (0.smtp.remotehost.it [213.190.28.75])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=AwkH5jyM;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=JTEoL3TZ;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=nvoaJ0mE;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=DZerp02L;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X448 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64B64606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 08:56:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64B64606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hardfalcon.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hardfalcon.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2FCB606A32C;
+	Sat,  7 Nov 2026 09:00:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2FCB606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass header.d=hardfalcon.net header.i=@hardfalcon.net header.a=ed25519-sha256 header.s=dkim_2024-02-03 header.b=NPyK2wCD
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=hardfalcon.net;
-	s=dkim_2024-02-03; t=1794041772;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=AwkH5jyM;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=JTEoL3TZ;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=nvoaJ0mE;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=DZerp02L
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 7E9762204D;
+	Sat,  7 Nov 2026 09:00:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794042016; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=KqgTANG32Er6Jg57cJtaPHmu/UQaqMgRjuWUu0ykUL0=;
-	b=NPyK2wCD0FM3LSgqkb9xPWAk04rEXIalQnc4K5qdR+57QmNmSPZjFKuv5GkdAgIkVi5TAs
-	bHtCQ2Ksxwov4xCA==
-Message-ID: <c2569e78-f102-429a-a4a6-0b59d14226e1@hardfalcon.net>
-Date: Sat, 7 Nov 2026 09:56:10 +0100
+	bh=2pUKIrJSjwOPfwhHfcJFzwrup6gCdhbZ3XgMEjE3Sk8=;
+	b=AwkH5jyM7t60XRGf7G1aRSt+1A3cbarzW4z/QkvISjLGNPrA/fY2MleEP5q/AQIm+UOa85
+	wJkleCWTNZsU7rGkzPqgTOEFser1A2ESxcK9o91TyOKwj1NxwYRnab9MqOSmomM2duqzSM
+	4ziRifDlEsg/eNGZ4IfRyZBtKF7+5L4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794042016;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=2pUKIrJSjwOPfwhHfcJFzwrup6gCdhbZ3XgMEjE3Sk8=;
+	b=JTEoL3TZlb1DCclunsyxaCbXUYbLeMKEOnsS7PWO9bNheMA+zCRiSp1byJB7A+sAicRsv4
+	5OXD2QVrenEMHmAQ==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=nvoaJ0mE;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=DZerp02L
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794042015; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=2pUKIrJSjwOPfwhHfcJFzwrup6gCdhbZ3XgMEjE3Sk8=;
+	b=nvoaJ0mEP/zd/0bKFGcoiLmtApr9OQGHZOiEECFWhUq1H30dGD7ZkdmACOX8M4XQGS4NuW
+	oB4Mc0g4OfzK2wWf0UF/9cqPMqA/oflypYavZBONS2BSNW+J/B7gdSUDzy/0qA9b4r1pv4
+	UXAedxogQW7c2CJkDX8oa4Afmn/sre4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794042015;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=2pUKIrJSjwOPfwhHfcJFzwrup6gCdhbZ3XgMEjE3Sk8=;
+	b=DZerp02LRPNT9d5/AecFdQdh+IJlOFhOxwpkpzQNy3DQvQ4hOwgMkZ3mhYuZ46BFCA5rf0
+	CaTL33x7XZsPDhBQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E0528132C9;
+	Sat,  7 Nov 2026 09:00:13 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 19k0LZ3o7mq9VwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Sat, 07 Nov 2026 09:00:13 +0000
+Date: Sat, 07 Nov 2026 10:00:13 +0100
+Message-ID: <87jympyq1u.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Jann Horn <jannh@google.com>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Chris Mason <mason@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Christoph Hellwig <hch@lst.de>,
+	Greg Kroah-Hartman <gregkh@suse.de>,
+	Joel Granados <joel.granados@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Jan Kara <jack@suse.com>,
+	linux-kernel@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-um@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	netdev@vger.kernel.org,
+	ntfs3@lists.linux.dev,
+	platform-driver-x86@vger.kernel.org,
+	coreteam@netfilter.org,
+	kexec@lists.infradead.org,
+	linux-pci@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	ibm-acpi-devel@lists.sourceforge.net,
+	jfs-discussion@lists.sourceforge.net,
+	linux-alpha@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-cifs@vger.kernel.org,
+	linux-fbdev@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-sh@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	samba-technical@lists.samba.org,
+	sparclinux@vger.kernel.org,
+	linux-m68k@lists.linux-m68k.org,
+	linux-doc@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linux-atm-general@lists.sourceforge.net,
+	Takashi Iwai <tiwai@suse.de>,
+	linux-input@vger.kernel.org,
+	linux-raid@vger.kernel.org,
+	linux-ext4@vger.kernel.org,
+	linux-modules@vger.kernel.org,
+	linux-debuggers@vger.kernel.org,
+	Chuck Lever <cel@kernel.org>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH RESEND v2 03/51] ALSA: cs46xx: hand the region to the region proc files
+In-Reply-To: <20261104-work-procfs-bugfixes-v2-3-021c84d852e0@kernel.org>
+References: <20261104-work-procfs-bugfixes-v2-0-021c84d852e0@kernel.org>
+	<20261104-work-procfs-bugfixes-v2-3-021c84d852e0@kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,171 +168,57 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Subject: Re: Patch "sched_ext: Fix the stall watchdog testing and blaming the
- wrong sched under bypass" has been
-To: Sasha Levin <sashal@kernel.org>, Tejun Heo <tj@kernel.org>,
- stable@vger.kernel.org
-References: <20261107013319.2604965-1-sashal () kernel ! org>
-Content-Language: en-US, de-DE, en-US-large
-From: Pascal Ernster <git@hardfalcon.net>
-In-Reply-To: <20261107013319.2604965-1-sashal () kernel ! org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Queue-Id: 7E9762204D
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-11.01 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	MIME_TRACE(0.00)[0:+];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.de:email];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.de:email];
+	TO_MATCH_ENVRCPT_SOME(0.00)[];
+	RCPT_COUNT_GT_50(0.00)[60];
+	RCVD_COUNT_TWO(0.00)[2];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Score: -11.01
 
-[2026-11-07 02:33] Sasha Levin:
-> This is a note to let you know that I've just added the patch titled
+On Wed, 04 Nov 2026 20:16:45 +0100,
+Christian Brauner wrote:
 > 
->     sched_ext: Fix the stall watchdog testing and blaming the wrong sched under bypass
+> snd_cs46xx_proc_init() stores the chip in the private data of the five
+> region entries, but snd_cs46xx_io_read() reads that back as the region,
+> so a read of /proc/asound/cardN/CS46xx_BA0 and friends copies from
+> whatever sits at the region's offset in struct snd_cs46xx instead of
+> the mapped registers. Store the region.
 > 
-> to the 7.3-stable tree which can be found at:
->     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
-> 
-> The filename of the patch is:
->      sched_ext-fix-the-stall-watchdog-testing-and-blaming.patch
-> and it can be found in the queue-7.3 subdirectory.
-> 
-> If you, or anyone else, feels it should not be added to the stable tree,
-> please let <stable@vger.kernel.org> know about it.
-> 
-> 
-> 
-> commit f62968b215d2977aef31c6c9eab21e3272c9f766
-> Author: Tejun Heo <tj@kernel.org>
-> Date:   Mon Oct 26 14:08:59 2026 -1000
-> 
->     sched_ext: Fix the stall watchdog testing and blaming the wrong sched under bypass
->     
->     [ Upstream commit 93b1512ca69fbe3da66bbd2bab76e9ed74277679 ]
->     
->     While a sched is bypassing, its tasks are run by its host, the nearest
->     ancestor that isn't bypassing. check_rq_for_timeouts() tests a runnable task
->     against its owner's timeout. Since 2c91169377f4 ("sched_ext: Blame the DSQ's
->     owning scheduler for a runnable stall"), it ejects the sched owning the DSQ
->     the task waits on. The sched tested, the sched ejected and the sched running
->     the task can all differ.
->     
->     - Timeouts are per sched. A bypassing sub-scheduler with a 2s timeout under
->       a root with the default 30s has its tasks on the root's bypass DSQ. The
->       root, not bypassing itself, consumes that DSQ before calling
->       ops.dispatch() only on every other pass, and on the others only after
->       ops.dispatch() yields nothing. A task that waits 2s there ejects the root,
->       disabling all of sched_ext.
->     
->     - A bypassing owner's task on the local DSQ is blamed on the owner, which
->       places nothing while bypassing. If the owner is already exiting, e.g.
->       during its own disable, the exit is a no-op and nothing is ejected. If the
->       host isn't running the task, the owner's disable, which waits on it, may
->       never finish.
->     
->     - The wait isn't restarted when bypass moves a task. The time it waited
->       under its owner counts against the host once it is on the host's bypass
->       DSQ, and its time there against the owner once bypass lifts.
->     
->     The sched running a task is its owner, or the host while the owner is
->     bypassing. Test the task against that sched's timeout and blame it. A bypass
->     requeue can change the sched running a task, so restart the wait of every
->     task scx_bypass() requeues except the root's own, which the root runs
->     bypassing or not. Single-scheduler behavior is unchanged.
->     
->     A task that migrates while scx_bypass() works through the cpus, leaving one
->     before its requeue and arriving on another after it, is requeued by neither
->     and keeps its wait, which then counts against the sched now running it. That
->     is what happened to every task before this patch. This might be worth
->     addressing in the future, but the race is rare and the real-world
->     implications should be limited.
->     
->     Fixes: 2c91169377f4 ("sched_ext: Blame the DSQ's owning scheduler for a runnable stall")
->     Cc: stable@vger.kernel.org # v7.3+: 30fb2b1e4d41: sched_ext: Fix the running task keeping its protection into bypass
->     Cc: stable@vger.kernel.org # v7.3+: 5809f749fbdb: sched_ext: Fix a bypassed task stalling on a cpu its scheduler has no caps on
->     Cc: stable@vger.kernel.org # v7.3+
->     Reported-by: Andrea Righi <arighi@nvidia.com>
->     Link: https://lore.kernel.org/all/at4l0yXTk7T_ouk0@gpd4/
->     Reported-by: Sashiko <sashiko-bot@kernel.org>
->     Signed-off-by: Tejun Heo <tj@kernel.org>
->     Reviewed-by: Andrea Righi <arighi@nvidia.com>
->     Signed-off-by: Sasha Levin <sashal@kernel.org>
-> 
-> diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-> index 84774147a1d5b..28e04d1043a28 100644
-> --- a/kernel/sched/ext/ext.c
-> +++ b/kernel/sched/ext/ext.c
-> @@ -2235,7 +2235,8 @@ static void ops_dequeue(struct rq *rq, struct task_struct *p, u64 deq_flags)
->  	/*
->  	 * Don't reset runnable_at. If @p is waiting, the wait continues across
->  	 * temporary dequeues, e.g. for a migration or an attribute change.
-> -	 * scx_disable_task() ends it if @p leaves its scheduler.
-> +	 * scx_disable_task() ends it if @p leaves its scheduler. scx_bypass()
-> +	 * restarts it when its requeue can change the sched running @p.
->  	 */
->  	clr_task_runnable(p, false);
->  
-> @@ -3844,24 +3845,17 @@ static bool check_rq_for_timeouts(struct rq *rq)
->  		goto out_unlock;
->  
->  	list_for_each_entry(p, &rq->scx.runnable_list, scx.runnable_node) {
-> -		struct scx_sched *sch = scx_task_sched(p);
-> +		/*
-> +		 * @p's owner schedules @p, or its host while the owner is
-> +		 * bypassing. Test @p against that sched's timeout and blame it.
-> +		 */
-> +		struct scx_sched *sch = scx_exec_sched(scx_task_sched(p), cpu_of(rq));
->  		unsigned long last_runnable = p->scx.runnable_at;
->  
->  		if (unlikely(time_after(jiffies,
->  					last_runnable + READ_ONCE(sch->watchdog_timeout)))) {
-> -			struct scx_dispatch_q *dsq = READ_ONCE(p->scx.dsq);
->  			u32 dur_ms = jiffies_to_msecs(jiffies - last_runnable);
->  
-> -			/*
-> -			 * A task can be stuck on a DSQ that a sched other than
-> -			 * its owner is responsible for draining, e.g. an
-> -			 * ancestor's bypass DSQ while the owner is bypassing.
-> -			 * Blame the drainer. The local DSQ is consumed by the
-> -			 * cpu itself and keeps blame on the owner.
-> -			 */
-> -			if (dsq && dsq->sched && dsq->id != SCX_DSQ_LOCAL)
-> -				sch = dsq->sched;
-> -
->  			__scx_exit(sch, SCX_EXIT_ERROR_STALL, 0, cpu_of(rq),
->  				   "%s[%d] failed to run for %u.%03us",
->  				   p->comm, p->pid, dur_ms / 1000,
-> @@ -6369,7 +6363,9 @@ void scx_bypass(struct scx_sched *sch, bool bypass)
->  		 */
->  		list_for_each_entry_safe_reverse(p, n, &rq->scx.runnable_list,
->  						 scx.runnable_node) {
-> -			if (!scx_is_descendant(scx_task_sched(p), sch))
-> +			struct scx_sched *owner = scx_task_sched(p);
-> +
-> +			if (!scx_is_descendant(owner, sch))
->  				continue;
->  
->  			/*
-> @@ -6381,7 +6377,19 @@ void scx_bypass(struct scx_sched *sch, bool bypass)
->  
->  			/* cycling deq/enq is enough, see the function comment */
->  			scoped_guard (sched_change, p, DEQUEUE_SAVE | DEQUEUE_MOVE) {
-> -				/* nothing */ ;
-> +				/*
-> +				 * The requeue can change the sched running @p,
-> +				 * and the watchdog counts @p's wait against
-> +				 * that sched. Restart the wait unless @owner is
-> +				 * the root, which runs its own tasks bypassing
-> +				 * or not.
-> +				 *
-> +				 * A dispatch in flight writes p->scx.flags
-> +				 * without @p's rq lock. The dequeue waits it
-> +				 * out, so set the flag after it.
-> +				 */
-> +				if (scx_parent(owner))
-> +					p->scx.flags |= SCX_TASK_RESET_RUNNABLE_AT;
->  			}
->  		}
->  
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+
+Reviewed-by: Takashi Iwai <tiwai@suse.de>
 
 
-Hi, this breaks the build for kernel 7.3.3 with the patches from stable-queue/queue-7.3 at commit id 77ecab77b25567c54df997dcb8030dea6bca03ed (which should be the equivalent of linux-stable-rc at commit id 11a9a1b1063f5f401fecb0ce486defa701c4cbe3), because the changed code tries to use the scx_exec_sched() function although that function doesn't exist (yet?) in the 7.3 branch. Removing this single patch *appears* to make the kernel compile again (I can't tell with 100% certainty at this point because my compile run hasn't finished yet).
+thanks,
 
-
-Regards
-Pascal
+Takashi
