@@ -1,63 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050926;
-	b=ml7C94Zn7+DnsxM/VIvTUS+d8Ho/o4MZBQpki7z+/EMk8cLJbD0ADh9Uqf/aTpQCxBjv
-	 4rDuEuS1HW4hWQiFGKFJsHpu+XzZWv6HoB5a1ZU2tXejOAMfAe4bf+qg4SU5NpU3bcj0R
-	 bMD97Zn2A/GYnYNnyNXx2eMVtgUGYLR0fdHmrDDaFLOHJk0Hm3ktolFQCjB1/uLnTZD3F
-	 72xFYOGT8s+/2OaJ/XU3sX+gx6rMlHQ+BJIvJsFgLiiEWQWhn0q0yr1pT/DvaH0cXiNej
-	 aCNbtfhVPa6coqP7l3KHqGisXGmTDq2sto4id6fD/gwuattDZjprzMJFczfV1loeXRA==
+	t=1794050929;
+	b=siMVEo+wp3tql+4oz1lMRYyVprXa8juF/5MfcZmWWrIO5c8TyrcocN8TE76PsIJFyo5J
+	 Le2WuTettj9wyUynPLCzDJVnfDz7aXFn6gUND+rhRjz5GxQS3gCX32nGnFTBoZd7nbuTZ
+	 GsvyHoXcXpt7qUu3gtmPKErL6JKnd/bpz42EECrDvf4xuBUCB2lKnxZN38yXiWm4VG0KL
+	 bPWrWfJjfK1t3lFLKjkB3ToyFPoH9bwksrddQdyonbkRabJqH78wfBESqHZMCdEVtUC/j
+	 wgOm76M3cRwczctTGlrNwVhZAL9Y5dbDfovIT8HcxE+IvIii6Ech+DO+JQDYBbP0o+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050926;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050929;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=TfNMy7Ac0s4h1/NW1lWU0RU/aurtt6aUGogufxk0BcE=;
-	b=JTKVh19yjrcPw57cgABcR+fMSoyzJj1bshpyEAjFWJopX2RG9N6GFVMVOqbE6OAm5e3+
-	 +gJ4s6lbRS6HqcDXP+BFNW1mVqpoDsEuX6mM5/H5bqI1EB/eRVfDhmqQeLjXYbuGRIU7L
-	 eyEJ0zffVioaGDZ98Sq8Vk26Xq2WlQpjPixIqw/tpNkOKfTQVdloHSYGnJJxdOp6GHS4x
-	 oRjbqIbjNdQ7O6p/4KsXNfGBt/0NwlBVQNmP15RNBN0viYpEu3jy4p5gb1ZTFk50bBqSn
-	 7eKQsjkMvkuNf7aBFBK8GfrZnzq1vqJFF3vEEoFjWo76/tyLjXhJgVZ5Fbq+KqRdwNA==
+	bh=X6ErNIke0D47EGTyymDPQTFtJzVKE4yZxGz8N8Gf5ow=;
+	b=P640DIlvur1IGSdXfNN6to/DpbblyLzTocOLcdaLVy9XIIwVOczOU/vJpCXQvnmTbSB8
+	 SWfDOtERMAp/Bfx6CbmSTkmEXwMFhbhgZ+hFqRTKIk9Qxdppo/5Lr1jd/YXHy4GhFkMjH
+	 gAAlK6mRp3QtgB/T62LuXKof7msIU7D8ldfvgGl+0GCshTNtS67YMKU/y1jzWpI7p5mXA
+	 spjjHId5QTYempEQvKpxOeNXqrtRQF59kOyJ3lv/PM3flldnQksdf8XGpQdVaVh+FQz9u
+	 zNWWnu064aZhUhJFnworEkw9sIhGGYLMJYo6ISgNpuXyQjw0baDp9JmXX0qMC7oDYVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NYDYn1+4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="RjFX/q6F";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC838606D80E
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:28:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1728606D80D
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:28:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NYDYn1+4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16A7A1F008A2;
-	Sat,  7 Nov 2026 11:28:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RjFX/q6F
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A12D1F008A2;
+	Sat,  7 Nov 2026 11:28:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050925;
-	bh=TfNMy7Ac0s4h1/NW1lWU0RU/aurtt6aUGogufxk0BcE=;
+	s=k20260515; t=1794050928;
+	bh=X6ErNIke0D47EGTyymDPQTFtJzVKE4yZxGz8N8Gf5ow=;
 	h=From:To:Cc:Subject:Date;
-	b=NYDYn1+4JCXk9wfn04t2qyOVuzZzZ/NYR5vSnCRzg+1NA7RXx4v2BIRYwN4XfOZqt
-	 S6q0S4dyVS27fM6D2g9szS4ZYp/uG8uozPf6wvr0cSxH+e4/p5rXbiTivs1jFFr2tv
-	 tsW0m4yCrie1yrprpyJnMbn3mBplVt1pVXH17ZEP1JaiAMjr2Fzrz33aGaM4ufFQaB
-	 /HHrqXT6aRhZUXvrWFGiiSZYp3hoj0buyZdgJoN1bO/UaQdftEZzyVOtsYqLKOHLYZ
-	 lh55FHLQceXKA8gdZ1XAHtGujMcCT5ug7++OHDQWZgx4MAiAhEZTuRFPBQ+zbQEMaS
-	 z/jkpIDeDkS6w==
+	b=RjFX/q6FC2LQ2dKOBy4S98gfrW3HCJ1v7oz/gS9ppWLyTDsN2Lz4zklbrZ0gurW0U
+	 UG8iapRZsUSKZLAqID2CU57Vi/f41UseSPwp983U5d9HSFum3ZgZSBL5+uxVza8Om6
+	 tXYzwxxFIz0IBbK+LdasLt8HFPvCRu4VJlAh/0Acjr/WbSfhB35yhjzV5bh2Mcsxq3
+	 FJ7Do+2oDtMjm5RWuZ+5YHgjnAsd0c3BlJj9YGHLYk6/tz7RyUTQ3rlsPYbR23I+BE
+	 y4tjMv1owArGlrW3T1v3s9txS5BU3wnoWe9UT61S7brT5joroA1xj/t4J9q3F0DHEA
+	 3SCLe/V9y6Hmw==
 From: Sasha Levin <sashal@kernel.org>
-To: pfalcato@suse.de,
+To: kylebot@openai.com,
 	akpm@linux-foundation.org,
-	samarth.colleges@gmail.com,
-	gourry@gourry.net,
-	ziy@nvidia.com,
-	ljs@kernel.org,
 	david@kernel.org,
-	sj@kernel.org,
+	ljs@kernel.org,
+	riel@surriel.com,
 	liam@infradead.org,
 	vbabka@kernel.org,
+	harry@kernel.org,
 	jannh@google.com,
-	minchan@kernel.org,
-	mhocko@suse.com,
-	hannes@cmpxchg.org
+	lance.yang@linux.dev
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/madvise: atomically clear the young bit on THP MADV_COLD" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:28:42 -0500
-Message-ID: <20261107062842-failed-5.10-246c8cc33438@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/page_vma_mapped: continue past nonmatching huge PMDs" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:28:46 -0500
+Message-ID: <20261107062846-failed-5.10-1a2993227e8a@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -80,91 +76,127 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 246c8cc33438a71c28f9b86baa492d9a0a130316
+git cherry-pick -x 1a2993227e8a27fc4cdea305bbdae82d290bc885
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062842-failed-5.10-246c8cc33438@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062846-failed-5.10-1a2993227e8a@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 246c8cc33438a71c28f9b86baa492d9a0a130316 Mon Sep 17 00:00:00 2001
-From: Pedro Falcato <pfalcato@suse.de>
-Date: Tue, 13 Oct 2026 20:17:19 +0100
-Subject: [PATCH] mm/madvise: atomically clear the young bit on THP MADV_COLD
+From 1a2993227e8a27fc4cdea305bbdae82d290bc885 Mon Sep 17 00:00:00 2001
+From: Kyle Zeng <kylebot@openai.com>
+Date: Thu, 15 Oct 2026 18:15:49 -0700
+Subject: [PATCH] mm/page_vma_mapped: continue past nonmatching huge PMDs
 
-As-is, madvise_cold_or_pageout_pte_range() discards the hardware young bit
-by invalidating the PMD, doing pmd_mkold() and subsequently writing to the
-pmd again.  However, it does so in a racy manner, looking at a
-possibly-stale snapshot.  It's entirely possible that a write elsewhere
-set the hardware D bit, which this logic now loses.
+A PTE-mapped large folio can straddle PMD boundaries after an unaligned
+mremap().  If the first part is discarded and replaced with an unrelated
+huge PMD, page_vma_mapped_walk() stops instead of looking for the rest of
+the folio in subsequent PMDs.
 
-Fix it by using pmdp_test_and_clear_young().  This is an atomic
-modification of the PMD entry, and thus safe against any possible racing
-writes.  As a (nice) side-effect, this elides one non-required TLB flush
-in pmdp_invalidate().
+This also affects migration entries.  A walk that stops at an unrelated
+huge PMD can leave migration PTEs behind when migration or an anonymous
+folio split restores the mappings.  Those entries do not hold mapping
+references and can outlive the source folio.
 
-This bug can interact with the swapping system in complicated ways,
-leading to data loss.  For instance, if a folio is marked lazyfree, but
-was later read from, and then MADV_COLD'd while racing a write to that
-same THP, dropping the dirty bit may lead to data loss as
-reclaim/MADV_PAGEOUT drops the "clean" anon folio:
+This issue can lead to memory corruption and I have a reproducer for
+it.
 
-T0                                T1
-================================================================
-MADV_FREE(thp)			|
-  folio marked lazyfree		|
-read(thp)			|
-  PMD marked young by hardware	|
-				| MADV_COLD(thp)
-write(thp)			|   if (pmd_young(pmd)) {
-  PMD marked dirty by hardware	|     set(pmdp, pmd_mkold(pmd));
-MADV_PAGEOUT/reclaim		|
-  dirty bit may or may not be   |
-  set				|
-    reclaim/pageout may drop    |
-    the folio			|
+Skip the current PMD rather than ending the walk on a flag or PFN
+mismatch.  Do the same if the PMD became nonpresent before the locked
+recheck.  Release the PMD lock, clear the per-PMD state and advance with
+step_forward(), so the existing range limit controls termination.  This
+covers present, migration and device-private huge PMDs while preserving
+the matching-PMD and split-to-PTE paths.
 
-Link: https://lore.kernel.org/20261013191719.95502-1-pfalcato@suse.de
-Fixes: 9c276cc65a58 ("mm: introduce MADV_COLD")
-Signed-off-by: Pedro Falcato <pfalcato@suse.de>
+Link: https://lore.kernel.org/20261016011549.61146-1-kylebot@openai.com
+Fixes: ace71a19cec5 ("mm: introduce page_vma_mapped_walk()")
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: Samarth Narang <samarth.colleges@gmail.com>
-Closes: https://lore.kernel.org/linux-mm/20261011132227.413217-1-samarth.colleges@gmail.com/
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-Acked-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: SJ Park <sj@kernel.org>
+Assisted-by: LLM
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Rik van Riel <riel@surriel.com>
 Cc: Liam R. Howlett <liam@infradead.org>
 Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Harry Yoo <harry@kernel.org>
 Cc: Jann Horn <jannh@google.com>
-Cc: Minchan Kim <minchan@kernel.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Lance Yang <lance.yang@linux.dev>
 Cc: <stable@vger.kernel.org>
 ---
- mm/madvise.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+ mm/page_vma_mapped.c | 28 +++++++++++++++++++---------
+ 1 file changed, 19 insertions(+), 9 deletions(-)
 
-diff --git a/mm/madvise.c b/mm/madvise.c
-index 8702b082a02d8..75b409e97dbf2 100644
---- a/mm/madvise.c
-+++ b/mm/madvise.c
-@@ -430,10 +430,7 @@ static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
- 		}
+diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
+index 8408aee7571b5..e6b6170c2f4f7 100644
+--- a/mm/page_vma_mapped.c
++++ b/mm/page_vma_mapped.c
+@@ -265,28 +265,28 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
+ 				softleaf_t entry;
  
- 		if (!pageout && pmd_young(orig_pmd)) {
--			pmdp_invalidate(vma, addr, pmd);
--			orig_pmd = pmd_mkold(orig_pmd);
--
--			set_pmd_at(mm, addr, pmd, orig_pmd);
-+			pmdp_test_and_clear_young(vma, addr, pmd);
- 			tlb_remove_pmd_tlb_entry(tlb, pmd, addr);
- 		}
+ 				if (!(pvmw->flags & PVMW_MIGRATION))
+-					return not_found(pvmw);
++					goto next_pmd;
+ 				entry = softleaf_from_pmd(pmde);
+ 				if (!check_pmd(softleaf_to_pfn(entry), pvmw))
+-					return not_found(pvmw);
++					goto next_pmd;
+ 				return true;
+ 			} else if (pmd_is_device_private_entry(pmde)) {
+ 				softleaf_t entry;
  
+ 				if (pvmw->flags & PVMW_MIGRATION)
+-					return not_found(pvmw);
++					goto next_pmd;
+ 				entry = softleaf_from_pmd(pmde);
+ 				if (!check_pmd(softleaf_to_pfn(entry), pvmw))
+-					return not_found(pvmw);
++					goto next_pmd;
+ 				return true;
+ 			} else if (!pmd_present(pmde)) {
+-				return not_found(pvmw);
++				goto next_pmd;
+ 			}
+ 			if (likely(pmd_trans_huge(pmde))) {
+ 				if (pvmw->flags & PVMW_MIGRATION)
+-					return not_found(pvmw);
++					goto next_pmd;
+ 				if (!check_pmd(pmd_pfn(pmde), pvmw))
+-					return not_found(pvmw);
++					goto next_pmd;
+ 				return true;
+ 			}
+ 			/* THP/device-private pmd was split under us: handle on pte level */
+@@ -299,8 +299,7 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
+ 			    (pvmw->nr_pages >= HPAGE_PMD_NR))
+ 				sync_with_folio_pmd_zap(mm, pvmw->pmd);
+ 
+-			step_forward(pvmw, PMD_SIZE);
+-			continue;
++			goto next_pmd;
+ 		}
+ 		if (!map_pte(pvmw, &pmde, &ptl)) {
+ 			if (!pvmw->pte)
+@@ -343,6 +342,17 @@ bool page_vma_mapped_walk(struct page_vma_mapped_walk *pvmw)
+ 			pvmw->ptl = ptl;
+ 		}
+ 		goto this_pte;
++next_pmd:
++		/*
++		 * A large folio can be PTE-mapped across PMDs, so a
++		 * nonmatching PMD does not end the walk.
++		 */
++		if (pvmw->ptl) {
++			spin_unlock(pvmw->ptl);
++			pvmw->ptl = NULL;
++		}
++		pvmw->pmd = NULL;
++		step_forward(pvmw, PMD_SIZE);
+ 	} while (pvmw->address < end);
+ 
+ 	return false;
 -- 
 2.53.0
 
