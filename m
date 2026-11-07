@@ -1,51 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794038846;
-	b=Vs/GHHLU8FowHTvpzpQcVZ/VsKPRuH0/eB6llQpeA19E9WgYWvwhQDO+7/Zl4VUGfgwB
-	 SZp7STS030hwjS9paVIoiYYJL4iIwiPNgJNMnBSEAs/JYn67gMbx38JFnOEu63eCERRNi
-	 XdStkGKZ2Ke7glnQ3GEcYOH31kOyfc+ARiSXDUgHwnGB2J3taLvw1bpIljz9K0mBDbDTR
-	 QeROrY2L/DX0kPRYRMrVVJ6LNZD/GDJv03WUtaQZYanhQiDApOyQAoJzi7FuEDYU5uJXN
-	 pJLZNo6cJOTiPw6mldrpsEBDM1qlrbYMg8T/eLLFbY0SbdYNzCriPYCbVsPZ7yBJ2Ng==
+	t=1794038893;
+	b=DvYe0o4fmx52fnzc0kN7EcoxpDhMXWF1TNQtPO7W+tQz+8SxaeynVcecs9HIYux92TY+
+	 8POzzF+cZfEDblE87ejbn5AXAmGE+jOErwQJTl6Id/J0ccz3qDYLKgLIgjunv4D7t94rl
+	 vWEp4wQH0E0SYqCA0bYGhiUrC5hM8hvQWT37LECMm8kuV+gSRrIXF2QLPm4y9hWeWs+6H
+	 LrT7MBxp3qPkChrqVD5ctUgKkRRi27RD1nl0swbk0/YN3rpn4KOjlKIFeU169gTaVw9si
+	 8CZNtRV22mTPxxhbBVl1dDUXG4aLcm7tdyeYGNh22JW87888Os24p9J8RlDxmRU8gEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794038846;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
-	 References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-Originating-IP:X-CM-SenderInfo;
-	bh=bgCp1Ntl0hpGN7wbF0e+QO8amvIdAh43gaGIfm69pF8=;
-	b=FjglV6lKkls2uTjQ+odT8Q3CEDtF0/cQwkG1s3r7OLHwuqNTEl1Elavo37wc5DANHZuS
-	 B3LYBaYTITW2h8+84I5SX7+vKMZRDsLCFsHJsIrMBpZ6EAOQuIVDp/EvIXOnFrukau6CV
-	 QrUmYQl90gY7QgxLRXDVXsnANWboaNkBJpsdX44IwW04I9eR35X9ZQfR6Dpy0UvMIFyEu
-	 T/e52w8JDzwMClwDxRDbqao0zh2S17a4qVW8POySVSvaxbE29YvUzumxBh4SFo7z1vYlv
-	 IRAi/eBbxoGCqgBkcjQd7astSbDm7J+FWjMXm3P5SmUcZGHlZH7CL7WMd38fNttGvXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794038893;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=Fu3COQCAPmOwpJB4SS2FVTvXTR/NXj3quXMf5G+9+Gc=;
+	b=r/TvX5Gc3Ckswa4a8t895NFH67aKcjdvd9NECxDS9oNOzg7TftFDkyAl8qhQB7PTld3a
+	 AGXwrRf3Nm0Z3EpZPxk9I8LNvdGXT5n20ga2CpA/7Xlr9J/XfxSxMxzlSPtqmIQTCEz3M
+	 Rpn00TSvsDlkD+gDvhYYtcKdPebyq7NfA2nMh8rGAyldhVmyTYaJxGT9U9Bngzk1LgcfO
+	 42asmb5PVQ17juBRcsMQC46BT9tqR1+NZlAKHjGFrrYkzfi8/myubUzpASq07CBn1uRj4
+	 SyPBbylOM1KHAKOfzx+ON3UIGf1wrRMkb+DZWHba5+J6HfGzZesdGqhgFvrhw6nOmkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.21
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gjR3O+Ln;
+	arc=none smtp.remote-ip=209.85.214.179
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DBD3606A335;
-	Sat,  7 Nov 2026 08:07:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DBD3606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from [172.100.0.8] (unknown [36.110.52.2])
-	by APP-01 (Coremail) with SMTP id qwCowABXhP443O5qzr5xAA--.13418S4;
-	Sat, 07 Nov 2026 16:07:20 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Hans de Goede <hansg@kernel.org>
-Cc: Ilpo =?utf-8?q?J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Maximilian Luz <luzmaximilian@gmail.com>, platform-driver-x86@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: [PATCH v2 2/2] platform/surface: aggregator: Fix use-after-free in
- ssh_ptl_shutdown()
-Date: Sat, 07 Nov 2026 08:07:30 +0000
-Message-ID: <20261107080730.2-vulab@iscas.ac.cn>
-In-Reply-To: <20261107080730.0-vulab@iscas.ac.cn>
-References: <20261107080730.0-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F616606A32E
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 08:08:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F616606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gjR3O+Ln
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2ea7987517aso8167055ad.0
+        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 00:08:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794038892; x=1794643692; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Fu3COQCAPmOwpJB4SS2FVTvXTR/NXj3quXMf5G+9+Gc=;
+        b=gjR3O+LnbqWxSywMeqbqw+2tekOwfmC3a5BDhu60zh3iUcZ0Y3Mzu7GPeI9zhL+aHG
+         eZWl1skwP1Q/ll1e+lKt8scG8ma7mqFE2WWCEWpcHSYAqqqLl3NSj92XPwBjFcUwPDIS
+         l2MVQZyp8nPW6H4lH7sAHbUnWKOctaRelZL2/8faw9SdV7hAOI1FIueSB6ylCXggbLe7
+         JfxANvcupt3AxNkyuaiwncgHCpq1yxBDSLkCP49P6ePE8BAobSbK4noUzkekAp73VY9e
+         SDcZvO8bll/JwGA4InjCk6mETFBPB52IlyvUXmM1kkKc2+Y7KooJs5ZauCtp6HNd8+p3
+         IxyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794038892; x=1794643692;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Fu3COQCAPmOwpJB4SS2FVTvXTR/NXj3quXMf5G+9+Gc=;
+        b=M9BZF9LopGKiBWIDDP5l6AppbnUllTwityoG/1svT2Sv0/O0T8zDtshEAdAx2/SrUs
+         omH9vHg57HTYcyH8bH7Mw6hBas9X9jbeY0BEQLufXB0KjIXSY7k9/OkYA7egm3EKaDQ6
+         71FyhUTJAhOoZJN4lq87pldYrU144v5y0NCa8GoggNlp5MOaYclXwplB58r+6omcSYr/
+         wUMqR/tsrKTo6voQ96tPk3CLZUY/uGzfOlp/x6TKbeJEkFIU3hIAKXgUMjKM1nG/tXWo
+         I2q4mIWsahKJXsRRMTw14gLSZehop3qR3jn7HzQBgbLOISaavmxWRpM9hJKZ6DGfQSas
+         s4dQ==
+X-Forwarded-Encrypted: i=1; AL+hErGV2KaxBGkg74jzoHH3zYkAkwP6+0lsbo2c7H5Wts/GLmwo/Dt1UscGgG74H6JvTdBrxjzEyAE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9je4lRDGgWrbHX/m9JJEXNKQoqgFFJdue1+zlJVXfpeaZFfnmH
+	mJIyMZYP/nbx4hjnMZTvyQzRiEKc/3FaGvcH53HsIhoohJHoikl7qzeB
+X-Gm-Gg: AYBFou3C3H1N+9GKRco6sOaj+ak79NoI/T0m3TRahR4mbUzGahoqJOSh4sxfv2IT/gU
+	7u+WvpT5+GLgir5ufL3rD5BD8t3VwcQ5hDj2QQ4gC70XKLAQs5mx+4Z3UtOPsg7KWXFV4jfRIkI
+	cGu1LpccnWx7f5AoOtxuZ3rhi+PIjB31rb5iVA+9dwj27hO8gq89tDVtQjxQTC95/hxECAftgDy
+	oZl3GArLv07kxezkB3R69Oe9CYFHkJv3AwSA+lCCXkC2ksURI0H+BFKCPStw7LOLyJlAHzMAli8
+	Lgn3vmKF6WDA03KKBsRCBquE0WoB640vHE13KCeNxzc5V3lkxp6wy6oPRPVBS0aTDJ8oIUjqxE+
+	GWGmwQWO2PG50O5AECw0rLPGjamlWcxL6fBtMGlQef2j2yqDkEPTe0Bw6ADYNbEB/ILy3DG0J+y
+	Ro3ZfHtfzpKtcJDBNAlPeFGvTQobe7TIc8xUfJIRCHWOmah7cdHB1BD+ICcmtAJAcMGKQ39FKyP
+	nlCEqn0vFt59vxcO7f72EwvJyBF1dd4VrfT6c9+6D2dEvDieDB5HRlTZQo+C6EKwxQbJ16CXpnf
+	ylZuEzyAPYbLWu12o+sR0GIl2oiqNhQwDKt7rXhAGY7xg8gjtEkkxTTk
+X-Received: by 2002:a17:90b:568e:b0:3ad:870b:b6d4 with SMTP id 98e67ed59e1d1-3b0db609836mr4788668a91.1.1794038891748;
+        Sat, 07 Nov 2026 00:08:11 -0800 (PST)
+Received: from [192.168.255.10] ([223.104.68.152])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0fc27e829sm1764509a91.0.2026.11.07.00.08.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 07 Nov 2026 00:08:10 -0800 (PST)
+Message-ID: <05e77224-7d3a-42d5-9e08-82c7257cba34@gmail.com>
+Date: Sat, 7 Nov 2026 16:08:03 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,68 +90,112 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qwCowABXhP443O5qzr5xAA--.13418S4
-X-Coremail-Antispam: 1UD129KBjvJXoW7CF18ArykWr48KrykZw47urg_yoW8Cw1rpr
-	WUG3y3Kr4kJr47ta18Gw4j9a1UZayFqw4j934F9w1Uuws8XrnIgr1I9r1rWF90kFWDW3ya
-	kr4ktr45Z3WjyrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvab7Iv0xC_KF4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
-	AK021l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
-	6r4j6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxV
-	WxJr0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
-	Yx0E2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4
-	AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxkF7I0En4kS14v26r126r1DMxAIw28IcxkI7VAK
-	I48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2
-	IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v2
-	6r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2
-	IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv
-	67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyT
-	uYvjxU2f-BDUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgcEA2rub5HADQAAsx
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] net: reuseport: avoid duplicate closed socket
+ insertion
+To: Jiayuan Chen <jiayuan.chen@linux.dev>, Eric Dumazet
+ <edumazet@kernel.org>, Kuniyuki Iwashima <kuniyu@google.com>,
+ Paolo Abeni <pabeni@redhat.com>, Willem de Bruijn <willemb@google.com>,
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ Simon Horman <horms@kernel.org>, Martin KaFai Lau <kafai@fb.com>,
+ Daniel Borkmann <daniel@iogearbox.net>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Cc: TencentOS Corvus AI <corvus@tencent.com>, stable@vger.kernel.org,
+ Lin Jiapeng <jiapenglin@tencent.com>
+References: <20261106135841.418-1-ljp1205831794@gmail.com>
+ <6cb5fe89-c6f0-4e84-b753-4425b1aebe1e@linux.dev>
+From: Lin Jiapeng <ljp1205831794@gmail.com>
+In-Reply-To: <6cb5fe89-c6f0-4e84-b753-4425b1aebe1e@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Both loops that drain the local packet lists in ssh_ptl_shutdown() call
-ssh_packet_put() on the loop variable. This drops the reference that the
-queue or the pending set held on the packet, which can be the last one,
-so the packet may be freed before the iterator advances to the next
-entry. The iterator then reads the list node of the freed packet to do
-so.
 
-Use list_for_each_entry_safe() for both loops, which caches the next
-entry while the current packet is still alive.
+On 2026-11-07 1:02 p.m., Jiayuan Chen wrote:
+> 
+> On 11/6/26 9:58 PM, Lin Jiapeng wrote:
+>> Clearing SO_REUSEPORT on a TCP listener clears sk_reuseport but leaves
+>> sk_reuseport_cb attached to its reuseport group. 
+>> ...
+>> Repeated connect(AF_UNSPEC)/listen() cycles therefore insert the same
+>> socket until num_closed_socks exceeds max_socks. The next insertion
+>> writes before socks[], overlapping prog on x86-64 and leading to type
+>> confusion when a reuseport program is attached or detached.
+> 
+> 
+> Is the issue same as Eric's patch ?
+> 
+> https://lore.kernel.org/netdev/20261106084300.2029567-1-edumazet@kernel.org/
 
-Fixes: c167b9c7e3d6 ("platform/surface: Add Surface Aggregator subsystem")
-Cc: stable@vger.kernel.org
-Acked-by: Maximilian Luz <luzmaximilian@gmail.com>
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/platform/surface/aggregator/ssh_packet_layer.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+These reports may be related, but analysis suggests that they seem
+to have different root causes.
 
-diff --git a/drivers/platform/surface/aggregator/ssh_packet_layer.c b/drivers/platform/surface/aggregator/ssh_packet_layer.c
-index a51395942747..871780828419 100644
---- a/drivers/platform/surface/aggregator/ssh_packet_layer.c
-+++ b/drivers/platform/surface/aggregator/ssh_packet_layer.c
-@@ -1989,7 +1989,7 @@ void ssh_ptl_shutdown(struct ssh_ptl *ptl)
- 	spin_unlock(&ptl->pending.lock);
- 
- 	/* Complete and drop packets on complete_q. */
--	list_for_each_entry(p, &complete_q, queue_node) {
-+	list_for_each_entry_safe(p, n, &complete_q, queue_node) {
- 		if (!test_and_set_bit(SSH_PACKET_SF_COMPLETED_BIT, &p->state))
- 			__ssh_ptl_complete(p, -ESHUTDOWN);
- 
-@@ -1997,7 +1997,7 @@ void ssh_ptl_shutdown(struct ssh_ptl *ptl)
- 	}
- 
- 	/* Complete and drop packets on complete_p. */
--	list_for_each_entry(p, &complete_p, pending_node) {
-+	list_for_each_entry_safe(p, n, &complete_p, pending_node) {
- 		if (!test_and_set_bit(SSH_PACKET_SF_COMPLETED_BIT, &p->state))
- 			__ssh_ptl_complete(p, -ESHUTDOWN);
- 
+Eric's patch seems to prevent attaching a program to the same unhashed,
+shutdown listener from resurrecting it into the listening section. My
+patch addresses duplicate closed-section insertion after SO_REUSEPORT
+is cleared, which may eventually make socks[-1] overwrite reuse->prog.
 
--- 
-2.34.1
+Eric's patch does not change reuseport_stop_listen_sock(). Also, my PoC
+attaches the program on a separate, still-hashed anchor socket, so his
+new check may not apply to this path.
+
+I tested Eric's v2 patch with my unmodified PoC. His positive control
+returned EINVAL, so the patch seems to be active. However, my PoC still
+triggered the same UBSAN/KASAN failure. Since his patch did not stop my
+reproducer, and the root causes appear to be different, I think these
+may not be the same issue. The two fixes may therefore be complementary.
+
+The following is the UBSAN/KASAN output with Eric's v2 patch applied:
+
+[trigger] cycle 129/129 (vulnerable: socks[-1] overwrites prog)
+[trigger] attaching CBPF after closed-region pump
+------------[ cut here ]------------
+UBSAN: array-index-out-of-bounds in 
+/Users/m00nb1rd/WorkSpace/vul-findings/reuseport-closed-region-negative-index-bpfprog-as-sock/repro-upstream/linux-eric-v2/net/core/sock_reuseport.c:153:9
+index -1 is out of range for type 'struct sock *[] 
+__counted_by(max_socks)' (aka 'struct sock *[]')
+CPU: 0 UID: 65534 PID: 22 Comm: poc Not tainted 7.4.0-rc1+ #1 PREEMPTLAZY
+Call Trace:
+  <TASK>
+  dump_stack_lvl+0x23/0x30
+  ubsan_epilogue+0x5/0x30
+  __ubsan_handle_out_of_bounds+0x91/0xa0
+  reuseport_stop_listen_sock+0x290/0x310
+  ? reuseport_stop_listen_sock+0x43/0x310
+  inet_unhash+0xd5/0x400
+  tcp_set_state+0x125/0x260
+  tcp_disconnect+0x47/0x1950
+  __inet_stream_connect+0x2d0/0xab0
+  ? do_iter_readv_writev+0x25b/0x350
+  ? vfs_writev+0x2e0/0x3c0
+  inet_stream_connect+0x57/0x90
+  __sys_connect+0x14b/0x1a0
+  __x64_sys_connect+0x71/0x80
+  do_syscall_64+0x6c/0x1d0
+  entry_SYSCALL_64_after_hwframe+0x4b/0x53
+RIP: 0033:0x205560
+...
+...
+  </TASK>
+---[ end trace ]---
+Oops: general protection fault, probably for non-canonical address 
+0xdffffc000000008e: 0000 [#1] KASAN
+KASAN: null-ptr-deref in range [0x0000000000000470-0x0000000000000477]
+CPU: 0 UID: 65534 PID: 22 Comm: poc Not tainted 7.4.0-rc1+ #1 PREEMPTLAZY
+RIP: 0010:call_rcu+0x10d/0x260
+...
+Call Trace:
+  <TASK>
+  ? reuseport_attach_prog+0x6c/0x250
+  reuseport_attach_prog+0xdd/0x250
+  sk_reuseport_attach_filter+0x97/0xf0
+  sk_setsockopt+0x973/0x1cc0
+  do_sock_setsockopt+0xa9/0x120
+  __sys_setsockopt+0xaa/0xe0
+  __x64_sys_setsockopt+0xac/0xc0
+  do_syscall_64+0x6c/0x1d0
+  entry_SYSCALL_64_after_hwframe+0x4b/0x53
+RIP: 0033:0x202f22
+...
+  </TASK>
+---[ end trace 0000000000000000 ]---
 
