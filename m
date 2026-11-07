@@ -1,51 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047033;
-	b=r+jhGpqmtTMARKwJ+/MuCximkyKkZ/cgPStUQ+kUisSwh15R9cmv0cb4bY3N1xnpJif0
-	 xCkKWwWigKIF442q9sCibt5vuUokbHcxj90BjhqNy1qDDt/DdqwT6rnNMMw5yy8AhdrrA
-	 4SQfY+us+sUabFLFL1QQH7FFBO3107jWDKTvL09tDCVcXWKG76HY/heNi+sEUGaGSMn82
-	 8pScUICeHoNp1gr5LMrPlXgi3BiRtaCcM1KxXugeVPSrSaBqI5GQ2PqAcUT9V+ZzO3Eh7
-	 +l4078wIz1/OO9VO5Qm4ILD7z9ZgBaAQLX+cLHaFiy8T6+tvUaQkfe/2ORahjkyoTSg==
+	t=1794047036;
+	b=IC0S05nFpv471E5CIg/zMM96zoyUFOjf6J6ZV//dA8kv1Q3OQpumSl5RRD9KNvGocpJ5
+	 KxAFdRzcr6ezk5LnWikXeg8NxGlYaOShtJk6pjLbAZR4bAMHTJhqwobQo47auU22pswEc
+	 4Sa3tZAj1Qx7S+7BLIWQuw363nH/GjPzNHL3Tkd/OB9VvI25zqv/DkayBUm4sEGzxqK4d
+	 lZv1d/H59qxMWKhwTOTaMfdwUDW3qSS6mp4J6Kkqzaz3p3MRGU1KZd/Qbt//5FvvbUiNt
+	 T0dYVoJGAXtJqQqhhlGrkxjmVNEX0NgAlC8v/OJnPHrEvdeTzhORO1KA3C0Z0NpTsqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047033;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047036;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=I6VBG+51G2XrDYnAwZ9iV4dFwzpjsPDQOraiAt6FvDE=;
-	b=N/1KE3I2jd3GE67/kK+zZwHIQTXN5Z9zWzy45kGIamxmekkfNo2n5jNLXjQ4ff6ZtoBb
-	 0AQT5M3enYw4c9fnAy4RwcN2jQIL3pETU/aTERBytGP1mY0zDiV8w9Gjc2v0cUzFlz7dT
-	 ri0VV4xpjkhs9i3fhMwQ/kNqBatqgoaL9hKd52plpN35//ArOa0+UgHPJsa5YDYTAnWdC
-	 H1RoZxE5i53/1ZfRZoCnIcznmuLwhIYTQ1DnZSjKvzse3CWxpaSeP4F1L4NP+m6PgJWDH
-	 wwloFy7l4lYsLI0emv6x9NomM9fpJdzHnhZiStUxRjAwqXZ16LHRjRClZfpRBLhWYmg==
+	bh=yZm42HIXhsIYl/iBYenMZ7F2TLaU2LVrRcKkOv7/CiI=;
+	b=OCqoLKdZRou0K3sf7RXpBiHe8pq2qCxJvfa/cEDKPXNJNa9Z4l6yz1HxQLHXKARFh1EY
+	 NNio30G1ASkastunjAMR4XCqBNTkWGVjFRfHVDGDUakmMcQAcE9FkAr8/FbjfWv1wlFGO
+	 21k5qH+76MwLK1CxvXde10mhAyOt7zcXHcrxtfxNtlhzLlVYWI58Zk9GIYQtksAQxYAj5
+	 ywqYjvTieYIPQawGWFkQAbfA6pyEQVPHOqNGRnLXuQGR1d+tXcQO3+9/FP8vQYVe+Ybvv
+	 +l1J5CCRm8YANKpemBJNBAlztRgitXe7WT4xM/ThAhRS6HFd7vNsMls6wbCu8s6hdjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CQexbtfJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WJYJ4sAx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C5FB606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:23:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDEFB606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:23:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CQexbtfJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 092941F0089F;
-	Sat,  7 Nov 2026 10:23:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WJYJ4sAx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D6CA1F0089F;
+	Sat,  7 Nov 2026 10:23:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047033;
-	bh=I6VBG+51G2XrDYnAwZ9iV4dFwzpjsPDQOraiAt6FvDE=;
+	s=k20260515; t=1794047035;
+	bh=yZm42HIXhsIYl/iBYenMZ7F2TLaU2LVrRcKkOv7/CiI=;
 	h=From:To:Cc:Subject:Date;
-	b=CQexbtfJ36KtfBsFM5sl0aURV/gJ/TZ8G2aqmraJoMgPPhz+2N52Qec6jixmV8kYc
-	 EKeKESpFw2JQQ53+NadfVxv0rUisDfKa2eEDvfPxG8dmiU773pUmFXEgAc1bs7kwZl
-	 7eYa69YW6HVcHXqpOpTghCaPwy34L5ENTyrZdS8dafJStcZqCpaSa+ZcWXpTl+nOSe
-	 1FPaxjqbDUTMU6ZSMCqTYbq1JSYW1AjKBOr6kdj/QdQt344QgQtAGP7z7WQ01m20F6
-	 B7+QpxcwhE5vGRQYTDnjff9+AQz2TLb7wtjveWZmiDiuKYtRPn17t3h3K5GOvcLM8i
-	 quvfGTV9m+bJw==
+	b=WJYJ4sAxpbM48eCFe7/KAXUV6Pagc0aEiwanOJR/SLxosMt3L/+4UQ+kqpUvK4c6Y
+	 3xCZs6O158YcP7iRouf6X+/SHjDWXxfwvz/yovBA2d76fxV3BlsYW//Syx+eWklP01
+	 uqy8xPBaBeNL9AWeZ72M3CuNQR4qIs5C/2tYsZm14k2awjY6P+JZJ0lOOywcUD48pZ
+	 cVx7sPlzMRvGT539Azx8G8dPqd8ZhegzrGKUzafHy+hq31Z6a9vittKf+ib7bXj4Nh
+	 pmVZqK8L0nVruJs2whbZrFiKKmaVgpB+baOvz3z1TttMx7N5XaLZf11GJQ+rBCe7FC
+	 6DdIzEZbbztzQ==
 From: Sasha Levin <sashal@kernel.org>
-To: ricardo.neri-calderon@linux.intel.com,
-	linux@roeck-us.net
+To: liuc63@xiaopeng.com,
+	liuwb@xiaopeng.com,
+	fw@strlen.de,
+	pablo@netfilter.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] hwmon: (coretemp) Return -ENODATA for invalid temperature readings" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:23:52 -0500
-Message-ID: <20261107052352-failed-6.12-f63aaa529cbc@kernel.org>
+Subject: FAILED: patch "[PATCH] netfilter: nf_conntrack_netlink: fix inverted IPv6 tuple filter" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:23:54 -0500
+Message-ID: <20261107052354-failed-6.12-cd37ab22a74e@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,122 +70,64 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x f63aaa529cbc73146ff0d52235e5479042285cae
+git cherry-pick -x cd37ab22a74e05aae5c16c67295cbf5188b16268
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052352-failed-6.12-f63aaa529cbc@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052354-failed-6.12-cd37ab22a74e@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From f63aaa529cbc73146ff0d52235e5479042285cae Mon Sep 17 00:00:00 2001
-From: Ricardo Neri <ricardo.neri-calderon@linux.intel.com>
-Date: Tue, 6 Oct 2026 06:04:56 -0700
-Subject: [PATCH] hwmon: (coretemp) Return -ENODATA for invalid temperature
- readings
+From cd37ab22a74e05aae5c16c67295cbf5188b16268 Mon Sep 17 00:00:00 2001
+From: Liu Chao <liuc63@xiaopeng.com>
+Date: Mon, 19 Oct 2026 15:56:26 +0800
+Subject: [PATCH] netfilter: nf_conntrack_netlink: fix inverted IPv6 tuple
+ filter
 
-IA32_THERM_STATUS and IA32_PACKAGE_THERM_STATUS have a valid bit, bit 31.
-The Intel SDM documents it only for the former, but the package register
-implements it too: x86_pkg_temp_thermal has required it since commit
-f1a18a105660 ("Thermal: CPU Package temperature thermal").
+ctnetlink_filter_match_tuple() returns 0 (no match) when the IPv6
+source or destination address differs from the filter, because the
+!ipv6_addr_cmp() test is inverted.  ipv6_addr_cmp() returns 0 when
+the addresses are equal, so the negation makes the branch trigger on
+a match instead of a mismatch, which is the opposite of the IPv4
+path above.
 
-This driver checked the bit for both registers as well, until
-commit bf6ea084ebb5 ("hwmon: (coretemp) Do not return -EAGAIN for low
-temperatures") made it ignore the bit because some CPUs clear it while
-the temperature is too low to be measured. Since then, temp%d_input
-reports such a reading as a real temperature. Userspace cannot tell it
-apart from a genuinely low one.
+Drop the '!' so the IPv6 branch returns 0 only when the addresses
+differ, matching the IPv4 semantics and the caller's expectation.
 
-Fail the read with -ENODATA while the CPU reports the reading as invalid.
-On a CPU that clears the bit, reading temp%d_input now fails where it
-used to return a low value. sensors(1) shows N/A in its place.
-
+Fixes: cb8aa9a3affb ("netfilter: ctnetlink: add kernel side filtering for dump")
 Cc: stable@vger.kernel.org
-Suggested-by: Guenter Roeck <linux@roeck-us.net>
-Link: https://lore.kernel.org/all/46f9f319-de71-412f-a424-6cb801478456@roeck-us.net/
-Signed-off-by: Ricardo Neri <ricardo.neri-calderon@linux.intel.com>
-Link: https://patch.msgid.link/20261006-coretemp-enodata-v2-1-64e788acc7dc@linux.intel.com
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
+Reviewed-by: Weibin Liu <liuwb@xiaopeng.com>
+Reviewed-by: Florian Westphal <fw@strlen.de>
+Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
 ---
- Documentation/hwmon/coretemp.rst |  3 +++
- drivers/hwmon/coretemp.c         | 21 +++++++++++++++------
- 2 files changed, 18 insertions(+), 6 deletions(-)
+ net/netfilter/nf_conntrack_netlink.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/Documentation/hwmon/coretemp.rst b/Documentation/hwmon/coretemp.rst
-index 3493016833814..09f885a847e30 100644
---- a/Documentation/hwmon/coretemp.rst
-+++ b/Documentation/hwmon/coretemp.rst
-@@ -50,6 +50,9 @@ All sysfs entries are named with their core_id (represented here by 'X').
+diff --git a/net/netfilter/nf_conntrack_netlink.c b/net/netfilter/nf_conntrack_netlink.c
+index 4e5d7c7014368..cc8695d5356d2 100644
+--- a/net/netfilter/nf_conntrack_netlink.c
++++ b/net/netfilter/nf_conntrack_netlink.c
+@@ -1098,13 +1098,13 @@ static int ctnetlink_filter_match_tuple(struct nf_conntrack_tuple *filter_tuple,
+ 		break;
+ 	case NFPROTO_IPV6:
+ 		if ((flags & CTA_FILTER_FLAG(CTA_IP_SRC)) &&
+-		    !ipv6_addr_cmp(&filter_tuple->src.u3.in6,
+-				   &ct_tuple->src.u3.in6))
++		    ipv6_addr_cmp(&filter_tuple->src.u3.in6,
++				  &ct_tuple->src.u3.in6))
+ 			return 0;
  
- ================= ========================================================
- tempX_input	  Core temperature (in millidegrees Celsius).
-+		  Reading fails with -ENODATA while the CPU reports the
-+		  temperature as invalid. Some CPUs do this when the
-+		  temperature is too low to be measured.
- tempX_max	  Maximum recommended operating temperature (Tcontrol).
- 		  All cooling devices should be turned on.
- tempX_crit	  Maximum junction temperature (in millidegrees Celsius).
-diff --git a/drivers/hwmon/coretemp.c b/drivers/hwmon/coretemp.c
-index ace51e08e72dc..bee2c9896d4c5 100644
---- a/drivers/hwmon/coretemp.c
-+++ b/drivers/hwmon/coretemp.c
-@@ -60,6 +60,8 @@ enum coretemp_attr_index {
- 
- /*
-  * Per-Core Temperature Data
-+ * @temp_valid: Whether the CPU reported @temp as valid. @temp is not
-+ *		reported when this is false.
-  * @tjmax: The static tjmax value when tjmax cannot be retrieved from
-  *		IA32_TEMPERATURE_TARGET MSR.
-  * @last_updated: The time when the current temperature value was updated
-@@ -72,6 +74,7 @@ enum coretemp_attr_index {
-  */
- struct temp_data {
- 	int temp;
-+	bool temp_valid;
- 	int tjmax;
- 	unsigned long last_updated;
- 	unsigned int cpu;
-@@ -398,7 +401,8 @@ static ssize_t show_temp(struct device *dev,
- {
- 	struct msr val;
- 	struct temp_data *tdata = container_of(devattr, struct temp_data, sd_attrs[ATTR_TEMP]);
--	int tjmax;
-+	int tjmax, temp;
-+	bool valid;
- 
- 	mutex_lock(&tdata->update_lock);
- 
-@@ -407,17 +411,22 @@ static ssize_t show_temp(struct device *dev,
- 	if (time_after(jiffies, tdata->last_updated + HZ)) {
- 		rdmsrq_on_cpu(tdata->cpu, tdata->status_reg, &val.q);
- 		/*
--		 * Ignore the valid bit. In all observed cases the register
--		 * value is either low or zero if the valid bit is 0.
--		 * Return it instead of reporting an error which doesn't
--		 * really help at all.
-+		 * Bit 31 indicates whether the reading is valid. Some CPUs
-+		 * clear it while the temperature is too low to be measured.
-+		 * Such a reading is not a temperature. Do not report it.
- 		 */
-+		tdata->temp_valid = (val.l >> 31) & 1;
- 		tdata->temp = tjmax - ((val.l >> 16) & 0xff) * 1000;
- 		tdata->last_updated = jiffies;
+ 		if ((flags & CTA_FILTER_FLAG(CTA_IP_DST)) &&
+-		    !ipv6_addr_cmp(&filter_tuple->dst.u3.in6,
+-				   &ct_tuple->dst.u3.in6))
++		    ipv6_addr_cmp(&filter_tuple->dst.u3.in6,
++				  &ct_tuple->dst.u3.in6))
+ 			return 0;
+ 		break;
  	}
- 
-+	valid = tdata->temp_valid;
-+	temp = tdata->temp;
- 	mutex_unlock(&tdata->update_lock);
--	return sprintf(buf, "%d\n", tdata->temp);
-+
-+	if (!valid)
-+		return -ENODATA;
-+	return sprintf(buf, "%d\n", temp);
- }
- 
- static int create_core_attrs(struct temp_data *tdata, struct device *dev)
 -- 
 2.53.0
 
