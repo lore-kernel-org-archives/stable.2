@@ -1,54 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046207;
-	b=G1p0kIanjsmnTlEtL+gWGDRy3vsI+LIgngW6lItlDXqy+isT3RIQhcJ2g5Xl2BQpt3Ja
-	 ATPFX45dAjOpVOPF/T/iEJcBfweDFLRbCnrglS9bKeAztcvOwTCOboujDOfX0mEq8U6i9
-	 pHx/nwSmWGoF6erDnuLwNlFOHkrgJHn8SlwsBVMKMHusudi4XsUTwO7YlzQvofdHrw8To
-	 eqVVf8JNsXNgbzltwHce9jabiICYk0BN1GE7EzbRisNlJA7+AOgm33Swtix4BwnNTLJuK
-	 P0Y7HP0oNkjwUsUkUHoPThw4SS60PoSLj006xtiWtjV+3LJfUvZmDawB0Pt3iYFT09w==
+	t=1794046209;
+	b=ZPMx+pHaA4YgKp1YlhrtH2j5vLFHzbY8XywwH9GofosX5KYQgvw8jjoA9RtwEvf/46dC
+	 E/Qay1avIN+pq0Rav1n+GzlhrdtKWCGWHVTp4yE1NTZSYb6JyXrcWYEmLRKgDs1jDVmG8
+	 UgyFz2P+XrUpvGYsZNHtWJDT+JLIMbRgPrOgGTxJUtFj8I6F06SpVrGORkyYCguI1ljKD
+	 HEl8GnptiyfCbkQHx3FB5LcgdRrBBhpQ5Aw2iNHBukt3cf4I+3TWKXVKjETRcx82tkZVN
+	 R17Oh6TiWa9bpsiL7UscSqJAA6iBJvoT/aPwUY9iTOq2aP1ARnQ/ffUgaWuOk3C6YQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046207;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046209;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=/P8A4m6JQDO0pdOr+r9UyijVwOZWyHturJT44jKpKJc=;
-	b=CD+P/CxfDvJZnr9YEtCJkgpmItKvzx5XkaT0yhaDxzYimj7hsiaj0mUWlTLcXrKRAf9+
-	 trla2GdbLjH6VrSm5vdFaZmifb8E6oCoMuhN0JTbBm32aOSqQ8Q0JslKKKWQXPn2Nd1o9
-	 CBTJl1KejbhqferFqRu0GF5TfZ3g24bcmW3ECLKDC7CP7lx/I5paBWhQvyxgyOuoebkta
-	 HHefg1T4/Gbit8yvvQyRPC6cBd3AnDK1vREfSPfd6OdRfs0s5fR0cYrqVe4TaCSzoQHsq
-	 cfEqb80k/GNz7dp9qIlgAsjf/qAbkci+YDm/4JR1JWuoH03v4++3MSEvtUXmqDUaG9g==
+	bh=tAc655yF1LPMVngt2I1t/9yrHq+j/z+G0xJ3R5S0MTE=;
+	b=ff049beZc908B9aXEVjq8VhPwqzNTmx29yiA8XQsQ2gl/B+iqQY4gTkXyxvEanK3Bje+
+	 RJFImcEi2d8odnFOCn96bTWph36ry035Bgg15J5qkBXuOnN8tdGUB/ZtgyWLNXq9EIpsM
+	 k7PoTzQjQkyrWUPTQ52CPSGw0k7FODJUMSghoyiIV4SxgdKM82fkcqDxUgmZosXAeK2XL
+	 qIWtvk8rxbunTtXc0Dd9nlh5Z2ow1mEkcvxijO5AtVlsculODWv/5rVK1JxtyvZGDQQB/
+	 RAJCgO9ONM0rnfESKzTcFwrnG4VEVJb+3oJjLIuObTxShLVd0S9Oo9ZYFF83LXOadgQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CkuUDD+G;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zdjn1a+k;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6017606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:10:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16ADA606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:10:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CkuUDD+G
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8395C1F0089F;
-	Sat,  7 Nov 2026 10:10:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zdjn1a+k
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0193D1F0089F;
+	Sat,  7 Nov 2026 10:10:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046206;
-	bh=/P8A4m6JQDO0pdOr+r9UyijVwOZWyHturJT44jKpKJc=;
+	s=k20260515; t=1794046208;
+	bh=tAc655yF1LPMVngt2I1t/9yrHq+j/z+G0xJ3R5S0MTE=;
 	h=From:To:Cc:Subject:Date;
-	b=CkuUDD+G/UcujpPVeaXGXWUEbYBaztifCFKPspj3+54AFBharb4/H9njFF6kTVqT4
-	 Lm5ZcgoPesSzUrm4Jr0eYB7TLn9pVhmPBDsK8LJusKTclexmTlh2uXI5x+qFAFh8He
-	 I0Zj0Ab3eNxIp9FJv3CwCsP/cnvhaSVM1qaZLBx7JLNjSFoEhAh/eO1+F3hi+yeZbA
-	 LRyM0jOTzku1K1ty/d4FX7RWMQXm3GtVnNj4zoh2ByR91EHwnAoRdioNenrnaQb3Cm
-	 JNXbhWCCsIxu3JCP1bgla5fL4GTfwWPxDq4P7jZN1yCQnhsBMqw3Ij0OjOC5nOSqNk
-	 E3DvzhUCLq5Cg==
+	b=Zdjn1a+kT2WQw9XwDBHjeTEaY9YaG//Eegtw+BNwsRnp+d8qyz7c8xfD2sB5XV5Hu
+	 SWHbBy0AOnjTceQpN2hq7ycSiNTOq4QDVb3Hi/OZcrbyIB51uDUptkJRKPnIXC+DZe
+	 cdtOpyh9nypa+iDF/aCGfORbYG2zNwwA6VzuWz2WpZoHB+KVggjhiXlxM90zIjb282
+	 FlobIrPyM0SaTDhJSFIGGBCxYezSndH78sSXtQZcDTiJa8K0RPYaALyLj6I0baQNIn
+	 YENbKGsnNkGxZlIxh1S8Be+J0s3QOgbL73sICZqnKABrd1p1LEWGBUyDNvCZOrnEd6
+	 4ysnHEpuCJZHw==
 From: Sasha Levin <sashal@kernel.org>
-To: dave.jiang@intel.com,
-	jonathan.cameron@oss.qualcomm.com,
-	ming.li@zohomail.com,
-	gourry@gourry.net,
-	alison.schofield@intel.com
+To: linux@stevetech.au,
+	shyam-sundar.s-k@amd.com,
+	hurryman2212@gmail.com,
+	mirko.jechow@gmx.de,
+	gregkh@linuxfoundation.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] cxl/port: Clear cached dport pointers when a dport is removed" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:10:04 -0500
-Message-ID: <20261107051004-failed-6.18-019560d23450@kernel.org>
+Subject: FAILED: patch "[PATCH] usb: xhci-pci: Add AMD 600 series to xhci-pci-prom21" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:10:06 -0500
+Message-ID: <20261107051006-failed-6.18-29381088ac50@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,90 +71,104 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 019560d23450a320f4060ff235563a5277ea8033
+git cherry-pick -x 29381088ac50a4910d18a5f8079d9bd505f839be
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051004-failed-6.18-019560d23450@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051006-failed-6.18-29381088ac50@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 019560d23450a320f4060ff235563a5277ea8033 Mon Sep 17 00:00:00 2001
-From: Dave Jiang <dave.jiang@intel.com>
-Date: Thu, 1 Oct 2026 08:47:42 -0700
-Subject: [PATCH] cxl/port: Clear cached dport pointers when a dport is removed
+From 29381088ac50a4910d18a5f8079d9bd505f839be Mon Sep 17 00:00:00 2001
+From: Stephen Horvath <linux@stevetech.au>
+Date: Sun, 4 Oct 2026 02:27:31 +0200
+Subject: [PATCH] usb: xhci-pci: Add AMD 600 series to xhci-pci-prom21
 
-Switch decoders cache dport pointers in cxlsd->target[], and nothing
-clears them when a dport is freed. Readers then dereference freed memory.
+It seems the xhci-pci-prom21 module only has IDs for the 800 series
+chipsets. However, the 600 series chipsets also have Promontory 21
+chips, so we should add their IDs to the list as well.
 
-KASAN caught it under a cxl_test load/unload loop with concurrent sysfs
-reads (abbreviated).
+I have tested this on my X670 board featuring DID `0x43f7`.
 
-Clear the matching slots from cxl_dport_remove(), walking the port's
-decoders the way cxl_port_update_decoder_targets() does on the add side.
-Scan all nr_targets slots, the target[] allocation size, and clear every
-hit.
+`1022:43f7` also appears on the PCI ID database
+(https://pci-ids.ucw.cz/read/PC/1022/43f7).
+Device IDs `0x43f9` (B665) & `0x43fa` (A620) were suggested by Shyam.
 
-Fixes: 8330671c57c7 ("cxl: Add helper to delete dport")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Reviewed-by: Li Ming <ming.li@zohomail.com>
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-Reviewed-by: Alison Schofield <alison.schofield@intel.com>
-Link: https://patch.msgid.link/20261001154744.1095902-2-dave.jiang@intel.com
-Signed-off-by: Dave Jiang <dave.jiang@intel.com>
+Also list the new IDs in Documentation/hwmon/prom21-xhci.rst.
+
+Cc: stable@vger.kernel.org # 7.2.x
+Cc: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
+Cc: Jihong Min <hurryman2212@gmail.com>
+Signed-off-by: Stephen Horvath <linux@stevetech.au>
+Tested-by: Mirko Jechow <mirko.jechow@gmx.de>
+[mirko.jechow@gmx.de: add new IDs to prom21-xhci.rst]
+Signed-off-by: Mirko Jechow <mirko.jechow@gmx.de>
+Link: https://patch.msgid.link/20261004002731.49927-1-mirko.jechow@gmx.de
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/cxl/core/port.c | 29 +++++++++++++++++++++++++++++
- 1 file changed, 29 insertions(+)
+ Documentation/hwmon/prom21-xhci.rst | 2 +-
+ drivers/usb/host/xhci-pci-prom21.c  | 3 +++
+ drivers/usb/host/xhci-pci.c         | 3 +++
+ drivers/usb/host/xhci-pci.h         | 3 +++
+ 4 files changed, 10 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/cxl/core/port.c b/drivers/cxl/core/port.c
-index 95c0be57ed538..ecad766737aaa 100644
---- a/drivers/cxl/core/port.c
-+++ b/drivers/cxl/core/port.c
-@@ -1097,11 +1097,40 @@ static void cond_cxl_root_unlock(struct cxl_port *port)
- 		device_unlock(&port->dev);
+diff --git a/Documentation/hwmon/prom21-xhci.rst b/Documentation/hwmon/prom21-xhci.rst
+index 7984fb187bd8a..6c0b6e7368921 100644
+--- a/Documentation/hwmon/prom21-xhci.rst
++++ b/Documentation/hwmon/prom21-xhci.rst
+@@ -9,7 +9,7 @@ Supported chips:
+ 
+     Prefix: 'prom21_xhci'
+ 
+-    PCI IDs: 1022:43fc, 1022:43fd
++    PCI IDs: 1022:43f7, 1022:43f9, 1022:43fa, 1022:43fc, 1022:43fd
+ 
+ Author:
+ 
+diff --git a/drivers/usb/host/xhci-pci-prom21.c b/drivers/usb/host/xhci-pci-prom21.c
+index 6486f4a093455..5f088a47d79f3 100644
+--- a/drivers/usb/host/xhci-pci-prom21.c
++++ b/drivers/usb/host/xhci-pci-prom21.c
+@@ -111,6 +111,9 @@ static void prom21_xhci_remove(struct pci_dev *dev)
  }
  
-+static int clear_decoder_target(struct device *dev, void *data)
-+{
-+	struct cxl_dport *dport = data;
-+	struct cxl_switch_decoder *cxlsd;
-+
-+	if (!is_switch_decoder(dev))
-+		return 0;
-+
-+	cxlsd = to_cxl_switch_decoder(dev);
-+	guard(rwsem_write)(&cxl_rwsem.region);
-+
-+	/*
-+	 * A dport can occupy more than one position of an interleave, so
-+	 * scan the whole target list rather than stopping at the first hit.
-+	 */
-+	for (int i = 0; i < cxlsd->nr_targets; i++) {
-+		if (cxlsd->target[i] != dport)
-+			continue;
-+		cxlsd->target[i] = NULL;
-+		dev_dbg(dev, "dport%d removed from target list, index %d\n",
-+			dport->port_id, i);
-+	}
-+
-+	return 0;
-+}
-+
- static void cxl_dport_remove(void *data)
- {
- 	struct cxl_dport *dport = data;
- 	struct cxl_port *port = dport->port;
+ static const struct pci_device_id pci_ids[] = {
++	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43F7) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43F9) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43FA) },
+ 	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43FC) },
+ 	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43FD) },
+ 	{ /* end: all zeroes */ }
+diff --git a/drivers/usb/host/xhci-pci.c b/drivers/usb/host/xhci-pci.c
+index a8889081ae824..b407676808fca 100644
+--- a/drivers/usb/host/xhci-pci.c
++++ b/drivers/usb/host/xhci-pci.c
+@@ -701,6 +701,9 @@ static const struct pci_device_id pci_ids_renesas[] = {
  
-+	/* counterpart of cxl_port_update_decoder_targets() */
-+	device_for_each_child(&port->dev, dport, clear_decoder_target);
-+
- 	port->nr_dports--;
- 	xa_erase(&port->dports, (unsigned long) dport->dport_dev);
- 	put_device(dport->dport_dev);
+ /* handled by xhci-pci-prom21 if enabled */
+ static const struct pci_device_id pci_ids_prom21[] = {
++	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43F7) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43F9) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43FA) },
+ 	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43FC) },
+ 	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43FD) },
+ 	{ /* end: all zeroes */ }
+diff --git a/drivers/usb/host/xhci-pci.h b/drivers/usb/host/xhci-pci.h
+index 11f435f94322a..533efc7db8012 100644
+--- a/drivers/usb/host/xhci-pci.h
++++ b/drivers/usb/host/xhci-pci.h
+@@ -4,6 +4,9 @@
+ #ifndef XHCI_PCI_H
+ #define XHCI_PCI_H
+ 
++#define PCI_DEVICE_ID_AMD_PROM21_XHCI_43F7	0x43f7
++#define PCI_DEVICE_ID_AMD_PROM21_XHCI_43F9	0x43f9
++#define PCI_DEVICE_ID_AMD_PROM21_XHCI_43FA	0x43fa
+ #define PCI_DEVICE_ID_AMD_PROM21_XHCI_43FC	0x43fc
+ #define PCI_DEVICE_ID_AMD_PROM21_XHCI_43FD	0x43fd
+ 
 -- 
 2.53.0
 
