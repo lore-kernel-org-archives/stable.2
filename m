@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049669;
-	b=wPWIVyAXX7WkeXe4v7M2ZySHgv4iM4E522mI2g/4Dnj6nY/n1ejcB2oLbOU5kVAGLUC7
-	 PH4xbd2jbmQ6qXUFPuO66rP3CrTkBxBCK+IsyfYyNH2VSW9HkZpaIk3YXkW6HY3BBsoAH
-	 lxGAeJOCbA8ANGtTykJ1+5ZRwYfB+YofYSLug+hTT5NO1r+IaYdoXQHbzr9ORogg+pExv
-	 swidOI7FfJWLTUbAgOg1a2GSL4Afz+37kYfaAa2QbIccmON7/dO/qRF1m2OFFaYMeYHha
-	 gqXz4Am0z9+MHs0w5q4+cXP6Gl7qW6Xx5REapeA0mggZglj8VdkKFVjBCkRzErYq3Lg==
+	t=1794049672;
+	b=CDlj2UTfWGQlJv4Ffn1oI3pD51dIsgQ7QcBuctkQV4VgHiNeiCamf2ZAKPxGzvyQnXa6
+	 k96yUsq7lAHsZKFRrfHGvEporNmPYyIVsAzqUsvM86N04kTE5GIFbN/DNFcFQuSUGjPYm
+	 EUulJ4HacGgV3jtiI99b7ptKl3tNwKIETe0uD5ZHnT4wzzTGIGtl+UvDuhlzLYYO3Kr02
+	 MRMPeS+sEPCtHPO6FBYOv8T8TVlRVd4PhmL4rE8Cl94xFab+AmnWeQziLkRnb7Ro34mga
+	 Ck/7mc58a+C0nPKOXs0PhUYkpBjAlJeajcnyEOpSbLwbDYJ5M4s8E7mn89NlWC2GNiQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049669;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049672;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Bx7vWCu5ubKktHTVr04MrmQRBFwxaf0G0E7jrw/qDd0=;
-	b=ooj/WPyyjLKSJGViVTK4u7KGUD9T/WlYb4Fgk9KcBPv1UoQZQmHJQkqWKNBlQtVXad2E
-	 IEAk7Xdb8ngcRqDjMum7NQBnhgkeA4o43WMDHz/HObBE2uucGA8A0o0DSHQSNnw+zFbMe
-	 A2RExbsqXvyUfw9yQVRAldndZvtId9kUJ3QwvVTNXcsxRD22TLxVn+rz01kU5b99NhFp5
-	 yQtiPhVcA9E3Jz+CotMXthHal/dAX26SZ59Pk8y32HDrhPvzpWOe5Y9134lcqVCUEHwv7
-	 cTe8H7LrrMml4aQ/iy8ksAotxyjcllIHFn8mDQbhGRHSST5KMqLF15Tan1m7M83ZelA==
+	bh=o/PdgCaefsS8NbcQ8UKVlxeeIW70g6dsQVJk26xjdBA=;
+	b=Ko8HZogC6jGU0I5AeEPVIDR2DO8jQVffIw6uSxt45KieNyhPij5aIx7bSxCqCFPEB1Ey
+	 wWReoVXPPL/Ba/US0e3CjoFO8rnb/ZG6LWias7Stj/MLFCeCtNsRnXQnKm2aS9F75G8J2
+	 CdDbyLA7TgjXGeym9yGavELk20bmDX/+k/rtekwkcyaYSpElK02hdt0Am5AgR1jFa1zfq
+	 Lbwz4+N1EApLbewdMMgblhLpteyaXxWWrblYI6YAEvvIq2/SnWs9IvidP5kyOl9rcFhkT
+	 MQRiXDq6O2jYyvKJb+KiMZIGsbSwc/8MqlLaCDhvU7oM9EQfIha4bGVYn9j9MSmOD/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ffujza7E;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RDzzRH2q;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4157F606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:07:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36404606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:07:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ffujza7E
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B538D1F0089F;
-	Sat,  7 Nov 2026 11:07:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RDzzRH2q
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91DAF1F0089F;
+	Sat,  7 Nov 2026 11:07:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049669;
-	bh=Bx7vWCu5ubKktHTVr04MrmQRBFwxaf0G0E7jrw/qDd0=;
+	s=k20260515; t=1794049672;
+	bh=o/PdgCaefsS8NbcQ8UKVlxeeIW70g6dsQVJk26xjdBA=;
 	h=From:To:Cc:Subject:Date;
-	b=Ffujza7EqOiWG2xz1oduBANA9aBcB5piVfY6ADcHUJ1NRaA+eRvjuXAPHuS0Pwszg
-	 zXWyykxOU20Yc05ZGfDz6wKtEz88TE+PtTqmv9EYJYas6E4qjy+gjwQbqNTo4Ce5hz
-	 W0TCQM0CXR/PwTLGEz+VtH6A8tiH4o+ioaat7IiiWpUpSXN/V/oBjsJ3qJBb66Ovkx
-	 rmsQYh5E+GosL2csVrHdj/Beikev6Y6sWOUTVbieJPNwX/6sBUE4dzEpAnwwgjhg6U
-	 kV5mr11wBPVJOEnMAzs6/LTP2123riY9hNOJrwipFxx8DoBpwV7Oezvr2ic/KMT/Xg
-	 ngJ/LBhB4bBUQ==
+	b=RDzzRH2q09kGL1qNAjK6yaUL3H213dsq/CEvzDxCzeKLBag8Ayjh8X0RwtpOt+qQQ
+	 MHFMJy1mag9ZnG8pClhtYC38smHzyHgvYx8IdP+U7Aapy1jCwW2Imv1+GQWESkdb7U
+	 BA1xZnshtftRDHcqNQCrHp4G9blwbsYPGNEJzGGqEzJI2hMjtOoy7966gW0CQX1FNI
+	 5jwWfGKNg10fIebWIYqLE16AONhu1X637UevRX9NiJO0FuY5ewm8bZgktY+MDIK7j2
+	 vOwj6WRYXTxavW+aDF4saY7L/iUPXmA6Q5h2Luwo5ziYH8BoykTJnnFi5NMYojUKXB
+	 qBK5SNAecwg/Q==
 From: Sasha Levin <sashal@kernel.org>
-To: gamaerry@gmail.com,
-	tiwai@suse.de
+To: quanyeyang@proton.me,
+	matttbe@kernel.org,
+	kuba@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ALSA: hda/realtek: Fix internal speakers on Acer Aspire AL16-31P" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:07:47 -0500
-Message-ID: <20261107060747-failed-5.15-d933955c456e@kernel.org>
+Subject: FAILED: patch "[PATCH] mptcp: reset msk state on early connect failure" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 06:07:50 -0500
+Message-ID: <20261107060750-failed-5.15-29afe67082b2@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,57 +69,67 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x d933955c456e0573b40eae4f72a3af37ab1c15c3
+git cherry-pick -x 29afe67082b2d33ab2e90c56c337235d725f023f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060747-failed-5.15-d933955c456e@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060750-failed-5.15-29afe67082b2@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From d933955c456e0573b40eae4f72a3af37ab1c15c3 Mon Sep 17 00:00:00 2001
-From: Luis Gerardo Lopez Hernandez <gamaerry@gmail.com>
-Date: Fri, 16 Oct 2026 18:50:39 -0600
-Subject: [PATCH] ALSA: hda/realtek: Fix internal speakers on Acer Aspire
- AL16-31P
+From 29afe67082b2d33ab2e90c56c337235d725f023f Mon Sep 17 00:00:00 2001
+From: Quanye Yang <quanyeyang@proton.me>
+Date: Tue, 13 Oct 2026 16:29:19 +0200
+Subject: [PATCH] mptcp: reset msk state on early connect failure
 
-The Acer Aspire AL16-31P (Intel Alder Lake-N, Realtek ALC269VC,
-PCI/codec SSID 2782:1718) has its internal speakers wired to pin 0x1b,
-but the BIOS marks that pin as not connected (0x411111f0) and only
-exposes pin 0x14 as the speaker. As a result the internal speakers are
-silent while headphones, HDMI and Bluetooth work.
+mptcp_connect() can fall back before the subflow SYN is sent, for
+example when the netns is in an MPTCP blackhole, token allocation fails,
+or MD5SIG is in use. If the subsequent subflow connect() fails
+immediately (EAFNOSUPPORT, ENETUNREACH, ...), __inet_stream_connect()
+returns while the socket is still SS_UNCONNECTED and never calls
+->disconnect(). This was reported by Clashiko [1].
 
-This is the same layout as the Infinix Y4 Max and MEDION E15433, which
-share the 0x2782 subsystem vendor. Reuse their fixup, which configures
-pin 0x1b as an internal speaker and limits the internal mic boost.
+The error path only dropped the token and moved the msk back to
+TCP_CLOSE. MPTCP_FALLBACK_DONE, allow_subflows and
+request_mptcp were left as after early fallback, so a later
+connect() on the same fd stayed TCP-only.
 
-Tested by booting with snd-hda-intel model=2782:1705: the fixup is
-picked, pin 0x1b is used as a speaker output, the internal speakers
-work, and they are muted when headphones are plugged in.
-
+Closes: https://github.com/multipath-tcp/mptcp_net-next/issues/633 [1]
+Fixes: 0235d075a592 ("mptcp: mark as fallback even early ones")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Luis Gerardo Lopez Hernandez <gamaerry@gmail.com>
-Link: https://patch.msgid.link/20261017005039.9139-1-gamaerry@gmail.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Quanye Yang <quanyeyang@proton.me>
+Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Link: https://patch.msgid.link/20261013-net-mptcp-misc-fixes-7-3-rc8-v1-1-932c9b182fc7@kernel.org
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 ---
- sound/hda/codecs/realtek/alc269.c | 1 +
- 1 file changed, 1 insertion(+)
+ net/mptcp/protocol.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-index c33a385982f2b..af43e7fb99b71 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -8671,6 +8671,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x2782, 0x1701, "Infinix Y4 Max", ALC269VC_FIXUP_INFINIX_Y4_MAX),
- 	SND_PCI_QUIRK(0x2782, 0x1705, "MEDION E15433", ALC269VC_FIXUP_INFINIX_Y4_MAX),
- 	SND_PCI_QUIRK(0x2782, 0x1707, "Vaio VJFE-ADL", ALC298_FIXUP_SPK_VOLUME),
-+	SND_PCI_QUIRK(0x2782, 0x1718, "Acer Aspire AL16-31P", ALC269VC_FIXUP_INFINIX_Y4_MAX),
- 	SND_PCI_QUIRK(0x2782, 0x4900, "MEDION E15443", ALC233_FIXUP_MEDION_MTL_SPK),
- 	SND_PCI_QUIRK(0x2782, 0xa128, "Positivo N15RPE-S", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
- 	SND_PCI_QUIRK(0x2782, 0xa212, "Lunnen Ground 14", ALC269VC_FIXUP_LUNNEN_GROUND_14),
+diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
+index e89a69ab927c9..e6f73a5ee630a 100644
+--- a/net/mptcp/protocol.c
++++ b/net/mptcp/protocol.c
+@@ -4212,9 +4212,16 @@ static int mptcp_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
+ 	 * subflow_finish_connect()
+ 	 */
+ 	if (unlikely(err)) {
+-		/* avoid leaving a dangling token in an unconnected socket */
+ 		mptcp_token_destroy(msk);
+ 		mptcp_set_state(sk, TCP_CLOSE);
++
++		spin_lock_bh(&msk->fallback_lock);
++		msk->allow_subflows = true;
++		msk->allow_infinite_fallback = true;
++		clear_bit(MPTCP_FALLBACK_DONE, &msk->flags);
++		spin_unlock_bh(&msk->fallback_lock);
++
++		mptcp_subflow_ctx_reset(mptcp_subflow_ctx(ssk));
+ 		return err;
+ 	}
+ 
 -- 
 2.53.0
 
