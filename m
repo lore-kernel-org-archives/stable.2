@@ -1,56 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047446;
-	b=jHuLm3sxEAMfx82FcONdfjPDP+VCX+wGaF+w2/ucpB1AFes+XDm71q4NyrG5xfxeDb0T
-	 gpQlaS83KcImW7kk5N+O0TVNij/WIf3Yp+0UzAVM4qHCm8aVnlAswL7WONzIeBNW+kW+y
-	 7TYwjHuHy7BgxI5EGmZTStXvvS7VxHROHTXADPFOsMy71BkkhWgVnf15i6ykmonXZrvBq
-	 p5GQntRIfaxIDdLibpE/8Z4/5uHpDR48/b66l5WGwOAGpwUnUE0jrDNa4NSVw36IdDOx1
-	 dyWSJIZe4f138WTXuPOJDQ54U7hIuKELkaSLaQ72YRJcuo5hrClncKLxJIP0Pii0rag==
+	t=1794047448;
+	b=g7j4+2Gpt3bE3yo8ZG73NNM83rrZKcrZ3aoh7ZcSPwq3MRRqF5wgXTUH1fl1hNXrqA2y
+	 oLUtyPAubTePeDpnFIl5F45YAog0P1TTezqFsc6TU0E4ObqlKxSerad23Z/rUFFJWxUlH
+	 byQ3DC3AvEYBL7A+MBbSMZ3HfUEuhiSLqlevDa9SAO5norxa1Z1faKYo/3yNrTAOnNgRR
+	 k0cogqUFDHff1031IffYptZrNqe03DqGU+RlFJrZN0bSdImYbE4mZFRMHMSO5gV/7czKo
+	 CTPcIwELFynoMs5GFk2bGx1+ZiUm1dP7swyo2GnomGj8WI9p5JPfmgZ79K7RCUe01Qw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047446;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047448;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=NbvdraRtk2CQuuRKC9OG13scrS6a2vmIcYQlg92oub8=;
-	b=3UxeJQvQnUoMv0iZgme085xgHga1Pw8J++UUNUghFqRBkOV64geoyG1CQt2Ylpp1IGnB
-	 xQXiZKDjDWQlIXWtRI4Y4bSLvFTKq+mPHbZlGBJ/obKuu6SyDhTylgFJaLrfckM9N/G5H
-	 MIg4b4uxne6KBS325ShvkCQ0UUsJOmBUpbwaT7D7JJGLCHRlz3/qWEex24EwJ0ipuXmF6
-	 /0mezkCz+ZXBFyIKIL5KhbOeOQ7KJvpQwnDatFt6QCniLM+Ed97OmhQBj70H7Xv+AA12L
-	 7Q91/v3IbSLbrWRGrYbrhQbtF9dk0akxuVJAVHfDaG5vckrIajZMXZhNKKYxm7y2BuA==
+	bh=kPJqFqXcPPg40F4LL3Le+ecF+zMPmvQnZp4v8W+BK3o=;
+	b=uEvcVHlGzW35O7EeFBFnGiL4ofj+DojTrjwrSfQcFVjR+qzUMdWY1QiBeXuMGLz86utc
+	 HNMJ2rcItMge3NMooyvhIaHnxOST+tsXdRygBcDvH0BG6QBr862lhTOOQ/Zu/wuAZkS20
+	 IAqz8APzc37DCKmyRlWkwtKF+QV1fjPIvCwP0ia2ayETOg05HyTYmMvm+CZhPtfsAWbTc
+	 RCvcpIVeH/FLBVLy9n2bi3XEf5zhFUPxv8D3M+6FjilxlNpAqXV920VtYhFlqJPZrouwu
+	 D5UaZ7KBar5BJ1BST8yK9sLIGFpBMSbUghmm8AlTDTRFN+VbH8VUjMB8tXrKggHMQfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UA2yZ0KM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TfFIDcuz;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E441606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:30:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A951606A32D
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:30:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UA2yZ0KM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55B381F0089F;
-	Sat,  7 Nov 2026 10:30:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TfFIDcuz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D560A1F0089F;
+	Sat,  7 Nov 2026 10:30:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047446;
-	bh=NbvdraRtk2CQuuRKC9OG13scrS6a2vmIcYQlg92oub8=;
+	s=k20260515; t=1794047448;
+	bh=kPJqFqXcPPg40F4LL3Le+ecF+zMPmvQnZp4v8W+BK3o=;
 	h=From:To:Cc:Subject:Date;
-	b=UA2yZ0KMnC3Q8B1G3jajlEWuTH7VlQo7VhYV3Q9O+mbSjKGREx0YWa0lBv0P2u739
-	 sX+o5cuxKgnqFrXW6Mn0asyhar6wE7O+eQB/2bMnxmfJoTPdtgajEXyLyPzQowPMeR
-	 KDRBfGvT+E63nzt2koY/FPVey1/ujSCyezkw0lrZYPwJOBcNev299fURNCMyKCCTo1
-	 QQ/KYWX3vlA9KnI7hC1w6FPGjcmGfu1BZ/kiD41yb0Muh8+QDpZBHvKaKSkv9F0V07
-	 n88SuAMjIWOy49chtwFmw5/+cnhzGOY6yyyFqP6xGqsB2aNybtQ1bR/tFluGrRO9Wi
-	 BMILA8lrfALCA==
+	b=TfFIDcuzDP3Q5xES21o6J3Kwsh5whOuzuvC3NDIO/BYcXcG5vKL+PWtabKvQRwSlX
+	 8A+3xkJxII97UqupCtb+yyQgZNsb3db0Yb0nIXAL5ilpJc+mJSw4LOLyOJ8vVYRN/L
+	 gAv8rgyLP5n+3b7K9MTa9/b01t6AlQ7TLDcmqD2Rb+93j2kdTKCCu5gmusHXXiPMO5
+	 7PM9qi32tsL/1oev92Lb+qy6TtktoA/AW5lGqlO/Y5g+SptjWv3O//M46g9lkykHpK
+	 70wj6ZegIBg6ijJS/PLRiMuQ3kGopSNS6Iqbl0xNVB+eqFKQooysAjKBuhfLTpL0HY
+	 nl7ZlD+iCgkLA==
 From: Sasha Levin <sashal@kernel.org>
-To: adubey@linux.ibm.com,
-	sashiko-bot@kernel.org,
-	hbathini@linux.ibm.com,
-	skb99@linux.ibm.com,
-	yeswanth@linux.ibm.com,
-	rnsastry@linux.ibm.com,
-	maddy@linux.ibm.com
+To: pkshih@realtek.com,
+	luka.gejak@linux.dev,
+	pepe.schlehofer@gmail.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] powerpc/bpf: fix buffer overflow in JIT for large BPF programs" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:30:44 -0500
-Message-ID: <20261107053044-failed-6.6-78ce55b7913a@kernel.org>
+Subject: FAILED: patch "[PATCH] wifi: rtw88: TX report with long timeout for non-PCIE devices" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:30:46 -0500
+Message-ID: <20261107053046-failed-6.6-7cde94dab0e7@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -73,172 +69,80 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 78ce55b7913a78e1687306668e078b86bc6508ee
+git cherry-pick -x 7cde94dab0e74434ccc0a387d7ad373fb3becda0
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053044-failed-6.6-78ce55b7913a@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053046-failed-6.6-7cde94dab0e7@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 78ce55b7913a78e1687306668e078b86bc6508ee Mon Sep 17 00:00:00 2001
-From: Abhishek Dubey <adubey@linux.ibm.com>
-Date: Mon, 28 Sep 2026 10:43:52 +0530
-Subject: [PATCH] powerpc/bpf: fix buffer overflow in JIT for large BPF
- programs
+From 7cde94dab0e74434ccc0a387d7ad373fb3becda0 Mon Sep 17 00:00:00 2001
+From: Ping-Ke Shih <pkshih@realtek.com>
+Date: Thu, 24 Sep 2026 08:46:37 +0800
+Subject: [PATCH] wifi: rtw88: TX report with long timeout for non-PCIE devices
 
-During size calculation in pass-0, exit_addr is 0 since addrs[fp->len]
-is not yet populated. bpf_jit_emit_exit_insn() treats a zero exit_addr
-as in-range and skips bpf_jit_build_epilogue(), so the alternate inline
-epilogue instructions are not counted in alloclen.
+Many USB and SDIO devices can't report TX status within 500 ms, and
+extending to 2500 ms as tested USB/SDIO devices can fix the problem [1].
+To avoid adding chip ID one by one, and this change looks harmless.
+Keep PCIE using short timeout, and others use long timeout.
 
-In later passes, if the real exit_addr falls outside the 32MB branch
-range, the full inline epilogue is emitted into the already-allocated
-buffer, writing past its end and corrupting adjacent memory.
+[1] https://lore.kernel.org/linux-wireless/20260921165343.8131-1-pepe.schlehofer@gmail.com/
 
-Fix by ensuring exit_addr is non-zero before treating it as in-range,
-so pass-0 always falls through to bpf_jit_build_epilogue() and
-conservatively accounts for all epilogue instructions in alloclen.
-Also range check alt_exit_addr directly in the else-if condition.
-
-Since exit_addr handling now falls through to the epilogue, two
-related issues in bpf_int_jit_compile() must also be addressed:
-
-1. Reset cgctx.alt_exit_addr before the second size-calculation pass.
-   Without this, a stale alt_exit_addr from the first pass causes the
-   second pass to emit a single jump instead of the full epilogue,
-   undercounting alloclen and reintroducing the overflow.
-
-2. Recompute addrs[fp->len] at the end of each code-generation pass.
-   The larger pass-0 body can shrink in later passes as out-of-range
-   exits settle into in-range jumps; a stale addrs[fp->len] would
-   leave exit branches targeting past the real (shrunken) epilogue.
-
-Because shrinkage in a later pass can move the epilogue offset, the
-fixed two-pass loop is no longer sufficient: an exit that was out of
-range in an earlier pass may fall in range once the epilogue offset
-shrinks, shrinking the body further and overwriting the start of the
-epilogue. Convert the code-generation loop to iterate until the
-program size converges, bounded by CODEGEN_MAX_PASSES, and fail the
-JIT if it does not converge.
-
-Reported-by: sashiko-bot@kernel.org
-Closes: https://lore.kernel.org/bpf/20260529015855.364704-2-adubey@linux.ibm.com/T/#mfcb23909d977b949727cca4f59ee56a13fd69b92
-Fixes: 0ffdbce6f4a8 ("powerpc/bpf: Handle large branch ranges with BPF_EXIT")
 Cc: stable@vger.kernel.org
-Signed-off-by: Hari Bathini <hbathini@linux.ibm.com>
-Signed-off-by: Abhishek Dubey <adubey@linux.ibm.com>
-Signed-off-by: Saket Kumar Bhaskar <skb99@linux.ibm.com>
-Tested-by: Yeswanth Krishna Tellakula <yeswanth@linux.ibm.com>
-Tested-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
-Link: https://lore.kernel.org/bpf/20260529015855.364704-2-adubey@linux.ibm.com/T/#mfcb23909d977b949727cca4f59ee56a13fd69b92
-Signed-off-by: Madhavan Srinivasan <maddy@linux.ibm.com>
-Link: https://patch.msgid.link/eebffa997e07781b384c4480e2b03c5b87c1aeb1.1789982239.git.skb99@linux.ibm.com
+Signed-off-by: Ping-Ke Shih <pkshih@realtek.com>
+Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
+Tested-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
+Link: https://patch.msgid.link/20260924004637.9958-1-pkshih@realtek.com
 ---
- arch/powerpc/net/bpf_jit.h      |  7 +++++++
- arch/powerpc/net/bpf_jit_comp.c | 34 +++++++++++++++++++++++++--------
- 2 files changed, 33 insertions(+), 8 deletions(-)
+ drivers/net/wireless/realtek/rtw88/tx.c | 10 +++++-----
+ drivers/net/wireless/realtek/rtw88/tx.h |  3 ++-
+ 2 files changed, 7 insertions(+), 6 deletions(-)
 
-diff --git a/arch/powerpc/net/bpf_jit.h b/arch/powerpc/net/bpf_jit.h
-index 35015d7ecb768..6d58df3616489 100644
---- a/arch/powerpc/net/bpf_jit.h
-+++ b/arch/powerpc/net/bpf_jit.h
-@@ -14,6 +14,13 @@
- #include <asm/ppc-opcode.h>
- #include <linux/build_bug.h>
- 
-+/*
-+ * We need at least 2 passes for proper code generation, and may need
-+ * additional passes if code size changes between passes.
-+ */
-+#define CODEGEN_MIN_PASSES    2
-+#define CODEGEN_MAX_PASSES    3
-+
- #ifdef CONFIG_PPC64_ELF_ABI_V1
- #define FUNCTION_DESCR_SIZE	24
- #else
-diff --git a/arch/powerpc/net/bpf_jit_comp.c b/arch/powerpc/net/bpf_jit_comp.c
-index 8f7501954d9f0..11981d2270a9d 100644
---- a/arch/powerpc/net/bpf_jit_comp.c
-+++ b/arch/powerpc/net/bpf_jit_comp.c
-@@ -99,11 +99,10 @@ void bpf_jit_build_fentry_stubs(u32 *image, struct codegen_context *ctx)
- 
- int bpf_jit_emit_exit_insn(u32 *image, struct codegen_context *ctx, int tmp_reg, long exit_addr)
+diff --git a/drivers/net/wireless/realtek/rtw88/tx.c b/drivers/net/wireless/realtek/rtw88/tx.c
+index 4e110a457e71d..701ed7c4f3f75 100644
+--- a/drivers/net/wireless/realtek/rtw88/tx.c
++++ b/drivers/net/wireless/realtek/rtw88/tx.c
+@@ -196,7 +196,7 @@ void rtw_tx_report_purge_timer(struct timer_list *t)
+ void rtw_tx_report_enqueue(struct rtw_dev *rtwdev, struct sk_buff *skb, u8 sn)
  {
--	if (!exit_addr || is_offset_in_branch_range(exit_addr - (ctx->idx * 4))) {
-+	if (exit_addr && is_offset_in_branch_range(exit_addr - (long)(ctx->idx * 4))) {
- 		PPC_JMP(exit_addr);
--	} else if (ctx->alt_exit_addr) {
--		if (WARN_ON(!is_offset_in_branch_range((long)ctx->alt_exit_addr - (ctx->idx * 4))))
--			return -1;
-+	} else if (ctx->alt_exit_addr && is_offset_in_branch_range(
-+			(long)(ctx->alt_exit_addr) - (long)(ctx->idx * 4))) {
- 		PPC_JMP(ctx->alt_exit_addr);
- 	} else {
- 		ctx->alt_exit_addr = ctx->idx * 4;
-@@ -274,6 +273,7 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_verifier_env *env, struct bpf_pr
- 	 */
- 	if (cgctx.seen & SEEN_TAILCALL || !is_offset_in_branch_range((long)cgctx.idx * 4)) {
- 		cgctx.idx = 0;
-+		cgctx.alt_exit_addr = 0;
- 		if (bpf_jit_build_body(fp, NULL, NULL, &cgctx, addrs, 0, false))
- 			goto out_err;
- 	}
-@@ -306,10 +306,13 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_verifier_env *env, struct bpf_pr
- 	code_base = (u32 *)(image + FUNCTION_DESCR_SIZE);
- 	fcode_base = (u32 *)(fimage + FUNCTION_DESCR_SIZE);
+ 	struct rtw_tx_report *tx_report = &rtwdev->tx_report;
+-	unsigned long timeout = RTW_TX_PROBE_TIMEOUT;
++	unsigned long timeout;
+ 	unsigned long flags;
+ 	u8 *drv_data;
  
--	/* Code generation passes 1-2 */
--	for (pass = 1; pass < 3; pass++) {
-+	/* Code generation passes 1-2+, loop until program size converges. */
-+	for (pass = 1; pass <= CODEGEN_MAX_PASSES; pass++) {
-+		u32 prev_proglen = proglen;
-+
- 		/* Now build the prologue, body code & epilogue for real. */
- 		cgctx.idx = 0;
-+		cgctx.exentry_idx = 0;
- 		cgctx.alt_exit_addr = 0;
- 		bpf_jit_build_prologue(code_base, &cgctx);
- 		if (bpf_jit_build_body(fp, code_base, fcode_base, &cgctx, addrs, pass,
-@@ -318,11 +321,26 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_verifier_env *env, struct bpf_pr
- 			bpf_jit_binary_pack_free(fhdr, hdr);
- 			goto out_err;
- 		}
-+		addrs[fp->len] = cgctx.idx * 4;
- 		bpf_jit_build_epilogue(code_base, &cgctx);
+@@ -208,10 +208,10 @@ void rtw_tx_report_enqueue(struct rtw_dev *rtwdev, struct sk_buff *skb, u8 sn)
+ 	__skb_queue_tail(&tx_report->queue, skb);
+ 	spin_unlock_irqrestore(&tx_report->q_lock, flags);
  
-+		proglen = cgctx.idx * 4;
-+
- 		if (bpf_jit_enable > 1)
- 			pr_info("Pass %d: shrink = %d, seen = 0x%x\n", pass,
--				proglen - (cgctx.idx * 4), cgctx.seen);
-+				prev_proglen - proglen, cgctx.seen);
-+
-+		/* Check if program size has converged, but ensure minimum passes */
-+		if (pass >= CODEGEN_MIN_PASSES && proglen == prev_proglen)
-+			break;
-+
-+		if (pass == CODEGEN_MAX_PASSES && proglen != prev_proglen) {
-+			pr_err("BPF JIT: Program did not converge after %d passes\n",
-+								CODEGEN_MAX_PASSES);
-+			bpf_arch_text_copy(&fhdr->size, &hdr->size, sizeof(hdr->size));
-+			bpf_jit_binary_pack_free(fhdr, hdr);
-+			goto out_err;
-+		}
- 	}
+-	if ((rtwdev->chip->id == RTW_CHIP_TYPE_8723D &&
+-	     rtwdev->hci.type == RTW_HCI_TYPE_USB) ||
+-	    rtw_is_8723bs(rtwdev))
+-		timeout = msecs_to_jiffies(2500);
++	if (rtwdev->hci.type == RTW_HCI_TYPE_PCIE)
++		timeout = RTW_TX_PROBE_TIMEOUT_SHORT;
++	else
++		timeout = RTW_TX_PROBE_TIMEOUT_LONG;
  
- 	if (bpf_jit_enable > 1)
-@@ -399,7 +417,7 @@ int bpf_add_extable_entry(struct bpf_prog *fp, u32 *image, u32 *fimage, int pass
- 	u32 *fixup;
+ 	mod_timer(&tx_report->purge_timer, jiffies + timeout);
+ }
+diff --git a/drivers/net/wireless/realtek/rtw88/tx.h b/drivers/net/wireless/realtek/rtw88/tx.h
+index d34cdeca16f19..168f48e87853d 100644
+--- a/drivers/net/wireless/realtek/rtw88/tx.h
++++ b/drivers/net/wireless/realtek/rtw88/tx.h
+@@ -7,7 +7,8 @@
  
- 	/* Populate extable entries only in the last pass */
--	if (pass != 2)
-+	if (pass < CODEGEN_MIN_PASSES)
- 		return 0;
+ #define RTK_TX_MAX_AGG_NUM_MASK		0x1f
  
- 	if (!fp->aux->extable ||
+-#define RTW_TX_PROBE_TIMEOUT		msecs_to_jiffies(500)
++#define RTW_TX_PROBE_TIMEOUT_SHORT	msecs_to_jiffies(500)
++#define RTW_TX_PROBE_TIMEOUT_LONG	msecs_to_jiffies(2500)
+ 
+ struct rtw_tx_desc {
+ 	__le32 w0;
 -- 
 2.53.0
 
