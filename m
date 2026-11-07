@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794078595;
-	b=XdokwYuC9Z+k/k2u21chgNtv3yDLJONz5PDn7E2pz9dIHc5LtNBFZ598YlCGFXVaRTuC
-	 E03cFg3MoT8AYhJ7Gal4FcouMJF5yjlW9S97m2vrbH60YEBzTlyiAVIXDbwtVQVySs6nE
-	 exr2BbhikmLQfvTBhA9Qufv9/sDGNaZCkBXUhQfGDbwroxC+JR+we+2Jg0xTedzD9PrXL
-	 miUQVtwYg21rL/K+eJQqFu4pZqnBdkHMQhgatttATyAL3lJRVjYc6NPAToLhVHR6bw0j1
-	 wxyQioZov2I5BT+YvTLrHEwokwCXEGBEgr3bfzDC9LKKKPS/lxEAWHfW5uNCqKucciA==
+	t=1794078665;
+	b=U8HVjlW1Ub01dowBrNGCwkmb0CuWU4TyIv//v1Djavf5rgttt9cqq4XCkIQbfiHA8yqt
+	 +RI0LjjKhuiR48P93mcuzbGGV5gFjb/mxeB/bAeRV5oAlW1/m3Q+nyEZFUBpSfFci+T2H
+	 WMatx4gz7cSxdB8DYeZaKtOJHHpIy2FaMUkQbeMUxm3Sn4dQq3OEJFLcJmQRefmI1pqP0
+	 jWyaalYu/E7aLiMgaZmQjn7/JLGPLcJeQ9sOgvkuqBxzPWFfOSwfEmwp9kqVWbsR6cE+G
+	 vgmpoZfuTvMZlG/Svm8r7DPLw/hi3+XDIiAeJO5w/5vMt3EeJrx574o01wjRnFb6u5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794078595;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794078665;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=z2pPrbH2eOc26jyjwCHZ0OY4fYbax7uxcdS6AqhYzM0=;
-	b=PCWyHXOno6DG5xI3s6Q9e8LNrhNBOI/Nr92hHO2hTQIRI+9HctQXzx8DZ0UsGajQB1wV
-	 Sii9BNECcRX1WQ4lBuIiQDaytz15gvtR8X2MI32/dcuqPmGJQj9GSxIl5aLR5xETpy/Ff
-	 HD0oQDzREfWYTRL4ZylBcGmvlyfnicJ91OANMnoT+ACf4ijDPQNzbEllEuSyEpduHR9uZ
-	 cj869uqTYvho/JRfnAIHEzJH0cdE9Ze66YcEFhPzG1Y8zU4vlfb+8HYTgxTrospsVA0Kl
-	 JaOjjdYsRIYGw8lVT0y7Eo+xyZsfJdgfOpx52z8JX/Ith532+Jc3X2x97soL/sdSW8g==
+	bh=yyN5GPqYNltXjgSFkf27wDpTgQP8s8403TmnQfD6+HY=;
+	b=GVCwxez88Bz9N12YDDfmytw/PqCOzzw6djLTM+LwJfNTSb604pbMvTGTyorSYPaYF0JO
+	 EAiGHiAfURNeuu04M7OaJc5KSiECZVLtdsmqFKpV8FexTAtRJ5qCPJgDeC4XxHW7xxeHt
+	 0VAeBW0lH1cNvPolUXV6pbRCx6bwAfwfhqVv2L+dOhu4bdzTjcRZUfHOZvOGWNhlbnu52
+	 V31DqKqmM8nwRw6wRVWys3ljoSce/l9u2qo659oPQoSlLvEkT5gegS5M+s9NkCDLxPDtT
+	 3427CvghEOv5FW0Zgqt9u1JFLT6mizYP3DgzD0h07Da+lgTi2UM1QYr8IFOVwOYuaeA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HTtgLneH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e1qEI1Qh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87748606A326;
-	Sat,  7 Nov 2026 19:09:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54918606A326;
+	Sat,  7 Nov 2026 19:11:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HTtgLneH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00F3D1F0089F;
-	Sat,  7 Nov 2026 19:09:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e1qEI1Qh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAEA41F0089F;
+	Sat,  7 Nov 2026 19:11:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794078595;
-	bh=z2pPrbH2eOc26jyjwCHZ0OY4fYbax7uxcdS6AqhYzM0=;
+	s=k20260515; t=1794078664;
+	bh=yyN5GPqYNltXjgSFkf27wDpTgQP8s8403TmnQfD6+HY=;
 	h=From:To:Cc:Subject:Date;
-	b=HTtgLneHatLX5SDX16ZCcR7CNMySTojWm7+XFANYhnzC6EZCywowsY+08XCVP4Vl7
-	 L2aLzy4c3bjSIO7Gqo+eWfmdkHUc56jnI5LKVc5qYhiWc7m4mtq7mWjejtqiosD5gC
-	 T6X67eanw6Cd0nlDC9pEva+6sMGOOjNo4s86Lu1ICIFDVsoQuYRLTJdN8ao4eIpGKX
-	 zDk75O6u8ysRcE7pUULTp5G+7jTEOxyUKRGK/QUCrc5F+ZgXWqPIvqP3aKNa6dv+xw
-	 ZX6ribbHHwzzn9M//Y44lvd6fkiBjCygHDsGdxyui4WIPUTFtrH37igcDaBo7vrdWN
-	 JBsucVcsVwKoQ==
+	b=e1qEI1QhEYVta3kyUdSO6UyNLUIrSOAm38QzuQKL47MYZHcYTAFxmnJqqcb6LXXCR
+	 qttOoKFFKCUaTu5+lpwcHAs+Z0GyP2ikkqtDlrVpywIJjhVplsB93rdN4WLUU7wNaQ
+	 Vc38hoOFzKSEepTpc4pPldL7TPM9IsivCmL8Yh7ApsZWJNWiHTZd+Vo4ZwD2KrXmBK
+	 hwZ+3eFNSlxM+/FMseWX/ctnGi9iMwh7eGY37VGwL7uRZiaNiT8712NbKUnPrjGWbY
+	 FttGcER1aOmlDHKDHLeqXfm0jrxMZpK0ZdCGazl4c8s0aV2rSHsRYWk11nvJhv6CVL
+	 1m5bVKKtlN2HQ==
 From: Eric Biggers <ebiggers@kernel.org>
 To: stable@vger.kernel.org
 Cc: fsverity@lists.linux.dev,
 	Eric Biggers <ebiggers@kernel.org>,
 	Andrey Albershteyn <aalbersh@kernel.org>
-Subject: [PATCH 6.6] fsverity: Explicitly require FMODE_READ to retrieve hashes
-Date: Sat,  7 Nov 2026 11:09:51 -0800
-Message-ID: <20261107190951.19493-1-ebiggers@kernel.org>
+Subject: [PATCH 6.1] fsverity: Explicitly require FMODE_READ to retrieve hashes
+Date: Sat,  7 Nov 2026 11:10:50 -0800
+Message-ID: <20261107191050.25921-1-ebiggers@kernel.org>
 X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -101,18 +101,18 @@ Signed-off-by: Eric Biggers <ebiggers@kernel.org>
  3 files changed, 23 insertions(+), 4 deletions(-)
 
 diff --git a/Documentation/filesystems/fsverity.rst b/Documentation/filesystems/fsverity.rst
-index 13e4b18e5dbbb..dab77d92e5903 100644
+index cb8e7573882a1..3c7ddd6790baa 100644
 --- a/Documentation/filesystems/fsverity.rst
 +++ b/Documentation/filesystems/fsverity.rst
-@@ -160,6 +160,7 @@ fatal signal), no changes are made to the file.
+@@ -157,6 +157,7 @@ fatal signal), no changes are made to the file.
  FS_IOC_ENABLE_VERITY can fail with the following errors:
  
  - ``EACCES``: the process does not have write access to the file
 +- ``EBADF``: the file descriptor is not open for reading
- - ``EBADMSG``: the builtin signature is malformed
+ - ``EBADMSG``: the signature is malformed
  - ``EBUSY``: this ioctl is already running on the file
  - ``EEXIST``: the file already has verity enabled
-@@ -223,6 +224,7 @@ regardless of the size of the file.
+@@ -219,6 +220,7 @@ regardless of the size of the file.
  
  FS_IOC_MEASURE_VERITY can fail with the following errors:
  
@@ -120,7 +120,7 @@ index 13e4b18e5dbbb..dab77d92e5903 100644
  - ``EFAULT``: the caller provided inaccessible memory
  - ``ENODATA``: the file is not a verity file
  - ``ENOTTY``: this type of filesystem does not implement fs-verity
-@@ -295,6 +297,7 @@ blocks from disk without actually verifying the path to the root node.
+@@ -291,6 +293,7 @@ blocks from disk without actually verifying the path to the root node.
  
  FS_IOC_READ_VERITY_METADATA can fail with the following errors:
  
@@ -129,7 +129,7 @@ index 13e4b18e5dbbb..dab77d92e5903 100644
  - ``EINTR``: the ioctl was interrupted before any data was read
  - ``EINVAL``: reserved fields were set, or ``offset + length``
 diff --git a/fs/verity/measure.c b/fs/verity/measure.c
-index eec5956141da2..6b61ec273f070 100644
+index e99c00350c28d..70735f2708772 100644
 --- a/fs/verity/measure.c
 +++ b/fs/verity/measure.c
 @@ -28,6 +28,16 @@ int fsverity_ioctl_measure(struct file *filp, void __user *_uarg)
@@ -150,7 +150,7 @@ index eec5956141da2..6b61ec273f070 100644
  	if (!vi)
  		return -ENODATA; /* not a verity file */
 diff --git a/fs/verity/read_metadata.c b/fs/verity/read_metadata.c
-index f58432772d9ea..680792701ba29 100644
+index 2aefc5565152a..1ef755130407b 100644
 --- a/fs/verity/read_metadata.c
 +++ b/fs/verity/read_metadata.c
 @@ -156,13 +156,19 @@ int fsverity_ioctl_read_metadata(struct file *filp, const void __user *uarg)
@@ -178,7 +178,7 @@ index f58432772d9ea..680792701ba29 100644
  	if (copy_from_user(&arg, uarg, sizeof(arg)))
  		return -EFAULT;
 
-base-commit: 5139929c698c273e07cb0635732f6a918a7b8e78
+base-commit: c75b0cf0982c00cddfd88d1acf3872f79b40980c
 -- 
 2.56.0
 
