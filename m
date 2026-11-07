@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050952;
-	b=E17J3okCV5B//v4Vrohgu6MW/8OllHYh62SXe0M6hfVJrZzSxb9B+OMNXnGjzVcpX6Lq
-	 m6HWfAflN7p+Xy7EaUb06lOs1B2NXojgs9/Heh2V0EDn+fzGu28bPp1nbC0kRcUxLylXS
-	 2+dvzUucMsCDqfqh9cuDbGsz1HGODZr6/NTesha4B+hBVmAlzwKPBehRHNad1iEbivOMP
-	 zFARjjZGyDRA2cmx/28gufIynvLtYx+LTPHpEL4LFhAZlypIEUp/wjjqL1INmK3Q99YUZ
-	 vlrLVxmZuSEFJM5BTFbCfiV7KW1+g6idysNZM/iDjVGzGWywLMQJKSEOmg4jC3soxkw==
+	t=1794050955;
+	b=LjE1i6zR4+hZodZ2gDUpit4whfSapN0ES1Y/M1uWrUEDm+82GwJkgfIbt7PGXWFMAKAw
+	 Tx8/GnKs0HqTmEe92iny+i9uUuGXOfsS41aPcNv8VG2crbsAf0ut89+L6p2PtStVOBlYC
+	 htvJnKLl3MD5XsNnQDSYtqecD/Zo2rSttU+RrDNzILjeJUccQ8fFL54vT6gAUuEICz6Qs
+	 wxFHQp3cxjsf6QLsmlisgovT8cA6iDjKB1rBbXap824laPr/sYcshOfaSlDXb2iPdrvZU
+	 gjbbAd/AM502tomprW5KfziTW/WItQtjMjLaCdOJVMYts/zQ3DBCOilEbcNL/GM0P7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050952;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050955;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=loedWa4AZ8EHvXb4kYs2RE/aobTWpyfY7RwVZc9xLxw=;
-	b=iIvdB3+MeZj+fhKwGo0y2kfe4Wla4U/NOFRV32Ad03j416Y3yHU53TZzIzIL6bfBbOqW
-	 be9+Fh2+fVMUvPO/nXnPtDvPZAgzy7eELoGaRjPBsJNcNRaJuhHNu+qwTKSpUR8Hb1XOD
-	 R31pYN3UXTmGxSrISPG9PM5lc+C0bg3tBmW0maNIMDUiJWv2wdq2VcsONlxHy1LpQnAOP
-	 CNF2WXuYznHXujqCCebrTmr/takNnAt3pdbF/5F7gaMQPbs5TlTdJz63v/iSp/ftk/QHi
-	 Sb6uZaD+FyUTR7HrnwVlieNH+yfSlax7BVpDPMuEHje1zPLUyqNUUJ2NIKtwg8RMYiQ==
+	bh=UCUDIT8ZnNrCFzXMKO9XFAIv4FKEFClKNPjaFBqDQgk=;
+	b=dtMa1zFa6RiclmaTQiD2Xuo66ehTVBCFuWsFHpyWiPH6CIKFcemkzhHNCpT8FGr/ib/4
+	 69RIaNyTXH2SmvdSrKvn8gXEITUNGR9Jzo7cNfVVOE3eCukGn4AC/P6a7K9PPUDPqTpj7
+	 cX90radvLkqc5tytW1hEaVMcM7ti1Lptdjod12fxHzMR9tDPug68j57KA8Mslv08vVWDt
+	 geGhYWzsxhJwRHzRtcsc2/aEUJX0DkG4jUJWOMVjah1wMBOLCPU8CjooS9agg0EmdqN4m
+	 8T49quMeqiC/a6E6wmT6NcO+SSq7H2y6qPcY3K6NdgU+bIH9XIByw3b8rtu4pT5i/2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SUCDKqBm;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ojMmt+6f;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA028606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:29:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E18DB606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:29:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SUCDKqBm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25C671F0089F;
-	Sat,  7 Nov 2026 11:29:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ojMmt+6f
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E4361F0089F;
+	Sat,  7 Nov 2026 11:29:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050951;
-	bh=loedWa4AZ8EHvXb4kYs2RE/aobTWpyfY7RwVZc9xLxw=;
+	s=k20260515; t=1794050954;
+	bh=UCUDIT8ZnNrCFzXMKO9XFAIv4FKEFClKNPjaFBqDQgk=;
 	h=From:To:Cc:Subject:Date;
-	b=SUCDKqBmT8TVpSF337NyV7rb4cnOWCHD2PCX8WboxWVbVa5lNWgNH9NmokQzN1ikK
-	 yr0XmWt369JZt+7PuliEduw6a+SbxVMzK/PUXzO7DGU7QxR3IAoGTqa7qZb0Ff6XKy
-	 XvLs3I7Hono8sHq5Cb2E+F/5O0NMjEwjQzzr8O+aB2m0DMwek3AxsLlTe/H7SFWRBo
-	 20W68bLQdKn9kwxWFv7NhgzOLcMHnAMPwScBkYPyntk4DwpkK2ygw0BZ243aBsIkU1
-	 e4lxTCrAF5AMem2bfwUHQp+AseZTg2DbwlN2WmUwDDwX342bEM6+UrMMkiQP8ELi5x
-	 uAi3Qsikb3//g==
+	b=ojMmt+6fmaN6FQVm8n5LCXrKhLVp53nNuHmz+ONshxg7l7+ZMZG7eO5IuasaVeL0t
+	 LOWp+ezPizOHZ4u8TDLg1rMEu+j/6imaTxbIl3kJy1qdqGA8hTuoOC5EXNT2U0k6pf
+	 Nw/i8uAFNY3Ky9Z3nSv5F/LX2cYXtScVcAe11zLIOICrqh+2w1Sjde8G81zAmOxb1Q
+	 OVnZypWe13NnOeWjxVIbcrY37HAcTjCNC9yg/yMvaYWlv5Zq2jlXnvvTUirYrl6RIg
+	 72gDH9i/t+AzqrY2O/4y31kmRbIm5bjiMdKaHRZLw1dXAIvzSEouAnXSAkhBBoOYYM
+	 5LyS9sLXmTTaA==
 From: Sasha Levin <sashal@kernel.org>
-To: jeremy.jean@oss.cyber.gouv.fr,
+To: tjdqudcks0424@naver.com,
 	amarkuze@redhat.com,
 	idryomov@gmail.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ceph: fix 32-bit overflow in readdir reply count check" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:29:09 -0500
-Message-ID: <20261107062909-failed-5.10-52913831ba56@kernel.org>
+Subject: FAILED: patch "[PATCH] ceph: validate MDS reply fragtree split array length" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:29:12 -0500
+Message-ID: <20261107062912-failed-5.10-8cab7e7461f8@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,60 +69,78 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 52913831ba56efceaafd80b501d68fa00f79bde6
+git cherry-pick -x 8cab7e7461f81ea1e0fd45082b50bb3c04c0bb10
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062909-failed-5.10-52913831ba56@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062912-failed-5.10-8cab7e7461f8@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 52913831ba56efceaafd80b501d68fa00f79bde6 Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-Date: Wed, 23 Sep 2026 20:25:34 +0000
-Subject: [PATCH] ceph: fix 32-bit overflow in readdir reply count check
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 8cab7e7461f81ea1e0fd45082b50bb3c04c0bb10 Mon Sep 17 00:00:00 2001
+From: sung byeongchan <tjdqudcks0424@naver.com>
+Date: Thu, 8 Oct 2026 15:07:25 +0900
+Subject: [PATCH] ceph: validate MDS reply fragtree split array length
 
-parse_reply_info_readdir() checks how many entries are in a readdir
-reply by computing the end pointer of the decoded array. That pointer
-addition can wrap on 32-bit kernels and let an oversized count pass the
-check. For example, a count of 0x40000000 with 156-byte entries wraps
-to a zero offset, so the decoder can write past the preallocated buffer.
+parse_reply_info_in() advances over the fragtree split array using an
+unchecked count multiplication.  On a 32-bit client, nsplits=0x20000000
+wraps the byte length to zero, so the reply is accepted and
+ceph_fill_fragtree() sorts far beyond the message front.
 
-Check the count against the number of entries that fit in the allocation
-before publishing dir_nr. Reject oversized replies through the existing
-error path.
+Compute the split length with size_mul() and require the complete array to
+remain in the inode record before advancing the cursor.
+
+The malformed reply faulted in frag_tree_split_cmp() twice on the tested
+i386 baseline.  It was rejected without a fault twice after this change,
+while a normal reply and a one-split control remained functional.
 
 Cc: stable@vger.kernel.org
-Fixes: 54008399dc0c ("ceph: preallocate buffer for readdir reply")
+Fixes: 2f2dc053404f ("ceph: MDS client")
 Assisted-by: LLM
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Signed-off-by: sung byeongchan <tjdqudcks0424@naver.com>
 Reviewed-by: Alex Markuze <amarkuze@redhat.com>
 Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
 ---
- fs/ceph/mds_client.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ fs/ceph/mds_client.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
 diff --git a/fs/ceph/mds_client.c b/fs/ceph/mds_client.c
-index a207b342e7dae..9f13f3f7b800f 100644
+index 456330f1d3c53..de36c83e94c0d 100644
 --- a/fs/ceph/mds_client.c
 +++ b/fs/ceph/mds_client.c
-@@ -504,10 +504,8 @@ static int parse_reply_info_readdir(void **p, void *end,
- 		goto done;
+@@ -15,6 +15,7 @@
+ #include <linux/ktime.h>
+ #include <linux/bitmap.h>
+ #include <linux/mnt_idmapping.h>
++#include <linux/overflow.h>
  
- 	BUG_ON(!info->dir_entries);
--	if ((unsigned long)(info->dir_entries + num) >
--	    (unsigned long)info->dir_entries + info->dir_buf_size) {
-+	if (num > info->dir_buf_size / sizeof(*info->dir_entries)) {
- 		pr_err_client(cl, "dir contents are larger than expected\n");
--		WARN_ON(1);
- 		goto bad;
- 	}
+ #include "super.h"
+ #include "mds_client.h"
+@@ -146,6 +147,7 @@ static int parse_reply_info_in(void **p, void *end,
+ 			       struct ceph_mds_client *mdsc)
+ {
+ 	int err = 0;
++	size_t splits_len;
+ 	u8 struct_v = 0;
+ 	u8 struct_compat = 0;
+ 	u32 struct_len = 0;
+@@ -166,9 +168,11 @@ static int parse_reply_info_in(void **p, void *end,
  
+ 	ceph_decode_need(p, end, sizeof(struct ceph_mds_reply_inode), bad);
+ 	info->in = *p;
+-	*p += sizeof(struct ceph_mds_reply_inode) +
+-		sizeof(*info->in->fragtree.splits) *
+-		le32_to_cpu(info->in->fragtree.nsplits);
++	splits_len = size_mul(sizeof(*info->in->fragtree.splits),
++			      le32_to_cpu(info->in->fragtree.nsplits));
++	*p += sizeof(struct ceph_mds_reply_inode);
++	ceph_decode_need(p, end, splits_len, bad);
++	*p += splits_len;
+ 
+ 	ceph_decode_32_safe(p, end, info->symlink_len, bad);
+ 	ceph_decode_need(p, end, info->symlink_len, bad);
 -- 
 2.53.0
 
