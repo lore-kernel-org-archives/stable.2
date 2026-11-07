@@ -1,51 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049768;
-	b=zgda9WeaGszl9eqQQqxTQrPJHhicrHLyXVBRWyJY/3e+uf0tlRoAIMwJRSVuvpdpK+MY
-	 5c6OD/ojuQdKXdbKklUbU29VA3HkkvLkwwXipLesyyZuoBnQ6q6vTbs7731kYBvW8oaUJ
-	 aVSU0aAtkAaNZocT2OfFBc9wXOS0VGKvJttC4tHexb2PPepecuV6z26/VHrBcljRLXMra
-	 fxK8Ok9+uiTBJsVGLKSTNkgAHajvch2TtuJQMjq43KUe1/kgHre6E3DHZwaxU2LNJyjCE
-	 cJ/4F8LoTZMaRAGLOinPfzZdzX4MYiiyHhD5Cek2e50b5XFwvYhecbtftNEYoyG1sNw==
+	t=1794049771;
+	b=Fbxq12YypimgJTqBWLu5pSYcHXRyva1LFU85pqyJbx7Fl7zsxb3CKLyBrzb94E+RwRnD
+	 ElmMqXcGLAFBbTqTVIw/N8L3YlPsFCmSAS8v4bT82aFrtgLGWUyZ6jLaReHjeebB8YbSC
+	 H7omzEFU/CRTnhkH1kZ8S1gEbok+WLqEBVvXiO2cgBPUq72AFIoOCqPmB9K4xXz/CbALY
+	 N/e4MqyYwLGDaIKhARq5BRrF4T5iVlXmjmWITpvlhokDIOE1X3kUDG+Y4EyqHRpfo7SkD
+	 bsDuNYbhTPj+41G/iGVG+QXlL4/GDBntIblmz+SM4wGQhRTA4jQPezNCPKElF1FEyDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049768;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049771;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=zZzmI9S+paC5viBWuPYcRDfQvl6yYQe60afYUAh0Sd4=;
-	b=GQAetu+j9CFsAbqK7SFCdtB8wCzk32XXtQ014l6GiTRS4m9J3FpDjCQn+GhML8ZPMpIb
-	 iJX+oA0OYL1xFsbg3wkLkV3UiBq92RVPeq3ipZQgUD3w9A47T2C/t72zaf/U5UR9CEhae
-	 jebkX0DjafV0of6psD9q+ZyBrzvsktZ14/N6ivh8jRigD0Yi1HugCNe5XN1ed1BFvJ3Ql
-	 XEhjseNuwIw50N3ChjCODLBv2eHybiaSG9E8OAM/UMj9mjaOJIzlav+vBXfHBXrwzXeOR
-	 u/zps8lq3redkfZiHJyl2h+PqFdeUUdPb2uAIESAXtxozF/CebZ5s3Gya3JNaQ3rk6g==
+	bh=uRsyMcm2omMpYgiI+ey5GQgxQ6nT54ytpe7KfHUYm4Q=;
+	b=OYg3AeGGeWP4VKm34OuD/ARKlNvCrdhlQ7Ej1yySVBQ7UDE6J6xwHNRHoHePLH1lUNBz
+	 ZMcqoTu5Bqps1Bfr+isYplLhQzvLaAX4J8H+CcV2npDNc7S4J3N3mzhZcDjMJ+DpH7eAo
+	 bjL37kh4P+TP/gnnQz7LxFGhcFbOlI0uE0IbHpUL/cGrykQuFylzZbDGbFByp9fNfGJPm
+	 VqQhtFnFW7Qqx5SYQYLNquaKjCWfju1KhkFYtiIGavjuNPiv3OAYKkFqt5/32FtR6Yv0q
+	 RAa3e7HW7se7aXkq10FYQ4XWm0tC8RiKYtFr1PTxe0jihtKRTEn1kFJ5+alwsmyaRnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AZLgDYSu;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V7+SixFQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D38F0606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:09:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B793606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:09:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AZLgDYSu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EFF61F008A1;
-	Sat,  7 Nov 2026 11:09:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V7+SixFQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E4251F008A1;
+	Sat,  7 Nov 2026 11:09:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049767;
-	bh=zZzmI9S+paC5viBWuPYcRDfQvl6yYQe60afYUAh0Sd4=;
+	s=k20260515; t=1794049770;
+	bh=uRsyMcm2omMpYgiI+ey5GQgxQ6nT54ytpe7KfHUYm4Q=;
 	h=From:To:Cc:Subject:Date;
-	b=AZLgDYSunuxyNH39fjJLKSzCcxnQrMaqrDmB4usNxMtrZDeukVtohr20Fy/ydSsTs
-	 RpAFkfjqGK6rZ4UxtGYMh5gnp1ltxOoOr4U8IIpon2J6dr8rbZrdI33PuJIxk6co2I
-	 c0Vzbn5uKWZlPGzOLz+H57AJZDxDMjvh5UxZe5zXOsu1Fr3+XV7BOtCy8spnTLwpBz
-	 1HceW6JjrQgPNSC5OIrww+f7jwlGm8NN7dg1FnnapuwTwts7qXZP88gITf2n31m6sq
-	 JzMlipS4pf/2/yC6Po1PFD5aFOq7HFAZfRZa0VtDDCcYZzzT0ozdwhejWcaQVaTbGM
-	 ZsOJ1dGcNsLfw==
+	b=V7+SixFQ9evbYeUthWlfZIzOvmAqBt/YIyqIk/T8Gpt4V3L/OaoJlDujs94LOgFdb
+	 fZnq/VUcp8jHSCJkgFkm7htPrdTwEwCaU8GOk8qujR3hzraBTMpmPm4BEyW++oSSLA
+	 I1lEj1gCgwS+Ij1pWjHq/UK5CEZYhl5933M16VF73C7WE0H7GikDoJS7b+UJlD36Sq
+	 u/frrTXuznKDyAG8nNXQAexWhqQ7Atonbw3piEQ+4M30QnwVURgZj/fkAi0Lukwtbu
+	 LC1k/AiA6By4FF2TcsMiQLQJs60yhY8osPoT4JGC1hWYS1E3QAGVKKTYSohDHpZKa8
+	 8Zv6ufJ0quYKw==
 From: Sasha Levin <sashal@kernel.org>
-To: sahaj123.sc@gmail.com,
-	bartosz.golaszewski@oss.qualcomm.com
+To: mario.limonciello@amd.com,
+	wayne.lin@amd.com,
+	ray.wu@amd.com,
+	daniel.wheeler@amd.com,
+	alexander.deucher@amd.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] gpio: pca953x: Handle direction register read errors in IRQ paths" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:09:26 -0500
-Message-ID: <20261107060925-failed-5.15-a0fe26929350@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/amd/display: don't WARN when removing an unallocated MST payload" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 06:09:29 -0500
+Message-ID: <20261107060928-failed-5.15-b18a7c6d75bc@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,98 +71,70 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x a0fe269293509acdd93b9cfb3f46636f7b91b33a
+git cherry-pick -x b18a7c6d75bcc883b39497863cc88c9ef4c6c85f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060925-failed-5.15-a0fe26929350@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060928-failed-5.15-b18a7c6d75bc@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From a0fe269293509acdd93b9cfb3f46636f7b91b33a Mon Sep 17 00:00:00 2001
-From: Sahaj Chaudhari <sahaj123.sc@gmail.com>
-Date: Sun, 18 Oct 2026 22:20:03 +0530
-Subject: [PATCH] gpio: pca953x: Handle direction register read errors in IRQ
- paths
+From b18a7c6d75bcc883b39497863cc88c9ef4c6c85f Mon Sep 17 00:00:00 2001
+From: Mario Limonciello <mario.limonciello@amd.com>
+Date: Sat, 26 Sep 2026 17:32:21 -0500
+Subject: [PATCH] drm/amd/display: don't WARN when removing an unallocated MST
+ payload
 
-Three IRQ paths ignore the result of reading the direction registers
-and then use the destination bitmap. pca953x_read_regs() does not populate
-that bitmap when regmap_bulk_read() fails, leaving the callers to use
-uninitialized stack data.
+[Why]
+On an MST teardown that runs through the reset path
+(dcn31_reset_hw_ctx_wrap -> link_set_dpms_off -> deallocate_mst_payload),
+fill_dc_mst_payload_table_from_drm() is asked to remove a payload whose
+vcpi is not present in link->mst_stream_alloc_table and trips:
 
-This can select incorrect GPIOs for direction changes during IRQ bus
-synchronization, corrupt the saved input state during IRQ setup, or
-produce incorrect pending interrupt decisions.
+  WARNING: .../amdgpu_dm_helpers.c:275 fill_dc_mst_payload_table_from_drm
 
-Check the read result at all three sites. Release irq_lock without
-changing GPIO directions on failure, leave the IRQ history untouched
-when pending detection fails, and propagate the error from IRQ setup.
-The read helper already logs the error.
+This is a legitimate case, not an error: deallocate_mst_payload() can be
+called for a stream whose MST payload was never programmed into DC's
+HW-maintained table (a new stream created for a modeset whose enable
+never completed, as already documented in deallocate_mst_payload()).
+There is simply nothing to remove.
 
-Fixes: 0f25fda840a9 ("gpio: pca953x: Zap ad-hoc reg_direction cache")
+[How]
+Drop the ASSERT and fall through to the fill loop, which rebuilds the
+allocation table from the remaining entries. The table ends up unchanged,
+which is correct: the payload being removed was never in it.
+
+Note the loop must not early-return here - the caller passes a zeroed
+proposed_table, so returning early would zero the whole link's table and
+drop the other MST streams sharing the link.
+
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5875
+Reviewed-by: Wayne Lin <wayne.lin@amd.com>
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+Signed-off-by: Ray Wu <ray.wu@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 88a27f624dc0ebc14a7ab274a84d977ce8513cb6)
 Cc: stable@vger.kernel.org
-Signed-off-by: Sahaj Chaudhari <sahaj123.sc@gmail.com>
-Link: https://patch.msgid.link/20261018165003.3372368-1-sahaj123.sc@gmail.com
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 ---
- drivers/gpio/gpio-pca953x.c | 14 +++++++++++---
- 1 file changed, 11 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpio/gpio-pca953x.c b/drivers/gpio/gpio-pca953x.c
-index 869ed4264d48a..afec5ec236968 100644
---- a/drivers/gpio/gpio-pca953x.c
-+++ b/drivers/gpio/gpio-pca953x.c
-@@ -867,6 +867,7 @@ static void pca953x_irq_bus_sync_unlock(struct irq_data *d)
- 	DECLARE_BITMAP(irq_mask, MAX_LINE);
- 	DECLARE_BITMAP(reg_direction, MAX_LINE);
- 	int level;
-+	int ret;
- 
- 	guard(mutex)(&chip->i2c_lock);
- 
-@@ -885,7 +886,9 @@ static void pca953x_irq_bus_sync_unlock(struct irq_data *d)
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+index 3217aa82bea24..6febc15ebc2b0 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+@@ -309,7 +309,7 @@ fill_dc_mst_payload_table_from_drm(struct dc_link *link,
+ 				break;
+ 			}
+ 		}
+-		ASSERT(i != copy_of_link_table.stream_count);
++		/* Payload absent from HW table when never allocated: nothing to remove. */
  	}
  
- 	/* Switch direction to input if needed */
--	pca953x_read_regs(chip, chip->regs->direction, reg_direction);
-+	ret = pca953x_read_regs(chip, chip->regs->direction, reg_direction);
-+	if (ret)
-+		goto out;
- 
- 	bitmap_or(irq_mask, chip->irq_trig_fall, chip->irq_trig_raise, gc->ngpio);
- 	bitmap_or(irq_mask, irq_mask, chip->irq_trig_level_high, gc->ngpio);
-@@ -895,6 +898,7 @@ static void pca953x_irq_bus_sync_unlock(struct irq_data *d)
- 	for_each_andnot_bit(level, irq_mask, reg_direction, gc->ngpio)
- 		pca953x_gpio_direction_input_unlocked(&chip->gpio_chip, level);
- 
-+out:
- 	mutex_unlock(&chip->irq_lock);
- }
- 
-@@ -989,7 +993,9 @@ static bool pca953x_irq_pending(struct pca953x_chip *chip, unsigned long *pendin
- 	}
- 
- 	/* Remove output pins from the equation */
--	pca953x_read_regs(chip, chip->regs->direction, reg_direction);
-+	ret = pca953x_read_regs(chip, chip->regs->direction, reg_direction);
-+	if (ret)
-+		return false;
- 
- 	bitmap_copy(old_stat, chip->irq_stat, gc->ngpio);
- 
-@@ -1089,7 +1095,9 @@ static int pca953x_irq_setup(struct pca953x_chip *chip, int irq_base)
- 	 * interrupt.  We have to rely on the previous read for
- 	 * this purpose.
- 	 */
--	pca953x_read_regs(chip, chip->regs->direction, reg_direction);
-+	ret = pca953x_read_regs(chip, chip->regs->direction, reg_direction);
-+	if (ret)
-+		return ret;
- 	bitmap_and(chip->irq_stat, irq_stat, reg_direction, gc->ngpio);
- 	mutex_init(&chip->irq_lock);
- 
+ 	/* Fill payload info*/
 -- 
 2.53.0
 
