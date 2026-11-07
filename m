@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048326;
-	b=ipkXADLVYuZ25CGmnO1wAG94xJ+ZdzuFAjMoVkT+dLPUDMGG8u9e55E04R3Ooy6nLpAv
-	 s/b+9qAvFH5ZND82QoIkMpHnZLAqgJjVDNmS8txSD8CACVfMMXJqZwD+G5LzAE+GGyukc
-	 P4vf4Ju6GGyAEFXgM9OYXn8j0Dve5JZ1PFLGw6pfyL15h99LyAX3wK7trd5N7O6aZYh+d
-	 U+s9rJfKgeecSftn7uzFtuKpIfU8UZyZ1dzc9NzVM+c4ecfR/yFzAZQi0SFqwfMn+RTn+
-	 2n8jJV8tWhkFAbH5TPwjqJEX9B70YBjilZqUsVSAcEK4t+D/WJ0YFU1V15EtnMF1TPA==
+	t=1794048329;
+	b=YBzmu+HI176thErpmOzbTbp7hkmkmTBRDyP4HSh5I/GZY5JaX2necZykUhpbP5pxezGZ
+	 G7RDUg+K0o6kPSy1JtwYtLHayiJz7DGU9i7+X8bsxP/gIRpGsqMRZk5zhq5TtEcHur8GD
+	 S7FDVEhChP3Lg/f0S5P00LlagTVDNY5Q1zfdspdmet8DWRmlpaxLChThUu/196a7+GVSg
+	 Tj7RIkL6fUHGMYDmVq/AdAIoxlPy70ZhkcUQCRAFcR/FiUhSRBlWQhilB0KeBAHtuCNCl
+	 sRkOfuuDBPdzeudxk2DpMccmwEippULtArTMckfCm4MjJA6VuSXukxemsN3qx+4xrDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048326;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048329;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=B4etl6gN/tXD662HKecD1P5huhoRqkFwxGu/YvaR3hE=;
-	b=WWc5H0u0APejauMZKOMg4fOowkVKSHLXYCbJBek1Oo6QkWj02Pjk71D9s9h6siXHk6Zj
-	 E55gWfgqu5MLQpgi0kioDz420+czfqtWiRwzCAVO14ukmO50VOCBePKDwTdnyDujg9psX
-	 KUV+VWG4OPYfKle8wasTs9/xBK+SBTsma7QTeUrU4XwEeO9KNR+TRdzfK2YKb1K5Ytxh7
-	 3Q3FXvZS2uMNTjQ1kj4GrDmqlpQDM8x4817DyzON5asEKWFAFH6tO5zyO1b2xgTK2O+TK
-	 dy0CqXXG3poPSfWW9v5+yPg4pOuTLiCmRmwoVBJsKNCZHfdF2vmxRrbOgYeTu2TvV5Q==
+	bh=YGLwsgAyQG5rs1uAIIYiurJKbVnvqTpm037va/2lstY=;
+	b=sjNqqhjh4OuHDBjdnRzFmBJNWhLet+/jL+Rrc+ljQ1lXCHCBhPawmhD2EVd4xbGft+AF
+	 cgP4/gQxkto8T0s9/Iy/u7QFAetS61Ds0R5r09Qf3T9YlZYgLx8FE//63MxvlCHOCmbBs
+	 kwiJhT+tF+zBQdMvzdgepSQgfce2PRQRSFLrH4unAAm2/f+PiRgDQKfdE7MvddUOV7SKC
+	 PTPcGc7LbyOgV8rxXNU8OqM5k7JmqMhW+XgOKn7poLG624xDym5H+pot+KUNx2pxlDRW1
+	 n9cmgcCkMvxfx9WQQnswvXwMM/xrz6sM3oman1GZ5MJ45kkpu7kRwqhfq/x5zcGPXbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="cFG/+/A6";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dyISgh4g;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49025606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:45:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B708606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:45:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cFG/+/A6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDB391F0089F;
-	Sat,  7 Nov 2026 10:45:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dyISgh4g
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE3E31F008A1;
+	Sat,  7 Nov 2026 10:45:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048326;
-	bh=B4etl6gN/tXD662HKecD1P5huhoRqkFwxGu/YvaR3hE=;
+	s=k20260515; t=1794048329;
+	bh=YGLwsgAyQG5rs1uAIIYiurJKbVnvqTpm037va/2lstY=;
 	h=From:To:Cc:Subject:Date;
-	b=cFG/+/A6mbQqG37bHx/20eD3RlCbt/lbwbqN3hxW1SCuE2Z6DcaCXqka+O7iJgCIE
-	 9roWBQmjfsB4OLEsxU2XQ+HT21FClToABpXupFobNwbIR6/6n27MI+DL93SStfR7JW
-	 nuFVXF3DpcOIGQdwu/D13Bp0KrvonGwEVI4E9QcVTJ9FBsRHhgARQIFbJhyjwkFWg2
-	 TzuO9tGGkrEfuilfs+kbi6I1xctpvL+d81/k6FMlWv+77GupY6StioTgrz0ZmMN8rZ
-	 AOWGUrtkQSezVhOYZ+W4ZqW0GCgf6rUdu3r0798fURUPWMCnbU+BsI9Jg6SklMgPpV
-	 sBeHMz42IDiJw==
+	b=dyISgh4gMtJqiIDofJ31MEV5hjpvPOeHUTrgeHkVmrkZrFL93he5DxUwrxEqRxa49
+	 cRZbUuMLs1Z0w6Q3tf1lVfAeGOJvw0StAz1oSlTRV40++pF1yYvphaHEBZpSD3qM0d
+	 IVymKkcys63fRAbpOOjXxaFEfwixYtShZ4O5i41jbn7diNoZw8vZbUCXAx3kKrnpqe
+	 A0T77NreTmVkkg4IS4L4lk4hd6suKM+i4qtoS787g0UOpuh5NwmfO0LxswlgRtOUPK
+	 iiaidL53z8LpoynYNcrBekgN9peOzLICQyr3g8ap/K8g5geylJAEn1ZHkYmfKdA1ak
+	 rJqwtDk3RS/Vw==
 From: Sasha Levin <sashal@kernel.org>
-To: chao@kernel.org,
-	jaegeuk@kernel.org
+To: peter.ujfalusi@linux.intel.com,
+	tiwai@suse.de
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] f2fs: zone: fix to avoid bio split on sequential zone" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:45:24 -0500
-Message-ID: <20261107054524-failed-6.1-b9b036bd1e2c@kernel.org>
+Subject: FAILED: patch "[PATCH] ALSA: hda/hdmi: clamp num_cvts against cvt_nids[] in hdmi_read_pin_conn" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:45:27 -0500
+Message-ID: <20261107054527-failed-6.1-6cf3ab38b0d5@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,124 +68,63 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x b9b036bd1e2cfbc189d5811d62d8711e216c40b3
+git cherry-pick -x 6cf3ab38b0d53d41f00fe594b2986849bdf994ae
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054524-failed-6.1-b9b036bd1e2c@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054527-failed-6.1-6cf3ab38b0d5@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From b9b036bd1e2cfbc189d5811d62d8711e216c40b3 Mon Sep 17 00:00:00 2001
-From: Chao Yu <chao@kernel.org>
-Date: Wed, 7 Oct 2026 10:18:12 +0000
-Subject: [PATCH] f2fs: zone: fix to avoid bio split on sequential zone
+From 6cf3ab38b0d53d41f00fe594b2986849bdf994ae Mon Sep 17 00:00:00 2001
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Date: Thu, 8 Oct 2026 11:51:22 +0300
+Subject: [PATCH] ALSA: hda/hdmi: clamp num_cvts against cvt_nids[] in
+ hdmi_read_pin_conn
 
-In the block layer, bio_split_to_limits() splits a bio if it exceeds
-any underlying queue limits:
-1. queue_max_sectors: Splits bios larger than the transfer limit. This
-   limit is set by the device driver/DMA controller (max_hw_sectors) and
-   device-mapper targets. When flushing dirty pages (governed by VFS
-   writeback_chunk_size() and f2fs nr_pages_to_skip()), f2fs merges
-   contiguous pages into bios up to 512KB (1024 sectors) or more without
-   checking queue_max_sectors, which will be split if the device or DM
-   target enforces a smaller limit.
-2. queue_max_segments: Splits bios exceeding scatter-gather segment
-   limits. f2fs allocates bios with up to 256 pages, exceeding the
-   128-segment limit of DM targets (dm-default-key/dm-crypt) if pages
-   are discontiguous.
-3. chunk_sectors: Splits bios crossing chunk/zone boundaries. In f2fs,
-   section_size strictly matches zone_size, and block allocation never
-   spans across section boundaries, so bios never cross chunk_sectors.
+hdmi_add_cvt() stores each converter's NID into the fixed-size
+spec->cvt_nids[] array (used only by the Intel Haswell pin-connection
+fixup), but only when spec->num_cvts is still within
+ARRAY_SIZE(cvt_nids); the num_cvts counter itself is incremented
+unconditionally regardless of whether the store happened. A codec
+that reports more converters than cvt_nids[] can hold therefore ends
+up with num_cvts > ARRAY_SIZE(cvt_nids).
 
-Crucially, when bio_split_to_limits() splits a bio, bio_submit_split()
-submits the tail half via submit_bio_noacct() before returning the head
-half to the caller. On a sequential zoned device, this causes the tail
-bio to arrive at the zone write plug before the head:
+hdmi_read_pin_conn(), on the intel_hsw_fixup path, copies num_cvts
+elements from cvt_nids[] with memcpy(), so once num_cvts exceeds the
+array size this reads past cvt_nids[] and writes the resulting
+garbage NIDs into per_pin->mux_nids[].
 
-  dm-3: zone 7: prepare_bio wp mismatch: bio sector 30720 offset 2048
-  != wp_offset 248, len 248
+Clamp the copy length to the actual size of cvt_nids[] instead of
+trusting num_cvts, which is also used unbounded as the size of the
+separate, dynamically-sized spec->cvts array and must not be
+truncated at the source.
 
-The write plug rejects the out-of-order tail with BLK_STS_IOERR, causing
-f2fs_stop_checkpoint() and remounting the filesystem read-only:
-
-2026-09-30T22:09:23.725678+08:00 localhost kernel: CPU: 9 UID: 0 PID: 243 Comm: kworker/9:1H Not tainted 6.12.81-gb3ef518fb26d #5
-2026-09-30T22:09:23.725750+08:00 localhost kernel: Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-debian-1.17.0-1 04/01/2014
-2026-09-30T22:09:23.725753+08:00 localhost kernel: Workqueue: dm-3_zwplugs blk_zone_wplug_bio_work
-2026-09-30T22:09:23.725756+08:00 localhost kernel: Call Trace:
-2026-09-30T22:09:23.725758+08:00 localhost kernel:  <TASK>
-2026-09-30T22:09:23.725758+08:00 localhost kernel:  dump_stack_lvl+0x4d/0x70
-2026-09-30T22:09:23.725759+08:00 localhost kernel:  f2fs_stop_checkpoint+0x1df/0x5d0
-2026-09-30T22:09:23.725759+08:00 localhost kernel:  ? blk_zone_wplug_bio_work+0x4eb/0x740
-2026-09-30T22:09:23.725760+08:00 localhost kernel:  f2fs_cache_write_end_io+0x545/0x6e0
-2026-09-30T22:09:23.725761+08:00 localhost kernel:  blk_zone_wplug_bio_work+0x4eb/0x740
-2026-09-30T22:09:23.725762+08:00 localhost kernel:  process_one_work+0x5c6/0xde0
-2026-09-30T22:09:23.725764+08:00 localhost kernel:  ? assign_work+0x124/0x4e0
-2026-09-30T22:09:23.725765+08:00 localhost kernel:  worker_thread+0x403/0xb70
-2026-09-30T22:09:23.725765+08:00 localhost kernel:  ? __kthread_parkme+0x82/0x140
-2026-09-30T22:09:23.725766+08:00 localhost kernel:  ? __pfx_worker_thread+0x10/0x10
-2026-09-30T22:09:23.725766+08:00 localhost kernel:  kthread+0x235/0x2e0
-2026-09-30T22:09:23.725767+08:00 localhost kernel:  ? recalc_sigpending+0x128/0x1d0
-2026-09-30T22:09:23.725767+08:00 localhost kernel:  ? __pfx_kthread+0x10/0x10
-2026-09-30T22:09:23.725769+08:00 localhost kernel:  ret_from_fork+0x2f/0x70
-2026-09-30T22:09:23.725769+08:00 localhost kernel:  ? __pfx_kthread+0x10/0x10
-2026-09-30T22:09:23.725770+08:00 localhost kernel:  ret_from_fork_asm+0x1a/0x30
-2026-09-30T22:09:23.725771+08:00 localhost kernel:  </TASK>
-2026-09-30T22:09:23.725771+08:00 localhost kernel: F2FS-fs (dm-0): Stopped filesystem due to reason: 3
-
-To prevent write bios destined for sequential zones from being split:
-1. In __bio_alloc(), bound npages to bdev_max_segments(bdev) for writes to
-   sequential zone areas.
-2. In page_is_mergeable(), check queue_max_segments() and queue_max_sectors()
-   for sequential zone areas, so f2fs will not merge beyond the queue limits.
-
-Fixes: 52763a4b7a21 ("f2fs: detect host-managed SMR by feature flag")
-Fixes: 664ba972df9b ("f2fs: use BIO_MAX_PAGES for bio allocation")
+Fixes: bce0d2a80e42 ("ALSA: hda - Allow unlimited pins and converters in patch_hdmi.c")
 Cc: stable@vger.kernel.org
-Signed-off-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Link: https://patch.msgid.link/20261008085122.9442-1-peter.ujfalusi@linux.intel.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- fs/f2fs/data.c | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
+ sound/hda/codecs/hdmi/hdmi.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index 4bfa301a5df63..15c6af8515f30 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -536,6 +536,10 @@ static struct bio *__bio_alloc(struct f2fs_io_info *fio, int npages)
- 	struct bio *bio;
+diff --git a/sound/hda/codecs/hdmi/hdmi.c b/sound/hda/codecs/hdmi/hdmi.c
+index a8aac0b36c73f..355fd3e731836 100644
+--- a/sound/hda/codecs/hdmi/hdmi.c
++++ b/sound/hda/codecs/hdmi/hdmi.c
+@@ -983,7 +983,8 @@ static int hdmi_read_pin_conn(struct hda_codec *codec, int pin_idx)
+ 	snd_hda_set_dev_select(codec, pin_nid, dev_id);
  
- 	bdev = f2fs_target_device(sbi, fio->new_blkaddr, &sector);
-+	/* avoid reversed IO if bio is split due to exceeding max_segments */
-+	if (npages > 1 && !is_read_io(fio->op) &&
-+	    f2fs_is_sequential_zone_area(sbi, fio->new_blkaddr))
-+		npages = min_t(int, npages, bdev_max_segments(bdev));
- 	bio = bio_alloc_bioset(bdev, npages,
- 				fio->op | fio->op_flags | f2fs_io_flags(fio),
- 				GFP_NOIO, &f2fs_bioset);
-@@ -892,7 +896,19 @@ static bool page_is_mergeable(struct f2fs_sb_info *sbi, struct bio *bio,
- 		return false;
- 	if (last_blkaddr + 1 != cur_blkaddr)
- 		return false;
--	return bio->bi_bdev == f2fs_target_device(sbi, cur_blkaddr, NULL);
-+	if (bio->bi_bdev != f2fs_target_device(sbi, cur_blkaddr, NULL))
-+		return false;
-+	/* avoid reversed IO if bio is split due to exceeding max_segments/sectors */
-+	if (f2fs_is_sequential_zone_area(sbi, cur_blkaddr)) {
-+		struct request_queue *q = bdev_get_queue(bio->bi_bdev);
-+
-+		if (bio->bi_vcnt >= queue_max_segments(q))
-+			return false;
-+		if (bio_sectors(bio) + (F2FS_BLKSIZE(sbi) >> SECTOR_SHIFT) >
-+				queue_max_sectors(q))
-+			return false;
-+	}
-+	return true;
- }
- 
- static bool io_type_is_mergeable(struct f2fs_bio_info *io,
+ 	if (spec->intel_hsw_fixup) {
+-		conns = spec->num_cvts;
++		/* spec->cvt_nids[] only has ARRAY_SIZE(spec->cvt_nids) slots */
++		conns = min_t(int, spec->num_cvts, ARRAY_SIZE(spec->cvt_nids));
+ 		memcpy(per_pin->mux_nids, spec->cvt_nids,
+ 		       sizeof(hda_nid_t) * conns);
+ 	} else {
 -- 
 2.53.0
 
