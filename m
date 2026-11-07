@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048069;
-	b=G5yoPRd0en7sA3vGkxbIhS0Xt5Rn3bWxruyl5cuLsqu5CMxxCxWfzp/dBxDarNQWStoi
-	 oyS29MJPs9uxIXFueMks7GAcKDiuPRdYjpAghI3Ok0U+fVDp0NKeAhnDQVThG8WIQ5dwv
-	 59nHmruPJRFk74QIMLv7bECnIW5JhBIss1bcMdRYs4aAperTVoq6aIPME3SexoOuBCmZD
-	 K9i9su8pWwFvBPKnUbMoeuNFrYvUrvYMGBPnQ7r2u7JtFS4Hz+146qaw+4MMqqCv8rGHl
-	 gT9gS6ie3+U8KjjyF2piZ22FA1UMGo4yBGnJMykFA0b2H+0Mcqpfeiu7aoLM9YU49Og==
+	t=1794048072;
+	b=EJRLY8Ph4CuSr+u7BDC7sWZznxaGdRQzjsHxdKeECt0gOPrOG9q2tZX0BaDHftQCpQlt
+	 EQUdegfy8miGQYy2VJhzE80as5A8g1bSHlXhiLwyRZE7Qh2pUW9JLl55OyS3vV2VO12Kb
+	 /vLW9t3V8H6mWNVsW4Tm7v4H++VrJJ8K7EgeHCMuYikbFUVk4A9bYBqq7hrWy6WOwySkA
+	 mtqMj0z+YEyKHIk26Gryep5/H55aaazkDjtIIwpcNKfFviqvTb0v82c4eLRLa8GXOdC1D
+	 y08lN7gRW2tHSBqbGPg4Ku32L/ZWWwQRRdCvNdfmbO4ZDA107RaxtBDzmWCObXKwZog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048069;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048072;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=vpN7pMx4GK5qCm1QS//6uOvQeJo9iqStJLpPmjl9aJw=;
-	b=r09tIqXhkTwJDo28H1tttU9CcFOX1DxwiwNOQCfVIu++EiTMcxdGT4eLh/aLrA7t7W5j
-	 FkHXwZWqz/oufg5zNl2O56LT1pl4BAgJuIf77N/Db0FumoeQ8twE2N6/YPFgrgUh8CRdE
-	 uq1FnHkebhFkCc2VliOibsTgEKVWQnMFupZJ0IDvUjKdzMXSgqSkdRA4RRSWN+Z6aZIio
-	 8zT53BY1EzLiSpU+NVSZ4uBoph1q3jBHRBZ47OxW6/FJF8/p+9NHb30sKzZE7LCaMCUC0
-	 dFmlhoktaiwYNRyRiGKsJjZ1b39sdiH2rcfpXvLOtyY7hzgq8wCNks8ahC5RPzX6Tng==
+	bh=Nvsa4839TkKWUA7CtpKYp/pQEc9aAk/VAevWqSa2dYc=;
+	b=DKurhrV3w2QYtyFiDzxYKOraLEIHp5Lpl+U3KTT3TrMIeae4Oxy8abx7xTGx+FtN2JZT
+	 PB54F8TGIsIcL63byOLIGohSyFImHy9r6si1p58s3vsmFNWroCSW2WMl6aRLbW84+ptUT
+	 wvFoXMpx++iFZeNaPTnF36EyYuswYe3OAdhVnyPusRFX1f0AEBcRrTXAwlIUgJvS7qyIw
+	 /issMMzb+FsudypMBNIHpSqdTuyerYNndqDh4vN64/Q0TOZh3uZIrlDKK8msNv/OcnkDK
+	 QCEIkqWVlYaH9Lw1OoJ6VqpXlpiCqbnqrQsiHt+TEnLmtXw+i+VPyCJthi3+P6yT9Vg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="fBQ3/FeJ";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OkoOF3kH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66280606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:41:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB872606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:41:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fBQ3/FeJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9A401F0089F;
-	Sat,  7 Nov 2026 10:41:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OkoOF3kH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B8791F0089F;
+	Sat,  7 Nov 2026 10:41:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048069;
-	bh=vpN7pMx4GK5qCm1QS//6uOvQeJo9iqStJLpPmjl9aJw=;
+	s=k20260515; t=1794048071;
+	bh=Nvsa4839TkKWUA7CtpKYp/pQEc9aAk/VAevWqSa2dYc=;
 	h=From:To:Cc:Subject:Date;
-	b=fBQ3/FeJdiFhH5AVob8BpnvymupuFy+wVbQDkrD3pk+HeFdDkqxD/EMTQXfXxfdih
-	 tNs8xP4/zruAmYDpyUcXWLerMINejgqvYmr7+zD5tNXoTOBVwPU9k6bQ15om+wt2Qp
-	 Zy/BpcxT/5W0hJ5GQHau7b63AeXBMxbgxYN2+FPBseKtTX5pQ96lE8546Q6fPDDai7
-	 0CkDxcTdRjousctTmt37fq7lqMhKs4Y+KjhyolcJFw+vzNSKVqNttLfZllBG0LWHMQ
-	 8j0ciyq2LYW4Q1/UT0Et8j2aTdQg9gW+s//HpBJBUmvClZn7j+A81PLJzvZcbN8qbL
-	 4TnwBxtOfWxkQ==
+	b=OkoOF3kHKgxXmP4Cpwg2e/gyo/R9uD9vyV6QTQ6kUk4fpWwwvkHKJYQUvTKk/CrVF
+	 ce7NVBwHx7MYtTgzpCE6aoGmj8pWwL4y8lAJ/roqPwohuMsdCXk/vMnaHSu1iXgCUS
+	 9xHaEUHMwc29yrOatX0nJL/F4RP11UYzITkNu64/6YVqA0PchFvWQEDznfoGCbQUs4
+	 FFSBCbTDiSq9Qg88YRPJ7gGLM4xmicqyT+TMUt8VTt8bfGMP5YNOvgDb/7nQZwtgvO
+	 OWBBLJqFEsBpO6Vmx63M+ZnNKueMGpvoGqFGI3DZk2Rqgo4ljM+VNEjFWPBZN8PEn3
+	 pm5s+bgIgwmMA==
 From: Sasha Levin <sashal@kernel.org>
-To: amir73il@gmail.com,
-	4ncienth@gmail.com,
-	jack@suse.cz,
-	brauner@kernel.org
+To: dwmw@amazon.co.uk,
+	sashiko-bot@kernel.org,
+	paul@xen.org,
+	pbonzini@redhat.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] fs: make sure to call fsnotify_inoderemove() only once when inode is dead" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:41:07 -0500
-Message-ID: <20261107054107-failed-6.1-669bb5af15d4@kernel.org>
+Subject: FAILED: patch "[PATCH] KVM: x86/xen: Enforce 4-byte alignment of vcpu_info registration" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:41:09 -0500
+Message-ID: <20261107054109-failed-6.1-eacdb76c5f04@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,116 +70,74 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 669bb5af15d41a21359d00a441490f87a88eb52a
+git cherry-pick -x eacdb76c5f04956035c5d7f7e1973028f30684a2
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054107-failed-6.1-669bb5af15d4@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054109-failed-6.1-eacdb76c5f04@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 669bb5af15d41a21359d00a441490f87a88eb52a Mon Sep 17 00:00:00 2001
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Wed, 2 Sep 2026 18:49:25 +0200
-Subject: [PATCH] fs: make sure to call fsnotify_inoderemove() only once when
- inode is dead
+From eacdb76c5f04956035c5d7f7e1973028f30684a2 Mon Sep 17 00:00:00 2001
+From: David Woodhouse <dwmw@amazon.co.uk>
+Date: Mon, 31 Aug 2026 22:26:37 +0100
+Subject: [PATCH] KVM: x86/xen: Enforce 4-byte alignment of vcpu_info
+ registration
 
-Daehyeon reported a race wherein fsnotify_removeinode() can be called
-when inode still has a live alias.  This can lead to several undesired
-outcomes such as crashes in fsnotify code or avoidance of inode mark
-notifications.
+Xen's map_guest_area() enforces that vcpu_info is aligned to
+sizeof(xen_ulong_t). KVM has no such check, allowing a guest to
+register vcpu_info at an arbitrary byte alignment.
 
-Check that inode is really "dead", meaning no nlink and no more aliases
-before calling fsnotify_inoderemove() for final cleanup of inode marks.
-Also do not allow open_by_handle() to add new aliases to a "dead" inode.
+Enforce unconditional 4-byte alignment regardless of the current
+shinfo mode. This is sufficient because subsequent commits ensure
+that all locked atomic operations on vcpu_info fields use at most
+32-bit accesses. Return -ENXIO on failure, matching Xen's
+map_guest_area() behaviour for unaligned requests.
 
-Ideally, we'd call fsnotify_inoderemove() once last inode reference is
-dropped to make things simpler. Alas fsnotify inode marks currently hold
-inode references and thus this doesn't work. Once we teach fsnotify to
-avoid holding inode references, these games with dead inodes can go as
-well.
+Originally observed in review of an unrelated patch:
+https://lore.kernel.org/all/20260604193554.1BA311F00893@smtp.kernel.org/
 
-Reported-and-tested-by: Daehyeon Ko <4ncienth@gmail.com>
-Closes: https://lore.kernel.org/linux-fsdevel/20260827045007.3831259-1-4ncienth@gmail.com/
-CC: stable@vger.kernel.org
-Signed-off-by: Amir Goldstein <amir73il@gmail.com>
-Signed-off-by: Jan Kara <jack@suse.cz>
-Link: https://patch.msgid.link/20260902164924.1333135-2-jack@suse.cz
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Cc: stable@vger.kernel.org
+Fixes: 73e69a86347a ("KVM: x86/xen: register vcpu info")
+Reported-by: sashiko-bot@kernel.org
+Closes: https://lore.kernel.org/all/20260604193554.1BA311F00893@smtp.kernel.org
+Assisted-by: Kiro:claude-opus-4.6-1m
+Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+Reviewed-by: Paul Durrant <paul@xen.org>
+Link: https://patch.msgid.link/20260831213632.81023-7-dwmw2@infradead.org
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- fs/dcache.c | 27 ++++++++++++++++++++++++---
- 1 file changed, 24 insertions(+), 3 deletions(-)
+ arch/x86/kvm/xen.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/fs/dcache.c b/fs/dcache.c
-index 1b1a81f10da67..8f17db2724b38 100644
---- a/fs/dcache.c
-+++ b/fs/dcache.c
-@@ -450,6 +450,17 @@ static void dentry_free(struct dentry *dentry)
- 		call_rcu(&dentry->d_rcu, __d_free);
- }
+diff --git a/arch/x86/kvm/xen.c b/arch/x86/kvm/xen.c
+index d0bdc6e8eb28c..15c508b7b28b7 100644
+--- a/arch/x86/kvm/xen.c
++++ b/arch/x86/kvm/xen.c
+@@ -941,6 +941,10 @@ int kvm_xen_vcpu_set_attr(struct kvm_vcpu *vcpu, struct kvm_xen_vcpu_attr *data)
+ 				break;
+ 			}
  
-+/*
-+ * If inode is unlinked and doesn't have any aliases (i.e., all fds pointing to
-+ * it are closed), it is pretty much dead. Except that file handle lookup could
-+ * still revive it which causes issues to fsnotify. So once inode reaches this
-+ * state we make sure to block creating any new aliases.
-+ */
-+static bool inode_notify_dead(struct inode *inode)
-+{
-+	return !inode->i_nlink && hlist_empty(&inode->i_dentry);
-+}
++			r = -ENXIO;
++			if (!IS_ALIGNED(data->u.gpa, sizeof(u32)))
++				break;
 +
- /*
-  * Release the dentry's inode, using the filesystem
-  * d_iput() operation if defined.
-@@ -459,6 +470,7 @@ static void dentry_unlink_inode(struct dentry * dentry)
- 	__releases(dentry->d_inode->i_lock)
- {
- 	struct inode *inode = dentry->d_inode;
-+	bool notify_dead;
+ 			r = kvm_gpc_activate(&vcpu->arch.xen.vcpu_info_cache,
+ 					     data->u.gpa, sizeof(struct vcpu_info));
+ 		} else {
+@@ -950,6 +954,10 @@ int kvm_xen_vcpu_set_attr(struct kvm_vcpu *vcpu, struct kvm_xen_vcpu_attr *data)
+ 				break;
+ 			}
  
- 	raw_write_seqcount_begin(&dentry->d_seq);
- 	__d_clear_type_and_inode(dentry);
-@@ -469,9 +481,10 @@ static void dentry_unlink_inode(struct dentry * dentry)
- 	 */
- 	dentry->waiters = NULL;
- 	raw_write_seqcount_end(&dentry->d_seq);
-+	notify_dead = inode_notify_dead(inode);
- 	spin_unlock(&dentry->d_lock);
- 	spin_unlock(&inode->i_lock);
--	if (!inode->i_nlink)
-+	if (notify_dead)
- 		fsnotify_inoderemove(inode);
- 	if (dentry->d_op && dentry->d_op->d_iput)
- 		dentry->d_op->d_iput(dentry, inode);
-@@ -2237,7 +2250,12 @@ static struct dentry *__d_obtain_alias(struct inode *inode, bool disconnected)
- 
- 	sb = inode->i_sb;
- 
--	res = d_find_any_alias(inode); /* existing alias? */
-+	spin_lock(&inode->i_lock);
-+	if (!inode_notify_dead(inode))
-+		res = __d_find_any_alias(inode);	/* existing alias? */
-+	else
-+		res = ERR_PTR(-ESTALE);
-+	spin_unlock(&inode->i_lock);
- 	if (res)
- 		goto out;
- 
-@@ -2249,7 +2267,10 @@ static struct dentry *__d_obtain_alias(struct inode *inode, bool disconnected)
- 
- 	security_d_instantiate(new, inode);
- 	spin_lock(&inode->i_lock);
--	res = __d_find_any_alias(inode); /* recheck under lock */
-+	if (!inode_notify_dead(inode))
-+		res = __d_find_any_alias(inode);	/* recheck under lock */
-+	else
-+		res = ERR_PTR(-ESTALE);
- 	if (likely(!res)) { /* still no alias, attach a disconnected dentry */
- 		unsigned add_flags = d_flags_for_inode(inode);
- 
++			r = -ENXIO;
++			if (!IS_ALIGNED(data->u.hva, sizeof(u32)))
++				break;
++
+ 			r = kvm_gpc_activate_hva(&vcpu->arch.xen.vcpu_info_cache,
+ 						 data->u.hva, sizeof(struct vcpu_info));
+ 		}
 -- 
 2.53.0
 
