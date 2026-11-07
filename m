@@ -1,52 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046267;
-	b=d0H4kzV1h7AEMNSWTO1VJFMuTTtaM2b9kH5ASev0e8/wHKCgZFMhB8mgi7YqibORV0pB
-	 dIW9x0JdNzhyfKL8Y+IfF1qy4P08O7X7auBxiX80qQC0K2V9ZTQL5uwiASmxZeuoZEMIP
-	 LaRaCmMasoU1iHO6ftEfUipIk+T/b4oaQWLnYV0+zhmOM/DsX7X2SyeNvQPSm3CiB/zB2
-	 cq7sv+nwmlEuzzSqabonMpCD55zekxahj+tsG6xiLjzY80WPtmxWbA+LPuDzcYIoF1tjg
-	 Zp1sG3gLNTXbb91j5tLcSHh4f1jMtR39AppRO2ywchCnx4t7jXJTdCOYKOyilZ5j9Ow==
+	t=1794046269;
+	b=rW0Sxo4pH4VMeOOoIc+fDVCAguH93+w20OIFEHXnzVYD1eT81WqsRSFa1tr19nxQMBTA
+	 KrqhW0msBWC0UlC0e2qP4ABX8imvZdWzBLi0iesJefaehXuS3oYCTvxQKKaMUQkf6mm1p
+	 kbBkFrLwoho/Yc+C8kHKZJxNKhXqSnMpKewOUuRhn+M78aldpIt2UmwB/uKcpR+gM9pn3
+	 lzsJqwSDXw1K+C8Oxgbv0BAZ7ARZJXnfAxET6STODg2NfNxNulUthyakbjUbCD64UoLE9
+	 XQ1LFpjHWdeTQB7xGBjP7Q+EICUF+YoQfAWGg31jIKel1jK37+K525SL1OVzng6RiWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046267;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046269;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=632i2OTal7rxCcmgGF/KI5fogj4IbaYhtB7UXafHEd8=;
-	b=csoZxw8LUnhe/WsK505P2m+Dgd6CgPOBti1flNjd+Th9gbitlKvY+IW45ho23roWr5wS
-	 V0Y+VdUZAnG7mAl+6jlbIt8S3J+EwVp6CUg5qyOsAOnAnsmaMiK0ZihSr2450skqJdrLf
-	 fNSVSHLyzkJB3q847j9AqIMwFXvBtTKCcdFy7RgdPMDJPheud7ys0Ardh+f+Ydxb1w9Xq
-	 HRytaVk/daLx++b5YUVj6iiIiwNQ9bgIB1Xp4hYYgHUydCAREZwVVJKSBAnQqXKMgGVPx
-	 p936H/AoniOUS236jsjkOeRu2G+wfHkqNLTVLMCydxrynIom25foj087MUuJWd9ELmw==
+	bh=9Z3qte8A7x3/4tEVbKnD1W5NUSFcbdGyWxfRoVVoikQ=;
+	b=rjrMc4Oqnfqt99fiSWbe3O78RuAcyQ+8mLp0FYz0uJBVOWV8SAjo08d5EFasrDAzBXa8
+	 acc/+shWCQBnJHqilbjZkr1tmvwC/N1KNHfj9V02l6Holv4U1E24haeCE/rUS6VhoCG/E
+	 3PlaWL2QkaOJX4CxoAh7n8uaF6Vh7q6NwgvIY3pGTXC+TstvhWYRJe/AeC1Re4HIIB22A
+	 Y6aKe/zeSEU8ERX1iv/9eNfN83rAd63SzaRy+IYsn3MT8Nc9noq16sYOyNg3OdN5Eh+ZQ
+	 n/dDr4BDCXi+epZZsCBA28Jng0ikzSRwiHoE3GGfxhO928gMlrkqBTxIEsiwfihowZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fdDMtaOl;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fSAbZDBl;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30DB4606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:11:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68DA5606A32D
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:11:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fdDMtaOl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 392D21F0089F;
-	Sat,  7 Nov 2026 10:11:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fSAbZDBl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69D561F0089F;
+	Sat,  7 Nov 2026 10:11:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046266;
-	bh=632i2OTal7rxCcmgGF/KI5fogj4IbaYhtB7UXafHEd8=;
+	s=k20260515; t=1794046269;
+	bh=9Z3qte8A7x3/4tEVbKnD1W5NUSFcbdGyWxfRoVVoikQ=;
 	h=From:To:Cc:Subject:Date;
-	b=fdDMtaOlMweifM4PECXjtL8PNpdH0zdMii3H8Im9Stx5lUoq6z3hkqaMCRz8txRKy
-	 oOl7wyfFnotJqQx+XLCmw6pfxUH4HuKFARAGhfV0B85PzBI+mu6Ul8fPwU2a5DF3rA
-	 e/BbC9zfEDtRRU61HiOKv7wGUr89Jn4XVWN0axixGTw+PzvWE5XyQtDEC55wUz475Z
-	 Gr6e7ONF0pky3Q25VukXxl19B68AaCMbnZHgtvTVdX8VpIGcrZJLQFdfyyVLmu5l8Z
-	 OqKTV1aTIUdUpWjFYBx1e0VFzay/UTTk4erqlubr60jm1Ehg+5ypi9cu9xxIPF4+mE
-	 JiEFw/Ykkndiw==
+	b=fSAbZDBl2QEvYtDokn4+J3HUL5J/RpTMNoQ+TPhH3s1O815Zbt4K9qbzTmDdVwNA9
+	 d8usEAuuNQ5lAdFi17+iVlFZ9edBgEob6zu25pUP0VAgh5zgimzoD8qSOZ6m8s9RlI
+	 DTNBQRVMNHAExJDRQFV/ALX9/OBB3Ifw8igIKVnualytbUWGE8SWoSOCHMhJ0U9441
+	 DqZGlz3UGMPGWqVpw7kkzn/ogPLmBO/xqUlRDQmGq7dlvOv0rtFo3cC2k7UaHF46Yq
+	 rI27/k81RXmFUWewa0P5q6yT4mbdKel96c0kUYYo6n/AojIUNvwojLGwPJWT0p1eBT
+	 fYdACY+F/PoBw==
 From: Sasha Levin <sashal@kernel.org>
-To: ts@linux.ibm.com,
-	schnelle@linux.ibm.com,
-	hca@linux.ibm.com
+To: brads@mainlining.org,
+	akpm@linux-foundation.org,
+	pmladek@suse.com,
+	linux@roeck-us.net,
+	sashiko-bot@kernel.org,
+	wangjinchao600@gmail.com,
+	wim@linux-watchdog.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] s390/pci: Add error cleanup in zpci_directed_irq_init()" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:11:05 -0500
-Message-ID: <20261107051105-failed-6.18-769f66f595c1@kernel.org>
+Subject: FAILED: patch "[PATCH] panic: kill the "buffer unavailable" redirect fallback" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:11:07 -0500
+Message-ID: <20261107051107-failed-6.18-68d956e9e235@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,91 +73,125 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 769f66f595c11185c66913ea5d96420504bfebc3
+git cherry-pick -x 68d956e9e235c2e125f77a9e98831e297b624a75
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051105-failed-6.18-769f66f595c1@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051107-failed-6.18-68d956e9e235@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 769f66f595c11185c66913ea5d96420504bfebc3 Mon Sep 17 00:00:00 2001
-From: Tobias Schumacher <ts@linux.ibm.com>
-Date: Fri, 9 Oct 2026 08:15:52 +0200
-Subject: [PATCH] s390/pci: Add error cleanup in zpci_directed_irq_init()
+From 68d956e9e235c2e125f77a9e98831e297b624a75 Mon Sep 17 00:00:00 2001
+From: Bradley Morgan <brads@mainlining.org>
+Date: Wed, 16 Sep 2026 18:29:57 +0000
+Subject: [PATCH] panic: kill the "buffer unavailable" redirect fallback
 
-If per-CPU airq_iv allocation fails in the loop, previously allocated
-vectors and arrays leak. Add proper error path to release all resources
-on failure.
+The redirect buffer is a disgusting terrible hack.  panic_force_buf is
+kmalloc'ed in a late_initcall, and until then the redirect delivers this
+as the panic message:
 
-The error path frees zpci_sbv, but SIC_IRQ_MODE_DIRECT has already
-programmed its address into the hardware. Set the directed interrupt
-mode only after all allocations have succeeded, so a failed init leaves
-no freed memory registered with the hardware.
+  Redirected panic (buffer unavailable)
 
-Fixes: e979ce7bced2 ("s390/pci: provide support for CPU directed interrupts")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tobias Schumacher <ts@linux.ibm.com>
-Reviewed-by: Niklas Schnelle <schnelle@linux.ibm.com>
-Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
+The whole point of the redirect is to hand the panic message to the target
+CPU, so the crash kernel boots knowing it panicked and not why.  And that
+window is the entire boot, from the early_param to the late_initcall,
+which is exactly when you most want the message.
+
+Make it a static 1KB buffer and kill the initcall.  The cost is 1KB of
+.bss in SMP crash dump builds, and it is only ever touched when
+panic_force_cpu= is set anyway.  The local msg variable is gone too, the
+buffer goes directly to panic_smp_redirect_cpu().
+
+Link: https://lore.kernel.org/20260916182957.7788-7-brads@mainlining.org
+Signed-off-by: Bradley Morgan <brads@mainlining.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Suggested-by: Petr Mladek <pmladek@suse.com>
+Reviewed-by: Petr Mladek <pmladek@suse.com>
+Cc: Guenetr Roeck <linux@roeck-us.net>
+Cc: Sashiko <sashiko-bot@kernel.org>
+Cc: Wang Jinchao <wangjinchao600@gmail.com>
+Cc: Wim Van Sebroeck <wim@linux-watchdog.org>
+Cc: <stable@vger.kernel.org>
 ---
- arch/s390/pci/pci_irq.c | 26 +++++++++++++++++++-------
- 1 file changed, 19 insertions(+), 7 deletions(-)
+ kernel/panic.c | 34 +++++++---------------------------
+ 1 file changed, 7 insertions(+), 27 deletions(-)
 
-diff --git a/arch/s390/pci/pci_irq.c b/arch/s390/pci/pci_irq.c
-index c5fabad381395..bcf11585df8d8 100644
---- a/arch/s390/pci/pci_irq.c
-+++ b/arch/s390/pci/pci_irq.c
-@@ -569,14 +569,9 @@ static int __init zpci_directed_irq_init(void)
- 	if (!zpci_sbv)
- 		return -ENOMEM;
+diff --git a/kernel/panic.c b/kernel/panic.c
+index 29c981926f5f3..170744163fc2a 100644
+--- a/kernel/panic.c
++++ b/kernel/panic.c
+@@ -307,7 +307,7 @@ atomic_t panic_cpu = ATOMIC_INIT(PANIC_CPU_INVALID);
+ atomic_t panic_redirect_cpu = ATOMIC_INIT(PANIC_CPU_INVALID);
  
--	iib.diib.isc = PCI_ISC;
--	iib.diib.nr_cpus = num_possible_cpus();
--	iib.diib.disb_addr = virt_to_phys(zpci_sbv->vector);
--	zpci_set_irq_ctrl(SIC_IRQ_MODE_DIRECT, 0, &iib);
--
- 	zpci_dibv = kzalloc_objs(*zpci_dibv, num_possible_cpus());
- 	if (!zpci_dibv)
--		return -ENOMEM;
-+		goto out_free_sbv;
+ #if defined(CONFIG_SMP) && defined(CONFIG_CRASH_DUMP)
+-static char *panic_force_buf;
++static char panic_force_buf[PANIC_MSG_BUFSZ];
  
- 	for_each_possible_cpu(cpu) {
- 		/*
-@@ -589,13 +584,30 @@ static int __init zpci_directed_irq_init(void)
- 						AIRQ_IV_CACHELINE |
- 						(!cpu ? AIRQ_IV_ALLOC : 0), NULL);
- 		if (!zpci_dibv[cpu])
--			return -ENOMEM;
-+			goto out_free_dibv;
- 	}
-+
-+	iib.diib.isc = PCI_ISC;
-+	iib.diib.nr_cpus = num_possible_cpus();
-+	iib.diib.disb_addr = virt_to_phys(zpci_sbv->vector);
-+	zpci_set_irq_ctrl(SIC_IRQ_MODE_DIRECT, 0, &iib);
- 	on_each_cpu(cpu_enable_directed_irq, NULL, 1);
- 
- 	zpci_irq_chip.irq_set_affinity = zpci_set_irq_affinity;
- 
- 	return 0;
-+
-+out_free_dibv:
-+	for_each_possible_cpu(cpu) {
-+		if (zpci_dibv[cpu])
-+			airq_iv_release(zpci_dibv[cpu]);
-+	}
-+	kfree(zpci_dibv);
-+	zpci_dibv = NULL;
-+out_free_sbv:
-+	airq_iv_release(zpci_sbv);
-+	zpci_sbv = NULL;
-+	return -ENOMEM;
+ static int __init panic_force_cpu_setup(char *str)
+ {
+@@ -326,17 +326,6 @@ static int __init panic_force_cpu_setup(char *str)
  }
+ early_param("panic_force_cpu", panic_force_cpu_setup);
  
- static int __init zpci_floating_irq_init(void)
+-static int __init panic_force_cpu_late_init(void)
+-{
+-	if (panic_force_cpu < 0)
+-		return 0;
+-
+-	panic_force_buf = kmalloc(PANIC_MSG_BUFSZ, GFP_KERNEL);
+-
+-	return 0;
+-}
+-late_initcall(panic_force_cpu_late_init);
+-
+ static void do_panic_on_target_cpu(void *info)
+ {
+ 	panic("%s", (char *)info);
+@@ -380,7 +369,7 @@ static bool panic_try_force_cpu(const char *fmt, va_list args)
+ {
+ 	int this_cpu = raw_smp_processor_id();
+ 	int old_cpu = PANIC_CPU_INVALID;
+-	const char *msg;
++	va_list ap;
+ 
+ 	/* Feature not enabled via boot parameter */
+ 	if (panic_force_cpu < 0)
+@@ -413,20 +402,11 @@ static bool panic_try_force_cpu(const char *fmt, va_list args)
+ 		return old_cpu != this_cpu;
+ 
+ 	/*
+-	 * Use dynamically allocated buffer if available, otherwise
+-	 * fall back to static message for early boot panics or allocation failure.
++	 * Do not consume args, the caller reuses them if we fail.
+ 	 */
+-	if (panic_force_buf) {
+-		va_list ap;
+-
+-		/* Do not consume args, the caller reuses it if we fail */
+-		va_copy(ap, args);
+-		vsnprintf(panic_force_buf, PANIC_MSG_BUFSZ, fmt, ap);
+-		va_end(ap);
+-		msg = panic_force_buf;
+-	} else {
+-		msg = "Redirected panic (buffer unavailable)";
+-	}
++	va_copy(ap, args);
++	vsnprintf(panic_force_buf, PANIC_MSG_BUFSZ, fmt, ap);
++	va_end(ap);
+ 
+ 	console_verbose();
+ 	bust_spinlocks(1);
+@@ -441,7 +421,7 @@ static bool panic_try_force_cpu(const char *fmt, va_list args)
+ 		dump_stack();
+ 	}
+ 
+-	if (panic_smp_redirect_cpu(panic_force_cpu, (void *)msg) != 0) {
++	if (panic_smp_redirect_cpu(panic_force_cpu, panic_force_buf) != 0) {
+ 		atomic_set(&panic_redirect_cpu, PANIC_CPU_INVALID);
+ 		pr_warn("panic: failed to redirect to CPU %d, continuing on CPU %d\n",
+ 			panic_force_cpu, this_cpu);
 -- 
 2.53.0
 
