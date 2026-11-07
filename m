@@ -1,64 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794060861;
-	b=JBfg/xANsJqqd565e8TqJzQP+oOep2/Xv7tOCryLu9CMJuEZuXTrDoxaE/tOn09x2Sfz
-	 2PgKLEP90X6PFOO+Pwoc3LMJR0dFex5crBHwVxio4nybq77gamXWGGnCxIga3dcUiQE9s
-	 v6Swwc62aHyNlj+jGayviz+bqYhakYRHVFy6tmcix/+Picu8yhxpyoTkZnPIIY41Oad5/
-	 f6u6eChAqc7f0AZB/2g+2J5rkjQ1KlUvfFK5DwoCGSCOYPp2/wZvMcSS84oukf7r2WXx8
-	 QPCQ52r/S8YpEGHoSSQe/9xELcaapOKaHwUxQnpOgPnzSKMjxkWVxAsTcO2HBuQV82g==
+	t=1794060862;
+	b=uecHIo5sisQbS2QnxRerhmeTIAtvo0nevBZqebWvxer+Lx++QJ3Ouh1qXN9VkDri2beY
+	 /O1Mux6vAd7+U8MOG2sekqSmqIEECeIVnWSTk1Y1gJnm8T/pSUqksCqtYcz+p+31/JRGf
+	 UD4xrLqe//i8pZaI8BThRJCxQkOam0lcEo5RiC8yQy0M5BOzb5rRPpbAyYvq8NyQpH+rG
+	 ye9PTJpMs2EwTTL4p0/L+di0dKI4jT5Gxw8JtUq9Q7/5F9Ltjn8SgLBVxWXxkXdMpAuRL
+	 t6QSdkrYiw5/phhjzWJEIIz9VDytsVAHImbiQBsgWAFaAqdezWzVEhtMuPQd5spfPkw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794060861;
-	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
-	 Subject:Message-Id:Date:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=RPPlRfAa8q8m8kCH4uT5obJP/Uf1/VTGNGMMDfFCbMQ=;
-	b=gZF8yGbj9qR8bWsARfb4+Q9j35HUlVVAzRkVsqYXysIEP3yUC6YmPpoE7G4mxJN5U6Wj
-	 8azkJWxvnyH+KQYJop5wRJo8nG4n6qqTtaAta9KZo/796mUmIWxmFhut9scnl/DU+U8vK
-	 NrdQ/CtktPZqUHBF/j/vUaK2NcBnhlCAbY3RCjvqNGKmIt86JKvEGh7BYEj42/ZOH6p9s
-	 jMQLvxsKwbdSFMVQley9krplcbRxPBfFu26lxE7tst+wcZO6Jtynf2nJuDYSZ/r+klqfI
-	 MmiTc42+mIP3bonEqv+3+7qu2uVlJNLv6MJVD1kBMC/HWSBVrye18D+fFXtkSIiea3Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794060862;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=AVj1H0xqke5detJijRK9rko9BlM4gMQu2oN6L2CAS+4=;
+	b=qoAkTJ3LPjkZkA3wY40tyvmp9UsciPu14L1gni/Lcx/ZAr5LZdDDrHhzkDbptORcALiM
+	 UYPdP9IrJD4XPsD3Nn4iDnle/69Se2SxUvQWXK7VkLrF9VVLjk4nqP5+PovXcAWw1cD7J
+	 9AckDi2ddFrRopcwEw2Lw1lCFf66BywhmeszalOwElosCDHVesI5cug7STFS/uEp9GMQd
+	 cENEfcw3BW5UZCX0PnzORK2hM15oyRo6st3dZHDhv/IHgcOWjbcfawJO9cpPGorIACNsk
+	 5DuC48ZhNO1K5jatqsoclUCSB/m0s3N1afi6rnqr4P7z/hUOvN+PcxEhLWWDSfVAxcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="f1IRyn2/";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=AObOXNg+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71821606D834;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B85C606EE80;
 	Sat,  7 Nov 2026 14:14:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f1IRyn2/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13C741F0089F;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=AObOXNg+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E1961F008A1;
 	Sat,  7 Nov 2026 14:14:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794060861;
-	bh=RPPlRfAa8q8m8kCH4uT5obJP/Uf1/VTGNGMMDfFCbMQ=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=f1IRyn2/Dk6JQfdqfRFHHDKQGpk1hoxJ7mMklxxgAGoXuepM3aaQwhHCJPPBTZyjY
-	 YZCbYosjuNx9EDZ+KdOsRvOwC3ENGERUNG+/kL3CSgAGJbfWXXN+wK/QeCzH+vWn1L
-	 6zuwWQrxM+JzLEVPupOA7tqs98h/VwqfHQsLBm5t7HcsHyrNSYuunJrTt5b36WroZ3
-	 CIiXkaxIIb1AnrmvBKTq+d/tShMiVh/RX+Fo5i0zu/WKmn7KbdfDYLw1pQF7iGBOLk
-	 R4Mf5NyOVd4hZ/NkXJb4HNcaLWhb2Q+tAo4ULKfprXH1ZVotTjZeA5FvFlS/6ZbhiA
-	 6sf4KXWxSAxGw==
-Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id DBE0F29E6B03;
-	Sat, 07 Nov 2026 14:14:17 +0000 (GMT)
-From: Mark Brown <broonie@kernel.org>
-To: Ban Tao <fengzheng923@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, Joao Schim <joao@schimsalabim.eu>, 
- linux-sound@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
- Jiale Yao <yaojiale02@163.com>
-Cc: stable@vger.kernel.org
-In-Reply-To: <20261028050626.133421-1-yaojiale02@163.com>
-References: <20261028050626.133421-1-yaojiale02@163.com>
-Subject: Re: [PATCH] ASoC: sunxi: sun50i-dmic: resume device for control
- access
-Message-Id: <179405379422.3424803.12187103513130159217.b4-ty@b4>
-Date: Sat, 07 Nov 2026 12:16:34 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1794060861;
+	bh=AVj1H0xqke5detJijRK9rko9BlM4gMQu2oN6L2CAS+4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=AObOXNg+8bAuiim2NmYlU8sZTQBoUj5zNJ/44SFLZTN300epl/cA9NKFqiXLGHPYB
+	 xyZOfm1xHxh4zRnN0yk+fJqDCgGn9iUKh6FbAhAU/tZ2oj936qoXMp6MFXYVqjFcpB
+	 WZLxVkJK8fVM3dYP4orvVv665cxZqTJNiyoPaFiY=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	David Bauer <mail@david-bauer.net>,
+	Felix Fietkau <nbd@nbd.name>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12 0244/1536] wifi: mt76: mt7915: configure noise floor reporting on reset
+Date: Sat,  7 Nov 2026 08:37:40 -0500
+Message-ID: <20261107135004.535134104@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261107134957.653319350@linuxfoundation.org>
+References: <20261107134957.653319350@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,46 +62,68 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1131; i=broonie@kernel.org;
- h=from:subject:message-id; bh=Gu1jY485f4IoGWid9OKwTb1mv5ZWsLOBY84mmSMNKrE=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLeG1kmymo8l2CKLdzRIesYnnZH6qabygPdQB+zUwUPZ
- i/MVGbvKGVhEONikBVTZInL4n5ZX/J6Dd/BhW0wc1iZQIYwcHEKwES8Ghn+uwsysivcezXhK0vs
- yai2pyp1nlECsz9Xs23uVtjXLdRXxMjwT42Jb1YKx4ydCdu/C5RftOu0twy0EFym42kkENs9iYs
- dAA==
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
 
-On Wed, 28 Oct 2026 13:06:26 +0800, Jiale Yao wrote:
-> ASoC: sunxi: sun50i-dmic: resume device for control access
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-Applied to
+------------------
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.5
+From: David Bauer <mail@david-bauer.net>
 
-Thanks!
+[ Upstream commit a92cd5dd792a63a5d8a72142835382d4edbe9933 ]
 
-[1/1] ASoC: sunxi: sun50i-dmic: resume device for control access
-      https://git.kernel.org/broonie/sound/c/73ade6a51c79
+When performing a full system recovery of the MCU on a dual-phy
+platform, band 0 (usually 2.4GHz) stops reading correct noise floor
+data.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+This is due to noise floor reporting only being configured correctly
+for the second device PHY.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+Configure the respective registers correctly after restarting the MCU
+firmware to fix reported noise-floor values.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+Signed-off-by: David Bauer <mail@david-bauer.net>
+Link: https://patch.msgid.link/20260516144944.2574053-1-mail@david-bauer.net
+Signed-off-by: Felix Fietkau <nbd@nbd.name>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/net/wireless/mediatek/mt76/mt7915/mac.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7915/mac.c b/drivers/net/wireless/mediatek/mt76/mt7915/mac.c
+index 147c0fbfbeb84..175a9a44ae643 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7915/mac.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7915/mac.c
+@@ -1309,6 +1309,7 @@ mt7915_mac_restart(struct mt7915_dev *dev)
+ 	struct mt7915_phy *phy2;
+ 	struct mt76_phy *ext_phy;
+ 	struct mt76_dev *mdev = &dev->mt76;
++	bool run_main, run_ext;
+ 	int i, ret;
+ 
+ 	ext_phy = dev->mt76.phys[MT_BAND1];
+@@ -1399,13 +1400,17 @@ mt7915_mac_restart(struct mt7915_dev *dev)
+ 	mt7915_init_txpower(phy2);
+ 	ret = mt7915_txbf_init(dev);
+ 
+-	if (test_bit(MT76_STATE_RUNNING, &dev->mphy.state)) {
++	run_main = test_and_clear_bit(MT76_STATE_RUNNING, &dev->mphy.state);
++	run_ext = ext_phy &&
++		  test_and_clear_bit(MT76_STATE_RUNNING, &ext_phy->state);
++
++	if (run_main) {
+ 		ret = mt7915_run(dev->mphy.hw);
+ 		if (ret)
+ 			goto out;
+ 	}
+ 
+-	if (ext_phy && test_bit(MT76_STATE_RUNNING, &ext_phy->state)) {
++	if (run_ext) {
+ 		ret = mt7915_run(ext_phy->hw);
+ 		if (ret)
+ 			goto out;
+-- 
+2.53.0
 
-Thanks,
-Mark
+
 
