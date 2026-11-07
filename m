@@ -1,53 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794063698;
-	b=d+KkY0pCYPhoJA1FBrowZi5hmtHy+zcqG3cOGzlqg7c5cqaW4xkcsQWKI8UmutcCf7yA
-	 V7TZujq4oDwPiTC4tcdOovgrDG6sfDHIB94MQliETnK+o2cmPYD/3Kdp3w3vID1otWoD3
-	 SrXDFjNtbT9yz++w8YBvR5ypWpIxOHEzSTtTZ/y4Rbz+H7+5pmIGqwHT2AS/UR8QoNBsQ
-	 SzDzdlpYv2JYJP9EmAUbNPF1BUoC+MKg7DG10Z8o4BQjaccPf3rb/tRhit4xi94Gu9ytl
-	 E5X13j9Qear+1xqQ5L5twnHr8UuLyRPJua0mtnKo6TVew31fCnBxhGx8s19z7JG46Sw==
+	t=1794063699;
+	b=XPYFnhV4Zm7kjaOfgNemtlOP7RD4ovETmoIkZu0NCNXu2XWHKssBQvqLDb26DCKqxYg9
+	 CCkcbtAkFfZ5Sd8/MsEg6+Mz/m75u1S5TWzqkAu/NGyrU2/Yjms7OUFEWP6IVAgnhYbHE
+	 goKWWkLaSDy3d3xp3zTWLzyP8w5ZSIm9RWuJBzihF5lDDOkWif2ugkjYaU2W/4//fy0mg
+	 TJz638RdGFuCqngjTbbjmwvCQL6m6cONrVAOIeI+9briWPCgeHgTFLHv/b5ffdYyNylGX
+	 fIycnmfluY5pN1y+p4oUO2mXvalhWsheaG9F6ZaEx71MDHtmuEbFj0AIesG0oUgakyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794063698;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794063699;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=+0ts/BofrkzRBgXWwVqVxHmTeGofeK2DSYMH/QvWD58=;
-	b=WDqU2ZuMlZdkDaAbK7gbZtQW1TEN4f6npFvQ9E9SQaXCPzidh2dYi8ft8CMpih8RMC4I
-	 wsxUMgZesEamkjCEvl2hGK/3fmInvr7XfkXkByTdc3KsWMKFuRV3YYH4CJcwEe0vt0Yeg
-	 mmCVsi8bd3Pu2hjAHIYM79DT3Tnw5TDuYztSZXWSwbhw2ECC1sivcuUuNLWH6VjrCGJN5
-	 7GJSAiRCsgiMcsC03G/HPRcDuxg/i3qk6StEitYx25VS4W0HFiDyFDem2smcLSBnadOxn
-	 NAUgniiILjEgwoQmGU0K4ah6CA1GyFByXMZoMEvj1Jy5zo97ztW9jDJBg2aUtRg7LuA==
+	bh=QdrsRuvZVGu6FvjYljfJh7lQ6SpJLXm2GDFy6MRgtwA=;
+	b=4PiB+yYzPHLbeRdJlCpjQ07dyAksuCWo1e4wLsgEfggDjlCo8tben9WkMbvQ6z/F7SWs
+	 989AhYBIuZzFuIBEB0gvEJyCy0tDRC+9OqjQm+ux2guwnbI0Lt5gJUOQsf5SxSJ2ZJnDD
+	 qxIFw7CxoB/19hWSIScJ6j3f56+6ZMQmXDToF9vIhctzH1w3yUuLnYvyB8asiwrHqVUwD
+	 5UAt7AE1eZggt1zjYPGtI6HIY7bQcrdbmOjVM3IUImZ1nbaQPfRf6fORERsz+xj3hqrdB
+	 ZeqiwpN8a6k5mKETso4/yvSh9xHYoO74g9Aum5jwc5Rvom4Hzc5zo/cYCQgru0epcxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=oDw1q42d;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0qJRYHef;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD521606B8A6;
-	Sat,  7 Nov 2026 15:01:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AB38606B8A4;
+	Sat,  7 Nov 2026 15:01:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=oDw1q42d
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A6071F0089F;
-	Sat,  7 Nov 2026 15:01:37 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0qJRYHef
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F1E91F008A1;
+	Sat,  7 Nov 2026 15:01:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794063697;
-	bh=+0ts/BofrkzRBgXWwVqVxHmTeGofeK2DSYMH/QvWD58=;
+	s=korg; t=1794063698;
+	bh=QdrsRuvZVGu6FvjYljfJh7lQ6SpJLXm2GDFy6MRgtwA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oDw1q42duFj8EYx5OgQ46/EwRKIULBdkZJMSEylLTpdtMvKN2iwnUYJ9n+epnnaDq
-	 pbVPPdayUYEK8CgRuQH5TyrKQxL+cg/MRbHRCRu+1i4m5nPBnHAU1zjG4Dr2o//DAY
-	 63RqpnMOYJxRjGYcaY8LMMHV2RgDZ9LKFY2hFoTM=
+	b=0qJRYHefT5uXrDLvKkFABrz+OqS7o+sdQqO2g78nSK3eIbAxiTLz60tmGz5mPxoL5
+	 3xTZMrb0+y0xv5tOr1Fl8uVvXMNXfFLiV+y3DEFBUdz88vnu+onalOERNu/K0qisDE
+	 /IXSUFoYNTR8UJhtXei4Cp/Vq3LSnn8QNmDpIMsU=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Max Kellermann <max.kellermann@ionos.com>,
-	Xiubo Li <xiubo.li@clyso.com>,
-	Ilya Dryomov <idryomov@gmail.com>,
+	Huacai Chen <chenhuacai@loongson.cn>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 766/869] ceph: avoid pending truncate during nonblocking cap acquire
-Date: Sat,  7 Nov 2026 08:57:28 -0500
-Message-ID: <20261107134918.685756272@linuxfoundation.org>
+Subject: [PATCH 6.18 802/869] LoongArch: Call cpu_final_simd() with pure_initcall()
+Date: Sat,  7 Nov 2026 08:58:04 -0500
+Message-ID: <20261107134920.112638142@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261107134852.069646174@linuxfoundation.org>
 References: <20261107134852.069646174@linuxfoundation.org>
@@ -69,42 +67,39 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Max Kellermann <max.kellermann@ionos.com>
+From: Huacai Chen <chenhuacai@loongson.cn>
 
-[ Upstream commit 979b7ed4457a04c5a41c36f86052ecc6b76c67d9 ]
+[ Upstream commit 9b56c3659a7e5d930ab3c07ea74cc46af65b6d20 ]
 
-Readahead acquires caps while the folios are locked.  This can
-deadlock when processing a pending truncate; truncate_pagecache() can
-then attempt to a folio that is already locked.
+After commit 35ebc4de105989034f12 ("xor: remove macro abuse for XOR
+implementation registrations"), using "simd=128" to limit SIMD on a
+platform with 256bit SIMD instructions causes a boot failure.
 
-Return -EAGAIN instead when `NON_BLOCKING` is set, causing the
-readahead to be abandoned.
+Because cpu_final_simd() is called with arch_initcall() now, which is
+after xor_init(), LASX flavors are selected but not workable.
+
+Call cpu_final_simd() with pure_initcall() which is before xor_init().
 
 Cc: stable@vger.kernel.org
-Fixes: 49870056005c ("ceph: convert ceph_readpages to ceph_readahead")
-Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
-Reviewed-by: Xiubo Li <xiubo.li@clyso.com>
-Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
+Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ceph/caps.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ arch/loongarch/kernel/cpu-probe.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/ceph/caps.c b/fs/ceph/caps.c
-index 91cb305815cbd..7ce1af5b61c88 100644
---- a/fs/ceph/caps.c
-+++ b/fs/ceph/caps.c
-@@ -2878,6 +2878,10 @@ static int try_get_cap_refs(struct inode *inode, int need, int want,
- 	}
+diff --git a/arch/loongarch/kernel/cpu-probe.c b/arch/loongarch/kernel/cpu-probe.c
+index 4ac9c95991670..9f0f9fdac011b 100644
+--- a/arch/loongarch/kernel/cpu-probe.c
++++ b/arch/loongarch/kernel/cpu-probe.c
+@@ -93,7 +93,7 @@ static int __init cpu_final_simd(void)
+ 	return 0;
+ }
  
- 	/* finish pending truncate */
-+	if (ci->i_truncate_pending && (flags & NON_BLOCKING)) {
-+		ret = -EAGAIN;
-+		goto out_unlock;
-+	}
- 	while (ci->i_truncate_pending) {
- 		spin_unlock(&ci->i_ceph_lock);
- 		if (snap_rwsem_locked) {
+-arch_initcall(cpu_final_simd);
++pure_initcall(cpu_final_simd);
+ 
+ static inline void set_elf_platform(int cpu, const char *plat)
+ {
 -- 
 2.53.0
 
