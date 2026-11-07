@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047265;
-	b=UhbDNUFzmC3tFFtZpbUHJngM4NY8qtg6G1+XyTemINoRcPSGZowkYOB6bT545aQBVACi
-	 NKNot+qxbf0hECkdPJwt53Qan1VpvPjeZFq60o1BAPlqZKGypCZLZ8x/Bx2jJcGP1Hf74
-	 AOl/mnR8y/G9LSX0zl2LUNZwB3qtgEYB3r4wL6xDM+NXkG+nlmBSgyJxqLZoR4I8IXHHW
-	 3vvuN/dMNVSyUr1yiFbUfiBXPa1hAA3M4xmR9Mjf7MMcGnVc7Z0nqI0fpk3UTf97N1Mma
-	 NFs4AbqPAGGC3gUzU2NlVZdfgWl6s/Fz+hDTo/h8u8wIEWR9IKF4xT4md1LFCm399Bg==
+	t=1794047267;
+	b=fE3GbDtybjkgZxuVeX9M2l7qiczIZn5SAPbm0HF1smoCXue5OJB/uwvXEdLFY4rE7uDT
+	 6znEsD6YMJcIaTcBB4B8199H7BAa9owj6PLYhGFfq77hGxxa2STXDeWG5iJm3SLT0O1lZ
+	 otWWNtyc2hLX04eRge2w4jxyZokk7snkEAlTp/GyWs9qfD7RPrgbJn0YLohTT1HdvgDwh
+	 7yu5Qdl+J580F1XroU7v3mA8KZuA5MCAhWHIExRogFDlVXhE2TJohrVaATFVAm7VlWgVk
+	 WD+2ci6W4b0cA+Z06iM0E2q6uyQ+SML9Hd7oQAYxnqjrvm/dxVrijd5bT2KdxvPZyLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047265;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047267;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=hSiCUa21YkgriRruF1UgOJDZSQ28TKXfIaF4xMsRBrM=;
-	b=yIcvxZFIp8Hf2nBvgy2ZPVYFfwxbJU0Z0zU4B3ENkhUb+bFPf5dlf8pfVlvmksHtKvTD
-	 u6PoUjTk60xnZ/p3O5XZOwkYTAOtnEsKDe3bJwIEmGVVmFT5IvVJkPvZv5DA37+1ZQw7W
-	 o58wSST3gOHLyYOvjIYORWlJ/THSdNtgqsRH4n/qcbh7MO5uLpBXw0PrfGFQiP8swwr6N
-	 XKkv0tnYLRpaZ520fWHr4rCN1SjwerKu0fuYUBD23GflBGmPf9LL6ZEbToghdxLmdx9ir
-	 ADF03sIFuavTEowjDgoQkj4ikJrquPQ4LdwUzqayTT98ldP0y6pZG8kxQFu7h0HnkWw==
+	bh=mIK5/moLfhZ0OvyKrfVKymfrrOjeZEWd263eFb625Ss=;
+	b=PgBS3AX4XHfvgoWX41mpYO7KoLzCEw3wYqCRhQAA4nHgbbBfdaO37atlBG1Yz4q8Ea41
+	 Be6aA0keQg4Vlmo4k5gkr5HP8+p/khevXASAB7oIjjso3A9kQGVQ36r0iiymxgw3Gkbvb
+	 XcSZ0LMnfFo2cs2foHm97h68F2VJX/jMxSBFAWQDAfcFypQ1pve03tQYkfB5//h156yDi
+	 6U0OKhlNHRTIUsrY+KfhcoCsLmk4/ftnLJv2/v92v/VLmXoLjt8q+WCJ08XjXi9B8/IAP
+	 YDAjzL2Y7cjywLavFtgfbOhJnG7gELSeiWnNfaQTL7JlhOuxj0AFVfazpgTluOMJIYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RqsUNIgk;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XlUwB+Bb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB95D606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:27:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFF59606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:27:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RqsUNIgk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 586B91F0089F;
-	Sat,  7 Nov 2026 10:27:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XlUwB+Bb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EBC31F0089F;
+	Sat,  7 Nov 2026 10:27:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047264;
-	bh=hSiCUa21YkgriRruF1UgOJDZSQ28TKXfIaF4xMsRBrM=;
+	s=k20260515; t=1794047266;
+	bh=mIK5/moLfhZ0OvyKrfVKymfrrOjeZEWd263eFb625Ss=;
 	h=From:To:Cc:Subject:Date;
-	b=RqsUNIgkV0bN4Z7BUsxOWd0V5UK08rkjktU7H8hlGmeqftXqbAqg4shKSEeM+XOR7
-	 8y9eI3tZSjdna28+Ht8iTiwen3RIs9WY8k1fp9s7aIpd+TwVcSv33ghg/tvPjhPXmM
-	 h4fFR4HST12KxpuNuGnVUGlCUq8f5xiBrBUtGhPi3WeHeEYXd0Q9gClcdiYIaX3qOA
-	 rJ0gmi6caI+jpq4ngzQUxFsz0cHjTp3PlLi9+m7uZ2P+ty1hT4+jvzAhe4uIh0MB9o
-	 rtOjOy5Cka8T5zBtredsiXkwlFO/rSIekS5n6fcAXVShcte/ulyJKtRBRYCXPaZm2X
-	 Ldr90zbsgOE+g==
+	b=XlUwB+BbvlGJC62M7MXam8xsuM9NbMgoG4FP+ZYk79KHGrbCuqTSpx3EGjydGIvI7
+	 4xsKcdWQ0vC+Spo0+O2sczUaFSvxqsGYQR9+t+nox4Eyibv5OgKk8NHwn1K3Vo9Z5a
+	 aKQ4DJviBlQY2W/mI2yrJ9cdF0/kffGaqsLYZFn6PWe8gUvc3WBxY+4fOAJy5FHez6
+	 /cHeuXdnKZhdZUNTuKd5Ua62VwvmXuQDkYOZ4Y8ti0FvQIxKCNg9zcz9FmGZ29OhsY
+	 mT4leinTZhmfRYVbVHjMx0Dkj4/PaFAoSYng7ICJtNEITe9q85JIh5WwVPuK46XYQE
+	 5oS3CN6lqcBsg==
 From: Sasha Levin <sashal@kernel.org>
-To: snishika@redhat.com,
-	kbusch@kernel.org
+To: ebiggers@kernel.org,
+	aalbersh@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] nvme-tcp: fix io_work priority inversion when send_mutex is held" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:27:43 -0500
-Message-ID: <20261107052743-failed-6.12-5db358f3a7f9@kernel.org>
+Subject: FAILED: patch "[PATCH] fsverity: Explicitly require FMODE_READ to retrieve hashes" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:27:45 -0500
+Message-ID: <20261107052745-failed-6.12-1acb4fd2d011@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,111 +68,137 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 5db358f3a7f9c33717622c1597d15c4c91997b19
+git cherry-pick -x 1acb4fd2d011c4bd6cc961095ae17361c71ff61a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052743-failed-6.12-5db358f3a7f9@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052745-failed-6.12-1acb4fd2d011@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 5db358f3a7f9c33717622c1597d15c4c91997b19 Mon Sep 17 00:00:00 2001
-From: Seiji Nishikawa <snishika@redhat.com>
-Date: Wed, 14 Oct 2026 15:45:24 +0900
-Subject: [PATCH] nvme-tcp: fix io_work priority inversion when send_mutex is
- held
+From 1acb4fd2d011c4bd6cc961095ae17361c71ff61a Mon Sep 17 00:00:00 2001
+From: Eric Biggers <ebiggers@kernel.org>
+Date: Thu, 22 Oct 2026 21:15:22 +0000
+Subject: [PATCH] fsverity: Explicitly require FMODE_READ to retrieve hashes
 
-Commit f42d4796ee10 ("nvme-tcp: fix I/O stalls on congested sockets")
-added a check in nvme_tcp_io_work() that sets pending to true when the
-queue has pending requests and the socket is writeable. The check is
-placed after the mutex_trylock() block, so it also runs when
-mutex_trylock(&queue->send_mutex) failed and io_work did not send
-anything.
+The comment in fsverity_ioctl_read_metadata(), which justifies not
+checking for FMODE_READ, doesn't consider that the nonstandard access
+mode 3 (ioctl-only) exists.
 
-When .queue_rq sends a request directly from its own context, it holds
-send_mutex and can give up the CPU in lock_sock_nested() when another
-task needs the CPU, for example the io_work kworker of the same queue,
-which runs on the same CPU. Then io_work cannot take send_mutex, but
-the requests are still on req_list and the socket is writeable, so
-pending is set to true. io_work loops until the deadline and queues
-itself again on io_cpu, without sleeping.
+Opening an ioctl-only fd generally requires read (and write) permission.
+However, there are gaps with certain LSMs: an ioctl-only fd requests
+read (and write) permission via security_inode_permission, but not
+security_file_open.  With certain LSMs relying on the latter, such as
+Landlock and AppArmor, an ioctl-only fd can be opened without the LSM
+granting read (and write) permission.
 
-This is a priority inversion. io_work runs on the high priority
-nvme_tcp_wq and cannot make progress until send_mutex is released, but
-it keeps running. The task holding send_mutex runs at normal priority
-and needs the CPU to release it. The scheduler keeps giving the CPU to
-io_work, so the task holding send_mutex may not run again, and the
-requests on the queue are not sent and time out.
+Since FS_IOC_READ_VERITY_METADATA returns hashes of file contents
+blocks, it should require read permission.  This also applies to
+FS_IOC_MEASURE_VERITY, which returns a hash for the whole file.
 
-This is the same problem that commit 70f437fb4395 ("nvme-tcp: fix
-io_work priority inversion") fixed. That commit removed
-"pending = !llist_empty(&queue->req_list)" from the path where
-mutex_trylock() fails, and let the task holding send_mutex queue
-io_work again in nvme_tcp_queue_request() after it releases the mutex.
-The new check brings back the same behavior in a different form.
+Meanwhile, ioctl-only fds are a rarely-used feature, not known to be
+used with either ioctl.
 
-Two things make this easier to hit. nvme_tcp_queue_request() sends
-directly only when it runs on io_cpu, so the task that takes send_mutex
-is on the same CPU as the io_work kworker of that queue when it takes
-the mutex. Also, when the tasks are in a cgroup with the cpu controller
-enabled, the whole group competes with the nice -20 kworker as one
-entity, so each task in the group gets even less CPU time.
+Therefore, just disallow these ioctls on ioctl-only file descriptors,
+similar to what was already done with FS_IOC_ENABLE_VERITY.
 
-We hit this on a 6 CPU VM running a database on nvme-tcp storage. In
-the vmcore, 2 tasks held send_mutex of 2 queues and were runnable in
-lock_sock_nested() for 103 seconds, while the kworkers for those queues
-kept running io_work on their CPUs. All database tasks were in one
-cgroup, which got only about 0.3% of the CPU against the nice -20
-kworker. Requests timed out, and blk_mq_timeout_work() waited in
-synchronize_srcu() for the tasks still in .queue_rq.
+More specifically, explicitly check for FMODE_READ.  This also covers
+write-only fds to non-verity files which otherwise would have failed
+with ENODATA.  This change in error code for write-only fds should be
+fine too, as these ioctls cannot be usefully used with write-only fds
+anyway, but it's worth noting as another technicality.
 
-Only do the pending check if io_work could take send_mutex. If it could
-not, the task holding send_mutex sends what it can in
-nvme_tcp_send_all(), and queues io_work again after it releases the
-mutex if requests are still pending, so no request is left behind.
-
-Fixes: f42d4796ee10 ("nvme-tcp: fix I/O stalls on congested sockets")
-Cc: stable@vger.kernel.org # v6.16+
-Signed-off-by: Seiji Nishikawa <snishika@redhat.com>
-Signed-off-by: Keith Busch <kbusch@kernel.org>
+Fixes: 4dd893d832cf ("fs-verity: implement FS_IOC_MEASURE_VERITY ioctl")
+Fixes: e17fe6579de0 ("fs-verity: add FS_IOC_READ_VERITY_METADATA ioctl")
+Cc: stable@vger.kernel.org
+Reviewed-by: Andrey Albershteyn <aalbersh@kernel.org>
+Link: https://patch.msgid.link/20261022211522.1489943-1-ebiggers@kernel.org
+Signed-off-by: Eric Biggers <ebiggers@kernel.org>
 ---
- drivers/nvme/host/tcp.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ Documentation/filesystems/fsverity.rst |  3 +++
+ fs/verity/measure.c                    | 10 ++++++++++
+ fs/verity/read_metadata.c              | 14 ++++++++++----
+ 3 files changed, 23 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
-index 191e5811d25ea..1f7a2de954197 100644
---- a/drivers/nvme/host/tcp.c
-+++ b/drivers/nvme/host/tcp.c
-@@ -1461,9 +1461,11 @@ static void nvme_tcp_io_work(struct work_struct *w)
+diff --git a/Documentation/filesystems/fsverity.rst b/Documentation/filesystems/fsverity.rst
+index 22b49b295d1f9..e5d38439bf585 100644
+--- a/Documentation/filesystems/fsverity.rst
++++ b/Documentation/filesystems/fsverity.rst
+@@ -170,6 +170,7 @@ fatal signal), no changes are made to the file.
+ FS_IOC_ENABLE_VERITY can fail with the following errors:
  
- 	do {
- 		bool pending = false;
-+		bool got_send_mutex = false;
- 		int result;
+ - ``EACCES``: the process does not have write access to the file
++- ``EBADF``: the file descriptor is not open for reading
+ - ``EBADMSG``: the builtin signature is malformed
+ - ``EBUSY``: this ioctl is already running on the file
+ - ``EEXIST``: the file already has verity enabled
+@@ -232,6 +233,7 @@ regardless of the size of the file.
  
- 		if (mutex_trylock(&queue->send_mutex)) {
-+			got_send_mutex = true;
- 			result = nvme_tcp_try_send(queue);
- 			mutex_unlock(&queue->send_mutex);
- 			if (result > 0)
-@@ -1478,8 +1480,13 @@ static void nvme_tcp_io_work(struct work_struct *w)
- 		else if (unlikely(result < 0))
- 			return;
+ FS_IOC_MEASURE_VERITY can fail with the following errors:
  
--		/* did we get some space after spending time in recv? */
--		if (nvme_tcp_queue_has_pending(queue) &&
-+		/*
-+		 * did we get some space after spending time in recv?
-+		 * Only check this if we could take send_mutex. Otherwise
-+		 * the task holding it sends the requests and queues io_work
-+		 * again after it releases the mutex.
-+		 */
-+		if (got_send_mutex && nvme_tcp_queue_has_pending(queue) &&
- 		    sk_stream_is_writeable(queue->sock->sk))
- 			pending = true;
++- ``EBADF``: the file descriptor is not open for reading
+ - ``EFAULT``: the caller provided inaccessible memory
+ - ``ENODATA``: the file is not a verity file
+ - ``ENOTTY``: this type of filesystem does not implement fs-verity
+@@ -310,6 +312,7 @@ blocks from disk without actually verifying the path to the root node.
  
+ FS_IOC_READ_VERITY_METADATA can fail with the following errors:
+ 
++- ``EBADF``: the file descriptor is not open for reading
+ - ``EFAULT``: the caller provided inaccessible memory
+ - ``EINTR``: the ioctl was interrupted before any data was read
+ - ``EINVAL``: reserved fields were set, or ``offset + length``
+diff --git a/fs/verity/measure.c b/fs/verity/measure.c
+index 68dfccb697720..0c75616dca011 100644
+--- a/fs/verity/measure.c
++++ b/fs/verity/measure.c
+@@ -31,6 +31,16 @@ int fsverity_ioctl_measure(struct file *filp, void __user *_uarg)
+ 	const struct fsverity_hash_alg *hash_alg;
+ 	struct fsverity_digest arg;
+ 
++	/*
++	 * This ioctl returns a hash of the file contents, so it should require
++	 * read permission.  Disallow it on ioctl-only (i.e., nonstandard access
++	 * mode 3) fds, which can in some cases be acquired without passing all
++	 * LSM read-permission checks.  Also disallow write-only fds, which can
++	 * refer only to non-verity files which would fail with ENODATA anyway.
++	 */
++	if (!(filp->f_mode & FMODE_READ))
++		return -EBADF;
++
+ 	vi = fsverity_get_info(inode);
+ 	if (!vi)
+ 		return -ENODATA; /* not a verity file */
+diff --git a/fs/verity/read_metadata.c b/fs/verity/read_metadata.c
+index b4c0892430cde..6694149f7b467 100644
+--- a/fs/verity/read_metadata.c
++++ b/fs/verity/read_metadata.c
+@@ -166,13 +166,19 @@ int fsverity_ioctl_read_metadata(struct file *filp, const void __user *uarg)
+ 	int length;
+ 	void __user *buf;
+ 
++	/*
++	 * This ioctl returns file contents block hashes, so it should require
++	 * read permission.  Disallow it on ioctl-only (i.e., nonstandard access
++	 * mode 3) fds, which can in some cases be acquired without passing all
++	 * LSM read-permission checks.  Also disallow write-only fds, which can
++	 * refer only to non-verity files which would fail with ENODATA anyway.
++	 */
++	if (!(filp->f_mode & FMODE_READ))
++		return -EBADF;
++
+ 	vi = fsverity_get_info(inode);
+ 	if (!vi)
+ 		return -ENODATA; /* not a verity file */
+-	/*
+-	 * Note that we don't have to explicitly check that the file is open for
+-	 * reading, since verity files can only be opened for reading.
+-	 */
+ 
+ 	if (copy_from_user(&arg, uarg, sizeof(arg)))
+ 		return -EFAULT;
 -- 
 2.53.0
 
