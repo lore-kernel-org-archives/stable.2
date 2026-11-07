@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047784;
-	b=or2ZWdUkoc7tnTTWoy7XsW4VQCoKYuaC3x6jk3gwFVgk8JJfRyjIN5FiBepwY42xM9O2
-	 51iLjwQw9dbhdlLDYEgiz4oE4E3gjpVQ8rxBDOMwK4TJky/S+vvtxQEzjoyK9IqwBnF4f
-	 f4yfNqXpjuFPDaJXw9Y6+9CR0u/3CceM0e0vXOK/P+eQE3jXnBwDBhdpvRt6FW8Qhb6J3
-	 JRdHxyYYFHFE4AzDPUG6MpUL/LqD0StunGULkoS4G8ZUweUflgmazG8Z2lBHIoI1XjH4g
-	 3pP6Vg8A+XDFqhctPBY8ktptkggcY0eUQysazdCwc+wd52F+smoCYRYpV7P1TWh6gBA==
+	t=1794047786;
+	b=fCE+1/rU4kdAEi6SrSxMmUd3XKAxRwlT+XKarm0WxuvPi3OzO91u5LT1M5RxziarrEHS
+	 xwQWf7IvsOJDxQb0jMWlTwcIbcJSPi/SRnOXLYrIbcntbGpxkNbtuB2GgNG7jmcucv/op
+	 iBZAsmGhPnQWt0IBaPN8aFbpM/5XBYuPsVe31A1FCPfdRkM/tMIBXfDWPPVp0eKaDcdH+
+	 9cJkyefFfOvmt+xcj9FOvu3S7WGKeCTf7MGIIlEVsVduqUcMA5VuSiyRX7J/GFqvnhXxU
+	 h7IB7yE7D1QUAp79v4LJhEKQTCy7OuohkxV0fMLYU7/wpMq4x9CAjs6dza0avt2Fymg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047784;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047786;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=1QAX6gpnPxtM1KMnrv9p9+QLzAQI0fBkme5i12tnqyo=;
-	b=ik+KICmCOtTJnJXRpA8bs6E1V8Q7mPWVuoVw10zdU0Pu8Ssk48jfyEaEr6RgU3nY2GfZ
-	 /lePZ0wgFt85MMx4vDyIai2bkJGNkDnfnfp39nHP9cUPcmXNuOfCtmQ8qABldUbCppMP+
-	 L5+6Tll6RJXUPTw98iBkF4rR/nfdet1hv9Yw2h7ubiAE4UGn6jcDEXhHs7uC2zNpPfogk
-	 ypGukA9IKKMYSArw6NW435WYIpJ31BZAaKrQfOYWPDN94NOLZYCJLMZFa8SX3BwLdrZKY
-	 v3c/XKLD7Jlj7F0CowHwA35/NgMDm2pq5ylikacJOoTExr/zZ/8RyKpe4tz6muGQPrA==
+	bh=aElT8Xlr2NRec+33GryU60rH/VlYWNjrvbNEW+CE1hM=;
+	b=0OjTM7bVMslv/KRoqV5WFZCyzTaQwPKgJMc8/QdT4ycf6H5G5qr37B9wRbpQRO59BHha
+	 qriPansjN5o2vXd/3yqBtTFKc+Bw9bYJAq/2deACqLX3+hXvNlNb+YhhtBj5o9nzOkGSv
+	 p3dY5bz9zmwM1QVq4G5CWV5kU+ELtU/o2t/lqA4Z2mTqezzNcQvtMEZqxQ0ttIKtb6GqV
+	 fMRrBe8bdt9iE6kjZMA2CdYA/+o4P7txt2PmmzlQgtAqIZdCDgLblDPJAbsDk+pUpi14r
+	 73JSdwi3W38n0FrIs7eokT2r7cLDEhOkiQyd3jhq2NseEIitePPlKvHkRaAn8kLYIuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dj8ynuY9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RCFhNVRL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 663F4606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:36:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73240606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:36:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dj8ynuY9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D47A31F0089F;
-	Sat,  7 Nov 2026 10:36:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RCFhNVRL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E29071F008A1;
+	Sat,  7 Nov 2026 10:36:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047784;
-	bh=1QAX6gpnPxtM1KMnrv9p9+QLzAQI0fBkme5i12tnqyo=;
+	s=k20260515; t=1794047786;
+	bh=aElT8Xlr2NRec+33GryU60rH/VlYWNjrvbNEW+CE1hM=;
 	h=From:To:Cc:Subject:Date;
-	b=dj8ynuY906M+/JTywnpxDMgme4ur9jUGBk28iYs7MPGYoDRhMABZI4fjspWKBBc+0
-	 FtCMFY3FDq3PL+hRVbmPwdy0RPB6yPc7KVr9BV4fDnD6sDKcluOjmdH1oYvUkai3Mf
-	 6SGtXsVm8Tv5Oxc7PtSewJSVpaMPSqoRqIjHWBew6SsPgpxtlv3WQJKhgOC1WqWRvI
-	 OBZ0y/hunK37AUm90Q0OJkX7mQZQISKiNL84J45eLVRMEnyK+FDIzuLNCyZHMy97Wr
-	 PayDN9e+NZn2ztBLQyLlJW/Y54Rmrj8YCMTm2YwTYFOH8p50DyjMzLxZTfnKINDsOq
-	 uWtd9R6I95n0A==
+	b=RCFhNVRLsBgSUeZ2tqx6Xs3gKoj+DdaOP94pH6aj2UDu8Eg40aZg1cF30aKKAry1j
+	 0fquKXmY9OlW7RRBQNMAY5d2hJXP4T6mh8QHp7nv56ShZAYLf65x4JZfrZmOzSGOKP
+	 wedr7koTipv+ALrqzdFvzBxz48fHhiH3KookStkW3zlBNmCEmxY2V62GCW38DBRyLX
+	 I/OaLE+hB/5d993UAZ60QCTlzpkMdMzavNO+BBKP5ZseqxtQiPBwOBlZTm3q+EctPK
+	 fumbNbzdpHt9pzjBqSWleMyp0e50KjEondbwG24dczRQd9mLen+1eOcGtSZsHqjLXV
+	 kSrolYGBqnDmw==
 From: Sasha Levin <sashal@kernel.org>
-To: turbine.bmw@gmail.com,
-	sebastian.reichel@collabora.com
+To: linmag7@gmail.com,
+	mattst88@gmail.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] power: supply: qcom_battmgr: Notify charger supplies of online changes" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:36:22 -0500
-Message-ID: <20261107053622-failed-6.6-87fd20da8ca8@kernel.org>
+Subject: FAILED: patch "[PATCH] alpha: load the MMU context when switch_mm() switches the current task" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:36:24 -0500
+Message-ID: <20261107053624-failed-6.6-9b8be19d5dc9@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,91 +68,105 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 87fd20da8ca8bacdaa9bff5860167f208077dc51
+git cherry-pick -x 9b8be19d5dc9525a408942e2e8012873199e7455
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053622-failed-6.6-87fd20da8ca8@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053624-failed-6.6-9b8be19d5dc9@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 87fd20da8ca8bacdaa9bff5860167f208077dc51 Mon Sep 17 00:00:00 2001
-From: Brandon Williams <turbine.bmw@gmail.com>
-Date: Tue, 13 Oct 2026 13:34:51 -0400
-Subject: [PATCH] power: supply: qcom_battmgr: Notify charger supplies of
- online changes
+From 9b8be19d5dc9525a408942e2e8012873199e7455 Mon Sep 17 00:00:00 2001
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Sat, 10 Oct 2026 16:24:27 +0200
+Subject: [PATCH] alpha: load the MMU context when switch_mm() switches the
+ current task
 
-On SC8280XP and X1E80100 the AC, USB and wireless supplies take their
-online state from the charging source in the battery status response.
-The firmware sends no notification for those supplies when the charging
-source changes, and the driver only announces the battery, so userspace
-never learns that the charger was plugged in or out. UPower keeps the
-state it read at startup: a laptop booted on the charger never goes on
-battery.
+ev5_switch_mm() only prepares the incoming PCB. The context is installed
+by PAL_swpctx, which alpha_switch_to() issues against that PCB on the way
+out of the scheduler.
 
-Call power_supply_changed() for a supply whose online state changes when
-a status response is parsed. A supply that is not registered yet, when
-the battery is read during probe, reports its state when it registers.
+Direct callers reach switch_mm() without going through alpha_switch_to():
+kthread_use_mm(), which borrows an mm for the current kernel thread,
+sched_force_init_mm() on the CPU-hotplug teardown path, and
+do_shoot_lazy_tlb(), which switches to init_mm from an IPI. None explicitly
+loads the context, so the task can carry on running under whatever was
+loaded before. For kthread_use_mm(), current->mm then names the borrowed
+mm even though its context has not been loaded. The other two callers
+change active_mm while leaving current->mm NULL.
 
-Tested on a Microsoft Surface Pro 11 (X1E80100): after restarting UPower
-on the charger, unplugging now sets OnBattery, and plugging in clears it.
+The stale page-table root need not be swapper_pg_dir; it may belong to a
+user process that ran on the CPU earlier, and the kthread's user accesses
+can then read and write that process's memory wherever the stale mappings
+allow. Translations taken that way can also end up tagged with the
+borrowed mm's ASN: ev5_switch_mm() writes that ASN into the PCB, which the
+next PAL_swpctx installs against the stale ptbr. An address the stale
+tables do not map faults instead, and since do_page_fault() resolves
+faults against current->mm without reloading the context, the same access
+can fault again on return.
 
-Fixes: 29e8142b5623 ("power: supply: Introduce Qualcomm PMIC GLINK power supply")
+sched_force_init_mm() needs CONFIG_HOTPLUG_CPU and do_shoot_lazy_tlb()
+needs CONFIG_MMU_LAZY_TLB_SHOOTDOWN. Alpha selects neither, so only
+kthread_use_mm() is reachable in practice. Test the caller's identity
+rather than special-casing individual callers.
+
+The scheduler passes the incoming task, which is not current until
+alpha_switch_to() runs; all three direct callers pass current. Test for
+that and load the context the way activate_mm() does. All three run with
+interrupts disabled across the switch, so this completes before any
+shootdown can be taken and needs no asn_lock handshake.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Brandon Williams <turbine.bmw@gmail.com>
-Link: https://patch.msgid.link/20261013-upstream-battmgr-charger-online-v1-1-731973e133a0@gmail.com
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Tested-by: Matt Turner <mattst88@gmail.com>
+Reviewed-by: Matt Turner <mattst88@gmail.com>
+Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
+Link: https://lore.kernel.org/r/20261010142533.974797-2-linmag7@gmail.com
+Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
 ---
- drivers/power/supply/qcom_battmgr.c | 26 +++++++++++++++++++++++---
- 1 file changed, 23 insertions(+), 3 deletions(-)
+ arch/alpha/include/asm/mmu_context.h | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/power/supply/qcom_battmgr.c b/drivers/power/supply/qcom_battmgr.c
-index 3529d4a564ca6..99ae0920f7264 100644
---- a/drivers/power/supply/qcom_battmgr.c
-+++ b/drivers/power/supply/qcom_battmgr.c
-@@ -1255,6 +1255,23 @@ static unsigned int qcom_battmgr_sc8280xp_convert_temp(unsigned int temperature)
- 	return DIV_ROUND_CLOSEST(temperature, 10);
+diff --git a/arch/alpha/include/asm/mmu_context.h b/arch/alpha/include/asm/mmu_context.h
+index eee8fe836a59e..d366f89fee585 100644
+--- a/arch/alpha/include/asm/mmu_context.h
++++ b/arch/alpha/include/asm/mmu_context.h
+@@ -130,6 +130,8 @@ __get_new_mm_context(struct mm_struct *mm, long cpu)
+ 	return next;
  }
  
-+/*
-+ * The charger supplies' online state comes from the battery status response,
-+ * and the firmware sends no notification of its own when it changes, so
-+ * announce the change here. A supply that is not registered yet announces its
-+ * state when it is.
-+ */
-+static void qcom_battmgr_sc8280xp_set_online(struct power_supply *psy,
-+					     bool *online, bool value)
-+{
-+	if (*online == value)
-+		return;
++extern void __load_new_mm_context(struct mm_struct *);
 +
-+	*online = value;
-+	if (psy)
-+		power_supply_changed(psy);
-+}
-+
- static void qcom_battmgr_sc8280xp_callback(struct qcom_battmgr *battmgr,
- 					   const struct qcom_battmgr_message *resp,
- 					   size_t len)
-@@ -1324,9 +1341,12 @@ static void qcom_battmgr_sc8280xp_callback(struct qcom_battmgr *battmgr,
- 		battmgr->status.temperature = qcom_battmgr_sc8280xp_convert_temp(le32_to_cpu(resp->status.temperature));
+ __EXTERN_INLINE void
+ ev5_switch_mm(struct mm_struct *prev_mm, struct mm_struct *next_mm,
+ 	      struct task_struct *next)
+@@ -139,6 +141,16 @@ ev5_switch_mm(struct mm_struct *prev_mm, struct mm_struct *next_mm,
+ 	unsigned long mmc;
+ 	long cpu = smp_processor_id();
  
- 		source = le32_to_cpu(resp->status.charging_source);
--		battmgr->ac.online = source == BATTMGR_CHARGING_SOURCE_AC;
--		battmgr->usb.online = source == BATTMGR_CHARGING_SOURCE_USB;
--		battmgr->wireless.online = source == BATTMGR_CHARGING_SOURCE_WIRELESS;
-+		qcom_battmgr_sc8280xp_set_online(battmgr->ac_psy, &battmgr->ac.online,
-+						 source == BATTMGR_CHARGING_SOURCE_AC);
-+		qcom_battmgr_sc8280xp_set_online(battmgr->usb_psy, &battmgr->usb.online,
-+						 source == BATTMGR_CHARGING_SOURCE_USB);
-+		qcom_battmgr_sc8280xp_set_online(battmgr->wls_psy, &battmgr->wireless.online,
-+						 source == BATTMGR_CHARGING_SOURCE_WIRELESS);
- 		if (battmgr->info.last_full_capacity != 0) {
- 			/*
- 			 * 100 * battmgr->status.capacity can overflow a 32bit
++	/*
++	 * kthread_use_mm(), sched_force_init_mm() and do_shoot_lazy_tlb()
++	 * switch current's mm without alpha_switch_to(), which loads the
++	 * context. The latter two require options Alpha does not select.
++	 */
++	if (next == current) {
++		__load_new_mm_context(next_mm);
++		return;
++	}
++
+ #ifdef CONFIG_SMP
+ 	cpu_data[cpu].asn_lock = 1;
+ 	barrier();
+@@ -160,7 +172,6 @@ ev5_switch_mm(struct mm_struct *prev_mm, struct mm_struct *next_mm,
+ 	task_thread_info(next)->pcb.asn = mmc & HARDWARE_ASN_MASK;
+ }
+ 
+-extern void __load_new_mm_context(struct mm_struct *);
+ asmlinkage void do_page_fault(unsigned long address, unsigned long mmcsr,
+ 			      long cause, struct pt_regs *regs);
+ 
 -- 
 2.53.0
 
