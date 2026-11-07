@@ -1,53 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794063701;
-	b=uAQ8mY/gm09sjRDPaCPL+iBYRTCHJqCyQNxriGzgNZHaWHi2/UbZQC7aFQgir1JeDSx/
-	 yLdM7Z2Ph8akaMYD7cJ/hdwsXXFhZHiWSWBBVR1WBCPagJB8D9REdgWUhdMM5bpay4PTi
-	 KAnRh8RWdZiyTPXuexBRhvE2D2zhe2dOxCCrXGAr1pkK6Bpi6w086xg9IP+LMvd0KEt5N
-	 x61Mcq6FYjDDfZ1iC79ZEu+Km+T61NhRglg/ptSRocV2fRIXuMRrrtY3J9Rgxmix03ZI3
-	 gQwLG4y/+mC2ZXxonhv/8CkfQRkx+biNZcbZpQf3+zyNe73QtikU9t5AAB/AsqAgDSg==
+	t=1794063703;
+	b=qxVfi4wh6OhLJM/o7x8wm5k/9QCN1cfcWatnPKiLZnUg3UYWdYDnZRqolLxJ6BBNVPl3
+	 iNqFJV9EDeMMChlS/KpewOd6gsSlx5gzQeWzbj18mj1mVyXdYAMOnQdxt/VE5lqTMahI0
+	 wU4uAh0dTSqKHlk1ED5UChYNA4OxtOq9+MEn/aW6aIx7YKsC/g2cPr8uhs7kyRZ7js5Cf
+	 Snjge6vZGe1pvRX8FD4x1yYDOb7sQI2DWXmIs0Y/dXXVu1Z/CM53JGI6HI4Ui2tBq4Ng8
+	 AhSR8iE5JmmFUcJW8wVnggobM3Nji8dEIG0QlXdqx8L6O9FwJCICK16SH54yNK3LNBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794063701;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794063703;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=hstaBIEo0dzr/Ed784izEB9o3RvtNiiUIROxtb7kKZ4=;
-	b=NoLjA8/bEqWF7mQmPDb0xGwJs3EznpXeKibLp3/6AjKD3fUZbhpSBlD2AjbA74IpsM70
-	 pdQpewomtWWpgYGZClyRefNsVi/GnC/wPtozFS2K7tzH8j16z7beUAXhA6LVht1HiXHEV
-	 RSed5SgqnUzgHcmMUiPKbPcQFNUQ3DC92y79KKMtzlVKxdU5SsYe5fA5v3MpVMhyBl9/Y
-	 Ry64p6HCsBwziyBBgfY+e3P9/mvatNzfQ/bxoDNKTotKCHq9M6V2qrNG95eolH9T99qsU
-	 3K07uhQymo1p1ro96IXj/Zp+qbuvx7CwwHddHCi67fcEDsABfZkVC+Y4x31ajC3Bb/w==
+	bh=fwqGk4vEXWZi8o72VgL2OOlom47G1nuEpShL706TzQc=;
+	b=AgJvDXm43PePivwIFebdY6+pQH4q5L4HF9zhjPbgDkmgCbnAi99U7CjwIC0GfDo+HHYu
+	 PGnvOB+yyBSPz1GAoTnIBw0IgXvwj9eGx4sGUkjSclc4galN8cazgNqqN6ivw/4yevRfz
+	 dMS2ZuHVG7lhIwoJEahj53gmp/eYPTCUQqua4x0WBoj1diHYgZ3BRRGN/FwlwHtvdGOjb
+	 iphm6HEC/BM0SDP0i1t7akcB574foFkpK6YDO+KWqDqUq0BEo7pTjMUO/cXwGyi0iQcJh
+	 sX6vcD99vekPDjdfKhSVVoMe1/WPB32w8SgNy/pL/sRJslz/fr+0XFZ+HvGN+PBY+Sg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=i7oVD2L6;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zOmypv10;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E61DC60A6F61;
-	Sat,  7 Nov 2026 15:01:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19007606B8B7;
+	Sat,  7 Nov 2026 15:01:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=i7oVD2L6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A8411F0089F;
-	Sat,  7 Nov 2026 15:01:40 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zOmypv10
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCC731F0089F;
+	Sat,  7 Nov 2026 15:01:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794063700;
-	bh=hstaBIEo0dzr/Ed784izEB9o3RvtNiiUIROxtb7kKZ4=;
+	s=korg; t=1794063703;
+	bh=fwqGk4vEXWZi8o72VgL2OOlom47G1nuEpShL706TzQc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=i7oVD2L6omz9uYfdgKuQhcAoje/dNOm9fuPi5BhK4bRHXEMSt2KeYxsyQ8LH/fGyW
-	 QKuLY35qChD4xCSjEr32naD/tBKHVNuNMgz0IafWQ+WGMxzp3HaYpfSzw1PmDGM9ce
-	 KgRwx/btQsUQBC4Wu7BwbYvTUSgdCWQELaMqLw1A=
+	b=zOmypv103wKCFQCWzXu25PKBio92p16wlCIBVDHIsGyU7qwcyu4v+s4ZHyRuuVq1M
+	 ozFaLplJR4+0X4QZrA1QSuFqlx2r4JoMDUMGKaxZlsUZsG0UBQIQjVyzdqpzrDoFCI
+	 DN0F3ce37QCrl8qMazQRiiGwt71xS/F/Df0w2tCA=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Guanglei Zhu <zhugl3@xiaopeng.com>,
+	co+f8e3e01d8dda8689@bugs.sh,
+	Xiang Mei <xmei5@asu.edu>,
 	Alex Markuze <amarkuze@redhat.com>,
 	Ilya Dryomov <idryomov@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 767/869] ceph: fix out-of-bounds read in ceph_netfs_issue_op_inline()
-Date: Sat,  7 Nov 2026 08:57:29 -0500
-Message-ID: <20261107134918.722770761@linuxfoundation.org>
+Subject: [PATCH 6.18 768/869] ceph: reject mdsmaps that claim more than CEPH_MAX_MDS ranks
+Date: Sat,  7 Nov 2026 08:57:30 -0500
+Message-ID: <20261107134918.758612810@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261107134852.069646174@linuxfoundation.org>
 References: <20261107134852.069646174@linuxfoundation.org>
@@ -69,52 +70,91 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Guanglei Zhu <zhugl3@xiaopeng.com>
+From: Xiang Mei <xmei5@asu.edu>
 
-[ Upstream commit cdbb60f00f87297a9db2652847dfc0eaaf3c45aa ]
+[ Upstream commit c1742590d2b2fc5fb217e1a9b520108f1fe282e5 ]
 
-The read offset is validated against i_size but never against
-inline_len, and the two fields come from the MDS independently.  When
-a read starts past the end of the inline data, the subtraction
+check_new_map() sizes its export-target bitmap from CEPH_MAX_MDS but walks
+it with newmap->possible_max_rank, which comes straight off the wire:
+ceph_mdsmap_decode() sets it to max(m_num_active_mds, m_max_mds), then
+overwrites it with the size of the "in" set.  Neither is bounded by
+CEPH_MAX_MDS, only by m_info allocating, so a monitor announcing more ranks
+than the bitmap holds makes test_bit() read past the end of targets[].  The
+clear_bit() loop above indexes the same bitmap, though it is additionally
+bounded by mdsc->max_sessions.  The map arrives on the monitor connection,
+which is unauthenticated in legacy msgr mode.
 
-	len = min_t(size_t, iinfo->inline_len - subreq->start, subreq->len);
+CEPH_MAX_MDS is a protocol constant from src/mds/mdstypes.h, and the
+reserved inode ranges in super.h are laid out one rank apart over that
+span, so a map claiming more ranks is corrupt.  Reject it where the rank
+space is established rather than letting the count reach check_new_map().
 
-underflows and min_t() ends up with subreq->len, so copy_to_iter()
-reads past the end of the inline buffer straight into the user
-buffer.  A malicious or buggy MDS reporting a short inline payload
-together with an inflated i_size can thus leak kernel heap memory to
-userspace.
-
-Bail out with -ENODATA when the offset is not within the inline
-data.
+  BUG: KASAN: stack-out-of-bounds in check_new_map (fs/ceph/mds_client.c:5968)
+  Read of size 8 at addr ffffc90000ac7798 by task kworker/1:2/127
+  Workqueue: ceph-msgr ceph_con_workfn
+  Call Trace:
+   <TASK>
+   dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
+   print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
+   kasan_report (mm/kasan/report.c:595)
+   kasan_check_range (mm/kasan/generic.c:186 mm/kasan/generic.c:200)
+   check_new_map (fs/ceph/mds_client.c:5968)
+   ceph_mdsc_handle_mdsmap (fs/ceph/mds_client.c:7060)
+   extra_mon_dispatch (fs/ceph/super.c:802)
+   mon_dispatch (net/ceph/mon_client.c:1483)
+   ceph_con_process_message (net/ceph/messenger.c:1424)
+   ceph_con_v1_try_read (net/ceph/messenger_v1.c:1430)
+   ceph_con_workfn (net/ceph/messenger.c:1576)
+   process_one_work (kernel/workqueue.c:3396)
+   worker_thread (kernel/workqueue.c:3479 kernel/workqueue.c:3560)
+   kthread (kernel/kthread.c:436)
+   ret_from_fork (arch/x86/kernel/process.c:158)
+   ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
+   </TASK>
+  The buggy address belongs to stack of task kworker/1:2/127
+   and is located at offset 288 in frame:
+   check_new_map (fs/ceph/mds_client.c:5846)
+  This frame has 1 object:
+   [32, 288) 'targets'
 
 Cc: stable@vger.kernel.org
-Fixes: 5b19f1eba459 ("ceph: make ceph_netfs_issue_op() handle inlined data")
-Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
+Fixes: d517b3983dd3 ("ceph: reconnect to the export targets on new mdsmaps")
+Reported-by: co+f8e3e01d8dda8689@bugs.sh
+Assisted-by: LLM
+Signed-off-by: Xiang Mei <xmei5@asu.edu>
 Reviewed-by: Alex Markuze <amarkuze@redhat.com>
 Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ceph/addr.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ fs/ceph/mdsmap.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/fs/ceph/addr.c b/fs/ceph/addr.c
-index cfbd88412f047..f58eba5456e36 100644
---- a/fs/ceph/addr.c
-+++ b/fs/ceph/addr.c
-@@ -314,6 +314,12 @@ static bool ceph_netfs_issue_op_inline(struct netfs_io_subrequest *subreq)
- 		return false;
- 	}
- 
-+	if (subreq->start >= iinfo->inline_len) {
-+		ceph_mdsc_put_request(req);
-+		err = -ENODATA;
-+		goto out;
+diff --git a/fs/ceph/mdsmap.c b/fs/ceph/mdsmap.c
+index c91c0e2e118ba..0fd578f0b2cd2 100644
+--- a/fs/ceph/mdsmap.c
++++ b/fs/ceph/mdsmap.c
+@@ -170,6 +170,10 @@ struct ceph_mdsmap *ceph_mdsmap_decode(struct ceph_mds_client *mdsc, void **p,
+ 	 * and the mds rank >= m_num_active_mds.
+ 	 */
+ 	m->possible_max_rank = max(m->m_num_active_mds, m->m_max_mds);
++	if (m->possible_max_rank > CEPH_MAX_MDS) {
++		err = -EIO;
++		goto corrupt;
 +	}
-+
- 	len = min_t(size_t, iinfo->inline_len - subreq->start, subreq->len);
- 	err = copy_to_iter(iinfo->inline_data + subreq->start, len, &subreq->io_iter);
- 	if (err == 0) {
+ 
+ 	m->m_info = kcalloc(m->possible_max_rank, sizeof(*m->m_info), GFP_NOFS);
+ 	if (!m->m_info)
+@@ -316,6 +320,10 @@ struct ceph_mdsmap *ceph_mdsmap_decode(struct ceph_mds_client *mdsc, void **p,
+ 	{
+ 		int num_laggy = 0;
+ 		ceph_decode_32_safe(p, end, n, bad_ext);
++		if (n > CEPH_MAX_MDS) {
++			err = -EIO;
++			goto corrupt;
++		}
+ 		ceph_decode_need(p, end, sizeof(u32) * n, bad_ext);
+ 
+ 		for (i = 0; i < n; i++) {
 -- 
 2.53.0
 
