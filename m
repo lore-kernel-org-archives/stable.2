@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048187;
-	b=1A49orejFWieXB/4B+LQdIhAooKgXpnmyD9uqN8eQmZqyrLWo4dNdhOt7paOIZVdzkGn
-	 kq6nxESYk+tAch3W7zBa/8tsC8bFNpazppGKN0alNeevMO9mG3UiSdJPl2RVSuzJnFhgH
-	 MrDpBTP0BDUL7vNEmeHlgx+Zd25MZgcd+kd9XEPetMbduM762jbfIYNECq8x9bgfDbQi2
-	 A/EvjgpADi1OQRtdxnexu4o4swYSS5upplk5gtJ3hOpfWvnumhbB93rlihj9/ft9+mNMP
-	 p8StmJnjEf4AlhvgMjdU/71XxvKIUFwWa8P2+8/xXohCQTumOu95xZYxTjdISQQIgNA==
+	t=1794048189;
+	b=qzII6LI/XWFdLNmowLJxQ+dp7PXf1++k4lOHqj0w5W1bGry8IGpqUAiPL3DgdG8k3PXE
+	 88P3CKwf4VLLWn/rwag4UJI4YdDPZv7Zx9mUPErTT7IOZ1/Fp7vWLk2kYG5EWnuVH9ABd
+	 VvTf8fCkpEtUyi0cZunhz6iOk3bGCdRBL5UcCbnTqcEV31qMWTcH8F9KkUTK5IBRl0wzz
+	 YjD23NGxeeji58Gi/yvxbSwNqPeuxm4hRyGMz1Zbn8O379UVKB7I/UDse8N7wlQfbwiNF
+	 YHfPzirKAU6HZWZVIGd3mIqWt0I51yiw24idYexbL/0NpCtQOYcUmP7c9gXRkof4H7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048187;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048189;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=jXuxzDSYoLuOncNC9JAtvHOdJUddtijuwHTJz8ONbmw=;
-	b=dXbNNgFbxTvCNflrcoYHpJpqdn6JZk1C0z/tiKVuTBxfHJJBjOVe/KS7Y6mdbCoEMMdA
-	 2+C58QJQDg+KB8q+BXE39+ITlcHdG6ZESb0QLZQbNyhRhLHWIecuDGChemp++Uxyj08k4
-	 a5GokbDmFX+nn54VLw4kTnaTFkDcxwzWYVAeLiHMTm4Cj7fwR5kMrAlFfULUPdrHozkQ9
-	 6ZdWRcQQe8iVsQB8LIFxwM9I+q6FaKXmbWdX23an+xrFcisjmXhEV3S0AsUt1mApG++rt
-	 Cqiuq2Ac9ZvujOxYnedUOBKp4i09vxrRKeHCvc+HlVTv36ICUIj67uayNlNdne8t9iA==
+	bh=02ji+xI7o3fyPrpF/pU+jGfsndxgkw5qT8K3/o14ADA=;
+	b=Nhnef+k0/WQ/Pf4BpUw0mm1ubT1NN22PtJNPbsgQWHeoh6OaGE44fKNWfhGYPpBhuclp
+	 k9jGklYTHq9NEgwtnTtGqb9LDvBACLS8m+GpBphYzHr+q5TzqcJMCZpoS+CYSAyWEua5C
+	 Gm2BbbSRX7oY6WpPJG0OAj61X5sqzCeUY8Ps/ejNh+SSGxhrBqA/IcT3sgNFM/5m+LWNZ
+	 t6vVZEanMaToVTYKrlQnlfjMam3gPHj7qcpZBCy2Mmq23iid4ToCokOhNVBMV3c/CgzN8
+	 5QGIkR+glQTi5SCwVBLPzXDxXrRcw6KHBZt0kUJZiwGQDEftmmxyNocWNWNW2fHJyRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lJKrhZA1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kTUtMTDU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84A05606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:43:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97A65606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:43:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lJKrhZA1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02A361F0089F;
-	Sat,  7 Nov 2026 10:43:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kTUtMTDU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 146FE1F0089F;
+	Sat,  7 Nov 2026 10:43:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048187;
-	bh=jXuxzDSYoLuOncNC9JAtvHOdJUddtijuwHTJz8ONbmw=;
+	s=k20260515; t=1794048189;
+	bh=02ji+xI7o3fyPrpF/pU+jGfsndxgkw5qT8K3/o14ADA=;
 	h=From:To:Cc:Subject:Date;
-	b=lJKrhZA16ZlGR+n4ouZ6VezIFA1lJsV5orLTF5iHmSwQE/wCXPfC4opkjm0NShKcA
-	 tTV1Yx+xWIUyI0ZqbPVJYmFd9Gj3exVXrJkfSzk9Va5MLW85tYLKTr00tS/v0VoOaB
-	 ErjYddl/tdA6PFqs+KdS23D58azub/QXGjrUXVJx9Udhqf1VlYS6RaWWrk39K7LtEG
-	 SSGnAvnrj7wFwRGKgPLyCbBD8aweARYYwwYAo9yyBGs/E3t7Vo7uWFD3W7rlj33rhq
-	 fAlsnFxGiZIiat1MjQYd/Y97lNJplSkf5P4kmDOk8LGKRz3WK5HGJuTl7GQJOwH7hC
-	 0P56yZE0PKbTQ==
+	b=kTUtMTDUarshVZFs4CDNbYrnEffZoZwjXrxMIAzztcvlHCxx1kCEGAxIPyovs9+ER
+	 qQIA7Kb3tJeSBY78W9lwAbXyugt+sTGz4dxPIXSCPw2NAohjepkMIV2ra3HCU26EOM
+	 QFuepw0JOuB9Sk0P+m3UBuSSElWupKuKEbIm/Un2C3jvAV2aReqTu0Xu8QCC8jLEJj
+	 owdtD4DlgxOFn/o9DYIvU6C4RaRpIyzYIz8aUagnqtw+WdGEoDFuQZEPWCpT6F0GET
+	 fjVYgPzg393Fo1Hrhb6ZiJgWdWmAu09+LzO6u16ECr1pHBybw5VKhfpEMfgrDb+Pb3
+	 R+J/b0bTpmOaw==
 From: Sasha Levin <sashal@kernel.org>
-To: tom.verdonck@inspiral.be,
-	linux@roeck-us.net
+To: runyu.xiao@seu.edu.cn,
+	tiwai@suse.de
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] hwmon: (tmp108) Fix jiffies wraparound in conversion-ready check" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:43:05 -0500
-Message-ID: <20261107054305-failed-6.1-6b8b1d1d7bc7@kernel.org>
+Subject: FAILED: patch "[PATCH] ALSA: mpu401: shut down timer before freeing MPU" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:43:08 -0500
+Message-ID: <20261107054307-failed-6.1-9332af5220d4@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,91 +68,88 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 6b8b1d1d7bc7e579b53fc7c3293b787d68de702a
+git cherry-pick -x 9332af5220d42341bb1446a62c545c0518e990ef
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054305-failed-6.1-6b8b1d1d7bc7@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054307-failed-6.1-9332af5220d4@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 6b8b1d1d7bc7e579b53fc7c3293b787d68de702a Mon Sep 17 00:00:00 2001
-From: Tom Verdonck <tom.verdonck@inspiral.be>
-Date: Fri, 25 Sep 2026 20:23:23 +0200
-Subject: [PATCH] hwmon: (tmp108) Fix jiffies wraparound in conversion-ready
- check
+From 9332af5220d42341bb1446a62c545c0518e990ef Mon Sep 17 00:00:00 2001
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Date: Sun, 27 Sep 2026 17:38:09 +0800
+Subject: [PATCH] ALSA: mpu401: shut down timer before freeing MPU
 
-tmp108 records a one-shot deadline in ->ready_time at probe (and resume)
-and, on every temperature read, refuses the read with -EAGAIN while
-time_before(jiffies, ready_time) is true, in order to skip the initial
-conversion.
+When an MPU401 interface has no usable IRQ, the driver polls raw-MIDI
+input and output with a timer. During raw-MIDI teardown, the timer callback
+can already be running when snd_mpu401_uart_remove_timer() clears the last
+mode bit and calls timer_delete(). That API neither waits for a running
+callback nor prevents it from rearming the timer, and free_irq() does not
+synchronize timer callbacks. snd_mpu401_uart_free() can therefore release
+mpu while the timer callback still uses it.
 
-->ready_time is an unsigned long compared with time_before(), whose
-signed difference is only meaningful while the two values are within
-LONG_MAX jiffies of each other. Because ->ready_time is set once and
-never refreshed, jiffies keeps advancing away from it, and after 2^31
-jiffies the difference flips sign. On a 32-bit HZ=100 kernel that
-happens ~248.5 days after boot: time_before() then permanently reports
-"not ready" and the driver returns -EAGAIN on every read, without ever
-touching the sensor, until the next reboot. The continuous-mode path,
-which sets ->ready_time to jiffies with no added conversion delay, wraps
-the same way.
+Initialize the timer once when the MPU object is created and only rearm it
+while a timer mode is active. Shut it down synchronously after freeing the
+IRQ so an in-flight callback completes before mpu and its resources are
+released.
 
-Store the deadline as a 64-bit jiffies value and compare it with
-get_jiffies_64()/time_before64(), which does not wrap in any practical
-uptime.
-
-Fixes: 66e1c9171339 ("hwmon: Add Texas Instruments TMP108 temperature sensor driver.")
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Signed-off-by: Tom Verdonck <tom.verdonck@inspiral.be>
-Link: https://patch.msgid.link/525fa49d8c50922344fa53e22be5e6133c9bbb62.1790358356.git.tom.verdonck@inspiral.be
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+Assisted-by: LLM
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Link: https://patch.msgid.link/20260927093809.681726-1-runyu.xiao@seu.edu.cn
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- drivers/hwmon/tmp108.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ sound/drivers/mpu401/mpu401_uart.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/hwmon/tmp108.c b/drivers/hwmon/tmp108.c
-index 9fa31bd66ff69..91d20a1ce1120 100644
---- a/drivers/hwmon/tmp108.c
-+++ b/drivers/hwmon/tmp108.c
-@@ -78,7 +78,7 @@
- struct tmp108 {
- 	struct regmap *regmap;
- 	u16 orig_config;
--	unsigned long ready_time;
-+	u64 ready_time;
- 	const struct tmp108_params *params;
- };
+diff --git a/sound/drivers/mpu401/mpu401_uart.c b/sound/drivers/mpu401/mpu401_uart.c
+index 6de03d72a9087..fcf2b686f9f5e 100644
+--- a/sound/drivers/mpu401/mpu401_uart.c
++++ b/sound/drivers/mpu401/mpu401_uart.c
+@@ -155,20 +155,20 @@ static void snd_mpu401_uart_timer(struct timer_list *t)
  
-@@ -138,7 +138,7 @@ static int tmp108_read(struct device *dev, enum hwmon_sensor_types type,
- 	switch (attr) {
- 	case hwmon_temp_input:
- 		/* Is it too early to return a conversion ? */
--		if (time_before(jiffies, tmp108->ready_time)) {
-+		if (time_before64(get_jiffies_64(), tmp108->ready_time)) {
- 			dev_dbg(dev, "%s: Conversion not ready yet..\n",
- 				__func__);
- 			return -EAGAIN;
-@@ -477,7 +477,7 @@ static int tmp108_common_probe(struct device *dev, struct regmap *regmap, char *
- 		return err;
+ 	scoped_guard(spinlock_irqsave, &mpu->timer_lock) {
+ 		/*mpu->mode |= MPU401_MODE_TIMER;*/
+-		mod_timer(&mpu->timer,  1 + jiffies);
++		if (mpu->timer_invoked)
++			mod_timer(&mpu->timer,  1 + jiffies);
  	}
- 
--	tmp108->ready_time = jiffies;
-+	tmp108->ready_time = get_jiffies_64();
- 	if ((tmp108->orig_config & TMP108_CONF_MODE_MASK) ==
- 	    TMP108_MODE_SHUTDOWN)
- 		tmp108->ready_time +=
-@@ -528,7 +528,7 @@ static int tmp108_resume(struct device *dev)
- 
- 	err = regmap_update_bits(tmp108->regmap, TMP108_REG_CONF,
- 				 TMP108_CONF_MODE_MASK, TMP108_MODE_CONTINUOUS);
--	tmp108->ready_time = jiffies +
-+	tmp108->ready_time = get_jiffies_64() +
- 			     msecs_to_jiffies(TMP108_CONVERSION_TIME_MS);
- 	return err;
+ 	if (mpu->rmidi)
+ 		_snd_mpu401_uart_interrupt(mpu);
  }
+ 
+ /*
+- * initialize the timer callback if not programmed yet
++ * arm the timer if it is not already active
+  */
+ static void snd_mpu401_uart_add_timer (struct snd_mpu401 *mpu, int input)
+ {
+ 	guard(spinlock_irqsave)(&mpu->timer_lock);
+ 	if (mpu->timer_invoked == 0) {
+-		timer_setup(&mpu->timer, snd_mpu401_uart_timer, 0);
+ 		mod_timer(&mpu->timer, 1 + jiffies);
+ 	} 
+ 	mpu->timer_invoked |= input ? MPU401_MODE_INPUT_TIMER :
+@@ -474,6 +474,7 @@ static void snd_mpu401_uart_free(struct snd_rawmidi *rmidi)
+ 	struct snd_mpu401 *mpu = rmidi->private_data;
+ 	if (mpu->irq >= 0)
+ 		free_irq(mpu->irq, (void *) mpu);
++	timer_shutdown_sync(&mpu->timer);
+ 	release_and_free_resource(mpu->res);
+ 	kfree(mpu);
+ }
+@@ -528,6 +529,7 @@ int snd_mpu401_uart_new(struct snd_card *card, int device,
+ 	spin_lock_init(&mpu->input_lock);
+ 	spin_lock_init(&mpu->output_lock);
+ 	spin_lock_init(&mpu->timer_lock);
++	timer_setup(&mpu->timer, snd_mpu401_uart_timer, 0);
+ 	mpu->hardware = hardware;
+ 	mpu->irq = -1;
+ 	mpu->rmidi = rmidi;
 -- 
 2.53.0
 
