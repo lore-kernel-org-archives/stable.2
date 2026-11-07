@@ -1,54 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794060835;
-	b=uokArDf+c0IkqbPCEHR36QVeowlsXQemFmKNvD3qKNox8xOYaAK/83P2bsqJP0Wf2xl1
-	 ilOjDMmRym1k3EofIaxbpSxPYHgBWjCHM73yQ45sAbxUSyGL7ufc6GpVZn5JkYK1S/uVG
-	 37U1eOCMDBleF3kGKz1QZKREvcbkNWavRKpC/9ZSywkE3DaALS/Ic4ZGhxHXGJYEfdoBD
-	 mhUPLowKwOkY6o/SPi9eiR10GwbVmVW+T0pLA7uw1QTkA3ToM02PEUzvWA6RCvuwMKqAm
-	 Qv7tXs+eP0llN6SkLvbQ7NvO042m41ur3KwXcuyfnLXCS10tPhpIwjgS0Domexivk5A==
+	t=1794060831;
+	b=ghijXzGy9RaYvSEZiTpNS/L6YcCAbKa3WM7g1IkES6n3Qvmri0W8gtP+BdH4IJO/T0NW
+	 YPltvyh6grrn3/yGnrHodyuwHrd8m+fKZ3Nxp0u7wy9QCaAkvcy2/RGZ7XdkHBss4425/
+	 z8XGtvhbVJmz6kwfg90L2u0xGRvM+JZwvgZt4a20TQObIY1oD2ZgH7GRAf4P9gRNZfuUP
+	 PgCsnCqvYRdWEZDs38jRHOk3TnznDBZXXoR7ecQ3b+HaV01V+8aynOlxfjrTb59Eg6YF2
+	 +v4UHvs6uHjfRzSNa/wr/oMybJSpIL9t+ReSo25vXP7p5gqGoWX5JVgkfQJaFWfy+/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794060835;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794060831;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=jJFfgFgpKt7DuN6+/JH6QzB2nT3lShWMb/0rv3V9I0A=;
-	b=ww92S/9CLE/KBQ1RwzM8SwEMjmdqolBx95XldMQWqZVCbWIrX62EYlmJSSu+8fbjPhvD
-	 TNGMkgHYyMM1Y1GSXii/eUmpx0BmiHnxtPhiED6TdlRqzkDu2ZCE1/ISF9OO65ldZ0vvv
-	 LlKsiRSiVcnJyCGzKTdCZJKHFtoi3FPQ/2ZN+8aBm+tB6F8lDjeh1Rgb/6THm8Anbwifi
-	 LvXXI73/H9BGwCE3nfsM9a1ED86KkZSJyMhFNh2bXV3Seyygv0FOVBEbffwQd85t9hhgE
-	 5hscINe3L+i2kBRVN67I8goTDRmScysSDtWo6SXAnwTxTbdETDcdv90xKe/FvnfPnDQ==
+	bh=UCqoZzOd1yucDaGpuVfnuX5dsisSjkCMZpSMHJFWBe0=;
+	b=NS+x+ruhy5R+Z5Sp663V+n9UeF+kqKMXmShtgCyNUGhkwNPfivr6yOxjlBwicUMHN5yQ
+	 QnnXVl4E3BhdwEA7VaViYycIrzNAXmKoFBgwvwP7vvvDQhjUbMuVf4XH/KBauvBmf/CZD
+	 hn49rRZPe39hk1o8zFPXyoQXCJmxrKqs5rfh2ZUiCMycln0WpZb/8JnVlS2CJ8VqFufsS
+	 2q4uQgsvG1yCox0JbmqSLsTpx4nAZccMm7wy921Tj+ijvyw4oaUieIxsvnxvSH2Rr6/Ko
+	 1HAN+Zxzq7/tgmLiD1u2kBHLZzH/4QOM391vEYMk/My5VXWa9zQ8NdsWds/zvS3LUtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=LgT50YHq;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=xLGTECpG;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02F83606A33E;
-	Sat,  7 Nov 2026 14:13:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B360606D801;
+	Sat,  7 Nov 2026 14:13:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=LgT50YHq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36F691F008A1;
-	Sat,  7 Nov 2026 14:13:54 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=xLGTECpG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB1D61F008A3;
+	Sat,  7 Nov 2026 14:13:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794060834;
-	bh=jJFfgFgpKt7DuN6+/JH6QzB2nT3lShWMb/0rv3V9I0A=;
+	s=korg; t=1794060830;
+	bh=UCqoZzOd1yucDaGpuVfnuX5dsisSjkCMZpSMHJFWBe0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LgT50YHqiw+gMl44TULYbVnknfYYvdkQ09dVjo5Sj+LUzW8LRfMQYZtZyaTqZdktK
-	 F4cuVTy0qAOrD2XETvfQGbbNuWunRLVWE1LHnHG4McNbNwv25kYjIWJrH8694mUNvs
-	 xqTwMqxKr1ZAw2njEcx2JsyigjnaktErd1OFm3HE=
+	b=xLGTECpGkuBGzU+1eMy+EkWgwt54Nvex8vWtYEq9yrUxFKxp3EqWohBCJd4oJTnez
+	 Hqfuk5RPiffd/CqjtSiWknNRTdq1o/vgEzmdsKZxCOtFCCHOX84hsEnfk4hpm2NKrQ
+	 89/8oLhtHfQAfMV7+f1hZNdAC78dbPKMhv2e56vc=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Gary Guo <gary@garyguo.net>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Damien Le Moal <dlemoal@kernel.org>,
+	Senjin <senjin@hatchling.org>,
+	Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 0226/1536] ata: ata_generic: Dont store pci_device_id
-Date: Sat,  7 Nov 2026 08:37:22 -0500
-Message-ID: <20261107135004.016712637@linuxfoundation.org>
+Subject: [PATCH 6.12 0207/1536] fs/ntfs3: load ATTR_BITMAP run extents from $MFT extension records
+Date: Sat,  7 Nov 2026 08:37:03 -0500
+Message-ID: <20261107135003.470148014@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261107134957.653319350@linuxfoundation.org>
 References: <20261107134957.653319350@linuxfoundation.org>
@@ -70,51 +68,58 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Gary Guo <gary@garyguo.net>
+From: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
 
-[ Upstream commit 4f3075f629077a8cb3d3455c794a1f4a8fc8b43e ]
+[ Upstream commit e31886cb6e0e14cf65e27da0bf1a422ff419d893 ]
 
-pci_device_id is not guaranteed to live longer than probe due to presence
-of dynamic ID. All information apart from driver_data can be easily
-retrieved from pci_dev, so just store driver_data.
+When $MFT's ATTR_BITMAP attribute is heavily fragmented, its run list
+can span multiple MFT extension records (attribute list entries with
+vcn > 0). The non-primary segment handler in ntfs_read_mft() only
+processed ATTR_DATA extension segments for MFT_REC_MFT, silently
+skipping any ATTR_BITMAP segments. This left sbi->mft.bitmap.run
+incomplete, causing wnd_init() to fail with -ENOENT when wnd_rescan()
+tried to look up a VCN not covered by the truncated run list.
 
-Signed-off-by: Gary Guo <gary@garyguo.net>
-Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-Reviewed-by: Danilo Krummrich <dakr@kernel.org>
-Acked-by: Damien Le Moal <dlemoal@kernel.org>
-Link: https://patch.msgid.link/20260723-pci_id_fix-v4-1-3580726844e1@garyguo.net
+Observed on a 16 TB NTFS volume (0xFFFFFEFF total clusters) whose MFT
+bitmap run list was split across 97 extents in extension records.
+wnd_rescan() successfully looked up VCNs 0-122 from the runs loaded
+from the base record, then failed at VCN 123 (the last cluster of the
+bitmap) whose run was only present in an extension record.
+
+Fix by extending the MFT_REC_MFT special case to also handle
+ATTR_BITMAP extension segments, storing their runs into
+sbi->mft.bitmap.run the same way the primary segment does.
+
+Signed-off-by: Senjin <senjin@hatchling.org>
+Signed-off-by: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/ata/ata_generic.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ fs/ntfs3/inode.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/ata/ata_generic.c b/drivers/ata/ata_generic.c
-index 2f57ec00ab821..ef5e817e96b26 100644
---- a/drivers/ata/ata_generic.c
-+++ b/drivers/ata/ata_generic.c
-@@ -51,11 +51,11 @@ enum {
- static int generic_set_mode(struct ata_link *link, struct ata_device **unused)
- {
- 	struct ata_port *ap = link->ap;
--	const struct pci_device_id *id = ap->host->private_data;
-+	unsigned long driver_data = (unsigned long)ap->host->private_data;
- 	int dma_enabled = 0;
- 	struct ata_device *dev;
+diff --git a/fs/ntfs3/inode.c b/fs/ntfs3/inode.c
+index e7339f2bc5fd1..b371f897bcf4c 100644
+--- a/fs/ntfs3/inode.c
++++ b/fs/ntfs3/inode.c
+@@ -126,10 +126,16 @@ static struct inode *ntfs_read_mft(struct inode *inode,
  
--	if (id->driver_data & ATA_GEN_FORCE_DMA) {
-+	if (driver_data & ATA_GEN_FORCE_DMA) {
- 		dma_enabled = 0xff;
- 	} else if (ap->ioaddr.bmdma_addr) {
- 		/* Bits 5 and 6 indicate if DMA is active on master/slave */
-@@ -206,7 +206,7 @@ static int ata_generic_init_one(struct pci_dev *dev, const struct pci_device_id
- 			return rc;
- 		pcim_pin_device(dev);
+ 	if (le && le->vcn) {
+ 		/* This is non primary attribute segment. Ignore if not MFT. */
+-		if (ino != MFT_REC_MFT || attr->type != ATTR_DATA)
++		if (ino != MFT_REC_MFT)
++			goto next_attr;
++
++		if (attr->type == ATTR_DATA)
++			run = &ni->file.run;
++		else if (attr->type == ATTR_BITMAP)
++			run = &sbi->mft.bitmap.run;
++		else
+ 			goto next_attr;
+ 
+-		run = &ni->file.run;
+ 		asize = le32_to_cpu(attr->size);
+ 		goto attr_unpack_run;
  	}
--	return ata_pci_bmdma_init_one(dev, ppi, &generic_sht, (void *)id, 0);
-+	return ata_pci_bmdma_init_one(dev, ppi, &generic_sht, (void *)id->driver_data, 0);
- }
- 
- static struct pci_device_id ata_generic[] = {
 -- 
 2.53.0
 
