@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048097;
-	b=RkR6Gq93RIOd5eEVkUMnFe+TaVH4++wZpSV0mQCNuJjq7I/kTTz6yes/0ACNd46SRmhE
-	 R8F1daw3maEvN2SxTVggBeirSb51Rnr9I5POL8+FBNB1URnGAsv5wFoYhV+ZJWoaJ050T
-	 64MNxJzdyh3+9JowbyNYtEp3A5i6Eg4EelhnNW1VDEgkd1R0PYCQIaXsSbxlM8zwZWghI
-	 V3W+N6mz2tUdYdn1aooAEkr/dvwt6XAh4RA4AT5AxHFtctg00r5Th+48Oa7KJeYKUx10w
-	 uMEzrewtTm3SW0I7LIxqfGMXhQimCdhKUFHew2c7wmeIp6hMv4zoH3U3dUQ4fNr/DcA==
+	t=1794048099;
+	b=R6cUMf0k6YqRq1Pjo/eey38n2yYVvJK10olEoyjNR6EZn0JwyeB4oFckMDlM6g1/qMQU
+	 BqHalW7MpzYrCZFI8p5Qc0IwXDskrGA+vBZfqmN2FNMHcUq/l7q88F/jwH652yZHYFhSr
+	 Mk5iJ5bGj9av7ixa0FF+rfCsAQa/jXEtlDIJY90TpqI2VHjzinDXTMPpW7rmOWLTj2VAD
+	 797vydUnylkYg6wWfP343uWQKr4iOmRxQEZPtmxA0/Rok60Lx5I75e5iKybgH6odtOTvx
+	 iofHJ7pJdH2+ezDpujwtMU24quugcx4MQBP81uIhV2Y/22opdc6IBUuo105eQNq5oGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048097;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048099;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=XSCJ6rW0ufR0NlMw35VRwH3F69HwjSIj4HPbOMajhXc=;
-	b=ObHt/TwOfoiwFRXamFaSfSXasqMGUAJf3AuUVpl4XoBt9EWSqbcCVNe0SODHBuANtB6k
-	 oxGk0cC6StJINNtONqbCPsdsYwAPNYjOMNKecbr3sSQNdIyINWdE6ykNYsEtVKBvOb+YR
-	 DWqBYsQsenvf1AGclvg3a7aTjXOUxerycnDBqVQ5fPX+joQa/6z8ivH1cYEwntojw3h6S
-	 rm42ZlE6by94Q3nxMlN08wMD/QH9OSauLfXoReZGq2nJ6u113zbnCnXZqUMboLVTax5ei
-	 esCg61oPayeQ/J/bAXjSHZyEXrlOtmkdeGsf5vnpiB+Dwp3iSOKGsxcGwx/JEd+pzDw==
+	bh=JkhtGw5FfYV77fSJilj6ECLYDiDEqRrskzSBvrUxZWY=;
+	b=OiVduDMMcU9uNtxWT/OtwPQDHr/UBUiz7L+mEijMHAaEKril8HdKX6he06/gCax228PA
+	 1iEhSl624h+nalIruxOg7Vj9Ub00w5ZqcVO8Db9CUBfRrraFPqBoFhzexTBCx238jGhYi
+	 kWFANeFXaXGVa1uCgI4HkmNZcfTynxESpLDf5UyxDc5eZtB9JM8Hte3y8hDDWEiY8+mWM
+	 dcvgKuDSNEh781m4QaiUT466Q3cqcJqzS9FpeqaI6IadAukepKEFUnSELZaZjuu3rKMFn
+	 L1nPTk58XpgCOyt3DEFiHsCSGFXEU5S4ijGtFTHsKwWobFoNlm8P+ULKNA4oy/u7Etw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GkHMBvvf;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B7x6j6UP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55759606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:41:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60ADB606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:41:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GkHMBvvf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C492E1F0089F;
-	Sat,  7 Nov 2026 10:41:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B7x6j6UP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFCDD1F0089F;
+	Sat,  7 Nov 2026 10:41:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048097;
-	bh=XSCJ6rW0ufR0NlMw35VRwH3F69HwjSIj4HPbOMajhXc=;
+	s=k20260515; t=1794048099;
+	bh=JkhtGw5FfYV77fSJilj6ECLYDiDEqRrskzSBvrUxZWY=;
 	h=From:To:Cc:Subject:Date;
-	b=GkHMBvvfnRPdv4zuYUcSdb/8zkzeSMnDHiSowgkifxmQSn1d4W2z5UzKBmDgjOPfV
-	 pFu3hdlhfPRY8G0R2N83H7WNK9cj8Ke5drlMtbyGf+SbCVq/5cDLyGoebcsUoPi3E+
-	 N7YE5AUpqPWcsUPr7ZZp/q/Py5cOGS4TYlyr0rWWzpi9cppn/x+3rlNHHfbPL4ULKd
-	 0v52ti2zrpW+5ZY9zNtkqu0TByLZwgkahtq/7hCurXt4K3uE61xudLfvOjTB4HSYcG
-	 kIKHdpxo9ik0sMcDtAdXbV845B0SshoP9yZcMt57VfQn7a+hgWK+gbg+Kg2RDBcLYx
-	 UF97l1wcTUaqQ==
+	b=B7x6j6UPUZ3oiRadpoAyQibcdpYJpRTD2/YppzR+pztP1jJMlOHS/m9uZRgPOApX6
+	 YKBZheLGdFpKlaY26LIVP0gJlKMZZYBaEvNzhVCs4CVMP8dyWCqA6Lk/rFiSIUbrQc
+	 88lcrU3FUOIZQ2oV7EdbEy9feM/HffUAGDzY1AxzKYPJQ/fUL94MXyPWonYU4Je65A
+	 I/GRuBnGJp3cmBekMJNwn4bvxA42ooq3+LLMd0Hu4IBsjOIK3AepUJy1+JI9gIYEK5
+	 hi0ni8Ngel9Yw/bvQ9/MQwOuZbKzomAfGrRbzPzrgKRftY3vHEexubWpsLqnztk8fe
+	 1rLiNtDxZtAJg==
 From: Sasha Levin <sashal@kernel.org>
-To: pengpeng@iscas.ac.cn,
-	hverkuil+cisco@kernel.org
+To: runyu.xiao@seu.edu.cn,
+	dipenp@nvidia.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] media: require two-byte Cypress type 04 records" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:41:35 -0500
-Message-ID: <20261107054135-failed-6.1-e22872703386@kernel.org>
+Subject: FAILED: patch "[PATCH] hte: tegra194-test: shut down timer before GPIO release" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:41:37 -0500
+Message-ID: <20261107054137-failed-6.1-30167fadbf87@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,67 +68,56 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x e22872703386c3885d8c6bd595124587bc4e5081
+git cherry-pick -x 30167fadbf87fa901a2fee49c30a5c5a506a43e8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054135-failed-6.1-e22872703386@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054137-failed-6.1-30167fadbf87@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From e22872703386c3885d8c6bd595124587bc4e5081 Mon Sep 17 00:00:00 2001
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Date: Fri, 14 Aug 2026 16:08:02 +0800
-Subject: [PATCH] media: require two-byte Cypress type 04 records
+From 30167fadbf87fa901a2fee49c30a5c5a506a43e8 Mon Sep 17 00:00:00 2001
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Date: Fri, 4 Sep 2026 14:11:37 +0800
+Subject: [PATCH] hte: tegra194-test: shut down timer before GPIO release
 
-Both Cypress Intel HEX parsers read two address bytes from type 04
-records. Generic record framing permits any record length, so a short
-record can make the parser consume the checksum or bytes beyond the
-firmware record. A longer record also violates the Intel HEX type 04
-layout.
+tegra_hte_test_remove() releases GPIO descriptors before stopping
+hte.timer. gpio_timer_cb() accesses hte.gpio_out and rearms the timer, so
+a callback concurrent with remove can use a released descriptor and rearm
+after teardown.
 
-Require the type 04 payload length to be exactly two bytes in both
-implementations.
+Shut down the timer before releasing the GPIO descriptors.
+timer_shutdown_sync() waits for a running callback and prevents it from
+being rearmed.
 
-Fixes: 79a63c60a6a2 ("[media] media: move dvb-usb-v2/cypress_firmware.c to media/common")
-Fixes: 776338e121b9 ("[PATCH] dvb: Add generalized dvb-usb driver")
-Cc: stable@kernel.org
-Assisted-by: Codex:gpt-5
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Fixes: 9a75a7cd03c9 ("hte: Add Tegra HTE test driver")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:GPT-5
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Acked-by: Dipen Patel <dipenp@nvidia.com>
+Signed-off-by: Dipen Patel <dipenp@nvidia.com>
 ---
- drivers/media/common/cypress_firmware.c      | 2 ++
- drivers/media/usb/dvb-usb/dvb-usb-firmware.c | 2 ++
- 2 files changed, 4 insertions(+)
+ drivers/hte/hte-tegra194-test.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/media/common/cypress_firmware.c b/drivers/media/common/cypress_firmware.c
-index 66274fdf52438..d0f66ed01c4b1 100644
---- a/drivers/media/common/cypress_firmware.c
-+++ b/drivers/media/common/cypress_firmware.c
-@@ -59,6 +59,8 @@ static int cypress_get_hexline(const struct firmware *fw,
- 	if (hx->type == 0x04) {
- 		/* b[4] and b[5] are the Extended linear address record data
- 		 * field */
-+		if (hx->len != 2)
-+			return -EINVAL;
- 		hx->addr |= (b[4] << 24) | (b[5] << 16);
- 	}
+diff --git a/drivers/hte/hte-tegra194-test.c b/drivers/hte/hte-tegra194-test.c
+index 32907d951ec9a..cca33868fb03d 100644
+--- a/drivers/hte/hte-tegra194-test.c
++++ b/drivers/hte/hte-tegra194-test.c
+@@ -217,10 +217,10 @@ static void tegra_hte_test_remove(struct platform_device *pdev)
+ {
+ 	(void)pdev;
  
-diff --git a/drivers/media/usb/dvb-usb/dvb-usb-firmware.c b/drivers/media/usb/dvb-usb/dvb-usb-firmware.c
-index 0fb3fa6100e4a..675d9d1d4f472 100644
---- a/drivers/media/usb/dvb-usb/dvb-usb-firmware.c
-+++ b/drivers/media/usb/dvb-usb/dvb-usb-firmware.c
-@@ -141,6 +141,8 @@ int dvb_usb_get_hexline(const struct firmware *fw, struct hexline *hx,
++	timer_shutdown_sync(&hte.timer);
+ 	free_irq(hte.gpio_in_irq, &hte);
+ 	gpiod_put(hte.gpio_in);
+ 	gpiod_put(hte.gpio_out);
+-	timer_delete_sync(&hte.timer);
+ }
  
- 	if (hx->type == 0x04) {
- 		/* b[4] and b[5] are the Extended linear address record data field */
-+		if (hx->len != 2)
-+			return -EINVAL;
- 		hx->addr |= (b[4] << 24) | (b[5] << 16);
- /*		hx->len -= 2;
- 		data_offs += 2; */
+ static struct platform_driver tegra_hte_test_driver = {
 -- 
 2.53.0
 
