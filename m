@@ -1,90 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794068207;
-	b=NLbN8ApA5pIsacuaGW099WeEv2RjGXhCb+yMfm+Ybf7ddGwQV/XI4zFY8d6Y/OcdoVJF
-	 ezot9tIcUo+fX39QfgvwK49DCwwq7bXT66J2nzkJjft1wENCT4h2e0s5yZrycx5bKXFjT
-	 2l1zlSSHifvDJ3IyEK4Q/fGy7kLHAvJRHsOJt2+xalTAi7Z3ZoHehY9yGAg8XzHX2G22o
-	 itokDqF8oCZ2WXzM9qhZsMux9PmV69MkoS1v1d9TJsRYYCqcrgaf1OEtQ3CY7yexhI9NJ
-	 m0MGrpryfxkjiBFoYTIDqJ/HjFQ0kEplsoCK2kjCP0pIYcHRlb7iBMpEa690QHw92GA==
+	t=1794068210;
+	b=HA9XYyY510f79LGnvaHE43WCdwy1uADA4mGcFiNPpN5Sna2N3MT5Dej+Yt5ehFMWvV6F
+	 FDen+hMDB6yj4YnnwCq/BMy4mQHcuO4rHZyWY2A+fsPUuCuJaTCKfMqwCIdn1DcWViKjD
+	 Hn5Stvw2/AMzVgpJ1IhO8JkxokRmCkOl/p28P931s743KWUuzctmyt9C5TKZszPfgXRGf
+	 RYpcdJeEPcLmgqgxyCK5V/iCyq11+ULjf9afkBEXkKXlX/A+H2GMSvn4iLzVznJplMbqX
+	 XvEsjxAAT4nkJNYw+ROFMdq+9jZn21tsj2hQKvlTjpaLTOUhUpkM04DAbz+aB1YgXcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794068207;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794068210;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=LQiateAUKTKyjZ6AFASeVIROgDzTda+PMLnsgfWNUbs=;
-	b=jpbLHw3nnjkSnokGQeasfAhRzftgPQM2uRg7Z1+orXf0yBYgUK7315mPmVs9KV2JSy41
-	 SRd15alGHMKUxkGuegp1FB6Cw/CZRUrnCugNVprNeeQukbY8LBXxqc/1p5myGMYCb18+B
-	 iLSS0uBjozhjFF+8DRvIMUwe4lGGL/jNA856i8+PTYbGk5wXYWDFTnmOx+ainSIevqde4
-	 DoBsBloXKwUt6j9LJKg+cYfk70ZLxmnEZarb5/5XLu/Hx+7RiC22cSF0jsia63uKT0adV
-	 90StX85wNG3xtsowFt7zwZybaxwaJaT0IsnnULz7LOcP1XP8nQoQvOS9vb/YgwBJJRQ==
+	bh=bA2msMLXm8v/LnNLG/MT8NCmiogg+FlfeLVFRIZY6EU=;
+	b=MEL3lORegoPOIva7PGUwBcWoPtuQCVefw1Qe0Z+ftdjRnlDxPisY4uquMhnXZhXYbloL
+	 n8S063fBHtPz8oSm8ooOFP4xFGSJFMAsRSwA9h1ekPRthjpqZJleUCBmWfe5BAWnyT1ns
+	 JyDF3kA/78QdhhO3qgOi+Wlh3BkmBEuKMDe6zL6DlFdGH0VnDgvrQoOFuplOmSLUYn3Ie
+	 MZMOXNgXmS2cV37yr47G/xhJ8qCOxl7P4g3/9d5vfmWmXgU/otMhiLANBcps1PoytGPJ/
+	 XEm307nwubRpGOddZmpGI3P3X88zxPUFEzQLWHW/9o6DVzHQCdLjaZoVY+JuGUgVVoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=kernel.dk;
 	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=jbGFBt6d;
-	arc=none smtp.remote-ip=209.85.215.182
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
+	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=sdUE2s0i;
+	arc=none smtp.remote-ip=209.85.216.47
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D3BC606D3CB
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 16:16:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D3BC606D3CB
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2841606A33F
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 16:16:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2841606A33F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=jbGFBt6d
-Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cd60c5da24cso876978a12.0
-        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 08:16:47 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=sdUE2s0i
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3b094e649d3so960016a91.0
+        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 08:16:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1794068207; x=1794673007; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=LQiateAUKTKyjZ6AFASeVIROgDzTda+PMLnsgfWNUbs=;
-        b=jbGFBt6dbrweFITTFh7xeWSk9CB+e7xvBHO21gCqOBvvVVYMR6CsbD6nQFEuGHHaKz
-         5bu6cR7nmdsk8YY3oYSM177H4g9otlm02D5z/5KfandYVVy1jnM4sPTRh1lORS7a5eR9
-         g0EHxGYN5J3uXgnVPEJShtRhRjzGg4dFWcO2zThdhA+XKdlcxh9t3ue4W1anT8XeANFF
-         +XoU5ASLDOFnHJypLGvsdgqX0U/AK+38HDijbRE0/nobVvxXZwvNFQ89AYcj02HHixJy
-         h0S96rZ5pNcaPr8GVHFvCopENrLgD2gDpJ2ueb2Yvqfe7OzPCXE0CjFdDw0oTv86UUer
-         /hDA==
+        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1794068209; x=1794673009; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bA2msMLXm8v/LnNLG/MT8NCmiogg+FlfeLVFRIZY6EU=;
+        b=sdUE2s0i4ZhayX5RO96KVAcKOqMDSHQUiWCQqYB1o+gh7gehdwCgkk5x2LSyo9dESa
+         6jDFiKsL817pL9Vza5/bHz8vs65I3GwvDkszeTkQENDdnSoaBojiHKYPdNflrApLb5L8
+         f8+eAmBdXdxTDue3yaDrsCwr2WrYzggTE708gWy1pfGshD3XwQzdNdZnd0dozFum9l33
+         zd959BvygXxC/hTwcOgmFLH4HxT5JF4K5pDa0cFlyWi7o9v1Q4ph2p0VAa8VNKhqYrYP
+         vUACvxzRUhxI3f2uDCr/cA58eHQz3D735/nGkLDTMUluEsGLdCwYpfxVKP5dL5ZHzUKn
+         jLsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794068207; x=1794673007;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=LQiateAUKTKyjZ6AFASeVIROgDzTda+PMLnsgfWNUbs=;
-        b=VDQd2AGxzO/4H4ZlRb0yQWk782KtZvlNuv/lbYjfzNoWzB4X5RfjsuZv0Kti1EGBMx
-         Z4X+mkw5idlF4/5EMFTeSWtbd61I8CYy4N2Pj7ACqlFLwIT9RctzvARSWKngxJsyXmgm
-         JYXyPL+3aovEuSy3GN73qPHbi3fAwaPFch5h7TMFBgOZd2Pg8S+oime5wMftEcWK399o
-         qH9NxYQQyW5B/CjmgJ92ojtLIc/mT6bqa2eWPjSz8eiYW19A6USbQhWTrk5zkh3i5Vfo
-         rOKPGjB0dPIRGOhPDFpSCiBDDKZ9WvMMW1PN62Q0Ag72AQsMq+A26cPhlmtrsp9F7TtW
-         lZFw==
-X-Gm-Message-State: APuU4Z9CwMSxFCz/uWlJQ/YJ+NDML4j1ZqY5qR29sBhm7+xbl/Qipbvt
-	V6nLt8HxguIclbYEBn2HextN13c6Ec1f7p/pDf+RAG7Ryw8bUU93qdV5mSkqQrV/TZnveAMeh4t
-	8DPkO
-X-Gm-Gg: AYBFou19tiEXUFLgM4Ozhn+651rIKQWTdFezg5ohcVxD0gWYryBDafb+PsJCkLQPkjX
-	+C/Jd1MJUAFG7A/Pt9o5lvKqv6oEVdYhLKxO6lSuALJfbC9FSAy3nGVbKUQUOQWv3XwJ2pYZ59X
-	Sk7IE1Ck2tQGhbBfYqFgTNGpIjxQ2CrVL4RlPvyJjDi2hB0CWTjye7aEQhqChJ9leER0sJSXxhf
-	73ibVnJWOWhY7gSnLh6pRxs3PPMuPEb+j5ddn2s7WNeIC4v4d+to3NndSQE/rhcxUgEVX5baSse
-	kP8CU8CndYf5oWDLbvdva0DuhjaksSjUFCZ2wX+fn5TxIRPA2FwDZvMXZLPdHOSVZ03Iw6U0SRM
-	pChGeqPNVkrxqMaN6io95gK8lNS0vipvGVZ/xX/n03IgkRY6KGnQj2EGlig2HjFb4tFIPGhCU8Q
-	78k1vTW1sURbCAFRt96eT67Fz0l68M4unT8RF2KSXBdi4QsO/qQfF1UBLY3nrN3nGtt0Q3EE0C5
-	ffy4kBhrNSxiC8OTpFpqG0JZMHGc+SsAAaBdnKcqz7w57iIm8Xfj/5vipDmspUHGDGhBjzkeLqJ
-	wHFe7sM/8WuDRFBf1fJhkalXGWyRsPHVHURQBSw46iX71OwV0O04CILPuOO0pktXm8nayd48CQQ
+        d=1e100.net; s=20260707; t=1794068209; x=1794673009;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bA2msMLXm8v/LnNLG/MT8NCmiogg+FlfeLVFRIZY6EU=;
+        b=QVxWlFT0jkClm1/s7u2k3Hn3dmcCZB8P3wtUVJG2A0Btwu60iTmGnRU1uKGpszGh0y
+         inrtv+yl29uGyN1JJ2Dkqyt5FGeSsgjAwi0zKi/W1YGoxz0+86jsnct8sZiaZbU95Wxu
+         gSBbL7vJgaY6/miatWPrUfr0pESSr7CRKshkPr0oqwjcVv2Jmu7g4UJdL4IlVDJB9icH
+         hzaMXb7fSDrh7k0ZBy9saNX3pJFGJabwNiiDjSs5NRjBNmni39IvFn3pyXvMGarv2Cfd
+         7bvJ5XQAqXH3Hm3Ee4EUP4kQDrP/U/3ZR2YztMtv5eokCgRPJuclQ/nAEHBCkGqhkCLb
+         FeRw==
+X-Gm-Message-State: APuU4Z/H8og3ulx9hpkdsgom6CrKk6blLop84TtY+yB10r2yRfJ9h01y
+	lZPyUfxw8+VrOaeKKg9lNaHK6yTx6Jvgu+nxvAayaSeL/dQ1CDwDviG/N4kLMNUXY4jzi+qoSiS
+	jglrM
+X-Gm-Gg: AYBFou2aLLA6ykNwsSIWKlx99SCceYsYJhRz/BRBxZpBlwu4TGWeuixFwSfB0509l3u
+	p1EVR8JFHyZFtU+dYwI/8A2AnrhmbH/C90WM/2H/rhukWCWWyGoFhDacOoxWsiE6SW/+x9tiHnO
+	uba2FRMhJNlYn21h16OiH3jj186oXSxN0OCvdhG84HpRAkijc4Gr6ui/QDwxG0haJF15HSspd81
+	CgvRX8oAmI2tVqC6vpZI97hXgLe9mjAl7bgskBfXiBTNsPPWPUZ2Q+wItuVnHJYYb2Adhs/tqNe
+	aGGs/YQs8oENwN7xlB3Lx39/cTnEBNZw8jDxtKEt76kk6R1nz/jgsYd+2EcKjukRbKYpmCtX4JB
+	RcmVYmz0LXPHLszhJZgatf8qzGIHX9IBJ8n2XC7xeZi0PPCvFr76h7Y121SXhAHL91Semi9Emea
+	TIi1IITyDNDvkO7r09klJKb/GuXj3BNEHAVOkM3+Z9oH8YYRQuiBd/LvzIr7sOBbOQfVF72vG8i
+	vy3CuI7XrbKr3EHt9rLyz5lgXlgsNSIFoqLoKUjDvtHAfE9MjC28TJ7koNZhf+TasUFxFiluwjk
+	2s2DFuirbln6xD5YMXWrFdW3cz1Fg5FHobE1bD2wwKa4ovxNJVHuyHA5LhmZ+ulEH9KaOxBlGXU
 	=
-X-Received: by 2002:a17:90b:224c:b0:3ac:b3e5:428f with SMTP id 98e67ed59e1d1-3b0db6f8d0dmr6133229a91.53.1794068206849;
-        Sat, 07 Nov 2026 08:16:46 -0800 (PST)
+X-Received: by 2002:a17:90a:fc50:b0:3b0:9a2e:b491 with SMTP id 98e67ed59e1d1-3b0db71a89amr5863824a91.66.1794068209073;
+        Sat, 07 Nov 2026 08:16:49 -0800 (PST)
 Received: from xps16 ([198.8.77.135])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b10581caccsm3753898a91.10.2026.11.07.08.16.44
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b10581caccsm3753898a91.10.2026.11.07.08.16.46
         for <stable@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 08:16:44 -0800 (PST)
+        Sat, 07 Nov 2026 08:16:47 -0800 (PST)
 From: Jens Axboe <axboe@kernel.dk>
 To: stable@vger.kernel.org
-Subject: [PATCH 6.18.y 6/9] io_uring/poll: cancel all matching requests in one pass
-Date: Sat,  7 Nov 2026 09:16:31 -0700
-Message-ID: <20261107161634.2500557-7-axboe@kernel.dk>
+Subject: [PATCH 6.18.y 7/9] io_uring/poll: don't poll a writer for a read side hangup
+Date: Sat,  7 Nov 2026 09:16:32 -0700
+Message-ID: <20261107161634.2500557-8-axboe@kernel.dk>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261107161634.2500557-1-axboe@kernel.dk>
 References: <20261107161634.2500557-1-axboe@kernel.dk>
@@ -97,114 +98,74 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Shang En Sim <sim@shangen.org>
+Commit 74c1f1048e4401d6a953ab2299b14ace1ad6a899 upstream.
 
-Commit 9eff9c07e927dcd9c57150cd6fb3d4ec76f00480 upstream.
+io_init_poll_iocb() adds EPOLLRDHUP to every poll, including the async
+poll of a send that waits for buffer space. Once the peer has shut down
+its sending side, the socket keeps reporting EPOLLRDHUP, so each re-arm
+in __io_arm_poll_handler() finds a ready mask and the request is issued
+again. The send still can't make progress, the request burns through
+APOLL_MAX_RETRY in a few milliseconds and ends up in io-wq.
 
-With IORING_ASYNC_CANCEL_ALL, __io_async_cancel() calls io_try_cancel()
-until nothing is found, and io_poll_cancel() cancels one request per
-call, starting each lookup at the beginning of the hash. A cancelled
-request stays hashed until its task work runs, so every lookup walks
-past the ones already cancelled. Cancelling K of N pending polls visits
-about K*N/2 requests in one io_uring_enter(), with uring_lock held.
+A send in io-wq blocks until the peer reads, but sendmsg and writev go
+through ____sys_sendmsg() and sock_write_iter(), which turn O_NONBLOCK
+into MSG_DONTWAIT, and the application gets -EAGAIN for a request that
+never asked for a non-blocking send.
 
-A single CANCEL_FD|ALL on 80000 polls on one eventfd takes 17.06s,
-0.02s with this change. With voluntary preemption the soft lockup
-watchdog fires:
+Only add EPOLLRDHUP for polls that want to read. A peer that stopped
+sending is no event for a writer, and a poll that asks for it explicitly
+still gets it.
 
-  watchdog: BUG: soft lockup - CPU#1 stuck for 26s! [repro:100]
-  RIP: 0010:io_cancel_req_match+0x19/0xa0
-   io_poll_cancel+0x73/0x170
-   io_try_cancel+0x7b/0xf0
-   __io_async_cancel+0x41/0x110
-
-Walk the hash once and cancel every match, as io_cancel_remove() does
-for futex and waitid. Cancel by user_data only needs its own bucket.
-__io_async_cancel() still loops until nothing is found, so a request
-that io-wq parks in the poll hash meanwhile is still cancelled.
-
-A cancel that matches one request now walks the whole hash twice instead
-of stopping at the match.
-
-Cc: stable@vger.kernel.org
-Fixes: 8e29da69fead ("io_uring: add support for IORING_ASYNC_CANCEL_ALL")
-Signed-off-by: Shang En Sim <sim@shangen.org>
-Link: https://patch.msgid.link/20261030050319.1448530-3-sim@shangen.org
+Fixes: 464dca612bc6 ("io_uring: mask in error/nval/hangup consistently for poll")
+Reported-by: Lukáš Lalinský <lukas@lalinsky.com>
 Signed-off-by: Jens Axboe <axboe@kernel.dk>
 ---
- io_uring/cancel.c |  2 +-
- io_uring/poll.c   | 39 +++++++++++++++++++++++++++++++++++++--
- 2 files changed, 38 insertions(+), 3 deletions(-)
+ io_uring/poll.c | 18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
 
-diff --git a/io_uring/cancel.c b/io_uring/cancel.c
-index 1db26c66e45c..471d6f2e5f18 100644
---- a/io_uring/cancel.c
-+++ b/io_uring/cancel.c
-@@ -192,7 +192,7 @@ static int __io_async_cancel(struct io_cancel_data *cd,
- 			break;
- 		if (!all)
- 			return ret;
--		/* futex and waitid return how many they cancelled */
-+		/* poll, futex and waitid return how many they cancelled */
- 		nr += max(ret, 1);
- 	} while (1);
- 
 diff --git a/io_uring/poll.c b/io_uring/poll.c
-index 48381f0cbe32..6af64c7618e5 100644
+index 6af64c7618e5..3239bc3039fb 100644
 --- a/io_uring/poll.c
 +++ b/io_uring/poll.c
-@@ -824,12 +824,47 @@ static int io_poll_disarm(struct io_kiocb *req)
- 	return 0;
+@@ -128,12 +128,24 @@ static void io_poll_req_insert(struct io_kiocb *req)
+ 	hlist_add_head(&req->hash_node, &table->hbs[index].list);
  }
  
-+/*
-+ * Cancel every request matching @cd in one pass. Cancelled requests stay
-+ * hashed until their task work runs, so finding them one at a time would
-+ * walk past all the earlier ones on each lookup.
-+ */
-+static int io_poll_cancel_all(struct io_ring_ctx *ctx, struct io_cancel_data *cd)
++#define IO_POLL_UNMASK	(EPOLLERR|EPOLLHUP|EPOLLNVAL)
++
++static __poll_t io_poll_unmask(__poll_t events)
 +{
-+	unsigned int nr_buckets = 1U << ctx->cancel_table.hash_bits;
-+	unsigned int i = 0;
-+	struct hlist_node *tmp;
-+	struct io_kiocb *req;
-+	int nr = 0;
-+
-+	if (!(cd->flags & (IORING_ASYNC_CANCEL_FD | IORING_ASYNC_CANCEL_OP |
-+			   IORING_ASYNC_CANCEL_ANY))) {
-+		/* keyed by user_data, so only one bucket can match */
-+		i = hash_long(cd->data, ctx->cancel_table.hash_bits);
-+		nr_buckets = i + 1;
-+	}
-+
-+	for (; i < nr_buckets; i++) {
-+		struct io_hash_bucket *hb = &ctx->cancel_table.hbs[i];
-+
-+		hlist_for_each_entry_safe(req, tmp, &hb->list, hash_node) {
-+			if (!io_cancel_req_match(req, cd))
-+				continue;
-+			io_poll_cancel_req(req);
-+			nr++;
-+		}
-+	}
-+	return nr ?: -ENOENT;
++	/*
++	 * A peer that stopped sending is an event for a reader, but a write
++	 * only poll must stay armed until the file is writable again.
++	 */
++	if (events & (EPOLLIN | EPOLLRDNORM | EPOLLRDBAND))
++		return IO_POLL_UNMASK | EPOLLRDHUP;
++	return IO_POLL_UNMASK;
 +}
 +
- static int __io_poll_cancel(struct io_ring_ctx *ctx, struct io_cancel_data *cd)
+ static void io_init_poll_iocb(struct io_poll *poll, __poll_t events)
  {
- 	struct io_kiocb *req;
+ 	poll->head = NULL;
+-#define IO_POLL_UNMASK	(EPOLLERR|EPOLLHUP|EPOLLNVAL|EPOLLRDHUP)
+ 	/* mask in events that we always want/need */
+-	poll->events = events | IO_POLL_UNMASK;
++	poll->events = events | io_poll_unmask(events);
+ 	INIT_LIST_HEAD(&poll->wait.entry);
+ 	init_waitqueue_func_entry(&poll->wait, io_poll_wake);
+ }
+@@ -1003,7 +1015,7 @@ int io_poll_remove(struct io_kiocb *req, unsigned int issue_flags)
  
--	if (cd->flags & (IORING_ASYNC_CANCEL_FD | IORING_ASYNC_CANCEL_OP |
--			 IORING_ASYNC_CANCEL_ANY))
-+	if (cd->flags & (IORING_ASYNC_CANCEL_ALL | IORING_ASYNC_CANCEL_ANY))
-+		return io_poll_cancel_all(ctx, cd);
-+
-+	if (cd->flags & (IORING_ASYNC_CANCEL_FD | IORING_ASYNC_CANCEL_OP))
- 		req = io_poll_file_find(ctx, cd);
- 	else
- 		req = io_poll_find(ctx, false, cd);
+ 			poll->events &= ~0xffff;
+ 			poll->events |= poll_update->events & 0xffff;
+-			poll->events |= IO_POLL_UNMASK;
++			poll->events |= io_poll_unmask(poll->events);
+ 		}
+ 		if (poll_update->update_user_data)
+ 			preq->cqe.user_data = poll_update->new_user_data;
 -- 
 2.56.0
 
