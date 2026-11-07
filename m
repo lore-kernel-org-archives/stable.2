@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047120;
-	b=jZ/j77miCN875FQHwIn74y141KL0oDeDIV/nFe5/hRct8yaz1jNm7n4IZCDtQ88kFU4G
-	 tHL/yQqbmuW6dLQfTqxrKhtjLUysyW+y52eyGV6Qa1VZ+6q5bdmfHOFilbcnY4DHQdEJv
-	 erYwMDl1rq14NrqUj2puojhWisVYuOrOkYY/7B/XlwyjnnOJY5hSgoUzxjGo/NkFEjZsW
-	 AGih5pvagoOf8IQYF5REV9HbztrWjInRUUuPGXyjkuxY6OO0ZtCOdTurH88aEO+hiniuU
-	 D1ZiBcYJaAN7pPJ1PWXs+a1d3LxszMMEdTkyrtgth9/gsXjSSLVoFFiCAK9/GEM6HnA==
+	t=1794047122;
+	b=aQkAr28CcVqf6381NKJWyq4dvjTXC19j7PdFlhzzgm1DFxQ8EiNF+sf4FrJXUfZzzuwF
+	 +/ko4pnecNnOhdkCn4NsgBh8FPv6v2uZXMd2L6A9ACMYoGLq3YYDnXgzPQeWQOmlhmJsn
+	 Yr09F7IxMUJBZZ/a+ZTRLKYca9HP5/H9/I8B4Z+6M7CQk1mRWRhx8PLzAtPh2zbNViSb/
+	 K0nvI/gbZdL7dwnXPqSqMcMyFEtEO0o+oiNqAX+QkGs1Wt/voH9pKuWogJYWK2AJEfD0U
+	 uSw9JAGhENBwTDCnRZ+4otP+QWoZfC7bVQcbM7V7dgUVT4dQixzThWSGCVHOAVqflNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047120;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047122;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=XAQms6bBR4tAMslvNvjnqoOQ8mHvgChv6HTpsKLkE5s=;
-	b=0AhiVCvbGv9RFg7IMU/kkQb66i+D08pYvoj/5LRjgpWfkuYrttP7kZEdfYgl/9GZc6wV
-	 pfLq8i2sQ8m19jFZA2t7VS83R8ZJ1P40cVLxbzeLkoOy7GlI6kh285dFb4ZfSWAAmon56
-	 ybuT0zygHhcb4OWko4xoMEn5tz1OYPkGNlHm6DMdBxBGFSYxB/V+XbpgCQjvvAxz7K4zH
-	 8hbgu1mzZyKQ1h0mbxK0EeFH8Q4JyX3zHLaQauyuY342LUqV3ssDhLKew/KNO6y/EQ0K8
-	 sg4djjbAGKDIVe3H5wcVPxNZMggGrsAEpLpT6nDABOtvl6cOMC0SjaAWciE9FVgY/5g==
+	bh=c6N0tGXm2Z4ufHgaNjBe9ea/VftUq90wUBYmVJu58g8=;
+	b=Kqa9cdXHtydHELq9ajM59KuKGLH1qwW1DBt8WXH6sfRw39R0W7avLe+t8u2xKW0wO7cR
+	 TBjruuIkWbO23e7nVZS8vHUVLH+72eivML/NcwJsdvPJ8k4f1ubYrFNztYhL7xkxpn5/q
+	 vLJD0yEtL/I+mmKU9CBZsX0GwNgidSzbHyS4UusMZnPZPQdAuUfujxF5/cE2ncOibH5Xo
+	 uTCSDSYidKTzvQGs3Hnu5lS5N78kqsHvPheSqkmAc1VdbfkeA53stfDPpOEkhzrnmNcRW
+	 jAO4xcX+7SFzqJtyOttz6zNokl92rKzEKlYQNYG574z3erFz5P37Oi7YVddQ2FOg74A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EYJEC1lk;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WcvstOAD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2F68606A32F
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:25:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8962F606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:25:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EYJEC1lk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEFD41F0089F;
-	Sat,  7 Nov 2026 10:25:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WcvstOAD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E44391F0089F;
+	Sat,  7 Nov 2026 10:25:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047120;
-	bh=XAQms6bBR4tAMslvNvjnqoOQ8mHvgChv6HTpsKLkE5s=;
+	s=k20260515; t=1794047122;
+	bh=c6N0tGXm2Z4ufHgaNjBe9ea/VftUq90wUBYmVJu58g8=;
 	h=From:To:Cc:Subject:Date;
-	b=EYJEC1lkuxyztb5OnwLYwSd6rooOCKxJ16Mdx9SeLij6WmtktbWMOJtu2M6wQkX6t
-	 vJlndXRUcfik2lwUC7vDn51lqeAFd68vePFQbAf/jCnLpQyJEGU3xM/3EDy+ATGvYX
-	 gjMars4eMmh7M81KQqLonJ59bj65mTBJxKVYkHipTTdQstjifyZT/WZwKAoqxeobc4
-	 9WZvmPf7eNDAh4URktkUqn465zv5k2TiDdVFzWgmLJAx47b+GSaAybR+nTYIIUD3S3
-	 b+vhbAQGaHpoFtUKujck6yrIfzNhqdMU4ojq5i7HCIdaoM4myAnfN4R5Sb/kh6Z5KI
-	 7+QzztWBGkY4A==
+	b=WcvstOAD5dgG7DsWb8LbGdiJb2pjirJyC7o8jYiEKc5kc/1jNBv9fk9hyi1BqzBSz
+	 vG4PUIS+3PIWajs75q5n9elbzQ98poBGzpEmeCRn/HaZZJEbj1TgcDlTWmJduMogJv
+	 1NdVqpTE9eCmc41Xa9xH6hktkjpvUsK2B0xpRbnm9nxUl+l8j8iXBb+lRt0OaH5exl
+	 3Q5cckR531hpMTb21gApoiJBkHz/mhjmDFcJUyzM0avx9JcaydzkPImr0BQ9/c4J30
+	 7emIJBKsUIg4Shoi5kfS3roZzhKzB7W4oWuMw2OlXMNqBY66BM66lUYe6hzQ8Plpud
+	 4NzrCJS0oK4Sg==
 From: Sasha Levin <sashal@kernel.org>
-To: aliamemis@disroot.org,
-	i@rong.moe,
-	rafael.j.wysocki@intel.com
+To: zhangguopeng@kylinos.cn,
+	longman@redhat.com,
+	tj@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] platform/x86: ideapad-laptop: Evaluate ACPI methods exclusively" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:25:18 -0500
-Message-ID: <20261107052518-failed-6.12-f91c2cd6dbce@kernel.org>
+Subject: FAILED: patch "[PATCH] cgroup/cpuset: Fix task checking when enabling a partition" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:25:20 -0500
+Message-ID: <20261107052520-failed-6.12-f5b5cf2be574@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,95 +69,97 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x f91c2cd6dbcedf52e227b2eea8d7b99ecbac7552
+git cherry-pick -x f5b5cf2be574df6f25cbf1b000960340bff9a0bb
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052518-failed-6.12-f91c2cd6dbce@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052520-failed-6.12-f5b5cf2be574@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From f91c2cd6dbcedf52e227b2eea8d7b99ecbac7552 Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?Ali=20Ahmet=20Memi=C5=9F?= <aliamemis@disroot.org>
-Date: Sun, 18 Oct 2026 15:23:48 +0300
-Subject: [PATCH] platform/x86: ideapad-laptop: Evaluate ACPI methods
- exclusively
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From f5b5cf2be574df6f25cbf1b000960340bff9a0bb Mon Sep 17 00:00:00 2001
+From: Guopeng Zhang <zhangguopeng@kylinos.cn>
+Date: Tue, 20 Oct 2026 21:36:15 +0800
+Subject: [PATCH] cgroup/cpuset: Fix task checking when enabling a partition
 
-On some Lenovo IdeaPad and Yoga models, the battery _BIX takes the EC
-AML mutex and then calls the serialized RDER through RDIF, while GBMD
-calls RDER first and then takes the EC mutex. When the two run
-interleaved they deadlock until the mutex acquisition in RDER times
-out, and GBMD returns garbage that is reported as both charge types
-being enabled.
+Creating a child partition can fail when tasks are present in its
+descendants, even though the parent has no tasks of its own.
 
-Evaluate all methods with the exclusive helpers, so that GBMD never runs
-interleaved with the battery methods.
+On a cgroup v2 system with CPUs 0-7 online:
 
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=221065
-Link: https://lore.kernel.org/all/58586fa666f09c209f9d7fe8c692a8bdda6d4410.camel@rong.moe/
-Signed-off-by: Ali Ahmet Memiş <aliamemis@disroot.org>
-Reviewed-by: Rong Zhang <i@rong.moe>
-Cc: All applicable <stable@vger.kernel.org> # 80892972ff23 ACPI: utils: Add exclusive AML evaluation helpers
-Link: https://patch.msgid.link/20261018122348.679126-1-aliamemis@disroot.org
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+    cd /sys/fs/cgroup
+    echo +cpuset > cgroup.subtree_control
+    mkdir A
+    echo 1-2 > A/cpuset.cpus
+    echo root > A/cpuset.cpus.partition
+    echo +cpuset > A/cgroup.subtree_control
+    mkdir A/B
+    echo 1-2 > A/B/cpuset.cpus
+    echo +cpuset > A/B/cgroup.subtree_control
+    mkdir A/B/C
+    echo 1-2 > A/B/C/cpuset.cpus
+    echo $$ > A/B/C/cgroup.procs
+    echo root > A/B/cpuset.cpus.partition
+    cat A/B/cpuset.cpus.partition
+    root invalid (Parent unable to distribute cpu downstream)
+    cat A/cpuset.cpus.effective
+    1-2
+
+B should be a valid root, leaving A with an empty effective CPU list.
+The task in C belongs to B's partition and does not need CPUs in A.
+
+partition_is_populated() is called with B as excluded_child, but
+continue only skips B in the pre-order walk. The walk still visits C
+and finds the task there, so A is considered populated.
+
+Fix this by skipping the whole excluded subtree with
+css_rightmost_descendant(), as is already done for valid child
+partitions. Also add a test case to test_cpuset_prs.sh with a task in
+a grandchild cpuset.
+
+Fixes: b1bcaed1e39a ("cpuset: Treat cpusets in attaching as populated")
+Cc: stable@vger.kernel.org # v6.19+
+Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+Reviewed-by: Waiman Long <longman@redhat.com>
+Signed-off-by: Tejun Heo <tj@kernel.org>
 ---
- drivers/platform/x86/lenovo/ideapad-laptop.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+ kernel/cgroup/cpuset.c                            | 4 ++--
+ tools/testing/selftests/cgroup/test_cpuset_prs.sh | 3 +++
+ 2 files changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/platform/x86/lenovo/ideapad-laptop.c b/drivers/platform/x86/lenovo/ideapad-laptop.c
-index 8213524504eeb..1335f4e488702 100644
---- a/drivers/platform/x86/lenovo/ideapad-laptop.c
-+++ b/drivers/platform/x86/lenovo/ideapad-laptop.c
-@@ -297,12 +297,16 @@ static void ideapad_shared_exit(struct ideapad_private *priv)
- #define IDEAPAD_EC_POLL_MIN_US 150
- #define IDEAPAD_EC_POLL_MAX_US 300
+diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+index 585a982249ad9..71644482faa7f 100644
+--- a/kernel/cgroup/cpuset.c
++++ b/kernel/cgroup/cpuset.c
+@@ -478,10 +478,10 @@ static inline bool partition_is_populated(struct cpuset *cs,
  
-+/*
-+ * On some models GBMD and the battery _BIX take the EC mutex and a
-+ * serialized method in opposite order, so evaluate all methods exclusively.
-+ */
- static int eval_int(acpi_handle handle, const char *name, unsigned long *res)
- {
- 	unsigned long long result;
- 	acpi_status status;
+ 	rcu_read_lock();
+ 	cpuset_for_each_descendant_pre(cp, pos_css, cs) {
+-		if (cp == cs || cp == excluded_child)
++		if (cp == cs)
+ 			continue;
  
--	status = acpi_evaluate_integer(handle, (char *)name, NULL, &result);
-+	status = acpi_evaluate_integer_exclusive(handle, (char *)name, NULL, &result);
- 	if (ACPI_FAILURE(status))
- 		return -EIO;
+-		if (is_partition_valid(cp)) {
++		if (cp == excluded_child || is_partition_valid(cp)) {
+ 			pos_css = css_rightmost_descendant(pos_css);
+ 			continue;
+ 		}
+diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+index d04aad697b96f..9978c560b3986 100755
+--- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
++++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+@@ -452,6 +452,9 @@ TEST_MATRIX=(
+ 	# Enabling partition with child cpusets is allowed
+ 	"   C0-1    C1      .    C2-3    P1      .      .      .     0 A1:0-1|A2:1 A1:P1"
  
-@@ -324,7 +328,7 @@ static int eval_int_with_arg(acpi_handle handle, const char *name, unsigned long
- 	in_obj.type = ACPI_TYPE_INTEGER;
- 	in_obj.integer.value = arg;
- 
--	status = acpi_evaluate_integer(handle, (char *)name, &params, &result);
-+	status = acpi_evaluate_integer_exclusive(handle, (char *)name, &params, &result);
- 	if (ACPI_FAILURE(status))
- 		return -EIO;
- 
-@@ -336,7 +340,7 @@ static int eval_int_with_arg(acpi_handle handle, const char *name, unsigned long
- 
- static int exec_simple_method(acpi_handle handle, const char *name, unsigned long arg)
- {
--	acpi_status status = acpi_execute_simple_method(handle, (char *)name, arg);
-+	acpi_status status = acpi_execute_simple_method_exclusive(handle, (char *)name, arg);
- 
- 	return ACPI_FAILURE(status) ? -EIO : 0;
- }
-@@ -394,7 +398,7 @@ static int eval_vpcw(acpi_handle handle, unsigned long cmd, unsigned long data)
- 	in_obj[1].type = ACPI_TYPE_INTEGER;
- 	in_obj[1].integer.value = data;
- 
--	status = acpi_evaluate_object(handle, "VPCW", &params, NULL);
-+	status = acpi_evaluate_object_exclusive(handle, "VPCW", &params, NULL);
- 	if (ACPI_FAILURE(status))
- 		return -EIO;
- 
++	# Tasks below a new partition belong to it, not to its parent.
++	" C1-2:P1 C1-2 C1-2:T    .      .      P1     .      .     0 A1:|A2:1-2|A3:1-2 A1:P1|A2:P1"
++
+ 	# A partition root with non-partition root parent is invalid| but it
+ 	# can be made valid if its parent becomes a partition root too.
+ 	"   C0-1    C1      .    C2-3     .      P2     .      .     0 A1:0-1|A2:1 A1:P0|A2:P-2"
 -- 
 2.53.0
 
