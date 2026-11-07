@@ -1,94 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794068211;
-	b=UF6jwVrfX0NualFBUrCbvtg0yqXWXV6b9DtCKVpPLQxjQgdRUrZyFxEfDkcdyVHh6xI9
-	 iZ6YuyELdKn+NaFtzOvCmtiL5ZL4sUA3QVJxPKTE4Gs3d+Jy2NFJRMxf5yXRYlpAc314X
-	 20E8feGQWZvs0V6hY+ZYNSET2wETzFEF6E5vWCORJs6h/m6h31MO1XIJvreQSUje9xjgC
-	 HokipfN/GqjBzHc4wjTCyWhleYGkdFFNuHPKOqWNAdm43PoW8AUT/ue6x8Drt16ESJdsM
-	 SUReuAClCXRWWRWaSpH9bA+LHileP3wCD5Y1sMxLa3kAPWdGwkCR5y71Kx04qUtuJDQ==
+	t=1794068212;
+	b=JHMzMp9BFYQVX90q2Ky/55DNwJ1Jom75bWH3Jpkn8s7yQkWcyVr71mEc4CDEu15h6+KN
+	 cjPwGDgASO7jGCxHkmWfHekAPLcfQdZNvz4JJ0fvnlScMWkQAsMnsCLP1iFLyh/ynFeYO
+	 YorltYxqhpE0ei6Hfb8jfatVF06OgZdUBRsMPGFTs3jwBlvnmlT4WrSGYqlLyi0/KieWR
+	 V5TNFmFet3agb464KHXoc8lb6IcEq2YMkSAa/Ok6FPixJHrXoRRBMCZrh7GNuriNlkJ/8
+	 OqBC6YMHeGO1ACFW/g0/Zb2HdC/S0EGFy3XShI26BNCABJRY/krwQHlUOI1C7dSEc8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794068211;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Ox9A+C5MWzJzcgqrj3KM01u0fes4m/cjWGP8DBUs7Hg=;
-	b=isQlXqyCuYSnJlDsZueWgTaYKJFJVLpdTCzxJWT2vT+8W9ck8iSPBzrNX7FeOwHfCkNd
-	 peM+PKAY5QtxPflJdM2CqL2NDAXgABfclTuCa2YuirEWKKivjjrGY60AVCCjfOP8mnndx
-	 yLXCUsykWHq+aew4/OiYbwo+egQeT0s6cr2Gv+iGfOb9lQ2EdXxF+v58HkTNCfhN1wdTq
-	 yFwa9yXfvVOFdWN1EXLjhpvG0r2i0OYBqcP6cPiSjlMqNlBtEarzsRCLcix5/iuKJZpiU
-	 vWQx56cUvbv1ahrN18T0w9YKbU7P8vigGUGlzIBvNSHMv1gCyFNZkCWHys1I87EjahQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794068212;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
+	 References:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=PHKaxEtEKqXJj1LIGfyb8yoAsVA22m4oUNU2OaxDya4=;
+	b=BKxMqMULzz9PFCtCxnwwIg3dE8V0qxDQ8YNcK5SyIGCDCfflTQzsZ4GeHoMC9JHjWwDe
+	 dVbMo+OoksTDs4UTu89/d6uDupsOqng+tfLB0Z8sWTeIsNz/YZDWxIuEKjLuXuEieqRaK
+	 PL1T5TViQbqm12nWFIlM1VvyIWPcE1FNiqen3dUR8dwGFOx4KrG/LviVXOBDJ2id8YV14
+	 p9J6DRKDLA61Bs6mhZsq1Ckmvklea0+gOJjNu20x7EqyCcWifmosfhbVse6zPi1CaEFKf
+	 rSU3GJNDRNUAbNgA9Y+58CAaanI5eEPO6J9gFxREEYM3Ja8aseOJW0crc9JtMXtpzTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kernel.dk;
-	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=cnNpb7Td;
-	arc=none smtp.remote-ip=209.85.216.49
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.81
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 480B4606D3C5
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 16:16:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 480B4606D3C5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=cnNpb7Td
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3ac91ac8924so879457a91.1
-        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 08:16:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1794068210; x=1794673010; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ox9A+C5MWzJzcgqrj3KM01u0fes4m/cjWGP8DBUs7Hg=;
-        b=cnNpb7Td6Adu2LA3KZyt+XzT5GlTNepo3FG6A9UKCZhkwMNWVweeqLDvW7KiKkdkCC
-         Jqoog6j8y+9a9ytjXR5/ZZKP668emtwKFc4foFFjcwUZ3Gyic3CDzy1JhctHpJQn6kG3
-         EdOFtTot9FqgVFXpU2S3+q7cYGxLohN+sV4pWD25xhPKc9foD278VOSbKNG+E1LxNDzB
-         dbZ4FK7tCf9ftRqNHsybK8pWX5YiKJtjWSICdgcMRRskUnra1VaicEu/7gheUZYEqEwa
-         1XfGslq0QoMyBk7yBx7Pc63AQnDCyVQ7jYFlg2Rq5qmGXSiVj3l1TDJGUtprFi3mg+4N
-         8uEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794068210; x=1794673010;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ox9A+C5MWzJzcgqrj3KM01u0fes4m/cjWGP8DBUs7Hg=;
-        b=eVm/kZUHGP6vmk86ayhwcbrApXpQEBHdnLjRrPFTajMLYw1ehPwhGgP8Sz6PbIdI2w
-         tjJT4Cba7AvAaqv6BOpaQBJfe9K8eEXh96vBMHNy8BsSDO758F8fn3igCFw6cV8pnwKj
-         Q/5Wy5lWgd1Di6JfgzZ2ASh+oTK+pCbq0LpPjL5GEP+TUCCdoSjEhcBruMjYEQkdhuNx
-         VwPHgGB3z+vBazLCjxqG/2x62stfcbpPKg3/PinOC/BSjvmNJXL8+sdCgQIenyaOQQBf
-         JBEA+s9e1MQqquB+PSl5locTfsGErLdvfdBITOLde2DDclPAUsGxI50NJWaCzxk6+QuT
-         /Txw==
-X-Gm-Message-State: APuU4Z+HqUMTrsrSP7Kcc+TtTj7AhFtjTsl/oAm4LlDcC2MXPL74yBxy
-	jmOLUq5LHOoCx+rH0bD6BqNlR8pqQWSVT5gy/A52nNvWWd7mABVh/9n70nZTtlsxXeSAhdQUZMi
-	HIUruyIA=
-X-Gm-Gg: AYBFou0puP1Cb0gBS2CYKrJIyFd+LXIT+WaieRQ9d2xezorLHeJDB08ld74BU5Ld0Ru
-	MCjqluE6cFyyDasBLoUbSVJQd2ff0Cc1P5HZcQT5971Dn5Qax5fcyTH0XWXA2cV+qm9OsSiRPO2
-	Z8jk+qzE+HNjE5Z0kplmOGnsSsgmzwmZDIFGNkVJk4Qprf9PVK1EOQepS1YlyuD/iwGWxkzdIN8
-	xKhIDHNVhbVYzejnw9VDUb4ilYRiMY8HsjNURAHmtRinkh0cTYBcI3CXVJxPwIGKIniI3DHc1bE
-	ptfOeeys73g1j98VrtlIhzBzNC+ERIt5zLpp/wZFqo3hiH2UGrFUGupBnaa4SUXbEHqv3tYCSYi
-	xzg6Bd25hYlPOeLG2W36xlP8LuN1l06mwWQxK+d6ly7uKoI75ztrpcrJ91BJZbm2et6ranIwQgs
-	2laQch97M/qco1ehpJXxnpkD9Ak3rcRjYIPF/lnqyWlKp2/gJ+v0uft2kOUz63TEJ76QiyF4Dkt
-	3cf5ycs5bH6OQ4xfsYfvE0VuoiyDHcsoN28p3DMvfJzQPw+aA5adD1DZDnlX+9aKeq20NSg47IT
-	GJ6iaq4N0SYTd7PnVFz5rSVy8JYwrTiFADMgfZCKeiv/rBynJE1KaANGvSv1oCYtvsVUA4vbtBV
-	x
-X-Received: by 2002:a17:90b:53cf:b0:3aa:f4af:1e0b with SMTP id 98e67ed59e1d1-3b0db5f1550mr5773014a91.8.1794068210469;
-        Sat, 07 Nov 2026 08:16:50 -0800 (PST)
-Received: from xps16 ([198.8.77.135])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b10581caccsm3753898a91.10.2026.11.07.08.16.49
-        for <stable@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 08:16:49 -0800 (PST)
-From: Jens Axboe <axboe@kernel.dk>
-To: stable@vger.kernel.org
-Subject: [PATCH 6.18.y 8/9] io_uring/poll: don't poll a writer for urgent data
-Date: Sat,  7 Nov 2026 09:16:33 -0700
-Message-ID: <20261107161634.2500557-9-axboe@kernel.dk>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261107161634.2500557-1-axboe@kernel.dk>
-References: <20261107161634.2500557-1-axboe@kernel.dk>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21ABA606D3C9;
+	Sat,  7 Nov 2026 16:16:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21ABA606D3C9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from [172.100.0.8] (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowABHWJnpTu9q752BAA--.3713S2;
+	Sun, 08 Nov 2026 00:16:41 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Paul Ely <paul.ely@broadcom.com>
+Cc: Justin Tee <justin.tee@broadcom.com>,
+ James Bottomley <James.Bottomley@hansenpartnership.com>,
+ James Smart <james.smart@broadcom.com>,
+ Martin K. Petersen <mkp@kernel.org>,
+ Nigel Kirkland <nigel.kirkland@broadcom.com>,
+ linux-scsi@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] scsi: lpfc: Fix ndlp reference leak in lpfc_release_rpi()
+Date: Sat, 07 Nov 2026 15:17:28 +0000
+Message-ID: <1794064648.2620604.vulab@iscas.ac.cn>
+In-Reply-To:
+ <CAEQnVQn7fpgpm5zY=8ne0G5M_KXWg4qjecMK6smk-q+_0j1PEw@mail.gmail.com>
+References: <20260917144758.2157707-1-vulab@iscas.ac.cn>
+ <CAEQnVQnWk2ADAvLEVCrgNE=dtf3D4DJ-UcosUQgGDj8=AMnA2A@mail.gmail.com>
+ <CAEQnVQn7fpgpm5zY=8ne0G5M_KXWg4qjecMK6smk-q+_0j1PEw@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,54 +62,73 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowABHWJnpTu9q752BAA--.3713S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7trW8tw15tr4xKF4fAw4ruFg_yoW8Kw1xp3
+	ykKFnFyrs8t3Wxu3WxJa1Uta4S9F93GFW5Ary8KryDAFs0gF15JrWFqFs0gr9rGrnaq3y7
+	Xa1Fgas8JF48Z3JanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkEb7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6r4j6F4UM28EF7xvwVC2z280aVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
+	4j6r4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r
+	1j6r4UM4x0Y48IcVAKI48JMxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxAI
+	w28IcVCjz48v1sIEY20_Gr43Wr1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4
+	xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43
+	MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I
+	0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWU
+	JVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07bO_M
+	-UUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRMEA2rvPcsZdAAAsD
 
-Commit edeac4546a71b6c1db4ba006a2dbf7c863f54e9a upstream.
+Hi Paul,
 
-io_arm_poll_handler() starts the mask of every async poll with EPOLLPRI,
-for a reader and a writer alike. A TCP socket reports EPOLLPRI for as
-long as urgent data sits unread, so once the peer has sent a byte with
-MSG_OOB, the async poll of a send that waits for buffer space is ready
-on every re-arm. The request spins through task_work and
-__io_arm_poll_handler() until APOLL_MAX_RETRY is used up and io-wq takes
-it, the same spin that EPOLLRDHUP caused for a half-closed peer.
+Sorry for answering so late.  You asked me about the -EIO return a month
+ago and I am only getting back to it now; that delay is on me.
 
-While it spins, the request is neither in the poll hash nor in io-wq. A
-cancel issued right after the send gets -ENOENT and the send stays
-pending, until a later cancel finds it in io-wq.
+You are right about it.  lpfc_release_rpi() cannot tell a negative errno
+from a mailbox status, and the value was outside the MBX_* code space the
+rest of the function returns.  lpfc_sli_issue_mbox_s4() now returns
+MBXERR_ERROR for the non-polled command it cannot issue while interrupts
+are disabled, which is also what lpfc_sli4_post_sync_mbox() returns when
+it cannot post a command.
 
-Only add EPOLLPRI for polls that want to read. Urgent data is an event
-for a recv, not for a writer.
+While going through the callers for that change I found one that does
+depend on the sign: lpfc_bsg_issue_mbox() passes the raw result to bsg,
+and bsg-lib only reports a negative result as an error, so a positive MBX
+status reaches the ioctl caller as success.  That is already true for
+MBX_NOT_FINISHED today; 2/3 fixes it so that 3/3 does not add another way
+to hit it.
 
-Fixes: d7718a9d25a6 ("io_uring: use poll driven retry for files that support it")
-Reported-by: Lukáš Lalinský <lukas@lalinsky.com>
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
----
- io_uring/poll.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+The series is:
 
-diff --git a/io_uring/poll.c b/io_uring/poll.c
-index 3239bc3039fb..2594c1f04e70 100644
---- a/io_uring/poll.c
-+++ b/io_uring/poll.c
-@@ -736,7 +736,7 @@ int io_arm_apoll(struct io_kiocb *req, unsigned issue_flags, __poll_t mask)
- int io_arm_poll_handler(struct io_kiocb *req, unsigned issue_flags)
- {
- 	const struct io_issue_def *def = &io_issue_defs[req->opcode];
--	__poll_t mask = POLLPRI | POLLERR;
-+	__poll_t mask = EPOLLERR;
- 
- 	if (!def->pollin && !def->pollout)
- 		return IO_APOLL_ABORTED;
-@@ -744,7 +744,8 @@ int io_arm_poll_handler(struct io_kiocb *req, unsigned issue_flags)
- 		return IO_APOLL_ABORTED;
- 
- 	if (def->pollin) {
--		mask |= EPOLLIN | EPOLLRDNORM;
-+		/* urgent data is an event for a reader only */
-+		mask |= EPOLLIN | EPOLLRDNORM | EPOLLPRI;
- 
- 		/* If reading from MSG_ERRQUEUE using recvmsg, ignore POLLIN */
- 		if (req->flags & REQ_F_CLEAR_POLLIN)
--- 
-2.56.0
+  [PATCH v2 1/3] scsi: lpfc: Fix ndlp reference leak in lpfc_release_rpi()
+  [PATCH v2 2/3] scsi: lpfc: Report bsg mailbox failures as an errno
+  [PATCH v2 3/3] scsi: lpfc: Return MBX status when a non-polled mbox cannot be issued
+
+1/3 is the patch you were testing.  The check itself is unchanged; it is
+still `rc != MBX_SUCCESS && rc != MBX_BUSY`, the test
+lpfc_config_port_post() and lpfc_issue_hb_mbox() already use for the same
+purpose, and it covers both -EIO and MBXERR_ERROR.  I only rewrote the
+comment above it.  3/3 is the change you asked for.  I kept 1/3 apart
+because it is the leak fix I would like in stable; 2/3 and 3/3 are not
+stable candidates.
+
+One thing I saw and did not touch: NLP_UNREG_INP is set before the issue
+and is not cleared when the command is not handed to the port, so a later
+lpfc_release_rpi() for the same node returns early at the "1435
+release_rpi SKIP UNREG" message.  That is pre-existing on the
+MBX_NOT_FINISHED path too.  Clearing it would make a second unreg possible
+for the same NPort, so I would rather ask than guess - tell me if you want
+it in this series.
+
+Testing: I have no lpfc adapter, so this is build tested only.  Mainline
+at d48723711bae, drivers/scsi/lpfc/ builds with W=1 and no warnings.
+checkpatch.pl --strict reports nothing on the three patches except
+"unknown commit id" on the Fixes tag, which is an artifact of my shallow
+checkout - 4430f7fd09ec is in mainline.  I could not run it on hardware,
+and the changelogs say so.
+
+Thanks,
+Wentao
 
