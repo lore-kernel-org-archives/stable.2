@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794045789;
-	b=bQK+616j/sW6CDzCeyS8lrECiINdkY+LZHQO70z9LM322RKtiPwiAH5VYThgx07ym6Jk
-	 GEd7K9XjetOz5GFAMnMqpEKGoq2MHrEgWSrRTjDvkBRQ4aj/H6hpRf3ySZdxAMSdZCgJK
-	 LY85mfB63xqk/kfDi0h2hIG/hqVr3Nl6+i0JbCbtCRozkhDbxjT3Ry7dAL0OVfIDp8Kqe
-	 fxRUZorPAAVcM7vTj5Jogx19ncvL7o+A4XdhVjGe6H12zNv9Bfz5s05UMwPzsoBlYmUkD
-	 YQfMEw3WTqg9SUgk+O1bXv/2WAPArTpLCWKLqbwE5AZXHjcjhkW3sunhIdI8VJdy/Iw==
+	t=1794045792;
+	b=u66qg3ajBYCD3K46jlriTk2e2CeFQAguJBY1NgvHXPyFkjV1POmq6ZXMImnGsRD+uWYE
+	 v+8bcGEps8eX2Ay9CTNfF2ZYw6q3UbEUgOFBhFBPCcxVLCEuBLsOdJnRm7Nhi/HD/x29J
+	 MSAXapl3vvjRhtWN3eCPu1AnEIDcG8dYXR6A3uzSVgvwJraNUxquoV7E+n8Y3/h0kSiFN
+	 TiNmIRIvC5PdlxsDmvGGWNvCLbPghKnmdi1MR3+DWI8r62IOEyiahZnw/G+pCse1hxQ5d
+	 Jv4DUvvhKYQlG5E1xInAG/TrNjEzIJYB2lLFUgP9why+t2x79kbiEpemWkWg+KfHztw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794045789;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794045792;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=AjQTQrV9y4WERXaBLWhxon7hPgjqhaskj63jzTkcQE4=;
-	b=y8X83WLO4Nhr4KNIn0q/WxknfFqNWDaWmj9DqOlx9AWPyA1EifserPNHKDsdtj3ysSrR
-	 +c58qmfnTN95weY8D5XtkAcH+GmUPQL+c4WRFlakiXZ/lZ8o3PSyMImMNfpxPQ1CLXG+C
-	 ihCyuwFwZV8jzLfsADfQoJ0QfM9hPwZVI+6fwZkBDU0lxBx1w+BvzX8GGqi3V1swOYmTZ
-	 cJeJixIqfiJ8uhrn++g2xkvvUOC/76hELUzGYm132/Di08pGlJXCQhKKj9MYTxq7ekHi/
-	 luEFXLE7hT1sGrVvEZicYyWESu6ZgdmcS1XvvIq5meuu2uTjVNTy4+uO3tzHce38Thg==
+	bh=P1YImaThlcHXEwxmgoS3h80sdI90+eoVG2410OEnRe4=;
+	b=MBOOVzwte4m2Wec008IO+arzrjbAguGYtGWdTTc36iug2A8dSDrm4FUlXZO1zwa/lNDj
+	 R6Q7+5FVzLNfxW6N7SoIwnU653Ucd6J0FMrrVJzNq8Ly/pnUeo6WwjqKXGwf8/ZI3nFMj
+	 QY/ddlmFhlmNbdzC5yx4VKU0LlDCbMwHtQIgut1YqrqVcyx7MewR7Fkwa7UKwC+PlqRw+
+	 KT9NK/XnEwZMQkZoz2oVIYZWgYZ18vfU7ntJQanUTUJbTWbOx9phWOgtGlBuvR+ci1q0W
+	 HU28SvDWwbiqBh7JeH5tN6NuenxGwdaMNCYSoY2cxOeKbiEALd/t8nm1M+K19sEEBkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Csp3MLwb;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fLWfLuPX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78A6E606A32D
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:03:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB1D1606A32E
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:03:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Csp3MLwb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 887AD1F008A2;
-	Sat,  7 Nov 2026 10:03:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fLWfLuPX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B16BE1F0089F;
+	Sat,  7 Nov 2026 10:03:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794045789;
-	bh=AjQTQrV9y4WERXaBLWhxon7hPgjqhaskj63jzTkcQE4=;
+	s=k20260515; t=1794045791;
+	bh=P1YImaThlcHXEwxmgoS3h80sdI90+eoVG2410OEnRe4=;
 	h=From:To:Cc:Subject:Date;
-	b=Csp3MLwbXAn8/Gfi73W4GyhvdVeQwQjSDqRcaMa3MztbzrSpkkYXyfguOT+uq7YnG
-	 KfdZp0fwL/y124WVigDwiqIHJqjEwRlg0HphMn3IuyB4n08vhJqHzxehgrPEo3rbjh
-	 o7rswQTbFjbYh88T141ZiVwBrYxeg71sPV6XX2iB/CBlNjZI0jokDshBkOFBPfeRDj
-	 lpR43sxyBiXawvnok8i6F/tt5pPRjL7PtAO1vgj1woVibujB5EMYsqz8Yl3MHfwYWd
-	 vKSsU0IPPce5IOx6Qv9+jn8UnxIak/afIwwuFddk3AgXd2otrtbH5xwB11tz1t0S+m
-	 7+8kMPcPGnYBQ==
+	b=fLWfLuPXVowFN6swBPUH45hQb5tnRNmGNgYidMGSEv2FZwaX+ZHXUKW2sbK7NoO8o
+	 Fp6CsvK61B9fCQjUo/FIKdIW4vET4vaqKo1Eys4DDOtC4MCURXeaUsqP56H8tKi9iv
+	 X5O+oMU9FwuzfZfKeGZnhWAbkdrljjDEU4oEY/t9cO1y+8V4AmORarGHqCWEha5wEW
+	 B1/DHbWO/21fKeyx5+d+qwQwNxxlqrgJq716NxRnlQQaLfox/IoDFzWVoYs9uraJuL
+	 bu4ipb8aR0MjBd4xaxBoWWO/6hAznHzRF/KHpUKlSIetOcbTuSHs7Cebo24wzn2uER
+	 EFERomexkZeCA==
 From: Sasha Levin <sashal@kernel.org>
-To: chao@kernel.org,
-	zhiguo.niu@unisoc.com,
-	jaegeuk@kernel.org
+To: nemesa.garg@intel.com,
+	jouni.hogander@intel.com,
+	suraj.kandpal@intel.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] f2fs: fix to avoid folio->mapping dereference in is_{meta, node}_folio()" failed to apply to 7.3-stable tree
-Date: Sat,  7 Nov 2026 05:03:07 -0500
-Message-ID: <20261107050307-failed-7.3-b5a71253c5c7@kernel.org>
+Subject: FAILED: patch "[PATCH] Revert "drm/i915/display: Clear SEL_FETCH_PLANE_CTL on plane disable"" failed to apply to 7.3-stable tree
+Date: Sat,  7 Nov 2026 05:03:09 -0500
+Message-ID: <20261107050309-failed-7.3-d39352939416@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,253 +69,139 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x b5a71253c5c7e1139eab2f3e1e13e0bf2cbcaac7
+git cherry-pick -x d393529394167e0f5f706657eebe84d8529ce4fc
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050307-failed-7.3-b5a71253c5c7@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050309-failed-7.3-d39352939416@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From b5a71253c5c7e1139eab2f3e1e13e0bf2cbcaac7 Mon Sep 17 00:00:00 2001
-From: Chao Yu <chao@kernel.org>
-Date: Thu, 10 Sep 2026 02:20:26 +0000
-Subject: [PATCH] f2fs: fix to avoid folio->mapping dereference in is_{meta,
- node}_folio()
+From d393529394167e0f5f706657eebe84d8529ce4fc Mon Sep 17 00:00:00 2001
+From: Nemesa Garg <nemesa.garg@intel.com>
+Date: Wed, 9 Sep 2026 16:33:31 +0530
+Subject: [PATCH] Revert "drm/i915/display: Clear SEL_FETCH_PLANE_CTL on plane
+ disable"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Otherwise, it may cause NULL pointer dereference in race condition:
+This reverts commit 7f1172a2ac0d7e50850785e2e65789c8aac8411a.
 
-Thread A			Thread B
-				- f2fs_setattr
-				 - f2fs_truncate
-				  - f2fs_truncate_blocks
-			    	   - f2fs_do_truncate_blocks
-				    - f2fs_truncate_inode_blocks
-				     - truncate_dnode
-				      - truncate_node
-				       - invalidate_mapping_pages
-				        - folio->mapping = NULL
-- folio_lock
-- is_node_folio
- - F2FS_F_SB(folio): dereference on folio->mapping
+This commit replaced the crtc_state->enable_psr2_sel_fetch guard in
+icl_plane_disable_sel_fetch_arm() and i9xx_cursor_disable_sel_fetch_arm()
+with HAS_PSR2_SEL_FETCH(). This is a display version check and
+says nothing about the pipe, so every plane and cursor disable on a
+display 12+ platform started writing SEL_FETCH_PLANE_CTL() /
+SEL_FETCH_CUR_CTL(), including on pipes that do not implement them.
+It shows up as an unclaimed register access on pipes driving HDMI where
+selective fetch was never enabled.
 
-Cc: stable@kernel.org
-Fixes: 019a8912425e ("f2fs: introduce is_{meta,node}_folio")
-Reported-by: Zhiguo Niu <zhiguo.niu@unisoc.com>
-Closes: https://lore.kernel.org/linux-f2fs-devel/c5d29b31-e764-4782-9639-be84b1b2bfc2@kernel.org
-Signed-off-by: Chao Yu <chao@kernel.org>
-Reviewed-by: Zhiguo Niu <zhiguo.niu@unisoc.com>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+The stale selective fetch enable bit that commit addressed is handled
+in the next patch.
+
+Fixes: 7f1172a2ac0d ("drm/i915/display: Clear SEL_FETCH_PLANE_CTL on plane disable")
+Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16876
+Cc: stable@vger.kernel.org
+Signed-off-by: Nemesa Garg <nemesa.garg@intel.com>
+Reviewed-by: Jouni Högander <jouni.hogander@intel.com>
+Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
+Link: https://patch.msgid.link/20260909110332.3528029-2-nemesa.garg@intel.com
 ---
- fs/f2fs/checkpoint.c |  4 ++--
- fs/f2fs/data.c       |  7 ++++---
- fs/f2fs/f2fs.h       | 10 +++++-----
- fs/f2fs/gc.c         |  2 +-
- fs/f2fs/node.c       | 22 +++++++++++-----------
- fs/f2fs/segment.c    |  2 +-
- 6 files changed, 24 insertions(+), 23 deletions(-)
+ drivers/gpu/drm/i915/display/intel_cursor.c       | 15 +++++----------
+ .../gpu/drm/i915/display/skl_universal_plane.c    | 15 +++++----------
+ 2 files changed, 10 insertions(+), 20 deletions(-)
 
-diff --git a/fs/f2fs/checkpoint.c b/fs/f2fs/checkpoint.c
-index dffd63eedea89..e95cd2118750f 100644
---- a/fs/f2fs/checkpoint.c
-+++ b/fs/f2fs/checkpoint.c
-@@ -291,7 +291,7 @@ static struct folio *__get_meta_folio(struct f2fs_sb_info *sbi, pgoff_t index,
- 	f2fs_update_iostat(sbi, NULL, FS_META_READ_IO, F2FS_BLKSIZE(sbi));
+diff --git a/drivers/gpu/drm/i915/display/intel_cursor.c b/drivers/gpu/drm/i915/display/intel_cursor.c
+index cce041e1da51d..90173040d8253 100644
+--- a/drivers/gpu/drm/i915/display/intel_cursor.c
++++ b/drivers/gpu/drm/i915/display/intel_cursor.c
+@@ -531,18 +531,13 @@ static int i9xx_check_cursor(struct intel_crtc_state *crtc_state,
+ }
  
- 	folio_lock(folio);
--	if (unlikely(!is_meta_folio(folio))) {
-+	if (unlikely(!is_meta_folio(sbi, folio))) {
- 		f2fs_folio_put(folio, true);
- 		goto repeat;
+ static void i9xx_cursor_disable_sel_fetch_arm(struct intel_dsb *dsb,
+-					      struct intel_plane *plane)
++					      struct intel_plane *plane,
++					      const struct intel_crtc_state *crtc_state)
+ {
+ 	struct intel_display *display = to_intel_display(plane);
+ 	enum pipe pipe = plane->pipe;
+ 
+-	/*
+-	 * Clear this whenever the hardware has selective fetch, not just when
+-	 * the current state uses it. The cursor may have been enabled with
+-	 * selective fetch earlier and had its enable bit orphaned when the
+-	 * feature was switched off.
+-	 */
+-	if (!HAS_PSR2_SEL_FETCH(display))
++	if (!crtc_state->enable_psr2_sel_fetch)
+ 		return;
+ 
+ 	intel_de_write_dsb(display, dsb, SEL_FETCH_CUR_CTL(pipe), 0);
+@@ -592,7 +587,7 @@ static void i9xx_cursor_update_sel_fetch_arm(struct intel_dsb *dsb,
+ 		if (crtc_state->enable_psr2_su_region_et)
+ 			wa_16021440873(dsb, plane, crtc_state, plane_state);
+ 		else
+-			i9xx_cursor_disable_sel_fetch_arm(dsb, plane);
++			i9xx_cursor_disable_sel_fetch_arm(dsb, plane, crtc_state);
  	}
-@@ -638,7 +638,7 @@ long f2fs_sync_meta_pages(struct f2fs_sb_info *sbi, long nr_to_write,
- 
- 			folio_lock(folio);
- 
--			if (unlikely(!is_meta_folio(folio))) {
-+			if (unlikely(!is_meta_folio(sbi, folio))) {
- continue_unlock:
- 				folio_unlock(folio);
- 				continue;
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index 87010db21bc9f..a3b02c067e89b 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -172,7 +172,8 @@ static void f2fs_finish_read_bio(struct bio *bio, bool in_task)
- 			dec_page_count(F2FS_F_SB(folio), __read_io_type(folio));
- 
- 		if (bio->bi_status == BLK_STS_OK &&
--			F2FS_F_SB(folio)->node_inode && is_node_folio(folio) &&
-+			F2FS_F_SB(folio)->node_inode &&
-+			is_node_folio(F2FS_F_SB(folio), folio) &&
- 			f2fs_sanity_check_node_footer(F2FS_F_SB(folio),
- 				folio, folio->index, NODE_TYPE_REGULAR, true))
- 			bio->bi_status = BLK_STS_IOERR;
-@@ -359,12 +360,12 @@ static void f2fs_write_end_bio(struct bio *bio)
- 			}
- 		}
- 
--		if (is_node_folio(folio)) {
-+		if (is_node_folio(sbi, folio)) {
- 			f2fs_sanity_check_node_footer(sbi, folio,
- 				folio->index, NODE_TYPE_REGULAR, true);
- 			f2fs_bug_on(sbi, folio->index != nid_of_node(sbi, folio));
- 		}
--		if (f2fs_in_warm_node_list(folio))
-+		if (f2fs_in_warm_node_list(sbi, folio))
- 			f2fs_del_fsync_node_entry(sbi, folio);
- 
- 		dec_page_count(sbi, type);
-diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-index 66443d770a6c4..6b40a74448ebf 100644
---- a/fs/f2fs/f2fs.h
-+++ b/fs/f2fs/f2fs.h
-@@ -2371,14 +2371,14 @@ static inline struct address_space *NODE_MAPPING(struct f2fs_sb_info *sbi)
- 	return sbi->node_inode->i_mapping;
  }
  
--static inline bool is_meta_folio(struct folio *folio)
-+static inline bool is_meta_folio(struct f2fs_sb_info *sbi, struct folio *folio)
+@@ -701,7 +696,7 @@ static void i9xx_cursor_update_arm(struct intel_dsb *dsb,
+ 	if (plane_state)
+ 		i9xx_cursor_update_sel_fetch_arm(dsb, plane, crtc_state, plane_state);
+ 	else
+-		i9xx_cursor_disable_sel_fetch_arm(dsb, plane);
++		i9xx_cursor_disable_sel_fetch_arm(dsb, plane, crtc_state);
+ 
+ 	if (plane->cursor.base != base ||
+ 	    plane->cursor.size != fbc_ctl ||
+diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+index 5cda1ab90e40f..07a6832933521 100644
+--- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
++++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+@@ -879,18 +879,13 @@ skl_plane_disable_arm(struct intel_dsb *dsb,
+ }
+ 
+ static void icl_plane_disable_sel_fetch_arm(struct intel_dsb *dsb,
+-					    struct intel_plane *plane)
++					    struct intel_plane *plane,
++					    const struct intel_crtc_state *crtc_state)
  {
--	return folio->mapping == META_MAPPING(F2FS_F_SB(folio));
-+	return folio->mapping == META_MAPPING(sbi);
+ 	struct intel_display *display = to_intel_display(plane);
+ 	enum pipe pipe = plane->pipe;
+ 
+-	/*
+-	 * Clear this whenever the hardware has selective fetch, not just when
+-	 * the current state uses it. The plane may have been enabled with
+-	 * selective fetch earlier and had its enable bit orphaned when the
+-	 * feature was switched off.
+-	 */
+-	if (!HAS_PSR2_SEL_FETCH(display))
++	if (!crtc_state->enable_psr2_sel_fetch)
+ 		return;
+ 
+ 	intel_de_write_dsb(display, dsb, SEL_FETCH_PLANE_CTL(pipe, plane->id), 0);
+@@ -926,7 +921,7 @@ icl_plane_disable_arm(struct intel_dsb *dsb,
+ 
+ 	skl_write_plane_wm(dsb, plane, crtc_state);
+ 
+-	icl_plane_disable_sel_fetch_arm(dsb, plane);
++	icl_plane_disable_sel_fetch_arm(dsb, plane, crtc_state);
+ 
+ 	if (plane_has_normalizer(plane))
+ 		intel_de_write_dsb(display, dsb,
+@@ -1646,7 +1641,7 @@ static void icl_plane_update_sel_fetch_arm(struct intel_dsb *dsb,
+ 		intel_de_write_dsb(display, dsb, SEL_FETCH_PLANE_CTL(pipe, plane->id),
+ 				   SEL_FETCH_PLANE_CTL_ENABLE);
+ 	else
+-		icl_plane_disable_sel_fetch_arm(dsb, plane);
++		icl_plane_disable_sel_fetch_arm(dsb, plane, crtc_state);
  }
  
--static inline bool is_node_folio(struct folio *folio)
-+static inline bool is_node_folio(struct f2fs_sb_info *sbi, struct folio *folio)
- {
--	return folio->mapping == NODE_MAPPING(F2FS_F_SB(folio));
-+	return folio->mapping == NODE_MAPPING(sbi);
- }
- 
- static inline bool is_sbi_flag_set(struct f2fs_sb_info *sbi, unsigned int type)
-@@ -4063,7 +4063,7 @@ enum node_type;
- 
- int f2fs_check_nid_range(struct f2fs_sb_info *sbi, nid_t nid);
- bool f2fs_available_free_memory(struct f2fs_sb_info *sbi, int type);
--bool f2fs_in_warm_node_list(struct folio *folio);
-+bool f2fs_in_warm_node_list(struct f2fs_sb_info *sbi, struct folio *folio);
- void f2fs_init_fsync_node_info(struct f2fs_sb_info *sbi);
- void f2fs_del_fsync_node_entry(struct f2fs_sb_info *sbi, struct folio *folio);
- void f2fs_reset_fsync_node_info(struct f2fs_sb_info *sbi);
-diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
-index aedb45c8ee4a1..c70deac9f1a31 100644
---- a/fs/f2fs/gc.c
-+++ b/fs/f2fs/gc.c
-@@ -1431,7 +1431,7 @@ static int move_data_block(struct inode *inode, block_t bidx,
- 						F2FS_BLKSIZE(fio.sbi));
- 
- 		folio_lock(mfolio);
--		if (unlikely(!is_meta_folio(mfolio) ||
-+		if (unlikely(!is_meta_folio(fio.sbi, mfolio) ||
- 			     !folio_test_uptodate(mfolio))) {
- 			err = -EIO;
- 			f2fs_folio_put(mfolio, true);
-diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
-index 8c150d4966e54..f16144b75d119 100644
---- a/fs/f2fs/node.c
-+++ b/fs/f2fs/node.c
-@@ -332,10 +332,10 @@ static unsigned int __gang_lookup_nat_set(struct f2fs_nm_info *nm_i,
- 							start, nr);
- }
- 
--bool f2fs_in_warm_node_list(struct folio *folio)
-+bool f2fs_in_warm_node_list(struct f2fs_sb_info *sbi, struct folio *folio)
- {
--	return is_node_folio(folio) && IS_DNODE(F2FS_F_SB(folio), folio) &&
--					is_cold_node(F2FS_F_SB(folio), folio);
-+	return is_node_folio(sbi, folio) && IS_DNODE(sbi, folio) &&
-+					is_cold_node(sbi, folio);
- }
- 
- void f2fs_init_fsync_node_info(struct f2fs_sb_info *sbi)
-@@ -1296,7 +1296,7 @@ int f2fs_truncate_inode_blocks(struct inode *inode, pgoff_t from)
- 			goto fail;
- 		if (offset[1] == 0 && get_nid(sbi, folio, offset[0], true)) {
- 			folio_lock(folio);
--			BUG_ON(!is_node_folio(folio));
-+			BUG_ON(!is_node_folio(sbi, folio));
- 			set_nid(sbi, folio, offset[0], 0, true);
- 			folio_unlock(folio);
- 		}
-@@ -1612,7 +1612,7 @@ static struct folio *__get_node_folio(struct f2fs_sb_info *sbi, pgoff_t nid,
- 
- 	folio_lock(folio);
- 
--	if (unlikely(!is_node_folio(folio))) {
-+	if (unlikely(!is_node_folio(sbi, folio))) {
- 		f2fs_folio_put(folio, true);
- 		goto repeat;
- 	}
-@@ -1731,7 +1731,7 @@ static struct folio *last_fsync_dnode(struct f2fs_sb_info *sbi, nid_t ino)
- 
- 			folio_lock(folio);
- 
--			if (unlikely(!is_node_folio(folio))) {
-+			if (unlikely(!is_node_folio(sbi, folio))) {
- continue_unlock:
- 				folio_unlock(folio);
- 				continue;
-@@ -1841,7 +1841,7 @@ static bool __write_node_folio(struct folio *folio, bool atomic, bool do_fsync,
- 				f2fs_need_dentry_mark(sbi, ino_of_node(sbi, folio)));
- 
- 	/* should add to global list before clearing PAGECACHE status */
--	if (f2fs_in_warm_node_list(folio)) {
-+	if (f2fs_in_warm_node_list(sbi, folio)) {
- 		seq = f2fs_add_fsync_node_entry(sbi, folio);
- 		if (seq_id)
- 			*seq_id = seq;
-@@ -1965,7 +1965,7 @@ int f2fs_fsync_node_pages(struct f2fs_sb_info *sbi, struct inode *inode,
- 
- 			folio_lock(folio);
- 
--			if (unlikely(!is_node_folio(folio))) {
-+			if (unlikely(!is_node_folio(sbi, folio))) {
- continue_unlock:
- 				folio_unlock(folio);
- 				continue;
-@@ -2023,7 +2023,7 @@ int f2fs_fsync_node_pages(struct f2fs_sb_info *sbi, struct inode *inode,
- 		f2fs_debug(sbi, "Retry to write fsync mark: ino=%u, idx=%lx",
- 			   ino, last_folio->index);
- 		folio_lock(last_folio);
--		if (unlikely(!is_node_folio(last_folio))) {
-+		if (unlikely(!is_node_folio(sbi, last_folio))) {
- 			f2fs_folio_put(last_folio, true);
- 			ret = -EAGAIN;
- 			goto out;
-@@ -2101,7 +2101,7 @@ void f2fs_flush_inline_data(struct f2fs_sb_info *sbi)
- 
- 			folio_lock(folio);
- 
--			if (unlikely(!is_node_folio(folio)))
-+			if (unlikely(!is_node_folio(sbi, folio)))
- 				goto unlock;
- 			if (!folio_test_dirty(folio))
- 				goto unlock;
-@@ -2173,7 +2173,7 @@ int f2fs_sync_node_pages(struct f2fs_sb_info *sbi,
- 			else if (!folio_trylock(folio))
- 				continue;
- 
--			if (unlikely(!is_node_folio(folio))) {
-+			if (unlikely(!is_node_folio(sbi, folio))) {
- continue_unlock:
- 				folio_unlock(folio);
- 				continue;
-diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
-index 0b6267d0354e8..ffdd2c510b3cc 100644
---- a/fs/f2fs/segment.c
-+++ b/fs/f2fs/segment.c
-@@ -4161,7 +4161,7 @@ static void do_write_page(struct f2fs_summary *sum, struct f2fs_io_info *fio)
- 			__func__, fio->ino, folio->index, type,
- 			fio->old_blkaddr, fio->new_blkaddr, err);
- 		folio_end_writeback(folio);
--		if (f2fs_in_warm_node_list(folio))
-+		if (f2fs_in_warm_node_list(fio->sbi, folio))
- 			f2fs_del_fsync_node_entry(fio->sbi, folio);
- 		f2fs_bug_on(fio->sbi, !is_set_ckpt_flags(fio->sbi,
- 							CP_ERROR_FLAG));
+ static void
 -- 
 2.53.0
 
