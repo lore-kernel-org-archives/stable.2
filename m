@@ -1,55 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047134;
-	b=eD+CFCYA7HbB33vPjg5xng/+MRcECyfJdCTF54HCibdwysl9ku3ZxtaZBUXI8ebDQH84
-	 e5m96f2ePlfKLA53hCZogaO1lYDCF93mWcDEkTs8CrCvXMVAyOs1t9ZgXkV6xmxIUj86E
-	 XmAkg28kErBMJ6cZeBQlFJKB2d9hzrg7+qODMJ2J4zSsb8HTWoRDV/zwaqifKUb56Iw+s
-	 1xiVtEmjSykoX4mh34sqxTrRoG6t4c6mluD9DRO35R8iG96tvnc4I8qcVOzmQDmif4oUp
-	 vnn9uuQeD1FLBRxFQchPmpo7LMexc5Hyq1kRfvaoZcad3mD1TzZLE3ci5bBFOU4M5JQ==
+	t=1794047137;
+	b=jlAarNlScZZE8K2ZLVk14398Tp9r5G+TlrHZwRX0PTcvhDRuaMzDrEEdZ+eQmKC7yU0+
+	 iz+HQJ7Y8wV6GqqiWhfAguW0rHVMDVpmjD1v1AGuLydlLoGySqe4sqyw9cS0hzkf3yEW8
+	 PB0Y3dwOoZ4mEf15rYjt0JoByGYRNx3TszLA6lXnRnLFfM5XVaYuGuaDiHs/39t5zf1ps
+	 EmW3ZGrgRRJjFh91jQyXkpg8cxIsGzKy4OcUb9eEAOI0G/XN5QVJWVDpakJ7jJbcapcaP
+	 BLAoXRvg1YwwlwbIydjYdjwzz95GiYssFbu/NfvDUYs+RBmALZbrGwgoqrUq20QQciA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047134;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047137;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=SStC4u2/aCSnHrpHKK+GXUpgu9CNPsF4IJaaOvj+Njg=;
-	b=ZZYePlsLcsI57nuI0b0MzJh7l2MIPUw1BGjIMhZMl1PGok41+OGNMNloQGFNiRTROUas
-	 z/oiXYzEyX01aalcuvRtYq2alMgAaleavzEgyCWzV+aWsr+bAFLcrNAFjY4xI1BslqdiI
-	 //3KETlZiSd1PJXDgwuqAfNp5qyWU0rBTT4YZv4OKKPWC5aYXLUCDulbLvm4IxUbAuyFU
-	 ipPncPABOx0zdI0yFYltne/ohmxgVSiaE7jKffujeVVeFdeyHdqHDUXvV3R8795K2ECEu
-	 o+2540+/sfb632raM/PXH5OJPgG6oCotKaJeeMqKp/AfdboI1MjQRHiU6IS881jkryg==
+	bh=yBDDxenxJ3eFjJAuDxkc14N3Ygxc2TU0icK7aRqT3ho=;
+	b=N54pEWfT52UbNwx/jc+zZ5kKbFEC4Uot5PKGV0wK+90i7KRRUzLtPqieneduOzHChRl7
+	 d3tg7/Jb8X+FfJ4JhVQYJYZEKj8kwpP94YqEOmuFIbMiVZrc7WpSuHkjAME8DXssUjv1f
+	 NvLeDgvEvqUVdn21CnOfJDsn+wlbr/pzxl2pPeMMtZXTNQp9qmQmBFKTsJLrJS0zq3ZXj
+	 ggabN1RDCT0lhgL13KD2Qbp1iIzgLos8bdfasEkBkcyQogSHLKNoFZhhuUt/ILLY5SUQr
+	 R5QjKllx3s6mQ1Lzv+PrH7DvatSDTENc8yB6sVdjKEzMrRM/fSJKxqtMJUIN4+EcyDg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RNachpgx;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QycUpHZo;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55F38606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:25:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD9BD606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:25:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RNachpgx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63E5F1F0089F;
-	Sat,  7 Nov 2026 10:25:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QycUpHZo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC8F41F0089F;
+	Sat,  7 Nov 2026 10:25:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047134;
-	bh=SStC4u2/aCSnHrpHKK+GXUpgu9CNPsF4IJaaOvj+Njg=;
+	s=k20260515; t=1794047136;
+	bh=yBDDxenxJ3eFjJAuDxkc14N3Ygxc2TU0icK7aRqT3ho=;
 	h=From:To:Cc:Subject:Date;
-	b=RNachpgxg3TyNr3GoqM9djcGA+/WrDPG38hFkSGBNyHCZ+KR/BwOjw/caxUkYpSsU
-	 1cUR46wCAExgeVvOs/phkH8MX8UGUHbdzGQfD/D+562G9s6Hx6KwZd9Ee1MvTEObQC
-	 s3Zv41AlOLJUYf5gDmrJ5ogXjk2H3sHrUL00GXU5BSAFKNBkuNCuU9/jooXXvpQUeF
-	 /9mdWPXJKIUxqezxEsSedMCretCEvidLwNPDc9SDrDKqQashhOl4m8BZOdSztJVEBw
-	 ibqYC4vGpf1y5vRZC4EGFOnfGBvpW8Isx83KB6/WME9Ch5d8SqntsS8GPHl8MsDrWg
-	 VL3iO9r8CRXxQ==
+	b=QycUpHZo5RaOCYIoL/EUFVlKU4fU38k7JDV60r7sTnIeSitf4zwIw1go+TUqGIA0W
+	 IrJ65fTAz8GH6hk/fzh6QhOIxSne0Y18BUPn6UqRpSyjVlCjgiePVsgX+oeDPKYGR7
+	 Gmm9MiGLJsr9Ih0G9G5DrLd0z24ldIyDtMkwlT9G4MKPw9w/UfJj0nD7AwPzWSrOVz
+	 jrpfxrKr9ly6hT3pJmqqLDV0fkZb/rBMF04+r3ENH9T6sGW0GOm0KZLSB3aGygSC8r
+	 JK4HUqRfIeVHYiOU7B8SMHXUzNsPqtgK8NH8yOZ5wZsneoA7oHONcIHqjS0bOwo9Rx
+	 jOaLoAlCDfLaw==
 From: Sasha Levin <sashal@kernel.org>
-To: zhilinz@nebusec.ai,
-	vega@nebusec.ai,
-	idosch@nvidia.com,
-	edumazet@google.com,
-	edumazet@kernel.org,
-	kuba@kernel.org
+To: iav@iav.lv,
+	tglx@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ipmr: only copy pktinfo to cache reports" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:25:32 -0500
-Message-ID: <20261107052532-failed-6.12-94a6736bb5ab@kernel.org>
+Subject: FAILED: patch "[PATCH] genirq/kexec: Do not take the bus lock of an interrupt chip on the crash path" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:25:34 -0500
+Message-ID: <20261107052534-failed-6.12-717862eac6ef@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -72,91 +68,141 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 94a6736bb5abe6b2ef38490d0cab19c1c6a7c71f
+git cherry-pick -x 717862eac6eff0eea8ac30a0c0de0bed84922aab
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052532-failed-6.12-94a6736bb5ab@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052534-failed-6.12-717862eac6ef@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 94a6736bb5abe6b2ef38490d0cab19c1c6a7c71f Mon Sep 17 00:00:00 2001
-From: Zhiling Zou <zhilinz@nebusec.ai>
-Date: Tue, 20 Oct 2026 14:39:36 +0800
-Subject: [PATCH] ipmr: only copy pktinfo to cache reports
+From 717862eac6eff0eea8ac30a0c0de0bed84922aab Mon Sep 17 00:00:00 2001
+From: Igor Velkov <iav@iav.lv>
+Date: Thu, 15 Oct 2026 21:51:50 +0300
+Subject: [PATCH] genirq/kexec: Do not take the bus lock of an interrupt chip
+ on the crash path
 
-ipmr_cache_report() prepares IP_PKTINFO on the original skb. The
-ipv4_pktinfo_prepare() helper updates skb->cb and clears the pktinfo fields
-when packet info is disabled. Since the skb can continue through the data
-path, preserve and restore its original control block around the helper.
+machine_kexec_mask_interrupts() calls irq_set_irqchip_state() for every
+started interrupt. That function takes the bus lock of the chip and
+desc->lock, and syncs the chip when it drops them. On the crash path
+interrupts are off and the other CPUs are stopped, so a chip whose bus
+transfer is completed by an interrupt never returns from the sync.
 
-The original implementation copies the entire control block to the report
-skb. For synthetic RTM_GETROUTE packets, NETLINK_CB data is interpreted as
-IPCB by the raw IPv4 receive path. With IP_RECVOPTS or IP_RETOPTS enabled,
-corrupted option offsets cause out-of-bounds reads or a stack buffer
-overflow. WHOLEPKT and WRVIFWHOLE reports also inherit stale IP option
-offsets when their header is prepended.
+On RK3399 boards with an RK808 PMIC the RTC alarm interrupt belongs to
+the regmap-irq chip of the RK808, which sits on I2C. rk808_irq_chip sets
+init_ack_masked, so regmap_irq_sync_unlock() writes the ack register on
+every unlock, and the I2C controller needs its own interrupt to finish
+the transfer. A panic with a crash kernel loaded prints
 
-Clear the report skb control block. Only prepare and copy pktinfo when the
-input skb has an IPv4 header. Synthetic route-query skbs use NETLINK_CB,
-not IPCB, so leave their report control block zeroed. Restore pkt->cb after
-preparing pktinfo for regular IPv4 packets.
+  SMP: stopping secondary CPUs
 
-Fixes: bb7403655b3c ("ipmr: support IP_PKTINFO on cache report IGMP msg")
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+and then nothing until the watchdog resets the board.
+
+machine_kexec_mask_interrupts() takes neither lock for the other
+operations on the descriptor. Move the search for the chip that
+implements irq_set_irqchip_state() into __irq_set_irqchip_state(), which
+takes no locks, and call it from machine_kexec_mask_interrupts().
+
+Fixes: 78fd584cdec0 ("arm64: kdump: implement machine_crash_shutdown()")
+Suggested-by: Thomas Gleixner <tglx@kernel.org>
+Signed-off-by: Igor Velkov <iav@iav.lv>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
 Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Link: https://lore.kernel.org/netdev/20260903113055.GA90787@shredder/
-Suggested-by: Ido Schimmel <idosch@nvidia.com>
-Suggested-by: Eric Dumazet <edumazet@google.com>
-Signed-off-by: Zhiling Zou <zhilinz@nebusec.ai>
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
-Reviewed-by: Eric Dumazet <edumazet@kernel.org>
-Link: https://patch.msgid.link/0545f0c83f5ee2f6696210f87268e811ef655715.1792476357.git.zhilinz@nebusec.ai
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Link: https://patch.msgid.link/20261015-kexec-irq-bus-lock-v2-1-2af15f0757b6@iav.lv
 ---
- net/ipv4/ipmr.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
+ kernel/irq/internals.h |  1 +
+ kernel/irq/kexec.c     |  2 +-
+ kernel/irq/manage.c    | 43 +++++++++++++++++++++++-------------------
+ 3 files changed, 26 insertions(+), 20 deletions(-)
 
-diff --git a/net/ipv4/ipmr.c b/net/ipv4/ipmr.c
-index e4c51ca473019..acacaae05cc49 100644
---- a/net/ipv4/ipmr.c
-+++ b/net/ipv4/ipmr.c
-@@ -1063,6 +1063,7 @@ static void ipmr_cache_resolve(struct net *net, struct mr_table *mrt,
- static int ipmr_cache_report(const struct mr_table *mrt,
- 			     struct sk_buff *pkt, vifi_t vifi, int assert)
- {
-+	unsigned char pkt_cb[sizeof(pkt->cb)];
- 	const int ihl = ip_hdrlen(pkt);
- 	struct sock *mroute_sk;
- 	struct igmphdr *igmp;
-@@ -1118,8 +1119,6 @@ static int ipmr_cache_report(const struct mr_table *mrt,
- 		msg = (struct igmpmsg *)skb_network_header(skb);
- 		msg->im_vif = vifi;
- 		msg->im_vif_hi = vifi >> 8;
--		ipv4_pktinfo_prepare(mroute_sk, pkt, false);
--		memcpy(skb->cb, pkt->cb, sizeof(skb->cb));
- 		/* Add our header.
- 		 * Note that code, csum and group fields are cleared.
- 		 */
-@@ -1130,6 +1129,15 @@ static int ipmr_cache_report(const struct mr_table *mrt,
- 		skb->transport_header = skb->network_header;
- 	}
+diff --git a/kernel/irq/internals.h b/kernel/irq/internals.h
+index 0ce21dd454047..4dff3ccae1812 100644
+--- a/kernel/irq/internals.h
++++ b/kernel/irq/internals.h
+@@ -81,6 +81,7 @@ enum {
+ #include "settings.h"
  
-+	memset(skb->cb, 0, sizeof(skb->cb));
-+	/* Route queries from ipmr_get_route() carry NETLINK_CB, not IPCB. */
-+	if (ip_hdr(pkt)->version) {
-+		memcpy(pkt_cb, pkt->cb, sizeof(pkt_cb));
-+		ipv4_pktinfo_prepare(mroute_sk, pkt, false);
-+		*PKTINFO_SKB_CB(skb) = *PKTINFO_SKB_CB(pkt);
-+		memcpy(pkt->cb, pkt_cb, sizeof(pkt_cb));
-+	}
+ extern int __irq_set_trigger(struct irq_desc *desc, unsigned long flags);
++extern int __irq_set_irqchip_state(struct irq_desc *desc, enum irqchip_irq_state which, bool val);
+ extern void __disable_irq(struct irq_desc *desc);
+ extern void __enable_irq(struct irq_desc *desc);
+ 
+diff --git a/kernel/irq/kexec.c b/kernel/irq/kexec.c
+index 1a3deffe6b5b6..f245b98764225 100644
+--- a/kernel/irq/kexec.c
++++ b/kernel/irq/kexec.c
+@@ -25,7 +25,7 @@ void machine_kexec_mask_interrupts(void)
+ 			 * First try to remove the active state from an interrupt which is forwarded
+ 			 * to a VM. If the interrupt is not forwarded, try to EOI the interrupt.
+ 			 */
+-			check_eoi = irq_set_irqchip_state(i, IRQCHIP_STATE_ACTIVE, false);
++			check_eoi = __irq_set_irqchip_state(desc, IRQCHIP_STATE_ACTIVE, false);
+ 		}
+ 
+ 		if (check_eoi && chip->irq_eoi && irqd_irq_inprogress(&desc->irq_data))
+diff --git a/kernel/irq/manage.c b/kernel/irq/manage.c
+index 57eff26fa646a..bdb47837c66fc 100644
+--- a/kernel/irq/manage.c
++++ b/kernel/irq/manage.c
+@@ -2735,6 +2735,28 @@ int irq_get_irqchip_state(unsigned int irq, enum irqchip_irq_state which, bool *
+ }
+ EXPORT_SYMBOL_GPL(irq_get_irqchip_state);
+ 
++int __irq_set_irqchip_state(struct irq_desc *desc, enum irqchip_irq_state which, bool val)
++{
++	struct irq_data *data = irq_desc_get_irq_data(desc);
++	struct irq_chip *chip;
 +
- 	igmpmsg_netlink_event(mrt, skb);
- 
- 	/* Deliver to mrouted */
++	do {
++		chip = irq_data_get_irq_chip(data);
++
++		if (WARN_ON_ONCE(!chip))
++			return -ENODEV;
++
++		if (chip->irq_set_irqchip_state)
++			break;
++
++		data = irqd_get_parent_data(data);
++	} while (data);
++
++	if (data)
++		return chip->irq_set_irqchip_state(data, which, val);
++	return -EINVAL;
++}
++
+ /**
+  * irq_set_irqchip_state - set the state of a forwarded interrupt.
+  * @irq:	Interrupt line that is forwarded to a VM
+@@ -2749,25 +2771,8 @@ EXPORT_SYMBOL_GPL(irq_get_irqchip_state);
+  */
+ int irq_set_irqchip_state(unsigned int irq, enum irqchip_irq_state which, bool val)
+ {
+-	scoped_irqdesc_get_and_buslock(irq, 0) {
+-		struct irq_data *data = irq_desc_get_irq_data(scoped_irqdesc);
+-		struct irq_chip *chip;
+-
+-		do {
+-			chip = irq_data_get_irq_chip(data);
+-
+-			if (WARN_ON_ONCE(!chip))
+-				return -ENODEV;
+-
+-			if (chip->irq_set_irqchip_state)
+-				break;
+-
+-			data = irqd_get_parent_data(data);
+-		} while (data);
+-
+-		if (data)
+-			return chip->irq_set_irqchip_state(data, which, val);
+-	}
++	scoped_irqdesc_get_and_buslock(irq, 0)
++		return __irq_set_irqchip_state(scoped_irqdesc, which, val);
+ 	return -EINVAL;
+ }
+ EXPORT_SYMBOL_GPL(irq_set_irqchip_state);
 -- 
 2.53.0
 
