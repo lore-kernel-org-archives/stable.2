@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047291;
-	b=U3NYRXoT+fGh+jTEAaAUf9osQPnawo51JDorgOAh5rAEj/vZTV6fF05fqMsd4uBqHImS
-	 kTBj/k1aZXgWATCpnW8SSA/eTjGgshdfna6fGl0l1O5hS3qOk2Dw5KqnqUMhNyyliUQqt
-	 k3zIX8DZ5lJaZ2RDoxz2xHZvm1uA3R+90fBR12EotOxKUiAjpoziwvMiI7us4JVI0CHid
-	 D+NIH8b4zbOe6r8AWEihyxFtSOswIo8YQW4Ueq22pQgQBX2UHWcodZiqmNx/OmM0dWwJH
-	 wTatTmwplIfusX18dVvUcyS82Bh9hFNIQBBhDUr1vTe88G4Bg3oCeXamKkNLXPatvnA==
+	t=1794047294;
+	b=yKjgdtEh7bLBk9zCeMCWO8kb2F0DYr3TXEz5/87vlHcKmwZiB/e3QnkU0Annc2pC/hK/
+	 sPE/s1DYX6yOWfqyl9DDw4qtd4K9IO1lWtwwITcqARIS0m8TCKafI62Y6KQrkmdvHIWYN
+	 YQwdIX945qMgfJbnF3fnbhzfw8CipGG2p2sK9YGmT4hOjELtuwEMeChMqtYKM7iTxSfoC
+	 UQWJsTvO1I9dgZvcJqNJ0lTbNXoefEOCDTEALO2aZ34/9lM27p57RPkkZTEtTDtPo0ldn
+	 EkNB+5+NTx4CYRKi0w7heXul1sYvpXoDLBJMsbXTrxYk0Zo8yLsnTtbzM+7UZ+Wkwdg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047291;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047294;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=zBqPI4sxNXE8tMe1kNftYt14+6f4rh3tbpcYKQ94E+E=;
-	b=iemeiBM+002Bv4B9IO6NBX0dhCmtZoq1f91HBaySLxaUFV8hNLa5QNK8IQ+6kXfXBd62
-	 zR7AvdaFhldyY09Q9N2/OTF2MLb2vVm0Y7qzOS4Ot3kNhW+AiuwldBoj5sUc9vVtzXihW
-	 HqGekL+U9WO6cpo4AkDrati9Gglf1oTUHvz3QqH060HxCvDe5fRKArrg9xjvP88dfYU75
-	 2rr8XmvkTgZNp9QO3glY5U9lhpiLIUn0oWxKzPYMcgxfWFzQsSyEfMM5bhkQL2cFHgMG4
-	 TNiAFu7CMatMRBoThpZnbsuhSFXjd4xNtaIqNWHoAyJwDB+yV7lifo5MiwL++4ZfdzQ==
+	bh=lFknbrjPWQrwHUwUcMdkS1/kl+Ohzb9yw66hf8JJGJc=;
+	b=fXffydWKDk7wMbowV+aPnpkPv52Y+m1KSXcJ/jzngZzw0eIVBPD+6VrjANwUmEvKNhPn
+	 uEEfAaqKcnhzegL5/3cW+rgSlPHM6uz9NcclamT7h5cEardXrKgIN7D/pRBNUD4Lp8Ugx
+	 CPE/6ZDn2JL57rAxhb5vGzG0y3JAnrjhxhNKuagnhoOdEMsqpYD2Yen+WuQeQOTrnBNIp
+	 n2+QYqgiFrOG4HqAUHwB50qy/NeCaiAJ0iJ9h7Ntu+PeTNKJeqJDtu4F/8/Aj7Iufg3Bl
+	 RUQmzMhWVt/Hjy2L0ha6YOaKCpmfx72XWd7MkUBHsOg+IPw8atp8ZhJ7Aegu5D816tg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="d8Rb/hrw";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MIFjoc7a;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 873CE606A32F
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:28:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB552606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:28:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d8Rb/hrw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFAD81F0089F;
-	Sat,  7 Nov 2026 10:28:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MIFjoc7a
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F37B1F0089F;
+	Sat,  7 Nov 2026 10:28:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047291;
-	bh=zBqPI4sxNXE8tMe1kNftYt14+6f4rh3tbpcYKQ94E+E=;
+	s=k20260515; t=1794047293;
+	bh=lFknbrjPWQrwHUwUcMdkS1/kl+Ohzb9yw66hf8JJGJc=;
 	h=From:To:Cc:Subject:Date;
-	b=d8Rb/hrwYnFZMgCMmmXlv2Ld9Eh3bZ9oIXeMOJRfS7CZn8co7MkEC1eUTIGjsV/V7
-	 N+x9ZX1RiA5B+0sLU4e/H8j6teXPvL2A0oMoLFQ+l1+e4NPOxbM1MvbCGbyfj8xYXM
-	 NeW8nBhVAw+L3zKGBlImc/+AVG2MA+dup5e7IJHj/ceYfaLu6Hm44gTg0BZt+b1LJC
-	 M5RPOkI8ROaVkG8Nj/hTjk8PIN3vT3GrqKFiqqD+4RJtpjriaGj3IwaUnlzKSuAIfS
-	 FbhYO4aSmXhtRW+m0sSJkpCrMiMJOg+xx7NOZKvnUISIjeBD66K9gRRytRpVVXdSLJ
-	 rW5Vag7jvBJAg==
+	b=MIFjoc7aI2lO2hjC7kxdudTXTxVrloGPIzqo3JZ96A2krMP933tJZwN7b7wb0FHBJ
+	 5HxmT7gpBGpJ15nPQKnJheWMkvaT/M6et+9DoYwpfL3IqcBbDArACgs4cxkAjJgyWd
+	 FlTDbonuiAjNqcEpjVLvqclA3NcSkpC4EzEu/CshkWoXN0IlxXqvZjDb/XfHUotFXj
+	 OQSTmGQ43NPCnzDFnsBgqLLQTwSUSrX60867tEyhYxKfmkt1u8/pPYUYn/MP2aTH2X
+	 x0GiOi+VXPUiyZNDWQa94nEO2ryIOxn4bbHJSlrGLsJn5RX/Asa60h2ikA83PpOL+A
+	 7lzAwNUOwteLw==
 From: Sasha Levin <sashal@kernel.org>
-To: jakubszczudlo40@gmail.com,
-	andriy.shevchenko@intel.com,
-	jonathan.cameron@oss.qualcomm.com
+To: marek@czernohous.de,
+	fabstz-it@yahoo.fr,
+	lyude@redhat.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] iio: adc: ti-ads1100: Fix incorrect reading when datarate changed in single mode" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:28:09 -0500
-Message-ID: <20261107052809-failed-6.6-38dbf24dfbd0@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/nouveau/pci: use config-space MSI rearm on MCP79/MCP7A (NVAC)" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:28:12 -0500
+Message-ID: <20261107052812-failed-6.6-354d47fb3f35@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,202 +69,147 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 38dbf24dfbd0a73b89fa2871a7148429aef05531
+git cherry-pick -x 354d47fb3f35461b7f942831c1b2a7105e92b57f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052809-failed-6.6-38dbf24dfbd0@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052812-failed-6.6-354d47fb3f35@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 38dbf24dfbd0a73b89fa2871a7148429aef05531 Mon Sep 17 00:00:00 2001
-From: Jakub Szczudlo <jakubszczudlo40@gmail.com>
-Date: Tue, 4 Aug 2026 21:28:38 +0200
-Subject: [PATCH] iio: adc: ti-ads1100: Fix incorrect reading when datarate
- changed in single mode
+From 354d47fb3f35461b7f942831c1b2a7105e92b57f Mon Sep 17 00:00:00 2001
+From: Marek Czernohous <marek@czernohous.de>
+Date: Sun, 16 Aug 2026 15:09:04 +0200
+Subject: [PATCH] drm/nouveau/pci: use config-space MSI rearm on MCP79/MCP7A
+ (NVAC)
 
-When device is suspended and it is in single mode then changing
-datarate doesn't make it actually wait for new measurement, so to
-be sure that read after change is correct, functions that changes
-datarate and gain will wait for a new data.
+NVAC (MCP79/MCP7A) uses g94_pci_func, whose .msi_rearm is
+nv40_pci_msi_rearm(): a re-arm write through the MMIO mirror of PCI
+config space.  On this IGP that path is unreliable; when a re-arm is
+missed the interrupt line stays dead, command submission times out and
+the GPU appears hung until reboot.  On an Apple Mac mini (early 2009,
+MCP79, boot0 0x0ac080b1) this showed as sporadic fifo timeouts and GPU
+hangs under load unless MSI was disabled via config=NvMSI=0.
 
-Fixes: 541880542f2b ("iio: adc: Add TI ADS1100 and ADS1000")
-Signed-off-by: Jakub Szczudlo <jakubszczudlo40@gmail.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: <Stable@vger.kernel.org>
-Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Give NVAC its own pci func that re-arms through real PCI config space
+(nv46_pci_msi_rearm) instead.  This follows existing precedent: nv46.c
+documents the MMIO-mirror re-arm as broken on several related parts,
+and commit 5112abc6a433 ("drm/nouveau/pci/g92: Fix rearm") fixed g92
+the same way while moving the remaining chipsets, NVAC included, into
+the newly added shared g94 table, where NVAC stayed on the MMIO path.
+This change completes that fix for NVAC.  The sibling IGP NVAA
+(MCP77/MCP78) has MSI disabled entirely as "reported broken" in
+nvkm_pci_new_(); NVAC works correctly once the re-arm goes through
+config space, so disabling MSI is not necessary.
+
+Only NVAC is switched: that is the hardware this has been validated
+on.  The other users of g94_pci_func (G94/G96/G98/GT2xx and the
+MCP77/MCP89 IGPs) keep their current behavior; MCP77 and MCP89
+plausibly want the same treatment but were not tested.
+
+Tested on the Mac mini as a daily driver for two months with MSI
+enabled and zero fifo timeouts.  Independently confirmed stable on an
+iMac9,1 (MCP79) running 6.12.90 with the v1 form of this change (the
+same one-line functional switch, applied to that kernel's g94
+implementation).
+
+Fixes: 5112abc6a433 ("drm/nouveau/pci/g92: Fix rearm")
+Cc: <stable@vger.kernel.org> # v6.16+
+Tested-by: Fab Stz <fabstz-it@yahoo.fr>
+Assisted-by: Claude:claude-opus-4-7
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Marek Czernohous <marek@czernohous.de>
+Reviewed-by: Lyude Paul <lyude@redhat.com>
+Signed-off-by: Lyude Paul <lyude@redhat.com>
+Link: https://patch.msgid.link/178688574401.522643.12812428444459119913@gmail.com
 ---
- drivers/iio/adc/ti-ads1100.c | 107 +++++++++++++++++++++++++++++++++--
- 1 file changed, 103 insertions(+), 4 deletions(-)
+ .../gpu/drm/nouveau/include/nvkm/subdev/pci.h |  1 +
+ .../gpu/drm/nouveau/nvkm/engine/device/base.c |  2 +-
+ .../gpu/drm/nouveau/nvkm/subdev/pci/Kbuild    |  1 +
+ .../gpu/drm/nouveau/nvkm/subdev/pci/mcp79.c   | 35 +++++++++++++++++++
+ 4 files changed, 38 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/gpu/drm/nouveau/nvkm/subdev/pci/mcp79.c
 
-diff --git a/drivers/iio/adc/ti-ads1100.c b/drivers/iio/adc/ti-ads1100.c
-index 9fe8d54cce83c..03096d7e10914 100644
---- a/drivers/iio/adc/ti-ads1100.c
-+++ b/drivers/iio/adc/ti-ads1100.c
-@@ -15,10 +15,12 @@
- #include <linux/module.h>
- #include <linux/init.h>
- #include <linux/i2c.h>
-+#include <linux/iopoll.h>
- #include <linux/mutex.h>
- #include <linux/property.h>
- #include <linux/pm_runtime.h>
- #include <linux/regulator/consumer.h>
-+#include <linux/time.h>
- #include <linux/units.h>
- 
- #include <linux/iio/iio.h>
-@@ -43,6 +45,9 @@
- static const int ads1100_data_rate[] = { 128, 32, 16, 8 };
- static const int ads1100_data_rate_bits[] = { 12, 14, 15, 16 };
- 
-+/* Timeout based on the minimum sample rate of 8 SPS (7500ms) */
-+#define ADS1100_MAX_DRDY_TIMEOUT_US	(7500 * USEC_PER_MSEC)
+diff --git a/drivers/gpu/drm/nouveau/include/nvkm/subdev/pci.h b/drivers/gpu/drm/nouveau/include/nvkm/subdev/pci.h
+index 112b674ed9c8a..0172e0d200f81 100644
+--- a/drivers/gpu/drm/nouveau/include/nvkm/subdev/pci.h
++++ b/drivers/gpu/drm/nouveau/include/nvkm/subdev/pci.h
+@@ -46,6 +46,7 @@ int nv4c_pci_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct n
+ int g84_pci_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct nvkm_pci **);
+ int g92_pci_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct nvkm_pci **);
+ int g94_pci_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct nvkm_pci **);
++int mcp79_pci_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct nvkm_pci **);
+ int gf100_pci_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct nvkm_pci **);
+ int gf106_pci_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct nvkm_pci **);
+ int gk104_pci_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct nvkm_pci **);
+diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c b/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c
+index ea62dc97f1189..f7e02a16e5bc4 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c
++++ b/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c
+@@ -1237,7 +1237,7 @@ nvac_chipset = {
+ 	.mc       = { 0x00000001, g98_mc_new },
+ 	.mmu      = { 0x00000001, mcp77_mmu_new },
+ 	.mxm      = { 0x00000001, nv50_mxm_new },
+-	.pci      = { 0x00000001, g94_pci_new },
++	.pci      = { 0x00000001, mcp79_pci_new },
+ 	.therm    = { 0x00000001, g84_therm_new },
+ 	.timer    = { 0x00000001, nv41_timer_new },
+ 	.volt     = { 0x00000001, nv40_volt_new },
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/pci/Kbuild b/drivers/gpu/drm/nouveau/nvkm/subdev/pci/Kbuild
+index a14ea0f7b1c87..90f03baeb22ac 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/pci/Kbuild
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/pci/Kbuild
+@@ -9,6 +9,7 @@ nvkm-y += nvkm/subdev/pci/nv4c.o
+ nvkm-y += nvkm/subdev/pci/g84.o
+ nvkm-y += nvkm/subdev/pci/g92.o
+ nvkm-y += nvkm/subdev/pci/g94.o
++nvkm-y += nvkm/subdev/pci/mcp79.o
+ nvkm-y += nvkm/subdev/pci/gf100.o
+ nvkm-y += nvkm/subdev/pci/gf106.o
+ nvkm-y += nvkm/subdev/pci/gk104.o
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/pci/mcp79.c b/drivers/gpu/drm/nouveau/nvkm/subdev/pci/mcp79.c
+new file mode 100644
+index 0000000000000..e2ae242f1aa77
+--- /dev/null
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/pci/mcp79.c
+@@ -0,0 +1,35 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright 2026 Marek Czernohous
++ *
++ * MCP79/MCP7A (NVAC): like g94, but MSI re-arm goes through real PCI
++ * config space.  The MMIO-mirror re-arm is unreliable on this IGP and a
++ * missed re-arm kills the interrupt line (see the nv46 comment; g92
++ * already re-arms through config space for the same reason).
++ */
++#include "priv.h"
 +
- struct ads1100_data {
- 	struct i2c_client *client;
- 	struct regulator *reg_vdd;
-@@ -123,10 +128,86 @@ static int ads1100_get_adc_result(struct ads1100_data *data, int chan, int *val)
- 	return 0;
- }
- 
-+static int ads1100_conversion_busy(struct ads1100_data *data)
++static const struct nvkm_pci_func
++mcp79_pci_func = {
++	.cfg = { .addr = 0x088000, .size = 0x1000 },
++
++	.init = g84_pci_init,
++	.msi_rearm = nv46_pci_msi_rearm,
++
++	.pcie.init = g84_pcie_init,
++	.pcie.set_link = g84_pcie_set_link,
++
++	.pcie.max_speed = g84_pcie_max_speed,
++	.pcie.cur_speed = g84_pcie_cur_speed,
++
++	.pcie.set_version = g84_pcie_set_version,
++	.pcie.version = g84_pcie_version,
++	.pcie.version_supported = g92_pcie_version_supported,
++};
++
++int
++mcp79_pci_new(struct nvkm_device *device, enum nvkm_subdev_type type, int inst,
++	      struct nvkm_pci **ppci)
 +{
-+	u8 buffer[3];
-+	int ret;
-+
-+	ret = i2c_master_recv(data->client, (char *)&buffer, sizeof(buffer));
-+	if (ret < 0) {
-+		dev_err(&data->client->dev, "I2C read fail: %d\n", ret);
-+		return ret;
-+	}
-+
-+	return FIELD_GET(ADS1100_CFG_ST_BSY, buffer[2]);
++	return nvkm_pci_new_(&mcp79_pci_func, device, type, inst, ppci);
 +}
-+
-+static int ads1100_wait_single_conversion(struct ads1100_data *data)
-+{
-+	int data_rate_index = FIELD_GET(ADS1100_DR_MASK, data->config);
-+	int data_rate_Hz = ads1100_data_rate[data_rate_index];
-+	unsigned long poll_us = DIV_ROUND_CLOSEST(USEC_PER_SEC, data_rate_Hz) / 4;
-+	int busy;
-+	int ret;
-+
-+	ret = readx_poll_timeout(ads1100_conversion_busy, data,
-+				 busy, busy <= 0,
-+				 poll_us, ADS1100_MAX_DRDY_TIMEOUT_US);
-+	if (busy < 0)
-+		return busy;
-+
-+	return ret;
-+}
-+
-+static int ads1100_start_single_conversion(struct ads1100_data *data)
-+{
-+	u8 config = data->config | ADS1100_CFG_SC;
-+	int ret;
-+
-+	ret = i2c_master_send(data->client, &config, sizeof(config));
-+	if (ret < 0) {
-+		dev_err(&data->client->dev, "I2C write fail: %d\n", ret);
-+		return ret;
-+	}
-+	/* Need to wait because of change from continuous to single mode */
-+	ret = ads1100_wait_single_conversion(data);
-+	if (ret)
-+		return ret;
-+
-+	config |= ADS1100_CFG_ST_BSY;
-+
-+	ret = i2c_master_send(data->client, &config, sizeof(config));
-+	if (ret < 0) {
-+		dev_err(&data->client->dev, "I2C write fail: %d\n", ret);
-+		return ret;
-+	}
-+
-+	/* No need to cache it, it's status bit */
-+	data->config = config & ~ADS1100_CFG_ST_BSY;
-+
-+	return 0;
-+}
-+
-+static int ads1100_poll_data_ready(struct ads1100_data *data)
-+{
-+	int ret;
-+
-+	ret = ads1100_start_single_conversion(data);
-+	if (ret)
-+		return ret;
-+
-+	ret = ads1100_wait_single_conversion(data);
-+	if (ret)
-+		return ret;
-+
-+	return ads1100_set_config_bits(data, ADS1100_CFG_SC, ADS1100_CONTINUOUS);
-+}
-+
- static int ads1100_set_scale(struct ads1100_data *data, int val, int val2)
- {
- 	int microvolts;
- 	int gain;
-+	int ret;
- 
- 	/* With Vdd between 2.7 and 5V, the scale is always below 1 */
- 	if (val)
-@@ -135,6 +216,11 @@ static int ads1100_set_scale(struct ads1100_data *data, int val, int val2)
- 	if (!val2)
- 		return -EINVAL;
- 
-+	PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(&data->client->dev, pm);
-+	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
-+	if (ret)
-+		return ret;
-+
- 	microvolts = regulator_get_voltage(data->reg_vdd);
- 	/*
- 	 * val2 is in 'micro' units, n = val2 / 1000000
-@@ -149,22 +235,35 @@ static int ads1100_set_scale(struct ads1100_data *data, int val, int val2)
- 
- 	ads1100_set_config_bits(data, ADS1100_PGA_MASK, ffs(gain) - 1);
- 
--	return 0;
-+	return ads1100_poll_data_ready(data);
- }
- 
- static int ads1100_set_data_rate(struct ads1100_data *data, int chan, int rate)
- {
- 	unsigned int i;
- 	unsigned int size;
-+	int ret;
- 
- 	size = data->supports_data_rate ? ARRAY_SIZE(ads1100_data_rate) : 1;
- 	for (i = 0; i < size; i++) {
- 		if (ads1100_data_rate[i] == rate)
--			return ads1100_set_config_bits(data, ADS1100_DR_MASK,
--						       FIELD_PREP(ADS1100_DR_MASK, i));
-+			break;
- 	}
- 
--	return -EINVAL;
-+	if (i == size)
-+		return -EINVAL;
-+
-+	PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(&data->client->dev, pm);
-+	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
-+	if (ret)
-+		return ret;
-+
-+	ret = ads1100_set_config_bits(data, ADS1100_DR_MASK,
-+				      FIELD_PREP(ADS1100_DR_MASK, i));
-+	if (ret)
-+		return ret;
-+
-+	return ads1100_poll_data_ready(data);
- }
- 
- static int ads1100_get_vdd_millivolts(struct ads1100_data *data)
 -- 
 2.53.0
 
