@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794015901;
-	b=pWPKFaxcqTlHAt9l6qTL14+NdkEsRW+jmO23ytuE1kUiD+UuWBI4NsmwBzijn9FOCJDI
-	 iczIGIF8wR8UVesyU8XkQcfPDTwf9Xrofbcja5ZFm+jC3TKQYanL7Am/+zKF9RUl6fbLY
-	 TRFT1/Q5p453/duNOJM0jQ76OZAZCol9CON/qFXxMiAPxrLJCa86eZdjnDLD1VWH0zsWJ
-	 DHdS1a2M8pjGn3oJJe8e5OwoLyN2kW6/0c/CaN4Aj5pGxYHwTUa5I8/sXMniMY21C14Tj
-	 vQ20hvMM2pqprDh7ve6ht6izuOh+HSS2k5kdT5M2I2ZCPd8rOQ0phpkoxzJQGRIrcXQ==
+	t=1794015904;
+	b=f2sEI/u6tiFkMLukBZtR8YG4xK82kki2D3xlv7qkz3wJmW6/aUZTDfIG738bum2+PL+7
+	 KoG3r8r2Wg3wXF/kBSYAnUFOsNvjh/5shJZuKFw3ySPww2HZsR81QhSzSM3zbu1UMkkIc
+	 c1nSlf1TZSTq5lBLUUiduV/NFs8We/wX0aKOxLxE0Ue+lHoWeMn+QIbBq1WfNnqrLK84G
+	 Jig/wMQ5MW96cM7dlhlZ55wa1ICff7ray48bvWYjULSRvxANUfJrcpXDauWBUGcQ4ZKmk
+	 DoiFdQTuK78Zph/FLxAbDZywBJlY0QLcQlE9HznCY/Do6sI9YkCi/X+4rb/+Ya6iFoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794015901;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794015904;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=0Yq28bzTUJ3iNY//5LElOyTADXlqa2Uq2chixrgk5yE=;
-	b=P7FicBK/GA00bh1W4adaDgEO2mrEUtrmx2H31ncfrPQsd7hD/HNdBFG4gaeIP4VeTw3U
-	 kzKyf8G/lAqqqCueh1Ut2jghRj06mJM0qOEKo5EqRPZ6l+tXbhM1ZiKVwVFoV/fbGb3zE
-	 AN2KFKDy04eQ9pk6s3kRHXpQrJJVZ0v0eWpkvIVbXjF2Bdc1EdSE6ZBj2kZIPQ5fVdp+a
-	 +gyJ9ZLlh6Io/FNgYXX1oZdQTcqGgteKy5mz6QLAUV44TLEqKi/ji1bHvJSvZCAi8NL2J
-	 9wcZx6T1mm6xZOGqLBhs4WcDUDUYPM+up81/Jgb5j0jHcKwUVHNV7CRFady0HYagNwQ==
+	bh=DUqVHoAlTP7z4c9p2vG1aHucUMrYKKYexcxS3ktF96o=;
+	b=AcJ4G6Nkql4/Uj61UmMY7QicL9eVQRRqIQVtP1MG6csv0hsSAMRX+PfRHTCeqPFCWgzP
+	 VzISAtHYft+k10MUPg8sVvuljJDf7bhokLbyuWZm+2bRWink8UQJs8lJVp1yLIdHO0+c7
+	 Fkth9fF2HS8LP/BKmevlpP76WO/9cwt2SB6q3X5l8tddVrQyonM/8hryQvfXyfqGTlu+D
+	 7t1XHFzUPkDLdm+mTYJ4yI+86x7tTJiMf6Yf0Th91A+cx0HvWglp5P29B9PsR0+ICCcEu
+	 b+t/GqUrplWvOuU2iERpeRvsD/XGsNDeDUgbSLiad75wITw9JMXQa38H9H1y+DvpLIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=efficios.com;
 	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=pj5sZNjD;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=UP59KEZN;
 	arc=none smtp.remote-ip=158.69.130.18
 Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CCD6606A337;
-	Sat,  7 Nov 2026 01:45:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CCD6606A337
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B66AA606EE83;
+	Sat,  7 Nov 2026 01:45:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B66AA606EE83
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=pj5sZNjD
+	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=UP59KEZN
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=smtpout1; t=1794015899;
-	bh=0Yq28bzTUJ3iNY//5LElOyTADXlqa2Uq2chixrgk5yE=;
+	s=smtpout1; t=1794015903;
+	bh=DUqVHoAlTP7z4c9p2vG1aHucUMrYKKYexcxS3ktF96o=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=pj5sZNjDtzxtAWxsKn/kHkbbL0Qz7QUJmjfmcKeUdq3xbfwZWjg+jOaQdFNhl3Im+
-	 4y09TAQGA1gutp/eUFIgnJugC4F93iL0fmpqPpw7IoNbifRnuXcXcG6d6uz40Jf8Ri
-	 b5gK1QBRCicVg5r67+SzL0T6EeCWtB2EP89F7Tk2cNviIqOOqfE7bprRNcFd1poTRw
-	 Q19hCUkZPhfCfXfIJaaIdAeTBu3iafNlfAGsH62lHpGuqlgYwVLFTvoEj8nVjNFLyQ
-	 h855/x3F5RGH+1HOAGD6HJ/7GsV1ZNwSe3YjOEVKy3haGGxNKaoyEsPIwPHh/7AP6D
-	 gmKi7rmHZQqdw==
+	b=UP59KEZNKnf9WKuVwisMPCvc1eT3fSraHrW0fI/G3Fcp3ZpokAEWWlxcu5qzqfMs7
+	 EiW7TQGgBIDlQHEa0sBoZ4SkwNdvUFIwFupSrOnyUBbv944/aLjDKAdB9vCXpFsQuO
+	 gXu74Jj1U6PFVfaoHJpX44gxMmpQgKW6ClcmLV8bhif9f/9VgoXiZM0bUsGL7y+93U
+	 ZQK/kR+qZFExnG8AXS3g4XZjIETv0QU3NeYYnwQCbA/4iJaAeXBxPvPIcK32QHYznK
+	 vK7zGGkPrfeorBjhxy5t6AZGtE1Lbrvo+n8tKTdFxqPE2nYXMzoUr/rig8eesCilTx
+	 nTeBPjqnsy4vQ==
 Received: from thinkos.internal.efficios.com (unknown [64.58.40.251])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jLzPl1tpLzLZ5;
-	Fri, 06 Nov 2026 20:44:59 -0500 (EST)
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jLzPp5DH9zLKc;
+	Fri, 06 Nov 2026 20:45:02 -0500 (EST)
 From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 To: juri.lelli@redhat.com,
 	peterz@infradead.org,
@@ -80,9 +80,9 @@ Cc: linux-kernel@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	linux-rt-devel@lists.linux.dev,
 	stable@vger.kernel.org
-Subject: [PATCH v4 03/26] sched/deadline: Do not admit bandwidth for parameters that are kept
-Date: Fri,  6 Nov 2026 20:44:28 -0500
-Message-Id: <20261107014451.1487825-4-mathieu.desnoyers@efficios.com>
+Subject: [PATCH v4 11/26] sched/deadline: Reject SCHED_DEADLINE on exited tasks
+Date: Fri,  6 Nov 2026 20:44:36 -0500
+Message-Id: <20261107014451.1487825-12-mathieu.desnoyers@efficios.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20261107014451.1487825-1-mathieu.desnoyers@efficios.com>
 References: <20261107014451.1487825-1-mathieu.desnoyers@efficios.com>
@@ -97,53 +97,63 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-sys_sched_setattr() fills a SCHED_FLAG_KEEP_PARAMS request in from the
-task itself (get_params()), with no lock held, and
-__sched_setscheduler() then skips __setscheduler_params(): the task
-keeps the parameters it has, and its dl_bw with them.
-sched_dl_overflow() runs all the same.
+From: Juri Lelli <juri.lelli@redhat.com>
 
-A parameter change of the task's own that lands in between leaves the
-request stale, and dl_param_changed() takes it for a change: total_bw of
-the root domain, and this_bw and running_bw of its runqueue through
-dl_change_utilization(), then hold a bandwidth the task does not have,
-and the release at its 0-lag time, which takes the task's own dl_bw,
-leaves the difference behind.
+sched_setattr(SCHED_DEADLINE) on a zombie task succeeds and charges
+total_bw via sched_dl_overflow(), but the task has already done its
+final schedule() and will never run again. Nothing releases the reserved
+bandwidth. Repeating this fills total_bw to the admission cap, after
+which sched_setattr(SCHED_DEADLINE) and CPU offline fail with -EBUSY.
 
-There is nothing to admit for parameters that are kept: skip the check.
+Reject sched_setattr(SCHED_DEADLINE) on exited tasks with -ESRCH.
 
-Found by reading, after the Sashiko AI review of the first posting of
-this series raised the case the previous patch refuses. Not reproduced:
-it needs a parameter change of a deadline task to land inside the window
-of a SCHED_FLAG_KEEP_PARAMS request on the same task.
+A task of the class that exited, switched to another policy, runs
+switched_from_dl(), which decrements the count of deadline tasks of its
+cpuset that cgroup_task_dead() decremented already: at 0 with a deadline
+task left in it, the cpuset is skipped by the next rebuild of the root
+domains' accounting, and that task's bandwidth with it. Reject that as
+well. The deadline_bw_test selftest added later in this series has the
+case, death_zombie_switched: on v7.4-rc1 the switch is accepted, and
+the one-CPU partition root the zombie ran in admits 9 tasks of 10% after
+a rebuild, with a task of 30% still in it, where 6 are due.
 
-Fixes: a509a7cd7974 ("sched/uclamp: Extend sched_setattr() to support utilization clamping")
+Fixes: 332ac17ef5bf ("sched/deadline: Add bandwidth management for SCHED_DEADLINE tasks")
+Reported-by: Weiheng Qiu <weihengqiuu@gmail.com>
+Closes: https://lore.kernel.org/all/3f6e6c87-645b-45fd-8fc6-8da5bc5b82d8@gmail.com/
+Link: https://lore.kernel.org/all/20261103-b4-sched-dl-bw-fixes-v1-4-dd761fe005b4@redhat.com/
 Cc: stable@vger.kernel.org
+Signed-off-by: Juri Lelli <juri.lelli@redhat.com>
+[mathieu: reject a task of the class leaving it too, found by the
+ Sashiko AI review of the patch]
 Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 ---
- kernel/sched/syscalls.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ kernel/sched/syscalls.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
 diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
-index 6819f0fea3c5..b8c036d03d6f 100644
+index 89c185f7d498..12830e4f8842 100644
 --- a/kernel/sched/syscalls.c
 +++ b/kernel/sched/syscalls.c
-@@ -690,8 +690,14 @@ int __sched_setscheduler(struct task_struct *p,
- 	 * of a SCHED_DEADLINE task) we need to check if enough bandwidth
- 	 * is available. Last of the checks: nothing gives back the
- 	 * bandwidth it reserves.
-+	 *
-+	 * Nothing to admit for parameters that are kept
-+	 * (SCHED_FLAG_KEEP_PARAMS): they are the ones the task has, and
-+	 * sys_sched_setattr() read them from it with no lock held, so a
-+	 * change of its own that landed in between would leave them stale.
- 	 */
--	if ((dl_policy(policy) || dl_task(p)) && sched_dl_overflow(p, policy, attr)) {
-+	if (!(attr->sched_flags & SCHED_FLAG_KEEP_PARAMS) &&
-+	    (dl_policy(policy) || dl_task(p)) && sched_dl_overflow(p, policy, attr)) {
- 		retval = -EBUSY;
+@@ -584,6 +584,19 @@ int __sched_setscheduler(struct task_struct *p,
+ 	if (retval)
  		goto unlock;
- 	}
+ 
++	/*
++	 * Reject SCHED_DEADLINE on exited tasks. A zombie will never be
++	 * scheduled again, so sched_dl_overflow() would charge total_bw
++	 * that nothing will ever release. And reject a change of policy of
++	 * one in the class: cgroup_task_dead() took it off the count of
++	 * deadline tasks of its cpuset, which switched_from_dl() would
++	 * decrement a second time.
++	 */
++	if ((dl_policy(policy) || dl_task(p)) && p->exit_state) {
++		retval = -ESRCH;
++		goto unlock;
++	}
++
+ 	/*
+ 	 * If not changing anything there's no need to proceed further,
+ 	 * but store a possible modification of reset_on_fork.
 -- 
 2.47.3
 
