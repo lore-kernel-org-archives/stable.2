@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050020;
-	b=pDVb7W3ePdJ5gPmPZ+8hsxu6UdtwY9lDxRbgdZermCBi6ZGKlDa2AZZo5hU4KZn+giLz
-	 5+oeFbyYM+Y+cbaHsgso0XdeQiCdg7DqF+6sHlIWuqLwklnxeB36GHRlMfZOdckisjpko
-	 HZqVeUFSDfQAZ9dKzd0+Qu8vqYydV1IxWaAiHcvw0+T3CBkTHKO0GP3j/1NDncx1DKmwD
-	 6SlTLyF6KSadS5a6mDJSQZEyCU9uq4YyLY4AMHk2cMRioHo9DBCE4FpW7EF7t3VHlMRy2
-	 mLd0lqMHxlNX6CeJnLduftElRgvg5nrdRZMsIVIqbhOvABofP7Bl7oSvrbbZiAogZCA==
+	t=1794050023;
+	b=QtR+LQavp8yCBIXOG1jDrQFecgfEqM89V8c5NeKkWx9sF1PbabVg3UY/1OjyAH1zvzzh
+	 o2ZdMZP0yF9P7bWVuS8dqahf23XB5HWE8I/9TqL/1VjKsOfrLIit2aFqZ2hgXJEAUL1tt
+	 DQfEzSfzMR82rHUbAfI3047F06dQBueE5ZYAkEe+CviJwZRaJNnuAsYwn7j2dq+mv5k2H
+	 Sp7ilufc7VaPogccHjRrP8FF6gBoFMyUuzxG0EkYq4cmsarzSj9e+s4y4OviCwwzdlTNc
+	 bkMShQwu7U2QkXTb27sDmT7edjRblSqRaBQrvNz95el2zTmSuAZe4OyyIISqGkgbzfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050020;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050023;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=pS5hoadL2tQl2pY8TXBIn4CFyNpEIa7sIOUI3JpMov4=;
-	b=ia3xPcUI9V1dDXqqlrQg0Oo9grIROOJCfPPC2TO8hwonQqYVXaOcmMPnWf4/DbzpeI+d
-	 WtmdH2SCJm0vSgPrW8XONzoJTpHZkdmk1BPFYTgaJlGASUBn0TJfDT8fYpcfEj8irYtjz
-	 wdv3Wdx0/A1m9+nJX/M/q6Mk8Dh2GJd3s9WsCGfgGtE29m0wf5DeQQxa+gdZgdYn6S3qh
-	 kWspWt+PicbEPBZdeQJW0CPVwVLrfveSAvSssOJoZr43SOLJQwjSgPXdzrv8X5WvJh7WC
-	 gKL7hYsoilRUbYWe13vkxB/wYK/+sk8HsMxmG4KrBZB/9jTkor4kzW2nUhUEXkoGGjg==
+	bh=XMiiQLgoselXcyqSQm5v4wPgpCfP7t1pMxjJNP8xDaM=;
+	b=eHJFfgFkncPGHz+x/3ReUS/Vsj2Prnl20dg/jt66GehV86VHTOmcmvJyjQg3FrIbvgav
+	 ya+dRXxRmfRn3K/chKZXfXS8ZExbmKgPjOlbZ2LIm/7QDG7zUx6JjIf1NUUR5GTNOlxm1
+	 qRe6+wdRsWBy7L38pUlIrvITT6x912y6NRO7YECo+d1r1HFHu56xx2AQQ5yLWNa+TBqQN
+	 qtwpBn6dLvZDYUnWR2hfoPt52z9ViuRpU/TTTu8826bTPMgVFTdfZ5Sn2RtipJ1bLfANe
+	 0ugKK8kEOJCpT1LANIS3rXQ7mZgtk72nv+/JD+n9vpkkkbmBn8Di7nn1xWunerTcrdg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LtnVEvRx;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NzQEBAVg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0043B606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:13:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CECF606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:13:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LtnVEvRx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 705601F0089F;
-	Sat,  7 Nov 2026 11:13:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NzQEBAVg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 705D51F0089F;
+	Sat,  7 Nov 2026 11:13:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050019;
-	bh=pS5hoadL2tQl2pY8TXBIn4CFyNpEIa7sIOUI3JpMov4=;
+	s=k20260515; t=1794050022;
+	bh=XMiiQLgoselXcyqSQm5v4wPgpCfP7t1pMxjJNP8xDaM=;
 	h=From:To:Cc:Subject:Date;
-	b=LtnVEvRxNPx+1CTHgkM89UtIu5y3hwj2Jj7O1h4rvzROQdhL8E54bQgkVw+PXaDnP
-	 IdAKkOD+kzEn5hxXSTlPGDwIW3m4t33Nhnk6PTX3oX8JOavzxuJDjVkwaE3HtZDQ2e
-	 9dFp0LWmIcecdYGuy6PDYwisEtvEaOX+oarSQJHkFPv01/ZappsvE/Q8cUgn3tDxSX
-	 oBFgYMlF34Iy/ITkBEMHRtbaaWEhrVgCBujDBGhyX1M6RJS1BKztql4Ogyxm3T+2qd
-	 8TCXiss2c+fSGiDDlFKHhHcZWkfQbA9KDeZpyitJyaDnhBKztDTuGcpi9K8F+Diqn8
-	 zstephzq/ZAPQ==
+	b=NzQEBAVgJlcp5uNm9F7n5zYFrA6lY5rfZnsHKsGT8EkjMpFpfPoqXKX+mPKhkmCX6
+	 WuKk3yo8+hX5Og9z1U5XFoiNxDMniita5KgbvHaxLfxNpTbneyvpQ8ZzKFPPCDwwkr
+	 Gkoi+Isgb2KqQAy5H1sj5UJ20vXtciuGtM93+uebxuj8VCEJ0WfVPWPBF/n8uE6O6P
+	 U/xorZRHaXKP+r7O5zTSCoaGjq5xDVr3/kLZV4EYnNtDahXGZYiFpkkg6prfTH5V+2
+	 3Al4sov4ZOOpOYLXD7RmDue9ocE5uhYyMEhhb3MspIEHEr+cvN5TuxTkszcWVj2kac
+	 y844fKFyFVroQ==
 From: Sasha Levin <sashal@kernel.org>
-To: teel4res@gmail.com,
-	axboe@kernel.dk
+To: georgia.garcia@canonical.com,
+	john.johansen@canonical.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] io_uring/timeout: count cancelled timeouts in cq_timeouts" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:13:38 -0500
-Message-ID: <20261107061338-failed-5.15-1c8b49851543@kernel.org>
+Subject: FAILED: patch "[PATCH] apparmor: remove fs entries created by a failed policy load" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 06:13:41 -0500
+Message-ID: <20261107061341-failed-5.15-6ec46f8f1977@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,69 +68,85 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 1c8b49851543f41fc8bb18bcd1f15cc93d14b530
+git cherry-pick -x 6ec46f8f1977d218bf2494ce276152b2d01424af
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061338-failed-5.15-1c8b49851543@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061341-failed-5.15-6ec46f8f1977@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 1c8b49851543f41fc8bb18bcd1f15cc93d14b530 Mon Sep 17 00:00:00 2001
-From: Cheng Yongkang <teel4res@gmail.com>
-Date: Thu, 29 Oct 2026 07:12:20 -0700
-Subject: [PATCH] io_uring/timeout: count cancelled timeouts in cq_timeouts
+From 6ec46f8f1977d218bf2494ce276152b2d01424af Mon Sep 17 00:00:00 2001
+From: Georgia Garcia <georgia.garcia@canonical.com>
+Date: Wed, 14 Oct 2026 19:08:20 -0300
+Subject: [PATCH] apparmor: remove fs entries created by a failed policy load
 
-io_timeout_cancel() posts the cancelled timeout's -ECANCELED CQE without
-advancing ctx->cq_timeouts.  io_timeout_fn() and io_kill_timeout()
-advance it for every timeout CQE they post, and io_flush_timeouts()
-computes the number of non-timeout completions as
+aa_replace_profiles() creates the raw_data/<rev> directory for the
+loaddata and the profile directories for new profiles before the last
+checks that can fail. When one of those checks fails, the fail path
+releases the ns lock without removing what this load created.
 
-    seq = cached_cq_tail - cq_timeouts
+The raw_data directory is named after the current ns revision, and the
+revision is only bumped by a successful load. The stale directory is
+only removed once the loaddata's last profile reference is dropped, from
+a workqueue. Until then, every load fails to create raw_data/<rev> with
+-EEXIST. If the new profiles are never freed, which is the case when
+their dents are left behind pinning the proxy, that never happens and no
+policy can be loaded until reboot.
 
-to compare against each off timeout's target_seq.  The cancelled
-timeout's CQE is therefore counted as a regular completion, so every
-cancellation makes an already armed off timeout fire one completion
-early.
+While still holding the ns lock in the fail path, remove the profile
+directories of the new profiles and, if this load created it, the
+raw_data directory.
 
-A ring with a keep-alive timeout of off=4 completes it after two NOPs
-when one off=100 victim is cancelled through IORING_OP_ASYNC_CANCEL, and
-before any NOP when two victims are cancelled.  The cancel CQE should
-count, but the cancelled timeouts' -ECANCELED CQEs must not: the
-expected counts are three and two NOPs respectively.
-
-Advance cq_timeouts when io_timeout_extract() succeeds, under
-timeout_lock and before the -ECANCELED completion is queued, matching
-io_timeout_fn() and io_kill_timeout().  The -ENOENT and -EALREADY paths
-post no new timeout CQE and keep their accounting.  Both the
-ASYNC_CANCEL and the TIMEOUT_REMOVE path go through io_timeout_cancel().
-
-Fixes: bfe68a221905 ("io_uring: off timeouts based only on completions")
+Fixes: 5d5182cae401 ("apparmor: move to per loaddata files, instead of replicating in profiles")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Cheng Yongkang <teel4res@gmail.com>
-Link: https://patch.msgid.link/179328314078.648427.13761781546953594668@gmail.com
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
+Signed-off-by: Georgia Garcia <georgia.garcia@canonical.com>
+Signed-off-by: John Johansen <john.johansen@canonical.com>
 ---
- io_uring/timeout.c | 3 +++
- 1 file changed, 3 insertions(+)
+ security/apparmor/policy.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/io_uring/timeout.c b/io_uring/timeout.c
-index 8a2108aa14ae7..fa7b0d9a81d69 100644
---- a/io_uring/timeout.c
-+++ b/io_uring/timeout.c
-@@ -370,6 +370,9 @@ int io_timeout_cancel(struct io_ring_ctx *ctx, struct io_cancel_data *cd)
+diff --git a/security/apparmor/policy.c b/security/apparmor/policy.c
+index 397f9ff78aeb1..f6f7cdcb62126 100644
+--- a/security/apparmor/policy.c
++++ b/security/apparmor/policy.c
+@@ -1191,6 +1191,7 @@ ssize_t aa_replace_profiles(struct aa_ns *policy_ns, struct aa_label *label,
+ 	struct aa_loaddata *rawdata_ent;
+ 	const char *op;
+ 	ssize_t count, error;
++	bool rawdata_created = false;
+ 	LIST_HEAD(lh);
  
- 	raw_spin_lock_irq(&ctx->timeout_lock);
- 	req = io_timeout_extract(ctx, cd);
-+	if (!IS_ERR(req))
-+		atomic_set(&ctx->cq_timeouts,
-+			   atomic_read(&ctx->cq_timeouts) + 1);
- 	raw_spin_unlock_irq(&ctx->timeout_lock);
+ 	op = mask & AA_MAY_REPLACE_POLICY ? OP_PROF_REPL : OP_PROF_LOAD;
+@@ -1330,6 +1331,7 @@ ssize_t aa_replace_profiles(struct aa_ns *policy_ns, struct aa_label *label,
+ 			ent = NULL;
+ 			goto fail_lock;
+ 		}
++		rawdata_created = true;
+ 	}
+ 	list_for_each_entry(ent, &lh, list) {
+ 		if (!ent->old) {
+@@ -1425,6 +1427,18 @@ ssize_t aa_replace_profiles(struct aa_ns *policy_ns, struct aa_label *label,
+ 	return udata_sz;
  
- 	if (IS_ERR(req))
+ fail_lock:
++	/*
++	 * Remove fs entries created by this load. Nothing else references
++	 * them yet, and leaving them behind would leak the new profiles
++	 * (their dents pin the proxy) and make the next load at the same,
++	 * unbumped ns revision fail with -EEXIST on its raw_data dir.
++	 */
++	list_for_each_entry(tmp, &lh, list) {
++		if (!tmp->old)
++			__aafs_profile_rmdir(tmp->new);
++	}
++	if (rawdata_created)
++		__aa_fs_remove_rawdata(udata);
+ 	mutex_unlock(&ns->lock);
+ 
+ 	/* audit cause of failure */
 -- 
 2.53.0
 
