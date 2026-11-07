@@ -1,54 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794045815;
-	b=jGFcxiSGKpAM21VzfqIktYaJBU9pFFHApXRQqYxMpp2MAqmtpj75tIALBGD1gFbekhbz
-	 EKKHj7NvY0elXOBTWDv0czBM5w47B8zdEhbJP5GuruzJiDLhi7HH6wG+HLS+wJm3x7d9Y
-	 7YooIJFyWC/5A8uwCCP4xlz4oCyP+qcSwuEKPFpkSpBj1KpfEWCu6i0d5/s7ixNO7EqNN
-	 EMnxh7yNYSU0udeovgO7FoHZ2udrQWHP7l7DAieN4s4I/arklZKrxgbN6ETj5xz7iYWdu
-	 wiVp5+KhH++2cTuSoyOT94ZdGl3pZB4i+ri/Rdo9n1Tr+K+I7QeEF0gd5VjM7sRFjtQ==
+	t=1794045817;
+	b=zWpiZi9mIY3DFe6i8M4IHzqJ0MFW1TmBT8NslFuA5LZSAS10HQX/qeWWiaJ4mpLpaNrC
+	 PHL+7GgSg0vIHDercX966J/NlAozLLWaCAdLCp5JrDC9KuhEU6YZpJvpWiSUegCwBqkpW
+	 4l38Q400ahjKiYZjPRH/q8XvgUHKzPSTtrEvLljQXnu+VGNFeAes4TYs0vyJHF1pRs4I5
+	 wxXxw7E+EcbucMVX99+hXJ2bI49OBj83RyFYczWDy9vgl2YSkOvQOikqI/A9O6yTY9G2L
+	 Z2lYV7e/qM3qiblpmR0y0xnTlUosHWO800ZDz9KHBdyQfSZOO4PceTZ3rTguFfUiv4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794045815;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794045817;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=83XTvVVuY3doQQwiMqpdC9ecoHyJlqwJUZBwSC1jVw8=;
-	b=z/Ru5rqG1UzmN6vgHXcE8M5qSHvA5HLZfpsuehgUP/wMS95pqI9DfuS64SAABMsZ8MLA
-	 bqjU82bPcEKYNv+grwsOtMP5sgyOWwXDxBR6rbRjPgMKO0qFQL/pVVxTbxfD/ppT/NlUq
-	 TV98M8H/s1lZej3mWNfbE4L0hNGNCpNnX9F2ap91xo0bn6bsUYuo73/SiFO2f9vpSM2aF
-	 R+RIoqT/uomUeo6XLbJ9G7pdbZrD4FAjx3b6h4BmaVXIVIIuDc3aL/+0M69cx7z5QyCx7
-	 6x9/KIackpteyVIHY9bQ8ug072kWd30dRzzC1j0nsiIx6GPlsfCpce/Q79yCqg2lQrw==
+	bh=Nc1wwyQz7NSeQte3wZvpjHGD4iBnEKrskM+bCUYqkyM=;
+	b=XW1i36GvmV9QmjiHnYMYRYffd/fTcH/xO9bK9WmDX8EzQ46xhYAcqx0Y/4+sFR1dQKNg
+	 6t7kVg5OUrFEuG0M7GygNS3LZ0ZPFIjmvFD+uZgHqKM2XoOy48QhWyZN+f6xTdy/bD4id
+	 YVqHa5wdAc1XmkBCgSlUeMmw5zKC/nQZrxj+AAs/SP4BWbmUA4Kxc4bRS+nBiK14+3G19
+	 8ayKQ/d4c8Dcth/oubxiBmown8SbomWkS7sleQgyKTvRpvGdtdZx8TQvyyTqwG89NQKig
+	 T+qIY6mr47c4svsLd4qo3fMG7JOMSH9xBgr3yTyBG8F2mCosbGYuVbSCjIG3OavkGxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jgtQNg6C;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wq31eErr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8358606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:03:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECE0A606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:03:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jgtQNg6C
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAA501F0089F;
-	Sat,  7 Nov 2026 10:03:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wq31eErr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31F591F0089F;
+	Sat,  7 Nov 2026 10:03:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794045814;
-	bh=83XTvVVuY3doQQwiMqpdC9ecoHyJlqwJUZBwSC1jVw8=;
+	s=k20260515; t=1794045816;
+	bh=Nc1wwyQz7NSeQte3wZvpjHGD4iBnEKrskM+bCUYqkyM=;
 	h=From:To:Cc:Subject:Date;
-	b=jgtQNg6CwpngWLyo9dNP6otRdacbULvrnpgfIEPmKa5pJTWugU4fAhFWJEPI1OAlG
-	 B68FJ9Y1z22I0zjDrCKq57hXG5bVzDaYbUsVt7oxxatOAnSEYIoTZ5w5HlbVvql9Ee
-	 RyZQV+N+oZr18nGYlRfChRVx3pQ6DQjhJGPYOhOx1djiwy/xBWIX2Zm2EHFL57wuht
-	 wiZjoIw9njGCe1J8FeXLftyw4x+wvoFtn81WX7n716i44EUfPiA2esb58fLb6Wp3b6
-	 oKgNKqUYGI1n/A+RYiLXaB4J8WcMiNSuw/XkL9ujbOS1d1MHG9TMNt5GQC4u4kil6q
-	 sJQwpmdItTIsg==
+	b=Wq31eErritnN7h8uJg+RKzzslcSRuhGEWhTGXbNSpBwPjp/2e1hV653dNDyxIM1+V
+	 ua4V8F32QA0YXWa2YolSf1I0NymoI0ff+q1o8gWVQ1GWo5Woq2s9BCASpm4vQJe1vz
+	 8dB3x3pIS0wH0Lz+WQS8DLGAKAvNEfrR0GvKQD8tXf78ZYKBb2I5VhNYiRNp/2pRDs
+	 Sxr0JNOlvsppWCT5uyl1hP51EHh9Gm63cCkn6z7PB8nCyfyKsUDblzd69oUVpAz6x7
+	 ngwWrdOcpyr2k7NWBgWfB+LAJrXFpIwWrpmaKXQywy+UBVcCKE/EcUTpeW6lAcDQkW
+	 4nfrjkqlgoEsg==
 From: Sasha Levin <sashal@kernel.org>
-To: accek@invisiblethingslab.com,
-	marmarek@invisiblethingslab.com,
-	hch@lst.de,
-	bob.beckett@collabora.com,
-	thomas.hellstrom@linux.intel.com
+To: mitulkumar.ajitkumar.golani@intel.com,
+	ankit.k.nautiyal@intel.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/xe: Limit sg segment size to PAGE_SIZE on Xen PV" failed to apply to 7.3-stable tree
-Date: Sat,  7 Nov 2026 05:03:32 -0500
-Message-ID: <20261107050332-failed-7.3-77f704158f09@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/i915/vrr: Disable DC balance by default" failed to apply to 7.3-stable tree
+Date: Sat,  7 Nov 2026 05:03:35 -0500
+Message-ID: <20261107050335-failed-7.3-d1ef78f0581e@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,84 +68,94 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x 77f704158f099b952681f207478a22d5b8218edb
+git cherry-pick -x d1ef78f0581e856c4238c751e9ae2884ce58c275
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050332-failed-7.3-77f704158f09@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050335-failed-7.3-d1ef78f0581e@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 77f704158f099b952681f207478a22d5b8218edb Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?Szymon=20Aceda=C5=84ski?= <accek@invisiblethingslab.com>
-Date: Wed, 16 Sep 2026 19:30:30 +0200
-Subject: [PATCH] drm/xe: Limit sg segment size to PAGE_SIZE on Xen PV
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From d1ef78f0581e856c4238c751e9ae2884ce58c275 Mon Sep 17 00:00:00 2001
+From: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
+Date: Thu, 17 Sep 2026 13:13:22 +0530
+Subject: [PATCH] drm/i915/vrr: Disable DC balance by default
 
-Fix display corruption on Xen PV dom0, where DMA buffers are not
-guaranteed machine-contiguous, in which case bounce buffering kicks
-in, breaking xe's memory coherency assumptions.
+Disable VRR DC balance by default due to timing issues observed on some
+panel/TCON combinations.
 
-Apply the same workaround i915 carries in i915_sg_segment_size() since
-commit 78a07fe777c4 ("drm/i915: stop abusing swiotlb_max_segment").
+Keep the module parameter to enable DC balance during debugging and to
+isolate DC balance effects from underlying VRR/display timing issues.
 
-Fixes: dd08ebf6c352 ("drm/xe: Introduce a new DRM driver for Intel GPUs")
-Reported-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8382
-Link: https://lore.kernel.org/xen-devel/aYtznP_tT6xNPwf-@mail-itl/
-Link: https://lore.kernel.org/all/20221020110308.1582518-1-hch@lst.de/ # i915 counterpart
-Cc: Christoph Hellwig <hch@lst.de>
-Cc: Robert Beckett <bob.beckett@collabora.com>
-Cc: stable@vger.kernel.org # v6.8+
-Signed-off-by: Szymon Acedański <accek@invisiblethingslab.com>
-Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Link: https://patch.msgid.link/20260916173030.3223833-1-accek@invisiblethingslab.com
+--v2:
+- Make enable_dc_balance a bool and keep it disabled by default; fix the
+  parameter type/value mismatch and correct the description (Chaitanya
+  Kumar Borah, Jani Nikula)
+- Explain in the commit message why the feature is gated and why a
+  module parameter is used (Jani Nikula)
+
+--v3:
+- Commit message update (Jani Nikula)
+
+Fixes: 555819270707 ("drm/i915/vrr: Enable DC Balance")
+Cc: <stable@vger.kernel.org> # v7.0+
+Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
+Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Link: https://patch.msgid.link/20260917074322.2606738-1-mitulkumar.ajitkumar.golani@intel.com
 ---
- drivers/gpu/drm/xe/xe_bo.h | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+ drivers/gpu/drm/i915/display/intel_display_params.c | 4 ++++
+ drivers/gpu/drm/i915/display/intel_display_params.h | 1 +
+ drivers/gpu/drm/i915/display/intel_vrr.c            | 4 +++-
+ 3 files changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_bo.h b/drivers/gpu/drm/xe/xe_bo.h
-index 290ca624e2a77..341fa93a71e45 100644
---- a/drivers/gpu/drm/xe/xe_bo.h
-+++ b/drivers/gpu/drm/xe/xe_bo.h
-@@ -9,6 +9,8 @@
- #include <drm/drm_prime.h>
- #include <drm/ttm/ttm_tt.h>
+diff --git a/drivers/gpu/drm/i915/display/intel_display_params.c b/drivers/gpu/drm/i915/display/intel_display_params.c
+index 2aed110c5b090..ca0ef466bb103 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_params.c
++++ b/drivers/gpu/drm/i915/display/intel_display_params.c
+@@ -120,6 +120,10 @@ intel_display_param_named_unsafe(enable_psr, int, 0400,
+ 	"(0=disabled, 1=enable up to PSR1, 2=enable up to PSR2) "
+ 	"Default: -1 (use per-chip default)");
  
-+#include <xen/xen.h>
++intel_display_param_named_unsafe(enable_dc_balance, bool, 0400,
++	"Enable VRR DC balance (0=disabled, 1=enabled). "
++	"Default: 0 (disabled)");
 +
- #include "xe_bo_types.h"
- #include "xe_ggtt.h"
- #include "xe_macros.h"
-@@ -574,6 +576,23 @@ static inline unsigned int xe_sg_segment_size(struct device *dev)
- 	struct scatterlist __maybe_unused sg;
- 	size_t max = BIT_ULL(sizeof(sg.length) * 8) - 1;
+ intel_display_param_named_unsafe(enable_panel_replay, int, 0400,
+ 	"Enable Panel Replay (0=disabled, 1=enabled). Default: -1 (use per-chip default)");
  
-+	/*
-+	 * For Xen PV guests pages aren't contiguous in DMA (machine) address
-+	 * space.  The DMA API takes care of that both in dma_alloc_* (by
-+	 * calling into the hypervisor to make the pages contiguous) and in
-+	 * dma_map_* (by bounce buffering).  But xe (like i915, see commit
-+	 * 78a07fe777c4) ignores the coherency aspects of the DMA API and thus
-+	 * can't cope with bounce buffering actually happening, so add a hack
-+	 * here to force small allocations and mappings when running in PV
-+	 * mode on Xen.
-+	 *
-+	 * Note this will still break if bounce buffering is required for other
-+	 * reasons, like confidential computing hypervisors or PCIe root ports
-+	 * with addressing limitations.
-+	 */
-+	if (xen_pv_domain())
-+		return PAGE_SIZE;
-+
- 	max = min_t(size_t, max, dma_max_mapping_size(dev));
+diff --git a/drivers/gpu/drm/i915/display/intel_display_params.h b/drivers/gpu/drm/i915/display/intel_display_params.h
+index ba01aeaf89440..5c5a1a1358c32 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_params.h
++++ b/drivers/gpu/drm/i915/display/intel_display_params.h
+@@ -46,6 +46,7 @@ struct drm_printer;
+ 	param(bool, enable_dp_mst, true, 0600) \
+ 	param(int, enable_fbc, -1, 0600) \
+ 	param(int, enable_psr, -1, 0600) \
++	param(bool, enable_dc_balance, false, 0600) \
+ 	param(int, enable_panel_replay, -1, 0600) \
+ 	param(bool, psr_safest_params, false, 0400) \
+ 	param(bool, enable_psr2_sel_fetch, true, 0400) \
+diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
+index a516ba34e0d02..d43a06907d18a 100644
+--- a/drivers/gpu/drm/i915/display/intel_vrr.c
++++ b/drivers/gpu/drm/i915/display/intel_vrr.c
+@@ -441,10 +441,12 @@ static bool intel_vrr_dc_balance_possible(const struct intel_crtc_state *crtc_st
+ static void
+ intel_vrr_dc_balance_compute_config(struct intel_crtc_state *crtc_state)
+ {
++	struct intel_display *display = to_intel_display(crtc_state);
+ 	int guardband_usec, adjustment_usec;
+ 	struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
  
- 	/*
+-	if (!intel_vrr_dc_balance_possible(crtc_state) || !crtc_state->vrr.enable)
++	if (!intel_vrr_dc_balance_possible(crtc_state) ||
++	    !crtc_state->vrr.enable || !display->params.enable_dc_balance)
+ 		return;
+ 
+ 	crtc_state->vrr.dc_balance.vmax = crtc_state->vrr.vmax;
 -- 
 2.53.0
 
