@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046489;
-	b=IpPNlzURffFxjbz5q8aJoXpqH4j8rc/eeyWA0roKHhGBP44M30AU0tGf6VsrmXwGNaBm
-	 xOvcuHYfKX0IdWE4ioi8UvjEaL5ACBj0wJURsDwX5bRZJ3mmaTtw1oKEvWjImwyZ5e61C
-	 n4SFULTLHeBBWJM/+TGBGlsPTVcHAMTkruU5FIemdZzCLjw8Xbj+3MNZm4xWIjzG+Bq3S
-	 MXSG7mBvkPd9KTCK4C/jG6l5PmZBaP07vHSym02aOqyj3oFBgILHkz4FD2LfWy4GNDP8Y
-	 Mr25Nie51KrwLAGMHvB8CutGnPfLZyI6yUI3LDWAPVORf3Ys4SN4bxpAXB0oN4jHwVA==
+	t=1794046492;
+	b=DqfeThIgudBnoaFFdz7uWc/Z6n1f8AFQLUQsLEbWmVEShcwWkO/ZQAql+NJbLEcSw155
+	 F/0HIwVkR0WnJGg54514+N70qtfWFf+2e0WL0h4v8Z3lNOwWvmlEhku4gj2gF/dLetPfl
+	 6MsI2LFX/+up1DAgTxTTShNqwS5RIl0sTRLr0XG9OxCCVZHuzK/pIEqVvrN5kX+n6tJHU
+	 gR3uv38WwfdViRczmkDenxaM1+kkc0oDN98hU5+AzM+6SSOXXqpNPP6O7I2ZIjypr1He/
+	 WYTTjzPc1OM14R8rI40fpyR8boq/ZvmzE5M7ZtfS0F7iDEtulhBtzV00rW0m3c3FPmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046489;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046492;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=M/G8xwc0e/WpcwcY0zfnrQgR0EgYRevWrPf/TXL0PY4=;
-	b=PKbWka+2edYk1azGXXierOnR+vtOFpgd3OLP20JLRSxTuY8oOgICIzioCpndtPIhPrn4
-	 /DISUS+L0dr0Qi/3J5QvUpEc8Wit2/wcPk1SrdX34J5hUWwRZue81gqgdx7s5JAyCE38e
-	 MBCcqD2KiecmqxRV5H+KtV0zFXSqHI6P4UAbBqjldwEW6buiPdDtt6/LAm9Fd/ZKLpNmF
-	 cZu2z6CiCxEvpRuwlQk4qSECeo/dyAZi3oua/8pz4aLdywfLDFTyqHl/iKSKsY4CmLl9M
-	 1RjxkId7BQ2YT1k6MpQF0tjJXvz1AV9eu7bD2cLokD2DoQfP2SZleYT81+HJzuin/ww==
+	bh=zocqb4yVVDHO4h7JgY/dI1QwS731GjNWEbfsQG1wDrA=;
+	b=T1+qw1tSyXZ/0olbJrCFMi3TGn8RXk9ciQEtG7ztfFWyRsvVOH16aYknOQLZFd5slU79
+	 T7vrTugODqimRhgKihk1b31BTQmYydhNYGP11r5JVFWWebf1V0kCosxC4nBD/Kwqq5GyL
+	 CeBELetLwcqQQl+n//KQczoNrBN5UQd5GG73LG19zp20JGzry6oES7njlI7tN9yheILZY
+	 sHmL4g+hrFjz7/M2h5GFYI5fpHvEkMZhaUNtKOb4ARlNPoGfWm7reC+RO0xDFjWQ3RvJ7
+	 XUjkIVrJgtlIQ4SY5MVMWUxcOkJMKO7LRJpz4uWFB9EsmoEFhOA1/ETXn7JFG5uN2zQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KGb0P4gH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XAw90o8M;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B8FC606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:14:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB98C606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:14:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KGb0P4gH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B9FE1F0089F;
-	Sat,  7 Nov 2026 10:14:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XAw90o8M
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C654E1F0089F;
+	Sat,  7 Nov 2026 10:14:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046489;
-	bh=M/G8xwc0e/WpcwcY0zfnrQgR0EgYRevWrPf/TXL0PY4=;
+	s=k20260515; t=1794046491;
+	bh=zocqb4yVVDHO4h7JgY/dI1QwS731GjNWEbfsQG1wDrA=;
 	h=From:To:Cc:Subject:Date;
-	b=KGb0P4gH6SgwPst7By7HpbnQUCZk7Q8G64nuYIwgnkE0bEB+7MB7yjQTKYUIAI/Tz
-	 wB8TzBk+z36TOQ4E+17KMsZSzLp0ACtLpjSj1PufZSHvfnHXHhvV9BrcTatseHomix
-	 3Qs9gTanXpU92TVtjzuK2bhiS352GVbWEw42mBxD9A8lJkN1mq4BxjY3proTvJXolH
-	 WvQvopTV+4Sx2dZ7UTcHvEzm83JNuWgbjdBOl6PbWL0IY9aRutbA1JitCLuZrTKwMf
-	 WIGPYT3yikGYD7WPPR3CEA1E0qhbRnApr8XsUrZ34Ya3fbdfCJKg50o+iFqIoN2xr0
-	 VgIfpmxqXWlXA==
+	b=XAw90o8Mu/tXNnkgj2XWisLtCLJJjGu+2ALWk4iPNZNKX6OQCcw12yykBJM7cDW0b
+	 pxJ+JTpqvjj976bEWb+AD1NLQC1uQjrvroXvfE/USdqfbqo9L3nXyKazJ37OZVEPhi
+	 XG/q/1lOn0aAWcrRsMnQB3fL26DimjeYeN8VjEqBFhAMcSGI86aI1ZFaqJnyd3x16j
+	 BwFDJ26S+deJ+89U5xM0D89vvi9/tqULXb5le3edQ/HXneg/ykh+JZX5uCDztyrKLx
+	 FC1vqbM9ChE5sDlG7UU2+BDYW0oOO2830THIDJVDnnQH6iuDechxT/Q1aoLCe/PQP1
+	 UwLaRy5B0lwOQ==
 From: Sasha Levin <sashal@kernel.org>
-To: peng_wang@linux.alibaba.com,
-	frederic@kernel.org,
-	herongguang@linux.alibaba.com,
-	tglx@kernel.org
+To: maz@kernel.org,
+	broonie@kernel.org,
+	fuad.tabba@linux.dev,
+	ljs@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] tick/nohz: Reevaluate the tick for kicks flushed outside hardirq" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:14:47 -0500
-Message-ID: <20261107051447-failed-6.18-e389ae428847@kernel.org>
+Subject: FAILED: patch "[PATCH] KVM: arm64: Sanitise ID_AA64MMFR3_EL1.S1P[IO]E" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:14:49 -0500
+Message-ID: <20261107051449-failed-6.18-68c11eed4f80@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,74 +70,202 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x e389ae428847a2e6a3b698b5967df68ccf90361c
+git cherry-pick -x 68c11eed4f8097ef1b71c30679e96eb654df29e0
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051447-failed-6.18-e389ae428847@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051449-failed-6.18-68c11eed4f80@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From e389ae428847a2e6a3b698b5967df68ccf90361c Mon Sep 17 00:00:00 2001
-From: Peng Wang <peng_wang@linux.alibaba.com>
-Date: Fri, 23 Oct 2026 22:51:00 +0800
-Subject: [PATCH] tick/nohz: Reevaluate the tick for kicks flushed outside
- hardirq
+From 68c11eed4f8097ef1b71c30679e96eb654df29e0 Mon Sep 17 00:00:00 2001
+From: Marc Zyngier <maz@kernel.org>
+Date: Tue, 20 Oct 2026 07:43:06 +0100
+Subject: [PATCH] KVM: arm64: Sanitise ID_AA64MMFR3_EL1.S1P[IO]E
 
-The nohz full kick relies on interrupt exit to reevaluate the
-tick. However, a remote kick can also be flushed from task context without
-an interrupt exit guaranteed to follow. If a tick dependency is set or an
-earlier timer is queued after the idle-exit reevaluation, the required tick
-update can be delayed until another interrupt.
+KVM uses the VM's ID registers as the source of truth for what the
+guest has, but userspace can expose S1PIE or S1POE without the features
+they imply. As per the architecture, both imply TCR2 and ATS1A, and
+S1POE also implies HPDS. With TCR2 hidden, the world switch skips
+PIR_EL1, PIRE0_EL1 and POR_EL1 while KVM doesn't trap them, so the guest
+accesses registers that are neither trapped nor switched. Under VHE,
+that leaks values between guests. On nVHE and hVHE, pKVM included, the
+host kernel resumes with the guest's PIR_EL1 and PIRE0_EL1.
 
-Reevaluate the tick directly from the callback outside hardirq context.
-Keep the existing interrupt exit handling for hardirq callbacks. The
-offline flush remains harmless because tick_sched_timer_dying() has already
-cleared TS_FLAG_NOHZ.
+On first run, clear S1PIE and S1POE from the VM's ID registers when the
+features they imply are missing, before anything derives state from
+them. The guest and userspace then see neither feature, and the guest's
+accesses to their registers UNDEF.
 
-Fixes: 4b44a21dd640 ("irq_work, smp: Allow irq_work on call_single_queue")
-Fixes: a5183862e76f ("tick/nohz: Conditionally restart tick on idle exit")
-Suggested-by: Frederic Weisbecker <frederic@kernel.org>
-Co-developed-by: He Rongguang <herongguang@linux.alibaba.com>
-Signed-off-by: He Rongguang <herongguang@linux.alibaba.com>
-Signed-off-by: Peng Wang <peng_wang@linux.alibaba.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Reviewed-by: Frederic Weisbecker <frederic@kernel.org>
+Fixes: 70ed7238297fb ("KVM: arm64: Sanitise ID_AA64MMFR3_EL1")
+Fixes: d4a89e5aee23e ("KVM: arm64: Expose S1PIE to guests")
+Reported-by: Mark Brown <broonie@kernel.org>
+Link: https://lore.kernel.org/r/20260930-arm64-gcs-v21-2-3556644cd927@kernel.org
+Link: https://lore.kernel.org/r/8633u229lq.wl-maz@kernel.org
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261023145101.8217-1-peng_wang@linux.alibaba.com
+Co-developed-by: Fuad Tabba <fuad.tabba@linux.dev>
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+Reviewed-by: Mark Brown <broonie@kernel.org>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Link: https://patch.msgid.link/20261020064306.1542865-1-fuad.tabba@linux.dev
+Signed-off-by: Marc Zyngier <maz@kernel.org>
 ---
- kernel/time/tick-sched.c | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
+ arch/arm64/include/asm/kvm_host.h |  1 +
+ arch/arm64/kvm/config.c           | 78 +++++++++++++++++++++++++++++++
+ arch/arm64/kvm/sys_regs.c         |  2 +
+ 3 files changed, 81 insertions(+)
 
-diff --git a/kernel/time/tick-sched.c b/kernel/time/tick-sched.c
-index 6c3fea3867139..baa3ac9b48f88 100644
---- a/kernel/time/tick-sched.c
-+++ b/kernel/time/tick-sched.c
-@@ -400,9 +400,21 @@ static bool can_stop_full_tick(int cpu, struct tick_sched *ts)
+diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
+index 27fe0cd5b2d7a..524c01d92e71e 100644
+--- a/arch/arm64/include/asm/kvm_host.h
++++ b/arch/arm64/include/asm/kvm_host.h
+@@ -1659,6 +1659,7 @@ static inline bool kvm_arch_has_irq_bypass(void)
  	return true;
  }
  
-+static void tick_nohz_full_update_tick(struct tick_sched *ts);
-+
- static void nohz_full_kick_func(struct irq_work *work)
- {
--	/* Empty, the tick restart happens on tick_nohz_irq_exit() */
-+	struct tick_sched *ts = this_cpu_ptr(&tick_cpu_sched);
-+
-+	if (WARN_ON_ONCE(!tick_nohz_full_cpu(smp_processor_id())))
-+		return;
-+
-+	/* Task-context flushes may not be followed by an IRQ exit. */
-+	if (!in_hardirq()) {
-+		if (WARN_ON_ONCE(tick_sched_flag_test(ts, TS_FLAG_INIDLE)))
-+			return;
-+		tick_nohz_full_update_tick(ts);
++void kvm_idregs_enforce_dependencies(struct kvm *kvm);
+ void compute_fgu(struct kvm *kvm, enum fgt_group_id fgt);
+ struct resx get_reg_fixed_bits(struct kvm *kvm, enum vcpu_sysreg reg);
+ void check_feature_map(void);
+diff --git a/arch/arm64/kvm/config.c b/arch/arm64/kvm/config.c
+index 1053676551aff..cfdb6c7133204 100644
+--- a/arch/arm64/kvm/config.c
++++ b/arch/arm64/kvm/config.c
+@@ -59,6 +59,7 @@ struct reg_feat_map_desc {
+ 	const struct reg_bits_to_feat_map feat_map;
+ 	const struct reg_bits_to_feat_map *bit_feat_map;
+ 	const unsigned int		  bit_feat_map_sz;
++	const unsigned int		  idreg_idx;
+ };
+ 
+ #define __NEEDS_FEAT_3(m, f, w, id, fld, lim)		\
+@@ -130,6 +131,21 @@ struct reg_feat_map_desc {
+ 		.bit_feat_map_sz	= ARRAY_SIZE(m),		\
+ 	}
+ 
++/*
++ * Declare the dependency between the features advertised in an id
++ * register, and the set of other features they depend on. This
++ * generates a struct reg_feat_map_desc.
++ */
++#define DECLARE_IDREG_FEAT_MAP(n, r, m, f)				\
++	struct reg_feat_map_desc n = {					\
++		.name			= #r,				\
++		.feat_map		= NEEDS_FEAT(~(r##_RES0 |	\
++						       r##_RES1), f),	\
++		.bit_feat_map		= m,				\
++		.bit_feat_map_sz	= ARRAY_SIZE(m),		\
++		.idreg_idx		= IDREG_IDX(SYS_##r),		\
 +	}
++
+ #define FEAT_SPE		ID_AA64DFR0_EL1, PMSVer, IMP
+ #define FEAT_BRBE		ID_AA64DFR0_EL1, BRBE, IMP
+ #define FEAT_TRC_SR		ID_AA64DFR0_EL1, TraceVer, IMP
+@@ -205,6 +221,7 @@ struct reg_feat_map_desc {
+ #define FEAT_MEC		ID_AA64MMFR3_EL1, MEC, IMP
+ #define FEAT_HAFT		ID_AA64MMFR1_EL1, HAFDBS, HAFT
+ #define FEAT_HDBSS		ID_AA64MMFR1_EL1, HAFDBS, HDBSS
++#define FEAT_HPDS		ID_AA64MMFR1_EL1, HPDS, IMP
+ #define FEAT_HPDS2		ID_AA64MMFR1_EL1, HPDS, HPDS2
+ #define FEAT_BTI		ID_AA64PFR1_EL1, BT, IMP
+ #define FEAT_ExS		ID_AA64MMFR0_EL1, EXS, IMP
+@@ -280,6 +297,25 @@ static bool feat_anerr(struct kvm *kvm)
+ 		kvm_has_feat(kvm, ID_AA64MMFR3_EL1, SNERR, FEAT_ANERR));
  }
  
- static DEFINE_PER_CPU(struct irq_work, nohz_full_kick_work) =
++/*
++ * S1PIE and S1POE imply TCR2 and ATS1A, and S1POE also implies HPDS, but
++ * userspace can set them independently.
++ */
++static bool feat_s1pie(struct kvm *kvm)
++{
++	return (kvm_has_feat(kvm, FEAT_S1PIE) &&
++		kvm_has_feat(kvm, FEAT_TCR2) &&
++		kvm_has_feat(kvm, FEAT_ATS1A));
++}
++
++static bool feat_s1poe(struct kvm *kvm)
++{
++	return (kvm_has_feat(kvm, FEAT_S1POE) &&
++		kvm_has_feat(kvm, FEAT_TCR2) &&
++		kvm_has_feat(kvm, FEAT_ATS1A) &&
++		kvm_has_feat(kvm, FEAT_HPDS));
++}
++
+ static bool feat_sme_smps(struct kvm *kvm)
+ {
+ 	/*
+@@ -1299,6 +1335,14 @@ static const struct reg_bits_to_feat_map vtcr_el2_feat_map[] = {
+ static const DECLARE_FEAT_MAP(vtcr_el2_desc, VTCR_EL2,
+ 			      vtcr_el2_feat_map, FEAT_AA64EL2);
+ 
++static const struct reg_bits_to_feat_map id_aa64mmfr3_el1_feat_map[] = {
++	NEEDS_FEAT(ID_AA64MMFR3_EL1_S1PIE, feat_s1pie),
++	NEEDS_FEAT(ID_AA64MMFR3_EL1_S1POE, feat_s1poe),
++};
++
++static const DECLARE_IDREG_FEAT_MAP(id_aa64mmfr3_el1_desc, ID_AA64MMFR3_EL1,
++				    id_aa64mmfr3_el1_feat_map, FEAT_AA64EL1);
++
+ static const struct reg_bits_to_feat_map ich_hfgrtr_feat_map[] = {
+ 	NEEDS_FEAT(ICH_HFGRTR_EL2_ICC_APR_EL1 |
+ 		   ICH_HFGRTR_EL2_ICC_IDRn_EL1 |
+@@ -1408,6 +1452,40 @@ void __init check_feature_map(void)
+ 	check_reg_desc(&ich_hfgitr_desc);
+ }
+ 
++static const struct reg_feat_map_desc *idreg_feat_maps[] = {
++	&id_aa64mmfr3_el1_desc,
++};
++
++static bool idreg_apply_deps(struct kvm *kvm, const struct reg_feat_map_desc *r)
++{
++	struct resx resx = {};
++	u64 val;
++
++	for (int i = 0; i < r->bit_feat_map_sz; i++) {
++		if ((r->bit_feat_map[i].flags & CALL_FUNC) &&
++		    !r->bit_feat_map[i].match(kvm))
++			resx.res0 |= reg_feat_map_bits(&r->bit_feat_map[i]);
++	}
++
++	val = kvm->arch.id_regs[r->idreg_idx];
++	kvm->arch.id_regs[r->idreg_idx] &= ~resx.res0;
++	kvm->arch.id_regs[r->idreg_idx] |= resx.res1;
++
++	return val != kvm->arch.id_regs[r->idreg_idx];
++}
++
++void kvm_idregs_enforce_dependencies(struct kvm *kvm)
++{
++	bool again;
++
++	do {
++		again = false;
++
++		for (int i = 0; i < ARRAY_SIZE(idreg_feat_maps); i++)
++			again |= idreg_apply_deps(kvm, idreg_feat_maps[i]);
++	} while (again);
++}
++
+ static bool idreg_feat_match(struct kvm *kvm, const struct reg_bits_to_feat_map *map)
+ {
+ 	u64 regval = kvm->arch.id_regs[map->regidx];
+diff --git a/arch/arm64/kvm/sys_regs.c b/arch/arm64/kvm/sys_regs.c
+index 44aae52c473d7..11f08e2980c47 100644
+--- a/arch/arm64/kvm/sys_regs.c
++++ b/arch/arm64/kvm/sys_regs.c
+@@ -5883,6 +5883,8 @@ int kvm_finalize_sys_regs(struct kvm_vcpu *vcpu)
+ 	if (kvm_vm_has_ran_once(kvm))
+ 		return 0;
+ 
++	kvm_idregs_enforce_dependencies(kvm);
++
+ 	/*
+ 	 * This hacks into the ID registers, so only perform it when the
+ 	 * first vcpu runs, or the kvm_set_vm_id_reg() helper will scream.
 -- 
 2.53.0
 
