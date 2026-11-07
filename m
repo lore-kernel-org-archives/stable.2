@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794045801;
-	b=XwhYh0OW/bKWdw3SvOi5/5HMUdT44FRQg9W0mUhw/EWxtM8mz5cmG1cpfwF2cgg1gAz3
-	 eIoGfLoIjUtngU5x+fdscGi2fmL41Q96cToAKxHWslVAOHN7Rl9RYfNGIK6b2xgNB1Vfm
-	 ADlppRGsTBg89WGBnlOBMsvxOE8ixjDn5bbNT0eP0HvjnXilgK41Ng7U4Luu+g+ZJAiAs
-	 D2tnXshtte0U48w7DbVIqvsUFHzDb3uBx9r0olm9f/3y7V+PNJuKAK/PU/vJMUgfnttPF
-	 VM7HC5nGiC9KXEoG/JND7Kn9z+w0EamuaX+JLKItComCpjjlhbhDlMc3UnwsP7XIF6A==
+	t=1794045803;
+	b=UmYGbxdx1eeAEDV9w2kxNjYv0hpKlMYAe3V5uvMtD3+PGuJoVBR/Hdbba7FPTdpMsKBq
+	 SVBhVWSX8N+z/65HdLmDTPCJVhSeCOx6t8081TKnnAaIGS81so4hXV4i7Pc/o0fK8R4LK
+	 DrU9REyztF7afVuhaRXf+LucKY7Vs5CRxQjfoffZXAIyYNMnr0Q7G+ZGkMYjQvC2OYcvd
+	 4nK7z70uZx9qYfhsbA8RzudlWv/LqSz5fXWFy/vHmPgrwTfI+W/ZjZT9K2Y2UobVqWMFh
+	 YYpbxtf+vgUr1kx/o5hydSqg0kHH3qlRa9TtA35e/1xc7CJ4xNM2t53ZK8B7nkj6rIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794045801;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794045803;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=31WUwSz3MrJUEzBYvQxjLl7hCO9J+2t/dAWOBbbng5w=;
-	b=xZE+vZfrEOIYtendqCWyobrrst+vNgUkBozwGfN35ePs5hfZNOmJMzGTNH3Hb6QsTHLM
-	 H5tQTtQGPRtwnqYmGTKqARnHYdk9b1rJD4168m1bixFeTcT9LcPEYy99mpZisleNHucQc
-	 JIvxWSKK8Ogx67FQfMHmMIOb9egexObV2VKY+ptW990ItPhIaMET6uvVLw77E222cRjbI
-	 TVUgCT5XSUKmd/dj9lxt0ljMyhUNNbVM6gbkqs3IfGx6nz8WiMcmc7uHV4VKMVhQdj2H6
-	 UW2SE9uL8y3mqaCgr8r5as+PmWOC+4klsKuofCZQB89e93ZAous5rJmxNn1I4rk/2rA==
+	bh=XEdUDU9+uy//1f6sH85pJ2llYr4nZa/ui6MMvo7fk68=;
+	b=SgvWd8SWoYIQZ7X8EGeTe05qVXrIQ6ry5XEL6luolIHo76AoxMVXallrzTXYNoOR2Yyi
+	 9PjYIOAg4J9zr+jYNaYM+ux+Y7WaSNnKnP+iG4tQtwhUrLlG1MLF9yDoQpCafEEWEPSnR
+	 IFklMCVFNZBqLqEHqfctFBtprE3UNDElPauDzYLo3MJl53fSb6tq9kkiyLLGWMAnjlM0q
+	 mRfGK6SYkELZxMxnJwOgPV89QkaJK7hWMuX0+fDJAGdfFUfWGFrPL3GNSfLSMdp5PDq4q
+	 zb56r6dq43wPzBEG6wQ0HIwCYSiwS5ezn094MQfFmbRtIjy64Ssd5/j5jHIu5b7zXfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=erdrLmUA;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dtCZK+dh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0498606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:03:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF4C4606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:03:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=erdrLmUA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEFC11F0089F;
-	Sat,  7 Nov 2026 10:03:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dtCZK+dh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 104831F0089F;
+	Sat,  7 Nov 2026 10:03:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794045800;
-	bh=31WUwSz3MrJUEzBYvQxjLl7hCO9J+2t/dAWOBbbng5w=;
+	s=k20260515; t=1794045802;
+	bh=XEdUDU9+uy//1f6sH85pJ2llYr4nZa/ui6MMvo7fk68=;
 	h=From:To:Cc:Subject:Date;
-	b=erdrLmUAGztsQidZOc64lH6Mc7OIOKBXvXMtZfo4I0Um5IJX8miLGe7S4cCeNmGgs
-	 Km+Q+zUXppf3MI/f6ZnjXorWAr45y2J2MJjaKuJTrMDkhSmrRD72kwgHFDInzLc98x
-	 Vk+yJCQfJrsm0Hi96QUsVMKfT/7hmnbx7GTvXCZhrcdyOwTszprfVR/Jwr8s3ftQZk
-	 1K1ec2tkoFzOlxgrqkAMj8zfQ96ZXIo7M6188uoDC873ykNj4ngQp1unSucGnoQasa
-	 7MLE4qmlfePt+7u8rQBg/KjM7Fy3ceY8uKZLIpE9xuDe8OHXDw7Zd660MFU3fO/wJK
-	 JU+daf/92Rz1Q==
+	b=dtCZK+dhSOh8vjPdg21vcQGLOY6AJS4Ag0k9Jwbn7ttO3ubYWSKq6ZyXZC1aGI0UB
+	 ChPSYgyNlYF3bbAY8wHA9AeXm2IJ+G5PbK1PY4m2eLfKriopTxtjcLfxDnAAr1EBq5
+	 W9G5eIC1BNSy9QVIuzTQUeZfUVXaC1P591SCNSfUB5Qa4ooOiEqN2cnCcZv+woPMJG
+	 Cx453njpRX2CiUI8amyVSN6xpFb4vpb1Hx5oGk5iTTb1jVuzzj5+enoip99hipjHpx
+	 Qi7ABUs8jLNKlmrocToOKVF055ix1c+9rdySpaxjmYrhijCl23/6nUkeLL92UVZB/T
+	 4gjaIGUQsEnWw==
 From: Sasha Levin <sashal@kernel.org>
-To: ckoenig.leichtzumerken@gmail.com,
-	christian.koenig@amd.com,
-	tvrtko.ursulin@igalia.com,
-	tursulin@ursulin.net
+To: matthew.brost@intel.com,
+	himal.prasad.ghimiray@intel.com,
+	rodrigo.vivi@intel.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/i915: fix incorrect RCU teardown order" failed to apply to 7.3-stable tree
-Date: Sat,  7 Nov 2026 05:03:18 -0500
-Message-ID: <20261107050318-failed-7.3-511347955602@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/xe: Keep walking on SVM eviction failure" failed to apply to 7.3-stable tree
+Date: Sat,  7 Nov 2026 05:03:21 -0500
+Message-ID: <20261107050321-failed-7.3-36a86c23588b@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,77 +69,58 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x 5113479556025093bf8133bb2dcaa33be2d50921
+git cherry-pick -x 36a86c23588b8f57c9d20feb4cf5a2ab27e3baba
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050318-failed-7.3-511347955602@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050321-failed-7.3-36a86c23588b@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 5113479556025093bf8133bb2dcaa33be2d50921 Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Date: Thu, 3 Sep 2026 13:36:21 +0200
-Subject: [PATCH] drm/i915: fix incorrect RCU teardown order
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 36a86c23588b8f57c9d20feb4cf5a2ab27e3baba Mon Sep 17 00:00:00 2001
+From: Matthew Brost <matthew.brost@intel.com>
+Date: Thu, 17 Sep 2026 13:31:58 -0700
+Subject: [PATCH] drm/xe: Keep walking on SVM eviction failure
 
-i915_gem_busy_ioctl uses dma_resv_for_each_fence_unlocked() to iterate
-over the fences in an GEM object without holding a reference but only
-the RCU read side lock.
+The desired behavior for SVM eviction failures, which can occur due to
+various uncontrollable races, is for TTM to continue walking the LRU
+list and look for another eviction candidate. This is expressed by
+returning -ENOSPC from the ->move() callback.
 
-What can happen here is that the GEM object is destroyed concurrently
-while i915_gem_busy_ioctl is still running. This won't free the GEM
-objects memory, but still drops all the dma_fence references.
+Adjust the SVM eviction failure path because of races in ->move() to
+return -ENOSPC so that TTM continues searching for another buffer to
+evict.
 
-Now when dma_resv_for_each_fence_unlocked() sees a destroyed dma_fence it
-assumes that a new fence list was installed and re-starts the loop.
-
-But in the case of a destroyed GEM object a new fence list is never
-installed, only the old one freed and therefore the iteration never
-finishes resulting in an endless loop.
-
-The solution is to drop the fence references only after the RCU grace
-period.
-
-The fixes tag is not necessary the patch introducing the problem, but the
-one making it so worse that we need to address it.
-
-This problem was pointed out by Sashiko-bot.
-
-Signed-off-by: Christian König <christian.koenig@amd.com>
-Fixes: 912ff2ebd695 ("drm/i915: use the new iterator in i915_gem_busy_ioctl v2")
-CC: stable@vger.kernel.org
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Signed-off-by: Tvrtko Ursulin <tursulin@ursulin.net>
-Link: https://lore.kernel.org/r/20260903113621.54660-1-christian.koenig@amd.com
+Fixes: 3ca608dc7561 ("drm/xe: Basic SVM BO eviction")
+Cc: stable@vger.kernel.org
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Reviewed-by: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
+Link: https://patch.msgid.link/20260917203158.292823-1-matthew.brost@intel.com
+Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_object.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/xe/xe_bo.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/gpu/drm/i915/gem/i915_gem_object.c
-index 5172d39826548..9e01f8b2079ab 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
-@@ -89,6 +89,7 @@ struct drm_i915_gem_object *i915_gem_object_alloc(void)
+diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
+index 9f3f0cb95afa8..f2ab9bf43a864 100644
+--- a/drivers/gpu/drm/xe/xe_bo.c
++++ b/drivers/gpu/drm/xe/xe_bo.c
+@@ -1044,6 +1044,13 @@ static int xe_bo_move(struct ttm_buffer_object *ttm_bo, bool evict,
+ 		} else {
+ 			drm_dbg(&xe->drm, "Evict system allocator BO failed=%pe\n",
+ 				ERR_PTR(ret));
++			/*
++			 * The semantic we want upon SVM eviction failure
++			 * because of racing access is keep walking for
++			 * eviction, which is -ENOSPC.
++			 */
++			if (ret == -EBUSY)
++				ret = -ENOSPC;
+ 		}
  
- void i915_gem_object_free(struct drm_i915_gem_object *obj)
- {
-+	dma_resv_fini(&obj->base._resv);
- 	return kmem_cache_free(slab_objects, obj);
- }
- 
-@@ -144,7 +145,6 @@ void __i915_gem_object_fini(struct drm_i915_gem_object *obj)
- {
- 	mutex_destroy(&obj->mm.get_page.lock);
- 	mutex_destroy(&obj->mm.get_dma_page.lock);
--	dma_resv_fini(&obj->base._resv);
- }
- 
- /**
+ 		goto out;
 -- 
 2.53.0
 
