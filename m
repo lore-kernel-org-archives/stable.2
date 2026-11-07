@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050755;
-	b=kpPX+eyLGDwGbKWFrjPuzkzHi9f5MWSCdmeahWyV+BBiz+2vLINVfDvDltNRVlj7SBjs
-	 fdE71oc63hFjrnxD7B0nKCnNiVnRD40We6K2NfjGwn4zDFQHUaFgU1Ej14SUrYsNCgfgY
-	 JWwI1oJvGMcS7t0s2huCcoPv+c8/smaWxB2KJ0/RKJ8AKk8OzekfX07MUs1ifubOI4s0j
-	 by/a0YRXU1DK3aUcc0Jcg2zqxO6GhZEU2V36ytZUbak+z9X/yQEDKMru8/gdKI3AwGadh
-	 k6E5HbX5WFacOXnZd+JzNn9RegiUYhhg7S2e9SKZ2eK1SjbsiqHA2EqSySh+KtwLoVQ==
+	t=1794050758;
+	b=KM0ExiGobkmW0vOKZngmAD/SkA5gxlQcCX3uLv7qPaOOk2VqKtH8UZlt2MMppXR1sgyH
+	 +b8APw4BCBAC4Y50ISSFnXwUZZQ57hoQj8MyNX+tATAprxxw8CumWDHW1NQsz5nnrfqJY
+	 zo3UwzFZxvoEn9AVRSn3O1XlcWexS9EQlQh2HncSodb62zfmwxL82Y8gIHZC+sq7eTwsI
+	 miX/DNTrG+tf8MQelj3QYidktmwqxcCi0dXyGU9Tw9HsGnCRSu6y4K8ah/Ln+jPh+ue7I
+	 NpLfZaN3zVP3ddG+NnaF6hByqduzforA4KYQG3RjtnmGTTL/O3WR6zaAn/lHnsD41+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050755;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050758;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=7Jv2E5VC97ob+L0JeypQWHJu3nUsaGh7jxdrAT1wJ/0=;
-	b=caczICXzOMN67EK9paIdvb51NKLPdrc8T0i1o9KiIaIMt3vJtkORnFqhBcnOsjGozPvf
-	 Jrrw2tBcr7ehpBbXPLoW/gLyhvaSXM5kS4gI9a01kO2KTPtKaVDAf931L22xsoPCkXBNl
-	 MMi3h6DEK7xo68EGFhUZu3AKFlAomfwMWMw+SrtmI2gyi+FjON6xCRkg3+HXhIWiuJtsP
-	 Dyvw98ADg7JjveXvWG+baLDIEwzAaw3rOhdz5rH1USaC1Yfa+6/IjKemZtENVq/ds6ITv
-	 95TuUZyrOpvWNd9mO7CgyKPUSCPk3wu8CyIjJoCjIH0bgdASc0p5ZItmG047wghp44w==
+	bh=KSAZLSTM0jYBPAA1o+oynH/NgqcYM5XR8qUkXvhicl0=;
+	b=cOsAn2hFBSLZVBDDPExNJLYWXQiKdY7VFyNgEsUtIX4r5FedpRuwn6OyrOTjESWFTPHI
+	 qoj2Ri7UR0+xVLU6YKNnG/1y23JVH1LE5dTScFw+w8wxO0vbCKnCdhaYBfXQoX5dML+rQ
+	 hy7PwKizcs9R5z9Ypu0eLLyx9fHcf0KX/+OopbcRxS5MO/bN6qHFfkA1Ndo8xTUXJiOEZ
+	 JGhbVdW1OHkiSflBEGR/J4+UIZc+ls+bQ8+pFNWc1yhe6YIaoDkNEl5/ZMljNLNnSvJp5
+	 QIh1dz6q7uOwgdvGjq6umVLIuqI8FBo5Geqq/vOL0vJc3LfAJggSiKU3g10IpAjOdQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TqKGwP5a;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="GRjeV/4E";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FCA1606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:25:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81CEF606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:25:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TqKGwP5a
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C69901F0089F;
-	Sat,  7 Nov 2026 11:25:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GRjeV/4E
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDFA41F0089F;
+	Sat,  7 Nov 2026 11:25:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050755;
-	bh=7Jv2E5VC97ob+L0JeypQWHJu3nUsaGh7jxdrAT1wJ/0=;
+	s=k20260515; t=1794050758;
+	bh=KSAZLSTM0jYBPAA1o+oynH/NgqcYM5XR8qUkXvhicl0=;
 	h=From:To:Cc:Subject:Date;
-	b=TqKGwP5ahVuNsejKvMBqthw1ifucEt6+/ahgh3fF/uJeuXkV3Rl575iYrEcaMQBNt
-	 JVTqoZpIEfN4wLzDRgj1xk6aaMlAzTdV2luGz78flLKgeFFT3if6Ww55TI7PzLUpZ/
-	 /8Eql0NeF4Zgb2RHrHcYD9ktJZF6oVJkK/pCBTjJwlERofnOByOsDLL5VFDgmrTN/V
-	 +S3dD8m4rz5ygeAjHWUDtrT67aj1cy/aK7qV/1MVi/LqJEHXeFCjsVHDZpe9U8iXBM
-	 HDFEK4AmB3VC1aVvUYCYL9XKChIV+6F4X+/ArYOnIxIt6mngPs6gM0v8yLjo0xXgtX
-	 653zWfc1MuINA==
+	b=GRjeV/4Ep9ILddOC8NQPT/yXwnnPSAX6w2dGfbkMCmDrSfiI9o3bfC5ZR4OcglTWh
+	 Wr/Xv7xwcZPVTTiBTKt1n85DJbvtOpiJHdeUmII1hKn7faSc172rjUp2+Um/e6Q26f
+	 EBY0W41vdZDX0UQhjwf0qvYzE3p6PkhXtLZBvi3kdwGk4jUBscz3klGnUWbOmSOmzK
+	 NXRAS7ORA4QYVJI5Kzlb/n6MTvdRj7T2A6d7NmT9KIeOP7bqj6bOpzwv3pwOp9Wyhr
+	 MZJtgx9DgstjqmZijSn3cpLVDi8NHcUfPGCkuBY+tLWcQfIUWTLMG23BkdNXdwc6Ja
+	 BUKYhbUUhcxjA==
 From: Sasha Levin <sashal@kernel.org>
 To: zenghongling@kylinos.cn,
 	liubaolin@kylinos.cn,
 	hyc.lee@gmail.com,
 	linkinjeon@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ntfs: check the dirty-state commit on remount and unmount" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:25:53 -0500
-Message-ID: <20261107062553-failed-5.10-1a3883b3685c@kernel.org>
+Subject: FAILED: patch "[PATCH] ntfs: do not clear the volume dirty bit during sync" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:25:56 -0500
+Message-ID: <20261107062556-failed-5.10-4a1bb54f571c@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,53 +70,50 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 1a3883b3685cc4c8bc41927cc9df539239d7c961
+git cherry-pick -x 4a1bb54f571cbef67a7c470a3139ffec1a15a8e4
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062553-failed-5.10-1a3883b3685c@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062556-failed-5.10-4a1bb54f571c@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 1a3883b3685cc4c8bc41927cc9df539239d7c961 Mon Sep 17 00:00:00 2001
+From 4a1bb54f571cbef67a7c470a3139ffec1a15a8e4 Mon Sep 17 00:00:00 2001
 From: Hongling Zeng <zenghongling@kylinos.cn>
-Date: Tue, 15 Sep 2026 16:32:51 +0800
-Subject: [PATCH] ntfs: check the dirty-state commit on remount and unmount
+Date: Tue, 15 Sep 2026 16:32:50 +0800
+Subject: [PATCH] ntfs: do not clear the volume dirty bit during sync
 
-The remount-to-read-only path commits the updated volume flags with
-ntfs_commit_inode(), a void wrapper around __ntfs_write_inode(), and
-ignores the blkdev_issue_flush() return value, so a failed commit or
-flush is reported as success.  Once the remount has succeeded no
-persistence point is ever reached again: ntfs_put_super() skips
-read-only superblocks and the VFS never syncs one, so fail the
-remount unless the commit and the flush succeed.  The superblock
-then stays read-write and ntfs_put_super() retries the persistence
-at unmount.  The errors=remount-ro downgrade does not go through
-ntfs_reconfigure() and is unchanged.
+ntfs_sync_fs() clears VOLUME_IS_DIRTY while the volume is still mounted
+read-write, so a sync running concurrently with an in-flight metadata
+modification can clear and persist a bit that was just set: the
+modification then lands on a volume that is clean on disk, and a crash
+does not run chkdsk.
 
-A zero-return commit is not trusted blindly: write_mft_record()
-redirties the record on allocation failure and reports success, so
-the $Volume inode is required to be clean afterwards.
+Stop clearing the bit in ntfs_sync_fs() and leave the clearing to the
+remount-to-read-only path, which the VFS reaches only after
+sb_prepare_remount_readonly() has drained in-flight writers, and to
+ntfs_put_super(), which runs after evict_inodes() on a quiesced
+filesystem.  A mounted read-write volume now keeps the dirty bit until
+it is dismounted cleanly, which matches the NTFS semantics; the cost is
+a needless chkdsk if the machine crashes between a sync and the unmount.
 
-ntfs_put_super() discards the same commit error.  Call
-__ntfs_write_inode() there with the same dirty re-check and warn on
-failure, as put_super() cannot return an error.  The commit is
-skipped when the dirty-state sync itself failed, as that could write
-back an inconsistent flag state; a record left dirty by an earlier
-update is still committed at evict time.
+A recorded error state is still persisted right away when the
+filesystem is synced: with NVolErrors() set,
+ntfs_sync_volume_dirty_state() can only set the bit, never clear it,
+so it cannot lose a modification the way the old unconditional call
+did.  This keeps the error report from being lost to a crash on a
+volume that has seen no modification; an error recorded after the
+last sync is still only persisted at the next quiescent transition.
 
-NVolErrors() is deliberately not used to detect the failure: it is
-sticky for the lifetime of the mount, so it cannot distinguish a
-fresh commit failure from errors recorded before the remount.
+sync_blockdev() and blkdev_issue_flush() are both called and the first
+error is returned, so a writeback failure neither hides a flush failure
+nor skips it.
 
-Hibernated volumes: ntfs_sync_volume_dirty_state() is a no-op for
-them and never dirties the $Volume inode on such a mount, since the
-on-disk flags are already dirty and ntfs_set_volume_flags() has
-nothing to change.  The commit only runs if something dirtied the
-inode independently, as before this patch; mounting hibernated
-volumes read-only removes even that.
+A RWF_NOWAIT write still blocks in the marking when the volume looks
+clean, as it already did on the base; a non-blocking marking is
+follow-up work.
 
 Reported-by: Baolin Liu <liubaolin@kylinos.cn>
 Cc: stable@vger.kernel.org
@@ -125,116 +122,88 @@ Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
 Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
 Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 ---
- fs/ntfs/super.c | 76 +++++++++++++++++++++++++++++++++++--------------
- 1 file changed, 54 insertions(+), 22 deletions(-)
+ fs/ntfs/file.c  |  7 ++++---
+ fs/ntfs/super.c | 31 ++++++++++++++++++++++++-------
+ 2 files changed, 28 insertions(+), 10 deletions(-)
 
-diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
-index a08523457fe01..0ec4d2ddf6219 100644
---- a/fs/ntfs/super.c
-+++ b/fs/ntfs/super.c
-@@ -269,6 +269,7 @@ static int ntfs_reconfigure(struct fs_context *fc)
- {
- 	struct super_block *sb = fc->root->d_sb;
- 	struct ntfs_volume *vol = NTFS_SB(sb);
-+	int err;
- 
- 	ntfs_debug("Entering with remount");
- 
-@@ -331,14 +332,39 @@ static int ntfs_reconfigure(struct fs_context *fc)
- 		 * and ntfs_put_super() skips them, so the only remaining
- 		 * write would be the evict-time commit at unmount, which
- 		 * a crash never reaches.  An error recorded only after
--		 * the remount is still never persisted.
-+		 * the remount is still never persisted; a failed commit
-+		 * or flush fails the remount, leaving the superblock
-+		 * read-write so ntfs_put_super() retries at unmount.
- 		 */
--		if (ntfs_sync_volume_dirty_state(vol)) {
-+		err = ntfs_sync_volume_dirty_state(vol);
-+		if (err) {
- 			ntfs_warning(sb,
- 				"Failed to update dirty bit in volume information flags.  Run chkdsk.");
--		} else if (NInoDirty(NTFS_I(vol->vol_ino))) {
--			ntfs_commit_inode(vol->vol_ino);
--			blkdev_issue_flush(sb->s_bdev);
-+			return err;
-+		}
-+		if (NInoDirty(NTFS_I(vol->vol_ino))) {
-+			/* ntfs_commit_inode() would discard the error. */
-+			err = __ntfs_write_inode(vol->vol_ino, 1);
-+			if (err) {
-+				ntfs_warning(sb,
-+					"Failed to commit volume information flags.  Run chkdsk.");
-+				return err;
-+			}
-+			/*
-+			 * write_mft_record() redirties the record on
-+			 * -ENOMEM and still reports success.
-+			 */
-+			if (NInoDirty(NTFS_I(vol->vol_ino))) {
-+				ntfs_warning(sb,
-+					"Volume information flags remain dirty after commit.  Run chkdsk.");
-+				return -EIO;
-+			}
-+			err = blkdev_issue_flush(sb->s_bdev);
-+			if (err) {
-+				ntfs_warning(sb,
-+					"Failed to flush volume information flags.  Run chkdsk.");
-+				return err;
-+			}
- 		}
- 	}
- 
-@@ -1944,26 +1970,32 @@ static void ntfs_put_super(struct super_block *sb)
- 		if (ntfs_sync_volume_dirty_state(vol)) {
- 			ntfs_warning(sb,
- 				"Failed to sync dirty bit in volume information flags.  Run chkdsk.");
--		} else if (NVolErrors(vol)) {
-+		} else {
- 			/*
--			 * The dirty bit is on disk now; only warn when the
--			 * sync actually succeeded, or this message would
--			 * contradict the one above.
-+			 * __ntfs_write_inode(), not the void
-+			 * ntfs_commit_inode() wrapper: the error can only
-+			 * be warned about here.  The mirror inode is only
-+			 * released below: writing the $Volume record (mft
-+			 * record number 3, below vol->mftmirr_size) mirrors
-+			 * it through ntfs_sync_mft_mirror(), which fails
-+			 * with -EIO once vol->mftmirr_ino is gone.
- 			 */
--			ntfs_warning(sb,
--				"Volume has errors.  Leaving volume marked dirty.  Run chkdsk.");
-+			if (__ntfs_write_inode(vol->vol_ino, 1)) {
-+				ntfs_warning(sb,
-+					"Failed to commit volume information flags.  Run chkdsk.");
-+			} else if (NInoDirty(NTFS_I(vol->vol_ino))) {
-+				ntfs_warning(sb,
-+					"Volume information flags remain dirty after commit.  Run chkdsk.");
-+			} else if (NVolErrors(vol)) {
-+				/*
-+				 * Only warn once the commit has succeeded,
-+				 * or this could contradict a failure
-+				 * reported above.
-+				 */
-+				ntfs_warning(sb,
-+					"Volume has errors.  Leaving volume marked dirty.  Run chkdsk.");
-+			}
- 		}
--		/*
--		 * Commits the updated volume flags if they were written.
--		 * The mft mirror must still be around for this: the
--		 * $Volume record (mft record number 3, below
--		 * vol->mftmirr_size) is mirrored by write_mft_record()
--		 * through ntfs_sync_mft_mirror(), which fails with -EIO
--		 * and leaves the mirror stale once vol->mftmirr_ino is
--		 * gone, so the mirror inode is only released after this
--		 * commit.
--		 */
--		ntfs_commit_inode(vol->vol_ino);
- 	}
+diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
+index e8b056c3e4ccd..bb8641103d268 100644
+--- a/fs/ntfs/file.c
++++ b/fs/ntfs/file.c
+@@ -637,9 +637,10 @@ static ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
  
  	/*
+ 	 * The volume must be marked dirty before the modification is made,
+-	 * without an unlocked check of the in-memory flag: ntfs_sync_fs()
+-	 * can clear the bit concurrently and the modification would then
+-	 * land on a volume that is clean on disk.
++	 * without an unlocked check of the in-memory flag: the dirty bit
++	 * is only cleared at the quiescent transitions, under the same
++	 * $Volume mrec_lock this call takes, so an unlocked skip could
++	 * lose the set to one of them.
+ 	 */
+ 	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+ 
+diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
+index 42d895776f326..a08523457fe01 100644
+--- a/fs/ntfs/super.c
++++ b/fs/ntfs/super.c
+@@ -493,8 +493,9 @@ int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags)
+  * This is the single point that persists the in-memory error state to disk.
+  * The runtime error paths only record NVolErrors() because they run under a
+  * variety of ntfs locks the dirty-bit write cannot be taken under (runlist
+- * locks, vol->lcnbmp_lock, vol->mftbmp_lock, mrec_locks); the first
+- * ntfs_sync_fs(), a remount, or the unmount then persists the flag here.
++ * locks, vol->lcnbmp_lock, vol->mftbmp_lock, mrec_locks); a sync of a
++ * volume with recorded errors, a remount to read-only, or the unmount,
++ * then persists the flag here.
+  *
+  * A hibernated volume is not written from these persistence paths:
+  * resuming Windows from a modified image corrupts it, so the dirty bit
+@@ -2023,7 +2024,7 @@ static void ntfs_shutdown(struct super_block *sb)
+ static int ntfs_sync_fs(struct super_block *sb, int wait)
+ {
+ 	struct ntfs_volume *vol = NTFS_SB(sb);
+-	int err = 0;
++	int ret, err = 0;
+ 
+ 	if (NVolShutdown(vol))
+ 		return -EIO;
+@@ -2031,14 +2032,30 @@ static int ntfs_sync_fs(struct super_block *sb, int wait)
+ 	if (!wait)
+ 		return 0;
+ 
+-	/* If there are some dirty buffers in the bdev inode */
+-	if (ntfs_sync_volume_dirty_state(vol)) {
++	/*
++	 * The volume dirty bit is deliberately not cleared here: a sync
++	 * running concurrently with an in-flight modification could clear
++	 * and persist a bit that was just set, leaving the modification
++	 * on a volume that is clean on disk.  The bit is only cleared at
++	 * the quiescent state transitions, remounting read-only and clean
++	 * unmount.  A recorded error state, however, is persisted right
++	 * away so that it is not lost to a crash on a volume that has
++	 * seen no modification; with NVolErrors() set this can only set
++	 * the bit, never clear it.
++	 */
++	if (NVolErrors(vol) &&
++	    ntfs_sync_volume_dirty_state(vol)) {
+ 		ntfs_warning(sb, "Failed to sync dirty bit in volume information flags.  Run chkdsk.");
+ 		err = -EIO;
+ 	}
+ 	sync_inodes_sb(sb);
+-	sync_blockdev(sb->s_bdev);
+-	blkdev_issue_flush(sb->s_bdev);
++	ret = sync_blockdev(sb->s_bdev);
++	if (ret && !err)
++		err = ret;
++
++	ret = blkdev_issue_flush(sb->s_bdev);
++	if (ret && !err)
++		err = ret;
+ 	return err;
+ }
+ 
 -- 
 2.53.0
 
