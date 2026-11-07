@@ -1,89 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794057222;
-	b=4hdwG2Eq2nwx+t0y7gULjbA9MYtioz5CEb/6WGIyZXIP4C92bSZ8iIKg9MN7ikbGZW+c
-	 u+B6b8UDFu8ndRA5ct4xOo3P+lqOkivqmhexniFIRd4p72W7zW/mkQP0oocHhkOCr+wZY
-	 iQE9ryggo8Zz3G/ciDkgFhJXbYnc/nD8O4HjV57I5qSW9GeGMDv9MCZ2QYW0SjOrWQkQ9
-	 GFD9gzl7F847L3+ltTd1xadKQTr8JbqeOuVNE1MGJuEoFcIftuIqqw4k19h1ZkLNixk/z
-	 9bitUM19atksp/mRjb5LW+G1p0FHXu/hPdxpvJmm6gk0wtgmJVbYfZYbsOSxaQIcwAg==
+	t=1794057582;
+	b=b6sDeszjtSVD/1qjfvTw4DPupEbTRL5UN8cK3HP2LI1QYjBoljk7RuzB5LUQFdOQtSHK
+	 3rRkZ/kHPM/qbVC6lu+FMCWtHOfZRBFxBlQ1K7QcglZsy7Ni/36LWbayqg1X+zIOM9VIf
+	 VXMitID3uJ4rYaNNoTh2eKd3KkjYevR8KbAOgAt+mxgqiQNHlvPP7C+wVFRUDEKzsXz3v
+	 qeGfNw2UT1TTFibwnmncvR6gdYGlJYCm87hR6fcf171GyzDREvVWs0+BJStyMm6vimTW4
+	 O7ThNYjjLLa/FyH2304yv3uw09TCyQQY4DnRS/PN8LM0eKeF/tpAWCBObg6+5Z5zerg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794057222;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794057582;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=Ck14fKV6LP02+4pNJEFmV4SbeAH9q4KUqAqJ8rl5z8k=;
-	b=eQQFYcmpAo9UdSSi/QayMyqPQNgKs0fZoTZw7lQHbnDoR55SOZA3QJQZkD+tDRFb68b8
-	 FfzsyPOOe3mE5Yyv5oEsbe/Pa8s7Eqb6yoRy0QaCbeqOjT3RjasOuKPkU0RU4EO7HZ6kM
-	 +07oVsC+SnLNXQBopgW/Z7A6lbJFAEuWegnXqayrR10H4LkfKZIlSwbctxcu4cNf2Rasf
-	 EIIAJFeMCWcQWbAELqOYW9jpRdDIexoAV8Kb9yR2CCiCNzwgZ2i5mAxp24fo8wt4XqbYA
-	 pPkgLeqZx/0hBP8fLiQKWTV3tGvM56/tEGITpye19W4aq4xdatFavqcvYhB/V4VjI9Q==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=pb6Ehd7uYd14UlHRaMPgiH3vikGNTgrvIXaxvAgYeKw=;
+	b=32pUUWlrU3pNkLPo5EYrJGChuOPQPdkIjMhwRdu3ebAJNkcCwLY4tcj8VwvQphaaGf+l
+	 SfQgVbzi4qDmk5iq+bcB/ELza5P0h7/j5ip8kRJG4asHhad9jIRnT1GRn7AQ901EUZBRO
+	 2Ne6KdSDr8LGkHAq6clB52xx4/FrWqA0qbmK4qxI5eOH0EbOoK2T3IiVPbeGdxLhqm8Sw
+	 JLt8tmf7GVEdGTzP4Q/BMgClxy56oBJECF6AqECvLVdM/6x4poSBrdZ50Mu76vxTO4zWk
+	 FdpNXq4e+tSiWu2FwSWbHOqXzcCRO71A1zV7nF6NHUjSkhh9fReYUY4WEW6fgcgTDaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vysbNISz;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=j8MgvJzI;
+	arc=none smtp.remote-ip=209.85.221.42
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 544BA606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 13:13:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 544BA606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4266F606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 13:19:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4266F606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vysbNISz
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so14067005e9.2
-        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 05:13:41 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=j8MgvJzI
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48e3b22e971so777033f8f.0
+        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 05:19:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794057220; x=1794662020; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Ck14fKV6LP02+4pNJEFmV4SbeAH9q4KUqAqJ8rl5z8k=;
-        b=vysbNISz8SzWFmHI7OcsIgVE/V/ABSV+2GuqrFioIU8vzq1zVTXOrd25yYMsQGul9y
-         IEto4XwlcWxPi87QSsB987nCN8kie9R//K940kp2cy4w6DGnnusCyWiKypiGT0BosmEK
-         k5hRpohwrzdagbuCUHEuGHglN/d/4vS2TmukSYXpzdr+2SZzmtkZHqLmc4kZuEjaDeUX
-         XslpIvKrRJ+13BcESV/cnCaiDh7rnm5AclHVYWdWPQ47JMwWb0M68A2i4c3+TVsyOqtQ
-         MNaCauf99Dry39oFPQdwQZw+o75uxbi9RVSDmZ2KrCIvyH5J9NjIVPMhm/dxtrbOtxbn
-         Je6w==
+        d=gmail.com; s=20260707; t=1794057581; x=1794662381; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pb6Ehd7uYd14UlHRaMPgiH3vikGNTgrvIXaxvAgYeKw=;
+        b=j8MgvJzIlC5u/eGD3SeOAa+VFYHM40KLTehszOsgOdgw+NNhCc3N7JgJLzURhJT3aE
+         Ra2KSljTOvSaFF6JbvcIVKDL42P3OITwQiY5meNfDvoW6Z7fPWHJTB6qLJWITD1zlS7Y
+         Z5z8vaMpXmHeOUqvq6JyyA3l0enUKnr5xs9wtHOtPAtpJnpu5ULDDCTpq8qc5NGhXCTH
+         sB8rNxpozt5HlkwqeSveFWUHxSG2eVbzgC2ZRN61x/k7X5WSFtK0lScHnS3TAPX227vm
+         1qpX8+a0nwbEn+b7f/bJAHZFJObwtva4u+4uTwk0PELSwKbnb1OiGloul/kI8XaTMAZs
+         10Uw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794057220; x=1794662020;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=Ck14fKV6LP02+4pNJEFmV4SbeAH9q4KUqAqJ8rl5z8k=;
-        b=Vh2t2mnCLD1YzLPWXC99Qy4ktwKLakD8RAsCGYjBXlwvoGT/bm29QPX6iizX3gWXqb
-         a5nC1disxolFVo/NGRtuQSWj5yCvIV8NWh94ohYODJhzJqFhkaoeMFg0RJYcyF1/Ymgc
-         nhkuwQIN+8KKd0+K8Wves1ekuB/UHK+yaapTI5zH8hwiRbxv5OTKMjkaY6D+CMNtjlJ9
-         vWgrTWIANJgjI26dLat7kPecyL3rGVWAxCOyItdJU+hTxsp+F9zJtJib3Skp5GFsPLhj
-         +skdkMSZTM+PLDg0mw+9k0PL4UkceZEICQacTA153qi/O+9lAkzuoVzZbbvED6eLQEnm
-         Lpkg==
-X-Forwarded-Encrypted: i=1; AKwUvBy5rmHic16fCQ5lKCFgmjAcDi92UR5IYAR7CJO6XnO/JAOuY30NADcnm+C/m9terIJrrPDna6M=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/K1ac8gJfC0OGs5TK8qD+h0aZ2g4BV9v2em/H86IHRXNYe8N8H
-	oGz9BGGhhph+Z70wvgYCsxqiUusJS19JDS7F/REGl+G7O/+UDTZBl8Ft
-X-Gm-Gg: AYBFou2tPwwuwVjPYuqf/uwUlJVUtZOKmJWC1ob/1LkdrhCU1D+gnPe1WSL58LfYqNK
-	U9eUTpJilZGBP3Wa12Lf5F9Yhafd2kMu0FjcS++6HVUVOt4VI6EDrgn0jkURfde0CDdRrYbgS3D
-	Igl/YP/wo8gjuexvKNLj7/XUcpT3xO2ax6TOMVWqs2x0tTAuUyfuZdf7emkHTTBTDJr9rMh4JMY
-	sByra/6lGl7DTNesjBxa7Pfb3oYwkeBNVeejpBs7RTnRpWHqxaxmpmFH2ID6nHcqtAVLVisCpMn
-	nczxW9d00+AoMYE2LAcfUnBenXyfyjn2aaFnB9fGPMZaBbC6RNfDmY2UY6CiGuSOth4F2CeAwXW
-	1t5onxc7RBJ0OH/e7zKtQEQCjbn6XD+rgt2Daj83eVVjnG83CX5TLBMyvA8zk0Wo7H46PjwI5DW
-	4393kxELipkJJd8hnRt1bGtmPSJMNRBCrg1Zb8Fs66khmdncPBx+IksjV+f6oBmZXWz/VWvjaNh
-	F79pg56xIWgn2Xk8tXvIjFs9XayTfgTxLaHEQYXGVtkUf5QiqWiUZZPrBDOAT6x7iRDcrw+owBy
-	CZKZsEow1qFuZ/53rz5Cy3hyNmBiPPGfnmHvS3Ijph6Iix+K1ZOVEK89cpuJ20tEO5k3aiqNn+V
-	eShZzDM/8W1RbMw42nhIDEsc5ljR6BGiigLEdtC7NXDkouR2rsfK8IQ2gp/HE5hWo9/Q=
-X-Received: by 2002:a05:600c:6994:b0:4a0:1fb9:2f51 with SMTP id 5b1f17b1804b1-4b6df11de39mr98136025e9.14.1794057219338;
-        Sat, 07 Nov 2026 05:13:39 -0800 (PST)
-Received: from PC-Marco.local ([151.59.49.14])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7e2e9ad95sm64282305e9.3.2026.11.07.05.13.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 05:13:38 -0800 (PST)
-From: Marco Ziliani <rylos78@gmail.com>
-Date: Sat, 07 Nov 2026 14:13:30 +0100
-Subject: [PATCH v2] ata: libata-pmp: disable the SEMB port on Marvell
- 88SM9705
+        d=1e100.net; s=20260707; t=1794057581; x=1794662381;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pb6Ehd7uYd14UlHRaMPgiH3vikGNTgrvIXaxvAgYeKw=;
+        b=ylfKMf3YIANQgvy4orZr717czUzd9PcgiR4Ns1I1ESHaFbauCEx5bxBnk52HWDV/Pa
+         VkpU6D9/RXEhZx7UAKZdmj0NAEir+rHn4jhm8hqA+SdVfPbbgGSolsfVxnYiS/9x0h8S
+         Oa/Ml6x4IiAWfLp3TBDXnFyxeNAM4ZD3j8SKulznZ+QYTdq4UdI/Zt7SeKDRDZKbaiTn
+         x3YFhiXf+OqDSdLqz8TJaPQJwEMCD1cUMjMuBXdMNdN1UGHjT8tuTE1iPtvP+uT2m7Ij
+         CAQIOmuXO50gVROxwJ7U24/oAsPygbkFPjARkP5ywW8RYdNi4konNzHfRIAC8cX2bvbs
+         UNXw==
+X-Gm-Message-State: APuU4Z83nh667jzZ4doDJ1BmmtKjc8fueuv7yLP7JgneV0ZoWagUY1Nd
+	5uiacTa2OdRHuGgG7TNb3ZSwyX6QOUZoBkDPvUiQH+b31Py8ju58O4BASuSvBUAr
+X-Gm-Gg: AYBFou0kPthCy/YOApX6KZ03NE2SO3vMOG5Vhu0EScTOcvkd9eNPzJO4wnlBIotMhfo
+	cQzwHesj0/iQpdmjM2PUt0pNsVSyPcXB3mRSILsfFLXh94+mCjVseRw//wnjAY5lEkWXu5L0yZz
+	EbOQJ3AzjbJTdL3ffMB0IX4o9WcDOsqpIhOPYEjbrclW9CrT1xNQbanSkKErTCPTtBU+yyGvruO
+	7hktl7oKE/QSpxguDqADDfx7OqHlJSdzmspXUxCBvdIXi2M+RUAF4T6xrlgdUMg/AMOlYDrq0Qf
+	ibvF3X12n7BrElqCAgNwk9JQd1owPheFrR0zS4ix8bWYOaAKUb4CoM1PqOv8eOc4VNQY5kkJzF+
+	wQ/sZMm4YNUtbi7+HOWpL6V8YMh9neltLjeOF/4hp0AhZYPztwcIEwCUNo48+3PpfwcS3/un6mM
+	JYElyeLqFN9f18EAT/HFc/1gXmw6L1HhF3eV/OEXFR7jhEQQr3uxlzzfm1+CXANOTVeJVaY4foT
+	AWMupLA62jtLtkhd+vOZuR1WzUMn6S8bKF/bRfgR0KzGd5mFiyWmVgBkXguZTPAifiQRgDsLUo8
+	MCwN3PUW9BSIU47DwAPKYfaXGO9uzt3tyj0zHHMT5A4pOehxuSE1vdrtSxOBhNFhJXHGICiFPWH
+	+Gy0gpFGSlP35nHW6Dw==
+X-Received: by 2002:a5d:64e3:0:b0:492:b1c5:6db5 with SMTP id ffacd0b85a97d-492b1c56e07mr10147191f8f.32.1794057580383;
+        Sat, 07 Nov 2026 05:19:40 -0800 (PST)
+Received: from localhost.localdomain (bba-217-164-30-115.alshamil.net.ae. [217.164.30.115])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d809df2dsm9700650f8f.51.2026.11.07.05.19.38
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 07 Nov 2026 05:19:40 -0800 (PST)
+From: Ximing Zhang <xzhangjr@gmail.com>
+To: stable@vger.kernel.org
+Cc: sashal@kernel.org,
+	linux@roeck-us.net,
+	Ximing Zhang <xzhangjr@gmail.com>,
+	Marcelo Tosatti <mtosatti@redhat.com>,
+	=?UTF-8?q?Asaf=20Nuri=20Bertizlio=C4=9Flu?= <ycistak@gmail.com>
+Subject: [PATCH 6.6.y] hwmon: (coretemp) Fix handling of isolated SMT siblings
+Date: Sat,  7 Nov 2026 17:19:33 +0400
+Message-ID: <20261107131933.16276-1-xzhangjr@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261107053631-failed-6.6-37c1974a0ec4@kernel.org>
+References: <20261107053631-failed-6.6-37c1974a0ec4@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -93,129 +101,128 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261107-pmp-88sm9705-v2-1-18eed983d3db@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNQQ6CMBBFr0JmbQ1TKAVX3sOwgDqFMZaSFomGc
- HcB1y5f8v77C0QKTBEuyQKBZo7shw3kKQHTN0NHgu8bg0xlgaksxehGUZbRVTpVQlqdY5tnymI
- B22QMZPl95G71j+OrfZCZ9sZu9BwnHz7H34y79yc9o0BhbKXQks6Vzq6da/h5Nt5Bva7rF/qbB
- xG6AAAA
-X-Change-ID: 20261028-pmp-88sm9705-2f741b435f16
-To: Damien Le Moal <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>
-Cc: Kyrylo Biryuk <illofspeed@gmail.com>, linux-ide@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Marco Ziliani <rylos78@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794057217; l=4258;
- i=rylos78@gmail.com; s=20261027; h=from:subject:message-id;
- bh=1bZ0/g/Vqj0TVjKKgVi14x/QhYjtWqwjUDv/wvKppsM=;
- b=yXxfwA1Y8VSA1X8Ye6NPG87dZVzkjbfYENcw35RNXLaGSsA9OXP6rmIMkNGKpSr1PVgwY1p4A
- s6DSuuJSftKBL9Gzz7JNyMoT1pFyrci2879OTsSivs6lterDy04biLp
-X-Developer-Key: i=rylos78@gmail.com; a=ed25519;
- pk=nXCfiK5yExPZCMp+lfKif3gdXkfjkUK2qk7bDW+ixMo=
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-The Marvell 88SM9705 is a 1-to-5 SATA port multiplier with one
-additional SEMB (SATA Enclosure Management Bridge) port [1].  Ports
-0-4 are device ports and port 5 is the SEMB.  The number of fan-out
-ports in GSCR[2] is 6 when the SEMB is enabled and 5 when it is not,
-so on boards without the SEMB there is no link 5 and this quirk does
-nothing.  That includes the common 8-port PCIe cards that pair an
-88SE9215 with an 88SM9705, which report 5 ports.
+[ Upstream commit 37c1974a0ec4ec4624a270291a179c53f8f4fbca ]
 
-The SEMB port never answers SRST.  libata probes it like a device
-port, and every EH round on the PMP ends in a retry loop that lasts
-about a minute before EH gives up, then starts over:
+Commit 0f8b916bc5b5 ("hwmon: (coretemp) avoid RDMSR interrupts to
+isolated CPUs") prevents create_core_data() from creating temperature
+data for an isolated CPU. coretemp_cpu_online(), however, still adds
+that CPU to pdata->cpumask.
 
-  ata19.15: Port Multiplier 1.2, 0x1b4b:0x9705 r160, 6 ports, feat 0x1/0x1f
-  ata19.05: hard resetting link
-  ata19.05: failed to resume link (SControl 0)
-  ata19.05: softreset failed (1st FIS failed)
-  ata19.05: hard resetting link
-  ...
-  ata20.05: reset failed, giving up
+When an isolated SMT thread is processed before a housekeeping sibling,
+the mask makes coretemp_cpu_online() believe that the core is already
+represented. The housekeeping sibling then gets no temperature
+attributes. Package attributes are similarly not retried when the first
+CPU processed in a die is isolated.
 
-Disk discovery waits for this, including disks on other controllers.
+The mask is also used to select a replacement CPU when a sensor target
+goes offline. Including isolated CPUs permits the driver to retarget a
+sensor to one, causing subsequent sysfs reads to send an RDMSR IPI to an
+isolated CPU.
 
-libata.force only partly works around it.  The "disable" horkage
-only takes effect after IDENTIFY, which the SEMB link never reaches.
-"norst" on port 5 stops the retry loop, but the disks still come up
-about a minute later than with this change (see below).
+Keep isolated CPUs out of pdata->cpumask by moving the housekeeping check
+to coretemp_cpu_online(). Sensor creation is then deferred to an eligible
+CPU, and hotplug replacement targets remain on housekeeping CPUs.
 
-Treat port 5 the same way as port 4 of the Marvell 88SM4140 and mark
-the link ATA_LFLAG_DISABLED.
+Tested on an Intel Core i7-10510U running 6.18.50-3-cachyos-lts, with
+nohz_full=1 on CPU 1 and its housekeeping SMT sibling on CPU 5. The stock
+driver omitted Core 1 after module load and retained its readable sensor
+after CPU 5 was offlined. The patched driver exposed Core 1, removed it
+when CPU 5 went offline, and restored it when CPU 5 returned.
 
-Tested on a Synology DX1222 expansion unit (four 88SM9705 r160 behind
-a Marvell 88SE9235, passed through to a KVM guest, 6 disks), 7.4-rc1
-with and without this change, one boot each:
-
-                                    softreset  reset failed,  last disk
-                                    failed     giving up      attached
-  7.4-rc1, no libata.force          60         12             197 s
-  7.4-rc1, libata.force=N.05:norst   0          0              70 s
-  7.4-rc1 + this patch, no force     0          0              11 s
-
-The problem was first found on a Synology DX1215 with the same chain,
-where this change brought the disks up after about 20 s instead of
-about 200 s, including a disk on a separate AHCI controller.
-
-Each PMP still logs one "failed to resume link (SControl 0)" for port 5
-at probe time.
-
-Link: https://www.marvell.com/content/dam/marvell/en/public-collateral/storage/marvell-storage-88sm9705-functional-specifications-2015-06.pdf [1]
+Fixes: 0f8b916bc5b5 ("hwmon: (coretemp) avoid RDMSR interrupts to isolated CPUs")
 Cc: stable@vger.kernel.org
-Tested-by: Kyrylo Biryuk <illofspeed@gmail.com>
-Signed-off-by: Marco Ziliani <rylos78@gmail.com>
+Cc: Marcelo Tosatti <mtosatti@redhat.com>
+Signed-off-by: Ximing Zhang <xzhangjr@gmail.com>
+Tested-by: Asaf Nuri Bertizlioğlu <ycistak@gmail.com>
+Link: https://git.kernel.org/linus/37c1974a0ec4ec4624a270291a179c53f8f4fbca
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+[xzhangjr: Resolve the create_core_data() conflict by retaining the 6.6
+index allocation and init_temp_data(cpu, pkg_flag) call, removing only
+the housekeeping check. The other upstream changes apply unchanged.
+Tested on an Intel Core i7-10510U running 6.6.162 with nohz_full=1:
+the unmodified driver reproduced both bugs, and the backport passed
+sensor creation, 20 SMT hotplug cycles, and 20 module reloads. The driver
+also builds with CPU isolation enabled or disabled.]
+Signed-off-by: Ximing Zhang <xzhangjr@gmail.com>
 ---
-I don't have this hardware myself: the problem was found and measured
-on a DX1215 by a user who preferred not to send the patch, and Kyrylo
-has since tested it on his DX1222.
+ drivers/hwmon/coretemp.c | 26 ++++++++++++++++----------
+ 1 file changed, 16 insertions(+), 10 deletions(-)
 
-I used an AI coding assistant to draft the patch and the changelog;
-I reviewed them and can answer for them.
----
-Changes in v2:
-- Say that libata.force "norst" only partly works around the problem
-  (Niklas).
-- Use Kyrylo's 7.4-rc1 results on a DX1222 as the test data, and drop
-  the references to the downstream distribution (Niklas).
-- Mention the DX1222 in the comment.
-- Add Kyrylo's Tested-by.
-- Link to v1: https://patch.msgid.link/20261028-pmp-88sm9705-v1-1-cf951fe74573@gmail.com
----
- drivers/ata/libata-pmp.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
-
-diff --git a/drivers/ata/libata-pmp.c b/drivers/ata/libata-pmp.c
-index 904f418387..43991e54eb 100644
---- a/drivers/ata/libata-pmp.c
-+++ b/drivers/ata/libata-pmp.c
-@@ -482,6 +482,20 @@ static void sata_pmp_quirks(struct ata_port *ap)
- 			if (link->pmp == 4)
- 				link->flags |= ATA_LFLAG_DISABLED;
- 		}
-+	} else if (vendor == 0x1b4b && devid == 0x9705) {
-+		/*
-+		 * Marvell 88SM9705 quirks
-+		 *
-+		 * 1-to-5 PMP with an extra SEMB port.  It reports 6 ports and
-+		 * port 5 is the SEMB, which never answers SRST: EH spends about
-+		 * a minute per round retrying it, and disk discovery waits for
-+		 * that.  Seen behind a Marvell 88SE9235 in the Synology DX1215
-+		 * and DX1222.
-+		 */
-+		ata_for_each_link(link, ap, EDGE) {
-+			if (link->pmp == 5)
-+				link->flags |= ATA_LFLAG_DISABLED;
-+		}
- 	}
- }
+diff --git a/drivers/hwmon/coretemp.c b/drivers/hwmon/coretemp.c
+index b8fc8d1ef20d..f679ee62a172 100644
+--- a/drivers/hwmon/coretemp.c
++++ b/drivers/hwmon/coretemp.c
+@@ -504,9 +504,6 @@ static int create_core_data(struct platform_device *pdev, unsigned int cpu,
+ 	u32 eax, edx;
+ 	int err, index;
  
-
----
-base-commit: fb2c3f44a7e14627b9dca8e6b568e6cdc234b40b
-change-id: 20261028-pmp-88sm9705-2f741b435f16
-
-Best regards,
---  
-Marco Ziliani <rylos78@gmail.com>
+-	if (!housekeeping_cpu(cpu, HK_TYPE_MISC))
+-		return 0;
+-
+ 	/*
+ 	 * Get the index of tdata in pdata->core_data[]
+ 	 * tdata for package: pdata->core_data[1]
+@@ -654,6 +651,14 @@ static int coretemp_cpu_online(unsigned int cpu)
+ 	if (!cpu_has(c, X86_FEATURE_DTHERM))
+ 		return -ENODEV;
+ 
++	/*
++	 * Keep isolated CPUs out of pdata->cpumask. Besides tracking the CPUs
++	 * available to this driver, the mask is used to select the CPU on which
++	 * to read the temperature MSRs.
++	 */
++	if (!housekeeping_cpu(cpu, HK_TYPE_MISC))
++		return 0;
++
+ 	pdata = platform_get_drvdata(pdev);
+ 	if (!pdata->hwmon_dev) {
+ 		struct device *hwmon;
+@@ -683,8 +688,8 @@ static int coretemp_cpu_online(unsigned int cpu)
+ 	}
+ 
+ 	/*
+-	 * Check whether a thread sibling is already online. If not add the
+-	 * interface for this CPU core.
++	 * Check whether a housekeeping thread sibling is already online. If
++	 * not, add the interface for this CPU core.
+ 	 */
+ 	if (!cpumask_intersects(&pdata->cpumask, topology_sibling_cpumask(cpu)))
+ 		coretemp_add_core(pdev, cpu, 0);
+@@ -725,9 +730,9 @@ static int coretemp_cpu_offline(unsigned int cpu)
+ 	cpumask_clear_cpu(cpu, &pd->cpumask);
+ 
+ 	/*
+-	 * If this is the last thread sibling, remove the CPU core
+-	 * interface, If there is still a sibling online, transfer the
+-	 * target cpu of that core interface to it.
++	 * If this is the last housekeeping thread sibling, remove the CPU core
++	 * interface. If there is still a housekeeping sibling online, transfer
++	 * the target CPU of that core interface to it.
+ 	 */
+ 	target = cpumask_any_and(&pd->cpumask, topology_sibling_cpumask(cpu));
+ 	if (target >= nr_cpu_ids) {
+@@ -739,7 +744,8 @@ static int coretemp_cpu_offline(unsigned int cpu)
+ 	}
+ 
+ 	/*
+-	 * If all cores in this pkg are offline, remove the interface.
++	 * If all housekeeping cores in this pkg are offline, remove the
++	 * interface.
+ 	 */
+ 	tdata = pd->core_data[PKG_SYSFS_ATTR_NO];
+ 	if (cpumask_empty(&pd->cpumask)) {
+@@ -752,7 +758,7 @@ static int coretemp_cpu_offline(unsigned int cpu)
+ 
+ 	/*
+ 	 * Check whether this core is the target for the package
+-	 * interface. We need to assign it to some other cpu.
++	 * interface. We need to assign it to some other housekeeping CPU.
+ 	 */
+ 	if (tdata && tdata->cpu == cpu) {
+ 		target = cpumask_first(&pd->cpumask);
+-- 
+2.55.0
 
