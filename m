@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047381;
-	b=MZotoQuw5ZsqnDu7o2dkaLU99zHLTdQDKPr87qPAbbmorQgpeN9IIcjknnbn8u6vwpID
-	 r1SsNdljTRVPnZfiYO9WCijidh4W4pW3qSLphvaSAxxN9Adjj/qoM/V3GWLcL8NrlPIGh
-	 Pnj1AoCELZ04BbLNjqbnzlwZIGzEfEpKW9ifG2D4qDxzmqTXS0eyV0A7EOFo49voDTDDU
-	 hbgLTT7MceKroaK1Plbc6qUTK9BfXWIpcTdm3JtCJEStiaVKnN6Xs0FJuxnh7WLo/p2Ex
-	 PpY6G+10uRRKhxZB+lsenpNLfnRbQDbBOKeyEx/CgWWDoQmUWWJQvMlhJyqlzrERxNQ==
+	t=1794047383;
+	b=C0AaNyZ51bWoMl1Fr/Idosmh7/Tuv7LE1p+nYHzUelkfb2LzmXh6oL9pJWzEtPzSeJQw
+	 orQvI/hJvctrjc2LFzVnmK01aXaMXvgzVV9R4hCAd9SwDr31BudTm5LNo1nup+t69kOvD
+	 L4Y5yEFbFrV9qc2kQQuyRCmj6qiaQSt//Rm3T7th5ZqrsUPDBWqu/zsaf6axYNs1SXO6W
+	 PFpSZO7lVEgXUcc4SiPbjc5QLWWsnrOWEJfScFfsY4bo0BqW3o9WSf/94c8/kPvXg9AQN
+	 dJoOwEs4U7xUPgePp0pgQWZAkByPrc5ZK1hHalueT4Q3U2SGYZBoH94MZPnvVmXjkOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047381;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047383;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=kJrBnPkZarEojXfKx/1fS0TmQU/N03TZN+s0A+L+BNA=;
-	b=1iCtj5LM3dH0PTYx+M0qbahGq33amdyufyhaCl/nszKBNND5puz+gh4cYEaAY+6zKqhH
-	 7i9wgiJHtQ1G6fOx3K52xRGwOhmgi4KgBsZObGBmw3V01L6Pm9FxNHz4bn/waeG1r0bSI
-	 jhN6y/3fckucl4+odL+NJ6hrHUKEQfkbkEIFXYXeRwIDjJaBoJDLutQtcUKFd26ghU9RN
-	 FxXOTHEwzRKmxrw2HdjT+1iw6i3H3Izaa+IQiRibLWzBk3Xp84oCs4Oar7+0pzb5Fpg+H
-	 JsvKxHWW6/ROvA4Sfofe6ttb9830seQCUdrLJ0RJRXybuS30HGInfsGEnFzaN9L4Oig==
+	bh=5nfhaou7L472Eqm7dCslydmXwfgpU8T8u9IUOkKAM4w=;
+	b=zRjqIfSnlye3rWs0ifvZVAxjJn+42p3Tx3xTN4FGxxfKyuh1mrJsOB9csWj8slq+vt62
+	 Pofg328/A7W1QDYvL3FddNTDwjWV1UGX8D9C8ueRmstB+gqo53Pae+3lIxMk2WQsEJImv
+	 lcSNouPOMafZlW5ep0HIjARvyhFIdGryN28yJZwMe1KspXg1c3juqH0wmSCeXm9Smb7BJ
+	 GlfUeoG+0taUfLRnjbX7N1V5qz4UtTL7D8+EwlM+axWw+0h1ygp446j0qKu21QQfm1E3W
+	 P8uDGpNts3IMaLm7XrFsXqfnetRExx23sIakOCM46U39ujv+JY2+T4WvJ46PiwLg5og==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QsfWDQpU;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m4jTlfGS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEE9B606A334
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:29:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27611606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:29:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QsfWDQpU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 556A51F0089F;
-	Sat,  7 Nov 2026 10:29:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m4jTlfGS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 819221F0089F;
+	Sat,  7 Nov 2026 10:29:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047380;
-	bh=kJrBnPkZarEojXfKx/1fS0TmQU/N03TZN+s0A+L+BNA=;
+	s=k20260515; t=1794047383;
+	bh=5nfhaou7L472Eqm7dCslydmXwfgpU8T8u9IUOkKAM4w=;
 	h=From:To:Cc:Subject:Date;
-	b=QsfWDQpUF9idVFTc61d9VS9Egmk+qhXuiKdw7lXBKO+OjjUHiLKVXRX+BUHI/qcPO
-	 IqJ3X8m/fK+3TPCxNGGjFCxOD5da7rplcK6SpdCgibJpcwn8rX5qZdRC58Yhd3Ou3y
-	 Hz3CwVP4Ol9W/i3HpwijqgtQHHJyPOHvoBQzWztlXrc/7U+Sh3pkIOqaa2vV7QVoys
-	 36V2lrZLY+569VnaCGf/Ai7wgRJXzKC1q1uE+zIrCjAMK6GeYy0KYSjHr8tj9eGyxH
-	 l36/GsSeOPxifktVs824ld5fqGDbgW9MwJNSTjEks8qpj/YC60x36K7yXMlhFQMJDW
-	 IDoWcK8iUjNfw==
+	b=m4jTlfGSwWE4WoYui5gnVdZmRVLk5/tq9DaJAiuymrbzz+uufUh4AzEN/VzeQ5lMP
+	 dNuS6TG8tUyjkVaWas3KAHXcg6IlAJzWsoCFft180TQhY2gxNs90WZRNtm5CnJExKX
+	 bkOQP+MzLvVcNGy40KuRAIO3fTvo/zI+NR62LyYMD/47Rqi2eN4t/5HDvz0fjcOyeZ
+	 4SPrZAKyRxQERPx8u8boA5pfolpnVpexN3Wfqe9pHb81nqXGrtb1HJIYwAIoBqL35/
+	 FIMANwrgcbod+t3iaEMB+PMTnCKsvdDbyQvuvv3P86JO+8QoKbGdi4+WhDLk7VzHEQ
+	 LqnAUu84u8u3w==
 From: Sasha Levin <sashal@kernel.org>
-To: christian.loehle@arm.com,
-	sumitg@nvidia.com,
-	rafael.j.wysocki@intel.com
+To: oleg@redhat.com,
+	kusaram@devineni.in,
+	kees@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ACPI: CPPC: Accept requests to retain immutable autonomous selection" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:29:39 -0500
-Message-ID: <20261107052939-failed-6.6-4bcc60d326c5@kernel.org>
+Subject: FAILED: patch "[PATCH] signalfd: don't dequeue the forced fatal signals" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:29:41 -0500
+Message-ID: <20261107052941-failed-6.6-d72e0fb3b00c@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,241 +69,121 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 4bcc60d326c5acaa28c5913259decb22a33a83a1
+git cherry-pick -x d72e0fb3b00c6a1146bcfd7186ad9f6f609ba236
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052939-failed-6.6-4bcc60d326c5@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052941-failed-6.6-d72e0fb3b00c@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 4bcc60d326c5acaa28c5913259decb22a33a83a1 Mon Sep 17 00:00:00 2001
-From: Christian Loehle <christian.loehle@arm.com>
-Date: Wed, 16 Sep 2026 17:28:03 +0100
-Subject: [PATCH] ACPI: CPPC: Accept requests to retain immutable autonomous
- selection
+From d72e0fb3b00c6a1146bcfd7186ad9f6f609ba236 Mon Sep 17 00:00:00 2001
+From: Oleg Nesterov <oleg@redhat.com>
+Date: Mon, 6 Apr 2026 15:37:32 +0200
+Subject: [PATCH] signalfd: don't dequeue the forced fatal signals
 
-ACPI permits Autonomous Selection Enable to be Integer 1 when the platform
-always selects performance autonomously. cppc_get_auto_sel() returns that
-value, but cppc_set_auto_sel() rejects the Integer even when asked to keep
-autonomous selection enabled. AMD shared-memory initialization consequently
-fails in active or guided mode after successfully reading the capability.
+These signals should act like SIGKILL, in that userspace must never dequeue
+them. But as Kusaram explains, io_uring-driven signalfd_read_iter() called
+from get_signal() -> task_work_run() paths can do this before get_signal()
+has a chance to dequeue such a signal and notice SA_IMMUTABLE.
 
-Accept a request to keep this immutable field enabled without issuing a
-register access. Expose the immutable encoding to callers, separately from
-the current value of a writable register.
+Change signalfd_poll() and signalfd_dequeue() to add pending SA_IMMUTABLE
+signals to ctx->sigmask.
 
-Before an AMD shared-memory transition to passive mode, reject immutable
-autonomous selection on any present CPU. Otherwise a guided-to-passive
-transition ignores the failed disable and reports the wrong mode, while
-active-to-passive unregisters the working driver before passive policy
-initialization fails. Check under the driver mode lock before invoking
-either transition, including known offline CPUs.
+TODO: we should probably change force_sig_info_to_task(HANDLER_EXIT) to
+make fatal_signal_pending() true, or add a fatal_or_forced_signal_pending()
+helper. Then signalfd_dequeue() could just return -EINTR in this case.
+This also makes sense for get_signal(), which could prioritize a fatal
+signal sent by (say) force_sig_seccomp(force_coredump => true), just like
+it already prioritizes SIGKILL.
 
-Serialize this capability query with descriptor publication and removal.
-ACPI processor removal drops the descriptor before taking the CPU hotplug
-write lock, so the caller's cpus_read_lock() alone cannot protect the
-lookup. Unpublish under the same mutex before releasing a descriptor,
-including when adding its kobject fails.
-
-The cppc-cpufreq auto_select attribute can also request one while
-autonomous selection is already enabled. If the subsequent bounds update
-fails, its rollback requests zero and clears the cached mode regardless
-of the previous state. For an immutable field the disable request fails,
-leaving the cached mode wrong. Save and restore the previous mode instead.
-This also avoids disabling an already-enabled writable control on that
-error path.
-
-Fixes: c984f5d5d45b ("ACPI: CPPC: Add auto select register read/write support")
-Fixes: ea3db45ae476 ("cpufreq: cppc: Update MIN_PERF/MAX_PERF in target callbacks")
-Cc: All applicable <stable@vger.kernel.org>
-Signed-off-by: Christian Loehle <christian.loehle@arm.com>
-Tested-by: Sumit Gupta <sumitg@nvidia.com>
-Link: https://patch.msgid.link/20260916162805.1039247-19-christian.loehle@arm.com
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Cc: stable@kernel.org
+Reported-by: syzbot+0a4c46806941297fecb9@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=0a4c46806941297fecb9
+Tested-by: syzbot+0a4c46806941297fecb9@syzkaller.appspotmail.com
+Link: https://lore.kernel.org/all/69d122fd.050a0220.2dbe29.001c.GAE@google.com/
+Suggested-by: Kusaram Devineni <kusaram@devineni.in>
+Signed-off-by: Oleg Nesterov <oleg@redhat.com>
+Reviewed-by: Kees Cook <kees@kernel.org>
+Link: https://patch.msgid.link/adO3HG8bvwRPcmte@redhat.com
+Signed-off-by: Kees Cook <kees@kernel.org>
 ---
- drivers/acpi/cppc_acpi.c       | 42 +++++++++++++++++++++++++++++++---
- drivers/cpufreq/amd-pstate.c   | 21 +++++++++++++----
- drivers/cpufreq/cppc_cpufreq.c |  5 ++--
- include/acpi/cppc_acpi.h       |  7 ++++++
- 4 files changed, 65 insertions(+), 10 deletions(-)
+ fs/signalfd.c | 28 ++++++++++++++++++++++------
+ 1 file changed, 22 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
-index 96a94df242312..80e2e6b32ce35 100644
---- a/drivers/acpi/cppc_acpi.c
-+++ b/drivers/acpi/cppc_acpi.c
-@@ -100,6 +100,15 @@ static DEFINE_PER_CPU(int, cpu_pcc_subspace_idx);
-  */
- static DEFINE_PER_CPU(struct cpc_desc *, cpc_desc_ptr);
+diff --git a/fs/signalfd.c b/fs/signalfd.c
+index dff53745e3524..22bc0870a824d 100644
+--- a/fs/signalfd.c
++++ b/fs/signalfd.c
+@@ -48,17 +48,30 @@ static int signalfd_release(struct inode *inode, struct file *file)
+ 	return 0;
+ }
  
-+/* Protect immutable capability queries against descriptor removal. */
-+static DEFINE_MUTEX(cpc_desc_lock);
-+
-+static void cpc_set_desc(unsigned int cpu, struct cpc_desc *desc)
++static void refine_sigmask(struct signalfd_ctx *ctx, sigset_t *sigmask)
 +{
-+	guard(mutex)(&cpc_desc_lock);
-+	per_cpu(cpc_desc_ptr, cpu) = desc;
++	struct k_sigaction *k = current->sighand->action;
++	int n;
++
++	*sigmask = ctx->sigmask;
++	for (n = 1; n <= _NSIG; ++n, ++k) {
++		if (k->sa.sa_flags & SA_IMMUTABLE)
++			sigaddset(sigmask, n);
++	}
 +}
 +
- struct cpc_sysmem_node {
- 	struct rb_node rb;
- 	u64 subtree_last;
-@@ -2314,12 +2323,12 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
- 	}
- 
- 	/* Plug PSD data into this CPU's CPC descriptor. */
--	per_cpu(cpc_desc_ptr, pr->id) = cpc_ptr;
-+	cpc_set_desc(pr->id, cpc_ptr);
- 
- 	ret = kobject_init_and_add(&cpc_ptr->kobj, &cppc_ktype, &cpu_dev->kobj,
- 			"acpi_cppc");
- 	if (ret) {
--		per_cpu(cpc_desc_ptr, pr->id) = NULL;
-+		cpc_set_desc(pr->id, NULL);
- 		cpc_unregister_non_mmio_desc(cpc_ptr);
- 		cpc_unregister_sysmem_desc(cpc_ptr);
- 		kobject_put(&cpc_ptr->kobj);
-@@ -2363,7 +2372,7 @@ void acpi_cppc_processor_exit(struct acpi_processor *pr)
- 	}
- 
- 	pcc_ss_id = per_cpu(cpu_pcc_subspace_idx, pr->id);
--	per_cpu(cpc_desc_ptr, pr->id) = NULL;
-+	cpc_set_desc(pr->id, NULL);
- 	kobject_del(&cpc_ptr->kobj);
- 	cpc_unregister_non_mmio_desc(cpc_ptr);
- 	cpc_unregister_sysmem_desc(cpc_ptr);
-@@ -2766,6 +2775,11 @@ static int cppc_set_reg_val(int cpu, enum cppc_regs reg_idx, u64 val)
- 
- 	reg = &cpc_desc->cpc_regs[reg_idx];
- 
-+	/* Integer 1 describes autonomous selection that is always enabled. */
-+	if (reg_idx == AUTO_SEL_ENABLE && reg->type == ACPI_TYPE_INTEGER &&
-+	    reg->cpc_entry.int_value == 1)
-+		return val == 1 ? 0 : -EOPNOTSUPP;
-+
- 	/* if a register is writeable, it must be a buffer and not null */
- 	if (!cpc_is_writable(reg)) {
- 		pr_debug("CPC register is not supported\n");
-@@ -3310,6 +3324,28 @@ int cppc_get_auto_sel(int cpu, bool *enable)
- }
- EXPORT_SYMBOL_GPL(cppc_get_auto_sel);
- 
-+/**
-+ * cppc_auto_sel_is_immutable - Check for always-enabled autonomous selection.
-+ * @cpu: CPU whose _CPC descriptor to check.
-+ *
-+ * Context: Process context.
-+ * Return: true for Integer 1, false for a register or an absent descriptor.
-+ */
-+bool cppc_auto_sel_is_immutable(int cpu)
-+{
-+	struct cpc_desc *cpc_desc;
-+	struct cpc_register_resource *reg;
-+
-+	guard(mutex)(&cpc_desc_lock);
-+	cpc_desc = per_cpu(cpc_desc_ptr, cpu);
-+	if (!cpc_desc)
-+		return false;
-+
-+	reg = &cpc_desc->cpc_regs[AUTO_SEL_ENABLE];
-+	return reg->type == ACPI_TYPE_INTEGER && reg->cpc_entry.int_value == 1;
-+}
-+EXPORT_SYMBOL_GPL(cppc_auto_sel_is_immutable);
-+
- /**
-  * cppc_set_auto_sel - Write autonomous selection register.
-  * @cpu    : CPU to which to write register.
-diff --git a/drivers/cpufreq/amd-pstate.c b/drivers/cpufreq/amd-pstate.c
-index 6ee2d43b7b952..0a8b1aaa26600 100644
---- a/drivers/cpufreq/amd-pstate.c
-+++ b/drivers/cpufreq/amd-pstate.c
-@@ -1794,7 +1794,7 @@ EXPORT_SYMBOL_FOR_PSTATE_UT(amd_pstate_get_status);
- 
- int amd_pstate_update_status(const char *buf, size_t size)
+ static __poll_t signalfd_poll(struct file *file, poll_table *wait)
  {
--	int mode_idx;
-+	int cpu, mode_idx;
+ 	struct signalfd_ctx *ctx = file->private_data;
+ 	__poll_t events = 0;
++	sigset_t sigmask;
  
- 	if (size > strlen("passive") || size < strlen("active"))
- 		return -EINVAL;
-@@ -1803,12 +1803,23 @@ int amd_pstate_update_status(const char *buf, size_t size)
- 	if (mode_idx < 0)
- 		return mode_idx;
+ 	poll_wait(file, &current->sighand->signalfd_wqh, wait);
  
--	if (mode_state_machine[cppc_state][mode_idx]) {
--		guard(mutex)(&amd_pstate_driver_lock);
--		return mode_state_machine[cppc_state][mode_idx](mode_idx);
-+	guard(mutex)(&amd_pstate_driver_lock);
-+
-+	if (!mode_state_machine[cppc_state][mode_idx])
-+		return 0;
-+
-+	if (mode_idx == AMD_PSTATE_PASSIVE &&
-+	    !cpu_feature_enabled(X86_FEATURE_CPPC)) {
-+		guard(cpus_read_lock)();
-+
-+		/* Check offline CPUs too, before changing or removing the driver. */
-+		for_each_present_cpu(cpu) {
-+			if (cppc_auto_sel_is_immutable(cpu))
-+				return -EOPNOTSUPP;
-+		}
+ 	spin_lock_irq(&current->sighand->siglock);
+-	if (next_signal(&current->pending, &ctx->sigmask) ||
+-	    next_signal(&current->signal->shared_pending,
+-			&ctx->sigmask))
++	refine_sigmask(ctx, &sigmask);
++	if (next_signal(&current->pending, &sigmask) ||
++	    next_signal(&current->signal->shared_pending, &sigmask))
+ 		events |= EPOLLIN;
+ 	spin_unlock_irq(&current->sighand->siglock);
+ 
+@@ -155,11 +168,13 @@ static ssize_t signalfd_dequeue(struct signalfd_ctx *ctx, kernel_siginfo_t *info
+ 				int nonblock)
+ {
+ 	enum pid_type type;
+-	ssize_t ret;
+ 	DECLARE_WAITQUEUE(wait, current);
++	sigset_t sigmask;
++	ssize_t ret;
+ 
+ 	spin_lock_irq(&current->sighand->siglock);
+-	ret = dequeue_signal(&ctx->sigmask, info, &type);
++	refine_sigmask(ctx, &sigmask);
++	ret = dequeue_signal(&sigmask, info, &type);
+ 	switch (ret) {
+ 	case 0:
+ 		if (!nonblock)
+@@ -174,7 +189,7 @@ static ssize_t signalfd_dequeue(struct signalfd_ctx *ctx, kernel_siginfo_t *info
+ 	add_wait_queue(&current->sighand->signalfd_wqh, &wait);
+ 	for (;;) {
+ 		set_current_state(TASK_INTERRUPTIBLE);
+-		ret = dequeue_signal(&ctx->sigmask, info, &type);
++		ret = dequeue_signal(&sigmask, info, &type);
+ 		if (ret != 0)
+ 			break;
+ 		if (signal_pending(current)) {
+@@ -184,6 +199,7 @@ static ssize_t signalfd_dequeue(struct signalfd_ctx *ctx, kernel_siginfo_t *info
+ 		spin_unlock_irq(&current->sighand->siglock);
+ 		schedule();
+ 		spin_lock_irq(&current->sighand->siglock);
++		refine_sigmask(ctx, &sigmask);
  	}
+ 	spin_unlock_irq(&current->sighand->siglock);
  
--	return 0;
-+	return mode_state_machine[cppc_state][mode_idx](mode_idx);
- }
- EXPORT_SYMBOL_FOR_PSTATE_UT(amd_pstate_update_status);
- 
-diff --git a/drivers/cpufreq/cppc_cpufreq.c b/drivers/cpufreq/cppc_cpufreq.c
-index af46f913e907a..9dde24d3e6455 100644
---- a/drivers/cpufreq/cppc_cpufreq.c
-+++ b/drivers/cpufreq/cppc_cpufreq.c
-@@ -882,6 +882,7 @@ static ssize_t store_auto_select(struct cpufreq_policy *policy,
- 				 const char *buf, size_t count)
- {
- 	struct cppc_cpudata *cpu_data = policy->driver_data;
-+	bool old_auto_sel = cpu_data->perf_ctrls.auto_sel;
- 	bool val;
- 	int ret;
- 
-@@ -910,8 +911,8 @@ static ssize_t store_auto_select(struct cpufreq_policy *policy,
- 		if (ret) {
- 			cpu_data->perf_ctrls.min_perf = old_min_perf;
- 			cpu_data->perf_ctrls.max_perf = old_max_perf;
--			cppc_set_auto_sel(policy->cpu, false);
--			cpu_data->perf_ctrls.auto_sel = false;
-+			cppc_set_auto_sel(policy->cpu, old_auto_sel);
-+			cpu_data->perf_ctrls.auto_sel = old_auto_sel;
- 			return ret;
- 		}
- 	}
-diff --git a/include/acpi/cppc_acpi.h b/include/acpi/cppc_acpi.h
-index 4b5d94f853dc7..3f0005abac648 100644
---- a/include/acpi/cppc_acpi.h
-+++ b/include/acpi/cppc_acpi.h
-@@ -197,6 +197,7 @@ extern int cppc_set_epp(int cpu, u64 epp_val);
- extern int cppc_get_auto_act_window(int cpu, u64 *auto_act_window);
- extern int cppc_set_auto_act_window(int cpu, u64 auto_act_window);
- extern int cppc_get_auto_sel(int cpu, bool *enable);
-+bool cppc_auto_sel_is_immutable(int cpu);
- extern int cppc_set_auto_sel(int cpu, bool enable);
- extern int cppc_get_perf_limited(int cpu, u64 *perf_limited);
- extern int cppc_set_perf_limited(int cpu, u64 bits_to_clear);
-@@ -298,6 +299,12 @@ static inline int cppc_get_auto_sel(int cpu, bool *enable)
- {
- 	return -EOPNOTSUPP;
- }
-+
-+static inline bool cppc_auto_sel_is_immutable(int cpu)
-+{
-+	return false;
-+}
-+
- static inline int cppc_set_auto_sel(int cpu, bool enable)
- {
- 	return -EOPNOTSUPP;
 -- 
 2.53.0
 
