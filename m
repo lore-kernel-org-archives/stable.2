@@ -1,60 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794050440;
-	b=S3S9Wyy8vZqvGqbecobaHwdKrqm9o/30/BWn9udtHnP4J3QMkD+hY8crxMyKtnoq9O2l
-	 e6CjL9yWHT9vmVxpM7xPY+EQMtfhlET8kznk0uzSc+N0C/oV94ptwd76cs0kGq8M6RdIi
-	 XKCYmHv7mWqiK4ntRMKbsBK4ivp6pEGQofAW9Mbnq4F+YAmX4UW51xsQ5wwaZ2ILqwxG0
-	 GNoATzU1B7RDfq3hH0IULt0w86uT8c3icX71UIPE5uDV/9rcWNQlRuF9FtW+mGHZMXsvc
-	 VXgVmEQBTh+CFzLH1f1dFUIXaVJ42kjsoADYNDaxtXRcImT6fjN86baGaxduLGfMjuQ==
+	b=Jzc4gJYw+OFMdUmsqpQ7Mr5d5G9dmbci/jhXMC9DsQyslvLwSbAfAjLQC7lAoFO41bZI
+	 maiy/Qvi+x9Bm2Doj7VvINzn+97xlBH3yo2/yacaUyWCoVpqD9+tfDFN3MCqkNirZ00sz
+	 NNCRQAPRx9NkAhtMKOXajVBcyNNDdRF6wtqxtj1kV7VnZKI2Yrl9IXO0TnYtlKTSwfwPL
+	 tE5pP7XQY6+QSlVnjKwA3qNtaw5XzP/I7UuiKpaiTmO9mMMU1v59JiQUSf5howDAZZ1de
+	 iiyRwTUV2GoEb46X50Lj7nRQ06am6evWiX5opj+GOKPuloj3hjKkLLOWbSO0C71GKqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794050440;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=23XVQE8Kiox2DwvSX/4HrjcRUZW8WbAIO+60d+0WAWQ=;
-	b=3M3DqBNaC0nFHfCfhratTBT191gMiT5rpZCzJbWFKyChlp5TSoUkBh1micPVPYIORcNf
-	 DuIAREGeRt0nFXFEW7h86W8J/9l8e+00go/ijkAccbL8BgKVtAfutU2ehQH1yOu8n2zgW
-	 t0faaqKA2u4xbVUnJFNasyx+/CY3QkvtCDCdBcSrZ2nkD0huGMXbO+HumQEsDMPefxx17
-	 Hr+SjC3N6U7CI+PPhgcI7y/bT7aMDjp4kQkaQK2gEGnHDRhDCR8TmzQ4wWT/pEVrt8wfc
-	 smY0T5MZpqLDE3WiLbIJ5swo3P0TbMCj/1oemnAii6IA4j9rwayiBtL1+usZUcg1w/w==
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=NJa3A5Jpb2IgPfQXdY6GjMFPk/IpjFZNgBlMk/BoE+k=;
+	b=rfh2iEc9+U+qi4xVY21VvMpQ1nf8Cb2kp3q8Wat9StLSX2ucl7kv3TYJ/awKJctb5It6
+	 piF5pAmR58mrSFHewM2QVESFjaimf+SSyw/svlztFZMxY8SI8l9BVK24q2yAXxy6ngiQi
+	 cipkSU8+840h+pxr38y0BNIt752NDeSv1ouHvqfSfDDLlHHPye880s1aAevLojaLNv1vR
+	 2KnUxvKwadtP1bWehI1zF+/TEcsY1htXlMxBhRcZjpjfBni/0amVW7U3DxpShOAUc+X22
+	 wF47Xn0mUq/aS+qOC8OwPO+Ra3QIcY+J+RV8mCIVaelb16MnO04Y+x8BRjmhDuOe8Cg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=tipi-net.de;
-	spf=pass smtp.mailfrom=tipi-net.de;
-	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=WtfChfIx;
-	arc=none smtp.remote-ip=194.13.80.246
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HvzwoyFU;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57708606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:20:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57708606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5844A606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:20:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=WtfChfIx
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id CFC0DA1583;
-	Sat, 07 Nov 2026 12:20:36 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1794050437; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=23XVQE8Kiox2DwvSX/4HrjcRUZW8WbAIO+60d+0WAWQ=;
-	b=WtfChfIxrCNDLg2j+BFkV6EMP5Syua++J8jqM9892a8ZgMrHSpfl0tFu4Zgto6Cy1AMrCe
-	UkxvtlOflu791qVknmf83o6J5IBxQ6jEdj8MAImqUhhYjx1HMXKt1jtFF18ulwEQA6HVLF
-	iIYyTe119NZdHiUqUr5Fm/M9JlbXUoWZ2+qkLghGyaJ/9VJsiAW8ENZnRvBiGBIET0Zxgt
-	P96Cictl6d+mGcKu7IKIgF1eyLDOF8Y/x22ATFDc2erYb4IIpbMgrNLsMq0X2NxzWG1WaG
-	k8BCmviIxghMIGyoV6E32dt/obsfC+6+XB2T96Mq88WPqsttWtqj9Y3gb3dzLQ==
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: stable@vger.kernel.org
-Cc: Nicolai Buchwitz <nb@tipi-net.de>,
-	stable@kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [PATCH 6.1.y] serial: amba-pl011: keep transmitter enabled when disabling RS485
-Date: Sat,  7 Nov 2026 12:20:26 +0100
-Message-ID: <7a904030ebf7bf315685f21f5b57fb4e6938a46e.1794050290.git.nb@tipi-net.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HvzwoyFU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C82591F008A1;
+	Sat,  7 Nov 2026 11:20:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794050440;
+	bh=NJa3A5Jpb2IgPfQXdY6GjMFPk/IpjFZNgBlMk/BoE+k=;
+	h=From:To:Cc:Subject:Date;
+	b=HvzwoyFUAf2icMaJK37TWJfD2lhjTDEIaR75fe1sUIRwgdLfXaiMuyIPEHvdDcPvQ
+	 dxWzYcNX0GMxjdbx/b/mO96UOg+m66oivSY35tGsAGnOydQ6/pCvYsUD/yH8cIv2Xd
+	 rmL7OCm2g+j5EB4mviysmApQKOA5fpFvhvlT10Menpv2/+0zG9N6u8LIjhDs9OoAOO
+	 9qDICVd5P6AbFIbOPWJ5k49P6YT3XT9D+StpmfiqXOhVKRaolJG9GI6bNHReNbJq7Q
+	 +ogzFU7KZS7kBUkge/t9/hfygjDur9pkLwsGZUc19z8gH99YObDl0tSoCT0iZTsldC
+	 lTfWpV0U8BVVA==
+From: Sasha Levin <sashal@kernel.org>
+To: aliresool567@gmail.com,
+	gregkh@linuxfoundation.org
+Cc: stable@vger.kernel.org
+Subject: FAILED: patch "[PATCH] USB: quirks: add USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE for GameSir G7 SE" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:20:38 -0500
+Message-ID: <20261107062038-failed-5.10-40224df29729@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107054856-failed-6.1-97f85204275a@kernel.org>
-References: <20261107054856-failed-6.1-97f85204275a@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,64 +56,77 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-commit 97f85204275ae4d7fb530e451f3acc65c1ec1155 upstream.
+The patch below does not apply to the 5.10-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Disabling RS485 on an open port calls pl011_rs485_tx_stop(), which
-turns off the transmitter. Only the RS485 TX path turns it back on, so
-any later output stays queued and tcdrain() hangs until the port is
-closed.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-pl011_rs485_tx_stop() also checks only the hardware FIFO. If a DMA
-transfer has started but has not filled the FIFO yet, the transmitter
-is turned off under the transfer and the DMA channel never recovers.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git checkout FETCH_HEAD
+git cherry-pick -x 40224df29729618ecd88c5c0077e71b1e82c7a3a
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062038-failed-5.10-40224df29729@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
-When leaving RS485 mode, cancel pending deferred starts and stops, leave
-the transmitter enabled and start any TX that was still waiting for
-delay_rts_before_send.
+Thanks,
+Sasha
 
-Fixes: 8d479237727c ("serial: amba-pl011: add RS485 support")
-Cc: stable@kernel.org
-Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
-Link: https://patch.msgid.link/20261012-fix-pl011-rs485-txe-v2-1-e9bf7d218389@tipi-net.de
+------------------ original commit in Linus's tree ------------------
+
+From 40224df29729618ecd88c5c0077e71b1e82c7a3a Mon Sep 17 00:00:00 2001
+From: Ali Resool Tuama <aliresool567@gmail.com>
+Date: Fri, 2 Oct 2026 20:42:12 +0300
+Subject: [PATCH] USB: quirks: add USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE for
+ GameSir G7 SE
+
+The GameSir G7 SE wired controller first enumerates as 3537:10a0 and
+then re-enumerates in a mode it picks from how the host enumerated it.
+
+When the configuration descriptor is fetched the Linux way, 9 bytes
+followed by the full 80, the controller disconnects about 1 ms after
+its string descriptors have been read, before SET_CONFIGURATION, and
+comes back as 3537:1082, a generic HID gamepad without force feedback.
+
+When the configuration descriptor is fetched in one 255-byte request,
+as Windows does, it comes back as 3537:1010 in Xbox One (GIP) mode,
+which xpad already supports, including rumble.
+
+Skipping the device qualifier requests (USB_QUIRK_DEVICE_QUALIFIER)
+makes no difference; the configuration descriptor request size alone
+decides the mode. Add USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE for the 10a0
+identity, as is already done for the ShanWan Wireless Gamepad.
+
+Cc: stable <stable@kernel.org>
+Assisted-by: claude-opus-5-5
+Signed-off-by: Ali Resool Tuama <aliresool567@gmail.com>
+Link: https://patch.msgid.link/20261002-master-v2-1-24b05d8792b5@gmail.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[nb: Use rs485_tx_started and omit timer handling on older kernels.]
-Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
 ---
- drivers/tty/serial/amba-pl011.c | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
+ drivers/usb/core/quirks.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/tty/serial/amba-pl011.c b/drivers/tty/serial/amba-pl011.c
-index d61ecbb06d94e..ca970fad7f103 100644
---- a/drivers/tty/serial/amba-pl011.c
-+++ b/drivers/tty/serial/amba-pl011.c
-@@ -2235,8 +2235,21 @@ static int pl011_rs485_config(struct uart_port *port, struct ktermios *termios,
- 	struct uart_amba_port *uap =
- 		container_of(port, struct uart_amba_port, port);
+diff --git a/drivers/usb/core/quirks.c b/drivers/usb/core/quirks.c
+index b5b577f0b931c..a4bcbe9c913cf 100644
+--- a/drivers/usb/core/quirks.c
++++ b/drivers/usb/core/quirks.c
+@@ -612,6 +612,9 @@ static const struct usb_device_id usb_quirk_list[] = {
+ 	/* ezcap401 - BOS descriptor fetch hangs at SuperSpeed Plus */
+ 	{ USB_DEVICE(0x32ed, 0x0401), .driver_info = USB_QUIRK_NO_BOS },
  
--	if (port->rs485.flags & SER_RS485_ENABLED)
-+	if ((port->rs485.flags & SER_RS485_ENABLED) &&
-+	    !(rs485->flags & SER_RS485_ENABLED)) {
-+		u32 cr = pl011_read(uap, REG_CR);
++	/* GameSir G7 SE */
++	{ USB_DEVICE(0x3537, 0x10a0), .driver_info = USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE },
 +
-+		/*
-+		 * Leaving RS485 mode, which only enables the transmitter while
-+		 * sending. Don't stop it, as that stalls a DMA transfer still
-+		 * in flight. Keep the transmitter and receiver enabled.
-+		 */
-+		uap->rs485_tx_started = false;
-+		cr |= UART011_CR_TXE | UART011_CR_RXE;
-+		pl011_write(cr, uap, REG_CR);
-+	} else if (port->rs485.flags & SER_RS485_ENABLED) {
- 		pl011_rs485_tx_stop(uap);
-+	}
+ 	/* DELL USB GEN2 */
+ 	{ USB_DEVICE(0x413c, 0xb062), .driver_info = USB_QUIRK_NO_LPM | USB_QUIRK_RESET_RESUME },
  
- 	/* Make sure auto RTS is disabled */
- 	if (rs485->flags & SER_RS485_ENABLED) {
-
-base-commit: c75b0cf0982c00cddfd88d1acf3872f79b40980c
 -- 
 2.53.0
+
+
+
 
