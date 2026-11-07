@@ -1,51 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046429;
-	b=FgFyu7h9QoK+K80c6fNe2iHfdl5ZkQAisJVZngcGcc4mUoD6gGiFVQWe6vAWSRan08MW
-	 F+nubNdJtPnx4g+kMfWAFXId8ObauvzE32DV1qznsSxqL7apqXgK/tX4PX/xYv1t02gYN
-	 q/ksDODi8RujqbWz4/oB8Kz3BVeLRjB7/w5HJN1FGyl0CEYVfDzCn/lfOHFst9gmt6E3I
-	 dFnXIwZmFedIfWUMhoJM3KkBV+F/oI3I1KFrvkhefp9T/6ZjNdc9/Vrof1EafgNnQDqos
-	 lsyE+s+Yy0pFT9twp+sZe9HIIwkXREem7DkePyGzZHxU4rpF1xEimzUOzq5q6bhfW6w==
+	t=1794046432;
+	b=L3/4buaJt+VppkxLrD++7rWIZ+6qQD7KmK9aHa0EqtzuG65JWx5tIQ6LsAq8elnyPFTw
+	 qaq0btK3t+U4kxmDdElxyd1URyNxdfU6BQugBPy5pq7MoqLfoLgjhunJ2MJusPW4OoBxr
+	 WED06d5RZpgQjyE1OYCZxvxJImUP76HgSeEHldMthq+TUcGdO0b2mOuvz74FZB4HQY7J7
+	 /uA6abjk+VZORsQGJhY4jp587rqgoLCf9mSst/E9C78sCsSYXdbPU3J6HMWtDAntAjc1k
+	 +NbBK7hho1/XDv5WcAVB2u/tWwTvMIQs27QUEt4c52dgNwkNlQ8hwIvtctyokS/nbkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046429;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046432;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=KK0AQpSdlAn3VJfQO1bsB01cjJ3rf0ZWn6Y8TpWObmg=;
-	b=bfph8shbhSb2KeZeC+Ua8kB0UZ5sRpyuzalPMiCZyDlMFSBMvpO0X69iT9HDqfKsXzf0
-	 eXRtCcjp3cJYAxwaB3YNzE4hYbi6T8a3hpnC+4CB1s/W4ltSw8SHQh0HEQX9NAt5xRN/t
-	 aX4eT8/CtDfCVkay+OmiuGaV2zLb9y/rLXqbbQfhlL1NUUz92nQD1NWFavUL8PIaftBL2
-	 2CoUeYBpl9cS6vvU29ATXHA8LbaSBoy/8qzJ7EGJGctuoNbMYn6/hbomm4KrLpj5biJ6N
-	 lWzMwC4vtpd885qgwLHAANAzrIbF/DsD1OQddFjeqLR2A5XNcIauDtPzyKf+9fx8xJg==
+	bh=zRGoslc16QJshxNVapc4oY2rUAlwfGNPAzElDRC25Rk=;
+	b=Gas5cwxuh6ULJMTR9tAVIxDm0CpzpmYvC7sqcFnEHM3q9wwUBYiHYz/FhZklImH6gJvb
+	 olDxUbxpec2yMpIBBR/jHdhF9m0n98inOpujmyDaTo/CbNbXe17l2foktn9Lv47bBil+L
+	 bXyIFYP4JFJ3Fi1YpDJd6GVDWmgk0qihxAvv5GJTvI0erCBM6c21MFah7LF0IphiCc2Dc
+	 EubIVzHsz79xnFAnX2lPcZXGVI7bx/rj+f3puRG9GgHJTHGIt+vnU95djQAIptDYBlegL
+	 ybJsFjlA0jlYbFHaz3YfXu0vBWiouvSR0IgOlf5cL/oIhFwzY/gaUOGvcr0Vv5Q8dOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KdbKUvRl;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c6o5+LN9;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93B22606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:13:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09531606A33B
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:13:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KdbKUvRl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13FD91F0089F;
-	Sat,  7 Nov 2026 10:13:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c6o5+LN9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16C7D1F008A5;
+	Sat,  7 Nov 2026 10:13:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046429;
-	bh=KK0AQpSdlAn3VJfQO1bsB01cjJ3rf0ZWn6Y8TpWObmg=;
+	s=k20260515; t=1794046431;
+	bh=zRGoslc16QJshxNVapc4oY2rUAlwfGNPAzElDRC25Rk=;
 	h=From:To:Cc:Subject:Date;
-	b=KdbKUvRlBDiuHL2xZLl7lJm9Q86bUWexZ1JRmOecrjy5MrQhcW9fxlR6GSO5EsYlP
-	 s8GufN/Jsz2Tmwi1YxTH8WxnMjVCga9ex8MV4QzW7loC6EMtVANtQWS8EcnyNvt/2i
-	 glL1YS2i8A4Edi3ssTDvAquEC6JoZQT1Mns2qThLUtRLJEGB4CtnOXSAOqj6Uwj2wl
-	 gk2JuD20FZJdjJnf1cMwE+ZkG0i827rYv/bFyXYE1BiX/54f1+bhd4bc1c3RhMcDai
-	 KTfef5O+Zezla2U29m4XzWqqOIydxW5vIQ6G/l9TNneerRYYQ+p0gLd3Ju+S5nQIJ5
-	 2UgzfnHYBeFlg==
+	b=c6o5+LN9Bpc+qNmIeT3Cg0RfI66IcV4pODI+d9tQJkGgW9UrD8ATX75BUXiYyQ4Pt
+	 eEShFLLTI6KMLOJ3mpJrfv+htoCOugOU/7jekoDuMrotTf3A9UnbEpuiomhSXUN02E
+	 5Nl3DsshTiriRWfyQ04lSU00/z06FerX8HVaJ0ISeGpBRso4cMzv1imZ+YFruAEahe
+	 P1ojwwEAb5hf+bE6v0N3bwH2FUAVrOsW+wcgLdsGiw/brLIWFHNcRyO5Ri95R6RpBp
+	 UYmorfmpKo07PXSuFYHd59JXO1YvunOcuJFz7QGeskPYrZQLKEcBwSt4j9Sm/8PPle
+	 8IUmqELLPVweA==
 From: Sasha Levin <sashal@kernel.org>
-To: alexander.sverdlin@siemens.com,
-	jarkko@kernel.org
+To: zhilinz@nebusec.ai,
+	vega@nebusec.ai,
+	idosch@nvidia.com,
+	edumazet@google.com,
+	edumazet@kernel.org,
+	kuba@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] tpm: tpm2_probe: propagate transport errors" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:13:48 -0500
-Message-ID: <20261107051347-failed-6.18-7d4f1cbfe063@kernel.org>
+Subject: FAILED: patch "[PATCH] ipmr: only copy pktinfo to cache reports" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:13:50 -0500
+Message-ID: <20261107051350-failed-6.18-94a6736bb5ab@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,59 +72,91 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 7d4f1cbfe063af5581dac66abe9e9c965e1031cc
+git cherry-pick -x 94a6736bb5abe6b2ef38490d0cab19c1c6a7c71f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051347-failed-6.18-7d4f1cbfe063@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051350-failed-6.18-94a6736bb5ab@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 7d4f1cbfe063af5581dac66abe9e9c965e1031cc Mon Sep 17 00:00:00 2001
-From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
-Date: Thu, 1 Oct 2026 08:01:11 +0200
-Subject: [PATCH] tpm: tpm2_probe: propagate transport errors
+From 94a6736bb5abe6b2ef38490d0cab19c1c6a7c71f Mon Sep 17 00:00:00 2001
+From: Zhiling Zou <zhilinz@nebusec.ai>
+Date: Tue, 20 Oct 2026 14:39:36 +0800
+Subject: [PATCH] ipmr: only copy pktinfo to cache reports
 
-tpm2_probe() reads the protocol version from the response tag and is
-documented to return -errno on failure, but it always returns 0.  A
-transport error (tpm_transmit_cmd() < 0) is thus swallowed together with
-the intentionally ignored TPM response code, leaving TPM_CHIP_FLAG_TPM2
-unset. A transient bus failure on the first command then misdetects a
-TPM 2.0 as a 1.2 and the probe fails on the TPM 1.2 path:
+ipmr_cache_report() prepares IP_PKTINFO on the original skb. The
+ipv4_pktinfo_prepare() helper updates skb->cb and clears the pktinfo fields
+when packet info is disabled. Since the skb can continue through the data
+path, preserve and restore its original control block around the helper.
 
-  tpm_tis_i2c 0-002e: 1.2 TPM (device-id 0x1C, rev-id 22)
-  tpm tpm0: A TPM error (-62) occurred attempting to determine the timeouts
+The original implementation copies the entire control block to the report
+skb. For synthetic RTM_GETROUTE packets, NETLINK_CB data is interpreted as
+IPCB by the raw IPv4 receive path. With IP_RECVOPTS or IP_RETOPTS enabled,
+corrupted option offsets cause out-of-bounds reads or a stack buffer
+overflow. WHOLEPKT and WRVIFWHOLE reports also inherit stale IP option
+offsets when their header is prepended.
 
-Return the transport error instead; rc >= 0 still means a valid header was
-received and the TPM's own response code is still ignored.
+Clear the report skb control block. Only prepare and copy pktinfo when the
+input skb has an IPv4 header. Synthetic route-query skbs use NETLINK_CB,
+not IPCB, so leave their report control block zeroed. Restore pkt->cb after
+preparing pktinfo for regular IPv4 packets.
 
-Fixes: 94e266ba1fa3 ("tpm: migrate tpm2_probe() to use struct tpm_buf")
+Fixes: bb7403655b3c ("ipmr: support IP_PKTINFO on cache report IGMP msg")
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
-Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
-Link: https://lore.kernel.org/r/20261001060114.1582092-1-alexander.sverdlin@siemens.com
-Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+Reported-by: Vega <vega@nebusec.ai>
+Link: https://lore.kernel.org/netdev/20260903113055.GA90787@shredder/
+Suggested-by: Ido Schimmel <idosch@nvidia.com>
+Suggested-by: Eric Dumazet <edumazet@google.com>
+Signed-off-by: Zhiling Zou <zhilinz@nebusec.ai>
+Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+Reviewed-by: Eric Dumazet <edumazet@kernel.org>
+Link: https://patch.msgid.link/0545f0c83f5ee2f6696210f87268e811ef655715.1792476357.git.zhilinz@nebusec.ai
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 ---
- drivers/char/tpm/tpm2-cmd.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ net/ipv4/ipmr.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/char/tpm/tpm2-cmd.c b/drivers/char/tpm/tpm2-cmd.c
-index ae22295df7981..119c73a603e65 100644
---- a/drivers/char/tpm/tpm2-cmd.c
-+++ b/drivers/char/tpm/tpm2-cmd.c
-@@ -483,8 +483,9 @@ int tpm2_probe(struct tpm_chip *chip)
- 		out = (struct tpm_header *)buf->data;
- 		if (be16_to_cpu(out->tag) == TPM2_ST_NO_SESSIONS)
- 			chip->flags |= TPM_CHIP_FLAG_TPM2;
-+		return 0;
+diff --git a/net/ipv4/ipmr.c b/net/ipv4/ipmr.c
+index e4c51ca473019..acacaae05cc49 100644
+--- a/net/ipv4/ipmr.c
++++ b/net/ipv4/ipmr.c
+@@ -1063,6 +1063,7 @@ static void ipmr_cache_resolve(struct net *net, struct mr_table *mrt,
+ static int ipmr_cache_report(const struct mr_table *mrt,
+ 			     struct sk_buff *pkt, vifi_t vifi, int assert)
+ {
++	unsigned char pkt_cb[sizeof(pkt->cb)];
+ 	const int ihl = ip_hdrlen(pkt);
+ 	struct sock *mroute_sk;
+ 	struct igmphdr *igmp;
+@@ -1118,8 +1119,6 @@ static int ipmr_cache_report(const struct mr_table *mrt,
+ 		msg = (struct igmpmsg *)skb_network_header(skb);
+ 		msg->im_vif = vifi;
+ 		msg->im_vif_hi = vifi >> 8;
+-		ipv4_pktinfo_prepare(mroute_sk, pkt, false);
+-		memcpy(skb->cb, pkt->cb, sizeof(skb->cb));
+ 		/* Add our header.
+ 		 * Note that code, csum and group fields are cleared.
+ 		 */
+@@ -1130,6 +1129,15 @@ static int ipmr_cache_report(const struct mr_table *mrt,
+ 		skb->transport_header = skb->network_header;
  	}
--	return 0;
-+	return rc;
- }
- EXPORT_SYMBOL_GPL(tpm2_probe);
  
++	memset(skb->cb, 0, sizeof(skb->cb));
++	/* Route queries from ipmr_get_route() carry NETLINK_CB, not IPCB. */
++	if (ip_hdr(pkt)->version) {
++		memcpy(pkt_cb, pkt->cb, sizeof(pkt_cb));
++		ipv4_pktinfo_prepare(mroute_sk, pkt, false);
++		*PKTINFO_SKB_CB(skb) = *PKTINFO_SKB_CB(pkt);
++		memcpy(pkt->cb, pkt_cb, sizeof(pkt_cb));
++	}
++
+ 	igmpmsg_netlink_event(mrt, skb);
+ 
+ 	/* Deliver to mrouted */
 -- 
 2.53.0
 
