@@ -1,53 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794045859;
-	b=h5iZC3N7Uc2mPxhmRwnEJuA7fPfpnfoVlaG8uAeV1Lqr0/IOKUCbCklqdPD5NeEvuJbR
-	 fwNVlT/62zTDnBHXYY2APBKaLrjmjVuspbTXgbc3CAI6bfcuBfQn8PxC1+OMrjeEnAI4f
-	 Cg5Il3v2WQLb/H3TFyI0lHZIsSGJ+lWrcsEOkF+qF1fuP4GG8fd1hf1EDQdMLhVmEqRwW
-	 vLYaGh5ZCJhdO8/YFNtqCJtm3jcn8JYv0+Kk1QdRQvuh/6eJ7pN7dWKDmNBWoFUqsQjBh
-	 fGpMoUlVL6F7EPP83b9b+dcBtZdrI76BzY0YvuRGA9ZBbY3jLPqFQRQYIQeh/owcAbA==
+	t=1794045862;
+	b=lUJut+t+xsy2PYXzK5JxhR/riPGSrBLECDZKD0Z51c0BC5bBL1l6Xpsf7RsKlXAD8fk2
+	 M3q9N3u05HcqfQrWODK7I8nBFb8Px0sCSPHs30rOZRbookcmWXNqXqKhLtJC7n2qGYIRR
+	 ecyS2BORej8Apc8Gjk290V40NrOnwYakzw9XePGK5c414JLusIfakBuAJaw4WOy2wuRPS
+	 DG/llzt1IcR6npV5KE4TeNArs8bTiFwmSEfXQ7CQuogETyJ4CODD0eLJALcDOdSS6LzQJ
+	 w6nLCFhyzGB7co1ERYbc99AvWF9od1QgcLr/z1Ur+KpMqbvWxDSXHYHi4WDzMAE6DvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794045859;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794045862;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=rlDWeTdWhi8f1EZ8y3vh9ZuSFkpO8kFqmgmdP2eJeSQ=;
-	b=KZWMkXkN/CgJK00UzFZjqwy3EG5UbLc9BsVUohfOGBeCdaqKkc6hPT13E9xTatb5/Kqo
-	 xBiU6yWXji9dQ8EOWt73yQICzPjSFbDq1uCYBVk+ccm2HrBgiSACogyLwnqKEGUV/pCmm
-	 0i4xJ+rVNzVSPcsXitWs0uh5+j6baMZqL026C39S6j5hsLf/B9spiGeZZ1HdNR3FiLzdJ
-	 m3zSVy8qIg0oaGBTmOlQp/4aBNNhcv64bEd7SUMuMclDXs/m6XatVObfj/s0DH9JS6PmK
-	 Vo1BZIRChhKR2ba5bXH2K4cCaP4M9owwdk67zEXmVOginsMNhGWxvaKFhh8ocCSOMRQ==
+	bh=qvZCL6qcv+CybS+T8BmnsjTGaSBgAw876QzeZxPgzZc=;
+	b=N0fYjNHACYjglsZJli1Brs2ZL8uFrNU+N7qXDEkYF3klpg51b1Z0Ezk54kCYegkQJfUd
+	 kLvVh8x0gDaO9QrdlshYTocXuMQXvM7quv5VRWxGWl/USm5TDEDq4klhbvN9kM2KS6IEA
+	 8UWu53KxH/JsPH+uIBTLPhqw+cRwGg5KaykSNntPfn8cDk2NnJdFS062r2edmyigXQG1n
+	 1P/w5J2ulB7eI/0pk3nD00BL9FAPA5O5euMVWmu1epJZ3dYc1i1wASKmlEzxCiNRyXxgL
+	 3TL2ngkQQPfjvzmHB+QXv/U8hyV9a9A8ncoD0OkBs+7ovQwvJMP8jaS7jZaDcDOR5rw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kq0Iyd3H;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JPEIj2aT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D99FB606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:04:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E560606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:04:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kq0Iyd3H
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A17F1F0089F;
-	Sat,  7 Nov 2026 10:04:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JPEIj2aT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70AD31F0089F;
+	Sat,  7 Nov 2026 10:04:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794045858;
-	bh=rlDWeTdWhi8f1EZ8y3vh9ZuSFkpO8kFqmgmdP2eJeSQ=;
+	s=k20260515; t=1794045862;
+	bh=qvZCL6qcv+CybS+T8BmnsjTGaSBgAw876QzeZxPgzZc=;
 	h=From:To:Cc:Subject:Date;
-	b=kq0Iyd3HCAvrgVj7Cwb+WZRpRS4wnmXb1U6UhKdnQ3GNz9+Y/cevGXdlk3njQibgi
-	 eLALP9MbCHwrsE/6kT7YKG/74Auh7C6mMt0hMnYqQCk/ItAa+vIos7eHM4gymuZe9v
-	 9PTxJWNuC9yKm2jtab0K2R9/jZIdTNrn0a/5j2jJMbxh0iAwE4evjbinlVWKZUPHUW
-	 7eZpTI7pNJNN9Js6Fv0FX4rSzvA1SI3FNAgHcuVj7bYZLOteEVRmPrfkHTGWHQhViQ
-	 lInx3O5VvmLzRMGgiBGAWMPJtYrxcLuxt8M34yA7ebJ6ylL38SJtMrJmM3FvAknUAO
-	 JdJwXnqQ6BzZw==
+	b=JPEIj2aT9MnSJVt7zQXxdkudDWabsefduLXcG2W/+E6D/MtVyRAcp3AmwvjNAfZfx
+	 nm5eqk4i7P8N/s3aSftLKUqPBKom0r3hp0v7vJbGeoPgmt0lUMvGE1oStGZ8mkTQ9+
+	 fdw/5m2UkurEMtgw1EoiPspMx8EaicJkULDafwgixXk6fKHRt+09l1HDRWBJdrRRj4
+	 15pSBwidxd/K6ys3bTNYJVZRYzcCvuAJfr12OSrO5fKTwO9JbUw9tFLOnxWB5wN/1F
+	 Bva9OYdvEMNF66ZafXN9Qxr3/CY9UZT6Awbobs9xXaYcenjznhccRldCR3xv+wuuZA
+	 +ZxI+sjRUd+0w==
 From: Sasha Levin <sashal@kernel.org>
-To: bartosz.golaszewski@oss.qualcomm.com,
-	sashiko-bot@kernel.org,
-	mani@kernel.org,
-	vkoul@kernel.org
+To: arnd@arndb.de,
+	akpm@linux-foundation.org,
+	axelrasmussen@google.com,
+	baolin.wang@linux.alibaba.com,
+	baoquan.he@linux.dev,
+	baohua@kernel.org,
+	david@kernel.org,
+	hannes@cmpxchg.org,
+	kasong@tencent.com,
+	ljs@kernel.org,
+	mhocko@kernel.org,
+	shakeel.butt@linux.dev,
+	weixugc@google.com,
+	yuanchu@google.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] dmaengine: qcom: bam_dma: free interrupt before the clock in error path" failed to apply to 7.3-stable tree
-Date: Sat,  7 Nov 2026 05:04:17 -0500
-Message-ID: <20261107050416-failed-7.3-82eed160cfa7@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/vmscan: avoid false-positive -Wuninitialized warning, again" failed to apply to 7.3-stable tree
+Date: Sat,  7 Nov 2026 05:04:19 -0500
+Message-ID: <20261107050419-failed-7.3-ca6e32f3f424@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,85 +80,99 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x 82eed160cfa7a296ae4eb5acb8dd8f493323eea7
+git cherry-pick -x ca6e32f3f4240d0335775a11afc21e0451dd8d8f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050416-failed-7.3-82eed160cfa7@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050419-failed-7.3-ca6e32f3f424@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 82eed160cfa7a296ae4eb5acb8dd8f493323eea7 Mon Sep 17 00:00:00 2001
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Date: Thu, 8 Oct 2026 11:54:35 +0200
-Subject: [PATCH] dmaengine: qcom: bam_dma: free interrupt before the clock in
- error path
+From ca6e32f3f4240d0335775a11afc21e0451dd8d8f Mon Sep 17 00:00:00 2001
+From: Arnd Bergmann <arnd@arndb.de>
+Date: Wed, 16 Sep 2026 10:34:46 +0200
+Subject: [PATCH] mm/vmscan: avoid false-positive -Wuninitialized warning,
+ again
 
-The BAM interrupt is requested with a devres helper and so on error it's
-freed after probe() returns. We disable the clock before freeing or
-masking it so it may still fire and we may end up reading BAM registers
-with clock disabled.
+I previously worked around a false-postive gcc-16 warning in the
+get_tier_idx() function, by adding a fake initializer. This happens with
+the -fsanitize=bounds sanitizer when the compiler creates a specialized
+variant of isolate_folios():
 
-Stop using devres for interrupts as we free it in remove() manually
-anyway. Add an appropriate label and free the interrupt before disabling
-the clock in error path and in remove().
+In function 'get_tier_idx',
+    inlined from 'isolate_folios.constprop' at mm/vmscan.c:4982:9:
+mm/vmscan.c:4934:9: error: 'sp.refaulted' is used uninitialized [-Werror=uninitialized]
+ 4934 |         read_ctrl_pos(lruvec, type, LRU_TIER_MIN, LRU_TIER_MIN, 2, &sp);
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+mm/vmscan.c: In function 'isolate_folios.constprop':
+mm/vmscan.c:4946:25: note: 'sp.refaulted' was declared here
+ 4946 |         struct ctrl_pos sp, pv = {};
+      |                         ^~
 
-Cc: stable@vger.kernel.org
-Fixes: e7c0fe2a5c84 ("dmaengine: add Qualcomm BAM dma driver")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260427-qcom-qce-cmd-descr-v16-0-945fd1cafbbc%40oss.qualcomm.com?part=2
-Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Link: https://patch.msgid.link/20261008-bam-dma-free-irq-v28-1-5e5b10de441e@oss.qualcomm.com
-Signed-off-by: Vinod Koul <vkoul@kernel.org>
+Adding another "= {}" would solve the problem as well, but to prevent
+this from happening again after the next code refactoring, try instead to
+prevent this by forbidding interprocedural optimizations on this function.
+
+Link: https://lore.kernel.org/all/20260213123902.3466040-1-arnd@kernel.org/
+Link: https://lore.kernel.org/20260916083456.4136132-1-arnd@kernel.org
+Fixes: 3de705a43a46 ("mm/vmscan: avoid false-positive -Wuninitialized warning")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Cc: Axel Rasmussen <axelrasmussen@google.com>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Baoquan He <baoquan.he@linux.dev>
+Cc: Barry Song <baohua@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Kairui Song <kasong@tencent.com>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Michal Hocko <mhocko@kernel.org>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Wei Xu <weixugc@google.com>
+Cc: Yuanchu Xie <yuanchu@google.com>
+Cc: <stable@vger.kernel.org>
 ---
- drivers/dma/qcom/bam_dma.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ mm/vmscan.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/dma/qcom/bam_dma.c b/drivers/dma/qcom/bam_dma.c
-index 94cb957d4b187..f67a93a37d48c 100644
---- a/drivers/dma/qcom/bam_dma.c
-+++ b/drivers/dma/qcom/bam_dma.c
-@@ -1332,8 +1332,8 @@ static int bam_dma_probe(struct platform_device *pdev)
- 	for (i = 0; i < bdev->num_channels; i++)
- 		bam_channel_init(bdev, &bdev->channels[i], i);
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 40d3f1b48a74c..4059d13007896 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -3223,8 +3223,11 @@ struct ctrl_pos {
+ 	int gain;
+ };
  
--	ret = devm_request_irq(bdev->dev, bdev->irq, bam_dma_irq,
--			IRQF_TRIGGER_NONE, "bam_dma", bdev);
-+	ret = request_irq(bdev->irq, bam_dma_irq, IRQF_TRIGGER_NONE,
-+			  "bam_dma", bdev);
- 	if (ret)
- 		goto err_bam_channel_exit;
+-static void read_ctrl_pos(struct lruvec *lruvec, int type, int tier_min,
+-			  int tier_max, int gain, struct ctrl_pos *pos)
++/*
++ * __noipa works around gcc-16 warning for uninitialized use of pos->refaulted
++ */
++static void __noipa read_ctrl_pos(struct lruvec *lruvec, int type, int tier_min,
++				  int tier_max, int gain, struct ctrl_pos *pos)
+ {
+ 	int i;
+ 	struct lru_gen_folio *lrugen = &lruvec->lrugen;
+@@ -4873,7 +4876,7 @@ static int scan_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
+ static int get_tier_idx(struct lruvec *lruvec, int type)
+ {
+ 	int tier;
+-	struct ctrl_pos sp, pv = {};
++	struct ctrl_pos sp, pv;
  
-@@ -1366,7 +1366,7 @@ static int bam_dma_probe(struct platform_device *pdev)
- 	ret = dma_async_device_register(&bdev->common);
- 	if (ret) {
- 		dev_err(bdev->dev, "failed to register dma async device\n");
--		goto err_bam_channel_exit;
-+		goto err_free_irq;
- 	}
+ 	/*
+ 	 * To leave a margin for fluctuations, use a larger gain factor (2:3).
+@@ -4892,7 +4895,7 @@ static int get_tier_idx(struct lruvec *lruvec, int type)
  
- 	ret = of_dma_controller_register(pdev->dev.of_node, bam_dma_xlate,
-@@ -1385,6 +1385,8 @@ static int bam_dma_probe(struct platform_device *pdev)
+ static int get_type_to_scan(struct lruvec *lruvec, int swappiness)
+ {
+-	struct ctrl_pos sp, pv = {};
++	struct ctrl_pos sp, pv;
  
- err_unregister_dma:
- 	dma_async_device_unregister(&bdev->common);
-+err_free_irq:
-+	free_irq(bdev->irq, bdev);
- err_bam_channel_exit:
- 	for (i = 0; i < bdev->num_channels; i++)
- 		tasklet_kill(&bdev->channels[i].vc.task);
-@@ -1410,7 +1412,7 @@ static void bam_dma_remove(struct platform_device *pdev)
- 	/* mask all interrupts for this execution environment */
- 	writel_relaxed(0, bam_addr(bdev, 0,  BAM_IRQ_SRCS_MSK_EE));
- 
--	devm_free_irq(bdev->dev, bdev->irq, bdev);
-+	free_irq(bdev->irq, bdev);
- 
- 	for (i = 0; i < bdev->num_channels; i++) {
- 		bam_dma_terminate_all(&bdev->channels[i].vc.chan);
+ 	if (swappiness <= MIN_SWAPPINESS + 1)
+ 		return LRU_GEN_FILE;
 -- 
 2.53.0
 
