@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050632;
-	b=2B74FpUWonyQ5uew5+RQDSIHUfMcgpBENfOZ1mQxJiA9U1g1hXWFlLw43Iad9hNdR9/X
-	 YUJhyln66J07c+VNJqO/4z1HHUimgmhzHUqjg5Cs6q3otgxRpyCmvslrHYziCvOvtG58d
-	 mQdFuoH0vkbcyH3UkunT5qTlZhToFeO8DkpgbrCOqoj4GW01fUBF3RMumhXuHlM9RQz+W
-	 GbQh4Bk+uHpGLPJ66XDjkrkv7gfL4oTZZ2Yw5Vhtl9BPKxHtOVcV4NkvmR2vhYUGUbDkX
-	 ALyvRW1VL99wLrKq/hdHFFK+IFXbgGvwtzs8RPe8CjuLecAe2j+v8FdZUZO6QPzDLDg==
+	t=1794050635;
+	b=0FOP7R4WPioQ2r5MJVzA8faTqWdZvTDhfTP/jsL9fQttsBl2e88A8OXOHtPC4JnVDOdf
+	 4TGiq9Jx8AT02VSDTKLh2Ye8vLWRP7SCBSJ/mPTPzkYPRIL3AVjdI29LTazSA3jveroU2
+	 K82z8+ZcjkryFL/L/U7wSmszAjt1Acevuh9cJK10s6CONZ5S9vvOmR92WO7ZsNGZWdCCs
+	 M91sKECCO4Yy9A7bjDEqxvlYjjk+fNriB5uD5m2sSiBjrV7JJY2DMRQbq5IB7aghtVssD
+	 Ar8rK3Zko+L0lxCUIwhb87AKK6jg07u2vXDOwybAQbO+6GVqvGDFVVml+Vh1EZsMzCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050632;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050635;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=CKys/iQCGEDkHBOdDbf1oON5YhXKMtORS8a5pxr1OcA=;
-	b=H9tLPpV+I74qf63+d5M8AY3anekqyAYvv/6LFcnrzbA1c37xXshpA5HwxOSDDPNzTkRT
-	 JQtI6/hP7eKif0CLgucuS6HtaXwUH3IWbOFGNMlw/UVkWbt75lORnWEVvzwrOWbwJTPzs
-	 i3Z/W7uhF/w3U9KHNkQixgPjjm21NDBgAw1TroKkIaz0vAbE+5GSsdgtD/GCc5IPdLMjS
-	 7GCH9C+AzCxuKHClHxpPVSRZrd9LZuKq2jPdRTnVuNM6GJbKEgWOXxCYkp9Jxg4pmY45/
-	 FtjgCO4m6xeAY9Osf2y5Wnp+f84NoLjigmO6lMu/uj/HjMe7eEiT7dXGzpzL3S9zuIw==
+	bh=q8LTY47VvNfe2YDljxue8O15BYEYJmIII3XQ/yG4rt0=;
+	b=nN+GES2zz71WQ3mxjBWTeLlgYITowd9l7yn5oj8wtIcC7w8bBMJzfI89lu8JLzSoCtGt
+	 C/2HWXq48Lthiw/BufUC6p7rmfIs7g5QMQpYc5Ah+iAEc6jaUZtlUdp58rGJXKs599/nl
+	 jNg0AWJKztwMpxx89DWKFkpucLse91NNvwzwrFBoSSxJSiRChBkFzs0g+LCmRmYuy4v5t
+	 AvCYzHSQu5mkmSkOUf8+RgB1vWnyZZ/xGeQRoTWvPH5j+G90pX8TlxARL8xL32XBuIZlx
+	 Qjv4XvGbfOPIhzvAgjaLqS2FbOz0WopbU6JEWEX6LcqjEfI54nNhZBr4mbp+Ghp8jsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oMM1enWM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Smy675qN;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98600606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:23:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52EFE606A332
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:23:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oMM1enWM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBBDE1F0089F;
-	Sat,  7 Nov 2026 11:23:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Smy675qN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6A481F0089F;
+	Sat,  7 Nov 2026 11:23:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050632;
-	bh=CKys/iQCGEDkHBOdDbf1oON5YhXKMtORS8a5pxr1OcA=;
+	s=k20260515; t=1794050635;
+	bh=q8LTY47VvNfe2YDljxue8O15BYEYJmIII3XQ/yG4rt0=;
 	h=From:To:Cc:Subject:Date;
-	b=oMM1enWM2UDjmbE3iX324V2Yzom2udgbDzgD6qNz28TTYNWEOcc07i0pnkJqpdHDo
-	 YcnMvwmz9jdm5XikkV5L1+ipDgHxAFOqKiJpMctglsvJ9Fokci7E3Mlba4ydA1eBOC
-	 TPVnhfMPSPony0N2MH5rGwRmAWsjSJ2SuT2cdU9O8nZm6ktVjPBovxxGwB7AAtJ1yX
-	 BbBN6ht8Xr5BHSgZAu7vAl3g+/ApecbIzeqw9LWQdckKeqSA/L9Sinm8Po1GhA3vZc
-	 kBW6T0F4bR7dWz1a8P+RUtIRWkrV4Nj0C/TLutJlsy6mpZ725O7TR1jG33eBeBseSN
-	 I3mUDKcNn4Fsw==
+	b=Smy675qN6PFOqGJw2PJi4lIIbxxXg6mB23KwEne/MlVVDJfxTJuYQlEEsURrr+tma
+	 WiTF3AzCFrmtOFyRrUGP0VlAyLHLOCJ1jgo4Zk3zjVNHYwe5pVNfEza9uEJbhf7qpz
+	 DsC8SghDqizHI42RGzgEJMyHjeqTLem3lDIENCLYDAKFrSqmTbyjzQ8ebJQxSPAfc7
+	 cREkPWOniAJs6hF+6dscV3sW1Us9E0VVY6K1kND6wAnNvyEFD/lsSUzV9hMu1p9siC
+	 tQZYyGu0JwtoFwTZIGzEcE8IXhVIyU7ocm1eIuvY/2f8l/SKxpOmKZGXCAjoxL2FuJ
+	 OPhi+1BjsdUQg==
 From: Sasha Levin <sashal@kernel.org>
-To: liuwb@xiaopeng.com,
-	zhugl3@xiaopeng.com,
-	broonie@kernel.org
+To: maz@kernel.org,
+	fuad.tabba@linux.dev
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] spi: jcore: fix divide-by-zero when speed_hz is zero" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:23:50 -0500
-Message-ID: <20261107062350-failed-5.10-7db773075501@kernel.org>
+Subject: FAILED: patch "[PATCH] KVM: arm64: Turn vcpu->arch.pause into a counter" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:23:53 -0500
+Message-ID: <20261107062353-failed-5.10-e64309198eda@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,61 +68,128 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 7db773075501248893c22b11bedc6745d6d0be45
+git cherry-pick -x e64309198eda29415a95113def92aa40196cd422
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062350-failed-5.10-7db773075501@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062353-failed-5.10-e64309198eda@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 7db773075501248893c22b11bedc6745d6d0be45 Mon Sep 17 00:00:00 2001
-From: Weibin Liu <liuwb@xiaopeng.com>
-Date: Wed, 14 Oct 2026 22:18:50 +0800
-Subject: [PATCH] spi: jcore: fix divide-by-zero when speed_hz is zero
+From e64309198eda29415a95113def92aa40196cd422 Mon Sep 17 00:00:00 2001
+From: Marc Zyngier <maz@kernel.org>
+Date: Thu, 15 Oct 2026 11:05:36 +0100
+Subject: [PATCH] KVM: arm64: Turn vcpu->arch.pause into a counter
 
-jcore_spi_baudrate() computes hw->clock_freq / 2 / speed without
-validating speed. The SPI core fills transfer.speed_hz from
-spi->max_speed_hz when it is zero, and jcore_spi_probe() never sets
-host->max_speed_hz, so the clamp in __spi_setup() is skipped. A
-spi_device created via the sysfs new_device interface (or a DT node
-without spi-max-frequency) therefore has max_speed_hz == 0, and any
-SPI_IOC_MESSAGE transfer reaches jcore_spi_baudrate() with speed == 0,
-causing a division by zero and a kernel panic.
+We have situations where we can call kvm_arm_halt_guest() without
+holding config_lock, which means that halt and resume can overlap in
+funny ways when called from separate contexts, and result in situations
+where a vcpu is resumed while other parts of KVM assume it is halted.
+Consequences are left to the imagination of the reader.
 
-Clamp speed to a minimum of 1 Hz before the division so the divisor is
-never zero. The computed divider then truncates to the register field
-width and the transfer simply runs at the slowest supported rate.
+Fix this sorry situation by turning kvm_vcpu_arch::pause into an
+atomic counter, which makes the races described above harmless.
 
-Verified by inspection of the __spi_setup() clamp and
-__spi_validate()'s speed_hz handling; the division-by-zero path
-requires the J-Core controller, which was not available.
-
-Reviewed-by: Guanglei Zhu <zhugl3@xiaopeng.com>
-Fixes: 2cb1b3b3ac0a ("spi: add driver for J-Core SPI controller")
-Cc: stable@vger.kernel.org # 4.9+
-Signed-off-by: Weibin Liu <liuwb@xiaopeng.com>
-Link: https://patch.msgid.link/20261014-spi-jcore-divzero-v1-1-a8205d30f2d1@xiaopeng.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Fixes: 3b92830ad41b2 ("KVM: arm/arm64: implement kvm_arm_[halt,resume]_guest")
+Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
+Tested-by: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20261015100539.1011760-5-maz@kernel.org
+Signed-off-by: Marc Zyngier <maz@kernel.org>
 ---
- drivers/spi/spi-jcore.c | 2 ++
- 1 file changed, 2 insertions(+)
+ arch/arm64/include/asm/kvm_host.h |  7 +++----
+ arch/arm64/kvm/arm.c              | 21 ++++++++++++---------
+ 2 files changed, 15 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/spi/spi-jcore.c b/drivers/spi/spi-jcore.c
-index df82e8adb7c61..347f14f7568a0 100644
---- a/drivers/spi/spi-jcore.c
-+++ b/drivers/spi/spi-jcore.c
-@@ -84,6 +84,8 @@ static void jcore_spi_baudrate(struct jcore_spi *hw, int speed)
+diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
+index cd9b9d2462f96..9c068f27f9b8a 100644
+--- a/arch/arm64/include/asm/kvm_host.h
++++ b/arch/arm64/include/asm/kvm_host.h
+@@ -889,11 +889,10 @@ struct kvm_vcpu_arch {
+ 	/*
+ 	 * Don't run the guest (internal implementation need).
+ 	 *
+-	 * Contrary to the flags above, this is set/cleared outside of
+-	 * a vcpu context, and thus cannot be mixed with the flags
+-	 * themselves (or the flag accesses need to be made atomic).
++	 * Contrary to the flags above, this is updated outside of
++	 * a vcpu context, and thus cannot be mixed with the flags.
+ 	 */
+-	bool pause;
++	atomic_t pause;
+ 
+ 	/*
+ 	 * We maintain more than a single set of debug registers to support
+diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+index cadc82ba5a5a0..9b773ab0b51d5 100644
+--- a/arch/arm64/kvm/arm.c
++++ b/arch/arm64/kvm/arm.c
+@@ -565,6 +565,7 @@ int kvm_arch_vcpu_create(struct kvm_vcpu *vcpu)
+ 	kvm_arm_pvtime_vcpu_init(&vcpu->arch);
+ 
+ 	vcpu->arch.hw_mmu = &vcpu->kvm->arch.mmu;
++	atomic_set(&vcpu->arch.pause, 0);
+ 
+ 	/*
+ 	 * This vCPU may have been created after mpidr_data was initialized.
+@@ -839,6 +840,11 @@ int kvm_arch_vcpu_ioctl_set_mpstate(struct kvm_vcpu *vcpu,
+ 	return ret;
+ }
+ 
++static bool vcpu_can_run(struct kvm_vcpu *vcpu)
++{
++	return !kvm_arm_vcpu_stopped(vcpu) && !atomic_read(&vcpu->arch.pause);
++}
++
+ /**
+  * kvm_arch_vcpu_runnable - determine if the vcpu can be scheduled
+  * @v:		The VCPU pointer
+@@ -854,8 +860,7 @@ int kvm_arch_vcpu_runnable(struct kvm_vcpu *v)
+ 		      (kvm_timer_should_notify_user(v) ||
+ 		       kvm_pmu_should_notify_user(v)));
+ 
+-	return ((irq_lines || kvm_vgic_vcpu_pending_irq(v))
+-		&& !kvm_arm_vcpu_stopped(v) && !v->arch.pause);
++	return ((irq_lines || kvm_vgic_vcpu_pending_irq(v)) && vcpu_can_run(v));
+ }
+ 
+ bool kvm_arch_vcpu_in_kernel(struct kvm_vcpu *vcpu)
+@@ -1018,7 +1023,7 @@ void kvm_arm_halt_guest(struct kvm *kvm)
+ 	struct kvm_vcpu *vcpu;
+ 
+ 	kvm_for_each_vcpu(i, vcpu, kvm)
+-		vcpu->arch.pause = true;
++		atomic_inc(&vcpu->arch.pause);
+ 	kvm_make_all_cpus_request(kvm, KVM_REQ_SLEEP);
+ }
+ 
+@@ -1028,8 +1033,8 @@ void kvm_arm_resume_guest(struct kvm *kvm)
+ 	struct kvm_vcpu *vcpu;
+ 
+ 	kvm_for_each_vcpu(i, vcpu, kvm) {
+-		vcpu->arch.pause = false;
+-		__kvm_vcpu_wake_up(vcpu);
++		if (atomic_dec_and_test(&vcpu->arch.pause))
++			__kvm_vcpu_wake_up(vcpu);
+ 	}
+ }
+ 
+@@ -1037,11 +1042,9 @@ static void kvm_vcpu_sleep(struct kvm_vcpu *vcpu)
  {
- 	if (speed == hw->speed_hz)
- 		return;
-+	if (speed <= 0)
-+		speed = 1;
- 	hw->speed_hz = speed;
- 	if (speed >= hw->clock_freq / 2)
- 		hw->speed_reg = 0;
+ 	struct rcuwait *wait = kvm_arch_vcpu_get_wait(vcpu);
+ 
+-	rcuwait_wait_event(wait,
+-			   (!kvm_arm_vcpu_stopped(vcpu)) && (!vcpu->arch.pause),
+-			   TASK_INTERRUPTIBLE);
++	rcuwait_wait_event(wait, vcpu_can_run(vcpu), TASK_INTERRUPTIBLE);
+ 
+-	if (kvm_arm_vcpu_stopped(vcpu) || vcpu->arch.pause) {
++	if (!vcpu_can_run(vcpu)) {
+ 		/* Awaken to handle a signal, request we sleep again later. */
+ 		kvm_make_request(KVM_REQ_SLEEP, vcpu);
+ 	}
 -- 
 2.53.0
 
