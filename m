@@ -1,58 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794045923;
-	b=rcIDDIWybE4oIs7Umh9lJ9CGvNusl70Sc0oGdgK95TwdeDwJFA1QQJJiwXPJQpDPS2gA
-	 3w/DeObdBpSjz7kEW72AYfFTbB1gNFuMj4YsUQDaRCruooONZzGfzpcrCgjT/JZkPv+AS
-	 4R2SjMLxz8UhOPAxi+GJprkdkhtaDNqLhklsCuExeMUjBtUjhgx0PRz2ThSUFcEnoIkoD
-	 LehVtAZBcfO94bKGdyNMhlDGoRW0l0LBIXde1u2gUK8GseYK8BakpX3yBmOKK0ytm44xV
-	 Zu654NYMx7kCIW7m5TN0XPfoJAMsFp+LjnbjchMm3YDgeIAaOVf/C2cmHfo7ISTXfbg==
+	t=1794045926;
+	b=48NLIevd1beFL2KRrxTmmYg5Nt0lukkqq9iplM2ONv8h3H7rBfFv7AaTfF85M7lHsV4x
+	 ewBsgreV3nBN3ovrNhL6exuVb58fSgjkTi1Y7r8S/uHIo+MSt3DaxX4wAXIZ6TcSI2zVM
+	 lI094CgRjYf5KC+atUzgEkDIjDACS/xX5eTGyLiEdpMSp+oW4Q7kzW1HJtaUo4+zclBZO
+	 8l8Kv2cpWMdduoRTwSZ4qK33cbWucrfF4a1r5Tmpa2qV7wXXQI6EyKYpkPK5gutUsuzjl
+	 Iy2nV20CEbk+MW2sBY8D1zzr7jX3JiJVPbXKIBrNd6y4Z/t5DjCW9GUoS+UnwX6XF1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794045923;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794045926;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=7NOTbamsIhnYoarFY1EPP1iQ7GVM9nsb1LD1JvpCORE=;
-	b=U/Gz6qTuxEYVr/Cg//6LSCGzlfhlFkJyvn2U4advtmIgVwV6+1bAlyTzZvPNdPzc0LS7
-	 1sq4qyNA0fRgpq0Dde4Bg3+bD2WWrT2Yw6k9ldal8hegRelktutYfSSDwATHVCs3NiONG
-	 N4WaAsdOBT15fS6B3Ody8VvNHWxZvBG0jPFBo7xVKh1eKnBpyoqWGA+eU2jirFUpRof87
-	 aEHqNwr2VYvOqy14VfpKUyGRabW7cIQ/JUXJb0KbCuKesVi6zxKX1Murz7eDHuTeB23G6
-	 USA9FlekDG43qeVG/Gn+fpBUJyJjldUpDsIF0t21AOKkrKjkP4CtyLwVBoYTzB09E7w==
+	bh=oOoPQ9c4L/NKdkOn63rPGU6XevIfwWAm0tqa1f32Sis=;
+	b=pfIWBz8YWT3n3fagVb36YNAs+Fciy1RFU/Np91wXJUHpNCh9n9hUop27Kq1zBDVPXcXZ
+	 mP2AEhLYYst3YPqJURLwsFgWMHsl/PvO+AmFayV1JFjzO5UOuCid5xCNEfiyNpUIFGlcZ
+	 Xlm3D5k+vKDAs5LiEr6LhLDRpE8hn0QNZFoQF19arvLiNzmLm72DyTHEHSwzf2P6iBE3R
+	 /MCXxMBytf26pNCdflkHF1JSOrsMLDyFhQPdO5lJCCjJvrT9uR1BOh6z5nO1jkSXGJAf6
+	 VL/WHfaahbVkVrII1XHWnorMQIHyGA4OjvS2Kp5lD7ZvII71G8hNSrHGfk4xMXTgQ7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QvvzxLIn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZN7WOLDI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FBD5606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:05:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AECB5606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:05:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QvvzxLIn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A5AD1F0089F;
-	Sat,  7 Nov 2026 10:05:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZN7WOLDI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C3441F0089F;
+	Sat,  7 Nov 2026 10:05:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794045923;
-	bh=7NOTbamsIhnYoarFY1EPP1iQ7GVM9nsb1LD1JvpCORE=;
+	s=k20260515; t=1794045925;
+	bh=oOoPQ9c4L/NKdkOn63rPGU6XevIfwWAm0tqa1f32Sis=;
 	h=From:To:Cc:Subject:Date;
-	b=QvvzxLIn8/kkBmdLw2vHqrDuDXnRVcodKXdbDYLey24r/eATUVaGv2PklhSewjhhV
-	 rfz2JrNy8p5lZXi8LYuqd0lVX8fuIJkyG15r5X5emE6xLUue/okNUeEGGJv/A3YPs5
-	 +jWKj5UZthS+5AyCvbeMxT/HOd+Hb5y4+zk1yEs2nSYajIn4qKERQmNvEyPkdFCw4D
-	 OkDrUHKbDXNSA4SK41AA4W5hpiZd+WYam6qnvyNLu3WmfsfnzsGJXFAeR31NtrD3GI
-	 Lrr2u95glbHYFi+666P8M6vuE/iurDv+RcTc3K15I3Z6Q9Tb+BIEEJdYDgDklD1OF4
-	 nrDgirm2uKYOg==
+	b=ZN7WOLDIwdpWx/Ib1R07R/DaGK3HThkQgBNX2aKzn2CRlSUeIByMBkZJi/yoinpLk
+	 enLLozecpv9Mg74PFo+KAMNSVgB9eeaGevC71Ul/a5dgd+i7ucGFZAD4SDe/mHwg6d
+	 1Xb1+AOtxfpVGOPWex5F5JDGK/y9gK7iORkBXjMQt+d8/gWjgUIAHG0D2Z41mV7xr0
+	 Wkw/tzUVMfwI24Ruyo91JU6MGHR6SJ//GswTU9yR3J5lCSO83zhjat34WFVWeO/8oa
+	 C1aw3lsQ0h1UGyaDsYrW9MF98h9fUdeFkX8Yn0767ciKeyFsbfLPpKQ2ADfi3wSKL4
+	 FIHLZKXsj+yoA==
 From: Sasha Levin <sashal@kernel.org>
-To: akpm@linux-foundation.org,
-	l1za0.sec@gmail.com,
-	axboe@kernel.dk,
-	kbusch@kernel.org,
-	hch@lst.de,
-	tz2294@columbia.edu,
-	4ncienth@gmail.com,
-	viro@zeniv.linux.org.uk,
-	hare@kernel.org
+To: aliamemis@disroot.org,
+	i@rong.moe,
+	rafael.j.wysocki@intel.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] block: restore the iterator when rejecting a misaligned bio" failed to apply to 7.3-stable tree
-Date: Sat,  7 Nov 2026 05:05:21 -0500
-Message-ID: <20261107050521-failed-7.3-40d070cbb190@kernel.org>
+Subject: FAILED: patch "[PATCH] platform/x86: ideapad-laptop: Evaluate ACPI methods exclusively" failed to apply to 7.3-stable tree
+Date: Sat,  7 Nov 2026 05:05:23 -0500
+Message-ID: <20261107050523-failed-7.3-f91c2cd6dbce@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -75,87 +69,94 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x 40d070cbb1906896d6fd65c39722d2411830ed9f
+git cherry-pick -x f91c2cd6dbcedf52e227b2eea8d7b99ecbac7552
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050521-failed-7.3-40d070cbb190@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050523-failed-7.3-f91c2cd6dbce@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 40d070cbb1906896d6fd65c39722d2411830ed9f Mon Sep 17 00:00:00 2001
-From: Andrew Morton <akpm@linux-foundation.org>
-Date: Sun, 18 Oct 2026 17:30:00 -0700
-Subject: [PATCH] block: restore the iterator when rejecting a misaligned bio
+From f91c2cd6dbcedf52e227b2eea8d7b99ecbac7552 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ali=20Ahmet=20Memi=C5=9F?= <aliamemis@disroot.org>
+Date: Sun, 18 Oct 2026 15:23:48 +0300
+Subject: [PATCH] platform/x86: ideapad-laptop: Evaluate ACPI methods
+ exclusively
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-bio_iov_iter_get_pages() can extract some iovecs before encountering a
-misaligned one.  It releases the pages and rejects the entire bio, but
-leaves the supplied iterator advanced.
+On some Lenovo IdeaPad and Yoga models, the battery _BIX takes the EC
+AML mutex and then calls the serialized RDER through RDIF, while GBMD
+calls RDER first and then takes the EC mutex. When the two run
+interleaved they deadlock until the mutex acquisition in RDER times
+out, and GBMD returns garbage that is reported as both charge types
+being enabled.
 
-An iomap direct-I/O caller may subsequently reexpand the iterator's
-byte count and fall back to buffered I/O.  The reexpanded count then
-includes bytes before the iterator's current segment, potentially
-causing iterate_iovec() to read beyond the imported iovec array.
+Evaluate all methods with the exclusive helpers, so that GBMD never runs
+interleaved with the battery methods.
 
-In a reproducer using an initial empty iovec followed by 10-byte and
-1015-byte segments, writev() returned 1015 instead of 1025 and KASAN
-reported an 8-byte read beyond the nine-element iovec allocation.
-Saving and restoring the iterator on the rejected-bio path makes
-writev() return 1025 and eliminates the KASAN report.
-
-Restore the entire iterator rather than reverting a byte count:
-advancing past an empty segment changes its position without consuming
-any bytes.
-
-Leave successful and partially accepted bio paths unchanged.
-
-Fixes: 14b007e17881 ("block: validate user space vectors during extraction")
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: Haocheng Yu <l1za0.sec@gmail.com>
-Closes: https://lore.kernel.org/20261018081203.2431035-1-l1za0.sec@gmail.com
-Cc: Jens Axboe <axboe@kernel.dk>
-Cc: Keith Busch <kbusch@kernel.org>
-Cc: Christoph Hellwig <hch@lst.de>
-Cc: Tal Zussman <tz2294@columbia.edu>
-Cc: Daehyeon Ko <4ncienth@gmail.com>
-Cc: Al Viro <viro@zeniv.linux.org.uk>
-Cc: Hannes Reinecke <hare@kernel.org>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261020170250.014BD1F000C9@smtp.kernel.org
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
+Link: https://bugzilla.kernel.org/show_bug.cgi?id=221065
+Link: https://lore.kernel.org/all/58586fa666f09c209f9d7fe8c692a8bdda6d4410.camel@rong.moe/
+Signed-off-by: Ali Ahmet Memiş <aliamemis@disroot.org>
+Reviewed-by: Rong Zhang <i@rong.moe>
+Cc: All applicable <stable@vger.kernel.org> # 80892972ff23 ACPI: utils: Add exclusive AML evaluation helpers
+Link: https://patch.msgid.link/20261018122348.679126-1-aliamemis@disroot.org
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 ---
- block/bio.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/platform/x86/lenovo/ideapad-laptop.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-diff --git a/block/bio.c b/block/bio.c
-index a1e9ffd5982d5..41d9f1c5992d2 100644
---- a/block/bio.c
-+++ b/block/bio.c
-@@ -1311,6 +1311,7 @@ int bio_iov_iter_get_pages(struct bio *bio, struct iov_iter *iter,
- 			   unsigned mem_align_mask, unsigned len_align_mask)
+diff --git a/drivers/platform/x86/lenovo/ideapad-laptop.c b/drivers/platform/x86/lenovo/ideapad-laptop.c
+index 8213524504eeb..1335f4e488702 100644
+--- a/drivers/platform/x86/lenovo/ideapad-laptop.c
++++ b/drivers/platform/x86/lenovo/ideapad-laptop.c
+@@ -297,12 +297,16 @@ static void ideapad_shared_exit(struct ideapad_private *priv)
+ #define IDEAPAD_EC_POLL_MIN_US 150
+ #define IDEAPAD_EC_POLL_MAX_US 300
+ 
++/*
++ * On some models GBMD and the battery _BIX take the EC mutex and a
++ * serialized method in opposite order, so evaluate all methods exclusively.
++ */
+ static int eval_int(acpi_handle handle, const char *name, unsigned long *res)
  {
- 	iov_iter_extraction_t flags = 0;
-+	struct iov_iter saved_iter;
- 	int ret;
+ 	unsigned long long result;
+ 	acpi_status status;
  
- 	if (WARN_ON_ONCE(bio_flagged(bio, BIO_CLONED)))
-@@ -1330,6 +1331,7 @@ int bio_iov_iter_get_pages(struct bio *bio, struct iov_iter *iter,
- 	if (bio->bi_bdev && blk_queue_pci_p2pdma(bio->bi_bdev->bd_disk->queue))
- 		flags |= ITER_ALLOW_P2PDMA;
+-	status = acpi_evaluate_integer(handle, (char *)name, NULL, &result);
++	status = acpi_evaluate_integer_exclusive(handle, (char *)name, NULL, &result);
+ 	if (ACPI_FAILURE(status))
+ 		return -EIO;
  
-+	saved_iter = *iter;
- 	do {
- 		ssize_t size;
+@@ -324,7 +328,7 @@ static int eval_int_with_arg(acpi_handle handle, const char *name, unsigned long
+ 	in_obj.type = ACPI_TYPE_INTEGER;
+ 	in_obj.integer.value = arg;
  
-@@ -1371,6 +1373,7 @@ int bio_iov_iter_get_pages(struct bio *bio, struct iov_iter *iter,
- 	bio_release_pages(bio, false);
- 	bio_clear_flag(bio, BIO_PAGE_PINNED);
- 	bio->bi_vcnt = 0;
-+	*iter = saved_iter;
- 	return -EINVAL;
+-	status = acpi_evaluate_integer(handle, (char *)name, &params, &result);
++	status = acpi_evaluate_integer_exclusive(handle, (char *)name, &params, &result);
+ 	if (ACPI_FAILURE(status))
+ 		return -EIO;
+ 
+@@ -336,7 +340,7 @@ static int eval_int_with_arg(acpi_handle handle, const char *name, unsigned long
+ 
+ static int exec_simple_method(acpi_handle handle, const char *name, unsigned long arg)
+ {
+-	acpi_status status = acpi_execute_simple_method(handle, (char *)name, arg);
++	acpi_status status = acpi_execute_simple_method_exclusive(handle, (char *)name, arg);
+ 
+ 	return ACPI_FAILURE(status) ? -EIO : 0;
  }
+@@ -394,7 +398,7 @@ static int eval_vpcw(acpi_handle handle, unsigned long cmd, unsigned long data)
+ 	in_obj[1].type = ACPI_TYPE_INTEGER;
+ 	in_obj[1].integer.value = data;
+ 
+-	status = acpi_evaluate_object(handle, "VPCW", &params, NULL);
++	status = acpi_evaluate_object_exclusive(handle, "VPCW", &params, NULL);
+ 	if (ACPI_FAILURE(status))
+ 		return -EIO;
  
 -- 
 2.53.0
