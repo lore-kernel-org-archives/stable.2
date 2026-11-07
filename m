@@ -1,54 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049295;
-	b=o8MuEyXVwKQn2p/7C4ssZuZrMUfuBu3h7tqZqs71yVoyA3H7k0th0Ab0+QlOmf/m8CTF
-	 yKJeINrz1RFDw1n6qfkhONBGsELOqwDH0xDAnobvptwz5pPuTdtA3I+GaQa+ctgAiKTfz
-	 9cSaFVnXzC/YiiA/vJaAVtYpB+Kj0g0PeRZrdh9vLSJv7ZMH+oAcBg3n6JQ9/G7yu3WW9
-	 OXKAuJ9Aa4C3mxTEf7XT+jfMfyZj+WD4wwP/BRnXVc9awpeY/Cty/WJrjjABSVyY6sfB/
-	 gf3gmWPxs8UGxoAu8GvQ5zrlPvnDnfLWZhxQJNNsAEMXJO1pYD1B0/jSyLxCEACwAgg==
+	t=1794049299;
+	b=lTMq2UMjTZRQBcL+TC7GpY6LXcZhwe5HFqErjQ97jv54/LDcZj0aAeT5cRxJqVnsI0e4
+	 IY1hAcuLpx4cNWJrbMTkOeBTS1Z2DDN3V28GC6r2dpYfFPMqQx1zMydGOURz0VbRQLMKn
+	 YvB1aMBqX1PpBWw53X6wCYB8zf93yY6kch/TF50PyNe9VLLJtv4EPQYL15UgAu5SOSl/w
+	 eU3SyHSEEqTBLuzvVoHOnOIi7HFutPb2k76opgo36Y19SF8QwNHHjCyF84qtlDuHy9K+e
+	 I2+Kz7UWhXPNyKiFX7TNdMb20kG+T3kdHJnMoyCGawdIzdmDVoAcBv8OqyPHgniRlqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049295;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049299;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=qXAmKezvQiG+VgIgxQi/VgWuJt4PPRUP5kXhoMHZOQs=;
-	b=l9jHxirh7zdBWHwS/LP5jIg2QyvA7jMBotgK7VSeL5uAuaZRdjORCUIdJaUGfRy3uOZ4
-	 Upc9VnJIkKpQ6icLmswtFwoL0UIl4PyPrTND3HlmhJ+jQRtoJ0XuyLV5jDr4i1ee8SRy2
-	 JXWsrqsljCobqWZz3bLh4pG5xdeckl1nPNCYfamvxA4h+z5BdjZ2EM/ap5dTCzlAvTJmN
-	 1o6GG8jYkF8sNBLrClSucuL/t6BVUnpj+T0ms0v9ap0Fn9J3S0OHkl+9IxdmTAeQrMx9m
-	 oPxzzuNBWZwwl/E5xxAofNNOltLjK+P0Zc7X2zDEvi4Iofogyb2Jz7Hivp9gLQz1OXg==
+	bh=6LffHaWp8+VTKRFPVHrAvJH//HMwfnsF1bArfo2xu8E=;
+	b=JlIsoBRsiBWWrggeuV/1q83HUyTy6il5mLXwLJAGWjwNkcxFMDICY48cgrNBUW1n5gfI
+	 nMoNYpLVOA6CJ0y77vEl0NpAvHEzw83tphcnCFUfFKRmTYrNa830PKK+PWxzFyEaF5WNA
+	 y0epJSVvZJGUnyLo1KohpGjDwK61u5vlP/D//G9P+WqQU3nkYzcuONX6LBU6Vze31RRAa
+	 jmswnE8apQk1ZtT28yhBeS9BfxKMgRbnoEmaSt8pMzf73iY9j5IgsZSs5PRdGpajTHW58
+	 E/NyRyxsYBlW74K2pbi4mlZjv553dMm72xiGdYHNzY5HTkuvF2ErV1+KY0XmuVB+dUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jsikOgwf;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PnCG33k5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C352606A333
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:01:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4235606D82C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:01:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jsikOgwf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFACC1F008A7;
-	Sat,  7 Nov 2026 11:01:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PnCG33k5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BBD41F0089F;
+	Sat,  7 Nov 2026 11:01:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049295;
-	bh=qXAmKezvQiG+VgIgxQi/VgWuJt4PPRUP5kXhoMHZOQs=;
+	s=k20260515; t=1794049298;
+	bh=6LffHaWp8+VTKRFPVHrAvJH//HMwfnsF1bArfo2xu8E=;
 	h=From:To:Cc:Subject:Date;
-	b=jsikOgwf9IaPtm5lVkaY9bqaq3bRsp/L7jzps7WMbMvNzINYb5TAmCV7wU1Agrhor
-	 ZyMqvuVyiHKnx5jY69ftEBnld6k9XjSlo/1zVbWc3lwl0EgJiMd8wIgqYoalwSNTul
-	 4YBzIyaijz7p4iS1GPORF6bohrr7Zo62kARt1w42/7i4mQnuKWEAwGc2kBGIEOTxYW
-	 8MJRoXQVrBEk0j7AQjNFVqP4aC5YmWXWgTrDJwRMj85g4Ty2npuksS/aZ/2e8fvOyV
-	 YdP1cqywqS/43JEUruXHx5/f+zfa4LvonNvCjRP0CoHmg7CBU9PlDRCqXUpCeZ1fy7
-	 FvQ1P6PcaCHiQ==
+	b=PnCG33k5WPVE0ZbB9uZYhZ4djMm8MNvbetZNJQAKTwS7XlyXwZyxzeRiNvk2aBQhN
+	 2W7z/4QrGdo0V6e2tlfZws0/2fyEZm08n66XTGeiwFIbSAvAV6n3tYmZeP2Q5TaUpQ
+	 dVmZy4EWirzESgSuNBaMkhWPuwsjGKodxtA7edSD3sQtLILCoUPhu+Jgqs/Kmc7e2l
+	 OfE3K0l+aH0c7ZhOtDwoTp4UXzIidRYcgZu8QrRSks423cZ8FHApL/oOGnanqfEMF0
+	 EmUZzkYe9ECEA1rpQq8KGDfK8HecsLsya/ZWgWveLz91bUT5T66TyDKpTZ5fTP7ZIa
+	 WCbKvXFsWGHhg==
 From: Sasha Levin <sashal@kernel.org>
-To: fuad.tabba@linux.dev,
-	sashiko-bot@kernel.org,
-	vdonnefort@google.com,
-	joey.gouly@arm.com,
+To: kmehltretter@gmail.com,
+	fuad.tabba@linux.dev,
 	maz@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] KVM: arm64: Validate the host vCPU's VM before reading it under pKVM" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:01:33 -0500
-Message-ID: <20261107060133-failed-5.15-cf533b4d3630@kernel.org>
+Subject: FAILED: patch "[PATCH] KVM: arm64: vgic-v3: Undo assignment on iodev registration failure" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 06:01:36 -0500
+Message-ID: <20261107060136-failed-5.15-8a88a46b86ca@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,172 +69,78 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x cf533b4d3630b229d78ad55567c5db2f365052a2
+git cherry-pick -x 8a88a46b86ca3dbbd24522760d29edfb3f24ac2a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060133-failed-5.15-cf533b4d3630@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060136-failed-5.15-8a88a46b86ca@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From cf533b4d3630b229d78ad55567c5db2f365052a2 Mon Sep 17 00:00:00 2001
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Thu, 1 Oct 2026 14:56:55 +0100
-Subject: [PATCH] KVM: arm64: Validate the host vCPU's VM before reading it
- under pKVM
+From 8a88a46b86ca3dbbd24522760d29edfb3f24ac2a Mon Sep 17 00:00:00 2001
+From: Karl Mehltretter <kmehltretter@gmail.com>
+Date: Mon, 31 Aug 2026 10:10:01 +0200
+Subject: [PATCH] KVM: arm64: vgic-v3: Undo assignment on iodev registration
+ failure
 
-On an MTE-capable host under pKVM, enter_exception64() reads the VM's
-MTE flag through vcpu->kvm, which for a host vCPU is a host-writable
-pointer nothing validates. The host can point it at any address in the
-hyp linear map and read back bit 1 of that word through PSR_TCO in the
-vCPU's CPSR, or panic the hypervisor with an unmapped one.
+vgic_register_redist_iodev() assigns a redistributor region and base
+address to the vCPU before adding its iodev to the MMIO bus. However, the
+region's free_index is advanced only after registration succeeds.
 
-Get the VM through a get/put pair around the read: a loaded vCPU's is
-the hyp VM, an unloaded host vCPU's is read once and pinned, and a
-pointer the host never shared leaves TCO clear.
+If kvm_io_bus_register_dev() fails, the vCPU retains the assignment while
+free_index still identifies the same slot as free. A later registration can
+therefore reuse a slot that remains assigned to the vCPU.
 
-Fixes: ea7fc1bb1cd1b ("KVM: arm64: Introduce MTE VM feature")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260914070536.877D91F000FF@smtp.kernel.org/
-Reviewed-by: Vincent Donnefort <vdonnefort@google.com>
-Reviewed-by: Joey Gouly <joey.gouly@arm.com>
+Reserve the slot before registering its iodev. The caller holds slots_lock,
+so a registration failure cannot race with a later assignment. Undo the
+reservation and clear the cached assignment on failure.
+
+Fixes: dbd9733ab674 ("KVM: arm/arm64: Replace the single rdist region by a list")
 Cc: stable@vger.kernel.org
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-Link: https://patch.msgid.link/20261001135711.1640520-3-fuad.tabba@linux.dev
+Assisted-by: Codex:gpt-5.6-sol
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
+Tested-by: Fuad Tabba <fuad.tabba@linux.dev>
+Link: https://patch.msgid.link/20260831081005.41346-2-kmehltretter@gmail.com
+[maz: moved helper into the sole caller]
 Signed-off-by: Marc Zyngier <maz@kernel.org>
 ---
- arch/arm64/kvm/hyp/exception.c             |  5 ++-
- arch/arm64/kvm/hyp/include/hyp/adjust_pc.h | 28 ++++++++++++++++
- arch/arm64/kvm/hyp/include/nvhe/pkvm.h     |  2 ++
- arch/arm64/kvm/hyp/nvhe/pkvm.c             | 37 ++++++++++++++++++++++
- 4 files changed, 71 insertions(+), 1 deletion(-)
+ arch/arm64/kvm/vgic/vgic-mmio-v3.c | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
 
-diff --git a/arch/arm64/kvm/hyp/exception.c b/arch/arm64/kvm/hyp/exception.c
-index 754e2dc1df54a..6e60d890afa4a 100644
---- a/arch/arm64/kvm/hyp/exception.c
-+++ b/arch/arm64/kvm/hyp/exception.c
-@@ -70,6 +70,7 @@ static void enter_exception64(struct kvm_vcpu *vcpu, unsigned long target_mode,
- 			      enum exception_type type)
- {
- 	unsigned long sctlr, vbar, old, new, mode;
-+	struct kvm *kvm;
- 	u64 exc_offset;
+diff --git a/arch/arm64/kvm/vgic/vgic-mmio-v3.c b/arch/arm64/kvm/vgic/vgic-mmio-v3.c
+index 5913a20d83019..8fb0a3eb3457d 100644
+--- a/arch/arm64/kvm/vgic/vgic-mmio-v3.c
++++ b/arch/arm64/kvm/vgic/vgic-mmio-v3.c
+@@ -818,16 +818,21 @@ int vgic_register_redist_iodev(struct kvm_vcpu *vcpu)
+ 	rd_dev->nr_regions = ARRAY_SIZE(vgic_v3_rd_registers);
+ 	rd_dev->redist_vcpu = vcpu;
  
- 	mode = *vcpu_cpsr(vcpu) & (PSR_MODE_MASK | PSR_MODE32_BIT);
-@@ -109,8 +110,10 @@ static void enter_exception64(struct kvm_vcpu *vcpu, unsigned long target_mode,
- 	new |= (old & PSR_C_BIT);
- 	new |= (old & PSR_V_BIT);
++	/* Protected by slots_lock */
++	rdreg->free_index++;
++
+ 	mutex_unlock(&kvm->arch.config_lock);
  
--	if (kvm_has_mte(kern_hyp_va(vcpu->kvm)))
-+	kvm = vcpu_get_kvm(vcpu);
-+	if (kvm && kvm_has_mte(kvm))
- 		new |= PSR_TCO_BIT;
-+	vcpu_put_kvm(vcpu, kvm);
+ 	ret = kvm_io_bus_register_dev(kvm, KVM_MMIO_BUS, rd_base,
+ 				      2 * SZ_64K, &rd_dev->dev);
+-	if (ret)
+-		return ret;
++	if (ret) {
++		guard(mutex)(&vcpu->kvm->arch.config_lock);
++		vgic_cpu->rdreg->free_index--;
++		vgic_cpu->rdreg = NULL;
++		vgic_cpu->rd_iodev.base_addr = VGIC_ADDR_UNDEF;
++	}
  
- 	new |= (old & PSR_DIT_BIT);
+-	/* Protected by slots_lock */
+-	rdreg->free_index++;
+-	return 0;
++	return ret;
  
-diff --git a/arch/arm64/kvm/hyp/include/hyp/adjust_pc.h b/arch/arm64/kvm/hyp/include/hyp/adjust_pc.h
-index 4fdfeabefeb43..f55950ee2a7e4 100644
---- a/arch/arm64/kvm/hyp/include/hyp/adjust_pc.h
-+++ b/arch/arm64/kvm/hyp/include/hyp/adjust_pc.h
-@@ -13,6 +13,34 @@
- #include <asm/kvm_emulate.h>
- #include <asm/kvm_host.h>
- 
-+#ifdef __KVM_NVHE_HYPERVISOR__
-+#include <nvhe/pkvm.h>
-+
-+/* Under pKVM a host vCPU's ->kvm is host-writable. */
-+static inline struct kvm *vcpu_get_kvm(struct kvm_vcpu *vcpu)
-+{
-+	if (is_protected_kvm_enabled())
-+		return pkvm_vcpu_get_kvm(vcpu);
-+
-+	return kern_hyp_va(vcpu->kvm);
-+}
-+
-+static inline void vcpu_put_kvm(struct kvm_vcpu *vcpu, struct kvm *kvm)
-+{
-+	if (is_protected_kvm_enabled())
-+		pkvm_vcpu_put_kvm(vcpu, kvm);
-+}
-+#else
-+static inline struct kvm *vcpu_get_kvm(struct kvm_vcpu *vcpu)
-+{
-+	return vcpu->kvm;
-+}
-+
-+static inline void vcpu_put_kvm(struct kvm_vcpu *vcpu, struct kvm *kvm)
-+{
-+}
-+#endif
-+
- static inline void kvm_skip_instr(struct kvm_vcpu *vcpu)
- {
- 	if (vcpu_mode_is_32bit(vcpu)) {
-diff --git a/arch/arm64/kvm/hyp/include/nvhe/pkvm.h b/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
-index c904647d2f760..5ddb407149667 100644
---- a/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
-+++ b/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
-@@ -83,6 +83,8 @@ struct pkvm_hyp_vcpu *pkvm_load_hyp_vcpu(pkvm_handle_t handle,
- 					 unsigned int vcpu_idx);
- void pkvm_put_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu);
- struct pkvm_hyp_vcpu *pkvm_get_loaded_hyp_vcpu(void);
-+struct kvm *pkvm_vcpu_get_kvm(struct kvm_vcpu *vcpu);
-+void pkvm_vcpu_put_kvm(struct kvm_vcpu *vcpu, struct kvm *kvm);
- 
- struct pkvm_hyp_vm *get_pkvm_hyp_vm(pkvm_handle_t handle);
- struct pkvm_hyp_vm *get_np_pkvm_hyp_vm(pkvm_handle_t handle);
-diff --git a/arch/arm64/kvm/hyp/nvhe/pkvm.c b/arch/arm64/kvm/hyp/nvhe/pkvm.c
-index 459bd9eb7e4bc..0e90de74778cf 100644
---- a/arch/arm64/kvm/hyp/nvhe/pkvm.c
-+++ b/arch/arm64/kvm/hyp/nvhe/pkvm.c
-@@ -304,6 +304,43 @@ struct pkvm_hyp_vcpu *pkvm_get_loaded_hyp_vcpu(void)
- 
- }
- 
-+static struct pkvm_hyp_vm *pkvm_get_loaded_hyp_vm(struct kvm_vcpu *vcpu)
-+{
-+	struct pkvm_hyp_vcpu *hyp_vcpu = pkvm_get_loaded_hyp_vcpu();
-+
-+	if (hyp_vcpu &&
-+	    (vcpu == &hyp_vcpu->vcpu || vcpu == hyp_vcpu->host_vcpu))
-+		return pkvm_hyp_vcpu_to_hyp_vm(hyp_vcpu);
-+
-+	return NULL;
-+}
-+
-+/*
-+ * A loaded vCPU's VM is the hyp VM. An unloaded host vCPU's is mapped at
-+ * EL2 only while pinned, so it's read once and pinned; the pin fails for
-+ * memory the host isn't sharing.
-+ */
-+struct kvm *pkvm_vcpu_get_kvm(struct kvm_vcpu *vcpu)
-+{
-+	struct pkvm_hyp_vm *hyp_vm = pkvm_get_loaded_hyp_vm(vcpu);
-+	struct kvm *kvm;
-+
-+	if (hyp_vm)
-+		return &hyp_vm->kvm;
-+
-+	kvm = kern_hyp_va(READ_ONCE(vcpu->kvm));
-+	if (hyp_pin_shared_mem(kvm, kvm + 1))
-+		return NULL;
-+
-+	return kvm;
-+}
-+
-+void pkvm_vcpu_put_kvm(struct kvm_vcpu *vcpu, struct kvm *kvm)
-+{
-+	if (kvm && !pkvm_get_loaded_hyp_vm(vcpu))
-+		hyp_unpin_shared_mem(kvm, kvm + 1);
-+}
-+
- struct pkvm_hyp_vm *get_pkvm_hyp_vm(pkvm_handle_t handle)
- {
- 	struct pkvm_hyp_vm *hyp_vm;
+ out_unlock:
+ 	mutex_unlock(&kvm->arch.config_lock);
 -- 
 2.53.0
 
