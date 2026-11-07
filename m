@@ -1,53 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794045952;
-	b=gxGjwhPw+BRIl2UnhtVl5/uPCaT32kAVFq2WneMCNdvSVMbMy6/C6MFkSH6cy/M5r6yR
-	 aIQeLTmmxPWLDsozkuWJ3asQ//XJlFEyf2Cmbs8eySy6vWu5usjVrlb8o/vpHmJMkQGv/
-	 KTTjHs2/MDqj1lG2QG3icrxSZqJnN6bew7GcLsSssU1cJzYq+uWhi/ykdGZFzrpxciMd/
-	 vGaGEJr0ZvZIIrVaQuSXk1I8it3i16vuNjlVPIPPTLK/K2WPth+KfCUu83wu6DHs8Yq9u
-	 MML6Z3eV1rdyANZ+2DRzu/jSBKy7jGRdg74qmOPoNUPDPd+hJMQeHVhiJhDqp0H7N3w==
+	t=1794045954;
+	b=k22dH7qdl5QySZGEn9lMZ7JBw5vRRhmz4On6kSRYbnjIog/3bnEpFZMmip1t5njnmrkI
+	 tVuHF3tUrZ3Fqn6ILU87EYZOTnMiDKL51DGXnY5qbNj0deBocDDkNgEZF0NTjx0rOi+LA
+	 THPJ0OdU8y72Lb7AYzb7iPEylzj57MUBR+cEqVuUcoXeQ7JI0ICZtrdyqdZrdI+jM7eAL
+	 j6iT0NYgMUG9Lz2CeRgSBdTcInFU9wGgf9pOwv8A4Pt2iuhjpS/qzpve4qXs9lSfpscco
+	 hxyeKdTY0uw+3A2pm3qIocsC1NHDnsg2O2YOOMQeqskGY+yiWap5dNIovPWvcb5lA+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794045952;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794045954;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=fwpG40f4wR0qX3b8FN+usc64zjR/LYMTsSoM0+K1pD8=;
-	b=IxWWLXG4GN2mBvbC6Za3soIe6foGQCUkIJbxbmoq+LWheveIaei/kJ4pmyD7pFyRXRQF
-	 8XulYDo7WmoP89EC3a3dta93ReG9b+Mz6NLxJbTFDvjIO4SQt+86Ei2TckvZljW9k3jiV
-	 NmLlzIh8UTh0eVVVFgcPhc0ZPx2GngO3mVOUJpGjy5grp5mmUYdxGIeTsFwJvcIVwnGU9
-	 51AggW318GaRanh+G+TPmIJxF46YiL49GB/wca+Z8TV97v7B9nMl/qbeO2ZFJiNZq8rNY
-	 rVnoKwGoAt6wkj0dIUW55yM41d2TYMlD7777iwdOFXGXszse7FzxioWjK+ne8h4an3A==
+	bh=6QpDzk8PLwfsAZJ0C/1fw/7MW+sh3WbbGieBFqJPaE0=;
+	b=wfVmUfUUmeMxqchUamhdiLxZaVuNVjXe5R9QA9oS+PMyMvcsc9weFIHoi/eYql+b2Tr3
+	 peO62Nut0sfll5IHip+4G142yjJSscutMSM5Vmaqn3CK3zTvKZI5TFi3UpEV8MRVik3GW
+	 M80Ll3O05iXPvcSlMXzYg0bzQIIHtt2PyhSZekMnk0LCu2jG7OM4Z3Owo1M59Z0u8b7Q/
+	 Flg6Yy9TiHF3q9v92E8Qe9dsv+q2hLuA0ZdPRS9Hw+cKpX1bn+LDuwjpAMWvLcqiWiRj0
+	 tbAEuz1aMLhNfZonxLNUzjCx7/0Rlq41+kyCne7qt0eNgeHehkU9yIIiUuA44u5D1xA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YcbDh2HF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dW6R1Lp4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60848606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:05:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C781606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:05:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YcbDh2HF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FFBD1F0089F;
-	Sat,  7 Nov 2026 10:05:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dW6R1Lp4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2B8A1F0089F;
+	Sat,  7 Nov 2026 10:05:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794045952;
-	bh=fwpG40f4wR0qX3b8FN+usc64zjR/LYMTsSoM0+K1pD8=;
+	s=k20260515; t=1794045954;
+	bh=6QpDzk8PLwfsAZJ0C/1fw/7MW+sh3WbbGieBFqJPaE0=;
 	h=From:To:Cc:Subject:Date;
-	b=YcbDh2HF+gocFF17q27Ww73xtZWWG/KyWjPVfeJlAuV3VxXMUe8vQhZ7Tv/42nlwW
-	 rltPFdN1kDDnCvspPQB6//Bi6DMzulAFOTN6FZrNnZ7whqPmVgdz/Da9ilBw5hx4ep
-	 0mAUaI4tzv1dbTeSYT4CxJhCl0EAkL1n7Kb5vh9R+w7XCh4dqy5EjPN4815az4vIJ4
-	 LQWDvMQJLvSLun42fW0i2AAT11wpCbc3Y6Q+ENZBIn2WzaLZc6IkBhTspnbhB4iO+H
-	 F5n0UMpKFljvI9k7eA8LHLKMgGPDz9gpa+tXjsDWDQGQ1VmTPWOEDX54M3lRbtI4+q
-	 Jh6w80OLlSGCw==
+	b=dW6R1Lp4/Y75ypeWG2N/X+wFIuXS+xAvuiJXS7QD0ImWWnHa0jy640HPzp9s+nJHv
+	 sV7T4VG+TCrnh8sal0bQaKlh5E41BbPTuDFrlA9n3NFumjvOzOgbzi8llPBEAVZJ8C
+	 PqcHrkXZiFi/D5FLnHiBbabK6Kdac7q1Wlj5zVPd7yA1iXIgmoVr5/+qqg8o3J0L3C
+	 fnYPZZ8wUrcCaAttbtm8JcMhvBBXzJ1RT4tztJJPv3btQvc72fqrlbJQ1BQ1/RQm80
+	 2Bff9OY8LTs7gAPwfaoD+drINohIbiL0qJN/ljDv9oDw4jdnWw5BF6Tu7mOn9ADfhJ
+	 o6RgTcPiUyqIg==
 From: Sasha Levin <sashal@kernel.org>
-To: miquel.raynal@bootlin.com,
-	ychuang570808@gmail.com,
-	jbrunet@baylibre.com,
-	bmasney@redhat.com
+To: peter.ujfalusi@linux.intel.com,
+	broonie@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] clk: nuvoton: ma35d1: Add missing WDT/WWDT parent clocks" failed to apply to 7.3-stable tree
-Date: Sat,  7 Nov 2026 05:05:50 -0500
-Message-ID: <20261107050550-failed-7.3-1dc3871ce7ec@kernel.org>
+Subject: FAILED: patch "[PATCH] ASoC: hdac_hda: Restore the codec device type on unbind" failed to apply to 7.3-stable tree
+Date: Sat,  7 Nov 2026 05:05:52 -0500
+Message-ID: <20261107050552-failed-7.3-08a44bde821d@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,65 +68,72 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x 1dc3871ce7ec819030c22297f8960c61cc42a990
+git cherry-pick -x 08a44bde821d4fe22c0b6e63da04b3c59ac243a8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050550-failed-7.3-1dc3871ce7ec@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050552-failed-7.3-08a44bde821d@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 1dc3871ce7ec819030c22297f8960c61cc42a990 Mon Sep 17 00:00:00 2001
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Wed, 30 Sep 2026 19:24:51 +0200
-Subject: [PATCH] clk: nuvoton: ma35d1: Add missing WDT/WWDT parent clocks
+From 08a44bde821d4fe22c0b6e63da04b3c59ac243a8 Mon Sep 17 00:00:00 2001
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Date: Tue, 27 Oct 2026 10:38:39 +0200
+Subject: [PATCH] ASoC: hdac_hda: Restore the codec device type on unbind
 
-The WDT and WWDT muxes list PCLK3/4096 and PCLK4/4096 among their
-possible parents, but the driver never registers the corresponding
-clocks, so these parents could never be used.
+hdac_hda_codec_probe() changes the type of the codec device to
+HDA_DEV_ASOC to prevent snd_hda_codec_unregister() from unregistering
+the device when the card is freed.
 
-Add pclk3_div4096 and pclk4_div4096 as fixed factor children of pclk3
-and pclk4 and expose them through the clock provider.
+The type is never restored, and hda_bus_match() requires the device and
+driver types to be equal. After unbinding the codec driver via sysfs the
+HDA_DEV_LEGACY codec drivers no longer match the device and bind fails
+with -ENODEV.
 
-Reported-by: Jacky Huang <ychuang570808@gmail.com>
-Closes: https://lore.kernel.org/linux-clk/b8a8a65b-e302-4747-bc90-4920fc48795a@gmail.com/
-Suggested-by: Jacky Huang <ychuang570808@gmail.com>
-Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock controller")
+Restore HDA_DEV_LEGACY with a device managed action registered before
+the component, so it runs after the component and the card are gone.
+
+Fixes: b60ee2e281b6 ("ASoC: hdac_hda: overwrite hdev type to HDA_DEV_ASOC")
 Cc: stable@vger.kernel.org
-Reviewed-by: Jerome Brunet <jbrunet@baylibre.com>
-Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
-Link: https://patch.msgid.link/20260930-perso-ma35d1-upstream-clk-v6-5-48937ee6c9bb@bootlin.com
-[jbrunet@baylibre.com: removed stale link trailer]
-Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
-Signed-off-by: Brian Masney <bmasney@redhat.com>
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Link: https://patch.msgid.link/20261027083840.28813-3-peter.ujfalusi@linux.intel.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- drivers/clk/nuvoton/clk-ma35d1.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ sound/soc/codecs/hdac_hda.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk-ma35d1.c
-index 6aa42a3e1be3b..c914079cee2d4 100644
---- a/drivers/clk/nuvoton/clk-ma35d1.c
-+++ b/drivers/clk/nuvoton/clk-ma35d1.c
-@@ -17,7 +17,7 @@
- static DEFINE_SPINLOCK(ma35d1_lock);
+diff --git a/sound/soc/codecs/hdac_hda.c b/sound/soc/codecs/hdac_hda.c
+index 46617fc88277e..cae5711e979c3 100644
+--- a/sound/soc/codecs/hdac_hda.c
++++ b/sound/soc/codecs/hdac_hda.c
+@@ -617,6 +617,13 @@ static const struct snd_soc_component_driver hdac_hda_hdmi_codec = {
+ 	.endianness		= 1,
+ };
  
- #define PLL_MAX_NUM		5
--#define	MA35D1_CLK_COUNT	236
-+#define	MA35D1_CLK_COUNT	238
++static void hdac_hda_restore_dev_type(void *data)
++{
++	struct hdac_device *hdev = data;
++
++	hdev->type = HDA_DEV_LEGACY;
++}
++
+ static int hdac_hda_dev_probe(struct hdac_device *hdev)
+ {
+ 	struct hdac_hda_priv *hda_pvt;
+@@ -634,6 +641,11 @@ static int hdac_hda_dev_probe(struct hdac_device *hdev)
+ 		hda_pvt->need_display_power = true;
+ 	dev_set_drvdata(&hdev->dev, hda_pvt);
  
- /* Clock Control Registers Offset */
- #define REG_CLK_PWRCTL		0x00
-@@ -544,6 +544,8 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
- 	hws[HCLK3] = ma35d1_clk_fixed_factor(dev, "hclk3", "sysclk1_mux", 1, 2);
- 	hws[PCLK3] = ma35d1_clk_fixed_factor(dev, "pclk3", "sysclk1_mux", 1, 2);
- 	hws[PCLK4] = ma35d1_clk_fixed_factor(dev, "pclk4", "sysclk1_mux", 1, 2);
-+	hws[PCLK3_DIV4096] = ma35d1_clk_fixed_factor(dev, "pclk3_div4096", "pclk3", 1, 4096);
-+	hws[PCLK4_DIV4096] = ma35d1_clk_fixed_factor(dev, "pclk4_div4096", "pclk4", 1, 4096);
- 
- 	hws[USBPHY0] = ma35d1_clk_fixed("usbphy0", 480000000);
- 	hws[USBPHY1] = ma35d1_clk_fixed("usbphy1", 480000000);
++	/* Allow the legacy codec driver to match again after unbind */
++	ret = devm_add_action(&hdev->dev, hdac_hda_restore_dev_type, hdev);
++	if (ret)
++		return ret;
++
+ 	/* hold the ref while we probe */
+ 	hlink = snd_hdac_ext_bus_get_hlink_by_name(hdev->bus, dev_name(&hdev->dev));
+ 	if (!hlink) {
 -- 
 2.53.0
 
