@@ -1,51 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794045970;
-	b=glXCzWp2qv7bl+JhpWfniEjPEbti63txmd9j6GEkZWGqvKv/uy/mvZ5e+u5Jz0TWhAsl
-	 PpRQvyAJS4bMv8DhS8rRB87bqsFq8Zog39VUlGsEibjq6knYqwyrxxea+D2q0mAvImADE
-	 mMIS2kvIi7xSuJuvG2q0C7vpLC+3X7862kEECJARIhXdUtzu0rXqnzJ5JwwGe4RQYeKtV
-	 fnG05C5MuGXXnRte5dRbTSGsslQK859WMbatTfzx809Fltsd+lcwRJubVjaPVuuQENrbd
-	 EQGzIp+Q7lUDLHGnZ6d5TbkYWXOXx6E/cKbVAuybNStv9hFxggZ6/JKWG+f+77mnKWQ==
+	t=1794045972;
+	b=hNDvwb5HeiLdCcfXJ2AGmCmxUBuNjDTbd56z9wre5t7QY294vDQU1EiBSX0WJMJCUtus
+	 aZXtOKTKSu0it61Q08qv1aHvyRh0pABaVe8V1ZnizO7YzGYYJfmTjKzHCqb8Dso6YpaEC
+	 6an7dc9ms7vmjm6msGdHUNfaTGIEcm2ecmRPV2b/yNVDnHtdFYHAlxO1hyaFUCZfAjtt+
+	 tvfSh39kQVG7eYOoHiaNDq0CbX+CQliVb6OsaM1uGrycQbaAfyw+J1VY3DN7j/eVhnGQo
+	 KWwdskOoYvjtnN3fcPAiPh2pOCkocJ4Wdaj/QMJA0jWRkMP+GTYn/zUmac55xDdldRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794045970;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794045972;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=33XsWVSb6M2erJFGTicHBJvgJU6QYg1O0CncWOouq9Q=;
-	b=IFlxfGCG6hvHU4v26miuyfHxZ1g5PVZAhHCOpxOMERk4eoguArWg4qfvA4Y/szorHgCU
-	 RiEZITz4N64qLYbp+Pr4UZp1g5WOQDHOWSbtK7/FPC2Vh10YAf9pzWx2fWzbllvCn6WC8
-	 +O4QSFzAS+oyj56eoB+0D2Fd3qc0La0+kBRPC/QqHAMdnNTjIWdO4EiodgTKebx30z7e5
-	 fo5rUwbEPj3BaxgMW6CPtfaziOZxpFNl3/AAksWmJyBveQaV8drBdnTVbWYLwatLCH06C
-	 wsdLN39X/+4b46F83ItgFzLu/DRy/a8ZsjCdtNVyQF0xsi8NqqKROsqERe0zIpLR1XA==
+	bh=uWokcYWNePnhRU8EsbrANlY08838ph7axx1Q+G1UKgY=;
+	b=ZWz1mioQtZyFp8iZUM4+lYO3kyQHjSP7kRAy7cWXx1iyClkLlzkk0V2x1JJUEYFpPij8
+	 EtNl/hDh1CMJJan1M3VDBYwXYsunITAkYNW2WAcPvdFap/TmP1Jb0iEHMwaVhvdbcvISz
+	 lijeUVO/zqKDAQmUqBEMy6GLZomog8JVYvzOzLorN8LNFUYepFYFsMFhR8PsR4qGxosbP
+	 As3+NoSS7Lj2RYi4lsRS5LgcO81aIp93PlbaKYQ8xK2XlEBfpn6NPdEiXNyH2dB3D3o4A
+	 NC3A7rEwjuhefAQ62TXUhg1PcRGYLTh74X1F6fnyt+qpZanpUQvZXEgbULdh9CAuGKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X0mjTJwW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="e5qpQc/3";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4346B606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:06:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BB07606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:06:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X0mjTJwW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B22181F0089F;
-	Sat,  7 Nov 2026 10:06:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e5qpQc/3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C747E1F0089F;
+	Sat,  7 Nov 2026 10:06:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794045970;
-	bh=33XsWVSb6M2erJFGTicHBJvgJU6QYg1O0CncWOouq9Q=;
+	s=k20260515; t=1794045972;
+	bh=uWokcYWNePnhRU8EsbrANlY08838ph7axx1Q+G1UKgY=;
 	h=From:To:Cc:Subject:Date;
-	b=X0mjTJwWDeu52LvNRNcf52NrsDiOJLQ6U1qmd/Dz4hmaOLcCTAwJxtb38HIK5p+oI
-	 nOivQ0O4FHN+j21FXdp8eLyd33zbo1BaCdMoxoHN4BkHiklY9DXoMnh94Md6FJPzMb
-	 ePsCx2F+DysRbTP9VUQfkrErFk0dWunPpz+QJg5t5Vw+GfptNHd103ac0kR75j8/C4
-	 x5gTIgXy/xfctjOvdF4YSDKH7KND2m7ov642pJNTaCi+NAcMTWLjACPGvNLre39r37
-	 us/llCbVe8BZpI10+qes7UUuexvX2cKyA8NqtMnMK9i0vycfHWrHegQmbaQueKgfd1
-	 2+dyOjM5JnG4g==
+	b=e5qpQc/3J5H2hp/1n2vpNG24H0r+8rVumL+qxIaKQ032KIV7LK2tqgZjaH+cteXff
+	 Z8tSmQWT/xxvNzU4HG9K4nXBhvJrA193T7TwKI2ET5TIwFKfGddPoNOj9t4VV00FUv
+	 DI9ggfLYe/dFTgj4Yw9GVPn5XFtyHIJFqb6hEDB9QestBPkOQqMGLRGBxJSrl/P2ko
+	 mQnpBF61NeHcmjP9lXDAKPnkY/bwatT33Hn0ab1LYt2ER7iUhnauhSn028fbC6dIre
+	 syqrLiDii9mJAoDnmI3wMHYA7iZ+BhatfaoDigEkID1BSsAMQjTtd/F5ZPaKxDL9yC
+	 i42hvZhxlQdXA==
 From: Sasha Levin <sashal@kernel.org>
-To: sean@mess.org,
-	hverkuil+cisco@kernel.org
+To: sandeen@redhat.com,
+	simonlie@amazon.de,
+	viro@zeniv.linux.org.uk,
+	brauner@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] media: redrat3: Error path leaves device in transmitting state" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:06:08 -0500
-Message-ID: <20261107050608-failed-6.18-8024d5e84531@kernel.org>
+Subject: FAILED: patch "[PATCH] devtmpfs: restore mount option reconfiguration on get_tree" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:06:10 -0500
+Message-ID: <20261107050610-failed-6.18-1c7df6fa838a@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,74 +70,202 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 8024d5e84531d828535365718278f1cf0ce67db0
+git cherry-pick -x 1c7df6fa838a46f0d5090ef134f67511f0592f33
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050608-failed-6.18-8024d5e84531@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050610-failed-6.18-1c7df6fa838a@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 8024d5e84531d828535365718278f1cf0ce67db0 Mon Sep 17 00:00:00 2001
-From: Sean Young <sean@mess.org>
-Date: Mon, 13 Jul 2026 13:08:40 +0100
-Subject: [PATCH] media: redrat3: Error path leaves device in transmitting
- state
+From 1c7df6fa838a46f0d5090ef134f67511f0592f33 Mon Sep 17 00:00:00 2001
+From: Eric Sandeen <sandeen@redhat.com>
+Date: Wed, 12 Aug 2026 16:44:38 -0500
+Subject: [PATCH] devtmpfs: restore mount option reconfiguration on get_tree
 
-In the allocation failure error path, the transmitting boolean is not
-cleared. If this error path is followed the transmitter cannot be
-used again until the device is replugged or the module reloaded.
+commit cb0e0a8bf4e1 ("devtmpfs: replace ->mount with ->get_tree in
+public instance") converted the public devtmpfs instance to the new
+mount API but broke the ability to reconfigure the shared superblock
+options via subsequent mount() calls, as had been fixed once in
+a6097180d884 ("devtmpfs regression fix: reconfigure on each mount")
 
-Fix the error path by moving the assignment statement.
+This makes boot-time defaults permanent.
 
-Remove the check for the transmitting state in transmit, since rc-core
-ensures there is never a reentrant call to the driver transmit function;
-the transmit function is always called with dev->lock held.
+Fix this using an approach suggested by Al Viro: at init_fs_context
+time, create a reconfigure-mode context via fs_context_for_reconfigure()
+and save it in fc->fs_private. The devtmpfs parse ops can then use
+this context to parse options appropriately for the underlying filesystem.
 
-The transmitting boolean is only used for interpretting firmware errors.
+This also removes the devtmpfs_configure_context() one-time ops-copying
+approach and the global mutable ops table it required.
 
-Fixes: fac59136bc22 ("[media] RedRat3: Return directly after a failed kcalloc() in redrat3_transmit_ir()")"
-Signed-off-by: Sean Young <sean@mess.org>
+Fixes: cb0e0a8bf4e1 ("devtmpfs: replace ->mount with ->get_tree in public instance")
+Reported-by: Simon Liebold <simonlie@amazon.de>
 Cc: stable@vger.kernel.org
-Reviewed-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Suggested-by: Al Viro <viro@zeniv.linux.org.uk>
+Signed-off-by: Eric Sandeen <sandeen@redhat.com>
+Link: https://patch.msgid.link/b1bd3b15-78ea-4487-b6a8-aad0b05dd3bb@redhat.com
+Tested-by: Simon Liebold <simonlie@amazon.de>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- drivers/media/rc/redrat3.c | 11 +++--------
- 1 file changed, 3 insertions(+), 8 deletions(-)
+ drivers/base/devtmpfs.c | 108 ++++++++++++++++++++++++----------------
+ 1 file changed, 64 insertions(+), 44 deletions(-)
 
-diff --git a/drivers/media/rc/redrat3.c b/drivers/media/rc/redrat3.c
-index 30111deb6013c..b07ff832a938c 100644
---- a/drivers/media/rc/redrat3.c
-+++ b/drivers/media/rc/redrat3.c
-@@ -773,17 +773,9 @@ static int redrat3_transmit_ir(struct rc_dev *rcdev, unsigned *txbuf,
- 	u8 curlencheck = 0;
- 	unsigned i, sendbuf_len;
+diff --git a/drivers/base/devtmpfs.c b/drivers/base/devtmpfs.c
+index aef0fcc6aba1e..11c70888f38be 100644
+--- a/drivers/base/devtmpfs.c
++++ b/drivers/base/devtmpfs.c
+@@ -72,39 +72,90 @@ static struct file_system_type internal_fs_type = {
+ 	.kill_sb = kill_anon_super,
+ };
  
--	if (rr3->transmitting) {
--		dev_warn(dev, "%s: transmitter already in use\n", __func__);
--		return -EAGAIN;
--	}
--
- 	if (count > RR3_MAX_SIG_SIZE - RR3_TX_TRAILER_LEN)
- 		return -EINVAL;
+-/* Simply take a ref on the existing mount */
++struct devtmpfs_context {
++	struct fs_context *fc;
++};
++
++static void devtmpfs_free(struct fs_context *fc)
++{
++	struct devtmpfs_context *ctx = fc->fs_private;
++
++	if (ctx) {
++		put_fs_context(ctx->fc);
++		kfree(ctx);
++	}
++}
++
++static int devtmpfs_parse_param(struct fs_context *fc, struct fs_parameter *param)
++{
++	struct devtmpfs_context *ctx = fc->fs_private;
++
++	return ctx->fc->ops->parse_param(ctx->fc, param);
++}
++
++static int devtmpfs_parse_monolithic(struct fs_context *fc, void *data)
++{
++	struct devtmpfs_context *ctx = fc->fs_private;
++
++	if (ctx->fc->ops->parse_monolithic)
++		return ctx->fc->ops->parse_monolithic(ctx->fc, data);
++	return generic_parse_monolithic(ctx->fc, data);
++}
++
+ static int devtmpfs_get_tree(struct fs_context *fc)
+ {
++	struct devtmpfs_context *ctx = fc->fs_private;
+ 	struct super_block *sb = mnt->mnt_sb;
++	int err;
  
--	/* rr3 will disable rc detector on transmit */
--	rr3->transmitting = true;
+ 	atomic_inc(&sb->s_active);
+ 	down_write(&sb->s_umount);
++
++	if (ctx->fc->ops->reconfigure) {
++		err = ctx->fc->ops->reconfigure(ctx->fc);
++		if (err) {
++			deactivate_locked_super(sb);
++			return err;
++		}
++	}
++
+ 	fc->root = dget(sb->s_root);
+ 	return 0;
+ }
+ 
+-/* Ops are filled in during init depending on underlying shmem or ramfs type */
+-static struct fs_context_operations devtmpfs_context_ops = {};
++static const struct fs_context_operations devtmpfs_context_ops = {
++	.free		  = devtmpfs_free,
++	.parse_param	  = devtmpfs_parse_param,
++	.parse_monolithic = devtmpfs_parse_monolithic,
++	.get_tree	  = devtmpfs_get_tree,
++};
+ 
+-/* Call the underlying initialization and set to our ops */
+ static int devtmpfs_init_fs_context(struct fs_context *fc)
+ {
+-	int ret;
+-#ifdef CONFIG_TMPFS
+-	ret = shmem_init_fs_context(fc);
+-#else
+-	ret = ramfs_init_fs_context(fc);
+-#endif
+-	if (ret < 0)
+-		return ret;
++	struct devtmpfs_context *ctx;
++	int err;
++
++	ctx = kzalloc_obj(struct devtmpfs_context);
++	if (!ctx)
++		return -ENOMEM;
++
++	/* Each mount will reconfigure the shared superblock w/ new options */
++	ctx->fc = fs_context_for_reconfigure(mnt->mnt_root,
++					     mnt->mnt_sb->s_flags, MS_RMT_MASK);
++	if (IS_ERR(ctx->fc)) {
++		err = PTR_ERR(ctx->fc);
++		kfree(ctx);
++		return err;
++	}
+ 
++	fc->fs_private = ctx;
+ 	fc->ops = &devtmpfs_context_ops;
+ 
+ 	return 0;
+ }
+ 
+ static struct file_system_type dev_fs_type = {
+-	.name = "devtmpfs",
++	.name		 = "devtmpfs",
+ 	.init_fs_context = devtmpfs_init_fs_context,
+ };
+ 
+@@ -442,31 +493,6 @@ static int __ref devtmpfsd(void *p)
+ 	return 0;
+ }
+ 
+-/*
+- * Get the underlying (shmem/ramfs) context ops to build ours
+- */
+-static int devtmpfs_configure_context(void)
+-{
+-	struct fs_context *fc;
 -
- 	sample_lens = kzalloc_objs(*sample_lens, RR3_DRIVER_MAXLENS);
- 	if (!sample_lens)
- 		return -ENOMEM;
-@@ -794,6 +786,9 @@ static int redrat3_transmit_ir(struct rc_dev *rcdev, unsigned *txbuf,
- 		goto out;
+-	fc = fs_context_for_reconfigure(mnt->mnt_root, mnt->mnt_sb->s_flags,
+-					MS_RMT_MASK);
+-	if (IS_ERR(fc))
+-		return PTR_ERR(fc);
+-
+-	/* Set up devtmpfs_context_ops based on underlying type */
+-	devtmpfs_context_ops.free	      = fc->ops->free;
+-	devtmpfs_context_ops.dup	      = fc->ops->dup;
+-	devtmpfs_context_ops.parse_param      = fc->ops->parse_param;
+-	devtmpfs_context_ops.parse_monolithic = fc->ops->parse_monolithic;
+-	devtmpfs_context_ops.get_tree	      = &devtmpfs_get_tree;
+-	devtmpfs_context_ops.reconfigure      = fc->ops->reconfigure;
+-
+-	put_fs_context(fc);
+-
+-	return 0;
+-}
+-
+ /*
+  * Create devtmpfs instance, driver-core devices will add their device
+  * nodes here.
+@@ -482,12 +508,6 @@ int __init devtmpfs_init(void)
+ 		return PTR_ERR(mnt);
  	}
  
-+	/* rr3 will disable rc detector on transmit */
-+	rr3->transmitting = true;
-+
- 	for (i = 0; i < count; i++) {
- 		cur_sample_len = redrat3_us_to_len(txbuf[i]);
- 		if (cur_sample_len > 0xffff) {
+-	err = devtmpfs_configure_context();
+-	if (err) {
+-		pr_err("unable to configure devtmpfs type %d\n", err);
+-		return err;
+-	}
+-
+ 	err = register_filesystem(&dev_fs_type);
+ 	if (err) {
+ 		pr_err("unable to register devtmpfs type %d\n", err);
 -- 
 2.53.0
 
