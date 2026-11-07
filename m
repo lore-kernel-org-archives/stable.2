@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046215;
-	b=KhT8t7KUZ0TT1UqeV3xQgyK9yZAIiOJXiK4TeB0E7YmlY6uVW/TGpQacUUhhnVfqqmLm
-	 MdlpYRaygiQ3sSrCCz6HvvDbFg/T5SC1d+U2hiWJVP68x3nc/oV3U5tuuAKOdMwpiSnIK
-	 QM1rpYKGMRN3GLVR05KxJxkBxQ5WVWEaaxF29Gg+TnHpy+YG++2ox43F7+GdCFSO+l9b8
-	 N84QpdJ6xNPKWZYYKyd6dmjMb2KY9RrePpppWWWY4HSpEFTZ9q2S9tATlCAUBqlCf0ATG
-	 OwGtMPUyhoa6KRdgy4ImsDZPnaKL40nMbfSckJMLrR71TZW/p4N1CODnME15fmKFX8w==
+	t=1794046217;
+	b=wKl0QnAGEtDafHT9aPcm8d+5YLiczOows/cZfJqCNhcTDJ/2/WSVulmGODnqHdF98Nwp
+	 XpByHSsv7vcKNevAqR1DjXm42Mz7+d1FXotjAhCmHj3Fx2axM1SSAD6o7PdzhjnPJlO7/
+	 38qF2nKP385pdz5XRjOZPfa/+wcyrEmi9ZkjE/hV1YEiDB+VCGqEGgnuDUzQ4zQPA0/vA
+	 1Do8QBPLFo8so8eAkfrL2O+NI4J1xN/Qgzw4Y6r5fv8JcO3d/h6BQJT72z4J952eQbVlk
+	 f+DF16Z+X6tlu1YvRzGNZVsk7IftmfLoGjAyBrl3SvbSGm6wZWd2fkY0ddPvjfX1WvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046215;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046217;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=bhzRlyj2bjdgzG7OvB9pZz2PAZCy9+VpW86kKxcpDEQ=;
-	b=BryAQhAPWubwgiSn30dYhzN9DwJBPkxx39pheYAJhyHPZnmjPHcOMgpvroe+qPAkTPiE
-	 m2tvLTzfPlm/tGm8HOPBs/O916+BYt+/hljdL5BbSlaGeddhI+F5sQSNZ6MdU0Kk+5HCs
-	 xkkX5DVO4ca8T5Rd8NDd33VfVZaIwTB7YUBsnuhq8SwOnOh5HkmOrOH6RBHBGt2seSpxT
-	 VRm//wvJ+80CSPrL44ng7O9Rvyk3Wc3JVmcIpcrSRtT1t3/GpkoayQsnI2UfN4MbWjCLK
-	 ufoW9BUA8lKSI7G0Ts/iX6dFTrZNU+iUAGEyaQboEn70jNAhObeQAy6js2eGBgdg69w==
+	bh=kLSFpHpu/Xppobr7G+z/55qcw8DoAFm2MuQRmbZExUw=;
+	b=S/hf99XfvGuw8sVlWLAhW7vtn7BrcZghv2dP82LS3JIE9vAwFq64HkbYFjs2O8SOF8CZ
+	 UV+G7tPKsk47qEMuj2RgFYmxGUCg7Ijw/kQVYd4vU94g4IxSBjplMEhMjSQnHZHEkCI4D
+	 TWXKOJvfCtIRk5z1a6RmaRcd6g/GdmwQ5odN5Q1sV8IpossdcpVzb3XgGgrQnxEjhsc+8
+	 lSYhxd/LqfH94PGrpaHX2sQyZtm9zqMP+ZoJDPHW/58N2ggRKJsq2S4EVQ6RGwUFSSmWi
+	 AACvfTPTf8yEKgleA59twjetVKppc9MZYq6nF1pHomQv8wbXB9qO4kzGFDrOE362UPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aukIv6MM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GcikHNTc;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F882606A32F
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:10:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93E0A606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:10:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aukIv6MM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6EE21F0089F;
-	Sat,  7 Nov 2026 10:10:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GcikHNTc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB8DA1F0089F;
+	Sat,  7 Nov 2026 10:10:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046215;
-	bh=bhzRlyj2bjdgzG7OvB9pZz2PAZCy9+VpW86kKxcpDEQ=;
+	s=k20260515; t=1794046217;
+	bh=kLSFpHpu/Xppobr7G+z/55qcw8DoAFm2MuQRmbZExUw=;
 	h=From:To:Cc:Subject:Date;
-	b=aukIv6MMH5HQMPZqvMWOYVzjL3TcORufJONe9/aGN/zrnO2aPGi1+/VyONd5QlY8P
-	 w/I9oXpdONBGqccpYSOhYlq8l/Z2MvRH2GWHl8YNr3Pkns4XnrgfB7a39rePy06EgC
-	 wPDYfQQjsX4XHF/FK1OBTLRmhxo2U6DiYh+oTKR/qiVVF/z6k6e4rJvQokODcK3vzq
-	 zyS5328bBYHS3PEI/fffROnV5V3FZ76oSa35FzhSGUdLGTQuvL1V0NBqbizF0a9CxC
-	 8T49BANX7TR1JcjKG2suFW1C9p4LcS2k288oF5+XTcnnVwEBNVUEjIFZ/u3BPz1W4Z
-	 WYojydzqmHQiQ==
+	b=GcikHNTcbLymlrWk83AZJs1WJrCnSFDGdeTSKPB+dLNSCGXddtGW/FxvOYqDBWEQ3
+	 fL7ODAFtaJ7oo7Ji2Jgardad/m03mVMt+wOQRhWyQ0rVkHQwhIVgP3SCQmUZ4b4dLz
+	 ei3AZv/s44KOxMmuYcjP99iJo1q/VjbGXPMeFkKbsseFsQv8jL9u4TGpBP74zfr4f2
+	 xRp2QU28HaC+PrFRTsl68XmB23OaAlAzuvXBbY8Wm3M0l7duuHsylXexm6RWKZjNr+
+	 P7cIGOzXbbJ1jz0T2WNomTja0OCEX+YM+8aNAjy1ZbxAI4orDW6fikia0MVs58ulOI
+	 ayIL8wW8QpVjQ==
 From: Sasha Levin <sashal@kernel.org>
-To: clusk@northecho.dev,
-	schwab@linux-m68k.org,
-	gerg@linux-m68k.org
+To: leitao@debian.org,
+	xueshuai@linux.alibaba.com,
+	rafael.j.wysocki@intel.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] m68k: Fix seccomp filtering on ColdFire and 68000" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:10:13 -0500
-Message-ID: <20261107051013-failed-6.18-48859f8018d9@kernel.org>
+Subject: FAILED: patch "[PATCH] ACPI: APEI: accumulate the queued flag across error sections" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:10:15 -0500
+Message-ID: <20261107051015-failed-6.18-f341307a1489@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,79 +69,74 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 48859f8018d93bd93ef35f7430fdf5b97f2f9715
+git cherry-pick -x f341307a14895e5da056fb419a31ef7fb534ab18
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051013-failed-6.18-48859f8018d9@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051015-failed-6.18-f341307a1489@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 48859f8018d93bd93ef35f7430fdf5b97f2f9715 Mon Sep 17 00:00:00 2001
-From: Christopher Lusk <clusk@northecho.dev>
-Date: Sun, 13 Sep 2026 09:17:53 -0400
-Subject: [PATCH] m68k: Fix seccomp filtering on ColdFire and 68000
+From f341307a14895e5da056fb419a31ef7fb534ab18 Mon Sep 17 00:00:00 2001
+From: Breno Leitao <leitao@debian.org>
+Date: Fri, 25 Sep 2026 08:09:11 -0700
+Subject: [PATCH] ACPI: APEI: accumulate the queued flag across error sections
 
-m68k selects HAVE_ARCH_SECCOMP_FILTER for all configurations, but the
-ColdFire and 68000 syscall entry paths only branch to
-syscall_trace_enter() for TIF_SYSCALL_TRACE. TIF_SECCOMP alone falls
-through to syscall dispatch, leaving installed filters ineffective.
+ghes_do_proc() walks every error section of a CPER record, and
+ghes_handle_arm_hw_error() walks every error-info entry of an ARM
+processor section.  Both assign to "queued" instead of OR-ing into it,
+so only the last iteration counts: a later section or entry that queues
+no memory-failure work clears the flag an earlier one set.
 
-Test the combined TIF_SYSCALL_TRACE and TIF_SECCOMP mask in both paths
-and route either flag through the existing slow path. Leave the classic
-MMU syscall entry implementation unchanged.
+Instead of reassigning the variable at every time, just do an `OR`, so,
+if there was a single match, it will return "queued" as set.
 
-Validated the combined test under QEMU mcf5208evb (ColdFire): filters
-denying getpid, openat, unlinkat, and reboot each returned -EPERM. A
-classic-MMU control (q800) denied the filtered getpid syscall both before
-and after this change. The 68000 path shares the same source-level
-omission and receives the identical masked test but was not separately
-emulated. Compile-tested W=1 with CONFIG_SECCOMP_FILTER=y on both
-m5208evb_defconfig and a custom no-MMU UCSIMM configuration; the latter
-built arch/m68k/68000/entry.o and vmlinux.
+The comment above the check says "If no memory failure
+work is queued", which is the semantics this patch implements. I.e, only
+SIGBUS if there are queue was not handled at all. If we want to SIGBUS
+if any event was not handled/queued at all, we will need something more
+sophisticated.
 
-Fixes: 6baaade15594 ("m68k: Add kernel seccomp support")
-Cc: stable@vger.kernel.org # v6.3+
-Suggested-by: Andreas Schwab <schwab@linux-m68k.org>
-Assisted-by: Claude:claude-opus-4-8
-Assisted-by: Codex:gpt-5.6-sol
-Signed-off-by: Christopher Lusk <clusk@northecho.dev>
-Signed-off-by: Greg Ungerer <gerg@linux-m68k.org>
+Fixes: 7f17b4a121d0 ("ACPI: APEI: Kick the memory_failure() queue for synchronous errors")
+Fixes: ccb5ecdc2dde ("ACPI: APEI: fix synchronous external aborts in user-mode")
+Cc: All applicable <stable@vger.kernel.org>
+Signed-off-by: Breno Leitao <leitao@debian.org>
+Reviewed-by: Shuai Xue <xueshuai@linux.alibaba.com>
+Link: https://patch.msgid.link/20260925-ghes-queued-accumulate-v1-1-df50553957d4@debian.org
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 ---
- arch/m68k/68000/entry.S    | 3 ++-
- arch/m68k/coldfire/entry.S | 3 ++-
- 2 files changed, 4 insertions(+), 2 deletions(-)
+ drivers/acpi/apei/ghes.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/arch/m68k/68000/entry.S b/arch/m68k/68000/entry.S
-index c257cc415c478..0d3cbededc43c 100644
---- a/arch/m68k/68000/entry.S
-+++ b/arch/m68k/68000/entry.S
-@@ -79,7 +79,8 @@ ENTRY(system_call)
+diff --git a/drivers/acpi/apei/ghes.c b/drivers/acpi/apei/ghes.c
+index ade1cc8c9f8d1..663dc2e601cf7 100644
+--- a/drivers/acpi/apei/ghes.c
++++ b/drivers/acpi/apei/ghes.c
+@@ -603,7 +603,7 @@ static bool ghes_handle_arm_hw_error(struct acpi_hest_generic_data *gdata,
+ 		 * and don't filter out 'corrected' error here.
+ 		 */
+ 		if (is_cache && has_pa) {
+-			queued = ghes_do_memory_failure(err_info->physical_fault_addr, flags);
++			queued |= ghes_do_memory_failure(err_info->physical_fault_addr, flags);
+ 			p += err_info->length;
+ 			continue;
+ 		}
+@@ -1000,11 +1000,11 @@ static void ghes_do_proc(struct ghes *ghes,
+ 			atomic_notifier_call_chain(&ghes_report_chain, sev, mem_err);
  
- 	/* Doing a trace ? */
- 	getthreadinfo
--	btst	#(TIF_SYSCALL_TRACE%8),%a2@(TINFO_FLAGS+(31-TIF_SYSCALL_TRACE)/8)
-+	moveb	%a2@(TINFO_FLAGS+2),%d1
-+	andl	#((_TIF_SYSCALL_TRACE + _TIF_SECCOMP) >> 8),%d1
- 	jne	do_trace
- 	cmpl	#NR_syscalls,%d0
- 	jcc	badsys
-diff --git a/arch/m68k/coldfire/entry.S b/arch/m68k/coldfire/entry.S
-index 4ea08336e2fb0..d658abdc52075 100644
---- a/arch/m68k/coldfire/entry.S
-+++ b/arch/m68k/coldfire/entry.S
-@@ -72,7 +72,8 @@ ENTRY(system_call)
- 	movel	%d2,%a0
- 	movel	%a0@,%a1		/* save top of frame */
- 	movel	%sp,%a1@(TASK_THREAD+THREAD_ESP0)
--	btst	#(TIF_SYSCALL_TRACE%8),%a0@(TINFO_FLAGS+(31-TIF_SYSCALL_TRACE)/8)
-+	moveb	%a0@(TINFO_FLAGS+2),%d2
-+	andl	#((_TIF_SYSCALL_TRACE + _TIF_SECCOMP) >> 8),%d2
- 	bnes	1f
+ 			arch_apei_report_mem_error(sev, mem_err);
+-			queued = ghes_handle_memory_failure(gdata, sev, sync);
++			queued |= ghes_handle_memory_failure(gdata, sev, sync);
+ 		} else if (guid_equal(sec_type, &CPER_SEC_PCIE)) {
+ 			ghes_handle_aer(gdata);
+ 		} else if (guid_equal(sec_type, &CPER_SEC_PROC_ARM)) {
+-			queued = ghes_handle_arm_hw_error(gdata, sev, sync);
++			queued |= ghes_handle_arm_hw_error(gdata, sev, sync);
+ 		} else if (guid_equal(sec_type, &CPER_SEC_CXL_PROT_ERR)) {
+ 			struct cxl_cper_sec_prot_err *prot_err = acpi_hest_get_payload(gdata);
  
- 	movel	%d3,%a0
 -- 
 2.53.0
 
