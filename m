@@ -1,52 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048350;
-	b=b8X+h7ALnDXoEHH+G6/290b+inrZ2wRMibd6YlgLerQXHOOPB6vbxEysDs+RP6qnaVxg
-	 9yL8wCB/xNVSjKO79f2dhqnIlxsRocne5PVTEY4UJjr2INO95wPdMouDqjpdhnHhUEFtN
-	 M0rAX3b5dwKLMikaQU/RDLmSLviX3M/c6yMgEmLP44TcMTgODGQYRUqD4AhPQUZtD1y3D
-	 swfizNk10lxDbcYZPhz2GKuUz5+W77hSaiZyFJCF5Y3K+2WR0mZ4W4eGb6DhGKv1QKiPG
-	 MNbwvkLgZGY+UpybB1a76hUPipXw+Szfl478QUa0mA/ts4actBPuy0xJpAumpZlbt/A==
+	t=1794048353;
+	b=wb3OiHA5gJqtpR4aUbzul5qdxMxpJxpMK43v7LAEYVqYdKsGE2sM9mY0k2csT5iD7aTo
+	 DRrnrsn3mHXB52/YpNyV0uSpD126qI7XDKTYbeZA7xgHsxpBAjIT/VFuv1AYt3UojhUiY
+	 K4q96uqNeDjDHL0TKrlg2SVBOxepbeCyYTs2W1kGaEMb3cZfZkMJ8TV0ThFYc1nWq8cHB
+	 OWgtXzGewlRvMWXcmyfeFqh8x4/Cpp6xHKQwrnmamXRTyxrBMHiUbzpUWvfqsdCbPQyE8
+	 ecvrCTbJuSDBDX/Up8Thst1gJYtTkXJzWsvddkdRT3m8rU+EmuG++zeHeniuMfFMFSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048350;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048353;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=xReKY+8ECL7PdscqAugqw6aJHOUzlUR95LTGQmHBMb4=;
-	b=pitHszPnT9q5XvmugL25C0SUOGaNDucEWSdZvF6bvZfKlQD1Hs9yANMn8A7UMsYviyzo
-	 Pbdu7PMnbKmwCcRomr4USwTaljLUaeBWxSXsPyA5UjZ5FMH4Kswi3KwRAIK5LGzyHXp0y
-	 pTMb5j89sF0GatoB311S24nHosfwndGwreELm4sidHhjEgiDdYgwV9WTDvyZEp3ViD3YM
-	 tkLLNmIw264KAm0R9QF/1i0PjcGpJVK2puzzaEegKMLfM4gi2w9wBBMfou8e7W2i6PTTJ
-	 iajUy2MR8pMwImTHx6TbNlw4mJO3EcmjhQhDNKXgvICLOLNWbLyz6pFT1M12CMERaKQ==
+	bh=31VG26IY5EOx9fw84rNBeR7sifORw5Pj6RTFE/0PcN4=;
+	b=UoUhfewbjt9ftrcCB+OcZPf3jzza3MO/Qgft7bMAF6uz+WpstttoL8orNTi4Hl01BBSO
+	 TPJZArlbB3ng4NNBZ1hIG0/YC/NPFTjHgeVsI/8L1YSapwxjTLHL1XO0Rzk6BzjymHGbs
+	 b665wwjBFvWRubN63nsS8BY/pDXGnXI5+JIBQKhsWK11Yc04NStTOa8ocKhg9hhz0/1hd
+	 TIwMint3goj3lLcPorEFihTTFKNkwwI9UvzLrr8eCHm0ffrVT7leSztkTaBoWl8eXlpjp
+	 QDJloVFbegyGuwshAfaNbhoCiWMnbIjKAP3mU5AtT0CW/MUsqjrlNPndgCNV9mKVokg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q9yrckiP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bi9n+nIH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BDC4606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:45:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B079606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:45:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q9yrckiP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77FB81F008A1;
-	Sat,  7 Nov 2026 10:45:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bi9n+nIH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4B051F0089F;
+	Sat,  7 Nov 2026 10:45:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048350;
-	bh=xReKY+8ECL7PdscqAugqw6aJHOUzlUR95LTGQmHBMb4=;
+	s=k20260515; t=1794048353;
+	bh=31VG26IY5EOx9fw84rNBeR7sifORw5Pj6RTFE/0PcN4=;
 	h=From:To:Cc:Subject:Date;
-	b=Q9yrckiPKpmhJkXWp5+B6TSanQzK2tThBZErOx8T8JsAbMtQXECNbOeM93GfR8rSB
-	 l/K4Jn5417mHAxS8H28ZpHfsaWSHR3lclq3yD6PzpIuYMtJky4sepqc8HF3/m+kqDI
-	 58E6WuWYi4fuCFgC+KHKSJ7E0uFS4Z+3lI1zEDm3LRbj13K5ZHU9PuLXz6QDLWS6F0
-	 0k2Bhp/TPE3dwnM88HA2DISYo99zKz6zG8XriCApuOPZ3maFUAmcG2ql46/CzH0IE4
-	 ZWIvvBTFPzJc+QXoqsguvCp6oVUL1D3ue6BM09QXyloCvrxfBu1+8qgWtZy7w9goPy
-	 QiFmZtF6nKGlA==
+	b=Bi9n+nIHmMbPrMr2r9PGkpIBGP/fE6GYVtBtYvyxNKOfrsVeSL3uj+prJOubEfTrP
+	 4OIq5Z8GFgqLZFom8anSmtm++2xMUGoumlG4gUB+iKU04SejloMgEwV5drRIC/pMzC
+	 mk2UKQQoqSNVe8BKjyumBHUJ0Yvkx4i2YKOZ9vitiHx4b2aK/+G5OiLY0D4YmCGdsV
+	 jW1G7nP++1Xxux4xTbcwJ4RvI6H7JqBQdqwpjihhf1IiXTj4goGblHL7tIMHatuDUD
+	 327Un+MmOJ6DnDs7tq4ye+2v+mblZKrqUfTTQrEeerAOBCMbeQjdfPnsWisZOWqo55
+	 Vp7CtEVzXtiRg==
 From: Sasha Levin <sashal@kernel.org>
-To: swinds24@gmail.com,
+To: senozhatsky@chromium.org,
+	sarthakkukreti@google.com,
 	jack@suse.cz,
+	libaokun@linux.alibaba.com,
+	yi.zhang@huawei.com,
 	tytso@mit.edu
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ext4: fix fast commit replay failing on a read-only mount" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:45:48 -0500
-Message-ID: <20261107054548-failed-6.1-e1a881ea4674@kernel.org>
+Subject: FAILED: patch "[PATCH] ext4: fix ABBA deadlock in ext4_rmdir()" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:45:51 -0500
+Message-ID: <20261107054551-failed-6.1-19e16597f9ba@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,124 +72,125 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x e1a881ea4674876721cab97680d1d8308f90e9a4
+git cherry-pick -x 19e16597f9baf1b5719a3a6c710486446f6808fd
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054548-failed-6.1-e1a881ea4674@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054551-failed-6.1-19e16597f9ba@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From e1a881ea4674876721cab97680d1d8308f90e9a4 Mon Sep 17 00:00:00 2001
-From: Hsiu-Hsien Lee <swinds24@gmail.com>
-Date: Wed, 12 Aug 2026 12:43:53 +0800
-Subject: [PATCH] ext4: fix fast commit replay failing on a read-only mount
+From 19e16597f9baf1b5719a3a6c710486446f6808fd Mon Sep 17 00:00:00 2001
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+Date: Thu, 27 Aug 2026 21:50:20 +0900
+Subject: [PATCH] ext4: fix ABBA deadlock in ext4_rmdir()
 
-A filesystem with fast_commit that needs recovery cannot be mounted
-read-only:
+We observe the following ABBA deadlock (casefolding enabled):
 
-  EXT4-fs (dm-0): INFO: recovery required on readonly filesystem
-  EXT4-fs (dm-0): write access will be enabled during recovery
-  WARNING: CPU: 22 PID: 5544 at fs/ext4/ext4_jbd2.c:73
-   ext4_journal_check_start
-   __ext4_journal_start_sb
-   __ext4_unlink
-   ext4_fc_replay
-   do_one_pass
-   jbd2_journal_recover
-   jbd2_journal_load
-   __ext4_fill_super
-  JBD2: journal recovery failed
-  EXT4-fs (dm-0): error loading journal
+ INFO: task jbd2/dm-13-8:447 blocked for more than 720 seconds.
+ task:jbd2/dm-13-8    state:D stack:0     pid:447   tgid:447   ppid:2
+ Call Trace:
+  <TASK>
+  __schedule+0xc2c/0xe60
+  schedule+0x40/0xe0
+  jbd2_journal_wait_updates+0x8f/0xf0
+  jbd2_journal_commit_transaction+0x321/0x1850
+  kjournald2+0xa9/0x230
+  kthread+0x226/0x2a0
+  ret_from_fork+0x101/0x1e0
+  ret_from_fork_asm+0x1a/0x30
 
-Fast commit replay runs ext4 metadata operations instead of writing
-blocks through the buffer cache: ext4_fc_replay_{unlink,link,create}()
-reach __ext4_unlink() and __ext4_link(), which start a handle.
-ext4_journal_check_start() returns -EROFS on a read-only sb, and as
-that is not -ENOENT it propagates out of jbd2_journal_recover() and
-kills the whole recovery.  The EXT4_FC_REPLAY check that would hand
-out a no-journal handle sits after the sb_rdonly() test, so replay can
-never complete read-only.
+ INFO: task Thread-10:4161 blocked for more than 720 seconds.
+ task:Thread-10       state:D stack:0     pid:4161  tgid:3848  ppid:540
+ Call Trace:
+  <TASK>
+  __schedule+0xc2c/0xe60
+  schedule+0x40/0xe0
+  wait_transaction_locked+0x8c/0xd0
+  start_this_handle+0x252/0x870
+  jbd2__journal_start+0x120/0x280
+  __ext4_journal_start_sb+0x11a/0x250
+  ext4_evict_inode+0x208/0x760
+  iput+0x222/0x5c0
+  dput+0x293/0x690
+  ____fput+0x145/0x2b0
+  task_work_run+0x7a/0xb0
+  exit_to_user_mode_loop+0xc0/0xd0
+  do_syscall_64+0x14b/0xf10
+  entry_SYSCALL_64_after_hwframe+0x76/0x7e
 
-ext4_load_journal() has already promised that write access will be
-enabled during recovery, so make that true for the superblock as well:
-clear SB_RDONLY across jbd2_journal_load() when recovery is needed on a
-read-only mount and the devices are writable, as ext4_orphan_cleanup()
-does.  Unlike ext4_handle_error(), which avoids SB_RDONLY because it
-would need s_umount, the sb here is still inside ext4_fill_super() and
-not published, so nothing can observe it.
+ NMI backtrace for cpu 0
+ CPU: 0 UID: 1010216 PID: 4160 Comm: Thread-7
+ RIP: 0010:d_walk+0x0/0x290
+[..]
+ Call Trace:
+ <TASK>
+  shrink_dcache_parent+0xb2/0x100
+  d_invalidate+0x50/0x110
+  ext4_rmdir+0x3a2/0x3d0
+  vfs_rmdir+0x9d/0x1d0
+  do_rmdir+0xf0/0x330
+  __x64_sys_unlinkat+0x34/0x50
+  do_syscall_64+0x61/0xf10
 
-The failure is not clean either: the replay handlers passing a NULL
-handle (ext4_fc_replay_inode(), _add_range(), _del_range()) never hit
-ext4_journal_check_start() and do write, leaving a partially applied
-fast commit behind.
+The problem is that ext4_rmdir() calls d_invalidate() before stopping
+the jbd2 transaction handle.  Because d_invalidate() traverses child
+dentries it can encounter dying or in-use dentries.  If a concurrent
+thread executing __dentry_kill() on a child dentry invokes ext4_evict_inode(),
+it requests a new transaction handle via ext4_journal_start(), which
+waits for all running handles to close.  However, the thread executing
+ext4_rmdir() still holds its active transaction handle while looping
+in shrink_dcache_parent() waiting for the dying child dentry to complete
+eviction.
 
-Reproducer, where the unlink only ever reaches the fast commit area:
+Stop transaction handle in ext4_rmdir() before calling d_invalidate().
 
-  mke2fs -q -F -t ext4 -O fast_commit -b 4096 /dev/sdb3 262144
-  mount /dev/sdb3 /mnt
-  dd if=/dev/zero of=/mnt/victim bs=4k count=1 conv=fsync
-  sync                          # victim now in a full commit
-  rm /mnt/victim
-  dd if=/dev/zero of=/mnt/trigger bs=4k count=1 conv=fsync
-  <crash, or snapshot the device while mounted and write it back>
-  mount -o ro /dev/sdb3 /mnt
-
-Without this patch that mount fails; with it recovery completes and
-victim is gone, i.e. the UNLINK record was really replayed.
-
-Fixes: 8016e29f4362 ("ext4: fast commit recovery path")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hsiu-Hsien Lee <swinds24@gmail.com>
+Cc: stable@kernel.org
+Fixes: b886ee3e778e ("ext4: Support case-insensitive file name lookups")
+Co-developed-by: Sarthak Kukreti <sarthakkukreti@google.com>
+Signed-off-by: Sarthak Kukreti <sarthakkukreti@google.com>
+Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
 Reviewed-by: Jan Kara <jack@suse.cz>
-Link: https://patch.msgid.link/20260812044353.1018268-1-swinds24@gmail.com
+Reviewed-by: Baokun Li <libaokun@linux.alibaba.com>
+Reviewed-by: Zhang Yi <yi.zhang@huawei.com>
+Link: https://patch.msgid.link/20260827125158.4030598-1-senozhatsky@chromium.org
 Signed-off-by: Theodore Ts'o <tytso@mit.edu>
 ---
- fs/ext4/super.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+ fs/ext4/namei.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
-diff --git a/fs/ext4/super.c b/fs/ext4/super.c
-index bca0dc87d0b7c..ab243a02a493c 100644
---- a/fs/ext4/super.c
-+++ b/fs/ext4/super.c
-@@ -6123,6 +6123,7 @@ static int ext4_load_journal(struct super_block *sb,
- 	int err = 0;
- 	int really_read_only;
- 	int journal_dev_ro;
-+	bool enable_write = false;
+diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
+index a6386c1d237f1..231a274b814ec 100644
+--- a/fs/ext4/namei.c
++++ b/fs/ext4/namei.c
+@@ -3209,19 +3209,20 @@ static int ext4_rmdir(struct inode *dir, struct dentry *dentry)
+ 	ext4_fc_track_unlink(handle, dentry);
+ 	retval = ext4_mark_inode_dirty(handle, dir);
  
- 	if (WARN_ON_ONCE(!ext4_has_feature_journal(sb)))
- 		return -EFSCORRUPTED;
-@@ -6179,6 +6180,7 @@ static int ext4_load_journal(struct super_block *sb,
- 			}
- 			ext4_msg(sb, KERN_INFO, "write access will "
- 			       "be enabled during recovery");
-+			enable_write = true;
- 		}
- 	}
++end_rmdir:
++	brelse(bh);
++	if (handle)
++		ext4_journal_stop(handle);
++
+ 	/* VFS negative dentries are incompatible with Encoding and
+ 	 * Case-insensitiveness. Eventually we'll want avoid
+ 	 * invalidating the dentries here, alongside with returning the
+ 	 * negative dentries at ext4_lookup(), when it is better
+ 	 * supported by the VFS for the CI case.
+ 	 */
+-	if (IS_ENABLED(CONFIG_UNICODE) && IS_CASEFOLDED(dir))
++	if (!retval && IS_ENABLED(CONFIG_UNICODE) && IS_CASEFOLDED(dir))
+ 		d_invalidate(dentry);
  
-@@ -6195,7 +6197,19 @@ static int ext4_load_journal(struct super_block *sb,
- 		if (save)
- 			memcpy(save, ((char *) es) +
- 			       EXT4_S_ERR_START, EXT4_S_ERR_LEN);
-+		/*
-+		 * Fast commit replay performs regular ext4 metadata updates
-+		 * (see ext4_fc_replay()) which refuse to run on a read-only
-+		 * superblock.  We promised write access above, so make that
-+		 * true for the duration of the recovery, the same way
-+		 * ext4_orphan_cleanup() does.  The superblock is not published
-+		 * yet, so nothing can observe the transient state.
-+		 */
-+		if (enable_write)
-+			sb->s_flags &= ~SB_RDONLY;
- 		err = jbd2_journal_load(journal);
-+		if (enable_write)
-+			sb->s_flags |= SB_RDONLY;
- 		if (save && memcmp(((char *) es) + EXT4_S_ERR_START,
- 				   save, EXT4_S_ERR_LEN)) {
- 			memcpy(((char *) es) + EXT4_S_ERR_START,
+-end_rmdir:
+-	brelse(bh);
+-	if (handle)
+-		ext4_journal_stop(handle);
+ 	return retval;
+ }
+ 
 -- 
 2.53.0
 
