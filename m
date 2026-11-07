@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050590;
-	b=38PgZ9fXsm2gBslSOrAu8J2jqx7EbY1JuKlnoWEb0vX65dashrycuxltzRlgghvidJ5T
-	 RH6hkjZhkX39i85kljryODB4zOkZiIHYFDF++/oVxrxNDIlvM3rWZnxnt2h6zy5Vbvpkb
-	 fLobmWXivvCttMBbuBwNXr1U1XcPx9aZ+g56eyHR01JEJS68bqyDoP2UQ9A+ho8EgCHNz
-	 R/XDv1ZHuG6zcOO5zm/AVHUeEB7tWfGyS/iBJsrZbpO018jVlUrzc64Et4Tz3DznS5NVx
-	 VO41ttonzTqAGNiei+GNr3uZRghT+ZX5mFukyGc0VlXIktVjDnxnq15OHQrEYARSeXg==
+	t=1794050593;
+	b=HebDdahydtCnGl3IR5bMjO0c2ZNhiO0StZQYT+MvMAo9W4pOeS7KfT/uk+uyYajAKU+z
+	 yolnp752OkiGFbGE0J2odUZm+epMH0koTsOhqOiyOP3bIdEOtI6mNLIJBsd+EC/xmzbfY
+	 7su6X4ubxoUhQJKOogN2cx2qHxZNsZRIHIMzkQTe9cLe0CL+6SwX6kDakpMP/89K/6oHx
+	 vPUprjILjU0nK5uk5o439Yin5vF4nlseGWvnBIm3vW68TnWvpBToiWIyTu/6ZtM3VlxJH
+	 rQafrVagQGKErKTPfrN7Rh7W24XEEw8QZhiGwTEQ+G9A8KgI+jx842OWsoSOIbmilDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050590;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050593;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=/UknZtE/wVq3sBXZaTsHcyTX5clGRaOeE8h2c0gCe6k=;
-	b=sCyCjK6E4w8BxVuzfyJIUU5VLCIAHz89oPEfyp63ANJy7sX4FRutJbhlnSrFybrzjily
-	 LXrmtImMXTz900u1BXN3jfd12UGFssIKrdg5utC1JM5KXvIz9lNK0QhuIz88n6rgR1mR/
-	 w98nmTp89TooLTrhJU6edMu3P812rCSjuMH6YzFnJguor0SbVU62fC4YPK9k/ssmL8HRk
-	 uJ7rcS1GpuI4jMg6RFpuwIvpLmk8nbeQ8FxJeh30Wg4ACXVvEhVVfc1GCcdid9nw5Hd2k
-	 iayktwtd6hDqYVJ448bIvSuTtdJnAD25KajzdQpdq8Gnl8Bv3V4BgmVHgp+5ExzU0hA==
+	bh=tMCNNTgnjKUYoIg5bBFfJW03C/2j2yNc7/DKo8H41j4=;
+	b=m+4xX9FXKXR63NdTzcWWdpO0COZ8hw5uTFJxEeY9aiiB+/zfwtNVE6Krr/7XWTKzI4hU
+	 yNz1XQyiXboWPewUtnJ8crGChiKLRmWl/PjaC1M3z28rYzpua7sCxgQvWbJKxuRHx3rAR
+	 O4Z81lCU8wivnvbfyAwSKpztlD/Y2vh3y1rjtFB3pYJLnNZGzON8J6+iX07pqIdOrKEeP
+	 ZIgf//0vfOhNPyX7A5KROlFaa9uGChTAH3Ra1JHu8STq88hvnXkn2E7lrSI20V4H1OpOv
+	 bvcR1d81I6h/ztTO+FuQ5ezBS1aln57qFHWeju9zNyas2Um4nztiCle6haE6DGUE4ug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KbjzRW3O;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g1urJ83p;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C3B2606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:23:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3826606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:23:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KbjzRW3O
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C7751F008A1;
-	Sat,  7 Nov 2026 11:23:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g1urJ83p
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63A171F0089F;
+	Sat,  7 Nov 2026 11:23:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050589;
-	bh=/UknZtE/wVq3sBXZaTsHcyTX5clGRaOeE8h2c0gCe6k=;
+	s=k20260515; t=1794050592;
+	bh=tMCNNTgnjKUYoIg5bBFfJW03C/2j2yNc7/DKo8H41j4=;
 	h=From:To:Cc:Subject:Date;
-	b=KbjzRW3OH9L5cVFe8E/9jXXCD1oDz/Fg68usZx/R5jsz7xazH+5wQWJOhP0yzYxvl
-	 Ddx6KFnHxH8JcIUpYMvCU/gt7N576FcYQXvc3qZJ7OVLEJBVfFfWRH8CaU2h54AvkR
-	 yJGOQR/2sQUZBepuKb7oJ2v+X0x5chmWck+etC0ec37edOrqmvZ55r706fDDEd7K/e
-	 U3+LlFzKJ3OdHa1E2vaJzj+MgkERRmIXMYVOymzS5Hjiaov23Fr7mrHdfiH/CNbzif
-	 YuvkCbvRC2oWfR66ciRH0MVMGKXxS5h5gB3MR63M9fHDKAPC5VKllzFq3Q4dCyQIOW
-	 8XmqaV9OL05AQ==
+	b=g1urJ83pQOh1oDmskqVYTRUUPWYBppZilJYgT69LPl1wQJhXyZrgLRGhnuRPxdkMy
+	 xmfNDV4NCpCprPEQ43L/CN8xl56XjDl5PCIT44pZsBspqr/o6RDQ9Xmlehf5KqZ/Jh
+	 eFWdcNuXvyyAVXeNAX6cO43OH7UwbRdqNsJzhnejf/5sCbZZ/Df3pFhNPJ6CRw00hW
+	 zJkkSjILAyA4CoV0rfzAh5qqAYQ/2fzI/12dLbPVKWAS715uvak4Bhqt+we26pHRKg
+	 vTHwYLLg8zcAHlZFVJBLh77wTgUtEOx60wh/iNCn0v0nUz14+magZdY6tUjhF4vU5v
+	 KwtogWHt+x7hg==
 From: Sasha Levin <sashal@kernel.org>
-To: francesco.orlando99@libero.it,
-	dmitry.torokhov@gmail.com
+To: lgs201920130244@gmail.com,
+	lee@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] Input: xpad - add GameSir Nova Lite support" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:23:08 -0500
-Message-ID: <20261107062307-failed-5.10-2e6f2e5799f3@kernel.org>
+Subject: FAILED: patch "[PATCH] mfd: ab8500: Fix child device leaks on probe failure" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:23:11 -0500
+Message-ID: <20261107062311-failed-5.10-5bf2ae8b131d@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,44 +68,109 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 2e6f2e5799f328ca0879dad14d7f3709c7f7496b
+git cherry-pick -x 5bf2ae8b131d4ae9c0ed5f7aa02532645f512022
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062307-failed-5.10-2e6f2e5799f3@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062311-failed-5.10-5bf2ae8b131d@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 2e6f2e5799f328ca0879dad14d7f3709c7f7496b Mon Sep 17 00:00:00 2001
-From: Francesco Orlando <francesco.orlando99@libero.it>
-Date: Sun, 11 Oct 2026 18:58:21 +0200
-Subject: [PATCH] Input: xpad - add GameSir Nova Lite support
+From 5bf2ae8b131d4ae9c0ed5f7aa02532645f512022 Mon Sep 17 00:00:00 2001
+From: Guangshuo Li <lgs201920130244@gmail.com>
+Date: Thu, 24 Sep 2026 22:43:55 +0800
+Subject: [PATCH] mfd: ab8500: Fix child device leaks on probe failure
 
-Add vendor and product ID for GameSir Nova Lite (0x3537:0x1040) in
-XInput mode to enable force feedback rumble support.
+ab8500_probe() registers MFD child devices before completing the
+remaining device initialization. If a later MFD registration or sysfs
+group creation fails, previously registered child devices are not
+removed.
 
-Signed-off-by: Francesco Orlando <francesco.orlando99@libero.it>
-Link: https://patch.msgid.link/20261011165821.72698-1-francesco.orlando99@libero.it
+Use devm_mfd_add_devices() so registered MFD child devices are removed
+when probe fails.
+
+The issue was identified by a static analysis tool I developed and
+confirmed by manual review.
+
+Fixes: cca69b67b3ba ("mfd: Export ab8500 chip id to sysfs")
+Fixes: 9c717cf3fa16 ("mfd: ab8500-core: Add device for new RTC version for AB8540 cut2")
 Cc: stable@vger.kernel.org
-Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Link: https://patch.msgid.link/20260924144355.1604369-1-lgs201920130244@gmail.com
+Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/input/joystick/xpad.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/mfd/ab8500-core.c | 44 ++++++++++++++++++++-------------------
+ 1 file changed, 23 insertions(+), 21 deletions(-)
 
-diff --git a/drivers/input/joystick/xpad.c b/drivers/input/joystick/xpad.c
-index 810e52782ae89..d2eb48d98fead 100644
---- a/drivers/input/joystick/xpad.c
-+++ b/drivers/input/joystick/xpad.c
-@@ -408,6 +408,7 @@ static const struct xpad_device {
- 	{ 0x3537, 0x1004, "GameSir T4 Kaleid", 0, XTYPE_XBOX360 },
- 	{ 0x3537, 0x100f, "GameSir Nova 2 Lite", 0, XTYPE_XBOX360 },
- 	{ 0x3537, 0x1010, "GameSir G7 SE", 0, XTYPE_XBOXONE },
-+	{ 0x3537, 0x1040, "GameSir Nova Lite", 0, XTYPE_XBOX360 },
- 	{ 0x3651, 0x1000, "CRKD SG", 0, XTYPE_XBOX360 },
- 	{ 0x366c, 0x0005, "ByoWave Proteus Controller", MAP_SHARE_BUTTON, XTYPE_XBOXONE, FLAG_DELAY_INIT },
- 	{ 0x3767, 0x0101, "Fanatec Speedster 3 Forceshock Wheel", 0, XTYPE_XBOX },
+diff --git a/drivers/mfd/ab8500-core.c b/drivers/mfd/ab8500-core.c
+index ceea1ae34dd89..d5602b2f4a0e8 100644
+--- a/drivers/mfd/ab8500-core.c
++++ b/drivers/mfd/ab8500-core.c
+@@ -1194,39 +1194,41 @@ static int ab8500_probe(struct platform_device *pdev)
+ 		return ret;
+ 
+ 	if (is_ab9540(ab8500))
+-		ret = mfd_add_devices(ab8500->dev, 0, ab9540_devs,
+-				ARRAY_SIZE(ab9540_devs), NULL,
+-				0, ab8500->domain);
++		ret = devm_mfd_add_devices(ab8500->dev, 0, ab9540_devs,
++					   ARRAY_SIZE(ab9540_devs), NULL,
++					   0, ab8500->domain);
+ 	else if (is_ab8540(ab8500)) {
+-		ret = mfd_add_devices(ab8500->dev, 0, ab8540_devs,
+-			      ARRAY_SIZE(ab8540_devs), NULL,
+-			      0, ab8500->domain);
++		ret = devm_mfd_add_devices(ab8500->dev, 0, ab8540_devs,
++					   ARRAY_SIZE(ab8540_devs), NULL,
++					   0, ab8500->domain);
+ 		if (ret)
+ 			return ret;
+ 
+ 		if (is_ab8540_1p2_or_earlier(ab8500))
+-			ret = mfd_add_devices(ab8500->dev, 0, ab8540_cut1_devs,
+-			      ARRAY_SIZE(ab8540_cut1_devs), NULL,
+-			      0, ab8500->domain);
++			ret = devm_mfd_add_devices(ab8500->dev, 0,
++						   ab8540_cut1_devs,
++						   ARRAY_SIZE(ab8540_cut1_devs),
++						   NULL, 0, ab8500->domain);
+ 		else /* ab8540 >= cut2 */
+-			ret = mfd_add_devices(ab8500->dev, 0, ab8540_cut2_devs,
+-			      ARRAY_SIZE(ab8540_cut2_devs), NULL,
+-			      0, ab8500->domain);
++			ret = devm_mfd_add_devices(ab8500->dev, 0,
++						   ab8540_cut2_devs,
++						   ARRAY_SIZE(ab8540_cut2_devs),
++						   NULL, 0, ab8500->domain);
+ 	} else if (is_ab8505(ab8500))
+-		ret = mfd_add_devices(ab8500->dev, 0, ab8505_devs,
+-			      ARRAY_SIZE(ab8505_devs), NULL,
+-			      0, ab8500->domain);
++		ret = devm_mfd_add_devices(ab8500->dev, 0, ab8505_devs,
++					   ARRAY_SIZE(ab8505_devs), NULL,
++					   0, ab8500->domain);
+ 	else
+-		ret = mfd_add_devices(ab8500->dev, 0, ab8500_devs,
+-				ARRAY_SIZE(ab8500_devs), NULL,
+-				0, ab8500->domain);
++		ret = devm_mfd_add_devices(ab8500->dev, 0, ab8500_devs,
++					   ARRAY_SIZE(ab8500_devs), NULL,
++					   0, ab8500->domain);
+ 	if (ret)
+ 		return ret;
+ 
+ 	/* Add battery management devices */
+-	ret = mfd_add_devices(ab8500->dev, 0, ab8500_bm_devs,
+-			      ARRAY_SIZE(ab8500_bm_devs), NULL,
+-			      0, ab8500->domain);
++	ret = devm_mfd_add_devices(ab8500->dev, 0, ab8500_bm_devs,
++				   ARRAY_SIZE(ab8500_bm_devs), NULL,
++				   0, ab8500->domain);
+ 	if (ret)
+ 		dev_err(ab8500->dev, "error adding bm devices\n");
+ 
 -- 
 2.53.0
 
