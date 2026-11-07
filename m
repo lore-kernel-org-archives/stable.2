@@ -1,52 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794064935;
-	b=hXaXrTYxB8e2i2M9VeouV/bj44Z/lWGiJXXIZcyrGsKjP6ver69PSx92AglRGi+uwjoe
-	 eT1i+yUmrlYTTEkjEKZIFWHWMrJEW6irHKKhdjIcuCCwDOWfwHjczlzRIk2At6pK3wN0n
-	 XvYl+ecl/g2161v14QX9QA32XlYyWs+uihyS2n3yQDU47hwV0BBK/5xaAqfIrnvR0OKG+
-	 246Nprpl/4DTV+Nu5X+2ZgOVzsoNLz3w8RkSPT7+UPLuDZO7/UUcpHUsGL9FT//VMsxxP
-	 cbQrn/+kXLv4IYXLQs7vn9fohRskJ+SjwFBJovXeJxQPYtkE3AxP2xEdyUKBUPMvcNQ==
+	t=1794064936;
+	b=jRkVTRbf6TF3KeG1feK2En5hlfMvhS+vWaxxK7LZquZmXIk1testQGDHNt+lzj7Rzzik
+	 CWOnZBICyT/xl2uNWXqfoaRzkS1fiEJ0NqXwoddnrGPli0Jm5l5xX9DLZipA0KkU0o0Tq
+	 fWjTFT9o8uIfktk0N7JAcbtxFi5B2ACuNfoNosV8fI4NL+E/ZN47lzE3tIqpKybQRFWEm
+	 2erwOc6sCj6D4vv/gVSjFDZDjud6Q9aiW5+HyRU/qLboK/elyKG+ghmAF0k+y90TfVLm4
+	 UjCRcHenZ2gU08F5nNjBONxlVse2gSgdjvZ8sNwiQ9EL25eHp6011y/arei8QFkXNaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794064935;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794064936;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=TgZLFdDPiSJ/s3tAIGWM39FcPJbIBFjwRfR3+iSSW6A=;
-	b=QNRDEYSKSzhaBa3uHnxuZWKtJi6pV5sS1yjgfhpwHtpeGvZ4qd6wkhLAfmyQr3NVb9QW
-	 uMB4X7x9zQydZ5F25LRqp/GqUVMDCQEbofE+Q2BTeWempnmOAehXdYF01I3nA1ZZAs33q
-	 ZZeLP8FUwrTCujbiYThVDHolPTx/0GJTxFU53RjT72ZlpBA4jxfh4SQRz60FqH+Ib/33q
-	 XZHyWynuAaS4dzogOrXe3OdgIJ8N3ViXaCwzUb9xsYNB4QqYGQmtR8kCYxnM1NmGl6/cW
-	 +jvRpRKUAaC2TavBT84ZPRgkqWLdXo0sx1VOojoIkNKwiLivy9nTv6OllHJe7BgpWcA==
+	bh=ZNtodVlmHfnacLmlylRB2h3OKDo3SlRX9ttTbzCkLdo=;
+	b=HZZ3ksg/xIlASVw387/NfdT93Sv6Y/tUkchpa+ELXxH4ZVTm5DgmmhNJSBteDJ9+w/iX
+	 BFYCRTz7d99C+eDhlKG367LTH+kEoJ0D9bOFfhUlFoZQzKMAVnvOgzrQVolk7N9R0LKV1
+	 ElDIRNANU66c6dWND9R95gpIS5ElKl2FnqEpFq+Rvd9uY8+XkYTXX2xnEJxnGaqzpKy2m
+	 4QqiFXwgvRs4up2PrzFema8C4T6mN0fbbF5rAmU4BFlAjdA5G0W2n76OehzvH0Gm/Hqdc
+	 WtSOEohz8JfJhIQdn0eVbHxEJD8ypysivBmPUaX/TYN+NMjrbhcwqstI0eW7AcXPEsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=2SHADuWH;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="tFZCZqR/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D215C606A338;
-	Sat,  7 Nov 2026 15:22:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EF49606A32C;
+	Sat,  7 Nov 2026 15:22:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=2SHADuWH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07BAA1F0089F;
-	Sat,  7 Nov 2026 15:22:13 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=tFZCZqR/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F000E1F0089F;
+	Sat,  7 Nov 2026 15:22:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794064934;
-	bh=TgZLFdDPiSJ/s3tAIGWM39FcPJbIBFjwRfR3+iSSW6A=;
+	s=korg; t=1794064936;
+	bh=ZNtodVlmHfnacLmlylRB2h3OKDo3SlRX9ttTbzCkLdo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=2SHADuWHHBNQ5s+WcXTrfamoPRrA+7+4/4pIVgnh/653p15mrFlzV0AEKaIIgkBPY
-	 mhfJ7XBRCXP/S/SCtFXpV4RncafJXG8SZ9sW8J+iSFPWBvrjzSXz3Qv1V0jEHOeJt+
-	 brNaJkIiw/YQ4L6+EN6T92K3suwpInAmkG115XT0=
+	b=tFZCZqR/kbLJ5RMDoi2G4IWIAai6N3T+h6M7ruqfwCIJyH3N49eiEvr4R4Y9qAIAt
+	 4jl6HDsyqjz0rWsk5RZdvtNOi1qNdGQ5AQbz9jqkMTwoexQFAmp9LCUOnRLR4gXR7d
+	 FlGdSHkq72JXT7bX9zEnYJqETgyyzF6FRXJcXcpA=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Josef Bacik <josef@toxicpanda.com>,
+	Henry Martin <bsdhenrymartin@gmail.com>,
+	Allison Henderson <achender@kernel.org>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 0826/1257] net: skbuff: dont BUG() on a bad csum_start in skb_copy_and_csum_dev()
-Date: Sat,  7 Nov 2026 08:52:02 -0500
-Message-ID: <20261107135002.151246170@linuxfoundation.org>
+Subject: [PATCH 7.3 0827/1257] rds: fix out-of-bounds conn_path walks via handshake exthdrs
+Date: Sat,  7 Nov 2026 08:52:03 -0500
+Message-ID: <20261107135002.176800059@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261107134939.434104957@linuxfoundation.org>
 References: <20261107134939.434104957@linuxfoundation.org>
@@ -68,62 +69,68 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Josef Bacik <josef@toxicpanda.com>
+From: Henry Martin <bsdhenrymartin@gmail.com>
 
-[ Upstream commit 56453199d28f0072a8196fba14b2d702632e2219 ]
+[ Upstream commit 50f2103fce43922b6e562937b2d2fc62089ff7ec ]
 
-skb_copy_and_csum_dev() copies everything up to the checksum start out
-of the linear area, and BUG()s if the checksum start is past the end of
-the linear area.  It misses the other direction: a CHECKSUM_PARTIAL skb
-that has been pulled past its csum_start gives a negative offset, which
-gets past the check and becomes a ~4GB copy.  It also trusts
-csum_offset when it stores the folded checksum.  So far
-skb_copy_and_csum_bits() BUG()ing on a short skb has covered for that,
-but once it returns instead, a bad csum_offset would write past the end
-of the caller's buffer.
+Both the lane and the connection-generation negotiation are driven by
+extension headers in handshake packets, and both are processed
+unconditionally, even on transports that are not multipath capable.
+A non-MP connection (t_mp_capable unset) owns exactly one
+rds_conn_path slot, so a peer claiming up to RDS_MPATH_WORKERS lanes
+makes every subsequent fan-out walk conn->c_path[0..7] at 504-byte
+strides past the single allocated slot (KASAN: "Read of size 8 in
+rds_conn_path_connect_if_down"); the generation negotiation opens a
+similar out-of-bounds walk on the same array.
 
-The function returns void and its callers are drivers copying a frame
-into a bounce buffer just before handing it to the hardware.  There's
-nothing for them to back out of, so check both ends of csum_start and
-that the checksum field fits in the frame, and if not, copy the whole
-frame with skb_copy_bits() without filling in the checksum, with a
-DEBUG_NET_WARN_ON_ONCE() for debug kernels.  The frame
-goes out with a bad checksum and is dropped by the receiver.  If even
-that copy fails, zero the buffer so the driver doesn't send stale bytes.
+Only process handshake extension headers when the connection's
+transport is multipath capable, so a peer can never make us walk
+lanes that do not exist.  Both call sites in rds_recv_incoming() are
+gated.
 
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-Cc: stable? The trailers only have Assisted-by: and Signed-off-by:. No
-Link: https://patch.msgid.link/20261007-b4-skbuff-bug-on-v2-5-b9a5f732895b@toxicpanda.com
+This is a port of the Oracle UEK fix for the same issue, picked up
+where Paula's series of the same change left off.
+
+This issue was discovered by Tencent CodeBuddy Security.
+
+Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/netdev/20260825120132.51636-1-pamoutafpro@gmail.com/
+Link: https://github.com/oracle/linux-uek/commit/2fdeb0513f18
+Fixes: 840df162b3eb ("rds: reduce memory footprint for RDS when transport is RDMA")
+Fixes: 905dd4184e07 ("RDS: TCP: Track peer's connection generation number")
+Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+Reviewed-by: Allison Henderson <achender@kernel.org>
+Link: https://patch.msgid.link/20261012025336.54756-1-bsdhenrymartin@gmail.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/core/skbuff.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+ net/rds/recv.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-index 2bfabde31ea93..ea4c38dee19f5 100644
---- a/net/core/skbuff.c
-+++ b/net/core/skbuff.c
-@@ -3961,7 +3961,18 @@ void skb_copy_and_csum_dev(const struct sk_buff *skb, u8 *to)
- 	else
- 		csstart = skb_headlen(skb);
+diff --git a/net/rds/recv.c b/net/rds/recv.c
+index 6204e577a90ae..93ee4546ae362 100644
+--- a/net/rds/recv.c
++++ b/net/rds/recv.c
+@@ -379,7 +379,8 @@ void rds_recv_incoming(struct rds_connection *conn, struct in6_addr *saddr,
+ 		rds_stats_inc(s_recv_ping);
+ 		rds_send_pong(cp, inc->i_hdr.h_sport);
+ 		/* if this is a handshake ping, start multipath if necessary */
+-		if (RDS_HS_PROBE(be16_to_cpu(inc->i_hdr.h_sport),
++		if (conn->c_trans->t_mp_capable &&
++		    RDS_HS_PROBE(be16_to_cpu(inc->i_hdr.h_sport),
+ 				 be16_to_cpu(inc->i_hdr.h_dport))) {
+ 			rds_recv_hs_exthdrs(&inc->i_hdr, cp->cp_conn);
+ 			rds_start_mprds(cp->cp_conn);
+@@ -387,7 +388,8 @@ void rds_recv_incoming(struct rds_connection *conn, struct in6_addr *saddr,
+ 		goto out;
+ 	}
  
--	BUG_ON(csstart > skb_headlen(skb));
-+	if (unlikely(csstart < 0 || csstart > skb_headlen(skb) ||
-+		     (skb->ip_summed == CHECKSUM_PARTIAL &&
-+		      csstart + skb->csum_offset + sizeof(__sum16) >
-+		      skb->len))) {
-+		DEBUG_NET_WARN_ON_ONCE(1);
-+		/* Send the frame without the checksum filled in, or send
-+		 * zeroes if we can't even copy it.
-+		 */
-+		if (skb_copy_bits(skb, 0, to, skb->len))
-+			memset(to, 0, skb->len);
-+		return;
-+	}
- 
- 	skb_copy_from_linear_data(skb, to, csstart);
- 
+-	if (be16_to_cpu(inc->i_hdr.h_dport) ==  RDS_FLAG_PROBE_PORT &&
++	if (conn->c_trans->t_mp_capable &&
++	    be16_to_cpu(inc->i_hdr.h_dport) ==  RDS_FLAG_PROBE_PORT &&
+ 	    inc->i_hdr.h_sport == 0) {
+ 		rds_recv_hs_exthdrs(&inc->i_hdr, cp->cp_conn);
+ 		/* if this is a handshake pong, start multipath if necessary */
 -- 
 2.53.0
 
