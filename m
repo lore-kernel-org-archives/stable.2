@@ -1,101 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794020504;
-	b=EnsHJ0gydtjne5LxQ/G3m8xe/uoXyjkna2fljibV+OBpgYM7Vu1G/hzEMog1cspGvQ+m
-	 RQ5+/Z0U7C6fibmZrV3A6iO1D5EQEqxB8ODqNZPcy2/wvzi3EIyM5LJYXUldfTHF3GOH5
-	 0iqynOIF4HoMCsyyqe6R7EcyH7yL4RgHz1hZMXIqSTZr7r20TzSpdPduEDt3juZe1QAiL
-	 dGMg5o3dISwNh6dBaTbcB6845jwwuEtYcjAAz3lXhGPRs1l0ad/R3LmdPL7unlMraOWfK
-	 ADGPl+h+i66oXr7JQ1iV/zL6NSNDZTOhZZOW9cFc7MViAfGknvgSssKiq0klnj6vt9w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794020504;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.54
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794021236;
+	b=SIVF/eB4Rds8RKOpcMkKzFBXr80eOLYUVX1FZy6SMdoVJeZDNjWnetqAgNXOQBHt0CYE
+	 VDtEuqP9YAdOaNngz/AKDiILrH4tXlnH7srEmLJWjw5UvtP8pP6SbXVNGtsXlSoBehSAA
+	 KTFyuSXvEftwq7e26RwcWCx6BX1vBesorg4JI9hUP4w200RLuV0vQClBAy6CONGmdv0S+
+	 5G3s+HrNU6MXKPr2aSZfB5aowlfwVksoEEmpTGR2eFzc7TphO0IFQ60ODi8VEx+wUkzhQ
+	 //X8qfz6yPs/eM81Ea+Fk/Pv3k8SJDjWMgEZHO/sRGQq0wVjKp+0OyEdCyWANoZ5lYw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794021236;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=c7RdJd1ac0ZTEx+/NYzXEY+S8dr+3ZAZRK/h78/Mnrs=;
-	b=WGkPNowuLuisYgpg7PXbSrNmq/27CQN6/pCpKPQs8KRqcYGnJl4pW8oIr1/4DBXkHOBu
-	 2RjdaxAGG+ELqftotbzPQkjDuQRe8V9HkEyReVgxZsyA8vHh1zhcYX8x5ukIaowXOmXST
-	 yz+DAa+4uSrxOyicsTZl31qUZOhRKQ9H5I6BG/CqEVv95OekTbHIReKM96fRi6PdK3Nr0
-	 7ZFPmOlNf0doajTvCKNaPomJzUv1oDl9ieAJP39iELo69N7I0vzwwzVNRD3X86GQ1FPEg
-	 mKpjZhnCNGSMarPJSpXAtbO1OzNa1eVQIn1x7XBUtsqrRXQ0h2qLTg+sOJ/WjkcfPfQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=EXL7qNvo;
-	arc=none smtp.remote-ip=74.125.82.172
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=oRpf6L6W1qrmOGUB2ywqgKb8dbORXdYECHA3ikhVQCU=;
+	b=xJrFrFPEoW8dnr3r2Wg3ksIm667RSC5dN/w+2YtCAflesuKyrONfcppUXpWG0Yd4DXIk
+	 dc+aRH9WhBp8UX+IZkyuQ+xdb2eyFMAsnecF4R9aYtPEZX1f9mRzwPCSkziuTwroVLpVp
+	 mY4plstTt62zxV3RIKFZGSMms7Q0zW7vPEmiXeH6PIbvHJAtsHNP8ItVAr420Bnh9Jg++
+	 mI1Os5D355+ZkpxoiDspMf8CDDxc2y6oXhpWZHP8hrkY1Rd11+OCr6a/pLf3PHB6R34Qd
+	 9d4pMoed9Npy8NQRJA36+iETckSN19HbnEaqmTntAtPcQu1+2zK3ezmOLwZ2wOYf8+A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="K5/xSYU2";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.54
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8F6E606A32E
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 03:01:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8F6E606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DBA8606A32F
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 03:13:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DBA8606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=EXL7qNvo
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-36dbde64409so1738696eec.0
-        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 19:01:43 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=K5/xSYU2
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c434376dbebso48101566b.1
+        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 19:13:55 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794021234; cv=none;
+        d=google.com; s=arc-20260327;
+        b=OeLFPMqhM1W9RN9MWBBNekr2JT9HEFpVM54m7af6xt1QF4Uz8AnQ0MFBaD+Yjxr2SY
+         efpP3agzekslUA9Ml022SXZevEvhHVKgmT5S8T8IuBt3wWQDLovwsPuVO36wpv044QOM
+         JHtB+twwkizhvmSS+17Jl5dxoT1tVEj5uZsucf3Zws9BD+rsLzuax0h+ljhz0JwPafhl
+         GPjom1lMRMk+N8xeWkl1nH2qSxvmyugkOHGA2z1biODK9Qe7a4jYoloCWE+sORhOCBzO
+         jgbLJtut4t5V8vGm5tj6pZVTC2jH1ix+/vHVFaksgzwwwjE5xIkHBz0DjGXlfi1CWnRk
+         AXhA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=oRpf6L6W1qrmOGUB2ywqgKb8dbORXdYECHA3ikhVQCU=;
+        fh=p0LsQeEPmkjhP2iVfkLLZifTPIYWvOU6SEQfKtE+cc8=;
+        b=tBOrL7MGX/CTG5rUuZ7LkZ1p+goF46ozVcyZLIJGZS3ksatmVYuHLT04MvIcwGqu6Q
+         zO5kht+jWwqUuOoZtI4sB8lq2ner+vtBgOdrhpx9lX6DdwIEFG2AYRyRdCDnYwe/m6Et
+         BzGjMR+cTfkyEBCUD2/9G/eBRek0xw6q1yioh6XR8ucFwxIzbhQbByRXy1xs3/4knYbz
+         1l307pIkK6JXL1CylVt1TI1rMAEiJ/yIhxuxYzTtOFZqoaX/NiX0/RdKmfjq37+cpM5u
+         15eQM6r32WghfTgCX9yBMZEbJiAIiB4nQNKMOQSWk9jCG3FTXcBTrGmR3cbGhyPMa5wN
+         SJVA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1794020503; x=1794625303; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=c7RdJd1ac0ZTEx+/NYzXEY+S8dr+3ZAZRK/h78/Mnrs=;
-        b=EXL7qNvoixipFHmUbTzJDnVPsqgi4j4biZQDDbJ1xQAQJHf2NXHxgCekVjOp/+aZVb
-         yp6VqeTgewe26Myz7al0S2vSkb77+amT1dxIRHwQ2MBO2lT6wQK6EdXfpzk6bOnKZFHf
-         1FPyaVZYqU9QWAvjgfe0vPkEPQW+O0CUwWAB8c3jRbLOHFBBIig3mpQure4oPc+30D/W
-         gDsmH7CpNhQ1Hs8QtINZSFd9o/aReNI9OLi0R1eyEFjaIJ/npVDPGcNoOm/sW+CjDmro
-         EXWj1yBbGE43wfG7YU7UZNX/c730VtWabz1UQ+x6vtpqvv5/1OErICSYMxBJqWtH2VZX
-         QhQA==
+        d=google.com; s=20260707; t=1794021234; x=1794626034; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=oRpf6L6W1qrmOGUB2ywqgKb8dbORXdYECHA3ikhVQCU=;
+        b=K5/xSYU2sTp+9F3Ssc9dMvDglneH6jUV7uspfeiii9TYyO072Qw+6C37+H2BuqkWhv
+         4rseU2AYAVe4zjHmf0l6pCh7AK5v/CIYQC/ejfCs4DvYqK+kQOJqajhjMCEatzHYNUvQ
+         gfRiiZd87mSWTSTX3Xc/Q/VNX+3fTAXEM54dMFBptzvI+h/iN+vLCb/DZOm7Sb5iV45p
+         2r1wL6zEAzXVmcSmcQ3RIuZcM/htexTLwdbXmAfWmJ+b6mrIuA8sA3+ogMk7BMgA55G3
+         +V3fAM9PBOvMP6b964JFduPMQPJVNzLOmEBClMyhd1REGDF4dW8Ov33ous0HAIWn63Uu
+         TPqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794020503; x=1794625303;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=c7RdJd1ac0ZTEx+/NYzXEY+S8dr+3ZAZRK/h78/Mnrs=;
-        b=rkRw2HxDLF2QaRF+zvzukcCAJXeQKmhBL3s1zrFSfj0lGo0fpHOVuO91sVHn7jqi70
-         wCrJ2kOttjEU305B4jXuZQwP/J8moBfAYBa5ceLskjYqWzk3pY8unZd/xz/7MMYFz/cz
-         xWb0dQAXuJ3V/TV5pdQEKObQSJqvEro9vKHKA8fR1wm2JIuSnhwRFEqnmVjlE+kwRiGq
-         hga29MOxnAOXZdhp8mMUwH0LZHwgtDYNMduODX/AJ/+UuQbx73f0kY6SZuOVofBpn71Z
-         n42EXxmSZGqjxN3NcuEC619lA6pQJRGjZThWQny0Bcvn1hfqQse3mv76JsVgg8EHtHa0
-         CpGA==
-X-Forwarded-Encrypted: i=1; AKwUvBzOWCA7+GhzoispSuc1B+09DCO2U1vl/7QINneZQquJiPLZxYR7H0D9HHjp/QiSsGCaxmR+G30=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+ZNbIhxXGvRNz8JK0oLOuYLdOzoMMTY46J02oKSX8DBCyJfsXx
-	yfIr0QZclGG3axNOXrxYI47lec0eFjYTm1OM87pnPt4JRx58PuR2yaOFcSV18dBROCI=
-X-Gm-Gg: AYBFou2fc6OeZeLXfDcZ05M+4zhSOC8uFu0rFI3EQek0xW1Ao4ODpBr+DSVPbp075Sw
-	kFGVK888/A0yvPfXd9EJ2OpMobPew1EUO/DoxcswowBdx2K22bLX4lkAzUmpC9NzMzkAjhdxb7H
-	DEt9i51M0u7uh/+Xgf54pnKpEg/F+p2c9QjZeCRMlk2e6Oi6YXK9T2NWDn3Pt61scnFmtxJXJYa
-	PXbFXH3x2WrSg1I6sPlEGvkLRty8dadvVZTAPD8sTV+nFYcZqtLBtKCmK5Tg5geveiCgkW0YPXD
-	36l0QyRjezbVNK9JaBLNN2PNBP4WBDqadlBkJlo5HBreyuwgLe+6TJn8ujoyJ4PIR6aRhi9L3lW
-	Q/ii8koPi+qyYi/ldGaKgaJrM1LoycusW4DEngKOB7Du7vSW7kFaVETz3YdyM2mmdMIsVVz1eR/
-	3yaIEdSkrX1+02DDcRDpkqOS1yfF2ldFXDRUZNnGrLMwcQEIsa/jMpDk/4fCih80OF74twS3YQH
-	s9TkbEn9BCP2drDl3fkZetpA3s5Lxqp9WmTnGmw6mjEsiNoGuAwtbfJQ5mxQ/q3pu9u4Bt/cPce
-	hib5nG3O2Wh0oGXgt5Na7xT1UR1NCcgE+ZctyiIbSUBURkjwUb3388xq4yVrTg==
-X-Received: by 2002:a05:7023:a5a:b0:1a0:e3e2:22a3 with SMTP id a92af1059eb24-1b25d33a590mr5333663c88.31.1794020502203;
-        Fri, 06 Nov 2026 19:01:42 -0800 (PST)
-Received: from G6L4RL2QG9 ([2409:8a00:1832:6900:c8de:13da:804b:a0fa])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b25e4b4aa7sm9534473c88.13.2026.11.06.19.01.35
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 06 Nov 2026 19:01:40 -0800 (PST)
-From: Muchun Song <songmuchun@bytedance.com>
-To: Dan Williams <djbw@kernel.org>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Alison Schofield <alison.schofield@intel.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Joao Martins <joao.m.martins@oracle.com>,
-	Ritesh Harjani <ritesh.list@gmail.com>,
-	Pavithra Prakash <pavrampu@linux.ibm.com>,
-	Muchun Song <muchun.song@linux.dev>,
-	stable@vger.kernel.org,
-	nvdimm@lists.linux.dev,
-	linux-cxl@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Muchun Song <songmuchun@bytedance.com>
-Subject: [PATCH v2] dax/pmem: fix unaligned compound devmap initialization
-Date: Sat,  7 Nov 2026 11:01:26 +0800
-Message-ID: <20261107030126.90894-1-songmuchun@bytedance.com>
-X-Mailer: git-send-email 2.54.0
+        d=1e100.net; s=20260707; t=1794021234; x=1794626034;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oRpf6L6W1qrmOGUB2ywqgKb8dbORXdYECHA3ikhVQCU=;
+        b=n8RLe6Lsj2CJBmrLWo/jOzKKOIo/GvpNPulPvfK7RHG0P30nv4rZDsrLr7F9uuDw8+
+         A3wisjd+3ysQud1eVxnwWIaqCUTS9xE376oUNz4KPJV2ddtELYUz3fJ86UfY1qMsHQj2
+         +AfPC/TgYIplTr0HA/Nh32khGok2Z4hclZpcQIgLln9hc0iqoxYUIVy0GluJeirwmyKH
+         fN3zv7uvwE+f+rTXNFk2aMJppXq9sAkRsuT7YdpJ2xIwB9VxlBvtYtCq4mjon7eSS2Fi
+         cEFKJjU9bOUbggKlsY/itzNOj50G3uAVsOGp427Ij+X0pzRc2+oueKMbxXZe98HopJUI
+         0WVg==
+X-Forwarded-Encrypted: i=1; AL+hErEMBJvFXr52TcfpG/pqn0Z78iPRlKf4S7lnO+wJsHXP2rMLt6iLLU+JwfqNo3b62CdQbR23I/I=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Qou4s3EUgX8TgEFtHylphHavGbeMkiPynPv4aaetMNKEW1p2U
+	p38eJezraWjYrlY0d1WM6h96yij9jMJQHmxinOtRudi9AQxJ5UIF0VCN8jQpZtx09Lhq+2a8zjH
+	QONvz1BkL1HUDf16Vga9fJNvZmoSqqn35rnUJowVM
+X-Gm-Gg: AYBFou1NO6F+GsEZQl9LMSU9+Iy08hnBWj5Lx4kJgKqcRnSjIEA8Xgv0IgZ0K55Ln69
+	kX7ILr23HpGgj2L7+hyJuFwItRw1uju7LTM9QhLq8YOejFHXIN2F01p25UikeIgr7vq4N4Hktxu
+	QcnNfT97Kt3Xft5XX9z0XKLW3I+RRtcoRcb4QyOrAxpmHHcqrQdsK6wW0Zhd1//WBS4khPl8bMD
+	+9O09N2tNFN+znEsS3047FYoOyz33ETci/DxpolUTc3wLIGtXgFvajZuY4ICSjhnfFODQRWa1eA
+	RM2IMCGq7Bm+IXG/K85Qfn2ZWrTaV2lw0WrNGQdA9N8CH21zYz4n0rjE932dXw6Ob+DwLSYEQUx
+	+AHTtZv8UFJW+lUWHTteQzPgxuRGDy+dpOTDZ7gR4VIWsRSYjL1WhL6QsAMh5ibHkEQE=
+X-Received: by 2002:a17:907:d22:b0:c3f:2:6faa with SMTP id a640c23a62f3a-c4d523bb4f1mr41862966b.1.1794021233358;
+ Fri, 06 Nov 2026 19:13:53 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,67 +103,86 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261106114551.212675-1-amaan.cheval@gmail.com> <20261106114551.212675-2-amaan.cheval@gmail.com>
+In-Reply-To: <20261106114551.212675-2-amaan.cheval@gmail.com>
+From: Joshua Washington <joshwash@google.com>
+Date: Fri, 6 Nov 2026 19:13:41 -0800
+X-Gm-Features: AclHuK9hqj7STkrMrTFdH3gqq3iNgCshZou6dOEEbH9VmQvXrAu4YpDfrgJPse8
+Message-ID: <CALuQH+VtASWP=w9ibTJ7ioYxWrS5sgi9yCZMVK0D831_A-zusw@mail.gmail.com>
+Subject: Re: [PATCH net v4 1/2] gve: block XDP on the DQO-QPL queue format
+To: Amaan Cheval <amaan.cheval@gmail.com>
+Cc: netdev@vger.kernel.org, hramamurthy@google.com, andrew+netdev@lunn.ch, 
+	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, 
+	bcf@google.com, jordanrhee@google.com, przemyslaw.kitszel@intel.com, 
+	maciej.fijalkowski@intel.com, pkaligineedi@google.com, maolson@google.com, 
+	csully@google.com, willemb@google.com, yangchun@google.com, npl@google.com, 
+	awogbemila@google.com, shailend@google.com, nktgrg@google.com, 
+	maxyuan@google.com, bpf@vger.kernel.org, john.fastabend@gmail.com, 
+	hawk@kernel.org, sdf@fomichev.me, daniel@iogearbox.net, ast@kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Static pmem Device DAX namespaces reserve space for namespace metadata
-before the user-visible data range, and may also include padding needed
-to satisfy the Device DAX alignment. __dax_pmem_probe() adjusts the
-dax_region range to start at the data range, but the dev_pagemap range
-still starts at the beginning of the namespace.
+On Fri, Nov 6, 2026 at 3:46=E2=80=AFAM Amaan Cheval <amaan.cheval@gmail.com=
+> wrote:
+>
+> Commit d8a8ca14c937 ("gve: add XDP_TX and XDP_REDIRECT support for DQ
+> RDA") enabled XDP on DQO-RDA by dropping the queue_format check from
+> verify_xdp_configuration(), which until then refused every format but
+> GQI-QPL. Nothing replaced it for DQO-QPL: gve_set_netdev_xdp_features()
+> advertises no XDP features there and gve_xdp_xmit() rejects it, but the
+> core only checks that ndo_bpf exists, so a native XDP program, and an
+> AF_XDP socket on top of it, can still be attached on DQO-QPL.
+>
+> The DQO-QPL RX path was never written for that. Its page accounting
+> assumes the driver keeps a reference of its own across every handoff:
+> gve_xdp_done_dqo() passes the buffer to xdp_do_redirect() and then
+> recycles it with gve_reuse_buffer(), so a redirect target that releases
+> the buffer synchronously, such as an AF_XDP socket in copy mode, can
+> drop the page's last reference when pagecnt_bias runs out. The page is
+> then freed while it is still DMA-mapped and registered in the QPL, and
+> the driver posts it back to the device.
+>
+> Refuse XDP program setup on DQO-QPL in gve_verify_xdp_configuration(),
+> matching the features the driver advertises. A zero-copy XSK pool bind
+> is already refused by the core for the same reason, and a copy-mode
+> bind never reaches the driver and is harmless without a program.
+>
+> Fixes: d8a8ca14c937 ("gve: add XDP_TX and XDP_REDIRECT support for DQ RDA=
+")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Amaan Cheval <amaan.cheval@gmail.com>
+> ---
+>  drivers/net/ethernet/google/gve/gve_main.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
+>
+> diff --git a/drivers/net/ethernet/google/gve/gve_main.c b/drivers/net/eth=
+ernet/google/gve/gve_main.c
+> index 2437cd8ba633..4e9e692a0ed0 100644
+> --- a/drivers/net/ethernet/google/gve/gve_main.c
+> +++ b/drivers/net/ethernet/google/gve/gve_main.c
+> @@ -1723,6 +1723,12 @@ static int gve_verify_xdp_configuration(struct net=
+_device *dev,
+>         struct gve_priv *priv =3D netdev_priv(dev);
+>         u16 max_xdp_mtu;
+>
+> +       if (priv->queue_format =3D=3D GVE_DQO_QPL_FORMAT) {
 
-That is not valid for compound devmap mappings whose memmap is stored in
-system RAM. Compound page initialization requires the start PFN to be
-naturally aligned to the compound page size, because the head and tail
-struct pages are initialized according to that geometry. If the pgmap
-starts before the aligned data range, memmap_init_zone_device() can build
-compound page metadata from an unaligned PFN.
+Thanks for implementing this!
 
-The resulting struct page layout is inconsistent with the Device DAX
-mapping. A later mmap fault can then resolve the user-visible PFN through
-invalid compound page metadata and hit a kernel panic while inserting the
-DAX folio.
+Minor suggestion: Can we check based on dev->xdp_features
+(NETDEV_XDP_ACT_BASIC) instead?
 
-Fix this by rounding the pgmap start up to the Device DAX alignment for
-non-altmap mappings. This gives compound mappings the required naturally
-aligned start while retaining full-section vmemmap savings when the
-original start is already aligned. The altmap path remains unchanged
-because memmap_init_zone_device() skips the altmap reservation itself.
-
-Fixes: 14606001efb4 ("device-dax: compound devmap support")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Muchun Song <songmuchun@bytedance.com>
-Reported-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-Closes: https://lore.kernel.org/r/wlrkqqvg.ritesh.list@gmail.com
----
-v2:
-- Round the pgmap start up to the Device DAX alignment to retain
-  full-section vmemmap savings (suggested by Alison Schofield)
-- Update the commit message to describe the alignment approach
-
-v1: https://lore.kernel.org/20261016054914.2601510-1-songmuchun@bytedance.com/
----
- drivers/dax/pmem.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/drivers/dax/pmem.c b/drivers/dax/pmem.c
-index bee93066a849..d54d23f1cc58 100644
---- a/drivers/dax/pmem.c
-+++ b/drivers/dax/pmem.c
-@@ -51,6 +51,12 @@ static struct dev_dax *__dax_pmem_probe(struct device *dev)
- 	/* adjust the dax_region range to the start of data */
- 	range = pgmap.range;
- 	range.start += offset;
-+	/*
-+	 * When the memmap is stored in RAM, compound page initialization
-+	 * must start at a naturally aligned address.
-+	 */
-+	if (!pgmap_altmap(&pgmap))
-+		pgmap.range.start = ALIGN(pgmap.range.start, nd_pfn->align);
- 	dax_region = alloc_dax_region(dev, region_id, &range,
- 			nd_region->target_node, le32_to_cpu(pfn_sb->align),
- 			IORESOURCE_DAX_STATIC);
-
-base-commit: a91337fb5e8e0127c8b5be87be9f3027f95b48bc
--- 
-2.54.0
-
+> +               NL_SET_ERR_MSG_MOD(extack,
+> +                                  "XDP is not supported in DQO QPL queue=
+ format.");
+> +               return -EOPNOTSUPP;
+> +       }
+> +
+>         if (dev->features & NETIF_F_GRO_HW) {
+>                 NL_SET_ERR_MSG_MOD(extack,
+>                                    "XDP is not supported when HW-GRO is o=
+n.");
+> --
+> 2.47.3
+>
