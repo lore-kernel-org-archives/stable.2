@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794045943;
-	b=i+6yzasgyfZ7EQS9m/CXXhffOTeIs/2gCRXbUhjBfTQztH65fTvckWIKmiOSq585O2hJ
-	 OeYs4oIAG9cgMUxSbgWzA+MMLjJQX9jTRmF0UmA7PYcv3Ym7bCjpohLYbwMhcvNRUzDk6
-	 n6kvPzN3kuJ73/Q1QSlrinrMooM/biL+ihzwY2GyJI8le3d1a/PtjZ30u7+gieMqkao1O
-	 HpVMUyxQWYul2RtepXrgneNj+UAeTOxmqexLUDti/9N4MOyapb/GRqjTX7j6ODK17bbpN
-	 RBPdVUveYHaTU55KpvAlTPJ31Uef07zgxScCvO72JHIOyjQ1gGV+3sq/KukeCNkFPSA==
+	t=1794045946;
+	b=MtU5wvSokkoEBc2X4gk/voHQgO2HjdS+UcBoiNoR5ChFuo08fGr4qQutmCvHe9+nO/Eu
+	 H97svFDmaD56roUu6x8L8PLO2q2DqyaLM/JyWfPxIhVi5maQZWpdao783gdCbjrXHd4kJ
+	 urvvB+xcD8TSVZfljxCEq1HiKT8bCZmWpmAlT0NrL3GjqEyqp0qdCx0vqboxwnAcT4UL0
+	 LkX8mrF8Totl+KfKJUMwvlYtJJDlOWTl9bOD/uzrDWXPOm0xUIz6QoHQzZlsx8X2uXih3
+	 7qswSaWcNSnukOvqN/frnzFT+r4Fv8dObdh5u0aw0T8u5LFGRG88RQbf5SEYU5urD0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794045943;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794045946;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=A8ABoYBwInM9rxT0MwHZz+7uKd0WEDcRj2h6kPwQVOI=;
-	b=bCgX0gzi39Xi06meS9FVNiCXNrKTue3zKOyPUIupH6hNgEFp7uylKt7WgOZZ3rq7HFoX
-	 awqn1uigQ75irx1GLBbwNPW86GUu9FYx5jThtPT9EhcMZWoRKkAOCG46eCkg77CcXhMmv
-	 N51zTP37+Ct7HU/lOU43UR6N7uGXoQavL8OdAi/zUgHobu+I19BXGOqmn3q/56PUyI1aX
-	 sPN/ZXbc2JRSyxtksyVxC3WUJTNTRTXr3L6f8oagOnkW63G8QQuvK+nBVVxKV+1SG9bTM
-	 eUV5CRwo5QTIzGeFk+TNS3RTYxPB5NO8/ZpyuDRig/EY4iOZOxnxrYZp7dIRc9XMUZQ==
+	bh=6iQ5+1FrkAOQjcca024dmQ8zy6c5r1QI3xGQo42ndoA=;
+	b=QEVGdvYUekpTMzEvc6Ebmo6mLtJD5Cua8dSy5ElBv3DAjWoZ4xfU8G2FnaJBVkg1zC3d
+	 d15kGpHcEEP+xb/A4kVo4S99tbEr1FiVTjRlmX/Z2mWNFfnwbqpCBuRzFNQeZ61yYRrV3
+	 od2MWXXQ3kcTwKYDvKyyn5Rml/+BNSTObT7lELv38hcOCisKOZIWUxunjT2pvBNzB4EqK
+	 28ufHfbDJITDI7+vueZ6Bp419t6FM/om89cGknpuRgqaxD2vdIz6CrI7o7KdcXmKjlz7k
+	 EgJKeuXs6HxalEsEtSCbglLRKgCbFjEHvdci623npOpUTRa3NYSHM8/BU/VxIcVx8dw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YlJqPp1x;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nmnOBFl3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8822B606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:05:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B09E8606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:05:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YlJqPp1x
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3FC61F008A1;
-	Sat,  7 Nov 2026 10:05:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nmnOBFl3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F39A1F008A1;
+	Sat,  7 Nov 2026 10:05:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794045943;
-	bh=A8ABoYBwInM9rxT0MwHZz+7uKd0WEDcRj2h6kPwQVOI=;
+	s=k20260515; t=1794045945;
+	bh=6iQ5+1FrkAOQjcca024dmQ8zy6c5r1QI3xGQo42ndoA=;
 	h=From:To:Cc:Subject:Date;
-	b=YlJqPp1xs94m8tvQ9nJfpn6100TSMUX8oU2i+WSofkru6rRpTuBTK9T+QO5Cpz6tv
-	 sPTg0oe5sSmFAIDt+iecKdeYKC8DRaAhepMYoubeNioO1xAyRm3k+uIVc+zZX9kvZI
-	 LQZIfSh9+KCKmzzKw0d+2MscXc+5YuZo0C4AsACJ5L8cP2ORkfnMFFi4MdbNEUi2zp
-	 j6SPiTp6TC6cFxrbyHYAqI4bcpNigBHNTGykLoS3isNEq1CzMSszZPasP151o4jhw6
-	 5d5xGPUkUoqjXMbBWYFX1HZBWBWIO1exNVPPjwZcnnBsgrLAvVOvzSQhEhVmnAiIv8
-	 4Pt6kJSi/RxwA==
+	b=nmnOBFl3ZYuKjXcyIoYpQDC/r9Wiqg7N+fbRyCqYvq6PLB+VUibYtqqHIjz2e6tey
+	 YzpEpZnJUuBPk6SJSqzq4zBqZJk+sUZJb23qg1yRtFj2bmLJEM8XL00/NndU9A2kTR
+	 POnkPS22UzarYc0Fogi71ACJ29G1UXAtpNv7jBFbsVgjrkeZM6LFnjRzCjJtm3o9ez
+	 kXjkQi8OsGdjAGEGNyndMU6mFqCPbBD/s2hZwISAi1dz4JVsE0zYGvcSi8qpmDIQSL
+	 zvyFNAU4jh0enaimOOIO1zXnbroWiuSJ3ETlPtbzuh72V6QX4eLWT+gSDLvkhoOk0g
+	 WR4+uMYCSVwew==
 From: Sasha Levin <sashal@kernel.org>
-To: zhugl3@xiaopeng.com,
-	amarkuze@redhat.com,
-	idryomov@gmail.com
+To: chao@kernel.org,
+	jaegeuk@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ceph: clamp the inline data length in ceph_fill_inline_data()" failed to apply to 7.3-stable tree
-Date: Sat,  7 Nov 2026 05:05:41 -0500
-Message-ID: <20261107050541-failed-7.3-9c1d14d3b66b@kernel.org>
+Subject: FAILED: patch "[PATCH] f2fs: fix to fetch ino via ino_of_node() under cache lock" failed to apply to 7.3-stable tree
+Date: Sat,  7 Nov 2026 05:05:44 -0500
+Message-ID: <20261107050544-failed-7.3-cd6d8b189139@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,56 +68,53 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x 9c1d14d3b66b3e1dd96ee664c0dd2548f2b77a52
+git cherry-pick -x cd6d8b1891395b681f2060916a4b83880b765698
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050541-failed-7.3-9c1d14d3b66b@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050544-failed-7.3-cd6d8b189139@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 9c1d14d3b66b3e1dd96ee664c0dd2548f2b77a52 Mon Sep 17 00:00:00 2001
-From: Guanglei Zhu <zhugl3@xiaopeng.com>
-Date: Thu, 10 Sep 2026 11:00:35 +0800
-Subject: [PATCH] ceph: clamp the inline data length in ceph_fill_inline_data()
+From cd6d8b1891395b681f2060916a4b83880b765698 Mon Sep 17 00:00:00 2001
+From: Chao Yu <chao@kernel.org>
+Date: Mon, 26 Oct 2026 08:23:49 +0800
+Subject: [PATCH] f2fs: fix to fetch ino via ino_of_node() under cache lock
 
-The MDS decides how much inline data to attach to a reply, and the
-client parses inline_len without any upper bound: ceph_decode_need()
-only verifies that the message actually carries that many bytes.
-ceph_fill_inline_data() then copies the data into a single folio
-with no length check, so a malicious or buggy MDS returning more
-inline data than the folio can hold writes past its end.
+In f2fs_writeback_node_caches(), it's better to fetch ino via ino_of_node()
+under cache lock, otherwise, node cache content may become stale after cache
+is unlocked due to racing w/ truncation.
 
-Clamp the length to folio_size() so both callers, handle_cap_grant()
-and fill_inode(), are covered.
+Commit 493b9dc8b52c ("f2fs: cache: use node cache") fixes similar issue in
+f2fs_flush_inline_data() introduced in commit 34c061ad85a2 ("f2fs: Avoid double
+lock for cp_rwsem during checkpoint").
 
-Cc: stable@vger.kernel.org
-Fixes: 31c542a199d7 ("ceph: add inline data to pagecache")
-Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
-Reviewed-by: Alex Markuze <amarkuze@redhat.com>
-Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
+Cc: stable@kernel.org
+Fixes: 2049d4fcb057 ("f2fs: avoid multiple node page writes due to inline_data")
+Signed-off-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
 ---
- fs/ceph/addr.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ fs/f2fs/node.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/fs/ceph/addr.c b/fs/ceph/addr.c
-index ae6aa9db5eb24..86fe0e76cdf07 100644
---- a/fs/ceph/addr.c
-+++ b/fs/ceph/addr.c
-@@ -2245,6 +2245,12 @@ void ceph_fill_inline_data(struct inode *inode, struct folio *locked_folio,
- 	doutc(cl, "%p %llx.%llx len %zu locked_folio %p\n", inode,
- 	      ceph_vinop(inode), len, locked_folio);
+diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
+index 424e95ca58789..44f94000d452c 100644
+--- a/fs/f2fs/node.c
++++ b/fs/f2fs/node.c
+@@ -2195,9 +2195,11 @@ int f2fs_writeback_node_caches(struct f2fs_sb_info *sbi, long nr_to_write,
  
-+	if (len > folio_size(folio)) {
-+		pr_warn_ratelimited_client(cl, "oversized inline data %zu\n",
-+					   len);
-+		len = folio_size(folio);
-+	}
+ 			/* flush inline_data */
+ 			if (f2fs_cache_test_inline(entry)) {
++				nid_t ino = ino_of_node(sbi, entry);
 +
- 	if (len > 0)
- 		memcpy_to_folio(folio, 0, data, len);
+ 				f2fs_cache_clear_inline(entry);
+ 				f2fs_unlock_cache(entry);
+-				flush_inline_data(sbi, ino_of_node(sbi, entry));
++				flush_inline_data(sbi, ino);
+ 				goto lock_node;
+ 			}
  
 -- 
 2.53.0
