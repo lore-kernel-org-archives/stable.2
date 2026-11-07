@@ -1,52 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048929;
-	b=gwIXOZ+bvQxnbZCGUVRGFoaqGRT8Q9VWcTiiKZJ82hHQ97cna6l4eoUVEA/byQ2WMzfB
-	 Xf+g/7Y98iCUY1OYRE+ResaB7Q4dR6JUuMBkl4ueEh2DJqoGBgRs5rcGBwub0Lt8UVz/c
-	 LO4A6OrFlfV/hd0EOx6+wJMZ8b7G/ow7MilAgZOY6BZSyiUCOQGuYWPI+eMpSnBMucvq/
-	 DvJtXqT7VklE9nFO7yu8YxAjTcclOJkLmEptBmMX7sEAXN2tbfR1r8PT7/rT9SylYYkWa
-	 GJYpfQE1cJUVg9dCCw0zJqfiTVcwdJ3e60neMWD8lsDtHL0sHiBvtfQo5upezkey2VQ==
+	t=1794048932;
+	b=4dSFykdwDseVCtjFEE7tsFEw8Froq6ASTPZ6mC5r2pg9j9QCyOMYJ/2N+gYPDGx7eaE/
+	 f21YhAldzbxRcN+EisOnw33HtB5hKcfejpn1qEImA7vCHmUFlso6VAzZtEBrQ9sT1J6XF
+	 lk7Y20S41inN6T3d7XEP5U+CGpgo/TXlJoBLe7I2q9c2+UGphX0HREKxteYMWTFG89HXd
+	 w+BsJ5BuoYdBi7jq12kEEIowDd22+XL1invwiAHIe0NEAWKBdstn+pbx9S/xQy2tXLsc1
+	 FEJF04KF8Zmys6w5OdzicfgiTIaihtHeW2yH0dzuCx3rEXawDr1J9NLMBZ9e+6dHIEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048929;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048932;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=CIsg4evAymI/+4TnWby8f5PAEvof04CXKAZK9umXUm4=;
-	b=Y9ZzHkda4gYtn9B6/FTfcG8HwO6are5QqXJR4U6ZdwM6/F9ZMAQcRz78frgLreBHKDDI
-	 XreXGDQOGUiY7gNeapMzuQ63OI4O02DsodbI/zt4WQ+4cSURPKM43Fjkp6ZC0eYd2CeCM
-	 3TickkGySkEBgLgG4TU/1K3Z1WGgOg/dSlPFnAIG0VNv7XxPDUSvdmAiPP6RoDl/nufU+
-	 xbQPChz5+oqTzWvzkRqyHgSEt7UVfjSMFM3ASODgVjZfKHCzG7euZoSefQ9rS9apOPatX
-	 M0q5fHuIo76uCMa9N191MKOAbPoAseYZwLJzH6/RLJWb06Ak+mRFbitOIeNscxdZ0JA==
+	bh=P62Ict/bTmP9bMavrq3bMdbAtV0tAE+SSI+9uzn+q0s=;
+	b=vvfAa7utHkDOJnggCuyO8qjrUMqe1EeoIkV07GXvsyeWnT9GyKkRj0ZKYYGNcrLSQFOF
+	 7OCh3eSVNByWsnvI/06yC7S+4aj4cnB5U4X4s8BVoGQu8w5QqPjFGYX1EcZvqXju1OgA2
+	 P8u7RKt4BNpamK774ciPQ+JsMleFK/1uCQsP5aEHORUiTbwEJLAsywEUh0qdRc0KqQJMy
+	 OkXVKVoiUQk2BMXcsZJOOiFEGVuBffQhZfNnw0SBzQ8KDCy2vLauAJZtYMgNjL2/ACCj3
+	 olRn/R+OcPa/NeYZ5EUjXT8TAtVWL4jI0Wqrn9X22Qzz2D8PSaiAPaDGDg0RcVHaKIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PmHUIK1P;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TdDWQova;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49867606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:55:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B89F8606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:55:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PmHUIK1P
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A70C61F0089F;
-	Sat,  7 Nov 2026 10:55:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TdDWQova
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E77361F0089F;
+	Sat,  7 Nov 2026 10:55:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048929;
-	bh=CIsg4evAymI/+4TnWby8f5PAEvof04CXKAZK9umXUm4=;
+	s=k20260515; t=1794048931;
+	bh=P62Ict/bTmP9bMavrq3bMdbAtV0tAE+SSI+9uzn+q0s=;
 	h=From:To:Cc:Subject:Date;
-	b=PmHUIK1PHpzXqFHkognKndzILxcGdZYp6g5Iy8PyJnkHKrMDNRFxBts/VORS/shCZ
-	 pajs1eKs9JoDmayNVYGC0NR6i5TuWflFFgN5DSlyG5k3HsQ+i/xaUWic65PvXWmJqD
-	 97GyLqvo96wK8y3WwjF5dmGnqb9DiVkEhpUQgfaqBSeaEAaM9S+ynPElNn4jgoRPkw
-	 VoNOWt+d+Lvof6sOJ5DViryDEmKsaYr+kXBvWDWSEECcCKRYZHV2Ou3hv00M6KpP5h
-	 MBQnq98kCMuwpGPzLAUV07jsxQryNr9QL2acx19a+XXB/lCjhRzEobGY/BgYhgPbqH
-	 HftmNQENkh60g==
+	b=TdDWQovaquSQAo/gYiH/vDNaidLWexrBo3f9mQET3f6TfQmCUrJFypurWytyLBu7P
+	 yISb7KWn8U/bawDd0dsr27fQDSfPUcV2I6MM8I42OJtcNEldFwZwEdTN7Ne1t8ufbu
+	 SNRXVlgeihzAHySS0UEgsmgrunUZZT8E80D1lvMARovepRfm0UXc5+JJ4FoE5hZ0v0
+	 j4rR86VrY0U9uCY8v5nRQAbGq3Qw+XsixAVA2snFM1dc8gciwXLtSuWVV8qY2ytWqx
+	 BnX9qCl0P3CHfL8OYq6wCWOQduZAnEReAFU6exH2zXF4UUqKCKf8SJZrMvKkt16f91
+	 rj6bxrdQ5kwXQ==
 From: Sasha Levin <sashal@kernel.org>
-To: dmnk@google.com,
-	bvanassche@acm.org,
-	axboe@kernel.dk
+To: idosch@nvidia.com,
+	netdev-bot+sashiko@kernel.org,
+	liuhangbin@kylinos.cn,
+	edumazet@kernel.org,
+	kuba@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] loop: check for read-write open mode on LOOP_SET_STATUS in lo_compat_ioctl()" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:55:27 -0500
-Message-ID: <20261107055527-failed-6.1-87409eedc543@kernel.org>
+Subject: FAILED: patch "[PATCH] ipmr, ip6mr: validate packets injected into the register vif on xmit" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:55:29 -0500
+Message-ID: <20261107055529-failed-6.1-aa1799e93f5e@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,64 +71,113 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 87409eedc543d288cdd49c2174f7d61eca7b8db5
+git cherry-pick -x aa1799e93f5ebb973252aec649d84d12d9c7fd1c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055527-failed-6.1-87409eedc543@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055529-failed-6.1-aa1799e93f5e@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 87409eedc543d288cdd49c2174f7d61eca7b8db5 Mon Sep 17 00:00:00 2001
-From: Dominik Maier <dmnk@google.com>
-Date: Sun, 25 Oct 2026 21:07:40 +0100
-Subject: [PATCH] loop: check for read-write open mode on LOOP_SET_STATUS in
- lo_compat_ioctl()
+From aa1799e93f5ebb973252aec649d84d12d9c7fd1c Mon Sep 17 00:00:00 2001
+From: Ido Schimmel <idosch@nvidia.com>
+Date: Sun, 25 Oct 2026 09:17:29 +0200
+Subject: [PATCH] ipmr, ip6mr: validate packets injected into the register vif
+ on xmit
 
-lo_ioctl() checks for (mode & BLK_OPEN_WRITE) || capable(CAP_SYS_ADMIN)
-before allowing LOOP_SET_STATUS or LOOP_SET_STATUS64, but not
-lo_compat_ioctl(), the handler used by 32-bit user space on 64-bit
-kernels.
+reg_vif_xmit() passes the packet to ipmr_cache_report() which copies its
+IP header into the IGMPMSG_WHOLEPKT report that is queued to the mroute
+socket. Nothing guarantees that the packet contains a full IP header, so
+when a short packet is injected on the register device (e.g., using
+AF_PACKET), the copy reads past the end of the packet and a recvmsg() on
+the mroute socket leaks the uninitialized bytes to user space [1].
 
-As a result, on 64-bit kernels with CONFIG_COMPAT=y, a 32-bit
-unprivileged user-space process holding a read-only (O_RDONLY) file
-descriptor to an active /dev/loopN device can issue a compat
-LOOP_SET_STATUS ioctl to modify lo_offset, clear lo_sizelimit to 0
-(exposing backing-file data past the configured limit), or alter
-lo_flags.
+IPv6 has the same problem [2]. Its reg_vif_xmit() does call
+pskb_inet_may_pull(), but the helper keys off skb->protocol and does not
+pull anything when the protocol is neither IPv4 nor IPv6.
 
-Enforce the same (mode & BLK_OPEN_WRITE) || capable(CAP_SYS_ADMIN) check
-on LOOP_SET_STATUS in lo_compat_ioctl().
+Fix by dropping packets whose protocol does not match the address family
+of the register device or that do not contain a full network header.
 
+[1]
+BUG: KMSAN: kernel-infoleak in _copy_to_iter
+ raw_recvmsg
+
+Uninit was stored to memory at:
+ ipmr_cache_report
+ reg_vif_xmit
+ packet_sendmsg
+
+Uninit was created at:
+ __alloc_skb
+ sock_alloc_send_pskb
+ packet_sendmsg
+
+Bytes 1-3 of 21 are uninitialized
+
+[2]
+BUG: KMSAN: kernel-infoleak in _copy_to_iter
+ rawv6_recvmsg
+
+Uninit was stored to memory at:
+ ip6mr_cache_report
+ reg_vif_xmit
+ packet_sendmsg
+
+Uninit was created at:
+ __alloc_skb
+ sock_alloc_send_pskb
+ packet_sendmsg
+
+Bytes 8-23 of 41 are uninitialized
+
+Fixes: 14fb64e1f449 ("[IPV6] MROUTE: Support PIM-SM (SSM).")
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Assisted-by: ARTIST LLM
-Signed-off-by: Dominik Maier <dmnk@google.com>
-Reviewed-by: Bart Van Assche bvanassche@acm.org
-Link: https://patch.msgid.link/20261025200740.2064379-1-dmnk@google.com
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
+Reported-by: Sashiko <netdev-bot+sashiko@kernel.org>
+Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/0545f0c83f5ee2f6696210f87268e811ef655715.1792476357.git.zhilinz%40nebusec.ai
+Signed-off-by: Ido Schimmel <idosch@nvidia.com>
+Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
+Reviewed-by: Eric Dumazet <edumazet@kernel.org>
+Link: https://patch.msgid.link/20261025071729.34967-3-idosch@nvidia.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 ---
- drivers/block/loop.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ net/ipv4/ipmr.c  | 6 ++++++
+ net/ipv6/ip6mr.c | 2 +-
+ 2 files changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/block/loop.c b/drivers/block/loop.c
-index aabaaacdb4fab..a3325ceab484a 100644
---- a/drivers/block/loop.c
-+++ b/drivers/block/loop.c
-@@ -1604,8 +1604,10 @@ static int lo_compat_ioctl(struct block_device *bdev, blk_mode_t mode,
+diff --git a/net/ipv4/ipmr.c b/net/ipv4/ipmr.c
+index 4a22d9f234254..915b210c4512b 100644
+--- a/net/ipv4/ipmr.c
++++ b/net/ipv4/ipmr.c
+@@ -539,6 +539,12 @@ static netdev_tx_t reg_vif_xmit(struct sk_buff *skb, struct net_device *dev)
+ 	};
+ 	int err;
  
- 	switch(cmd) {
- 	case LOOP_SET_STATUS:
--		err = loop_set_status_compat(lo,
--			     (const struct compat_loop_info __user *)arg);
-+		err = -EPERM;
-+		if ((mode & BLK_OPEN_WRITE) || capable(CAP_SYS_ADMIN))
-+			err = loop_set_status_compat(lo,
-+				(const struct compat_loop_info __user *)arg);
- 		break;
- 	case LOOP_GET_STATUS:
- 		err = loop_get_status_compat(lo,
++	if (skb->protocol != htons(ETH_P_IP) || !pskb_inet_may_pull(skb)) {
++		DEV_STATS_INC(dev, tx_errors);
++		kfree_skb(skb);
++		return NETDEV_TX_OK;
++	}
++
+ 	rcu_read_lock();
+ 	err = ipmr_fib_lookup(net, &fl4, &mrt);
+ 	if (err < 0) {
+diff --git a/net/ipv6/ip6mr.c b/net/ipv6/ip6mr.c
+index 3a551be30f153..a628acf50b0d8 100644
+--- a/net/ipv6/ip6mr.c
++++ b/net/ipv6/ip6mr.c
+@@ -642,7 +642,7 @@ static netdev_tx_t reg_vif_xmit(struct sk_buff *skb,
+ 		.flowi6_mark	= skb->mark,
+ 	};
+ 
+-	if (!pskb_inet_may_pull(skb))
++	if (skb->protocol != htons(ETH_P_IPV6) || !pskb_inet_may_pull(skb))
+ 		goto tx_err;
+ 
+ 	rcu_read_lock();
 -- 
 2.53.0
 
