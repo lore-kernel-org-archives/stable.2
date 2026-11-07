@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794045850;
-	b=e11LswJy451lBFc3ry7ieWTMeG9b66mhrT/sWQyXEcFhycKt3oV6wYr2oyVAeImfi2Rx
-	 jCpZwf2TMZ+4wkze1cuHlBY3a3xAurZnR6SmGZHSv7JiesGbD+V9NqnGKH9bz1Ssu7lOr
-	 HlW7idwrx09qT21hEitNuyW96sQr8cPf6R955MWHkLu6dmIGvhdDdqCMIauWBHWOMqdJ3
-	 HRkB9GNmRF7ckOtiLpw9vu5abPqI2qLOqHGhxbXORaAA94x101SgE/nXRyaiLeiR8zNsN
-	 NGGfEeM7lv32ldzkF4S5dKPPhgOGEDB1JnF+u7O3jAzVpOva5NLvv0nILi3cya9Gy9w==
+	t=1794045853;
+	b=5QtjbhiYYeif/jSuxnWuc6TwjcZZfnmqJDywlOjGrp6UyRHNtzMrqd5Kg1No67RF583W
+	 CdfRMqHa/oX6lBT6m9ql7oLB2f1bRHd235L4/WIfMWJWHLbYZZgm+zWg1dFrQEVeULPTt
+	 eiij28DJ5cz58ohH1IBCXUP+ioGv3+nAOzHkl81yKnGPehIA4R1OHqTnuSY7b2V1r+fs+
+	 ZO2wLZhmKF+zWHiLyWJXaUNt9zZUqfDTm32N8SfSZEJKzVQeizpA54HGOD4SipnKavjOq
+	 HJGIYiVFF7fGK5AF2NG8QUR6BrZhBehslOaR091XvZfBH70nLgwolRB7TRDW4IYYKlg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794045850;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794045853;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Rl/FWPZrVIS4/B2wt9tqRmy29PkC98amqcpjsQmS4oU=;
-	b=agNsenX7BqIwrl4i295Wn5Z0URAhkZsxhjO3I01muSCSp7jE3unlhJ3JwVSXvx1GShYg
-	 un6c4A40/e4OYtCFKNlFprgKatbjGwajLAjgmaBS18WxOzwL2jO9Rrrj3nDoUZKxJGiQ6
-	 OosOcpWziEGlwcoT8Gx7X+4gkxxaqToyJaE2eEamcDb3P36BjUmho94OIYN8I6vQNxwbC
-	 9TKuk80I0J4pV7eYjx7My9mCpdxNU8bfbOjwMClR4ZkcfgaVaoMlaHbJ25AHmPdWB5YGA
-	 2Q+f5el+/6oJxUG5jhFND7IgFqppYIRU3Jr3mi9fiEQdET594t4Gm9rJ06sHkH6c32g==
+	bh=l5nLQ/xMmjvdRT/5n7MpLEJ2/SlXevcabCzN+XFiXWU=;
+	b=w825pYQwodgGyfes7kOcD8TqtWaX4XRm+aUCVG5iv39e5+J097hxPI8/zDqkvT0+UUrS
+	 ejuKFI3rqQtu09KfKKq8T5JuuUvCulwVRBvBasZy0k0BgMQRae1FI00+B0SwlkRr6hfhA
+	 EalJn1gdjFoHYohp/YqmarhXE7Yi9Jm5a1mkHhqeD5hOycsV1FMGqrITNe8dIIIQJMDNq
+	 Pu3lS0dhbFuR1jjyKsLRNuItvTlYdlIeaDwbPc2AQcw0G8OnYozakjG0dg0VdR4nHsheS
+	 AzwGQR7E1Y2+aWLmMMGQWvIlvv7HeeZGUyTo/bLlhAUEkQeHjix8d8cxgtmA47c+zbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cECYOsXn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=By7hmTwX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41BFC606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:04:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 676DA606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:04:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cECYOsXn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C9661F0089F;
-	Sat,  7 Nov 2026 10:04:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=By7hmTwX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B83221F0089F;
+	Sat,  7 Nov 2026 10:04:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794045850;
-	bh=Rl/FWPZrVIS4/B2wt9tqRmy29PkC98amqcpjsQmS4oU=;
+	s=k20260515; t=1794045852;
+	bh=l5nLQ/xMmjvdRT/5n7MpLEJ2/SlXevcabCzN+XFiXWU=;
 	h=From:To:Cc:Subject:Date;
-	b=cECYOsXnI0HJuKGBUsZabd37D7GSFCkhrq2fQFQUB946HmerBs3zXxXSFgTTerT8g
-	 nwK9Kucy2g9Wtt8nWOX9UrHl+lB0x0LbhilA+/lN5msg539YgRNy0P17yABdqKfBXi
-	 hs0DXNF7PDFV5UKoDu5mXOTju+E0fOk9+z3Hbrcqz349LNfyqg4x7SWwO5FHWmUKIq
-	 IirsBHT7nwG675l5AQ316qCCKGQd/q37PC1ieEGpYY/AKfqAo5ymlsfMerwAg+0z2z
-	 6AHip9D7eSe6fjBX77u2NUvmcpcBZbI2k8a4Cr0e0GU+9oPydV5ShIDlFa85wEFpdU
-	 lpyP0x0AmdeZg==
+	b=By7hmTwXhIMfVsuMPJJ00TavZ2iRSONH/ftsADxy5se7sVdpVVksGonyF4yZ+LHSk
+	 MPWybJKBBpUI0Ow5CSdFYWpRaGXJq2rtnBKDLF0vnhTfi6LnrZs12RF9tdxI37vD0w
+	 G1FnA1GOFqqWSGCziZZsUOR3w9Jou28C3lM3zWGtSrUqeK4uHL0c7tXcC9YVWeDiEh
+	 zlNpfD0FzvM3Hh/VHvSkxDajGo99pFGe3CqsWx5nR4kaumY4lVOsvfmGm/8ig3Gzcl
+	 uBpu/fjbpzh/W/UxQt7kYnBnLbcFmSBTmnKuwzlZlSDzFOexWR16UrsOEj/SKxCFh4
+	 vSa/7TeM45drw==
 From: Sasha Levin <sashal@kernel.org>
-To: rathodpriyank@google.com,
-	bhelgaas@google.com,
-	sathyanarayanan.kuppuswamy@linux.intel.com
+To: james.a.fairweather@gmail.com,
+	stiraspo@gmail.com,
+	tzungbi@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] PCI/AER: Fix memory leak in aer_recover_work_func() when pci_dev is missing" failed to apply to 7.3-stable tree
-Date: Sat,  7 Nov 2026 05:04:08 -0500
-Message-ID: <20261107050408-failed-7.3-d4c842c3af5b@kernel.org>
+Subject: FAILED: patch "[PATCH] platform/chrome: cros_usbpd_notify: Only use drvdata when parent is GOOG0004" failed to apply to 7.3-stable tree
+Date: Sat,  7 Nov 2026 05:04:10 -0500
+Message-ID: <20261107050410-failed-7.3-ca75b38b1a3c@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,95 +69,126 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x d4c842c3af5bc52b3ca0b8a7f116114e43b6ba44
+git cherry-pick -x ca75b38b1a3c2eabe81d231dae4ea180cf6287cd
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050408-failed-7.3-d4c842c3af5b@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050410-failed-7.3-ca75b38b1a3c@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From d4c842c3af5bc52b3ca0b8a7f116114e43b6ba44 Mon Sep 17 00:00:00 2001
-From: Priyank Rathod <rathodpriyank@google.com>
-Date: Mon, 28 Sep 2026 17:40:13 +0000
-Subject: [PATCH] PCI/AER: Fix memory leak in aer_recover_work_func() when
- pci_dev is missing
+From ca75b38b1a3c2eabe81d231dae4ea180cf6287cd Mon Sep 17 00:00:00 2001
+From: James Fairweather <james.a.fairweather@gmail.com>
+Date: Sat, 3 Oct 2026 18:28:53 -0400
+Subject: [PATCH] platform/chrome: cros_usbpd_notify: Only use drvdata when
+ parent is GOOG0004
 
-When ACPI APEI/GHES processes PCIe AER error records, it allocates memory
-for aer_capability_regs (entry.regs) from ghes_estatus_pool and queues the
-entry into aer_recover_ring.
+cros_usbpd_notify_probe_acpi() takes the EC device pointer from
+dev_get_drvdata(dev->parent) and assumes it is a struct cros_ec_device.
+That only holds when GOOG0003 is a child of GOOG0004. On older devices
+without that hierarchy, such as Google Nami, GOOG0003 and GOOG0004 are
+siblings under the ACPI EC (PNP0C09):
 
-In aer_recover_work_func(), items are popped from aer_recover_ring via
-kfifo_get(). If pci_get_domain_bus_and_slot() fails to find a matching
-pci_dev, the code previously executed 'continue', bypassing the call to
-ghes_estatus_pool_region_free(). As a result, the memory allocated for
-entry.regs from ghes_estatus_pool was leaked.
+  PNP0C09:00 (acpi-ec)
+  |-- GOOG0003:00 (cros-usbpd-notify-acpi)
+  `-- GOOG0004:00 (cros_ec_lpcs)
 
-This is reachable whenever the device reported by firmware is not (or is no
-longer) present in the PCI device tree, e.g. after hot-removal or when
-firmware reports an error for a device the kernel never enumerated.
+Before commit db65a06d10b3 ("ACPI: EC: Convert the driver to a platform
+one") the parent platform device had no driver data, so the driver
+warned and continued without an EC pointer, as intended for these
+devices. Since that commit the ACPI EC driver stores its struct acpi_ec
+there, so the driver treats a struct acpi_ec as a struct cros_ec_device
+and calls cros_ec_cmd() on it for every USB-C PD host event. Plugging
+or unplugging a charger then intermittently oopses, followed by soft
+lockups and a hung system:
 
-Refactor aer_recover_work_func() to ensure ghes_estatus_pool_region_free()
-is called unconditionally for every dequeued entry, releasing the pool
-memory even when pci_dev is missing.
+  BUG: unable to handle page fault for address: ffffffff9cf03220
+  #PF: supervisor write access in kernel mode
+  Hardware name: Google Nami/Nami, BIOS  09/19/2019
+  Workqueue: kacpi_notify acpi_os_execute_deferred
+  RIP: 0010:native_queued_spin_lock_slowpath+0x29d/0x330
+  Call Trace:
+   _raw_spin_lock_irqsave+0x59/0x80
+   __mutex_lock.constprop.0+0x129/0x930
+   cros_ec_cmd_xfer+0x2a/0xf0 [cros_ec_proto]
+   cros_ec_cmd_xfer_status+0x1a/0x90 [cros_ec_proto]
+   cros_ec_cmd+0xb7/0x140 [cros_ec_proto]
+   cros_usbpd_get_event_and_notify+0x42/0xc0 [cros_usbpd_notify]
+   acpi_ev_notify_dispatch+0x4e/0x70
+   acpi_os_execute_deferred+0x1a/0x30
 
-Fixes: e2abc47a5a1a ("ACPI: APEI: Fix AER info corruption when error status data has multiple sections")
-Signed-off-by: Priyank Rathod <rathodpriyank@google.com>
-Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-Reviewed-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+Only read the parent's driver data when the parent's ACPI node is
+GOOG0004, and otherwise continue without an EC pointer. While at it,
+drop the reference taken by fwnode_get_parent().
+
+Fixes: db65a06d10b3 ("ACPI: EC: Convert the driver to a platform one")
+Fixes: e4ee0bb077cd ("platform/chrome: cros_usbpd_notify: defer probe when parent EC driver isn't ready")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260928-b4-fix-aer-memleaks-v5-2-ba6b94c9c9a6@google.com
+Assisted-by: claude-opus-5-5 checkpatch
+Signed-off-by: James Fairweather <james.a.fairweather@gmail.com>
+Reported-by: Sergey Tiraspolsky <stiraspo@gmail.com>
+Closes: https://lore.kernel.org/all/20261003204623.18124-1-stiraspo@gmail.com
+Tested-by: Sergey Tiraspolsky <stiraspo@gmail.com>
+Link: https://lore.kernel.org/r/20261003222855.23707-1-james.a.fairweather@gmail.com
+Signed-off-by: Tzung-Bi Shih <tzungbi@kernel.org>
 ---
- drivers/pci/pcie/aer.c | 23 ++++++++++++-----------
- 1 file changed, 12 insertions(+), 11 deletions(-)
+ drivers/platform/chrome/cros_usbpd_notify.c | 39 +++++++++++----------
+ 1 file changed, 21 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/pci/pcie/aer.c b/drivers/pci/pcie/aer.c
-index b013b853b5555..a6600801af6e4 100644
---- a/drivers/pci/pcie/aer.c
-+++ b/drivers/pci/pcie/aer.c
-@@ -1366,14 +1366,13 @@ static void aer_recover_work_func(struct work_struct *work)
- 	while (kfifo_get(&aer_recover_ring, &entry)) {
- 		pdev = pci_get_domain_bus_and_slot(entry.domain, entry.bus,
- 						   entry.devfn);
--		if (!pdev) {
-+		if (!pdev)
- 			pr_err_ratelimited("%04x:%02x:%02x.%x: no pci_dev found\n",
- 					   entry.domain, entry.bus,
- 					   PCI_SLOT(entry.devfn),
- 					   PCI_FUNC(entry.devfn));
--			continue;
--		}
--		pci_print_aer(pdev, entry.severity, entry.regs);
-+		else
-+			pci_print_aer(pdev, entry.severity, entry.regs);
+diff --git a/drivers/platform/chrome/cros_usbpd_notify.c b/drivers/platform/chrome/cros_usbpd_notify.c
+index 6f5eea4938cb4..25da31ec19969 100644
+--- a/drivers/platform/chrome/cros_usbpd_notify.c
++++ b/drivers/platform/chrome/cros_usbpd_notify.c
+@@ -110,26 +110,29 @@ static int cros_usbpd_notify_probe_acpi(struct platform_device *pdev)
+ 	if (!pdnotify)
+ 		return -ENOMEM;
  
- 		/*
- 		 * Memory for aer_capability_regs(entry.regs) is being
-@@ -1385,13 +1384,15 @@ static void aer_recover_work_func(struct work_struct *work)
- 		ghes_estatus_pool_region_free((unsigned long)entry.regs,
- 					    sizeof(struct aer_capability_regs));
- 
--		if (entry.severity == AER_NONFATAL)
--			pcie_do_recovery(pdev, pci_channel_io_normal,
--					 aer_root_reset);
--		else if (entry.severity == AER_FATAL)
--			pcie_do_recovery(pdev, pci_channel_io_frozen,
--					 aer_root_reset);
--		pci_dev_put(pdev);
-+		if (pdev) {
-+			if (entry.severity == AER_NONFATAL)
-+				pcie_do_recovery(pdev, pci_channel_io_normal,
-+						 aer_root_reset);
-+			else if (entry.severity == AER_FATAL)
-+				pcie_do_recovery(pdev, pci_channel_io_frozen,
-+						 aer_root_reset);
-+			pci_dev_put(pdev);
-+		}
+-	/* Get the EC device pointer needed to talk to the EC. */
+-	ec_dev = dev_get_drvdata(dev->parent);
+-	if (!ec_dev) {
+-		/*
+-		 * We continue even for older devices which don't have the
+-		 * correct device hierarchy, namely, GOOG0003 is a child
+-		 * of GOOG0004. If GOOG0003 is a child of GOOG0004 and we
+-		 * can't get a pointer to the Chrome EC device, defer the
+-		 * probe function.
+-		 */
+-		parent_fwnode = fwnode_get_parent(dev->fwnode);
+-		if (parent_fwnode) {
+-			parent_adev = to_acpi_device_node(parent_fwnode);
+-			if (parent_adev &&
+-			    acpi_dev_hid_match(parent_adev, CREC_DRV_NAME)) {
+-				return -EPROBE_DEFER;
+-			}
++	/*
++	 * Get the EC device pointer needed to talk to the EC. The parent's
++	 * driver data is only a struct cros_ec_device when GOOG0003 is a
++	 * child of GOOG0004. On older devices without that hierarchy the
++	 * parent may be bound to an unrelated driver (e.g. the ACPI EC
++	 * driver for PNP0C09), so don't touch its driver data and continue
++	 * without an EC pointer. If GOOG0003 is a child of GOOG0004 and we
++	 * can't get a pointer to the Chrome EC device yet, defer the probe.
++	 */
++	ec_dev = NULL;
++	parent_fwnode = fwnode_get_parent(dev->fwnode);
++	parent_adev = to_acpi_device_node(parent_fwnode);
++	if (parent_adev && acpi_dev_hid_match(parent_adev, CREC_DRV_NAME)) {
++		ec_dev = dev_get_drvdata(dev->parent);
++		if (!ec_dev) {
++			fwnode_handle_put(parent_fwnode);
++			return -EPROBE_DEFER;
+ 		}
+-		dev_warn(dev, "Couldn't get Chrome EC device pointer.\n");
  	}
- }
++	fwnode_handle_put(parent_fwnode);
++
++	if (!ec_dev)
++		dev_warn(dev, "Couldn't get Chrome EC device pointer.\n");
  
+ 	pdnotify->dev = dev;
+ 	pdnotify->ec = ec_dev;
 -- 
 2.53.0
 
