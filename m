@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794045762;
-	b=pax2IuVQOI5WaoknXfn6fJ2tksJaggv1PkTVpYiqfVfPTA7nSF3IXT09Cq0ZSoxPQVEd
-	 eQ7K8TXvV9wvNkK71rcSPhnOpW2qMcvHXJ2/AFSAjjawDePHYdRM/o520hkgGodSRHMK+
-	 PdGX1M2Ig61VAQCakuKBHyhiLhxLdkC7CrExRjxp6Ht2UMzMQmSaL2z2/RRTKacw8p5b6
-	 jlzQMHRrVSoPIc9JvvZlrBLSt6y5xj1zHb8KxnbSfDFWJOJ8t2AQIaqdmzTOIjxSOHJFF
-	 jRxqNfeiPuVv+2xvCbguw4ZE4/1hQKoNKHLJID645OP0YsTVUHB2FpNYj5fv5RP7yRg==
+	t=1794045764;
+	b=dC9NP8U4Jb9tRdaPkmTRjpjJwkjQnBG6N3hBGh0Y8HEKHeHEr4rf2UdBvEGCOEPZIeEl
+	 lYVyHldqju2fnwfI+7VoL0mnxvh9dIX9eO4x5AAn7+5zpsITAMOz3roE1pIh5LNgkqmf/
+	 zSAPxegXpwhbC7WGln9S9btX6//sX/N9S36sXm700+vT0WWRuLNZNXeDRp3V/5TJ2CuEp
+	 fzs3kDrIHsNDKvWonga9BEdZMSipyBovKLrarUo9SfT+engpTc5/70pQ2sg0kEYWcV//G
+	 Ap4K3Nr1M+wwRXhLqPdGLPYHKQAP4hRXaafSX55chHWcVikzACLz43ISsX0B5qIY3Aw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794045762;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794045764;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=oaA2Apj022opC+sBLotOeWDRJHe782U/OKSUO7MnIOw=;
-	b=3eAbxkyScb/z+E+ps8Sw2aIcYEPx0pNY+rzvWmQTcf2KxpBN5ojCr5uS+Ayh04/cer8S
-	 owyH7I67we7nk+8kBQxfXQsohEP5Ngk+ptO58Ti1Jdb71pmB7mHmOLqAqZRHKT1AGSiDB
-	 W1gT8OwEBGp4prSPfiNIAvRw+87frGi2wqmQ3aN7YGgvp0HjeM6Uy3EPg6z6uEnzle/vD
-	 /POa/r83va7WH+nU6TEAZWl2hZNUPlWbGkFGN7ueyVN4mRsF5M5ONkKAB6bzyU9mIeJRE
-	 xqCbvajPsP4qehEd3u+GX+8lMnyoEQphpKRIPD8joaW6p9D54FNAiCLFlyHqjwiXg/A==
+	bh=gJfxSocntk6k1MG1wADdRHM9zGl191SUWey4qofYt+0=;
+	b=Te6bgw2Grl0x5T/eCMhQ/rNh6Ie1Hh8AkhXzQlZi6RdDPJeZfFOAO2y33GeJP1V4cHDy
+	 0FIR8VL1QRv318rjh9qOeuvzxWgj+7BOnQVwcDQGDeGLLxJfo6vfxITxiZNjhbFnt6YKM
+	 aP4cPPwJM3JVXrb06n7qjrlqzgTTeqzsmWdT1P0Lv9HfL++9hLWSYPiAFJbnOxOtRurA/
+	 SBuyS/SgmswXW6uoqX0JlOyogO+HoB9VrZnHmVJ3o++eaTnWIHTnoFzqpjREvK0Xv7ecn
+	 zQlK7ItzoMDIGLdkpe2PP4j/7YEjMcIFqKk+0om5XrW3d4oPP9MYWr5KDuB/apV+Nyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="mIossZ/1";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="H3ykh/B3";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BA86606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:02:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45D09606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:02:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mIossZ/1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 752501F0089F;
-	Sat,  7 Nov 2026 10:02:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H3ykh/B3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B766C1F0089F;
+	Sat,  7 Nov 2026 10:02:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794045762;
-	bh=oaA2Apj022opC+sBLotOeWDRJHe782U/OKSUO7MnIOw=;
+	s=k20260515; t=1794045764;
+	bh=gJfxSocntk6k1MG1wADdRHM9zGl191SUWey4qofYt+0=;
 	h=From:To:Cc:Subject:Date;
-	b=mIossZ/1mBRh5iJ0M7BF3Ev7RJ7XditPW+CMbkci1qsRm/EBozLPabPc7Hsn1IMlf
-	 D1pCxSB/tZEbkVkmqF0/ExnGYJpZO1055LW5DRdPRpU4y8NQQw5KgzRLOh9nWUZFza
-	 2JHCyENoWjFe2dp2hii3TwkO7MahlOy5Ie4XN7sXwLtMAJrfbYEDoxWXibq8PBUH21
-	 pAstMySdnix0v7ioiv+IEdCtCoBIiUVklavOFLYUtkClQBB1C2DWZueLl3htUPQTIt
-	 Bw02ATBByT8HW2mTHHf3efd2gfP7yB8dMjUocHQ0lZkecVUM92fWLQhjKKp4fd9th9
-	 qpj26xKfmCLtg==
+	b=H3ykh/B3pmLAXYp4Gimf8c3RHBs5uQbXss9705ivmUjgn0j0vooFQa5vhas/jI99E
+	 J07OHJ8hSISPXbCAsng6CZi6UubrPFMCksifsJkKVzO6ongiqYM14d+G9kJArL80tW
+	 NRJB2GkrABcWVnf59Ya5ZtCybwdND3acxfehoYmqhEV90F/qI8bpdzhBWcZjl4Sg0+
+	 wiQtsvUefyutslEsTKNpEsPtQVfJvjVJZj4iqYqFc/IdJg1wBOtecTyqGBoMir6SsC
+	 Ueue7LvO1RIzRnnzABgczi92N/ExmRg0MgfrKUrgKptzVxpDD0d/+ixNyJOhnvb/kE
+	 apUh95UG8UHQA==
 From: Sasha Levin <sashal@kernel.org>
-To: jia.yao@intel.com,
-	gwan-gyeong.mun@intel.com,
-	matthew.auld@intel.com
+To: lyude@redhat.com,
+	airlied@redhat.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/xe/guc_ads: allocate UM queues in VRAM on dGFX" failed to apply to 7.3-stable tree
-Date: Sat,  7 Nov 2026 05:02:40 -0500
-Message-ID: <20261107050240-failed-7.3-ace076ef0a85@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/nouveau/gsp/r570: Enable S/R Display workaround in GSP" failed to apply to 7.3-stable tree
+Date: Sat,  7 Nov 2026 05:02:42 -0500
+Message-ID: <20261107050242-failed-7.3-ca57629b3eb9@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,81 +68,80 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x ace076ef0a854ab5940bacc539bf66afd61d118c
+git cherry-pick -x ca57629b3eb912c77bc4357178a2130ea6c2d6df
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050240-failed-7.3-ace076ef0a85@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050242-failed-7.3-ca57629b3eb9@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From ace076ef0a854ab5940bacc539bf66afd61d118c Mon Sep 17 00:00:00 2001
-From: Jia Yao <jia.yao@intel.com>
-Date: Tue, 4 Aug 2026 16:50:56 +0000
-Subject: [PATCH] drm/xe/guc_ads: allocate UM queues in VRAM on dGFX
+From ca57629b3eb912c77bc4357178a2130ea6c2d6df Mon Sep 17 00:00:00 2001
+From: Lyude Paul <lyude@redhat.com>
+Date: Fri, 14 Aug 2026 15:43:50 -0400
+Subject: [PATCH] drm/nouveau/gsp/r570: Enable S/R Display workaround in GSP
 
-On iGPU, the UM queue BO is allocated in system memory. On dGFX, the BO
-was previously created in system memory and later reallocated in
-xe_guc_realloc_post_hwconfig().  Allocate the UM queue BO directly in
-VRAM on dGFX, where it is ultimately required.
+There's two flags that we've never been setting when asking GSP to suspend
+the GPU, which OpenRM does set:
 
-Fixes: 9c57bc08652a ("drm/xe/lnl: Drop force_probe requirement")
-Cc: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: <stable@vger.kernel.org> # v6.12+
-Signed-off-by: Jia Yao <jia.yao@intel.com>
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
-Signed-off-by: Matthew Auld <matthew.auld@intel.com>
-Link: https://patch.msgid.link/20260804165057.129529-3-jia.yao@intel.com
+  GPU_STATE_FLAGS_PRESERVING
+  GPU_STATE_FLAGS_PM_TRANSITION
+
+These flags aren't -supposed- to do much in GSP, they're mostly used by
+OpenRM itself for state tracking. The only thing they do from GSP's side is
+control whether or not a single display related workaround is applied
+during suspend.
+
+But as it turns out, that single workaround is actually quite crucial for
+getting runtime PM working with nouveau - and without it set we end up
+seeing a lot more failures with runtime PM resume. So, let's start setting
+it.
+
+Signed-off-by: Lyude Paul <lyude@redhat.com>
+Fixes: 53dac0623853 ("drm/nouveau/gsp: add support for 570.144")
+Cc: <stable@vger.kernel.org> # v6.16+
+Reviewed-by: Dave Airlie <airlied@redhat.com>
+Link: https://patch.msgid.link/20260814194542.781955-4-lyude@redhat.com
 ---
- drivers/gpu/drm/xe/xe_guc.c     | 6 ------
- drivers/gpu/drm/xe/xe_guc_ads.c | 8 +++++---
- 2 files changed, 5 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c     | 3 ++-
+ .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h    | 8 ++++++++
+ 2 files changed, 10 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_guc.c b/drivers/gpu/drm/xe/xe_guc.c
-index 4f132bf8539da..4286bd05c6861 100644
---- a/drivers/gpu/drm/xe/xe_guc.c
-+++ b/drivers/gpu/drm/xe/xe_guc.c
-@@ -732,12 +732,6 @@ static int xe_guc_realloc_post_hwconfig(struct xe_guc *guc)
- 	if (ret)
- 		return ret;
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
+index 996941c668ba9..3e391646d8f7d 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
+@@ -198,7 +198,8 @@ r570_gsp_set_rmargs(struct nvkm_gsp *gsp, bool resume)
+ 		args->srInitArguments.bInPMTransition = 0;
+ 	} else {
+ 		args->srInitArguments.oldLevel = NV2080_CTRL_GPU_SET_POWER_STATE_GPU_LEVEL_3;
+-		args->srInitArguments.flags = 0;
++		args->srInitArguments.flags =
++			GPU_STATE_FLAGS_PRESERVING | GPU_STATE_FLAGS_PM_TRANSITION;
+ 		args->srInitArguments.bInPMTransition = 1;
+ 	}
  
--	if (guc->ads.um_queue_bo) {
--		ret = xe_managed_bo_reinit_in_vram(xe, tile, &guc->ads.um_queue_bo);
--		if (ret)
--			return ret;
--	}
--
- 	return 0;
- }
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h
+index b6075021e74f5..c458569af9d72 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/nvrm/gsp.h
+@@ -523,6 +523,14 @@ typedef struct
  
-diff --git a/drivers/gpu/drm/xe/xe_guc_ads.c b/drivers/gpu/drm/xe/xe_guc_ads.c
-index f8c679cef0039..77429ff4d2a9a 100644
---- a/drivers/gpu/drm/xe/xe_guc_ads.c
-+++ b/drivers/gpu/drm/xe/xe_guc_ads.c
-@@ -445,15 +445,17 @@ int xe_guc_ads_init(struct xe_guc_ads *ads)
- 		/*
- 		 * Allocate a separate BO for the HW fault ring (UM queues).
- 		 *
--		 * Round the size up to the next power of two so that
-+		 * Round the size up to the next power of two so that on iGPU
- 		 * (system memory, no IOMMU) the TTM pool issues a single
- 		 * alloc_pages(order=N) call, maximising the chance of getting
- 		 * a physically contiguous block.  GuC requires contiguous DPA.
- 		 */
--		size_t um_size = roundup_pow_of_two(GUC_UM_QUEUE_SIZE *
-+		size_t um_size = IS_DGFX(xe) ?
-+				 GUC_UM_QUEUE_SIZE * GUC_UM_HW_QUEUE_MAX :
-+				 roundup_pow_of_two(GUC_UM_QUEUE_SIZE *
- 						    GUC_UM_HW_QUEUE_MAX);
+ #define NV2080_CTRL_GPU_SET_POWER_STATE_GPU_LEVEL_3            (0x00000003U)
  
--		u32 um_flags = XE_BO_FLAG_SYSTEM |
-+		u32 um_flags = XE_BO_FLAG_VRAM_IF_DGFX(tile) |
- 			       XE_BO_FLAG_GGTT |
- 			       XE_BO_FLAG_GGTT_INVALIDATE |
- 			       XE_BO_FLAG_PINNED_NORESTORE;
++#define GPU_STATE_FLAGS_PRESERVING         BIT(0)  // GPU state is preserved
++#define GPU_STATE_FLAGS_VGA_TRANSITION     BIT(1)   // To be used with GPU_STATE_FLAGS_PRESERVING.
++#define GPU_STATE_FLAGS_PM_TRANSITION      BIT(2)   // To be used with GPU_STATE_FLAGS_PRESERVING.
++#define GPU_STATE_FLAGS_PM_SUSPEND         BIT(3)
++#define GPU_STATE_FLAGS_PM_HIBERNATE       BIT(4)
++#define GPU_STATE_FLAGS_GC6_TRANSITION     BIT(5)  // To be used with GPU_STATE_FLAGS_PRESERVING.
++#define GPU_STATE_FLAGS_FAST_UNLOAD        BIT(6)  // Used during windows restart, skips stateDestroy steps
++
+ typedef struct
+ {
+     // Magic for verification by secure ucode
 -- 
 2.53.0
 
