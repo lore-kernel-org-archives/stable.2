@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049060;
-	b=J6FBU6wyj8uQwk00JBsojiFAKS6NMYTDOyfiRnTIsYLrtY+dbRHV/7z7mCDYfJGl/Icn
-	 BzFEvsoEwcQTxSom4TzsjcJBdEvlJuG/+9JsbQlLko3M36YTLWYjmSOkBed8hi82yMInN
-	 224Aua1rzd9xVtO+9hrprwjZo7dK2cg/AYI97ISLTOIlbSqpwiR/QF+LwME8Wcu5IsT7o
-	 O16h6B64pEqkslEssHggBdxJdfCjYQ+FO/MS/jwC3sWwf8EZ81n31WuRiEqEEU5FGabn1
-	 0/Bflvsxosv/hzYrLOfFkZMPKJ1hdIxUoi79Ex52Lb5iEI4xsp/B8AvAQGUUJe3HaQg==
+	t=1794049063;
+	b=LHgLsue4XrIO4+c/l7TOzGr+PNiQ6QLEi4fZLXiCTXT+OFoPS01fenSLtjEn+ic6+piT
+	 Z4tm/sBxF0MgXM8sbQiBrJ1cOEkEltczMOs1RfpECc/M0sM6HFupU6b1TNZzPB4u6h6UD
+	 g2pSlzyX1cyyaLCE+6QckMkzgPYO+OT3Z3XQixEDL73eWKdk5Cdeum9Zcag9v7US1wMaJ
+	 Vro0gse7TAvLtipnso6KOPE3lBompeSGrMuL4SLD/fRvknNh0F37Fl8OePHFVvwP8C9TQ
+	 4VDMC9nwwjiCe6BGt1YR9l2uAIssaLlKkDgoEcVUO6MLutERo/OQBln8mXV+KIzP0/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049060;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049063;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=WrEGBHM5Vf67S6RwK5gvY3IFKaLfaIqACi8iu5an/Ec=;
-	b=BevPSt4zccgkUGx9rqjUYPyBZ447Rv9DovRx/4UrDd4Aeq3hAW80jkG6JNxk9iXpY0bS
-	 RRkVxfxdNlQZEZuYXRWnKGuzsWblKCnC2zikv3zvnssHhR2J90wBC7x8/SJShjLYKwW6e
-	 GWeE7p1srwNsIAD85N6mg4fo9PZzy2MgQkoF1CxaCfWgE7yLSzrxA+XT0NWXrATusoz6U
-	 /sPaQGQvY+FXtJ5HhZbxJ5ecu5ig+hb0ElqZmDRrml710AjkusDQfHhcxij6L2IP1VDKw
-	 +jVdGyv50P0Y5ivQSlkgoAUVNAC4e2biQ0hs4wOCS4eGg7ioUTcwFu3XMR/vnS2kpkg==
+	bh=BvJxfpGYHHcXEbVSRKWyBTm4ncWG4oicSN7xELWuxW4=;
+	b=m03VxlwhMY5dZqsOI7OlJ+Ju+CLCWcCosm52SouX+jd0LIThi2d8bRaaFlIdP/OXooPZ
+	 SVONgK8cdMwfvt6nXiXyqFac120f9VZfvd2y/txuX6EVGHsuoxC/uQi0l+ZguDqbSstmr
+	 9h8y5OjSLk2U/tbxKp01Ha41/OIjJQBBlOhH0JRi9cOzzl3cJ8wd0r0miSdDE4ApW92aY
+	 8U8IggVNcQzRYSRxwi1imRu0fmd6KygE3YQ2kAxUMBUG8KsmEdpH9XWyUn1VJb7aOeE4Z
+	 WrvAs/BAabqoo+ctOf7VBLGmXYKSxzcR5Ek8JKg9CiIZR47dc4XNY8ZutL38OanTGrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Di8wWEZY;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YWPgOmS8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07AC9606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:57:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CCDB606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:57:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Di8wWEZY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 480991F0089F;
-	Sat,  7 Nov 2026 10:57:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YWPgOmS8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 635081F008A2;
+	Sat,  7 Nov 2026 10:57:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049059;
-	bh=WrEGBHM5Vf67S6RwK5gvY3IFKaLfaIqACi8iu5an/Ec=;
+	s=k20260515; t=1794049063;
+	bh=BvJxfpGYHHcXEbVSRKWyBTm4ncWG4oicSN7xELWuxW4=;
 	h=From:To:Cc:Subject:Date;
-	b=Di8wWEZYNyFoWcocjTU2ITrYqQ8eYivzqnIcnRtaFjK98BdvDXWFvfiJiILxSgsoC
-	 5+t1yv9mF5oJDv+9TqKTIfkIyCMhEie1bf8oXlr3lLBb10bNYY17cuFDgz0rVBGDi/
-	 H39cZa8NtMQMjbfJPqRW+reC2uwiFMGVYiIBYsppLj3qw0On9EDxRXYdAPjiLshSrA
-	 B5lP8uNBTaVs30upNB2MOw9M9z9ZzOjRElFacYdqI6dEI2DBCaEt91UMtxjiFPAmEK
-	 lTWIRIvbOux/eay92ZlXuzi19DYJ9nll/ePhGCbkgNiMKyCm1wbVD/DMHTYsuUfiHZ
-	 0DD7/PMnFbTXA==
+	b=YWPgOmS8CUFqMg1j44cos7JDmQ1yzcH2qTaitFdL0VYUkJqw4lXZsZF1SataTFLD0
+	 NpALV8hkGdPAsKNbPs7dz9Hhds/X8AlfvYcu7uCm9Q6aP3HxjsbBXVDcBAm++evGeP
+	 ydKihW6Ke9wGT9bVAJ12pkwV6bx4QE8GFoeU5j/GRCK5SbO2NLemQipMCRi6mTK3LO
+	 YZD+iXeTLKKr3LxOy7H+Yayi03iWjOz71wdqYb+lOvhvj9580h4/rWn6U4rKjbVhzX
+	 nw7DxLCEEm8UBJe2EtM4UE3d5GmBPODs0WjcMqVIQfPCPJ8Y9NcWm6MnrivsS5COzh
+	 ryw8NLa80hpPw==
 From: Sasha Levin <sashal@kernel.org>
-To: sakari.ailus@linux.intel.com,
-	ribalda@chromium.org,
-	rafael@kernel.org,
-	dan.scally@ideasonboard.com
+To: amir73il@gmail.com,
+	4ncienth@gmail.com,
+	jack@suse.cz,
+	brauner@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] platform/x86: int3472: Fix uninitialised variable warning" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 05:57:37 -0500
-Message-ID: <20261107055737-failed-5.15-70e6384fe0f4@kernel.org>
+Subject: FAILED: patch "[PATCH] fs: make sure to call fsnotify_inoderemove() only once when inode is dead" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 05:57:41 -0500
+Message-ID: <20261107055741-failed-5.15-669bb5af15d4@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,117 +70,116 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 70e6384fe0f4cf9768944f81924f6c1478b0ce43
+git cherry-pick -x 669bb5af15d41a21359d00a441490f87a88eb52a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055737-failed-5.15-70e6384fe0f4@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055741-failed-5.15-669bb5af15d4@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 70e6384fe0f4cf9768944f81924f6c1478b0ce43 Mon Sep 17 00:00:00 2001
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-Date: Thu, 20 Aug 2026 23:19:01 +0300
-Subject: [PATCH] platform/x86: int3472: Fix uninitialised variable warning
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 669bb5af15d41a21359d00a441490f87a88eb52a Mon Sep 17 00:00:00 2001
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Wed, 2 Sep 2026 18:49:25 +0200
+Subject: [PATCH] fs: make sure to call fsnotify_inoderemove() only once when
+ inode is dead
 
-Fix a compiler warning about an uninitialised err_msg variable by printing
-the error where it is handled:
+Daehyeon reported a race wherein fsnotify_removeinode() can be called
+when inode still has a live alias.  This can lead to several undesired
+outcomes such as crashes in fsnotify code or avoidance of inode mark
+notifications.
 
-drivers/platform/x86/intel/int3472/discrete.c:440:24: warning: ‘err_msg’ may be used uninitialized [-Wmaybe-uninitialized]
-  440 |                 return dev_err_probe(int3472->dev, ret, err_msg);
+Check that inode is really "dead", meaning no nlink and no more aliases
+before calling fsnotify_inoderemove() for final cleanup of inode marks.
+Also do not allow open_by_handle() to add new aliases to a "dead" inode.
 
-Fixes: 5de691bffe57 ("platform/x86: Add intel_skl_int3472 driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-Reviewed-by: Ricardo Ribalda <ribalda@chromium.org>
-Acked-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
-Reviewed-by: Daniel Scally <dan.scally@ideasonboard.com>
+Ideally, we'd call fsnotify_inoderemove() once last inode reference is
+dropped to make things simpler. Alas fsnotify inode marks currently hold
+inode references and thus this doesn't work. Once we teach fsnotify to
+avoid holding inode references, these games with dead inodes can go as
+well.
+
+Reported-and-tested-by: Daehyeon Ko <4ncienth@gmail.com>
+Closes: https://lore.kernel.org/linux-fsdevel/20260827045007.3831259-1-4ncienth@gmail.com/
+CC: stable@vger.kernel.org
+Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+Signed-off-by: Jan Kara <jack@suse.cz>
+Link: https://patch.msgid.link/20260902164924.1333135-2-jack@suse.cz
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- drivers/platform/x86/intel/int3472/discrete.c | 25 +++++++++++--------
- 1 file changed, 14 insertions(+), 11 deletions(-)
+ fs/dcache.c | 27 ++++++++++++++++++++++++---
+ 1 file changed, 24 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/platform/x86/intel/int3472/discrete.c b/drivers/platform/x86/intel/int3472/discrete.c
-index 6c729fcfce5db..9cd4f78875abf 100644
---- a/drivers/platform/x86/intel/int3472/discrete.c
-+++ b/drivers/platform/x86/intel/int3472/discrete.c
-@@ -329,7 +329,6 @@ static int skl_int3472_handle_gpio_resources(struct acpi_resource *ares,
- 	unsigned long gpio_flags;
- 	union acpi_object *obj;
- 	struct gpio_desc *gpio;
--	const char *err_msg;
- 	const char *con_id;
- 	int ret;
- 
-@@ -375,7 +374,8 @@ static int skl_int3472_handle_gpio_resources(struct acpi_resource *ares,
- 	case INT3472_GPIO_TYPE_HOTPLUG_DETECT:
- 		ret = skl_int3472_map_gpio_to_sensor(int3472, agpio, con_id, gpio_flags);
- 		if (ret)
--			err_msg = "Failed to map GPIO pin to sensor\n";
-+			dev_err_probe(int3472->dev, ret,
-+				      "Failed to map GPIO pin to sensor\n");
- 
- 		break;
- 	case INT3472_GPIO_TYPE_CLK_ENABLE:
-@@ -387,7 +387,7 @@ static int skl_int3472_handle_gpio_resources(struct acpi_resource *ares,
- 		gpio = skl_int3472_gpiod_get_from_temp_lookup(int3472, agpio, con_id, gpio_flags);
- 		if (IS_ERR(gpio)) {
- 			ret = PTR_ERR(gpio);
--			err_msg = "Failed to get GPIO\n";
-+			dev_err_probe(int3472->dev, ret, "Failed to get GPIO\n");
- 			break;
- 		}
- 
-@@ -395,14 +395,16 @@ static int skl_int3472_handle_gpio_resources(struct acpi_resource *ares,
- 		case INT3472_GPIO_TYPE_CLK_ENABLE:
- 			ret = skl_int3472_register_gpio_clock(int3472, gpio);
- 			if (ret)
--				err_msg = "Failed to register clock\n";
-+				dev_err_probe(int3472->dev, ret,
-+					      "Failed to register clock\n");
- 
- 			break;
- 		case INT3472_GPIO_TYPE_PRIVACY_LED:
- 		case INT3472_GPIO_TYPE_STROBE:
- 			ret = skl_int3472_register_led(int3472, gpio, con_id);
- 			if (ret)
--				err_msg = "Failed to register LED\n";
-+				dev_err_probe(int3472->dev, ret,
-+					      "Failed to register LED\n");
- 
- 			break;
- 		case INT3472_GPIO_TYPE_POWER_ENABLE:
-@@ -413,7 +415,8 @@ static int skl_int3472_handle_gpio_resources(struct acpi_resource *ares,
- 			ret = skl_int3472_register_regulator(int3472, gpio, enable_time_us,
- 							     con_id, second_sensor);
- 			if (ret)
--				err_msg = "Failed to register regulator\n";
-+				dev_err_probe(int3472->dev, ret,
-+					      "Failed to register regulator\n");
- 
- 			break;
- 		default: /* Never reached */
-@@ -436,11 +439,11 @@ static int skl_int3472_handle_gpio_resources(struct acpi_resource *ares,
- 	int3472->ngpios++;
- 	ACPI_FREE(obj);
- 
--	if (ret < 0)
--		return dev_err_probe(int3472->dev, ret, err_msg);
--
--	/* Tell acpi_dev_get_resources() to not make a copy of the resource */
--	return 1;
-+	/*
-+	 * Either return an error or tell acpi_dev_get_resources() to not make a
-+	 * copy of the resource.
-+	 */
-+	return ret < 0 ? ret : 1;
+diff --git a/fs/dcache.c b/fs/dcache.c
+index 1b1a81f10da67..8f17db2724b38 100644
+--- a/fs/dcache.c
++++ b/fs/dcache.c
+@@ -450,6 +450,17 @@ static void dentry_free(struct dentry *dentry)
+ 		call_rcu(&dentry->d_rcu, __d_free);
  }
  
- int int3472_discrete_parse_crs(struct int3472_discrete_device *int3472)
++/*
++ * If inode is unlinked and doesn't have any aliases (i.e., all fds pointing to
++ * it are closed), it is pretty much dead. Except that file handle lookup could
++ * still revive it which causes issues to fsnotify. So once inode reaches this
++ * state we make sure to block creating any new aliases.
++ */
++static bool inode_notify_dead(struct inode *inode)
++{
++	return !inode->i_nlink && hlist_empty(&inode->i_dentry);
++}
++
+ /*
+  * Release the dentry's inode, using the filesystem
+  * d_iput() operation if defined.
+@@ -459,6 +470,7 @@ static void dentry_unlink_inode(struct dentry * dentry)
+ 	__releases(dentry->d_inode->i_lock)
+ {
+ 	struct inode *inode = dentry->d_inode;
++	bool notify_dead;
+ 
+ 	raw_write_seqcount_begin(&dentry->d_seq);
+ 	__d_clear_type_and_inode(dentry);
+@@ -469,9 +481,10 @@ static void dentry_unlink_inode(struct dentry * dentry)
+ 	 */
+ 	dentry->waiters = NULL;
+ 	raw_write_seqcount_end(&dentry->d_seq);
++	notify_dead = inode_notify_dead(inode);
+ 	spin_unlock(&dentry->d_lock);
+ 	spin_unlock(&inode->i_lock);
+-	if (!inode->i_nlink)
++	if (notify_dead)
+ 		fsnotify_inoderemove(inode);
+ 	if (dentry->d_op && dentry->d_op->d_iput)
+ 		dentry->d_op->d_iput(dentry, inode);
+@@ -2237,7 +2250,12 @@ static struct dentry *__d_obtain_alias(struct inode *inode, bool disconnected)
+ 
+ 	sb = inode->i_sb;
+ 
+-	res = d_find_any_alias(inode); /* existing alias? */
++	spin_lock(&inode->i_lock);
++	if (!inode_notify_dead(inode))
++		res = __d_find_any_alias(inode);	/* existing alias? */
++	else
++		res = ERR_PTR(-ESTALE);
++	spin_unlock(&inode->i_lock);
+ 	if (res)
+ 		goto out;
+ 
+@@ -2249,7 +2267,10 @@ static struct dentry *__d_obtain_alias(struct inode *inode, bool disconnected)
+ 
+ 	security_d_instantiate(new, inode);
+ 	spin_lock(&inode->i_lock);
+-	res = __d_find_any_alias(inode); /* recheck under lock */
++	if (!inode_notify_dead(inode))
++		res = __d_find_any_alias(inode);	/* recheck under lock */
++	else
++		res = ERR_PTR(-ESTALE);
+ 	if (likely(!res)) { /* still no alias, attach a disconnected dentry */
+ 		unsigned add_flags = d_flags_for_inode(inode);
+ 
 -- 
 2.53.0
 
