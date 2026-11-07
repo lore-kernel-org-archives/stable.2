@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050315;
-	b=WKziQgAAfZdEosNAxKcydRaQkyFjeahaGxmCEyWVuQlfCsDj4RDE0MDH7NdfudMtmznX
-	 wi7NREuKr0ZM7yKMLypKQMEQo9rPHikEZGAbwd3eMmhvleB48Bwcz2jvlC/may6ChY71e
-	 AysJ7usGVFIB07wtK2UWe5sojGdQ/haRDUzJyXDVA9Og8DDda0Cv7RaYwom7iTBkiRfWz
-	 Grq/6xiKAwE6/p16moDoPnwJhcBOPVxlyO9AjDD0CXODP20n5SHEdYzTMzptc8ZX4sl7i
-	 IfIHifA4aVI9rz/EwACcchZLlAbCBJ0ccVxPfF3q90/gOhO2NfpREc0Da55exHhz06A==
+	t=1794050319;
+	b=awU7pIHdRoSuzByVPKRosJYKe024+WruGDBu6NoVBhimreGn2PCXakQ8wQIgYT6Bevkz
+	 9KjFZlaDZQYCemftjvvusV5SJtQNeKeBayWFCnyUhf3mccS6Ve203bNE9X2RyHRLHqafP
+	 o0hzrd8AS3yJ9hbJdR5ym9UobGNyRUIi37nhf1hRJhC2t4/CyNYrsSs9XNSW3TMIFBVbO
+	 WxsOJZQkIYqBFGjNvoSA6bt9O668nUAsExW/EopxdR0nYJFfXQ69pgHRW+CYUsC/0awwn
+	 QiCJSdaAeAow232EueRvfW+76sHCVbqQ0FWXnWI5uvcwgKIp3gLZ0qEQO8Gb/oNz89g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050315;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050319;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=bLfJJf3dpNZssEtJeS6jF2ZEw94AQ16pUOI/Np+Z2EY=;
-	b=gls2khmJ0adddEymR+0xH/T6x8inZx5yIC/stMxkLPgFuUqhk/FHI7l8bs7z/88nnSoD
-	 rKes9rSNhr5fXjpkFwssqeaZ/4lI+1/F1L64YhPLM7PwRg8OGBXOCzGpSKIQIDZqSkTn0
-	 oMbz4Njg2gzsnW0rhakGqqUeL80H9WjsKouPC5QUBgpA5Qz4ScwBfHO3zrv3cblTIzhwC
-	 uUaGxBvQyt86SZc63KnOyA2PANP7P5XSSc0dXVMd1atOBv+wFnw0Ydc3Nu4kdrugDJiip
-	 BwPez/BPtsBdyXR7cSWv2yaVY0xNHaNi3ej1BTZFRPW7O4MWX/cbkCRrsnEfBLAiHGw==
+	bh=/Z3IEnDJELhEqKJfmAlUso+agFi13Z7poh6KIlpnLGs=;
+	b=ESDsDgvVXGEPGAwhKMLkD9aG+UzNwWPJl1XGW0JjZrYVjfgDUBthDX0+VeP0BUXcKYlX
+	 8pG1qo7h/w43j0Q6Wl8wPtwNIxSgjIXpzBKGmzUmZCbx8S2VL2ypYW5+DWRgb4L5RZXyO
+	 goWWCYvnRh/vEwqPt0Y9/OccmRtAgZhWBSznG+QqN/GSwAmCxE0AcFY83iNKknPzEuDLN
+	 WZlNpLsPQnHxjvy8TmmBcHr4mqT8gleNwANjK9faP1o5Uv2skF/I+4UnurT86Q4Vldhxe
+	 1COarN+Dvwcj4UT8PBppFuhmmw9+cQPUBol2d4EZ7PtnUacKNHSzDAwrhh4+EWqtAdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UJL6b+M0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hWTADK4S;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F60D606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:18:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5E14606A32D
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:18:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UJL6b+M0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF7851F0089F;
-	Sat,  7 Nov 2026 11:18:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hWTADK4S
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25C801F0089F;
+	Sat,  7 Nov 2026 11:18:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050315;
-	bh=bLfJJf3dpNZssEtJeS6jF2ZEw94AQ16pUOI/Np+Z2EY=;
+	s=k20260515; t=1794050318;
+	bh=/Z3IEnDJELhEqKJfmAlUso+agFi13Z7poh6KIlpnLGs=;
 	h=From:To:Cc:Subject:Date;
-	b=UJL6b+M0PZCFwgferuySW8x0HoXslOyjVw3pS+SlkgJazMiYEwX1LTGGpgA2G3jmn
-	 YMftOjBS3y/vmrSgSS2dEmM67oVs4uFO30n+NWXELv0xSeRPT4+8O2J+DB9p6dQigo
-	 t8vg/mleKYda7slLoCxFEFzSks9j4fJ3bDSeW32snHBmNDvv6GD4okOt1CsNppQKm1
-	 /IGFD3hx6YqeezdeIHrndQtPjztefXOlWWhZwaFkQ8giJa3ugeS3n4i9vskGdR82eI
-	 69nJ+rJ2oyF0x6vGJ8+Yv3zWqR+dkDel/zn96sgoak9uO7aXn6LYFJvIq9NBb57QgI
-	 HaiOlYY9yUVrQ==
+	b=hWTADK4S9w6jEtyKTbKLkxgJ8L4nvapqXN4A/fXED7RCB5dKEC0PV9aEDjmNAlVq/
+	 SCDVUPoMAvSwwk5Yn8Qp5B8S1hZ4TKDVJkd1YMWjB3leSIKGq7U2gjztxRJB6NjNfs
+	 TTA8tHbZz5WWnLraSErGHkbOEeE+EUNdk/NiMFeDvjutWzkVVnw4jL8GgJRYQJfuRu
+	 QHkvcUPQF38SDTUMmak0COcUzAEv8CqfiMuybnY1hqO6GQyqK0xfSyrVxFlmxwYDz2
+	 NqdCdIBNYnHEiAHavFJO/xrqWywvyKXGQ+IEvIPEpVqW63KIS3ICyC3mGM8ncifo5A
+	 X0obO9m85aEZg==
 From: Sasha Levin <sashal@kernel.org>
-To: fanwu01@zju.edu.cn,
-	songl@zju.edu.cn,
+To: hnkz.64@gmail.com,
 	nicolas.dufresne@collabora.com,
 	hverkuil+cisco@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] media: mediatek: vpu: free IRQ before destroying watchdog workqueue" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:18:33 -0500
-Message-ID: <20261107061833-failed-5.10-2c50b58d4105@kernel.org>
+Subject: FAILED: patch "[PATCH] media: mediatek: jpeg: Avoid context access after job finish" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:18:36 -0500
+Message-ID: <20261107061836-failed-5.10-7c7f31405b76@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,58 +69,65 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 2c50b58d4105f6dbaa36d6306087954b9100e9ae
+git cherry-pick -x 7c7f31405b76acd95a628c834ee8a2d6da439782
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061833-failed-5.10-2c50b58d4105@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061836-failed-5.10-7c7f31405b76@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 2c50b58d4105f6dbaa36d6306087954b9100e9ae Mon Sep 17 00:00:00 2001
-From: Fan Wu <fanwu01@zju.edu.cn>
-Date: Wed, 23 Sep 2026 08:59:21 +0000
-Subject: [PATCH] media: mediatek: vpu: free IRQ before destroying watchdog
- workqueue
+From 7c7f31405b76acd95a628c834ee8a2d6da439782 Mon Sep 17 00:00:00 2001
+From: Kazuki Hanai <hnkz.64@gmail.com>
+Date: Wed, 2 Sep 2026 20:22:28 +0900
+Subject: [PATCH] media: mediatek: jpeg: Avoid context access after job finish
 
-mtk_vpu_remove() destroys the watchdog workqueue while the interrupt
-handler requested with devm_request_irq() is still registered: the
-devres core frees the interrupt only after remove() has returned. If
-the VPU watchdog fires in that window, vpu_irq_handler() queues
-vpu->wdt.ws on the already destroyed vpu->wdt.wq.
+v4l2_m2m_job_finish() publishes job completion and wakes waiters
+before it returns. A concurrent file release can therefore finish
+v4l2_m2m_ctx_release() and free the context while the single-core IRQ
+handler continues with its tail.
 
-Fix this by calling devm_free_irq() before destroy_workqueue(), which
-releases the interrupt and waits for a running handler, so no new work
-can be queued while the workqueue is drained and freed.
+Both handlers only need the device for the matching runtime PM put.
+Use the IRQ-owned jpeg pointer instead of dereferencing ctx after
+completion has been published. This preserves the get/put pairing and
+removes the post-completion context access.
 
-This issue was found by an in-house static analysis tool.
-
-Fixes: 3003a180ef6b ("[media] VPU: mediatek: support Mediatek VPU")
+Fixes: 45f13a57d813 ("media: platform: Add jpeg enc feature")
+Fixes: 5827e4b14ee7 ("media: platform: Improve power on and power off flow")
 Cc: stable@vger.kernel.org
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Assisted-by: Codex:gpt-5
+Signed-off-by: Kazuki Hanai <hnkz.64@gmail.com>
 Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 ---
- drivers/media/platform/mediatek/vpu/mtk_vpu.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/platform/mediatek/vpu/mtk_vpu.c b/drivers/media/platform/mediatek/vpu/mtk_vpu.c
-index 8d8319f0cd221..b6bd80b684459 100644
---- a/drivers/media/platform/mediatek/vpu/mtk_vpu.c
-+++ b/drivers/media/platform/mediatek/vpu/mtk_vpu.c
-@@ -962,6 +962,7 @@ static void mtk_vpu_remove(struct platform_device *pdev)
- #ifdef CONFIG_DEBUG_FS
- 	debugfs_remove(vpu_debugfs);
- #endif
-+	devm_free_irq(&pdev->dev, vpu->reg.irq, vpu);
- 	if (vpu->wdt.wq)
- 		destroy_workqueue(vpu->wdt.wq);
- 	vpu_free_ext_mem(vpu, P_FW);
+diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+index 515c216058749..640ae30736f91 100644
+--- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
++++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+@@ -1574,7 +1574,7 @@ static irqreturn_t mtk_jpeg_enc_done(struct mtk_jpeg_dev *jpeg)
+ 	v4l2_m2m_buf_done(src_buf, buf_state);
+ 	v4l2_m2m_buf_done(dst_buf, buf_state);
+ 	v4l2_m2m_job_finish(jpeg->m2m_dev, ctx->fh.m2m_ctx);
+-	pm_runtime_put(ctx->jpeg->dev);
++	pm_runtime_put(jpeg->dev);
+ 	return IRQ_HANDLED;
+ }
+ 
+@@ -1856,7 +1856,7 @@ static irqreturn_t mtk_jpeg_dec_irq(int irq, void *priv)
+ 	v4l2_m2m_buf_done(src_buf, buf_state);
+ 	v4l2_m2m_buf_done(dst_buf, buf_state);
+ 	v4l2_m2m_job_finish(jpeg->m2m_dev, ctx->fh.m2m_ctx);
+-	pm_runtime_put(ctx->jpeg->dev);
++	pm_runtime_put(jpeg->dev);
+ 	return IRQ_HANDLED;
+ }
+ 
 -- 
 2.53.0
 
