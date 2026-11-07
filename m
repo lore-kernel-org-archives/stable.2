@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794045988;
-	b=tTYeadCdpvjANTMjBmihnEQIdKRzZKQwM6qSzu9N0v/oN6nTDZN1EPT0yfcWZ5dSlRZ0
-	 66BuDvRSwTYgAs+tq6tY1p8v/mNFfbCCzdxR/IZHoLbt2B9tRNHUSz4CC8IohyN6thBQb
-	 0g3p55YHRUna0zUoFVhCjdtRL/v/MltrYuP+uPxd59hhDobA4SAz+pismxgx1sTx7pwAW
-	 /vuFj9IWzGrfdxY0Q8ge6thEuBAnt1OTKtfKDI2+k/TjionvAYqBqsAqLuaabws3SjXc/
-	 axh5DuHJ7k+8Gwzf10V5kJRXRLPOsETE9dS0Sdc4TLS4nNOPOsX7qvfXG1buhQTsnyA==
+	t=1794045991;
+	b=bIiwJs14JS+b2DPyHmmbe8GfSTQANxXIBw0mQZG+TZ3nwzJc1cou7bQ/Eo51BQ+9MxKZ
+	 2wsiG6CHQMFucRMoSNuT7CFJ39Ao0n0P6FagSqkmzYVmjAUfRJIxunfia8qh7Mi06FvR3
+	 YcuPdqKw5CEhMoUfjBjnxCxmTpyUyWVg2f0TR9UeRC2PQE85DN80kjs4YwfXdyRbL1ePX
+	 vu3Ds5iJV77VeF54IgjT9t6SQMmNYh80I1C5AESYxfNbidFzzZFKtgfqAOt/3CHqMWWPy
+	 Y/SS0OHg83f05KrzcPqMwazl56eFBmSmnUZjp/YWQuhWmg2C1hC51/ZFlAyBuxWGRTg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794045988;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794045991;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=iazoU4tL/ZNyR1NYZTvp5wnprGiN1HBvb7fLB0lJwRM=;
-	b=07H01AGrAuH7TrlCLgi+dXTUI8YVFb4YHWBn6e3iiiJk3UKSTFQn8eJyB4VY6vFkj9KQ
-	 VFjMk6sTlu1FLDtmsiku8PlcHbZ66jRljEqIOWiu6YvZ2ukxwKuu12qYSAaS1Q39qoPgq
-	 NLB4zGCeCxx8G/REkul/TPdNfwNUOUpirmdJa13G5OIJYc/4nokLkXKMATGdsC6I1Ft0P
-	 dGQ3jhMFVYiQ8qL8tmCOaOE0iD0fUmawCGA+6dVVYSSuWaOep1G+I7XhabnkRaCaBdCxx
-	 DSVEVAjCvbp0/AOKoSWqmqHOHcUly0p2JPbZyawyn5CklkYYxU1m4Pqjx0v8xZRO44A==
+	bh=iGVqN5RVV9BBK0Qem4ctOMEkppcJ6vjl0Rim31x+1jk=;
+	b=hKARMB3hIjLy0ccB7ZHd0MxC9OmeHIhG7N/f3UwBtvfZQ9KFHBeKtvFv7Jrd551XzsqT
+	 95mxbk3K99G8sDI11bFYP7qMBobieQRukiVXMrp7I+olEIhsC3AeCKKrOS+Hpx9+eefYX
+	 5aBT4hUJTb98pdkn7GeNVsPa/BoiO+BWN+WVG1fbggC8ROvC9XcEzpB01uJQ/xB+gNxEQ
+	 oOkwMCJL+VAFo4UOsmZnp+Mm2w/zUgUfQgedyC5jijgOUNS0XZY59TfcoNiLfSOD3/dF+
+	 tBoyNSepm7PVvMMzMoaf92Xfy3q+HNGPABrGRzMhBNoGqqdjjwN5P+lgJuQlRTEowmA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jHJxl7bz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kB1yI7ZT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DF2F606A32D
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:06:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4F52606A32E
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:06:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jHJxl7bz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA03A1F0089F;
-	Sat,  7 Nov 2026 10:06:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kB1yI7ZT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 230CD1F0089F;
+	Sat,  7 Nov 2026 10:06:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794045988;
-	bh=iazoU4tL/ZNyR1NYZTvp5wnprGiN1HBvb7fLB0lJwRM=;
+	s=k20260515; t=1794045990;
+	bh=iGVqN5RVV9BBK0Qem4ctOMEkppcJ6vjl0Rim31x+1jk=;
 	h=From:To:Cc:Subject:Date;
-	b=jHJxl7bzbV5VoJEwR3nOPvXK/Jx2Y34w+OeaP5+jIEt4E00lnZ/BECVewXDINJfeY
-	 SthG9vRI/thEC6qfQ4cje3Q8lkle0BdxH+b968itqZR+H+XNpVuRtujRZ9uFM3E5iA
-	 WBmy/gXOLeM5bIhu5vSNtBIqUtd0el5UQqjJJZZ8/WdBGK+6QIrdBKyUznorV/qMl6
-	 PXz8+RtPQ5bU6z/8q/6SiRvd9AdHZm0EP4+EZIdW23ySM9Kd9V4e4NBAbWSZN7Ur6I
-	 UxjqGOx3sa7LBOEHSSaxBDL5GBEOS/4tXDlJtkn0jmNIkRyO8GXZJB4fqktqiMTYzk
-	 I7pH3XY9NOBVw==
+	b=kB1yI7ZTKIQtqoSWApesNF7YVOajtUK8mJicgZEJ1qtL9P+YcJMVO52jxaB+mVunm
+	 /cKdEiLpMbLKtcRhh5VU6A12CAZyYfLCPH/LmEVE+FnBtIDPXQDRLvbOIwiK5GH/Cl
+	 eOpLHEn5hxrh/XJbu0w5SHVmG/Djn8IGF/6gx4Po643JutmtMRf7obYaTG8LNuU9WL
+	 0zp5yKrkOHHRkYNAw6kZ/fQckx05sUBvksdND0PZIrbQq68ZCaZX2mjTjqGNRglwVV
+	 +WK2MHYzX/gg74TGwi6xPbVXc7y8+64Nt43HAB9U7ehOUXHrClXU8+9PzU9iA/VguC
+	 rLDblpG9I3jvg==
 From: Sasha Levin <sashal@kernel.org>
-To: rosenp@gmail.com,
-	miquel.raynal@bootlin.com
+To: stf_xl@wp.pl,
+	johannes.berg@intel.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mtd: rawnand: ndfc: use devm_platform_ioremap_resource()" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:06:26 -0500
-Message-ID: <20261107050626-failed-6.18-0d66f9895f28@kernel.org>
+Subject: FAILED: patch "[PATCH] wifi: mac80211: queue frames while off-channel" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:06:29 -0500
+Message-ID: <20261107050628-failed-6.18-13e51269b665@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,91 +68,162 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 0d66f9895f286d2fab396a71e6efeb95c4a7e5a6
+git cherry-pick -x 13e51269b6656768dc595ed6025e4974f2026543
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050626-failed-6.18-0d66f9895f28@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050628-failed-6.18-13e51269b665@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 0d66f9895f286d2fab396a71e6efeb95c4a7e5a6 Mon Sep 17 00:00:00 2001
-From: Rosen Penev <rosenp@gmail.com>
-Date: Mon, 24 Aug 2026 13:21:20 -0700
-Subject: [PATCH] mtd: rawnand: ndfc: use devm_platform_ioremap_resource()
+From 13e51269b6656768dc595ed6025e4974f2026543 Mon Sep 17 00:00:00 2001
+From: Stanislaw Gruszka <stf_xl@wp.pl>
+Date: Tue, 8 Sep 2026 14:46:51 +0200
+Subject: [PATCH] wifi: mac80211: queue frames while off-channel
 
-Replace the open-coded of_iomap()/iounmap() with the managed
-devm_platform_ioremap_resource() helper. This fixes a mapping leak on
-driver remove (the old code never called iounmap()) and simplifies the
-error path by dropping the manual cleanup in ndfc_probe().
+Drivers without FAST_XMIT and hardware scan support currently drop TX
+frames during software scanning while being off-channel. This happens
+in ieee80211_tx_h_check_assoc() before frames reach internal TX queue.
 
-There is no overlapping memory-region concern introduced by this
-change: each supported board DT describes a single ndfc node with a
-unique 0x2000 register region, and the EBC parent uses dcr-reg rather
-than a MEM reg resource, so the newly added request_mem_region() cannot
-conflict with an existing reservation. Distinct chip selects map to
-distinct 64-bit physical addresses, so CS instances do not overlap.
+Move the off-channel check to invoke_tx_handlers_late(), after
+ieee80211_queue_skb(). Frames can then remain queued and be transmitted
+when the interface returns on-channel. This how TX works currently when
+code goes via ieee80211_xmit_fast() path.
 
-Fixes: a808ad3b0d28 ("[MTD] [NAND] ndfc driver")
-Cc: stable@vger.kernel.org
-Assisted-by: opencode:hy3-free
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
-Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+Below is rt2x00 driver ping output example while scanning, before and
+after the fix. After the fix, packets are no longer lost. Some have
+increased latency, what is expected behavior.
+
+BEFORE:
+64 bytes from 192.168.0.1: icmp_seq=29 ttl=64 time=3.61 ms
+64 bytes from 192.168.0.1: icmp_seq=31 ttl=64 time=3.33 ms # Missed 30
+64 bytes from 192.168.0.1: icmp_seq=32 ttl=64 time=4.03 ms
+64 bytes from 192.168.0.1: icmp_seq=34 ttl=64 time=3.10 ms # Missed 33
+64 bytes from 192.168.0.1: icmp_seq=36 ttl=64 time=3.04 ms # Missed 35
+64 bytes from 192.168.0.1: icmp_seq=38 ttl=64 time=3.05 ms # Missed 37
+64 bytes from 192.168.0.1: icmp_seq=40 ttl=64 time=4.14 ms # Missed 39
+64 bytes from 192.168.0.1: icmp_seq=41 ttl=64 time=4.50 ms
+
+AFTER:
+64 bytes from 192.168.0.1: icmp_seq=29 ttl=64 time=3.40 ms
+64 bytes from 192.168.0.1: icmp_seq=30 ttl=64 time=6.10 ms
+64 bytes from 192.168.0.1: icmp_seq=31 ttl=64 time=4.69 ms
+64 bytes from 192.168.0.1: icmp_seq=32 ttl=64 time=4.49 ms
+64 bytes from 192.168.0.1: icmp_seq=33 ttl=64 time=148 ms
+64 bytes from 192.168.0.1: icmp_seq=34 ttl=64 time=6.83 ms
+64 bytes from 192.168.0.1: icmp_seq=35 ttl=64 time=8.66 ms
+64 bytes from 192.168.0.1: icmp_seq=36 ttl=64 time=13.0 ms
+64 bytes from 192.168.0.1: icmp_seq=37 ttl=64 time=4.78 ms
+64 bytes from 192.168.0.1: icmp_seq=38 ttl=64 time=3.85 ms
+
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Stanislaw Gruszka <stf_xl@wp.pl>
+Link: https://patch.msgid.link/20260908124651.2995-1-stf_xl@wp.pl
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
 ---
- drivers/mtd/nand/raw/ndfc.c | 21 ++++++++-------------
- 1 file changed, 8 insertions(+), 13 deletions(-)
+ net/mac80211/tx.c | 52 +++++++++++++++++++++++++----------------------
+ 1 file changed, 28 insertions(+), 24 deletions(-)
 
-diff --git a/drivers/mtd/nand/raw/ndfc.c b/drivers/mtd/nand/raw/ndfc.c
-index a48274297d3b1..d6db04d48c45a 100644
---- a/drivers/mtd/nand/raw/ndfc.c
-+++ b/drivers/mtd/nand/raw/ndfc.c
-@@ -185,10 +185,15 @@ static int ndfc_chip_init(struct ndfc_controller *ndfc,
- static int ndfc_probe(struct platform_device *ofdev)
+diff --git a/net/mac80211/tx.c b/net/mac80211/tx.c
+index fd79814661376..d85c84a738f79 100644
+--- a/net/mac80211/tx.c
++++ b/net/mac80211/tx.c
+@@ -269,7 +269,6 @@ ieee80211_tx_h_dynamic_ps(struct ieee80211_tx_data *tx)
+ static ieee80211_tx_result debug_noinline
+ ieee80211_tx_h_check_assoc(struct ieee80211_tx_data *tx)
  {
- 	struct ndfc_controller *ndfc;
-+	void __iomem *ndfcbase;
- 	const __be32 *reg;
- 	u32 ccr;
- 	u32 cs;
--	int err, len = 0;
-+	int len = 0;
-+
-+	ndfcbase = devm_platform_ioremap_resource(ofdev, 0);
-+	if (IS_ERR(ndfcbase))
-+		return PTR_ERR(ndfcbase);
- 
- 	/* Read the reg property to get the chip select */
- 	reg = of_get_property(ofdev->dev.of_node, "reg", &len);
-@@ -210,11 +215,7 @@ static int ndfc_probe(struct platform_device *ofdev)
- 	ndfc->ofdev = ofdev;
- 	dev_set_drvdata(&ofdev->dev, ndfc);
- 
--	ndfc->ndfcbase = of_iomap(ofdev->dev.of_node, 0);
--	if (!ndfc->ndfcbase) {
--		dev_err(&ofdev->dev, "failed to get memory\n");
--		return -EIO;
--	}
-+	ndfc->ndfcbase = ndfcbase;
- 
- 	ccr = NDFC_CCR_BS(ndfc->chip_select);
- 
-@@ -232,13 +233,7 @@ static int ndfc_probe(struct platform_device *ofdev)
- 		iowrite32be(be32_to_cpup(reg), ndfc->ndfcbase + offset);
- 	}
- 
--	err = ndfc_chip_init(ndfc, ofdev->dev.of_node);
--	if (err) {
--		iounmap(ndfc->ndfcbase);
--		return err;
--	}
 -
--	return 0;
-+	return ndfc_chip_init(ndfc, ofdev->dev.of_node);
+ 	struct ieee80211_hdr *hdr = (struct ieee80211_hdr *)tx->skb->data;
+ 	struct ieee80211_tx_info *info = IEEE80211_SKB_CB(tx->skb);
+ 	bool assoc = false;
+@@ -277,20 +276,6 @@ ieee80211_tx_h_check_assoc(struct ieee80211_tx_data *tx)
+ 	if (unlikely(info->flags & IEEE80211_TX_CTL_INJECTED))
+ 		return TX_CONTINUE;
+ 
+-	if (unlikely(test_bit(SCAN_SW_SCANNING, &tx->local->scanning)) &&
+-	    test_bit(SDATA_STATE_OFFCHANNEL, &tx->sdata->state) &&
+-	    !ieee80211_is_probe_req(hdr->frame_control) &&
+-	    !ieee80211_is_any_nullfunc(hdr->frame_control))
+-		/*
+-		 * When software scanning only nullfunc frames (to notify
+-		 * the sleep state to the AP) and probe requests (for the
+-		 * active scan) are allowed, all other frames should not be
+-		 * sent and we should not get here, but if we do
+-		 * nonetheless, drop them to avoid sending them
+-		 * off-channel. See __ieee80211_start_scan() for more.
+-		 */
+-		return TX_DROP;
+-
+ 	if (tx->sdata->vif.type == NL80211_IFTYPE_OCB)
+ 		return TX_CONTINUE;
+ 
+@@ -839,6 +824,33 @@ ieee80211_tx_h_rate_ctrl(struct ieee80211_tx_data *tx)
+ 	return TX_CONTINUE;
  }
  
- static void ndfc_remove(struct platform_device *ofdev)
++static ieee80211_tx_result debug_noinline
++ieee80211_tx_h_check_offchannel(struct ieee80211_tx_data *tx)
++{
++	struct ieee80211_hdr *hdr = (struct ieee80211_hdr *)tx->skb->data;
++	struct ieee80211_tx_info *info = IEEE80211_SKB_CB(tx->skb);
++
++	if (unlikely(info->flags & IEEE80211_TX_CTL_INJECTED))
++		return TX_CONTINUE;
++
++	if (unlikely(test_bit(SCAN_SW_SCANNING, &tx->local->scanning)) &&
++	    test_bit(SDATA_STATE_OFFCHANNEL, &tx->sdata->state) &&
++	    !ieee80211_is_probe_req(hdr->frame_control) &&
++	    !ieee80211_is_any_nullfunc(hdr->frame_control)) {
++		/*
++		 * When software scanning only nullfunc frames (to notify
++		 * the sleep state to the AP) and probe requests (for the
++		 * active scan) are allowed, all other frames should not be
++		 * sent and we should not get here, but if we do
++		 * nonetheless, drop them to avoid sending them
++		 * off-channel. See __ieee80211_start_scan() for more.
++		 */
++		return TX_DROP;
++	}
++
++	return TX_CONTINUE;
++}
++
+ static __le16 ieee80211_tx_next_seq(struct sta_info *sta, int tid)
+ {
+ 	u16 *seq = &sta->tid_seq[tid];
+@@ -1905,6 +1917,7 @@ static int invoke_tx_handlers_late(struct ieee80211_tx_data *tx)
+ 		goto txh_done;
+ 	}
+ 
++	CALL_TXH(ieee80211_tx_h_check_offchannel);
+ 	CALL_TXH(ieee80211_tx_h_michael_mic_add);
+ 	CALL_TXH(ieee80211_tx_h_sequence);
+ 	CALL_TXH(ieee80211_tx_h_fragment);
+@@ -4720,10 +4733,6 @@ static void ieee80211_8023_xmit(struct ieee80211_sub_if_data *sdata,
+ 	queue = ieee80211_select_queue(sdata, sta, skb);
+ 	skb_set_queue_mapping(skb, queue);
+ 
+-	if (unlikely(test_bit(SCAN_SW_SCANNING, &local->scanning)) &&
+-	    test_bit(SDATA_STATE_OFFCHANNEL, &sdata->state))
+-		goto out_free;
+-
+ 	skb = skb_share_check(skb, GFP_ATOMIC);
+ 	if (unlikely(!skb))
+ 		return;
+@@ -4785,11 +4794,6 @@ static void ieee80211_8023_xmit(struct ieee80211_sub_if_data *sdata,
+ 	ieee80211_tpt_led_trig_tx(local, len);
+ 
+ 	ieee80211_tx_8023(sdata, skb, sta, false);
+-
+-	return;
+-
+-out_free:
+-	kfree_skb(skb);
+ }
+ 
+ static bool ieee80211_check_mcast_offload(struct ieee80211_sub_if_data *sdata,
 -- 
 2.53.0
 
