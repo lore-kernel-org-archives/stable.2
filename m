@@ -1,51 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047216;
-	b=PlxLeILOPO+O+mK8myhi8X/5U4ta1nsP4eR0TenMf8zDJ8aeoNdeSB9TfSDDmA1wT39H
-	 U5pdcEG1dNxQsAVtsI8dEImXcsC7ZkMGa/TZwzFsuz3eXyEiYz7OJ5kfLia8zKuVLD4A5
-	 A+xZgLQg1d0KvmkqdN1jGyNsOpScvfqgctFxhsY4cTtRbQIVSmtr3n62pXa1/AFIh6jsP
-	 Pofr81n7vGjj3FUUi5NtW/EKucWQtF4DgLBmc4QZmh3+/A/nPWfaNfAmlOc/N2J8Z+VMd
-	 7a6orzlD7MV2WXHbsfv9T6hIIYC4018nS92SRv96/s4TS9Kdo8qQ9V7+O//V8yQnMSw==
+	t=1794047219;
+	b=HxNMv7e4cxoplXtWpWHNaV33jkrPzbyRX90QOT5q7XT48vSnSlUEpGP468r3Li3xUAEg
+	 4l+OdowYVqN4SiFAGzjv++xwwo2AvE26jLTc7+6Ld7AzrJzhq7sBqw72lMiKM8ILXGNMI
+	 ynn4iZxcX293fTkeLQq3KsPAfGW3sXZHMmw56yE7WBFjEDeW/iRSImaN7f4WjfElYSQgU
+	 KuVTJLxJSH/wUdGdgFGPnF+S3TxTvbM/CalUbvFvFB9DzaCnTwpThU1a5JIuhhrulgjTY
+	 wj2lXVLXHiXFuz6JUF02D2AoynDyQN3KygXGhpSNuTRP0vElc7T8i1mJaDoMYAz85oQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047216;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047219;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=CPPuUWnwcuOZxRuXmexpOZ5qEiWADGPqaCReiNVLo4k=;
-	b=mY5LFzWKVhGw4WAMKDbhH5z/RinWlvsV4HCQ2K8slFLF+wTvxTjIbDadayeaiVO9vbEL
-	 7UjnGaFtPEBm4hQVRvZ3XwG8TsJix75AyyH2iqB1hUDrPtWvQF2zRsqGZmcSKowkj3je3
-	 VSX4zT3nhf9sONMTWXBVUlvtDBE8evllv8XvNg/ZT317wwH+FsOpbRw1mu5YXpftku5q2
-	 UAL/ItDoU4qo6nHF5GD+6nEdq8fUEZ+huz+sgp1QFfYOMPMRtBIUAu/q4oGszSPwh7tkr
-	 3mhG95AofieIWjyzGBITNVESAjuKCKNr3/a6NCjnMY2LnAed0NYgH2Ujvl6S0Q/UZiQ==
+	bh=T6mKL9AzS8eIPTTP0cfaqXNsKaxbYcEqprgOGUT2gWE=;
+	b=C89ZIoHRvIn3xqg1gEvq/nSjvnk9f9zPUW9JOUxV/J9u48T8f+bsaRAwqvDSs08MHytu
+	 ri1Hh1F5ViVY+BV0vjgMRBlFHqBfDMCRbKrlQXKxl51Os/0GSo7cXUvbKFHVgCIlsOfuf
+	 9ZhOGg76h/jz99Gi2V4pDoW/FeMLy3Vlj/RXTBV86RCQMmUczpGRj/wefiQg/23QHZKNm
+	 GQ4+a6z1EwHIEqq8jAJuTODyq0kHeUoRIX25etaCIbMWLxpau6djR8MQhYV2TCHTxpzwU
+	 XAZMEAGamQwGribw4DkwTGOptyMteG2zXOqO5Zc4IgWMMdRGAqhtBNbywTsWP+PU59Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XfJfqxLG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lNbiVIl2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EF5A606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:26:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C25B2606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:26:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XfJfqxLG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09C8D1F0089F;
-	Sat,  7 Nov 2026 10:26:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lNbiVIl2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 120C71F0089F;
+	Sat,  7 Nov 2026 10:26:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047216;
-	bh=CPPuUWnwcuOZxRuXmexpOZ5qEiWADGPqaCReiNVLo4k=;
+	s=k20260515; t=1794047218;
+	bh=T6mKL9AzS8eIPTTP0cfaqXNsKaxbYcEqprgOGUT2gWE=;
 	h=From:To:Cc:Subject:Date;
-	b=XfJfqxLG9Kp9fGkqyTx5vFjWJpBgNdNNz9giiKx3eOyHifBR+rqdrAzzAyUrG1+DF
-	 cVWrEaKa1mKpm/t9rLrKrQAeFUw3eo4ui8TF6/+QsWKxE7Ji0nf97De9FtzJ9YMQoZ
-	 ldUz/puygCJpt5OkEBuEUbNCiwqNfwN4KoXcMlZaGi7d+BJpGeJM/mP2T2xDeArmbM
-	 nKNOGC9AePU3SoTI8wzdHPhl6pWh9q1VsVOytjA+uaroLPdX1wKN+bXCiFAzTxeqWT
-	 WNc7JiNdSvXGn56jVv6AW8PMS3O4I32JMQNAa23VQiOgTZYVcgKRQKNPT7vRjZor6a
-	 /CM74AP2kj3Dg==
+	b=lNbiVIl2yqxYKtL+ApzED/CLrcfb2FaGXecPgiMYL0TVKXEvIUGJlWbIWPNATQdTm
+	 nNccwCVVQS0gmRLeV0vBt5z/7vdfg0hPdGZ7Y+KPzDOl7KKJMl6uPXCu9CZGHwosW2
+	 wlAcuJ8w9G2It36rtThwkENx7Ya8X4mI/VOMI2wkBN2wyyuj5bqb2iflmGFdkTIX4U
+	 stST6VC8SxyB1uXUJYbfx06WYYltLNcaPY2wuVvlVMiaYRGuCPnqnZ/d/9EpbSPH7/
+	 KjD6mIUdr0ZSP9ux63BybpL2V0YdTxwqYJ88kAJTGopTwqeJG22Pkus0ezeEUzPpET
+	 OSBpP1KzDGAwA==
 From: Sasha Levin <sashal@kernel.org>
-To: chenhuacai@kernel.org,
-	chenhuacai@loongson.cn
+To: miquel.raynal@bootlin.com,
+	ychuang570808@gmail.com,
+	jbrunet@baylibre.com,
+	bmasney@redhat.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] LoongArch: Don't init & online empty nodes" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:26:54 -0500
-Message-ID: <20261107052654-failed-6.12-87c6d144bc7b@kernel.org>
+Subject: FAILED: patch "[PATCH] clk: nuvoton: ma35d1: Add missing WDT/WWDT parent clocks" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:26:57 -0500
+Message-ID: <20261107052657-failed-6.12-1dc3871ce7ec@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,59 +70,65 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 87c6d144bc7bbed0c4573848b9c92006edca7848
+git cherry-pick -x 1dc3871ce7ec819030c22297f8960c61cc42a990
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052654-failed-6.12-87c6d144bc7b@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052657-failed-6.12-1dc3871ce7ec@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 87c6d144bc7bbed0c4573848b9c92006edca7848 Mon Sep 17 00:00:00 2001
-From: Huacai Chen <chenhuacai@loongson.cn>
-Date: Tue, 27 Oct 2026 22:51:23 +0800
-Subject: [PATCH] LoongArch: Don't init & online empty nodes
+From 1dc3871ce7ec819030c22297f8960c61cc42a990 Mon Sep 17 00:00:00 2001
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+Date: Wed, 30 Sep 2026 19:24:51 +0200
+Subject: [PATCH] clk: nuvoton: ma35d1: Add missing WDT/WWDT parent clocks
 
-Don't init & online empty nodes without any CPU cores (and memory), in
-this way "lscpu" will not display confusing empty nodes.
+The WDT and WWDT muxes list PCLK3/4096 and PCLK4/4096 among their
+possible parents, but the driver never registers the corresponding
+clocks, so these parents could never be used.
 
-Modify fake_numa_init() to make sure at least Node-0 isn't empty for the
-FDT booting case.
+Add pclk3_div4096 and pclk4_div4096 as fixed factor children of pclk3
+and pclk4 and expose them through the clock provider.
 
+Reported-by: Jacky Huang <ychuang570808@gmail.com>
+Closes: https://lore.kernel.org/linux-clk/b8a8a65b-e302-4747-bc90-4920fc48795a@gmail.com/
+Suggested-by: Jacky Huang <ychuang570808@gmail.com>
+Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock controller")
 Cc: stable@vger.kernel.org
-Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
+Reviewed-by: Jerome Brunet <jbrunet@baylibre.com>
+Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+Link: https://patch.msgid.link/20260930-perso-ma35d1-upstream-clk-v6-5-48937ee6c9bb@bootlin.com
+[jbrunet@baylibre.com: removed stale link trailer]
+Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
+Signed-off-by: Brian Masney <bmasney@redhat.com>
 ---
- arch/loongarch/kernel/numa.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ drivers/clk/nuvoton/clk-ma35d1.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/arch/loongarch/kernel/numa.c b/arch/loongarch/kernel/numa.c
-index c96c536237151..7dedc134ddfe0 100644
---- a/arch/loongarch/kernel/numa.c
-+++ b/arch/loongarch/kernel/numa.c
-@@ -216,6 +216,8 @@ static int __init fake_numa_init(void)
- 	phys_addr_t start = memblock_start_of_DRAM();
- 	phys_addr_t end = memblock_end_of_DRAM() - 1;
+diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk-ma35d1.c
+index 6aa42a3e1be3b..c914079cee2d4 100644
+--- a/drivers/clk/nuvoton/clk-ma35d1.c
++++ b/drivers/clk/nuvoton/clk-ma35d1.c
+@@ -17,7 +17,7 @@
+ static DEFINE_SPINLOCK(ma35d1_lock);
  
-+	set_cpuid_to_node(0, 0);
-+	early_numa_add_cpu(0, 0);
- 	pr_info("Faking a node at [mem %pap-%pap]\n", &start, &end);
+ #define PLL_MAX_NUM		5
+-#define	MA35D1_CLK_COUNT	236
++#define	MA35D1_CLK_COUNT	238
  
- 	return numa_add_memblk(0, start, end + 1);
-@@ -244,8 +246,10 @@ int __init init_numa_memory(void)
- 		return -EINVAL;
+ /* Clock Control Registers Offset */
+ #define REG_CLK_PWRCTL		0x00
+@@ -544,6 +544,8 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
+ 	hws[HCLK3] = ma35d1_clk_fixed_factor(dev, "hclk3", "sysclk1_mux", 1, 2);
+ 	hws[PCLK3] = ma35d1_clk_fixed_factor(dev, "pclk3", "sysclk1_mux", 1, 2);
+ 	hws[PCLK4] = ma35d1_clk_fixed_factor(dev, "pclk4", "sysclk1_mux", 1, 2);
++	hws[PCLK3_DIV4096] = ma35d1_clk_fixed_factor(dev, "pclk3_div4096", "pclk3", 1, 4096);
++	hws[PCLK4_DIV4096] = ma35d1_clk_fixed_factor(dev, "pclk4_div4096", "pclk4", 1, 4096);
  
- 	for_each_node_mask(node, node_possible_map) {
--		node_mem_init(node);
--		node_set_online(node);
-+		if (!cpumask_empty(&cpus_on_node[node])) {
-+			node_mem_init(node);
-+			node_set_online(node);
-+		}
- 	}
- 	max_pfn = PFN_DOWN(memblock_end_of_DRAM());
- 	max_low_pfn = min(PFN_DOWN(HIGHMEM_START), max_pfn);
+ 	hws[USBPHY0] = ma35d1_clk_fixed("usbphy0", 480000000);
+ 	hws[USBPHY1] = ma35d1_clk_fixed("usbphy1", 480000000);
 -- 
 2.53.0
 
