@@ -1,57 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050326;
-	b=Y5zsgpZu+yHoOI9lWs0a9bpwclwX12ti9OFNCcB/zZ9sqsE6zfuuuIzl4PlIyKdQ9+fc
-	 TAyUwK80zsjRRNKO38Gvw2688yB2sRbnkdjcWKEc2h4kKIJtIZl9gEbfq07Uir5bP/nTe
-	 FMBlhybxzKlfU1x9/PMuIb/koy9Fyi3HwqSv+V5oIo4Brw+/sgBf9ySefllcszzD0w5nl
-	 9ppCBrPbRZVOJ4JmQqQJ9YsdeurM1xU/6ijjp7/Gs2xL9nBqiL6EmrMzT9vliKd88ZaVq
-	 +jXVP17H/eZg1/1lD5vCoWC34xe0XHAVGMqGx9iUwwkx0Y27mhWin5ZoEg2HfQtnfTQ==
+	t=1794050329;
+	b=MCVQ30RNij8jaPsl8Gj3sZDQJ8PDjsg/H2hd+C/UJtmHED23EvIR4jeez0+XI5Yod2OD
+	 J1s03W/tWIX50UYAX6bemwWtZ/Jn7zxVPDft8ZRWqdgwAMdwoRWukVZ5waZ/lbspY0or5
+	 vlB2sigwxnsoNz0TtRgOVyqdFQSjomujjFAn8SxXARsJoS6cSNWClTkgi5+zKyA67tAxR
+	 gmI0Cr4yXs7sohnY9NpwL0xKJxF4eZRVyM4fT9D8GgpBUxEOcukmAuyADri4S/V51EuNU
+	 OCXhBA1hVq4+iTFgLVnq3i3ZR2uRYUQURwA5Vdq+nBrg3lKfx3K6GBJJ2blA8Xud6qQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050326;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050329;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=4XGgsIyzY7v098XwUrp0HWoX+EcrrDc1LpwcNCggLZQ=;
-	b=bodfHxZT/kj2QVCBP5E/x+sHdCekQd0Y6nkyYyzd/gHWPzYqvqTCnCiBsFEu6q5E4St4
-	 YaZ0X8x73znwnj4MGvxUvdDnPPs9T7bzIpZDsNYVqkCcL5Wp8+OPZTq+P0n6eGpPdM0On
-	 /rCsAz0V5+6utQ+5dRBqqLgsA0Dnp9BFcFBuXxNxLJDyFQQcI03TLw5dNfcXuzGB4hJ+S
-	 swvWdXFy+ou6TFVxziN87895Vy+5CLrNsvSrSSYn07TBbb1LPgQE4SpAExlm957Zd/U95
-	 suvHsg3reHRWmy88XkNDy5MY1iSlj2ns36szC0Y86WO7kE/mUAtlxaYHlsPMBDmQt2g==
+	bh=EuD7mUUEadSeGs6JWkMadGjLE6eJqdaTpauJBa/2pVk=;
+	b=veiqnVBSPle4L5VeCnZPoQqGqYwsg1JNa8CjPHLJTQdD8IcTkhAIw1C+NTi9MoP4g8MO
+	 6pxoZ2++XYe70949cNld7l53FmeicHRRU7YNJ4zhSma95PprXTSOPPZwgqy8dCfQ6KGvk
+	 nxI9L+L7XAN3AhMykNZjlPC+pPVoJC1n1MfDKHtNHFrNAjFUnxNEztUvQal6g42JEHem0
+	 6XN+RW2xVyA+A+BGkOTaZde+aATBK2N2lRakqdsZf55LFSgcMBDYQ4MAZh3U9OlCLjhoL
+	 gA16/IlXubDyR2Hk+IP7SOnjLoBYt9XkG88hWbD6WbOj3lLh7JvQdIlGtViPDjdn2og==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n2ouYpHU;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VDHlmIao;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A71CF606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:18:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE2FD606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:18:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n2ouYpHU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90D661F0089F;
-	Sat,  7 Nov 2026 11:18:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VDHlmIao
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B2AA1F0089F;
+	Sat,  7 Nov 2026 11:18:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050325;
-	bh=4XGgsIyzY7v098XwUrp0HWoX+EcrrDc1LpwcNCggLZQ=;
+	s=k20260515; t=1794050328;
+	bh=EuD7mUUEadSeGs6JWkMadGjLE6eJqdaTpauJBa/2pVk=;
 	h=From:To:Cc:Subject:Date;
-	b=n2ouYpHUkSU1OslFDqA7m4gbgrncB5KwGq/uMsYlAVKzJnqA9QRQB4Okc1RUfmVml
-	 mhJ/DnLqfT89oyWpe+mOmJLalolnZUfVGFso67hiHd4QwiEq+2zx0XSKYppOIUfsN5
-	 5sl4/FjAdt40vH2sEnxHSh4e8hD7RNd5UjUHyiPNI6PG8LCOVkgTmAQ/OqsrRMaSgp
-	 uASVFqqa8vynPKbnpGy/GZaanNdzFaGLKvitKjBaEg8ktXjfeEPDqqDrePsw5AMy/t
-	 F3wHl6/4JzEOY+dAPiUy3qvy3XLRIB6yuJsFkLUczQ9RzInb4Eq9BGN8BIy03q739P
-	 Lk8GB9Ah6oZSQ==
+	b=VDHlmIaoGG9btoS/C56T6VpXwouaZT7Gi6PLXqnGuxKlLad8yoNIya1fohP/nCS+s
+	 SWvuuHLFT8XgikGXOTl9o6u0v8Rl8spMI2Mk/Iuva2VdoimLGL7px++psF5wmvXw0l
+	 lXtoIWUlNV5I3TrbdX9N1tIzPOS0zvHTKAYEj6aShLKezhvCc0Y3Po+Y3VPwrXB5da
+	 6CbN94RIofxPBulgxs5egP/414KxW+vajtGS8Joua0pWbJRcWT7SuefPTXCFRmesC/
+	 su38Tf0QVKK7dIj2HolamxWTONMTtJ679U0fDrNhp3vl38cx3/L93KHpHVlpOaxLSw
+	 6tFEBMEzeSi+w==
 From: Sasha Levin <sashal@kernel.org>
-To: jgg@ziepe.ca,
-	vijayanand.jitta@oss.qualcomm.com,
-	smostafa@google.com,
-	peaan@google.com,
-	nicolinc@nvidia.com,
-	praan@google.com,
-	jgg@nvidia.com,
-	will@kernel.org
+To: mauriziocasciano7@gmail.com,
+	sebastian.reichel@collabora.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] iommu/arm-smmu-v3: Handle ARM erratum for CONT under invalidation with SVA" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:18:43 -0500
-Message-ID: <20261107061843-failed-5.10-84c6089a365f@kernel.org>
+Subject: FAILED: patch "[PATCH] power: supply: core: Honor supplied-from with CONFIG_OF=y" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:18:47 -0500
+Message-ID: <20261107061846-failed-5.10-6bd80f22c764@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -74,281 +68,179 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 84c6089a365ff5547f9ea30cb407dc5fe3124fd3
+git cherry-pick -x 6bd80f22c764fe8c56c62c118387f86a3ca98cff
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061843-failed-5.10-84c6089a365f@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061846-failed-5.10-6bd80f22c764@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 84c6089a365ff5547f9ea30cb407dc5fe3124fd3 Mon Sep 17 00:00:00 2001
-From: Jason Gunthorpe <jgg@nvidia.com>
-Date: Fri, 2 Oct 2026 22:23:20 -0300
-Subject: [PATCH] iommu/arm-smmu-v3: Handle ARM erratum for CONT under
- invalidation with SVA
+From 6bd80f22c764fe8c56c62c118387f86a3ca98cff Mon Sep 17 00:00:00 2001
+From: Maurizio Casciano <mauriziocasciano7@gmail.com>
+Date: Fri, 25 Sep 2026 00:51:52 +0200
+Subject: [PATCH] power: supply: core: Honor supplied-from with CONFIG_OF=y
 
-The erratum (MMU-700: #3777127, S3: #3673557) deals with under
-invalidation of a CONT PTE grouping in the SMMU. The recommended work
-around is to use a range invalidation that spans the entire CONT. The only
-user of CONT in the kernel right now is through SVA sharing a CPU page
-table that contains a CONT created by the mm.
+The supplied-from device property is the name-based counterpart to
+firmware-node power-supplies references. It was added for non-DT platforms,
+but its parser is compiled only when CONFIG_OF is disabled. CONFIG_OF is
+a global kernel option, so x86 systems commonly enable it even when
+individual power supplies are described by software nodes.
 
-Previously it was thought that this errata was dealt with because the
-driver always uses range invalidation. However, there is a subtle detail
-in the errata that the invalidation range must fully enclose the entire
-CONT for it to work.
+Consequently, these consumers never populate supplied_from and supplier
+notifications do not reach their external_power_changed() callbacks. On a
+Lenovo Yoga Book YB1-X91L, ftrace showed the Whiskey Cove supplier
+notification running without invoking the BQ25892 callback, leaving the
+input current limit at its boot-time value.
 
-It seems that two sequential range invalidations, with a split point
-falling inside a CONT grouping, will not prevent the errata.
+Use a single power_supply_check_supplies() implementation for all
+configurations. Preserve firmware-node power-supplies references as the
+preferred firmware description and use the name-based supplied-from
+property only when no references are specified. Continue to honor an
+explicitly provided supplied_from list first and propagate errors from
+specified firmware references.
 
-The SMMU's range invalidation generation algorithm does not produce a
-single invalidation for a single SVA invalidation request, nor does the mm
-carefully align the SVA invalidation ranges to accommodate the splitting
-of the invalidation into several ranges.
+With the fix, ftrace shows the BQ25892 callback on hotplug. A boot-offline
+test changes its input current limit from 500 mA to 2 A.
 
-Thus, when processing a SVA invalidation, the range invalidation splitting
-routine can generate a range invalidation that is split in the middle of
-the CONT and risk under invalidation from this errata. This condition
-could be triggered by a malicious userspace manipulating the TLB gathers
-via mmap/mprotect/munmap.
-
-Update the errata list to the include the S3 variation, detect the IOMMUs
-that have it, and then have SVA invalidations use a simplified version of
-the over invalidation algorithm from the tlbi rework series. This ensures
-that a single range invalidation is issued for a single MMU notifier
-callback and now the range invalidation is guarenteed to cover any posible
-CONT.
-
-Future work to add CONT to iommu_domain page tables should either use this
-one-invalidate/one-range invalidation algorithm or disable CONT support in
-the iommu_domain.
-
+Fixes: 58a36bb06891 ("power: supply: core: Add support for supplied-from device-property")
 Cc: stable@vger.kernel.org
-Cc: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
-Fixes: 3f1ce8e85ee0 ("iommu/arm-smmu-v3: Share process page tables")
-Reviewed-by: Mostafa Saleh <smostafa@google.com>
-Reviewed-by: Pranjal Shrivastava <peaan@google.com>
-Tested-by: Nicolin Chen <nicolinc@nvidia.com>
-Tested-by: Pranjal Shrivastava <praan@google.com>
-Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
-Signed-off-by: Will Deacon <will@kernel.org>
+Assisted-by: LLM
+Signed-off-by: Maurizio Casciano <mauriziocasciano7@gmail.com>
+Link: https://patch.msgid.link/20260924225152.985489-1-mauriziocasciano7@gmail.com
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- Documentation/arch/arm64/silicon-errata.rst   |  3 +-
- .../iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c   |  7 ++
- drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c   | 89 +++++++++++++++----
- drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h   |  5 ++
- 4 files changed, 87 insertions(+), 17 deletions(-)
+ drivers/power/supply/power_supply_core.c | 84 ++++++++++++------------
+ 1 file changed, 42 insertions(+), 42 deletions(-)
 
-diff --git a/Documentation/arch/arm64/silicon-errata.rst b/Documentation/arch/arm64/silicon-errata.rst
-index ac3248b9f2f3b..68018bf75b791 100644
---- a/Documentation/arch/arm64/silicon-errata.rst
-+++ b/Documentation/arch/arm64/silicon-errata.rst
-@@ -271,7 +271,8 @@ stable kernels.
- +----------------+-----------------+-----------------+-----------------------------+
- | ARM            | MMU L1          | #3878312        | N/A                         |
- +----------------+-----------------+-----------------+-----------------------------+
--| ARM            | MMU S3          | #3995052        | N/A                         |
-+| ARM            | MMU S3          | #3995052,       | N/A                         |
-+|                |                 | #3673557        |                             |
- +----------------+-----------------+-----------------+-----------------------------+
- | ARM            | GIC-700         | #2941627        | ARM64_ERRATUM_2941627       |
- +----------------+-----------------+-----------------+-----------------------------+
-diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c
-index 0a429c64fbf3e..3f50298a1c14c 100644
---- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c
-+++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c
-@@ -215,6 +215,13 @@ bool arm_smmu_sva_supported(struct arm_smmu_device *smmu)
- 	if (system_supports_haft())
- 		feat_mask |= ARM_SMMU_FEAT_HAFT;
- 
-+	/*
-+	 * The workaround for ARM_SMMU_OPT_FULL_CONT_RANGE_INV requires range
-+	 * invalidation support.
-+	 */
-+	if (smmu->options & ARM_SMMU_OPT_FULL_CONT_RANGE_INV)
-+		feat_mask |= ARM_SMMU_FEAT_RANGE_INV;
-+
- 	if ((smmu->features & feat_mask) != feat_mask)
- 		return false;
- 
-diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-index 658d2cdfa2863..502745984a536 100644
---- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-+++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-@@ -2560,6 +2560,37 @@ static void arm_smmu_cmdq_batch_add_range(struct arm_smmu_device *smmu,
- 	}
+diff --git a/drivers/power/supply/power_supply_core.c b/drivers/power/supply/power_supply_core.c
+index 00d8bc98d5887..c097601ac5491 100644
+--- a/drivers/power/supply/power_supply_core.c
++++ b/drivers/power/supply/power_supply_core.c
+@@ -190,7 +190,35 @@ static void power_supply_deferred_register_work(struct work_struct *work)
+ 		device_unlock(psy->dev.parent);
  }
  
-+/*
-+ * Generate a range invalidation for ARM_SMMU_OPT_FULL_CONT_RANGE_INV by
-+ * ensuring the entire SVA requested range is covered with a single range
-+ * invalidation command. The scale is adjusted so that the range invalidation
-+ * may extend past the end of the requested range. This ensures that any CONT
-+ * the MM is invalidating is covered by a single range invalidation. TTL and
-+ * LEAF are always 0 because this is only used by SVA.
-+ */
-+static bool arm_smmu_cmdq_batch_add_range_inv(struct arm_smmu_device *smmu,
-+					      struct arm_smmu_cmdq_batch *cmds,
-+					      struct arm_smmu_cmd *cmd,
-+					      unsigned long iova, size_t size,
-+					      u8 tgsz_lg2)
+-#ifdef CONFIG_OF
++static int power_supply_check_supplies_by_name(struct power_supply *psy)
 +{
-+	u64 cur_tg = iova >> tgsz_lg2;
-+	u64 num_tg = ((iova + size - 1) >> tgsz_lg2) - cur_tg + 1;
-+	unsigned int scale = fls64((num_tg - 1) / 32);
++	struct device *parent = psy->dev.parent;
++	int nval, ret;
 +
-+	if (scale > 31)
-+		return false;
++	if (!parent)
++		return 0;
 +
-+	cmd->data[0] |=
-+		FIELD_PREP(CMDQ_TLBI_0_NUM,
-+			   DIV_ROUND_UP_ULL(num_tg, 1ULL << scale) - 1) |
-+		FIELD_PREP(CMDQ_TLBI_0_SCALE, scale);
-+	cmd->data[1] = FIELD_PREP(CMDQ_TLBI_1_TG, (tgsz_lg2 - 10) / 2) |
-+		       (cur_tg << tgsz_lg2);
-+	arm_smmu_cmdq_batch_add_cmd_p(smmu, cmds, cmd);
-+	return true;
++	nval = device_property_string_array_count(parent, "supplied-from");
++	if (nval <= 0)
++		return 0;
++
++	psy->supplied_from = devm_kmalloc_array(&psy->dev, nval,
++						sizeof(*psy->supplied_from),
++						GFP_KERNEL);
++	if (!psy->supplied_from)
++		return -ENOMEM;
++
++	ret = device_property_read_string_array(parent, "supplied-from",
++						(const char **)psy->supplied_from,
++						nval);
++	if (ret < 0)
++		return ret;
++
++	psy->num_supplies = nval;
++
++	return 0;
 +}
 +
- static bool arm_smmu_inv_size_too_big(struct arm_smmu_device *smmu, size_t size,
- 				      size_t granule)
+ static int __power_supply_populate_supplied_from(struct power_supply *epsy,
+ 						 void *data)
  {
-@@ -2587,21 +2618,30 @@ static bool arm_smmu_inv_size_too_big(struct arm_smmu_device *smmu, size_t size,
- static void arm_smmu_inv_to_cmdq_batch(struct arm_smmu_inv *inv,
- 				       struct arm_smmu_cmdq_batch *cmds,
- 				       struct arm_smmu_cmd *cmd,
--				       bool leaf,
-+				       bool single_range_inv, bool leaf,
- 				       unsigned long iova, size_t size,
- 				       unsigned int granule)
+@@ -262,22 +290,21 @@ static int power_supply_find_supply_from_fwnode(struct fwnode_handle *supply_nod
+ static int power_supply_check_supplies(struct power_supply *psy)
  {
--	if (arm_smmu_inv_size_too_big(inv->smmu, size, granule)) {
--		struct arm_smmu_cmd nsize_cmd = *cmd;
-+	struct arm_smmu_cmd nsize_cmd;
-+
-+	if (arm_smmu_inv_size_too_big(inv->smmu, size, granule))
-+		goto full_inv;
+ 	struct fwnode_handle *np;
+-	int cnt = 0;
++	int cnt, ret;
  
--		u64p_replace_bits(&nsize_cmd.data[0], inv->nsize_opcode,
--				  CMDQ_0_OP);
--		arm_smmu_cmdq_batch_add_cmd_p(inv->smmu, cmds, &nsize_cmd);
-+	if (single_range_inv && size > granule) {
-+		if (!arm_smmu_cmdq_batch_add_range_inv(inv->smmu, cmds, cmd,
-+						       iova, size, inv->pgsize))
-+			goto full_inv;
- 		return;
- 	}
+ 	/* If there is already a list honor it */
+ 	if (psy->supplied_from && psy->num_supplies > 0)
+ 		return 0;
  
--	arm_smmu_cmdq_batch_add_range(inv->smmu, cmds, cmd, leaf,
--				      iova, size, granule, inv->pgsize);
-+	arm_smmu_cmdq_batch_add_range(inv->smmu, cmds, cmd, leaf, iova, size,
-+				      granule, inv->pgsize);
-+	return;
-+
-+full_inv:
-+	nsize_cmd = *cmd;
-+	u64p_replace_bits(&nsize_cmd.data[0], inv->nsize_opcode, CMDQ_0_OP);
-+	arm_smmu_cmdq_batch_add_cmd_p(inv->smmu, cmds, &nsize_cmd);
- }
+-	/* No device node found, nothing to do */
+-	if (!psy->dev.fwnode)
+-		return 0;
+-
+-	do {
+-		int ret;
++	for (cnt = 0; psy->dev.fwnode; cnt++) {
++		np = fwnode_find_reference(psy->dev.fwnode, "power-supplies", cnt);
++		if (IS_ERR(np)) {
++			ret = PTR_ERR(np);
++			if (ret != -ENOENT)
++				return ret;
  
- static inline bool arm_smmu_invs_end_batch(struct arm_smmu_inv *cur,
-@@ -2622,7 +2662,8 @@ static inline bool arm_smmu_invs_end_batch(struct arm_smmu_inv *cur,
- 
- static void __arm_smmu_domain_inv_range(struct arm_smmu_invs *invs,
- 					unsigned long iova, size_t size,
--					unsigned int granule, bool leaf)
-+					unsigned int granule,
-+					bool single_range_inv, bool leaf)
- {
- 	struct arm_smmu_cmdq_batch cmds = {};
- 	struct arm_smmu_inv *cur;
-@@ -2652,14 +2693,16 @@ static void __arm_smmu_domain_inv_range(struct arm_smmu_invs *invs,
- 		case INV_TYPE_S1_ASID:
- 			cmd = arm_smmu_make_cmd_tlbi(cur->size_opcode,
- 						     cur->id, 0);
--			arm_smmu_inv_to_cmdq_batch(cur, &cmds, &cmd, leaf,
--						   iova, size, granule);
-+			arm_smmu_inv_to_cmdq_batch(cur, &cmds, &cmd,
-+						   single_range_inv, leaf, iova,
-+						   size, granule);
+-		np = fwnode_find_reference(psy->dev.fwnode, "power-supplies", cnt++);
+-		if (IS_ERR(np))
  			break;
- 		case INV_TYPE_S2_VMID:
- 			cmd = arm_smmu_make_cmd_tlbi(cur->size_opcode,
- 						     0, cur->id);
--			arm_smmu_inv_to_cmdq_batch(cur, &cmds, &cmd, leaf,
--						   iova, size, granule);
-+			arm_smmu_inv_to_cmdq_batch(cur, &cmds, &cmd,
-+						   single_range_inv, leaf, iova,
-+						   size, granule);
- 			break;
- 		case INV_TYPE_S2_VMID_S1_CLEAR:
- 			/* CMDQ_OP_TLBI_S12_VMALL already flushed S1 entries */
-@@ -2706,6 +2749,9 @@ void arm_smmu_domain_inv_range(struct arm_smmu_domain *smmu_domain,
- 			       unsigned int granule, bool leaf)
- {
- 	struct arm_smmu_invs *invs;
-+	bool single_range_inv =
-+		smmu_domain->stage == ARM_SMMU_DOMAIN_SVA &&
-+		(smmu_domain->smmu->options & ARM_SMMU_OPT_FULL_CONT_RANGE_INV);
++		}
  
- 	/*
- 	 * An invalidation request must follow some IOPTE change and then load
-@@ -2745,10 +2791,12 @@ void arm_smmu_domain_inv_range(struct arm_smmu_domain *smmu_domain,
- 		unsigned long flags;
- 
- 		read_lock_irqsave(&invs->rwlock, flags);
--		__arm_smmu_domain_inv_range(invs, iova, size, granule, leaf);
-+		__arm_smmu_domain_inv_range(invs, iova, size, granule,
-+					    single_range_inv, leaf);
- 		read_unlock_irqrestore(&invs->rwlock, flags);
- 	} else {
--		__arm_smmu_domain_inv_range(invs, iova, size, granule, leaf);
-+		__arm_smmu_domain_inv_range(invs, iova, size, granule,
-+					    single_range_inv, leaf);
- 	}
- 
- 	rcu_read_unlock();
-@@ -5081,11 +5129,20 @@ static void arm_smmu_device_iidr_probe(struct arm_smmu_device *smmu)
- 				/* Arm errata 2268618, 2812531 */
- 				smmu->features &= ~ARM_SMMU_FEAT_NESTING;
- 			}
-+			/* Arm errata 3777127 */
-+			smmu->options |= ARM_SMMU_OPT_FULL_CONT_RANGE_INV;
- 			break;
- 		case IIDR_PRODUCTID_ARM_MMU_L1:
-+			/* Arm errata 3878312 */
-+			smmu->features &= ~ARM_SMMU_FEAT_BTM;
-+			break;
- 		case IIDR_PRODUCTID_ARM_MMU_S3:
--			/* Arm errata 3878312/3995052 */
-+			/* Arm errata 3995052 */
- 			smmu->features &= ~ARM_SMMU_FEAT_BTM;
-+			/* Arm errata 3673557 */
-+			if (variant < 1 || (variant == 1 && revision < 1))
-+				smmu->options |=
-+					ARM_SMMU_OPT_FULL_CONT_RANGE_INV;
- 			break;
+ 		ret = power_supply_find_supply_from_fwnode(np);
+ 		fwnode_handle_put(np);
+@@ -286,48 +313,21 @@ static int power_supply_check_supplies(struct power_supply *psy)
+ 			dev_dbg(&psy->dev, "Failed to find supply!\n");
+ 			return ret;
  		}
- 		break;
-diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
-index cbfb3e9f50958..0a1bb75467dbd 100644
---- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
-+++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
-@@ -940,6 +940,11 @@ struct arm_smmu_device {
- #define ARM_SMMU_OPT_CMDQ_FORCE_SYNC	(1 << 3)
- #define ARM_SMMU_OPT_TEGRA241_CMDQV	(1 << 4)
- #define ARM_SMMU_OPT_OVR_INSTCFG_DATA	(1 << 5)
-+/*
-+ * Range invalidation is mandatory and one range invalidation must fully span an
-+ * invalidated CONT
-+ */
-+#define ARM_SMMU_OPT_FULL_CONT_RANGE_INV (1 << 6)
- 	u32				options;
+-	} while (!IS_ERR(np));
++	}
  
- 	struct arm_smmu_cmdq		cmdq;
+-	/* Missing valid "power-supplies" entries */
+-	if (cnt == 1)
+-		return 0;
++	/* Fall back to the name-based property if no references were specified. */
++	if (!cnt)
++		return power_supply_check_supplies_by_name(psy);
+ 
+ 	/* All supplies found, allocate char * array for filling */
+ 	psy->supplied_from = devm_kcalloc(&psy->dev,
+-					  cnt - 1, sizeof(*psy->supplied_from),
++					  cnt, sizeof(*psy->supplied_from),
+ 					  GFP_KERNEL);
+ 	if (!psy->supplied_from)
+ 		return -ENOMEM;
+ 
+ 	return power_supply_populate_supplied_from(psy);
+ }
+-#else
+-static int power_supply_check_supplies(struct power_supply *psy)
+-{
+-	int nval, ret;
+-
+-	if (!psy->dev.parent)
+-		return 0;
+-
+-	nval = device_property_string_array_count(psy->dev.parent, "supplied-from");
+-	if (nval <= 0)
+-		return 0;
+-
+-	psy->supplied_from = devm_kmalloc_array(&psy->dev, nval,
+-						sizeof(char *), GFP_KERNEL);
+-	if (!psy->supplied_from)
+-		return -ENOMEM;
+-
+-	ret = device_property_read_string_array(psy->dev.parent,
+-		"supplied-from", (const char **)psy->supplied_from, nval);
+-	if (ret < 0)
+-		return ret;
+-
+-	psy->num_supplies = nval;
+-
+-	return 0;
+-}
+-#endif
+ 
+ struct psy_am_i_supplied_data {
+ 	struct power_supply *psy;
 -- 
 2.53.0
 
