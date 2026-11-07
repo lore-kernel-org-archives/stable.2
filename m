@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794064308;
-	b=vWTLlL8xWVL4l7+G9NuvYLQyLzMQkax9qXbJl2lg8rIauu2+KNf/y1ShCTz9XQATS2Bb
-	 0h5uNCXwSE970JHT6bCW5h64FN+0puvHju3xIv6z9X1z00aLG+u4KKmHrweAgK64OfFRw
-	 c5KPQ8+hRqR3CLwqfEoZJuifSE5rFswPwaNYnxKxFcPivAMNT8nr+iz1X84kelf0lVPvD
-	 ovmHdkr1Ybc6C6Dl9o6uEu3gMzcvxQp3EEwT/OdtOL0FGElDwfeuAGY2ZThECMA72mjJ2
-	 mqhrzCP6/WFPFIGTljexA18y6QBeszVH7p+hPm6QSOo5MWilst5b0kPoZVQZgEMQaLA==
+	t=1794064309;
+	b=DvoKBwRJ99McFK4zY1borTSeIQheTE379oo4nelIYKjlriwtSN2X0rGifa8t+rXkAa0w
+	 pJw8itcEuKYPa7z+tQTS3UlZCtADpvGhsxmLmzQAGyPa5zLv1sYTFjmcDmgKebd71p+WY
+	 J9lododUsMwLwcCqOcn6RWhFaqcyc7aNo0tu9IF8U9ZBxFbcXSPslLmyjWO/hsIcbzowX
+	 THVBkyq4m0NM9HEltsk+pmbuwIVgbRuvc/eyqPdH+T4rXdaPWC+PKrmBWb0EI0dp+eu/t
+	 7BT5UdPM9vqe39UaV5ShJ8nxBjmggZW7yVTsVR065kmADwJDHelte/PSgnGLSQPeHaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794064308;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794064309;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=ARZWEgiPvBt042VS/Eyf17eiQDLu/pUoeDj+j9Y5YEA=;
-	b=T7uftXp5YPCVN+A8GZKzI6LvDNZLpI2FDjKcwONgKYhl6t6AH2xe0rdvjNbzlFp+eQHW
-	 jfbCCVuPpD8yKhadfy75s8Pr4L0f2xWpJ5Ft6N2xS2QhGAA6T5KuTnMvcxpGWEjU8d8Xt
-	 qvrniUO+PoBuGBNvWG/VyTCt57ZrnQrBAYzz3HCF3LZomWT3zewcRXQTEcQjkNWFHJM9P
-	 ggMxd+ZqgEnZozCA+sMi8fnRmO3mRMoajfcXPHBy9FV8woASLZyKOxAzoqXgw0kAoa9QR
-	 yapmHVHwGXCvzqFFaN+irpsuYjgTF5rUvnuAV8Mn7O3YLp8ckaeAoC5Uw/i8+gbC5uQ==
+	bh=4cxzjGvejxDxZaM4Hs69LerBX51PSjjvPLwL/ApoxyQ=;
+	b=Dk9rMIr4Odi6+i73MYpJJdkmKQKMmqQfoe2G/p4/egdjErdWInzmBraYEF81UaJAk/Kf
+	 lpUipxGW84XK6J3Ik9ydUWR5TkqGwQ5Svsw7HjDaVRbaAwdltwpDFgmtXz8Mz8JwZ936i
+	 yFx7LbiNHixo5p8uYeA0bjFtu4Lss4VzrXm+dfmqaTmMZTVnxhMODCsEVj0YyV9H3GnxQ
+	 uZhW7oWrCrzFGkDwMa5XeKkVICZv4lFCJB2ZdQUdUoTJRdQq7z1SPXUqRHLrl2RYZpJZD
+	 4eGvFRJ0L0DCy/i3x2Le0WjjUYaTylQMrmZYclZZqdneIpPbQ5LyFnGpltVYPqSIrfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Iq1gCTjA;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=I1Icxybp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4505F606C025;
-	Sat,  7 Nov 2026 15:11:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75291606C030;
+	Sat,  7 Nov 2026 15:11:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Iq1gCTjA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E84AD1F0089F;
-	Sat,  7 Nov 2026 15:11:47 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=I1Icxybp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 209841F0089F;
+	Sat,  7 Nov 2026 15:11:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794064308;
-	bh=ARZWEgiPvBt042VS/Eyf17eiQDLu/pUoeDj+j9Y5YEA=;
+	s=korg; t=1794064309;
+	bh=4cxzjGvejxDxZaM4Hs69LerBX51PSjjvPLwL/ApoxyQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Iq1gCTjAHAKk+FOUyYiRnC6eKU2vln3F3ECQ56x1LjoUAwL3fZCZBhgGodhHpGNxx
-	 gCX2X4SGoWYgAA6Yps2xLUp9COPu5LuuJoGZe+seV2A+BknBiEJgeIdGdiqj3MYe+n
-	 qf/4wFEhW6Uct7Srwdcaxrq+dAS456LJC03e70vM=
+	b=I1IcxybpyxaqYOHTQMnd9cmVq+ojYlUVu8D/q3zqk71J/mBWRR3vF3EF7qbFZ3NTN
+	 zGitxRTG2SgOxXmUyHzBbBIUPN626SpXkCRhlz3k2t/Nt7N8uB6dLiC6Ecco/Ck98P
+	 KtD4fFQx+hLTYydJ4zMwtNZ6M0ayjRRLfuVXhcVQ=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	Rob Clark <rob.clark@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 0399/1257] drm/msm/dsi: Fix VM leak in dsi_tx_buf_alloc_6g()
-Date: Sat,  7 Nov 2026 08:44:55 -0500
-Message-ID: <20261107134950.557715505@linuxfoundation.org>
+	Johan Hovold <johan@kernel.org>,
+	Sasha Levin <sashal@kernel.org>,
+	stable@kernel.org
+Subject: [PATCH 7.3 0400/1257] staging: greybus: uart: fix racy TIOCMIWAIT implementation
+Date: Sat,  7 Nov 2026 08:44:56 -0500
+Message-ID: <20261107134950.583527540@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261107134939.434104957@linuxfoundation.org>
 References: <20261107134939.434104957@linuxfoundation.org>
@@ -69,45 +68,90 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Wentao Liang <vulab@iscas.ac.cn>
+From: Johan Hovold <johan@kernel.org>
 
-[ Upstream commit ab91ba61871a896ca2ecc6e048d80a152136da44 ]
+[ Upstream commit e94cda6551d4716b17353fc458baa9e85ddea9ff ]
 
-dsi_tx_buf_alloc_6g() takes a reference to the kms VM with
-drm_gpuvm_get() and stores it in msm_host->vm.  If
-msm_gem_kernel_new() fails, the function returns early without
-dropping that reference.  Since msm_host->tx_gem_obj is cleared on
-the error path, msm_dsi_tx_buf_free() will never see a non-NULL
-tx_gem_obj and thus never calls drm_gpuvm_put(), leaking the VM
-reference.
+Check the wakeup condition after adding the task to the waitqueue and
+updating the task state to avoid missing a racing modem status update or
+disconnect.
 
-Drop the VM reference and clear msm_host->vm on the error path.
+Store the old icount on entry and do not update it in the completion
+handler to avoid missing events or reporting spurious ones (due to modem
+status changes before TIOCMIWAIT was called).
 
-Fixes: 5e05be782645 ("drm/msm/dsi: free TX buffer in unbind")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-Reviewed-by: Rob Clark <rob.clark@oss.qualcomm.com>
-Patchwork: https://patchwork.freedesktop.org/patch/754332/
-Link: https://lore.kernel.org/r/20260916175738.2089950-1-vulab@iscas.ac.cn
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Fixes: e68453ed28c5 ("greybus: uart-gb: now builds, more framework added")
+Cc: stable@kernel.org	# 4.9
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Johan Hovold <johan@kernel.org>
+Link: https://patch.msgid.link/20260907095305.130762-1-johan@kernel.org
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/msm/dsi/dsi_host.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/staging/greybus/uart.c | 30 ++++++++++++++++++------------
+ 1 file changed, 18 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index b292dfd266d17..d92659d80f172 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -1254,6 +1254,8 @@ int dsi_tx_buf_alloc_6g(struct msm_dsi_host *msm_host, int size)
+diff --git a/drivers/staging/greybus/uart.c b/drivers/staging/greybus/uart.c
+index 172cf900eaf0b..2c47418a11ef8 100644
+--- a/drivers/staging/greybus/uart.c
++++ b/drivers/staging/greybus/uart.c
+@@ -53,7 +53,6 @@ struct gb_tty {
+ 	spinlock_t read_lock;
+ 	spinlock_t write_lock;
+ 	struct async_icount iocount;
+-	struct async_icount oldcount;
+ 	wait_queue_head_t wioctl;
+ 	struct mutex mutex;
+ 	u8 ctrlin;	/* input control lines */
+@@ -643,11 +642,16 @@ static int wait_serial_change(struct gb_tty *gb_tty, unsigned long arg)
+ 	if (!(arg & (TIOCM_DSR | TIOCM_RI | TIOCM_CD)))
+ 		return -EINVAL;
  
- 	if (IS_ERR(data)) {
- 		msm_host->tx_gem_obj = NULL;
-+		drm_gpuvm_put(msm_host->vm);
-+		msm_host->vm = NULL;
- 		return PTR_ERR(data);
- 	}
+-	do {
++	spin_lock_irq(&gb_tty->read_lock);
++	old = gb_tty->iocount;
++	spin_unlock_irq(&gb_tty->read_lock);
++
++	add_wait_queue(&gb_tty->wioctl, &wait);
++	for (;;) {
++		set_current_state(TASK_INTERRUPTIBLE);
++
+ 		spin_lock_irq(&gb_tty->read_lock);
+-		old = gb_tty->oldcount;
+ 		new = gb_tty->iocount;
+-		gb_tty->oldcount = new;
+ 		spin_unlock_irq(&gb_tty->read_lock);
  
+ 		if ((arg & TIOCM_DSR) && (old.dsr != new.dsr))
+@@ -657,18 +661,20 @@ static int wait_serial_change(struct gb_tty *gb_tty, unsigned long arg)
+ 		if ((arg & TIOCM_RI) && (old.rng != new.rng))
+ 			break;
+ 
+-		add_wait_queue(&gb_tty->wioctl, &wait);
+-		set_current_state(TASK_INTERRUPTIBLE);
+-		schedule();
+-		remove_wait_queue(&gb_tty->wioctl, &wait);
+ 		if (gb_tty->disconnected) {
+-			if (arg & TIOCM_CD)
+-				break;
+ 			retval = -ENODEV;
+-		} else if (signal_pending(current)) {
++			break;
++		}
++
++		schedule();
++
++		if (signal_pending(current)) {
+ 			retval = -ERESTARTSYS;
++			break;
+ 		}
+-	} while (!retval);
++	}
++	__set_current_state(TASK_RUNNING);
++	remove_wait_queue(&gb_tty->wioctl, &wait);
+ 
+ 	return retval;
+ }
 -- 
 2.53.0
 
