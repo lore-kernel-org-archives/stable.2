@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046392;
-	b=eXy32Iy1EBo+uJF6oqjePblRKN8D6aC2h75rov/OC80X+0BMsv7w+O7pGrVDfC7E+LZP
-	 b5gzsXkrVFitmBF+g7wblcpUQ0rYagzVUnCyFGCs5sBgsbpgnoLVmAoSyKYNGj5zxPMd2
-	 Jn16nRBROOfQiWwx6D9OJvi0NTeek5sTkNaHdsE6lvTQBX7titWnrFg0WC1eNG8chcvU4
-	 jA8sOlW+ywxcuRnEDgbroXuaXpUukr/Iy36Inn0GvZhAAbmxJS81deEVI7489RfTkFeOi
-	 E02pfGpff7vEbO0FDUSuog30fYUyX+68TEe1MVk+wi4dSJAkgvNc4FhVO/zkBcI7Y4A==
+	t=1794046394;
+	b=pvtj2JfuSB+sWTVq+ZkFMuRFyEtETs1rTkjI6lMrnj4zrxxAvhNI2gfLD5P02VYjAaBv
+	 EkC8MGT3AWGgaY5c7qNCLp5OigRFWmDOi1P6V6h8vCAEgyOgWshqWYMINiaqHby+cQpgs
+	 mwqRGYavW9AygHZtHK53D0VEhgPW2YbpBi+Pr88UEQX7ehDHCxBbdDPADo/btk9hjwwAv
+	 Qb0i9lqOTDl+u0nz5hrYAM2UCnWtM72a+t/5/PiAiak64PGYGHzAJwUJ1xWZ6hdTac4ZI
+	 +ZIAyEjliNt8ZZjSESZnd366pkGsj2IC0mZRrH2cQ6kcTa0Ae4FqTSQ1bNnXEoeHu6Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046392;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046394;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=C3ypugLbMUF/vqiUl/eyuA73jk50U+Ws4EJFzjaM5ug=;
-	b=iK75zCcqQ6ekLb9g0mmCwqpqV/iUS52xDpEZdS4CCX2AKIxBli2jWrDK8zgR3nT1Lt8D
-	 9xKpwmFOhhTPAaw8q8b2J3A1251WVeDFahgUSjOZ6JYqn5aU5mDUrIrlpef3X7zsCjT1b
-	 6k6BOc3cRnDat15RHvt5qJhhzv1fyPy9tVYVbE3qrxcDLqFST9ZEgHfo+T4KVdN1zn1Vs
-	 KFfxi6ac0jf2JrwnlTGfajkRrLOFCKKU0SFOXqXUjxmzjBJumjWX0l9oWorsBGH0CEeA/
-	 OkvRY8F2tr5JpRsmZOOXx16bH1B2Lg9LsjUk7mHZHjWrxk1SnGAUiJiD7sbV/WG4qAA==
+	bh=EtD+EVOXKtFanuYJFKRgtcigR8qZzz3JqsIVZp1sVHs=;
+	b=jLVM2kt8G9tnJaRDtFPq3RwfbpKUoejGRUip/fP3FE7eMk7O7T1t5YMCM9rj55vMT5e8
+	 C5GgHB67TpBAzC30xtwSK5kxCWLLLSM5ShZKKbMeSVfgbwFyZHiByy7oEG926Sw2DF6Sp
+	 atxpuabJ+sEF7l7Kekl8Wh+ne2Bij9680X4/wngMgwFv6tlaA0rFbEUkFtBy9TIFZVlD1
+	 MRG9kIVfdojaS0LCgsuXUMkaRyzACubpANxLaEvPGNHeWRgAkbqF6cZd7PMOUZFZ8fpq0
+	 1xCuFOxMrMPARDgRABV3txrlZaOs07gE91CbYDLHxu+uPIVvZpGIKWIkSW2xTNdDOtg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VqnG3FjV;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TxMqO3NY;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C9A5606A32F
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:13:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8855F606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:13:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VqnG3FjV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 832C81F0089F;
-	Sat,  7 Nov 2026 10:13:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TxMqO3NY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF3ED1F0089F;
+	Sat,  7 Nov 2026 10:13:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046392;
-	bh=C3ypugLbMUF/vqiUl/eyuA73jk50U+Ws4EJFzjaM5ug=;
+	s=k20260515; t=1794046394;
+	bh=EtD+EVOXKtFanuYJFKRgtcigR8qZzz3JqsIVZp1sVHs=;
 	h=From:To:Cc:Subject:Date;
-	b=VqnG3FjVZMSgpXvTmh1+cTT/IJz+9oFAlvJ2r7OVg4eR2+u/lH6MEO/PdgEBQy305
-	 X02drAHb5PA21+nC9ObrfvsMV+w1hwvQdyTur5h492SL2l+Wg8usp59wz0CyBHF9Nj
-	 DYq4Bhn/sS+N4xgKXJN2hqHaEGNeE/VJvbUjd8m9jYVcrQG8iq5E85bFAeghzi34Jp
-	 j1WdqjmjVOfjBatfsN0+mSpOgRtTb9q1yMqbpjSltfFMMyXGhghwr3velPCCC2bZ+g
-	 vYtZ2XiKNfLqycFWKZcNNavR+Vt7mpuacdpsj6FA69f2N+PO3FhtoOrEPPCmUme4ln
-	 lSlOMBl+QzDHA==
+	b=TxMqO3NY1XCUgrdyWoCOeGNB/yQh8MqK2CFc3f2AQ7e04zUTyU/maAdaG6neYvoqn
+	 cMFtM/XdDzbqKnYThGGIk35EmlNkw+TC6qNie5mmAMDLbpvfBJhZFc5tLPZ8rnWuS8
+	 hJsGDzPTSULI6A0MLStEJYfR8NqNuyDrw/sZZ4ppQEcHS1coPfspH4rMHqj8owyZGj
+	 yLI4yqBYoyNEKbEZCG9XTeYVeZ9bvjdBJLQcSQCiyCS+0BvuXPzNy2kRBmIdtvupgi
+	 fstO+TmUtRKiUPCMCtkl7z7kA31+914dKaRKJX/1rBn+wSLr1zdJaxHQ8LL1QbvbfD
+	 Z4E1JTK5YZTNA==
 From: Sasha Levin <sashal@kernel.org>
-To: wangyan01@kylinos.cn,
-	lihaofeng@kylinos.cn,
-	gnoack@google.com,
-	mic@digikod.net
+To: daehojeong@google.com,
+	chao@kernel.org,
+	jaegeuk@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] selftests/landlock: Fix snprintf truncation checks in test files" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:13:10 -0500
-Message-ID: <20261107051310-failed-6.18-8e4c736cffdd@kernel.org>
+Subject: FAILED: patch "[PATCH] f2fs: don't use truncate_inode_pages_final() on live inodes" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:13:12 -0500
+Message-ID: <20261107051312-failed-6.18-74bbd6ada01f@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,101 +69,85 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 8e4c736cffdd6b133f6498e0d40ba60dc6819d43
+git cherry-pick -x 74bbd6ada01f91fcad60608e0417bf45a9fa99e6
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051310-failed-6.18-8e4c736cffdd@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051312-failed-6.18-74bbd6ada01f@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 8e4c736cffdd6b133f6498e0d40ba60dc6819d43 Mon Sep 17 00:00:00 2001
-From: Wang Yan <wangyan01@kylinos.cn>
-Date: Fri, 26 Jun 2026 15:00:16 +0800
-Subject: [PATCH] selftests/landlock: Fix snprintf truncation checks in test
- files
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 74bbd6ada01f91fcad60608e0417bf45a9fa99e6 Mon Sep 17 00:00:00 2001
+From: Daeho Jeong <daehojeong@google.com>
+Date: Thu, 15 Oct 2026 16:17:14 +0000
+Subject: [PATCH] f2fs: don't use truncate_inode_pages_final() on live inodes
 
-Commit b566f7a4f0e4 ("selftests/landlock: Fix snprintf truncation checks
-in audit helpers") fixed the truncation detection in audit.h by changing
-the comparison from ">" to ">=" to correctly handle the edge case where
-snprintf returns a value equal to the buffer size.
+truncate_inode_pages_final() is meant to be called from ->evict_inode.
+It sets AS_EXITING on the mapping, and nothing ever clears it, to tell
+the VM that the inode is going away.
 
-However, the same pattern exists in ptrace_test.c, audit_test.c, and
-net_test.c and was not fixed.  snprintf() returns the number of
-characters that would have been written, excluding the terminating NUL
-byte.  When the output is truncated, this return value equals or exceeds
-the buffer size. The existing ">" check therefore fails to detect
-truncation when the return value equals the buffer size.
+f2fs calls it in two places where the inode stays live:
 
-Fix these remaining instances to use ">=" for truncation detection,
-matching the fix in audit.h.
+ - F2FS_IOC_START_ATOMIC_REPLACE uses it to drop the page cache of the
+   original inode before setting i_size to 0. The atomic write then
+   goes on through this inode.
 
-Fixes: 6a500b22971c ("selftests/landlock: Add tests for audit flags and domain IDs")
-Signed-off-by: Haofeng Li <lihaofeng@kylinos.cn>
-Signed-off-by: Wang Yan <wangyan01@kylinos.cn>
-Reviewed-by: Günther Noack <gnoack@google.com>
-Link: https://patch.msgid.link/20260626070016.61049-1-wangyan01@kylinos.cn
-Cc: stable@vger.kernel.org
-Signed-off-by: Mickaël Salaün <mic@digikod.net>
+ - f2fs_abort_atomic_write() uses it to drop the uncommitted data. It
+   is called on eviction, but also on the last writer's close in
+   f2fs_release_file(), from f2fs_file_flush() when the atomic writer
+   exits, from F2FS_IOC_ABORT_ATOMIC_WRITE and when
+   F2FS_IOC_COMMIT_ATOMIC_WRITE fails.
+
+Other processes may still have the file open or mapped in all of these
+cases. The mapping then stays marked as exiting for as long as the
+inode is in memory. This stops reclaim from storing workingset shadow
+entries for it and breaks any code that assumes an exiting mapping has
+no users left.
+
+All we need in both places is to drop the page cache, so use
+truncate_inode_pages(mapping, 0) instead. The eviction path is not
+affected, because f2fs_pre_evict_inode() still calls
+truncate_inode_pages_final() after f2fs_abort_atomic_write().
+
+Cc: stable@kernel.org
+Fixes: 3db1de0e582c ("f2fs: change the current atomic write way")
+Fixes: 41e8f85a75fc ("f2fs: introduce F2FS_IOC_START_ATOMIC_REPLACE")
+Signed-off-by: Daeho Jeong <daehojeong@google.com>
+Reviewed-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
 ---
- tools/testing/selftests/landlock/audit_test.c  | 2 +-
- tools/testing/selftests/landlock/net_test.c    | 4 ++--
- tools/testing/selftests/landlock/ptrace_test.c | 2 +-
- 3 files changed, 4 insertions(+), 4 deletions(-)
+ fs/f2fs/file.c    | 2 +-
+ fs/f2fs/segment.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/tools/testing/selftests/landlock/audit_test.c b/tools/testing/selftests/landlock/audit_test.c
-index 72b5612375ddb..4bea8c880a4d3 100644
---- a/tools/testing/selftests/landlock/audit_test.c
-+++ b/tools/testing/selftests/landlock/audit_test.c
-@@ -31,7 +31,7 @@ static int matches_log_signal(struct __test_metadata *const _metadata,
+diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
+index 3b5ad281b518e..b077e4eb790d6 100644
+--- a/fs/f2fs/file.c
++++ b/fs/f2fs/file.c
+@@ -2462,7 +2462,7 @@ static int f2fs_ioc_start_atomic_write(struct file *filp, bool truncate)
+ 	fi->original_i_size = isize;
+ 	if (truncate) {
+ 		set_inode_flag(inode, FI_ATOMIC_REPLACE);
+-		truncate_inode_pages_final(inode->i_mapping);
++		truncate_inode_pages(inode->i_mapping, 0);
+ 		f2fs_i_size_write(inode, 0);
+ 		isize = 0;
+ 	}
+diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
+index 92c3f255ea8fa..daf6d9617d5b6 100644
+--- a/fs/f2fs/segment.c
++++ b/fs/f2fs/segment.c
+@@ -194,7 +194,7 @@ void f2fs_abort_atomic_write(struct inode *inode, bool clean)
+ 		return;
  
- 	log_match_len =
- 		snprintf(log_match, sizeof(log_match), log_template, opid);
--	if (log_match_len > sizeof(log_match))
-+	if (log_match_len >= sizeof(log_match))
- 		return -E2BIG;
+ 	if (clean)
+-		truncate_inode_pages_final(inode->i_mapping);
++		truncate_inode_pages(inode->i_mapping, 0);
  
- 	return audit_match_record(audit_fd, AUDIT_LANDLOCK_ACCESS, log_match,
-diff --git a/tools/testing/selftests/landlock/net_test.c b/tools/testing/selftests/landlock/net_test.c
-index 16afbfdf06bb2..50b637354b51d 100644
---- a/tools/testing/selftests/landlock/net_test.c
-+++ b/tools/testing/selftests/landlock/net_test.c
-@@ -2878,7 +2878,7 @@ static int matches_auditlog(const int audit_fd, const char *const blockers,
- 		log_match_len = snprintf(log_match, sizeof(log_match),
- 					 log_with_addrport_tmpl, blockers,
- 					 dir_addr, addr, dir_port, port);
--	if (log_match_len > sizeof(log_match))
-+	if (log_match_len >= sizeof(log_match))
- 		return -E2BIG;
- 
- 	return audit_match_record(audit_fd, AUDIT_LANDLOCK_ACCESS, log_match,
-@@ -3173,7 +3173,7 @@ static int matches_log_connect_bound(int audit_fd, const char *const blockers,
- 
- 	log_match_len = snprintf(log_match, sizeof(log_match), log_template,
- 				 blockers, addr, lport, addr, dport);
--	if (log_match_len > sizeof(log_match))
-+	if (log_match_len >= sizeof(log_match))
- 		return -E2BIG;
- 
- 	return audit_match_record(audit_fd, AUDIT_LANDLOCK_ACCESS, log_match,
-diff --git a/tools/testing/selftests/landlock/ptrace_test.c b/tools/testing/selftests/landlock/ptrace_test.c
-index 2644445a9d020..e0e7f95e889b3 100644
---- a/tools/testing/selftests/landlock/ptrace_test.c
-+++ b/tools/testing/selftests/landlock/ptrace_test.c
-@@ -305,7 +305,7 @@ static int matches_log_ptrace(struct __test_metadata *const _metadata,
- 
- 	log_match_len =
- 		snprintf(log_match, sizeof(log_match), log_template, opid);
--	if (log_match_len > sizeof(log_match))
-+	if (log_match_len >= sizeof(log_match))
- 		return -E2BIG;
- 
- 	return audit_match_record(audit_fd, AUDIT_LANDLOCK_ACCESS, log_match,
+ 	release_atomic_write_cnt(inode);
+ 	clear_inode_flag(inode, FI_ATOMIC_COMMITTED);
 -- 
 2.53.0
 
