@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050852;
-	b=umFjBYe1vksndW5r+ewXSCBXW0hYQqjXpDQBtx1F5i93jraBgy09Ca7aDpwTlpFY4wQV
-	 8Ixvi9BIsd6g4WTBFM+tRXkwp/hmRXFg1ojX1Y8TQ7N+wiW2Hs6udj07+KksrpuafxCkT
-	 /cZUp0VzdEuwyN2U2bfB0DE6o1fywY0qqVKeWkqYeGGGjUOzKdv7lv1d1LH22Rt6WG6c+
-	 S0xw9Awn0RVTNS8mumZzy7V7pw0NGs3va+ZePncevUeKoBoBcohMZYf3siNO1Pf70lrCH
-	 V0kezzFDah8x82QPtow/zgO+UjzWzlmxrAk/L8sUAjNojTdqN3B5oNYYBpNmVdKin6A==
+	t=1794050855;
+	b=cEdaac5RSxwKmnELDRCaRfA1Jc5abFqpRPkyJcP5Qk5F7of09MoS4UKrbz2aRTVk6uo4
+	 o3Zp7PSAQv77jQdN/LtRdxONUH+2mbE+IwvyjNiyUM38/xjjH3oeIS+6/lWRf/QLTQpEe
+	 +MYcTZUDaEqxoJ9xghCU68CZbpuxI9cWD9HHwGb+gztomqXthkTr6mqUGx/DiglU4Ai52
+	 nqIUher0RZ9eW+pFUAwz3GnncdLz5fveUp3a+yYM6s8I/331KcdzgC1+5+TDeRzP+HLe9
+	 haEowOn04ItnKPZh5IccU1gdSNS2H5+EQW8od2U83dKno07YUIhr0OCoVbvBU1zhSdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050852;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050855;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=abZQeOjODzIdWUqvhceHcBQyRNm5Rr4INkstzJuxDhU=;
-	b=A8TPgDB5cXsIc77CaBljbnOR35q1Yv07tiG05ikpADhjvMcq5G8ADWt2qqxm360MZbT0
-	 44abjcr7q52YJxMnJFV7UqQ54ow791CpZs6d3i5Gb65V8gYI+8/JseAZUFDrgK+itB5lw
-	 KGvlUVcdS6VNuSbcVgqRhESrOwmXAYL/YMOEMGEmBplzXqDaFN9skbLCvGmempgzO6+7F
-	 Nq5uNY8xsGdTNIxrvLwZ6ufz8u1BFrW0pguiNHVbbu4sy39tGySOTk/2LrfpHRNfjjOml
-	 ZKDG5kduGMgXm5qs8GRsXGQO2XeGeBnGeqdNP0mTycXl7zc2/2HvHKHDloYkr7uYWgg==
+	bh=LCE6ZjfLuHNNdfWhcUhpFFHqDHZ3ZRZr1aK7kg/Zibo=;
+	b=nLawjlA1BQ+KFcTaQ6ri5zeVa/3BU4y7fFAa+naBGLA118KyJoIKtom41WrN0AH2F0Nm
+	 vr06AKfU71UE7Qi3tvm70oDt1onhfTko0MxSALLOyjudQ+ccdJP6beHWgkEToZCKNJQ0G
+	 672qkZXooJ9JCeAckrzeLPtohj9fbnQ1E2RmZim7aB7Xug1uo5VNm7gNuf6W13kjC45KT
+	 EB89pwI37sCo4UqatOxDB5dMwCmgX33HMj9uv6GQk7ZN7J58kJc1TzmDL/i0cFeT32yqs
+	 6iRG9/V8AYoo/Eyj8BEIU2fEKpaZaVIyju3A/AWus5H+6UGmNatgkAGwSWaL2jQUcZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AcbbWAdi;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BcV7QJX9;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6051C606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:27:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93B27606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:27:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AcbbWAdi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCB641F0089F;
-	Sat,  7 Nov 2026 11:27:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BcV7QJX9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 090D51F0089F;
+	Sat,  7 Nov 2026 11:27:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050852;
-	bh=abZQeOjODzIdWUqvhceHcBQyRNm5Rr4INkstzJuxDhU=;
+	s=k20260515; t=1794050855;
+	bh=LCE6ZjfLuHNNdfWhcUhpFFHqDHZ3ZRZr1aK7kg/Zibo=;
 	h=From:To:Cc:Subject:Date;
-	b=AcbbWAdisOwYgNknoEESi57EcKlZx4f7WldhZpgdi2eTOh2GFrhKUMShlqg9Wn2e0
-	 toovTIK4XwoPfkp3ysmW6gnbQJWMd5ys9F4s/AYVeA3K+kbJeg5vrLJQKWRMZdCjYb
-	 XQtQrXzvkk6A38XnyRve/WmNSEST7Qa60H9c5XyqlLqiKHdr+AM8t2f8fevXIilyUF
-	 1YomA29Ix8EGR7mHqVqXF+k4h+p34nixdDNoHFSxVh1fOJyI9BPOK1y3YcouvqhgAQ
-	 6+nNdKuORG0jPHi1G5PV+0nKfil+bfvIwGJloXf2rVBw/3gEFF5l5D7ifqDjfhTjFL
-	 BLLHvfs+arHyg==
+	b=BcV7QJX9ZQ5Cu6rJroCwW/t9h9gThqFZ7RpC0DU0xnnzq8MCNAs6TeyaeDU7/6udx
+	 wFRsJhjyJQ0dfA9rO1c9PR6KV/OeXTa1iiYLxsfu/z94yXPXDibUPScVoSpZAX1aLs
+	 S7Ejl6k1pqvCjqQ9TVW9wyRr0QmGRK7KOKRdXBihlWdia65Hzdacd9FVWBcjeLSGxw
+	 h8dlzMOa6V7nZ0/a8SCuuz7KP5i7tzsAhFD1Q0+UhZJkoYJqZuGQ3o6BbI71aXq/bR
+	 htplq3Bg+E9PSBJKYEr/16URIXiCVWoHz5qY7Wp91eifLGGgjv8+mPCYRazpdPMYRR
+	 kNpUtjeJbU16w==
 From: Sasha Levin <sashal@kernel.org>
-To: henrik.enquist@gmail.com,
-	tiwai@suse.de
+To: qingfang.deng@linux.dev,
+	kuba@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ALSA: aloop: Update the PCM Slave controls for a matching playback" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:27:30 -0500
-Message-ID: <20261107062730-failed-5.10-c3bde2beacbc@kernel.org>
+Subject: FAILED: patch "[PATCH] pppoe: delete session hash entries by pointer match" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:27:33 -0500
+Message-ID: <20261107062733-failed-5.10-b5b8c81836e2@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,78 +68,113 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x c3bde2beacbcb40790f0e3c3f909f9e16bbced9c
+git cherry-pick -x b5b8c81836e2bec7b444dfa2b14fd14e912e9d63
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062730-failed-5.10-c3bde2beacbc@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062733-failed-5.10-b5b8c81836e2@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From c3bde2beacbcb40790f0e3c3f909f9e16bbced9c Mon Sep 17 00:00:00 2001
-From: Henrik Enquist <henrik.enquist@gmail.com>
-Date: Wed, 21 Oct 2026 09:46:45 +0200
-Subject: [PATCH] ALSA: aloop: Update the PCM Slave controls for a matching
- playback
+From b5b8c81836e2bec7b444dfa2b14fd14e912e9d63 Mon Sep 17 00:00:00 2001
+From: Qingfang Deng <qingfang.deng@linux.dev>
+Date: Tue, 20 Oct 2026 17:21:11 +0800
+Subject: [PATCH] pppoe: delete session hash entries by pointer match
 
-The "PCM Slave" format, rate, channels and access controls report the
-parameters of the playback side of a cable. loopback_check_format()
-updates them when a playback starts, but returns early when a capture
-is open and its parameters match. The controls then keep the module
-defaults, or the parameters of an earlier stream.
+pppoe_connect() copies the requested PPPoE address to a socket before
+attempting to insert the socket into the session hash table. If the
+tuple already exists, __set_item() returns -EALREADY, but the copied
+address and ifindex remain set on the failed socket.
 
-A playback that joins an open capture with the same parameters is the
-normal case without notify, where it is constrained to the capture's
-parameters, and also with notify whenever the player happens to use
-them. An application that reads the controls to find the playback's
-parameters, for example to reopen the capture side at the right rate
-after a restart, then gets the wrong values.
+Closing that socket then deletes the existing socket's hash entry
+through pppoe_release(), preventing it from receiving further session
+traffic. An unprivileged process in the same network namespace can
+trigger this through a duplicate connection attempt.
 
-Only skip the capture stop when the parameters match, and update the
-controls in every case. A value event is still sent only for a control
-whose value changes.
+To avoid the accidental delete, pass the pppox_sock to __delete_item(),
+and unlink only an entry whose pointer matches the requested socket.
 
-Reproducer:
-  arecord -D hw:Loopback,1,0 -r 44100 -f S16_LE -c 2 /dev/null &
-  aplay -D hw:Loopback,0,0 -t raw -r 44100 -f S16_LE -c 2 /dev/zero &
-  amixer -c Loopback cget "iface=PCM,name='PCM Slave Rate',device=1"
-Before: the control reports 48000, the module default.
-After: it reports 44100.
-
-Fixes: 597603d615d2 ("ALSA: introduce the snd-aloop module for the PCM loopback")
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Signed-off-by: Henrik Enquist <henrik.enquist@gmail.com>
-Link: https://patch.msgid.link/20261021-aloop-slave-controls-v1-1-62297727177f@gmail.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Qingfang Deng <qingfang.deng@linux.dev>
+Link: https://patch.msgid.link/20261020092118.47416-1-qingfang.deng@linux.dev
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 ---
- sound/drivers/aloop.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ drivers/net/ppp/pppoe.c | 22 ++++++++--------------
+ 1 file changed, 8 insertions(+), 14 deletions(-)
 
-diff --git a/sound/drivers/aloop.c b/sound/drivers/aloop.c
-index d6a059ab37474..824d320b665bf 100644
---- a/sound/drivers/aloop.c
-+++ b/sound/drivers/aloop.c
-@@ -412,11 +412,14 @@ static int loopback_check_format(struct loopback_cable *cable, int stream)
- 			runtime->channels != cruntime->channels ||
- 			is_access_interleaved(runtime->access) !=
- 			is_access_interleaved(cruntime->access);
--			if (!check)
--				return 0;
--			if (stream == SNDRV_PCM_STREAM_CAPTURE)
-+			/*
-+			 * Matching params also go on to the update below, so that
-+			 * the setup controls follow a playback that joins an open
-+			 * capture.
-+			 */
-+			if (check && stream == SNDRV_PCM_STREAM_CAPTURE)
- 				return -EIO;
--			else if (cruntime->state == SNDRV_PCM_STATE_RUNNING) {
-+			else if (check && cruntime->state == SNDRV_PCM_STATE_RUNNING) {
- 				/* close must not free the peer runtime below */
- 				snd_refcount_get(&cable->stop_count);
- 				stop_capture = true;
+diff --git a/drivers/net/ppp/pppoe.c b/drivers/net/ppp/pppoe.c
+index bf7414b46a260..ee0e318d6a2a4 100644
+--- a/drivers/net/ppp/pppoe.c
++++ b/drivers/net/ppp/pppoe.c
+@@ -194,18 +194,16 @@ static int __set_item(struct pppoe_net *pn, struct pppox_sock *po)
+ 	return 0;
+ }
+ 
+-static void __delete_item(struct pppoe_net *pn, __be16 sid,
+-					char *addr, int ifindex)
++static void __delete_item(struct pppoe_net *pn, const struct pppox_sock *po)
+ {
+-	int hash = hash_item(sid, addr);
++	int hash = hash_item(po->pppoe_pa.sid, po->pppoe_pa.remote);
+ 	struct pppox_sock *ret, __rcu **src;
+ 
+ 	ret = rcu_dereference_protected(pn->hash_table[hash], lockdep_is_held(&pn->hash_lock));
+ 	src = &pn->hash_table[hash];
+ 
+ 	while (ret) {
+-		if (cmp_addr(&ret->pppoe_pa, sid, addr) &&
+-		    ret->pppoe_ifindex == ifindex) {
++		if (ret == po) {
+ 			struct pppox_sock *next;
+ 
+ 			next = rcu_dereference_protected(ret->next,
+@@ -236,11 +234,10 @@ static inline struct pppox_sock *get_item(struct pppoe_net *pn, __be16 sid,
+ 	return po;
+ }
+ 
+-static inline void delete_item(struct pppoe_net *pn, __be16 sid,
+-					char *addr, int ifindex)
++static void delete_item(struct pppoe_net *pn, const struct pppox_sock *po)
+ {
+ 	spin_lock(&pn->hash_lock);
+-	__delete_item(pn, sid, addr, ifindex);
++	__delete_item(pn, po);
+ 	spin_unlock(&pn->hash_lock);
+ }
+ 
+@@ -570,8 +567,7 @@ static int pppoe_release(struct socket *sock)
+ 	 * protect "po" from concurrent updates
+ 	 * on pppoe_flush_dev
+ 	 */
+-	delete_item(pn, po->pppoe_pa.sid, po->pppoe_pa.remote,
+-		    po->pppoe_ifindex);
++	delete_item(pn, po);
+ 
+ 	sock_orphan(sk);
+ 	sock->sk = NULL;
+@@ -621,8 +617,7 @@ static int pppoe_connect(struct socket *sock, struct sockaddr_unsized *uservaddr
+ 	if (stage_session(po->pppoe_pa.sid)) {
+ 		pppox_unbind_sock(sk);
+ 		pn = pppoe_pernet(sock_net(sk));
+-		delete_item(pn, po->pppoe_pa.sid,
+-			    po->pppoe_pa.remote, po->pppoe_ifindex);
++		delete_item(pn, po);
+ 		if (po->pppoe_dev) {
+ 			dev_put(po->pppoe_dev);
+ 			po->pppoe_dev = NULL;
+@@ -672,8 +667,7 @@ static int pppoe_connect(struct socket *sock, struct sockaddr_unsized *uservaddr
+ 
+ 		error = ppp_register_net_channel(dev_net(dev), &po->chan);
+ 		if (error) {
+-			delete_item(pn, po->pppoe_pa.sid,
+-				    po->pppoe_pa.remote, po->pppoe_ifindex);
++			delete_item(pn, po);
+ 			goto err_put;
+ 		}
+ 
 -- 
 2.53.0
 
