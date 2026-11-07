@@ -1,53 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048402;
-	b=s96J2Evpq9y+BpONKNIp0CC4UvkGXK+e+BHirFWxQ37vLDINid13pM2Fm1nLH0kd78cP
-	 AZoW+/ke/Ql8k/1U8xSXY6ASMGx8fXessCLI7HRRbqDDpUhG2+x90R4L4tkDf0YdFPMjE
-	 fAXFIpAKUjbjf21bZfPoZedXhkY7BWwROq/EobI2MIitLPJa3kqpu/wMW5rQC3hWOnZBp
-	 X5vBjPC9WJhaTSFlVaU15rOKcvYKtgKdLnTZ0vyY7K2ayWWUosWv4ivbBwkI2PH3wZda+
-	 xW4tRK8Ix3BKrTJDbX0VnVhZtc7wkanWzvQFxExIaarrKh99s0Q9UoNw+hI0ZvExe9g==
+	t=1794048405;
+	b=ArYCnqpE7ldNoo+fseCJmTlDuhWU/N5EsIgxsKMWNZlIs/b5qrThMpIgiE1nRXTM1FtO
+	 ZslVzm09iP1/re1TNTx5TrNg5ytAS8JyJxWSH1xU91P4OF9p1lEUDz8GzuWRoaeGu8GQ1
+	 0TLIkJrC4M9nhMKdA40za8CYc/gFB1EB2Qyd8iwqVDQGDVSfeyCEBtf56GUlT07BuW61y
+	 M7vJ7Ud+FZxeAQi1l2aaIGzKLWoh5SYgiEFG/M7KPESbYG4GWiH+EgP23MugLrbBOipDk
+	 pDr8ieL69U3paeOGx/w/V8nUmfby6EMuFUpT8LHVGvRj6/icXrGX/lOtLTZrw3PJc4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048402;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048405;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=IuiEChYzu9J15GDWpHxdTMH4EPp5DfU09YKNiVT6HD0=;
-	b=iL0gmkaafCcWFE/Amkt9YIWMpRL0SeIxIS8XojqdTToJyBegyEPoTeYwAxpLqfUWgU+c
-	 bXy4R2FUKcQvguuLAVfwKlhNRepubnxWFd8HGs18ZyB15fRygPIgbaKAqTAk63ar/zcRb
-	 PbDhFPvKgainbgNS9Py2yysrt09AVQ2VX6HNObQS0l2gpoX/S+k8QODYZ1Uy793W9rZOx
-	 khCOty3wvTmhIZlAz3dY3rgecMcYCDl2wErZuWAoLBiHb692FMggvoVyZ5IS2lhQQ3wgr
-	 Yj5XUhRL6qSq3Aqg9+5rZaqRL9AHX9on8BvTHlRxZzqUtCOpzQkXHQw6AJK4t2xJdMA==
+	bh=WXwuCYZiNSa1Z366a4NG5Tt7ZCIs482cJbVQMf5/UyA=;
+	b=oUSEPp/q2/dvNUwl7/0J7pWAv5/fSCQvWq5cm1SlbwcX1ZKNcHulSO0zWMKyMfrb5LkD
+	 mAVJqLAEZsKVjQ+3xuPaR/4XwFw/P97y6D2Txii/fM/pLYq7iozUULbIrr85si8wCdD9j
+	 Os0ADYgS9d2sCm4k7rFbXXFH0w74I2WrwYoAbG4CVD+xJShjG/gEO0uaIJ9ms71mjMTyV
+	 CFp8LZ7c1XOIursMhtuBpgJxsqAEQLb+hoyUO2od8yhxlD4yXrv4Qh5QOOiJDTi4d4OkY
+	 iVhNui2+aFj+5b4lBJ0TC2fUybThPro+ltCYTnyp+1Y3G4uWJ/oAdgxtGSzLlp9aYRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RBefeQkU;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bxm1SPpK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFA86606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:46:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B31AC606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:46:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RBefeQkU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FC401F008A1;
-	Sat,  7 Nov 2026 10:46:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bxm1SPpK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EEC21F0089F;
+	Sat,  7 Nov 2026 10:46:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048401;
-	bh=IuiEChYzu9J15GDWpHxdTMH4EPp5DfU09YKNiVT6HD0=;
+	s=k20260515; t=1794048404;
+	bh=WXwuCYZiNSa1Z366a4NG5Tt7ZCIs482cJbVQMf5/UyA=;
 	h=From:To:Cc:Subject:Date;
-	b=RBefeQkUxHn7os/ODUXCY+UY3zL5is1iZhY+w+CrNdVVaKSo2w8Iws9ujwxphhadc
-	 Ww0yfWuetrnN6U00x/vFBmFLCLxraIK6rhZ4g29+FD1pu6YciHJV0fDixCbuNMYYh3
-	 WuHKwUF2hpMKESQhCSAxpa7J1+yNDSo7U8fSFm+NsW6UADW9krb9em5kjcos1dlKik
-	 SQ8SK2VQ4xuEUsPmsnz4zs9KBQJLs/9dzAbwaXxsNifynO08Nh5SUMwJfOB/pQXIY0
-	 MvVksIkOxr6boeiYn+gFl0pzLIXkdNuGdE9W1Qup3fVIv3VSD2x8ObHmQhDsMDHhrV
-	 cGV5pVEPVGcng==
+	b=bxm1SPpKTLNhsn/Nb+YBZp3CKxoFCuLFNYvt1c5+1QPFfGg2mrhVmxaU5SV3IprAh
+	 tZNPdXkICMWMtuLInxLSLQ0WXx5ohI8QMFNSpwD1y9GsqGmBmG//f4HbwBGbBxEYlV
+	 y3jOv0+Z+61ZUIOIZEBSOu9z6WzMvKECJ48hO+2j7tw81F7T0p3GDTHBRez2KXoKz4
+	 Htfk9xf76Axa9yDjSFqTPO1hR14xWzhdLgRWJmdwMHda0z+tCXtAqCRPzWpWJig3/r
+	 5uWG3nJJC7cNawwEgbSDZF3P3HHMtY983jgg9/1MhIawtJLv4SKbhPjabXZ1+cOGlA
+	 75suYOB/3VMFg==
 From: Sasha Levin <sashal@kernel.org>
-To: michal.pecio@gmail.com,
-	co+fd80bc5967eb22c3@bugs.sh,
-	mathias.nyman@linux.intel.com,
-	gregkh@linuxfoundation.org
+To: runyu.xiao@seu.edu.cn,
+	jassisinghbrar@gmail.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] usb: xhci: Fix bounce buffer overflow" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:46:39 -0500
-Message-ID: <20261107054639-failed-6.1-68c5cb7574c5@kernel.org>
+Subject: FAILED: patch "[PATCH] mailbox: altera: shut down RX polling timer on channel teardown" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:46:42 -0500
+Message-ID: <20261107054642-failed-6.1-0cf10e65639c@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,81 +68,54 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 68c5cb7574c567e83ba95258cb146db95e069a87
+git cherry-pick -x 0cf10e65639cba32d05994f85e6a8f08dd0ffe08
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054639-failed-6.1-68c5cb7574c5@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054642-failed-6.1-0cf10e65639c@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 68c5cb7574c567e83ba95258cb146db95e069a87 Mon Sep 17 00:00:00 2001
-From: Michal Pecio <michal.pecio@gmail.com>
-Date: Fri, 9 Oct 2026 18:16:23 +0300
-Subject: [PATCH] usb: xhci: Fix bounce buffer overflow
+From 0cf10e65639cba32d05994f85e6a8f08dd0ffe08 Mon Sep 17 00:00:00 2001
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Date: Fri, 4 Sep 2026 14:19:39 +0800
+Subject: [PATCH] mailbox: altera: shut down RX polling timer on channel
+ teardown
 
-High-speed devices with out of spec 1024 byte bulk endpoints exist and
-are allowed by USB core, but xhci-hcd always sets packet size to 512.
-The exact nature of these devices isn't documented, commit fb5ee84ea72c
-("USB: Accept bulk endpoints with 1024-byte maxpacket") only states
-that they "don't work with xHCI host controllers", whatever it means.
+The RX polling callback unconditionally rearms the timer after it
+processes mailbox data.  altera_mbox_shutdown() uses
+timer_delete_sync(), which waits for a running callback but does not
+prevent that callback from rearming the timer after the deletion.
 
-But somebody (or a malicious device) can try, and then the driver will
-allocate a 512 byte bounce buffer for this endpoint and may write up to
-1024 bytes into it if particular scatter-gather URBs are used, because
-xhci_align_td() obtains packet size from the descriptor. Fix this.
+Use timer_shutdown_sync() for the final polling teardown so the timer
+cannot be queued again while the mailbox channel is being released.
+The timer is reinitialized with timer_setup() on a later channel startup,
+so polling mode remains reusable.
 
-As a side effect, TRBs will be aligned to the packet size chosen by the
-driver on all endpoints of all speeds. Alignment serves the xHC, not
-device, so this is fine. Only out of spec devices are affected anyway.
-
-Reported-by: co+fd80bc5967eb22c3@bugs.sh
-Link: https://lore.kernel.org/linux-usb/D4tcSGerkYkIV1DmaUo1t8TaR5qQElDLkidn@bugs.sh/
-Fixes: f9c589e142d0 ("xhci: TD-fragment, align the unsplittable case with a bounce buffer")
+Fixes: f62092f6d77d ("mailbox: Add Altera mailbox driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Michal Pecio <michal.pecio@gmail.com>
-Signed-off-by: Mathias Nyman <mathias.nyman@linux.intel.com>
-Link: https://patch.msgid.link/20261009151624.618967-11-mathias.nyman@linux.intel.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Assisted-by: Codex:GPT-5
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Signed-off-by: Jassi Brar <jassisinghbrar@gmail.com>
 ---
- drivers/usb/host/xhci-ring.c | 9 +++------
- 1 file changed, 3 insertions(+), 6 deletions(-)
+ drivers/mailbox/mailbox-altera.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/usb/host/xhci-ring.c b/drivers/usb/host/xhci-ring.c
-index 243b1fd2b2f68..c23434001e9cb 100644
---- a/drivers/usb/host/xhci-ring.c
-+++ b/drivers/usb/host/xhci-ring.c
-@@ -3546,15 +3546,13 @@ static u32 xhci_td_remainder(struct xhci_hcd *xhci, int transferred,
+diff --git a/drivers/mailbox/mailbox-altera.c b/drivers/mailbox/mailbox-altera.c
+index 17278c2571d34..7cb91413ef7fc 100644
+--- a/drivers/mailbox/mailbox-altera.c
++++ b/drivers/mailbox/mailbox-altera.c
+@@ -270,7 +270,7 @@ static void altera_mbox_shutdown(struct mbox_chan *chan)
+ 		writel_relaxed(~0, mbox->mbox_base + MAILBOX_INTMASK_REG);
+ 		free_irq(mbox->irq, chan);
+ 	} else if (!mbox->is_sender) {
+-		timer_delete_sync(&mbox->rxpoll_timer);
++		timer_shutdown_sync(&mbox->rxpoll_timer);
+ 	}
+ }
  
- 
- static int xhci_align_td(struct xhci_hcd *xhci, struct urb *urb, u32 enqd_len,
--			 u32 *trb_buff_len, struct xhci_segment *seg)
-+			 u32 *trb_buff_len, struct xhci_segment *seg, u32 max_pkt)
- {
- 	struct device *dev = xhci_to_hcd(xhci)->self.sysdev;
- 	unsigned int unalign;
--	unsigned int max_pkt;
- 	u32 new_buff_len;
- 	size_t len;
- 
--	max_pkt = xhci_usb_endpoint_maxp(urb->dev, urb->ep);
- 	unalign = (enqd_len + *trb_buff_len) % max_pkt;
- 
- 	/* we got lucky, last normal TRB data on segment is packet aligned */
-@@ -3699,9 +3697,8 @@ int xhci_queue_bulk_tx(struct xhci_hcd *xhci, gfp_t mem_flags,
- 		if (enqd_len + trb_buff_len < full_len) {
- 			field |= TRB_CHAIN;
- 			if (trb_is_link(ring->enqueue + 1)) {
--				if (xhci_align_td(xhci, urb, enqd_len,
--						  &trb_buff_len,
--						  ring->enq_seg)) {
-+				if (xhci_align_td(xhci, urb, enqd_len, &trb_buff_len,
-+						ring->enq_seg, ring->bounce_buf_len)) {
- 					send_addr = ring->enq_seg->bounce_dma;
- 					/* TD bounced at least, and last on this seg */
- 					td->bounce_seg = ring->enq_seg;
 -- 
 2.53.0
 
