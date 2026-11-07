@@ -1,51 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047601;
-	b=de9Uz/QbUTTB83wQs2njWiU2Mr+63xJKo35IAgw2OumYkTWnl6tkA8Y8BsON6vDpItf4
-	 wswU/QzYhoLzXKUIl+hrQONheH6wKduYbfkuNUZyGidqOmQzHXU2o8vorYyzmLZuRm6Ys
-	 8at6tpoRSlhuF0/ayrolOwHRzOTSKoDBBjoquY+hiOl+et9kw5EAQ5aOuMqbbx+eyjiM2
-	 jYADlWX5Afo7txtsUsZm9x9Q7Uu+glmfYfyaB7cFQAbdRbHF8bo1mPebiFTpTdPbZWmB9
-	 XTcW7CfsAEoYDhzCFExfcZcFQHgPBsL7a+dds7eCi84TX9L9JEDTh64e2/8D5iagnLQ==
+	t=1794047604;
+	b=Ba4InH0Q7hZcVD+oSkMnSyCWsw1wa9zc9gXAkfzLcKOan2UnpcEjuLAYYNLjGbP/6eEc
+	 3l9GK/oHGW40ddLfeHvGfHsTzB5FsVQMyOBYFHCrqb3zhqcIevSIqZy3+CT6zB363x0uN
+	 +5V631EoKlAraKFQOE2pSAjqZCU0/cpWV134QPG5jfBbEBZFDxx94G6pLKzg1He3EqRjk
+	 IOXbIgMen01LPtGiYKSKnnxqeODv4Jdi//KMEroC45frmbHoZ8aXXLdn4vQwEDojpZs/n
+	 pW9tH/nXFQqQPErmPApZL6Qvcsq+lIE/53HofTl6DYFfBWNdupzWU+em+NyVEItyYpg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047601;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047604;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=WuEDZ7YA4NbOSqvoXxfUoZ3mm/orw+TxeSdigvJ1HJs=;
-	b=nUM+h/6MWAL16Vs1BcKpQIYgAtXXUunPwb4a+0Sg7G/crWDANx5MGJGDnTC9FFDe2R+l
-	 bFsGTY2J+O6DmNPb9Gx+G4a1MO1N9FvzMFt1D728YvMlvSswkxhjzlSYv16Fi1SrzwkCL
-	 ELSFDk0FCkjJMzy93eTGdl7THdc/OZjfMYs1M74RxCxJDkZO0C4UEsXUy5hKV3snLBFxP
-	 /FiIb9EeCKnFcpSNwoqeKLXP2l2PTkdbsn2D0DCjffdL9e0aRpxr3+tHvb9VgyPLufGoL
-	 icBkrRzQyq8cKKLeQSVG/m0JXzrJTC/9jwTmb/nkDExs72BeDv2B9R2TJRz2TsyNGYw==
+	bh=oi99CN3qPJwYt/5CqbDtQUlqn8npFUWqNExLCEprZ6w=;
+	b=VOQF4zHgmLVK+HZGZelyYQKb1wrsVjNj+v3muSZdhqcWl+ik+Rs6N9AiUQ9rOINvLNjm
+	 Ku5poDCDD62ptZag/7EvP6lc32RF6x16klKhD49i0E5e792o9sFJj6pPMIL2L9kGCawEu
+	 eUaoAXc95pKWcdXh69Fy4OO0VCPuKZEns/H2oWIfUtvexmK4PyLZnmn6y2OQszWCRpm+K
+	 rKdkujP53zEKxoXdr1vFpjSwLCU77hu3iYp/z+eBuQV7CBRPh8PDqtIrQNvz4WyF7yE/k
+	 kTNqfKZY6AdNo+8MMWorYhk+hBfuOPnMe2XjcjhTgi9Iph75Ckwvjoj605d/Lqo2BHg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BlEmWNP8;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jnicTZCj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94BE4606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:33:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4647606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:33:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BlEmWNP8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 116511F0089F;
-	Sat,  7 Nov 2026 10:33:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jnicTZCj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17E681F0089F;
+	Sat,  7 Nov 2026 10:33:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047601;
-	bh=WuEDZ7YA4NbOSqvoXxfUoZ3mm/orw+TxeSdigvJ1HJs=;
+	s=k20260515; t=1794047603;
+	bh=oi99CN3qPJwYt/5CqbDtQUlqn8npFUWqNExLCEprZ6w=;
 	h=From:To:Cc:Subject:Date;
-	b=BlEmWNP8VrW1b7HOurfhjS2q9CUSBDDk5wcnImq085ntq8lny3ixnKbF6RWtB2OB3
-	 EJpOYh+XAggVaN2R6IB0A/NseZoTwL36I6eauuSTsXpRI5i0yAoFgHOVvcJwJot2HS
-	 WnU0/tT7oAEAagLJ+Ss+8uR+wPbzhTzoqKMXFrH91FIdrmF6wJi77uAM3w+Soki9w2
-	 cvVvav9k4Xtdi/3yFyRg6PeOTBFQ+nIoRN6PXwxQCrTJpV/DP17OdZsHxD56S6uvbZ
-	 v+Tmi1JQ7+0ftVuo4QBVWCgAfRLHPJP/fFVcgLlX9y8UuPay093fhCVLuV0anfpNmb
-	 +ugBgDQCRynuQ==
+	b=jnicTZCj4XMtpyAX7o49bugoLW8gIQEjsYw+IvqWegFamAXWwgQJ+f1jmdpFiMnxO
+	 5uN7fPo/7+vB45dr0WA47rNfd0w9GQcc/2xF2lX6umRxlEi3siHiNeNZ4shQEDUvVv
+	 jHcjzF446aM9PN3C0UG9XqICtz6mbjnulEUKFCKhCdVZkX1dnXVoShJsCCCD+rwqJO
+	 Wq1E2HusmbocULMk1DyEPwDbm6WUzH7GXURkQUb0wuQ4X9nls/Xy+hirGEbBBys+/4
+	 Wm+AACBH+FVUKJ9iiaKq1vUTwWWFHHmzw6jvMAE0jw0Mt5VgyQqy1x838fxoDrfeCd
+	 8NXoVC9JPxyOA==
 From: Sasha Levin <sashal@kernel.org>
-To: evgeny@devduty.com,
-	tiwai@suse.de
+To: jianping.li@oss.qualcomm.com,
+	ekansh.gupta@oss.qualcomm.com,
+	srini@kernel.org,
+	gregkh@linuxfoundation.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ALSA: hda/realtek: Enable all four speaker amps on Lenovo ThinkBook X G2 IAH" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:33:19 -0500
-Message-ID: <20261107053319-failed-6.6-f2293e7b2ddd@kernel.org>
+Subject: FAILED: patch "[PATCH] misc: fastrpc: Allocate entire reserved memory for Audio PD in probe" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:33:22 -0500
+Message-ID: <20261107053322-failed-6.6-9e47ad9c562e@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,88 +70,342 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x f2293e7b2ddd803b1461e0490f9b2f32089c1dd0
+git cherry-pick -x 9e47ad9c562e82cabfbb9afa6c2b0dcdf2702a39
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053319-failed-6.6-f2293e7b2ddd@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053322-failed-6.6-9e47ad9c562e@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From f2293e7b2ddd803b1461e0490f9b2f32089c1dd0 Mon Sep 17 00:00:00 2001
-From: Evgeny Akhtimirov <evgeny@devduty.com>
-Date: Fri, 9 Oct 2026 20:02:37 +0400
-Subject: [PATCH] ALSA: hda/realtek: Enable all four speaker amps on Lenovo
- ThinkBook X G2 IAH
+From 9e47ad9c562e82cabfbb9afa6c2b0dcdf2702a39 Mon Sep 17 00:00:00 2001
+From: Jianping Li <jianping.li@oss.qualcomm.com>
+Date: Fri, 2 Oct 2026 11:12:20 +0100
+Subject: [PATCH] misc: fastrpc: Allocate entire reserved memory for Audio PD
+ in probe
 
-The Lenovo ThinkBook X G2 IAH (MTM 21TU) has an ALC287 codec with four
-CS35L41 amplifiers on I2C (CSC3551). It reports codec SSID 17aa:3929,
-which it shares with the ThinkBook 13x Gen 5, and PCI SSID 17aa:3842.
+Allocating and freeing Audio PD memory from userspace is unsafe because
+the kernel cannot reliably determine when the DSP has finished using the
+memory. Userspace may free buffers while they are still in use by the DSP,
+and remote free requests cannot be safely trusted.
 
-Since PCI SSID 17aa:3842 has no quirk entry, the codec SSID matches
-ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_THINKPAD. That fixup binds only
-two amps (cs35l41-hda.0 and .1), while the CS35L41 configuration table
-describes four for 17AA3929. Amps .2 and .3 probe and load firmware,
-but they are never bound to the codec, so half of the speakers stay
-silent.
+Additionally, the current implementation allows userspace to repeatedly
+grow the Audio PD heap, but does not support shrinking it. This can lead
+to unbounded memory usage over time, effectively causing a memory leak.
 
-Add a ThinkPad-style fixup chain that binds four I2C amps, and match the
-laptop by its PCI SSID so the ThinkBook 13x Gen 5 is not affected.
+Fix this by allocating the entire Audio PD reserved-memory region during
+rpmsg probe and tying its lifetime to the rpmsg channel. This removes
+userspace-controlled alloc/free and ensures that memory is reclaimed only
+when the DSP process is torn down.
 
-Tested with hda_model=1028:0c4d (alias to ALC287_FIXUP_CS35L41_I2C_4):
-all four amps bind, apply their calibration and are runtime-active
-during playback.
+The reserved-memory region is now mandatory for the Audio PD domain.
+Rather than failing rpmsg probe when it is missing, validate it in
+fastrpc_init_create_static_process() and reject only the static-process
+creation. This keeps the fastrpc device probing for all other domains
+even on a misconfigured device tree.
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Evgeny Akhtimirov <evgeny@devduty.com>
-Link: https://patch.msgid.link/20261009-thinkbook-x-g2-iah-v1-1-56012188aee0@devduty.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Fixes: 0871561055e66 ("misc: fastrpc: Add support for audiopd")
+Cc: stable@kernel.org
+Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
+Reviewed-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+Link: https://lore.kernel.org/all/20260814101955.234238-1-jianping.li@oss.qualcomm.com/
+Signed-off-by: Srinivas Kandagatla <srini@kernel.org>
+Link: https://patch.msgid.link/20261002101220.1084101-3-srinivas.kandagatla@oss.qualcomm.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- sound/hda/codecs/realtek/alc269.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ drivers/misc/fastrpc.c | 188 ++++++++++++++++++++++-------------------
+ 1 file changed, 101 insertions(+), 87 deletions(-)
 
-diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-index a68b6a9b71aa0..217df4301a30e 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -4427,6 +4427,8 @@ enum {
- 	ALC245_FIXUP_HP_X360_MUTE_LEDS,
- 	ALC287_FIXUP_THINKPAD_I2S_SPK,
- 	ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_THINKPAD,
-+	ALC287_FIXUP_CS35L41_I2C_4_THINKPAD_ACPI,
-+	ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_4_THINKPAD,
- 	ALC2XX_FIXUP_HEADSET_MIC,
- 	ALC289_FIXUP_DELL_CS35L41_SPI_2,
- 	ALC256_FIXUP_ACER_SFG16_MICMUTE_LED,
-@@ -7017,6 +7019,18 @@ static const struct hda_fixup alc269_fixups[] = {
- 		.chained = true,
- 		.chain_id = ALC287_FIXUP_CS35L41_I2C_2_THINKPAD_ACPI,
- 	},
-+	[ALC287_FIXUP_CS35L41_I2C_4_THINKPAD_ACPI] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = cs35l41_fixup_i2c_four,
-+		.chained = true,
-+		.chain_id = ALC285_FIXUP_THINKPAD_NO_BASS_SPK_HEADSET_JACK,
-+	},
-+	[ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_4_THINKPAD] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = alc287_fixup_tb_vmaster_led,
-+		.chained = true,
-+		.chain_id = ALC287_FIXUP_CS35L41_I2C_4_THINKPAD_ACPI,
-+	},
- 	[ALC2XX_FIXUP_HEADSET_MIC] = {
- 		.type = HDA_FIXUP_FUNC,
- 		.v.func = alc2xx_fixup_headset_mic,
-@@ -8378,6 +8392,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x17aa, 0x3827, "Ideapad S740", ALC285_FIXUP_IDEAPAD_S740_COEF),
- 	SND_PCI_QUIRK(0x17aa, 0x3834, "Lenovo IdeaPad Slim 9i 14ITL5", ALC287_FIXUP_YOGA7_14ITL_SPEAKERS),
- 	SND_PCI_QUIRK(0x17aa, 0x383d, "Legion Y9000X 2019", ALC285_FIXUP_LEGION_Y9000X_SPEAKERS),
-+	SND_PCI_QUIRK(0x17aa, 0x3842, "ThinkBook X G2 IAH", ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_4_THINKPAD),
- 	SND_PCI_QUIRK(0x17aa, 0x3843, "Lenovo Yoga 9i / Yoga Book 9i", ALC287_FIXUP_LENOVO_YOGA_BOOK_9I),
- 	/* Yoga Pro 7 14IMH9 shares PCI SSID 17aa:3847 with Legion 7 16ACHG6;
- 	 * use codec SSID to distinguish them
+diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+index 904f538f0dd0e..af18ff1992eed 100644
+--- a/drivers/misc/fastrpc.c
++++ b/drivers/misc/fastrpc.c
+@@ -70,8 +70,6 @@
+ #define ADSP_MMAP_HEAP_ADDR  4
+ /* MAP static DMA buffer on DSP User PD */
+ #define ADSP_MMAP_DMA_BUFFER  6
+-/* Add memory to static PD pool protection thru hypervisor */
+-#define ADSP_MMAP_REMOTE_HEAP_ADDR  8
+ /* Add memory to userPD pool, for user heap */
+ #define ADSP_MMAP_ADD_PAGES 0x1000
+ /* Add memory to userPD pool, for LLC heap */
+@@ -314,10 +312,14 @@ struct fastrpc_channel_ctx {
+ 	struct kref refcount;
+ 	/* Flag if dsp attributes are cached */
+ 	bool valid_attributes;
++	/* Flag if audio PD init mem was allocated */
++	bool audio_init_mem;
++	/* Audio PD reserved remote heap region */
++	phys_addr_t remote_heap_addr;
++	u64 remote_heap_size;
+ 	u32 dsp_attributes[FASTRPC_MAX_DSP_ATTRIBUTES];
+ 	struct fastrpc_device *secure_fdevice;
+ 	struct fastrpc_device *fdevice;
+-	struct fastrpc_buf *remote_heap;
+ 	struct list_head invoke_interrupted_mmaps;
+ 	bool secure;
+ 	bool unsigned_support;
+@@ -1454,15 +1456,24 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
+ 	struct fastrpc_init_create_static init;
+ 	struct fastrpc_invoke_args *args;
+ 	struct fastrpc_phy_page pages[1];
++	struct fastrpc_channel_ctx *cctx = fl->cctx;
+ 	char *name;
+ 	int err;
+-	bool scm_done = false;
+ 	struct {
+ 		int client_id;
+ 		u32 namelen;
+ 		u32 pageslen;
+ 	} inbuf;
+ 	u32 sc;
++	unsigned long flags;
++	bool sent_heap = false;
++
++	if (!cctx->remote_heap_addr || !cctx->remote_heap_size) {
++		err = -ENOMEM;
++		dev_err(fl->sctx->dev,
++			"remote heap memory region is not added\n");
++		return err;
++	}
+ 
+ 	args = kzalloc_objs(*args, FASTRPC_CREATE_STATIC_PROCESS_NARGS);
+ 	if (!args)
+@@ -1486,31 +1497,6 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
+ 	inbuf.client_id = fl->client_id;
+ 	inbuf.namelen = init.namelen;
+ 	inbuf.pageslen = 0;
+-	if (!fl->cctx->remote_heap) {
+-		err = fastrpc_remote_heap_alloc(fl, fl->sctx->dev, init.memlen,
+-						&fl->cctx->remote_heap);
+-		if (err)
+-			goto err_name;
+-
+-		/* Map if we have any heap VMIDs associated with this ADSP Static Process. */
+-		if (fl->cctx->vmcount) {
+-			u64 src_perms = BIT(QCOM_SCM_VMID_HLOS);
+-
+-			err = qcom_scm_assign_mem(fl->cctx->remote_heap->dma_addr,
+-							(u64)fl->cctx->remote_heap->size,
+-							&src_perms,
+-							fl->cctx->vmperms, fl->cctx->vmcount);
+-			if (err) {
+-				dev_err(fl->sctx->dev,
+-					"Failed to assign memory with dma_addr %pad size 0x%llx err %d\n",
+-					&fl->cctx->remote_heap->dma_addr,
+-					fl->cctx->remote_heap->size, err);
+-				goto err_map;
+-			}
+-			scm_done = true;
+-			inbuf.pageslen = 1;
+-		}
+-	}
+ 
+ 	fl->pd = USER_PD;
+ 
+@@ -1522,8 +1508,25 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
+ 	args[1].length = inbuf.namelen;
+ 	args[1].fd = -1;
+ 
+-	pages[0].addr = fl->cctx->remote_heap->dma_addr;
+-	pages[0].size = fl->cctx->remote_heap->size;
++	/*
++	 * Audio PD is a static PD and retains the remote heap
++	 * information across daemon restarts. Therefore only
++	 * the first attach should provide heap information to
++	 * DSP. Subsequent attaches reuse the previously
++	 * initialized memory pool.
++	 */
++	spin_lock_irqsave(&cctx->lock, flags);
++	if (!cctx->audio_init_mem) {
++		pages[0].addr = cctx->remote_heap_addr;
++		pages[0].size = cctx->remote_heap_size;
++		cctx->audio_init_mem = true;
++		inbuf.pageslen = 1;
++		sent_heap = true;
++	} else {
++		pages[0].addr = 0;
++		pages[0].size = 0;
++	}
++	spin_unlock_irqrestore(&cctx->lock, flags);
+ 
+ 	args[2].ptr = (u64)(uintptr_t) pages;
+ 	args[2].length = sizeof(*pages);
+@@ -1541,27 +1544,11 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
+ 
+ 	return 0;
+ err_invoke:
+-	if (fl->cctx->vmcount && scm_done) {
+-		u64 src_perms = 0;
+-		struct qcom_scm_vmperm dst_perms;
+-		u32 i;
+-
+-		for (i = 0; i < fl->cctx->vmcount; i++)
+-			src_perms |= BIT(fl->cctx->vmperms[i].vmid);
+-
+-		dst_perms.vmid = QCOM_SCM_VMID_HLOS;
+-		dst_perms.perm = QCOM_SCM_PERM_RWX;
+-		err = qcom_scm_assign_mem(fl->cctx->remote_heap->dma_addr,
+-						(u64)fl->cctx->remote_heap->size,
+-						&src_perms, &dst_perms, 1);
+-		if (err)
+-			dev_err(fl->sctx->dev, "Failed to assign memory dma_addr %pad size 0x%llx err %d\n",
+-				&fl->cctx->remote_heap->dma_addr, fl->cctx->remote_heap->size, err);
++	if (sent_heap) {
++		spin_lock_irqsave(&cctx->lock, flags);
++		cctx->audio_init_mem = false;
++		spin_unlock_irqrestore(&cctx->lock, flags);
+ 	}
+-err_map:
+-	fastrpc_buf_free(fl->cctx->remote_heap);
+-	fl->cctx->remote_heap = NULL;
+-err_name:
+ 	kfree(name);
+ err:
+ 	kfree(args);
+@@ -2086,7 +2073,7 @@ static int fastrpc_req_mmap(struct fastrpc_user *fl, char __user *argp)
+ 	if (copy_from_user(&req, argp, sizeof(req)))
+ 		return -EFAULT;
+ 
+-	if (req.flags != ADSP_MMAP_ADD_PAGES && req.flags != ADSP_MMAP_REMOTE_HEAP_ADDR) {
++	if (req.flags != ADSP_MMAP_ADD_PAGES) {
+ 		dev_err(dev, "flag not supported 0x%x\n", req.flags);
+ 
+ 		return -EINVAL;
+@@ -2097,10 +2084,7 @@ static int fastrpc_req_mmap(struct fastrpc_user *fl, char __user *argp)
+ 		return -EINVAL;
+ 	}
+ 
+-	if (req.flags == ADSP_MMAP_REMOTE_HEAP_ADDR)
+-		err = fastrpc_remote_heap_alloc(fl, dev, req.size, &buf);
+-	else
+-		err = fastrpc_buf_alloc(fl, dev, req.size, &buf);
++	err = fastrpc_buf_alloc(fl, dev, req.size, &buf);
+ 
+ 	if (err) {
+ 		dev_err(dev, "failed to allocate buffer\n");
+@@ -2139,20 +2123,6 @@ static int fastrpc_req_mmap(struct fastrpc_user *fl, char __user *argp)
+ 	/* let the client know the address to use */
+ 	req.vaddrout = rsp_msg.vaddr;
+ 
+-	/* Add memory to static PD pool, protection thru hypervisor */
+-	if (req.flags == ADSP_MMAP_REMOTE_HEAP_ADDR && fl->cctx->vmcount) {
+-		u64 src_perms = BIT(QCOM_SCM_VMID_HLOS);
+-
+-		err = qcom_scm_assign_mem(buf->dma_addr, (u64)buf->size,
+-			&src_perms, fl->cctx->vmperms, fl->cctx->vmcount);
+-		if (err) {
+-			dev_err(fl->sctx->dev,
+-				"Failed to assign memory dma_addr %pad size 0x%llx err %d",
+-				&buf->dma_addr, buf->size, err);
+-			goto err_assign;
+-		}
+-	}
+-
+ 	spin_lock(&fl->lock);
+ 	list_add_tail(&buf->node, &fl->mmaps);
+ 	spin_unlock(&fl->lock);
+@@ -2533,6 +2503,45 @@ static const struct of_device_id fastrpc_poll_supported_machines[] __maybe_unuse
+ 	{},
+ };
+ 
++static int fastrpc_init_reserved_mem(struct fastrpc_channel_ctx *cctx,
++				     struct device *rdev, u32 domain_id)
++{
++	struct resource res;
++	u64 src_perms;
++	int err;
++
++	/* Only SDSP and ADSP domains use a reserved remote heap region */
++	if (domain_id != SDSP_DOMAIN_ID && domain_id != ADSP_DOMAIN_ID)
++		return 0;
++
++	err = of_reserved_mem_region_to_resource(rdev->of_node, 0, &res);
++	if (err) {
++		/*
++		 * The reserved-memory region is optional at probe time. For
++		 * the Audio PD (ADSP) domain its absence is validated later in
++		 * fastrpc_init_create_static_process(), so keep probing here.
++		 */
++		return 0;
++	}
++
++	/*
++	 * Audio PD (ADSP) is a static PD: cache the region so its lifetime
++	 * is tied to the rpmsg channel instead of being controlled by
++	 * userspace.
++	 */
++	if (domain_id == ADSP_DOMAIN_ID) {
++		cctx->remote_heap_addr = res.start;
++		cctx->remote_heap_size = resource_size(&res);
++	}
++
++	if (!cctx->vmcount)
++		return 0;
++
++	src_perms = BIT(QCOM_SCM_VMID_HLOS);
++	return qcom_scm_assign_mem(res.start, resource_size(&res), &src_perms,
++				  cctx->vmperms, cctx->vmcount);
++}
++
+ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+ {
+ 	struct device *rdev = &rpdev->dev;
+@@ -2580,21 +2589,9 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+ 		}
+ 	}
+ 
+-	if (domain_id == SDSP_DOMAIN_ID) {
+-		struct resource res;
+-		u64 src_perms;
+-
+-		err = of_reserved_mem_region_to_resource(rdev->of_node, 0, &res);
+-		if (!err) {
+-			src_perms = BIT(QCOM_SCM_VMID_HLOS);
+-
+-			err = qcom_scm_assign_mem(res.start, resource_size(&res), &src_perms,
+-				    data->vmperms, data->vmcount);
+-			if (err)
+-				goto err_free_data;
+-		}
+-
+-	}
++	err = fastrpc_init_reserved_mem(data, rdev, domain_id);
++	if (err)
++		goto err_free_data;
+ 
+ 	secure_dsp = !(of_property_read_bool(rdev->of_node, "qcom,non-secure-domain"));
+ 	data->secure = secure_dsp;
+@@ -2694,8 +2691,25 @@ static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
+ 	list_for_each_entry_safe(buf, b, &cctx->invoke_interrupted_mmaps, node)
+ 		list_del(&buf->node);
+ 
+-	if (cctx->remote_heap)
+-		fastrpc_buf_free(cctx->remote_heap);
++	if (cctx->remote_heap_size && cctx->vmcount) {
++		u64 src_perms = 0;
++		int err, i;
++		struct qcom_scm_vmperm dst_perms;
++
++		for (i = 0; i < cctx->vmcount; i++)
++			src_perms |= BIT(cctx->vmperms[i].vmid);
++
++		dst_perms.vmid = QCOM_SCM_VMID_HLOS;
++		dst_perms.perm = QCOM_SCM_PERM_RWX;
++
++		err = qcom_scm_assign_mem(cctx->remote_heap_addr,
++					  cctx->remote_heap_size, &src_perms,
++					  &dst_perms, 1);
++		if (err)
++			dev_err(&rpdev->dev,
++				"Failed to assign memory back to HLOS: addr %pa size %#llx err %d\n",
++				&cctx->remote_heap_addr, cctx->remote_heap_size, err);
++	}
+ 
+ 	of_platform_depopulate(&rpdev->dev);
+ 
 -- 
 2.53.0
 
