@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047844;
-	b=or7LcM98E9M94SZIZucjPmyU9FgnGiADleXzq++Ddxla2+21ePvm5mLDCP072xY5KiBY
-	 AXYYXbLG3c6/K4MuJPfraJZxDOpx29JMyXLeKJ9Phn1cm6bihJmbU39vf0G5cvbMaBnyc
-	 E7UfgnblRLmQHFl6KtZvzPYIiApzTH6/5Slf5vicYl2r0yNEoQTvdxQeB11zSzht7M9L6
-	 Lh2rvoI2bWPFNHfdupXGlcgjcAt5FoBp6gTeZcK+Ni4NkgtUZUZZD4j4p9qvadvVMgEzP
-	 8if5QJdFbTgBpyQi7V+cuwC6gzQqcTGotxryE6eGDZ689qzURpb7Z2IOi3a94pH4dzg==
+	t=1794047846;
+	b=wkZAXNAgP5Wa9K3+qt6RE3lQyhm7Qg5xft4g8y+fvLYaaEoa0CsSfvnLV/TmW/dRZ4Sr
+	 yNJ0hcdt87brIYrgWfjM31eoao4ZUEEpEkx6AKelpbVcULCdS2UBvj5PulN+Ei3rpCi+8
+	 lJcBCKoPH79nG7uHX+4XZx8qm7P7UsbhCqBUyiJB/pmCKpi2cSfWOFxsq19iUYbxmpCG8
+	 f77tAa2XVI/SLI+lUCu0gfHKEXEfsLzVxSuSQZ+zBBChs/g6Z5v2lA/YmznboImRzksW6
+	 FaSDHaC7KsgAUv/3Q8YqxMXY3t95JUW9U6FH037EEFTq7NagZWxgE9BiYYGWaNLRnIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047844;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047846;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=c9Is7DsVACIjLVFhNehNgejDjseV2rZPGl2uoiao+fc=;
-	b=mV92Fu6onsl2lwpkyuK+hP7LWflTHGBqHvmpyY/OASwHYY1R4xtsF734+UMn+hygY6fN
-	 NLDTN5XplXzhFqOwcw2hpYJ+L872QIHS5o6PmDNywQ/xp0i44GoOUYJTmPfcrVshEqaQv
-	 FMpbCELE2hLqqa6Ektn5kgtcxCXr4iGxVZ97gJomE4ZrpuSNkpt1h+Z5/eDkyTtU7tsSQ
-	 x1xqWMAqJrIHsK801NB2obn1lgDV1EkMtW+QfrK8BYWAxPe1cKsZlY+0R0v/f7RQe1ZHp
-	 ijkLe8mYnLDbMBnsiB/dC1OgSFxJvbo7veo/tjjpSKkTMemqFMd7F8pTwt/Rh5Au9rg==
+	bh=6Ajtz5qp68YrUlAe52wZx4HdhLVpKjsCZC7uiZ9tFVU=;
+	b=YsnPH/wN8dax9lcWIX5V/IxLWIFcQ4ZZDWsOcGlZ4kJVZqezj8T9uaj/7WTDsixNbdNF
+	 +rGap0lBZQOI2lwpfDal9k0bj/T1HhKdQL466DAK+8UBE8lu6xgwkC+ErQtpuSW9mUjpc
+	 aAkDah58ugY5SaQsO1tvwoEhn38FaPTCqVNRdpBytghwBOeJYJw4HV+a8O1a18MNafAfL
+	 BWxZ7o+M8JcjVeGKziUTOMJJJPxXjcMkUFGTrI7W+C/vcubbTVaqqO9JsTUYZ/FGLfSf1
+	 I8eKzol1J57HWoSwuAncvLX9TmzzRGf8T6Hx6qeYFzC5YdTpXjfijxp5J7oecu4U9bw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MoFKIemS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BR2rvgse;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A87ED606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:37:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6F77606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:37:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MoFKIemS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24F9F1F0089F;
-	Sat,  7 Nov 2026 10:37:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BR2rvgse
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63C071F0089F;
+	Sat,  7 Nov 2026 10:37:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047843;
-	bh=c9Is7DsVACIjLVFhNehNgejDjseV2rZPGl2uoiao+fc=;
+	s=k20260515; t=1794047845;
+	bh=6Ajtz5qp68YrUlAe52wZx4HdhLVpKjsCZC7uiZ9tFVU=;
 	h=From:To:Cc:Subject:Date;
-	b=MoFKIemSR73SReCF2xlgaJqjMAo808lI9fIb+NDazdICut0oq8NVMe2trEex7tILH
-	 AYrr2qlcgWPfC4KXs5HhZ5YOwVNObBpUHmT5Qbx+7upUtHyFisS279ajbjmrT/Y8r6
-	 LwZtMITiH8uwY8bbgkbqWjOkCcFqiKDQbJD0esGZ6awjDFlkG6xDh/1kwF09JIZ3MY
-	 pqPiwCHmR7RIXtvYkQ19AvD4JZpHJNWGTZPlct/Bwb1NRh22yWhcyw6ESJIrW5DGWF
-	 KuzxnrlDAWqhkhVVBj92gd9K7Xo6uWO7BNVflMW7nk9YRadwdf0U5CynhW6B5Jfg9K
-	 wHYVhpDfc+2+Q==
+	b=BR2rvgserLvFrH/+rGG9LPOrZThU+yKuzIJUOypBRgdw1xI/yGGtZGF/BAYgk3RVa
+	 D8k/qiJbm8+kD0+5PTC20wMO5XwWg989j19fT5JvJdPs0o/CmRRlG7ykfGb6ju9ZU6
+	 z8Ql1KvhXztWlpdiFE6puhr7DS6J1beQAkUFaBugrqpTgH+/MCtIKTZF39yo87WjP7
+	 H/PmexYDQB7QZ6jiW4s7W3BHUviRf7+yWsVE11HvFCe52EaePNJWclEhuSxQ+aKOsT
+	 kJIDTzsH61tp9d0BKG5OVO7izRIp6VtUvsT/sDs6RDB278Rzpa1tGv5ZVAsK+StKuF
+	 tUAHz79Q3s3QA==
 From: Sasha Levin <sashal@kernel.org>
-To: tiwai@suse.de,
-	sashiko-bot@kernel.org
+To: sahaj123.sc@gmail.com,
+	bartosz.golaszewski@oss.qualcomm.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ALSA: line6: Handle period elapsed calls outside the locks" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:37:22 -0500
-Message-ID: <20261107053722-failed-6.6-443ed4edc267@kernel.org>
+Subject: FAILED: patch "[PATCH] gpio: pca953x: Handle direction register read errors in IRQ paths" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:37:24 -0500
+Message-ID: <20261107053724-failed-6.6-a0fe26929350@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,210 +68,98 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 443ed4edc2678cc51c5a01e7dffc4c890be40051
+git cherry-pick -x a0fe269293509acdd93b9cfb3f46636f7b91b33a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053722-failed-6.6-443ed4edc267@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053724-failed-6.6-a0fe26929350@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 443ed4edc2678cc51c5a01e7dffc4c890be40051 Mon Sep 17 00:00:00 2001
-From: Takashi Iwai <tiwai@suse.de>
-Date: Tue, 20 Oct 2026 13:31:17 +0200
-Subject: [PATCH] ALSA: line6: Handle period elapsed calls outside the locks
+From a0fe269293509acdd93b9cfb3f46636f7b91b33a Mon Sep 17 00:00:00 2001
+From: Sahaj Chaudhari <sahaj123.sc@gmail.com>
+Date: Sun, 18 Oct 2026 22:20:03 +0530
+Subject: [PATCH] gpio: pca953x: Handle direction register read errors in IRQ
+ paths
 
-LINE6 driver may call snd_pcm_period_elapsed() for both playback and
-capture substreams at processing the playback substream, and this may
-lead to a ABBA deadlock.
+Three IRQ paths ignore the result of reading the direction registers
+and then use the destination bitmap. pca953x_read_regs() does not populate
+that bitmap when regmap_bulk_read() fails, leaving the callers to use
+uninitialized stack data.
 
-Move the actual calls of snd_pcm_period_elapsed() outside the locks
-for avoiding it.  The capture period notification at submitting the
-initial playback URBs (only with the impulse mode) is simply skipped,
-as it's done in the lock context; it'll be caught up at the next
-period.
+This can select incorrect GPIOs for direction changes during IRQ bus
+synchronization, corrupt the saved input state during IRQ setup, or
+produce incorrect pending interrupt decisions.
 
-Fixes: f56742cc4189 ("ALSA: line6: Add LINE6_CAP_IN_NEEDS_OUT, a void playback stream during capture")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/bug/linux-5a9de389-e6ea-410d-8322-e74e14152603
-Cc: <stable@vger.kernel.org>
-Link: https://patch.msgid.link/20261020113118.234689-1-tiwai@suse.de
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Check the read result at all three sites. Release irq_lock without
+changing GPIO directions on failure, leave the IRQ history untouched
+when pending detection fails, and propagate the error from IRQ setup.
+The read helper already logs the error.
+
+Fixes: 0f25fda840a9 ("gpio: pca953x: Zap ad-hoc reg_direction cache")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sahaj Chaudhari <sahaj123.sc@gmail.com>
+Link: https://patch.msgid.link/20261018165003.3372368-1-sahaj123.sc@gmail.com
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 ---
- sound/usb/line6/capture.c  | 25 ++++++++++++++++---------
- sound/usb/line6/capture.h  |  2 +-
- sound/usb/line6/playback.c | 31 +++++++++++++++++++++----------
- 3 files changed, 38 insertions(+), 20 deletions(-)
+ drivers/gpio/gpio-pca953x.c | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
 
-diff --git a/sound/usb/line6/capture.c b/sound/usb/line6/capture.c
-index 3e1f40d6b481a..17f49f567efbf 100644
---- a/sound/usb/line6/capture.c
-+++ b/sound/usb/line6/capture.c
-@@ -126,24 +126,21 @@ void line6_capture_copy(struct snd_line6_pcm *line6pcm, char *fbuf, int fsize)
- 		line6pcm->in.pos_done -= runtime->buffer_size;
- }
+diff --git a/drivers/gpio/gpio-pca953x.c b/drivers/gpio/gpio-pca953x.c
+index 869ed4264d48a..afec5ec236968 100644
+--- a/drivers/gpio/gpio-pca953x.c
++++ b/drivers/gpio/gpio-pca953x.c
+@@ -867,6 +867,7 @@ static void pca953x_irq_bus_sync_unlock(struct irq_data *d)
+ 	DECLARE_BITMAP(irq_mask, MAX_LINE);
+ 	DECLARE_BITMAP(reg_direction, MAX_LINE);
+ 	int level;
++	int ret;
  
--void line6_capture_check_period(struct snd_line6_pcm *line6pcm, int length)
-+/* update the capture position and check whether we need period_elapsed call */
-+bool line6_capture_check_period(struct snd_line6_pcm *line6pcm, int length)
- {
--	struct snd_pcm_substream *substream =
--	    get_substream(line6pcm, SNDRV_PCM_STREAM_CAPTURE);
--
- 	line6pcm->in.bytes += length;
- 	if (line6pcm->in.bytes >= line6pcm->in.period) {
- 		line6pcm->in.bytes %= line6pcm->in.period;
--		spin_unlock(&line6pcm->in.lock);
--		snd_pcm_period_elapsed(substream);
--		spin_lock(&line6pcm->in.lock);
-+		return true;
- 	}
-+	return false;
- }
+ 	guard(mutex)(&chip->i2c_lock);
  
- /*
-  * Callback for completed capture URB.
-  */
--static void audio_in_callback(struct urb *urb)
-+static bool handle_audio_in(struct urb *urb)
- {
- 	int i, index, length = 0, shutdown = 0;
- 	struct snd_line6_pcm *line6pcm = (struct snd_line6_pcm *)urb->context;
-@@ -208,8 +205,18 @@ static void audio_in_callback(struct urb *urb)
- 
- 		if (!test_bit(LINE6_STREAM_IMPULSE, &line6pcm->in.running) &&
- 		    test_bit(LINE6_STREAM_PCM, &line6pcm->in.running))
--			line6_capture_check_period(line6pcm, length);
-+			return line6_capture_check_period(line6pcm, length);
- 	}
-+
-+	return false;
-+}
-+
-+static void audio_in_callback(struct urb *urb)
-+{
-+	struct snd_line6_pcm *line6pcm = (struct snd_line6_pcm *)urb->context;
-+
-+	if (handle_audio_in(urb))
-+		snd_pcm_period_elapsed(get_substream(line6pcm, SNDRV_PCM_STREAM_CAPTURE));
- }
- 
- /* open capture callback */
-diff --git a/sound/usb/line6/capture.h b/sound/usb/line6/capture.h
-index 90572dae134ee..628315389efcf 100644
---- a/sound/usb/line6/capture.h
-+++ b/sound/usb/line6/capture.h
-@@ -17,7 +17,7 @@ extern const struct snd_pcm_ops snd_line6_capture_ops;
- 
- extern void line6_capture_copy(struct snd_line6_pcm *line6pcm, char *fbuf,
- 			       int fsize);
--extern void line6_capture_check_period(struct snd_line6_pcm *line6pcm,
-+extern bool line6_capture_check_period(struct snd_line6_pcm *line6pcm,
- 				       int length);
- extern int line6_create_audio_in_urbs(struct snd_line6_pcm *line6pcm);
- extern int line6_submit_audio_in_all_urbs(struct snd_line6_pcm *line6pcm);
-diff --git a/sound/usb/line6/playback.c b/sound/usb/line6/playback.c
-index aa6ddf8746a0a..e93a16f6958e3 100644
---- a/sound/usb/line6/playback.c
-+++ b/sound/usb/line6/playback.c
-@@ -136,6 +136,8 @@ static void add_monitor_signal(struct urb *urb_out, unsigned char *signal,
- /*
- 	Find a free URB, prepare audio data, and submit URB.
- 	must be called in line6pcm->out.lock context
-+	Returns 1 if snd_pcm_period_elapsed() needs to be called for the
-+	capture stream after releasing the lock, 0 if not, or a negative error
- */
- static int submit_audio_out_urb(struct snd_line6_pcm *line6pcm)
- {
-@@ -151,6 +153,7 @@ static int submit_audio_out_urb(struct snd_line6_pcm *line6pcm)
- 		line6pcm->properties->rates.rats[0].den *
- 		(line6pcm->line6->intervals_per_second / LINE6_ISO_INTERVAL);
- 	struct urb *urb_out;
-+	bool capture_period_elapsed = false;
- 
- 	index = find_first_zero_bit(&line6pcm->out.active_urbs,
- 				    line6pcm->line6->iso_buffers);
-@@ -260,8 +263,9 @@ static int submit_audio_out_urb(struct snd_line6_pcm *line6pcm)
- 						   urb_out->transfer_buffer,
- 						   urb_out->
- 						   transfer_buffer_length);
--				line6_capture_check_period(line6pcm,
--					urb_out->transfer_buffer_length);
-+				capture_period_elapsed =
-+					line6_capture_check_period(line6pcm,
-+								   urb_out->transfer_buffer_length);
- 			}
- 		} else {
- 			if (!(line6pcm->line6->properties->capabilities & LINE6_CAP_HWMON)
-@@ -283,24 +287,26 @@ static int submit_audio_out_urb(struct snd_line6_pcm *line6pcm)
- 		dev_err(line6pcm->line6->ifcdev,
- 			"URB out #%d submission failed (%d)\n", index, ret);
- 
--	return 0;
-+	return capture_period_elapsed;
- }
- 
- /*
- 	Submit all currently available playback URBs.
- 	must be called in line6pcm->out.lock context
-+	The capture period notification is skipped here since we can't call
-+	snd_pcm_period_elapsed() in the lock; it'll be caught up at the next one.
-  */
- int line6_submit_audio_out_all_urbs(struct snd_line6_pcm *line6pcm)
- {
--	int ret = 0, i;
-+	int ret, i;
- 
- 	for (i = 0; i < line6pcm->line6->iso_buffers; ++i) {
- 		ret = submit_audio_out_urb(line6pcm);
- 		if (ret < 0)
--			break;
-+			return ret;
+@@ -885,7 +886,9 @@ static void pca953x_irq_bus_sync_unlock(struct irq_data *d)
  	}
  
--	return ret;
-+	return 0;
+ 	/* Switch direction to input if needed */
+-	pca953x_read_regs(chip, chip->regs->direction, reg_direction);
++	ret = pca953x_read_regs(chip, chip->regs->direction, reg_direction);
++	if (ret)
++		goto out;
+ 
+ 	bitmap_or(irq_mask, chip->irq_trig_fall, chip->irq_trig_raise, gc->ngpio);
+ 	bitmap_or(irq_mask, irq_mask, chip->irq_trig_level_high, gc->ngpio);
+@@ -895,6 +898,7 @@ static void pca953x_irq_bus_sync_unlock(struct irq_data *d)
+ 	for_each_andnot_bit(level, irq_mask, reg_direction, gc->ngpio)
+ 		pca953x_gpio_direction_input_unlocked(&chip->gpio_chip, level);
+ 
++out:
+ 	mutex_unlock(&chip->irq_lock);
  }
  
- /*
-@@ -316,6 +322,8 @@ static void audio_out_callback(struct urb *urb)
- 	const int bytes_per_frame =
- 		line6pcm->properties->bytes_per_channel *
- 		line6pcm->properties->playback_hw.channels_max;
-+	bool capture_period_elapsed = false;
-+	bool playback_period_elapsed = false;
- 
- #if USE_CLEAR_BUFFER_WORKAROUND
- 	memset(urb->transfer_buffer, 0, urb->transfer_buffer_length);
-@@ -358,19 +366,22 @@ static void audio_out_callback(struct urb *urb)
- 		shutdown = 1;
- 
- 	if (!shutdown) {
--		submit_audio_out_urb(line6pcm);
-+		capture_period_elapsed = submit_audio_out_urb(line6pcm) > 0;
- 
- 		if (test_bit(LINE6_STREAM_PCM, &line6pcm->out.running)) {
- 			line6pcm->out.bytes += length;
- 			if (line6pcm->out.bytes >= line6pcm->out.period) {
- 				line6pcm->out.bytes %= line6pcm->out.period;
--				spin_unlock(&line6pcm->out.lock);
--				snd_pcm_period_elapsed(substream);
--				spin_lock(&line6pcm->out.lock);
-+				playback_period_elapsed = true;
- 			}
- 		}
+@@ -989,7 +993,9 @@ static bool pca953x_irq_pending(struct pca953x_chip *chip, unsigned long *pendin
  	}
- 	spin_unlock_irqrestore(&line6pcm->out.lock, flags);
-+
-+	if (capture_period_elapsed)
-+		snd_pcm_period_elapsed(get_substream(line6pcm, SNDRV_PCM_STREAM_CAPTURE));
-+	if (playback_period_elapsed)
-+		snd_pcm_period_elapsed(substream);
- }
  
- /* open playback callback */
+ 	/* Remove output pins from the equation */
+-	pca953x_read_regs(chip, chip->regs->direction, reg_direction);
++	ret = pca953x_read_regs(chip, chip->regs->direction, reg_direction);
++	if (ret)
++		return false;
+ 
+ 	bitmap_copy(old_stat, chip->irq_stat, gc->ngpio);
+ 
+@@ -1089,7 +1095,9 @@ static int pca953x_irq_setup(struct pca953x_chip *chip, int irq_base)
+ 	 * interrupt.  We have to rely on the previous read for
+ 	 * this purpose.
+ 	 */
+-	pca953x_read_regs(chip, chip->regs->direction, reg_direction);
++	ret = pca953x_read_regs(chip, chip->regs->direction, reg_direction);
++	if (ret)
++		return ret;
+ 	bitmap_and(chip->irq_stat, irq_stat, reg_direction, gc->ngpio);
+ 	mutex_init(&chip->irq_lock);
+ 
 -- 
 2.53.0
 
