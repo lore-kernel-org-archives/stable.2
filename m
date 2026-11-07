@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050823;
-	b=TtVa3S1wcwvnlhGP7FBFoYOQnD1p71mjtKTOV7HDMrplXAVBEfAeye+wWmVghZkdaPt/
-	 jL6G0c/xvYVdHzAMj4kMDHNOFo3vJ5nNX3yp890mh4AhGi0UKr4waKtC3kpc0U0rLZlxF
-	 wOG3gn/6LM3PqshgjbW5N22gupbJnnIq9nDXjQuiMrgbp6IM7PjeUuVPZWEZrDYlsdPTC
-	 zzuKsHefFsNGAFGNVCVSdTS/NPNhLD1PKdDOS62ucxXInLmC9wMsd7XRHvUvy3uo/R2Oi
-	 6PcYRHdXANj2k9+3BK79EQ31w1+Uox/nbqz7WejKDOlyEqkBLJVqU+3ce5nDKnmxKtQ==
+	t=1794050826;
+	b=BXWyIs9lGkHZUqzaJg05YzyFozmSVJ9r+WztHHgrfatK3lbgMhIfQ/s1/9C+7ecJoeqG
+	 WgciIOegglKYlQdlT42adSjKSiowoaOikFDWLro4Cv7pUoEn06u0/nblzexK18XeugsyN
+	 qK2LKP4PMICjed4KkuxQReS7LxFkeHrnBLubeI6ZbxjGGBd4HVEmG9II+OA75KaOYwedY
+	 oMFhBoiSCikmn6+QLWyolF9X/E9pjyqWnK2pskKNi5OAI0xNOiZfBMawJqAjnDP6D05yw
+	 gcSJhG/5cLYJ2v4GCs6FR9FDFptPesT8nO3IoObyb7cRn20ZJsNQ5vY+2/d0u7mdU9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050823;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050826;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=qbcuhrY2RvUPuOEJM9SY0ZGMWrlwuIVe3Ld19d760Tk=;
-	b=BpwjPGuxaUlWrtwskglKqM/BKAWjpoLt2YeOjv2zT3LRBPbw6J5SCvTGdYRAq7+HP43v
-	 HdCHGqJ8TfAsrt1GESiJCMKzczTTRMdNDNQuIVV0qM1T8ZgJVxJ/4YGHysuNPwkUF3svd
-	 QGNL8xbnfD36D9YOnC+ff8bbgzKf0sBa8KQNxpetJ5wQb9WWdz6cEWFoqUmJuVK6Dnkv0
-	 py6RLm1jCpLRHz05Z6ViqSVLCBKPcU0kokbHczHFkP/oIs6sxfFklqBPW8mCFnnb99TwI
-	 cNCQjYzaM9O16nY4TwWcbDAULWmDAhBfxICfJexb3J75AEeQIxTke0G8Cryp+PnPm7A==
+	bh=A4G/bBGDJ3+2XHscwYGZq6D06YmVz4SR11roWn48Big=;
+	b=DQssjndDKoCkAgudsRPSrh2AUtn/Vqpjt9qdehza6EncmBPNuhb3yW2B9bQVZTvMRKdH
+	 iDVylchBBXrNruVbd+XwhXRs/bOJRtceu3f4tTZwVM1Hb7BsMiFHc2SfogXAMVFoCz1He
+	 Uwg0AxeNzH596eu5Qu+5jLI2NGEIz5mBGEMHrJGfd5fZuiA8WQOasLg8v/nElhlZYAot4
+	 Z2pUD5qIi+ka5cACjkUUNKfYF8PMC3Bs/hGTF/Kzr0V7toxNayFi3F0BIBfBcV9FkdW4g
+	 9gzBHXMi8x/uEjQhVWzV0kOsahdQJLCdMJAeRnnwJwZxx95i/Rc1sOjB9xnSRj+dxfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eWvvFTSe;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L9zXZMk6;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7BA3606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:27:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E61E6606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:27:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eWvvFTSe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAD0B1F0089F;
-	Sat,  7 Nov 2026 11:27:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L9zXZMk6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47CC31F0089F;
+	Sat,  7 Nov 2026 11:27:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050822;
-	bh=qbcuhrY2RvUPuOEJM9SY0ZGMWrlwuIVe3Ld19d760Tk=;
+	s=k20260515; t=1794050825;
+	bh=A4G/bBGDJ3+2XHscwYGZq6D06YmVz4SR11roWn48Big=;
 	h=From:To:Cc:Subject:Date;
-	b=eWvvFTSeFztkacanYRLtESqAqPm/JygObEhUU3SXokkLWDgexWy4nPZ+MwIgyNEtl
-	 TrCzkXFobmpMiMEVVJvT3iWd3WLXniysnfYpEXyP6W5n0e1MVUHEAeCL7Q2EImhifu
-	 /BFzJmcwko2s5+Zae3wa62hquf/Q4YPPAnqmCRgL78aNn2FoeljsYFO6153KMsY193
-	 oV3+yayJGihzzMDT5+0uiIJXH63N9HMFDIC5gl8sAKikMSDBB+9pu29lU1eRkRowiJ
-	 112baAVMhynUVRIUcxOAx0QsZK6huthbHx0qc/FfKQa2Iuo4ZK5SHi8N8mUXVKsZPh
-	 jQAIKRZBfR7cg==
+	b=L9zXZMk60dUmmmDyPIOjpkfeVh1fWE6w/0chS7rdmTGubpflw2Pk/gbjRykjBA+Zh
+	 YvfRNvsL5zIdSXr6VI6zLt9ZuQVZ0SLp4nenSIqQS5T2Lg7Vov8+jZgAWArGOQJPXJ
+	 05ZkWByP8E2ER+crGRVjwQQ2aBg6cig5aFm1SUciD9ZV869kVb+pZfNN8m9gbHmrPU
+	 QezzMGc24fIWNFQXUZ1iYWm/HTxbisuPd4VOEVs8jerf04mKxwd1z+2FhElfnT4a2m
+	 4KPelkON0VcJGUvHsl+cvkpuB5KHnLPi4W3JaDWlCG5DMwKOUbV9jcDfopNmvvg4iB
+	 cYCBh4nCIuT3g==
 From: Sasha Levin <sashal@kernel.org>
-To: ojeda@kernel.org,
-	jpoimboe@kernel.org,
-	peterz@infradead.org
+To: yaoyiqi3@huawei.com,
+	tzimmermann@suse.de,
+	deller@gmx.de
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] objtool/rust: add one more `noreturn` Rust function for Rust 1.101.0" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:27:00 -0500
-Message-ID: <20261107062700-failed-5.10-6b704ec9007a@kernel.org>
+Subject: FAILED: patch "[PATCH] fbcon: Include font geometry in the rotated font cache" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:27:03 -0500
+Message-ID: <20261107062703-failed-5.10-10463bcd4349@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,63 +69,96 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 6b704ec9007a3f23ec5ded8f320825ac444f307d
+git cherry-pick -x 10463bcd43495fb88ff667b2c5348200860f6bdc
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062700-failed-5.10-6b704ec9007a@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062703-failed-5.10-10463bcd4349@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 6b704ec9007a3f23ec5ded8f320825ac444f307d Mon Sep 17 00:00:00 2001
-From: Miguel Ojeda <ojeda@kernel.org>
-Date: Sun, 18 Oct 2026 15:13:13 +0200
-Subject: [PATCH] objtool/rust: add one more `noreturn` Rust function for Rust
- 1.101.0
+From 10463bcd43495fb88ff667b2c5348200860f6bdc Mon Sep 17 00:00:00 2001
+From: Yao Yiqi <yaoyiqi3@huawei.com>
+Date: Mon, 19 Oct 2026 17:43:29 +0800
+Subject: [PATCH] fbcon: Include font geometry in the rotated font cache
 
-Starting with Rust 1.101.0 (expected 2026-12-24), `objtool` may report:
+fbcon_rotate_font() caches a rotated copy of the console font and
+skips the rebuild when the fontdata pointer and the rotation match.
+Raw font data carries no geometry, though: width, height and
+charcount live in vc->vc_font. fbcon_set_font() deduplicates uploads
+by byte equality, so the same bytes re-uploaded with different
+dimensions keep the fontdata pointer while the geometry changes, and
+the early-out skips the rebuild.
 
-    rust/kernel.o: warning: objtool: _R..._4core6result13unwrap_failed...()
-    falls through to next function _R..._4core6result13unwrap_failed...()
+The rotated cell size depends on the geometry (rotation swaps width
+and height), so the stale buffer is indexed with the new cell size.
+Re-uploading a 4x16 font as 16x8 on a CW-rotated console, for
+example, doubles the rotated cell size and reads past the end of the
+old buffer.
 
-(and others) due to calls to the `noreturn` symbol:
+Record the geometry the buffer was built from and compare it in the
+early-out. The pointer-only key used to be backed by an explicit
+width check in the deduplication, which commit 1e3c49aa03fb
+("lib/fonts: Compare font data for equality with font_data_is_equal()")
+dropped.
 
-    core::result::unwrap_failed::unwrap_failed_inner
-
-Rust introduced this helper when making `unwrap_failed` generic [1]. The
-existing entry for `unwrap_failed` does not match the new helper.
-
-Thus add the mangled one to the list so that `objtool` knows it is
-actually `noreturn`.
-
-See commit 56d680dd23c3 ("objtool/rust: list `noreturn` Rust functions")
-for more details.
-
-Cc: stable@vger.kernel.org # Needed in 6.12.y and later (Rust is pinned in older LTSs).
-Cc: Josh Poimboeuf <jpoimboe@kernel.org>
-Cc: Peter Zijlstra <peterz@infradead.org>
-Link: https://github.com/rust-lang/rust/pull/164059 [1]
-Assisted-by: LLM
-Link: https://patch.msgid.link/20261018131313.59391-1-ojeda@kernel.org
-Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
+Fixes: 6cc50e1c5b57 ("[PATCH] fbcon: Console Rotation - Add support to rotate font bitmap")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yao Yiqi <yaoyiqi3@huawei.com>
+Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
+Signed-off-by: Helge Deller <deller@gmx.de>
 ---
- tools/objtool/check.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/video/fbdev/core/fbcon.h        | 9 ++++++---
+ drivers/video/fbdev/core/fbcon_rotate.c | 9 ++++++++-
+ 2 files changed, 14 insertions(+), 4 deletions(-)
 
-diff --git a/tools/objtool/check.c b/tools/objtool/check.c
-index 464f6c9d9ff0b..931c5c412f15d 100644
---- a/tools/objtool/check.c
-+++ b/tools/objtool/check.c
-@@ -201,6 +201,7 @@ static bool is_rust_noreturn(const struct symbol *func)
- 	       str_ends_with(func->name, "_4core6option13expect_failed")				||
- 	       str_ends_with(func->name, "_4core6option13unwrap_failed")				||
- 	       str_ends_with(func->name, "_4core6result13unwrap_failed")				||
-+	       str_ends_with(func->name, "_4core6result13unwrap_failed19unwrap_failed_inner")		||
- 	       str_ends_with(func->name, "_4core9panicking5panic")					||
- 	       str_ends_with(func->name, "_4core9panicking9panic_fmt")					||
- 	       str_ends_with(func->name, "_4core9panicking14panic_explicit")				||
+diff --git a/drivers/video/fbdev/core/fbcon.h b/drivers/video/fbdev/core/fbcon.h
+index 054cf66b15fa0..91b59b2990d29 100644
+--- a/drivers/video/fbdev/core/fbcon.h
++++ b/drivers/video/fbdev/core/fbcon.h
+@@ -89,10 +89,13 @@ struct fbcon_par {
+ 	char  *cursor_data;
+ #ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
+ 	struct {
+-		font_data_t *fontdata;  /* source font */
+-		u8 *buf;                /* rotated glyphs */
++		font_data_t *fontdata;       /* source font */
++		u8 *buf;                     /* rotated glyphs */
+ 		size_t bufsize;
+-		int buf_rotate;         /* rotation of buf */
++		int buf_rotate;              /* rotation of buf */
++		unsigned int buf_width;      /* geometry of source font */
++		unsigned int buf_height;
++		unsigned int buf_charcount;
+ 	} rotated;
+ #endif
+ 	u8    *cursor_src;
+diff --git a/drivers/video/fbdev/core/fbcon_rotate.c b/drivers/video/fbdev/core/fbcon_rotate.c
+index 6cdbc96eeca6f..660a3fa81baed 100644
+--- a/drivers/video/fbdev/core/fbcon_rotate.c
++++ b/drivers/video/fbdev/core/fbcon_rotate.c
+@@ -21,11 +21,18 @@ int fbcon_rotate_font(struct fb_info *info, struct vc_data *vc)
+ 	unsigned char *buf;
+ 	int ret;
+ 
+-	if (par->p->fontdata == par->rotated.fontdata && par->rotate == par->rotated.buf_rotate)
++	if (par->p->fontdata == par->rotated.fontdata &&
++	    par->rotate == par->rotated.buf_rotate &&
++	    vc->vc_font.width == par->rotated.buf_width &&
++	    vc->vc_font.height == par->rotated.buf_height &&
++	    vc->vc_font.charcount == par->rotated.buf_charcount)
+ 		return 0;
+ 
+ 	par->rotated.fontdata = par->p->fontdata;
+ 	par->rotated.buf_rotate = par->rotate;
++	par->rotated.buf_width = vc->vc_font.width;
++	par->rotated.buf_height = vc->vc_font.height;
++	par->rotated.buf_charcount = vc->vc_font.charcount;
+ 
+ 	if (info->fbops->fb_sync)
+ 		info->fbops->fb_sync(info);
 -- 
 2.53.0
 
