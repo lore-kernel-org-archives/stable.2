@@ -1,51 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050509;
-	b=PoXf0XnANa59KFA8FDghxl4tDwSFnt4VL7n59WN1HVYNII5TcyuROc6Tesx29ZnMvkfo
-	 r/FzsK1PbrWIKMfBZvNz9rireUU6pz5HCjcHeCivBbi86vNAFrH8VPQrNakoepcBq1EEC
-	 XKoGMyZFseUSTs+YCFU8QAmtGVP4nVdYHzv5hDU6RtNBI/z0PMzW7urWrM3PPg65QddJm
-	 ClbjvpRwhWZE6TKpiSq+CGVWkXVjTTt1F/tbXxZ9v5aGLz/TdfCN/93C7AYb3xRCdRd/H
-	 gdshp1gsqoahjxDbaNQDWAWgb+uPsi9bgd5P9qTGiIpB3Ded6SBK5bM6nCWefNqA0+Q==
+	t=1794050512;
+	b=z0D/VA/Xo9lziVECkOCtAb4yGuwxV2kW4ONkh1qycE9wecLV2dyXNwOiuahDrtH3jhAG
+	 w99Lr9ZEojkUsRh4F0HMluxSvlc+tii53zHf75Qwljb5kNFYJXNOOxsHr9Z/XBxeomNGt
+	 v2BUnszH0WWaMB3hZt/Zj40kRhao6CDa+J8I60oPIGlCQZoUdz9uUfjnFR94y+g9RRXeQ
+	 V5+Up+GWeO40TYI/IYyYnhr7mRCFrEOc/9RXgS1twAcAyV/nCOiWgwVF8Kws/TAjXz2zf
+	 1VhtdwqwnbetM0coaXDLevrFCAGKUFoBp/hgBWvCX8fn1WH1vIViSKjA0dKFbiWIYhw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050509;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050512;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=+0ECTfTOEDneOiCVNujN9Ijo5OnyRY6kF4HXDTPXp7M=;
-	b=IJq1KguTMeIyU6TdvJ1cO3pjm8sQ7PhUjjvPrUxnOUgLZ2SQXqwxGrLIHrt5DQofgCwf
-	 njWack7Nwbw2w03BPiOx0zqeVdXDAlk6cKgq+HI0B130ONEr16n43dmkSwOx9YDFgazxq
-	 /aOjJPnG03p4i3neNuKpq9LDUl9/NszULk8KLFoAo1B0+5WETWFgskesIZb1DPRo62cmD
-	 vDL5jMGr3eJqTIG0j1fpJxYxbIo1zFSh6R4B6bSB5pjdIGHXvRgedfZ/KNxGLFc/lawdL
-	 ZVbD9+EQUJ2DiSsC13XwYAponExH+2qmALV+hRO3wVObxvU0jThEQJDp8zRWDtdWXaQ==
+	bh=Hxbu/KlBlku7h83a+mKDGhPOJmbyb3pVPfikCE2CMZU=;
+	b=I3nhU8LUGqScM1DTv15zKpnLCKZlt6tthbuU8droDt4ErQynG881TNcjh3MS6s78nKTy
+	 zNpMXzvMc9yoMLDugLxN0twDAcHwel97W1aOOKwJulu35bh/W4+5ODYvNXNpw19FyNk/3
+	 LZyW/QM21bwUqmSEyaswopIhXE1MFyF/nM6GT3njATt0EHOw13YDtP60lK6yyxTzFgLsu
+	 WAtRYx2UWir70LN1Kq2hpWubvdF9B75HlWwxZPWu5Mg2nz7MjRrIBq4vMbzSWJ+NiIMzs
+	 K0Pltkc9Z0nYP1IXW7jUCJXlyBYAG5GCZjzZLs62tis3DPj9U73cjxaEqpJk3+apqvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JIffVasJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aEbBD8sM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04390606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:21:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B932606A32D
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:21:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JIffVasJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72B481F0089F;
-	Sat,  7 Nov 2026 11:21:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aEbBD8sM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 619991F0089F;
+	Sat,  7 Nov 2026 11:21:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050508;
-	bh=+0ECTfTOEDneOiCVNujN9Ijo5OnyRY6kF4HXDTPXp7M=;
+	s=k20260515; t=1794050512;
+	bh=Hxbu/KlBlku7h83a+mKDGhPOJmbyb3pVPfikCE2CMZU=;
 	h=From:To:Cc:Subject:Date;
-	b=JIffVasJ3EoCmuE+iOFmuX+haZFrN1WCT7/SJbL6CBxSCRywtNgTuC2lT3JXq7ett
-	 xTLtknm9n9/Pqf5ElJexbprDMttUTlyCC39+XqBYZRLnZ26IkWpurC9Jx7jG9n9gsI
-	 HSygYkaN9vsXSbvkOW1TThLAcfQ0Nq+pcdToh6XYZaru9EjnFN0VUR6jxT7mwJp7v8
-	 xj4bra+KxFIUsxTnjNmHQtiM+tDTui6oVjBbKuXrUB3ykuu+KA7AvATgrx9yj6NSRH
-	 Vjk+IS6qHIGZbkXOv2l6PBgCBjsLJx4NezhaWs+bSXpwOybhpEbC2+5u0XsOLWVcvo
-	 ODFgl3zDDxKIw==
+	b=aEbBD8sMGzqMQur4mhYpU1bBbk5IrLi0uElxU29sTNf6UIri/s/puFBV4EjQFskEU
+	 ktwW16ySxqGiBV4M9JFZQ8ZrBN9OpTTayZNKyInjmy7cpHdnf4QBx9qKoi1j+h60jz
+	 7zFSL8PNqOOzpMavB9i/kR0vGvDdH/TuHIkGarX3oGuoQLxx1pW6PzL1eQIaV9ZY0b
+	 SYkx342ogkHkbEIiUV/mailEGVw66dV1+u0P5qffog1qg7hB4OR7Wo7MLYq8YwqlDy
+	 qIz607ekx7SfTfof3eGH3zv/DHo6iZaqJRsgvmltOOySS+19ZaXbE4jllk02IZUnoV
+	 x911D+0lzvdJA==
 From: Sasha Levin <sashal@kernel.org>
-To: meatuni001@gmail.com,
+To: scardracs@disroot.org,
+	denis.benato@linux.dev,
+	w_armin@gmx.de,
 	ilpo.jarvinen@linux.intel.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] platform/x86: hp-wmi: fix heap OOB read and memory corruption in hp_wmi_perform_query()" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:21:47 -0500
-Message-ID: <20261107062147-failed-5.10-6dea092b261f@kernel.org>
+Subject: FAILED: patch "[PATCH] platform/x86: asus-wmi: Serialize WMI method evaluations with a mutex" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:21:50 -0500
+Message-ID: <20261107062150-failed-5.10-b9428edaf410@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,86 +70,145 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 6dea092b261f04d632411c2be52d13190f5f67b1
+git cherry-pick -x b9428edaf4109e86a97254228d831767d0acc1f8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062147-failed-5.10-6dea092b261f@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062150-failed-5.10-b9428edaf410@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 6dea092b261f04d632411c2be52d13190f5f67b1 Mon Sep 17 00:00:00 2001
-From: Muhammad Bilal <meatuni001@gmail.com>
-Date: Wed, 26 Aug 2026 15:30:12 +0500
-Subject: [PATCH] platform/x86: hp-wmi: fix heap OOB read and memory corruption
- in hp_wmi_perform_query()
+From b9428edaf4109e86a97254228d831767d0acc1f8 Mon Sep 17 00:00:00 2001
+From: Marco Scardovi <scardracs@disroot.org>
+Date: Fri, 18 Sep 2026 11:14:59 +0200
+Subject: [PATCH] platform/x86: asus-wmi: Serialize WMI method evaluations with
+ a mutex
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-hp_wmi_perform_query() evaluates an ACPI WMI method and expects a
-struct bios_return header in the returned buffer. However, it only
-checks that the ACPI object type is ACPI_TYPE_BUFFER without verifying
-that obj->buffer.length is at least sizeof(*bios_return) (8 bytes).
+Concurrent evaluations of ASUS WMI management methods (from ACPI notify,
+HID, userspace daemons, and debugfs) enter the BIOS ACPI/SMM interface
+simultaneously, triggering re-entrant SMIs or EC mailbox buffer corruption.
 
-If the firmware or ACPI method returns a buffer shorter than 8 bytes:
+Fix this at the root by introducing a centralized evaluation helper
+(asus_wmi_evaluate_method_locked()) protected by a global mutex
+(asus_wmi_eval_lock) using guard(mutex). Route all evaluations of
+ASUS_WMI_MGMT_GUID (method3, method5, method_buf, and show_call) through
+this helper.
 
-1. bios_return->return_code at offset 4 reads out of bounds from the
-   allocated ACPI buffer slab.
+A static mutex is required because asus_wmi_evaluate_method() is an
+exported symbol used by external modules (such as hid-asus and
+asus-armoury) that lack access to struct asus_wmi drvdata, and the
+underlying ASUS ACPI/EC management method is a single physical platform
+resource.
 
-2. If return_code evaluates to 0 and outsize is non-zero,
-   (int)(obj->buffer.length - sizeof(*bios_return)) evaluates to a
-   negative integer (e.g. -8 for a 0-length buffer). actual_outsize is
-   set to this negative value and passed to memcpy(buffer, ...,
-   actual_outsize), where the signed negative value is cast to
-   size_t (e.g. 0xfffffffffffffff8), attempting to copy ~18 Exabytes
-   and triggering an immediate kernel crash. Additionally,
-   memset(buffer + actual_outsize, ...) performs an out-of-bounds
-   write before buffer.
+The mutex is non-recursive: nested ACPI/WMI notify handlers must not call
+back into evaluate on the same task (defer via workqueue, as
+asus_rfkill_notify already does).
 
-Fix this by ensuring obj->buffer.length is at least sizeof(*bios_return)
-before accessing the return code, and compute actual_outsize safely
-using min_t(u32, ...), which is sound specifically because the guard
-above already rules out obj->buffer.length being smaller than
-sizeof(*bios_return) by the time that subtraction runs.
+The sysfs-versus-notify race predates the later export of
+asus_wmi_evaluate_method(), so Fixes points at the original shared
+evaluate helper rather than that export.
 
-Fixes: c3021ea1beee ("hp-wmi: allow setting input and output buffer sizes separately")
+Link: https://github.com/OpenGamingCollective/asusctl/issues/328
+Fixes: d33da3b68669 ("asus-wmi: factorise wmi_evaluate_method call")
 Cc: stable@vger.kernel.org
-Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
-Link: https://patch.msgid.link/20260826103012.240453-1-meatuni001@gmail.com
+Signed-off-by: Marco Scardovi <scardracs@disroot.org>
+Reviewed-by: Denis Benato <denis.benato@linux.dev>
+Reviewed-by: Armin Wolf <W_Armin@gmx.de>
+Link: https://patch.msgid.link/b6a1981777e63f0c28bd719d8203ebbda57d6957.1789722252.git.scardracs@disroot.org
 Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 ---
- drivers/platform/x86/hp/hp-wmi.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/platform/x86/asus-wmi.c | 30 +++++++++++++++++++++---------
+ 1 file changed, 21 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
-index bc2ada5dfa634..eeb66a7db346a 100644
---- a/drivers/platform/x86/hp/hp-wmi.c
-+++ b/drivers/platform/x86/hp/hp-wmi.c
-@@ -711,8 +711,9 @@ static int hp_wmi_perform_query(int query, enum hp_wmi_command command,
- 		goto out_free;
- 	}
+diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
+index a2e552b207fba..60fbe13e100fe 100644
+--- a/drivers/platform/x86/asus-wmi.c
++++ b/drivers/platform/x86/asus-wmi.c
+@@ -16,6 +16,7 @@
+ #include <linux/acpi.h>
+ #include <linux/backlight.h>
+ #include <linux/bits.h>
++#include <linux/cleanup.h>
+ #include <linux/debugfs.h>
+ #include <linux/delay.h>
+ #include <linux/dmi.h>
+@@ -28,6 +29,7 @@
+ #include <linux/leds.h>
+ #include <linux/minmax.h>
+ #include <linux/module.h>
++#include <linux/mutex.h>
+ #include <linux/pci.h>
+ #include <linux/pci_hotplug.h>
+ #include <linux/platform_data/x86/asus-wmi.h>
+@@ -353,6 +355,20 @@ static void asus_wmi_show_deprecated(void)
  
--	if (obj->type != ACPI_TYPE_BUFFER) {
--		pr_warn("query 0x%x returned an invalid object 0x%x\n", query, ret);
-+	if (obj->type != ACPI_TYPE_BUFFER ||
-+	    obj->buffer.length < sizeof(*bios_return)) {
-+		pr_warn("query 0x%x returned wrong type or too small buffer\n", query);
- 		ret = -EINVAL;
- 		goto out_free;
- 	}
-@@ -731,7 +732,7 @@ static int hp_wmi_perform_query(int query, enum hp_wmi_command command,
- 	if (!outsize)
- 		goto out_free;
+ /* WMI ************************************************************************/
  
--	actual_outsize = min(outsize, (int)(obj->buffer.length - sizeof(*bios_return)));
-+	actual_outsize = min_t(u32, outsize, obj->buffer.length - sizeof(*bios_return));
- 	memcpy(buffer, obj->buffer.pointer + sizeof(*bios_return), actual_outsize);
- 	memset(buffer + actual_outsize, 0, outsize - actual_outsize);
++/*
++ * Concurrent evaluations of ASUS WMI methods can re-enter firmware
++ * SMI/EC mailbox handling and corrupt the mailbox.
++ */
++static DEFINE_MUTEX(asus_wmi_eval_lock);
++
++static acpi_status asus_wmi_evaluate_method_locked(u32 method_id,
++						   struct acpi_buffer *input,
++						   struct acpi_buffer *output)
++{
++	guard(mutex)(&asus_wmi_eval_lock);
++	return wmi_evaluate_method(ASUS_WMI_MGMT_GUID, 0, method_id, input, output);
++}
++
+ static int asus_wmi_evaluate_method3(u32 method_id,
+ 		u32 arg0, u32 arg1, u32 arg2, u32 *retval)
+ {
+@@ -367,8 +383,7 @@ static int asus_wmi_evaluate_method3(u32 method_id,
+ 	union acpi_object *obj;
+ 	u32 tmp = 0;
  
+-	status = wmi_evaluate_method(ASUS_WMI_MGMT_GUID, 0, method_id,
+-				     &input, &output);
++	status = asus_wmi_evaluate_method_locked(method_id, &input, &output);
+ 
+ 	pr_debug("%s called (0x%08x) with args: 0x%08x, 0x%08x, 0x%08x\n",
+ 		__func__, method_id, arg0, arg1, arg2);
+@@ -419,8 +434,7 @@ static int asus_wmi_evaluate_method5(u32 method_id,
+ 	union acpi_object *obj;
+ 	u32 tmp = 0;
+ 
+-	status = wmi_evaluate_method(ASUS_WMI_MGMT_GUID, 0, method_id,
+-				     &input, &output);
++	status = asus_wmi_evaluate_method_locked(method_id, &input, &output);
+ 
+ 	pr_debug("%s called (0x%08x) with args: 0x%08x, 0x%08x, 0x%08x, 0x%08x, 0x%08x\n",
+ 		__func__, method_id, arg0, arg1, arg2, arg3, arg4);
+@@ -467,8 +481,7 @@ static int asus_wmi_evaluate_method_buf(u32 method_id,
+ 	union acpi_object *obj;
+ 	int err = 0;
+ 
+-	status = wmi_evaluate_method(ASUS_WMI_MGMT_GUID, 0, method_id,
+-				     &input, &output);
++	status = asus_wmi_evaluate_method_locked(method_id, &input, &output);
+ 
+ 	pr_debug("%s called (0x%08x) with args: 0x%08x, 0x%08x\n",
+ 		__func__, method_id, arg0, arg1);
+@@ -5092,9 +5105,8 @@ static int show_call(struct seq_file *m, void *data)
+ 	union acpi_object *obj;
+ 	acpi_status status;
+ 
+-	status = wmi_evaluate_method(ASUS_WMI_MGMT_GUID,
+-				     0, asus->debug.method_id,
+-				     &input, &output);
++	status = asus_wmi_evaluate_method_locked(asus->debug.method_id,
++						 &input, &output);
+ 
+ 	if (ACPI_FAILURE(status))
+ 		return -EIO;
 -- 
 2.53.0
 
