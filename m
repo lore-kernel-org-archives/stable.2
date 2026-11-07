@@ -1,52 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794060859;
-	b=WU9L8JNJ9C5xpYj6A9IJBv4yttrArb0fix27llPH7VdThVQYEhItAO9YrWmniFPCmK6r
-	 9YjOz+GzZ/BFWFBwWOKZwgOznWEp85cIjUN2ANKGKDuWE26R8Xxa6l39rBm0tQg5o1CHh
-	 7dCZRdGAk6CN0EF9TDH9zSsFO/MP94uU4czFCzjFqb8N0RS0IaaJVkVKxXPIePfZa9EB3
-	 lYjih6ccCyquLlSbnoH6L2Qeh+A61u2ihMhwm79wUAPYlcGoR0lq7RSwBST5vSvwTMY04
-	 QXEv7DNxr4lrhJlRsIAz40EuH1WKpvH5pNdkiw1tXp+ryV23TinEfLadmR3d3GmlvFQ==
+	t=1794060860;
+	b=QtEOsRq54UCXCtQq6S0yApyPoUyzvcUQ60U4Wc/O1gzUDJtlQNr7YDGoln8NDSX1enzv
+	 JcZ5BY14RDTBASc82RnPadZu+w9Jwvy7QcVle6qpzx65f0DB9OHiBaeWn0Hmk53NaIH4T
+	 0IU2xOyyvX1Iw5qOmKPVFFXWoGn4DebNZMftuTTpOrxZ8oi8MY+6i8P5Oioe8VFwUDQch
+	 SPCPZ4A6fUhQ+GV9XErtD/alXbekghll9sYHUXm433aWPZJMblF4DyPa6Dj5ZfHUr9Kln
+	 SQGmVYM/JCHhkXhd49NsuyH6PglXFbGdkZmeECgtU65zNqy0n8glJkLq+C3edmVMpAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794060859;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794060860;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=DNhAmxiVtAZB7YmMT8s8z2RaCmSSHJjE1cw0EPGF4nU=;
-	b=de+KSyXADKHqogJPpbe89ydZm0nEV7kEFPTogJnC5ElNwdz7EIjY+BWXiXeO4aWsuucr
-	 idZdBWnvulsxuSuXDnYx1XoAzr3MCUD8cD+qNdwqQ40gH+Gak4cMvU8fjf7hnZG2ocZmH
-	 2ROR8JUTpcBaAKQtbpksWBdgEzN99PB3leZ+DCQbJye16AlLu83ttErPYGWZRfXAt8/WZ
-	 YPclDnBi4G3dWiNOst5mQGBFn49EQ8iYl8aeNPxaSc0rOWwd/UA9vklwQs8eX4pFd3tYF
-	 CsV0horqtBwavTizzJrWtOUXmAxRmnBNbEudd1CD44T25XwoSlu95bPdhYfOfapEVWA==
+	bh=43CO0ohove8IA1ts1NfpEgCmcfXdz+C9mnwjO7zyNlI=;
+	b=YVYWngH/2uiqClhOb5RyLe4DYeQcVxdr29mwuyYaMKoWSQ/UMzJ/8ceec2t+o3EgreTp
+	 uqnTDyJ9dCvYG7djwjT9YxfvgxTG3211bDQUh7c4JeWEu3N1qqDL+6tjFhc3uCoYr6/zO
+	 H8We+aF94IXEil7GcxIYJD9omCrvGdPKFljAVmkmilendmfByMEuRwDomI/WDpmNZ6VWv
+	 7GeTLjlZ3BvoAHrm4hiOHHzQphJ1sOb7xzT1XZ/eYFofwjjnzHbMtxwPqkeiT+0KQ/2Cm
+	 0kLsmh9smxeCGvMBxbDnDcCYSO3LKmsGZojcef3qyxf9FURJkB42VJnpSGzHI65vjMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Mh3itCFE;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=eJgyB0He;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1707F606A33E;
-	Sat,  7 Nov 2026 14:14:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 893A0606D813;
+	Sat,  7 Nov 2026 14:14:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Mh3itCFE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A66531F0089F;
-	Sat,  7 Nov 2026 14:14:18 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=eJgyB0He
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 347EA1F008A1;
+	Sat,  7 Nov 2026 14:14:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794060858;
-	bh=DNhAmxiVtAZB7YmMT8s8z2RaCmSSHJjE1cw0EPGF4nU=;
+	s=korg; t=1794060860;
+	bh=43CO0ohove8IA1ts1NfpEgCmcfXdz+C9mnwjO7zyNlI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Mh3itCFENyu7LKPGG7FQcR7+nR7YWvCy0sYC1Jb9/5ekjqyvZPNwIo80MxdfCt5mo
-	 zPdjJM9Tv3aiAiBlLtbixv9FlJXTm5tQ2yPDQRmbJgYGjDDFHEFnAjqX1AJX08zEP7
-	 leGBhPhNV6LCHDkhXK9QNwmrPqL0E3REdTLyWNUM=
+	b=eJgyB0HeABIn74nQCcjX6Dn9QaSWA0cSZqZrOLdxvDwMwhFrlXcE91mo3lpth1G8B
+	 aYiX94w3IPLJ2P8SMgPb/nr0LDl+zrK3/Agz5Edbo5sl5gG/NWHwRpTsBDSII2gs+e
+	 ViOYCJPSGgEiem5f6PvsDK7OVJ5ef4qr8HAgYrv8=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	David Bauer <mail@david-bauer.net>,
+	0072a70 <90307219+0072a70@users.noreply.github.com>,
+	Devin Wittmayer <lucid_duck@justthetip.ca>,
 	Felix Fietkau <nbd@nbd.name>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 0242/1536] wifi: mt76: mt7603: free beacon SKB on error
-Date: Sat,  7 Nov 2026 08:37:38 -0500
-Message-ID: <20261107135004.477455667@linuxfoundation.org>
+Subject: [PATCH 6.12 0243/1536] wifi: mt76: mt76x02: report rx FCS errors to mac80211
+Date: Sat,  7 Nov 2026 08:37:39 -0500
+Message-ID: <20261107135004.506072649@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261107134957.653319350@linuxfoundation.org>
 References: <20261107134957.653319350@linuxfoundation.org>
@@ -68,43 +69,45 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: David Bauer <mail@david-bauer.net>
+From: Devin Wittmayer <lucid_duck@justthetip.ca>
 
-[ Upstream commit 965cbdbdfbd37a659a05ff88e49c216975bd9d2e ]
+[ Upstream commit ddae0bcb01e71c1184bb3f526f9622e31dc38f3b ]
 
-The SKB containing the generated beacon is not freed when the beacon
-queue is deected stuck and scheduled for recovery.
+When the fcsfail filter is enabled the hardware passes frames with a bad
+FCS up to the driver, but mt76x02_mac_process_rx() never checks
+MT_RXINFO_CRCERR and hands them to mac80211 without
+RX_FLAG_FAILED_FCS_CRC. In monitor mode the radiotap flags byte then
+never gets IEEE80211_RADIOTAP_F_BADFCS set and corrupted frames cannot be
+told apart from clean ones.
 
-Fixes potential memory leaks in case the beacon queue is detected stuck.
+Set RX_FLAG_FAILED_FCS_CRC from the descriptor CRC error bit, matching
+mt7603, mt7615, mt7915, mt7921, mt7925 and mt7996.
 
-Signed-off-by: David Bauer <mail@david-bauer.net>
-Link: https://patch.msgid.link/20260611215658.259324-1-mail@david-bauer.net
+Reported-by: 0072a70 <90307219+0072a70@users.noreply.github.com>
+Closes: https://github.com/morrownr/mt76/issues/38
+Tested-by: 0072a70 <90307219+0072a70@users.noreply.github.com>
+Signed-off-by: Devin Wittmayer <lucid_duck@justthetip.ca>
+Link: https://patch.msgid.link/20260613002544.27750-3-lucid_duck@justthetip.ca
 Signed-off-by: Felix Fietkau <nbd@nbd.name>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/wireless/mediatek/mt76/mt7603/beacon.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/net/wireless/mediatek/mt76/mt76x02_mac.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/net/wireless/mediatek/mt76/mt7603/beacon.c b/drivers/net/wireless/mediatek/mt76/mt7603/beacon.c
-index 6457ee06bb5a1..62e8de6949d1a 100644
---- a/drivers/net/wireless/mediatek/mt76/mt7603/beacon.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt7603/beacon.c
-@@ -56,6 +56,7 @@ mt7603_update_beacon_iter(void *priv, u8 *mac, struct ieee80211_vif *vif)
- 		FIELD_PREP(MT_DMA_FQCR0_TARGET_QID, MT_TX_HW_QUEUE_BCN));
- 	if (!mt76_poll(dev, MT_DMA_FQCR0, MT_DMA_FQCR0_BUSY, 0, 5000)) {
- 		dev->beacon_check = MT7603_WATCHDOG_TIMEOUT;
-+		dev_kfree_skb(skb);
- 		goto out;
- 	}
+diff --git a/drivers/net/wireless/mediatek/mt76/mt76x02_mac.c b/drivers/net/wireless/mediatek/mt76/mt76x02_mac.c
+index 338f5b46c6511..14cfa597fb622 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt76x02_mac.c
++++ b/drivers/net/wireless/mediatek/mt76/mt76x02_mac.c
+@@ -794,6 +794,9 @@ int mt76x02_mac_process_rx(struct mt76x02_dev *dev, struct sk_buff *skb,
+ 	if (rxinfo & MT_RXINFO_L2PAD)
+ 		pad_len += 2;
  
-@@ -63,6 +64,7 @@ mt7603_update_beacon_iter(void *priv, u8 *mac, struct ieee80211_vif *vif)
- 		FIELD_PREP(MT_DMA_FQCR0_TARGET_QID, MT_TX_HW_QUEUE_BMC));
- 	if (!mt76_poll(dev, MT_DMA_FQCR0, MT_DMA_FQCR0_BUSY, 0, 5000)) {
- 		dev->beacon_check = MT7603_WATCHDOG_TIMEOUT;
-+		dev_kfree_skb(skb);
- 		goto out;
- 	}
- 
++	if (rxinfo & MT_RXINFO_CRCERR)
++		status->flag |= RX_FLAG_FAILED_FCS_CRC;
++
+ 	if (rxinfo & MT_RXINFO_DECRYPT) {
+ 		status->flag |= RX_FLAG_DECRYPTED;
+ 		status->flag |= RX_FLAG_MMIC_STRIPPED;
 -- 
 2.53.0
 
