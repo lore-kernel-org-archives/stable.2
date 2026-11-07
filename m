@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049224;
-	b=h6yX4uMN42AJma/MK+K1DQYck2GK8RMwt6mJrEJ+RxnLxy9Qe8QWWJ+mWQCp5QODajPG
-	 xFRhUzGVBG3qBoytBKRPF+rKyblSGg1RFujL10ab2UMeWnNdL/r5UiDmLLMPejs2n0dFO
-	 RJaSCEXv4cI1NhIhGAM49+iP/HhCjJdXcswdIpzfwqXQ4WOt0uPknHpyKXWCynHkG581K
-	 bnehxZFCynvnbqHs3XNPDJMQDRWZHRkH+9TIFCGvtBLlHvD9oGPuOj/2Rxk6WcMI1pHWs
-	 mOyEDDgyzGqQwA3g9ILWB3iM9CJsM3Cb91GL+ghSyafT43YuDv66Zf4vrMn0BT1oC8g==
+	t=1794049227;
+	b=yaopoH1OKUj8BT9f6RqTDmKqPypty0mNrLksz5B58QrUNunNU1k3YSIKcZg0vG4cTlML
+	 MRcNMlvxtqv9WM+x7HuJFDcsnGlApusRQAST59jI2atrf1+AEjahRDtorAcppU2ednZQk
+	 Kwy1HDe+1WIKtoRqP9KZG94s20othHFkFWKARaz9OO2ZEXiJjytR0L6HXxZbjwxcapAvL
+	 /mvf+Bv54QQXV7/lIqCC9RInMoOib30f3VJj+cMQrxDhMixaU3Av2RHCTeF2VFurZT7hr
+	 beqZqDuT8aBWHfbsjgji1yxyovd0mIUxyIfXmXT3QEG5Qp6qTUSx3mooIAmJeVs//UQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049224;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049227;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=1dux/bRdNMtL4rxhL3LJmECUgaG3vS4GHLThxcseBmA=;
-	b=v2P69aGq4+iKL9Qgq7mJOmr2TP1fbUeij8rfhkTg7jzkBHJn3Rg7tgJ3yUvuHgXqss/0
-	 37uLOQh/pJ9zMEh1JA1oDKRH1Xe3awHt+HtdZKxf7Iw9VvyGIbmME7m5NmibnuYT5ocPY
-	 EOTnbdTeMxqz5z8aAxog05+GjwuBiYjRS3kjJ3DJgDHSJSkEwsHUejKY+Wrrsd30HbA/d
-	 VcqQnuOGE4xYZgr243Hs0v/y+LRdzMKJyxw4ty8YaYdvIiBjBv6iArJhv8iSUtGidoDzx
-	 3Svk7QssR460K/cZVN9BfBTjur+fKy5p7e4IxB1HU/pX9nHjvdVQvLwo6TsbphJFqPQ==
+	bh=UXMdBk0WoaJ0CDp9tl8bJFGHYaC1Z2epyqNvQxsfX+A=;
+	b=qTY1IpC454ewaAvzr1d6BFOIPqlwCqLefCHTO9YWTTorULdFWbRGnTd6m60i7ZkpzN21
+	 6BjsFATMf4MLCkC5SjEgzUJY1ZluzT7/08Xfm4o1iGagQWkdVH2dqtQAYkfXRWRkYneb4
+	 FWA3rhy721XGeTlb2Q2yYoSumkfpGPW0zMGsdPzYdIP70/URJF+33lcabWZxvZpE3+bfl
+	 1kpEu3rp5QFuNbR2rxTd3kwLiUNdNN/dHwHKbHmhUo7c8jq2FOzDa66iEgQJwOPJqrJvj
+	 J5dEcvGefcrLCXRoW1NR8WTahXoZ7589OV2EjTMFH3o1IJNCgmwvuQufgcKKWGDo9ng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lugGWp4s;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tm0YZbVt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 816BC606A32D
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:00:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E0A6606A33F
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:00:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lugGWp4s
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBB8A1F0089F;
-	Sat,  7 Nov 2026 11:00:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tm0YZbVt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDBB71F0089F;
+	Sat,  7 Nov 2026 11:00:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049224;
-	bh=1dux/bRdNMtL4rxhL3LJmECUgaG3vS4GHLThxcseBmA=;
+	s=k20260515; t=1794049227;
+	bh=UXMdBk0WoaJ0CDp9tl8bJFGHYaC1Z2epyqNvQxsfX+A=;
 	h=From:To:Cc:Subject:Date;
-	b=lugGWp4sBbRF19i7AYPbzh+njV/RpRicmNG7mupfKsRLe5uvqEI5Kjb3mw/u0iklg
-	 XQmEK/SRmLu7SCFxLI8J4lV8aXt/bWDmTr1xiXG8EVHj6Fqi1g9AN2wK7wUUVHmSfp
-	 DJoSBN4JUHzTImN85D9goktn1juQiAxA4kLnhndM5siH6cTFUzLS0LQwjJJbkhUw6M
-	 lFYtErqdKECido5Beh+znp092yHJkBXOX9Hi8mV5wsVsWad8fg0v6Ek0feplHOR5mR
-	 ssDXEHE/3Av6p8bXhezJkIbiFfpjzdXQl+JHA13EE6VcwT8rANC3tyYlFeda7L9kVS
-	 I8GXY6dJj6zRQ==
+	b=Tm0YZbVtocEgOWQFLUmWLUG8JaZXXyzvCPYlCKrw+ruOkAm6hB0pzGJPRv9rKBnrr
+	 Pk1JrmsvCZrgDNjFo0vRdCYbuyh/SalgMyNTJEPPCvD0mPP9eREoolOEpaBVuVA3sz
+	 64hrtaHYLbjAYp96sUMUeYvDihjVQd0h2q1/wz08Tj7VSy9YT3iSKgOPDfCQjOBHjp
+	 XGEehOC+hT+0eEjWk0Rc2Tv1PEImMzagAvHFMe9uYKLE1580TWgiWj3ASdwu2SbToo
+	 etgXc/Q1zXWDXYiw73zZW5QS2qg9FwMtEWvkRWBXWbe0EmSU6w5NT2+zPDzte4xZIt
+	 LINRjb1pj/spg==
 From: Sasha Levin <sashal@kernel.org>
-To: leitao@debian.org,
-	paulmck@kernel.org,
-	brauner@kernel.org
+To: tom.verdonck@inspiral.be,
+	linux@roeck-us.net
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] dcache: report a Tasks-RCU quiescent state in dentry_kill()" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:00:22 -0500
-Message-ID: <20261107060022-failed-5.15-a647a53bc89a@kernel.org>
+Subject: FAILED: patch "[PATCH] hwmon: (tmp108) Fix jiffies wraparound in conversion-ready check" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 06:00:25 -0500
+Message-ID: <20261107060025-failed-5.15-6b8b1d1d7bc7@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,69 +68,91 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x a647a53bc89a046bee4a12a0a5627f2dfaaef807
+git cherry-pick -x 6b8b1d1d7bc7e579b53fc7c3293b787d68de702a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060022-failed-5.15-a647a53bc89a@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060025-failed-5.15-6b8b1d1d7bc7@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From a647a53bc89a046bee4a12a0a5627f2dfaaef807 Mon Sep 17 00:00:00 2001
-From: Breno Leitao <leitao@debian.org>
-Date: Fri, 18 Sep 2026 04:01:57 -0700
-Subject: [PATCH] dcache: report a Tasks-RCU quiescent state in dentry_kill()
+From 6b8b1d1d7bc7e579b53fc7c3293b787d68de702a Mon Sep 17 00:00:00 2001
+From: Tom Verdonck <tom.verdonck@inspiral.be>
+Date: Fri, 25 Sep 2026 20:23:23 +0200
+Subject: [PATCH] hwmon: (tmp108) Fix jiffies wraparound in conversion-ready
+ check
 
-I am constantly seeing the following warning on Meta's fleet:
+tmp108 records a one-shot deadline in ->ready_time at probe (and resume)
+and, on every temperature read, refuses the read with -EAGAIN while
+time_before(jiffies, ready_time) is true, in order to skip the initial
+conversion.
 
-  INFO: rcu_tasks detected stalls on tasks:
-    native_queued_spin_lock_slowpath
-    locked_inode_to_wb_and_lock_list
-    inode_io_list_del
-    evict
-    __dentry_kill
-    shrink_dentry_list
-    shrink_dcache_tree
-    d_invalidate
-    btrfs_delete_subvolume
-    btrfs_ioctl_snap_destroy
-    btrfs_ioctl
-    do_syscall_64
+->ready_time is an unsigned long compared with time_before(), whose
+signed difference is only meaningful while the two values are within
+LONG_MAX jiffies of each other. Because ->ready_time is set once and
+never refreshed, jiffies keeps advancing away from it, and after 2^31
+jiffies the difference flips sign. On a 32-bit HZ=100 kernel that
+happens ~248.5 days after boot: time_before() then permanently reports
+"not ready" and the driver returns -EAGAIN on every read, without ever
+touching the sensor, until the next reboot. The continuous-mode path,
+which sets ->ready_time to jiffies with no added conversion delay, wraps
+the same way.
 
-dentry_kill() is the common funnel for dentry teardown: dput(),
-shrink_dentry_list() and shrink_dcache_tree() all reach it, once per
-dentry, and its cond_resched() is the only reschedule point on that path.
+Store the deadline as a 64-bit jiffies value and compare it with
+get_jiffies_64()/time_before64(), which does not wrap in any practical
+uptime.
 
-cond_resched() is not an RCU-tasks quiescent state.
-
-Use cond_resched_tasks_rcu_qs() so the teardown reports an RCU-tasks
-quiescent state as it proceeds.
-
-Fixes: 9c5f1d30199d ("dcache: move cond_resched() into the end of __dentry_kill()")
+Fixes: 66e1c9171339 ("hwmon: Add Texas Instruments TMP108 temperature sensor driver.")
 Cc: stable@vger.kernel.org
-Signed-off-by: Breno Leitao <leitao@debian.org>
-Link: https://patch.msgid.link/20260918-dcache-task-rcu-qa-v1-1-963ec83e6d0b@debian.org
-Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Signed-off-by: Tom Verdonck <tom.verdonck@inspiral.be>
+Link: https://patch.msgid.link/525fa49d8c50922344fa53e22be5e6133c9bbb62.1790358356.git.tom.verdonck@inspiral.be
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
 ---
- fs/dcache.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/hwmon/tmp108.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/fs/dcache.c b/fs/dcache.c
-index 8f17db2724b38..e974d42b03e72 100644
---- a/fs/dcache.c
-+++ b/fs/dcache.c
-@@ -843,7 +843,7 @@ static struct dentry *dentry_kill(struct dentry *dentry)
- 	if (dentry->d_op && dentry->d_op->d_release)
- 		dentry->d_op->d_release(dentry);
+diff --git a/drivers/hwmon/tmp108.c b/drivers/hwmon/tmp108.c
+index 9fa31bd66ff69..91d20a1ce1120 100644
+--- a/drivers/hwmon/tmp108.c
++++ b/drivers/hwmon/tmp108.c
+@@ -78,7 +78,7 @@
+ struct tmp108 {
+ 	struct regmap *regmap;
+ 	u16 orig_config;
+-	unsigned long ready_time;
++	u64 ready_time;
+ 	const struct tmp108_params *params;
+ };
  
--	cond_resched();
-+	cond_resched_tasks_rcu_qs();
- 	/* now that it's negative, ->d_parent is stable */
- 	if (!IS_ROOT(dentry)) {
- 		parent = dentry->d_parent;
+@@ -138,7 +138,7 @@ static int tmp108_read(struct device *dev, enum hwmon_sensor_types type,
+ 	switch (attr) {
+ 	case hwmon_temp_input:
+ 		/* Is it too early to return a conversion ? */
+-		if (time_before(jiffies, tmp108->ready_time)) {
++		if (time_before64(get_jiffies_64(), tmp108->ready_time)) {
+ 			dev_dbg(dev, "%s: Conversion not ready yet..\n",
+ 				__func__);
+ 			return -EAGAIN;
+@@ -477,7 +477,7 @@ static int tmp108_common_probe(struct device *dev, struct regmap *regmap, char *
+ 		return err;
+ 	}
+ 
+-	tmp108->ready_time = jiffies;
++	tmp108->ready_time = get_jiffies_64();
+ 	if ((tmp108->orig_config & TMP108_CONF_MODE_MASK) ==
+ 	    TMP108_MODE_SHUTDOWN)
+ 		tmp108->ready_time +=
+@@ -528,7 +528,7 @@ static int tmp108_resume(struct device *dev)
+ 
+ 	err = regmap_update_bits(tmp108->regmap, TMP108_REG_CONF,
+ 				 TMP108_CONF_MODE_MASK, TMP108_MODE_CONTINUOUS);
+-	tmp108->ready_time = jiffies +
++	tmp108->ready_time = get_jiffies_64() +
+ 			     msecs_to_jiffies(TMP108_CONVERSION_TIME_MS);
+ 	return err;
+ }
 -- 
 2.53.0
 
