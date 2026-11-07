@@ -1,51 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049727;
-	b=HXhTUvO+YhGT91CHZRCOtV7APN2qvltq2B6EwaVSpypAW7m8QkWDyiHpyt+GWnRMvxB2
-	 rCObn84E2GoVrH49yoGeuKTQ3k53Gat0LRDlxwmVx4pnwiBIlmPCEq7ySYoVpmLJbaCug
-	 klKGnrFfm98+acsu4sN074MBoOtUuC5vi5AzIZ91ejnzUZzTX+CgUKgLjzRjzSejtBuxN
-	 P6G8rsl9rqDNH79Rn4kyUKFiQaIyaxx9KAbxWbu+cmLI982Eal4lyCr+OtRddsYkSN9/5
-	 ejFaaOPBLl0BMrOVr8Ormfs0beT/vlHsgq1dqbDIv2D3eIXfoDp/TszyB2L24Xacb2Q==
+	t=1794049731;
+	b=se+QFLndQlwUwuLNsMh/VByJqDOQQTAKOxK4ELJsVkTpGrcOI1PoZEGb21PP3MlKTOK/
+	 4E6ezNjAryNFRdH4j4SsKBzZ7cm2bqU0ewbzDgQnyoqUpBRss0OUDx7spj/C5AdUy4TNt
+	 Q6edW80jr26pEY8/Lwip2U1ud4/9u7UbRWVkgZmudQQXe6owHoOMRt4cvi+ucll6+y0Jt
+	 u09azLlhoBFES9mFFA+mfTfriYk3pH2N2XT3iAJfTT1w3ay5nDobyPl1YmOihMC9KEKBL
+	 o78PEYromthYhjdHJmhs7LSBes8DemIaVcWJrqQBz7lBTJVPMJojHGO1wIk2kUCt/qA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049727;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049731;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=LpiHoxVlXZFX5PjEB9yTek+EacHJTt0+UzA7E8m2k+c=;
-	b=wqLquOdOboDWYalY83JY7b+wqdLFOkEgmO9Ystp0wiesy8wtvGgQGcchxwMZrbmtWqY8
-	 TZQL+wKD3X6JnC92VAfE6ZdvU6WXg3tHUtvHpDrLJbLX03js9/PY4Mockev6U2Y+4D6t8
-	 RBiZR/LPElgZ0hv1hwGd+V4Lg+oWoFKnKHq0LCSCiwcsQYZkIUT57HtldgO9gnS0B7U4w
-	 aWbYtHEdGT29waq+vMaHRDtQbx/coddUlhjIcGm03AmTE+/yZemqISUbBS+wihwmsBPZL
-	 Y3YOhNta6jpOCVM+2JSwZgVOSyY7Lcbo9fWlKiaqIJ5RVeoZF0m9geFp0CuwWgrERKg==
+	bh=TH/D8A20yaBYHvYn+DJKWgWCp9nx3V5dZcjjLAbp/YI=;
+	b=WiDunohT4JTSxkpzyxGCHgL0jUuE5Ur4bWz7vXyaLWIDshOMIw/EJU0FNdkcTyw6L3y/
+	 HF46eD7N8o9w3K7DbvMpiuMclIx34GQxROBC9YAcPxQvlieXdNR0BByAjkxzz9rsr61NL
+	 /QmPv57DalpgxsjHAifprYyb6VvitTfZpjt4fHa4VPKwBirnZ3le/vf/0U7WTK39+6yjv
+	 ofTwWczyn0eKHlc3u/a1Z1v7zZhf9VnO0/u/TMI7vPDgnR+hwa4ul1pKkWBfeyNy/DaM6
+	 HWepBFGUbNMsrPeKfIb6zI5/DO13Q9whR8KUiYrGESH94Evg2QIrxMpB6/6U83HdJ7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cVZsbK9u;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jsQUFycR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68E6A606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:08:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEC7F606A331
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:08:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cVZsbK9u
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC4C91F008A1;
-	Sat,  7 Nov 2026 11:08:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jsQUFycR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0BDF1F008A1;
+	Sat,  7 Nov 2026 11:08:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049727;
-	bh=LpiHoxVlXZFX5PjEB9yTek+EacHJTt0+UzA7E8m2k+c=;
+	s=k20260515; t=1794049730;
+	bh=TH/D8A20yaBYHvYn+DJKWgWCp9nx3V5dZcjjLAbp/YI=;
 	h=From:To:Cc:Subject:Date;
-	b=cVZsbK9u9foFW+/LSscXQvuUAsELjUCcXdy0s7DC7FGV70tayM1hMezF4ZBDfZvjr
-	 ZvoOgM6j4uuyEG7C+lVEA2RgwpFC554eSrlKtCQcuTN1/giILGByitDqFHsDFy8Ccc
-	 p8aVmG7TEXhA7TKD3oqi1UNfUV8Tus/CEoBPv1WjPzskxPDAIW9nuwAS+zRbOdsVlB
-	 ddnC78CXC+Ltl8ex+IYAAuQ58C4uBXz8VEQAsFXbDHv88M8I760GVIv6I9gHQ+ZqAc
-	 oWcSSf1/MzyXPZFinugjY9e3aZgzNiLlGpRIFF6qy+gAjnfRNS7AxaTiZJTSK/9G9T
-	 qch7q+2JjGSsQ==
+	b=jsQUFycR3dlbeAkXshi2vSonjMqCahq8H6WlOXRRa6NkYzT2l4iQHTlEEsawNUrRW
+	 8zRTsFUp6eN68d7aydDAlf9Qg1kZidVyq12Kmk9LzUaDpzbsz0j1ThVpxLp/a4HnWt
+	 Y+yD9oawQGd9C95ZoaWWas7fnDa2fkSHafZ10op3rv7chGsJZg5qeEXgji/242hDT4
+	 ajknSjFl1kLz/w6ntlLB7bwRuFX4X4MwvkNkD2kmhto9/A7aEZZnAOm9S2YKHff5nE
+	 SIiTrI0TQDU14W8a65QrpYDDJOJyYwc3srv3kACWaHkQhc1G9bK5lpwXdu0b42my5W
+	 EL7mOZWrY0jOw==
 From: Sasha Levin <sashal@kernel.org>
-To: nicoyip.dev@gmail.com,
-	pabeni@redhat.com
+To: zenghongling@kylinos.cn,
+	hyc.lee@gmail.com,
+	liubaolin@kylinos.cn,
+	linkinjeon@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] l2tp: snapshot sequencing state when building transmit headers" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:08:45 -0500
-Message-ID: <20261107060845-failed-5.15-d06ae66516e1@kernel.org>
+Subject: FAILED: patch "[PATCH] ntfs: sync the volume dirty bit with the recorded error state" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 06:08:48 -0500
+Message-ID: <20261107060848-failed-5.15-521978c4f444@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,344 +70,344 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x d06ae66516e1aaf023808912af6292aef09d46c3
+git cherry-pick -x 521978c4f4441953d67297286e5804485ae05698
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060845-failed-5.15-d06ae66516e1@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060848-failed-5.15-521978c4f444@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From d06ae66516e1aaf023808912af6292aef09d46c3 Mon Sep 17 00:00:00 2001
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-Date: Tue, 13 Oct 2026 17:05:00 +0800
-Subject: [PATCH] l2tp: snapshot sequencing state when building transmit
- headers
+From 521978c4f4441953d67297286e5804485ae05698 Mon Sep 17 00:00:00 2001
+From: Hongling Zeng <zenghongling@kylinos.cn>
+Date: Tue, 15 Sep 2026 16:32:48 +0800
+Subject: [PATCH] ntfs: sync the volume dirty bit with the recorded error state
 
-Updates to send_seq from netlink, PPP setsockopt and receive-side
-negotiation race with packet transmission. The header length is updated
-separately, while transmit reads both fields repeatedly without
-synchronization.
+The runtime metadata-corruption paths in fs/ntfs only record the
+in-memory NVolErrors() flag; whether VOLUME_IS_DIRTY ever reaches disk
+depends on ntfs_set_volume_flags() being called by some other path,
+which for most error sites never happens.  A volume can therefore
+unmount with a clean on-disk flag despite recorded corruption, and
+chkdsk will not run on the next mount.
 
-For example, transmit can push a ten-byte L2TPv2 header, then a concurrent
-writer clears send_seq before the header builder reads it. The builder
-writes only six bytes, leaving four bytes of uninitialized skb headroom
-in the outgoing packet. The reverse mismatch overwrites the beginning of
-the payload. A later hdr_len read can also make the UDP length disagree
-with the skb length.
+Persisting the dirty bit from the error paths themselves does not work:
+they run under a wide variety of ntfs locks, and the dirty-bit write
+takes the $Volume mrec_lock and maps the $Volume mft record, which on
+an $MFT page-cache miss takes the $MFT runlist lock for writing.  That
+is enough to self-deadlock or form ABBA cycles from several of them:
+the $MFT extend undo paths hold the $MFT runlist lock and then take
+vol->lcnbmp_lock inside ntfs_cluster_free(); the cluster allocation and
+free rollback paths hold vol->lcnbmp_lock; and the whole mft record
+allocation tree is reachable from ntfs_write_volume_label()'s
+attribute-list maintenance while it holds the $Volume mrec_lock itself.
 
-KCSAN reported:
+Instead, make the persistence a property of the sync paths, which run
+without ntfs locks held.  The new ntfs_sync_volume_dirty_state() sets
+VOLUME_IS_DIRTY when NVolErrors() is recorded and clears it otherwise,
+evaluating the error flag under the $Volume mrec_lock.  It is called
+from ntfs_sync_fs(), from the remount-to-read-only path of
+ntfs_reconfigure(), and from ntfs_put_super(), which previously
+evaluated NVolErrors() outside the lock before clearing the dirty bit
+unconditionally, and which now also persists the dirty bit for volumes
+with recorded errors so they unmount with chkdsk scheduled.  The
+ntfs_clear_volume_flags() wrapper, whose last callers this patch
+replaces, has no users left and is removed.
 
-  BUG: KCSAN: data-race in l2tp_session_set_header_len / l2tp_xmit_skb
+The guarantee this provides is eventual, not instantaneous: the error
+paths record NVolErrors() with a lock-free set_bit(), so a persistence
+point that evaluates the flag just before an error is recorded can
+still leave the on-disk bit clean until the next one.  This is sound
+because NVolErrors() is sticky for the lifetime of the mount and every
+persistence point re-derives the on-disk bit from it; the last one,
+ntfs_put_super(), runs after evict_inodes() on a quiesced filesystem,
+so a volume that is read-write at unmount time cannot unmount clean.
+A volume that is already read-only when the error is recorded
+(errors=remount-ro flips the superblock on the first error, as does an
+earlier remount-ro) has no persistence point left and keeps whatever
+on-disk bit it had; that behaviour is unchanged.  The residual window
+is a crash between the error and the next persistence point.
 
-  write to 0xffff888100d0944a of 2 bytes by task 116 on cpu 1:
-   l2tp_session_set_header_len+0x81/0xc0
-   l2tp_nl_cmd_session_modify+0x122/0x2c0
-   genl_family_rcv_msg_doit+0x170/0x1d0
+The persistence paths never write a hibernated volume: resuming Windows
+from a modified image corrupts it.  Record the mount-time hibernation
+verdict in the new NV_Hibernated volume flag and make
+ntfs_sync_volume_dirty_state() a no-op while it is set, so the dirty
+bit is left exactly as it is on disk and only the in-memory error
+state is kept.  Without this, an rw mount of a hibernated volume with
+the default errors=continue would gain a filesystem-internal write on
+the first sync, remount or unmount.  Other writes to such a mount,
+like the mount-time logfile emptying, are pre-existing and unchanged.
 
-  read to 0xffff888100d0944a of 2 bytes by task 115 on cpu 0:
-   l2tp_xmit_skb+0x9c/0xc80
-   pppol2tp_sendmsg+0x21c/0x2a0
-   __sys_sendto+0x28c/0x2a0
-
-The bug can lead to leak kernel base address for KASLR bypass, the
-corresponding reproducer can be provided per request.
-
-Initialize hdr_len to the maximum header size and leave it unchanged
-when sequencing is toggled. Snapshot send_seq once per packet and use
-that snapshot for the actual header length and header construction,
-including the sequence flag. Use the same length for headroom, the header
-push and the UDP length. PPP callers can safely reserve the maximum size;
-L2TPv3 header sizes do not depend on sequencing.
-
-Make send_seq a separate bool so READ_ONCE() and WRITE_ONCE() can be used
-without sharing a bitfield storage unit with other configuration flags.
-Preserve the netlink attribute's existing low-bit truncation.
-
-Fixes: 3557baabf280 ("[L2TP]: PPP over L2TP driver core")
 Cc: stable@vger.kernel.org
-Assisted-by: GPT-6 Astra
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-Link: https://patch.msgid.link/20261013090500.1180376-1-nicoyip.dev@gmail.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
+Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 ---
- net/l2tp/l2tp_core.c    | 51 +++++++++++++++++++----------------------
- net/l2tp/l2tp_core.h    |  6 ++---
- net/l2tp/l2tp_debugfs.c |  4 ++--
- net/l2tp/l2tp_netlink.c | 11 ++++-----
- net/l2tp/l2tp_ppp.c     |  8 +++----
- 5 files changed, 35 insertions(+), 45 deletions(-)
+ fs/ntfs/ntfs.h   |   1 -
+ fs/ntfs/super.c  | 129 ++++++++++++++++++++++++++++++++---------------
+ fs/ntfs/volume.h |   4 ++
+ 3 files changed, 93 insertions(+), 41 deletions(-)
 
-diff --git a/net/l2tp/l2tp_core.c b/net/l2tp/l2tp_core.c
-index 4712cc41881a3..7e042a3e648ce 100644
---- a/net/l2tp/l2tp_core.c
-+++ b/net/l2tp/l2tp_core.c
-@@ -915,11 +915,9 @@ void l2tp_recv_common(struct l2tp_session *session, struct sk_buff *skb,
- 		 * check if we sre sending sequence numbers and if not,
- 		 * configure it so.
- 		 */
--		if (!session->lns_mode && !session->send_seq) {
-+		if (!session->lns_mode && !READ_ONCE(session->send_seq)) {
- 			trace_session_seqnum_lns_enable(session);
--			session->send_seq = 1;
--			l2tp_session_set_header_len(session, tunnel->version,
--						    tunnel->encap);
-+			WRITE_ONCE(session->send_seq, true);
- 		}
- 	} else {
- 		/* No sequence numbers.
-@@ -937,12 +935,10 @@ void l2tp_recv_common(struct l2tp_session *session, struct sk_buff *skb,
- 		 * If we're the LNS and we're sending sequence numbers, the
- 		 * LAC is broken. Discard the frame.
- 		 */
--		if (!session->lns_mode && session->send_seq) {
-+		if (!session->lns_mode && READ_ONCE(session->send_seq)) {
- 			trace_session_seqnum_lns_disable(session);
--			session->send_seq = 0;
--			l2tp_session_set_header_len(session, tunnel->version,
--						    tunnel->encap);
--		} else if (session->send_seq) {
-+			WRITE_ONCE(session->send_seq, false);
-+		} else if (READ_ONCE(session->send_seq)) {
- 			pr_debug_ratelimited("%s: recv data has no seq numbers when required. Discarding.\n",
- 					     session->name);
- 			atomic_long_inc(&session->stats.rx_seq_discards);
-@@ -1138,7 +1134,8 @@ static void l2tp_udp_encap_err_recv(struct sock *sk, struct sk_buff *skb, int er
+diff --git a/fs/ntfs/ntfs.h b/fs/ntfs/ntfs.h
+index 1bee1626abdf6..dd56894762a91 100644
+--- a/fs/ntfs/ntfs.h
++++ b/fs/ntfs/ntfs.h
+@@ -219,7 +219,6 @@ struct option_t {
+ };
+ extern const struct option_t on_errors_arr[];
+ int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags);
+-int ntfs_clear_volume_flags(struct ntfs_volume *vol, __le16 flags);
+ int ntfs_write_volume_label(struct ntfs_volume *vol, char *label);
  
- /* Build an L2TP header for the session into the buffer provided.
-  */
--static int l2tp_build_l2tpv2_header(struct l2tp_session *session, void *buf)
-+static int l2tp_build_l2tpv2_header(struct l2tp_session *session, void *buf,
-+				    bool send_seq)
- {
- 	struct l2tp_tunnel *tunnel = session->tunnel;
- 	__be16 *bufp = buf;
-@@ -1147,14 +1144,14 @@ static int l2tp_build_l2tpv2_header(struct l2tp_session *session, void *buf)
- 	u32 tunnel_id = tunnel->peer_tunnel_id;
- 	u32 session_id = session->peer_session_id;
- 
--	if (session->send_seq)
-+	if (send_seq)
- 		flags |= L2TP_HDRFLAG_S;
- 
- 	/* Setup L2TP header. */
- 	*bufp++ = htons(flags);
- 	*bufp++ = htons(tunnel_id);
- 	*bufp++ = htons(session_id);
--	if (session->send_seq) {
-+	if (send_seq) {
- 		*bufp++ = htons(session->ns);
- 		*bufp++ = 0;
- 		session->ns++;
-@@ -1165,7 +1162,8 @@ static int l2tp_build_l2tpv2_header(struct l2tp_session *session, void *buf)
- 	return bufp - optr;
+ /* From fs/ntfs/mst.c */
+diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
+index 5c71aaa0e25d5..785f5b2222934 100644
+--- a/fs/ntfs/super.c
++++ b/fs/ntfs/super.c
+@@ -263,6 +263,8 @@ static int ntfs_parse_param(struct fs_context *fc, struct fs_parameter *param)
+ 	return 0;
  }
  
--static int l2tp_build_l2tpv3_header(struct l2tp_session *session, void *buf)
-+static int l2tp_build_l2tpv3_header(struct l2tp_session *session, void *buf,
-+				    bool send_seq)
- {
- 	struct l2tp_tunnel *tunnel = session->tunnel;
- 	char *bufp = buf;
-@@ -1191,7 +1189,7 @@ static int l2tp_build_l2tpv3_header(struct l2tp_session *session, void *buf)
- 	if (session->l2specific_type == L2TP_L2SPECTYPE_DEFAULT) {
- 		u32 l2h = 0;
- 
--		if (session->send_seq) {
-+		if (send_seq) {
- 			l2h = 0x40000000 | session->ns;
- 			session->ns++;
- 			session->ns &= 0xffffff;
-@@ -1225,19 +1223,24 @@ static int l2tp_xmit_queue(struct l2tp_tunnel *tunnel, struct sk_buff *skb, stru
- static int l2tp_xmit_core(struct l2tp_session *session, struct sk_buff *skb, unsigned int *len)
- {
- 	struct l2tp_tunnel *tunnel = session->tunnel;
-+	bool send_seq = READ_ONCE(session->send_seq);
- 	unsigned int data_len = skb->len;
- 	struct sock *sk = tunnel->sock;
-+	u16 hdr_len = session->hdr_len;
- 	int headroom, uhlen, udp_len;
- 	int ret = NET_XMIT_SUCCESS;
- 	struct inet_sock *inet;
- 	struct udphdr *uh;
- 
-+	if (tunnel->version == L2TP_HDR_VER_2 && !send_seq)
-+		hdr_len -= 4;
++static int ntfs_sync_volume_dirty_state(struct ntfs_volume *vol);
 +
- 	/* Check that there's enough headroom in the skb to insert IP,
- 	 * UDP and L2TP headers. If not enough, expand it to
- 	 * make room. Adjust truesize.
- 	 */
- 	uhlen = (tunnel->encap == L2TP_ENCAPTYPE_UDP) ? sizeof(*uh) : 0;
--	headroom = NET_SKB_PAD + sizeof(struct iphdr) + uhlen + session->hdr_len;
-+	headroom = NET_SKB_PAD + sizeof(struct iphdr) + uhlen + hdr_len;
- 	if (skb_cow_head(skb, headroom)) {
- 		kfree_skb(skb);
- 		return NET_XMIT_DROP;
-@@ -1245,9 +1248,9 @@ static int l2tp_xmit_core(struct l2tp_session *session, struct sk_buff *skb, uns
- 
- 	/* Setup L2TP header */
- 	if (tunnel->version == L2TP_HDR_VER_2)
--		l2tp_build_l2tpv2_header(session, __skb_push(skb, session->hdr_len));
-+		l2tp_build_l2tpv2_header(session, __skb_push(skb, hdr_len), send_seq);
- 	else
--		l2tp_build_l2tpv3_header(session, __skb_push(skb, session->hdr_len));
-+		l2tp_build_l2tpv3_header(session, __skb_push(skb, hdr_len), send_seq);
- 
- 	/* Reset control buffer */
- 	memset(skb->cb, 0, sizeof(skb->cb));
-@@ -1290,7 +1293,7 @@ static int l2tp_xmit_core(struct l2tp_session *session, struct sk_buff *skb, uns
- 		uh = udp_hdr(skb);
- 		uh->source = inet->inet_sport;
- 		uh->dest = inet->inet_dport;
--		udp_len = uhlen + session->hdr_len + data_len;
-+		udp_len = uhlen + hdr_len + data_len;
- 		if (udp_len > U16_MAX) {
- 			kfree_skb(skb);
- 			ret = NET_XMIT_DROP;
-@@ -1759,16 +1762,11 @@ static void l2tp_session_del_work(struct work_struct *work)
- 	l2tp_session_put(session);
- }
- 
--/* We come here whenever a session's send_seq, cookie_len or
-- * l2specific_type parameters are set.
-- */
--void l2tp_session_set_header_len(struct l2tp_session *session, int version,
--				 enum l2tp_encap_type encap)
-+static void l2tp_session_set_header_len(struct l2tp_session *session, int version,
-+					enum l2tp_encap_type encap)
+ static int ntfs_reconfigure(struct fs_context *fc)
  {
- 	if (version == L2TP_HDR_VER_2) {
--		session->hdr_len = 6;
--		if (session->send_seq)
--			session->hdr_len += 4;
-+		session->hdr_len = 10;
- 	} else {
- 		session->hdr_len = 4 + session->cookie_len;
- 		session->hdr_len += l2tp_get_l2specific_len(session);
-@@ -1776,7 +1774,6 @@ void l2tp_session_set_header_len(struct l2tp_session *session, int version,
- 			session->hdr_len += 4;
- 	}
- }
--EXPORT_SYMBOL_GPL(l2tp_session_set_header_len);
- 
- struct l2tp_session *l2tp_session_create(int priv_size, struct l2tp_tunnel *tunnel, u32 session_id,
- 					 u32 peer_session_id, struct l2tp_session_cfg *cfg)
-diff --git a/net/l2tp/l2tp_core.h b/net/l2tp/l2tp_core.h
-index ffd8ced3a51ff..25ae4c25d3eff 100644
---- a/net/l2tp/l2tp_core.h
-+++ b/net/l2tp/l2tp_core.h
-@@ -76,7 +76,7 @@ struct l2tp_session {
- 	u8			peer_cookie[8];
- 	int			peer_cookie_len;
- 	u16			l2specific_type;
--	u16			hdr_len;
-+	u16			hdr_len;	/* maximum L2TP header length */
- 	u32			nr;		/* session NR state (receive) */
- 	u32			ns;		/* session NR state (send) */
- 	struct sk_buff_head	reorder_q;	/* receive reorder queue */
-@@ -94,8 +94,8 @@ struct l2tp_session {
- 
- 	char			name[L2TP_SESSION_NAME_MAX]; /* for logging */
- 	char			ifname[IFNAMSIZ];
-+	bool			send_seq;	/* send packets with sequence numbers? */
- 	unsigned int		recv_seq:1;	/* expect receive packets with sequence numbers? */
--	unsigned int		send_seq:1;	/* send packets with sequence numbers? */
- 	unsigned int		lns_mode:1;	/* behave as LNS?
- 						 * LAC enables sequence numbers under LNS control.
- 						 */
-@@ -257,8 +257,6 @@ void l2tp_recv_common(struct l2tp_session *session, struct sk_buff *skb,
- int l2tp_udp_encap_recv(struct sock *sk, struct sk_buff *skb);
- 
- /* Transmit path helpers for sending packets over the tunnel socket. */
--void l2tp_session_set_header_len(struct l2tp_session *session, int version,
--				 enum l2tp_encap_type encap);
- int l2tp_xmit_skb(struct l2tp_session *session, struct sk_buff *skb);
- 
- /* Pseudowire management.
-diff --git a/net/l2tp/l2tp_debugfs.c b/net/l2tp/l2tp_debugfs.c
-index c12d5e1ee550c..58d1d6a7768ef 100644
---- a/net/l2tp/l2tp_debugfs.c
-+++ b/net/l2tp/l2tp_debugfs.c
-@@ -182,12 +182,12 @@ static void l2tp_dfs_seq_session_show(struct seq_file *m, void *v)
- 		   session->pwtype == L2TP_PWTYPE_ETH ? "ETH" :
- 		   session->pwtype == L2TP_PWTYPE_PPP ? "PPP" :
- 		   "");
--	if (session->send_seq || session->recv_seq)
-+	if (READ_ONCE(session->send_seq) || session->recv_seq)
- 		seq_printf(m, "   nr %u, ns %u\n", session->nr, session->ns);
- 	seq_printf(m, "   refcnt %d\n", refcount_read(&session->ref_count));
- 	seq_printf(m, "   config 0/0/%c/%c/-/%s %08x %u\n",
- 		   session->recv_seq ? 'R' : '-',
--		   session->send_seq ? 'S' : '-',
-+		   READ_ONCE(session->send_seq) ? 'S' : '-',
- 		   session->lns_mode ? "LNS" : "LAC",
- 		   0,
- 		   jiffies_to_msecs(session->reorder_timeout));
-diff --git a/net/l2tp/l2tp_netlink.c b/net/l2tp/l2tp_netlink.c
-index 38aac59d052c4..89ef04c78787d 100644
---- a/net/l2tp/l2tp_netlink.c
-+++ b/net/l2tp/l2tp_netlink.c
-@@ -700,12 +700,9 @@ static int l2tp_nl_cmd_session_modify(struct sk_buff *skb, struct genl_info *inf
- 	if (info->attrs[L2TP_ATTR_RECV_SEQ])
- 		session->recv_seq = nla_get_u8(info->attrs[L2TP_ATTR_RECV_SEQ]);
- 
--	if (info->attrs[L2TP_ATTR_SEND_SEQ]) {
--		struct l2tp_tunnel *tunnel = session->tunnel;
--
--		session->send_seq = nla_get_u8(info->attrs[L2TP_ATTR_SEND_SEQ]);
--		l2tp_session_set_header_len(session, tunnel->version, tunnel->encap);
--	}
-+	if (info->attrs[L2TP_ATTR_SEND_SEQ])
-+		WRITE_ONCE(session->send_seq,
-+			   nla_get_u8(info->attrs[L2TP_ATTR_SEND_SEQ]) & 1);
- 
- 	if (info->attrs[L2TP_ATTR_LNS_MODE])
- 		session->lns_mode = nla_get_u8(info->attrs[L2TP_ATTR_LNS_MODE]);
-@@ -748,7 +745,7 @@ static int l2tp_nl_session_send(struct sk_buff *skb, u32 portid, u32 seq, int fl
- 	    (session->peer_cookie_len &&
- 	     nla_put(skb, L2TP_ATTR_PEER_COOKIE, session->peer_cookie_len, session->peer_cookie)) ||
- 	    nla_put_u8(skb, L2TP_ATTR_RECV_SEQ, session->recv_seq) ||
--	    nla_put_u8(skb, L2TP_ATTR_SEND_SEQ, session->send_seq) ||
-+	    nla_put_u8(skb, L2TP_ATTR_SEND_SEQ, READ_ONCE(session->send_seq)) ||
- 	    nla_put_u8(skb, L2TP_ATTR_LNS_MODE, session->lns_mode) ||
- 	    (l2tp_tunnel_uses_xfrm(tunnel) &&
- 	     nla_put_u8(skb, L2TP_ATTR_USING_IPSEC, 1)) ||
-diff --git a/net/l2tp/l2tp_ppp.c b/net/l2tp/l2tp_ppp.c
-index ef8fdfaf051d4..4f311d473a646 100644
---- a/net/l2tp/l2tp_ppp.c
-+++ b/net/l2tp/l2tp_ppp.c
-@@ -1195,9 +1195,7 @@ static int pppol2tp_session_setsockopt(struct sock *sk,
- 			err = -EINVAL;
- 			break;
+ 	struct super_block *sb = fc->root->d_sb;
+@@ -319,10 +321,24 @@ static int ntfs_reconfigure(struct fs_context *fc)
  		}
--		session->send_seq = !!val;
--		l2tp_session_set_header_len(session, session->tunnel->version,
--					    session->tunnel->encap);
-+		WRITE_ONCE(session->send_seq, !!val);
- 		break;
+ 	} else if (!sb_rdonly(sb) && (fc->sb_flags & SB_RDONLY)) {
+ 		/* Remounting read-only. */
+-		if (!NVolErrors(vol)) {
+-			if (ntfs_clear_volume_flags(vol, VOLUME_IS_DIRTY))
+-				ntfs_warning(sb,
+-					"Failed to clear dirty bit in volume information flags.  Run chkdsk.");
++		/*
++		 * With errors recorded the dirty bit is set rather than
++		 * cleared, and it is committed right away: the VFS does
++		 * not sync the filesystem during a remount, and once the
++		 * remount succeeds no further persistence point exists -
++		 * ntfs_sync_fs() is only ever invoked for read-write
++		 * superblocks (all its VFS callers skip read-only ones)
++		 * and ntfs_put_super() skips them, so the only remaining
++		 * write would be the evict-time commit at unmount, which
++		 * a crash never reaches.  An error recorded only after
++		 * the remount is still never persisted.
++		 */
++		if (ntfs_sync_volume_dirty_state(vol)) {
++			ntfs_warning(sb,
++				"Failed to update dirty bit in volume information flags.  Run chkdsk.");
++		} else if (NInoDirty(NTFS_I(vol->vol_ino))) {
++			ntfs_commit_inode(vol->vol_ino);
++			blkdev_issue_flush(sb->s_bdev);
+ 		}
+ 	}
  
- 	case PPPOL2TP_SO_LNSMODE:
-@@ -1307,7 +1305,7 @@ static int pppol2tp_session_getsockopt(struct sock *sk,
- 		break;
+@@ -364,9 +380,10 @@ void ntfs_handle_error(struct super_block *sb)
+  * @vol:	ntfs volume on which to modify the flags
+  * @set_bits:	bits to set in the volume information flags
+  * @clear_bits:	bits to clear in the volume information flags
++ * @dirty_if_errors:	force VOLUME_IS_DIRTY on when NVolErrors() is set
+  *
+  * Internal function.  You probably want to use ntfs_{set,clear}_volume_flags()
+- * instead (see below).
++ * or ntfs_sync_volume_dirty_state() instead (see below).
+  *
+  * Combine @set_bits and @clear_bits with the current in-memory flag state and
+  * write the result back.  The set/clear helpers pass only the bits to modify,
+@@ -375,11 +392,18 @@ void ntfs_handle_error(struct super_block *sb)
+  * All bit manipulation is done on CPU-endian values, and the result is
+  * converted back to little-endian before storing it.
+  *
++ * When @dirty_if_errors is true and errors have been recorded on @vol,
++ * VOLUME_IS_DIRTY is forced on after the requested changes.  NVolErrors() is
++ * evaluated under the same mrec_lock, which orders this against other
++ * locked flag updates; the runtime error paths themselves record the flag
++ * lock-free, so see ntfs_sync_volume_dirty_state() for the guarantee this
++ * provides against them.
++ *
+  * Return 0 on success and -errno on error.
+  */
+ static int ntfs_write_volume_flags(struct ntfs_volume *vol,
+ 		const __le16 set_bits, const __le16 clear_bits,
+-		const bool skip_if_errors)
++		const bool dirty_if_errors)
+ {
+ 	struct ntfs_inode *ni = NTFS_I(vol->vol_ino);
+ 	struct volume_information *vi;
+@@ -389,12 +413,11 @@ static int ntfs_write_volume_flags(struct ntfs_volume *vol,
  
- 	case PPPOL2TP_SO_SENDSEQ:
--		*val = session->send_seq;
-+		*val = READ_ONCE(session->send_seq);
- 		break;
+ 	mutex_lock(&ni->mrec_lock);
  
- 	case PPPOL2TP_SO_LNSMODE:
-@@ -1546,7 +1544,7 @@ static void pppol2tp_seq_session_show(struct seq_file *m, void *v)
- 		   state, user_data_ok);
- 	seq_printf(m, "   0/0/%c/%c/%s %08x %u\n",
- 		   session->recv_seq ? 'R' : '-',
--		   session->send_seq ? 'S' : '-',
-+		   READ_ONCE(session->send_seq) ? 'S' : '-',
- 		   session->lns_mode ? "LNS" : "LAC",
- 		   0,
- 		   jiffies_to_msecs(session->reorder_timeout));
+-	if (skip_if_errors && NVolErrors(vol))
+-		goto done;
+-
+ 	flags = le16_to_cpu(vol->vol_flags);
+ 	flags |= le16_to_cpu(set_bits) & le16_to_cpu(VOLUME_FLAGS_MASK);
+ 	flags &= ~(le16_to_cpu(clear_bits) & le16_to_cpu(VOLUME_FLAGS_MASK));
++	if (dirty_if_errors && NVolErrors(vol))
++		flags |= le16_to_cpu(VOLUME_IS_DIRTY);
+ 	ntfs_debug("Entering, old flags = 0x%x, new flags = 0x%x.",
+ 			le16_to_cpu(vol->vol_flags), flags);
+ 
+@@ -446,31 +469,43 @@ int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags)
+ }
+ 
+ /*
+- * ntfs_clear_volume_flags - clear bits in the volume information flags
+- * @vol:	ntfs volume on which to modify the flags
+- * @flags:	flags to clear on the volume
++ * ntfs_sync_volume_dirty_state - persist the dirty bit per the error state
++ * @vol:	ntfs volume whose dirty bit to persist
+  *
+- * Clear the bits in @flags in the volume information flags on the volume @vol.
+- * The bits are combined with the current flag state under the lock in
+- * ntfs_write_volume_flags(), so concurrent updates are not lost.
++ * Set VOLUME_IS_DIRTY if errors have been recorded on @vol and clear it
++ * otherwise, under the $Volume mrec_lock.
+  *
+- * Return 0 on success and -errno on error.
+- */
+-int ntfs_clear_volume_flags(struct ntfs_volume *vol, __le16 flags)
+-{
+-	return ntfs_write_volume_flags(vol, 0, flags, false);
+-}
+-
+-/*
+- * ntfs_clear_volume_dirty_if_no_errors - clear dirty bit if no errors exist
+- * @vol:	ntfs volume whose dirty bit should be cleared
++ * The guarantee this provides is eventual, not instantaneous: the runtime
++ * error paths record NVolErrors() with a lock-free set_bit(), so a
++ * persistence point that evaluates the flag just before an error is
++ * recorded can still leave the on-disk bit clean.  This is sound because
++ * NVolErrors() is sticky (nothing clears it for the lifetime of the mount)
++ * and every persistence point re-derives the on-disk bit from it; the
++ * last one, ntfs_put_super(), runs after evict_inodes() on a quiesced
++ * filesystem, so a volume that is read-write at unmount time cannot
++ * unmount clean.  A volume that is already read-only when the error is
++ * recorded (errors=remount-ro flips the superblock on the first error,
++ * as does an earlier remount-ro) has no persistence point left and
++ * keeps whatever on-disk bit it had; that behaviour is unchanged.  The
++ * residual window is a crash between the error and the next
++ * persistence point.
++ *
++ * This is the single point that persists the in-memory error state to disk.
++ * The runtime error paths only record NVolErrors() because they run under a
++ * variety of ntfs locks the dirty-bit write cannot be taken under (runlist
++ * locks, vol->lcnbmp_lock, vol->mftbmp_lock, mrec_locks); the first
++ * ntfs_sync_fs(), a remount, or the unmount then persists the flag here.
++ *
++ * A hibernated volume is not written from these persistence paths:
++ * resuming Windows from a modified image corrupts it, so the dirty bit
++ * is left as it is on disk and only the in-memory error state is kept.
+  *
+- * Check NVolErrors() and clear VOLUME_IS_DIRTY under the same mrec_lock so
+- * ntfs_sync_fs() cannot clear the dirty bit after a concurrent error has been
+- * recorded.
++ * Return 0 on success and -errno on error.
+  */
+-static int ntfs_clear_volume_dirty_if_no_errors(struct ntfs_volume *vol)
++static int ntfs_sync_volume_dirty_state(struct ntfs_volume *vol)
+ {
++	if (NVolHibernated(vol))
++		return 0;
+ 	return ntfs_write_volume_flags(vol, 0, VOLUME_IS_DIRTY, true);
+ }
+ 
+@@ -1683,6 +1718,11 @@ static bool load_system_files(struct ntfs_volume *vol)
+ 			ntfs_error(sb, "%s.  Mounting read-only%s", es1, es2);
+ 		}
+ 		NVolSetErrors(vol);
++		/*
++		 * Remember it for the lifetime of the mount: see
++		 * ntfs_sync_volume_dirty_state().
++		 */
++		NVolSetHibernated(vol);
+ 	}
+ 
+ 	/* If (still) a read-write mount, empty the logfile. */
+@@ -1840,22 +1880,31 @@ static void ntfs_put_super(struct super_block *sb)
+ 	ntfs_commit_inode(vol->mft_ino);
+ 
+ 	/*
+-	 * If a read-write mount and no volume errors have occurred, mark the
+-	 * volume clean.  Also, re-commit all affected inodes.
++	 * If a read-write mount, persist the error state in the volume flags:
++	 * mark the volume clean if no volume errors have occurred, and make
++	 * sure VOLUME_IS_DIRTY is on disk if any have, so chkdsk runs on the
++	 * next mount.  Also, re-commit all affected inodes.
+ 	 */
+ 	if (!sb_rdonly(sb)) {
++		if (ntfs_sync_volume_dirty_state(vol)) {
++			ntfs_warning(sb,
++				"Failed to sync dirty bit in volume information flags.  Run chkdsk.");
++		} else if (NVolErrors(vol)) {
++			/*
++			 * The dirty bit is on disk now; only warn when the
++			 * sync actually succeeded, or this message would
++			 * contradict the one above.
++			 */
++			ntfs_warning(sb,
++				"Volume has errors.  Leaving volume marked dirty.  Run chkdsk.");
++		}
++		/* Commits the updated volume flags if they were written. */
++		ntfs_commit_inode(vol->vol_ino);
+ 		if (!NVolErrors(vol)) {
+-			if (ntfs_clear_volume_flags(vol, VOLUME_IS_DIRTY))
+-				ntfs_warning(sb,
+-					"Failed to clear dirty bit in volume information flags.  Run chkdsk.");
+-			ntfs_commit_inode(vol->vol_ino);
+ 			ntfs_commit_inode(vol->root_ino);
+ 			if (vol->mftmirr_ino)
+ 				ntfs_commit_inode(vol->mftmirr_ino);
+ 			ntfs_commit_inode(vol->mft_ino);
+-		} else {
+-			ntfs_warning(sb,
+-				"Volume has errors.  Leaving volume marked dirty.  Run chkdsk.");
+ 		}
+ 	}
+ 
+@@ -1954,8 +2003,8 @@ static int ntfs_sync_fs(struct super_block *sb, int wait)
+ 		return 0;
+ 
+ 	/* If there are some dirty buffers in the bdev inode */
+-	if (ntfs_clear_volume_dirty_if_no_errors(vol)) {
+-		ntfs_warning(sb, "Failed to clear dirty bit in volume information flags.  Run chkdsk.");
++	if (ntfs_sync_volume_dirty_state(vol)) {
++		ntfs_warning(sb, "Failed to sync dirty bit in volume information flags.  Run chkdsk.");
+ 		err = -EIO;
+ 	}
+ 	sync_inodes_sb(sb);
+diff --git a/fs/ntfs/volume.h b/fs/ntfs/volume.h
+index 8c17a66b4f22c..fdb57279de84c 100644
+--- a/fs/ntfs/volume.h
++++ b/fs/ntfs/volume.h
+@@ -189,6 +189,8 @@ struct ntfs_volume {
+  *				Windows-reserved names (CON, AUX, NUL, COM1,
+  *				LPT1, etc.) or invalid characters.
+  *
++ * NV_Hibernated		Windows is hibernated on the volume; the sync
++ *				paths must not write the volume flags.
+  * NV_Discard			Issue discard/TRIM commands for freed clusters.
+  * NV_DisableSparse		Disable creation of sparse regions.
+  * NV_NativeSymlinkRel		Translate absolute Windows reparse targets (native_symlink=rel).
+@@ -207,6 +209,7 @@ enum {
+ 	NV_ShowHiddenFiles,
+ 	NV_HideDotFiles,
+ 	NV_CheckWindowsNames,
++	NV_Hibernated,
+ 	NV_Discard,
+ 	NV_DisableSparse,
+ 	NV_NativeSymlinkRel,
+@@ -245,6 +248,7 @@ DEFINE_NVOL_BIT_OPS(SysImmutable)
+ DEFINE_NVOL_BIT_OPS(ShowHiddenFiles)
+ DEFINE_NVOL_BIT_OPS(HideDotFiles)
+ DEFINE_NVOL_BIT_OPS(CheckWindowsNames)
++DEFINE_NVOL_BIT_OPS(Hibernated)
+ DEFINE_NVOL_BIT_OPS(Discard)
+ DEFINE_NVOL_BIT_OPS(DisableSparse)
+ DEFINE_NVOL_BIT_OPS(NativeSymlinkRel)
 -- 
 2.53.0
 
