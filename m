@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048173;
-	b=skBwk15bYOp1xG42kg98IXy9SLL6VGy+3UK0i0hi4R4c/Z5U7mzm7nE4Z+p+Idpbla3/
-	 1ls3jfgldkJB2FNMNay6rNQVFcCfUnkrflByc4JheUTS0lgxllXzrsWeHPplJUqRS5gVY
-	 f6es3fOALQAardvyq0L2korzGaRfvD9UjxpevnnSaxN3ep0oxdmspw9xp0Da0b7oTCoeB
-	 Lqf9KEBLIPFGNBKtXxAAgB77IwMOVXqXAPZoZMTfGAFDMTBxbVwC1VtEeHsRPGiItm5nl
-	 ZuvJxrNN3flClVVl6IfWfZuSUJ+LP4IBovseAGiqw7nDLIqYFrkm9uGNOLsCDmw7X5w==
+	t=1794048175;
+	b=CLdxbPJi7IyVXyw2p5HlBZtlYhWlyXZ2DYVANrk/pFZq7FobQZBVp4jx5AWG5v/vv/Gy
+	 FMJKxuhSjPirQoAvuY6Q9WgCBWHs2FTnIRE0WUV8j2I65VPbO0D7RA/KJFAIBS0tWStxF
+	 zG2sSAyXhWH2cUufciH2Wa+N2p1S1jOKsIwNeT1obk3xbgQZVi9IqNWE6w1TsnuW2cGwe
+	 PONB1AHoe94a7ftOIdGbIJ6mou51lIi3xgf4z5dr1/0WeVm0glX8Nt9N29hwXqVjEORM5
+	 uHbKnUYkv6FbzMOYTm5tqkwyUJGu2CZyMWPOIz1iLR3zqF5VcVLIBgPvABIQxGhineA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048173;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048175;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=m/x3aG75f/WcCo0RbE1vfLLmae6WB0U7nvOGlu2hXtI=;
-	b=D//G/1TWGZZOVTQTZYUJtevMDuK/asJS/qUmFQwsvOQ4M3ZauZIHxXqyFlGmkS5NkCIU
-	 Np4WiP2ChZz5MAxrAB7aS8TgvrcAsWjTVeBOvOErGERdTBf7BwKlXVud+Hg5fZ7Z3lQzD
-	 xalLMv5OYq4qKi/sVHbUk2g2CUHnGu0q4hLg671ujKXC/bK5/k1ois/bJc7XvO7BcoatL
-	 Wsro9tpOVindpDyTmlBDf8Jy1gU6/Rkx+IkeOF9F5B4xamm2zsHLa1JFwj3iXNllUohqX
-	 6N2of46v5RN0X7CIbUzgFZ4cmD5zYcoTM1enBbc3N82Q6hP2ItoKBI7Myw+3peqGvzQ==
+	bh=VGSWsmy/GDukiCwDJZaebjlW87iXPW1U/Q57ysY9ngk=;
+	b=RmzcnNBO6pkYE1LovqeLEFEscqeftKcV8bnvwSX0+YHidQCorGxtXcZ2Y64JBZwKZMyB
+	 65GSvw9Y42stTXKg7ci/JdykYVOJ0wOsK9h3vB0K003IWtF9aWUzUJzlBjOg9i2hfmYIn
+	 M8Tb1rvIwVSesixOE2CzBz3TQJRzrwCoumxkhrjdvyi9J7pFCX1go66RQp4uYGkSsda7l
+	 YkaWDvnNoXJVp9poo84+/HInW8PGS2N2Mh7h4fQBz+Hx8Uv5TUK7qQcqiwEW6HKlRRmnt
+	 2ohBgfui15EF6ZZ25A2JiUV+P8K1BWhMGmRn7YnfujfobjOWZzhXdCw9mdI9Od2NlTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jsz3rFLF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dLiMx8Gy;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4524606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:42:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFBD1606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:42:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jsz3rFLF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C7ED1F0089F;
-	Sat,  7 Nov 2026 10:42:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dLiMx8Gy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AE311F0089F;
+	Sat,  7 Nov 2026 10:42:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048172;
-	bh=m/x3aG75f/WcCo0RbE1vfLLmae6WB0U7nvOGlu2hXtI=;
+	s=k20260515; t=1794048174;
+	bh=VGSWsmy/GDukiCwDJZaebjlW87iXPW1U/Q57ysY9ngk=;
 	h=From:To:Cc:Subject:Date;
-	b=jsz3rFLFJj1jCMUzgiJJcZlHUM3Pooptg57YtIEkIjqsHX8OHYdIyIBWS8k8gtjoc
-	 +l08VMF7EQPuobJ0pBXTCOullmLLF/oj11mfgdYpkO6lYuR/O44O/jmZfjEwyRt2ff
-	 jsov8sY8Rjrs3SNTamtQyc8E5WR3m4FndCBFlK2ZysWpnU4sKlAQpgZ4jPvlC78zco
-	 lt8UwGKTIwOsDa/qun2is3dANKFkHc/kXHVTahZSYH82UwjaFgnXAvkpD6w12MXOi1
-	 ye7VYCThBeX/ZcUhSJMb4UYYKyqIP8xJBsh+FLEPPlLXn0l3QrF1jhMUCUyTiAs040
-	 EsHRGd+JCJabw==
+	b=dLiMx8Gyex33bQWEkIxef62EG4HnOSS7/KbHUK0DylAm8dXtz0CPfqvPqQKveMYtu
+	 MCBT8a4NweVHSAMEl1w3H7d/eMVI0j6agB5pXknb4tfBovlte7OwqICGqnrQQjhBMT
+	 2UBp7PdVjIvs8zz5WtTlG97yK9GfglPn4FS7HhoMS0wSuJvoTAJUjOokeT8w3dFkoi
+	 JHE3xZ0H75YIGfCS2p0KwEmMsWBk9EFuxEOrv/0ADFD95yiOO7lcj9EBkFDtYjGIJc
+	 pPdxBZ27sWLEWQhrD3ztFuN5rwrvsfcSCxXB4w8sAg5DPVf7odFJHI6HV3IZbM+F+c
+	 bVIsv4xWOeeBA==
 From: Sasha Levin <sashal@kernel.org>
-To: mhun512@gmail.com,
-	ae878000@gmail.com,
-	lee@kernel.org
+To: wanglin@open-hieco.net,
+	linux@roeck-us.net
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mfd: twl-core: Unregister the auxiliary platform device on unbind" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:42:51 -0500
-Message-ID: <20261107054250-failed-6.1-3c5c55d979dd@kernel.org>
+Subject: FAILED: patch "[PATCH] hwmon: (k10temp) Stop matching Hygon devices" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:42:53 -0500
+Message-ID: <20261107054253-failed-6.1-08e6615c909b@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,118 +68,98 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 3c5c55d979ddcb0765ce531bc7ba173c87c8712a
+git cherry-pick -x 08e6615c909b2504a5862764f3a7fca00c7ab066
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054250-failed-6.1-3c5c55d979dd@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054253-failed-6.1-08e6615c909b@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 3c5c55d979ddcb0765ce531bc7ba173c87c8712a Mon Sep 17 00:00:00 2001
-From: Myeonghun Pak <mhun512@gmail.com>
-Date: Sun, 13 Sep 2026 16:50:12 -0400
-Subject: [PATCH] mfd: twl-core: Unregister the auxiliary platform device on
- unbind
+From 08e6615c909b2504a5862764f3a7fca00c7ab066 Mon Sep 17 00:00:00 2001
+From: Lin Wang <wanglin@open-hieco.net>
+Date: Mon, 21 Sep 2026 13:56:00 +0800
+Subject: [PATCH] hwmon: (k10temp) Stop matching Hygon devices
 
-twl_probe() registers a standalone platform device named "twl", but keeps
-its pointer only in a local variable. Probe errors unregister the device,
-while successful probe leaves no way for twl_remove() to release it. The
-platform device therefore remains registered after the I2C driver unbinds.
+k10temp matches the Hygon F3 device, but derives the node passed to
+amd_smn_read() from the F3 PCI slot using the AMD fixed-slot mapping
+(slot - 0x18). Hygon PCI slots do not encode DF node identity, and
+their SMN roots are grouped by socket.
 
-Register a managed action on the I2C device immediately after adding the
-platform device. This unregisters it on probe failure and driver unbind,
-and also handles failure to register the action itself. Remove the manual
-error-path unregister to avoid releasing the device twice.
+The derived node number therefore cannot identify a valid Hygon SMN
+target or provide usable temperature monitoring. Removing the match
+does not disable a working monitoring path.
 
-This issue was identified during our ongoing static-analysis research while
-reviewing kernel code.
+Remove the Hygon PCI match and Family 0x18 branch. Hygon temperature
+monitoring will use the Hygon node and SMN interfaces in a separate
+series.
 
-Fixes: defa6be1c821 ("mfd: Fix compile for twl-core.c by removing cpu_is_omap usage")
+Fixes: d93217d84c6c ("hwmon: (k10temp) Add Hygon Dhyana support")
 Cc: stable@vger.kernel.org
-Assisted-by: OpenAI:GPT-5.6
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-Link: https://patch.msgid.link/20260913205013.54777-1-mhun512@gmail.com
-Signed-off-by: Lee Jones <lee@kernel.org>
+Signed-off-by: Lin Wang <wanglin@open-hieco.net>
+Link: https://patch.msgid.link/20260921055603.25112-6-wanglin@open-hieco.net
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
 ---
- drivers/mfd/twl-core.c | 23 +++++++++++++++--------
- 1 file changed, 15 insertions(+), 8 deletions(-)
+ Documentation/hwmon/k10temp.rst | 8 +++-----
+ drivers/hwmon/k10temp.c         | 5 ++---
+ 2 files changed, 5 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/mfd/twl-core.c b/drivers/mfd/twl-core.c
-index b7d749208131b..7fbce76efd305 100644
---- a/drivers/mfd/twl-core.c
-+++ b/drivers/mfd/twl-core.c
-@@ -719,6 +719,11 @@ static const struct mfd_cell twl6032_cells[] = {
- 	{ .name = "twl6032-clk" },
- };
+diff --git a/Documentation/hwmon/k10temp.rst b/Documentation/hwmon/k10temp.rst
+index 91b99adc6c487..9680c4f3383c3 100644
+--- a/Documentation/hwmon/k10temp.rst
++++ b/Documentation/hwmon/k10temp.rst
+@@ -28,8 +28,6 @@ Supported chips:
  
-+static void twl_unregister_device(void *data)
-+{
-+	platform_device_unregister(data);
-+}
-+
- /* NOTE: This driver only handles a single twl4030/tps659x0 chip */
- static int
- twl_probe(struct i2c_client *client)
-@@ -754,17 +759,22 @@ twl_probe(struct i2c_client *client)
- 		return status;
- 	}
+ * AMD Family 17h processors: "Zen", "Zen 2"
  
-+	status = devm_add_action_or_reset(&client->dev, twl_unregister_device,
-+					  pdev);
-+	if (status)
-+		return status;
-+
- 	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C)) {
- 		dev_dbg(&client->dev, "can't talk I2C?\n");
- 		status = -EIO;
--		goto free;
-+		goto out;
- 	}
- 
- 	twl_priv = devm_kzalloc(&client->dev, sizeof(struct twl_private),
- 				GFP_KERNEL);
- 	if (!twl_priv) {
- 		status = -ENOMEM;
--		goto free;
-+		goto out;
- 	}
- 
- 	if ((id->driver_data) & TWL6030_CLASS) {
-@@ -784,7 +794,7 @@ twl_probe(struct i2c_client *client)
- 					 GFP_KERNEL);
- 	if (!twl_priv->twl_modules) {
- 		status = -ENOMEM;
--		goto free;
-+		goto out;
- 	}
- 
- 	for (i = 0; i < num_slaves; i++) {
-@@ -880,7 +890,7 @@ twl_probe(struct i2c_client *client)
- 		status = devm_mfd_add_devices(&client->dev, PLATFORM_DEVID_NONE,
- 					      cells, num_cells, NULL, 0, NULL);
- 		if (status < 0)
--			goto free;
-+			goto out;
- 
- 		if (of_device_is_system_power_controller(node)) {
- 			if (!pm_power_off)
-@@ -896,10 +906,7 @@ twl_probe(struct i2c_client *client)
- fail:
- 	if (status < 0)
- 		twl_remove(client);
--free:
--	if (status < 0)
--		platform_device_unregister(pdev);
+-* AMD Family 18h processors: "Hygon Dhyana"
 -
-+out:
- 	return status;
- }
+ * AMD Family 19h processors: "Zen 3"
  
+   Prefix: 'k10temp'
+@@ -128,7 +126,7 @@ it.
+ Models from 17h family report relative temperature, the driver aims to
+ compensate and report the real temperature.
+ 
+-On Family 17h and Family 18h CPUs, additional temperature sensors may report
+-Core Complex Die (CCD) temperatures. Up to 8 such temperatures are reported
+-as temp{3..10}_input, labeled Tccd{1..8}. Actual support depends on the CPU
++On Family 17h CPUs, additional temperature sensors may report Core Complex
++Die (CCD) temperatures. Up to 8 such temperatures are reported as
++temp{3..10}_input, labeled Tccd{1..8}. Actual support depends on the CPU
+ variant.
+diff --git a/drivers/hwmon/k10temp.c b/drivers/hwmon/k10temp.c
+index 3e7e63edc6a30..e0a7211a513ca 100644
+--- a/drivers/hwmon/k10temp.c
++++ b/drivers/hwmon/k10temp.c
+@@ -64,7 +64,7 @@ MODULE_PARM_DESC(force, "force loading on processors with erratum 319");
+ #define F15H_M60H_HARDWARE_TEMP_CTRL_OFFSET	0xd8200c64
+ #define F15H_M60H_REPORTED_TEMP_CTRL_OFFSET	0xd8200ca4
+ 
+-/* Common for Zen CPU families (Family 17h and 18h and 19h and 1Ah) */
++/* Common for Zen CPU families (Family 17h, 19h and 1Ah) */
+ #define ZEN_REPORTED_TEMP_CTRL_BASE		0x00059800
+ 
+ #define ZEN_CCD_TEMP(offset, x)			(ZEN_REPORTED_TEMP_CTRL_BASE + \
+@@ -475,7 +475,7 @@ static int k10temp_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+ 		data->read_tempreg = read_tempreg_pci;
+ 	}
+ 
+-	if (boot_cpu_data.x86 == 0x17 || boot_cpu_data.x86 == 0x18) {
++	if (boot_cpu_data.x86 == 0x17) {
+ 		switch (boot_cpu_data.x86_model) {
+ 		case 0x1:	/* Zen */
+ 		case 0x8:	/* Zen+ */
+@@ -583,7 +583,6 @@ static const struct pci_device_id k10temp_id_table[] = {
+ 	{ PCI_VDEVICE(AMD, PCI_DEVICE_ID_AMD_1AH_M60H_DF_F3) },
+ 	{ PCI_VDEVICE(AMD, PCI_DEVICE_ID_AMD_1AH_M70H_DF_F3) },
+ 	{ PCI_VDEVICE(AMD, PCI_DEVICE_ID_AMD_1AH_M90H_DF_F3) },
+-	{ PCI_VDEVICE(HYGON, PCI_DEVICE_ID_AMD_17H_DF_F3) },
+ 	{}
+ };
+ MODULE_DEVICE_TABLE(pci, k10temp_id_table);
 -- 
 2.53.0
 
