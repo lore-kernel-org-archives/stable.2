@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050712;
-	b=G9+9AQ0qVuqFyEIVAGt7TKsmCyhV686OrZktL+RjWmkMnF1jUnwbwdXBX/pV8/syyLH3
-	 qAHH74sx58b0vkVEFpyz3AJV+v+7Ur7Sq4lrirMdCKMTN576ej3DE1XmvRdEkKQQ54y+g
-	 pPnRG49xiv2AyEX0r4g3QTiEP4Q2Avp+y8AVfIVVQoke+WGB10BtitZOunkE4DqYcbWMo
-	 YbjggroUMrqTmpgiPLOINRget+BVC1KBikTWLJdCQAwP0ZpufcSoWHMjHD/veGmbRCHB7
-	 NyZKgVlYyBN3BDSibmXFI6VHp3N2gc2Y//J0Jrq17h530pTgbaxjp7qBit22q5HnfcA==
+	t=1794050715;
+	b=atyiNaLjrafammsPo5nObBicOWoFbUJPG3PKaQpgrzTobtkvpH84vvp9zvJha09DEZ4Z
+	 U52Yo5cbDg2g8zQ03N6tTx51cP9tYGfFxAtjQfHvMZRXeZ2cTDOP6Cj+tpe79bVKHxmo/
+	 PBcGS3QpAqlMVCYDXhwleZutCgVAh70LURGaRi511PGdoja3bFl/VrLpy3MdgVEG5w5LW
+	 73q0cN78MHlrrBnxWU40ZAvksFtUIQQcrdc8ty/+CWoquDYRWeRzGD5XWeVxXPIAbQQxc
+	 sH0xsWEElHLMGpfhD9Pu9Av0F5BxT8bluxwCXS0Rfuw2n9H4Pvpqn75o+WOkTzMmwgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050712;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050715;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=cpzRiL/TPyvkhfML9OpfRWY95rfp3RGPq1O7mg2c+dg=;
-	b=VKT1p8Zkd8GTEv2Wwu+MOkNaRvDzI/E7xuv2KDGcINn3c7hxoYuqdlcx/r+b3eVJDvuK
-	 3sp1tL3sGE37YkMAKiZDsfqiiGulJRqSR5gVsrTWlNXK7GqG1oBQ59anz3b3HMQ3oen/y
-	 z9sJqB+o/o0M7H84HEgmCtrL7CDKhr3Bs1nBnQ/j1xTzFbMHa4qNwwJ+94sGL4sGAfJhF
-	 YWQwUaPbkLX3D3mR7+yr4UYYEZmk0ippOCIK18QW92lIFLV04+JBeN90mmBQqgpPI4xWz
-	 UuPraZmaKOeNeS4LOyo4asBdROlL7/GNsfl8PMBwvVHPd6OYqOuY75u16Kvm787nO7Q==
+	bh=0DxORi/5sA2ru2mlRUTnTFdyrgQAlCKujmQRYUMjbZY=;
+	b=tXKpW802qsMbPU1WO4WRAuf3cOzQEHNGJThlB5qAX7e0kPMT4fi1tREoyjVUyuMFguJ9
+	 2xu7iXxQSrOIsVfDix43lVLW3xGiMZm0388z68Da7AsUpxxXBOFE24p0PGC7gjNVFUE/v
+	 84hxZ93y6M213T0qblKelATXAR1GygrS32K9kOebWfXqmuZJG1KdHQBY3r2HNkIqK0SF5
+	 kOFID1OeA6tV7Ad0fT7k75EP2PY0HHh8E74Ue6mMe/sc9RX1ZdclekCsFyhQ7Ju8pRiXu
+	 vBiwwmiUCx8Z8cBie0i7p9dL+ySUGFnYjMAk/anmvXfdyAf+/KsPYRGlR79So7Bqujg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IGgbTxq9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="T97o0/wA";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 849F9606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:25:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97E6C606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:25:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IGgbTxq9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA02A1F0089F;
-	Sat,  7 Nov 2026 11:25:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T97o0/wA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02AAA1F0089F;
+	Sat,  7 Nov 2026 11:25:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050712;
-	bh=cpzRiL/TPyvkhfML9OpfRWY95rfp3RGPq1O7mg2c+dg=;
+	s=k20260515; t=1794050715;
+	bh=0DxORi/5sA2ru2mlRUTnTFdyrgQAlCKujmQRYUMjbZY=;
 	h=From:To:Cc:Subject:Date;
-	b=IGgbTxq9URuVuJEPk+x8A9846mgbLrcNXXv7Le5YDT8iOGnhAOJYwxr1TuJjs/Cwo
-	 w4wWZf8l0sOweyir+7JtyU90JpYq9w+d5x0fiJ3U8qpx8W2EKJGzAcHulxnLi9fSn4
-	 29oilu+8QzXpB7evmWeX6vn9fB/NeymdlN99nmZlGVY7Y6PLLZkxQisOxdz6uyiJL6
-	 vx0SRP3gqFjXgRUaQxEY//bQFubzQb+eCE/X1OI8MgoVQlnd8xvr4Ncj6jNmJoiOn2
-	 nYNGQenJX3LHwhvPW1G9LDu5NxuiVwpN5O7gt/QYEk2/NitF7m4U6INqrlhd6gEYYq
-	 oFtSc8PjEU9nQ==
+	b=T97o0/wAuPI2QMdQB2TO2QpoxPM5X+4eC+RNEfJ9GivKXethkWwIaqLREZaaXuug4
+	 ByvD4UApiEuYKBBSyNhP7iKBetqxcP59jwukYeV0RPYczLJwBKyQKu81Pm8uAevE6b
+	 yqyCisazNwjmYIQH4v13fDOMhSn2w9Tq5g8GOife9ZotR5grKb2IHcbwRNy1ks/4UB
+	 gYcy3p96Csk0teuTCJyD4X3rC8EvHQ3P88owGHn/l/OMZjdI45psHT3hE6gLvMvTPG
+	 emfCj52nE+nwwP338xiZnZ+Wc1KMZEjTHPRINabgXsYM4+sDyh1EtAURkIiBXMUxtO
+	 f8AJmu/73/p4A==
 From: Sasha Levin <sashal@kernel.org>
-To: liuc63@xiaopeng.com,
-	liuwb@xiaopeng.com,
-	fw@strlen.de,
+To: kylebot@openai.com,
+	david.lee@trailofbits.com,
 	pablo@netfilter.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] netfilter: nf_conntrack_netlink: fix inverted IPv6 tuple filter" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:25:10 -0500
-Message-ID: <20261107062510-failed-5.10-cd37ab22a74e@kernel.org>
+Subject: FAILED: patch "[PATCH] netfilter: nf_reject: initialize IPCB at inet ingress" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:25:13 -0500
+Message-ID: <20261107062513-failed-5.10-73a73d442f99@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,64 +69,88 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x cd37ab22a74e05aae5c16c67295cbf5188b16268
+git cherry-pick -x 73a73d442f9986353fe284bd1b504d0313d0f153
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062510-failed-5.10-cd37ab22a74e@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062513-failed-5.10-73a73d442f99@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From cd37ab22a74e05aae5c16c67295cbf5188b16268 Mon Sep 17 00:00:00 2001
-From: Liu Chao <liuc63@xiaopeng.com>
-Date: Mon, 19 Oct 2026 15:56:26 +0800
-Subject: [PATCH] netfilter: nf_conntrack_netlink: fix inverted IPv6 tuple
- filter
+From 73a73d442f9986353fe284bd1b504d0313d0f153 Mon Sep 17 00:00:00 2001
+From: Kyle Zeng <kylebot@openai.com>
+Date: Wed, 7 Oct 2026 23:01:00 +0200
+Subject: [PATCH] netfilter: nf_reject: initialize IPCB at inet ingress
 
-ctnetlink_filter_match_tuple() returns 0 (no match) when the IPv6
-source or destination address differs from the filter, because the
-!ipv6_addr_cmp() test is inverted.  ipv6_addr_cmp() returns 0 when
-the addresses are equal, so the negation makes the branch trigger on
-a match instead of a mismatch, which is the opposite of the IPv4
-path above.
+The inet ingress hook runs before ip_rcv_core() and ip6_rcv_core(), so
+neither IPCB nor IP6CB has been initialized when nft_reject_inet passes
+a packet to nf_send_unreach() or nf_send_unreach6(). skb->cb can
+therefore retain metadata from an earlier protocol layer.
 
-Drop the '!' so the IPv6 branch returns 0 only when the addresses
-differ, matching the IPv4 semantics and the caller's expectation.
+For IPv4, icmp_send() treats IPCB(skb)->opt as parsed IPv4 options.
+Stale option offsets can make __ip_options_echo() copy an
+attacker-controlled length into its 40-byte reply option buffer and
+overflow the stack. On an unpatched v7.2-rc5 kernel, the IPv4
+reproducer produced:
 
-Fixes: cb8aa9a3affb ("netfilter: ctnetlink: add kernel side filtering for dump")
+  BUG: KASAN: stack-out-of-bounds in __ip_options_echo()
+  Write of size 255
+
+For IPv6, icmpv6_send() consumes IP6CB(skb) as parsed IPv6 metadata. It
+always uses iif for source selection and, when MIP6 is enabled, uses
+dsthao as an extension-header offset. These fields must not be stale.
+
+For NF_INET_INGRESS, clear the address-family-specific control block and
+restore its input interface before constructing the ICMP error.  This
+matches similar initialization normally performed by ip_rcv_core() and
+ip6_rcv_core().
+
+Fixes: 117ca1f8920c ("netfilter: nft_reject_inet: allow to use reject from inet ingress")
 Cc: stable@vger.kernel.org
-Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
-Reviewed-by: Weibin Liu <liuwb@xiaopeng.com>
-Reviewed-by: Florian Westphal <fw@strlen.de>
+Assisted-by: Codex:gpt-5.6-sol Codex:gpt-5.5-cyber
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+Co-developed-by: David Lee <david.lee@trailofbits.com>
+Signed-off-by: David Lee <david.lee@trailofbits.com>
 Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
 ---
- net/netfilter/nf_conntrack_netlink.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ net/ipv4/netfilter/nf_reject_ipv4.c | 5 +++++
+ net/ipv6/netfilter/nf_reject_ipv6.c | 5 +++++
+ 2 files changed, 10 insertions(+)
 
-diff --git a/net/netfilter/nf_conntrack_netlink.c b/net/netfilter/nf_conntrack_netlink.c
-index 4e5d7c7014368..cc8695d5356d2 100644
---- a/net/netfilter/nf_conntrack_netlink.c
-+++ b/net/netfilter/nf_conntrack_netlink.c
-@@ -1098,13 +1098,13 @@ static int ctnetlink_filter_match_tuple(struct nf_conntrack_tuple *filter_tuple,
- 		break;
- 	case NFPROTO_IPV6:
- 		if ((flags & CTA_FILTER_FLAG(CTA_IP_SRC)) &&
--		    !ipv6_addr_cmp(&filter_tuple->src.u3.in6,
--				   &ct_tuple->src.u3.in6))
-+		    ipv6_addr_cmp(&filter_tuple->src.u3.in6,
-+				  &ct_tuple->src.u3.in6))
- 			return 0;
+diff --git a/net/ipv4/netfilter/nf_reject_ipv4.c b/net/ipv4/netfilter/nf_reject_ipv4.c
+index 59ec465a9df98..7cb33af671e26 100644
+--- a/net/ipv4/netfilter/nf_reject_ipv4.c
++++ b/net/ipv4/netfilter/nf_reject_ipv4.c
+@@ -357,6 +357,11 @@ void nf_send_unreach(struct sk_buff *skb_in, int code, int hook)
+ 	if (!skb_valid_dst(skb_in) && nf_reject_fill_skb_dst(skb_in) < 0)
+ 		return;
  
- 		if ((flags & CTA_FILTER_FLAG(CTA_IP_DST)) &&
--		    !ipv6_addr_cmp(&filter_tuple->dst.u3.in6,
--				   &ct_tuple->dst.u3.in6))
-+		    ipv6_addr_cmp(&filter_tuple->dst.u3.in6,
-+				  &ct_tuple->dst.u3.in6))
- 			return 0;
- 		break;
- 	}
++	if (hook == NF_INET_INGRESS) {
++		memset(IPCB(skb_in), 0, sizeof(*IPCB(skb_in)));
++		IPCB(skb_in)->iif = skb_in->skb_iif;
++	}
++
+ 	if (skb_csum_unnecessary(skb_in) ||
+ 	    !nf_reject_verify_csum(skb_in, dataoff, proto)) {
+ 		icmp_send(skb_in, ICMP_DEST_UNREACH, code, 0);
+diff --git a/net/ipv6/netfilter/nf_reject_ipv6.c b/net/ipv6/netfilter/nf_reject_ipv6.c
+index 07cdaa10da0d0..5e08d8529cc88 100644
+--- a/net/ipv6/netfilter/nf_reject_ipv6.c
++++ b/net/ipv6/netfilter/nf_reject_ipv6.c
+@@ -444,6 +444,11 @@ void nf_send_unreach6(struct net *net, struct sk_buff *skb_in,
+ 	if (hooknum == NF_INET_LOCAL_OUT && skb_in->dev == NULL)
+ 		skb_in->dev = net->loopback_dev;
+ 
++	if (hooknum == NF_INET_INGRESS) {
++		memset(IP6CB(skb_in), 0, sizeof(*IP6CB(skb_in)));
++		IP6CB(skb_in)->iif = skb_in->skb_iif;
++	}
++
+ 	if (!skb_valid_dst(skb_in) && nf_reject6_fill_skb_dst(skb_in) < 0)
+ 		return;
+ 
 -- 
 2.53.0
 
