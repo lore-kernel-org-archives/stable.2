@@ -1,53 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048040;
-	b=OhIKXGcNAjG1PwOloSXxWPhINvyGY+UH4Rlyq2PlpFXJoRrebmpuRfybblgKWXUCHwxA
-	 Hx95V1BZcJV1F/BH6UJrezQFhkfGB5lggB9et+OpIyQOaJGR4EQ1B2hesuBT7v/Y0Q+hs
-	 W5rE197aVLb4uElebiv0RU5stJXJ8xyNQkY8mJSG7kGbhxSvoEt3rskGQbrL2Kw3orWkf
-	 Fz5oBEFjH71y6dfCgYrUdhNoyJYG46byg4NqK1VVQry5M3CB3WPdkEv+NwcUw02wq0Fzd
-	 6jODhtrXmiUC/9fjysLO0/lGCAcGH74lRqEe8fNHNaN9gOOPj4idm0vTNtbC9w90pLw==
+	t=1794048043;
+	b=xKvu9x2RCXlLw2D4YYJdW9sJoWUbXd4VQNcWvzf65psAumPFDuZPqe/QNr8PQ953YWzG
+	 N0ar5b4JE3u7Ltu6v5RQ/4YSBAbcRRdj5yRB084Cjt5WK6AYsAYyZ8CWIPzOU0okLpDOj
+	 HZnccHgAIlZnpN+nqXdn17OxWk+D45m4wQ7+Uc6/OdXhRyHl9LR3PG9lsyoq2uYqfM8NK
+	 +I+I8NRv6l/RYtN4nc/WvhgcZtCTHbVdxbPn2nrETR+2ifOULZbynohU15iQI0cZtavz8
+	 5D03VSWttD0LfXeeKY24CjVjOz8bXFo67qljJ5Cbo0SCaQbuGmqKIx7M9jdmQ7GuOUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048040;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048043;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ZUp8FN4R0FjMgMk3iXBf5s2UjuljWqsGJoV2OECJkSA=;
-	b=3vYmOQAu39clUKvh1lyfRWJREuBsx0eV7exmpxoprNOI4crSXlx5DX6KuzIBy/mUXj5d
-	 V+FVrpyEHwQyWgZ/GcRu8US42/FDVTKcqRTIxZpOHhgOpJ6fnhHr//ha4Oh3bmGyFsz2z
-	 ShwgI8o7U3w1SS8CS+zT69cmMpubkKJnYpXo3VELMxmYmMHtClV9TKeZllBKhw34/KCG4
-	 +tPUWlFIQVjHIQuAoAOdXtdg/455K9dD8Pieo9xwaZt2yoKOffuIFp55a1GxRBy6+fzIz
-	 8u2n6Ztvw4btSB8QNkS2PfYnV1tu0Z86gnEzmB3ypf2plUjWwD7za2lCMN/Jx6KmUpQ==
+	bh=RIc1Oq9s8jN0FmB41bjinqu+Ru+oDadgoS6Wg5EQB3Q=;
+	b=TWoG85e6UT3oRC8vgRm6U5pnXgKILyrpIGejeKs8Q6P6i/UWENQzz8g2Wyw4WVbO7Fa+
+	 jI+gOI86EZUNwVAtAcq7DPV4rsGS6OeDn5BLxk504twSUXfunm8O3j+3p26+V/ikDZVqx
+	 8MDtMFwapUQXQiK3NaQeinEoFk15NEwdxnB2x+mRGSzLDywVXHuxcFPSIbrbCxPmT3AsX
+	 Rzd/2x5AxVSXgyZsdBl5hKlUtwvxxJIlZXJlCAOJU67yxCSnFMyJ8oQTaNmNrJpX/MhF7
+	 H7Et9hG5UfVR0zVzEWFhOt4lMsvdkDpoXTVDNM4H7hEYUG9EBbhIeKCumU73RUxu7Hw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RkLSicIy;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JBgAkeDE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 914BD606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:40:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8D67606A332
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:40:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RkLSicIy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D86D01F0089F;
-	Sat,  7 Nov 2026 10:40:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JBgAkeDE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2644C1F0089F;
+	Sat,  7 Nov 2026 10:40:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048040;
-	bh=ZUp8FN4R0FjMgMk3iXBf5s2UjuljWqsGJoV2OECJkSA=;
+	s=k20260515; t=1794048042;
+	bh=RIc1Oq9s8jN0FmB41bjinqu+Ru+oDadgoS6Wg5EQB3Q=;
 	h=From:To:Cc:Subject:Date;
-	b=RkLSicIy04DKizKPlAQE8x6CpproAMz9uJB5ivt0zL2dFI1gR/S9BnApDXpES6S+H
-	 UgSmZs5Al/2JL3veP6n6a82TeY+SzKj03usU3uA+tTKgKxXFhcLrdVZVqF/a5Q0Qfa
-	 sOd2yEQLB14zgGAZ2w3+aIKzHwtE/tAa8FAeSnOaujqQSiXj2eDYIdD3t11GHdUsZ7
-	 FI42Kq2CjPo1pHtI0/ER0lsfdLIUugxXsFnLtycEXf/shrecs/gxuQs9fEnyPVAXzx
-	 eND7prr3cr1ifgtUAEVpW5MP/BPwovV1Xz75sC98p+zLIg7eRPhjUcuoUGGg+Qk6pF
-	 tKfoPzGkINgUw==
+	b=JBgAkeDE+miF5GtjdmmXgAjwrxO2jJdPNVGEe5QqlpfiLobGMDRptxTfjfLPcfEkx
+	 5/g8/U3ayDbySYm6Cw1/Vm1OC06rT78xVW+CNQ72gWxiK1B/yHNZ92PDs8dZRQhWTe
+	 LU6nie+8fcI8yDrB7g37HZEqb2B7PusEAj+u8IbB01x5wtixoYItvchp6ZvbM4oVhp
+	 /ihpBQi3Uz+Guq4zzPTsOKhYgiVhI+8m+xfiKUKub3JyaVpdFnd8Vz/Em4Sfwhdb+X
+	 AcoCCwiBNI30dbNf3lr1sSeQwPxNtKcIi2GwWYV01NYZnPTRn3yNir5dUgXjlmOlP7
+	 D0l9rH3Eep2aw==
 From: Sasha Levin <sashal@kernel.org>
-To: cenzhang@linux.microsoft.com,
-	francis@akrites.dev,
-	autonomouscodesecurity@microsoft.com,
+To: georgia.garcia@canonical.com,
 	john.johansen@canonical.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] apparmor: fix query_data() output overlapping the lookup key" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:40:38 -0500
-Message-ID: <20261107054038-failed-6.6-d30844001360@kernel.org>
+Subject: FAILED: patch "[PATCH] apparmor: fix profile leak when a policy load fails" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:40:41 -0500
+Message-ID: <20261107054041-failed-6.6-ce94927fa417@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,119 +68,116 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x d30844001360a403a511cf24fc75ecaa6a7a7544
+git cherry-pick -x ce94927fa4173fcc1eca27bdc65a140064c8f1e6
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054038-failed-6.6-d30844001360@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054041-failed-6.6-ce94927fa417@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From d30844001360a403a511cf24fc75ecaa6a7a7544 Mon Sep 17 00:00:00 2001
-From: "Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>
-Date: Mon, 12 Oct 2026 17:57:03 -0400
-Subject: [PATCH] apparmor: fix query_data() output overlapping the lookup key
+From ce94927fa4173fcc1eca27bdc65a140064c8f1e6 Mon Sep 17 00:00:00 2001
+From: Georgia Garcia <georgia.garcia@canonical.com>
+Date: Wed, 14 Oct 2026 19:08:21 -0300
+Subject: [PATCH] apparmor: fix profile leak when a policy load fails
 
-In query_data(), buf and query point into the same multi_transaction
-buffer: buf at the start, query a few bytes in, and the lookup key
-right after the label string that query points to. Reusing the buffer
-is by design and is safe as long as the query is fully parsed before
-buf is written to, but the key is not: it is dereferenced on every
-iteration of label_for_each_confined(), after output has already been
-written. So when the label has more than one profile with a data
-table, the data of the first matching profile is written to buf while
-the key is still needed, and overwrites it if the data is large enough.
-The later lookups then run on a corrupted key. Besides, if the data has
-no NUL byte from the key's position to the end of the allocation,
-strhash() -> strlen() -> jhash() reads past the 4096-byte slab object,
-triggering an out-of-bound read:
+The error paths of aa_replace_profiles() and aa_unpack() do not break
+the refcount cycle between label and proxy. They just aa_put_profile()
+the new profiles, which drops the label refcount from 2 to 1, and the
+proxy keeps the profile alive. Every failed atomic policy load
+(e.g. "profile can not be replaced", or a later profile in the blob
+failing to unpack) leaks every new profile in the set, along with its
+proxy, rules and its loaddata reference.
 
-  BUG: KASAN: slab-out-of-bounds in jhash+0x595/0x5e0
-  Read of size 1 at addr ff1100001159d000 by task exploit/155
-  CPU: 0 UID: 1000 PID: 155 Comm: exploit Not tainted 7.3.0-rc7 #1
-  Call Trace:
-   jhash+0x595/0x5e0
-   aa_write_access+0x880/0x1400
-   vfs_write+0x26f/0xd20
-   ksys_write+0x115/0x210
+The leak is usually not visible from userspace, because the raw_data
+directory for a failed load is not created, but it becomes visible
+when the blob is deduplicated onto an existing loaddata, which then
+keeps its policy/raw_data/<rev> directory forever.
 
-Writing to the .access file is unprivileged (0666), but triggering this
-requires loaded profiles that carry a data table, which needs
-CAP_MAC_ADMIN and is not the case on default distribution policies.
+Add aa_put_unpublished_profile(), which drops the profile's own proxy
+before putting the profile, and use it on those error paths. The
+proxy of an unpacked profile is always freshly allocated and not
+referenced by anything else before the profile is published, so
+putting it is safe.
 
-Fix by copying the key with kstrdup() before writing any output to buf,
-so the key stays valid across all loop iterations regardless of what
-gets written to the overlapping buffer.
-
-Fixes: 317d9a054e1c ("apparmor: update query interface to support label queries")
-Cc: stable@vger.kernel.org # v4.13+
-Cc: Francis Perron <francis@akrites.dev>
-Reported-by: AutonomousCodeSecurity@microsoft.com
-Signed-off-by: Cen Zhang (Microsoft) <cenzhang@linux.microsoft.com>
+Fixes: 637f688dc3dc ("apparmor: switch from profiles to using labels on contexts")
+Cc: stable@vger.kernel.org
+Signed-off-by: Georgia Garcia <georgia.garcia@canonical.com>
 Signed-off-by: John Johansen <john.johansen@canonical.com>
 ---
- security/apparmor/apparmorfs.c | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
+ security/apparmor/include/policy.h | 20 ++++++++++++++++++++
+ security/apparmor/policy.c         |  3 +++
+ security/apparmor/policy_unpack.c  |  4 +++-
+ 3 files changed, 26 insertions(+), 1 deletion(-)
 
-diff --git a/security/apparmor/apparmorfs.c b/security/apparmor/apparmorfs.c
-index 5b42140e12e87..9df06fdd894f3 100644
---- a/security/apparmor/apparmorfs.c
-+++ b/security/apparmor/apparmorfs.c
-@@ -919,7 +919,7 @@ static void profile_query_cb(const struct aa_profile *profile,
- static ssize_t query_data(char *buf, size_t buf_len,
- 			  char *query, size_t query_len)
- {
--	char *out;
-+	char *out, *keydup;
- 	const char *key;
- 	struct label_it i;
- 	struct aa_label *label, *curr;
-@@ -941,11 +941,18 @@ static ssize_t query_data(char *buf, size_t buf_len,
- 	if (buf_len < sizeof(bytes) + sizeof(blocks))
- 		return -EINVAL; /* not enough space */
+diff --git a/security/apparmor/include/policy.h b/security/apparmor/include/policy.h
+index 0dcbf8cf1029a..bb851654cb80f 100644
+--- a/security/apparmor/include/policy.h
++++ b/security/apparmor/include/policy.h
+@@ -436,6 +436,26 @@ static inline void aa_put_profile(struct aa_profile *p)
+ 		kref_put(&p->label.count.count, aa_label_kref);
+ }
  
-+	/* buf overlaps query, keep a copy of the key for the later lookups */
-+	keydup = kstrdup(key, GFP_KERNEL);
-+	if (!keydup)
-+		return -ENOMEM;
-+
- 	curr = begin_current_label_crit_section(&needput);
- 	label = aa_label_parse(curr, query, GFP_KERNEL, false, false);
- 	end_current_label_crit_section(curr, needput);
--	if (IS_ERR(label))
-+	if (IS_ERR(label)) {
-+		kfree(keydup);
- 		return PTR_ERR(label);
++/**
++ * aa_put_unpublished_profile - put a profile that was never made visible
++ * @p: profile  (MAYBE NULL)
++ *
++ * A newly allocated profile and its proxy reference each other
++ * (proxy->label holds a label refcount). That cycle is normally broken
++ * when the profile is replaced or removed, which redirects the proxy.
++ * A profile that is discarded before being added to the policy tree
++ * never goes through either path, so break the cycle here, otherwise
++ * the profile, its proxy and its rawdata are leaked.
++ */
++static inline void aa_put_unpublished_profile(struct aa_profile *p)
++{
++	if (p && p->label.proxy) {
++		aa_put_proxy(p->label.proxy);
++		p->label.proxy = NULL;
 +	}
- 
- 	/* We are going to leave space for two numbers. The first is the total
- 	 * number of bytes we are writing after the first number. This is so
-@@ -963,13 +970,14 @@ static ssize_t query_data(char *buf, size_t buf_len,
- 		if (!profile->data)
- 			continue;
- 
--		data = rhashtable_lookup_fast(profile->data, &key,
-+		data = rhashtable_lookup_fast(profile->data, &keydup,
- 					      profile->data->p);
- 
- 		if (data) {
- 			if (out + sizeof(outle32) + data->size > buf +
- 			    buf_len) {
- 				aa_put_label(label);
-+				kfree(keydup);
- 				return -EINVAL; /* not enough space */
- 			}
- 			outle32 = __cpu_to_le32(data->size);
-@@ -981,6 +989,7 @@ static ssize_t query_data(char *buf, size_t buf_len,
- 		}
++	aa_put_profile(p);
++}
++
+ static inline int AUDIT_MODE(const struct aa_profile *profile)
+ {
+ 	if (aa_g_audit != AUDIT_NORMAL)
+diff --git a/security/apparmor/policy.c b/security/apparmor/policy.c
+index bfe969b869577..63f7821b4dfff 100644
+--- a/security/apparmor/policy.c
++++ b/security/apparmor/policy.c
+@@ -1462,6 +1462,9 @@ ssize_t aa_replace_profiles(struct aa_ns *policy_ns, struct aa_label *label,
  	}
- 	aa_put_label(label);
-+	kfree(keydup);
+ 	list_for_each_entry_safe(ent, tmp, &lh, list) {
+ 		list_del_init(&ent->list);
++		/* new was never added to the policy tree */
++		aa_put_unpublished_profile(ent->new);
++		ent->new = NULL;
+ 		aa_load_ent_free(ent);
+ 	}
  
- 	outle32 = __cpu_to_le32(out - buf - sizeof(bytes));
- 	memcpy(buf, &outle32, sizeof(outle32));
+diff --git a/security/apparmor/policy_unpack.c b/security/apparmor/policy_unpack.c
+index 7ebffb4ff74fa..35dfa3b451f39 100644
+--- a/security/apparmor/policy_unpack.c
++++ b/security/apparmor/policy_unpack.c
+@@ -1822,13 +1822,15 @@ int aa_unpack(struct aa_loaddata *udata, struct list_head *lh,
+ 
+ fail_profile:
+ 	kfree(ns_name);
+-	aa_put_profile(profile);
++	aa_put_unpublished_profile(profile);
+ 
+ fail:
+ 	if (compressed_data)
+ 		kvfree(compressed_data);
+ 	list_for_each_entry_safe(ent, tmp, lh, list) {
+ 		list_del_init(&ent->list);
++		aa_put_unpublished_profile(ent->new);
++		ent->new = NULL;
+ 		aa_load_ent_free(ent);
+ 	}
+ 
 -- 
 2.53.0
 
