@@ -1,52 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046276;
-	b=L3Bmq0kPgT9+1ebuFIIZk2vY6Opnscp2n7aD+U556iG4wZo7qnY0LmvZYvvvZtbRzIhl
-	 EnPhnQkUUyGcwWYR8rm+cX6Pkm+gNgOhMiElYSDpSXE1C8kK7L/xwM5U4QopRdVg+GdeL
-	 B1WATMWO7oxhZ61Fjqad0h7LJklUwJFo43HptPn0wtIyPCXf6Ir4z8qApzfXPpi3zriry
-	 R9fn30NXM3OdO+BQSKa473nSLNP9gfkzwp/7Z0tmUrBTj8ffKFOhyjwCmZyBVs/GNQM1p
-	 sZImHzn8E/sTBNREqZxd2KXlxsP2auwe+0D7UAEG4IAc6MiYvzUiRsw0PdlX0j88Z1g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046276;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=2BHbGc/WaAj/UnPdqFq/KXkOD/et86lllTbx9nFp2ro=;
-	b=JjkzJbMQozlQ6yAeOBE6DRloeDBIy1lhlrhs8hwgfOjvwi2KqhVJzXzzGWqBe++rxNeF
-	 WGEd6+EfDcGBuNj/Zw2cvFgAz16F3SAN1wiadAf7pQdKiwmtpP9eqXNEMvQd550TAzrIX
-	 Vsc7qbtVnlxUrKwT9exktEIo5+REUpKt8zqzZfAwbiTGbBnvBp5QZNZxX1Udi/ZckT4js
-	 n3/4E9jtRvrLHL4P4SdwW9JN2jfP6lBJ/uDptlXfHKHFQPAJnkwb9RG+0i+jNih6bYrFE
-	 EpANZaAni74HRxLMgFZqLnhtACoqvta3/y8MezG8PlkSgn9UiydwjG73DKCy2niJoVg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kPh7a7Mm;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.162
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794046277;
+	b=iDu71o6RQzuQcssWmhgcNjohqEFyQS+YO6rl1aJw56sZrGot0VWGGJOb2S1/fqC/5EhD
+	 OPgzZ8CMohpOvVEebrUyRgzFXDsCdxPNyQfgDs+AVQySvvf8V1knyZQ2hkOS28VEMQnT2
+	 3NErkBkHJ93qoEXa7h+9Nr3UaueefdN3ORPlEp4XfRuYb9eHWncHtIM0KmScjR4X+2kWS
+	 N+VdkM7AF0GiH6Aos7eAQxL5+f7emy2TI5b2VrDwcgMeEuTPBRDaveVueKqDXVZh3DpKt
+	 F8iCoUXTfzu0UR9Fs+aK8+adSHhpR1oHo9t4XMJGFiWNLplgQsTlQScRcDwK2b7tY1A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046277;
+	h=DMARC-Filter:DKIM-Signature:Date:Subject:In-Reply-To:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:From:To:Cc:Message-ID:
+	 References:X-SimpleLogin-Type:X-SimpleLogin-EmailLog-ID:
+	 X-SimpleLogin-Want-Signing;
+	bh=D8qnkZYaP8QEiEnWStUV7Ol/+8QaugHXvxXWg6fF5ic=;
+	b=kKIUi097DgPzTx/jI380K9jLywwOlst+kNZMTi2DCNL5/Km6WE9lcNItXHC9Zx+eCNx1
+	 M9mozFIE71aBhMYFs6asjeyHVcoLfd89/4LQWsTpdjPmKtuIkhxQk5cfr533wWyWNlObO
+	 ZgrnGO0UT4meOdpvCHPB1jba+P+GYJgwFQPO25+e/RIUjRL0XR4HUtUzxZIs/+kUaq6Kz
+	 bAWf7VhbvQkgA+oenCAkF+rX0qNTuCpDpHSxiWKQYEMIHpJPMuZptMbi47/5Tf2UywD16
+	 +SZJcx9Dy2dMNzy+UmF19YTAAAUoaeVySKGkC5DcRY99CSVMdyT4xH6hVNDfiPVS5EA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=eldare.de;
+	spf=pass smtp.mailfrom=eldare.de;
+	dkim=pass header.d=eldare.de header.i=@eldare.de header.a=rsa-sha256 header.s=dkim header.b="q+//nBJo";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.162
+Received: from mail-200162.simplelogin.co (mail-200162.simplelogin.co [176.119.200.162])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BC40606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEE81606A330
 	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:11:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEE81606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=eldare.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eldare.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kPh7a7Mm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB3F81F0089F;
-	Sat,  7 Nov 2026 10:11:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046276;
-	bh=2BHbGc/WaAj/UnPdqFq/KXkOD/et86lllTbx9nFp2ro=;
-	h=From:To:Cc:Subject:Date;
-	b=kPh7a7MmXbdXD6WzmS6aetuX2GkuDRwmsEP3NwkdU1bzIN35u7O2olJsYdn8ICEu8
-	 8ranTbHypw7MhUZ5obn4hsiEGWlNN08rg10adXTWHmWsrJnGhUXjWV/9ewKk9QDQrS
-	 8VS9XI7UalmdKzogQ+vZZ+17TNIfZ+Y+IoRc6XYU8Xn2g6xQHTsgO1sDCLznTMbCHW
-	 6Untlh9GXX4unOVgk4hydI1++C5730Gtv5bAKiLp7tR3Oxp5TAF1druYV+lmNuCwV3
-	 QuiATUkA3P2pMiW8k8yynYXm6jYdB0Abi/gSke7sYnfaML9yiqi826jnfAFBkxvQmL
-	 WkmqU/jScSn0w==
-From: Sasha Levin <sashal@kernel.org>
-To: chao@kernel.org,
-	jaegeuk@kernel.org
-Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] f2fs: fix to invalidate curseg if change_curseg() fails" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:11:14 -0500
-Message-ID: <20261107051114-failed-6.18-e74476ad8162@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key, unprotected) header.d=eldare.de header.i=@eldare.de header.a=rsa-sha256 header.s=dkim header.b=q+//nBJo
+ARC-Seal: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626; t=1794046269;
+	cv=none; b=inMcURBaUnnmiFzBKA0XFDIgVEEXX6wZRINKCIAG6GakaHqeqKniiZkuGe2Hl77ebLtKhQp6gQyV2RBapiDzNs8B4QAMYgxtUtkPgoTH9yB88cTo30qmi5A88N/P9LkXEs/KkS6Ci0ch8L6tCyq7ui22YvPEKZIGNkzxk0Qz4dxnsGhzhSHdevDx/to6ttjyx66JrdfkeiczcGjyrqrF6DxVz4Y86bBOFXKDDHL8ik3cZ9+1gyEfkKrPLBstzbOg2smHdoRhn3WgqZ25M8z4/KIg68uOK1RfT2KzfW+LudGYMAzsLH7kwL/uXLtbfpleusZci3sWuuxna41qcgJ9UQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626;
+	t=1794046269; c=relaxed/simple;
+	bh=jVDqDvrRQsAZ22D6DF6i3XHA4gMN1HWL8uRQDdFvR2U=;
+	h=Date:Subject:In-Reply-To:From:To:Cc:References; b=LzapzOb5NdiOrSUdwgDyf+5xQCwbWMDd4DY56oaTxXK+EAAVDN2u6ldDaBdJsyL7hTTxv6RrLXnE54UDt2aEGapXY0CyEg5mCxCoS+rzKBA3Sv7zJQHipU0di43i19gE7nP8LeslauPhr+yrzoaD6Pe+MSwzlqFUb0QCKtBstU9dFXe0ffhvONP/XMWd4fEw33EFx8jfSfwp36sBU5+2h0KcvUzJ3X+BOpTkuEGLoivu+JksELgFaCOKWsr2PDtnMrlzy9mAXuLC97l6trOfwUY1RGmJ8WeKCOvFPrtpooEws93grPUv/yGIXgqoZq45kUukBsm3CbR7t/YQjuKj3w==
+ARC-Authentication-Results: i=1; mail.protonmail.ch
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=eldare.de; s=dkim;
+	t=1794046269;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=D8qnkZYaP8QEiEnWStUV7Ol/+8QaugHXvxXWg6fF5ic=;
+	b=q+//nBJoIM/k20Tl2DfPZ86y9MIYto7smEAAHF+Mbho6wezvb9NVx3efTxHoM1gM4akVOI
+	GImpZhMCtnE4iNLR79mmLuSp0jX/7jMu3/UPo6mh4+B4EBOA28fiegBaHurnZ259ukBvPl
+	vktk03EjoFqtNdVvf+8M0AA6ZnzelbU=
+Date: Sat, 07 Nov 2026 10:11:02 +0000
+Subject: Re: [PATCH net v4 1/2] vsock/bpf: release sock lock while waiting for
+ data in recvmsg
+In-Reply-To: <DMOM2SFCFHYK.3BT44IQ90X9UB@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -56,143 +64,54 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+From: jrmmhm.kernel@eldare.de
+To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Cc: Stefano Garzarella <sgarzare@redhat.com>,Bobby Eshleman
+ <bobbyeshleman@meta.com>,"David S. Miller" <davem@davemloft.net>,Eric Dumazet
+ <edumazet@kernel.org>,Jakub  Kicinski <kuba@kernel.org>,Paolo Abeni
+ <pabeni@redhat.com>,Simon  Horman <horms@kernel.org>,"Michael S. Tsirkin"
+ <mst@redhat.com>,Michal Luczaj
+ <mhal@rbox.co>,virtualization@lists.linux.dev,netdev@vger.kernel.org,linux-kernel@vger.kernel.org,bpf@vger.kernel.org,stable@vger.kernel.org
+Message-ID: <179404626756.7.5004773530941890450.1753698952@eldare.de>
+References: <20261106-kbh3-1-022-fix-v2-v4-0-c7d36703814d@eldare.de>
+ <20261106-kbh3-1-022-fix-v2-v4-1-c7d36703814d@eldare.de>
+ <DMOM2SFCFHYK.3BT44IQ90X9UB@gmail.com>
+X-SimpleLogin-Type: Reply
+X-SimpleLogin-EmailLog-ID: 1753699010
+X-SimpleLogin-Want-Signing: yes
 
-The patch below does not apply to the 6.18-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+On Sat, 07 Nov 2026 02:09:17 +0000, Alexei Starovoitov wrote:
+> No need for a 2nd copy of the return values.
+[...]
+>   recv()                          no sockmap    this series   the diff
+>   ------------------------------  ------------  ------------  -----------
+>   after a virtio reset            -ENOTCONN     -ECONNRESET   -ENOTCONN
+>   after a reset, len =3D=3D 0         -ENOTCONN     0             -ENOTCO=
+NN
+>   after a reset, MSG_OOB          -ENOTCONN     -EOPNOTSUPP   -ENOTCONN
+>   after peer shutdown, SO_INQ on  0 + SCM_INQ   0             0 + SCM_INQ
+>   asleep when the reset comes     -ECONNRESET   -ECONNRESET   -ENOTCONN
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Agreed. I ran your diff in a guest with the reproducers of this series:
+the deadlock, the dataless wakeup, signal, timeout, peer shutdown,
+MSG_ERRQUEUE and MSG_OOB cases behave as with v4, with no KASAN, lockdep
+or hung task report. In the first four rows of your table the sockmap
+socket now returns exactly what a native one returns.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
-git checkout FETCH_HEAD
-git cherry-pick -x e74476ad8162c1facc74b74ce2d1372492df872e
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051114-failed-6.18-e74476ad8162@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+The last row is confirmed as well. I'd accept that and say so in the
+commit message, since it only changes which error a reader of an
+already reset connection sees.
+
+> None of these tests sleeps in vsock_msg_wait_data().
+> The sockmap tests call select() before recv() or pass MSG_DONTWAIT.
+> vmtest.sh doesn't use sockmap.
+
+Right. v5 won't cite them as coverage of this change.
+
+v5 will be a single patch based on your diff, with your Suggested-by.
 
 Thanks,
-Sasha
-
------------------- original commit in Linus's tree ------------------
-
-From e74476ad8162c1facc74b74ce2d1372492df872e Mon Sep 17 00:00:00 2001
-From: Chao Yu <chao@kernel.org>
-Date: Tue, 13 Oct 2026 10:55:38 +0000
-Subject: [PATCH] f2fs: fix to invalidate curseg if change_curseg() fails
-
-Our consistency stress test (fsstress + fio + atomic write workers +
-"f2fs_io shutdown 1") triggers below kernel BUG:
-
- F2FS-fs (vdd): Stopped filesystem due to reason: 0
- ------------[ cut here ]------------
- kernel BUG at fs/f2fs/segment.c:3989!
- Oops: invalid opcode: 0000 [#1] SMP KASAN PTI
- Workqueue: writeback wb_workfn (flush-253:48)
- RIP: 0010:f2fs_allocate_data_block+0x257a/0x38e0
- Call Trace:
-  <TASK>
-  do_write_block+0x155/0xc10
-  f2fs_outplace_write_data+0x192/0x340
-  f2fs_do_write_data_page+0xc57/0x1880
-  f2fs_write_single_data_page+0xda9/0x15a0
-  f2fs_write_cache_pages+0x973/0x1f20
-  __f2fs_write_data_pages+0x6c4/0x1890
-  do_writepages+0x21e/0x560
-  __writeback_single_inode+0x119/0x11b0
-  writeback_sb_inodes+0x67d/0x17a0
-  wb_writeback+0x207/0x820
-  wb_workfn+0x128/0xc30
-  process_one_work+0x925/0x1600
-  worker_thread+0x60a/0xff0
-  kthread+0x35f/0x460
-  ret_from_fork+0x474/0x7e0
-  ret_from_fork_asm+0x1a/0x30
-  </TASK>
-
-The BUG is f2fs_bug_on(sbi, curseg->next_blkoff >= BLKS_PER_SEG(sbi))
-in f2fs_allocate_data_block(), next_blkoff was 512.
-
-The root cause is a race in between atomic write commit and shutdown
-as below:
-
-Thread A (commit atomic write)  Thread B (shutdown)        Thread C (writeback)
-- f2fs_ioc_commit_atomic_write
- - f2fs_commit_atomic_write
-  - __f2fs_commit_atomic_write
-   - __replace_atomic_write_block
-    - f2fs_replace_block
-     - __f2fs_replace_block
-                                - f2fs_ioc_shutdown
-                                 - f2fs_do_shutdown
-                                 : F2FS_GOING_DOWN_METASYNC
-                                  - f2fs_sync_fs
-                                                           - f2fs_write_single_data_page
-                                                           : pass f2fs_cp_error() check
-                                  - f2fs_stop_checkpoint
-                                  : set CP_ERROR_FLAG
-      - change_curseg
-       - reset_curseg
-       : curseg->segno = new_segno
-       : curseg->alloc_type = SSR
-       : curseg->next_blkoff = __next_free_blkoff()
-         which is BLKS_PER_SEG if there is no free
-         slot in new_segno
-       - f2fs_get_sum_cache
-       : return -EIO due to f2fs_cp_error()
-      : return error w/o restoring curseg
-     : goto out_unlock, skip restoring
-       old segno, blkoff and alloc_type
-                                                            - f2fs_do_write_data_page
-                                                             - f2fs_outplace_write_data
-                                                              - do_write_block
-                                                               - f2fs_allocate_data_block
-                                                               : curseg->segno is valid
-                                                               : f2fs_bug_on(next_blkoff >=
-                                                                 BLKS_PER_SEG)
-
-Since commit 86f33603f8c5 ("f2fs: handle errors of
-f2fs_get_meta_page_nofail"), change_curseg() can fail after the curseg
-has already been switched to the new segment, then the curseg is left
-in an inconsistent state: it points to a segment which may have no
-free slot, its summary block is zeroed, and the caller can not restore
-it. Subsequent block allocation on the curseg will trigger the BUG.
-Moreover, the writeback thread dies with curseg_lock, curseg_mutex and
-sentry_lock held, so the commit, shutdown and other I/O threads hang
-in D state.
-
-Since change_curseg() only fails once CP_ERROR_FLAG is set, no
-checkpoint will be committed afterward, let's invalidate the curseg via
-reset_curseg_fields() on failure, as new_curseg() does for -ENOSPC,
-then f2fs_allocate_data_block() will fail with -ENOSPC on the curseg
-instead of triggering BUG, and do_write_block() can handle the error
-since CP_ERROR_FLAG has been set.
-
-Cc: stable@kernel.org
-Fixes: 86f33603f8c5 ("f2fs: handle errors of f2fs_get_meta_page_nofail")
-Signed-off-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
----
- fs/f2fs/segment.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
-index dab66ab3311d5..453f9284ec863 100644
---- a/fs/f2fs/segment.c
-+++ b/fs/f2fs/segment.c
-@@ -3243,6 +3243,7 @@ static int change_curseg(struct f2fs_sb_info *sbi, int type)
- 	if (IS_ERR(entry)) {
- 		/* GC won't be able to use stale summary blocks by cp_error */
- 		memset(curseg->sum_blk, 0, sbi->sum_entry_size);
-+		reset_curseg_fields(curseg);
- 		return PTR_ERR(entry);
- 	}
- 	sum_node = SUM_BLK_ENTRY_ADDR(sbi, entry, new_segno);
--- 
-2.53.0
-
-
-
+Jerome
 
