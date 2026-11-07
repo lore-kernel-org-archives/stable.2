@@ -1,53 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046943;
-	b=DZWRRmTrT/9dGScuSy4EmLHGA4UZQF0zQNwvq7031Yy9B33USWlYlsl8iysZcB2o6zrs
-	 GS0ImIkDxOjMBl9qv74/Q2BV97fbnrQWVVYwMjKuPhN7ZcEh9grad3fJ2VgktblPwjacf
-	 rhCkvb/eqRl1pj0ftCV6PFX194ADo2dSLl+lJoHd1HWLWjkoIan2u5KQigP4rGY5BPRF+
-	 L//HN5cBjGNh1AiwwGtDtuZISviN0CEB+60uosVuav7mP+DxlujcUNJwWNGd4RrnEFXAt
-	 PwCGt3bTVEggRUzso2biuiBdDEd+Qnf+hsN1Ix1kS5tA1mBhcL9kmQXvhALaJaxUt4g==
+	t=1794046946;
+	b=u8aHOihOry4ObIoU2ne+2d4a4fZZI7m7bNipN1PiItCxTkojOydVmAsQaV+VVuGjEzpY
+	 vnrE1LciivLj/p5GobAuoyPrncd7t9/kqFhhOLjZOG1/nabQTgw4QDCclkAAKgSjXi4fE
+	 p6ayZgnkYrKv+lXQ6DXKY4MLKY2n0KfC1zGip3jELUn3OLnYTeIWdN5/93GWJnWf/OPe4
+	 LVgeVHFCl4PIQn9D/sMBvveJ5ulbYcgt7bSz867NdSKel9LmezDIB7T2j8Jo0myWNqcFe
+	 cxOUHwpY8IJYQy33rE/DTE8DcravuHYF7dzBldO6stVBImsIr7etgOmqwpRQvkbUKag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046943;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046946;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Muy1I0walUDS47H3Ow0BUqQO60yKZA2xePbMNrxRg5o=;
-	b=x/50DnL5pYRUr5WTEi4Y/krr7SwUz6BKm0hhSGjP3hZvguyaroE25DdIr0JI5XLg3WP8
-	 t9ROQqnMRlUr7yc4JzwUVigfJjzjal7JKl16tU4KyWCfI9ZJWrneUf4WIjRXC+nC/OTI0
-	 uYnJ9v4f04Vfh5UMueMG0ISEUSFGB/KdKeVVJcheK6T7BH6fvrDCOM0NBh77xS4KFoVEk
-	 4XeINVyzqq5DePsHct2FbvEUBZCp3YjW2TsGvr/6Om+UFHWGSopiWU1S2aWlClmcB5ak1
-	 Zow6ZHszrXr6VjBuqhNl8dKDFoO4Q/0blQkXUfZwMMWxvCKYQThf+4gcBPYi4neeA/A==
+	bh=PmIRptGtgBn1re/taVXoQs7YS1qQu5ffO2wrOojrRiU=;
+	b=FCu+AaORZtR7QP6uQwaBPRQieL93AhIjIKJ2RGLqke50xXJ2iDgdRQVCEiu8nXWQAp1Q
+	 0Gs96QlyTx8I6fykcxTDEizj7icRVGASDsAJblKrW6eDmSNF9aOCzQpX1F3DdgaMt5pC2
+	 lrtx+wn1j5S34mIPbZv34l7c6H49N1B2HjPsB7VA94TBWyFSIfML9bw5Wuyr4hFkwEES6
+	 +XPigKjYEs3VcOWgYWI4iGHbxc0mIryBx3bVwolT+J9fbVOUMA89grPH0CuEGKnBFr/fX
+	 PSyQyEYL9MYH7BH2JmOfi4YVwwwJoXE3fXyC5AD69uqjqgGekZDT8aFYouY0sTznSmw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YEducWEB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QV1VbYHa;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75DB1606A8C0
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:22:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBAEE606A8C8
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:22:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YEducWEB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BED321F0089F;
-	Sat,  7 Nov 2026 10:22:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QV1VbYHa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 158001F0089F;
+	Sat,  7 Nov 2026 10:22:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046943;
-	bh=Muy1I0walUDS47H3Ow0BUqQO60yKZA2xePbMNrxRg5o=;
+	s=k20260515; t=1794046945;
+	bh=PmIRptGtgBn1re/taVXoQs7YS1qQu5ffO2wrOojrRiU=;
 	h=From:To:Cc:Subject:Date;
-	b=YEducWEBTKZ9xeAMQPhhohijqB4AIW4vyeIFfkD2daGK6mLd8+ICMv2WQYwiOOLdi
-	 SXQcXE/rxM+mXMIecXlqPT6yv6MicQMiGBSg1PAuK/svqcleU+GeclqlLHRXuhov7H
-	 Ld3m8PCr2LjoLkymVuB1CtfD086TBQc+uscL/xfiYXNQ+3cg2+05779YkvDgizgG8U
-	 xlMkAzXPiYBtlU5Gol/xVvIeNiXdxQEjS8aGxdmwa0MtoohRIdP0jfkzszpFC6nNoK
-	 wNRWZ20jFKh0aXyzPHNKSy/S8Q2cQp1WPbk9S/WzwlJ8BHFR5evtMAkTLUq+0X45UJ
-	 RNS6EilgFXmug==
+	b=QV1VbYHamdazEaArf0HvFi6XCV/YpbUiSMAW01D1hxhTrYkh1XwMYQR/JkZrl9jHf
+	 kI/MuEz/hV2NAX0cSbCxz6anq+kzZr3eBBz8+7Lbm3mesn6oWQel1sDCrXHjlntGM1
+	 CvgyopxIcOydyhgqDPndbIKiNNys0VwK/eNEFCS23s9fdekl9ANiyOwgegfeKetmk+
+	 bX8eaDU61Q94SAOlhHUS+B3IFB4oG+yhdw26E+zky0K5idmdQbXjFtAdj3HGBHl4a1
+	 yUgv0vfOP3UOB0TQn0fiN2vLKugWeE2F9rNTz6htct7U5a+7L9IzMrTvA77b9zb3G/
+	 ScduInbJBD25g==
 From: Sasha Levin <sashal@kernel.org>
-To: soyer@irl.hu,
-	g.wenzel@gmail.com,
-	philippdev5396@outlook.de,
-	tiwai@suse.de
+To: gkobakhi@asu.edu,
+	akpm@linux-foundation.org,
+	xmei5@asu.edu,
+	joseph.qi@linux.alibaba.com,
+	mark@fasheh.com,
+	jlbec@evilplan.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ALSA: hda/tas2781: Skip invalid TAS2563 UEFI calibration data" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:22:21 -0500
-Message-ID: <20261107052221-failed-6.12-a0f0325e92e5@kernel.org>
+Subject: FAILED: patch "[PATCH] ocfs2: fix array out of bound access in __ocfs2_find_path()" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:22:23 -0500
+Message-ID: <20261107052223-failed-6.12-6193ce7896af@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,53 +72,98 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x a0f0325e92e505db6a6879d79da5aa88e94a36ab
+git cherry-pick -x 6193ce7896afb52a321a0063c8b6a45e477a84e2
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052221-failed-6.12-a0f0325e92e5@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052223-failed-6.12-6193ce7896af@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From a0f0325e92e505db6a6879d79da5aa88e94a36ab Mon Sep 17 00:00:00 2001
-From: Gergo Koteles <soyer@irl.hu>
-Date: Tue, 13 Oct 2026 15:02:21 +0200
-Subject: [PATCH] ALSA: hda/tas2781: Skip invalid TAS2563 UEFI calibration data
+From 6193ce7896afb52a321a0063c8b6a45e477a84e2 Mon Sep 17 00:00:00 2001
+From: Giorgi Kobakhia <gkobakhi@asu.edu>
+Date: Tue, 22 Sep 2026 13:21:59 -0700
+Subject: [PATCH] ocfs2: fix array out of bound access in __ocfs2_find_path()
 
-Some Lenovo 14ARB7 laptops do not have proper calibration data.
+__ocfs2_find_path() walks down the extent tree and records path by calling
+find_path_ins(), which appends entry to path->p_node[].  It only has 5
+spots.
 
-Skip these zero calibration values and fall back to the calibration data
-provided by the DSP firmware.
+A corrupted ocfs2 image whose extent block is pointing to itself causes
+__ocfs2_find_path() descent endlessly, writing past the end of
+path->p_node[] array.
 
-Tested-by: Georg Wenzel <g.wenzel@gmail.com>
-Fixes: c3ca4458cc2f ("ALSA: hda/tas2781: add TAS2563 support for 14ARB7")
-Cc: stable@vger.kernel.org # 6.18
-Signed-off-by: Gergo Koteles <soyer@irl.hu>
-Tested-by: Philipp Oster <philippdev5396@outlook.de>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Link: https://patch.msgid.link/12a1ab265a1dc0e3a062a54287c8ef48682c4efc.1791895478.git.soyer@irl.hu
+ UBSAN: array-index-out-of-bounds in fs/ocfs2/alloc.c:677:14
+ index 5 is out of range for type 'ocfs2_path_item [5]'
+ Call Trace:
+  <TASK>
+  find_path_ins (fs/ocfs2/alloc.c:677 fs/ocfs2/alloc.c:1914)
+  __ocfs2_find_path.constprop.0 (fs/ocfs2/alloc.c:1882)
+  ocfs2_commit_truncate (fs/ocfs2/alloc.c:1924 fs/ocfs2/alloc.c:7286)
+  ocfs2_truncate_file (fs/ocfs2/file.c:515)
+  ocfs2_setattr (fs/ocfs2/file.c:1224)
+  notify_change (fs/attr.c:556)
+  do_truncate (fs/open.c:68)
+  do_ftruncate (fs/open.c:194 (discriminator 1))
+  ksys_ftruncate (fs/open.c:206)
+  __x64_sys_ftruncate (fs/open.c:211 fs/open.c:209 fs/open.c:209)
+
+Commit a406aff8c051 ("ocfs2: validate l_tree_depth to avoid out-of-bounds
+access") already restricts el->l_tree_depth to be less than
+OCFS2_MAX_PATH_DEPTH, which is equal to 5.  However, does not handle the
+infinite descent case.
+
+Check if the el->l_tree_depth decreases on each descent.  Maximum descents
+are restricted to 4 and the path->p_node[] array does not overflow.
+
+Link: https://lore.kernel.org/20260922202159.2421642-1-gkobakhi@asu.edu
+Fixes: dcd0538ff4e8 ("ocfs2: sparse b-tree support")
+Signed-off-by: Giorgi Kobakhia <gkobakhi@asu.edu>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Tested-by: Xiang Mei <xmei5@asu.edu>
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Assisted-by: LLM
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: <stable@vger.kernel.org>
 ---
- sound/hda/codecs/side-codecs/tas2781_hda_i2c.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ fs/ocfs2/alloc.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c b/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c
-index cff8fab8133a8..44855f593daf8 100644
---- a/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c
-+++ b/sound/hda/codecs/side-codecs/tas2781_hda_i2c.c
-@@ -372,6 +372,11 @@ static int tas2563_save_calibration(struct tas2781_hda *h)
- 					i, j, status);
- 				return -EINVAL;
- 			}
-+			if (*(uint32_t *)&data[offset] == 0) {
-+				dev_warn(p->dev,
-+					 "Dev %d: Caldat[%d] is zero\n", i, j);
-+				return -EINVAL;
-+			}
- 			bedata = cpu_to_be32(*(uint32_t *)&data[offset]);
- 			memcpy(&data[offset], &bedata, sizeof(bedata));
- 			offset += TAS2563_CAL_DATA_SIZE;
+diff --git a/fs/ocfs2/alloc.c b/fs/ocfs2/alloc.c
+index 2fdc5403b10b0..fc949e5946269 100644
+--- a/fs/ocfs2/alloc.c
++++ b/fs/ocfs2/alloc.c
+@@ -1844,6 +1844,7 @@ static int __ocfs2_find_path(struct ocfs2_caching_info *ci,
+ 	int i, ret = 0;
+ 	u32 range;
+ 	u64 blkno;
++	u32 prev_depth = OCFS2_MAX_PATH_DEPTH;
+ 	struct buffer_head *bh = NULL;
+ 	struct ocfs2_extent_block *eb;
+ 	struct ocfs2_extent_list *el;
+@@ -1851,14 +1852,16 @@ static int __ocfs2_find_path(struct ocfs2_caching_info *ci,
+ 
+ 	el = root_el;
+ 	while (el->l_tree_depth) {
+-		if (unlikely(le16_to_cpu(el->l_tree_depth) >= OCFS2_MAX_PATH_DEPTH)) {
++		if (unlikely(le16_to_cpu(el->l_tree_depth) >= prev_depth)) {
+ 			ocfs2_error(ocfs2_metadata_cache_get_super(ci),
+-				    "Owner %llu has invalid tree depth %u in extent list\n",
++				    "Owner %llu has invalid tree depth %u in extent list (max %u)\n",
+ 				    (unsigned long long)ocfs2_metadata_cache_owner(ci),
+-				    le16_to_cpu(el->l_tree_depth));
++				    le16_to_cpu(el->l_tree_depth), prev_depth - 1);
+ 			ret = -EROFS;
+ 			goto out;
+ 		}
++		prev_depth = le16_to_cpu(el->l_tree_depth);
++
+ 		if (!el->l_next_free_rec || !el->l_count) {
+ 			ocfs2_error(ocfs2_metadata_cache_get_super(ci),
+ 				    "Owner %llu has empty extent list at depth %u\n"
 -- 
 2.53.0
 
