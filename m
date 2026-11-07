@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046292;
-	b=0uQk6vfxOvrjR7l9aaO7HYJWEuW+ZTs0jNsD4TaZ/NeG0uQf4qYvVIlPnVDEb39w3vlt
-	 eCOTVuqsZ620witHzrDaXS3FpNo/WkkkKqjvFUYRjn4LyNAAE7HT86hXnRU3znY5Xnb7k
-	 /sCOg9HE/sEMc+414mYCVgXHW/5NLYsRKXWO3F0p3+FECFkIYBNWGvKUIf5iMwk3C0rQ6
-	 6gUAOXWZ3LU/zPqQqRYpR4j+Sc8kmKZzUNhafUEdH4tR7uDpFi40hvHoqFeKMIvek/N3m
-	 ZWrOKYBc3t5NmT88Ooj5wu47zR83P8hqXrClH8gr8DAUbOK1Y9PINta/yNSOxa0l8Zg==
+	t=1794046294;
+	b=gndXSepOeA9kr4Uvjg5AkRPCh0TFBMvzXUwY4OqvnROks7RNHX5/H4BMAIRXwEybwTx7
+	 bBmgNhtT0ttyic8SRTCQJLNqM2eEI0szMRCQqmQwJwRaXPWUylVBHjjXER2iR7VNKh8El
+	 5BTIP2O3amRwoW1/ZrmzHlNPRfzpCnBfB92oWIQm7ZhpRBpBwQfbkpykxQuCEgmc0BTfm
+	 qpDK2SwJ/CsMSBwEF18cMMgxHwbG6V+itSrk9GM/IrQ2/l+O3Sa9b6rm0o/5C5EtvbVVz
+	 NNNMeid/YHCO02Jxt0S4tcHKDbk8BY1XEi1dcN67kvQLHAFbeehphPPq864CN/dDGog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046292;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046294;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=WVddohZgSfr1RVAmXuhW3OUqHMAv2FmS4xqL29kMKhM=;
-	b=aWtonJGztxEHx4RYqqHLTypUKU+cTgL/wRn8folHCXj4C4fdjdT9b9UHKv+EOxo0gHUt
-	 z+wWhAkEqmKvOo+wrxCaeFQuMkiJQTjPe9z/PPDND7fJewNFaWBu0G/sItYZVtjjW/25O
-	 CGyCQ931bGHBxL2JC0QRQKrxN8osS+fi90FV0loD51l3O6g1etp6KgFoLf4HjFQgDnBbf
-	 jNO9sJmHxAH8ldJj0OBaa4uWA0qcxO+jhosQEPwY7b/ozy/EvXn1yzD9X7N6HBBEamWJL
-	 ugt59BLYyc7uyG8gNlSMY8Aug2qTMryGsGeVmXABiEJlHW0DDq3IYdIlxHwzjSh5/Mw==
+	bh=PDbnU6sQR6UtvUDPSTwEZhsP3enYDQhsj6fbexf+4Uw=;
+	b=nURBYxg4UdfMTNNRh+AueNmV40C+bhanPmb90woSqtEok12eDxam5s+383wPFFb48vqh
+	 W2Km9aVpP9bjp8WO9Dle0s3GoRDYmQHm1viqRDDnq+HtCXhmLRuS85dzuRzeaBcGhLnZ8
+	 o1WItw7m2DJRBwWwkMCL+WBVtV+veHajZBP78gWTcuEkBugzGaKQBpOAW9klFH0YNMki9
+	 ONeqY716NYQh0vUgjNcmfpq3YRx3r9mRD0gcv+2nL9Q9fWuD5FEeMAePlVcMiCtPdILp+
+	 HbyhGa0UHkkJK6MRBC4n1ZEpJRzDKJzYADPZSsrfTKSM7y73ggeIXgQ+eCw65TMp5/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fLEUmZsk;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cjQQqQVn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C03B2606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:11:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E423606A332
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:11:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fLEUmZsk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CF111F0089F;
-	Sat,  7 Nov 2026 10:11:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cjQQqQVn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59B3C1F0089F;
+	Sat,  7 Nov 2026 10:11:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046291;
-	bh=WVddohZgSfr1RVAmXuhW3OUqHMAv2FmS4xqL29kMKhM=;
+	s=k20260515; t=1794046293;
+	bh=PDbnU6sQR6UtvUDPSTwEZhsP3enYDQhsj6fbexf+4Uw=;
 	h=From:To:Cc:Subject:Date;
-	b=fLEUmZsk1C0GTcvWaGek+MFZOQ3apf0rKSjEVSKm/YjmVZIq2iQCu8i7o2e1Jojs0
-	 cXUfog0itWiE8sOdHv5D9JyVy0mw/Mii+9h0kGXx3a5ZQ/tkGwrjPJRbY5aRtc7WWZ
-	 YDSmEerd5RjXOW7lL3j+/+eth9w0ZjoaRo0waltmcv1chQLwR4+S85wSeiKG0EDeB1
-	 DKqkpivmSutsuw+0wS+uNo3A4je2TxQ4meLoJcxFmwqKMBZPTJ4GynYW5uFGhkzzz4
-	 zLw9/Qag89jJS/g+bwsLzbplexNdF5HvLs+bWqbm88jTi+XZfZL4IHebNoRzYjAEFW
-	 S4EooHrE/QYOQ==
+	b=cjQQqQVnA5IGFv8d9S6tN1Qz17Bqkg8EVqdpelNv1mYgQrdbrIiCjjH6XYjWFv8xM
+	 WSYIO6jtn2JTtrf6laIcyyckcEa43Nt/iQWM3ODGOeeWL8jVWGMaPSTI5IZ5Ylbw+U
+	 ZYP3WceH+q9ukiByGeIhahf7PNbYctuz97TBppbu08ETRgJJQ/+zrhyALN6Y283qvl
+	 9NXFpryT7DxAOTp5IAyx6ECBZrX6ZAHs7CMNj4XOg87YtsFv0AYEmMrsP7ppiQE5sh
+	 77J1VdCuXZUKaQ6VTHXuB+gPjNjDVqjdmQ/vd2SlSF7FjYn0SslJWMAWG91hsgvkxa
+	 Q+GB94ubUH0hw==
 From: Sasha Levin <sashal@kernel.org>
-To: oss@fourdim.xyz,
+To: junjie.cao@intel.com,
+	andrew.tsvetinskiy@gmail.com,
 	luiz.von.dentz@intel.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] Bluetooth: L2CAP: Reject signalling responses in invalid states" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:11:30 -0500
-Message-ID: <20261107051130-failed-6.18-6320736af7dc@kernel.org>
+Subject: FAILED: patch "[PATCH] Bluetooth: btusb: drop BROKEN_EXT_SCAN quirk for 0bda:a728" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:11:32 -0500
+Message-ID: <20261107051132-failed-6.18-df5e35f1663a@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,107 +69,86 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 6320736af7dcb90da6ee9fd651ecc11c564d45b7
+git cherry-pick -x df5e35f1663abc2702cf9f9e7eba024129ac5df1
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051130-failed-6.18-6320736af7dc@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051132-failed-6.18-df5e35f1663a@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 6320736af7dcb90da6ee9fd651ecc11c564d45b7 Mon Sep 17 00:00:00 2001
-From: Siwei Zhang <oss@fourdim.xyz>
-Date: Tue, 13 Oct 2026 11:36:34 -0400
-Subject: [PATCH] Bluetooth: L2CAP: Reject signalling responses in invalid
- states
+From df5e35f1663abc2702cf9f9e7eba024129ac5df1 Mon Sep 17 00:00:00 2001
+From: Junjie Cao <junjie.cao@intel.com>
+Date: Sun, 20 Sep 2026 10:02:27 +0800
+Subject: [PATCH] Bluetooth: btusb: drop BROKEN_EXT_SCAN quirk for 0bda:a728
 
-A peer can send configuration messages while an
-incoming channel is in BT_CONNECT2, before the
-security or deferred accept gate has completed. A
-configuration response can then promote the channel
-to BT_CONNECTED. Configuration responses can also
-act on channels that are closing, and a late connection
-response can move a disconnecting channel back to
-BT_CONFIG.
+Commit 5ead2063611a ("Bluetooth: btrtl: fix RTL8761B/BU broken LE
+extended scan") set HCI_QUIRK_BROKEN_EXT_SCAN on every RTL8761B, and
+commit ca0583c24661 ("Bluetooth: btusb: limit RTL8761B BROKEN_EXT_SCAN
+quirk to 0bda:a728") kept it on 0bda:a728 on the assumption that the
+USB id separates dongles with broken extended scan from those with a
+broken legacy scan path. It does not. An 0bda:a728 unit (RTL8761BUV,
+fw 0xdfc6d922) on 6.18.51 fails the same way the UB500 and 0bda:8771
+did: LE Set Scan Enable (0x200c) times out with -110 and btusb resets
+the device. With the flag removed from the table entry, scanning works
+on that unit.
 
-Accept connection responses only while waiting in
-BT_CONNECT. Answer configuration requests in
-BT_CONNECT2, but defer our own request until
-BT_CONFIG so configuration cannot complete before
-the gate. Ignore configuration responses outside
-BT_CONFIG and BT_CONNECTED, and only complete
-configuration in BT_CONFIG.
+Two dongles with the same USB id need opposite settings, so the device
+table cannot key the quirk either. The costs are not symmetric. Without
+the quirk, the unit it was written for gets -EBUSY on LE Set Extended
+Scan Enable (0x2042) while a connection is up. With it, 0x200c times
+out and btusb resets the device on three reported units, two of them in
+a re-enumeration loop.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Remove the flag and the table entry. 0bda:a728 matches the generic
+Realtek entry again and runs without the quirk, as before v7.2.
+
+Reported-by: Andy Tsvetinskiy <andrew.tsvetinskiy@gmail.com>
+Closes: https://lore.kernel.org/all/CAE4bxw+ofDFVx0aTHqCrzns9oP1CRQDm_wzeyHPeMBYOhSpcuA@mail.gmail.com/
+Fixes: 5ead2063611a ("Bluetooth: btrtl: fix RTL8761B/BU broken LE extended scan")
+Fixes: ca0583c24661 ("Bluetooth: btusb: limit RTL8761B BROKEN_EXT_SCAN quirk to 0bda:a728")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Siwei Zhang <oss@fourdim.xyz>
+Signed-off-by: Junjie Cao <junjie.cao@intel.com>
 Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
 ---
- net/bluetooth/l2cap_core.c | 20 +++++++++++++++++++-
- 1 file changed, 19 insertions(+), 1 deletion(-)
+ drivers/bluetooth/btusb_main.c | 8 --------
+ 1 file changed, 8 deletions(-)
 
-diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
-index c730da87734b3..eb55c16760a7e 100644
---- a/net/bluetooth/l2cap_core.c
-+++ b/net/bluetooth/l2cap_core.c
-@@ -4442,6 +4442,10 @@ static int l2cap_connect_create_rsp(struct l2cap_conn *conn,
+diff --git a/drivers/bluetooth/btusb_main.c b/drivers/bluetooth/btusb_main.c
+index cccdfb0461fee..3518f92ebbd3d 100644
+--- a/drivers/bluetooth/btusb_main.c
++++ b/drivers/bluetooth/btusb_main.c
+@@ -70,7 +70,6 @@ static struct usb_driver btusb_driver;
+ #define BTUSB_INTEL_NO_WBS_SUPPORT	BIT(26)
+ #define BTUSB_ACTIONS_SEMI		BIT(27)
+ #define BTUSB_BARROT			BIT(28)
+-#define BTUSB_BROKEN_EXT_SCAN		BIT(29)
+ #define BTUSB_QUALCOMM			BIT(30)
  
- 	lockdep_assert_held(&chan->conn->lock);
+ static const struct usb_device_id btusb_table[] = {
+@@ -650,10 +649,6 @@ static const struct usb_device_id quirks_table[] = {
+ 	{ USB_DEVICE(0x0489, 0xe130), .driver_info = BTUSB_REALTEK |
+ 						     BTUSB_WIDEBAND_SPEECH },
  
-+	/* Ignore a late response after the channel has left BT_CONNECT. */
-+	if (chan->state != BT_CONNECT)
-+		goto done;
-+
- 	switch (result) {
- 	case L2CAP_CR_SUCCESS:
- 		if (__l2cap_get_chan_by_dcid(conn, dcid)) {
-@@ -4471,6 +4475,7 @@ static int l2cap_connect_create_rsp(struct l2cap_conn *conn,
- 		break;
- 	}
+-	/* Realtek 8761BU Bluetooth devices */
+-	{ USB_DEVICE(0x0bda, 0xa728), .driver_info = BTUSB_REALTEK |
+-						     BTUSB_BROKEN_EXT_SCAN },
+-
+ 	/* Realtek Bluetooth devices */
+ 	{ USB_VENDOR_AND_INTERFACE_INFO(0x0bda, 0xe0, 0x01, 0x01),
+ 	  .driver_info = BTUSB_REALTEK },
+@@ -4754,9 +4749,6 @@ static int btusb_probe(struct usb_interface *intf,
+ 	if (id->driver_info & BTUSB_INVALID_LE_STATES)
+ 		hci_set_quirk(hdev, HCI_QUIRK_BROKEN_LE_STATES);
  
-+done:
- 	l2cap_chan_unlock(chan);
- 	l2cap_chan_put(chan);
- 
-@@ -4608,7 +4613,13 @@ static inline int l2cap_config_req(struct l2cap_conn *conn,
- 		goto unlock;
- 	}
- 
--	if (!test_and_set_bit(CONF_REQ_SENT, &chan->conf_state)) {
-+	/* A channel in BT_CONNECT2 has not passed security or userspace
-+	 * accept yet. Answer the peer's request, but hold our own until
-+	 * the channel reaches BT_CONFIG: the CONNECT2 -> CONFIG sites send
-+	 * it. Connected channels may also need to reconfigure.
-+	 */
-+	if ((chan->state == BT_CONFIG || chan->state == BT_CONNECTED) &&
-+	    !test_and_set_bit(CONF_REQ_SENT, &chan->conf_state)) {
- 		u8 buf[64];
- 		l2cap_send_cmd(conn, l2cap_get_ident(conn), L2CAP_CONF_REQ,
- 			       l2cap_build_conf_req(chan, buf, sizeof(buf)), buf);
-@@ -4661,6 +4672,10 @@ static inline int l2cap_config_rsp(struct l2cap_conn *conn,
- 
- 	lockdep_assert_held(&chan->conn->lock);
- 
-+	/* Connected channels may also receive reconfiguration responses. */
-+	if (chan->state != BT_CONFIG && chan->state != BT_CONNECTED)
-+		goto done;
-+
- 	switch (result) {
- 	case L2CAP_CONF_SUCCESS:
- 		l2cap_conf_rfc_get(chan, rsp->data, len);
-@@ -4728,6 +4743,9 @@ static inline int l2cap_config_rsp(struct l2cap_conn *conn,
- 	if (test_bit(CONF_OUTPUT_DONE, &chan->conf_state)) {
- 		set_default_fcs(chan);
- 
-+		if (chan->state != BT_CONFIG)
-+			goto done;
-+
- 		if (chan->mode == L2CAP_MODE_ERTM ||
- 		    chan->mode == L2CAP_MODE_STREAMING)
- 			err = l2cap_ertm_init(chan);
+-	if (id->driver_info & BTUSB_BROKEN_EXT_SCAN)
+-		hci_set_quirk(hdev, HCI_QUIRK_BROKEN_EXT_SCAN);
+-
+ 	if (id->driver_info & BTUSB_DIGIANSWER) {
+ 		data->cmdreq_type = USB_TYPE_VENDOR;
+ 		hci_set_quirk(hdev, HCI_QUIRK_RESET_ON_CLOSE);
 -- 
 2.53.0
 
