@@ -1,99 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794049148;
-	b=qIo7VQ1CbRLa4TtX9GZJ+tktEFCwQxAQ9U/NIUITbC7y68iHIuLQTqGgf1noRJMJ5nCQ
-	 zI7UqCot9iMnwBi67Q/TYq+birfwneQKjvEiWPKennJD2fMCCdAznX6US+C+ho7eESXDd
-	 W9Wf3uKbSkW/4BY94Zaa3VtSdOTkPIM3YOVNflczfLhLZ1ipizRabc+rKuJm2Xm575/xL
-	 /fWzL4WoeGjF6M83eNh8XKFOFZ/ljhEPvXrIJSsOblGgIk8p4oft4JBzRSohpKVL+CVQw
-	 tUolF/f51kxFT8PcFGXawo3R38qlR7kfZKilWXLhdJVJLNd80gJSN/Cos0z5HZTlHlg==
+	b=1ap1oiFAFOzKtW/TWbEn81Qf05PefH3UAdkUpwr9ofBwqmDjUJIhEw37OCIkptMv6zKA
+	 cKOw89Er5Osu6nOQaB4DpMoxJ8r+75d6a475AruRocRGO7NNEpnXQWRaVZ4k0sdfXt9ni
+	 uljtJVDR5TXqLNQ+8BrveIjgGn2uQi2erCpMrMg8Ytnd/0x5AsKbCUQi00m6JbQsN0cAP
+	 tVy20F6IFUvK1z5I4BilOgBFs/zDcWnO9WqIB0P4gRFnIcoWqu9nNbnWb1TXfPfTOaQ1u
+	 Gi1kfVZLnaUjazHK0aumy0EHU/zErgROYVASPc0S1YSxXTgZYVQRr+h8w0zc1LQ3Sxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794049148;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=uF3NLECGowX2y5BaUJvCNV96peqx+/eZQsYA4HOxfiA=;
-	b=VxnZuEqEzXCVDIeyrH0+n/QyEr1pCOMpI819srvCgLfHWtDMQ9zho1mDOdXlGpiDrEei
-	 pvJKzHVvlvm9Z343b437rHE8wrzk765WV6lqlwhLFLq4fl7QCBGRqDqDxfROgYJEHM3/Q
-	 GnqrPkxwPvrZU0xXWfzw9e0W8B1Iy72RA8UzeXezHE3kiVTKNSDNJ9yjjo+MpVV/sDrgj
-	 Wkc7TdiHO7wsBsbuhNMRbBI6JQ4oBRzshBMZFzh6qtg0I64o2Xy+iznmv0vaKLd6HPghX
-	 jA4T2h0BN543FhJe9lAP5/hKE2xKszBG5Bde33Mm0n5by/17Pp819QOsP7OA1UM9Usw==
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=EUpltpP+AhibnJfDWRCK0kZEPE8yME1VXzysDcArgZE=;
+	b=xWu2SphU3L9CRiUNkj/sref19KqxslJbUeZvxoU4GGRplMaIok+DfYDDRgQrhQnQyJpH
+	 PnAmwCVPIsh5fpttulbTOvDnSU+2/zDF8kwJpoQSNzh3v5pl5s+HoBebR7j0HddGN/cVm
+	 uix+Z8xbgwyVs6+ATb9PbcBZQjMvG27Vt+uAbET0MSJXbfRZdRehBEJXkHW8GOWfgac88
+	 OAadvIUbQGnegPddSl7qEogb+FMQZwedEAEFuUISRGRHh8Jvekm+eB2cjkr75GtlWLvPJ
+	 CT21QDhYXJMXD2nmSB0NCBhRDkq0TCNA1uJOhmGGSGdGqZag8ZYrXR4L1LhsVs/szjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AfRugtVJ;
-	arc=none smtp.remote-ip=209.85.218.53
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P2Cuh8GB;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 130E5606A330
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:59:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 130E5606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43C95606A336
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:59:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AfRugtVJ
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c434376dbebso78233466b.1
-        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 02:59:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794049146; x=1794653946; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uF3NLECGowX2y5BaUJvCNV96peqx+/eZQsYA4HOxfiA=;
-        b=AfRugtVJHHWWen0rD4EPsg5cpCcP0AekhrFA9Qt/I/sf0AYhVFxJuJiuAaP9JFZtp0
-         9yLwbTGPT4/921m5nXTYLd5LLMuzVqDb+Ws7u8HPuAjJhOuvma0tuCHivKiS2jNdBCbd
-         Wz/2t0HI7G5QShGuq54OjEk7kvdwGFSsGqXVnIcoWjEpg3G/J/CtiMvkKoRfVVlLkNx+
-         NJkDTTdZYy5W+2znJZcRy8D7Ua0T+MwIHdWnzM2+XXDCiUkOMVtqJJ2Hiyq6NpkpRckn
-         gjA0dptNa7A0UY0NPLF4MLzY+Q8D0vk98gXYz3ZTuFiaTAZDmSueug51qA028x3scVF/
-         fDyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794049146; x=1794653946;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uF3NLECGowX2y5BaUJvCNV96peqx+/eZQsYA4HOxfiA=;
-        b=JvCSwlg1h1OM+VNqWsQWXSKxRuwnTD0Ms+PB6W3Q4HhvIYJtx/1JmUEzup03RTaYnx
-         BkFTyPqkjaiUMs7lewB18KFyAt7d085m9iqhv3XTkVFejgkIZVWr34MTM3DQPY+TSzky
-         LEZMtuC/FXFCEeV4zChn3v0YY1a2oDKxKkrABs1QObWp62Za0Qupi8okkZ9vE3HZKWGM
-         ++Dua2Lo+sKE0sSlpV+fFSgamJBwDNn+dc8+wEEUmMN400ayogd0U7GSikzApS0InWvT
-         kHVd6Q72NmJMcHPU6hZO/KJvos0KwnxICy5vVabaJZh+9Ax+dDkS97wHOR6idhKoZUCb
-         xugQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzqx6xN04OekrPqbWVodwmp0LOo/OmRim3g8uhqZ+6VZlX+rFB18TjQGqkOzveDaN5yj51nGpQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9rCvyc19kwggFuShc3O2rV9Hjs0wffx6IRHMuhf8HLCBPAOiSH
-	e77JO2Ldu5pu5mJNkyh6g5VdfJQ9d5YPrwmB/Vh8ObZRv//wbI/hdg//
-X-Gm-Gg: AYBFou2VQEmUbouJqpYJ85H59iBhrHJk1IbuG748GeztNrUzovQYgfUi85CEFY80qXX
-	l7DkKAnqvEXB83c8XNqEhMnrzSlv88Ah2BBe5OVfylska9/8r3rIiCqCuWtnxujgllOUxd73qRx
-	NeVVNeH/HKk2dkEnlVTNxHoM4TFPWRr2kgqWQ/GraJp0rycEw0Sg9mnPS7Z0Wi6pxBPrBAyvMQi
-	GCjPed0BwI64Yft+DJg8iuRL7B0slkSKQMPWlFATsrHjZSqrnqklLT1tJmJx/8XONNBnV4nUtP3
-	Fgi76bGK9jABvofP4LrYrm/Mczt6fEVv5CtFICnZvOAvpSXDlin5y1hTMx5Cv/ckYv2kUx3/UOp
-	whj7aPjEy2Bjh17EiJR4vnvI4kV8T+Vyn1xAoZDt1wh+A1uc+7huZCgeF0iwY0gVmoemZuDqFDX
-	Lh2LuX3I9zznCWjIoQT4+ENcZ6DPAGqwXStNLow39M5n1aQnb8lAnjcilXAXa8anuoUazH2QhrT
-	Ihssjz4+drTb4uVoH2QPySSo6xgS2Lf+Q1B/Mjz9qVEZwiW9u0yGCQY7zTSlmcEJiC6aheaA/RA
-	rb39xIQ6CkOKdBDHG9AOQJrhxRXDOPJuU6Jri5LQT6ihwsDse5j5xnAbv4cSW8MmhRRtEhVU1+0
-	+ccrokt4s2csU
-X-Received: by 2002:a17:907:1c92:b0:c2e:2275:1168 with SMTP id a640c23a62f3a-c4d527afc43mr109634466b.19.1794049146286;
-        Sat, 07 Nov 2026 02:59:06 -0800 (PST)
-Received: from localhost (178-84-201-199.dynamic.upc.nl. [178.84.201.199])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b664ff8a6asm1695097a12.32.2026.11.07.02.59.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 02:59:05 -0800 (PST)
-From: Amir Goldstein <amir73il@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Sasha Levin <sashal@kernel.org>,
-	Christian Brauner <brauner@kernel.org>,
-	Miklos Szeredi <miklos@szeredi.hu>,
-	stable@vger.kernel.org,
-	linux-unionfs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	Chris Mason <mason@kernel.org>
-Subject: [PATCH 6.18] backing-file: always end a queued write
-Date: Sat,  7 Nov 2026 11:59:01 +0100
-Message-ID: <20261107105904.3962893-2-amir73il@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261107105904.3962893-1-amir73il@gmail.com>
-References: <20261107105904.3962893-1-amir73il@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P2Cuh8GB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A46171F0089F;
+	Sat,  7 Nov 2026 10:59:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794049148;
+	bh=EUpltpP+AhibnJfDWRCK0kZEPE8yME1VXzysDcArgZE=;
+	h=From:To:Cc:Subject:Date;
+	b=P2Cuh8GBgUd6j+vkUi4363B0qjg2wVDVdmJ+IfUeN7ason+Ot4Wodu3J0ZMCbPhZD
+	 yoG3B9bRsZzgJZfEGblFI1nLC0O6iBQnfyG7T53T99s+3FFz1pjc7QaxBSqjidhgPB
+	 O3JQS3JeXrHolK073zfTclA0zyCg89wOJIcMvijSJR5/fYsPDHfGdEidxTevh3kse7
+	 OduVjVxzDu4Gql+ri5EXPHaR2z6KTATU0/O02o3YeIEmGRiVOzQvTD3REIRgi9mw//
+	 wgnm1kmvuW4e97JDRGKwQy6jSFLvu4uQxGJvD25dR+qIR5O8uHkSeNnOLsPsFbL87p
+	 e7QpOn91P7M5w==
+From: Sasha Levin <sashal@kernel.org>
+To: r772577952@gmail.com,
+	konishi.ryusuke@gmail.com,
+	slava@dubeyko.com
+Cc: stable@vger.kernel.org
+Subject: FAILED: patch "[PATCH] nilfs2: force clear dirty state when restoring from the shadow map" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 05:59:06 -0500
+Message-ID: <20261107055906-failed-5.15-cb6702e63e0a@kernel.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,81 +57,229 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Chris Mason <mason@kernel.org>
+The patch below does not apply to the 5.15-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-commit 627cdcbc2a2eceb0452078a0c14370f9f1f17a91 upstream.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Writes to a loop device with direct I/O on an overlay file make the
-next freeze of the upper filesystem hang for ever.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git checkout FETCH_HEAD
+git cherry-pick -x cb6702e63e0a16afd83875294e5ce53becdd1b1f
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055906-failed-5.15-cb6702e63e0a@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
-Every kiocb_start_write() needs a kiocb_end_write(). For a write that
-is queued, vfs_iocb_iter_write() leaves the end to the completion, and
-backing_aio_rw_complete() only calls kiocb_end_write() when IOCB_WRITE
-is set in the flags copied from the submitter. In-kernel submitters
-such as loop do not set that flag, so each queued write keeps the
-freeze protection of the backing filesystem.
+Thanks,
+Sasha
 
-Direct writes to a loop device with direct I/O backed by an overlay
-file left fsfreeze of the ext4 upper filesystem, and a later touch
-there, blocked in D state. It takes write access to the node of the
-loop device, which root has by default, to attach the file and to write.
+------------------ original commit in Linus's tree ------------------
 
-The fix used here is to mark a write in struct backing_aio and to call
-kiocb_end_write() on completion of every marked write.
+From cb6702e63e0a16afd83875294e5ce53becdd1b1f Mon Sep 17 00:00:00 2001
+From: Jiaming Zhang <r772577952@gmail.com>
+Date: Wed, 2 Sep 2026 19:21:21 +0800
+Subject: [PATCH] nilfs2: force clear dirty state when restoring from the
+ shadow map
 
-Reproduced under qemu without KVM, on v7.3-rc6-21-g602042bf29f6 with
-earlier fixes of this series applied, with and without this change,
-once each. The kernel was not changed for the run. With this change
-fsfreeze finished in about a second. Not run: the nvmet and LIO file
-backends, which do not set IOCB_WRITE either, FUSE passthrough, and an
-xfs upper filesystem.
+When garbage collection fails, nilfs2 rolls the DAT metadata file's page
+cache back to a shadow copy taken before GC started.
+nilfs_clear_dirty_pages() drops the dirty state of the folios in the DAT
+cache, then nilfs_copy_back_pages() overwrites them with the saved
+contents and warns if one is still dirty:
 
-Fixes: 2406a307ac7d ("ovl: implement async IO routines")
+	/* overwrite existing folio in the destination cache */
+	WARN_ON(folio_test_dirty(dfolio));
+
+nilfs_clear_dirty_pages() used to clear the dirty state unconditionally,
+which is safe here because the rollback runs with the log writer
+stopped, so nothing else can dirty the cache while it runs.  The same
+helper is also used when writeback finds dirty folios after the
+filesystem has degraded to read-only, where it does run concurrently
+with the log writer, so commit ca76bb226bf4 ("nilfs2: do not force clear
+folio if buffer is referenced") made nilfs_clear_folio_dirty() skip a
+folio if any of its buffer heads is busy.  The rollback caller shares
+that helper, so its clearing step can now return with a folio still
+dirty.
+
+A DAT folio can hold a busy buffer head without anyone modifying the
+folio: nilfs_mdt_read_block() submits read-ahead for the blocks
+following the one it was asked for and waits only for the first, so the
+read-ahead buffers are still locked when it returns.  With a block size
+smaller than the page size, a locked read-ahead buffer can share a folio
+with a block that GC dirtied and keep the whole folio dirty past the
+clearing step.
+
+Add a force flag to nilfs_clear_dirty_pages() and
+nilfs_clear_folio_dirty() that skips the busy buffer check, and set it
+in the two calls from nilfs_mdt_restore_from_shadow_map().  The
+read-only fallback callers keep passing false, so that commit still
+protects them and the WARN_ON() is left alone.
+
+Fixes: ca76bb226bf4 ("nilfs2: do not force clear folio if buffer is referenced")
+Closes: https://lore.kernel.org/lkml/CANypQFZSYrtcshnUzOPiqatyLd-M8_OReOewQoAi_V5yY0dTtg@mail.gmail.com/
 Cc: stable@vger.kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
-[amir: use aio->is_write to explicitly mark a write aio]
-Signed-off-by: Amir Goldstein <amir73il@gmail.com>
-Link: https://patch.msgid.link/20261029180319.2852090-1-amir73il@gmail.com
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Suggested-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
+Assisted-by: Claude Code:claude-opus-5
+Signed-off-by: Jiaming Zhang <r772577952@gmail.com>
+Acked-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
+Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
 ---
-[ backport: context: no do_backing_file_write_iter(), the write is marked
-  in backing_file_write_iter() ]
+ fs/nilfs2/inode.c |  2 +-
+ fs/nilfs2/mdt.c   |  6 +++---
+ fs/nilfs2/page.c  | 50 +++++++++++++++++++++++++++--------------------
+ fs/nilfs2/page.h  |  4 ++--
+ 4 files changed, 35 insertions(+), 27 deletions(-)
 
- fs/backing-file.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/fs/backing-file.c b/fs/backing-file.c
---- a/fs/backing-file.c
-+++ b/fs/backing-file.c
-@@ -83,6 +83,7 @@ struct backing_aio {
- 	refcount_t ref;
- 	struct kiocb *orig_iocb;
- 	/* used for aio completion */
-+	bool is_write;
- 	void (*end_write)(struct kiocb *iocb, ssize_t);
- 	struct work_struct work;
- 	long res;
-@@ -123,7 +124,8 @@ static void backing_aio_rw_complete(struct kiocb *iocb, long res)
- 	struct backing_aio *aio = container_of(iocb, struct backing_aio, iocb);
- 	struct kiocb *orig_iocb = aio->orig_iocb;
+diff --git a/fs/nilfs2/inode.c b/fs/nilfs2/inode.c
+index 778274203f4ca..cc2f67eca0562 100644
+--- a/fs/nilfs2/inode.c
++++ b/fs/nilfs2/inode.c
+@@ -163,7 +163,7 @@ static int nilfs_writepages(struct address_space *mapping,
+ 	int err = 0;
  
--	if (iocb->ki_flags & IOCB_WRITE)
-+	/* Pairs with kiocb_start_write() in vfs_iocb_iter_write() */
-+	if (aio->is_write)
- 		kiocb_end_write(iocb);
+ 	if (sb_rdonly(inode->i_sb)) {
+-		nilfs_clear_dirty_pages(mapping);
++		nilfs_clear_dirty_pages(mapping, false);
+ 		return -EROFS;
+ 	}
  
- 	backing_aio_cleanup(aio, res);
-@@ -255,6 +257,7 @@ ssize_t backing_file_write_iter(struct file *file, struct iov_iter *iter,
- 		if (!aio)
- 			goto out;
+diff --git a/fs/nilfs2/mdt.c b/fs/nilfs2/mdt.c
+index 2a435349fd219..b50c88b651839 100644
+--- a/fs/nilfs2/mdt.c
++++ b/fs/nilfs2/mdt.c
+@@ -405,7 +405,7 @@ static int nilfs_mdt_write_folio(struct folio *folio,
+ 		 * have dirty folios that try to be flushed in background.
+ 		 * So, here we simply discard this dirty folio.
+ 		 */
+-		nilfs_clear_folio_dirty(folio);
++		nilfs_clear_folio_dirty(folio, false);
+ 		folio_unlock(folio);
+ 		return -EROFS;
+ 	}
+@@ -648,10 +648,10 @@ void nilfs_mdt_restore_from_shadow_map(struct inode *inode)
+ 	if (mi->mi_palloc_cache)
+ 		nilfs_palloc_clear_cache(inode);
  
- 		aio->orig_iocb = iocb;
-+		aio->is_write = true;
- 		aio->end_write = ctx->end_write;
- 		kiocb_clone(&aio->iocb, iocb, get_file(file));
- 		aio->iocb.ki_flags = flags;
+-	nilfs_clear_dirty_pages(inode->i_mapping);
++	nilfs_clear_dirty_pages(inode->i_mapping, true);
+ 	nilfs_copy_back_pages(inode->i_mapping, shadow->inode->i_mapping);
+ 
+-	nilfs_clear_dirty_pages(ii->i_assoc_inode->i_mapping);
++	nilfs_clear_dirty_pages(ii->i_assoc_inode->i_mapping, true);
+ 	nilfs_copy_back_pages(ii->i_assoc_inode->i_mapping,
+ 			      NILFS_I(shadow->inode)->i_assoc_inode->i_mapping);
+ 
+diff --git a/fs/nilfs2/page.c b/fs/nilfs2/page.c
+index cf4f1c6798f5e..857926da9f21d 100644
+--- a/fs/nilfs2/page.c
++++ b/fs/nilfs2/page.c
+@@ -369,8 +369,9 @@ void nilfs_copy_back_pages(struct address_space *dmap,
+ /**
+  * nilfs_clear_dirty_pages - discard dirty pages in address space
+  * @mapping: address space with dirty pages for discarding
++ * @force: whether to clear the dirty state regardless of busy buffer heads
+  */
+-void nilfs_clear_dirty_pages(struct address_space *mapping)
++void nilfs_clear_dirty_pages(struct address_space *mapping, bool force)
+ {
+ 	struct folio_batch fbatch;
+ 	unsigned int i;
+@@ -391,7 +392,7 @@ void nilfs_clear_dirty_pages(struct address_space *mapping)
+ 			 * was acquired.  Skip processing in that case.
+ 			 */
+ 			if (likely(folio->mapping == mapping))
+-				nilfs_clear_folio_dirty(folio);
++				nilfs_clear_folio_dirty(folio, force);
+ 
+ 			folio_unlock(folio);
+ 		}
+@@ -403,13 +404,16 @@ void nilfs_clear_dirty_pages(struct address_space *mapping)
+ /**
+  * nilfs_clear_folio_dirty - discard dirty folio
+  * @folio: dirty folio that will be discarded
++ * @force: whether to clear the states regardless of busy buffer heads
+  *
+  * nilfs_clear_folio_dirty() clears working states including dirty state for
+- * the folio and its buffers.  If the folio has buffers, clear only if it is
+- * confirmed that none of the buffer heads are busy (none have valid
+- * references and none are locked).
++ * the folio and its buffers.  If the folio has buffers and force is false,
++ * clear only if it is confirmed that none of the buffer heads are busy (none
++ * have valid references and none are locked).  If force is true, the states
++ * are cleared unconditionally, the caller should guarantee that the folio is
++ * not being modified concurrently.
+  */
+-void nilfs_clear_folio_dirty(struct folio *folio)
++void nilfs_clear_folio_dirty(struct folio *folio, bool force)
+ {
+ 	struct buffer_head *bh, *head;
+ 
+@@ -422,24 +426,28 @@ void nilfs_clear_folio_dirty(struct folio *folio)
+ 			 BIT(BH_Async_Write) | BIT(BH_NILFS_Volatile) |
+ 			 BIT(BH_NILFS_Checked) | BIT(BH_NILFS_Redirected) |
+ 			 BIT(BH_Delay));
+-		bool busy, invalidated = false;
++
++		if (!force) {
++			bool busy, invalidated = false;
+ 
+ recheck_buffers:
+-		busy = false;
+-		bh = head;
+-		do {
+-			if (atomic_read(&bh->b_count) | buffer_locked(bh)) {
+-				busy = true;
+-				break;
++			busy = false;
++			bh = head;
++			do {
++				if (atomic_read(&bh->b_count) |
++				    buffer_locked(bh)) {
++					busy = true;
++					break;
++				}
++			} while (bh = bh->b_this_page, bh != head);
++
++			if (busy) {
++				if (invalidated)
++					return;
++				invalidate_bh_lrus();
++				invalidated = true;
++				goto recheck_buffers;
+ 			}
+-		} while (bh = bh->b_this_page, bh != head);
+-
+-		if (busy) {
+-			if (invalidated)
+-				return;
+-			invalidate_bh_lrus();
+-			invalidated = true;
+-			goto recheck_buffers;
+ 		}
+ 
+ 		bh = head;
+diff --git a/fs/nilfs2/page.h b/fs/nilfs2/page.h
+index 136cd1c143c9c..c3ba3468af5cb 100644
+--- a/fs/nilfs2/page.h
++++ b/fs/nilfs2/page.h
+@@ -41,8 +41,8 @@ void nilfs_folio_bug(struct folio *);
+ 
+ int nilfs_copy_dirty_pages(struct address_space *, struct address_space *);
+ void nilfs_copy_back_pages(struct address_space *, struct address_space *);
+-void nilfs_clear_folio_dirty(struct folio *folio);
+-void nilfs_clear_dirty_pages(struct address_space *mapping);
++void nilfs_clear_folio_dirty(struct folio *folio, bool force);
++void nilfs_clear_dirty_pages(struct address_space *mapping, bool force);
+ unsigned int nilfs_page_count_clean_buffers(struct folio *folio,
+ 		unsigned int from, unsigned int to);
+ unsigned long nilfs_find_uncommitted_extent(struct inode *inode,
 -- 
-backport
+2.53.0
+
+
+
 
