@@ -1,95 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794036594;
-	b=B+SDPwN+djtsLusZUuw03GAT1VbAUJ7f3yuMD4Kpa2fpaqsLT9Z8Nrs2f9MgW/+hjj06
-	 qZdIGgIfRN0kKFySrZv33Sw9rWCKQ84kA4oJ99PhQGpH56tfB6JaLCJk9P/78/iyWS5fA
-	 27jGOzhJceMM23OUATb2VFA8+fKlzF3DGe3am/NkMmfz1pAqhVbc3sD9FRIpzNxsN6pBv
-	 AIqx1IZctxxEMtTZv23iug9pi8XS0N9Wtw9KxcO0llTXgB1/Cn3/b88YBtDJBN/CLmelZ
-	 5uhRAMFUp+Hj42tJ6pd1noIlkzMgaOWQTQOTJI9sd9a8huKIxmwQ3bzL6PaauSy60Sw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794036594;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Sent-From:X-URL:X-Accept-Language:
-	 X-Accept-Content-Type;
-	bh=zhFos9pLRdck+HNko2pfxCI2Qo5ud3StbNFSwWcCUlk=;
-	b=U0IB70KTcnCcJfQ7JxQBpI/TUqENNqmboCxen+jff6HPMEO61GQhrnwQ6l4zvxqzkcCm
-	 6oBc6FVB3nWC8sngqJ0aI8voeWq2YRXQ4E7jpZkmOLrQwj/+6W67hWopBymlrT10WGVja
-	 +FIDyCbmo6xDcV/nuSoVjEXl1emIGwtEOuvipxKBMb/wRDwJq+Zb4FEl0pPHQz7YgMPmu
-	 ARkp1Ebtm5jL6abfV54Tw7+Y56XvgOsdKBOrP30+/pdnEu+de6uS4ZhQNOMOEhAKmMs0I
-	 GZ/VcdjprCTOP31C5L+qWI9zS/yidDYBpHyvN9Tc8FhPw5iThx4spTLDM79l6Ck7YeA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=PUKk83Ya;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.21
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794038846;
+	b=RyC7YCo2gnNp0LWFgZ/Ipg5aoqBvEqibz1U6/6I0/6dkg3eg4XBFqwy7wGfWZVc5eo2K
+	 FofR4PGSHEW/OxDqTH63Kvw9N4y4yd1IB0qjZ3r0OpbHTd+QWUzkiThP9yY0N62bkBIGL
+	 4Jr10T5t473ZXc1sKbAAtNCVOHdpoId/EHtpi3i76qhDiZFA1LMGaYJtPY+S8JQN1gKEp
+	 5l/1g/xMbD2swa7TqN+GyHJFz5qWQ8zocqjNzUB4hpKqVJxoLevInHo2O0cURoScuEXak
+	 n94rIp9mPoHJZv3jO5FSqwadFkNrhGVGXqDo0Dcl071pQIVwl3jtBb2vzvxLIGdGe4A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794038846;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
+	 References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-Originating-IP:X-CM-SenderInfo;
+	bh=37Q/M3b5464XwrQ37wekA+4vcvzkDiOdS3nwiJzbO3w=;
+	b=KEivJZeZQ23WXfFHkvuLg645cewoRc4ruQWOEb+wAaA6m8Zcp9KC8pNSVEtYLvYFipkX
+	 z66eKqDBEHZW3ECOtZ8m+D2F9LXRQdOQhJEDSKv5WqvvCm1g9KQkcP4jNQdmOjXE9hxA2
+	 teSrkdisdrdH/Fu9mdIhhQ07OIj3sOCyrS0y6To8SOCi2lwSdCGKNVFTyFOQICatU6SBq
+	 T03kZumY0o3w7c351/FtwrI/5W26HEj6lKLMtgwcPIt58OCrGiRQvKESHRKZXIX2xC552
+	 zuK/fF8Jks1J0lBtHgO2E7LmXOJVKH/tW/NnLnAr1Fqhn7jgkiUQhHP+gpuSyi0tgJQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.21
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8C50606A32E;
-	Sat,  7 Nov 2026 07:29:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8C50606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=PUKk83Ya
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 615392006B6;
-	Sat, 07 Nov 2026 08:29:49 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794036589;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zhFos9pLRdck+HNko2pfxCI2Qo5ud3StbNFSwWcCUlk=;
-	b=PUKk83Ya5v7q1FFEP1aHvP7tbTC5KZFYVU6QFtcHISJXJjsSTcPOdtvVV3O583Rv91h3nT
-	Ho9cpdbjiEQCnwxb433cxmcqgLNhkOawa6Ssy51WjV9x6UCDW6UAkTwkou+HMIeIkB2Y/6
-	jOd59yDr1glR3nmTkV0PiKgiku9KLqOoj0FhYqC3RAeZ5gzVmadDTQo6/caK18RWxVXUDz
-	QJar3yTFVo7VjcZXkDYdQneaJXqTTGnHNmVCwAhFU4doCxUol72QIUU52nCGeBSzlhlrwJ
-	8XACFmyXoQi84QvLOtVVYfZMjjOB+Yn7PFDMs9qJIjivFXgkT72CnBmwKjsgdQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794036589;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zhFos9pLRdck+HNko2pfxCI2Qo5ud3StbNFSwWcCUlk=;
-	b=EhF7yMhuTpptWCWqCmCx9FhL3Nv1ftHkLv+tOyhjQlMeIDXAMulTO3+EJ5DYEFv1OnnsjG
-	ex83l6DnELlN8NXZv+x2DfmfVVd6ChjuP/vW5h+c8+3oKHQcBcbHacQYUK5hCscdcZSYk5
-	OCNs9mqU3wRbMfU3+2IgySYIwx5h+r3kbXC7ADGCzOU0wL0eKdHDBMiNBcWAGT856+L/Qr
-	t49au/398GGcvPMoirnpQtFC4WG67j+ZakSAzhh33oWZTR0qbqB98rcu6kD9yJwHoyTA2V
-	1ZTaCSLs7wb9eDNEykOX+vLz3Fpe/g/hfu76lJSxCci9GES+05g9yriznthzTw==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794036589; a=rsa-sha256;
-	cv=none;
-	b=Dr2oArMp/FV3NFobM9t7qxTNEhceCyP4DhRDPciFsHYFEFhsNbAj87fyFdma2epsdVvdAQ
-	GnF9QhGEnuLq5A4ZOWdf7jZuztbwRLpx3ecHJtugmp8HUbv32lwUnIqPh8qpvgFq3Lzyx9
-	0pQ3ct1VJoid7qblsJYk2XIOeij7rxhjwHPLmyJyLElpNe/e0VYvUkmwc9mT6+ysHcoF9j
-	1lCtJ8pHwFL8Z7WiZruV1ViI7dR0HyQzRqgjU0Y5USOu2O67J9t2aEDbIQ2vySf3i8kAXz
-	8Tj2xkFAvubT/H7bRMcrtjXtQL6mgPTNYgr36QD0GLXPMiFFQ5wL6dyW1NfmdQ==
-Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <ore@pengutronix.de>)
-	id 1xPas1-0031FW-12;
-	Sat, 07 Nov 2026 08:29:49 +0100
-Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
-	(envelope-from <ore@pengutronix.de>)
-	id 1xPas1-00000003HIZ-0u96;
-	Sat, 07 Nov 2026 08:29:49 +0100
-Date: Sat, 7 Nov 2026 08:29:49 +0100
-From: Oleksij Rempel <o.rempel@pengutronix.de>
-To: Sun Yiqi <sunyiqi2@huawei.com>
-Cc: robin@protonic.nl, kernel@pengutronix.de, socketcan@hartkopp.net,
-	mkl@pengutronix.de, linux-can@vger.kernel.org,
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
-	stable@vger.kernel.org, luoxiaoxing@huawei.com
-Subject: Re: [PATCH net] can: j1939: transport: validate the DPO packet offset
-Message-ID: <au7TbcX4A8LqOjss@pengutronix.de>
-References: <20261105065931.1302-1-sunyiqi2@huawei.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DC7F606A336;
+	Sat,  7 Nov 2026 08:07:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DC7F606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from [172.100.0.8] (unknown [36.110.52.2])
+	by APP-01 (Coremail) with SMTP id qwCowABXhP443O5qzr5xAA--.13418S3;
+	Sat, 07 Nov 2026 16:07:20 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Hans de Goede <hansg@kernel.org>
+Cc: Ilpo =?utf-8?q?J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Maximilian Luz <luzmaximilian@gmail.com>, platform-driver-x86@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH v2 1/2] platform/surface: aggregator: Fix wrong completion
+ list for pending packets
+Date: Sat, 07 Nov 2026 08:07:30 +0000
+Message-ID: <20261107080730.1-vulab@iscas.ac.cn>
+In-Reply-To: <20261107080730.0-vulab@iscas.ac.cn>
+References: <20261107080730.0-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,40 +55,67 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261105065931.1302-1-sunyiqi2@huawei.com>
-X-Sent-From: Pengutronix Hildesheim
-X-URL: http://www.pengutronix.de/
-X-Accept-Language: de,en
-X-Accept-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qwCowABXhP443O5qzr5xAA--.13418S3
+X-Coremail-Antispam: 1UD129KBjvJXoW7AryUKry7tr1fWFy7ArWkJFb_yoW8ZFW8p3
+	y0g3yfCw1kJr17tw48Xw1Uuw47Zws8Xr4Yk3yYv3s0v3s8Xr9Iq3WI9F15uFZ8Cr1kt3y7
+	Kr48Gr4Dua18ZrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvab7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6r4j6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxV
+	WxJr0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
+	Yx0E2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4
+	AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxkF7I0En4kS14v26r126r1DMxAIw28IcxkI7VAK
+	I48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2
+	IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v2
+	6r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2
+	IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv
+	67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyT
+	uYvjxUgUKsDUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwIEA2rucYK7ZwAAsp
 
-On Thu, Nov 05, 2026 at 02:59:31PM +0800, Sun Yiqi wrote:
-> j1939_xtp_rx_dpo_one() stores the packet offset from a received ETP DPO
-> command without checking it against the session's total packet count.
-> An offset greater than or equal to that count makes
-> j1939_session_skb_get() return NULL. A subsequent EOMA can then cause
-> j1939_session_completed() to pass the NULL skb to j1939_sk_recv(),
-> resulting in a NULL pointer dereference.
-> 
-> Reject an out-of-range offset before storing it and abort the session
-> with J1939_XTP_ABORT_BAD_EDPO_OFFSET. Keeping the previous valid offset
-> also prevents this lookup failure if an EOMA arrives while the session
-> is waiting for the abort to complete.
-> 
-> Fixes: 9d71dd0c7009 ("can: add support of SAE J1939 protocol")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Sun Yiqi <sunyiqi2@huawei.com>
+ssh_ptl_shutdown() takes the packets it has to cancel out of the queue
+and out of the pending set and collects them in two local lists, which
+are drained once both locks have been dropped. Packets from the pending
+set are moved to complete_p through pending_node, as their queue_node
+may still be in use by the queue when a pending packet is re-queued for
+retransmission. The move itself, however, targets complete_q.
 
-Acked-by: Oleksij Rempel <o.rempel@pengutronix.de>
-Tested-by: Oleksij Rempel <o.rempel@pengutronix.de>
+An entry added that way is linked into complete_q via pending_node,
+while the loop that drains complete_q looks the entry up with
+queue_node. The two nodes are at different offsets in struct
+ssh_packet, so list_for_each_entry() derives a packet pointer that is
+shifted by that difference: the state bit is updated at the wrong
+offset and the completion and reference-drop run on an object that is
+not the packet the list entry belongs to. At the same time complete_p
+stays empty and its drain loop never runs.
 
-Thank you for your work!
+Move the pending packets to complete_p as intended.
 
-Best Regards,
-Oleksij
+Fixes: c167b9c7e3d6 ("platform/surface: Add Surface Aggregator subsystem")
+Cc: stable@vger.kernel.org
+Acked-by: Maximilian Luz <luzmaximilian@gmail.com>
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/platform/surface/aggregator/ssh_packet_layer.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/platform/surface/aggregator/ssh_packet_layer.c b/drivers/platform/surface/aggregator/ssh_packet_layer.c
+index 3dd22856570f..a51395942747 100644
+--- a/drivers/platform/surface/aggregator/ssh_packet_layer.c
++++ b/drivers/platform/surface/aggregator/ssh_packet_layer.c
+@@ -1983,7 +1983,7 @@ void ssh_ptl_shutdown(struct ssh_ptl *ptl)
+ 		smp_mb__before_atomic();
+ 		clear_bit(SSH_PACKET_SF_PENDING_BIT, &p->state);
+ 
+-		list_move_tail(&p->pending_node, &complete_q);
++		list_move_tail(&p->pending_node, &complete_p);
+ 	}
+ 	atomic_set(&ptl->pending.count, 0);
+ 	spin_unlock(&ptl->pending.lock);
+
 -- 
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+2.34.1
+
