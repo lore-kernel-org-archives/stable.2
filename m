@@ -1,54 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049877;
-	b=OwcR62Ep1t/M9I3ItylEovCv790qvJkV39qzV33+yeHXW7aiNtSwt2i2HlL38TEv9bMU
-	 BA/fc0FPD8aRvCSRUaNkxU23UzCvmxKNChTlKqbTTbnA61pyz9NkqALctrXKe4081w475
-	 hnQIdvvuxRYPd2UTAU71Yno6EpW5nEgUn+DUOyeUk0Iz33Epl7l+fviUzLQ8YLaxY9VSE
-	 JMcuo95L6Zb5JtdAkEnIIjg2WiEnXtFVhCJmDvNCeJX85VOF/vZ9pxISzXSMh2hW6Fvpj
-	 +Y8h5LoL2YIWp/yOKxIHMA1iJDWU92UUCF0qpR81oUyqYlNyDk6Bm90FSE+cf2QeWVQ==
+	t=1794049880;
+	b=bcsHWtk/FTUxhwKVWXLv5cFiiixc8LiycukQnlJwTdO79sx9jueuXqz85e2iuNUFLac8
+	 ns5sF/AY6kA2dbVG1SFh9z9Gt1GLU0q3VQIUeVMMBiEjrXzIKVAjZ0l03xyjdOj9U6bSn
+	 MlPQid2zpjW+Sbu5cBN9MQXGS8p+J2h+rawH9L/pjeEKegjdTRAnVuUA0gesAtJ9LFFV2
+	 kXmBWmIfy6XVY2yvbI+Wf9KStXSri2u0ChD0xGSZ5670woyeWtTBG9zKVl5BgA9rRio+O
+	 Tl+7KgCdVpOufT0TSozxFd+I3wnEy38e/Ub/oaNiNIOydkalPZhKFJ6g+R/idhyUK8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049877;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049880;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=UjaPHwNoCVjcgPhAymxtiDvBVtTz1EfY9qaAtFZXqH8=;
-	b=hj9NN3D0QfUgrKOJSIxh7OUYFX9HWgiLCPEeauX6pCEL6sSQSt5XqUEDYrLaYO884VAe
-	 ceNhK96EejseJuNFROeTTMcv5KiPcbTJJxO4xtdVbTSyv90i6lO+3CxX0DF9v2L9Fnj7E
-	 MkZOVhjWS8L5fA/8jhRf0WsUJ6XM2uU8207QaGs2RlLRxBP4yLy0JiddlAcfY0fg7lY9G
-	 1KzpCVRff3+hhq/HMRyrHqLAAAB5hFqXnC+tOUe8B4j6qgAMmOdBCMsmgR0ATAgH5aSaW
-	 Se9XiRTggEcQhfX5hIyYQl2/Ocdx9Petpqts+qIZczmD8GfgQMlIhiHkTgb6sIILgXQ==
+	bh=ddIM+8FivhFxSsr9iXAvgd1Ldu9fK3V2cq7oG+P9YMw=;
+	b=HWbRoLbu0A9uWaYLDtGKQgbXBp+YLYXAhGZX7qbK+sXHuqUcsBiUjf47xOEr++diKCbK
+	 7lgOjOX4nZfSrPrrtBlKAnOszAm2MlAj7w9FR88fhaY5wTBLJ76uEbbZVjougLCXjgUDS
+	 QDNxn3vtw+P8HYpt4zXbtaZiFPYSYEEZGvUBuEBrW8oH8RKXkYkMi48tdfjvRX89nLIlH
+	 vdofL1j+0NjkcnSK3xkG8oHghZR+18lSHPiRjdk8+2Ind/SdzE2WvMV0Fy3qWmhG7oLvn
+	 3OiKDKNPHTGXTbGX9PtHpqqOuvQyZXGT67qH0h+hR8XdGuUY79ONb0fmbkjTh+3Fp5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aX6ZahPU;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DHsu7nSa;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05839606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:11:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB10A606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:11:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aX6ZahPU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB8261F0089F;
-	Sat,  7 Nov 2026 11:11:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DHsu7nSa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 160691F0089F;
+	Sat,  7 Nov 2026 11:11:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049876;
-	bh=UjaPHwNoCVjcgPhAymxtiDvBVtTz1EfY9qaAtFZXqH8=;
+	s=k20260515; t=1794049879;
+	bh=ddIM+8FivhFxSsr9iXAvgd1Ldu9fK3V2cq7oG+P9YMw=;
 	h=From:To:Cc:Subject:Date;
-	b=aX6ZahPUccT3yP46g8SriCyiKjUUzwna8Kqp1zUmRuhpAFfaUWhbcKGyuAuDnaspt
-	 C2WNOcN4W5ObyEwV5DcqjdJUGCS+BtiitSf8PDFimUW8W5tnqEss0KOZ1pmSQyFIFr
-	 20rjUMHZURblBdNoB6TUoxvesWM/uAcVg5Am6qq5V1v/T1iwc4ySzjAN33XPltbPoj
-	 jID9qJE1EJCApUpSqRMgEENJCbXftdWYjIQMvUFAiqjVa2SQ3RPLGriWrbwVerj94s
-	 QBdonRHxmA31jmfVlxL2p+Foggmcj1z/ebFRxq2+Zn3qP7+rDZREf6rDiMKPiPixLd
-	 VSrEsmtP7GvCg==
+	b=DHsu7nSaGW9fS4Xgt908Ph3LjU/b+O9TWCGE2S3hL034aJssior9n4l5abQobfO1x
+	 7jXvqOxSfAa6MyH60M59MlDtw8FEkVOGlwQI8H07jj1FPqJeCWJL30FLNa0CGchQPX
+	 hdVR4/PKwetuehzkKeZ96/7Yb0sATUPZ1sJvi9OuXCeeLLfWHG7nM5N7sKW/tZCwb9
+	 VXZv6g8uhuqInfe1Q0n69kFtLqeRdhh1IGcGcc1mVn+mZCy71KgWK9X2y2CYJNHL9t
+	 lQZBNJnyJ9dkQHwmtgpf9Giq38S1FdbcFWlx1bQwp26qPx100G+foEw+UJMUweDLWD
+	 eW+vLX0NZfA8A==
 From: Sasha Levin <sashal@kernel.org>
-To: stanleyjhu@google.com,
-	beanhuo@micron.com,
-	peter.wang@mediatek.com,
+To: x-professor@outlook.com,
 	bvanassche@acm.org,
 	mkp@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] scsi: ufs: bsg: Reject UIC commands with a non-zero result byte" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:11:14 -0500
-Message-ID: <20261107061114-failed-5.15-1ae42513205a@kernel.org>
+Subject: FAILED: patch "[PATCH] scsi: handle out-of-range SG_SET_TIMEOUT values" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 06:11:17 -0500
+Message-ID: <20261107061117-failed-5.15-9a6cb1da4f3b@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,58 +69,101 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 1ae42513205a38b811afedb6797f9f9c4de37b90
+git cherry-pick -x 9a6cb1da4f3bc4633bf6669faed25a361834b1b9
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061114-failed-5.15-1ae42513205a@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061117-failed-5.15-9a6cb1da4f3b@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 1ae42513205a38b811afedb6797f9f9c4de37b90 Mon Sep 17 00:00:00 2001
-From: Stanley Jhu <stanleyjhu@google.com>
-Date: Thu, 15 Oct 2026 08:18:54 +0800
-Subject: [PATCH] scsi: ufs: bsg: Reject UIC commands with a non-zero result
- byte
+From 9a6cb1da4f3bc4633bf6669faed25a361834b1b9 Mon Sep 17 00:00:00 2001
+From: Yingjie Wang <x-professor@outlook.com>
+Date: Thu, 22 Oct 2026 02:55:11 +0000
+Subject: [PATCH] scsi: handle out-of-range SG_SET_TIMEOUT values
 
-ufs_bsg_request() passes the user-supplied UIC argument2 unchanged,
-including the result byte (bits 7:0) that only the host controller
-writes. A non-zero value triggers the WARN_ON_ONCE() in
-ufshcd_dispatch_uic_cmd() and corrupts the reported result. Found by
-syzkaller.
+SG_SET_TIMEOUT accepts a signed int in USER_HZ units. The sg character
+device rejects negative values and limits positive values so the converted
+timeout fits its destination field. The block SCSI and BSG paths instead
+pass the value to clock_t_to_jiffies(), which accepts an unsigned long, and
+store the result in an unsigned int.
 
-Reject UIC commands that have the result byte set with -EINVAL.
+Negative values are converted into large unsigned timeouts. On 64-bit
+systems, large positive values can also exceed UINT_MAX after conversion
+and are truncated on assignment. With HZ=1000 and USER_HZ=100, for example,
+429496730 clock ticks become 4294967300 jiffies and are stored as 4
+jiffies. On 32-bit systems, an overflowing conversion becomes ULONG_MAX,
+which is an unsafe relative interval for the block timer comparisons.
 
-Fixes: e77044c5a842 ("scsi: ufs-bsg: Add support for uic commands in ufs_bsg_request()")
-Fixes: 9fb4c793223b ("scsi: ufs: core: Complain if UIC argument 2 is invalid")
+Reject negative values with -EIO, matching drivers/scsi/sg.c. Saturate the
+converted value at the smaller of the destination field limit and
+MAX_JIFFY_OFFSET. This preserves successful ioctl behavior while avoiding
+both narrowing wraparound and an unsafe 32-bit timer interval.
+
+The block SCSI behavior predates Git history. BSG has exposed the same
+behavior since it was introduced.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: 3d6392cfbd7d ("bsg: support for full generic block layer SG v3")
 Cc: stable@vger.kernel.org
-Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
-Reviewed-by: Bean Huo <beanhuo@micron.com>
-Reviewed-by: Peter Wang <peter.wang@mediatek.com>
-Reviewed-by: Bart Van Assche <bvanassche@acm.org>
-Link: https://patch.msgid.link/20261015001855.3450573-5-stanleyjhu@google.com
+Reported-by: Bart Van Assche <bvanassche@acm.org>
+Link: https://lore.kernel.org/r/9321a59c-c560-4742-8b71-5b0ec1f30c2f@acm.org
+Signed-off-by: Yingjie Wang <x-professor@outlook.com>
+Link: https://patch.msgid.link/20261022025508.294713-1-x-professor@outlook.com
 Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
 ---
- drivers/ufs/core/ufs_bsg.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ block/bsg.c               |  5 ++++-
+ drivers/scsi/scsi_ioctl.c | 11 ++++++++---
+ 2 files changed, 12 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/ufs/core/ufs_bsg.c b/drivers/ufs/core/ufs_bsg.c
-index 0db830e54ef0f..cadde515f040b 100644
---- a/drivers/ufs/core/ufs_bsg.c
-+++ b/drivers/ufs/core/ufs_bsg.c
-@@ -179,6 +179,10 @@ static int ufs_bsg_request(struct bsg_job *job)
- 		break;
- 	case UPIU_TRANSACTION_UIC_CMD:
- 		memcpy(&uc, &bsg_request->upiu_req.uc, UIC_CMD_SIZE);
-+		if (uc.argument2 & MASK_UIC_COMMAND_RESULT) {
-+			ret = -EINVAL;
-+			break;
-+		}
- 		ret = ufshcd_send_bsg_uic_cmd(hba, &uc);
- 		if (ret)
- 			dev_err(hba->dev, "send uic cmd: error code %d\n", ret);
+diff --git a/block/bsg.c b/block/bsg.c
+index 82aaf3cee5825..b296fa3732924 100644
+--- a/block/bsg.c
++++ b/block/bsg.c
+@@ -132,7 +132,10 @@ static long bsg_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
+ 	case SG_SET_TIMEOUT:
+ 		if (get_user(val, intp))
+ 			return -EFAULT;
+-		bd->timeout = clock_t_to_jiffies(val);
++		if (val < 0)
++			return -EIO;
++		bd->timeout = min(clock_t_to_jiffies(val),
++				  min(UINT_MAX, MAX_JIFFY_OFFSET));
+ 		return 0;
+ 	case SG_GET_TIMEOUT:
+ 		return jiffies_to_clock_t(bd->timeout);
+diff --git a/drivers/scsi/scsi_ioctl.c b/drivers/scsi/scsi_ioctl.c
+index 122403ec3ab8d..bf049d9cb7191 100644
+--- a/drivers/scsi/scsi_ioctl.c
++++ b/drivers/scsi/scsi_ioctl.c
+@@ -9,6 +9,7 @@
+ #include <linux/blkdev.h>
+ #include <linux/interrupt.h>
+ #include <linux/errno.h>
++#include <linux/jiffies.h>
+ #include <linux/kernel.h>
+ #include <linux/sched.h>
+ #include <linux/mm.h>
+@@ -196,10 +197,14 @@ static int sg_set_timeout(struct scsi_device *sdev, int __user *p)
+ {
+ 	int timeout, err = get_user(timeout, p);
+ 
+-	if (!err)
+-		sdev->sg_timeout = clock_t_to_jiffies(timeout);
++	if (err)
++		return err;
++	if (timeout < 0)
++		return -EIO;
+ 
+-	return err;
++	sdev->sg_timeout = min(clock_t_to_jiffies(timeout),
++			       min(UINT_MAX, MAX_JIFFY_OFFSET));
++	return 0;
+ }
+ 
+ static int sg_get_reserved_size(struct scsi_device *sdev, int __user *p)
 -- 
 2.53.0
 
