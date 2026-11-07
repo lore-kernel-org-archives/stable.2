@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048982;
-	b=H5Fe1dLYoghIVY5wEcpnhLrw3MVPQgWPtR9VzygGrX05y0XA/A3o+R+eIMuL8cmiSwO7
-	 g0/4z2WGsNNmhSnI8CGbKB5n7Rn3kcd6UF1Y0wU0Iwy0s+KxG8w55AJZiCkCJ71R2F3Pv
-	 2CW6ng4T8cLgJ5Hecbkxlr7CaTs3nmJ6LTj6OKJ5hmMDueSnM7WGNU0kMQwsQsrWaVOc+
-	 GMd6im4NQVz1L2yjIUvRTJusfwEh1YlYmxWBvr4jQvAO7MsfEW1g9EbymfXELZ6zbpQaa
-	 zvKh3raF5FltlG+/ALk7zIqN39bTD4uvG3/3sSoQxDskVisdj0AhWP+NGXNa4DYAsew==
+	t=1794048985;
+	b=jE50fihORtqnRd2aJ66zEhvJ9EMoR7TD74G0+N2JkKxHGh1uI3cfwz6nmzRXukr/LLuq
+	 xD8L+ZSGAStx3/CZnBasH0knbTGVWEbgGqUfCid2cgEhpqJ7hinX4sPEbYLhVDUv8AMb7
+	 LNBkWefo0CjKfv9LsYJo/BWGtLciz8yqh2M8qJS6ryJSvPLP2MC8hhcGoxH+w3Qy7l/US
+	 WgK56JE4+Lrz2GFwpMeFs6lj+IeFMNyeWuXWf/JIzUnmDQ5s1gjaBkaECyVwjR7Vj3Kns
+	 Z3XB4LnK+jTEyas+24oO3bCylUtTnwW0bj1AGM5WqMTk6TMPXmcTLguAhv+VoPk6DUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048982;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048985;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=oU4MfmhVQnJxq5TqGcW5DUhJoa7HTXThikNddGBX6DY=;
-	b=fxdmSUneyAq7aOJyYpi9YA1tPQsI8+eWwgPbTfm9mEp46lf7VXQVV4IwChg3hZfnBCVW
-	 2Iyt350POMN/1Z8GYHL8zkkmmwMvD6A9cZ+gKg7bej4MStSPsMPLN2IKCWQuGoiLcdntJ
-	 nIdKQhJFzjH9yATaTt/u5dcDmcT6SWNixMWnPqGo1cVHTD2x2LFvanymb2NOzxVxCHx0S
-	 axnGh+HHJH5P+p5cTpu09l0HQGd5rMRUEuQaP5iFY/c3Pqfjyiv/8JhIqAJzgJay62j6I
-	 6z1OCtdr3h9Oq5VqJlgNSquF3kjozGvXWw2BGS8moELOc+l+x2dArMc+oFnXZ7HVXTw==
+	bh=3Zxid7EKHWYc2e66EPUKArOXwgWBgGHb2JlGHDqTlLA=;
+	b=CFl6Gm1Mkb7gE/hQ6I7uF3nsWLZe6r5pQTakBqcigb3Gkg3LmfNqpb5bc/QBk5zDyBli
+	 TE3c5N8u457rtxq3mgWv3A9BH59f9vEsq9H2rTbBP8gjsseHQqH0nBzY34TQ6IkO7eLNh
+	 spn+bAS+LeX55dv0zTaeXoH1Vvx6orKY+la2TzRgebKr5ORyBR/iFCjcIV1q0AVLnnoFH
+	 3BLAUOrZSkOVPrPRnFPgUZa+Ov7AKptTRAOgFFagFKqvQymvvq77I0j2VvYK9/GuDAaEx
+	 xM6WClQWe9RSh+HBJNVRRghLt2BjzSri+gGH2iReby5meRU2twRL28tcA7//YCSi8og==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S5XgXGni;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S6z89hie;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 219B4606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:56:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95069606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:56:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S5XgXGni
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90CE41F0089F;
-	Sat,  7 Nov 2026 10:56:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S6z89hie
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC23F1F0089F;
+	Sat,  7 Nov 2026 10:56:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048982;
-	bh=oU4MfmhVQnJxq5TqGcW5DUhJoa7HTXThikNddGBX6DY=;
+	s=k20260515; t=1794048985;
+	bh=3Zxid7EKHWYc2e66EPUKArOXwgWBgGHb2JlGHDqTlLA=;
 	h=From:To:Cc:Subject:Date;
-	b=S5XgXGnijuJ/8F0apzw1iViFnyiMasBccvKWnqNSmmEKBHCrzrt/E6IWgfofsNExL
-	 dJciqQvkz5c4jSzxIhTMWgrr0BtptTLZzsFYCGu4il67G7DxQOzYnEjLDM2slgfDs4
-	 B1HTTuGVQeaYTEJJ0m0dPd0iO+mz9zOIuArUvaGMW59JPx9/CKOkWkTXyAoGECQg9K
-	 GHJVskSnF/qfqpBhtu/NW4NUoc1jrdXj80cOQrLSMWLTWBQhctUW0Qp7SH44Y/dVVF
-	 +DnfUAzHYvhmIEAfBaOoEXjw4pHt/+0ofkhR7gJCRWpuAnrQ/O5CE5sMlmJWL8PBLO
-	 WfpqCI91kgwlw==
+	b=S6z89hieDk4LZMFFkXQpSk3KErjcIxbRMcfonfuvgWWJGSOxFlAE+ZuRzERehKbFE
+	 no05gy87GS4V0DxB5cV48agdOucuCmmmrsqrHPnsRV0Jy6Xj9FVngOa/dHJ6JeIn5u
+	 TbtTbcuwSGQt4x5mCqWaXHGshDpW7DAdWFFocqoDwQzYRkTp61swa8ZkGoO3vpCBjH
+	 q/2sDAO+XXZ4hBKrMFguky8V6Vs8qPUvnSQP7zQhZnaxtfPzg4sQ2/n+QCvpFE+7j7
+	 rucOx/pnN/4DFYjVleUQ8Y/xEK2baddLuesa5gpvoZsdXUk+aaohWivUsbmgrmyE3P
+	 xyew+agyNyMtw==
 From: Sasha Levin <sashal@kernel.org>
-To: syjcnss@gmail.com,
-	almaz.alexandrovich@paragon-software.com
+To: jeremy.jean@oss.cyber.gouv.fr,
+	edumazet@kernel.org,
+	davem@davem-thinkpadp1gen8.ibmlond.csb
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] fs/ntfs3: validate the EA value length in ntfs_read_ea()" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:56:20 -0500
-Message-ID: <20261107055620-failed-6.1-351817226fbf@kernel.org>
+Subject: FAILED: patch "[PATCH] inet: frags: prevent acceptance of partially authenticated reassembly" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:56:23 -0500
+Message-ID: <20261107055623-failed-6.1-6fb4e32f2ce3@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,177 +69,140 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 351817226fbf0031c4c63d1f5d7f15c3172312eb
+git cherry-pick -x 6fb4e32f2ce3234ae0c416872e911706a3484430
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055620-failed-6.1-351817226fbf@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055623-failed-6.1-6fb4e32f2ce3@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 351817226fbf0031c4c63d1f5d7f15c3172312eb Mon Sep 17 00:00:00 2001
-From: Yuejie Shi <syjcnss@gmail.com>
-Date: Mon, 3 Aug 2026 12:34:32 +0800
-Subject: [PATCH] fs/ntfs3: validate the EA value length in ntfs_read_ea()
+From 6fb4e32f2ce3234ae0c416872e911706a3484430 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+Date: Fri, 23 Oct 2026 18:51:19 +0000
+Subject: [PATCH] inet: frags: prevent acceptance of partially authenticated
+ reassembly
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-ntfs_read_ea() checks the $EA list for consistency, but it only
-recomputes the packed size of an entry when the entry's own size field is
-zero:
+A reassembled skb retains the secpath from its first fragment, which
+makes it possible for the final policy check to accept bytes that were
+not covered by the transform recorded on the skb. This can affect IPsec
+tunnel traffic, including AH and ESP, and allow a packet to be accepted
+even though only part of its payload was authenticated.
 
-	for (off = 0; off < size; off += ea_size) {
-		const struct EA_FULL *ef = Add2Ptr(ea_p, off);
-		u32 bytes = size - off;
-		...
-		if (ef->size) {
-			ea_size = le32_to_cpu(ef->size);
-			if (ea_size > bytes)
-				goto out1;
-			continue;              /* <- elength never checked */
-		}
-		...
-		ea_size = ALIGN(struct_size(ef, name,
-					    1 + ef->name_len +
-						    le16_to_cpu(ef->elength)),
-				4);
-		if (ea_size > bytes)
-			goto out1;
-	}
+Reject a fragment when its secpath differs from the fragments already
+in the queue, and keep overlap statistics limited to actual overlaps.
 
-ef->size is non-zero for every entry except the last one, and it is what
-ntfs3 itself writes (ntfs_set_ea() stores exactly that aligned packed
-size), so in practice elength is not validated at all.  find_ea() then
-uses unpacked_ea_size(), which also prefers ea->size when it is set, so
-it agrees and hands the entry back.
-
-ntfs_get_ea() copies elength bytes with no further bound of its own:
-
-	len = le16_to_cpu(ea->elength);
-	...
-	if (len > size) {              /* size is the *caller's* buffer */
-		err = -ERANGE;
-		...
-	}
-	memcpy(buffer, ea->name + ea->name_len + 1, len);
-
-so a caller that supplies a large enough buffer receives up to 64 KiB of
-whatever follows the small $EA allocation -- straight to userspace via
-getxattr(2).
-
-Compute the packed size unconditionally and require it to fit in the
-entry.  Hoist the "bytes < offsetof(struct EA_FULL, name)" test above the
-ef->size branch as well: name_len and elength were being read there
-without it, which is itself a small over-read of the kmalloc'd buffer
-when fewer than 8 bytes are left.  The old "bytes < sizeof(ef->size)"
-test is subsumed by it.
-
-  # mkntfs image; create /mnt/ntfs/poc with user.ntfs6 set, then rewrite
-  # that EA_FULL's elength from 0xf to 0xff00 on the raw device
-  mount -t ntfs3 -o ro /dev/vda /mnt/ntfs
-  getxattr("/mnt/ntfs/poc", "user.ntfs6", buf, 128 * 1024);
-
-  BUG: KASAN: slab-out-of-bounds in ntfs_get_ea+0x294/0x3e0
-  Read of size 65280 at addr ffff0000cca53acf by task xattr_probe/142
-   __asan_memcpy+0x3c/0xa0
-   ntfs_get_ea+0x294/0x3e0
-   ntfs_getxattr+0x284/0x318
-   __vfs_getxattr+0x104/0x160
-   vfs_getxattr+0x1b4/0x1e0
-   do_getxattr+0xcc/0x230
-   path_getxattrat+0x184/0x270
-   __arm64_sys_getxattr+0x64/0x80
-  Allocated by task 142:
-   __kmalloc_noprof+0x294/0x668
-   ntfs_read_ea+0x1e4/0x420
-   ntfs_get_ea+0x2c8/0x3e0
-  The buggy address belongs to the object at ffff0000cca53a80
-   which belongs to the cache kmalloc-96 of size 96
-
-The object being over-read is the one ntfs_read_ea() just allocated, and
-it is 96 bytes.
-
-Entries written by ntfs3 and by Windows set size to the aligned packed
-size, so the new test does not reject anything a working filesystem
-produces.
-
-Fixes: be71b5cba2e6 ("fs/ntfs3: Add attrib operations")
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Signed-off-by: Yuejie Shi <syjcnss@gmail.com>
-[almaz.alexandrovich@paragon-software.com: applied as-is, logic is the same but the code is cleaner]
-Signed-off-by: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Reviewed-by: Eric Dumazet <edumazet@kernel.org>
+Signed-off-by: Dave Miller <davem@davem-thinkpadp1gen8.ibmlond.csb>
 ---
- fs/ntfs3/xattr.c | 45 ++++++++++++++-------------------------------
- 1 file changed, 14 insertions(+), 31 deletions(-)
+ include/net/inet_frag.h  |  1 +
+ include/net/xfrm.h       | 17 +++++++++++++++++
+ net/ipv4/inet_fragment.c |  5 +++++
+ net/ipv4/ip_fragment.c   |  3 ++-
+ net/ipv6/reassembly.c    |  3 ++-
+ 5 files changed, 27 insertions(+), 2 deletions(-)
 
-diff --git a/fs/ntfs3/xattr.c b/fs/ntfs3/xattr.c
-index d6ad06415318d..e1fa58aa03611 100644
---- a/fs/ntfs3/xattr.c
-+++ b/fs/ntfs3/xattr.c
-@@ -146,49 +146,32 @@ static int ntfs_read_ea(struct ntfs_inode *ni, struct EA_FULL **ea,
- 	for (off = 0; off < size; off += ea_size) {
- 		const struct EA_FULL *ef = Add2Ptr(ea_p, off);
- 		u32 bytes = size - off;
--		size_t need;
--
--		/* Check if we can use field ea->size. */
--		if (bytes < sizeof(ef->size))
--			goto out1;
-+		u32 packed_size;
+diff --git a/include/net/inet_frag.h b/include/net/inet_frag.h
+index 365925c9d2628..b02d2472b003e 100644
+--- a/include/net/inet_frag.h
++++ b/include/net/inet_frag.h
+@@ -171,6 +171,7 @@ extern const u8 ip_frag_ecn_table[16];
+ #define IPFRAG_OK	0
+ #define IPFRAG_DUP	1
+ #define IPFRAG_OVERLAP	2
++#define IPFRAG_MIXED_SECPATH	3
+ int inet_frag_queue_insert(struct inet_frag_queue *q, struct sk_buff *skb,
+ 			   int offset, int end);
+ void *inet_frag_reasm_prepare(struct inet_frag_queue *q, struct sk_buff *skb,
+diff --git a/include/net/xfrm.h b/include/net/xfrm.h
+index a6d69aaa6cd2d..298ca9bb00835 100644
+--- a/include/net/xfrm.h
++++ b/include/net/xfrm.h
+@@ -1201,6 +1201,23 @@ secpath_reset(struct sk_buff *skb)
+ #endif
+ }
  
- 		/* Check if we can use fields ef->name_len and ef->elength. */
- 		if (bytes < offsetof(struct EA_FULL, name))
- 			goto out1;
++static inline bool
++secpath_equal(const struct sk_buff *skb1, const struct sk_buff *skb2)
++{
++	const struct sec_path *sp1 = skb_sec_path(skb1);
++	const struct sec_path *sp2 = skb_sec_path(skb2);
++	int i;
++
++	if (!sp1 || !sp2)
++		return sp1 == sp2;
++	if (sp1->len != sp2->len)
++		return false;
++	for (i = 0; i < sp1->len; i++)
++		if (sp1->xvec[i] != sp2->xvec[i])
++			return false;
++	return true;
++}
++
+ static inline int
+ xfrm_addr_any(const xfrm_address_t *addr, unsigned short family)
+ {
+diff --git a/net/ipv4/inet_fragment.c b/net/ipv4/inet_fragment.c
+index b286ee429da8f..c18da91c1f031 100644
+--- a/net/ipv4/inet_fragment.c
++++ b/net/ipv4/inet_fragment.c
+@@ -23,6 +23,7 @@
+ #include <net/inet_ecn.h>
+ #include <net/ip.h>
+ #include <net/ipv6.h>
++#include <net/xfrm.h>
  
--		/* Size needed to hold this record's name and value. */
--		need = struct_size(ef, name,
--				   1 + ef->name_len + le16_to_cpu(ef->elength));
-+		/*
-+		 * The name and the value have to fit in the entry whether or
-+		 * not ef->size is set, because ntfs_get_ea() copies elength
-+		 * bytes out of this buffer and checks them only against the
-+		 * caller supplied buffer size.
-+		 */
-+		packed_size =
-+			ALIGN(struct_size(ef, name,
-+					  1 + ef->name_len +
-+						  le16_to_cpu(ef->elength)),
-+			      4);
+ /* Use skb->cb to track consecutive/adjacent fragments coming at
+  * the end of the queue. Nodes in the rb-tree queue will
+@@ -441,6 +442,10 @@ int inet_frag_queue_insert(struct inet_frag_queue *q, struct sk_buff *skb,
+ {
+ 	struct sk_buff *last = q->fragments_tail;
  
- 		if (ef->size) {
- 			ea_size = le32_to_cpu(ef->size);
--			/* ef->size must fit the list and cover the record. */
--			if (ea_size > bytes || ea_size < need)
--				goto out1;
--			if (bytes < offsetof(struct EA_FULL, name))
--				goto out1;
--
--			/* Check if we can use fields ef->name_len and ef->elength. */
--			if (bytes < offsetof(struct EA_FULL, name))
--				goto out1;
--
--			/*
--			 * The declared entry size (ef->size) must be large
--			 * enough to hold the name and value.  Otherwise a later
--			 * reader such as ntfs_get_ea() copies ef->elength bytes
--			 * starting past the entry, reading out of bounds of the
--			 * ea buffer and leaking adjacent heap memory to
--			 * userspace via getxattr().
--			 */
--			if (struct_size(ef, name,
--					1 + ef->name_len +
--						le16_to_cpu(ef->elength)) >
--			    ea_size)
-+			if (ea_size > bytes || packed_size > ea_size)
- 				goto out1;
- 			continue;
- 		}
- 
--		ea_size = ALIGN(need, 4);
-+		ea_size = packed_size;
- 		if (ea_size > bytes)
- 			goto out1;
++	/* The reassembled skb keeps the first fragment's secpath. */
++	if (last && !secpath_equal(last, skb))
++		return IPFRAG_MIXED_SECPATH;
++
+ 	/* An IP fragment is never a GSO packet, but an untrusted source
+ 	 * (virtio_net_hdr) may have attached GSO metadata to it. Do not let
+ 	 * that reach the reassembled skb, whose head keeps the first
+diff --git a/net/ipv4/ip_fragment.c b/net/ipv4/ip_fragment.c
+index c790d2f494870..36105dd192823 100644
+--- a/net/ipv4/ip_fragment.c
++++ b/net/ipv4/ip_fragment.c
+@@ -378,8 +378,9 @@ static int ip_frag_queue(struct ipq *qp, struct sk_buff *skb, int *refs)
+ 		err = -EINVAL;
+ 		goto err;
  	}
++	if (err == IPFRAG_OVERLAP)
++		__IP_INC_STATS(net, IPSTATS_MIB_REASM_OVERLAPS);
+ 	err = -EINVAL;
+-	__IP_INC_STATS(net, IPSTATS_MIB_REASM_OVERLAPS);
+ discard_qp:
+ 	inet_frag_kill(&qp->q, refs);
+ 	__IP_INC_STATS(net, IPSTATS_MIB_REASMFAILS);
+diff --git a/net/ipv6/reassembly.c b/net/ipv6/reassembly.c
+index a7964125c764c..8418ed9423f4b 100644
+--- a/net/ipv6/reassembly.c
++++ b/net/ipv6/reassembly.c
+@@ -241,8 +241,9 @@ static int ip6_frag_queue(struct net *net,
+ 		err = -EINVAL;
+ 		goto err;
+ 	}
++	if (err == IPFRAG_OVERLAP)
++		__IP6_INC_STATS(net, idev, IPSTATS_MIB_REASM_OVERLAPS);
+ 	err = -EINVAL;
+-	__IP6_INC_STATS(net, idev, IPSTATS_MIB_REASM_OVERLAPS);
+ discard_fq:
+ 	inet_frag_kill(&fq->q, refs);
+ 	__IP6_INC_STATS(net, idev, IPSTATS_MIB_REASMFAILS);
 -- 
 2.53.0
 
