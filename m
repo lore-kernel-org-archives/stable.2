@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046552;
-	b=Zj0kZ2p4iHQ91IciwixK/cX2PHv0GAyRPElCvOk54N0tzNdK1S0CPKKxC2f8YQ6BUnwM
-	 j3hXQI1TUfDXIldSlb8Z/68+C/OsSfET/1XWaLMEHVyNH27QAHdhsgZ4zR3m9TnMWOY64
-	 s7rwQGStiQNT435oLuD9g8eBIsILm1DlznTFJYEwPKa0Sz0+rZ8n6nXtmygcLRKve3uQS
-	 +7xWutWv/fbqgOBo4kWt0r8mC+JgFFX60ErQACmkw2eiT4woBioHFsZhua86R8xt+0wTq
-	 gHffZ/tBiKTfG1VavKCceOCTxQ33ucc7CST0YIcU4SZrZAZHUF8eC56Tw8Vxuyf9Ieg==
+	t=1794046555;
+	b=a1wahfU3+2zpgALwvXkRv7OyJleixDCsldCw95u0cc4ppU+Vbcp8T+eErLcc/AmDto7h
+	 X2SEVb52gLZXHMt3CC6T3Pu1hCffiLsC9ROh9DJU11UhcC2RGZ9llRhK64H+MxA95CkfA
+	 1cEhTRd4T6yIZDHywcz3ioM6onxHbduCrSpGOJdK6MmMFUoSHoiYNzCjTp77XuMUPpX/+
+	 /l9whHED1GXV6u8h7tfsRDtFFSmpPO4BnHo8bsJ9B4Unt3vmPjOS2Fh21cAPAhG766JRq
+	 3H9HMUbFMcOFTB2BhxOQSsqh6vzOhjMSg/69tAIKfaO8SdhE9v3CcvkF7c/Xev+3G0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046552;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046555;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=RsXhcETvvE5QtKVqqWrpWC5C7i0lzWDlRO5bjxMyvdc=;
-	b=IfFlf9NmRXvvOHeTKIXTdo9mIIAvNrBWIt5a5wTt3MuJQZEK1hbHZZHU8CbIwl3kknl4
-	 Q7MeP1lLVrDVTOqyCpEmmveR+CPi6t/VhTIIfSCGw1FcFs/bdzaAOaowUmVhiP8ue3QqP
-	 K4qe0zjfKGtbIJZmPTCOolGJ/KmLmIkzWtsxi3cS7XBGKuN8SGtVXsQypwfnpcdV6Zt6e
-	 siqK0tLIXroPAWgV4dYXq8QPIKBTTIcGn54e4hm2nyGTB9+bT0IReZHySsrzd+3jmPF+e
-	 iAmqZSpaCPLgbHPMzv5BvrwmhYf0z5lUMRriZJDNlkGdTfIxpaWv9zhSL1gNhx384ew==
+	bh=MvKWAmq1byDN6Gc8r062YVHpv4UxIQGY4L9e/RGG6sM=;
+	b=iZ1ijr9jS/+oKP5eQZfoofrrt7SrDg/7P+uk6FCuubYhXM872EcOHD4f5X57CH0QHXah
+	 GSjUccAu8PmowGXeeaQHeQIUEGjxuYMUBLLG0PAg7sX+16uBwAiQI2dmyhbKBYJFqzfEw
+	 ncArjdQ8EV6kcqUbqbUBmKRyZEAyu8RhK+VkzYgX8HLNrLboYfN+Ow7sTVOh18vk7aUn6
+	 BvYyeMFTfQQOW+jWBxL1rzP5+4LFE0EOpIAc8x9e+/T8O8lVfDMD1PaXGWYpCplZLmtje
+	 J0mTDnW9Hv8OpmM3OC1tA1GdOaNFqkxEV4XtzdCOYD4YZzfYR4tGRK2HteSfnEVbVag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IrzfDQmK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=o0lVZe3S;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79B10606A32E
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:15:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0FC9606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:15:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IrzfDQmK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA2491F0089F;
-	Sat,  7 Nov 2026 10:15:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=o0lVZe3S
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E6EF1F008A1;
+	Sat,  7 Nov 2026 10:15:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046552;
-	bh=RsXhcETvvE5QtKVqqWrpWC5C7i0lzWDlRO5bjxMyvdc=;
+	s=k20260515; t=1794046554;
+	bh=MvKWAmq1byDN6Gc8r062YVHpv4UxIQGY4L9e/RGG6sM=;
 	h=From:To:Cc:Subject:Date;
-	b=IrzfDQmK0C/eC5mc96OFr9NEryMqNGR1jGalExMzvleqDjRoKmcS/bwWu1fDfR95F
-	 9p2hjN2KoIwnS4Sr896mTAubl+KWv3CjHqCvDoeK9u1VdUIxC5xyMY04k58wzQwVYf
-	 N3B687ybxmv1ckby3Jvt7sy4iogjd7Vno85fbEAnz8kYk/5/GrtLo2H4Dns7SKkFOf
-	 RQtIiunNgq1iYRVlVd2FOv2QpqIlO8CiqIbg2jcEPu3Jz1O4RKhUi8Lgzyqj2umkE6
-	 7GeLD1kjKGj2oY9Np+uRZrS8xfAPOoOYkDo2xd7DiL6yR34rIgur+joRp61Q1kfeUu
-	 S/I+2JTzWEGBQ==
+	b=o0lVZe3StXS0PL0GIaB25ZV0ypWdSfKOw7p/Sx9tEJynQpgotxyShZvX1Q2oxkjJN
+	 XYoRwA/BMHcms+84Kfa2d4GpA5H25qNlX4yf6cubIRam9U9W63/x27dePNVeH2tKBz
+	 GMcVG6GmJcdfkhhJqhO+aQ2X50+APXkW8hzFR5BNMeIa0VsjVcNAyNn6aUcUXf84kc
+	 XmJZdAGE6gvz9jMczLLhH1hmObccJtElKu1v5E+TUpURs+AZqfyD8Tih1I854QTFhk
+	 S5VBZ/o6AOQj5XxOYfyx7zZDyxdXS/j+UFlaxOYxs6z6LSBO4fO5boVWpWASRTYpmo
+	 MzKGbN8K09l8g==
 From: Sasha Levin <sashal@kernel.org>
-To: brauner@kernel.org,
-	josef@toxicpanda.com
+To: josef@toxicpanda.com,
+	brauner@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] iomap: don't mark unwritten parts of a folio uptodate" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:15:50 -0500
-Message-ID: <20261107051550-failed-6.18-a4193b4af359@kernel.org>
+Subject: FAILED: patch "[PATCH] pidfs: don't let PIDFD_GET_INFO miss a reaped task" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:15:52 -0500
+Message-ID: <20261107051552-failed-6.18-172658cf6009@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,83 +68,161 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x a4193b4af359db84b2cdf3a040752861984c636b
+git cherry-pick -x 172658cf600904ff6121e240f69a0ccb36e65d6b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051550-failed-6.18-a4193b4af359@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051552-failed-6.18-172658cf6009@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From a4193b4af359db84b2cdf3a040752861984c636b Mon Sep 17 00:00:00 2001
-From: Christian Brauner <brauner@kernel.org>
-Date: Thu, 29 Oct 2026 11:34:48 +0100
-Subject: [PATCH] iomap: don't mark unwritten parts of a folio uptodate
+From 172658cf600904ff6121e240f69a0ccb36e65d6b Mon Sep 17 00:00:00 2001
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Sun, 4 Oct 2026 15:00:12 +0000
+Subject: [PATCH] pidfs: don't let PIDFD_GET_INFO miss a reaped task
 
-For a buffered write into a hole, an unwritten or new extent, or past
-EOF __iomap_write_begin() zeroes the parts of the blocks outside of the
-write and then marks the blocks uptodate. That includes the range of the
-write itself which still holds whatever was in the folio before. It only
-becomes valid once the copy from userspace has filled it in.
+PIDFD_GET_INFO describes the task while there is one, and with
+PIDFD_INFO_EXIT its exit status once it has been reaped.  pidfd_info()
+looks at the two in the wrong order and can miss both:
 
-But the copy can come up short and __iomap_write_end() only rejects a
-short copy if the folio isn't uptodate. If the zeroed blocks were all
-that was missing the folio is uptodate by then, the short copy is
-accepted, and the rest of the range is exposed to readers and can end up
-on disk. A source buffer that ends in an unmapped page is enough:
+  pidfd_info()                          release_task()
+    PIDFS_ATTR_BIT_EXIT is not set
+                                          pidfs_exit()
+                                          __unhash_process()
+    get_pid_task() == NULL
+    goto copy_out
 
-        ftruncate(fd, 4096);
-        pwrite(fd, p, 3000, 100);    /* 16 bytes at p, then PROT_NONE */
-        pread(fd, buf, 4096, 0);
+The ioctl succeeds with neither PIDFD_INFO_PID nor PIDFD_INFO_EXIT in the
+mask.  If the task is unhashed a little later, after get_pid_task(), its
+pid reads as 0 and the ioctl fails with -ESRCH, although the caller asked
+for the exit information and it is available by now.
 
-The write returns 16 and the read returns 2984 bytes of whatever was in
-that page before. If other blocks of the folio aren't uptodate the short
-copy is rejected but the zeroed blocks keep their uptodate bits and the
-retry with the copied length leaves the same bytes behind.
+The second case does not even need an exit.  When a sub-thread execs,
+de_thread() hands the leader's pid over to it and releases the old leader.
+A caller that got hold of the old leader reports the tid of the sub-thread
+as the pid, or -ESRCH for a process that is alive.
 
-Only mark blocks uptodate in __iomap_write_begin() after reading them.
-__iomap_write_end() marks the zeroed blocks uptodate once the copy has
-succeeded and rejects a short copy.
+Look up the task first.  pidfs_exit() runs before the task is unhashed, so
+a caller that finds no task finds the exit information; this needs a
+barrier on both sides because taking tasklist_lock does not order the
+store in pidfs_exit() against the one in detach_pid().  And start over if
+the task no longer owns the pid when all the fields have been read: then
+there is either exit information or another task.
 
-Willy reported this back in 2024 (cf. [1]) and Zhang Yi posted the same
-fix (cf. [2]) but it never got merged.
+Go by the pid for that check and for the pid we report, not by
+->thread_pid of the task.  exchange_tids() moves the pid to the exec'ing
+thread before it updates ->thread_pid of either task.  A caller that
+finds the new leader in between would read the old tid of the sub-thread
+from ->thread_pid, and a check of ->thread_pid would restart until the
+exec'ing thread gets to its store.  On PREEMPT_RT that thread can be
+preempted with tasklist_lock held and can't move to another CPU.  If the
+RT task that preempted it calls PIDFD_GET_INFO, the ioctl spins until
+the exec'ing thread gets the CPU back, and that never happens if the
+exec'ing thread is an RT task of lower priority.
 
-[1]: https://lore.kernel.org/all/ZqsN5ouQTEc1KAzV@casper.infradead.org
-[2]: https://lore.kernel.org/all/20240812121159.3775074-6-yi.zhang@huaweicloud.com
+Christian Brauner <brauner@kernel.org> says:
 
-Fixes: 9dc55f1389f9 ("iomap: add support for sub-pagesize buffered I/O without buffer heads")
-Reported-by: Josef Bacik <josef@toxicpanda.com>
+Go by @pid instead of ->thread_pid of the task for the reported pid and
+for the restart check.
+
+Fixes: 7477d7dce48a ("pidfs: allow to retrieve exit information")
+Fixes: cdda1f26e74b ("pidfd: add ioctl to retrieve pid info")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261029-work-iomap-ai-fixes-v1-1-7eda63bc1b13@kernel.org
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- fs/iomap/buffered-io.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ fs/pidfs.c | 43 +++++++++++++++++++++++++++++++++++++------
+ 1 file changed, 37 insertions(+), 6 deletions(-)
 
-diff --git a/fs/iomap/buffered-io.c b/fs/iomap/buffered-io.c
-index 678f4c5329e79..a6ab6f31cbbf3 100644
---- a/fs/iomap/buffered-io.c
-+++ b/fs/iomap/buffered-io.c
-@@ -920,6 +920,7 @@ static int __iomap_write_begin(const struct iomap_iter *iter,
- 		if (iomap_block_needs_zeroing(iter, block_start)) {
- 			if (WARN_ON_ONCE(iter->flags & IOMAP_UNSHARE))
- 				return -EIO;
-+			/* uptodate once copied, see __iomap_write_end() */
- 			folio_zero_segments(folio, poff, from, to, poff + plen);
- 		} else {
- 			const struct iomap *iomap = iomap_iter_srcmap(iter);
-@@ -943,8 +944,8 @@ static int __iomap_write_begin(const struct iomap_iter *iter,
+diff --git a/fs/pidfs.c b/fs/pidfs.c
+index 7f8c323ce6cb8..66c1046e29290 100644
+--- a/fs/pidfs.c
++++ b/fs/pidfs.c
+@@ -362,6 +362,12 @@ static __u32 pidfs_coredump_mask(enum task_dumpable dumpable)
+ 			      PIDFD_INFO_COREDUMP_SIGNAL | \
+ 			      PIDFD_INFO_COREDUMP_CODE)
  
- 			if (iomap->flags & IOMAP_F_ZERO_TAIL)
- 				folio_zero_segment(folio, to, poff + plen);
-+			iomap_set_range_uptodate(folio, poff, plen);
++static bool pidfs_task_owns_pid(struct task_struct *task, struct pid *pid)
++{
++	guard(rcu)();
++	return pid_task(pid, PIDTYPE_PID) == task;
++}
++
+ static long pidfd_info(struct file *file, unsigned int cmd, unsigned long arg)
+ {
+ 	struct pidfd_info __user *uinfo = (struct pidfd_info __user *)arg;
+@@ -392,6 +398,16 @@ static long pidfd_info(struct file *file, unsigned int cmd, unsigned long arg)
+ 		return -EREMOTE;
+ 
+ 	attr = READ_ONCE(pid->attr);
++again:
++	/*
++	 * Look for the task first. pidfs_exit() records the exit information
++	 * before the task is unhashed, so if the task is gone the information
++	 * is there.
++	 */
++	task = get_pid_task(pid, PIDTYPE_PID);
++	if (!task)
++		smp_rmb(); /* pairs with smp_mb__after_atomic() in pidfs_exit() */
++
+ 	if (mask & PIDFD_INFO_EXIT) {
+ 		if (test_bit(PIDFS_ATTR_BIT_EXIT, &attr->attr_mask)) {
+ 			smp_rmb();
+@@ -414,7 +430,6 @@ static long pidfd_info(struct file *file, unsigned int cmd, unsigned long arg)
  		}
--		iomap_set_range_uptodate(folio, poff, plen);
- 	} while ((block_start += plen) < block_end);
+ 	}
  
- 	return 0;
+-	task = get_pid_task(pid, PIDTYPE_PID);
+ 	if (!task) {
+ 		/*
+ 		 * If the task has already been reaped, only exit
+@@ -468,16 +483,27 @@ static long pidfd_info(struct file *file, unsigned int cmd, unsigned long arg)
+ 	 * task might return as soon as the copy_to_user finishes, but that's ok
+ 	 * and userspace expects that might happen and can act accordingly, so
+ 	 * this is just best-effort. What we can do however is checking that all
+-	 * the fields are set correctly, or return ESRCH to avoid providing
+-	 * incomplete information. */
++	 * the fields are set correctly, to avoid providing incomplete
++	 * information.
++	 */
+ 
+ 	kinfo.ppid = task_ppid_vnr(task);
+ 	kinfo.tgid = task_tgid_vnr(task);
+-	kinfo.pid = task_pid_vnr(task);
++	kinfo.pid = pid_vnr(pid);
+ 	kinfo.mask |= PIDFD_INFO_PID;
+ 
+-	if (kinfo.pid == 0 || kinfo.tgid == 0)
+-		return -ESRCH;
++	/*
++	 * The task was reaped, or lost @pid to a sub-thread that called exec,
++	 * while we were looking at it. Start over: there is exit information
++	 * now, or a new task. Don't go by ->thread_pid, exchange_tids()
++	 * updates it only after it has moved @pid.
++	 */
++	if (!pidfs_task_owns_pid(task, pid) || kinfo.tgid == 0) {
++		put_task_struct(task);
++		task = NULL;
++		memset(&kinfo, 0, sizeof(kinfo));
++		goto again;
++	}
+ 
+ copy_out:
+ 	if (mask & PIDFD_INFO_SUPPORTED_MASK) {
+@@ -790,6 +816,11 @@ void pidfs_exit(struct task_struct *tsk)
+ 	/* Ensure that PIDFD_GET_INFO sees either all or nothing. */
+ 	smp_wmb();
+ 	set_bit(PIDFS_ATTR_BIT_EXIT, &attr->attr_mask);
++	/*
++	 * Whoever sees that the task is unhashed must see the bit, see
++	 * pidfd_info(). Taking tasklist_lock does not order the two stores.
++	 */
++	smp_mb__after_atomic();
+ }
+ 
+ #ifdef CONFIG_COREDUMP
 -- 
 2.53.0
 
