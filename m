@@ -1,51 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047791;
-	b=oFwklyHSAiz056buqbbpwcUy3hy9XCxcZwYl024uJyNJXIUXR4nTrcI/+66y1TguUmKA
-	 G3n3wN+qn3F2MeNwTGF4Yz9cCBHFbUr6jqx9G5MJO2qhj4Yfu7fsykxsqxiTCC0hda+q1
-	 Fkrv02PtdsiLLapdokMgsIyz9vJSKmjyEccfY3Lc33vNvLCrTJvcx9koia+hN190rnHJy
-	 Dqls/Wb3w4OnKyzZKI66z4HaW9k/YZY4AloeimDNJ/5dMkJUSRP9ixhrGgQdgwM97Xt92
-	 Nu9WCflKcj/9B1HY13BidfZXG7+rQi+f55B5gB6328lBLTbISrQ738P7p97ViEPhsLA==
+	t=1794047793;
+	b=uWEWH/gdxBsGnp418oIg5pBv7SDLARfkA6JZ2NTNSEUwLHFJZgXCY5k0qFYGLsLZzwjd
+	 74Np2QTA7KwL40I5Urii3RmmAOEbSLSf5gAkh36nstiqljIe4n0dRUT+6p1ah8uSvuKp5
+	 JjEv70mJT7oOB5u8TNZchhHBHR7aQ16IFiA2xB+pppjLK5Fo78VzVr4/5wxssl4iwQHl1
+	 gA3WKIJQYrXbnNLg4QjY+1PRNqQ1NvicTr13TqzsmmeTZVhJrHvS4FULdb8E3jqJApmgH
+	 j6ZyFzuh/AEVpg5gzFMxb8n6iYYrP9+PELhblaSosy35FAHWfXqGQw/ObmcvDnJZqLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047791;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047793;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=+/vf6ztkgdC0WD/X+SOK8aLmCUG+FN09NEifEuCCmUU=;
-	b=ri1QOm0A2inS37w4bIMg/b5x462yEDmPwdJSoIGjkT7K6eNg/+7Nwdd+05nR3WqRfDbs
-	 Eg8c78jVY0VzuoDbVlITx6TETFiIKUBHpGWvSynRz9PNLWJorYyrjeUBUqZxsGDEB8XC5
-	 PtrhTovjvOUMQtWdC0IOcoCj+TExQlpKsLG4cRYGgT23VjYlv/evrzCO5Es5XnXEOQuXw
-	 c8k5EM9YHYZ/rzj+7J7XLB084T8+HSNWz3SvDo6FvbTiZmH9lCpGlyRg1v9OdHF0d8wIa
-	 I3cRe7pPErOUlOfdGQ43ELR0swK27StwXQxUr/fbp4OUzIDtoJGbv6v9tbHE7/lE7sA==
+	bh=DicRQISnjWsXtkrnyRK3Nf3NMPmJKBS1RGI5IjxOeZE=;
+	b=MIkPqOxToMYGmFwOyM0QTqwS/IpLN7pAoCUJVD4PonyE4/sP0HSAAwcw1OFEaP4IYyhw
+	 e1UxP8rZ1UCA9LwnsIixZLSeaOdE6CDWRs8abrlxWrRKEpjMGL3xMWacrjxirP+/iX9/s
+	 iOHJ/p6TqccM0HgpgTaDb6TnBf3cfAmxVb2JD4TMKF9An+oZuQtcNelQ8Y5snz/p9XjQe
+	 sRFvwl80Q/qX4RCbI+UUjNmATv9Y8lCZ3AG8SzbPProNr6NuPuo5IZrTwpf/X9cKLhEZT
+	 hpMaS3oNB3aAs/RcIPoQWtPXZoc4sqT0u4TJ3exdd9uQtViBOC+lI7SEeen9fu3GrXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MsTALO6t;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="iBC8dzN/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEE19606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:36:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06A77606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:36:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MsTALO6t
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D9591F0089F;
-	Sat,  7 Nov 2026 10:36:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iBC8dzN/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47F1F1F0089F;
+	Sat,  7 Nov 2026 10:36:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047790;
-	bh=+/vf6ztkgdC0WD/X+SOK8aLmCUG+FN09NEifEuCCmUU=;
+	s=k20260515; t=1794047792;
+	bh=DicRQISnjWsXtkrnyRK3Nf3NMPmJKBS1RGI5IjxOeZE=;
 	h=From:To:Cc:Subject:Date;
-	b=MsTALO6tHiIlyA8XJRE4gIN589DWzsLXksPbFbEtzVYm/EnbS9rgj5ksqcAdi7+XM
-	 9MmfQAqaawJ3GEPxKHi9insrlS/m4Vb9wRm2vgdnzIdWP6K2T78Gg9fZCaMRuXuJ05
-	 hEY+CJG0Xl059i7HSNj7oiLajcdYQhPyKKdjXkuykAM/+nz/5N4MJm5C6m5VpeSnZc
-	 pSCgVV4OakdHX9LEYdMLmeLKjiL8SMdTtyNxhw7eaBrVkknQQXL1UmIgj8Ju/kieMi
-	 hGYUMKlayfcLcmOj68Txn5HBLgo5dzWp9VmDfkBvH7CiwczwKOHLG4N7lRjUfq8cYq
-	 N6PkfP2LFMHjA==
+	b=iBC8dzN/0WeRQdV12BZ8jXu2ls0T+9Cu5GH/ucFTT0PzOZ0vk8itgAPgXbBE6i7Up
+	 ttE5WYY2hVgCorwqHTbrj6JJi7YzEaGH4e3JVMn6XBGpZsdWhFff2bJ7CVloNwS7hE
+	 hYryvPtcseC0UfPY/3nUrsSxg6HmTWglTQ50+vFpWVHBJ51YgaLWyEP6nl4t0xfq/7
+	 U0Lxc4jEh6Ey6RSNO5lMIbteQBZiqiftKyU8ZgWhed4Xm+qfHvS3Olilq9KQ3AG27B
+	 +a0SKDpPYtZO9JdG23Mc4weoDjCPiWq/M1yzOLyoe+tdHYMII+nCy525RuH8BtH+iw
+	 +Ic2NVgG350fg==
 From: Sasha Levin <sashal@kernel.org>
-To: gxristidis@gmail.com,
-	tiwai@suse.de
+To: xzhangjr@gmail.com,
+	mtosatti@redhat.com,
+	ycistak@gmail.com,
+	linux@roeck-us.net
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ALSA: hda/realtek: Fix headset mic on ASUS Zenbook 14 UX3402VA" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:36:29 -0500
-Message-ID: <20261107053629-failed-6.6-40409fa23d32@kernel.org>
+Subject: FAILED: patch "[PATCH] hwmon: (coretemp) Fix handling of isolated SMT siblings" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:36:31 -0500
+Message-ID: <20261107053631-failed-6.6-37c1974a0ec4@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,50 +70,133 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 40409fa23d32c8ed51e832031daa6decd9d6fd11
+git cherry-pick -x 37c1974a0ec4ec4624a270291a179c53f8f4fbca
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053629-failed-6.6-40409fa23d32@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053631-failed-6.6-37c1974a0ec4@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 40409fa23d32c8ed51e832031daa6decd9d6fd11 Mon Sep 17 00:00:00 2001
-From: George Christidis <gxristidis@gmail.com>
-Date: Sun, 18 Oct 2026 18:56:31 +0200
-Subject: [PATCH] ALSA: hda/realtek: Fix headset mic on ASUS Zenbook 14
- UX3402VA
+From 37c1974a0ec4ec4624a270291a179c53f8f4fbca Mon Sep 17 00:00:00 2001
+From: Ximing Zhang <xzhangjr@gmail.com>
+Date: Fri, 16 Oct 2026 12:36:37 +0400
+Subject: [PATCH] hwmon: (coretemp) Fix handling of isolated SMT siblings
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-The UX3402VA (1043:16a3) BIOS leaves pin 0x19 unconfigured, so the
-headset mic does not work. Use ALC294_FIXUP_ASUS_SPI_HEADSET_MIC like
-the UX3405MA, it sets up the mic and keeps the CS35L41 speaker fixup.
+Commit 0f8b916bc5b5 ("hwmon: (coretemp) avoid RDMSR interrupts to
+isolated CPUs") prevents create_core_data() from creating temperature
+data for an isolated CPU. coretemp_cpu_online(), however, still adds
+that CPU to pdata->cpumask.
 
-Tested on a UX3402VA: headset mic, internal mic and speakers work.
+When an isolated SMT thread is processed before a housekeeping sibling,
+the mask makes coretemp_cpu_online() believe that the core is already
+represented. The housekeeping sibling then gets no temperature
+attributes. Package attributes are similarly not retried when the first
+CPU processed in a die is isolated.
 
-Fixes: 07058dceb038 ("ALSA: hda/realtek: Splitting the UX3402 into two separate models")
+The mask is also used to select a replacement CPU when a sensor target
+goes offline. Including isolated CPUs permits the driver to retarget a
+sensor to one, causing subsequent sysfs reads to send an RDMSR IPI to an
+isolated CPU.
+
+Keep isolated CPUs out of pdata->cpumask by moving the housekeeping check
+to coretemp_cpu_online(). Sensor creation is then deferred to an eligible
+CPU, and hotplug replacement targets remain on housekeeping CPUs.
+
+Tested on an Intel Core i7-10510U running 6.18.50-3-cachyos-lts, with
+nohz_full=1 on CPU 1 and its housekeeping SMT sibling on CPU 5. The stock
+driver omitted Core 1 after module load and retained its readable sensor
+after CPU 5 was offlined. The patched driver exposed Core 1, removed it
+when CPU 5 went offline, and restored it when CPU 5 returned.
+
+Fixes: 0f8b916bc5b5 ("hwmon: (coretemp) avoid RDMSR interrupts to isolated CPUs")
 Cc: stable@vger.kernel.org
-Signed-off-by: George Christidis <gxristidis@gmail.com>
-Link: https://patch.msgid.link/20261018-for-linus-v1-1-4d8e9ff27d89@gmail.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Cc: Marcelo Tosatti <mtosatti@redhat.com>
+Signed-off-by: Ximing Zhang <xzhangjr@gmail.com>
+Tested-by: Asaf Nuri Bertizlioğlu <ycistak@gmail.com>
+Link: https://patch.msgid.link/20261016-codex-coretemp-housekeeping-v1-1-96618c5676b2@gmail.com
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
 ---
- sound/hda/codecs/realtek/alc269.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/hwmon/coretemp.c | 26 ++++++++++++++++----------
+ 1 file changed, 16 insertions(+), 10 deletions(-)
 
-diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-index de251fc464473..e3b3e88dbf8a6 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -8148,7 +8148,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1043, 0x1663, "ASUS GU603ZI/ZJ/ZQ/ZU/ZV", ALC285_FIXUP_ASUS_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1043, 0x1664, "ASUS ExpertBook PM3406CHA", ALC256_FIXUP_ASUS_PM3406CHA),
- 	SND_PCI_QUIRK(0x1043, 0x1683, "ASUS UM3402YAR", ALC287_FIXUP_CS35L41_I2C_2),
--	SND_PCI_QUIRK(0x1043, 0x16a3, "ASUS UX3402VA", ALC245_FIXUP_CS35L41_SPI_2),
-+	SND_PCI_QUIRK(0x1043, 0x16a3, "ASUS UX3402VA", ALC294_FIXUP_ASUS_SPI_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1043, 0x16b2, "ASUS GU603", ALC289_FIXUP_ASUS_GA401),
- 	SND_PCI_QUIRK(0x1043, 0x16d3, "ASUS UX5304VA", ALC245_FIXUP_CS35L41_SPI_2),
- 	SND_PCI_QUIRK(0x1043, 0x16e3, "ASUS UX50", ALC269_FIXUP_STEREO_DMIC),
+diff --git a/drivers/hwmon/coretemp.c b/drivers/hwmon/coretemp.c
+index a9edbb4924a7a..3836beade59f4 100644
+--- a/drivers/hwmon/coretemp.c
++++ b/drivers/hwmon/coretemp.c
+@@ -568,9 +568,6 @@ static int create_core_data(struct platform_device *pdev, unsigned int cpu,
+ 	u64 val;
+ 	int err;
+ 
+-	if (!housekeeping_cpu(cpu, HK_TYPE_MISC))
+-		return 0;
+-
+ 	tdata = init_temp_data(pdata, cpu, pkg_flag);
+ 	if (!tdata)
+ 		return -ENOMEM;
+@@ -690,6 +687,14 @@ static int coretemp_cpu_online(unsigned int cpu)
+ 	if (!cpu_has(c, X86_FEATURE_DTHERM))
+ 		return -ENODEV;
+ 
++	/*
++	 * Keep isolated CPUs out of pdata->cpumask. Besides tracking the CPUs
++	 * available to this driver, the mask is used to select the CPU on which
++	 * to read the temperature MSRs.
++	 */
++	if (!housekeeping_cpu(cpu, HK_TYPE_MISC))
++		return 0;
++
+ 	pdata = platform_get_drvdata(pdev);
+ 	if (!pdata->hwmon_dev) {
+ 		struct device *hwmon;
+@@ -719,8 +724,8 @@ static int coretemp_cpu_online(unsigned int cpu)
+ 	}
+ 
+ 	/*
+-	 * Check whether a thread sibling is already online. If not add the
+-	 * interface for this CPU core.
++	 * Check whether a housekeeping thread sibling is already online. If
++	 * not, add the interface for this CPU core.
+ 	 */
+ 	if (!cpumask_intersects(&pdata->cpumask, topology_sibling_cpumask(cpu)))
+ 		coretemp_add_core(pdev, cpu, 0);
+@@ -750,9 +755,9 @@ static int coretemp_cpu_offline(unsigned int cpu)
+ 	cpumask_clear_cpu(cpu, &pd->cpumask);
+ 
+ 	/*
+-	 * If this is the last thread sibling, remove the CPU core
+-	 * interface, If there is still a sibling online, transfer the
+-	 * target cpu of that core interface to it.
++	 * If this is the last housekeeping thread sibling, remove the CPU core
++	 * interface. If there is still a housekeeping sibling online, transfer
++	 * the target CPU of that core interface to it.
+ 	 */
+ 	target = cpumask_any_and(&pd->cpumask, topology_sibling_cpumask(cpu));
+ 	if (target >= nr_cpu_ids) {
+@@ -764,7 +769,8 @@ static int coretemp_cpu_offline(unsigned int cpu)
+ 	}
+ 
+ 	/*
+-	 * If all cores in this pkg are offline, remove the interface.
++	 * If all housekeeping cores in this pkg are offline, remove the
++	 * interface.
+ 	 */
+ 	tdata = get_temp_data(pd, -1);
+ 	if (cpumask_empty(&pd->cpumask)) {
+@@ -777,7 +783,7 @@ static int coretemp_cpu_offline(unsigned int cpu)
+ 
+ 	/*
+ 	 * Check whether this core is the target for the package
+-	 * interface. We need to assign it to some other cpu.
++	 * interface. We need to assign it to some other housekeeping CPU.
+ 	 */
+ 	if (tdata && tdata->cpu == cpu) {
+ 		target = cpumask_first(&pd->cpumask);
 -- 
 2.53.0
 
