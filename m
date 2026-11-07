@@ -1,52 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794063696;
-	b=uMj4OV0/8ariIAMeCYlxnSyKUIQCFlpxcSoCk8KzoACcqpN6ajNgME+RyaJ1mjwL5e1b
-	 91f2ms11rQxDlv+aWu4yHCwOg09oFQk+aIlLEaHjkrhsEP2bKTVc29Ayc6UNlIKxdE2uS
-	 BSYTSuCSJ1kFfBLrhp5CoK5L3gQ8r9BBOqGv8scV/fv527qx6L8JujE8AH2pWhWkfvOwL
-	 anGDfN09i9yeKEJRra8qnv49ej0BgILmy+DTOmBwzvOZo2K1QrISpIa6s7QEsd6cFKGyf
-	 IXQ95I+NOIsJu+6+C1r1VnNY6zUJ5gluLlBbqp4Hgr0tAvvldDgVdAG28vA+9uYdfVQ==
+	t=1794063698;
+	b=d+KkY0pCYPhoJA1FBrowZi5hmtHy+zcqG3cOGzlqg7c5cqaW4xkcsQWKI8UmutcCf7yA
+	 V7TZujq4oDwPiTC4tcdOovgrDG6sfDHIB94MQliETnK+o2cmPYD/3Kdp3w3vID1otWoD3
+	 SrXDFjNtbT9yz++w8YBvR5ypWpIxOHEzSTtTZ/y4Rbz+H7+5pmIGqwHT2AS/UR8QoNBsQ
+	 SzDzdlpYv2JYJP9EmAUbNPF1BUoC+MKg7DG10Z8o4BQjaccPf3rb/tRhit4xi94Gu9ytl
+	 E5X13j9Qear+1xqQ5L5twnHr8UuLyRPJua0mtnKo6TVew31fCnBxhGx8s19z7JG46Sw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794063696;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794063698;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=SAIEpre/N4pqCSQdel7EkFZ/WqYBYdg42iJVGNTxBxI=;
-	b=Of41RPRWhN5/WcTHy6b/npmPVAS0gK9Fuh+SpP9sbESqxweqiCwKtwUjfPDhDB7fI5/K
-	 PphiQxcoztPV3Ff3KJkH2mBtcSsl5ilPLF9/2cu1w1HqsdKau0wJcztdTXN4h2A8CBWzb
-	 12ziRttPLRRL6J0nQa+4OwX2fm6q0pBF61DdBcQhSo4UMawKB4pyW4LOGDaaQ49JzWf7l
-	 WjuMrwImnV2q83rwkmn5/1r+4NNULxlhyEuwDtmLPnPC73TMr+FkhVxo2T6msigEtmLX+
-	 x2d4VicjDbg5HlSKuo/B4DwLHY3rQUboiLoJEWTrCpxEyZr2MSPLaCCe2hkuLuz495Q==
+	bh=+0ts/BofrkzRBgXWwVqVxHmTeGofeK2DSYMH/QvWD58=;
+	b=WDqU2ZuMlZdkDaAbK7gbZtQW1TEN4f6npFvQ9E9SQaXCPzidh2dYi8ft8CMpih8RMC4I
+	 wsxUMgZesEamkjCEvl2hGK/3fmInvr7XfkXkByTdc3KsWMKFuRV3YYH4CJcwEe0vt0Yeg
+	 mmCVsi8bd3Pu2hjAHIYM79DT3Tnw5TDuYztSZXWSwbhw2ECC1sivcuUuNLWH6VjrCGJN5
+	 7GJSAiRCsgiMcsC03G/HPRcDuxg/i3qk6StEitYx25VS4W0HFiDyFDem2smcLSBnadOxn
+	 NAUgniiILjEgwoQmGU0K4ah6CA1GyFByXMZoMEvj1Jy5zo97ztW9jDJBg2aUtRg7LuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=IbJD7DkI;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=oDw1q42d;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ACA6606A32C;
-	Sat,  7 Nov 2026 15:01:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD521606B8A6;
+	Sat,  7 Nov 2026 15:01:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=IbJD7DkI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 318581F0089F;
-	Sat,  7 Nov 2026 15:01:36 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=oDw1q42d
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A6071F0089F;
+	Sat,  7 Nov 2026 15:01:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794063696;
-	bh=SAIEpre/N4pqCSQdel7EkFZ/WqYBYdg42iJVGNTxBxI=;
+	s=korg; t=1794063697;
+	bh=+0ts/BofrkzRBgXWwVqVxHmTeGofeK2DSYMH/QvWD58=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IbJD7DkItYn2d5XQguMAL3lJckatxXuBYyrBZkKLQirT8oRRdIYwU0JoE8qVdS/Ds
-	 DYQYH/nvC6e2c+QVbPIxUTdEsjWmC5rBMvkTEgKiAtYvFbUNk4NrNwdjhIgesSRgbo
-	 YDehzVlS25Exvqtw47bR1s0ge8wdUt/cha4G8esQ=
+	b=oDw1q42duFj8EYx5OgQ46/EwRKIULBdkZJMSEylLTpdtMvKN2iwnUYJ9n+epnnaDq
+	 pbVPPdayUYEK8CgRuQH5TyrKQxL+cg/MRbHRCRu+1i4m5nPBnHAU1zjG4Dr2o//DAY
+	 63RqpnMOYJxRjGYcaY8LMMHV2RgDZ9LKFY2hFoTM=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Mark Brown <broonie@kernel.org>,
+	Max Kellermann <max.kellermann@ionos.com>,
+	Xiubo Li <xiubo.li@clyso.com>,
+	Ilya Dryomov <idryomov@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 801/869] ASoC: hdac_hda: Balance the runtime PM disable in codec remove
-Date: Sat,  7 Nov 2026 08:58:03 -0500
-Message-ID: <20261107134920.018311284@linuxfoundation.org>
+Subject: [PATCH 6.18 766/869] ceph: avoid pending truncate during nonblocking cap acquire
+Date: Sat,  7 Nov 2026 08:57:28 -0500
+Message-ID: <20261107134918.685756272@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261107134852.069646174@linuxfoundation.org>
 References: <20261107134852.069646174@linuxfoundation.org>
@@ -68,56 +69,42 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+From: Max Kellermann <max.kellermann@ionos.com>
 
-[ Upstream commit f26c0d5f91d918bb66cbbc8916f41836adb38346 ]
+[ Upstream commit 979b7ed4457a04c5a41c36f86052ecc6b76c67d9 ]
 
-hdac_hda_codec_remove() disables runtime PM of the codec device before
-releasing the HDA link and calling the codec driver's remove callback,
-so that no runtime resume can race with the teardown and access the
-link or the already freed codec driver data.
-snd_hda_codec_cleanup_for_unbind() then disables runtime PM again.
+Readahead acquires caps while the folios are locked.  This can
+deadlock when processing a pending truncate; truncate_pagecache() can
+then attempt to a folio that is already locked.
 
-On the next probe snd_hda_codec_register() enables runtime PM only once,
-leaving it disabled after the ASoC card or the codec driver has been
-unbound and bound again: the codec stays powered and runtime_status
-reads 'unsupported'.
+Return -EAGAIN instead when `NON_BLOCKING` is set, causing the
+readahead to be abandoned.
 
-Re-enable runtime PM at the end of hdac_hda_codec_remove() to balance
-its own disable. The codec remains disabled until it is registered again.
-
-Fixes: c3ec8ac82105 ("ASoC: hdac_hda: fix memleak on module unload")
 Cc: stable@vger.kernel.org
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Link: https://patch.msgid.link/20261027083840.28813-4-peter.ujfalusi@linux.intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Fixes: 49870056005c ("ceph: convert ceph_readpages to ceph_readahead")
+Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
+Reviewed-by: Xiubo Li <xiubo.li@clyso.com>
+Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/hdac_hda.c | 4 ++++
+ fs/ceph/caps.c | 4 ++++
  1 file changed, 4 insertions(+)
 
-diff --git a/sound/soc/codecs/hdac_hda.c b/sound/soc/codecs/hdac_hda.c
-index b4d93b9404bb7..1a89f570fd1f4 100644
---- a/sound/soc/codecs/hdac_hda.c
-+++ b/sound/soc/codecs/hdac_hda.c
-@@ -557,6 +557,7 @@ static void hdac_hda_codec_remove(struct snd_soc_component *component)
- 		return;
+diff --git a/fs/ceph/caps.c b/fs/ceph/caps.c
+index 91cb305815cbd..7ce1af5b61c88 100644
+--- a/fs/ceph/caps.c
++++ b/fs/ceph/caps.c
+@@ -2878,6 +2878,10 @@ static int try_get_cap_refs(struct inode *inode, int need, int want,
  	}
  
-+	/* prevent runtime PM callbacks while the link and the codec are torn down */
- 	pm_runtime_disable(&hdev->dev);
- 	snd_hdac_ext_bus_link_put(hdev->bus, hlink);
- 
-@@ -564,6 +565,9 @@ static void hdac_hda_codec_remove(struct snd_soc_component *component)
- 		driver->ops->remove(codec);
- 
- 	snd_hda_codec_cleanup_for_unbind(codec);
-+
-+	/* Balances the disable above, cleanup_for_unbind keeps runtime PM disabled */
-+	pm_runtime_enable(&hdev->dev);
- }
- 
- static const struct snd_soc_dapm_route hdac_hda_dapm_routes[] = {
+ 	/* finish pending truncate */
++	if (ci->i_truncate_pending && (flags & NON_BLOCKING)) {
++		ret = -EAGAIN;
++		goto out_unlock;
++	}
+ 	while (ci->i_truncate_pending) {
+ 		spin_unlock(&ci->i_ceph_lock);
+ 		if (snap_rwsem_locked) {
 -- 
 2.53.0
 
