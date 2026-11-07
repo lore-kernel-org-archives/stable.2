@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046690;
-	b=dVUzCHKLtbz8c54EbrNDYr0APE3mxj2/XPjuFsnY9j9tptId24tckcSgWZZt4LG95QAN
-	 kR0B55g4cn43j8TOsZd40ydWsRo+PNMbVqTMfCbG0jtuFX3QpKDNt3ahVoWix42qbYr8G
-	 swYRABMbGR1Bct/lx9vXzrJrD9EjKrN1FIj0dhw+NFlpAn6iGHpvo//p8REuuFmhmZ7hM
-	 WdljbZy+SOgbOJhEztkDqhmZVMBn41eYY0RTpS1y0dra3ejyo4VAbxDeJIdltRcs7OOFR
-	 FSey4DtC9VjKaqJichZeLwM0LfJbniYbR6cGMymenjE9R+ZCEFAv/Qc28rqJbBbBFgw==
+	t=1794046693;
+	b=PbC/ykcfclWMohHi/NrBf+ogU31E1viW/keUZqhJKkxmD/6zyW3G8qUJVoCIy0YcJJ0S
+	 Fonf/uEboarRfLZK4bV405wIq24DpxSo+5p2UR2T4STWFcKQJsHp6vwQjjs2TEAXHmCFi
+	 SVmq4X9fMOVfVOhYK/WQ6fL79Uemy4T/NdCqzo2D8l0YaMAjggwwaK4nEG8zMoQAOUwTk
+	 bZ3qwJWKPaapxPR2UG/sjC6c3Ca1TLqmHVcG3xaCwU5aKf/xC6yduCxuV6ZVKmD8QVJQ7
+	 qlvywdvlULBmc7P+rsrXDKC9xqTafHzI9vUKZKmRvOJGePR7cXnhKLQiZJy2GmpJzDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046690;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046693;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=1+0DTR/NQbGnRzmh3M2j0lN6dIfb6lcoEVhBPGgOxy0=;
-	b=tAcLC0V2bDZrui455P80Rjdm7d6UOMwRFZo5qQ+NBKwxJ42B5tDkxT5IF0HLdjbKSJFo
-	 aCaWuuqg5ibpWsBkerO+2NQsnCbCYeXz2HTPa1fArcIwTSMZcjGfa+kXScVZ9ykWnKqZI
-	 RBGClpyWr7I5ww2RET1YVMdp9tyKet/ZkoyO9f8Yo+zh7oFx70TNwaiRdqqqaMvCR6PhA
-	 AsrsKEZVK/CBezRXRRaQt7FK8/LqbHZcsFpYITo56XYeNEx5V3r7FHRl3Zt6x72OHdswv
-	 AatFruEAQq8yGv4pKJQP42NESWBs6DiYfjoYw8CobgbFFn1Za7a8sZZ4y63OobHUhRg==
+	bh=F/KaEPgaPqbL2JbEeceFVIyHP+PiYBTw9iTMkSo8ekw=;
+	b=wkoj0UtyTQWrJ/QFd3TA3RMi/JWpzJnUiY2DSO5h/iGrk5NEakuE03PB6VWloF2Y5rIy
+	 7X+djQrkAcckz5FFZpqy211wY5u3rn+FbTuMgk0wnRVmZqrYJPFFkIVkUcI737SYFKNTS
+	 N7KJgELm033A7bzJGZxoeGEOxGE3448UBink/DFjBD36gs/NKKprWdYereL2zy4hwim44
+	 4kUkergBIZnSzLhD7D8CqzHomEVIFpOvzIU9vdwvXRVpfMXxn7jx3ZYmFN7KjRcSIUkrs
+	 lKeNvhGXw1ZnqBGvLNry/b0jnHTq6iW97zUb7nSZVe1dSAuPPtoJbnnu6ltS8zoOk3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AAm1ObQd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cz5ebJk5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87E76606A336
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:18:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF4B86082BF1
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:18:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AAm1ObQd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5AEC1F008A5;
-	Sat,  7 Nov 2026 10:18:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cz5ebJk5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27CA71F008A1;
+	Sat,  7 Nov 2026 10:18:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046690;
-	bh=1+0DTR/NQbGnRzmh3M2j0lN6dIfb6lcoEVhBPGgOxy0=;
+	s=k20260515; t=1794046692;
+	bh=F/KaEPgaPqbL2JbEeceFVIyHP+PiYBTw9iTMkSo8ekw=;
 	h=From:To:Cc:Subject:Date;
-	b=AAm1ObQd6qgPSR87cH6OCJG+at9ZrOwP6rVUyiAu01djM0327TyRZPtipgK51MTu0
-	 JFV8BsaPnc1C6LTy6gm36zbV1nMD/O1PN8rp4Uqs8O04xXKbulJC62dGE+pFJDq3j+
-	 8AKxNwHCk+kNtFROhRjn+Z++xvXnw9WTblvU4MqARELxOBGS79Zb0IGGRvF12AY6qF
-	 Ai9d84D5S19CX2muHUSEIj914BTukHS1FOn6GqBGXEUJ9NIdBp59Hb7t/xmf4bkCPP
-	 JOGcdES3F0dY4DI5M6iC8oZKdAFCgSlGJqSm6d9Nq4FwY/Py0Es/Y4/ImQncW2kVxa
-	 vI71tcPaVKUaA==
+	b=cz5ebJk53qKIfWPuTjGHhwIQVubPAjdPeFWYfBTFOkWVMsJySHDeqQhysOjZTTBWq
+	 PWXDEF5eTxvgQXKtEQ7iQrw0Cx/3xnLdLDy1ZPO1EFChaWC2bdA6jPWIbEKOw1JqRg
+	 ywC3pGcuZWEhIBW3a26yBFfdlI2NFIbX6eddRj1fzPHJxfmpMWFrGkaD2IVtUB13Mt
+	 xAOy/458fhu1gUt2zwlAk6/16ictRifvLQ6qonYuqoytQwEfA64mexOd2YeQq7HuTY
+	 YUOnUUGE026TgNTark3XxWXNB+BZJ9QrWOcgKb0oeTKa04dVgLkNkp4/F8nuuV+dE4
+	 NIrlJVE6kmTuQ==
 From: Sasha Levin <sashal@kernel.org>
-To: hitesh@ebytelogic.com,
-	bryan.odonoghue@linaro.org,
-	loic.poulain@oss.qualcomm.com,
+To: busanna.reddy@oss.qualcomm.com,
+	vikash.garodia@oss.qualcomm.com,
+	dmitry.baryshkov@oss.qualcomm.com,
 	bod@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] media: qcom: camss: vfe-17x: Fix write master selection for RDI lines" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:18:08 -0500
-Message-ID: <20261107051808-failed-6.12-fc02156a3efb@kernel.org>
+Subject: FAILED: patch "[PATCH] media: venus: Fix iova allocation from restrict region" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:18:11 -0500
+Message-ID: <20261107051811-failed-6.12-953439251b59@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,113 +70,212 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x fc02156a3efb747b724a490cc50e1ad8c28a3b23
+git cherry-pick -x 953439251b596cee039fbfeaffeb1d88a4b40f43
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051808-failed-6.12-fc02156a3efb@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051811-failed-6.12-953439251b59@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From fc02156a3efb747b724a490cc50e1ad8c28a3b23 Mon Sep 17 00:00:00 2001
-From: Hitesh Patel <hitesh@ebytelogic.com>
-Date: Mon, 28 Sep 2026 17:45:04 +0530
-Subject: [PATCH] media: qcom: camss: vfe-17x: Fix write master selection for
- RDI lines
+From 953439251b596cee039fbfeaffeb1d88a4b40f43 Mon Sep 17 00:00:00 2001
+From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Date: Tue, 18 Aug 2026 20:43:23 +0530
+Subject: [PATCH] media: venus: Fix iova allocation from restrict region
 
-On the gen2 VFE bus there is no crossbar between the RDI paths and
-the bus write masters: RDI n is served by write master n. The common
-vfe_get_output_v2() reflects this by mapping line->id to write master
-line->id, and every gen2 VFE except 17x uses it.
+The VPU issues DMA through several SMMU streams, and the hardware does
+not give every stream the same addressable range. The non-pixel stream
+cannot address the low 600MB of IOVA space, while the pixel stream can
+address the full range:
+    +-----------------------------------------------------------+
+    | non-pixel stream addressable range (600 MB - 3.5 GB)      |
+    | 0x25800000 - 0xe0000000                                   |
+    +-----------------------------------------------------------+
+    | pixel stream addressable range (0 - 3.5 GB)               |
+    | 0x00000000 - 0xe0000000                                   |
+    +-----------------------------------------------------------+
 
-The 17x code kept its own vfe_get_output(), which reserves whichever
-write master is free first. That happens to be the right one as long
-as a single line streams and it is RDI0. As soon as two lines of the
-same VFE stream, for instance two virtual channels demultiplexed by
-the CSID to RDI0 and RDI1, the second line to start is given the
-write master of the other RDI. Both write masters are then programmed
-with the buffer address and frame size of the wrong line. The frames
-are truncated to the smaller of the two buffers and the SMMU faults
-on the larger one.
+A single "iommus" property on the video-codec node puts every stream
+in one IOMMU domain sharing one IOVA space, so nothing stops a
+non-pixel buffer from landing below 600MB. Once an allocation lands
+below that boundary the hardware faults, which shows up as unhandled
+SMMU page faults and spontaneous reboots.
+https://gitlab.freedesktop.org/drm/msm/-/work_items/100
 
-Use vfe_get_output_v2() on 17x like the other gen2 VFEs and drop the
-duplicate. This also removes an error path that released
-output->wm_idx[0] before it had been assigned.
+Fix this by reserving the 0-600MB range, below the boundary the
+non-pixel stream cannot address, using dma_iova_try_alloc() so the
+IOMMU-DMA core never hands that range out to a real DMA mapping. This
+reserves only IOVA space, it does not allocate any physical memory.
 
-The gen1 VFEs are not affected: they have a bus crossbar and any write
-master can serve any line, so vfe_reserve_wm() is correct there.
+Since sub-nodes for non-pixel, pixel, and secure streams do not exist
+yet and only a single device is available, the restriction is applied
+to both non-pixel and pixel stream IDs.
 
-Fixes: 7319cdf189bb ("media: camss: Add support for VFE hardware version Titan 170")
+Fixes: af2c3834c8ca ("[media] media: venus: adding core part and helper functions")
 Cc: stable@vger.kernel.org
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Signed-off-by: Hitesh Patel <hitesh@ebytelogic.com>
+Reviewed-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+[bod: took iova_state description from iris and applied to venus in core.h]
 Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
 ---
- .../media/platform/qcom/camss/camss-vfe-17x.c | 41 +------------------
- 1 file changed, 1 insertion(+), 40 deletions(-)
+ drivers/media/platform/qcom/venus/core.c | 66 ++++++++++++++++++++++--
+ drivers/media/platform/qcom/venus/core.h |  6 +++
+ 2 files changed, 69 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe-17x.c b/drivers/media/platform/qcom/camss/camss-vfe-17x.c
-index c011f64f63e93..62c2405359a06 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe-17x.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe-17x.c
-@@ -382,45 +382,6 @@ static int vfe_halt(struct vfe_device *vfe)
- 	return 0;
- }
+diff --git a/drivers/media/platform/qcom/venus/core.c b/drivers/media/platform/qcom/venus/core.c
+index 243e342b0ae75..2a0ab553c4519 100644
+--- a/drivers/media/platform/qcom/venus/core.c
++++ b/drivers/media/platform/qcom/venus/core.c
+@@ -377,6 +377,57 @@ static int venus_add_dynamic_nodes(struct venus_core *core)
+ static void venus_remove_dynamic_nodes(struct venus_core *core) {}
+ #endif
  
--static int vfe_get_output(struct vfe_line *line)
--{
--	struct vfe_device *vfe = to_vfe(line);
--	struct vfe_output *output;
--	unsigned long flags;
--	int wm_idx;
--
--	spin_lock_irqsave(&vfe->output_lock, flags);
--
--	output = &line->output;
--	if (output->state > VFE_OUTPUT_RESERVED) {
--		dev_err(vfe->camss->dev, "Output is running\n");
--		goto error;
--	}
--
--	output->wm_num = 1;
--
--	wm_idx = vfe_reserve_wm(vfe, line->id);
--	if (wm_idx < 0) {
--		dev_err(vfe->camss->dev, "Can not reserve wm\n");
--		goto error_get_wm;
--	}
--	output->wm_idx[0] = wm_idx;
--
--	output->drop_update_idx = 0;
--
--	spin_unlock_irqrestore(&vfe->output_lock, flags);
--
--	return 0;
--
--error_get_wm:
--	vfe_release_wm(vfe, output->wm_idx[0]);
--	output->state = VFE_OUTPUT_OFF;
--error:
--	spin_unlock_irqrestore(&vfe->output_lock, flags);
--
--	return -EINVAL;
--}
--
- /*
-  * vfe_enable - Enable streaming on VFE line
-  * @line: VFE line
-@@ -441,7 +402,7 @@ static int vfe_enable(struct vfe_line *line)
++static void venus_unreserve_iova_region(struct device *dev, struct dma_iova_state *state)
++{
++	unsigned int i;
++
++	for (i = 0; dma_iova_size(&state[i]); i++)
++		dma_iova_free(dev, &state[i]);
++}
++
++static int venus_reserve_iova_region(struct device *dev, struct dma_iova_state **iova_state,
++				     unsigned long start, unsigned long size)
++{
++	unsigned long dma_limit = dev->bus_dma_limit;
++	unsigned long end, rem, chunk;
++	struct dma_iova_state *state;
++	unsigned int count = 0;
++	int ret = -ENOMEM;
++
++	state = devm_kcalloc(dev, BITS_PER_TYPE(dma_addr_t) + 1, sizeof(*state), GFP_KERNEL);
++	if (!state)
++		return ret;
++
++	end = start + size;
++	rem = end - max(start, PAGE_SIZE);
++	dev->bus_dma_limit = end - 1;
++
++	while (rem) {
++		chunk = min(end & -end, (u64)1 << (fls64(rem) - 1));
++
++		if (!dma_iova_try_alloc(dev, &state[count], 0, chunk))
++			goto err_free_iova;
++
++		if (state[count].addr != end - chunk || state[count].__size != chunk)
++			goto err_free_iova;
++
++		rem -= chunk;
++		end -= chunk;
++		count++;
++	}
++
++	*iova_state = state;
++	dev->bus_dma_limit = dma_limit;
++
++	return 0;
++
++err_free_iova:
++	venus_unreserve_iova_region(dev, state);
++	dev->bus_dma_limit = dma_limit;
++
++	return ret;
++}
++
+ static int venus_probe(struct platform_device *pdev)
+ {
+ 	struct device *dev = &pdev->dev;
+@@ -421,10 +472,15 @@ static int venus_probe(struct platform_device *pdev)
+ 			return ret;
+ 	}
  
- 	mutex_unlock(&vfe->stream_lock);
+-	ret = dma_set_mask_and_coherent(dev, core->res->dma_mask);
++	ret = venus_reserve_iova_region(dev, &core->iova_state, VENUS_NP_RESERVE_IOVA_START,
++					VENUS_NP_RESERVE_IOVA_SIZE);
+ 	if (ret)
+ 		goto err_core_put;
  
--	ret = vfe_get_output(line);
-+	ret = vfe_get_output_v2(line);
- 	if (ret < 0)
- 		goto error_get_output;
++	ret = dma_set_mask_and_coherent(dev, core->res->dma_mask);
++	if (ret)
++		goto err_unresv_iova_region;
++
+ 	dma_set_max_seg_size(dev, UINT_MAX);
  
+ 	INIT_LIST_HEAD(&core->instances);
+@@ -434,13 +490,13 @@ static int venus_probe(struct platform_device *pdev)
+ 
+ 	ret = hfi_create(core, &venus_core_ops);
+ 	if (ret)
+-		goto err_core_put;
++		goto err_unresv_iova_region;
+ 
+ 	ret = devm_request_threaded_irq(dev, core->irq, hfi_isr, venus_isr_thread,
+ 					IRQF_TRIGGER_HIGH | IRQF_ONESHOT,
+ 					"venus", core);
+ 	if (ret)
+-		goto err_core_put;
++		goto err_unresv_iova_region;
+ 
+ 	venus_assign_register_offsets(core);
+ 
+@@ -525,6 +581,8 @@ static int venus_probe(struct platform_device *pdev)
+ 	v4l2_device_unregister(&core->v4l2_dev);
+ err_hfi_destroy:
+ 	hfi_destroy(core);
++err_unresv_iova_region:
++	venus_unreserve_iova_region(dev, core->iova_state);
+ err_core_put:
+ 	if (core->pm_ops->core_put)
+ 		core->pm_ops->core_put(core);
+@@ -562,6 +620,8 @@ static void venus_remove(struct platform_device *pdev)
+ 
+ 	hfi_destroy(core);
+ 
++	venus_unreserve_iova_region(dev, core->iova_state);
++
+ 	mutex_destroy(&core->pm_lock);
+ 	mutex_destroy(&core->lock);
+ 	venus_dbgfs_deinit(core);
+diff --git a/drivers/media/platform/qcom/venus/core.h b/drivers/media/platform/qcom/venus/core.h
+index 46705a6667762..93fa77f05834c 100644
+--- a/drivers/media/platform/qcom/venus/core.h
++++ b/drivers/media/platform/qcom/venus/core.h
+@@ -8,6 +8,7 @@
+ #define __VENUS_CORE_H_
+ 
+ #include <linux/bitops.h>
++#include <linux/dma-mapping.h>
+ #include <linux/list.h>
+ #include <media/videobuf2-v4l2.h>
+ #include <media/v4l2-ctrls.h>
+@@ -30,6 +31,9 @@
+ 
+ #define VENUS_MAX_FPS			240
+ 
++#define VENUS_NP_RESERVE_IOVA_START	0x0
++#define VENUS_NP_RESERVE_IOVA_SIZE	0x25800000
++
+ extern int venus_fw_debug;
+ 
+ struct freq_tbl {
+@@ -189,6 +193,7 @@ struct venus_format {
+  * @dump_core:	a flag indicating that a core dump is required
+  * @ocs:	OF changeset pointer
+  * @hwmode_dev:	a flag indicating that HW_CTRL_TRIGGER is used in clock driver
++ * @iova_state: a pointer to an array of dma_iova_state entries reserved for restricted IOVA region
+  */
+ struct venus_core {
+ 	void __iomem *base;
+@@ -250,6 +255,7 @@ struct venus_core {
+ 	unsigned long dump_core;
+ 	struct of_changeset *ocs;
+ 	bool hwmode_dev;
++	struct dma_iova_state *iova_state;
+ };
+ 
+ struct vdec_controls {
 -- 
 2.53.0
 
