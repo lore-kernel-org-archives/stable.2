@@ -1,53 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046220;
-	b=M6o7WJSCBnQj5of+XeqV5z7eXf4rv4p549SHEmACqmLfukimj8DeKn/yTzrlKyba3I83
-	 JKXRXOzk7GYJMkxofvqY1YNIFjGK1/GC3UV5LLf2/GYdQ+vlae50yE6sBSHCjoeLQDKsv
-	 TdSetsDJRBJnaPPvZfupUFviMV9IzkVmh1fC1wI1PK2mHINbFdhFN8csNovAGF2mSxwqw
-	 RSWZLD+W3/uNbxa6Zk0T95JTuGMDG/AaVSEOu4yccnH1czqVpRD0bF3+tPKV/9UhvEWYL
-	 mF7hh4P3VwjmvfhJGJc2tyoWoBff4B+6tcNrLyOyn2DEBJDfAHgh3o66y43wTZkbCWQ==
+	t=1794046222;
+	b=4jn6dIog6lIcWlUjv/ZOjXMyg4967nW15yMeGYJbADoTEMHfqx6CZV4/DY617SQM3D4y
+	 kVgPqezBEKHceC2lvV5mHKHdzZMSOXwMDAVhkBNoVS1zWBVLG7myT1+au8wbV6vRitznh
+	 L5EBw+s2fKSgSHiq+JIT0vwqkP94mtkmzQzb609h1fO5qS+O+IKAIBM4bl+BfgUi5Ub6X
+	 OYcIUCOKA6OaIpCcKPxchZX+UHm49oBOPwa90holH0Kdj0E6CToLd+4PyHMiz9U+RzFmI
+	 LtkWlOfkW5xu4F/UTvOL2AxCBVPRHrEZrh2M+tgkh9U9B3yG1hSZbv4yHnVJRpVzGuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046220;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046222;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=zoowDW2VpcPdJ4bGpItql13EAkSCU7++yGJEJeNkmdI=;
-	b=x7TzO6Yq5zXa19qEk+N7VJbKqgqd7d798Ef9R3FzLbom5W2LWF2oYFxIxqUD5z/j2yfK
-	 b5YJq3YxayqM7XVN+2chU1SyaRtjz+mr0WY8Vwxo+6k56ubupyE9YD7+KmMCjJ76GXiTw
-	 uQQ/ZoNgMRx1vox+rpFkVAVL304Y/Uvn4wzhHh/4SCqB+z2LUP+QC5V+ja7DhsOOWuM0o
-	 AYer3+vsuN5USUo+vdZRUsWQsqtN+d3lGccnyg1raJ+InzkmreWnttu1iTr+zo3d8phdX
-	 lHReNBfxWiV8zNDdCELWXK5eR04bF5C5FZGsZVbLlmCiS7qNoycF+UfDdi+fS3FAHVA==
+	bh=A9DboqoKPVPBDEWvdJSc8tOtsH2NRsPFmfwJ6HTbVrY=;
+	b=TXzrcwq31YSrlCev07XBJnTzLywjfjOifMyFwDgDnHKcPpEHREOd5tt2ehP+FG4QMNsb
+	 Pb2hof6mCmu0Q7ufv9EkA1ENAnOpnw45ZpJW7D6gC3c8hRClspk4jysWtsumS1Knj2+VJ
+	 NxHlri0ZHJdqK6UrDbWZDsJ2kDl1y2hBzn98upba6yXuvjMYsoJtXtt7hYearVC08rPWL
+	 +5aVw7qNBH3QZuK6jZK2XKuaUXwqg2mx3G01me/byJs1Ty/idxO554mKzl3Vyn3K0kZ4v
+	 bD4wjwJg5gwbwpLDtyWWKkKCOdrhdHCGkZnWdM5Lz+1b1udNCrQsvgU5LBAo8oob9wQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dsykFUis;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZsnaOPbk;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D6FA606A335
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:10:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14FBF606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:10:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dsykFUis
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35A9D1F008A5;
-	Sat,  7 Nov 2026 10:10:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZsnaOPbk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 831621F0089F;
+	Sat,  7 Nov 2026 10:10:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046219;
-	bh=zoowDW2VpcPdJ4bGpItql13EAkSCU7++yGJEJeNkmdI=;
+	s=k20260515; t=1794046221;
+	bh=A9DboqoKPVPBDEWvdJSc8tOtsH2NRsPFmfwJ6HTbVrY=;
 	h=From:To:Cc:Subject:Date;
-	b=dsykFUismkLZmm9KjjFfdy3UhUBZKuJq01fTDe0TQx6pNJObHL3g4gdkSliOUbl21
-	 bPX17lu9ynwYa+NYhyy1LzZJwHJ3WfeL2EkFnVon41inEho2W6fQ3xiKrV/z6RLR1e
-	 KtpCMzC5mScvnzrmz2elZ3gpP5n6uvpmlcTkv68s7Fy4k/pGsSAUc4cKJeaeAJ3UOR
-	 qeN5DvJiQcBmZahVaTvN3PFj33QFvU1N60035l8iJldViFHNDh7aGWKCx9iV8iCQqZ
-	 M8EWyZug9k08DHf/fx4xTYIBLyBq/Y7EPT5wBl+jX6/8TA+SUp7fb7jkanmr25wxTt
-	 SIrF/J8eC5jRQ==
+	b=ZsnaOPbkLQmNQtwrxMeiu+fVxGPS6tqPDpuY/CK8W0m9HYNrt9jr7eqJDA9ShlIle
+	 LPkjYhfUGCcd4f85a0lFkpr0m/wlCZnTFSIumgvtNUVUARRMU3p9Y2o1kVHNTvvqao
+	 ao3iqshoDYh+YKY9kVrXC0PIiPfxSn3L5iNE+2eGrwqQrIckfDzQ01m9uC9ynV1Kkh
+	 63d8puVfP96MQ3mEqrWj3ocZobVwdM/argM3N/scbnHJMniUGHo/b1VPV5vi3Snwve
+	 gwNt9+FIJHkUtqJASlMcRHQR1uIPPEFZf6/2hSWRa8X1AIkwiHhvbPfcZcNK1r1uNN
+	 gaWpRgswmR2kg==
 From: Sasha Levin <sashal@kernel.org>
-To: wqu@suse.com,
-	bartosz@fenski.pl,
-	fdmanana@suse.com,
-	dsterba@suse.com
+To: make_ruc2021@163.com,
+	tiwai@suse.de
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] btrfs: raid56: do not verify the content if there is no data checksum" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:10:18 -0500
-Message-ID: <20261107051018-failed-6.18-d00b85308abe@kernel.org>
+Subject: FAILED: patch "[PATCH] ALSA: hda: cs35l41: Fix ACPI device reference leak on probe failure" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:10:20 -0500
+Message-ID: <20261107051020-failed-6.18-8d70e364e866@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,115 +68,103 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x d00b85308abee300dfb7e1ac642f38bab9ec7492
+git cherry-pick -x 8d70e364e866bdfca81eee24d0688fac9472cfb9
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051018-failed-6.18-d00b85308abe@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051020-failed-6.18-8d70e364e866@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From d00b85308abee300dfb7e1ac642f38bab9ec7492 Mon Sep 17 00:00:00 2001
-From: Qu Wenruo <wqu@suse.com>
-Date: Wed, 30 Sep 2026 18:29:58 +0930
-Subject: [PATCH] btrfs: raid56: do not verify the content if there is no data
- checksum
+From 8d70e364e866bdfca81eee24d0688fac9472cfb9 Mon Sep 17 00:00:00 2001
+From: Ma Ke <make_ruc2021@163.com>
+Date: Mon, 12 Oct 2026 16:41:52 +0800
+Subject: [PATCH] ALSA: hda: cs35l41: Fix ACPI device reference leak on probe
+ failure
 
-[BUG]
-There is a bug report that fio can fail to sync the data on a degraded
-RAID56 mount:
+cs35l41_hda_probe() takes an acpi_device through
+cs35l41_hda_read_acpi() and stores it in cs35l41->dacpi. Only the
+failures that happen later reach the err: label, which is where that
+reference and cs35l41->acpi_subsystem_id are released, so the early
+return taken when cs35l41_hda_read_acpi() fails leaves both behind.
 
-  # mkfs.btrfs -m raid1 -d raid5 -f $dev1 $dev2 $dev3
-  # mount $dev1 $mnt
-  # btrfs balance start -d $mnt
-  # umount $mnt
-  # btrfs dev scan -u $dev2
-  # wipefs -fa $dev2
-  # mount -o degraded $dev1 $mnt
-  # fio --name=degraded-write --directory=$mnt --rw=randwrite --fdatasync=4 \
-		--bs=4k --size=512M --randrepeat=1
+Keep the ownership in the caller instead of dropping the reference
+inside cs35l41_hda_read_acpi(). That removes the need to work out
+whether a given failure path has already released it, and with it the
+double put that cs35l41_hda_parse_acpi() would otherwise cause when it
+fails after having released the device itself.
 
-The run will fail at fsync:
+cs35l41_hda_parse_acpi() and the !physdev path no longer put the
+reference, and the early failure enters the existing err: cleanup tail
+through a new err_acpi label.
 
-  fio: io_u error on file /mnt/btrfs/degraded-write.0.0: Input/output error: datasync offset=142254080, buflen=0
-  fio: pid=2064, err=5/file:io_u.c:2008, func=io_u error, error=Input/output error
+The label sits between the reset of the codec and the gpio cleanup, so
+an early failure also releases the reset and chip-select descriptors
+that cs35l41_hda_parse_acpi() may already have taken, while still
+skipping cs35l41_safe_reset() on a codec that was never brought up.
 
-[CAUSE]
-With extra debug output, it shows the problem pretty well:
+cs35l41->dacpi comes from devm_kzalloc() and is only assigned once the
+ACPI device has been found, so the put is a no-op when the lookup
+itself failed.
 
-  rbio=2876243968 faila=0 sectornr=0
-  rbio=2876243968 error=0-15 csum=2 bio=15
+Found by code review.
 
-The first line shows the rbio's full stripe logical, and stripe/sector
-number when verify_one_sector() failed.
-
-The second line shows more detail about the rbio, the sector range [0, 16)
-is corrupted, which indicates the first data stripe is corrupted, matching
-the missing device.
-
-The important part is that the csum bitmap shows the data csum is only
-for sector number 2, meanwhile the failed verification is at sector
-number 0.
-
-This means we did the checksum verification even if no corresponding
-checksum is populated.
-
-[FIX]
-There is already a similar check at verify_bio_data_sectors(), but
-unfortunately there is no such check at verify_one_sector().
-
-Add the missing check to skip the csum verification if there is no
-corresponding data checksum.
-
-Reported-by: Bartosz Fenski <bartosz@fenski.pl>
-Link: https://lore.kernel.org/linux-btrfs/a72409af-45ef-45df-9970-2e38bcb22ea6@fenski.pl/
-Fixes: 7a3150723061 ("btrfs: raid56: do data csum verification during RMW cycle")
-CC: stable@vger.kernel.org
-Reviewed-by: Filipe Manana <fdmanana@suse.com>
-Signed-off-by: Qu Wenruo <wqu@suse.com>
-Signed-off-by: David Sterba <dsterba@suse.com>
+Fixes: 447106e92a0c ("ALSA: hda: cs35l41: Support mute notifications for CS35L41 HDA")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ma Ke <make_ruc2021@163.com>
+Link: https://patch.msgid.link/20261012084152.3740340-1-make_ruc2021@163.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- fs/btrfs/raid56.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+ sound/hda/codecs/side-codecs/cs35l41_hda.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/fs/btrfs/raid56.c b/fs/btrfs/raid56.c
-index 8ec24dbb180f9..5ec31299f1c30 100644
---- a/fs/btrfs/raid56.c
-+++ b/fs/btrfs/raid56.c
-@@ -1889,6 +1889,8 @@ static int verify_one_sector(struct btrfs_raid_bio *rbio,
- {
- 	struct btrfs_fs_info *fs_info = rbio->bioc->fs_info;
- 	phys_addr_t *paddrs;
-+	const unsigned int total_sector_nr =
-+		stripe_nr * rbio->stripe_nsectors + sector_nr;
- 	u8 csum_buf[BTRFS_CSUM_SIZE];
- 	u8 *csum_expected;
+diff --git a/sound/hda/codecs/side-codecs/cs35l41_hda.c b/sound/hda/codecs/side-codecs/cs35l41_hda.c
+index 62296be45c55e..d50c3d8f5303c 100644
+--- a/sound/hda/codecs/side-codecs/cs35l41_hda.c
++++ b/sound/hda/codecs/side-codecs/cs35l41_hda.c
+@@ -1907,7 +1907,6 @@ int cs35l41_hda_parse_acpi(struct cs35l41_hda *cs35l41, struct device *physdev,
+ 	hw_cfg->valid = false;
+ 	hw_cfg->gpio1.valid = false;
+ 	hw_cfg->gpio2.valid = false;
+-	acpi_dev_put(cs35l41->dacpi);
  
-@@ -1898,6 +1900,11 @@ static int verify_one_sector(struct btrfs_raid_bio *rbio,
- 	/* No way to verify P/Q as they are not covered by data csum. */
- 	if (stripe_nr >= rbio->nr_data)
- 		return 0;
-+
-+	/* No data checksum for this sector. */
-+	if (!test_bit(total_sector_nr, rbio->csum_bitmap))
-+		return 0;
-+
- 	/*
- 	 * If we're rebuilding a read, we have to use pages from the
- 	 * bio list if possible.
-@@ -1908,9 +1915,7 @@ static int verify_one_sector(struct btrfs_raid_bio *rbio,
- 		paddrs = rbio_stripe_paddrs(rbio, stripe_nr, sector_nr);
- 	}
+ 	return ret;
+ }
+@@ -1928,10 +1927,8 @@ static int cs35l41_hda_read_acpi(struct cs35l41_hda *cs35l41, const char *hid, i
+ 	cs35l41->dacpi = adev;
+ 	struct device *physdev __free(put_device) =
+ 		get_device(acpi_get_first_physical_node(adev));
+-	if (!physdev) {
+-		acpi_dev_put(adev);
++	if (!physdev)
+ 		return -ENODEV;
+-	}
  
--	csum_expected = rbio->csum_buf +
--			(stripe_nr * rbio->stripe_nsectors + sector_nr) *
--			fs_info->csum_size;
-+	csum_expected = rbio->csum_buf + total_sector_nr * fs_info->csum_size;
- 	calculate_block_csum_paddrs(fs_info, paddrs, csum_buf);
- 	if (unlikely(memcmp(csum_buf, csum_expected, fs_info->csum_size) != 0))
- 		return -EIO;
+ 	sub = acpi_get_subsystem_id(ACPI_HANDLE(physdev));
+ 	if (IS_ERR(sub))
+@@ -1986,8 +1983,10 @@ int cs35l41_hda_probe(struct device *dev, const char *device_name, int id, int i
+ 	dev_set_drvdata(dev, cs35l41);
+ 
+ 	ret = cs35l41_hda_read_acpi(cs35l41, device_name, id);
+-	if (ret)
+-		return dev_err_probe(cs35l41->dev, ret, "Platform not supported\n");
++	if (ret) {
++		dev_err_probe(cs35l41->dev, ret, "Platform not supported\n");
++		goto err_acpi;
++	}
+ 
+ 	if (IS_ERR(cs35l41->reset_gpio)) {
+ 		ret = PTR_ERR(cs35l41->reset_gpio);
+@@ -2074,6 +2073,7 @@ int cs35l41_hda_probe(struct device *dev, const char *device_name, int id, int i
+ err:
+ 	if (cs35l41_safe_reset(cs35l41->regmap, cs35l41->hw_cfg.bst_type))
+ 		gpiod_set_value_cansleep(cs35l41->reset_gpio, 0);
++err_acpi:
+ 	gpiod_put(cs35l41->reset_gpio);
+ 	gpiod_put(cs35l41->cs_gpio);
+ 	acpi_dev_put(cs35l41->dacpi);
 -- 
 2.53.0
 
