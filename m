@@ -1,53 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047804;
-	b=qJ+grpyTtqBSjWCJpYW+z8glg7Jty0cPizmLCGvqtFQdghjR0aFGSpGiS468rBtzbuD1
-	 g7xiwavKIriN0qNXPiDq5qMkpoF1jTFDh07kSY8aLgl/5taK2qptI5qZ/212fN7ck+d1N
-	 nCmuvfqs9y97QBaOuG2ix8c4t1ARFcknluHYjdY2l7UE0VQhEivZ51+vySQ9L0Dw/CRF2
-	 xfS0d65mACHNCvRcKL+L4bbQq+X71wjsNfMXlZPyHqETFrXwO5zZtKTC9I7ZttHTaBtVB
-	 S67uCiYunJUNmkZfYLHxs5hD5yXrAxJJG6nnE7tu41/drdsnXekSCFj0G8un23OfnTA==
+	t=1794047806;
+	b=VQdRVDW0g9NdCNCJjqaU/PGxohmfeEHy1gpafKKI0gmcEDFRTrpp1wrjnB9HAJXvnZ5F
+	 KNS3+h96KC8krkXPlWjHAQ2htqDIe0JQjmvjbBtFYCGmMkp3hBMvLEzkq+BJc0dGFkpvM
+	 MhE2FVn90mVLxcX9X3L1HYilcUU+aycS8gxoFgKhsfFBYJGUYhmqhCrCPfhHtp7U+ZrEI
+	 gpniT1tTqFICjCFnhXaiiatVKuBr6qvBQT8ynvCD+PHXRVANyLs2gkz7wIBRK1XwlAUHp
+	 9/2do+YmVeNORDDhpfOpZiGO5Heo8HrcsKgZ8BLK+3LO+SUhNtI/BmmlRHRH/Nzs8Rg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047804;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047806;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=fe1GbTzJ+TKt4vcXQA7JHhaCYbdFB3C4efCM/tjpBXQ=;
-	b=TSlT5M9ZllcSYQ0xmghBwpUGIKeDMi/T2ZooIAtpmN2LIeeOCghU2VmkKIzUMx4c30gr
-	 MwP2KyB+E+wNvo5MOwqMMjAZjoCRrsrHxt+T+pM4LMd2lk0oSziExQGKxJYCKvzNaA7kp
-	 ROMYABvZcaylSTIj2DaeVY3A5Cnn//x3qXni0PTQDZTaIj5/fKLiytdQW4PriN2LlZijU
-	 mVM5rzfAYQ6uUH+OCE0IT5FAUlG2pBP8xcNtXqmJs97pf41sc0ovdPZSUjT8ol13IKI65
-	 uAC/znn6mbPZdhQGzfFwF0kO2LuCxSn/fhXeUd4PVIZ0B5qfe0+HPBncpJ8Z9V270wA==
+	bh=8LY5HEdHXw17N0QE1mMGIgtZqBP16j/rVfZss87pMqQ=;
+	b=JRKcLVL4sO4HHhLfYPy48NHfAHgusLAZx0/B2Z3aTxhPxJ04QmHl3y3MLD+/UV2yo+Q7
+	 epveVcijx/cOIN89lygBetwDCow+XXWyf5SQBoSMTapRUeq4iFsE94Qzn+0mviwdua6Ac
+	 oAJDp4u24NkVrjsb7jfFcxerIdn8z11HYiaB2AuZFT/mvI4hVddTlX5r1mdjF+8KFQpz+
+	 g2X+hGcqsSGqi+/AOHqWrTyfZ7ny9fQBe7EUTwYV0o9uCWQ4uESGz11CJMGN2u791Jv9H
+	 oH9tWINtIypiYskdMWxr8xRqu3nHD75G+Sqi1xjdiEyDHJmou3jgs4uCsSR69DsvyAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="k4/F2lrh";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="WWG/Z8xh";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32522606A32E
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:36:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F836606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:36:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k4/F2lrh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 794541F0089F;
-	Sat,  7 Nov 2026 10:36:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WWG/Z8xh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE9291F0089F;
+	Sat,  7 Nov 2026 10:36:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047804;
-	bh=fe1GbTzJ+TKt4vcXQA7JHhaCYbdFB3C4efCM/tjpBXQ=;
+	s=k20260515; t=1794047806;
+	bh=8LY5HEdHXw17N0QE1mMGIgtZqBP16j/rVfZss87pMqQ=;
 	h=From:To:Cc:Subject:Date;
-	b=k4/F2lrhaujhO8S+bO3ql6H36EK4cwyJ7aLMeNsjW1J6daYU0PD3sWKkDJCWUlmfN
-	 8Hu/+ZEQ7RB4aDn40B3q4yfQxqWjn053unXEMesVbywDQOYjCwfEWXVB9Sji0RPINs
-	 G7DeKeQdXliZBWiqdaDJl+qiAcwp3jWidSIH6XhsUhurJvAjasYMMmmVM6hbcvO70u
-	 oAsWvhQjauG4QnHZcukM6cKtt1i57oZz2o3/yXN+P8UVDfKi/4FqlDZlSeklNCBKh4
-	 C7r9fmMpMHcn4OH2stz0htJokIP6AEJyUoX9MEjx9BbivPs+++T8TIbHFwdwwbJb8G
-	 idS7G+O4CAY8g==
+	b=WWG/Z8xhtGbKzY/rU6imzqFNpC9v8ZPZzI9k844idOzoZpC62g0z7MExRkQor9S5H
+	 lIOfJBKy4oI2aGy7QXrHYCAx8TMdmLsnP9hPfJfiJJic1Jf32/zMYh3W28iUG0PSbc
+	 27LrxOSRv5hX6ddaRB9cdonw0KbaWNnCVE4PNPPvD4dKsFP/otx/o4sWtIIrvSQPiW
+	 kZ/OLvBxRlyWA1J9ovckFlA3iJ7oeHbCHliacX/ygWtX90GDa5hiwx2CdwXgJyqein
+	 LtuaqurfCHR3gYZve9BjHZwgU089qvbvmJvdDZYTqRoAulIZmcFSuuL0r6xamnhOmv
+	 +Emx3pHo7OKNg==
 From: Sasha Levin <sashal@kernel.org>
-To: al.kochet@gmail.com,
-	lis8215@gmail.com,
-	paul@crapouillou.net,
-	dmitry.torokhov@gmail.com
+To: gourry@gourry.net,
+	alexandre.belloni@bootlin.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] Revert "Input: matrix_keypad - force switch rows to input mode"" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:36:42 -0500
-Message-ID: <20261107053642-failed-6.6-1527451f87df@kernel.org>
+Subject: FAILED: patch "[PATCH] rtc: cmos: Honor explicit use_acpi_alarm parameter value" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:36:44 -0500
+Message-ID: <20261107053644-failed-6.6-3c7acb209e1d@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,61 +68,87 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 1527451f87dfe368b8ddeeb501c24ac9bde6b589
+git cherry-pick -x 3c7acb209e1d630b734a2ec72bd988f5da2ac55c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053642-failed-6.6-1527451f87df@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053644-failed-6.6-3c7acb209e1d@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 1527451f87dfe368b8ddeeb501c24ac9bde6b589 Mon Sep 17 00:00:00 2001
-From: Alexander Kochetkov <al.kochet@gmail.com>
-Date: Fri, 2 Oct 2026 13:09:35 +0300
-Subject: [PATCH] Revert "Input: matrix_keypad - force switch rows to input
- mode"
+From 3c7acb209e1d630b734a2ec72bd988f5da2ac55c Mon Sep 17 00:00:00 2001
+From: Gregory Price <gourry@gourry.net>
+Date: Thu, 15 Oct 2026 13:30:29 -0400
+Subject: [PATCH] rtc: cmos: Honor explicit use_acpi_alarm parameter value
 
-This reverts commit 01c84b03d80aab9f04c4e3e1f9085f4202ff7c29.
+An explicit rtc_cmos.use_acpi_alarm=0 command-line argument is ignored
+on systems where use_acpi_alarm_quirks() enables ACPI RTC alarms. The
+argument appears in /proc/cmdline, but the read-only parameter reports Y.
 
-The commit makes every scan call gpiod_direction_input() on the row
-GPIOs. On pin controllers where GPIO input and interrupt are separate
-pinmux functions this switches the row pins out of interrupt mode, and
-enable_row_irqs() does not switch them back: it only unmasks the
-interrupts. Row interrupts then never arrive and the keypad stops
-working. Seen with a matrix keypad on an Allwinner A64 board (PINE
-A64-LTS); it works again with the commit reverted.
+The boolean parameter defaults to false, so the driver cannot distinguish
+an omitted argument from an explicit false value. Use a custom setter to
+record whether parsing occurred and skip automatic selection when it did.
+Preserve the bool parameter type metadata. Automatic selection remains
+unchanged when the parameter is omitted.
 
-The workaround is not needed on Ingenic either: the author of the
-reverted commit re-tested all available JZ47xx SoCs and they all report
-the live pin state in interrupt mode, see the thread in Link.
+On the affected system, the explicit false value reports N after this
+change. The HPET-emulated path completed 100 test runs without a failure
+while the ACPI RTC event counter remained at zero.
 
-Fixes: 01c84b03d80a ("Input: matrix_keypad - force switch rows to input mode")
-Link: https://lore.kernel.org/all/4130C026-2A83-408B-836A-ECA044491C47@gmail.com/
+Fixes: 36d91a4d401c ("rtc: cmos: introduce quirks to enable use_acpi_alarm mode")
 Cc: stable@vger.kernel.org
-Signed-off-by: Alexander Kochetkov <al.kochet@gmail.com>
-Acked-by: Siarhei Volkau <lis8215@gmail.com>
-Acked-by: Paul Cercueil <paul@crapouillou.net>
-Link: https://patch.msgid.link/20261002100935.449473-1-al.kochet@gmail.com
-Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+Link: https://patch.msgid.link/20261015173029.3091872-3-gourry@gourry.net
+Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
 ---
- drivers/input/keyboard/matrix_keypad.c | 3 ---
- 1 file changed, 3 deletions(-)
+ drivers/rtc/rtc-cmos.c | 26 +++++++++++++++++++++++++-
+ 1 file changed, 25 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/input/keyboard/matrix_keypad.c b/drivers/input/keyboard/matrix_keypad.c
-index 14a13abf32720..d14d1d7274870 100644
---- a/drivers/input/keyboard/matrix_keypad.c
-+++ b/drivers/input/keyboard/matrix_keypad.c
-@@ -134,9 +134,6 @@ static void matrix_keypad_scan(struct work_struct *work)
+diff --git a/drivers/rtc/rtc-cmos.c b/drivers/rtc/rtc-cmos.c
+index fe514b1aa3433..209aa4ec732c8 100644
+--- a/drivers/rtc/rtc-cmos.c
++++ b/drivers/rtc/rtc-cmos.c
+@@ -57,7 +57,28 @@
+  */
  
- 	memset(new_state, 0, sizeof(new_state));
+ static bool use_acpi_alarm;
+-module_param(use_acpi_alarm, bool, 0444);
++static bool use_acpi_alarm_explicit;
++
++static int set_use_acpi_alarm(const char *val, const struct kernel_param *kp)
++{
++	int ret;
++
++	ret = param_set_bool(val, kp);
++	if (!ret)
++		use_acpi_alarm_explicit = true;
++
++	return ret;
++}
++
++static const struct kernel_param_ops use_acpi_alarm_ops = {
++	.flags = KERNEL_PARAM_OPS_FL_NOARG,
++	.set = set_use_acpi_alarm,
++	.get = param_get_bool,
++};
++
++param_check_bool(use_acpi_alarm, &use_acpi_alarm);
++module_param_cb(use_acpi_alarm, &use_acpi_alarm_ops, &use_acpi_alarm, 0444);
++__MODULE_PARM_TYPE(use_acpi_alarm, "bool");
  
--	for (row = 0; row < keypad->num_row_gpios; row++)
--		gpiod_direction_input(keypad->row_gpios[row]);
--
- 	/* assert each column and read the row status out */
- 	for (col = 0; col < keypad->num_col_gpios; col++) {
+ static inline int cmos_use_acpi_alarm(void)
+ {
+@@ -822,6 +843,9 @@ static void rtc_wake_off(struct device *dev)
+ #ifdef CONFIG_X86
+ static void use_acpi_alarm_quirks(void)
+ {
++	if (use_acpi_alarm_explicit)
++		return;
++
+ 	if (acpi_gbl_FADT.flags & ACPI_FADT_FIXED_RTC)
+ 		return;
  
 -- 
 2.53.0
