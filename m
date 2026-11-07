@@ -1,55 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049502;
-	b=lDQueI+oV4aU0GMCp4vEI03cSIFb7RSDd8S694fnWTRmtQwx7dC3Qwjawiq6jYmtFgpP
-	 lKbLNQvoOgzKKobH+w4tjN4DQIrl3RqBy+nyityrTK0CFQ8+6zuej2c8BjPLiVby19IxT
-	 /vobwjD+d7c/TF2uGXVRDINoIutRWNdY4KA0xF2L/wFTfGab407esb9fZIPVnkRN1Y/+j
-	 s/lpxWDMgYRsfwPcoS45d2ZSIcODsYjqbPO2sybK9GwDasnQniUVZGYttDF4tlO7cp+8c
-	 +3fGIflEaPd7YFCpW6EIARR+RBZdNGdz/ZOJt5TP5z//nM6J6qU0IbVzw8NUBKwrtxQ==
+	t=1794049505;
+	b=38R+XDcYvkXJxndNf0EoOKZAMtlohbgX1iSw1lNRfONrOCqat+e/gvQ46M5DrAdKXoIc
+	 4+uc9ZmtZRSqxJrwbuLm+ny5GrrjYOTSHdJF5pUzmKoTPFN5iTYQnWAlEUDkFYmAsm87b
+	 WmxdCx1rOosnrCKH2yu42Wi1b6fQSS1u4LhA2DjMk4mo3OB5fDPkss4QlF9RxQZ8Axucg
+	 A1Vn5J6fWZtbu9A3Z3r8spBIaokOECk2Dg4053KDp0gU60LSjRT3/rAUQqXaXuA/gB3Ee
+	 ODz2dnhUaxcWavURojbINgu9ye9v/aoj/0J7XcgGUhrXmLHBIyUAtu1fxKsVkp1I3Pw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049502;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049505;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=mxibyHZFt007KtnQlk9X+etA8jbYnMSnqotkEo5Q4/A=;
-	b=MtVvVMnW4G54VB5kY2BbNipWs/rh5J9kqMEdrOTdtdSlcP5ERa28+TYaQgKUALwIjAAT
-	 k48Kpk4DplPFq3ZNPeNPfolppWievgVb8/w0EMCen3kWF3Crgb/cJ75lTyvRhTh3MBfsJ
-	 U31eF6TA+NoX+IR47BsqpQhI/kWCa8GIH8HDJ/75+4r/29J/TwR4HiwyKXtOln/ngjTYM
-	 j/RJ/VMGQOkvvIyyxIXsKcPpTP548V9G5idE414r9FecWn/XBSe5k82iFtZfY09tWav0D
-	 6MddyQE5n8/X37GQiqwpGVMt8nk5ELA9bYvMKqYk1w8J8U/XNALu2cHFj20MVoI2m+A==
+	bh=yH7tKB3wNZFghaVgwEbpw9JTBn4hpjHLb+NZmEzxxe8=;
+	b=Dx2VmHHLogRpe7LkdWMuxXiDIplpbdD7rrAa72HfGRU0uwYpNOr0sw94g/RpvcMih24X
+	 StVLHgUfmlDcmeFFg31O8OQ/3oxn/p6Oy6zeL7cavfGEmlz1cKsE81a+UGEVae3y496Ca
+	 D2oRVw6emBgM9Fu9X3ONXy4h9H7R/YVrFSGsAUiI9ZhmCWvowK8kxYZNss4N05CpC80wx
+	 +d0C0fjexYS6RlPLji8WbW5hYHKLiBWXZpQuZ5xEf3eG3f9ZtP8gd2F+9sJi4H4XwDmq4
+	 /sGVFGLVm80LxG0M2knDQRNw4WwSFppJByNcNMiJpxDImN4CeaRtul9dwEojVJHSphw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OYIPwDnk;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=afs+tH+G;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B31E606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:05:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CC8F606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:05:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OYIPwDnk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 431041F0089F;
-	Sat,  7 Nov 2026 11:05:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=afs+tH+G
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAEF51F0089F;
+	Sat,  7 Nov 2026 11:05:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049502;
-	bh=mxibyHZFt007KtnQlk9X+etA8jbYnMSnqotkEo5Q4/A=;
+	s=k20260515; t=1794049505;
+	bh=yH7tKB3wNZFghaVgwEbpw9JTBn4hpjHLb+NZmEzxxe8=;
 	h=From:To:Cc:Subject:Date;
-	b=OYIPwDnkrH8FIz4ybHF+AxQJoqkG1916zkEkGoG7aLuYGE8Ej//aiV4iZOboOcsxE
-	 HQLT5v0zqTYJ18DllSc1XlmUotcDn9/hbTmPMj8Po13g6LJtFEqolAbHPVlvf131s+
-	 NtJrcbKaie0BVFoQeVXgEvpbuYx9VkO5gVCy0zSU5LnaxWKmJFr2xI6MCeOtZArJGe
-	 g4HUFa3Kt55nWJK+cIhHBG3CXx+pfprKPVuzu/QL+hTDlahg+lwCCjjJo2Cym/0Uuu
-	 4Qe1pAiyoXUFyU47Z1FgfWx2F1XKtOQJWAzYQwnZ1cNr4rbOgXYG+OorAo8nbhmNXv
-	 NPBivMaxi7W+g==
+	b=afs+tH+GA1U/Xh730ZePL6haBYNuc68p5Mg13YujhYkA2d4X6vvLWivOBHjeh14iM
+	 S9zQwCLzJj/0+2Cc+eEqj1aQWYHmh+03DcbPBRwlaKcnqsl6XPwhdTa+6TzaxNMBA3
+	 9k9KE8xIwaSIDK0AQXyN4UvV/eNyqohOtXQcf/cwb2MWE4fEqpmtrF4Untrhg3YWPQ
+	 FJMQVKAxkqWp0v+JMw5pkElI66jYvpUHvYVC46XLhva+osUNYzACTCITxXIA/kdhoZ
+	 RzI4VIQ/yNpirJLcAdBlj035lScPoTRtCi9vYOjO8RC79ffc8MWswpfyhTkoT480f0
+	 O+MHZ5JaRKzig==
 From: Sasha Levin <sashal@kernel.org>
-To: leitao@debian.org,
-	akpm@linux-foundation.org,
-	sj@kernel.org,
-	baolin.wang@linux.alibaba.com,
-	hughd@google.com,
-	paulmck@kernel.org
+To: meatuni001@gmail.com,
+	ilpo.jarvinen@linux.intel.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/shmem: report RCU-tasks quiescent states while undoing a range" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:04:59 -0500
-Message-ID: <20261107060459-failed-5.15-ebd1a08c1921@kernel.org>
+Subject: FAILED: patch "[PATCH] platform/x86: hp-wmi: fix heap OOB read and memory corruption in hp_wmi_perform_query()" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 06:05:03 -0500
+Message-ID: <20261107060503-failed-5.15-6dea092b261f@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -72,81 +68,86 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x ebd1a08c192109c83a87ddf42793ed6283180faf
+git cherry-pick -x 6dea092b261f04d632411c2be52d13190f5f67b1
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060459-failed-5.15-ebd1a08c1921@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060503-failed-5.15-6dea092b261f@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From ebd1a08c192109c83a87ddf42793ed6283180faf Mon Sep 17 00:00:00 2001
-From: Breno Leitao <leitao@debian.org>
-Date: Fri, 18 Sep 2026 04:24:37 -0700
-Subject: [PATCH] mm/shmem: report RCU-tasks quiescent states while undoing a
- range
+From 6dea092b261f04d632411c2be52d13190f5f67b1 Mon Sep 17 00:00:00 2001
+From: Muhammad Bilal <meatuni001@gmail.com>
+Date: Wed, 26 Aug 2026 15:30:12 +0500
+Subject: [PATCH] platform/x86: hp-wmi: fix heap OOB read and memory corruption
+ in hp_wmi_perform_query()
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-This shows up in the Meta fleet on ftruncate() of large tmpfs files:
+hp_wmi_perform_query() evaluates an ACPI WMI method and expects a
+struct bios_return header in the returned buffer. However, it only
+checks that the ACPI object type is ACPI_TYPE_BUFFER without verifying
+that obj->buffer.length is at least sizeof(*bios_return) (8 bytes).
 
-  INFO: rcu_tasks detected stalls on tasks:
-  00000000752fd185: .. nvcsw: 59455/59455 holdout: 1 idle_cpu: -1/0
-  task:rocksdb:bottom  state:R  running task
-    __folio_split
-    find_get_entry
-    find_get_entries
-    truncate_inode_partial_folio
-    shmem_undo_range
-    shmem_setattr
-    notify_change
-    do_ftruncate
-    __x64_sys_ftruncate
-    do_syscall_64
+If the firmware or ACPI method returns a buffer shorter than 8 bytes:
 
-shmem_undo_range() walks the whole of the requested range in folio_batch
-sized steps, twice, and its two cond_resched() calls are the only
-reschedule points in that walk.
+1. bios_return->return_code at offset 4 reads out of bounds from the
+   allocated ACPI buffer slab.
 
-cond_resched() is not an RCU-tasks quiescent state.  Use
-cond_resched_tasks_rcu_qs() at both points so the walk reports an
-RCU-tasks quiescent state as it proceeds.
+2. If return_code evaluates to 0 and outsize is non-zero,
+   (int)(obj->buffer.length - sizeof(*bios_return)) evaluates to a
+   negative integer (e.g. -8 for a 0-length buffer). actual_outsize is
+   set to this negative value and passed to memcpy(buffer, ...,
+   actual_outsize), where the signed negative value is cast to
+   size_t (e.g. 0xfffffffffffffff8), attempting to copy ~18 Exabytes
+   and triggering an immediate kernel crash. Additionally,
+   memset(buffer + actual_outsize, ...) performs an out-of-bounds
+   write before buffer.
 
-Link: https://lore.kernel.org/20260918-shmem-tasks-rcu-v1-1-79acf91a2569@debian.org
-Fixes: 8315f42295d2 ("rcu: Add call_rcu_tasks()")
-Signed-off-by: Breno Leitao <leitao@debian.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: SJ Park <sj@kernel.org>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Hugh Dickins <hughd@google.com>
-Cc: "Paul E . McKenney" <paulmck@kernel.org>
-Cc: <stable@vger.kernel.org>
+Fix this by ensuring obj->buffer.length is at least sizeof(*bios_return)
+before accessing the return code, and compute actual_outsize safely
+using min_t(u32, ...), which is sound specifically because the guard
+above already rules out obj->buffer.length being smaller than
+sizeof(*bios_return) by the time that subtraction runs.
+
+Fixes: c3021ea1beee ("hp-wmi: allow setting input and output buffer sizes separately")
+Cc: stable@vger.kernel.org
+Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
+Link: https://patch.msgid.link/20260826103012.240453-1-meatuni001@gmail.com
+Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 ---
- mm/shmem.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/platform/x86/hp/hp-wmi.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/mm/shmem.c b/mm/shmem.c
-index f33dbf5af2cb7..f2a36a1b53750 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -1367,7 +1367,7 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, uoff_t lend,
- 		}
- 		folio_batch_remove_exceptionals(&fbatch);
- 		folio_batch_release(&fbatch);
--		cond_resched();
-+		cond_resched_tasks_rcu_qs();
+diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
+index bc2ada5dfa634..eeb66a7db346a 100644
+--- a/drivers/platform/x86/hp/hp-wmi.c
++++ b/drivers/platform/x86/hp/hp-wmi.c
+@@ -711,8 +711,9 @@ static int hp_wmi_perform_query(int query, enum hp_wmi_command command,
+ 		goto out_free;
  	}
  
- 	/*
-@@ -1408,7 +1408,7 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, uoff_t lend,
+-	if (obj->type != ACPI_TYPE_BUFFER) {
+-		pr_warn("query 0x%x returned an invalid object 0x%x\n", query, ret);
++	if (obj->type != ACPI_TYPE_BUFFER ||
++	    obj->buffer.length < sizeof(*bios_return)) {
++		pr_warn("query 0x%x returned wrong type or too small buffer\n", query);
+ 		ret = -EINVAL;
+ 		goto out_free;
+ 	}
+@@ -731,7 +732,7 @@ static int hp_wmi_perform_query(int query, enum hp_wmi_command command,
+ 	if (!outsize)
+ 		goto out_free;
  
- 	index = start;
- 	while (index < end) {
--		cond_resched();
-+		cond_resched_tasks_rcu_qs();
+-	actual_outsize = min(outsize, (int)(obj->buffer.length - sizeof(*bios_return)));
++	actual_outsize = min_t(u32, outsize, obj->buffer.length - sizeof(*bios_return));
+ 	memcpy(buffer, obj->buffer.pointer + sizeof(*bios_return), actual_outsize);
+ 	memset(buffer + actual_outsize, 0, outsize - actual_outsize);
  
- 		if (!find_get_entries(mapping, &index, end - 1, &fbatch,
- 				indices)) {
 -- 
 2.53.0
 
