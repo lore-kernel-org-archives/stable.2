@@ -1,56 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048520;
-	b=3w+mw2JKbCs5rBhuaseNacvZ+xe7o8z03NWQ0r6jGbLtpLbzI7jN+NGdK8mR4mND6XNs
-	 OdAcm3GZ3frEPKDkmLuTj2cvDBqU+WdYJKv1+Cm2nmK4L8LNhKPxCYNZV9gInWpAyhOCa
-	 KQqANEjm614sFbJh/id3ZYOEHmyWccDzlc3PtbXCIHrJhBHaAUBjqKSo/TrqpoQdTdiRr
-	 ZWOsBkwGwxhGmYji9U90gSUEJmIMFy18OEbRpy2ea1Xq6Wo5GKnL/X26Pw1zB06lGsQgZ
-	 /fjDjlxfNeMDCrKmXh4jzmiXmhVbfTqEVr+U1A1JC3diJAHZDNnTw4zyKmnybI1HyFA==
+	t=1794048523;
+	b=DrROpPrfyEMzeKTE4n+4rALLE2Ccu1VK3JPMU7FMecUehz85m2M4BjNHNcARkxjaY6Mm
+	 fgrceo6QnaYz8onQ7DU0WuDxlQ7hHjs26HzUks21VWlXk6euXpMKUXREgETApCiBd18Xc
+	 +hhrnQ2uqY2Dvm5W/Y1BoyJ50Vc8rvKRBggsxtJkKRMvnlQVtHQPk5eZKUyzTNlNEpXg2
+	 5GoQoVK/4tmPsCWmJddXEW4850fP7G9n/ASxK4Jdk00Vx6QxZ1sgqr81lB+RtOA0pBF3p
+	 7BbCupHQkg7+f5hU/NwDP2TtcGOUTaO8gpVfWEY2K+AdxPYb1mKJa/Y3H6hwjxMckZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048520;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048523;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=/AOEhMlSfUM2rQfYDZx00LcmUUsvljms5CM9S991qtY=;
-	b=i5dGtMLa5KcveUpRZpw+/XRcmheaShJlBJ6wUBfO41/F/m1XWVaWW5u6vJgqGAapCbQb
-	 RPQwYshK0SQyh4Q0+zXm8+iRjOklR03RZKOv8SH4cu9Xr+2+vOjHytv9HPwpIZ95krmdA
-	 USW7FzFtNrLdNkExZY/A50AesgaWclwsco8B83XwdOL0YLd21TIcznub32XI/RFoP0rg5
-	 eui9hxOZNjVHpEeFMlC5RDgNb/+y4RF8cFDJP5vEIHb7KWIXmvWAbn2W5VzOrmf7S/iQh
-	 GZ+/wCwjUk0ajO9j04xdy8+ZtFUtSpiEYo2pvRMq8KjWnmk7W0n2dx0WC9Ou4YeQQNQ==
+	bh=FTMqlU04LCAVgN2DV/98t97dM1+QhhEmY3/xukFJW08=;
+	b=yh3IXddRYOFQW+5lKC1QIyRDCnZEfma2F9s+tL2yiVfxQTfzv2/DASr03dBOAnmo/pS9
+	 EVyHVEdJPdOq+jyOsZdw5eP4jmJJvUQsCo/OLL2clLXaPcj6JAtNVpf+SrzQdN8544U2D
+	 jnWktd26fLWN0lmYGWsCVdv+tz5XtVDgIk1RUDwNAduPEUVXPU3ztsT3yhRi6HpZi3vvD
+	 SnrzZDzjDzx6ZYVw8YBOXFKeKTSpJMJshgKFSC7InM15tpjA6ndLPmhGFqDv7zOhLqjhd
+	 VlE26uBDch+FspnvgHAlDNTatogdubMBIR1A3Kx9mSlV27pKVlvBELlQQPpY/Cwmcww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HB0tagpJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f6TKPC2c;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EF9B606A333
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:48:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10516606A330
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:48:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HB0tagpJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44AA11F0089F;
-	Sat,  7 Nov 2026 10:48:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f6TKPC2c
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 806C71F008A3;
+	Sat,  7 Nov 2026 10:48:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048520;
-	bh=/AOEhMlSfUM2rQfYDZx00LcmUUsvljms5CM9S991qtY=;
+	s=k20260515; t=1794048522;
+	bh=FTMqlU04LCAVgN2DV/98t97dM1+QhhEmY3/xukFJW08=;
 	h=From:To:Cc:Subject:Date;
-	b=HB0tagpJSXzvshJ3iC0+9D9/NCFt0Ql8KoPz6OVHyvljA6yI5FsHioJAmiSF0ThQl
-	 je2zCkF9zIpB2FxpnbDiZEsq8Tidtvd6NUv6nTTs5MwzIWVSyOhdFYg+2MWnuzJ5je
-	 9KaPKGTWHVNDAC+5L/BUpTKXYtL49oj4miTwdgDVEIL9sVR0hETmGBKkSdTiX0n6Vx
-	 PcJ2bgtqlDvqwDaacbTQ3GRiDgY7vbvgdPwGbEzzVV++tQ0LWYHh1Qpmw5xScOqB0a
-	 CBrR5J/IdfdF4se96v+dbgimNt7Y5DGNHn7cKrrjpo/cFYfJyYNw7eRtOP3FQuxfZ4
-	 XexQEzq6bYEGw==
+	b=f6TKPC2cQ7ZCL5LfMMsoGd7lrz3YUvtNYW+OkcOYGnz2lch2KC8y0h//4VpJo4XEz
+	 9jPtjwYYxKEHGmRtk6aq5mlsX/Yf/TsLXNPJ9xITuAbeVg+bQcVK9I7ESQDN/r9EIo
+	 vV5PitwvDukKppV2cGzwUljLvcNZ4qs9W4NfGPNXz5tE6vhYuL1ZiMq+22SEaMuVaw
+	 KJccHWVigEnzPGSULcjoqhZf/4tiu1GFyanVjEdLsIp+8Aj61I4V5uhxkKnzCAU/Ue
+	 dBfCYBgM0ojDvLF8uhiSFLVcq6STG7yoJkoX3h7kEDEbq90jAzQ4TgTcw1HhvgEEan
+	 ZtWviQXLzNwcA==
 From: Sasha Levin <sashal@kernel.org>
-To: brads@mainlining.org,
-	akpm@linux-foundation.org,
-	pmladek@suse.com,
-	linux@roeck-us.net,
-	sashiko-bot@kernel.org,
-	wangjinchao600@gmail.com,
-	wim@linux-watchdog.org
+To: chao@kernel.org,
+	jaegeuk@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] panic: kill the "buffer unavailable" redirect fallback" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:48:38 -0500
-Message-ID: <20261107054837-failed-6.1-68d956e9e235@kernel.org>
+Subject: FAILED: patch "[PATCH] f2fs: fix to use bio_in_atomic() in f2fs_read_end_io()" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:48:41 -0500
+Message-ID: <20261107054841-failed-6.1-a605d5d71a6d@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -73,125 +68,84 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 68d956e9e235c2e125f77a9e98831e297b624a75
+git cherry-pick -x a605d5d71a6d280c43c7ede9778dda63fb5c3f22
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054837-failed-6.1-68d956e9e235@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054841-failed-6.1-a605d5d71a6d@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 68d956e9e235c2e125f77a9e98831e297b624a75 Mon Sep 17 00:00:00 2001
-From: Bradley Morgan <brads@mainlining.org>
-Date: Wed, 16 Sep 2026 18:29:57 +0000
-Subject: [PATCH] panic: kill the "buffer unavailable" redirect fallback
+From a605d5d71a6d280c43c7ede9778dda63fb5c3f22 Mon Sep 17 00:00:00 2001
+From: Chao Yu <chao@kernel.org>
+Date: Sat, 10 Oct 2026 14:55:46 +0800
+Subject: [PATCH] f2fs: fix to use bio_in_atomic() in f2fs_read_end_io()
 
-The redirect buffer is a disgusting terrible hack.  panic_force_buf is
-kmalloc'ed in a late_initcall, and until then the redirect delivers this
-as the panic message:
+f2fs_read_end_io() uses "in_task() && !irqs_disabled()" to decide
+whether it is safe to sleep, the result is passed down as @in_task to:
+- f2fs_put_dic() -> f2fs_free_dic() -> f2fs_release_decomp_mem()
+  -> vm_unmap_ram(), which may sleep.
+- f2fs_end_read_compressed_page() -> f2fs_cache_compressed_page()
+  -> f2fs_grab_cache() -> f2fs_lock_cache(), which may sleep in
+  wait_on_bit_lock().
 
-  Redirected panic (buffer unavailable)
+However, the check still treats below task contexts as sleepable:
+- with spinlock held via spin_lock(), i.e. preempt count != 0 while
+  irqs are enabled.
+- with BH disabled via local_bh_disable().
+- inside an RCU read lock on kernels with CONFIG_PREEMPTION.
+- with any spinlock held on kernels without CONFIG_PREEMPT_COUNT.
 
-The whole point of the redirect is to hand the panic message to the target
-CPU, so the crash kernel boots knowing it panicked and not why.  And that
-window is the entire boot, from the early_param to the late_initcall,
-which is exactly when you most want the message.
+So the "sleeping function called from invalid context" issue fixed by
+commit 08a7efc5b02a ("f2fs: vm_unmap_ram() may be called from an
+invalid context") can still be triggered.
 
-Make it a static 1KB buffer and kill the initcall.  The cost is 1KB of
-.bss in SMP crash dump builds, and it is only ever touched when
-panic_force_cpu= is set anyway.  The local msg variable is gone too, the
-buffer goes directly to panic_smp_redirect_cpu().
+The block layer provides bio_in_atomic() for exactly this purpose, it
+checks rcu_preempt_depth() and preemptible(), and conservatively returns
+true if CONFIG_PREEMPT_COUNT is disabled, let's use it instead. The
+difference is as below:
 
-Link: https://lore.kernel.org/20260916182957.7788-7-brads@mainlining.org
-Signed-off-by: Bradley Morgan <brads@mainlining.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Suggested-by: Petr Mladek <pmladek@suse.com>
-Reviewed-by: Petr Mladek <pmladek@suse.com>
-Cc: Guenetr Roeck <linux@roeck-us.net>
-Cc: Sashiko <sashiko-bot@kernel.org>
-Cc: Wang Jinchao <wangjinchao600@gmail.com>
-Cc: Wim Van Sebroeck <wim@linux-watchdog.org>
-Cc: <stable@vger.kernel.org>
+ old: intask = in_task() && !irqs_disabled()
+ new: intask = !bio_in_atomic()
+
+ Context                              | old intask     | new intask
+ -------------------------------------+----------------+----------------
+ Hard IRQ / softirq                   | false          | false
+ IRQs disabled                        | false          | false
+ spin_lock() held, IRQs enabled       | true (wrong)   | false
+ BH disabled by local_bh_disable()    | true (wrong)   | false
+ RCU read lock (CONFIG_PREEMPTION)    | true (wrong)   | false
+ Spinlock held, w/o PREEMPT_COUNT     | true (wrong)   | false
+
+Note that on kernels without CONFIG_PREEMPT_COUNT, bio_in_atomic()
+always returns true, so dic freeing will always be offloaded to sbi->wq,
+and compressed pages will not be cached in f2fs_read_end_io(); this is
+the price of correctness, since there is no way to tell whether the
+current context can sleep.
+
+Cc: stable@kernel.org
+Fixes: 08a7efc5b02a ("f2fs: vm_unmap_ram() may be called from an invalid context")
+Signed-off-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
 ---
- kernel/panic.c | 34 +++++++---------------------------
- 1 file changed, 7 insertions(+), 27 deletions(-)
+ fs/f2fs/data.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/kernel/panic.c b/kernel/panic.c
-index 29c981926f5f3..170744163fc2a 100644
---- a/kernel/panic.c
-+++ b/kernel/panic.c
-@@ -307,7 +307,7 @@ atomic_t panic_cpu = ATOMIC_INIT(PANIC_CPU_INVALID);
- atomic_t panic_redirect_cpu = ATOMIC_INIT(PANIC_CPU_INVALID);
- 
- #if defined(CONFIG_SMP) && defined(CONFIG_CRASH_DUMP)
--static char *panic_force_buf;
-+static char panic_force_buf[PANIC_MSG_BUFSZ];
- 
- static int __init panic_force_cpu_setup(char *str)
+diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+index ae3bde0767f3c..a8d39add5cbe0 100644
+--- a/fs/f2fs/data.c
++++ b/fs/f2fs/data.c
+@@ -271,7 +271,7 @@ static void f2fs_read_end_io(struct bio *bio)
  {
-@@ -326,17 +326,6 @@ static int __init panic_force_cpu_setup(char *str)
- }
- early_param("panic_force_cpu", panic_force_cpu_setup);
+ 	struct f2fs_sb_info *sbi = F2FS_F_SB(bio_first_folio_all(bio));
+ 	struct bio_post_read_ctx *ctx;
+-	bool intask = in_task() && !irqs_disabled();
++	bool intask = !bio_in_atomic();
  
--static int __init panic_force_cpu_late_init(void)
--{
--	if (panic_force_cpu < 0)
--		return 0;
--
--	panic_force_buf = kmalloc(PANIC_MSG_BUFSZ, GFP_KERNEL);
--
--	return 0;
--}
--late_initcall(panic_force_cpu_late_init);
--
- static void do_panic_on_target_cpu(void *info)
- {
- 	panic("%s", (char *)info);
-@@ -380,7 +369,7 @@ static bool panic_try_force_cpu(const char *fmt, va_list args)
- {
- 	int this_cpu = raw_smp_processor_id();
- 	int old_cpu = PANIC_CPU_INVALID;
--	const char *msg;
-+	va_list ap;
- 
- 	/* Feature not enabled via boot parameter */
- 	if (panic_force_cpu < 0)
-@@ -413,20 +402,11 @@ static bool panic_try_force_cpu(const char *fmt, va_list args)
- 		return old_cpu != this_cpu;
- 
- 	/*
--	 * Use dynamically allocated buffer if available, otherwise
--	 * fall back to static message for early boot panics or allocation failure.
-+	 * Do not consume args, the caller reuses them if we fail.
- 	 */
--	if (panic_force_buf) {
--		va_list ap;
--
--		/* Do not consume args, the caller reuses it if we fail */
--		va_copy(ap, args);
--		vsnprintf(panic_force_buf, PANIC_MSG_BUFSZ, fmt, ap);
--		va_end(ap);
--		msg = panic_force_buf;
--	} else {
--		msg = "Redirected panic (buffer unavailable)";
--	}
-+	va_copy(ap, args);
-+	vsnprintf(panic_force_buf, PANIC_MSG_BUFSZ, fmt, ap);
-+	va_end(ap);
- 
- 	console_verbose();
- 	bust_spinlocks(1);
-@@ -441,7 +421,7 @@ static bool panic_try_force_cpu(const char *fmt, va_list args)
- 		dump_stack();
- 	}
- 
--	if (panic_smp_redirect_cpu(panic_force_cpu, (void *)msg) != 0) {
-+	if (panic_smp_redirect_cpu(panic_force_cpu, panic_force_buf) != 0) {
- 		atomic_set(&panic_redirect_cpu, PANIC_CPU_INVALID);
- 		pr_warn("panic: failed to redirect to CPU %d, continuing on CPU %d\n",
- 			panic_force_cpu, this_cpu);
+ 	iostat_update_and_unbind_ctx(bio);
+ 	ctx = bio->bi_private;
 -- 
 2.53.0
 
