@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048153;
-	b=jLnky26nhwO96sz4rL3cNZtGYczSVtCZzNPxG/J3MI4BB960b4UyDXlT+DrjYw1EXmse
-	 QNK+1zg/ZgqVsPYpTRoZ2GI3No5VDC+mDtivW7if+6uNIxrJ0gSzI1wE+JepN+sZhxFjE
-	 Y4H8aSGnlq7SfoAu8nQ+8+sHvsEsA1xi2en0+F6eu43KYXahjR5S1CwEeG6XeTX1Frn6U
-	 fgHmX008SNHmh1F8kqIIM6kG7Mv/CVvk+uiO7gXPI/5B8Ijp5gpmHWBFaw29IK9wyhsgu
-	 4kuCfL/xgIPTitcUFUbx8ns6d+oDlBo3yrjNMA2hrKkgWGCFO1/Sj4WdSRthUlyiylQ==
+	t=1794048156;
+	b=eMyVsCxj46dKTMj7vXLK+ri7uYVaInyErBKUvR/p3a3uq2SgJmvsBxse2efD8kCc0skr
+	 aFYl23I/cGp2I7pAd6pk/c91sJSYQaOBctkZYlrJ/Wq9/GMkdtzBN38v1DMpNFV0m6R73
+	 GJkYfdTS1KGNtdTWUZCYH+lkX0GA8XGW4fAAvWDHD10/XU1jsfoXObLZugbGiIihzjUye
+	 NfAyWRs71CHbYUFYNA4923eEBSv6imzPGpvE1J4jrqIq2U6WlPfKtpMbjzs33e+y8Tn76
+	 K9MMV88mECOGOXKjbHzI9GfGLgsWO46+pGa5xHOTudTekAj5BCNHBdzBgRxwbJ4YYZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048153;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048156;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=00JbV7UstqrH3eLDdpDRVaPHhsSHksbP1fMgSplFs2Y=;
-	b=wb98cfiO6f35y4xwPzBTzfSynIkUo6KOb6V5NCyGXL+YTx5aT9p4Cl0uwpZ8/4SLX8kY
-	 f8ONeusmMkb8n8pRA88TTfxzKYGCsCd32vvwbB5KEGNJVJheSQAf0EeI76wKkeYf2oht1
-	 E8IYmmDY/+cdQWXPgt3TptOkCJfMoRwyzwZx5/EEOJ9e1UNUXOUXVp/mFeTG9L3UHz5r7
-	 PyMpKY32DqOPSU66FwQpGA4EnzPXdFli8pgp2iGFlH+Qwi4Tbs8rmqOUzSkVmT2cV6Mdx
-	 H9PvP3aXC1RlQpXo2Hy64TicIf0kxDTqvn5wZWhQmQh9AWGLWpo0RIOXnHndTMyC0VQ==
+	bh=42JKTL1JN0qLpZmzsKzhb06BRm7pBvnbNNHnaEhmZC4=;
+	b=rpRId5nq2V+pqrpcr514CYbVfi6MFqpFA8u5UU65D+TCHbQckYzQCf+TF3MC7AvhJnVP
+	 R/eEMeWVOL0/DYPoFei84eVlMF5i+Hlog3jMMmLzJffgCYB3Cy8pd8Ms/jYMgCfnULuwu
+	 1T5BIgIzz4q+xEV1+cTr0c9SbEkGo+91apFXWYQp+kPkQJ8lRiagH2ihvJ+qMVa+dw6vy
+	 W74n60n39S5mSKt7WnSC7bIVqtyzN+hMdsk3/fxfSeS99ljV1nC9JK3BVC4PEMow5rscO
+	 SXbRRWWw8xt9Z4o1MODIYrGMQkLELOKdMmaz6dSVBVlmltczV01lfmJ6CCtOn987Nvw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VnhsT9Vq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hVm0Ipfd;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DE42606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:42:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9E75606A32E
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:42:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VnhsT9Vq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD96E1F0089F;
-	Sat,  7 Nov 2026 10:42:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hVm0Ipfd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE2D01F0089F;
+	Sat,  7 Nov 2026 10:42:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048153;
-	bh=00JbV7UstqrH3eLDdpDRVaPHhsSHksbP1fMgSplFs2Y=;
+	s=k20260515; t=1794048155;
+	bh=42JKTL1JN0qLpZmzsKzhb06BRm7pBvnbNNHnaEhmZC4=;
 	h=From:To:Cc:Subject:Date;
-	b=VnhsT9VqwJjYK5Op5ca8bQ/uGgts7ZUSrd9RvNIsxQVW6lPsjaSgTNu/CTbJGRTg6
-	 YW7iJVR3gaNa8BpvDc/wbe+oeLtJ0QnFg3qRm35Bh0NbFTlWEHj+Zhb7Q2Hnwmb6h6
-	 2ViuPqMJpBf75nKlNwX+tZDml+PW4OiNzbSAdftKRj53E7TgoGIcebX93oiuzKJ0tC
-	 ukw7EM18FDPlFNuC2v/5A+o3fZFdkVQ4UD/P/V3iDVZMiljROhPI9JVn+DkFUgHzPv
-	 TZF+umjuKDThP3osoY06MaIo/tSHzptiBZN+1mDY5YT02LL26zecNDDZcx70SF4RWQ
-	 hqRjdV+P7+WiA==
+	b=hVm0IpfdsKgv4cPky6FDjPxVlXjluE4uFFlHes7D5CTz/S/m6cCKVKlGneJVGzu/g
+	 zko6bW401YFMRBpE3ag9NqpaMB0jR7+9gBTwZ1xMgoShrkEBSZ00IbtJlbn16+CdF7
+	 XuSzxrFpqBL6yUNF6HxdRtZi/5pHeC5lf3s2qELd38tv95cYbGII5iFEVu8DRxONx2
+	 2LS0UPqarmcIFOVh9VGGgCpLa40S6F2xkQItXiiNtZLbjGE4w4dRAujgaKK8B1aOt9
+	 IyV9TCCB4HP0iM9s9CggIH4JUCBMglJ/50TBzjMAVeO5vapjfLL3px7dnh3ZSlL90u
+	 rzZmZv/q587UA==
 From: Sasha Levin <sashal@kernel.org>
-To: xiaoyao.li@intel.com,
-	nik.borisov@suse.com,
-	seanjc@google.com
+To: sean@mess.org,
+	hverkuil+cisco@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] KVM: VMX: Make handle_bus_lock_vmexit() a shared helper" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:42:31 -0500
-Message-ID: <20261107054231-failed-6.1-326fa2c9b4d3@kernel.org>
+Subject: FAILED: patch "[PATCH] media: serial_ir: Fix race condition where timer can be re-armed" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:42:33 -0500
+Message-ID: <20261107054233-failed-6.1-d74ac4016ba6@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,101 +68,45 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 326fa2c9b4d3e6cab58c139eb55aaabd7179192e
+git cherry-pick -x d74ac4016ba64cb3b20f395511d0b18025ca0ba9
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054231-failed-6.1-326fa2c9b4d3@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054233-failed-6.1-d74ac4016ba6@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 326fa2c9b4d3e6cab58c139eb55aaabd7179192e Mon Sep 17 00:00:00 2001
-From: Xiaoyao Li <xiaoyao.li@intel.com>
-Date: Wed, 19 Aug 2026 17:49:01 +0800
-Subject: [PATCH] KVM: VMX: Make handle_bus_lock_vmexit() a shared helper
+From d74ac4016ba64cb3b20f395511d0b18025ca0ba9 Mon Sep 17 00:00:00 2001
+From: Sean Young <sean@mess.org>
+Date: Tue, 1 Sep 2026 16:20:18 +0100
+Subject: [PATCH] media: serial_ir: Fix race condition where timer can be
+ re-armed
 
-Move handle_bus_lock_vmexit() from vmx.c to main.c to make it a shared
-helper so that TDX can use it for Bus Lock VM exit handling as well.
-Rename it to add vt_ prefix to reflect that it is a helper for both VMX
-and TDX.
+Ensure the timer cannot be re-armed.
 
+Fixes: 2940c7e49775 ("[media] serial_ir: generate timeout")
+Signed-off-by: Sean Young <sean@mess.org>
 Cc: stable@vger.kernel.org
-Signed-off-by: Xiaoyao Li <xiaoyao.li@intel.com>
-Reviewed-by: Nikolay Borisov <nik.borisov@suse.com>
-Link: https://patch.msgid.link/20260819094903.3060020-8-xiaoyao.li@intel.com
-Signed-off-by: Sean Christopherson <seanjc@google.com>
+Acked-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 ---
- arch/x86/kvm/vmx/common.h |  1 +
- arch/x86/kvm/vmx/main.c   | 11 +++++++++++
- arch/x86/kvm/vmx/vmx.c    | 13 +------------
- 3 files changed, 13 insertions(+), 12 deletions(-)
+ drivers/media/rc/serial_ir.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/x86/kvm/vmx/common.h b/arch/x86/kvm/vmx/common.h
-index 7fce1bbabc78c..bbeec197a507a 100644
---- a/arch/x86/kvm/vmx/common.h
-+++ b/arch/x86/kvm/vmx/common.h
-@@ -203,5 +203,6 @@ static inline int __vt_handle_notify(struct kvm_vcpu *vcpu,
- }
+diff --git a/drivers/media/rc/serial_ir.c b/drivers/media/rc/serial_ir.c
+index 992fff82b5245..f6702b3df9a03 100644
+--- a/drivers/media/rc/serial_ir.c
++++ b/drivers/media/rc/serial_ir.c
+@@ -798,7 +798,7 @@ static int __init serial_ir_init_module(void)
  
- noinstr void vmx_handle_nmi(struct kvm_vcpu *vcpu);
-+int vt_handle_bus_lock_vmexit(struct kvm_vcpu *vcpu);
- 
- #endif /* __KVM_X86_VMX_COMMON_H */
-diff --git a/arch/x86/kvm/vmx/main.c b/arch/x86/kvm/vmx/main.c
-index ea0d825e556d2..835de375e8c8c 100644
---- a/arch/x86/kvm/vmx/main.c
-+++ b/arch/x86/kvm/vmx/main.c
-@@ -878,6 +878,17 @@ static int vt_gmem_max_mapping_level(struct kvm *kvm, kvm_pfn_t pfn,
- #define vt_op_tdx_only(name) NULL
- #endif /* CONFIG_KVM_INTEL_TDX */
- 
-+int vt_handle_bus_lock_vmexit(struct kvm_vcpu *vcpu)
-+{
-+	/*
-+	 * Hardware may or may not set the BUS_LOCK_DETECTED flag on BUS_LOCK
-+	 * VM-Exits. Unconditionally set the flag here and leave the handling
-+	 * to .handle_exit() callback.
-+	 */
-+	to_vt(vcpu)->exit_reason.bus_lock_detected = true;
-+	return 1;
-+}
-+
- #define VMX_REQUIRED_APICV_INHIBITS				\
- 	(BIT(APICV_INHIBIT_REASON_DISABLED) |			\
- 	 BIT(APICV_INHIBIT_REASON_ABSENT) |			\
-diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
-index 6df390ae8708f..3ba1e762e7e75 100644
---- a/arch/x86/kvm/vmx/vmx.c
-+++ b/arch/x86/kvm/vmx/vmx.c
-@@ -6267,17 +6267,6 @@ static int handle_encls(struct kvm_vcpu *vcpu)
- }
- #endif /* CONFIG_X86_SGX_KVM */
- 
--static int handle_bus_lock_vmexit(struct kvm_vcpu *vcpu)
--{
--	/*
--	 * Hardware may or may not set the BUS_LOCK_DETECTED flag on BUS_LOCK
--	 * VM-Exits. Unconditionally set the flag here and leave the handling to
--	 * vmx_handle_exit().
--	 */
--	to_vt(vcpu)->exit_reason.bus_lock_detected = true;
--	return 1;
--}
--
- static int handle_notify(struct kvm_vcpu *vcpu)
+ static void __exit serial_ir_exit_module(void)
  {
- 	unsigned long exit_qual = vmx_get_exit_qual(vcpu);
-@@ -6366,7 +6355,7 @@ static int (*kvm_vmx_exit_handlers[])(struct kvm_vcpu *vcpu) = {
- 	[EXIT_REASON_VMFUNC]		      = handle_vmx_instruction,
- 	[EXIT_REASON_PREEMPTION_TIMER]	      = handle_preemption_timer,
- 	[EXIT_REASON_ENCLS]		      = handle_encls,
--	[EXIT_REASON_BUS_LOCK]                = handle_bus_lock_vmexit,
-+	[EXIT_REASON_BUS_LOCK]                = vt_handle_bus_lock_vmexit,
- 	[EXIT_REASON_NOTIFY]		      = handle_notify,
- 	[EXIT_REASON_SEAMCALL]		      = handle_tdx_instruction,
- 	[EXIT_REASON_TDCALL]		      = handle_tdx_instruction,
+-	timer_delete_sync(&serial_ir.timeout_timer);
++	timer_shutdown_sync(&serial_ir.timeout_timer);
+ 	serial_ir_exit();
+ }
+ 
 -- 
 2.53.0
 
