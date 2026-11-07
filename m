@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046156;
-	b=4AsR/vXx3dRFywEuDxtedS5KSf8sbCKqf0J4Yx6Eq/L0KOCv/ViIEeXrq6yG0rAq74xZ
-	 xUyyv/hk6rvtVJOtu1lMMYO6vsKYnQ51lts7bUlpvPTgSJAoPQSXEfcIkPxRr+zQsI3iL
-	 jgDzg3LCQQxiPZkmvlOkpLu2uTfYmwd4r7JQsCUOsIfdoOnoaszoxj6NNVucBz/GRoOXj
-	 EtcA0MQLPEr7EtG0VrJfMu70mxxHwqidw2bGV8DF2zQ8vvCHX9COrbVI6zRNf0QLUPY07
-	 wzL+Iy2JoOovFQFb0obm8XCbgFUupjj2QcoRp8FaFV2zlZdcLiEaFgtxR8SxKIYVpkQ==
+	t=1794046158;
+	b=Quw0esqFKoQcjKRv94P7cE6OoVIEjz4yYyz6YSnhTnx0c2FnQoZe4qelFuqLfryqc15B
+	 uxjEW/ETL1betSk32hC88klxC2rHH/4qIeSdA4kX4IxqtxEwHc6Bp4z9wmIiwH5tBawd/
+	 UVzIaHSMe4+9HwwqD35hALiz46MV+yEB0MxngtBxbDaYUs/nnk+gaw15g+6nVV75m9tuI
+	 XV/axGGQCT08RfMcepDX6TP0MN0yEQR9vcq8pVU5zH87YvVvw8TV/QYAYkMWNvX6pM9rK
+	 1YPYSCPh0s6/JKwkVVuTBO54LSaVGwLRycAgbZg3Uytc7n+s4RpDv1Jc3EWUYfetWwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046156;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046158;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Fl9eAAzm2Qr6ZS/v+VD6ZBaX2gXWJGgO3Jq6opbmzgk=;
-	b=dQ58NlKf+ifPF3aZ4sXFHXysFTb3nVRS3QtOWr0lumDLF5duW7upsshQli01/o2BfiDQ
-	 XZqkpWrIRLhv1sWTixk4+bHnTabjSrE/sTpZZGvRRTYvmUI2/HfBQOzCx3PEfjpXRjiZ/
-	 QeAzvUiNEkSAcSyqAMPALSMKT4GGoQz3gENvLmCuLWtFpwyntdPMYCH4SBDV7WpUaCDIW
-	 5KYO8R4cj6VkLfJ5HKciQqpJVVrBiqZ304WvJcT2uiSQ0PZXUAGWDzNpsT+2ljInl4fBl
-	 r7Tjh29a2mHwXv1DH8t9ii8npVQKaYI1p47TungBqBI1UNcfHLuDeMdDDM/ZhZEg9Mw==
+	bh=v0Pb/63HkOAYrJfyCaiSzZBboeMN1MY1V49MALIPsp0=;
+	b=mQ4Ab8Q21zS9lK/KAYuK8hszV8RwvNPscI6OZQw11RIjnFFLLeZfM5cQIk4W8Q0QECIf
+	 3l0naZoy/XG+3HwvLuPB0av7aEUF5+HUWBZ5W0PVDeXMtJKiC5zwBBWr78pvEjFNsreiO
+	 Ae0ITiyFW70D0642n0yLZUW6zjE8cl5zgR4a+nhh49CzZ392V9ybMWY4mi27KSg5LZnLj
+	 TAWvE05ld0Twa69g8ezKz0Wv05WDAUAZIEF/XnDnNT72vZcPrDa2Ywv/9Qm0ZJarLFkGP
+	 4wRmD/JyZPnLqbbDCjj3GZyGO0LlyVq2RNjAffhOCcvof/6eyJXxmAyLmq4hMbsRT1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hV+bLRq7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P3W4RJPM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AD0E606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:09:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89835606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:09:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hV+bLRq7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCDD01F0089F;
-	Sat,  7 Nov 2026 10:09:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P3W4RJPM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02CE71F0089F;
+	Sat,  7 Nov 2026 10:09:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046156;
-	bh=Fl9eAAzm2Qr6ZS/v+VD6ZBaX2gXWJGgO3Jq6opbmzgk=;
+	s=k20260515; t=1794046158;
+	bh=v0Pb/63HkOAYrJfyCaiSzZBboeMN1MY1V49MALIPsp0=;
 	h=From:To:Cc:Subject:Date;
-	b=hV+bLRq7Z/z5xShFhNRan8VKQ7aOyzZiZ/Tox1ZVL+e50VMMx65W9tvRZTtuFmnTq
-	 Jb/5kpLtDVmIwIRxzql9CEX9SdsjBfukbtEpzgS5N3oQkdCktH64I1nLPpieFGMyhz
-	 eMoOmp+6++W2mbOpJ7cwRY0jNOxk8t0UAoHSbxjFYbl3SIvlQ5o87vqdQih0aSc4Sk
-	 caTpM7vwP9zzKJAy3ISXCteYlLRh61e20+QMf8PqyBjj4eGzl5+fZBILyx4WkimGv7
-	 PEVb8mwuB4aB9gaRKx4QlYOoKepZRrZztKBfnl78+0kfWTWJYyzvvPSd9CLV+r3Mzl
-	 m5yBg8lzdJMWg==
+	b=P3W4RJPMxkBaj8EFYyYsPawtC6y1QJWC02abvVG4yovbrSs6XWZG9pvBzeMU748jP
+	 wjBffwP+p94zlYs9JBvmB2v4MGjrIWCoZyP2psx6YNjwBeDqa7LLksiyvcQzg7pOk2
+	 EoRA6gLIdi5Bcc7Ew3BeOcsmCBCM6OoHU3c0dpS3aXgANPwoBuDVwZtfPYsX4pd/Jd
+	 AkooR5TmDmR0y4tdEg/Hqqok3bXv7mTJHB9ZxvMkFfq2YGHHDIcz+BeKSSuFJ+AT8Y
+	 ItsS8OmYqvU4sfVQ2PvmnrJiQWbVsoSca4BMug9u30abhIoRUuVdPzw7gb0iVMwFrA
+	 K8druPRfxFUzg==
 From: Sasha Levin <sashal@kernel.org>
-To: fuad.tabba@linux.dev,
-	yuzenghui@huawei.com,
-	maz@kernel.org
+To: lucid_duck@justthetip.ca,
+	nbd@nbd.name
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] KVM: arm64: timers: Compute an offset-applied CVAL from the current count" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:09:14 -0500
-Message-ID: <20261107050914-failed-6.18-49930b1b557c@kernel.org>
+Subject: FAILED: patch "[PATCH] wifi: mt76: take rcu_read_lock in the USB/SDIO tx completion path" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:09:16 -0500
+Message-ID: <20261107050916-failed-6.18-a7871a7ae5a8@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,179 +68,99 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 49930b1b557ceb698e0ab7f985ea41c99dc8bf22
+git cherry-pick -x a7871a7ae5a8625f0ba0a89454ac734c383dd538
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050914-failed-6.18-49930b1b557c@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050916-failed-6.18-a7871a7ae5a8@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 49930b1b557ceb698e0ab7f985ea41c99dc8bf22 Mon Sep 17 00:00:00 2001
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Wed, 7 Oct 2026 08:43:41 +0100
-Subject: [PATCH] KVM: arm64: timers: Compute an offset-applied CVAL from the
- current count
+From a7871a7ae5a8625f0ba0a89454ac734c383dd538 Mon Sep 17 00:00:00 2001
+From: Devin Wittmayer <lucid_duck@justthetip.ca>
+Date: Sat, 3 Oct 2026 16:30:56 -0700
+Subject: [PATCH] wifi: mt76: take rcu_read_lock in the USB/SDIO tx completion
+ path
 
-When the hardware won't apply a timer's offset, KVM programs CVAL +
-offset and lets it compare that against the raw counter. The compare is
-unsigned (IsTimerConditionMet, DDI0487M_c J1.4.3.29):
+The USB and SDIO completion path reads a station pointer that RCU
+protects, without holding the read lock. Lockdep catches it on the
+first association:
 
-  condition_met = (UInt(PhysicalCountInt() - offset) -
-                   UInt(compare_value)) >= 0;
+  mt76.h:1305 suspicious rcu_dereference_check() usage!
+  no locks held by mt76-usb-status/1254.
+   mt7925_usb_sdio_tx_complete_skb+0x119/0x130 [mt7925_common]
+   mt76_queue_tx_complete+0x27/0x60 [mt76]
+   mt76u_status_worker+0xed/0x1e0 [mt76_usb]
 
-so adding the offset to both sides holds only while both sums wrap or
-neither does. A guest whose counter is ahead of the host's by more than
-CVAL has an expired timer that never fires, and one behind it can have
-a far-future timer fire at once.
+  mt7925/mac.c:856 suspicious rcu_dereference_check() usage!
+   mt7925_tx_check_aggr.part.0+0xc2/0xe0 [mt7925_common]
+   mt7925_usb_sdio_tx_complete_skb+0xa0/0x130 [mt7925_common]
 
-On a CNTPOFF_EL2 host the first case livelocks: each entry reloads the
-guest's CVAL, the timer fires, and the exit rewrites it as CVAL + offset
-before the host can take the interrupt. Without CNTPOFF_EL2 the timer
-hangs until the vCPU is next loaded, which is what Zenghui reported on
-a Kunpeng920.
+mt7921 does the same, and warns once instead of twice because its
+aggregation check reads the default link directly. The DMA path makes
+the same reads but completes from softirq, so it stays quiet.
 
-Program the value from the current count instead: CVAL + offset while
-the deadline is ahead, 0 once the timer has expired for the guest, ~0
-past the counter's wrap. KVM recomputes it at load, at exit and on a
-trapped CVAL write, and an expired timer stays expired in between. The
-value can't be inverted, so with an offset timer_save_state() keeps the
-memory copy, and kvm_hyp_handle_timer() returns that copy for a guest
-hypervisor's read of its physical CVAL rather than subtracting the
-offset back out.
+Take the read lock around the lookup and the check.
 
-Fixes: c605ee245097 ("KVM: arm64: timers: Allow physical offset without CNTPOFF_EL2")
-Fixes: 9404673293b0 ("KVM: arm64: timers: Correctly handle TGE flip with CNTPOFF_EL2")
-Fixes: 0bc9a9e85fcf ("KVM: arm64: Work around x1e's CNTVOFF_EL2 bogosity")
-Reported-by: Zenghui Yu <yuzenghui@huawei.com>
-Closes: https://lore.kernel.org/r/460258be-0102-e922-c342-4e87cd94b9e5@huawei.com
+Tested on 7.2-rc5 with lockdep, fresh module load per arm, 4000
+packets each and no change to the link:
+
+                             splats before   after
+    MT7925  Netgear A9000          2           0
+    MT7921  Alfa                   1           0
+    mt7921e same kernel            0           0
+
+Fixes: dc66a129adf1 ("wifi: mt76: add a wrapper for wcid access with validation")
+Fixes: c22769de2509 ("wifi: mt76: mt7925u: use connac3 tx aggr check in tx complete")
 Cc: stable@vger.kernel.org
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-Link: https://patch.msgid.link/20261007074343.324269-2-fuad.tabba@linux.dev
-Signed-off-by: Marc Zyngier <maz@kernel.org>
+Signed-off-by: Devin Wittmayer <lucid_duck@justthetip.ca>
+Link: https://patch.msgid.link/20261003233056.94497-1-lucid_duck@justthetip.ca
+Signed-off-by: Felix Fietkau <nbd@nbd.name>
 ---
- arch/arm64/kvm/arch_timer.c     | 27 ++++++++++++---------------
- arch/arm64/kvm/hyp/vhe/switch.c | 11 ++++++-----
- include/kvm/arm_arch_timer.h    | 15 +++++++++++++++
- 3 files changed, 33 insertions(+), 20 deletions(-)
+ drivers/net/wireless/mediatek/mt76/mt7921/mac.c | 3 +++
+ drivers/net/wireless/mediatek/mt76/mt7925/mac.c | 3 +++
+ 2 files changed, 6 insertions(+)
 
-diff --git a/arch/arm64/kvm/arch_timer.c b/arch/arm64/kvm/arch_timer.c
-index 6ac3321f4c575..9278b5383c044 100644
---- a/arch/arm64/kvm/arch_timer.c
-+++ b/arch/arm64/kvm/arch_timer.c
-@@ -528,17 +528,11 @@ static void timer_save_state(struct arch_timer_context *ctx)
- 		goto out;
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7921/mac.c b/drivers/net/wireless/mediatek/mt76/mt7921/mac.c
+index e69978184f68c..ad1352ddf1fcc 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7921/mac.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7921/mac.c
+@@ -831,11 +831,14 @@ void mt7921_usb_sdio_tx_complete_skb(struct mt76_dev *mdev,
+ 	u16 idx;
  
- 	switch (index) {
--		u64 cval;
--
- 	case TIMER_VTIMER:
- 	case TIMER_HVTIMER:
- 		timer_set_ctl(ctx, read_sysreg_el0(SYS_CNTV_CTL));
--		cval = read_sysreg_el0(SYS_CNTV_CVAL);
--
--		if (has_broken_cntvoff())
--			cval -= timer_get_offset(ctx);
--
--		timer_set_cval(ctx, cval);
-+		if (!has_broken_cntvoff() || !timer_get_offset(ctx))
-+			timer_set_cval(ctx, read_sysreg_el0(SYS_CNTV_CVAL));
- 
- 		/* Disable the timer */
- 		write_sysreg_el0(0, SYS_CNTV_CTL);
-@@ -564,11 +558,12 @@ static void timer_save_state(struct arch_timer_context *ctx)
- 	case TIMER_PTIMER:
- 	case TIMER_HPTIMER:
- 		timer_set_ctl(ctx, read_sysreg_el0(SYS_CNTP_CTL));
--		cval = read_sysreg_el0(SYS_CNTP_CVAL);
--
--		cval -= timer_get_offset(ctx);
--
--		timer_set_cval(ctx, cval);
-+		/*
-+		 * With an offset, memory already holds the guest's CVAL (the
-+		 * trap handler or __deactivate_traps() wrote it).
-+		 */
-+		if (!timer_get_offset(ctx))
-+			timer_set_cval(ctx, read_sysreg_el0(SYS_CNTP_CVAL));
- 
- 		/* Disable the timer */
- 		write_sysreg_el0(0, SYS_CNTP_CTL);
-@@ -647,7 +642,8 @@ static void timer_restore_state(struct arch_timer_context *ctx)
- 		offset = timer_get_offset(ctx);
- 		if (has_broken_cntvoff()) {
- 			set_cntvoff(0);
--			cval += offset;
-+			if (offset)
-+				cval = timer_apply_offset(cval, offset, kvm_phys_timer_read());
- 		} else {
- 			set_cntvoff(offset);
- 		}
-@@ -660,7 +656,8 @@ static void timer_restore_state(struct arch_timer_context *ctx)
- 		cval = timer_get_cval(ctx);
- 		offset = timer_get_offset(ctx);
- 		set_cntpoff(offset);
--		cval += offset;
-+		if (offset)
-+			cval = timer_apply_offset(cval, offset, kvm_phys_timer_read());
- 		write_sysreg_el0(cval, SYS_CNTP_CVAL);
- 		isb();
- 		write_sysreg_el0(timer_get_ctl(ctx), SYS_CNTP_CTL);
-diff --git a/arch/arm64/kvm/hyp/vhe/switch.c b/arch/arm64/kvm/hyp/vhe/switch.c
-index 7875911c05063..14aada311bac4 100644
---- a/arch/arm64/kvm/hyp/vhe/switch.c
-+++ b/arch/arm64/kvm/hyp/vhe/switch.c
-@@ -175,7 +175,8 @@ static void __deactivate_traps(struct kvm_vcpu *vcpu)
- 		offset = read_sysreg_s(SYS_CNTPOFF_EL2);
- 
- 		if (map.direct_ptimer && offset) {
--			write_sysreg_el0(val + offset, SYS_CNTP_CVAL);
-+			val = timer_apply_offset(val, offset, arch_timer_read_cntpct_el0());
-+			write_sysreg_el0(val, SYS_CNTP_CVAL);
- 			isb();
- 		}
- 	}
-@@ -296,10 +297,10 @@ static bool kvm_hyp_handle_timer(struct kvm_vcpu *vcpu, u64 *exit_code)
- 		break;
- 	case SYS_CNTP_CVAL_EL0:
- 		if (vcpu_el2_e2h_is_set(vcpu)) {
--			val = read_sysreg_el0(SYS_CNTP_CVAL);
--
--			if (!has_cntpoff())
--				val -= timer_get_offset(vcpu_hptimer(vcpu));
-+			if (!has_cntpoff() && timer_get_offset(vcpu_hptimer(vcpu)))
-+				val = __vcpu_sys_reg(vcpu, CNTHP_CVAL_EL2);
-+			else
-+				val = read_sysreg_el0(SYS_CNTP_CVAL);
- 		} else {
- 			val = __vcpu_sys_reg(vcpu, CNTP_CVAL_EL0);
- 		}
-diff --git a/include/kvm/arm_arch_timer.h b/include/kvm/arm_arch_timer.h
-index bc6f2fdd7ad33..80f96ea59f1ae 100644
---- a/include/kvm/arm_arch_timer.h
-+++ b/include/kvm/arm_arch_timer.h
-@@ -195,4 +195,19 @@ static inline void timer_set_offset(struct arch_timer_context *ctxt, u64 offset)
- 	WRITE_ONCE(*ctxt->offset.vm_offset, offset);
- }
- 
-+/*
-+ * CVAL to program when the hardware won't apply the timer's offset, so that
-+ * its compare against the raw counter matches the guest's at 'now'. An
-+ * expired timer stays expired; one past the wrap never fires.
-+ */
-+static inline u64 timer_apply_offset(u64 cval, u64 offset, u64 now)
-+{
-+	u64 hw = cval + offset;
+ 	idx = le32_get_bits(txwi[1], MT_TXD1_WLAN_IDX);
 +
-+	if (now - offset >= cval)
-+		return 0;
++	rcu_read_lock();
+ 	wcid = __mt76_wcid_ptr(mdev, idx);
+ 	sta = wcid_to_sta(wcid);
+ 
+ 	if (sta && likely(e->skb->protocol != cpu_to_be16(ETH_P_PAE)))
+ 		mt76_connac2_tx_check_aggr(sta, txwi);
++	rcu_read_unlock();
+ 
+ 	skb_pull(e->skb, headroom);
+ 	mt76_tx_complete_skb(mdev, e->wcid, e->skb);
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7925/mac.c b/drivers/net/wireless/mediatek/mt76/mt7925/mac.c
+index 101f571b027f1..45bc797274262 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7925/mac.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7925/mac.c
+@@ -1687,11 +1687,14 @@ void mt7925_usb_sdio_tx_complete_skb(struct mt76_dev *mdev,
+ 	u16 idx;
+ 
+ 	idx = le32_get_bits(txwi[1], MT_TXD1_WLAN_IDX);
 +
-+	return hw > now ? hw : U64_MAX;
-+}
-+
- #endif
++	rcu_read_lock();
+ 	wcid = __mt76_wcid_ptr(mdev, idx);
+ 	sta = wcid_to_sta(wcid);
+ 
+ 	if (sta && likely(e->skb->protocol != cpu_to_be16(ETH_P_PAE)))
+ 		mt7925_tx_check_aggr(sta, e->skb, wcid);
++	rcu_read_unlock();
+ 
+ 	skb_pull(e->skb, headroom);
+ 	mt76_tx_complete_skb(mdev, e->wcid, e->skb);
 -- 
 2.53.0
 
