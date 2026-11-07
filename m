@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048151;
-	b=riGeN6EGucQ0i99UJU0KbORW12cEPjFNfG972MvkfJEPct6sIjaLpu56SCE29tM4UeoY
-	 PhsOEnTPEOLh3lzLMnJPmHck7A2HecJZOeSevJxKsELqCc4sNZ3yy35sGHGRvG224rvt4
-	 /6iq0dfQMEanL0yCQZyK3TooZAHS4IOeUnNLJB14fxTOZi6hdI7SGbwmRjVjYdh57I0mA
-	 tiZdr5hhNKO0Z/RXbeMDL6H21iNS+fVxBKB+2c4zaoGVIkEJexXunrcEgeaoaYmo4gQDO
-	 vc0J2PeKvBnGitE5T9igfgwlpZsGQ86SsVFwzpUJ2SddM6V+HVfEWzxCChYS4l3wqBQ==
+	t=1794048153;
+	b=jLnky26nhwO96sz4rL3cNZtGYczSVtCZzNPxG/J3MI4BB960b4UyDXlT+DrjYw1EXmse
+	 QNK+1zg/ZgqVsPYpTRoZ2GI3No5VDC+mDtivW7if+6uNIxrJ0gSzI1wE+JepN+sZhxFjE
+	 Y4H8aSGnlq7SfoAu8nQ+8+sHvsEsA1xi2en0+F6eu43KYXahjR5S1CwEeG6XeTX1Frn6U
+	 fgHmX008SNHmh1F8kqIIM6kG7Mv/CVvk+uiO7gXPI/5B8Ijp5gpmHWBFaw29IK9wyhsgu
+	 4kuCfL/xgIPTitcUFUbx8ns6d+oDlBo3yrjNMA2hrKkgWGCFO1/Sj4WdSRthUlyiylQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048151;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048153;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Ogy7BEpe0Cos+9DnG0MpHmhsz4L/KnN4TF3oNmmESKw=;
-	b=NYwGdjwbbLywLEW8zLsxu+4cUFMH3GWBNkkVoAmHUXt+80tuMHbYVm/FlTmeBlEDMGZu
-	 W2ROo26EVkc2SnsbadFpSazn0W87FyxrTLjacA2vwYluMEBpZqnFSakjezoIk89bfpEP6
-	 IKo4NnCBPT3sThNl4VezZzoZkCh8pu4P2XqBiri2qv7REnMeuXBGvSADu3650V/LkQee2
-	 bNEqM6JGIBPuPKwtTBOds2duS2PmRBzSOPflLpPCPhuMR8a7xTKYRWFYdRJVtZa/IJpa3
-	 0Y50u8nPmLD7IYwxWLzEMtVqaOZQMhGFFVJB+N+pBL5b0rDOy0q9t2w9sjzrVXOH2CQ==
+	bh=00JbV7UstqrH3eLDdpDRVaPHhsSHksbP1fMgSplFs2Y=;
+	b=wb98cfiO6f35y4xwPzBTzfSynIkUo6KOb6V5NCyGXL+YTx5aT9p4Cl0uwpZ8/4SLX8kY
+	 f8ONeusmMkb8n8pRA88TTfxzKYGCsCd32vvwbB5KEGNJVJheSQAf0EeI76wKkeYf2oht1
+	 E8IYmmDY/+cdQWXPgt3TptOkCJfMoRwyzwZx5/EEOJ9e1UNUXOUXVp/mFeTG9L3UHz5r7
+	 PyMpKY32DqOPSU66FwQpGA4EnzPXdFli8pgp2iGFlH+Qwi4Tbs8rmqOUzSkVmT2cV6Mdx
+	 H9PvP3aXC1RlQpXo2Hy64TicIf0kxDTqvn5wZWhQmQh9AWGLWpo0RIOXnHndTMyC0VQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="LamJymh/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VnhsT9Vq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36F12606A32D
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:42:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DE42606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:42:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LamJymh/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 804561F0089F;
-	Sat,  7 Nov 2026 10:42:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VnhsT9Vq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD96E1F0089F;
+	Sat,  7 Nov 2026 10:42:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048151;
-	bh=Ogy7BEpe0Cos+9DnG0MpHmhsz4L/KnN4TF3oNmmESKw=;
+	s=k20260515; t=1794048153;
+	bh=00JbV7UstqrH3eLDdpDRVaPHhsSHksbP1fMgSplFs2Y=;
 	h=From:To:Cc:Subject:Date;
-	b=LamJymh/deD/+XJmVjGSS2J6uU8nqxRRaQQYZKqunmbEm1fHb1f8A+n00QP6gnG82
-	 8XZA2NrdkfK3c3Xcwm6vtugbJyppHoUQggGlLcl25cItbkZpnQ2X3DyIZaj9/RR/B+
-	 nEmOC7jI23nD97fFy88HEGUgWf9C7XvOhRdEjKc8d6iJceEbKebb/gdWIi4j7DjR8C
-	 5Y0KbJLwfBfpEl6RQP/50Jei3L60TXbA7dYrL/wG8DkAS4uu2LB1q0A6pr6i6zo6nV
-	 0j8DOk+41kb/0V9Cf9hA05Y6e5PWG1yqXPTW+yFpxUOsyD3Z7dUXaatdNEw3NOjPvD
-	 qFUF8+e6TJ+3g==
+	b=VnhsT9VqwJjYK5Op5ca8bQ/uGgts7ZUSrd9RvNIsxQVW6lPsjaSgTNu/CTbJGRTg6
+	 YW7iJVR3gaNa8BpvDc/wbe+oeLtJ0QnFg3qRm35Bh0NbFTlWEHj+Zhb7Q2Hnwmb6h6
+	 2ViuPqMJpBf75nKlNwX+tZDml+PW4OiNzbSAdftKRj53E7TgoGIcebX93oiuzKJ0tC
+	 ukw7EM18FDPlFNuC2v/5A+o3fZFdkVQ4UD/P/V3iDVZMiljROhPI9JVn+DkFUgHzPv
+	 TZF+umjuKDThP3osoY06MaIo/tSHzptiBZN+1mDY5YT02LL26zecNDDZcx70SF4RWQ
+	 hqRjdV+P7+WiA==
 From: Sasha Levin <sashal@kernel.org>
-To: seanjc@google.com,
-	xiaoyao.li@intel.com,
-	kai.huang@intel.com,
-	binbin.wu@linux.intel.com
+To: xiaoyao.li@intel.com,
+	nik.borisov@suse.com,
+	seanjc@google.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] KVM: VMX: Disallow using to_vmx() in common VT code" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:42:29 -0500
-Message-ID: <20261107054229-failed-6.1-f305fd31f52a@kernel.org>
+Subject: FAILED: patch "[PATCH] KVM: VMX: Make handle_bus_lock_vmexit() a shared helper" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:42:31 -0500
+Message-ID: <20261107054231-failed-6.1-326fa2c9b4d3@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,66 +69,101 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x f305fd31f52a8d3ce4d2bf0c88c45bb7a373809c
+git cherry-pick -x 326fa2c9b4d3e6cab58c139eb55aaabd7179192e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054229-failed-6.1-f305fd31f52a@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054231-failed-6.1-326fa2c9b4d3@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From f305fd31f52a8d3ce4d2bf0c88c45bb7a373809c Mon Sep 17 00:00:00 2001
-From: Sean Christopherson <seanjc@google.com>
-Date: Thu, 3 Sep 2026 18:03:46 -0700
-Subject: [PATCH] KVM: VMX: Disallow using to_vmx() in common VT code
+From 326fa2c9b4d3e6cab58c139eb55aaabd7179192e Mon Sep 17 00:00:00 2001
+From: Xiaoyao Li <xiaoyao.li@intel.com>
+Date: Wed, 19 Aug 2026 17:49:01 +0800
+Subject: [PATCH] KVM: VMX: Make handle_bus_lock_vmexit() a shared helper
 
-Poison to_vmx() in main.c and posted_intr.c so that attempting to interpret
-the vCPU as a VMX vCPU will fail at compile time, as opposed to failing at
-runtime, or worse corrupting state without outright failing.
+Move handle_bus_lock_vmexit() from vmx.c to main.c to make it a shared
+helper so that TDX can use it for Bus Lock VM exit handling as well.
+Rename it to add vt_ prefix to reflect that it is a helper for both VMX
+and TDX.
 
-Note, to_tdx() is buried in tdx.c, i.e. isn't broadly reachable, and so
-doesn't need the same treatment as to_vmx().
-
-Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
-Reviewed-by: Kai Huang <kai.huang@intel.com>
-Tested-by: Kai Huang <kai.huang@intel.com>
-Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260904010353.3175819-2-seanjc@google.com
+Signed-off-by: Xiaoyao Li <xiaoyao.li@intel.com>
+Reviewed-by: Nikolay Borisov <nik.borisov@suse.com>
+Link: https://patch.msgid.link/20260819094903.3060020-8-xiaoyao.li@intel.com
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- arch/x86/kvm/vmx/main.c        | 2 ++
- arch/x86/kvm/vmx/posted_intr.c | 2 ++
- 2 files changed, 4 insertions(+)
+ arch/x86/kvm/vmx/common.h |  1 +
+ arch/x86/kvm/vmx/main.c   | 11 +++++++++++
+ arch/x86/kvm/vmx/vmx.c    | 13 +------------
+ 3 files changed, 13 insertions(+), 12 deletions(-)
 
+diff --git a/arch/x86/kvm/vmx/common.h b/arch/x86/kvm/vmx/common.h
+index 7fce1bbabc78c..bbeec197a507a 100644
+--- a/arch/x86/kvm/vmx/common.h
++++ b/arch/x86/kvm/vmx/common.h
+@@ -203,5 +203,6 @@ static inline int __vt_handle_notify(struct kvm_vcpu *vcpu,
+ }
+ 
+ noinstr void vmx_handle_nmi(struct kvm_vcpu *vcpu);
++int vt_handle_bus_lock_vmexit(struct kvm_vcpu *vcpu);
+ 
+ #endif /* __KVM_X86_VMX_COMMON_H */
 diff --git a/arch/x86/kvm/vmx/main.c b/arch/x86/kvm/vmx/main.c
-index 4c52ab8d07869..ea0d825e556d2 100644
+index ea0d825e556d2..835de375e8c8c 100644
 --- a/arch/x86/kvm/vmx/main.c
 +++ b/arch/x86/kvm/vmx/main.c
-@@ -10,6 +10,8 @@
- #include "tdx.h"
- #include "tdx_arch.h"
+@@ -878,6 +878,17 @@ static int vt_gmem_max_mapping_level(struct kvm *kvm, kvm_pfn_t pfn,
+ #define vt_op_tdx_only(name) NULL
+ #endif /* CONFIG_KVM_INTEL_TDX */
  
-+#pragma GCC poison to_vmx
++int vt_handle_bus_lock_vmexit(struct kvm_vcpu *vcpu)
++{
++	/*
++	 * Hardware may or may not set the BUS_LOCK_DETECTED flag on BUS_LOCK
++	 * VM-Exits. Unconditionally set the flag here and leave the handling
++	 * to .handle_exit() callback.
++	 */
++	to_vt(vcpu)->exit_reason.bus_lock_detected = true;
++	return 1;
++}
 +
- #ifdef CONFIG_KVM_INTEL_TDX
- static_assert(offsetof(struct vcpu_vmx, vt) == offsetof(struct vcpu_tdx, vt));
+ #define VMX_REQUIRED_APICV_INHIBITS				\
+ 	(BIT(APICV_INHIBIT_REASON_DISABLED) |			\
+ 	 BIT(APICV_INHIBIT_REASON_ABSENT) |			\
+diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
+index 6df390ae8708f..3ba1e762e7e75 100644
+--- a/arch/x86/kvm/vmx/vmx.c
++++ b/arch/x86/kvm/vmx/vmx.c
+@@ -6267,17 +6267,6 @@ static int handle_encls(struct kvm_vcpu *vcpu)
+ }
+ #endif /* CONFIG_X86_SGX_KVM */
  
-diff --git a/arch/x86/kvm/vmx/posted_intr.c b/arch/x86/kvm/vmx/posted_intr.c
-index 4a6d9a17da238..24221ba553be1 100644
---- a/arch/x86/kvm/vmx/posted_intr.c
-+++ b/arch/x86/kvm/vmx/posted_intr.c
-@@ -14,6 +14,8 @@
- #include "vmx.h"
- #include "tdx.h"
- 
-+#pragma GCC poison to_vmx
-+
- /*
-  * Maintain a per-CPU list of vCPUs that need to be awakened by wakeup_handler()
-  * when a WAKEUP_VECTOR interrupted is posted.  vCPUs are added to the list when
+-static int handle_bus_lock_vmexit(struct kvm_vcpu *vcpu)
+-{
+-	/*
+-	 * Hardware may or may not set the BUS_LOCK_DETECTED flag on BUS_LOCK
+-	 * VM-Exits. Unconditionally set the flag here and leave the handling to
+-	 * vmx_handle_exit().
+-	 */
+-	to_vt(vcpu)->exit_reason.bus_lock_detected = true;
+-	return 1;
+-}
+-
+ static int handle_notify(struct kvm_vcpu *vcpu)
+ {
+ 	unsigned long exit_qual = vmx_get_exit_qual(vcpu);
+@@ -6366,7 +6355,7 @@ static int (*kvm_vmx_exit_handlers[])(struct kvm_vcpu *vcpu) = {
+ 	[EXIT_REASON_VMFUNC]		      = handle_vmx_instruction,
+ 	[EXIT_REASON_PREEMPTION_TIMER]	      = handle_preemption_timer,
+ 	[EXIT_REASON_ENCLS]		      = handle_encls,
+-	[EXIT_REASON_BUS_LOCK]                = handle_bus_lock_vmexit,
++	[EXIT_REASON_BUS_LOCK]                = vt_handle_bus_lock_vmexit,
+ 	[EXIT_REASON_NOTIFY]		      = handle_notify,
+ 	[EXIT_REASON_SEAMCALL]		      = handle_tdx_instruction,
+ 	[EXIT_REASON_TDCALL]		      = handle_tdx_instruction,
 -- 
 2.53.0
 
