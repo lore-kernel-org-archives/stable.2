@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794061077;
-	b=3n1JUyF66Ut3iT6aUTiy5TytsOQ3Xdrt16qq2Akl1kUzAhj2TRJObK2OyiC1M9Du+sds
-	 WIEYBvH2OcoVUrAL6VcLsL7t1tCdMvxVmGRMPe46zDz1TyELRXrsmfJWO1fjtuW80WxLr
-	 h1wmgPL2C+fG2gvbLuWkZP38zfuNMcTsQQlvtBDtrfKwoLiKQ97D2gi7ZMltuecsaNpPQ
-	 519klFoOQwGSA04pBB/Vn0hsYheTujogf6Fv9So+P3tLd9QklpHUNBrqskmeFMb1EaE5T
-	 Po5atMBtKiye+t51PfxhV31mSaOHAU4q0Jq/3N8Wt8+re2uniKl4iIkXfxk9WEyighg==
+	t=1794061073;
+	b=Xdi3eqJdHxx87MdY/JlsvYg4Am89Hx08a8VwIfnm5zZ/0cZvvhBPfJY2ZvG9B9R6kdZn
+	 aVjTsljxRtEEFUussU2VrXQ4/N9/C+rDzWUPLDd0HQUx2eXOaIgN4shTbMwezzvEXLu7d
+	 xT9lUpPeYPNA0UGBKwQHD1UKSm5qlcWNyARs8d+e51LFFRG6kiXyPeaHP9FiXoW7xR3Jf
+	 L+pw4reO6gJKsHL27OYaCTR9RXjK+h1zNuM3h/eVM63PAepLp2uqqiuMkgQWQif/kX74Y
+	 XE97c0z6a/7ZcP9xL6LtuwiRU2onjlMHOKne892XI2LFlkSEStLnw32zgrpj+SyrZYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794061077;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794061073;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=3yxTbbXqFmot6gMc9kgYd2k0NYXGpIG2R2TsYJZHTcQ=;
-	b=jgN4KeabffV/JIDex/J0SSMoR364nkIpCdpV/BdShk98HuGShSaI7c1nIcuQfy4ybpGD
-	 l0tDkd5nwHIJe4zoCp0STBEDOtmUdJPAWDjT4UHRBZ5sHYTOWF/TsWKEFnGyk1J0H0laU
-	 1K8LQNZ4LLpO4DVwh4nBWXODHkRZrfIe934b1osyjZ9dP8jv7865OiZ7fGJiafSJjljN3
-	 zexpN9AhmQaDE9Bn1Rnq0GKPy0KtPd2a2moVsEL/X8lZUF5+IOYbgl8Yb0KjYdudIP2XX
-	 Pb8S5aLQXTvmBERvQ8FOhx2ZE+dGnjDPekj0LLDWd7+/b5l4PjdQQBdBRr7Z9d2H8fg==
+	bh=V/byLz1wPodOf2azukHDgZ8q6TzmJj95DXWy/c5AoFY=;
+	b=VXw7INCVYuXGk2SiLR/N5LbM99sUfpfA2f+vR51XSZMqvBCXpe1PZVkCwo99rIS4eNod
+	 6kE7sTfuiaD3d8pZWO5cU2p5PhMLcd1dWcQkqyZOjId+89zIYSTaCjzZaBpFeislwg2tn
+	 HnXYwVGaa8uxi6VTnGpl4ry9MK8bjT2mIP0hrrPi5PqMQBhkbW+hCtX4DTK8CuYaEzVQe
+	 4S9PLCoXGqtwI6he/giACedBtIiWq9XfdgWeKO54Qa4aNl/04lITRfrgpBcAAA4x/VT2C
+	 KyJefTJCxtitDmK8k65Ue7gYcwcBu1flVRsCDWHYqmm3Egn+olf3fAmQaGppOfj36Vg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Lytv5eDB;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=pBAULcLt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34BDF606D81B;
-	Sat,  7 Nov 2026 14:17:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D0D1606D80D;
+	Sat,  7 Nov 2026 14:17:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Lytv5eDB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5DDD1F0089F;
-	Sat,  7 Nov 2026 14:17:56 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=pBAULcLt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73FED1F0089F;
+	Sat,  7 Nov 2026 14:17:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794061077;
-	bh=3yxTbbXqFmot6gMc9kgYd2k0NYXGpIG2R2TsYJZHTcQ=;
+	s=korg; t=1794061071;
+	bh=V/byLz1wPodOf2azukHDgZ8q6TzmJj95DXWy/c5AoFY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Lytv5eDB9TbXKd9xhC3v6qCRsGIMMxcwfjYq0DsfmnaX8pHBZV2GEtrqHPnF/oUIp
-	 r0iUgqnxWP2I4Fd+rtj5KMOX/zwrOrHFYWVaaOJG5NL14frR6Tbl7VPgF9FNjEySF5
-	 N81XVR9HKa3k4ocXbfW792g7oW9BfmPwRHiUK2/A=
+	b=pBAULcLtcbnuK/0kbJ8NjDK2VUGlINu/nbiQumuhYbA9McMZh2D8jYzrxW+Uv/Lo+
+	 +7Mf+HVFBK7ehDR2eiE/Vu1MlgPpmq/2A1gw7bIPA3/K27X0ndo8woSZLSfT82LnlP
+	 Wd2hz1KbhWhPDNeOWYYy27nqSuJPpfBXVPAZPmR0=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Fernando Fernandez Mancera <fmancera@suse.de>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Bob Song <songxiebing@kylinos.cn>,
+	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 0401/1536] netfilter: tproxy: use DEBUG_NET_WARN_ON_ONCE for protocol fallbacks
-Date: Sat,  7 Nov 2026 08:40:17 -0500
-Message-ID: <20261107135008.850033519@linuxfoundation.org>
+Subject: [PATCH 6.12 0398/1536] ALSA: hda/conexant: Always enable the headset-mic pin on plugin
+Date: Sat,  7 Nov 2026 08:40:14 -0500
+Message-ID: <20261107135008.769535667@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261107134957.653319350@linuxfoundation.org>
 References: <20261107134957.653319350@linuxfoundation.org>
@@ -68,51 +68,53 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Fernando Fernandez Mancera <fmancera@suse.de>
+From: Bob Song <songxiebing@kylinos.cn>
 
-[ Upstream commit 1f0391aea883e99d402d0f77ba3530e4e879350d ]
+[ Upstream commit 9642a5e843758686e02a7f0d1df9eb0f7f96603c ]
 
-Replace WARN_ON calls with DEBUG_NET_WARN_ON_ONCE in the default switch
-blocks of nf_tproxy_get_sock_v4 and v6. Unsupported transport protocols
-are already safely handled by returning a NULL socket pointer. This
-prevents unnecessary system panics when panic_on_warn=1 is enabled in
-production systems.
+Rename the function to cx_process_headset_detect_plug_type() to reflect
+that it only reports the detected plug type, and move the pin control
+write into cx_update_headset_mic_vref() so that node 0x19 is always set
+to enable the headset mic with the 80% VREF whenever the mic is
+present, regardless of the type detection result.
 
-Link: https://patch.msgid.link/cover.1786968834.git.zhilinz@nebusec.ai/
-Signed-off-by: Fernando Fernandez Mancera <fmancera@suse.de>
-Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+Signed-off-by: Bob Song <songxiebing@kylinos.cn>
+Link: https://patch.msgid.link/20260826115344.2128835-1-songxiebing@kylinos.cn
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/ipv4/netfilter/nf_tproxy_ipv4.c | 2 +-
- net/ipv6/netfilter/nf_tproxy_ipv6.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ sound/pci/hda/patch_conexant.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/net/ipv4/netfilter/nf_tproxy_ipv4.c b/net/ipv4/netfilter/nf_tproxy_ipv4.c
-index 73e66a088e25e..9b51e84606040 100644
---- a/net/ipv4/netfilter/nf_tproxy_ipv4.c
-+++ b/net/ipv4/netfilter/nf_tproxy_ipv4.c
-@@ -138,7 +138,7 @@ nf_tproxy_get_sock_v4(struct net *net, struct sk_buff *skb,
- 		}
- 		break;
- 	default:
--		WARN_ON(1);
-+		DEBUG_NET_WARN_ON_ONCE(1);
- 		sk = NULL;
- 	}
+diff --git a/sound/pci/hda/patch_conexant.c b/sound/pci/hda/patch_conexant.c
+index 6b688832d71d4..4e72ddde7165e 100644
+--- a/sound/pci/hda/patch_conexant.c
++++ b/sound/pci/hda/patch_conexant.c
+@@ -213,7 +213,7 @@ static void cx_auto_free(struct hda_codec *codec)
+ 	snd_hda_gen_free(codec);
+ }
  
-diff --git a/net/ipv6/netfilter/nf_tproxy_ipv6.c b/net/ipv6/netfilter/nf_tproxy_ipv6.c
-index 52f828bb5a83d..ead5d161464cb 100644
---- a/net/ipv6/netfilter/nf_tproxy_ipv6.c
-+++ b/net/ipv6/netfilter/nf_tproxy_ipv6.c
-@@ -137,7 +137,7 @@ nf_tproxy_get_sock_v6(struct net *net, struct sk_buff *skb, int thoff,
- 		}
- 		break;
- 	default:
--		WARN_ON(1);
-+		DEBUG_NET_WARN_ON_ONCE(1);
- 		sk = NULL;
- 	}
+-static void cx_process_headset_plugin(struct hda_codec *codec)
++static void cx_process_headset_detect_plug_type(struct hda_codec *codec)
+ {
+ 	unsigned int val;
+ 	unsigned int count = 0;
+@@ -249,10 +249,12 @@ static void cx_update_headset_mic_vref(struct hda_codec *codec, struct hda_jack_
+ 	 * Check hp&mic tag to process headset plugin & plugout.
+ 	 */
+ 	mic_present = snd_hda_codec_read(codec, 0x19, 0, AC_VERB_GET_PIN_SENSE, 0x0);
+-	if (!(mic_present & AC_PINSENSE_PRESENCE)) /* mic plugout */
++	if (!(mic_present & AC_PINSENSE_PRESENCE)) { /* mic plugout */
+ 		snd_hda_codec_write(codec, 0x19, 0, AC_VERB_SET_PIN_WIDGET_CONTROL, 0x20);
+-	else
+-		cx_process_headset_plugin(codec);
++	} else {
++		cx_process_headset_detect_plug_type(codec);
++		snd_hda_codec_write(codec, 0x19, 0, AC_VERB_SET_PIN_WIDGET_CONTROL, 0x24);
++	}
+ }
  
+ static int cx_auto_suspend(struct hda_codec *codec)
 -- 
 2.53.0
 
