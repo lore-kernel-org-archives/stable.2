@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047038;
-	b=qvc9ObjlEk0Tazt8JQnHC8lxXDQsPU9LN0G6bukZz8ydvtjqk/D7trx1J5V/NKdBuorJ
-	 DBEg9l5YB40epcMlwhaW77/kyOrhQisxcHhSo7JEeBdiXT0kKtuQPRAiYjuJC5ix9z52e
-	 NN5s5vD0DobV1Xb2F2B8dOZp5rTIIk0q9+dm8duFiUTSG0KmomVXJPNcBo8EKn5mYIKpZ
-	 HMWw2QF43IhsASMddAJCv6x42pmBXRzcsPkLclMKJq/O3PCCBryK+Bof329elLOool82v
-	 ij/G+iU75iqyQcNTB1cUjIWTzccKD/zfQsqmZIB52B+4DzgGUdA/x9coHlyRF004X0Q==
+	t=1794047040;
+	b=4FBQCSNaLOg6STGQOWmxjbnUd/2rskck12tjvpbWJHZyG8XcYYrERD9OuOsuUPtoEDDC
+	 5GT2sJRBWb473inWOGaPwYVT7yLgcukrF7h9Z4HpuMlHhcjFInSmnHtpZeTTqjRXGuBmi
+	 BE1AdKJ686YgnOGOqpvUYxFFt+ObIGn4ShGiIkfCMkiZT7K8oy1YOvJNE1Qw1ddo+u9vY
+	 Req/7rtbHa9PhBSi1+JTSLnuP4SYssuxuhY6pyKcDSkrupag0CF+qM5f8Dw9/RWSHmPh4
+	 /vvMfY07zeID2OkrfXeLC28ydi3Vn9jZlXKKqNTXyQd2fHtbw+m6oBUdGbuxgO1gNRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047038;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047040;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=6dBT+f9C8DzEqxqIGkIgJWV30uSkpEAqcvhSUxaLErs=;
-	b=UjVd0ls2UjK/YacOD7Dy9zAnfhHv/+c+OBd9PwNtB1YTi8lFFxbSaNEC/6CnA38QxLXA
-	 2r856gNT9YpmQZjJ3b/jLxGw6FFqTPSoq2R7S7KzfAvIraTxtf/HNnzaYQHJJB1GYxEuM
-	 h4SElTa3oAdBFSydphhEZSkdSPcQp4rgGbsNhG+DIoubm08ED4Kfq06rj1ibEE79TIE5i
-	 LrpxFx/tkrTwrqkuBarbmFeFwwLuU3xMOCT68RtXVSteKh9reluUWp+KqhtMU+5YZmuKh
-	 /xxIsOY5oR/dRAyAMiJi1/4eijiTnRDukqybN2GpEUnuoXQkx3eCzbWOCzsCWdA1mVg==
+	bh=VzZX1s6It8aS142Q0Cj+SYQqHzkX0Y4FGHPgsZq3lY0=;
+	b=VB2TV6rqu4dK9PEIs/i9I1xMe0E59vKbHoolLe6SNB9XRM5MfFIjd4fNHSy6StO79+Fs
+	 vKStCYTUHEORLE3i98gE2sV4ncQmQZxir10ZbEIMiAZAfUvd/v7KCkvdMb05Bpa8KWJSS
+	 EqYfeP7xYG6wLJGqLu0vg79SDF6TQqAiSnah7lEYq4Wx9nPtdZnWpa99smrp/9dXKiOf9
+	 JaBpVGdWPAC6VswckLUYhdkLikYDOo/l9wAdxm6/X4YXy1dQsWA0OncTVHWAn3TsY4XvS
+	 f/i0+LCy3Y3s6bnFnw1tdlHxv/qisbzD9p+kghCN/gzJ7ldxNBuGd0WHZN89jvsg/Eg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NUQnaezw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e0WT+On2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4B97606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:23:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22D22606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:24:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NUQnaezw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6414E1F0089F;
-	Sat,  7 Nov 2026 10:23:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e0WT+On2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AFBD1F0089F;
+	Sat,  7 Nov 2026 10:23:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047037;
-	bh=6dBT+f9C8DzEqxqIGkIgJWV30uSkpEAqcvhSUxaLErs=;
+	s=k20260515; t=1794047040;
+	bh=VzZX1s6It8aS142Q0Cj+SYQqHzkX0Y4FGHPgsZq3lY0=;
 	h=From:To:Cc:Subject:Date;
-	b=NUQnaezwD/sQigds4eWWPm/bl40eL1lfA/v3xkA3JvZirbl4ONdug5i6AkpzfCPuX
-	 wNul6e4dg3SLZP0FpiUp7RxEII1wv/RfF8HfZvDWf0tOUrtWF/wzbEtySxkQfzUrQo
-	 GgwKQAftKONMSCkLeV/jDZD79GekvjARDMlvfcysQWROLgApSuNmo1X0qlFAXsAcb0
-	 ca0BOELjiLIw3vLYUZZN14ssEJKcf1kwQ5T7DhO8/lGtihK7dRjFtgo/TLf9gACWXi
-	 a0xLyPl2WKKso0AbNPMOBMPTwhcsNM5jHmvhFpOx0w9t3GfOc92NUifnzQ5EM7D83o
-	 7vRApdfehZjHg==
+	b=e0WT+On2mY//qDpR7AwFgoEv0N93UE2ebGSneLw8UT+1PoBUR/CrYsBvDq0Sfo0Y2
+	 gRxRLiGQrWTEsTC8b4e0z+fswMM0qyt8lHno3OyGJAQJ/kZwtnBQn2AEm9pm2kak/6
+	 mR+BWJr+J1NQZqQ9LgLpODhRL8XloJxH2LXCy0Nm/veaglf9JCEx9o8e9KRRu3sJG6
+	 8hw1sENYlqUxbG9O3iW1ExvACgszFxodmfRzalTcADNt6Ax7e59vdbaJFYUdZWSsys
+	 Q+5xbGZ22/Gs2TmukJxLM5g/I5wAm7ilbDzGowQKDj/cNKU1WSqeZ7rcLgcSqq6vSJ
+	 B7iOpTZI8CspA==
 From: Sasha Levin <sashal@kernel.org>
-To: gxristidis@gmail.com,
-	tiwai@suse.de
+To: vnagare@redhat.com,
+	horms@kernel.org,
+	pabeni@redhat.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ALSA: hda/realtek: Fix headset mic on ASUS Zenbook 14 UX3402VA" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:23:56 -0500
-Message-ID: <20261107052356-failed-6.12-40409fa23d32@kernel.org>
+Subject: FAILED: patch "[PATCH] bnxt_en: don't leave an XDP program installed when the open fails" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:23:58 -0500
+Message-ID: <20261107052358-failed-6.12-78731b46967e@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,50 +69,150 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 40409fa23d32c8ed51e832031daa6decd9d6fd11
+git cherry-pick -x 78731b46967e3e7102b5cd5062bef185f3404b5c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052356-failed-6.12-40409fa23d32@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052358-failed-6.12-78731b46967e@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 40409fa23d32c8ed51e832031daa6decd9d6fd11 Mon Sep 17 00:00:00 2001
-From: George Christidis <gxristidis@gmail.com>
-Date: Sun, 18 Oct 2026 18:56:31 +0200
-Subject: [PATCH] ALSA: hda/realtek: Fix headset mic on ASUS Zenbook 14
- UX3402VA
+From 78731b46967e3e7102b5cd5062bef185f3404b5c Mon Sep 17 00:00:00 2001
+From: Vaibhav Nagare <vnagare@redhat.com>
+Date: Mon, 12 Oct 2026 12:58:02 +0530
+Subject: [PATCH] bnxt_en: don't leave an XDP program installed when the open
+ fails
 
-The UX3402VA (1043:16a3) BIOS leaves pin 0x19 unconfigured, so the
-headset mic does not work. Use ALC294_FIXUP_ASUS_SPI_HEADSET_MIC like
-the UX3405MA, it sets up the mic and keeps the CS35L41 speaker fixup.
+bnxt_xdp_set() stores the new program and drops the reference on the old
+one before reopening the NIC.  If bnxt_open_nic() then fails, ndo_bpf()
+returns an error with the new program still in bp->xdp_prog.  The caller
+treats the error as "nothing was installed" and drops its own reference,
+so bp->xdp_prog is left pointing at a freed program and the next XDP
+update dereferences it:
 
-Tested on a UX3402VA: headset mic, internal mic and speakers work.
+  BUG: unable to handle page fault for address: ff78ecc80ddd1038
+  RIP: 0010:__bpf_prog_put+0x5/0x80
+  Call Trace:
+   bnxt_xdp_set+0xad/0x1b0 [bnxt_en]
+   dev_xdp_propagate+0x36/0xa0
+   bond_xdp_set+0xeb/0x2d0 [bonding]
+   dev_xdp_install+0x1b1/0x350
+   bpf_xdp_link_update+0xc5/0x1b0
+   link_update+0x104/0x1e0
+   __sys_bpf+0x662/0xcf0
 
-Fixes: 07058dceb038 ("ALSA: hda/realtek: Splitting the UX3402 into two separate models")
+Seen on a 6.12 based kernel after bnxt_alloc_mem() failed an order-4
+allocation on a fragmented host:
+
+  bnxt_en 0000:a0:00.1 ens4f1np1: nic open fail (rc: fffffff4)
+  bond1: (slave ens4f1np1): Error -12 calling ndo_bpf
+
+Bonding is not required to hit this; a plain XDP attach on a bnxt
+interface takes the same path.
+
+Restore the previous program when an attach or a replace fails, and
+recompute the page-mode and XDP TX ring configuration from it.  The
+configuration matters because bnxt_init_one_rx_ring() only assigns
+rxr->xdp_prog in page mode, and __bnxt_set_rx_skb_mode() derives
+dev->max_mtu from the installed program.  Release the old program only
+once the change has been committed.
+
+A detach is not undone.  dev_xdp_detach_link() clears the core's record
+of the program even when the driver returns an error, so putting the
+program back would leave the driver running a program the core has
+already dropped.  If the reopen fails during a detach, bnxt_xdp_set()
+therefore returns 0 with the device closed; bnxt_open_nic() has already
+logged the failure.
+
+Found in a crash dump; the change was not tested on hardware.
+
+Fixes: c6d30e8391b8 ("bnxt_en: Add basic XDP support.")
 Cc: stable@vger.kernel.org
-Signed-off-by: George Christidis <gxristidis@gmail.com>
-Link: https://patch.msgid.link/20261018-for-linus-v1-1-4d8e9ff27d89@gmail.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Vaibhav Nagare <vnagare@redhat.com>
+Reviewed-by: Simon Horman <horms@kernel.org>
+Link: https://patch.msgid.link/20261012072802.2153706-1-vnagare@redhat.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 ---
- sound/hda/codecs/realtek/alc269.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c | 49 +++++++++++++------
+ 1 file changed, 33 insertions(+), 16 deletions(-)
 
-diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-index de251fc464473..e3b3e88dbf8a6 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -8148,7 +8148,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1043, 0x1663, "ASUS GU603ZI/ZJ/ZQ/ZU/ZV", ALC285_FIXUP_ASUS_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1043, 0x1664, "ASUS ExpertBook PM3406CHA", ALC256_FIXUP_ASUS_PM3406CHA),
- 	SND_PCI_QUIRK(0x1043, 0x1683, "ASUS UM3402YAR", ALC287_FIXUP_CS35L41_I2C_2),
--	SND_PCI_QUIRK(0x1043, 0x16a3, "ASUS UX3402VA", ALC245_FIXUP_CS35L41_SPI_2),
-+	SND_PCI_QUIRK(0x1043, 0x16a3, "ASUS UX3402VA", ALC294_FIXUP_ASUS_SPI_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1043, 0x16b2, "ASUS GU603", ALC289_FIXUP_ASUS_GA401),
- 	SND_PCI_QUIRK(0x1043, 0x16d3, "ASUS UX5304VA", ALC245_FIXUP_CS35L41_SPI_2),
- 	SND_PCI_QUIRK(0x1043, 0x16e3, "ASUS UX50", ALC269_FIXUP_STEREO_DMIC),
+diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c b/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c
+index 9e5009be8e989..96845c8646e06 100644
+--- a/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c
++++ b/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c
+@@ -381,11 +381,31 @@ int bnxt_xdp_xmit(struct net_device *dev, int num_frames,
+ 	return nxmit;
+ }
+ 
++static void bnxt_xdp_apply_cfg(struct bnxt *bp, int tx_xdp)
++{
++	struct net_device *dev = bp->dev;
++	int tc = bp->num_tc ? : 1;
++
++	if (bp->xdp_prog) {
++		bnxt_set_rx_skb_mode(bp, true);
++		xdp_features_set_redirect_target_locked(dev, true);
++	} else {
++		xdp_features_clear_redirect_target_locked(dev);
++		bnxt_set_rx_skb_mode(bp, false);
++	}
++	bp->tx_nr_rings_xdp = tx_xdp;
++	bp->tx_nr_rings = bp->tx_nr_rings_per_tc * tc + tx_xdp;
++	bnxt_set_cp_rings(bp, true);
++	bnxt_set_tpa_flags(bp);
++	bnxt_set_ring_params(bp);
++}
++
+ static int bnxt_xdp_set(struct bnxt *bp, struct bpf_prog *prog)
+ {
+ 	struct net_device *dev = bp->dev;
+ 	int tx_xdp = 0, rc, tc;
+ 	struct bpf_prog *old;
++	int old_tx_xdp;
+ 
+ 	netdev_assert_locked(dev);
+ 
+@@ -418,25 +438,22 @@ static int bnxt_xdp_set(struct bnxt *bp, struct bpf_prog *prog)
+ 	if (netif_running(dev))
+ 		bnxt_close_nic(bp, true, false);
+ 
++	old_tx_xdp = bp->tx_nr_rings_xdp;
+ 	old = xchg(&bp->xdp_prog, prog);
+-	if (old)
+-		bpf_prog_put(old);
+-
+-	if (prog) {
+-		bnxt_set_rx_skb_mode(bp, true);
+-		xdp_features_set_redirect_target_locked(dev, true);
+-	} else {
+-		xdp_features_clear_redirect_target_locked(dev);
+-		bnxt_set_rx_skb_mode(bp, false);
++	bnxt_xdp_apply_cfg(bp, tx_xdp);
++
++	if (netif_running(dev)) {
++		rc = bnxt_open_nic(bp, true, false);
++		/* a detach cannot be undone, only an attach */
++		if (rc && prog) {
++			WRITE_ONCE(bp->xdp_prog, old);
++			bnxt_xdp_apply_cfg(bp, old_tx_xdp);
++			return rc;
++		}
+ 	}
+-	bp->tx_nr_rings_xdp = tx_xdp;
+-	bp->tx_nr_rings = bp->tx_nr_rings_per_tc * tc + tx_xdp;
+-	bnxt_set_cp_rings(bp, true);
+-	bnxt_set_tpa_flags(bp);
+-	bnxt_set_ring_params(bp);
+ 
+-	if (netif_running(dev))
+-		return bnxt_open_nic(bp, true, false);
++	if (old)
++		bpf_prog_put(old);
+ 
+ 	return 0;
+ }
 -- 
 2.53.0
 
