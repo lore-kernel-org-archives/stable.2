@@ -1,53 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049542;
-	b=fJezu0dcqrKTDlLe4VydOm+t66peXLvImoC4z3zM2RvH7PiXlm8tUp7uQkEU7Qpt/+gx
-	 A8RH0XaZTT1S7IYWGi6Ym5PZn6RsgJevQ1CSaFubTyK8WJ1ljw5p+9/AH79rny8RAy4MY
-	 yqKPi48h4/fBA5XuiI8Jxuz2n4Z8+gr2sjocxSdwvtxq9cbSYO3IxacfV9en4VKZyVMM9
-	 /INdznqA/pmZlRLV7e7Dn0QYslNoQcYIqk6716taEGiF6ZiVTJ7e0u29oql6Tm9jysRyT
-	 nUkWwEvKpIg0FCudHn9MERO60oMNfZHFb74SyKVsOG9GTL8Vaa3P4YVV0PTbslCeTWA==
+	t=1794049546;
+	b=Re+laZhMmlbMolyi3xneUGpuRdNnLOUyiE4etvOMBEG+003afhwvOKIIJnAlug7R6sey
+	 IUZjkw5Xh+M/o0TK9vd7Lx7WzQo9+ivjXXuAx//uMOdPiRTfGIt89CzJLiWLVsjDTs4Ap
+	 8PBqHwVJKY8bLMyFj3Ba+LDYveR5fDIsyLRw0wRXlXs9iBqnr++QJOvrFI5fCMbzR8pAR
+	 08ZuIrMjT2h+hXMU2I+ZnUbBQgitKgVd1AgeB+o00jy6czO33myoMRrjgnaTlbL1uAAlj
+	 jcNyMoI8C6hHuJCSdmIulKaaKY2gm/NQ9fJsz7jqf2iGjO7WTKL+XctJy1iH6+RuLqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049542;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049546;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=pPUQA2c4Ww5Fnn7Ow3K+PcW1e5yDNYX9CrEbenbaAa0=;
-	b=uAOX6lnKUIDwuaTgTWlesjiIWK5smbx0tdLPikDHqFwxAyX7kTikQbQyJlUhIm/bQjKi
-	 lyCCSfFenA39L36HPs0+DIXkClhpVRgdcy5OtSeiPYegwcz/h907Jm7Vbc7aDOupMMhwR
-	 1mQCqSSHUWVf0mIFyORWz3PnyoUavKZogBxQEr9Zlh1iu6WAKBsZaSjV7bDDvOhA0lmn5
-	 t66HzIxHj9nPs7xufofi0COj+fBMME/saO/2LTJuzyLjyGoAN5YeDwCgewLJftQlL4BpW
-	 Ka81x5RWvRzPYLvkoxwrdR7BQ6avzUemXTPflZBTLrEAZvVkzs2i3Jnjx7OyzmVUTFA==
+	bh=4hVRUbXGqz8LjpCIlqTaXF6kjNbGGDSsrpbgSUmFIlM=;
+	b=XbtzjAXXUp/Hq2/xCQ8mEqAOW2baV0AodhPQkNZKEyfuJ8WqGdhRQNTWGV8teGkR+ZfH
+	 oP9ssisIu3vmPQ6/Ia/CWirIgHMS202yKk4nBbFFh7S+NQ67PE80KU8Waaau3Ken5sXBM
+	 m6hpQYKvK4xHfeXwyVmG4+jIuV05bC7h85MBAUn5frWshNccaVnTGb/pqI6nkxiryDcnd
+	 ZjBbIs+ytjLesoKpd6zyGKjpOhG0aiTM0pygOrdudxSd5RTFN1+hyCIA+i3ztJPdUBPjG
+	 zgctAd19NIyVsOipxFw1RZx4ER8wtEgDfYSu0rywcYQMAiBoYrhw2s+IktLG4Gu0G2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gupBQIvE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C0RHXIks;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A566606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:05:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 057B3606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:05:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gupBQIvE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA4F51F0089F;
-	Sat,  7 Nov 2026 11:05:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C0RHXIks
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07BEB1F0089F;
+	Sat,  7 Nov 2026 11:05:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049542;
-	bh=pPUQA2c4Ww5Fnn7Ow3K+PcW1e5yDNYX9CrEbenbaAa0=;
+	s=k20260515; t=1794049545;
+	bh=4hVRUbXGqz8LjpCIlqTaXF6kjNbGGDSsrpbgSUmFIlM=;
 	h=From:To:Cc:Subject:Date;
-	b=gupBQIvEx+VZrQzhqz4FHfHhbfYcO5FQaVi/kAa6eG53E5ELjjGFfifTMUdUBuEG2
-	 beWMYO6NCRGlCvIwwrjti6NzrF4IEaLUnHG6yGFJ9BE3avyA0FGxnv24A7L3fp/dUx
-	 FLU+Io6ScKCpZ6eL0cmyaZ2139LoTjq84JTk3nOTpuo0kTFTy4NRAK907odC8xXNVh
-	 B4gvDBtITxXyJD0R/8pXQE0RKY8tBXmivqCc895jJ6bzm4lTY2Fg4dAqxrwRrsc00d
-	 G149sCw4y3KfrG4iR1K6igHZkbX0apB+qBRqLk99f/iwq9BxLxqBmA/DbjscMQsw9D
-	 F1oaCAaGqu11g==
+	b=C0RHXIkszDTZnbROqu7kVbDZraly8IYheABlTeMJXr+/N8qB9HOdALV7y3r8O+h8M
+	 YxgmbFjJcYjju1kXQRVutlOxTsGs0GCzkMasfs/Q563Pi9L7xiXlgxzRnTCUZsB/bD
+	 n1WDHcztO9mc9prPj166GJfi/c4j5bdiGDQ+lgc8/TKfzYNRAx0mxsi6gXCSp+CHSF
+	 Xyg1r+EhtrJ9836a15YxA4ctYcyq3NBjcOrbrRh45HGqgTVld0vhUsANGzjpGfT3Su
+	 /cOt/EyiDVH8rvD7ywE5EM/Z/vGPCx7W0HGW8PtIdPO2bpiFSxRP1vPNUD42DwKHBm
+	 cc5z4ne9zgl2g==
 From: Sasha Levin <sashal@kernel.org>
-To: zhaonanzhe@xiaomi.com,
+To: brads@mainlining.org,
+	akpm@linux-foundation.org,
+	pmladek@suse.com,
+	linux@roeck-us.net,
 	sashiko-bot@kernel.org,
-	chao@kernel.org,
-	jaegeuk@kernel.org
+	wangjinchao600@gmail.com,
+	wim@linux-watchdog.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] f2fs: read i_size once in f2fs_vm_page_mkwrite" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:05:40 -0500
-Message-ID: <20261107060540-failed-5.15-c04f209773ec@kernel.org>
+Subject: FAILED: patch "[PATCH] panic: flatten nmi_panic control flow" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 06:05:43 -0500
+Message-ID: <20261107060543-failed-5.15-75eb687ff2bc@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,100 +73,51 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x c04f209773ecb31e592cababce0d6658ee0b8d58
+git cherry-pick -x 75eb687ff2bcec9fba31bbe266e5f91e5c283efe
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060540-failed-5.15-c04f209773ec@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060543-failed-5.15-75eb687ff2bc@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From c04f209773ecb31e592cababce0d6658ee0b8d58 Mon Sep 17 00:00:00 2001
-From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
-Date: Tue, 13 Oct 2026 18:56:28 +0800
-Subject: [PATCH] f2fs: read i_size once in f2fs_vm_page_mkwrite
+From 75eb687ff2bcec9fba31bbe266e5f91e5c283efe Mon Sep 17 00:00:00 2001
+From: Bradley Morgan <brads@mainlining.org>
+Date: Wed, 16 Sep 2026 18:29:53 +0000
+Subject: [PATCH] panic: flatten nmi_panic control flow
 
-f2fs_vm_page_mkwrite() reads i_size twice: once to check whether the
-folio is partially beyond EOF, and once to calculate the offset for
-folio_zero_segment(). But a concurrent buffered write can extend isize
-and cause the following race condition to corrupt data:
+panic() is __noreturn, so the else after panic_try_start() is dead.  Drop
+it so the force_cpu path can be added cleanly on top.
 
-buffered write writes [0,3500)
-
-CPU0 (write fault)                        CPU1 (buffered write)
- ----                                     ----
- f2fs_vm_page_mkwrite()
- folio_lock(folio)
- if (((loff_t)(folio->index + 1) << PAGE_SHIFT) >
- i_size_read(inode))
- /* i_size_read() = 3500 */
-                                           write(fd, buf, 200, 4096)
-                                           /* writes into page1, does not
-                                              wait for folio lock */
-                                           i_size_write(inode, 4296)
- offset = i_size_read(inode) & ~PAGE_MASK
- /* i_size_read() = 4296, offset = 200 */
- folio_zero_segment(folio, offset, folio_size(folio))
- /* valid data [200, 3500) is zeroed */
-
-Fix this by reading i_size once and using the same value for both the
-EOF check and the zeroing offset.
-
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20261012030315.978375-1-zhaonanzhe%40xiaomi.com
-Fixes: fbfa2cc58d53 ("f2fs: add file operations")
-Cc: stable@vger.kernel.org
-Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
-Reviewed-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+Link: https://lore.kernel.org/20260916182957.7788-3-brads@mainlining.org
+Signed-off-by: Bradley Morgan <brads@mainlining.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Petr Mladek <pmladek@suse.com>
+Cc: Guenetr Roeck <linux@roeck-us.net>
+Cc: Sashiko <sashiko-bot@kernel.org>
+Cc: Wang Jinchao <wangjinchao600@gmail.com>
+Cc: Wim Van Sebroeck <wim@linux-watchdog.org>
+Cc: <stable@vger.kernel.org>
 ---
- fs/f2fs/file.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
+ kernel/panic.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-index 4363e28056e6b..713fb6f49bcb3 100644
---- a/fs/f2fs/file.c
-+++ b/fs/f2fs/file.c
-@@ -125,6 +125,7 @@ static vm_fault_t f2fs_vm_page_mkwrite(struct vm_fault *vmf)
- 	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
- 	struct dnode_of_data dn;
- 	bool need_alloc = !f2fs_is_pinned_file(inode);
-+	loff_t isize;
- 	int err = 0;
- 	vm_fault_t ret;
- 
-@@ -188,8 +189,14 @@ static vm_fault_t f2fs_vm_page_mkwrite(struct vm_fault *vmf)
- 	filemap_invalidate_lock_shared(inode->i_mapping);
- 
- 	folio_lock(folio);
-+	/*
-+	 * A concurrent buffered write can extend isize, so we store isize in a
-+	 * local variable to let the zeroing offset match the EOF check below.
-+	 */
-+	isize = i_size_read(inode);
+diff --git a/kernel/panic.c b/kernel/panic.c
+index 08072bfae4221..5646d4fb82b7d 100644
+--- a/kernel/panic.c
++++ b/kernel/panic.c
+@@ -517,7 +517,8 @@ void nmi_panic(struct pt_regs *regs, const char *msg)
+ {
+ 	if (panic_try_start())
+ 		panic("%s", msg);
+-	else if (panic_on_other_cpu())
 +
- 	if (unlikely(folio->mapping != inode->i_mapping ||
--			folio_pos(folio) > i_size_read(inode) ||
-+			folio_pos(folio) > isize ||
- 			!folio_test_uptodate(folio))) {
- 		folio_unlock(folio);
- 		err = -EFAULT;
-@@ -219,11 +226,10 @@ static vm_fault_t f2fs_vm_page_mkwrite(struct vm_fault *vmf)
- 	f2fs_wait_on_block_writeback(inode, dn.data_blkaddr);
- 
- 	/* page is wholly or partially inside EOF */
--	if (((loff_t)(folio->index + 1) << PAGE_SHIFT) >
--						i_size_read(inode)) {
-+	if (((loff_t)(folio->index + 1) << PAGE_SHIFT) > isize) {
- 		loff_t offset;
- 
--		offset = i_size_read(inode) & ~PAGE_MASK;
-+		offset = isize & ~PAGE_MASK;
- 		folio_zero_segment(folio, offset, folio_size(folio));
- 	}
- 	folio_mark_dirty(folio);
++	if (panic_on_other_cpu())
+ 		nmi_panic_self_stop(regs);
+ }
+ EXPORT_SYMBOL(nmi_panic);
 -- 
 2.53.0
 
