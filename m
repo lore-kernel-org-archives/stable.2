@@ -1,52 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794029738;
-	b=aomNyY8sJZxRcAn5gH1MyUBLHVhjIMXQztOxuDAxU4cwC2EhjHdfs2MXn37S5vo20PnX
-	 IWxG0xMhHf/4ecJ2UHbYGuJVrtQT7moOONahZivJkXhRgcQR92fc7OpKtQYTnUNJIqYS8
-	 V7wbfwfl/8LaJrrqecyPha7xCHyjg/Ubh8Q4hAgmUOHjAECd2+jwHHPuoqFCQdy3ronLk
-	 n5e+czG7bDITJbNPxmnEyLalV3NedaSSZFYj1f0G5pNA3xqicpo58+qF/qt/gnOLe4dyZ
-	 ugzYt5zRhNIzNcQYRGzajAEas1yaCYslj73rUMRi9GIG5CB/7g2volBev/EjcDyK4+g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794029738;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:In-Reply-To:References:Date:
-	 Message-ID:Content-Type:Content-Transfer-Encoding:MIME-Version:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=4BU3jWG6HgtUEzCXO9L6HXY2c3GFaOpgCDBfsihICbY=;
-	b=cc5M/e4ZfZRri2/Xk9y/dsKtWhO9NZzhlFZ2GydC8l9rBdqM1/C0tEaSwjeunKszGztI
-	 QkJ7tzfDSlzgY3dD4MyonVL+e8B/I6E00cOAXAjlQ5O8UMHsUowEWjUZYSDelplh6HCIk
-	 3ypiPuIB7okIFTdqPO61/lDr46bPiMnuCutXC5zB8nysyCY7ccQ9K/H3/eHDjSKSRn3nG
-	 YnnbHZRsbbeULVvW57lqtCQx5YhDYFuzREF7V0Y7HdQWhrjUW8Gnl6IABzCWjwjyx1x/r
-	 6FQE4uGqhg5wP5rmoThX1I4fy2OWjxLCGmUfJsYL8aVgZpTPryJ702Q02abK/kjhX0A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.81
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794030905;
+	b=dtzg77Xa7mGeA4VWy276yu205lv3iqJSs23CVYwFSRZ69Nnqcjjmp6udO+CDaft56eWO
+	 ckl0Lc7I+s6sHmQw31VzGA7fbbb4A8SyYQqxcm4dqC8qleZSBCY6J/ju1w6XcbAGgUUNN
+	 cxKjjk8iPLCmivs0vazcR4hmBxENjeDYXh1q9i8MeHoyoIHvNKUCKrEEEaCXkGj2LCMjo
+	 ld7b2Zv8Fen6drxItv7WKR3XaDYK7J7tvqy8VX27hEvjEozfN4PBgCAJz1aogngUCHY5Y
+	 Z4DMlJBN3wzQ+seB2OreiSq3PAEV/uPsJAN2aOA+bpM+QVnbFaPFKIdFhgYHgLIXHMQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794030905;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=k6a9rw1NTm5jSqcWk0YZ2ZnFUj3olcprcB7my6xtpkM=;
+	b=1rhmVZe737cSK6ngMI5z9a0EdlBnSb1YLzHRhI//qAsLg/3J8ZYwuRO127HMR7vsVIWu
+	 b/QkPe59U2oNT8jskrAnvNvnd6LCCbLQhbGMgfhJQ7WfzfFnuDm/vi133/1ySoTWb2Gt4
+	 uy+8uIRfxuKQSlqmv1XFoHcpX8G8xT8zmInPATTHqk884BAhk9XbuARJGUVBRaePFnEDc
+	 XFZakh/QiDgv9444CHsVdRXRkB1JtMW1BwwoGS9HB1MfjL+P1fhRsLCMI5RqCX4M8hxvh
+	 Bs1+KWGQc/lJfwS64aifsKKRCEZfR5YNyhtn7gG76advePR6H+Qg0kWBtMd36X6WfqQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NaYNtGBA;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1FFD606A326;
+	Sat,  7 Nov 2026 05:55:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NaYNtGBA
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794030904;
+	b=MP0O/Vs0B2yUDJAjGJOgKZTbmGK8A4JuTEXfB61rJjr7FVBeAm1nn1myUYrqiRBI3Kfm
+	 0wXYfQXXSQoxCoxwZD5+89ncll599kFq6XYsH3xhoWgISbWKYYwA+oflRa7Cbcj0LMzJq
+	 8bkItnMwJdI4M5jBvfhS0/gj6SU3sRV1tBXB5BvzGdDacJmhJ1jba9AhRxGcuhSyrA0Px
+	 fZHSyMFBMlOKVyCsimwnKrIQeNWI69JT6lvpFLrPPTACZjAZDIYyhWFYYN6Xs4N9vp8Bw
+	 RVIeopHQ6DmGhRmY21T6FEr4sWGKxmGnmlBH8Dy8+8ectl5WZAke5x7TrRBzJjOO6DQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794030904;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
+	 Content-Transfer-Encoding;
+	bh=k6a9rw1NTm5jSqcWk0YZ2ZnFUj3olcprcB7my6xtpkM=;
+	b=f1n5EIamrd3n8ruGUK6PGOG48c+BcmJ4U7mcdjrB782Rgkv3a5hd8RJPIwY9PsLcRSaW
+	 tj+UKpwmNcPhIcXHMFdHuT+zMyinCdMIrAYFPoucJ40oVzn91A6KkuE9b5Xm2Ed3apzbo
+	 JGYIlNbx8mK1qQDC1jyCw0aEuQf1oT5ZIoKaaBDsIWQ1zaAF07qPiMkWPu/k3c7y4aFhE
+	 AoD8RNA6XyLf6uMO6HAwg7FA0b65XTv4xVMstvk7AKBTs/xe/tuizvd+lySXXVV1GKJuz
+	 HNbHwsVdqcYncc8NQcyOrcbu0FkbRaKp44mCJHIvdIaUT05H0JM9SsoSuiFGMznGllg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DD0D606A326;
-	Sat,  7 Nov 2026 05:35:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DD0D606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from [172.100.0.8] (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowAA3QZKauO5qndt5AA--.17203S2;
-	Sat, 07 Nov 2026 13:35:22 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Simon Horman <horms@kernel.org>
-Cc: enachman@marvell.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: 
- Re: [PATCH] net: prestera: release the ruleset in prestera_flower_prio_get
-In-Reply-To: <20261106121731.GI865646@horms.kernel.org>
-References: <20261103100532.1309990-1-vulab@iscas.ac.cn>
- <20261106121731.GI865646@horms.kernel.org>
-Date: Sat, 07 Nov 2026 05:35:17 -0000
-Message-ID: <179402971765.2318769.17775485131459248250@iscas.ac.cn>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	by smtp.kernel.org (Postfix) with ESMTPS id 809231F0089F;
+	Sat,  7 Nov 2026 05:55:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794030904;
+	bh=k6a9rw1NTm5jSqcWk0YZ2ZnFUj3olcprcB7my6xtpkM=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=NaYNtGBAv5I2SirX8wR8g6hay9g4MBIGfkpy8p5UFaLn/VJMiPvIUPKcFpuNDRzv+
+	 oVAG7METzXFWc4o6zhxuhd0d6oT8hdfgL6gSHnvedR/CUUzWMEs3O8vUQMjIpCJwxu
+	 AgfomGIIFcZDDJwL+NKld6Y66vNkKn9R/+qkOZ2HU8CP8lCKIJ2CieK+/7662LRNu7
+	 JYLrvjjTjRiRLNG75kMm46cMbI4DAg3S41RS/gnrpDYXwXmuWrQhfM8XmZ62lZlL4s
+	 Tm29KqZzkPVVOzlpThDcWC9rXGACyU0eDZVTfZ+385E/ONxA/XBStGQfG4t4XpsBdO
+	 51fOzjHC8M0SA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 10FF747AD0;
+	Sat,  7 Nov 2026 05:55:03 +0000 (UTC)
+From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
+Date: Sat, 07 Nov 2026 07:55:00 +0200
+Subject: [PATCH] gpio: rockchip: restore interrupt settings after
+ hibernation
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -56,46 +83,137 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-CM-TRANSID:rQCowAA3QZKauO5qndt5AA--.17203S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrtF15tFW8Jw4DKrW8Jw45Awb_yoWfXFbE9w
-	4vy347Za1UAF17Ja1YyrWYvrZ3Wr48CrW5Z34rXr13try5ZFZaqw1vkrZ0yw1SqFWUAFZx
-	Jr1Yy3yYk34qgjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUb-8YjsxI4VWkKwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
-	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
-	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
-	Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v26F
-	4UJVW0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7
-	v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_
-	Jw0_GFyl42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCFx2IqxV
-	CFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r10
-	6r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxV
-	WUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG
-	6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr
-	1UYxBIdaVFxhVjvjDU0xZFpf9x07bnXd8UUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRUEA2rucA5nSwACsP
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261107-b4-gpio-rockchip-hib-v1-1-19f4d163a55e@iav.lv>
+X-B4-Tracking: v=1; b=H4sIADS97moC/x3MQQqAIBBA0avErBtQy6KuEi1SpxyCFIUIpLsnL
+ d/i/wKZElOGuSmQ6ObM4aqQbQPWb9dByK4alFCDlGJE0+MROWAK9rSeI3o2OAptu91pZfoJaho
+ T7fz822V93w+7uc8zZgAAAA==
+To: Linus Walleij <linusw@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>
+Cc: Heiko Stuebner <heiko@sntech.de>, Jianqun Xu <jay.xu@rock-chips.com>, 
+ linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Igor Velkov <iav@iav.lv>, stable@vger.kernel.org
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4448; i=iav@iav.lv;
+ h=from:subject:message-id;
+ bh=Dk4H/o+1eyRMlxB1wc6jS7hkgNHj7wT6TPN6Ut/qDU4=;
+ b=owGbwMvMwCVmNH1q96v4SmbG02pJDFnv9po6dYmpXb28vvvIlp/mXtva1HY+EvnfE9X0OUCqO
+ fYz99KIjlIWBjEuBlkxRZYJhzRuZSy5+tffw/wBzBxWJpAhDFycAjCR8xGMDI8aXPqLJyzbVBVo
+ vm3T2zVfH91ZWvvCJtXQgP/k3vVctsEM/9P1/fnerJbZtzOyccbmzfME7BNft7Xl+gX92Kddv+A
+ 4ExMA
+X-Developer-Key: i=iav@iav.lv; a=openpgp;
+ fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
+X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
+X-Original-From: Igor Velkov <iav@iav.lv>
+Reply-To: iav@iav.lv
+Content-Transfer-Encoding: 7bit
 
-Hi Simon,
+From: Igor Velkov <iav@iav.lv>
 
-Thank you for reviewing this patch and providing your Reviewed-by.
+Restore from hibernation follows a cold boot. The boot kernel probes
+the GPIO banks, sets every interrupt enable bit, leaves the trigger of
+each line it did not request at the reset value, and then hands over
+to the image. The image restores only the interrupt masks, so a line
+it had set up for both edges comes back with the reset trigger.
 
-I apologize for the delayed reply and for the excessive volume of
-patches I sent to netdev. I also failed to follow up on earlier
-feedback promptly, creating additional work for you and other
-reviewers. I take responsibility for that.
+On ODROID-M1 the headphone detect line (GPIO0_B0) is requested for
+both edges and is low with nothing plugged in. After a power loss in
+hybrid sleep its reset trigger fires again as soon as the edge handler
+acknowledges it, and the system does not come back. With this patch
+the board resumed 4 of 4 times, without it 0 of 5.
 
-Your concern about the submission volume is well founded. I will
-personally go through the outstanding feedback, review each comment
-carefully, and respond in the relevant threads. I will respect the
-posting pause requested in the earlier discussions while I address
-that feedback.
+Save the interrupt enable, type, polarity and both-edge registers with
+the masks and write them back before unmasking. In a normal suspend
+the bank keeps its registers, so this writes back what is already
+there. For lines that emulate both edges on GPIO v1, take the polarity
+from the current pin level.
 
-Going forward, I will not send large batches of patches. I will keep
-submissions within my personal capacity to understand and validate
-each change, and to respond to review in a timely manner.
+Fixes: 936ee2675eee ("gpio/rockchip: add driver for rockchip gpio")
+Cc: stable@vger.kernel.org
+Signed-off-by: Igor Velkov <iav@iav.lv>
+---
+Tested on ODROID-M1 (RK3568, GPIO v2): hybrid sleep with power removed
+during sleep 4/4, deep sleep 10/10. The GPIO v1 path was not tested on
+hardware.
+---
+ drivers/gpio/gpio-rockchip.c       | 21 +++++++++++++++++++++
+ drivers/pinctrl/pinctrl-rockchip.h |  8 ++++++++
+ 2 files changed, 29 insertions(+)
 
-Thank you again for your time and careful review.
+diff --git a/drivers/gpio/gpio-rockchip.c b/drivers/gpio/gpio-rockchip.c
+index 0f46ff095a24..83a5cc8f3fe6 100644
+--- a/drivers/gpio/gpio-rockchip.c
++++ b/drivers/gpio/gpio-rockchip.c
+@@ -489,6 +489,11 @@ static void rockchip_irq_suspend(struct irq_data *d)
+ 	struct rockchip_pin_bank *bank = gc->private;
+ 
+ 	bank->saved_masks = irq_reg_readl(gc, bank->gpio_regs->int_mask);
++	bank->saved_en = rockchip_gpio_readl(bank, bank->gpio_regs->int_en);
++	bank->saved_type = rockchip_gpio_readl(bank, bank->gpio_regs->int_type);
++	bank->saved_polarity = rockchip_gpio_readl(bank, bank->gpio_regs->int_polarity);
++	if (bank->gpio_type == GPIO_TYPE_V2)
++		bank->saved_bothedge = rockchip_gpio_readl(bank, bank->gpio_regs->int_bothedge);
+ 	irq_reg_writel(gc, ~gc->wake_active, bank->gpio_regs->int_mask);
+ }
+ 
+@@ -496,7 +501,23 @@ static void rockchip_irq_resume(struct irq_data *d)
+ {
+ 	struct irq_chip_generic *gc = irq_data_get_irq_chip_data(d);
+ 	struct rockchip_pin_bank *bank = gc->private;
++	u32 polarity = bank->saved_polarity;
++
++	/*
++	 * Restore from hibernation follows a cold boot: write the enables and
++	 * the trigger back before we unmask.
++	 */
++	if (bank->toggle_edge_mode) {
++		u32 data = readl(bank->reg_base + bank->gpio_regs->ext_port);
+ 
++		polarity &= ~bank->toggle_edge_mode;
++		polarity |= ~data & bank->toggle_edge_mode;
++	}
++	rockchip_gpio_writel(bank, bank->saved_en, bank->gpio_regs->int_en);
++	rockchip_gpio_writel(bank, bank->saved_type, bank->gpio_regs->int_type);
++	rockchip_gpio_writel(bank, polarity, bank->gpio_regs->int_polarity);
++	if (bank->gpio_type == GPIO_TYPE_V2)
++		rockchip_gpio_writel(bank, bank->saved_bothedge, bank->gpio_regs->int_bothedge);
+ 	irq_reg_writel(gc, bank->saved_masks, bank->gpio_regs->int_mask);
+ }
+ 
+diff --git a/drivers/pinctrl/pinctrl-rockchip.h b/drivers/pinctrl/pinctrl-rockchip.h
+index 950097699643..ea280843fcb9 100644
+--- a/drivers/pinctrl/pinctrl-rockchip.h
++++ b/drivers/pinctrl/pinctrl-rockchip.h
+@@ -303,6 +303,10 @@ struct rockchip_drv {
+  * @db_clk: clock of the gpio debounce
+  * @irq: interrupt of the gpio bank
+  * @saved_masks: Saved content of GPIO_INTEN at suspend time.
++ * @saved_en: interrupt enables, saved at suspend time.
++ * @saved_type: interrupt level/edge type, saved at suspend time.
++ * @saved_polarity: interrupt polarity, saved at suspend time.
++ * @saved_bothedge: interrupt both-edge enables (GPIO v2), saved at suspend time.
+  * @pin_base: first pin number
+  * @nr_pins: number of pins in this bank
+  * @name: name of the bank
+@@ -332,6 +336,10 @@ struct rockchip_pin_bank {
+ 	struct clk			*db_clk;
+ 	int				irq;
+ 	u32				saved_masks;
++	u32				saved_en;
++	u32				saved_type;
++	u32				saved_polarity;
++	u32				saved_bothedge;
+ 	u32				pin_base;
+ 	u8				nr_pins;
+ 	char				*name;
+
+---
+base-commit: 0fa38ba784896f2fc32c9dacd33822f844b21906
+change-id: 20261107-b4-gpio-rockchip-hib-705c3fd52b49
 
 Best regards,
-Wentao Liang
+-- 
+Igor Velkov <iav@iav.lv>
+
 
