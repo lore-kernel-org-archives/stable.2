@@ -1,50 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049245;
-	b=uC5Nc/fyFWloWTsKz0mgcSUcL+svvIaNbrJ9KBQtRG6M7mgxHEnTrmaG+rM4ZMKQYMPd
-	 Wc0OlvnxZIzA7S70Rf4doNlk6LJuKsefCCUl92/gZLtdTY95EiIvdqAz6wthxK1uMmMdo
-	 /u/Se8UHG2DmPWHgy88GOeGjpmPdqRj6J+tqhjZyV+hWrV7wGzt7Jcq154GRAqDpBuWBy
-	 e9RohxuROrvDAclZdKHBqMgd6hpNE0d5nSowqnSwOUkhPx4CNBgcvmShLY32anlmPd72L
-	 JCPkT3aTHJbeam6IJsRO7ig7IdlQwQpMmeb6yU83hkh/Q+/QnO11t24QyECjAzE4Eng==
+	t=1794049249;
+	b=gPg43YwsyxPMJxb8dB4p7YjNQIT4rvujRtaaZkbzIVg0okvPfF+HsN2mlh4ac9+I3kzl
+	 O6rQnBsK7YHyYu0mZZAO0e3GFx9cIY8/908UuMdXFmQTadg0xDqVyJFD6MrKKcX1XrGk6
+	 k2eKmZ581ZXNRN4DvZF8T9B+D8Mh1MBTEEY7AWfh7pE5xDD12X66FhscsAF3EMCLzcwUo
+	 ztxdd97sXEnQtt1P92O4UQhaM9zH9oajwp4WaLsNhDj9cRXsNrCIWdfWz8DLBL7owv+X8
+	 P094dBXsf4i2jH8ZudQamEoItjtG7suTIQ9WjumEyU+4CR91b/oXjwq9pjLR+KpxbFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049245;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049249;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=OHUb8d15uWxvSxnE3N7eQMHcIH14zJStmXLTE1uKIU8=;
-	b=iuciySPuhT5LcZNrUovn3VOcQwH8c74nMoaSoyqc5pI4kXR7WFwCVgw0Rh8+ox0SbGQo
-	 5hsxrV3MLQZqF3+6BfLNFugSnNlyXtDe+GNvwH9pubZy3+XmtwiG99w6HqrNjPSVpei9p
-	 zNaVpJaOegrfF/UmFyUH/vSjVg06mPW3RPkdNGAC6dfvUTp2/QIaOHq5gu2/mSxbXtjWa
-	 mNHbpv5SrdGLGeq+iy9H+Wjr3THpWcuOiIiXi546p6bw4WwDqTjG85ECSvTkxQTLnTLZv
-	 fxx3cGu1xNAxovom6h5GVfpMROM50ODul+Aa754cxueeXxL24XamsC68AKJr6rn80EQ==
+	bh=U9CpfO1xSltgx1VQAx7trEkW7AoDiGs+TEex91sRZ2Y=;
+	b=2/oePT4VcQDhamNyNJ1uuM+YXn5S3ou9IxUIvAoYTcYSp3Bjb9OI8G+BE1t/HKG8Mddb
+	 6Talxog4OksHQQCOevkHLzvu01NMN3pg1Y6VgnHg7FzKh8k+Peor132b3Oy/6UCpZ/zE1
+	 FvOzbvnBxpMB9gGPS0Jj54nl7pxMEMk6NCQ5B/6P88XO6gGdjXowvf9TIesp9soszMktK
+	 OFUQRVYL+DLX9RmewBoubQ9VOaoFeluThBQo42poGTiREWL9DcuJ20uiRFJm+IGccapek
+	 BaFlC+BvgqXvYfP/3FzrGazSuw0ANgcBUlZxt5fDKo7LqdYiZKlj2QvdbjVnYydNgOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="YPI/0XUD";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NvaVty0U;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6906F606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:00:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1DA9606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:00:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YPI/0XUD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDF5A1F008A1;
-	Sat,  7 Nov 2026 11:00:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NvaVty0U
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02DAA1F0089F;
+	Sat,  7 Nov 2026 11:00:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049245;
-	bh=OHUb8d15uWxvSxnE3N7eQMHcIH14zJStmXLTE1uKIU8=;
+	s=k20260515; t=1794049248;
+	bh=U9CpfO1xSltgx1VQAx7trEkW7AoDiGs+TEex91sRZ2Y=;
 	h=From:To:Cc:Subject:Date;
-	b=YPI/0XUDuDD48C5DYotp9W/ARQ/BTtXtSoCV4D1oD2yMrIGvpg00aTQkUnY2erZ/Z
-	 ygccLoUwmqlVWkGPT1yt4PPrOqojH0O8nIuzjFFYI5kocgVL1IhnD4/alJ3NevTEw9
-	 mulMgvcVChu0UMTGtDft5609h4JWwpNnhnL1dQd6ly3pi5DKtLWF0y95NPY7++jZOm
-	 muPGcXiWQHIiNmTVIGUSqlUltGlw9a6JGsln9F2RTqCiobwr17bXMf8ukdqP/lndvb
-	 LfQyPNotIgcNEvCHIj48KptPdK2YDTCPKY4quAPT9gOpBklBmrihVVnDzkqgHmdq5/
-	 diN65XZdfVxZQ==
+	b=NvaVty0UPM4semcqe6OX1d4Mg8RnrY+yHapDRxEuRRseo6RctR+a8jJ3IGOYttBZI
+	 /gn2/aae/cto5a0catCokm6hdmAxV+9q5xM0NG7AgYizhAn7nWjfEYkfzmJSwDcaNN
+	 YsTdIn9JIS5otEqpUk0Nw0sceHp0x2iG3zGpoV+eWnzDMpzmvGSqsIQ89gg+p03inG
+	 v2nn/1PKEJX8ZEsG0DUcnOQ0ECCLEr9QfHa0xMtxvJG06x4kV0Ciid18jhTJbOAF15
+	 zJn1bi4JhM+ayuFZUKWAlgDnVyY/dRMqn2jd75tyVQyMZpPTfS/DBrVLx7tA91+Kfi
+	 b3hnV6aj4SjOA==
 From: Sasha Levin <sashal@kernel.org>
-To: tiwai@suse.de
+To: hitesh@ebytelogic.com,
+	bryan.odonoghue@linaro.org,
+	loic.poulain@oss.qualcomm.com,
+	bod@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ALSA: core: Check shutdown flag at D0 power-state, too" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:00:43 -0500
-Message-ID: <20261107060043-failed-5.15-ad63c5b62843@kernel.org>
+Subject: FAILED: patch "[PATCH] media: qcom: camss: vfe-17x: Fix write master selection for RDI lines" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 06:00:46 -0500
+Message-ID: <20261107060046-failed-5.15-fc02156a3efb@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -67,60 +70,113 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x ad63c5b62843895e8c3cd7291ed07cc659df0355
+git cherry-pick -x fc02156a3efb747b724a490cc50e1ad8c28a3b23
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060043-failed-5.15-ad63c5b62843@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060046-failed-5.15-fc02156a3efb@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From ad63c5b62843895e8c3cd7291ed07cc659df0355 Mon Sep 17 00:00:00 2001
-From: Takashi Iwai <tiwai@suse.de>
-Date: Tue, 29 Sep 2026 14:53:41 +0200
-Subject: [PATCH] ALSA: core: Check shutdown flag at D0 power-state, too
+From fc02156a3efb747b724a490cc50e1ad8c28a3b23 Mon Sep 17 00:00:00 2001
+From: Hitesh Patel <hitesh@ebytelogic.com>
+Date: Mon, 28 Sep 2026 17:45:04 +0530
+Subject: [PATCH] media: qcom: camss: vfe-17x: Fix write master selection for
+ RDI lines
 
-The snd_power_ref_and_wait() skips the card->shutdown check when the
-card is already in D0 state and immediately returns as successful, by
-assuming the all-green in D0.  This assumption makes the code after
-this sync point behaving as if all power is up and ready, even though
-actually it might have been already at the disconnected state.
+On the gen2 VFE bus there is no crossbar between the RDI paths and
+the bus write masters: RDI n is served by write master n. The common
+vfe_get_output_v2() reflects this by mapping line->id to write master
+line->id, and every gen2 VFE except 17x uses it.
 
-Add the missing check of shutdown flag there for the more consistent
-behavior.
+The 17x code kept its own vfe_get_output(), which reserves whichever
+write master is free first. That happens to be the right one as long
+as a single line streams and it is RDI0. As soon as two lines of the
+same VFE stream, for instance two virtual channels demultiplexed by
+the CSID to RDI0 and RDI1, the second line to start is given the
+write master of the other RDI. Both write masters are then programmed
+with the buffer address and frame size of the wrong line. The frames
+are truncated to the smaller of the two buffers and the SMMU faults
+on the larger one.
 
+Use vfe_get_output_v2() on 17x like the other gen2 VFEs and drop the
+duplicate. This also removes an error path that released
+output->wm_idx[0] before it had been assigned.
+
+The gen1 VFEs are not affected: they have a bus crossbar and any write
+master can serve any line, so vfe_reserve_wm() is correct there.
+
+Fixes: 7319cdf189bb ("media: camss: Add support for VFE hardware version Titan 170")
 Cc: stable@vger.kernel.org
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Link: https://patch.msgid.link/20260929125346.1478631-2-tiwai@suse.de
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Signed-off-by: Hitesh Patel <hitesh@ebytelogic.com>
+Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
 ---
- sound/core/init.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ .../media/platform/qcom/camss/camss-vfe-17x.c | 41 +------------------
+ 1 file changed, 1 insertion(+), 40 deletions(-)
 
-diff --git a/sound/core/init.c b/sound/core/init.c
-index 1bcb6a2e75507..a51b71812fd9b 100644
---- a/sound/core/init.c
-+++ b/sound/core/init.c
-@@ -1174,12 +1174,12 @@ EXPORT_SYMBOL(snd_card_file_remove);
- int snd_power_ref_and_wait(struct snd_card *card)
- {
- 	snd_power_ref(card);
--	if (snd_power_get_state(card) == SNDRV_CTL_POWER_D0)
--		return 0;
--	wait_event_cmd(card->power_sleep,
--		       card->shutdown ||
--		       snd_power_get_state(card) == SNDRV_CTL_POWER_D0,
--		       snd_power_unref(card), snd_power_ref(card));
-+	if (snd_power_get_state(card) != SNDRV_CTL_POWER_D0) {
-+		wait_event_cmd(card->power_sleep,
-+			       card->shutdown ||
-+			       snd_power_get_state(card) == SNDRV_CTL_POWER_D0,
-+			       snd_power_unref(card), snd_power_ref(card));
-+	}
- 	if (card->shutdown) {
- 		snd_power_unref(card);
- 		return  -ENODEV;
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe-17x.c b/drivers/media/platform/qcom/camss/camss-vfe-17x.c
+index c011f64f63e93..62c2405359a06 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe-17x.c
++++ b/drivers/media/platform/qcom/camss/camss-vfe-17x.c
+@@ -382,45 +382,6 @@ static int vfe_halt(struct vfe_device *vfe)
+ 	return 0;
+ }
+ 
+-static int vfe_get_output(struct vfe_line *line)
+-{
+-	struct vfe_device *vfe = to_vfe(line);
+-	struct vfe_output *output;
+-	unsigned long flags;
+-	int wm_idx;
+-
+-	spin_lock_irqsave(&vfe->output_lock, flags);
+-
+-	output = &line->output;
+-	if (output->state > VFE_OUTPUT_RESERVED) {
+-		dev_err(vfe->camss->dev, "Output is running\n");
+-		goto error;
+-	}
+-
+-	output->wm_num = 1;
+-
+-	wm_idx = vfe_reserve_wm(vfe, line->id);
+-	if (wm_idx < 0) {
+-		dev_err(vfe->camss->dev, "Can not reserve wm\n");
+-		goto error_get_wm;
+-	}
+-	output->wm_idx[0] = wm_idx;
+-
+-	output->drop_update_idx = 0;
+-
+-	spin_unlock_irqrestore(&vfe->output_lock, flags);
+-
+-	return 0;
+-
+-error_get_wm:
+-	vfe_release_wm(vfe, output->wm_idx[0]);
+-	output->state = VFE_OUTPUT_OFF;
+-error:
+-	spin_unlock_irqrestore(&vfe->output_lock, flags);
+-
+-	return -EINVAL;
+-}
+-
+ /*
+  * vfe_enable - Enable streaming on VFE line
+  * @line: VFE line
+@@ -441,7 +402,7 @@ static int vfe_enable(struct vfe_line *line)
+ 
+ 	mutex_unlock(&vfe->stream_lock);
+ 
+-	ret = vfe_get_output(line);
++	ret = vfe_get_output_v2(line);
+ 	if (ret < 0)
+ 		goto error_get_output;
+ 
 -- 
 2.53.0
 
