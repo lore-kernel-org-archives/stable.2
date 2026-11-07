@@ -1,80 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794055576;
-	b=KADI8vpYoGLv+Qr2bzUfTG/z92jTkXQadBIZNHbVTUCz2DEM/rHc1XKg7TvHhKHZqvSv
-	 9SdiJ3O36mbGAzhDu4BBzfoZSPuNOFke4l3JqQIwYG+dI0TJc+X6rfkhF4AY9wZdj3CIa
-	 iEU/suglnlvR9U1H7cbl/kUspy1L8TYCp6r0xaP5eKtefAQ1jYBL+6Y4c/taHMCfhvsxJ
-	 AYM55dCMB6J1no8xToBskVMYmnM18zK2XQ7npwBsPle/bYy/JGArIQTGuOwHSm88lx0g/
-	 zbKvs5z7TPbbTdzNHJVaybb3Pp70rEkPzdl9f2KVap3p2R5IoG7QgObQOT5ZUk7f/og==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794055576;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=ar7PExbW3wdbV0P0s2TSsG5MJBH7Qz+m72FE/mrj/DA=;
-	b=vT1TXd+mlsxHbZDwJnVX04c2oxyVfP4E3ldIgBkvmzZPd5baGJ2w4GPKHQql2POJX3rg
-	 nHOwLHT7/D2x43TixXZ0LuoisCTa5ubOYiXWOoitKFDGz7FmRBFSYNcvJoc4RNUCCOrqx
-	 IbLuHlhLcmr9IIVk5IZ62rC8GO5JHqJEITw1fmKPUSTswRFxs1sf0362WVCbsbxLqJlWI
-	 SrPewmwPycsSdOo/1dcy9ft/mfkApGj8r5Ic1TENxIrL9TW5DlPvphau1/t7U9/3Flsdf
-	 /phwvuafVpyeuvOxTJ/5vHSg7XoRVywhvyaSfGuYFEXUOU3hIDJx2s751WX5LZdY6ng==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pv59yIzy;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794055958;
+	b=UCzg3qYxUv2yGuH8lri2/GHLf/9kWuqYbTJOhGgCY/DQ8AGmXVPGS0CJ7HkeQXuXv88P
+	 E0VezMhuqexxVuYQ20gwn0hTA5dXKiEoIe64VfA9txEzEnCO61BlG9DjfMtxwNAiBS3fr
+	 fBlYZXXsJ/NYqAMR9JGoJ2UP1q/LVPHD9uFc1vGX7oYbDw5e3S19CdHxxYFe98h2BsXti
+	 lkItWK09CJV9UD3VRO4gAhZomWUpFg+I6DCArfq7AtOS7dN5TmoiT+KQgH6ytIk7gw8ZT
+	 v6TwSPedBMQqdomumC5otGsR2RNuqjxefkh6CEL87PLQkQlL19qZfohpPpYqL5dRFjQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794055958;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=Dz4nU+XktsAws1dehkwjm0qCQeZEQukoJ/eEOgzjJmw=;
+	b=4KRKS9wnHqVNB6Fn/HYfq3iTjQzm/ZS5Z6f8rUnv+xaW/oGP1tI9+ih705ovmXWUzgo0
+	 NOechnTSEPGHOesmZXD/NDkCLYslhib6WCuAh8gC7GUSxC76d1gq0tyngvjlT1UW9/p6w
+	 ooQih5WB+NouLIubf3TaBbUJOCQpSiELgiZqN9txOs+Wjbb9ifUrmCX1+6AIpWeC4PqG2
+	 mpL1z0sKlbmlZx+bZLpkYZDpRleBrzZNk67J7L2d2XS3Q0+UL1IQNwaARuuQu9HSG/4ia
+	 5J/1lw1gHgbyAj6kfxISgMrST+us/+J6zixFFAC/HEEJez5I67X8KhiRxvkBNzwmgwQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="CW/Xjxlz";
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B807606A332;
-	Sat,  7 Nov 2026 12:46:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FF41606A332;
+	Sat,  7 Nov 2026 12:52:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pv59yIzy
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794055576;
-	b=dEqzj2xSckzRKH8mWGt9Oir0vorNFDz4kCvZlhyAV8uiXaE59px0TlkC6pzEEn/HeZh+
-	 1xLrbkVEOKIdPzFIrDr08fYAP/ltpwtXeBeUs7gAFGftzNtaEFW7zQaN6VDfQeXdGz3lo
-	 oYUFrR2EuY0G1fioRdaABUV9CCvN/jxRatpWpKwRqpqkP5PwtUljPJQbmM3JJro4eFv+E
-	 W+0ASfLmDFdBrnTIKtFqvWpa/VQBHis63ywRCWyVtrQ7elJDVJSMIUtb4J529abDkA+5s
-	 qJzVFGJWRMDWTxPqstPED5LjsqC23dL62W6S7mBq3uIzFF/BYRKKW+Mzoy030WEUKJw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794055576;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=ar7PExbW3wdbV0P0s2TSsG5MJBH7Qz+m72FE/mrj/DA=;
-	b=SxoIizaQOmP95x8osGFIxz/BtaNDrIo+LG3PgqPoZdwfPj3RTbK9MffDokpsLmOv4j4f
-	 AgRrAiSKUeNhZzIMO1sjIvUECuflnSJwtZLPnLL2+bvvqglqGOEUruDkZeeSDO8SYFs4K
-	 tf+b9eaYsAU6Enwz3F5oM+wwDsIccInP/P0m86a8Qc3MkMdtC3duPiFRZVXShTvhfGZa3
-	 ORhGzM8FtvfIITcwxJIlVVK5EsS7hCegVSInjLvC4ofGFJ6TnXlgtr/HATUqfHIzH2juF
-	 mIE+LbN2dniWk7cxc6Ob9Mzk8mOsDjQF+3e8Z4vQ/PckATd2dEVAXPpwQCFvmL8gBMQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 3B5EE1F0089F;
-	Sat,  7 Nov 2026 12:46:15 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CW/Xjxlz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AB991F0089F;
+	Sat,  7 Nov 2026 12:52:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794055576;
-	bh=ar7PExbW3wdbV0P0s2TSsG5MJBH7Qz+m72FE/mrj/DA=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=Pv59yIzyFfSyHjHZJN0CjdoaZ94kwmdRMych70xbd1OxgO89ws1ep9KAz8MFxR0pU
-	 V+wCMZa9vW6N1jPKUwj9O58/rskYJg+ww5u5B8ztOlcn3Zr5k7RVsBEjCMsBbWrqjm
-	 Yl1kwSVeNJCIaLVgNci79tQz4t6Eoj8NqXLka0xp7lnwV1EkwvUHSIFKamNyMe1ZuF
-	 xBc0d4O4p0sLj4xDla8WECPBXvn8IcSb+qjM+9sP8rNWcZnmKxpfKYP0QnnQODw4D4
-	 L6mS8ZQ9F/xT59oU10b4PrDM1lo/zLc28siTHderg3CY1rD0x7VFLmtxYeCrKg4Y7C
-	 V0EcB7VMpNnXA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 90BCA47BF9;
-	Sat,  7 Nov 2026 12:46:14 +0000 (UTC)
-From: Jing Lin via B4 Relay <devnull+kayano050408.gmail.com@kernel.org>
-Subject: [PATCH v4 0/2] usb: gadget: gadgetfs: fix ep0 request lifetime and
- event counter
-Date: Sat, 07 Nov 2026 21:46:12 +0900
-Message-Id: <20261107-b4-gadgetfs-ep0-v4-0-86bdfd684b54@gmail.com>
+	s=k20260515; t=1794055958;
+	bh=Dz4nU+XktsAws1dehkwjm0qCQeZEQukoJ/eEOgzjJmw=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=CW/XjxlzDTg1aVQdaW7JqzCU9aaRZxg62YnM+vgqwA4flyextgxB4VK1ac/IZ1+v8
+	 Cld5GUjoR/e3mRH/HCVPROmI+GqeAVSCy0MnXbulfqi3Wg3TcDyaUu8OJ0KPQ9C4i+
+	 l5t5U3OLiP7rQ9LyRNqBdmyAEfWssgWcaIleDJl3djI003zeCK49MptH2JveNn6Sj0
+	 IYM96xWfsnZsLVEpC461U6Y9DFgP8aRtUIMcm4BCbGuF+ws5liDWWlFWiQN/0ZkVSx
+	 3uMyOs5gUS7S2Iidi1R4Zoizlq2D/QeYDvO73S//iARvwmixC1nJu8Uktg24qnjpqD
+	 UhmvdKDI8T73A==
+Subject: Re: [PATCH] net: stmmac: free RX resources when TX allocation fails
+From: netdev-bot+sashiko@kernel.org
+To: vulab@iscas.ac.cn
+Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Date: Sat, 07 Nov 2026 12:52:36 +0000
+Message-ID: <179405595688.994134.1843500788974971566@kernel.org>
+In-Reply-To: <20261103102857.1340748-1-vulab@iscas.ac.cn>
+References: <20261103102857.1340748-1-vulab@iscas.ac.cn>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,99 +65,178 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAJQd72oC/4WPy07EMAxFf2WUNS5xmknqWfEfiEWaetog+lASK
- tCo/05T2AwsWF7b5+j6JhLHwElcTjcReQ0pzNMe9MNJ+MFNPUPo9iyUVAZRGmg19K7rOV8T8CL
- h2qD2qC1aR2KnlsjX8HEYn1++c3pvX9nnoikXrUsMbXSTH8pojqEP0+PoUuZY9kNIeY6fR6UVi
- 0egpZqsITSkK2WtwYrOutakSVpU1jSIJKu7YovLfoDMKT/1owtvlZ9HURqt6nD+fGT/fLQqQOi
- ahgyj685of/P1P3wNEoySDXVespd3/LZtXyvFB0N0AQAA
-X-Change-ID: 20261106-b4-gadgetfs-ep0-f814c14717a9
-To: Neill Kapron <nkapron@google.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
- syzbot+c73e1942197af9f54ca3@syzkaller.appspotmail.com, 
- stable@vger.kernel.org, Jing Lin <kayano050408@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794055573; l=3518;
- i=kayano050408@gmail.com; s=20261106-gadgetfs-gmail;
- h=from:subject:message-id;
- bh=bTvVhVMcfu7sgkbgZWUCkfdoko52Ui4bE2y5k9oCIrY=;
- b=B21GKPrJNI7wrXIy8PZGYR0WU8eEgz9b72MBnJdaxqL0PTbYWb6FD7tTVMkhomnAc8MN35SL1
- soDvDVg6IJFD5Yn9iVZ2xDGp/FK8vHxAnWEPKdM1sK0gbgNwPyPcm1E
-X-Developer-Key: i=kayano050408@gmail.com; a=ed25519;
- pk=DtAI52kU3F0sVbAiS4n+5b4UKMnVF398eKHlj3H9KBY=
-X-Endpoint-Received: by B4 Relay for
- kayano050408@gmail.com/20261106-gadgetfs-gmail with auth_id=1433
-X-Original-From: Jing Lin <kayano050408@gmail.com>
-Reply-To: kayano050408@gmail.com
 
-gadgetfs_unbind() frees the preallocated ep0 request after disconnecting
-the gadget, assuming that no I/O remains active. With dummy_hcd, a
-delayed userspace response can leave the request queued when it is freed,
-which triggers the warning in dummy_free_request() and a use-after-free
-when dummy_udc_stop() drains the endpoint queue.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-gadgetfs_setup() and ep0_write() also race on dev->req and req->buf
-while a control transfer is in flight or while a completed delegated OUT
-transfer is waiting for ep0_read() to copy the payload to userspace.
-Overwriting req->buf with a descriptor pointer causes clean_req() to
-free the descriptor buffer instead of the request buffer.
+Critical: 0 · High: 1 (1) · Medium: 0 · Low: 1 (1)
 
-Copy completed OUT payloads into a separate setup_buf in ep0_complete(),
-copy IN payloads from userspace into a stack buffer before preparing
-dev->req in ep0_write(), reset req->buf when transfers finish, reject
-dev->req reuse while it is queued, and dequeue it before freeing in
-gadgetfs_unbind(). The second patch dequeues ep0 events into the local
-buffer under dev->lock before copy_to_user() to prevent event races,
-dropped GADGETFS_SETUP events, and counter underflow.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Changes in v4:
-- Reject reusing dev->req in setup_req() and gadgetfs_setup() while
-  dev->ep0_req_queued is set, so an -EINVAL queue failure cannot clear
-  ep0_req_queued while dev->req remains on the endpoint queue.
-- Copy control IN payloads into a stack buffer before preparing dev->req
-  in ep0_write(), copy completed control OUT payloads into setup_buf in
-  ep0_complete(), and reset req->buf when control transfers complete so
-  clean_req() cannot free descriptor memory.
-- Dequeue ep0 events into the local buffer and update dev->ev_next under
-  dev->lock before copy_to_user() instead of using a generation counter,
-  avoiding unlocked dev->event[] reads and lost GADGETFS_SETUP events.
-- Link to v3: https://patch.msgid.link/20261107-b4-gadgetfs-ep0-v3-0-62089dc0ec07@gmail.com
+- [High] net: stmmac: double free of RX resources after stmmac_xdp_open()
+  failure
+- [Low] The commit message does not accurately describe what leaks, and
+  it leaves out one of the two callers whose behaviour changes.
 
-Changes in v3:
-- Replace the v2 -EBUSY rejection with a separate buffer for pending OUT
-  data, so a new SETUP can reuse dev->req without overwriting unread data
-  or leaving ep0 permanently busy after a zero-length status stage.
-- Dequeue a pending ep0 request before freeing it in gadgetfs_unbind().
-- Add a separate patch preventing the ep0 event counter underflow.
-- Link to v2: https://patch.msgid.link/20261107-b4-gadgetfs-ep0-v2-1-d8896e1ad517@gmail.com
+Pre-existing issues:
+- [High] The NULL-pointer oops this concern describes exists in the code,
+  but it predates this patch.
+- [Low] This problem wasn't introduced by this patch, but the kernel-doc
+  of alloc_dma_desc_resources() (lines 2434-2442), repeated word for…
 
-Changes in v2:
-- Also check dev->setup_out_ready in gadgetfs_setup() so a new SETUP
-  request cannot reuse dev->req or overwrite req->buf while ep0_read()
-  still has unread or in-progress control OUT data.
-- Reset req->buf to dev->rbuf in setup_req() when len <= sizeof(dev->rbuf)
-  and clean up unread control OUT buffer in gadgetfs_unbind().
-- Remove RFC syzbot test commands from the commit description and add the
-  syzbot Tested-by tag.
-- Link to v1: https://patch.msgid.link/179397691694.27761.9543494907127681190.gadgetfs-ep0-patch-test@gmail.com
+--
 
-Signed-off-by: Jing Lin <kayano050408@gmail.com>
+net: stmmac: free RX resources when TX allocation fails
 
----
-Jing Lin (2):
-      usb: gadget: gadgetfs: fix ep0 request lifetime on disconnect
-      usb: gadget: gadgetfs: prevent ep0 event counter underflow
+This patch makes alloc_dma_desc_resources() release the RX queues with
+free_dma_rx_desc_resources() when alloc_dma_tx_desc_resources() fails.
+The goal is to stop the RX side from leaking when stmmac_setup_dma_desc()
+drops the partially populated dma_conf.
 
- drivers/usb/gadget/legacy/inode.c | 171 ++++++++++++++++++++++++++------------
- 1 file changed, 117 insertions(+), 54 deletions(-)
----
-base-commit: f66469d9905b39d2c260a15d7d6db450f4db67c1
-change-id: 20261106-b4-gadgetfs-ep0-f814c14717a9
+> stmmac_setup_dma_desc() only frees the
+> dma_conf on this path, so the RX DMA rings, page pools and socket
+> buffers are leaked.
 
-Best regards,
---  
-Jing Lin <kayano050408@gmail.com>
+[Severity: Low]
+Is the list of leaked resources accurate? When the TX allocation fails,
+__alloc_dma_rx_desc_resources() has only done four things: created the
+page_pool, allocated the buf_pool array, allocated the descriptor ring with
+dma_alloc_coherent(), and registered xdp_rxq.
 
+The RX buffers are filled in later by init_dma_desc_rings(), so no socket
+buffers exist at this point.
 
+stmmac_setup_dma_desc() is also not the only caller. stmmac_xdp_open()
+calls alloc_dma_desc_resources() on the persistent priv->dma_conf:
+
+	ret = alloc_dma_desc_resources(priv, &priv->dma_conf);
+	if (ret < 0) {
+		netdev_err(dev, "%s: DMA descriptors allocation failed\n",
+			   __func__);
+		goto dma_desc_error;
+	}
+
+Before this patch, the RX resources on that path were not leaked, because a
+later release freed them. Now they are freed early inside
+alloc_dma_desc_resources(), and priv->dma_conf still holds the pointers.
+
+Could the commit message mention this caller and explain how the change
+affects it?
+
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index 7ffed295eb14a..3f9f3b7878c20 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -2450,6 +2450,8 @@ static int alloc_dma_desc_resources(struct stmmac_priv *priv,
+>  		return ret;
+>  
+>  	ret = alloc_dma_tx_desc_resources(priv, dma_conf);
+> +	if (ret)
+> +		free_dma_rx_desc_resources(priv, dma_conf);
+
+[Severity: High]
+Can this turn into a double free on the stmmac_xdp_open() path?
+
+stmmac_xdp_set_prog() calls stmmac_xdp_release() and then
+stmmac_xdp_open() when the interface is running.
+stmmac_xdp_release() frees everything with
+free_dma_desc_resources(priv, &priv->dma_conf), and stmmac_xdp_open()
+then calls alloc_dma_desc_resources() directly on the persistent
+priv->dma_conf. It does not use a temporary copy the way
+stmmac_setup_dma_desc() does.
+
+If the RX side succeeds and the TX side fails there, this new call
+frees the new RX descriptor rings, rx_q->buf_pool and rx_q->page_pool.
+__free_dma_rx_desc_resources() does not clear rx_q->dma_rx,
+rx_q->dma_erx, rx_q->buf_pool or rx_q->page_pool afterwards, so
+priv->dma_conf.rx_queue[] is left holding freed pointers.
+
+stmmac_xdp_set_prog() ignores the return value of stmmac_xdp_open(),
+so the device stays IFF_UP. The next __stmmac_release(), MTU change or
+XDP toggle calls free_dma_desc_resources(priv, &priv->dma_conf) again.
+That would read the freed buf_pool in dma_free_rx_skbufs(), and then
+kfree() buf_pool, page_pool_destroy() the page_pool and
+dma_free_coherent() the rings a second time.
+
+Before this patch the RX side of that path was only freed once, by the
+later release. The TX side already had the same problem, since
+__free_dma_tx_desc_resources() leaves tx_q->dma_tx, tx_q->dma_etx,
+tx_q->dma_entx, tx_q->tx_skbuff_dma and tx_q->tx_skbuff dangling, and
+a partial failure in either allocator can unwind stale pointers left
+over from stmmac_xdp_release().
+
+Should the free helpers reset these pointers to NULL? Or should
+stmmac_xdp_open() build a new dma_conf and only install it on success
+the way stmmac_setup_dma_desc() does? Either way, it seems like this
+needs to be handled before the early RX free is safe for every caller
+of alloc_dma_desc_resources().
+
+[Severity: High]
+This is a pre-existing issue, but can the TX unwind oops before this new
+free_dma_rx_desc_resources() call is reached?
+
+stmmac_setup_dma_desc() allocates dma_conf with kzalloc_obj(), so
+tx_skbuff_dma and tx_skbuff start out NULL for every TX queue.
+
+Say __alloc_dma_tx_desc_resources() fails for queue k. The err_dma label in
+alloc_dma_tx_desc_resources() then unwinds all tx_queues_to_use queues,
+including queue k and the queues after it that were never allocated:
+
+alloc_dma_tx_desc_resources()
+  free_dma_tx_desc_resources()
+    __free_dma_tx_desc_resources()
+      dma_free_tx_skbufs()
+        stmmac_free_tx_buffer()
+
+stmmac_free_tx_buffer() reads the arrays without checking them:
+
+	if (tx_q->tx_skbuff_dma[i].buf &&
+	    tx_q->tx_skbuff_dma[i].buf_type != STMMAC_TXBUF_T_XDP_TX) {
+	...
+	if (tx_q->xdpf[i] &&
+
+Wouldn't this dereference NULL when tx_skbuff_dma was never allocated? And
+when only the tx_skbuff allocation failed, wouldn't the read of xdpf[i] (a
+union alias of tx_skbuff) do the same?
+
+The only TX failure the unwind seems to survive is a dma_alloc_coherent()
+failure on the last TX queue, because dma_free_coherent() returns early for
+a NULL cpu_addr. That would mean the path this patch targets still oopses
+in most cases.
+
+alloc_dma_rx_desc_resources() looks like it has the same problem.
+stmmac_free_rx_buffer() does:
+
+	struct stmmac_rx_buffer *buf = &rx_q->buf_pool[i];
+
+	if (buf->page)
+
+buf_pool is still NULL at that point if page_pool_create() or the buf_pool
+allocation failed, or if the queue was never allocated.
+
+>  
+>  	return ret;
+>  }
+
+[Severity: Low]
+This isn't a bug introduced by this patch, but the kernel-doc above
+alloc_dma_desc_resources() says the following, and the same text appears on
+__alloc_dma_rx_desc_resources() and __alloc_dma_tx_desc_resources():
+
+ * this function allocates the resources for TX and RX paths. In case of
+ * reception, for example, it pre-allocated the RX socket buffer in order to
+ * allow zero-copy mechanism.
+
+None of these functions allocate RX buffers. That happens later, in
+init_dma_desc_rings().
+
+The comment also has no Return: section. Both callers now rely on
+everything being released already when the function fails, and that is not
+written down anywhere.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261103102857.1340748-1-vulab%40iscas.ac.cn
