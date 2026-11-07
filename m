@@ -1,63 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046835;
-	b=lZEoyA4D40rll6qsYWm32kOztY3nffAErZJvE7Y4GyRDE0ygxdLh8dua9L3U8drKrdmc
-	 uL1tfr763EUZLNkKldk7MWLAquezujxvUcDYhqt84bkioFoJ/7kO7/5fqaJKmLK+FBO4j
-	 YWD1Z8PAdSR0BalGeeAZ6TNDSGuB+IilwNEZwBsdMQ1wK31dBSXamMeeVoU06aOoPPb4k
-	 3bI1PjWAcLhrEcKtkyxc+wskukdHji5DJ5z7BMHANFdx8djuHBkq9lLjW95oR2Vn6rrQy
-	 k/i5CpHvAA0BF5FbGtAm+hrRVeUCfRaYtxJ/GbHsMMidKfssecvoKCAIn2S19OW+19g==
+	t=1794046839;
+	b=FzSO4DFVqxOK4VE3XTu5lusawd9s5ViEsXohHl5aUS0h8qmrGFSUlDBOtCpnN+i+3deU
+	 sTqyGRT4mCKrI76ysmJ3bJJp7HY5MgxzP/mMToTtFybBKXk7W0Hoo0wG/9H31vJ8ood49
+	 aViuDF2CrnNjPFYmJEx/XgylXFhQR8spCtb+t1xX9maLMXri/cQ7j3DNtOTiTuopwo4eO
+	 FRCu0CnY1H6kLP7lUys0dKBvpThotzgyZKtvoYd7TzpcBuRsWJDvfGpaBQDC54av+kHSn
+	 6KPOcxKovCx3VrdYyQSkKv52qQMcdAFVNLadOpAkgdCMWjk1ERWJ51lVYY0l8FPaHNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046835;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046839;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=SvldwjelVEd9w3Yzu1X30Rsi/IqtHh4g6qenAMEtfDE=;
-	b=x7SNrUe+DG17qz0xprImwIPQUDRluArK9V5Du6FR1PsC0+0vAIJOAbmzP/NeDytXbizo
-	 xjil0Uv0fRyJA29MwJWLBHZonuUjV3k7pAJ5o/mqqYgFMGZ26GMFFd4tzLKGzGX9/u4p2
-	 XS5B6+6/x7xI/IH1+5FWztE5SocmHKZp/6Ek3X/cfiwybzFfcihQxmhcW+z4zi9JY+zIM
-	 qY9feQpD+CVBiyygbMOEiBtVa94pwQ182TUGOT4DCXqWnpj5RQpgBa+/DrHfjVCNSJ2jP
-	 kYRQ+tGqm+zmowERn79knU1m8c+1KLV46ArxOFguN1NzQPCt8KgD2FYBWAAuPxh/gOA==
+	bh=WpJbQkkP24mMnewMwmcxbhpKdcRx66Jtd8ZXAZ8mwiw=;
+	b=gn4C0y8sXn592M0ArjYRMWs/boT2Ue5kGXpkvoR8Tu62Tv4G33Gb969C4EtCGwKCIwhX
+	 Oh8R+uYn9FrhwVQJ/HuYmIIV4OONd83nE/4WXF2qsExIgzwdPM14ClPRc+dkDCJ33/OFk
+	 oucW8xaiwt3/0RxqixShvmhZ9jIdbNA2BwKuG3LUG5T+YT8CyO/N9DKo7GY72Vctvd4c+
+	 2jREdOpGZu+7kaCRegMxsFxJgHS7bacSbrQmNdmfXGgLigaEOvj+7z2a6eOEVjJrCPvCl
+	 LH/0GvKp28IM9qdxcXwGj9IgzufjDihleM81cYWoBruxiZ01QHhpOBQcUFGFLxwvbMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ALrD7xa3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QbkWRhFi;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AD97606A33E
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:20:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF02D606A8DB
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:20:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ALrD7xa3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACBB61F008A2;
-	Sat,  7 Nov 2026 10:20:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QbkWRhFi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCE211F008A3;
+	Sat,  7 Nov 2026 10:20:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046835;
-	bh=SvldwjelVEd9w3Yzu1X30Rsi/IqtHh4g6qenAMEtfDE=;
+	s=k20260515; t=1794046838;
+	bh=WpJbQkkP24mMnewMwmcxbhpKdcRx66Jtd8ZXAZ8mwiw=;
 	h=From:To:Cc:Subject:Date;
-	b=ALrD7xa3CHUIm4VL1pIChq4lvy4kd54xRIbYOdO5SzQ6CQECadieRW8mSYdFiI0VD
-	 dg9S8pkO0ftRc9DMrYFYtR94PyboARj3q+IkMR13r50xFRJmxm5w/gKKw/0PDGYGqs
-	 sV0IRdU6u9tBsJ+VV34w/TS3BsEHC/kc4g8HNz6gBfYa/K7wLU+7yXSkmKreYIs76w
-	 Qrkuc7aOuthgRAhy5hdM1xoSsmRtlmiWE4D4o7gtR/SDWMKXkgsZXNvL/XiaRfNPmZ
-	 gkPo40KlkBk4zyIo59YovcluYyTjrevf0u5N78OmyNZp1Oa4tzurRu+vXYQpmRZyND
-	 7ezlMLExsTu4g==
+	b=QbkWRhFiNdiJKt6Gh3eNi9OK2xppxswV78KdfCa6RwfJRTtYW8XSCx95NwGop8lSu
+	 v6csPnKINToPQJIM4EPCce22gNArasAvdemtRh16p//+RFxpwFXb5oa3UK6TC8re0Q
+	 Lj06op75y5ELd8CpvjtET4+WIyq+zP+zOH4zUTPfaAT7xTPrtVJNEqEfFAuR6tXuUJ
+	 fPGYKWT4QxLc0V3qBqJqEd9ar8iQQPDKSseeMcnGNm4PNBto/rFC3Ye9Xj3pnoK5vm
+	 6Y1tvM1fp3hoOI2Mtl4Alql6A2LydZxf4N9SlU7SIHktLSswDrt2q09/ChdzcR7bpU
+	 ZhXhn1p6vrIGA==
 From: Sasha Levin <sashal@kernel.org>
-To: gourry@gourry.net,
+To: chenridong@xiaomi.com,
 	akpm@linux-foundation.org,
-	sashiko-bot@kernel.org,
+	baohua@kernel.org,
+	hannes@cmpxchg.org,
+	axelrasmussen@google.com,
+	chris@chrisdown.name,
 	david@kernel.org,
-	ziy@nvidia.com,
-	liam@infradead.org,
+	kasong@tencent.com,
 	ljs@kernel.org,
-	vbabka@kernel.org,
-	jannh@google.com,
-	joshua.hahnjy@gmail.com,
-	rakie.kim@sk.com,
-	ying.huang@linux.alibaba.com,
-	peterx@redhat.com,
-	jgg@ziepe.ca
+	mhocko@kernel.org,
+	muchun.song@linux.dev,
+	roman.gushchin@linux.dev,
+	shakeel.butt@linux.dev,
+	tj@kernel.org,
+	weixugc@google.com,
+	yuanchu@google.com,
+	yuzhao@google.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/mempolicy: use vm_normal_folio_pmd() in queue_folios_pmd()" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:20:32 -0500
-Message-ID: <20261107052032-failed-6.12-9057170a941f@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/mglru: fix ineffective memory protection for non-kswapd reclaim" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:20:35 -0500
+Message-ID: <20261107052035-failed-6.12-15da1e4978dd@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -80,193 +83,190 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 9057170a941f0c5f4058f6fb9ab5d5fc9fcc9e83
+git cherry-pick -x 15da1e4978dd4ea8f5faa6e15ee967ba4ad9a30a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052032-failed-6.12-9057170a941f@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052035-failed-6.12-15da1e4978dd@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 9057170a941f0c5f4058f6fb9ab5d5fc9fcc9e83 Mon Sep 17 00:00:00 2001
-From: Gregory Price <gourry@gourry.net>
-Date: Sat, 26 Sep 2026 06:51:09 -0400
-Subject: [PATCH] mm/mempolicy: use vm_normal_folio_pmd() in queue_folios_pmd()
+From 15da1e4978dd4ea8f5faa6e15ee967ba4ad9a30a Mon Sep 17 00:00:00 2001
+From: Ridong Chen <chenridong@xiaomi.com>
+Date: Mon, 7 Sep 2026 10:54:45 +0800
+Subject: [PATCH] mm/mglru: fix ineffective memory protection for non-kswapd
+ reclaim
 
-Patch series "mm: stop calling pmd_folio() on special PMDs", v3.
+For MGLRU, memory.min/low is not honored during global proactive reclaim
+(writing to the root memory.reclaim) and global direct reclaim, because
+these paths shrink memcgs using stale protection (emin/elow).  It can be
+reproduced as follows:
 
-Two page table walkers resolve the folio behind a PMD with pmd_folio(),
-which is only valid for a PMD mapping a refcounted struct page:
+  # echo 7 > /sys/kernel/mm/lru_gen/enabled
+  # cd /sys/fs/cgroup
+  # mkdir -p a/b
+  # echo 100M > a/memory.min
+  # echo +memory > a/cgroup.subtree_control
+  # echo 100M > a/b/memory.min
+  # echo $$ > a/b/cgroup.procs
+  # dd if=/dev/zero of=/tmp/testfile bs=1M count=200
+  # cat a/b/memory.current
+  222650368
+  # echo 500M > memory.reclaim
+  -bash: echo: write error: Resource temporarily unavailable
+  # cat a/b/memory.current
+  6070272
 
-  madvise_cold_or_pageout_pte_range() mm/madvise.c
-  queue_folios_pmd() mm/mempolicy.c
+memory.min is 100M, yet reclaim drops a/b down to 6M, breaking the
+protection.  The traditional LRU path is not affected because
+shrink_node() calls mem_cgroup_calculate_protection() for each memcg it
+visits during a top-down tree walk.
 
-vmf_insert_pfn_pmd() installs special PMDs holding a raw pfn that need not
-have a memmap entry at all.  Both walkers can reach one and fault on the
-first folio field read.  The PTE halves of both already use
-vm_normal_folio(); these two patches make the PMD halves match.
+Commit 30d77b7eef01 ("mm/mglru: fix ineffective protection calculation")
+moved the protection computation into lru_gen_age_node(), which only runs
+for kswapd.  Non-kswapd global reclaim reaches shrink_one() through
+lru_gen_shrink_node() -> shrink_many() without any protection computation,
+so emin/elow are whatever a previous kswapd run left behind - or zero if
+kswapd never ran on this node.  Relying on a prior kswapd pass is not
+correct either: a memcg's emin/elow are derived from its ancestors'
+memory.min/low settings and from children_min_usage, both of which change
+over time, so emin/elow go stale even after kswapd has run and must be
+recomputed at the point of reclaim.
 
-The four callers of vmf_insert_pfn_pmd(), and which walker each reaches:
+Introduce mem_cgroup_calculate_protection_path() which computes emin/elow
+along the root-to-target path only, by iterating through the cgroup
+ancestors array top-down.  This avoids the full tree traversal that would
+be needed with mem_cgroup_calculate_protection(), limiting the cost to
+O(depth) per memcg - typically 3-5 levels.
 
-  drivers/vfio/pci/vfio_pci_core.c        VM_PFNMAP     mempolicy
-  drivers/gpu/drm/drm_gem_shmem_helper.c  VM_PFNMAP     mempolicy
-  drivers/gpu/drm/panthor/panthor_gem.c   VM_PFNMAP     mempolicy
-  drivers/hv/mshv_vtl_main.c              VM_MIXEDMAP   both
+Call it from shrink_one() for the non-kswapd path so that each memcg about
+to be shrunk has correct protection values.
 
-can_madv_lru_vma() rejects VM_PFNMAP, so only mshv_vtl_low reaches the
-madvise walker, and that needs CAP_SYS_ADMIN.  queue_pages_walk_ops
-supplies its own ->test_walk, so walk_page_test()'s generic VM_PFNMAP skip
-never runs and vfio-pci is reachable by any process holding the device fd.
-Hence the different stable tags.
-
-One behaviour change: mbind(MPOL_MF_STRICT) over a PMD mapped VM_PFNMAP
-region now returns 0 rather than -EIO.  The PTE loop already returned 0
-there.  drm_gem_shmem and panthor are where this is observable, since they
-PMD map pages that do have a memmap entry and so never faulted.
-
-Reproducer
-==========
-
-No hardware needed.  An out of tree module stands in for the drivers
-above: three misc devices, each with a ->huge_fault calling
-vmf_insert_pfn_pmd(), plus VM_HUGEPAGE so the fault path takes the PMD
-branch.
-
-  /dev/pmdspec_mixed    VM_MIXEDMAP, pfn at the 1 TiB mark, no memmap
-  /dev/pmdspec_pfnmap   VM_PFNMAP,   pfn at the 1 TiB mark, no memmap
-  /dev/pmdspec_real     VM_PFNMAP,   real alloc_pages(PMD_ORDER) on node 0
-
-Userspace maps the device into a PMD aligned window, reads one byte to
-fault the PMD in, checks a module parameter to confirm it went in, then
-issues the operation.
-
-  vng --run <bzImage> --user root --memory 4G --verbose \
-      --append "numa=fake=2" \
-      --exec "insmod pmdspec.ko && ./pmdspec_test <subtest>"
-
-numa=fake=2 gives a node 1 to bind to; the module allocates its real page
-on node 0, which is what makes queue_folio_required() true.
-
-  subtest        operation                              parent   series
-  --------------------------------------------------------------------
-  madv_cold      madvise(MADV_COLD)                     oops     ret=0
-  madv_pageout   madvise(MADV_PAGEOUT)                  oops     ret=0
-  mbind_mixed    mbind(MPOL_BIND, n1, MPOL_MF_MOVE)     oops     ret=0
-  mbind_pfnmap   mbind(MPOL_BIND, n1, MPOL_MF_STRICT)   oops     ret=0
-  mbind_real     mbind(MPOL_BIND, n1, MPOL_MF_STRICT)   -EIO     ret=0
-
-Two things the table shows that are easy to miss in the code:
-
-  - mbind_mixed passes only MPOL_MF_MOVE.  MPOL_MF_STRICT is not needed for
-    a VM_MIXEDMAP vma: walk_page_test() only skips VM_PFNMAP, and
-    vma_migratable() is true for VM_MIXEDMAP.
-
-  - mbind_real demonstrates the user visible change (-EIO -> 0)
-
-
-This patch (of 2):
-
-mmap a VM_PFNMAP region whose ->huge_fault installs a PMD through
-vmf_insert_pfn_pmd() - a vfio-pci MMIO BAR does this - then
-
-	mbind(p, len, MPOL_BIND, &mask, maxnode, MPOL_MF_STRICT);
-
-With a stand-in module for the driver:
-
-  BUG: unable to handle page fault for address: fffff96dc0000008
-  RIP: 0010:queue_folios_pte_range+0xaf/0x440
-   walk_pgd_range+0x52b/0xaf0
-   __walk_page_range+0x6a/0x1d0
-   walk_page_range_mm_unsafe+0x193/0x230
-   queue_pages_range+0x64/0xa0
-   do_mbind+0x25e/0x640
-
-queue_folios_pmd(), inlined above, calls pmd_folio() on that PMD.  The pfn
-is raw MMIO with no memmap entry, so the folio lands in unpopulated
-vmemmap.  Neither guard stops the walk:
-
-  walk_page_test()         skips VM_PFNMAP, but queue_pages_walk_ops
-                           supplies ->test_walk, so it never runs
-  queue_pages_test_walk()  honours vma_migratable(), but only while
-                           MPOL_MF_STRICT is clear
-
-A VM_MIXEDMAP vma needs neither flag, being vma_migratable(), so plain
-mbind(MPOL_MF_MOVE) reaches this too - and there the bad folio carries on
-into migrate_folio_add() and folio_isolate_lru().  mshv_vtl_low is such a
-mapping.
-
-Use vm_normal_folio_pmd() and skip on NULL, as the PTE loop in
-queue_folios_pte_range() already does with vm_normal_folio().  This also
-filters the huge zero PMD, so its separate check is no longer needed.
-
-mbind(MPOL_MF_STRICT) over a PMD mapped VM_PFNMAP region now returns 0
-rather than -EIO.  The PTE loop already returned 0 there.
-
-Link: https://lore.kernel.org/20260926105110.2156652-1-gourry@gourry.net
-Link: https://lore.kernel.org/20260926105110.2156652-2-gourry@gourry.net
-Fixes: 3c8e44c9b369 ("mm: mark special bits for huge pfn mappings when inject")
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+Link: https://lore.kernel.org/20260907025445.1836238-3-ridong.chen@linux.dev
+Fixes: e4dde56cd208 ("mm: multi-gen LRU: per-node lru_gen_folio lists")
+Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260817220810.1175596-1-gourry%40gourry.net
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Assisted-by: LLM
-Cc: Liam R. Howlett <liam@infradead.org>
+Reviewed-by: Barry Song <baohua@kernel.org>
+Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
+Assisted-by: Claude:claude-opus-4-8
+Cc: Axel Rasmussen <axelrasmussen@google.com>
+Cc: Chris Down <chris@chrisdown.name>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Kairui Song <kasong@tencent.com>
 Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Jann Horn <jannh@google.com>
-Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: Rakie Kim <rakie.kim@sk.com>
-Cc: Ying Huang <ying.huang@linux.alibaba.com>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Michal Hocko <mhocko@kernel.org>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Tejun Heo <tj@kernel.org>
+Cc: Wei Xu <weixugc@google.com>
+Cc: Yuanchu Xie <yuanchu@google.com>
+Cc: Yu Zhao <yuzhao@google.com>
 Cc: <stable@vger.kernel.org>
 ---
- mm/mempolicy.c | 13 +++++--------
- 1 file changed, 5 insertions(+), 8 deletions(-)
+ include/linux/memcontrol.h | 10 +++++++++
+ mm/memcontrol.c            | 45 ++++++++++++++++++++++++++++++++++++++
+ mm/vmscan.c                |  8 ++++++-
+ 3 files changed, 62 insertions(+), 1 deletion(-)
 
-diff --git a/mm/mempolicy.c b/mm/mempolicy.c
-index 95dba5d919e92..e9860fb9f73f8 100644
---- a/mm/mempolicy.c
-+++ b/mm/mempolicy.c
-@@ -667,7 +667,8 @@ static inline bool queue_folio_required(struct folio *folio,
- 	return node_isset(nid, *qp->nmask) == !(flags & MPOL_MF_INVERT);
+diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
+index 4f720791a31c9..46bf724cae7af 100644
+--- a/include/linux/memcontrol.h
++++ b/include/linux/memcontrol.h
+@@ -1921,6 +1921,16 @@ static inline bool memcg_is_dying(struct mem_cgroup *memcg)
+ }
+ #endif /* CONFIG_MEMCG */
+ 
++#if defined(CONFIG_MEMCG) && defined(CONFIG_LRU_GEN)
++void mem_cgroup_calculate_protection_path(struct mem_cgroup *root,
++					  struct mem_cgroup *memcg);
++#else
++static inline void mem_cgroup_calculate_protection_path(struct mem_cgroup *root,
++							struct mem_cgroup *memcg)
++{
++}
++#endif
++
+ #if defined(CONFIG_MEMCG) && defined(CONFIG_ZSWAP)
+ bool obj_cgroup_may_zswap(struct obj_cgroup *objcg);
+ void obj_cgroup_charge_zswap(struct obj_cgroup *objcg, size_t size);
+diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+index cf53d4ac7ecc1..791e536efaebe 100644
+--- a/mm/memcontrol.c
++++ b/mm/memcontrol.c
+@@ -5267,6 +5267,51 @@ void mem_cgroup_calculate_protection(struct mem_cgroup *root,
+ 	page_counter_calculate_protection(&root->memory, &memcg->memory, recursive_protection);
  }
  
--static void queue_folios_pmd(pmd_t *pmd, struct mm_walk *walk)
-+static void queue_folios_pmd(pmd_t *pmd, unsigned long addr,
-+		struct mm_walk *walk)
++#ifdef CONFIG_LRU_GEN
++/**
++ * mem_cgroup_calculate_protection_path - compute protection along a path
++ * @root: the top ancestor of the sub-tree being checked (NULL for root_mem_cgroup)
++ * @memcg: the target memory cgroup
++ *
++ * Walk the ancestor path from @root down to @memcg and compute the effective
++ * protection at each level.  This is safe for isolated queries because it
++ * ensures parents are computed before children.
++ */
++void mem_cgroup_calculate_protection_path(struct mem_cgroup *root,
++					  struct mem_cgroup *memcg)
++{
++	bool recursive_protection =
++		cgrp_dfl_root.flags & CGRP_ROOT_MEMORY_RECURSIVE_PROT;
++	struct cgroup *cg;
++	int root_level, i;
++
++	if (mem_cgroup_disabled())
++		return;
++
++	if (!root)
++		root = root_mem_cgroup;
++
++	if (memcg == root)
++		return;
++
++	root_level = root->css.cgroup->level;
++	cg = memcg->css.cgroup;
++
++	rcu_read_lock();
++	for (i = root_level + 1; i <= cg->level; i++) {
++		struct mem_cgroup *cur;
++
++		cur = mem_cgroup_from_css(cgroup_css(cg->ancestors[i],
++						     &memory_cgrp_subsys));
++		if (cur)
++			page_counter_calculate_protection(&root->memory,
++							  &cur->memory,
++							  recursive_protection);
++	}
++	rcu_read_unlock();
++}
++#endif /* CONFIG_LRU_GEN */
++
+ static int charge_memcg(struct folio *folio, struct mem_cgroup *memcg,
+ 			gfp_t gfp)
  {
- 	struct folio *folio;
- 	struct queue_pages *qp = walk->private;
-@@ -678,13 +679,9 @@ static void queue_folios_pmd(pmd_t *pmd, struct mm_walk *walk)
- 			qp->nr_failed++;
- 		return;
- 	}
--	folio = pmd_folio(pmdval);
--	if (folio_is_zone_device(folio))
-+	folio = vm_normal_folio_pmd(walk->vma, addr, pmdval);
-+	if (!folio || folio_is_zone_device(folio))
- 		return;
--	if (is_huge_zero_folio(folio)) {
--		walk->action = ACTION_CONTINUE;
--		return;
--	}
- 	if (!queue_folio_required(folio, qp))
- 		return;
- 	if (!(qp->flags & (MPOL_MF_MOVE | MPOL_MF_MOVE_ALL)) ||
-@@ -717,7 +714,7 @@ static int queue_folios_pte_range(pmd_t *pmd, unsigned long addr,
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 8e9c73dcd19bb..80041e2b8049c 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -5251,7 +5251,13 @@ static int shrink_one(struct lruvec *lruvec, struct scan_control *sc)
+ 	struct mem_cgroup *memcg = lruvec_memcg(lruvec);
+ 	struct pglist_data *pgdat = lruvec_pgdat(lruvec);
  
- 	ptl = pmd_trans_huge_lock(pmd, vma);
- 	if (ptl) {
--		queue_folios_pmd(pmd, walk);
-+		queue_folios_pmd(pmd, addr, walk);
- 		spin_unlock(ptl);
- 		goto out;
- 	}
+-	/* lru_gen_age_node() called mem_cgroup_calculate_protection() */
++	/*
++	 * For kswapd, mem_cgroup_calculate_protection() has already
++	 * been called during the top-down cgroup traversal.
++	 */
++	if (!current_is_kswapd())
++		mem_cgroup_calculate_protection_path(NULL, memcg);
++
+ 	if (mem_cgroup_below_min(NULL, memcg))
+ 		return MEMCG_LRU_YOUNG;
+ 
 -- 
 2.53.0
 
