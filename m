@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046059;
-	b=SIgrw9v1ge2V+B/2yhNtDI6WLCYquube+I7ZkbqVatGb+phnKudAzdXdN66UnwQF7rHy
-	 qW03Pwm3H3cZFKL6RaPqIBrcDuX/ias0uatExm6dz6iatiLyGBUAvofbnD49jvvq+dgWW
-	 Kb3kvMBrrsoigJtQ3SScnKcXjLStkmz9uzWcYaNGeigD9bIrZLzjYBxh389lFkVRB8m5F
-	 2XcPzp49jL+dvwThzC3eJ9zsmDDDYqIVZfqVQpDTIN5mMM9/aTomCMmCTyG4F4r0aX7/N
-	 pp+ANSitJHSinPyytES5O7Nfi3948k2Fk8SNEQoL5j5WB/fFaD569vG48HoimOe1VkQ==
+	t=1794046061;
+	b=P1ZnZndg4aR5aA8AdEOXc5hzS2nNtB1TeGOnBUQlvGaUFYyqkiysD88JH+oi3gr2g9nk
+	 iUzdgAPSWYFPr4YWUITZer66cadDSbD035+CS8IGwhcANm/e75I2869ZGGx6nStpczTQi
+	 xnNrWWyH3L38HXc6N6LhoGRAJyyi+jNu5pYX58j9sLqrP4SpDv1a30EUf36ygb0B0EsY6
+	 0bv5OJHpvMKzBnQViQWKDhviHlLmkBZBL+36c0PQN3YIejUjmPv6+LBSfNabkuYO8ceF3
+	 JHkdugg9h32vTj0r20gkVeymIGd7Tv+vDjbbgObygQIRil1aU+mK8FdO4H3rYKGqOvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046059;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046061;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=j7AqQ8zqPtmmZmbuZI6P6iCiew5dq1RaZRKqBKibKgU=;
-	b=j985XgH7Twoe5X8Qw5pTokxTAqywkeyBzMnDzCIfQrCI1Dbq8ZIBDdaR7IG2Tu6R20t3
-	 k2e6rjH7yw6oqUNgsqW8iWxC3ivWkU7Jg03nLhZu3IbpXKXEXMHAZZ2xEfJa/pkAGCGWb
-	 JGFH4YvdhmEORJZrLMEdELClcah69/RGUglSHS+S/lWhtEQHn1c79uVGBHnI1PodgON/0
-	 Ja3SEel2G33cLXs+dwcZFe8CNOc7b+ZiSLZ3ZP0LEN90ANDFafa+cRoRBhcgj238ZB5t+
-	 BfsbnizPGUaLKlX5EThlqZ8IMe2R9v3VuiRUmUsUpfbuH8roQpG6qDnaITLyeFSBG7A==
+	bh=+tZ9WB8Rs4OgofjLKfoILvrRcpb+X9RZqivY5dNRUkM=;
+	b=hKMzpBVtv4P+vH2f2Tzk6dm9xveB7aZt8SJdyonxkoIyGRdPCY5Qk3NZNLH5q14xuBsb
+	 VZ0RNrcyT9mghJ86wq4DnWL8/YPUxmHYqh/H29bfs/HPE/EfM8tLWupnk6ZqEogu64nUD
+	 OJcE0UowoyT8IrKFQqCxeMQ1tFkjWbVqMEQq8JH0KS0FDGt5lQVja9tRBbuxx93F+zpJz
+	 RrCp29th+AGck175gp7QGYtogwnD/fu+hYQYgc3NuBmJhumqMJrMGt94hCUYXLUB/Q7AY
+	 CqgDoKAcoltfZXwjE937hPSiX4z2j6EBCuaUlZba6Ev51ufbFue8DO2XfOu6pRqA85A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RYolRDBl;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WZbVhLQb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3677606A32E
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:07:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24C9A606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:07:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RYolRDBl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 629F81F0089F;
-	Sat,  7 Nov 2026 10:07:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WZbVhLQb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8192C1F0089F;
+	Sat,  7 Nov 2026 10:07:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046058;
-	bh=j7AqQ8zqPtmmZmbuZI6P6iCiew5dq1RaZRKqBKibKgU=;
+	s=k20260515; t=1794046061;
+	bh=+tZ9WB8Rs4OgofjLKfoILvrRcpb+X9RZqivY5dNRUkM=;
 	h=From:To:Cc:Subject:Date;
-	b=RYolRDBl5Fgy/3GEQhhEQwDV98cgkjmXKy/lHMNkU4SRn0Ga6ZT2F9724iG0GkC84
-	 /X6qfGrKrHNTWjO2vlmBF7LvVBxHXuhKEiSaEH2lofMtQxEDnW5lLlA6N7G70FqDXk
-	 zXtas0YaEgB8pf9uAg0TcCLSfUNUw7wv6ptyrMIitAD4aeBHBg5Eb3H2C9oCl+3dEo
-	 /YZKqctbXMpHwkhfvoynkUiRVOnMCaVo9r5VxCnbd/cb76e/Py6kirfAMe4GZDBB2p
-	 REPdJgcWkWpen5DnETetZMQPqjso0Bnz9rQMM5ijnePUfvutChsFrNV6e/xAXVX0sv
-	 ulZh5B5ts4Olg==
+	b=WZbVhLQb7K6p/rRNqtZfjnicb6YxcYiHHMb/p+iOm/R3D/mY1kZbjsMb7fKus+I06
+	 ep3aAs3G7yQoihWdsoHZkN/02V4tqSPJfDClwY0ylBH7OArOobwkKTUkOxWdIn9OYO
+	 k7SUCGBL8GPKBOJR/BFDqHZuw5qlqLl6TAPBRTp4M0rm1cIhuDtRXkux+M6nG+Fidg
+	 UTFYFw/i3IIreOE8c0RIK+VinE404CX7cG9rvbaF60fV3E01U+7XwSb/rupG0eW0iV
+	 TEZVMMXZ12qTqmD5lUiWPi+9TxHISVtnQg2xU4EodoComv2is6kZSK5B+bkstKp5BL
+	 oTTKbzGD9TfAA==
 From: Sasha Levin <sashal@kernel.org>
-To: danishkhateeb03@gmail.com,
-	tiwai@suse.de
+To: busanna.reddy@oss.qualcomm.com,
+	bryan.odonoghue@linaro.org,
+	bod@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ALSA: timer: Handle userspace-driven timer ioctls from 32-bit tasks" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:07:37 -0500
-Message-ID: <20261107050737-failed-6.18-1bbc033983b7@kernel.org>
+Subject: FAILED: patch "[PATCH] media: iris: Fix power-off ordering to disable power domain after clocks" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:07:39 -0500
+Message-ID: <20261107050739-failed-6.18-9cfae7726a9a@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,71 +69,60 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 1bbc033983b76f41d51d4a48838bf94c5e6b6f50
+git cherry-pick -x 9cfae7726a9a9f526e8905dbddde355be2674e3d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050737-failed-6.18-1bbc033983b7@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050739-failed-6.18-9cfae7726a9a@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 1bbc033983b76f41d51d4a48838bf94c5e6b6f50 Mon Sep 17 00:00:00 2001
-From: Danish Khateeb <danishkhateeb03@gmail.com>
-Date: Mon, 28 Sep 2026 13:23:52 -0500
-Subject: [PATCH] ALSA: timer: Handle userspace-driven timer ioctls from 32-bit
- tasks
+From 9cfae7726a9a9f526e8905dbddde355be2674e3d Mon Sep 17 00:00:00 2001
+From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Date: Tue, 18 Aug 2026 21:24:17 +0530
+Subject: [PATCH] media: iris: Fix power-off ordering to disable power domain
+ after clocks
 
-32-bit tasks on a 64-bit kernel can't use userspace-driven timers. The
-compat handler for /dev/snd/timer doesn't list SNDRV_TIMER_IOCTL_CREATE,
-so creating a timer fails with -ENOTTY. The file returned for a timer
-has no .compat_ioctl either, so SNDRV_TIMER_IOCTL_TRIGGER fails with
--ENOTTY too.
+In iris_vpu_power_off_hw(), iris_disable_power_domains() was called
+before the associated clocks (IRIS_BSE_HW_CLK, IRIS_HW_AHB_CLK,
+IRIS_HW_CLK) were disabled and unprepared. This reverses the correct
+power-down sequence: with the power domain already removed, the
+subsequent clk_disable_unprepare() calls end up operating on
+clock-controller hardware that is no longer powered, which can hang
+or behave unpredictably.
 
-struct snd_timer_uinfo has the same layout for 32-bit and 64-bit tasks,
-and SNDRV_TIMER_IOCTL_TRIGGER takes no argument, so both commands can
-be passed through unchanged.
+Reorder the calls so iris_disable_power_domains() runs after all
+three clocks are disabled, ensuring clocks are always turned off
+while their power domain is still active, and mirroring the reverse
+of the power-on sequence.
 
-The utimer selftest doesn't catch this when built with -m32: it takes
--ENOTTY from SNDRV_TIMER_IOCTL_CREATE to mean CONFIG_SND_UTIMER=n and
-skips.
-
-Fixes: 37745918e0e7 ("ALSA: timer: Introduce virtual userspace-driven timers")
+Fixes: bb8a95aa038e ("media: iris: implement power management")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
-Link: https://patch.msgid.link/20260928182352.309457-1-danishkhateeb03@gmail.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
 ---
- sound/core/timer.c        | 1 +
- sound/core/timer_compat.c | 1 +
- 2 files changed, 2 insertions(+)
+ drivers/media/platform/qcom/iris/iris_vpu_common.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/core/timer.c b/sound/core/timer.c
-index 679b264356709..69a59b25fe0a8 100644
---- a/sound/core/timer.c
-+++ b/sound/core/timer.c
-@@ -2176,6 +2176,7 @@ static const struct file_operations snd_utimer_fops = {
- 	.llseek		=	noop_llseek,
- 	.release	=	snd_utimer_release,
- 	.unlocked_ioctl	=	snd_utimer_ioctl,
-+	.compat_ioctl	=	snd_utimer_ioctl,
- };
+diff --git a/drivers/media/platform/qcom/iris/iris_vpu_common.c b/drivers/media/platform/qcom/iris/iris_vpu_common.c
+index 2ef8004e976e3..c9f5dc851d9f7 100644
+--- a/drivers/media/platform/qcom/iris/iris_vpu_common.c
++++ b/drivers/media/platform/qcom/iris/iris_vpu_common.c
+@@ -223,10 +223,10 @@ int iris_vpu_power_off_controller(struct iris_core *core)
+ void iris_vpu_power_off_hw(struct iris_core *core)
+ {
+ 	dev_pm_genpd_set_hwmode(core->pmdomain_tbl->pd_devs[IRIS_HW_POWER_DOMAIN], false);
+-	iris_disable_power_domains(core, core->pmdomain_tbl->pd_devs[IRIS_HW_POWER_DOMAIN]);
+ 	iris_disable_unprepare_clock(core, IRIS_BSE_HW_CLK);
+ 	iris_disable_unprepare_clock(core, IRIS_HW_AHB_CLK);
+ 	iris_disable_unprepare_clock(core, IRIS_HW_CLK);
++	iris_disable_power_domains(core, core->pmdomain_tbl->pd_devs[IRIS_HW_POWER_DOMAIN]);
+ }
  
- static int snd_utimer_start(struct snd_timer *t)
-diff --git a/sound/core/timer_compat.c b/sound/core/timer_compat.c
-index 25ee81c1668b7..5bab00466de7f 100644
---- a/sound/core/timer_compat.c
-+++ b/sound/core/timer_compat.c
-@@ -99,6 +99,7 @@ static long __snd_timer_user_ioctl_compat(struct file *file, unsigned int cmd,
- 	case SNDRV_TIMER_IOCTL_PAUSE:
- 	case SNDRV_TIMER_IOCTL_PAUSE_OLD:
- 	case SNDRV_TIMER_IOCTL_NEXT_DEVICE:
-+	case SNDRV_TIMER_IOCTL_CREATE:
- 		return __snd_timer_user_ioctl(file, cmd, (unsigned long)argp, true);
- 	case SNDRV_TIMER_IOCTL_GPARAMS32:
- 		return snd_timer_user_gparams_compat(file, argp);
+ void iris_vpu_power_off(struct iris_core *core)
 -- 
 2.53.0
 
