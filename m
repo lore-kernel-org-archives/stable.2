@@ -1,58 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794082212;
-	b=ECUcdk5zigDWCyOWLztGwZCRqrNch4k6Fb+hGKHnyRAWf/IgW8WRwCO2ishv4BDlJJUz
-	 Ho/3xRIyPeUAV+iQUpvtj0/sSKgnem11QvbB3YXk0ZSkJ3g6bCO0PRK+ofURFLMfPv4n3
-	 eerttzTBqO5y/m3tNIYwShUYG0b0UcBTbmQrc3v1QTLZpYG6INua2y/zrzkWK3mEs4Tcs
-	 Zvcu2gr1b17l6yvcR5e4F1gNNyXFiptw9I/1epN4QpAsrg1R2auFFif+sL2laPJwWexbM
-	 BADzIKCAEsdApGTjkzR19bL6ixZ3FSDw5cRonzNTu9LpQDsWBlpvAIT3LdLHwkTzllA==
+	t=1794082263;
+	b=tj+Drr9H6K09lvg2ME53+6y55jta6tfMr2DRsH7ok6ORkRRsn7HcRxY6jCJEqjURHebZ
+	 0DKm2WlohxdnKVWaC3oqRFKcI6+VpJyOHiCBYQvk5otgdxrS1CU5qdaHEa66N8u8+zFnb
+	 B/FHTuX9VY1PqU/U/r5q8wIHfNSO3pCsCo0jmnmJnqcC9JIHN9PTvbyv9YXRdFkWv2IDs
+	 4zhlNB74Wha8XRztzQLyrmMIUiNElGZGGoaLogWjIMXreWOGOPtdhXET1LfD6L6Dl59Tp
+	 ulNIT7vXpZPtxzMBTBrkKfqplvridd8WWizo0TUmN79AK9G9LKgt7JchzVDxsVxOhaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794082212;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794082263;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=TIAVWRl5IyIEzSAGdy1Y9O94fKWUT6y4xqwWabU5n+M=;
-	b=2XuWxx5f+Ze8584V4X7b11qXrP1/hd6ZwGnnKcerjUo/G0AySs/evCuVUtBV0z5/bTZp
-	 VPaSnTs1k8zjQRTQzr/RSE4xI0ewmxnFWEj95XX7qZ1/Ef3F+RxaoiwldcEC/6OD4eIW5
-	 O+UPiUaOtCcsPLGdobtIFeCPKQ9hyiwAlAJgy4Sh78BSiklKWKoXxw/i2t8aelwODg4oS
-	 CSgcu73XTCZtrodjfcb7LfJjiVfdDUixPMVZRTsHrsNuqZbLby4fUUpmba8/nwAXItXSP
-	 URkzCjSuB6bGhd1h/byZs+zc3G3U8YPLQjZKcfbmGq+x+mw8ZqbPV8cMn1d1e8ylvmQ==
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=T0ODNMh02eS12fQt4MkceenMeKw9eeidJp2zVzQqz+w=;
+	b=VfKvCnca2eDhKlKRkmZwITVajKxHxsMAxPFGTgUL8TaSnnBRxJrWnJdcwsoRvZ+PeE9P
+	 pBJkyv9ZzUoqCX2lgdNzaHtQcL1x77vFOpVhFO3XkbDf113tKXsQb0sOZv3sLoE0RNGgR
+	 fFzG/GffprTOZY204XciafOZKxqUQ5OCgxH/hcF9m+SfVtja+LcN+Ouoyg2mH7FnqQ3Fz
+	 Y7u18l6F5vrtJ9sfId8BRsZanmWooTxY0E4LR+fHrqukDU0S4W/VngTBKtN03i3Moaz3n
+	 nC2DIWE8Tu7WKt0h7pqOMxQGrYRkEsso+/EnwUXnFn/f0oTELN1Kv+XPlSZ/wkHsOsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LPjsm0m9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oBKjNtH1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A36B3606D82B;
-	Sat,  7 Nov 2026 20:10:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FF14606A32F;
+	Sat,  7 Nov 2026 20:11:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LPjsm0m9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DF501F008AB;
-	Sat,  7 Nov 2026 20:10:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oBKjNtH1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DE7C1F0089F;
+	Sat,  7 Nov 2026 20:11:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794082211;
-	bh=TIAVWRl5IyIEzSAGdy1Y9O94fKWUT6y4xqwWabU5n+M=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LPjsm0m9nACOdC0KAk8ANoS9Ly8u0kM51qmquHDqDhuZLfKLwr0Q2z+iSYMtsUHwd
-	 hlRiCO4hNc2UxC0daRQWjOhW3r3CSX/Wxl8FLRhB8yi/92VZs1S5sfwbdoIUgkKCEo
-	 Loc4iyzPizp6Ny1ISQiSKE+WeF7mKUVsQ8scyNMhlvxSTpgHrg9ZPEPrhjs8cO7uYj
-	 TNk6Ls8ow1sOBcwuevAjSVsf9t81VnW/uKpJjlFaMi1g3ov/m1Dsa+WPMQ/8snOHMn
-	 9RpG6DxmoaYM4Vxpa3iYaCHoUuMsEE7p2xQWcILdwmd2YZUnJ4eA0OCWneA8Qy8ruL
-	 ST7jwRmPY7dcQ==
-From: SJ Park <sj@kernel.org>
-To: 
-Cc: SJ Park <sj@kernel.org>,
-	stable@vger.kernel.org,
+	s=k20260515; t=1794082263;
+	bh=T0ODNMh02eS12fQt4MkceenMeKw9eeidJp2zVzQqz+w=;
+	h=From:To:Cc:Subject:Date;
+	b=oBKjNtH1jx2W/tOfG1II+gqYsdFmvXga6X6oEDe0N5iKjGF+3SzWVmuNPZLdlXFI4
+	 HWjtL1NXAVsAlgFe3cwOaHpCUZu9qTSmomswnNyPTKaKVH/9gqXENEBnjWMN5gpLGC
+	 uZ1gsf1fWOLfaeMfR44dG00eYY7z0Xhgl4/BOHfaPT4jfMcz0m/BszHVBPLc1QAwlE
+	 o+J1Wmd2xJnqQerenBXQOf0wmYLkaKqIT+Xt6StB68XzUyHe31pTubsfK70+UxkZm8
+	 fuTDnCwNIzX6IYrxTOD94jZLEPdq5qRch/t6vv9QTglK9G7xuyyIV0sa4aBVJUcyks
+	 jbUW3CbQBb/Ng==
+From: Eric Biggers <ebiggers@kernel.org>
+To: stable@vger.kernel.org
+Cc: linux-raid@vger.kernel.org,
+	Eric Biggers <ebiggers@kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [RFC PATCH 6.18.y 5/5] mm/damon/core: filter out damos address filter-split failed region
-Date: Sat,  7 Nov 2026 12:10:01 -0800
-Message-ID: <20261107201001.206120-6-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261107201001.206120-1-sj@kernel.org>
-References: <20261107201001.206120-1-sj@kernel.org>
+	Christoph Hellwig <hch@lst.de>
+Subject: [PATCH 6.1] raid6: add missing vzeroupper to AVX-512 code
+Date: Sat,  7 Nov 2026 12:11:01 -0800
+Message-ID: <20261107201101.112567-1-ebiggers@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,150 +60,98 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When an address type DAMOS filter is configured, DAMOS tries to split the
-region for the filter range, and apply DAMOS action to the filter-in
-region.  The split operation (damon_split_region_at()) could fail from
-allocation failure under extreme memory pressure.  In the case, DAMOS
-action could be applied more or less than expected, ignoring the address
-filter.
+commit b82cf9e49c1be7cf1fd8e1bd806b0cdd25ab8127 upstream.
 
-The issue only rarely happens under extreme memory pressure.  No crash or
-leak happens.  Occasionally not applying the action to a few regions
-shouldn't be a real problem.  But applying the action to a region that the
-user has excluded via address filter could be a surprise depending on the
-use case.  It is only theoretical.  No such real case is found yet.
+Since the AVX-512 optimized RAID6 code uses ZMM registers, execute
+vzeroupper before returning from it.  This is needed to avoid degrading
+the performance of any later SSE code that may happen to be executed.
 
-Filter out the entire region if the split is failed.  Update
-damos_filter_match() signature to receive the error from split.  Also
-update kunit tests for the updated signature.
-
-The issue was discovered [1] by sashiko.
-
-Link: https://lore.kernel.org/20261020004119.106690-1-sj@kernel.org
-Link: https://lore.kernel.org/20260801203121.117449-1-sj@kernel.org [1]
-Fixes: ab9bda001b68 ("mm/damon/core: introduce address range type damos filter")
-Signed-off-by: SJ Park <sj@kernel.org>
+Link: https://lore.kernel.org/20260831212316.213896-1-ebiggers@kernel.org
+Fixes: e0a491c12968 ("lib/raid6: Add AVX512 optimized gen_syndrome functions")
+Fixes: 13c520b2993c ("lib/raid6: Add AVX512 optimized recovery functions")
+Signed-off-by: Eric Biggers <ebiggers@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: <stable@vger.kernel.org> # 6.6.x
-(cherry picked from commit bbeec2d8324d7aac438bb12dd2d22b184e0a8d43)
-Signed-off-by: SJ Park <sj@kernel.org>
+Cc: Christoph Hellwig <hch@lst.de>
+Cc: <stable@vger.kernel.org>
 ---
- mm/damon/core.c             | 16 ++++++++++++----
- mm/damon/tests/core-kunit.h | 16 +++++++++++-----
- 2 files changed, 23 insertions(+), 9 deletions(-)
+ lib/raid6/avx512.c       | 6 ++++++
+ lib/raid6/recov_avx512.c | 2 ++
+ 2 files changed, 8 insertions(+)
 
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 00cd0e2a1e341..dc8608c3cae40 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -1812,13 +1812,14 @@ static void damos_update_stat(struct damos *s,
+diff --git a/lib/raid6/avx512.c b/lib/raid6/avx512.c
+index 9c3e822e1adf5..30956989e7d74 100644
+--- a/lib/raid6/avx512.c
++++ b/lib/raid6/avx512.c
+@@ -95,6 +95,7 @@ static void raid6_avx5121_gen_syndrome(int disks, size_t bytes, void **ptrs)
+ 	}
  
- static bool damos_filter_match(struct damon_ctx *ctx, struct damon_target *t,
- 		struct damon_region *r, struct damos_filter *filter,
--		unsigned long min_sz_region)
-+		unsigned long min_sz_region, int *err)
- {
- 	bool matched = false;
- 	struct damon_target *ti;
- 	int target_idx = 0;
- 	unsigned long start, end;
+ 	asm volatile("sfence" : : : "memory");
++	asm volatile("vzeroupper");
+ 	kernel_fpu_end();
+ }
  
-+	*err = 0;
- 	switch (filter->type) {
- 	case DAMOS_FILTER_TYPE_TARGET:
- 		damon_for_each_target(ti, ctx) {
-@@ -1844,12 +1845,13 @@ static bool damos_filter_match(struct damon_ctx *ctx, struct damon_target *t,
- 		}
- 		/* start before the range and overlap */
- 		if (r->ar.start < start) {
--			damon_split_region_at(t, r, start - r->ar.start);
-+			*err = damon_split_region_at(t, r,
-+					start - r->ar.start);
- 			matched = false;
- 			break;
- 		}
- 		/* start inside the range */
--		damon_split_region_at(t, r, end - r->ar.start);
-+		*err = damon_split_region_at(t, r, end - r->ar.start);
- 		matched = true;
- 		break;
- 	default:
-@@ -1863,10 +1865,16 @@ static bool damos_filter_out(struct damon_ctx *ctx, struct damon_target *t,
- 		struct damon_region *r, struct damos *s)
- {
- 	struct damos_filter *filter;
-+	bool matching;
-+	int err;
+@@ -154,6 +155,7 @@ static void raid6_avx5121_xor_syndrome(int disks, int start, int stop,
+ 	}
  
- 	s->core_filters_allowed = false;
- 	damos_for_each_filter(filter, s) {
--		if (damos_filter_match(ctx, t, r, filter, ctx->min_sz_region)) {
-+		matching = damos_filter_match(ctx, t, r, filter,
-+				ctx->min_sz_region, &err);
-+		if (err)
-+			return true;
-+		if (matching) {
- 			if (filter->allow)
- 				s->core_filters_allowed = true;
- 			return !filter->allow;
-diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
-index 0ce6481319432..814197da4f507 100644
---- a/mm/damon/tests/core-kunit.h
-+++ b/mm/damon/tests/core-kunit.h
-@@ -548,6 +548,7 @@ static void damos_test_filter_out(struct kunit *test)
- 	struct damon_target *t;
- 	struct damon_region *r, *r2;
- 	struct damos_filter *f;
-+	int err;
+ 	asm volatile("sfence" : : : "memory");
++	asm volatile("vzeroupper");
+ 	kernel_fpu_end();
+ }
  
- 	f = damos_new_filter(DAMOS_FILTER_TYPE_ADDR, true, false);
- 	if (!f)
-@@ -570,28 +571,32 @@ static void damos_test_filter_out(struct kunit *test)
+@@ -227,6 +229,7 @@ static void raid6_avx5122_gen_syndrome(int disks, size_t bytes, void **ptrs)
+ 	}
  
- 	/* region in the range */
- 	KUNIT_EXPECT_TRUE(test,
--			damos_filter_match(NULL, t, r, f, DAMON_MIN_REGION));
-+			damos_filter_match(NULL, t, r, f, DAMON_MIN_REGION,
-+				&err));
- 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
+ 	asm volatile("sfence" : : : "memory");
++	asm volatile("vzeroupper");
+ 	kernel_fpu_end();
+ }
  
- 	/* region before the range */
- 	r->ar.start = DAMON_MIN_REGION * 1;
- 	r->ar.end = DAMON_MIN_REGION * 2;
- 	KUNIT_EXPECT_FALSE(test,
--			damos_filter_match(NULL, t, r, f, DAMON_MIN_REGION));
-+			damos_filter_match(NULL, t, r, f, DAMON_MIN_REGION,
-+				&err));
- 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
+@@ -311,6 +314,7 @@ static void raid6_avx5122_xor_syndrome(int disks, int start, int stop,
+ 	}
  
- 	/* region after the range */
- 	r->ar.start = DAMON_MIN_REGION * 6;
- 	r->ar.end = DAMON_MIN_REGION * 8;
- 	KUNIT_EXPECT_FALSE(test,
--			damos_filter_match(NULL, t, r, f, DAMON_MIN_REGION));
-+			damos_filter_match(NULL, t, r, f, DAMON_MIN_REGION,
-+				&err));
- 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
+ 	asm volatile("sfence" : : : "memory");
++	asm volatile("vzeroupper");
+ 	kernel_fpu_end();
+ }
  
- 	/* region started before the range */
- 	r->ar.start = DAMON_MIN_REGION * 1;
- 	r->ar.end = DAMON_MIN_REGION * 4;
- 	KUNIT_EXPECT_FALSE(test,
--			damos_filter_match(NULL, t, r, f, DAMON_MIN_REGION));
-+			damos_filter_match(NULL, t, r, f, DAMON_MIN_REGION,
-+				&err));
- 	/* filter should have split the region */
- 	KUNIT_EXPECT_EQ(test, r->ar.start, DAMON_MIN_REGION * 1);
- 	KUNIT_EXPECT_EQ(test, r->ar.end, DAMON_MIN_REGION * 2);
-@@ -607,7 +612,8 @@ static void damos_test_filter_out(struct kunit *test)
- 	r->ar.start = DAMON_MIN_REGION * 2;
- 	r->ar.end = DAMON_MIN_REGION * 8;
- 	KUNIT_EXPECT_TRUE(test,
--			damos_filter_match(NULL, t, r, f, DAMON_MIN_REGION));
-+			damos_filter_match(NULL, t, r, f, DAMON_MIN_REGION,
-+				&err));
- 	/* filter should have split the region */
- 	KUNIT_EXPECT_EQ(test, r->ar.start, DAMON_MIN_REGION * 2);
- 	KUNIT_EXPECT_EQ(test, r->ar.end, DAMON_MIN_REGION * 6);
+@@ -417,6 +421,7 @@ static void raid6_avx5124_gen_syndrome(int disks, size_t bytes, void **ptrs)
+ 	}
+ 
+ 	asm volatile("sfence" : : : "memory");
++	asm volatile("vzeroupper");
+ 	kernel_fpu_end();
+ }
+ 
+@@ -550,6 +555,7 @@ static void raid6_avx5124_xor_syndrome(int disks, int start, int stop,
+ 			       "m" (q[d+128]), "m" (q[d+192]));
+ 	}
+ 	asm volatile("sfence" : : : "memory");
++	asm volatile("vzeroupper");
+ 	kernel_fpu_end();
+ }
+ const struct raid6_calls raid6_avx512x4 = {
+diff --git a/lib/raid6/recov_avx512.c b/lib/raid6/recov_avx512.c
+index fd9e15bf3f30f..c8a152d9ab6da 100644
+--- a/lib/raid6/recov_avx512.c
++++ b/lib/raid6/recov_avx512.c
+@@ -221,6 +221,7 @@ static void raid6_2data_recov_avx512(int disks, size_t bytes, int faila,
+ #endif
+ 	}
+ 
++	asm volatile("vzeroupper");
+ 	kernel_fpu_end();
+ }
+ 
+@@ -363,6 +364,7 @@ static void raid6_datap_recov_avx512(int disks, size_t bytes, int faila,
+ #endif
+ 	}
+ 
++	asm volatile("vzeroupper");
+ 	kernel_fpu_end();
+ }
+ 
+
+base-commit: c75b0cf0982c00cddfd88d1acf3872f79b40980c
 -- 
-2.47.3
+2.56.0
+
