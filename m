@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794045780;
-	b=e8oUTKlTXw6hu+w0beCh9d9X+4MbKwWVNOHvenBw8YLQT7h7lAfcwLZ4O9F2Yqh0kA3A
-	 9EfzB363qCyJ2flvOGVlJPdC44VLX0NpDCYaZ+4QMk3lagmJdOaHKZ1Kei8E4L8Cyrh4d
-	 Ue30Hs7ifJ8hH/5YInvUeRUVGdN58the31wHu0Bi5tN9yLowfLYcPXO2CcprUZ10hYzQk
-	 LRA/DoVL9KkYS6HCuWvOUhEGDCovNZUVN1jP2pEY3jDHhbgX+3fUCQrLASDlrATppeXbo
-	 wkbDAqaOq/9Eo6x71BplLFF8o883cd++lgbB+oJdR6+CRafOtIGmulQUXh7W3VKEuYA==
+	t=1794045783;
+	b=xW23C2Mkw6t+2kIU/EZi24g921zdFGHJT3niSecJHoQvK9bKX8EuxMn9BtHmrRf90JSF
+	 0Eg7EBjUWDQGPDyhWMo/rieouOoM06a181cOTWSjP7uNgn86A5uiJXi6weiZw9/Z7nG8I
+	 Md/uJiOTHso/e4T37rgIyFt5nAJuXKDWij7k0giwSuSt2kmvwsZbpPHCmLSWosjGxDCOX
+	 lUjA6i9Ty1QOXN9nlQXVCKdUoKntEb5EYWGWYfZMR3TKrIgTshnj9C6YRPg3Un3tqO8uJ
+	 dcBd4Z+BjrBa+ugYwo1SWnbiLZUjEXpsLUhY6pefcMg9HhSfzqa83fJi1x4lElleBXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794045780;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794045783;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=2zBGIB59Ep+I5HOc01aNWMX+w+lm5BVlL2kgwHjyZ1w=;
-	b=xFkLqG4HCCjih0UzO/4CkglUb0idXj1aDoSEasYgZjsHuf5CcOqrc9yd9s+Ulw9OR/Ia
-	 PwEIHowXbWCgN1eQna7Re6j7gi9AgpT66AbGXxQOnjlLWfH5m6FRJ1UwYK1BrBwcjAa/6
-	 P588K3NVOjE1jeR3ZsHzCdLWcLMlSJcFEY75sjQ/KD3hCMA34sCI8zRZKcJxJ37To5tdu
-	 8NlIhNMG7i4NZWqxUsvhla7trJ44YYc1HnpVJJLFtlP8gPD1jx6v0GjMmorUO4/dHo7zH
-	 FMyTdubQjLFj8xjEb8qjHVkDK5SEMdcTKqQr31ElCkmI+dzYamh8iYr6qkd0U2CJ83A==
+	bh=fbS0wIbLFR23nhGA45jPOX3QDxCVqtk6P8UOJ42X/p4=;
+	b=sYkuVcnEPFRPjyvAMFtnTsiG2Fh/771GeCZBFeaiW/zEMDe9BEti68tpjNuWWVWoySf5
+	 K3F2fUxRqHHDUSkWQo5Ohexjno2+KvUS5PaN6+8RyYvJaMI+YG2winWp2dYNbQ7CK+h0+
+	 0wX8c75x0tbpevewxSvdhKyfbag7FhRS/i3vfYPR5ujQuOBlqQJAfWgSyrrQBpfRzOslW
+	 8K4zcKYigY7iyEkmcEgtA7ugSvHMKjXEyLSH5dvuOMGJMq9HyC6t+n2s65714EWZ9kvAH
+	 /LVfTM8fArHxHXBjAadhUiImMA/vL5+RrUgjRs7mvzrZUTm+5XTUEUqtjZjLBk95c3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XotUVbXn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OGmwV8pQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A996606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:03:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED441606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:03:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XotUVbXn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B9C01F0089F;
-	Sat,  7 Nov 2026 10:02:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OGmwV8pQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD9271F0089F;
+	Sat,  7 Nov 2026 10:03:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794045780;
-	bh=2zBGIB59Ep+I5HOc01aNWMX+w+lm5BVlL2kgwHjyZ1w=;
+	s=k20260515; t=1794045782;
+	bh=fbS0wIbLFR23nhGA45jPOX3QDxCVqtk6P8UOJ42X/p4=;
 	h=From:To:Cc:Subject:Date;
-	b=XotUVbXn5LPZZuY9Ddca6ZkX9JGUVvIvpdlEwOE4wBnTo9HcYmOPZuTSswpdcuoD9
-	 /C3RNA44XEUuvl/8FHxOpYsxPnrDP0PIXHk5ggUqpZKEj4iRV3abfg8NJRhLwYaJDT
-	 bM2PQALs1EkmXF3qzhGgYC/5FYcl0D1X/lfgtabqmVit0wDBYne1JoiZns+iCaKols
-	 EaNgbl1H6w+VV+rlcuCrBlYPeg0RXVM7CETh6QoTQHNCXl2vDYZ8snXgQ+OsC7KRox
-	 /Q2+mZ7abLFPAJexFq5gllp+8njc+rx3qnHPyXhQzjq1znQq9JxoOKBGdBzH8v64vs
-	 x6UojccdcmH3A==
+	b=OGmwV8pQavqgXAaez9JgNUZyNBsofa1GWzjo/CwdZiJBdhsm2fGUL4ehPbMu6eoQV
+	 HcQD8E0zj/Jygu5rlR9PsazxrrWmEPUtXFUVqHQB7kihu4eRuCVMlK78fzbkUxHSe4
+	 FTL5+CnJOAcNb2nZ2ev+QWyGAL7fX5wIpuzfHFVG70C3sGm6AlBPQvLNnY4+GqpIo9
+	 uLS4ISITE/YgpVshrGEf2J7ZN0UR05cJkqXl+KJQF+9uxelJV3o4JNhXY8qdwCeGZy
+	 wA7SBdJAOlBWgc5Q59nYn0yvbmCWi6hezJV/KxS9MjurH7WFhzu6t4Ww/yVZunAB2y
+	 SqkfYI3EeFlGQ==
 From: Sasha Levin <sashal@kernel.org>
-To: thomas.hellstrom@linux.intel.com,
-	lionel.g.landwerlin@intel.com,
-	jose.souza@intel.com,
-	matthew.auld@intel.com
+To: balakrishnan.s@microchip.com,
+	ehristev@kernel.org,
+	hverkuil+cisco@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/xe: Flush LSC untyped L1 dataport cache after rcs/ccs batches" failed to apply to 7.3-stable tree
-Date: Sat,  7 Nov 2026 05:02:58 -0500
-Message-ID: <20261107050258-failed-7.3-434514b6fe73@kernel.org>
+Subject: FAILED: patch "[PATCH] media: microchip-isc: fix SBGGR10 Bayer pattern" failed to apply to 7.3-stable tree
+Date: Sat,  7 Nov 2026 05:03:00 -0500
+Message-ID: <20261107050300-failed-7.3-bb96c78c5f87@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,122 +69,60 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x 434514b6fe731e873808297c268fc52cdf4a1ce6
+git cherry-pick -x bb96c78c5f87072913f8825faebe64bf711a503c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050258-failed-7.3-434514b6fe73@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050300-failed-7.3-bb96c78c5f87@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 434514b6fe731e873808297c268fc52cdf4a1ce6 Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Date: Thu, 3 Sep 2026 13:45:52 +0200
-Subject: [PATCH] drm/xe: Flush LSC untyped L1 dataport cache after rcs/ccs
- batches
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From bb96c78c5f87072913f8825faebe64bf711a503c Mon Sep 17 00:00:00 2001
+From: Balakrishnan Sambath <balakrishnan.s@microchip.com>
+Date: Mon, 17 Aug 2026 12:22:06 +0530
+Subject: [PATCH] media: microchip-isc: fix SBGGR10 Bayer pattern
 
-emit_render_cache_flush() sets PIPE_CONTROL0_HDC_PIPELINE_FLUSH to
-flush the L2/HDC data cache before fence signalling, but it never
-requests a flush of the LSC untyped L1 data cache via the 'Untyped
-Data-Port Cache Flush Enable' bit in PIPE_CONTROL DWord0[11].
+SBGGR10 was mapped to ISC_BAY_CFG_RGRG instead of ISC_BAY_CFG_BGBG,
+causing red/blue channel swap.
 
-Per the Bspec, in 3D pipeline mode HDC Pipeline Flush is documented to
-also flush/invalidate the untyped L1 cache, but only depending on how
-HDC_CHICKEN0[13:11] is programmed. Starting with MTL, this coupling
-between HDC Pipeline Flush and the untyped L1 cache flush no longer
-holds in practice, regardless of how HDC_CHICKEN0 is programmed, so
-relying on it is not safe on newer platforms such as BMG. Mesa's Vulkan
-driver (anv) has been assuming the kernel flushes both caches between
-submissions, and hit user-visible corruption in apps such as Llama.cpp
-because of this gap; it now works around it by flushing both caches
-again from userspace at the end of every command buffer.
-
-Correctness between submissions on the same queue is userspace's
-responsibility and belongs in Mesa, not the kernel. However, for
-security we must ensure stale data can't leak through the untyped L1
-dataport cache once memory is reclaimed or evicted, which requires the
-KMD to flush it before releasing memory for reuse.
-
-Prior to MTL, HDC_CHICKEN0 could be programmed (as already done for
-DG2 via Wa_22010960976/Wa_14013347512) to reliably keep HDC Pipeline
-Flush coupled to the untyped L1 cache flush, so those platforms are
-unaffected. Mesa's own anv driver found that on MTL the HW
-disconnected the two independently of how HDC_CHICKEN0 is programmed,
-and could not bring the old behavior back even by writing the register
-by hand; see Mesa commit 7c2ff46a4fc3 ("anv: don't prevent L1 untyped
-cache flush in 3D mode"). The kernel can't reliably request the flush
-from the CS on MTL either, so restrict the new PIPE_CONTROL bit to
-GRAPHICS_VERx100 >= 2000 (Xe2 and later), where it can be relied on.
-
-Explicitly set PIPE_CONTROL0_UNTYPED_DATAPORT_CACHE_FLUSH together
-with PIPE_CONTROL0_HDC_PIPELINE_FLUSH in emit_render_cache_flush() on
-Xe2 and later, so the L1 data cache is known clean before memory is
-released for reuse, without depending on undocumented
-platform-specific HDC_CHICKEN0 behavior.
-
-Bspec: 56551
-Link: https://gitlab.freedesktop.org/mesa/mesa/-/commit/7c2ff46a4fc3e537573ac9503057e0cd29b6fff3
-Fixes: 9f8f93bee3ef ("drm/xe: Emit a render cache flush after each rcs/ccs batch")
-Reported-by: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
-Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/issues/8909
-Cc: José Roberto de Souza <jose.souza@intel.com>
-Cc: intel-xe@lists.freedesktop.org
-Cc: <stable@vger.kernel.org> # v6.8+
-Assisted-by: GitHub_Copilot:claude-sonnet-5
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
-Link: https://patch.msgid.link/20260903114552.48634-1-thomas.hellstrom@linux.intel.com
+Fixes: 1e8f401474d6 ("media: atmel: atmel-isc: reworked driver and formats")
+Cc: stable@vger.kernel.org
+Signed-off-by: Balakrishnan Sambath <balakrishnan.s@microchip.com>
+Reviewed-by: Eugen Hristev <ehristev@kernel.org>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 ---
- drivers/gpu/drm/xe/instructions/xe_gpu_commands.h |  1 +
- drivers/gpu/drm/xe/xe_ring_ops.c                  | 11 +++++++++++
- 2 files changed, 12 insertions(+)
+ drivers/media/platform/microchip/microchip-sama5d2-isc.c | 2 +-
+ drivers/media/platform/microchip/microchip-sama7g5-isc.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/instructions/xe_gpu_commands.h b/drivers/gpu/drm/xe/instructions/xe_gpu_commands.h
-index 18d0fde8c98f9..faf8d7e2c5c11 100644
---- a/drivers/gpu/drm/xe/instructions/xe_gpu_commands.h
-+++ b/drivers/gpu/drm/xe/instructions/xe_gpu_commands.h
-@@ -46,6 +46,7 @@
- #define GFX_OP_PIPE_CONTROL(len)	((0x3<<29)|(0x3<<27)|(0x2<<24)|((len)-2))
- 
- #define   PIPE_CONTROL0_QUEUE_DRAIN_MODE		BIT(12)
-+#define	  PIPE_CONTROL0_UNTYPED_DATAPORT_CACHE_FLUSH	BIT(11)	/* gen12 */
- #define	  PIPE_CONTROL0_L3_READ_ONLY_CACHE_INVALIDATE	BIT(10)	/* gen12 */
- #define	  PIPE_CONTROL0_HDC_PIPELINE_FLUSH		BIT(9)	/* gen12 */
- 
-diff --git a/drivers/gpu/drm/xe/xe_ring_ops.c b/drivers/gpu/drm/xe/xe_ring_ops.c
-index 39a670e91ba72..08b4a4283e96a 100644
---- a/drivers/gpu/drm/xe/xe_ring_ops.c
-+++ b/drivers/gpu/drm/xe/xe_ring_ops.c
-@@ -212,6 +212,7 @@ static int emit_render_cache_flush(struct xe_sched_job *job, u32 *dw, int i)
- {
- 	struct xe_exec_queue *q = job->q;
- 	struct xe_gt *gt = q->gt;
-+	struct xe_device *xe = gt_to_xe(gt);
- 	bool lacks_render = !(gt->info.engine_mask & XE_HW_ENGINE_RCS_MASK);
- 	u32 flags0, flags1;
- 
-@@ -220,6 +221,16 @@ static int emit_render_cache_flush(struct xe_sched_job *job, u32 *dw, int i)
- 				      LRC_PPHWSP_FLUSH_INVAL_SCRATCH_ADDR, 0);
- 
- 	flags0 = PIPE_CONTROL0_HDC_PIPELINE_FLUSH;
-+	/*
-+	 * Prior to MTL, HDC Pipeline Flush reliably also flushes the LSC
-+	 * untyped L1 dataport cache, provided HDC_CHICKEN0 is programmed
-+	 * correctly. Starting with MTL that coupling no longer holds
-+	 * regardless of how HDC_CHICKEN0 is programmed, but explicitly
-+	 * requesting the flush via PIPE_CONTROL is itself only reliable
-+	 * from Xe2 onward, so only gate it in on Xe2+.
-+	 */
-+	if (GRAPHICS_VERx100(xe) >= 2000)
-+		flags0 |= PIPE_CONTROL0_UNTYPED_DATAPORT_CACHE_FLUSH;
- 	flags1 = (PIPE_CONTROL_TILE_CACHE_FLUSH |
- 		 PIPE_CONTROL_RENDER_TARGET_CACHE_FLUSH |
- 		 PIPE_CONTROL_DEPTH_CACHE_FLUSH |
+diff --git a/drivers/media/platform/microchip/microchip-sama5d2-isc.c b/drivers/media/platform/microchip/microchip-sama5d2-isc.c
+index 57a5aae3cabfb..5e41eee45dbd7 100644
+--- a/drivers/media/platform/microchip/microchip-sama5d2-isc.c
++++ b/drivers/media/platform/microchip/microchip-sama5d2-isc.c
+@@ -148,7 +148,7 @@ static struct isc_format sama5d2_formats_list[] = {
+ 		.fourcc		= V4L2_PIX_FMT_SBGGR10,
+ 		.mbus_code	= MEDIA_BUS_FMT_SBGGR10_1X10,
+ 		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TEN,
+-		.cfa_baycfg	= ISC_BAY_CFG_RGRG,
++		.cfa_baycfg	= ISC_BAY_CFG_BGBG,
+ 	},
+ 	{
+ 		.fourcc		= V4L2_PIX_FMT_SGBRG10,
+diff --git a/drivers/media/platform/microchip/microchip-sama7g5-isc.c b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
+index a841266ffc30f..9e78ea07b013a 100644
+--- a/drivers/media/platform/microchip/microchip-sama7g5-isc.c
++++ b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
+@@ -157,7 +157,7 @@ static struct isc_format sama7g5_formats_list[] = {
+ 		.fourcc		= V4L2_PIX_FMT_SBGGR10,
+ 		.mbus_code	= MEDIA_BUS_FMT_SBGGR10_1X10,
+ 		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TEN,
+-		.cfa_baycfg	= ISC_BAY_CFG_RGRG,
++		.cfa_baycfg	= ISC_BAY_CFG_BGBG,
+ 	},
+ 	{
+ 		.fourcc		= V4L2_PIX_FMT_SGBRG10,
 -- 
 2.53.0
 
