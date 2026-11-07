@@ -1,50 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049112;
-	b=Lv41mgeuBx+yxjSibbPAKUarbNdBItaZm25jcEiOZHVGCEidSeB9Q787l/rxYQcowRZy
-	 j07GftyhSAU3fu3n9zGHfeHisvL5Qx30CaJ6zVWLsuJW2MHjs0AInXnAu56al5Qal+viu
-	 GMZNWVEM2FPQy+3nf3rRQurHjMNnuZZVQmenmtB3CKLeKgR9hun72lhRMeWWKJSMC8Imy
-	 qd+tJHxg30haU7Gp1Dh+G3MdR4StuiFmMyxuocbsa+XpoLce/HrF3DxvpOoaW3q2Rx0Sl
-	 8s6CJu1srW9phJDE31V5KBjUf9mEptFchYAP1XiPKRHP+YQdmjKfQorXIkPFcE1dAoQ==
+	t=1794049115;
+	b=Pus1HxaI7pG535t534oKyuhUqXHP02nNnu3+fD8ttpEXDf2PpL5cKCp8Ly+FFIbRdquk
+	 ge7AloiFHQnrZj0V4mttnaqvB6fFqUHAp15Y7f8vHu2wVKxeEp31BP3N/AQrZU9lvxqoD
+	 NO0o2lZ+EQ0TbGcNu4Ddxy87F2tIcdSZ0s8QY6oDoPd6jELQdj6g08LAq4ddvVAqZoFxv
+	 5EcmLgOa1H1wxyLBBRMxlMnGb3vhPqchaIbbuR6yDeNj38YJ7/ANkjWcbbPExR9MjNjom
+	 iWLsj8M1jZkC/5kESpcLiITZG+UMHQmoIPQuXoXwrassUdf8SSwjFFH191DdZJejPxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049112;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049115;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=JZ+u0rnT5L78wFFpRqwPLZj8cLSu568+9Umlb3FrQpw=;
-	b=ZtfCb3FCn1CkAfxA3+6gOPxegv/KBxgn5ziGER3SIj4rlvvAe1OJli+F685Hg09SOuxs
-	 L37EEgzTJF4fAkUG8T7Bs18A3v1jNdI5BheAlzzEApF/Jy3fNJy8VO+muTG6KtP5pmrSM
-	 pchqkOku4wpjpRQhOPlfgPc4II761v5EMKEQeM21+IJyXe55Go4qy+64eQTIyDzg4r3G8
-	 LiE+26GtB9ytzbNg9aU7OhH1L7kmY85RGA2jqaOxyaPhcJ3AffedruGYky4oqCi9A0aP2
-	 9LPUrpoP/HDEnehaAZOZ+ZAEuGlkCUxGbPry0fm4rNqsi/8CTgK/ZsYUDWaMruhxBpg==
+	bh=5/XvZ+kumJNybMgzJXlj6I82QaWXUIxnXpwaLo5pjVM=;
+	b=xJl5siDkVTdYOVngmSYq/zG8oQ6VJuw0UCrY3sbcleZngN5dgbZEqIdylbXJkiDLjUkb
+	 Z6SLuZLzN+uc3qrhQvDlsnKk5vX+kOhM7mP2KAOe4ktT7iKIGLnaKSmZd80rNLlyAgNzV
+	 GwiNAshIce1eNAeDPTlt1UqeMINnsCRtp7iB+bE1H4dpRGIvIXl2ddOkYBj+zVHmPRvjf
+	 90gQZZVqO/FZjWqpyM7TUntRNuTPAXbTa0zqrVdJ/ZavPA9tXdvCENlF/pIczmbDjxVRp
+	 ixDLd6ljXgKGe+nC4whClvwP4E4XOdO6iie4Wcjv8fpYKdZfsfOK+yBVf5hpYO3DkzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=o2scueFN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aZnK8eE7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF66B606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:58:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E899606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:58:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=o2scueFN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B7911F0089F;
-	Sat,  7 Nov 2026 10:58:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aZnK8eE7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35F0F1F0089F;
+	Sat,  7 Nov 2026 10:58:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049111;
-	bh=JZ+u0rnT5L78wFFpRqwPLZj8cLSu568+9Umlb3FrQpw=;
+	s=k20260515; t=1794049114;
+	bh=5/XvZ+kumJNybMgzJXlj6I82QaWXUIxnXpwaLo5pjVM=;
 	h=From:To:Cc:Subject:Date;
-	b=o2scueFNklgJUBF2sGZ1TfVyEIqsEAiq/XAYBX4Wc8zTvGFGPFsHX/SGGS+5Sz5Ns
-	 BilP4eC4dYuM7crD2QuSbZ2URFM9Ukho3dZt13WeQy/Z6jXSndqbrnf9PyWFwRdreZ
-	 PyFwQdOsbzONvhkhA+SwROlSKBY9zgM7qaldlyMQAFgXxBE7Z1t7z3nd1TuLHgkENV
-	 Yx4pmn06Z186oqP9/f3Q7nvERlgKxAI6WH/HK3w1+lvYwlP71CU7V31cRXmzk+/FbA
-	 whS9EcJSZ70suLB8D3ZjQhP75I8TocII0IBQkS6ezBARieuSG2jBadRi72sQV/I171
-	 SMuDC9SaBudtw==
+	b=aZnK8eE77CcLr8eyje0F0nbq87Um+GDDlbI3BgED4juhLX3zI+jT9DectkfrTTYPS
+	 frQHgxVi+rBR0J3E99Ov+ppd7upWbGw2ZzoDdYM5e59k3Nzz3v4Q1opDRi+zVLDgEy
+	 bgML/KkRDW8owdxdHfyGwyE41knY54A15oT07GhJ7QxA6wDOOWLY+iP59M1jYY3WtK
+	 R29D+mk906d51wf2P+PgkiiISTBwv+BhG2sKm2xv0Jfss8mjVf25ryflqC+k4U39SC
+	 dpqKzmZ0qzYV4P+ReSHpwyAYE10TErlqINIOPiJXu5o9FdMMRc0Z7aMso5LIGyKN3/
+	 NClAOQomrBJZQ==
 From: Sasha Levin <sashal@kernel.org>
-To: seanjc@google.com
+To: msakai@redhat.com,
+	mpatocka@redhat.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] KVM: x86/mmu: Bug the VM if KVM calcs a CPU role with EFER.LMA=1 && CR4.PAE=0" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 05:58:29 -0500
-Message-ID: <20261107055829-failed-5.15-34dacbe7ae93@kernel.org>
+Subject: FAILED: patch "[PATCH] dm vdo indexer: prevent delta list overflow on load" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 05:58:32 -0500
+Message-ID: <20261107055832-failed-5.15-936293c9f3f4@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -67,53 +68,78 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 34dacbe7ae93f2d3c26cd0bf3e08200b1fa2c180
+git cherry-pick -x 936293c9f3f4f2a0d1b80df9332e96c552ac3b37
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055829-failed-5.15-34dacbe7ae93@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055832-failed-5.15-936293c9f3f4@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 34dacbe7ae93f2d3c26cd0bf3e08200b1fa2c180 Mon Sep 17 00:00:00 2001
-From: Sean Christopherson <seanjc@google.com>
-Date: Wed, 2 Sep 2026 16:20:27 -0700
-Subject: [PATCH] KVM: x86/mmu: Bug the VM if KVM calcs a CPU role with
- EFER.LMA=1 && CR4.PAE=0
+From 936293c9f3f4f2a0d1b80df9332e96c552ac3b37 Mon Sep 17 00:00:00 2001
+From: Matthew Sakai <msakai@redhat.com>
+Date: Tue, 11 Aug 2026 15:02:33 -0400
+Subject: [PATCH] dm vdo indexer: prevent delta list overflow on load
 
-Bug the VM if KVM attempts to construct a CPU role with the should-be-
-impossible combination of long mode being active without PAE paging being
-enabled.  KVM's MMU construction assumes that EFER.LMA can be set if and
-only CR4.PAE is set, and will create a completely invalid MMU if that
-assumption fails.  FNAME(walk_addr_generic) already has sanity checks to
-try and mitigate the fallout, but attempt to catch such bugs earlier, as
-this is (at least) the second time KVM has had bugs that escaped into
-FNAME(walk_addr_generic), and it's entirely possible the bad state could
-cause problems elsewhere.
+Check for corrupted delta lists sizes that overflow the
+memory available for the delta_lists. An overflow can
+cause the delta list data to be written outside the
+reserved delta memory space.
 
+Signed-off-by: Matthew Sakai <msakai@redhat.com>
+Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260902232028.2767071-5-seanjc@google.com
-Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- arch/x86/kvm/mmu/mmu.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/md/dm-vdo/indexer/delta-index.c | 17 ++++++++++++++---
+ 1 file changed, 14 insertions(+), 3 deletions(-)
 
-diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-index d43b8b6c3b179..0601964934a15 100644
---- a/arch/x86/kvm/mmu/mmu.c
-+++ b/arch/x86/kvm/mmu/mmu.c
-@@ -5910,6 +5910,9 @@ static union kvm_cpu_role kvm_calc_cpu_role(struct kvm_vcpu *vcpu,
- 		return role;
+diff --git a/drivers/md/dm-vdo/indexer/delta-index.c b/drivers/md/dm-vdo/indexer/delta-index.c
+index b288749067dee..257612b81a9d9 100644
+--- a/drivers/md/dm-vdo/indexer/delta-index.c
++++ b/drivers/md/dm-vdo/indexer/delta-index.c
+@@ -800,7 +800,7 @@ static void compute_new_list_offsets(struct delta_zone *delta_zone, u32 growing_
+ 		(delta_zone->size * BITS_PER_BYTE - delta_lists[tail_guard_index].size);
+ }
+ 
+-static void rebalance_lists(struct delta_zone *delta_zone)
++static int rebalance_lists(struct delta_zone *delta_zone)
+ {
+ 	struct delta_list *delta_lists;
+ 	u32 i;
+@@ -811,9 +811,17 @@ static void rebalance_lists(struct delta_zone *delta_zone)
+ 	for (i = 0; i <= delta_zone->list_count + 1; i++)
+ 		used_space += get_delta_list_byte_size(&delta_lists[i]);
+ 
++	if (delta_zone->size < used_space) {
++		return vdo_log_warning_strerror(UDS_CORRUPT_DATA,
++						"delta zone lists overflow zone size %zu",
++						delta_zone->size);
++	}
++
+ 	compute_new_list_offsets(delta_zone, 0, 0, used_space);
+ 	for (i = 1; i <= delta_zone->list_count + 1; i++)
+ 		delta_lists[i].start = delta_zone->new_offsets[i];
++
++	return UDS_SUCCESS;
+ }
+ 
+ /* Start restoring a delta index from multiple input streams. */
+@@ -941,8 +949,11 @@ int uds_start_restoring_delta_index(struct delta_index *delta_index,
  	}
  
-+	if (KVM_BUG_ON(____is_efer_lma(regs) && !____is_cr4_pae(regs), vcpu->kvm))
-+		*(u64 *)&regs->efer &= ~EFER_LMA;
-+
- 	role.base.efer_nx = ____is_efer_nx(regs);
- 	role.base.cr0_wp = ____is_cr0_wp(regs);
- 	role.base.cr4_smep = ____is_cr4_smep(regs);
+ 	/* Prepare each zone to start receiving the delta list data. */
+-	for (z = 0; z < delta_index->zone_count; z++)
+-		rebalance_lists(&delta_index->delta_zones[z]);
++	for (z = 0; z < delta_index->zone_count; z++) {
++		result = rebalance_lists(&delta_index->delta_zones[z]);
++		if (result != UDS_SUCCESS)
++			return result;
++	}
+ 
+ 	return UDS_SUCCESS;
+ }
 -- 
 2.53.0
 
