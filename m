@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050160;
-	b=bv7+aLD5LlEsHidLky7QPvBn2yGcVCWUJL4cpuN7t11sStTPd0JmGhpGPFvd3LoJMZnG
-	 OxJnwkrEI8gWj73z8W9QOnkwmsaG76pH1frnhHq664O78QxBcV+Qv3HvPjsf3BzAXKDsj
-	 0EISn/GL8EZuUsNA3D8fAgHuriLvrMZ5AXpMfAUPmEVjDQdnx3pGijoEsJPtlsOzpF5Oq
-	 +etLXiZigwsiaYd61bl5abtaNSjwLqx2y2D8TenSXxXiJOevtRhkWj2vs/KIDDoznUrzT
-	 kCM6PJjU7X22NgwQD1pOErDYb1PtpKbG3e6CkkuQsKhYYcTE31boEXodzx8UPhEz/zA==
+	t=1794050163;
+	b=2xrZ6Y+bOgso690PJ0FVx6ksv3HK0thPBsx0ccxSL4of79EVJWVhGTViw4ukU4GBo83B
+	 G4DouE5CNBnvyfszvTtaAuB9oxpOUBm6QWUq8WfrFaP1i2GiE9F/sKpRf8/z571UqQ8QB
+	 gw44QZuAk7LFaeMbXdFCldWcYbQkKc0QwLGu2qHHeOoAMNbA1ryYpLs4y+66r4vPCqmHI
+	 nG0oEcb6KuYL+oOii3AnAHDL5SQBHrjOJCY8O0GypWAWP7mvPXlBwdLb3Xy3r+qPehLbP
+	 oHUcTHlt/QoozmxEQhM/A9i4QpVuo7P8vdWM5U+WUXpX/E8jILbe9eA4I0Mmbrs74sQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050160;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050163;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=GPClyJcdPpTDsqF+fDgcTNcQXuv2bSkppBjmB4gPZeM=;
-	b=KiYgiJiMMuAaZWYhz+gv1QX7N+K+TyZWzKsZAs8kk9zq+VFbIqTXgYJJpF725jeZGEpM
-	 lLepKNovkax0ejINWNudvgsscev5C1CeZ8vJChl3ZGmjP8lvxex6LRVx1V9xMfTvefizg
-	 mUYLCJQWjX+2/zMYyCIkqQrigK2oTXR1WUhF/ITZwJpZcIxW17gqdviHSOHTmdvu4Epx/
-	 XP5Aa4fqsZhhvlkEaNz0k0u0XgGOuODUrxOos3vtg3IwHXRa14crZMkAm+XUGlkKevI0C
-	 DfMZWPlADtA4CtMFcf/WJIbhG1kHLNm8SXqqlA9elrRNGyb1Yb5VTPSvHkkMQX6TEgA==
+	bh=YdinD2FSjvCrQRLMTuRSmVB47KYq+cMPT9fSzepEMH8=;
+	b=tOMruLJ3TcN3B+VbJwiNWudM6DkYSgLMA5rXW3LQYdTepY2dxWm69tX7K15Ti9+r9S2H
+	 bZy9kWs8NQM7zojOSFWT+sXs0Vzgpa+MgtcNkGl1ykVMJuGG39mFIAJtaooitoKEIgCfV
+	 Qs+lecpGlAImYUJldn64KJsR5LL/QKiklbM8HwLQnqxpfbK2hPwzRQNIbY6+sigp71pCu
+	 laFQSl/DEjHvkhwRBb4wehlcOYW550Q2ZFrNDlXmmMviUw5avF97hvTxTI/f2pb1Cj5/N
+	 uAvTlC0N44/RdNMsiufKeONOzMQ511o/4Cv4nEb/2NKpDUVoWxw2MU3TrOXOX8Hm0Aw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HAW044GX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J2YEILWO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A09D606A32E
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:15:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1E02606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:16:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HAW044GX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B197A1F0089F;
-	Sat,  7 Nov 2026 11:15:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J2YEILWO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E27F81F0089F;
+	Sat,  7 Nov 2026 11:16:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050159;
-	bh=GPClyJcdPpTDsqF+fDgcTNcQXuv2bSkppBjmB4gPZeM=;
+	s=k20260515; t=1794050162;
+	bh=YdinD2FSjvCrQRLMTuRSmVB47KYq+cMPT9fSzepEMH8=;
 	h=From:To:Cc:Subject:Date;
-	b=HAW044GXvmSAsreEPaoz4OJv6D5oowDuDptizQ3A0Xob0TdxPefW68qS66ClGSWjE
-	 mcjQQfwymbPO/IT4rdb2Xbsux+YWfwX2iTLcfBJptAeLr7bYLGWpmEWNJ8uk7CCi9p
-	 Wj2Z6PR5vwglj6x0Gbwno4AsNYvN/GO1tFEU4tutw68BQZD4BP/f2nNG1apv1Un7U3
-	 ccuk3OwzF6Jf8x1sYcjPyHuH8Ji9UJNVYZtKjaUyax4AalA01azwupjDWI0b6vXwA9
-	 vn3PhparM+DNKxdDToYzQoA3XvpOdkyGGxjdOpSrWnIqGGjoHp8UmCgY15KW8D1b3c
-	 BvC086x8k+bIg==
+	b=J2YEILWOS5dhEcnmiGBp2iF5SSTi1Pk6ZEp1P6y1aext6SwnbEg9yNMVs38vgPs+b
+	 0qN/55MDJlhsLQcZojZWBkoOTtWxDiXPB1vYeNr5CA2UOAT/VWv92Ymlm9LIbNLukC
+	 uLzVdfQMFJ9M2B4NHl8+87/s8qMQFVO6vpuMWfYNxYINbmwOXJ/huW2POS+SicSKUP
+	 IQrUp4+T4Vj6YhvgZloPzp2/Ffgr7W48vjL34uVJ4LP7Q2gXdybmT0CjZq4V5sdFVJ
+	 JnosxPPiwi+KAMLveuRtUz49JEIeIEtIcATkw7FU3kJuvYvZDj5IgQtEssO3pGAy3v
+	 t97emAx/DEi1Q==
 From: Sasha Levin <sashal@kernel.org>
-To: cassel@kernel.org,
-	dlemoal@kernel.org
+To: christian.loehle@arm.com,
+	sumitg@nvidia.com,
+	rafael.j.wysocki@intel.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ata: libata: Do not leave ata_host_stop() registered when activation fails" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:15:57 -0500
-Message-ID: <20261107061557-failed-5.10-d2f977008cbb@kernel.org>
+Subject: FAILED: patch "[PATCH] ACPI: CPPC: Validate FFH register fields before hardware access" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:16:00 -0500
+Message-ID: <20261107061600-failed-5.10-6b016c5c9644@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,287 +69,181 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x d2f977008cbbae195df678ee1e70e5802f9bd0b8
+git cherry-pick -x 6b016c5c96448c0a5f09328d37f66562d154a5e5
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061557-failed-5.10-d2f977008cbb@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061600-failed-5.10-6b016c5c9644@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From d2f977008cbbae195df678ee1e70e5802f9bd0b8 Mon Sep 17 00:00:00 2001
-From: Niklas Cassel <cassel@kernel.org>
-Date: Tue, 15 Sep 2026 10:41:31 +0200
-Subject: [PATCH] ata: libata: Do not leave ata_host_stop() registered when
- activation fails
+From 6b016c5c96448c0a5f09328d37f66562d154a5e5 Mon Sep 17 00:00:00 2001
+From: Christian Loehle <christian.loehle@arm.com>
+Date: Wed, 16 Sep 2026 17:28:01 +0100
+Subject: [PATCH] ACPI: CPPC: Validate FFH register fields before hardware
+ access
 
-ata_host_start() registers ata_host_stop() as a devres action as soon as
-it has succeeded, which hands the release of the host resources over to
-devres: ->port_stop() and ->host_stop() are then called by the driver
-core when probe() fails.
+The x86 CPPC FFH accessors construct masks and shift values using the
+firmware's Bit Width and Bit Offset without checking that the field fits
+in an MSR. A zero-width field or a field extending beyond bit 63 can
+therefore cause an invalid shift. The safe MSR accessors only handle an
+access fault, not invalid field arithmetic after a successful read.
 
-ata_host_activate() and ahci_host_activate_multi_irqs() can both fail
-after ata_host_start() has succeeded, e.g. if devm_request_irq() or
-ata_host_register() fails, and they return the error with the devres
-action still registered. A driver which releases the host resources in
-its probe() error path therefore releases them twice: once itself and
-once through ->host_stop().
+Also, the 64-bit GAS address is implicitly narrowed to the 32-bit MSR
+number. A descriptor with nonzero upper address bits can access a different
+MSR from the one described by firmware.
 
-All ahci-platform drivers are in that situation, e.g. ahci_probe() calls
-ahci_platform_disable_resources() while ahci_host_stop() does the same
-through devres. This gives refcount underflow warnings from the clk,
-regulator and phy cores and, for shared resources, can disable resources
-which are still in use by other devices.
+The arm64 AMU counter readers have the same unchecked field arithmetic.
+Validate the field bounds before reading a counter, including both
+descriptors in the paired counter path.
 
-Add ata_host_undo_start(), which stops the ports and drops the devres
-action without calling ->host_stop(), and call it from both activation
-helpers when they fail. Releasing the host resources on failure is then
-always left to the caller, which is what all callers having a probe()
-error path already assume.
+Dispatch FFH accesses before decoding the GAS Access Size in the common
+read and write paths. Otherwise, a large access_width can trigger an
+invalid shift in GET_BIT_WIDTH() before the architecture validates its
+register. That field has architecture-specific FFH semantics and is not
+needed by the generic memory/port accessor on this path.
 
-This changes the semantics for the drivers which implement ->host_stop()
-while also completely lacking error handling for the activate host call.
-Add activate host error handling for sata_qstor and sata_fsl. For
-sata_fsl this also means that hcr_base and host_priv are now released
-when activating the host fails, which ->host_stop() did not do when
-ata_host_start() itself failed.
+Validate x86 MSR addresses and share the field-bounds checks between
+related accessors within each architecture.
 
-Note that ata_pci_sff_activate_host() is deliberately left as is: none of
-its callers releases the host resources in its probe() error path, they
-all rely on ->host_stop() being called by devres, including
-ata_pci_init_one(), which releases the devres group of the host itself.
-
-Fixes: 1896b15eddb4 ("ahci_platform: perform platform exit in host_stop() hook")
-Cc: stable@vger.kernel.org
-Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
-Link: https://lore.kernel.org/r/20260915084127.692494-13-cassel@kernel.org
-Signed-off-by: Niklas Cassel <cassel@kernel.org>
+Fixes: a6cbcdd5ab5f ("ACPI / CPPC: Add support for functional fixed hardware address")
+Fixes: 68c5debcc06d ("arm64: implement CPPC FFH support using AMUs")
+Fixes: f489c948028b ("ACPI: CPPC: Fix access width used for PCC registers")
+Cc: All applicable <stable@vger.kernel.org>
+Signed-off-by: Christian Loehle <christian.loehle@arm.com>
+Tested-by: Sumit Gupta <sumitg@nvidia.com>
+Link: https://patch.msgid.link/20260916162805.1039247-17-christian.loehle@arm.com
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 ---
- drivers/ata/libahci.c          |  2 +
- drivers/ata/libahci_platform.c |  4 ++
- drivers/ata/libata-core.c      | 75 +++++++++++++++++++++++++++++++---
- drivers/ata/libata-sff.c       |  5 +++
- drivers/ata/sata_fsl.c         |  6 ++-
- drivers/ata/sata_qstor.c       |  8 +++-
- include/linux/libata.h         |  1 +
- 7 files changed, 91 insertions(+), 10 deletions(-)
+ arch/arm64/kernel/topology.c | 12 +++++++++++-
+ arch/x86/kernel/acpi/cppc.c  | 14 ++++++++++++++
+ drivers/acpi/cppc_acpi.c     | 10 ++++++----
+ 3 files changed, 31 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/ata/libahci.c b/drivers/ata/libahci.c
-index 1290dd5401011..95e4a18fd4598 100644
---- a/drivers/ata/libahci.c
-+++ b/drivers/ata/libahci.c
-@@ -2750,6 +2750,8 @@ static int ahci_host_activate_multi_irqs(struct ata_host *host,
- 			      host->ports[i]);
- 	}
- 
-+	ata_host_undo_start(host);
-+
- 	return rc;
+diff --git a/arch/arm64/kernel/topology.c b/arch/arm64/kernel/topology.c
+index d28438f8b83f1..2c030e78d5e45 100644
+--- a/arch/arm64/kernel/topology.c
++++ b/arch/arm64/kernel/topology.c
+@@ -470,6 +470,12 @@ static void amu_read_core_const_ctrs(void *val)
+ 	cpu_read_corecnt(&ctrs->corecnt);
  }
  
-diff --git a/drivers/ata/libahci_platform.c b/drivers/ata/libahci_platform.c
-index 6e072d681341a..b44c0db4a86e6 100644
---- a/drivers/ata/libahci_platform.c
-+++ b/drivers/ata/libahci_platform.c
-@@ -689,6 +689,10 @@ EXPORT_SYMBOL_GPL(ahci_platform_get_resources);
-  * ahci-platform host, note any necessary resources (ie clks, phys, etc.)
-  * must be initialized / enabled before calling this.
-  *
-+ * On failure, ->host_stop() is not called, so the caller has to release the
-+ * resources it enabled (clocks, regulators, resets, PHYs) in its probe()
-+ * error path.
-+ *
-  * RETURNS:
-  * 0 on success otherwise a negative error code
-  */
-diff --git a/drivers/ata/libata-core.c b/drivers/ata/libata-core.c
-index f482c0a6d7e98..197f5d6e93ce0 100644
---- a/drivers/ata/libata-core.c
-+++ b/drivers/ata/libata-core.c
-@@ -6127,6 +6127,46 @@ int ata_host_start(struct ata_host *host)
- }
- EXPORT_SYMBOL_GPL(ata_host_start);
- 
-+/**
-+ *	ata_host_undo_start - undo ata_host_start()
-+ *	@host: ATA host to undo_start
-+ *
-+ *	Stop the ports of @host and drop the devres action registered by
-+ *	ata_host_start(), without calling ->host_stop().  Nothing is done if
-+ *	@host has not been started.
-+ *
-+ *	This gives the release of the host resources back to the caller, which
-+ *	is what a driver whose probe() error path releases those resources
-+ *	itself needs when starting or activating the host fails.
-+ *
-+ *	LOCKING:
-+ *	Inherited from calling layer (may sleep).
-+ */
-+void ata_host_undo_start(struct ata_host *host)
++static bool cpc_ffh_reg_valid(const struct cpc_reg *reg)
 +{
-+	int i;
-+
-+	if (!(host->flags & ATA_HOST_STARTED))
-+		return;
-+
-+	for (i = 0; i < host->n_ports; i++) {
-+		struct ata_port *ap = host->ports[i];
-+
-+		if (ap->ops->port_stop)
-+			ap->ops->port_stop(ap);
-+	}
-+
-+	/*
-+	 * Drop the action added by ata_host_start() without calling it.
-+	 * It does not exist if neither ->port_stop() nor ->host_stop() is
-+	 * implemented, in which case there is nothing to drop.
-+	 */
-+	devres_destroy(host->dev, ata_host_stop, NULL, NULL);
-+
-+	host->flags &= ~ATA_HOST_STARTED;
++	return reg->bit_width && reg->bit_width <= 64 &&
++	       reg->bit_offset <= 64 - reg->bit_width;
 +}
-+EXPORT_SYMBOL_GPL(ata_host_undo_start);
 +
- /**
-  *	ata_host_init - Initialize a host struct for sas (ipr, libsas)
-  *	@host:	host to initialize
-@@ -6201,6 +6241,12 @@ static void async_port_probe(void *data, async_cookie_t cookie)
-  *	starts ports, registers @host with ATA and SCSI layers and
-  *	probe registered devices.
-  *
-+ *	On failure, the host remains started, i.e. the devres action
-+ *	registered by ata_host_start() is kept, so ->host_stop() is called by
-+ *	the driver core when probe() fails.  A caller which releases the host
-+ *	resources in its own probe() error path must therefore call
-+ *	ata_host_undo_start().
-+ *
-  *	LOCKING:
-  *	Inherited from calling layer (may sleep).
-  *
-@@ -6294,6 +6340,10 @@ EXPORT_SYMBOL_GPL(ata_host_register);
-  *	have set polling mode on the port. In this case, @irq_handler
-  *	should be NULL.
-  *
-+ *	On failure, the ports are stopped again and the devres action
-+ *	registered by ata_host_start() is dropped without calling
-+ *	->host_stop(), so releasing the host resources is left to the caller.
-+ *
-  *	LOCKING:
-  *	Inherited from calling layer (may sleep).
-  *
-@@ -6314,27 +6364,40 @@ int ata_host_activate(struct ata_host *host, int irq,
- 	/* Special case for polling mode */
- 	if (!irq) {
- 		WARN_ON(irq_handler);
--		return ata_host_register(host, sht);
-+		rc = ata_host_register(host, sht);
-+		if (rc)
-+			goto undo_start;
+ static u64 cpc_ffh_extract_bits(const struct cpc_reg *reg, u64 val)
+ {
+ 	val &= GENMASK_ULL(reg->bit_offset + reg->bit_width - 1,
+@@ -506,7 +512,8 @@ int cpc_read_ffh_fb_ctrs(int cpu, struct cpc_reg *reg1, u64 *val1,
+ 	struct amu_ffh_ctrs ctrs;
+ 	int ret;
+ 
+-	if (!is_amu_ctr_reg(reg1) || !is_amu_ctr_reg(reg2))
++	if (!is_amu_ctr_reg(reg1) || !is_amu_ctr_reg(reg2) ||
++	    !cpc_ffh_reg_valid(reg1) || !cpc_ffh_reg_valid(reg2))
+ 		return -EINVAL;
+ 
+ 	ret = counters_read_on_cpu(cpu, amu_read_core_const_ctrs, &ctrs);
+@@ -530,6 +537,9 @@ int cpc_read_ffh(int cpu, struct cpc_reg *reg, u64 *val)
+ {
+ 	int ret = -EOPNOTSUPP;
+ 
++	if (!cpc_ffh_reg_valid(reg))
++		return -EINVAL;
 +
-+		return 0;
+ 	switch ((u64)reg->address) {
+ 	case CPC_FFH_CTR_CORE:
+ 		ret = counters_read_on_cpu(cpu, cpu_read_corecnt, val);
+diff --git a/arch/x86/kernel/acpi/cppc.c b/arch/x86/kernel/acpi/cppc.c
+index bbade0da5130f..d2185b7a20306 100644
+--- a/arch/x86/kernel/acpi/cppc.c
++++ b/arch/x86/kernel/acpi/cppc.c
+@@ -5,6 +5,7 @@
+  */
+ 
+ #include <linux/bitfield.h>
++#include <linux/limits.h>
+ 
+ #include <acpi/cppc_acpi.h>
+ #include <asm/msr.h>
+@@ -45,10 +46,20 @@ bool cpc_ffh_supported(void)
+ 	return true;
+ }
+ 
++static bool cpc_ffh_reg_valid(const struct cpc_reg *reg)
++{
++	return reg->address <= U32_MAX && reg->bit_width &&
++	       reg->bit_width <= 64 &&
++	       reg->bit_offset <= 64 - reg->bit_width;
++}
++
+ int cpc_read_ffh(int cpunum, struct cpc_reg *reg, u64 *val)
+ {
+ 	int err;
+ 
++	if (!cpc_ffh_reg_valid(reg))
++		return -EINVAL;
++
+ 	err = rdmsrq_safe_on_cpu(cpunum, reg->address, val);
+ 	if (!err) {
+ 		u64 mask = GENMASK_ULL(reg->bit_offset + reg->bit_width - 1,
+@@ -65,6 +76,9 @@ int cpc_write_ffh(int cpunum, struct cpc_reg *reg, u64 val)
+ 	u64 rd_val;
+ 	int err;
+ 
++	if (!cpc_ffh_reg_valid(reg))
++		return -EINVAL;
++
+ 	err = rdmsrq_safe_on_cpu(cpunum, reg->address, &rd_val);
+ 	if (!err) {
+ 		u64 mask = GENMASK_ULL(reg->bit_offset + reg->bit_width - 1,
+diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
+index 0e218f2be0fe0..96a94df242312 100644
+--- a/drivers/acpi/cppc_acpi.c
++++ b/drivers/acpi/cppc_acpi.c
+@@ -2446,6 +2446,9 @@ static int cpc_read(int cpu, struct cpc_register_resource *reg_res, u64 *val)
  	}
  
- 	irq_desc = devm_kasprintf(host->dev, GFP_KERNEL, "%s[%s]",
- 				  dev_driver_string(host->dev),
- 				  dev_name(host->dev));
--	if (!irq_desc)
--		return -ENOMEM;
-+	if (!irq_desc) {
-+		rc = -ENOMEM;
-+		goto undo_start;
-+	}
- 
- 	rc = devm_request_irq(host->dev, irq, irq_handler, irq_flags,
- 			      irq_desc, host);
- 	if (rc)
--		return rc;
-+		goto undo_start;
- 
- 	for (i = 0; i < host->n_ports; i++)
- 		ata_port_desc_misc(host->ports[i], irq);
- 
- 	rc = ata_host_register(host, sht);
--	/* if failed, just free the IRQ and leave ports alone */
--	if (rc)
-+	if (rc) {
-+		/* Free the IRQ, so that the handler can no longer run */
- 		devm_free_irq(host->dev, irq, host);
-+		goto undo_start;
-+	}
+ 	*val = 0;
++	if (reg->space_id == ACPI_ADR_SPACE_FIXED_HARDWARE)
++		return cpc_read_ffh(cpu, reg, val);
 +
-+	return 0;
+ 	size = GET_BIT_WIDTH(reg);
+ 
+ 	if (reg->space_id == ACPI_ADR_SPACE_SYSTEM_IO) {
+@@ -2490,8 +2493,6 @@ static int cpc_read(int cpu, struct cpc_register_resource *reg_res, u64 *val)
+ 		return 0;
+ 	} else if (reg->space_id == ACPI_ADR_SPACE_SYSTEM_MEMORY)
+ 		vaddr = reg_res->sys_mem_vaddr;
+-	else if (reg->space_id == ACPI_ADR_SPACE_FIXED_HARDWARE)
+-		return cpc_read_ffh(cpu, reg, val);
+ 	else
+ 		return acpi_os_read_memory((acpi_physical_address)reg->address,
+ 				val, size);
+@@ -2538,6 +2539,9 @@ static int cpc_write(int cpu, struct cpc_register_resource *reg_res, u64 val)
+ 		return -EOPNOTSUPP;
+ 
+ 	reg = &reg_res->cpc_entry.reg;
++	if (reg->space_id == ACPI_ADR_SPACE_FIXED_HARDWARE)
++		return cpc_write_ffh(cpu, reg, val);
 +
-+undo_start:
-+	ata_host_undo_start(host);
+ 	size = GET_BIT_WIDTH(reg);
  
- 	return rc;
- }
-diff --git a/drivers/ata/libata-sff.c b/drivers/ata/libata-sff.c
-index 976e4e160494d..d5ef0338735c3 100644
---- a/drivers/ata/libata-sff.c
-+++ b/drivers/ata/libata-sff.c
-@@ -2267,6 +2267,11 @@ EXPORT_SYMBOL_GPL(ata_pci_sff_prepare_host);
-  *	hosts.  This separate helper is necessary because SFF hosts
-  *	use two separate interrupts in legacy mode.
-  *
-+ *	Note that, unlike ata_host_activate(), the devres action registered
-+ *	by ata_host_start() is kept on failure, i.e. ->host_stop() is called
-+ *	by the driver core when probe() fails.  All callers of this function
-+ *	rely on that, none of them releases the host resources itself.
-+ *
-  *	LOCKING:
-  *	Inherited from calling layer (may sleep).
-  *
-diff --git a/drivers/ata/sata_fsl.c b/drivers/ata/sata_fsl.c
-index c6df55886fe1b..987d8acf1486c 100644
---- a/drivers/ata/sata_fsl.c
-+++ b/drivers/ata/sata_fsl.c
-@@ -1490,8 +1490,10 @@ static int sata_fsl_probe(struct platform_device *ofdev)
- 	 * device discovery process, invoking our port_start() handler &
- 	 * error_handler() to execute a dummy Softreset EH session
- 	 */
--	ata_host_activate(host, irq, sata_fsl_interrupt, SATA_FSL_IRQ_FLAG,
--			  &sata_fsl_sht);
-+	retval = ata_host_activate(host, irq, sata_fsl_interrupt,
-+				   SATA_FSL_IRQ_FLAG, &sata_fsl_sht);
-+	if (retval)
-+		goto error_exit_with_cleanup;
- 
- 	host_priv->intr_coalescing.show = fsl_sata_intr_coalescing_show;
- 	host_priv->intr_coalescing.store = fsl_sata_intr_coalescing_store;
-diff --git a/drivers/ata/sata_qstor.c b/drivers/ata/sata_qstor.c
-index 4e7f5b2ff3f69..f38310b84f51c 100644
---- a/drivers/ata/sata_qstor.c
-+++ b/drivers/ata/sata_qstor.c
-@@ -584,8 +584,12 @@ static int qs_ata_init_one(struct pci_dev *pdev,
- 	qs_host_init(host, board_idx);
- 
- 	pci_set_master(pdev);
--	return ata_host_activate(host, pdev->irq, qs_intr, IRQF_SHARED,
--				 &qs_ata_sht);
-+	rc = ata_host_activate(host, pdev->irq, qs_intr, IRQF_SHARED,
-+			       &qs_ata_sht);
-+	if (rc)
-+		qs_host_stop(host);
-+
-+	return rc;
- }
- 
- module_pci_driver(qs_ata_pci_driver);
-diff --git a/include/linux/libata.h b/include/linux/libata.h
-index 313e96173b192..4625b2eea294a 100644
---- a/include/linux/libata.h
-+++ b/include/linux/libata.h
-@@ -1147,6 +1147,7 @@ extern struct ata_host *ata_host_alloc_pinfo(struct device *dev,
- extern void ata_host_get(struct ata_host *host);
- extern void ata_host_put(struct ata_host *host);
- extern int ata_host_start(struct ata_host *host);
-+void ata_host_undo_start(struct ata_host *host);
- extern int ata_host_register(struct ata_host *host,
- 			     const struct scsi_host_template *sht);
- extern int ata_host_activate(struct ata_host *host, int irq,
+ 	if (reg->space_id == ACPI_ADR_SPACE_SYSTEM_IO) {
+@@ -2581,8 +2585,6 @@ static int cpc_write(int cpu, struct cpc_register_resource *reg_res, u64 val)
+ 		return 0;
+ 	} else if (reg->space_id == ACPI_ADR_SPACE_SYSTEM_MEMORY)
+ 		vaddr = reg_res->sys_mem_vaddr;
+-	else if (reg->space_id == ACPI_ADR_SPACE_FIXED_HARDWARE)
+-		return cpc_write_ffh(cpu, reg, val);
+ 	else
+ 		return acpi_os_write_memory((acpi_physical_address)reg->address,
+ 				val, size);
 -- 
 2.53.0
 
