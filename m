@@ -1,88 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794072469;
-	b=fFQ6HFInzHVi+rw4rRfa0sl0OcKvYPPC16KbJgrXOouFPolAWbvBlxlPG3ZKdjXWyYaT
-	 Yk8FAVIqeUP1uTgOMtHKjSlN9KvtwImbKw4ZGWkjQJ+aQJT3NOKF2lnV4t1yhDrUFiMav
-	 m5oZp91My+V1wV9hx8WjdcSKnU0keryZUFWBNtxCIY29p7zrsbsGX68/2FInhUrMItihm
-	 kz2lYV4uomQmVkX3nFjxQ4PBI+1cV6Ufo85IfTVsk18ND723kIo0rGOqDcQOhhHJ8qvYC
-	 ZXaMk+Xgg2lotf1VFMiRCE5JDnIz8gCWJ6ZEyMDE4+H0+IgNaI9eV/e0vN9t00rh7vg==
+	t=1794073005;
+	b=07m2ZQyxIJTX5SyMHdCtImleCI3WLtRPjY7Xrm+Zvj2AG7gFl/t57tzwRcYJhgXKS7D2
+	 ddgPWRxlGU7t8HKxiv0LaUv3BKQl0+OnwZMIChlzx29jJzjLyCr5GTQprNUl9rrsnFDiD
+	 BDaa2fvH6IDBOkTZeLarXLGArD6VioqtlymIgfglWwePoPwY6GaBMTAsQs3alD10KFHCa
+	 y4I4TREDVqo/dI5ohjvVp1u59zyoUPH6CjmIOrbJ8pM4JHWu2SG+PZ1jcylYiZrM/fT7c
+	 PlivKjf8o7LMpBkrfvdV/MoOQRuDxUuK2QCtSMBKeJwSc75cIEPr3gpJ5wlKAp/JWzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794072469;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:Content-Language:To:
-	 Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=2owh4YFvS9EUc9o02yTBqgiJn10dXj2haaCLbozm9sU=;
-	b=mwdG2mio0giF6qI4uFfzlPLfTHkL/hcO+gnYehFN8yCpOAKIbB0YLoHk6LlW8r9GtFWU
-	 GTvBr7trMCrQ2MKN4RUHHLmFgJhaTwI+hx0oL6Ym2NMa4svErlioHN4GPTPN3sAWSmOUd
-	 7HbFqR1Mif8pzmnmf2850EFwk9EFXQrWmrcug29tmUjzJw5yFGHHkxjTAtfYJnw57KcG0
-	 zyafEl/UWonzwXG+Gx0fJLun1+DPzId8ZH1lMDDtEUYg0tzPaHwl2MuBYDHszSsd/V7sa
-	 jLOvE2VkWPUtqfFvz2rLojw6r1heawHvYLEP4cZYy9kmBtj/9MeZhJfAhigcOVCXEbQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794073005;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=c1TXvO7TccARf170PqShOSUdoyZswTtcvgBaLxcLf58=;
+	b=UI4A4Il96XT3jQEjJOztxS+uVDlHKHqHK2UoanrTLDl3j2EVFjFp7CxJJBNGJDR7UstF
+	 mF8yP7aeOKf8FPBWDI3/wsisLs9g+HkfSU+WJ6TQcJ8qQfmYOUL643Og5Qe0XH1+CXlFt
+	 /04I6IXxjSgrJcH9A0ZHuqdyCtZ+1pUqLfUiVOhjY3HJzqKEFizuQAG5ciHE8IqpZ2IVQ
+	 nTmw7/31cy4MiICm9aay9BnMQZsy51hk6BHNhNCrDXU6QQTnpyR0C7Q3xtzWx3PiZnerX
+	 d5sn4mFoiqAcSAPFnbUxaZVmi+s3Wv/hutDxHm0U9Uh1L/TsnvrgAAZrdFzBbapppAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=googlemail.com;
-	spf=pass smtp.mailfrom=googlemail.com;
-	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=aZ7XrS9B;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cXdw7prb;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D2D2606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 17:27:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D2D2606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1CCA606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 17:36:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=aZ7XrS9B
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a2069b9710so15123415e9.2
-        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 09:27:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20260707; t=1794072468; x=1794677268; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2owh4YFvS9EUc9o02yTBqgiJn10dXj2haaCLbozm9sU=;
-        b=aZ7XrS9B+HBmRsZSF26/8uIrYZfDi16AVeuc7soBbg9g2mLKRqA6Nq5mC4ZON2Th0Y
-         uepR6nsr3pIHeHAoCWVuajymxDhrpucEhe1yIEFwvCvjeoBq4mhh+1YBOAZfJX0EaYwM
-         A3JrxkHi3nwD9BeUtjd1xReHpxUf8MjiAG1p4DNF4PX+gRMgVqVL5/q7ubF6qWmXnT5f
-         N0m+nKhouTpLHLiFJguf0i1b7YvsHv/4hLSHoDp9iD1G50hZTA1XnWlmA91AygVDU6Mv
-         AQ+Bb1PyOmMheO1TQoxukcqQWM/08XgJOK78FUHPyVj4PKgfg4AosfzYDaJVyZrnIUYm
-         atTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794072468; x=1794677268;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2owh4YFvS9EUc9o02yTBqgiJn10dXj2haaCLbozm9sU=;
-        b=wDKnosFwP14rxqAzGy+niSE3PPuqZ2SnRNgNcHYUGw+2vwdyupwhEyPDrB0GY3i40a
-         hcKcMno4kuyoq+/j0aiw0zH6goW5spSmrhft5mB3vonU4pgyaUsr9mSVWMOhtYIw5L0u
-         +FQJKOSYcEJziES9qI9qOOtMjhBjHj69uf+UzuUMPpUcGF6T5bcKtItDz217gWRQpFS+
-         ymUdykYqcL8fOgRkIKl1yNg/AhiBa9MmGtWVUDnpWUHEBHgnCc29IvB0pLO8kKw+AiW9
-         yJ3vcrXAGwL2yUOtMdwemHqcLZAQWMpvWvhbt7RPKxYK6q/l4FZV3OwOPPqr1kcnbugG
-         N7eA==
-X-Forwarded-Encrypted: i=1; AKwUvBzVpbodHuMFT+4XFXg7BEpaHY0pgVLnALyoYH6qP5M+2T6T6jenIlxautfY0vAGo4DcG/Ukq0o=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9tHGkNGyUSGQKWGH2BwGVU2TJM0HoMwlWSTRoxbVtSRf9xE7h+
-	Mlad/YAZxeU5duh+aKmBxqtF+1BIQpHNPt6KUm3tQB2ljKYPjclbOLE=
-X-Gm-Gg: AYBFou2iHE5Qstz/YoXkXpR8ruGkROOIhMA6ooWqx2IOwGdsomafC3Dreq41H7VVtY9
-	vbJWMgeH9W/aZBqpi050i5mj8vqhOVIZ1vs4iW9LqILtIaiHc3QsEXuA3uzl19rsJtu6MKx/mHS
-	eC5JhaUnZTldpG26EQQCD5jbz20fYjaMhyiM1NsgzBmGPH/xbKVRmovFgeG/ZInwy2Ox8hpDIIW
-	macs7iZl4CqBoyuL0GjAX3F8CnVsvMAqiZaaToX0QZZTEk+8JXMyrXMHq1hdrj3UFrsTYgPesRh
-	QUUflLgBvsbjGMcR+YYQeX+5W55ObrF6DX411bPpDAUM+0eoRzCPMnt3fgrmCuA/FRL7/I74Y8v
-	LznLxpw4KhC8aMeTtemvwSWvapUmpIHzFnRYNY5VvSDNSB97fn+VD3pTmYszIyalKaZnG9/VLzX
-	LUx6oL6Y+n+24VnNgtOdgz2HsY4IwzG6sZbeoy8H+hHdoMB+MUb7PNd9g4m9NnECi2xt1jZGPc1
-	mIH2PsmtTghrY8YHbk+yMNYSCG15FpBUr92ayxDOoDUNRAsGNGp+hgZY1cAuRqULRtMDbcSXVX1
-	AcvYSeXDvYHgiiY6ZLqB1W8CGldj2Pojzsi7yVJexeBLAdqSQovTZQAakUq276Ymv6c6cQcw308
-	8Gfs=
-X-Received: by 2002:a05:600c:310f:b0:4b6:bb67:bb9 with SMTP id 5b1f17b1804b1-4b6ded4a3b0mr105329935e9.29.1794072467520;
-        Sat, 07 Nov 2026 09:27:47 -0800 (PST)
-Received: from [192.168.1.3] (p5b2acf48.dip0.t-ipconnect.de. [91.42.207.72])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7e32b46a3sm88407715e9.6.2026.11.07.09.27.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 07 Nov 2026 09:27:47 -0800 (PST)
-Message-ID: <0e21a66d-5f93-40e0-8991-aac8a464b7c4@googlemail.com>
-Date: Sat, 7 Nov 2026 18:27:46 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cXdw7prb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13A801F0089F;
+	Sat,  7 Nov 2026 17:36:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794073004;
+	bh=c1TXvO7TccARf170PqShOSUdoyZswTtcvgBaLxcLf58=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=cXdw7prbODAbe6C2xwwcqb4OLe+0KV5XmNTmilvOMBmBEwrBLX6Uk1/DouDhwXV6O
+	 RnPTr22iiSrbXIWd9dySkQD65eupiXQL9aeAoLuSKVPxC21NVpwSHj8TAoaspobTKh
+	 LbIG5JsQlnZgYo1vfCtSpdi0MI35/c20z7ymGZSm0yGKfWJePknTt1x/MIOfQdpebb
+	 Yea4u/Zq5gfwXJmCRUvb/zYh8sNPPr624tysS30q24uHC6JD7peNt8zO0KaqvUQoVw
+	 4pALzBk6PpqO6LnmH28xIhJEPoxIchppEAbSQvgISJcTfO/0bfzUsewWbc1o1ZppED
+	 ERFFTmDuZA9Jw==
+From: SJ Park <sj@kernel.org>
+To: Sasha Levin <sashal@kernel.org>
+Cc: SJ Park <sj@kernel.org>,
+	akpm@linux-foundation.org,
+	brendan.higgins@linux.dev,
+	davidgow@davidgow.net,
+	usamaarif642@gmail.com,
+	stable@vger.kernel.org
+Subject: Re: FAILED: patch "[PATCH] mm/damon/core: disallow max < min damos filter range arguments commit" failed to apply to 7.3-stable tree
+Date: Sat,  7 Nov 2026 09:36:36 -0800
+Message-ID: <20261107173637.109352-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261107050426-failed-7.3-1bfb9384ae0e@kernel.org>
+References: 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,64 +62,72 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH 7.3 0000/1257] 7.3.4-rc1 review
-Content-Language: de-DE
-To: Ronald Warsow <rwarsow@gmx.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20261107134939.434104957@linuxfoundation.org>
- <68c2efb8-e54f-40bc-9c36-76c719a590d5@gmx.de>
-From: Peter Schneider <pschneider1968@googlemail.com>
-In-Reply-To: <68c2efb8-e54f-40bc-9c36-76c719a590d5@gmx.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Am 07.11.2026 um 16:34 schrieb Ronald Warsow:
-> Hi
+On Sat,  7 Nov 2026 05:04:27 -0500 Sasha Levin <sashal@kernel.org> wrote:
+
+> The patch below does not apply to the 7.3-stable tree.
+> If someone wants it applied there, or to any other stable or longterm
+> tree, then please email the backport, including the original git commit
+> id to <stable@vger.kernel.org>.
 > 
-> kernel build / boot test on x86_64 (Intel).
+> To reproduce the conflict and resubmit, you may use the following commands:
 > 
-> I need to revert (here)
+> git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
+> git checkout FETCH_HEAD
+> git cherry-pick -x 1bfb9384ae0ed52d61eb601b655014b7815ff849
+> # <resolve conflicts, build, test, etc.>
+> git commit -s
+> git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050426-failed-7.3-1bfb9384ae0e@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 > 
-> 1564da6afd7ce5297ba24f2d1e61d6a79a9ff6db
+> Thanks,
+> Sasha
 > 
+> ------------------ original commit in Linus's tree ------------------
 > 
-> otherwise I get:
+> >From 1bfb9384ae0ed52d61eb601b655014b7815ff849 Mon Sep 17 00:00:00 2001
+> From: SJ Park <sj@kernel.org>
+> Date: Mon, 14 Sep 2026 07:23:21 -0700
+> Subject: [PATCH] mm/damon/core: disallow max < min damos filter range
+>  arguments commit
 > 
-> In file included from kernel/sched/build_policy.c:71:
-> kernel/sched/ext/ext.c: In function ‘check_rq_for_timeouts’:
-> kernel/sched/ext/ext.c:3852:41: error: implicit declaration of function ‘scx_exec_sched’; did you mean ‘scx_prog_sched’? 
-> [-Wimplicit-function-declaration]
->   3852 |                 struct scx_sched *sch = scx_exec_sched(scx_task_sched(p), cpu_of(rq));
->        |                                         ^~~~~~~~~~~~~~
->        |                                         scx_prog_sched
-> kernel/sched/ext/ext.c:3852:41: error: initialization of ‘struct scx_sched *’ from ‘int’ makes pointer from integer 
-> without a cast [-Wint-conversion]
-> make[4]: *** [scripts/Makefile.build:290: kernel/sched/build_policy.o] Error 1
-> make[3]: *** [scripts/Makefile.build:551: kernel/sched] Error 2
-> make[2]: *** [scripts/Makefile.build:551: kernel] Error 2
-> make[2]: *** Waiting for unfinished jobs....
+> damos_commit_filter_arg() receives range arguments for a few types of
+> DAMOS filters.  It allows any range including max < min range.  It is fine
+> for the logic, but makes no sense to support it.  Actually DAMON sysfs
+> interface is doing the validation on its own.  To avoid duplicated
+> validations in multiple DAMON API callers, it would be better to do the
+> validation in the core layer.  Add a validation of the given range.
+> 
+> Link: https://lore.kernel.org/20260914142327.92510-5-sj@kernel.org
+> Signed-off-by: SJ Park <sj@kernel.org>
+> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+> Cc: Brendan Higgins <brendan.higgins@linux.dev>
+> Cc: David Gow <davidgow@davidgow.net>
+> Cc: Usama Arif <usamaarif642@gmail.com>
+> Cc: <stable@vger.kernel.org>
+
+Including this, five DAMON patch cherry-pick failures [1,2,3,4] for 7.3.y are
+reported last night
+
+The patchex except the last one [4] don't Cc: stable@ and look like not
+essential hotfixes.
+
+Those are refactoring [1,2] or a very minor fix [3] that doesn't really impact
+users.  Those are not built in porting-friendly way because those were not
+meant to be hotfixes.  To port those, no small amount of refactoring or porting
+of more dependencies are expected.
+
+I don't mind porting non-Cc: stable@ DAMON patches to stable kernels.  And I'm
+happy to help doing that.  But I'm not quite sure if this is indeed what you
+want, or picked by a mistake.  Could you please confirm?
+
+[1] https://lore.kernel.org/20261107050429-failed-7.3-1d2397b2c414@kernel.org
+[2] https://lore.kernel.org/20261107050431-failed-7.3-cec08aad3def@kernel.org
+[3] https://lore.kernel.org/20261107050434-failed-7.3-af19aff38d6f@kernel.org
+[4] https://lore.kernel.org/20261107050537-failed-7.3-5695abc4e742@kernel.org
 
 
-I do see the same build error on my machine (2-socket Ivy Bridge Xeon E5-2697v2 server), and the same revert helps.
+Thanks,
+SJ
 
-
-Beste Grüße,
-Peter Schneider
-
--- 
-Climb the mountain not to plant your flag, but to embrace the challenge,
-enjoy the air and behold the view. Climb it so you can see the world,
-not so the world can see you.                    -- David McCullough Jr.
-
-OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
-Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
+[...]
