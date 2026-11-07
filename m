@@ -1,52 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046423;
-	b=q2GAKZeyNwC8d8PxOGK5ULpoPVlhzzF9Llsw8CqpB7mUdDwWmRz90R1h2qShUyk/Azs5
-	 QvT1u+WD2fHb3/D0q7DBr/dq91i7sGe2D4bgd2QCaKLVoR8A2Ssl/U0PkmczscLGBrFir
-	 v9KrGiVpONJOH7kZ0oxOE9i20N6cWD9wkkYYhNuALF9p7Id8dh/2jhm7amjzRgSYONaFV
-	 J7Pj/59RkjEB/TjcvsGS5e1NRkw94mEQizu/I6mZsW8NLtBOagTwuMrYmrK8npODWgzn7
-	 cA9sKt3+kPAEMzx4cMtWkYWylaOg9EuvPS6TZnYKyxs1dFQ0Q4xVM8OPYWnWJUNH8aQ==
+	t=1794046425;
+	b=VzEDNMTKPJvfKwivDfDfjV/L7N9SMPV6brCVPMc5gLdAZ59m5iiMVol2Au5E/EE6NdxB
+	 IbwvzfXa6L2gxKOvolGTS3G2QbMMrxsatPW7hKwi0nfGo0EwmvqrfHuzuCF0rF8OvUm7I
+	 /bV6yoOgfbZ3cw0oqVZn8G2JRO/vyMqeooyKe4h9ir8a1LCO0lcU4EoeuY1duG3iMaVuZ
+	 z3awQflhVUX1rMitsxiN/Q5sdYtmM9yCWLg80nwGTp7AME4J21fh9yqxb8vU3RWPb4gyw
+	 mVM4UE4VJTBcpgPF7F/sKeJ/XvWy9FPUb7mnK2UhPJFireK43XQtSImBT88+2yWjojg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046423;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046425;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=1sHbfEC85cB4sqdf/dnx0pywVHpc8VuJSkpKu5gMVZg=;
-	b=sOoRMjETj/RRf7XbUDVxF0dtqDpQtnTs9WN73cBcoO4Qz8GsyifEvNj5tKJUA02bUk4c
-	 PmfThDO+aLaozIpDYl4j2J1TIp9GaRgcp0RFO8qbzzWrMo1C0XyDM/IL6mkvDFj6JsZnO
-	 qLrhsxa5sVMM/jrSmRphUFXAAjuSJvo2CJbcf5OpidoWi4dE9rf3rLN7sJPPpWdLefj0G
-	 jn7trKwrndV1DJDHm/olRT2DQS7XNn1Z6F6o/87yO+ccx9dJEval3f753EMyi9kgBWgl+
-	 mwi/19rmxC4wv51S+Ste8ueol0g3yHI6EJFo2Pu/2Tw8xFtYUIwqIa8vEdVS9igs01A==
+	bh=uSQ8uEv+3gAgfeUutZsEkiJnov9euBfyqtLxXgRMs34=;
+	b=nn/rEf6OqXGC6wLhr+cnz/UcW83FNqRz9VrCiS76BFlkOXUnBKys5//b1ys6L050bSHg
+	 kwYM5OGUjO+uW0/6C31H3p//GBxB+ouX3hJoS+/yq7QHFn+yWxmTvccauydDAVDcSrvC6
+	 YnVuOsAEzcFKP06brmTQO4kZM86QiMY+uOVhiHah9QRjHcQ61fEacHXhlS1Ptt+/VmbHz
+	 xNKKPFUeN7iZTQ8pz/vQKOzhhwBFEjxLeczXg/3jj86FCwDcaOwYIp+06+Rkz6CscZrld
+	 fYMAL9DZCibS5RXlBGZSBix0L3pUOu93Oudm/mGi5azqt6TZLkXsn1H0O6EvMtJzZiA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z3TKD7sw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M3vBk54X;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA4F5606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:13:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FDDD606A32E
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:13:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z3TKD7sw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43D361F0089F;
-	Sat,  7 Nov 2026 10:13:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M3vBk54X
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 834741F0089F;
+	Sat,  7 Nov 2026 10:13:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046422;
-	bh=1sHbfEC85cB4sqdf/dnx0pywVHpc8VuJSkpKu5gMVZg=;
+	s=k20260515; t=1794046425;
+	bh=uSQ8uEv+3gAgfeUutZsEkiJnov9euBfyqtLxXgRMs34=;
 	h=From:To:Cc:Subject:Date;
-	b=Z3TKD7swin8kefkJtq1NX6n2STcON0FPLXsM/s3c9BBocaO1C00kqq8sT8o+d5Ljy
-	 SkSHVnZ63pKPcCC6DD0kQYw0GiFE5waEmyvaCiIodnsDddSMa3OLQEl0Kulb/c07Hc
-	 gpwPXP0ShMjTsc3m+IN9Zj9Z5aNCNKyEWtTlU+laIARqOSTpPAqxcP7YMH5g6w7l6N
-	 dyqKW2vrpnjh5KVwQbP9bJmglJA/WB48Kz3hKUic4Kusy5qADzrmhFjlRz9FrDaOwl
-	 s8k2D7kI7I4Jqn69JUp8L0W60T7IjbYnpA1LnHZx/wCRND+DBo9ngtFxXQsf7HlNTN
-	 Zvhe58wXdvqig==
+	b=M3vBk54Xfu3A+lKh5cpYle5ykpY+LsivcJKg5/FxSVTjroW9zXxYI2HzbBA6X9l7H
+	 Kpm6tpP50xn9x7D2BevJCno3sYSGz52OB401oTVNOrqAGLsBqDovD8/Khn/gnx71aS
+	 97KciSpss0R+tGkI5hIahOgZjKWGdJiGYqc7efdOtv2lxDExFaLHt3ZPrzY2c5Z0lb
+	 4q2EFQNKGoaQVfffRuCYgK06CT1k3yk1bTKI1ZA415x+Zjxt4AOk9jXxnkU3x88E3L
+	 xyH9n+DRMOFVzjv5O6zemxiSrgH1WYcwYj0lVwVZZZ+939K6xqEtX/6a/w1Zs9+3um
+	 ot1ZR4MOpiivg==
 From: Sasha Levin <sashal@kernel.org>
-To: zhangguopeng@kylinos.cn,
-	longman@redhat.com,
-	tj@kernel.org
+To: nick@karaolidis.com,
+	chengzhihao1@huawei.com,
+	jack@suse.cz,
+	brauner@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] cgroup/cpuset: Fix task checking when enabling a partition" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:13:41 -0500
-Message-ID: <20261107051341-failed-6.18-f5b5cf2be574@kernel.org>
+Subject: FAILED: patch "[PATCH] fs: don't lose inodes that another LRU walker is isolating" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:13:43 -0500
+Message-ID: <20261107051343-failed-6.18-8dc4116041e2@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,97 +70,78 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x f5b5cf2be574df6f25cbf1b000960340bff9a0bb
+git cherry-pick -x 8dc4116041e2b377e5e1b62ba98b37636f9f3968
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051341-failed-6.18-f5b5cf2be574@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051343-failed-6.18-8dc4116041e2@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From f5b5cf2be574df6f25cbf1b000960340bff9a0bb Mon Sep 17 00:00:00 2001
-From: Guopeng Zhang <zhangguopeng@kylinos.cn>
-Date: Tue, 20 Oct 2026 21:36:15 +0800
-Subject: [PATCH] cgroup/cpuset: Fix task checking when enabling a partition
+From 8dc4116041e2b377e5e1b62ba98b37636f9f3968 Mon Sep 17 00:00:00 2001
+From: Nikolaos Karaolidis <nick@karaolidis.com>
+Date: Fri, 9 Oct 2026 14:24:31 +0000
+Subject: [PATCH] fs: don't lose inodes that another LRU walker is isolating
 
-Creating a child partition can fail when tasks are present in its
-descendants, even though the parent has no tasks of its own.
+When inode_lru_isolate() finds an unused inode that still has page
+cache, it sets I_LRU_ISOLATING, drops i_lock and the list_lru lock,
+invalidates the page cache, clears the flag again and returns
+LRU_RETRY so that the restarted walk can free the inode.
 
-On a cgroup v2 system with CPUs 0-7 online:
+Another walker of the same list can reach the inode in that window.
+It sees a non-zero i_state and takes the inode off the LRU, as it
+would an inode that is in use. Page cache deletion requeues the inode
+once the mapping is shrinkable, so this is harmless if it happens
+before the last deletion. If it happens after, nothing puts the inode
+back: it stays in memory, unused, clean and without page cache, out
+of reach of the shrinker and of drop_caches, until it is looked up
+again or the filesystem is unmounted.
 
-    cd /sys/fs/cgroup
-    echo +cpuset > cgroup.subtree_control
-    mkdir A
-    echo 1-2 > A/cpuset.cpus
-    echo root > A/cpuset.cpus.partition
-    echo +cpuset > A/cgroup.subtree_control
-    mkdir A/B
-    echo 1-2 > A/B/cpuset.cpus
-    echo +cpuset > A/B/cgroup.subtree_control
-    mkdir A/B/C
-    echo 1-2 > A/B/C/cpuset.cpus
-    echo $$ > A/B/C/cgroup.procs
-    echo root > A/B/cpuset.cpus.partition
-    cat A/B/cpuset.cpus.partition
-    root invalid (Parent unable to distribute cpu downstream)
-    cat A/cpuset.cpus.effective
-    1-2
+Before commit 2a0629834cd8 ("vfs: Don't evict inode under the inode
+lru traversing context") the pin was an i_count reference, and the
+final iput() put the inode back on the LRU.
 
-B should be a valid root, leaving A with an empty effective CPU list.
-The task in C belongs to B's partition and does not need CPUs in A.
+Skip inodes that are being isolated and leave them to the walker that
+pinned them, which restarts its walk once it has unpinned them.
 
-partition_is_populated() is called with B as excluded_child, but
-continue only skips B in the pre-order walk. The walk still visits C
-and finds the task there, so A is considered populated.
+The window is reached by any unused inode with page cache on
+CONFIG_HIGHMEM kernels, and otherwise by inodes whose page cache is a
+single shadow entry at index 0. On an i386 HIGHMEM guest, eight
+concurrent "echo 2 > /proc/sys/vm/drop_caches" over 2000 freshly read
+one-page ext4 files leave roughly 400 of the inodes off the LRU per
+round; on x86_64, with the files' pages first evicted through
+memory.reclaim, 3 to 4 per round. With this patch, none in either case.
 
-Fix this by skipping the whole excluded subtree with
-css_rightmost_descendant(), as is already done for valid child
-partitions. Also add a test case to test_cpuset_prs.sh with a task in
-a grandchild cpuset.
-
-Fixes: b1bcaed1e39a ("cpuset: Treat cpusets in attaching as populated")
-Cc: stable@vger.kernel.org # v6.19+
-Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
-Reviewed-by: Waiman Long <longman@redhat.com>
-Signed-off-by: Tejun Heo <tj@kernel.org>
+Fixes: 2a0629834cd8 ("vfs: Don't evict inode under the inode lru traversing context")
+Cc: stable@vger.kernel.org
+Signed-off-by: Nikolaos Karaolidis <nick@karaolidis.com>
+Link: https://patch.msgid.link/20261009142431.713875-1-nick@karaolidis.com
+Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>
+Reviewed-by: Jan Kara <jack@suse.cz>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- kernel/cgroup/cpuset.c                            | 4 ++--
- tools/testing/selftests/cgroup/test_cpuset_prs.sh | 3 +++
- 2 files changed, 5 insertions(+), 2 deletions(-)
+ fs/inode.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-index 585a982249ad9..71644482faa7f 100644
---- a/kernel/cgroup/cpuset.c
-+++ b/kernel/cgroup/cpuset.c
-@@ -478,10 +478,10 @@ static inline bool partition_is_populated(struct cpuset *cs,
+diff --git a/fs/inode.c b/fs/inode.c
+index d6353b8d1e634..f63535ee36291 100644
+--- a/fs/inode.c
++++ b/fs/inode.c
+@@ -941,6 +941,12 @@ static enum lru_status inode_lru_isolate(struct list_head *item,
+ 	if (!spin_trylock(&inode->i_lock))
+ 		return LRU_SKIP;
  
- 	rcu_read_lock();
- 	cpuset_for_each_descendant_pre(cp, pos_css, cs) {
--		if (cp == cs || cp == excluded_child)
-+		if (cp == cs)
- 			continue;
- 
--		if (is_partition_valid(cp)) {
-+		if (cp == excluded_child || is_partition_valid(cp)) {
- 			pos_css = css_rightmost_descendant(pos_css);
- 			continue;
- 		}
-diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-index d04aad697b96f..9978c560b3986 100755
---- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-+++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-@@ -452,6 +452,9 @@ TEST_MATRIX=(
- 	# Enabling partition with child cpusets is allowed
- 	"   C0-1    C1      .    C2-3    P1      .      .      .     0 A1:0-1|A2:1 A1:P1"
- 
-+	# Tasks below a new partition belong to it, not to its parent.
-+	" C1-2:P1 C1-2 C1-2:T    .      .      P1     .      .     0 A1:|A2:1-2|A3:1-2 A1:P1|A2:P1"
++	/* Another walker is dropping its page cache, leave it to that one */
++	if (inode_state_read(inode) & I_LRU_ISOLATING) {
++		spin_unlock(&inode->i_lock);
++		return LRU_SKIP;
++	}
 +
- 	# A partition root with non-partition root parent is invalid| but it
- 	# can be made valid if its parent becomes a partition root too.
- 	"   C0-1    C1      .    C2-3     .      P2     .      .     0 A1:0-1|A2:1 A1:P0|A2:P-2"
+ 	/*
+ 	 * Inodes can get referenced, redirtied, or repopulated while
+ 	 * they're already on the LRU, and this can make them
 -- 
 2.53.0
 
