@@ -1,52 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049124;
-	b=oNVgQyp7/LxFlksnFnTVcWC8MzGtrb1m65sai5PRFuBmkDWKDR4hG+TskAhbwFPrb6J8
-	 GZNMa2oBv3jnMLd6Q5kfmQCXXMvUkNKb0CQrfcO+PWD88wKSqwJMgBnc5Kb/LmEzRj7F1
-	 yjAKsXujqe7jEvoKyGjgRrNHNED5BdP/SAXxzS+yoQI9XzftTg/nYcTBIIQgPNZhahaYX
-	 FYpnWFmPCTEYm+lAZINAO2lji/ZL6zS/0w/XnKTJU/QAzrNCgGaJvmeiHW2lgbqxw5e6O
-	 32JNrs+4Cb26lRHMOpDgsKireprOnmPSTj9r6pLTwTT1KWzU0S8T98QJqV5AqaHo6Sg==
+	t=1794049127;
+	b=gnLGapPDBCMfqFwWOEgdwfar6CBl0fExU8v6uEax4WS5a0YDwWKLxN5WCrz1/kqdXMlj
+	 QCCFX4ee5XvMfCw5vDQiHV++vwps7w4E9cyDDQHahnjsH/vGyvHyvwZUYRdRgiOt8gVkH
+	 WwftxMBZKA/ViXQNeZH77P99misRKYWywBGqi6/p3ao6piHjaqpXkmb/H/RaFWNUh2bD5
+	 iKOVUMg/j5x0V5blas5uhLji3VZp41Q1WuQusPmmVZ8vtUIzI+IDlv82LoWhBTnIjrzJ5
+	 vy2WCcg2TDO1d/e37/UrdYpmNcOXdD+1wA7vM4nu27BLd2A15halEmawrjapynN/vjw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049124;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049127;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Mk3GjcXo7dUTVbrLjQYFiclW216sPq6irm3lUJ6aIII=;
-	b=TCFQRJTm2eE4WZRQCj0RXO7etQwi8uAakIr7R1PeEfF8QFkqMMfo5qtdGkkgi8HH7jf1
-	 Jc4WLOC3MBF8leOgrMHpVXxjgjP+w9fFCgkAgSuLpg0wd5XJCn79bDhiAOlsY7b2Zeux3
-	 6aTXKm4x+tc9aqdaN8RFHMBGmrfwmk+dBW2ceSxzMgHnlsbAw/hxEi8ovmwKP7TKWiEoX
-	 7+/IV25LVCagZT6iZPwYZfjaoyy4y5JFzWMEy3bcLHnJeu0VbKtRgJJoj5hSWrCyKY1q0
-	 Jdoo5+f7k73ImDjBOQg7ske6Pyxe3QpLBtyeitMHBNwPY9ZysiNLtU7T95jY56trSUA==
+	bh=odS6LfWtGHihrTsC3JaeGBdAvJrDqJ58o2TyLvX9Bgk=;
+	b=aUyt0eRqBc9EUqYW96DvQ48i8BSNCG7xbXRNdkw3vAJLBuoquBG5DHwFsgD/VApOLn2o
+	 AKscuqbYJTSn3raSyuaBrPsxthddKIT9sHrPWjuTuSauwRvZyHBv+029Cl+lyKtQfKjbH
+	 xPFzrDq9zV05/WALL/Cz3hZ4DOhANk9b6h7nUV/1YHApjvfHi+1KjHsqTxpwm/ACMe9ET
+	 9/50cI3ERH6t7MGxokffHJDHvI9Ne+mMxMADFf/PL1DmfNKbo8r7xjKQIOtHKT6YThPcC
+	 RKVGGFUYBORPLSpcWcKVCZgXilvzPs4e+uib8QIvqhmz1trO4XwD1aQtNdwmuk9Vwdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WQlgRcpH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cjZGbb0e;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE11C606A32F
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:58:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB748606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:58:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WQlgRcpH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 147F81F0089F;
-	Sat,  7 Nov 2026 10:58:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cjZGbb0e
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06F5E1F0089F;
+	Sat,  7 Nov 2026 10:58:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049123;
-	bh=Mk3GjcXo7dUTVbrLjQYFiclW216sPq6irm3lUJ6aIII=;
+	s=k20260515; t=1794049126;
+	bh=odS6LfWtGHihrTsC3JaeGBdAvJrDqJ58o2TyLvX9Bgk=;
 	h=From:To:Cc:Subject:Date;
-	b=WQlgRcpHQPWImQicOHvwybvVGDwYKygIrEv3Ta6hpMgzWDsYKzHh9yCmbaKskYhFx
-	 5838ntxJoJJLM4HG2YOpy6l9UYtK5sKM2m8oYXUFyuEKK/2JIIEs0pGppPA5phap87
-	 WjM97nFgtmTQy4poyM/OtEIydw/K62Z49Vy/cwwCuF/r1pWmeSBeiXT88wahPNQQy5
-	 9GFmJ583y/pHiQKfCxQPe4jRk787dzq3Nu2wT5fjtTlU3jwS5oAVC9vnr+jfWsM0Gd
-	 jb+jnMShGnCTsO7aABX14oe4GdOX804cM44tFIhxhnk/FRCIQnLeilurgTIfEzrq3+
-	 KJFrhGHheK7Pw==
+	b=cjZGbb0eHNSMkZvoAsYPb+mVxZYGMq7o0b8ZWBO2MR0vutpsGkIFEyC1Kzje9Ix+A
+	 8cJzX0UP9uJPioVcUjLkVmiEG0VZhLJibitt0lwtajxaKy9rZw2YwnIdy6LfDZJEia
+	 DDVSCL9CkOLcruWEjmgOCgDha8ZTXg8PYzsOJj7Q9r6nwGFbMOxHebNOAHopyKfjDV
+	 XL6qRU2WTT6Db70Kw1g6EwQ4FCyCZdfZWAtK1qTIkimh6ZrlikmNgBv24KyAogH/ZF
+	 wFo2oM8Xjl5SWOd3jdA/6GDPojCuBdypZVx1gbwtdoCNkY/+FYx5fA+5bvpniOYHoJ
+	 lFBole+uCQHeA==
 From: Sasha Levin <sashal@kernel.org>
-To: fabio.cesari@gmail.com,
-	joshua.crofts1@gmail.com,
-	jonathan.cameron@oss.qualcomm.com
+To: den@valinux.co.jp,
+	manivannan.sadhasivam@oss.qualcomm.com,
+	bhelgaas@google.com,
+	frank.li@nxp.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] iio: light: isl29028: fix runtime PM reference leak on error paths" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 05:58:41 -0500
-Message-ID: <20261107055841-failed-5.15-0e30d15b1564@kernel.org>
+Subject: FAILED: patch "[PATCH] PCI: endpoint: pci-epf-vntb: Manage virtual NTB and PCI bus lifetime" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 05:58:44 -0500
+Message-ID: <20261107055844-failed-5.15-5cdbd6d3a3a1@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,120 +70,252 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 0e30d15b15647df786e60022650613e16dd70645
+git cherry-pick -x 5cdbd6d3a3a147fa9975e35f2602cbec9a72a932
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055841-failed-5.15-0e30d15b1564@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055844-failed-5.15-5cdbd6d3a3a1@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 0e30d15b15647df786e60022650613e16dd70645 Mon Sep 17 00:00:00 2001
-From: Fabio Cesari <fabio.cesari@gmail.com>
-Date: Thu, 10 Sep 2026 08:24:35 +0200
-Subject: [PATCH] iio: light: isl29028: fix runtime PM reference leak on error
- paths
+From 5cdbd6d3a3a147fa9975e35f2602cbec9a72a932 Mon Sep 17 00:00:00 2001
+From: Koichiro Den <den@valinux.co.jp>
+Date: Tue, 1 Sep 2026 15:32:38 +0900
+Subject: [PATCH] PCI: endpoint: pci-epf-vntb: Manage virtual NTB and PCI bus
+ lifetime
 
-isl29028_read_raw() and isl29028_write_raw() take a runtime PM reference
-with pm_runtime_resume_and_get() but return directly on their error
-paths without dropping it. The usage count never balances again and the
-device stops entering autosuspend for good. In isl29028_read_raw() this
-needs a regmap access to fail; in isl29028_write_raw() one rejected
-sysfs write is enough, for example
+The virtual PCI driver registers an ntb_dev but has no remove callback.
+Unbinding the endpoint function can therefore free BARs while the NTB
+device and its client still use them. It also leaves the virtual PCI
+devices and root bus allocated.
 
-  echo 200 > in_proximity_sampling_frequency
+Allocate an ntb_dev for each virtual PCI probe and unregister it from the
+matching remove callback. Start command processing only after registration.
+Publish the device for doorbell IRQs at the same point. During remove, stop
+the command work and drain IRQ handlers before unregistering the device.
 
-which is outside the [1:100] range and returns -EINVAL with the
-reference still held.
+Retain the root bus returned by pci_scan_bus() so it can be removed on
+unbind. Unregister the virtual PCI driver before releasing endpoint
+resources. Stop and remove the root bus under the PCI rescan/remove lock,
+then release its host bridge.
 
-Take the reference with PM_RUNTIME_ACQUIRE_AUTOSUSPEND() instead, so it
-is released on every return path.
-
-This also stops the return value of pm_runtime_put_autosuspend() from
-reaching userspace. That value only says whether the device could be
-suspended right away, so -EAGAIN or -EPERM turns a successful access
-into a failure, and with CONFIG_PM=n the stub returns -ENOSYS on every
-access.
-
-Fixes: 2db5054ac28d ("staging: iio: isl29028: add runtime power management support")
-Suggested-by: Joshua Crofts <joshua.crofts1@gmail.com>
-Cc: stable@vger.kernel.org
-Assisted-by: LLM coccinelle
-Signed-off-by: Fabio Cesari <fabio.cesari@gmail.com>
-Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
-Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Fixes: e35f56bb0330 ("PCI: endpoint: Support NTB transfer between RC and EP")
+Signed-off-by: Koichiro Den <den@valinux.co.jp>
+Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Cc: stable@vger.kernel.org # 6.0+
+Link: https://patch.msgid.link/20260901063238.631166-3-den@valinux.co.jp
 ---
- drivers/iio/light/isl29028.c | 33 ++++++++-------------------------
- 1 file changed, 8 insertions(+), 25 deletions(-)
+ drivers/pci/endpoint/functions/pci-epf-vntb.c | 85 +++++++++++++++----
+ 1 file changed, 70 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/iio/light/isl29028.c b/drivers/iio/light/isl29028.c
-index 33deb1726689e..e481ac908fc13 100644
---- a/drivers/iio/light/isl29028.c
-+++ b/drivers/iio/light/isl29028.c
-@@ -342,8 +342,9 @@ static int isl29028_write_raw(struct iio_dev *indio_dev,
- 	struct device *dev = regmap_get_device(chip->regmap);
- 	int ret;
+diff --git a/drivers/pci/endpoint/functions/pci-epf-vntb.c b/drivers/pci/endpoint/functions/pci-epf-vntb.c
+index 544e00bdf50fb..07ba338732d4e 100644
+--- a/drivers/pci/endpoint/functions/pci-epf-vntb.c
++++ b/drivers/pci/endpoint/functions/pci-epf-vntb.c
+@@ -132,7 +132,7 @@ struct epf_ntb_ctrl {
+ } __packed;
  
--	ret = pm_runtime_resume_and_get(dev);
--	if (ret < 0)
-+	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dev, pm);
-+	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
-+	if (ret)
- 		return ret;
+ struct epf_ntb {
+-	struct ntb_dev ntb;
++	struct ntb_dev *ntb;
+ 	struct pci_epf *epf;
+ 	struct config_group group;
  
- 	mutex_lock(&chip->lock);
-@@ -392,14 +393,7 @@ static int isl29028_write_raw(struct iio_dev *indio_dev,
+@@ -166,10 +166,15 @@ struct epf_ntb {
+ 	void __iomem *vpci_mw_addr[MAX_MW];
  
- 	mutex_unlock(&chip->lock);
+ 	struct delayed_work cmd_handler;
++	struct pci_bus *vpci_bus;
+ };
  
--	if (ret < 0)
--		return ret;
--
--	ret = pm_runtime_put_autosuspend(dev);
--	if (ret < 0)
--		return ret;
--
--	return 0;
-+	return ret;
+ #define to_epf_ntb(epf_group) container_of((epf_group), struct epf_ntb, group)
+-#define ntb_ndev(__ntb) container_of(__ntb, struct epf_ntb, ntb)
++
++static struct epf_ntb *ntb_ndev(struct ntb_dev *ntb)
++{
++	return ntb->pdev->sysdata;
++}
+ 
+ static struct pci_epf_header epf_ntb_header = {
+ 	.vendorid	= PCI_ANY_ID,
+@@ -195,7 +200,7 @@ static int epf_ntb_link_up(struct epf_ntb *ntb, bool link_up)
+ 	else
+ 		ntb->reg->link_status &= ~LINK_STATUS_UP;
+ 
+-	ntb_link_event(&ntb->ntb);
++	ntb_link_event(ntb->ntb);
+ 	return 0;
  }
  
- static int isl29028_read_raw(struct iio_dev *indio_dev,
-@@ -408,10 +402,11 @@ static int isl29028_read_raw(struct iio_dev *indio_dev,
+@@ -284,7 +289,7 @@ static void epf_ntb_cmd_handler(struct work_struct *work)
+ 	     i++) {
+ 		if (ntb->epf_db[i]) {
+ 			atomic64_or(1 << (i - EPF_IRQ_DB_START), &ntb->db);
+-			ntb_db_event(&ntb->ntb, i - EPF_IRQ_DB_START);
++			ntb_db_event(ntb->ntb, i - EPF_IRQ_DB_START);
+ 			ntb->epf_db[i] = 0;
+ 		}
+ 	}
+@@ -348,12 +353,18 @@ static void epf_ntb_cmd_handler(struct work_struct *work)
+ static irqreturn_t epf_ntb_doorbell_handler(int irq, void *data)
  {
- 	struct isl29028_chip *chip = iio_priv(indio_dev);
- 	struct device *dev = regmap_get_device(chip->regmap);
--	int ret, pm_ret;
+ 	struct epf_ntb *ntb = data;
++	struct ntb_dev *ndev;
+ 	int i;
+ 
++	/* Pair with smp_store_release() in pci_vntb_probe() */
++	ndev = smp_load_acquire(&ntb->ntb);
++	if (!ndev)
++		return IRQ_HANDLED;
++
+ 	for (i = EPF_IRQ_DB_START; i < ntb->db_count; i++)
+ 		if (irq == ntb->epf->db_msg[i].virq) {
+ 			atomic64_or(1 << (i - EPF_IRQ_DB_START), &ntb->db);
+-			ntb_db_event(&ntb->ntb, i - EPF_IRQ_DB_START);
++			ntb_db_event(ndev, i - EPF_IRQ_DB_START);
+ 		}
+ 
+ 	return IRQ_HANDLED;
+@@ -985,7 +996,6 @@ static int epf_ntb_epc_init(struct epf_ntb *ntb)
+ 	}
+ 
+ 	INIT_DELAYED_WORK(&ntb->cmd_handler, epf_ntb_cmd_handler);
+-	queue_work(kpcintb_workqueue, &ntb->cmd_handler.work);
+ 
+ 	atomic64_set(&ntb->peer_db_pending, 0);
+ 	enable_work(&ntb->peer_db_work);
+@@ -1340,6 +1350,7 @@ static int vpci_scan_bus(void *sysdata)
+ 		pci_unlock_rescan_remove();
+ 		return -EINVAL;
+ 	}
++	ndev->vpci_bus = vpci_bus;
+ 
+ 	pci_bus_add_devices(vpci_bus);
+ 
+@@ -1425,7 +1436,7 @@ static int vntb_epf_mw_set_trans(struct ntb_dev *ndev, int pidx, int idx,
+ 	int ret;
+ 	struct device *dev;
+ 
+-	dev = &ntb->ntb.dev;
++	dev = &ndev->dev;
+ 	barno = ntb->epf_ntb_bar[BAR_MW1 + idx];
+ 	epf_bar = &ntb->epf->bar[barno];
+ 	epf_bar->phys_addr = addr;
+@@ -1564,7 +1575,7 @@ static void vntb_epf_peer_db_work(struct work_struct *work)
+ 			ret = pci_epc_raise_irq(epf->epc, func_no, vfunc_no,
+ 						PCI_IRQ_MSI, interrupt_num);
+ 			if (ret)
+-				dev_err(&ntb->ntb.dev,
++				dev_err(&epf->dev,
+ 					"Failed to raise IRQ for interrupt_num %u: %d\n",
+ 					interrupt_num, ret);
+ 		}
+@@ -1682,13 +1693,18 @@ static const struct ntb_dev_ops vntb_epf_ops = {
+ 
+ static int pci_vntb_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+ {
+-	int ret;
+ 	struct epf_ntb *ndev = (struct epf_ntb *)pdev->sysdata;
+ 	struct device *dev = &pdev->dev;
++	struct ntb_dev *ntb;
 +	int ret;
++
++	ntb = devm_kzalloc(dev, sizeof(*ntb), GFP_KERNEL);
++	if (!ntb)
++		return -ENOMEM;
  
--	ret = pm_runtime_resume_and_get(dev);
--	if (ret < 0)
-+	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dev, pm);
-+	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
-+	if (ret)
+-	ndev->ntb.pdev = pdev;
+-	ndev->ntb.topo = NTB_TOPO_NONE;
+-	ndev->ntb.ops =  &vntb_epf_ops;
++	ntb->pdev = pdev;
++	ntb->topo = NTB_TOPO_NONE;
++	ntb->ops = &vntb_epf_ops;
+ 
+ 	ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(32));
+ 	if (ret) {
+@@ -1696,16 +1712,41 @@ static int pci_vntb_probe(struct pci_dev *pdev, const struct pci_device_id *id)
  		return ret;
+ 	}
  
- 	mutex_lock(&chip->lock);
-@@ -461,18 +456,6 @@ static int isl29028_read_raw(struct iio_dev *indio_dev,
+-	ret = ntb_register_device(&ndev->ntb);
++	ret = ntb_register_device(ntb);
+ 	if (ret) {
+ 		dev_err(dev, "Failed to register NTB device\n");
+ 		return ret;
+ 	}
  
- 	mutex_unlock(&chip->lock);
- 
--	if (ret < 0)
--		return ret;
--
--	/**
--	 * Preserve the ret variable if the call to
--	 * pm_runtime_put_autosuspend() is successful so the reading
--	 * (if applicable) is returned to user space.
--	 */
--	pm_ret = pm_runtime_put_autosuspend(dev);
--	if (pm_ret < 0)
--		return pm_ret;
--
- 	return ret;
++	/* Publish after ntb_register_device() succeeds */
++	smp_store_release(&ndev->ntb, ntb);
++	queue_delayed_work(kpcintb_workqueue, &ndev->cmd_handler, 0);
++
+ 	dev_dbg(dev, "PCI Virtual NTB driver loaded\n");
+ 	return 0;
  }
  
++static void pci_vntb_remove(struct pci_dev *pdev)
++{
++	struct epf_ntb *ndev = pdev->sysdata;
++	struct ntb_dev *ntb;
++	unsigned int i;
++
++	/* Stop the work reader, then close and drain the IRQ gate */
++	cancel_delayed_work_sync(&ndev->cmd_handler);
++
++	ntb = xchg(&ndev->ntb, NULL);
++
++	if (ndev->msi_doorbell)
++		for (i = 0; i < ndev->db_count; i++) {
++			if (epf_ntb_db_irq_is_duplicated(ndev->epf, i))
++				continue;
++			synchronize_irq(ndev->epf->db_msg[i].virq);
++		}
++
++	ntb_unregister_device(ntb);
++}
++
+ static struct pci_device_id pci_vntb_table[] = {
+ 	{
+ 		PCI_DEVICE(0xffff, 0xffff),
+@@ -1717,6 +1758,7 @@ static struct pci_driver vntb_pci_driver = {
+ 	.name           = "pci-vntb",
+ 	.id_table       = pci_vntb_table,
+ 	.probe          = pci_vntb_probe,
++	.remove         = pci_vntb_remove,
+ };
+ 
+ /* ============ PCIe EPF Driver Bind ====================*/
+@@ -1797,12 +1839,25 @@ static int epf_ntb_bind(struct pci_epf *epf)
+  */
+ static void epf_ntb_unbind(struct pci_epf *epf)
+ {
++	struct pci_host_bridge *bridge;
+ 	struct epf_ntb *ntb = epf_get_drvdata(epf);
+ 
++	pci_unregister_driver(&vntb_pci_driver);
++
++	if (ntb->vpci_bus) {
++		bridge = to_pci_host_bridge(ntb->vpci_bus->bridge);
++
++		pci_lock_rescan_remove();
++		pci_stop_root_bus(ntb->vpci_bus);
++		pci_remove_root_bus(ntb->vpci_bus);
++		ntb->vpci_bus = NULL;
++		pci_unlock_rescan_remove();
++
++		pci_free_host_bridge(bridge);
++	}
++
+ 	epf_ntb_epc_cleanup(ntb);
+ 	epf_ntb_config_spad_bar_free(ntb);
+-
+-	pci_unregister_driver(&vntb_pci_driver);
+ }
+ 
+ // EPF driver probe
 -- 
 2.53.0
 
