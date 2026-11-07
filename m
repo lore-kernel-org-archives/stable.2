@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050868;
-	b=WcRbZEuE2We+5gIh8kdoaQu9LJKTXdrlssk8TH1Iuy036spALOyrpYNSfaFo1Wf7MYPv
-	 slw6cIEmr7uKbBCrQ90IQUa0KUVfRyXDHWZTDvOksWY7yJbSlq4hN3ZSz24T5h3fNqlGr
-	 G7AY6r4No9/ufMkFQOBgsh19O6b1Av/H7qMTYygklyhXo1ehjkHMJWuNLxml4MdkVmBQ5
-	 pvIYhLdDZS5amJ7Y8oBZpF/tuzDtDJsX4DLRwjxaQMT87JUq7jndSsWijeUYU5+U06y/s
-	 Gb9APRvALjb9GxU+J0vSnNPnz/riZWk5/NKLs3j+B+l6IFdqoitwt9O+HKHgAtz8oig==
+	t=1794050871;
+	b=h4wACybYtlyQ0pnbgXRe7HrBWyJemylVSrprw0WbkK/eu6hM3Aj1kSaJOVeA6W0smYrM
+	 hYuhy6fRMjZH+WPkoTNolZMje5aNCTsDShDH3oNJhxq+jk6PM45MIDP5GQJ+Nf1tLa85n
+	 Eb3BGpgHrdSMLU27XH86BelrK95niU72v9qW1EZDviblMWQ0H2zdJEGOz0SbSjjGvD7ut
+	 /1MDJCG5qA1nE0CTyPtFrqnzNfwz1bRfjimaJmHISYegzb83vxv29/q7/zMtplXOt2onB
+	 VYGGuu07k5RywlHQRiYX/ceUa6uHxXy6+oBjW/wUY0fkg0hYCajZuA5nyixhnb1QCrw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050868;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050871;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=N07z2Jxv6zV7u4L+ugk+Wn77XPbiJJbVeWRUReeXOUk=;
-	b=McdHck+Y2O82DDn4qdwWy2w7ILrsup1rfXkD73yX8xL2icaZFp3x729qnU7hsBTIYedN
-	 lT1GMYsGelKB7LtIfGnFAk6NePsOfBJY6yH6PX6qUP7spMRPVc7cLLdVzCNfqYQZyA6pB
-	 6gyEcObN8I1OkWUEJrwYxlTJSBnXXktfz0wFbZk9lRb9D8DUy0FBb+3cfFngsf9JpO2/X
-	 j2x/djIQ+OwwIfHvLhbS8Ij05pEpO/Q82pjhFRKye5PJ4dKR0sBKMeio1Njftdr38/Zh+
-	 BD/LJOH1zOEPv0Gw3K3ijpLShNa0sCGrshFuZEV9P0q8QdokGQHMlqc38kfFHmhUw0Q==
+	bh=o0gXqCNtbzCvju7Aqv4VCA2kETH6frAVZNud7QY4BKk=;
+	b=COz6XJabCBlPlsqFJUDcQymhwbLOOxHEjKx3hIY6j1/Ga62B0iFr1x8KLuugUHRXzeV8
+	 cbFVS8yvP2lsjhoQtBzzTi2yKjMB96ifL3lmtngD6BD3injtyGL/L6T+Cne3mAIqUlOkZ
+	 jgyS74pv+eRNdhpccHOO/aq8/eCxubYryY0KvQW2xpz2+gDjKQTFE8bi5DEWRYdVubhWp
+	 ocVPPDBLL0yu20oeWduz2RfHpECpfbhj+Lqat8Fq83jOHgWfzXjkaI3/baM93aaYVUoiC
+	 cqJHe0sDumWrVDaRcq9cjl3RzwJVcqYuQDcbmH3DOydVWLSa1eM2UVk9g5bpt1iBDFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TlJAL5TH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hxVU8GLW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BD4E606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:27:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28D29606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:27:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TlJAL5TH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F2451F0089F;
-	Sat,  7 Nov 2026 11:27:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hxVU8GLW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FCFF1F0089F;
+	Sat,  7 Nov 2026 11:27:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050868;
-	bh=N07z2Jxv6zV7u4L+ugk+Wn77XPbiJJbVeWRUReeXOUk=;
+	s=k20260515; t=1794050871;
+	bh=o0gXqCNtbzCvju7Aqv4VCA2kETH6frAVZNud7QY4BKk=;
 	h=From:To:Cc:Subject:Date;
-	b=TlJAL5THVbdNrrddQcnPY+/C+foOdtguoNr8lQJ7Zz3fS9qBwLj5QZQCo+IIUM0Me
-	 qrE6S4OSoEgqgLHuF9aNqLaNAlTICre6o1kriRFDpai3eouvqgge5qJIOKbvVfMGZF
-	 +cqDGThSLWImIT7gRmQW+Tim3ztgtR2AJlIelH64ZJurhHWXzVeWZ+kW6Ze8oM7/jD
-	 CTOlODrixF5H42uPZ1tzw9EmnsW7xUINHpCJP1zpcbuHbtqpcH/FzcNFUSvbHQRtfH
-	 32WnF/+fR8bYbKmcoSdqYygm9md+Ug0CZEwV5gZ3hsVWm/LEl7jlqD+uh3L9aji6Ou
-	 q0SHXTbZgsVRQ==
+	b=hxVU8GLWinF5yRRGzBR4+OUi0gZVXLvZg9w9qbliiP3rFJvuvAVDYcBmm4jpcUJJT
+	 Ae2EFqmuamBnxJQAOFRZWCrHmBz7EdW9eMqPnao+4aCzIsrbNKiKDYS7JodBwTeA7Q
+	 UL7ZHankGQM/Z1EKrPk98l1/+L6iDzuWMpL2UzGWr5o+l6CaWR60gdK4bzbzYjvjtx
+	 O5aSRipuyCvGAo+n1ZbahsfweTmrfownK9EJJEe4lP58RIMTcMsSghqvSOGoHIB7ZW
+	 vy9Gyp3Omo6b21RPERdJXN31JRITq04ugp1Qqeyz4lYaDFG3pNxYJPupnj0tzAdjbG
+	 G/bJiZFjfuTbg==
 From: Sasha Levin <sashal@kernel.org>
-To: nick@karaolidis.com,
-	chengzhihao1@huawei.com,
-	jack@suse.cz,
-	brauner@kernel.org
+To: seanjc@google.com,
+	rick.p.edgecombe@intel.com,
+	bp@alien8.de
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] fs: don't lose inodes that another LRU walker is isolating" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:27:46 -0500
-Message-ID: <20261107062746-failed-5.10-8dc4116041e2@kernel.org>
+Subject: FAILED: patch "[PATCH] x86/cpuid: Mark CPUID function 0x23 as being indexed" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:27:49 -0500
+Message-ID: <20261107062749-failed-5.10-108775fa28fe@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,78 +69,47 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 8dc4116041e2b377e5e1b62ba98b37636f9f3968
+git cherry-pick -x 108775fa28fe04a16f19a828a779689f3d0ea9f0
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062746-failed-5.10-8dc4116041e2@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062749-failed-5.10-108775fa28fe@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 8dc4116041e2b377e5e1b62ba98b37636f9f3968 Mon Sep 17 00:00:00 2001
-From: Nikolaos Karaolidis <nick@karaolidis.com>
-Date: Fri, 9 Oct 2026 14:24:31 +0000
-Subject: [PATCH] fs: don't lose inodes that another LRU walker is isolating
+From 108775fa28fe04a16f19a828a779689f3d0ea9f0 Mon Sep 17 00:00:00 2001
+From: Sean Christopherson <seanjc@google.com>
+Date: Thu, 22 Oct 2026 14:01:32 -0700
+Subject: [PATCH] x86/cpuid: Mark CPUID function 0x23 as being indexed
 
-When inode_lru_isolate() finds an unused inode that still has page
-cache, it sets I_LRU_ISOLATING, drops i_lock and the list_lru lock,
-invalidates the page cache, clears the flag again and returns
-LRU_RETRY so that the restarted walk can free the inode.
+Add function 0x23 to the set of CPUID functions that are indexed, as per
+the SDM and the many sub-leafs defined in leaf_types.h.
 
-Another walker of the same list can reach the inode in that window.
-It sees a non-zero i_state and takes the inode off the LRU, as it
-would an inode that is in use. Page cache deletion requeues the inode
-once the mapping is shrinkable, so this is harmless if it happens
-before the last deletion. If it happens after, nothing puts the inode
-back: it stays in memory, unused, clean and without page cache, out
-of reach of the shrinker and of drop_caches, until it is looked up
-again or the filesystem is unmounted.
-
-Before commit 2a0629834cd8 ("vfs: Don't evict inode under the inode
-lru traversing context") the pin was an i_count reference, and the
-final iput() put the inode back on the LRU.
-
-Skip inodes that are being isolated and leave them to the walker that
-pinned them, which restarts its walk once it has unpinned them.
-
-The window is reached by any unused inode with page cache on
-CONFIG_HIGHMEM kernels, and otherwise by inodes whose page cache is a
-single shadow entry at index 0. On an i386 HIGHMEM guest, eight
-concurrent "echo 2 > /proc/sys/vm/drop_caches" over 2000 freshly read
-one-page ext4 files leave roughly 400 of the inodes off the LRU per
-round; on x86_64, with the files' pages first evicted through
-memory.reclaim, 3 to 4 per round. With this patch, none in either case.
-
-Fixes: 2a0629834cd8 ("vfs: Don't evict inode under the inode lru traversing context")
+Closes: https://lore.kernel.org/all/213d614fe73e183a230c8f4e0c8fa1cc3d45df39.camel@intel.com
+Reported-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+Tested-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Nikolaos Karaolidis <nick@karaolidis.com>
-Link: https://patch.msgid.link/20261009142431.713875-1-nick@karaolidis.com
-Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>
-Reviewed-by: Jan Kara <jack@suse.cz>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Link: https://patch.msgid.link/20261022210134.612848-2-seanjc@google.com
 ---
- fs/inode.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ arch/x86/include/asm/cpuid/api.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/fs/inode.c b/fs/inode.c
-index d6353b8d1e634..f63535ee36291 100644
---- a/fs/inode.c
-+++ b/fs/inode.c
-@@ -941,6 +941,12 @@ static enum lru_status inode_lru_isolate(struct list_head *item,
- 	if (!spin_trylock(&inode->i_lock))
- 		return LRU_SKIP;
- 
-+	/* Another walker is dropping its page cache, leave it to that one */
-+	if (inode_state_read(inode) & I_LRU_ISOLATING) {
-+		spin_unlock(&inode->i_lock);
-+		return LRU_SKIP;
-+	}
-+
- 	/*
- 	 * Inodes can get referenced, redirtied, or repopulated while
- 	 * they're already on the LRU, and this can make them
+diff --git a/arch/x86/include/asm/cpuid/api.h b/arch/x86/include/asm/cpuid/api.h
+index 2d9f3d4d63de6..759b12d94bbfe 100644
+--- a/arch/x86/include/asm/cpuid/api.h
++++ b/arch/x86/include/asm/cpuid/api.h
+@@ -181,6 +181,7 @@ static __always_inline bool cpuid_function_is_indexed(u32 function)
+ 	case 0x1d:
+ 	case 0x1e:
+ 	case 0x1f:
++	case 0x23:
+ 	case 0x24:
+ 	case 0x8000001d:
+ 		return true;
 -- 
 2.53.0
 
