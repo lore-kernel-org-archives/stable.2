@@ -1,56 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048208;
-	b=WoSV3mIrX/6XRDCIC4rHT8Y8+Er5fj6lqe70nkFv9ByyEfCUZo7RhXllpbs43h7QsVrr
-	 k/ZLsepxtcvXDnTYQh1CMBbKYT95jx+WNRPm1Rl71OyzADU2WbV9JAtp4FJV1J9bwAM0f
-	 76toHrKn9uZvs6I4s8XkpBla56ILdutaP7cXq7+ORxo5/kzOJrYf7IsOEhSB5XGqeV1/v
-	 jFb6W9h5myPYR2nDQ/npgo64JPatxl5UltRAogOBELKwYCyofrUT/YlLh/4Uwcu+qQjyE
-	 J8qi0fqw6bF/OqIaOZC//KaIKAAUSuT3PASqmlbI/eba/IqsG9ojnKIYmz9u454PDhQ==
+	t=1794048209;
+	b=4fbHl4yldjUSHvvFYpDakSlcYoAWYeMc2hzOwQ2vBdJzIVZRuoadeJaRqQ/xEHCbnULN
+	 En45eUj6Jzr0nJa+ladBsTBPWxnH0Gu7hzZpudAr7Xvp3ErrtECwP6E1xun6ZKQNmWGTg
+	 0OqW+qbIWybTpsz5LCqSjjoMs2UksTQdHEnM3fPbpVGtAnASoh1J2SyoIWVB3yE7Cm2rc
+	 adyUzQjJ59fYeIlx3hgCzH3OrxhfJutRuuO1YoFi2U7UI0PMu2yBeflnqEyAeyKD6Qr5i
+	 cTTtYYoNpDuTvhm0dRKPwRG9BW9c1QZkIDMMWRXxuFHawQ079cfMrqt6xUC9uxXKYmQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048208;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048209;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=glrrZ3ffqscSX5u2FOniHdczvHGRAKVqbVXyPfmkKKQ=;
-	b=dV21m3UQcfVTvPZgLFKWN+wv806lk5n8GiE3+TJc+mhO6rvRC/9cNaYriMQ7SOhWbN9p
-	 0XSKIa6AZXfvOiXQ3IgcTCNidKie+xSFgAtntfVj655ZJEcqYVs0ZqnBibCAeQPFzbTVF
-	 mrtH9AtFuO1necyp+yBUbAxB/wGUQ9GYIx42FfqlPC26MW1CvDjBsGMaYNQDYwUUHtFF6
-	 +tAEFq4niY1gtGEbMLIdstxg5T8KuyHgjQ91P+iYmToEHgq2K1lG2kVc+0vmdRFCyntD1
-	 YLbHCp8BsIYEMYw/KxpBTjkuWBPG8F7wpRvH297+7W1j29GzSjnucyRrOlE4lY2gwNQ==
+	bh=61nOh2ZgPk8wC32znG58O8UBg2uyz1lz8C4uCHiuJSI=;
+	b=tTuoIJflHKyUyeaxJHDF5/nwiD4eOXAz7RZAvGdQTkQcwCEWvhjwA8bLMLxJYcxP7qGD
+	 o3UNqkloe1luoSrcZzs6EkFHTXe5c1d+eDX404mbm3wNRxlyA8vuzZXGQjP9uQ8D80Ssi
+	 jtj87V1QUJErjJ0luLMyWlQT7iTYEc1Re5gcy/2wB5aAspkDu96VL/hpEKw0cmrKV/m//
+	 DF05At5rkuwdRkLQSElKCjpUCFOI3waYaG1boSHIPezUO2/sc36bOkKJ4X/xeqGtmOcJK
+	 SaoBPqCsyae3TGEr+OSjMR5gYoEVvteF7Kf6jhRWzAvwnBV+fKXPLzz7lW6fo3WLopw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fqdev0Tl;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BZ7USnGh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDF77606A330
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:43:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8053D606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:43:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fqdev0Tl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C5181F0089F;
-	Sat,  7 Nov 2026 10:43:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BZ7USnGh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCB591F0089F;
+	Sat,  7 Nov 2026 10:43:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048207;
-	bh=glrrZ3ffqscSX5u2FOniHdczvHGRAKVqbVXyPfmkKKQ=;
+	s=k20260515; t=1794048209;
+	bh=61nOh2ZgPk8wC32znG58O8UBg2uyz1lz8C4uCHiuJSI=;
 	h=From:To:Cc:Subject:Date;
-	b=Fqdev0Tlk/H2VRvsbqX1NEuZHuabdkeLmeOAThz7A5wf3ZemmDaT6T8sb+axSns9C
-	 q7m8xmEA40B9wOtkHO5sRAkSud8wOrI8p2OiDEeFhKAyr5BFAJkjnN/Q09tCjEL15H
-	 ki7s6ksNS58IktjeGw1KpeASR4fHKQW1AVEeuvDoVC2pA5aocWSA24YwhKWSG6/Ynk
-	 8arobj0oJ7hEIEgLYpC9u282soZuxVbXoIQhdCuN4iGI+OWw7OUeM8Qn+pYHcJ0RnV
-	 cMafraY1ae0YLcuo7x4rB/g7oQ1RNiqx+VYgsx4TyY4oLAFmzNGHlLfAqWQnWcvHuX
-	 EOpoIoPfv4/zg==
+	b=BZ7USnGh6rR2tsUkMZNXmN8foX0Vf85QiZtsJUuxv+AjFMP/xdtDQMBntWZFx2D9Y
+	 qLZNX9PY/WEfFhXxVrlYqSqJBUgaxWmeN8UUJed27hZ+hnb8HE1CTG53cSAhwNcyGs
+	 ZzchpouggnEf1c9zOjumkPx0KHDfG81gADV7DIC83o2xA73gB6/Zxrwd+Wfs0eZf1c
+	 1xWC8G7MQPuTS0KabwMemqLONpovlKi4OdXBTFWr/8isS3NsUlSglnE778d5F+LB+t
+	 94nYBEPw8mDn85459OgVS2eMLGr2XIOSOjNy8u2iLKFzgtATHSyJW7EMabMVWSUgog
+	 Rul228xUcFddw==
 From: Sasha Levin <sashal@kernel.org>
-To: adubey@linux.ibm.com,
-	sashiko-bot@kernel.org,
-	hbathini@linux.ibm.com,
-	skb99@linux.ibm.com,
-	yeswanth@linux.ibm.com,
+To: ssrish@linux.ibm.com,
 	rnsastry@linux.ibm.com,
 	maddy@linux.ibm.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] powerpc/bpf: fix buffer overflow in JIT for large BPF programs" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:43:25 -0500
-Message-ID: <20261107054325-failed-6.1-78ce55b7913a@kernel.org>
+Subject: FAILED: patch "[PATCH] pseries/plpks: fix error handling in plpks_read_var()" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:43:27 -0500
+Message-ID: <20261107054327-failed-6.1-d52a1659cb17@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -73,172 +69,86 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 78ce55b7913a78e1687306668e078b86bc6508ee
+git cherry-pick -x d52a1659cb1718f93166ab8dd8621237e564a1c4
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054325-failed-6.1-78ce55b7913a@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054327-failed-6.1-d52a1659cb17@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 78ce55b7913a78e1687306668e078b86bc6508ee Mon Sep 17 00:00:00 2001
-From: Abhishek Dubey <adubey@linux.ibm.com>
-Date: Mon, 28 Sep 2026 10:43:52 +0530
-Subject: [PATCH] powerpc/bpf: fix buffer overflow in JIT for large BPF
- programs
+From d52a1659cb1718f93166ab8dd8621237e564a1c4 Mon Sep 17 00:00:00 2001
+From: Srish Srinivasan <ssrish@linux.ibm.com>
+Date: Wed, 23 Sep 2026 23:58:05 +0530
+Subject: [PATCH] pseries/plpks: fix error handling in plpks_read_var()
 
-During size calculation in pass-0, exit_addr is 0 since addrs[fp->len]
-is not yet populated. bpf_jit_emit_exit_insn() treats a zero exit_addr
-as in-range and skips bpf_jit_build_epilogue(), so the alternate inline
-epilogue instructions are not counted in alloclen.
+When a PLPKS variable is initialized without a policy and used to read an
+object with the PLPKS_WRAPPINGKEY policy set, the hypervisor returns
+H_AUTHORITY along with the object's policy. However, plpks_read_var()
+currently treats this the same as any other H_AUTHORITY failure and returns
+an error without propagating the policy information to the caller.
 
-In later passes, if the real exit_addr falls outside the 32MB branch
-range, the full inline epilogue is emitted into the already-allocated
-buffer, writing past its end and corrupting adjacent memory.
+Distinguish this case from other H_AUTHORITY failures and propagate the
+returned policy to the caller while preserving the authorization error.
+Remove the explicit assignment of zero to rc on H_SUCCESS, as it is
+redundant.
 
-Fix by ensuring exit_addr is non-zero before treating it as in-range,
-so pass-0 always falls through to bpf_jit_build_epilogue() and
-conservatively accounts for all epilogue instructions in alloclen.
-Also range check alt_exit_addr directly in the else-if condition.
+Also validate the PLPKS variable pointer before dereferencing it.
 
-Since exit_addr handling now falls through to the epilogue, two
-related issues in bpf_int_jit_compile() must also be addressed:
-
-1. Reset cgctx.alt_exit_addr before the second size-calculation pass.
-   Without this, a stale alt_exit_addr from the first pass causes the
-   second pass to emit a single jump instead of the full epilogue,
-   undercounting alloclen and reintroducing the overflow.
-
-2. Recompute addrs[fp->len] at the end of each code-generation pass.
-   The larger pass-0 body can shrink in later passes as out-of-range
-   exits settle into in-range jumps; a stale addrs[fp->len] would
-   leave exit branches targeting past the real (shrunken) epilogue.
-
-Because shrinkage in a later pass can move the epilogue offset, the
-fixed two-pass loop is no longer sufficient: an exit that was out of
-range in an earlier pass may fall in range once the epilogue offset
-shrinks, shrinking the body further and overwriting the start of the
-epilogue. Convert the code-generation loop to iterate until the
-program size converges, bounded by CODEGEN_MAX_PASSES, and fail the
-JIT if it does not converge.
-
-Reported-by: sashiko-bot@kernel.org
-Closes: https://lore.kernel.org/bpf/20260529015855.364704-2-adubey@linux.ibm.com/T/#mfcb23909d977b949727cca4f59ee56a13fd69b92
-Fixes: 0ffdbce6f4a8 ("powerpc/bpf: Handle large branch ranges with BPF_EXIT")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hari Bathini <hbathini@linux.ibm.com>
-Signed-off-by: Abhishek Dubey <adubey@linux.ibm.com>
-Signed-off-by: Saket Kumar Bhaskar <skb99@linux.ibm.com>
-Tested-by: Yeswanth Krishna Tellakula <yeswanth@linux.ibm.com>
+Fixes: 2454a7af0f2a ("powerpc/pseries: define driver for Platform KeyStore")
+Cc: stable@vger.kernel.org # 6.0
+Signed-off-by: Srish Srinivasan <ssrish@linux.ibm.com>
 Tested-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
-Link: https://lore.kernel.org/bpf/20260529015855.364704-2-adubey@linux.ibm.com/T/#mfcb23909d977b949727cca4f59ee56a13fd69b92
 Signed-off-by: Madhavan Srinivasan <maddy@linux.ibm.com>
-Link: https://patch.msgid.link/eebffa997e07781b384c4480e2b03c5b87c1aeb1.1789982239.git.skb99@linux.ibm.com
+Link: https://patch.msgid.link/20260923182816.151451-2-ssrish@linux.ibm.com
 ---
- arch/powerpc/net/bpf_jit.h      |  7 +++++++
- arch/powerpc/net/bpf_jit_comp.c | 34 +++++++++++++++++++++++++--------
- 2 files changed, 33 insertions(+), 8 deletions(-)
+ arch/powerpc/platforms/pseries/plpks.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
 
-diff --git a/arch/powerpc/net/bpf_jit.h b/arch/powerpc/net/bpf_jit.h
-index 35015d7ecb768..6d58df3616489 100644
---- a/arch/powerpc/net/bpf_jit.h
-+++ b/arch/powerpc/net/bpf_jit.h
-@@ -14,6 +14,13 @@
- #include <asm/ppc-opcode.h>
- #include <linux/build_bug.h>
+diff --git a/arch/powerpc/platforms/pseries/plpks.c b/arch/powerpc/platforms/pseries/plpks.c
+index 23e4e2a922fcf..7e56b3dcacbc7 100644
+--- a/arch/powerpc/platforms/pseries/plpks.c
++++ b/arch/powerpc/platforms/pseries/plpks.c
+@@ -822,6 +822,9 @@ static int plpks_read_var(u8 consumer, struct plpks_var *var)
+ 	u8 *output;
+ 	int rc;
  
-+/*
-+ * We need at least 2 passes for proper code generation, and may need
-+ * additional passes if code size changes between passes.
-+ */
-+#define CODEGEN_MIN_PASSES    2
-+#define CODEGEN_MAX_PASSES    3
++	if (!var)
++		return -EINVAL;
 +
- #ifdef CONFIG_PPC64_ELF_ABI_V1
- #define FUNCTION_DESCR_SIZE	24
- #else
-diff --git a/arch/powerpc/net/bpf_jit_comp.c b/arch/powerpc/net/bpf_jit_comp.c
-index 8f7501954d9f0..11981d2270a9d 100644
---- a/arch/powerpc/net/bpf_jit_comp.c
-+++ b/arch/powerpc/net/bpf_jit_comp.c
-@@ -99,11 +99,10 @@ void bpf_jit_build_fentry_stubs(u32 *image, struct codegen_context *ctx)
+ 	if (var->namelen > PLPKS_MAX_NAME_SIZE)
+ 		return -EINVAL;
  
- int bpf_jit_emit_exit_insn(u32 *image, struct codegen_context *ctx, int tmp_reg, long exit_addr)
- {
--	if (!exit_addr || is_offset_in_branch_range(exit_addr - (ctx->idx * 4))) {
-+	if (exit_addr && is_offset_in_branch_range(exit_addr - (long)(ctx->idx * 4))) {
- 		PPC_JMP(exit_addr);
--	} else if (ctx->alt_exit_addr) {
--		if (WARN_ON(!is_offset_in_branch_range((long)ctx->alt_exit_addr - (ctx->idx * 4))))
--			return -1;
-+	} else if (ctx->alt_exit_addr && is_offset_in_branch_range(
-+			(long)(ctx->alt_exit_addr) - (long)(ctx->idx * 4))) {
- 		PPC_JMP(ctx->alt_exit_addr);
- 	} else {
- 		ctx->alt_exit_addr = ctx->idx * 4;
-@@ -274,6 +273,7 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_verifier_env *env, struct bpf_pr
- 	 */
- 	if (cgctx.seen & SEEN_TAILCALL || !is_offset_in_branch_range((long)cgctx.idx * 4)) {
- 		cgctx.idx = 0;
-+		cgctx.alt_exit_addr = 0;
- 		if (bpf_jit_build_body(fp, NULL, NULL, &cgctx, addrs, 0, false))
- 			goto out_err;
- 	}
-@@ -306,10 +306,13 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_verifier_env *env, struct bpf_pr
- 	code_base = (u32 *)(image + FUNCTION_DESCR_SIZE);
- 	fcode_base = (u32 *)(fimage + FUNCTION_DESCR_SIZE);
+@@ -856,22 +859,21 @@ static int plpks_read_var(u8 consumer, struct plpks_var *var)
+ 				 virt_to_phys(var->name), var->namelen, virt_to_phys(output),
+ 				 maxobjsize);
  
--	/* Code generation passes 1-2 */
--	for (pass = 1; pass < 3; pass++) {
-+	/* Code generation passes 1-2+, loop until program size converges. */
-+	for (pass = 1; pass <= CODEGEN_MAX_PASSES; pass++) {
-+		u32 prev_proglen = proglen;
-+
- 		/* Now build the prologue, body code & epilogue for real. */
- 		cgctx.idx = 0;
-+		cgctx.exentry_idx = 0;
- 		cgctx.alt_exit_addr = 0;
- 		bpf_jit_build_prologue(code_base, &cgctx);
- 		if (bpf_jit_build_body(fp, code_base, fcode_base, &cgctx, addrs, pass,
-@@ -318,11 +321,26 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_verifier_env *env, struct bpf_pr
- 			bpf_jit_binary_pack_free(fhdr, hdr);
- 			goto out_err;
- 		}
-+		addrs[fp->len] = cgctx.idx * 4;
- 		bpf_jit_build_epilogue(code_base, &cgctx);
- 
-+		proglen = cgctx.idx * 4;
-+
- 		if (bpf_jit_enable > 1)
- 			pr_info("Pass %d: shrink = %d, seen = 0x%x\n", pass,
--				proglen - (cgctx.idx * 4), cgctx.seen);
-+				prev_proglen - proglen, cgctx.seen);
-+
-+		/* Check if program size has converged, but ensure minimum passes */
-+		if (pass >= CODEGEN_MIN_PASSES && proglen == prev_proglen)
-+			break;
-+
-+		if (pass == CODEGEN_MAX_PASSES && proglen != prev_proglen) {
-+			pr_err("BPF JIT: Program did not converge after %d passes\n",
-+								CODEGEN_MAX_PASSES);
-+			bpf_arch_text_copy(&fhdr->size, &hdr->size, sizeof(hdr->size));
-+			bpf_jit_binary_pack_free(fhdr, hdr);
-+			goto out_err;
-+		}
+-
+ 	if (rc != H_SUCCESS) {
+ 		rc = pseries_status_to_err(rc);
+-		goto out_free_output;
++		if (rc != -EPERM || !retbuf[1])
++			goto out_free_output;
++		goto out_copy_policy;
  	}
  
- 	if (bpf_jit_enable > 1)
-@@ -399,7 +417,7 @@ int bpf_add_extable_entry(struct bpf_prog *fp, u32 *image, u32 *fimage, int pass
- 	u32 *fixup;
+ 	if (!var->data || var->datalen > retbuf[0])
+ 		var->datalen = retbuf[0];
  
- 	/* Populate extable entries only in the last pass */
--	if (pass != 2)
-+	if (pass < CODEGEN_MIN_PASSES)
- 		return 0;
+-	var->policy = retbuf[1];
+-
+ 	if (var->data)
+ 		memcpy(var->data, output, var->datalen);
  
- 	if (!fp->aux->extable ||
+-	rc = 0;
+-
++out_copy_policy:
++	var->policy = retbuf[1];
+ out_free_output:
+ 	kfree(output);
+ out_free_label:
 -- 
 2.53.0
 
