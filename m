@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049651;
-	b=VLH4O8FxvAqqcWWF0Qtr2ZeKCtCMLwvniDzd1EPsX1qAZH98r3mpGpL6xHgwMNmEmk0K
-	 UzSaKINfgNsnJ9SW40VqVUOJBparScEKXH7nS7OWPy+wCXz4KtxxS0/5KS9+B3wUBKfN9
-	 dUnnLQ4WBiSg6/dE2WJsKKO6Ka3bK+VUh5pdYdJ3/mxmcGcKVeQTR/ZaccP2U7uU/Ekh+
-	 wTcsOn10IhmWyV1/pAt3ozvPl0zUuvc/eCpJravzPzCsSuPMhmUFwyokB5vBfHtoN6miq
-	 20VIXq/c2B/DsMUvXgCs9C8cEVtWBVspNE8T60ol9gLwNNl+RS6sRxyQeEvd9lvO39A==
+	t=1794049654;
+	b=o9u5cFtFynZ6aZ2s2Z/ZLCFNe7z+jZqGMacvN5uYhbT3u8BvT8QQin0ecnTb1LDhdR28
+	 mf8tJoXdAhbBhSCTgF9kjHMyLNbyaoqIoVz1GXzNeow84xWkrrz3NriwfaygbNZC2vZ5r
+	 jaJuFe9+cR1sL1iTMw9OSzIpmdjWdmjYRT8iTFn9Oapy8h6Sh5Ew5fxFUqxmabkqLPmQq
+	 2lUzzuOr02tLvWt0q++qLeIhnFAfIigl9kLDlM1d4JlYNWR2QsopKHBUbC953aB/x7jn8
+	 3ucM3v+ps8JjM8GboMq2ArfCubRKo+PU6GCPA7B3q69dBqvMcmczKSAHsMF9YaVujuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049651;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049654;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=XY0WqusLKYeYS37nRcAZ0I0ggkYvnNuunMH75dU3hFM=;
-	b=A+XLRNH2j+gDCHE9UkrHRiEVeHwsOcbPlEhRteCAunMyhthtCiiWKxf1Q6B5RUwPyKow
-	 dIFT0kndI/boFonXUX9BZMndNaPluMX44W01yOQ/zJ0GV9iRhO80+9xpFEY3HmsqrN2Ey
-	 4deB2sJxHYQH2izD9aI2BN9rIM+iBh5Ossm8EblBU5uCFWwBBQdxUWrihByspewJyImd2
-	 Y5GqK90H7YJO4R7jdaNuw7Ybtvwf0PzdsrVI5sbcJTmdBYT6w8By0VA+lj7tTTplqaZ66
-	 lDSM959Xt3pCykdBRPX9iRoUTXRNrjrMvBbKQwSe1oGcrX/EP7louUwEAZXLfspbPmQ==
+	bh=I7f2h8koVDYwIUxyAx35UpvXfNx7g33rKbpA9+cLUSE=;
+	b=oYZ38LzKcNQqo40cDSYweV0dwTaOBf3YD20e/4BX8X+X+gewEWIEXRGD5VSQ8XwvF1KA
+	 Hod4zO8uK4T4R6vSUje4tk8KR8PBy1H47y3tcuOimAz3TkyFwO7OAHDys/TB/MTmlEfr+
+	 m2QMVzKyCM+lFdf/Fy87FvpTgOMPKx0cRl62rRc2KNneMfnMWW9i6q2ADX6bOle7Vro/d
+	 aieT+nI/CZErLcjRocUnLcnvOAXhQ8eG902fXfsIROsqcduiI0EOje44XPYZhJ7ADqJ/v
+	 kpgCnua+5MuFTJVC+vopDe5FSY47naC9QAjQjHdXHZHWQJzEMiTWcof8gYSyAVi5/Ng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MBfgGGwS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bcpp9Iy3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5FCF606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:07:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE911606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:07:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MBfgGGwS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D5051F0089F;
-	Sat,  7 Nov 2026 11:07:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bcpp9Iy3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A42B1F0089F;
+	Sat,  7 Nov 2026 11:07:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049650;
-	bh=XY0WqusLKYeYS37nRcAZ0I0ggkYvnNuunMH75dU3hFM=;
+	s=k20260515; t=1794049653;
+	bh=I7f2h8koVDYwIUxyAx35UpvXfNx7g33rKbpA9+cLUSE=;
 	h=From:To:Cc:Subject:Date;
-	b=MBfgGGwSloiqMr6XQBJxi3Q2WStHoL7OACPnudPVuhzS57TSHPkMchZYv0iHD/hsP
-	 KTw2Or4OvIsCVaoUnqOdFjeapZgYH95r/rkZ95pEXJC3DV3gDHFyowAPu1tpZ+hlQy
-	 +2AfgFJtHkXyOjQBd/Oxlqb1RHflSxKjmUGvmjHNiQrO1+0oyrBrhs/G0ED4QVsd7d
-	 wLsgpin4BLQ65wWgzCGKe9T0eeuUJwXyzWnrD2fUJituTgmNthQaRVExIGurKYAq73
-	 XJ9LcTJsFVabPyFoMkxbS60e64WHdqOy3qmuqKxOYnA1QJeRBtAguELvGTobN2uoXz
-	 4RKmAxxQa9P2A==
+	b=Bcpp9Iy3BobMJya0Xf5PgurNjeBRZCn3kSB6T1sWzpuh3DE2OXT8g3WDr94Vu1JRV
+	 ebfUz3pFFA2cwSiDr2JjLmYzddLZLSEjXFpmHBPwjhhVUemJJv6M1aQImZcl5FxGl6
+	 eyK9+OTcgdP6n9ku/KNhhCEBRMhe9kq59ctU9is4jJfpeAiQ+TgRyAdfQafwoH2SkQ
+	 oz26Fd4VUck6Yoc4NRMBMFknHVjhLjX61ej2d5DER3L0ZhHlDfnBr8A+YmNCWemidL
+	 Wh6VGRZPCf9D1VymcN79ekWuZfS6/wolUA9IXjvjSd+/61+NHLEulEnLOGmPn3H1MP
+	 NoH/woWtEYYHQ==
 From: Sasha Levin <sashal@kernel.org>
-To: bsdhenrymartin@gmail.com,
-	achender@kernel.org,
+To: rosenp@gmail.com,
+	daniel.machon@microchip.com,
 	kuba@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] rds: fix out-of-bounds conn_path walks via handshake exthdrs" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:07:28 -0500
-Message-ID: <20261107060728-failed-5.15-50f2103fce43@kernel.org>
+Subject: FAILED: patch "[PATCH] net: bgmac: enable interrupts only after NAPI is ready" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 06:07:31 -0500
+Message-ID: <20261107060731-failed-5.15-ac1f6e58cb77@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,78 +69,87 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 50f2103fce43922b6e562937b2d2fc62089ff7ec
+git cherry-pick -x ac1f6e58cb77bb66b8811f7d98703e0f076a8f65
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060728-failed-5.15-50f2103fce43@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060731-failed-5.15-ac1f6e58cb77@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 50f2103fce43922b6e562937b2d2fc62089ff7ec Mon Sep 17 00:00:00 2001
-From: Henry Martin <bsdhenrymartin@gmail.com>
-Date: Mon, 12 Oct 2026 10:53:36 +0800
-Subject: [PATCH] rds: fix out-of-bounds conn_path walks via handshake exthdrs
+From ac1f6e58cb77bb66b8811f7d98703e0f076a8f65 Mon Sep 17 00:00:00 2001
+From: Rosen Penev <rosenp@gmail.com>
+Date: Sat, 10 Oct 2026 00:00:11 -0700
+Subject: [PATCH] net: bgmac: enable interrupts only after NAPI is ready
 
-Both the lane and the connection-generation negotiation are driven by
-extension headers in handshake packets, and both are processed
-unconditionally, even on transports that are not multipath capable.
-A non-MP connection (t_mp_capable unset) owns exactly one
-rds_conn_path slot, so a peer claiming up to RDS_MPATH_WORKERS lanes
-makes every subsequent fan-out walk conn->c_path[0..7] at 504-byte
-strides past the single allocated slot (KASAN: "Read of size 8 in
-rds_conn_path_connect_if_down"); the generation negotiation opens a
-similar out-of-bounds walk on the same array.
+bgmac_open() calls bgmac_chip_init(), which unmasks the interrupts and
+enables the MAC receiver, before request_irq() and napi_enable().
+bgmac_enet_resume() also enables NAPI only after bgmac_chip_init().
 
-Only process handshake extension headers when the connection's
-transport is multipath capable, so a peer can never make us walk
-lanes that do not exist.  Both call sites in rds_recv_incoming() are
-gated.
+When frames arrive in that window, the first RX interrupt masks all
+interrupts in bgmac_interrupt() and calls napi_schedule() on a NAPI
+instance that is still disabled, so nothing is scheduled. Nothing
+unmasks the interrupts again, the RX ring fills up and the interface
+stays deaf until it is brought down and up without traffic.
 
-This is a port of the Oracle UEK fix for the same issue, picked up
-where Paula's series of the same change left off.
+On an Asus RT-N16 (BCM4716) a single "ip link set eth0 down/up" while
+a host sends UDP to the router left INT_MASK at 0, INT_STATUS with RX
+pending and the RX DMA idle on a full ring, with the RX packet and
+interrupt counters no longer moving. With this change, 10 of 10 such
+cycles recovered on their own.
 
-This issue was discovered by Tencent CodeBuddy Security.
+Request the IRQ and enable NAPI before the chip is initialized.
 
+Fixes: dd4544f05469 ("bgmac: driver for GBit MAC core on BCMA bus")
+Fixes: f3537b3494c0 ("net: ethernet: bgmac: driver power manangement")
 Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/netdev/20260825120132.51636-1-pamoutafpro@gmail.com/
-Link: https://github.com/oracle/linux-uek/commit/2fdeb0513f18
-Fixes: 840df162b3eb ("rds: reduce memory footprint for RDS when transport is RDMA")
-Fixes: 905dd4184e07 ("RDS: TCP: Track peer's connection generation number")
-Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
-Reviewed-by: Allison Henderson <achender@kernel.org>
-Link: https://patch.msgid.link/20261012025336.54756-1-bsdhenrymartin@gmail.com
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+Reviewed-by: Daniel Machon <daniel.machon@microchip.com>
+Link: https://patch.msgid.link/20261010070011.60403-1-rosenp@gmail.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 ---
- net/rds/recv.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/net/ethernet/broadcom/bgmac.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/net/rds/recv.c b/net/rds/recv.c
-index 6204e577a90ae..93ee4546ae362 100644
---- a/net/rds/recv.c
-+++ b/net/rds/recv.c
-@@ -379,7 +379,8 @@ void rds_recv_incoming(struct rds_connection *conn, struct in6_addr *saddr,
- 		rds_stats_inc(s_recv_ping);
- 		rds_send_pong(cp, inc->i_hdr.h_sport);
- 		/* if this is a handshake ping, start multipath if necessary */
--		if (RDS_HS_PROBE(be16_to_cpu(inc->i_hdr.h_sport),
-+		if (conn->c_trans->t_mp_capable &&
-+		    RDS_HS_PROBE(be16_to_cpu(inc->i_hdr.h_sport),
- 				 be16_to_cpu(inc->i_hdr.h_dport))) {
- 			rds_recv_hs_exthdrs(&inc->i_hdr, cp->cp_conn);
- 			rds_start_mprds(cp->cp_conn);
-@@ -387,7 +388,8 @@ void rds_recv_incoming(struct rds_connection *conn, struct in6_addr *saddr,
- 		goto out;
- 	}
+diff --git a/drivers/net/ethernet/broadcom/bgmac.c b/drivers/net/ethernet/broadcom/bgmac.c
+index 3e9c57196a397..1835266fdd09f 100644
+--- a/drivers/net/ethernet/broadcom/bgmac.c
++++ b/drivers/net/ethernet/broadcom/bgmac.c
+@@ -1183,9 +1183,6 @@ static int bgmac_open(struct net_device *net_dev)
+ 	if (err)
+ 		return err;
  
--	if (be16_to_cpu(inc->i_hdr.h_dport) ==  RDS_FLAG_PROBE_PORT &&
-+	if (conn->c_trans->t_mp_capable &&
-+	    be16_to_cpu(inc->i_hdr.h_dport) ==  RDS_FLAG_PROBE_PORT &&
- 	    inc->i_hdr.h_sport == 0) {
- 		rds_recv_hs_exthdrs(&inc->i_hdr, cp->cp_conn);
- 		/* if this is a handshake pong, start multipath if necessary */
+-	/* Specs say about reclaiming rings here, but we do that in DMA init */
+-	bgmac_chip_init(bgmac);
+-
+ 	err = request_irq(bgmac->irq, bgmac_interrupt, IRQF_SHARED,
+ 			  net_dev->name, net_dev);
+ 	if (err < 0) {
+@@ -1195,6 +1192,9 @@ static int bgmac_open(struct net_device *net_dev)
+ 	}
+ 	napi_enable(&bgmac->napi);
+ 
++	/* Specs say about reclaiming rings here, but we do that in DMA init */
++	bgmac_chip_init(bgmac);
++
+ 	phy_start(net_dev->phydev);
+ 
+ 	netif_start_queue(net_dev);
+@@ -1608,10 +1608,10 @@ int bgmac_enet_resume(struct bgmac *bgmac)
+ 	if (rc)
+ 		return rc;
+ 
+-	bgmac_chip_init(bgmac);
+-
+ 	napi_enable(&bgmac->napi);
+ 
++	bgmac_chip_init(bgmac);
++
+ 	netif_tx_lock(bgmac->net_dev);
+ 	netif_device_attach(bgmac->net_dev);
+ 	netif_tx_unlock(bgmac->net_dev);
 -- 
 2.53.0
 
