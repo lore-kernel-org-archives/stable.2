@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047719;
-	b=MINTKn2F9bxyrY/P5Cje81/uJkWtGlFA9XX9n+plAagvKQ3ACxFBBbvHPk3SuHp6cOWW
-	 lgNCWUcLyS8uPef1+jsSWuKauqC8wrQwUEapyUZC/hQplcvhsdwKPd/J3C0BIbX5JI/9o
-	 VCpE+ItC2EslyrT6wB1Qp88falvO2kUnZ/iGa9nFzk1G5oKLmg9SxiGKrwwhrxQu0CFUg
-	 0iHFzLv/mhCF9Z7TzuqkuMHc8JsfPL9BDPkEbcEOP8dTPxseR7fzdUXl31l+T9qX90VS3
-	 nBKEWRenY0mJb3Y4/gk4LmnzGEDtruOZbs5leiKrlkVKOgYdoZwdruyE3xDWgyONjqA==
+	t=1794047721;
+	b=OnP0jRgqj/TOhpD5QN1IfB0YXvip2KQUhI4c/jvYy/Bo+E9R/RVxvlX2HmBQHFy/HcAl
+	 nNjVeHqLN66IYusp7nzkKVqEBMb7IuQdhW8k1PtiXgFyt+yOIrYHJK+HtFI3UoxML/TSS
+	 REJMWwiSkgis4hJotbxllA3tWeupbLpz6di5jRKeZFJr2HMHFAaTOCGZYGs9AQKdNk0Xz
+	 BlgeH0Bpuz/psfyz0V8klCjnz4yxWxXxGhhFkJ/EBgRX/LHli8tM8bA167BZG2IUJZzy/
+	 JAwhLs6rVmdhDcy2p9C/9Vc0ZK8+EsUaJuMU07Cu+hGEVkPix3ATLfpKI7IEKS6OJng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047719;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047721;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=IVRCWD74KzHdkB8vUKm4vkdz5tWP2nfdUBjpp6kKLIY=;
-	b=bsoMmH3H6viYRKW9GIDmMhXacG/cfDJPmKv4q5l7CxlfThUTm/XJaYmp3/benRdWLKut
-	 fafyPLd4GaJ/3PDQ2ctvIalEWRYTFbVDYVLfp2igzdWYa0n4XhLKPxd1tqOnpcbhY+PML
-	 g2Oq9ycxfE1jzr1Ir+ELF6Rndr3A/cVmbn/CFLb6mBkuXyyULrVVjQXBBJqTGqhmoiEds
-	 bmMwTAgEbcW132fbLsCzqMm8dLJTszshMIQsT4x71xYpkecbWvQdWI5RWr4olBf1O0HLq
-	 StzJvfJFjZb8kTT4LahzyXrou56exKJ/o0s56PGZ6Sbj47eW0a2qZP7Sai9FEaKx1tg==
+	bh=vDztv9x3Ag2x579TZTXFB+DlipOyevVpDMnwRliHIDI=;
+	b=tlW68pf6l0gnHfoVNb6e2i8lUECtv223I3XN39oHnhjWajj4QqEIXaQrce6sLZXl5LIF
+	 4vbqlL1u9W8nMcmsqFc5Ii2omAD03h3xaH7kyW7CDOKShIiO4k05IlnNokw7IM53iQgi/
+	 +1qyLv6if9PBd+B6pH1MVb2Vyp8jFKYkGl/NrvOUanKQ3FdKltZJt6cZOKv7PIaMDASzw
+	 WeMtN/VGnZ15/WNTcZDmgwFnwzxqg3idDb3ck90gJQQ5Tdr34jjrlf7TPmOFV1QkIVV0K
+	 VTVR2jasjC2fm9/n4rziqo/tHTkYY5NBCk00sVh7PWjfZQyr7xYFf35O5mgI78oYqEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JDhdxC0x;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UkIrSkIY;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EB3E606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:35:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48FFA606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:35:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JDhdxC0x
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 834181F0089F;
-	Sat,  7 Nov 2026 10:35:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UkIrSkIY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85B201F0089F;
+	Sat,  7 Nov 2026 10:35:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047718;
-	bh=IVRCWD74KzHdkB8vUKm4vkdz5tWP2nfdUBjpp6kKLIY=;
+	s=k20260515; t=1794047720;
+	bh=vDztv9x3Ag2x579TZTXFB+DlipOyevVpDMnwRliHIDI=;
 	h=From:To:Cc:Subject:Date;
-	b=JDhdxC0x1BJb6ULT9cT3wqt9Ht56YwpfFUkjE1csbUHz+FwZd4QZ5/eEBfLkpKqL4
-	 hhEkIw6PAjZ8RV0IySZodLU/bFtzjGV18iWeaYqujSlXgxYmw2dNgVDBqG5vDuydPC
-	 FvWvD+crKFrpQ0Q55ExXIpJXALpwg1Eevci6swD54MF2wlsTG3pldhhDixmHqG6Qgj
-	 P9XZmt31tcrm9i5q7Y3wd8aEW9zfsSmSlLptxqDbacTcVojjHX1weZz8fGBWQui82U
-	 t0wT60HZ6Qb+WmodrXBDmsyJPFibH/eJqLCCuyijo3olmz10I3pD5Gmc2VZuVE2cuO
-	 rRTTK48mOQO8Q==
+	b=UkIrSkIYo0OrmUJ4OCUVfKNdZDCpTUEFy0hjsi0QcyEbiPoosESDbcEBxqRwGauRr
+	 LFVIGmxcLzKLwVhyhrIYJQZIXC2c7eHJxtT1AwD9VdpgS9dKwQ5oVR5diVL4Rse1ce
+	 KVEPJRbw6cBOWobR4VChzrI+vV/NBQOlYBT+m9YJOc1uRxtaJwcMjZHoKhPd+Rsh+w
+	 lT6wtlQFTDbjxLpcuxd5vAAaDcdyZrXZ7nC9/DNhZayNc904hnxks4Gl3zMpQY0oqd
+	 tGNFjf6uQqccjbe1x89NqZm8NpVj38GcWJ5zz4XfDT7Abk7BdGtgAK7P0l+4SGdIrX
+	 n7frj2W0Bh9yQ==
 From: Sasha Levin <sashal@kernel.org>
-To: dungvn2345@gmail.com,
+To: oss@fourdim.xyz,
 	luiz.von.dentz@intel.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] Bluetooth: selftest: Pin module for selftest debugfs file operations" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:35:17 -0500
-Message-ID: <20261107053517-failed-6.6-64aabf94eccc@kernel.org>
+Subject: FAILED: patch "[PATCH] Bluetooth: L2CAP: Reject signalling responses in invalid states" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:35:19 -0500
+Message-ID: <20261107053519-failed-6.6-6320736af7dc@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,91 +68,107 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 64aabf94ecccb1120a63b4ee5a6761871a181a41
+git cherry-pick -x 6320736af7dcb90da6ee9fd651ecc11c564d45b7
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053517-failed-6.6-64aabf94eccc@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053519-failed-6.6-6320736af7dc@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 64aabf94ecccb1120a63b4ee5a6761871a181a41 Mon Sep 17 00:00:00 2001
-From: Bui Viet Dung <dungvn2345@gmail.com>
-Date: Thu, 8 Oct 2026 12:18:03 +0700
-Subject: [PATCH] Bluetooth: selftest: Pin module for selftest debugfs file
- operations
+From 6320736af7dcb90da6ee9fd651ecc11c564d45b7 Mon Sep 17 00:00:00 2001
+From: Siwei Zhang <oss@fourdim.xyz>
+Date: Tue, 13 Oct 2026 11:36:34 -0400
+Subject: [PATCH] Bluetooth: L2CAP: Reject signalling responses in invalid
+ states
 
-An open debugfs file retains its file_operations pointer in the
-debugfs proxy state. However, test_smp_fops in net/bluetooth/smp.c and
-test_ecdh_fops in net/bluetooth/selftest.c have no .owner set to
-THIS_MODULE.
+A peer can send configuration messages while an
+incoming channel is in BT_CONNECT2, before the
+security or deferred accept gate has completed. A
+configuration response can then promote the channel
+to BT_CONNECTED. Configuration responses can also
+act on channels that are closing, and a late connection
+response can move a disconnecting channel back to
+BT_CONFIG.
 
-As a result, full_proxy_open_regular() calls fops_get() which succeeds
-without taking a reference to the bluetooth module. When CONFIG_BT=m
-and selftests are enabled, a userspace process can open either
-/sys/kernel/debug/bluetooth/selftest_smp or
-/sys/kernel/debug/bluetooth/selftest_ecdh and keep the file descriptor
-open while the module is unloaded (rmmod bluetooth).
+Accept connection responses only while waiting in
+BT_CONNECT. Answer configuration requests in
+BT_CONNECT2, but defer our own request until
+BT_CONFIG so configuration cannot complete before
+the gate. Ignore configuration responses outside
+BT_CONFIG and BT_CONNECTED, and only complete
+configuration in BT_CONFIG.
 
-When the userspace process subsequently closes the descriptor,
-full_proxy_release() accesses the already unmapped file_operations
-structure, triggering a kernel oops in full_proxy_release():
-
-  BUG: unable to handle page fault for address: fffffbfff8056f03
-  #PF: supervisor read access in kernel mode
-  Oops: 0000 [#1] SMP KASAN NOPTI
-  RIP: 0010:full_proxy_release+0x8e/0x140
-  Call Trace:
-   <TASK>
-   __fput+0x39f/0xa60
-   fput_close_sync+0xff/0x200
-   __x64_sys_close+0x8c/0xf0
-   do_syscall_64+0x115/0x6a0
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
-   </TASK>
-
-The issue was discovered via manual code audit of net/bluetooth/smp.c
-and net/bluetooth/selftest.c.
-
-Set .owner = THIS_MODULE on test_smp_fops and test_ecdh_fops so that
-debugfs keeps the module pinned until the file descriptors are closed.
-
-Fixes: 64dd374eac15 ("Bluetooth: Export SMP selftest result in debugfs")
-Fixes: 6de50f9fdb60 ("Bluetooth: Export ECDH selftest result in debugfs")
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Signed-off-by: Bui Viet Dung <dungvn2345@gmail.com>
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Siwei Zhang <oss@fourdim.xyz>
 Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
 ---
- net/bluetooth/selftest.c | 1 +
- net/bluetooth/smp.c      | 1 +
- 2 files changed, 2 insertions(+)
+ net/bluetooth/l2cap_core.c | 20 +++++++++++++++++++-
+ 1 file changed, 19 insertions(+), 1 deletion(-)
 
-diff --git a/net/bluetooth/selftest.c b/net/bluetooth/selftest.c
-index ae5b44bb9d3d3..cdfc40e0016b4 100644
---- a/net/bluetooth/selftest.c
-+++ b/net/bluetooth/selftest.c
-@@ -188,6 +188,7 @@ static ssize_t test_ecdh_read(struct file *file, char __user *user_buf,
- }
+diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
+index c730da87734b3..eb55c16760a7e 100644
+--- a/net/bluetooth/l2cap_core.c
++++ b/net/bluetooth/l2cap_core.c
+@@ -4442,6 +4442,10 @@ static int l2cap_connect_create_rsp(struct l2cap_conn *conn,
  
- static const struct file_operations test_ecdh_fops = {
-+	.owner		= THIS_MODULE,
- 	.open		= simple_open,
- 	.read		= test_ecdh_read,
- 	.llseek		= default_llseek,
-diff --git a/net/bluetooth/smp.c b/net/bluetooth/smp.c
-index 5c3bd42783860..5dac8b2eae42d 100644
---- a/net/bluetooth/smp.c
-+++ b/net/bluetooth/smp.c
-@@ -3698,6 +3698,7 @@ static ssize_t test_smp_read(struct file *file, char __user *user_buf,
- }
+ 	lockdep_assert_held(&chan->conn->lock);
  
- static const struct file_operations test_smp_fops = {
-+	.owner		= THIS_MODULE,
- 	.open		= simple_open,
- 	.read		= test_smp_read,
- 	.llseek		= default_llseek,
++	/* Ignore a late response after the channel has left BT_CONNECT. */
++	if (chan->state != BT_CONNECT)
++		goto done;
++
+ 	switch (result) {
+ 	case L2CAP_CR_SUCCESS:
+ 		if (__l2cap_get_chan_by_dcid(conn, dcid)) {
+@@ -4471,6 +4475,7 @@ static int l2cap_connect_create_rsp(struct l2cap_conn *conn,
+ 		break;
+ 	}
+ 
++done:
+ 	l2cap_chan_unlock(chan);
+ 	l2cap_chan_put(chan);
+ 
+@@ -4608,7 +4613,13 @@ static inline int l2cap_config_req(struct l2cap_conn *conn,
+ 		goto unlock;
+ 	}
+ 
+-	if (!test_and_set_bit(CONF_REQ_SENT, &chan->conf_state)) {
++	/* A channel in BT_CONNECT2 has not passed security or userspace
++	 * accept yet. Answer the peer's request, but hold our own until
++	 * the channel reaches BT_CONFIG: the CONNECT2 -> CONFIG sites send
++	 * it. Connected channels may also need to reconfigure.
++	 */
++	if ((chan->state == BT_CONFIG || chan->state == BT_CONNECTED) &&
++	    !test_and_set_bit(CONF_REQ_SENT, &chan->conf_state)) {
+ 		u8 buf[64];
+ 		l2cap_send_cmd(conn, l2cap_get_ident(conn), L2CAP_CONF_REQ,
+ 			       l2cap_build_conf_req(chan, buf, sizeof(buf)), buf);
+@@ -4661,6 +4672,10 @@ static inline int l2cap_config_rsp(struct l2cap_conn *conn,
+ 
+ 	lockdep_assert_held(&chan->conn->lock);
+ 
++	/* Connected channels may also receive reconfiguration responses. */
++	if (chan->state != BT_CONFIG && chan->state != BT_CONNECTED)
++		goto done;
++
+ 	switch (result) {
+ 	case L2CAP_CONF_SUCCESS:
+ 		l2cap_conf_rfc_get(chan, rsp->data, len);
+@@ -4728,6 +4743,9 @@ static inline int l2cap_config_rsp(struct l2cap_conn *conn,
+ 	if (test_bit(CONF_OUTPUT_DONE, &chan->conf_state)) {
+ 		set_default_fcs(chan);
+ 
++		if (chan->state != BT_CONFIG)
++			goto done;
++
+ 		if (chan->mode == L2CAP_MODE_ERTM ||
+ 		    chan->mode == L2CAP_MODE_STREAMING)
+ 			err = l2cap_ertm_init(chan);
 -- 
 2.53.0
 
