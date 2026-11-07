@@ -1,52 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046496;
-	b=I7Pf43iZ+SLESgwqfv8vdGgVNTdMr7mkr67lYtj+otpabpaxfR4Gw5qjtjtITXYpi1hD
-	 oR+8K7pTGZ/w+ZSYelJkj34kdI2GkxjqRW8yppJeNy9Xsd67KQbjGLi+OdmQt29sM7otq
-	 m2miRtyVPiPFN2CSTjdsKfwUKbMmuCVfozpnM/CuZdJ5hjdOsxOi93ABq3xoIK9z2maZ5
-	 APjYQaGobBay/LOlRreeJQTd3SaKhrNk39FknJm3hA8Pj/cIocBdP6CdRHhx8LMnI/o33
-	 DEfDtQ02R/YQNG5ZDQonKrk/qRu11LcG4Xq2O+vYEPWoNDTckQtmn7H5PwMHeqyqjxg==
+	t=1794046498;
+	b=xhV7elsO9f89TKDIOesaaT2GzqmOzMz1jCzGIE2wSVR8ML6MPjiPc67mrAGSAeKpbsA7
+	 ENKF3DZZRyoV4M5MrSMPsd58FUVnk+FR/fyaZQGlDYcjXxMsvugh09NCnqWVnuv40WyNs
+	 OAg4VfiyWLJex7HzQP8x4pNSBDoemnsfVF58Y3/X6Tl7ky6bxyJRD0IhTvE86VGOlPDV9
+	 YoMQOm7Z8oj6QupycRs/s3HYtqPrwYpvT7E7XVjcIN2IKlHZV8aLOUNauXH9yRHos1ORN
+	 60YmeTjDNQkmhJ9K1qUAo/QE/571GiTceFHXeDZ9B9otCV4UXRe1LnlErjhW6/UPjRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046496;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046498;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=PbTs6D+RGwP/oXMGjZHVifo9TRTWxn9iww2vVaXuWMo=;
-	b=s10q1i2liwiFW5k17jdFfppTkLlF7i65wcWGpme6lg1jAe1eSfZt1lTk7qrkmoN/zv3b
-	 VpkczBwcBrJS4udqM43XpVEDnFCJ/xDewPCyR2yGu6bF4hAcsv3Sb4vI7rneDOAMOEE3j
-	 ukjnjoFUxS1B3wviIlfiE9RLFfL+4wTJilMOPZSDkLPtv6uf+sBnuR8UHQbYxv3+LZLft
-	 vZU6Q1ImQqKoX3avoa3rggHJ0ziWRl+avD7KFQL4MajNOIe8QTCXbFV9t5yAw7D9HW8da
-	 4EfNkWQuXCFw1T3y/I2mLktT3NWSEdR+/g9fHcMHcd4XCD1TpZibLnwXhfHe1WEjwUQ==
+	bh=ilcrID1rOKaTnS9mHNV3EXyU3m6Fi6rJL2J9KgPInd4=;
+	b=PkGQe7EmZuyWFoSsF68Sc2Fzpu64I2zz3KZFkQQz/b0NoweA8hoUSqKvlN4rwQi2457O
+	 5/SgT0dzWQ5Ri9gD5VArNV9rGfH2YCaVkrZg6FNSSy/Oy1OhCj4jQPZWG3WIGC+0U6duC
+	 XH5H0MKZItoFRXSKMGvfhtepNE9tBLHhsFIkBZ5MKOMR+2yKKI2rdJCmTJHQwFzMQ4ke9
+	 heLq4RBa9FxbMmmBqAe1ijjeCXQXYIDL7gY9aOIPsWQ1Q883E8gguqrCfL7VEcU66ft/6
+	 vaRkhQymTFhEdKOWqSFITFtiMIdoE7cMXVqu+rlW85UxYLoYvJqIGYMN15DyIyfEgOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d8pHu8QF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bLlsaoDl;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0D86606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:14:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 540DA606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:14:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d8pHu8QF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 583CA1F0089F;
-	Sat,  7 Nov 2026 10:14:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bLlsaoDl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85E051F0089F;
+	Sat,  7 Nov 2026 10:14:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046495;
-	bh=PbTs6D+RGwP/oXMGjZHVifo9TRTWxn9iww2vVaXuWMo=;
+	s=k20260515; t=1794046498;
+	bh=ilcrID1rOKaTnS9mHNV3EXyU3m6Fi6rJL2J9KgPInd4=;
 	h=From:To:Cc:Subject:Date;
-	b=d8pHu8QFs6Lijlagfu4yOh7zeypWjotnZP9+4UKC3P7cviEV7v6ZaGRuLn8Olu5u9
-	 R02MoEOM2GmWJ1lwFUj4o1X7bqibj8Gyz1LZToW2LmKtMTngE3Se41LWatNv+Xl8ly
-	 D5OPYSIInLx/6bKNSfJkV/OJ/X/4PZ3vgzhQfN9y68sElaEx4T2zsLwohjdD+E5kM5
-	 pWJiY/zIsMs+GaaR0EDnj+4wMWEpLUDiIj7qnh2UiRwS7OnKtCGFqP8My8pgRGc1Io
-	 AFYvoTfwanVILRytukA00AseTYRuHxoggtZ6bViBhuIFnVpznNZ20ZYTCr2OVF5FLp
-	 U87ubtYvcS0Gw==
+	b=bLlsaoDlhEol7vfEIf4BNhXvvW7uDzfQwdDB1V8BwmzO2H1zR/ZibzpQbd3e17VHH
+	 o6bK806nCl0kwLrE3UQn+hIL/pJ5LiXJ0tXQTZ59+bVV4dp4hBvMxQ20AWHgoiNBIC
+	 HgnofOYIY1Y50cRgLOKuKmC5EmqUJAOtclNnapUlRjEbcjl7ASHlIxQSE1PAOCy67E
+	 xtIdLgiGqzp1Acl9CXBrBGMRXu8TX4WaiZrsfoBL6YfXDer73FHUrTBJh8haJuZ/Cq
+	 v0HlQ7ZKpmDceEPhpQueg00fBYxEDwiVBKo6s3UaUpE82C9HX2pFc3XCTsjxcL06z/
+	 n7Nn9w9bvW4EQ==
 From: Sasha Levin <sashal@kernel.org>
-To: zhugl3@xiaopeng.com,
+To: zzyy19904204639@163.com,
+	vega@nebusec.ai,
+	weir@nebusec.ai,
 	amarkuze@redhat.com,
 	idryomov@gmail.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ceph: clamp the inline data length in ceph_fill_inline_data()" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:14:54 -0500
-Message-ID: <20261107051454-failed-6.18-9c1d14d3b66b@kernel.org>
+Subject: FAILED: patch "[PATCH] libceph: initialize CRUSH choose argument weights" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:14:56 -0500
+Message-ID: <20261107051456-failed-6.18-c3a995ff0782@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,57 +71,49 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 9c1d14d3b66b3e1dd96ee664c0dd2548f2b77a52
+git cherry-pick -x c3a995ff0782587789333c621e1f6bd5e574371e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051454-failed-6.18-9c1d14d3b66b@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051456-failed-6.18-c3a995ff0782@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 9c1d14d3b66b3e1dd96ee664c0dd2548f2b77a52 Mon Sep 17 00:00:00 2001
-From: Guanglei Zhu <zhugl3@xiaopeng.com>
-Date: Thu, 10 Sep 2026 11:00:35 +0800
-Subject: [PATCH] ceph: clamp the inline data length in ceph_fill_inline_data()
+From c3a995ff0782587789333c621e1f6bd5e574371e Mon Sep 17 00:00:00 2001
+From: Darong Lu <zzyy19904204639@163.com>
+Date: Mon, 28 Sep 2026 01:44:22 +0800
+Subject: [PATCH] libceph: initialize CRUSH choose argument weights
 
-The MDS decides how much inline data to attach to a reply, and the
-client parses inline_len without any upper bound: ceph_decode_need()
-only verifies that the message actually carries that many bytes.
-ceph_fill_inline_data() then copies the data into a single folio
-with no length check, so a malicious or buggy MDS returning more
-inline data than the folio can hold writes past its end.
-
-Clamp the length to folio_size() so both callers, handle_cap_grant()
-and fill_inode(), are covered.
+Initialize the CRUSH choose argument weight-set array before decoding so
+entries start in a defined state while the decoder fills them.
 
 Cc: stable@vger.kernel.org
-Fixes: 31c542a199d7 ("ceph: add inline data to pagecache")
-Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
+Fixes: 5cf9c4a9959b ("libceph, crush: per-pool crush_choose_arg_map for crush_do_rule()")
+Reported-by: Vega <vega@nebusec.ai>
+Assisted-by: LLM
+Signed-off-by: Darong Lu <zzyy19904204639@163.com>
+Signed-off-by: Ren Wei <weir@nebusec.ai>
 Reviewed-by: Alex Markuze <amarkuze@redhat.com>
 Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
 ---
- fs/ceph/addr.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ net/ceph/osdmap.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/ceph/addr.c b/fs/ceph/addr.c
-index ae6aa9db5eb24..86fe0e76cdf07 100644
---- a/fs/ceph/addr.c
-+++ b/fs/ceph/addr.c
-@@ -2245,6 +2245,12 @@ void ceph_fill_inline_data(struct inode *inode, struct folio *locked_folio,
- 	doutc(cl, "%p %llx.%llx len %zu locked_folio %p\n", inode,
- 	      ceph_vinop(inode), len, locked_folio);
+diff --git a/net/ceph/osdmap.c b/net/ceph/osdmap.c
+index 7d65a81148166..e69a2249ddfbf 100644
+--- a/net/ceph/osdmap.c
++++ b/net/ceph/osdmap.c
+@@ -319,7 +319,7 @@ static int decode_choose_arg(void **p, void *end, struct crush_choose_arg *arg)
+ 	if (arg->weight_set_size) {
+ 		u32 i;
  
-+	if (len > folio_size(folio)) {
-+		pr_warn_ratelimited_client(cl, "oversized inline data %zu\n",
-+					   len);
-+		len = folio_size(folio);
-+	}
-+
- 	if (len > 0)
- 		memcpy_to_folio(folio, 0, data, len);
- 
+-		arg->weight_set = kmalloc_objs(*arg->weight_set,
++		arg->weight_set = kzalloc_objs(*arg->weight_set,
+ 					       arg->weight_set_size, GFP_NOIO);
+ 		if (!arg->weight_set)
+ 			return -ENOMEM;
 -- 
 2.53.0
 
