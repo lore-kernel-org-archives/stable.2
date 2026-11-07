@@ -1,63 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794064455;
-	b=CYuT4KEq6CtA5o3LKmpdIngj58PDQEmsaAQucXMRPKTF2aHAbtCjdCgt6tRY6OTltPke
-	 X30cMqi+H2PvdaLvJURKZAkgwhMfGPtxDahEXyz8z4yZhUUcK7YbmYDBCwROjzDrrD7IO
-	 qO75cthbcfrTlRI8lAYJ2dD0nItbn0/MAMcTJJ+bxju2a/dUaLJDKg4NaTg3TTsdbvLFj
-	 bP5E0eXVeDgU4xkWcnrdFp0SsV1hr1gOj+qrGLPD4RCKWOY0Hn7jcf+TgeoiXcSfYvEdR
-	 iiOLJA5hr5N71D8/JdeOJ4qu6Lk7bzcGv/3qVLw7tVdJDZi5osZkmneP4yqVxu0zWUA==
+	t=1794064459;
+	b=2VKk+DsTvLLV19DBI/fbHMqDXn3c7ll0+NF5Dg6silq4vuNBzbiL1GmmI96b9lZohoTr
+	 NB/lY9LFoRo51GRjQQjj0qV4t6gTydJrwvTzRmutiyUN7a2lXwwCLaP0Bd40tpTyrvgGT
+	 9N8+J6cQqUmRpUy3sIkIKPGWVF/wAfGR00yJHqW/XvUVbiW4uDVx6PwuXLwWu3uUobgeO
+	 d1GVXhz4b0xmiguhuR7cXRDuOfr0WZwpS8P4Zc6BaQxUxO6NqqwpcLQhmhuo+pGYJFfz+
+	 LW7Q8R6FU5vfuCRnDnjP/a0ax4gUSVt9A9c7jSMvfHsC6nqClrfWAlZKRQd7Ok9p1Tw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794064455;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794064459;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=VLsNeuPpcSkaS/QlyXJv6gKWysikf4e3towY+av7dFg=;
-	b=cTEXzt0htuoiumBMGWS34Wep3xRVFgnZO354yfw38+XRp/RtRiV+UG9aKAYiBE8cF8yf
-	 AOkEEJb4wzGzkVo2QJsqhVdB/2GMio78jmTFXNF6eNbVkN/MkuhGcMHDffTvH4y5AqZyo
-	 Wf/xMKIQbpmV4Bd8sFSmGpy7VNkLT1v0rZkUfMSajAC6Gi3wJE+Quz/vI0sKj462AFQLA
-	 1OAot4xSsgck+sptexEzZez31zL8mOijSOOzfU02p9DRZrh8Dr3NKvdgV4pOT2f3e8/dx
-	 w6VAUiTVtkL5NqXhNJRJDjsuD2z4UO6io+ILdt2zwDGHcNzw9BtX4oCJrkCTtHsXsQQ==
+	bh=8jy9HLr2zXkfTET8YOm2hP9q1cZI8VupGbFz47FGE0M=;
+	b=0RCf7lcjhDHxyaRc7Wp0TiFYkWhetElsNAuxh6RtJ6EZx1EZG99BHQRHmFxrLttn/vUj
+	 xkoegItUr656aASUn7/cbiPA7l++onGQxXqbNgsxnr91b/XKZrk40KV+pHxrz1D5bYXdO
+	 b2NCEReKGuDHziNPIfU+a9zR3g9P2D4o17QFNlXwtq7sfhbl1woVP4q+Hcc3TT001nxv0
+	 w9icbiGb2MI5qjmUdWaJ94L/eHktqQxQkJqQmoiEi40PhLvCwt7tDx8VEDwH5xSLlxJ0y
+	 vbR4FDzxKo5pBt10vaAs7q/nxDCVkaROdydv5d90bsX0FBTgspGnp8w2kAcEiEc/rlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=V8IgOfWx;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="KEL/jdiy";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 733226082BEB;
-	Sat,  7 Nov 2026 15:14:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C9636082BFF;
+	Sat,  7 Nov 2026 15:14:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=V8IgOfWx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EC431F008A4;
-	Sat,  7 Nov 2026 15:14:15 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=KEL/jdiy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFEDC1F008A1;
+	Sat,  7 Nov 2026 15:14:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794064455;
-	bh=VLsNeuPpcSkaS/QlyXJv6gKWysikf4e3towY+av7dFg=;
+	s=korg; t=1794064458;
+	bh=8jy9HLr2zXkfTET8YOm2hP9q1cZI8VupGbFz47FGE0M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=V8IgOfWxiMzU7YQGU7RP10QsbZRHq3kXpm1172Sxm49InY0WgvPYAXV5TKb+BAqUu
-	 XmbeISyXNoie5MNkMV1lXgWPZqmJlKnTc8JKtsHNARvaAZTDzlt8nCv6tkc/jHPSx0
-	 iW8+FU2JASvqfAMkj+eE0BtoCOOwmdPmLHCl/Fnw=
+	b=KEL/jdiyf4chYdzCfndMrgQD4ESBcg/zu9eruGCp+T32RQoQa3J8xWDr3+IciyEPc
+	 3kgVfQdZfIMSUtARMParxXXeQRaOJw/UnwqZl3AfCurvWKXMlVRoGkzMLTP61nyJdr
+	 J6aX2liJba7B523t0ghiy153h0VsHhkQ7cbkH6yU=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	"Gregory Price (Meta)" <gourry@gourry.net>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Chelsy Ratnawat <chelsyratnawat2001@gmail.com>,
-	Huang Ying <ying.huang@linux.alibaba.com>,
-	Alistair Popple <apopple@nvidia.com>,
-	Byungchul Park <byungchul@sk.com>,
-	Chenwandun <chenwandun@huawei.com>,
-	David Hildenbrand <david@kernel.org>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Rakie Kim <rakie.kim@sk.com>,
-	"Uladzislau Rezki (Sony)" <urezki@gmail.com>,
-	Zi Yan <ziy@nvidia.com>,
+	Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 0497/1257] mm/mempolicy: take a cpuset cookie for the interleave node count
-Date: Sat,  7 Nov 2026 08:46:33 -0500
-Message-ID: <20261107134953.161297660@linuxfoundation.org>
+Subject: [PATCH 7.3 0464/1257] media: mediatek: jpeg: retry HW selection after successful wait
+Date: Sat,  7 Nov 2026 08:46:00 -0500
+Message-ID: <20261107134952.275333822@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261107134939.434104957@linuxfoundation.org>
 References: <20261107134939.434104957@linuxfoundation.org>
@@ -79,98 +69,56 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Gregory Price <gourry@gourry.net>
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
 
-[ Upstream commit bbeeb4a29dc4ca6ac18ab3bafa3728bc984a4cde ]
+[ Upstream commit eb0bbd0ad679bf363387e3b8be8892cfbedabb72 ]
 
-alloc_pages_bulk_interleave() counts pol->nodes without a cpuset cookie:
+wait_event_interruptible_timeout() returns a positive value when its
+condition becomes true before the timeout. mtk_jpegdec_worker() treats
+every nonzero result as a failure, so a normal decoder wakeup finishes
+the mem2mem job as though no hardware became available.
 
-	nodes = nodes_weight(pol->nodes);
-	nr_pages_per_node = nr_pages / nodes;
+Handle interrupted waits and exhausted timeout retries separately, and
+retry hardware selection after a successful wakeup. Increment the retry
+count only for actual timeouts. The encoder uses
+wait_event_interruptible(), whose successful return is zero, so its
+existing check is correct; leave that separate no-timeout policy
+unchanged.
 
-nodemask_t spans several words once MAX_NUMNODES exceeds BITS_PER_LONG, so
-a concurrent cpuset rebind can tear that read and yield an empty mask even
-though neither version of it was empty.  The call then allocates nothing
-and returns 0.
-
-Some compilers will hoist the loop entry test above the division,
-because nr_pages_per_node is dead when the loop does not run.
-
-	682e:	call	...		<- nodes_weight()
-	6838:	test	%eax,%eax
-	683a:	jle	692d		<- nodes <= 0 skips the loop
-	684a:	div	%rcx
-
-So in most deployments, this div/0 is unreachable - but nothing in the
-source guarantees that, it's just not easily exercised.
-
-Take the cookie around the count and bail if the mask really is empty.
-Only the count needs it, interleave_nodes() takes the cookie itself so so
-a torn read there is already retried.
-
-A rebind landing mid-loop can still leave the count disagreeing with the
-mask, so the loop may revisit a node or skip one - but a rebind where
-nodes change causes migration, so a handful of misplaced pages isn't
-catastrophic in any sense.
-
-Measured on a 72 node VM (NODES_SHIFT=10) with a cgroup v2 cpuset flipping
-cpuset.mems between a word 0 and a word 1 node set, and the two word read
-artificially widened: 330 zero counts in 130414 calls without the cookie,
-and 401 retries with it.
-
-Link: https://lore.kernel.org/20260828193111.1023497-1-gourry@gourry.net
-Fixes: c00b6b961099 ("mm/vmalloc: introduce alloc_pages_bulk_array_mempolicy to accelerate memory allocation")
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: Chelsy Ratnawat <chelsyratnawat2001@gmail.com>
-Closes: https://lore.kernel.org/all/20250907160829.91628-1-chelsyratnawat2001@gmail.com/
-Reviewed-by: Huang Ying <ying.huang@linux.alibaba.com>
-Assisted-by: Claude:claude-opus-5
-Cc: Alistair Popple <apopple@nvidia.com>
-Cc: Byungchul Park <byungchul@sk.com>
-Cc: Chenwandun <chenwandun@huawei.com>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Rakie Kim <rakie.kim@sk.com>
-Cc: "Uladzislau Rezki (Sony)" <urezki@gmail.com>
-Cc: Zi Yan <ziy@nvidia.com>
-Cc: <stable@vger.kernel.org>
+Fixes: dedc21500334 ("media: mtk-jpegdec: add jpeg decode worker interface")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/mempolicy.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
+ drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-diff --git a/mm/mempolicy.c b/mm/mempolicy.c
-index 79053ece02cd4..060a0eb269170 100644
---- a/mm/mempolicy.c
-+++ b/mm/mempolicy.c
-@@ -2592,6 +2592,7 @@ static unsigned long alloc_pages_bulk_interleave(gfp_t gfp,
- 		struct mempolicy *pol, unsigned long nr_pages,
- 		struct page **page_array)
- {
-+	unsigned int cpuset_mems_cookie;
- 	int nodes;
- 	unsigned long nr_pages_per_node;
- 	int delta;
-@@ -2599,7 +2600,16 @@ static unsigned long alloc_pages_bulk_interleave(gfp_t gfp,
- 	unsigned long nr_allocated;
- 	unsigned long total_allocated = 0;
- 
--	nodes = nodes_weight(pol->nodes);
-+	/* count the nodes, retry if a rebind happened during the read */
-+	do {
-+		cpuset_mems_cookie = read_mems_allowed_begin();
-+		nodes = nodes_weight(pol->nodes);
-+	} while (read_mems_allowed_retry(cpuset_mems_cookie));
+diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+index bddd0a070d665..cc375309e4f34 100644
+--- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
++++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+@@ -1698,9 +1698,15 @@ static void mtk_jpegdec_worker(struct work_struct *work)
+ 		ret = wait_event_interruptible_timeout(jpeg->hw_wq,
+ 						       atomic_read(&jpeg->hw_rdy) > 0,
+ 						       MTK_JPEG_HW_TIMEOUT_MSEC);
+-		if (ret != 0 || (i++ > MTK_JPEG_MAX_RETRY_TIME)) {
+-			dev_err(jpeg->dev, "%s : %d, all HW are busy\n",
+-				__func__, __LINE__);
++		if (ret < 0) {
++			dev_err(jpeg->dev, "decoder HW wait interrupted: %d\n",
++				ret);
++			v4l2_m2m_job_finish(jpeg->m2m_dev, ctx->fh.m2m_ctx);
++			return;
++		}
 +
-+	/* if the nodemask has become invalid, we cannot do anything */
-+	if (!nodes)
-+		return 0;
-+
- 	nr_pages_per_node = nr_pages / nodes;
- 	delta = nr_pages - nodes * nr_pages_per_node;
- 
++		if (!ret && i++ > MTK_JPEG_MAX_RETRY_TIME) {
++			dev_err(jpeg->dev, "all decoder HW are busy\n");
+ 			v4l2_m2m_job_finish(jpeg->m2m_dev, ctx->fh.m2m_ctx);
+ 			return;
+ 		}
 -- 
 2.53.0
 
