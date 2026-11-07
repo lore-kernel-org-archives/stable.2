@@ -1,59 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794062345;
-	b=gPPYIGHW+SdjplJ3C4mTQ3qNvXhEAwzw1d9VegQ+j0GUxGJOkEpCrb/LZsP1nzHBzLum
-	 qQqUjUKo+XTCVX9q9uteFfgf9nyeO+i6P+xpGh/wKrXiK4rlLx82YkXB0UXtpxrMa1Mva
-	 czRd45Kmf53AP3iC+wApzaPX4Gz0kkHbJn8yxb4RKRhM0XwzFB1kTGYKbHiJvEvyk3mym
-	 FmiZkXvP8RXY/oNNJeOstJMgpwjFZ20lP0k5OsPpvtIt1txIOaM57/BGKeeqe3JMO2pBX
-	 iVWCoE34Q3EFlbRlvTKWz0x0OkzhwTqKTTOlc3PWRFaus9q1LV9Fb33L2IKnl2qybUA==
+	t=1794062341;
+	b=UDcItigkt4X73gE1ZRolrHR2KhH/E1rypMAASOdgP1QwDbcF5GJUm9isYst9tRNEK+fB
+	 Kw1S07lLLNKfR22BzkHbYgryXs9V734sENRapca820h18aOqZN4mFuYIKwXsYp7B/BxVJ
+	 BjGOo9+L62Xi6gcLxLsKcJz+vQ+WLDC3QzxA0Yu0SV2Szfm8FANDu4yr5if/sswNB37qV
+	 yPt/IZ+WJpl2Z1Id4ssrZl8EOi4BlFM50LCEeBjwQQU+PwCsdrAjQJi7m4b79JGPvRhHe
+	 UeymtOKzWbc75siq/0+9O2+/6c4UIDHrMBm+O3cXXxGvrfBE7VXc3uWkPZUIKtJ6QVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794062345;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=zDU7YGxcacRPRCJoBdD98r0Be3q2O5VZ6b1HJQJ1E68=;
-	b=xA/II4A8DCvaTTKmzLEulBhPnV6OmCGSNZBHYFonbOPk91Gm8CZnWTi1gdUcTzR181cm
-	 uGhOyGLU4By4U1bO3N2ODuoROqpY5pgDHVQJfTPcqkCC29+YCGVSYlaZ+PNk5QutfDBPO
-	 ZjZR0/uqFGp9R6afgXZPhGA1MR1LP1EvUZO91NUUMhvuciTZWBGp6S6r1/i/g8VGRy8hf
-	 YVHYrodJrUEA7bFondjmgVPy+HWpsug1fUfZQI1bTujikBu7fCFwec/S8Qba8bHWUC3aC
-	 DWtWmdWVE0Jr3uzblTF7pMXUtwxYbAsRkt8pQSw7yuZJzVooeN+ie54pWDV0YPzjCtA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794062341;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type;
+	bh=NQCqFf/qR4D83VPEtwWEx/gZFVt7qS+g1ysVABuUlco=;
+	b=N1xhzBdavHnZdhyGkTktleDF0Y09pWWaUDU09MlxAHluBWdvl/a+9FW7VDpbHmXZOraO
+	 MjhtNxOE/4oh1S12xcQIAB2F4386dns+GlryXBPXv6q4tonVSbh5YgcxOWc5vggcpMj7H
+	 CdbWVKMyd54L4f746xUnoOpxmlF1L+pziqvxZ5+8SlDOL7+5GmMm/Q5TnS+KJOcgZWgFr
+	 4rxFuX6J7ft/62f2H2sX0dhLSU9Qxx2edDYe2hu4O6yoDpCHDfqf5owaekhPFeRdVB6NY
+	 UQo+dBAgNTFrQ/t8IN4RC6Mann5CaXv51C7mobCSfCCv63T0NC4SgMWkQDjiwELXVcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=JhK+0j+S;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=0bSyMxmq;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7E3F6082BD9;
-	Sat,  7 Nov 2026 14:39:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CACC2606D807;
+	Sat,  7 Nov 2026 14:38:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CACC2606D807
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=JhK+0j+S
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 810551F008A3;
-	Sat,  7 Nov 2026 14:39:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794062344;
-	bh=zDU7YGxcacRPRCJoBdD98r0Be3q2O5VZ6b1HJQJ1E68=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JhK+0j+SQmF2xt+SQ43RI+v9M/NGGzvMZcOOZwmQS6idpASAQ7foIVsS/azsXyuUC
-	 e3W9khGvKiTVWsBkQdixCsdhj6lxwji0Rb2+71Avhx6nMG22fjjKjMaKe9WttssYBr
-	 RxMJOGl25X9d3UxIaNJs4MKODLOxs9Z79x54hj90=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Karl Mehltretter <kmehltretter@gmail.com>,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 1272/1536] sh: intc: Sort the prio and sense lists after filling them
-Date: Sat,  7 Nov 2026 08:54:48 -0500
-Message-ID: <20261107135033.502176367@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261107134957.653319350@linuxfoundation.org>
-References: <20261107134957.653319350@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=0bSyMxmq
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=NQCqFf/qR4D83VPEtwWEx/gZFVt7qS+g1ysVABuUlco=; b=0bSyMxmqad3Uoawf9HLxq/PFgP
+	6lWhV+SDycY3M/RTYbZAnJQzo043phKNxxGM9zzRTVU02nThH5NI8kIP7AJcBGOXOvNTava9QYfTh
+	asKzszvmwxh+WY3MWoJlhwRG4xIVfj1Kiejabg8nXW8Hm3HdLGftsWjepsEJJqtYMnPmPgzqYnC86
+	jxFCyLy9+4+ZRRv9wC/V7vDN8jFkPWSAai2wMx7uJ1lkQOcosT3x3wyXfTZse07h9K9ioRhU4JpVs
+	z5XsEbfkxHM31nscHmz1NF37cpk/QkxHw1Roy04GpOZyQRuYh3xNMSEhHXz4YAL6f0wm2wpO9yWOS
+	uWAMWpPg==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+ iav@iav.lv
+Cc: Jianqun Xu <jay.xu@rock-chips.com>, linux-gpio@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Igor Velkov <iav@iav.lv>,
+ stable@vger.kernel.org
+Subject:
+ Re: [PATCH] gpio: rockchip: restore interrupt settings after hibernation
+Date: Sat, 07 Nov 2026 15:38:38 +0100
+Message-ID: <9970336.2WqB4rESCP@phil>
+In-Reply-To: <20261107-b4-gpio-rockchip-hib-v1-1-19f4d163a55e@iav.lv>
+References: <20261107-b4-gpio-rockchip-hib-v1-1-19f4d163a55e@iav.lv>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,85 +64,133 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+Am Samstag, 7. November 2026, 06:55:00 Mitteleurop=C3=A4ische Normalzeit sc=
+hrieb Igor Velkov via B4 Relay:
+> From: Igor Velkov <iav@iav.lv>
+>=20
+> Restore from hibernation follows a cold boot. The boot kernel probes
+> the GPIO banks, sets every interrupt enable bit, leaves the trigger of
+> each line it did not request at the reset value, and then hands over
+> to the image. The image restores only the interrupt masks, so a line
+> it had set up for both edges comes back with the reset trigger.
+>=20
+> On ODROID-M1 the headphone detect line (GPIO0_B0) is requested for
+> both edges and is low with nothing plugged in. After a power loss in
+> hybrid sleep its reset trigger fires again as soon as the edge handler
+> acknowledges it, and the system does not come back. With this patch
+> the board resumed 4 of 4 times, without it 0 of 5.
+>=20
+> Save the interrupt enable, type, polarity and both-edge registers with
+> the masks and write them back before unmasking. In a normal suspend
+> the bank keeps its registers, so this writes back what is already
+> there. For lines that emulate both edges on GPIO v1, take the polarity
+> from the current pin level.
+>=20
+> Fixes: 936ee2675eee ("gpio/rockchip: add driver for rockchip gpio")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Igor Velkov <iav@iav.lv>
 
-------------------
+This looks sensible in general, but I wonder what happens with the other
+registers of the gpio-controller here after hibernation?
 
-From: Karl Mehltretter <kmehltretter@gmail.com>
+Like does the direction + output value, debounce get restored from
+some other means?
 
-[ Upstream commit 94a219eda3b5fb1d1753a5ecf28b171c8f308a27 ]
 
-register_intc_controller() sorts d->prio and d->sense right after
-allocating them, with hw->nr_prio_regs and hw->nr_sense_regs as the
-element count. The lists hold hw->nr_vectors entries and are only
-filled later, by intc_register_irq().
+Heiko
 
-On SH7785, sh7785-irq0123 and sh7785-irq4567 have four vectors but the
-SoC's eleven priority registers, so sort() swaps 88 bytes in a 32 byte
-kmalloc object at boot. slub_debug=FZPU reports "Right Redzone
-overwritten" in kmalloc-32, and v6.5 and v6.6 panic in
-__kmem_cache_alloc_node() while registering sh7785-irq0123.
+> ---
+> Tested on ODROID-M1 (RK3568, GPIO v2): hybrid sleep with power removed
+> during sleep 4/4, deep sleep 10/10. The GPIO v1 path was not tested on
+> hardware.
+> ---
+>  drivers/gpio/gpio-rockchip.c       | 21 +++++++++++++++++++++
+>  drivers/pinctrl/pinctrl-rockchip.h |  8 ++++++++
+>  2 files changed, 29 insertions(+)
+>=20
+> diff --git a/drivers/gpio/gpio-rockchip.c b/drivers/gpio/gpio-rockchip.c
+> index 0f46ff095a24..83a5cc8f3fe6 100644
+> --- a/drivers/gpio/gpio-rockchip.c
+> +++ b/drivers/gpio/gpio-rockchip.c
+> @@ -489,6 +489,11 @@ static void rockchip_irq_suspend(struct irq_data *d)
+>  	struct rockchip_pin_bank *bank =3D gc->private;
+> =20
+>  	bank->saved_masks =3D irq_reg_readl(gc, bank->gpio_regs->int_mask);
+> +	bank->saved_en =3D rockchip_gpio_readl(bank, bank->gpio_regs->int_en);
+> +	bank->saved_type =3D rockchip_gpio_readl(bank, bank->gpio_regs->int_typ=
+e);
+> +	bank->saved_polarity =3D rockchip_gpio_readl(bank, bank->gpio_regs->int=
+_polarity);
+> +	if (bank->gpio_type =3D=3D GPIO_TYPE_V2)
+> +		bank->saved_bothedge =3D rockchip_gpio_readl(bank, bank->gpio_regs->in=
+t_bothedge);
+>  	irq_reg_writel(gc, ~gc->wake_active, bank->gpio_regs->int_mask);
+>  }
+> =20
+> @@ -496,7 +501,23 @@ static void rockchip_irq_resume(struct irq_data *d)
+>  {
+>  	struct irq_chip_generic *gc =3D irq_data_get_irq_chip_data(d);
+>  	struct rockchip_pin_bank *bank =3D gc->private;
+> +	u32 polarity =3D bank->saved_polarity;
+> +
+> +	/*
+> +	 * Restore from hibernation follows a cold boot: write the enables and
+> +	 * the trigger back before we unmask.
+> +	 */
+> +	if (bank->toggle_edge_mode) {
+> +		u32 data =3D readl(bank->reg_base + bank->gpio_regs->ext_port);
+> =20
+> +		polarity &=3D ~bank->toggle_edge_mode;
+> +		polarity |=3D ~data & bank->toggle_edge_mode;
+> +	}
+> +	rockchip_gpio_writel(bank, bank->saved_en, bank->gpio_regs->int_en);
+> +	rockchip_gpio_writel(bank, bank->saved_type, bank->gpio_regs->int_type);
+> +	rockchip_gpio_writel(bank, polarity, bank->gpio_regs->int_polarity);
+> +	if (bank->gpio_type =3D=3D GPIO_TYPE_V2)
+> +		rockchip_gpio_writel(bank, bank->saved_bothedge, bank->gpio_regs->int_=
+bothedge);
+>  	irq_reg_writel(gc, bank->saved_masks, bank->gpio_regs->int_mask);
+>  }
+> =20
+> diff --git a/drivers/pinctrl/pinctrl-rockchip.h b/drivers/pinctrl/pinctrl=
+=2Drockchip.h
+> index 950097699643..ea280843fcb9 100644
+> --- a/drivers/pinctrl/pinctrl-rockchip.h
+> +++ b/drivers/pinctrl/pinctrl-rockchip.h
+> @@ -303,6 +303,10 @@ struct rockchip_drv {
+>   * @db_clk: clock of the gpio debounce
+>   * @irq: interrupt of the gpio bank
+>   * @saved_masks: Saved content of GPIO_INTEN at suspend time.
+> + * @saved_en: interrupt enables, saved at suspend time.
+> + * @saved_type: interrupt level/edge type, saved at suspend time.
+> + * @saved_polarity: interrupt polarity, saved at suspend time.
+> + * @saved_bothedge: interrupt both-edge enables (GPIO v2), saved at susp=
+end time.
+>   * @pin_base: first pin number
+>   * @nr_pins: number of pins in this bank
+>   * @name: name of the bank
+> @@ -332,6 +336,10 @@ struct rockchip_pin_bank {
+>  	struct clk			*db_clk;
+>  	int				irq;
+>  	u32				saved_masks;
+> +	u32				saved_en;
+> +	u32				saved_type;
+> +	u32				saved_polarity;
+> +	u32				saved_bothedge;
+>  	u32				pin_base;
+>  	u8				nr_pins;
+>  	char				*name;
+>=20
+> ---
+> base-commit: 0fa38ba784896f2fc32c9dacd33822f844b21906
+> change-id: 20261107-b4-gpio-rockchip-hib-705c3fd52b49
+>=20
+> Best regards,
+>=20
 
-Found with a custom QEMU model of the SH7785LCR. On it, v6.4
-sh7785lcr_defconfig boots with SLAB, the defconfig default before v6.5,
-and hangs before the console is up when built with SLUB.
-
-Sort the lists once all vectors are registered, with the number of
-entries that were added.
-
-Fixes: b59f9f9775e6 ("sh: intc: optimize intc IRQ lookup")
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-Assisted-by: LLM
-Cc: stable@vger.kernel.org
-Tested-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-Reviewed-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-Signed-off-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/sh/intc/core.c | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/sh/intc/core.c b/drivers/sh/intc/core.c
-index 3dde703b77668..137a7a94d9cb8 100644
---- a/drivers/sh/intc/core.c
-+++ b/drivers/sh/intc/core.c
-@@ -277,9 +277,6 @@ int __init register_intc_controller(struct intc_desc *desc)
- 			k += save_reg(d, k, hw->prio_regs[i].set_reg, smp);
- 			k += save_reg(d, k, hw->prio_regs[i].clr_reg, smp);
- 		}
--
--		sort(d->prio, hw->nr_prio_regs, sizeof(*d->prio),
--		     intc_handle_int_cmp, NULL);
- 	}
- 
- 	if (hw->sense_regs) {
-@@ -290,9 +287,6 @@ int __init register_intc_controller(struct intc_desc *desc)
- 
- 		for (i = 0; i < hw->nr_sense_regs; i++)
- 			k += save_reg(d, k, hw->sense_regs[i].reg, 0);
--
--		sort(d->sense, hw->nr_sense_regs, sizeof(*d->sense),
--		     intc_handle_int_cmp, NULL);
- 	}
- 
- 	if (hw->subgroups)
-@@ -360,6 +354,11 @@ int __init register_intc_controller(struct intc_desc *desc)
- 		}
- 	}
- 
-+	sort(d->prio, d->nr_prio, sizeof(*d->prio),
-+	     intc_handle_int_cmp, NULL);
-+	sort(d->sense, d->nr_sense, sizeof(*d->sense),
-+	     intc_handle_int_cmp, NULL);
-+
- 	intc_subgroup_init(desc, d);
- 
- 	/* enable bits matching force_enable after registering irqs */
--- 
-2.53.0
 
 
 
