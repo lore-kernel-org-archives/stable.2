@@ -1,50 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047668;
-	b=sbsjV0NtafSEGxIzYcRTa27fJNglY12yhabDFOoFH4OiqDTXsOA1ho+rmCLUh4Fdy0OK
-	 t4kDLC8Z2+IlyDWVr0vmNruRzMtjQ+xjsMA8ItTINA3VKZPCRC3rCZ8ZZlFFDize9lprB
-	 lrRnSiAbrS0yT8BTqvQ1t7LZHlYiO+ZT4fZXsBJpt7HV2o26unZ4phtlZ1X1cq7RstEo4
-	 ZNjysdeIqbGjQNdHMVnFSSsBpnX2DUPh4NpFlG5aq6MuDfWcssaEq3FlDKiVhm6XmoO/U
-	 RSl0yu6Nm6gOglI6pu7i7VSd0XkHl2G2S4MFDKC8e1PxV2r+IRJQ+h/EsyfydROSdXw==
+	t=1794047670;
+	b=P5l4gpH2XCnhcGNTYoDjdCHykdasb4e85Hm3VjAGWsGgENgmrxvZpOA5YAYnJ6lDVIM6
+	 P2utEijlGfgToquAldgDrzxl8H7zGanytK68HkcB6hNe3tV4AsV/WAR+K7x11Vk95M+VM
+	 yxcwKjSOPPHjQ7ZDTexWvzn+jBNZIwnNoqnYWgsZZRpuXrOHPgH1xiEHGL5sO30vPnDUm
+	 FHElPnrPfT3VtvvSAf9sF9rxHTdOcGNLWaGtqelv4S+21wO86HU8onhV3PwiZgulhuN6G
+	 ZjMvpuJQylRgtGcfvN33cQTFOvEBTDZdrLQ+SkK0jeAhdqD7qeKZQb7UIXRtqQOaAPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047668;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047670;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ufiufHou7r8hpEk0QKvcktkbXWOeqQYqXtvduwgEcK4=;
-	b=LaZEpURqFmB5Y2/cF5oNWvzpmSQgoJebM0o0toD3dry02Kd6B/1Tj9ViHbQ0TJhD7HgZ
-	 QSnvhqbowO2TMQBzb8ZTuQGHKqYYJrU5Nee0Ix9RK2hL+ZO020N2BHYnkH08nERBkZpxo
-	 o4OcLCD5Fh+YGUzfPD+g2No+5ufLm45xnNp0Fb2mx7f5Y2JaFwlPM+h4rK6yhG9TrtD/6
-	 FhPJFh/9MDVYhZbmxc+mY+8lhCkWt+6dam9BHt0hDrPd+LaGKfoBOzy81nN6Eh3jYf2I/
-	 mSWUPKGS6p8CE9yOkWVx5tFHvXJRLtNCXXjoWXIUxntrXGsTMN/ESwYPFDKpEPzk9yQ==
+	bh=5iytAk5ulRT5v+JCYVCmaYx/8wuopglsqPMzbuHPF1Y=;
+	b=Kh6igZQf2WJZDwBN1TDf8/Prrj9nNKYTAB959WGwlNt0WNJdqp/b0HMHfi9VL3Lpxsn8
+	 cOVeUS6dizGtd21cTtI9O7U9CB4yHUeOuFVbCmJm0KMEnTD27ZvnGFJ537SZ5QaD3P6oh
+	 9dAzK8G2kbT6SnstLKUKjz1U7aciT05Tf1IRHojAEqd3TcfFEydUoqN/c+4wcZ3zMgLQW
+	 Asch20F9asyGP2uSY3HdxRrs2yLYMaLXxZ3IilG8GOupzSO4wO+XFHWatA7SjYN2icoO5
+	 uABG/7Sc+tempP7uhIuvm1+IBriwXDDpv4dF0vU5oYWJac71wF4KAZ0EuTijAOr0nDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KUw5lcFx;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dnZLdir0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2594606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:34:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17A4D606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:34:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KUw5lcFx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53C171F0089F;
-	Sat,  7 Nov 2026 10:34:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dnZLdir0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B4B61F0089F;
+	Sat,  7 Nov 2026 10:34:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047667;
-	bh=ufiufHou7r8hpEk0QKvcktkbXWOeqQYqXtvduwgEcK4=;
+	s=k20260515; t=1794047669;
+	bh=5iytAk5ulRT5v+JCYVCmaYx/8wuopglsqPMzbuHPF1Y=;
 	h=From:To:Cc:Subject:Date;
-	b=KUw5lcFxG6pvjAiONbBj3bIFg+UMejH7XvEJOaZrle7GwWBPUdsLCW5He6iKmcEsd
-	 6vR5Hn+z8osm8TJAED5hSQSKY1P+KZGiFUYy6ys5bT0ipy457MExoza8gHv5r9iKFT
-	 u2+7HZDtO1ZSuQm7LAioWdmewDIp0WDRcJqjIBwVhXWhJTbnt5wE8AM4a7GHniiwv7
-	 Vh75Hm4JFDOuGGGT0c3XOG5kYPeSDTetYl3icTVIuGWV+9fUHrgvknud0qcKy8kOTU
-	 9RMT8bg1h+G9HExcdjL2qeOKhKzVjlEz0UllaMlOmci7GW0uc5Y28utH8NjKuOAtX1
-	 kmJ33QMNK2S8g==
+	b=dnZLdir07qKDXdMrLuMbCdKPXZA0gfRaCsJHiuzCBhJpa0uj5FryfzIG8iVJI3G8g
+	 TZZ1baMIrxWekYF6nRg3xtiWFdAsOp+e+Wiz9nL7ivzRjTArtBVpbJtWU9Tu52RBTq
+	 EE+JhQ/M40URs9ogx55OHJLZVYMwEbaXYmAGR+Grn9kTRDvOlu/dpqmnD7cPjJec8o
+	 yM1elKJR8bVphZ36u6q9OP5mIfHlPFiQLak1yihALjSe2E5itf6qTdvIntp2n+ND60
+	 Wg1zIqWCclBwleDE9MBg23ohCCZnhaXcmzEY5/oOe9Qw4dB+bW0wdIZ206CWzvNZO1
+	 QpwKcpfp/SkJw==
 From: Sasha Levin <sashal@kernel.org>
-To: mpatocka@redhat.com
+To: yhlee@isslab.korea.ac.kr,
+	hare@kernel.org,
+	hch@lst.de,
+	kbusch@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] dm-bufio: fix non-working memory limit" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:34:26 -0500
-Message-ID: <20261107053426-failed-6.6-1190dbeaeaa0@kernel.org>
+Subject: FAILED: patch "[PATCH] nvme-auth: fail when the controller does not authenticate itself" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:34:28 -0500
+Message-ID: <20261107053428-failed-6.6-f9e43d924bc7@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -67,107 +70,82 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 1190dbeaeaa026a4879e675b8556a150c36a7ced
+git cherry-pick -x f9e43d924bc74feeb56197de82b2845de2a4b85a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053426-failed-6.6-1190dbeaeaa0@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053428-failed-6.6-f9e43d924bc7@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 1190dbeaeaa026a4879e675b8556a150c36a7ced Mon Sep 17 00:00:00 2001
-From: Mikulas Patocka <mpatocka@redhat.com>
-Date: Mon, 12 Oct 2026 16:07:58 +0200
-Subject: [PATCH] dm-bufio: fix non-working memory limit
+From f9e43d924bc74feeb56197de82b2845de2a4b85a Mon Sep 17 00:00:00 2001
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Date: Tue, 6 Oct 2026 22:48:05 +0900
+Subject: [PATCH] nvme-auth: fail when the controller does not authenticate
+ itself
 
-The function evict_old is supposed to loop and evict buffers while the
-allocated size is above the threshold. However if it hits one bufio
-client that is empty, it stops and doesn't attempt to scan other
-clients.
+nvme_auth_process_dhchap_success1() returns success as soon as the
+controller clears the rvalid flag in its DH-HMAC-CHAP success1 message,
+without looking at whether the host had asked the controller to
+authenticate.  A host configured with a controller secret sends a
+challenge in its reply, computes the expected controller response, and
+sets chap->bi_directional; if the controller then answers with
+rvalid = 0 the response is never compared, the host still sends
+success2, and the queue is marked as authenticated.
 
-This commit fixes it, so that it skips empty clients and retries up to
-dm_bufio_client_count times.
+A malicious or man-in-the-middle controller therefore only has to clear
+one flag to turn the configured bidirectional authentication into a
+one-way one, without holding any secret of its own.  The target side
+already treats the mirror image of this as fatal: when the host supplied
+a challenge but no controller key is configured, nvmet_auth_success1()
+fails the authentication rather than answering with rvalid = 0.
 
-Fixes: 450e8dee51aa ("dm bufio: improve concurrent IO performance")
+Refuse the connection if the controller returns no response although
+bidirectional authentication was requested.  chap->bi_directional is the
+right condition rather than ctrl->ctrl_key, because secure concatenation
+sends a challenge only to derive the PSK and deliberately clears
+bi_directional; a one-way setup without a controller secret keeps
+returning success as before.
+
+Fixes: f50fff73d620 ("nvme: implement In-Band authentication")
 Cc: stable@vger.kernel.org
-Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
-Assisted-by: Claude:claude-opus-5
+Reviewed-by: Hannes Reinecke <hare@kernel.org>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Signed-off-by: Keith Busch <kbusch@kernel.org>
 ---
- drivers/md/dm-bufio.c | 41 +++++++++++++++++++++++++++++++++++++----
- 1 file changed, 37 insertions(+), 4 deletions(-)
+ drivers/nvme/host/auth.c | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/md/dm-bufio.c b/drivers/md/dm-bufio.c
-index d58eed96a8ff5..edad64654ef68 100644
---- a/drivers/md/dm-bufio.c
-+++ b/drivers/md/dm-bufio.c
-@@ -2545,6 +2545,13 @@ struct dm_bufio_client *dm_bufio_client_create(struct block_device *bdev, unsign
- 	init_waitqueue_head(&c->free_buffer_wait);
- 	c->async_write_error = 0;
+diff --git a/drivers/nvme/host/auth.c b/drivers/nvme/host/auth.c
+index e55920642f2c1..cbb38935fa227 100644
+--- a/drivers/nvme/host/auth.c
++++ b/drivers/nvme/host/auth.c
+@@ -358,8 +358,21 @@ static int nvme_auth_process_dhchap_success1(struct nvme_ctrl *ctrl,
+ 			 nvme_auth_hmac_name(chap->hash_id),
+ 			 nvme_auth_dhgroup_name(chap->dhgroup_id));
  
-+	/*
-+	 * A client with no buffers yet is not holding the oldest buffer in
-+	 * the system; leaving this zeroed would claim exactly that and keep
-+	 * the client pinned at the front of dm_bufio_all_clients.
-+	 */
-+	c->oldest_buffer = jiffies;
-+
- 	c->dm_io = dm_io_client_create();
- 	if (IS_ERR(c->dm_io)) {
- 		r = PTR_ERR(c->dm_io);
-@@ -2779,9 +2786,23 @@ static unsigned long __evict_a_few(unsigned long nr_buffers)
- 
- 	dm_bufio_unlock(c);
- 
--	if (count)
-+	if (count) {
- 		c->oldest_buffer = oldest_buffer;
--	__insert_client(c);
-+		__insert_client(c);
-+	} else {
+-	if (!data->rvalid)
++	if (!data->rvalid) {
 +		/*
-+		 * We evicted nothing, so 'oldest_buffer' tells us nothing new
-+		 * and the client keeps its old, possibly very stale, value.
-+		 * Requeue it at the back rather than by that value, otherwise
-+		 * __insert_client() would put it straight back at the front
-+		 * and every subsequent call would pop this same client again,
-+		 * never reaching any of the others.
-+		 *
-+		 * This leaves the list slightly out of order, which is fine -
-+		 * it is only ever an approximation.
++		 * The controller did not return a response.  If we asked it to
++		 * authenticate itself the session must not be used, otherwise
++		 * mutual authentication would silently degrade to one-way.
 +		 */
-+		list_add_tail(&c->client_list, &dm_bufio_all_clients);
++		if (chap->bi_directional) {
++			dev_warn(ctrl->device,
++				 "qid %d: controller did not authenticate\n",
++				 chap->qid);
++			chap->status = NVME_AUTH_DHCHAP_FAILURE_FAILED;
++			return -ECONNREFUSED;
++		}
+ 		return 0;
 +	}
  
- 	return count;
- }
-@@ -2806,11 +2827,23 @@ static void evict_old(void)
- {
- 	unsigned long threshold = dm_bufio_cache_size -
- 		dm_bufio_cache_size / DM_BUFIO_LOW_WATERMARK_RATIO;
-+	int unproductive = 0;
- 
- 	mutex_lock(&dm_bufio_clients_lock);
- 	while (dm_bufio_current_allocated > threshold) {
--		if (!__evict_a_few(64))
--			break;
-+		if (__evict_a_few(64)) {
-+			unproductive = 0;
-+		} else {
-+			/*
-+			 * This client had nothing to give.  Try the others
-+			 * before giving up: one idle client, or one whose
-+			 * buffers are all held, must not stop us evicting
-+			 * from everybody else.  Stop once a whole sweep of
-+			 * the client list has freed nothing.
-+			 */
-+			if (++unproductive >= dm_bufio_client_count)
-+				break;
-+		}
- 		cond_resched();
- 	}
- 	mutex_unlock(&dm_bufio_clients_lock);
+ 	/* Validate controller response */
+ 	if (crypto_memneq(chap->response, data->rval, data->hl)) {
 -- 
 2.53.0
 
