@@ -1,54 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047214;
-	b=oiqe82wG0sbpV0QbzIvSYrvpNajteEHPhS9veon+BhnkaS3XVPU0I+vYdWDx6xHtn65H
-	 lStL+gK+l9RCunXdQypw71oeNkjTgcaXv4iFnwBm2bBmkIg1YmnumvyFoiWXY2Zrq97rd
-	 g5TcqA7nuCCRF3XriOyLn36o/4/SMTlgtuwtCVJD/pwi8wvIfpWQlFbL7CejeagknYZEM
-	 8MAp/i2DnvoOCvoBSD92oW6YBYVIUq2QstkSyM0HnBm2pTol1i4aPnB9X6iiMj2P2XKhh
-	 EKOjVpHVkYsimLJhTJnFHwKtwppzibxWyeHcwLRUC+xosIIqLigx+QvirqWYeADZNzw==
+	t=1794047216;
+	b=PlxLeILOPO+O+mK8myhi8X/5U4ta1nsP4eR0TenMf8zDJ8aeoNdeSB9TfSDDmA1wT39H
+	 U5pdcEG1dNxQsAVtsI8dEImXcsC7ZkMGa/TZwzFsuz3eXyEiYz7OJ5kfLia8zKuVLD4A5
+	 A+xZgLQg1d0KvmkqdN1jGyNsOpScvfqgctFxhsY4cTtRbQIVSmtr3n62pXa1/AFIh6jsP
+	 Pofr81n7vGjj3FUUi5NtW/EKucWQtF4DgLBmc4QZmh3+/A/nPWfaNfAmlOc/N2J8Z+VMd
+	 7a6orzlD7MV2WXHbsfv9T6hIIYC4018nS92SRv96/s4TS9Kdo8qQ9V7+O//V8yQnMSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047214;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047216;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=9DIiruk2w2cBpOeGJ+1pFMDVuFzFPqvU2/PsW46nEXA=;
-	b=rpq1snplXTbqJXjGoVUlatWAcneDLHaIe9YRszfiGamj9BCrmigcg/N2vxNL84cudjCv
-	 PWs/mZ52hN+iBFTwgyg/RWq8grsXfkcexzWAp3Qlot53rQjtZOyHwsTXSH1sP+30epQaa
-	 7Vb8uCEdgmOYZBz9qj0rDPqPJwFCijYaOpUjjCmEPpBnLECUq6AAzUxAiwApxXXfPiQrO
-	 8XDfDWp7ftDHi34A/mv0OEdveUc7WYz2cDe1VU5rAAtGaiCrf9kLcLOo0gBkh5RLwFUL7
-	 ci34SJkMt4rDijdQdH7//0yrqdXH7KbYU/9nWyU7zBoZ5S3r1P+eMDjPJ5h/+VtvXGQ==
+	bh=CPPuUWnwcuOZxRuXmexpOZ5qEiWADGPqaCReiNVLo4k=;
+	b=mY5LFzWKVhGw4WAMKDbhH5z/RinWlvsV4HCQ2K8slFLF+wTvxTjIbDadayeaiVO9vbEL
+	 7UjnGaFtPEBm4hQVRvZ3XwG8TsJix75AyyH2iqB1hUDrPtWvQF2zRsqGZmcSKowkj3je3
+	 VSX4zT3nhf9sONMTWXBVUlvtDBE8evllv8XvNg/ZT317wwH+FsOpbRw1mu5YXpftku5q2
+	 UAL/ItDoU4qo6nHF5GD+6nEdq8fUEZ+huz+sgp1QFfYOMPMRtBIUAu/q4oGszSPwh7tkr
+	 3mhG95AofieIWjyzGBITNVESAjuKCKNr3/a6NCjnMY2LnAed0NYgH2Ujvl6S0Q/UZiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ec2Q16aA;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XfJfqxLG;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7583A606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:26:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EF5A606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:26:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ec2Q16aA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F41D1F0089F;
-	Sat,  7 Nov 2026 10:26:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XfJfqxLG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09C8D1F0089F;
+	Sat,  7 Nov 2026 10:26:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047214;
-	bh=9DIiruk2w2cBpOeGJ+1pFMDVuFzFPqvU2/PsW46nEXA=;
+	s=k20260515; t=1794047216;
+	bh=CPPuUWnwcuOZxRuXmexpOZ5qEiWADGPqaCReiNVLo4k=;
 	h=From:To:Cc:Subject:Date;
-	b=Ec2Q16aAIQB4BXlQVmmuTLmHpJYjbrZvQYcUQjQcyuJTNiAABywWYIsnVBt829JJO
-	 5cfTPWFjqGctlbIc/Xpri/3mCxbrHCHshKHd++PvUaT53+axqMOivA8bYJz/eZyr1O
-	 LL5o7uyhd8194gIn0/pYS4/pwrsIh00daw3sG0Gbk8UrgeVNZGmCWf2QSfAaLFuZoZ
-	 WzB+Aw1E+ypr6e1aZm8DJMdjPNhq+eiX81A8r6oFI+uogb0kM95JtnSeLj7qdZY5vn
-	 2BIKn7c9NGNqMpK3XV8FqyHU4fMDJW9zc3qQBxv0i/T5l6Z6Oy/Yz87OX893mAp8fi
-	 OHRXPa2ogA9cw==
+	b=XfJfqxLG9Kp9fGkqyTx5vFjWJpBgNdNNz9giiKx3eOyHifBR+rqdrAzzAyUrG1+DF
+	 cVWrEaKa1mKpm/t9rLrKrQAeFUw3eo4ui8TF6/+QsWKxE7Ji0nf97De9FtzJ9YMQoZ
+	 ldUz/puygCJpt5OkEBuEUbNCiwqNfwN4KoXcMlZaGi7d+BJpGeJM/mP2T2xDeArmbM
+	 nKNOGC9AePU3SoTI8wzdHPhl6pWh9q1VsVOytjA+uaroLPdX1wKN+bXCiFAzTxeqWT
+	 WNc7JiNdSvXGn56jVv6AW8PMS3O4I32JMQNAa23VQiOgTZYVcgKRQKNPT7vRjZor6a
+	 /CM74AP2kj3Dg==
 From: Sasha Levin <sashal@kernel.org>
-To: idosch@nvidia.com,
-	netdev-bot+sashiko@kernel.org,
-	liuhangbin@kylinos.cn,
-	edumazet@kernel.org,
-	kuba@kernel.org
+To: chenhuacai@kernel.org,
+	chenhuacai@loongson.cn
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ipmr, ip6mr: validate packets injected into the register vif on xmit" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:26:52 -0500
-Message-ID: <20261107052652-failed-6.12-aa1799e93f5e@kernel.org>
+Subject: FAILED: patch "[PATCH] LoongArch: Don't init & online empty nodes" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:26:54 -0500
+Message-ID: <20261107052654-failed-6.12-87c6d144bc7b@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,113 +68,59 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x aa1799e93f5ebb973252aec649d84d12d9c7fd1c
+git cherry-pick -x 87c6d144bc7bbed0c4573848b9c92006edca7848
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052652-failed-6.12-aa1799e93f5e@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052654-failed-6.12-87c6d144bc7b@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From aa1799e93f5ebb973252aec649d84d12d9c7fd1c Mon Sep 17 00:00:00 2001
-From: Ido Schimmel <idosch@nvidia.com>
-Date: Sun, 25 Oct 2026 09:17:29 +0200
-Subject: [PATCH] ipmr, ip6mr: validate packets injected into the register vif
- on xmit
+From 87c6d144bc7bbed0c4573848b9c92006edca7848 Mon Sep 17 00:00:00 2001
+From: Huacai Chen <chenhuacai@loongson.cn>
+Date: Tue, 27 Oct 2026 22:51:23 +0800
+Subject: [PATCH] LoongArch: Don't init & online empty nodes
 
-reg_vif_xmit() passes the packet to ipmr_cache_report() which copies its
-IP header into the IGMPMSG_WHOLEPKT report that is queued to the mroute
-socket. Nothing guarantees that the packet contains a full IP header, so
-when a short packet is injected on the register device (e.g., using
-AF_PACKET), the copy reads past the end of the packet and a recvmsg() on
-the mroute socket leaks the uninitialized bytes to user space [1].
+Don't init & online empty nodes without any CPU cores (and memory), in
+this way "lscpu" will not display confusing empty nodes.
 
-IPv6 has the same problem [2]. Its reg_vif_xmit() does call
-pskb_inet_may_pull(), but the helper keys off skb->protocol and does not
-pull anything when the protocol is neither IPv4 nor IPv6.
+Modify fake_numa_init() to make sure at least Node-0 isn't empty for the
+FDT booting case.
 
-Fix by dropping packets whose protocol does not match the address family
-of the register device or that do not contain a full network header.
-
-[1]
-BUG: KMSAN: kernel-infoleak in _copy_to_iter
- raw_recvmsg
-
-Uninit was stored to memory at:
- ipmr_cache_report
- reg_vif_xmit
- packet_sendmsg
-
-Uninit was created at:
- __alloc_skb
- sock_alloc_send_pskb
- packet_sendmsg
-
-Bytes 1-3 of 21 are uninitialized
-
-[2]
-BUG: KMSAN: kernel-infoleak in _copy_to_iter
- rawv6_recvmsg
-
-Uninit was stored to memory at:
- ip6mr_cache_report
- reg_vif_xmit
- packet_sendmsg
-
-Uninit was created at:
- __alloc_skb
- sock_alloc_send_pskb
- packet_sendmsg
-
-Bytes 8-23 of 41 are uninitialized
-
-Fixes: 14fb64e1f449 ("[IPV6] MROUTE: Support PIM-SM (SSM).")
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Reported-by: Sashiko <netdev-bot+sashiko@kernel.org>
-Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/0545f0c83f5ee2f6696210f87268e811ef655715.1792476357.git.zhilinz%40nebusec.ai
-Signed-off-by: Ido Schimmel <idosch@nvidia.com>
-Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
-Reviewed-by: Eric Dumazet <edumazet@kernel.org>
-Link: https://patch.msgid.link/20261025071729.34967-3-idosch@nvidia.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
 ---
- net/ipv4/ipmr.c  | 6 ++++++
- net/ipv6/ip6mr.c | 2 +-
- 2 files changed, 7 insertions(+), 1 deletion(-)
+ arch/loongarch/kernel/numa.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/net/ipv4/ipmr.c b/net/ipv4/ipmr.c
-index 4a22d9f234254..915b210c4512b 100644
---- a/net/ipv4/ipmr.c
-+++ b/net/ipv4/ipmr.c
-@@ -539,6 +539,12 @@ static netdev_tx_t reg_vif_xmit(struct sk_buff *skb, struct net_device *dev)
- 	};
- 	int err;
+diff --git a/arch/loongarch/kernel/numa.c b/arch/loongarch/kernel/numa.c
+index c96c536237151..7dedc134ddfe0 100644
+--- a/arch/loongarch/kernel/numa.c
++++ b/arch/loongarch/kernel/numa.c
+@@ -216,6 +216,8 @@ static int __init fake_numa_init(void)
+ 	phys_addr_t start = memblock_start_of_DRAM();
+ 	phys_addr_t end = memblock_end_of_DRAM() - 1;
  
-+	if (skb->protocol != htons(ETH_P_IP) || !pskb_inet_may_pull(skb)) {
-+		DEV_STATS_INC(dev, tx_errors);
-+		kfree_skb(skb);
-+		return NETDEV_TX_OK;
-+	}
-+
- 	rcu_read_lock();
- 	err = ipmr_fib_lookup(net, &fl4, &mrt);
- 	if (err < 0) {
-diff --git a/net/ipv6/ip6mr.c b/net/ipv6/ip6mr.c
-index 3a551be30f153..a628acf50b0d8 100644
---- a/net/ipv6/ip6mr.c
-+++ b/net/ipv6/ip6mr.c
-@@ -642,7 +642,7 @@ static netdev_tx_t reg_vif_xmit(struct sk_buff *skb,
- 		.flowi6_mark	= skb->mark,
- 	};
++	set_cpuid_to_node(0, 0);
++	early_numa_add_cpu(0, 0);
+ 	pr_info("Faking a node at [mem %pap-%pap]\n", &start, &end);
  
--	if (!pskb_inet_may_pull(skb))
-+	if (skb->protocol != htons(ETH_P_IPV6) || !pskb_inet_may_pull(skb))
- 		goto tx_err;
+ 	return numa_add_memblk(0, start, end + 1);
+@@ -244,8 +246,10 @@ int __init init_numa_memory(void)
+ 		return -EINVAL;
  
- 	rcu_read_lock();
+ 	for_each_node_mask(node, node_possible_map) {
+-		node_mem_init(node);
+-		node_set_online(node);
++		if (!cpumask_empty(&cpus_on_node[node])) {
++			node_mem_init(node);
++			node_set_online(node);
++		}
+ 	}
+ 	max_pfn = PFN_DOWN(memblock_end_of_DRAM());
+ 	max_low_pfn = min(PFN_DOWN(HIGHMEM_START), max_pfn);
 -- 
 2.53.0
 
