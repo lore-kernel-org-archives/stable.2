@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046955;
-	b=UbEGSbTB1XEl17B4lZLJ25Gwo2ozhEeCCbZG3KvFvMKHwz2yKNrW0rkJxTAtraw5+70J
-	 OzXsIba95oiJDfyfai51L27q5WpPMMrYn97WJQXoIb+uDTzBDZpo/R1hVJ3m0j/wVwS8r
-	 UGuc0UuBhZevtLBo95J4F2LD8ku5gJYUQVKxLHGJLj5Qp2y/Ow2CDQCSR+RFyx2mcHjVm
-	 QB7TbO8B87QKzWOO+Kdbv3Q+j3yTxEPwO59c3WLnwObVun8gGTrse8k+WNTCT+jeCQJWY
-	 sEuVPQHU7cwio65mfVsU3mGupY5k4vmZUuvFndl2DFK8lsEyQPrcQdFrcWP9/gKqPfw==
+	t=1794046957;
+	b=IaoMz3rk3a5LFe8l0Y3PXyyl00g7vWdfrnaTFa17RneTa5WawYfz+QkM8HTJigubz4db
+	 gbK98FSOO66++bVUABeJpLPVenepnG3H66cYHUWqyprshHPGzUUZpu16EWc7rKLO8QU1q
+	 c6peshz8zpsNiELzSg2ulezZemM5v7GR1G3uba+GJhpreOFZGvkt/hZju/nhQr66Ug17X
+	 k6ueVgBhZtF1BvNibaG3NW1zPs/TZBUyqVtX0G06YDKXOcBkFbEfp4OqjslRGMW6JfnuK
+	 5VcyHVi+WH7149Q5PS7JHwYQUPbrR65fYik19AKPuaRJOIrCq/1YDxed4Nf8bCG4NNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046955;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046957;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=OlntkLoUJiOyFq2No1te7A7u1s5rEAFhzrEA+wegIhw=;
-	b=sCVP51Tno4DG4DpTE7ETgJlbdtRSufVM0GeYKepRK1xAuQF/H1nYQWzvjWN1eOyavNYt
-	 xw7fix6Y4EOSBLDHlX2q7iLujmqDSOxXDSPuOlLNj+VOahe/LQ5j1UG9+hE03r2KdFt3q
-	 24uYPehjFO4kKtQ+DVbc5qE8qAq6UK8WS0Mt3cdrZECcKR6JeAcdVRr7i1flEyV9Wpdum
-	 GQCxCi5VdiSrLcG6Wr8UBrzjnX6Td17DIcz6zsycDHAiyBeiaySOL8IKAgf7Janqyrc3h
-	 mHRaF0M8JTvzTJW/LZUXs38Mjym2B4RbvuKD03PJF5t+slrLQ8iWjWayIAa7ku4SB8w==
+	bh=hgc4Q/8yn60RPIxUyIxhPl8soPI28Rfwe/v1b0zcTEA=;
+	b=uS7SMJdZTDOvacwYmMCPCTRp6IMM75ILmato6LRqWfQ0k0tM91c2L4dRjrXfVMAKtVYo
+	 7sUOZGCnW73JlxGXWP6pxGScBnBPJvhzz48nUiK1yYXgWfHQeCisQZ7+S5ZvDCB4KJptq
+	 P3xk1fSQObPsXs8Wa2Ovk+/z5LnwdO9AUYZMiy60hJ+YF1//Y3vCEWe9g49ulD0gHGwi0
+	 Bw5fp6wiOpV/Z7GKdu23Nv2bUWtMt3ToytILOPiKGEIaHa0i6SDpVkmU9FT8zCtx22wEa
+	 YXlWKTJakl2PE+WWYq+Z6MkcFL72MySnj/rlKSQx9ygEwQgT+i/XNAfVjglQAJQBvKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T2Hv9iim;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iYdlSGBW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DED2A606A330
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:22:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1135E606A337
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:22:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T2Hv9iim
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4406E1F0089F;
-	Sat,  7 Nov 2026 10:22:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iYdlSGBW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 812EC1F0089F;
+	Sat,  7 Nov 2026 10:22:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046954;
-	bh=OlntkLoUJiOyFq2No1te7A7u1s5rEAFhzrEA+wegIhw=;
+	s=k20260515; t=1794046956;
+	bh=hgc4Q/8yn60RPIxUyIxhPl8soPI28Rfwe/v1b0zcTEA=;
 	h=From:To:Cc:Subject:Date;
-	b=T2Hv9iimfscT29UMt3jmersTs6u42AmJKAlYwQ1ZZZ/9GDXTqOFnQZSTxQcp4qw1Q
-	 mTqApDWqJHCMiLhyOdc2R/nZNRq1TCsiD15f6hn2efVEi745Wrbk44YkzTeyxfKriq
-	 DwDyONNVji/se60jO0PFeOyTDTJjfPX6DopKA+JuzosgO57OCr8agVlWRVv8ywuJdM
-	 NjbRPJw0bpO+j39vqVQayHGvZuG3TWWekKdJkVTemQhHEy60k91whDWXIlt7y9jd5A
-	 7NSHGq+N4K1ASpn8Kjv6RmWxa+iMjIFu19JRwWvOx7RwIN3jBJr6bJWntyVdAfPZwx
-	 uH6MYF2Ua+c8w==
+	b=iYdlSGBWGSB92IWYUk/paGn6AORPi4I7pKnG8nngdefV/qfKdxarMzEVpU1e/axS6
+	 dgjqZJU6S1DAiyaCQv163/QjDa0Iv4rn4e2ihjbukO1Xfj4ORHR7gJhbBLAM3IZ9rL
+	 b/O5+67kLDElyYXeBUst3RkUgq1I0LqM8JzAuqLTsAkEjeVIA9GFLYFl3WKhj7bS0z
+	 lQLIIFXje20jo6k7fS/KIH/BGErEUfuG6P7nlUYvFnWWuUqc4fXmd2Z5pXY62TxxPS
+	 XTFdn3BMTtO78u+f5dktYmZtZOqfyHKHz750PM/udQOYs1tvPp2GrnDlBpgdaglNFi
+	 RgjMfu6FYVICQ==
 From: Sasha Levin <sashal@kernel.org>
-To: kmehltretter@gmail.com,
-	bigeasy@linutronix.de,
-	rmk+kernel@armlinux.org.uk
+To: jirislaby@kernel.org,
+	gregkh@linuxfoundation.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ARM: 9521/1: cacheinfo: count external caches in early_cache_level()" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:22:33 -0500
-Message-ID: <20261107052233-failed-6.12-4fd69e8a9ebc@kernel.org>
+Subject: FAILED: patch "[PATCH] serial: 8250_omap: set priv->line before enabling the IRQ" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:22:35 -0500
+Message-ID: <20261107052235-failed-6.12-8276a44f0a0b@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,73 +68,62 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 4fd69e8a9ebc42e292637ec2ebfb6bcf2d2f6c0e
+git cherry-pick -x 8276a44f0a0b68c07b2331cc0058036ac4c4190d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052233-failed-6.12-4fd69e8a9ebc@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052235-failed-6.12-8276a44f0a0b@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 4fd69e8a9ebc42e292637ec2ebfb6bcf2d2f6c0e Mon Sep 17 00:00:00 2001
-From: Karl Mehltretter <kmehltretter@gmail.com>
-Date: Mon, 21 Sep 2026 21:44:33 +0100
-Subject: [PATCH] ARM: 9521/1: cacheinfo: count external caches in
- early_cache_level()
+From 8276a44f0a0b68c07b2331cc0058036ac4c4190d Mon Sep 17 00:00:00 2001
+From: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
+Date: Tue, 13 Oct 2026 08:48:50 +0200
+Subject: [PATCH] serial: 8250_omap: set priv->line before enabling the IRQ
 
-early_cache_level() counts only caches described by CLIDR. An external
-PL310 is absent from CLIDR, and its arm,pl310-cache compatible is not
-accepted by init_of_cache_level(), so early allocation falls back to
-an incomplete count. init_cache_level() later adds the DT-described
-L2, forcing reallocation on the secondary CPU with interrupts disabled.
-This defeats early allocation on PREEMPT_RT.
+omap8250_irq() is requested in omap8250_probe() with IRQ_NOAUTOEN and
+enabled only in omap_8250_startup(). The handler obtains the port by
+serial8250_get_port(priv->line), but probe stores priv->line only after
+serial8250_register_8250_port() returns.
 
-Use init_cache_level() for early sizing too, so the initial allocation
-includes external caches described by the device tree.
+The port becomes visible to userspace already inside
+serial8250_register_8250_port() (uart_add_one_port()). So it can be
+opened -- and the IRQ enabled -- before probe stores the line. An
+interrupt in that window makes the handler call
+serial8250_get_port(-ENODEV) and dereference a pointer outside of
+serial8250_ports[].
 
+Store the line in omap_8250_startup() before enable_irq(), so the
+handler never runs with an unset line. Keep the assignment in probe
+too, as remove and the system PM callbacks rely on it even when the
+port was never opened.
+
+Fixes: fef4f600319e ("serial: 8250: omap: Fix life cycle issues for interrupt handlers")
+Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
 Assisted-by: LLM
-
 Cc: stable@vger.kernel.org
-Tested-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Link: https://lore.kernel.org/r/20260912195552.76673-3-kmehltretter@gmail.com/
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-Signed-off-by: Russell King <rmk+kernel@armlinux.org.uk>
+Link: https://patch.msgid.link/3b3a642f7df2285f49a7bbbe5d1c23fa442c7d94.1791873876.git.jirislaby@kernel.org
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- arch/arm/kernel/cacheinfo.c | 12 +++++-------
- 1 file changed, 5 insertions(+), 7 deletions(-)
+ drivers/tty/serial/8250/8250_omap.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/arch/arm/kernel/cacheinfo.c b/arch/arm/kernel/cacheinfo.c
-index 860eeb03cfe5d..31591c9472548 100644
---- a/arch/arm/kernel/cacheinfo.c
-+++ b/arch/arm/kernel/cacheinfo.c
-@@ -111,13 +111,6 @@ static int detect_cache_level(unsigned int *level_p, unsigned int *leaves_p)
- 	return 0;
- }
+diff --git a/drivers/tty/serial/8250/8250_omap.c b/drivers/tty/serial/8250/8250_omap.c
+index 3a1473bf54d0f..137175aa4183a 100644
+--- a/drivers/tty/serial/8250/8250_omap.c
++++ b/drivers/tty/serial/8250/8250_omap.c
+@@ -711,6 +711,9 @@ static int omap_8250_startup(struct uart_port *port)
+ 	struct uart_8250_dma *dma = &priv->omap8250_dma;
+ 	int ret;
  
--int early_cache_level(unsigned int cpu)
--{
--	struct cpu_cacheinfo *this_cpu_ci = get_cpu_cacheinfo(cpu);
--
--	return detect_cache_level(&this_cpu_ci->num_levels, &this_cpu_ci->num_leaves);
--}
--
- int init_cache_level(unsigned int cpu)
- {
- 	unsigned int level, leaves;
-@@ -146,6 +139,11 @@ int init_cache_level(unsigned int cpu)
- 	return 0;
- }
- 
-+int early_cache_level(unsigned int cpu)
-+{
-+	return init_cache_level(cpu);
-+}
++	/* ISR and runtime PM need the line; probe sets it only after registration */
++	priv->line = port->line;
 +
- int populate_cache_leaves(unsigned int cpu)
- {
- 	unsigned int level, idx;
+ #ifdef CONFIG_PM
+ 	up->capabilities |= UART_CAP_RPM;
+ #endif
 -- 
 2.53.0
 
