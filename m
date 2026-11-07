@@ -1,58 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794061023;
-	b=I19Plt/pICXpknCJtQT967qT/Y3HPtSlzFKkqbuQ6Lf+4k3v7lSzLzmMIIWOoOw0djyz
-	 aKJG10xw8/UFlekjzwTmCIokpBvt/RQHPxX8m6kizUgjgvYVOc3gHyo1aBRfmG0K5JlY/
-	 +bRR/T+Jxtwk0YGjNPbmrlaWMQewQV/fBnNBM31DAO2vegU+dlw95SqvJALi1m5A5hw6h
-	 1TeY5r2PwIUz4RvRuaYPVnjtt7d8TqcZOjO+nFHTRthvLWdk6WXQHg2yIfxWai3Y+Y67U
-	 MGS3T2eo0x96VU+HFvvBYtfqSyXL9pmlw+4/PwpJqBbzSjOsWQweifLvS2OucrqDkrQ==
+	t=1794061024;
+	b=oRtCMU4wCIe1oHwcCl+RgYSDrutgSPmpohNBYLax1anhzI7TPiSwm2scQOTO/pvIMlgG
+	 TEbht+7UK2S1etDLNoe+sUMo3btdlwIP/NrWjWbMbbzwNI9XLoF0X/wh6Bt96l5ocgbG2
+	 ABx8TdkrNcAjAOoPw8XqMpVAEtCBK+1W7Hrd/yG0nBIPbUe6uyzen+2maRSeGcdI51gDJ
+	 4Pql2dA3wBRhgPJxNu6ExmsYeL6Efd0c/ywQkuSnPnmLJfGQy6SdMQJKnNdTWiw0ntOr8
+	 J86yTCyUYehIket655nK4d/De+fyAtDcgqND0+FBc88Ffbs2xc20hWX/OjTGQkZEXdg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794061023;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=JYHj6IHKEyK1hcif95UQZyM8xpKoav8CnbBwKF7y9oY=;
-	b=zxv/Lm2PX6KtqK1R0C+qeMQdmX7irs7q4SLZEuxxdt+asu3XERVrPSxNbhRSkKQ1BP1+
-	 ga3UHhZTF3e3diZa31unrrtKclQWStZ74+E9tTkUt0a+YahgC0VrvOQoFmDL5UuwLv8p5
-	 nuquIOz8A41ojaJE6+ziY6r55yELDURkokydBcDQoPF/yTUWmWbpnjIvUfMRM0sYH6/Lu
-	 k8Onz6HAopprxrX+cJE8A4NftYtft3PhTu7NwzTKa4wu5X19ylPJy0EWj+wSoX8X1vxBe
-	 k+13xn27C4glvQQJbj8EyytpPG7KRM+zYflm+biCn4AimsUIBnenpXKfowN2VwKEXNA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794061024;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=k4iR2mxvWylquEU8KA26nu8fMGWnTyCNi3UU2qV/4iM=;
+	b=dcqhBeh+siRIrMlgs4aLMTGfRCqIZm2s9/iaSV/6ocs1nKrf/VdT0/SQvRpzvlGHfRzu
+	 66eKt8SrC/y4im6SOBOIJNTXTYV5FCKMvvGZnMOUj5XXSPQAwkwIcCAjfKNJX/CQUZFwU
+	 kyPW24H2GKcmgcVL4sGNtiFsM5BtIwreiv5zw3hzKwOhOVVV3M1HPGllUNauTYyjrwuDh
+	 LrBlm2g07hsuTH28Qr9H8519Jrv+Af9ff14ouLiyqJjsT5Y0DQSbbS7A8aEeCe9m9RL+Y
+	 zZO/xLE+xwK3kROdqhU2OB3yg+FZECgaZi1f9obUPHXdev4uq5fI9UoQEPswqBB5uCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=KN05QSGK;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=spJmWW1D;
+	arc=none smtp.remote-ip=209.85.221.47
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98183606D83C;
-	Sat,  7 Nov 2026 14:17:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B2BF606EEAF
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 14:17:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B2BF606EEAF
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=KN05QSGK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 411E81F008A3;
-	Sat,  7 Nov 2026 14:17:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794061023;
-	bh=JYHj6IHKEyK1hcif95UQZyM8xpKoav8CnbBwKF7y9oY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KN05QSGKAcx0lwoV+dwTbDEhQ21eb5fpvUXWZDoYv8pUc5XmsNhwmLv7L1HxkrUg2
-	 2wxL/prvMqVSFnEjnmHGlctinG7LlFawVys6VPbxtPdvlXw7m8mD53PhxOhwQ8FI3d
-	 HRAUaZsDykXj0Ke/bd8sfzJrg+4kKGAjpB++hy6Y=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=spJmWW1D
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-4918c2d727fso800550f8f.3
+        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 06:17:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794061022; x=1794665822; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=k4iR2mxvWylquEU8KA26nu8fMGWnTyCNi3UU2qV/4iM=;
+        b=spJmWW1DG/s9aBUdyknjvArDN1C7HK3wilbX6HsamxUKI1TPKaGT+fvPA3YEBcU+J4
+         FYYcjbkOxXtoIz0aVm4kNd2hty5aYd72+naHj5mbYCVrw1pFCOZmf46gp7xFdmTAsJQw
+         xm3q4RZQe7xX3qdih2ORvsRMONrTCE0Q8GgFDRyLfl6wTuuiFOeIOJpyMdpSDCSiUgmG
+         s3oKpCaBTda7U8LvAjJpzRLK1LNlWMDmxxX78xSZmQMrbjb87ZXM3y5Xgy/Ci20pjw91
+         pN7WvI3uqPC7qcWqUf2VFypN9l8+JT9oVDb6H1HONlZ8vJzSoaCllwb/LA/QGVR+5/CD
+         b5xg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794061022; x=1794665822;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=k4iR2mxvWylquEU8KA26nu8fMGWnTyCNi3UU2qV/4iM=;
+        b=XHLOv5k9/sRerkvrxvOsOHjXp0yEOzA4/SDkiMs43uSn3qejjnhMdGgStBbu2FwfI1
+         EFT2vAxEOOe8YiTtAbQweW4kAh133mLvTxlDLRG6i6wvoYmuF5WwlHKeN4IFm2BWL7Sc
+         8WTCEYdFH2Ry+XMrBUPrEn4XB+ou8d5kPd832fIoUligwn5xVlNdTQn1a2TyV8eUfsSw
+         juAvkMVgHf6akkjTA+CiHSkKdo8zidYA1hCEJkJ+/Gpcf6K4j40SAosAYgrIcuYVl/6R
+         zPEDqxM/hzQilSytBRXic+eP524nBdtMNBiiRoKD+GAfOAa83eSibbB4O4u4YdE1aCqA
+         77kw==
+X-Gm-Message-State: APuU4Z91u/qn3mKvHe6Dxl4QVG/6GoZXPAMTtsv04fXemdmHChhjGam7
+	sjNoRFekgyvlyo0qD3U89odR+D9kgXduLXcU/UXHsQBCaEFXjPJHyitH8JVWzN3umXM=
+X-Gm-Gg: AYBFou22X+ihlM7ON4+PgcQD/WahmjlDvPYSP19zvIEap45pEUczQuTABxgw0RL7XuU
+	05gYVaSxwHfhAX1+Umzma4bWi9V7VxIDdeg4CKkPlUGe0nZzk9Vf7LLF9QVp5k/XW1CCLmNT+EL
+	74urg8hLnu3EoXRtzV+19uKTxWHUzD1NxR9dwu8m+TcjShm7AWNJ7wKRprrqQgtPgPj0GncvW1m
+	/8y4w+jxT//7gOP/oRWqnPDPE81+w5+jRQnS9WLe1T2fG8Y488uxhMRV49rIS0JDUKGms+0CXol
+	LdOWeVKtfuw7Ee7YZ125J4lzY1pYRqSXFSyXq6mCA6fqPf7Mcs05/4M1T/cKscb8IapmriATPWH
+	4NbRq+ZYxudP0mUZdVsdwLQVPDwBNyCBDk264Ao7v1SwyLYSvAmhAkUeFK58fcwsJRg+cQvgw+O
+	tvng7qw2ZzaGuAspVqhSzR2+0yn7O79Q40pN5YPCSqbEbCuLlf1NZ2aQy6sAmjLx4i1qpoFa2Kb
+	65J7qaVlB350Quv84WSm0RkBkf3w1EO/99gXSC6/3o+yYQpbdU0nf4tys+4MwTsSfichQqmXVWk
+	seODMfpm5yXX2Xh9CdF0r3DZKqOr3u3cUxz8Bpow+3wfeOozzgIa8+Idgr2Zc+PCAwr9NJzJ37U
+	3LqgD2Ymwo5arNXN1Mscg8AgA6g==
+X-Received: by 2002:a5d:5d08:0:b0:48d:fdd0:6ce8 with SMTP id ffacd0b85a97d-49272c2779dmr13644166f8f.3.1794061022422;
+        Sat, 07 Nov 2026 06:17:02 -0800 (PST)
+Received: from corered.localdomain (p200300eca7315efc6acddbf2c21e6b03.dip0.t-ipconnect.de. [2003:ec:a731:5efc:6acd:dbf2:c21e:6b03])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d723320csm9111983f8f.26.2026.11.07.06.17.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 07 Nov 2026 06:17:02 -0800 (PST)
+From: Andreas Wild <andiwild@gmail.com>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Jia Zhu <zhujia.zj@bytedance.com>,
-	Trond Myklebust <trond.myklebust@hammerspace.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 0360/1536] NFSv4: pin the superblock for active state owners
-Date: Sat,  7 Nov 2026 08:39:36 -0500
-Message-ID: <20261107135007.770333020@linuxfoundation.org>
+Cc: "Maciej W. Rozycki" <macro@orcam.me.uk>,
+	Andreas Wild <andiwild@gmail.com>,
+	Bjorn Helgaas <bhelgaas@google.com>
+Subject: [PATCH 6.6.y] PCI: Skip Target Speed quirk on clamped ports with no link
+Date: Sat,  7 Nov 2026 15:16:49 +0100
+Message-ID: <20261107141649.384711-1-andiwild@gmail.com>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261107134957.653319350@linuxfoundation.org>
-References: <20261107134957.653319350@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+In-Reply-To: <20261107052930-failed-6.6-ff8a969f7dc8@kernel.org>
+References: <20261107052930-failed-6.6-ff8a969f7dc8@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,157 +100,86 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+From: "Maciej W. Rozycki" <macro@orcam.me.uk>
 
-------------------
+Since commit 72780f796468 ("PCI: Always lift 2.5GT/s restriction in PCIe
+failed link retraining") the Target Speed quirk lifts a firmware-imposed
+2.5GT/s restriction on any downstream port, without checking whether the
+link is up.  Where nothing is plugged in, the retraining that follows can
+never complete, so each attempt costs PCIE_LINK_RETRAIN_TIMEOUT_MS.  The
+quirk makes two of them -- the initial one and the restore on the error
+path -- adding a fixed 2 s to every boot.
 
-From: Jia Zhu <zhujia.zj@bytedance.com>
+On an MSI PRO Z690-A WIFI DDR4 (Intel 600 Series PCH) with one empty x1
+slot, running v7.2-rc5:
 
-[ Upstream commit 8cb1ce7aa0e8ac30e55f5bccfb80125f2e43e84a ]
+  0.541 pci 0000:00:1c.0: removing 2.5GT/s downstream link speed restriction
+  1.541 pci 0000:00:1c.0: retraining failed
+  2.541 pci 0000:00:1c.2: [8086:7aba] type 01 class 0x060400
 
-NFSv4 open state can outlive the file and dentry that created it. This
-was observed in production when NFSv4 state recovery, such as after a
-server reboot or lease expiration, raced with unmount.
+Where the Link Speed has already been clamped at 2.5GT/s and no link has
+been established there is nothing worth doing, which is what the kerneldoc
+for the quirk already describes: the restriction is to be lifted where
+firmware arranged it "and the port reports its link already being up".
+Bail out early in that case, before either the ASM2824 workaround or the
+removal of the restriction is considered.
 
-The race requires recovery to hold an open state reference while the last
-open file is closed and the filesystem is unmounted, allowing the
-superblock's active reference to drop to zero between
-refcount_inc(&state->count) and nfs4_put_open_state():
+Ports whose link is up are unaffected, and so is the ASM2824 workaround,
+which is reached with the Target Link Speed not clamped.
 
-    state manager                    umount
+With this applied the quirk returns without touching the port: both
+messages are gone, enumeration proceeds from 0000:00:1c.0 to 0000:00:1c.2
+in 1 ms rather than 2 s, and the systemd "kernel" boot phase goes from
+3.011 s to 1.036 s.
 
-    nfs4_run_state_manager()
-      nfs4_do_reclaim()
-        nfs4_reclaim_open_state()
-          refcount_inc(&state->count)
-          ...
-                                      close last file
-                                      generic_shutdown_super()
-                                        "Busy inodes after unmount"
-                                      nfs_free_server()
-          nfs4_put_open_state()
-            iput(inode)
-              evict()
-                nfs_clear_inode()
-                  nfs_zap_acl_cache()
-
-The "VFS: Busy inodes after unmount" warning is the visible symptom of
-that lifetime mismatch: superblock teardown proceeds even though the NFS
-open state still pins an inode. After umount has freed the server, the
-state manager can then run nfs4_put_open_state() for the last open-state
-reference. The resulting iput(inode) can evict an NFS inode with freed
-server data, causing crashes at nfs_zap_acl_cache(). This can be
-reproduced by delaying the reclaim path before nfs4_put_open_state(),
-then closing the last file and unmounting the NFS mount.
-
-Pin the superblock while a state owner is active, and drop the pin when
-the owner becomes idle again, so the NFS server stays alive until all
-open state associated with the owner has been released.
-
-Assisted-by: Codex:GPT-5
-Signed-off-by: Jia Zhu <zhujia.zj@bytedance.com>
-Signed-off-by: Trond Myklebust <trond.myklebust@hammerspace.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 72780f796468 ("PCI: Always lift 2.5GT/s restriction in PCIe failed link retraining")
+Reported-by: Andreas Wild <andiwild@gmail.com>
+Closes: https://lore.kernel.org/lkml/20260801092152.5643-1-andiwild@gmail.com/
+Closes: https://bugzilla.kernel.org/show_bug.cgi?id=221801
+Signed-off-by: Maciej W. Rozycki <macro@orcam.me.uk>
+Signed-off-by: Andreas Wild <andiwild@gmail.com>
+Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
+Tested-by: Andreas Wild <andiwild@gmail.com>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260801201244.4421-1-andiwild@gmail.com
+(cherry picked from commit ff8a969f7dc8e79ea6113abcfa983e070b2b585a)
+[ Andreas: this tree predates pcie_lbms_seen() and pcie_set_target_speed()
+  and still tests LBMS and DLLLA in one expression, so the hunk did not
+  apply.  Split that test the same way as upstream and compare the
+  LNKCTL2 Target Link Speed field against PCI_EXP_LNKCTL2_TLS_2_5GT
+  directly, as the existing code further down already does. ]
+Signed-off-by: Andreas Wild <andiwild@gmail.com>
 ---
- fs/nfs/nfs4state.c | 40 +++++++++++++++++++++++++++++++++-------
- 1 file changed, 33 insertions(+), 7 deletions(-)
 
-diff --git a/fs/nfs/nfs4state.c b/fs/nfs/nfs4state.c
-index 946acdeaf85ad..4db400b9a0b44 100644
---- a/fs/nfs/nfs4state.c
-+++ b/fs/nfs/nfs4state.c
-@@ -403,6 +403,26 @@ const struct cred *nfs4_get_clid_cred(struct nfs_client *clp)
- 	return cred;
- }
+Notes:
+    Boot-tested on v6.6.162 on the MSI PRO Z690-A WIFI DDR4 from the report (empty
+    x1 slot at 0000:00:1c.0), cold boots: without this patch both messages appear
+    and enumeration from 00:1c.0 to 00:1c.2 takes 2.005 s; with it neither message
+    appears, the step takes 0.001 s, and the systemd "kernel" phase drops from
+    3.070 s to 1.085 s.  The other 22 PCI devices enumerate as before.
+
+ drivers/pci/quirks.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
+index 027f26035..9bfa99e2b 100644
+--- a/drivers/pci/quirks.c
++++ b/drivers/pci/quirks.c
+@@ -93,8 +93,12 @@ int pcie_failed_link_retrain(struct pci_dev *dev)
+ 	pcie_capability_read_word(dev, PCI_EXP_LNKCTL2, &lnkctl2);
+ 	pcie_capability_read_word(dev, PCI_EXP_LNKSTA, &lnksta);
+ 	oldlnkctl2 = lnkctl2;
+-	if ((lnksta & (PCI_EXP_LNKSTA_LBMS | PCI_EXP_LNKSTA_DLLLA)) ==
+-	    PCI_EXP_LNKSTA_LBMS) {
++	if (lnksta & PCI_EXP_LNKSTA_DLLLA) {
++		;
++	} else if ((lnkctl2 & PCI_EXP_LNKCTL2_TLS) ==
++		   PCI_EXP_LNKCTL2_TLS_2_5GT) {
++		return ret;
++	} else if (lnksta & PCI_EXP_LNKSTA_LBMS) {
+ 		pci_info(dev, "broken device, retraining non-functional downstream link at 2.5GT/s\n");
  
-+static bool
-+nfs4_get_state_owner_active_locked(struct nfs4_state_owner *sp)
-+{
-+	struct nfs_server *server = sp->so_server;
-+
-+	/*
-+	 * A counted state owner may dereference so_server until the final
-+	 * nfs4_put_state_owner().  Pin the superblock when reviving an idle
-+	 * owner so umount cannot free the server underneath it.
-+	 */
-+	if (atomic_read(&sp->so_count) == 0) {
-+		if (!nfs_sb_active(server->super))
-+			return false;
-+		if (!list_empty(&sp->so_lru))
-+			list_del_init(&sp->so_lru);
-+	}
-+	atomic_inc(&sp->so_count);
-+	return true;
-+}
-+
- static struct nfs4_state_owner *
- nfs4_find_state_owner_locked(struct nfs_server *server, const struct cred *cred)
- {
-@@ -421,9 +441,8 @@ nfs4_find_state_owner_locked(struct nfs_server *server, const struct cred *cred)
- 		else if (cmp > 0)
- 			p = &parent->rb_right;
- 		else {
--			if (!list_empty(&sp->so_lru))
--				list_del_init(&sp->so_lru);
--			atomic_inc(&sp->so_count);
-+			if (!nfs4_get_state_owner_active_locked(sp))
-+				return NULL;
- 			return sp;
- 		}
- 	}
-@@ -449,9 +468,8 @@ nfs4_insert_state_owner_locked(struct nfs4_state_owner *new)
- 		else if (cmp > 0)
- 			p = &parent->rb_right;
- 		else {
--			if (!list_empty(&sp->so_lru))
--				list_del_init(&sp->so_lru);
--			atomic_inc(&sp->so_count);
-+			if (!nfs4_get_state_owner_active_locked(sp))
-+				return NULL;
- 			return sp;
- 		}
- 	}
-@@ -501,6 +519,10 @@ nfs4_alloc_state_owner(struct nfs_server *server,
- 	sp = kzalloc(sizeof(*sp), gfp_flags);
- 	if (!sp)
- 		return NULL;
-+	if (!nfs_sb_active(server->super)) {
-+		kfree(sp);
-+		return NULL;
-+	}
- 	sp->so_seqid.owner_id = atomic64_inc_return(&server->owner_ctr);
- 	sp->so_server = server;
- 	sp->so_cred = get_cred(cred);
-@@ -586,8 +608,10 @@ struct nfs4_state_owner *nfs4_get_state_owner(struct nfs_server *server,
- 	spin_lock(&clp->cl_lock);
- 	sp = nfs4_insert_state_owner_locked(new);
- 	spin_unlock(&clp->cl_lock);
--	if (sp != new)
-+	if (sp != new) {
- 		nfs4_free_state_owner(new);
-+		nfs_sb_deactive(server->super);
-+	}
- out:
- 	nfs4_gc_state_owners(server);
- 	return sp;
-@@ -609,6 +633,7 @@ void nfs4_put_state_owner(struct nfs4_state_owner *sp)
- {
- 	struct nfs_server *server = sp->so_server;
- 	struct nfs_client *clp = server->nfs_client;
-+	struct super_block *sb = server->super;
- 
- 	if (!atomic_dec_and_lock(&sp->so_count, &clp->cl_lock))
- 		return;
-@@ -616,6 +641,7 @@ void nfs4_put_state_owner(struct nfs4_state_owner *sp)
- 	sp->so_expires = jiffies;
- 	list_add_tail(&sp->so_lru, &server->state_owners_lru);
- 	spin_unlock(&clp->cl_lock);
-+	nfs_sb_deactive(sb);
- }
- 
- /**
+ 		lnkctl2 &= ~PCI_EXP_LNKCTL2_TLS;
 -- 
-2.53.0
-
-
+2.56.0
 
