@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049218;
-	b=IFxfP6FDpgWJuA9wlTMGpEpUYroRdgSI273UWK+y7S4E9g6C/at5PUPCpHhkH0KpH8TW
-	 n+P8o0HRJ95RxID7MaLtUeCLNax9DPF3e215wq0W8s2PlXiCorw/MAS0UIl8Hs0ZCqv48
-	 nNcKFGcSwLN+GaEPjzV5sR+bKlQvZS65Oi5cdMh40Dq5NzSvXy3kw3H/mQADseuSp45T2
-	 Mgep+KSGQFAUs1hFv6G61OBqU+9M0yhupglb7KUuC7tI9Xzgf14xqobcgdJtUby05bK2j
-	 AMnLoBrJRZoSEa0xK3eWbw6m62FbVfGNDdz1XtalY4pzCWtAPaHhvRPWTamPHfjcfbA==
+	t=1794049221;
+	b=WmcBsKa9ARPrudfIZXu5Jer5LboJoYUaO3gf3wQUxfs2uSAVPCLDiprxknMhvGxXZjRV
+	 ZsFN1QXG4cP+z1nBK97Vxc/rZJv6BcX+rK9bUaj5c+1V9L1WeuEOm07MSXLYFwV1MF6xB
+	 mFMbB4SyLseKtJKoNhWOvyZys29D1qOr5YooJzmA/i6WLNM41bNN+xVuDuFMyG/SyB3Lp
+	 XUIYYuXX5tsHlqbrCi1iwRARh1zBsPL6o5JVJFz7lC4lMoXgsuqqUV99QoSklMxtIJdLc
+	 WcFCsrDUjK8pIrO3E1tVA+mSoXi7suSVvVRbsh2aBNzjnRzK2yZzU94CFOMdmJ/kfng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049218;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049221;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=aDuT/GESes1/AAVtpRQDJhhfEjAz10zaTc6op7bdl3o=;
-	b=gSlEZNUms+dLw/BkNQdSvQPas2ZirbwUmj94Yz6gB7LGCDyf2y497BpEDO4LrY2TfjsT
-	 UN1hmg+QgRwNLNXldMAMOHWfv3FKzTYB7HXKlD5ApJLfK7Rcs77FvBrVEhfYihPbG/u9C
-	 BMhp7rM+4US+Md1YIOurvdGFVV640Mw7GkrapMvfoxGEnheZ/Svvkx5CSosIX7fhd5P1t
-	 QEVdNya2HYhq5+t8xWezAdYxhiK1xrY23T09wFaktXQ+MzxmGl4yypshf0z0r30enEqsp
-	 ub3gBeaa0TmYLFG9i5/bl8ApNoivTG3S9As9u+FcnpaVybKuMpZmxvnIfPUCiB8Rc2w==
+	bh=Z8JYGIWvX/y+I6qjcPvWo3AkOxGlaAFmPSZ/X6cBARI=;
+	b=12LvwaNdtXJKinjJWdHGefGYX3qe1JkZiq/mNsRHBjNRa03+HuMEISpXopYOhfVtnqSf
+	 fU5Zdm3AXmnse1JQGsSKcVBQYgX5JUxYKqVDW3yBbcSjdK/2/bDkyq8cnKUbfusYI0ffJ
+	 mTWXk8FM6ugtLZ6EKb45jmQpGNYrz99wQ3wPdVXjqy6+OFaeDjDU289w0LRViOho3q22F
+	 EBZiGec34gk1OPb51stCeOYdBVS2VmuXGoj+1onfLZXjWqwZ5RjLH0GFK2GaFd0OXstC7
+	 4609JjOzO4hqZTnMbQzzYIGoYvHlXQ6kOe1aOKXHKiq1uMpY4dCY8zokr4t7cTG0yqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ii3Zcsds;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EG2ywulC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AA8B606A32D
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:00:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 775DC606A32D
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:00:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ii3Zcsds
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9C7F1F0089F;
-	Sat,  7 Nov 2026 11:00:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EG2ywulC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E67791F0089F;
+	Sat,  7 Nov 2026 11:00:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049218;
-	bh=aDuT/GESes1/AAVtpRQDJhhfEjAz10zaTc6op7bdl3o=;
+	s=k20260515; t=1794049221;
+	bh=Z8JYGIWvX/y+I6qjcPvWo3AkOxGlaAFmPSZ/X6cBARI=;
 	h=From:To:Cc:Subject:Date;
-	b=Ii3ZcsdsX2fmdLOluPAgAUKXJvzKqHEOL8bhJ74SWTzmboyoBAFl7yUxGA3AL99+K
-	 6sPHoOQx3vB/t2Ar58nU629RAwBjvL35tEo14r1HkkbzagnZK1bvPWVZBLl2AyH0WX
-	 RhrZVdoFewoN65aMKGE8J/65sYAjBKsN+2JvJGs7Rnmm7DJp7wcs4zoJCSG7meD08F
-	 sQHZdlfpTiAwEr2mJkhWA/lFU1abfuBuNqVTHctRhuLJlD0ZGCG0AHR7k4w5QofNxr
-	 Z/+AYaRqYh5kIaFi4tM4lXpSry9ol+IbgSzmF0XBUpY7uGDWiR+l7n+RVk7t1HNZMt
-	 1EBqzJulAKnNg==
+	b=EG2ywulCe3Eb/UIFEMKhuliwBn3nIrXMgepKOZ4JFGqukMuihttKz1z5hgaB3wD0r
+	 NH5F58q+veSE9gT/4VCMQtPZTdficRwgUKe7Kg2YHi4i2Em3M1GYOF1qWfYYCvBsvQ
+	 5exFTaM3uNeIbmWPCf4nWvb9p2xWZ3S6F30LhV9viP7ZmhTknLeuVXoocnoFCZwHOq
+	 1R3ymws0EmDT+ETxftmxe4VVtu48aOShwI7k7Hk5JzA3HV6+Yv7ZiNhQmmjvrxwkcD
+	 KKQ2nQ5x9BZFpGfONENs6c4yX8/8ChXDMop3GwqD1Xam0AU8F5e8oAIJE0iDyAnBCv
+	 sCcnSmQ/eDCvA==
 From: Sasha Levin <sashal@kernel.org>
-To: khurana.ridham222@gmail.com,
-	linux@roeck-us.net
+To: vulab@iscas.ac.cn,
+	miquel.raynal@bootlin.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] hwmon: (lm70) Fix rounding of negative temperatures" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:00:16 -0500
-Message-ID: <20261107060016-failed-5.15-eddb0aaacce4@kernel.org>
+Subject: FAILED: patch "[PATCH] mtd: mtdsuper: Fix MTD device reference leak in mtd_get_sb()" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 06:00:19 -0500
+Message-ID: <20261107060019-failed-5.15-62ee3da38f41@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,76 +68,54 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x eddb0aaacce4baa9d8176eb2f4bd9e99e867f8fc
+git cherry-pick -x 62ee3da38f41bef83c1cf250f6816a0ee187674b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060016-failed-5.15-eddb0aaacce4@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060019-failed-5.15-62ee3da38f41@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From eddb0aaacce4baa9d8176eb2f4bd9e99e867f8fc Mon Sep 17 00:00:00 2001
-From: Ridham Khurana <khurana.ridham222@gmail.com>
-Date: Thu, 24 Sep 2026 20:53:23 +0000
-Subject: [PATCH] hwmon: (lm70) Fix rounding of negative temperatures
+From 62ee3da38f41bef83c1cf250f6816a0ee187674b Mon Sep 17 00:00:00 2001
+From: Wentao Liang <vulab@iscas.ac.cn>
+Date: Thu, 17 Sep 2026 10:25:50 +0000
+Subject: [PATCH] mtd: mtdsuper: Fix MTD device reference leak in mtd_get_sb()
 
-temp1_input_show() drops the low bits of the temperature register by
-dividing the raw value (raw / 32 on the LM70). These bits are not part
-of the temperature: the LM70, LM71, LM74 and TMP122/TMP124 always
-return some of them as 1, and the TMP125 fills them with copies of the
-temperature LSB. Division rounds toward zero, so a negative temperature
-with any of these bits set is reported one LSB too high.
+mtd_get_sb() is called with a reference to the MTD device already
+taken by the caller.  When sget_dev() fails, the function returns the
+error without dropping that reference, so the device is never released
+and its refcount never reaches zero.  Every mount attempt on an MTD
+device whose superblock cannot be set up leaks a reference.
 
-For example, the TMP122 returns 0xffff for -0.0625 degrees C, which the
-driver reports as 0. The LM70 returns 0xf39f for -25 degrees C, which
-the driver reports as -24750.
+Restore the put_mtd_device() that the fs_context conversion dropped on
+this path.
 
-Use an arithmetic right shift instead, which drops the low bits and
-rounds down.
-
-Fixes: e1a8e913f97e ("[PATCH] lm70: New hardware monitoring driver")
-Fixes: a86e94dc946d ("hwmon: (lm70) Add support for LM71 and LM74")
-Fixes: cd929672a9ef ("hwmon: (lm70) Add ti,tmp125 support")
+Fixes: 0f071004109d ("mtd: Provide fs_context-aware mount_mtd() replacement")
 Cc: stable@vger.kernel.org
-Signed-off-by: Ridham Khurana <khurana.ridham222@gmail.com>
-Link: https://patch.msgid.link/20260924205326.1739229-1-khurana.ridham222@gmail.com
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 ---
- drivers/hwmon/lm70.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/mtd/mtdsuper.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/hwmon/lm70.c b/drivers/hwmon/lm70.c
-index 8b525725fef4f..b29bac7a4cc14 100644
---- a/drivers/hwmon/lm70.c
-+++ b/drivers/hwmon/lm70.c
-@@ -96,21 +96,21 @@ static ssize_t temp1_input_show(struct device *dev,
- 	 */
- 	switch (p_lm70->chip) {
- 	case LM70_CHIP_LM70:
--		val = ((int)raw / 32) * 250;
-+		val = ((int)raw >> 5) * 250;
- 		break;
+diff --git a/drivers/mtd/mtdsuper.c b/drivers/mtd/mtdsuper.c
+index c709ff7aa6b57..02eede3fe582e 100644
+--- a/drivers/mtd/mtdsuper.c
++++ b/drivers/mtd/mtdsuper.c
+@@ -31,8 +31,10 @@ static int mtd_get_sb(struct fs_context *fc,
+ 	int ret;
  
- 	case LM70_CHIP_TMP121:
- 	case LM70_CHIP_TMP122:
- 	case LM70_CHIP_LM74:
--		val = ((int)raw / 8) * 625 / 10;
-+		val = ((int)raw >> 3) * 625 / 10;
- 		break;
+ 	sb = sget_dev(fc, MKDEV(MTD_BLOCK_MAJOR, mtd->index));
+-	if (IS_ERR(sb))
++	if (IS_ERR(sb)) {
++		put_mtd_device(mtd);
+ 		return PTR_ERR(sb);
++	}
  
- 	case LM70_CHIP_LM71:
--		val = ((int)raw / 4) * 3125 / 100;
-+		val = ((int)raw >> 2) * 3125 / 100;
- 		break;
- 
- 	case LM70_CHIP_TMP125:
--		val = (sign_extend32(raw, 14) / 32) * 250;
-+		val = (sign_extend32(raw, 14) >> 5) * 250;
- 		break;
- 	}
- 
+ 	if (sb->s_root) {
+ 		/* new mountpoint for an already mounted superblock */
 -- 
 2.53.0
 
