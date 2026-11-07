@@ -1,52 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050418;
-	b=K6EhaPZV7qlW6d4yBhnqgoo2LDg7nRVmFubtuu5XgsltGwx62T1FPzF/heqwugEbI8EO
-	 UDp2wivdmtIx+hN8k88kgvnFycWxT3z93SRwA8pgU99KvP5+S2LUigJ9BSHIbCMKBouNu
-	 0FFdG+xDfaPoGCAnbMqOZkFle8kDaDO6jL/sh2+Ff+6hxXZY6xBWmGDKT4w0QrtfwWZC/
-	 TagejEJBLK2nU8bjuF/x7Hwf5oQPAo9xNb3DgAyMiQWKavKVnLgXFb0VyBtrPGseI9VLB
-	 cXEmyoVbawf5Kmny5da5oLREXQ4XaE5m55/NBCdzWQ8oIhPPhDG+9C2CIASR9M7Im9w==
+	t=1794050420;
+	b=YUMKBpNiN0Q3JPJOEAbI1F/VrqJBYcid937rVrz5QsZTzcMI7Qq45NMPMsiFJs9m0hqZ
+	 t4wv6d6M3NFefaLGZasdlm9fT3AGttTGW/89gTD7jxFHsstsijN1Pu12IIc8Q4mjOb1tX
+	 K1bcpDwkEjZsZLt5YtSFMDrW9gOilQx+WjNCapu4x4+exEgBe0Ye5XGcbpO6QvXD/lIjK
+	 1aEhgqHjUrHuH0UJXPS4+ZZw2qSBhSnXdVrYmFCz4k9gzasr0gqilNKYvWEnBGq4tU5nx
+	 gv+Oi2jIWSv8OkfHpmFKmMiziv642+2czaRHHxkh4eroeD3BzOTQft3FERNI+i54GLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050418;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=FRZ1m3OmQdGyagoD5B+YW9RWOXK/qmt6OoIpSriBSV4=;
-	b=M5b82IM6XANQf2yPQ6ALbtc0/Rn3BN351bWbq1sYZLCSiMQxnlzdF8IO9w8VEx1h9tjf
-	 EY95akZufjKdc1m6GsY5ff6PwTvp97qgiL1XR5brFq4XHkk+RKRDZE1FsmYGlBzRw9GHe
-	 aNylKwejzBUIr/h4wV3rhOJKp/1KbdNlNoDJ2SPhUD1RtLFPw6AZCe8b742EwULEYnwT2
-	 4f3YDBEu+I8kdqTzDYfDQ55G9Bl0SHJhQzvD7+HgSW9wEfJ9x7rlhDINLIlN7LfPNV/tw
-	 msRWtYkI1SP9p00tpfYDV08RBShOkJb4uMPttH2CjIVNkRGaKfDBTzjUaO4SdhamV1g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050420;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=7lJq3zjrCdb3/Kci2Xd2dr95m6yoQ8Kd15x70oIxTkk=;
+	b=apgkOwmTvbGw213zfpoUavYzmAX3+utQxToaPCG59s05pdFr3Ar+xLiQjsHDjE0yTF7P
+	 CuH/p7GYSXR7b7tMbz+cmyAY+W/gl32/Tcq8z8ktnG0UFcJOMjWpqDBp7WMsyG+3XCoJf
+	 W6ojQpIIiD4JnJn6GLVIQ+xH6mib0mzO9Kr8WIlz2b8kGZaKhsJBfe2vdEpW3P/Fxxvdr
+	 gH8IrgGjcV/hlDrjSpZLcvJLr0CFNlyVCf9eLtG5ScKaBACP05fJS8M50SpLs8gxM7LGj
+	 peLTmWodF0mKTpZU1GtIC3lmpCzuY6IZ2BI6D2pc+Jc8uMSIXzldvBmyir0RshlH+4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CjWyE57b;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=tipi-net.de;
+	spf=pass smtp.mailfrom=tipi-net.de;
+	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=QgllUKZ2;
+	arc=none smtp.remote-ip=194.13.80.246
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B1F1606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AFBB606A32C
 	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:20:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8AFBB606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CjWyE57b
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB0EA1F0089F;
-	Sat,  7 Nov 2026 11:20:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050418;
-	bh=FRZ1m3OmQdGyagoD5B+YW9RWOXK/qmt6OoIpSriBSV4=;
-	h=From:To:Cc:Subject:Date;
-	b=CjWyE57badduhu1kAf1b+WvojAwBMAY5CEow9Qcq2e+cj2ArtRjr12TA307hxu3/G
-	 Ych4p7ji+P76J1GtRHfIpQftjgjCM/o8evNqZ92F744aHbTtA8Rs2oOkU3cZMMyacb
-	 oHuD7kVTnIb55GvCDEA/cUQ7zGPhFAIXusef8hgS908+4c5hcOCKeyilExH8HbZ5EH
-	 kpsZ5f2cd6BQHY0Sts6LotyqmTpxSKojgykS+qMdt1s2kf2LfNsaS8P86YFRK0cVIb
-	 plLn2FWs6aEf5pamW5b3b+rA0WTPIGSwUgWNW5rAJ+qXW/oS0f/gSFYzC6VAaPG2y0
-	 xiglaCOWd83Vw==
-From: Sasha Levin <sashal@kernel.org>
-To: vulab@iscas.ac.cn,
-	jgross@suse.com
-Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] xen/gntdev: Fix gntdev_dmabuf ref leak in dmabuf_exp_wait_released()" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:20:16 -0500
-Message-ID: <20261107062016-failed-5.10-6f165abe2b40@kernel.org>
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=QgllUKZ2
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 561E8A1583;
+	Sat, 07 Nov 2026 12:20:15 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1794050415; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=7lJq3zjrCdb3/Kci2Xd2dr95m6yoQ8Kd15x70oIxTkk=;
+	b=QgllUKZ2uka+e91jCfzxbNQIFiRISN3sR8iJsbWES0AkYPX7Q1lDhqzi7pGa3DERNXPd3r
+	k2V75VjkI5t7HTBODtVEELkG1d9XYpY2Ylm/bs1eLeHdJ4acofnb26BmNyHsYTjFqShsAh
+	E30xEiZE+Ozv5HOv/QkK6mgGxxwvCH4zph0QPoAiPBtzhFcbub37dtiah5zwer+9NwcbkE
+	XDUh+GDSCJsAf0zKW4qwsna10NagSVGB2SVBDFhg4cNsVDE6QG2yZhdbnRPpP2iPsWtH1t
+	qSQh5BzFQqPIeCdCVSB2jWbvWvNPXRIF/HcsGnQXYQU/QhX+QTfzO2lGjeWS6A==
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: stable@vger.kernel.org
+Cc: Nicolai Buchwitz <nb@tipi-net.de>,
+	stable@kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: [PATCH 6.6.y] serial: amba-pl011: keep transmitter enabled when disabling RS485
+Date: Sat,  7 Nov 2026 12:20:10 +0100
+Message-ID: <c649ede67d8a2e4bb0c86e322bc07eda86c1ae5c.1794050290.git.nb@tipi-net.de>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107053504-failed-6.6-97f85204275a@kernel.org>
+References: <20261107053504-failed-6.6-97f85204275a@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -56,74 +64,64 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+commit 97f85204275ae4d7fb530e451f3acc65c1ec1155 upstream.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Disabling RS485 on an open port calls pl011_rs485_tx_stop(), which
+turns off the transmitter. Only the RS485 TX path turns it back on, so
+any later output stays queued and tcdrain() hangs until the port is
+closed.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x 6f165abe2b40ede71c98956cd74cd17c18505e75
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062016-failed-5.10-6f165abe2b40@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+pl011_rs485_tx_stop() also checks only the hardware FIFO. If a DMA
+transfer has started but has not filled the FIFO yet, the transmitter
+is turned off under the transfer and the DMA channel never recovers.
 
-Thanks,
-Sasha
+When leaving RS485 mode, cancel pending deferred starts and stops, leave
+the transmitter enabled and start any TX that was still waiting for
+delay_rts_before_send.
 
------------------- original commit in Linus's tree ------------------
-
-From 6f165abe2b40ede71c98956cd74cd17c18505e75 Mon Sep 17 00:00:00 2001
-From: Wentao Liang <vulab@iscas.ac.cn>
-Date: Wed, 16 Sep 2026 17:09:56 +0000
-Subject: [PATCH] xen/gntdev: Fix gntdev_dmabuf ref leak in
- dmabuf_exp_wait_released()
-
-dmabuf_exp_wait_released() takes a reference on the exported
-gntdev_dmabuf with dmabuf_exp_wait_obj_get_dmabuf() and passes it to
-dmabuf_exp_wait_obj_new(), which drops that reference after adding the
-wait object to the wait list.  When the wait object allocation fails,
-dmabuf_exp_wait_obj_new() returns ERR_PTR(-ENOMEM) early and the
-reference is never dropped, leaking a reference to the exported
-gntdev_dmabuf.
-
-Drop the reference on the allocation failure path so the reference is
-consumed whether the wait object is created or not.
-
-Fixes: 932d6562179e ("xen/gntdev: Add initial support for dma-buf UAPI")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-Reviewed-by: Juergen Gross <jgross@suse.com>
-Signed-off-by: Juergen Gross <jgross@suse.com>
-Message-ID: <20260916170956.2086505-1-vulab@iscas.ac.cn>
+Fixes: 8d479237727c ("serial: amba-pl011: add RS485 support")
+Cc: stable@kernel.org
+Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+Link: https://patch.msgid.link/20261012-fix-pl011-rs485-txe-v2-1-e9bf7d218389@tipi-net.de
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+[nb: Use rs485_tx_started and omit timer handling on older kernels.]
+Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
 ---
- drivers/xen/gntdev-dmabuf.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/tty/serial/amba-pl011.c | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/xen/gntdev-dmabuf.c b/drivers/xen/gntdev-dmabuf.c
-index 83b0df4608941..df1883aca850e 100644
---- a/drivers/xen/gntdev-dmabuf.c
-+++ b/drivers/xen/gntdev-dmabuf.c
-@@ -96,8 +96,10 @@ dmabuf_exp_wait_obj_new(struct gntdev_dmabuf_priv *priv,
- 	struct gntdev_dmabuf_wait_obj *obj;
+diff --git a/drivers/tty/serial/amba-pl011.c b/drivers/tty/serial/amba-pl011.c
+index 17b8b56565194..d7dbd4c0eae15 100644
+--- a/drivers/tty/serial/amba-pl011.c
++++ b/drivers/tty/serial/amba-pl011.c
+@@ -2242,8 +2242,21 @@ static int pl011_rs485_config(struct uart_port *port, struct ktermios *termios,
+ 	struct uart_amba_port *uap =
+ 		container_of(port, struct uart_amba_port, port);
  
- 	obj = kzalloc_obj(*obj);
--	if (!obj)
-+	if (!obj) {
-+		kref_put(&gntdev_dmabuf->u.exp.refcount, dmabuf_exp_release);
- 		return ERR_PTR(-ENOMEM);
+-	if (port->rs485.flags & SER_RS485_ENABLED)
++	if ((port->rs485.flags & SER_RS485_ENABLED) &&
++	    !(rs485->flags & SER_RS485_ENABLED)) {
++		u32 cr = pl011_read(uap, REG_CR);
++
++		/*
++		 * Leaving RS485 mode, which only enables the transmitter while
++		 * sending. Don't stop it, as that stalls a DMA transfer still
++		 * in flight. Keep the transmitter and receiver enabled.
++		 */
++		uap->rs485_tx_started = false;
++		cr |= UART011_CR_TXE | UART011_CR_RXE;
++		pl011_write(cr, uap, REG_CR);
++	} else if (port->rs485.flags & SER_RS485_ENABLED) {
+ 		pl011_rs485_tx_stop(uap);
 +	}
  
- 	init_completion(&obj->completion);
- 	obj->gntdev_dmabuf = gntdev_dmabuf;
+ 	/* Make sure auto RTS is disabled */
+ 	if (rs485->flags & SER_RS485_ENABLED) {
+
+base-commit: 5139929c698c273e07cb0635732f6a918a7b8e78
 -- 
 2.53.0
-
-
-
 
