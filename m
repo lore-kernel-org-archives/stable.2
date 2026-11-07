@@ -1,51 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046195;
-	b=J/Mc50DXKtZgsakKsEZfh+fkLCmVS4wHyAsqkNePU6iDKYTiaYuOGL6fdYr6AbFroRSr
-	 4DRu+vG+uLo5/8+UV4r00ADcM1N+8rWb39m3ggXOYKyN7e72JGQC3rY/ela95iIgmxcov
-	 ApHAdWuZ223t0tZuEM14fKAN7943MwsePVAZuYfqCrjBvcG3nP7ThOgOLkGjwuDuPi3tr
-	 fIWeN2xgEp279KEgAeFlW0ICZ2eoJVZMOQZWO2aWE8cGbfYLwW2LG3HXGgDrINV163oS9
-	 nt1rtc6sgHxJuC8nUGrxv/kt2EDHIW+SDAl5vt8I2mVUFcwp5AuWDh2Npq3wxrpIwdQ==
+	t=1794046197;
+	b=gYUCnTuc/xzg2eus1Ll7ZfJeNskDMsuDEfbXe7H7lguhkv5HVzs7B72Gw2p/TZY8CQto
+	 RrRoIO1OVDoJyM5snNIPU8/ZtaSRqaJ/6Cfr52T5elKaI22bCiwMr5F/9G0G1RpoVk7YC
+	 mLgSswTEtOeT6vGcerAcSL449xhVt+pJtWDMPXchfCgjGoPt9TM9VMGxy1nlG5GBodATo
+	 gCg8LW4KVmFY85ZePCIAKDN5Ujk/0J4BlL1cJqTNmmlfZdxutxXUqgpp7ryLtVYxahW2P
+	 PaXjsOwbPDsxxyU6y9vh24aC/AAcAEPzdHb8794iZlLAcCUIe/SU1LO+gaTaFYqHZjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046195;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046197;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=o0FOSDVB+xxaI07buQe3yl2Bed9+2mKVrdISXceVCto=;
-	b=CAiDVPFPHLts4fcDH/T41njNghDM6P7B9S0CtNwq+Tm/zV68jooHqNtLyCZA/rWWgF/0
-	 otF7gKl7hOqTYQPPnHYO/nZBxYk3O/7kJ8FvKnEG2uxKIOdtMoeQtd+vIuezuGRMJAWSi
-	 JTBvA+kuGUFeWRLn8jFJijFs2lP2dig3QAD9lbVOntBYOrsXsFy9tGMmSbV7281FiU6RR
-	 r/u0P9uvikQ283wtnlhN0d++oT9CiqamdvI1Ttj3NliEqS1oizc/4kTDKbwAzZYhdpiTu
-	 P8desgGSBUQAqC2wOHdM/GwUDpDqOR7QbA7nAoEmDka9mbKbEYHJrfvZsvezjoE7O+w==
+	bh=po/+zt8gu6f8jyQIWPWKv9Inr5mVE8hfkFfL4vVErXE=;
+	b=fcRnTM2YpzYEwAXD6C0Cws7GS8xYA+4LwXQ4JI/XhvDFFeOfmpSf7VC7j4vb2lnO0Fgx
+	 okbik4zdZRs0MnHG01jvuIcQZYjm5+VGHozDYPrMJfAf9nnEkwk54pXxVBCOdDYNDGAV0
+	 H/vS88wpfHzj+vhJ19nFJIQYKLaeIuyKOkkt5INx/xIg+7OQW+h1+8mPymZnq8+99GVao
+	 CflHmVQDEgOo3drYbQNZdthXEk09UyygFkwC2PwH+QnqPrNigPf1DoCyTQN07Ln8wpRJ6
+	 QViaHKVo/iOkuLV1diNVMAakPLBTB226pdRg/ldraqEW0W3LUwIVKtBv3899ZrHZSpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oChzwnLd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="I8M/w4LE";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C53B1606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:09:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60C89606A32D
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:09:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oChzwnLd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EEA91F0089F;
-	Sat,  7 Nov 2026 10:09:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I8M/w4LE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68CBA1F0089F;
+	Sat,  7 Nov 2026 10:09:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046194;
-	bh=o0FOSDVB+xxaI07buQe3yl2Bed9+2mKVrdISXceVCto=;
+	s=k20260515; t=1794046197;
+	bh=po/+zt8gu6f8jyQIWPWKv9Inr5mVE8hfkFfL4vVErXE=;
 	h=From:To:Cc:Subject:Date;
-	b=oChzwnLdXhkjrzPG2XpOwUiKVQcko4vHxZJgRb3SCkSq9VrO01dG1HJb9ZRWuFzRp
-	 diIxjpHM54PiRUZ1us98E6sN7TIVMxMiyXVwUYeFFaRRacVaLY5YY/x1E3J66w8VL1
-	 9fwItd52Jr+j84DiPFOl2FI4usYZDXJaBFtwAP4ga61eHUwREaX6bH2RQ9iOszYFSk
-	 bihaEaH+6ECIvuH+fHeaTPMpy/O86UQ0dTrBa21L3Ep6BDwXEZTuEJvMAvGhm4HcjW
-	 dLpmSZHgJTABkLV7N3Cz47jGg0yWp5aPYCFS2nVsRdbIKweCiZJKoFDsObyV6uyj2W
-	 7Tu469EX6HqTQ==
+	b=I8M/w4LEX2dBeenJlPq05z1/kcedhiEpi2r6wSIGyarawDyMJocf/iwJpd9ASvfMI
+	 Mx2KNndGitiF3hpnH0K5F74iLL73bLroeGltiVmu+7P+fWl2R0mEXDzj/NcpbUfN+i
+	 +hb3MpNqiiUxa6hPgYHUtUkwhbDAJLjhTtat1D4d2+KA+YYKNoDqETCE/1gJbA7BVo
+	 gcFHrWXmxdbFpwB3Oavt1gU3/WTmCSNyEpYqVu1vRp3qnJVd4LhyDRKvzSwKw3OGzm
+	 KAvUv4p0z3FMLyKbQY+/9Peq29nBAjuLMkruzMwxbB3VxDxeKLE5TR2HlQ+7f3CLXc
+	 x4DgplvABuVFw==
 From: Sasha Levin <sashal@kernel.org>
-To: evgeny@devduty.com,
-	tiwai@suse.de
+To: gyf161023@gmail.com,
+	ekansh.gupta@oss.qualcomm.com,
+	srini@kernel.org,
+	gregkh@linuxfoundation.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ALSA: hda/realtek: Enable all four speaker amps on Lenovo ThinkBook X G2 IAH" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:09:53 -0500
-Message-ID: <20261107050953-failed-6.18-f2293e7b2ddd@kernel.org>
+Subject: FAILED: patch "[PATCH] misc: fastrpc: fix double-free in fastrpc_map_attach() error path" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:09:55 -0500
+Message-ID: <20261107050955-failed-6.18-09fa66ec1b48@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,88 +70,83 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x f2293e7b2ddd803b1461e0490f9b2f32089c1dd0
+git cherry-pick -x 09fa66ec1b4896ab841da085ca58b6433f28f07f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050953-failed-6.18-f2293e7b2ddd@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050955-failed-6.18-09fa66ec1b48@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From f2293e7b2ddd803b1461e0490f9b2f32089c1dd0 Mon Sep 17 00:00:00 2001
-From: Evgeny Akhtimirov <evgeny@devduty.com>
-Date: Fri, 9 Oct 2026 20:02:37 +0400
-Subject: [PATCH] ALSA: hda/realtek: Enable all four speaker amps on Lenovo
- ThinkBook X G2 IAH
+From 09fa66ec1b4896ab841da085ca58b6433f28f07f Mon Sep 17 00:00:00 2001
+From: Yifei Gao <gyf161023@gmail.com>
+Date: Fri, 2 Oct 2026 11:12:19 +0100
+Subject: [PATCH] misc: fastrpc: fix double-free in fastrpc_map_attach() error
+ path
 
-The Lenovo ThinkBook X G2 IAH (MTM 21TU) has an ALC287 codec with four
-CS35L41 amplifiers on I2C (CSC3551). It reports codec SSID 17aa:3929,
-which it shares with the ThinkBook 13x Gen 5, and PCI SSID 17aa:3842.
+map->table is assigned right after dma_buf_map_attachment_unlocked()
+succeeds. The two failure checks that follow, the len > map->size test
+and, where subsystem VMIDs are configured, a failed qcom_scm_assign_mem(),
+jump to map_err with map->table already set.
 
-Since PCI SSID 17aa:3842 has no quirk entry, the codec SSID matches
-ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_THINKPAD. That fixup binds only
-two amps (cs35l41-hda.0 and .1), while the CS35L41 configuration table
-describes four for 17AA3929. Amps .2 and .3 probe and load firmware,
-but they are never bound to the codec, so half of the speakers stay
-silent.
+map_err manually calls dma_buf_detach() and dma_buf_put() and then falls
+through to fastrpc_map_put(). Since that change the error path tail is
+fastrpc_map_put() -> fastrpc_free_map(), and fastrpc_free_map() already
+unmaps, detaches and puts the dma-buf whenever map->table is set.
+The two operations therefore run twice: the second dma_buf_put() drops an
+extra reference on map->buf, and dma_buf_unmap_attachment_unlocked()
+dereferences the map->attach already freed by the manual dma_buf_detach().
+kref_init() sets the refcount to 1 with no intervening get, so the final
+fastrpc_map_put() frees the map synchronously and the redundant cleanup is
+deterministic.
 
-Add a ThinkPad-style fixup chain that binds four I2C amps, and match the
-laptop by its PCI SSID so the ThinkBook 13x Gen 5 is not affected.
+The len > map->size branch is reachable by an unprivileged process via
+FASTRPC_IOCTL_MEM_MAP with an fd whose dma-buf is smaller than the
+requested length, before any DSP invocation.
 
-Tested with hda_model=1028:0c4d (alias to ALC287_FIXUP_CS35L41_I2C_4):
-all four amps bind, apply their calibration and are runtime-active
-during playback.
+Route both map->table-is-set failure branches to get_err instead of
+map_err, so fastrpc_free_map() is the single owner of the
+unmap/detach/put sequence. map_err is retained for the
+dma_buf_map_attachment_unlocked() failure, which is reached with
+map->table still NULL and an attachment that fastrpc_free_map() will not
+clean up, so its dma_buf_detach()/dma_buf_put() must still run manually.
 
+Fixes: 334f1a1cbe03 ("misc: fastrpc: Use fastrpc_map_put in fastrpc_map_create on fail")
 Cc: stable@vger.kernel.org
-Signed-off-by: Evgeny Akhtimirov <evgeny@devduty.com>
-Link: https://patch.msgid.link/20261009-thinkbook-x-g2-iah-v1-1-56012188aee0@devduty.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Yifei Gao <gyf161023@gmail.com>
+Reviewed-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+Signed-off-by: Srinivas Kandagatla <srini@kernel.org>
+Link: https://patch.msgid.link/20261002101220.1084101-2-srinivas.kandagatla@oss.qualcomm.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- sound/hda/codecs/realtek/alc269.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ drivers/misc/fastrpc.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-index a68b6a9b71aa0..217df4301a30e 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -4427,6 +4427,8 @@ enum {
- 	ALC245_FIXUP_HP_X360_MUTE_LEDS,
- 	ALC287_FIXUP_THINKPAD_I2S_SPK,
- 	ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_THINKPAD,
-+	ALC287_FIXUP_CS35L41_I2C_4_THINKPAD_ACPI,
-+	ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_4_THINKPAD,
- 	ALC2XX_FIXUP_HEADSET_MIC,
- 	ALC289_FIXUP_DELL_CS35L41_SPI_2,
- 	ALC256_FIXUP_ACER_SFG16_MICMUTE_LED,
-@@ -7017,6 +7019,18 @@ static const struct hda_fixup alc269_fixups[] = {
- 		.chained = true,
- 		.chain_id = ALC287_FIXUP_CS35L41_I2C_2_THINKPAD_ACPI,
- 	},
-+	[ALC287_FIXUP_CS35L41_I2C_4_THINKPAD_ACPI] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = cs35l41_fixup_i2c_four,
-+		.chained = true,
-+		.chain_id = ALC285_FIXUP_THINKPAD_NO_BASS_SPK_HEADSET_JACK,
-+	},
-+	[ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_4_THINKPAD] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = alc287_fixup_tb_vmaster_led,
-+		.chained = true,
-+		.chain_id = ALC287_FIXUP_CS35L41_I2C_4_THINKPAD_ACPI,
-+	},
- 	[ALC2XX_FIXUP_HEADSET_MIC] = {
- 		.type = HDA_FIXUP_FUNC,
- 		.v.func = alc2xx_fixup_headset_mic,
-@@ -8378,6 +8392,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x17aa, 0x3827, "Ideapad S740", ALC285_FIXUP_IDEAPAD_S740_COEF),
- 	SND_PCI_QUIRK(0x17aa, 0x3834, "Lenovo IdeaPad Slim 9i 14ITL5", ALC287_FIXUP_YOGA7_14ITL_SPEAKERS),
- 	SND_PCI_QUIRK(0x17aa, 0x383d, "Legion Y9000X 2019", ALC285_FIXUP_LEGION_Y9000X_SPEAKERS),
-+	SND_PCI_QUIRK(0x17aa, 0x3842, "ThinkBook X G2 IAH", ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_4_THINKPAD),
- 	SND_PCI_QUIRK(0x17aa, 0x3843, "Lenovo Yoga 9i / Yoga Book 9i", ALC287_FIXUP_LENOVO_YOGA_BOOK_9I),
- 	/* Yoga Pro 7 14IMH9 shares PCI SSID 17aa:3847 with Legion 7 16ACHG6;
- 	 * use codec SSID to distinguish them
+diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+index 53ad9a3f10699..904f538f0dd0e 100644
+--- a/drivers/misc/fastrpc.c
++++ b/drivers/misc/fastrpc.c
+@@ -927,7 +927,7 @@ static int fastrpc_map_attach(struct fastrpc_user *fl, int fd,
+ 		dev_dbg(sess->dev, "Bad size passed len 0x%llx map size 0x%llx\n",
+ 				len, map->size);
+ 		err = -EINVAL;
+-		goto map_err;
++		goto get_err;
+ 	}
+ 	map->va = sg_virt(map->table->sgl);
+ 	map->len = len;
+@@ -950,7 +950,7 @@ static int fastrpc_map_attach(struct fastrpc_user *fl, int fd,
+ 			dev_err(sess->dev,
+ 				"Failed to assign memory with dma_addr %pad size 0x%llx err %d\n",
+ 				&map->dma_addr, map->len, err);
+-			goto map_err;
++			goto get_err;
+ 		}
+ 	}
+ 	spin_lock(&fl->lock);
 -- 
 2.53.0
 
