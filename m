@@ -1,59 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794055574;
-	b=LazHhM+XwqXwoikH2WZV7KnfYfkOQN0ReqY+f1hWNxKmLqj11qan1dhIswfyQQ2qpqq9
-	 K+ORdSaja44IsX/LA8Yd8qEF5Tj/2dvpu4C7e7JRvoqh2+texeA5/TWk1kPbgKWkqRvBJ
-	 ISqeaJNMiGUoDtu0zsXTGRMdqaVIjKEkIN9jfni6J6lw0nS9FGMrNqTCUB1Gnk6TDeMWU
-	 Vbe5TKMge/IIB9xQkFCeMB62cLj6/+uu9Qv+f3jbdU/thVStNNpSPiZjiH0TBc7m6LVmU
-	 TQlviBvEFjVcTuunn/XGd+wqqYqpfJLeG0MkkF1zPnWyX/KBo4md9H4Nw6cvFGQ6ozQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794055574;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=/RiPgyoXuembimyDq6WnhbjkgPIJFpoffN9+ARbON4Q=;
-	b=Hrc/+U+5G33HoEXLBzK04M/I4DIW9nWYBlomHezhJ2p8I47SDxuAEZNBPCzhtZknv7/l
-	 WIQ+lRFrxHJ2Tx5dmv6b93ScWjxZjUuzkOhTyOdE0/RD4nTTnrRywUxXktMSCzBNFZrYO
-	 9LGzRF3SGUgHxRFjXTi+EWWkubVT3SaDq5UtOtOYzDnUWRJQ7gLuWViuF6ArkYKo1UfaL
-	 Yy/AM1oMz9ee1xnYJKcDhvLwiGcHQDeAj118/nRxLSzX9qrf/gBdZ3/JB+8yif4Q1H23Y
-	 lQ98TcA0I5cDB0YrFgqJ350bc7JJLhIRr0hemqW13B/KgO3LElKIpJCI8AqwLnZMY0Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kjLVTBZa;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794055577;
+	b=Hv/uBgux4Avw0Q9Dt9kpVwulLJDZfC/agBAytDnl5MyY3AeK9vz3xCBXQiJMqPL4yvEG
+	 vmifUdjH7j7YAFG9MM0QHUOekJCNCTRbqrEGcaJMdjMd2vGXTiNodTqajSvVyJxRFyk8h
+	 NqzohNob4FREfYEpp+HsLjLgjHGLuAxiD2GCM8mZsos+GOvzCgpbqF6suBwjOdsBwWrJG
+	 N1jYzoNZX5mFgp+TCII+Ghlvnq+vmTIVijElzhLKX5Xd9gcik91QzIuoveNmSCiwH/0kT
+	 k420IUVNQaHdHac9UpMdSp3azErl/P1YTHKB2ntQsl0/UJKMAZLo+figJdC33/jqAng==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794055577;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=4mMo7011NcpInl6+4G96ilpKFOyPXZHMuVK7Jy2KF8s=;
+	b=yJXdD4VEmL1KoPa7wKTM2nSlgp6GImTZBljVQPY5pfsx/cOaspzsAlb7wTPF5XZz9K1/
+	 K7AVwPRgC/4utGpKwjA6g+ZxYGxkdTUClqyYKi9NdcodpcYkQ0ozYnXx4KZdsVG1/VqDL
+	 hMzEdSC8kZ94Hw9LMpN/zuB1y+pjeK94eRpyM3H9x7grxDqEVCVj3U32/CDcUiXdZ2I6z
+	 cvD9X748NqdVVFO7jRCQj2B5iI5EjyrO2mKHuFJBbc9xO/Jcw9sJeXe5OCzAVsKWi7B89
+	 HyqO6vcg3HRF0STsFFTo5301p8wekzl3wGv+G+b2oeUUTrom7GB9vbDOnaBm22qO1Cw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Be+F4JcX;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA60B606A326;
-	Sat,  7 Nov 2026 12:46:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C880C606A33A;
+	Sat,  7 Nov 2026 12:46:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kjLVTBZa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 286251F0089F;
-	Sat,  7 Nov 2026 12:46:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Be+F4JcX
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794055576;
+	b=A6Ptl5HMTeX2j+brATF0+6Bm41GBmDkkP+Su5hmVrrNBTUsVtaObnXvyy0RtV+6BC/PH
+	 5onpJJTOU7fkky1Vo5xZgoYJra+BOqOp3kOwbBvrdz+G+aHTZNMBxw6fiXI1qITe4JJIw
+	 TbqIZIGLF4ApU5tg2BT44ykuuTW6W0mry65JfDKrXM3TuKKnMmXHuhuBitaWhVyWHBrDp
+	 41MFaoDr+wxioSlmIau6KyDMmgrpKMctpY5e86kFLQsQLdOWxvWrOszQ9aaXdQlkDGxnf
+	 8l1A8M7qy+A5EMMycqlCDg3dKBT8AL+xhU4s1sAsB5PX3QBofwiB6mVIyVuSZqR0C6Q==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794055576;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=4mMo7011NcpInl6+4G96ilpKFOyPXZHMuVK7Jy2KF8s=;
+	b=HEm6vpU0Q4KoN48AWS/ZwYh6Jcnn9FaozDDVnSTaMslXPQ3OFJZeS1495SgunbX0NI2m
+	 fdnsOM9U5KJlmuHLVxkgzxbyEztSHsNqNvsgugozTCqjLNqbL5GBomg83FWWe1VTnoJ+e
+	 kOgilkx8RE4+q/YUiITXZsyqOhstxzFv1sXMXQNixFSDWPINLYz5FUFc87tKMaMFZFjfY
+	 yDoAIkJxZs83KNbPfND+4O0U5/mf7PcgZGIOo8sWkYwFTHFy0Hrw6ln2QnnTt9VXey8Y4
+	 6KZNW/vKosEgz11cXG7Zybny5oy3j5PEpb3iVr92Yo2S7YYSLdlrPXkcWObgtYG/zJA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 3B59D1F008BC;
+	Sat,  7 Nov 2026 12:46:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794055573;
-	bh=/RiPgyoXuembimyDq6WnhbjkgPIJFpoffN9+ARbON4Q=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=kjLVTBZanYT45cNamz8KZqx4UF1JUJoQOjZ2AZ1BlKr3QRZMTupufknRY5QkMZ+lX
-	 UnTFpTddxV3lyO6+WRTw1eIiWzxH9XvUQKw5Cv1BKJRchgtVXQsraaAnYgsaifghaN
-	 qoJUORi35W5qKZLS21RYDRDTxtsyEHGDUo9hyLmwNRR4Ei6ofquYj2yZOcPqH+8gKr
-	 Afh7CPIoU3gAFJ4B56UABiiiJC+WrPYDVBUFwGtwfyeOuR8ISHuf11joJ8TgGOfaes
-	 XFllM0JZ9GK/Tjhg7OPS1DHdKuauN4Yi3/mSxRCU8Tfv75sLGJeAPe/GFakbG6BOv4
-	 joX4XEJegZ7wQ==
-Subject: Re: [PATCH] igb: disable the PCI device when resume fails
-From: netdev-bot+sashiko@kernel.org
-To: vulab@iscas.ac.cn
-Cc: anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, intel-wired-lan@lists.osuosl.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Sat, 07 Nov 2026 12:46:12 +0000
-Message-ID: <179405557264.994134.1212641106918033235@kernel.org>
-In-Reply-To: <20261103102849.1340413-1-vulab@iscas.ac.cn>
-References: <20261103102849.1340413-1-vulab@iscas.ac.cn>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1794055576;
+	bh=4mMo7011NcpInl6+4G96ilpKFOyPXZHMuVK7Jy2KF8s=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=Be+F4JcXjigKCFmYzSwEL+sJS3VyWl3SI2zthFwUf2iDyyTsjyL8bOQ9q59o3w0D4
+	 oYJVFkcRWg0cI6d0h09ExCzuKMEVDbz4pHJal8G29q/XL6e2pcB0NCd0L7l6mf/Tof
+	 pnt3kDK4w6Bl16H0QFIXJV8xZLu9d6p3SVkvlPF0VUDjZM5Ngaz3Ygj7nu77q2RY9Z
+	 1reYyyO20MpBvFxYcQL/VYk92eq5TH8InTwDKmAVRA/4T8StdBb34P2p8LUBFj6pPe
+	 v9LNk5AOys9VL8GrzCSc6Xj+gqnjj5UM/FLS4OvGeHI2dVnKbYFwAQgrzCXiRABlOf
+	 59TwWKqPKNUmw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id A630447BF7;
+	Sat,  7 Nov 2026 12:46:14 +0000 (UTC)
+From: Jing Lin via B4 Relay <devnull+kayano050408.gmail.com@kernel.org>
+Date: Sat, 07 Nov 2026 21:46:13 +0900
+Subject: [PATCH v4 1/2] usb: gadget: gadgetfs: fix ep0 request lifetime on
+ disconnect
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,181 +83,401 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261107-b4-gadgetfs-ep0-v4-1-86bdfd684b54@gmail.com>
+References: <20261107-b4-gadgetfs-ep0-v4-0-86bdfd684b54@gmail.com>
+In-Reply-To: <20261107-b4-gadgetfs-ep0-v4-0-86bdfd684b54@gmail.com>
+To: Neill Kapron <nkapron@google.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ syzbot+c73e1942197af9f54ca3@syzkaller.appspotmail.com, 
+ stable@vger.kernel.org, Jing Lin <kayano050408@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794055573; l=11648;
+ i=kayano050408@gmail.com; s=20261106-gadgetfs-gmail;
+ h=from:subject:message-id;
+ bh=zpQOHmlQwRjGrBepJrO84PIIdbA+Tl6x07uSNmmbWB8=;
+ b=y/yXeU+hG/a855w85SqVRHROHpJWBAAx+RScz5tmAqh5ZQqe5z2QaObX7+98Idg+K2TTQI214
+ Nd2ZB43AzX5BEuPXCcvZ8ZQlghvIOqwxPbdRMG1MW8NJqI8c523P/ZC
+X-Developer-Key: i=kayano050408@gmail.com; a=ed25519;
+ pk=DtAI52kU3F0sVbAiS4n+5b4UKMnVF398eKHlj3H9KBY=
+X-Endpoint-Received: by B4 Relay for
+ kayano050408@gmail.com/20261106-gadgetfs-gmail with auth_id=1433
+X-Original-From: Jing Lin <kayano050408@gmail.com>
+Reply-To: kayano050408@gmail.com
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+From: Jing Lin <kayano050408@gmail.com>
 
-Critical: 0 · High: 2 · Medium: 0 · Low: 0
+gadgetfs_unbind() frees the preallocated ep0 request after disconnecting
+the gadget, assuming that no I/O remains active.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+With dummy_hcd, disconnecting does not necessarily drain ep0, so a delayed
+userspace response can leave dev->req queued when it is freed. This
+triggers the warning in dummy_free_request() and a use-after-free when
+dummy_udc_stop() subsequently drains the endpoint queue.
 
-- [High] The patch adds pci_disable_device() calls that unbalance the PCI
-  enable count.
-- [High] igb: missing interrupt and hw control cleanup in __igb_resume()
+gadgetfs_setup() and ep0_write() can also race on dev->req and req->buf
+while a control transfer is in flight or while a completed delegated OUT
+transfer is waiting for ep0_read() to copy the payload to userspace.
+Overwriting req->buf with a descriptor pointer causes clean_req() to free
+the descriptor buffer instead of the request buffer.
 
---
+Copy completed control OUT payloads into a separate setup_buf in
+ep0_complete(), copy control IN payloads from userspace into a stack
+buffer before preparing dev->req in ep0_write(), and reset req->buf when
+control transfers finish. Track whether dev->req is queued, reject reuse
+while it is queued, and dequeue it without dev->lock before freeing it in
+gadgetfs_unbind().
 
-igb: disable the PCI device when resume fails
+Fixes: 1da177e4c3f41 ("Linux-2.6.12-rc2")
+Reported-by: syzbot+c73e1942197af9f54ca3@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=c73e1942197af9f54ca3
+Cc: stable@vger.kernel.org
+Signed-off-by: Jing Lin <kayano050408@gmail.com>
+---
+ drivers/usb/gadget/legacy/inode.c | 145 ++++++++++++++++++++++++++++----------
+ 1 file changed, 107 insertions(+), 38 deletions(-)
 
-This patch adds pci_disable_device() calls to __igb_resume() for the cases
-where igb_init_interrupt_scheme() or __igb_open() fails after
-pci_enable_device_mem() has succeeded. The aim is to release the PCI
-enable reference that resume takes when the resume fails.
-
-> diff --git a/drivers/net/ethernet/intel/igb/igb_main.c b/drivers/net/ethernet/intel/igb/igb_main.c
-> index d4a897a8c82c6..853bc99a10113 100644
-> --- a/drivers/net/ethernet/intel/igb/igb_main.c
-> +++ b/drivers/net/ethernet/intel/igb/igb_main.c
-> @@ -9621,6 +9621,7 @@ static int __igb_resume(struct device *dev, bool rpm)
->  
->  	if (igb_init_interrupt_scheme(adapter, true)) {
->  		dev_err(&pdev->dev, "Unable to allocate memory for queues\n");
-> +		pci_disable_device(pdev);
->  		return -ENOMEM;
->  	}
->  
-> @@ -9647,6 +9648,9 @@ static int __igb_resume(struct device *dev, bool rpm)
->  	if (!rpm)
->  		rtnl_unlock();
->  
-> +	if (err)
-> +		pci_disable_device(pdev);
-> +
->  	return err;
->  }
-
-[Severity: High]
-When __igb_open() fails here, the new error path disables the PCI
-device but leaves the rest of what __igb_resume() set up in place.
-
-Earlier in this function, igb_init_interrupt_scheme(adapter, true)
-has enabled MSI-X or MSI on pdev. It has also allocated
-adapter->q_vector[] and registered their NAPI instances on
-netdev->napi_list. igb_get_hw_control() has then set
-E1000_CTRL_EXT_DRV_LOAD.
-
-None of the __igb_open() error paths call
-igb_clear_interrupt_scheme(). If __igb_open() fails at err_setup_tx
-or err_setup_rx, it also skips igb_release_hw_control(). That happens
-when ring allocation fails in igb_setup_all_tx_resources() or
-igb_setup_all_rx_resources().
-
-So after this hunk the device is disabled while:
-
-  - MSI-X or MSI is still enabled on pdev
-  - the q_vectors and their NAPI instances are still allocated
-  - firmware still sees DRV_LOAD and believes the driver owns the
-    hardware
-
-The runtime PM case is worse. When igb_runtime_resume() returns an
-error, rpm_resume() leaves the device in RPM_SUSPENDED. The next
-runtime resume then runs __igb_resume() and
-igb_init_interrupt_scheme() again on this uncleaned state:
-
-  - If MSI-X was in use, pdev->msix_enabled is still set and
-    __pci_enable_msix_range() hits WARN_ON_ONCE(dev->msix_enabled).
-    igb then falls back to single vector MSI. That overwrites
-    adapter->num_q_vectors with 1 and leaks adapter->q_vector[1]
-    onwards.
-  - If MSI was in use, the same thing happens through
-    WARN_ON_ONCE(dev->msi_enabled) in __pci_enable_msi_range().
-  - igb_alloc_q_vector() then finds the existing q_vector[0] and
-    memsets it. It calls netif_napi_add_config() on a napi_struct
-    that is still linked on netdev->napi_list, which corrupts that
-    list.
-
-If this patch is meant to unwind a failed resume, shouldn't this path
-also undo igb_init_interrupt_scheme() and igb_get_hw_control()? For
-example, igb_clear_interrupt_scheme() and igb_release_hw_control()
-could run before the device is disabled.
-
-__igb_shutdown() and igb_remove() already call both helpers, along
-with pci_disable_device(). How do you intend the resume error unwind
-to stay consistent with those teardown paths?
-
-[Severity: High]
-Can these new calls lead to a double pci_disable_device()?
-
-The commit message says:
-
-  The PCI enable count stays elevated and the device remains enabled
-  even though the driver failed to resume it.
-
-A failed resume doesn't unbind the driver. igb already drops its enable
-reference unconditionally on every teardown path:
-
-drivers/net/ethernet/intel/igb/igb_main.c:igb_remove() {
-    ...
-	free_netdev(netdev);
-
-	pci_disable_device(pdev);
-}
-
-drivers/net/ethernet/intel/igb/igb_main.c:__igb_shutdown() {
-    ...
-	igb_release_hw_control(adapter);
-
-	pci_disable_device(pdev);
-    ...
-}
-
-igb_io_error_detected() also calls pci_disable_device() before it
-requests a slot reset. __igb_shutdown() is reached from igb_suspend(),
-igb_runtime_suspend() and igb_shutdown().
-
-Without this patch the count looks balanced:
-
-  probe: 1
-  suspend: 0
-  resume: 1
-  failed resume: still 1
-  remove or next suspend: 0
-
-With this patch, a failed resume drops enable_cnt to 0 while the driver
-stays bound. Any of the following then calls pci_disable_device() a
-second time:
-
-  - rmmod or unbind
-  - the next system or runtime suspend
-  - reboot or poweroff
-  - AER error_detected
-
-pci_device_remove() calls drv->remove() even when pm_runtime_get_sync()
-fails, so unbind can also hit this after a failed runtime resume.
-
-In drivers/pci/pci.c:
-
-pci_disable_device() {
-	dev_WARN_ONCE(&dev->dev, atomic_read(&dev->enable_cnt) <= 0,
-		      "disabling already-disabled device");
-
-	if (atomic_dec_return(&dev->enable_cnt) != 0)
-		return;
-    ...
-}
-
-That second call warns, which panics the host when panic_on_warn is set,
-and leaves enable_cnt at -1.
-
->From then on, the count stays wrong:
-
-  - The next pci_enable_device_mem() in __igb_resume() moves the count
-    from -1 to 0. It still enables the device, and __igb_resume() turns
-    on bus mastering, but pci_is_enabled() now reports false.
-  - Each later pci_disable_device() moves the count from 0 to -1 and
-    returns early. do_pci_disable_device() never runs, so
-    PCI_COMMAND_MASTER is no longer cleared on suspend or unbind.
-
-The existing teardown paths already release this reference. Should the
-new pci_disable_device() calls be dropped? If they stay, the other
-disable sites would need driver state to make them conditional.
-
-Because of the Cc: stable tag, this change would also be backported to
-stable trees.
+diff --git a/drivers/usb/gadget/legacy/inode.c b/drivers/usb/gadget/legacy/inode.c
+index 7f6d84601..31fc83427 100644
+--- a/drivers/usb/gadget/legacy/inode.c
++++ b/drivers/usb/gadget/legacy/inode.c
+@@ -140,6 +140,8 @@ struct dev_data {
+ 					setup_abort : 1,
+ 					gadget_registered : 1;
+ 	unsigned			setup_wLength;
++	unsigned int			setup_out_len;
++	bool				ep0_req_queued;
+ 
+ 	/* the rest is basically write-once */
+ 	struct usb_config_descriptor	*config, *hs_config;
+@@ -153,6 +155,7 @@ struct dev_data {
+ 
+ 	/* except this scratch i/o buffer for ep0 */
+ 	u8				rbuf[RBUF_SIZE];
++	u8				setup_buf[RBUF_SIZE];
+ };
+ 
+ static inline void get_dev (struct dev_data *data)
+@@ -984,6 +987,17 @@ static inline void ep0_readable (struct dev_data *dev)
+ 	kill_fasync (&dev->fasync, SIGIO, POLL_IN);
+ }
+ 
++static void dev_req_complete(struct usb_ep *ep, struct usb_request *req)
++{
++	struct dev_data		*dev = ep->driver_data;
++	unsigned long		flags;
++
++	spin_lock_irqsave(&dev->lock, flags);
++	req->buf = dev->rbuf;
++	dev->ep0_req_queued = false;
++	spin_unlock_irqrestore(&dev->lock, flags);
++}
++
+ static void clean_req (struct usb_ep *ep, struct usb_request *req)
+ {
+ 	struct dev_data		*dev = ep->driver_data;
+@@ -992,30 +1006,31 @@ static void clean_req (struct usb_ep *ep, struct usb_request *req)
+ 		kfree(req->buf);
+ 		req->buf = dev->rbuf;
+ 	}
+-	req->complete = epio_complete;
+-	dev->setup_out_ready = 0;
++	req->complete = dev_req_complete;
+ }
+ 
+ static void ep0_complete (struct usb_ep *ep, struct usb_request *req)
+ {
+ 	struct dev_data		*dev = ep->driver_data;
+ 	unsigned long		flags;
+-	int			free = 1;
+ 
+ 	/* for control OUT, data must still get to userspace */
+ 	spin_lock_irqsave(&dev->lock, flags);
+-	if (!dev->setup_in) {
++	dev->ep0_req_queued = false;
++	if (!dev->setup_in && dev->setup_wLength) {
+ 		dev->setup_out_error = (req->status != 0);
+-		if (!dev->setup_out_error)
+-			free = 0;
++		if (dev->setup_out_error) {
++			dev->setup_out_len = 0;
++		} else {
++			dev->setup_out_len = min_t(unsigned int, req->actual,
++						   sizeof(dev->setup_buf));
++			memcpy(dev->setup_buf, req->buf, dev->setup_out_len);
++		}
+ 		dev->setup_out_ready = 1;
+-		ep0_readable (dev);
++		ep0_readable(dev);
+ 	}
+ 
+-	/* clean up as appropriate */
+-	if (free && req->buf != &dev->rbuf)
+-		clean_req (ep, req);
+-	req->complete = epio_complete;
++	clean_req(ep, req);
+ 	spin_unlock_irqrestore(&dev->lock, flags);
+ }
+ 
+@@ -1023,12 +1038,14 @@ static int setup_req (struct usb_ep *ep, struct usb_request *req, u16 len)
+ {
+ 	struct dev_data	*dev = ep->driver_data;
+ 
+-	if (dev->setup_out_ready) {
++	if (dev->ep0_req_queued) {
+ 		DBG (dev, "ep0 request busy!\n");
+ 		return -EBUSY;
+ 	}
+ 	if (len > sizeof (dev->rbuf))
+ 		req->buf = kmalloc(len, GFP_ATOMIC);
++	else
++		req->buf = dev->rbuf;
+ 	if (req->buf == NULL) {
+ 		req->buf = dev->rbuf;
+ 		return -ENOMEM;
+@@ -1045,6 +1062,7 @@ ep0_read (struct file *fd, char __user *buf, size_t len, loff_t *ptr)
+ 	struct dev_data			*dev = fd->private_data;
+ 	ssize_t				retval;
+ 	enum ep0_state			state;
++	u8				tmp[RBUF_SIZE];
+ 
+ 	spin_lock_irq (&dev->lock);
+ 	if (dev->state <= STATE_DEV_OPENED) {
+@@ -1073,13 +1091,20 @@ ep0_read (struct file *fd, char __user *buf, size_t len, loff_t *ptr)
+ 			struct usb_request	*req = dev->req;
+ 
+ 			if ((retval = setup_req (ep, req, 0)) == 0) {
++				dev->state = STATE_DEV_CONNECTED;
+ 				++dev->udc_usage;
++				dev->ep0_req_queued = true;
+ 				spin_unlock_irq (&dev->lock);
+ 				retval = usb_ep_queue (ep, req, GFP_KERNEL);
+ 				spin_lock_irq (&dev->lock);
+ 				--dev->udc_usage;
++				if (retval < 0) {
++					dev->ep0_req_queued = false;
++					clean_req(ep, req);
++				}
++			} else {
++				dev->state = STATE_DEV_CONNECTED;
+ 			}
+-			dev->state = STATE_DEV_CONNECTED;
+ 
+ 			/* assume that was SET_CONFIGURATION */
+ 			if (dev->current_config) {
+@@ -1109,25 +1134,36 @@ ep0_read (struct file *fd, char __user *buf, size_t len, loff_t *ptr)
+ 			if (retval)
+ 				goto done;
+ 
+-			if (dev->state != STATE_DEV_SETUP) {
++			if (dev->setup_abort) {
++				dev->setup_abort = 0;
++				retval = -EIDRM;
++				goto done;
++			}
++			if (dev->state != STATE_DEV_SETUP ||
++			    dev->setup_in || !dev->setup_out_ready) {
+ 				retval = -ECANCELED;
+ 				goto done;
+ 			}
+ 			dev->state = STATE_DEV_CONNECTED;
+ 
+-			if (dev->setup_out_error)
++			if (dev->setup_out_error) {
++				dev->setup_out_ready = 0;
++				dev->setup_out_error = 0;
++				dev->setup_out_len = 0;
+ 				retval = -EIO;
+-			else {
+-				len = min (len, (size_t)dev->req->actual);
++			} else {
++				len = min_t(size_t, len, dev->setup_out_len);
++				memcpy(tmp, dev->setup_buf, len);
++				dev->setup_out_ready = 0;
++				dev->setup_out_len = 0;
+ 				++dev->udc_usage;
+ 				spin_unlock_irq(&dev->lock);
+-				if (copy_to_user (buf, dev->req->buf, len))
++				if (copy_to_user(buf, tmp, len))
+ 					retval = -EFAULT;
+ 				else
+ 					retval = len;
+ 				spin_lock_irq(&dev->lock);
+ 				--dev->udc_usage;
+-				clean_req (dev->gadget->ep0, dev->req);
+ 				/* NOTE userspace can't yet choose to stall */
+ 			}
+ 		}
+@@ -1267,29 +1303,41 @@ ep0_write (struct file *fd, const char __user *buf, size_t len, loff_t *ptr)
+ 
+ 		len = min_t(size_t, len, dev->setup_wLength);
+ 		if (dev->setup_in) {
+-			retval = setup_req (dev->gadget->ep0, dev->req, len);
++			u8	tmp[RBUF_SIZE];
++			bool	zero = len < dev->setup_wLength;
++
++			dev->state = STATE_DEV_CONNECTED;
++			spin_unlock_irq(&dev->lock);
++			if (copy_from_user(tmp, buf, len)) {
++				spin_lock_irq(&dev->lock);
++				return -EFAULT;
++			}
++			spin_lock_irq(&dev->lock);
++			if (dev->setup_abort) {
++				dev->setup_abort = 0;
++				return -EIDRM;
++			}
++			if (dev->state != STATE_DEV_CONNECTED)
++				return -ECANCELED;
++			retval = setup_req(dev->gadget->ep0, dev->req, len);
+ 			if (retval == 0) {
+-				dev->state = STATE_DEV_CONNECTED;
++				memcpy(dev->req->buf, tmp, len);
++				dev->req->zero = zero;
+ 				++dev->udc_usage;
+-				spin_unlock_irq (&dev->lock);
+-				if (copy_from_user (dev->req->buf, buf, len))
+-					retval = -EFAULT;
+-				else {
+-					if (len < dev->setup_wLength)
+-						dev->req->zero = 1;
+-					retval = usb_ep_queue (
+-						dev->gadget->ep0, dev->req,
+-						GFP_KERNEL);
+-				}
++				dev->ep0_req_queued = true;
++				spin_unlock_irq(&dev->lock);
++				retval = usb_ep_queue(
++					dev->gadget->ep0, dev->req,
++					GFP_KERNEL);
+ 				spin_lock_irq(&dev->lock);
+ 				--dev->udc_usage;
+ 				if (retval < 0) {
++					dev->ep0_req_queued = false;
+ 					clean_req (dev->gadget->ep0, dev->req);
+ 				} else
+ 					retval = len;
+-
+-				return retval;
+ 			}
++			return retval;
+ 
+ 		/* can stall some OUT transfers */
+ 		} else if (dev->setup_can_stall) {
+@@ -1483,6 +1531,10 @@ gadgetfs_setup (struct usb_gadget *gadget, const struct usb_ctrlrequest *ctrl)
+ 	}
+ 
+ 	spin_lock (&dev->lock);
++	if (dev->ep0_req_queued) {
++		spin_unlock(&dev->lock);
++		return -EBUSY;
++	}
+ 	dev->setup_abort = 0;
+ 	if (dev->state == STATE_DEV_UNCONNECTED) {
+ 		if (gadget_is_dualspeed(gadget)
+@@ -1618,6 +1670,7 @@ gadgetfs_setup (struct usb_gadget *gadget, const struct usb_ctrlrequest *ctrl)
+ 			dev->setup_wLength = w_length;
+ 			dev->setup_out_ready = 0;
+ 			dev->setup_out_error = 0;
++			dev->setup_out_len = 0;
+ 
+ 			/* read DATA stage for OUT right away */
+ 			if (unlikely (!dev->setup_in && w_length)) {
+@@ -1627,12 +1680,14 @@ gadgetfs_setup (struct usb_gadget *gadget, const struct usb_ctrlrequest *ctrl)
+ 					break;
+ 
+ 				++dev->udc_usage;
++				dev->ep0_req_queued = true;
+ 				spin_unlock (&dev->lock);
+ 				value = usb_ep_queue (gadget->ep0, dev->req,
+ 							GFP_KERNEL);
+ 				spin_lock (&dev->lock);
+ 				--dev->udc_usage;
+ 				if (value < 0) {
++					dev->ep0_req_queued = false;
+ 					clean_req (gadget->ep0, dev->req);
+ 					break;
+ 				}
+@@ -1663,21 +1718,26 @@ gadgetfs_setup (struct usb_gadget *gadget, const struct usb_ctrlrequest *ctrl)
+ 	if (value >= 0 && dev->state != STATE_DEV_SETUP) {
+ 		req->length = value;
+ 		req->zero = value < w_length;
++		req->complete = dev_req_complete;
+ 
+ 		++dev->udc_usage;
++		dev->ep0_req_queued = true;
+ 		spin_unlock (&dev->lock);
+ 		value = usb_ep_queue (gadget->ep0, req, GFP_KERNEL);
+ 		spin_lock(&dev->lock);
+ 		--dev->udc_usage;
+-		spin_unlock(&dev->lock);
+ 		if (value < 0) {
++			dev->ep0_req_queued = false;
++			req->buf = dev->rbuf;
+ 			DBG (dev, "ep_queue --> %d\n", value);
+ 			req->status = 0;
+ 		}
++		spin_unlock(&dev->lock);
+ 		return value;
+ 	}
+ 
+ 	/* device stalls when value < 0 */
++	req->buf = dev->rbuf;
+ 	spin_unlock (&dev->lock);
+ 	return value;
+ }
+@@ -1771,6 +1831,7 @@ static void
+ gadgetfs_unbind (struct usb_gadget *gadget)
+ {
+ 	struct dev_data		*dev = get_gadget_data (gadget);
++	bool			queued;
+ 
+ 	DBG (dev, "%s\n", __func__);
+ 
+@@ -1781,15 +1842,21 @@ gadgetfs_unbind (struct usb_gadget *gadget)
+ 		usleep_range(1000, 2000);
+ 		spin_lock_irq(&dev->lock);
+ 	}
++	queued = dev->ep0_req_queued;
+ 	spin_unlock_irq (&dev->lock);
+ 
++	if (dev->req) {
++		if (queued)
++			usb_ep_dequeue(gadget->ep0, dev->req);
++		clean_req(gadget->ep0, dev->req);
++		usb_ep_free_request(gadget->ep0, dev->req);
++		dev->req = NULL;
++	}
++
+ 	destroy_ep_files (dev);
+ 	gadget->ep0->driver_data = NULL;
+ 	set_gadget_data (gadget, NULL);
+ 
+-	/* we've already been disconnected ... no i/o is active */
+-	if (dev->req)
+-		usb_ep_free_request (gadget->ep0, dev->req);
+ 	DBG (dev, "%s done\n", __func__);
+ 	put_dev (dev);
+ }
+@@ -1816,11 +1883,13 @@ static int gadgetfs_bind(struct usb_gadget *gadget,
+ 	get_dev (dev);
+ 
+ 	/* preallocate control response and buffer */
++	dev->ep0_req_queued = false;
+ 	dev->req = usb_ep_alloc_request (gadget->ep0, GFP_KERNEL);
+ 	if (!dev->req)
+ 		goto enomem;
+ 	dev->req->context = NULL;
+-	dev->req->complete = epio_complete;
++	dev->req->complete = dev_req_complete;
++	dev->req->buf = dev->rbuf;
+ 
+ 	if (activate_ep_files (dev) < 0)
+ 		goto enomem;
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261103102849.1340413-1-vulab%40iscas.ac.cn
+Git-155)
+
+
