@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049496;
-	b=fxZ0tfL62fzgpa7oKwnnfKocxO5O/La+fuSTGPy7sScLRyaJLLGZBORAxKRD3lD7LWyA
-	 mRJw1WdaCS/FQiIhYJUfA3VyjpFJsVmS23e8KD6j9mpT4Hcvd4ZulNJxXhdytVc9MzO8x
-	 hGIBcE9wdhtok76+9DUdgJFoQWGJ3BAPyFQasULlbHp6j42OtzfSkgWAoyHWNyr0z6tcV
-	 gjsO7ZYhTtAApapZJPU5eVeq3esft6jptDfDDKVHXl717pgomhJYs/6U0jHBPinXXAEOA
-	 VWenRtf115XkbKMIbPtK4fA5qASCSm7aQxweRBxWQFtuaWfJOrVnGvLooRNXWEEMHYA==
+	t=1794049499;
+	b=D4P8JryOnKAiu8dp2ld/kYeqU3HY7Voq6IgrktO3NF+FVRfaThXfxQkQv8bEVxc5WiP+
+	 mbV7m4R7MfhJBfw8jy3HM4V7ssZ9MHNCFKWHjMMACBOF2ZM76QWE36lhqx8Efe8R2/Y8A
+	 9nmmucnRrwzC5uGepcAizg+OcaQ4wD2e6opNddJl9qBFMyv8PVK/apc3mRwUBLqt8+3QN
+	 Mzm7WGZjYR/GIdFN0i7ObilbePlLzEmwYkkjekUM/vLGp/TGkTw4mb80U9qDyYMK579tg
+	 F9wUr52T99zI8+UZin83was6c4JpswvXu4gsyrLNXXr0ogPXqc1mH0sgMVdd7VTixwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049496;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049499;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=n9wYlwtKSf9nI0vshTNms41ir7MCrAkgrPC5TqrJSI4=;
-	b=LlMn0/DwAA8fSXpQKDLelFik51TBSMFH/35xAYA1Hhc/AbBgskazzlhWreR0gMUXE7Lp
-	 qnQDgCsxzmnPkUw7SL+fnvLi+LrresuV990VE66ycBieY/0BHGLq81+6uviC+BzhA/vjx
-	 kHE5X6R0wIbWqNYTLs37yJMsJIgq/nda8RZXz8hTmN04EulsUQsoI1uKvytqj5dDrX8ZC
-	 93JtK7gobsn6lgXTyF/EPq9c5PLvCm19mUuFY7sq2cvDGmf5UMtCAnYAhZEtBzwkVizWJ
-	 Khkw+f6vCYxsdUaJsC2KmRD5CqDAyO3cMcKtseMZOmWo6gQxyRMAKvDVNxADtuZ6y5g==
+	bh=lqF1LusQ1xzEqjdbcWYWUXfYmY5rTeoI6WR5m+yGxlU=;
+	b=qA4iUyQewyVcfmd3I61vWiCxl/sPXVp7SWDYfOdZQrfx8eI10dOGk61Qmx0IWd+3G5uu
+	 HzryVEm2xXVJDC9pLoj9jukCppsfiy8R9gOJm06u5C7vMH7dTNob73NcsgB5miC4jfdM/
+	 x5lF5YnC6YeoMbIoCwkDbd/RE8MR+7BJo8zQyx3P/MwyksunbxwFfSC2+Wy6O/hpgYdiK
+	 gHzb3Imz71mJR89LLHTM0dKJPjDoQubEkH68HF1DSCwIoVcu4cwdVe3a+QoSraM8gbr5Q
+	 kobAyDw/V0vQ6z0TRk4OIR93arkTZSLzcKTUV9QXlYo2t3DK+h0pkRHffQ1Lr3UoKLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YN2znav3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="FKYJ/SBm";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D58CE606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:04:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1D44606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:04:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YN2znav3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 511DD1F0089F;
-	Sat,  7 Nov 2026 11:04:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FKYJ/SBm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52DE01F0089F;
+	Sat,  7 Nov 2026 11:04:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049495;
-	bh=n9wYlwtKSf9nI0vshTNms41ir7MCrAkgrPC5TqrJSI4=;
+	s=k20260515; t=1794049498;
+	bh=lqF1LusQ1xzEqjdbcWYWUXfYmY5rTeoI6WR5m+yGxlU=;
 	h=From:To:Cc:Subject:Date;
-	b=YN2znav3I3Ixyu0LuDwhwoZM9yov6DKGlahKXeU0eDxij1Ohc3Ani7Los8dn8y1/v
-	 kT7/mCsy0DHoti8NkOEx7EYdgfI4ursZ2alSOfPfkBjVLnNc0Mu71fOlTuEwCVcB/K
-	 TqlweY2YtNUijwBL33cwvzmfYgyONKxBVDIeCb1cV0BOge24JvUZMuEhVRyupjDQKD
-	 xikex2MkOXcv0BoIAiUfpOM/JasJVATOuvsvaTP05tZZovpFCx0TyEYX6JgIxwJzJ8
-	 +73fNPzmF0PDU8cn+e8V0v2rXZ7ELYDb74ABq2ca/tRgq8ed8iJUxFQC2mB2daLPdd
-	 V9AlOC8J61fdA==
+	b=FKYJ/SBmnmo4IIRvuZeU2Z/7KQiJB98ni/rf2TVcw6Sel97CTwPHZnTFVDXOnRCrF
+	 +pFKq6xV/IuGWN6/xfpCicKSeV9CaxPccLm7yR37t4P/7MVZEzMMGsh69D7HqWMj71
+	 KZOcf/ZZtOMrpdzq8LLPfYOHPTQjmBIS9+1EAy5r8mx96VphUtnMooHT6lQiIfs+H6
+	 T+d41mcovk5RJFFcwleGSvOE5bxCYqUiKVPLA3AqeA5KasQDyBgg9g7Fr34d/AyV8B
+	 6q1uUJmNpfi/guohVEzlQKFwx+uqFFMrD7CFKW2UO5J862AOy++ftVgMWfRUQRx8jF
+	 yED5GwlUD2QpQ==
 From: Sasha Levin <sashal@kernel.org>
-To: mario.limonciello@amd.com,
+To: ciro.pedrini@gmail.com,
 	ilpo.jarvinen@linux.intel.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] platform/x86/amd/pmf: Add AMDI0112 ACPI ID" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:04:54 -0500
-Message-ID: <20261107060453-failed-5.15-325bcc126cf7@kernel.org>
+Subject: FAILED: patch "[PATCH] platform/x86: hp-wmi: Add OMEN board 8A17 thermal profile support" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 06:04:57 -0500
+Message-ID: <20261107060456-failed-5.15-d35a1ea827a2@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,49 +68,72 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 325bcc126cf7a512a0e2da0efddad665f69badac
+git cherry-pick -x d35a1ea827a2efaea7fb059ffafefae7c13b9556
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060453-failed-5.15-325bcc126cf7@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060456-failed-5.15-d35a1ea827a2@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 325bcc126cf7a512a0e2da0efddad665f69badac Mon Sep 17 00:00:00 2001
-From: Mario Limonciello <mario.limonciello@amd.com>
-Date: Wed, 26 Aug 2026 11:36:11 -0500
-Subject: [PATCH] platform/x86/amd/pmf: Add AMDI0112 ACPI ID
+From d35a1ea827a2efaea7fb059ffafefae7c13b9556 Mon Sep 17 00:00:00 2001
+From: Ciro Pedrini <ciro.pedrini@gmail.com>
+Date: Fri, 25 Sep 2026 17:52:26 -0300
+Subject: [PATCH] platform/x86: hp-wmi: Add OMEN board 8A17 thermal profile
+ support
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The AMDI0112 ID is used to bind the PMF driver to some platforms.
-It doesn't have any Linux side code changes relative to the most
-similar AMDI0105.
+The HP OMEN 17-ck1xxx (board 8A17) isn't in omen_thermal_profile_boards,
+so hp-wmi uses the generic thermal profile query. The firmware only
+stores that value and never acts on it, so the EC stays in its default
+mode and the CPU is held at 45 W whatever profile is selected.
+
+The board uses the OMEN interface (mode byte at EC 0x95, thermal policy
+v1) and also needs the timed profile quirk: without it, the EC drops
+back to the default mode about two minutes after each profile change.
+
+Add 8A17 to omen_thermal_profile_boards and
+omen_timed_thermal_profile_boards.
+
+With this, all three profiles work and sustained package power under
+load goes from 45 W to 56-79 W.
 
 Cc: stable@vger.kernel.org
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-Link: https://patch.msgid.link/20260826163611.2268377-1-mario.limonciello@amd.com
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Ciro Pedrini <ciro.pedrini@gmail.com>
+Link: https://patch.msgid.link/20260925205226.883724-1-ciro.pedrini@gmail.com
 Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 ---
- drivers/platform/x86/amd/pmf/core.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/platform/x86/hp/hp-wmi.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/platform/x86/amd/pmf/core.c b/drivers/platform/x86/amd/pmf/core.c
-index b4eae65e675b8..5966190d1496b 100644
---- a/drivers/platform/x86/amd/pmf/core.c
-+++ b/drivers/platform/x86/amd/pmf/core.c
-@@ -454,6 +454,7 @@ static const struct acpi_device_id amd_pmf_acpi_ids[] = {
- 	{"AMDI0107", 0},
- 	{"AMDI0108", 0},
- 	{"AMDI0109", 0},
-+	{"AMDI0112", 0},
- 	{ }
+diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
+index 64d0ea8de32e6..a2afa86f2fe49 100644
+--- a/drivers/platform/x86/hp/hp-wmi.c
++++ b/drivers/platform/x86/hp/hp-wmi.c
+@@ -207,7 +207,7 @@ static const char * const omen_thermal_profile_boards[] = {
+ 	"886B", "886C", "88C8", "88CB", "88D1", "88D2", "88F4", "88F5", "88F6",
+ 	"88F7", "88FD", "88FE", "88FF",
+ 	"8900", "8901", "8902", "8912", "8917", "8918", "8949", "894A", "89EB",
+-	"8A15", "8A18", "8A42", "8A43",
++	"8A15", "8A17", "8A18", "8A42", "8A43",
+ 	"8BAD",
+ 	"8C58",
+ 	"8E41",
+@@ -227,7 +227,7 @@ static const char * const omen_thermal_profile_force_v0_boards[] = {
+  * "balanced" when reaching zero.
+  */
+ static const char * const omen_timed_thermal_profile_boards[] = {
+-	"8A15", "8A42",
++	"8A15", "8A17", "8A42",
+ 	"8BAD",
  };
- MODULE_DEVICE_TABLE(acpi, amd_pmf_acpi_ids);
+ 
 -- 
 2.53.0
 
