@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050525;
-	b=GMPB+ZiAkoqBCMdpy8mE9GvSKV/CFY6LZ0vsjsYUV7Glg8PfjEBaphE/R7LlGOWL+iOA
-	 7pV0bvtbmdaC0qG1jnJjyxRlOhyWnKrP9Rl10AIfjhmv/o57aeklksNIXKGCdZ2rCQ9nP
-	 01naheEdIwSiPo9m+ebMGDksMiBsBxSHxESj3HpA1/O2OKtHNzdcujx3wkpyr0tJawIP9
-	 W3vAjqB8I6MimofTJ0RbEGo2gGwUbP4kL9YlNjGTyM8In5EB4sT6qex8+mqtjzDpWKAOl
-	 haJtHCV5NPL922d/qBcnaizjEPIeThBn2M5NlU5KCore76KnlMmmfTq4yTk3gX73wnA==
+	t=1794050528;
+	b=0A43NCIAuWbGmUOPAFdBExVLG197JRyqWXtctcp6LxkqkeGONRQZHISW394cEBMWEJu+
+	 Aq7GSkr08ONH1yrh9dSCUHIJJV3bj1QlnY2WQS8b4frbHLDChNKOhiPO8Dudo06718pmZ
+	 9JBulfPoOzqJXH+VG+0HD46jif2jxQg3kG5FnI8fa54OZHEK4W8K+NOv/aNcvIK/W5JYG
+	 Ow+jJrv5ELzQa398cbJb8qnjYxskLyWKckbW0Kwvh59MWoiiUKIzNSg4DSuvUd8LNXHuH
+	 ItlinF71UyFfhPFMzV5ixAXtrBrF0vEK2FVdXsW/a+IPtRjQyqDY5czHm1Ed7pv2JVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050525;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050528;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=BoLCSx7BFm8QZA2vPBvkGcyh7l0vVhTN9jNafZk/iW4=;
-	b=vTIjAKxz4QFC6Nm0T4jmjtDCpxra/9661WnDu3Mb8Xe1amr6YCwZUtQYGLsw2NrLRgkJ
-	 Y6nQrUA2VhBdHPt+Owu0vhM9p2zO9GVeL30DGIr2ux1GSpofsA+CiP5p5nunyJac4DtYF
-	 PfhAroCU89+YcCY4Pu7u3Sb+FVnvhGwQv8vrjWGUWtuXFk8weyyUW/oPxHwM+fWkETGav
-	 18/n0/YPGNG9n9XHR4eAU6sz1PGJMueJfholWv4CqDZKmBZ8Q1jK7qLBz6hPI5knKLMw+
-	 HYfBwWi2YXE9APXp3d45lbLrWnO6laSl3DvbuhNJDUVclw1AKuaVseuVcC5aIv9g2/w==
+	bh=KKyT4tCm73wi4YpN+Xdr1SP7yZUkeOWXfxeZ+LNRUxA=;
+	b=OlPJsvloaKgsgR9uLfKW9oBQn1SD8pSLdC2b4wC5YNyGwPZz6Ru4TspQyWZ14pQ3YYR0
+	 EfOPvzSZJL9qGb11yx3LyExpeyGgAHE40mmB3jBmeA5FarDwnt+UvlVHlrxN4WhfRQWCX
+	 S4nibKbL4a0ceLpwG3tz79VQ7DdyILiNoQlw3OdYDSFm+cyWnAq5FSJFW9QQmDuBiAF6x
+	 KFkb3CsmP3dmaFeXHeB3x5HbKMSA96BcfwJhrqaBPUBBi72hvg3HHUHrpYPYicN8z3URj
+	 V9d8Ynv0oiDadm7tcq648zyTnG2cqMYmjTbpD8sJSxqm2qGnZsPd7bl5nml259mq/rg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A8ID9Q+9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dzDbElkS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9D4C606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:22:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAF08606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:22:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A8ID9Q+9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45FF11F0089F;
-	Sat,  7 Nov 2026 11:22:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dzDbElkS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 461A91F0089F;
+	Sat,  7 Nov 2026 11:22:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050524;
-	bh=BoLCSx7BFm8QZA2vPBvkGcyh7l0vVhTN9jNafZk/iW4=;
+	s=k20260515; t=1794050527;
+	bh=KKyT4tCm73wi4YpN+Xdr1SP7yZUkeOWXfxeZ+LNRUxA=;
 	h=From:To:Cc:Subject:Date;
-	b=A8ID9Q+9seOB7xGZtQX8fvOTD3OTegsHixElQhhfANY0IYJQivMHkDXsaF9E9vLcx
-	 xaPRgngcnfpvK7mqCQZ3P6qXuK/cFzZRZKjhDajku/oeRMVjm9xDmlVyIrSzxiNkK0
-	 KaspgBII6tMtQkPLqyMOUP7pYXqAJf7t23oQaYrM4um2g6VXvInKJIHBT/vFT04iBK
-	 YtXeYg8y5+PefGtP1wATOTR8uRikLbrZZHm/Q+3an60mg+fNDdlFRfXFBRtriY6Og6
-	 hBzQtW6xF2F97DUg4Jk1zqgYCaRkuU4eZdAmXXPArxU3WzTRvGxjufgVJx4ysXmtZn
-	 TpLqxRq/kwlPg==
+	b=dzDbElkSEV9iGdkRJJiwUbEKQmiTafYunqafdGZh/yFQj1xqfokU0A+/0kN0ToPqm
+	 k2O5gGxW+UwtyoREwsGXusttayL7xcnxrDsdQ9Ohexu4fLBTx8WOV/lfEZvK9kOdAg
+	 JOZjUDtNCrMHxKlkI4R9JGVmb/zjtupvoDSbsyqL4hns+BVSpdviU4EVqYXE/WWQyp
+	 tWz6dk5fCzTWObDGEP8H9tIJLe+f65qFxj1+jmHFAKYijp/Hi2/91BOg5z8jgTp/Yp
+	 338hpBEcsnlItrybfJRmtBHlerb97eBXN/gHoWYmLF5ChgGOWPLPeof9Mcv+TOwbxC
+	 fhGLqIJQHhxjw==
 From: Sasha Levin <sashal@kernel.org>
-To: andrey.misyrov@gmail.com,
+To: ljs@kernel.org,
 	deller@gmx.de
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] fbdev: core: Initialize modelist in framebuffer_alloc()" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:22:03 -0500
-Message-ID: <20261107062202-failed-5.10-0c9cb9321cb3@kernel.org>
+Subject: FAILED: patch "[PATCH] fbdev: smscufx: check for fb_deferred_io_init() error" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:22:05 -0500
+Message-ID: <20261107062205-failed-5.10-8ea6c6e77ccf@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,87 +68,78 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 0c9cb9321cb3863b52bdea4b8ae5a27705762c9e
+git cherry-pick -x 8ea6c6e77ccf887f3e68c64f4c261071a345da1e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062202-failed-5.10-0c9cb9321cb3@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062205-failed-5.10-8ea6c6e77ccf@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 0c9cb9321cb3863b52bdea4b8ae5a27705762c9e Mon Sep 17 00:00:00 2001
-From: Andrey Misiurov <andrey.misyrov@gmail.com>
-Date: Mon, 12 Oct 2026 19:53:38 +0200
-Subject: [PATCH] fbdev: core: Initialize modelist in framebuffer_alloc()
+From 8ea6c6e77ccf887f3e68c64f4c261071a345da1e Mon Sep 17 00:00:00 2001
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Sat, 26 Sep 2026 14:17:03 +0100
+Subject: [PATCH] fbdev: smscufx: check for fb_deferred_io_init() error
 
-framebuffer_alloc() returns zeroed memory, so info->modelist starts out
-with NULL next and prev pointers. The list head is initialized only
-later, by fb_videomode_to_modelist() or by do_register_framebuffer().
+fb_deferred_io_init() allocates deferred I/O state, populating
+info->fbdefio_state, or leaving it NULL if an error occurs.
 
-The "fix potential memory leak" commits listed below added
-fb_destroy_modelist(&info->modelist) to the probe error paths of s3fb,
-tdfxfb, tridentfb, i740fb and carminefb. These paths can run before
-the list head is initialized:
+Currently ufx_ops_open() ignores its return value.
 
- - s3fb, tdfxfb, tridentfb and i740fb call fb_videomode_to_modelist()
-   only after a successful EDID read, and tridentfb can also hit the
-   error path on an ioremap() or kmalloc() failure before that;
- - carminefb jumps to the error path when fb_find_mode() fails, before
-   its fb_videomode_to_modelist() call.
+Therefore if an error arises in fb_deferred_io_init() (for instance, due to
+an allocation failure) info->fbdefio_state is left NULL.
 
-fb_destroy_modelist() then dereferences the NULL head. Reproduced on
-Debian 12 (6.1.180) by binding s3fb to a VGA device without EDID and
-forcing fb_alloc_cmap() to fail:
+fb_open() will then dereference a NULL pointer (calling
+fb_deferred_io_open()) as soon as ufx_ops_open() returns.
 
-  s3fb 0000:00:03.0: cannot allocate colormap
-  BUG: kernel NULL pointer dereference, address: 0000000000000000
-  RIP: 0010:fb_destroy_modelist+0x10/0x80
-  Call Trace:
-   s3_pci_probe.cold+0x12b/0x2bf [s3fb]
-   local_pci_probe+0x41/0x80
-   pci_device_probe+0xc3/0x240
-   really_probe+0xde/0x380
-   __driver_probe_device+0x84/0x150
-   driver_probe_device+0x1f/0x90
-   __driver_attach+0xce/0x1c0
-   bus_for_each_dev+0x87/0xd0
-   bus_add_driver+0x1ae/0x200
-   driver_register+0x89/0xe0
-   do_one_initcall+0x59/0x220
-   do_init_module+0x4a/0x1f0
+Additionally, if the allocation of info->fbdefio itself fails,
+ufx_ops_open() sets info->fbdefio to NULL and invokes
+fb_deferred_io_init() regardless, hitting BUG_ON(!fbdefio).
 
-Initialize the list head in framebuffer_alloc(), so info->modelist is
-always a valid, possibly empty, list and fb_destroy_modelist() is safe
-on every error path. Keep the lazy initialization in
-do_register_framebuffer(), as drivers that embed struct fb_info rather
-than calling framebuffer_alloc() still depend on it.
+Fix this by only invoking fb_deferred_io_init() if the allocation
+succeeded, and checking for the error.
 
-Fixes: 3b0ed04bc852 ("fbdev: s3fb: fix potential memory leak in s3_pci_probe()")
-Fixes: bb019d755366 ("fbdev: tdfxfb: fix potential memory leak in tdfxfb_probe()")
-Fixes: 7a35ec619d9a ("fbdev: tridentfb: fix potential memory leak in trident_pci_probe()")
-Fixes: 5936063409af ("fbdev: i740fb: fix potential memory leak in i740fb_probe()")
-Fixes: 6fcca16a2b19 ("fbdev: carminefb: fix potential memory leak in alloc_carmine_fb()")
+The driver already supports operating without deferred I/O, so in either
+case fall back to that by setting info->fbdefio to NULL.
+
+The ignored return value was introduced in commit 56c134f7f1b5 ("fbdev:
+Track deferred-I/O pages in pageref struct").
+
+However, the BUG_ON() issue originates from the earlier
+commit 3c8a63e22a08 ("Add support for SMSC UFX6000/7000 USB display
+adapters"), so target that for the fix.
+
+Fixes: 3c8a63e22a08 ("Add support for SMSC UFX6000/7000 USB display adapters")
 Cc: stable@vger.kernel.org
-Signed-off-by: Andrey Misiurov <andrey.misyrov@gmail.com>
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 Signed-off-by: Helge Deller <deller@gmx.de>
 ---
- drivers/video/fbdev/core/fb_info.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/video/fbdev/smscufx.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/video/fbdev/core/fb_info.c b/drivers/video/fbdev/core/fb_info.c
-index 52f9bd2c5417a..05988a936bebb 100644
---- a/drivers/video/fbdev/core/fb_info.c
-+++ b/drivers/video/fbdev/core/fb_info.c
-@@ -43,6 +43,7 @@ struct fb_info *framebuffer_alloc(size_t size, struct device *dev)
- 	info->device = dev;
- 	info->fbcon_rotate_hint = -1;
- 	info->blank = FB_BLANK_UNBLANK;
-+	INIT_LIST_HEAD(&info->modelist);
+diff --git a/drivers/video/fbdev/smscufx.c b/drivers/video/fbdev/smscufx.c
+index 5704f60e1741b..34d8abd5b3544 100644
+--- a/drivers/video/fbdev/smscufx.c
++++ b/drivers/video/fbdev/smscufx.c
+@@ -1041,10 +1041,13 @@ static int ufx_ops_open(struct fb_info *info, int user)
+ 		if (fbdefio) {
+ 			fbdefio->delay = UFX_DEFIO_WRITE_DELAY;
+ 			fbdefio->deferred_io = ufx_dpy_deferred_io;
+-		}
  
- #if IS_ENABLED(CONFIG_FB_BACKLIGHT)
- 	mutex_init(&info->bl_curve_mutex);
+-		info->fbdefio = fbdefio;
+-		fb_deferred_io_init(info);
++			info->fbdefio = fbdefio;
++			if (fb_deferred_io_init(info)) {
++				kfree(fbdefio);
++				info->fbdefio = NULL;
++			}
++		}
+ 	}
+ 
+ 	pr_debug("open /dev/fb%d user=%d fb_info=%p count=%d",
 -- 
 2.53.0
 
