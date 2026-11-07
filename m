@@ -1,54 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050444;
-	b=SaTsu6atdk8eebY3qGO2Uvk9aDXzeVIjGqoR5F3iCZRjvVb8kTiUHhwLnyVg3CioNA+p
-	 OaBvckg/2LQ33/WCoSE0+XtM6UinxSZ4gAO8Am+BfqTIHh/coWM27p7SyGGig1DrM8PtP
-	 xtCzPz/t6BeH9vBjRCE1NaKr6D+rI/uorM52fqEzV2YKvcVAm6zn6fOYqjCGcYpd72FE8
-	 LB9OvL2KeNwoFmXrWvlAcyX8tWhUMgH/6y9OeGBz+X/Dc4TBCh02pt+Jw/BIXae3Ma1tG
-	 58ktW8GtuqxWvJ0DMwXPVoHNq/pMgbZXR7W1ob7ULs02a69L02MztYh2551tdwrv3CQ==
+	t=1794050447;
+	b=y1cGnmok76F0CvKBWMHqNibrYIywZtNoUawp6QaM325ZJuD4iKqUZR1sJOyxerbfCcWO
+	 ZJobg5TyqYiYIBdOHHS7KdzgWAm5atA/+oTHuUMnDqioPpWfWF4Hw2+J8RpTSkpR6IgzE
+	 JRPiYDHehcynI1UD/CwQnWnzTYqLNFFn3+BpQpUNUJlZP54fsVeCfrXSOwCR4lJ1r2L7b
+	 HvVkmZ+pPvg2H6cXDdSlUn8lPorg7dHQUK70UXIcTlGKfsX97APmsntdyI0VALM+HxLEu
+	 F88Ng9c/FtPMGfa9f5TsDCobGVrvoxb3UvNys8KXvwN42DbQA2WPaw/Kb2lADpzYkGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050444;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050447;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=mViyEt1YZ73ofT7nRCHNnTDEyJOfFW6P/yzk+86KnSs=;
-	b=OC9x1A+QCnwFpYAoGYKQnUGbpRXkNzTpp4tfjDbgiO1/nYKw0CzggobgSUblmb2c4RZU
-	 zl9PrtFNnRIylO4sLagn6bQgmsf4K1io/E3joX5fmb0mA6Sqg0U4Ty6LtbvXiM3FkpxU2
-	 mEvEQ6YMdaY2XHdzXmNlUkRM3MTZQSDWcWbEQcrI/LaFalUs2Z+vPvcIMDsI7YPdnCeV5
-	 fapNQ/aiOG90pm3OAB5jeSF465jQfpKJbl5gDfbQu/IlF9j7OLqd0Wwr4AMfhpvw7k/EM
-	 RHPEVIzKAKdEfHNCMNTMzryV1s3NG5TBshe6yCJeqwvcctXzhw/zwPVDReWEfDH9hmw==
+	bh=u9MKKpf/a1eyHyYYkmNsNXs8AI4GCGL59cikE1u33Js=;
+	b=5La2Z8CXej5zM/utx7XJ7CZLwHusN2rAWRuW5Kp82JuEIm81T2sAfOI2iGv09CrtqYcN
+	 4OPIi7RAhEm392DMazpjGcdPl47BjhcqRU8gEy9KR8xCw57FYWn9nWYmIa9pwpYbVBnVs
+	 EF0lX3dbpxMMWoX7V8dj4XPOeeqQJpH1ejqZCRiKpa8zG6liw/QOJGWz/FYRjbYA28lPp
+	 VAdZX19HUGXU/UxYQUUQvYG6tbP6aR8yLjG0K3tfVAGoewWsGFKopXVq+QeoJUnZuchIw
+	 gb4pW1HY/cp5Q5c90wPJ4gPdniR0ppG9JA0LUY53pj6nAdcDTor2R4Wlbpjz97Q+2Sw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O+4nUbjE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nM6aRA8l;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3663606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:20:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05246606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:20:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O+4nUbjE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E54971F0089F;
-	Sat,  7 Nov 2026 11:20:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nM6aRA8l
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4491B1F0089F;
+	Sat,  7 Nov 2026 11:20:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050443;
-	bh=mViyEt1YZ73ofT7nRCHNnTDEyJOfFW6P/yzk+86KnSs=;
+	s=k20260515; t=1794050446;
+	bh=u9MKKpf/a1eyHyYYkmNsNXs8AI4GCGL59cikE1u33Js=;
 	h=From:To:Cc:Subject:Date;
-	b=O+4nUbjEGpUWFQDH51Yp7ILUn/bhjUvoQpSaqcsD4+5IAwYAJDBn2wXL3GHza03rc
-	 DDIr9v7tqDyJlFfm7Oi1QfwDV5cJGdlIhgsFUxjGrrjJSv3trLYtZdlqUba+ESVtZQ
-	 ZmimODEPSzZ69gAv1AQMDA8Ey95kOdlpQzg931GKY2FnzkAIl7UJDbUqA6f3MnkyRK
-	 x1lgGAHqrsfkpN+OVxyduRKv6AYkI8Hsay+4j3ZcAsKesWLBQMhcYoKIDmvNGbDSyw
-	 zIUfCwkaknTB4JWpAkv32uggJ/Y3rI8TCy4RcPuDDvaDLGnZ5tT+s61FYXBRbHRZ7M
-	 Xs+MATksEzCnQ==
+	b=nM6aRA8lDGcqiZ9xV/8qH1spGBP5eAH/xbj3ZTk6zotGeCK6NKrTaLYsMHnqeJBMM
+	 vix4nS6dvUcvzE7VgZE3b7sQ5ld6N1M8vm6shswlcAG+/nwnQ43v9U+GjFvTwMuYvd
+	 LFhHGoQGiEEdBP4lMfOdDAbhMkIRJOVdRX2kJDfT3gDav110rmTMJ7Fg7GLAM2kqpG
+	 SCydKQaRIRAogi0AYLvzVWrTFeXPC6eS6LhDnzRSALyhrnIoQw5S+2FrXtwD1q0umE
+	 H6rS0jnw+/Pz/i/4wfDziJJkddPsTMHyBIkkmXCLhUap/bNYhyd1tQT5kMPLYebA5o
+	 CQTVAJGK8HIRg==
 From: Sasha Levin <sashal@kernel.org>
-To: linux@stevetech.au,
-	shyam-sundar.s-k@amd.com,
-	hurryman2212@gmail.com,
-	mirko.jechow@gmx.de,
+To: eeodqql09@gmail.com,
+	nathan.c.rebello.27@dartmouth.edu,
+	heikki.krogerus@linux.intel.com,
 	gregkh@linuxfoundation.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] usb: xhci-pci: Add AMD 600 series to xhci-pci-prom21" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:20:41 -0500
-Message-ID: <20261107062041-failed-5.10-29381088ac50@kernel.org>
+Subject: FAILED: patch "[PATCH] usb: typec: ucsi: ccg: Validate altmode index in GET_CURRENT_CAM response" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:20:44 -0500
+Message-ID: <20261107062044-failed-5.10-02ee864e8d21@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,104 +70,115 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 29381088ac50a4910d18a5f8079d9bd505f839be
+git cherry-pick -x 02ee864e8d2142c5648998944c3306ea6a763c26
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062041-failed-5.10-29381088ac50@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062044-failed-5.10-02ee864e8d21@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 29381088ac50a4910d18a5f8079d9bd505f839be Mon Sep 17 00:00:00 2001
-From: Stephen Horvath <linux@stevetech.au>
-Date: Sun, 4 Oct 2026 02:27:31 +0200
-Subject: [PATCH] usb: xhci-pci: Add AMD 600 series to xhci-pci-prom21
+From 02ee864e8d2142c5648998944c3306ea6a763c26 Mon Sep 17 00:00:00 2001
+From: Seungjin Bae <eeodqql09@gmail.com>
+Date: Sat, 3 Oct 2026 17:55:20 -0400
+Subject: [PATCH] usb: typec: ucsi: ccg: Validate altmode index in
+ GET_CURRENT_CAM response
 
-It seems the xhci-pci-prom21 module only has IDs for the 800 series
-chipsets. However, the 600 series chipsets also have Promontory 21
-chips, so we should add their IDs to the list as well.
+When the PPM reports more than one DisplayPort alternate mode for a
+connector, ucsi_ccg_update_altmodes() merges them into a single entry
+in uc->updated[] and sets uc->has_multiple_dp. In that case,
+ucsi_ccg_update_get_current_cam_cmd() rewrites the response of the
+GET_CURRENT_CAM command. The response is a single byte holding the
+index of the currently active alternate mode, and it is provided by
+the PPM firmware.
 
-I have tested this on my X670 board featuring DID `0x43f7`.
+The function uses this byte directly as an index into uc->orig[], and
+then uses the linked_idx read from that entry as the translated index
+into uc->updated[]. Both arrays have UCSI_MAX_ALTMODES entries, but
+neither index is checked against that size.
 
-`1022:43f7` also appears on the PCI ID database
-(https://pci-ids.ucw.cz/read/PC/1022/43f7).
-Device IDs `0x43f9` (B665) & `0x43fa` (A620) were suggested by Shyam.
+If a malicious or buggy PPM reports a value of UCSI_MAX_ALTMODES or
+larger, e.g. 0xFF, uc->orig[cam].linked_idx reads over the end of
+uc->orig[]. The byte read from there is then used as the index for
+writing cam into uc->updated[new_cam].active_idx, so the out-of-bounds
+read is followed by an out-of-bounds write. This happens without any
+userspace action, since the UCSI core issues GET_CURRENT_CAM on its own
+when handling connector changes.
 
-Also list the new IDs in Documentation/hwmon/prom21-xhci.rst.
+Fix this by rejecting responses whose index is out of range, printing an
+error and returning -EPROTO, so that the caller cannot accept this.
+Also check linked_idx before using it as an index, so that the write into
+uc->updated[] is always within bounds.
 
-Cc: stable@vger.kernel.org # 7.2.x
-Cc: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
-Cc: Jihong Min <hurryman2212@gmail.com>
-Signed-off-by: Stephen Horvath <linux@stevetech.au>
-Tested-by: Mirko Jechow <mirko.jechow@gmx.de>
-[mirko.jechow@gmx.de: add new IDs to prom21-xhci.rst]
-Signed-off-by: Mirko Jechow <mirko.jechow@gmx.de>
-Link: https://patch.msgid.link/20261004002731.49927-1-mirko.jechow@gmx.de
+The response is now only processed when the command completed without
+an error. ucsi_sync_control_common() only reads the response when the
+CCI reports command completion, so otherwise the buffer is not filled
+and must not be mistaken for an invalid index.
+
+This bug was found with a Python script that traces where firmware input
+is used.
+
+Fixes: 170a6726d0e2 ("usb: typec: ucsi: add support for separate DP altmode devices")
+Cc: stable <stable@kernel.org>
+Reported-by: Nathan Rebello <nathan.c.rebello.27@dartmouth.edu>
+Assisted-by: LLM
+Signed-off-by: Seungjin Bae <eeodqql09@gmail.com>
+Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Link: https://patch.msgid.link/20261003215520.611083-2-eeodqql09@gmail.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- Documentation/hwmon/prom21-xhci.rst | 2 +-
- drivers/usb/host/xhci-pci-prom21.c  | 3 +++
- drivers/usb/host/xhci-pci.c         | 3 +++
- drivers/usb/host/xhci-pci.h         | 3 +++
- 4 files changed, 10 insertions(+), 1 deletion(-)
+ drivers/usb/typec/ucsi/ucsi_ccg.c | 22 +++++++++++++++++++---
+ 1 file changed, 19 insertions(+), 3 deletions(-)
 
-diff --git a/Documentation/hwmon/prom21-xhci.rst b/Documentation/hwmon/prom21-xhci.rst
-index 7984fb187bd8a..6c0b6e7368921 100644
---- a/Documentation/hwmon/prom21-xhci.rst
-+++ b/Documentation/hwmon/prom21-xhci.rst
-@@ -9,7 +9,7 @@ Supported chips:
- 
-     Prefix: 'prom21_xhci'
- 
--    PCI IDs: 1022:43fc, 1022:43fd
-+    PCI IDs: 1022:43f7, 1022:43f9, 1022:43fa, 1022:43fc, 1022:43fd
- 
- Author:
- 
-diff --git a/drivers/usb/host/xhci-pci-prom21.c b/drivers/usb/host/xhci-pci-prom21.c
-index 6486f4a093455..5f088a47d79f3 100644
---- a/drivers/usb/host/xhci-pci-prom21.c
-+++ b/drivers/usb/host/xhci-pci-prom21.c
-@@ -111,6 +111,9 @@ static void prom21_xhci_remove(struct pci_dev *dev)
+diff --git a/drivers/usb/typec/ucsi/ucsi_ccg.c b/drivers/usb/typec/ucsi/ucsi_ccg.c
+index 91c2958a708c0..80e3e84b418d7 100644
+--- a/drivers/usb/typec/ucsi/ucsi_ccg.c
++++ b/drivers/usb/typec/ucsi/ucsi_ccg.c
+@@ -384,14 +384,28 @@ static int ucsi_ccg_init(struct ucsi_ccg *uc)
+ 	return -ETIMEDOUT;
  }
  
- static const struct pci_device_id pci_ids[] = {
-+	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43F7) },
-+	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43F9) },
-+	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43FA) },
- 	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43FC) },
- 	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43FD) },
- 	{ /* end: all zeroes */ }
-diff --git a/drivers/usb/host/xhci-pci.c b/drivers/usb/host/xhci-pci.c
-index a8889081ae824..b407676808fca 100644
---- a/drivers/usb/host/xhci-pci.c
-+++ b/drivers/usb/host/xhci-pci.c
-@@ -701,6 +701,9 @@ static const struct pci_device_id pci_ids_renesas[] = {
+-static void ucsi_ccg_update_get_current_cam_cmd(struct ucsi_ccg *uc, u8 *data)
++static int ucsi_ccg_update_get_current_cam_cmd(struct ucsi_ccg *uc, u8 *data)
+ {
+ 	u8 cam, new_cam;
  
- /* handled by xhci-pci-prom21 if enabled */
- static const struct pci_device_id pci_ids_prom21[] = {
-+	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43F7) },
-+	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43F9) },
-+	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43FA) },
- 	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43FC) },
- 	{ PCI_DEVICE(PCI_VENDOR_ID_AMD, PCI_DEVICE_ID_AMD_PROM21_XHCI_43FD) },
- 	{ /* end: all zeroes */ }
-diff --git a/drivers/usb/host/xhci-pci.h b/drivers/usb/host/xhci-pci.h
-index 11f435f94322a..533efc7db8012 100644
---- a/drivers/usb/host/xhci-pci.h
-+++ b/drivers/usb/host/xhci-pci.h
-@@ -4,6 +4,9 @@
- #ifndef XHCI_PCI_H
- #define XHCI_PCI_H
+ 	cam = data[0];
++	if (cam >= UCSI_MAX_ALTMODES) {
++		dev_err(uc->dev, "PPM returned invalid alternate mode index %u\n",
++			cam);
++		return -EPROTO;
++	}
++
+ 	new_cam = uc->orig[cam].linked_idx;
++	if (new_cam >= UCSI_MAX_ALTMODES) {
++		dev_err(uc->dev, "invalid linked alternate mode index %u for %u\n",
++			new_cam, cam);
++		return -EPROTO;
++	}
++
+ 	uc->updated[new_cam].active_idx = cam;
+ 	data[0] = new_cam;
++
++	return 0;
+ }
  
-+#define PCI_DEVICE_ID_AMD_PROM21_XHCI_43F7	0x43f7
-+#define PCI_DEVICE_ID_AMD_PROM21_XHCI_43F9	0x43f9
-+#define PCI_DEVICE_ID_AMD_PROM21_XHCI_43FA	0x43fa
- #define PCI_DEVICE_ID_AMD_PROM21_XHCI_43FC	0x43fc
- #define PCI_DEVICE_ID_AMD_PROM21_XHCI_43FD	0x43fd
+ static bool ucsi_ccg_update_altmodes(struct ucsi *ucsi,
+@@ -636,8 +650,10 @@ static int ucsi_ccg_sync_control(struct ucsi *ucsi, u64 command, u32 *cci,
  
+ 	switch (UCSI_COMMAND(command)) {
+ 	case UCSI_GET_CURRENT_CAM:
+-		if (uc->has_multiple_dp)
+-			ucsi_ccg_update_get_current_cam_cmd(uc, (u8 *)data);
++		if (!ret && uc->has_multiple_dp &&
++		    (*cci & UCSI_CCI_COMMAND_COMPLETE) &&
++		    !(*cci & UCSI_CCI_ERROR))
++			ret = ucsi_ccg_update_get_current_cam_cmd(uc, (u8 *)data);
+ 		break;
+ 	case UCSI_GET_ALTERNATE_MODES:
+ 		if (UCSI_ALTMODE_RECIPIENT(command) == UCSI_RECIPIENT_SOP) {
 -- 
 2.53.0
 
