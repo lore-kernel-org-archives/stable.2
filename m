@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046614;
-	b=WCsdLCVYVkWkXkhervqIH6v878EDazLCWRfra44lBrlMl0ld9OzYO3seyt2qtLsa7c6g
-	 ByPXsQ8DQpHWMc96KWGdL8jdB3zVNjXEpJ5LvlFWLVO0lLeWfxQ9fZ10+B2ldHQn4AwA7
-	 sDSyABAj/7PzRLppvF94qvRZ9PNQKE5mKXPgL03h4INieR5s0EUXbtPG/QslyDqLy3p5V
-	 Fn+iAIt1414YSdLYwlM+M/rgj2IwumHJExlX0u5txZ79qxdse5g3dOlrfWm/y80ZvMLsL
-	 6aT0Niai6QPPP42CkFTQReTm3BHN7JIMufvt7NHZVOXqBOsbJgkAVo+iRvj9EgiXviw==
+	t=1794046616;
+	b=BsHml1Qtz5hFWwrI2w3Zx6xIqgcYGApzuQmbOs6znwEHf+Yg7B1BRmiD6WB76H2YVuSq
+	 FEdzraT5RdK5WdUHOajtLMsMMt2HXI7CnAOIsVYUU6kmACoIL1ISSnLYQ96KLhEmybXCg
+	 McRgKmneGjUmOrBNIYPSV4VxxHn+LDl5/8vuJq+qkINvmgksESe6gV77gi4Dfu4r0iD02
+	 /Z3zUlmF6e8rmKGiuYpiYjsRhJ/9hrJf0xeo6xjqXXwyhY5D03Y5fHzkU3YgSo2DrzbzO
+	 LvJhj3g73/oYmFdV6JrNruD7WRzSoRRVtmyZU2kX/JPbuUD6E+vi8o/aANtSzlsjcPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046614;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046616;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=2vWUbAZanzps2fWyRTyrpNEw/hLwqNf3bGQxSolpl3A=;
-	b=D7IXMA2sADC7rHFjkHWTNcVjptMWXTBFBxYgQFpwP0zmRPda0VKw/kZcqmw5HmVYWyPg
-	 YwUodg1/bKX7UgzNa9qs11vv/g9VGeW5N2wqbnn9TZ80NwGl+3ARPO8Ot3ZktRdV1re2d
-	 uUzR16wYLciJgj/TCJKx3CzySQ7FZv7t06hD/LzHKRDuPd3FojrbVl2T3/dUuzG5Od4kp
-	 J0CW8ZJ1dZ9foN/nW/NKvXFCG/N47wVBXPiVf+AErQMN0SINfN6K7C/Ip70xXux1yeqDB
-	 MoHsUwWpdI0Z8D6ItzLfu5BpTXyx23g1OoDOx6wuLACkMqw9k+K7bQRSGqAaPsvgVNw==
+	bh=p3lpYWpF+boo5gaRRumRD6yhdgyWDxWQKqSyFkeCIEY=;
+	b=ofAdj96eKwufhMvg/llEXBUL5H4dJn47rS3CKGUiWJvFl3BNVQ96SfTrhBJgH/6J2lBB
+	 LYkEabRMks5e7mkb2IwWQ7CWs7vIWv7QgFpAAStS0e/IzIh/CcJPLzz4zmuucHELHwVAd
+	 7+J662d6CeSAAa5rb9LcTlp9+izJcldpiLm4q2tP0vj2oiMpxLG5g86Q+n/eanVv211TA
+	 1JJKwGG/KeBPoeNtLoKCnuQrTyQ13HhnNcQoSVEALO98HVfASH0nRxGt+m+af6NzgID/t
+	 KUi7/JSvve0MeqGrkHcVnQ19MfqXsEjjT2Ihej8P9gCdpWT9KL+kotPOPoQW6cqDFKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cFHGZXy8;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U0+DdGvm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54D7E6083623
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:16:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88857606EE83
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:16:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cFHGZXy8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A718B1F008A1;
-	Sat,  7 Nov 2026 10:16:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U0+DdGvm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2E691F008BC;
+	Sat,  7 Nov 2026 10:16:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046614;
-	bh=2vWUbAZanzps2fWyRTyrpNEw/hLwqNf3bGQxSolpl3A=;
+	s=k20260515; t=1794046616;
+	bh=p3lpYWpF+boo5gaRRumRD6yhdgyWDxWQKqSyFkeCIEY=;
 	h=From:To:Cc:Subject:Date;
-	b=cFHGZXy8OqauvrkCmiwYYduuG01QYA0PtSDg0SRCE5JaF6LkrdlYmOTRMY/3PdeGx
-	 cjUntfo24340tX06T7AGxmep3olCPREquvIarzoNTPsxqsvcKxnNI4mYQChlqtu+zU
-	 rdgPIElSHig4jP0vrOSg906GBJoapgNzZOODTBpDNSpHBuAz8aaP9/w2EmKIozunrB
-	 dMETFmQ5b3crY9Rfq8Qpn8mFolRQz7PwGs433b0AfpH8pk0TDGZfgcY56Xik3gsZIQ
-	 FEOlGnI2Euqe1xdbxVkPiqs2Or4wCwMU1fK48mmKNqdQtWsXtGmIws42dXP3EvMdM/
-	 ZJs5TGvDCHc6w==
+	b=U0+DdGvmV/pRi57K8/PChz3kS8GR8d62DjpEy4N9WztPT4YmvQpCmFw19sJEKmk8v
+	 zDzMFaZNH+scDGe50DpBm+awcA/8GdhRu+acbE/4G3EOkQ3AxFrwF7MaGL9CgJxwGM
+	 E+J+5xipQisvsZlwmrT4UG4WY/hnB56iFuiAJO6WLIpNYecGhyN6tEoGwPC36oFz1I
+	 L5pn1ZJlsg/iok/tv/6LOvE83c1+oOK+KB6lmBp0rt6FjKJiSzg1cxO9WPGzIiZNUE
+	 RmssrL04c9VK8+FMW62NO80ddCujA9ipCnePGzmohPAC/f+cuNyLJscFlh3W3gPAni
+	 lqkF1fa7qrJYg==
 From: Sasha Levin <sashal@kernel.org>
-To: fanwu01@zju.edu.cn,
-	songl@zju.edu.cn,
-	sebastian.reichel@collabora.com
+To: r772577952@gmail.com,
+	agruenba@redhat.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] power: supply: bq27xxx: Ensure poll work is cancelled on remove" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:16:52 -0500
-Message-ID: <20261107051652-failed-6.12-db560f4b1c52@kernel.org>
+Subject: FAILED: patch "[PATCH] gfs2: reject invalid inode sizes" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:16:54 -0500
+Message-ID: <20261107051654-failed-6.12-33ed0a0567e0@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,90 +68,83 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x db560f4b1c5253853f978385db066220e0c218dc
+git cherry-pick -x 33ed0a0567e0abe66ea65e89dad2e35082890fbe
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051652-failed-6.12-db560f4b1c52@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051654-failed-6.12-33ed0a0567e0@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From db560f4b1c5253853f978385db066220e0c218dc Mon Sep 17 00:00:00 2001
-From: Fan Wu <fanwu01@zju.edu.cn>
-Date: Thu, 3 Sep 2026 08:13:12 +0000
-Subject: [PATCH] power: supply: bq27xxx: Ensure poll work is cancelled on
- remove
+From 33ed0a0567e0abe66ea65e89dad2e35082890fbe Mon Sep 17 00:00:00 2001
+From: Jiaming Zhang <r772577952@gmail.com>
+Date: Mon, 31 Aug 2026 18:54:25 +0800
+Subject: [PATCH] gfs2: reject invalid inode sizes
 
-The di->work poll work is queued from the poll callback itself and from
-bq27xxx_external_power_changed(). The cancel_delayed_work_sync() in
-bq27xxx_battery_teardown() runs while the power_supply is still
-registered, so external_power_changed() can re-arm the work after the
-cancel, and it runs after the driver data has been freed.
+A corrupted GFS2 image can store a dinode size that is larger than what VFS
+i_size can represent. gfs2_dinode_in() reads the on-disk di_size as a u64 and
+writes it directly into inode->i_size. If the value is larger than S64_MAX, the
+incore i_size becomes negative. That negative value can bypass the existing
+stuffed inode size check:
 
-Register a devm_delayed_work_autocancel() before
-devm_power_supply_register(), so on unwind the power_supply is
-unregistered first, after which no new external_power_changed()
-callback can be dispatched, and the poll work is cancelled only then.
-Drop the now-redundant cancel from bq27xxx_battery_teardown().
+inode->i_size > gfs2_max_stuffed_size(ip)
 
-This issue was found by an in-house static analysis tool.
+Later, gfs2_quotad may try to sync the quota file and unstuff the quota inode.
+gfs2_unstuffer_folio() reads the negative i_size into an unsigned length and
+passes it to memcpy(), turning it into a huge copy size and triggering a
+out-of-bound issue.
 
-Fixes: 740b755a3b34 ("bq27x00: Poll battery state")
+Reject dinodes whose size exceeds sb->s_maxbytes before storing the value in
+inode->i_size. Also make the stuffed inode check use the raw on-disk size while
+it is still unsigned.
+
+Fixes: 70376c7ff312 ("gfs2: Always check inode size of inline inodes")
+Closes: https://lore.kernel.org/lkml/CANypQFaF6bvORKKbRALvEL0k_epFaneFiOQqco4gjdmKVbdURg@mail.gmail.com/
+Assisted-by: Codex:gpt-5.5-xhigh
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Link: https://patch.msgid.link/20260903081312.225535-1-fanwu01@zju.edu.cn
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Signed-off-by: Jiaming Zhang <r772577952@gmail.com>
+Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
 ---
- drivers/power/supply/bq27xxx_battery.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ fs/gfs2/glops.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/power/supply/bq27xxx_battery.c b/drivers/power/supply/bq27xxx_battery.c
-index 4d4809a70b622..cd30993b8a89e 100644
---- a/drivers/power/supply/bq27xxx_battery.c
-+++ b/drivers/power/supply/bq27xxx_battery.c
-@@ -43,6 +43,7 @@
-  */
+diff --git a/fs/gfs2/glops.c b/fs/gfs2/glops.c
+index 662d033fd2caf..2597e1cf2315c 100644
+--- a/fs/gfs2/glops.c
++++ b/fs/gfs2/glops.c
+@@ -393,6 +393,7 @@ static int gfs2_dinode_in(struct gfs2_inode *ip, const void *buf)
+ 	umode_t mode = be32_to_cpu(str->di_mode);
+ 	struct inode *inode = &ip->i_inode;
+ 	bool is_new = inode_state_read_once(inode) & I_NEW;
++	u64 size;
  
- #include <linux/device.h>
-+#include <linux/devm-helpers.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
- #include <linux/param.h>
-@@ -2234,7 +2235,6 @@ int bq27xxx_battery_setup(struct bq27xxx_device_info *di)
- 	};
- 	int ret;
+ 	if (unlikely(ip->i_no_addr != be64_to_cpu(str->di_num.no_addr))) {
+ 		gfs2_consist_inode(ip);
+@@ -418,7 +419,12 @@ static int gfs2_dinode_in(struct gfs2_inode *ip, const void *buf)
+ 	i_uid_write(inode, be32_to_cpu(str->di_uid));
+ 	i_gid_write(inode, be32_to_cpu(str->di_gid));
+ 	set_nlink(inode, be32_to_cpu(str->di_nlink));
+-	i_size_write(inode, be64_to_cpu(str->di_size));
++	size = be64_to_cpu(str->di_size);
++	if (unlikely(size > inode->i_sb->s_maxbytes)) {
++		gfs2_consist_inode(ip);
++		return -EIO;
++	}
++	i_size_write(inode, size);
+ 	gfs2_set_inode_blocks(inode, be64_to_cpu(str->di_blocks));
+ 	atime.tv_sec = be64_to_cpu(str->di_atime);
+ 	atime.tv_nsec = be32_to_cpu(str->di_atime_nsec);
+@@ -462,7 +468,7 @@ static int gfs2_dinode_in(struct gfs2_inode *ip, const void *buf)
+ 		return -EIO;
+ 	}
  
--	INIT_DELAYED_WORK(&di->work, bq27xxx_battery_poll);
- 	ret = devm_mutex_init(di->dev, &di->lock);
- 	if (ret)
- 		return ret;
-@@ -2255,6 +2255,12 @@ int bq27xxx_battery_setup(struct bq27xxx_device_info *di)
- 	psy_desc->get_property = bq27xxx_battery_get_property;
- 	psy_desc->external_power_changed = bq27xxx_external_power_changed;
- 
-+	/* Cancel the poll work after the power_supply is unregistered. */
-+	ret = devm_delayed_work_autocancel(di->dev, &di->work,
-+					   bq27xxx_battery_poll);
-+	if (ret)
-+		return ret;
-+
- 	di->bat = devm_power_supply_register(di->dev, psy_desc, &psy_cfg);
- 	if (IS_ERR(di->bat))
- 		return dev_err_probe(di->dev, PTR_ERR(di->bat),
-@@ -2281,8 +2287,6 @@ void bq27xxx_battery_teardown(struct bq27xxx_device_info *di)
- 	mutex_lock(&di->lock);
- 	di->removed = true;
- 	mutex_unlock(&di->lock);
--
--	cancel_delayed_work_sync(&di->work);
- }
- EXPORT_SYMBOL_GPL(bq27xxx_battery_teardown);
- 
+-	if (gfs2_is_stuffed(ip) && inode->i_size > gfs2_max_stuffed_size(ip)) {
++	if (gfs2_is_stuffed(ip) && size > gfs2_max_stuffed_size(ip)) {
+ 		gfs2_consist_inode(ip);
+ 		return -EIO;
+ 	}
 -- 
 2.53.0
 
