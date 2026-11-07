@@ -1,54 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794082355;
-	b=0MNicc8BZVqB22AilClsAm0Xik9jKVGQ1zQGcvv1/39Fb/Ks2logLT3vK/HDfvEBC7tF
-	 ni/tEwpPu9/1YPRzkiXk6PDMGUC5KHgG27Qa0SE2LDYBEu9Jn0WAhzGRT/Nh5Dr09rnEm
-	 gJwRJ3eBzHqKuFBKBhI21ZjQPzRXlSCWZb/7EcFH93f+W+HJYim0JHlcWXueiN3g6WeVL
-	 nCPrw5w52k4b6klRR2nfyu3bdc0VyGwYibuzRiM69MahI70WEdTveR+tjIucZCMNmfOKQ
-	 8vkdYKSeEZLjwASaTUeADZRF0IjgPReG8nSv+5SMo4LbgWp3nbMYphRDPn/pzgXDTNQ==
+	t=1794082571;
+	b=Epl966tQphZwb90e8a+96PazAcyRrkClQ4I9ZN6YFiY3UnTwG/nk2C4K+L8R2lB/mCvA
+	 4lqG975STd87Ezntm80ThbSjXB6zo1NrGE3XuggFIWuX/j4VaHu6oFPzL3iUW6Z3ESCE/
+	 JVas+spvMK5p+GfSkPA3y3S7ECRVVZ+s6BGxBYP1qmZLdxVzgplqMPoseYcLpIYINMcIG
+	 S73MmTgwU3vgbO0yMDs/H4pvD6ZX+JJS8gYjxs6GphPJ0uEthvJCdoYVZFVn6DfLnGbdy
+	 wEPW2JjDeYTCNRaZYALJ8Rww0uDrQv70QUf/xCKFTm2KqyXMUHvtpQ/Z64nuzbLrGTA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794082355;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=GWkY/j/oWxIPN/LWAzYIZzpoFxbU/tyVjsd2fonx3Ks=;
-	b=S8vodTtRoeNpfQkdyS71qcGulvUh+UcY34y9510tMbAp9tq1BZap/dOugurPdigJydfk
-	 MP6SbP1FI5W3qICtKCnCZyJ3XSobW7e3K3wA8sXNu6dxRvwoThiCsKJfxa3B3SdGj+icK
-	 Lpr1Nss1Yf0KlxI2MvldoT1Ne9/EjZDla8OMiszq+VBGCGYMDSsqiXNSTYbutP6rpXcms
-	 8q1wCEs6gZUia/hbKIirMeOYuyfbENVVaY50PEdUkJtBe4SP46zV77C/PmZvOydyfBOvm
-	 wGhi/gs5tUXEDtwNHe/WVUcwivuni71LhsJgTKpvFwDEAY+pdzSWg+reCA+uQI/A7lg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794082571;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=MRGtR/xM2hkitb9/TQ1LM0e/3K3eoc1ThDALVep6pH8=;
+	b=GKl+e4vuHRWFrT82xN8nqVu48zkjDoRx2P1KPjHfuc7BMzEuYfyKX4a5SFe1PhD/oneE
+	 4jsaBA8vSfaslhGHjVRn93VaI6dhKpEVPYGmtCT8OvvyxvQodp/E/O1JzfDHFk814PUW0
+	 rJhSQzE0Jux4xKWGLmJadDaR3KCtZRG6K3VI2Xz2dXnxX/mhOOoH31SGX5XXSttrRh4hO
+	 Nan7c/lbGKaYZbQw58O9RDXzEOUuypscQBm8A3yzm256VmOZhBnzIoJ9lFZOHcoS8sQP0
+	 /CkQ0LsR3HSdvwMRhhQ99mIWaOot+3Xjvp7cUx+XtD2ygyM0en1LFikx/Wbcsa9tU3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bPM53Fhn;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MZVhQxWN;
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 074F9606A334;
-	Sat,  7 Nov 2026 20:12:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54430606A32E
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 20:16:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54430606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bPM53Fhn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC2791F008A5;
-	Sat,  7 Nov 2026 20:12:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794082354;
-	bh=GWkY/j/oWxIPN/LWAzYIZzpoFxbU/tyVjsd2fonx3Ks=;
-	h=From:To:Cc:Subject:Date;
-	b=bPM53Fhnn5XJoKa+tvxFqh8pHNRPMDrOcwEupmXrJ61oTGyUPaYBeslFz5ECNvdkS
-	 n/C5OzSpVNgkrxSxWWDGqiOj/a+5oZ7DLK+9qUD0WW8RXXEeHVV8N/5z4yRLr0UWRc
-	 oZDF1u2yIC0MdmaRhudcRoSF1Gtz94kF5Kw0hE2lwAXQx3Oh676Ft/gwblidQj3xk0
-	 FjNKPnoguXePiOjVRqeCv+oSZLDC5feAo8S6lssZorTnv/ZSb1TthE9+2DEq//Gphj
-	 xdHlyZSiHXJHd2VgyuYv708iN0LpP5A1/qFPmxduhXHIp0QgC3ngfcFj6FWyhf11uq
-	 2WTXRHAuzdCCg==
-From: Eric Biggers <ebiggers@kernel.org>
-To: stable@vger.kernel.org
-Cc: linux-raid@vger.kernel.org,
-	Eric Biggers <ebiggers@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Christoph Hellwig <hch@lst.de>
-Subject: [PATCH 5.10] raid6: add missing vzeroupper to AVX2 code
-Date: Sat,  7 Nov 2026 12:12:11 -0800
-Message-ID: <20261107201211.117439-1-ebiggers@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MZVhQxWN
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a214c5c4c0so15275765e9.3
+        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 12:16:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794082570; x=1794687370; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MRGtR/xM2hkitb9/TQ1LM0e/3K3eoc1ThDALVep6pH8=;
+        b=MZVhQxWNfMYU5hB8FHNQ2thbUux2qMhFmANkktLXSu0oY+V4uh5CcMcXqT+dDlQ/ix
+         en5kHuRMLHLDnHmK1Y6M1Lc6Tli0+2hKtnNnmOEToXp8AWy3HbaUP8u3adql60MovtwK
+         oOIXtCDeYKxdnQ3au4PcWTtrV+FOpAm/pHTvSs4egqY+RqwRAxCiC09beKmeq4VpzBX+
+         zresHB3NeTfWKhhg4PSnRaq9E70uuY3l51ZjvqVJ5RGHaRPq9hrM29vznWVI4eRxpMPo
+         of9sq8+UBA4XsXdkY09BKnZn71uknKv9e7koMO8jbe2dc604VjdmtTce3h5aO3jEx+sW
+         g1bg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794082570; x=1794687370;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MRGtR/xM2hkitb9/TQ1LM0e/3K3eoc1ThDALVep6pH8=;
+        b=gFnUuFHrP6YE66dZ+QEuQufOiD6FBl1Kji4ULV1qmtuHdhDJd8e8RXYBDYIDZ9Cm+p
+         Kc3U9PMSxJxF3FYdAb0GFkwHK/PTkc/KT4+uonHaCHb0OB+5vW9OKL60q0tMi2wJ04vT
+         ypB+02RwQg0HEiQPcJotlhQVhDrN8WDwsA4LDXGC9TLRWIwxSW80tcp4/2ufI/DP/TNa
+         0hBpELliOvkECuM3RWbzcOrGCAd11Db59x9diftz+9J8wN5YXaO+v/7ubEectRsKnoL8
+         Fgwik1QkbFI2w4keVDAqmB2mXYcG81vLUqrefeEC9W0NeBLXQl63HfdmqYdiw+VWrb8F
+         qKxA==
+X-Forwarded-Encrypted: i=1; AKwUvBy7vmaSIL5TdyRyeHYwbaKyLH4PG7/Qx+/gNTIxP8G5vUd+dFqen0yvgFYrCrOV2VRHBirRiw4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+CfFgmF7t26LDAJvVWviy3cHS3BgoxJ14xbsoNpO8TQuxplgcV
+	teJ/xadMz4qqk2BeDhoxNAYQHX20FRbF8pBe3MgKOawfshioNbQiHiTU
+X-Gm-Gg: AYBFou0EQ+iALgesmoGjghK2WVQSkpxHu5Mz9O5uL4uWjV4OJpvYmk9T+cFmGl8kV8b
+	9qnS8LuH3K++fpL+tOe2uOsDwCQODYl2bcMyXw02+qbxH6e9p8UVOZJ1k/Z64+9vPgHoTMjr9SI
+	UEHorRnF2xWznzG1cGzEXwFNCNCjulI3FRnIbvp2klj7UFTSMEjPySbrsXKgjHrWvNTANPxnQdV
+	6AThG4j5Ffv4Xmyg+guYP5/Pra2gGGGv/RKY1Q4zn+GDL8+mV9pqbcU0YntwNG7G9AExgEuyYHO
+	/RD57zuI/hmASiyIv1tKxJsg53CYVOVU5TW7Kh0R2FD1bMDFCZeNYP5N3todbRH9lWfLV3ubNuh
+	j0iWM/Hq2ONO46IwEYp1lOcK5Wy3Gb55BiYA+7tsCAUjsDcKNRzxH/m8QIVSFk84yuyfbm0U7n9
+	m+Uva1lzHeNnZeiZHoCE3/OM7N7cZ4ZAiCQmza0+kK8IaeLVrtZEfaV644hwEB74lAUOz3YsXwF
+	e8SmUebH0A2L0nFmGvlYPkv7KYcIOCVClqJAsI9Y7XtSlzyuYC9osSbzDL9R/rWeThDb9DeMRIZ
+	OlOqi+L78yjcpUQ4frdxbffpC76GTxbj5h3JL/nC3F20U1A=
+X-Received: by 2002:a05:600c:138c:b0:4b6:5dac:b61e with SMTP id 5b1f17b1804b1-4b6df6df5d9mr103278195e9.32.1794082569692;
+        Sat, 07 Nov 2026 12:16:09 -0800 (PST)
+Received: from Amir-Yoga.tailec48ed.ts.net ([143.58.202.155])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7e32ad610sm230762005e9.3.2026.11.07.12.16.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 07 Nov 2026 12:16:09 -0800 (PST)
+From: Amir Sabbaghi <asaba90@gmail.com>
+To: "Rafael J . Wysocki" <rafael@kernel.org>
+Cc: Len Brown <lenb@kernel.org>,
+	linux-acpi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Amir Sabbaghi <asaba90@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] ACPI: EC: Add quirk for Lenovo Yoga S740-14IIL
+Date: Sat,  7 Nov 2026 20:15:53 +0000
+Message-ID: <20261107201553.9268-1-asaba90@gmail.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,98 +99,60 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit 24f1241cdb056fd630e6710a916e0f7c8c910a70 upstream.
+On the Lenovo Yoga S740-14IIL (81RS, BIOS BYCN29WW), the ECDT
+advertises GPE 0x6E for the embedded controller, but the EC is
+actually wired to GPE 0x43, which is what the DSDT EC0 device's
+_GPE method returns. Since the ECDT and DSDT EC share the same
+command/data ports (0x66/0x62), acpi_ec_add() keeps the ECDT GPE,
+so no EC events are ever handled:
 
-Since the AVX2 optimized RAID6 code uses YMM registers, execute vzeroupper
-before returning from it.  This is needed to avoid degrading the
-performance of any later SSE code that may happen to be executed.
+  ACPI: EC: GPE=0x6e
 
-Link: https://lore.kernel.org/20260831212308.213855-1-ebiggers@kernel.org
-Fixes: 2c935842bdb4 ("lib/raid6: Add AVX2 optimized gen_syndrome functions")
-Fixes: 7056741fd9fc ("lib/raid6: Add AVX2 optimized recovery functions")
-Signed-off-by: Eric Biggers <ebiggers@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: Christoph Hellwig <hch@lst.de>
-Cc: <stable@vger.kernel.org>
+  /sys/firmware/acpi/interrupts/gpe6E:  0  EN  enabled   unmasked
+  /sys/firmware/acpi/interrupts/gpe43:  0  EN STS invalid unmasked
+
+GPE 0x6E never fires, while GPE 0x43 is left enabled with its status
+bit set and no handler, so each SCI it raises is counted in sci_not
+(about 7/s, 1.4 million over 55 hours of uptime). As a result, EC
+query events are lost: the brightness hotkeys and several other Fn
+hotkeys produce no input events at all, and battery/AC notifications/
+laptop lid event are not delivered.
+
+Add the machine to ec_dmi_table so that the DSDT GPE is used.
+
+Tested by overriding the ECDT through the initrd with a copy whose
+GPE was changed from 0x6E to 0x43, and later by applying this patch
+and removing the override. With the fix the kernel reports
+"ACPI: EC: GPE=0x43", gpe43 receives events, sci_not stays at 0,
+and the brightness and other Fn hotkeys work.
+
+Cc: stable@vger.kernel.org
+Signed-off-by: Amir Sabbaghi <asaba90@gmail.com>
 ---
- lib/raid6/avx2.c       | 6 ++++++
- lib/raid6/recov_avx2.c | 2 ++
- 2 files changed, 8 insertions(+)
+ drivers/acpi/ec.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/lib/raid6/avx2.c b/lib/raid6/avx2.c
-index f299476e1d764..10f2b1b4d6a69 100644
---- a/lib/raid6/avx2.c
-+++ b/lib/raid6/avx2.c
-@@ -76,6 +76,7 @@ static void raid6_avx21_gen_syndrome(int disks, size_t bytes, void **ptrs)
- 	}
- 
- 	asm volatile("sfence" : : : "memory");
-+	asm volatile("vzeroupper");
- 	kernel_fpu_end();
- }
- 
-@@ -124,6 +125,7 @@ static void raid6_avx21_xor_syndrome(int disks, int start, int stop,
- 	}
- 
- 	asm volatile("sfence" : : : "memory");
-+	asm volatile("vzeroupper");
- 	kernel_fpu_end();
- }
- 
-@@ -186,6 +188,7 @@ static void raid6_avx22_gen_syndrome(int disks, size_t bytes, void **ptrs)
- 	}
- 
- 	asm volatile("sfence" : : : "memory");
-+	asm volatile("vzeroupper");
- 	kernel_fpu_end();
- }
- 
-@@ -254,6 +257,7 @@ static void raid6_avx22_xor_syndrome(int disks, int start, int stop,
- 	}
- 
- 	asm volatile("sfence" : : : "memory");
-+	asm volatile("vzeroupper");
- 	kernel_fpu_end();
- }
- 
-@@ -347,6 +351,7 @@ static void raid6_avx24_gen_syndrome(int disks, size_t bytes, void **ptrs)
- 	}
- 
- 	asm volatile("sfence" : : : "memory");
-+	asm volatile("vzeroupper");
- 	kernel_fpu_end();
- }
- 
-@@ -457,6 +462,7 @@ static void raid6_avx24_xor_syndrome(int disks, int start, int stop,
- 		asm volatile("vmovntdq %%ymm14,%0" : "=m" (q[d+96]));
- 	}
- 	asm volatile("sfence" : : : "memory");
-+	asm volatile("vzeroupper");
- 	kernel_fpu_end();
- }
- 
-diff --git a/lib/raid6/recov_avx2.c b/lib/raid6/recov_avx2.c
-index 4e8095403ee28..a7fd1ba177f1b 100644
---- a/lib/raid6/recov_avx2.c
-+++ b/lib/raid6/recov_avx2.c
-@@ -180,6 +180,7 @@ static void raid6_2data_recov_avx2(int disks, size_t bytes, int faila,
- #endif
- 	}
- 
-+	asm volatile("vzeroupper");
- 	kernel_fpu_end();
- }
- 
-@@ -297,6 +298,7 @@ static void raid6_datap_recov_avx2(int disks, size_t bytes, int faila,
- #endif
- 	}
- 
-+	asm volatile("vzeroupper");
- 	kernel_fpu_end();
- }
- 
-
-base-commit: 3a323bc22b881a5bdc1646080f93f5ecb22850bf
+diff --git a/drivers/acpi/ec.c b/drivers/acpi/ec.c
+index a89f10256..7c0643d5d 100644
+--- a/drivers/acpi/ec.c
++++ b/drivers/acpi/ec.c
+@@ -2007,6 +2007,16 @@ static const struct dmi_system_id ec_dmi_table[] __initconst = {
+ 			DMI_MATCH(DMI_PRODUCT_NAME, "HP 250 G7 Notebook PC"),
+ 		},
+ 	},
++	{
++		/*
++		 * Lenovo Yoga S740-14IIL
++		 */
++		.callback = ec_honor_dsdt_gpe,
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
++			DMI_MATCH(DMI_PRODUCT_VERSION, "Lenovo Yoga S740-14IIL"),
++		},
++	},
+ 	{
+ 		/*
+ 		 * Samsung hardware
 -- 
-2.56.0
+2.54.0
 
