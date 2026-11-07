@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047329;
-	b=YHFuMdeK94c/LLWNqWMndeG49N8TiXfLL+j+yiZv89PmYK/bSQ2yYU67EviuaWgEWIKZ
-	 wH/2MUEyjAirwXXsdxP1Trc3HXyVjEbSkL/qvG6KXVIjTzdxn89+S0mHnAbcKKZZOJeEu
-	 5hbvPfbrOciMzOroVMnUBA6YdfYwnJsZCxprYQaTRkMqFnKcnMsi1AYJ0AurHv+gYD3uP
-	 golUPLmxUWfIMX1kfmrCM+2MrMuGWD18O6aOAVWK1ymdnPWPwe9DkkPsQz7bclNMt4ZmU
-	 vBg8na4GGZcJQIxAut3jiW9nKX3Qy3IRoY14qmSojOXkdh5DSfh6/HzxLnfZkRlgeGQ==
+	t=1794047331;
+	b=A09zQTup//jEuMktop+SUWa66Z2sYwDgDEeM3DMOx3vQgKFJhx+EguZR2C+XIDUBtCCl
+	 /wKe9cTT0GuTUN/6FgPiwHU/OOS4leTieUft/Tq3OHkzg9ExB+MYZY20r/WSheKv7W2OZ
+	 O2SblvFkbFly7hJKNyMSw6mpS4/lcw1fLwURDKagRsVLXXJxAM8/bb5EUXZmw3OwVK0Cj
+	 rqdtgF3RHsSWYofClEd0LeBA5RMw6qE0v5u9F3zGYI8yUHqkTafQsKDKzxePqSFugAdOU
+	 tx27rqZtZkMCkTDTeJdnJFQGLsssJ0+ZUidwPhOvwLavWPOwn0ctEcUslbQnaGxCEnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047329;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047331;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=lmKUBoy1c31n36ru+mfxjN9vZYIyzXCMu+rQOa5+L1E=;
-	b=MNPQdmxFPggWK9kRY/aycgTkYXmhfwArUrOKYf8NvEyuuOUelBJiPEjjRyOlaSc1XWfa
-	 v53xO2ls+Zn2U+0EveL3oah09dYmrqWCfG0FMeFojsLJxEnSk2CXMGfwbqG1pHB/Jn/F7
-	 bJ7884zoGZVpeNkMPt3Pr1Uk3T/R3qm4n7mRXaAAn0XgIih2z8Y8cEwmTYSAFj+yinexp
-	 NzqV0wMqkifqx1G84pkLxi4iAras/WwfRNCAtPmn4fU5l8ok5KQzaut8MsEjTbi4S+CAH
-	 SCuUhmni54otgP1w+fmavXqkqihi/W/bEAcNuUDPjT5LS9Nf6DXywk6a6w2wj/tTvFw==
+	bh=uZwws+6u9nTIYXYrZK/mbmpAvpWfzXd2NQyQIWipxNg=;
+	b=wLBq+fFmhf3RuEbWhULOwHZwjIVHUJmi4QgmIGQ07UgeH0LLsIfwhGJ0qGvnbiZloe/b
+	 V7mza6OyfYW/OXqT+GQIE7JtgpiB+hCLDMqrFq6o5cxBUXCo6XZtURb5cxBX92HgVZE8y
+	 4h3aqyL5beL7FFZc/ePbYmmEICNK43Bj8iKEdc8hLktGe/XaZC1juHL0eIiWin5DMsDxY
+	 HhJf2EaFMfLghBot7IDHifhIB2bfDWQxY5sH0ncnedThI8Zwk4F3zgfjhPWbpwpvPX4oN
+	 HQvCZohSFENdoMIPY9OneUKNF4TWE6wg4RjPIdutvCzRp8JR//7Sd4VDH+b+kWTir0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AJnpvG9m;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oynmshFE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0415C606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:28:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35E14606A32D
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:28:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AJnpvG9m
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 758511F0089F;
-	Sat,  7 Nov 2026 10:28:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oynmshFE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F4791F0089F;
+	Sat,  7 Nov 2026 10:28:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047328;
-	bh=lmKUBoy1c31n36ru+mfxjN9vZYIyzXCMu+rQOa5+L1E=;
+	s=k20260515; t=1794047331;
+	bh=uZwws+6u9nTIYXYrZK/mbmpAvpWfzXd2NQyQIWipxNg=;
 	h=From:To:Cc:Subject:Date;
-	b=AJnpvG9ms/1CClOTrP6kAj2ohRhdWEqYOq9+QBevJ/uyy/V0XTX98gfMdIb2UhrS7
-	 dUQVQXJ44bo9Aa267ZyrYFVH19G25XTHY0pvkEwGMxMRr/ySSC2SlNCLN+A8E4FmNa
-	 aPbS1+P1lYbSmCIwYH5Sk02XTgipUD9BTDEFYEMpn66vmxBBoNS+DM/WUmV89HVkn1
-	 FdddkVu7CfM7q4O8+xmvWmgGnioIfxsuhuV8JdiBNPUOyHNgxyE0LlUTCW6NWkGeDY
-	 pggHY0EbmkfaF6wtqtU1PrPBdlqWlRFB9TVzv7XKKM0bqo+1DGZHgHMntBBFc1ndPC
-	 holK6TvgIiw0A==
+	b=oynmshFEpn90Y56Hm2FZT1oIwmpuKAP2Jjdgw0UhzFD90PmPua5wHpRDDSEQ3rtvB
+	 sZmuRh+JupRmNYle/jPOjJXksagCmoCKKsdDkey6Zjm120cFsSK1T1zQBmmFv8Vahi
+	 Avk9iLU38QGFeU58do+RqP5lASgW59cCSoH/p+Np0ePCC2EBpcA7DOpp8gwOcDB/4k
+	 1RfIF4KnJlYn6/MUEdL2OPD5pxrXYSxAlCI0q1fRPh846eMLpVhYgkzqG/8eV920/9
+	 McsB7ZR1e2DsQtdUvH2B5ESeL6hJBrjlnLEBPK2B8P6UrS9IP2bpW5jKz/qRmJG1FG
+	 Jd4KVHPTkhBZw==
 From: Sasha Levin <sashal@kernel.org>
-To: punnaysharma805@gmail.com,
+To: balakrishnan.s@microchip.com,
+	ehristev@kernel.org,
 	hverkuil+cisco@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] staging: media: av7110: fix sp8870 initialization failure state" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:28:47 -0500
-Message-ID: <20261107052847-failed-6.6-30684fa98394@kernel.org>
+Subject: FAILED: patch "[PATCH] media: microchip-isc: fix SBGGR10 Bayer pattern" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:28:49 -0500
+Message-ID: <20261107052849-failed-6.6-bb96c78c5f87@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,68 +69,60 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 30684fa98394bc0eb4362282908612aab7d4dad9
+git cherry-pick -x bb96c78c5f87072913f8825faebe64bf711a503c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052847-failed-6.6-30684fa98394@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052849-failed-6.6-bb96c78c5f87@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 30684fa98394bc0eb4362282908612aab7d4dad9 Mon Sep 17 00:00:00 2001
-From: Punnay Sharma <punnaysharma805@gmail.com>
-Date: Sat, 8 Aug 2026 00:04:43 +0530
-Subject: [PATCH] staging: media: av7110: fix sp8870 initialization failure
- state
+From bb96c78c5f87072913f8825faebe64bf711a503c Mon Sep 17 00:00:00 2001
+From: Balakrishnan Sambath <balakrishnan.s@microchip.com>
+Date: Mon, 17 Aug 2026 12:22:06 +0530
+Subject: [PATCH] media: microchip-isc: fix SBGGR10 Bayer pattern
 
-The SP8870 DVB frontend driver prematurely flags the device as
-initialized at the very beginning of the sp8870_init() routine, prior
-to requesting the firmware (dvb-fe-sp8870.fw) and executing the I2C
-upload sequence.
+SBGGR10 was mapped to ISC_BAY_CFG_RGRG instead of ISC_BAY_CFG_BGBG,
+causing red/blue channel swap.
 
-If request_firmware() times out or sp8870_firmware_upload() encounters
-an I2C bus error, the function aborts and returns -EIO. However,
-because `state->initialised` is already set to 1, all subsequent
-invocations of `fe->ops.init()` by the DVB core will immediately return
-0 (success) without attempting to load the firmware again. This leaves
-the demodulator microcontroller halted and the frontend permanently dead
-until the module is forcibly reloaded.
-
-Relocate the `state->initialised = 1` assignment to the end of
-sp8870_init(), ensuring the flag is only set after the firmware is
-successfully uploaded and the system controller is actually restarted.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: 1e8f401474d6 ("media: atmel: atmel-isc: reworked driver and formats")
 Cc: stable@vger.kernel.org
-Signed-off-by: Punnay Sharma <punnaysharma805@gmail.com>
+Signed-off-by: Balakrishnan Sambath <balakrishnan.s@microchip.com>
+Reviewed-by: Eugen Hristev <ehristev@kernel.org>
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 ---
- drivers/staging/media/av7110/sp8870.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/media/platform/microchip/microchip-sama5d2-isc.c | 2 +-
+ drivers/media/platform/microchip/microchip-sama7g5-isc.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/staging/media/av7110/sp8870.c b/drivers/staging/media/av7110/sp8870.c
-index 340e4b22859d6..aecdbd87976fd 100644
---- a/drivers/staging/media/av7110/sp8870.c
-+++ b/drivers/staging/media/av7110/sp8870.c
-@@ -315,7 +315,6 @@ static int sp8870_init(struct dvb_frontend *fe)
- 	sp8870_wake_up(state);
- 	if (state->initialised)
- 		return 0;
--	state->initialised = 1;
- 
- 	dprintk("initialising frontend...\n");
- 
-@@ -353,6 +352,8 @@ static int sp8870_init(struct dvb_frontend *fe)
- 	sp8870_writereg(state, 0x0D00, 0x010);
- 	sp8870_writereg(state, 0x0D01, 0x000);
- 
-+	state->initialised = 1;
-+
- 	return 0;
- }
- 
+diff --git a/drivers/media/platform/microchip/microchip-sama5d2-isc.c b/drivers/media/platform/microchip/microchip-sama5d2-isc.c
+index 57a5aae3cabfb..5e41eee45dbd7 100644
+--- a/drivers/media/platform/microchip/microchip-sama5d2-isc.c
++++ b/drivers/media/platform/microchip/microchip-sama5d2-isc.c
+@@ -148,7 +148,7 @@ static struct isc_format sama5d2_formats_list[] = {
+ 		.fourcc		= V4L2_PIX_FMT_SBGGR10,
+ 		.mbus_code	= MEDIA_BUS_FMT_SBGGR10_1X10,
+ 		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TEN,
+-		.cfa_baycfg	= ISC_BAY_CFG_RGRG,
++		.cfa_baycfg	= ISC_BAY_CFG_BGBG,
+ 	},
+ 	{
+ 		.fourcc		= V4L2_PIX_FMT_SGBRG10,
+diff --git a/drivers/media/platform/microchip/microchip-sama7g5-isc.c b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
+index a841266ffc30f..9e78ea07b013a 100644
+--- a/drivers/media/platform/microchip/microchip-sama7g5-isc.c
++++ b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
+@@ -157,7 +157,7 @@ static struct isc_format sama7g5_formats_list[] = {
+ 		.fourcc		= V4L2_PIX_FMT_SBGGR10,
+ 		.mbus_code	= MEDIA_BUS_FMT_SBGGR10_1X10,
+ 		.pfe_cfg0_bps	= ISC_PFE_CFG0_BPS_TEN,
+-		.cfa_baycfg	= ISC_BAY_CFG_RGRG,
++		.cfa_baycfg	= ISC_BAY_CFG_BGBG,
+ 	},
+ 	{
+ 		.fourcc		= V4L2_PIX_FMT_SGBRG10,
 -- 
 2.53.0
 
