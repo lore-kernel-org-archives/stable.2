@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048538;
-	b=TMy86rn87w62u91jPEg6pye+Is4997ybBtbscnBtQdjnmgceAoWi8y96oufTFH8a9CVb
-	 rPC0pLH3HDzrxzVxN8vvSI3MeZ9DbOnmqIEm8gszkv5rUjKyXbgW1zQxHFNV0/HoodPAB
-	 D1Cho1EXua/IlmUvqymC1A2ckwToUmOTm+mJ2l/ogDifQmvNmnqcuHZCXp9LvcVwE58aH
-	 eBqN7Mjxq5Cua8/IG8wUTQVqlkqJ47WdRZbj9JxQCrd1GBt6KvMDMPq7lYDAR+qbJ21dT
-	 hp1t0zh/7OTVKRdmeBkSxrZK0/9/pPUW0zuX3hcoKmh46q3sbPwWbk84apJHCXBa50A==
+	t=1794048541;
+	b=Sulv9wxQkvn1FyzPyBjoqadEhClQuMGGs2sKK6jPjDluiJxXyLm25k+8VxYbGHI4GaEn
+	 6z4x/wVouzqBK3U5sCKOowWajhiM4J0fRMBXRYla/HEBKLwv6hpE2f9bS1YhflwqLFHpF
+	 67VOx1Kdla577TRcN5hmNhIHVz81YuZvSLnvE3pGFpEFlbcYK5yUsSrSjGzg+xs++iI7b
+	 jme8q1kc/XRsjBm4X8rfUm6Ce9MY13lTu3BDH+YE7JsQCgD1ZWvQInuvU+sHy4vpxlUja
+	 Hgj9yfBsoZjdXxXBf+x2LkSsjtHKCGsIH1uFoE3LDld+S+XBd1XdLoB28UMZC71U+pA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048538;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048541;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Y+oxi70bZXREqHxpbeOsgkcuRylzPejVafSod6wIXkQ=;
-	b=s3NfFEFwAyNRiMaFcZaJA/FHh4s7Hjxn58+lQNpqmYNQMNw7j58tHN2q+UDaTbkwW9WB
-	 7wLb4z1o4aj1Z6DTBqawEYlLwv54EpC3tE4Yf16tKnMNMaDipLK+e5nq/EtkQKuRozihQ
-	 p43YygeTHNNMowujaCn3g/Oceu8Gy3J1tVhmcVM9H50pF8TesILYeyltcploLiq3YqoLN
-	 HyBfTNM61h3600zM83aPqgfDk/Ctw379cTlwHCggNX2g6/OT8DpjkNrZ58R7oL6CCMrqT
-	 jtng40qJtoC23cBVHlOWW4leR1ai905u52EnqHeDku3pCnNFucEIYyOcIWTQVl1XQ9w==
+	bh=vVDfexxDZXHd51WOaOF9V2WHTvtRaYuvpzMjrOEy3W4=;
+	b=SL08iyJSxqiTmX84koBvZMuZf6apSgCvcObvdvJ8gcRsgohg3SmQ5SmlUptfNiZggYLd
+	 3ll899IzsSRPMUu7E3mBWT0+yXtZL+g/O1Q//TrmB/VJU+CphqpsJLGpfwhgsnNLTAt3K
+	 AeA8LkkSG5rN4hEJrFaMazPX3kwziIb2wMjbRV5SrXhejhMo1d1zifAk7+QDlDmM5vGEI
+	 nRhDqpzyXRLqktcEmMG+ANuQU8OhydZZbb9UDQWp09pPfHgCxx+VNOxNA2Y0brgqzHkZR
+	 OvEhKupEnGzNnw7dM7zdZ4Hb7w/RDoDtpJsI/Fafy7ZE/b0FeK0DVYMkA4vHGsAxyAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VIAkx6fa;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kerSkEGi;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E6C7606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:48:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0437B606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:49:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VIAkx6fa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 809F91F0089F;
-	Sat,  7 Nov 2026 10:48:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kerSkEGi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 737261F0089F;
+	Sat,  7 Nov 2026 10:49:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048537;
-	bh=Y+oxi70bZXREqHxpbeOsgkcuRylzPejVafSod6wIXkQ=;
+	s=k20260515; t=1794048540;
+	bh=vVDfexxDZXHd51WOaOF9V2WHTvtRaYuvpzMjrOEy3W4=;
 	h=From:To:Cc:Subject:Date;
-	b=VIAkx6fa2o6fbXWnMLt4myraLdjNzmwUYuAtT+ePTj9yyxR/RergvEyqAoJg2X+C4
-	 Yof7mqAudIpFi/hEeifHjvo+2TP/EpBahbQp/vDUiaNujjNYkXQBwNUcUwTjpIWooo
-	 RWz5kYtZ7HxD/NVkzvyXyB71jH0Zp2uzzejQZasQ0BIz/ppRhvfliQQEUTNuXuacB5
-	 l5Hxze40UwFvXt3DYA81gntzF++PU1YLdwY1LMUiiVcZW59HJY+Ge3JM4CbM45QxS0
-	 osZMUviUQvCPb0zegUQ0dJrW88hx2xQtuHWkj8KfZfFNHh7xwBaqveIW91IKqQ6WEO
-	 OPlOYLdVQ671Q==
+	b=kerSkEGimwXWjnBIh2GO2cmS5WmG52iy/igLbcECfFZr6raOKVe4XBc5+J5G+Jbmc
+	 49bwurF5LadvcX+QdOmkTLmpsqs9+3vHg4BOSeos4A5kHA4E4QjMUX0cqvDGUhgU+Y
+	 ZPPpvsxVsvhEcuTeMHxPr6rBdL5/jU7vkbmJpDb/0v2DLavuB+MiVYOFbvs6oj6IyX
+	 iJQrrbbKiJ8mSLir3xnS9O3QzLHNfuBC66R6fxlAAsrBS8uKPGIvDuzlOKBq0D+tSI
+	 WD5acxnfZ5WUJ75W8FWosMfixzrWQp4fYz9fieRD4QoQeudh0NfbY31D+p3BngT37V
+	 ybxh2qEbc7qCQ==
 From: Sasha Levin <sashal@kernel.org>
-To: nb@tipi-net.de,
-	gregkh@linuxfoundation.org
+To: nbn@sj.dk,
+	luiz.von.dentz@intel.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] serial: amba-pl011: keep transmitter enabled when disabling RS485" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:48:56 -0500
-Message-ID: <20261107054856-failed-6.1-97f85204275a@kernel.org>
+Subject: FAILED: patch "[PATCH] Bluetooth: btusb: Add device ID for Realtek RTL8761BUE (StarTech AV53C1)" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:48:59 -0500
+Message-ID: <20261107054859-failed-6.1-1430308fc9d4@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,81 +68,79 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 97f85204275ae4d7fb530e451f3acc65c1ec1155
+git cherry-pick -x 1430308fc9d47a801a305700cd444b1a0051d14a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054856-failed-6.1-97f85204275a@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054859-failed-6.1-1430308fc9d4@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 97f85204275ae4d7fb530e451f3acc65c1ec1155 Mon Sep 17 00:00:00 2001
-From: Nicolai Buchwitz <nb@tipi-net.de>
-Date: Mon, 12 Oct 2026 16:23:50 +0200
-Subject: [PATCH] serial: amba-pl011: keep transmitter enabled when disabling
- RS485
+From 1430308fc9d47a801a305700cd444b1a0051d14a Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Nikolaj=20Klitlund=20B=C3=B8rty?= <nbn@sj.dk>
+Date: Sat, 5 Sep 2026 14:05:12 +0200
+Subject: [PATCH] Bluetooth: btusb: Add device ID for Realtek RTL8761BUE
+ (StarTech AV53C1)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Disabling RS485 on an open port calls pl011_rs485_tx_stop(), which
-turns off the transmitter. Only the RS485 TX path turns it back on, so
-any later output stays queued and tcdrain() hangs until the port is
-closed.
+Add the USB ID 0x14b0:0x047a for the StarTech AV53C1-USB-BLUETOOTH
+adapter, a Realtek RTL8761BUE based Bluetooth 5.3 dongle.
 
-pl011_rs485_tx_stop() also checks only the hardware FIFO. If a DMA
-transfer has started but has not filled the FIFO yet, the transmitter
-is turned off under the transfer and the DMA channel never recovers.
+Without this entry btusb treats the device as a generic Bluetooth
+adapter and never loads the Realtek firmware, leaving the controller on
+its ROM firmware. In that state it advertises and scans actively, but
+never reports advertisements during passive scanning. LE connections
+initiated by the kernel wait for a passive-scan report before issuing
+LE Create Connection, so connecting and pairing from BlueZ time out
+without any error from the controller.
 
-When leaving RS485 mode, cancel pending deferred starts and stops, leave
-the transmitter enabled and start any TX that was still waiting for
-delay_rts_before_send.
+The same product is also sold with the ID 0x2c0a:0x8761, which is
+already supported.
 
-Fixes: 8d479237727c ("serial: amba-pl011: add RS485 support")
-Cc: stable@kernel.org
-Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
-Link: https://patch.msgid.link/20261012-fix-pl011-rs485-txe-v2-1-e9bf7d218389@tipi-net.de
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+lsusb -v output for the device:
+
+Bus 001 Device 010: ID 14b0:047a StarTech.com Ltd. Bluetooth Radio
+Device Descriptor:
+  bcdUSB               1.10
+  bDeviceClass          224 Wireless
+  bDeviceSubClass         1 Radio Frequency
+  bDeviceProtocol         1 Bluetooth
+  idVendor           0x14b0 StarTech.com Ltd.
+  idProduct          0x047a
+  bcdDevice            2.00
+  iManufacturer           1 Realtek
+  iProduct                2 Bluetooth Radio
+  iSerial                 3 00E04C239987
+  bNumInterfaces          2
+    Interface Descriptor:
+      bInterfaceClass       224 Wireless
+      bInterfaceSubClass      1 Radio Frequency
+      bInterfaceProtocol      1 Bluetooth
+
+Cc: stable@vger.kernel.org
+Signed-off-by: Nikolaj Klitlund Børty <nbn@sj.dk>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
 ---
- drivers/tty/serial/amba-pl011.c | 25 ++++++++++++++++++++++++-
- 1 file changed, 24 insertions(+), 1 deletion(-)
+ drivers/bluetooth/btusb.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/tty/serial/amba-pl011.c b/drivers/tty/serial/amba-pl011.c
-index cd8cbc9672815..3edd83ec73de1 100644
---- a/drivers/tty/serial/amba-pl011.c
-+++ b/drivers/tty/serial/amba-pl011.c
-@@ -2398,8 +2398,31 @@ static int pl011_rs485_config(struct uart_port *port, struct ktermios *termios,
- 	struct uart_amba_port *uap =
- 		container_of(port, struct uart_amba_port, port);
+diff --git a/drivers/bluetooth/btusb.c b/drivers/bluetooth/btusb.c
+index 2c69a81c96317..a7488f6e8d8ad 100644
+--- a/drivers/bluetooth/btusb.c
++++ b/drivers/bluetooth/btusb.c
+@@ -884,6 +884,8 @@ static const struct usb_device_id quirks_table[] = {
+ 						     BTUSB_WIDEBAND_SPEECH },
+ 	{ USB_DEVICE(0x37ad, 0x0600), .driver_info = BTUSB_REALTEK |
+ 						     BTUSB_WIDEBAND_SPEECH },
++	{ USB_DEVICE(0x14b0, 0x047a), .driver_info = BTUSB_REALTEK |
++						     BTUSB_WIDEBAND_SPEECH },
  
--	if (port->rs485.flags & SER_RS485_ENABLED)
-+	if ((port->rs485.flags & SER_RS485_ENABLED) &&
-+	    !(rs485->flags & SER_RS485_ENABLED)) {
-+		bool tx_pending = uap->rs485_tx_state == WAIT_AFTER_RTS;
-+		u32 cr = pl011_read(uap, REG_CR);
-+
-+		/*
-+		 * Leaving RS485 mode, which only enables the transmitter while
-+		 * sending. Don't stop it, as that stalls a DMA transfer still
-+		 * in flight. Drop pending deferred starts and stops and keep
-+		 * it enabled.
-+		 */
-+		hrtimer_try_to_cancel(&uap->trigger_start_tx);
-+		hrtimer_try_to_cancel(&uap->trigger_stop_tx);
-+		uap->rs485_tx_state = OFF;
-+
-+		cr |= UART011_CR_TXE | UART011_CR_RXE;
-+		pl011_write(cr, uap, REG_CR);
-+
-+		/* Start TX that was still waiting for delay_rts_before_send */
-+		if (tx_pending && !uart_tx_stopped(port) &&
-+		    !pl011_dma_tx_start(uap))
-+			pl011_start_tx_pio(uap);
-+	} else if (port->rs485.flags & SER_RS485_ENABLED) {
- 		pl011_rs485_tx_stop(uap);
-+	}
- 
- 	/* Make sure auto RTS is disabled */
- 	if (rs485->flags & SER_RS485_ENABLED) {
+ 	/* Additional Realtek 8761CU Bluetooth devices */
+ 	{ USB_DEVICE(0x0b05, 0x1bef), .driver_info = BTUSB_REALTEK |
 -- 
 2.53.0
 
