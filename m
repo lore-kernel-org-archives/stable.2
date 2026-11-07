@@ -1,94 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046357;
-	b=LAFtNk6EbaaGWoQxPDRL0D0n6elzeH8bD5kjIwhdCdtcRReJTw0XO2G1IXcGoi742x3l
-	 rYFj8yPZqCFs7pPMFXKLdGroCQdiwsRYEsyJx1a4fZlyPwOJHAuaRs1OJnWc4E9J9P29f
-	 qqDcsQhddM8nKEr//SKKxKTvG8W/IS8izvokJoZSSsXlJUD6LSr4a9looVWR7zJyo8G3w
-	 /+TVcgT34LiJmavhBM0qiE1NAPU1n8zMcLqGbbTxs7rCmucWZWzMXtDqlDbKzP71HDP93
-	 khQR4iEYqYlrMXjLuPLXqPs6Qa/hy4AniPGb7UEnj+MlCm7bAo3pc/pDo0iJwxN0cpQ==
+	t=1794046367;
+	b=3PUdYkU+ses90zGzmzkagSBmX3JLcPW7wcHR3Np+PATyqdCXLivaX+0g4LV3CvDsHcx2
+	 OPsRAQgs4mEcp+Xa3nqckG72YHb3dU88ZbhglTtgkx0Fz3bJrrwJYv8hMv2NH/a1OKmpM
+	 8ge/v69l8wEe0jki4MiXEloXwuTO536UEWPlW4fCNxsLyRDZ5RBCZuWaARedlYbpL83SJ
+	 MGH/y4UVUX1D2Gl17Lgz/UTUIkG3Jrgkq3YihU+CccsMFgIuGMOSOCE3B/YifAgbEnWR1
+	 sheDGrGI9Fphz0xh0q5yomVcTb9Ru8217gIDKjkqytc93oMYG+g+cyTvAiIpcN/RsFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046357;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=zYHw9i1ZC99ijVtSzd1tMuXGmwLLIqBi0BtOpLZ+XZ8=;
-	b=Kczcg3ycUbMawOMd7nVnbM0cKZybDHXNYoFQsjg8mkT9rZXxQgUKNd+kPcBVG0K6Ra9a
-	 aUtUObbThJTgqMDKpDqg2pqtUj5ddeTT65XJu5NyNSFL3vLHQ5ILiKZ61kUX15qHA89Se
-	 xFV6XQIxVVeYpSixflHq4tTg1VHc4IxdGhmC9f0bV2vtq+jxbXG5yaHgJUteqmcjgu/zz
-	 bbdQUY0Vmy8nECmvypFMRc2OXbK3z87UssmRp9T04j4621yxPyUVxDRaiNb/NK7cf121Q
-	 oPQ+SPS0PDjzYGyLAEN6HF1KNU5Oa5SqGzEdSIVLVQp8maWKm4Jdmc3j30aFhX6jGMA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046367;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=s++dTWiZuxiMwAtfiHpS0ww7B07PNwXrgrQm7NKqFAQ=;
+	b=PxGmtOn3Jxkmap0DHzR6BQGr6IqSM1eSOWc7JdeNGSKtUWFRd4HJWjfp6hoMI6n01vIw
+	 mLhNx4JtNer9SBQMpTsxGDcN0p8YcujjpmxhQCrckK2tQpwracOF008UlyVUNNXoeFZdE
+	 ocfXnK839uELH1ewwVo0XgmFf5kVFp2mqvBjx48YQOEnOz4IsJ6eoQOEpxY6AiGCniMz/
+	 QVHAKVcT2XIwhD/KPTFZXNi7cc3NkqFUfcCtWyJCJmpM8lcugxVtV76HbjQzWDhiQtgAV
+	 260C1YN3UP/hbAqvrQg9GR9egQ5g26SeonqhLkqPd9m0Rn4gC/MHyqYnEBxDFYMY2Lw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="ucYlb/Gi";
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YrQcA1uC;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B655A606A33D
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:12:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B655A606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A1BF606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:12:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ucYlb/Gi
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a5036bbac7so8840075e9.3
-        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 02:12:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794046355; x=1794651155; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zYHw9i1ZC99ijVtSzd1tMuXGmwLLIqBi0BtOpLZ+XZ8=;
-        b=ucYlb/GiDfxsWgg9M/Iz4Q+U/thZllsvDF7Z2ByNB3WxUi+ecuFDfrXCf9XpYZRCIO
-         gbBRiBGqxjSlT+fGQJZlOnszjgl229YjhCllryN5bm19UqZhLKqY1EmyogvbzhGA6xPI
-         85tT+rMqC2jPdYXMZJC/cs0PsrdyFHyQyCtVLpnDAtn1BmKGCUNrq+H9D4j4MF02M4ko
-         4tgh40wFRA9D4AdMQudpkuJF8e8QlEElefGu+Dg+Ov/Ar6df0JBcMvotWUN21ZxfJSAz
-         dYsCsOewknBbupnSrxrUD/nQAwgDDor9t29imyxnLqvil1kfUBNxFQVRDwIyHaRw+oXC
-         uoHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794046355; x=1794651155;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zYHw9i1ZC99ijVtSzd1tMuXGmwLLIqBi0BtOpLZ+XZ8=;
-        b=Icq6HrResYMOWAKVnRBjob5OA2DvaYLFVkNHSvPhcF+APt85xaweMARsZgLMhjYtbV
-         LmBhUKJfKnuaC8kEJDWrRyFdwFomW4M9scIfSO73wsTmMJXjSrRvHB40Yp2bQgdu5trw
-         6I/C/9v21baaqJkPrvpxxaRo6bx78zcUTn9Kd+bDmoaQEVswnNXCWGPU5gg7RtQ5jd26
-         Yvz3vT2GOmLHXP2SzQBTLQCKeSztxGJkWLqCM6z8Ge0ErxwUP6qaZEeumyWtAvtAwQTE
-         KwO/o3dx7cc0jNDU29w9i2nk78lXBpvKcNW7tje39Xdossd1K/KFKEnJFlG8LF0dOZp6
-         quSA==
-X-Forwarded-Encrypted: i=1; AKwUvBxXJYW5JgHshdJbVEXmUGowd39dHUvaFxma2x1LItdxm2H+PLb39HHDiWy7heETCdY1tacyXqg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8iBPApv34loybUGL1JDIacftn5f2E9y0zXjkwxeSoNIvZ2Hxec
-	SsGENMd6Ed41XhDk8qpkfTKTrAqn/zCAIkgbD+5T8l8q2o3bwHWg55NY
-X-Gm-Gg: AYBFou295BPqMntEa7tSMPFeMFMtXbukgKmfu7HE9zOJ/kUvhO3zNSOKBQhtsWNbd23
-	z314CCpSJQ7MAZ4mIJzGLPxhKgyYp3BdXtUA6UEvSl7NI8Ho9E4udcKnbsua+YSbiCVTOTXNaHJ
-	5OWI6KwqMvYHINTC2Hpr9tbKsdipLttm1RRb6OkdTscbBMshmQJs+Mo0w2bRHNfqARLcoELAAFK
-	VJlNLA9Gh5DS2wza55lBAgZpefypBLc6mLB8VerMLsl3Ph9W7Mw83mDEMZes4hhKbM+mrdEeYpz
-	8Tw1KkKyyq522XOfIAUTPj4r4km2Qx+VsGcbFlK6TNyhiesD9WngjDq+yUhzGqxDt4HU6UyrPmV
-	9AHNWXfNyf5Bz7bRAuDU9EozsjjcBPxQDyMQb50Ig61P09OmpS4M595FtJZeEmXPCr9aCd1fryj
-	w1WndOXPRR9v5XyRQMCjQ/ouWB6pFgyNYKWisdAucrv5RPX2PAKV8GNZJAfTubhW9oWPP3vyblG
-	f59h+AJvxmm27M6q5f6L3AsA+0E+Kvsg5SSt1O8TSSnCkO47SokEBYkP9wW9T3U8f1RrQPTB6fo
-	uQOlj3XeU4t4+b66YF6jMK02GOqTzZuGvAshjEHdTKqsqV7GRB1K0FbuPcXUPR4PMuLgBgVGdQ/
-	UFZlOaCj/yOQycA==
-X-Received: by 2002:a05:600c:4fc9:b0:4a1:fcfa:2a07 with SMTP id 5b1f17b1804b1-4b6e007beefmr92278545e9.30.1794046354653;
-        Sat, 07 Nov 2026 02:12:34 -0800 (PST)
-Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7e3283ec3sm51270025e9.12.2026.11.07.02.12.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 02:12:34 -0800 (PST)
-From: David Carlier <devnexen@gmail.com>
-To: Masami Hiramatsu <mhiramat@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] tracing/eprobe: Install the trigger for every instance that enables the eprobe
-Date: Sat,  7 Nov 2026 10:12:32 +0000
-Message-ID: <20261107101233.151434-1-devnexen@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YrQcA1uC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F0D81F0089F;
+	Sat,  7 Nov 2026 10:12:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794046367;
+	bh=s++dTWiZuxiMwAtfiHpS0ww7B07PNwXrgrQm7NKqFAQ=;
+	h=From:To:Cc:Subject:Date;
+	b=YrQcA1uCq6+fBJph98yxaPJiz8Tpo1RcIC6DjM/joyy8pUQv4RctcwFitcoHDgU4p
+	 mT+4FyJT6itbNB9zX+5ODQOlq15hc+uPfUbNzyZ34sW2YsEsxCrm0GuKSheX1hT4w6
+	 maT/csui+A27EmYkSORzgDsU+cp5jkvQz2norMj0b0skQZw0FxfddLYxgovQKPr/bN
+	 Ked79vXQr0jM4b/YPeHVBGPLuoxbCwtSwfPSzbVnrQe9wgIFO1/8UeLhVmvwY1NS1j
+	 eW6qUdwF4axmrGhtnU4arNWKgusHsfOYmmWXuMCm5qv7HHl4VebWNMcUdANRBQYX5g
+	 +SiPyZ5wVJrLQ==
+From: Sasha Levin <sashal@kernel.org>
+To: zenghongling@kylinos.cn,
+	hyc.lee@gmail.com,
+	liubaolin@kylinos.cn,
+	linkinjeon@kernel.org
+Cc: stable@vger.kernel.org
+Subject: FAILED: patch "[PATCH] ntfs: fix volume flag update races" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:12:45 -0500
+Message-ID: <20261107051245-failed-6.18-56a64ee0f99d@kernel.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -98,134 +58,191 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The eprobe trigger lives in the instance of the enabling file, but it is
-only added when the eprobe is first enabled and only removed when the
-last file goes away. A second instance then records nothing, and the
-first instance's trigger is left behind once the eprobe is disabled
-there, so the eprobe can be deleted while that trigger still uses it.
+The patch below does not apply to the 6.18-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Add and remove the trigger for each file. The file is never NULL here,
-so warn if it is and drop the dead perf paths.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Fixes: 7491e2c44278 ("tracing: Add a probe that attaches to trace events")
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git checkout FETCH_HEAD
+git cherry-pick -x 56a64ee0f99d4ca1756cf743f951c110d39401e5
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051245-failed-6.18-56a64ee0f99d@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+
+Thanks,
+Sasha
+
+------------------ original commit in Linus's tree ------------------
+
+From 56a64ee0f99d4ca1756cf743f951c110d39401e5 Mon Sep 17 00:00:00 2001
+From: Hongling Zeng <zenghongling@kylinos.cn>
+Date: Tue, 15 Sep 2026 16:32:46 +0800
+Subject: [PATCH] ntfs: fix volume flag update races
+
+ntfs_set_volume_flags() and ntfs_clear_volume_flags() both read
+vol->vol_flags outside any lock to compute the new value before handing
+it to ntfs_write_volume_flags(), which only takes ni->mrec_lock around
+the actual write. The read-modify-write is therefore not atomic, and two
+concurrent callers can lose an update: ntfs_sync_fs() may derive a
+"clean" value from vol->vol_flags while a writer concurrently records an
+error and sets VOLUME_IS_DIRTY; the locked write then silently
+overwrites the freshly-set dirty bit. The on-disk volume looks clean
+despite the recorded errors, so chkdsk will not run on the next mount
+and corrupted metadata can persist.
+
+Fix by moving the read-modify-write inside the mrec_lock: pass the bits
+to set and to clear separately, and combine them with the current flag
+state under the lock inside ntfs_write_volume_flags(). The set/clear
+helpers pass only the bits to modify, not the complete flag state. The
+bit manipulation is done on CPU-endian values, and the result is
+converted back to little-endian before storing it. The wrappers keep
+their signatures so callers are unchanged.
+
 Cc: stable@vger.kernel.org
-
-Signed-off-by: David Carlier <devnexen@gmail.com>
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
+Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 ---
-Changes in v2:
-- WARN and return -EINVAL on a NULL file, drop the dead !file paths (Masami)
-- v1: https://lore.kernel.org/linux-trace-kernel/20261031203915.491866-1-devnexen@gmail.com/
+ fs/ntfs/super.c | 63 +++++++++++++++++++++++++++++++++++--------------
+ 1 file changed, 45 insertions(+), 18 deletions(-)
 
- kernel/trace/trace_eprobe.c | 56 ++++++++++++-------------------------
- 1 file changed, 18 insertions(+), 38 deletions(-)
-
-diff --git a/kernel/trace/trace_eprobe.c b/kernel/trace/trace_eprobe.c
-index 998e6390937a..474be2f5ccd9 100644
---- a/kernel/trace/trace_eprobe.c
-+++ b/kernel/trace/trace_eprobe.c
-@@ -644,37 +644,32 @@ static int enable_trace_eprobe(struct trace_event_call *call,
- {
- 	struct trace_probe *tp;
- 	struct trace_eprobe *ep;
--	bool enabled;
- 	int ret = 0;
- 	int cnt = 0;
- 
-+	if (WARN_ON_ONCE(!file))
-+		return -EINVAL;
-+
- 	tp = trace_probe_primary_from_call(call);
- 	if (WARN_ON_ONCE(!tp))
- 		return -ENODEV;
--	enabled = trace_probe_is_enabled(tp);
- 
- 	/* This also changes "enabled" state */
--	if (file) {
--		ret = trace_probe_add_file(tp, file);
--		if (ret)
--			return ret;
--	} else
--		trace_probe_set_flag(tp, TP_FLAG_PROFILE);
--
--	if (enabled)
--		return 0;
-+	ret = trace_probe_add_file(tp, file);
-+	if (ret)
-+		return ret;
- 
-+	/* The trigger lives in the instance of the file, add it for each file */
- 	for_each_trace_eprobe_tp(ep, tp) {
- 		ret = enable_eprobe(ep, file);
- 		if (ret)
- 			break;
--		enabled = true;
- 		cnt++;
- 	}
- 
- 	if (ret) {
- 		/* Failed to enable one of them. Roll back all */
--		if (enabled) {
-+		if (cnt) {
- 			/*
- 			 * It's a bug if one failed for something other than memory
- 			 * not being available but another eprobe succeeded.
-@@ -687,10 +682,7 @@ static int enable_trace_eprobe(struct trace_event_call *call,
- 					break;
- 			}
- 		}
--		if (file)
--			trace_probe_remove_file(tp, file);
--		else
--			trace_probe_clear_flag(tp, TP_FLAG_PROFILE);
-+		trace_probe_remove_file(tp, file);
- 	}
- 
- 	return ret;
-@@ -702,33 +694,21 @@ static int disable_trace_eprobe(struct trace_event_call *call,
- 	struct trace_probe *tp;
- 	struct trace_eprobe *ep;
- 
-+	if (WARN_ON_ONCE(!file))
-+		return -EINVAL;
-+
- 	tp = trace_probe_primary_from_call(call);
- 	if (WARN_ON_ONCE(!tp))
- 		return -ENODEV;
- 
--	if (file) {
--		if (!trace_probe_get_file_link(tp, file))
--			return -ENOENT;
--		if (!trace_probe_has_single_file(tp))
--			goto out;
--		trace_probe_clear_flag(tp, TP_FLAG_TRACE);
--	} else
--		trace_probe_clear_flag(tp, TP_FLAG_PROFILE);
-+	if (!trace_probe_get_file_link(tp, file))
-+		return -ENOENT;
- 
--	if (!trace_probe_is_enabled(tp)) {
--		for_each_trace_eprobe_tp(ep, tp)
--			disable_eprobe(ep, file->tr);
--	}
-+	for_each_trace_eprobe_tp(ep, tp)
-+		disable_eprobe(ep, file->tr);
- 
-- out:
--	if (file)
--		/*
--		 * Synchronization is done in below function. For perf event,
--		 * file == NULL and perf_trace_event_unreg() calls
--		 * tracepoint_synchronize_unregister() to ensure synchronize
--		 * event. We don't need to care about it.
--		 */
--		trace_probe_remove_file(tp, file);
-+	/* Synchronization is done in below function. */
-+	trace_probe_remove_file(tp, file);
- 
- 	return 0;
+diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
+index f7b3140049c40..5c71aaa0e25d5 100644
+--- a/fs/ntfs/super.c
++++ b/fs/ntfs/super.c
+@@ -360,31 +360,45 @@ void ntfs_handle_error(struct super_block *sb)
  }
+ 
+ /*
+- * ntfs_write_volume_flags - write new flags to the volume information flags
++ * ntfs_write_volume_flags - apply flag changes to the volume information flags
+  * @vol:	ntfs volume on which to modify the flags
+- * @flags:	new flags value for the volume information flags
++ * @set_bits:	bits to set in the volume information flags
++ * @clear_bits:	bits to clear in the volume information flags
+  *
+  * Internal function.  You probably want to use ntfs_{set,clear}_volume_flags()
+  * instead (see below).
+  *
+- * Replace the volume information flags on the volume @vol with the value
+- * supplied in @flags.  Note, this overwrites the volume information flags, so
+- * make sure to combine the flags you want to modify with the old flags and use
+- * the result when calling ntfs_write_volume_flags().
++ * Combine @set_bits and @clear_bits with the current in-memory flag state and
++ * write the result back.  The set/clear helpers pass only the bits to modify,
++ * not the complete flag state.  The read-modify-write happens under
++ * ni->mrec_lock so that concurrent set/clear operations cannot lose updates.
++ * All bit manipulation is done on CPU-endian values, and the result is
++ * converted back to little-endian before storing it.
+  *
+  * Return 0 on success and -errno on error.
+  */
+-static int ntfs_write_volume_flags(struct ntfs_volume *vol, const __le16 flags)
++static int ntfs_write_volume_flags(struct ntfs_volume *vol,
++		const __le16 set_bits, const __le16 clear_bits,
++		const bool skip_if_errors)
+ {
+ 	struct ntfs_inode *ni = NTFS_I(vol->vol_ino);
+ 	struct volume_information *vi;
+ 	struct ntfs_attr_search_ctx *ctx;
++	u16 flags;
+ 	int err;
+ 
+-	ntfs_debug("Entering, old flags = 0x%x, new flags = 0x%x.",
+-			le16_to_cpu(vol->vol_flags), le16_to_cpu(flags));
+ 	mutex_lock(&ni->mrec_lock);
+-	if (vol->vol_flags == flags)
++
++	if (skip_if_errors && NVolErrors(vol))
++		goto done;
++
++	flags = le16_to_cpu(vol->vol_flags);
++	flags |= le16_to_cpu(set_bits) & le16_to_cpu(VOLUME_FLAGS_MASK);
++	flags &= ~(le16_to_cpu(clear_bits) & le16_to_cpu(VOLUME_FLAGS_MASK));
++	ntfs_debug("Entering, old flags = 0x%x, new flags = 0x%x.",
++			le16_to_cpu(vol->vol_flags), flags);
++
++	if (le16_to_cpu(vol->vol_flags) == flags)
+ 		goto done;
+ 
+ 	ctx = ntfs_attr_get_search_ctx(ni, NULL);
+@@ -400,7 +414,7 @@ static int ntfs_write_volume_flags(struct ntfs_volume *vol, const __le16 flags)
+ 
+ 	vi = (struct volume_information *)((u8 *)ctx->attr +
+ 			le16_to_cpu(ctx->attr->data.resident.value_offset));
+-	vol->vol_flags = vi->flags = flags;
++	vol->vol_flags = vi->flags = cpu_to_le16(flags);
+ 	mark_mft_record_dirty(ctx->ntfs_ino);
+ 	ntfs_attr_put_search_ctx(ctx);
+ done:
+@@ -421,13 +435,14 @@ static int ntfs_write_volume_flags(struct ntfs_volume *vol, const __le16 flags)
+  * @flags:	flags to set on the volume
+  *
+  * Set the bits in @flags in the volume information flags on the volume @vol.
++ * The bits are combined with the current flag state under the lock in
++ * ntfs_write_volume_flags(), so concurrent updates are not lost.
+  *
+  * Return 0 on success and -errno on error.
+  */
+ int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags)
+ {
+-	flags &= VOLUME_FLAGS_MASK;
+-	return ntfs_write_volume_flags(vol, vol->vol_flags | flags);
++	return ntfs_write_volume_flags(vol, flags, 0, false);
+ }
+ 
+ /*
+@@ -436,14 +451,27 @@ int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags)
+  * @flags:	flags to clear on the volume
+  *
+  * Clear the bits in @flags in the volume information flags on the volume @vol.
++ * The bits are combined with the current flag state under the lock in
++ * ntfs_write_volume_flags(), so concurrent updates are not lost.
+  *
+  * Return 0 on success and -errno on error.
+  */
+ int ntfs_clear_volume_flags(struct ntfs_volume *vol, __le16 flags)
+ {
+-	flags &= VOLUME_FLAGS_MASK;
+-	flags = vol->vol_flags & cpu_to_le16(~le16_to_cpu(flags));
+-	return ntfs_write_volume_flags(vol, flags);
++	return ntfs_write_volume_flags(vol, 0, flags, false);
++}
++
++/*
++ * ntfs_clear_volume_dirty_if_no_errors - clear dirty bit if no errors exist
++ * @vol:	ntfs volume whose dirty bit should be cleared
++ *
++ * Check NVolErrors() and clear VOLUME_IS_DIRTY under the same mrec_lock so
++ * ntfs_sync_fs() cannot clear the dirty bit after a concurrent error has been
++ * recorded.
++ */
++static int ntfs_clear_volume_dirty_if_no_errors(struct ntfs_volume *vol)
++{
++	return ntfs_write_volume_flags(vol, 0, VOLUME_IS_DIRTY, true);
+ }
+ 
+ int ntfs_write_volume_label(struct ntfs_volume *vol, char *label)
+@@ -1926,8 +1954,7 @@ static int ntfs_sync_fs(struct super_block *sb, int wait)
+ 		return 0;
+ 
+ 	/* If there are some dirty buffers in the bdev inode */
+-	if (!NVolErrors(vol) &&
+-	    ntfs_clear_volume_flags(vol, VOLUME_IS_DIRTY)) {
++	if (ntfs_clear_volume_dirty_if_no_errors(vol)) {
+ 		ntfs_warning(sb, "Failed to clear dirty bit in volume information flags.  Run chkdsk.");
+ 		err = -EIO;
+ 	}
 -- 
-2.55.0
+2.53.0
+
+
+
 
