@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794045853;
-	b=5QtjbhiYYeif/jSuxnWuc6TwjcZZfnmqJDywlOjGrp6UyRHNtzMrqd5Kg1No67RF583W
-	 CdfRMqHa/oX6lBT6m9ql7oLB2f1bRHd235L4/WIfMWJWHLbYZZgm+zWg1dFrQEVeULPTt
-	 eiij28DJ5cz58ohH1IBCXUP+ioGv3+nAOzHkl81yKnGPehIA4R1OHqTnuSY7b2V1r+fs+
-	 ZO2wLZhmKF+zWHiLyWJXaUNt9zZUqfDTm32N8SfSZEJKzVQeizpA54HGOD4SipnKavjOq
-	 HJGIYiVFF7fGK5AF2NG8QUR6BrZhBehslOaR091XvZfBH70nLgwolRB7TRDW4IYYKlg==
+	t=1794045854;
+	b=DcFNx3kcawlKzw8RZ9ohF6iiNBwCJr4oiO9M51thUNfKkOZnji/Yl+2GCt9IxPy7lNRn
+	 xniquRAq5DHKZnjnHMq1yw393j1ZFqQZXqIzpTB8zdi9TbFPTuemxeFWb5zM7x1H384gl
+	 y6nBkouQSnwDyVQP0pLNFJ251LnN3xD8YuoogEesAYAuNNcSPpfL1yXJmQGyZI656j0pB
+	 3te7r3U5hmkS4KWtsFcrva9GXK6NaSjlh4my57tXpok9j/2Av5GERLx6jAYMPsfeZWntn
+	 cCAv2BuY7nJFqSSKJsEwQighYWchhxbJZhMliXJN0yPmGLcfXky4RjxrFoQm0LFMceA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794045853;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794045854;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=l5nLQ/xMmjvdRT/5n7MpLEJ2/SlXevcabCzN+XFiXWU=;
-	b=w825pYQwodgGyfes7kOcD8TqtWaX4XRm+aUCVG5iv39e5+J097hxPI8/zDqkvT0+UUrS
-	 ejuKFI3rqQtu09KfKKq8T5JuuUvCulwVRBvBasZy0k0BgMQRae1FI00+B0SwlkRr6hfhA
-	 EalJn1gdjFoHYohp/YqmarhXE7Yi9Jm5a1mkHhqeD5hOycsV1FMGqrITNe8dIIIQJMDNq
-	 Pu3lS0dhbFuR1jjyKsLRNuItvTlYdlIeaDwbPc2AQcw0G8OnYozakjG0dg0VdR4nHsheS
-	 AzwGQR7E1Y2+aWLmMMGQWvIlvv7HeeZGUyTo/bLlhAUEkQeHjix8d8cxgtmA47c+zbg==
+	bh=v+0Is28KJ/QttxQxUIywLX3r82A2jwTjlLDsa2ZBGgY=;
+	b=ph+v/Sk3Bd9LjrDOhHYFJMm7oz5ahj2gPuYTdJlK//BecvJNPnLc+n7DdcQCwzJNfu6Q
+	 N88FkLyZ/EQ1YcJ+6dWyiRt1gD/DBpo26RXUvdgrWo3SRnaMTVuZ/Qj4jB0LV8dOkubub
+	 r9C0NuP54WGhA6ZI+NAwdKXMXyU6VG5KumF1oTuoPsJJ/m34+9M0Pqves22IKQ7/++S1y
+	 IDoo9dEnp+ki0eIcE4jDPUNizktinw8CLfc+fi0mBSt/2L5CX2c1sLk3VJqxkfROPzGNH
+	 J1FocIyPiIekRZPQ9RlfCCMn/hXXkaxLMT4NKZajnGw+c+zHct37C9oq3RDLOVVeDSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=By7hmTwX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ivWYQ3fB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 676DA606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:04:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 754E1606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:04:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=By7hmTwX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B83221F0089F;
-	Sat,  7 Nov 2026 10:04:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ivWYQ3fB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E089B1F0089F;
+	Sat,  7 Nov 2026 10:04:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794045852;
-	bh=l5nLQ/xMmjvdRT/5n7MpLEJ2/SlXevcabCzN+XFiXWU=;
+	s=k20260515; t=1794045854;
+	bh=v+0Is28KJ/QttxQxUIywLX3r82A2jwTjlLDsa2ZBGgY=;
 	h=From:To:Cc:Subject:Date;
-	b=By7hmTwXhIMfVsuMPJJ00TavZ2iRSONH/ftsADxy5se7sVdpVVksGonyF4yZ+LHSk
-	 MPWybJKBBpUI0Ow5CSdFYWpRaGXJq2rtnBKDLF0vnhTfi6LnrZs12RF9tdxI37vD0w
-	 G1FnA1GOFqqWSGCziZZsUOR3w9Jou28C3lM3zWGtSrUqeK4uHL0c7tXcC9YVWeDiEh
-	 zlNpfD0FzvM3Hh/VHvSkxDajGo99pFGe3CqsWx5nR4kaumY4lVOsvfmGm/8ig3Gzcl
-	 uBpu/fjbpzh/W/UxQt7kYnBnLbcFmSBTmnKuwzlZlSDzFOexWR16UrsOEj/SKxCFh4
-	 vSa/7TeM45drw==
+	b=ivWYQ3fBBXE/G3LEzLx48MeI5Fi1g3BLElqnkBLzO2r8dekldATXbnnR/L76YZhAn
+	 54q3e1RdHOAPIl4Q9cBu0jHLr9sBOCyfDUTdCzhL1gmIkPoPdmDHcBcquVwZ+SynoB
+	 NzUSBDC2cQsXwmUbHfo9iWkGxOED++EKSFYb9nKa1M0mkDL0cpTX0OgNeO1lxb4EnV
+	 /rQGy21BLkXMPhTDQdoMFEqZFzJoPxKBStf1a7ONG6WlV6LBySGZ/lBZufGMPVyLRx
+	 sI/RJDo1hQAMYb/Mh5Wq7slWwg92yafXTvD4kO9IHPsdYZ8IJaWPTCcGTLkFCpQQRb
+	 EjAKL86knczMw==
 From: Sasha Levin <sashal@kernel.org>
-To: james.a.fairweather@gmail.com,
-	stiraspo@gmail.com,
-	tzungbi@kernel.org
+To: chao@kernel.org,
+	jaegeuk@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] platform/chrome: cros_usbpd_notify: Only use drvdata when parent is GOOG0004" failed to apply to 7.3-stable tree
-Date: Sat,  7 Nov 2026 05:04:10 -0500
-Message-ID: <20261107050410-failed-7.3-ca75b38b1a3c@kernel.org>
+Subject: FAILED: patch "[PATCH] f2fs: zone: fix to avoid bio split on sequential zone" failed to apply to 7.3-stable tree
+Date: Sat,  7 Nov 2026 05:04:12 -0500
+Message-ID: <20261107050412-failed-7.3-b9b036bd1e2c@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,126 +68,124 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x ca75b38b1a3c2eabe81d231dae4ea180cf6287cd
+git cherry-pick -x b9b036bd1e2cfbc189d5811d62d8711e216c40b3
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050410-failed-7.3-ca75b38b1a3c@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050412-failed-7.3-b9b036bd1e2c@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From ca75b38b1a3c2eabe81d231dae4ea180cf6287cd Mon Sep 17 00:00:00 2001
-From: James Fairweather <james.a.fairweather@gmail.com>
-Date: Sat, 3 Oct 2026 18:28:53 -0400
-Subject: [PATCH] platform/chrome: cros_usbpd_notify: Only use drvdata when
- parent is GOOG0004
+From b9b036bd1e2cfbc189d5811d62d8711e216c40b3 Mon Sep 17 00:00:00 2001
+From: Chao Yu <chao@kernel.org>
+Date: Wed, 7 Oct 2026 10:18:12 +0000
+Subject: [PATCH] f2fs: zone: fix to avoid bio split on sequential zone
 
-cros_usbpd_notify_probe_acpi() takes the EC device pointer from
-dev_get_drvdata(dev->parent) and assumes it is a struct cros_ec_device.
-That only holds when GOOG0003 is a child of GOOG0004. On older devices
-without that hierarchy, such as Google Nami, GOOG0003 and GOOG0004 are
-siblings under the ACPI EC (PNP0C09):
+In the block layer, bio_split_to_limits() splits a bio if it exceeds
+any underlying queue limits:
+1. queue_max_sectors: Splits bios larger than the transfer limit. This
+   limit is set by the device driver/DMA controller (max_hw_sectors) and
+   device-mapper targets. When flushing dirty pages (governed by VFS
+   writeback_chunk_size() and f2fs nr_pages_to_skip()), f2fs merges
+   contiguous pages into bios up to 512KB (1024 sectors) or more without
+   checking queue_max_sectors, which will be split if the device or DM
+   target enforces a smaller limit.
+2. queue_max_segments: Splits bios exceeding scatter-gather segment
+   limits. f2fs allocates bios with up to 256 pages, exceeding the
+   128-segment limit of DM targets (dm-default-key/dm-crypt) if pages
+   are discontiguous.
+3. chunk_sectors: Splits bios crossing chunk/zone boundaries. In f2fs,
+   section_size strictly matches zone_size, and block allocation never
+   spans across section boundaries, so bios never cross chunk_sectors.
 
-  PNP0C09:00 (acpi-ec)
-  |-- GOOG0003:00 (cros-usbpd-notify-acpi)
-  `-- GOOG0004:00 (cros_ec_lpcs)
+Crucially, when bio_split_to_limits() splits a bio, bio_submit_split()
+submits the tail half via submit_bio_noacct() before returning the head
+half to the caller. On a sequential zoned device, this causes the tail
+bio to arrive at the zone write plug before the head:
 
-Before commit db65a06d10b3 ("ACPI: EC: Convert the driver to a platform
-one") the parent platform device had no driver data, so the driver
-warned and continued without an EC pointer, as intended for these
-devices. Since that commit the ACPI EC driver stores its struct acpi_ec
-there, so the driver treats a struct acpi_ec as a struct cros_ec_device
-and calls cros_ec_cmd() on it for every USB-C PD host event. Plugging
-or unplugging a charger then intermittently oopses, followed by soft
-lockups and a hung system:
+  dm-3: zone 7: prepare_bio wp mismatch: bio sector 30720 offset 2048
+  != wp_offset 248, len 248
 
-  BUG: unable to handle page fault for address: ffffffff9cf03220
-  #PF: supervisor write access in kernel mode
-  Hardware name: Google Nami/Nami, BIOS  09/19/2019
-  Workqueue: kacpi_notify acpi_os_execute_deferred
-  RIP: 0010:native_queued_spin_lock_slowpath+0x29d/0x330
-  Call Trace:
-   _raw_spin_lock_irqsave+0x59/0x80
-   __mutex_lock.constprop.0+0x129/0x930
-   cros_ec_cmd_xfer+0x2a/0xf0 [cros_ec_proto]
-   cros_ec_cmd_xfer_status+0x1a/0x90 [cros_ec_proto]
-   cros_ec_cmd+0xb7/0x140 [cros_ec_proto]
-   cros_usbpd_get_event_and_notify+0x42/0xc0 [cros_usbpd_notify]
-   acpi_ev_notify_dispatch+0x4e/0x70
-   acpi_os_execute_deferred+0x1a/0x30
+The write plug rejects the out-of-order tail with BLK_STS_IOERR, causing
+f2fs_stop_checkpoint() and remounting the filesystem read-only:
 
-Only read the parent's driver data when the parent's ACPI node is
-GOOG0004, and otherwise continue without an EC pointer. While at it,
-drop the reference taken by fwnode_get_parent().
+2026-09-30T22:09:23.725678+08:00 localhost kernel: CPU: 9 UID: 0 PID: 243 Comm: kworker/9:1H Not tainted 6.12.81-gb3ef518fb26d #5
+2026-09-30T22:09:23.725750+08:00 localhost kernel: Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-debian-1.17.0-1 04/01/2014
+2026-09-30T22:09:23.725753+08:00 localhost kernel: Workqueue: dm-3_zwplugs blk_zone_wplug_bio_work
+2026-09-30T22:09:23.725756+08:00 localhost kernel: Call Trace:
+2026-09-30T22:09:23.725758+08:00 localhost kernel:  <TASK>
+2026-09-30T22:09:23.725758+08:00 localhost kernel:  dump_stack_lvl+0x4d/0x70
+2026-09-30T22:09:23.725759+08:00 localhost kernel:  f2fs_stop_checkpoint+0x1df/0x5d0
+2026-09-30T22:09:23.725759+08:00 localhost kernel:  ? blk_zone_wplug_bio_work+0x4eb/0x740
+2026-09-30T22:09:23.725760+08:00 localhost kernel:  f2fs_cache_write_end_io+0x545/0x6e0
+2026-09-30T22:09:23.725761+08:00 localhost kernel:  blk_zone_wplug_bio_work+0x4eb/0x740
+2026-09-30T22:09:23.725762+08:00 localhost kernel:  process_one_work+0x5c6/0xde0
+2026-09-30T22:09:23.725764+08:00 localhost kernel:  ? assign_work+0x124/0x4e0
+2026-09-30T22:09:23.725765+08:00 localhost kernel:  worker_thread+0x403/0xb70
+2026-09-30T22:09:23.725765+08:00 localhost kernel:  ? __kthread_parkme+0x82/0x140
+2026-09-30T22:09:23.725766+08:00 localhost kernel:  ? __pfx_worker_thread+0x10/0x10
+2026-09-30T22:09:23.725766+08:00 localhost kernel:  kthread+0x235/0x2e0
+2026-09-30T22:09:23.725767+08:00 localhost kernel:  ? recalc_sigpending+0x128/0x1d0
+2026-09-30T22:09:23.725767+08:00 localhost kernel:  ? __pfx_kthread+0x10/0x10
+2026-09-30T22:09:23.725769+08:00 localhost kernel:  ret_from_fork+0x2f/0x70
+2026-09-30T22:09:23.725769+08:00 localhost kernel:  ? __pfx_kthread+0x10/0x10
+2026-09-30T22:09:23.725770+08:00 localhost kernel:  ret_from_fork_asm+0x1a/0x30
+2026-09-30T22:09:23.725771+08:00 localhost kernel:  </TASK>
+2026-09-30T22:09:23.725771+08:00 localhost kernel: F2FS-fs (dm-0): Stopped filesystem due to reason: 3
 
-Fixes: db65a06d10b3 ("ACPI: EC: Convert the driver to a platform one")
-Fixes: e4ee0bb077cd ("platform/chrome: cros_usbpd_notify: defer probe when parent EC driver isn't ready")
+To prevent write bios destined for sequential zones from being split:
+1. In __bio_alloc(), bound npages to bdev_max_segments(bdev) for writes to
+   sequential zone areas.
+2. In page_is_mergeable(), check queue_max_segments() and queue_max_sectors()
+   for sequential zone areas, so f2fs will not merge beyond the queue limits.
+
+Fixes: 52763a4b7a21 ("f2fs: detect host-managed SMR by feature flag")
+Fixes: 664ba972df9b ("f2fs: use BIO_MAX_PAGES for bio allocation")
 Cc: stable@vger.kernel.org
-Assisted-by: claude-opus-5-5 checkpatch
-Signed-off-by: James Fairweather <james.a.fairweather@gmail.com>
-Reported-by: Sergey Tiraspolsky <stiraspo@gmail.com>
-Closes: https://lore.kernel.org/all/20261003204623.18124-1-stiraspo@gmail.com
-Tested-by: Sergey Tiraspolsky <stiraspo@gmail.com>
-Link: https://lore.kernel.org/r/20261003222855.23707-1-james.a.fairweather@gmail.com
-Signed-off-by: Tzung-Bi Shih <tzungbi@kernel.org>
+Signed-off-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
 ---
- drivers/platform/chrome/cros_usbpd_notify.c | 39 +++++++++++----------
- 1 file changed, 21 insertions(+), 18 deletions(-)
+ fs/f2fs/data.c | 18 +++++++++++++++++-
+ 1 file changed, 17 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/platform/chrome/cros_usbpd_notify.c b/drivers/platform/chrome/cros_usbpd_notify.c
-index 6f5eea4938cb4..25da31ec19969 100644
---- a/drivers/platform/chrome/cros_usbpd_notify.c
-+++ b/drivers/platform/chrome/cros_usbpd_notify.c
-@@ -110,26 +110,29 @@ static int cros_usbpd_notify_probe_acpi(struct platform_device *pdev)
- 	if (!pdnotify)
- 		return -ENOMEM;
+diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+index 4bfa301a5df63..15c6af8515f30 100644
+--- a/fs/f2fs/data.c
++++ b/fs/f2fs/data.c
+@@ -536,6 +536,10 @@ static struct bio *__bio_alloc(struct f2fs_io_info *fio, int npages)
+ 	struct bio *bio;
  
--	/* Get the EC device pointer needed to talk to the EC. */
--	ec_dev = dev_get_drvdata(dev->parent);
--	if (!ec_dev) {
--		/*
--		 * We continue even for older devices which don't have the
--		 * correct device hierarchy, namely, GOOG0003 is a child
--		 * of GOOG0004. If GOOG0003 is a child of GOOG0004 and we
--		 * can't get a pointer to the Chrome EC device, defer the
--		 * probe function.
--		 */
--		parent_fwnode = fwnode_get_parent(dev->fwnode);
--		if (parent_fwnode) {
--			parent_adev = to_acpi_device_node(parent_fwnode);
--			if (parent_adev &&
--			    acpi_dev_hid_match(parent_adev, CREC_DRV_NAME)) {
--				return -EPROBE_DEFER;
--			}
-+	/*
-+	 * Get the EC device pointer needed to talk to the EC. The parent's
-+	 * driver data is only a struct cros_ec_device when GOOG0003 is a
-+	 * child of GOOG0004. On older devices without that hierarchy the
-+	 * parent may be bound to an unrelated driver (e.g. the ACPI EC
-+	 * driver for PNP0C09), so don't touch its driver data and continue
-+	 * without an EC pointer. If GOOG0003 is a child of GOOG0004 and we
-+	 * can't get a pointer to the Chrome EC device yet, defer the probe.
-+	 */
-+	ec_dev = NULL;
-+	parent_fwnode = fwnode_get_parent(dev->fwnode);
-+	parent_adev = to_acpi_device_node(parent_fwnode);
-+	if (parent_adev && acpi_dev_hid_match(parent_adev, CREC_DRV_NAME)) {
-+		ec_dev = dev_get_drvdata(dev->parent);
-+		if (!ec_dev) {
-+			fwnode_handle_put(parent_fwnode);
-+			return -EPROBE_DEFER;
- 		}
--		dev_warn(dev, "Couldn't get Chrome EC device pointer.\n");
- 	}
-+	fwnode_handle_put(parent_fwnode);
+ 	bdev = f2fs_target_device(sbi, fio->new_blkaddr, &sector);
++	/* avoid reversed IO if bio is split due to exceeding max_segments */
++	if (npages > 1 && !is_read_io(fio->op) &&
++	    f2fs_is_sequential_zone_area(sbi, fio->new_blkaddr))
++		npages = min_t(int, npages, bdev_max_segments(bdev));
+ 	bio = bio_alloc_bioset(bdev, npages,
+ 				fio->op | fio->op_flags | f2fs_io_flags(fio),
+ 				GFP_NOIO, &f2fs_bioset);
+@@ -892,7 +896,19 @@ static bool page_is_mergeable(struct f2fs_sb_info *sbi, struct bio *bio,
+ 		return false;
+ 	if (last_blkaddr + 1 != cur_blkaddr)
+ 		return false;
+-	return bio->bi_bdev == f2fs_target_device(sbi, cur_blkaddr, NULL);
++	if (bio->bi_bdev != f2fs_target_device(sbi, cur_blkaddr, NULL))
++		return false;
++	/* avoid reversed IO if bio is split due to exceeding max_segments/sectors */
++	if (f2fs_is_sequential_zone_area(sbi, cur_blkaddr)) {
++		struct request_queue *q = bdev_get_queue(bio->bi_bdev);
 +
-+	if (!ec_dev)
-+		dev_warn(dev, "Couldn't get Chrome EC device pointer.\n");
++		if (bio->bi_vcnt >= queue_max_segments(q))
++			return false;
++		if (bio_sectors(bio) + (F2FS_BLKSIZE(sbi) >> SECTOR_SHIFT) >
++				queue_max_sectors(q))
++			return false;
++	}
++	return true;
+ }
  
- 	pdnotify->dev = dev;
- 	pdnotify->ec = ec_dev;
+ static bool io_type_is_mergeable(struct f2fs_bio_info *io,
 -- 
 2.53.0
 
