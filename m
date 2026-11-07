@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047725;
-	b=CD2JpG9l9mYIq8yZQnFbFR4f0s8sABAxDQQkpK8f0JP4RqLTpeZPjsOkber3+EgwB2pe
-	 3X+h5NK2IlmgXoUKu7tEmYh62S1iX7LOsmAoOFECa4gVVTL83wRak34xNkFUSXfsVjwVx
-	 lAChef6JwCx/r0tIFQHnnK8FiqeC1cGymFgcOp326i03hLhMbuVbWm8YjUbJ3yw+NIBs4
-	 mSyj6hrAFt8MOEDhNADrfWXAfqRN+QPAR9vfein4t+nq2QTYD1iTHwKGnqcH93kc6PX07
-	 8Myjy+UR16eCJ2+BenEIUfJK2+8/JK7yLaG05xreFDMtDr6PtTBfQQXmbpsyzxpfskg==
+	t=1794047728;
+	b=wTFmZsecGyeS6aKoaW16p0guuBhYfbWdhuxNos0tSEEkjN5UujQp75YPWYUm6yemgI6f
+	 NuW//1KRMZqILk7TuG+xQDEhxi2J3ccnbbKEpHCPDqPmVG8+kmXxKme0kZMVh3BAYL2V0
+	 CP7k+spQ8wc6sSVSCtGti97a1hRWTTyPmgjoJGvmArOR5BFwNftu2dg8HT7qXaX3cUdO8
+	 5YAu+FjcSaHODHphvYbzSC6aQKcL6GnUDk3yVAZEKEuW5JdfsrjHLW5Uek1n/N/Zwtf/9
+	 ppkV9sT62xnOa2li6BdKgtz6JdKXUc/1pzSTDHeVQybR3g5+6eU9FhLGCvTuS7k94nw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047725;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047728;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=uL6OSneX7KUnr4xi+zde7E5MgBdJqNNj86BZi/uYY3I=;
-	b=QyAhM0ThCrUETn2SdvMk3PM3Hizu3vhyPUdzPzs+GQgyZB1rzCbUfers34nZeFfo6AQt
-	 IYUSK+icQfZZ+tpgydQbhZsWcbEiaMVWDTssYnRRLAaJe/lOLJZl7QE0OdW9IaDQugaGw
-	 Ebvs/v97yvuDRyU+YPMkreEEE6feCdT3102mP2zFAehv2v8w+r45gwoeRIXXy1e/CdKvE
-	 dhIQxVBBRepRuskdl3oruIfdMnN2D0bOgbZUDSdRcDrymNvRHRxsiiFFrJQAKYZQxwlzZ
-	 0fLrqyCOr+Wb3ypVjh0qFPAV+FmCf3ZvPlgxZ/741iXtSugBRwSpMjZ5I1380XR2F+g==
+	bh=wa+Qm3fje0CfeNjpbHzc8tY11mX12IbUpIVjpIyDRKI=;
+	b=FSRDmd5DuQQQboWYC1Mk1vy4Q4svG9dp2fsSfraLyxr7BsfuqW6A1KogxhLpjgQ165ar
+	 YpXbCzmXxgb/w2EittxfVqg4rzTZMmfQVodn1eN7zEckFr/xkUxxaZPSHq6+cxMkmlOEO
+	 TaL1stl4nG4UAv9ubIsR6m+I5grbHu4MgJ4Zdkj4NhbxIWhehPPh1jBHqgnVOqPV4XNUB
+	 GyWd1Wye+ya08uDm1/OWmbiZsi3zApim9sxHlT3ZvfTGFsixnOxHVGBuexz4Mx2LYLaB5
+	 mwmKFfTzknP77LkdNl+rg33Qeu2ekny0kzY9xepT8Qk3LSe6RnOFc8ci3fAmqldGdxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CPjee0l2;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lsKLPdYx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C163606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:35:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4B26606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:35:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CPjee0l2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1FF11F0089F;
-	Sat,  7 Nov 2026 10:35:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lsKLPdYx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0198C1F0089F;
+	Sat,  7 Nov 2026 10:35:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047725;
-	bh=uL6OSneX7KUnr4xi+zde7E5MgBdJqNNj86BZi/uYY3I=;
+	s=k20260515; t=1794047727;
+	bh=wa+Qm3fje0CfeNjpbHzc8tY11mX12IbUpIVjpIyDRKI=;
 	h=From:To:Cc:Subject:Date;
-	b=CPjee0l25gZld3mFU5OyJBoD1fsnObzWhpNCVe8J9CN3D1EPjJgRJwOd/FscOE10g
-	 M9G6eVqaSCHAmkqyADd3BPHXzGQyjfe2ygq7qIzi3Hevs4hW5yEfWxn8gu3CokIzES
-	 zaIYZH7V0C6Da2Oa1rYyn+Fhndr6r4j+uf8wJKKbUUNVk0mEibd7HIzJYSjcugQdE3
-	 AMEzTxf5AyrcNVdgTWq12KJqoc9FKms5GZ5I/5K6/vip+kEREkJ9fhK9JJCmpiZSze
-	 6NG+soiS+cRbwd5OWvZLSFTVQSqkGrLr42xF2UeCjgAenLPU3LwN9OC/P55UHE4L/G
-	 FYO4v9VHPFTdQ==
+	b=lsKLPdYxR1M3uwPfXkT7VtGHgawZQAABVCyscMZgRFWgd6pFipNycoPzaGiPN4kjC
+	 qfhZShj0r7zrwMoDB8ij3bKgy9EeaJcegehxY9JEllzklMMFLB8OrJHJukv1B7y9M2
+	 VXW2iefra/aoiwdktQPy2KdhcOTqBoUNYdkRLdnsDJFx/UHnrIVHn7FpkArp/wdRCB
+	 NarXuG7cCIUrizAqFOhTrFr0yQ1I9+Ll2/RBz8mevHJChnKuaVStiVl4y8aLad2XRj
+	 o+30SIsIlC+xj2mtZtjqTOmHJ4N5hlz9OvdHcwbSqenLRsyhV/dsk7MUBEPbwuCUZp
+	 rnppPAWsaw9FQ==
 From: Sasha Levin <sashal@kernel.org>
-To: lilinmao@kylinos.cn,
-	manivannan.sadhasivam@oss.qualcomm.com,
-	bhelgaas@google.com,
-	a-garg7@ti.com
+To: lgs201920130244@gmail.com,
+	tglx@kernel.org,
+	frank.li@nxp.com,
+	radu@rendec.net
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] PCI: cadence: Store the core controller in platform drvdata" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:35:23 -0500
-Message-ID: <20261107053523-failed-6.6-cfe96ce583c5@kernel.org>
+Subject: FAILED: patch "[PATCH] irqchip/imx-intmux: Fix runtime PM teardown on remove" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:35:25 -0500
+Message-ID: <20261107053525-failed-6.6-b167c1a30e9e@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,124 +70,91 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x cfe96ce583c51bf6e034d4038c652a1e8227867c
+git cherry-pick -x b167c1a30e9e020e4c5e102c7a555943742c024b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053523-failed-6.6-cfe96ce583c5@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053525-failed-6.6-b167c1a30e9e@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From cfe96ce583c51bf6e034d4038c652a1e8227867c Mon Sep 17 00:00:00 2001
-From: Linmao Li <lilinmao@kylinos.cn>
-Date: Tue, 15 Sep 2026 16:28:26 +0800
-Subject: [PATCH] PCI: cadence: Store the core controller in platform drvdata
+From b167c1a30e9e020e4c5e102c7a555943742c024b Mon Sep 17 00:00:00 2001
+From: Guangshuo Li <lgs201920130244@gmail.com>
+Date: Mon, 14 Sep 2026 21:42:11 +0800
+Subject: [PATCH] irqchip/imx-intmux: Fix runtime PM teardown on remove
 
-cdns_plat_pcie_probe() stores a struct cdns_plat_pcie pointer with
-platform_set_drvdata(). cdns_plat_pcie_shutdown() and the callbacks in
-cdns_pcie_pm_ops retrieve the same pointer with dev_get_drvdata() but use
-it as a struct cdns_pcie pointer. This makes them read phy_count and phy
-beyond the wrapper.
+imx_intmux_probe() enables the IPG clock and then drops its runtime PM
+reference with pm_runtime_put(). With CONFIG_PM enabled, the runtime
+suspend callback disables the IPG clock. With CONFIG_PM disabled, the
+clock remains enabled after probe.
 
-struct cdns_plat_pcie only contains a pointer to struct cdns_pcie. Drop
-the redundant wrapper and store the struct cdns_pcie pointer directly.
+imx_intmux_remove() accesses the CHANIER registers without first making
+sure that the device is runtime active. The device may therefore be
+runtime suspended with the IPG clock disabled when these registers are
+accessed. In addition, the remove path only calls pm_runtime_disable()
+and does not balance the clock enable when CONFIG_PM is disabled.
 
-Fixes: bd22885aa188 ("PCI: cadence: Refactor driver to use as a core library")
-Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
-Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-Reviewed-by: Aksh Garg <a-garg7@ti.com>
+Resume the device and acquire a runtime PM reference before accessing
+the registers. If resume fails, skip the register accesses but still
+tear down the chained handlers and IRQ domains. Disable runtime PM
+afterwards, drop the acquired reference without triggering another
+runtime suspend, and explicitly disable the IPG clock.
+
+This keeps the clock enabled while the hardware registers are accessed
+and balances the clk_prepare_enable() performed during probe for both
+CONFIG_PM configurations.
+
+This issue was found by manual code inspection.
+
+Fixes: bb403111e017 ("irqchip/imx-intmux: Implement intmux runtime power management")
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Reviewed-by: Radu Rendec <radu@rendec.net>
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260915082826.4135665-1-lilinmao@kylinos.cn
+Link: https://patch.msgid.link/20260914134211.1734163-1-lgs201920130244@gmail.com
 ---
- .../controller/cadence/pcie-cadence-plat.c    | 27 ++++++-------------
- 1 file changed, 8 insertions(+), 19 deletions(-)
+ drivers/irqchip/irq-imx-intmux.c | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/pci/controller/cadence/pcie-cadence-plat.c b/drivers/pci/controller/cadence/pcie-cadence-plat.c
-index 13edc6be21f59..4a24302cc5b2c 100644
---- a/drivers/pci/controller/cadence/pcie-cadence-plat.c
-+++ b/drivers/pci/controller/cadence/pcie-cadence-plat.c
-@@ -14,14 +14,6 @@
- 
- #define CDNS_PLAT_CPU_TO_BUS_ADDR	0x0FFFFFFF
- 
--/**
-- * struct cdns_plat_pcie - private data for this PCIe platform driver
-- * @pcie: Cadence PCIe controller
-- */
--struct cdns_plat_pcie {
--	struct cdns_pcie        *pcie;
--};
--
- static const struct of_device_id cdns_plat_pcie_of_match[];
- 
- static u64 cdns_plat_cpu_addr_fixup(struct cdns_pcie *pcie, u64 cpu_addr)
-@@ -36,9 +28,9 @@ static const struct cdns_pcie_ops cdns_plat_ops = {
- static int cdns_plat_pcie_probe(struct platform_device *pdev)
+diff --git a/drivers/irqchip/irq-imx-intmux.c b/drivers/irqchip/irq-imx-intmux.c
+index 47c2681d138a0..de2a8f98f6255 100644
+--- a/drivers/irqchip/irq-imx-intmux.c
++++ b/drivers/irqchip/irq-imx-intmux.c
+@@ -288,12 +288,16 @@ static int imx_intmux_probe(struct platform_device *pdev)
+ static void imx_intmux_remove(struct platform_device *pdev)
  {
- 	const struct cdns_plat_pcie_of_data *data;
--	struct cdns_plat_pcie *cdns_plat_pcie;
- 	struct device *dev = &pdev->dev;
- 	struct pci_host_bridge *bridge;
-+	struct cdns_pcie *pcie;
- 	struct cdns_pcie_ep *ep;
- 	struct cdns_pcie_rc *rc;
- 	bool is_rc;
-@@ -51,11 +43,6 @@ static int cdns_plat_pcie_probe(struct platform_device *pdev)
- 	is_rc = data->is_rc;
+ 	struct intmux_data *data = platform_get_drvdata(pdev);
+-	int i;
++	int i, ret;
++
++	ret = pm_runtime_resume_and_get(&pdev->dev);
++	if (ret < 0)
++		dev_warn(&pdev->dev, "failed to resume device: %d\n", ret);
  
- 	pr_debug(" Started %s with is_rc: %d\n", __func__, is_rc);
--	cdns_plat_pcie = devm_kzalloc(dev, sizeof(*cdns_plat_pcie), GFP_KERNEL);
--	if (!cdns_plat_pcie)
--		return -ENOMEM;
+ 	for (i = 0; i < data->channum; i++) {
+ 		/* disable all interrupt sources of this channel */
+-		writel_relaxed(0, data->regs + CHANIER(i));
 -
--	platform_set_drvdata(pdev, cdns_plat_pcie);
- 	if (is_rc) {
- 		if (!IS_ENABLED(CONFIG_PCIE_CADENCE_PLAT_HOST))
- 			return -ENODEV;
-@@ -67,9 +54,9 @@ static int cdns_plat_pcie_probe(struct platform_device *pdev)
- 		rc = pci_host_bridge_priv(bridge);
- 		rc->pcie.dev = dev;
- 		rc->pcie.ops = &cdns_plat_ops;
--		cdns_plat_pcie->pcie = &rc->pcie;
-+		pcie = &rc->pcie;
++		if (ret >= 0)
++			writel_relaxed(0, data->regs + CHANIER(i));
+ 		irq_set_chained_handler_and_data(data->irqchip_data[i].irq,
+ 						 NULL, NULL);
  
--		ret = cdns_pcie_init_phy(dev, cdns_plat_pcie->pcie);
-+		ret = cdns_pcie_init_phy(dev, pcie);
- 		if (ret) {
- 			dev_err(dev, "failed to init phy\n");
- 			return ret;
-@@ -94,9 +81,9 @@ static int cdns_plat_pcie_probe(struct platform_device *pdev)
- 
- 		ep->pcie.dev = dev;
- 		ep->pcie.ops = &cdns_plat_ops;
--		cdns_plat_pcie->pcie = &ep->pcie;
-+		pcie = &ep->pcie;
- 
--		ret = cdns_pcie_init_phy(dev, cdns_plat_pcie->pcie);
-+		ret = cdns_pcie_init_phy(dev, pcie);
- 		if (ret) {
- 			dev_err(dev, "failed to init phy\n");
- 			return ret;
-@@ -114,13 +101,15 @@ static int cdns_plat_pcie_probe(struct platform_device *pdev)
- 			goto err_init;
+@@ -301,6 +305,11 @@ static void imx_intmux_remove(struct platform_device *pdev)
  	}
  
-+	platform_set_drvdata(pdev, pcie);
-+
- 	return 0;
- 
-  err_init:
-  err_get_sync:
- 	pm_runtime_put_sync(dev);
- 	pm_runtime_disable(dev);
--	cdns_pcie_disable_phy(cdns_plat_pcie->pcie);
-+	cdns_pcie_disable_phy(pcie);
- 
- 	return ret;
+ 	pm_runtime_disable(&pdev->dev);
++	if (ret >= 0) {
++		pm_runtime_put_noidle(&pdev->dev);
++		clk_disable_unprepare(data->ipg_clk);
++		pm_runtime_set_suspended(&pdev->dev);
++	}
  }
+ 
+ #ifdef CONFIG_PM
 -- 
 2.53.0
 
