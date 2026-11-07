@@ -1,54 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048304;
-	b=1BnfwIk4M2RgZRTG2bbk/Cksfo7lEzG7W3IOsd6MuRtYRAxilXXUgFjNGIpHqNsv1f9R
-	 ELHLpkau22LPDyvgnCY0hW82SNmd49/NG+WVpTVaG9YUpN2TDIdnnP2PrX3EKCftGMHKc
-	 AAOeJAu4hPJ8s1UYYT7XidlVmP1SxPwTWehHNkpOid/k6NTpUia4OG0j995xzKMdNBo14
-	 Zx6mdcI+xwi+IUAuMayP9881TMdjH9xlNgOdePxpb1RTDuYMEpZomA0rYnX4tfd67TRiJ
-	 98xvQdodQZ9M2jSmucqdfoP/3Muf6el5NMA6JIqT9x5DfKhfZuzVG5/7VmJttVhMkqw==
+	t=1794048307;
+	b=dVfKgntwE1qj8YQr48i7gwsM06Kv4ioK024dMKj/R6qxV4L8MXyYfkOmTZcp6aLWy/ma
+	 Ze91wXCw1yT75X83PEwah/kq/AnHu1eaGi6HA7ZLhwwTvsNBKagemKnlsY4AZaPHomF47
+	 due+iP9oBvCBi54uGyQsOqeWJDQ2Q198qm0pvzvy/auRgFnxbTomQQUoaMtdKC6JKXFvR
+	 6jP7UOMgy+7EeDyv4TgFcJy1Ocr753dKyUM0Su1NOFM0kLLK1HpAtnGw2MqOxyE8F/kyg
+	 RLWe9JvCfvABbXl71+aifzZfFUtDl5hxgYuVlCe6iH8k7pDwiJPXRbILXB6nvSj/Ung==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048304;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048307;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=seJ1+xGyQ8btrV0uRhS237N0N70DmRM1RFBkDMLrZGM=;
-	b=JJ2+Uw1HXu7GoFWWfc9fAhSGD/TXq23eBRr4/G1Muo6dsuQlxKQr9xMccgBkK493BOT6
-	 w2QJNdcyqnBI+8Ow6LC3TnYh3y+FS16BWMW5FdoiBWpvDCqdbSZruTkhDpjcQSso7nOpp
-	 u7aarb3a0ajfeGjjtU1ma0vakAN7KF6K48dwGlj08xKQUHC9+ejWK3Nck6R1OgmdzCvTt
-	 dsnLt/cMujfmH2JXy9k1BxT1qhbvjPKLpVidpraC4XotFwniMIMDMgJF1VWpPLbfRf9al
-	 +xiABU2Mo/8MLavyW1x9Re4HhNgTMKqFXrEOs5rvWC2rFGkTlwOSgntw2HM2aw6lZZA==
+	bh=Q1AF6bmza6SQuDYvPNn33zILT6XzPchaVTClqG1x3Jk=;
+	b=bCcy7kVaHzkgkIpVG84a65qZV4Yp6x+0IGqkvoqPYqAYPxyDnDwnwh0JwZBFsDJZQQTp
+	 FhfD4LGUBdh6O0P2Q1714R2xfizqK5gWXIXpVBmcP7+q5zLw+tv4Lzu8jnDBNMQzQM5uH
+	 CAzLZSoTY97S7YOTijv240kgtQHSw7HyZNy3v7m608qS6JCODZc833k9GsQ99p5TOC0Q0
+	 Wsk7jVa7Q+8hRcd+wcUpC/JdCDQnjgrpLgtsNvK09JxidKhPp57Q/r7koY6wDKnV9AeeD
+	 dzc7pJV1npGHjFGWdijN/Jziv3233/j0zDVOAHsPyBwBZqz+6yKKRBbRLh4PsoFqJSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="lZ/aXE9d";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VtBjCUVi;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53D6B606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:45:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37715606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:45:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lZ/aXE9d
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BA041F008A1;
-	Sat,  7 Nov 2026 10:45:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VtBjCUVi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 913E31F0089F;
+	Sat,  7 Nov 2026 10:45:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048304;
-	bh=seJ1+xGyQ8btrV0uRhS237N0N70DmRM1RFBkDMLrZGM=;
+	s=k20260515; t=1794048307;
+	bh=Q1AF6bmza6SQuDYvPNn33zILT6XzPchaVTClqG1x3Jk=;
 	h=From:To:Cc:Subject:Date;
-	b=lZ/aXE9dHWLFNKHdzgwJVfNRAEmZkriruCTLqKJ2HIWNSENekAtBH4hBktKKXvc7g
-	 Qinwn15c3/GC533J8zAQgqk9DZNOXTGbwcgFSBAOir3cECoo1SiN/o/ItrtklxCuYa
-	 F6U8gJJc3ZE2QYOU0sVS4StwWZ1BQBhvWJvCfiLevAF2BBcA/YrH7krhE/aqhXirAF
-	 cA9z8qIU0dSDLd2dXcTLHUInAEG2lEl1x6Fz6+cOttDZB1FJefE9CAfrodCr1qM1EV
-	 T6DRbFiBRQV4poAOom1aR9jNPjP/0kSBgMKwClQpBpciA79X6B9F0SnSz6JcsZnLHU
-	 /oV3KXMc4DqPQ==
+	b=VtBjCUVihNEVjU6vN7VLPxt92/7oDZD2TZt6JAVNp/Lz++tYprDYxjykxUkHHMw8K
+	 3THrJvMInn2erHePxLQkcigQ4/UNPOCJ7Hv0ci/5rtIp6oWMlYmfzUNBfmDPeuh1oY
+	 qTRNFf2tD+f1J/0O9us1f71G4yPvsKVgElBucER9uie/1GpH8a83pcCHmdYgL++yrr
+	 0b7kUs7k3wQ8xcM5X0jC7b622+2tva0QzLsQN+ydtxVL1jimBV6IHVF2Ib46RlwH6H
+	 f1OMKnfGiprnon0tyZv1dFkijfmM7oTaQ2y1NNPGrT2+nTiP/xesm9KNHMX10aNl2s
+	 KNj9aG9FFbQGg==
 From: Sasha Levin <sashal@kernel.org>
-To: khorenko@virtuozzo.com,
-	eva.kurchatova@virtuozzo.com,
+To: blum@kernel.org,
 	akpm@linux-foundation.org,
-	shuah@kernel.org,
-	richard.weiyang@gmail.com
+	dmoulding@me.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] selftests/core: fix unshare_test with large fs.nr_open" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:45:02 -0500
-Message-ID: <20261107054501-failed-6.1-df0b7e0ea59c@kernel.org>
+Subject: FAILED: patch "[PATCH] init: fix early boot crash with bare hostname parameter" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:45:05 -0500
+Message-ID: <20261107054505-failed-6.1-b6bec5b63a5b@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,96 +69,52 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x df0b7e0ea59c43708cff8c7e34da5e2f8d430e5e
+git cherry-pick -x b6bec5b63a5b812145e53aaad1e63661c7214f93
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054501-failed-6.1-df0b7e0ea59c@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054505-failed-6.1-b6bec5b63a5b@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From df0b7e0ea59c43708cff8c7e34da5e2f8d430e5e Mon Sep 17 00:00:00 2001
-From: Konstantin Khorenko <khorenko@virtuozzo.com>
-Date: Fri, 14 Aug 2026 18:57:09 +0200
-Subject: [PATCH] selftests/core: fix unshare_test with large fs.nr_open
+From b6bec5b63a5b812145e53aaad1e63661c7214f93 Mon Sep 17 00:00:00 2001
+From: Thorsten Blum <blum@kernel.org>
+Date: Wed, 26 Aug 2026 12:09:03 +0200
+Subject: [PATCH] init: fix early boot crash with bare hostname parameter
 
-The test assumes fs.nr_open is close to the default 1048576, but some
-systems set it much higher (e.g.  1073741816).  This is systemd's doing:
-since systemd v240 (2018), PID 1 bumps fs.nr_open and fs.file-max to their
-largest possible values on boot, as file descriptors are already accounted
-for by memcg [1].
+When a bare hostname parameter is specified on the kernel command line
+without the '=' separator, early parameter parsing passes NULL to
+early_hostname(), which dereferences it in strscpy() and can crash the
+system during early boot.
 
-In that case, dup2() to nr_open + 64 requires the kernel to allocate a
-file descriptor table with ~1 billion entries, which fails with ENOMEM.
+Reject NULL values in early_hostname() and return -EINVAL instead.
 
-On a kernel that already carries 04a2c4b4511d1, dup2() no longer fails
-with ENOMEM.  The allocation is now rejected up front and the caller
-gets EMFILE instead, without the WARNING, but the test still fails.
-
-Cap the nr_open value used for the test's own arithmetic to a known
-reasonable base value (1048576) and restore the true original value once
-the test has completed.
-
-Link: https://lore.kernel.org/20260814165709.513263-1-khorenko@virtuozzo.com
-Link: https://github.com/systemd/systemd/commit/a8b627aaed409a15260c25988970c795bf963812 [1]
-Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
-Signed-off-by: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
+Link: https://lore.kernel.org/20260826100904.296151-2-blum@kernel.org
+Fixes: 5a704629f2c1 ("init: add "hostname" kernel parameter")
+Signed-off-by: Thorsten Blum <blum@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: Shuah Khan <shuah@kernel.org>
-Cc: Wei Yang <richard.weiyang@gmail.com>
+Cc: Dan Moulding <dmoulding@me.com>
 Cc: <stable@vger.kernel.org>
 ---
- tools/testing/selftests/core/unshare_test.c | 19 +++++++++++++++++--
- 1 file changed, 17 insertions(+), 2 deletions(-)
+ init/version.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/tools/testing/selftests/core/unshare_test.c b/tools/testing/selftests/core/unshare_test.c
-index ffce75a6c228f..d40e963dd5205 100644
---- a/tools/testing/selftests/core/unshare_test.c
-+++ b/tools/testing/selftests/core/unshare_test.c
-@@ -40,6 +40,14 @@ TEST(unshare_EMFILE)
+diff --git a/init/version.c b/init/version.c
+index 94c96f6fbfe6a..0bd5c45aabc46 100644
+--- a/init/version.c
++++ b/init/version.c
+@@ -23,6 +23,9 @@ static int __init early_hostname(char *arg)
+ 	size_t maxlen  = bufsize - 1;
+ 	ssize_t arglen;
  
- 	ASSERT_EQ(sscanf(buf, "%d", &nr_open), 1);
- 
-+	/*
-+	 * Cap nr_open for the duration of the test to avoid ENOMEM from a
-+	 * huge fd table allocation; buf/n keep the real original value so
-+	 * fs.nr_open can be restored to it once the test is done.
-+	 */
-+	if (nr_open > 1024 * 1024)
-+		nr_open = 1024 * 1024;
++	if (!arg)
++		return -EINVAL;
 +
- 	ASSERT_EQ(0, getrlimit(RLIMIT_NOFILE, &rlimit));
- 
- 	/* bump fs.nr_open */
-@@ -73,10 +81,13 @@ TEST(unshare_EMFILE)
- 
- 	if (pid == 0) {
- 		int err;
-+		char buf3[32];
-+		ssize_t n3;
- 
--		/* restore fs.nr_open */
-+		/* restore fs.nr_open to the (possibly capped) test baseline */
-+		n3 = sprintf(buf3, "%d\n", nr_open);
- 		lseek(fd, 0, SEEK_SET);
--		write(fd, buf, n);
-+		write(fd, buf3, n3);
- 		/* ... and now unshare(CLONE_FILES) must fail with EMFILE */
- 		err = unshare(CLONE_FILES);
- 		EXPECT_EQ(err, -1)
-@@ -89,6 +100,10 @@ TEST(unshare_EMFILE)
- 	EXPECT_EQ(waitpid(pid, &status, 0), pid);
- 	EXPECT_EQ(true, WIFEXITED(status));
- 	EXPECT_EQ(0, WEXITSTATUS(status));
-+
-+	/* restore the real fs.nr_open value */
-+	lseek(fd, 0, SEEK_SET);
-+	write(fd, buf, n);
- }
- 
- TEST_HARNESS_MAIN
+ 	arglen = strscpy(init_uts_ns.name.nodename, arg, bufsize);
+ 	if (arglen < 0) {
+ 		pr_warn("hostname parameter exceeds %zd characters and will be truncated",
 -- 
 2.53.0
 
