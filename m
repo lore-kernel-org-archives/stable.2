@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049539;
-	b=I8DzVACYpzoNjkUoe34pl/Pbfev5JgtVLg2ZkuNEz3bFP3I+EilIuIHcdSb/iptb3l1F
-	 uO4gSFb++4wcW87F4JVrhmWsv3wn6PWZOyOvMbJmAFTOY+dhM76UaO47CrCHu1wubvETP
-	 uBDXNQJQMPh+u0RYD7nTEpF6HEwrwX9uYD1rKu/6Yg/TZGLE5CDw/mauEar5HrL12fQCL
-	 dmbf25Hea1VWw5vCEdkgz2jiZ4rnvffM6s0wAxOWsE+OVFLxnOTtIFSjNXBCtRHhGlDLa
-	 M8YVlpLeOZ0qF3/oOrDP5P9yNXkbZpczKShHIdIFzAAy3eKQ7NUd2rfR8qDpoUV8VDQ==
+	t=1794049542;
+	b=fJezu0dcqrKTDlLe4VydOm+t66peXLvImoC4z3zM2RvH7PiXlm8tUp7uQkEU7Qpt/+gx
+	 A8RH0XaZTT1S7IYWGi6Ym5PZn6RsgJevQ1CSaFubTyK8WJ1ljw5p+9/AH79rny8RAy4MY
+	 yqKPi48h4/fBA5XuiI8Jxuz2n4Z8+gr2sjocxSdwvtxq9cbSYO3IxacfV9en4VKZyVMM9
+	 /INdznqA/pmZlRLV7e7Dn0QYslNoQcYIqk6716taEGiF6ZiVTJ7e0u29oql6Tm9jysRyT
+	 nUkWwEvKpIg0FCudHn9MERO60oMNfZHFb74SyKVsOG9GTL8Vaa3P4YVV0PTbslCeTWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049539;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049542;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=d7zssbOY50KZlDRY6sGZ6nW9FmlaKKbB/IAPScrZnHE=;
-	b=KZ0v/vvbrGAai4/4mRoQF2qilbkDEwJBJryIQa+tcPZXLVGO+awMbfPU/0QFoB1Tdofp
-	 SZhG2X9pF8OMNMZi5+INz0yq+Uh9z1x3x9UKma+AjOGbl8CW/yPofR2kfEJEeqT18E3Iu
-	 wLLIOzOK7UsG2mZCasM2RRvIu4x3lpaKP+rp705VlTM4b64FdVe7OfxVEZ4+5hmfykWyk
-	 H2ZTIuJNGh5bp6SPvJW1AFkdTfBaJNYBBH8i34+mlIsx/JFATXWwKkRzMAODSVePpPXDw
-	 C8IUzRUUpY+sYUwOx/l81MerhOpAGfP/dy9c4FjZ8jFoXgXcDMxs9pRMOIxT+YK6m8A==
+	bh=pPUQA2c4Ww5Fnn7Ow3K+PcW1e5yDNYX9CrEbenbaAa0=;
+	b=uAOX6lnKUIDwuaTgTWlesjiIWK5smbx0tdLPikDHqFwxAyX7kTikQbQyJlUhIm/bQjKi
+	 lyCCSfFenA39L36HPs0+DIXkClhpVRgdcy5OtSeiPYegwcz/h907Jm7Vbc7aDOupMMhwR
+	 1mQCqSSHUWVf0mIFyORWz3PnyoUavKZogBxQEr9Zlh1iu6WAKBsZaSjV7bDDvOhA0lmn5
+	 t66HzIxHj9nPs7xufofi0COj+fBMME/saO/2LTJuzyLjyGoAN5YeDwCgewLJftQlL4BpW
+	 Ka81x5RWvRzPYLvkoxwrdR7BQ6avzUemXTPflZBTLrEAZvVkzs2i3Jnjx7OyzmVUTFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k8r10tOx;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gupBQIvE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69DDD606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:05:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A566606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:05:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k8r10tOx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B24671F0089F;
-	Sat,  7 Nov 2026 11:05:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gupBQIvE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA4F51F0089F;
+	Sat,  7 Nov 2026 11:05:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049539;
-	bh=d7zssbOY50KZlDRY6sGZ6nW9FmlaKKbB/IAPScrZnHE=;
+	s=k20260515; t=1794049542;
+	bh=pPUQA2c4Ww5Fnn7Ow3K+PcW1e5yDNYX9CrEbenbaAa0=;
 	h=From:To:Cc:Subject:Date;
-	b=k8r10tOxIGgeKBtI/dX37jJb5/Fpmel5UEZbpQNFrFvwb8UnbxcG24T1Lwk2IoX+5
-	 iHTtT2YmXTCsZZZ39jiRf48NxvBpl+XqOKWR6h4oA4I6mSG3rAqtc8m2wgQdtSrVj+
-	 Ff/rXsryfc+FN37BEaI3c01RZW4t03orva//D0OhAiCr6MEabnt0R5MZpatsJHmWE5
-	 Y4mCFHiaQDBfOOUjVlqeu6JTEqwW5UizE+rchYsklyOslo/pqD7uH8WOs35iJZRBZh
-	 Y9Z2SGKcLs7lnJ1Yj4T+Ir6HlcZm+EZ3O5rpf5dt6D7xFHaelIxeZf8MXiVKom5bW0
-	 399VQX3EKmmwA==
+	b=gupBQIvEx+VZrQzhqz4FHfHhbfYcO5FQaVi/kAa6eG53E5ELjjGFfifTMUdUBuEG2
+	 beWMYO6NCRGlCvIwwrjti6NzrF4IEaLUnHG6yGFJ9BE3avyA0FGxnv24A7L3fp/dUx
+	 FLU+Io6ScKCpZ6eL0cmyaZ2139LoTjq84JTk3nOTpuo0kTFTy4NRAK907odC8xXNVh
+	 B4gvDBtITxXyJD0R/8pXQE0RKY8tBXmivqCc895jJ6bzm4lTY2Fg4dAqxrwRrsc00d
+	 G149sCw4y3KfrG4iR1K6igHZkbX0apB+qBRqLk99f/iwq9BxLxqBmA/DbjscMQsw9D
+	 F1oaCAaGqu11g==
 From: Sasha Levin <sashal@kernel.org>
 To: zhaonanzhe@xiaomi.com,
+	sashiko-bot@kernel.org,
 	chao@kernel.org,
-	baohua@kernel.org,
 	jaegeuk@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] f2fs: remove mappedtodisk flag usage in mmap write path" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:05:37 -0500
-Message-ID: <20261107060537-failed-5.15-b3c984358925@kernel.org>
+Subject: FAILED: patch "[PATCH] f2fs: read i_size once in f2fs_vm_page_mkwrite" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 06:05:40 -0500
+Message-ID: <20261107060540-failed-5.15-c04f209773ec@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,93 +70,100 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x b3c9843589257631bac18f30655e82d88970688a
+git cherry-pick -x c04f209773ecb31e592cababce0d6658ee0b8d58
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060537-failed-5.15-b3c984358925@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060540-failed-5.15-c04f209773ec@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From b3c9843589257631bac18f30655e82d88970688a Mon Sep 17 00:00:00 2001
+From c04f209773ecb31e592cababce0d6658ee0b8d58 Mon Sep 17 00:00:00 2001
 From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
-Date: Mon, 12 Oct 2026 11:03:15 +0800
-Subject: [PATCH] f2fs: remove mappedtodisk flag usage in mmap write path
+Date: Tue, 13 Oct 2026 18:56:28 +0800
+Subject: [PATCH] f2fs: read i_size once in f2fs_vm_page_mkwrite
 
-PG_mappedtodisk was inherited from the nobh/buffer-head era.  However,
-f2fs has no buffer heads and the flag is no longer meaningful.  The only
-user of the flag is the "no holes" shortcut in f2fs_vm_page_mkwrite(),
-which makes mmap write faults skip marking the folio dirty.  Moreover,
-it causes the following race condition with filesystem freezing:
+f2fs_vm_page_mkwrite() reads i_size twice: once to check whether the
+folio is partially beyond EOF, and once to calculate the offset for
+folio_zero_segment(). But a concurrent buffered write can extend isize
+and cause the following race condition to corrupt data:
 
- CPU0 (write fault)     CPU1 (freeze_super)
- ----                   ----
+buffered write writes [0,3500)
+
+CPU0 (write fault)                        CPU1 (buffered write)
+ ----                                     ----
  f2fs_vm_page_mkwrite()
- sb_start_pagefault()
- /* shortcut: no dirty */
- sb_end_pagefault()
+ folio_lock(folio)
+ if (((loff_t)(folio->index + 1) << PAGE_SHIFT) >
+ i_size_read(inode))
+ /* i_size_read() = 3500 */
+                                           write(fd, buf, 200, 4096)
+                                           /* writes into page1, does not
+                                              wait for folio lock */
+                                           i_size_write(inode, 4296)
+ offset = i_size_read(inode) & ~PAGE_MASK
+ /* i_size_read() = 4296, offset = 200 */
+ folio_zero_segment(folio, offset, folio_size(folio))
+ /* valid data [200, 3500) is zeroed */
 
-                        sb_wait_write(SB_FREEZE_PAGEFAULT)
-                        /* no waiter, passes */
-                        sync_filesystem()
-                        /* folio not dirty, skipped */
+Fix this by reading i_size once and using the same value for both the
+EOF check and the zeroing offset.
 
- finish_fault()
- /* PTE writable */
- fault_dirty_shared_page()
- folio_mark_dirty()
- /* dirty folio on a frozen fs */
-
-It will also skip APP_MAPPED_IO iostat/REQ_TIME updates and post-EOF
-folio zeroing.
-
-Remove this shortcut in f2fs_vm_page_mkwrite() and stop setting it in
-f2fs_read_single_page().
-
-Reported-by: Chao Yu <chao@kernel.org>
-Link: https://lore.kernel.org/linux-f2fs-devel/496b913c-eb81-4fa8-be72-c6a06a10aba2@kernel.org/
-Reviewed-by: Chao Yu <chao@kernel.org>
-Reviewed-by: Barry Song <baohua@kernel.org>
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20261012030315.978375-1-zhaonanzhe%40xiaomi.com
 Fixes: fbfa2cc58d53 ("f2fs: add file operations")
 Cc: stable@vger.kernel.org
 Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+Reviewed-by: Chao Yu <chao@kernel.org>
 Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
 ---
- fs/f2fs/data.c | 1 -
- fs/f2fs/file.c | 6 ------
- 2 files changed, 7 deletions(-)
+ fs/f2fs/file.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
 
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index 2613e8821af6d..348ddc8b748c5 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -2494,7 +2494,6 @@ static int f2fs_read_single_page(struct inode *inode, struct fsverity_info *vi,
- got_it:
- 	if ((map->m_flags & F2FS_MAP_MAPPED)) {
- 		block_nr = map->m_pblk + block_in_file - map->m_lblk;
--		folio_set_mappedtodisk(folio);
- 
- 		if (!f2fs_is_valid_blkaddr(F2FS_I_SB(inode), block_nr,
- 						DATA_GENERIC_ENHANCE_READ)) {
 diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-index ef4d218e694bd..4363e28056e6b 100644
+index 4363e28056e6b..713fb6f49bcb3 100644
 --- a/fs/f2fs/file.c
 +++ b/fs/f2fs/file.c
-@@ -218,12 +218,6 @@ static vm_fault_t f2fs_vm_page_mkwrite(struct vm_fault *vmf)
- 	/* wait for GCed page writeback via generic cache */
+@@ -125,6 +125,7 @@ static vm_fault_t f2fs_vm_page_mkwrite(struct vm_fault *vmf)
+ 	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
+ 	struct dnode_of_data dn;
+ 	bool need_alloc = !f2fs_is_pinned_file(inode);
++	loff_t isize;
+ 	int err = 0;
+ 	vm_fault_t ret;
+ 
+@@ -188,8 +189,14 @@ static vm_fault_t f2fs_vm_page_mkwrite(struct vm_fault *vmf)
+ 	filemap_invalidate_lock_shared(inode->i_mapping);
+ 
+ 	folio_lock(folio);
++	/*
++	 * A concurrent buffered write can extend isize, so we store isize in a
++	 * local variable to let the zeroing offset match the EOF check below.
++	 */
++	isize = i_size_read(inode);
++
+ 	if (unlikely(folio->mapping != inode->i_mapping ||
+-			folio_pos(folio) > i_size_read(inode) ||
++			folio_pos(folio) > isize ||
+ 			!folio_test_uptodate(folio))) {
+ 		folio_unlock(folio);
+ 		err = -EFAULT;
+@@ -219,11 +226,10 @@ static vm_fault_t f2fs_vm_page_mkwrite(struct vm_fault *vmf)
  	f2fs_wait_on_block_writeback(inode, dn.data_blkaddr);
  
--	/*
--	 * check to see if the page is mapped already (no holes)
--	 */
--	if (folio_test_mappedtodisk(folio))
--		goto out_sem;
--
  	/* page is wholly or partially inside EOF */
- 	if (((loff_t)(folio->index + 1) << PAGE_SHIFT) >
- 						i_size_read(inode)) {
+-	if (((loff_t)(folio->index + 1) << PAGE_SHIFT) >
+-						i_size_read(inode)) {
++	if (((loff_t)(folio->index + 1) << PAGE_SHIFT) > isize) {
+ 		loff_t offset;
+ 
+-		offset = i_size_read(inode) & ~PAGE_MASK;
++		offset = isize & ~PAGE_MASK;
+ 		folio_zero_segment(folio, offset, folio_size(folio));
+ 	}
+ 	folio_mark_dirty(folio);
 -- 
 2.53.0
 
