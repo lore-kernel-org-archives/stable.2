@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048973;
-	b=Y3FtBAcc3v+2TMGKPyijK8PKF5YnMaPe0Q0VCZtkyhY4dPV0XpZwoZK6ky3fr/JbhFzw
-	 asDcmet/52K6CKpwrt6kVjEgEj9iduZ5jYz0g7Y4UuAkeM7pQuyIVbYx94TdSv8MC/6TN
-	 nKCGCi6aycFhDE0dYVaujc9cG8kFIobSonADucd+H21pJjQprSXuPF5Js/Su6lon/gEkp
-	 +k83IQMKCWMoAQWCXQp8RtflOM6UDagYI9WVi75weKPtsPpoCb6E0tCjjeNjs+lzFi2jM
-	 mO2xnhaypopclYYz2pHwQJf50iMuqdrQtrBZDMSrRzbn7HoplUqk1tNMudI3nezy5lA==
+	t=1794048975;
+	b=touwluOX0PhCwtRb0CNJBCaeMOOeasDJIiNA9CuYDN35hz4atuB6x0g/R628h2cWzeDa
+	 Wb2zEzYfLx+SbvHPz3KRbvl2cY+Vx9FlSGWOmhoAlYjyroy1TB5Pw/xzpeaK9zdp7YX2h
+	 4Fa5DWIWhTD1DRJXHJoDjQPV059xgXkJFUS3TkCAxUSrRlxPg4gTz1K8uet0lJTSHNUe7
+	 nInyloW1IN83XaOKyOXAI8K+UAvJ65rZO3ht1bxD6guAy7wSQ5foN/mT2xqc0wuFispo+
+	 w1SOkmVbuihnyo57o0oaJxageBEbS+YDbcCz3avqGBQAqom1TTX+nIC/Nujwdwq0Vpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048973;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048975;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=l8hsrvFCXsI9xefM6sfTpWgTPObgw9eNf+RoQ1sDidA=;
-	b=4+CigFFxxOiE5UN4453Yb66ersYBCGfDmLLdepQkE3EM8GEFnJNahJGkfk4XCBuSDrnR
-	 ylQRBkqhjA+HFVwL3Z8lnF2YpX1+G4aq+aZCx/5JDVc7PqQF0asMWrnV/wadJEh0m+iI/
-	 MWB3S1/FGxXUJQemwp7NRV7MMKOZnTJK6GvgJhBisg+Z3ou3J9mHlLg3baoCMrOz1hQlz
-	 6Bl2+4/t+RdU8m1eVRolWeJQr/HaYvzwctJPZWXcd0ETvrEE6emYerssJysg2yPMjMAGa
-	 Ko0ARev+FjFj+8pNNHtkMuUitZMrMGTV5IKRIRtzwZ7S9wPNVkb8hE62BtBlx1BBtXw==
+	bh=NQ+TS7pmlV7dkbaYOMU6wCvAz6ipQjmAOLbHZ2WzTgE=;
+	b=d8VySKtqOPX35OGv11Ws/56SleFOgrU7DFadYOf9a2DyJ98RqT4I1vK4xe11RdA2Uj8G
+	 WpKYQdvkEfcsnTLah0LJ90kpKA9KxIJvWgE8I6Dlg4Z/IAVp3/TLjKPGyuDSqkswfeFTo
+	 Kb51xT6kbEz9eTMG0AjLpkGBgdvKnU13JKR9BvitgItyDYPAQxSx4RubJHJ/vouTtf2b+
+	 JRW5ky0kiKGll/ZqNE2p1X7V6Bhf53z3E/r0m0pTpPboAsuGt7o3n3mNvoMgCOW9FJa2K
+	 6IapDL8f6st1AZ5zbqKXgp5sy+m0h/jd9bsathpjn4LfYEj5mFQqvjdI+ogGC6FI6uw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CzXdOase;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zu1aWAse;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C01B5606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:56:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3C2E606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:56:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CzXdOase
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 280841F008A1;
-	Sat,  7 Nov 2026 10:56:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zu1aWAse
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A1B61F008A1;
+	Sat,  7 Nov 2026 10:56:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048972;
-	bh=l8hsrvFCXsI9xefM6sfTpWgTPObgw9eNf+RoQ1sDidA=;
+	s=k20260515; t=1794048975;
+	bh=NQ+TS7pmlV7dkbaYOMU6wCvAz6ipQjmAOLbHZ2WzTgE=;
 	h=From:To:Cc:Subject:Date;
-	b=CzXdOaseN3/vEzpMZ4S3rOLKO8LPDqRbgYe0iZH0lIPO1OqVEQkcnUzrFM6EDJHKA
-	 iY0k0HNBMd1eRWoAQb2TA6yX2n7R7aXy7pkjwnFE59nNbHOYyzZ1qzETwJ3ts7ANaH
-	 GjEu8Z0Exzcretq6HYnhu+J9AKkkHYozMS+pTwDfMlGrCRMl0LkMQo065UqgqjWdwY
-	 Nw3j/1+mPetfvYh8wr3c/RpQwDbsOCkMIoyvW0fQVhB41elMG+O8x4aShM0GL/HejP
-	 n5R6SRCmXgvYai7VW3eylt8d6hgXIaWfNCVj80Gia9XdgjF9dMhQ0qJcIomQhEjoSf
-	 rd38Hob0ypZeA==
+	b=Zu1aWAseg1iohFMDB2p9y76R7qfL77qKUwncyeDPczguU0/dKJKAXj7uDcJkF4KDX
+	 sUl/lHiGc/w4Phl2E79Mci/9WRcF1yobmvR1YfeItFuW+oqeC6R/+Jg1GNR/IKgr5p
+	 XJ9rZxOxzYqHmOrH0i3Ea5dbxnsqu9qH1jC71mHBVzq9Z82Shs+5JME83XIfaowguE
+	 IazOV1dDDvidpleCZfj0cZ5xce1uG5jxavMpplgECfXtYybPygh5SiFEx4ZXboCc7h
+	 IQEtB/pGHV08PJejJ7X82qO1DVrbsfcsUsOcMU1eI8QK3wq0lgsoEpJ6VrjS95NvSJ
+	 wBldiPV/48yUg==
 From: Sasha Levin <sashal@kernel.org>
 To: jesse.zhang@amd.com,
 	christian.koenig@amd.com,
 	alexander.deucher@amd.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/amdgpu: reject CS chunks too large for kvmalloc()" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:56:10 -0500
-Message-ID: <20261107055610-failed-6.1-ba4c3c202919@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/amdgpu: drop the gang leader reference when freeing gang jobs" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:56:13 -0500
+Message-ID: <20261107055613-failed-6.1-c1584e10a7de@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,61 +69,110 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x ba4c3c202919405f461a393e823e4b72c8518494
+git cherry-pick -x c1584e10a7deb655438f21867b2b7a356a9aaf9f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055610-failed-6.1-ba4c3c202919@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055613-failed-6.1-c1584e10a7de@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From ba4c3c202919405f461a393e823e4b72c8518494 Mon Sep 17 00:00:00 2001
+From c1584e10a7deb655438f21867b2b7a356a9aaf9f Mon Sep 17 00:00:00 2001
 From: Jesse Zhang <Jesse.Zhang@amd.com>
-Date: Sun, 18 Oct 2026 19:17:57 +0800
-Subject: [PATCH] drm/amdgpu: reject CS chunks too large for kvmalloc()
+Date: Thu, 15 Oct 2026 22:59:25 +0800
+Subject: [PATCH] drm/amdgpu: drop the gang leader reference when freeing gang
+ jobs
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The CS ioctl copies every chunk with vmemdup_array_user() before it
-looks at it, for whatever length_dw userspace gives. kvmalloc() warns
-about allocations above INT_MAX when called without __GFP_NOWARN, so any
-process with the render node can trigger a warning. On navi31, a CS with
-a chunk of length_dw 0x20000000 returns -ENOMEM after:
+Every job of a gang except the leader holds a reference to the
+scheduled fence of the leader in job->gang_submit. Only
+amdgpu_job_free(), used for jobs which never ran, drops it, so for every
+gang submission which completes the scheduler fence of the leader, and
+with it its hardware fence, is leaked. amdgpu_job_free() in turn checks
+for the leader only after drm_sched_job_cleanup() cleared the scheduler
+fence, so a leader freed there drops a reference it never took.
 
-  WARNING: mm/slub.c:6841 at __kvmalloc_node_noprof+0x5a5/0x7d0
+On navi31, 100 submissions of a GFX + COMPUTE gang grow the slab cache
+drm_sched_fence is merged into by 60 to 180 objects each time, while
+100 GFX only submissions don't.
 
-Reject such chunks with -EINVAL before trying to copy them.
+Use amdgpu_job_free() for the jobs the scheduler frees too, and check
+for the gang leader there before drm_sched_job_cleanup() clears the
+scheduler fence. As the scheduler clears the entity of the jobs it
+picked up, check for the scheduler fence instead to tell whether the job
+needs cleaning up.
 
-Fixes: 2098105ec65c ("drm: drop drm_[cm]alloc* helpers")
-Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+Keep freeing the remaining IBs with amdgpu_job_free_resources() after
+drm_sched_job_cleanup(), so that it frees them with the hardware fence or
+right away and not with the scheduler fence, which nobody signals for
+jobs aborted after drm_sched_job_arm(), like a CS returning -EAGAIN.
+
+v2: unify amdgpu_job_free() and amdgpu_job_free_cb() (Christian), don't
+    free the remaining IBs with the scheduler fence
+v3: drop the comments (Christian)
+v4: free the IBs with amdgpu_job_free_resources() again (Christian)
+
+Fixes: 68ce8b242242 ("drm/amdgpu: add gang submit backend v2")
+Fixes: f7d66fb2ea43 ("drm/amdgpu: cleanup scheduler job initialization v2")
 Reviewed-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit dab5f5280406088591645f499f048dcfefab8d7d)
+(cherry picked from commit df4d6d404d44bbc8fc850bc7f9f136a25dabf180)
 Cc: stable@vger.kernel.org
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 24 +++++-------------------
+ 1 file changed, 5 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index 65e13ad445bbb..70bc53923d119 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -218,6 +218,12 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parser *p,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+index 9cc210198fa45..8689a3c933b27 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+@@ -313,22 +313,7 @@ void amdgpu_job_free_resources(struct amdgpu_job *job)
  
- 		size = p->chunks[i].length_dw;
+ static void amdgpu_job_free_cb(struct drm_sched_job *s_job)
+ {
+-	struct amdgpu_job *job = to_amdgpu_job(s_job);
+-
+-	drm_sched_job_cleanup(s_job);
+-
+-	amdgpu_sync_free(&job->explicit_sync);
+-
+-	if (dma_fence_was_initialized(&job->hw_fence->base))
+-		dma_fence_put(&job->hw_fence->base);
+-	else
+-		kfree(job->hw_fence);
+-	if (dma_fence_was_initialized(&job->hw_vm_fence->base))
+-		dma_fence_put(&job->hw_vm_fence->base);
+-	else
+-		kfree(job->hw_vm_fence);
+-
+-	kfree(job);
++	amdgpu_job_free(to_amdgpu_job(s_job));
+ }
  
-+		if (size > INT_MAX / sizeof(uint32_t)) {
-+			ret = -EINVAL;
-+			i--;
-+			goto free_partial_kdata;
-+		}
+ void amdgpu_job_set_gang_leader(struct amdgpu_job *job,
+@@ -349,13 +334,14 @@ void amdgpu_job_set_gang_leader(struct amdgpu_job *job,
+ 
+ void amdgpu_job_free(struct amdgpu_job *job)
+ {
+-	if (job->base.entity)
++	if (job->gang_submit != &job->base.s_fence->scheduled)
++		dma_fence_put(job->gang_submit);
 +
- 		p->chunks[i].kdata = vmemdup_array_user(u64_to_user_ptr(user_chunk.chunk_data),
- 							size,
- 							sizeof(uint32_t));
++	if (job->base.s_fence)
+ 		drm_sched_job_cleanup(&job->base);
+ 
+ 	amdgpu_job_free_resources(job);
+ 	amdgpu_sync_free(&job->explicit_sync);
+-	if (job->gang_submit != &job->base.s_fence->scheduled)
+-		dma_fence_put(job->gang_submit);
+ 
+ 	if (dma_fence_was_initialized(&job->hw_fence->base))
+ 		dma_fence_put(&job->hw_fence->base);
 -- 
 2.53.0
 
