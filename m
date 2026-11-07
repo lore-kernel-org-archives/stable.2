@@ -1,96 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.51
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794039221;
-	b=Ak07B9dlfEOG8Ro8D4c1cBoCD9uab/mc/7L/+uylMl+FZqPn1quahIERmcKqMi3ho792
-	 2UDL6KsxomwmrTzQsRJ7r1t4bFVSld7vKNdZUp51+gg3sqpEIKM/vS1GOpCN+zf6bcsdl
-	 aK6GyvCqZpz9GT/0WuLLawqHtxzqcINYZ6Ck0qQEEEuWlcMZVBVkaRvxg2M0OJfTLUOz/
-	 4zziyrv74KwvaTGo9h5qcIF+ns1YXGE09vjt1S0f/m+EHVY/eOc5uORNecbbk+59WEDoG
-	 fXkBC+P/cNyaiGOmae4PAviDGHaIOK0YS/uzmngw9apOEISGzdA6SdTI31LgR1zIoSA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794039221;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=drqqMV56464i4tsg6wHrzxaF+Ciezd2Nv4lHeIMrI/0=;
-	b=CU7nl+iON2sQiR04go9iGewDIpTeux5JAP6CPzHingf3BTS4ClngZTjwXGBOFEMQfIdd
-	 EqeSKhg79KjLx8DO0uL9niXfQytL9oJxJ9W5IWxLyjWOyj56FFVDEsNbQeO2vJIh5iEzP
-	 AXaSs9CgzdAk2bLR7kh3gQujiNTczrn0QV6hoH4kgyhDfYU4FotPYayvudSi9abRtpb0q
-	 X/Zj4ZzoVZLWR1dYA0IlkmW2+xHaLObHoXJZZj3yT6qz6ZLxjd9w5621HdeHvuSa9cuPb
-	 mo4pDRKCLhFUQGOKPpYi8Wfr8PCN16Svv8Ox7v+yh1AtQApKH59MAoNnRhNbDEBi8DQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bZvVjFvY;
-	arc=none smtp.remote-ip=209.85.208.51
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794041219;
+	b=jLdCqr+E/NFP9GsU6ZNmB2I5RJYS4rGqjamY6PkyqRh+Xo5/1CLat5Reoi8nwIHPD28G
+	 +7jRTbVh7Geu1QSpYEViVp2pZlPrb1VdDIoRAPU5QYX4FjjenJzZLJFg51OfNYlgTmoTU
+	 2+BQU8qmmJvZGRmXopCXSy9QKeatn6TB9KTBi0bpTlVzoGCLgQYPYYKsiWId71uUsCE34
+	 DHdVBScs7mwrP5+yvpdJZj9p4BWpcrN+RF02iLYVREgbp4f42pWftXfH5mcGK1558HlNL
+	 aulbljjid7HmON3zspdcqbAkzjlBgQet86DUIE7tw0sytQGadGFwttXGQ7fyXsXuj5w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794041219;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=bAtNJeQQZtV0gJf8mO/hJSLFnMdkjTPe0Tyts98GCi0=;
+	b=aKBizN1gOqhUyirb1nOtYdggex1LqPY+s8qwxwwNHJCzj9uU2kx8YzZn816WZTftY305
+	 ZwdzKKkQiCcuwH02TlTZSoQh1JYeY+kJ3xssBx8viPnljuTE/FsfyOBFXNFcYVagOE1c/
+	 Tyo1YLc35MpBQgC+CwkW9jh5U6dyZxMPv+msIwRUNzqLgwaXAbxeoQFVOfG1FF821BTxj
+	 kHnVuo3AVRLahXygQJiN91QlDFS7f1HuFZYXr2xtU8UiLfWxXd6uMU3eftMYIVL8LF7JL
+	 S+Ud+hWMH22NL1Xt5sFXsBsuOoXKncDhBR2IQICk0BUf7k4pqvPBXiaskOYSwjvgXSg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FF8RqXYn;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3A91606A326;
+	Sat,  7 Nov 2026 08:46:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FF8RqXYn
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794041218;
+	b=g5jUbZ7i6+5hbtQKE547WWTYXfZ22ih1P5M6ILXhqLR5T5/YbsLTOBv2IZsC5Wg+fXOW
+	 VQr+C5ZQk7K5unNodxK7nBpWvu5tBdZCwrZNunAk4gVuShd8QIAHZLtjS6TFALovbdZPb
+	 6kIruiE1DdZw0dWLFJR21o3xfxokufcGdvbxGg/lXvIi+Dfz0NXLKUuQfSvVelemFCYx2
+	 WTzcz47tAKpNIeybnjQejk0QuKup0vTBj6mEavXjab4WHiVp+GFZS4ESbnnWbxV7/5Rty
+	 uk6ozCtipyym++xUKeJ6dDFpFIWvrvDJeodcvaZfVBJ+ueyv92WH04HPd2NPKaYgQFg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794041218;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=bAtNJeQQZtV0gJf8mO/hJSLFnMdkjTPe0Tyts98GCi0=;
+	b=SgE43hTHLKfsZmRifaLKmcFPUJWZfW6I4orNVpdr3bkiSuwwCwPqNk01Ldk5JdgL4+E/
+	 4HsaDSzahzF9i1QcQqdsUbixxUqGTVdwpgsFAhsJB09M7br4TYAYNRM8WpCbp74fWAjpS
+	 +T8AmLfKtBQEI2OXfy8eXGNwgB519X0TiRE+5Vn0mY/dJYK+MbvaLQkFQaN9385B2PdCd
+	 tIpV96e9GKPTU2aL5ahnUSNUfkFVteFlA/NW2ByX9yhLKj4uEMDlkDC86BffGWyzsAx+Z
+	 NB2IA0UbYD5Xhj5k5RRGDChf8jJivJTpNoKg8RRSlWQfYOgdAzTiy3DcKsRbgWZHtxA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C7DF606A32F
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 08:13:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C7DF606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bZvVjFvY
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6b2237b596cso2832670a12.0
-        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 00:13:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794039220; x=1794644020; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=drqqMV56464i4tsg6wHrzxaF+Ciezd2Nv4lHeIMrI/0=;
-        b=bZvVjFvYYsdSzfWwQT9YkMoTP8JqeZm4/UzCAp81sLLhJzxMtyORcr2aeCuQYaE0yN
-         YMguZpntuDTDP4YvBUkVr73+CnKn3upZ8VOxyXz9OZX8v5pXNMUpjWSGRQiStPu6y6LT
-         buUjSwLh4C8SG0Q90s4kYfgivk/FS5Icm/8zhEfN30QKHh1Uedv9t5IZN7euR9Zh6h3s
-         mEGBaFfe6+6QAhdmq1zecfl2fYrBFQ5nVlOpWk/E4cd+AAoPId8GoRLEoPcOvpFp1PR/
-         tio5yKKhX+mAxTfnvUy7t5/IM0VC4XzhVc+sX+Q44IZGGFAWkrX6ZOMDEt+DhSv5JnrX
-         0ebA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794039220; x=1794644020;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=drqqMV56464i4tsg6wHrzxaF+Ciezd2Nv4lHeIMrI/0=;
-        b=Lhr9miHfhN16SUtsO/Ok2os46GToeWnFriZMPeJkrWcb5g6E6oa7ftdpvD7FND7JvL
-         1nPbv04rhACposf5zaQHiZCiDWgpa6DMQ1rva7Q+/v54k4Unr8+swuGAGxNSBylvafG6
-         f19xf2Tu4nKZc7lINHwO1nuWKQezGS660OL2atYFN/+DCfysKBqqLV1fIPUdNlNCXAen
-         oqLc2SCWVVDWeRy/1pxrjQ79hgX6QorIaYodTPn9l1nyG6zucSxcgSzd1gdi2i923cOb
-         MUXIh+/E0o60VAasZ98Y34uil9qlj1PbJdZqkdKihIzDqw1KoWHTcC1LJTNVu4tfIyMq
-         94mQ==
-X-Forwarded-Encrypted: i=1; AL+hErEq7mX0QhfeU0EN42gwyaZUp4eK94cJjcSHu7Pz+6gY5cMkHXkaQsoEzdOoQMVLzV0XBz3KhWc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+aVbaXmeFnN0hJbN+hR3x+zIuh92CH+neCL4rb1DEnfqNJi8/g
-	N8FkwT7LspQSCWKRsOoFme61vRwQgXvUON0IeiuENEVgQrNyNtIYf4hq
-X-Gm-Gg: AYBFou2feASDN9B4yNwERn2hI/2PKruuo3nA6diiXlB+GNtlMRGsxTVGfZb75nkMfj/
-	npcldWxDq6GNBALpQJFPe18Z0FExtBfX2pdhfCy1iqmUyeM/EP2gVuLk0FIOf4UmYHVsLRWWdpg
-	BJXX1sGdo/lahif2XXdstpv5Cmp3/GC8AGKhWx0KVLykEh/2hIBa6FJ1h8jTmo+84iz5qraWMHW
-	Yngi/PFKQEzq3/n1EN1ofW+l1GQlp9Xk3I7/tI/5KM/lWhJSqkVJohUlKfLzxI4UK6XnPxKLU0T
-	iYaHz+7rfpozvUNS5GUML1/8HOo4OUSI5n6L+/avJVmMIG8xlqLjIS1F8oVEoYbfgzDbJ/y3HQ+
-	Nvv4ffdm7loPsKPV1oYNyXNwsVGYCmB1vUHCxK0QJv5yh5PjxQYwpa4IFDm0ZotbR3fxb+H1LST
-	YRjSVvXyIPifEZane179MoMnNSR7dwtLKi5ojocTDGIxsiR3OjYMqQLTOhLJcSakWbbV+b+LBvh
-	XRxtp8EkttNU7vtEVm2a8TUupb3qGEJ08sleFKO7SGGpDQNSpJIDWit7gyA/V1oTQvCEEPaMrMR
-	i18EtG0gb5fT+Qc47BMsBf3qN1B7X5kiH5FiGjVSQJytfxk=
-X-Received: by 2002:a05:6402:4503:b0:6b6:e857:19d4 with SMTP id 4fb4d7f45d1cf-6b6e8572a11mr2906303a12.11.1794039219559;
-        Sat, 07 Nov 2026 00:13:39 -0800 (PST)
-Received: from localhost.localdomain (luna.k.pl. [193.239.59.185])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b664ae576asm1527357a12.19.2026.11.07.00.13.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 00:13:38 -0800 (PST)
-From: Kyrylo Biryuk <illofspeed@gmail.com>
-To: rylos78@gmail.com
-Cc: cassel@kernel.org,
-	dlemoal@kernel.org,
-	linux-ide@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] ata: libata-pmp: disable the SEMB port on Marvell 88SM9705
-Date: Sat,  7 Nov 2026 09:13:35 +0100
-Message-ID: <20261107081335.3360920-1-illofspeed@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261103215706.508495-1-illofspeed@gmail.com>
-References: <20261103215706.508495-1-illofspeed@gmail.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id B28671F0089F;
+	Sat,  7 Nov 2026 08:46:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794041218;
+	bh=bAtNJeQQZtV0gJf8mO/hJSLFnMdkjTPe0Tyts98GCi0=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=FF8RqXYntGFx92+sfkOztEgA4WIAyQcpfDrN5w6rcRI4PN/aC/aikAS+NjSvOT/0N
+	 vJvvYAQRcf7sIzfPnGj5gehP7i3fxpAsDjwL4dTIEJ3Pt35Lp+TCjFg9cHU3TCqeUf
+	 Eca9sLD/bKlApKMdYImE6f+1xe68TgiuePOpSja7IEkBc/HmLjWkaY1CSykrcv6kIx
+	 QagCqkKMKCYYWh5dBwbrDehR8zjQM9LvnedxhAzOiCRgzJ3rzl+vKa5dYEAFEVgKLu
+	 IrfHBjWPon79bxCmQKqlCS7yhMbUjY1qQWvVGr/Qy6YDeGTuD9Y/z97pFk0m+DECiN
+	 g7zfpJ7j6KQsg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 10B8B47B20;
+	Sat,  7 Nov 2026 08:46:57 +0000 (UTC)
+From: Han Gao via B4 Relay <devnull+gaohan.iscas.ac.cn@kernel.org>
+Date: Sat, 07 Nov 2026 16:46:40 +0800
+Subject: [PATCH] firmware/sysfb: Avoid simple-framebuffer behind DT PCI
+ host bridges
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,26 +83,142 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261107-sysfb-dt-pci-efifb-v1-1-86d6c598671a@iscas.ac.cn>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqEMAyF4atI1gbaOqjMVQYXto0aFyqNilK8+
+ 1Rdfg/eH0EoMAl8swiBdhaepwSdZ+CGduoJ2SeDUabUWlUop3QW/YqLY6SOb1SFVbUn/7EG0nE
+ JaT+e6K95LZsdya13Ca7rDywKGgR2AAAA
+X-Change-ID: 20261107-sysfb-dt-pci-efifb-d73b08ded4b2
+To: Ard Biesheuvel <ardb@kernel.org>, 
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ Javier Martinez Canillas <javierm@redhat.com>, Borislav Petkov <bp@suse.de>, 
+ Simona Vetter <simona.vetter@ffwll.ch>
+Cc: linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-riscv@lists.infradead.org, 
+ Han Gao <rabenda.cn@gmail.com>, stable@vger.kernel.org, 
+ Han Gao <gaohan@iscas.ac.cn>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794041216; l=3936;
+ i=gaohan@iscas.ac.cn; s=20261021; h=from:subject:message-id;
+ bh=kYFDOzF/Itut71CnG8RI8WDwvweu0YIXUO3C925lonU=;
+ b=f49pP12LVp3nDhY5/qNCdRrn7GKGKv+PAeF7rRNnQhocxFGvzzftFz+q/x/2lTZdiAgXP2VPM
+ Spx0r81cSHOD19AjA6XvuruJdovxQmXrcjLGkzR1exrcTYj1jtHjwTP
+X-Developer-Key: i=gaohan@iscas.ac.cn; a=ed25519;
+ pk=J8WHEK3filS86QaCaIHDGafqhxKyQ4K7+vFgRirTIiY=
+X-Endpoint-Received: by B4 Relay for gaohan@iscas.ac.cn/20261021 with
+ auth_id=1262
+X-Original-From: Han Gao <gaohan@iscas.ac.cn>
+Reply-To: gaohan@iscas.ac.cn
+Content-Transfer-Encoding: 7bit
 
-Tested on a Synology DX1222: four 88SM9705 (0x1b4b:0x9705 r160,
-6 ports) behind an 88SE9235 that is passed through to a KVM guest,
-6 disks. The same 7.4-rc1 tree built with and without the patch,
-one boot each:
+From: Han Gao <gaohan@iscas.ac.cn>
 
-                                    softreset  reset failed,  last disk
-                                    failed     giving up      attached
-  7.4-rc1, no libata.force          60         12             197 s
-  7.4-rc1, libata.force=N.05:norst   0          0              70 s
-  7.4-rc1 + this patch, no force     0          0              11 s
+With SYSFB_SIMPLEFB, sysfb registers a simple-framebuffer device that
+claims the framebuffer memory when it is added. On DT systems, the PCI
+host bridge may probe later and then fails to claim its memory window.
+On QEMU RISC-V virt with EDK2, a bochs-display and pci-host-generic
+built as a module:
 
-With the patch, each PMP logs one "ataN.05: failed to resume link
-(SControl 0)" and port 5 is then left alone. The same disks attach
-in all three boots.
+  [    0.703813] pci-host-generic 30000000.pci: resource collision: [mem 0x40000000-0x7fffffff] conflicts with BOOTFB [mem 0x40000000-0x403e7fff]
 
-Tested-by: Kyrylo Biryuk <illofspeed@gmail.com>
+In that case, register an efi-framebuffer device instead. It claims no
+memory before it probes, and commit 64c8a0cd0a53 ("efi/arm: Defer probe
+of PCIe backed efifb on DT systems") makes it wait for the host bridge.
 
-The test boots were scripted and run by an AI coding assistant on
-my hardware; I checked the logs.
+Tested on a HiFive Unmatched with EDK2 and a PCIe graphics card, and on
+QEMU.
 
-Kyrylo Biryuk
+Fixes: 8633ef82f101 ("drivers/firmware: consolidate EFI framebuffer setup for all arches")
+Cc: stable@vger.kernel.org
+Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
+---
+In QEMU, efifb takes over with SYSFB_SIMPLEFB and efidrm without it.
+With pci-host-generic built in, simpledrm is still used.
+---
+ drivers/firmware/efi/sysfb_efi.c | 16 ++++++++++++++++
+ drivers/firmware/sysfb.c         |  8 +++++++-
+ include/linux/sysfb.h            |  6 ++++++
+ 3 files changed, 29 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/firmware/efi/sysfb_efi.c b/drivers/firmware/efi/sysfb_efi.c
+index 2338de73c62c..5c2cb87178ff 100644
+--- a/drivers/firmware/efi/sysfb_efi.c
++++ b/drivers/firmware/efi/sysfb_efi.c
+@@ -421,6 +421,22 @@ __init void sysfb_apply_efi_quirks(struct screen_info *si)
+ 		dmi_check_system(efifb_dmi_swap_width_height);
+ }
+ 
++/* Returns true if the EFI framebuffer is in a DT PCI host bridge window */
++__init bool sysfb_efifb_behind_dt_pci(const struct screen_info *si)
++{
++	struct device_node *np;
++
++	if (si->orig_video_isVGA != VIDEO_TYPE_EFI || !IS_ENABLED(CONFIG_PCI))
++		return false;
++
++	np = find_pci_overlap_node();
++	if (!np)
++		return false;
++
++	of_node_put(np);
++	return true;
++}
++
+ __init void sysfb_set_efifb_fwnode(const struct screen_info *si, struct platform_device *pd)
+ {
+ 	if (si->orig_video_isVGA == VIDEO_TYPE_EFI && IS_ENABLED(CONFIG_PCI)) {
+diff --git a/drivers/firmware/sysfb.c b/drivers/firmware/sysfb.c
+index 8833582c1883..8853a74560b9 100644
+--- a/drivers/firmware/sysfb.c
++++ b/drivers/firmware/sysfb.c
+@@ -164,8 +164,14 @@ static __init int sysfb_init(void)
+ 		goto unlock_mutex;
+ 	}
+ 
+-	/* try to create a simple-framebuffer device */
++	/*
++	 * Try to create a simple-framebuffer device. It claims the memory
++	 * when it is added, so a DT PCI host bridge that probes later would
++	 * fail. Use an efi-framebuffer device there; it waits for the bridge.
++	 */
+ 	compatible = sysfb_parse_mode(si, &mode);
++	if (compatible && !parent && sysfb_efifb_behind_dt_pci(si))
++		compatible = false;
+ 	if (compatible) {
+ 		pd = sysfb_create_simplefb(si, &mode, parent);
+ 		if (!IS_ERR(pd))
+diff --git a/include/linux/sysfb.h b/include/linux/sysfb.h
+index ed23d6516223..b136fdebc746 100644
+--- a/include/linux/sysfb.h
++++ b/include/linux/sysfb.h
+@@ -95,6 +95,7 @@ static inline bool sysfb_handles_screen_info(void)
+ 
+ extern struct efifb_dmi_info efifb_dmi_list[];
+ void sysfb_apply_efi_quirks(struct screen_info *si);
++bool sysfb_efifb_behind_dt_pci(const struct screen_info *si);
+ void sysfb_set_efifb_fwnode(const struct screen_info *si, struct platform_device *pd);
+ 
+ #else /* CONFIG_EFI */
+@@ -103,6 +104,11 @@ static inline void sysfb_apply_efi_quirks(struct screen_info *si)
+ {
+ }
+ 
++static inline bool sysfb_efifb_behind_dt_pci(const struct screen_info *si)
++{
++	return false;
++}
++
+ static inline void sysfb_set_efifb_fwnode(const struct screen_info *si,
+ 					  struct platform_device *pd)
+ {
+
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261107-sysfb-dt-pci-efifb-d73b08ded4b2
+
+Best regards,
+--  
+Han Gao <gaohan@iscas.ac.cn>
+
+
