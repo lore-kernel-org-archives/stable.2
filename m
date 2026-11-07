@@ -1,52 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046540;
-	b=gmdDfS6sGS5EI780srso4fJFw6CkwmRZ0QWfyFkDQbu+SKn3X3JJd8KpmCFnPcaGzHEF
-	 Sqe/Nq3FS1PYbVYDqN5uPoYp0Ehh7ZuuhLPiDlNpH1SIegKaq4S7U7G5zECR+ohSDg/AC
-	 5fduvTb2NNWJfibVy9Pu2CdmpTeihMYe0sm2x5fBKirhzaj9Ud0thKUOOu0wBVacv0iCL
-	 8SwNmEqnvUImtq9y9+uVGS3f9iKJIryZbkWd88H9E1zqOxUs6UKCNZOS5agpZ04x/4KnU
-	 chvaX6UM96UOK63kxYYyBvrZBU2mdbhdQGgA00YMIJztKEOpoA6jCbkucUqksZf684g==
+	t=1794046542;
+	b=r3gJ5DDyzr/ZBdWnKFAME0xZ55qzhOxlbU7Vr0kG4Wt/LypNsFtuwSbqzCXRsWrJw6Jo
+	 ojK46NzT9TS1p1MOJu0EJN/GjyR/Rd45WUPLSKrD9fLKrCQocQ7CyeHEnmB2uzIZIuniF
+	 yLMyPPOT1ncXxBVqYNwwvtyBWYoTdoXDDl1+LHgnFL6xILmmbSDLa+US8d1vQKoN3i7Gb
+	 8sEckhbWDVSUSp+x1LegobG8TBgYHxdyfgbk7Zx2zgrpV/FzbKCwVkqp9DwOEKKcdxYRE
+	 dfjLM+Jb9GCSxT+aBWyed1TObhSBM5DA3nV7nFGueohjwLP7FI3ssK8eJxCdxAfEcwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046540;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046542;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=q569Wyh+i+5YejfGzLmsRpYvT/zjfLXPbJzVB6rLjkI=;
-	b=QKUtdElT4gj0+mRdqNj1JOGrtW3AvHKXiK1JTe/xl7aVYXgdR62pNjtBa29a2MDIcVA5
-	 MWexbWe8Z+Z3eOhSDgCSotQgo8sIzcV2x1XserMItraG36HfLdTNMlXVn5p8sZHaWysgV
-	 oteSdntCw8/zr5oOjPoAoYIhxAg/iCaHeZuDHrpXrFA3LbHC3fCS5fjxC3Qh49tGijwCz
-	 RFLrbgFU/FpgUQpAmy+/7iJgDy09kg2FG9LnuEuo8S8r/6TlwmdMJO5+/tkN+AX8y9Bov
-	 r6qm7ymKPI7Jd438oYy0/1EFM3F4R2SVjJAalRWhbteR67Gu9UUfRLb8cnVr+Lt04zw==
+	bh=BZuGa9bWlyLCcLwMLWbzjhBK/Mlj3DoQzNBxo1AbQNw=;
+	b=hxyH7CWuJcx7iIzEu8B7kfJ4bBpYb3w8AUYmzqCI0vVZY6ZEqLKco//ZOnog9cFATxdr
+	 QB9bzsRIIxIBEz9U470X/kkVCVu2N3lVIRMyu+KG64P5PktDgGX8XL6LnfniN73M4HTpe
+	 S8dmfWaLwvLl/4xyF3LGe6OCx1ml1DFUknF1efSMLMZkSqpshJwkctvk1fcg3ubD4xXtc
+	 oHLASUSaQZBUO6+RS2bgfrirgreiHd9O6fhghHuXWJvuyqAUEQO7qO5V6BUYQac9AYmNY
+	 Alq5Kd4dtTN7JgBZqhxh2gFS0exQmNDtgHgm4WxPPjBiIibtM6o5ryBM6jsJ7xbGwTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h3cc3kDW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wyd6pUcJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADD57606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:15:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03C91606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:15:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h3cc3kDW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 123A31F008A1;
-	Sat,  7 Nov 2026 10:15:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wyd6pUcJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AC1B1F0089F;
+	Sat,  7 Nov 2026 10:15:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046539;
-	bh=q569Wyh+i+5YejfGzLmsRpYvT/zjfLXPbJzVB6rLjkI=;
+	s=k20260515; t=1794046541;
+	bh=BZuGa9bWlyLCcLwMLWbzjhBK/Mlj3DoQzNBxo1AbQNw=;
 	h=From:To:Cc:Subject:Date;
-	b=h3cc3kDWhD7TbXVm0Kz83+v2iRneJp9Vngv7d4hEMBlvXWwC9UYyrp9scbJC78Wyr
-	 J6SxY3SUMYPdvLK+48Rd4DCqLtS/Q7nHLwqZHNfE0aypPnFR3JOcT0W8Am8nJie2JF
-	 1krke++9gQfBCyX15sPsaDD6X5Vq07F4Cn1YvUzNt4HxQHJMQkxUJLvzmcvmHLYT0c
-	 OqegNTTyIjzj+eFTrUA/ZW6nQmGBMXB0IT14j+3FCPDDLL+J0dAllk3qvuerum0SQS
-	 xge9Z8ok2A4sTjwDfOSeBpqL0VNFErXLmp2n2TnRFJ8hG0GUYTZt81UhoaEUL/u0X/
-	 KHMyoyP4B7tPA==
+	b=Wyd6pUcJxH0Fsf+Yg4bxZ+plDYSndsbieDo74zXCamgait9DZO+gzIdq6UtkM+74L
+	 20xe9vi1y4CD5y5w7iR9ySxteCMYrDj8/Q0RSSlaxA5wNmgnll72I+OzKkZW9BCuwz
+	 6t8UoobTxGmwmytEYC9JYL5uDYJ4yDyDbw/P+5cNDlnC/4JiHqpFcxf2dsqp/n7UE6
+	 4JplmHMAzhCd3IJ+79cmuOWVSoCNz7suIy0kAkMv/ihkqFknXzW3EzNFtyvC9e9kk6
+	 UHJwBAqSCWrrg2wbdW0HpIi1WcDlG4bj03UNAgFhGQtSJS4nDGV1ZF08yIMoR/wZJ0
+	 QdyyYnLpOyj0g==
 From: Sasha Levin <sashal@kernel.org>
-To: kanie@linux.alibaba.com,
-	nilay@linux.ibm.com,
+To: 1075151112@qq.com,
+	hare@kernel.org,
+	hch@lst.de,
 	kbusch@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] nvme-tcp: Validate the queue state under the queue lock in the address attribute" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:15:37 -0500
-Message-ID: <20261107051537-failed-6.18-2eeeaa9c1ff0@kernel.org>
+Subject: FAILED: patch "[PATCH] nvme-tcp: validate the TLS handshake timeout" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:15:40 -0500
+Message-ID: <20261107051540-failed-6.18-799203afd298@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,187 +70,147 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 2eeeaa9c1ff0c429096acc2947c296db6a56f96d
+git cherry-pick -x 799203afd298b1f8e9ee49815eb38f775f211299
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051537-failed-6.18-2eeeaa9c1ff0@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051540-failed-6.18-799203afd298@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 2eeeaa9c1ff0c429096acc2947c296db6a56f96d Mon Sep 17 00:00:00 2001
-From: Guixin Liu <kanie@linux.alibaba.com>
-Date: Wed, 28 Oct 2026 10:09:04 +0800
-Subject: [PATCH] nvme-tcp: Validate the queue state under the queue lock in
- the address attribute
+From 799203afd298b1f8e9ee49815eb38f775f211299 Mon Sep 17 00:00:00 2001
+From: Yingjie Wang <1075151112@qq.com>
+Date: Wed, 28 Oct 2026 19:57:20 +0800
+Subject: [PATCH] nvme-tcp: validate the TLS handshake timeout
 
-Reading the "address" sysfs attribute calls kernel_getsockname() on the
-admin queue socket, which can race with the queue teardown during
-connection error recovery: a reader can observe NVME_TCP_Q_LIVE set,
-then block on the queue lock while nvme_tcp_free_queue() releases the
-socket and clears queue->sock without holding the lock.  Once the
-reader acquires the lock it dereferences the NULL socket pointer.
+tls_handshake_timeout is writable but stored as a signed int. Multiplying
+the value by MSEC_PER_SEC and HZ therefore uses signed arithmetic.
 
-Commit 76d54bf20cdc ("nvme-tcp: don't access released socket during
-error recovery") had the queue liveness check inside the lock.
-Commit 782373ba2766 ("nvme: tcp: avoid race between queue_lock lock
-and destroy") moved it back out because the lock itself is destroyed
-in nvme_tcp_free_queue(), so a reader arriving late trips
-mutex_destroy().
+With HZ=1000, setting it to 2147484 overflows both multiplications. If
+the handshake request is accepted and its completion remains pending,
+schedule_timeout() reports a wrong timeout value with a stack dump and
+returns zero. The handshake then fails immediately with -ETIMEDOUT,
+while the handshake agent was given about 24.9 days. Negative values
+such as -1 have the same kernel-side effect.
 
-Check the queue liveness inside the queue lock, and clear queue->sock
-under the same lock.  The teardown clears NVME_TCP_Q_LIVE under the
-lock well before the socket is released, so a reader either sees the
-bit cleared or a socket that cannot be released while it holds the
-lock.  To also close the lock lifetime race, the queue locks are now
-owned by the controller: they are initialized with the queue array and
-only destroyed when the controller is freed, which cannot happen while
-a sysfs attribute read is still in progress.  The queue count is
-computed by the NVME_TCP_OPT_NR_QUEUES() macro from the original
-connect options for both initialization and destruction, as reconnects
-may shrink ctrl->queue_count.
+Store the parameter as an unsigned int and reject values that cannot be
+represented both by tls_handshake_args::ta_timeout_ms and by a safe
+jiffies delay. Take one snapshot so a concurrent parameter update cannot
+give the handshake agent and completion wait different timeouts.
+Document the accepted range for built-in use.
 
-Fixes: 782373ba2766 ("nvme: tcp: avoid race between queue_lock lock and destroy")
+wait_for_completion_interruptible_timeout() returns the remaining
+jiffies as a long after a successful completion. Keep that result in a
+long because an accepted timeout can exceed INT_MAX jiffies on 64-bit
+systems.
+
+Negative and oversized values now fail with -EINVAL. Keep zero valid,
+preserving the existing immediate-timeout behavior.
+
+Fixes: be8e82caa685 ("nvme-tcp: enable TLS handshake upcall")
 Cc: stable@vger.kernel.org
-Signed-off-by: Guixin Liu <kanie@linux.alibaba.com>
-Reviewed-by: Nilay Shroff <nilay@linux.ibm.com>
+Reviewed-by: Hannes Reinecke <hare@kernel.org>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Yingjie Wang <1075151112@qq.com>
 Signed-off-by: Keith Busch <kbusch@kernel.org>
 ---
- drivers/nvme/host/tcp.c | 47 ++++++++++++++++++++++++++++-------------
- 1 file changed, 32 insertions(+), 15 deletions(-)
+ .../admin-guide/kernel-parameters.txt         |  5 +++
+ drivers/nvme/host/tcp.c                       | 34 ++++++++++++++-----
+ 2 files changed, 31 insertions(+), 8 deletions(-)
 
+diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+index 5bd8a24be6b61..187917a4f196d 100644
+--- a/Documentation/admin-guide/kernel-parameters.txt
++++ b/Documentation/admin-guide/kernel-parameters.txt
+@@ -4801,6 +4801,11 @@ Kernel parameters
+ 			Example:
+ 			nvme.quirks=7710:2267:bogus_nid,^identify_cns-9900:7711:broken_msi
+ 
++	nvme_tcp.tls_handshake_timeout=
++			[NVME] NVMe/TCP host TLS handshake timeout in seconds.
++			Valid values range from 0 to the smaller of
++			UINT_MAX / 1000 and MAX_JIFFY_OFFSET / HZ. Default: 10
++
+ 	nvmet_tcp.tls_handshake_timeout=
+ 			[NVME] NVMe/TCP target TLS handshake timeout in seconds.
+ 			Valid values range from 0 to the smaller of
 diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
-index 1f7a2de954197..39cb636872938 100644
+index e69e6535e1a17..a8e94e4866db2 100644
 --- a/drivers/nvme/host/tcp.c
 +++ b/drivers/nvme/host/tcp.c
-@@ -103,6 +103,9 @@ enum nvme_tcp_queue_flags {
- 	NVME_TCP_Q_IO_CPU_SET	= 3,
- };
- 
-+#define NVME_TCP_OPT_NR_QUEUES(opts) ((opts)->nr_io_queues + \
-+	(opts)->nr_write_queues + (opts)->nr_poll_queues + 1)
+@@ -6,6 +6,7 @@
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+ #include <linux/module.h>
+ #include <linux/init.h>
++#include <linux/jiffies.h>
+ #include <linux/slab.h>
+ #include <linux/async.h>
+ #include <linux/err.h>
+@@ -48,9 +49,24 @@ MODULE_PARM_DESC(wq_unbound, "Use unbound workqueue for nvme-tcp IO context (def
+ /*
+  * TLS handshake timeout
+  */
+-static int tls_handshake_timeout = 10;
++static unsigned int tls_handshake_timeout = 10;
+ #ifdef CONFIG_NVME_TCP_TLS
+-module_param(tls_handshake_timeout, int, 0644);
++static int tls_handshake_timeout_set(const char *val,
++				     const struct kernel_param *kp)
++{
++	return param_set_uint_minmax(val, kp, 0,
++		min_t(unsigned long, UINT_MAX / MSEC_PER_SEC,
++		      MAX_JIFFY_OFFSET / HZ));
++}
 +
- enum nvme_tcp_recv_state {
- 	NVME_TCP_RECV_PDU = 0,
- 	NVME_TCP_RECV_DATA,
-@@ -1549,14 +1552,21 @@ static void nvme_tcp_free_queue(struct nvme_ctrl *nctrl, int qid)
- 	 * nvme_reset_ctrl_work(), queue teardown is immediately followed by
- 	 * re-allocation. fput() defers socket cleanup to delayed_fput_work
- 	 * in workqueue context, which can race with new queue setup.
-+	 *
-+	 * Clear queue->sock under the queue lock so that a sysfs reader in
-+	 * nvme_tcp_get_address() either observes the NVME_TCP_Q_LIVE bit
-+	 * cleared or a still valid socket.  The queue lock itself is owned
-+	 * by the controller and only destroyed when the controller is
-+	 * freed, so readers blocked on it cannot race its teardown.
- 	 */
-+	mutex_lock(&queue->queue_lock);
- 	__fput_sync(queue->sock->file);
- 	queue->sock = NULL;
-+	mutex_unlock(&queue->queue_lock);
- 	memalloc_noio_restore(noio_flag);
- 
- 	kfree(queue->pdu);
- 	mutex_destroy(&queue->send_mutex);
--	mutex_destroy(&queue->queue_lock);
- 
- #ifdef CONFIG_DEBUG_LOCK_ALLOC
- 	lockdep_unregister_key(&queue->nvme_tcp_sk_key);
-@@ -1992,7 +2002,6 @@ static int nvme_tcp_alloc_queue(struct nvme_ctrl *nctrl, int qid,
- 	int ret, rcv_pdu_size;
- 	struct file *sock_file;
- 
--	mutex_init(&queue->queue_lock);
- 	queue->ctrl = ctrl;
- 	init_llist_head(&queue->req_list);
- 	INIT_LIST_HEAD(&queue->send_list);
-@@ -2136,7 +2145,6 @@ static int nvme_tcp_alloc_queue(struct nvme_ctrl *nctrl, int qid,
++static const struct kernel_param_ops tls_handshake_timeout_ops = {
++	.set = tls_handshake_timeout_set,
++	.get = param_get_uint,
++};
++
++module_param_cb(tls_handshake_timeout, &tls_handshake_timeout_ops,
++		&tls_handshake_timeout, 0644);
++__MODULE_PARM_TYPE(tls_handshake_timeout, "uint");
+ MODULE_PARM_DESC(tls_handshake_timeout,
+ 		 "nvme TLS handshake timeout in seconds (default 10)");
  #endif
- err_destroy_mutex:
- 	mutex_destroy(&queue->send_mutex);
--	mutex_destroy(&queue->queue_lock);
- 	return ret;
- }
- 
-@@ -2823,6 +2831,9 @@ static void nvme_tcp_stop_ctrl(struct nvme_ctrl *ctrl)
- static void nvme_tcp_free_ctrl(struct nvme_ctrl *nctrl)
+@@ -1946,8 +1962,10 @@ static int nvme_tcp_start_tls(struct nvme_ctrl *nctrl,
  {
- 	struct nvme_tcp_ctrl *ctrl = to_tcp_ctrl(nctrl);
-+	/* the same count used to size and initialize the queue array */
-+	unsigned int nr_queues = NVME_TCP_OPT_NR_QUEUES(nctrl->opts);
-+	unsigned int i;
+ 	int qid = nvme_tcp_queue_id(queue);
+ 	int ret;
++	long wait_ret;
+ 	struct tls_handshake_args args;
+-	unsigned long tmo = tls_handshake_timeout * HZ;
++	unsigned int timeout = READ_ONCE(tls_handshake_timeout);
++	unsigned long tmo = (unsigned long)timeout * HZ;
+ 	key_serial_t keyring = nvme_keyring_id();
  
- 	if (list_empty_careful(&ctrl->list))
- 		goto free_ctrl;
-@@ -2834,6 +2845,8 @@ static void nvme_tcp_free_ctrl(struct nvme_ctrl *nctrl)
- 	nvmf_free_options(nctrl->opts);
- free_ctrl:
- 	put_net(ctrl->net);
-+	for (i = 0; i < nr_queues; i++)
-+		mutex_destroy(&ctrl->queues[i].queue_lock);
- 	kfree(ctrl->queues);
- 	kfree(ctrl);
- }
-@@ -3086,17 +3099,18 @@ static int nvme_tcp_get_address(struct nvme_ctrl *ctrl, char *buf, int size)
- 
- 	len = nvmf_get_address(ctrl, buf, size);
- 
--	if (!test_bit(NVME_TCP_Q_LIVE, &queue->flags))
--		return len;
--
- 	mutex_lock(&queue->queue_lock);
- 
--	ret = kernel_getsockname(queue->sock, (struct sockaddr *)&src_addr);
--	if (ret > 0) {
--		if (len > 0)
--			len--; /* strip trailing newline */
--		len += scnprintf(buf + len, size - len, "%ssrc_addr=%pISc\n",
--				(len) ? "," : "", &src_addr);
-+	if (test_bit(NVME_TCP_Q_LIVE, &queue->flags)) {
-+		ret = kernel_getsockname(queue->sock,
-+				(struct sockaddr *)&src_addr);
-+		if (ret > 0) {
-+			if (len > 0)
-+				len--; /* strip trailing newline */
-+			len += scnprintf(buf + len, size - len,
-+					"%ssrc_addr=%pISc\n",
-+					(len) ? "," : "", &src_addr);
-+		}
+ 	dev_dbg(nctrl->device, "queue %d: start TLS with key %x\n",
+@@ -1961,7 +1979,7 @@ static int nvme_tcp_start_tls(struct nvme_ctrl *nctrl,
+ 	if (nctrl->opts->keyring)
+ 		keyring = key_serial(nctrl->opts->keyring);
+ 	args.ta_keyring = keyring;
+-	args.ta_timeout_ms = tls_handshake_timeout * 1000;
++	args.ta_timeout_ms = timeout * MSEC_PER_SEC;
+ 	queue->tls_err = -EOPNOTSUPP;
+ 	init_completion(&queue->tls_complete);
+ 	ret = tls_client_hello_psk(&args, GFP_KERNEL);
+@@ -1970,10 +1988,10 @@ static int nvme_tcp_start_tls(struct nvme_ctrl *nctrl,
+ 			qid, ret);
+ 		return ret;
  	}
+-	ret = wait_for_completion_interruptible_timeout(&queue->tls_complete, tmo);
+-	if (ret <= 0) {
+-		if (ret == 0)
+-			ret = -ETIMEDOUT;
++	wait_ret = wait_for_completion_interruptible_timeout(&queue->tls_complete,
++							     tmo);
++	if (wait_ret <= 0) {
++		ret = wait_ret < 0 ? -ERESTARTSYS : -ETIMEDOUT;
  
- 	mutex_unlock(&queue->queue_lock);
-@@ -3173,8 +3187,7 @@ static struct nvme_tcp_ctrl *nvme_tcp_alloc_ctrl(struct device *dev,
- 	 */
- 	context_unsafe(INIT_LIST_HEAD(&ctrl->list));
- 	ctrl->ctrl.opts = opts;
--	ctrl->ctrl.queue_count = opts->nr_io_queues + opts->nr_write_queues +
--				opts->nr_poll_queues + 1;
-+	ctrl->ctrl.queue_count = NVME_TCP_OPT_NR_QUEUES(opts);
- 	ctrl->ctrl.sqsize = opts->queue_size - 1;
- 	ctrl->ctrl.kato = opts->kato;
- 
-@@ -3237,14 +3250,18 @@ static struct nvme_tcp_ctrl *nvme_tcp_alloc_ctrl(struct device *dev,
- 	 * its requests already allocates the PDUs from the page frag caches of
- 	 * the queues, sized by their header digest setting, so set up the
- 	 * locks and hdr_digest here.
-+	 *
-+	 * The queue locks are owned by the controller, not the queues:
-+	 * they outlive the per-queue connect/disconnect cycles so that
-+	 * sysfs readers can never race their destruction.
- 	 */
- 	for (i = 0; i < ctrl->ctrl.queue_count; i++) {
- 		mutex_init(&ctrl->queues[i].pf_cache_lock);
- 		ctrl->queues[i].hdr_digest = opts->hdr_digest;
-+		mutex_init(&ctrl->queues[i].queue_lock);
- 	}
- 
- 	ctrl->net = get_net(current->nsproxy->net_ns);
--
- 	ret = nvme_init_ctrl(&ctrl->ctrl, dev, &nvme_tcp_ctrl_ops, 0);
- 	if (ret)
- 		goto out_kfree_queues;
+ 		dev_err(nctrl->device,
+ 			"queue %d: TLS handshake failed, error %d\n",
 -- 
 2.53.0
 
