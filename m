@@ -1,54 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049952;
-	b=vlBbaKnAVxlAWj74v9k0LXKn3D0nAGksI4WrOnvujI54Q3yOgwOYOIi8yBtTDQlA/V6B
-	 azpkR6mROHHR95pAMvQBPnWIloYWEL+cXUUX+q7FB6NpyGS09Jj4NZYbbJ2NNpC0ai5pz
-	 vRiDhq25JE2CzQH5b/ZquM0TYIGkbyAHwnkA6VgzIKj1sTMdMhXrrOkV9fqP6+tjMCTJf
-	 tA2gaGEyU0VXuZrEg4W52NuDpnaulJje2/gYFXedIGLz75mbCqdAhw1I/FvhnIdmFnprr
-	 93fcBexE15GUoFFyM05nMS/xVWZB5ur6ErDXN27WpWtS4XkOdVGKD6AaWFnf2urEFHg==
+	t=1794049955;
+	b=WdjhJaeR650GyoBYzGuvlrdPMY3JBtlMSW6M0AQciZ8H9yRd0rDGOfhanNFfTHxTdi1L
+	 kBJ8nbtTLRJywQMzQ735GMcZg5OzLBAy7M2ZicoPFLDVHdYjjt9f9s444WAR8Db2ZTPn7
+	 VHmd5gRyrg88MRsrqLKQNVUiihkVO1+UoxUCoO8cEBl/R4gDGLPIIYJRrV7M0y+gc8yE2
+	 r+IN1h2vgh2iC89tKxr1MPMd4Yn6/wTgqWr+Dep34PA5TAB1Qwcnc2Iv5soIsCDTBoEEh
+	 sI6AI1VHBvhJqLp0+PZNcYsUqkUjErnKfnRqj+fBM2A4e0XIy1E/2ZGy3DP9NZDYTew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049952;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049955;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=VhoVjq3QbDgiAV7cQtNpQMTLuTENfvohwUoDKgkJ+A0=;
-	b=QAVvHDS0GRsr9PbJwkMYCaa5ocOvIH8Fj3nP2JqKuhr7PvpKSIO9GMzJjUCfwCAXOAwV
-	 jYtPUpXLGF29lEisZV2H4TgIOU6bWNQglLFgtyocq9oOOw9y0dOqivW5azerU7judt5gt
-	 HOudpBloFe+p5sw5TWhEwWHXfwjwlqS+HycovuJqgjftciqQ8T7EstIHwEiWm5Uf1qUE1
-	 ePVqCUvuWNEivB5nx67lJxvJwHMzaNIASHH6lJ6Jm7olGtipiUBtvq49ysY9o6vfIoRAN
-	 bGELUH54S63396kxncB/B1aIdyCn3aiafc5HOUOkSiKNWCG1HnVWgoxoFYd5NIRDhHQ==
+	bh=P9wVIAd4NwEYJQvhTVJ28BYmorf3oAZrTe8cI5AXdXE=;
+	b=oBDxiYqSYdRstA7OBk2LuqQS7Z5uooIvW9KEhERKetVmuVCbhXTfk31M0sexdwD3WcgN
+	 I5nUfyGkJU3yEIIWKR69xfUmqGhP15DAOlQgROaY86XQdZy8Ow2IM/SSv0P2BchhIalmv
+	 Ef+N0nOAnVuLuT4W/agX3xUD999ErdJ9fWI9PNv5ShJwiL2lW8GwVT9ONDotrVlX0oWLc
+	 OyIs6Y2shLGhfIG4fRT7uVwPfoIWmTXeRh0XpVpKnobLbNePCPTcNkknHE+IhJTcSSunt
+	 qNTU2RZCM32nggTR2OeVnNXa9IRN88973vS9GisgsoppMOH+daemYAhyKyqlFL2Zaig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PLID9Ih3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="T/RRrEbb";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6D25606A338
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:12:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FA9B606D806
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:12:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PLID9Ih3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF2A21F008A1;
-	Sat,  7 Nov 2026 11:12:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T/RRrEbb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29D7E1F008A2;
+	Sat,  7 Nov 2026 11:12:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049951;
-	bh=VhoVjq3QbDgiAV7cQtNpQMTLuTENfvohwUoDKgkJ+A0=;
+	s=k20260515; t=1794049954;
+	bh=P9wVIAd4NwEYJQvhTVJ28BYmorf3oAZrTe8cI5AXdXE=;
 	h=From:To:Cc:Subject:Date;
-	b=PLID9Ih3/qCsvHyxRxxcnfCbrbb3GD6qOHCVUy7jkppHxTRJ9mRD8prrRp2Gq3sVx
-	 qMKzgF6yKGilz3lQlwcHasoFQaDxaNAkZStcheauHM7wF0KY7TnyJE124f4Iqbf+rz
-	 nmVlTrC736bmwa6MLcWeN0VzFpsgLpvAzab2CxzBRELYFqcnvYKxqQWAP1MhYZxHIa
-	 DhBLQAn/T4/CMeClNLfmhp1OtQ5nTz+djhZNn+Bdkrf4aj5Lsyxt0gTIXj2hzNlzpk
-	 39y37sjT9+iGNLBOZ7fIa5zgMgQuA3exJVLcQvV16eJRttKv25zlCwKomgyHLsIgCG
-	 FuQRhcNeSXo6Q==
+	b=T/RRrEbbpWyfg+Ax7gkmyiXwgfsEn6ggQkEPFOpHJnANmYVPh4QZiQDtyXfH6GPmT
+	 urZjR0dtPaeryHcjAE51gH/jkKZ+Lc63uYCLtGRpGtu7Kt0evIgaemyUdLfivCJmB6
+	 qvxWxYH0EIV+Z+BU4f5kjprN0/vi7RYGdz86lMO9fWOSfJ/dmy57H94Bjs+lfdkCVh
+	 sO4V5PmT0VfBl19SH1GNMDJx0Qhxk7If8d86ZLBMHRXLCZP1PNgvFl21DoT1UfR4qu
+	 7yTjkvbvGkvACrnWknFivVxA6o1PMf30MG2jdZyjeDLGRVBxuUE2tiP6lkoUoR0+SB
+	 LtluvsXUm0L5w==
 From: Sasha Levin <sashal@kernel.org>
-To: idosch@nvidia.com,
-	netdev-bot+sashiko@kernel.org,
-	liuhangbin@kylinos.cn,
-	edumazet@kernel.org,
-	kuba@kernel.org
+To: chenhuacai@kernel.org,
+	chenhuacai@loongson.cn
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ipmr, ip6mr: validate packets injected into the register vif on xmit" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:12:29 -0500
-Message-ID: <20261107061229-failed-5.15-aa1799e93f5e@kernel.org>
+Subject: FAILED: patch "[PATCH] LoongArch: Call cpu_final_simd() with pure_initcall()" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 06:12:32 -0500
+Message-ID: <20261107061232-failed-5.15-9b56c3659a7e@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,113 +68,49 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x aa1799e93f5ebb973252aec649d84d12d9c7fd1c
+git cherry-pick -x 9b56c3659a7e5d930ab3c07ea74cc46af65b6d20
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061229-failed-5.15-aa1799e93f5e@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061232-failed-5.15-9b56c3659a7e@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From aa1799e93f5ebb973252aec649d84d12d9c7fd1c Mon Sep 17 00:00:00 2001
-From: Ido Schimmel <idosch@nvidia.com>
-Date: Sun, 25 Oct 2026 09:17:29 +0200
-Subject: [PATCH] ipmr, ip6mr: validate packets injected into the register vif
- on xmit
+From 9b56c3659a7e5d930ab3c07ea74cc46af65b6d20 Mon Sep 17 00:00:00 2001
+From: Huacai Chen <chenhuacai@loongson.cn>
+Date: Tue, 27 Oct 2026 22:51:23 +0800
+Subject: [PATCH] LoongArch: Call cpu_final_simd() with pure_initcall()
 
-reg_vif_xmit() passes the packet to ipmr_cache_report() which copies its
-IP header into the IGMPMSG_WHOLEPKT report that is queued to the mroute
-socket. Nothing guarantees that the packet contains a full IP header, so
-when a short packet is injected on the register device (e.g., using
-AF_PACKET), the copy reads past the end of the packet and a recvmsg() on
-the mroute socket leaks the uninitialized bytes to user space [1].
+After commit 35ebc4de105989034f12 ("xor: remove macro abuse for XOR
+implementation registrations"), using "simd=128" to limit SIMD on a
+platform with 256bit SIMD instructions causes a boot failure.
 
-IPv6 has the same problem [2]. Its reg_vif_xmit() does call
-pskb_inet_may_pull(), but the helper keys off skb->protocol and does not
-pull anything when the protocol is neither IPv4 nor IPv6.
+Because cpu_final_simd() is called with arch_initcall() now, which is
+after xor_init(), LASX flavors are selected but not workable.
 
-Fix by dropping packets whose protocol does not match the address family
-of the register device or that do not contain a full network header.
+Call cpu_final_simd() with pure_initcall() which is before xor_init().
 
-[1]
-BUG: KMSAN: kernel-infoleak in _copy_to_iter
- raw_recvmsg
-
-Uninit was stored to memory at:
- ipmr_cache_report
- reg_vif_xmit
- packet_sendmsg
-
-Uninit was created at:
- __alloc_skb
- sock_alloc_send_pskb
- packet_sendmsg
-
-Bytes 1-3 of 21 are uninitialized
-
-[2]
-BUG: KMSAN: kernel-infoleak in _copy_to_iter
- rawv6_recvmsg
-
-Uninit was stored to memory at:
- ip6mr_cache_report
- reg_vif_xmit
- packet_sendmsg
-
-Uninit was created at:
- __alloc_skb
- sock_alloc_send_pskb
- packet_sendmsg
-
-Bytes 8-23 of 41 are uninitialized
-
-Fixes: 14fb64e1f449 ("[IPV6] MROUTE: Support PIM-SM (SSM).")
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Reported-by: Sashiko <netdev-bot+sashiko@kernel.org>
-Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/0545f0c83f5ee2f6696210f87268e811ef655715.1792476357.git.zhilinz%40nebusec.ai
-Signed-off-by: Ido Schimmel <idosch@nvidia.com>
-Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
-Reviewed-by: Eric Dumazet <edumazet@kernel.org>
-Link: https://patch.msgid.link/20261025071729.34967-3-idosch@nvidia.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
 ---
- net/ipv4/ipmr.c  | 6 ++++++
- net/ipv6/ip6mr.c | 2 +-
- 2 files changed, 7 insertions(+), 1 deletion(-)
+ arch/loongarch/kernel/cpu-probe.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/net/ipv4/ipmr.c b/net/ipv4/ipmr.c
-index 4a22d9f234254..915b210c4512b 100644
---- a/net/ipv4/ipmr.c
-+++ b/net/ipv4/ipmr.c
-@@ -539,6 +539,12 @@ static netdev_tx_t reg_vif_xmit(struct sk_buff *skb, struct net_device *dev)
- 	};
- 	int err;
+diff --git a/arch/loongarch/kernel/cpu-probe.c b/arch/loongarch/kernel/cpu-probe.c
+index 74d31f260dfd8..629c976c33c35 100644
+--- a/arch/loongarch/kernel/cpu-probe.c
++++ b/arch/loongarch/kernel/cpu-probe.c
+@@ -93,7 +93,7 @@ static int __init cpu_final_simd(void)
+ 	return 0;
+ }
  
-+	if (skb->protocol != htons(ETH_P_IP) || !pskb_inet_may_pull(skb)) {
-+		DEV_STATS_INC(dev, tx_errors);
-+		kfree_skb(skb);
-+		return NETDEV_TX_OK;
-+	}
-+
- 	rcu_read_lock();
- 	err = ipmr_fib_lookup(net, &fl4, &mrt);
- 	if (err < 0) {
-diff --git a/net/ipv6/ip6mr.c b/net/ipv6/ip6mr.c
-index 3a551be30f153..a628acf50b0d8 100644
---- a/net/ipv6/ip6mr.c
-+++ b/net/ipv6/ip6mr.c
-@@ -642,7 +642,7 @@ static netdev_tx_t reg_vif_xmit(struct sk_buff *skb,
- 		.flowi6_mark	= skb->mark,
- 	};
+-arch_initcall(cpu_final_simd);
++pure_initcall(cpu_final_simd);
  
--	if (!pskb_inet_may_pull(skb))
-+	if (skb->protocol != htons(ETH_P_IPV6) || !pskb_inet_may_pull(skb))
- 		goto tx_err;
- 
- 	rcu_read_lock();
+ static inline void set_elf_platform(int cpu, const char *plat)
+ {
 -- 
 2.53.0
 
