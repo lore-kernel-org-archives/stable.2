@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046013;
-	b=OX8xnmEE9IHZkEFAEgSMZi89Srsuu8rkKXVPiyYT9FPgUPPYTHAOnNlu/l9yoU9AidAe
-	 wedcepc7cjPVhTL9j13cOswn0K/NMDBPwBcyMdMRKhNPct3zWrJ20e8cCpj30ISPNjnkN
-	 X2HEn2siQx7L7Ay5ROifmkqjPZQLnkCdQ42yOafdFJY34W0tK6ELDl6DWSv6TPLF2pFpk
-	 Tu2GKbGWFOcBJmJfpZzrrp84jKNmSpkLfxsvVPZDcDDHMT524QrwObnwPENRK24Q38s8p
-	 4J15d1d/OWy8YAiW9tBOls7KkTc5NZ3tBrkX90UIZDFwgOGOkQUuXSO/IDlXKCe47og==
+	t=1794046015;
+	b=Jrc//gkB5fb5GKhq8ARUKWjIe1t8czI93Yl12N1OBLJICot4dbiYh50Wfxvebvq1TiTB
+	 NJzkQq8oIsNuDddjTQ8sZehMfU3xlYryOtqxx50SreK+VXqJuPnZATrOcHfWIk0nYNNB7
+	 Tg+w8tQO9HbFKMZ/FpTyhXPnAdZ0k0V5WK31eV1cVBDMA/r4jEYlVA0dE9iMHtnb2kSFm
+	 5DaowOynovVHjOCTVBjvav5p1RGCxxbjw3tOahO4UAnzT/+uuJIstGd1OZTj5tLpi4p9H
+	 m6p6wS0wsxb7X95rYC70sU26cRm8g3PmvqxcE4Tw3JYdsi8RntQRljNVOXN1/9/aseg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046013;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046015;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=CDNk+HuXdWrB1kcad1tKckmH0Iz2dJk3/Z31MgKlPyo=;
-	b=pucos8DSci3j+0Il1kcfcnIYH10o4pkGQrcAynWmIS434e5RdJPdGvW8fLydvmQwxTvb
-	 GQ/Zn1C83WH3HG0WSjtJuxKtXfOjA6Zdv4WpgmJePByR+crCPgGgxSG/qaVwMQ+ez2fFj
-	 wmDla5qM224WIs+oKssOCX0B+g/OJ0RT5raVbJKIJ+5NT9v3GdKbq88+rTbutGowwU1Lu
-	 gNJ0DM8600Kvdk+cgJsSrU8aiLvJpMTw5mZA4dYJdfpcRycqWNI1IG80LmIEBnqGHSC5N
-	 HFhvj0pjGp1CFIGLRSsKtGVzNwENViCQvQ73JzEXD42mm/FYREU4hjJSq7Rf0l8TPSQ==
+	bh=RIMJDE0yi/dmjiNKw7fSUW39wOcby5TLUoYzht5ygDY=;
+	b=4Ubcx1Db1/U+sYffOACSA5rhyoX4MeZYlIx6tlCaaY4gm0ZwpvvGZykBfLFy4bWNKrq8
+	 10sQDZGVF9jxeym+ZTaCDiJbC+AkB/ykaANNPlD2lpCJ9haURkcfAhgH+iSqvb2x1sTO9
+	 Kohl4xMSg1Ig7SjArJZ/PC7t5f3q5YHE5G4khdsQT/WLxdw649UgEN3x52Fj6IAGuxFZZ
+	 N+Zu2Ewofmra92uSXjmqHkyWrA2EnJJVleaEgpOvI1sCFvOVbmctPS8FjIhrfKI/PoOGT
+	 SRWTGPtK405hvnzjMHJmJE9t+6Rj694q06oY7Eujw4xKtV646Jxb8K9EzAEZDhnvRjA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=loILsDVN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FL+2mVVu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8E86606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:06:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1423606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:06:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=loILsDVN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20C651F0089F;
-	Sat,  7 Nov 2026 10:06:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FL+2mVVu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3727C1F0089F;
+	Sat,  7 Nov 2026 10:06:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046012;
-	bh=CDNk+HuXdWrB1kcad1tKckmH0Iz2dJk3/Z31MgKlPyo=;
+	s=k20260515; t=1794046014;
+	bh=RIMJDE0yi/dmjiNKw7fSUW39wOcby5TLUoYzht5ygDY=;
 	h=From:To:Cc:Subject:Date;
-	b=loILsDVNU9mZ3QsipshFwLX0k/19NS4TrXqayMHuB4RUsOgFd03RUudM8Tun1k4Es
-	 shJ3CdUK5TJ54YhJ4/lq/FAYsuWu/Y+9DJtDtbEoJw14ElhBEZG0A9BzrKD1wAs+F5
-	 0GBNt/fcnca4oNAUhnT1J8A+GUPVqd+YemHioA3m51d0IE3MXr7lPG4aSBBroOz4GX
-	 WEhnNDAPa6qtfqmsleO15aOHTcSuS/JjkgTbBCVgx5Het7ml0RInfj5UkyPWhrbcMi
-	 hetnKR+Z7GYtfGVxD9Fhkwo4vM+3uUAKwHiBnwccndDWGYKfGHD6tWpdkqmZe4dZQs
-	 89qtLhEvhYTWg==
+	b=FL+2mVVu5eyfpsiUAdcOAMbdW/6UC8jQKCfn7zLAH6FRoqek5GX0HntAxFBxJ2cgZ
+	 yXHQGeHRKDFLdhGvQNYGx6JIG4FiXbGaklYrMdj+bmo5j2e9V2UzV4UgBxXIftmWIB
+	 Z2eN7o26cqJ2iZTi+ujr2DiYx+aHYm7hnKyUTAs954d0h384oLDCUwGN+fBN9rNplZ
+	 spJDuTmQqH1lKcY0pI9zHc+Fydx50PdBUNWHuCuyW5I84WUjtij3Vsl8ibO7UmU3dW
+	 ljZL+mvrePBKz8OX9KsQLpy3gQH5gxyro37gxrxahrlqBRMvIa47+a0AGWCI1V7bO/
+	 v60El5puGZnaw==
 From: Sasha Levin <sashal@kernel.org>
-To: lgs201920130244@gmail.com,
-	sakari.ailus@linux.intel.com
+To: sakari.ailus@linux.intel.com,
+	dave.stevenson@raspberrypi.com,
+	laurent.pinchart@ideasonboard.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] media: i2c: og01a1b: power off sensor on remove" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:06:50 -0500
-Message-ID: <20261107050650-failed-6.18-a26c5ac46191@kernel.org>
+Subject: FAILED: patch "[PATCH] media: imx219: Account for rate_factor in control steps" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:06:53 -0500
+Message-ID: <20261107050653-failed-6.18-57043aef0a04@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,63 +69,96 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x a26c5ac46191ae34b3413f7a45d6241f63e15d42
+git cherry-pick -x 57043aef0a04bd96d97881422590e71c1e4c45b1
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050650-failed-6.18-a26c5ac46191@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050653-failed-6.18-57043aef0a04@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From a26c5ac46191ae34b3413f7a45d6241f63e15d42 Mon Sep 17 00:00:00 2001
-From: Guangshuo Li <lgs201920130244@gmail.com>
-Date: Tue, 15 Sep 2026 16:35:34 +0800
-Subject: [PATCH] media: i2c: og01a1b: power off sensor on remove
+From 57043aef0a04bd96d97881422590e71c1e4c45b1 Mon Sep 17 00:00:00 2001
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+Date: Mon, 22 Jun 2026 14:16:45 +0300
+Subject: [PATCH] media: imx219: Account for rate_factor in control steps
 
-og01a1b_probe() powers the sensor on explicitly before identifying and
-initializing it. After a successful probe, runtime PM is enabled and
-pm_runtime_idle() is used to allow the runtime suspend callback to
-power the sensor off.
+The controls that are divided by the rate_factor before writing them to
+the registers have the step of the value of the rate_factor. Take this
+into account when the control's range is modified. The controls are
+created in a configuration where rate_factor is always 1, hence there's no
+need to change the code adding new controls.
 
-The probe error path explicitly calls og01a1b_power_off(), but the
-normal remove path only disables runtime PM. pm_runtime_disable() does
-not guarantee that an active device is runtime suspended, so the
-sensor can remain powered when the driver is removed. This also leaves
-the xvclk enable performed by og01a1b_power_on() unbalanced.
-
-After disabling runtime PM, check whether the device is already
-suspended. If it is still active, power the sensor off explicitly and
-update the runtime PM state accordingly. Avoid powering it off again
-when runtime suspend has already done so.
-
-This issue was found by manual code inspection.
-
-Fixes: a95ffde28783 ("media: i2c: og01a1b: Add support of xvclk supply clock in power management")
+Fixes: f513997119f4 ("media: i2c: imx219: Scale the pixel rate for analog binning")
 Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 ---
- drivers/media/i2c/og01a1b.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/media/i2c/imx219.c | 16 +++++++---------
+ 1 file changed, 7 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/media/i2c/og01a1b.c b/drivers/media/i2c/og01a1b.c
-index 1675f0460969a..1cece90c59eeb 100644
---- a/drivers/media/i2c/og01a1b.c
-+++ b/drivers/media/i2c/og01a1b.c
-@@ -956,6 +956,11 @@ static void og01a1b_remove(struct i2c_client *client)
- 	media_entity_cleanup(&sd->entity);
- 	v4l2_ctrl_handler_free(sd->ctrl_handler);
- 	pm_runtime_disable(og01a1b->dev);
-+
-+	if (!pm_runtime_status_suspended(og01a1b->dev)) {
-+		og01a1b_power_off(og01a1b->dev);
-+		pm_runtime_set_suspended(og01a1b->dev);
-+	}
- }
+diff --git a/drivers/media/i2c/imx219.c b/drivers/media/i2c/imx219.c
+index 5184523de8bed..b1f29037af742 100644
+--- a/drivers/media/i2c/imx219.c
++++ b/drivers/media/i2c/imx219.c
+@@ -340,13 +340,13 @@ static const struct imx219_mode supported_modes[] = {
+ 		/* 2x2 binned 60fps mode */
+ 		.width = 1640,
+ 		.height = 1232,
+-		.fll_def = 1707,
++		.fll_def = 1706,
+ 	},
+ 	{
+ 		/* 640x480 60fps mode */
+ 		.width = 640,
+ 		.height = 480,
+-		.fll_def = 1707,
++		.fll_def = 1706,
+ 	},
+ };
  
- static int og01a1b_probe(struct i2c_client *client)
+@@ -473,8 +473,7 @@ static int imx219_set_ctrl(struct v4l2_ctrl *ctrl)
+ 		ret = __v4l2_ctrl_modify_range(imx219->exposure,
+ 					       imx219->exposure->minimum,
+ 					       exposure_max,
+-					       imx219->exposure->step,
+-					       exposure_def);
++					       rate_factor, exposure_def);
+ 		if (ret)
+ 			return ret;
+ 
+@@ -902,7 +901,8 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
+ 
+ 		/* Update limits and set FPS to default */
+ 		ret = __v4l2_ctrl_modify_range(imx219->vblank, IMX219_VBLANK_MIN,
+-					       IMX219_FLL_MAX - mode->height, 1,
++					       IMX219_FLL_MAX - mode->height,
++					       rate_factor,
+ 					       mode->fll_def - mode->height);
+ 		if (ret)
+ 			return ret;
+@@ -920,8 +920,7 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
+ 		ret = __v4l2_ctrl_modify_range(imx219->exposure,
+ 					       imx219->exposure->minimum,
+ 					       exposure_max,
+-					       imx219->exposure->step,
+-					       exposure_def);
++					       rate_factor, exposure_def);
+ 		if (ret)
+ 			return ret;
+ 
+@@ -946,8 +945,7 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
+ 			return ret;
+ 
+ 		/* Scale the pixel rate based on the mode specific factor */
+-		pixel_rate = imx219_get_pixel_rate(imx219) *
+-			     imx219_get_rate_factor(state);
++		pixel_rate = imx219_get_pixel_rate(imx219) * rate_factor;
+ 		ret = __v4l2_ctrl_modify_range(imx219->pixel_rate, pixel_rate,
+ 					       pixel_rate, 1, pixel_rate);
+ 		if (ret)
 -- 
 2.53.0
 
