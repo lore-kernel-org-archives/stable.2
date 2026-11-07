@@ -1,54 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048807;
-	b=I5/2pqGikltX7k8Q6s5Ofo2qsmpd4ELscwsqLYPtR6JeXZNrN/yZClMQDPgj0tZt+PQA
-	 XvA9S+yBnxSKSBZAvRVZApY3rQMVdL5FIp7bdXKp+ON0Tr2yzRsu/BntR6GWjVe25a6il
-	 fNv1t1obxuIf9QnfmOgBo/zeRBBNrSMsia/dZy2kJMahftVVUDjHDXwojYmsq5fzrx4ja
-	 6gPT8lktBoNyaEdqezBX7eLYSHR6TA6wSNwSexEQplFEyrX7tk2fr1C/OgfaGBVyPoHUC
-	 BaaRoWzBSvGafmo9499ncwp8IdclS9CShGimYS44mZlhWboO0mAjGWUBr3x+FlEGh4g==
+	t=1794048810;
+	b=AzjgxeCn54QdmwRvTgJ0EHYrAili+5kQbAYFw43Yu5MhYbkQaa1HyQQ5w0mgD5ezLA3r
+	 YCemIrraxY73GLy7WY9OHxRxYjpSrVPsM+pJ41ODm0OczFo9HiCyTM2LbYaUZu7mM4hWa
+	 lKwTcUWyIxCwoPPWXdoP8U0vX4qjIAmmlAPW1eWf7du4wW3yImV1IFplre83NAZiev75C
+	 rBVv8dWgCRfmYPg0lwE2u6r2lPR5iXdX1CHLOysMFWujL2Sfcn9QXA+lYN3H/9qfjkpjZ
+	 pL2IHKVxeTyw29ACvqjRc+xTVDVVtqikkM5njrNl4GGnkxfo5cY2rWIEztfK6h/2mZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048807;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048810;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=N1p6p11rIul9Mk/LSp96iS1mbs2wglYAEtoJ2kaB6Bs=;
-	b=iVnQFmvU6i8cNDO8ziWZXoWWITf3S+Clk67SGrWdNg7Ea9pZXsFXvwkKZM4Imzvi3RFM
-	 fpKzKX76KJSb/sB8UOcOeI6nOCS2+1bRkkKUGMBc906jyzxUEZ//yCOKbtr0W7tkIlF/N
-	 xCJ9d3Dm+4Q5MoOhtw4JHPdkPdqULb02LTXk2c2W8kqGNKYsTs9yg79hZVxlUNSPBc6KE
-	 vi+EQiMBxYDCsvoZRmWYFeXqbl3FAq0fpg9ak7raoTPwITmzB+OX/riHrexWf/WefS7sD
-	 YDmXXxg3CAbCA/o3Phme8KqP5E6F4OhSDhkq1P0/+ca0GoKp7akxiHP60kAX1IfSvmA==
+	bh=K0ll2zhErpZN4kSYWoUaL0fXsNyFwV17d6SKCBqCYL4=;
+	b=2rm3yAudH+37SB7eNgXammOBzoTF9vuWPi/FG0VtfxooghqatCFyZGC7iJSFeIylMd8p
+	 A9AQytXaus/zesNEbAGW+v8XxDNdUrg6CWikb5N99tAOauMRcu7Z/IEKnDs7EQuFXQlbS
+	 /ETDVWsxWf94QaeqdNoidvsrqmXNPdqOv5/RAaF/Li/nN+xZZgX0CYg6QIUk5VAVnAYN3
+	 vOtoWMmCDW457pw8ZaPlzmBCHOLNqlxtQhqDWMpmqRVHmJoFCR8JKHF0FX+Uo4EyXql5Y
+	 eMukIUyVLaZQZvlUwcFCloxlVUSag7FpBBRdNmUq4lVAdVnxboDkCVW3IlEfJ92Ltzg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="YF3ycmh/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q0YbtfUB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26AD1606A331
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:53:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DCDE606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:53:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YF3ycmh/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53E8F1F0089F;
-	Sat,  7 Nov 2026 10:53:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q0YbtfUB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A087F1F008A1;
+	Sat,  7 Nov 2026 10:53:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048807;
-	bh=N1p6p11rIul9Mk/LSp96iS1mbs2wglYAEtoJ2kaB6Bs=;
+	s=k20260515; t=1794048810;
+	bh=K0ll2zhErpZN4kSYWoUaL0fXsNyFwV17d6SKCBqCYL4=;
 	h=From:To:Cc:Subject:Date;
-	b=YF3ycmh/KrJRUIM/nwJGd6tLiAzvnFTVZOTUKkjXKnov3ngRMQ8V+o298iSE+9/9m
-	 y5OWpqVIXvIpJ3aBTmS21Qugh9Eh51Fl/IVyWN9ew42ow+G1/K4WurvvGmbPeUkcj2
-	 Os/64NvHv00bVgDEV2a2ktKpc0PwXJs1HOP0/maGGU1r/yyI2SmFEJvd4dgm/ydAMe
-	 kMGNSk2VbGN5do1o06WqaFH/1N0vFF5NsAPomTYALOulBktqFvIR8y4vMmozJg1wlf
-	 qjfq7WI4X2IHTua6t4iTGOo0MbuOAFdGMhEJB8jzUQOMhYX5Zb10KSPzY67ngoX3xs
-	 yaRJyspMaYM/w==
+	b=Q0YbtfUB+sAGCHGYd0tdbtO76vRg1xmJKRnNSYKDRq540Dx+8j6hGYkFYJweOBa2f
+	 GSZueWhDUnHDBla8l8VwNszREw4qwe+e0SPkkGTVXdiwrPlQMBmDaj0DjxcJASkygh
+	 oAr96nuGV82WH6cWF7nM/2p7KAWD3WlfYZ9gRBw2f+KxtugR8bk1Y75M8bb6yRxypA
+	 cg+IIKstA2axqmHMgT1n37unHFp7Bvnsa+A18fFovRht4g1P9tMI+j6iVmdyt16XXH
+	 QQ70X1VOHVTkn4+8eo1NQZoNy8V2zB7jQPU0PJDY0M4AROkzJfaXzbRZfWwnGQiGlQ
+	 tX8RTS42uxNyg==
 From: Sasha Levin <sashal@kernel.org>
-To: cel@kernel.org,
-	danny_pidutti@hotmail.com,
-	danny@lightningiq.io,
-	bcodding@hammerspace.com,
+To: lizf@honeycomb.io,
+	tj@kernel.org,
+	jack@suse.cz,
 	brauner@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] exportfs: Release the get_name() directory file synchronously" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:53:25 -0500
-Message-ID: <20261107055324-failed-6.1-49184daab016@kernel.org>
+Subject: FAILED: patch "[PATCH] writeback: keep cleanup_offline_cgwb()'s scan out of syncs" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:53:28 -0500
+Message-ID: <20261107055328-failed-6.1-90c96612460e@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,79 +70,83 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 49184daab01674ca400cbef58ee101dba6dbbb9d
+git cherry-pick -x 90c96612460e6accddbda5a195e6ddaa391ecde0
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055324-failed-6.1-49184daab016@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055328-failed-6.1-90c96612460e@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 49184daab01674ca400cbef58ee101dba6dbbb9d Mon Sep 17 00:00:00 2001
-From: Chuck Lever <cel@kernel.org>
-Date: Thu, 8 Oct 2026 10:09:03 -0400
-Subject: [PATCH] exportfs: Release the get_name() directory file synchronously
+From 90c96612460e6accddbda5a195e6ddaa391ecde0 Mon Sep 17 00:00:00 2001
+From: Liz Fong-Jones <lizf@honeycomb.io>
+Date: Sat, 17 Oct 2026 04:07:11 +0000
+Subject: [PATCH] writeback: keep cleanup_offline_cgwb()'s scan out of syncs
 
-get_name() opens the parent directory with dentry_open() and
-releases it with fput(). From a kernel thread, fput() defers the
-final __fput() to the delayed_fput work item. NFSD threads are
-kernel threads, and NFSD reaches get_name() through
-exportfs_decode_fh() whenever a file handle's dentry is not
-connected to the root.
+On a filesystem mounted with lazytime, sync() and syncfs() can return
+without persisting timestamp updates of inodes attached to a dying
+cgroup wb, so a crash after the sync loses them. File data and sizes are
+not affected.
 
-On a filesystem with more directories than the dcache retains,
-nearly every READDIRPLUS needs a reconnect. The deferred releases
-arrive faster than the work item retires them, and each pending
-file pins the directory's readdir state. On ext4 that state is the
-htree fname cache for the last leaf block read. A 64-thread NFSv3
-server under a parallel tree walk showed unreclaimable slab growing
-by about 90 MB per second, and the same workload on a 5.15 kernel
-ended in a global OOM.
+Since commit f6988c90671e ("writeback: bound cleanup_offline_cgwb()
+rescans by rotating scanned inodes"), isw_prepare_wbs_switch() moves the
+inodes it walks to the newest end of the list. When a pass fills its isw
+before reaching an inode that got its lazytime update after a sync's
+cutoff, the walked inodes land past it on b_dirty_time, and the sync's
+queue_io(), which stops at the first inode dirtied after the cutoff,
+misses them. The late inode has to be one without a pending lazytime
+update; one already on b_dirty_time keeps its position.
 
-Commit 5ff318f645eb ("nfsd: use __fput_sync() to avoid delayed
-closing of files.") stopped NFSD's own closes from feeding the
-delayed_fput queue but did not cover the exportfs reconnect path.
+The window is narrow. cleanup_offline_cgwbs_workfn() skips wbs with
+anything on b_dirty, b_io or b_more_io, so the scan has to land between
+wb_writeback() fixing dirtied_before and taking list_lock for its first
+queue_io(), unless a multi-pass drain started before the wb got dirty
+IO.
 
-Release the file with __fput_sync(). get_name() opened the file
-itself, read-only, on a directory, so __fput() involves nothing
-that could wait on the caller.
+Take wb_switch_rwsem for read across the scan, as
+process_inode_switch_wbs() does for the switches.
 
-Note for LTS backports: Kernels before v6.6 need the __fput_sync()
-call guarded by current->flags & PF_KTHREAD, with a plain fput()
-otherwise.
-
-Fixes: 4a9d4b024a31 ("switch fput to task_work_add")
-Cc: stable@vger.kernel.org # see above, needs adjustments for < v6.2
-Reported-by: Danny Pidutti <danny_pidutti@hotmail.com>
-Closes: https://lore.kernel.org/linux-fsdevel/DS4PR04MB9846BA3C16BC5ACED8B589228D952@DS4PR04MB9846.namprd04.prod.outlook.com/
-Tested-by: Danny Pidutti <danny@lightningiq.io>
-Reviewed-by: Benjamin Coddington <bcodding@hammerspace.com>
-Signed-off-by: Chuck Lever <cel@kernel.org>
-Link: https://patch.msgid.link/20261008140903.2784-1-cel@kernel.org
+Fixes: f6988c90671e ("writeback: bound cleanup_offline_cgwb() rescans by rotating scanned inodes")
+Cc: stable@vger.kernel.org
+Suggested-by: Tejun Heo <tj@kernel.org>
+Link: https://lore.kernel.org/all/0bc5d58533f10b4841807be3025daa11@kernel.org/
+Acked-by: Tejun Heo <tj@kernel.org>
+Signed-off-by: Liz Fong-Jones <lizf@honeycomb.io>
+Link: https://patch.msgid.link/20261017040710.1174009-1-lizf@honeycomb.io
+Reviewed-by: Jan Kara <jack@suse.cz>
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- fs/exportfs/expfs.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ fs/fs-writeback.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/fs/exportfs/expfs.c b/fs/exportfs/expfs.c
-index eafd99507afee..b5768f94fbb59 100644
---- a/fs/exportfs/expfs.c
-+++ b/fs/exportfs/expfs.c
-@@ -336,7 +336,11 @@ static int get_name(const struct path *path, char *name, struct dentry *child)
- 	}
+diff --git a/fs/fs-writeback.c b/fs/fs-writeback.c
+index 1f192a581fb2f..ac612c02ced9f 100644
+--- a/fs/fs-writeback.c
++++ b/fs/fs-writeback.c
+@@ -790,6 +790,13 @@ bool cleanup_offline_cgwb(struct bdi_writeback *wb)
+ 		new_wb = &wb->bdi->wb; /* wb_get() is noop for bdi's wb */
  
- out_close:
--	fput(file);
+ 	nr = 0;
 +	/*
-+	 * @file is the read-only directory opened above, so __fput()
-+	 * cannot block on anything the caller holds.
++	 * The scan moves walked inodes to the newest end of b_dirty_time,
++	 * past ones it didn't reach. If one of those was dirtied after a
++	 * sync's cutoff, the sync's queue_io() stops there and misses the
++	 * moved ones. Exclude syncs as process_inode_switch_wbs() does.
 +	 */
-+	__fput_sync(file);
- out:
- 	return error;
- }
++	down_read(&wb->bdi->wb_switch_rwsem);
+ 	spin_lock(&wb->list_lock);
+ 	/*
+ 	 * In addition to the inodes that have completed writeback, also switch
+@@ -804,6 +811,7 @@ bool cleanup_offline_cgwb(struct bdi_writeback *wb)
+ 		restart = isw_prepare_wbs_switch(new_wb, isw, &wb->b_dirty_time,
+ 						 &nr);
+ 	spin_unlock(&wb->list_lock);
++	up_read(&wb->bdi->wb_switch_rwsem);
+ 
+ 	/* no attached inodes? bail out */
+ 	if (nr == 0) {
 -- 
 2.53.0
 
