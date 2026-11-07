@@ -1,51 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050412;
-	b=QqDro0DbyYwMNWmkoc9S5M6WlLcDU0cSgRut39ZbBTyH0EIZBeh1SSYs/NTQCnb3G7hS
-	 pO+MgvH6FRgj7z1slo+/YapPaAj89CskhGZ0QJd/vqUoSP/+lYQKky/31gR3+25JkYVeu
-	 2heDYyA2q/kEeiyiS1IxViqI4XckQ/BXx94I8qq/wNEYMSELfGl0EuDcb+b3HyQYWMCfU
-	 9FSNta/WfLfPTK0nb3Q6OzuCMN69IBGGaEzv39mXoXL5Xcbe6YoMU9Z0Yg0vPOvMu9tFu
-	 cJxhTemqR9LxCNP64hQns/GKDsESnJjQx0wzl8+vqf9vpCnL8u00liigRmXi1xe8v2g==
+	t=1794050416;
+	b=xs6IA+cqfuLqhIcH+PgEFkmgCzYVJytpeqf9PYelrysf8fOfWv7wsTE2wmb8oB0sautf
+	 ZWngf/paN1J0MhCwTEQBkNSIFAwEmQ6Jp2rLvaM7gp91t6Boqaw5kJKR2dfKQssMbMIkn
+	 c8VG+RLAeWPFSxG0ddW7i4eZO/hX6pW6a4DukiFxekCZ/z9as4kXTDTsi02/QiSqoR4US
+	 qdEklGa+HH+pYekcGIr+ptcNZi4iIUtlz/gerg1uz1aATBWRaQzOb9E1o/FdwenKQ11Rd
+	 s1FRIDnFCaGBpZNkkmj2/BMjw52RQZAwzx2vW+4Z1TE+D4jip5Qimaq2xi0OtqjUFhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050412;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050416;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=EmTMpbLIgA9pFspy6tQ15CvHuoRwtKKGIiujLote7FI=;
-	b=XAcbS+yHIPVGaZulUlccqBqSFJCFGJFly0y4k8Ra3mb3zBcIpddbm2ZcMVt9TLArIekp
-	 poxkszKf0P4WHqW7RzoSFHXzhsZV9NqcNurgA04u6bqJXJAxfR6gmYyPZpXxqYNz76X0p
-	 BdfWh/QzwXQBdepiSyqMzT30jg9QvxCMDrFlfM9w6QKRDxRwrSH3QMgPdHWFf0i7zMbKD
-	 83LaP9hNpaRsUBKDtY57+MvUY4p7OOvVBWuaSF1ROgiMS+KZ+J9rW/WkUjPzPjs8srIZt
-	 PkBkKELxRuZgyJxeTYf6QrrA4GWZ8rubk1pm212XuYOlGXdTsxlaE3DSUqtLrExllUQ==
+	bh=5cq+x199Q7zss5f974peS1JfdI8iaQXMOg7BqwAmuFc=;
+	b=ZlqDRnx6UNNayxZ/AiBmWUXEyONPCvOyHqGJqPU4sEz1vci4fwOrH0dAK4L2yn2T4Ksl
+	 DNIKileDYvTEr0vKq4lLIk/S5atOM/SCeyqvXfT8snlJyQ26EKV9z2BaYqf9XKqfVHep/
+	 CC1oHCCsfvfIgFSf7xiAj9pCwRYgMeKNbmAB9Ebip3TY3vSzGwy2dBS0K3SfWIjaijxGM
+	 +uA0kgNkMOeXuooKf+skuaJYGzvUHxK37P9KVLikXxsn2I6Zx9OcvpXs3zdCyU10s/n6b
+	 Fjh1WwNvE9qJxyJAQeY8empC0IXiMuYQ9yN9bnKTH0eFj5EMfjpyyZKZ7uNz1u8u+7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LJrlJlpw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f2EgFVMM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53878606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:20:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0B7E606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:20:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LJrlJlpw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C24FE1F0089F;
-	Sat,  7 Nov 2026 11:20:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f2EgFVMM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0AB21F0089F;
+	Sat,  7 Nov 2026 11:20:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050412;
-	bh=EmTMpbLIgA9pFspy6tQ15CvHuoRwtKKGIiujLote7FI=;
+	s=k20260515; t=1794050415;
+	bh=5cq+x199Q7zss5f974peS1JfdI8iaQXMOg7BqwAmuFc=;
 	h=From:To:Cc:Subject:Date;
-	b=LJrlJlpw/RbFHL2cQg3QJvmV0MXaPCpm8E0054eKd/msPKPM74gYSxrtlUVkHGBf1
-	 tkBk5g+WISHHSzFdKe1ExfpfV2lFLBPFRcu4xbEdd3alOYgRzf9N8vu3Hv0Qi0NIEq
-	 HMDt0LKYLm8a9g//A/qjw1BD/KhL9DPcqOjW1b27UkM3m4uM3lMDI1+CwirE5ESXm/
-	 48qcPhalzQ01w9jSAC3SpzZXxfj+QHTC0bZpVNqn7HzX8ijp1/Ln6B2f8TBDCtLbc3
-	 l9U8VBavDgy2Jzid6v3jHonI5sakK1EhfLWsEoLE/2f1NoowaikLLxCmLEJrtzK/Is
-	 bOwaF5ZeDUvXA==
+	b=f2EgFVMMs0G3bzlUz0WHw+5wJV2uR7jd4JPyn1g9JjoDIAUTZp3cb1S1OnK3PZH2g
+	 TJi1qhygk7FDdJnHYj5CpEKiv/+12+Bv3epg9SPpZYy+D1V2QBxdSW0VWPoO0i/KMq
+	 QE9aAzvMjdBWv9KnngbC36IbF/UatKEYfqTrf6/DSaUcH3NYCLwDECVeIB7j0aiMjJ
+	 yMsedocswJ26gYi0jzUgvjKSEt/m5ubWJ2wy8226wnotIDhh7frbYFeSSJDWsfjqDH
+	 M0NBTvz0o2Azua0/vls0juADiW86OpWVHZwsf6FrGLACBKrcbQfimLUa0HIDugOOQb
+	 tlc+Da295EA3Q==
 From: Sasha Levin <sashal@kernel.org>
-To: suruurism@gmail.com,
-	jgross@suse.com
+To: mhun512@gmail.com,
+	ae878000@gmail.com,
+	ioana.ciornei@nxp.com,
+	chleroy@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] xen/gntdev: prevent private mappings from becoming writable" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:20:10 -0500
-Message-ID: <20261107062010-failed-5.10-2176dea8d8c1@kernel.org>
+Subject: FAILED: patch "[PATCH] soc: fsl: dpio: Free the IRQ before releasing the I/O object" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:20:13 -0500
+Message-ID: <20261107062013-failed-5.10-a7831c657c90@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,62 +70,74 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 2176dea8d8c19cb43a9b3651bfa1cb21eab1b31a
+git cherry-pick -x a7831c657c90e8f9165f6bbe0cc56262fee075e8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062010-failed-5.10-2176dea8d8c1@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062013-failed-5.10-a7831c657c90@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 2176dea8d8c19cb43a9b3651bfa1cb21eab1b31a Mon Sep 17 00:00:00 2001
-From: Abdifatah Suruur <suruurism@gmail.com>
-Date: Wed, 19 Aug 2026 11:42:17 +0300
-Subject: [PATCH] xen/gntdev: prevent private mappings from becoming writable
+From a7831c657c90e8f9165f6bbe0cc56262fee075e8 Mon Sep 17 00:00:00 2001
+From: Myeonghun Pak <mhun512@gmail.com>
+Date: Fri, 2 Oct 2026 15:48:02 -0400
+Subject: [PATCH] soc: fsl: dpio: Free the IRQ before releasing the I/O object
 
-gntdev_mmap() rejects writable private (non-shared) mappings of foreign
-grant pages, because a private writable mapping takes the COW path on
-pages that have no proper struct-page backing.  However, VM_MAYWRITE is
-left set, so userspace can map the grant read-only and then upgrade the
-mapping to writable with mprotect(), hitting the same COW path the
-check was written to prevent.
+The DPIO interrupt handler accesses priv->io, but dpaa2_dpio_remove()
+releases that object before tearing down the interrupts. The IRQ was
+requested with devm_request_irq(), and unregister_dpio_irq_handlers()
+only clears its affinity hint. fsl_mc_free_irqs() returns IRQ resources
+to the MC resource pool without freeing the handler. An interrupt can
+therefore access the freed I/O object before devres releases the IRQ.
 
-Clear VM_MAYWRITE for private mappings, as i915 does for its read-only
-objects and as fixed in drm/vc4 (CVE-2026-68445) and drm/panthor
-(CVE-2024-53071) and ptp: vmclock (commit
-a5edadbae57e2298a56cf7a4e774a027905a331f).
+Explicitly free the managed IRQ in unregister_dpio_irq_handlers() before
+returning its resource to the pool, and perform IRQ teardown before
+releasing the I/O object. This also waits for an in-flight handler while
+the object is still valid.
 
-Fixes: ab31523c2fcac ("xen/gntdev: allow usermode to map granted pages")
+This issue was identified during our ongoing static-analysis research
+while reviewing kernel code.
+
+Fixes: 993fec7e11ca ("bus: fsl-mc: dpio: add the DPAA2 DPIO object driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Abdifatah Suruur <suruurism@gmail.com>
-Reviewed-by: Juergen Gross <jgross@suse.com>
-Signed-off-by: Juergen Gross <jgross@suse.com>
-
-Message-ID: <20260819084217.1577-1-suruurism@gmail.com>
+Assisted-by: LLM
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Reviewed-by: Ioana Ciornei <ioana.ciornei@nxp.com>
+Link: https://lore.kernel.org/r/20261002194802.375497-3-mhun512@gmail.com
+Signed-off-by: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
 ---
- drivers/xen/gntdev.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/soc/fsl/dpio/dpio-driver.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/xen/gntdev.c b/drivers/xen/gntdev.c
-index 1dcc4675580ed..b71f5bae25b63 100644
---- a/drivers/xen/gntdev.c
-+++ b/drivers/xen/gntdev.c
-@@ -1066,6 +1066,13 @@ static int gntdev_mmap(struct file *flip, struct vm_area_struct *vma)
- 	if ((vma->vm_flags & VM_WRITE) && !(vma->vm_flags & VM_SHARED))
- 		return -EINVAL;
+diff --git a/drivers/soc/fsl/dpio/dpio-driver.c b/drivers/soc/fsl/dpio/dpio-driver.c
+index 8d3134622a285..d8f28fb7c37aa 100644
+--- a/drivers/soc/fsl/dpio/dpio-driver.c
++++ b/drivers/soc/fsl/dpio/dpio-driver.c
+@@ -88,6 +88,7 @@ static void unregister_dpio_irq_handlers(struct fsl_mc_device *dpio_dev)
  
-+	/*
-+	 * Private mappings of foreign grant pages must never become
-+	 * writable: they would take the COW path on granted pages.
-+	 */
-+	if (!(vma->vm_flags & VM_SHARED))
-+		vm_flags_clear(vma, VM_MAYWRITE);
+ 	/* clear the affinity hint */
+ 	irq_set_affinity_hint(irq->virq, NULL);
++	devm_free_irq(&dpio_dev->dev, irq->virq, &dpio_dev->dev);
+ }
+ 
+ static int register_dpio_irq_handlers(struct fsl_mc_device *dpio_dev, int cpu)
+@@ -276,10 +277,10 @@ static void dpaa2_dpio_remove(struct fsl_mc_device *dpio_dev)
+ 	priv = dev_get_drvdata(dev);
+ 	cpu = dpaa2_io_get_cpu(priv->io);
+ 
+-	dpaa2_io_down(priv->io);
+-
+ 	dpio_teardown_irqs(dpio_dev);
+ 
++	dpaa2_io_down(priv->io);
 +
- 	pr_debug("map %d+%d at %lx (pgoff %lx)\n",
- 		 index, count, vma->vm_start, vma->vm_pgoff);
+ 	cpumask_set_cpu(cpu, cpus_unused_mask);
  
+ 	err = dpio_open(dpio_dev->mc_io, 0, dpio_dev->obj_desc.id,
 -- 
 2.53.0
 
