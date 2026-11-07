@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047000;
-	b=fyEKeOsHtE1x5i4JPvCNZpaxrLtprSyjVNBlTtBVAtT9ptjlte67EeBOijwkkzyV8lTt
-	 Cp1kf8+MzE1W3/srgBoWmkAqARv24o/d4HUlElLZTkLNO/0+UCwdzlDX9DsF3hQz98GUG
-	 1OHErevk3xPuf9W5IEfw1gxzjB2W4eTjXNIuXKK4muzajZt2Sm95Xe4+Imiud52x2Z7jj
-	 It6luNZxfwsASmICxVlX9w+EVn9EoyVZrW4WXg+uM4l+NDSgpbONoQxyJTvspKahP0c14
-	 82xFo/VS2d1QGnvnrLjKm39ScNtyX6YHChYM1Dmk1GVBWslt5smXv43/HrwgE1u9o7w==
+	t=1794047002;
+	b=V4SE1Pnsg7nC5Sq9+cwYNBWjaHHvwmnMTmwtkm5yNSvSurIIymwT7sba6EBe8BoIFKli
+	 US86NoW691TgBcFpZFLScTVKr6oBfTHoXhC4jD2wR2SyUyaoX/wWE5p+bSeVgKJXvMsFd
+	 8InvfQXg7LVfHU5+pvCc2YQ2gT51Q3a1Ujfw+vLWogHnBgeEB1HRhGHXiSBCttViubbht
+	 otR5E/680AkeTBcP4wLlAmlcEQOailYaeGIDT4r5IzkzUrWvqHvX7DDK7/W/TD2BANzBL
+	 YaeokqNUMJFMjpwrc1KJpLBmbT8xRGAte8+7NzR33XNMYuQlv1SKniloheth5pM/tKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047000;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047002;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=2kjvpcW38mige9AuytlOJSpUA+oQhGEDGfYGMK6W31A=;
-	b=fzxYEZ/uYlYGvGWC6NqyvGbF/6L75/sE1u9TmuqifxWEj2uiiffNAkKjmoA3mtyPSsuF
-	 fZn7kj5jHmsiWv+HYkiAW+ggiuFUTJHwdN0YxXcmArmqnKotph1kr+ohgX88xkhz4wD48
-	 i8giqCPxF/EsW+8Cx3LTGahC5F7kr8t7q0idBbHGy3veNZvZTm3B70dZv61TX3kFfXVbF
-	 QOh9wMF21wZwpJTmxpB1Wxur1I+BOBx6wzq5Jt/YCdPWRArEeo3ORQBm4C66xgqxnvKN9
-	 1nUIBGST1HzYcZEh8J15SfTRrYO8KBy6NYnG4uZkj+MDuOLaWxXKQwAn2Nn5DtrmK8w==
+	bh=AyvHgf5TtTEsaAVCoZZE/lykI5Ygam0vp3ZVcLaXPXE=;
+	b=cRxevkxRcZ4xYFmgLx1sR/OLugOVwXtsFi5kIBGuyo08jjX5Kjx4pNQHDpN8NWOtKacl
+	 nhGIHVDZrWukt+g5Cxuy5SuGp7tgMi6kuKHTuymJ3eXHNovVdHhbNGZr95DCvYuu1aThW
+	 lTQifcXnvHStWIwCNPcn2Jfs5Q4qGNV8S+1Ee8QrTeJFfKxB0n0HVLpgcJIkDeaSBl9Oc
+	 MXDqDPsPfVTFQJc1np8KAZ7lRHanKNYRQEwlorZnYQfsp5Gt8d4FseusAeXd3NiXl6NnM
+	 dniew75C5ng0NeitRi3k+BGEHJBunUo9NuCr3pn8x3QlXUm19aBlXBj2yOMHMYFQFOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ny9bmhjj;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ha0xjgDI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 612A6606A8FE
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:23:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E5E2606A8C2
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:23:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ny9bmhjj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEC981F008A1;
-	Sat,  7 Nov 2026 10:23:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ha0xjgDI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DADBA1F0089F;
+	Sat,  7 Nov 2026 10:23:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047000;
-	bh=2kjvpcW38mige9AuytlOJSpUA+oQhGEDGfYGMK6W31A=;
+	s=k20260515; t=1794047002;
+	bh=AyvHgf5TtTEsaAVCoZZE/lykI5Ygam0vp3ZVcLaXPXE=;
 	h=From:To:Cc:Subject:Date;
-	b=ny9bmhjjk1NjNiHeeNhOdJQoL762FIqntr48cogxm87bWp0zoOynlRMT+ceHWfi2c
-	 aGXS62XWYrcZ8FxKAlLiyAKi5Kbq55ATjwDPvWn/YR9egMUZ00NzXCA5HK8CTas2jG
-	 PoRLMx+YtH6gAkvCLI6hrE6qy/DmVnGR8TExKmDQPZ82OhAjLbbpJ5Va+SWcFMLQmL
-	 cbQXaCgk9qxpAcToatzxfTrvQhbiW58kadckeieVogiZsr+/cr6nirW1YPYx3w9jxT
-	 /W9QiMzcUoesIr2f0fjYvQW/rM7Hsby8kjslU0u4W5mW7SAODLR+xRi3D2rA+Unf70
-	 UrQ9lHQV2nzXw==
+	b=ha0xjgDIOCqTzCBX5YJ+sA2ZQ9GH7v6zVby+aOEw8Lb4h7ABYITGUB6LTyp/vEOrZ
+	 h7LZSu1PushEyNfvGXMLxnQx6jZtB321aNXCBLakH3Eo5M3Z69lOn98ffFPyhGFzma
+	 ZeasWCiFM71MEAu1jdfq3705NK8uaveheC61xiTRKKepkuEO9utbR56sJaYvQ2Q76w
+	 NOS/QLR6RuiMZGSd6aF5+C0wlO0YiUBXCK8atZ/c+hhqVxAVWKLjZyKEFCF52FMO4H
+	 Q5psD95f4K2PnJOxRkfMQFYGqO2qvhnhgb6FhILeoIqiFzRfMMwGhsMrc+mO7Pp047
+	 3aix3eLib/FgQ==
 From: Sasha Levin <sashal@kernel.org>
-To: yun.zhou@windriver.com,
-	idosch@nvidia.com,
-	kuba@kernel.org
+To: tom.leiming@gmail.com,
+	josef@toxicpanda.com,
+	axboe@kernel.dk
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] net: erspan: set lltx to avoid sch_direct_xmit deadlock" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:23:18 -0500
-Message-ID: <20261107052318-failed-6.12-2d36ec73836e@kernel.org>
+Subject: FAILED: patch "[PATCH] ublk: mark the io command cancelable before publishing it" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:23:20 -0500
+Message-ID: <20261107052320-failed-6.12-a261f0cacacc@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,80 +69,142 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 2d36ec73836e83175deb467fd494c61006107e5d
+git cherry-pick -x a261f0cacacc022e4fab5b8e38c59f74ce4942e8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052318-failed-6.12-2d36ec73836e@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052320-failed-6.12-a261f0cacacc@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 2d36ec73836e83175deb467fd494c61006107e5d Mon Sep 17 00:00:00 2001
-From: Yun Zhou <yun.zhou@windriver.com>
-Date: Thu, 8 Oct 2026 17:38:24 +0800
-Subject: [PATCH] net: erspan: set lltx to avoid sch_direct_xmit deadlock
+From a261f0cacacc022e4fab5b8e38c59f74ce4942e8 Mon Sep 17 00:00:00 2001
+From: Ming Lei <tom.leiming@gmail.com>
+Date: Sun, 11 Oct 2026 01:35:45 -0500
+Subject: [PATCH] ublk: mark the io command cancelable before publishing it
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-The ERSPAN xmit path re-enters the network stack, causing nested
-acquisition of _xmit_lock on the underlay device while already holding
-the ERSPAN device's _xmit_lock, creating an ABBA deadlock. This happens
-for both IPv4 ERSPAN (erspan_xmit() -> ip_tunnel_xmit()) and IPv6 ERSPAN
-(ip6erspan_tunnel_xmit() -> ip6_tnl_xmit()):
+FETCH, COMMIT_AND_FETCH and NEED_GET_DATA publish the command in io->cmd
+before marking it cancelable. A cancel from the control path (STOP_DEV,
+QUIESCE_DEV) can complete it in between:
 
-  sch_direct_xmit [lock erspan] -> erspan_xmit -> ip_tunnel_xmit ->
-  ip_output -> __dev_queue_xmit -> sch_direct_xmit [lock underlay]
+  issue path                       control-path cancel
+  io->cmd = C
+                                   take C, io_uring_cmd_done(C):
+                                     C not marked, nothing to unlink
+  ublk_prep_cancel(C)
+    the completed C is linked on the cancelable list
+  ring exit: the cancel walk hits it → GPF (KASAN, with a delay added)
 
-  sch_direct_xmit [lock erspan] -> ip6erspan_tunnel_xmit -> ip6_tnl_xmit ->
-  ip6_output -> __dev_queue_xmit -> sch_direct_xmit [lock underlay]
+Mark the command before ublk_fill_io_cmd() publishes it. The handlers
+run with uring_lock held, as io_uring's cancel walk does, so marking
+takes no lock and the walk can't see a marked command before it is
+published. smp_wmb() orders the mark before the io->cmd store; the
+cancel loads cmd with READ_ONCE(io->cmd) before reading cmd->flags.
 
-Set dev->lltx = true so HARD_TX_LOCK() skips the spinlock for ERSPAN.
-This is safe as the ERSPAN xmit path has no shared mutable state: o_seqno
-is atomic, TX stats are per-CPU u64_stats, dst_cache is per-CPU, and
-o_flags is no longer modified in the xmit path since commit 9958e69b9893
-("gre: fix ERSPAN o_flags race/corruption in xmit and fill_info").
-GRETAP, the sibling device with identical xmit structure, already sets
-lltx.
+A marked command has to be completed by io_uring_cmd_done(), so a failed
+FETCH and the inline UBLK_IO_RES_OK of NEED_GET_DATA now do that. The CQE
+is the same.
 
-Reported-by: syzbot+9bda1b9fbb7fbdf9b62b@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=9bda1b9fbb7fbdf9b62b
-Fixes: 84e54fe0a5ea ("gre: introduce native tunnel support for ERSPAN")
-Fixes: 5a963eb61b7c ("ip6_gre: Add ERSPAN native tunnel support")
-Cc: stable@vger.kernel.org # 9958e69b9893 ("gre: fix ERSPAN o_flags race/corruption in xmit and fill_info")
+Fixes: 216c8f5ef0f2 ("ublk: replace monitor with cancelable uring_cmd")
 Cc: stable@vger.kernel.org
-Signed-off-by: Yun Zhou <yun.zhou@windriver.com>
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
-Link: https://patch.msgid.link/20261008093824.119453-1-yun.zhou@windriver.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Tested-by: Josef Bacik <josef@toxicpanda.com>
+Signed-off-by: Ming Lei <tom.leiming@gmail.com>
+Link: https://patch.msgid.link/20261011063555.1142277-3-tom.leiming@gmail.com
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
 ---
- net/ipv4/ip_gre.c  | 1 +
- net/ipv6/ip6_gre.c | 1 +
- 2 files changed, 2 insertions(+)
+ drivers/block/ublk_drv.c | 27 +++++++++++++++++++++------
+ 1 file changed, 21 insertions(+), 6 deletions(-)
 
-diff --git a/net/ipv4/ip_gre.c b/net/ipv4/ip_gre.c
-index e4878e9aa6367..149a4e83b6925 100644
---- a/net/ipv4/ip_gre.c
-+++ b/net/ipv4/ip_gre.c
-@@ -1367,6 +1367,7 @@ static int erspan_tunnel_init(struct net_device *dev)
- 	dev->features		|= GRE_FEATURES;
- 	dev->hw_features	|= GRE_FEATURES;
- 	dev->priv_flags		|= IFF_LIVE_ADDR_CHANGE;
-+	dev->lltx = true;
- 	netif_keep_dst(dev);
+diff --git a/drivers/block/ublk_drv.c b/drivers/block/ublk_drv.c
+index 125f45ce0392f..c105826a095bb 100644
+--- a/drivers/block/ublk_drv.c
++++ b/drivers/block/ublk_drv.c
+@@ -2800,7 +2800,8 @@ static void ublk_cancel_cmd(struct ublk_queue *ubq, u16 tag,
+ 	done = !!(io->flags & UBLK_IO_FLAG_CANCELED);
+ 	if (!done) {
+ 		io->flags |= UBLK_IO_FLAG_CANCELED;
+-		cmd = io->cmd;
++		/* dependency ordered against smp_wmb() in ublk_prep_cancel() */
++		cmd = READ_ONCE(io->cmd);
+ 		io->cmd = NULL;
+ 	}
+ 	spin_unlock(&ubq->cancel_lock);
+@@ -3162,6 +3163,12 @@ ublk_fill_io_cmd(struct ublk_io *io, struct io_uring_cmd *cmd)
+ 	return req;
+ }
  
- 	return ip_tunnel_init(dev);
-diff --git a/net/ipv6/ip6_gre.c b/net/ipv6/ip6_gre.c
-index 04f7c70b7320e..3429543ec77e7 100644
---- a/net/ipv6/ip6_gre.c
-+++ b/net/ipv6/ip6_gre.c
-@@ -1864,6 +1864,7 @@ static int ip6erspan_tap_init(struct net_device *dev)
- 		dev->mtu -= 8;
++/*
++ * Call before ublk_fill_io_cmd() publishes @cmd in io->cmd: a control-path
++ * cancel may complete any command found there, and io_uring_cmd_done() only
++ * takes it off the cancelable list if it is marked already. The handlers
++ * hold uring_lock, so marking takes no lock.
++ */
+ static inline void ublk_prep_cancel(struct io_uring_cmd *cmd,
+ 				    unsigned int issue_flags,
+ 				    struct ublk_queue *ubq, u16 tag)
+@@ -3175,6 +3182,8 @@ static inline void ublk_prep_cancel(struct io_uring_cmd *cmd,
+ 	pdu->ubq = ubq;
+ 	pdu->tag = tag;
+ 	io_uring_cmd_mark_cancelable(cmd, issue_flags);
++	/* pairs with the cancel loading cmd from io->cmd, then cmd->flags */
++	smp_wmb();
+ }
  
- 	dev->priv_flags |= IFF_LIVE_ADDR_CHANGE;
-+	dev->lltx = true;
- 	ip6erspan_tnl_link_config(tunnel, 1);
+ static void ublk_io_release(void *priv)
+@@ -3422,11 +3431,11 @@ static int ublk_ch_uring_cmd_local(struct io_uring_cmd *cmd,
+ 		ret = ublk_check_fetch_buf(ub, addr);
+ 		if (ret)
+ 			goto out;
++		/* before ublk_fetch() publishes io->cmd, see ublk_prep_cancel() */
++		ublk_prep_cancel(cmd, issue_flags, ubq, tag);
+ 		ret = ublk_fetch(cmd, ub, io, addr, q_id);
+ 		if (ret)
+-			goto out;
+-
+-		ublk_prep_cancel(cmd, issue_flags, ubq, tag);
++			goto out_done;
+ 		return -EIOCBQUEUED;
+ 	}
  
- 	netdev_hold(dev, &tunnel->dev_tracker, GFP_KERNEL);
+@@ -3470,6 +3479,7 @@ static int ublk_ch_uring_cmd_local(struct io_uring_cmd *cmd,
+ 		if (ret)
+ 			goto out;
+ 		io->res = result;
++		ublk_prep_cancel(cmd, issue_flags, ubq, tag);
+ 		req = ublk_fill_io_cmd(io, cmd);
+ 		ublk_apply_io_buf(ub, io, cmd, addr, &auto_buf, &buf_idx);
+ 		if (buf_idx != UBLK_INVALID_BUF_IDX)
+@@ -3488,19 +3498,24 @@ static int ublk_ch_uring_cmd_local(struct io_uring_cmd *cmd,
+ 		 * uring_cmd active first and prepare for handling new requeued
+ 		 * request
+ 		 */
++		ublk_prep_cancel(cmd, issue_flags, ubq, tag);
+ 		req = ublk_fill_io_cmd(io, cmd);
+ 		io->buf.addr = addr;
+ 		if (likely(ublk_get_data(ubq, io, req))) {
+ 			__ublk_prep_compl_io_cmd(io, req);
+-			return UBLK_IO_RES_OK;
++			ret = UBLK_IO_RES_OK;
++			goto out_done;
+ 		}
+ 		break;
+ 	default:
+ 		goto out;
+ 	}
+-	ublk_prep_cancel(cmd, issue_flags, ubq, tag);
+ 	return -EIOCBQUEUED;
+ 
++ out_done:
++	/* marked cancelable: complete through io_uring_cmd_done() */
++	io_uring_cmd_done(cmd, ret, issue_flags);
++	return -EIOCBQUEUED;
+  out:
+ 	pr_devel("%s: complete: cmd op %d, tag %d ret %x io_flags %x\n",
+ 			__func__, cmd_op, tag, ret, io ? io->flags : 0);
 -- 
 2.53.0
 
