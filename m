@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046550;
-	b=bOGgH+0X6u0cF4uuoDDfQ7IkXlIu9qkg5+XOcq152GoLiFvsjsl/4SYP/Jinkra1s5JA
-	 QUhsg9c91aFFJynBmGdIQQZYsj0jil4neWAmoM57qiqB4YuMmpy5ZFj/614BOB23nt1ir
-	 G+FBiPtoMp9FqbyRlLsJs7s3A6Zu0QnWbqux1VWHEp/tkbNW22mOsmRJJQp5obHgZ3kz8
-	 npLZVI7GJ+Rc5DZ9trGnl5k9xoTSqWMG8vSy1VLLqtWrHc0BWJOME8MIhKK2zDg+P4Lp0
-	 SdtOpXkL46EQ4utZQ2vX0QWKMUXrZKh83mG1RWgh3Ox86VvfxjcBRk+YAMRRjj99Cvg==
+	t=1794046552;
+	b=Zj0kZ2p4iHQ91IciwixK/cX2PHv0GAyRPElCvOk54N0tzNdK1S0CPKKxC2f8YQ6BUnwM
+	 j3hXQI1TUfDXIldSlb8Z/68+C/OsSfET/1XWaLMEHVyNH27QAHdhsgZ4zR3m9TnMWOY64
+	 s7rwQGStiQNT435oLuD9g8eBIsILm1DlznTFJYEwPKa0Sz0+rZ8n6nXtmygcLRKve3uQS
+	 +7xWutWv/fbqgOBo4kWt0r8mC+JgFFX60ErQACmkw2eiT4woBioHFsZhua86R8xt+0wTq
+	 gHffZ/tBiKTfG1VavKCceOCTxQ33ucc7CST0YIcU4SZrZAZHUF8eC56Tw8Vxuyf9Ieg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046550;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046552;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Icsh7ibZCZCrR/S6gArHp4jXfe5TongIsfzJIGWpcuw=;
-	b=WFYACQqdaRYFuhRXkqun1xPvu7IeqbkakCNCAlPOzxBgj1VmagHCaetUjYbJX6BNJ3hd
-	 coH2RiYIPZyGRH9NiI95BcKnDYy0kRuhnvkTPc1qYKOct/NRrEXg8e2shSeAIRxQHAy4v
-	 7zOET/byzCjg2mOThUgXc/gJrkLPo9O8INvh2l9vzQUR+qV9OXHKc20DyB0jMGCAWOl5k
-	 UrWEnW1BMAR5mpHJJzsL2/f2IuioJ/Jo4aKkmOfOT5knPZK6nRGmaQ+8LM+7FUpdVL+eB
-	 QBYaYRbn69jgvQP5jyOpbE+kGZjzfKhhoR8GkelDoQmkJr5HiA1Sgp9thpPTXCsxYvw==
+	bh=RsXhcETvvE5QtKVqqWrpWC5C7i0lzWDlRO5bjxMyvdc=;
+	b=IfFlf9NmRXvvOHeTKIXTdo9mIIAvNrBWIt5a5wTt3MuJQZEK1hbHZZHU8CbIwl3kknl4
+	 Q7MeP1lLVrDVTOqyCpEmmveR+CPi6t/VhTIIfSCGw1FcFs/bdzaAOaowUmVhiP8ue3QqP
+	 K4qe0zjfKGtbIJZmPTCOolGJ/KmLmIkzWtsxi3cS7XBGKuN8SGtVXsQypwfnpcdV6Zt6e
+	 siqK0tLIXroPAWgV4dYXq8QPIKBTTIcGn54e4hm2nyGTB9+bT0IReZHySsrzd+3jmPF+e
+	 iAmqZSpaCPLgbHPMzv5BvrwmhYf0z5lUMRriZJDNlkGdTfIxpaWv9zhSL1gNhx384ew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PqiE+X69;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IrzfDQmK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71E19606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:15:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79B10606A32E
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:15:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PqiE+X69
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF0431F0089F;
-	Sat,  7 Nov 2026 10:15:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IrzfDQmK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA2491F0089F;
+	Sat,  7 Nov 2026 10:15:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046550;
-	bh=Icsh7ibZCZCrR/S6gArHp4jXfe5TongIsfzJIGWpcuw=;
+	s=k20260515; t=1794046552;
+	bh=RsXhcETvvE5QtKVqqWrpWC5C7i0lzWDlRO5bjxMyvdc=;
 	h=From:To:Cc:Subject:Date;
-	b=PqiE+X69J/l88vGeZ/RXQdRl4R+XD2823bs/97H7x4FSnldqBPPD7X0DfhOEmlIj/
-	 tMu5D9kMjC6k8smpuu+q/uo7Crwy0Gp+sHt1Pv9lF8QbMYOAoXblmiKyzIhY74ViIy
-	 BZMKva0Wy2Mzl/Woj/esolsqWQ/SuqeAvGbde861HwNT3/Ddi3zWyPziCwKLh8CxJe
-	 nCGSQRwo2rFhC2iACVDccB3noNiUsYFyXmRlY9en8K4FRF5F6islv5WmP4oiRuhdyL
-	 1Ca0NrbNdfUXfrL5YeE9c8u0o1jiYjGNgzTnFNXE9NdVcEkDf9OKroSenc5Y7mOWmp
-	 dI4kTiTxX7cpg==
+	b=IrzfDQmK0C/eC5mc96OFr9NEryMqNGR1jGalExMzvleqDjRoKmcS/bwWu1fDfR95F
+	 9p2hjN2KoIwnS4Sr896mTAubl+KWv3CjHqCvDoeK9u1VdUIxC5xyMY04k58wzQwVYf
+	 N3B687ybxmv1ckby3Jvt7sy4iogjd7Vno85fbEAnz8kYk/5/GrtLo2H4Dns7SKkFOf
+	 RQtIiunNgq1iYRVlVd2FOv2QpqIlO8CiqIbg2jcEPu3Jz1O4RKhUi8Lgzyqj2umkE6
+	 7GeLD1kjKGj2oY9Np+uRZrS8xfAPOoOYkDo2xd7DiL6yR34rIgur+joRp61Q1kfeUu
+	 S/I+2JTzWEGBQ==
 From: Sasha Levin <sashal@kernel.org>
-To: noam.d.eliyahu@gmail.com,
-	pavan.chebbi@broadcom.com,
-	pabeni@redhat.com
+To: brauner@kernel.org,
+	josef@toxicpanda.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] tg3: Invert restart quirk logic to restrict SNP power-down bypass" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:15:48 -0500
-Message-ID: <20261107051548-failed-6.18-d7314b51341c@kernel.org>
+Subject: FAILED: patch "[PATCH] iomap: don't mark unwritten parts of a folio uptodate" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:15:50 -0500
+Message-ID: <20261107051550-failed-6.18-a4193b4af359@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,140 +68,83 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x d7314b51341c037973ce022f12c6009fd07b021e
+git cherry-pick -x a4193b4af359db84b2cdf3a040752861984c636b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051548-failed-6.18-d7314b51341c@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051550-failed-6.18-a4193b4af359@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From d7314b51341c037973ce022f12c6009fd07b021e Mon Sep 17 00:00:00 2001
-From: "Noam D. Eliyahu" <noam.d.eliyahu@gmail.com>
-Date: Tue, 27 Oct 2026 00:09:56 +0200
-Subject: [PATCH] tg3: Invert restart quirk logic to restrict SNP power-down
- bypass
+From a4193b4af359db84b2cdf3a040752861984c636b Mon Sep 17 00:00:00 2001
+From: Christian Brauner <brauner@kernel.org>
+Date: Thu, 29 Oct 2026 11:34:48 +0100
+Subject: [PATCH] iomap: don't mark unwritten parts of a folio uptodate
 
-Commit 9fc3bc764334 ("tg3: power down device only on SYSTEM_POWER_OFF")
-bypassed `tg3_power_down()` on system restarts to prevent reboot hangs and
-NMIs on servers where NICs were initialized via SNP (such as Dell PowerEdge
-R650 and R750).
+For a buffered write into a hole, an unwritten or new extent, or past
+EOF __iomap_write_begin() zeroes the parts of the blocks outside of the
+write and then marks the blocks uptodate. That includes the range of the
+write itself which still holds whatever was in the folio before. It only
+becomes valid once the copy from userspace has filled it in.
 
-However, skipping the power-down flow globally causes the ACPI _PTS method
-to trigger fatal PCIe AER events and hangs on other models. Commit
-e0efe83ed325 ("tg3: Disable tg3 PCIe AER on system reboot") attempted to
-mitigate this by adding an AER-disable DMI quirk table. Maintaining a
-growing list of models for a secondary symptom misses the root cause,
-leaving systems like the PowerEdge T440 (sharing the BCM5720 NIC) exposed.
+But the copy can come up short and __iomap_write_end() only rejects a
+short copy if the folio isn't uptodate. If the zeroed blocks were all
+that was missing the folio is uptodate by then, the short copy is
+accepted, and the rest of the range is exposed to readers and can end up
+on disk. A source buffer that ends in an unmapped page is enough:
 
-Fix this by inverting the quirk logic:
-1. Restrict SNP power-down avoidance strictly to
-   `tg3_restart_snp_quirk_table` for the specific systems requiring it
-   (Dell PowerEdge R650 and R750).
-2. Restore standard power-down behavior for all other systems, eliminating
-   the separate AER-disable quirk table.
+        ftruncate(fd, 4096);
+        pwrite(fd, p, 3000, 100);    /* 16 bytes at p, then PROT_NONE */
+        pread(fd, buf, 4096, 0);
 
-For systems affected by the original SNP restart issue, their shutdown flow
-remains completely untouched.
+The write returns 16 and the read returns 2984 bytes of whatever was in
+that page before. If other blocks of the folio aren't uptodate the short
+copy is rejected but the zeroed blocks keep their uptodate bits and the
+retry with the copied length leaves the same bytes behind.
 
-Link: https://lore.kernel.org/netdev/20251221175050.14089-1-noam.d.eliyahu@gmail.com/T/#u
-Fixes: 9fc3bc764334 ("tg3: power down device only on SYSTEM_POWER_OFF")
-Fixes: e0efe83ed325 ("tg3: Disable tg3 PCIe AER on system reboot")
+Only mark blocks uptodate in __iomap_write_begin() after reading them.
+__iomap_write_end() marks the zeroed blocks uptodate once the copy has
+succeeded and rejects a short copy.
+
+Willy reported this back in 2024 (cf. [1]) and Zhang Yi posted the same
+fix (cf. [2]) but it never got merged.
+
+[1]: https://lore.kernel.org/all/ZqsN5ouQTEc1KAzV@casper.infradead.org
+[2]: https://lore.kernel.org/all/20240812121159.3775074-6-yi.zhang@huaweicloud.com
+
+Fixes: 9dc55f1389f9 ("iomap: add support for sub-pagesize buffered I/O without buffer heads")
+Reported-by: Josef Bacik <josef@toxicpanda.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Noam D. Eliyahu <noam.d.eliyahu@gmail.com>
-Reviewed-by: Pavan Chebbi <pavan.chebbi@broadcom.com>
-Link: https://patch.msgid.link/20261026220955.473247-1-noam.d.eliyahu@gmail.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Link: https://patch.msgid.link/20261029-work-iomap-ai-fixes-v1-1-7eda63bc1b13@kernel.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- drivers/net/ethernet/broadcom/tg3.c | 48 +++++++----------------------
- 1 file changed, 11 insertions(+), 37 deletions(-)
+ fs/iomap/buffered-io.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/broadcom/tg3.c b/drivers/net/ethernet/broadcom/tg3.c
-index ce108705bbaf8..95827df4cf6a1 100644
---- a/drivers/net/ethernet/broadcom/tg3.c
-+++ b/drivers/net/ethernet/broadcom/tg3.c
-@@ -18256,53 +18256,23 @@ static int tg3_resume(struct device *device)
+diff --git a/fs/iomap/buffered-io.c b/fs/iomap/buffered-io.c
+index 678f4c5329e79..a6ab6f31cbbf3 100644
+--- a/fs/iomap/buffered-io.c
++++ b/fs/iomap/buffered-io.c
+@@ -920,6 +920,7 @@ static int __iomap_write_begin(const struct iomap_iter *iter,
+ 		if (iomap_block_needs_zeroing(iter, block_start)) {
+ 			if (WARN_ON_ONCE(iter->flags & IOMAP_UNSHARE))
+ 				return -EIO;
++			/* uptodate once copied, see __iomap_write_end() */
+ 			folio_zero_segments(folio, poff, from, to, poff + plen);
+ 		} else {
+ 			const struct iomap *iomap = iomap_iter_srcmap(iter);
+@@ -943,8 +944,8 @@ static int __iomap_write_begin(const struct iomap_iter *iter,
  
- static SIMPLE_DEV_PM_OPS(tg3_pm_ops, tg3_suspend, tg3_resume);
+ 			if (iomap->flags & IOMAP_F_ZERO_TAIL)
+ 				folio_zero_segment(folio, to, poff + plen);
++			iomap_set_range_uptodate(folio, poff, plen);
+ 		}
+-		iomap_set_range_uptodate(folio, poff, plen);
+ 	} while ((block_start += plen) < block_end);
  
--/* Systems where ACPI _PTS (Prepare To Sleep) S5 will result in a fatal
-- * PCIe AER event on the tg3 device if the tg3 device is not, or cannot
-- * be, powered down.
-+/* Systems where powering down a tg3 device on restarts triggers
-+ * NMIs and fatal hangs during reboot if the network adapters were
-+ * initialized under SNP.
-  */
--static const struct dmi_system_id tg3_restart_aer_quirk_table[] = {
--	{
--		.matches = {
--			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
--			DMI_MATCH(DMI_PRODUCT_NAME, "PowerEdge R440"),
--		},
--	},
--	{
--		.matches = {
--			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
--			DMI_MATCH(DMI_PRODUCT_NAME, "PowerEdge R540"),
--		},
--	},
--	{
--		.matches = {
--			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
--			DMI_MATCH(DMI_PRODUCT_NAME, "PowerEdge R640"),
--		},
--	},
-+static const struct dmi_system_id tg3_restart_snp_quirk_table[] = {
- 	{
- 		.matches = {
- 			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
- 			DMI_MATCH(DMI_PRODUCT_NAME, "PowerEdge R650"),
- 		},
- 	},
--	{
--		.matches = {
--			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
--			DMI_MATCH(DMI_PRODUCT_NAME, "PowerEdge R740"),
--		},
--	},
- 	{
- 		.matches = {
- 			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
- 			DMI_MATCH(DMI_PRODUCT_NAME, "PowerEdge R750"),
- 		},
- 	},
--	{
--		.matches = {
--			DMI_MATCH(DMI_SYS_VENDOR, "datto"),
--			DMI_MATCH(DMI_PRODUCT_NAME, "SIRIS 5 1U Server"),
--		},
--	},
- 	{}
- };
- 
-@@ -18320,14 +18290,18 @@ static void tg3_shutdown(struct pci_dev *pdev)
- 	if (netif_running(dev))
- 		dev_close(dev);
- 
--	if (system_state == SYSTEM_POWER_OFF)
-+	if (!dmi_first_match(tg3_restart_snp_quirk_table) ||
-+	    system_state == SYSTEM_POWER_OFF) {
- 		tg3_power_down(tp);
--	else if (system_state == SYSTEM_RESTART &&
--		 dmi_first_match(tg3_restart_aer_quirk_table) &&
-+	} else if (system_state == SYSTEM_RESTART &&
- 		 pdev->current_state != PCI_D3cold &&
- 		 pdev->current_state != PCI_UNKNOWN) {
- 		/* Disable PCIe AER on the tg3 to avoid a fatal
- 		 * error during this system restart.
-+		 * Needed since on restarts for systems in
-+		 * tg3_restart_snp_quirk_table skipping on powering down the
-+		 * tg3 device causes a fatal AER error during ACPI _PTS
-+		 * (Prepare To Sleep).
- 		 */
- 		pcie_capability_clear_word(pdev, PCI_EXP_DEVCTL,
- 					   PCI_EXP_DEVCTL_CERE |
+ 	return 0;
 -- 
 2.53.0
 
