@@ -1,66 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046832;
-	b=SpYC44YwgjSssXtypyn4h7on3ooZFQ1dCocVR5z0JirGtCWCbumyYjRJmYcI1lyfnswo
-	 YQvxaEyk2ffCwcDVp6aqODl49SMAxUEj0JjDOevLjQokm4jNgIN3Q+EfTnc895U+vfkpE
-	 Or5Ai7troI2ajqPr6+QwoneBDzLS+0NvAX0lXDa/NB3TZx1m120Y4IO3N5csQ7pQDA7j1
-	 8bOgi1UQuqyUTNQFo6BWVjf8petJh7V5q++R1kAL+bcR0KxBu+W25hdVA0b3L3jDC+co1
-	 Kv/wcSiiReaFXGNbSsYhvyRN8Q41f9yl+ELOVwWdhRp6CeqM+0KXtOOHSPFMYyiur3w==
+	t=1794046835;
+	b=lZEoyA4D40rll6qsYWm32kOztY3nffAErZJvE7Y4GyRDE0ygxdLh8dua9L3U8drKrdmc
+	 uL1tfr763EUZLNkKldk7MWLAquezujxvUcDYhqt84bkioFoJ/7kO7/5fqaJKmLK+FBO4j
+	 YWD1Z8PAdSR0BalGeeAZ6TNDSGuB+IilwNEZwBsdMQ1wK31dBSXamMeeVoU06aOoPPb4k
+	 3bI1PjWAcLhrEcKtkyxc+wskukdHji5DJ5z7BMHANFdx8djuHBkq9lLjW95oR2Vn6rrQy
+	 k/i5CpHvAA0BF5FbGtAm+hrRVeUCfRaYtxJ/GbHsMMidKfssecvoKCAIn2S19OW+19g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046832;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046835;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=P/8+Qg/6tTpVCMKbCj+S3eki9U7BmsfdzbQN/WuAW5Q=;
-	b=roG0UggamMTh3wS6N37dZ0xf3zQqxNCY4tHdNIjepIgXyKdVABj3NY21u9WdWrW/wcoG
-	 F3L+ageXH0kupsha+TmQdtrieDk83LAyNyt2z0gmOzPVjL+wd5JV71fkICjapdZi44KUn
-	 nYYfa5aLjc9FkuSIUEw8KepFEaNG0uI2St3WqKDR8QK9db5zC542x+J5L3CcABZqhwhdM
-	 3gI4dSxx7afSq6MPeuEeQiHhli0uAmNPnQzuDYUmJAUyMs8IrwETgJyhu0Ate32wKqhVq
-	 KRtmKXtcrBGoOTsPqsFE+TOzortJSmOaJ2pdwD/v/lzm/D8pdJwscceucsgakpmHarQ==
+	bh=SvldwjelVEd9w3Yzu1X30Rsi/IqtHh4g6qenAMEtfDE=;
+	b=x7SNrUe+DG17qz0xprImwIPQUDRluArK9V5Du6FR1PsC0+0vAIJOAbmzP/NeDytXbizo
+	 xjil0Uv0fRyJA29MwJWLBHZonuUjV3k7pAJ5o/mqqYgFMGZ26GMFFd4tzLKGzGX9/u4p2
+	 XS5B6+6/x7xI/IH1+5FWztE5SocmHKZp/6Ek3X/cfiwybzFfcihQxmhcW+z4zi9JY+zIM
+	 qY9feQpD+CVBiyygbMOEiBtVa94pwQ182TUGOT4DCXqWnpj5RQpgBa+/DrHfjVCNSJ2jP
+	 kYRQ+tGqm+zmowERn79knU1m8c+1KLV46ArxOFguN1NzQPCt8KgD2FYBWAAuPxh/gOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EGEPQxUF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ALrD7xa3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AB94606A33E
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:20:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AD97606A33E
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:20:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EGEPQxUF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3884D1F008A1;
-	Sat,  7 Nov 2026 10:20:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ALrD7xa3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACBB61F008A2;
+	Sat,  7 Nov 2026 10:20:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046832;
-	bh=P/8+Qg/6tTpVCMKbCj+S3eki9U7BmsfdzbQN/WuAW5Q=;
+	s=k20260515; t=1794046835;
+	bh=SvldwjelVEd9w3Yzu1X30Rsi/IqtHh4g6qenAMEtfDE=;
 	h=From:To:Cc:Subject:Date;
-	b=EGEPQxUFUyopM8MHfxOMhN/iS/8W4DtJFIovlQhShmPRvLxqhdiaVc4OxJ6e3WURy
-	 gqowaQW532ZDE+q1c8L5Mwk28D+gXFwYx3LJ/EWnzie1VVAQidvdzS5uN1JYTN2yS/
-	 CG6ZTSOdIxt8bqHnl71Wmf8hM1DzvIw70rUq+xt0H1AtErWnAHtY4DUX5dHHVnhSgo
-	 ert1MypqFd8/j8MU7RhBSnOI815M+2jkIOU6dV4Iku00fVC+cw/J410d7S239gRwzD
-	 1yC+F7CUmSfCF2WcVZfa1dTIIrxNfpgtybM+Hirtcbx8Bgfu8rvzMuiKONcfOyMBVg
-	 nQyEVOYoLKyNA==
+	b=ALrD7xa3CHUIm4VL1pIChq4lvy4kd54xRIbYOdO5SzQ6CQECadieRW8mSYdFiI0VD
+	 dg9S8pkO0ftRc9DMrYFYtR94PyboARj3q+IkMR13r50xFRJmxm5w/gKKw/0PDGYGqs
+	 sV0IRdU6u9tBsJ+VV34w/TS3BsEHC/kc4g8HNz6gBfYa/K7wLU+7yXSkmKreYIs76w
+	 Qrkuc7aOuthgRAhy5hdM1xoSsmRtlmiWE4D4o7gtR/SDWMKXkgsZXNvL/XiaRfNPmZ
+	 gkPo40KlkBk4zyIo59YovcluYyTjrevf0u5N78OmyNZp1Oa4tzurRu+vXYQpmRZyND
+	 7ezlMLExsTu4g==
 From: Sasha Levin <sashal@kernel.org>
-To: chenridong@xiaomi.com,
-	baohua@kernel.org,
-	hannes@cmpxchg.org,
+To: gourry@gourry.net,
 	akpm@linux-foundation.org,
-	axelrasmussen@google.com,
-	chris@chrisdown.name,
+	sashiko-bot@kernel.org,
 	david@kernel.org,
-	kasong@tencent.com,
+	ziy@nvidia.com,
+	liam@infradead.org,
 	ljs@kernel.org,
-	mhocko@kernel.org,
-	muchun.song@linux.dev,
-	roman.gushchin@linux.dev,
-	shakeel.butt@linux.dev,
-	tj@kernel.org,
-	weixugc@google.com,
-	yuanchu@google.com,
-	yuzhao@google.com
+	vbabka@kernel.org,
+	jannh@google.com,
+	joshua.hahnjy@gmail.com,
+	rakie.kim@sk.com,
+	ying.huang@linux.alibaba.com,
+	peterx@redhat.com,
+	jgg@ziepe.ca
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/page_counter: avoid integer overflow in effective_protection()" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:20:29 -0500
-Message-ID: <20261107052029-failed-6.12-7809ce47b056@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/mempolicy: use vm_normal_folio_pmd() in queue_folios_pmd()" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:20:32 -0500
+Message-ID: <20261107052032-failed-6.12-9057170a941f@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -83,130 +80,193 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 7809ce47b05671e1fa6d74bead892d6ad6c1403b
+git cherry-pick -x 9057170a941f0c5f4058f6fb9ab5d5fc9fcc9e83
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052029-failed-6.12-7809ce47b056@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052032-failed-6.12-9057170a941f@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 7809ce47b05671e1fa6d74bead892d6ad6c1403b Mon Sep 17 00:00:00 2001
-From: Ridong Chen <chenridong@xiaomi.com>
-Date: Mon, 7 Sep 2026 10:54:44 +0800
-Subject: [PATCH] mm/page_counter: avoid integer overflow in
- effective_protection()
+From 9057170a941f0c5f4058f6fb9ab5d5fc9fcc9e83 Mon Sep 17 00:00:00 2001
+From: Gregory Price <gourry@gourry.net>
+Date: Sat, 26 Sep 2026 06:51:09 -0400
+Subject: [PATCH] mm/mempolicy: use vm_normal_folio_pmd() in queue_folios_pmd()
 
-Patch series "mm/mglru: fix ineffective memory protection for non-kswapd
-reclaim", v4.
+Patch series "mm: stop calling pmd_folio() on special PMDs", v3.
 
-For MGLRU, memory.min/low is not honored during non-kswapd global reclaim
-(global direct reclaim and root-level memory.reclaim), because these paths
-shrink memcgs using stale protection (emin/elow).
+Two page table walkers resolve the folio behind a PMD with pmd_folio(),
+which is only valid for a PMD mapping a refcounted struct page:
 
-Patch 2 is the actual fix.  Patch 1 is a prerequisite: an integer overflow
-in effective_protection(), spotted by the sashiko review tool, which patch
-2's new caller would also be exposed to.
+  madvise_cold_or_pageout_pte_range() mm/madvise.c
+  queue_folios_pmd() mm/mempolicy.c
+
+vmf_insert_pfn_pmd() installs special PMDs holding a raw pfn that need not
+have a memmap entry at all.  Both walkers can reach one and fault on the
+first folio field read.  The PTE halves of both already use
+vm_normal_folio(); these two patches make the PMD halves match.
+
+The four callers of vmf_insert_pfn_pmd(), and which walker each reaches:
+
+  drivers/vfio/pci/vfio_pci_core.c        VM_PFNMAP     mempolicy
+  drivers/gpu/drm/drm_gem_shmem_helper.c  VM_PFNMAP     mempolicy
+  drivers/gpu/drm/panthor/panthor_gem.c   VM_PFNMAP     mempolicy
+  drivers/hv/mshv_vtl_main.c              VM_MIXEDMAP   both
+
+can_madv_lru_vma() rejects VM_PFNMAP, so only mshv_vtl_low reaches the
+madvise walker, and that needs CAP_SYS_ADMIN.  queue_pages_walk_ops
+supplies its own ->test_walk, so walk_page_test()'s generic VM_PFNMAP skip
+never runs and vfio-pci is reachable by any process holding the device fd.
+Hence the different stable tags.
+
+One behaviour change: mbind(MPOL_MF_STRICT) over a PMD mapped VM_PFNMAP
+region now returns 0 rather than -EIO.  The PTE loop already returned 0
+there.  drm_gem_shmem and panthor are where this is observable, since they
+PMD map pages that do have a memmap entry and so never faulted.
+
+Reproducer
+==========
+
+No hardware needed.  An out of tree module stands in for the drivers
+above: three misc devices, each with a ->huge_fault calling
+vmf_insert_pfn_pmd(), plus VM_HUGEPAGE so the fault path takes the PMD
+branch.
+
+  /dev/pmdspec_mixed    VM_MIXEDMAP, pfn at the 1 TiB mark, no memmap
+  /dev/pmdspec_pfnmap   VM_PFNMAP,   pfn at the 1 TiB mark, no memmap
+  /dev/pmdspec_real     VM_PFNMAP,   real alloc_pages(PMD_ORDER) on node 0
+
+Userspace maps the device into a PMD aligned window, reads one byte to
+fault the PMD in, checks a module parameter to confirm it went in, then
+issues the operation.
+
+  vng --run <bzImage> --user root --memory 4G --verbose \
+      --append "numa=fake=2" \
+      --exec "insmod pmdspec.ko && ./pmdspec_test <subtest>"
+
+numa=fake=2 gives a node 1 to bind to; the module allocates its real page
+on node 0, which is what makes queue_folio_required() true.
+
+  subtest        operation                              parent   series
+  --------------------------------------------------------------------
+  madv_cold      madvise(MADV_COLD)                     oops     ret=0
+  madv_pageout   madvise(MADV_PAGEOUT)                  oops     ret=0
+  mbind_mixed    mbind(MPOL_BIND, n1, MPOL_MF_MOVE)     oops     ret=0
+  mbind_pfnmap   mbind(MPOL_BIND, n1, MPOL_MF_STRICT)   oops     ret=0
+  mbind_real     mbind(MPOL_BIND, n1, MPOL_MF_STRICT)   -EIO     ret=0
+
+Two things the table shows that are easy to miss in the code:
+
+  - mbind_mixed passes only MPOL_MF_MOVE.  MPOL_MF_STRICT is not needed for
+    a VM_MIXEDMAP vma: walk_page_test() only skips VM_PFNMAP, and
+    vma_migratable() is true for VM_MIXEDMAP.
+
+  - mbind_real demonstrates the user visible change (-EIO -> 0)
 
 
 This patch (of 2):
 
-effective_protection() scales a parent's protection by a ratio of page
-counts, e.g.  for recursive protection:
+mmap a VM_PFNMAP region whose ->huge_fault installs a PMD through
+vmf_insert_pfn_pmd() - a vfio-pci MMIO BAR does this - then
 
-	(parent_effective - siblings_protected) * (usage - protected)
-		/ (parent_usage - siblings_protected)
+	mbind(p, len, MPOL_BIND, &mask, maxnode, MPOL_MF_STRICT);
 
-The multiply is done at unsigned long width before dividing.  On systems
-with >= 16TB RAM the product can exceed 2^64 and wrap, giving a bogus
-protection value and silently breaking memory.min/low enforcement.
+With a stand-in module for the driver:
 
-Use mul_u64_u64_div_u64() to multiply in a 128-bit intermediate.  Because
-usage and parent_usage are not read atomically (a child is charged before
-its parent), usage - protected can briefly exceed the divisor, making the
-quotient overflow 64 bits and trap (#DE on x86).  Cap it so the ratio
-stays <= 1.
+  BUG: unable to handle page fault for address: fffff96dc0000008
+  RIP: 0010:queue_folios_pte_range+0xaf/0x440
+   walk_pgd_range+0x52b/0xaf0
+   __walk_page_range+0x6a/0x1d0
+   walk_page_range_mm_unsafe+0x193/0x230
+   queue_pages_range+0x64/0xa0
+   do_mbind+0x25e/0x640
 
-Reported by the sashiko review tool [1].
+queue_folios_pmd(), inlined above, calls pmd_folio() on that PMD.  The pfn
+is raw MMIO with no memmap entry, so the folio lands in unpopulated
+vmemmap.  Neither guard stops the walk:
 
-Link: https://lore.kernel.org/20260907025445.1836238-1-ridong.chen@linux.dev
-Link: https://lore.kernel.org/20260907025445.1836238-2-ridong.chen@linux.dev
-Link: https://sashiko.dev/#/patchset/20260826133054.88529-1-ridong.chen@linux.dev?part=1 [1]
-Fixes: bc50bcc6e00b ("mm: memcontrol: clean up and document effective low/min calculations")
-Fixes: 8a931f801340 ("mm: memcontrol: recursive memory.low protection")
-Reviewed-by: Barry Song <baohua@kernel.org>
-Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
-Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+  walk_page_test()         skips VM_PFNMAP, but queue_pages_walk_ops
+                           supplies ->test_walk, so it never runs
+  queue_pages_test_walk()  honours vma_migratable(), but only while
+                           MPOL_MF_STRICT is clear
+
+A VM_MIXEDMAP vma needs neither flag, being vma_migratable(), so plain
+mbind(MPOL_MF_MOVE) reaches this too - and there the bad folio carries on
+into migrate_folio_add() and folio_isolate_lru().  mshv_vtl_low is such a
+mapping.
+
+Use vm_normal_folio_pmd() and skip on NULL, as the PTE loop in
+queue_folios_pte_range() already does with vm_normal_folio().  This also
+filters the huge zero PMD, so its separate check is no longer needed.
+
+mbind(MPOL_MF_STRICT) over a PMD mapped VM_PFNMAP region now returns 0
+rather than -EIO.  The PTE loop already returned 0 there.
+
+Link: https://lore.kernel.org/20260926105110.2156652-1-gourry@gourry.net
+Link: https://lore.kernel.org/20260926105110.2156652-2-gourry@gourry.net
+Fixes: 3c8e44c9b369 ("mm: mark special bits for huge pfn mappings when inject")
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Assisted-by: Claude:claude-opus-4-8
-Cc: Axel Rasmussen <axelrasmussen@google.com>
-Cc: Chris Down <chris@chrisdown.name>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Kairui Song <kasong@tencent.com>
+Reported-by: sashiko-bot <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260817220810.1175596-1-gourry%40gourry.net
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Assisted-by: LLM
+Cc: Liam R. Howlett <liam@infradead.org>
 Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Michal Hocko <mhocko@kernel.org>
-Cc: Muchun Song <muchun.song@linux.dev>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Tejun Heo <tj@kernel.org>
-Cc: Wei Xu <weixugc@google.com>
-Cc: Yuanchu Xie <yuanchu@google.com>
-Cc: Yu Zhao <yuzhao@google.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: Rakie Kim <rakie.kim@sk.com>
+Cc: Ying Huang <ying.huang@linux.alibaba.com>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>
 Cc: <stable@vger.kernel.org>
 ---
- mm/page_counter.c | 21 +++++++++++++++------
- 1 file changed, 15 insertions(+), 6 deletions(-)
+ mm/mempolicy.c | 13 +++++--------
+ 1 file changed, 5 insertions(+), 8 deletions(-)
 
-diff --git a/mm/page_counter.c b/mm/page_counter.c
-index 450543f4b318b..98322803941a7 100644
---- a/mm/page_counter.c
-+++ b/mm/page_counter.c
-@@ -8,6 +8,7 @@
- #include <linux/page_counter.h>
- #include <linux/atomic.h>
- #include <linux/kernel.h>
-+#include <linux/math64.h>
- #include <linux/string.h>
- #include <linux/sched.h>
- #include <linux/bug.h>
-@@ -376,7 +377,8 @@ static unsigned long effective_protection(unsigned long usage,
- 	 * otherwise get a smaller chunk than what they claimed.
- 	 */
- 	if (siblings_protected > parent_effective)
--		return protected * parent_effective / siblings_protected;
-+		return mul_u64_u64_div_u64(protected, parent_effective,
-+					   siblings_protected);
+diff --git a/mm/mempolicy.c b/mm/mempolicy.c
+index 95dba5d919e92..e9860fb9f73f8 100644
+--- a/mm/mempolicy.c
++++ b/mm/mempolicy.c
+@@ -667,7 +667,8 @@ static inline bool queue_folio_required(struct folio *folio,
+ 	return node_isset(nid, *qp->nmask) == !(flags & MPOL_MF_INVERT);
+ }
  
- 	/*
- 	 * Ok, utilized protection of all children is within what the
-@@ -417,13 +419,20 @@ static unsigned long effective_protection(unsigned long usage,
- 	if (parent_effective > siblings_protected &&
- 	    parent_usage > siblings_protected &&
- 	    usage > protected) {
--		unsigned long unclaimed;
-+		unsigned long parent_unclaimed, parent_unprotected, unprotected;
- 
--		unclaimed = parent_effective - siblings_protected;
--		unclaimed *= usage - protected;
--		unclaimed /= parent_usage - siblings_protected;
-+		parent_unclaimed = parent_effective - siblings_protected;
-+		parent_unprotected = parent_usage - siblings_protected;
- 
--		ep += unclaimed;
-+		/*
-+		 * The usages aren't read atomically, so a child can transiently
-+		 * appear to use more than its parent, making the ratio exceed 1
-+		 * and the quotient overflow 64 bits (#DE on x86).  Cap it.
-+		 */
-+		unprotected = min(usage - protected, parent_unprotected);
-+
-+		ep += mul_u64_u64_div_u64(parent_unclaimed, unprotected,
-+					  parent_unprotected);
+-static void queue_folios_pmd(pmd_t *pmd, struct mm_walk *walk)
++static void queue_folios_pmd(pmd_t *pmd, unsigned long addr,
++		struct mm_walk *walk)
+ {
+ 	struct folio *folio;
+ 	struct queue_pages *qp = walk->private;
+@@ -678,13 +679,9 @@ static void queue_folios_pmd(pmd_t *pmd, struct mm_walk *walk)
+ 			qp->nr_failed++;
+ 		return;
  	}
+-	folio = pmd_folio(pmdval);
+-	if (folio_is_zone_device(folio))
++	folio = vm_normal_folio_pmd(walk->vma, addr, pmdval);
++	if (!folio || folio_is_zone_device(folio))
+ 		return;
+-	if (is_huge_zero_folio(folio)) {
+-		walk->action = ACTION_CONTINUE;
+-		return;
+-	}
+ 	if (!queue_folio_required(folio, qp))
+ 		return;
+ 	if (!(qp->flags & (MPOL_MF_MOVE | MPOL_MF_MOVE_ALL)) ||
+@@ -717,7 +714,7 @@ static int queue_folios_pte_range(pmd_t *pmd, unsigned long addr,
  
- 	return ep;
+ 	ptl = pmd_trans_huge_lock(pmd, vma);
+ 	if (ptl) {
+-		queue_folios_pmd(pmd, walk);
++		queue_folios_pmd(pmd, addr, walk);
+ 		spin_unlock(ptl);
+ 		goto out;
+ 	}
 -- 
 2.53.0
 
