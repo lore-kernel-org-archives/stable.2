@@ -1,71 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=71.18.227.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794080973;
-	b=zNvBMyNFKt/t8jCp4Du7dQr7Rc2lPOEWH0sYGNcGv5Gx68XOzsoo/qGdcE2oJ7JqKWLP
-	 OOMlI4bmohJfmcfFg+OY0KNBiXg9ceyEQitrEI6Q5tLnJn8oH+iqJeQVbQJc8Cw+zTqqJ
-	 6aMrh+q7fCJE1HUHeRfSEhBm7jl9IWGH33i4Fu1hMkq/RbiioTSTmj1Ll36556J6Om5Oy
-	 aotI2cJcjGwqvYVi/ido3zfax3PwhzVsKEaO4UC/TYPPWb+FvVohr1aUFtCl2SC2zyJSv
-	 VwWSIJm+SszAo9OAegxbRP9y31pNOohuzbnwXBzBm24295xEJ3pP0V9Ax3528C6L95w==
+	t=1794081024;
+	b=dVknmVLYI6l5FUClcEYOVVIXRnmwFMq0JfA0zGSumkvLfgTzZ6sp1N4A9f83h6DHbPwA
+	 rULd15TaYWM4lLRhhbG5ZO8ULk+WGn/C6OzhBJgsEV/dGtjMXVIn2qAJFQNvnRds4SnN+
+	 1W6pdQvlwTO/tCNempWFjfCCdBqa4rcmo0R322KRMupBfyIo1LeEERfx3arCXeNFahNXZ
+	 RR4oau8zYCAuqbVaHP0zPSAwLQenc0/tSTDLXbWRq+OWGvQW8Jxmm+67Rl1OimQMkkIUm
+	 yF92pMzVn2XOZQHUjgdcV893LCWu6h0lzQE+wSEGogiNVH9DJuyC3eBqDOrX1UG7Ecg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794080973;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
-	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
-	bh=/+pF8ulalzoN9iVRVw5yAMloH9f98sQtIGRgxx6MQ4o=;
-	b=P0RhUjT4e2VwWh8Qbde8QNPWEggK6u1mSXW+qkfwVEazUmBgb5/8QBK9xogj7k31n9Oo
-	 VAlEs+5yx/qPYSj5UdgCbIEh3FAsi6QPwxaPWdTZWY9truIFLG9mq+/PH6d/K/2xRoC6o
-	 Q24Y7JB+8rjWJ6KHZK0uJvbKPH335smtjSWH9c2GjBVGVY3FeyQ2uYYEI/mC6YJOro2UQ
-	 zN0AZOwBG5C2/clvzNZuC4o9uyF7Iv7p7MYKNdN8z7mPsUS2TEjb7Lmxb0KzS0hPwIfP9
-	 QmNV97xknIZ928idcwLbDAPmZks+7plG4Jj+y4RXluX1OxjecQY6kasTaexcgyAWEIw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794081024;
+	h=DMARC-Filter:DKIM-Signature:Cc:Content-Type:X-Mailer:From:Message-Id:
+	 References:Subject:Date:In-Reply-To:Received:X-Original-From:To:
+	 Mime-Version:X-Lms-Return-Path:Content-Transfer-Encoding;
+	bh=rlLgG5I3OPDKe+s2G/vyZAlDqa0Clnytt8kFvaBbu38=;
+	b=0VEV1HcOeIv6qqvPpjmMwaag5tDOGUsBaD5HPSS5XcvThesG1Me8Fi7faPfte/d7IETq
+	 1merNtwEoXswdiBirwPJq/YSUC6/9W8cpvxMySsQuslBAfdH35Nq7kaioLehvuvqhp5OY
+	 lWfDX49CGPTzdd/ZCRqdn52OQnOBrvlDrlmDOeTk/7/Y0tJRKI4G/+4Uk2GJdsLr5N4mK
+	 zQRRXQSnFhczjN1DhTs4xpvsSLrc90JuSDOMpe+om9nCT/EPxJEBX6WOMC2TkakAbyk+0
+	 hzBzuO3In8nRlDj69+zrgfWL1o55cKc01++/IJi3571fvxVxQzQerT13mh75ntBUWzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.cyber.gouv.fr;
-	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
-	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=b7FnOmJu;
-	arc=none smtp.remote-ip=51.159.188.251
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=cherr.cc;
+	spf=pass smtp.mailfrom=cherr.cc;
+	dkim=pass header.d=cherr.cc header.i=@cherr.cc header.a=rsa-sha256 header.s=feishu2604220257 header.b=UD8oXflt;
+	arc=none smtp.remote-ip=71.18.227.2
+Received: from sg-2-2.ptr.blmpb.com (sg-2-2.ptr.blmpb.com [71.18.227.2])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82189606A326;
-	Sat,  7 Nov 2026 19:49:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82189606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE738606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 19:50:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE738606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=b7FnOmJu
+	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.a=rsa-sha256 header.s=feishu2604220257 header.b=UD8oXflt
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References;
-	bh=/+pF8ulalzoN9iVRVw5yAMloH9f98sQtIGRgxx6MQ4o=; b=b7FnOmJu22QQeHWMKZWdmZGqug
-	q/kZI/Z4pOz2YGhY+ANb1zHFJ+0UNvY8fYv1bWVAC1kXxV6DwcAD9OqV65NlFX/dawzz/Pq/mq5N+
-	cixgoR/8WNGj+uZeeVgYdTqNYwBzKRAx1AC19TMIiIwQbVeX4NZVFGtyaR03pz6V/7GTqfZyQZVF7
-	CAltwHiMXE06RwCbP3dgDABIZTl/1i8USP6z44o72HDsx82OITxNi5KHQRT9qs1OA49umEoW8Q4Xi
-	n1yG5YhyJKV9XHbbNw5CxCJy2ijhHC1wv7sGUMcC+aQYZyGQ5ZtM35N4phi+SX12r0J2LaqLee3HV
-	GFUU6Tyw==;
-Received: from [151.115.150.205] (port=40112 helo=gepetto..)
-	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
-	id 1xPmPu-00000009BTJ-0Zv5;
-	Sat, 07 Nov 2026 20:49:30 +0100
-From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-To: Mimi Zohar <zohar@linux.ibm.com>,
-	Roberto Sassu <roberto.sassu@huawei.com>,
-	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>
-Cc: Eric Snowberg <eric.snowberg@oracle.com>,
-	linux-integrity@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
-	stable@vger.kernel.org
-Subject: [PATCH] evm: fix TOCTOU heap OOB in protected xattr reads
-Date: Sat,  7 Nov 2026 19:49:10 +0000
-Message-ID: <20261107194909.1061154-2-Jeremy.Jean@oss.cyber.gouv.fr>
-X-Mailer: git-send-email 2.47.3
+ s=feishu2604220257; d=cherr.cc; t=1794081012; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=rlLgG5I3OPDKe+s2G/vyZAlDqa0Clnytt8kFvaBbu38=;
+ b=UD8oXfltWgNb54C0XxVzSRRvDjkZKpEjt4xHyHCiwENX6poD49ME1YP6yhGSb70BreyzWo
+ mSR3IpLTQD6lmTjo/ZsablwyKvUcj1nMFrL7PZ6B8A23IRNHbrM3JxMhGG6onisqXFCW0q
+ VCQVpshQzUVzLXytiAnGw0vv7CmD1gsH/Tlm4igVqLuowuApqaiMGf5bXQchts9f7sm482
+ JP5SiV14u+odYd8ZyntmQQSUmW7Xt9tCDhJHQZhb2K0KcwlZwkEZ9W+MVvpl/Di/Z4FTO3
+ KXvrNXx+/7ZwRg94itJMz5phb/5K4VGpjIAdEcnWZJeN2IyjrD/25uuQTkDW9g==
+Cc: <linux-xfs@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	"Shengzhuo Wei" <me@cherr.cc>, <stable@vger.kernel.org>
+Content-Type: text/plain; charset=UTF-8
+X-Mailer: b4 0.16.0
+From: "Shengzhuo Wei" <me@cherr.cc>
+Message-Id: <20261108-twin-20261106-fs-xfs-da-node-v1-1-0d4bd47938ba@cherr.cc>
+References: <20261108-twin-20261106-fs-xfs-da-node-v1-0-0d4bd47938ba@cherr.cc>
+Subject: [PATCH 1/3] xfs: bound node entries on path shifts
+Date: Sun, 08 Nov 2026 03:49:58 +0800
+In-Reply-To: <20261108-twin-20261106-fs-xfs-da-node-v1-0-0d4bd47938ba@cherr.cc>
+Received: from [127.0.1.1] ([111.40.58.155]) by smtp.feishu.cn with ESMTPS; Sun, 08 Nov 2026 03:50:10 +0800
+X-Original-From: Shengzhuo Wei <me@cherr.cc>
+To: "Carlos Maiolino" <cem@kernel.org>, "Long Li" <leo.lilong@huawei.com>, 
+	"Darrick J. Wong" <djwong@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -74,85 +65,42 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+Mime-Version: 1.0
+X-Lms-Return-Path: <lba+26aef80f2+e78aa1+vger.kernel.org+me@cherr.cc>
+Content-Transfer-Encoding: 7bit
 
-ima_eventinodexattrs_init_common() queries the total size of protected
-xattrs, allocates that amount, and calls evm_read_protected_xattrs()
-again to fill the buffer. This creates a TOCTOU window: if the
-protected xattr changes between the two calls to
-evm_read_protected_xattrs(), names and lengths are written without
-checking whether the data still fits in the target buffer. This can
-yield an OOB heap write that KASAN reports as:
+The da-node verifier uses the larger of the directory and attribute
+geometry limits, so an attribute node can pass verification with more
+entries than its buffer holds.  xfs_da3_path_shift() can load such a node
+without passing through the lookup path's geometry check, then index
+btree[] beyond the buffer.
 
-  BUG: KASAN: slab-out-of-bounds in evm_read_protected_xattrs+0x15e/0x280
-  Write of size 20 at addr ffff888002c59bcd by task init/62
+Bound the count against args->geo->node_ents before indexing the entries
+and report filesystem corruption if it exceeds that limit.
 
-Reject fields that no longer fit in the target buffer. For xattr
-values, use the length actually returned by the copy.
-
-Fixes: 8314b6732ae4e ("ima: Define new template fields xattrnames, xattrlengths and xattrvalues")
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Signed-off-by: Shengzhuo Wei <me@cherr.cc>
 ---
- security/integrity/evm/evm_main.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ fs/xfs/libxfs/xfs_da_btree.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/security/integrity/evm/evm_main.c b/security/integrity/evm/evm_main.c
-index ac8328812e6ef..4b01ca0b4753a 100644
---- a/security/integrity/evm/evm_main.c
-+++ b/security/integrity/evm/evm_main.c
-@@ -389,6 +389,10 @@ int evm_read_protected_xattrs(struct dentry *dentry, u8 *buffer,
- 		case 'n':
- 			size = strlen(xattr->name) + 1;
- 			if (buffer) {
-+				if (total_size > buffer_size ||
-+				    size > buffer_size - total_size)
-+					return -ERANGE;
-+
- 				if (total_size)
- 					*(buffer + total_size - 1) = '|';
- 
-@@ -398,6 +402,10 @@ int evm_read_protected_xattrs(struct dentry *dentry, u8 *buffer,
- 		case 'l':
- 			size = sizeof(u32);
- 			if (buffer) {
-+				if (total_size > buffer_size ||
-+				    size > buffer_size - total_size)
-+					return -ERANGE;
-+
- 				if (canonical_fmt)
- 					rc = (__force int)cpu_to_le32(rc);
- 
-@@ -407,12 +415,17 @@ int evm_read_protected_xattrs(struct dentry *dentry, u8 *buffer,
- 		case 'v':
- 			size = rc;
- 			if (buffer) {
-+				if (total_size > buffer_size ||
-+				    size > buffer_size - total_size)
-+					return -ERANGE;
-+
- 				rc = __vfs_getxattr(dentry,
- 					d_backing_inode(dentry), xattr->name,
- 					buffer + total_size,
- 					buffer_size - total_size);
- 				if (rc < 0)
- 					return rc;
-+				size = rc;
- 			}
- 			break;
- 		default:
+diff --git a/fs/xfs/libxfs/xfs_da_btree.c b/fs/xfs/libxfs/xfs_da_btree.c
+index faf88488265c..88788ece69c6 100644
+--- a/fs/xfs/libxfs/xfs_da_btree.c
++++ b/fs/xfs/libxfs/xfs_da_btree.c
+@@ -2242,6 +2242,11 @@ xfs_da3_path_shift(
+ 			xfs_da3_node_hdr_from_disk(dp->i_mount, &nodehdr,
+ 						   bp->b_addr);
+ 			btree = nodehdr.btree;
++			if (nodehdr.count > args->geo->node_ents) {
++				xfs_buf_mark_corrupt(blk->bp);
++				xfs_da_mark_sick(args);
++				return -EFSCORRUPTED;
++			}
+ 			blk->hashval = be32_to_cpu(btree[nodehdr.count - 1].hashval);
+ 			if (forward)
+ 				blk->index = 0;
+
 -- 
 2.47.3
-
