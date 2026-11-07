@@ -1,69 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047166;
-	b=CF3JNP8rhvqcZ7EbbemvtD4uE1tFcyCQgPwrfJJJCwMdCAbTJS6Wj0rangFvr1in9Tzz
-	 pdoWBlRkZ3aGTyk08UcS+0IuZ48PJqBuMKKN8e4OE2+xU6RYTZ9nR+ybfD3A+AuqumwW1
-	 zMuQFtoTbj4qGcWSBrKn4NAspAjNpvT/lzqmkDRBFe0KMnqPWxhvlu6jfmm2dYF1hd2xD
-	 XxoI6JoMMw+SGQUum4B3CJaSBIJHBM+kXuTvT1p7HQ7P6GAl3K7oeTv6fZU8FDeOYLkJo
-	 eu7ytfKknBTLS0cylarSAu23eS+GBxATFzsZVGKZWg2WzxYEwtB+3OhftiRAjJjfI4g==
+	t=1794047170;
+	b=hdnXRnwPe4M9StBigs1b+NAobZtRKAo+ZgenZjw2SGW9859IV2lT+l6vKJ3ZbnbgYLZS
+	 rq15b59ZMYBeGnhl7kmbsfsyt/mpOnWgN1tIY/xz4GYmCc2L97PfZXdj20D9GsEWKoFaC
+	 3+iVgUuJVTh0mM7tUT5Czb79pLC7rj62cGZ8SiIpI+ki3HTTOIgdXnNYaxL50l99uYPe0
+	 6YfyuOgaSmyHag+EkBz602d0Td2wo5ztiko7gxmRNbc9OsfERzO4mcTx2S4zvDrBMIin8
+	 E+XKwz6CK/stM5YabBDawYAVvIVYnzhFWCzmbifeTzSD2RfAENsYDZhjdD/eBaseJuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047166;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047170;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=4h8a8fTiSKFipZw9iMy+Q9GOpUJz3gQqI1QrcwbN1ec=;
-	b=aua+4caz4MM0EIDncg1Ege24c0TqquuA9wbRIc0RrQm6Q10VY2x+p4uB/2EahWQ4WwBw
-	 wOm1THLo+yXfz1eL2q0MYW/91xrTCPpjQsbN/u7dFHekDknMdIf3UHuxEB3EYj3W+eu5w
-	 QUaF7XJ0Jape9krBg/bKR+tJj6BfdfBHHJCqhz3xPo/1zWJ2QEJXbfAUQnO4SCIMS8iHH
-	 /FjgtWPCwBzU6dVN9yVsG63SDz199GYg49+Cb/Mkailj6E0TOjgOJswOVJdmK/ZLF79Sk
-	 vNe0QKint8xdct0Pg57avDEPJtDm1jfqGViThwRkTTXJcqchX+AvEn9LNjNnzK64glw==
+	bh=U+9v9BA49TUJEosgLWMrrgPw7zATrmL1gUzXz3T/4sk=;
+	b=Yi5augi445D3D+z/hn6GYmAmxdAgpCd2JCRVOG3V9EYdCDqeqZ4mffslXBHxIefxtZxC
+	 uoVN3iVkjPs+GoNx/NoG/fs3J+VD7wwV2dqqNzO7S5+sBQNiBBYwVf9q2nPWblOvtJSdd
+	 zWPlguEoEUJSdbfBi1FRrIIRN9YngdJ7wHV+et2RsiDwdHRYSGG1LmZ4PnQfNvuDWzuyU
+	 QRH9d+3fmL3i+bMnlJ3S2FkVJ2F9rG4bazaCAGrAju+fEqTuGAyhRoLpsgkhb7qm5h5G8
+	 msOS8hoErclNZfjtQQVoidYMeyLDKEmm+zDN2k9YuVKZTU2z1fci+qwDL5l0ezO14iw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FA3J6Vsn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="gm3lh/ON";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C325606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:26:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6273606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:26:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FA3J6Vsn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 612171F0089F;
-	Sat,  7 Nov 2026 10:26:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gm3lh/ON
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 265F41F0089F;
+	Sat,  7 Nov 2026 10:26:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047166;
-	bh=4h8a8fTiSKFipZw9iMy+Q9GOpUJz3gQqI1QrcwbN1ec=;
+	s=k20260515; t=1794047169;
+	bh=U+9v9BA49TUJEosgLWMrrgPw7zATrmL1gUzXz3T/4sk=;
 	h=From:To:Cc:Subject:Date;
-	b=FA3J6VsnsA005o2NKzJFhuvZwkkfW947lh1dKjuPD0RL6zzdanJchy3AW5CtFpjbD
-	 Y4SCYK6WsiPoyLNCCp3GyUdAtiwTxoX49K7wU/Ab7DOYZggNqbTXY56Byl1baHwrgx
-	 ePxieVULeJLyuVhwOszU2qdkxCHKFWVTqcgyKQEHvz9odWwjMoGCa/9c0na0uloecn
-	 7Xw3deJqdA7P5YY8FO3WI117/tSEcYVdNbtkIpCWwau3oknKIzHwkWp9Wx4WVR3NmF
-	 NenghpPb1CNemKSRcOiFjrRn0i0sd0LLe96BNPzmdjTQSPPJjY6cWX8fvzSoilqhZ6
-	 OBztcl3h9IP3A==
+	b=gm3lh/ONgnO00K5sMptV/uAWNy6JTvTyer+JRKj4RN48QhIgvX2hNJEbO+OFFZmfb
+	 axW/o30Bqz/3gZyChrqRxM//EqbAz/lZ+0D9PQ2W9yic7bYuyGSNnkULA7h0rTxJ55
+	 U8uzLmKgHqsfLwwr2/8w3462Gekw4NHkyeXXmvvHW6CSors9bmWzOJZuV9PY5rFk1s
+	 OlsQ80uHRFabG42tZO846nF0YgM60R2Yeg2MWDd2HkKeKQq82unK7xhzjuJxeAfvOB
+	 RJQ529Uf7pKwrCULOPiSuG3r0eXKIs4qrmeN3u8hx4PsNjsxGLUaXkf3UBINED4Ore
+	 pzII/aPGn8fsA==
 From: Sasha Levin <sashal@kernel.org>
-To: josef@toxicpanda.com,
-	david@kernel.org,
+To: david@kernel.org,
 	akpm@linux-foundation.org,
-	mason@kernel.org,
+	ngocthang2710.1999@gmail.com,
 	ljs@kernel.org,
-	muchun.song@linux.dev,
+	rppt@kernel.org,
 	lance.yang@linux.dev,
 	liam@infradead.org,
 	vbabka@kernel.org,
-	jannh@google.com,
-	pfalcato@suse.de,
-	osalvador@suse.de,
-	linmiaohe@huawei.com,
-	nao.horiguchi@gmail.com,
-	agl@us.ibm.com,
-	mgorman@techsingularity.net,
-	riel@surriel.com,
-	peterx@redhat.com,
-	kas@kernel.org,
-	rppt@kernel.org
+	surenb@google.com,
+	mhocko@suse.com,
+	benh@kernel.crashing.org,
+	a.p.zijlstra@chello.nl,
+	riel@redhat.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/hugetlb: unmap the page where the other VMA maps it" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:26:03 -0500
-Message-ID: <20261107052603-failed-6.12-ae99c503eb36@kernel.org>
+Subject: FAILED: patch "[PATCH] mm: disallow ioremap'ing ordinary RAM in generic_access_phys()" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:26:07 -0500
+Message-ID: <20261107052606-failed-6.12-4590752e20aa@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -86,161 +79,108 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x ae99c503eb362b42cd5d24d80bc6cba669acc4c2
+git cherry-pick -x 4590752e20aa393cc0d4fe538c0747d14a98c97a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052603-failed-6.12-ae99c503eb36@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052606-failed-6.12-4590752e20aa@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From ae99c503eb362b42cd5d24d80bc6cba669acc4c2 Mon Sep 17 00:00:00 2001
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Thu, 15 Oct 2026 18:07:10 +0200
-Subject: [PATCH] mm/hugetlb: unmap the page where the other VMA maps it
+From 4590752e20aa393cc0d4fe538c0747d14a98c97a Mon Sep 17 00:00:00 2001
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Tue, 13 Oct 2026 13:41:24 +0200
+Subject: [PATCH] mm: disallow ioremap'ing ordinary RAM in
+ generic_access_phys()
 
-If the owner of a MAP_PRIVATE hugetlb mapping fails to allocate a page
-for CoW, unmap_ref_private() unmaps the old page from all other private
-VMAs that have no reservation of their own.  It finds them by the offset
-in the file, but then zaps each of them at the address of the faulting
-VMA.  Nothing says that another VMA maps the offset at that address: a
-child can have moved its copy of the VMA with mremap(), and a second
-mapping of the file is wherever mmap() has put it.
+generic_access_phys() can end up getting called on CoW PFNMAP mappings,
+resulting in it trying to ioremap anonymous folios, which especially
+the x86 code doesn't enjoy, and which is in general just odd/wrong.
 
-So __unmap_hugepage_range() walks the page tables of the other mm at an
-address outside of iter_vma, where i_mmap_rwsem of this file protects
-nothing and where anything can be mapped, and the page stays mapped where
-it really is.
+E.g., with a CoW mapping of a PCI BAR:
 
-All of the following was seen on v7.3-rc6+ (g6c377d19d4a5) in KVM guests,
-as a user without any privilege.  It takes a pool of 2 MiB pages with no
-free page that is not reserved, so that the allocation fails: the user
-can take or reserve what is free itself.
+ioremap on RAM at 0x0000000045623000 - 0x0000000045623fff
+  WARNING: arch/x86/mm/ioremap.c:216 at __ioremap_caller.isra.0+0x4c2/0x5f0
+  Call Trace:
+   generic_access_phys+0x130/0x4d0 mm/memory.c:7178
+   kernfs_vma_access+0x1ce/0x280 fs/kernfs/file.c:437
+   __access_remote_vm+0x58f/0x890 mm/memory.c:7256
+   mem_rw+0x2a1/0x670 fs/proc/base.c:912
 
- - The child moves its VMA away.  The page is never unmapped, the
-   mapcount stays 2, and the owner goes round retry_avoidcopy in
-   hugetlb_wp() until the child is gone or a page becomes free.  SIGKILL
-   to the owner does not end it.  5 of 5 runs.
+But more generically, we should disallow access to anything that looks
+like ordinary RAM in the system: including allocating memory (e.g.,
+alloc_pages) and mapping them in a VM_PFNMAP.
 
- - The owner's mm has a second private mapping of the offset, made with
-   MAP_NORESERVE.  The owner zaps its own entry and reads zeroes where
-   its data was.  5 of 5 runs.
+For pages with an online memmap, allow only pages marked as reserved
+(PageReserved). This also includes memblock allocations, however,
+distinguishing them from other MMIO is tricky, and nobody should really
+be mapping them in a PFNMAP (except someone abusing /dev/mem, which we
+do not care about).
 
- - The child moves its VMA away and maps a 1 GiB hugetlb page at the old
-   address, so this one takes a pool with a 1 GiB page as well.
-   huge_pte_offset() for the 2 MiB size steps through the PUD
-   leaf, so the "PMD table" is the 1 GiB page itself and its "page table
-   lock" is folio->private of that page, which holds 2.  Kernels with
-   lock debugging oops in __unmap_hugepage_range(), 7 of 7 runs.  Others
-   spin on that word for ever with preemption disabled, 5 of 5 runs:
+So only allow access if there is no online memmap, or if the pages are
+marked reserved. Reject other pages with -EINVAL.
 
-     watchdog: BUG: soft lockup - CPU#0 stuck for 26s! [u_det3:130]
-     RIP: 0010:queued_spin_lock_slowpath+0x8a/0x290
-     RAX: 0000000000000002 RBX: ffffea0001000028
-     Call Trace:
-      __unmap_hugepage_range+0x154/0x6d0
-      unmap_hugepage_range+0xc1/0x140
-      hugetlb_wp+0x55c/0x700
-      hugetlb_fault+0x5f3/0x8f0
+Note that, just like other pfn_to_online_page() users, we won't care about
+concurrent memory offlining; mapping memory that can concurrently get
+offlined is highly dubious.
 
-   RCU stalls follow, and killing all tasks of the user changes nothing.
-   Four such owners, whose children share a single 1 GiB page, took down
-   the whole guest with its four CPUs, 2 of 2 runs: one reported soft
-   lockups on all four, the other gave no sign of life any more.
-
-   i_mmap_rwsem stays write locked.  With a MAP_PRIVATE mapping of a
-   hugetlbfs file that belongs to another user, and that the attacker
-   can only read, the next mmap() of that file by its owner sleeps
-   uninterruptibly in __mmap_region(), 4 of 4 runs.
-
-Compute the address from the offset for each VMA.  The tree walk returns
-only VMAs that cover pgoff, and vm_start, vm_end and vm_pgoff of a hugetlb
-VMA are aligned to the huge page size, as pgoff is, so the whole range
-lies inside iter_vma.  Its page tables can not go away there, since the
-VMA is unlinked from the file under i_mmap_rwsem first.
-
-With the right address the page is unmapped from all VMAs but the
-owner's, so the retry in hugetlb_wp() finds a mapcount of 1 and reuses the
-page.
-
-A child that has moved its copy of the VMA now loses the page, and gets
-SIGBUS when it faults on a missing page of that VMA.  That is what the
-comment above the function has always promised to those who do not own
-the reservation, and what already happens to a child that has left the
-VMA in place.
-
-The address has been wrong from the start, and the second case needs
-only mmap() and fork().  mremap() of hugetlb VMAs, which the other cases
-use, came with commit 550a7d60bd5e ("mm, hugepages: add mremap() support
-for hugepage backed vma") in v5.16.
-
-Original fix generated by an LLM and sent in private by Josef.
-
-[david@kernel.org: switch to vma_filebacked_address, add VM_WARN_ON_ONCE, refine comments]
-Link: https://lore.kernel.org/20261015-urgent_fixes-v1-4-42796911043b@kernel.org
-Fixes: 04f2cbe35699 ("hugetlb: guarantee that COW faults for a process that called mmap(MAP_PRIVATE) on hugetlbfs will succeed")
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Link: https://lore.kernel.org/20261013-generic_access_phys-v1-1-b3963ef76e37@kernel.org
+Fixes: 28b2ee20c7cb ("access_process_vm device memory infrastructure")
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: Chris Mason <mason@kernel.org>
+Reported-by: <syzbot+49b1021becba70c1f3f6@syzkaller.appspotmail.com>
+Closes: https://syzkaller.appspot.com/bug?extid=49b1021becba70c1f3f6
+Reported-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Closes: https://lore.kernel.org/r/20261001152524.171115-1-ngocthang2710.1999@gmail.com/
 Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Acked-by: Muchun Song <muchun.song@linux.dev>
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Tested-by: Lance Yang <lance.yang@linux.dev>
 Cc: Liam R. Howlett <liam@infradead.org>
 Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Jann Horn <jannh@google.com>
-Cc: Pedro Falcato <pfalcato@suse.de>
-Cc: Oscar Salvador <osalvador@suse.de>
-Cc: Miaohe Lin <linmiaohe@huawei.com>
-Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
-Cc: Adam Litke <agl@us.ibm.com>
-Cc: Mel Gorman <mgorman@techsingularity.net>
-Cc: Rik van Riel <riel@surriel.com>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: Kiryl Shutsemau <kas@kernel.org>
-Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Cc: Peter Zijlstra <a.p.zijlstra@chello.nl>
+Cc: Rik van Riel <riel@redhat.com>
 Cc: <stable@vger.kernel.org>
 ---
- mm/hugetlb.c | 17 +++++++++++++----
- 1 file changed, 13 insertions(+), 4 deletions(-)
+ mm/memory.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index 5db64fa984041..4fca859bbd7ea 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -5482,6 +5482,8 @@ static void unmap_ref_private(struct mm_struct *mm, struct vm_area_struct *vma,
- 	struct address_space *mapping;
- 	pgoff_t pgoff;
- 
-+	VM_WARN_ON_ONCE(!folio_test_anon(folio));
+diff --git a/mm/memory.c b/mm/memory.c
+index ed64455c73bdb..34e60a5baf7ce 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -7129,6 +7129,7 @@ int generic_access_phys(struct vm_area_struct *vma, unsigned long addr,
+ 	resource_size_t phys_addr;
+ 	pgprot_t prot = __pgprot(0);
+ 	void __iomem *maddr;
++	struct page *page;
+ 	int offset = offset_in_page(addr);
+ 	int ret = -EINVAL;
+ 	bool writable;
+@@ -7143,6 +7144,19 @@ int generic_access_phys(struct vm_area_struct *vma, unsigned long addr,
+ retry:
+ 	if (follow_pfnmap_start(&args))
+ 		return -EINVAL;
 +
- 	/*
- 	 * vm_pgoff is in PAGE_SIZE units, hence the different calculation
- 	 * from page cache lookup which is in HPAGE_SIZE units.
-@@ -5516,10 +5518,17 @@ static void unmap_ref_private(struct mm_struct *mm, struct vm_area_struct *vma,
- 		 * could insert a zeroed page instead of the data existing
- 		 * from the time of fork. This would look like data corruption
- 		 */
--		if (!is_vma_resv_set(iter_vma, HPAGE_RESV_OWNER))
--			unmap_hugepage_range(iter_vma, address,
--					     address + huge_page_size(h),
--					     folio, 0);
-+		if (is_vma_resv_set(iter_vma, HPAGE_RESV_OWNER))
-+			continue;
++	/*
++	 * Reject anything that looks like ordinary RAM, including anonymous
++	 * folios in CoW mappings or allocated kernel memory. Note that we
++	 * cannot distinguish memblock allocations from non-RAM reliably, so
++	 * we cannot easily reject them here.
++	 */
++	page = pfn_to_online_page(args.pfn);
++	if (page && !PageReserved(page)) {
++		follow_pfnmap_end(&args);
++		return -EINVAL;
++	}
 +
-+		/*
-+		 * The address in other VMAs can differ. Even though our old
-+		 * folio is anon, we always operate on the underlying hugetlb
-+		 * file.
-+		 */
-+		address = vma_filebacked_address(iter_vma, pgoff, 1);
-+		unmap_hugepage_range(iter_vma, address,
-+				     address + huge_page_size(h), folio, 0);
- 	}
- 	i_mmap_unlock_write(mapping);
- }
+ 	prot = args.pgprot;
+ 	phys_addr = (resource_size_t)args.pfn << PAGE_SHIFT;
+ 	writable = args.writable;
 -- 
 2.53.0
 
