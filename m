@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049188;
-	b=5GLcZmlx75vtguClJ7ZmONInXJLnaOc5LrwxZ54O5Vj5yDoG8Zf+l0R2RlWoD+oInkxG
-	 2aAz6LifLnw831JQUxszteYEi3U/PRyqGyX9PPiVWKRJ3PxViTvRN7sg+Zxbr+wjAMZm4
-	 aZIJ7tonrN6vSxAio56ftyoYtONm3nQz68gtpHr0UuabrCW7vXJE8XqTxslGPCNaqA7i7
-	 ym5HogQEERt0ZXeChOdXjiu7zvI9bSoUrgKpOisAKNU9BT5N0CF+TfS8DxCf4XUM/NzqH
-	 Ul9Ymjg85Ir539EMjZEf4jhu2J1Fc4WPRvV/tc2x3E53NPnb081/LEHdf3i5oFSB2iA==
+	t=1794049191;
+	b=WpEWnB4m8RYeE7JjaM9ncZ5oJZA20Mx2VgwJIWThvpPvtH15Wnsm6BylVSql1Eoo9Adg
+	 HeVcCuFY4JmiwjtsrbBnRIQjKXOoBR+bJsshZF0+z8r0YJIISQLBIkvDtUk0Mp+/CyX3a
+	 UbjYNdXQILSumC9fYRPlEDz97PaN4XfWJhBXlB5ptBTXKSyhx6HzRlhMQjzaDUn77ET1w
+	 ERukhHseFq1LEFBtWgtP6bMjrvHgvP7ihfneOwKE/i/vDAC46pAk/zRjqBZNQBl/ym3pO
+	 tNy56mpRTVPGe66LKrYqHwtQVRPXFYttq96DUWZcxEJmeA07gipjW7JSNSHvde1T8nA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049188;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049191;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=fQMUIP5PeDG6uG053DeZJ+wbPpvUCJydp6HJEpxE4Jc=;
-	b=jJ9Ay9FZRnaE6hjcVOT5EiudY4hh26A8Sqo0XOJ2NburHgNQ+927x97TQipuY8LFgraF
-	 VdHvq1HaM+gljZXcfzymKjBIYs0QOcCBpuqzBA3c7/ZMXUOJbYILPtB0ENOUXAreEhXtW
-	 UMVL32SA081N/r/dT5EFP7DkAuXmcxotvxvtapLrDurMsgIkbQXjVCqp8LjArDgJD0Xjf
-	 WRYzGv3R6c6dOUIEpvObU8l/8eWvz65KEnihwTNp2f+mcLuEDnv251A5aEuxJVlxu1t94
-	 yjKX50PDvSlW8+v7O6wPNmEETzQe60LyEv7HFDISWTRSYJ7NZgAzywyg7tY6kic7awA==
+	bh=HPYn/pAIEJ0O2AohKb4ZCX7UVkgT8UylrDQqBtpWMCU=;
+	b=gHd6YLmwaJ1cJ7Buu1QRXLXSvKof/9khumXd/p9fto9GEg/0185mcP8L9wZzqeD6B9hr
+	 WftsRzxtCN/YrKOo5CS7jJaS/Kjsrz+T85n19nTag8sn24NhYfvUwZXN/qgZGQaPGyjki
+	 CRHeuQK210+Rdk/xJkRUkQI745ipkDgfsYv2AC9iRHzW3isMvQTmxIG94zjkZLfw+VS0H
+	 QAl1CJbtxHbrTuR0h8hA3LaqMxggTUXCR7uj14ebr77TGTkBuitf2YpnJDYUzUHrognro
+	 Tz9gMkmYfP3zmCZhfLCj5AHey9x7QFoGSqWKVLlqIu1dodfy5hncfrRlBP5eU4Y8mVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cwsGMOix;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="M9br/qIb";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 070B5606A337
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:59:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4D3F606A339
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:59:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cwsGMOix
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75ABD1F0089F;
-	Sat,  7 Nov 2026 10:59:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M9br/qIb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 637A31F0089F;
+	Sat,  7 Nov 2026 10:59:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049187;
-	bh=fQMUIP5PeDG6uG053DeZJ+wbPpvUCJydp6HJEpxE4Jc=;
+	s=k20260515; t=1794049190;
+	bh=HPYn/pAIEJ0O2AohKb4ZCX7UVkgT8UylrDQqBtpWMCU=;
 	h=From:To:Cc:Subject:Date;
-	b=cwsGMOixcKr3RqWvpRsxETNXAvBP82FDZhiM6H8xTgNMb90tI13/eoNk/wxhMACKC
-	 hkznebOqWhRQOf4Y7a+iDMK9Lk5zulS/lDQTUI0GOAFbZGpsGR+MTr6g9VQWlr+Gen
-	 WOA8Hx5qkeQtggmnYoQd4euN+yCzURkXVOyCPyrjjtcMq4DJq6QxzVALxpDxldzkvd
-	 r3yDyazm2FxNSHNqPI3F3+z6X26eFC8ImmUCUbQYgxW7fCUaAgJQBYYNPH07HUWA0G
-	 ygQ1DlCKY5ws1NZ0lzku6Ev0fn75RYnbSDG/tPayGFePie+55yO3ajUmIWvelz+Ztv
-	 bx2PzOoXcEWpw==
+	b=M9br/qIbAsAlJ+yxACqpvU9ZufzmVtNcIV1PL3wvFW9uG4Hv3rZGIDTSHzv7ar/Rg
+	 0YoG+YhxRwIKloZJqEEoybloIxTcGYvh+BoX7hcOQZ/9hty2PZZ9azzPeHf+VNH2bW
+	 NDPDzCZOHdvum23bmFKspN0xkEwAP9p2u36xucuFFAaH4a4cxuXmmReJFE7t8cbE0F
+	 IHgTpRrEdmJumkkX/g/+95oOSJcu7yHixTU+PSDrNVS8M+daPvn3/783QaP/sk2yFr
+	 MKhJWS5zZRbsOkKnF/Fbs9AG3QAtTKa12u9DphNz0Kbya7gqN6E6IS77vgBDhZzC2T
+	 ue/rG4GqEFsLA==
 From: Sasha Levin <sashal@kernel.org>
-To: seanjc@google.com,
-	david@kernel.org
+To: ruoyuw560@gmail.com,
+	hverkuil+cisco@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] KVM: guest_memfd: Split bind() into prepare()+commit() phases" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 05:59:46 -0500
-Message-ID: <20261107055946-failed-5.15-83411f32b8ad@kernel.org>
+Subject: FAILED: patch "[PATCH] media: adv748x: Fix endpoint reference leaks on probe failure" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 05:59:49 -0500
+Message-ID: <20261107055949-failed-5.15-359db09cf055@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,217 +68,91 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 83411f32b8ad96c6b05b1511d1a588daab44bd25
+git cherry-pick -x 359db09cf055497075a668b192f4578a0ed00955
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055946-failed-5.15-83411f32b8ad@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055949-failed-5.15-359db09cf055@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 83411f32b8ad96c6b05b1511d1a588daab44bd25 Mon Sep 17 00:00:00 2001
-From: Sean Christopherson <seanjc@google.com>
-Date: Mon, 21 Sep 2026 17:13:30 -0700
-Subject: [PATCH] KVM: guest_memfd: Split bind() into prepare()+commit() phases
+From 359db09cf055497075a668b192f4578a0ed00955 Mon Sep 17 00:00:00 2001
+From: Ruoyu Wang <ruoyuw560@gmail.com>
+Date: Fri, 11 Sep 2026 09:56:40 +0800
+Subject: [PATCH] media: adv748x: Fix endpoint reference leaks on probe failure
 
-Split binding a memslot to a guest_memfd instance into prepare() and
-commit() phases so that KVM can separate preparing the memslot from binding
-the memslot to the gmem instance, i.e. from committing the memslot.  This
-will allow waiting to commit the memslot+gmem binding until the memslot is
-fully prepared, which is necessary as the memslot becomes reachable when
-the binding is created.
+adv748x_parse_dt() takes an extra reference for every endpoint saved in
+state->endpoints. If parsing later fails, adv748x_probe() skips
+adv748x_dt_cleanup(), so the saved references remain held. A CSI-2 lane
+parsing error also returns from for_each_endpoint_of_node() without
+dropping the iterator's reference.
 
-As a bonus, drop the unwind-on-failure from the commit phase (other than
-nullifying the bindings), as the only reason bind() did the full unwind is
-because it technically didn't own the memslot, i.e. "needed" to leave
-memslot in the same state it started in.
+Save the endpoint reference only after lane parsing succeeds. Drop the
+iterator reference before returning a lane parsing error and route all
+parse failures through the endpoint cleanup path to release any saved
+references. This retains the endpoints only for a successful probe.
 
-No functional change intended (the unwinding down on bind() failure was
-effectively dead code since KVM simply deletes the memslot on failure,
-i.e. there was nothing that could actually observe the unwind).
+This issue was found by a static analysis checker and confirmed by
+manual source review.
 
+Fixes: 6a18865da8e3 ("media: i2c: adv748x: store number of CSI-2 lanes described in device tree")
+Fixes: eccf442ce156 ("media: i2c: adv748x: Support probing a single output")
 Cc: stable@vger.kernel.org
-Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
-Link: https://patch.msgid.link/20260922001332.1121266-5-seanjc@google.com
-Signed-off-by: Sean Christopherson <seanjc@google.com>
+Suggested-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Signed-off-by: Ruoyu Wang <ruoyuw560@gmail.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 ---
- virt/kvm/guest_memfd.c | 68 ++++++++++++++++++++++++------------------
- virt/kvm/guest_memfd.h | 19 ++++++++----
- virt/kvm/kvm_main.c    | 18 ++++++++++-
- 3 files changed, 70 insertions(+), 35 deletions(-)
+ drivers/media/i2c/adv748x/adv748x-core.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
-diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
-index 751d0ad94f746..c813c20de7f30 100644
---- a/virt/kvm/guest_memfd.c
-+++ b/virt/kvm/guest_memfd.c
-@@ -642,15 +642,14 @@ int kvm_gmem_create(struct kvm *kvm, struct kvm_create_guest_memfd *args)
- 	return __kvm_gmem_create(kvm, size, flags);
- }
+diff --git a/drivers/media/i2c/adv748x/adv748x-core.c b/drivers/media/i2c/adv748x/adv748x-core.c
+index 3eb6d5e8f0826..70594d0018048 100644
+--- a/drivers/media/i2c/adv748x/adv748x-core.c
++++ b/drivers/media/i2c/adv748x/adv748x-core.c
+@@ -675,9 +675,6 @@ static int adv748x_parse_dt(struct adv748x_state *state)
+ 			continue;
+ 		}
  
--int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
--		  unsigned int fd, uoff_t offset)
-+int kvm_gmem_prepare_memory_region(struct kvm *kvm, struct kvm_memory_slot *slot,
-+				   unsigned int fd, uoff_t offset)
- {
- 	uoff_t size = slot->npages << PAGE_SHIFT;
--	unsigned long start, end;
- 	struct gmem_file *f;
- 	struct inode *inode;
- 	struct file *file;
--	int r = -EINVAL;
-+
- 
- 	BUILD_BUG_ON(sizeof(gpa_t) != sizeof(offset));
- 	BUILD_BUG_ON(sizeof(gfn_t) != sizeof(slot->gmem.pgoff));
-@@ -674,44 +673,55 @@ int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
- 	if (!PAGE_ALIGNED(offset) || offset + size > i_size_read(inode))
- 		goto err;
- 
--	filemap_invalidate_lock(inode->i_mapping);
+-		of_node_get(ep_np);
+-		state->endpoints[ep.port] = ep_np;
 -
--	start = offset >> PAGE_SHIFT;
--	end = start + slot->npages;
--
--	if (!xa_empty(&f->bindings) &&
--	    xa_find(&f->bindings, &start, end - 1, XA_PRESENT)) {
--		r = -EEXIST;
--		filemap_invalidate_unlock(inode->i_mapping);
--		goto err;
--	}
--
- 	/*
- 	 * memslots of flag KVM_MEM_GUEST_MEMFD are immutable to change, so
- 	 * kvm_gmem_bind() must occur on a new memslot.  Because the memslot
- 	 * is not visible yet, kvm_gmem_get_pfn() is guaranteed to see the file.
- 	 */
- 	WRITE_ONCE(slot->gmem.file, file);
--	slot->gmem.pgoff = start;
-+	slot->gmem.pgoff = offset >> PAGE_SHIFT;
- 	if (kvm_gmem_supports_mmap(inode))
- 		slot->flags |= KVM_MEMSLOT_GMEM_ONLY;
+ 		/*
+ 		 * At least one input endpoint and one output endpoint shall
+ 		 * be defined.
+@@ -689,8 +686,13 @@ static int adv748x_parse_dt(struct adv748x_state *state)
  
--	r = xa_err(xa_store_range(&f->bindings, start, end - 1, slot, GFP_KERNEL));
--	if (r) {
--		xa_store_range(&f->bindings, start, end - 1, NULL, GFP_KERNEL);
--		slot->gmem.file = NULL;
--		slot->gmem.pgoff = 0;
--		slot->flags &= ~KVM_MEMSLOT_GMEM_ONLY;
--	}
--	filemap_invalidate_unlock(inode->i_mapping);
--
- 	/*
--	 * Drop the reference to the file, even on success.  The file pins KVM,
--	 * not the other way 'round.  Active bindings are invalidated if the
--	 * file is closed before memslots are destroyed.
-+	 * Gift the caller a reference to the file.  The reference will be
-+	 * dropped after bindings are established, or if installing the new
-+	 * memslot ultimately fails.
- 	 */
-+	return 0;
+ 		/* Store number of CSI-2 lanes used for TXA and TXB. */
+ 		ret = adv748x_parse_csi2_lanes(state, ep.port, ep_np);
+-		if (ret)
++		if (ret) {
++			of_node_put(ep_np);
+ 			return ret;
++		}
 +
- err:
- 	fput(file);
-+	return -EINVAL;
-+}
-+
-+int kvm_gmem_commit_memory_region(struct kvm *kvm, struct kvm_memory_slot *slot)
-+{
-+	struct gmem_file *f = slot->gmem.file->private_data;
-+	struct inode *inode = file_inode(slot->gmem.file);
-+	unsigned long start, end;
-+	int r;
-+
-+	if (WARN_ON_ONCE(slot->gmem.file->f_op != &kvm_gmem_fops))
-+		return -EIO;
-+
-+	filemap_invalidate_lock(inode->i_mapping);
-+
-+	start = slot->gmem.pgoff;
-+	end = start + slot->npages;
-+
-+	if (!xa_empty(&f->bindings) &&
-+	    xa_find(&f->bindings, &start, end - 1, XA_PRESENT)) {
-+		filemap_invalidate_unlock(inode->i_mapping);
-+		return -EEXIST;
-+	}
-+
-+	r = xa_err(xa_store_range(&f->bindings, start, end - 1, slot, GFP_KERNEL));
-+	if (r)
-+		xa_store_range(&f->bindings, start, end - 1, NULL, GFP_KERNEL);
-+
-+	filemap_invalidate_unlock(inode->i_mapping);
-+
- 	return r;
- }
- 
-diff --git a/virt/kvm/guest_memfd.h b/virt/kvm/guest_memfd.h
-index 0f9c6f8408389..01bd359d27e30 100644
---- a/virt/kvm/guest_memfd.h
-+++ b/virt/kvm/guest_memfd.h
-@@ -8,8 +8,9 @@
- int kvm_gmem_init(struct module *module);
- void kvm_gmem_exit(void);
- int kvm_gmem_create(struct kvm *kvm, struct kvm_create_guest_memfd *args);
--int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
--		  unsigned int fd, uoff_t offset);
-+int kvm_gmem_prepare_memory_region(struct kvm *kvm, struct kvm_memory_slot *slot,
-+				   unsigned int fd, uoff_t offset);
-+int kvm_gmem_commit_memory_region(struct kvm *kvm, struct kvm_memory_slot *slot);
- void kvm_gmem_unbind(struct kvm_memory_slot *slot);
- #else
- static inline int kvm_gmem_init(struct module *module)
-@@ -17,9 +18,17 @@ static inline int kvm_gmem_init(struct module *module)
- 	return 0;
- }
- static inline void kvm_gmem_exit(void) {};
--static inline int kvm_gmem_bind(struct kvm *kvm,
--					 struct kvm_memory_slot *slot,
--					 unsigned int fd, uoff_t offset)
-+
-+static inline int kvm_gmem_prepare_memory_region(struct kvm *kvm,
-+						 struct kvm_memory_slot *slot,
-+						 unsigned int fd, uoff_t offset)
-+{
-+	WARN_ON_ONCE(1);
-+	return -EIO;
-+}
-+
-+static inline int kvm_gmem_commit_memory_region(struct kvm *kvm,
-+						struct kvm_memory_slot *slot)
- {
- 	WARN_ON_ONCE(1);
- 	return -EIO;
-diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-index c53a88cea1f23..c7526c1617f7a 100644
---- a/virt/kvm/kvm_main.c
-+++ b/virt/kvm/kvm_main.c
-@@ -2107,7 +2107,23 @@ static int kvm_set_memory_region(struct kvm *kvm,
- 	new->flags = mem->flags;
- 	new->userspace_addr = mem->userspace_addr;
- 	if (change == KVM_MR_CREATE && (mem->flags & KVM_MEM_GUEST_MEMFD)) {
--		r = kvm_gmem_bind(kvm, new, mem->guest_memfd, mem->guest_memfd_offset);
-+		r = kvm_gmem_prepare_memory_region(kvm, new, mem->guest_memfd,
-+						   mem->guest_memfd_offset);
-+		if (r)
-+			goto out;
-+
-+		r = kvm_gmem_commit_memory_region(kvm, new);
-+
-+		/*
-+		 * Drop the reference to the file, even on success.  The file
-+		 * pins KVM, not the other way 'round.  Active bindings are
-+		 * invalidated if the file is closed before memslots are
-+		 * destroyed.
-+		 */
-+#ifdef CONFIG_KVM_GUEST_MEMFD
-+		 fput(new->gmem.file);
-+#endif
-+
- 		if (r)
- 			goto out;
++		of_node_get(ep_np);
++		state->endpoints[ep.port] = ep_np;
  	}
+ 
+ 	return in_found && out_found ? 0 : -ENODEV;
+@@ -739,7 +741,7 @@ static int adv748x_probe(struct i2c_client *client)
+ 	ret = adv748x_parse_dt(state);
+ 	if (ret) {
+ 		adv_err(state, "Failed to parse device tree");
+-		goto err_free_mutex;
++		goto err_cleanup_dt;
+ 	}
+ 
+ 	/* Configure IO Regmap region */
+@@ -809,7 +811,6 @@ static int adv748x_probe(struct i2c_client *client)
+ 	adv748x_unregister_clients(state);
+ err_cleanup_dt:
+ 	adv748x_dt_cleanup(state);
+-err_free_mutex:
+ 	mutex_destroy(&state->mutex);
+ 
+ 	return ret;
 -- 
 2.53.0
 
