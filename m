@@ -1,92 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794034990;
-	b=VLpo+Y5xrzFsJkE4dzSG+7WwUp0BcbI7nlpifwGDyOOYelqxgJundwrUtcPe3yMTSupK
-	 cMxWO30USK6csIilENEGWV5g3GIQxZQrTr+lrcuEdqJVU4jcWo3Dd9JEwbah9PT+gZsIw
-	 Rug94P7IMzH2JqT/zb2QOcbN4QTS5qDNz4QZQav+25tswXZW6HsNkzCYP8bfBlJ40apCZ
-	 kKt9AucsmDFdtJ3yJxP9YUNs3IQ/7GNMDldSI+kh21lBtyjzVq6L0E+129HMJWktqdzB5
-	 ubiPO5T0JMbF4c7mnk93eezZXQlARzIbHJRuJcAZ0YNYveVNHm1O0/OTH3Jv8brg7Hg==
+	t=1794035936;
+	b=XCbukRvQ8NfH8WGkeUkWACDl81WW4zikFCeorej0cDvSdLoamXX5AzE4yTvg6zszmelY
+	 +03mcx+CjxXgWw/kEZ6A0BOXxs97ReQgH6SixBcdOj/qukYi6chAZHZNdgt76RYQA6M9A
+	 nwwv7bza+2QdTCfkNNEVVA4Q+7XcFFy7QVlDkutK7RdSUgfr0I52ZHR0bE5FhFi8tYiIl
+	 aX6m760Vbuy7Ya3XzY17WCFS1gkv00+lldVpMGNfEhyyfseYiJSV7h9sM2Y/+CZOilyz3
+	 OYrkU3rUgsELqx3lMtdn9VZL7Oq+mj1sWqziAye8K7FEAH/vM6EM7M/s0hL+VWR0JhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794034990;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794035936;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=bFEfHL+TsS1kVBZGSFsslYDN/djqa+P4kfXVi1Yph7g=;
-	b=JV5+drkCJu6fwfl6kNcQGeLjOAgZC+Zx7hb62jujTpaUvS/I9X7F8x4Zj9D+ji0GD18K
-	 XH4AEdqBdE7fQyTimBYT8buZA/vq7WH8s6jVv1ZA8rRZe7u57WhmKimvDYz21iEampMLR
-	 +EpGGaOwNodgXqYpIYqry1IGl5z8vK7aZyBRTGV9FryhzXqkwD4cFbvMk6cR9P5kLXxc9
-	 ATT+olvzPIFZboyxIT7BP2tbVadWoep9V7lSyez+TVVfgVAvvIJd6wxjREQHiX1TcPeix
-	 nE30AepxKg5z4Elao9e7ZxiF+BX2Q/u4ehUR2pStrlCI8s8UcHx3D30ka9PNe02YkzQ==
+	bh=e2RBvV6ZC2qSudUbd18r2yO6oRHwMggBhLaocYC4YVg=;
+	b=V5DA7u/i5I4AWBI3TykU/vlrU9kXAZ+yuTFNplMRAdS5qVngn9iyu8JjPDNErSC0JxmR
+	 fJgtkOW6yp6Jaj8qV0UgtG3LFwtvB2VxKZV2CGtbqRnFZKu88CLJfkMppUksbrO4/T3jD
+	 3pdUHOwy0Dp2GhXqPobFNnu3c2p8lQyTP6gaRVIWKBq8SV0mWtS0RUdzMbUTCx/9kFKTt
+	 2qwXTS5OFyLvpeg/y0eZLSam2aVWxelyKGUn5efnirPy8irOIlSsw2/9/c/Af8CEiUdf9
+	 OuoVW0cq1X3NUJ9ES139D+bP/yt7s76blyEh7PmJ9CVS/TsyYVvE0GXaJuJ7VcMeNrw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GcmYpw6e;
-	arc=none smtp.remote-ip=209.85.216.45
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=H75OZMkX;
+	arc=none smtp.remote-ip=209.85.210.169
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80FBB606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 07:03:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80FBB606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0670B606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 07:18:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0670B606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GcmYpw6e
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3acdcfa2bd3so1140370a91.3
-        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 23:03:10 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=H75OZMkX
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-8a9f9473029so1029575b3a.2
+        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 23:18:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794034990; x=1794639790; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794035935; x=1794640735; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bFEfHL+TsS1kVBZGSFsslYDN/djqa+P4kfXVi1Yph7g=;
-        b=GcmYpw6eafQhXUAXEwA8jwummuHvOzaIwSi0Y74SZr4ARQSCpITqDEnVzsgzgEsFFK
-         8XA3N+FlcWdCRo6cxvHhjVmbXoQCBTMnvihWtnebvnUL3NP3Kkpim/1OsujmN6CK+fW1
-         geLraiZRO6B8jG4UZdjv+zwi43Jlr2aXeZgNaBPowHqPglGKqkButi623n2sV2Bvqsrv
-         t+disbEPHRq8Qd0BP166jNXPM9Gqr5OHyQmNU0ce3pgBHLxLRP9CqDP2hWoTHyRYQzdY
-         0oQlaX9hiO5XM3aPoarRtrL9S76WG92mEJ3+29HAyk72Et5dbOW6rKyGY9BwwARORPD6
-         pEWA==
+        bh=e2RBvV6ZC2qSudUbd18r2yO6oRHwMggBhLaocYC4YVg=;
+        b=H75OZMkXSjam0NOi3FZTiMVbVJF2RYmjV9H0u/a4VttNJxAm5Sx5cn//1UR34WbQbI
+         Fk0vCUFMXQ+zZcuOW1sSveqJXFgZcGZ3yZAHTMsbroZ3o3MmkNF1LIJMVA3HX4EFqNgR
+         exgw9WPmdb1u58gPSC9A5Q66r+U+Uwz2fVU4tuWPJPtpTpvhaJ4AkL4LfNy1fNraTg18
+         vEzDRDc4CxJKXdDqwJ9Y4Od4HJvsyN9Ys0do8JWY1hXQXWW6USlEs7auSegDvFjzGGJ7
+         1FBbKGFbOpt+cIMypYL5W0OMGUfakv5YoYFj6BUS6i6gxHTOhO0Q4rLkyxSyA9jl6rGg
+         IXww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794034990; x=1794639790;
+        d=1e100.net; s=20260707; t=1794035935; x=1794640735;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=bFEfHL+TsS1kVBZGSFsslYDN/djqa+P4kfXVi1Yph7g=;
-        b=hfDHopTG1fOmRX5fzIv6kDUW3U3myuaxYyY40zlH4wQJqzoiC+kulXAoK9LVfsM7cg
-         Nrc3HJ4kpuvAevknERRfdoNM2ADTa5yDKc5cdeLHMBBZrygJ5qxA73+hwHj/MIOHSC5M
-         i5o4Y17oOyCh6mPav1/Xgkz367RrZsONw+nzc/MH1oJcHwZtIGfe5+H0mrawGoOkqYXv
-         qKkWkmwWQAQT5QoxA66I71IpDayXeRjfVXsrW3WOzK4raUG5r7Di3ysYo6x3H0LOg2/4
-         k8tlmulNrQTwcV6w1vh1FBJ2+5keAm2VeHeAJWkjH0iaeRTjy7y9u8p4aC2V2/gVFz3i
-         AGcw==
-X-Forwarded-Encrypted: i=1; AL+hErEMvbXzfknY9GrkZnN1eBvxIHXa73jAs9tF0TMwf6Ms+k3m6lPGfX8z4PqRQ7TgL/v/ZOKWKM4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/0cj4ZgVio/8Uu54Rx40LTFy1NZtBvxqMnP5Q7+i+Sw/1CKX9m
-	tN98X28bjQUndG0u7b3q2dL0PErnsVIMKui/4VNFKB1lTRlqGKnk4WOX
-X-Gm-Gg: AYBFou2iGLUKa1gLI+mtHATqjqKAE2EQseCSjRRGaXdK9G91AXdfXPgT/tzN7yXp4i3
-	yTetUa9CkmmTMdD5iztu1JnZhUd6jIm7qHNH2H/FmVa5p6cJ5uHtJ0FphCgvKHJJj6xi64ehl2p
-	hscdhGq+Op/lNgXrN31+cQUOIeHW+yz4eHtCcW7knAOQ9iXfeXarX6p7n/vIOlxkcX1/1tzD7xV
-	czZHa9u2Ibmgjs2l46Q8Vr84fZHxCnK7eziNzChspRjwDlg2/Lpn+xBiTzHedhlHzdpQEi/gLX5
-	nmYdow8bV/K3fBkRYNOCWGTPAkcNMz/FQXoN0pvNVSfmxf/QPDLAwdGGKVsb+wnSfHbd8fjulmX
-	5fQu/+StYhF3FD8JjQDhFKJHg3BXSCjoJ96coKmG5MmvByr3JbUd3OEAbkOtHC9TNcZNznYBbNK
-	PuM9jEJhLURYnCf9hulDjiziJ0UtPacWT7unnBG6jQ667hMhYKw39+vtx9URswrxl2ZMtKN8Cu9
-	Pgs9B+6/+Ji5DYPW/Ct4NI+2R4evgS/4a1GuN2Ex0USKkVC0aTQW1HPAWq9vbgnhhF9MUDe8ktu
-	J6/1tUTnWxsFGPfp4f6JbshxMGWlVeLrwT7RhqwCGtKzvWZx
-X-Received: by 2002:a17:90b:2792:b0:3b0:cc6f:1046 with SMTP id 98e67ed59e1d1-3b0db7109d1mr4442933a91.67.1794034989765;
-        Fri, 06 Nov 2026 23:03:09 -0800 (PST)
+        bh=e2RBvV6ZC2qSudUbd18r2yO6oRHwMggBhLaocYC4YVg=;
+        b=1T9kW2Quwhw76GepB0qrzhLtM+GmKKgLL6f7VAGiHs3BXcWH012sWMZaU7vChnCy34
+         BUHOecFgKv5Jwnyi/fsZ1xb+Dh8tEhtcDqDlSgggrJhGM4VRb9o692E9Gi8Txwohu7Ex
+         XbrnRYj7KK9rtwfrpYpIvhDJK3TAyBJbXilQCPg8Aqpzf1lm6keaXMIJQpZFQM2mE3NU
+         1h2+ZxbF44+2zQOwfk1t8zlcofYrX9Lptr7r3f5nZC+OhV6jwavySlfFU9SKWos/PLsH
+         Jmy+G4c9z2UfMfeKttnMAXfsP77EAYdpPQ01tKPIQLO+l/F9wuk0z8G/wfkNr2O3cwih
+         3fVA==
+X-Forwarded-Encrypted: i=1; AL+hErG7t109/cu9u+JqPeGTN0roDEc+Nm+GF3VIJxImNxT2S+qIoCkLWE6+L2aAGk2cfn4DHcjLx1c=@vger.kernel.org
+X-Gm-Message-State: APuU4Z83GRGb6WB8OeZ4U9+dTsYXBDTgf/W/U8waOZr29FedzrFQUDJh
+	YCc9asP9ZsGuG9VzsUGsLJPwlDMtoQrBM1LeYriYYpko4R9363Tba2KF
+X-Gm-Gg: AYBFou3FtN58TgknpuIIcfAGDz0YLA1we2rKTJIq6+IjM4PFzRWOKH+d6ovual60rSE
+	LTboAsXS8T1F2PW+nNTgLrP37FICvM4aXuAfPZCV8mPorvCST4eV9CoFCSKM4nbm6P6rYJXiYMc
+	8SbsRocQBCLjCkXU2/NKHI7IifWK5BLb9TngsorlUDIiqvA3XOEkxbFsuqhWMso2z6G7FZ8bKVr
+	iI1/EtvAvFGuyR1FLj3snydSFmj8ryrh/OLFMSt6kwh9v2huXm2YNc2NZRVr+X2TxAF3WXnAehe
+	JxDP8BcOhxdkCCVuHF3X7fTNWN8VhViNkB5FC2spJJzxlIljkzz+civP/GuUwQigL2VQicQjDAE
+	2mFpQT7dq33jmgMnOABpqo+ws7l+CAoXFy1N3bT+vrv93KKghFmr8ugWvFa48SICOhxzDDJG2J/
+	ZgYmr+6t0u75ebN8hVia7RKI9TrVlE5H45xeHJY/ZP4/Ovz11v7dh8XNVlgLUe1GAuJ87hfSHrj
+	OQ1DU2gvRSixq9um9Z5EWJYH/tBrpMW8tjKjzYwQaJU84xmw7blqxZDj9K6S9rGbie4TVpTtqZJ
+	fR03kqsW2GTw35eKDjViUH+YU8ruxY6HNXgYNs92yO7mbmLo86+lBlUTicbJqfkCxUy2fQ==
+X-Received: by 2002:a05:6a00:b82:b0:89f:450d:90f5 with SMTP id d2e1a72fcca58-8b37aca2e17mr4908542b3a.11.1794035935229;
+        Fri, 06 Nov 2026 23:18:55 -0800 (PST)
 Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1057c1c2csm2220866a91.2.2026.11.06.23.03.06
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b356c287a8sm1234364b3a.3.2026.11.06.23.18.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 23:03:08 -0800 (PST)
+        Fri, 06 Nov 2026 23:18:53 -0800 (PST)
 From: hyunjungg <hj351016@gmail.com>
-To: Neill Kapron <nkapron@google.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	linux-input@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org,
 	Hyunjung Ko <hj351016@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v2] usb: gadget: pch_udc: drain vbus GPIO works before freeing the device
-Date: Sat,  7 Nov 2026 16:02:58 +0900
-Message-ID: <20261107070258.3413402-1-hj351016@gmail.com>
+Subject: [PATCH] Input: lm8323 - cancel PWM works on unbind to avoid use-after-free
+Date: Sat,  7 Nov 2026 16:18:42 +0900
+Message-ID: <20261107071843.3427985-1-hj351016@gmail.com>
 X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -101,72 +100,62 @@ Content-Transfer-Encoding: 8bit
 
 From: Hyunjung Ko <hj351016@gmail.com>
 
-pch_vbus_gpio_irq() and pch_udc_dev_isr() schedule
-dev->vbus_gpio.irq_work_fall / irq_work_rise (pch_vbus_gpio_work_fall /
-pch_vbus_gpio_work_rise), whose handlers obtain the pch_udc_dev via
-container_of() and dereference it (dev->driver, dev->pdev, and
-pch_udc_init()/pch_udc_reconnect()). Nothing cancels these works on
-teardown.
+lm8323 registers LM8323_NUM_PWMS PWM works (lm8323_pwm_work) and
+schedules them from the threaded IRQ handler, when a PWM ramp script
+completes, and from the LED brightness_set callback. The handler
+dereferences the containing struct lm8323_pwm and its ->chip, i.e. the
+struct lm8323_chip.
 
-pch_udc_remove() -> pch_udc_exit() -> pch_vbus_gpio_free() previously
-only called free_irq() for the VBUS GPIO interrupt; dev is allocated with
-devm_kzalloc() and is freed by devres after removal. free_irq() only
-waits for the interrupt handler to finish, it does not cancel a work the
-handler has already queued, so a pending or running work then runs
-against the freed pch_udc_dev (use-after-free). pch_vbus_gpio_work_fall()
-polls for up to PCH_VBUS_PERIOD (3s), widening the window.
+The driver is fully device-managed and has no remove callback, and
+nothing ever cancels these works. struct lm8323_chip is allocated with
+devm_kzalloc(), so on unbind devres frees it once probe's resources are
+released. A PWM ramp completion interrupt arriving while a fade is in
+progress schedules pwm->work; free_irq() stops further interrupts but
+does not cancel an already queued work, and led_classdev_unregister()
+only flushes the LED core's own work, not this driver-private one. The
+queued work can therefore run after the lm8323_chip has been freed,
+dereferencing freed memory (use-after-free).
 
-The two works are armed differently. pch_vbus_gpio_init() assigns
-dev->vbus_gpio.port and INIT_WORK()s irq_work_fall *before* request_irq()
-sets dev->vbus_gpio.intr, and pch_udc_dev_isr() schedules irq_work_fall
-exactly when dev->vbus_gpio.intr is 0; irq_work_rise is only initialised
-and scheduled once intr is non-zero. Cancelling both only under
-"if (dev->vbus_gpio.intr)" therefore misses irq_work_fall whenever the
-GPIO is present but the IRQ was not acquired (gpiod_to_irq()/request_irq()
-failure, or a device interrupt racing removal before interrupts are
-masked).
-
-Drain each work according to how it is armed: cancel irq_work_fall
-whenever a VBUS GPIO port exists, and cancel irq_work_rise next to
-free_irq() under the intr guard. free_irq() runs first so the GPIO
-interrupt can no longer schedule work before it is drained.
+Register the works with devm_work_autocancel() instead of INIT_WORK().
+It is registered in init_pwm(), before devm_request_threaded_irq(), so
+on unwind devres runs free_irq() first, after which no new work can be
+scheduled, and then cancels each work while the lm8323_chip is still
+valid. The handler does not re-queue itself, the re-arming comes from
+the interrupt, so a single cancel drains it.
 
 Found by static analysis and code review; not runtime-reproduced (needs
-EG20T/ML7213 pch_udc hardware with a VBUS detection GPIO and an interrupt
-racing device removal).
+LM8323 keypad/PWM hardware with a fade in progress racing device unbind).
 
-Fixes: 637b78eb31e0 ("usb: gadget: pch_udc: Detecting VBUS through GPIO with interrupt")
+Fixes: a48b2d4a0091 ("Input: introduce lm8323 keypad driver")
 Cc: stable@vger.kernel.org
 Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
 ---
-v2: drain irq_work_fall under the GPIO-port guard rather than the IRQ
-    guard. irq_work_fall is scheduled from pch_udc_dev_isr() when
-    dev->vbus_gpio.intr == 0, so the v1 "if (intr)" placement skipped it.
-    Spotted by Sashiko AI review. The separate pre-existing missing
-    cancellation in pch_udc_shutdown() that the review also flagged is
-    left for its own patch.
+ drivers/input/keyboard/lm8323.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
- drivers/usb/gadget/udc/pch_udc.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/usb/gadget/udc/pch_udc.c b/drivers/usb/gadget/udc/pch_udc.c
-index 99b3ce2..5351bd9 100644
---- a/drivers/usb/gadget/udc/pch_udc.c
-+++ b/drivers/usb/gadget/udc/pch_udc.c
-@@ -1406,8 +1406,12 @@ static int pch_vbus_gpio_init(struct pch_udc_dev *dev)
-  */
- static void pch_vbus_gpio_free(struct pch_udc_dev *dev)
- {
--	if (dev->vbus_gpio.intr)
-+	if (dev->vbus_gpio.intr) {
- 		free_irq(dev->vbus_gpio.intr, dev);
-+		cancel_work_sync(&dev->vbus_gpio.irq_work_rise);
-+	}
-+	if (dev->vbus_gpio.port)
-+		cancel_work_sync(&dev->vbus_gpio.irq_work_fall);
- }
+diff --git a/drivers/input/keyboard/lm8323.c b/drivers/input/keyboard/lm8323.c
+index 8eac63b..388b790 100644
+--- a/drivers/input/keyboard/lm8323.c
++++ b/drivers/input/keyboard/lm8323.c
+@@ -16,6 +16,7 @@
+ #include <linux/sched.h>
+ #include <linux/mutex.h>
+ #include <linux/delay.h>
++#include <linux/devm-helpers.h>
+ #include <linux/input.h>
+ #include <linux/leds.h>
+ #include <linux/platform_data/lm8323.h>
+@@ -564,7 +565,9 @@ static int init_pwm(struct lm8323_chip *lm, int id, struct device *dev,
+ 	pwm->desired_brightness = 0;
+ 	pwm->running = false;
+ 	pwm->enabled = false;
+-	INIT_WORK(&pwm->work, lm8323_pwm_work);
++	err = devm_work_autocancel(dev, &pwm->work, lm8323_pwm_work);
++	if (err)
++		return err;
+ 	mutex_init(&pwm->lock);
+ 	pwm->chip = lm;
  
- /**
 -- 
 2.43.0
 
