@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046394;
-	b=pvtj2JfuSB+sWTVq+ZkFMuRFyEtETs1rTkjI6lMrnj4zrxxAvhNI2gfLD5P02VYjAaBv
-	 EkC8MGT3AWGgaY5c7qNCLp5OigRFWmDOi1P6V6h8vCAEgyOgWshqWYMINiaqHby+cQpgs
-	 mwqRGYavW9AygHZtHK53D0VEhgPW2YbpBi+Pr88UEQX7ehDHCxBbdDPADo/btk9hjwwAv
-	 Qb0i9lqOTDl+u0nz5hrYAM2UCnWtM72a+t/5/PiAiak64PGYGHzAJwUJ1xWZ6hdTac4ZI
-	 +ZIAyEjliNt8ZZjSESZnd366pkGsj2IC0mZRrH2cQ6kcTa0Ae4FqTSQ1bNnXEoeHu6Q==
+	t=1794046397;
+	b=0SsYub1owWTbdfTNugHbiDRj7MZzuXniNaDKunRIgFq0Cdc/FjH8gf4l14LF5Lfk6m9m
+	 TPjnSJa0RjuiI1mmZOarmATU8W/9jMR+X7SlTo9e1LCO+AZyXHbpUlGurZSxi+r00Zw+3
+	 fQREnJOxLvNSKEz4tymLsjnU6gKqSBv1hqkLR3hj+eVL2f+UF7t126602EGt923n93u8I
+	 5vLsSz3W+AUwR97ItHE6XUBdlqgDYktoNPsvBV6fx+JraZXIsfjC/dRmoSwo4PDnq2gP9
+	 bcK/ADjh6qPUeJLDhVObr414rEER06WlDJ63pybfty05oL7pQPidO4xIE89WJKhWFmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046394;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046397;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=EtD+EVOXKtFanuYJFKRgtcigR8qZzz3JqsIVZp1sVHs=;
-	b=jLVM2kt8G9tnJaRDtFPq3RwfbpKUoejGRUip/fP3FE7eMk7O7T1t5YMCM9rj55vMT5e8
-	 C5GgHB67TpBAzC30xtwSK5kxCWLLLSM5ShZKKbMeSVfgbwFyZHiByy7oEG926Sw2DF6Sp
-	 atxpuabJ+sEF7l7Kekl8Wh+ne2Bij9680X4/wngMgwFv6tlaA0rFbEUkFtBy9TIFZVlD1
-	 MRG9kIVfdojaS0LCgsuXUMkaRyzACubpANxLaEvPGNHeWRgAkbqF6cZd7PMOUZFZ8fpq0
-	 1xCuFOxMrMPARDgRABV3txrlZaOs07gE91CbYDLHxu+uPIVvZpGIKWIkSW2xTNdDOtg==
+	bh=n+p62rGSmiHPuSWuxgSoiqGQkuNrD/1wIOdUT3SDf5I=;
+	b=BSUnpHx3XfTMAttS8Q2iSjHfR4dDpYXAyd8rtkwcR+yu1KKM8AbfgogsJ3YbV+3T8Zwm
+	 n7JBypFitKrxiXQ4c1AhAXo8gspUwPEVih6zCWG1R8bxQhaztfLtEOy+0J7sWmWlYQbJ1
+	 /br0ZYt7GY+szodUFAjblOTowtrdEVndCR6W4xQswZlUpP59wa+prZcVCMrbWq7eoOBkR
+	 y9EH3WaOWu1bhETdlUIrkJh1wGs7qCmKNo3/TD8WySc+Hh15cHYjLMzPINvuNZjeJoLET
+	 qAxOEpXsoSTQAO8rkG74ozoOSlFLKlL/6eW43MequguBqR+Mcy5EjkBUMeghSJGYowA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TxMqO3NY;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WISfOlJR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8855F606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:13:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF897606A335
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:13:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TxMqO3NY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF3ED1F0089F;
-	Sat,  7 Nov 2026 10:13:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WISfOlJR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39F071F0089F;
+	Sat,  7 Nov 2026 10:13:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046394;
-	bh=EtD+EVOXKtFanuYJFKRgtcigR8qZzz3JqsIVZp1sVHs=;
+	s=k20260515; t=1794046396;
+	bh=n+p62rGSmiHPuSWuxgSoiqGQkuNrD/1wIOdUT3SDf5I=;
 	h=From:To:Cc:Subject:Date;
-	b=TxMqO3NY1XCUgrdyWoCOeGNB/yQh8MqK2CFc3f2AQ7e04zUTyU/maAdaG6neYvoqn
-	 cMFtM/XdDzbqKnYThGGIk35EmlNkw+TC6qNie5mmAMDLbpvfBJhZFc5tLPZ8rnWuS8
-	 hJsGDzPTSULI6A0MLStEJYfR8NqNuyDrw/sZZ4ppQEcHS1coPfspH4rMHqj8owyZGj
-	 yLI4yqBYoyNEKbEZCG9XTeYVeZ9bvjdBJLQcSQCiyCS+0BvuXPzNy2kRBmIdtvupgi
-	 fstO+TmUtRKiUPCMCtkl7z7kA31+914dKaRKJX/1rBn+wSLr1zdJaxHQ8LL1QbvbfD
-	 Z4E1JTK5YZTNA==
+	b=WISfOlJRIZ68RVeydmbZ+UmD675rpcNkz5Pnu6LPBGueAidgmkbqDcZYFLCIk1TmO
+	 9kf8jCg6oD/Awan4RsH9xGvJcAyw7RIPSHwJNz1PHt6a2loAhqAIUSKoybEpJ5Zim3
+	 CDxF0Jarkmc/deg88v9iJ+uVDKp6PJNnF5VgFMEFie9g2nMXrlUi0woIstaNp/LybY
+	 IxtpPSIyu3FxluSPmMUlkel0+QUHvVW1ZlgxgYwmZDLs7gJtezVrJFN/0kSvOoc4+H
+	 PPSc2Hcbe/uMYe2dz64gRWNxYEh7hfICAAlNbDVWiB7l9Vs5OwskN4F4SpYQWEGoMk
+	 brNN49OnaaWsA==
 From: Sasha Levin <sashal@kernel.org>
-To: daehojeong@google.com,
-	chao@kernel.org,
+To: chao@kernel.org,
 	jaegeuk@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] f2fs: don't use truncate_inode_pages_final() on live inodes" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:13:12 -0500
-Message-ID: <20261107051312-failed-6.18-74bbd6ada01f@kernel.org>
+Subject: FAILED: patch "[PATCH] f2fs: zone: fix to don't fail to grab GC target block on zoned device" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:13:15 -0500
+Message-ID: <20261107051314-failed-6.18-fd106ada4dee@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,85 +68,94 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 74bbd6ada01f91fcad60608e0417bf45a9fa99e6
+git cherry-pick -x fd106ada4dee4b8adefec791ee9b9681b7b77501
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051312-failed-6.18-74bbd6ada01f@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051314-failed-6.18-fd106ada4dee@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 74bbd6ada01f91fcad60608e0417bf45a9fa99e6 Mon Sep 17 00:00:00 2001
-From: Daeho Jeong <daehojeong@google.com>
-Date: Thu, 15 Oct 2026 16:17:14 +0000
-Subject: [PATCH] f2fs: don't use truncate_inode_pages_final() on live inodes
+From fd106ada4dee4b8adefec791ee9b9681b7b77501 Mon Sep 17 00:00:00 2001
+From: Chao Yu <chao@kernel.org>
+Date: Mon, 19 Oct 2026 09:00:32 +0000
+Subject: [PATCH] f2fs: zone: fix to don't fail to grab GC target block on
+ zoned device
 
-truncate_inode_pages_final() is meant to be called from ->evict_inode.
-It sets AS_EXITING on the mapping, and nothing ever clears it, to tell
-the VM that the inode is going away.
+With out-of-memory fault injection (inject_type=0x0080800f) on a zoned
+device, f2fs stopped checkpoint during GC:
 
-f2fs calls it in two places where the inode stays live:
+ F2FS-fs (dm-0): inject kmalloc in f2fs_kmalloc of move_data_block+0xc0b/0x12b0
+ Workqueue: dm-1_zwplugs blk_zone_wplug_bio_work
+ Call Trace:
+  <TASK>
+  dump_stack_lvl+0x4d/0x70
+  f2fs_stop_checkpoint+0x1df/0x5d0
+  f2fs_write_end_bio+0xdbb/0x1320
+  blk_zone_wplug_bio_work+0x2aa/0x7d0
+  process_one_work+0x5c6/0xde0
+  worker_thread+0x403/0xb70
+  kthread+0x235/0x2e0
+  ret_from_fork+0x2f/0x70
+  ret_from_fork_asm+0x1a/0x30
+  </TASK>
+ F2FS-fs (dm-0): Stopped filesystem due to reason: 3
 
- - F2FS_IOC_START_ATOMIC_REPLACE uses it to drop the page cache of the
-   original inode before setting i_size to 0. The atomic write then
-   goes on through this inode.
+In move_data_block(), the target block is grabbed from the meta cache
+after f2fs_allocate_data_block() has allocated newaddr. If grabbing it
+fails w/ -ENOMEM, recover_block calls f2fs_do_replace_block() to restore
+the old block address and curseg's next_blkoff, which already points
+past newaddr, so newaddr is never written. That leaves a hole in a
+sequential zone: the next write to the zone is not at the write pointer,
+the zone write plug fails it, and f2fs_write_end_bio() stops checkpoint
+w/ STOP_CP_REASON_WRITE_FAIL.
 
- - f2fs_abort_atomic_write() uses it to drop the uncommitted data. It
-   is called on eviction, but also on the last writer's close in
-   f2fs_release_file(), from f2fs_file_flush() when the atomic writer
-   exits, from F2FS_IOC_ABORT_ATOMIC_WRITE and when
-   F2FS_IOC_COMMIT_ATOMIC_WRITE fails.
+move_data_block() allocates newaddr before grabbing its meta page and
+goes to recover_block if the grab fails since commit 4356e48e6437
+("f2fs crypto: fix incorrect positioning for GCing encrypted data page"),
+the meta cache only replaced the meta page w/ a meta cache entry. That
+is harmless on a regular device, but it leaves the hole since f2fs
+supports host-managed SMR (now zoned block) devices, which only accept
+writes at the write pointer of a sequential zone.
 
-Other processes may still have the file open or mapped in all of these
-cases. The mapping then stays marked as exiting for as long as the
-inode is in memory. This stops reclaim from storing workingset shadow
-entries for it and breaks any code that assumes an exiting mapping has
-no users left.
-
-All we need in both places is to drop the page cache, so use
-truncate_inode_pages(mapping, 0) instead. The eviction path is not
-affected, because f2fs_pre_evict_inode() still calls
-truncate_inode_pages_final() after f2fs_abort_atomic_write().
+If newaddr is in a sequential zone, grab the target block w/
+F2FS_CACHE_NOFAIL, so nothing can fail between allocating newaddr and
+writing it. In a conventional zone or on a regular device, skipping
+newaddr is harmless, so keep the error handling for them.
 
 Cc: stable@kernel.org
-Fixes: 3db1de0e582c ("f2fs: change the current atomic write way")
-Fixes: 41e8f85a75fc ("f2fs: introduce F2FS_IOC_START_ATOMIC_REPLACE")
-Signed-off-by: Daeho Jeong <daehojeong@google.com>
-Reviewed-by: Chao Yu <chao@kernel.org>
+Fixes: 52763a4b7a21 ("f2fs: detect host-managed SMR by feature flag")
+Fixes: d1b959c87702 ("f2fs: Check zoned block feature for host-managed zoned block devices")
+Signed-off-by: Chao Yu <chao@kernel.org>
 Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
 ---
- fs/f2fs/file.c    | 2 +-
- fs/f2fs/segment.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ fs/f2fs/gc.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-index 3b5ad281b518e..b077e4eb790d6 100644
---- a/fs/f2fs/file.c
-+++ b/fs/f2fs/file.c
-@@ -2462,7 +2462,7 @@ static int f2fs_ioc_start_atomic_write(struct file *filp, bool truncate)
- 	fi->original_i_size = isize;
- 	if (truncate) {
- 		set_inode_flag(inode, FI_ATOMIC_REPLACE);
--		truncate_inode_pages_final(inode->i_mapping);
-+		truncate_inode_pages(inode->i_mapping, 0);
- 		f2fs_i_size_write(inode, 0);
- 		isize = 0;
+diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
+index 18aa6a12e805d..5b948c92f9813 100644
+--- a/fs/f2fs/gc.c
++++ b/fs/f2fs/gc.c
+@@ -1453,8 +1453,16 @@ static int move_data_block(struct inode *inode, block_t bidx,
+ 		goto up_out;
  	}
-diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
-index 92c3f255ea8fa..daf6d9617d5b6 100644
---- a/fs/f2fs/segment.c
-+++ b/fs/f2fs/segment.c
-@@ -194,7 +194,7 @@ void f2fs_abort_atomic_write(struct inode *inode, bool clean)
- 		return;
  
- 	if (clean)
--		truncate_inode_pages_final(inode->i_mapping);
-+		truncate_inode_pages(inode->i_mapping, 0);
- 
- 	release_atomic_write_cnt(inode);
- 	clear_inode_flag(inode, FI_ATOMIC_COMMITTED);
++	/*
++	 * If newaddr is in a sequential zone, it must be written once it is
++	 * allocated, otherwise it leaves a hole in the zone, and the following
++	 * write to the zone will fail as an unaligned write, so don't fail
++	 * here.
++	 */
+ 	tentry = f2fs_grab_cache(META_CACHE(fio.sbi), newaddr,
+-					F2FS_CACHE_LOCK_CREATE);
++			F2FS_CACHE_LOCK_CREATE |
++			(f2fs_is_sequential_zone_area(fio.sbi, newaddr) ?
++			 F2FS_CACHE_NOFAIL : 0));
+ 	if (IS_ERR(tentry)) {
+ 		err = PTR_ERR(tentry);
+ 		f2fs_put_cache(sentry, true);
 -- 
 2.53.0
 
