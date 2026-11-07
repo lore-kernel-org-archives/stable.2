@@ -1,54 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794064388;
-	b=bx9HlYg//toqZ+ULJorB8XqplHvvkaBEHrEu9jiBfuRJvsD8g/AT+DM/IRR/+DcVLhYQ
-	 6oQlo2kqlh/mMwWeQOCPyFXN0lcKuYri3EbPOkcZVTvuxI1oC3dWSg3Z3wPTrSKtB5ori
-	 M26iDDYRFJ8NguyGEMFosdVYFrLQFwCrwMOR6gDV1M7pM8seFyIxmpW+Hi8QG/rDP3Rgw
-	 GzShzDW2tfYBgRYtTl0zZDa6X8aN+9hc8uFMlkZr3RuY4LHCXx0tZLhD4J/jMwwwUmL5k
-	 Kbb5C6xi7hc17H/X787+1vKoSu436cHcTSEmJt2aQJXirc7tDdEIM0frNdJhkGCnoRg==
+	t=1794064378;
+	b=VJC+BWuOKqK0DeD77SuNMCXvkmvy1iWrjkfDrlnspKGHgYTYMBWNCBGHhzNBnNUm2mAT
+	 B+Q5OEc3gWkeAq91+5m72Bw4mOz2HgUqbKFGfz1oRLmHxc+0i6bjibQF3ZA4O3g1/x6hH
+	 FB1X9jJC6P2EUqr8ns/8aZn3yuzR8jZ2pBMWOKSWs2WC6tGXFhqqpgBHxVRcIfjHo8A0w
+	 1bPN7CmE9gMNLYd42Cbcd8CWHsZEz0rPDrsBI07UHXk9u7AzcfeoEwlbyAt/FMr6IcRmz
+	 8Xh0zO1Rre1aniI/ZR1TXvLuvQGhI7Gm2UDw+sYt5/oNnxBGAHRpju7hXm05F97AM8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794064388;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794064378;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=0uzsOzNxgz1AT2QOz6/BjOp2Rm5BTT4QCjr8LsCbNpU=;
-	b=I/xS0ga+YqP3BzVSnxslavn0gfTigxx8MDlNPpx256zWxVTfCuc/SWP+uu5Lncey1ENF
-	 2VQu+Utd1uTVjb4UoyIrp7evVIu2NngIfqx60M3cTrkjvcNzDAOL8omiyLmqPiQwDvcJc
-	 pks3qKu4CfO6zX393RXxpOv9RXOYXy3biyBxQ+s/2cBRsTw9jwJw/3rr48K47J7EjzgYN
-	 23pMtnchePHp+4DnNrkZN82wxe3K4Lj84N33PJtf+wumAcgqJApZMJpkwMAocXB2bf9Et
-	 rHdHIoluC1KahCG01eulDCkJtTWN02Y7+IbBL7Y42xs6qJDQQ85NcYi+BjpFK75BAQQ==
+	bh=4KRng7nsvxvF/lsVBd8zFVY5imSrMf6EuP/y1T0su2Y=;
+	b=VFAlXyYUznNj1hnjr1KUGXhfZt+KSDozcqRsPI6abemuFhO9FdqjM9rEr+SI3Tmn9GCv
+	 ZqvSl0BxkyCqoVv83tqPnb0QKBD5QXG7a0j7N4Y6dK4nV8o3IHrMpr1Aa8r/1R36OYjil
+	 ZALCCpOBL6Aa3657ext5q1zJiOxv6m8e2npsXef2RBkGpUm//dhS+fPeWzGhObEpUi2Kl
+	 BA78ITZt4GG5PPL1AfeLAWqR1W/AWkjq1h5DssxBu2RJ2s/Nz6IapjB1lgFuGQjnp7JpE
+	 CUY/dSdvRFALikVvcpJai3pkfyGf6tBTDIDLR0FsmPGSqikubeHbVfFYZRY2MWF6FsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=gHnkDMNE;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TihQIFGC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49B1E606E8DD;
-	Sat,  7 Nov 2026 15:13:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AD85606CE7C;
+	Sat,  7 Nov 2026 15:12:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=gHnkDMNE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC2841F008A3;
-	Sat,  7 Nov 2026 15:13:07 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TihQIFGC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3880A1F008A1;
+	Sat,  7 Nov 2026 15:12:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794064388;
-	bh=0uzsOzNxgz1AT2QOz6/BjOp2Rm5BTT4QCjr8LsCbNpU=;
+	s=korg; t=1794064378;
+	bh=4KRng7nsvxvF/lsVBd8zFVY5imSrMf6EuP/y1T0su2Y=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gHnkDMNEYs6qevNFhRBxuyG4ouiT9zMft4HfYxhObp1fXm/kJKskOeOTBUn6zrCO/
-	 nB9VlTzIIXoTfQTK1Zduohkt++FG9WrmDi4343+yJwLIBx3SHhd1cgAkXHzJK7/B9z
-	 uYBZ398utvXC8GNVB2XeFGOoBwqYC8D5RZUBd4gk=
+	b=TihQIFGC9YpTH0DkC3DULiZqmT6X+Cg+fDUuyAd3/rxUq39hUxjXzqrzhgMzA3v5H
+	 lXfsSVVTjj4HmJWA04eRIF+6f1Hjmwh4LIeHucXKxrLScAEpgF7f5M7B6jAtHJV4qF
+	 XZ1vCU4vbQoZI9wmcGYQliMsJk+5SY6oVab4pDnk=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	stable@kernel.org,
-	Anandu Krishnan E <anandu.e@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Bjorn Andersson <andersson@kernel.org>,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 0426/1257] arm64: dts: qcom: shikra: Remove cdsp compute-cb@9
-Date: Sat,  7 Nov 2026 08:45:22 -0500
-Message-ID: <20261107134951.257836176@linuxfoundation.org>
+Subject: [PATCH 7.3 0456/1257] media: platform: mtk-mdp3: Fix device reference leak in mdp_comp_init()
+Date: Sat,  7 Nov 2026 08:45:52 -0500
+Message-ID: <20261107134952.066766110@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261107134939.434104957@linuxfoundation.org>
 References: <20261107134939.434104957@linuxfoundation.org>
@@ -70,44 +69,75 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Anandu Krishnan E <anandu.e@oss.qualcomm.com>
+From: Wentao Liang <vulab@iscas.ac.cn>
 
-[ Upstream commit 90ae3eb55ad64dc05ab7ad4a667c921d0504ccc4 ]
+[ Upstream commit ff3308afa9c9da0ef9113cb80803588adabef902 ]
 
-Remove the context bank compute-cb@9 as it is a secure context bank
-used for secure use cases. Secure use case support is not currently
-implemented upstream, and allowing other use cases to be offloaded
-onto this context bank results in an SMMU fault.
+mdp_comp_init() takes a reference to the component platform device
+with of_find_device_by_node(), but the error path taken when the
+clock array cannot be allocated and the one taken for a component
+without a GCE EOF event return without dropping it.  The caller
+frees the mdp_comp in those cases, so the reference is leaked.
 
-Fixes: 8b6f81f7801a ("arm64: dts: qcom: shikra: Add CDSP, LPAICP, MPSS remoteproc PAS nodes")
+Release the reference on both error paths.
 
-Cc: stable@kernel.org
-Signed-off-by: Anandu Krishnan E <anandu.e@oss.qualcomm.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Link: https://patch.msgid.link/20260929-shikra-dts-cdsp-compute-cb-fix-v1-1-90e4abb873d6@oss.qualcomm.com
-Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+Fixes: c4320f9721fd ("media: platform: mtk-mdp3: dynamically allocate component clocks")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm64/boot/dts/qcom/shikra.dtsi | 6 ------
- 1 file changed, 6 deletions(-)
+ .../media/platform/mediatek/mdp3/mtk-mdp3-comp.c   | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/shikra.dtsi b/arch/arm64/boot/dts/qcom/shikra.dtsi
-index 92d22e3b6931c..65cc94b9a624b 100644
---- a/arch/arm64/boot/dts/qcom/shikra.dtsi
-+++ b/arch/arm64/boot/dts/qcom/shikra.dtsi
-@@ -1948,12 +1948,6 @@ compute-cb@6 {
- 						reg = <6>;
- 						iommus = <&apps_smmu 0x0206 0x0000>;
- 					};
--
--					compute-cb@9 {
--						compatible = "qcom,fastrpc-compute-cb";
--						reg = <9>;
--						iommus = <&apps_smmu 0x0209 0x0000>;
--					};
- 				};
- 			};
- 		};
+diff --git a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-comp.c b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-comp.c
+index 7fcb2fbdd64ee..acb2758a7b42d 100644
+--- a/drivers/media/platform/mediatek/mdp3/mtk-mdp3-comp.c
++++ b/drivers/media/platform/mediatek/mdp3/mtk-mdp3-comp.c
+@@ -1730,6 +1730,7 @@ static int mdp_comp_init(struct mdp_dev *mdp, struct device_node *node,
+ 	struct device *dev = &mdp->pdev->dev;
+ 	struct platform_device *pdev_c;
+ 	int clk_ofst;
++	int ret;
+ 	int i;
+ 	s32 event;
+ 
+@@ -1756,8 +1757,10 @@ static int mdp_comp_init(struct mdp_dev *mdp, struct device_node *node,
+ 	comp->clk_num = mdp->mdp_data->comp_data[id].info.clk_num;
+ 	comp->clks = devm_kzalloc(dev, sizeof(struct clk *) * comp->clk_num,
+ 				  GFP_KERNEL);
+-	if (!comp->clks)
+-		return -ENOMEM;
++	if (!comp->clks) {
++		ret = -ENOMEM;
++		goto err_put_device;
++	}
+ 
+ 	clk_ofst = mdp->mdp_data->comp_data[id].info.clk_ofst;
+ 
+@@ -1782,7 +1785,8 @@ static int mdp_comp_init(struct mdp_dev *mdp, struct device_node *node,
+ 		if (of_property_read_u32_index(node, "mediatek,gce-events",
+ 					       MDP_GCE_EVENT_EOF, &event)) {
+ 			dev_err(dev, "Component id %d has no EOF\n", id);
+-			return -EINVAL;
++			ret = -EINVAL;
++			goto err_put_device;
+ 		}
+ 	} else {
+ 		event = MDP_GCE_NO_EVENT;
+@@ -1791,6 +1795,10 @@ static int mdp_comp_init(struct mdp_dev *mdp, struct device_node *node,
+ 	comp->gce_event[MDP_GCE_EVENT_EOF] = event;
+ 
+ 	return 0;
++
++err_put_device:
++	put_device(&pdev_c->dev);
++	return ret;
+ }
+ 
+ static void mdp_comp_deinit(struct mdp_comp *comp)
 -- 
 2.53.0
 
