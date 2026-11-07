@@ -1,54 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046897;
-	b=FA9ZOMKSc5xxDiz4iejbvYmPKVA4xc+TWPuoDlkQ3Y6ugrVnxUNENU4+FxiWqV3FmJbH
-	 k8Xm6nRNStw4v5pJRx6l1rKOPQckDrRNOCjLHDjPwfAq43JlcX4A8tEn8hmTtxO8cbSTp
-	 feLKcAGlQGNFJP0jQfykX9YwISPni2RKQe4uahj8JJSfP4CqqlcEu0rEOgsVoGBsnidHj
-	 uXE/WRYrN737fXWnA9YV6PS/DX7fRcXE+kHuoBD5biy09Zq7UuSgFToAZFIN7NcGtZoxj
-	 K3umG2PQ8/Ow3QVg8Fvp3wSgTUEJskuWZQughVRL/Hlm3hXpozFaKgRb9dR9lM3nwNw==
+	t=1794046899;
+	b=C+nN3SL6KqMM2EsDUr6P8jRFBJnr0S8vJy0nuy7ChhmbBbtIkcn0oEYVoFG8x+VppLTq
+	 3WHqLUZZhja2PlH/WNqVgWd5CJ/GtJB61kKqR3Kp3XlBMcFtJeTiKGmhJ9DBY3zflbHoc
+	 UFty8KGOauNf5mRcUFHewoRQBXI2VHsGnk7z/r25KEa/g2Gg5idzu9Nc6Mun7vjUaxuf4
+	 Pk1SkiUfvx83OYp1sAn8DTGa3t0H63VBGXJJTmt9VGLu5vE9cYSsJ4w40XxxugNTUlQBB
+	 EqZnZSsiXiEDk5/sVeyzD3Hv8nxiILRb4toJbAGn0RJtAseaoZzZC1oHFIj8MsJlVmQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046897;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046899;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=BruUbg2n0w8KsKG2RyKrlTR9SyDlngu07iISE/nxq+s=;
-	b=OYYhrh5oNZ7M5+7nid1fPEPMegnRbWA53+SgCe86Ccfx4wWlE9xGfmmNAZO4RstgZOzb
-	 S6/pRwV7sJ/0oTGnB18wTl4s9DPdF87uRrjSrwF8n+rs4HM7FzbWAmCLSE5citn9toWn7
-	 VkRGQqX1YRGGdfJIkBN4IOqI9eIsSlACHGvpkCCvJaSi2UoIJ40YuKhojWx+aemP8PaKs
-	 sRn5UnvaAVJhytH3tcr0EX338BKfLHZvegWh3ucze6ne72OuvuKgJKoBVOR0Td0to8zKz
-	 HCQ6rsL9PkWVy2VzKugwkFQWvtSivrwALqZlWA+kvRdXt39ZQxfcab5tkrGUW06M/eg==
+	bh=HDCbZrSdPX6hFatwqYTckDk+eUOVDtT0PNGRnTpWyWI=;
+	b=DpyqLEs7DkhVg+8aW1CP9qFm2gKgYrxOV16pfSMmUmrEWRveXYTcE9fkhqpBStFjUonN
+	 t2VUpz2sfx58S9SYE6n1KijHGPLd9ii9BjTMgYV3QgN5dGA6Kp+ZfBwTAa3L01GUai8ZW
+	 +8GaE9KNN2HL2I/OUc63IALLl42a4anOjDo2iI3utLYAsTrf8qTe30/cZC8vGLCfFgU0B
+	 FnFPwX/I2ShfiKGTVEte7LvyYBwFoy6MMLd8cKL57KYFTv1jGoqXCiGA9JQzAJ3tuxoB2
+	 JtMlNc2SxQSirkcJSkNmopmlM5dH0317upLgTadKKndHxjeQVSsYwrfkSqruYTQ34LQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mconnyrp;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dQ0ancDu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46DDC606A33B
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:21:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FDA8606EE89
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:21:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mconnyrp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7791E1F008A1;
-	Sat,  7 Nov 2026 10:21:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dQ0ancDu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C163C1F0089F;
+	Sat,  7 Nov 2026 10:21:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046897;
-	bh=BruUbg2n0w8KsKG2RyKrlTR9SyDlngu07iISE/nxq+s=;
+	s=k20260515; t=1794046899;
+	bh=HDCbZrSdPX6hFatwqYTckDk+eUOVDtT0PNGRnTpWyWI=;
 	h=From:To:Cc:Subject:Date;
-	b=MconnyrpaOwSblnVKC6Aot2pQCnGQuzGJK5PaRZMvcfKb7Xpp9LVlw2fJo/ilnCny
-	 C8+WicCY2l+tWF4IT/V2xAGkwyJ8zlzny95Z6MZklROs3QuNvAtrtmaGvWrB9P8Pbo
-	 aYtJZIvBa35EFDiHSZzqzjQqX5UCdicT6bYANSdqjbohDTXYBGS8CCpZagSET9l9Wv
-	 m//l98LElncwCL6ErbMJq4gaC1AdTl2gE99gjNdq5TGTr+ajMFk1TjFmXhzSvf7ZWi
-	 URQZOrvPdd/zdTUO1adxK2FhnAwwc1gs8HvPTwIyNQWjwlj5AtFmPSjTjFV4iJpavK
-	 wM5C3BLhknaAQ==
+	b=dQ0ancDuvjuQH+S1iXdd0p/4i5cXc6qdn0hPO4bA+KUb3duPRYCFNVdWUxtjh3MCb
+	 908znSM4q41P76Os+PLOSfqOn9g3TtlHKjB9t05FTsQbhctVrGA+aqLg0Y31VPxzSc
+	 dv0qnBUM5oD0LqV881rJCmKqOaIv1fwoJmb9WqpNjcgPx1fhuWh84lXI90fQ2swBPP
+	 ouo61RykEN2BYuMSNUmPJe+CuVxK12+BoaNV9o147OH6M2BwEnLJLMDDL75l+wGagL
+	 Elw9nDM8eG4AL6Eunk86nA5i9rJu0fTslRJ1x4veQnAD1iDNHkjUD4MwqMzhE7ft0x
+	 9d1CxfB4CKSVw==
 From: Sasha Levin <sashal@kernel.org>
-To: sj@kernel.org,
-	akpm@linux-foundation.org,
-	brendan.higgins@linux.dev,
-	davidgow@davidgow.net,
-	usamaarif642@gmail.com
+To: mario.limonciello@amd.com,
+	ilpo.jarvinen@linux.intel.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/damon/sysfs-schemes: drop centralized filter range arg validations" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:21:35 -0500
-Message-ID: <20261107052135-failed-6.12-1d2397b2c414@kernel.org>
+Subject: FAILED: patch "[PATCH] platform/x86/amd/pmf: Add AMDI0112 ACPI ID" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:21:37 -0500
+Message-ID: <20261107052137-failed-6.12-325bcc126cf7@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,69 +68,49 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 1d2397b2c414e3f1fb536666ccc21d4065a3d9a6
+git cherry-pick -x 325bcc126cf7a512a0e2da0efddad665f69badac
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052135-failed-6.12-1d2397b2c414@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052137-failed-6.12-325bcc126cf7@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 1d2397b2c414e3f1fb536666ccc21d4065a3d9a6 Mon Sep 17 00:00:00 2001
-From: SJ Park <sj@kernel.org>
-Date: Mon, 14 Sep 2026 07:23:22 -0700
-Subject: [PATCH] mm/damon/sysfs-schemes: drop centralized filter range arg
- validations
+From 325bcc126cf7a512a0e2da0efddad665f69badac Mon Sep 17 00:00:00 2001
+From: Mario Limonciello <mario.limonciello@amd.com>
+Date: Wed, 26 Aug 2026 11:36:11 -0500
+Subject: [PATCH] platform/x86/amd/pmf: Add AMDI0112 ACPI ID
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-DAMON sysfs interface is validating wrong range arguments for DAMOS
-filters.  Now the core layer is doing the same validation.  Drop the
-duplicated validation in DAMON sysfs interface.
+The AMDI0112 ID is used to bind the PMF driver to some platforms.
+It doesn't have any Linux side code changes relative to the most
+similar AMDI0105.
 
-Link: https://lore.kernel.org/20260914142327.92510-6-sj@kernel.org
-Signed-off-by: SJ Park <sj@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: Brendan Higgins <brendan.higgins@linux.dev>
-Cc: David Gow <davidgow@davidgow.net>
-Cc: Usama Arif <usamaarif642@gmail.com>
-Cc: <stable@vger.kernel.org>
+Cc: stable@vger.kernel.org
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+Link: https://patch.msgid.link/20260826163611.2268377-1-mario.limonciello@amd.com
+Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 ---
- mm/damon/sysfs-schemes.c | 13 -------------
- 1 file changed, 13 deletions(-)
+ drivers/platform/x86/amd/pmf/core.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/mm/damon/sysfs-schemes.c b/mm/damon/sysfs-schemes.c
-index 8c8ab82c8facc..a4ec5d54cfbd1 100644
---- a/mm/damon/sysfs-schemes.c
-+++ b/mm/damon/sysfs-schemes.c
-@@ -2832,27 +2832,14 @@ static int damon_sysfs_add_scheme_filters(struct damos *scheme,
- 			}
- 		} else if (filter->type == DAMOS_FILTER_TYPE_ADDR) {
- 			filter->addr_range = sysfs_filter->addr_range;
--			if (filter->addr_range.end <
--					filter->addr_range.start) {
--				damos_destroy_filter(filter);
--				return -EINVAL;
--			}
- 		} else if (filter->type == DAMOS_FILTER_TYPE_TARGET) {
- 			filter->target_idx = sysfs_filter->target_idx;
- 		} else if (filter->type == DAMOS_FILTER_TYPE_HUGEPAGE_SIZE) {
- 			filter->sz_range.min = sysfs_filter->range_min;
- 			filter->sz_range.max = sysfs_filter->range_max;
--			if (filter->range_min > filter->range_max) {
--				damos_destroy_filter(filter);
--				return -EINVAL;
--			}
- 		} else if (filter->type == DAMOS_FILTER_TYPE_PROBE_HITS_WSUM) {
- 			filter->range_min = sysfs_filter->range_min;
- 			filter->range_max = sysfs_filter->range_max;
--			if (filter->range_min > filter->range_max) {
--				damos_destroy_filter(filter);
--				return -EINVAL;
--			}
- 		}
- 
- 		damos_add_filter(scheme, filter);
+diff --git a/drivers/platform/x86/amd/pmf/core.c b/drivers/platform/x86/amd/pmf/core.c
+index b4eae65e675b8..5966190d1496b 100644
+--- a/drivers/platform/x86/amd/pmf/core.c
++++ b/drivers/platform/x86/amd/pmf/core.c
+@@ -454,6 +454,7 @@ static const struct acpi_device_id amd_pmf_acpi_ids[] = {
+ 	{"AMDI0107", 0},
+ 	{"AMDI0108", 0},
+ 	{"AMDI0109", 0},
++	{"AMDI0112", 0},
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(acpi, amd_pmf_acpi_ids);
 -- 
 2.53.0
 
