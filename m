@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048596;
-	b=a5ll/MXtRJLlLrzixgHJhbFoiaRB1Osoae0Tb1uFDAblFUkOXYX2h5seI05StT+4XRMw
-	 VjeFNZj45LKi9DLvR5fZSL/+IJpSi/8ZjCUk8CTuJlzMUKxJEF8qn/bddak0ZA9rgWfJp
-	 P3g7egUHFk0CQhAImXO8exZ6/fwxTmY1fqQogiwd9VUWrWEuTvUMTLMOt9JGn9mez53jW
-	 LgyAoHKkRwwfVdRhoTJm2dih5/p7xXx32geXYd5//nIGTow4hWi1hvtel8MYuQ6Q5Bqh9
-	 aiZ+mT1OmqBKX/ssqwzVo5WlhWgDPAjg+pP2mRepaaIhpwMi63QMMJ7f3JEkXJqTtvQ==
+	t=1794048599;
+	b=DpmxDKJSkmDfO0jyoiMm9yH3MiDboRDynUXtCow/lb/SLasNiR7JF05kT/d262w3ZU5/
+	 ulIuk9XIoKFeLDWzeVUTLJGTauV5A3q9lLuKDaAbBWRvReLkIJGcI3S1uBAe8jUtHE0ZV
+	 0dYzkq9+84NHyhCPaRMTcCS9kwnH6vLKmTWhL9psnVUMLeQ5+4/XI5T8hseltYTTJeE+Q
+	 jdLLEldF5oFyAUZYdqpzSnzm9DJSdRubeEBDLPUSqDSFkXdWRQeC7IdgBUPxepyXEjA0R
+	 I37QKpEqPnEii457D0X1bbNSzjVU82yZa5b+TxrW7uMry5YnR6FinXPO7Y92JC7pR1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048596;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048599;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Tc0klBFDQchfaKE5YriV15nRRq2fcIkgJ+tJDWcel6c=;
-	b=jwIoyc6WKay5eak1F8qIj19ek+lQM6lsbPuXY2eveeKMyM+aENBzue7vaF+1x84PFIBT
-	 CDzjGJLCtqt/rsbLS+hhNFEsgobTuNx5XUIznoGDFZU5WhTbpzqkHK6YLTu++NtWpUiLl
-	 pmcdno0/H/owz5drThAVLGP9Oemu4N0GFuL2Sxse/wk5OIvwwUgd6Q1EtG9dcEqMs5fjM
-	 Z7Lbq6wGkmI3+netR/f5atR11O4dL3lWm09eiaFBj44FEpJN2XB3/pu0Evd+GAV1LYHIr
-	 uTelxzq13MiGTSTJ3vN+1NWiEEy/n5G6eQbbO24LnJyzDTavsKxRuofq51AfJqRlDLg==
+	bh=XQtWhg9aCs5bId955efwhgX9b+BZv05K4zwlG9MLzvQ=;
+	b=13s6j6CDfnUkz4VXtt4k52jQM6Tp+qIcu3ifQ8ilG5VB5bHm8n+nrOOGagB+4csvHjJD
+	 DcgAh9VZBhez30Q8lDWC948ox+LfQgEOIu6G83SWK1/pfZ7imrp6hGUrweLWMqviGLgqX
+	 +iCo2Sx89WnP46gTVNQLRYsEa/DF9lIWtj5nBV/H21qCULiBB1qh2tp8iaTLj+KruPzLa
+	 kzyUdSuw2ZZy1KMFopDwfKC7g8/70jOULhTyGiQ2It/Q1qlMBgv8JPDAP4OoU2Ru9Xp3t
+	 NbXBBCJJNsLk2nU+SEiLlzuLN0FmbILFWsCBQycN5ZTzRNCU2FVxnAMFZVWxJtW6xMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ka96uw0t;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jCCtIldK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9E43606D808
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:49:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47D96606A337
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:49:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ka96uw0t
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3543E1F008A3;
-	Sat,  7 Nov 2026 10:49:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jCCtIldK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D29B1F0089F;
+	Sat,  7 Nov 2026 10:49:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048595;
-	bh=Tc0klBFDQchfaKE5YriV15nRRq2fcIkgJ+tJDWcel6c=;
+	s=k20260515; t=1794048598;
+	bh=XQtWhg9aCs5bId955efwhgX9b+BZv05K4zwlG9MLzvQ=;
 	h=From:To:Cc:Subject:Date;
-	b=Ka96uw0t7qU+T+jzLSEr76/6ISZrYMN/l+lgKxssHtAeaFaw/qaDwqsGf6g6/HXUk
-	 ijve1vNzahGkbcc6JS35IeMx4rWXabqPrxJf6/uokExJQuwoFsvU2jjLLXu2sYPwBo
-	 Nv9Kd00mDUSrFtGKqw9q9ksoLBLxzuAHlchhZVywb+vHXMXJZuDzhE+5nTDy8Z3Tcp
-	 NhUQfKT2bKZ5NBQQ3G9vi8SeCaAjYtchahRKYT9uk7714pYlcthMKKSX7p8JQOn9Fr
-	 1qpX/HVxSkKhBhfhYwuUq3JpmkFEXuyODvHZkGZq7vDq8T8darqJ1x2obGUYlN9HXV
-	 WpYxUrxzVv9wA==
+	b=jCCtIldKmRZ27YIymOdUNp2r0f0ziVFZGt1i2P+GjIICxSrbyMA2dRTlivGZ5wltz
+	 sFqh+YHz7NcnRYdboIU+D1g8Rebo9S5YGt392onPnqmFcE+9LnnjVW/oUpqGup2VrX
+	 fQM3LLYtx5T0ymq86orG6e6F9QkiapDzCYxOCm6vrwER0rz8auoVqDw8g2JP9F+/Yw
+	 nK9oAEaSq4z06dslly2ZOYNqMrGGtLh+o0pdpihPjbfO2cS2F0N/fvPOMbnqvHCkft
+	 4q/BRs7OGHd2uLgvBL1/GMXtdL7q4pfNpBQW672I9exg09Zm0rbQWFv87hFZ3WX+d0
+	 /Z/MbMqIKMr/Q==
 From: Sasha Levin <sashal@kernel.org>
-To: parri.andrea@gmail.com,
-	jgg@nvidia.com
+To: liuwb@xiaopeng.com,
+	zhugl3@xiaopeng.com,
+	broonie@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] iommufd/iova_bitmap: Ensure that iova_bitmap_set() handles the full IOVA" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:49:53 -0500
-Message-ID: <20261107054953-failed-6.1-e21952d72b47@kernel.org>
+Subject: FAILED: patch "[PATCH] spi: bcm-qspi: reject oversized dummy bytes in mspi exec_mem_op" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:49:57 -0500
+Message-ID: <20261107054956-failed-6.1-9e44f0df3fff@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,86 +69,60 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x e21952d72b4740f08a272d694cca223b6b0099ca
+git cherry-pick -x 9e44f0df3fff215d9033089e85980048c3ac132a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054953-failed-6.1-e21952d72b47@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054956-failed-6.1-9e44f0df3fff@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From e21952d72b4740f08a272d694cca223b6b0099ca Mon Sep 17 00:00:00 2001
-From: Andrea Parri <parri.andrea@gmail.com>
-Date: Fri, 25 Sep 2026 18:11:37 +0200
-Subject: [PATCH] iommufd/iova_bitmap: Ensure that iova_bitmap_set() handles
- the full IOVA
+From 9e44f0df3fff215d9033089e85980048c3ac132a Mon Sep 17 00:00:00 2001
+From: Weibin Liu <liuwb@xiaopeng.com>
+Date: Thu, 15 Oct 2026 10:16:12 +0800
+Subject: [PATCH] spi: bcm-qspi: reject oversized dummy bytes in mspi
+ exec_mem_op
 
-Generally userspace is going to step the dirty bitmap through the IOVA
-space. However if the bitmap ends in the middle of a large PTE this is
-problematic. The first step will clear the dirty bit and report dirty to
-the end of its bitmap while the second step will see the clear'd dirty and
-report clean for the start of the bitmap. If it happens this ends up
-losing dirties.
+bcm_qspi_mspi_exec_mem_op() builds a local command buffer cmd[6]
+holding one opcode byte, up to four address bytes and one spare
+byte, and sets t[0].len = op->addr.nbytes + op->dummy.nbytes + 1.
+bcm_qspi_exec_mem_op() only validates op->addr.nbytes <= 4 and never
+bounds op->dummy.nbytes, which spi_mem_check_op() also leaves
+unrestricted. With addr.nbytes = 4 and dummy.nbytes >= 2 the length
+becomes 7 or more, so write_to_hw() reads past cmd[] on the kernel
+stack and pushes the leaked bytes into the hardware TXRAM.
 
-Further this function is missing bounds checking so if this does happen
-ther is a good chance it will write memory beyond what the userspace was
-expecting.
+Reject operations whose dummy phase does not fit the remaining byte
+of cmd[] by requiring op->dummy.nbytes <= 1, so such transfers fall
+back to the generic SPI path instead of overrunning the buffer.
 
-Return an error code if this illegal condition happens.
-
-Fixes: 58ccf0190d19 ("vfio: Add an IOVA bitmap support")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
-Link: https://patch.msgid.link/20260925161142.189813-2-parri.andrea@gmail.com
-Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
+Reviewed-by: Guanglei Zhu <zhugl3@xiaopeng.com>
+Fixes: 5f195ee7d830c ("spi: bcm-qspi: Implement the spi_mem interface")
+Cc: stable@vger.kernel.org # 4.18+
+Signed-off-by: Weibin Liu <liuwb@xiaopeng.com>
+Link: https://patch.msgid.link/20261015-bcm-qspi-dummy-bytes-v1-1-c319da3c2497@xiaopeng.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- drivers/iommu/iommufd/iova_bitmap.c | 12 ++++++++++++
- include/uapi/linux/iommufd.h        |  6 ++++++
- 2 files changed, 18 insertions(+)
+ drivers/spi/spi-bcm-qspi.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/iommu/iommufd/iova_bitmap.c b/drivers/iommu/iommufd/iova_bitmap.c
-index 483f0cc846466..953f6a57d0ca7 100644
---- a/drivers/iommu/iommufd/iova_bitmap.c
-+++ b/drivers/iommu/iommufd/iova_bitmap.c
-@@ -409,6 +409,18 @@ void iova_bitmap_set(struct iova_bitmap *bitmap,
- 	struct iova_bitmap_map *mapped = &bitmap->mapped;
- 	unsigned long cur_bit, last_bit, last_page_idx;
+diff --git a/drivers/spi/spi-bcm-qspi.c b/drivers/spi/spi-bcm-qspi.c
+index 0f96ac59da114..5031b21424795 100644
+--- a/drivers/spi/spi-bcm-qspi.c
++++ b/drivers/spi/spi-bcm-qspi.c
+@@ -1197,8 +1197,9 @@ static int bcm_qspi_exec_mem_op(struct spi_mem *mem,
+ 	u32 addr = 0, len;
+ 	u_char *buf;
  
-+	/*
-+	 * If the range cannot be recorded then the system call returns failure.
-+	 * This is to prevent loosing dirties if userspace is expecting to step
-+	 * the bitmap through the IOVA space.
-+	 */
-+	if (!length || length > bitmap->length || iova < bitmap->iova ||
-+	    iova - bitmap->iova > bitmap->length - length) {
-+		if (!bitmap->err)
-+			bitmap->err = -EPROTO;
-+		return;
-+	}
-+
- update_indexes:
- 	if (unlikely(!iova_bitmap_mapped_range(mapped, iova, length))) {
- 		/*
-diff --git a/include/uapi/linux/iommufd.h b/include/uapi/linux/iommufd.h
-index b4c7194cb08d2..010f47f7d3d23 100644
---- a/include/uapi/linux/iommufd.h
-+++ b/include/uapi/linux/iommufd.h
-@@ -871,6 +871,12 @@ enum iommufd_hwpt_get_dirty_bitmap_flags {
-  * Walk the IOMMU pagetables for a given IOVA range to return a bitmap
-  * with the dirty IOVAs. In doing so it will also by default clear any
-  * dirty bit metadata set in the IOPTE.
-+ *
-+ * The IOVA range given must fully enclose any IOPTE. If the range starts or
-+ * ends inside a dirty IOPTE then the ioctl will fail. This avoids partially
-+ * reporting a dirty range.
-+ *
-+ * On failure the dirty state becomes unknown and the userspace must restart.
-  */
- struct iommu_hwpt_get_dirty_bitmap {
- 	__u32 size;
++	/* cmd[] holds 1 opcode + 4 address + 1 dummy byte at most */
+ 	if (!op->data.nbytes || !op->addr.nbytes || op->addr.nbytes > 4 ||
+-	    op->data.dir != SPI_MEM_DATA_IN)
++	    op->dummy.nbytes > 1 || op->data.dir != SPI_MEM_DATA_IN)
+ 		return -EOPNOTSUPP;
+ 
+ 	buf = op->data.buf.in;
 -- 
 2.53.0
 
