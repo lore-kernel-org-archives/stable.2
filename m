@@ -1,50 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=71.18.227.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=71.18.227.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794081027;
-	b=zX+Qhm85ETaYrOrcBRFnxV1mZEHHAxqlnX6NslZxQVtPddSVFtYpYkwD/hayz2x+K0GF
-	 IDhdO0sqIEUa0ksslk7F0ZMmB7TpEaVN6wMqo+RSmNtfezBAqnBoHZyFrnesDl4Ecgmfc
-	 Klmw2eRFPfxCyZoDnaqPErNPXM5f8v3nZChUBFKq+/tupsUOVpgMVREIatrxInpJKbH43
-	 cFZdnMS0Gum9EfAyzVLBqetObBkgPQf73sSX+wHkKgGlWwkVokfhlh783SL4LasNJzK22
-	 gOaR/WIZoBPz2oHUcqSHaiCcXEe3OOwLSP+GuBMgJENAQZ7jIVHMDSKzId1LjVObSRA==
+	b=wTVp49VlwYSSRCpnurNkZcKl7LkpYg2F3NqWWjDS0o35kipiUflDMLQ3NfV8S6iqVKV+
+	 NHtDudJ14cMwZAA4E+ZA/iqdQ66Q1+QO/017l9XimgZfSSZHfluu8ysVXpP5FRRpkflBF
+	 GVOPYtS4LVUx+kpCHvm0SDb1ri9qyKfA2DFAa5ZCDD22vuvVwjeEA0HqfQU9qjrYum/Hv
+	 eUid6vNQ+Hp3v6C+FBpIZhMUMNVPs7ICys2PvQoZpZN6wJEoId80YLomwTIgbNvbQOowQ
+	 sp6xWvHj6W0eSlb6riFCLBRAbls2SLoi1KDzLfiBE233oxwnFLyui8FMmO4kJ+eWgoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794081027;
-	h=DMARC-Filter:DKIM-Signature:Date:In-Reply-To:Cc:Mime-Version:
-	 X-Lms-Return-Path:From:Message-Id:Content-Transfer-Encoding:Received:
-	 Content-Type:References:X-Original-From:To:Subject:X-Mailer;
-	bh=wuFiqEMNXobyrUZZEbIg89e16nK+cSGEJ9lSVhiQV78=;
-	b=0xGmoEuYziaMOmLxfp79iMg7T5ahJK4hMMczEHAFqYiw9sTVoDgxd03wah1WEl/fdee3
-	 a3V2fzAaMxIqCD0SCQYqTxS06JQGpSLm5G3bpRfJsVzjTRhfBWdud+by6zisqSmTSJrhO
-	 uisuht/xQQ62joFM4Hc9ulYWJ2mWmHEyaX+fzC/Y/NipvZRML5dc2o5hjnh+n0uNXM3h9
-	 AExvDkIUeiULtMZuRBPeUYau7xF/ZsDMxYg63q/R2vwYKQdL7TWh22U+1txdrR04/lqrA
-	 1LolXN3LOerWPvgbKlsTf+iGam3NLpBCPDM1K57RbLZNgg8azzrRKQr95JObuMrAXPg==
+	h=DMARC-Filter:DKIM-Signature:References:In-Reply-To:Received:To:Cc:
+	 Mime-Version:Content-Transfer-Encoding:Subject:X-Original-From:
+	 X-Lms-Return-Path:X-Mailer:From:Date:Message-Id:Content-Type;
+	bh=jYM1DAbh+cz3dSnLlenICfYe6j/AX0ZQHVRJv2n2sio=;
+	b=O5Et+2Yg24LhJMBzVR685TILKnNwLlZPjoDjZYaHH/UxNb5KNVRtneXQTFpbx0CK2sjl
+	 FQItNaZLbz8cvlSAescaSabTyzr6DbX3/BY0bmR8G7Ur5mxG0UCv+GawDK1TKXTIbznhs
+	 07Y8H0BSNVwfm8r3fgK+UulKJYmot6TYGbYsUWuYAWtcwIxAxuAFtYqypdJjSLNDV3EVn
+	 qbu/ZwwMmuc4NeLb1miJtvr0PUt3HpRib7zeK6OJvnBz2Wjt1p57Xuk7rl09Kpsbb4BVE
+	 O1FSyFAiH4B3956drVqVDnJWHlNVcbf4wPYRfxFvOU/JHDpMqIBh+F3aqXqJsZ9yYNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=cherr.cc;
 	spf=pass smtp.mailfrom=cherr.cc;
-	dkim=pass header.d=cherr.cc header.i=@cherr.cc header.a=rsa-sha256 header.s=feishu2604220257 header.b=iHoVxQV6;
-	arc=none smtp.remote-ip=71.18.227.2
-Received: from sg-2-2.ptr.blmpb.com (sg-2-2.ptr.blmpb.com [71.18.227.2])
+	dkim=pass header.d=cherr.cc header.i=@cherr.cc header.a=rsa-sha256 header.s=feishu2604220257 header.b=Wr7Sp9xq;
+	arc=none smtp.remote-ip=71.18.227.4
+Received: from sg-2-4.ptr.blmpb.com (sg-2-4.ptr.blmpb.com [71.18.227.4])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6C6B606A33C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB49C606A33E
 	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 19:50:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6C6B606A33C
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB49C606A33E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.a=rsa-sha256 header.s=feishu2604220257 header.b=iHoVxQV6
+	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.a=rsa-sha256 header.s=feishu2604220257 header.b=Wr7Sp9xq
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604220257; d=cherr.cc; t=1794081015; h=from:subject:
+ s=feishu2604220257; d=cherr.cc; t=1794081014; h=from:subject:
  mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
  mime-version:in-reply-to:message-id;
- bh=wuFiqEMNXobyrUZZEbIg89e16nK+cSGEJ9lSVhiQV78=;
- b=iHoVxQV6LrBJGI5+0igVfFV5iyqWZPAL/An2MtaEI+AyhFQ96EDIixTCi3l2b3TMsyF6Eh
- KXiZt7MUP9oUx+r88fC2VKFIJJWAsOADtSYFh/+cXC8luMppDZzZcwZLyi9iPAp4e9tWHy
- 9t5V3k4CP+bJPFMZeR7Gp7AUW7a+MD91ouYNBKrpdCmLQqUtYq6uaNPkM/SV6psk+mRfQD
- hulIUi5LA9xP1GTtZx8xstQUYjAB0LerbptG7tvM2ds0WE8vdmZTEomoF2Zwhls5xMy68H
- 6fNh2dwHhN4HCp7aFNFjFcMUrMjnxzmTKst4mx3OZdnX71VPi1WSfkn8I0VYEA==
-Date: Sun, 08 Nov 2026 03:50:00 +0800
+ bh=jYM1DAbh+cz3dSnLlenICfYe6j/AX0ZQHVRJv2n2sio=;
+ b=Wr7Sp9xqkV4fUjDunRCYnqFsE54BQQMBDoayE0WQFLLAfr/atOq90wuBMQnS15etN43r00
+ RJvEHAyHMy1tpBQ+t+amr2yXs4AwMVf+lqnFsbLdu/Ef30gRDMigz8ebt6PGdQZmdfDukv
+ x9p2xkQBWNtMGTIcvVcAVdW3hkWxc44MUpLTGLTVLpSrbwET0WVbT/o89UYH0ej5dfKXdA
+ SN/9R2oqbcbwDQu2QcpPZgEIHQq7gMxkxChHvnqhkTzhYWBUwBhx0fi09qpRRHS28grHa+
+ eezL+x7E/+ZO/rEcEe7ltyqHis/oMUi2oAS/IkSFFUIwrU7mLHRocCwgOh7Dxw==
+References: <20261108-twin-20261106-fs-xfs-da-node-v1-0-0d4bd47938ba@cherr.cc>
 In-Reply-To: <20261108-twin-20261106-fs-xfs-da-node-v1-0-0d4bd47938ba@cherr.cc>
+Received: from [127.0.1.1] ([111.40.58.155]) by smtp.feishu.cn with ESMTPS; Sun, 08 Nov 2026 03:50:11 +0800
+To: "Carlos Maiolino" <cem@kernel.org>, "Long Li" <leo.lilong@huawei.com>, 
+	"Darrick J. Wong" <djwong@kernel.org>
 Cc: <linux-xfs@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
 	"Shengzhuo Wei" <me@cherr.cc>, <stable@vger.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
@@ -56,49 +59,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
-X-Lms-Return-Path: <lba+26aef80f5+1ecde4+vger.kernel.org+me@cherr.cc>
-From: "Shengzhuo Wei" <me@cherr.cc>
-Message-Id: <20261108-twin-20261106-fs-xfs-da-node-v1-3-0d4bd47938ba@cherr.cc>
 Content-Transfer-Encoding: 7bit
-Received: from [127.0.1.1] ([111.40.58.155]) by smtp.feishu.cn with ESMTPS; Sun, 08 Nov 2026 03:50:13 +0800
-Content-Type: text/plain; charset=UTF-8
-References: <20261108-twin-20261106-fs-xfs-da-node-v1-0-0d4bd47938ba@cherr.cc>
+Subject: [PATCH 2/3] xfs: bound attr node entries on inactivation
 X-Original-From: Shengzhuo Wei <me@cherr.cc>
-To: "Carlos Maiolino" <cem@kernel.org>, "Long Li" <leo.lilong@huawei.com>, 
-	"Darrick J. Wong" <djwong@kernel.org>
-Subject: [PATCH 3/3] xfs: bound attr node entries in listxattr
+X-Lms-Return-Path: <lba+26aef80f4+eac1ed+vger.kernel.org+me@cherr.cc>
 X-Mailer: b4 0.16.0
+From: "Shengzhuo Wei" <me@cherr.cc>
+Date: Sun, 08 Nov 2026 03:49:59 +0800
+Message-Id: <20261108-twin-20261106-fs-xfs-da-node-v1-2-0d4bd47938ba@cherr.cc>
+Content-Type: text/plain; charset=UTF-8
 
-xfs_attr_node_list_lookup() walks the attribute dabtree with the
-on-disk node count and indexes btree[] without a fork-specific
-geometry check.  The node verifier only bounds the count against the
-larger of the directory and attribute geometries, so a crafted attr
-node can pass verification with more entries than its buffer holds.
+The da-node verifier can accept an attribute node count that only fits
+a larger directory block.  Inactivation bypasses the lookup path's
+geometry check, so __xfs_da3_node_remove() can read and write beyond the
+attribute buffer.  For a v5 filesystem with 4 KiB blocks and 64 KiB
+directory blocks, count 8184 causes a 65464-byte memmove.
 
-Reject counts above mp->m_attr_geo->node_ents before the btree[] walk.
-Use the existing corruption and sick reporting path.
+Reject counts above mp->m_attr_geo->node_ents before removing entries.
+This also bounds subsequent removals, since the count only decreases.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: b854e1c4eff3 ("xfs: close crash window in attr dabtree inactivation")
 Cc: stable@vger.kernel.org
 Signed-off-by: Shengzhuo Wei <me@cherr.cc>
 ---
- fs/xfs/xfs_attr_list.c | 3 +++
- 1 file changed, 3 insertions(+)
+ fs/xfs/xfs_attr_inactive.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/fs/xfs/xfs_attr_list.c b/fs/xfs/xfs_attr_list.c
-index f751edb930b6..667740e37c83 100644
---- a/fs/xfs/xfs_attr_list.c
-+++ b/fs/xfs/xfs_attr_list.c
-@@ -258,6 +258,9 @@ xfs_attr_node_list_lookup(
- 		if (nodehdr.level >= XFS_DA_NODE_MAXDEPTH)
- 			goto out_corruptbuf;
+diff --git a/fs/xfs/xfs_attr_inactive.c b/fs/xfs/xfs_attr_inactive.c
+index a5b69c0fbfd05..b8230fa458fff 100644
+--- a/fs/xfs/xfs_attr_inactive.c
++++ b/fs/xfs/xfs_attr_inactive.c
+@@ -153,6 +153,14 @@ xfs_attr3_node_inactive(
+ 	}
  
-+		if (nodehdr.count > mp->m_attr_geo->node_ents)
-+			goto out_corruptbuf;
+ 	xfs_da3_node_hdr_from_disk(mp, &ichdr, bp->b_addr);
 +
- 		/* Check the level from the root node. */
- 		if (cursor->blkno == 0)
- 			expected_level = nodehdr.level - 1;
++	if (ichdr.count > mp->m_attr_geo->node_ents) {
++		xfs_buf_mark_corrupt(bp);
++		xfs_trans_brelse(*trans, bp);
++		xfs_dirattr_mark_sick(dp, XFS_ATTR_FORK);
++		return -EFSCORRUPTED;
++	}
++
+ 	parent_blkno = xfs_buf_daddr(bp);
+ 	if (!ichdr.count) {
+ 		xfs_trans_brelse(*trans, bp);
 
 -- 
 2.47.3
