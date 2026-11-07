@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046405;
-	b=thYPMbVGg1HNkPEWnOh8pB8wvIeWQgveccOBJg9UCa6y8XxI4yxFQ8fWof1d0ZPU1m1w
-	 k8chevxbRt/6xrjmkD2S3RpRbZgMpt7YHfbnnz6jT0jbOmJKHuyJP4pa3SN6Gn2z8UsAu
-	 K5eDyO4pyZq77Pli+iwyFP75DC8zrd+ccUghUxlzBxCFW8rc9zmKOFt2VwNDe6seNFfTC
-	 LM7B7nOvSJ5j6I/y3YTyVmCZe8xKQcMAvv7TdM0bXOrDGuhDdwfwsP0Bk+aA2S9y/y+xm
-	 LTRDHTmLSb1Y4cOZGr7XiUO12d7pxeYZMSm5rCrXZPmGKcgGbq0i0RnYCgEyDz5NsNA==
+	t=1794046407;
+	b=IyUA2C4b0KenoNrbdTseqGeKbmFe5yBuF8oF05InerklMiSo6k5rSSwCicwZPBx3lK46
+	 HIV2W3GZFqLeb7IQqDfIsg92Y5F6Z3KMC5LL2GizxmrWVx0xwLdniYT9kXIMlNgrRKE7E
+	 VbQ331dtzuHKgQNLlFcjrhWjLl18zbz7VEoNcen2j551aMDFuwEtwW0NyONl6kj2AwYmk
+	 r4pR9mhkJzDZmTkuFlvsIU0LvHaGclRIU3YaVeEyvSJoXMi46WYSPjVWeVoA5Br4I+9Wc
+	 pPS0J0NGNuFaN1HFvHGAbbZYx86dURrZHKipRF8c/OdYGowfkpUb7WGAJm+YGLO0JGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046405;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046407;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=S3cmTkd05W52gaIUpTqcBB2T87BFVjp1pEQmnydAC7Y=;
-	b=RPwHOHJ4ypCdIx4NO0/ypWII5FZnLKY6vueFtYkRj1sT1IZqCxpONtkGaRgaIANKB7M2
-	 LAVfDsc61RDR+dLBhPeV+Mrp5Ye02ycFEcF8TSdiogEhhngNwUeDBOYlyCf/0nxLOxprj
-	 bSnB3RwrbRoR+q92w9kg/AVSG+QcK42rCcoU5yMK61K670j+O9r9T1xtw9U7ultQTkEfg
-	 GTL2ibZFP5dkZ2leZYi3xJgvjpj/yntN6/J1lQzEEt3gHD1nNAWfvlD3jIwNQktS4zKsf
-	 WWsRYyJQLnAWWIqBa2cAn7UZ9alA1/ymtoHKJItaFiz4k7BznvYL7U+MrNje/uO1JMA==
+	bh=pItlQUG/DO1uKcg055sOHH7laY2tNlFTO8mzPyvWVrU=;
+	b=dF3ECZth3t+S8iANu+kwhAP9RkQ0jE0KfI90wIjYI/ZdILT1rCBveuxafNzpWNLwBcyf
+	 DYhgT9HHsxalrK4Iz3UXneeaosGtQ8+RCaxft4m0EKLEQorfaGMyEEOcz3THDdbrTqWGz
+	 PUo24Q30mLQsMEWH09k//iIVzI3qyJpLuGSmg4ax93RAOlZJlbN7uD5HNDfY99Iyiw/ud
+	 z/ErmjVKz4rU1/hIu+J3/Ivu6aZ13WBcqwvfJ15lynPu0uuH22AghLvWQ4fHadAVZRddC
+	 +Cf+UhI/2GiXTPi3sPOxbHuHn56y/AACqzgMXSxX/X9CEw6YnVNYIC82MY/my7l1SiA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hMqut105;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HhnGMcLL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CE91606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:13:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E9A4606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:13:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hMqut105
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B69B61F0089F;
-	Sat,  7 Nov 2026 10:13:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HhnGMcLL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD03F1F0089F;
+	Sat,  7 Nov 2026 10:13:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046405;
-	bh=S3cmTkd05W52gaIUpTqcBB2T87BFVjp1pEQmnydAC7Y=;
+	s=k20260515; t=1794046407;
+	bh=pItlQUG/DO1uKcg055sOHH7laY2tNlFTO8mzPyvWVrU=;
 	h=From:To:Cc:Subject:Date;
-	b=hMqut105V6HBKjHl1Rd+sr9GhVJXe6XieRdkAq67V5S8yEgzqFGDVW+LJ9cKd+dYv
-	 mj4B5wtMQV9vgwi4WgK9x1hy4syScCds+0OSYJG65jh7lAyoak1iVafLbGYrcELJ2F
-	 MYAlywBJcc/vCDWQIMv2ZzkeScu8mfBwnK90dTjNKLsFdYfLdmg6IbAGMZqHLO7r6N
-	 JqHdEwJtn4YHEh3S5QdrUmptMw3CakZQ2BpkOch2bjIuE9TeXu3r7/JMvAI1/T6nGK
-	 pMMlwOeULhE5W/caSe6gJHfaaTX1RLlf7TbzRzNTin1kUEyhC9UkI+qSjunRmBM7Iy
-	 grD24uIMWKtEA==
+	b=HhnGMcLLrfNjgV3637RR+Fk+KWZxIygN3Nkht5g7+i53NorTff1seqwiKyGQLGEX+
+	 hm5yWmi7Vc5r9Z0CozXMjHlDkHqO6fogwauhtG2mxcb0uiaKdexAnRFDA0PzyRwJHZ
+	 y3kzhQp1SPZwdxjwTAuKyDlraQC/fI+kLuUvIpZGtWjaHhfVQV29It0iya9pLdST6V
+	 kTAYT86JSQ2YX7iLn8fXQcYiHuqAA0zkrJv7CA/XKQE8UadRcG5ScxgM37zdiSDlTc
+	 +l4cY8BT08SCwXEtBO4E/7atQatXohZYKLEmjVQ8lSFQofHiIYeT+Edfm6mytc0bUZ
+	 3GfIy22jfbfeQ==
 From: Sasha Levin <sashal@kernel.org>
-To: mail@tk154.de,
-	idosch@nvidia.com,
-	kuba@kernel.org
+To: chizhiling@kylinos.cn,
+	linkinjeon@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mlxsw: Initialize register query payloads" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:13:23 -0500
-Message-ID: <20261107051323-failed-6.18-15b7a86a8888@kernel.org>
+Subject: FAILED: patch "[PATCH] exfat: advance valid_size to EOF for append writes" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:13:25 -0500
+Message-ID: <20261107051325-failed-6.18-b70ab4075037@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,129 +68,96 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 15b7a86a8888dc6a8fd19e181757e32389de9064
+git cherry-pick -x b70ab407503706289163dd59f1ac3e942bacc37d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051323-failed-6.18-15b7a86a8888@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051325-failed-6.18-b70ab4075037@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 15b7a86a8888dc6a8fd19e181757e32389de9064 Mon Sep 17 00:00:00 2001
-From: Til Kaiser <mail@tk154.de>
-Date: Wed, 14 Oct 2026 19:31:17 +0200
-Subject: [PATCH] mlxsw: Initialize register query payloads
+From b70ab407503706289163dd59f1ac3e942bacc37d Mon Sep 17 00:00:00 2001
+From: Chi Zhiling <chizhiling@kylinos.cn>
+Date: Sun, 4 Oct 2026 18:19:30 +0800
+Subject: [PATCH] exfat: advance valid_size to EOF for append writes
 
-MFGD register queries can exhaust EMAD retries and leave Mellanox
-Spectrum switches stuck during boot or shutdown when running OpenWrt
-built with GCC 15.
+For an append write, the write position is recalculated by
+generic_write_checks(). Therefore, the write position must be obtained
+after generic_write_checks() returns.
 
-An example failure is shown below with the second line wrapped:
+Using the original write position to advance valid_size may cause the
+valid_size update to be skipped, potentially exposing stale data.
 
-  EMAD retries (5/5) (tid=9b544fc100001f35)
-  EMAD reg access failed (tid=9b544fc100001f35,reg_id=90f0(mfgd),
-                          type=query,status=0(operation performed))
+Also move the truncate_pagecache() check below the recalculated
+position, so that pos is never read before it is assigned.
 
-On an SN2100, the failure occurs during driver teardown on reboot.
-On an SN3420, it occurs while probing mlxsw_spectrum during boot.
-
-The register query API transmits the supplied payload to the device
-before replacing it with the response. Both MFGD callers pass an
-uninitialized stack buffer, so the request contains arbitrary register
-field values and reserved bits. This makes the request depend on stack
-contents and compiler code generation.
-
-Initialize both MFGD query buffers in the firmware fatal event
-configuration and reporter test paths. The initialization has been
-confirmed to eliminate the boot and shutdown hangs on both switches.
-The subsequent read-modify-write still preserves the other fields
-returned by the device.
-
-Also initialize the FORE fan fault query and the MOGCR mirroring policer
-base query, which pass entirely uninitialized payloads. Restore the MTMP
-query initialization in the temperature history reset path, where only
-the slot and sensor index fields are set before querying the register.
-
-This follows commit 5b0907407e7f ("mlxsw: core: Zero payload buffers for
-couple of registers"), which initialized other query payloads after a
-firmware field length bug caused firmware to consume uninitialized data.
-
-Tested with firmware 2020.1148 and with 2016.3900 from linux-firmware.
-
-Fixes: 7d83ee111008 ("mlxsw: core: Introduce fw_fatal health reporter")
-Fixes: 2c6a33cd334b ("mlxsw: core: Extend hwmon interface with fan fault attribute")
-Fixes: 4039504e6a0c ("mlxsw: spectrum_span: Allow setting policer on a SPAN agent")
-Fixes: b890ad418e1f ("mlxsw: core_hwmon: Extend internal structures to support multi hwmon objects")
+Fixes: 11a347fb6cef ("exfat: change to get file size from DataLength")
 Cc: stable@vger.kernel.org
-Signed-off-by: Til Kaiser <mail@tk154.de>
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
-Link: https://patch.msgid.link/20261014173117.26305-1-mail@tk154.de
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Chi Zhiling <chizhiling@kylinos.cn>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 ---
- drivers/net/ethernet/mellanox/mlxsw/core.c          | 4 ++--
- drivers/net/ethernet/mellanox/mlxsw/core_hwmon.c    | 4 ++--
- drivers/net/ethernet/mellanox/mlxsw/spectrum_span.c | 2 +-
- 3 files changed, 5 insertions(+), 5 deletions(-)
+ fs/exfat/file.c | 18 ++++++++----------
+ 1 file changed, 8 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/net/ethernet/mellanox/mlxsw/core.c b/drivers/net/ethernet/mellanox/mlxsw/core.c
-index 308d8a94865f8..42e9689d7f357 100644
---- a/drivers/net/ethernet/mellanox/mlxsw/core.c
-+++ b/drivers/net/ethernet/mellanox/mlxsw/core.c
-@@ -2001,7 +2001,7 @@ mlxsw_core_health_fw_fatal_test(struct devlink_health_reporter *reporter,
- 				struct netlink_ext_ack *extack)
- {
- 	struct mlxsw_core *mlxsw_core = devlink_health_reporter_priv(reporter);
--	char mfgd_pl[MLXSW_REG_MFGD_LEN];
-+	char mfgd_pl[MLXSW_REG_MFGD_LEN] = {0};
+diff --git a/fs/exfat/file.c b/fs/exfat/file.c
+index 3867e78c23125..87afb6bffd353 100644
+--- a/fs/exfat/file.c
++++ b/fs/exfat/file.c
+@@ -854,8 +854,7 @@ static ssize_t exfat_file_write_iter(struct kiocb *iocb, struct iov_iter *iter)
+ 	struct file *file = iocb->ki_filp;
+ 	struct inode *inode = file_inode(file);
+ 	struct exfat_inode_info *ei = EXFAT_I(inode);
+-	loff_t pos = iocb->ki_pos;
+-	loff_t valid_size;
++	loff_t pos, valid_size;
  	int err;
  
- 	/* Read the register first to make sure no other bits are changed. */
-@@ -2022,7 +2022,7 @@ mlxsw_core_health_fw_fatal_ops = {
- static int mlxsw_core_health_fw_fatal_config(struct mlxsw_core *mlxsw_core,
- 					     bool enable)
- {
--	char mfgd_pl[MLXSW_REG_MFGD_LEN];
-+	char mfgd_pl[MLXSW_REG_MFGD_LEN] = {0};
- 	int err;
+ 	if (unlikely(exfat_forced_shutdown(inode->i_sb)))
+@@ -863,11 +862,6 @@ static ssize_t exfat_file_write_iter(struct kiocb *iocb, struct iov_iter *iter)
  
- 	/* Read the register first to make sure no other bits are changed. */
-diff --git a/drivers/net/ethernet/mellanox/mlxsw/core_hwmon.c b/drivers/net/ethernet/mellanox/mlxsw/core_hwmon.c
-index 30f172ce822cf..a5e7aee730d6a 100644
---- a/drivers/net/ethernet/mellanox/mlxsw/core_hwmon.c
-+++ b/drivers/net/ethernet/mellanox/mlxsw/core_hwmon.c
-@@ -120,7 +120,7 @@ static ssize_t mlxsw_hwmon_temp_rst_store(struct device *dev,
- 			container_of(attr, struct mlxsw_hwmon_attr, dev_attr);
- 	struct mlxsw_hwmon_dev *mlxsw_hwmon_dev = mlxsw_hwmon_attr->mlxsw_hwmon_dev;
- 	struct mlxsw_hwmon *mlxsw_hwmon = mlxsw_hwmon_dev->hwmon;
--	char mtmp_pl[MLXSW_REG_MTMP_LEN];
-+	char mtmp_pl[MLXSW_REG_MTMP_LEN] = {0};
- 	unsigned long val;
- 	int index;
- 	int err;
-@@ -177,7 +177,7 @@ static ssize_t mlxsw_hwmon_fan_fault_show(struct device *dev,
- 			container_of(attr, struct mlxsw_hwmon_attr, dev_attr);
- 	struct mlxsw_hwmon_dev *mlxsw_hwmon_dev = mlxsw_hwmon_attr->mlxsw_hwmon_dev;
- 	struct mlxsw_hwmon *mlxsw_hwmon = mlxsw_hwmon_dev->hwmon;
--	char fore_pl[MLXSW_REG_FORE_LEN];
-+	char fore_pl[MLXSW_REG_FORE_LEN] = {0};
- 	bool fault;
- 	int err;
+ 	inode_lock(inode);
  
-diff --git a/drivers/net/ethernet/mellanox/mlxsw/spectrum_span.c b/drivers/net/ethernet/mellanox/mlxsw/spectrum_span.c
-index ae63d549b5429..d54fe5e612963 100644
---- a/drivers/net/ethernet/mellanox/mlxsw/spectrum_span.c
-+++ b/drivers/net/ethernet/mellanox/mlxsw/spectrum_span.c
-@@ -1720,7 +1720,7 @@ static int mlxsw_sp2_span_init(struct mlxsw_sp *mlxsw_sp)
- static int mlxsw_sp2_span_policer_id_base_set(struct mlxsw_sp *mlxsw_sp,
- 					      u16 policer_id_base)
- {
--	char mogcr_pl[MLXSW_REG_MOGCR_LEN];
-+	char mogcr_pl[MLXSW_REG_MOGCR_LEN] = {0};
- 	int err;
+-	if (pos > i_size_read(inode))
+-		truncate_pagecache(inode, i_size_read(inode));
+-
+-	valid_size = ei->valid_size;
+-
+ 	ret = generic_write_checks(iocb, iter);
+ 	if (ret <= 0)
+ 		goto unlock;
+@@ -878,6 +872,11 @@ static ssize_t exfat_file_write_iter(struct kiocb *iocb, struct iov_iter *iter)
+ 		goto unlock;
+ 	}
  
- 	err = mlxsw_reg_query(mlxsw_sp->core, MLXSW_REG(mogcr), mogcr_pl);
++	pos = iocb->ki_pos;
++	if (pos > i_size_read(inode))
++		truncate_pagecache(inode, i_size_read(inode));
++
++	valid_size = ei->valid_size;
+ 	if (pos > valid_size) {
+ 		ret = exfat_extend_valid_size(inode, pos);
+ 		if (ret < 0 && ret != -ENOSPC) {
+@@ -887,6 +886,8 @@ static ssize_t exfat_file_write_iter(struct kiocb *iocb, struct iov_iter *iter)
+ 		}
+ 		if (ret < 0)
+ 			goto unlock;
++
++		pos = valid_size;
+ 	}
+ 
+ 	if (iocb->ki_flags & IOCB_DIRECT)
+@@ -899,9 +900,6 @@ static ssize_t exfat_file_write_iter(struct kiocb *iocb, struct iov_iter *iter)
+ 
+ 	inode_unlock(inode);
+ 
+-	if (pos > valid_size)
+-		pos = valid_size;
+-
+ 	if (iocb->ki_pos > pos) {
+ 		ssize_t err = generic_write_sync(iocb, iocb->ki_pos - pos);
+ 
 -- 
 2.53.0
 
