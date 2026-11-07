@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046048;
-	b=1ly/Sf36hVSKTb6wfD7mwCe0FbSfhjySWjYfzDm11qa0GyHj0OHJUX+jbw0dxGkYSLDs
-	 Bk1XDYbuJcVx2zr0Ex8/ne4BhbIr5GUJy/EkpxSCsQ6v+ysW8HXTdFJTmrWA9Lx96jwgX
-	 goC1iKA+dQi+JQI9/AUsylSnTxhv0inGFWmasdM5xpmWI1JsvTK8LARgvgkolAR/vnoKQ
-	 vW9b37d9MQPgzPFyhV/qDCsx903zag1AW2wCTcjCdm5O+DTto2xRVNwW1+7Zzep0l/Hq2
-	 Iti7ayCOQekb8zEDl+DSvdavJP8Oj5DTS0Yz4a92uFsgJOnOEijteRxeyXfJUkiv1zA==
+	t=1794046050;
+	b=fq4o6YpzDVTa/BIRiw3Jb99hdWg6vRre55C/JX6E99col4XlhB+gqHa87TcZ8LfBYHS0
+	 T4NPseN1Vkd+EftuP6lbAnHSmpSN6bMhLXPf20+ZRryBJELH77zO9w0CiqiXY5kM9BeUd
+	 GfxOpqbDrrcCjDU2yQEs13eDgaZ2kn1RJ3XVWoEm+zx3ZYvuUaxR8lQabhHZR6Hfh99m3
+	 /fqYLaL8FCDahYD8biLzvzKEBc5SKa69WS17VxFUYU35HFG3LlETlK/YeBPkj2L1mIDFq
+	 zV2IumAIpXhfCXg9FlZCb3Bd57op9/A3U8OQgnDERPuHWazCLE4tJ502XhNAmmJNFkg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046048;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046050;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=N32aB6EtMLseSVPc1lmMA5ecTmpqxU+c3oRdNXrA4pE=;
-	b=fefSjyy9ye0i9M4fb7RKQHmEWuRE0mT6cjdNcQnFzAJE3ygRiVKwBVepvvcHF8KBs2fi
-	 JzFapJ+88HRy5jcnPdWn3QW2LNkOoFor5evhxQsFiOllmoyPWrZO7qrtOI4Ky/CnSJj8r
-	 v664SVC7qDZeWmg6UFY9XrthMwSAkNi06uYLZmaSGghY+otLBiHA4N4YrRFo0RXq+ha6X
-	 VqaFyzyc6Mhh0syz2DG4VSjY9sCmW8WWD0yh0u8Ofr9jJp9IqUog/etODsNi5BUhVNMTC
-	 dFTSRj2Bqs4F7OF+HFXBEqXRbLqjZZXTkZOLXkP35aqHhxsj9o3wErbLKCC9OxcFuPQ==
+	bh=WPrHFHOv2pYes/wEa537DHPXDbFpak69lIYQlwhyTuU=;
+	b=2Gn6Jzrq+LEQgBMTq1D1GcAJknH6KS+cNcIMfUnk+kvwxVJOEDStkXOHhAUhn7dcaLCG
+	 gmQrfBK7O3+pieyFaY1nqDWJZ9/VNovsnCmXRp/y0ckMKBGolS3v51R3Ny+O2hwC2yx/i
+	 szIn2MIpe/9xtnr2dPfC7vVXQH+7VOIlXl9pzeXey8cf1rZDG5C+vWjYwXNaSJevnCsDF
+	 6oXrDdca/4BgQ2WGvE1fHil+Kz2AnUoTIxXpLr1HasOhkovCYYwu/dcMPquMXKIsLzg9V
+	 ivZRBVVlqINpcqzTO6/sHhAXpfcUBsb64U23rRfCmrGF9e8Thw2Wxp3Lln+te7H2gTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mlUj3tzN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R21VH6VD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBBE1606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:07:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 535CF606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:07:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mlUj3tzN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 689CB1F0089F;
-	Sat,  7 Nov 2026 10:07:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R21VH6VD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B9541F0089F;
+	Sat,  7 Nov 2026 10:07:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046047;
-	bh=N32aB6EtMLseSVPc1lmMA5ecTmpqxU+c3oRdNXrA4pE=;
+	s=k20260515; t=1794046050;
+	bh=WPrHFHOv2pYes/wEa537DHPXDbFpak69lIYQlwhyTuU=;
 	h=From:To:Cc:Subject:Date;
-	b=mlUj3tzNViFCEtO36I/05FfWhJevDd7YvomyqCqpaw6/9JfAmoqDb/nrf5Ao7MZIT
-	 T+OmbGBDR3LRDvNTj++wZ08OLr793cd6SUDvYlaX4vu8f2Io5/WZAek0d76bHPVQU7
-	 6vYYfQGB2YPiKh22J6ItKIxS0ZuGTq161NjmulIdZH/0WWlwqDElk3CJ9B5l82TJFE
-	 vr8jlurKWGCc2i95y3JBVu3JQnTL+Hps+Yq1Y/X0fT8BXkhMPoE1rpG9gWaWcpW2zd
-	 wJoI22mquvw0uaNk6OI1xiXOuT1hA5mOO5L6OsXG6J+HDEL4TecQioiqP/bpf8xI0L
-	 VhwGa2ycXv9eQ==
+	b=R21VH6VDtww4YFOKxcWUySLqN5V+tQ/OUEAmMIa6cACv/60QchXwsUeNcojOJoNph
+	 skUOdL5z4axxl+s1QvFvJgYrT9lD163sa7nLUHuWohINyeDu8xTHQWgs7viFQ4YZsF
+	 PZQ0tkPO7BiWMBX1eIYM6U+iLORapADOrJb9z9EMNLu2u+KYN+kvBTTtdutDDrajLL
+	 T4hdJtc/MPmFowfwjmob9ebje4jH/Ab/MkkH8G6EKGqDoTL8Q+bDjXGOjU/e/hgn6O
+	 wnyheoS0ktx0vDiwAWuxTWv2Mdqd/cUPhwzlc1qe+sRXMPa6AZe1qJXdSDZOlEca1l
+	 u2lHAlkb6Fdeg==
 From: Sasha Levin <sashal@kernel.org>
-To: tom.verdonck@inspiral.be,
-	linux@roeck-us.net
+To: yaojiale02@163.com,
+	jonathan.cameron@oss.qualcomm.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] hwmon: (tmp102) Fix jiffies wraparound in conversion-ready check" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:07:26 -0500
-Message-ID: <20261107050726-failed-6.18-56c1d32323e7@kernel.org>
+Subject: FAILED: patch "[PATCH] iio: dac: mcp4821: reject devices without match data" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:07:28 -0500
+Message-ID: <20261107050728-failed-6.18-6ac1faf4de61@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,89 +68,63 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 56c1d32323e773b8b927316f8beeae9238576335
+git cherry-pick -x 6ac1faf4de61dcf27ffe8f2c25d96fe5f4b2886d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050726-failed-6.18-56c1d32323e7@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050728-failed-6.18-6ac1faf4de61@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 56c1d32323e773b8b927316f8beeae9238576335 Mon Sep 17 00:00:00 2001
-From: Tom Verdonck <tom.verdonck@inspiral.be>
-Date: Fri, 25 Sep 2026 20:23:22 +0200
-Subject: [PATCH] hwmon: (tmp102) Fix jiffies wraparound in conversion-ready
- check
+From 6ac1faf4de61dcf27ffe8f2c25d96fe5f4b2886d Mon Sep 17 00:00:00 2001
+From: Jiale Yao <yaojiale02@163.com>
+Date: Fri, 25 Sep 2026 21:17:32 +0800
+Subject: [PATCH] iio: dac: mcp4821: reject devices without match data
 
-tmp102 records a one-shot deadline in ->ready_time at probe (and resume)
-and, on every temperature read, refuses the read with -EAGAIN while
-time_before(jiffies, ready_time) is true, in order to skip the first
-~35 ms conversion.
+A device bound through driver_override need not match an entry in the
+driver tables. In that case spi_get_device_match_data() returns NULL,
+but mcp4821_probe() dereferences the result while configuring the IIO
+device.
 
-->ready_time is an unsigned long compared with time_before(), whose
-signed difference is only meaningful while the two values are within
-LONG_MAX jiffies of each other. Because ->ready_time is set once and
-never refreshed, jiffies keeps advancing away from it, and after 2^31
-jiffies the difference flips sign. On a 32-bit HZ=100 kernel that
-happens ~248.5 days after boot: time_before() then permanently reports
-"not ready" and the driver returns -EAGAIN on every read, without ever
-touching the sensor, until the next reboot.
+Reject devices without match data before using the chip information.
 
-Store the deadline as a 64-bit jiffies value and compare it with
-get_jiffies_64()/time_before64(), which does not wrap in any practical
-uptime.
-
-Fixes: 3d8f7a89a197 ("hwmon: (tmp102) Improve handling of initial read delay")
+Fixes: cdf3ecb0d8d0 ("iio: dac: driver for MCP4821")
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Tom Verdonck <tom.verdonck@inspiral.be>
-Link: https://patch.msgid.link/2952f070f82913aea96eec25d28008d3b9058656.1790358356.git.tom.verdonck@inspiral.be
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 ---
- drivers/hwmon/tmp102.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/iio/dac/mcp4821.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/hwmon/tmp102.c b/drivers/hwmon/tmp102.c
-index 50a8b050d8da1..8c8463ddb6c45 100644
---- a/drivers/hwmon/tmp102.c
-+++ b/drivers/hwmon/tmp102.c
-@@ -58,7 +58,7 @@ struct tmp102 {
- 	const char *label;
- 	struct regmap *regmap;
- 	u16 config_orig;
--	unsigned long ready_time;
-+	u64 ready_time;
- 	u16 sample_time;
- };
+diff --git a/drivers/iio/dac/mcp4821.c b/drivers/iio/dac/mcp4821.c
+index 8d8c00cd60e98..59defb1b5e621 100644
+--- a/drivers/iio/dac/mcp4821.c
++++ b/drivers/iio/dac/mcp4821.c
+@@ -255,9 +255,13 @@ static const struct iio_info mcp4821_info = {
  
-@@ -106,7 +106,7 @@ static int tmp102_read_temp(struct device *dev, u32 attr, long *val)
- 	switch (attr) {
- 	case hwmon_temp_input:
- 		/* Is it too early to return a conversion ? */
--		if (time_before(jiffies, tmp102->ready_time)) {
-+		if (time_before64(get_jiffies_64(), tmp102->ready_time)) {
- 			dev_dbg(dev, "%s: Conversion not ready yet..\n", __func__);
- 			return -EAGAIN;
- 		}
-@@ -354,7 +354,7 @@ static int tmp102_probe(struct i2c_client *client)
- 	 * Mark that we are not ready with data until the first
- 	 * conversion is complete
- 	 */
--	tmp102->ready_time = jiffies + msecs_to_jiffies(CONVERSION_TIME_MS);
-+	tmp102->ready_time = get_jiffies_64() + msecs_to_jiffies(CONVERSION_TIME_MS);
+ static int mcp4821_probe(struct spi_device *spi)
+ {
++	const struct mcp4821_chip_info *info;
+ 	struct iio_dev *indio_dev;
+ 	struct mcp4821_state *state;
+-	const struct mcp4821_chip_info *info;
++
++	info = spi_get_device_match_data(spi);
++	if (!info)
++		return -ENODATA;
  
- 	hwmon_dev = devm_hwmon_device_register_with_info(dev, client->name,
- 							 tmp102,
-@@ -387,7 +387,7 @@ static int tmp102_resume(struct device *dev)
- 	err = regmap_update_bits(tmp102->regmap, TMP102_CONF_REG,
- 				 TMP102_CONF_SD, 0);
+ 	indio_dev = devm_iio_device_alloc(&spi->dev, sizeof(*state));
+ 	if (indio_dev == NULL)
+@@ -268,7 +272,6 @@ static int mcp4821_probe(struct spi_device *spi)
  
--	tmp102->ready_time = jiffies + msecs_to_jiffies(CONVERSION_TIME_MS);
-+	tmp102->ready_time = get_jiffies_64() + msecs_to_jiffies(CONVERSION_TIME_MS);
- 
- 	return err;
- }
+ 	/* default gain is 2x */
+ 	state->gain = 2;
+-	info = spi_get_device_match_data(spi);
+ 	indio_dev->name = info->name;
+ 	indio_dev->info = &mcp4821_info;
+ 	indio_dev->modes = INDIO_DIRECT_MODE;
 -- 
 2.53.0
 
