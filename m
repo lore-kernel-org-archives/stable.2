@@ -1,76 +1,162 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.233
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794044512;
-	b=jW6DKZ1sNfTPVyy6B/gcVCF0Z/swraC3owtO0gy6/qLCBkKWFyCD5dmWsIRw50Mz4roW
-	 3nNUGqNYl0MOss/NIIixU+eIl0JjZNCphYYeEIZuavNcNdwAwCOnVh8VIcBUO5dcAnubU
-	 QJvy3HTC2jWeRUcUOu0IJvaBiRfYola19AvoKQnRC5YLPNNMCb7h8Vdo5FVXcLdNU00Pi
-	 WzjhV8sgvr8Cw2w5b3Vxn4tuAcXX+0HhmK6jD7EP9AfPUjn4M/ZIKYSRIl00zQv5SmNFY
-	 9Yratb92fwTZWXxLc2T29SlYeVaFoC4/klSAH+kCnyHPGRCyX4zLHtJ104dQ3Yy1NMw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794044512;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=HisJ2IsuSMqWMvv9c32Iop9hBTORXVtBSKNYXh4di9k=;
-	b=zHFaBO+QYqblopaNklaZ0fachptJ13coWNK4/nnlBuk4jA5Lb4ukYPsMijPyjsNTna6a
-	 48YcmHZqzZYBFK53gjEchnBjpjpXTftjNv9Q9RIoWSTbGiKTZra5qM9mTk+nYYWxjVSMZ
-	 E9XYMOZVtS+0MKpFmnvJOgptlsIWz1xpp1vEvZjVTNCg3RzS2eCs9i6Zfi/7gNKkHt6NW
-	 9WjC7vH3Pm8Cg+gtdf4EQwPgzlznzgOVIAARHdH8OKIhUCxUvwIp4UYkNKcQOdNZshfZZ
-	 J3bRIKJaIZaUoewkibdMZarUPCRMGZBoQwV1FrYlr2I5yUIxpFSa1IVtahggpv13Npw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b="sDYG9B/R";
-	arc=none smtp.remote-ip=203.205.221.233
-Received: from out203-205-221-233.mail.qq.com (out203-205-221-233.mail.qq.com [203.205.221.233])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.20.86
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794044580;
+	b=YQBEXyaTIPEvT2u2sP3iQGGaxcbqIcYrGDDuw328qFRAqYOvhoo7/hCCNO4srUjmndcq
+	 SF0QezJb3XYfMoc+FqOGMnJGf7N/FodjQZmfvQbCPln/FsPVRq1X+JD8f61evOgaj2QS8
+	 Yp6g2ZhAwDfKIfMfRGQMmNOjLQlgT0QKABEO4Kb0hh471XUflgedVWfD2LekTNqIlD+vd
+	 Q7cQJk6g9o3rEzO8hMIFJbwPWc1z/FwDxWPUDriIunkc9JCoQgHoiRsLlnGc1ZNhDGgXz
+	 lQ5Khl+B0FY9195WDv+jICPHBZ5UDOZJ7KIz/v5401pQEFg23bXMTnB8geWSFeORxBw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794044580;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
+	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:Content-ID:
+	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:
+	 X-MS-Exchange-CrossTenant-rms-persistedconsumerorg:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=SBZtJ479+XpxRIPl+tGdy/bdCwIqJjf3WgbXvyQuArY=;
+	b=XEI4Lv70jYgTAmWMDCJtLmpkUpaMiPckc6f6sfVM1ufiOSaEalWVcM2GKBFJDoLGtcib
+	 OgDFeIg+3TbwM+UwhujE7SQh2rz2TvB9A+h76FzENsNOwsubCdYIE+wqRYnvKptgGBk1O
+	 dALSPxeQRLeJzHc2hOI64Uu8tZcJl/vfW0KNZJaK9JcbAxLPGjjOs7TqIAuiDlYXjYrw7
+	 rlFVpJ3Co9i6Ffyk7saCLiBZ5XHG1k016hxrp+Ft+VzaF88z6JTJZ4hiJUxgEJGY5Kok3
+	 uCpK5WU/gNA0EF6qklmoL1Ci26G7vu9p/k0qlD9dd9KEXPLPe767VWr5dUt/YHP9oTQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=outlook.com;
+	spf=pass smtp.mailfrom=outlook.com;
+	dkim=pass header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=U5xnCeeM;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.20.86
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazolkn19012086.outbound.protection.outlook.com [52.103.20.86])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87C60606A334;
-	Sat,  7 Nov 2026 09:41:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87C60606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7882606A326;
+	Sat,  7 Nov 2026 09:42:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7882606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=sDYG9B/R
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1794044502; bh=HisJ2IsuSMqWMvv9c32Iop9hBTORXVtBSKNYXh4di9k=;
-	h=From:To:Cc:Subject:Date;
-	b=sDYG9B/RWivtoxsG6CcijLnhame9DW3VjkI6m1mHdRS9JbKvGaKOSquVNmu16NV9b
-	 +zQbR43QwwH6bF4v/X+yRCcQCy5WZJ08FH3K4uqS69ZXczEJqjDBZpkK4IWIj0b67b
-	 rtM7kw2JtvxTJLUlAfG2Fa+zXYJI3vV895HkSgaw=
-Received: from xkeyc-nixos ([219.139.218.139])
-	by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
-	id A67ACE32; Sat, 07 Nov 2026 17:41:39 +0800
-X-QQ-mid: xmsmtpt1794044499ti9w54qgg
-Message-ID: <tencent_2859327A0C68D0D0429ED90F931234059808@qq.com>
-X-QQ-XMAILINFO: NwIPvWX4YDagFX2Xaa82mmGgrUXvZRWCDinpxgBro8mFeAg5zV4dG3xKAvUuOf
-	 3eamjuK5pu0CBtNtnrDLqhQv6e6v2EjeHgwUI8IZwkaIuNMYGa5CJUuDdF+5m4pLGtGJ4oY6XdxE
-	 WmMLiROqBBG5Bpek6G0UiUZoeLasU1OBbrzxXlONeHx4fidbfN1jIW6Jg+0DF/pPnijlWN73L97W
-	 FJ51Uautf8bitka9OTVxmGVttHpArj4mltI4RR8FcQcSt0hNHnld9uz5+KOUknCfL4S3g756wfK+
-	 7MPQhEKs7qq8bj6xgHOQBm/173nc6q+i3tKXwXU5WF0STyix9pSpt82DpXvsFar9PYUeyt4un2wZ
-	 aiTVWX2zWHyFhTwUZYVm0u2aizduCGFXz7jSv4uCXjQf6rxkDvEASO2ZtvYq9IgAk2kb7ee7C3Xr
-	 qzfnFh4qP0nG1Cu2Xs766+AuQ+74tVR+zEPuMtulbY8qoSmHq0D+ar9p6zuQ9dI1lUaRsMYa/D2w
-	 +5XqPis4ot72MdBMrFL7cbACVgdxY/MBKkktlk4UsNWA1aj+ldpAnQpzirKez6uvt+vt3X3jJ0y6
-	 mRX+fIQpl1O9QFR5L74WEFYAsRT93L3xQcoW1WrWjDQj3XJSRrdwaE7z7l4GW8Kyv9Ew+bZDp1zT
-	 lkO6LwgIxrGGStcP5z1/H7hSeIu9tcFy0iSWL3d+4ZwH4Qm/gOdiKPuY4QytHI4gLxa4zCXt4l02
-	 hVFqDkjIaE/zUFUronsH7wJlswzfNadfJC23/EjwvcWTnii1b+yiN+jVzoj/iLoP6HvqfAATQCC2
-	 mmF/iAEzp4z1aMa8fQXuMrT3qr7TYiv5S9fQr3qztRyXm0OTmkGCuo/02QyAwxJd5FfNYAtnsUIi
-	 UhQ7uDXNYEv9jsJs7P8gTwl46uZRizpwyPQXMGF3488i+GpbfFSoNfH6c+B8/ejFQ+pIfN+aeFQH
-	 F5ua29Gk888RRf0T1ttVS2o7wJYfxFcTFIcX1VxQukO3aGw/pkrZFXyvIwtYyYTc3vRfNKsGYHGo
-	 5ta8s1k3/Zp+FkhlJEtrAWTwNsV7jZzjiQvhS+8AeaA+U9To9LEEQydsHjIOtmBNPBmM4e+lac+o
-	 oL6qAoezL5LJtbHjCVNzbLdtT9B/hA+YHmVNau
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-From: xkeyC <xkeyc@qq.com>
-To: Namjae Jeon <linkinjeon@kernel.org>,
-	Hyunchul Lee <hyc.lee@gmail.com>
-Cc: ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	xkeyC <xkeyc@qq.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] ntfs: don't let a fatal signal interrupt metadata reads
-Date: Sat,  7 Nov 2026 17:41:23 +0800
-X-OQ-MSGID: <20261107094123.1971125-1-xkeyc@qq.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=U5xnCeeM
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GmF2zoFBLEzrk3lAm3qvZIXbfKUD22ww5lbIyFWa7veMQ6OxCbUAcq/B8ceVDGYwI7JmzFlUsQ1DqEIUuuJ4NWxsj9t4TB5tNveCoJyDjWirdQbOxbPlGe0FrwgmqvsCXCe1T4fBX5w78vSfC4n91uRvzVW9v56faLDxRGbrYmdKVBGSV6cGz+O+vuJmuWrZ0WUMPnU/tmasWAuObjgK9iZhjKTIu0vPra5CZQEOCslIsi078D254HSFUqop/m6g7zKrMCoTqlhG1JGjaQZT9WsAUJmlBlOcOCL2PUjIOKpeGeND2Sc5E0LrPcptqnS23VFyVpRXbhqri+pM0/cdgw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
+ bh=SBZtJ479+XpxRIPl+tGdy/bdCwIqJjf3WgbXvyQuArY=;
+ b=IIrhTM/YmsHKrqZbu5yujzAcMiyz7HQahgm8yqNPcSY1n/ADG5QoubFqVJ5vbWzmqMGe9cj6aY682l2BUBZmQXSy7dIfDztYqMNzKTKcjOqCBZ7tmRPmtIjQzLSXqfEobLkcJn3p3Bc+7Ri7FGnJdsIc/Cm8zpKBWYK8UNeDdHCyvRlLT5q2qDbr8S0eXQg4r3cwwNiEv8CpMYl67DMtKS14EysvcPLvaHlvHFwbjwqs0jVfXX9Eo9352M8gyU5YIlHhmXEWt+xi+SduPWBdZrBCgUYp5MrkNP+oJLuJUCAwA1+dx0pLcj5MLjhhDbq1e+Ql2B4iBA/jYe6Lo05yWw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SBZtJ479+XpxRIPl+tGdy/bdCwIqJjf3WgbXvyQuArY=;
+ b=U5xnCeeM2VsjdWGYLY5DVo1O/6kkIptfy3oyECb97kk8pBn3ZpsNigq5ktY06sVCti0SfZxzk6aHDyjCgnH4y+wpsumEwJiOlhV8t2qtY1xjm89AMRImxgYkf5AegvzAgNGo0U/LMiySOpHevLbznabBahxAOaxQAdXGqMIEN5TKnotn7UqiaewRtCkN+AOQ66gVsf1yhAwGrwWn1I96s95JCvEWsYYL3ve6clS/F/oXYCsdfzHQv0GNk7flT1EGcyapEJHpH2nGTx5cUJSBqUojdBurPKqewu1oglFgrjoD0CnNCEbhSzGohosJw8PK72gpbQnKVKAePZUBEoGh7g==
+Received: from SA3PR05MB10385.namprd05.prod.outlook.com
+ (2603:10b6:806:39d::17) by DSWPR05MB998946.namprd05.prod.outlook.com
+ (2603:10b6:8:3a1::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Sat, 7 Nov
+ 2026 09:42:57 +0000
+Received: from SA3PR05MB10385.namprd05.prod.outlook.com
+ ([fe80::e22f:a0f5:fcb0:9b0d]) by SA3PR05MB10385.namprd05.prod.outlook.com
+ ([fe80::e22f:a0f5:fcb0:9b0d%6]) with mapi id 15.21.0592.010; Sat, 7 Nov 2026
+ 09:42:57 +0000
+From: Yingjie Wang <x-professor@outlook.com>
+To: "leitao@debian.org" <leitao@debian.org>
+CC: "a.hindborg@kernel.org" <a.hindborg@kernel.org>, "viro@zeniv.linux.org.uk"
+	<viro@zeniv.linux.org.uk>, "linux-fsdevel@vger.kernel.org"
+	<linux-fsdevel@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>, Yingjie Wang <x-professor@outlook.com>
+Subject: Re: [PATCH] configfs: protect symlink source callbacks from removal
+Thread-Topic: [PATCH] configfs: protect symlink source callbacks from removal
+Thread-Index: AQHdbSvkXEtvC7zga0y680FgQNKWhbchOegAgAEkeoA=
+Date: Sat, 7 Nov 2026 09:42:57 +0000
+Message-ID: <20261107094255.471878-1-x-professor@outlook.com>
+References: <20261105134514.2890692-1-x-professor@outlook.com>
+ <au39EinX6Xhj4yoj@gmail.com>
+In-Reply-To: <au39EinX6Xhj4yoj@gmail.com>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SA3PR05MB10385:EE_|DSWPR05MB998946:EE_
+x-ms-office365-filtering-correlation-id: 3ecadf91-ce93-46f7-85a2-08df3cb3815c
+x-microsoft-antispam:
+ BCL:0;ARA:14566002|38102599003|51005399006|24021099003|22091999003|24121999003|15080799012|31061999003|8060799015|8062599012|19110799012|4140399003|25010399006|12091999003|40105399003|102099032|440099028|3412199025|26121999007|1710799026;
+x-microsoft-antispam-message-info:
+ =?utf-8?B?UzFvVzMrdGF4bC94Y2JCaHZUcVllLzlkTnh5R0dRblltazBZcmYxVURybG52?=
+ =?utf-8?B?b1RqdDZvM2t1ZU9xRCtnWW5FdnlMTzNsYmxiQ0gvY1ZBOFU5Z25rc1NjVnFV?=
+ =?utf-8?B?Vkw4NmU5OU1FNnRiQzhtRjZuT0pHeVAycGNQTWhQaFptb2xiTm5haXI1ZEFF?=
+ =?utf-8?B?TE5JSUJKbWY5NThCMFBwOG9BMHhuVFcvc216ZUFUNXQ0OEx5ckE3VWx4N1Bt?=
+ =?utf-8?B?MTVEWml2L2NKbjhuNXdrN29KYVVwRi9CRFF4T1VxTncwcnQyZEs3M1F4Wmpq?=
+ =?utf-8?B?TU9SOEs3bWxBRE9jbjdhbjYxazZ2QWZsSU9DYlVveFdUODd2NTJvclJiSjR5?=
+ =?utf-8?B?VzNUdTY1cUs3M1FINlNzM3M0cEtuLzNiTDVmTjA5Mmo0OEFyY3p4aDhIN3hS?=
+ =?utf-8?B?RG5qNDVKcEVmZ08weUVQekRRdFU2MXhIN1VGSm9wa1dIRVFDYjNPanYwc0xI?=
+ =?utf-8?B?RHVma1hxMUZMTnhaZSt3OWNHM0RyakFFdG9ZdkFHT1ZWUkpNM2tacWNmTktB?=
+ =?utf-8?B?SDYyd2NkV0FrbkNabDdTNWFFR25NTm5BVWVqNy9ObDNwTFNMYXVwb0NlZVFO?=
+ =?utf-8?B?d2l6WFhBZ1dMbFhSeHJrVFdHZzc0UU5xcTJmaThqNHBKTGxVc2hrTEF0UkhB?=
+ =?utf-8?B?TGFzOTUxTXNQRGhnYWx5L0czSmJyVmh0YzRUL0FrZlNwdExmUkpzUGYybTgy?=
+ =?utf-8?B?akRRYmIwOE1vUk5ITzZ0OFN4d0dSVmhkTGp1NUpnWjlHUUdGcm5LSXhHVkFG?=
+ =?utf-8?B?QmpGL2tSVXo1UEp3QjNtVUZ3amNYWHBBY2tTajRneXI0eGM3QUhBdWlUYnVV?=
+ =?utf-8?B?aVNSZmwvU3RpNXFXS3hkSEw5ZTdQTkU1R2wxS0hTRWlXMTFKcHlxM0JmSUsr?=
+ =?utf-8?B?Q09Obm96d0N2SnV2bnRUdlFDaDV4RGpVaFE3WFBMdDBCVk54Z0dWRlFvK01W?=
+ =?utf-8?B?M2t4QUdKYmFobVJoY1NUZEl5VGpUVTdZckFITGE1Y1dZaVZ3bWwvUW54bmtX?=
+ =?utf-8?B?QlIxVHFocEFraG03M21RYi9tbStRQjlFOUNBdzlsdjBSN3hvYmJjSFVRNGRh?=
+ =?utf-8?B?N1hreVR3WERpSi9QczA2Y3RSb1F0dnA1M3haVytUZnU4eHFHYUpuOEJnL1Jz?=
+ =?utf-8?B?Q0tOZkplcmhGZDRxVDJpVzJ5bUlwUDAxZnVXMGlXV0p5dWVCV3AzWTIza0hX?=
+ =?utf-8?B?dXpGZnBmRndHWHVkMFBqcm0zS21SY0ZvdG5RK3dmSVQyRElVN1N2aGQ3WDEr?=
+ =?utf-8?B?MVd0RCtESk5YTVhqQ1lGN3pSaitLeU81ajlqTVY5UUZtY0svcWV3YlhGZ1J6?=
+ =?utf-8?B?b1pqZmNZR1NGK0lsTmpYcVU5VnFYSVdJWmx4enl1aGNka1JPS3dMQjJ5d2Jp?=
+ =?utf-8?B?WU1ESGhzOTQzUGhDS0ZaamdyUXlqZUROS3F3aHB3anMzM3J3UGdUVFFyazEy?=
+ =?utf-8?B?SXNBVEF6VXVvb1FTeFhhUERqZXg3Q01UMjhBTjI5dEZFY1JVUHdMSEMwNEZD?=
+ =?utf-8?Q?nFh7q29ftsq84EGe7y1CzXPMZq7?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?UVRzdktiY3V1U2o4QXM0eTdHamQzVU0vblJTbE9uNGdIVStTWm5uR3ZYSnNw?=
+ =?utf-8?B?TWpaWXl4aDhoQTIxSVNQb1VIcnlzUDRIdjZ6ZkFkOS85bHJ0Tk53Uk1WTnBF?=
+ =?utf-8?B?M3BXYmlRZWdoK3VZU2JYUTl0aG9xUE9NUE1KSDBucTZZbzM3M0hsTzYxM29Y?=
+ =?utf-8?B?aWdnekZEZ1p1Z1hEblB5dU01ZldZU3p3eGZQbWtIcy9idTlwbjBCTTdTblZF?=
+ =?utf-8?B?S1A2cGU0VmI4RGxoY2pENlNqbm52eTBkUmJDMFpocUl1MWhSSGlya0hJWFJT?=
+ =?utf-8?B?NDNSRXYvWlZVamU5YVFOWUhhK0dSeG54ZWdJNUxBS05TMlJ3M2VGOTRoazdy?=
+ =?utf-8?B?bzBvbFY4TlUzVzl6cnBmc1hXWDQ0M3ZiOTBVMERVV1VNckg5dEhRdGI0QXov?=
+ =?utf-8?B?WWM4em1KUmhqU0xSRGc5ZG5DYzV1SkpPZmZEWnR5UkdvWUZOU0RLVTFFRCtP?=
+ =?utf-8?B?VVNnR2thNm50aWtLaDVVSExTSUkvellRbCtrSUJTYmYxS3JJSFRrRG14bkdS?=
+ =?utf-8?B?UFhSRFZaQkIybTFqMi9aY2ozUStUSitzQTdRRzB3RXF3bmc1Z3NJby9JM0Qy?=
+ =?utf-8?B?bnl1YjFtd1lhMGFvZzV4TGxmSk1hd1AybmluWnB6ZVphVmlYNXJ3RlpOT2xn?=
+ =?utf-8?B?d005eUd6S1g2Rk9zVEZCOHo3UmVWUjllYk52M0ZjYlZ1ejRiY0cxSkFvWVly?=
+ =?utf-8?B?Qk5nVDZOUlV5WUxqOUVXRkZ0emc0ZmpCRVB6K2phdWUwcmhWb3J3Wkdyc1Vr?=
+ =?utf-8?B?cEZzVUlnVmZlZ3pvVXZKcmZRdjBWNFZkUzkyYVVEVldYNXkxQTlzY0hzRjQ4?=
+ =?utf-8?B?VFRKUVlocVVBOXFSb0F1SmxCWlp2THdoMFRIaVBkWHZ5MWhTRHZYY2d4TGRu?=
+ =?utf-8?B?VFlzdDhvT0dOSTQrM0k5SUtvdnVsQ3pHK053NlY2dlhxK2FzSmM2U01kVXk2?=
+ =?utf-8?B?cVkwdHVFRGxwdGlXVHgzdWZMaEx4V3pGbFd4UHRIckdjWVY4QzVqRjNreXd5?=
+ =?utf-8?B?TzQ5NmdaK1ZMUHF2TkN4RVpwbmhZeWZYMnVKMUVMYVJZb1NqVlkzUU1WUWU5?=
+ =?utf-8?B?eFFuK0Z2U09OdGlmQ052Tm10YVhPWklxSmRBOEtjRGJHNjZMRmhWVDlLbW9K?=
+ =?utf-8?B?OS9DNm9oQWdjdndzSnRsN2VVS0s1NThWOGdOVnJxKy81N2w3NUF3dWpIWHZq?=
+ =?utf-8?B?TUgzOTJLL3BiVkI4bXc2ZCt5UG8zUUVGQzBpSjFWTGVYL3hpUUlhZFI5RDFE?=
+ =?utf-8?B?ZWFHMk1WL0tsSk5NYVJtbExSL3NyVFBadzhNVGs5c2tXRGJLekR5QnZxdmVo?=
+ =?utf-8?B?UFAxclhaSExxYmwyZEI3WjM4YVhKNzNENTQrZHdKcHRKOWk2ODF5S0RQM1VY?=
+ =?utf-8?B?VUhSSGJVTlZ3U0MrZTBIajVsWjdjemJuc0xSV0I0VVBCcWNacEh2Q2ozR3c3?=
+ =?utf-8?B?T243bURKWWo2WTVVTkRnSEo2OXcvUWxJcWxGUkxielY4NDhmNWdwM29RdFdt?=
+ =?utf-8?B?aGpISEF6cnpQWThLL2toTW05WFIyVGFuOFczMzJXcmc2WXRQdlR3a0hHQVRp?=
+ =?utf-8?B?NHQrOW5xNDlCcmpoNlBESWQrSldSYmdmemhyZDFYWnpVcVR3STI2YmxPK3Ar?=
+ =?utf-8?B?bkVZamg0TTJ3NFo0YVppNU13cVQ3eUUwZkFRMkRLTmpiNDYrV0puT2RYd042?=
+ =?utf-8?B?VVN3QUk1bUNpZkFmRVViNmE1L0pvMU96WElYeVltcGo5c3dheUt0SWR5aHhh?=
+ =?utf-8?B?T2JBejI4a3R1aTBtM1dFOVY3N010bDRBUXZsOGVqbjJvbndIR3JwRklVTElz?=
+ =?utf-8?B?eU1ibnV4M2crQzRhcUdoeE9JZ3I3Y3YrNk1wdWgyOW5Dc2VKR3hValQwZXNj?=
+ =?utf-8?Q?QEBbaurDK6OFk?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <CF3909623E371846B12044CB6014AE33@namprd05.prod.outlook.com>
+Content-Transfer-Encoding: base64
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -80,322 +166,37 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SA3PR05MB10385.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3ecadf91-ce93-46f7-85a2-08df3cb3815c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Nov 2026 09:42:57.6403
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSWPR05MB998946
 
-read_mapping_folio() returns -EINTR when the caller has a fatal signal
-pending while it waits for the read it submitted. ntfs reads its metadata
-through it and treats the failure as a volume error, so killing a task
-that waits on a metadata read turns the volume read-only with
-errors=remount-ro. A read that is part of an update also stops the update
-half way: killing an rm can leave clusters allocated in $Bitmap, an MFT
-record in use without a directory entry, or a directory index with
-entries that point to freed records.
-
-Add ntfs_read_metadata_folio(), which waits for the read uninterruptibly,
-and use it for metadata reads. Mount-time checks, compressed data and
-named stream contents keep using read_mapping_folio(). A killed task now
-waits for its metadata read to complete, as it does on filesystems that
-use the buffer cache.
-
-Closes: https://github.com/namjaejeon/linux-ntfs/issues/98
-Fixes: 11ccc9107dc4 ("ntfs: update runlist handling and cluster allocator")
-Fixes: 115380f9a2f9 ("ntfs: update mft operations")
-Fixes: af0db57d4293 ("ntfs: update inode operations")
-Fixes: 495e90fa3348 ("ntfs: update attrib operations")
-Cc: stable@vger.kernel.org
-Signed-off-by: xkeyC <xkeyc@qq.com>
----
-Reproducers and logs: https://github.com/xkeyC/linux-ntfs/tree/eintr-repro
-
-In QEMU (KASAN, lockdep, reads throttled), killing rm, ls -l, fallocate
-or dd partway through turned the volume read-only within a few runs
-without this patch, and ntfsck found damage after rm. With it, 20 runs of
-each stayed read-write and clean. Index inserts were not reached.
-
-Developed with an AI coding assistant (Claude Code), which wrote the
-change and the reproducers and ran the tests.
-
- fs/ntfs/aops.c     | 58 ++++++++++++++++++++++++++++++++++++++++++++++
- fs/ntfs/attrib.c   |  2 +-
- fs/ntfs/bdev-io.c  |  2 +-
- fs/ntfs/bitmap.c   |  4 ++--
- fs/ntfs/dir.c      |  4 ++--
- fs/ntfs/inode.c    | 12 +++++++---
- fs/ntfs/lcnalloc.c |  2 +-
- fs/ntfs/mft.c      | 20 ++++++++--------
- fs/ntfs/ntfs.h     |  4 ++++
- 9 files changed, 88 insertions(+), 20 deletions(-)
-
-diff --git a/fs/ntfs/aops.c b/fs/ntfs/aops.c
-index ad781674f..767aecf42 100644
---- a/fs/ntfs/aops.c
-+++ b/fs/ntfs/aops.c
-@@ -7,6 +7,7 @@
-  * Copyright (c) 2025 LG Electronics Co., Ltd.
-  */
- 
-+#include <linux/swap.h>
- #include <linux/writeback.h>
- 
- #include "attrib.h"
-@@ -304,6 +305,63 @@ static int ntfs_swap_activate(struct swap_info_struct *sis,
- 			&ntfs_read_iomap_ops);
- }
- 
-+/**
-+ * ntfs_read_metadata_folio - read a metadata folio, ignoring fatal signals
-+ * @mapping:	address space of the metadata inode or block device
-+ * @index:	page cache index to read
-+ *
-+ * Like read_mapping_folio(), but the wait for the read cannot be interrupted,
-+ * so a fatal signal cannot fail a metadata read in the middle of an update.
-+ * The caller must not hold the lock of the folio at @index.
-+ *
-+ * Return: the uptodate folio with a reference held, or an ERR_PTR().
-+ */
-+struct folio *ntfs_read_metadata_folio(struct address_space *mapping,
-+				       pgoff_t index)
-+{
-+	struct folio *folio;
-+	bool read_failed = false;
-+	int err;
-+
-+	folio = filemap_get_folio(mapping, index);
-+	if (!IS_ERR(folio)) {
-+		if (folio_test_uptodate(folio))
-+			goto out;
-+		folio_put(folio);
-+	}
-+repeat:
-+	folio = __filemap_get_folio(mapping, index, FGP_LOCK | FGP_CREAT,
-+				    mapping_gfp_mask(mapping));
-+	if (IS_ERR(folio))
-+		return folio;
-+	/* $MFT updates clear uptodate under the folio lock, so check it locked. */
-+	if (folio_test_uptodate(folio)) {
-+		folio_unlock(folio);
-+		goto out;
-+	}
-+	if (read_failed) {
-+		folio_unlock(folio);
-+		folio_put(folio);
-+		return ERR_PTR(-EIO);
-+	}
-+
-+	/* ->read_folio() unlocks the folio when the read completes. */
-+	err = mapping->a_ops->read_folio(NULL, folio);
-+	if (err) {
-+		folio_put(folio);
-+		if (err == AOP_TRUNCATED_PAGE)
-+			goto repeat;
-+		return ERR_PTR(err);
-+	}
-+	folio_wait_locked(folio);
-+	read_failed = !folio_test_uptodate(folio);
-+	folio_put(folio);
-+	goto repeat;
-+out:
-+	folio_mark_accessed(folio);
-+	return folio;
-+}
-+
- const struct address_space_operations ntfs_aops = {
- 	.read_folio		= ntfs_read_folio,
- 	.readahead		= ntfs_readahead,
-diff --git a/fs/ntfs/attrib.c b/fs/ntfs/attrib.c
-index 800e53df5..cf73fa4c3 100644
---- a/fs/ntfs/attrib.c
-+++ b/fs/ntfs/attrib.c
-@@ -2323,7 +2323,7 @@ int ntfs_attr_set(struct ntfs_inode *ni, s64 ofs, s64 cnt, const u8 val)
- 
- 	index = ofs >> PAGE_SHIFT;
- 	while (cnt) {
--		folio = read_mapping_folio(mapping, index, NULL);
-+		folio = ntfs_read_metadata_folio(mapping, index);
- 		if (IS_ERR(folio)) {
- 			ret = PTR_ERR(folio);
- 			ntfs_error(VFS_I(ni)->i_sb, "Failed to read a page %lu for attr %#x: %ld",
-diff --git a/fs/ntfs/bdev-io.c b/fs/ntfs/bdev-io.c
-index 4f27eed3b..afb1d1df3 100644
---- a/fs/ntfs/bdev-io.c
-+++ b/fs/ntfs/bdev-io.c
-@@ -99,7 +99,7 @@ int ntfs_bdev_write(struct super_block *sb, void *buf, loff_t start, size_t size
- 	for (; idx < idx_end; idx++, from = 0) {
- 		u32 len;
- 
--		folio = read_mapping_folio(sb->s_bdev->bd_mapping, idx, NULL);
-+		folio = ntfs_read_metadata_folio(sb->s_bdev->bd_mapping, idx);
- 		if (IS_ERR(folio)) {
- 			ntfs_error(sb, "Unable to read %ld page", idx);
- 			return PTR_ERR(folio);
-diff --git a/fs/ntfs/bitmap.c b/fs/ntfs/bitmap.c
-index af86fb1c1..1002d9c98 100644
---- a/fs/ntfs/bitmap.c
-+++ b/fs/ntfs/bitmap.c
-@@ -203,7 +203,7 @@ int __ntfs_bitmap_set_bits_in_run(struct inode *vi, const s64 start_bit,
- 
- 	/* Get the page containing the first bit (@start_bit). */
- 	mapping = vi->i_mapping;
--	folio = read_mapping_folio(mapping, index, NULL);
-+	folio = ntfs_read_metadata_folio(mapping, index);
- 	if (IS_ERR(folio)) {
- 		if (!is_rollback)
- 			ntfs_error(vi->i_sb,
-@@ -267,7 +267,7 @@ int __ntfs_bitmap_set_bits_in_run(struct inode *vi, const s64 start_bit,
- 		folio_unlock(folio);
- 		kunmap_local(kaddr);
- 		folio_put(folio);
--		folio = read_mapping_folio(mapping, ++index, NULL);
-+		folio = ntfs_read_metadata_folio(mapping, ++index);
- 		if (IS_ERR(folio)) {
- 			ntfs_error(vi->i_sb,
- 				   "Failed to map subsequent page (error %li), aborting.",
-diff --git a/fs/ntfs/dir.c b/fs/ntfs/dir.c
-index 9fb5bb3d3..ce87799a2 100644
---- a/fs/ntfs/dir.c
-+++ b/fs/ntfs/dir.c
-@@ -327,8 +327,8 @@ u64 ntfs_lookup_inode_by_name(struct ntfs_inode *dir_ni, const __le16 *uname,
- 	 * of PAGE_SIZE and map the page cache page, reading it from
- 	 * disk if necessary.
- 	 */
--	folio = read_mapping_folio(ia_mapping, vcn <<
--			dir_ni->itype.index.vcn_size_bits >> PAGE_SHIFT, NULL);
-+	folio = ntfs_read_metadata_folio(ia_mapping, vcn <<
-+			dir_ni->itype.index.vcn_size_bits >> PAGE_SHIFT);
- 	if (IS_ERR(folio)) {
- 		ntfs_error(sb, "Failed to map directory index page, error %ld.",
- 				-PTR_ERR(folio));
-diff --git a/fs/ntfs/inode.c b/fs/ntfs/inode.c
-index 62dd5bd5b..9bf7957af 100644
---- a/fs/ntfs/inode.c
-+++ b/fs/ntfs/inode.c
-@@ -3773,8 +3773,14 @@ s64 ntfs_inode_attr_pread(struct inode *vi, s64 pos, s64 count, u8 *buf)
- 
- 	index = pos >> PAGE_SHIFT;
- 	do {
--		/* Update @index and get the next folio. */
--		folio = read_mapping_folio(mapping, index, NULL);
-+		/*
-+		 * Update @index and get the next folio.  The contents of a named
-+		 * stream are user data, so a fatal signal may still stop that read.
-+		 */
-+		if (ntfs_inode_is_named_stream(ni))
-+			folio = read_mapping_folio(mapping, index, NULL);
-+		else
-+			folio = ntfs_read_metadata_folio(mapping, index);
- 		if (IS_ERR(folio)) {
- 			err = PTR_ERR(folio);
- 			break;
-@@ -3926,7 +3932,7 @@ static s64 __ntfs_inode_non_resident_attr_pwrite(struct inode *vi,
- 				break;
- 			}
- 		} else {
--			folio = read_mapping_folio(mapping, index, NULL);
-+			folio = ntfs_read_metadata_folio(mapping, index);
- 			if (IS_ERR(folio)) {
- 				ret = PTR_ERR(folio);
- 				ntfs_error(vi->i_sb, "Failed to read a page %lu for attr %#x: %ld",
-diff --git a/fs/ntfs/lcnalloc.c b/fs/ntfs/lcnalloc.c
-index 3ebcac4c2..7e00016f4 100644
---- a/fs/ntfs/lcnalloc.c
-+++ b/fs/ntfs/lcnalloc.c
-@@ -340,7 +340,7 @@ struct runlist_element *ntfs_cluster_alloc(struct ntfs_volume *vol, const s64 st
- 		if (vol->lcn_empty_bits_per_page[index] == 0)
- 			goto next_bmp_pos;
- 
--		folio = read_mapping_folio(mapping, index, NULL);
-+		folio = ntfs_read_metadata_folio(mapping, index);
- 		if (IS_ERR(folio)) {
- 			err = PTR_ERR(folio);
- 			ntfs_error(vol->sb, "Failed to map page.");
-diff --git a/fs/ntfs/mft.c b/fs/ntfs/mft.c
-index 89288b794..3601f77ee 100644
---- a/fs/ntfs/mft.c
-+++ b/fs/ntfs/mft.c
-@@ -143,7 +143,7 @@ static inline struct mft_record *map_mft_record_folio(struct ntfs_inode *ni)
- 	}
- 
- 	/* Read, map, and pin the folio. */
--	folio = read_mapping_folio(mft_vi->i_mapping, index, NULL);
-+	folio = ntfs_read_metadata_folio(mft_vi->i_mapping, index);
- 	if (!IS_ERR(folio)) {
- 		u8 *addr;
- 
-@@ -549,8 +549,8 @@ static int ntfs_sync_mft_mirror_unit(struct ntfs_volume *vol,
- 	if (unit->folio_ofs + unit->len > folio_size(source))
- 		return -EIO;
- 
--	mirror = read_mapping_folio(vol->mftmirr_ino->i_mapping,
--				    mirror_file_ofs >> PAGE_SHIFT, NULL);
-+	mirror = ntfs_read_metadata_folio(vol->mftmirr_ino->i_mapping,
-+					  mirror_file_ofs >> PAGE_SHIFT);
- 	if (IS_ERR(mirror))
- 		return PTR_ERR(mirror);
- 
-@@ -1023,7 +1023,7 @@ static bool mft_reserved_is_free(struct ntfs_volume *vol,
- 	if (!m)
- 		return false;
- 
--	folio = read_mapping_folio(vol->mft_ino->i_mapping, index, NULL);
-+	folio = ntfs_read_metadata_folio(vol->mft_ino->i_mapping, index);
- 	if (IS_ERR(folio))
- 		goto free_m;
- 
-@@ -1199,8 +1199,8 @@ static s64 mft_bitmap_alloc_free_rec(struct ntfs_volume *vol,
- 		 * for a zero bit.
- 		 */
- 		if (size) {
--			folio = read_mapping_folio(mftbmp_mapping,
--					ofs >> PAGE_SHIFT, NULL);
-+			folio = ntfs_read_metadata_folio(mftbmp_mapping,
-+							 ofs >> PAGE_SHIFT);
- 			if (IS_ERR(folio)) {
- 				ntfs_error(vol->sb, "Failed to read mft bitmap, aborting.");
- 				return PTR_ERR(folio);
-@@ -1392,8 +1392,8 @@ static int ntfs_mft_bitmap_extend_allocation_nolock(struct ntfs_volume *vol)
- 	 * to us.
- 	 */
- 	ll = lcn >> 3;
--	folio = read_mapping_folio(vol->lcnbmp_ino->i_mapping,
--			ll >> PAGE_SHIFT, NULL);
-+	folio = ntfs_read_metadata_folio(vol->lcnbmp_ino->i_mapping,
-+					 ll >> PAGE_SHIFT);
- 	if (IS_ERR(folio)) {
- 		up_write(&mftbmp_ni->runlist.lock);
- 		ntfs_error(vol->sb, "Failed to read from lcn bitmap.");
-@@ -2207,7 +2207,7 @@ static int ntfs_mft_record_format(const struct ntfs_volume *vol, const s64 mft_n
- 	}
- 
- 	/* Read, map, and pin the folio containing the mft record. */
--	folio = read_mapping_folio(mft_vi->i_mapping, index, NULL);
-+	folio = ntfs_read_metadata_folio(mft_vi->i_mapping, index);
- 	if (IS_ERR(folio)) {
- 		ntfs_error(vol->sb, "Failed to map page containing mft record to format 0x%llx.",
- 				(long long)mft_no);
-@@ -2725,7 +2725,7 @@ int ntfs_mft_record_alloc(struct ntfs_volume *vol, const int mode,
- 	index = NTFS_MFT_NR_TO_PIDX(vol, bit);
- 	ofs = NTFS_MFT_NR_TO_POFS(vol, bit);
- 	/* Read, map, and pin the folio containing the mft record. */
--	folio = read_mapping_folio(vol->mft_ino->i_mapping, index, NULL);
-+	folio = ntfs_read_metadata_folio(vol->mft_ino->i_mapping, index);
- 	if (IS_ERR(folio)) {
- 		ntfs_error(vol->sb, "Failed to map page containing allocated mft record 0x%llx.",
- 				bit);
-diff --git a/fs/ntfs/ntfs.h b/fs/ntfs/ntfs.h
-index fac72d40f..f33df986f 100644
---- a/fs/ntfs/ntfs.h
-+++ b/fs/ntfs/ntfs.h
-@@ -294,6 +294,10 @@ static inline int ntfs_ffs(int x)
- 	return r;
- }
- 
-+/* From fs/ntfs/aops.c */
-+struct folio *ntfs_read_metadata_folio(struct address_space *mapping,
-+				       pgoff_t index);
-+
- /* From fs/ntfs/bdev-io.c */
- int ntfs_bdev_read(struct block_device *bdev, char *data, loff_t start, size_t size);
- int ntfs_bdev_write(struct super_block *sb, void *buf, loff_t start, size_t size);
--- 
-2.56.0
-
+SGkgQnJlbm8sCgpUaGFua3MgZm9yIHRlc3RpbmcgdGhpcyBhbmQgZm9yIHRoZSBLQVNBTiByZXBv
+cnQuCgpNeSBvcmlnaW5hbCB0ZXN0IHJhY2VkIHN5bWxpbmsoKSBhZ2FpbnN0IHJtZGlyKCkgb2Yg
+YSBVVkMgZ2FkZ2V0IGZvcm1hdApkaXJlY3RvcnkuIFRoZSBiYXNlIGtlcm5lbCBoaXQgYSBOVUxM
+IHBvaW50ZXIgZGVyZWZlcmVuY2UgaW4KdXZjZ19mb3JtYXRfYWxsb3dfbGluaygpIHdpdGhpbiAx
+LDAwMCBpdGVyYXRpb25zLCB3aGlsZSBteSBwYXRjaCBjb21wbGV0ZWQKMTAsMDAwIGl0ZXJhdGlv
+bnMgd2l0aG91dCBhIEtBU0FOIHJlcG9ydC4KClRoYXQgdGVzdCBkaWQgbm90IGNvdmVyIHRoZSBu
+dm1ldCBwYXJlbnQtaXRlbSBsaWZldGltZSBpc3N1ZSB5b3UgZm91bmQuCgpBZnRlciB5b3VyIHJl
+cGx5LCBJIGFsc28gdGVzdGVkIERyaWYncyBwb3N0ZWQgdjMgd2l0aCB0aGUgc2FtZSBVVkMgcmVw
+cm9kdWNlcgphbmQgS0FTQU4gY29uZmlndXJhdGlvbi4gSXQgdHJpZ2dlcmVkIGEgdXNlLWFmdGVy
+LWZyZWUgaW4gY29uZmlnX2l0ZW1fcHV0KCksCmZvbGxvd2VkIGJ5IGEgcmVmY291bnQgd2Fybmlu
+Zy4KCkFkZGluZyBwYXJlbnRfaXRlbSA9IE5VTEwgaW1tZWRpYXRlbHkgYWZ0ZXIgdGhlIGVhcmx5
+IGNvbmZpZ19pdGVtX3B1dCgpIG1hZGUKdGhlIHNhbWUgMTAsMDAwLWl0ZXJhdGlvbiB0ZXN0IGNv
+bXBsZXRlIHdpdGhvdXQgS0FTQU4gcmVwb3J0cyBvciByZWZjb3VudAp3YXJuaW5ncy4KClRoZXNl
+IHRlc3RzIHVzZWQgUUVNVSBUQ0cgYmVjYXVzZSB0aGUgaG9zdCBoYXMgbm8gL2Rldi9rdm0uCgpJ
+IHNhdyB5b3VyIGRpc2N1c3Npb24gd2l0aCBEcmlmIGFib3V0IHRoZSBtaXNzaW5nIE5VTEwgYXNz
+aWdubWVudCwgc28gSQp1bmRlcnN0YW5kIHRoYXQgaXNzdWUgaGFzIGFscmVhZHkgYmVlbiBpZGVu
+dGlmaWVkLgoKUGxlYXNlIGRvIG5vdCBhcHBseSBteSBjdXJyZW50IGZyYWdfc2VtIHBhdGNoLiBJ
+IHdpbGwgbm90IHNlbmQgYSB2MiBiYXNlZCBvbgp0aGF0IGNoYW5nZSBhbG9uZS4KCkkgaGF2ZSBu
+b3QgZXN0YWJsaXNoZWQgd2hldGhlciB0aGUgY29ycmVjdGVkIHBhcmVudC1pdGVtIGZpeCBhbHNv
+IHByb3RlY3RzCnRoZSB1bnJlZ2lzdGVyLWdyb3VwIGFuZCB1bnJlZ2lzdGVyLXN1YnN5c3RlbSBj
+YWxsYmFjayBwYXRocy4gVGhvc2Ugd291bGQKbmVlZCBzZXBhcmF0ZSB2ZXJpZmljYXRpb24uCgpU
+aGFua3MsCllpbmdqaWUKCg==
