@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794063492;
-	b=LdVYHaz6YssQNUcnlARj3MYj1rKMqET61ytgCjly+HyRGrHpjFERCMOk/F2DhfLqvUuh
-	 6EDiLY6+VTbxuarl00ONqdIADMk3jU6ka87FrPwdx5PzvU5MxhNM7HMChUX8t4niaoedE
-	 FyQw8UHk95NG2evvfj7J8CjLXdI0nJVSpnn+czyBNh6gx0qbz60kKSX32bj7S1XkaITgL
-	 F01KxPxHtiI2LjeOy92pWYZXpCAHT1Z38xVnfamlns92kuA2AHlIbQguf06hHor4BV9pe
-	 H+U4qDKzrAUDMdu/U3mQb1Prcv9mPHvK8gGtiYDdTOWIsgF6M6c6Ddtl+OS4ydwkfgg==
+	t=1794063487;
+	b=twYPEUYRYlJO/I4Rv+j+K8M0EPr9APJl85do+O2bAeEYZDk6pQRoXsdbwSLIHDHNSRem
+	 tb/NUtUrkaFzd4BfrvsTats3tBfT1POlqdlVLdnp+EKm+7r6v7FoeOIYc/oUI+cUY8oCG
+	 fhmFCxfFe800RtgRhSfyQ3DMDmAI+G4Yfa2zdPRDbUyhMXS+RYH3xrzChVWWUmZfSUmet
+	 LjEOrNqxM68dh6XcuMuWjWswmYLhiX4RoLUYCcGzvMCMd38+hCq37CZBMl5TJCgJK3x6H
+	 RfIqiPHvyFSDqKunYbdbZAWDK5yt2xO/ReDd9VZ6vF3Cudt44eT6YZps+jLu8p3BLSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794063492;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794063487;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=SmoASWUlP2IZYly/Ey0rQt4s9QVcVq47cgYLvU8RShc=;
-	b=5OCnA83x/W3NFtBBlx6HIdZBRgmTyyoMC+D4bCegH8ppzS12jr6ueQYlxkel0tQD9nx/
-	 EbY82zYHbNzIVqxz/ks6v6qWdlBCUR58aw9Ab5DCaQK3xWLpe3wkQ+sU7E4eJyZlmkagN
-	 fQuMokUZj3q8ZdbFox/20yCefIfTWoeW3RdZMnNLiyyJ/6q6aQDBnezcUMqbMwOOdm1fG
-	 drm7V4gC5FH5X7cbeVm6tqP8wNRvrn0teJwLov/2eUgtnrx6LoWVLUUiD4dH8kBPSG5fG
-	 8KRpfk9uKhNcAYVo2OPMHLn6Rr/GRG/uJ1p0kZy4lUu6SpMqAq2qd3oKhkFMAC3fncA==
+	bh=VJob6o2oskB0OEC69K8EZo2R8ZFYTTwW0xBbYoRg+m0=;
+	b=rYIOWXSQoMrodMOrNQKzEwHua3YXw49mLxGVcsh1Tq6sEf7waf8qQZ2Sq+fDmlxlmOl4
+	 dLiB+mVN2IpCgU9shzgu3wdLq/sjTTkWjGcsOGf11PMrKFK+FhxZrE0kmjE1gwtJxmXKT
+	 fc61wEhUJH9TF2kP3Y+tn0f69zengwEYHIIciaU+vuX1zSPvUCv6lZJUFP4sAfMbDXZPl
+	 LI14RUmlPi7/QyIjkDScS4Sk5XKpbcgzxj/c5ig9CW/HVniRHZmVZWcWFJPkqsHQ/ENDT
+	 f0q4CEqme2lRkRNG5JsdEwDW5aeTgjjX5kdrG5pR2wcDOvPGbeggegL4FmEiGtSG1wQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=vYNg37Uu;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=e4QbRqXf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8A4B606B884;
-	Sat,  7 Nov 2026 14:58:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 499C0606EEAF;
+	Sat,  7 Nov 2026 14:58:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=vYNg37Uu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F3D81F008A4;
-	Sat,  7 Nov 2026 14:58:11 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=e4QbRqXf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC6FF1F008A1;
+	Sat,  7 Nov 2026 14:58:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794063491;
-	bh=SmoASWUlP2IZYly/Ey0rQt4s9QVcVq47cgYLvU8RShc=;
+	s=korg; t=1794063486;
+	bh=VJob6o2oskB0OEC69K8EZo2R8ZFYTTwW0xBbYoRg+m0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=vYNg37Uu45ueEwoKo1Zn/kIo3U0hMwddAPVjPEsOwF1XHaIZJbbgggnMzRodalq6/
-	 rBIIYWaSrAdv2NJEdOjrOptz54vUewdYvDIdXckXR9xb6/MJp2rfiBy+wAYt9k+dh9
-	 2U+A1VJp6aStLkIz9qZLe+gucGF2fqDjV5oLid0E=
+	b=e4QbRqXfy+tWloreut7xHyhQv0sZd8R8tJksYKeahK2lmpNtn26fKvNT/HcgU7ssR
+	 SVx9s+q9SrsGyLt0dPBhzzhkzZfEy8NN89sFtWCHZ5+lgBYqGlFaUWgMs2uc+Re4PW
+	 BTNy1EGDab1MwMnZmhBmwEs+YeCYpl3PELMgSLwI=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Tom Verdonck <tom.verdonck@inspiral.be>,
-	Guenter Roeck <linux@roeck-us.net>,
+	Matt Turner <mattst88@gmail.com>,
+	Magnus Lindholm <linmag7@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 637/869] hwmon: (sht4x) Fix jiffies wraparound in heater-ready check
-Date: Sat,  7 Nov 2026 08:55:19 -0500
-Message-ID: <20261107134914.536854356@linuxfoundation.org>
+Subject: [PATCH 6.18 633/869] alpha: do not clear remote MMU contexts in migrate_flush_tlb_page()
+Date: Sat,  7 Nov 2026 08:55:15 -0500
+Message-ID: <20261107134914.423971484@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261107134852.069646174@linuxfoundation.org>
 References: <20261107134852.069646174@linuxfoundation.org>
@@ -68,113 +68,64 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Tom Verdonck <tom.verdonck@inspiral.be>
+From: Magnus Lindholm <linmag7@gmail.com>
 
-[ Upstream commit ce3ff350c4a3b9466bd67bfe2adb2e3bea732b9e ]
+[ Upstream commit 16266d50c51eb5eb98f1c345c5aa9ff359a305aa ]
 
-sht4x stores in ->heating_complete the jiffies deadline at which the
-current heater pulse finishes. It is set once at probe (to jiffies) and
-only updated when the heater is explicitly enabled via sysfs, so in the
-common case where the heater is never used it stays frozen at its probe
-value.
+After the on_each_cpu() rendezvous, migrate_flush_tlb_page() walks the
+other CPUs and zeroes their mm->context[cpu] when mm_users is at most one,
+described as mimicking flush_tlb_mm()'s mm_users<=1 optimization.
 
-->heating_complete is an unsigned long compared with time_before(),
-whose signed difference is only meaningful while the two values are
-within LONG_MAX jiffies of each other. Because the deadline is frozen,
-jiffies keeps advancing away from it, and after 2^31 jiffies the
-difference flips sign. On a 32-bit HZ=100 kernel that happens ~248.5
-days after boot. time_before() in sht4x_read_values() then wrongly
-reports that heating is still in progress and the read path executes
+It is not one. flush_tlb_mm() tests mm_users before deciding whether to
+send the IPIs; here every CPU has already been visited and waited for, so
+nothing is saved. The callback has also just set each CPU's own slot
+correctly, so the loop only overwrites it, and does so while that CPU may
+still be running in the address space.
 
-	msleep(jiffies_to_msecs(data->heating_complete - curr_jiffies));
+Remove it. The shootdown shortcuts in flush_tlb_mm(), flush_tlb_page()
+and flush_icache_user_page() clear remote slots too; once the next patch
+removes those as well, every runtime update of mm->context[cpu] is made by
+CPU cpu itself. That patch relies on the invariant when it reads those
+slots to decide whether a shootdown can be skipped, so this one is tagged
+for stable as its prerequisite.
 
-with a bogus, huge delta, blocking the temperature read for a very long
-time instead of returning data. The heater_enable sysfs attributes are
-affected the same way (spurious -EBUSY and "1" readback).
-
-Store the deadline as a 64-bit jiffies value and compare it with
-get_jiffies_64()/time_before64(), which does not wrap in any practical
-uptime.
-
-Fixes: 0eed6fc3d2b9 ("hwmon: (sht4x): add heater support")
+Fixes: dd5712f3379c ("alpha: fix user-space corruption during memory compaction")
 Cc: stable@vger.kernel.org
-Signed-off-by: Tom Verdonck <tom.verdonck@inspiral.be>
-Link: https://patch.msgid.link/7b2087ccb963e097cf3f6333efaec0c46549003b.1790358356.git.tom.verdonck@inspiral.be
-[groeck: Squashed 'Fix torn read' patch into this one]
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+Reviewed-by: Matt Turner <mattst88@gmail.com>
+Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
+Link: https://lore.kernel.org/r/20261010144621.974850-2-linmag7@gmail.com
+Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hwmon/sht4x.c | 20 +++++++++++---------
- 1 file changed, 11 insertions(+), 9 deletions(-)
+ arch/alpha/mm/tlbflush.c | 16 ----------------
+ 1 file changed, 16 deletions(-)
 
-diff --git a/drivers/hwmon/sht4x.c b/drivers/hwmon/sht4x.c
-index 5a76361bb1350..f757265a82a6d 100644
---- a/drivers/hwmon/sht4x.c
-+++ b/drivers/hwmon/sht4x.c
-@@ -67,7 +67,7 @@ DECLARE_CRC8_TABLE(sht4x_crc8_table);
-  */
- struct sht4x_data {
- 	struct i2c_client	*client;
--	unsigned long		heating_complete;	/* in jiffies */
-+	u64			heating_complete;	/* in jiffies */
- 	bool			data_pending;
- 	u32			heater_power;	/* in milli-watts */
- 	u32			heater_time;	/* in milli-seconds */
-@@ -92,14 +92,14 @@ static int sht4x_read_values(struct sht4x_data *data)
- 	u8 crc;
- 	u8 cmd[SHT4X_CMD_LEN] = {SHT4X_CMD_MEASURE_HPM};
- 	u8 raw_data[SHT4X_RESPONSE_LENGTH];
--	unsigned long curr_jiffies;
-+	u64 curr_jiffies;
- 
--	curr_jiffies = jiffies;
--	if (time_before(curr_jiffies, data->heating_complete))
-+	curr_jiffies = get_jiffies_64();
-+	if (time_before64(curr_jiffies, data->heating_complete))
- 		msleep(jiffies_to_msecs(data->heating_complete - curr_jiffies));
- 
- 	if (data->data_pending &&
--	    time_before(jiffies, data->heating_complete + data->update_interval)) {
-+	    time_before64(get_jiffies_64(), data->heating_complete + data->update_interval)) {
- 		data->data_pending = false;
- 	} else {
- 		next_update = data->last_updated +
-@@ -237,7 +237,9 @@ static ssize_t heater_enable_show(struct device *dev,
- {
- 	struct sht4x_data *data = dev_get_drvdata(dev);
- 
--	return sysfs_emit(buf, "%u\n", time_before(jiffies, data->heating_complete));
-+	guard(hwmon_lock)(dev);
-+
-+	return sysfs_emit(buf, "%u\n", time_before64(get_jiffies_64(), data->heating_complete));
+diff --git a/arch/alpha/mm/tlbflush.c b/arch/alpha/mm/tlbflush.c
+index ccbc317b9a348..239c72b8a7412 100644
+--- a/arch/alpha/mm/tlbflush.c
++++ b/arch/alpha/mm/tlbflush.c
+@@ -90,22 +90,6 @@ void migrate_flush_tlb_page(struct vm_area_struct *vma, unsigned long addr)
+ 	 */
+ 	preempt_disable();
+ 	on_each_cpu(ipi_flush_mm_and_page, &d, 1);
+-
+-	/*
+-	 * mimic flush_tlb_mm()'s mm_users<=1 optimization.
+-	 */
+-	if (atomic_read(&mm->mm_users) <= 1) {
+-
+-		int cpu, this_cpu;
+-		this_cpu = smp_processor_id();
+-
+-		for (cpu = 0; cpu < NR_CPUS; cpu++) {
+-			if (!cpu_online(cpu) || cpu == this_cpu)
+-				continue;
+-			if (READ_ONCE(mm->context[cpu]))
+-				WRITE_ONCE(mm->context[cpu], 0);
+-		}
+-	}
+ 	preempt_enable();
  }
- 
- static ssize_t heater_enable_store(struct device *dev,
-@@ -279,14 +281,14 @@ static ssize_t heater_enable_store(struct device *dev,
- 
- 	guard(hwmon_lock)(dev);
- 
--	if (time_before(jiffies, data->heating_complete))
-+	if (time_before64(get_jiffies_64(), data->heating_complete))
- 		return -EBUSY;
- 
- 	ret = i2c_master_send(data->client, &cmd, SHT4X_CMD_LEN);
- 	if (ret < 0)
- 		return ret;
- 
--	data->heating_complete = jiffies + msecs_to_jiffies(heating_time_bound);
-+	data->heating_complete = get_jiffies_64() + msecs_to_jiffies(heating_time_bound);
- 	data->data_pending = true;
- 	return count;
- }
-@@ -410,7 +412,7 @@ static int sht4x_probe(struct i2c_client *client)
- 	data->client = client;
- 	data->heater_power = 200;
- 	data->heater_time = 1000;
--	data->heating_complete = jiffies;
-+	data->heating_complete = get_jiffies_64();
- 
- 	crc8_populate_msb(sht4x_crc8_table, SHT4X_CRC8_POLYNOMIAL);
  
 -- 
 2.53.0
