@@ -1,55 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046432;
-	b=L3/4buaJt+VppkxLrD++7rWIZ+6qQD7KmK9aHa0EqtzuG65JWx5tIQ6LsAq8elnyPFTw
-	 qaq0btK3t+U4kxmDdElxyd1URyNxdfU6BQugBPy5pq7MoqLfoLgjhunJ2MJusPW4OoBxr
-	 WED06d5RZpgQjyE1OYCZxvxJImUP76HgSeEHldMthq+TUcGdO0b2mOuvz74FZB4HQY7J7
-	 /uA6abjk+VZORsQGJhY4jp587rqgoLCf9mSst/E9C78sCsSYXdbPU3J6HMWtDAntAjc1k
-	 +NbBK7hho1/XDv5WcAVB2u/tWwTvMIQs27QUEt4c52dgNwkNlQ8hwIvtctyokS/nbkA==
+	t=1794046434;
+	b=PZpdnABTQzcm48mcv4MrltWhUnzt8bTecKtFuZOmQF5MZLSXgBqc0QJYy1+4V5aOcpmn
+	 83rJssq155QRbinL+bV7do4dYh6Kswn4dPFd7+CyewFlk3RrKHriY7+SQ6p7psLGI87Jd
+	 67JDRDEHRKGhANELaL2Ec5C9zrKO3COQvQOAHS0EjQxkhEHX8QVFqVcQ8CWTO0PCy60nx
+	 ZBWII9r76Or8MxLwe4Pwv8aIw0fCPrnJHjkF10Ut3KPRprG5qUGvV8ExFTaiMxVscGpeC
+	 Pe117FcaJp9T09yCSo9btHTjsCds4cMfbwklfypmEAbOJOZPBT2wT9OC+zBGHlJ8swA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046432;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046434;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=zRGoslc16QJshxNVapc4oY2rUAlwfGNPAzElDRC25Rk=;
-	b=Gas5cwxuh6ULJMTR9tAVIxDm0CpzpmYvC7sqcFnEHM3q9wwUBYiHYz/FhZklImH6gJvb
-	 olDxUbxpec2yMpIBBR/jHdhF9m0n98inOpujmyDaTo/CbNbXe17l2foktn9Lv47bBil+L
-	 bXyIFYP4JFJ3Fi1YpDJd6GVDWmgk0qihxAvv5GJTvI0erCBM6c21MFah7LF0IphiCc2Dc
-	 EubIVzHsz79xnFAnX2lPcZXGVI7bx/rj+f3puRG9GgHJTHGIt+vnU95djQAIptDYBlegL
-	 ybJsFjlA0jlYbFHaz3YfXu0vBWiouvSR0IgOlf5cL/oIhFwzY/gaUOGvcr0Vv5Q8dOg==
+	bh=rOWby7vFwoqmWQ7fDuToDbzqphzIIFxUxV634zTjUQc=;
+	b=WFrktleY3eARkVr4LxUjG5gqT+lhYeqhPQAjmwNvH+PJ+KRgfYMRKTMEM7UQtwJgsx5e
+	 iIw4cNUyjPx0vX8rWy2XPzP9/2fnEuwdDDHV0mYmzj+GLFf/NTaq5qw0b9idO4Dk0OSZA
+	 MMUNDe8/zFtfWZTifbsq2sU+gGSaf3KGbUDRtgi2AUNq2vT3QmmMCqYXmwU5aX2MXxecT
+	 ZAwNHe+TJbULBPjhWl4bmZZfI1YjGdkt+uuTwHI1S4BLe3GSOsy1jZHDYTrjgxufTFf1M
+	 IYeZI92CLUlW1xVs6RRQAwIT/AAWE6bzBQHII3THWz1xjXaAJex5B2EYl9ji8yBC9YA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c6o5+LN9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H1I1So9P;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09531606A33B
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:13:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65502606A333
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:13:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c6o5+LN9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16C7D1F008A5;
-	Sat,  7 Nov 2026 10:13:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H1I1So9P
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95B821F008A4;
+	Sat,  7 Nov 2026 10:13:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046431;
-	bh=zRGoslc16QJshxNVapc4oY2rUAlwfGNPAzElDRC25Rk=;
+	s=k20260515; t=1794046434;
+	bh=rOWby7vFwoqmWQ7fDuToDbzqphzIIFxUxV634zTjUQc=;
 	h=From:To:Cc:Subject:Date;
-	b=c6o5+LN9Bpc+qNmIeT3Cg0RfI66IcV4pODI+d9tQJkGgW9UrD8ATX75BUXiYyQ4Pt
-	 eEShFLLTI6KMLOJ3mpJrfv+htoCOugOU/7jekoDuMrotTf3A9UnbEpuiomhSXUN02E
-	 5Nl3DsshTiriRWfyQ04lSU00/z06FerX8HVaJ0ISeGpBRso4cMzv1imZ+YFruAEahe
-	 P1ojwwEAb5hf+bE6v0N3bwH2FUAVrOsW+wcgLdsGiw/brLIWFHNcRyO5Ri95R6RpBp
-	 UYmorfmpKo07PXSuFYHd59JXO1YvunOcuJFz7QGeskPYrZQLKEcBwSt4j9Sm/8PPle
-	 8IUmqELLPVweA==
+	b=H1I1So9P+Ce3Sal2M9abUX/KJumuLb1bk+8XnXHo8TYhRUGtElGT5HZL2w9NgFEp2
+	 +7GZQ6zWk32JpZyJ4v61ws9N4Su2KBjihaa3BqkqSSETO0vMWInTG8N47HpzTdw1cj
+	 0ss8PL9B2m30HmJYtJs00jM90/+LjuII5GDmT96GQyKbrEOPe62Y/8M5ekegIu8UtW
+	 h85n4pL+SJh3FVYBQGplV349OJ8DH8fHc6ocCLD6hAKuoDDgVoTiFgbNO2F7oCjia8
+	 Q/7nifZUsdNnFRBK8/FN1P6xJ9nXBMA9hhsw7CzYXVVbd2ewsanczOtl5kgVzu+9C/
+	 7F3UXyuwFaSeQ==
 From: Sasha Levin <sashal@kernel.org>
-To: zhilinz@nebusec.ai,
-	vega@nebusec.ai,
-	idosch@nvidia.com,
-	edumazet@google.com,
-	edumazet@kernel.org,
-	kuba@kernel.org
+To: stanleyjhu@google.com,
+	bvanassche@acm.org,
+	beanhuo@micron.com,
+	peter.wang@mediatek.com,
+	mkp@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ipmr: only copy pktinfo to cache reports" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:13:50 -0500
-Message-ID: <20261107051350-failed-6.18-94a6736bb5ab@kernel.org>
+Subject: FAILED: patch "[PATCH] scsi: ufs: core: Add a helper for clearing hba->outstanding_reqs" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:13:52 -0500
+Message-ID: <20261107051352-failed-6.18-22d14117ec18@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -72,91 +71,129 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 94a6736bb5abe6b2ef38490d0cab19c1c6a7c71f
+git cherry-pick -x 22d14117ec1845a81acb3a5c4be325f7e8332f70
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051350-failed-6.18-94a6736bb5ab@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051352-failed-6.18-22d14117ec18@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 94a6736bb5abe6b2ef38490d0cab19c1c6a7c71f Mon Sep 17 00:00:00 2001
-From: Zhiling Zou <zhilinz@nebusec.ai>
-Date: Tue, 20 Oct 2026 14:39:36 +0800
-Subject: [PATCH] ipmr: only copy pktinfo to cache reports
+From 22d14117ec1845a81acb3a5c4be325f7e8332f70 Mon Sep 17 00:00:00 2001
+From: Stanley Jhu <stanleyjhu@google.com>
+Date: Thu, 22 Oct 2026 11:44:39 +0800
+Subject: [PATCH] scsi: ufs: core: Add a helper for clearing
+ hba->outstanding_reqs
 
-ipmr_cache_report() prepares IP_PKTINFO on the original skb. The
-ipv4_pktinfo_prepare() helper updates skb->cb and clears the pktinfo fields
-when packet info is disabled. Since the skb can continue through the data
-path, preserve and restore its original control block around the helper.
+ufshcd_poll() and ufshcd_abort() each have their own copy of the code that
+clears bits in hba->outstanding_reqs under hba->outstanding_lock.
 
-The original implementation copies the entire control block to the report
-skb. For synthetic RTM_GETROUTE packets, NETLINK_CB data is interpreted as
-IPCB by the raw IPv4 receive path. With IP_RECVOPTS or IP_RETOPTS enabled,
-corrupted option offsets cause out-of-bounds reads or a stack buffer
-overflow. WHOLEPKT and WRVIFWHOLE reports also inherit stale IP option
-offsets when their header is prepended.
+Move that code into ufshcd_clear_outstanding_reqs() and its locked variant
+__ufshcd_clear_outstanding_reqs(), and use them in both functions. No
+functional change.
 
-Clear the report skb control block. Only prepare and copy pktinfo when the
-input skb has an IPv4 header. Synthetic route-query skbs use NETLINK_CB,
-not IPCB, so leave their report control block zeroed. Restore pkt->cb after
-preparing pktinfo for regular IPv4 packets.
-
-Fixes: bb7403655b3c ("ipmr: support IP_PKTINFO on cache report IGMP msg")
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Link: https://lore.kernel.org/netdev/20260903113055.GA90787@shredder/
-Suggested-by: Ido Schimmel <idosch@nvidia.com>
-Suggested-by: Eric Dumazet <edumazet@google.com>
-Signed-off-by: Zhiling Zou <zhilinz@nebusec.ai>
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
-Reviewed-by: Eric Dumazet <edumazet@kernel.org>
-Link: https://patch.msgid.link/0545f0c83f5ee2f6696210f87268e811ef655715.1792476357.git.zhilinz@nebusec.ai
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Link: https://lore.kernel.org/r/3779e125-9acc-42c8-9489-51b9e3c6716d@acm.org
+Suggested-by: Bart Van Assche <bvanassche@acm.org>
+Reviewed-by: Bean Huo <beanhuo@micron.com>
+Reviewed-by: Peter Wang <peter.wang@mediatek.com>
+Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
+Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+Link: https://patch.msgid.link/20261022034443.3034432-3-stanleyjhu@google.com
+Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
 ---
- net/ipv4/ipmr.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
+ drivers/ufs/core/ufshcd.c | 48 +++++++++++++++++++++++++++++----------
+ 1 file changed, 36 insertions(+), 12 deletions(-)
 
-diff --git a/net/ipv4/ipmr.c b/net/ipv4/ipmr.c
-index e4c51ca473019..acacaae05cc49 100644
---- a/net/ipv4/ipmr.c
-+++ b/net/ipv4/ipmr.c
-@@ -1063,6 +1063,7 @@ static void ipmr_cache_resolve(struct net *net, struct mr_table *mrt,
- static int ipmr_cache_report(const struct mr_table *mrt,
- 			     struct sk_buff *pkt, vifi_t vifi, int assert)
- {
-+	unsigned char pkt_cb[sizeof(pkt->cb)];
- 	const int ihl = ip_hdrlen(pkt);
- 	struct sock *mroute_sk;
- 	struct igmphdr *igmp;
-@@ -1118,8 +1119,6 @@ static int ipmr_cache_report(const struct mr_table *mrt,
- 		msg = (struct igmpmsg *)skb_network_header(skb);
- 		msg->im_vif = vifi;
- 		msg->im_vif_hi = vifi >> 8;
--		ipv4_pktinfo_prepare(mroute_sk, pkt, false);
--		memcpy(skb->cb, pkt->cb, sizeof(skb->cb));
- 		/* Add our header.
- 		 * Note that code, csum and group fields are cleared.
- 		 */
-@@ -1130,6 +1129,15 @@ static int ipmr_cache_report(const struct mr_table *mrt,
- 		skb->transport_header = skb->network_header;
+diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
+index f03a8d39fb7a8..f2e3b782f1fe8 100644
+--- a/drivers/ufs/core/ufshcd.c
++++ b/drivers/ufs/core/ufshcd.c
+@@ -5997,6 +5997,37 @@ static void ufshcd_clear_polled(struct ufs_hba *hba,
  	}
+ }
  
-+	memset(skb->cb, 0, sizeof(skb->cb));
-+	/* Route queries from ipmr_get_route() carry NETLINK_CB, not IPCB. */
-+	if (ip_hdr(pkt)->version) {
-+		memcpy(pkt_cb, pkt->cb, sizeof(pkt_cb));
-+		ipv4_pktinfo_prepare(mroute_sk, pkt, false);
-+		*PKTINFO_SKB_CB(skb) = *PKTINFO_SKB_CB(pkt);
-+		memcpy(pkt->cb, pkt_cb, sizeof(pkt_cb));
-+	}
++/*
++ * Return a bitmask of the transfer requests cleared from
++ * @hba->outstanding_reqs.
++ */
++static unsigned long __ufshcd_clear_outstanding_reqs(struct ufs_hba *hba,
++						     unsigned long mask,
++						     bool from_irq)
++	__must_hold(&hba->outstanding_lock)
++{
++	unsigned long completed_reqs = mask & hba->outstanding_reqs;
 +
- 	igmpmsg_netlink_event(mrt, skb);
++	if (from_irq) {
++		/* Do not complete polled requests from interrupt context. */
++		ufshcd_clear_polled(hba, &completed_reqs);
++	}
++	hba->outstanding_reqs &= ~completed_reqs;
++
++	return completed_reqs;
++}
++
++/*
++ * Return a bitmask of the transfer requests cleared from
++ * @hba->outstanding_reqs.
++ */
++static unsigned long ufshcd_clear_outstanding_reqs(struct ufs_hba *hba,
++						   unsigned long mask)
++{
++	guard(spinlock_irqsave)(&hba->outstanding_lock);
++	return __ufshcd_clear_outstanding_reqs(hba, mask, false);
++}
++
+ /*
+  * Return: > 0 if one or more commands have been completed or 0 if no
+  * requests have been completed.
+@@ -6007,6 +6038,7 @@ static int ufshcd_poll(struct Scsi_Host *shost, unsigned int queue_num)
+ 	unsigned long completed_reqs, flags;
+ 	u32 tr_doorbell;
+ 	struct ufs_hw_queue *hwq;
++	bool from_irq;
  
- 	/* Deliver to mrouted */
+ 	if (hba->mcq_enabled) {
+ 		hwq = &hba->uhq[queue_num];
+@@ -6016,12 +6048,9 @@ static int ufshcd_poll(struct Scsi_Host *shost, unsigned int queue_num)
+ 
+ 	spin_lock_irqsave(&hba->outstanding_lock, flags);
+ 	tr_doorbell = ufshcd_readl(hba, REG_UTP_TRANSFER_REQ_DOOR_BELL);
+-	completed_reqs = ~tr_doorbell & hba->outstanding_reqs;
+-	if (queue_num == UFSHCD_POLL_FROM_INTERRUPT_CONTEXT) {
+-		/* Do not complete polled requests from interrupt context. */
+-		ufshcd_clear_polled(hba, &completed_reqs);
+-	}
+-	hba->outstanding_reqs &= ~completed_reqs;
++	from_irq = queue_num == UFSHCD_POLL_FROM_INTERRUPT_CONTEXT;
++	completed_reqs = __ufshcd_clear_outstanding_reqs(hba, ~tr_doorbell,
++							 from_irq);
+ 	spin_unlock_irqrestore(&hba->outstanding_lock, flags);
+ 
+ 	if (completed_reqs)
+@@ -8056,7 +8085,6 @@ static int ufshcd_abort(struct scsi_cmnd *cmd)
+ 	struct ufshcd_lrb *lrbp = scsi_cmd_priv(cmd);
+ 	unsigned long flags;
+ 	int err = FAILED;
+-	bool outstanding;
+ 	u32 reg;
+ 
+ 	ufshcd_hold(hba);
+@@ -8151,11 +8179,7 @@ static int ufshcd_abort(struct scsi_cmnd *cmd)
+ 	 * Clear the corresponding bit from outstanding_reqs since the command
+ 	 * has been aborted successfully.
+ 	 */
+-	spin_lock_irqsave(&hba->outstanding_lock, flags);
+-	outstanding = __test_and_clear_bit(tag, &hba->outstanding_reqs);
+-	spin_unlock_irqrestore(&hba->outstanding_lock, flags);
+-
+-	if (outstanding)
++	if (ufshcd_clear_outstanding_reqs(hba, BIT(tag)))
+ 		ufshcd_release_scsi_cmd(hba, cmd);
+ 
+ 	err = SUCCESS;
 -- 
 2.53.0
 
