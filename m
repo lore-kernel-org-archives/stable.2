@@ -1,103 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.127.117
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794013820;
-	b=cx6hGLCSkpnRcEDqne7hLRb7jY8/P7VnaHMffayS4n+GKEkZuhfsXp1i36SCsivi8b+8
-	 Bm8wfUfOURR/VoJt9tz7tzAKWDVN8XAavSTeGZYdp+JHMTneBEWRSJI/NGdXhZFom6FNe
-	 6yOpY8HvcFr3q9lo++iq/x/AzciXJIBlRRjp69Hq2PGEynMsRAuAIJtZu/JkI2+GadNw8
-	 XtI7thMPgxMQ6r7XKU1ihXG/UYsrIkeSBu0ovHMixpBYQddapBWtrHB6WhYnTNXlYSAN6
-	 nCb4YacKyKR5ue9wcnNX4ghF62sOJiK6RFyGnwPMmhXMMHffw3/84X0OlznsDma0nKA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794013820;
-	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
-	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:Content-Type:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=nF1NbnWux934O0IIsujFl9xGbyeeKPnw5llJQ+nZFxA=;
-	b=rz754zU3nQiyPSFJv8IjwkE33Aj+CiljGSgI232VHRV8HaPF1cUAuPFliOtUug5cOZ8g
-	 w4zVKNXFkkPIbNY2qvP7DnVpxlVNAowM1QX/8Eqbc/15ftHIbIcESekvuYM091GFw4+Qu
-	 aOWrBulf+raHnz3pI9bG+jrt9j9Fh1EJMaSgKkOO5X7gBTZ6zBFXxtO+0hJt2eMTN2X15
-	 e6mb0XZ86HM6gUYMN+xSQzCWxr/Rab5LXHQMcfZ99DhRxBmJnZLksr67UJmvD5xup0xQG
-	 xNF1WDdiAodD256v7Sf9FhfcOScA/uxlwcZUspIT1i/Hz+4wnVqdw5mDxgLLpU1tAlA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=cixtech.com;
-	spf=pass smtp.mailfrom=cixtech.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.127.117
-Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11023117.outbound.protection.outlook.com [52.101.127.117])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794014808;
+	b=P4r8LMhcns6TjTEW5abuKFjsoKGTmiegPENW7UAstnAq5xxPMzMcCuKqUjrpLmFQIB6C
+	 jMUFbzRhRq5FNutJhVN+VWXOhvsGgnT+hi2cUKfyMYGDA12iDxRLcW+1wgI+Ljpx6pgoH
+	 pB5/2HqmYK+v/6OzZ7FXq3/wS/FncJrzB2MhEl5CM/t0b1CuVhqQI+sYZV8QfSQBiijJd
+	 FfTOXTMVO37Mb4SbJQQtGxCKXH9/gV5voLEDEl2QrzAfEl63cUZbKHeugxXHxyqUG6d3N
+	 TzJE9t8s8wIh2sjSIAu9ETHUL1ia3Yz7zeh9LRTexv1zQUbYbjZBdolihcHIt/l5VUQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794014808;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=wlXk6HYre5osGueEzlFOqp7fwiA8+1yEGjyN3cM9QVU=;
+	b=w2g+uE39g00x2RLrxIVnn1LEz93wSGZwT5b9c0mZQnVFbR8ER6+g/tW1DXyiWopNYyjs
+	 8tyD0+t1RDXKnm6zXO72iHLjbwOzXDzZqgRDacSIXN5FZrxLLBeszQ06OYW6qz5CfX22j
+	 g9Fg3DfUL6TFGoJkrVpFGWnsR1EzjBgJwsjeLJ+s47kkxry2Zgr0Jsqy2P3Tai1tJsiJk
+	 24I8I6YPqnNlaZJm6HXzwlb4j/pJO6axI+6cXuA9zZhrw04N3a0iezuahRUoSfOo0pjBD
+	 y/USKLK5D0uJ7Ttexvmk1Uiv2m3B4rdcHOkssswE0yT9ak0D/Es2XUlP9RbKZBgE9bw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EhgaWgwd;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD41F606A32F;
-	Sat,  7 Nov 2026 01:10:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD41F606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BhGnnyi7xacB6tCA95mljpvd3umOVUQklP/N4sFjADPOJkwRmoZV69OquGXJNPufDxCrBPhxuXEms1PhofwCq0JzJrp2/3WWHq/Lb3gY5RtlyjK9t4zcSI2Xu1d5ZCp5R8bzGHR8gt/mipcgDrB9o+S0S3KGpRkLuLzoNXnN0x/Sn1w1AVvl1stz/vUlzVG+raKCz+x82OUepuFL7ZJ9KIPzIeaLhyh7VTEIAye7GOWxjtmoJidxmcSY4xAcB92WxaEyQ+rfaahi0i+bEG7BT8EiYJk7QylkQem8vVQQF0DM329SJTmbPNOB+bTACNnnPR5wX+wrouztN83jCFmk+Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nF1NbnWux934O0IIsujFl9xGbyeeKPnw5llJQ+nZFxA=;
- b=Fz9YMC/c21nn1mLUbMcU4aUetbZIDgbo5wa00Ho2gfpKI4u06lk2KFHX/sjfmqQQrlUOpB9F52rSYLnfABa68vQadeHah6fyDlGs8e//9vYQEA0FruQ1NinFPXhm1BsP1pkBqfD8sI9oN2K64yZXRzdSImOydWfdKnvWJb6EnNPTNdqEaeFVNDAvg6CGBTTiCC54mJHrtMywVLWhtpZvvciy48SyK6AOX/helD4YI5qDC8qyRcNdVaXAXp3l60zF9h3qoP6U+65BJhKcPiXyZhpBTlvPIIWVEWgLc4L9kzenfALBhq/GcbtSjpmkOVU3aIMSZY5FTMu9GyjopLY5Og==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=cixtech.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from PS2PR01CA0044.apcprd01.prod.exchangelabs.com
- (2603:1096:300:58::32) by KL1PR0601MB5535.apcprd06.prod.outlook.com
- (2603:1096:820:b5::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.5; Sat, 7 Nov 2026
- 01:10:14 +0000
-Received: from TY2PEPF0000AB85.apcprd03.prod.outlook.com
- (2603:1096:300:58:cafe::f) by PS2PR01CA0044.outlook.office365.com
- (2603:1096:300:58::32) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.11 via Frontend Transport; Sat, 7
- Nov 2026 01:10:14 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- TY2PEPF0000AB85.mail.protection.outlook.com (10.167.253.5) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Sat, 7 Nov 2026 01:10:13 +0000
-Received: from gary-System-Product-Name (unknown [172.16.64.55])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 10BF040920E2;
-	Sat,  7 Nov 2026 09:10:13 +0800 (CST)
-From: Gary Yang <gary.yang@cixtech.com>
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Fugang Duan <fugang.duan@cixtech.com>
-Cc: linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E37D606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 01:26:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E37D606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EhgaWgwd
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so11620895e9.2
+        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 17:26:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794014807; x=1794619607; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wlXk6HYre5osGueEzlFOqp7fwiA8+1yEGjyN3cM9QVU=;
+        b=EhgaWgwdErraFHP2TfEO3j2VLtOc9jTnlpqMvMk9e4xm8Rg3dfkoUOFnStr7CAHL3r
+         9ASP/OzoJtz363Fn5iQ3S5HtI7QzGV6U2Kl+R+zSTR0Yq/FbQYSGfYcBg+TayNYjDUVy
+         i2grb49jxpLX2BmhxhhPocm1vxflVuDEsfSAGHSzGaJ7kuoJwamRaiBUaafu5Ko/qops
+         3QvJ9jATcicC8RJlPQG8d0/xw//LDKWkpqn3iQ1ynFwVHvJFr2OSQeVFhswaaXXNLWJg
+         0/XV7SfDdOFZRhmLCbPmA2gzhB38bSnMNWPWjDMn0w5RB7WLrdsryj4kSx+eYHPsZM/l
+         PZmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794014807; x=1794619607;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wlXk6HYre5osGueEzlFOqp7fwiA8+1yEGjyN3cM9QVU=;
+        b=w58VMWa26sRnAs5P5kjef0MkoC3331FpR6OZPoMNS5AnnFgswIwdDVuKY1qLiyD3nS
+         BjAJvISLoEjnBUyM/0rQks49YEk+KfmokEaBVntrLykIG8clq4e+s6RySAt8lSPlWjZe
+         9sps9MSiHJMpXl0igx58yQjZGYzvjjC39hBg8ZVapfMoeGdOTXK9Wv5ar7ux3KJAUDcA
+         YcUm8GgGdxmWlTjbfW5xtrgRDgZhcAtHX7YeU1gsOkdYEKaJX9cRC8kS05hH/CnPyqUI
+         u7S7bIcAt8zHNiH01/z1inzOFlIQU1OD0LM2gzLLt1q8mKU5JP48rxLmXzTN/ehAwbil
+         zBbg==
+X-Forwarded-Encrypted: i=1; AKwUvBxH0qNdIewhl0SdX78eW01CW8pWuRBhblyi58h4WmqffQYQbrfz4FDG0AfFDkUysISkBtqZNiY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9zz4yOKMe1mQu3xEDXulhy396hJJ5CdoBZFb/LhQu8fqmatZZK
+	eBFnw1v9kSoxC9JKRUUXzanKOnsimHOkgeH3bP2jMf4hNT1rDXoOLwke
+X-Gm-Gg: AYBFou1QrZUlZX9dioNji4FfCng1z8AtleFySXLt6vrumurUwFxcRn04uh//4HOYHwa
+	yj344E0cSFrM7bpLrsfyGJj8AqJ3/13IL+1d9LgSHC2Dzv0IbBvQQR5FulUsV8K/83gfw4aOQ1T
+	s2QHWBmec9j8vEN5xH8vG0PuOzJRNfBLd8ZEpTuOPuWItoHT97DQLxK7FPlP2Ee47sSZG2IqE4u
+	GvdmxS0B6ZKlGFQBswwOUhInhYpSm+x/7Iwwf6XmgOXmG1ujlMdQNZOTw2R19571In+U23VQgD9
+	F3jPHPnd6DUczNwJEnd+gg2MegoaAuA46PGKa6RMyIq+BciSxePemXwfkOaDpMZQThouizXl6xb
+	co1FOtwFpNm4lsA3orsURtF/Yx/5rllOanbN78NkfqKDb9jFpRAMt3rUslAvWuL39hZ+suvr3mk
+	RuAnRS+XyFSpzynq+Gz47b0rdWmuBsQmLDmzxOPKwK046dfaUZ5wqnl49gJydjMxfffxLMpvQRx
+	R4nyHKfrESR/ayx9F6noN1xzY4lRNhHFUyS8TSehgBB115wYnETVkARtElpvzLQdOPHL6NtrioU
+	EPGW7dJtelNvPgd9IJ5eZoFRpANWnpU03I3xCjuh9A==
+X-Received: by 2002:a05:600c:3f06:b0:4ac:da92:2bd4 with SMTP id 5b1f17b1804b1-4b6dc6ded37mr61622705e9.1.1794014806720;
+        Fri, 06 Nov 2026 17:26:46 -0800 (PST)
+Received: from beelink ([187.13.199.38])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7e3271abasm22773105e9.4.2026.11.06.17.26.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 17:26:46 -0800 (PST)
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+To: Jason Gerecke <killertofu@gmail.com>
+Cc: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	Ping Cheng <ping.cheng@wacom.com>,
+	Jason Gerecke <jason.gerecke@wacom.com>,
+	linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	cix-kernel-upstream@cixtech.com,
-	gary.yang@cixtech.com,
 	stable@vger.kernel.org
-Subject: [PATCH 3/4] arm64: dts: cix: fix I2C bus address and size cells on Sky1
-Date: Sat,  7 Nov 2026 09:10:11 +0800
-Message-ID: <20261107011012.3655873-4-gary.yang@cixtech.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261107011012.3655873-1-gary.yang@cixtech.com>
-References: <20261107011012.3655873-1-gary.yang@cixtech.com>
+Subject: [PATCH v4] HID: wacom: validate battery range before scaling
+Date: Fri,  6 Nov 2026 22:26:36 -0300
+Message-ID: <20261107012636.1008932-1-qwe.aldo@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261106213526.3393779-1-qwe.aldo@gmail.com>
+References: <20261106213526.3393779-1-qwe.aldo@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -108,126 +103,77 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY2PEPF0000AB85:EE_|KL1PR0601MB5535:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 11a8199d-be37-42cd-d45a-08df3c6be0d3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700016|82310400026|23010399003|7416014|376014|22082099003|18002099003|6133799003|10067099003|261026121527099003|261102123227099003|56012099006|261021121427099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	0+OwgyFN256T6wMqvJ5k8i04yBHNQWLSWXcaNMc49dTolqKKbok/W5rG4CHJTb5Hdy1C5kx5z+vjf6fh1UiUuRZSioJe2DUb8WJPRxjjCsZB41DsjI/uQWaWv0MyKt+FuhEonAyCFr8cPB4Md7WY+l87ItPFxGpEjoROhSJFY4TQusYdOhl1+Pu4Nwl/c+4jnteIKik080quKNaMVMbt2I6hs2rQtYWIgNYmalhs74/i4IlAP8NPE6Q52+R49jDPrn4WD2lf89HZYBW9yr5D5hNR+6yWRSOEcmaxlyV2q6g6Gq8pZh1n5XP4rNTeJFgw+51rz3DHeF8ejlSiSlYmPZ3M308HiQ7vidwdzEA79VDo0Dj26KYNdyZrugR0JcoDbU8XsCUzdWD4HIzkq5oYGTAl3/0BHf+K8RTFJyckLhaGEbntzM3px1AgzxTU+FtrVvCwHe/BfWaRB9paGPW6qTQqdHdqb2wIpjNTqMJYiL9W8Zio5WMlS6ZszKxpCASofGxL6tDyxzkZPb1VWJVLc+eU1Th8e3FNlYpWSNqYkYQm09LGQEHaMnXgNwTEB3o1KnNBIXqg7tIeG37/jEV8xVlaaKbOCjVQ9clEr97MlxtOiVOt2c/cLowl4TJ5K4YLjdhAtolD99th5djAErjow2UsnKZWNBn3CsM7boUesYtJjoh3Oygzg6xKaua4k0w+
-X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(82310400026)(23010399003)(7416014)(376014)(22082099003)(18002099003)(6133799003)(10067099003)(261026121527099003)(261102123227099003)(56012099006)(261021121427099003)(261009223027099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	WvKJ6g1mVigJE1y1i+30pgYQbfGC5NsKZMqqxxksgnbz8jH0GleWnmHODtAEUB9WxmcGXvcnu6vvnf0VOcqtPyEh1HOZ8lK5+oFZwuLyA4nLBamp854otRWHz84A6fz1wFCB7JYdLXBDZcikKfL83+lGOqnhg7cxx+HnM4DdbLkCXB7rJ+/6XMnWLQqHVHNepMWGyMnY3pgnN6xdwAKgzuT23oOnxkTbB+psZjFJXroOqZ2ruvQERdNw93duGUBJ+GJ83BKePiLQKglfS+EFLxvzTYIT90V/AAYMu9414pSYlfQMqwGpdcNYJ/JNQWXr+MkL+VSh/wAXB3oyXcOOtUNmGDjts47edFsipXlvDI93yQPD8a2pG+rhoCdIxPMZgiVzijqMWEnU9+5rhlem/Hxsp2j/bygn45rCxPsSB0Jo8JMQtPO36yUovr6rAOV1
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2026 01:10:13.8986
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 11a8199d-be37-42cd-d45a-08df3c6be0d3
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	TY2PEPF0000AB85.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: KL1PR0601MB5535
 
-The I2C controller nodes inherit #address-cells = <2> and #size-cells
-= <2> from the soc@0 bus, but I2C child devices always use a
-single-cell address and no size. With the inherited values every
-child node triggers a reg_format warning, and a device described on
-the bus would be decoded with the wrong address layout.
+Battery events divide by the difference between the logical maximum
+and minimum without validating the range.  A malformed HID descriptor
+with equal limits can therefore trigger a divide-by-zero exception.
 
-Set #address-cells = <1> and #size-cells = <0> on all eight I2C
-controllers, matching the I3C nodes that already do so.
+Move percentage conversion to a helper that rejects non-positive
+ranges and accounts for a nonzero logical minimum.  Clamp the result
+to [0, 100] as an additional safeguard against out-of-range
+percentages.
 
-Fixes: fad32e8ac460 ("arm64: dts: cix: add DT nodes for all I2C and I3C ports for sky1")
+Fixes: 37d160193834 ("HID: wacom: generic: Scale battery capacity measurements to percentages")
 Cc: stable@vger.kernel.org
-Signed-off-by: Gary Yang <gary.yang@cixtech.com>
+Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 ---
- arch/arm64/boot/dts/cix/sky1.dtsi | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/cix/sky1.dtsi b/arch/arm64/boot/dts/cix/sky1.dtsi
-index 0a820f45feb9..a18e8fd43fcf 100644
---- a/arch/arm64/boot/dts/cix/sky1.dtsi
-+++ b/arch/arm64/boot/dts/cix/sky1.dtsi
-@@ -290,6 +290,8 @@ soc@0 {
- 		i2c0: i2c@4010000 {
- 			compatible = "cdns,i2c-r1p14";
- 			reg = <0x0 0x04010000 0x0 0x10000>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
- 			clock-frequency = <400000>;
- 			clocks = <&scmi_clk CLK_TREE_FCH_I2C0_APB>;
- 			interrupts = <GIC_SPI 286 IRQ_TYPE_LEVEL_HIGH 0>;
-@@ -299,6 +301,8 @@ i2c0: i2c@4010000 {
- 		i2c1: i2c@4020000 {
- 			compatible = "cdns,i2c-r1p14";
- 			reg = <0x0 0x04020000 0x0 0x10000>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
- 			clock-frequency = <400000>;
- 			clocks = <&scmi_clk CLK_TREE_FCH_I2C1_APB>;
- 			interrupts = <GIC_SPI 287 IRQ_TYPE_LEVEL_HIGH 0>;
-@@ -308,6 +312,8 @@ i2c1: i2c@4020000 {
- 		i2c2: i2c@4030000 {
- 			compatible = "cdns,i2c-r1p14";
- 			reg = <0x0 0x04030000 0x0 0x10000>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
- 			clock-frequency = <400000>;
- 			clocks = <&scmi_clk CLK_TREE_FCH_I2C2_APB>;
- 			interrupts = <GIC_SPI 288 IRQ_TYPE_LEVEL_HIGH 0>;
-@@ -317,6 +323,8 @@ i2c2: i2c@4030000 {
- 		i2c3: i2c@4040000 {
- 			compatible = "cdns,i2c-r1p14";
- 			reg = <0x0 0x04040000 0x0 0x10000>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
- 			clock-frequency = <400000>;
- 			clocks = <&scmi_clk CLK_TREE_FCH_I2C3_APB>;
- 			interrupts = <GIC_SPI 289 IRQ_TYPE_LEVEL_HIGH 0>;
-@@ -326,6 +334,8 @@ i2c3: i2c@4040000 {
- 		i2c4: i2c@4050000 {
- 			compatible = "cdns,i2c-r1p14";
- 			reg = <0x0 0x04050000 0x0 0x10000>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
- 			clock-frequency = <400000>;
- 			clocks = <&scmi_clk CLK_TREE_FCH_I2C4_APB>;
- 			interrupts = <GIC_SPI 290 IRQ_TYPE_LEVEL_HIGH 0>;
-@@ -335,6 +345,8 @@ i2c4: i2c@4050000 {
- 		i2c5: i2c@4060000 {
- 			compatible = "cdns,i2c-r1p14";
- 			reg = <0x0 0x04060000 0x0 0x10000>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
- 			clock-frequency = <400000>;
- 			clocks = <&scmi_clk CLK_TREE_FCH_I2C5_APB>;
- 			interrupts = <GIC_SPI 291 IRQ_TYPE_LEVEL_HIGH 0>;
-@@ -344,6 +356,8 @@ i2c5: i2c@4060000 {
- 		i2c6: i2c@4070000 {
- 			compatible = "cdns,i2c-r1p14";
- 			reg = <0x0 0x04070000 0x0 0x10000>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
- 			clock-frequency = <400000>;
- 			clocks = <&scmi_clk CLK_TREE_FCH_I2C6_APB>;
- 			interrupts = <GIC_SPI 292 IRQ_TYPE_LEVEL_HIGH 0>;
-@@ -353,6 +367,8 @@ i2c6: i2c@4070000 {
- 		i2c7: i2c@4080000 {
- 			compatible = "cdns,i2c-r1p14";
- 			reg = <0x0 0x04080000 0x0 0x10000>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
- 			clock-frequency = <400000>;
- 			clocks = <&scmi_clk CLK_TREE_FCH_I2C7_APB>;
- 			interrupts = <GIC_SPI 293 IRQ_TYPE_LEVEL_HIGH 0>;
--- 
-2.50.1
+Changes in v4:
+- Reword commit message: describe clamp as a defensive safeguard
+  rather than claiming it handles a specific ADC scenario.  The
+  caller already filters out-of-range values.  Code unchanged.
+
+Changes in v3:
+- Drop s64 widening and div64_s64 as requested by Jason Gerecke.
+  Use __s32 range with a <= 0 guard instead. Keep the clamping.
+
+Changes in v2:
+- Clamp the computed percentage to [0, 100] instead of returning
+  false, so that slightly out-of-range ADC values do not prevent
+  battery registration or silently drop updates.
+
+ drivers/hid/wacom_wac.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/hid/wacom_wac.c b/drivers/hid/wacom_wac.c
+index 361738b..36bab07 100644
+--- a/drivers/hid/wacom_wac.c
++++ b/drivers/hid/wacom_wac.c
+@@ -1960,6 +1960,16 @@ static void wacom_wac_battery_usage_mapping(struct hid_device *hdev,
+ 	return;
+ }
+
++static __s32 wacom_wac_battery_percentage(struct hid_field *field, __s32 value)
++{
++	__s32 range = field->logical_maximum - field->logical_minimum;
++
++	if (range <= 0)
++		return 0;
++
++	return clamp_val((value - field->logical_minimum) * 100 / range, 0, 100);
++}
++
+ static void wacom_wac_battery_event(struct hid_device *hdev, struct hid_field *field,
+ 		struct hid_usage *usage, __s32 value)
+ {
+@@ -1973,7 +1983,7 @@ static void wacom_wac_battery_event(struct hid_device *hdev, struct hid_field *f
+ 			wacom_wac->hid_data.bat_status = POWER_SUPPLY_STATUS_UNKNOWN;
+ 		}
+ 		else {
+-			value = value * 100 / (field->logical_maximum - field->logical_minimum);
++			value = wacom_wac_battery_percentage(field, value);
+ 			wacom_wac->hid_data.battery_capacity = value;
+ 			wacom_wac->hid_data.bat_connected = 1;
+ 			wacom_wac->hid_data.bat_status = WACOM_POWER_SUPPLY_STATUS_AUTO;
+@@ -1981,7 +1991,7 @@ static void wacom_wac_battery_event(struct hid_device *hdev, struct hid_field *f
+ 		wacom_wac->features.quirks |= WACOM_QUIRK_BATTERY;
+ 		break;
+ 	case WACOM_HID_WD_BATTERY_LEVEL:
+-		value = value * 100 / (field->logical_maximum - field->logical_minimum);
++		value = wacom_wac_battery_percentage(field, value);
+ 		wacom_wac->hid_data.battery_capacity = value;
+ 		wacom_wac->hid_data.bat_connected = 1;
+ 		wacom_wac->hid_data.bat_status = WACOM_POWER_SUPPLY_STATUS_AUTO;
+--
+2.53.0
 
