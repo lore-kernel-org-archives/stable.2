@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048341;
-	b=fBxRXeLHlPTI921mCrAoIZB8eW8YIL1B9x5GhN35hlycVBA8/U7mWGwwxVnyE1t7rSnu
-	 8+9YFQ2IrdLOvxcWtW0ijpIcVzrKdh5BlT1bhyverp2xLCg15LNI51KY2AkUpeQcShsTj
-	 3seDvzcThola350xDMR1G25aKkBz6teg2GXMfCnsl84MKp+fHFDtB/F3rSMR7/oDXxE5U
-	 ZGAW4+EL6TaOkcOmQqtgB5IQpN7T0oFH6n+Df5TRDTS6DhDlAHKkayyCaT80S/Qpb+Umq
-	 f2z/6DjkFF5oOIlXusFCKOOsk/e4ObofVAuMStpjQDTPW7BVXhhjSC9LHo5l/NA3rDQ==
+	t=1794048344;
+	b=f1PpG2wruHqezN09bD7nckXu0lrvGiAblkUxa3XrdWsItxrIGibbHaneOjj1E/5lZZac
+	 a/p1ImKoU4wd45oF/h3yIodJPmIHA3JxYivjAHjbdXI/uo/+MVGHywb/OZsK9Hu8haR81
+	 6uVfNkzILcuuosdroTnAkBKzn2DQ9fuv+YkegGFNjYHcV5dw2LFuS2QDYcS747UCLDFw8
+	 gNHfz2r4n1xg5HHisKfTxcimiOCqh10991bvgtunHrAQtnDmrax/FPHyru9rx/W2wnmRi
+	 do08ZgLubU9CHvSXCRHFprzWhsCcHpNe5mRdg2B1rultxN1UZBgzBpmle0mMY9IBg/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048341;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048344;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=sctJ+tpyrr1DB3gx0+6asbHycqsRjN/DoJakPoTZrhI=;
-	b=fw3vnxllyuv71XLp+4nJkcGNaDYwxYD1lOuCee5uj9OOzT00foQ2hJT+uFy1utSMhUPE
-	 oQyC+8TjDE7dIxGH0glv8UVZYbgXVExuc1nbxjU6AE6hyswMvWcV8p9PuGmoWQ4M31t/G
-	 apZuO3hltk2MYNwzSS4Hgb/WaKiCl9iX8FVjDwXKm5zpZqC0+3oF1fau39UilVTs0vwbQ
-	 PQ5GvXSQRFiu/7bgLXBKH0eXHmI8melmUJH26QH0irYI3yA6KbwIb3KA76a2t5iGcRRUL
-	 2xVbdzuPqr477kf+0bgu5n9VICQ86KODCFceXHt+WVfLcJ8nmQ4eiRxbC12MTBT01Lw==
+	bh=E6IrQqLaRDpLH/sT3GJJTO4m8ZqWBJ1h3o7duZOEWTE=;
+	b=KxnZhfTFj7G4p7LeoNoYKewXAtgno2rMzErO5Eeo+mkkh5QQ5DZeAcylijHi9lkszXcM
+	 l3Q2AIyK+CAneYI9PEh0AGRtQxhAzGGnNcv9+AySC1shMwNjkjmCe4HBDa0ZxgrFgC0lr
+	 qrvGEDEhft5eY3WJB7Y3ZUWeC+bSNkXDcC5jk6CQvkm8ZEVcH94cty5Fd70A01MeDZTeq
+	 KJ3zMaO6SlBB6isvOeAZkNKb5aMJ5dUTLf+ohJkzWQTmmT9Ww8hRxWe2jsBKBFWbh/pW9
+	 Gd1icxR8Rr/wQUsLKhkdRlPrOe0CHOM0hylSiMSizfx8jhk/XxhnaigEW/gmcHz29jg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A7FU1Wog;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FazwWfYI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C386E606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:45:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D839606A32D
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:45:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A7FU1Wog
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AC6E1F0089F;
-	Sat,  7 Nov 2026 10:45:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FazwWfYI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48EA71F0089F;
+	Sat,  7 Nov 2026 10:45:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048340;
-	bh=sctJ+tpyrr1DB3gx0+6asbHycqsRjN/DoJakPoTZrhI=;
+	s=k20260515; t=1794048343;
+	bh=E6IrQqLaRDpLH/sT3GJJTO4m8ZqWBJ1h3o7duZOEWTE=;
 	h=From:To:Cc:Subject:Date;
-	b=A7FU1Wog8Jexb0w83dkvK1b0Y4dwS5tGXvxWc1/AmZQHYVZ0CVXKrWK6LMgz7/xzD
-	 d4HRUsjfvKkfmxGpAJ+ZLMjq+2chDQGOlXfnuMUIlTujloA5xpEeyTZ1Fkg4mboXCs
-	 xM0mnr6Zwq13DW2fmvOlpx0vxMkBfdbZN+q5sRT18N6BELslLTkKKYeUdpm2c9nCsP
-	 iHTvAmGSZEJOu3mLoGfb6BVEvxBiP+A5KT21UVqi41CkUFOjWazfKNtmjhYzoqUtoC
-	 kNUUFEk3hn7yIdLhek+zSFPTnAJbSViu8z2mEEzEvVqhglein43pJtuWVp1rRdIzSH
-	 HN8ebNUiwYiiQ==
+	b=FazwWfYI5pUbMFsMSiMU5MYNx5ybA53Nuk3IaGx74mMNpnDcV9mFPzajo5Xmv1cBt
+	 VN0vgPjkJTrC6JVq5m478Al/cn5EJtjb6L2HWed7/E/hxsPif88Jedmay4TotlpErE
+	 hXZCqil24KfLKUoSa8hzlILKpEbUfyU+iFVIqIGrBWTq1S6ELgfXOjYHZ4NqEHU0fF
+	 lsFWbHoM4jxcZObzKMkvWtvs6oS7VSQwPp7lFT64jbjoM7YGr7d0Y9o5+viTRqTKPg
+	 ySxNrv3JLyxfQ7a2P5734rYk5ZookqztRI5aRmwF5BgX+MfwlbJUA5gyAnEAJl8K35
+	 cib/FVVU1shdA==
 From: Sasha Levin <sashal@kernel.org>
-To: bartosz.golaszewski@oss.qualcomm.com,
-	sashiko-bot@kernel.org,
-	mani@kernel.org,
-	vkoul@kernel.org
+To: southampton.jake.labelle@gmail.com,
+	konishi.ryusuke@gmail.com,
+	slava@dubeyko.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] dmaengine: qcom: bam_dma: free interrupt before the clock in error path" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:45:38 -0500
-Message-ID: <20261107054538-failed-6.1-82eed160cfa7@kernel.org>
+Subject: FAILED: patch "[PATCH] nilfs2: validate directory position after llseek in readdir" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:45:41 -0500
+Message-ID: <20261107054541-failed-6.1-de7f49c12566@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,85 +69,103 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 82eed160cfa7a296ae4eb5acb8dd8f493323eea7
+git cherry-pick -x de7f49c12566cc5c7437a2f26c6c754b9d4d5648
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054538-failed-6.1-82eed160cfa7@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054541-failed-6.1-de7f49c12566@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 82eed160cfa7a296ae4eb5acb8dd8f493323eea7 Mon Sep 17 00:00:00 2001
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Date: Thu, 8 Oct 2026 11:54:35 +0200
-Subject: [PATCH] dmaengine: qcom: bam_dma: free interrupt before the clock in
- error path
+From de7f49c12566cc5c7437a2f26c6c754b9d4d5648 Mon Sep 17 00:00:00 2001
+From: Jake Labelle <southampton.jake.labelle@gmail.com>
+Date: Thu, 8 Oct 2026 20:52:48 +0900
+Subject: [PATCH] nilfs2: validate directory position after llseek in readdir
 
-The BAM interrupt is requested with a devres helper and so on error it's
-freed after probe() returns. We disable the clock before freeing or
-masking it so it may still fire and we may end up reading BAM registers
-with clock disabled.
+nilfs_readdir() uses ctx->pos, which userspace can set to an arbitrary
+value via llseek, as an offset into the directory folio and parses
+whatever bytes sit there as a directory entry.  A position pointing
+into the middle of an entry -- or at unused bytes of a corrupted image
+that the page validator never inspected -- makes dir_emit() copy up to
+255 (name_len) bytes from a bogus entry, possibly reading past the end
+of the folio and returning unrelated memory contents to userspace.
 
-Stop using devres for interrupts as we free it in remove() manually
-anyway. Add an appropriate label and free the interrupt before disabling
-the clock in error path and in remove().
+Snap unaligned positions onto a valid entry boundary by walking the
+rec_len chain from the chunk start before parsing, as ext2 does in
+ext2_validate_entry().
 
+[ryusuke: fixed offset wrap-around in nilfs_validate_entry() and
+ conformed AI tag to guidelines]
+
+Fixes: 2ba466d74ed7 ("nilfs2: directory entry operations")
+Assisted-by: Claude:claude-mythos-5
+Signed-off-by: Jake Labelle <southampton.jake.labelle@gmail.com>
 Cc: stable@vger.kernel.org
-Fixes: e7c0fe2a5c84 ("dmaengine: add Qualcomm BAM dma driver")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260427-qcom-qce-cmd-descr-v16-0-945fd1cafbbc%40oss.qualcomm.com?part=2
-Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Link: https://patch.msgid.link/20261008-bam-dma-free-irq-v28-1-5e5b10de441e@oss.qualcomm.com
-Signed-off-by: Vinod Koul <vkoul@kernel.org>
+Signed-off-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
+Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
 ---
- drivers/dma/qcom/bam_dma.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ fs/nilfs2/dir.c | 34 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 34 insertions(+)
 
-diff --git a/drivers/dma/qcom/bam_dma.c b/drivers/dma/qcom/bam_dma.c
-index 94cb957d4b187..f67a93a37d48c 100644
---- a/drivers/dma/qcom/bam_dma.c
-+++ b/drivers/dma/qcom/bam_dma.c
-@@ -1332,8 +1332,8 @@ static int bam_dma_probe(struct platform_device *pdev)
- 	for (i = 0; i < bdev->num_channels; i++)
- 		bam_channel_init(bdev, &bdev->channels[i], i);
+diff --git a/fs/nilfs2/dir.c b/fs/nilfs2/dir.c
+index 8b53802b6ebd7..7686ca9228fc8 100644
+--- a/fs/nilfs2/dir.c
++++ b/fs/nilfs2/dir.c
+@@ -231,11 +231,27 @@ static struct nilfs_dir_entry *nilfs_next_entry(struct nilfs_dir_entry *p)
+ 					  nilfs_rec_len_from_disk(p->rec_len));
+ }
  
--	ret = devm_request_irq(bdev->dev, bdev->irq, bam_dma_irq,
--			IRQF_TRIGGER_NONE, "bam_dma", bdev);
-+	ret = request_irq(bdev->irq, bam_dma_irq, IRQF_TRIGGER_NONE,
-+			  "bam_dma", bdev);
- 	if (ret)
- 		goto err_bam_channel_exit;
- 
-@@ -1366,7 +1366,7 @@ static int bam_dma_probe(struct platform_device *pdev)
- 	ret = dma_async_device_register(&bdev->common);
- 	if (ret) {
- 		dev_err(bdev->dev, "failed to register dma async device\n");
--		goto err_bam_channel_exit;
-+		goto err_free_irq;
- 	}
- 
- 	ret = of_dma_controller_register(pdev->dev.of_node, bam_dma_xlate,
-@@ -1385,6 +1385,8 @@ static int bam_dma_probe(struct platform_device *pdev)
- 
- err_unregister_dma:
- 	dma_async_device_unregister(&bdev->common);
-+err_free_irq:
-+	free_irq(bdev->irq, bdev);
- err_bam_channel_exit:
- 	for (i = 0; i < bdev->num_channels; i++)
- 		tasklet_kill(&bdev->channels[i].vc.task);
-@@ -1410,7 +1412,7 @@ static void bam_dma_remove(struct platform_device *pdev)
- 	/* mask all interrupts for this execution environment */
- 	writel_relaxed(0, bam_addr(bdev, 0,  BAM_IRQ_SRCS_MSK_EE));
- 
--	devm_free_irq(bdev->dev, bdev->irq, bdev);
-+	free_irq(bdev->irq, bdev);
- 
- 	for (i = 0; i < bdev->num_channels; i++) {
- 		bam_dma_terminate_all(&bdev->channels[i].vc.chan);
++static inline unsigned int
++nilfs_validate_entry(char *base, unsigned int offset, unsigned int mask)
++{
++	struct nilfs_dir_entry *de = (struct nilfs_dir_entry *)(base + offset);
++	struct nilfs_dir_entry *p =
++		(struct nilfs_dir_entry *)(base + (offset & mask));
++
++	while ((char *)p < (char *)de) {
++		if (p->rec_len == 0)
++			break;
++		p = nilfs_next_entry(p);
++	}
++	return (char *)p - base;
++}
++
+ static int nilfs_readdir(struct file *file, struct dir_context *ctx)
+ {
+ 	loff_t pos = ctx->pos;
+ 	struct inode *inode = file_inode(file);
+ 	struct super_block *sb = inode->i_sb;
++	unsigned int chunk_size = nilfs_chunk_size(inode);
+ 	unsigned int offset = pos & ~PAGE_MASK;
+ 	unsigned long n = pos >> PAGE_SHIFT;
+ 	unsigned long npages = dir_pages(inode);
+@@ -254,6 +270,24 @@ static int nilfs_readdir(struct file *file, struct dir_context *ctx)
+ 			ctx->pos += PAGE_SIZE - offset;
+ 			return -EIO;
+ 		}
++		/*
++		 * ctx->pos comes from userspace via llseek and may point
++		 * into the middle of an entry -- or at unvalidated bytes
++		 * of a crafted image. offset is only nonzero here on the
++		 * very first iteration (subsequent pages always start at
++		 * offset 0, which -- like any chunk boundary -- is always
++		 * a legitimate entry start, since no rec_len chain crosses
++		 * a chunk boundary). Snap a non-chunk-aligned offset onto
++		 * a real entry boundary by walking the chain from the
++		 * enclosing chunk's start, as ext2 does; otherwise
++		 * dir_emit() copies name_len bytes from a fake entry,
++		 * reading past the end of the folio.
++		 */
++		if (offset & (chunk_size - 1)) {
++			offset = nilfs_validate_entry(kaddr, offset,
++					~(chunk_size - 1));
++			ctx->pos = ((loff_t)n << PAGE_SHIFT) + offset;
++		}
+ 		de = (struct nilfs_dir_entry *)(kaddr + offset);
+ 		limit = kaddr + nilfs_last_byte(inode, n) -
+ 			NILFS_DIR_REC_LEN(1);
 -- 
 2.53.0
 
