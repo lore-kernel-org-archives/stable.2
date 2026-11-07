@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048559;
-	b=LyUC5kcA2n7an+DycjjXHo3xPodeK7P28TnhETXbW853aBkLS+By4IGtMnnSdcgF9Pgd
-	 /eDeclUlJpfvmGpXKt6MiQGbVnk7s2jWl49kyTfwEffYNm20DTELSgXmT3t91FBXcOMMV
-	 xigFx4tQU5DcAaZCbx7xnGrmlA0IpdyDFAUK7OMHwxvf8k7Upa9O4SnEvWFERAmwD1VOf
-	 oK2YGncFLMoWTGnr5evortNba4dKaua5cxfPPcTEScw1HYCBPW6AYMnYfNL4Q2hPzt/Jt
-	 e4C5CYfyOiff9VKIh1iPRMaERSWayq4uK9IAgiZdbD7jiJHDiX/ZM1NAmZgLgTfaOCg==
+	t=1794048562;
+	b=fbOpdZtt4PpBZ4Si3oBgl14n4fg+hgCgwHrfcJllv6oQwCp3el2nZIDkRL3Mhps7FlO+
+	 QxY0qoBS4y1xNAb9VomWGSSrHjuAgZK7x0lYei6zPD7+xmp0AZBRqkJfsAZXaGKQf7hU6
+	 edpuXW9t9sE+iIwGkh98g+S09nGjOWIbiRQl+2V/WU63+M0/lipxvlBGhG5gnrrfIb3rl
+	 GFYOIqD/0cb0tr5a7Wk3lalTVyA0t9gm4GwfJ9kYS9my2VgcOGrF2DpURy7KI933he38j
+	 8JzmknCiGkjaElHSxa5mvMDCGmbncMsQXODQnaZq1z/75rdH/zQmjhivZT8Wi3q8HhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048559;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048562;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=sok05dWwITUlHbINPFmDabmZY+1KjNcFvgskRJHxtHM=;
-	b=1VghPaan+NRqdKMRZzZ33lCS1dEXrb3HiT2wXUPS34wquRYedXE1agLshbpTyv3QU8Fh
-	 QwB6DCGrNTCpiOAyyZosYMw6kQXIjRD2rPN+XNUe9YpawVHzLpz/7ON0+MfQbmFY4kr5d
-	 sacj2D5z4QCrm+JFjEKoUtzX2xWPRGnsgTR1ZZWa0YeB8zCWTds3CYE6vOF5hGR4MJDgO
-	 Lac4t0qM6olLd0bTMr1zuNuCV1txRY9OqDmmL1DLSXtakmtO//s3/gSuzEWkdLX1liiNt
-	 fVV1Cqtrq6LBfBxXuT/mCBQC085LKcv5hM9L7ohL1IztFPkeCPZBg8hVsKyv5SQ1JIg==
+	bh=62z6FLjWI+r3DiNELpahqJhjTZiljT5Oyrt+Tlypoho=;
+	b=3uh4m5oUhn5N5ErydeonvLpDNfWFBYp/i1BqPbgmQiULxe11tEjcgyJ3TmfWLJ4LCbbR
+	 4IbB075hk9CkfRL7Rt7kXUPA81//znoirWWd0TuDhWSFgOZPlPF4Jv/s8nlQBpA8zM4Am
+	 /kYP40S5BJr2KJimoP8Mi3Vfi94qpGAxUQWqqYy/gDBMn9qtupp1elwkj7Dv0f4njrEHZ
+	 cR6FytsbjcR3DqtvaKjSTZdQzZjIxtZdP0rMmATGziuiwHxNPJw7iOvwMjrORL1L73foK
+	 akTqvM5uwT9oY8h7Ou+/P7R2YD5Jtk95RxCgYsT12v7Ta1ohxZoHqK65PUI1i6mSI6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NaVPf8I5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bTS3OWBh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B3166082BF8
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:49:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE9E4606A33C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:49:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NaVPf8I5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 618761F008AB;
-	Sat,  7 Nov 2026 10:49:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bTS3OWBh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C6A61F008A4;
+	Sat,  7 Nov 2026 10:49:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048558;
-	bh=sok05dWwITUlHbINPFmDabmZY+1KjNcFvgskRJHxtHM=;
+	s=k20260515; t=1794048561;
+	bh=62z6FLjWI+r3DiNELpahqJhjTZiljT5Oyrt+Tlypoho=;
 	h=From:To:Cc:Subject:Date;
-	b=NaVPf8I5sVZ514PNkZxCY2BvBoRTBSsFzX4pA7uUCFKKPH0gjEUo/jVhfXwuoOI1x
-	 mXmlGmUnUV6E7CdNndrH7EYMMGC+bufv0jo49hJ3qBFtrruCuzHJcGIqZT66UV7xiz
-	 nmcAVX6ydR1+li/Jb+8TdBvDN1RbgQzlL3QVMzyXF3DK2uZfCT78A4n4+SWG0XLB1d
-	 UCbMcGINXlKSdWFiFJ2ACW+IyD2jc24TkQnuRviVb/JonzGutDi38eYrvqzhbId4G7
-	 DHVy9zVQaw8Kzzru3qdD6Q8ervAiknoTtsAVZUnyLcpyhDFC9R9NVQ+zBzJKKiVxdr
-	 Fb2KkdnA9DgRA==
+	b=bTS3OWBhekfg9n24ElmdqKfMWVh7bmyqf1iFcMs2m7SvARtzMSFErrr+Z73H1nmiT
+	 iLipBuPKSQlVib9/iavuTk0DxZZEI5Tn1Q9oR9wqPX5CdeM0ibgNhcRKtZ824Cu2aq
+	 1e0NjLZ6GHROyVO5ouxautNSZH7S0vj2XGAsXs5tQVrrUVpaUe8zZBVRinQy1SWOqG
+	 qOGYW3sZs6l45KqFjkDuK0Xx4helSNjllY1KL8m6QeoqzjCdipk4l8aBF5riNfsqTD
+	 Mn8UExID7dptv3hiQA5LgfuEVdEKsf8xCxV6cWRx0g1tuXj4OwgN+TKkrKhtw849+p
+	 02T7xiwRcEygA==
 From: Sasha Levin <sashal@kernel.org>
-To: sumit.kumar@oss.qualcomm.com,
-	manivannan.sadhasivam@oss.qualcomm.com,
-	bhelgaas@google.com
+To: dungvn2345@gmail.com,
+	luiz.von.dentz@intel.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] PCI: dwc: Set DMA_BYPASS bit in outbound IATU CTRL2 register" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:49:17 -0500
-Message-ID: <20261107054916-failed-6.1-efadda401c5c@kernel.org>
+Subject: FAILED: patch "[PATCH] Bluetooth: selftest: Pin module for selftest debugfs file operations" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:49:20 -0500
+Message-ID: <20261107054920-failed-6.1-64aabf94eccc@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,79 +68,91 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x efadda401c5c8e2390ba66508eba154dbd0db5a9
+git cherry-pick -x 64aabf94ecccb1120a63b4ee5a6761871a181a41
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054916-failed-6.1-efadda401c5c@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054920-failed-6.1-64aabf94eccc@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From efadda401c5c8e2390ba66508eba154dbd0db5a9 Mon Sep 17 00:00:00 2001
-From: Sumit Kumar <sumit.kumar@oss.qualcomm.com>
-Date: Tue, 8 Sep 2026 11:48:22 +0530
-Subject: [PATCH] PCI: dwc: Set DMA_BYPASS bit in outbound IATU CTRL2 register
+From 64aabf94ecccb1120a63b4ee5a6761871a181a41 Mon Sep 17 00:00:00 2001
+From: Bui Viet Dung <dungvn2345@gmail.com>
+Date: Thu, 8 Oct 2026 12:18:03 +0700
+Subject: [PATCH] Bluetooth: selftest: Pin module for selftest debugfs file
+ operations
 
-An outbound iATU region matches any local (AXI/application-side)
-address that falls within its Base/Limit window and rewrites it to
-the PCIe-side address programmed in that region's Target Address
-Registers before the transaction goes out on the link. This matching
-does not distinguish CPU-initiated transactions from ones issued by
-the internal DMA engine (eDMA/HDMA).
+An open debugfs file retains its file_operations pointer in the
+debugfs proxy state. However, test_smp_fops in net/bluetooth/smp.c and
+test_ecdh_fops in net/bluetooth/selftest.c have no .owner set to
+THIS_MODULE.
 
-Example: outbound region 0 is programmed with Base/Limit covering
-local addresses 0x8000_0000-0x8000_0FFF and Target 0x1_0000_0000, for
-CPU-initiated accesses. The DMA engine is later given a descriptor
-whose destination is the host address 0x8000_0080, which happens to
-fall inside region 0's Base/Limit range. The iATU matches the DMA
-transaction against region 0 too and rewrites it to 0x1_0000_0080
-instead of passing 0x8000_0080 through unchanged. The transaction
-then lands on the wrong host address, causing data corruption or an
-IOMMU fault when the rewritten address has no valid mapping.
+As a result, full_proxy_open_regular() calls fops_get() which succeeds
+without taking a reference to the bluetooth module. When CONFIG_BT=m
+and selftests are enabled, a userspace process can open either
+/sys/kernel/debug/bluetooth/selftest_smp or
+/sys/kernel/debug/bluetooth/selftest_ecdh and keep the file descriptor
+open while the module is unloaded (rmmod bluetooth).
 
-Set the DMA_BYPASS bit (bit 27) in PCIE_ATU_REGION_CTRL2 when
-programming outbound iATU regions so only CPU/AXI-initiated
-transactions are matched against the region; DMA engine transactions
-bypass the translation and go out on the PCIe link with their
-original address.
+When the userspace process subsequently closes the descriptor,
+full_proxy_release() accesses the already unmapped file_operations
+structure, triggering a kernel oops in full_proxy_release():
 
-Signed-off-by: Sumit Kumar <sumit.kumar@oss.qualcomm.com>
-Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
+  BUG: unable to handle page fault for address: fffffbfff8056f03
+  #PF: supervisor read access in kernel mode
+  Oops: 0000 [#1] SMP KASAN NOPTI
+  RIP: 0010:full_proxy_release+0x8e/0x140
+  Call Trace:
+   <TASK>
+   __fput+0x39f/0xa60
+   fput_close_sync+0xff/0x200
+   __x64_sys_close+0x8c/0xf0
+   do_syscall_64+0x115/0x6a0
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+   </TASK>
+
+The issue was discovered via manual code audit of net/bluetooth/smp.c
+and net/bluetooth/selftest.c.
+
+Set .owner = THIS_MODULE on test_smp_fops and test_ecdh_fops so that
+debugfs keeps the module pinned until the file descriptors are closed.
+
+Fixes: 64dd374eac15 ("Bluetooth: Export SMP selftest result in debugfs")
+Fixes: 6de50f9fdb60 ("Bluetooth: Export ECDH selftest result in debugfs")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260908-dma_bypass-v2-1-c3c81d408c0c@oss.qualcomm.com
+Signed-off-by: Bui Viet Dung <dungvn2345@gmail.com>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
 ---
- drivers/pci/controller/dwc/pcie-designware.c | 2 ++
- drivers/pci/controller/dwc/pcie-designware.h | 1 +
- 2 files changed, 3 insertions(+)
+ net/bluetooth/selftest.c | 1 +
+ net/bluetooth/smp.c      | 1 +
+ 2 files changed, 2 insertions(+)
 
-diff --git a/drivers/pci/controller/dwc/pcie-designware.c b/drivers/pci/controller/dwc/pcie-designware.c
-index 855d2a54b3c6b..074b007dc2963 100644
---- a/drivers/pci/controller/dwc/pcie-designware.c
-+++ b/drivers/pci/controller/dwc/pcie-designware.c
-@@ -577,6 +577,8 @@ int dw_pcie_prog_outbound_atu(struct dw_pcie *pci,
- 		/* The data-less messages only for now */
- 		val |= ATU_INHIBIT_PAYLOAD | atu->code;
- 	}
-+	if (dw_pcie_ver_is_ge(pci, 460A))
-+		val |= ATU_DMA_BYPASS;
- 	dw_pcie_writel_atu_ob(pci, atu->index, ATU_REGION_CTRL2, val);
+diff --git a/net/bluetooth/selftest.c b/net/bluetooth/selftest.c
+index ae5b44bb9d3d3..cdfc40e0016b4 100644
+--- a/net/bluetooth/selftest.c
++++ b/net/bluetooth/selftest.c
+@@ -188,6 +188,7 @@ static ssize_t test_ecdh_read(struct file *file, char __user *user_buf,
+ }
  
- 	/*
-diff --git a/drivers/pci/controller/dwc/pcie-designware.h b/drivers/pci/controller/dwc/pcie-designware.h
-index aea474ad803cd..61e9c4e979af6 100644
---- a/drivers/pci/controller/dwc/pcie-designware.h
-+++ b/drivers/pci/controller/dwc/pcie-designware.h
-@@ -217,6 +217,7 @@
- #define  ATU_ENABLE			BIT(31)
- #define  ATU_BAR_MODE_ENABLE		BIT(30)
- #define  ATU_CFG_SHIFT_MODE_ENABLE	BIT(28)
-+#define  ATU_DMA_BYPASS			BIT(27)
- #define  ATU_INHIBIT_PAYLOAD		BIT(22)
- #define  ATU_FUNC_NUM_MATCH_EN		BIT(19)
- #define ATU_LOWER_BASE			0x008
+ static const struct file_operations test_ecdh_fops = {
++	.owner		= THIS_MODULE,
+ 	.open		= simple_open,
+ 	.read		= test_ecdh_read,
+ 	.llseek		= default_llseek,
+diff --git a/net/bluetooth/smp.c b/net/bluetooth/smp.c
+index 5c3bd42783860..5dac8b2eae42d 100644
+--- a/net/bluetooth/smp.c
++++ b/net/bluetooth/smp.c
+@@ -3698,6 +3698,7 @@ static ssize_t test_smp_read(struct file *file, char __user *user_buf,
+ }
+ 
+ static const struct file_operations test_smp_fops = {
++	.owner		= THIS_MODULE,
+ 	.open		= simple_open,
+ 	.read		= test_smp_read,
+ 	.llseek		= default_llseek,
 -- 
 2.53.0
 
