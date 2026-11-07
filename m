@@ -1,52 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050907;
-	b=RlEstgBOb0s6S8JcFx0u/KP63kXKQ2uoJTWPfD9dF3QKfq6UBdguEZIJRBuJvRr+l/2O
-	 E6l0Z3Jlutbf7a6xWw3UVKkxrWcwxpmgqdlLhh2ykhovODe5HznmBy2O2aP6kYnp/Oj5s
-	 R54Ms5GPY7TG6MYfMotJ4Z8xVt2fuVLGmX5MqqVeuC0PssdRs/4Ns1L5EK2u31OwVBCi3
-	 oT+TIXRlKFX3di1XtgTMX/zwHnZQpt8HvD6110HWt/EQtai0/jqJ16/k8xQ42s+SbJ91E
-	 BGE4C+zL1F2g13y4Ea/M8ihZ4Y6iOETxOCGRJMPfEyPA2EFqIbPcHv0qWJWxumIQ+Dg==
+	t=1794050911;
+	b=qnh2NDcYirYPew3GEcIgzwt3JlZbg6IyvKB8wm240FgyG+Dl3aTGQ1yHzqol+K6c8LWD
+	 0W6n/ART7BLb9c/QW03POfBT2VVYoUgWppUbJpNR6s6GKXfJ4HiT8mgc3eDM86hBdx61J
+	 pIZ04qZDecfa6J8cYLowEudeoe9kaDjvTRJlnVCdtr/PqZPCkkBlospQqsb+XSTdYf1rO
+	 L+YRYUiJs9qHIGwC8xG18gFNCxyS5hmTD+7e9VNfpkiLIXzHXsn89ZgDNiZMeMmg4tUyM
+	 +poTuoOED+sxyfqeQaXRjXH7qQLiijdYkwHFb4dXEf/Yp7oxXpx1xgDbhe8xoyWgdLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050907;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050911;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=2oaHbmnaS20kxvg4tLyieIC9qBBFlOhEASaWMDQbj7Y=;
-	b=EEQzMG6OK8aVP7b7j8VyPllAa6rceDpYTChLEMqTMhL/zs3qkU9BUnDE0XzitraXe5He
-	 k3Dk4Bk8tnCi+ukKfdtM6MfY0pladNUzOLXoZidef/hi2tGyzggZaP0dzid6iSOZENIvM
-	 e0AcReH47jJ1TFEkn68J04oM4YQGPCi2hr7FpWr3WX6buwXYi2VZjES++sv/3vVQ8qyrF
-	 zoBzYE3bShD/fdFeqAwheQ5uqSCEvk4XCbnKTWLr+COQrzSDGFfstOzZ/Vo9rjC9vwfu2
-	 DTmNBkEH/Swi+BVkA16J8CS0GnW0+BDKEFYC84X2OxPYPfTy0+gkNn61YZmqDALLTcg==
+	bh=aTR/kWn1a3oZGLcsdQAI9NEu3yZJgm505jmOKYu9io0=;
+	b=QuarG+LjiFe8a9J0sw/PHGkjqWaU28RLh8XaO1IEIKgMbKTJFiThYu717g/RFZu6rZOC
+	 FRi6hyGKuaFaJYRxoSpVBxVZlMwDKuhy2aS8s3vQF6l5zIH3/ArHaWnPrzyNJPzVbUMnq
+	 eoimrG3FSYU9jlnmiAVeQbnXjmf7qPs8XU0eAr31TPH8filSOxJbEUCsXX5sfiQyZWAon
+	 FnOE2q1ZVSev+TMPoMfLDtu/8UqAfEYiqcugIEHAVqDPFMiCnV2APQtZL+6ed9CYfoIZE
+	 4QqMnV4tSbhBGqyaTETV133Cgwl15w4hbtGjK5PQ12l4Da9mlXN3wAI4DGOCjH0rPbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m5+2uWI0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RlUd061+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BBEA606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:28:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CBE7606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:28:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m5+2uWI0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A3851F0089F;
-	Sat,  7 Nov 2026 11:28:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RlUd061+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D02A71F008A1;
+	Sat,  7 Nov 2026 11:28:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050907;
-	bh=2oaHbmnaS20kxvg4tLyieIC9qBBFlOhEASaWMDQbj7Y=;
+	s=k20260515; t=1794050910;
+	bh=aTR/kWn1a3oZGLcsdQAI9NEu3yZJgm505jmOKYu9io0=;
 	h=From:To:Cc:Subject:Date;
-	b=m5+2uWI0WeJ8LrVTqJJAC5KhoMp60TdwtFFKf7G+8XLKF7lteL1TSjgXCujGZwX5N
-	 KUO9f0v29lidQGInK2ss0aHt00to5IGv9W8bIu60otEhDJyfCRL8wjmrNuhT8lQfx/
-	 urkq6KoBy758/RmJ8vF4BXugC18WMLaVQrxBsv4wcRFhVB3jwyXPTveKcr5FD+vctC
-	 JAnQYJ1tTav4AB3/j1DHv6mYh5Pp9eM5ZmsonO0AXMibOLEBVxwcehDzUetY+nfWHn
-	 2GYfQGNdwCtxOBYBSfepz8tW5K9CV5h9e4NqpXonl5cqvYWE08Z2pBmKJeRUcYNEud
-	 injWIkarzfKzQ==
+	b=RlUd061+gteaP8y8eiYyaZfeRzRWRdKUSIkjNum0ByeCUojL4NnGfNWz6G0sHw1ra
+	 abnXAs6BvLQNXXfIS/NLClMfHjfKynH3zZm534BztxUl5xuJsEehUPwdcbP+MVyx0K
+	 ir0rBtymofPCDn0Rh1T4P5LzsAa9+R/TQLmQ3HcVrASobGt9ozclEYTwSXVCTKRLin
+	 JKDEar5NFWXR3SPfvRE69Euw/MeMpNiZXcdNIPXcXHwTAveOqKnRqE5azwaR/3FsYR
+	 HXxJ7T39R5NRr/qX1wZcTfGGdxYflv1UNtZVV7SxdwH4fbJJKcFpftIZmxYPgpqORt
+	 556dIr4sykwIg==
 From: Sasha Levin <sashal@kernel.org>
-To: x-professor@outlook.com,
-	bvanassche@acm.org,
-	mkp@kernel.org
+To: albinwyang@tencent.com,
+	akpm@linux-foundation.org,
+	gourry@gourry.net,
+	david@kernel.org,
+	ljs@kernel.org,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	jannh@google.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] scsi: handle out-of-range SG_SET_TIMEOUT values" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:28:25 -0500
-Message-ID: <20261107062825-failed-5.10-9a6cb1da4f3b@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/madvise: add cond_resched() in THP branch of madvise_cold_or_pageout_pte_range()" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:28:28 -0500
+Message-ID: <20261107062828-failed-5.10-f5cfc8e3b20a@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,101 +74,93 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 9a6cb1da4f3bc4633bf6669faed25a361834b1b9
+git cherry-pick -x f5cfc8e3b20ad71949a1e5623ff45882c063a71b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062825-failed-5.10-9a6cb1da4f3b@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062828-failed-5.10-f5cfc8e3b20a@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 9a6cb1da4f3bc4633bf6669faed25a361834b1b9 Mon Sep 17 00:00:00 2001
-From: Yingjie Wang <x-professor@outlook.com>
-Date: Thu, 22 Oct 2026 02:55:11 +0000
-Subject: [PATCH] scsi: handle out-of-range SG_SET_TIMEOUT values
+From f5cfc8e3b20ad71949a1e5623ff45882c063a71b Mon Sep 17 00:00:00 2001
+From: Wei Yang <albinwyang@tencent.com>
+Date: Sat, 10 Oct 2026 10:40:42 +0800
+Subject: [PATCH] mm/madvise: add cond_resched() in THP branch of
+ madvise_cold_or_pageout_pte_range()
 
-SG_SET_TIMEOUT accepts a signed int in USER_HZ units. The sg character
-device rejects negative values and limits positive values so the converted
-timeout fits its destination field. The block SCSI and BSG paths instead
-pass the value to clock_t_to_jiffies(), which accepts an unsigned long, and
-store the result in an unsigned int.
+During stress testing with stress-ng on a 256-CPU system, a softlockup was
+observed when madvise(MADV_COLD) was called on a 31GB memory region backed
+by transparent hugepages.  The region contains 15935 THP PMD entries, and
+the softlockup was triggered after 14485 of them had been processed.
 
-Negative values are converted into large unsigned timeouts. On 64-bit
-systems, large positive values can also exceed UINT_MAX after conversion
-and are truncated on assignment. With HZ=1000 and USER_HZ=100, for example,
-429496730 clock ticks become 4294967300 jiffies and are stored as 4
-jiffies. On 32-bit systems, an overflowing conversion becomes ULONG_MAX,
-which is an unsafe relative interval for the block timer comparisons.
+The THP branch of madvise_cold_or_pageout_pte_range() has no scheduling
+point.  walk_pmd_range() invokes it once per 2MB PMD entry with no
+cond_resched() anywhere in the loop.  Each iteration calls
+pmdp_invalidate() which issues a synchronous TLB shootdown (dsb ish)
+waiting for all CPUs to acknowledge.  This operation can be time-consuming
+under heavy system load, causing the accumulated time across all PMD
+entries to exceed the softlockup threshold (20s) and panic when
+softlockup_panic=1.  On a CONFIG_PREEMPT_NONE=y kernel, there is no other
+opportunity to reschedule during this entire traversal.
 
-Reject negative values with -EIO, matching drivers/scsi/sg.c. Saturate the
-converted value at the smaller of the destination field limit and
-MAX_JIFFY_OFFSET. This preserves successful ioctl behavior while avoiding
-both narrowing wraparound and an unsafe 32-bit timer interval.
+The regular PTE path already has an unconditional cond_resched() at the
+function tail (introduced by commit 9c276cc65a58 ("mm: introduce
+MADV_COLD") and commit 1a4e58cce84e ("mm: introduce MADV_PAGEOUT") when
+MADV_COLD and MADV_PAGEOUT were first introduced) and a conditional one
+inside the loop (commit b2f557a21bc8 ("mm/madvise: add cond_resched() in
+madvise_cold_or_pageout_pte_range()")).  The THP branch never received
+equivalent treatment.
 
-The block SCSI behavior predates Git history. BSG has exposed the same
-behavior since it was introduced.
+Fix by adding cond_resched() at the huge_unlock exit path after
+spin_unlock(ptl) and reclaim_pages(), which is the single exit point for
+all goto paths in the THP branch.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Fixes: 3d6392cfbd7d ("bsg: support for full generic block layer SG v3")
-Cc: stable@vger.kernel.org
-Reported-by: Bart Van Assche <bvanassche@acm.org>
-Link: https://lore.kernel.org/r/9321a59c-c560-4742-8b71-5b0ec1f30c2f@acm.org
-Signed-off-by: Yingjie Wang <x-professor@outlook.com>
-Link: https://patch.msgid.link/20261022025508.294713-1-x-professor@outlook.com
-Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
+Crash log:
+  watchdog: BUG: soft lockup - CPU#63 stuck for 23s! [stress-ng-vm:1665914]
+  ...
+  Call trace:
+  pmdp_invalidate+0x48/0x68
+  madvise_cold_or_pageout_pte_range+0x84c/0xb00
+  walk_pmd_range.isra.0+0x1ac/0x3b0
+  walk_pud_range+0x120/0x190
+  walk_pgd_range+0x170/0x1b8
+  __walk_page_range+0x184/0x198
+  walk_page_range_vma+0x94/0x128
+  madvise_cold+0xd8/0x198
+  madvise_vma_behavior+0x234/0x638
+  madvise_walk_vmas.constprop.0+0xdc/0x210
+  madvise_do_behavior+0xa8/0x328
+  do_madvise+0xd8/0x140
+  __arm64_sys_madvise+0x2c/0xe0
+
+Link: https://lore.kernel.org/20261010024042.4070048-1-albin_yang@163.com
+Signed-off-by: Wei Yang <albinwyang@tencent.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: <stable@vger.kernel.org>
 ---
- block/bsg.c               |  5 ++++-
- drivers/scsi/scsi_ioctl.c | 11 ++++++++---
- 2 files changed, 12 insertions(+), 4 deletions(-)
+ mm/madvise.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/block/bsg.c b/block/bsg.c
-index 82aaf3cee5825..b296fa3732924 100644
---- a/block/bsg.c
-+++ b/block/bsg.c
-@@ -132,7 +132,10 @@ static long bsg_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
- 	case SG_SET_TIMEOUT:
- 		if (get_user(val, intp))
- 			return -EFAULT;
--		bd->timeout = clock_t_to_jiffies(val);
-+		if (val < 0)
-+			return -EIO;
-+		bd->timeout = min(clock_t_to_jiffies(val),
-+				  min(UINT_MAX, MAX_JIFFY_OFFSET));
+diff --git a/mm/madvise.c b/mm/madvise.c
+index 8f407610c089f..8702b082a02d8 100644
+--- a/mm/madvise.c
++++ b/mm/madvise.c
+@@ -454,6 +454,7 @@ static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
+ 		spin_unlock(ptl);
+ 		if (pageout)
+ 			reclaim_pages(&folio_list);
++		cond_resched();
  		return 0;
- 	case SG_GET_TIMEOUT:
- 		return jiffies_to_clock_t(bd->timeout);
-diff --git a/drivers/scsi/scsi_ioctl.c b/drivers/scsi/scsi_ioctl.c
-index 122403ec3ab8d..bf049d9cb7191 100644
---- a/drivers/scsi/scsi_ioctl.c
-+++ b/drivers/scsi/scsi_ioctl.c
-@@ -9,6 +9,7 @@
- #include <linux/blkdev.h>
- #include <linux/interrupt.h>
- #include <linux/errno.h>
-+#include <linux/jiffies.h>
- #include <linux/kernel.h>
- #include <linux/sched.h>
- #include <linux/mm.h>
-@@ -196,10 +197,14 @@ static int sg_set_timeout(struct scsi_device *sdev, int __user *p)
- {
- 	int timeout, err = get_user(timeout, p);
+ 	}
  
--	if (!err)
--		sdev->sg_timeout = clock_t_to_jiffies(timeout);
-+	if (err)
-+		return err;
-+	if (timeout < 0)
-+		return -EIO;
- 
--	return err;
-+	sdev->sg_timeout = min(clock_t_to_jiffies(timeout),
-+			       min(UINT_MAX, MAX_JIFFY_OFFSET));
-+	return 0;
- }
- 
- static int sg_get_reserved_size(struct scsi_device *sdev, int __user *p)
 -- 
 2.53.0
 
