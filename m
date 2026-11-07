@@ -1,56 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050922;
-	b=f0siltjdBHE1hQFTVdt659FPs+EUNdyOjNoRi7YxFmnkol05+o7hsIvGKoVDHUUEQ+51
-	 i/1dj8NCQiMprjo5HVXMLcY5XnqEWJL/i1u1DlMU5aZV+OUyZ3dxrjBgvVCrDKUts1PGD
-	 DO50BdXMZp63WGTJO+SMZtqPNx3najC0J96x2jZ2gMnTNIGIHkPOND9PnH8nqeFBjUnnc
-	 4m7tCf37zao5MDMI7fb5xQ0zmzYaqB7uOAMsUEe0I6nG1Y/FevD9SQ17YufAqUkq8ySKo
-	 h4QKi7EQfEI+H2YH5upW5DUGnpXFrhF2V0yFIHT5Ze3SGhQTwQwEdaxT+8oKR3y+xPw==
+	t=1794050926;
+	b=ml7C94Zn7+DnsxM/VIvTUS+d8Ho/o4MZBQpki7z+/EMk8cLJbD0ADh9Uqf/aTpQCxBjv
+	 4rDuEuS1HW4hWQiFGKFJsHpu+XzZWv6HoB5a1ZU2tXejOAMfAe4bf+qg4SU5NpU3bcj0R
+	 bMD97Zn2A/GYnYNnyNXx2eMVtgUGYLR0fdHmrDDaFLOHJk0Hm3ktolFQCjB1/uLnTZD3F
+	 72xFYOGT8s+/2OaJ/XU3sX+gx6rMlHQ+BJIvJsFgLiiEWQWhn0q0yr1pT/DvaH0cXiNej
+	 aCNbtfhVPa6coqP7l3KHqGisXGmTDq2sto4id6fD/gwuattDZjprzMJFczfV1loeXRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050922;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050926;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=bthNXh5ZifDOjX8XZRMDwmf4T1beRGKPOzYC7Q2AOe0=;
-	b=Ff9Oy6PRheclO/ZXJOdRkslzjQjVAycEnTTSPSO+RL9t5kn5HM3Mt9h7EYzdwIAfjNuB
-	 VL3M6z6UZXri1A4QC7aj6uv4DcnKRXf7Vf8jY1lhJQqD5kszbrXJUDBqe96ATPg2YI2rr
-	 0BGu9ojb9lWo+O5LIBilps/1dgHQm+W8RQlVtmnSqAoJ7AkXay1KBfUvIZQFqObPobyni
-	 BRYpIptijqli6+NfRndrNdiUYfSHx/rNr+DeH0NcbT0SQpTGsMTKk7tJPVxtfBuQOabER
-	 aERo830EtZnNyPq3nQPfPKPhrPnF+2qmDqdMFJjJyCv1EFzzccmofLUnJqrabVGceOw==
+	bh=TfNMy7Ac0s4h1/NW1lWU0RU/aurtt6aUGogufxk0BcE=;
+	b=JTKVh19yjrcPw57cgABcR+fMSoyzJj1bshpyEAjFWJopX2RG9N6GFVMVOqbE6OAm5e3+
+	 +gJ4s6lbRS6HqcDXP+BFNW1mVqpoDsEuX6mM5/H5bqI1EB/eRVfDhmqQeLjXYbuGRIU7L
+	 eyEJ0zffVioaGDZ98Sq8Vk26Xq2WlQpjPixIqw/tpNkOKfTQVdloHSYGnJJxdOp6GHS4x
+	 oRjbqIbjNdQ7O6p/4KsXNfGBt/0NwlBVQNmP15RNBN0viYpEu3jy4p5gb1ZTFk50bBqSn
+	 7eKQsjkMvkuNf7aBFBK8GfrZnzq1vqJFF3vEEoFjWo76/tyLjXhJgVZ5Fbq+KqRdwNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f14cbIO3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NYDYn1+4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A754606A32D
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:28:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC838606D80E
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:28:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f14cbIO3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FED41F0089F;
-	Sat,  7 Nov 2026 11:28:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NYDYn1+4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16A7A1F008A2;
+	Sat,  7 Nov 2026 11:28:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050922;
-	bh=bthNXh5ZifDOjX8XZRMDwmf4T1beRGKPOzYC7Q2AOe0=;
+	s=k20260515; t=1794050925;
+	bh=TfNMy7Ac0s4h1/NW1lWU0RU/aurtt6aUGogufxk0BcE=;
 	h=From:To:Cc:Subject:Date;
-	b=f14cbIO3Dvm3iPM8KQ/rZjsRX4RmNKTDdb91A9ILBFxKUp6ej9OGcioVW2EWCVC+O
-	 5dj3RgUqfyhtMORem3uEWiJBAY5FO+FlnCZcAJ8qneu7KsDr9nGekaQi2zlFHJxuFz
-	 LcneC9XVLibG3/FF6hd6B1GexCxgbzv7g/vQxr8FaURuxlZAwcHWcb7WBkTDrGCIPV
-	 mChXYic3CBMlGwL6K7EMLWou3AzY6svYfm1tQQsSySLCPd3qhAwSRHZ9rK3ZVMTgCd
-	 CsDxf6DefPYzuMtnPvKb/A+bcd+xbtbcqNTCrNRQH02hvyjLV79TEf3fbGJU0jrsq8
-	 OyzIhO3gGS38Q==
+	b=NYDYn1+4JCXk9wfn04t2qyOVuzZzZ/NYR5vSnCRzg+1NA7RXx4v2BIRYwN4XfOZqt
+	 S6q0S4dyVS27fM6D2g9szS4ZYp/uG8uozPf6wvr0cSxH+e4/p5rXbiTivs1jFFr2tv
+	 tsW0m4yCrie1yrprpyJnMbn3mBplVt1pVXH17ZEP1JaiAMjr2Fzrz33aGaM4ufFQaB
+	 /HHrqXT6aRhZUXvrWFGiiSZYp3hoj0buyZdgJoN1bO/UaQdftEZzyVOtsYqLKOHLYZ
+	 lh55FHLQceXKA8gdZ1XAHtGujMcCT5ug7++OHDQWZgx4MAiAhEZTuRFPBQ+zbQEMaS
+	 z/jkpIDeDkS6w==
 From: Sasha Levin <sashal@kernel.org>
-To: nickolai@csail.mit.edu,
+To: pfalcato@suse.de,
 	akpm@linux-foundation.org,
-	pfalcato@suse.de,
-	liam@infradead.org,
+	samarth.colleges@gmail.com,
+	gourry@gourry.net,
+	ziy@nvidia.com,
 	ljs@kernel.org,
+	david@kernel.org,
+	sj@kernel.org,
+	liam@infradead.org,
 	vbabka@kernel.org,
-	jannh@google.com
+	jannh@google.com,
+	minchan@kernel.org,
+	mhocko@suse.com,
+	hannes@cmpxchg.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/mlock: use a long for the page count in mlock_fixup()" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:28:40 -0500
-Message-ID: <20261107062840-failed-5.10-3ae91e3079b1@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/madvise: atomically clear the young bit on THP MADV_COLD" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:28:42 -0500
+Message-ID: <20261107062842-failed-5.10-246c8cc33438@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -73,96 +80,91 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 3ae91e3079b1504ef162b2884454d5f1421f4eb9
+git cherry-pick -x 246c8cc33438a71c28f9b86baa492d9a0a130316
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062840-failed-5.10-3ae91e3079b1@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062842-failed-5.10-246c8cc33438@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 3ae91e3079b1504ef162b2884454d5f1421f4eb9 Mon Sep 17 00:00:00 2001
-From: Nickolai Zeldovich <nickolai@csail.mit.edu>
-Date: Wed, 14 Oct 2026 09:13:58 -0400
-Subject: [PATCH] mm/mlock: use a long for the page count in mlock_fixup()
+From 246c8cc33438a71c28f9b86baa492d9a0a130316 Mon Sep 17 00:00:00 2001
+From: Pedro Falcato <pfalcato@suse.de>
+Date: Tue, 13 Oct 2026 20:17:19 +0100
+Subject: [PATCH] mm/madvise: atomically clear the young bit on THP MADV_COLD
 
-mlock_fixup() adjusts mm->locked_vm, an unsigned long, by the number of
-pages whose VM_LOCKED state it changes, but computes that number in an
-int:
+As-is, madvise_cold_or_pageout_pte_range() discards the hardware young bit
+by invalidating the PMD, doing pmd_mkold() and subsequently writing to the
+pmd again.  However, it does so in a racy manner, looking at a
+possibly-stale snapshot.  It's entirely possible that a write elsewhere
+set the hardware D bit, which this logic now loses.
 
-	int nr_pages;
-	...
-	nr_pages = (end - start) >> PAGE_SHIFT;
-	...
-	mm->locked_vm += nr_pages;
+Fix it by using pmdp_test_and_clear_young().  This is an atomic
+modification of the PMD entry, and thus safe against any possible racing
+writes.  As a (nice) side-effect, this elides one non-required TLB flush
+in pmdp_invalidate().
 
-When a single VMA range of 2^31 pages (8 TiB with 4 KiB pages) or more
-is locked or unlocked, the count is truncated to 32 bits and then
-sign-extended, so locked_vm is changed by the wrong amount, while
-munmap(), mremap() and the other paths that maintain locked_vm use the
-full unsigned long page count.
+This bug can interact with the swapping system in complicated ways,
+leading to data loss.  For instance, if a folio is marked lazyfree, but
+was later read from, and then MADV_COLD'd while racing a write to that
+same THP, dropping the dirty bit may lead to data loss as
+reclaim/MADV_PAGEOUT drops the "clean" anon folio:
 
-Such a range is reachable on 64-bit architectures with a 47-bit or
-larger user address space (x86_64, arm64 with 48-bit VA, riscv64 Sv48)
-by a task with CAP_IPC_LOCK or a raised RLIMIT_MEMLOCK, which do_mlock()
-checks against the full untruncated length.  It costs nothing with
-MAP_NORESERVE and MLOCK_ONFAULT/MCL_ONFAULT, since then no page is
-populated.  On x86_64, after
+T0                                T1
+================================================================
+MADV_FREE(thp)			|
+  folio marked lazyfree		|
+read(thp)			|
+  PMD marked young by hardware	|
+				| MADV_COLD(thp)
+write(thp)			|   if (pmd_young(pmd)) {
+  PMD marked dirty by hardware	|     set(pmdp, pmd_mkold(pmd));
+MADV_PAGEOUT/reclaim		|
+  dirty bit may or may not be   |
+  set				|
+    reclaim/pageout may drop    |
+    the folio			|
 
-	p = mmap(NULL, 8UL << 40, PROT_READ | PROT_WRITE,
-		 MAP_PRIVATE | MAP_ANONYMOUS | MAP_NORESERVE, -1, 0);
-	mlock2(p, 8UL << 40, MLOCK_ONFAULT);
-
-VmLck in /proc/self/status reads 18446744065119617024 kB instead of
-8589934592 kB; munmap() of the region then subtracts the true size and
-leaves VmLck at 18446744056529682432 kB instead of 0.  With 16 TiB,
-locked_vm is not changed at all, VmLck stays 0 kB, and after the task
-drops CAP_IPC_LOCK or lowers RLIMIT_MEMLOCK, mlock(), mmap(MAP_LOCKED)
-and the other mlock_future_ok() and account_locked_vm() users enforce
-RLIMIT_MEMLOCK against that count, so they let the task lock memory
-beyond its limit (or, in the 8 TiB case, refuse every further lock).
-The error persists for the life of the mm; unlocking the range in pieces
-skews it further.  The wrong count is per-mm accounting only: it does
-not change which pages are locked.
-
-The int has been there since before git history (the variable was named
-"pages" until it was renamed in 2.6.28); every other updater of
-locked_vm uses an unsigned long or long count.  Make nr_pages a long,
-which holds the page count of any user range and its negation, so the
-existing sign handling is unchanged.
-
-Found by formal verification of mm/mlock.c against the kernel binary.
-
-Link: https://lore.kernel.org/20261014131358.780240-1-nickolai@csail.mit.edu
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+Link: https://lore.kernel.org/20261013191719.95502-1-pfalcato@suse.de
+Fixes: 9c276cc65a58 ("mm: introduce MADV_COLD")
+Signed-off-by: Pedro Falcato <pfalcato@suse.de>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Assisted-by: LLM
+Reported-by: Samarth Narang <samarth.colleges@gmail.com>
+Closes: https://lore.kernel.org/linux-mm/20261011132227.413217-1-samarth.colleges@gmail.com/
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Acked-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: SJ Park <sj@kernel.org>
 Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
 Cc: Vlastimil Babka <vbabka@kernel.org>
 Cc: Jann Horn <jannh@google.com>
+Cc: Minchan Kim <minchan@kernel.org>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
 Cc: <stable@vger.kernel.org>
 ---
- mm/mlock.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ mm/madvise.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-diff --git a/mm/mlock.c b/mm/mlock.c
-index 4235a1518fc9e..67ae9b18b9235 100644
---- a/mm/mlock.c
-+++ b/mm/mlock.c
-@@ -457,7 +457,7 @@ static int mlock_fixup(struct vma_iterator *vmi, struct vm_area_struct *vma,
- {
- 	const vma_flags_t old_vma_flags = vma->flags;
- 	struct mm_struct *mm = vma->vm_mm;
--	int nr_pages;
-+	long nr_pages;
- 	int ret = 0;
+diff --git a/mm/madvise.c b/mm/madvise.c
+index 8702b082a02d8..75b409e97dbf2 100644
+--- a/mm/madvise.c
++++ b/mm/madvise.c
+@@ -430,10 +430,7 @@ static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
+ 		}
  
- 	if (vma_flags_same_pair(&old_vma_flags, new_vma_flags) ||
+ 		if (!pageout && pmd_young(orig_pmd)) {
+-			pmdp_invalidate(vma, addr, pmd);
+-			orig_pmd = pmd_mkold(orig_pmd);
+-
+-			set_pmd_at(mm, addr, pmd, orig_pmd);
++			pmdp_test_and_clear_young(vma, addr, pmd);
+ 			tlb_remove_pmd_tlb_entry(tlb, pmd, addr);
+ 		}
+ 
 -- 
 2.53.0
 
