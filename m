@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046728;
-	b=1RgNaXQiQG/21c9zRYZM2hu2ZT6X/YV5YfIBycBTYxsaMHuNB+6pRGpxb6ix7ylrYr9/
-	 mEpdZOKPJuSrZXyIXcYDsyVe9xM4YHLAivi34Eh5AyZIuPeIojMw5mzKjakakZnc9wFUr
-	 g45WUSd24oTw5mK236+2hGU0/48A6W2Cmhf4FF5h+A+AlWX0c9L2+HKIYizktlcTJ1CZk
-	 lxIsevPDKxnAl1EoLuJeNJnqcz3Ow75qjMwsywwV2RDVUAthvhO0XNdpvDQMZDpv/PtZX
-	 r40fIrMqSoAlre3ghj0YfENlZKfZhsldGXwUQTY5ccx64eqb5G8JdZ+kBU7qAEV4wIA==
+	t=1794046730;
+	b=bpE096C4nXP0CLZ0J5dCPvXPOs3uTZ6kiRueqFsQKVhJp3MfaPANNNj7wXQLXAz6xU5y
+	 RVlkdY4angowmSbhicNflbtdeAH3WFlV6hsgKVcR90J5PYj1MjI93sRT2xx98ArAxqUz3
+	 ZZMOxxNgpP3U5/MVyhgeme2ycobqaM/1+KFahvnRxprhI6FfA1BteFrWDwqZvdCEYuIEn
+	 5pTg4Lky3HuFldjez2ZZLa14W8v82v9L88Kd8rH/2DB3aljKiueiD5gFiUBcMTLIteY8l
+	 o40UqGAYYjaHjo95GGp+ocL3Oyuskaq7gHBhC9QtPF8PlFZSq2u5viDcYhwuAd5M6Zg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046728;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046730;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=C26Fc6hEquyslqnVTv9qw4+3PlxPN1H+EIRXpJcNcvw=;
-	b=yjX0+UTGFgUFC0uDNL42JnJFaFy72TNeJohUfqRzTxuOy8lzs5pgcCuyhzwGuVztv5lo
-	 SxPIIMyuOEsm9K0kf3kCQjevhBoV6jiFt3+fcZo9NbTAnMoTPZ7UaAhPfouLluh3fvVzF
-	 7cwUQQ/VGwKbpcw1sVh1SDtcgRP9ozNyiJrYNhEZagWeuoBneUUJLf5D9i2CbQRzvvw3v
-	 GNZlzAiDSYvhMxaMHgd0e7SC+G5xCeP1yq+DWkZI7CvWOcRZ8UYf+wNmFulmZe8XzG2Dl
-	 W2d7GYI566ygLZZ9L1BuLfMJEo6+p/IW6F/U/lJVrGkr+0jRnAxg714lsywVr3Njw0w==
+	bh=qySmZUhtunQC5v6O12dQ7jQhgmiGndduRDMc+fD6hes=;
+	b=AVlidRkBv/zNlir1XCcIC+9Etlw49bH17n2Iwa/LBLVDON7puEQCZm75rp8Hqu3itSnW
+	 ZjCXl805W/qBD86Ltsx/wQCGlYu0EMc+NA8xsZ1CkrTfqf521FJdeL/mS0q8bt/F34/nE
+	 U2r5qacsQ/YRhBhbAAr/WdunpPBt1Xm/76JyNOnqwo55uqjD0Z/VNBrsQBs7gJL6hf64S
+	 hLqD3ovsi8EoBxVPO5GgNbM5eQjdNqjJeM0UOiy6zhgk057zX5/Pr/ONkG24d1xvG5E92
+	 rJ+q8PFRMOpuQrJtqHFqwnRQnvokQDN6UZn3Cbgka3cGGNISOFgQb5pHprUp2GG5c4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="e1hFmO/v";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kl9wDP6a;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A891606EE86
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:18:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98E7A606D816
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:18:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e1hFmO/v
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9B751F0089F;
-	Sat,  7 Nov 2026 10:18:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kl9wDP6a
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC8C11F008A3;
+	Sat,  7 Nov 2026 10:18:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046728;
-	bh=C26Fc6hEquyslqnVTv9qw4+3PlxPN1H+EIRXpJcNcvw=;
+	s=k20260515; t=1794046730;
+	bh=qySmZUhtunQC5v6O12dQ7jQhgmiGndduRDMc+fD6hes=;
 	h=From:To:Cc:Subject:Date;
-	b=e1hFmO/vkbVqFWsP7aEFpPDNyAEqu5QrXNxDgRuS9AOW4ACUkKdQwX7EPh3YIodSD
-	 U274CCmVKrQhUlhN7T+ZzIwJDyX8UuJjoy9vn9M9ixXjM5Eg8MosySEc9eAnY1LO1i
-	 99zTR7AuVRfi7J7pyXnOV5T4QmiTULjYF8wEWJ1b4TPuqQcuONrweF8pfCa0pUPEXA
-	 Kp1wA2N8VKzKDzZ41VWVNN5iJTnAwJOm3hdWdxkG+U9g+xZFIjAZ+QdieLCy1DqEXM
-	 +DsOXHzzjSxLgzxqtXxzyAHWVHl2InVBwPpGW6FrXzDboxbWzSVc3iPBWpqvweEPbu
-	 lYU0sBn1+0VTg==
+	b=Kl9wDP6aO7BsS2Nm4/fUd8MjzJgtnxOEuNCe9TnPwFOLUY3oe4+rtCuZQT8r9ijGT
+	 G5eHHGXbRsJAtVgXppl7t38++bVBC4S4l7MMbV07oSscGlZm6kSt/3LJimx3By0X0x
+	 vpP36g6yHBJp7ciLDFE3fTH92tcK51FtO8ivG1AFUa7El1c016N+pMg5GMDGBwiGol
+	 oDGFr6HVZNCffb6y/yh94738wzaaWW8eBv5QBsFFp/7tWh6OJxE1fF1B+hqR74B5aJ
+	 0NxHuoKuqZbYO1SXhl/dPzGmrWS3roWGWy0G/TAzR0oI/KdcxpuIerkJgKpS/3XVUU
+	 CBFXSXeR4oRXw==
 From: Sasha Levin <sashal@kernel.org>
-To: fanwu01@zju.edu.cn,
+To: lilinmao@kylinos.cn,
 	nicolas.dufresne@collabora.com,
 	hverkuil+cisco@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] media: rockchip: rga: quiesce IRQ before releasing m2m state" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:18:46 -0500
-Message-ID: <20261107051846-failed-6.12-a875c43dd95e@kernel.org>
+Subject: FAILED: patch "[PATCH] media: chips-media: wave5: Handle polling IRQ thread failure" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:18:48 -0500
+Message-ID: <20261107051848-failed-6.12-1d563e3d718a@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,75 +69,60 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x a875c43dd95ee4f9c4e3e5ae1cb8362cc6d7817d
+git cherry-pick -x 1d563e3d718a1c7c16355843374fbdd4c798ac66
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051846-failed-6.12-a875c43dd95e@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051848-failed-6.12-1d563e3d718a@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From a875c43dd95ee4f9c4e3e5ae1cb8362cc6d7817d Mon Sep 17 00:00:00 2001
-From: Fan Wu <fanwu01@zju.edu.cn>
-Date: Sat, 4 Jul 2026 08:46:59 +0000
-Subject: [PATCH] media: rockchip: rga: quiesce IRQ before releasing m2m state
+From 1d563e3d718a1c7c16355843374fbdd4c798ac66 Mon Sep 17 00:00:00 2001
+From: Linmao Li <lilinmao@kylinos.cn>
+Date: Fri, 17 Jul 2026 15:13:15 +0800
+Subject: [PATCH] media: chips-media: wave5: Handle polling IRQ thread failure
 
-rga_remove() releases the m2m state before the IRQ is freed. The IRQ is
-devm-managed and is only released once rga_remove() returns, so rga_isr()
-can still run while the m2m device state is being torn down.
+When falling back to polling mode, wave5_vpu_probe() does not check the
+return value of kthread_run().  On failure, dev->irq_thread holds an
+error pointer instead of a valid task pointer.
 
-Store the IRQ number in struct rockchip_rga, unregister the video device
-first, and free the IRQ before releasing the m2m state so the handler
-cannot run against the freed state.
+Both the probe error path and the remove path only check
+dev->irq_thread against NULL before calling kthread_stop() on it, so an
+error pointer passes the check and kthread_stop() crashes on it.
 
-Fixes: f7e7b48e6d79 ("[media] rockchip/rga: v4l2 m2m support")
+Check the kthread_run() result, clear dev->irq_thread and unwind the
+probe on failure.
+
+Fixes: e66ff2b08e4e ("media: chips-media: wave5: Fix Null reference while testing fluster")
 Cc: stable@vger.kernel.org
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
 Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 ---
- drivers/media/platform/rockchip/rga/rga.c | 4 +++-
- drivers/media/platform/rockchip/rga/rga.h | 1 +
- 2 files changed, 4 insertions(+), 1 deletion(-)
+ drivers/media/platform/chips-media/wave5/wave5-vpu.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
-index b3cb6bf8eb863..fbc99462dce28 100644
---- a/drivers/media/platform/rockchip/rga/rga.c
-+++ b/drivers/media/platform/rockchip/rga/rga.c
-@@ -797,6 +797,7 @@ static int rga_probe(struct platform_device *pdev)
- 		ret = irq;
- 		goto err_put_clk;
- 	}
-+	rga->irq = irq;
- 
- 	ret = devm_request_irq(rga->dev, irq, rga_isr,
- 			       rga_has_internal_iommu(rga) ? 0 : IRQF_SHARED,
-@@ -876,8 +877,9 @@ static void rga_remove(struct platform_device *pdev)
- 
- 	v4l2_info(&rga->v4l2_dev, "Removing\n");
- 
--	v4l2_m2m_release(rga->m2m_dev);
- 	video_unregister_device(rga->vfd);
-+	devm_free_irq(rga->dev, rga->irq, rga);
-+	v4l2_m2m_release(rga->m2m_dev);
- 	v4l2_device_unregister(&rga->v4l2_dev);
- 
- 	pm_runtime_disable(rga->dev);
-diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/platform/rockchip/rga/rga.h
-index bd431534d0d39..7bcdf36c11b4d 100644
---- a/drivers/media/platform/rockchip/rga/rga.h
-+++ b/drivers/media/platform/rockchip/rga/rga.h
-@@ -73,6 +73,7 @@ struct rockchip_rga {
- 	struct device *dev;
- 	struct regmap *grf;
- 	void __iomem *regs;
-+	int irq;
- 	struct clk_bulk_data *clks;
- 	int num_clks;
- 	struct rockchip_rga_version version;
+diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpu.c b/drivers/media/platform/chips-media/wave5/wave5-vpu.c
+index 76d57c6b636a2..37df270b5f991 100644
+--- a/drivers/media/platform/chips-media/wave5/wave5-vpu.c
++++ b/drivers/media/platform/chips-media/wave5/wave5-vpu.c
+@@ -340,6 +340,13 @@ static int wave5_vpu_probe(struct platform_device *pdev)
+ 		dev_err(&pdev->dev, "failed to get irq resource, falling back to polling\n");
+ 		sema_init(&dev->irq_sem, 1);
+ 		dev->irq_thread = kthread_run(irq_thread, dev, "irq thread");
++		if (IS_ERR(dev->irq_thread)) {
++			ret = PTR_ERR(dev->irq_thread);
++			dev_err(&pdev->dev, "failed to create irq thread\n");
++			dev->irq_thread = NULL;
++			goto err_vdi_release;
++		}
++
+ 		hrtimer_setup(&dev->hrtimer, &wave5_vpu_timer_callback, CLOCK_MONOTONIC,
+ 			      HRTIMER_MODE_REL_PINNED);
+ 		dev->worker = kthread_run_worker(0, "vpu_irq_thread");
 -- 
 2.53.0
 
