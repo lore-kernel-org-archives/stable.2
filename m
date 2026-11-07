@@ -1,52 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049103;
-	b=fMGx3AwWK7yT3rgS5hbPb1IwgiaJwM4XOMW01A0cpYfLrRCsj6PR/TvCr3nrwmOj6mrl
-	 8s89rCAoXCdXndJ3/uU1QmjKteq+GXSuT9FCXVerS9efi0H34IKx016hCODeB6hxYVsFz
-	 bcKtQuLMv3dse35lec0q5AwuKJkbYws9DpA0RVIAqRgkhujDRL7pVmWSzwIWYGszj6s/u
-	 pvXpK8TvIaDXljSD9yturu8aDJe3Gk4Nf8B6Jfd1j6hLa5P0kARetSiRPBcl/PopRUy/j
-	 aUMXyrbw4cI/uhhJo+BHCygtn5wvyhecSONxGNT/HriYNg+XAJaEefnqNMp8RM5Vowg==
+	t=1794049106;
+	b=qf/kNWZpHVdSbbDf5af0T3w+ARyoW1MvYEjLQSKYfxS/T3aAzVJxcfsbOrF7yNg9XcHW
+	 MRaHNVc7p/ARhbk3zSoP8k1HHSMfvELyFE3nAZfCN56XgCOyZDVr0kz22tvEZQc+5PPAU
+	 84r9o8jmp0ZqfcDixfj9kcGQPjonBO9YTDUbasuyYvTP6ByCzimj9ZR3iInv6lAQq2/vy
+	 Tw7+eY/2KWjYD7m/B27zgQDTeAIApK7lX5zivxqo1HF2tcfmNoZ5y5wb75BQ75jxLmz09
+	 7fVxmAN/i5hDTNvidMMlpWkQP3TqySrDIVTLUvnPDl11HZE9RiMFdE0++8iuRpgIxWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049103;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049106;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=UWnerLREmerGlH/DkrrKpZuE5wwcF0q9IFzbb43x7jk=;
-	b=O8cEMsR/Ywjdicn5Qek+kCOINI/augCrh7dEHk1X76WghaeEFDZ/KFTFCHrVXmjHoZS1
-	 BfTuUd3xnlWq6XDONKIp2DWRQDFkpBwmp82WBdfit2dxpka4Hfs1lo48Fw4qBirPSTY4o
-	 hGRGY9/f8dQTxURSyzI5R2uMq98wGCbfs65jz3vQCI2SL9m7DTHiaAh+DEDkaYJIWicms
-	 wkzdsXApn8q8MCNCwI4IMjpSnPG60J7Y5KapqHvJF6DRO7dUd6iOO2Fes9UAhOOlJfJWz
-	 MMeOKnu/Cz2KT6Z4siV/MpVWvxMnMfnYcRUQ9j62VDT3SP4dBbqvJeD9XyVU/Y6CWjA==
+	bh=R/nIj+unSpb1LcVMiKpA2ESe/xtIpmFJdGL69L9iTTg=;
+	b=qIEV/REtGYxdFk/1WXkJjp6L6B5UXpkEky6qfTxN/n/toNP7V9t9vLavGOuE2q3a3vFw
+	 l6moakYBJxugWzg/CSh52t7lv/uzAOvWM7EvCzdcThEYInG9v+2h0FU2dqnwBtCbxUjjP
+	 cCSxIyfOUAGMClI5N1LkG3gZSyP1WtIHxcG0936uCemzsi99HnJOwA0t0UMW2QiKcFnZ1
+	 nhd/raare4QgAk5tPaXal2ttN8e8YIldIb7DiPt1kBYle7pKONasAZs+kkVgfrsbeFEvJ
+	 qM/6KNL6ztSMZs9QujKtuC/HsY1lBd99C31BzT7hm94u5LcATErz5Ssg1+CvebYg7tQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="LR6/ofhY";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ohXNSBN3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8AB9606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:58:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE1BB606A33A
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:58:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LR6/ofhY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 404F41F0089F;
-	Sat,  7 Nov 2026 10:58:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ohXNSBN3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E81F1F008A1;
+	Sat,  7 Nov 2026 10:58:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049102;
-	bh=UWnerLREmerGlH/DkrrKpZuE5wwcF0q9IFzbb43x7jk=;
+	s=k20260515; t=1794049105;
+	bh=R/nIj+unSpb1LcVMiKpA2ESe/xtIpmFJdGL69L9iTTg=;
 	h=From:To:Cc:Subject:Date;
-	b=LR6/ofhYy5xvo/azY8roNm5XV/RM+Ewc7TCindV1xYoy44wrrE52y4ZfE1yN44SEr
-	 YNCBFz7EW8tYGheLmeFXzYestemtBT5YrrFAjcTG9b1ef7+tZQ2gcvmSPjDX00aPE7
-	 0SeyULZGmlx5NPi9UN9+zljje0K/ZTMqN85PE8yCLGmlZXJbZSV8cigLYcbv1pZBIn
-	 k/WX3lkenYv1Sh/Q0KFx9wu9hzBMVrM0zSFXLMS1fxbv5RTnNG57Dk6MmVrPG9TUr6
-	 dyeqwJ1LUiiGKl8X0qwLwHGOzx3svKSZCsKp8yMNSjActBr/CHzbfUie0Pksvnecin
-	 iJWH9xQPLl+LQ==
+	b=ohXNSBN3SnPej5g3z+gZXKPUxZX9H82O3c4Z78rU867AyXeAC5Xc5bfXk4g0v9XK4
+	 LM55wLX/3OJNqmxQGPx4Iq710xlKF8sUXtrKCj8b/6cLTioyT32k0ug/CM2M2nXutn
+	 r7u80kyYr+iH8DT36OcgG21h/IazpUjFMsLz184RlULPxHvEElodgFSUQUBZU9ElIa
+	 8IrZCPpwCM+z8iY789I0uTOml8apSahbAj2u+sK/KH+zgZEbGvfzzss1fhBZ3yzlyC
+	 i/qokSxclXDOPtbfpFeqjVpPPK/EfmKYrXhVY+qeTpbiJ9CZhy0Qfrl77uVrxi3xtW
+	 oKQfGuj3RIK0w==
 From: Sasha Levin <sashal@kernel.org>
-To: fanwu01@zju.edu.cn,
-	songl@zju.edu.cn,
-	sebastian.reichel@collabora.com
+To: seanjc@google.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] power: supply: bq27xxx: Ensure poll work is cancelled on remove" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 05:58:20 -0500
-Message-ID: <20261107055820-failed-5.15-db560f4b1c52@kernel.org>
+Subject: FAILED: patch "[PATCH] KVM: x86/mmu: Bug the VM if KVM attempts to walk more levels than the MMU has" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 05:58:24 -0500
+Message-ID: <20261107055823-failed-5.15-115f9405a2ed@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,90 +67,66 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x db560f4b1c5253853f978385db066220e0c218dc
+git cherry-pick -x 115f9405a2ed6d78ee7ad8436bdd638743f6d1d4
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055820-failed-5.15-db560f4b1c52@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055823-failed-5.15-115f9405a2ed@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From db560f4b1c5253853f978385db066220e0c218dc Mon Sep 17 00:00:00 2001
-From: Fan Wu <fanwu01@zju.edu.cn>
-Date: Thu, 3 Sep 2026 08:13:12 +0000
-Subject: [PATCH] power: supply: bq27xxx: Ensure poll work is cancelled on
- remove
+From 115f9405a2ed6d78ee7ad8436bdd638743f6d1d4 Mon Sep 17 00:00:00 2001
+From: Sean Christopherson <seanjc@google.com>
+Date: Wed, 2 Sep 2026 16:20:26 -0700
+Subject: [PATCH] KVM: x86/mmu: Bug the VM if KVM attempts to walk more levels
+ than the MMU has
 
-The di->work poll work is queued from the poll callback itself and from
-bq27xxx_external_power_changed(). The cancel_delayed_work_sync() in
-bq27xxx_battery_teardown() runs while the power_supply is still
-registered, so external_power_changed() can re-arm the work after the
-cancel, and it runs after the driver data has been freed.
+Extend the "EFER.LMA && !CR4.PAE" check, which exists largely to guard
+against KVM configuring a paging32 MMU with more than 2 levels of paging,
+with a very explicit check for exactly that: that KVM isn't trying to walk
+more levels of paging than the MMU template provides.  I.e. harden KVM
+against all bugs that would cause KVM to generates accesses beyond the
+bounds of guest_walker's arrays, regardless of how KVM ended up with the
+misconfigured MMU.
 
-Register a devm_delayed_work_autocancel() before
-devm_power_supply_register(), so on unwind the power_supply is
-unregistered first, after which no new external_power_changed()
-callback can be dispatched, and the poll work is cancelled only then.
-Drop the now-redundant cancel from bq27xxx_battery_teardown().
+Note, don't use w->cpu_role.base.level directly as the paging64 template
+only provides two levels of page tables for PAE paging on 32-bit hosts, and
+handles the third level by manually emulating the PDPTR access.
 
-This issue was found by an in-house static analysis tool.
-
-Fixes: 740b755a3b34 ("bq27x00: Poll battery state")
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Link: https://patch.msgid.link/20260903081312.225535-1-fanwu01@zju.edu.cn
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Link: https://patch.msgid.link/20260902232028.2767071-4-seanjc@google.com
+Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- drivers/power/supply/bq27xxx_battery.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ arch/x86/kvm/mmu/paging_tmpl.h | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/power/supply/bq27xxx_battery.c b/drivers/power/supply/bq27xxx_battery.c
-index 4d4809a70b622..cd30993b8a89e 100644
---- a/drivers/power/supply/bq27xxx_battery.c
-+++ b/drivers/power/supply/bq27xxx_battery.c
-@@ -43,6 +43,7 @@
-  */
+diff --git a/arch/x86/kvm/mmu/paging_tmpl.h b/arch/x86/kvm/mmu/paging_tmpl.h
+index 27427e7f22fa0..f925b11d76ddb 100644
+--- a/arch/x86/kvm/mmu/paging_tmpl.h
++++ b/arch/x86/kvm/mmu/paging_tmpl.h
+@@ -368,13 +368,14 @@ static int FNAME(walk_addr_generic)(struct guest_walker *walker,
+ 	pte_access = ~0;
  
- #include <linux/device.h>
-+#include <linux/devm-helpers.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
- #include <linux/param.h>
-@@ -2234,7 +2235,6 @@ int bq27xxx_battery_setup(struct bq27xxx_device_info *di)
- 	};
- 	int ret;
+ 	/*
+-	 * Queue a page fault for injection if this assertion fails, as callers
+-	 * assume that walker.fault contains sane info on a walk failure.  I.e.
+-	 * avoid making the situation worse by inducing even worse badness
+-	 * between when the assertion fails and when KVM kicks the vCPU out to
+-	 * userspace (because the VM is bugged).
++	 * Queue a page fault for injection if any of the below assertions fail,
++	 * as callers assume that walker.fault contains sane info on a walk
++	 * failure.  I.e. avoid making the situation worse by inducing even
++	 * worse badness between when the assertion fails and when KVM kicks
++	 * the vCPU out to userspace (because the VM is bugged).
+ 	 */
+-	if (KVM_BUG_ON(is_long_mode(vcpu) && !is_pae(vcpu), vcpu->kvm))
++	if (KVM_BUG_ON(is_long_mode(vcpu) && !is_pae(vcpu), vcpu->kvm) ||
++	    KVM_BUG_ON(walker->max_level > PT_MAX_FULL_LEVELS, vcpu->kvm))
+ 		goto error;
  
--	INIT_DELAYED_WORK(&di->work, bq27xxx_battery_poll);
- 	ret = devm_mutex_init(di->dev, &di->lock);
- 	if (ret)
- 		return ret;
-@@ -2255,6 +2255,12 @@ int bq27xxx_battery_setup(struct bq27xxx_device_info *di)
- 	psy_desc->get_property = bq27xxx_battery_get_property;
- 	psy_desc->external_power_changed = bq27xxx_external_power_changed;
- 
-+	/* Cancel the poll work after the power_supply is unregistered. */
-+	ret = devm_delayed_work_autocancel(di->dev, &di->work,
-+					   bq27xxx_battery_poll);
-+	if (ret)
-+		return ret;
-+
- 	di->bat = devm_power_supply_register(di->dev, psy_desc, &psy_cfg);
- 	if (IS_ERR(di->bat))
- 		return dev_err_probe(di->dev, PTR_ERR(di->bat),
-@@ -2281,8 +2287,6 @@ void bq27xxx_battery_teardown(struct bq27xxx_device_info *di)
- 	mutex_lock(&di->lock);
- 	di->removed = true;
- 	mutex_unlock(&di->lock);
--
--	cancel_delayed_work_sync(&di->work);
- }
- EXPORT_SYMBOL_GPL(bq27xxx_battery_teardown);
- 
+ 	++walker->level;
 -- 
 2.53.0
 
