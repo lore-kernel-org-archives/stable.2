@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049013;
-	b=ZA37Si2Ox4kLA3UtX6CaciOHBP2pDLPSdAEYtNArAd8FHCIjfBosw4knSB/Bxp9GflfX
-	 iGoG1F7Pu43c33aG5oMjFQPsE+b1VLNTMtQAgm3GTgm3ikRuQUBtbdPs6mr9QgUF9+vPJ
-	 Zp2kINFqDm3XgXCpelqxdL41/RIRDrkrHonqytjfBbG+pPkC5kx1rSh4Ae8orPePFExYb
-	 kfaDW8DfZr2w5zAw33Vn9wRZ93Id2RoOjyctHoWwW/jt6VzlVmfwJX34kzT/F9O4lysk7
-	 fgVQA4GVhecikdp43QLjNVkTaQqrfOKhgFpMou6/HS21NSeQ4KhviliU7AAii7pO6fw==
+	t=1794049016;
+	b=0VIIjnjBM6vG4grOdu+EAFtTxFaqRqvpS9bC6yS60hndyqDBS3xcQQKke02iQz1bEXv2
+	 i08O6ybA5yumxBQc5eVaY1Of38GOxExoEFmvEHx7Yk7euywHcz5LT42uVCD9W/HcbN3hp
+	 EZ4J4xC0xE0C65oSc9Uh0FP4+tPBB1+YFgSk0j1ReHHAqfporCAeUy6H/EgEjOhFRnXzk
+	 9XFz5RMyxsmTfXn9bC2jQ8qTyDnx1fGbutEwWiMBPkJRWuwH4U/BlfU+d9lR3Lnd49nFT
+	 GMKPgHq+s9inIwCAI9fnIcTwIJ8xqx3NlQE6JmApfzs56ZP9JIaEjNYJcofrflXHtMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049013;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049016;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=srjfVM//Lt/d3Dzma/F35ZbXtED/MVgNHGwh0svr+s8=;
-	b=C/d9nc2z/j6lxRS1KG3F+wqa5FDM10HVTG1CIqR0OZb/BCJHAJD4NhzmPrUNFA6An+ew
-	 W1tB9GtFMiNMD05XZfK9rzBzjeuhkJK2BHxx5Pq9JHzRBvnwRiAejm/4jCCCNlW1Es33P
-	 NJAnxVFdIz4pLXgJNRp9peDR1k8eCMoC8kPlSQQcl1u2qn0E1eaqpzcooEcBfiuCGe7x+
-	 FkzjtpnIYD/+tkjghoCuLDaPm3qyR9Co8j+ZM+scWlw9Glt9HhwfFXQr+6OPpiJLqvjLh
-	 aiINMKbyKoXQmQuXovWzBlaiuQDbIIALhJx7o4UnFi6E767IKISM25HriW0sRvlNeag==
+	bh=xXgXB8lhKk72+PsmjdcJM2AFT6E6r8pM/bwluDey7W4=;
+	b=f733aOwDQKFDfLcZblGs4LZ7dzN5hCaAx13ROV9yZGMid0FVfhoTDveuu2b/iNSs272H
+	 NF6JK+r2747KdFWifycQmXPiAfNfeK9DNtI+vjXFk0c6jx/2jRHDX9s9iQwi9ac6LjL3+
+	 BZ7Z9+ErFEpKErKw0mmGNd9KMDVpQ0iJzcJJvc5koeRKepi0IlxmBQG/lpQlOze49jmAy
+	 s/gOV4qz01Kf2eH4/bHFE/Rq2Nz3pjS0CBn49I5hQqUqcH/oiZYjmv/EvbOygRPuMP25r
+	 6+EC6Krxex3YwjAJtRfaI9bAdwUszPPmB+ZrSdLmY7690TntkpvvYcwxSyIPLzBmVyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NlbXMJXR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A+0NhHZN;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6211606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:56:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43C5B606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:56:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NlbXMJXR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 631721F0089F;
-	Sat,  7 Nov 2026 10:56:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A+0NhHZN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 721D91F0089F;
+	Sat,  7 Nov 2026 10:56:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049012;
-	bh=srjfVM//Lt/d3Dzma/F35ZbXtED/MVgNHGwh0svr+s8=;
+	s=k20260515; t=1794049016;
+	bh=xXgXB8lhKk72+PsmjdcJM2AFT6E6r8pM/bwluDey7W4=;
 	h=From:To:Cc:Subject:Date;
-	b=NlbXMJXRTvyyWJZNZDZdnm6TMOYc1mqq8rlTDDjjPnDhM+hnu8PyZH+SQf71K7pbu
-	 5c1CuEsAga2L56ItbMd17mQG6OxmXrm2iUGB4OU71dans3iCZEvcnOa1cb2YVSx7US
-	 i5C7ixgVguBbxpcrH2lwDhyTH9/Y1xGI16HTiG1cGa7N0Cn5dQg2OJY5qX2yus/dp6
-	 U/1TBpOkuWBFRkESdhZBSV9pgBLyood4luR2JNyHdSHjg8ZW9MLs89/f59L6Y0bqc8
-	 TwMZPDxbwfiNrm0dUF9zhKBK8MajxOcHYm3hYHe5U2S867kI839QEvwBtpTTlSlKMU
-	 gSbdRFk8yuNNg==
+	b=A+0NhHZN6aY7pqG1ciDkQ+0C++7ZflHcyynkcJmTb/BMt0epH9jaYkxXZy4qXNRuA
+	 bbxkGngkcxHXvJYx7Avc4QADad4XmpUU5dp7AWlegPg2JWZ6zdDdquBIHY2uwGoGOF
+	 4qR1wKTnxa7jq+x9F8k3YHryFtXVaGK5dF5OeklAwtmEYmEuAPDB+JJME/fyTejO3K
+	 OXmX2YB/prZ5kruG0b75uyGur5zFyFY59HICfZkbDR/QZ2/rEbY6KLih8oSbCZ1t37
+	 /Y++HJ6Z7UOeg49PysiSr4f3IwXCWUvyBpgagoQy7yz3L6/gEJuoVYyqy0pVxKUl/k
+	 tjfsH6Zvzd3hw==
 From: Sasha Levin <sashal@kernel.org>
-To: georgia.garcia@canonical.com,
-	john.johansen@canonical.com
+To: mason@kernel.org,
+	amir73il@gmail.com,
+	brauner@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] apparmor: fix profile leak when a policy load fails" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:56:51 -0500
-Message-ID: <20261107055650-failed-6.1-ce94927fa417@kernel.org>
+Subject: FAILED: patch "[PATCH] backing-file: always end a queued write" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:56:54 -0500
+Message-ID: <20261107055653-failed-6.1-627cdcbc2a2e@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,116 +69,87 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x ce94927fa4173fcc1eca27bdc65a140064c8f1e6
+git cherry-pick -x 627cdcbc2a2eceb0452078a0c14370f9f1f17a91
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055650-failed-6.1-ce94927fa417@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055653-failed-6.1-627cdcbc2a2e@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From ce94927fa4173fcc1eca27bdc65a140064c8f1e6 Mon Sep 17 00:00:00 2001
-From: Georgia Garcia <georgia.garcia@canonical.com>
-Date: Wed, 14 Oct 2026 19:08:21 -0300
-Subject: [PATCH] apparmor: fix profile leak when a policy load fails
+From 627cdcbc2a2eceb0452078a0c14370f9f1f17a91 Mon Sep 17 00:00:00 2001
+From: Chris Mason <mason@kernel.org>
+Date: Thu, 29 Oct 2026 19:03:19 +0100
+Subject: [PATCH] backing-file: always end a queued write
 
-The error paths of aa_replace_profiles() and aa_unpack() do not break
-the refcount cycle between label and proxy. They just aa_put_profile()
-the new profiles, which drops the label refcount from 2 to 1, and the
-proxy keeps the profile alive. Every failed atomic policy load
-(e.g. "profile can not be replaced", or a later profile in the blob
-failing to unpack) leaks every new profile in the set, along with its
-proxy, rules and its loaddata reference.
+Writes to a loop device with direct I/O on an overlay file make the
+next freeze of the upper filesystem hang for ever.
 
-The leak is usually not visible from userspace, because the raw_data
-directory for a failed load is not created, but it becomes visible
-when the blob is deduplicated onto an existing loaddata, which then
-keeps its policy/raw_data/<rev> directory forever.
+Every kiocb_start_write() needs a kiocb_end_write(). For a write that
+is queued, vfs_iocb_iter_write() leaves the end to the completion, and
+backing_aio_rw_complete() only calls kiocb_end_write() when IOCB_WRITE
+is set in the flags copied from the submitter. In-kernel submitters
+such as loop do not set that flag, so each queued write keeps the
+freeze protection of the backing filesystem.
 
-Add aa_put_unpublished_profile(), which drops the profile's own proxy
-before putting the profile, and use it on those error paths. The
-proxy of an unpacked profile is always freshly allocated and not
-referenced by anything else before the profile is published, so
-putting it is safe.
+Direct writes to a loop device with direct I/O backed by an overlay
+file left fsfreeze of the ext4 upper filesystem, and a later touch
+there, blocked in D state. It takes write access to the node of the
+loop device, which root has by default, to attach the file and to write.
 
-Fixes: 637f688dc3dc ("apparmor: switch from profiles to using labels on contexts")
+The fix used here is to mark a write in struct backing_aio and to call
+kiocb_end_write() on completion of every marked write.
+
+Reproduced under qemu without KVM, on v7.3-rc6-21-g602042bf29f6 with
+earlier fixes of this series applied, with and without this change,
+once each. The kernel was not changed for the run. With this change
+fsfreeze finished in about a second. Not run: the nvmet and LIO file
+backends, which do not set IOCB_WRITE either, FUSE passthrough, and an
+xfs upper filesystem.
+
+Fixes: 2406a307ac7d ("ovl: implement async IO routines")
 Cc: stable@vger.kernel.org
-Signed-off-by: Georgia Garcia <georgia.garcia@canonical.com>
-Signed-off-by: John Johansen <john.johansen@canonical.com>
+Signed-off-by: Chris Mason <mason@kernel.org>
+[amir: use aio->is_write to explicitly mark a write aio]
+Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+Link: https://patch.msgid.link/20261029180319.2852090-1-amir73il@gmail.com
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- security/apparmor/include/policy.h | 20 ++++++++++++++++++++
- security/apparmor/policy.c         |  3 +++
- security/apparmor/policy_unpack.c  |  4 +++-
- 3 files changed, 26 insertions(+), 1 deletion(-)
+ fs/backing-file.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/security/apparmor/include/policy.h b/security/apparmor/include/policy.h
-index 0dcbf8cf1029a..bb851654cb80f 100644
---- a/security/apparmor/include/policy.h
-+++ b/security/apparmor/include/policy.h
-@@ -436,6 +436,26 @@ static inline void aa_put_profile(struct aa_profile *p)
- 		kref_put(&p->label.count.count, aa_label_kref);
- }
+diff --git a/fs/backing-file.c b/fs/backing-file.c
+index 2424dc38d21ac..ad573f5153c7c 100644
+--- a/fs/backing-file.c
++++ b/fs/backing-file.c
+@@ -96,6 +96,7 @@ struct backing_aio {
+ 	refcount_t ref;
+ 	struct kiocb *orig_iocb;
+ 	/* used for aio completion */
++	bool is_write;
+ 	void (*end_write)(struct kiocb *iocb, ssize_t);
+ 	struct work_struct work;
+ 	long res;
+@@ -136,7 +137,8 @@ static void backing_aio_rw_complete(struct kiocb *iocb, long res)
+ 	struct backing_aio *aio = container_of(iocb, struct backing_aio, iocb);
+ 	struct kiocb *orig_iocb = aio->orig_iocb;
  
-+/**
-+ * aa_put_unpublished_profile - put a profile that was never made visible
-+ * @p: profile  (MAYBE NULL)
-+ *
-+ * A newly allocated profile and its proxy reference each other
-+ * (proxy->label holds a label refcount). That cycle is normally broken
-+ * when the profile is replaced or removed, which redirects the proxy.
-+ * A profile that is discarded before being added to the policy tree
-+ * never goes through either path, so break the cycle here, otherwise
-+ * the profile, its proxy and its rawdata are leaked.
-+ */
-+static inline void aa_put_unpublished_profile(struct aa_profile *p)
-+{
-+	if (p && p->label.proxy) {
-+		aa_put_proxy(p->label.proxy);
-+		p->label.proxy = NULL;
-+	}
-+	aa_put_profile(p);
-+}
-+
- static inline int AUDIT_MODE(const struct aa_profile *profile)
- {
- 	if (aa_g_audit != AUDIT_NORMAL)
-diff --git a/security/apparmor/policy.c b/security/apparmor/policy.c
-index bfe969b869577..63f7821b4dfff 100644
---- a/security/apparmor/policy.c
-+++ b/security/apparmor/policy.c
-@@ -1462,6 +1462,9 @@ ssize_t aa_replace_profiles(struct aa_ns *policy_ns, struct aa_label *label,
- 	}
- 	list_for_each_entry_safe(ent, tmp, &lh, list) {
- 		list_del_init(&ent->list);
-+		/* new was never added to the policy tree */
-+		aa_put_unpublished_profile(ent->new);
-+		ent->new = NULL;
- 		aa_load_ent_free(ent);
- 	}
+-	if (iocb->ki_flags & IOCB_WRITE)
++	/* Pairs with kiocb_start_write() in vfs_iocb_iter_write() */
++	if (aio->is_write)
+ 		kiocb_end_write(iocb);
  
-diff --git a/security/apparmor/policy_unpack.c b/security/apparmor/policy_unpack.c
-index 7ebffb4ff74fa..35dfa3b451f39 100644
---- a/security/apparmor/policy_unpack.c
-+++ b/security/apparmor/policy_unpack.c
-@@ -1822,13 +1822,15 @@ int aa_unpack(struct aa_loaddata *udata, struct list_head *lh,
+ 	backing_aio_cleanup(aio, res);
+@@ -251,6 +253,7 @@ static int do_backing_file_write_iter(struct file *file, struct iov_iter *iter,
+ 		return -ENOMEM;
  
- fail_profile:
- 	kfree(ns_name);
--	aa_put_profile(profile);
-+	aa_put_unpublished_profile(profile);
- 
- fail:
- 	if (compressed_data)
- 		kvfree(compressed_data);
- 	list_for_each_entry_safe(ent, tmp, lh, list) {
- 		list_del_init(&ent->list);
-+		aa_put_unpublished_profile(ent->new);
-+		ent->new = NULL;
- 		aa_load_ent_free(ent);
- 	}
- 
+ 	aio->orig_iocb = iocb;
++	aio->is_write = true;
+ 	aio->end_write = end_write;
+ 	kiocb_clone(&aio->iocb, iocb, get_file(file));
+ 	aio->iocb.ki_flags = flags;
 -- 
 2.53.0
 
