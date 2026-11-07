@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794045819;
-	b=TkZ5gLmQJbjssp6Dap0xfSJy3FqaJJTPKkS5qDf5MF78tYMpd/CfNhohrvLrd4Ji4VhV
-	 3wHCAxizR4t9v6BJ9la1KBLrfll0OhV1GtXSthb4DoUsY84rlRs1oiIst9BXPk7ZWcyH1
-	 U/C+H2iLfsySElVSa7CM2AWEhWhMBEksV5wPktGa8lKgEaw0AmSAwtkCWNiLRZcxexoRA
-	 jO2gUdHMTzMNc9aKBijx1apHl75OBglrSam4NtFIgqS+oXiFgUUfRABl6RJb8ViZaLFG3
-	 5HKNrjQQ2juE5iIxtw0fB3iMbYSPpynb74YkVmWYyC5n2OrPXhpHH7oy7XGuw1DMr5A==
+	t=1794045821;
+	b=XfifqC6ApVuogMwYKMw+okLVhlKohbWbH64EqvIMVEq6MXMtmRkq9mBuecEzdIegI6NK
+	 W9Su7sS/t8p3bcxkWsbkUgxfsxaZbnjPwkKxDzE4WxMA9o58xdHvOm147I6FuyHSAN1RI
+	 OFqQRBGAfTszuGAXJO1kmxrTkFOqXHE4Y0lJLRPowgk6w6kAUgZa02RCCZhpop+HuVy6R
+	 lM8FSHdNCaUe6RNjro3x1t1QmqrRvmKFI5sJrCAIblby8Uoijn0sdjhjhb7Y8yoOJNuHI
+	 jywyLHhNa1BfDh2lGSOPlY7UxLHVfYJW3u/O8Og/Okb+Oj/lpbcZ1q7lSo4yGdxx0SQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794045819;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794045821;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=bczSPxQBDRYJpWPFXpD6wftM4qFGRO6N0vJYag+Z26Y=;
-	b=1qvDqR36CRRSaNvHwZe4Hr2YVeemPF/a5FNHxWmc4Svx3v5TKeA3XDf/kvtT/QTL90xR
-	 JQKqCCfM3B0QYRN7LQrHNb1tjLDUbkVXBdTdKohCi8U+TT14khtVwsFagfhXGMsogVpZZ
-	 15SEtinbv3n805oxpfAZBkyaTyH6oskcDA4ZnEmOtynguNaptX//lyff81AgeKtHgxF0D
-	 UKVydHMp1FPr5dJbdtpBxWwjWOirWXnppSU0JHx4vY/8XWQ7TcHCwopoZztZMHV6oVB+Z
-	 2pyA4iLPqB1seN+GMRUg5LpUHM84XQlDUrhYzvVxJ666q3NZ+xLxqD0n0fBpxU5tdmQ==
+	bh=nXDgaU0zfK0wy1Q7lAKdGe7WyXLCPBT6YDfHoqZwJbQ=;
+	b=31AR8y1UMpxe78Bl6blBXGD7hTyVVcuVI71KQGvvBNqcoUobT9OcEouH78hjqqUzhlY1
+	 Gg8Dm1PhlTboLETDR2EClAQx4CnLcP8xSIEx6KNL+/wofe/wWUXjbB2pK70drAUV2AWr2
+	 KSEd/vfmpv79A7OMIjQaHg1gjcAL7EmGLoGg7O421WdUSsxzX/HnLa4WVPzsDoOmFwf1M
+	 gejd6sqShlvGTLIH0G7gkul5+f9GEEnSjUZWNnw+uLixccoPYJQJE5yL+F8MlqMW5P+mJ
+	 dguGNIP5BqOJZ4GZLW6IqeH6P4iO3qet3LHkDGYX1QmpVAPzCJvEJYejrcFIUAIr0JA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q8VZ2XtX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RfkYCOO7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 718DD606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:03:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 351A5606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:03:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q8VZ2XtX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 732AD1F0089F;
-	Sat,  7 Nov 2026 10:03:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RfkYCOO7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A44351F0089F;
+	Sat,  7 Nov 2026 10:03:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794045819;
-	bh=bczSPxQBDRYJpWPFXpD6wftM4qFGRO6N0vJYag+Z26Y=;
+	s=k20260515; t=1794045821;
+	bh=nXDgaU0zfK0wy1Q7lAKdGe7WyXLCPBT6YDfHoqZwJbQ=;
 	h=From:To:Cc:Subject:Date;
-	b=Q8VZ2XtXnmartrr9wQvecl5rgPxlwKgdSaV75H48v3YELE1PR6rsSAf5gYLU2xWOv
-	 1oZEU7r+x492sVqZGc5IzuAl3rgqO2UPqMAWLcWwkRqX71hrU7jxBVQPtdKOlXe1A8
-	 0sgedeb1nyrC/BGDx6RqIcT1ie2lX/9rio/6GrzV/InZpMIqlfi6D98Sawr4l7yTZa
-	 /CVAYbfw1YfbzkNqhkhxo9F0hqLiFLjVSkSrt5I31tILuQNGH1sKfnzIoSco3RbQrL
-	 qFtmTNr4e5Pm85IOizJuhgJH4jVBGpqGalqL4VF+m+fX5mG4Jl6ZQ7lTyHibd5cUCY
-	 4g4A8kY10powA==
+	b=RfkYCOO7bnIhzCaSCn1nuYqowu/hbgHLzYRnU9IUaWSaJOEVTJintSJARa3pjmLq6
+	 fXXA/JXoaXXEtEyf/LcKTvLGg3eEKFm6kGQZxYFZKvlT9jZ3NTcmijQGPFG1pg2knG
+	 BTAeoZRT7fZVFCVg850nhQDiwbzRwDb2tI9INq8HnHRgzyObP2AShx9lumHqrBuaRe
+	 4vXrpcyaWh4AOvdvc1DjlBlMNuCCvwY3oCvm0pH1UAkvAEQx/3Bp8y510kWCJYnCub
+	 2rwOHGYEnVCHnNUqR8lgGrobt51GZCJ2qMV7K/ZxQsvKm1YjqZsxXXCuCUY9J6I3Rd
+	 X/vaNd5qy8KRQ==
 From: Sasha Levin <sashal@kernel.org>
-To: tilak.tirumalesh.tangudu@intel.com,
-	vinay.belgaumkar@intel.com,
-	matthew.d.roper@intel.com
+To: jwuerz@gmail.com,
+	tiwai@suse.de
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/xe: harden adjust_idledly() against divide-by-zero and overflow" failed to apply to 7.3-stable tree
-Date: Sat,  7 Nov 2026 05:03:37 -0500
-Message-ID: <20261107050337-failed-7.3-d864065ea25e@kernel.org>
+Subject: FAILED: patch "[PATCH] ALSA: hda/realtek: Fix internal mic on Minisforum V3 and V3 SE" failed to apply to 7.3-stable tree
+Date: Sat,  7 Nov 2026 05:03:39 -0500
+Message-ID: <20261107050339-failed-7.3-72107104d4f5@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,126 +68,110 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x d864065ea25e9d12897c175de9176ce46677e176
+git cherry-pick -x 72107104d4f522405c9dfdfbaeb230e371c295ee
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050337-failed-7.3-d864065ea25e@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050339-failed-7.3-72107104d4f5@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From d864065ea25e9d12897c175de9176ce46677e176 Mon Sep 17 00:00:00 2001
-From: Tangudu Tilak Tirumalesh <tilak.tirumalesh.tangudu@intel.com>
-Date: Wed, 16 Sep 2026 15:35:44 +0530
-Subject: [PATCH] drm/xe: harden adjust_idledly() against divide-by-zero and
- overflow
+From 72107104d4f522405c9dfdfbaeb230e371c295ee Mon Sep 17 00:00:00 2001
+From: Jared Wuerzburger <jwuerz@gmail.com>
+Date: Mon, 28 Sep 2026 10:29:25 -0500
+Subject: [PATCH] ALSA: hda/realtek: Fix internal mic on Minisforum V3 and V3
+ SE
 
-adjust_idledly() has several corner-case issues flagged during review:
+On the Minisforum V3 and V3 SE (ALC245, PCI SSID 1f4c:e001) the
+internal digital microphone array never produces any audio. The DMIC
+pin 0x12 is parsed correctly ("Internal Mic=0x12"), but the headset mic
+jack pin 0x19 (BIOS pin config 0x04a19050, jack detect enabled) has no
+presence detect wired on these boards: reading GET_PIN_SENSE on 0x19
+always returns "present" (as it does on the unused, unconnected pin
+0x18), while the headphone jack 0x21 reports correctly.
 
-  1. If xe_gt_clock_init() failed to recognise the crystal clock,
-     gt->info.timestamp_base is 0, which makes idledly_units_ps also 0.
-     The subsequent DIV_ROUND_CLOSEST(..., idledly_units_ps) is then a
-     divide-by-zero and panics the kernel.
+The generic parser therefore sets up auto-mic switching and, believing
+an external mic is always plugged in, permanently routes the ADC to the
+empty jack (mixer 0x23 input 0x19 unmuted, input 0x12 muted). The
+"Mic Jack" kcontrol reports "on" with nothing plugged in.
 
-  2. The tick-to-ns conversions are done in u32:
-        idledly * idledly_units_ps, (maxcnt - 1) * 1000
-     Both overflow u32 before DIV_ROUND_CLOSEST() sees them.
+Mark pin 0x19 as having no presence detect. The parser then stops
+auto-switching and exposes a normal "Capture Source" (Internal Mic /
+Mic) control, which desktop audio stacks drive from their Internal
+Microphone / Microphone ports. The existing bass speaker DAC routing is
+kept by chaining to ALC245_FIXUP_BASS_HP_DAC.
 
-  3. If IDLE_WAIT_TIME reads back as 0, maxcnt evaluates to 0 and
-     the maxcnt - 1 clamp wraps to 0xFFFFFFFF in u32.
+Tested on both models with the same pin config applied through a
+snd-hda-intel patch firmware ([pincfg] 0x19 0x04a19150):
+ - V3 SE (Ryzen 7 7735U, BIOS 1.03), kernel 7.2.6
+ - V3 (Ryzen 7 8840U, BIOS 1.06), kernel 7.2.7
+Both boards report the same codec SSID and the same 0x19 default. On
+both, the internal mic records at a normal level, headphone jack
+detection on 0x21 still switches output, and the bass routing is
+retained (DAC1/DAC2 Playback Volume controls present). A headset mic
+on the combo jack was not tested (none available); with this change it
+has to be selected manually. V3 users already report that the jack mic
+gets no input [1], which is the other symptom of the same broken
+presence detect.
 
-  4. The register only stores whole ticks, so the clamped ns value has
-     to be converted to ticks and back. DIV_ROUND_CLOSEST() can round
-     that conversion up past maxcnt:
+The patched alc269.c was build-tested with W=1 on tiwai/sound.git
+for-linus (7.3-rc3) without new warnings.
 
-       maxcnt = 640 ns, one tick = 666664 ps
+The diagnosis, the fixup and this changelog were written with the help
+of an AI coding assistant; I reviewed them and tested the change on the
+hardware listed above.
 
-       clamp:        maxcnt - 1        = 639 ns
-       ns -> ticks:  639000 / 666664   = 0.958 -> rounds to 1 tick
-       tick -> ns:    1 * 666664 / 1000 = 667 ns
-
-     667 ns is programmed into RING_IDLEDLY, but 667 >= maxcnt (640),
-     so xe_gt_WARN_ON() fires again on every subsequent init.
-
-Return early if timestamp_base is 0 (the unknown-crystal path).
-Do the conversions in u64 via the *_ULL() helpers so they cannot wrap.
-Clamp with a floor (DIV_ROUND_DOWN_ULL) so the programmed delay stays
-strictly below maxcnt, and guard the maxcnt == 0 case with a zero delay
-while still writing RING_IDLEDLY so INHIBIT_SWITCH_UNTIL_PREEMPTED is
-cleared.
-
-v2: Drop the redundant warn on the timestamp_base == 0 path;
-    xe_gt_clock_init() already warns on an unrecognised crystal clock.
-    Keep the early return to avoid the divide-by-zero. - Vinay
-
-v3: Field-mask the RING_IDLEDLY write with REG_FIELD_PREP(IDLE_DELAY, ...)
-    instead of writing the raw tick count, which could clobber
-    INHIBIT_SWITCH_UNTIL_PREEMPTED and reserved bits. Split the
-    inhibit-switch clear from the maxcnt clamp so a set inhibit bit no
-    longer forces a needless delay overwrite when the delay itself is
-    already valid. Use gt_to_xe(gt) instead of gt_to_xe(hwe->gt).
-
-Fixes: d2de4410a88f ("drm/xe: Apply Wa_16023105232")
+Fixes: e34743018249 ("ALSA: hda/realtek: Add quirk for Minisforum V3 SE")
+Link: https://github.com/mudkipme/awesome-minisforum-v3/issues/14 [1]
 Cc: stable@vger.kernel.org
-Assisted-by: GitHub_Copilot:claude-opus-4.8
-Signed-off-by: Tangudu Tilak Tirumalesh <tilak.tirumalesh.tangudu@intel.com>
-Reviewed-by: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
-Link: https://patch.msgid.link/20260916100545.779894-2-tilak.tirumalesh.tangudu@intel.com
-Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+Assisted-by: LLM
+Signed-off-by: Jared Wuerzburger <jwuerz@gmail.com>
+Link: https://patch.msgid.link/20260928152925.69032-1-jwuerz@gmail.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- drivers/gpu/drm/xe/xe_hw_engine.c | 27 +++++++++++++++++++++------
- 1 file changed, 21 insertions(+), 6 deletions(-)
+ sound/hda/codecs/realtek/alc269.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_hw_engine.c b/drivers/gpu/drm/xe/xe_hw_engine.c
-index 010499766fce2..d868af8e33019 100644
---- a/drivers/gpu/drm/xe/xe_hw_engine.c
-+++ b/drivers/gpu/drm/xe/xe_hw_engine.c
-@@ -592,22 +592,37 @@ static void adjust_idledly(struct xe_hw_engine *hwe)
- 	u32 idledly_units_ps = 8 * gt->info.timestamp_base;
- 	u32 maxcnt_units_ns = 640;
- 	bool inhibit_switch = 0;
-+	bool wa_applied = false;
-+
-+	if (!IS_SRIOV_VF(gt_to_xe(gt)) && XE_GT_WA(gt, 16023105232)) {
-+		/* xe_gt_clock_init() warns and zeroes timestamp_base on unknown crystal clock. */
-+		if (!idledly_units_ps)
-+			return;
+diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
+index 075dc1aa326bb..13bc741907522 100644
+--- a/sound/hda/codecs/realtek/alc269.c
++++ b/sound/hda/codecs/realtek/alc269.c
+@@ -4464,6 +4464,7 @@ enum {
+ 	ALC287_FIXUP_YOGA9_SPEAKER2_TO_DAC1,
+ 	ALC256_FIXUP_IPASON_SMARTBOOK_S1,
+ 	ALC256_FIXUP_ASUS_SPEAKER_COEFS,
++	ALC245_FIXUP_MINISFORUM_V3_MIC_NO_PRESENCE,
+ };
  
--	if (!IS_SRIOV_VF(gt_to_xe(hwe->gt)) && XE_GT_WA(gt, 16023105232)) {
- 		idledly = xe_mmio_read32(&gt->mmio, RING_IDLEDLY(hwe->mmio_base));
- 		maxcnt = xe_mmio_read32(&gt->mmio, RING_PWRCTX_MAXCNT(hwe->mmio_base));
+ /* A special fixup for Lenovo C940 and Yoga Duet 7;
+@@ -7257,6 +7258,15 @@ static const struct hda_fixup alc269_fixups[] = {
+ 		.chained = true,
+ 		.chain_id = ALC256_FIXUP_ASUS_MIC_NO_PRESENCE,
+ 	},
++	[ALC245_FIXUP_MINISFORUM_V3_MIC_NO_PRESENCE] = {
++		.type = HDA_FIXUP_PINS,
++		.v.pins = (const struct hda_pintbl[]) {
++			{ 0x19, 0x04a19150 }, /* headset mic jack, no presence detect */
++			{ }
++		},
++		.chained = true,
++		.chain_id = ALC245_FIXUP_BASS_HP_DAC
++	},
+ };
  
- 		inhibit_switch = idledly & INHIBIT_SWITCH_UNTIL_PREEMPTED;
- 		idledly = REG_FIELD_GET(IDLE_DELAY, idledly);
--		idledly = DIV_ROUND_CLOSEST(idledly * idledly_units_ps, 1000);
-+		idledly = DIV_ROUND_CLOSEST_ULL((u64)idledly * idledly_units_ps, 1000);
- 		maxcnt = REG_FIELD_GET(IDLE_WAIT_TIME, maxcnt);
- 		maxcnt *= maxcnt_units_ns;
- 
--		if (xe_gt_WARN_ON(gt, idledly >= maxcnt || inhibit_switch)) {
--			idledly = DIV_ROUND_CLOSEST(((maxcnt - 1) * 1000),
--						    idledly_units_ps);
--			xe_mmio_write32(&gt->mmio, RING_IDLEDLY(hwe->mmio_base), idledly);
-+		/* Clear the inhibit switch without disturbing a valid delay. */
-+		if (inhibit_switch)
-+			wa_applied = true;
-+
-+		if (xe_gt_WARN_ON(gt, idledly >= maxcnt)) {
-+			/* Floor below maxcnt; write 0 to still clear the inhibit bit. */
-+			idledly = maxcnt ?
-+				DIV_ROUND_DOWN_ULL((u64)(maxcnt - 1) * 1000,
-+						   idledly_units_ps) : 0;
-+			wa_applied = true;
- 		}
-+
-+		if (wa_applied)
-+			xe_mmio_write32(&gt->mmio, RING_IDLEDLY(hwe->mmio_base),
-+					REG_FIELD_PREP(IDLE_DELAY, idledly));
- 	}
- }
- 
+ static const struct hda_quirk alc269_fixup_tbl[] = {
+@@ -8479,7 +8489,8 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x1ee7, 0x2081, "HONOR MRB-XXX M1020", ALC256_FIXUP_HONOR_MRB_XXX_M1020_AUDIO),
+ 	SND_PCI_QUIRK(0x1f4c, 0xb020, "Minisforum AI X1 Pro",
+ 		      ALC245_FIXUP_MINISFORUM_JACK_DETECT),
+-	SND_PCI_QUIRK(0x1f4c, 0xe001, "Minisforum V3 (SE)", ALC245_FIXUP_BASS_HP_DAC),
++	SND_PCI_QUIRK(0x1f4c, 0xe001, "Minisforum V3 (SE)",
++		      ALC245_FIXUP_MINISFORUM_V3_MIC_NO_PRESENCE),
+ 	SND_PCI_QUIRK(0x1f66, 0x0105, "Ayaneo Portable Game Player", ALC287_FIXUP_CS35L41_I2C_2),
+ 	SND_PCI_QUIRK(0x2014, 0x800a, "Positivo ARN50", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
+ 	SND_PCI_QUIRK(0x2039, 0x0001, "Inspur S14-G1", ALC295_FIXUP_CHROME_BOOK),
 -- 
 2.53.0
 
