@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048389;
-	b=1DNg0XJo5h5t30f8Y3yMp0DJ8/Qzdkl0LuxbGhKdX2gZnAkfE28YpplYSnEbnlgDnDau
-	 tZaMHYcVGDieSXHzAWVpQPlq9pfbwNrrNoiKRNoDTi2AjALky/iqPEt4wOxV55q8g5w+E
-	 3eE5NrYWv7NCE1IBTrr/B+YIWdtr/yNW6smkOkSdrC90gJP+KKbPaFXaLI6an2AQ0XK7N
-	 R0AOef+OzZ5JHt/aS5CO3gtf4vmoir/O9CjRl5WV6Uybrh58AzXV4DiVf8AYwwSK1RqAy
-	 l6f3GQ3Y1C6PdVlBb9MzuFHhu2gQAJ5RiFAKpUJOwptTYwZEaWuHtB4/b5pNhIOY8Mw==
+	t=1794048392;
+	b=BtTaS3Jr7nQSXcrdTtZBftjvKxA743j8xXiryjNtKupIVgwiWvvOAphOUCGHJonj9a/C
+	 UH+CGe2EsfqBdxk42iWCejeOdjpTWclqZ36YMeDdpTHhjs0zApaXp8iQuM/bgsTjTs3hh
+	 THFVdxBmWLY/N2RtNthhJa1yhmIEGESwcIQ4klNxkBRWiIiubJcg6Lgt8V3uQBXhvqZrO
+	 ZLRAPJxwnRdbg4AX+AqM+x1g4G2ePW/AYEn9z4w8KSk+eRv5qIPNF3GpJjy/PSvkdQfEf
+	 6OGN0jJlyZ57LD57JWoH4rl1FRq1OpWNtIRcFGeptsENswWvHtJPDCVWhh0HHlJViqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048389;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048392;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=oEXgX0wldqPnQiegkWbpt1t3ERXbIJ7yUlJ8aKtDAHs=;
-	b=Yasn6RaMBY+cCaakNdRxknbBAE1gKIfaxanWdhMgW9cLpfGtqjzT1cltEnf4KjENOxU0
-	 DI9Xsrv8Iu8oHAYV0cOXW0e/mWqLYWBH1PgXjDbOg3XdTiwFH47C20agymgSF+PooOXsr
-	 1DU3UWNEBoaqPlY53LaXZqwAH4ytUgyvvPabj857Ev1EM6oJIwzYv5SxIJxKIH7q+JaC/
-	 pCmkB7nZJv6oCropnT54n9dpU/8/yaLGhxUu+OLsZ4LbAsNis9VUJTibchK+AabVslTeE
-	 8Q421Tx9UyKv37AInz0CBt8JK5G9d0GmcAzIZquEaV95U403bHm6XH0sDBaCw2s+WGw==
+	bh=AqHw3UQdmomY7ywVa9iR9rsVDm3kH4fqYifqy9RAXJ4=;
+	b=ECaTJ6N9cdSYYreAsGl+KbgnYqVf578c8ozNLbS33IcUZJhN1bLGy8Vc8yT9ztBeBIG1
+	 MUOK1Pcx1w2DwEWMsFysE8N0m8A1Gv69PGRI61/OcENXeQ9ZKdPy0KRThHBzgJKws1zrS
+	 6mJa1JvNyNGuJZfEjxefiTnf4qm27RqtmNRtyJy5LQXVn2O2cEPB5HiBC4jzPMmyEwC19
+	 AV5gPGlJQxIj4WvoFJXBnDG4taY9KF4T1tV/erUS7bkFdw+t5DzCi0fW4yKAVsRfNcHtG
+	 oQSTap+i/cxftrULYEiwcal/cuL59nxBNoH4YjeqglZ8wlE9o2+oyMfJZRcQVQqhsmA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jni1mGSX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LNxUPxyS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE588606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:46:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6153606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:46:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jni1mGSX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C6D51F0089F;
-	Sat,  7 Nov 2026 10:46:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LNxUPxyS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65F561F0089F;
+	Sat,  7 Nov 2026 10:46:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048388;
-	bh=oEXgX0wldqPnQiegkWbpt1t3ERXbIJ7yUlJ8aKtDAHs=;
+	s=k20260515; t=1794048391;
+	bh=AqHw3UQdmomY7ywVa9iR9rsVDm3kH4fqYifqy9RAXJ4=;
 	h=From:To:Cc:Subject:Date;
-	b=jni1mGSXUSSJ4+EUXyfkAByKpsbrjWtVBStA4T93q74kP86guoTH/YmmYotYmLAHM
-	 1srGkEHqLUux9phTRZL35BNgkzcY001xQ6bsAvun+QW1dqOWo2lzESUjJgbUMNx9u9
-	 UMsuNhzWZYP3D4xH9wuNnr5kf8CVS2DVKdxPeZqrSbdXKaoFuJwcr3BD94T+dfQ8Ab
-	 aRGEUX3SrVs/9ztzS9EVO1qghxa4eqwKIZ5TmnDuyWgLTrPKJYNnoX8L60m/WcgT9p
-	 sUVYUFesqfQ7sU8qtDupm5YlbByEBEQ7RMpIa27onQAtTw3NxQEGP/aLKliSD4k3s7
-	 g0VwJhC/kiquQ==
+	b=LNxUPxySrOTvPZF0KoEBW4rze9r1hIfs4oRUT6oypthnY0MRnYs5aPM+tqcfelkaH
+	 qrf1peh4uYw6nhHGhHbT3AF+LgPuzNH4F9MsFALwY7nN3q5L55N9E5Xvd+dLSgE6r8
+	 HvgU3ZQEXKZ7K6wu84bqja0spBOwzQD1a/dkS6lTC6FtozneeJBjJfhn/rXroc/PzL
+	 LvjDcUZS33MBBxY1I8nwnkyjTJMAW5YM1ve1fwQ9MpoLVzMONE5+zipmLLBCjzWdD0
+	 KVgG5XwvCFs/wzZcZaZJcCGzILvLgyKc7VeFPre5ZsD6/OjX27qYp55T9y034yr2kc
+	 vTqdRn6mKrO0A==
 From: Sasha Levin <sashal@kernel.org>
-To: evgeny@devduty.com,
-	tiwai@suse.de
+To: aliresool567@gmail.com,
+	gregkh@linuxfoundation.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ALSA: hda/realtek: Enable all four speaker amps on Lenovo ThinkBook X G2 IAH" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:46:27 -0500
-Message-ID: <20261107054627-failed-6.1-f2293e7b2ddd@kernel.org>
+Subject: FAILED: patch "[PATCH] USB: quirks: add USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE for GameSir G7 SE" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:46:30 -0500
+Message-ID: <20261107054630-failed-6.1-40224df29729@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,88 +68,62 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x f2293e7b2ddd803b1461e0490f9b2f32089c1dd0
+git cherry-pick -x 40224df29729618ecd88c5c0077e71b1e82c7a3a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054627-failed-6.1-f2293e7b2ddd@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054630-failed-6.1-40224df29729@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From f2293e7b2ddd803b1461e0490f9b2f32089c1dd0 Mon Sep 17 00:00:00 2001
-From: Evgeny Akhtimirov <evgeny@devduty.com>
-Date: Fri, 9 Oct 2026 20:02:37 +0400
-Subject: [PATCH] ALSA: hda/realtek: Enable all four speaker amps on Lenovo
- ThinkBook X G2 IAH
+From 40224df29729618ecd88c5c0077e71b1e82c7a3a Mon Sep 17 00:00:00 2001
+From: Ali Resool Tuama <aliresool567@gmail.com>
+Date: Fri, 2 Oct 2026 20:42:12 +0300
+Subject: [PATCH] USB: quirks: add USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE for
+ GameSir G7 SE
 
-The Lenovo ThinkBook X G2 IAH (MTM 21TU) has an ALC287 codec with four
-CS35L41 amplifiers on I2C (CSC3551). It reports codec SSID 17aa:3929,
-which it shares with the ThinkBook 13x Gen 5, and PCI SSID 17aa:3842.
+The GameSir G7 SE wired controller first enumerates as 3537:10a0 and
+then re-enumerates in a mode it picks from how the host enumerated it.
 
-Since PCI SSID 17aa:3842 has no quirk entry, the codec SSID matches
-ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_THINKPAD. That fixup binds only
-two amps (cs35l41-hda.0 and .1), while the CS35L41 configuration table
-describes four for 17AA3929. Amps .2 and .3 probe and load firmware,
-but they are never bound to the codec, so half of the speakers stay
-silent.
+When the configuration descriptor is fetched the Linux way, 9 bytes
+followed by the full 80, the controller disconnects about 1 ms after
+its string descriptors have been read, before SET_CONFIGURATION, and
+comes back as 3537:1082, a generic HID gamepad without force feedback.
 
-Add a ThinkPad-style fixup chain that binds four I2C amps, and match the
-laptop by its PCI SSID so the ThinkBook 13x Gen 5 is not affected.
+When the configuration descriptor is fetched in one 255-byte request,
+as Windows does, it comes back as 3537:1010 in Xbox One (GIP) mode,
+which xpad already supports, including rumble.
 
-Tested with hda_model=1028:0c4d (alias to ALC287_FIXUP_CS35L41_I2C_4):
-all four amps bind, apply their calibration and are runtime-active
-during playback.
+Skipping the device qualifier requests (USB_QUIRK_DEVICE_QUALIFIER)
+makes no difference; the configuration descriptor request size alone
+decides the mode. Add USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE for the 10a0
+identity, as is already done for the ShanWan Wireless Gamepad.
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Evgeny Akhtimirov <evgeny@devduty.com>
-Link: https://patch.msgid.link/20261009-thinkbook-x-g2-iah-v1-1-56012188aee0@devduty.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Cc: stable <stable@kernel.org>
+Assisted-by: claude-opus-5-5
+Signed-off-by: Ali Resool Tuama <aliresool567@gmail.com>
+Link: https://patch.msgid.link/20261002-master-v2-1-24b05d8792b5@gmail.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- sound/hda/codecs/realtek/alc269.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ drivers/usb/core/quirks.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-index a68b6a9b71aa0..217df4301a30e 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -4427,6 +4427,8 @@ enum {
- 	ALC245_FIXUP_HP_X360_MUTE_LEDS,
- 	ALC287_FIXUP_THINKPAD_I2S_SPK,
- 	ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_THINKPAD,
-+	ALC287_FIXUP_CS35L41_I2C_4_THINKPAD_ACPI,
-+	ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_4_THINKPAD,
- 	ALC2XX_FIXUP_HEADSET_MIC,
- 	ALC289_FIXUP_DELL_CS35L41_SPI_2,
- 	ALC256_FIXUP_ACER_SFG16_MICMUTE_LED,
-@@ -7017,6 +7019,18 @@ static const struct hda_fixup alc269_fixups[] = {
- 		.chained = true,
- 		.chain_id = ALC287_FIXUP_CS35L41_I2C_2_THINKPAD_ACPI,
- 	},
-+	[ALC287_FIXUP_CS35L41_I2C_4_THINKPAD_ACPI] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = cs35l41_fixup_i2c_four,
-+		.chained = true,
-+		.chain_id = ALC285_FIXUP_THINKPAD_NO_BASS_SPK_HEADSET_JACK,
-+	},
-+	[ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_4_THINKPAD] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = alc287_fixup_tb_vmaster_led,
-+		.chained = true,
-+		.chain_id = ALC287_FIXUP_CS35L41_I2C_4_THINKPAD_ACPI,
-+	},
- 	[ALC2XX_FIXUP_HEADSET_MIC] = {
- 		.type = HDA_FIXUP_FUNC,
- 		.v.func = alc2xx_fixup_headset_mic,
-@@ -8378,6 +8392,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x17aa, 0x3827, "Ideapad S740", ALC285_FIXUP_IDEAPAD_S740_COEF),
- 	SND_PCI_QUIRK(0x17aa, 0x3834, "Lenovo IdeaPad Slim 9i 14ITL5", ALC287_FIXUP_YOGA7_14ITL_SPEAKERS),
- 	SND_PCI_QUIRK(0x17aa, 0x383d, "Legion Y9000X 2019", ALC285_FIXUP_LEGION_Y9000X_SPEAKERS),
-+	SND_PCI_QUIRK(0x17aa, 0x3842, "ThinkBook X G2 IAH", ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_4_THINKPAD),
- 	SND_PCI_QUIRK(0x17aa, 0x3843, "Lenovo Yoga 9i / Yoga Book 9i", ALC287_FIXUP_LENOVO_YOGA_BOOK_9I),
- 	/* Yoga Pro 7 14IMH9 shares PCI SSID 17aa:3847 with Legion 7 16ACHG6;
- 	 * use codec SSID to distinguish them
+diff --git a/drivers/usb/core/quirks.c b/drivers/usb/core/quirks.c
+index b5b577f0b931c..a4bcbe9c913cf 100644
+--- a/drivers/usb/core/quirks.c
++++ b/drivers/usb/core/quirks.c
+@@ -612,6 +612,9 @@ static const struct usb_device_id usb_quirk_list[] = {
+ 	/* ezcap401 - BOS descriptor fetch hangs at SuperSpeed Plus */
+ 	{ USB_DEVICE(0x32ed, 0x0401), .driver_info = USB_QUIRK_NO_BOS },
+ 
++	/* GameSir G7 SE */
++	{ USB_DEVICE(0x3537, 0x10a0), .driver_info = USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE },
++
+ 	/* DELL USB GEN2 */
+ 	{ USB_DEVICE(0x413c, 0xb062), .driver_info = USB_QUIRK_NO_LPM | USB_QUIRK_RESET_RESUME },
+ 
 -- 
 2.53.0
 
