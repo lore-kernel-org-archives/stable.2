@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050648;
-	b=Nyhx02p3ZjiFRGDp0cQl6Rn+xeELADbvtN2Yckaq2lGoK3BS2KdnnKM4KuptXL+ziT5Q
-	 SO/J5cxm4WdLaiXFb2WXINvNoSUmO4oUwQ7goNUaZD5o0YpuzWzLuho8ci6gtiQtqWuIC
-	 iHROAWOnRIEG4yRo4UCx7D7/py16ZceLIeVUuSlO6Il/LzR6Nzb/70878xEYJDDldo5vK
-	 m2hFVnUM+oUZDc6IpJM2QxZ6OlIBgpOqgR7znnAEfNK18j4xcsrr4KcPz1hia2edLaNEl
-	 B6d1zb026LUbAilZB4lwOq0rRZg/12wv3K5zH4WWp7xTofN+TRkARqkClYRdHSzUu+w==
+	t=1794050651;
+	b=cg2LhG7UJV6h2rPl/+l+TsbfxUw+EmykooO7dpmPNDMicAqnOTYkqjc0l+jYwPxCfOoR
+	 oAZnTgXVGCF9j1g+sK+78E8oIHAZgsN+feTb2vwvcNhWe6/m1i9FTX2q58z2BWBdsG8Cs
+	 qMMGfhRjG6scvRUtYoV2nPlhHlystxKpER5M4uuw2CgOEmV0C0Zkk9I+pP1fatFxhy0Bc
+	 P0tMu9t3jouEei3MCOgnfqULN3+PRCOW/SW5qj9kfuH0b+ozBNtlKNdWf5RWljsl3cYWc
+	 Wpqj5Kx6Hqd6F0SoS+MAQ1J4JsVyEmd8XMGrPy3CFl2Swh44Au1Jp0Os0QF55Y4pqvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050648;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050651;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=xx87UeZpSd7FsEslzYx8It8e5UNqHf1G6qQ62kDUXes=;
-	b=CtCUxdhb2kAWaRKd6bAYdC1I2tpnukd1GFZ9T0YWUppCarWkY6LbZIK7edjLRTul9El1
-	 Nsa7Fhy0pw7kWedKuOI1EbllTC3Mvv/EppupSlYpdkw1SjmDp8RICeBG6bZd3PGYTeAN4
-	 R43bPS85aoiU1FX0g/zpW9gKqbI72daX7zkWndTIuQX77XxDf3CYgYrifD3zs3IYTvXFR
-	 El/oZDh1kKMEcInxvxPpnmm1Fn2Q/USaMN0J+1IJjuxc5dEblA4bjbhQePScjYvHoTmeP
-	 r8lIx2KH/G42q2h81nY9cq7OTx2zWaMO4bnbL13zUIAW4LKGK8YuuIfbly5+jcGbNKQ==
+	bh=F1qN3DA0OMnsd2DLH8GmV6UiOtfjbmivi0UCouHra/M=;
+	b=YEZbqgbYLEaj4BFhbm5VyicY/X6yCZBYvObpOIscmnl6fvNMh/sRHrphHYiGJ9m4k5iu
+	 rM5VxPie2xt1xtA6Yg1nHo5WedU4GpLNe4GnLWv8TxUsUE4EDdroYr8auDeG+OsfEs76H
+	 GwAR09qHUUUH/hu+0+uDlrllxOPZTShaZt0R2I2h3bHilbPDjI7IGkOBqJhf9LfaUmDux
+	 CkwzYVBkNxCWsoYyzR/jmdiSJMSGui2JU+RN6b3FEPJdCL2eshR4Ee7xXR881IwSwA0x9
+	 XiIhgB8B6QiNJQ2KI/Jo/GYES0LvmdOCM2JLx8WWu+cytRQq8s1RSS8R03+D4psFumQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XUsQDdZx;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OxxpC4cf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5938606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:24:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31532606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:24:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XUsQDdZx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A7D81F0089F;
-	Sat,  7 Nov 2026 11:24:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OxxpC4cf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46B571F0089F;
+	Sat,  7 Nov 2026 11:24:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050647;
-	bh=xx87UeZpSd7FsEslzYx8It8e5UNqHf1G6qQ62kDUXes=;
+	s=k20260515; t=1794050650;
+	bh=F1qN3DA0OMnsd2DLH8GmV6UiOtfjbmivi0UCouHra/M=;
 	h=From:To:Cc:Subject:Date;
-	b=XUsQDdZxiuucRgsKPRD7q+/8a+QGRdfw+d2VZioHEeGhMKSDcGS2ocLU6KsXpU2ac
-	 nmgd7Gimze1mJc3Q89xZOHs+7IFykDT5v516QpV8MiWoT8xqG8vrkO4K94HQXL+n8J
-	 DqOXF4rVJXvS/m19IepOQXSlWTSXihvREAIjbunN0VpyLkJifPaTX7jPLI5rvcWMJk
-	 IqxKkUU7TRe0aAp1El2VkNtF2ismxC5/lhEhq9xH4UmT7PvrRSi6evSab2EEYzewNT
-	 WcWGv1p4hz6hSlQVflMtO4gA23EwUTV2fQLPTLgJ8m/tQP3dorq+ecPwGQmWfRIMvG
-	 PfoJfaHv8HLrA==
+	b=OxxpC4cfHyRC4wRTEvGAdNlJdtUNgi+TXP0DraaLbl/VGZTZ0BHakbD9WLsMO+4YV
+	 r4/JVF7cacthhogDxXX6slsSCwKgVKjeoF6PWhcwdGlVE9J2reNUPjBlaIWu/xlgvs
+	 YYwUIhGpgyTVvV9Gwfv4fQxkVVlR5MTXvDJtWP+1T9KWJ/W3yY5/4F+3JOTNF05byg
+	 suLQSWxSB5Au+XCGbD1QIt0NBpuyMNp+6K5iwgzuICc5av3M3v3dRn8v6iNjGRrbnz
+	 gP47nH9JV4Pru9S18a23CCUWemFypvcpeyCUkw7QX8bF0uyXvOVe0JOMVTX4DL8W88
+	 x5J6PsC5Gw8ww==
 From: Sasha Levin <sashal@kernel.org>
-To: kaixuanli0131@gmail.com,
-	chao@kernel.org,
-	jaegeuk@kernel.org
+To: liuwb@xiaopeng.com,
+	zhugl3@xiaopeng.com,
+	broonie@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] f2fs: bound the SIT/NAT bitmaps by the checkpoint pack" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:24:05 -0500
-Message-ID: <20261107062405-failed-5.10-080833a32fd5@kernel.org>
+Subject: FAILED: patch "[PATCH] spi: amd: fix len==0 underflow and FIFO overflow" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:24:09 -0500
+Message-ID: <20261107062408-failed-5.10-e2f4edfc061e@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,90 +69,92 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 080833a32fd5dc10b3acf2fa9af9b3213e6cb617
+git cherry-pick -x e2f4edfc061e493fddde16c4bbe1c4f230f41e4a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062405-failed-5.10-080833a32fd5@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062408-failed-5.10-e2f4edfc061e@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 080833a32fd5dc10b3acf2fa9af9b3213e6cb617 Mon Sep 17 00:00:00 2001
-From: Kaixuan Li <kaixuanli0131@gmail.com>
-Date: Sat, 19 Sep 2026 21:09:24 +0800
-Subject: [PATCH] f2fs: bound the SIT/NAT bitmaps by the checkpoint pack
+From e2f4edfc061e493fddde16c4bbe1c4f230f41e4a Mon Sep 17 00:00:00 2001
+From: Weibin Liu <liuwb@xiaopeng.com>
+Date: Wed, 14 Oct 2026 20:39:13 +0800
+Subject: [PATCH] spi: amd: fix len==0 underflow and FIFO overflow
 
-sit_ver_bitmap_bytesize and nat_ver_bitmap_bytesize are used as memcpy
-lengths into and out of sbi->ckpt, which is sized from cp_payload alone,
-and nothing compares either length against that allocation.
+amd_spi_fifo_xfer() unconditionally decrements xfer->len when a tx_buf
+is present. The SPI core does not reject zero-length transfers, so a
+transfer submitted through the SPI_IOC_MESSAGE ioctl with len == 0 and
+a tx_buf makes the u32 len wrap to 0xFFFFFFFF, and the following
+per-byte loop writes far past the FIFO window.
 
-sanity_check_ckpt() has checked these two fields since c77ec61ca0a4, which
-added them after a crafted image overran build_sit_info(). That check ties
-each length to a segment count; it never compares either against the
-allocation, which is the half this adds.
+The driver also never checks the cumulative FIFO offset against
+AMD_SPI_FIFO_SIZE. The core splits each transfer down to the
+controller's max transfer size but does not bound the total message
+length, so a message of several transfers whose total exceeds the FIFO
+overflows it with out-of-bounds MMIO writes (tx) and reads (rx).
 
-Mounting over-reads in build_sit_info() and build_node_manager(), and the
-first checkpoint writes the same lengths back through the same pointers,
-so the over-read's contents reach the on-disk checkpoint. An unmount is
-enough; the filesystem does not have to be used.
+Skip zero-length transfers and reject any transfer that would run past
+the end of the FIFO window.
 
-Bound both ends the way __bitmap_ptr() lays them out. The three branches
-differ, so a single sum of the two lengths would still admit a small
-overflow when cp_payload is non-zero.
+Tested with a user-space replica of the fifo_xfer length arithmetic
+(ASAN build): a zero-length transfer with tx_buf makes len-- wrap to
+0xffffffff, and skipping zero-length transfers avoids the wrap. No AMD
+SPI hardware was available, so the FIFO bound check was verified by
+inspection against AMD_SPI_FIFO_SIZE.
 
-Fixes: 39a53e0ce0df ("f2fs: add superblock and major in-memory structure")
-Cc: stable@kernel.org
-Signed-off-by: Kaixuan Li <kaixuanli0131@gmail.com>
-Reviewed-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+Fixes: bbb336f39efc ("spi: spi-amd: Add AMD SPI controller driver support")
+Cc: stable@vger.kernel.org # 5.8+
+Reviewed-by: Guanglei Zhu <zhugl3@xiaopeng.com>
+Signed-off-by: Weibin Liu <liuwb@xiaopeng.com>
+Link: https://patch.msgid.link/20261014-spi-amd-fifo-fix-v1-1-9fec9ab753e8@xiaopeng.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- fs/f2fs/super.c | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+ drivers/spi/spi-amd.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
-index 54431da34edf9..3a191fda7030f 100644
---- a/fs/f2fs/super.c
-+++ b/fs/f2fs/super.c
-@@ -4278,6 +4278,7 @@ int f2fs_sanity_check_ckpt(struct f2fs_sb_info *sbi)
- 	block_t avail_node_count, valid_node_count;
- 	unsigned int nat_blocks, nat_bits_bytes, nat_bits_blocks;
- 	unsigned int sit_blk_cnt;
-+	unsigned long long ckpt_size, sit_end, nat_end;
- 	int i, j;
+diff --git a/drivers/spi/spi-amd.c b/drivers/spi/spi-amd.c
+index 71a6e5c475b03..ddf89e5353c55 100644
+--- a/drivers/spi/spi-amd.c
++++ b/drivers/spi/spi-amd.c
+@@ -322,11 +322,22 @@ static inline int amd_spi_fifo_xfer(struct amd_spi *amd_spi,
  
- 	total = le32_to_cpu(raw_super->segment_count);
-@@ -4409,6 +4410,29 @@ int f2fs_sanity_check_ckpt(struct f2fs_sb_info *sbi)
- 		return 1;
- 	}
+ 	list_for_each_entry(xfer, &message->transfers,
+ 			    transfer_list) {
++		/* Skip zero-length transfers to avoid len underflow below */
++		if (!xfer->len)
++			continue;
++
+ 		if (xfer->speed_hz)
+ 			amd_set_spi_freq(amd_spi, xfer->speed_hz);
+ 		else
+ 			amd_set_spi_freq(amd_spi, spi->max_speed_hz);
  
-+	/*
-+	 * Nothing above ties the bitmap lengths to sbi->ckpt, which is
-+	 * (1 + cp_payload) blocks. Bound both ends the way __bitmap_ptr()
-+	 * lays them out.
-+	 */
-+	ckpt_size = (unsigned long long)(cp_payload + 1) * F2FS_BLKSIZE(sbi);
-+	if (__is_set_ckpt_flags(ckpt, CP_LARGE_NAT_BITMAP_FLAG)) {
-+		nat_end = CP_MIN_CHKSUM_OFFSET + sizeof(__le32) + nat_bitmap_size;
-+		sit_end = nat_end + sit_bitmap_size;
-+	} else if (cp_payload > 0) {
-+		nat_end = CP_MIN_CHKSUM_OFFSET + nat_bitmap_size;
-+		sit_end = F2FS_BLKSIZE(sbi) + sit_bitmap_size;
-+	} else {
-+		sit_end = CP_MIN_CHKSUM_OFFSET + sit_bitmap_size;
-+		nat_end = sit_end + nat_bitmap_size;
-+	}
++		/* Reject transfers that would overflow the FIFO window */
++		if (fifo_pos + xfer->len >
++		    AMD_SPI_FIFO_BASE + AMD_SPI_FIFO_SIZE) {
++			message->status = -EMSGSIZE;
++			goto fin_msg;
++		}
 +
-+	if (sit_end > ckpt_size || nat_end > ckpt_size) {
-+		f2fs_err(sbi, "Bitmaps do not fit the checkpoint pack: sit ends at %llu, nat at %llu, pack is %llu bytes",
-+			 sit_end, nat_end, ckpt_size);
-+		return 1;
-+	}
-+
- 	if (__is_set_ckpt_flags(ckpt, CP_LARGE_NAT_BITMAP_FLAG) &&
- 		le32_to_cpu(ckpt->checksum_offset) != CP_MIN_CHKSUM_OFFSET) {
- 		f2fs_warn(sbi, "using deprecated layout of large_nat_bitmap, "
+ 		if (xfer->tx_buf) {
+ 			buf = (u8 *)xfer->tx_buf;
+ 			if (!tx_len) {
+@@ -369,6 +380,12 @@ static inline int amd_spi_fifo_xfer(struct amd_spi *amd_spi,
+ 
+ 		list_for_each_entry(xfer, &message->transfers, transfer_list)
+ 			if (xfer->rx_buf) {
++				/* Reject transfers that would overflow the FIFO window */
++				if (fifo_pos + xfer->len >
++				    AMD_SPI_FIFO_BASE + AMD_SPI_FIFO_SIZE) {
++					message->status = -EMSGSIZE;
++					goto fin_msg;
++				}
+ 				buf = (u8 *)xfer->rx_buf;
+ 				/* Read data from FIFO to receive buffer */
+ 				for (i = 0; i < xfer->len; i++)
 -- 
 2.53.0
 
