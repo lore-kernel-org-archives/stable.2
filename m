@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048080;
-	b=En7mmM2Ttb44bIl9F0LRZsKG0/ZdricbzzWeN6YQtSMKSGJzAGhuNgYsfRmkj8OW3ITI
-	 6gvqJf2VcLiuK63Tr4fY5nJYuhGzvHgxy9pAY6Uzfw+Cr6dGNjY+IfYAIO7mNFe4uxHMx
-	 AUXKVRYLu9iiZ1JuRwfYoyaispxS2aTju0GGH4L4XWUM1nYoO5rEX9SHZM3Tn8VnkSU/r
-	 4lM2iWAmig2NXn57ik10OZMQET1buEdpVp4h6t6wl6sRJx2bIEkMhfxKGsCEWl+WMLKZf
-	 +zBs/czCoKGqu6OxUF/fcL8oZe4uSu6OKh6AP+L09sSqL6UxmbSZryrRP+GiELgq4fQ==
+	t=1794048082;
+	b=gaJ7Lc2B5lmfwoFUkw9NlaLZa0BPI8DE3KrvRoILYMgVfGjziQ7Jl0GdOdPXxibJ5206
+	 UjKT8lr3UCD4jAeNouV6NBuOSBKlxFk87VmAbtPI3ucbbD6V3C30bx/go9vCpsfJ8yIGr
+	 LtdEF8HlGVGxD4yaNd2rMfkIopWAKWV8o1tXyg2XRyLxg3xQG2YP5DTPdmKTYC34ZIUR2
+	 Hz50eJi8lZnJG5x1ynN1KttYcLS4b5w8HMF0bEmx5arzVe2cereY9/5Y7T7FSw4wdAt+8
+	 oK9PcvnufRiCM3RpghTd/0v3LaVMTGcMzTlDdWP7byUTEi4xXcOpXh3ooJ8B1zb4X7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048080;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048082;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=A0WsHLhKGx9HwXgyuVWNgE3Z+VPbdJNGMNboFk2FUhM=;
-	b=kwKosfoSqjNmOWD60pju7KpLIex4Af5aTkFyPkUv1ppkI5FA4IAfn1nOxLpAberuIAm8
-	 t5GNDwNaW7XlxJpGMAqe3haMeIZ6EX7wNgYeTXfUSTlBGnfsRXCohIrskNG9AoB3NDDaG
-	 pCfZ+QfCS1jTglCG77AA7Bl5eCttVnsISpdmCqE9ie7m0SyS46ajm5mz+Neg/9+8gBKcm
-	 hAUMgvPFbYG/+D2Q1Hha/0ugUKRWdfIOt7kmvlmu2XyiFgSrC3CJ5lIzmw8KsE3BP3Hq5
-	 +pwha17GOc4OiZ33Bd8HK60N8Uzz+NIpRn0RTmnSWFq18m8FTGy7kUHgytk3Ed3MTKg==
+	bh=EJqF7mlF01yQ4K6nLMjffiT5TWXxjVLxD+zED8Bz1Pc=;
+	b=kWitGcIv+HOmyj9FEsBJbZUKiWIaD16yS5hDX2tW3HLBW4DEyFXMeMz1CtWzvfNI/lng
+	 5Lhc/mBXW3DCTHTPBcZsAZ05Ua3z7o9mGOQVWWCZEMY36BkBQylwXellgbNazHZpKcdZS
+	 TRWWyaXseFm8mQ9ydK5U080ktxEaz0RPcpi6KSsyqhYnZLLZO4l/HijDcu6KvIUupQAL5
+	 gp4/RWUM7QINkqyln9KTUGHA3R6DEERk/bU8Hcsz6EcrIQI+zkT4oD44RQDCtIygNN/MW
+	 mwfRj+uZbHZSdEzCwK1Ukp4gDSyPWYAqbSU5Aex70SPF8eVLM9/ykKmMv7/Q/Y/oPXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V+mkyfGq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="mFBiYE/J";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31300606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:41:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5244E606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:41:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V+mkyfGq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A47901F0089F;
-	Sat,  7 Nov 2026 10:41:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mFBiYE/J
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C409B1F0089F;
+	Sat,  7 Nov 2026 10:41:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048080;
-	bh=A0WsHLhKGx9HwXgyuVWNgE3Z+VPbdJNGMNboFk2FUhM=;
+	s=k20260515; t=1794048082;
+	bh=EJqF7mlF01yQ4K6nLMjffiT5TWXxjVLxD+zED8Bz1Pc=;
 	h=From:To:Cc:Subject:Date;
-	b=V+mkyfGqCsq8hMauRw1A8I/VK1aeBwggO3Wq0MhPRzvbDkrrLZ89XTyoDGigOub/5
-	 F1UXfgBH8qeKVWZboRlRFXQQ3ZHfeJJNR+fAaCZBL5VE4Q8DlkTdqueJDrFcMGzD2l
-	 fPV94DMg2E+/LQUstKKeyWTObkjhRkhVMqkea33HW0IpjMdbS7JbVJ9GvwFfXyvcNr
-	 tglWuT55GXs+erHv8d7hQNDre+jo/ckRVdy3mj45r8WkEZvWXlau+7MUBAhqrqdXFT
-	 JW/h1G5cl2eiPoBUOiy7s/FCc9uY9Duo54T/N5A5dWXxwhiCfhH2JtZaN7MmfBpELL
-	 8RwT301pxo9OQ==
+	b=mFBiYE/J//gyxrEPvmSzUOjaTWHsn5NP6Tw+lzQTIZ2pUcYInT2zpQyaJD5JoTNPI
+	 RoaJoBowRMcK6Sy7obrOEmeIsZUqcFm6E+FYyfTD7PED4LvaQ07a7PWh9hAPhDfTzQ
+	 t78edFymG9ZdTu1hz6zkmNbI3RQzOmGjX7M2SpzLJWssbJxAePy7wklhODK0N1nXvU
+	 VSxXsQJGBwHaCukHZCYjfN5g05GhHWO8uztglfjGgbeMU1HCDSq7vNFd+fsl26OHH8
+	 6U62BcLSkSLJn6WCXn2b/uM039GX37oPasoM+ONGYrUckf3phGQ0gjVoJbeUewCKQJ
+	 J51RjNGt2sjsg==
 From: Sasha Levin <sashal@kernel.org>
-To: stf_xl@wp.pl,
-	johannes.berg@intel.com
+To: punnaysharma805@gmail.com,
+	hverkuil+cisco@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] wifi: mac80211: queue frames while off-channel" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:41:18 -0500
-Message-ID: <20261107054118-failed-6.1-13e51269b665@kernel.org>
+Subject: FAILED: patch "[PATCH] staging: media: av7110: fix sp8870 initialization failure state" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:41:20 -0500
+Message-ID: <20261107054120-failed-6.1-30684fa98394@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,162 +68,68 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 13e51269b6656768dc595ed6025e4974f2026543
+git cherry-pick -x 30684fa98394bc0eb4362282908612aab7d4dad9
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054118-failed-6.1-13e51269b665@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054120-failed-6.1-30684fa98394@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 13e51269b6656768dc595ed6025e4974f2026543 Mon Sep 17 00:00:00 2001
-From: Stanislaw Gruszka <stf_xl@wp.pl>
-Date: Tue, 8 Sep 2026 14:46:51 +0200
-Subject: [PATCH] wifi: mac80211: queue frames while off-channel
+From 30684fa98394bc0eb4362282908612aab7d4dad9 Mon Sep 17 00:00:00 2001
+From: Punnay Sharma <punnaysharma805@gmail.com>
+Date: Sat, 8 Aug 2026 00:04:43 +0530
+Subject: [PATCH] staging: media: av7110: fix sp8870 initialization failure
+ state
 
-Drivers without FAST_XMIT and hardware scan support currently drop TX
-frames during software scanning while being off-channel. This happens
-in ieee80211_tx_h_check_assoc() before frames reach internal TX queue.
+The SP8870 DVB frontend driver prematurely flags the device as
+initialized at the very beginning of the sp8870_init() routine, prior
+to requesting the firmware (dvb-fe-sp8870.fw) and executing the I2C
+upload sequence.
 
-Move the off-channel check to invoke_tx_handlers_late(), after
-ieee80211_queue_skb(). Frames can then remain queued and be transmitted
-when the interface returns on-channel. This how TX works currently when
-code goes via ieee80211_xmit_fast() path.
+If request_firmware() times out or sp8870_firmware_upload() encounters
+an I2C bus error, the function aborts and returns -EIO. However,
+because `state->initialised` is already set to 1, all subsequent
+invocations of `fe->ops.init()` by the DVB core will immediately return
+0 (success) without attempting to load the firmware again. This leaves
+the demodulator microcontroller halted and the frontend permanently dead
+until the module is forcibly reloaded.
 
-Below is rt2x00 driver ping output example while scanning, before and
-after the fix. After the fix, packets are no longer lost. Some have
-increased latency, what is expected behavior.
+Relocate the `state->initialised = 1` assignment to the end of
+sp8870_init(), ensuring the flag is only set after the firmware is
+successfully uploaded and the system controller is actually restarted.
 
-BEFORE:
-64 bytes from 192.168.0.1: icmp_seq=29 ttl=64 time=3.61 ms
-64 bytes from 192.168.0.1: icmp_seq=31 ttl=64 time=3.33 ms # Missed 30
-64 bytes from 192.168.0.1: icmp_seq=32 ttl=64 time=4.03 ms
-64 bytes from 192.168.0.1: icmp_seq=34 ttl=64 time=3.10 ms # Missed 33
-64 bytes from 192.168.0.1: icmp_seq=36 ttl=64 time=3.04 ms # Missed 35
-64 bytes from 192.168.0.1: icmp_seq=38 ttl=64 time=3.05 ms # Missed 37
-64 bytes from 192.168.0.1: icmp_seq=40 ttl=64 time=4.14 ms # Missed 39
-64 bytes from 192.168.0.1: icmp_seq=41 ttl=64 time=4.50 ms
-
-AFTER:
-64 bytes from 192.168.0.1: icmp_seq=29 ttl=64 time=3.40 ms
-64 bytes from 192.168.0.1: icmp_seq=30 ttl=64 time=6.10 ms
-64 bytes from 192.168.0.1: icmp_seq=31 ttl=64 time=4.69 ms
-64 bytes from 192.168.0.1: icmp_seq=32 ttl=64 time=4.49 ms
-64 bytes from 192.168.0.1: icmp_seq=33 ttl=64 time=148 ms
-64 bytes from 192.168.0.1: icmp_seq=34 ttl=64 time=6.83 ms
-64 bytes from 192.168.0.1: icmp_seq=35 ttl=64 time=8.66 ms
-64 bytes from 192.168.0.1: icmp_seq=36 ttl=64 time=13.0 ms
-64 bytes from 192.168.0.1: icmp_seq=37 ttl=64 time=4.78 ms
-64 bytes from 192.168.0.1: icmp_seq=38 ttl=64 time=3.85 ms
-
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Stanislaw Gruszka <stf_xl@wp.pl>
-Link: https://patch.msgid.link/20260908124651.2995-1-stf_xl@wp.pl
-Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Punnay Sharma <punnaysharma805@gmail.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 ---
- net/mac80211/tx.c | 52 +++++++++++++++++++++++++----------------------
- 1 file changed, 28 insertions(+), 24 deletions(-)
+ drivers/staging/media/av7110/sp8870.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/net/mac80211/tx.c b/net/mac80211/tx.c
-index fd79814661376..d85c84a738f79 100644
---- a/net/mac80211/tx.c
-+++ b/net/mac80211/tx.c
-@@ -269,7 +269,6 @@ ieee80211_tx_h_dynamic_ps(struct ieee80211_tx_data *tx)
- static ieee80211_tx_result debug_noinline
- ieee80211_tx_h_check_assoc(struct ieee80211_tx_data *tx)
- {
--
- 	struct ieee80211_hdr *hdr = (struct ieee80211_hdr *)tx->skb->data;
- 	struct ieee80211_tx_info *info = IEEE80211_SKB_CB(tx->skb);
- 	bool assoc = false;
-@@ -277,20 +276,6 @@ ieee80211_tx_h_check_assoc(struct ieee80211_tx_data *tx)
- 	if (unlikely(info->flags & IEEE80211_TX_CTL_INJECTED))
- 		return TX_CONTINUE;
+diff --git a/drivers/staging/media/av7110/sp8870.c b/drivers/staging/media/av7110/sp8870.c
+index 340e4b22859d6..aecdbd87976fd 100644
+--- a/drivers/staging/media/av7110/sp8870.c
++++ b/drivers/staging/media/av7110/sp8870.c
+@@ -315,7 +315,6 @@ static int sp8870_init(struct dvb_frontend *fe)
+ 	sp8870_wake_up(state);
+ 	if (state->initialised)
+ 		return 0;
+-	state->initialised = 1;
  
--	if (unlikely(test_bit(SCAN_SW_SCANNING, &tx->local->scanning)) &&
--	    test_bit(SDATA_STATE_OFFCHANNEL, &tx->sdata->state) &&
--	    !ieee80211_is_probe_req(hdr->frame_control) &&
--	    !ieee80211_is_any_nullfunc(hdr->frame_control))
--		/*
--		 * When software scanning only nullfunc frames (to notify
--		 * the sleep state to the AP) and probe requests (for the
--		 * active scan) are allowed, all other frames should not be
--		 * sent and we should not get here, but if we do
--		 * nonetheless, drop them to avoid sending them
--		 * off-channel. See __ieee80211_start_scan() for more.
--		 */
--		return TX_DROP;
--
- 	if (tx->sdata->vif.type == NL80211_IFTYPE_OCB)
- 		return TX_CONTINUE;
+ 	dprintk("initialising frontend...\n");
  
-@@ -839,6 +824,33 @@ ieee80211_tx_h_rate_ctrl(struct ieee80211_tx_data *tx)
- 	return TX_CONTINUE;
+@@ -353,6 +352,8 @@ static int sp8870_init(struct dvb_frontend *fe)
+ 	sp8870_writereg(state, 0x0D00, 0x010);
+ 	sp8870_writereg(state, 0x0D01, 0x000);
+ 
++	state->initialised = 1;
++
+ 	return 0;
  }
  
-+static ieee80211_tx_result debug_noinline
-+ieee80211_tx_h_check_offchannel(struct ieee80211_tx_data *tx)
-+{
-+	struct ieee80211_hdr *hdr = (struct ieee80211_hdr *)tx->skb->data;
-+	struct ieee80211_tx_info *info = IEEE80211_SKB_CB(tx->skb);
-+
-+	if (unlikely(info->flags & IEEE80211_TX_CTL_INJECTED))
-+		return TX_CONTINUE;
-+
-+	if (unlikely(test_bit(SCAN_SW_SCANNING, &tx->local->scanning)) &&
-+	    test_bit(SDATA_STATE_OFFCHANNEL, &tx->sdata->state) &&
-+	    !ieee80211_is_probe_req(hdr->frame_control) &&
-+	    !ieee80211_is_any_nullfunc(hdr->frame_control)) {
-+		/*
-+		 * When software scanning only nullfunc frames (to notify
-+		 * the sleep state to the AP) and probe requests (for the
-+		 * active scan) are allowed, all other frames should not be
-+		 * sent and we should not get here, but if we do
-+		 * nonetheless, drop them to avoid sending them
-+		 * off-channel. See __ieee80211_start_scan() for more.
-+		 */
-+		return TX_DROP;
-+	}
-+
-+	return TX_CONTINUE;
-+}
-+
- static __le16 ieee80211_tx_next_seq(struct sta_info *sta, int tid)
- {
- 	u16 *seq = &sta->tid_seq[tid];
-@@ -1905,6 +1917,7 @@ static int invoke_tx_handlers_late(struct ieee80211_tx_data *tx)
- 		goto txh_done;
- 	}
- 
-+	CALL_TXH(ieee80211_tx_h_check_offchannel);
- 	CALL_TXH(ieee80211_tx_h_michael_mic_add);
- 	CALL_TXH(ieee80211_tx_h_sequence);
- 	CALL_TXH(ieee80211_tx_h_fragment);
-@@ -4720,10 +4733,6 @@ static void ieee80211_8023_xmit(struct ieee80211_sub_if_data *sdata,
- 	queue = ieee80211_select_queue(sdata, sta, skb);
- 	skb_set_queue_mapping(skb, queue);
- 
--	if (unlikely(test_bit(SCAN_SW_SCANNING, &local->scanning)) &&
--	    test_bit(SDATA_STATE_OFFCHANNEL, &sdata->state))
--		goto out_free;
--
- 	skb = skb_share_check(skb, GFP_ATOMIC);
- 	if (unlikely(!skb))
- 		return;
-@@ -4785,11 +4794,6 @@ static void ieee80211_8023_xmit(struct ieee80211_sub_if_data *sdata,
- 	ieee80211_tpt_led_trig_tx(local, len);
- 
- 	ieee80211_tx_8023(sdata, skb, sta, false);
--
--	return;
--
--out_free:
--	kfree_skb(skb);
- }
- 
- static bool ieee80211_check_mcast_offload(struct ieee80211_sub_if_data *sdata,
 -- 
 2.53.0
 
