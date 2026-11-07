@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046050;
-	b=fq4o6YpzDVTa/BIRiw3Jb99hdWg6vRre55C/JX6E99col4XlhB+gqHa87TcZ8LfBYHS0
-	 T4NPseN1Vkd+EftuP6lbAnHSmpSN6bMhLXPf20+ZRryBJELH77zO9w0CiqiXY5kM9BeUd
-	 GfxOpqbDrrcCjDU2yQEs13eDgaZ2kn1RJ3XVWoEm+zx3ZYvuUaxR8lQabhHZR6Hfh99m3
-	 /fqYLaL8FCDahYD8biLzvzKEBc5SKa69WS17VxFUYU35HFG3LlETlK/YeBPkj2L1mIDFq
-	 zV2IumAIpXhfCXg9FlZCb3Bd57op9/A3U8OQgnDERPuHWazCLE4tJ502XhNAmmJNFkg==
+	t=1794046052;
+	b=yKZYFOnsDOxpvdokFg6LDRWrISawcsbj11/V9KC3l/OvkKjUW1dq37ZEZ74lC8rlMp3x
+	 GuFKroFGoITYXOQiznQbDlJ0K2Cb/9HE1qPmGg577kxBiQIn4DH2O0UGYND/xBKQc/7+Y
+	 /VEKFPfy/1mlvywMoU43tG5gwZZg9EzFsz1EZWTCAZRDq1d1CpJ7OS1aCRyT2h3Nh0g56
+	 sKwfxBAhxdYLuKn8XLnNs+iCDd2x005YqLYErqzZtIJFWoere1yqZhT3sVoUE5skbfH/J
+	 VjwVOdk6alMpvsJMWXS9P/W++4MgmsckjGvW//M8P9GUqr9ZwoBE+JNVPRiY6BYQr9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046050;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046052;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=WPrHFHOv2pYes/wEa537DHPXDbFpak69lIYQlwhyTuU=;
-	b=2Gn6Jzrq+LEQgBMTq1D1GcAJknH6KS+cNcIMfUnk+kvwxVJOEDStkXOHhAUhn7dcaLCG
-	 gmQrfBK7O3+pieyFaY1nqDWJZ9/VNovsnCmXRp/y0ckMKBGolS3v51R3Ny+O2hwC2yx/i
-	 szIn2MIpe/9xtnr2dPfC7vVXQH+7VOIlXl9pzeXey8cf1rZDG5C+vWjYwXNaSJevnCsDF
-	 6oXrDdca/4BgQ2WGvE1fHil+Kz2AnUoTIxXpLr1HasOhkovCYYwu/dcMPquMXKIsLzg9V
-	 ivZRBVVlqINpcqzTO6/sHhAXpfcUBsb64U23rRfCmrGF9e8Thw2Wxp3Lln+te7H2gTg==
+	bh=5MOk0AuN+y/C1q4WPBVNtNoSv9iSQJ/bUFfHxduS3JU=;
+	b=Gc7Z1Y+ZK1luhh+NG2NI4Fczy2IGAE1s6ybkkoNkLIEAA+jB6RrEBSXVMB7Op+HtfAF+
+	 yxJl09RlEN9VYwEGxWraTHlk9aHzqTTKEgsh2bGnDN2jVKviSt6QoDBt9C1lL+9BV0oTZ
+	 AtHyrBx0q8RHClsd2H5G58Bxhizuvmi+JDY3e1V3Op95kPsYjSBYNsdY8rj1+/dhpIx4k
+	 ICekI+Ci5KiM9FnV+WYKX/bKLjTZ1CtWGTM4MiusPKNyGbyuab/2xJgwCtBV/SNlPIitr
+	 pBfu+kALS7lCGT2/gJRe+wJCx5BsJGCFKLij8LldOPaTbcvLrt0x/E71SOi8xuZLUrw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R21VH6VD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=czyq9SxC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 535CF606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:07:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C0A5606A32F
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:07:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R21VH6VD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B9541F0089F;
-	Sat,  7 Nov 2026 10:07:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=czyq9SxC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E627D1F0089F;
+	Sat,  7 Nov 2026 10:07:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046050;
-	bh=WPrHFHOv2pYes/wEa537DHPXDbFpak69lIYQlwhyTuU=;
+	s=k20260515; t=1794046052;
+	bh=5MOk0AuN+y/C1q4WPBVNtNoSv9iSQJ/bUFfHxduS3JU=;
 	h=From:To:Cc:Subject:Date;
-	b=R21VH6VDtww4YFOKxcWUySLqN5V+tQ/OUEAmMIa6cACv/60QchXwsUeNcojOJoNph
-	 skUOdL5z4axxl+s1QvFvJgYrT9lD163sa7nLUHuWohINyeDu8xTHQWgs7viFQ4YZsF
-	 PZQ0tkPO7BiWMBX1eIYM6U+iLORapADOrJb9z9EMNLu2u+KYN+kvBTTtdutDDrajLL
-	 T4hdJtc/MPmFowfwjmob9ebje4jH/Ab/MkkH8G6EKGqDoTL8Q+bDjXGOjU/e/hgn6O
-	 wnyheoS0ktx0vDiwAWuxTWv2Mdqd/cUPhwzlc1qe+sRXMPa6AZe1qJXdSDZOlEca1l
-	 u2lHAlkb6Fdeg==
+	b=czyq9SxCd02RYspKBHtRRc58CesWxaO5p3qGAWDFzZlhNeMz4vfbLOs0KMza03G5g
+	 ft42qklMB7+sgHQFdRkIwWJInUSQOGqZGJSCElAamhvQ9zqPPuFpDVBJ3RkYbTBL0i
+	 0MKt1MA1tiD9l/WDHw0Uy7vXjQEhjRI8H5AFr4u/Tzf3qF3weE0k4g5WLrKNOoCjbI
+	 Kr0BvwCkVkoN0SWm7nvTK2bo6L43x5zPE8lXtArxkh8+ufIlAtpq51x0W903awTErp
+	 292wsXakRZ2URGOZd8lgM5ZC60JFYzDa7KG51fiMDQQ/bEZuQGF/kmiTP8Bsd+coaF
+	 7WwY0eJdfLcjg==
 From: Sasha Levin <sashal@kernel.org>
-To: yaojiale02@163.com,
+To: antoniu.miclaus@analog.com,
+	nuno.sa@analog.com,
 	jonathan.cameron@oss.qualcomm.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] iio: dac: mcp4821: reject devices without match data" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:07:28 -0500
-Message-ID: <20261107050728-failed-6.18-6ac1faf4de61@kernel.org>
+Subject: FAILED: patch "[PATCH] iio: adc: ad4080: enable address ascension for chip identification" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:07:30 -0500
+Message-ID: <20261107050730-failed-6.18-c051d08d9877@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,63 +69,57 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 6ac1faf4de61dcf27ffe8f2c25d96fe5f4b2886d
+git cherry-pick -x c051d08d98771132868abf0cb95b6de95ab3060a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050728-failed-6.18-6ac1faf4de61@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050730-failed-6.18-c051d08d9877@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 6ac1faf4de61dcf27ffe8f2c25d96fe5f4b2886d Mon Sep 17 00:00:00 2001
-From: Jiale Yao <yaojiale02@163.com>
-Date: Fri, 25 Sep 2026 21:17:32 +0800
-Subject: [PATCH] iio: dac: mcp4821: reject devices without match data
+From c051d08d98771132868abf0cb95b6de95ab3060a Mon Sep 17 00:00:00 2001
+From: Antoniu Miclaus <antoniu.miclaus@analog.com>
+Date: Tue, 22 Sep 2026 14:09:58 +0300
+Subject: [PATCH] iio: adc: ad4080: enable address ascension for chip
+ identification
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-A device bound through driver_override need not match an entry in the
-driver tables. In that case spi_get_device_match_data() returns NULL,
-but mcp4821_probe() dereferences the result while configuring the IIO
-device.
+The two byte bulk read at AD4080_REG_PRODUCT_ID_L expects PRODUCT_ID_L
+followed by PRODUCT_ID_H. After a software reset the AD408x defaults to
+descending address mode, so the second byte comes from CHIP_TYPE (0x03)
+instead. CHIP_TYPE reads 0x07 on all AD408x parts, so an AD4080 reports
+0x0750 rather than 0x0050 and every part logs "Unrecognized CHIP_ID".
 
-Reject devices without match data before using the chip information.
+Set ADDR_ASC along with SDO_ENABLE before the read. This is the only
+multi byte transfer in the driver, so no other access is affected.
 
-Fixes: cdf3ecb0d8d0 ("iio: dac: driver for MCP4821")
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
+Fixes: b66cddc8be72 ("iio: adc: ad4080: fix chip identification")
+Signed-off-by: Antoniu Miclaus <antoniu.miclaus@analog.com>
+Reviewed-by: Nuno Sá <nuno.sa@analog.com>
 Cc: stable@vger.kernel.org
 Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 ---
- drivers/iio/dac/mcp4821.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ drivers/iio/adc/ad4080.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/iio/dac/mcp4821.c b/drivers/iio/dac/mcp4821.c
-index 8d8c00cd60e98..59defb1b5e621 100644
---- a/drivers/iio/dac/mcp4821.c
-+++ b/drivers/iio/dac/mcp4821.c
-@@ -255,9 +255,13 @@ static const struct iio_info mcp4821_info = {
+diff --git a/drivers/iio/adc/ad4080.c b/drivers/iio/adc/ad4080.c
+index 4843ecdd91a83..4ed82aa42400b 100644
+--- a/drivers/iio/adc/ad4080.c
++++ b/drivers/iio/adc/ad4080.c
+@@ -710,7 +710,8 @@ static int ad4080_setup_channel(struct ad4080_state *st, unsigned int ch)
+ 		return ret;
  
- static int mcp4821_probe(struct spi_device *spi)
- {
-+	const struct mcp4821_chip_info *info;
- 	struct iio_dev *indio_dev;
- 	struct mcp4821_state *state;
--	const struct mcp4821_chip_info *info;
-+
-+	info = spi_get_device_match_data(spi);
-+	if (!info)
-+		return -ENODATA;
+ 	ret = regmap_write(st->regmap[ch], AD4080_REG_INTERFACE_CONFIG_A,
+-			   AD4080_INTERFACE_CONFIG_A_SDO_ENABLE);
++			   AD4080_INTERFACE_CONFIG_A_SDO_ENABLE |
++			   AD4080_INTERFACE_CONFIG_A_ADDR_ASC);
+ 	if (ret)
+ 		return ret;
  
- 	indio_dev = devm_iio_device_alloc(&spi->dev, sizeof(*state));
- 	if (indio_dev == NULL)
-@@ -268,7 +272,6 @@ static int mcp4821_probe(struct spi_device *spi)
- 
- 	/* default gain is 2x */
- 	state->gain = 2;
--	info = spi_get_device_match_data(spi);
- 	indio_dev->name = info->name;
- 	indio_dev->info = &mcp4821_info;
- 	indio_dev->modes = INDIO_DIRECT_MODE;
 -- 
 2.53.0
 
