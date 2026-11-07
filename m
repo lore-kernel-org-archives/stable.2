@@ -1,53 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.250
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047483;
-	b=xpJtL+t0rwUm6UvCvjpQHuemn3DKrwDhO3W2vDsqQipBCQL2/kUozwMWsL32zFxjtCn+
-	 dcYvQWfdUqRuNPEFAQnLZ2s3If+hDS/OzIui3+1MAc9DikNonEI5rxuI9c/ZP18qsPxii
-	 pD30sTwXDGQp665+f1pDBhDkfJxLG8LnSx3l4FJ1n/+fnvs26ECf1zrUkDi+kaS3XyEvm
-	 798IMCMwg8ATgg2ZBXlGJNl1VznBDwRdCnwzbzKDKo9p1nY4qejkVIgY+2PPjvqewISNB
-	 eY5HV0IQugqMjlgh0L+Vj+/vNa+4c8mnk1rKgn+7rpFYJbJGcZW+5iidBbX+KeA3P1A==
+	t=1794047477;
+	b=B6I2+uA/NZoza+E/AQk0OI9GW6kEduObyCsPc1sp7k2dfjOryot6WuGItO17M2H6IByU
+	 pTiXZ7h8AoQyo4n1mZJtRIWr/aqO/6BtciRghD+J+8evNWA+mpJHQtS4wDJfb99HAWq2/
+	 wfcttI7Uyt9wRu3FRcf9nm4FnQUK7/10h13fUocLBPVU3wsLSz+9h4Ib+d/ML/Hhe7p4I
+	 UMSuQzWYZpEeIYMHzbUXAW8HrJ4/8M3mPeY9bMMSoPsWjaJrwvNPqFN+/TlBAjulm48Zo
+	 DRwWyAX+AfjPnuV+3JnGBvKQIGmo0kqDP0EfRtklY0e5maWLlAG4dDQU0QGq05aDIgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047483;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=rfYnYtkosBydImSTQwqvPJQ116isT23hENG64fP54Ng=;
-	b=n5WCXU5xMAEqqMUgq/huDgz1OBs+9X3TMPjYhKgwIFoyG9SsgznqFD0i2syrb81/l742
-	 IjYEhasUPomCWSMtIcnPCPDuFHoFWUAYFReU3QQx2/8D+546hvRzC0WgEor6UEEsBhWyW
-	 Xww2pnKFpI/mznnawODfJf7X9Xn6Xf8xNfxebPvjQoZQYBrF20teasJ9iloDSVB/M+ZUu
-	 S6AE9IPwxlFLCJ7t9jgm/qVF9ve4/cXHNXrQD5B6f8HHUZsSRuKa84vMQeBa8ftN7dRrI
-	 lo8EEVx7BkN2JemAe1Zf4vcIt0YSc12VDYCEtc2pVdt501kfvAI15frtMceBgj34CSA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047477;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=rpCUv8SpWlf4Vxz+l8m++vebqQBTHUXPNB3+3E0LTf0=;
+	b=Wf4LLF1WoU6xTsjO2Y7VZX7QfHoghPEvsgXLZQMbmHYsVIKLh97ABSFKVlZLStdIQApb
+	 G3w8Hyjyj2W6of0RdA0Z1khDXApzKnkHgUq/o4jWzWEDzP/NnPPa3WXZG5EVwGFM0f3Dy
+	 XWARgA/dFYs55ucWxipE9q0K0epQQbVepIHqaeHuS0x8qUu7oN5yPcSvnjH7hvKy/yt5r
+	 8fUbyQtnxEiJjsq2jliBuplP1w5gYnCwMGl+xBXNz9G4gx3lUp1cL2V8k3XBcS32vVUK7
+	 Kc4B9Po05eugSMiPxY2K+5GZxBKyuu+wd2LIEO9p/XiSnIt7gb5PEsL8X3kFziilvlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gzQi9oO1;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=goH6zX3k;
+	arc=none smtp.remote-ip=91.218.175.250
+Received: from mta0.migadu.com (out-250.mta0.migadu.com [91.218.175.250])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B77AB606A333
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:31:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DFC1606D818
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:31:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9DFC1606D818
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gzQi9oO1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA81C1F008A2;
-	Sat,  7 Nov 2026 10:31:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047482;
-	bh=rfYnYtkosBydImSTQwqvPJQ116isT23hENG64fP54Ng=;
-	h=From:To:Cc:Subject:Date;
-	b=gzQi9oO1LsQYbhiFTFzlqMYnA2/z+s7f7AxjiwUIOn++M8qVMPo6ZEjaJ+ShnDjXQ
-	 /7Kgznn0tw7t9TIJW5Afi7tEWamtI/ab+ifo5O9hhaIxH1tBOcVDjWemKsZTQxOWnB
-	 KQzbNtYhuSTzhWayAhmFtkR0kgccGiIHkic5oiKU1rOJTtUZEYcB7wyaXwwXrumErG
-	 gmpm+lwKV/IhaW0FY4rOWIqAB7LKc/Q9OuB/dNrpCd93bX45WOzgJZemRpupP/+79k
-	 GPRWprhZS7SnZCrZCYf2yiB2Ke2JCtpAVRlmZrpoV5mo5GWZkTbf2lyz79ende/zbb
-	 l8eqUz90/vSNw==
-From: Sasha Levin <sashal@kernel.org>
-To: jkeeping@inmusicbrands.com,
-	nicolas.dufresne@collabora.com,
-	hverkuil+cisco@kernel.org
-Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] media: rockchip: rga: fix rotation on rev0 hardware" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:31:20 -0500
-Message-ID: <20261107053120-failed-6.6-a67578c01798@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=goH6zX3k
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=M2NYD96+5Wc5vXUg80X/Ev4VTK5SZphvkdZaEd0yv3E=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794047474; v=1; x=1794652274;
+ b=goH6zX3kJULkGcSUTnu3iKuMNYYxmeK0jgaWApvpqaS7x10Lk93m6/LAmu+iGsuRwtQxgPVR
+ mFIVBKn10uh1X5nrNqtEY0xlApw4fX6uXZYl2wlC7r34ktrGHmtlWVMDl73XfmS4ZpSkDNhQot6
+ X6j/ha0BlJUM9KPInURyp70g=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f6c06557ed320a8a;
+	Sat, 07 Nov 2026 10:31:14 +0000
+X-Mizu-Trace-ID: f6c06557ed320a8a
+X-Migadu-Flow: FLOW_OUT
+From: Qi Zheng <qi.zheng@linux.dev>
+To: muchun.song@linux.dev,
+	osalvador@suse.de,
+	david@kernel.org,
+	akpm@linux-foundation.org,
+	azpijr@gmail.com,
+	lance.yang@linux.dev
+Cc: linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	Qi Zheng <zhengqi.arch@bytedance.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v3 2/3] mm: gup: allow long-term pins of CMA-allocated HugeTLB folios
+Date: Sat,  7 Nov 2026 18:30:46 +0800
+Message-ID: <586d6c53ab7e4c64d6e89ad3cf0cf7e07dabbfaf.1794046188.git.zhengqi.arch@bytedance.com>
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <cover.1794046188.git.zhengqi.arch@bytedance.com>
+References: <cover.1794046188.git.zhengqi.arch@bytedance.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,93 +73,112 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The patch below does not apply to the 6.6-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+From: Qi Zheng <zhengqi.arch@bytedance.com>
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Long-term pinning treats explicitly CMA-allocated HugeTLB folios as
+unpinnable, causing unnecessary migration or pinning failures.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
-git checkout FETCH_HEAD
-git cherry-pick -x a67578c0179850e80cf08b1e0b8b1eb857f0fc46
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053120-failed-6.6-a67578c01798@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+These folios already own their CMA bitmap ranges, and memory blocks
+overlapping CMA areas cannot be offlined. Allow HugeTLB folios with
+HPG_cma to be pinned directly, including in ZONE_MOVABLE.
 
-Thanks,
-Sasha
-
------------------- original commit in Linus's tree ------------------
-
-From a67578c0179850e80cf08b1e0b8b1eb857f0fc46 Mon Sep 17 00:00:00 2001
-From: John Keeping <jkeeping@inmusicbrands.com>
-Date: Tue, 29 Sep 2026 10:41:42 +0100
-Subject: [PATCH] media: rockchip: rga: fix rotation on rev0 hardware
-
-On RK3288 where the RGA reports version zero [1], rotating a buffer
-gives corrupt output where one edge will be truncated.  This is a result
-of some adjustment done specifically for hardware revision zero.  But it
-seems this is not necessary and there is no evidence for why this
-adjustment should be applied on these hardware revisions.
-
-Comparing the TRMs between RK3288 with revision zero and RK3588 with
-revision 3.2 there is evidence of new features supported by later
-hardware, but nothing indicating any difference in behaviour for
-rotation which is supported by all hardware revisions.
-
-The logic here looks wrong anyway, since it's bizarre that minor
-revision zero would need the adjustment for _all_ major revisions.  This
-was added with the initial version of the driver in commit f7e7b48e6d796
-("[media] rockchip/rga: v4l2 m2m support") so there is no detail in the
-Git history to indicate why this special-case might be needed.
-
-[1] Comparing with the vendor code, it seems this is actually 1.3 with
-    the hardware reporting zero more by coincidence than design since the
-    version register is not defined for RK3288.
-
-Fixes: f7e7b48e6d796 ("[media] rockchip/rga: v4l2 m2m support")
+Fixes: cf11e85fc08c ("mm: hugetlb: optionally allocate gigantic hugepages using cma")
 Cc: stable@vger.kernel.org
-Signed-off-by: John Keeping <jkeeping@inmusicbrands.com>
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Suggested-by: Muchun Song <muchun.song@linux.dev>
+Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+Acked-by: Muchun Song <muchun.song@linux.dev>
+Reviewed-by: Oscar Salvador <osalvador@suse.de>
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
 ---
- drivers/media/platform/rockchip/rga/rga-hw.c | 8 --------
- 1 file changed, 8 deletions(-)
+ include/linux/mm.h | 29 +----------------------------
+ mm/gup.c           | 31 +++++++++++++++++++++++++++++++
+ 2 files changed, 32 insertions(+), 28 deletions(-)
 
-diff --git a/drivers/media/platform/rockchip/rga/rga-hw.c b/drivers/media/platform/rockchip/rga/rga-hw.c
-index be1bc8ddbd03b..2e7ec8b7c20f7 100644
---- a/drivers/media/platform/rockchip/rga/rga-hw.c
-+++ b/drivers/media/platform/rockchip/rga/rga-hw.c
-@@ -158,7 +158,6 @@ static void rga_cmd_set_dst_addr(struct rga_ctx *ctx, dma_addr_t dma_addr)
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index 2d0b8a4c9974f..75dd40265d3f4 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -2975,35 +2975,8 @@ static inline bool is_zero_folio(const struct folio *folio)
+ 	return is_zero_page(&folio->page);
+ }
  
- static void rga_cmd_set_trans_info(struct rga_ctx *ctx)
- {
--	struct rockchip_rga *rga = ctx->rga;
- 	u32 *dest = ctx->cmdbuf_virt;
- 	unsigned int scale_dst_w, scale_dst_h;
- 	unsigned int src_h, src_w, dst_h, dst_w;
-@@ -251,13 +250,6 @@ static void rga_cmd_set_trans_info(struct rga_ctx *ctx)
- 	 */
- 	if (src_info.data.rot_mode == RGA_SRC_ROT_MODE_90_DEGREE ||
- 	    src_info.data.rot_mode == RGA_SRC_ROT_MODE_270_DEGREE) {
--		if (rga->version.major == 0 || rga->version.minor == 0) {
--			if (dst_w == src_h)
--				src_h -= 8;
--			if (abs(src_w - dst_h) < 16)
--				src_w -= 16;
--		}
+-/* MIGRATE_CMA and ZONE_MOVABLE do not allow pin folios */
+ #ifdef CONFIG_MIGRATION
+-static inline bool folio_is_longterm_pinnable(struct folio *folio)
+-{
+-#ifdef CONFIG_CMA
+-	int mt = folio_migratetype(folio);
 -
- 		scale_dst_h = dst_w;
- 		scale_dst_w = dst_h;
- 	} else {
+-	if (mt == MIGRATE_CMA || mt == MIGRATE_ISOLATE)
+-		return false;
+-#endif
+-	/* The zero page can be "pinned" but gets special handling. */
+-	if (is_zero_folio(folio))
+-		return true;
+-
+-	/* Coherent device memory must always allow eviction. */
+-	if (folio_is_device_coherent(folio))
+-		return false;
+-
+-	/*
+-	 * Filesystems can only tolerate transient delays to truncate and
+-	 * hole-punch operations
+-	 */
+-	if (folio_is_fsdax(folio))
+-		return false;
+-
+-	/* Otherwise, non-movable zone folios can be pinned. */
+-	return !folio_is_zone_movable(folio);
+-
+-}
++bool folio_is_longterm_pinnable(struct folio *folio);
+ #else
+ static inline bool folio_is_longterm_pinnable(struct folio *folio)
+ {
+diff --git a/mm/gup.c b/mm/gup.c
+index 2b405cce2ca5c..f41701c603500 100644
+--- a/mm/gup.c
++++ b/mm/gup.c
+@@ -2216,6 +2216,37 @@ struct page *get_dump_page(unsigned long addr, int *locked)
+ 
+ #ifdef CONFIG_MIGRATION
+ 
++bool folio_is_longterm_pinnable(struct folio *folio)
++{
++#ifdef CONFIG_CMA
++	int mt = folio_migratetype(folio);
++
++	/* These HugeTLB folios own the CMA memory, so they can be long-term pinned. */
++	if (folio_test_hugetlb(folio) && folio_test_hugetlb_cma(folio))
++		return true;
++
++	if (mt == MIGRATE_CMA || mt == MIGRATE_ISOLATE)
++		return false;
++#endif
++	/* The zero page can be "pinned" but gets special handling. */
++	if (is_zero_folio(folio))
++		return true;
++
++	/* Coherent device memory must always allow eviction. */
++	if (folio_is_device_coherent(folio))
++		return false;
++
++	/*
++	 * Filesystems can only tolerate transient delays to truncate and
++	 * hole-punch operations
++	 */
++	if (folio_is_fsdax(folio))
++		return false;
++
++	/* Otherwise, non-movable zone folios can be pinned. */
++	return !folio_is_zone_movable(folio);
++}
++
+ /*
+  * An array of either pages or folios ("pofs"). Although it may seem tempting to
+  * avoid this complication, by simply interpreting a list of folios as a list of
 -- 
-2.53.0
-
-
-
+2.54.0
 
