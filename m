@@ -1,91 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794068136;
-	b=DNd19qJGA+SyWzpEdM1x7IC4Q3nfJ976cnNyXzZltVKXXATXC0P7gp5s5C5WtcM7ROih
-	 vgVWSzU8oyuJr9n7uMn6A2N5xd6QygzundbCGqGJSHt/4PfIr7cU/xE6YR7Kmkp0WmwXr
-	 OK0EC8dW2FLHJsrhdn2mMGp44cyPLhWrpA6OwC/LjEsDuzPdrR/iRDl+ogBNmeFirHans
-	 avWKXV8f+NoPXFkKMlz/7ANtk8LA0jd3OMClIcIHjE9KfK9xvZ/EgFk2v4JOCUS+vggb7
-	 hz+w7dmjPB8dsZNwfVOcm3VLLeTMS4ocCQY1r5XyEZn0V81c/+wosRGFOatcdFM+TAg==
+	t=1794068141;
+	b=nBpwi8zpq2tpF3jwvlY7xGIi/g607FEnV4rJ3CGb8JvDMHj6Py9fqjEXbMaSbo7+vyO+
+	 IziKc0K3RXKV2yoDGTQF58ZEm4gbDbRUtsLGqBgBU5NQC0G7vxKFCEnnSEP59ivOyB7qD
+	 9pFaWBnNyY/tW8XyoBcOSglE18v9jFDQdxvtUNwvtsTdX8UGs0m4Ifiid7IaBIMh434Yi
+	 4t5xsVa4yhajw+ZieXtgwD9JcKVyZFXbhqS99LI8QjBECRgH4bx4ugj+pLLv1X3ghqHlJ
+	 zK48Wqj5fWTYTaeDCbrNF6dUdFu8QE+69K+b5C9F+cEHrmZjT/L6J4GqrnZwBqaEtRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794068136;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794068141;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=UxeD2i07Tjwqk60mUrt1k80fXnLuOWmIztH2xlXgb/8=;
-	b=B2JLc3NbDP/IPN2usvVrGyo5wZ0zCIbL58R3kwjPFq0Saz/6SmAYcEhAc2hUTtELHaxM
-	 dC+jxWNQuGvj+Einzdu+igvqYzWlz5xhw9QOgG5LvRisdRpaaUZZPZIdjMPagFPuh2PRg
-	 UtoYcmdc1/7j4JikSVQ7t6Dqnu7D7wheDTF1VVz/N09XJcGUKYOVL+W+fHt/V62M7hvjA
-	 Myud1jOhBwdHY4jSLA0EMSZhuEAdx3yCT5MLGMBY4mPxzgjx9r/1ccLzP8x96IZI2NCta
-	 p2zGq6PfkNTs5KqISxI0CdCvFa98XRAmZ+fwR7a4DFt01s33jQbLbEWLPu1xC5vWrzQ==
+	bh=BP36L6H6wMCB4vLZAelWu0VHnxL9JUmS2DxNZ/lCnkE=;
+	b=lRRnrWCnhUOFLiN/R7SRyXiGTsuVHXOBJoDAlJfJ+a31xf/fJwpVVluRFL1O3ieSbezt
+	 rHLNE/n0UW8VEhaQrgd+RprwKD1xBLhnu9nVSmQWvRE1M0EfWjgYvySQNCjdpcFf54kP0
+	 xLltL4MPj5FnP0XoZeP1+3Jd8Z08mISdylctC+btyZEqXopYPGQT0ZNjV2tvIcfs38Lte
+	 RbuxXgt55LzfoQBMmXC8S2DYYEUrgPtN1zxwXGGj1z0UnWvLTC1v8fSRa1RMbAqAiA0jm
+	 4LgWF/2n86cmS4ppgauQ6tJ2tssVuVCFY+jk3GNWEPw6wsaKi4HLCe+Z+Z6hk7wVuWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=kernel.dk;
 	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=airBtlU3;
-	arc=none smtp.remote-ip=209.85.216.50
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=fDXyVaep;
+	arc=none smtp.remote-ip=209.85.214.177
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0165C606D81F
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 16:15:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0165C606D81F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 089C8606A33F
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 16:15:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 089C8606A33F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=airBtlU3
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3b0d0b80fb9so978658a91.1
-        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 08:15:35 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=fDXyVaep
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2e8f2c3ad6bso9351205ad.1
+        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 08:15:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1794068135; x=1794672935; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UxeD2i07Tjwqk60mUrt1k80fXnLuOWmIztH2xlXgb/8=;
-        b=airBtlU3uoBd+PnrQD0rV+AedZv3TOZB4mIz0EvQMpeQds5c4ygxqjHXtexgeTKRSD
-         mtYsB2D795g9q79ds7YM/Stbu9IZ38/bZYYyd0E63ur6Mmxy9lqDgHD159Q4nSWmBYqr
-         8WG5jN34CPbbwtTI43JB+IKFiMj+75KIUxu7SLE6s2pstOsUKZVsRffdyVYicVBjgZHr
-         3mxwmhWx3yszNLxFSHdUixen3QeMo7zfNlbhCjKsG0BovtRjHE7PU9IUSblzomaUwS3G
-         6YFDct1xAj7oqbr1YDHO+aDkTej/Fqc+WPN9TwUQXWVZYBX+zH+1uFz3r66W40dCvgqj
-         iqVw==
+        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1794068140; x=1794672940; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=BP36L6H6wMCB4vLZAelWu0VHnxL9JUmS2DxNZ/lCnkE=;
+        b=fDXyVaep/IfQ+VvOVEboSzBS1+byfhVO2QFr4C6S+DOMYnBEkZrSLFUi7Icl88SGvf
+         1NpyV+6mjq1edyumf4wU48tuhPyHWZvk6xnv/6DH7vIo91maYbiMR0eJRjzK8RMf980L
+         mAl82zVcxIREt+HuqDDUk2f/JZlhtYAbTkYpX9JJLxjJyFY5FXmRbtPRGHEklDpnBR+C
+         TbERsH/JW5lfvnddw0yghtYxUYsC7QhfTtmTEA6X5yr4WrjEqxzy9ozhy8oRlt3NBEyx
+         ZhgGFBMybK5z5OhA2PK3IO9FHP9HYF3vcrIP7qZ9DbHQ6o+Ho4/2HiOCLX+fLHEhPM/i
+         aiuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794068135; x=1794672935;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UxeD2i07Tjwqk60mUrt1k80fXnLuOWmIztH2xlXgb/8=;
-        b=vWHtF3vuVumcFZqXwBWo4OsatZI3MwCoP7H/eV0wralIKgwE7gkOoCEkAz8dgG+3V1
-         I4sieKcN7gRZMAd+l2H//4jLXgVJUOwR8mrfCape0HRv7WsuVTa0ssOqrIc+FWRRJ8zU
-         4W8qsChYEj31+dtLAat7KOaC81b1N3NRiu1Hxjuw6j72emQKTtybX37Pq3XsC9PHS0Bo
-         gp1F/hHvLp8k4I1oUHxj6YVaobtm6KRnJ9eA9EPEbHE0z8j0uqkv5Zpm+7K2urdC+G19
-         xOTIcAsEXEBHSsf7zjF4f6u9UI0LpWknU/fbpr/CCbScHEqrdZNlLpG9Qy7OFVMr46t2
-         acBQ==
-X-Gm-Message-State: APuU4Z/I3azn0J02Xr5NU6cHpKXGquiyh+pGAiCSIo0OfSzazSrZDAG7
-	+wp69xc3k/PW0Hmw6N4bFVO7ghPB7l1ur3GPmK7nqQp3qPIW5hMy7kb1LlbTmH7PwDQSPuMCNlf
-	1eGd42YQ=
-X-Gm-Gg: AYBFou1pkSQrYz/BLLfl355aNoviOG61GF5QmaftkC0Atq/R/GB2EgR7JVBuoGgUvzF
-	Gsn6WLc3Nyu6AbL7/MSdEVX/bYtow7FHpP3ZHJo3zdoLP27jM2NtiUlctKaeWqYpuUsnHnbnWlz
-	igiCsX3g703ttjQ/vBZPPlQ28rkQEQgTt93loLHYmFXun0jdID7jPlNMx5TTkPNMiWuzVkL9rmA
-	G85WijxHY3myXVrL7//kcgElM71oM8XYKl1RRfj11saeEsPzfO/3JmKSj+qdcRHUxwbAYKzETBq
-	QrNbfsL8xYX9JPIa0lOGXVk+W4TAp+RVVu0J03dl6ObC8X0/PADjqZvZmEa2nPCLXK2QSK2YPGA
-	x+dDmYPfrrc5fnEusOcyuNQ/hw5MdeEKdEqk0XIbEYAWWj/kW/6MxJTH1HdOcHx2nGGcocxiUMq
-	PgrrBmOPRWSsdihJgGtAqMvCzFkRTNL75O7rkdwUswzgmrfYYDMl5jB6V8dQdIXFtqi84qTZlUX
-	yYvh3Ob9xy9Cq+kk6EfS9zO6+i3MUZ95vnrcjdUFbiRACXNu/s8UpWsLlW8lD7Hae3GyHFmxc34
-	wMrr/tMfGbkDN3Ior1IMeVeF9GRgscO3q8uATpyfqHb+aS99VAqXTwVr0YLwcqgT0fSjvpqriag
-	qNjOEKlqbEDHRnJWHfSXi
-X-Received: by 2002:a17:90b:2682:b0:3ac:8ee5:e00f with SMTP id 98e67ed59e1d1-3b0db6ed2c1mr5671580a91.57.1794068135293;
-        Sat, 07 Nov 2026 08:15:35 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794068140; x=1794672940;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=BP36L6H6wMCB4vLZAelWu0VHnxL9JUmS2DxNZ/lCnkE=;
+        b=zp/Zl3QrddZvdPU6fny+6pG/GYLibMoulMHExhaJZTAqeAi3kNf++ZvW5P59fzRLh9
+         4RVkqc+k4GhfBW7jUuweCx8l/lM6cpSjIhAYIdXO41eODvZlUWvAbKLgv1t7A30FUAKb
+         Zw8w9gaoLNlM7PBPrFCDcdGRg0f0g9Sss8J2YA5lIFOiNozykkAB/6/tgusQbo8bXCt+
+         H6T/pky5pKD5j0x6ZupBV6xWSoBjuP3UXIVTZ9EUi6LyF+5dgy62VA8jJA7c2Z7/QhAx
+         rIbvQrqv/tvWB8MP8EgzlvY4aQu+SwAZ/tzuu2mjHLXVGd6C3oac/5QnjkCbLXSqMw5W
+         ZOhA==
+X-Gm-Message-State: APuU4Z9gS0pF8x7VCGNeW5vyLY2wZqZrcUiBL17KLKdgNvN4xxXmYv/3
+	d2CL80fLGfCSYW6ZFlPNrmS6wRxGeGh45CfsplHfFp44Vd87+tPjfeO30vvN7SRrGeBaw21Ybxd
+	uMElTbRc=
+X-Gm-Gg: AYBFou0Wsv6Aw6pzLo643/Xa/vhCbaMIj2AwawAxTQsGcrINITzc8IOhgpbXBqgPGeU
+	F91vrLemX0b6NTVUVuM5L56+Dgh4HiWTDxE+sZLEkdhKS+cRniHYSOcNIA0vFLaIqgg2HUJKpF0
+	g+R7l5ykU+5xkFZ15ErN+gcpQvM8+b6T52RfUNQMlEUzfW+YQYD1x3GgxpzyJPF0Qac8pjKwT+K
+	4u8YeT3AuUOfFLzKYVZW3vx2e1jgCv/GQY7ucTrT/zRTs5YBMb0+6at696NQPfkhzo1uz7shJRM
+	zCjVrZtERDaq0J3vcyDLDlcgxX29W2oOPWJvHjAmsWTBqAQtB/FW/Bv1o+ZhaFi0cc7FrLRitwc
+	XdndJiu+qav1KcZ/O6OJkOSdq9QeqpLMoMoJQWC5eohTkffMG9pUHRI2RB9vPRaj9mGHrQoyoRo
+	YKc4JTY3o+i7yZ5tk4+rVHPiKBquJ46Kxug27EFHD+srBw82vEEnzShGLPEhob3zGeXiU1obTt0
+	um+N0CeQzZtqYQ7taok4FxdUgCCFVpIiWvfKFy7N/FRbLuYcSrwsfQ/KA0LDUIUh0hsnhQXT9e2
+	TmvU8hfwDVltXKYTkofe1VLAdbakGOQuhtuwtRlYlWZw0+3v+B8hnoWCQ7KIozvchPjIkVAsf4Y
+	bw67ln3ZxOqQ2UD3k+NLJ
+X-Received: by 2002:a17:90b:3b86:b0:3aa:f2c4:12e9 with SMTP id 98e67ed59e1d1-3b0db5f1514mr6439133a91.3.1794068140229;
+        Sat, 07 Nov 2026 08:15:40 -0800 (PST)
 Received: from xps16 ([198.8.77.135])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b10585eac3sm3910188a91.17.2026.11.07.08.15.30
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b10585eac3sm3910188a91.17.2026.11.07.08.15.35
         for <stable@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 08:15:31 -0800 (PST)
+        Sat, 07 Nov 2026 08:15:36 -0800 (PST)
 From: Jens Axboe <axboe@kernel.dk>
 To: stable@vger.kernel.org
-Subject: [PATCH 6.1.y 6/7] io_uring/poll: don't poll a writer for urgent data
-Date: Sat,  7 Nov 2026 09:15:13 -0700
-Message-ID: <20261107161514.2499962-7-axboe@kernel.dk>
+Subject: [PATCH 6.1.y 7/7] io_uring/rsrc: hold uring_lock across index-alloc put_user
+Date: Sat,  7 Nov 2026 09:15:14 -0700
+Message-ID: <20261107161514.2499962-8-axboe@kernel.dk>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261107161514.2499962-1-axboe@kernel.dk>
 References: <20261107161514.2499962-1-axboe@kernel.dk>
@@ -98,58 +97,91 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Commit edeac4546a71b6c1db4ba006a2dbf7c863f54e9a upstream.
+From: Yuansheng Yang <0xbeac@gmail.com>
 
-io_arm_poll_handler() starts the mask of every async poll with EPOLLPRI,
-for a reader and a writer alike. A TCP socket reports EPOLLPRI for as
-long as urgent data sits unread, so once the peer has sent a byte with
-MSG_OOB, the async poll of a send that waits for buffer space is ready
-on every re-arm. The request spins through task_work and
-__io_arm_poll_handler() until APOLL_MAX_RETRY is used up and io-wq takes
-it, the same spin that EPOLLRDHUP caused for a half-closed peer.
+Commit d7c7037253f6935af243570635d71b4920b5a4ea upstream.
 
-While it spins, the request is neither in the poll hash nor in io-wq. A
-cancel issued right after the send gets -ENOENT and the send stays
-pending, until a later cancel finds it in io-wq.
+io_files_update_with_index_alloc() installs a fixed file via
+io_fixed_fd_install(), which drops ->uring_lock when the request runs on
+io-wq, then put_user()s the allocated slot back to userspace. If that
+faults, the error path calls __io_close_fixed() by slot index after
+re-taking the lock.
 
-Only add EPOLLPRI for polls that want to read. Urgent data is an event
-for a recv, not for a writer.
+The slot can be closed and reused between the install and that cleanup:
+another fixed CLOSE plus open/accept/pipe/socket, or a FILES_UPDATE, can
+put an unrelated file into the same slot. The error path then removes
+that file instead of the one this request installed, ending an unrelated
+file's fixed-table reference early. This is a correctness/DoS issue, not
+a use-after-free: fixed-file requests hold an io_rsrc_node reference, so
+the node and file stay alive until they are done.
 
-Fixes: d7718a9d25a6 ("io_uring: use poll driven retry for files that support it")
-Reported-by: Lukáš Lalinský <lukas@lalinsky.com>
+Hold ->uring_lock across __io_fixed_fd_install() and put_user(), and do
+the failure cleanup with io_fixed_fd_remove() under the same lock. This
+is the same class as the io_pipe_fixed() fix in a3d7ee11289f. Faulting
+while holding ->uring_lock is fine, the registration paths already do
+it.
+
+Fixes: a7c41b4687f5 ("io_uring: let IORING_OP_FILES_UPDATE support choosing fixed file slots")
+Signed-off-by: Yuansheng Yang <0xbeac@gmail.com>
+Link: https://patch.msgid.link/20261104154655.81876-1-0xbeac@gmail.com
+[axboe: various touch-ups]
 Signed-off-by: Jens Axboe <axboe@kernel.dk>
-[axboe: 6.1 sets up the mask in io_arm_poll_handler() itself, with
-EPOLLET]
+[axboe: 6.1 uses copy_to_user() for the slot rather than put_user(), and
+->file_data for the table check]
 ---
- io_uring/poll.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ io_uring/rsrc.c | 21 ++++++++++++++++-----
+ 1 file changed, 16 insertions(+), 5 deletions(-)
 
-diff --git a/io_uring/poll.c b/io_uring/poll.c
-index aa7ffce3a295..10786e84b372 100644
---- a/io_uring/poll.c
-+++ b/io_uring/poll.c
-@@ -753,7 +753,7 @@ int io_arm_poll_handler(struct io_kiocb *req, unsigned issue_flags)
- 	const struct io_op_def *def = &io_op_defs[req->opcode];
- 	struct async_poll *apoll;
- 	struct io_poll_table ipt;
--	__poll_t mask = POLLPRI | POLLERR | EPOLLET;
-+	__poll_t mask = POLLERR | EPOLLET;
- 	int ret;
+diff --git a/io_uring/rsrc.c b/io_uring/rsrc.c
+index 6fd3dcaa3c42..eb91f5b28924 100644
+--- a/io_uring/rsrc.c
++++ b/io_uring/rsrc.c
+@@ -670,11 +670,12 @@ static int io_files_update_with_index_alloc(struct io_kiocb *req,
+ {
+ 	struct io_rsrc_update *up = io_kiocb_to_cmd(req, struct io_rsrc_update);
+ 	__s32 __user *fds = u64_to_user_ptr(up->arg);
++	struct io_ring_ctx *ctx = req->ctx;
+ 	unsigned int done;
+ 	struct file *file;
+ 	int ret, fd;
  
- 	/*
-@@ -770,7 +770,8 @@ int io_arm_poll_handler(struct io_kiocb *req, unsigned issue_flags)
- 		mask |= EPOLLONESHOT;
+-	if (!req->ctx->file_data)
++	if (!ctx->file_data)
+ 		return -ENXIO;
  
- 	if (def->pollin) {
--		mask |= EPOLLIN | EPOLLRDNORM;
-+		/* urgent data is an event for a reader only */
-+		mask |= EPOLLIN | EPOLLRDNORM | EPOLLPRI;
+ 	for (done = 0; done < up->nr_args; done++) {
+@@ -688,15 +689,25 @@ static int io_files_update_with_index_alloc(struct io_kiocb *req,
+ 			ret = -EBADF;
+ 			break;
+ 		}
+-		ret = io_fixed_fd_install(req, issue_flags, file,
+-					  IORING_FILE_INDEX_ALLOC);
+-		if (ret < 0)
++		/*
++		 * Hold the lock across the copy_to_user(), if it's dropped the
++		 * slot can be closed and reused before the error path runs.
++		 */
++		io_ring_submit_lock(ctx, issue_flags);
++		ret = __io_fixed_fd_install(ctx, file,
++					    IORING_FILE_INDEX_ALLOC);
++		if (ret < 0) {
++			io_ring_submit_unlock(ctx, issue_flags);
++			fput(file);
+ 			break;
++		}
+ 		if (copy_to_user(&fds[done], &ret, sizeof(ret))) {
+-			__io_close_fixed(req->ctx, issue_flags, ret);
++			io_fixed_fd_remove(ctx, ret);
++			io_ring_submit_unlock(ctx, issue_flags);
+ 			ret = -EFAULT;
+ 			break;
+ 		}
++		io_ring_submit_unlock(ctx, issue_flags);
+ 	}
  
- 		/* If reading from MSG_ERRQUEUE using recvmsg, ignore POLLIN */
- 		if (req->flags & REQ_F_CLEAR_POLLIN)
+ 	if (done)
 -- 
 2.56.0
 
