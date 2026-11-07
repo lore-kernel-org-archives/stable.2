@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050678;
-	b=bKOhQ9tMtCNy9Mdmv3JPet402btMrPC9Iw9jHhMASIBRaxgurTLj6aH4VgRkkus6x9WL
-	 mTD+9DxXp3ttR1PThkFLpvRFXpf9rP2aj9ClapTOxEHN8eIvhF0ibUhj0T33fPKP54ITv
-	 ZzAKLGSFvY1vpIKYm4kw1kTdq/yOFMrLpQjmRd4YI5AE2jBUU8lyGjZmy0BnbJRnrrTl4
-	 NqAjFLnEfuKykWGH4oJBrVoJBZ/CMneCR0/8+DY9G4k5BOAEB0GE4MILH7yH96Sp5FfnS
-	 coLqAMPDvSWQhux3z2o/YFPOTVL8B3ZUFehns92BRatKDzIOngRwb8QWGO2BGomz21A==
+	t=1794050682;
+	b=mk0Z29STD08MXPD2JtFxCHAzWzc34i+MzSVc8O5w17/KNC10mKreLE5hHVUKBUVZxC67
+	 m3lXI4qTaKLY1b1PrJhHxlcrCZVz2G41SxuZfZrJvLNM6I/0lQCpaHKLTfS4XPS2MKLER
+	 A7OWENa2obT3GFkwQM7xAZjc4rDysL1qgeN6ATG02vNM+rzUxIGoJP0ABLNuYRtke76Y+
+	 U1lalAccjGDLZKnPJqZ8FwdOADj0WBtUEGvNKpL+Qy0/SMppIQrtFfUOlrJZglkbc2HkR
+	 k4aNRCRlep7FkFzA8ZzS0TdcOd3UxjzW4MjjRxVuwMLI8xiGCwJvw9pIyxdyoMTvkZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050678;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050682;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=pfUU4U3wd0ZLRUYsaUHMQuZNQwvIyJ8JO4kPF+dVkic=;
-	b=cgv841bNTXz/JaMNrF9az6DstfsWacT0/XYAt/+8oD+7VtwQfByHKts20OKLEpcnftSX
-	 Adc/vL1Jg8cNvtlD2daejspXzigx/h75B14fNbEZKmOJPGPypAB+EtW9PyV4ohF/5v7qP
-	 7YdNteP8qqo8cY0MFQpSqdyDYDcrLFR9RWaPicJPHgwB47INDanRKmybXUpqm/arM6Qbl
-	 +YsyKK4cpx9frtli1nIwFob3Qy1aV/Fo7LF5blATbKjVGIs3bSXkY6eS3JfSwrIf7msk3
-	 Cx50ZrNcPPz7RxdFHiCW6iU994hvVBaAvmq5Eu9oOQqrT0HUqDu+bLXLbL33qtmtz9w==
+	bh=+vnp4mNponx/7G89rjbig2NtTKX1ASyGlkpILu88yyg=;
+	b=JUmThMIapxUO9wF1/6dBSQOo8YtHD4kmbMvFbBiOR5YTR+fJzm6S4oQRL9jGtjyqnCeg
+	 6gJY3+s935OH7S8N8j2xQ5cNhd8u/MEDSghAEAM6PY/Fvggq+dnIonlApuncLDiQYegbe
+	 IcfC/8ZRKxi4YjOY42r6dlHpMNUbgLBYFCc1e++H+GEJVoGUqW+JrJFB59HwOB5czdRcZ
+	 t3dI5XY5Zoly5FHNsoSqd8eFjah0RSbrVcAGKbXUmF7/R9YN0nvOXaXaUsJHd43O5/Hkj
+	 TYbk1ILuwWFGgj0bcCsVe7c4gNHCDNBOmI6PuLuQsWN7SNll/GpAFSIUZiBFp1YztcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KVV4uR4v;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L4poqAWg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A139F606A32F
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:24:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF10A606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:24:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KVV4uR4v
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D3051F0089F;
-	Sat,  7 Nov 2026 11:24:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L4poqAWg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33D021F0089F;
+	Sat,  7 Nov 2026 11:24:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050678;
-	bh=pfUU4U3wd0ZLRUYsaUHMQuZNQwvIyJ8JO4kPF+dVkic=;
+	s=k20260515; t=1794050681;
+	bh=+vnp4mNponx/7G89rjbig2NtTKX1ASyGlkpILu88yyg=;
 	h=From:To:Cc:Subject:Date;
-	b=KVV4uR4vc2An6hAxXnlnj0CEE2eRBCAS+tlTa+XYsWNOT+ydZL2ukbuT/8iZXc8+A
-	 oG4vyvRybOH0dCPgnFaglsrbtD+em/dKrVl3+Ao6gyrChuda8ulgKC/fc0UztIPaoH
-	 CAASEHu5kqXZyMtGVkSSXH0TZ/UDvwODt7OFxZzWgisfaSQCdH9fcK7x+qpbDyOLiB
-	 QFXpgXFGjOY4nIhl+7aHMRFp4OoBV6xWQa5cfWVvyiRCsrOMmThY3g8AsMiZhDCnIw
-	 Q/EneRTFv9sZtPvclxHwIc/8kD7xrTC7UOBv4Ac8m0nmJf1D5lzFVgUN4Apzj4ipQ9
-	 NVoUNhrOkik7w==
+	b=L4poqAWgc9tda8CMXkGBbcUreHRpoXFL0MPh/0aiFz3e7y5J6KfUbzbE8aYWg2Vgx
+	 St0SDvEpAzbKQD0WhT0Fo0sLeJNZqS39goR4j2Cl6dLvoKKyley6Xh7o7MdVcJgEa1
+	 JiVIXtUXdbjZp5TXnegArQtiBXf0b6FGO9HziEi4zQxye9vM92oqavA6PA8eelAvzn
+	 Eiw1Pr17H5gd90myh5pCNOHYiNSE1yfumTqBd1urFstplwojVUO7U8bVq6vqPBiIPL
+	 2kLFnTotU9SbCblnXSYH1ePthNSk9yC5dX5TV+7jajTcQxldPf41VODnGXOPfMvVzI
+	 iqTm8V+ly1c9w==
 From: Sasha Levin <sashal@kernel.org>
-To: joannelkoong@gmail.com,
-	hbirthelmer@ddn.com,
+To: fanwu01@zju.edu.cn,
+	songl@zju.edu.cn,
 	mszeredi@redhat.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] fuse: don't launder folios of a bad inode" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:24:36 -0500
-Message-ID: <20261107062436-failed-5.10-01d0f3d294af@kernel.org>
+Subject: FAILED: patch "[PATCH] virtio_fs: read the vring size under virtio_fs_mutex in ->get_tree" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:24:39 -0500
+Message-ID: <20261107062439-failed-5.10-e7ccc777a040@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,79 +69,98 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 01d0f3d294af126f517d92c11e100525537f8be4
+git cherry-pick -x e7ccc777a040343b80f95f4cc5c12ce1df3187f4
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062436-failed-5.10-01d0f3d294af@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062439-failed-5.10-e7ccc777a040@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 01d0f3d294af126f517d92c11e100525537f8be4 Mon Sep 17 00:00:00 2001
-From: Joanne Koong <joannelkoong@gmail.com>
-Date: Tue, 6 Oct 2026 03:51:36 -0700
-Subject: [PATCH] fuse: don't launder folios of a bad inode
+From e7ccc777a040343b80f95f4cc5c12ce1df3187f4 Mon Sep 17 00:00:00 2001
+From: Fan Wu <fanwu01@zju.edu.cn>
+Date: Tue, 22 Sep 2026 08:13:18 +0000
+Subject: [PATCH] virtio_fs: read the vring size under virtio_fs_mutex in
+ ->get_tree
 
-fuse_flush() and fuse_writepages() reject writing back dirty data for
-any inode that has been marked bad, but fuse_launder_folio() doesn't.
+The vring size was read after virtio_fs_find_instance() had dropped
+virtio_fs_mutex, so a concurrent virtio_fs_remove() could free the
+virtqueue first. The reference from the lookup keeps the virtio_fs
+alive, but not its virtqueues.
 
-This can cause the following warning in fuse_write_file_get() to
-trigger, as reported by syzbot:
+Hold the mutex across the lookup and the read.
 
-WARNING: fs/fuse/file.c:2043 at fuse_write_file_get fs/fuse/file.c:2043 [inline]
-WARNING: fs/fuse/file.c:2043 at fuse_iomap_writeback_range+0x7c8/0x18f0 fs/fuse/file.c:2227
-Call Trace:
-    iomap_writeback_folio+0x1526/0x2490 fs/iomap/buffered-io.c:2022
-    fuse_launder_folio+0x17b/0x240 fs/fuse/file.c:2331
-    folio_unmap_invalidate+0x4cd/0x830 mm/truncate.c:634
-    invalidate_inode_pages2_range+0x629/0xb30 mm/truncate.c:726
-    fuse_open+0x5a6/0x770 fs/fuse/file.c:297
+This issue was found by an in-house static analysis tool.
 
-This can be hit on a writeback cache mount:
-1) a writeable file is open and a buffered write dirties some pages
-2) another thread opens the same file read-only. fuse_open() passes the
-   bad inode check and sends OPEN to the server.
-3) a SETATTR reply with the wrong file type marks the inode bad
-4) the writeable file is closed. Flush and release skip writeback
-   because the inode is bad. The pages stay dirty but the file gets
-   removed from write_files.
-5) server replies to the OPEN. The reply has no FOPEN_KEEP_CACHE, so
-   fuse_open() calls invalidate_inode_pages2().
-6) the invalidation finds the dirty pages and calls
-   fuse_launder_folio(), which finds no wriable file and hits the
-   WARN_ON in fuse_write_file_get().
-
-Instead of trying to write back dirty data for the bad inode,
-fuse_launder_folio() should return -EIO.
-
-Fixes: 5d069dbe8aaf ("fuse: fix bad inode")
-Reported-by: syzbot+e8200299b0556976e13c@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=e8200299b0556976e13c
+Fixes: a7f0d7aab0b4 ("virtiofs: split requests that exceed virtqueue size")
 Cc: stable@vger.kernel.org
-Signed-off-by: Joanne Koong <joannelkoong@gmail.com>
-Reviewed-by: Horst Birthelmer <hbirthelmer@ddn.com>
-Tested-by: syzbot+e8200299b0556976e13c@syzkaller.appspotmail.com
+Assisted-by: Codex:gpt-5.6
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 Signed-off-by: Miklos Szeredi <mszeredi@redhat.com>
 ---
- fs/fuse/file.c | 3 +++
- 1 file changed, 3 insertions(+)
+ fs/fuse/virtio_fs.c | 21 +++++++++++----------
+ 1 file changed, 11 insertions(+), 10 deletions(-)
 
-diff --git a/fs/fuse/file.c b/fs/fuse/file.c
-index 6d707f2b3bff8..0ef46f6e0267f 100644
---- a/fs/fuse/file.c
-+++ b/fs/fuse/file.c
-@@ -2351,6 +2351,9 @@ static int fuse_launder_folio(struct folio *folio)
- 		.wb_ctx	= &data,
- 	};
+diff --git a/fs/fuse/virtio_fs.c b/fs/fuse/virtio_fs.c
+index 4f334766b8c30..674fd784cdb80 100644
+--- a/fs/fuse/virtio_fs.c
++++ b/fs/fuse/virtio_fs.c
+@@ -455,26 +455,23 @@ static int virtio_fs_add_instance(struct virtio_device *vdev,
+ 	return ret;
+ }
  
-+	if (fuse_is_bad(wpc.inode))
-+		return -EIO;
+-/* Return the virtio_fs with a given tag, or NULL */
++/* Return the virtio_fs with a given tag, or NULL.
++ * Callers hold virtio_fs_mutex, which also keeps the virtqueues alive.
++ */
+ static struct virtio_fs *virtio_fs_find_instance(const char *tag)
+ {
+ 	struct virtio_fs *fs;
+ 
+-	mutex_lock(&virtio_fs_mutex);
++	lockdep_assert_held(&virtio_fs_mutex);
+ 
+ 	list_for_each_entry(fs, &virtio_fs_instances, list) {
+ 		if (strcmp(fs->tag, tag) == 0) {
+ 			kobject_get(&fs->kobj);
+-			goto found;
++			return fs;
+ 		}
+ 	}
+ 
+-	fs = NULL; /* not found */
+-
+-found:
+-	mutex_unlock(&virtio_fs_mutex);
+-
+-	return fs;
++	return NULL; /* not found */
+ }
+ 
+ static void virtio_fs_free_devs(struct virtio_fs *fs)
+@@ -1700,13 +1697,17 @@ static int virtio_fs_get_tree(struct fs_context *fsc)
+ 	 * in chan->iq->priv. Once fuse_conn is going away, it calls ->put()
+ 	 * to drop the reference to this object.
+ 	 */
++	mutex_lock(&virtio_fs_mutex);
+ 	fs = virtio_fs_find_instance(fsc->source);
++	if (fs)
++		virtqueue_size = virtqueue_get_vring_size(fs->vqs[VQ_REQUEST].vq);
++	mutex_unlock(&virtio_fs_mutex);
 +
- 	if (folio_clear_dirty_for_io(folio)) {
- 		err = iomap_writeback_folio(&wpc, folio);
- 		err = fuse_iomap_writeback_submit(&wpc, err);
+ 	if (!fs) {
+ 		pr_info("virtio-fs: tag <%s> not found\n", fsc->source);
+ 		return -EINVAL;
+ 	}
+ 
+-	virtqueue_size = virtqueue_get_vring_size(fs->vqs[VQ_REQUEST].vq);
+ 	if (WARN_ON(virtqueue_size <= FUSE_HEADER_OVERHEAD))
+ 		goto out_err;
+ 
 -- 
 2.53.0
 
