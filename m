@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050706;
-	b=JM+y4DmH7qRmEsArRoMrBiyvm5Yz5J0zZYgPRtvQfJQPqa5990a5nuxFY0kJyFgBqT8i
-	 OQDS79fAXwprpLQ7hK4r2TdT2zKX6mzeLZV8jVl5ajUYe+5xJ+3ce/NYKYA6nbWthhaHH
-	 vnjnXT08FTSgHpfUDmpTC/V5rc3kdctYP/d42VnImQnx2NeiSeLJYYSGdlKHcA0ghyusU
-	 UhDINDOuuBvYbq6ApukJqz7mJomqI3IRSH+3BENZii4EtUNqEmaLuTnZiw4Oo42dBKeE9
-	 ROcuHih2KUsxZVMLjScOSOQ4W3mwj6QUHhyhcvjuNSxbkwWy+uqZXYXUq6YlR8R2/uA==
+	t=1794050709;
+	b=Mc4cR7ODaBm5/yuYhuc7zTj4PvNDVh31jDGFeJ2pilKaY0POPDYcJCM4fFcopF+fPSMW
+	 SETOBUaYRVizA7e+2el64O0hsgptX46+FOelcRtvkwBWw+/WcGLnPDZ/g38tU32hzo2l2
+	 Kv0dRAyKesRBsY4Gu7B+pTN0tP4vz1IbnHd3Ge+9dcmCAUVAN+9QV/mhgJn8LALga7WSV
+	 Qc/fSF9EIbtj6Wh+k7oMQVdTgrhfZthoOGlkh8n91cDf/NIhQb8cUaSxha2ktbhed6Eob
+	 sngrLkaJek4Mx1DFtRhgWg/BaHdHF3LF6955vP+9aADGv2AiXxuGz+5KBpNh7EV82Pg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050706;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050709;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=O2YB7tmAA6TkKe5qzjDzoyUmZL6NBtS78AfymOQvj7I=;
-	b=CeB5YM1iacO3gglSgCw+Dv+BS56HnqcpQ8f6CEdpBYrJoDI/wDQFrSdEALZHKxn4z7rH
-	 TH05Mpj0TW13hjqOw1ISnvXhd9ATmC8Ujfk2igmru09YbQOlko41iGpoBDk5UkzsKx2mL
-	 onqEeuvsJ602mGjkjsnzdsEZORcsbn4sa4G/SIGmrKSH/s7p89r0eXZxpodNjfNKdHxJ/
-	 MP+nxFbGnFkygpZR9zqYDAYxGtmBk23qw71LYfP1No3/Lne97qlewt8xykdN77qnYhjYP
-	 fYWDtvjoTT0sXcPN+NNV22Vypt3wMvXAMjlEAsgbtnMnWLeHcoUE0hsUKhCPHcd/hsQ==
+	bh=dvNo3mfhFqcEs1mOIsN7HSAEDHfINXBCYvnEe+NP8qM=;
+	b=WeaSAK22Q5uWau0NNYMjen0KloVLGoyDIpqhZE5QgbYgxeTuWSLU6Q5TXYJ4H/xboX64
+	 90tHIQ2Si4E56OtykS+j5Sf1c3GQJ1H7wxB558qmUU8ihugC3D9PMvKTdWPVwNy46dU0U
+	 LDw6wBcXZW7A3nLMJOjxpvxWmpJH5f9C8R87MCgu/DpVqVdqMbr7KwGSp9VSvHgfN1/vu
+	 K1spwXBbR2ToWvc/S9cq/dP2zK9zObb9aKHn+nTSanJmef7yBmQSPZ1VU6o4eJTw5Qwdy
+	 AO09MfWAAbXA/tSfUq7aPXEZpPyiYy+E2xERADQR4DmbnwtG5/KTC+Z6y1pXhGqqsmQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S7KJC2Hj;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WEJccCa2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 374CB606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:25:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38AC7606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:25:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S7KJC2Hj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95B821F0089F;
-	Sat,  7 Nov 2026 11:25:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WEJccCa2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93C0D1F0089F;
+	Sat,  7 Nov 2026 11:25:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050706;
-	bh=O2YB7tmAA6TkKe5qzjDzoyUmZL6NBtS78AfymOQvj7I=;
+	s=k20260515; t=1794050709;
+	bh=dvNo3mfhFqcEs1mOIsN7HSAEDHfINXBCYvnEe+NP8qM=;
 	h=From:To:Cc:Subject:Date;
-	b=S7KJC2Hjy7w9LDeeGZo8jgOXDVoKf+WoJTymYxSJjfX+Jadx21BuhBb6xTqCo1Fuq
-	 97UUraNIvmICd8MSCfM4D8EkLa2CMEuTZsarB/6d182e4hBNRjV1hgcCn9nyUfUplI
-	 pA83Tv2ajnmdDwMsPHFuRRgKeDAKb6NeAaQx9JDbs8lai1svMdV6xhhD3pMalmr/uD
-	 BETq1o5QOzNH+orqn5DYAavn8ULsl78J9XAeTwVR2s+80XkI+h1nCkCnMMieXsVUVD
-	 Css7O+4eXLJOy3HyBbcHbOBFlO8WJoIvOZ8uoL9DLBaWivZPR54POQ3DCOkuJX/ZL5
-	 77oCfjXtop+yw==
+	b=WEJccCa2xgjSTS9va5xf75I6txmT7jMmORMxEJ30GOdjW/G36jABwBIPZ6M4yrard
+	 zBuiBLidLfa3sPkmoDceBrVd4JYGwymuA2wtQEfMz0c9Wn0KLUG2hIpIFCor8L+dIs
+	 hyw8fgcaDVUJKAbtawfIn5CbTJV7Jz08TFGfW9ZS10YUFjsi5Wa6c1vZWXHu4ThlO6
+	 p27zFiRy2m2DKIa2u8LdlNJtsJHjzNgNVV+Fzeu5mK8gZSJ3WJX0f6pWqeuzZToQNN
+	 Icf8YhgR6bTSLVceYn6RV0CwsS2EhdUZsTkVSjQzjRflRUeVOHb9UC/sFFc9zQL0K/
+	 roaoxhLaYwk/g==
 From: Sasha Levin <sashal@kernel.org>
-To: aambrozewicz@nvidia.com,
-	warthog618@gmail.com,
-	bartosz.golaszewski@oss.qualcomm.com
+To: vnagare@redhat.com,
+	horms@kernel.org,
+	pabeni@redhat.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] gpiolib: cdev: don't set GPIOD_FLAG_IS_OUT" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:25:04 -0500
-Message-ID: <20261107062504-failed-5.10-974d2712cb15@kernel.org>
+Subject: FAILED: patch "[PATCH] bnxt_en: don't leave an XDP program installed when the open fails" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:25:07 -0500
+Message-ID: <20261107062507-failed-5.10-78731b46967e@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,96 +69,150 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 974d2712cb15014019595799b3ed68fef5fe9695
+git cherry-pick -x 78731b46967e3e7102b5cd5062bef185f3404b5c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062504-failed-5.10-974d2712cb15@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062507-failed-5.10-78731b46967e@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 974d2712cb15014019595799b3ed68fef5fe9695 Mon Sep 17 00:00:00 2001
-From: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
-Date: Fri, 16 Oct 2026 12:22:58 +0300
-Subject: [PATCH] gpiolib: cdev: don't set GPIOD_FLAG_IS_OUT
+From 78731b46967e3e7102b5cd5062bef185f3404b5c Mon Sep 17 00:00:00 2001
+From: Vaibhav Nagare <vnagare@redhat.com>
+Date: Mon, 12 Oct 2026 12:58:02 +0530
+Subject: [PATCH] bnxt_en: don't leave an XDP program installed when the open
+ fails
 
-When a line is requested or reconfigured through the v2 uAPI,
-gpio_v2_line_config_flags_to_desc_flags() copies the requested
-configuration into the descriptor flags, GPIOD_FLAG_IS_OUT included,
-before gpiod_direction_input_nonotify() or
-gpiod_direction_output_nonotify() asks the driver for the direction.
-If the driver refuses, for instance with -EOPNOTSUPP from
-.direction_input() for a line that can only be an output, the ioctl
-fails but the flag keeps the refused direction. gpiod_free_commit()
-does not touch GPIOD_FLAG_IS_OUT, so this outlives the failed request,
-and GPIO_V2_GET_LINEINFO_IOCTL reports the line as an input while the
-hardware still drives it, until a request without direction flags
-makes gpiod_request_commit() read the direction back from the driver:
+bnxt_xdp_set() stores the new program and drops the reference on the old
+one before reopening the NIC.  If bnxt_open_nic() then fails, ndo_bpf()
+returns an error with the new program still in bp->xdp_prog.  The caller
+treats the error as "nothing was installed" and drops its own reference,
+so bp->xdp_prog is left pointing at a freed program and the next XDP
+update dereferences it:
 
-  GPIO_V2_GET_LINE_IOCTL, line 0, input:         -EOPNOTSUPP
-  GPIO_V2_GET_LINEINFO_IOCTL, line 0:            input
-  GPIO_V2_GET_LINE_IOCTL, line 0, no direction:  ok
-  GPIO_V2_GET_LINEINFO_IOCTL, line 0:            output
+  BUG: unable to handle page fault for address: ff78ecc80ddd1038
+  RIP: 0010:__bpf_prog_put+0x5/0x80
+  Call Trace:
+   bnxt_xdp_set+0xad/0x1b0 [bnxt_en]
+   dev_xdp_propagate+0x36/0xa0
+   bond_xdp_set+0xeb/0x2d0 [bonding]
+   dev_xdp_install+0x1b1/0x350
+   bpf_xdp_link_update+0xc5/0x1b0
+   link_update+0x104/0x1e0
+   __sys_bpf+0x662/0xcf0
 
-GPIO_V2_LINE_SET_CONFIG_IOCTL updates the flags in the same order.
-There the line stays requested, and since commit 92ac7de3175e
-("gpiolib: don't allow setting values on input lines")
-GPIO_V2_LINE_SET_VALUES_IOCTL on it then fails with -EPERM, though the
-line is still an output. A line whose driver refuses to make it an
-output is likewise reported as one.
+Seen on a 6.12 based kernel after bnxt_alloc_mem() failed an order-4
+allocation on a fragmented host:
 
-gpiod_direction_input_nonotify() and gpiod_direction_output_nonotify()
-set or clear GPIOD_FLAG_IS_OUT themselves once the driver has accepted
-the direction, emulated open drain and open source included, and
-nothing between the copy and those calls reads the flag. Leave it to
-them, as the v1 uAPI already does.
+  bnxt_en 0000:a0:00.1 ens4f1np1: nic open fail (rc: fffffff4)
+  bond1: (slave ens4f1np1): Error -12 calling ndo_bpf
 
-The other flags that the helper copies stay as they are. Active low,
-drive and bias are what gpiod_direction_*() applies, drive and bias
-possibly before the driver refuses the direction; edges and event
-clock are the character device's own. None of them is read back from
-the driver, so there is no earlier state that is more accurate to go
-back to. A failed request releases the line, which clears them, and a
-failed reconfiguration leaves the line, like the lines before it, with
-what was applied up to the failure.
+Bonding is not required to hit this; a plain XDP attach on a bnxt
+interface takes the same path.
 
-Reproduced under QEMU with a test GPIO chip whose line 0 refuses input
-and line 1 refuses output: both refused requests and both refused
-reconfigurations leave the line info with the refused direction, and
-setting the value of the reconfigured output fails with -EPERM. With
-this change the line info shows the direction of the hardware in all
-four cases and setting the value works. First seen on real hardware
-with v6.12.
+Restore the previous program when an attach or a replace fails, and
+recompute the page-mode and XDP TX ring configuration from it.  The
+configuration matters because bnxt_init_one_rx_ring() only assigns
+rxr->xdp_prog in page mode, and __bnxt_set_rx_skb_mode() derives
+dev->max_mtu from the installed program.  Release the old program only
+once the change has been committed.
 
-Fixes: 3c0d9c635ae2 ("gpiolib: cdev: support GPIO_V2_GET_LINE_IOCTL and GPIO_V2_LINE_GET_VALUES_IOCTL")
+A detach is not undone.  dev_xdp_detach_link() clears the core's record
+of the program even when the driver returns an error, so putting the
+program back would leave the driver running a program the core has
+already dropped.  If the reopen fails during a detach, bnxt_xdp_set()
+therefore returns 0 with the device closed; bnxt_open_nic() has already
+logged the failure.
+
+Found in a crash dump; the change was not tested on hardware.
+
+Fixes: c6d30e8391b8 ("bnxt_en: Add basic XDP support.")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
-Reviewed-by: Kent Gibson <warthog618@gmail.com>
-Link: https://patch.msgid.link/20261016-gpiolib-cdev-direction-v2-1-aambrozewicz@nvidia.com
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Signed-off-by: Vaibhav Nagare <vnagare@redhat.com>
+Reviewed-by: Simon Horman <horms@kernel.org>
+Link: https://patch.msgid.link/20261012072802.2153706-1-vnagare@redhat.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 ---
- drivers/gpio/gpiolib-cdev.c | 5 -----
- 1 file changed, 5 deletions(-)
+ drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c | 49 +++++++++++++------
+ 1 file changed, 33 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/gpio/gpiolib-cdev.c b/drivers/gpio/gpiolib-cdev.c
-index 5d53bfcdf7268..f4d78113ade2c 100644
---- a/drivers/gpio/gpiolib-cdev.c
-+++ b/drivers/gpio/gpiolib-cdev.c
-@@ -1229,11 +1229,6 @@ static void gpio_v2_line_config_flags_to_desc_flags(u64 lflags,
- 	assign_bit(GPIOD_FLAG_ACTIVE_LOW, &flags,
- 		   lflags & GPIO_V2_LINE_FLAG_ACTIVE_LOW);
+diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c b/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c
+index 9e5009be8e989..96845c8646e06 100644
+--- a/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c
++++ b/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c
+@@ -381,11 +381,31 @@ int bnxt_xdp_xmit(struct net_device *dev, int num_frames,
+ 	return nxmit;
+ }
  
--	if (lflags & GPIO_V2_LINE_FLAG_OUTPUT)
--		set_bit(GPIOD_FLAG_IS_OUT, &flags);
--	else if (lflags & GPIO_V2_LINE_FLAG_INPUT)
--		clear_bit(GPIOD_FLAG_IS_OUT, &flags);
++static void bnxt_xdp_apply_cfg(struct bnxt *bp, int tx_xdp)
++{
++	struct net_device *dev = bp->dev;
++	int tc = bp->num_tc ? : 1;
++
++	if (bp->xdp_prog) {
++		bnxt_set_rx_skb_mode(bp, true);
++		xdp_features_set_redirect_target_locked(dev, true);
++	} else {
++		xdp_features_clear_redirect_target_locked(dev);
++		bnxt_set_rx_skb_mode(bp, false);
++	}
++	bp->tx_nr_rings_xdp = tx_xdp;
++	bp->tx_nr_rings = bp->tx_nr_rings_per_tc * tc + tx_xdp;
++	bnxt_set_cp_rings(bp, true);
++	bnxt_set_tpa_flags(bp);
++	bnxt_set_ring_params(bp);
++}
++
+ static int bnxt_xdp_set(struct bnxt *bp, struct bpf_prog *prog)
+ {
+ 	struct net_device *dev = bp->dev;
+ 	int tx_xdp = 0, rc, tc;
+ 	struct bpf_prog *old;
++	int old_tx_xdp;
+ 
+ 	netdev_assert_locked(dev);
+ 
+@@ -418,25 +438,22 @@ static int bnxt_xdp_set(struct bnxt *bp, struct bpf_prog *prog)
+ 	if (netif_running(dev))
+ 		bnxt_close_nic(bp, true, false);
+ 
++	old_tx_xdp = bp->tx_nr_rings_xdp;
+ 	old = xchg(&bp->xdp_prog, prog);
+-	if (old)
+-		bpf_prog_put(old);
 -
- 	assign_bit(GPIOD_FLAG_EDGE_RISING, &flags,
- 		   lflags & GPIO_V2_LINE_FLAG_EDGE_RISING);
- 	assign_bit(GPIOD_FLAG_EDGE_FALLING, &flags,
+-	if (prog) {
+-		bnxt_set_rx_skb_mode(bp, true);
+-		xdp_features_set_redirect_target_locked(dev, true);
+-	} else {
+-		xdp_features_clear_redirect_target_locked(dev);
+-		bnxt_set_rx_skb_mode(bp, false);
++	bnxt_xdp_apply_cfg(bp, tx_xdp);
++
++	if (netif_running(dev)) {
++		rc = bnxt_open_nic(bp, true, false);
++		/* a detach cannot be undone, only an attach */
++		if (rc && prog) {
++			WRITE_ONCE(bp->xdp_prog, old);
++			bnxt_xdp_apply_cfg(bp, old_tx_xdp);
++			return rc;
++		}
+ 	}
+-	bp->tx_nr_rings_xdp = tx_xdp;
+-	bp->tx_nr_rings = bp->tx_nr_rings_per_tc * tc + tx_xdp;
+-	bnxt_set_cp_rings(bp, true);
+-	bnxt_set_tpa_flags(bp);
+-	bnxt_set_ring_params(bp);
+ 
+-	if (netif_running(dev))
+-		return bnxt_open_nic(bp, true, false);
++	if (old)
++		bpf_prog_put(old);
+ 
+ 	return 0;
+ }
 -- 
 2.53.0
 
