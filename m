@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050017;
-	b=zrMKMIidxwS/cd2H3CQsj0b84QH91gdSA3HhDYNNgffPrfzoC7fo6WUZI/nmX/ugCb52
-	 Tnk+lnAbQGx1yWAoU7NuZyU8ADr4JbpOoCPhn3bYi+17JcuKStYNcyPDtmsu1yQc/tbW8
-	 9aH7L37a/7SxkXjv7Bdrxtt33LHdtHP7LZperBWL+kTTi77mDT8MG2nMu1cWVKuW65ZWf
-	 ewDmFjOTUx3OlMMFI5OpyPp2JSq0/V1QXIXEVb5l5nLC5glpUwY3obwOPnCSgQclFN0cb
-	 cyJZTDoEOTYX+GP5U9sKPSEc3VRMK0Hi3/YmXN789HwqdgAXUr1FuTOd9YbZmo+UPqg==
+	t=1794050020;
+	b=pDVb7W3ePdJ5gPmPZ+8hsxu6UdtwY9lDxRbgdZermCBi6ZGKlDa2AZZo5hU4KZn+giLz
+	 5+oeFbyYM+Y+cbaHsgso0XdeQiCdg7DqF+6sHlIWuqLwklnxeB36GHRlMfZOdckisjpko
+	 HZqVeUFSDfQAZ9dKzd0+Qu8vqYydV1IxWaAiHcvw0+T3CBkTHKO0GP3j/1NDncx1DKmwD
+	 6SlTLyF6KSadS5a6mDJSQZEyCU9uq4YyLY4AMHk2cMRioHo9DBCE4FpW7EF7t3VHlMRy2
+	 mLd0lqMHxlNX6CeJnLduftElRgvg5nrdRZMsIVIqbhOvABofP7Bl7oSvrbbZiAogZCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050017;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050020;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=bN80jlvyFBs4tLOMKug0bhBNbZ1ZbY2N36/+aVU8oPM=;
-	b=Ef/AyW04qoDy8sgI/4sKrroim+dYBltSJYTRK7kSUu2lscsevq6OyoYx/fxZsbF8J7zm
-	 VF1kKgL0L8Hh7416X2ABJwKsmfh7biCJ+iDHrgKAcg9I4izWqR1uOB58SZi8AZlpAYZfP
-	 RaibZVcLgz5CRUZm5RW5tdTJF2is5a73swEOsTMHwU6Ns+7gERaXXrAQMw5BtTEwcgbN1
-	 trms4q8W8mjlHwsErk4wFGIE+bOe/ZnEvz1srStdoBBX5gbXjJKpZOwcjWOZoooWaoY8Y
-	 XTQ9EUIZMXjiUtq0Gr+U7TCPVHxGSeQgb3FH5QNMbDSSVSC+o+Pdg7yXcqRErSEElIw==
+	bh=pS5hoadL2tQl2pY8TXBIn4CFyNpEIa7sIOUI3JpMov4=;
+	b=ia3xPcUI9V1dDXqqlrQg0Oo9grIROOJCfPPC2TO8hwonQqYVXaOcmMPnWf4/DbzpeI+d
+	 WtmdH2SCJm0vSgPrW8XONzoJTpHZkdmk1BPFYTgaJlGASUBn0TJfDT8fYpcfEj8irYtjz
+	 wdv3Wdx0/A1m9+nJX/M/q6Mk8Dh2GJd3s9WsCGfgGtE29m0wf5DeQQxa+gdZgdYn6S3qh
+	 kWspWt+PicbEPBZdeQJW0CPVwVLrfveSAvSssOJoZr43SOLJQwjSgPXdzrv8X5WvJh7WC
+	 gKL7hYsoilRUbYWe13vkxB/wYK/+sk8HsMxmG4KrBZB/9jTkor4kzW2nUhUEXkoGGjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cC7dAX4D;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LtnVEvRx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9022606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:13:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0043B606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:13:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cC7dAX4D
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61C731F0089F;
-	Sat,  7 Nov 2026 11:13:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LtnVEvRx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 705601F0089F;
+	Sat,  7 Nov 2026 11:13:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050016;
-	bh=bN80jlvyFBs4tLOMKug0bhBNbZ1ZbY2N36/+aVU8oPM=;
+	s=k20260515; t=1794050019;
+	bh=pS5hoadL2tQl2pY8TXBIn4CFyNpEIa7sIOUI3JpMov4=;
 	h=From:To:Cc:Subject:Date;
-	b=cC7dAX4DD6+AHkI2vSYKNjgoJX5IhuDYL13iGlDags48zEjI6OKok2P0Y0e6j6TcH
-	 yhRldwzcR0eJ2d2bY7d3yCKMOlI86eNSWM6/BE8GZBNiiUsA55VhoExnWOINn/QVp+
-	 xXmVS1FLlYV2FrnmEJCbCLnMH2aKswtvBwRm2iHll6hjJGu4VWXhzr9iFXBeMJGa0L
-	 Pl+hdCsyiSf3MRmJeoy/Uiwb3gcwrzjLA7dtQVIzXYBWwOU3DcevkZOs4HU/6mxwQd
-	 SGC1DEVD/K9eBHAEUaICAv2T2g3YrSv2nMCrTLkb+V0twnpbXWpQmjQIaIglYl8Oat
-	 lrUkVzH5tyhWg==
+	b=LtnVEvRxNPx+1CTHgkM89UtIu5y3hwj2Jj7O1h4rvzROQdhL8E54bQgkVw+PXaDnP
+	 IdAKkOD+kzEn5hxXSTlPGDwIW3m4t33Nhnk6PTX3oX8JOavzxuJDjVkwaE3HtZDQ2e
+	 9dFp0LWmIcecdYGuy6PDYwisEtvEaOX+oarSQJHkFPv01/ZappsvE/Q8cUgn3tDxSX
+	 oBFgYMlF34Iy/ITkBEMHRtbaaWEhrVgCBujDBGhyX1M6RJS1BKztql4Ogyxm3T+2qd
+	 8TCXiss2c+fSGiDDlFKHhHcZWkfQbA9KDeZpyitJyaDnhBKztDTuGcpi9K8F+Diqn8
+	 zstephzq/ZAPQ==
 From: Sasha Levin <sashal@kernel.org>
-To: john.johansen@canonical.com,
-	georgia.garcia@canonical.com
+To: teel4res@gmail.com,
+	axboe@kernel.dk
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] apparmor: fix refcount leak in aa_get_newest_profile()" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:13:35 -0500
-Message-ID: <20261107061334-failed-5.15-33ed50716251@kernel.org>
+Subject: FAILED: patch "[PATCH] io_uring/timeout: count cancelled timeouts in cq_timeouts" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 06:13:38 -0500
+Message-ID: <20261107061338-failed-5.15-1c8b49851543@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,72 +68,69 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 33ed50716251d5b2875706c40d0c8082d46be0b1
+git cherry-pick -x 1c8b49851543f41fc8bb18bcd1f15cc93d14b530
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061334-failed-5.15-33ed50716251@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061338-failed-5.15-1c8b49851543@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 33ed50716251d5b2875706c40d0c8082d46be0b1 Mon Sep 17 00:00:00 2001
-From: John Johansen <john.johansen@canonical.com>
-Date: Tue, 20 Oct 2026 16:00:30 -0700
-Subject: [PATCH] apparmor: fix refcount leak in aa_get_newest_profile()
+From 1c8b49851543f41fc8bb18bcd1f15cc93d14b530 Mon Sep 17 00:00:00 2001
+From: Cheng Yongkang <teel4res@gmail.com>
+Date: Thu, 29 Oct 2026 07:12:20 -0700
+Subject: [PATCH] io_uring/timeout: count cancelled timeouts in cq_timeouts
 
-The labels_profile() macro is evaluating its argument twice
+io_timeout_cancel() posts the cancelled timeout's -ECANCELED CQE without
+advancing ctx->cq_timeouts.  io_timeout_fn() and io_kill_timeout()
+advance it for every timeout CQE they post, and io_flush_timeouts()
+computes the number of non-timeout completions as
 
-  #define labels_profile(X) ((X)->vec[(X)->size - 1])
+    seq = cached_cq_tail - cq_timeouts
 
-unfortunately aa_get_newest_profile() passes
-   aa_get_newest_label(&p->label)
-so every call to aa_get_newest_profile results in 2 refcounts
-being taken with one being leaked.
+to compare against each off timeout's target_seq.  The cancelled
+timeout's CQE is therefore counted as a regular completion, so every
+cancellation makes an already armed off timeout fire one completion
+early.
 
-There is no need for labels_profile() to be a macro. Convert it to
-an inline fn, which ensures all uses are passing the correct struct
-and removes the double evaluation.
+A ring with a keep-alive timeout of off=4 completes it after two NOPs
+when one off=100 victim is cancelled through IORING_OP_ASYNC_CANCEL, and
+before any NOP when two victims are cancelled.  The cancel CQE should
+count, but the cancelled timeouts' -ECANCELED CQEs must not: the
+expected counts are three and two NOPs respectively.
 
-Fixes: 637f688dc3dc ("apparmor: switch from profiles to using labels on contexts")
+Advance cq_timeouts when io_timeout_extract() succeeds, under
+timeout_lock and before the -ECANCELED completion is queued, matching
+io_timeout_fn() and io_kill_timeout().  The -ENOENT and -EALREADY paths
+post no new timeout CQE and keep their accounting.  Both the
+ASYNC_CANCEL and the TIMEOUT_REMOVE path go through io_timeout_cancel().
+
+Fixes: bfe68a221905 ("io_uring: off timeouts based only on completions")
 Cc: stable@vger.kernel.org
-Reported-by: Georgia Garcia <georgia.garcia@canonical.com>
-Signed-off-by: John Johansen <john.johansen@canonical.com>
+Assisted-by: LLM
+Signed-off-by: Cheng Yongkang <teel4res@gmail.com>
+Link: https://patch.msgid.link/179328314078.648427.13761781546953594668@gmail.com
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
 ---
- security/apparmor/include/label.h | 6 +++++-
- security/apparmor/label.c         | 1 -
- 2 files changed, 5 insertions(+), 2 deletions(-)
+ io_uring/timeout.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/security/apparmor/include/label.h b/security/apparmor/include/label.h
-index 2c869b7dec973..61794b9cd6be6 100644
---- a/security/apparmor/include/label.h
-+++ b/security/apparmor/include/label.h
-@@ -162,7 +162,11 @@ do {							\
- #define labels_ns(X) (vec_ns(&((X)->vec[0]), (X)->size))
- #define labels_set(X) (&labels_ns(X)->labels)
- #define labels_view(X) labels_ns(X)
--#define labels_profile(X) ((X)->vec[(X)->size - 1])
-+
-+static inline struct aa_profile *labels_profile(const struct aa_label *label)
-+{
-+	return label->vec[label->size - 1];
-+}
+diff --git a/io_uring/timeout.c b/io_uring/timeout.c
+index 8a2108aa14ae7..fa7b0d9a81d69 100644
+--- a/io_uring/timeout.c
++++ b/io_uring/timeout.c
+@@ -370,6 +370,9 @@ int io_timeout_cancel(struct io_ring_ctx *ctx, struct io_cancel_data *cd)
  
+ 	raw_spin_lock_irq(&ctx->timeout_lock);
+ 	req = io_timeout_extract(ctx, cd);
++	if (!IS_ERR(req))
++		atomic_set(&ctx->cq_timeouts,
++			   atomic_read(&ctx->cq_timeouts) + 1);
+ 	raw_spin_unlock_irq(&ctx->timeout_lock);
  
- int aa_label_next_confined(const struct aa_label *l, int i);
-diff --git a/security/apparmor/label.c b/security/apparmor/label.c
-index 82742a4710552..42ed476fe89d9 100644
---- a/security/apparmor/label.c
-+++ b/security/apparmor/label.c
-@@ -387,7 +387,6 @@ void aa_label_kref(struct kref *kref)
- 		label_free_switch(label);
- 		return;
- 	}
--	/* TODO: update labels_profile macro so it works here */
- 	AA_BUG(label_isprofile(label) &&
- 	       on_list_rcu(&label->vec[0]->base.profiles));
- 	AA_BUG(label_isprofile(label) &&
+ 	if (IS_ERR(req))
 -- 
 2.53.0
 
