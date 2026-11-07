@@ -1,70 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047158;
-	b=O5xY6wKDfia64YDOhdwVQ2R2Qs4DLYjTvGGWVMS1ZKJWJ7bw6kmdirnE7+Nr/Tojjcla
-	 lXejetwfGYKbUpyP2go7dl7e75HNknMkuJo3lnFjo1JgcfQHtmfRSGecByvUJ87kh2ow3
-	 Nep4QGg9gJIrRQfrOLLiVNKsN3RBrM8qzJGI6XMVTa5dWZ4LdaZ84A70z6jgK2vUbM0rR
-	 5iJmb6e6vqBaAOV3cClGSqAEBZwSQ9pu95GMS2tQ1igLyl7DJfhv8uSBK70WGhZfacYYx
-	 Cq/PGGcyqSfijWKCcRSkvrF3K2L6KZ4fxrVVQM9M0Lo8VgiV28+hVR+C85cOJU3Kg3w==
+	t=1794047159;
+	b=VTTyCh/gtVL8MnqazzonYZDUL+LIK9nazaavUUzcyVedHw5L9uUl4Qc2aobw0s6Xegj+
+	 3LzqeABnpb6EE0NozTGYTvwa7tLC6gW9EFV9IiltW0EvEg1hNeqQnSZb7HgPyM/WeLfrd
+	 C1YzTDIr+3FCdHckt5EyaDWmrxTE0rkbeDL/LPflKM0uEIfgWgrW+IXz/Or6LrB50PVz1
+	 u+9xNIvtTj4Q/88AE3YJP8RIPNi+6WP387hNWKxMYKWARlLe0zLvShBnRUtTxS6dF/woI
+	 IDpAvmXJPK2NxIkuwr+7Qp6427efIRthJgAStx0xQidFA/h9UUQMqOHaIxXBSqQDkzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047158;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=wCJQ0Mz96yAQiuQJ9MqRXo/5A16qvYJmFgsYRToqwO8=;
-	b=CUQhU8FX3S1Go+wab75DjwJY6NPmHyTovGu74asZzhrc8BQww0KKQfW85fKhGFFbz6zi
-	 7I/yJG6hAxNT2QYmQBQnmF4VyHLCgulSJC5GaNL0/cdyMZLHRHt98morEWa3uWb64pqbC
-	 6CpdfDBVvyyrDFe9KlYuk0kxP1GyYdM4M7BP60T07RmpKJ3Hqa876XbqeKdHuKD2oealF
-	 vOyU06jz60fA7f5HaN3yOgrjJxHuXbosCAgRA+dpDpdNsGe7yo2xt1psOm6WGp5yAkziV
-	 DXoHukHhp6FCR1W1N50jmz0T5eoggnMjUlnH89jZ51s3YtYNwtOI11MPTT78xdsYiDA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047159;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=/H39EACLDPLlWZGOOszNpCzWihvn5UTbcxV45W+rw24=;
+	b=cmbYRksgiF4YQMMcqRFlQx2aVRRYLdBv7kWxI7xW+1JPcoiZFZTfaxgVWu3M6nGf1+RG
+	 +T2HWNbf7+bis014QipYdD8DMgt04Xm+zM/w6fdKAQbgMg7roBvo/lIizxmh8iLyfPILD
+	 cGtc+BigIK4XDJS9/3pweHq9nlCVhH22Kn8KfJx/tKGBe/AjQX8Uqs+lqntpA3eGr8Im1
+	 hFTrf3qIi4MCYv/GAIoPboMgBKrAid9Y8NJhXdDsdWSh/IDq1Z3cMDChPjJn1dnHQfad4
+	 5/l1QD3+CWxJlSsEdQ+n8tX/RcZeHfkrRUsRxuBjMHgYbPMyLNteWUZUkRLHydPYcvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mN11Df6Z;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uBdh8iPP;
+	arc=none smtp.remote-ip=209.85.215.179
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E0B0606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3A9A606A32E
 	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:25:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3A9A606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mN11Df6Z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F1681F008A1;
-	Sat,  7 Nov 2026 10:25:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047158;
-	bh=wCJQ0Mz96yAQiuQJ9MqRXo/5A16qvYJmFgsYRToqwO8=;
-	h=From:To:Cc:Subject:Date;
-	b=mN11Df6Z8O5XZj/ohMFHbif/OkR5jLp0zQnuuNeRt7kZcL5ZT0N177mX4O/E0xjO6
-	 uafOmhqJskgDIA+sz8HT+OOsbs23vKGY1dwMADhsSJlXptjLmiMnbxsNiZWOQYy0Vl
-	 KqMAq8dSJ2d7EIWEja+1DJXxBPYhlppih3vbyjKf7S1srmSuFvEZqHQOOlGmf92qgA
-	 eG50xMItHaVrpS9BrP5LKrFZERBiHzoKT7xf6E9P/pV4mxu99k8xtaFVHl+Kgj6n49
-	 l/Ea1nRQYr1dhPs/CalXIB1+29TgtSlKc/gtST9f3BcC6aBbH8bjD7JZfSTrKyNh6x
-	 xSoiUinWLvvbA==
-From: Sasha Levin <sashal@kernel.org>
-To: josef@toxicpanda.com,
-	david@kernel.org,
-	akpm@linux-foundation.org,
-	mason@kernel.org,
-	ljs@kernel.org,
-	muchun.song@linux.dev,
-	lance.yang@linux.dev,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	jannh@google.com,
-	pfalcato@suse.de,
-	osalvador@suse.de,
-	linmiaohe@huawei.com,
-	nao.horiguchi@gmail.com,
-	agl@us.ibm.com,
-	mgorman@techsingularity.net,
-	riel@surriel.com,
-	peterx@redhat.com,
-	kas@kernel.org,
-	rppt@kernel.org
-Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/hugetlb: don't clear the resv_map of a VMA whose lock is held" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:25:55 -0500
-Message-ID: <20261107052555-failed-6.12-d42032c0fe3c@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uBdh8iPP
+Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cd3310348d2so150127a12.1
+        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 02:25:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794047158; x=1794651958; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/H39EACLDPLlWZGOOszNpCzWihvn5UTbcxV45W+rw24=;
+        b=uBdh8iPPxh7WomiEfzTY2osL0T+VlcuAAKoibyb5LRkVlhERGFHzSR2+04VBWRR3Lv
+         ISdrSLOiy/SVIRDzf9L9csYQh4Xxj9l3qdogTSrrMZ8CJaKLYHMSiQhpVOzMgo3nvxky
+         UW7CHI49A1zzcz8AUGGVlpcuPO/LbVCgUPMZbC2eXW99RtNRwabBp/wz4KGhyRz/EGwX
+         2UmVnevy8paOcXpZ3stRsCsu6NQGYnJCeJgvoQqIi9FdEHFSrnH/PuU8Bi24rPVxb3c8
+         gD6fdhk1W1/JzOgKxVj4GJ2YJGZ9lWkrQsDNALhzVKmZMe3Rwdm95o9QnRCUr3dT41RK
+         Z/Ag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794047158; x=1794651958;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/H39EACLDPLlWZGOOszNpCzWihvn5UTbcxV45W+rw24=;
+        b=HFFXxNPqDFEBOHOtEj+cpKNujQYrCR5IprWWzfb8FbTaGOjulwCDdDhf8Fo4jCZ5BD
+         22KTYSn3nj3BPc48amL/aEIplna8JiJT/lle23GCX/FbDqVsrWZdgssKIduKWBI8gIhm
+         hS4+uVJsYBC6S8wSFLOWvTly68faT3mcCOWbsDBdWHvKLaIrwVHmgRirWTqXEzCbedqm
+         El44Cy1EQF2Z9seEEAcK6Xbdwmsrjp/iswSXF7aVttEg7Vj2wy5iSznVGM/o7e6LUVgV
+         ERF0bVW3TdmOaDCeSqaD8YjBwegUB7rPDFkBXtoT5EvKMHnXlldT/FJSPu9cKpddUhR+
+         Y2eQ==
+X-Forwarded-Encrypted: i=1; AL+hErEw4V+PElcIok5kdlneT4ph2Mfa2GuvEKPpFI9mtoKLj0K36kUzCv5bEfuu66VPRrV6T+9v2js=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8vwGOs76O7DRid1awpxFqxALQSGwd4Fo8YyeAIJuRpc+SCqvCS
+	Oix1dovuYBlpASzDgsrx6bpfEu8fIKfgDbi0iDSU2e3geKq6DDuMKqav
+X-Gm-Gg: AYBFou3ljnIafGXey911AmPpjPNG0P3Ijpc7/RcHHIwhfi2oSnyJMQ8GFdFMGx6vvGP
+	Q7UAXV11M8D1dIlvVgKYpWuOpvvTOoT7//WNRo9ayVS1dLClKt5iHY/gmI5QTO1xJjXTI6ReeW4
+	UUiyNJhLwc0D6Pe7NicOi14P9CxtDMseHqIl+sz+w9I/W2E+qFlp+cR8dYrK2DdjFK4RW1/F6If
+	MEGhW0lqAJzvSCzVOVtVce6pHRycV81UVCXJkAYSdMyLk27eZ+l9GcMvlJwrv9LGH3bmMKA2XJh
+	GA+CS4YTKkEyHe5ot0wPPIoeyj960Pbk+8pTQvpYzXdrULdyH3hbHA8QghhkWbw0YipeCyoPZww
+	6n20Dg67v8HggZ5D8YUljWmnIDuCjoW2R3LU6ZHwe4iig+2V4HE6TUucttpNNcLb4BrHY5+omiL
+	NSWPIkrWufae8+Uiln4pEeswmtgRT0Fe5WVM9wZKCfIloI1XJlAJKsjAXmrwK4as9KbJMki/SdU
+	VNNfXopO/owdmVaskX+9xGfT+3UIE/H/43pZ9A9w8CEimUe9MMMtuhJeTk3y6qovXznyGn5mQnU
+	ZtE8kf+M96YSNfphIP47lXECArja7ELMJhOtsI6jz/8zUT1u9021gw2RSJH2lbyNlCMg/CNUjI7
+	8sA==
+X-Received: by 2002:a17:90b:3cc6:b0:3a8:786a:cfed with SMTP id 98e67ed59e1d1-3b10659feaemr1154902a91.37.1794047158052;
+        Sat, 07 Nov 2026 02:25:58 -0800 (PST)
+Received: from Terra.tail0ac356.ts.net ([198.176.50.208])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1152fa888sm207764a91.9.2026.11.07.02.25.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 07 Nov 2026 02:25:57 -0800 (PST)
+From: Weiming Shi <bestswngs@gmail.com>
+To: John Johansen <john.johansen@canonical.com>,
+	Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E . Hallyn" <serge@hallyn.com>
+Cc: linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Xiang Mei <xmei5@asu.edu>,
+	Weiming Shi <bestswngs@gmail.com>,
+	stable@vger.kernel.org,
+	co+c85e76ce40a43b9b@bugs.sh
+Subject: [PATCH] apparmor: safely acquire the cached label in aa_file_perm()
+Date: Sat,  7 Nov 2026 02:25:35 -0800
+Message-ID: <20261107102534.816756-2-bestswngs@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -74,126 +102,65 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The patch below does not apply to the 6.12-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+aa_file_perm() passes an unreferenced RCU snapshot of fctx->label to
+aa_get_newest_label(). Its non-stale branch uses a plain kref_get(). Policy
+replacement can drop the proxy reference after the stale test while
+update_file_ctx() drops the cached reference, so pread64() can increment
+the label's refcount from zero.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Acquire the RCU-published label with kref_get_unless_zero before testing it
+for staleness, keeping the label alive while resolving its replacement.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
-git checkout FETCH_HEAD
-git cherry-pick -x d42032c0fe3ca007986c1229128775af0340fbec
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052555-failed-6.12-d42032c0fe3c@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+refcount_t: addition on 0; use-after-free.
+WARNING: lib/refcount.c:25 at refcount_warn_saturate+0x111/0x130, CPU#1: AAVICTIM/5091
+RIP: refcount_warn_saturate (lib/refcount.c:25)
+Call Trace:
+ aa_file_perm (security/apparmor/file.c:657)
+ common_file_perm (security/apparmor/lsm.c:529)
+ security_file_permission (security/security.c:2392)
+ rw_verify_area (fs/read_write.c:476)
+ vfs_read (fs/read_write.c:566)
+ __x64_sys_pread64 (fs/read_write.c:770)
+ do_syscall_64 (arch/x86/entry/syscall_64.c:94)
+ entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:130)
 
-Thanks,
-Sasha
-
------------------- original commit in Linus's tree ------------------
-
-From d42032c0fe3ca007986c1229128775af0340fbec Mon Sep 17 00:00:00 2001
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Thu, 15 Oct 2026 18:07:11 +0200
-Subject: [PATCH] mm/hugetlb: don't clear the resv_map of a VMA whose lock is
- held
-
-Since commit bf4916922c60 ("hugetlbfs: extend hugetlb_vma_lock to private
-VMAs") the lock of a private hugetlb VMA that owns a reservation is the
-rw_sema of its resv_map.  The hugetlb_vma_*lock*() helpers find it through
-vma->vm_private_data, anew for every lock and every unlock.
-
-At the end of mremap() the old VMA has to let go of the resv_map, which
-now belongs to the new VMA: clear_vma_resv_huge_pages() stores NULL into
-vm_private_data.  mremap() holds mmap_lock for writing and has write
-locked the VMA, which keeps away everybody who comes through the mm.  It
-does not keep away those who find the VMA through the file.  For hole
-punch and truncation hugetlb_vmdelete_list() does
-
-	hugetlb_vma_trylock_write(vma);		locks resv_map->rw_sema
-	unmap_hugepage_range(vma, ...);
-						vm_private_data = NULL
-	hugetlb_vma_unlock_write(vma);		no resv_map: does nothing
-
-and the rw_sema stays write locked for ever:
-
-  WARNING: lock held when returning to user space!
-  mremap_punch/116 is leaving the kernel with locks still held!
-  locks held by mremap_punch/116: 1, last CPU#1:
-   #0: (&resv_map->rw_sema){+.+.}-{4:4}, at:
-                                       hugetlb_vmdelete_list+0x46/0x160
-
-The next fault in the new VMA sleeps in hugetlb_vma_lock_read(),
-uninterruptibly, and it holds its entry of hugetlb_fault_mutex_table[].
-That table is global, so a fault of any other process on a page that
-hashes to the same entry sleeps uninterruptibly as well.
-
-All those who take the lock of a private VMA without taking the mmap/vma
-lock are affected: rmap walks. So hold i_mmap_rwsem around the clearing
-of the resv_map.
-
-No change of behaviour, other than that mremap() of a hugetlb VMA takes
-i_mmap_rwsem once more.
-
-Original fix generated by an LLM and sent in private by Josef.
-
-[david: avoid local variable, move and refine comment, description cleanups+simplifications]
-Link: https://lore.kernel.org/20261015-urgent_fixes-v1-5-42796911043b@kernel.org
-Fixes: bf4916922c60 ("hugetlbfs: extend hugetlb_vma_lock to private VMAs")
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: Chris Mason <mason@kernel.org>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Acked-by: Muchun Song <muchun.song@linux.dev>
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Jann Horn <jannh@google.com>
-Cc: Pedro Falcato <pfalcato@suse.de>
-Cc: Oscar Salvador <osalvador@suse.de>
-Cc: Miaohe Lin <linmiaohe@huawei.com>
-Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
-Cc: Adam Litke <agl@us.ibm.com>
-Cc: Mel Gorman <mgorman@techsingularity.net>
-Cc: Rik van Riel <riel@surriel.com>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: Kiryl Shutsemau <kas@kernel.org>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: <stable@vger.kernel.org>
+Fixes: bce4e7e9c45e ("apparmor: reduce rcu_read_lock scope for aa_file_perm mediation")
+Cc: stable@vger.kernel.org
+Reported-by: <co+c85e76ce40a43b9b@bugs.sh>
+Signed-off-by: Weiming Shi <bestswngs@gmail.com>
 ---
- mm/hugetlb.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
+ security/apparmor/file.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index 4fca859bbd7ea..4a7c52802cde5 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -7509,6 +7509,15 @@ void hugetlb_unshare_all_pmds(struct vm_area_struct *vma)
-  */
- void fixup_hugetlb_reservations(struct vm_area_struct *vma)
+diff --git a/security/apparmor/file.c b/security/apparmor/file.c
+index 694e157149e85e..59c27b9c5a8d15 100644
+--- a/security/apparmor/file.c
++++ b/security/apparmor/file.c
+@@ -621,7 +621,7 @@ int aa_file_perm(const char *op, const struct cred *subj_cred,
+ 		 u32 request, bool in_atomic)
  {
--	if (is_vm_hugetlb_page(vma))
--		clear_vma_resv_huge_pages(vma);
-+	if (!is_vm_hugetlb_page(vma))
-+		return;
-+
-+	/*
-+	 * Rmap walks might still find this VMA and take the lock
-+	 * inside the reservation map for __vma_private_lock(). Don't clear
-+	 * the reservation map while that is possible.
-+	 */
-+	i_mmap_lock_write(vma->vm_file->f_mapping);
-+	clear_vma_resv_huge_pages(vma);
-+	i_mmap_unlock_write(vma->vm_file->f_mapping);
- }
+ 	struct aa_file_ctx *fctx;
+-	struct aa_label *flabel;
++	struct aa_label *flabel, *tmp;
+ 	u32 denied;
+ 	int error = 0;
+ 
+@@ -654,7 +654,12 @@ int aa_file_perm(const char *op, const struct cred *subj_cred,
+ 	}
+ 
+ 	/* slow path - revalidate access */
+-	flabel  = aa_get_newest_label(flabel);
++	flabel = aa_get_label_rcu(&fctx->label);
++	if (label_is_stale(flabel)) {
++		tmp = flabel;
++		flabel = aa_get_newest_label(tmp);
++		aa_put_label(tmp);
++	}
+ 	rcu_read_unlock();
+ 
+ 	if (path_mediated_fs(file->f_path.dentry))
 -- 
-2.53.0
-
-
-
+2.56.0
 
