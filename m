@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046974;
-	b=5DjqFacNxu3GDUL0u0PXmaDm4bynp/ZxPumkUYveDvkDDDFxj44895uS8lXSgsd+5zTg
-	 3rk5Ul62Dyyf1HylQ9fPm1sU8/9s+D/+Ho9uVZxqwwcnPmD3uUUYrNwnZJhrJSsUlJoKK
-	 PAK2fBMymIboik2NapwDkK36hrTCDC+qifBIrNErxRZebKfahNBglVd7kPj/t0bPJNifc
-	 VKw1WMlHSVRwL+H92kMDinrJoJcQfyzPqcISQ2gfBkwWzTCjvdGgIXTMl+IqBFNOQGqHB
-	 CE05YndKJ+NdOS/Fi7qkEvUcStMncB0RPIJrCpE+laEHwnkUEXgtroINBmulFO+mWFQ==
+	t=1794046976;
+	b=ZeAUpbGrW0mtFRT39fD2vmpqabOv+CWgvwdhmJ/6SfsbX/h5fSCs/ReBJQnM0YeaInwp
+	 tj/13oHj+MopJlGRNB/kNJGV+p7HmNZAD5CFNHEiXoihJ+TGZ5VWQtxYlgXrpuWBBlfDQ
+	 jZYNwScyS9xePR/rIBJeKtiNPRq2ecfbR5fzYfMzXPlWzJsYhv5Qg+WdnxofaKCBZsgn1
+	 oDbHPx4KQrxDhb1Fe5EkJV729bkwh/4lk3w2vPrsNPBLA+o6wuMG3c+CVUyoXhmcdnZou
+	 wZymfIJVT2k1vS4N43XgU8smlECij9tftMzx80CfFRXQ7RjuuQhrrDSrymkabx3dR8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046974;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046976;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=JJbkX+dQkANkXj9x4Be/aOPec1wV6QrnHPfAoAsZVGs=;
-	b=lXZ1gYGW2mFVwL0tNM8oCnWA4z4joxps01ZmlEqmC4wKcRteZ6otJTSbukX/J2kFkWZX
-	 vpTXbj1aEo0AVM7ey9fPN665ipi4JY8LWFNLblQZS1tiAbbBKL0qCVHqFek2XainRidO9
-	 vaYcKnrnnbwEPnH7Q+Ft1mTLgpk154vDfroo0sBTykgoEYTDT0wRvay+9wxmlPB68NVxG
-	 mQ51ez92o9gD1FnQ0r6tcGSDdumwOqpy7mx+5EIzcl5wK7N/pIfOQJnSc+xU/1xiSvj3Y
-	 yOr/8oQsMP/EZrODs8xyNb6lvQ/Q9SeErEpf/UPScsh4u4bGaZO9HhmBSbm3Ukco1oQ==
+	bh=dCb14FxtSGZN+SeIR8roHT227UFKMaPZ0THGXvwbkhA=;
+	b=vhcMu1xMKrV57wujvhT7iKEHvoRkB89cZbsQu2kmUJ8AprC1XwtLazgalEnXYeANXP6d
+	 bWRGDkTeWsTkWLdyUzx/UHxgYAaYWLnBUTuGfIUzvdGwUKIZA99iH2Fw00PCoOrX/ebRv
+	 h0p0iJ0pdWIazocjh/XFzRxGQjcKDUuhYWK7z94jkQwSIokxXQo50Edb7QPWSJJ2aXiPi
+	 R8RKfZB5G5p803FvoLE5o1X3sGtghRv0QZEnDYTmJAZjF69FLbjAsLm9J7JJQOp+c7now
+	 bs7vLnK0DVtwkP4GJl5AMJa7hY8LAVpIXqmgk0FGyfjPHieeter9dh/aJIvHa1DEO4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GZs9FAOc;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fhfcHclt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AF1A606A32F
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:22:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29268606A32F
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:22:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GZs9FAOc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 833701F0089F;
-	Sat,  7 Nov 2026 10:22:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fhfcHclt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 960431F0089F;
+	Sat,  7 Nov 2026 10:22:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046973;
-	bh=JJbkX+dQkANkXj9x4Be/aOPec1wV6QrnHPfAoAsZVGs=;
+	s=k20260515; t=1794046976;
+	bh=dCb14FxtSGZN+SeIR8roHT227UFKMaPZ0THGXvwbkhA=;
 	h=From:To:Cc:Subject:Date;
-	b=GZs9FAOcfLOEATY2eb7W5AIa2RJVztGVTZ5G2mBL9HCN0wk2TwWVIdNaXNR6WeVcK
-	 U4jSt7TaMfNi+T/FibGQhPkXGy0uxaMM6zogS7vJCBWud/HS+tV7cg/MrMKmYUj2rH
-	 4zDkMCZBSlmheCl2/GEVJrdQeJwFatPB90LyDH3OW3udvWYVKBDsXppPFAD+R4BJDk
-	 smE2PwD+W4/LLglDUuaq6n2zBH8K/naR9q/8c3/KC2HfM0EQvydu3iVYYtSXYMFG6V
-	 NzUSaZbm5IbaqUD6g/S65uv7LiU5bOr+OWLeIjdHxc0vaUSC7fDu4TVMD9eoWlshwS
-	 +eOZ8zpTJKzhw==
+	b=fhfcHclt/ljQWDMWbmQ8hadDlk1hU4aSOLHFqaHvj+4Gna4eaFVo5b4KxbLoA1J22
+	 k3VlEhkaaLAP942KJhwgU+HufLJuPPxGCwqqF+FWIIUmNJmfHXfSWRay1h+iNzuwZM
+	 ccAm4Z2xrwrLRml8wnoce7l6H79V+dzNDg1F/jsR3TjPiF4f6RUiDMHaMDHPZoFBo9
+	 xwE+VIP214A0L4E/ZTEcpJ6BiJU45InpbQPLQ/oanon2euflMgXUy8j1ms+j0eGHuv
+	 UAjea95+xI8gF5lHtHwsf2kku1gslhb3cLP870q8+QExXUA7476ml2gUo1/825iJTq
+	 LZd/zM/sh6JPg==
 From: Sasha Levin <sashal@kernel.org>
-To: oss@fourdim.xyz,
-	luiz.von.dentz@intel.com
+To: maz@kernel.org,
+	fuad.tabba@linux.dev
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] Bluetooth: L2CAP: Reject signalling responses in invalid states" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:22:52 -0500
-Message-ID: <20261107052252-failed-6.12-6320736af7dc@kernel.org>
+Subject: FAILED: patch "[PATCH] KVM: arm64: nv: Move L2->L1 switch on interrupt early" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:22:54 -0500
+Message-ID: <20261107052254-failed-6.12-21d3b33234eb@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,107 +68,118 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 6320736af7dcb90da6ee9fd651ecc11c564d45b7
+git cherry-pick -x 21d3b33234ebbb675c2a2a0fa7b12d2d83953d7a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052252-failed-6.12-6320736af7dc@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052254-failed-6.12-21d3b33234eb@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 6320736af7dcb90da6ee9fd651ecc11c564d45b7 Mon Sep 17 00:00:00 2001
-From: Siwei Zhang <oss@fourdim.xyz>
-Date: Tue, 13 Oct 2026 11:36:34 -0400
-Subject: [PATCH] Bluetooth: L2CAP: Reject signalling responses in invalid
- states
+From 21d3b33234ebbb675c2a2a0fa7b12d2d83953d7a Mon Sep 17 00:00:00 2001
+From: Marc Zyngier <maz@kernel.org>
+Date: Thu, 15 Oct 2026 11:05:33 +0100
+Subject: [PATCH] KVM: arm64: nv: Move L2->L1 switch on interrupt early
 
-A peer can send configuration messages while an
-incoming channel is in BT_CONNECT2, before the
-security or deferred accept gate has completed. A
-configuration response can then promote the channel
-to BT_CONNECTED. Configuration responses can also
-act on channels that are closing, and a late connection
-response can move a disconnecting channel back to
-BT_CONFIG.
+NV request generation to switch from L2 to L1 on interrupt is buried
+into the vgic flush code, while we should be able to deliver requests
+as early as possible.
 
-Accept connection responses only while waiting in
-BT_CONNECT. Answer configuration requests in
-BT_CONNECT2, but defer our own request until
-BT_CONFIG so configuration cannot complete before
-the gate. Ignore configuration responses outside
-BT_CONFIG and BT_CONNECTED, and only complete
-configuration in BT_CONFIG.
+Similarly, MI generation happens *after* the need for a request has been
+evaluated, which means we potentially delay the maintenance interrupt by
+a full exit/entry cycle.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Move these two things to happen much earlier in the entry code, and make
+sure the MI generation and PMU interrupt serve as input to the request
+switching back from L2 to L1.
+
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Siwei Zhang <oss@fourdim.xyz>
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
+Tested-by: Fuad Tabba <fuad.tabba@linux.dev>
+Link: https://patch.msgid.link/20261015100539.1011760-2-maz@kernel.org
+Signed-off-by: Marc Zyngier <maz@kernel.org>
 ---
- net/bluetooth/l2cap_core.c | 20 +++++++++++++++++++-
- 1 file changed, 19 insertions(+), 1 deletion(-)
+ arch/arm64/kvm/arm.c       | 4 ++--
+ arch/arm64/kvm/nested.c    | 8 ++++++++
+ arch/arm64/kvm/vgic/vgic.c | 8 +-------
+ 3 files changed, 11 insertions(+), 9 deletions(-)
 
-diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
-index c730da87734b3..eb55c16760a7e 100644
---- a/net/bluetooth/l2cap_core.c
-+++ b/net/bluetooth/l2cap_core.c
-@@ -4442,6 +4442,10 @@ static int l2cap_connect_create_rsp(struct l2cap_conn *conn,
+diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+index 0576c2022ef57..73706464d2653 100644
+--- a/arch/arm64/kvm/arm.c
++++ b/arch/arm64/kvm/arm.c
+@@ -1314,11 +1314,11 @@ int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu)
+ 		 */
+ 		preempt_disable();
  
- 	lockdep_assert_held(&chan->conn->lock);
+-		kvm_nested_flush_hwstate(vcpu);
+-
+ 		if (kvm_vcpu_has_pmu(vcpu))
+ 			kvm_pmu_flush_hwstate(vcpu);
  
-+	/* Ignore a late response after the channel has left BT_CONNECT. */
-+	if (chan->state != BT_CONNECT)
-+		goto done;
++		kvm_nested_flush_hwstate(vcpu);
 +
- 	switch (result) {
- 	case L2CAP_CR_SUCCESS:
- 		if (__l2cap_get_chan_by_dcid(conn, dcid)) {
-@@ -4471,6 +4475,7 @@ static int l2cap_connect_create_rsp(struct l2cap_conn *conn,
- 		break;
+ 		local_irq_disable();
+ 
+ 		kvm_vgic_flush_hwstate(vcpu);
+diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
+index b191365d97cc2..2fac0f2678122 100644
+--- a/arch/arm64/kvm/nested.c
++++ b/arch/arm64/kvm/nested.c
+@@ -2046,6 +2046,9 @@ void check_nested_vcpu_requests(struct kvm_vcpu *vcpu)
+  *
+  * What follows is some slop to (1) react to exception routing / masking and (2)
+  * preserve the pending SError state across translation regimes.
++ *
++ * Also generate the maintenance interrupt state, and finally check that if
++ * we need to take an interrupt targetting the guest hypervisor.
+  */
+ void kvm_nested_flush_hwstate(struct kvm_vcpu *vcpu)
+ {
+@@ -2054,6 +2057,11 @@ void kvm_nested_flush_hwstate(struct kvm_vcpu *vcpu)
+ 
+ 	if (unlikely(vcpu_test_and_clear_flag(vcpu, NESTED_SERROR_PENDING)))
+ 		kvm_inject_serror_esr(vcpu, vcpu_get_vsesr(vcpu));
++
++	vgic_v3_nested_update_mi(vcpu);
++
++	if (vgic_state_is_nested(vcpu) && kvm_vgic_vcpu_pending_irq(vcpu))
++		kvm_make_request(KVM_REQ_GUEST_HYP_IRQ_PENDING, vcpu);
+ }
+ 
+ void kvm_nested_sync_hwstate(struct kvm_vcpu *vcpu)
+diff --git a/arch/arm64/kvm/vgic/vgic.c b/arch/arm64/kvm/vgic/vgic.c
+index 5cf5a1ef86cdd..7061b4ab206c9 100644
+--- a/arch/arm64/kvm/vgic/vgic.c
++++ b/arch/arm64/kvm/vgic/vgic.c
+@@ -1152,7 +1152,7 @@ void kvm_vgic_flush_hwstate(struct kvm_vcpu *vcpu)
+ 	 *
+ 	 *   We do that by placing a request to ourselves which will
+ 	 *   abort the entry procedure and inject the exception at the
+-	 *   beginning of the run loop.
++	 *   beginning of the run loop (see kvm_nested_flush_hwstate()).
+ 	 *
+ 	 * - Otherwise, do exactly *NOTHING* apart from enabling the virtual
+ 	 *   CPU interface. The guest state is already loaded, and we can
+@@ -1162,16 +1162,10 @@ void kvm_vgic_flush_hwstate(struct kvm_vcpu *vcpu)
+ 	 * maintenance interrupt state, as it may fire.
+ 	 */
+ 	if (vgic_state_is_nested(vcpu)) {
+-		if (kvm_vgic_vcpu_pending_irq(vcpu))
+-			kvm_make_request(KVM_REQ_GUEST_HYP_IRQ_PENDING, vcpu);
+-
+ 		vgic_v3_flush_nested(vcpu);
+ 		return;
  	}
  
-+done:
- 	l2cap_chan_unlock(chan);
- 	l2cap_chan_put(chan);
+-	if (vcpu_has_nv(vcpu))
+-		vgic_v3_nested_update_mi(vcpu);
+-
+ 	DEBUG_SPINLOCK_BUG_ON(!irqs_disabled());
  
-@@ -4608,7 +4613,13 @@ static inline int l2cap_config_req(struct l2cap_conn *conn,
- 		goto unlock;
- 	}
- 
--	if (!test_and_set_bit(CONF_REQ_SENT, &chan->conf_state)) {
-+	/* A channel in BT_CONNECT2 has not passed security or userspace
-+	 * accept yet. Answer the peer's request, but hold our own until
-+	 * the channel reaches BT_CONFIG: the CONNECT2 -> CONFIG sites send
-+	 * it. Connected channels may also need to reconfigure.
-+	 */
-+	if ((chan->state == BT_CONFIG || chan->state == BT_CONNECTED) &&
-+	    !test_and_set_bit(CONF_REQ_SENT, &chan->conf_state)) {
- 		u8 buf[64];
- 		l2cap_send_cmd(conn, l2cap_get_ident(conn), L2CAP_CONF_REQ,
- 			       l2cap_build_conf_req(chan, buf, sizeof(buf)), buf);
-@@ -4661,6 +4672,10 @@ static inline int l2cap_config_rsp(struct l2cap_conn *conn,
- 
- 	lockdep_assert_held(&chan->conn->lock);
- 
-+	/* Connected channels may also receive reconfiguration responses. */
-+	if (chan->state != BT_CONFIG && chan->state != BT_CONNECTED)
-+		goto done;
-+
- 	switch (result) {
- 	case L2CAP_CONF_SUCCESS:
- 		l2cap_conf_rfc_get(chan, rsp->data, len);
-@@ -4728,6 +4743,9 @@ static inline int l2cap_config_rsp(struct l2cap_conn *conn,
- 	if (test_bit(CONF_OUTPUT_DONE, &chan->conf_state)) {
- 		set_default_fcs(chan);
- 
-+		if (chan->state != BT_CONFIG)
-+			goto done;
-+
- 		if (chan->mode == L2CAP_MODE_ERTM ||
- 		    chan->mode == L2CAP_MODE_STREAMING)
- 			err = l2cap_ertm_init(chan);
+ 	vgic_flush_state(vcpu);
 -- 
 2.53.0
 
