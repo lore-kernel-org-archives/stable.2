@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048764;
-	b=f8hzkCXtcfxWz5dkEf2carnehNUsqdu0GCee/2pokqyHE5q9Hb11I7+MKnavgBnQ5kbK
-	 f/G0fKUs3KAhp3R7GroR9ahiBY0ddBfc/nihSAaVKg6Zz4bjxYeDi+wIjSZYmgvdUUKDK
-	 F7SOLuYx8o+g8fxfhvYFFRz57EsYi8sdSiLRx3gG9UWLixuGuqE/n5HJISsdZYV4QSKW3
-	 YPpP0/pgog5weQ3KfgY3kslMy0ziEomPpF9pn2UUWgLWea9a3FodA4cNXL5pVPrDbATRk
-	 5hLtTV7/s62iMAT0YEIYVWrUUNUifs+s2bo0wOhPgCtfFCQJTY4MiLeCCgiesbz49PA==
+	t=1794048767;
+	b=FSSbFpDC0GA8KQBjMei0s02S3+/zFvF0AoMY+a9qfv3yDk8f4bVHb7iZalPvKR0ZzlGp
+	 Q8OaH34el9GOjo0yi83kVQxq2jpwLDZCKoPfKdgHquxSHPUeywKhXkJwlgyKTX/6S9MaZ
+	 4p7nI9lZRfQxmW4cl2R/aTS1TJfIA4FpYTzGzhdhD896yZkEMvZLsLxejJtu+GZB5HpZV
+	 y+iJR/gP1orydDAoBHIQ1nBFMk4FdMhrwgZ3DthSp/w8JwdHGQwuzRSn8ydoRMBtbQxmA
+	 PxbdQ+oiEU9sGywPAU0S6N6YJYAe6TCKhGOizVvUO9KOzpX4yKipL6leiPQ0Pbk4kAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048764;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048767;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=A6RT8G3hwQJnR+ef7SA60t58wbzsbjnkgpiCVExbNoA=;
-	b=ZPfXzC+3zeBX8vhq+5uaGpfBvmsSuasDJl52XgF2N/9fkRF0UCwrMN9HzhVETTZC7iCL
-	 GGMqXN8g0S9N5j1Zc6eyyNROoMaRRKjkYTBryEFcMXb+u3BO6UKSjR4GyE9Up9whnBOgP
-	 +tiONoqTxSCMi1oykiGFtTGnz5wck/m37v3azJLzHIJ2OVAPKeT7mj6vI6oWUjTR1EmxL
-	 HGFO3Qok6hXmMmCzLL6ne2mHAcdiynKWHWkfg6leEzJp72XObC8W0EZfsi4uxDS5/SV4R
-	 m+eNFoqtYMlQ+aoKUKVFON8P8g17dV9JR4g4cIvKMxed4mPiwlceZPhAjsr2B89F2NQ==
+	bh=aOBWKe5RJ5j/FJgmTPOXCe+jn64eMDVFnlpYdlPglEs=;
+	b=OMrC/+dhakw1NdwqAQi6fbVpXorKV7i40W6N9spJENV2OfyW/C5fng/VKbsfO6ZpiuS7
+	 JpUQ+/7azG2tE1Jw+WRcrYnx3b0d8FCa1jpnWYaYl2dGdo4kaXHZZtKXpJk+bOhR0fqFa
+	 4wfrGNGTS4NQ+KjsehlEaF13UQ6+3RCnnJFHWFBKicRKLEtuXN2rNVLXPU8wixS9US3B+
+	 9QOpoIn3+jDqkhs5dyOAH1dkOWQNv0aq4S3KgXQEtFiSUEcKb4lmcecj0OmiG85Kev1mU
+	 Sfq5Ba5JkYkFoeXGwlSoc+L3zmZmnALv3YAXblj2ma881/UGEaTMUI+tbVBEkD6sGEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nEcv4o+o;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="SgZ/LqUd";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0205F606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:52:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4AFF606A32D
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:52:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nEcv4o+o
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B36E1F0089F;
-	Sat,  7 Nov 2026 10:52:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SgZ/LqUd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47B261F0089F;
+	Sat,  7 Nov 2026 10:52:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048763;
-	bh=A6RT8G3hwQJnR+ef7SA60t58wbzsbjnkgpiCVExbNoA=;
+	s=k20260515; t=1794048766;
+	bh=aOBWKe5RJ5j/FJgmTPOXCe+jn64eMDVFnlpYdlPglEs=;
 	h=From:To:Cc:Subject:Date;
-	b=nEcv4o+ohb09rdZ1OSB6PbCAIAPT7wCn1BxWIwOAG5CqhTp8Xa8EIb8XrWeyBaCyW
-	 1qA5xwoscq4+TsHUyreEBlvkb14SvRpRxgFP0zaaF/1JtYgtxZSPOV1P4T9Ev+RbIL
-	 pQ/RLR49hiTvIe8dSNIlOfkhj3IG1jkCJ05KCOW8pUQThaE+MASwFwB7Ir7qBjkCSB
-	 nTZ6nqkRj+9C5M2TdI7PIKTCueo5/+ulVeOm2mSAQqq0iw/1+l42mJe4K8zaXH5Sj9
-	 Jf2Awrv/Jc8zeyQv4SvXXlARS/oz0z5ryTpQLWcy9cgr0CYIVqwZPhJ/SZUD7lGxoA
-	 qsoOwGiKab43g==
+	b=SgZ/LqUd57qbHYmRKnabj+/lnWDfQ9lNqcnfILI696ep5j8xoZMN6wJtmQxYXxyvo
+	 tVnBzdu/VCMRksF+44VN4NhnPDbwVqYHu3v2H3D+/oUo/05jT8pb+NKzTdnVFOSkHf
+	 grm0qqHICxJmxonK30oGgF/Aqz8Gxq8qCEmkLEpdppyEqkC72sglg2bGfE88Ft4lgZ
+	 ouz8EpbcQN9DVVs7YBprcSh7vSNz6btWjpXcyf+0Ie4afdfoTGjVku0kszigejQ7ex
+	 1JP8ZccbfljFPBH9nPCVSYo/iJnNoEhgYYkZ6a72G+tZDx+JYWlZ2Nsmgz/IAJmnxF
+	 7AEAc89vaNb8g==
 From: Sasha Levin <sashal@kernel.org>
-To: bsdhenrymartin@gmail.com,
-	felix.kuehling@amd.com,
-	alexander.deucher@amd.com
+To: yaoyiqi3@huawei.com,
+	tzimmermann@suse.de,
+	deller@gmx.de
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/amdkfd: fix doorbell allocation race creating duplicate allocations" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:52:42 -0500
-Message-ID: <20261107055241-failed-6.1-bebad4505094@kernel.org>
+Subject: FAILED: patch "[PATCH] fbcon: Include font geometry in the rotated font cache" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:52:45 -0500
+Message-ID: <20261107055245-failed-6.1-10463bcd4349@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,194 +69,96 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x bebad45050945a3d668d6701fb77ae2571c5d44b
+git cherry-pick -x 10463bcd43495fb88ff667b2c5348200860f6bdc
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055241-failed-6.1-bebad4505094@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055245-failed-6.1-10463bcd4349@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From bebad45050945a3d668d6701fb77ae2571c5d44b Mon Sep 17 00:00:00 2001
-From: Henry Martin <bsdhenrymartin@gmail.com>
-Date: Sat, 10 Oct 2026 11:02:30 +0800
-Subject: [PATCH] drm/amdkfd: fix doorbell allocation race creating duplicate
- allocations
+From 10463bcd43495fb88ff667b2c5348200860f6bdc Mon Sep 17 00:00:00 2001
+From: Yao Yiqi <yaoyiqi3@huawei.com>
+Date: Mon, 19 Oct 2026 17:43:29 +0800
+Subject: [PATCH] fbcon: Include font geometry in the rotated font cache
 
-The check-and-allocate sequence on pdd->qpd.proc_doorbells is
-lockless at every call site of kfd_alloc_process_doorbells():
-kfd_get_process_doorbells() (mmap of /dev/kfd),
-kfd_ioctl_create_queue() and the CRIU restore path each test the
-pointer under different locking (or none), so two racing threads can
-both observe NULL and each allocate a doorbell BO and bitmap,
-orphaning one allocation and handing the two mappings different
-backing pages.
+fbcon_rotate_font() caches a rotated copy of the console font and
+skips the rebuild when the fontdata pointer and the rotation match.
+Raw font data carries no geometry, though: width, height and
+charcount live in vc->vc_font. fbcon_set_font() deduplicates uploads
+by byte equality, so the same bytes re-uploaded with different
+dimensions keep the fontdata pointer while the geometry changes, and
+the early-out skips the rebuild.
 
-Move the serialization into kfd_alloc_process_doorbells() itself,
-using a new per-process-device mutex so all three call sites are
-covered regardless of their own locking.  The device-global
-kfd->doorbell_mutex is not suitable here: it is acquired under
-dqm->lock on the kernel-doorbell path (start_cpsch() -> pm_init() ->
-kq_initialize() -> kfd_get_kernel_doorbell()), so holding it across
-the sleeping allocations above would create a lock-ordering
-inversion with dqm->lock via TTM eviction, and it would also
-serialize doorbell setup of unrelated processes behind a
-device-wide lock for per-process state.
+The rotated cell size depends on the geometry (rotation swaps width
+and height), so the stale buffer is indexed with the new cell size.
+Re-uploading a 4x16 font as 16x8 on a CW-rotated console, for
+example, doubles the rotated cell size and reads past the end of the
+old buffer.
 
-This issue was discovered by Tencent CodeBuddy Security.
+Record the geometry the buffer was built from and compare it in the
+early-out. The pointer-only key used to be backed by an explicit
+width check in the deduplication, which commit 1e3c49aa03fb
+("lib/fonts: Compare font data for equality with font_data_is_equal()")
+dropped.
 
-v3 (Felix Kuehling):
-- Removed unlocked check in kfd_get_process_doorbell flagged as
-  problematic by Sashiko Bot. Fall back to the locked check inside
-  kfd_alloc_process_doorbells
-- Added missing mutex_destroy
-v4 (Felix Kuehling):
-- Removed unlocked checks around other kfd_alloc_process_doorbells calls
-
-Fixes: 16f0013157bf ("drm/amdkfd: Allocate doorbells only when needed")
-Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
-Signed-off-by: Felix Kuehling <felix.kuehling@amd.com>
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 4e27ba5ad5f76932d4f6cbacd25c81c2dd40ec4a)
+Fixes: 6cc50e1c5b57 ("[PATCH] fbcon: Console Rotation - Add support to rotate font bitmap")
 Cc: stable@vger.kernel.org
+Signed-off-by: Yao Yiqi <yaoyiqi3@huawei.com>
+Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
+Signed-off-by: Helge Deller <deller@gmx.de>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c  | 18 +++++++-----------
- drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c | 23 +++++++++++++++++------
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h     |  3 +++
- drivers/gpu/drm/amd/amdkfd/kfd_process.c  |  2 ++
- 4 files changed, 29 insertions(+), 17 deletions(-)
+ drivers/video/fbdev/core/fbcon.h        | 9 ++++++---
+ drivers/video/fbdev/core/fbcon_rotate.c | 9 ++++++++-
+ 2 files changed, 14 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 344da6c0e96ad..3081d9aaf053a 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -427,12 +427,10 @@ static int kfd_ioctl_create_queue(struct file *filep, struct kfd_process *p,
- 		}
- 	}
+diff --git a/drivers/video/fbdev/core/fbcon.h b/drivers/video/fbdev/core/fbcon.h
+index 054cf66b15fa0..91b59b2990d29 100644
+--- a/drivers/video/fbdev/core/fbcon.h
++++ b/drivers/video/fbdev/core/fbcon.h
+@@ -89,10 +89,13 @@ struct fbcon_par {
+ 	char  *cursor_data;
+ #ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
+ 	struct {
+-		font_data_t *fontdata;  /* source font */
+-		u8 *buf;                /* rotated glyphs */
++		font_data_t *fontdata;       /* source font */
++		u8 *buf;                     /* rotated glyphs */
+ 		size_t bufsize;
+-		int buf_rotate;         /* rotation of buf */
++		int buf_rotate;              /* rotation of buf */
++		unsigned int buf_width;      /* geometry of source font */
++		unsigned int buf_height;
++		unsigned int buf_charcount;
+ 	} rotated;
+ #endif
+ 	u8    *cursor_src;
+diff --git a/drivers/video/fbdev/core/fbcon_rotate.c b/drivers/video/fbdev/core/fbcon_rotate.c
+index 6cdbc96eeca6f..660a3fa81baed 100644
+--- a/drivers/video/fbdev/core/fbcon_rotate.c
++++ b/drivers/video/fbdev/core/fbcon_rotate.c
+@@ -21,11 +21,18 @@ int fbcon_rotate_font(struct fb_info *info, struct vc_data *vc)
+ 	unsigned char *buf;
+ 	int ret;
  
--	if (!pdd->qpd.proc_doorbells) {
--		err = kfd_alloc_process_doorbells(dev->kfd, pdd);
--		if (err) {
--			pr_debug("failed to allocate process doorbells\n");
--			goto err_bind_process;
--		}
-+	err = kfd_alloc_process_doorbells(dev->kfd, pdd);
-+	if (err) {
-+		pr_debug("failed to allocate process doorbells\n");
-+		goto err_bind_process;
- 	}
+-	if (par->p->fontdata == par->rotated.fontdata && par->rotate == par->rotated.buf_rotate)
++	if (par->p->fontdata == par->rotated.fontdata &&
++	    par->rotate == par->rotated.buf_rotate &&
++	    vc->vc_font.width == par->rotated.buf_width &&
++	    vc->vc_font.height == par->rotated.buf_height &&
++	    vc->vc_font.charcount == par->rotated.buf_charcount)
+ 		return 0;
  
- 	err = kfd_queue_acquire_buffers(pdd, &q_properties);
-@@ -2455,11 +2453,9 @@ static int criu_restore_devices(struct kfd_process *p,
- 			goto exit;
- 		}
+ 	par->rotated.fontdata = par->p->fontdata;
+ 	par->rotated.buf_rotate = par->rotate;
++	par->rotated.buf_width = vc->vc_font.width;
++	par->rotated.buf_height = vc->vc_font.height;
++	par->rotated.buf_charcount = vc->vc_font.charcount;
  
--		if (!pdd->qpd.proc_doorbells) {
--			ret = kfd_alloc_process_doorbells(dev->kfd, pdd);
--			if (ret)
--				goto exit;
--		}
-+		ret = kfd_alloc_process_doorbells(dev->kfd, pdd);
-+		if (ret)
-+			goto exit;
- 	}
- 
- 	/*
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-index fdcf7f2d1b5b4..6af268a031f22 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_doorbell.c
-@@ -239,11 +239,9 @@ phys_addr_t kfd_get_process_doorbells(struct kfd_process_device *pdd)
- 	struct amdgpu_device *adev = pdd->dev->adev;
- 	uint32_t first_db_index;
- 
--	if (!pdd->qpd.proc_doorbells) {
--		if (kfd_alloc_process_doorbells(pdd->dev->kfd, pdd))
--			/* phys_addr_t 0 is error */
--			return 0;
--	}
-+	if (kfd_alloc_process_doorbells(pdd->dev->kfd, pdd))
-+		/* phys_addr_t 0 is error */
-+		return 0;
- 
- 	first_db_index = amdgpu_doorbell_index_on_bar(adev,
- 						      pdd->qpd.proc_doorbells,
-@@ -257,12 +255,21 @@ int kfd_alloc_process_doorbells(struct kfd_dev *kfd, struct kfd_process_device *
- 	int r;
- 	struct qcm_process_device *qpd = &pdd->qpd;
- 
-+	mutex_lock(&pdd->doorbell_mutex);
-+
-+	/* Another thread may have won the check-and-allocate race */
-+	if (qpd->proc_doorbells) {
-+		mutex_unlock(&pdd->doorbell_mutex);
-+		return 0;
-+	}
-+
- 	/* Allocate bitmap for dynamic doorbell allocation */
- 	qpd->doorbell_bitmap = bitmap_zalloc(KFD_MAX_NUM_OF_QUEUES_PER_PROCESS,
- 					     GFP_KERNEL);
- 	if (!qpd->doorbell_bitmap) {
- 		DRM_ERROR("Failed to allocate process doorbell bitmap\n");
--		return -ENOMEM;
-+		r = -ENOMEM;
-+		goto unlock;
- 	}
- 
- 	r = init_doorbell_bitmap(&pdd->qpd, kfd);
-@@ -284,11 +291,15 @@ int kfd_alloc_process_doorbells(struct kfd_dev *kfd, struct kfd_process_device *
- 		DRM_ERROR("Failed to allocate process doorbells\n");
- 		goto err;
- 	}
-+
-+	mutex_unlock(&pdd->doorbell_mutex);
- 	return 0;
- 
- err:
- 	bitmap_free(qpd->doorbell_bitmap);
- 	qpd->doorbell_bitmap = NULL;
-+unlock:
-+	mutex_unlock(&pdd->doorbell_mutex);
- 	return r;
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index b9a31489b1c89..e102086ac49a8 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -784,6 +784,9 @@ struct kfd_process_device {
- 	/* per-process-per device QCM data structure */
- 	struct qcm_process_device qpd;
- 
-+	/* Serializes process doorbell allocation for this device */
-+	struct mutex doorbell_mutex;
-+
- 	/*Apertures*/
- 	uint64_t lds_base;
- 	uint64_t lds_limit;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index 226f52626e849..51b0df4984945 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -1233,6 +1233,7 @@ static void kfd_process_destroy_pdds(struct kfd_process *p)
- 		}
- 
- 		atomic_dec(&pdd->dev->kfd->kfd_processes_count);
-+		mutex_destroy(&pdd->doorbell_mutex);
- 
- 		kfree(pdd);
- 		p->pdds[i] = NULL;
-@@ -1802,6 +1803,7 @@ struct kfd_process_device *kfd_create_process_device_data(struct kfd_node *dev,
- 	pdd->dev = dev;
- 	INIT_LIST_HEAD(&pdd->qpd.queues_list);
- 	INIT_LIST_HEAD(&pdd->qpd.priv_queue_list);
-+	mutex_init(&pdd->doorbell_mutex);
- 	pdd->qpd.dqm = dev->dqm;
- 	pdd->qpd.pqm = &p->pqm;
- 	pdd->qpd.evicted = 0;
+ 	if (info->fbops->fb_sync)
+ 		info->fbops->fb_sync(info);
 -- 
 2.53.0
 
