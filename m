@@ -1,55 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048460;
-	b=ggmV/fGA7HTa3E87QH+ON5+eb7L9V118jxFr2VmBOaVacmRDef61ZHAK+FwlwvLAYnz5
-	 RbD+VtRAw6tT727drZ07QoJdijSn7q26YqePVI3RTf6zWDq6QsHQh03Zu1FlomzyFuC/R
-	 3FntFdelF6aRCZJ9jKSkR9w+gBB/Gb3ZNykRNk+cSkG7wY/7qDE5tbg4chLj7//gtfzL0
-	 GnLS208HL/mWDcC4cNU1kL/s/UGCTIQWa2l4pxOr6mtWcdYdSqKlMbxeVnzBvLZg6jXkr
-	 hDFFienD8WQM1TixKWiw3Vsdjuzs8DKatzwgB14Fuebit5G8Ul//xQWpX0krh7T6/mQ==
+	t=1794048466;
+	b=Z45a9yUl79zE2NY23Cq896M8SJ9s9yAcRqGHyFWhWEocgnbGfNt6olR/+mgXSK+fnwlX
+	 bihe+hhrbHivUXUoxC4zAil1DSjfUPel9939VTtjG9O6vPWaNtGbJZuSTZnLbzzIak7Xy
+	 PtyuwP0BveQd3P5/dISTUnEDFlW9Ayqa6u0OO96bHJ3MkYO+64YZiNWvYKyzdq8/LELQE
+	 lssrHc9VJTOnKWct3UvKRv9u3JumCJukV4VRZacHmj32GYgyD+BSpQ8+zlysp6iVeyFW1
+	 PhTOQuINQn4C8H0fNDYLOlinQlOxqOZxB4HtlqNxNd1E9gbNzb9bIMQmHL/8Q0tVkFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048460;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048466;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=9XLLD4U44MVUCa2SctazWrf9TtmUfP35zOI9NwoNCJ4=;
-	b=Qd3S5/J5t0eKOdwSZJVq8kEjqmUHKPAA4jaUWL9o7WrOfNKArWMbZwNAEoAky7Rytcnx
-	 xtz5QBs5kjaFkcmShbtNyLhU3H79gnJrjMXf0Gglnt5M+G+mVlNj/LjjKmotj5yPvJeX5
-	 RIitMfbmMjGVyMnwpFH2xq9Vq8ENz80SUZQCBqHS63hhZxvN6HDd9186P0QARRCfQza+s
-	 B+7GXEVA3ttyKetMUI2MkTt91q+QDWTzFeyg3ecrNCHBVGtM9dK2+w6H6Ri1i8hiQLG0I
-	 cQTuyJ98d3H31HALNP9o2nDkVAUclQLhB9cs2sVaUszWVt/ELbsOW7F82txoqXR71uw==
+	bh=ZCF8/XsmnL3CkzwiBC8C+1ZWr9CkyK9KqlWsH9PZzMY=;
+	b=NgN9JNEGl8daDInQiBIZvHFnyp2zZbM9Mo4rQiy7VXV1KsRUm26hxT+hjBW/sdR80d41
+	 uqYmdVDGx04Z6qL4NxMVntsZ7tCA2iCq0EYQZhAkBYqVBEHfUYRhCFbPjBpGzkueoa3Un
+	 tLWWSAMdUQPk3t0+N60YdfKhZs041hJpqoQWNUsTZt42fFxyxcW1M0T+eLXXMrcAh1J55
+	 tIsc4GHxftiBYNXTcxz1EaIJ43l66j9oo23ADaFjh0e/wW6hxJn7dAFc+xc/aaKILXms8
+	 /c8iRyhgzQX7lGN5D212HfrRl+B9mHzNSumrdIsqwKl/8XHaMfd8ufJP0YqxM5mIdZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y2RXUJQq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TOQeFp5r;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 422D4606A32E
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:47:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 849A2606D821
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:47:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y2RXUJQq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 567721F008A5;
-	Sat,  7 Nov 2026 10:47:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TOQeFp5r
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAA491F008A5;
+	Sat,  7 Nov 2026 10:47:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048460;
-	bh=9XLLD4U44MVUCa2SctazWrf9TtmUfP35zOI9NwoNCJ4=;
+	s=k20260515; t=1794048466;
+	bh=ZCF8/XsmnL3CkzwiBC8C+1ZWr9CkyK9KqlWsH9PZzMY=;
 	h=From:To:Cc:Subject:Date;
-	b=Y2RXUJQqPza9HMt+Qmkt8ixqkeWN2DgaSynFarUf3/yhIckEYcl4fFCo+WYAF747F
-	 bEdzXWxzO5cdMkoE+OHZ/ReZR0y9xplyF1gNnZOUG9RK93HiFbXJeWzPUWBJDeFF4+
-	 GMGtLWqdMLpjXWfW5BkXHm/hwIoo1VQmhvfIBbtJ8Dg4KV3kaSVPtWJMHcATZYoag7
-	 laTD94Zd+ujzA7xbqeh0Kx9HxTPs0IQs6Wb54g8VL2HHLYspzOEW+Cm5qirXUTsMYG
-	 Uw+9ZLQOF1M8/BoqpQ6vJLlFbhR4XB/gKw+Ngl5kPCv3ybUXsShFuUfdKhLX8plvJa
-	 NV4OD173GTSLg==
+	b=TOQeFp5rxTKvrHHgr1uyr2t0FuFeZ1ea0KCXeHYhKjH8PRNy5i9kjxVjvc7DEmaMB
+	 sD/Xb2pF0ZifPQXd5/kLDGylqkdlySNNmygEU+Lke4cTj4D6mjzm2aPEtrBojQr5XB
+	 R2Qcrt9Ak1RELFFdy0EgWY7nduUqseeU9SyQF8oxWXdEHKft2xOK4vExZMf1D2lSrg
+	 olLU8/EYjV1JfvGLVlNIVvpSZkDE7QGrppk8EdzQOGsXVMX81tNgwiDxs7LxPds0bd
+	 it8JCwJOXG/3Io4r2peT9YgXtwfaCVAcxIIkz5S2htHV4RDS4QFFOabmbxhmPuiaO+
+	 4QHc0c+xwyK0A==
 From: Sasha Levin <sashal@kernel.org>
-To: leitao@debian.org,
-	akpm@linux-foundation.org,
-	sj@kernel.org,
-	baolin.wang@linux.alibaba.com,
-	hughd@google.com,
-	paulmck@kernel.org
+To: lgs201920130244@gmail.com,
+	ilpo.jarvinen@linux.intel.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/shmem: report RCU-tasks quiescent states while undoing a range" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:47:38 -0500
-Message-ID: <20261107054738-failed-6.1-ebd1a08c1921@kernel.org>
+Subject: FAILED: patch "[PATCH] platform/x86: simatic-ipc: fix platform device leak on registration failure" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:47:44 -0500
+Message-ID: <20261107054744-failed-6.1-9523698252fd@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -72,81 +68,102 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x ebd1a08c192109c83a87ddf42793ed6283180faf
+git cherry-pick -x 9523698252fd583d6987582b9c34ec6500d10986
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054738-failed-6.1-ebd1a08c1921@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054744-failed-6.1-9523698252fd@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From ebd1a08c192109c83a87ddf42793ed6283180faf Mon Sep 17 00:00:00 2001
-From: Breno Leitao <leitao@debian.org>
-Date: Fri, 18 Sep 2026 04:24:37 -0700
-Subject: [PATCH] mm/shmem: report RCU-tasks quiescent states while undoing a
- range
+From 9523698252fd583d6987582b9c34ec6500d10986 Mon Sep 17 00:00:00 2001
+From: Guangshuo Li <lgs201920130244@gmail.com>
+Date: Thu, 24 Sep 2026 19:56:17 +0800
+Subject: [PATCH] platform/x86: simatic-ipc: fix platform device leak on
+ registration failure
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-This shows up in the Meta fleet on ftruncate() of large tmpfs files:
+register_platform_devices() registers the battery, LED, and watchdog
+platform devices in sequence. If LED registration fails, the battery
+device remains registered. If watchdog registration fails, the LED and
+battery devices remain registered.
 
-  INFO: rcu_tasks detected stalls on tasks:
-  00000000752fd185: .. nvcsw: 59455/59455 holdout: 1 idle_cpu: -1/0
-  task:rocksdb:bottom  state:R  running task
-    __folio_split
-    find_get_entry
-    find_get_entries
-    truncate_inode_partial_folio
-    shmem_undo_range
-    shmem_setattr
-    notify_change
-    do_ftruncate
-    __x64_sys_ftruncate
-    do_syscall_64
+These failure paths leave successful platform_device_register_data()
+calls without the matching platform_device_unregister() calls.
 
-shmem_undo_range() walks the whole of the requested range in folio_batch
-sized steps, twice, and its two cond_resched() calls are the only
-reschedule points in that walk.
+Add an unwind ladder to unregister previously registered platform
+devices in reverse order before returning the registration error.
 
-cond_resched() is not an RCU-tasks quiescent state.  Use
-cond_resched_tasks_rcu_qs() at both points so the walk reports an
-RCU-tasks quiescent state as it proceeds.
+The issue was identified by a static analysis tool I developed and
+confirmed by manual review.
 
-Link: https://lore.kernel.org/20260918-shmem-tasks-rcu-v1-1-79acf91a2569@debian.org
-Fixes: 8315f42295d2 ("rcu: Add call_rcu_tasks()")
-Signed-off-by: Breno Leitao <leitao@debian.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: SJ Park <sj@kernel.org>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Hugh Dickins <hughd@google.com>
-Cc: "Paul E . McKenney" <paulmck@kernel.org>
-Cc: <stable@vger.kernel.org>
+Fixes: dd123e62bded ("platform/x86: simatic-ipc: add main driver for Siemens devices")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Link: https://patch.msgid.link/20260924115617.1578309-1-lgs201920130244@gmail.com
+Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 ---
- mm/shmem.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/platform/x86/siemens/simatic-ipc.c | 21 +++++++++++++++++----
+ 1 file changed, 17 insertions(+), 4 deletions(-)
 
-diff --git a/mm/shmem.c b/mm/shmem.c
-index f33dbf5af2cb7..f2a36a1b53750 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -1367,7 +1367,7 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, uoff_t lend,
- 		}
- 		folio_batch_remove_exceptionals(&fbatch);
- 		folio_batch_release(&fbatch);
--		cond_resched();
-+		cond_resched_tasks_rcu_qs();
+diff --git a/drivers/platform/x86/siemens/simatic-ipc.c b/drivers/platform/x86/siemens/simatic-ipc.c
+index 7039874d8f112..4a4509fc9263e 100644
+--- a/drivers/platform/x86/siemens/simatic-ipc.c
++++ b/drivers/platform/x86/siemens/simatic-ipc.c
+@@ -92,6 +92,7 @@ static int register_platform_devices(u32 station_id)
+ 	u8 wdtmode = SIMATIC_IPC_DEVICE_NONE;
+ 	u8 battmode = SIMATIC_IPC_DEVICE_NONE;
+ 	char *pdevname;
++	int ret;
+ 	int i;
+ 
+ 	for (i = 0; i < ARRAY_SIZE(device_modes); i++) {
+@@ -139,8 +140,10 @@ static int register_platform_devices(u32 station_id)
+ 				pdevname, PLATFORM_DEVID_NONE,
+ 				&platform_data,
+ 				sizeof(struct simatic_ipc_platform));
+-		if (IS_ERR(ipc_led_platform_device))
+-			return PTR_ERR(ipc_led_platform_device);
++		if (IS_ERR(ipc_led_platform_device)) {
++			ret = PTR_ERR(ipc_led_platform_device);
++			goto err_unregister_batt;
++		}
+ 
+ 		pr_debug("device=%s created\n",
+ 			 ipc_led_platform_device->name);
+@@ -153,8 +156,10 @@ static int register_platform_devices(u32 station_id)
+ 				KBUILD_MODNAME "_wdt", PLATFORM_DEVID_NONE,
+ 				&platform_data,
+ 				sizeof(struct simatic_ipc_platform));
+-		if (IS_ERR(ipc_wdt_platform_device))
+-			return PTR_ERR(ipc_wdt_platform_device);
++		if (IS_ERR(ipc_wdt_platform_device)) {
++			ret = PTR_ERR(ipc_wdt_platform_device);
++			goto err_unregister_led;
++		}
+ 
+ 		pr_debug("device=%s created\n",
+ 			 ipc_wdt_platform_device->name);
+@@ -169,6 +174,14 @@ static int register_platform_devices(u32 station_id)
  	}
  
- 	/*
-@@ -1408,7 +1408,7 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, uoff_t lend,
+ 	return 0;
++
++err_unregister_led:
++	if (ledmode != SIMATIC_IPC_DEVICE_NONE)
++		platform_device_unregister(ipc_led_platform_device);
++err_unregister_batt:
++	if (battmode != SIMATIC_IPC_DEVICE_NONE)
++		platform_device_unregister(ipc_batt_platform_device);
++	return ret;
+ }
  
- 	index = start;
- 	while (index < end) {
--		cond_resched();
-+		cond_resched_tasks_rcu_qs();
- 
- 		if (!find_get_entries(mapping, &index, end - 1, &fbatch,
- 				indices)) {
+ static void request_additional_modules(u32 station_id)
 -- 
 2.53.0
 
