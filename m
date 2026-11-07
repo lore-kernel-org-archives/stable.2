@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047323;
-	b=iyP6rCRO/eXiYENbGQ0hehGQQ2Mg0aoaGrB+Nbk5QEEnILQve9robZtToN+xOb2HYWOM
-	 Oy3eGWBAxo6crnKVPaTinrijJEgZh+/oGjbfq6cZulIWFDZaKImbbWeFJ3U1OYHRyZZHc
-	 /1RPqVSRP4q9fb/Nj0idZsTjOZ4mXAciBCPFjzxBF+SfxcVc6GTIHlTo9z6fo1r8vsUY1
-	 opL38cqJAzNeruirUW/mNKTB/CcUoK406Y9GxY0LCE6w4guOgGTlmH51ayOhWW6MZdJnF
-	 7Bcw3pdiPZClU4kxGHMt3ufBnmzvKd3dyovQojUNEFpv3TBo5wHecQVU7AJvg2XGfng==
+	t=1794047325;
+	b=c5qb5v/tvSD7qZkiV7yTWaeG2+FpIBFaoLK97fU/y4gPNY6qwsKbRE/ztzCDJzLDNfmC
+	 PRwKypgDIFvAjz3FJxQ1yRceIQLUVtrOZd47cVeO3XLJGxAXjrr48I1LuN8SIZWR1kjef
+	 6ZLabpB4GVF4WJoNfL9l5riBTLCQ6AHEuVN6GSnTpUCOdekXBCCv1LZdQZjDjIuqxIqW8
+	 GGVDH8kWzvHXRv3c63+/ns32NHfasfAHZh72hYE9re5feDfHZSFPrjhHlFPAaeTJSFe/L
+	 tclhhe0idragWABaESWyfZYqY6BxREKGAMNDVBLRnXMyUF0AQMANjORJwPCsa7hyEqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047323;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047325;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=k8buaW1ltT+Q1akg19oXp4dkfitIDRxC2KsTb8OwdWE=;
-	b=1HVmyy5Bkv8gsKSxchqG9ZtoP4TuDKH84v3cq/IXjxTw9pyLdNnaxXK2Jg48eQl18UDj
-	 hiafclC+e8ZqMLveYtN5MJdNvsj5RgwxtoF+XKpBOX+kt9huR6CburOXmIbZmbl0Jp+3v
-	 BWR/Ys1fa4VcfLW4MiabRKosnsx/jbkseVLaG/QkbPdchPYZNgv+leVCUjfUx97i+9epR
-	 cwtswwixAGNa+wRFWMJ5YJuWN9Rqhj8Z1tP/PL/0hfzbD2CpPmw/+i6HiL4AeTLSv0pUw
-	 TEvdE3RVG9zkqYryCym5oQuY/4AyBywcPujShPvw5YjYCUaYa4iqB7elNV192rZdgig==
+	bh=ROQSFL1v78o/xtHI7MIhMJDpEmJNrR273jFNw4Ex6mQ=;
+	b=3tC30ZwmK5YFmh3F57ef9K7oUorWlKV4kNm+evS22Hyrw5WfHh4kylkP+yx6yFy1ETcn
+	 CHe2P/XAXU3vl+XpqCH+JJa++RT+8CnN7HdboDEs/t73+UAzFRdMw8foJYNqeleiNb338
+	 pGJi7n93WTb0qmwte8EEmJ6NjEB2Znr5Ifdnm2wklqsSr23XXfVaPaR3ga2Z9a8pnC+Vt
+	 TqTCTqYOfjLbJd88JylR7siTMJcPWygOAXXL2HliIsgSFWhGibmsk4YyhV+wi32O86xBD
+	 aZ81NWlqgagDuqTmm5QCLBySDalQ15Q0x9XxlN+wJbjrviI3L5+RkNqCMJoEEZ0Qo1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PVZYM0ju;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="EZBmw/XR";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7FD7606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:28:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C75E5606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:28:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PVZYM0ju
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 354BF1F0089F;
-	Sat,  7 Nov 2026 10:28:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EZBmw/XR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4396A1F0089F;
+	Sat,  7 Nov 2026 10:28:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047322;
-	bh=k8buaW1ltT+Q1akg19oXp4dkfitIDRxC2KsTb8OwdWE=;
+	s=k20260515; t=1794047324;
+	bh=ROQSFL1v78o/xtHI7MIhMJDpEmJNrR273jFNw4Ex6mQ=;
 	h=From:To:Cc:Subject:Date;
-	b=PVZYM0juN5TzJDREBUnq193kHp/ijMnBb0bcqtjgmP6CJEzSSxWpr9kabQ+wmevZ7
-	 P2afrkQIbaOuzJB6TnaM6IimL45kZs+7nr5CSVLreUVxbJQUr3F9BW6CwCQxOs7k1Z
-	 6/WlW8omBv6FD6atm9ecQsWJsZQUVMIxWQ7evJdla18wF30ZnN5XZCKJzH7p8OrLsj
-	 AfsdDtAlsMt43rRrA5VCbB5z0268StG/CmEwMcMwa6S7xgsune6jusm2yKwlomzoAu
-	 8+P59G+K8fz6Af7UoLSL8ZThdObQae7Xg0ME9dCtJ1IlYkPIk6dqgaPM5kVKeoBHhN
-	 1pDNaAPdLRXAg==
+	b=EZBmw/XRTrzWtxgkqMDietSKVSCMHsVDhM9UHlu7ksJC0SYvDVo1pqQqwPxcJ7UGs
+	 TlvQJmfcKbA2i1L+VxkMQG1p2am3PGo74exb0wXbmGU8/fpyprx5FR+IRkn8UotYNi
+	 OEbMMjXSDxRPT0QRpGc7SDF5cG4DZdjx1/2LMhhvni7Dsf3Fy+zUD3mM2NFP2xyTK3
+	 rxQ68gcTLzE5QTQqcMtAir/8OttMXoMejUdGE6W/2yRygH7oswwsIjP9nlREdLXaHs
+	 Gugks8PW/tZ3sVFQ8JceEdWRx51varEkYWTa4hWQiJBxUxDVcELn4hYJgWjTJs6FFG
+	 SN7b7PgMs/y7w==
 From: Sasha Levin <sashal@kernel.org>
-To: rosenp@gmail.com,
-	miquel.raynal@bootlin.com
+To: fanwu01@zju.edu.cn,
+	hverkuil+cisco@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mtd: rawnand: ndfc: use devm_platform_ioremap_resource()" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:28:41 -0500
-Message-ID: <20261107052841-failed-6.6-0d66f9895f28@kernel.org>
+Subject: FAILED: patch "[PATCH] media: cx231xx-audio: drain wq_trigger before audio fini" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:28:43 -0500
+Message-ID: <20261107052843-failed-6.6-a691c5498641@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,91 +68,99 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 0d66f9895f286d2fab396a71e6efeb95c4a7e5a6
+git cherry-pick -x a691c54986412e1fa87f036d2577d5a78a75e658
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052841-failed-6.6-0d66f9895f28@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052843-failed-6.6-a691c5498641@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 0d66f9895f286d2fab396a71e6efeb95c4a7e5a6 Mon Sep 17 00:00:00 2001
-From: Rosen Penev <rosenp@gmail.com>
-Date: Mon, 24 Aug 2026 13:21:20 -0700
-Subject: [PATCH] mtd: rawnand: ndfc: use devm_platform_ioremap_resource()
+From a691c54986412e1fa87f036d2577d5a78a75e658 Mon Sep 17 00:00:00 2001
+From: Fan Wu <fanwu01@zju.edu.cn>
+Date: Wed, 29 Jul 2026 07:26:13 +0000
+Subject: [PATCH] media: cx231xx-audio: drain wq_trigger before audio fini
 
-Replace the open-coded of_iomap()/iounmap() with the managed
-devm_platform_ioremap_resource() helper. This fixes a mapping leak on
-driver remove (the old code never called iounmap()) and simplifies the
-error path by dropping the manual cleanup in ndfc_probe().
+audio_trigger() is deferred work (dev->wq_trigger) armed from
+snd_cx231xx_capture_trigger() on every PCM START/STOP; it dereferences
+dev->adev state and may free the URBs via cx231xx_isoc_audio_deinit().
+cx231xx_audio_fini() tore down that state without draining wq_trigger,
+so work armed before or racing fini ran against freed state.
 
-There is no overlapping memory-region concern introduced by this
-change: each supported board DT describes a single ndfc node with a
-unique 0x2000 register region, and the EBC parent uses dcr-reg rather
-than a MEM reg resource, so the newly added request_mem_region() cannot
-conflict with an existing reservation. Distinct chip selects map to
-distinct 64-bit physical addresses, so CS instances do not overlap.
+Use disable_work_sync() in fini to drain the work and prevent further
+queueing.  Initialize the work, lock and stream_started counter at the
+top of cx231xx_audio_init(), before any fallible allocation, and clear
+the partially-built audio state on its error path, so fini is safe even
+if a later step fails.
 
-Fixes: a808ad3b0d28 ("[MTD] [NAND] ndfc driver")
-Cc: stable@vger.kernel.org
-Assisted-by: opencode:hy3-free
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
-Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+This issue was found by an in-house static analysis tool.
+
+Fixes: 61b04cb24a12 ("[media] cx231xx-audio: fix some locking issues")
+Cc: stable@vger.kernel.org # v6.10+
+Link: https://lore.kernel.org/r/8c7e1294-b906-4636-890c-b64d03b0e1d0@kernel.org
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 ---
- drivers/mtd/nand/raw/ndfc.c | 21 ++++++++-------------
- 1 file changed, 8 insertions(+), 13 deletions(-)
+ drivers/media/usb/cx231xx/cx231xx-audio.c | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/mtd/nand/raw/ndfc.c b/drivers/mtd/nand/raw/ndfc.c
-index a48274297d3b1..d6db04d48c45a 100644
---- a/drivers/mtd/nand/raw/ndfc.c
-+++ b/drivers/mtd/nand/raw/ndfc.c
-@@ -185,10 +185,15 @@ static int ndfc_chip_init(struct ndfc_controller *ndfc,
- static int ndfc_probe(struct platform_device *ofdev)
- {
- 	struct ndfc_controller *ndfc;
-+	void __iomem *ndfcbase;
- 	const __be32 *reg;
- 	u32 ccr;
- 	u32 cs;
--	int err, len = 0;
-+	int len = 0;
+diff --git a/drivers/media/usb/cx231xx/cx231xx-audio.c b/drivers/media/usb/cx231xx/cx231xx-audio.c
+index b24ceef497e4c..af04fb104cc4e 100644
+--- a/drivers/media/usb/cx231xx/cx231xx-audio.c
++++ b/drivers/media/usb/cx231xx/cx231xx-audio.c
+@@ -581,12 +581,19 @@ static int cx231xx_audio_init(struct cx231xx *dev)
+ 	dev_dbg(dev->dev,
+ 		"probing for cx231xx non standard usbaudio\n");
+ 
++	/*
++	 * Extension init errors are ignored by the cx231xx core, so fini()
++	 * must be safe even if initialization fails part way through.
++	 */
++	spin_lock_init(&adev->slock);
++	INIT_WORK(&dev->wq_trigger, audio_trigger);
++	atomic_set(&dev->stream_started, 0);
 +
-+	ndfcbase = devm_platform_ioremap_resource(ofdev, 0);
-+	if (IS_ERR(ndfcbase))
-+		return PTR_ERR(ndfcbase);
+ 	err = snd_card_new(dev->dev, index[devnr], "Cx231xx Audio",
+ 			   THIS_MODULE, 0, &card);
+ 	if (err < 0)
+ 		return err;
  
- 	/* Read the reg property to get the chip select */
- 	reg = of_get_property(ofdev->dev.of_node, "reg", &len);
-@@ -210,11 +215,7 @@ static int ndfc_probe(struct platform_device *ofdev)
- 	ndfc->ofdev = ofdev;
- 	dev_set_drvdata(&ofdev->dev, ndfc);
+-	spin_lock_init(&adev->slock);
+ 	err = snd_pcm_new(card, "Cx231xx Audio", 0, 0, 1, &pcm);
+ 	if (err < 0)
+ 		goto err_free_card;
+@@ -601,8 +608,6 @@ static int cx231xx_audio_init(struct cx231xx *dev)
+ 	strscpy(card->shortname, "Cx231xx Audio", sizeof(card->shortname));
+ 	strscpy(card->longname, "Conexant cx231xx Audio", sizeof(card->longname));
  
--	ndfc->ndfcbase = of_iomap(ofdev->dev.of_node, 0);
--	if (!ndfc->ndfcbase) {
--		dev_err(&ofdev->dev, "failed to get memory\n");
--		return -EIO;
--	}
-+	ndfc->ndfcbase = ndfcbase;
+-	INIT_WORK(&dev->wq_trigger, audio_trigger);
+-
+ 	err = snd_card_register(card);
+ 	if (err < 0)
+ 		goto err_free_card;
+@@ -656,8 +661,10 @@ static int cx231xx_audio_init(struct cx231xx *dev)
  
- 	ccr = NDFC_CCR_BS(ndfc->chip_select);
+ err_free_pkt_size:
+ 	kfree(adev->alt_max_pkt_size);
++	adev->alt_max_pkt_size = NULL;
+ err_free_card:
+ 	snd_card_free(card);
++	adev->sndcard = NULL;
  
-@@ -232,13 +233,7 @@ static int ndfc_probe(struct platform_device *ofdev)
- 		iowrite32be(be32_to_cpup(reg), ndfc->ndfcbase + offset);
+ 	return err;
+ }
+@@ -674,6 +681,8 @@ static int cx231xx_audio_fini(struct cx231xx *dev)
+ 		return 0;
  	}
  
--	err = ndfc_chip_init(ndfc, ofdev->dev.of_node);
--	if (err) {
--		iounmap(ndfc->ndfcbase);
--		return err;
--	}
--
--	return 0;
-+	return ndfc_chip_init(ndfc, ofdev->dev.of_node);
- }
- 
- static void ndfc_remove(struct platform_device *ofdev)
++	disable_work_sync(&dev->wq_trigger);
++
+ 	if (dev->adev.sndcard) {
+ 		snd_card_free_when_closed(dev->adev.sndcard);
+ 		kfree(dev->adev.alt_max_pkt_size);
 -- 
 2.53.0
 
