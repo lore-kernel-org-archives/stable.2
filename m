@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049261;
-	b=znBA+qTUSAUm+Kp+h4OexNK1iPFJXoTkU9O+tnQhifQ97XAULADvZg/jjBpTMwbwTDmA
-	 lzpxl7ETZlLhPFS81DtsoG6shuZLtWJ80isKEsjGOS6LvWGJtgoKy3IsHGuVItZ0lqgXe
-	 bnJ3f6KFvbCb2gRJp2sxP6Jp08BgJhlSHKWqcPfeNENrAjkjiBzFRzt4FCM2oxXHWt5Rt
-	 u6GDI2HJ8gIXUHBUy7ssRJWix4y7Q/jUh9BCgedhFPC1ZXT3hIwYSSre0ZFcdudN89A9n
-	 d4SkkP3R/X+yNXmqY4LO5V33jp+zF3PKl4SrCKGM31v/F6028ly9QURD4f4l/g4vepQ==
+	t=1794049264;
+	b=nJIqR75Uug7mDhI5CcagjDfDIId7PndLs4lMWkTHOYfoyu7x7Y3wB8bztCkMhbnut3TY
+	 zj9RpzxYZ0rMcQZyFmAHpwnI1O6NaWnh6uIWStGbBa/ARUR1A/vaGPZ46QFWBCaVcvHI+
+	 /WA1kRQblvfqgDpz7YnSJBIJh+PsTck8ldWJqekMycKP8aKSnUKF7i/B2LCVAvRs4ShSy
+	 jaYda5wxZOa3PASMomYw9Ca0jOVDykV1y29FdHOn+vp3ldQTTfhm4ntOtW+HIAfgtRgBq
+	 xOST8WNsNO/jjlMLNvQ/APJGsvvZcAmK+IBPGTO6ZQKhJz4Y5ylPLNU/ysltqtQNKUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049261;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049264;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=xrjddU1KYU2NfCgrwo9CSDirf46h460i+BM+0hJxZp8=;
-	b=KVKDP8CKHSchXXAgYhgFw9SI5d8iXv26B0PM8cO/9gV6Wcxu8nrZfUlmGSBioNQ38E95
-	 WhXDUr8P+aDeLK4h8VTif5mgZQwty5w6FnnwJlbiWiFayQuA75VpIDzrHJYPD5vz9C1f4
-	 rD9dRZKF8E10hqqARxZQKleUQmgtpE1pJg9C5N2WXwfcNwM0XTYo2Wzu67RsvCPjTBsf6
-	 N1bgzF/DnFHNACWv79uBg+vfhrAlu9d3XcjW6YLrUKif7FOwhCk84nYrcYCG+aNGuxUZ8
-	 XNK4jaqZBTbq8oWcUFKd2cMwUAlvy4vkWVMvskF/VQhhhRRtqkwqmh6FQjkXlTHw6DQ==
+	bh=EbwejzzLnYiPGq3Jib/oWkApcl1o6ibomRNfH7AskTg=;
+	b=x4sC5rRcoi9TrQMMAMXdo34MsXk8a1s2f6G/0bu7pLA3w3gnlCAPc3/rLZum16pN5aNj
+	 ySKT41izy5bzFR8lp+ZbArOUsbofWuhuAPs1nHIeovF9WKj/YmUENYlTNQuYN+/qfNQd1
+	 uCkE883wLYXMFBq15rf+DP0Tt+plExlf6CF0StV5bOyahal6JVF0TP7M+1bFPUJA+Uzbs
+	 mk/qlr+7l4u0AUse94LbLF467PGt+CaFuRqCJCz3LqFBH/DzG1h8VLOpwJpJkhDSVnJjq
+	 pUlu6YyTZCHJZGisTndGODrP23mu8MPO16o9xtQB0psFOtrlBxxPkjxh3qOjSiXWu8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VJfc4pCv;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="c810/3tj";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 210A0606A32F
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:01:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84FB5606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:01:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VJfc4pCv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 926641F0089F;
-	Sat,  7 Nov 2026 11:01:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c810/3tj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAB981F0089F;
+	Sat,  7 Nov 2026 11:01:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049261;
-	bh=xrjddU1KYU2NfCgrwo9CSDirf46h460i+BM+0hJxZp8=;
+	s=k20260515; t=1794049264;
+	bh=EbwejzzLnYiPGq3Jib/oWkApcl1o6ibomRNfH7AskTg=;
 	h=From:To:Cc:Subject:Date;
-	b=VJfc4pCvT2/toYENDDHHfHbVClIBgSV1q75ajmTyFRKO8hTvcDNZYm8Yr6nVnknW9
-	 jbeCMvyEUo35APdLCbUNvtU+SBO9j41694x8VK7vrjvlkzneGzlbzPZ4eu7LlQDDqS
-	 4GeCLy+GC9nOaQT3gJNcd0qzQ/hHYTt1ohO472es7lsbE9t+P7pTxpRzNZddSbeAUk
-	 RD/0OKcLh0BVEJchTQpM+J24USqzBGPXGNrmfgtiuZdtqLLGGlnG7ZJmxdow8Szu2U
-	 oensY6gFropr9dePr4SRPHiAdhmrtJGvWVEYeHMMM3yeo+vFqOs/z28hvhfOFhmw6m
-	 oke2wh/7ZbywQ==
+	b=c810/3tjFlYGglpGYwaVGh7YPOaRIt8OHIiWChuGYl666MzoUlMSnNaZtPxoHD4mX
+	 Gl+MQDPVVOMQDm3TowB7R0TJJhXXS9yzLjGRcQ1TG2a7Ifm1R5wR8jONMMvURW1b8x
+	 /HZwCA3i8RQwN04x5viW0dedBgvQC6XEQbgsB1GIqz+t40jSHnJcZM1kVrptCmLW9a
+	 pxGWfXpeoaa8UAAR5xvh4CU6NQ4bHW1oHpSDRxv3WsoI3jj+vsArq71wuCaTSmofD9
+	 WpnsQMOxhA+6KPPROaTyicO92/SWuMkLaUqXGkE4xq07ksJMXIeQI8m1GsQEXvWNT0
+	 3RKl2E7AhR+ZQ==
 From: Sasha Levin <sashal@kernel.org>
-To: runyu.xiao@seu.edu.cn,
-	tiwai@suse.de
+To: pkshih@realtek.com,
+	luka.gejak@linux.dev,
+	pepe.schlehofer@gmail.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ALSA: usb-audio: Protect Roland control activation" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:00:59 -0500
-Message-ID: <20261107060059-failed-5.15-19b42c1fff7f@kernel.org>
+Subject: FAILED: patch "[PATCH] wifi: rtw88: TX report with long timeout for non-PCIE devices" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 06:01:02 -0500
+Message-ID: <20261107060102-failed-5.15-7cde94dab0e7@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,117 +69,80 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 19b42c1fff7f220a6346c614d79ce1bda6d95b40
+git cherry-pick -x 7cde94dab0e74434ccc0a387d7ad373fb3becda0
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060059-failed-5.15-19b42c1fff7f@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060102-failed-5.15-7cde94dab0e7@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 19b42c1fff7f220a6346c614d79ce1bda6d95b40 Mon Sep 17 00:00:00 2001
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Date: Tue, 29 Sep 2026 22:17:26 +0800
-Subject: [PATCH] ALSA: usb-audio: Protect Roland control activation
+From 7cde94dab0e74434ccc0a387d7ad373fb3becda0 Mon Sep 17 00:00:00 2001
+From: Ping-Ke Shih <pkshih@realtek.com>
+Date: Thu, 24 Sep 2026 08:46:37 +0800
+Subject: [PATCH] wifi: rtw88: TX report with long timeout for non-PCIE devices
 
-The USB MIDI driver changes the Roland MIDI Input Mode control's access
-flags directly from the rawmidi open and close paths.  These changes are
-not protected by the ALSA control core and the corresponding notifications
-can race with control access.
+Many USB and SDIO devices can't report TX status within 500 ms, and
+extending to 2500 ms as tested USB/SDIO devices can fix the problem [1].
+To avoid adding chip ID one by one, and this change looks harmless.
+Keep PCIE using short timeout, and others use long timeout.
 
-Use snd_ctl_activate_id() so that the control core updates the access flags
-and sends the notification under its lock.  Release the USB MIDI mutex
-before calling it because the control write path holds controls_rwsem while
-roland_load_put() takes the USB MIDI mutex.
+[1] https://lore.kernel.org/linux-wireless/20260921165343.8131-1-pepe.schlehofer@gmail.com/
 
-Keep the state transition and alternate-setting change under the USB MIDI
-mutex; rawmidi's open mutex serializes the enclosing open and close paths.
-
-Fixes: 96f61d9ade82 ("sound: usb-audio: allow switching altsetting on Roland USB MIDI devices")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Link: https://patch.msgid.link/20260929141726.2166899-1-runyu.xiao@seu.edu.cn
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Ping-Ke Shih <pkshih@realtek.com>
+Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
+Tested-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
+Link: https://patch.msgid.link/20260924004637.9958-1-pkshih@realtek.com
 ---
- sound/usb/midi.c | 53 ++++++++++++++++++++++++------------------------
- 1 file changed, 27 insertions(+), 26 deletions(-)
+ drivers/net/wireless/realtek/rtw88/tx.c | 10 +++++-----
+ drivers/net/wireless/realtek/rtw88/tx.h |  3 ++-
+ 2 files changed, 7 insertions(+), 6 deletions(-)
 
-diff --git a/sound/usb/midi.c b/sound/usb/midi.c
-index 0480a9b89e8f3..e3d1575540613 100644
---- a/sound/usb/midi.c
-+++ b/sound/usb/midi.c
-@@ -1150,41 +1150,42 @@ static int substream_open(struct snd_rawmidi_substream *substream, int dir,
- 			  int open)
+diff --git a/drivers/net/wireless/realtek/rtw88/tx.c b/drivers/net/wireless/realtek/rtw88/tx.c
+index 4e110a457e71d..701ed7c4f3f75 100644
+--- a/drivers/net/wireless/realtek/rtw88/tx.c
++++ b/drivers/net/wireless/realtek/rtw88/tx.c
+@@ -196,7 +196,7 @@ void rtw_tx_report_purge_timer(struct timer_list *t)
+ void rtw_tx_report_enqueue(struct rtw_dev *rtwdev, struct sk_buff *skb, u8 sn)
  {
- 	struct snd_usb_midi *umidi = substream->rmidi->private_data;
--	struct snd_kcontrol *ctl;
-+	struct snd_ctl_elem_id ctl_id;
-+	bool activate_ctl = false;
-+	bool active;
+ 	struct rtw_tx_report *tx_report = &rtwdev->tx_report;
+-	unsigned long timeout = RTW_TX_PROBE_TIMEOUT;
++	unsigned long timeout;
+ 	unsigned long flags;
+ 	u8 *drv_data;
  
- 	guard(rwsem_read)(&umidi->disc_rwsem);
- 	if (umidi->disconnected)
- 		return open ? -ENODEV : 0;
+@@ -208,10 +208,10 @@ void rtw_tx_report_enqueue(struct rtw_dev *rtwdev, struct sk_buff *skb, u8 sn)
+ 	__skb_queue_tail(&tx_report->queue, skb);
+ 	spin_unlock_irqrestore(&tx_report->q_lock, flags);
  
--	guard(mutex)(&umidi->mutex);
--	if (open) {
--		if (!umidi->opened[0] && !umidi->opened[1]) {
--			if (umidi->roland_load_ctl) {
--				ctl = umidi->roland_load_ctl;
--				ctl->vd[0].access |=
--					SNDRV_CTL_ELEM_ACCESS_INACTIVE;
--				snd_ctl_notify(umidi->card,
--				       SNDRV_CTL_EVENT_MASK_INFO, &ctl->id);
--				update_roland_altsetting(umidi);
-+	scoped_guard(mutex, &umidi->mutex) {
-+		if (open) {
-+			if (!umidi->opened[0] && !umidi->opened[1]) {
-+				if (umidi->roland_load_ctl) {
-+					ctl_id = umidi->roland_load_ctl->id;
-+					activate_ctl = true;
-+					active = false;
-+					update_roland_altsetting(umidi);
-+				}
- 			}
--		}
--		umidi->opened[dir]++;
--		if (umidi->opened[1])
--			snd_usbmidi_input_start(&umidi->list);
--	} else {
--		umidi->opened[dir]--;
--		if (!umidi->opened[1] && !umidi->keep_input_running)
--			snd_usbmidi_input_stop(&umidi->list);
--		if (!umidi->opened[0] && !umidi->opened[1]) {
--			if (umidi->roland_load_ctl) {
--				ctl = umidi->roland_load_ctl;
--				ctl->vd[0].access &=
--					~SNDRV_CTL_ELEM_ACCESS_INACTIVE;
--				snd_ctl_notify(umidi->card,
--				       SNDRV_CTL_EVENT_MASK_INFO, &ctl->id);
-+			umidi->opened[dir]++;
-+			if (umidi->opened[1])
-+				snd_usbmidi_input_start(&umidi->list);
-+		} else {
-+			umidi->opened[dir]--;
-+			if (!umidi->opened[1] && !umidi->keep_input_running)
-+				snd_usbmidi_input_stop(&umidi->list);
-+			if (!umidi->opened[0] && !umidi->opened[1]) {
-+				if (umidi->roland_load_ctl) {
-+					ctl_id = umidi->roland_load_ctl->id;
-+					activate_ctl = true;
-+					active = true;
-+				}
- 			}
- 		}
- 	}
-+	if (activate_ctl)
-+		snd_ctl_activate_id(umidi->card, &ctl_id, active);
- 	return 0;
+-	if ((rtwdev->chip->id == RTW_CHIP_TYPE_8723D &&
+-	     rtwdev->hci.type == RTW_HCI_TYPE_USB) ||
+-	    rtw_is_8723bs(rtwdev))
+-		timeout = msecs_to_jiffies(2500);
++	if (rtwdev->hci.type == RTW_HCI_TYPE_PCIE)
++		timeout = RTW_TX_PROBE_TIMEOUT_SHORT;
++	else
++		timeout = RTW_TX_PROBE_TIMEOUT_LONG;
+ 
+ 	mod_timer(&tx_report->purge_timer, jiffies + timeout);
  }
+diff --git a/drivers/net/wireless/realtek/rtw88/tx.h b/drivers/net/wireless/realtek/rtw88/tx.h
+index d34cdeca16f19..168f48e87853d 100644
+--- a/drivers/net/wireless/realtek/rtw88/tx.h
++++ b/drivers/net/wireless/realtek/rtw88/tx.h
+@@ -7,7 +7,8 @@
  
+ #define RTK_TX_MAX_AGG_NUM_MASK		0x1f
+ 
+-#define RTW_TX_PROBE_TIMEOUT		msecs_to_jiffies(500)
++#define RTW_TX_PROBE_TIMEOUT_SHORT	msecs_to_jiffies(500)
++#define RTW_TX_PROBE_TIMEOUT_LONG	msecs_to_jiffies(2500)
+ 
+ struct rtw_tx_desc {
+ 	__le32 w0;
 -- 
 2.53.0
 
