@@ -1,22 +1,22 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.25
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794033564;
-	b=NoZ/ElfVW1Nt8j1CBAWnLlQe4C48WZgQJO3ZDdftiEEkS/2PRL860n+9UEhfLhIJRC4b
-	 mSid4RqaBbBSOCsitxmzEntKUVKPTtZjBBBxgNx8fQFEnDFaAZrnoOWW6cz1Ao+ehp3ln
-	 p2B1ZAhEMaOcMbHRyBufFKh3b8t75AXHQqlXtTjibRNZAVtyT6bVa96JV05Wb61lFbFKR
-	 ioZIIiMQYPj+wsrVGZ9IaDGVxo/xR+w3fhjSgqBRVKCWlRVHAY0zzyQ/+fkqMfR75aN+R
-	 O/X1fUMDZ5KdLiQmk9F2yyUatlPVCC7Ava6oD+WCZhqepQ8TnMWK3P2aMPElFJLhuBA==
+	t=1794033663;
+	b=X0HC4+lmJEu1CZ00DALbObep/QIN5De1/mSdS40X1ORsZBUz7UwMfROoBH6XABc7e+mX
+	 k+8MEihbiq9loBAsYVJWzHthiSyixGbOnar6mQUqhM7U2q2QCxDCUlWtvePnAp+TQEkwD
+	 aKecToo9L0/UEZaIA9cfi/qa98Z6kWm5biG7wWSdEePWFEanpyAcJ8mgtrlavS7BrrTOp
+	 gkgNQ6dHvE5kpu5CjncpIrQsCFnfn1mw4Xcp7uxILEEPk6yhZoy64w95CClXlfiy9R/Zq
+	 /receienV6YeLRfKVXoQODa0ZA7/HXAnFK4Z62oE/+jXLaM48vDtBhDm5/6Hs9ZNYHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794033564;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
-	 References:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794033663;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:In-Reply-To:References:Date:
+	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=2W57r7YcujbrCZFzHR5EJ6NOsw7Wouekt8Bj3sjTC+k=;
-	b=DJpXSdiQs2FA/r+h0YVH5dUwnMGhw0GZkeOosisdsjGAEJ6d8eu+4yRl3SN9SwdBwjIX
-	 PdIoqawZCzjA3+zdBIrEdKiEkOman2Aiv/oW2wxj0SeutQAGcAoBQ2ns7TO3SL8SkY0VK
-	 N2J4qFyputfF4IhGdBY8UnitWyDnNeC9ssMiOfRUMCYQsGQtlkNACt1SRS4fzqxPtx23u
-	 TK7f0k0sOK6VEOkqG2F1sIOFswZOc1UuM8Vu+UYWI0Sgyi6HoAM8m/LSrA0TjVgddz2dw
-	 m0BQcS2V6QPYyUq4ussJJeAovttsAx1PtT8vvEkYrrkFcy+q0So+EuK5OuQvU+iaF8w==
+	bh=XUSUNbMJ34FAOBuYZeh6t3d5EPTvLm+TMnooa8Q/6iI=;
+	b=l27ehLlhzv1VdpQoti4f9jOflvcjVmrniB/NqEvZ6fNJ+nPLxyWjNDFfPcCuAmZZrv5F
+	 Skk8PuSM6UlI+ip20CuO1tAjCNG/HJ6LVMjVLdV6yUXs4Gos+AohH7Gp55KqklbIdOj3h
+	 oX+UJubN1da1n1AcZzxPuPIFoXHH2BWo7E7ydY3O52WARDqIhnTXsPT89dQptVw03GnvU
+	 6sWem1AB4PTCQR3zxnkAR+f4Q9ZpYIiISLaB8QkLwGlYN7gqtwVmSg2k8AeXZ9KhhXmOy
+	 dUEZ3Lfl9LpppEO6kUYvtpdZNXcCsF7k0peJ4hiZdDOGduc+w1Oqgr+m1R4ILX4HNdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=iscas.ac.cn;
 	spf=pass smtp.mailfrom=iscas.ac.cn;
@@ -25,33 +25,29 @@ Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EC79606A32C;
-	Sat,  7 Nov 2026 06:39:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2EC79606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F2A4606A336;
+	Sat,  7 Nov 2026 06:41:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F2A4606A336
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from [172.100.0.8] (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowACHIbeQx+5qgxiAAA--.354S2;
-	Sat, 07 Nov 2026 14:39:12 +0800 (CST)
+	by APP-05 (Coremail) with SMTP id zQCowAAHV7vxx+5q4huAAA--.416S2;
+	Sat, 07 Nov 2026 14:40:49 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Sinan Kaya <okaya@kernel.org>,
- Vinod Koul <vkoul@kernel.org>,
- Frank Li <Frank.Li@kernel.org>,
- Andy Shevchenko <andy.shevchenko@gmail.com>,
- linux-arm-msm@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
- dmaengine@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- stable@vger.kernel.org,
- vulab@iscas.ac.cn
-Subject: Re: [PATCH v2] dmaengine: qcom_hidma: Fix runtime PM leak in
- hidma_issue_task()
-Date: Sat, 07 Nov 2026 06:15:00 +0000
-Message-ID: <20261107061500.314159-1-vulab@iscas.ac.cn>
-In-Reply-To: <au4I5haNWglFazT3@SMW015318>
-References: <179395457228.2120679.13809646473624751961@iscas.ac.cn>
- <au4I5haNWglFazT3@SMW015318>
+To: Simon Horman <horms@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+ Jian Shen <shenjian15@huawei.com>, Jijie Shao <shaojijie@huawei.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] net: hns3: destroy the page pool if RX buffer allocation fails
+In-Reply-To: <20261106180307.GM865646@horms.kernel.org>
+References: <20261103100533.1310018-1-vulab@iscas.ac.cn>
+ <20261106180307.GM865646@horms.kernel.org>
+Date: Sat, 07 Nov 2026 06:40:59 -0000
+Message-Id: <179403365938.2343286.17861555527343646407@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,34 +57,39 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:zQCowACHIbeQx+5qgxiAAA--.354S2
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAAHV7vxx+5q4huAAA--.416S2
 X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
-	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUYW7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
-	Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v26F4UJV
-	W0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IY64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
-	n2IY04v7MxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr1UJr1l4c8EcI
-	0Ec7CjxVAaw2AFwI0_Jw0_GFyl4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AK
-	xVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrx
-	kI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v2
-	6r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8Jw
-	CI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUr7KsUUUU
-	U
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwIEA2rucYKNrgABsX
+	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUYL7k0a2IF6F4UM7kC6x804xWl1xkIjI8I
+	6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM2
+	8CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0
+	cI8IcVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_Cr1j6rxdM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVW8Jr0_Cr
+	1UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xK
+	xwCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxAqzxv26xkF7I
+	0En4kS14v26r1q6r43MxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_
+	Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwI
+	xGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWx
+	JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcV
+	C2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU81qcUUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAAEA2rucfyZAwAAsY
 
-I am sorry for the late reply. I am a real person, not a bot. The silence
-was because I had fallen behind on my review backlog.
+Hi Simon,
 
-I understand why it may look that way, but I would ask you to hold off on
-marking these patches until I have cleared the backlog. I am going through
-the pending review comments now and will reply to every open thread within
-the next two days. I would be grateful for the chance to show that this
-account is properly maintained.
+Thank you for the review.
 
-Sorry again for the delay.
+You are right about the NULL check: page_pool_destroy() returns
+immediately for a NULL pool. But checking again before posting a v2, I
+found that Jijie already posted a fix for this same leak, four days before
+I sent my patch:
+
+  https://lore.kernel.org/all/20261030095633.377289-3-shaojijie@huawei.com/
+
+So I am withdrawing the patch instead of posting a v2 that duplicates his
+work.
+
+Best regards,
+Wentao Liang
 
