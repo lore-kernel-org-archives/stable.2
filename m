@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049019;
-	b=4cmdnaN26km4x5VfUD70E632EvGfdKXu/znB1gP/VBMWfCQEPFpLISmhzQqAiNUxjTQ+
-	 A+FJ+GOEkPNQSmeP3imUWAPmQHnt5zLHceeVDy0W4ulA0oJ3mp/kS+CVot42NVeFnM1Ai
-	 hUp3CjjWgXxcX8GlgS4SHfgH0jVOU9aqOzB4G0FjwA6SohXW+Z44JCa6lU2L+u8bkH68w
-	 +esmgPpamFCy1KBpQ9AxpoxArfaOvuAcbmBygzi1vYeUL0GncOgChwE/tyZxiQrUn7Y8d
-	 VQ3lUpNPJ+mx5nYAp21jAxK/aLWdCoviyPUF4mP/2Q2IiS3eATQ7QFHA10F8eDcLWxw==
+	t=1794049022;
+	b=i2nu+vWvSkdPvQ/yneD1C6G9PHzngY2f7eTJC0Jz7juOpA53hGIUOr14RxRKFISdb/Mu
+	 CQIs/zQA3C3icdfDc9BYyThpMTmXqTyaUrvxrWGTNKRAfN/6OCFJk4HK90hNG0yw/qddF
+	 gsOFW1bDfFB4XxpWzbO1gyv8ZaeNkyaK0TKLGCdJ4NHhViqr4T2aLBuwq8U9GrNIBvE8P
+	 dBU49/BCEd9VKU0bIX2lv1WYnT+K+mWvk9wa1Qex0ZL5TQIBVmXKmzi3Bp4PCRA2mynvv
+	 bE36nENG+Hp7rK/LHI9bY20NUe3YfLywYvUkAaRFg0APgziuFY7rwlVrJCwDozAFyww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049019;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049022;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=0joekEClLzdpbVYW2DkDXFQp3Xb24A2IVHBskbqEOIk=;
-	b=H7/fujHuWbSb6vl4ISw6W/BMrFvNoMljfh7VRlk/G00rDiL7yc2m7THfmy5adlD1kesQ
-	 TQzEQftJ0LcR2vKtngnP9RaXOWCV/YVC/bM/Zit1wYJN/WBJJuKazv0UW28ycDMt+E2RN
-	 zbCP0+IFFsguW2HLMsA6DHw0+blSEonHw+FPAdCAAW+WJP9GgwxcujtI9AI3nJMNl2WsH
-	 kMkkpP8o1i2s9w50hYNUXXftXiwmhfWoF2IHcWbNb0UKzBk9GLP0916YAS6i+eYdeSnfC
-	 bCYK556FhzhTuukvmQcIu7H+vk2j7nLXkM6seKws/rN2tkq/7MziJMal9t7hVL+a9Kg==
+	bh=+hAfuQgEUQ7gi87jfgPUvwoTOPYnvwCUPbzdfu1pCsg=;
+	b=pRSnDN4JJUQtybYV9G6ybKe1GZxFca087IAhwJvlOjOAntQ1ugOgqo1vO2NBZSHyA74l
+	 l+J+d0x8NsARjLzSYfYXJkKNLOfyhdpii7xrGWeCaxe/xa5E9cGXpCwIx6Bc4CurJJUs0
+	 ExUMC4PJKcLwe48YC0OBPxE6fuS71GgosJU3AttdQ363BMd/y8IjZ3HnyMU+0kd6DKpy3
+	 7U9B5bBEiGKtv17sKgex+K0cJ+Tx4au7jjPj7Q1QGSbl0HGrHdeFAw+yYO5oxlurQvdDC
+	 UZbWabLrmhFsWehjIhdWspbzDdAQeji4Cx7UCUROp0q7a2kWz68CGFG22M7bqSPK8yg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZcUy7Wy8;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mjBdOphI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CA7D606A33E
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:56:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AFA0606A32E
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:57:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZcUy7Wy8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF28A1F008A3;
-	Sat,  7 Nov 2026 10:56:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mjBdOphI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9632A1F0089F;
+	Sat,  7 Nov 2026 10:57:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049019;
-	bh=0joekEClLzdpbVYW2DkDXFQp3Xb24A2IVHBskbqEOIk=;
+	s=k20260515; t=1794049022;
+	bh=+hAfuQgEUQ7gi87jfgPUvwoTOPYnvwCUPbzdfu1pCsg=;
 	h=From:To:Cc:Subject:Date;
-	b=ZcUy7Wy8m+rbtl4zClA0zQ7tarRhpEArXWxaR1xBI3+n9jlkyTqSkzvI8EnmmBw7X
-	 UU+iavewO5f06x3ZhDIir6oLHOcWpRoDWBT/85Mit1DFR29PtBzBDXaFhlYMPoBZ2K
-	 qXqS81zbK5BqdXmO8DdKQqJTmQ9ewsTDHSatDk5q96rpSCi729kdXq21oke0ljQZcE
-	 ogxFy3UWdgKGXg0ErDt/sP3Dsmxg/SVrk+5Wq+8jAMV0eAKBHwL36XgW6yerSaoB0Y
-	 cwO0FEvOX7UpRdyfOsTP/mhSP/RaatKxg114Ocn2Fs6qp+7WoTjkWU4cRctkmQpQUu
-	 KkWw//s8BRFrQ==
+	b=mjBdOphI1WaIOliDIIvguKGPEECfCpO4D1uNwrL2zij1r9Zqj4HiFSqX/ZGJ5c3ZK
+	 E6DGn9q1oTKfeCEUKJnZ6/JJtjNF0/5xvkcypnrSpo7EXI07gedyeyYeIg820/Ec/G
+	 LF8R02Xv4hnTh/iHUjXXZFqWr8Q4Xk/pASwJiwZcslMfrCdInUVoo0cIWgB80JdwcM
+	 /apdlCrulqyR9FTRjP3FljwFxKW1g8VeziED7DIW+aLyzUriNReVBumH2wq1zsPSaa
+	 /8+g1q5hpz1uxFvHWnvgTn/bnISsPXobFMHez9UV0v6GLpbns2ZquhOqyp12NDV/XF
+	 eUCAMP3P2stuw==
 From: Sasha Levin <sashal@kernel.org>
-To: 4ncienth@gmail.com,
-	brauner@kernel.org
+To: yubiao.wang@amd.com,
+	christian.koenig@amd.com,
+	alexander.deucher@amd.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] splice: avoid stale f_pos writeback on error" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:56:57 -0500
-Message-ID: <20261107055657-failed-6.1-79b496ebe382@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/amdgpu: recompute the dw estimate after allocating a new VM update job" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 05:57:00 -0500
+Message-ID: <20261107055700-failed-5.15-a74c7832b118@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -59,87 +60,73 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 79b496ebe382866e3a05090b7dc9ae95e85e65b2
+git cherry-pick -x a74c7832b11827907de560169c7d4ac94505fd87
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055657-failed-6.1-79b496ebe382@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055700-failed-5.15-a74c7832b118@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 79b496ebe382866e3a05090b7dc9ae95e85e65b2 Mon Sep 17 00:00:00 2001
-From: Daehyeon Ko <4ncienth@gmail.com>
-Date: Sun, 18 Oct 2026 14:17:08 +0900
-Subject: [PATCH] splice: avoid stale f_pos writeback on error
+From a74c7832b11827907de560169c7d4ac94505fd87 Mon Sep 17 00:00:00 2001
+From: YuBiao Wang <YuBiao.Wang@amd.com>
+Date: Wed, 29 Jul 2026 17:53:57 +0800
+Subject: [PATCH] drm/amdgpu: recompute the dw estimate after allocating a new
+ VM update job
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-do_splice() snapshots an implicit file position before calling the splice
-helper. Since splice does not take f_pos_lock, another operation on the
-same open file description can update f_pos while the helper is blocked.
-If the helper then fails, the unconditional writeback restores the stale
-snapshot.
+amdgpu_vm_sdma_update() keeps the number of free dwords of the current
+job in a local variable. When the job runs out of room it is committed
+and a new one is allocated, but that local variable is not refreshed and
+still describes the job which was just submitted.
 
-For a directory without ->splice_read, a file-to-pipe splice fails with
--EINVAL. A concurrent directory mutation and getdents() call can advance
-f_pos and refresh the filesystem's revalidation cookie before that failure
-restores only the old position. The next ext2 readdir can then trust an
-offset inside a directory entry and copy data from the adjacent page to
-userspace.
+The stale value is then used to decide how many PTEs fit into the new
+job. If it happens to be copy_pte_num_dw + 7, or one more than that, the
+result is zero. copy_pte() encodes the transfer size as count * 8 - 1,
+so a count of zero asks the engine for a 1GB copy starting inside the IB
+pool. That runs off the end of the pool, faults on the first unmapped
+GART page above it and hangs the ring.
 
-Only update an implicit file position when splice returns a non-negative
-result, matching read and write. Keep explicit offset updates unchanged.
+Re-initialize the estimate from the newly allocated job, which is empty
+and therefore has its full budget available.
 
-Fixes: 7995bd287134 ("splice: don't pass the address of ->f_pos to methods")
 Cc: stable@vger.kernel.org
-Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
-Link: https://patch.msgid.link/20261018051708.2422394-1-4ncienth@gmail.com
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Signed-off-by: YuBiao Wang <YuBiao.Wang@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- fs/splice.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/fs/splice.c b/fs/splice.c
-index bc243ab8dc431..f4bce35890671 100644
---- a/fs/splice.c
-+++ b/fs/splice.c
-@@ -1377,10 +1377,10 @@ ssize_t do_splice(struct file *in, loff_t *off_in, struct file *out,
- 		ret = do_splice_from(ipipe, out, &offset, len, flags);
- 		file_end_write(out);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+index 50cc0779c340e..eb8cf0d9d9c59 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+@@ -254,6 +254,11 @@ static int amdgpu_vm_sdma_update(struct amdgpu_vm_update_params *p,
+ 						     AMDGPU_KERNEL_JOB_ID_VM_UPDATE);
+ 			if (r)
+ 				return r;
++
++			/* The estimate above describes the job which was just
++			 * submitted, take the budget of the newly allocated one.
++			 */
++			ndw = p->num_dw_left;
+ 		}
  
--		if (!off_out)
--			out->f_pos = offset;
--		else
-+		if (off_out)
- 			*off_out = offset;
-+		else if (ret >= 0)
-+			out->f_pos = offset;
- 	} else if (opipe) {
- 		if (off_out)
- 			return -ESPIPE;
-@@ -1401,10 +1401,10 @@ ssize_t do_splice(struct file *in, loff_t *off_in, struct file *out,
- 
- 		ret = splice_file_to_pipe(in, opipe, &offset, len, flags);
- 
--		if (!off_in)
--			in->f_pos = offset;
--		else
-+		if (off_in)
- 			*off_in = offset;
-+		else if (ret >= 0)
-+			in->f_pos = offset;
- 	} else {
- 		ret = -EINVAL;
- 	}
+ 		if (!p->pages_addr) {
 -- 
 2.53.0
 
