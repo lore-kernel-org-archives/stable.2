@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794051052;
-	b=hB5+cJkb/nmaazQ/o1tDEXdP4wbrkVzm0jnnnE3j6RLIcqmio48KqaajbKOI689vPF8/
-	 t4KKsY8y8cWaqwYXP6NjkQgbRatN09WraKUQg6Liv8WEM2k1Uy3fmdPKumf7LU4xKQE6j
-	 oAdMgs/5DLgQRoYaGbE0ezIowOHuDMDp3xHIeoCoeS+LJzfUIH+9lp9pWl0aiey9FKme7
-	 4RxnQhzJkMDvAdlaJOcOT3B89mZLlcmdeQuZia6y9JQSLQ8R2bFj5feToSOSbakifjSFv
-	 bBM8B7yCJYpVUN6xotfJJ+1L8KEgNz6ZMkl1teZViP5xLvDbzub0cmcuVqMG89hMOrw==
+	t=1794051055;
+	b=vC5ikpwYGz9mQ97XoKtS7Niw0HZ/ASEkfJ3G8A1+4tVHmTc0HAIT7v6jS1TOtLSw/63F
+	 iX2ITVx1MVi5QfSHTA8ngzmVQUAz+Q2T7bxA8wTvIM/5xZwZJAV7QIE1PJgBJw3WkU+M/
+	 w+yVVqlMXgyjyNXjZH7/FZkskcq3hNK9CrdUwov/9Mt24wkD+T8oUPlDxwYWIp2ZcqBAu
+	 Rzec1ZZpKZsOxlIoZJCESUWXE2EKaWV/yPSW+eHDIJ4FDaAhwD9EYaEkZcOnJ5LQiIIVy
+	 Meq7piuqX/Caw7INzPSPLvgb+hDn6dB4QoKq7n5q2wZTRxHbXGAwhhOS8Od/OTbeO2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794051052;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794051055;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=yVJ40/RbYYtYL7LS8dBCIU2yOJib21ixK7zoQt03ZB4=;
-	b=IbTmNHPCq/CCh1MTaPgsSyxCaedxJvkewbnJDW1STPpByBrpBC0HGuM7g1S+TXy029QQ
-	 EWsai9f9wDcpjbsb8j4KYQ4uZGzlMcf6XIbQXaRw3G+M6razvWnBMX8V6pCoLUCZtCYLN
-	 bDNqw9Tr4cGSiJui3Xa3aqaQgqIjsPP8QKU7f2jFRb0cy1OOVGqHeIjacAneoy2I7HEQU
-	 A+XtPEyrOp1z5fAY/Tk+yqRKhSt92KZRiXl4HEZn0juhbOIBj+rm04pLEA17f1SU0k7ha
-	 Watf1Z8a+asKtWV+qXOtLf69rHivQE+O9GV0601O/hzizMoxvqqILBuSpTcRKXARNkg==
+	bh=IXlT+j6b4yQRq7eY4IToA7eMBpJl2gp0TxX4MJ5oLls=;
+	b=cNC7tBBAqqRMXItRBB4liM3hUuBjnkvtV60Ea58htszOxlB4yJSXIvj5EpzT5J/jMXAH
+	 IAqfqOyCniAegdQxzVOmKjSdzH5G6ODgsc/NOmmx3ntfPzdFNr4D2MXs1yLD8a75ivaV4
+	 wI1pIIu8Z5BV9lhCzpWNi66CFzatD7+7cF5ur8ZKfqbb5ZCUXTtQJtAYSX2ZjAK+aHKXn
+	 /xqkoGpIiY1SihbQGCJCIY4cEZFkeJxgqVEGa9SAYweHUqKQNaAjpX2ajHBO36ZehPf79
+	 NSH2fXZ9rvZiqGR2/RrA7os1LXiAvn7QInyxyF24ANksRjTTCXUHtMsowAzqhe3MWmA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mNsIcxv0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JKcjlTiU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21952606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:30:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13231606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:30:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mNsIcxv0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B14D1F0089F;
-	Sat,  7 Nov 2026 11:30:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JKcjlTiU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81C6F1F0089F;
+	Sat,  7 Nov 2026 11:30:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794051052;
-	bh=yVJ40/RbYYtYL7LS8dBCIU2yOJib21ixK7zoQt03ZB4=;
+	s=k20260515; t=1794051054;
+	bh=IXlT+j6b4yQRq7eY4IToA7eMBpJl2gp0TxX4MJ5oLls=;
 	h=From:To:Cc:Subject:Date;
-	b=mNsIcxv0nZlK7UnWA2Ku9Z20XV2uGqGL1V48wM9WF2K+EE2epZYpPVCQpI1xjpxxa
-	 tVyA9qFveuRwQQifOpC4oNAvxSVu11w2Q71+OTFHRFKbHEtKgKE/5fo7/b/Irh+AiM
-	 atzKu3qPGl79tT0bd9kF+Mk8AzkOx2gWeMzJePRK7ICcWPhkpPEPooX6LdZ5PCxAyG
-	 fsCs9/YIyMmHyvWvYH/x6LIJc4p3dmM6M4z3ABuuBRx1Qw8OKvGdSANRiIPIdi/8QO
-	 RjDKCK6eZtgPaDxpkWKioiVS0/TNrSfebVrv4Hbvy6ALivprYwGpxDYm0HG5GQy6UU
-	 psi6rQwJ5lFGg==
+	b=JKcjlTiU4LRJelpaodsFEEH8ZqtTI2dv7R7xmfTlZ/NLfwBnwyWrbE1fmH7d+tiiy
+	 ujama/PEeQOHPEVS9pWR+oFE1hArT6dkD2Tn1Zl8ZoVVd9z1mIEIt//kBzcN3T8l4Z
+	 m/oJ+I2OViCC99QW3otMSqV06vMDtnxT8C91CgyH8aYNb+xZzrmCyJZNsEOPahHywO
+	 ha/fRZ//GazdxiNfMvk7Uqb+bfP8oY4Lxib8ETuju70QTOyLFkykZjrtqWqMlr1NWz
+	 s3iuP50IY4GXESEUbO17hDo04uWN2ZCwARK05g7W1C4JaZM6gDCnGB0JmMlsbLKCNc
+	 htekI0540/HNQ==
 From: Sasha Levin <sashal@kernel.org>
-To: john.johansen@canonical.com,
-	georgia.garcia@canonical.com
+To: georgia.garcia@canonical.com,
+	john.johansen@canonical.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] apparmor: fix refcount leak in aa_get_newest_profile()" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:30:50 -0500
-Message-ID: <20261107063050-failed-5.10-33ed50716251@kernel.org>
+Subject: FAILED: patch "[PATCH] apparmor: fix profile leak when a policy load fails" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:30:53 -0500
+Message-ID: <20261107063053-failed-5.10-ce94927fa417@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,72 +68,116 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 33ed50716251d5b2875706c40d0c8082d46be0b1
+git cherry-pick -x ce94927fa4173fcc1eca27bdc65a140064c8f1e6
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107063050-failed-5.10-33ed50716251@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107063053-failed-5.10-ce94927fa417@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 33ed50716251d5b2875706c40d0c8082d46be0b1 Mon Sep 17 00:00:00 2001
-From: John Johansen <john.johansen@canonical.com>
-Date: Tue, 20 Oct 2026 16:00:30 -0700
-Subject: [PATCH] apparmor: fix refcount leak in aa_get_newest_profile()
+From ce94927fa4173fcc1eca27bdc65a140064c8f1e6 Mon Sep 17 00:00:00 2001
+From: Georgia Garcia <georgia.garcia@canonical.com>
+Date: Wed, 14 Oct 2026 19:08:21 -0300
+Subject: [PATCH] apparmor: fix profile leak when a policy load fails
 
-The labels_profile() macro is evaluating its argument twice
+The error paths of aa_replace_profiles() and aa_unpack() do not break
+the refcount cycle between label and proxy. They just aa_put_profile()
+the new profiles, which drops the label refcount from 2 to 1, and the
+proxy keeps the profile alive. Every failed atomic policy load
+(e.g. "profile can not be replaced", or a later profile in the blob
+failing to unpack) leaks every new profile in the set, along with its
+proxy, rules and its loaddata reference.
 
-  #define labels_profile(X) ((X)->vec[(X)->size - 1])
+The leak is usually not visible from userspace, because the raw_data
+directory for a failed load is not created, but it becomes visible
+when the blob is deduplicated onto an existing loaddata, which then
+keeps its policy/raw_data/<rev> directory forever.
 
-unfortunately aa_get_newest_profile() passes
-   aa_get_newest_label(&p->label)
-so every call to aa_get_newest_profile results in 2 refcounts
-being taken with one being leaked.
-
-There is no need for labels_profile() to be a macro. Convert it to
-an inline fn, which ensures all uses are passing the correct struct
-and removes the double evaluation.
+Add aa_put_unpublished_profile(), which drops the profile's own proxy
+before putting the profile, and use it on those error paths. The
+proxy of an unpacked profile is always freshly allocated and not
+referenced by anything else before the profile is published, so
+putting it is safe.
 
 Fixes: 637f688dc3dc ("apparmor: switch from profiles to using labels on contexts")
 Cc: stable@vger.kernel.org
-Reported-by: Georgia Garcia <georgia.garcia@canonical.com>
+Signed-off-by: Georgia Garcia <georgia.garcia@canonical.com>
 Signed-off-by: John Johansen <john.johansen@canonical.com>
 ---
- security/apparmor/include/label.h | 6 +++++-
- security/apparmor/label.c         | 1 -
- 2 files changed, 5 insertions(+), 2 deletions(-)
+ security/apparmor/include/policy.h | 20 ++++++++++++++++++++
+ security/apparmor/policy.c         |  3 +++
+ security/apparmor/policy_unpack.c  |  4 +++-
+ 3 files changed, 26 insertions(+), 1 deletion(-)
 
-diff --git a/security/apparmor/include/label.h b/security/apparmor/include/label.h
-index 2c869b7dec973..61794b9cd6be6 100644
---- a/security/apparmor/include/label.h
-+++ b/security/apparmor/include/label.h
-@@ -162,7 +162,11 @@ do {							\
- #define labels_ns(X) (vec_ns(&((X)->vec[0]), (X)->size))
- #define labels_set(X) (&labels_ns(X)->labels)
- #define labels_view(X) labels_ns(X)
--#define labels_profile(X) ((X)->vec[(X)->size - 1])
-+
-+static inline struct aa_profile *labels_profile(const struct aa_label *label)
+diff --git a/security/apparmor/include/policy.h b/security/apparmor/include/policy.h
+index 0dcbf8cf1029a..bb851654cb80f 100644
+--- a/security/apparmor/include/policy.h
++++ b/security/apparmor/include/policy.h
+@@ -436,6 +436,26 @@ static inline void aa_put_profile(struct aa_profile *p)
+ 		kref_put(&p->label.count.count, aa_label_kref);
+ }
+ 
++/**
++ * aa_put_unpublished_profile - put a profile that was never made visible
++ * @p: profile  (MAYBE NULL)
++ *
++ * A newly allocated profile and its proxy reference each other
++ * (proxy->label holds a label refcount). That cycle is normally broken
++ * when the profile is replaced or removed, which redirects the proxy.
++ * A profile that is discarded before being added to the policy tree
++ * never goes through either path, so break the cycle here, otherwise
++ * the profile, its proxy and its rawdata are leaked.
++ */
++static inline void aa_put_unpublished_profile(struct aa_profile *p)
 +{
-+	return label->vec[label->size - 1];
++	if (p && p->label.proxy) {
++		aa_put_proxy(p->label.proxy);
++		p->label.proxy = NULL;
++	}
++	aa_put_profile(p);
 +}
- 
- 
- int aa_label_next_confined(const struct aa_label *l, int i);
-diff --git a/security/apparmor/label.c b/security/apparmor/label.c
-index 82742a4710552..42ed476fe89d9 100644
---- a/security/apparmor/label.c
-+++ b/security/apparmor/label.c
-@@ -387,7 +387,6 @@ void aa_label_kref(struct kref *kref)
- 		label_free_switch(label);
- 		return;
++
+ static inline int AUDIT_MODE(const struct aa_profile *profile)
+ {
+ 	if (aa_g_audit != AUDIT_NORMAL)
+diff --git a/security/apparmor/policy.c b/security/apparmor/policy.c
+index bfe969b869577..63f7821b4dfff 100644
+--- a/security/apparmor/policy.c
++++ b/security/apparmor/policy.c
+@@ -1462,6 +1462,9 @@ ssize_t aa_replace_profiles(struct aa_ns *policy_ns, struct aa_label *label,
  	}
--	/* TODO: update labels_profile macro so it works here */
- 	AA_BUG(label_isprofile(label) &&
- 	       on_list_rcu(&label->vec[0]->base.profiles));
- 	AA_BUG(label_isprofile(label) &&
+ 	list_for_each_entry_safe(ent, tmp, &lh, list) {
+ 		list_del_init(&ent->list);
++		/* new was never added to the policy tree */
++		aa_put_unpublished_profile(ent->new);
++		ent->new = NULL;
+ 		aa_load_ent_free(ent);
+ 	}
+ 
+diff --git a/security/apparmor/policy_unpack.c b/security/apparmor/policy_unpack.c
+index 7ebffb4ff74fa..35dfa3b451f39 100644
+--- a/security/apparmor/policy_unpack.c
++++ b/security/apparmor/policy_unpack.c
+@@ -1822,13 +1822,15 @@ int aa_unpack(struct aa_loaddata *udata, struct list_head *lh,
+ 
+ fail_profile:
+ 	kfree(ns_name);
+-	aa_put_profile(profile);
++	aa_put_unpublished_profile(profile);
+ 
+ fail:
+ 	if (compressed_data)
+ 		kvfree(compressed_data);
+ 	list_for_each_entry_safe(ent, tmp, lh, list) {
+ 		list_del_init(&ent->list);
++		aa_put_unpublished_profile(ent->new);
++		ent->new = NULL;
+ 		aa_load_ent_free(ent);
+ 	}
+ 
 -- 
 2.53.0
 
