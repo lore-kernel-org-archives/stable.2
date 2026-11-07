@@ -1,63 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794062618;
-	b=5fGUMCL1ij6bTsDIKLrc614IFm0UTVAI8IrTTgXQDsU9P+V5GA17Fdn86L/wrRezXocX
-	 dZgz1HC4tCWrZ92nkFDxfSsx4Vx9OLiM1FYDeOAg5BD+rjHZzChED9+NcsYqBz9epE8rW
-	 zAX3o+T4fUCfsYB7rgO/kBvp7HxhU0pOUeMBYc5dOmOeRijB8RSYa/FFuIcOBYx3d9jDn
-	 YERAw4ZZ5cIqnkME0fkfjguwSDbHk186ax70BOCUS1IsoNu7ZQccAtkdAkylbqsuHjckc
-	 erH/EWeFrc3ocs4K6tDLsTZ6SuIqnjkFeEKPaZ47i0rQIru25N9cgcGV2tM3WDSlskw==
+	t=1794062619;
+	b=0At6GeO10vdNmJV7i0WyQP4x6OEdKa5Vv0+AWtT+AJHm3fu4Y/MKf0gmsrgrDMXGleOQ
+	 +gdgknJWlu8nE8EfyJyls6DLqSdhmAwtl4Mhrd82TYoAMvjRXdPIeuSwOAhrZKa9IOKXH
+	 GCegwyJyDeM7Jb6F6pzuKKF1rdV1VzDGQXSAsfOz76wcGo8r4CjRu3xTnEYzbqtnq3FNQ
+	 XbY/igH0qIYIhkJodDEEUGkZuFD3YfbrHazOWdxV9LLbQw8RvVNWaxhrFZEax5KrbgAkD
+	 ngAhc40UQpe72epDgtQiRhwHBnKHc6vPV2PdP2KNfg3r9E5yQ/uQGUe2QM1p6L5ffgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794062618;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=DOy7LOGG7tbsNQO68R7nKkCVnfEcHulIWE7+FeuHHpo=;
-	b=jeVq9tpbc0+pSGoFuhjXyTemXDGu2b7yEeIlO0c40GxpZPn/SrzJvAPB6HEpRC3THzCK
-	 d1OmiY3uGybL21gEemtzDa9KMDOg2e/Pj7sYhjxU7/9ay7TRxSnjrhEZLYFvuosspHzZj
-	 ln2y9LBtLQ1tqOyudIMY/9JVt3Mv2CW/ns0MHlsX+ugCDu3CkeXIyqPcrFC0sNpPEtJ8Z
-	 QWNOVvEhdv63UXcd95ZuuOOXhpnA67tNd3dpQ3uqQ2IaE0uYUoeq/kBp/53OYMn8ZyhOh
-	 5/azZ1pqTfZwXvR2yg2K7ZhLGEe4F/B2SXQVocuTYVB2+yirJwqXncqnTOD3UHz5JBg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794062619;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=mqEUC7diGM+qqninO58NMR1zIUrnj+6a+3GnM1rrPlo=;
+	b=QLwJII5gUPMIhXuNnWKOSNUWASANJ7ZXllZtl8IahVGMYsN8SSDxeBPaAZrk9COKPA/I
+	 ILs9RQhecb1AfQfTM6bUPjVH37WBgrwkgb5Oco2qCtlefLbUIcLxLazTon6N0NBHmMBcT
+	 km1IpsKBd7g1BIREHnNiywkgAgVfVanuVlMyDgM3gN0KVzCTH4/0JMhbeMBQRAbKovyMy
+	 bfzxS/Brc3y34H1Io1rcvdKukgqZmHLaA/BBLf91CUemhvD92iHzXs6QuGS/+v2MvxR65
+	 k+N277N4ExdHH2YYac9BjmM+AUifv3lI87NuznF0Ia9LXQiy7lhnNkzfrVPISNdHxmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=DPxkXVYt;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=s0EL27In;
+	arc=none smtp.remote-ip=209.85.218.50
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 709B0606A333;
-	Sat,  7 Nov 2026 14:43:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 502E6606A657
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 14:43:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 502E6606A657
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=DPxkXVYt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 201411F0089F;
-	Sat,  7 Nov 2026 14:43:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794062618;
-	bh=DOy7LOGG7tbsNQO68R7nKkCVnfEcHulIWE7+FeuHHpo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DPxkXVYteEbRNv8uNFu98YdHvay3ULwlzG05dKXKF4Zyr+OyWQx68I8XzLgKtXvGO
-	 SdoHfQCxRjSjNCX4N7TFClUTh6NYCc3fK1GrT4IwKmAnbf3YgZI5+glUZ+bZS1FJEb
-	 vRFPyLiXKyWxS2JgAPElrJkBkLTcLaFDoO8sPvAY=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=s0EL27In
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c4d2b741ed9so235698366b.2
+        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 06:43:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794062618; x=1794667418; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mqEUC7diGM+qqninO58NMR1zIUrnj+6a+3GnM1rrPlo=;
+        b=s0EL27In5Zf6NmrrLMezWZ2pmIXHpFh4lY5l7SxUqY2F4GxrcGQgbLqtmG13Ir8Aih
+         GnDZ8lET22ERcMNrY0EPomsYhBXlNjKSEpABiHfJs6EWYcTl6eCutVkWNsLbyDAurl1t
+         Xnatgw9oyEx5Me2RJu0VO86lzCe4qgTi87rjG0fQrzSp0A7X2FzdDE60IhqGoXT1gCV2
+         Y5cOBTb2nzMtAq+vRfh5DspxGJDw28/IsJecRgQFTXKm0am7pUzX+NVec/wVro2TTR7x
+         JQHA1TPTLqWDnExZ1MHnMIGRVgc/QdGBqNvbqXvzO739eXOGx5l+tOEp0BoGwwJ0i05D
+         fXHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794062618; x=1794667418;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mqEUC7diGM+qqninO58NMR1zIUrnj+6a+3GnM1rrPlo=;
+        b=Bpc4/J2JkXh+0n40SBuVYsqQ1oCGPNOHYMy+g/9OtxxV7JY2s1gKMOrsiLpXWqPzLi
+         T3axLX11br2sZFDRz2VviL7AsyIygO14Cbvuq9e56gr/P3fYDwTXgcyH93Mm6Lljvgz2
+         HluIMQu75w/tI65QDTxIiuo8UQ++Ts12+R12v80yKZ97EPvEPO/V/qzD9qlXm3zs2IfM
+         qxTVQ18kvUis/Ox7S+HuA7OsNeeYjIEaCENevg7sG08xS43X4/I4LA/PCwyz2+OSHruo
+         0hEipGLF1sUP1ekWcXUiO+MFW8Ck+LOcT0G2iYUtXfgOKs21UOl4iNYl2KYK9AJvRJNN
+         dvvg==
+X-Gm-Message-State: APuU4Z9d2ZR8p79Edu9bPy/UYVsbXnltVEKXVnyDSHWZKUAzejmktwgf
+	D7EKQA/5JjVouxWOio1OfuXRFxKn12gSO78xNGWOmd7gdkwehwjqUGEKiV7NUDro
+X-Gm-Gg: AYBFou3Wwleoy9kZ/3tLU+fI4wgVCFIY3Tf7Ohg+lguj4PgZrrPIKOWDMN/VZSY4/eh
+	hSWmKYi5F21hK214zw6JrjVAD9m8p0KMLbI/0X9kRV66f0YwR7Ql36c1FfOts287B3UIfyPq1dY
+	aWZVw1lfsxE2aI2w+sKKnQ9ZGFxXzZDymx+slfPKZlYdSz3njfwYxyfjmYHvFAH3Tw2VanWaKxH
+	7bALSC1iemaWIreozWqdLLIGIZTqo/1ilWd07sEnbfpijLFwu7RF2W1KWalYZSjvCBOs4ATX2Ay
+	L8yfn+ZIAUxOyolmmlTy3iVtUNCT2g4W8Utu4He4R53KeWxcEiuoQHTYbJi8LFZhb30gUg+cJnL
+	bH+USx6PHCHRaZ82MkoDZmMJBUS/XSMUudUBGyhAWL+fP6UbODDgwrPGv7GLR88SQDO9tqTFotv
+	flztuFv7QCwP/+tJppYZhtNCziFJmzioskzTl5/Y8av3f/I6G1ngcaLDxoFV/f3xf7j/ZtGKN7B
+	q8QSXxNwdfw7G8u+UZdEfCeVkfZcwoEpXjrkmw19lkWqjXsVimvKE5NAqt59pwjjv9vXJl4rSNA
+	HkyWApLJG/u9fVGQEKySr/yXDHNR6BUGHTKlHSXgg4aEDMdtbHUA92uYK4dzKLaIvFq7583wP4j
+	OVOxu7Yy78Sw=
+X-Received: by 2002:a17:907:ea89:b0:c4c:bff4:200c with SMTP id a640c23a62f3a-c4d3531f031mr432913966b.32.1794062617480;
+        Sat, 07 Nov 2026 06:43:37 -0800 (PST)
+Received: from kali (83.11.29.10.ipv4.supernova.orange.pl. [83.11.29.10])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d3569edc9sm156775466b.50.2026.11.07.06.43.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 07 Nov 2026 06:43:37 -0800 (PST)
+From: Kamil Sawicki <user148783812897@gmail.com>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Nickolai Zeldovich <nickolai@csail.mit.edu>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Pedro Falcato <pfalcato@suse.de>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Jann Horn <jannh@google.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 1441/1536] mm/mlock: use a long for the page count in mlock_fixup()
-Date: Sat,  7 Nov 2026 08:57:37 -0500
-Message-ID: <20261107135038.311182840@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261107134957.653319350@linuxfoundation.org>
-References: <20261107134957.653319350@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Cc: willemb@google.com,
+	kuniyu@google.com,
+	edumazet@kernel.org,
+	kuba@kernel.org
+Subject: [PATCH 5.15.y] net: limit priority VLAN untag depth
+Date: Sat,  7 Nov 2026 09:42:53 -0500
+Message-ID: <20261107144253.243256-1-user148783812897@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261107061309-failed-5.15-d3ff07f5acc5a@kernel.org>
+References: <20261107061309-failed-5.15-d3ff07f5acc5a@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,92 +101,83 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+[ Upstream commit d3ff07f5acc573e5f72bf1c581bae5d05191ba61 ]
 
-------------------
+The priority VLAN receive path can repeatedly remove VID 0 tags and retry
+packet processing. Unlike the read-only VLAN protocol parser, this path has
+no limit on the number of nested tags it consumes.
 
-From: Nickolai Zeldovich <nickolai@csail.mit.edu>
+Each skb_vlan_untag() advances skb->data and resets header offsets. The
+offsets are stored in 16-bit fields. With enough nested tags, the network
+or transport offset can wrap. A later protocol handler can then derive a
+large pull length from the wrapped offsets and access memory outside the
+skb allocation.
 
-[ Upstream commit 3ae91e3079b1504ef162b2884454d5f1421f4eb9 ]
+Apply the existing VLAN_MAX_DEPTH limit to the exceptional VID 0 retry.
+Count the tag already stored in skb VLAN metadata as the first level, then
+stop before untagging a ninth level. Keep the accounting inside this
+uncommon branch so the regular VLAN receive path is unaffected.
 
-mlock_fixup() adjusts mm->locked_vm, an unsigned long, by the number of
-pages whose VM_LOCKED state it changes, but computes that number in an
-int:
+A single VID 0 priority tag before a real VLAN tag is valid. No normal
+deployment was found that intentionally emits multiple consecutive VID 0
+tags; permitting eight levels is therefore conservative.
 
-	int nr_pages;
-	...
-	nr_pages = (end - start) >> PAGE_SHIFT;
-	...
-	mm->locked_vm += nr_pages;
+The issue was found while researching the Linux network receive path for
+Google kvmCTF, with OpenAI Codex (gpt-5.6-sol) assisting the analysis. The
+affected path, reproducer and fix were manually reviewed and tested.
 
-When a single VMA range of 2^31 pages (8 TiB with 4 KiB pages) or more
-is locked or unlocked, the count is truncated to 32 bits and then
-sign-extended, so locked_vm is changed by the wrong amount, while
-munmap(), mremap() and the other paths that maintain locked_vm use the
-full unsigned long page count.
+Fixes: 36b2f61a42c2 ("net: handle 802.1P vlan 0 packets properly")
+Cc: stable@vger.kernel.org
+Reviewed-by: Willem de Bruijn <willemb@google.com>
+Signed-off-by: Kamil Sawicki <user148783812897@gmail.com>
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+Reviewed-by: Eric Dumazet <edumazet@kernel.org>
+Link: https://patch.msgid.link/20261024004835.17862-1-user148783812897@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 
-Such a range is reachable on 64-bit architectures with a 47-bit or
-larger user address space (x86_64, arm64 with 48-bit VA, riscv64 Sv48)
-by a task with CAP_IPC_LOCK or a raised RLIMIT_MEMLOCK, which do_mlock()
-checks against the full untruncated length.  It costs nothing with
-MAP_NORESERVE and MLOCK_ONFAULT/MCL_ONFAULT, since then no page is
-populated.  On x86_64, after
-
-	p = mmap(NULL, 8UL << 40, PROT_READ | PROT_WRITE,
-		 MAP_PRIVATE | MAP_ANONYMOUS | MAP_NORESERVE, -1, 0);
-	mlock2(p, 8UL << 40, MLOCK_ONFAULT);
-
-VmLck in /proc/self/status reads 18446744065119617024 kB instead of
-8589934592 kB; munmap() of the region then subtracts the true size and
-leaves VmLck at 18446744056529682432 kB instead of 0.  With 16 TiB,
-locked_vm is not changed at all, VmLck stays 0 kB, and after the task
-drops CAP_IPC_LOCK or lowers RLIMIT_MEMLOCK, mlock(), mmap(MAP_LOCKED)
-and the other mlock_future_ok() and account_locked_vm() users enforce
-RLIMIT_MEMLOCK against that count, so they let the task lock memory
-beyond its limit (or, in the 8 TiB case, refuse every further lock).
-The error persists for the life of the mm; unlocking the range in pieces
-skews it further.  The wrong count is per-mm accounting only: it does
-not change which pages are locked.
-
-The int has been there since before git history (the variable was named
-"pages" until it was renamed in 2.6.28); every other updater of
-locked_vm uses an unsigned long or long count.  Make nr_pages a long,
-which holds the page count of any user range and its negation, so the
-existing sign handling is unchanged.
-
-Found by formal verification of mm/mlock.c against the kernel binary.
-
-Link: https://lore.kernel.org/20261014131358.780240-1-nickolai@csail.mit.edu
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Assisted-by: LLM
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Jann Horn <jannh@google.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+[ Backport to 5.15.y: __netif_receive_skb_core() has no local
+  drop_reason variable, and this branch does not define
+  SKB_DROP_REASON_RECURSION_LIMIT. Omit the upstream assignment
+  and keep the existing drop path, which frees the skb with
+  kfree_skb(). ]
+Signed-off-by: Kamil Sawicki <user148783812897@gmail.com>
 ---
- mm/mlock.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Backport based on linux-5.15.y 29c6cdaac04a6989a7ed4ae4275ce4244e617f58 (Linux 5.15.225).
+W=1 net/core/dev.o built without warnings (gcc 12.5). Full
+KASAN/ftrace bzImage built as well.
+Boundary test on an isolated KVM host: the eight-tag packet
+was delivered and the nine-tag packet was dropped.
+Original nested vhost/TAP trigger: ftrace recorded eight
+skb_vlan_untag() calls and zero tcp_v4_rcv() calls; no KASAN
+report, oops or panic was observed.
+Unpatched 5.15.225 on the same host: the nine-tag packet was
+delivered, and the trigger removed all 16364 tags and triggered
+a KASAN use-after-free report in tcp_v4_rcv().
 
-diff --git a/mm/mlock.c b/mm/mlock.c
-index 8293d2d03ab0a..9d5fd901d0f45 100644
---- a/mm/mlock.c
-+++ b/mm/mlock.c
-@@ -468,7 +468,7 @@ static int mlock_fixup(struct vma_iterator *vmi, struct vm_area_struct *vma,
- 	       unsigned long end, vm_flags_t newflags)
- {
- 	struct mm_struct *mm = vma->vm_mm;
--	int nr_pages;
-+	long nr_pages;
- 	int ret = 0;
- 	vm_flags_t oldflags = vma->vm_flags;
+ net/core/dev.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/net/core/dev.c b/net/core/dev.c
+index 7197b18b052dff..dd5e5097726562 100644
+--- a/net/core/dev.c
++++ b/net/core/dev.c
+@@ -5460,6 +5460,8 @@ static int __netif_receive_skb_core(struct sk_buff **pskb, bool pfmemalloc,
+ 	}
  
--- 
-2.53.0
-
-
-
+ 	if (unlikely(skb_vlan_tag_present(skb)) && !netdev_uses_dsa(skb->dev)) {
++		unsigned int priority_tag_depth = 1;
++
+ check_vlan_id:
+ 		if (skb_vlan_tag_get_id(skb)) {
+ 			/* Vlan id is non 0 and vlan_do_receive() above couldn't
+@@ -5471,6 +5473,10 @@ static int __netif_receive_skb_core(struct sk_buff **pskb, bool pfmemalloc,
+ 			 * 802.1Q or 802.1AD and vlan_do_receive() above could
+ 			 * not find vlan dev for vlan id 0.
+ 			 */
++			if (unlikely(priority_tag_depth >= VLAN_MAX_DEPTH))
++				goto drop;
++
++			priority_tag_depth++;
+ 			__vlan_hwaccel_clear_tag(skb);
+ 			skb = skb_vlan_untag(skb);
+ 			if (unlikely(!skb))
