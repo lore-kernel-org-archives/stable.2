@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048025;
-	b=08meVQGc4DzWnSzGTkbZemFprVjgTB8i8rnzkBHpsVN2HtfiCO16sa1e6k1jZpuGq8nz
-	 7Q5GJ1I7Iu9QbQo+anh9hq8eO+ndyGXIXLS4nvC6sprxIz0io7ENzUulUrUZ+eC9a40d5
-	 6vZY3MoFS3bCGyANDvUSdlkKL/PXo+VHCTRgCrEysQeUdSV/ddwygu7Jba9ILa0vH6W0l
-	 yX7mHOyUTKAg45hQqbieI6G1A8Yni9icxdwLFfcdSRM9+HgHDRyk/J5pfQ+AkBgwZvv3q
-	 CtbeEYHffQ/j1d4YbJ79Z/TTP1FReQdxgvwH7MrU6zwKDHUC8U4XhVaZ2s3hDYfmC2w==
+	t=1794048028;
+	b=CuppY7WFbzKU0jSUVWn2x5OyMuscbn7luTai/8++fO5vbWPuV1z1FKvjovm6IaHzBNOW
+	 yFKMs3mWy91/px1Yyb3ogyJMksAooO3Bmqtj1ZvrZ2M6p3uw3v0lGTeeVvj57Dog6Gwui
+	 SxrPkfayCrr1W4meqkupq4oOELRG+NiJj/ihx/xyL8bTDeADU16uCDDadtXxMEAyuR/q9
+	 qmyasYkF6muej21puTQLhlSNXhs4PnecCiAG/7oY923+J49A/+5diIM8/bWptC2v95Phj
+	 BL/JPefF+Pa6tGQhp+g0eb26VggN5A2Hs2mx5lqBFmnJ7b+6Pl9sGf0nuir32l6tBPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048025;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048028;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=JQfdx1gF3wzNdnHvS+CnYyWaZhihPdO+/hk/KEFmiKA=;
-	b=vtw8hSdQXcNeqxauC3/cxw2NxbaqLgRzLulJleVtaYWu2KdPGwKSsiw/6EXcXwVseU5r
-	 ApD7aEFClidihUwUAo8BAJNNyW1+4FwzrvFZ6RPqJTQVOeNbeEGDTBhp15x2TV+BUHMXX
-	 Zm4imZ3f82tQ6BHCJQmOwjGkEV7WOiNjd2w3zAl84KfBRqJnQsPPhWOBs+RpGNfJIERa6
-	 3u7Ed38RrKvVshlUyNwY4lu++S7gTpXkynWB73P9RGVupUuM2SdYpmGGbvetKgri8Eot2
-	 6BnVbBugH81Ngfq8DenrASj2Kz22kbZFwadCA7lHuhKIxRU1Hg3OEPdJe5fJBd9so6w==
+	bh=QKmmhB6BYwHE/IQfXBtSO1KJy3F/c6MdIuCTs4m5GlE=;
+	b=x0WlFVyeaX7r00MDMu69e+KEdyN8hz7q1BOAbIbqQWhsY635Ne8OeK8xk/uLuoUyQgDp
+	 w+kp6WRZI1jHV1Y8GAHssaWZYQfZAwty271xiUvSMwgx5YqjGU3RFbyq3NwJKc3APvnY8
+	 hFGbVgma4dBJu8vhjsUD3Co9P9h+WPMm+yqD6tuchnP8t0fFvcKwBbyCkrw1SIL0yOwFd
+	 7i7Y0nYZpBJax34+u0gaJz5dKlUnQ0/zZtZ9cGTjab87bYEjFBBjHOCayA5Q2ExzJODaR
+	 LUEHRE3DVsHALH2qww8ez8uprxkoDu7+O/NlM01mxv3Kr5W1mwWGwD4BvwhNY9EwjmQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EFBhn9IC;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m8Azq1Dt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A8E5606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:40:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4C77606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:40:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EFBhn9IC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 021641F0089F;
-	Sat,  7 Nov 2026 10:40:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m8Azq1Dt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D47D1F0089F;
+	Sat,  7 Nov 2026 10:40:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048025;
-	bh=JQfdx1gF3wzNdnHvS+CnYyWaZhihPdO+/hk/KEFmiKA=;
+	s=k20260515; t=1794048027;
+	bh=QKmmhB6BYwHE/IQfXBtSO1KJy3F/c6MdIuCTs4m5GlE=;
 	h=From:To:Cc:Subject:Date;
-	b=EFBhn9ICjgKdYpYSqVChBQ1BeBK8u1R9OA6fKFd2a3EiVAPFX8xAUEm40VO+0fYwp
-	 8is3d0wT9jY+v2cI+W773OecMhOFd/siggn5nwryHoBl9bA71dTRABf3xrgBYFTF+T
-	 oNr5IaSNCWMrFcXLj4rw1+zmk1YeXBs5jx1Xbm4/dvwtMyAiVAfv7XILaqe5ondysZ
-	 rVY8zIILuYx5tuIepEVVi9h0R/V7ym5zNYpSUjth69BGToQy9trcXCTn27/AheD3n5
-	 bfeKCCMtsMsZTQ6mAGIFTFnSkPF08I7ad2VsUdM2zkrizEPcQM6+NeYVkBEr4rMstd
-	 X8ahB6mkroFqQ==
+	b=m8Azq1DttzPGmzaKEY/a6ih1xMqKe+v53HqW8NWcdRYTActCxOzTJGB5Qgv0cF4Lt
+	 L67/863oh+Olkfpc3RzqA/mtSo3ILkmQYv1JlL8pBqfDoIGGP4yyCCsdTbLzAG6iG+
+	 IB/s7LjHD9jAkIF+fC6zsIB3/2q0Bjjd2Bb9ghnvQS6+/lnzywlfeh/hZVJ2F1GFCE
+	 jdArehkUEugevCYbpqw1jTpf9bknuGt0xB5FCa4uipe2QPJ352U0orppV8XmSRE4w3
+	 4rutV1ztpu+PiBXp4W2G9LgvEJvcF5lDPFDNcPtcLtllOSMX04gJmsz4yo14eHJU+F
+	 s106Wvo/n5DvA==
 From: Sasha Levin <sashal@kernel.org>
-To: astellman@stellman-greene.com,
-	hexlabsecurity@proton.me,
+To: kanie@linux.alibaba.com,
+	nilay@linux.ibm.com,
 	kbusch@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] nvmet-rdma: fix out-of-bounds write in nvmet_rdma_map_sgl_inline()" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:40:23 -0500
-Message-ID: <20261107054023-failed-6.6-d1512773a0d5@kernel.org>
+Subject: FAILED: patch "[PATCH] nvme-tcp: Validate the queue state under the queue lock in the address attribute" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:40:26 -0500
+Message-ID: <20261107054026-failed-6.6-2eeeaa9c1ff0@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,77 +69,187 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x d1512773a0d539669440bd9f6d050b8e12923b5f
+git cherry-pick -x 2eeeaa9c1ff0c429096acc2947c296db6a56f96d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054023-failed-6.6-d1512773a0d5@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054026-failed-6.6-2eeeaa9c1ff0@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From d1512773a0d539669440bd9f6d050b8e12923b5f Mon Sep 17 00:00:00 2001
-From: Andrew Stellman <astellman@stellman-greene.com>
-Date: Wed, 21 Oct 2026 01:07:48 -0400
-Subject: [PATCH] nvmet-rdma: fix out-of-bounds write in
- nvmet_rdma_map_sgl_inline()
+From 2eeeaa9c1ff0c429096acc2947c296db6a56f96d Mon Sep 17 00:00:00 2001
+From: Guixin Liu <kanie@linux.alibaba.com>
+Date: Wed, 28 Oct 2026 10:09:04 +0800
+Subject: [PATCH] nvme-tcp: Validate the queue state under the queue lock in
+ the address attribute
 
-nvmet_rdma_map_sgl_inline() bounds the host-supplied in-capsule SGL
-offset with "off + len > inline_data_size", evaluated in 64-bit
-arithmetic. off is taken straight from the host SGL descriptor
-(le64_to_cpu(sgl->addr)) and len is promoted to 64-bit, so the sum
-wraps: an off within len of 2^64 makes it small and the check passes.
-off is then used as page_idx = off / PAGE_SIZE to index the fixed-size
-rsp->cmd->inline_sg[] array (NVMET_RDMA_MAX_INLINE_SGE entries), so a
-crafted offset yields an out-of-bounds scatterlist index that is written
-through in nvmet_rdma_use_inline_sg().
+Reading the "address" sysfs attribute calls kernel_getsockname() on the
+admin queue socket, which can race with the queue teardown during
+connection error recovery: a reader can observe NVME_TCP_Q_LIVE set,
+then block on the queue lock while nvme_tcp_free_queue() releases the
+socket and clears queue->sock without holding the lock.  Once the
+reader acquires the lock it dereferences the NULL socket pointer.
 
-The mapping runs while handling a received capsule, before the command
-executes, so a remote RDMA peer can reach it (the Connect capsule is a
-write and takes this path on a queue that has no controller yet). The
-host controls only the low bits of the resulting displacement, so the
-expected impact is an out-of-bounds write that faults the target
-(remote denial of service).
+Commit 76d54bf20cdc ("nvme-tcp: don't access released socket during
+error recovery") had the queue liveness check inside the lock.
+Commit 782373ba2766 ("nvme: tcp: avoid race between queue_lock lock
+and destroy") moved it back out because the lock itself is destroyed
+in nvme_tcp_free_queue(), so a reader arriving late trips
+mutex_destroy().
 
-This wrap was reported, with a KASAN reproduction, on linux-nvme in May,
-and the check below was suggested in that thread. The fix that was
-applied, 48c0162f647b, reworked how the offset is mapped but kept the
-original check, and its page index turns a wrapped offset into an
-out-of-bounds index into inline_sg[].
+Check the queue liveness inside the queue lock, and clear queue->sock
+under the same lock.  The teardown clears NVME_TCP_Q_LIVE under the
+lock well before the socket is released, so a reader either sees the
+bit cleared or a socket that cannot be released while it holds the
+lock.  To also close the lock lifetime race, the queue locks are now
+owned by the controller: they are initialized with the queue array and
+only destroyed when the controller is freed, which cannot happen while
+a sysfs attribute read is still in progress.  The queue count is
+computed by the NVME_TCP_OPT_NR_QUEUES() macro from the original
+connect options for both initialization and destruction, as reconnects
+may shrink ctrl->queue_count.
 
-Reject the offset before it can wrap.
-
-Found independently by static analysis with AI assistance, not
-reproduced at runtime.
-
-Fixes: 0d5ee2b2ab4f ("nvmet-rdma: support max(16KB, PAGE_SIZE) inline data")
-Fixes: 48c0162f647b ("nvmet-rdma: handle inline data with a nonzero offset")
-Reported-by: Bryam Vargas <hexlabsecurity@proton.me>
-Closes: https://lore.kernel.org/all/LM21QIR-1-qJb7PViyJKCnGBnUzizeiNJVWQ3wb7ZwGezodjgKg3f-iobqOyequ-sT1jFCKJImfqNO_BKU3KO80xFITnaI5GTV_GxLUNDDc=@proton.me/
-Suggested-by: Keith Busch <kbusch@kernel.org>
+Fixes: 782373ba2766 ("nvme: tcp: avoid race between queue_lock lock and destroy")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Andrew Stellman <astellman@stellman-greene.com>
+Signed-off-by: Guixin Liu <kanie@linux.alibaba.com>
+Reviewed-by: Nilay Shroff <nilay@linux.ibm.com>
 Signed-off-by: Keith Busch <kbusch@kernel.org>
 ---
- drivers/nvme/target/rdma.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/nvme/host/tcp.c | 47 ++++++++++++++++++++++++++++-------------
+ 1 file changed, 32 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/nvme/target/rdma.c b/drivers/nvme/target/rdma.c
-index 075ab58d8c884..ebf4a7bde524b 100644
---- a/drivers/nvme/target/rdma.c
-+++ b/drivers/nvme/target/rdma.c
-@@ -864,7 +864,8 @@ static u16 nvmet_rdma_map_sgl_inline(struct nvmet_rdma_rsp *rsp)
- 		return NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
+diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
+index 1f7a2de954197..39cb636872938 100644
+--- a/drivers/nvme/host/tcp.c
++++ b/drivers/nvme/host/tcp.c
+@@ -103,6 +103,9 @@ enum nvme_tcp_queue_flags {
+ 	NVME_TCP_Q_IO_CPU_SET	= 3,
+ };
+ 
++#define NVME_TCP_OPT_NR_QUEUES(opts) ((opts)->nr_io_queues + \
++	(opts)->nr_write_queues + (opts)->nr_poll_queues + 1)
++
+ enum nvme_tcp_recv_state {
+ 	NVME_TCP_RECV_PDU = 0,
+ 	NVME_TCP_RECV_DATA,
+@@ -1549,14 +1552,21 @@ static void nvme_tcp_free_queue(struct nvme_ctrl *nctrl, int qid)
+ 	 * nvme_reset_ctrl_work(), queue teardown is immediately followed by
+ 	 * re-allocation. fput() defers socket cleanup to delayed_fput_work
+ 	 * in workqueue context, which can race with new queue setup.
++	 *
++	 * Clear queue->sock under the queue lock so that a sysfs reader in
++	 * nvme_tcp_get_address() either observes the NVME_TCP_Q_LIVE bit
++	 * cleared or a still valid socket.  The queue lock itself is owned
++	 * by the controller and only destroyed when the controller is
++	 * freed, so readers blocked on it cannot race its teardown.
+ 	 */
++	mutex_lock(&queue->queue_lock);
+ 	__fput_sync(queue->sock->file);
+ 	queue->sock = NULL;
++	mutex_unlock(&queue->queue_lock);
+ 	memalloc_noio_restore(noio_flag);
+ 
+ 	kfree(queue->pdu);
+ 	mutex_destroy(&queue->send_mutex);
+-	mutex_destroy(&queue->queue_lock);
+ 
+ #ifdef CONFIG_DEBUG_LOCK_ALLOC
+ 	lockdep_unregister_key(&queue->nvme_tcp_sk_key);
+@@ -1992,7 +2002,6 @@ static int nvme_tcp_alloc_queue(struct nvme_ctrl *nctrl, int qid,
+ 	int ret, rcv_pdu_size;
+ 	struct file *sock_file;
+ 
+-	mutex_init(&queue->queue_lock);
+ 	queue->ctrl = ctrl;
+ 	init_llist_head(&queue->req_list);
+ 	INIT_LIST_HEAD(&queue->send_list);
+@@ -2136,7 +2145,6 @@ static int nvme_tcp_alloc_queue(struct nvme_ctrl *nctrl, int qid,
+ #endif
+ err_destroy_mutex:
+ 	mutex_destroy(&queue->send_mutex);
+-	mutex_destroy(&queue->queue_lock);
+ 	return ret;
+ }
+ 
+@@ -2823,6 +2831,9 @@ static void nvme_tcp_stop_ctrl(struct nvme_ctrl *ctrl)
+ static void nvme_tcp_free_ctrl(struct nvme_ctrl *nctrl)
+ {
+ 	struct nvme_tcp_ctrl *ctrl = to_tcp_ctrl(nctrl);
++	/* the same count used to size and initialize the queue array */
++	unsigned int nr_queues = NVME_TCP_OPT_NR_QUEUES(nctrl->opts);
++	unsigned int i;
+ 
+ 	if (list_empty_careful(&ctrl->list))
+ 		goto free_ctrl;
+@@ -2834,6 +2845,8 @@ static void nvme_tcp_free_ctrl(struct nvme_ctrl *nctrl)
+ 	nvmf_free_options(nctrl->opts);
+ free_ctrl:
+ 	put_net(ctrl->net);
++	for (i = 0; i < nr_queues; i++)
++		mutex_destroy(&ctrl->queues[i].queue_lock);
+ 	kfree(ctrl->queues);
+ 	kfree(ctrl);
+ }
+@@ -3086,17 +3099,18 @@ static int nvme_tcp_get_address(struct nvme_ctrl *ctrl, char *buf, int size)
+ 
+ 	len = nvmf_get_address(ctrl, buf, size);
+ 
+-	if (!test_bit(NVME_TCP_Q_LIVE, &queue->flags))
+-		return len;
+-
+ 	mutex_lock(&queue->queue_lock);
+ 
+-	ret = kernel_getsockname(queue->sock, (struct sockaddr *)&src_addr);
+-	if (ret > 0) {
+-		if (len > 0)
+-			len--; /* strip trailing newline */
+-		len += scnprintf(buf + len, size - len, "%ssrc_addr=%pISc\n",
+-				(len) ? "," : "", &src_addr);
++	if (test_bit(NVME_TCP_Q_LIVE, &queue->flags)) {
++		ret = kernel_getsockname(queue->sock,
++				(struct sockaddr *)&src_addr);
++		if (ret > 0) {
++			if (len > 0)
++				len--; /* strip trailing newline */
++			len += scnprintf(buf + len, size - len,
++					"%ssrc_addr=%pISc\n",
++					(len) ? "," : "", &src_addr);
++		}
  	}
  
--	if (off + len > rsp->queue->dev->inline_data_size) {
-+	if (off > (u64)rsp->queue->dev->inline_data_size ||
-+	    len > (u64)rsp->queue->dev->inline_data_size - off) {
- 		pr_err("invalid inline data offset!\n");
- 		return NVME_SC_SGL_INVALID_OFFSET | NVME_STATUS_DNR;
+ 	mutex_unlock(&queue->queue_lock);
+@@ -3173,8 +3187,7 @@ static struct nvme_tcp_ctrl *nvme_tcp_alloc_ctrl(struct device *dev,
+ 	 */
+ 	context_unsafe(INIT_LIST_HEAD(&ctrl->list));
+ 	ctrl->ctrl.opts = opts;
+-	ctrl->ctrl.queue_count = opts->nr_io_queues + opts->nr_write_queues +
+-				opts->nr_poll_queues + 1;
++	ctrl->ctrl.queue_count = NVME_TCP_OPT_NR_QUEUES(opts);
+ 	ctrl->ctrl.sqsize = opts->queue_size - 1;
+ 	ctrl->ctrl.kato = opts->kato;
+ 
+@@ -3237,14 +3250,18 @@ static struct nvme_tcp_ctrl *nvme_tcp_alloc_ctrl(struct device *dev,
+ 	 * its requests already allocates the PDUs from the page frag caches of
+ 	 * the queues, sized by their header digest setting, so set up the
+ 	 * locks and hdr_digest here.
++	 *
++	 * The queue locks are owned by the controller, not the queues:
++	 * they outlive the per-queue connect/disconnect cycles so that
++	 * sysfs readers can never race their destruction.
+ 	 */
+ 	for (i = 0; i < ctrl->ctrl.queue_count; i++) {
+ 		mutex_init(&ctrl->queues[i].pf_cache_lock);
+ 		ctrl->queues[i].hdr_digest = opts->hdr_digest;
++		mutex_init(&ctrl->queues[i].queue_lock);
  	}
+ 
+ 	ctrl->net = get_net(current->nsproxy->net_ns);
+-
+ 	ret = nvme_init_ctrl(&ctrl->ctrl, dev, &nvme_tcp_ctrl_ops, 0);
+ 	if (ret)
+ 		goto out_kfree_queues;
 -- 
 2.53.0
 
