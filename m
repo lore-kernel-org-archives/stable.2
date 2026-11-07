@@ -1,55 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047312;
-	b=K9x7qKZslExFaqpjRtL7Hn1lZVhP7ffdzZfs7KgRyB0WPeVbzBCrJEZJULCC3aklKyKY
-	 xU3R+W/MyRtBdSweX/TBMwx9tYHLcbPZB6HJs7CDRo+oIUDpnBL0gMo2T0VTGGa4eUwUT
-	 0Niur55qLolN9LFLGu7Chzdd4rLJsMLlk3oFq2BIhm9GOO64rm2VfVay+9ZW714Vwvlru
-	 f9R9zITISodgpeZHe4sIW/Fqa1nMxnGFYNq/++gfcjng//ZIkVQhEYlqBnpQ7+BZ//6VA
-	 Rb9S8pq//Ar1tKeRRqzR77nmlESvvFlkBTv/S8WMegSq/37P/QR8Yc3RWE+zX1YpXUg==
+	t=1794047314;
+	b=Q3tP97GysVhCn97l9boDuKybT6PYLw5IeLrdf9OJk+AKcVz8pWvAfjVRcJP+lUBi9uAK
+	 2Qlb9RIwa1o7OGTAZsgSymkvEu3STTffi2rAC+JzfbR7Sb6VgPKNzYOb3+krNshDxenj2
+	 4v+RgW9Dm5UjiZ7egSwIKD+A5gfKq+YYMJCgF+k1krFtjtBc7jNoH+R6ug3EJK2ZxOKL7
+	 CIHJ5eIMh/rXpllrgAlWd+EBOfBE4xMsuUxuuBKEXm28PqlCNleZxRsQxZoB1Nk0ZxCMj
+	 CUvqU2Q91aA4UNCR+rxkS7J1qD0d5xO/lFmFBb6srDNetsVJOXNs8/irsi/c5tUXJvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047312;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047314;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=fngCjm+2fnTdqpctp2QrUhkPzfWQ1wz3KNxC0V25Oq4=;
-	b=LU8B2NroADX4TUx59NCBf/jFJB6UvS37m36+iTRT0p4Gjc5SDtsJGHVozsufN/bZOjGC
-	 RONNaoS0XiTK9L/OwiBBmfJvf8ffC3d6YEFIoPHxtmflas0x0UQUiH+VxUFcEvCigFmRP
-	 iPKUUP5klV+oXZ5lUTeT0Syp0mFMhpWihGAv8rqNq26XWE1QerH+VXg9jsN8CkaiET+fI
-	 3sw2izQj4Z4mlLDBVy6LqcunWy5V7iEJMGMT8kB/uoVPnDijlY76rfmj+JD3lVayebdMa
-	 fBpUZAzSCdlSgHqmc8Pwv9UiE/OjhWl6FDZsiv5kz8KyUPfTIKS+XH6lAm1O+tT7P6Q==
+	bh=+o3TlxqUCWEga7rFTqeMzfOD9UkEhcv6JnMzKHeGH3U=;
+	b=o61dkco2uNda6wj+XzMPfKH2OgZeAbTmdodDCK99aKqNCm++EyhimZt0omtZ5QaXDeJI
+	 MXdJKFS3gtzAM9X74S+jlLVUNR1ZpoLwyIdkpw5GvuF3hYPDs0A7DvXFOcww4Vj9vYcNN
+	 hYrwunpj0L21dXwm9dUuyCeo0ePOQmxJbORqIhtPFwPdFQ80ETGBrRNbFGKwYCA3ribnY
+	 qO0soltUxr8gaKgleXINz0gSHyggQQ2yf/K3NAJXq44PDCfIf3t6mIsi/wZ9szUytf8ed
+	 F8Ms0SWcUInJWsrchzb9GVe4KwycY5KkgOLOe95NVnZSSyZXleJ8qr2bFanuCgFmB9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V820skPB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B1PWACdm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01E1B606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:28:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04C15606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:28:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V820skPB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 218EA1F0089F;
-	Sat,  7 Nov 2026 10:28:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B1PWACdm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75F8F1F0089F;
+	Sat,  7 Nov 2026 10:28:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047311;
-	bh=fngCjm+2fnTdqpctp2QrUhkPzfWQ1wz3KNxC0V25Oq4=;
+	s=k20260515; t=1794047313;
+	bh=+o3TlxqUCWEga7rFTqeMzfOD9UkEhcv6JnMzKHeGH3U=;
 	h=From:To:Cc:Subject:Date;
-	b=V820skPBP6yhWC/caXc7HYtFS46my/ybToOTrOOTCrHqlCRa6vPHh9hHRoIM0CGwC
-	 YZf6W5CHM4OQz3rMk3Eo10rIjW8R0W2TRIuwFXj1kWMzuyIHmVJsMDApEijywdPoT2
-	 tASeghbtB9n57f+BuC2vZQLq+UQ97PHiZPqZVsmLXYhINduq7rThY0y/oDHZX7Jp52
-	 fB1Adx5eF2vyY6tKyv+iH6e/GTVs900PBMHWqj2dN0BqpAIWXHUTK9f2C5MxLZysvu
-	 vPsqqlKgzZWGBtcmuaYfeNaX5vW4Wae/ve8f6nhTuESHI1p/o+NhqA1veMsIZwafSX
-	 132Yv4X7fOvwA==
+	b=B1PWACdmmT0OHIIylU0PwO73maGmlV+Lp71voo+4D1SYo7TMdTERBsRAie7cZDrKm
+	 Sc9T/QXgOAyy5XtRa4AUDxrIqwMcz+6kHYtMHe+wf5V5+VNJTFBX6OmqhfQXhBhGJ+
+	 Cyr8lIacB45w5MlPoVkqkBG5XpjraGKfNVuoPwT+aql5OaHFc1CkPR00B0TGnUX+I9
+	 FwJoso8DHXI1FgqP3N1Ma1zYge7Yd9t4wAcfgFva4+9qX7iPYv3YAL1IWvY8jMJx93
+	 qs/YER3/u1o/nHKdIKdMVdgaDppRpQBBmnDwCtOYkBl4GS4fNYukXSXjL2SLeg/3o5
+	 aFUPHyatwHVZQ==
 From: Sasha Levin <sashal@kernel.org>
-To: abelvesa@kernel.org,
-	johan+linaro@kernel.org,
-	caleb.connolly@linaro.org,
-	andersson@kernel.org,
-	abel.vesa@linaro.org,
-	abel.vesa@oss.qualcomm.com
+To: acharyalaxman8848@gmail.com,
+	pkshih@realtek.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] soc: qcom: pmic_glink: Fix device access from worker during suspend" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:28:30 -0500
-Message-ID: <20261107052830-failed-6.6-7d0767c5cd87@kernel.org>
+Subject: FAILED: patch "[PATCH] wifi: rtw89: cap firmware section_num before parsing" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:28:32 -0500
+Message-ID: <20261107052832-failed-6.6-273b0a8be083@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -72,110 +68,95 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 7d0767c5cd878707fd6711023731549c83563840
+git cherry-pick -x 273b0a8be083df6d0319ce62caa870e927f94a31
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052830-failed-6.6-7d0767c5cd87@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052832-failed-6.6-273b0a8be083@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 7d0767c5cd878707fd6711023731549c83563840 Mon Sep 17 00:00:00 2001
-From: Abel Vesa <abel.vesa@linaro.org>
-Date: Wed, 19 Aug 2026 10:23:28 +0300
-Subject: [PATCH] soc: qcom: pmic_glink: Fix device access from worker during
- suspend
+From 273b0a8be083df6d0319ce62caa870e927f94a31 Mon Sep 17 00:00:00 2001
+From: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
+Date: Tue, 25 Aug 2026 23:29:38 +0545
+Subject: [PATCH] wifi: rtw89: cap firmware section_num before parsing
 
-For historical reasons, the GLINK smem interrupt is registered with
-IRRQF_NO_SUSPEND flag set, which is the underlying problem here, since the
-incoming messages can be delivered during late suspend and early
-resume.
+rtw89_fw_bin_info.section_info has FWDL_SECTION_MAX_NUM (10) entries.
+The v0/v1 header parsers take section_num from an 8-bit firmware field
+(0..255) and write info->section_info[i] with no cap.
+rtw89_fw_download_suit() keeps that object on the stack, so a crafted
+firmware blob overflows the stack.
 
-In this specific case, the pmic_glink_altmode_worker() currently gets
-scheduled on the system_wq which can be scheduled to run while devices
-are still suspended. This proves to be a problem when a Type-C retimer,
-switch or mux that is controlled over a bus like I2C, because the I2C
-controller is suspended.
+Reject a truncated header and a section table that does not fit in the
+firmware image before reading fw_hdr->sections[i].
 
-This has been proven to be the case on the X Elite boards where such
-retimers (ParadeTech PS8830) are used in order to handle Type-C
-orientation and altmode configuration. The following warning is thrown:
-
-[   35.134876] i2c i2c-4: Transfer while suspended
-[   35.143865] WARNING: CPU: 0 PID: 99 at drivers/i2c/i2c-core.h:56 __i2c_transfer+0xb4/0x57c [i2c_core]
-[   35.352879] Workqueue: events pmic_glink_altmode_worker [pmic_glink_altmode]
-[   35.360179] pstate: 61400005 (nZCv daif +PAN -UAO -TCO +DIT -SSBS BTYPE=--)
-[   35.455242] Call trace:
-[   35.457826]  __i2c_transfer+0xb4/0x57c [i2c_core] (P)
-[   35.463086]  i2c_transfer+0x98/0xf0 [i2c_core]
-[   35.467713]  i2c_transfer_buffer_flags+0x54/0x88 [i2c_core]
-[   35.473502]  regmap_i2c_write+0x20/0x48 [regmap_i2c]
-[   35.478659]  _regmap_raw_write_impl+0x780/0x944
-[   35.483401]  _regmap_bus_raw_write+0x60/0x7c
-[   35.487848]  _regmap_write+0x134/0x184
-[   35.491773]  regmap_write+0x54/0x78
-[   35.495418]  ps883x_set+0x58/0xec [ps883x]
-[   35.499688]  ps883x_sw_set+0x60/0x84 [ps883x]
-[   35.504223]  typec_switch_set+0x48/0x74 [typec]
-[   35.508952]  pmic_glink_altmode_worker+0x44/0x1fc [pmic_glink_altmode]
-[   35.515712]  process_scheduled_works+0x1a0/0x2d0
-[   35.520525]  worker_thread+0x2a8/0x3c8
-[   35.524449]  kthread+0xfc/0x184
-[   35.527749]  ret_from_fork+0x10/0x20
-
-The proper solution here should be to not deliver these kind of messages
-during system suspend at all, or at least make it configurable per glink
-client. But simply dropping the IRQF_NO_SUSPEND flag entirely will break
-other clients. The final shape of the rework of the pmic glink driver in
-order to fulfill both the filtering of the messages that need to be able
-to wake-up the system and the queueing of these messages until the system
-has properly resumed is still being discussed and it is planned as a
-future effort.
-
-Meanwhile, the stop-gap fix here is to schedule the pmic glink altmode
-worker on the system_freezable_wq instead of the system_wq. This will
-result in the altmode worker not being scheduled to run until the
-devices are resumed first, which will give the controllers like I2C a
-chance to resume before the transfer is requested.
-
-Reported-by: Johan Hovold <johan+linaro@kernel.org>
-Closes: https://lore.kernel.org/lkml/Z1CCVjEZMQ6hJ-wK@hovoldconsulting.com/
-Fixes: 080b4e24852b ("soc: qcom: pmic_glink: Introduce altmode support")
-Cc: stable@vger.kernel.org    # 6.3
-Reviewed-by: Caleb Connolly <caleb.connolly@linaro.org>
-Reviewed-by: Bjorn Andersson <andersson@kernel.org>
-Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
-Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Link: https://lore.kernel.org/r/20260819-b4-soc-qcom-pmic-glink-fix-device-access-on-worker-while-suspended-v3-1-169b00e0d9d4@oss.qualcomm.com
-Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+Fixes: e3ec7017f6a2 ("rtw89: add Realtek 802.11ax driver")
+Cc: stable@vger.kernel.org
+Acked-by: Ping-Ke Shih <pkshih@realtek.com>
+Signed-off-by: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
+Signed-off-by: Ping-Ke Shih <pkshih@realtek.com>
+Link: https://patch.msgid.link/20260825174438.63168-1-acharyalaxman8848@gmail.com
 ---
- drivers/soc/qcom/pmic_glink_altmode.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/net/wireless/realtek/rtw89/fw.c | 32 +++++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
 
-diff --git a/drivers/soc/qcom/pmic_glink_altmode.c b/drivers/soc/qcom/pmic_glink_altmode.c
-index 13c434f8d03a6..465e5d2316a04 100644
---- a/drivers/soc/qcom/pmic_glink_altmode.c
-+++ b/drivers/soc/qcom/pmic_glink_altmode.c
-@@ -451,7 +451,7 @@ static void pmic_glink_altmode_sc8180xp_notify(struct pmic_glink_altmode *altmod
- 	alt_port->mode = mode;
- 	alt_port->hpd_state = hpd_state;
- 	alt_port->hpd_irq = hpd_irq;
--	schedule_work(&alt_port->work);
-+	queue_work(system_freezable_wq, &alt_port->work);
- }
+diff --git a/drivers/net/wireless/realtek/rtw89/fw.c b/drivers/net/wireless/realtek/rtw89/fw.c
+index 0099c5c03e7a6..b2991bc93f852 100644
+--- a/drivers/net/wireless/realtek/rtw89/fw.c
++++ b/drivers/net/wireless/realtek/rtw89/fw.c
+@@ -156,8 +156,24 @@ static int rtw89_fw_hdr_parser_v0(struct rtw89_dev *rtwdev, const u8 *fw, u32 le
+ 	if (!info)
+ 		return -EINVAL;
  
- #define SC8280XP_DPAM_MASK	0x3f
-@@ -502,7 +502,7 @@ static void pmic_glink_altmode_sc8280xp_notify(struct pmic_glink_altmode *altmod
- 		alt_port->tbt_data = *tbt;
- 	}
++	if (len < sizeof(*fw_hdr)) {
++		rtw89_err(rtwdev, "[ERR]fw header truncated\n");
++		return -EINVAL;
++	}
++
+ 	info->section_num = le32_get_bits(fw_hdr->w6, FW_HDR_W6_SEC_NUM);
++	if (!info->section_num || info->section_num > FWDL_SECTION_MAX_NUM) {
++		rtw89_err(rtwdev, "[ERR]invalid fw section num %u\n",
++			  info->section_num);
++		return -EINVAL;
++	}
++
+ 	base_hdr_len = struct_size(fw_hdr, sections, info->section_num);
++	if (base_hdr_len > len) {
++		rtw89_err(rtwdev, "[ERR]fw header truncated\n");
++		return -EINVAL;
++	}
++
+ 	info->dynamic_hdr_en = le32_get_bits(fw_hdr->w7, FW_HDR_W7_DYN_HDR);
+ 	info->idmem_share_mode = le32_get_bits(fw_hdr->w7, FW_HDR_W7_IDMEM_SHARE_MODE);
  
--	schedule_work(&alt_port->work);
-+	queue_work(system_freezable_wq, &alt_port->work);
- }
+@@ -455,9 +471,25 @@ static int rtw89_fw_hdr_parser_v1(struct rtw89_dev *rtwdev, const u8 *fw, u32 le
+ 	int ret;
+ 	u32 i;
  
- static void pmic_glink_altmode_callback(const void *data, size_t len, void *priv)
++	if (len < sizeof(*fw_hdr)) {
++		rtw89_err(rtwdev, "[ERR]fw header truncated\n");
++		return -EINVAL;
++	}
++
+ 	info->section_num = le32_get_bits(fw_hdr->w6, FW_HDR_V1_W6_SEC_NUM);
++	if (!info->section_num || info->section_num > FWDL_SECTION_MAX_NUM) {
++		rtw89_err(rtwdev, "[ERR]invalid fw section num %u\n",
++			  info->section_num);
++		return -EINVAL;
++	}
++
+ 	info->dsp_checksum = le32_get_bits(fw_hdr->w6, FW_HDR_V1_W6_DSP_CHKSUM);
+ 	base_hdr_len = struct_size(fw_hdr, sections, info->section_num);
++	if (base_hdr_len > len) {
++		rtw89_err(rtwdev, "[ERR]fw header truncated\n");
++		return -EINVAL;
++	}
++
+ 	info->dynamic_hdr_en = le32_get_bits(fw_hdr->w7, FW_HDR_V1_W7_DYN_HDR);
+ 	info->idmem_share_mode = le32_get_bits(fw_hdr->w7, FW_HDR_V1_W7_IDMEM_SHARE_MODE);
+ 
 -- 
 2.53.0
 
