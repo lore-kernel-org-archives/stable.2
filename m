@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049022;
-	b=i2nu+vWvSkdPvQ/yneD1C6G9PHzngY2f7eTJC0Jz7juOpA53hGIUOr14RxRKFISdb/Mu
-	 CQIs/zQA3C3icdfDc9BYyThpMTmXqTyaUrvxrWGTNKRAfN/6OCFJk4HK90hNG0yw/qddF
-	 gsOFW1bDfFB4XxpWzbO1gyv8ZaeNkyaK0TKLGCdJ4NHhViqr4T2aLBuwq8U9GrNIBvE8P
-	 dBU49/BCEd9VKU0bIX2lv1WYnT+K+mWvk9wa1Qex0ZL5TQIBVmXKmzi3Bp4PCRA2mynvv
-	 bE36nENG+Hp7rK/LHI9bY20NUe3YfLywYvUkAaRFg0APgziuFY7rwlVrJCwDozAFyww==
+	t=1794049025;
+	b=rYm/5xVe5SEE8G5U6/z8TJTdVbPgXf8ufm857RL6go/SgbdkPCuUgmtv6bl5FkWJQ4EK
+	 Zu/UszGPs/arw++yZzJadihoqciIKI8ITViSB/P1fookkSrR5GRkajjSvxn/5l3+1wWOv
+	 WmKyGvUi0UDOB4zG877ltcKChqH28W0G9LZ6+F5PkKMAbXzIA4f4i/+zV6CgoFpszHB/m
+	 g0gUOfIp5wthw0XjRsNx+2PBeuTJVs4NqVZc8Y5oDz8Jx4kJgAeAXzL7frTrxxU1njeiN
+	 veDm6MujwjEWR+ZIieyT+rFh/RNhnqgAqec+jORYqZykU8nPzbdKbJc4qk0KZqbsPqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049022;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049025;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=+hAfuQgEUQ7gi87jfgPUvwoTOPYnvwCUPbzdfu1pCsg=;
-	b=pRSnDN4JJUQtybYV9G6ybKe1GZxFca087IAhwJvlOjOAntQ1ugOgqo1vO2NBZSHyA74l
-	 l+J+d0x8NsARjLzSYfYXJkKNLOfyhdpii7xrGWeCaxe/xa5E9cGXpCwIx6Bc4CurJJUs0
-	 ExUMC4PJKcLwe48YC0OBPxE6fuS71GgosJU3AttdQ363BMd/y8IjZ3HnyMU+0kd6DKpy3
-	 7U9B5bBEiGKtv17sKgex+K0cJ+Tx4au7jjPj7Q1QGSbl0HGrHdeFAw+yYO5oxlurQvdDC
-	 UZbWabLrmhFsWehjIhdWspbzDdAQeji4Cx7UCUROp0q7a2kWz68CGFG22M7bqSPK8yg==
+	bh=jbjoOzVVmDa3ek1nFdAza/HDGovN2YJUoBb32GieUkM=;
+	b=nVAJ3z1fyjJ3b6nrwJpX8+125M7vwhD2QYP4ytINuYCbHKJ7EDhF5NCEH/9aHsxJel5v
+	 uoui2zF/TNvS319Gk17ZQ0Xns6PMD1joCx/VPlaLjjMOvEPxfCj0jTc5wopDjexbhXlXK
+	 C2Q/F+Q7Lk62PxuZLZR6ZvG4HSifHVYWgzpqH+fkZ6mRnQJg9uNAMauMI58jcKMoY3zMG
+	 U6CfdIS+yd51uNEIwJ1brnCSV+FTErZd3Kxd3GawnHDTEtfHQBUZCu54r8GWcN8qhAMU6
+	 x6wUjnkDHxI0jNQk5zMBW8MqcKyWB1XAs9VyN+eMllcljRpPbjcvjLdZb6HFdSRF1Yg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mjBdOphI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bmFvMvbM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AFA0606A32E
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:57:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CDA2606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:57:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mjBdOphI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9632A1F0089F;
-	Sat,  7 Nov 2026 10:57:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bmFvMvbM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E202A1F008A3;
+	Sat,  7 Nov 2026 10:57:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049022;
-	bh=+hAfuQgEUQ7gi87jfgPUvwoTOPYnvwCUPbzdfu1pCsg=;
+	s=k20260515; t=1794049025;
+	bh=jbjoOzVVmDa3ek1nFdAza/HDGovN2YJUoBb32GieUkM=;
 	h=From:To:Cc:Subject:Date;
-	b=mjBdOphI1WaIOliDIIvguKGPEECfCpO4D1uNwrL2zij1r9Zqj4HiFSqX/ZGJ5c3ZK
-	 E6DGn9q1oTKfeCEUKJnZ6/JJtjNF0/5xvkcypnrSpo7EXI07gedyeyYeIg820/Ec/G
-	 LF8R02Xv4hnTh/iHUjXXZFqWr8Q4Xk/pASwJiwZcslMfrCdInUVoo0cIWgB80JdwcM
-	 /apdlCrulqyR9FTRjP3FljwFxKW1g8VeziED7DIW+aLyzUriNReVBumH2wq1zsPSaa
-	 /8+g1q5hpz1uxFvHWnvgTn/bnISsPXobFMHez9UV0v6GLpbns2ZquhOqyp12NDV/XF
-	 eUCAMP3P2stuw==
+	b=bmFvMvbMXJRcK+6ZtMCgYiuNgJopwMNaC/5GGy1DWSCVBO76jLZp3m8pjZKCrXFoM
+	 WvCcow/5Pt71EWUinkq8q+0bS8fk9Zbg7+d3rb8m+DGPqY54zT6Moky9Jt5QY+3tGz
+	 0EXDleisn65O64HPlqviqve1MJrlDjeUq6hkZXxGU6oNo0B5VbG8On6lIBxUZXTQlX
+	 eZXMRfl2or3nKodWD79CL+DbI3j5TGYXsulPlmi1X+cIjqlJNnDd6qPb1r8Q+tl7+t
+	 m+eMD0GDZITX5d4odlx4ZQpWZmGfL6ZPxgqpnDutL7hLken9dUDwpAlzu+Lbx45ZxE
+	 hSj2s+R5WSGXQ==
 From: Sasha Levin <sashal@kernel.org>
-To: yubiao.wang@amd.com,
-	christian.koenig@amd.com,
-	alexander.deucher@amd.com
+To: harry.wentland@amd.com,
+	alex.hung@amd.com,
+	robert.mader@collabora.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/amdgpu: recompute the dw estimate after allocating a new VM update job" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 05:57:00 -0500
-Message-ID: <20261107055700-failed-5.15-a74c7832b118@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/amd/display: Force GAMCOR for subsampled surfaces with PQ/Gamma22/HLG" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 05:57:03 -0500
+Message-ID: <20261107055703-failed-5.15-2ffaa7c40506@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,64 +69,63 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x a74c7832b11827907de560169c7d4ac94505fd87
+git cherry-pick -x 2ffaa7c4050605cb27756f5336f778d1b21268b9
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055700-failed-5.15-a74c7832b118@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055703-failed-5.15-2ffaa7c40506@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From a74c7832b11827907de560169c7d4ac94505fd87 Mon Sep 17 00:00:00 2001
-From: YuBiao Wang <YuBiao.Wang@amd.com>
-Date: Wed, 29 Jul 2026 17:53:57 +0800
-Subject: [PATCH] drm/amdgpu: recompute the dw estimate after allocating a new
- VM update job
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 2ffaa7c4050605cb27756f5336f778d1b21268b9 Mon Sep 17 00:00:00 2001
+From: Harry Wentland <harry.wentland@amd.com>
+Date: Fri, 14 Aug 2026 17:18:16 -0400
+Subject: [PATCH] drm/amd/display: Force GAMCOR for subsampled surfaces with
+ PQ/Gamma22/HLG
 
-amdgpu_vm_sdma_update() keeps the number of free dwords of the current
-job in a local variable. When the job runs out of room it is committed
-and a new one is allocated, but that local variable is not refreshed and
-still describes the job which was just submitted.
+The ROM early-return checks for PQ, Gamma 2.2, and HLG in
+mod_color_calculate_degamma_params() do not consider the map_user_ramp
+parameter. When map_user_ramp is true (indicating a subsampled surface
+that requires post-scaler degamma via GAMCOR), the function still takes
+the ROM path, programming PRE_DEGAM instead.
 
-The stale value is then used to decide how many PTEs fit into the new
-job. If it happens to be copy_pte_num_dw + 7, or one more than that, the
-result is zero. copy_pte() encodes the transfer size as count * 8 - 1,
-so a count of zero asks the engine for a 1GB copy starting inside the IB
-pool. That runs off the end of the pool, faults on the first unmapped
-GART page above it and hangs the ring.
+For subsampled formats the chroma channels must be upsampled by the
+scaler before degamma is applied. PRE_DEGAM sits before the scaler in
+the pipeline (CNVC domain), while GAMCOR sits after it (CM domain).
+Using the ROM for subsampled surfaces means degamma is applied to
+subsampled chroma before upsampling, producing incorrect results.
 
-Re-initialize the estimate from the newly allocated job, which is empty
-and therefore has its full budget available.
+Fix by gating the dcn_arch ROM capability checks on !map_user_ramp,
+forcing PQ/Gamma22/HLG through the GAMCOR LUT path when the surface
+is subsampled.
 
+Fixes: a8bf71649088 ("drm/amd/display: Internal refactoring to abstract color caps")
 Cc: stable@vger.kernel.org
-Signed-off-by: YuBiao Wang <YuBiao.Wang@amd.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Assisted-by: Copilot:claude-opus-4.6
+Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+Reviewed-by: Alex Hung <alex.hung@amd.com>
+Tested-by: Robert Mader <robert.mader@collabora.com>
+Link: https://patch.msgid.link/20260814211816.1219597-11-harry.wentland@amd.com
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/gpu/drm/amd/display/modules/color/color_gamma.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-index 50cc0779c340e..eb8cf0d9d9c59 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
-@@ -254,6 +254,11 @@ static int amdgpu_vm_sdma_update(struct amdgpu_vm_update_params *p,
- 						     AMDGPU_KERNEL_JOB_ID_VM_UPDATE);
- 			if (r)
- 				return r;
-+
-+			/* The estimate above describes the job which was just
-+			 * submitted, take the budget of the newly allocated one.
-+			 */
-+			ndw = p->num_dw_left;
- 		}
+diff --git a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
+index 03d88e78165d5..5786ef5787ac6 100644
+--- a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
++++ b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
+@@ -1696,7 +1696,8 @@ bool mod_color_calculate_degamma_params(struct dc_color_caps *dc_caps,
+ 			return true;
  
- 		if (!p->pages_addr) {
+ 		if (dc_caps != NULL &&
+-			dc_caps->dpp.dcn_arch == 1) {
++			dc_caps->dpp.dcn_arch == 1 &&
++			!map_user_ramp) {
+ 
+ 			if (input_tf->tf == TRANSFER_FUNCTION_PQ &&
+ 					dc_caps->dpp.dgam_rom_caps.pq == 1)
 -- 
 2.53.0
 
