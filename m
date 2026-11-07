@@ -1,54 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046779;
-	b=gs8VtoRAOu1xYNlyWf5Zdwu1myHkWnJAcnN/8grwqZ1/7H0E5vRLoL8va0gYzy5Aru5j
-	 AD/AwpeK1mN0Bq+adD6xeFwKmWz9XuTAsefZSad1WIS3GE+ZnId4fwTr/DO0LRS1jlUXa
-	 OOUvCheTnAg/8kCFBAvEo1KTnxzUXNbzf71HxGC80qUK7K+xgPRC0n4biWfmCid0GzTRE
-	 xZ1Qx8Vv990fzQyJz6Sm79nhq1HQ4vtTGUidJsFYkygToQWu9x5MG53s6zpY4uJ9QdlJ6
-	 6Uof79EPZw2Bvp8G54BhyFHlA1tXhhhY9mmghfUtPt035On1/hxZQB4Nj3S5GxAA7IA==
+	t=1794046782;
+	b=sSfsKgaVF4d5WuQZmWkgGx/0eVCkKNOsNVx0UIvcVlnINETdZzuslIS7kAnEn2fm4Zjw
+	 zHCeXWLBrON8/uZdFVuq9ObHqQlUesBJaakoN1NDMRlHsh/TMVm5s8Urb5bNwVE7Y3hvt
+	 ozRcpXBleQ+/2oE0dqJPK6AC5FO34mJLFTeqRhmNwnYZyj7foNpuEBUG2+MTQlqNjWMFK
+	 fu8LYKQfvi3qwR/VDO/7FCOFvE5At3YsrtuLniNHZzSYGBzWKZImeER94aeyyVXyIIRB8
+	 Cr+vAy7W60AfL9FwohAjYv/Z9mBSrVRhExJ2wV+BicG0yZWBh0ad9K68GcUdTV6Tuog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046779;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046782;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=EYSkzzHYXIb41OWKWJV6qauHH3/LH4Y6zZlc08hrLU0=;
-	b=j41d2JizXAdcwf/SLgljTp61VrKXfdGkjfpO6S542V5w4Jal7n1JNjY70T5ztv8E0XZT
-	 xNTfjZR3RnNyfCFmX1NTOf/ZUBEROXLx99flBs5QFtivjcxfg2PDpHLbCwNk4UxvQBQ79
-	 sxM7Y6sFJEKXcXOMc/An1MwpUcXlmcXS5ZKcwFPuz22DunWeklHuld3EBd9HtqMl/C3UI
-	 +SB/5HJ/XoVuWLf+dbPmHN8ILe/SPz6W5uxk1P/4NzuUlpSl/JgxLQGJCL/48HeHdLZMH
-	 D+DGFuUhMXmpiMrbAvyhSzO2JsLwxL1qLQ8igxZZtZucwIsJLm9nly3Z4tVUuwRtslA==
+	bh=//Iu4bckgzEQwjxzKlXq3VBiStGc7lqTKRGIwib0PGc=;
+	b=qbHSPpu4baM+OSmowoybrl1+msp9I2Qgr0xV/2sOKeajLy79eqw/Ba3BfukJabLY10xK
+	 N5abMUTNpaugqBLJDBx4460+QW+U2F8MgZqmZM8la+QfkDAzAl//FNcv2IDR88OStcqFK
+	 jd16VShZpXkfSsXhwjIqD64X80WEls1OmI9ysoYUet06Hmcm4u07KzD4Auh1BSek48zXj
+	 iUk9IqclgASvdsJNMc3cIQ8WctnGkztbAJP6neoqcJnBGGRTRr6B0NGIuBDVwN8kBjW7D
+	 HLovk7LazwItTbGoQidPLSqgkHjbyIdt492+mJ0/nwSkhWRS7Gai4Z0ZDtGFl6rgA/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AplRwNIv;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LvGKTslq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0460606D804
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:19:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCC68606EEBE
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:19:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AplRwNIv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 975AE1F0089F;
-	Sat,  7 Nov 2026 10:19:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LvGKTslq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E74AC1F008A1;
+	Sat,  7 Nov 2026 10:19:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046778;
-	bh=EYSkzzHYXIb41OWKWJV6qauHH3/LH4Y6zZlc08hrLU0=;
+	s=k20260515; t=1794046781;
+	bh=//Iu4bckgzEQwjxzKlXq3VBiStGc7lqTKRGIwib0PGc=;
 	h=From:To:Cc:Subject:Date;
-	b=AplRwNIvYSNY8zTkFNmykhvyOjhDeID5o7ZrRNztQDSyg2CJRm3rg2dLwcQnfOyv+
-	 pv128PjsPhRriNy/Ll6v2Ptd3H69olwqUmr86svmykgQziLIGmwezsy275BpJsTtYR
-	 0oO1hlTRvZmSeFBbh2FitiSGJnTJIkIclVW2HntJJmDfyyFbpOU94/4arfxebUH7nh
-	 hrPYbElx+iifgtGaGlNhKkcgN6AQLCYeDTfNXMswIQpcEocTU5HCKQY2jwCdySUgjF
-	 rzwX4TiqXuQtqeBUpESrA36dy6V6/1RIOh/eZz19AQ7odGTNkwyaJMMKBD4/XV+5oe
-	 tseOS5UeqXbpw==
+	b=LvGKTslq7jslDw3dPga5mUS5nLLIjPV9z9JuSPACbCO42xCm1lGmIiOaU+s73LTlH
+	 WKZjjjquAqqN5gwgsUD7jUL7FTOqVrRxwb/F/9FTAB8KHylccSxlfZVxP6gXVbUWS1
+	 KapySId1H9Nx/wLVEiUjBC6ZZygCk5ebsEAEozteNoQHcq/3M3QdSI3wYb3MJowrbe
+	 yYEbww32APq2jPfNpevHCrYajYkOpxWATI1JFJQQj5Dygw4w3+AE46hkWxoQ0OnDq7
+	 nuSdA/LlowaRW7jlyAnls8O9mrI9HaxJee1/qxaoOPi4Iy4CkDm1Uzys4ZD17khiHP
+	 0aZrEwry9HAGw==
 From: Sasha Levin <sashal@kernel.org>
-To: roxy520tt@gmail.com,
-	enjou1224z@gmail.com,
+To: kas@kernel.org,
 	akpm@linux-foundation.org,
-	vega@nebusec.ai,
-	liuye@kylinos.cn
+	lance.yang@linux.dev,
+	ziy@nvidia.com,
+	hannes@cmpxchg.org,
+	usama.arif@linux.dev,
+	baolin.wang@linux.alibaba.com,
+	david@kernel.org,
+	balbirs@nvidia.com,
+	baohua@kernel.org,
+	dev.jain@arm.com,
+	hughd@google.com,
+	kasong@tencent.com,
+	liam@infradead.org,
+	ljs@kernel.org,
+	ryan.roberts@arm.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/page_table_check: skip zero pages" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:19:36 -0500
-Message-ID: <20261107051936-failed-6.12-33afd07412a1@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/huge_memory: do not touch frozen folios in deferred_split_isolate()" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:19:38 -0500
+Message-ID: <20261107051938-failed-6.12-5da8ec3262bb@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,70 +82,166 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 33afd07412a1efe5b750a3fd5eb0272ebdd12761
+git cherry-pick -x 5da8ec3262bbb40f057f3b0dacc18f37bda06f95
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051936-failed-6.12-33afd07412a1@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051938-failed-6.12-5da8ec3262bb@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 33afd07412a1efe5b750a3fd5eb0272ebdd12761 Mon Sep 17 00:00:00 2001
-From: Zhiling Zou <roxy520tt@gmail.com>
-Date: Tue, 21 Jul 2026 23:56:38 +0800
-Subject: [PATCH] mm/page_table_check: skip zero pages
+From 5da8ec3262bbb40f057f3b0dacc18f37bda06f95 Mon Sep 17 00:00:00 2001
+From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+Date: Mon, 31 Aug 2026 10:15:13 +0100
+Subject: [PATCH] mm/huge_memory: do not touch frozen folios in
+ deferred_split_isolate()
 
-page_table_check_set() accounts pages by whether they are PageAnon().  The
-shared zero page is a special page, not an ordinary file-backed page.
-Read faults on private anonymous mappings can install many read-only PTEs
-that point at the zero page, but page_table_check currently accounts them
-in file_map_count.
+Patch series "Fix deferred_split_isolate() and drop the split workaround",
+v2.
 
-That lets an unprivileged process populate enough zero-page mappings to
-overflow file_map_count and trip the BUG_ON() in page_table_check_set().
+deferred_split_isolate() probes each queued folio with folio_try_get().
+folio_try_get() failure is treated as a lost race with folio_put().
 
-Skip zero pages in page_table_check accounting.  They do not need the
-anonymous/file mapping conflict checks that page_table_check performs for
-ordinary pages, and this keeps the existing counter size and page_ext
-layout unchanged.
+It leads to wrong results when !folio_try_get() was not caused by
+folio_put(): for a frozen folio, PG_partially_mapped gets wrongfully
+cleared and the folio dropped from the queue.
 
-Link: https://lore.kernel.org/1f8848512d2e3ded944f8d595c29faee8fdaeab0.1784645969.git.roxy520tt@gmail.com
-Fixes: df4e817b7108 ("mm: page table check")
-Signed-off-by: Zhiling Zou <roxy520tt@gmail.com>
-Signed-off-by: Ren Wei <enjou1224z@gmail.com>
+It came up in the review of my collapse RFC series:
+
+  https://lore.kernel.org/all/20260824131224.73344-1-lance.yang@linux.dev/
+
+The bug is inert in upstream code:
+
+  - __folio_split() works around it;
+  - __folio_migrate_mapping() freezes a folio it is about to replace;
+  - reclaim freezes only what try_to_unmap() already unmapped.
+
+No cc:stable needed.  But my collapse rework steps on it, so it is worth
+fixing.
+
+The branch the first patch removes also hid an inert, pre-existing bug in
+the zone device path:
+
+  https://lore.kernel.org/all/20260827163838.1813081-1-usama.arif@linux.dev/
+
+The first patch fixes deferred_split_isolate().
+
+The second patch removes the workaround for this deferred_split_isolate()
+behaviour from __folio_freeze_and_split_unmapped().
+
+Tested in a VM: split_huge_page_test, folio_split_race_test and cow pass.
+
+Also ran a test that leaves 16 partially mapped THPs on the deferred split
+queue and drives thp-deferred_split through debugfs, checking
+nr_anon_partially_mapped.
+
+
+This patch (of 2):
+
+deferred_split_isolate() probes each queued folio with folio_try_get().
+folio_try_get() failure is treated as a lost race with folio_put(): clear
+PG_partially_mapped, correct MTHP_STAT_NR_ANON_PARTIALLY_MAPPED, take the
+folio off the queue.
+
+The folio_put() race is the most common case for !folio_try_get(), but it
+is not the only option.  Another scenario is folio_ref_freeze().
+
+A zero refcount in such cases does not mean the folio is going away.  It
+means "don't touch me" and current deferred_split_isolate() doesn't
+respect it.  It can lead to unqueueing folios from the deferred list for
+no reason:
+
+    CPU 0                            CPU 1
+    ---------------------------      ------------------------------
+    freeze a mapped folio            deferred_split_scan()
+      folio_ref_freeze()               folio_try_get() fails
+                                       folio_clear_partially_mapped()
+                                       NR_ANON_PARTIALLY_MAPPED--
+                                       folio off the queue
+    give up, put it back
+      folio_ref_unfreeze()
+
+The folio is still partially mapped, but it is no longer a split
+candidate.  Nothing queues it again until part of it is unmapped once
+more.
+
+Skip the folio instead: whoever freezes the folio, owns it and owner is
+responsible for its fate.  It also covers the folio_put() case:
+__folio_put() unqueues the folio via folio_unqueue_deferred_split().
+
+Nothing is lost by skipping.  Everything that frees a queued folio
+unqueues it first, and folio_unqueue_deferred_split() clears
+PG_partially_mapped and brings MTHP_STAT_NR_ANON_PARTIALLY_MAPPED down on
+the way:
+
+    __folio_put(), folios_put_refs()   mm/folio.c
+    __folio_migrate_mapping()          mm/migrate.c
+    shrink_folio_list()                mm/vmscan.c
+
+__folio_freeze_and_split_unmapped() does the same by hand, under the
+list_lru lock it holds across the freeze.  A freeze that ends in
+folio_ref_unfreeze() leaves a folio that is still partially mapped and
+still belongs on the queue.
+
+Link: https://lore.kernel.org/20260831091514.1879786-1-kirill@shutemov.name
+Link: https://lore.kernel.org/20260831091514.1879786-2-kirill@shutemov.name
+Fixes: 8422acdc97ed ("mm: introduce a pageflag for partially mapped folios")
+Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: Codex:gpt-5.4
-Cc: Ye Liu <liuye@kylinos.cn>
-Cc: <stable@vger.kernel.org>
+Reported-by: Lance Yang <lance.yang@linux.dev>
+Closes: https://lore.kernel.org/all/20260824131224.73344-1-lance.yang@linux.dev/
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Acked-by: Usama Arif <usama.arif@linux.dev>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Assisted-by: Claude-Code:claude-opus-5
+Cc: Balbir Singh <balbirs@nvidia.com>
+Cc: Barry Song <baohua@kernel.org>
+Cc: Dev Jain <dev.jain@arm.com>
+Cc: Hugh Dickins <hughd@google.com>
+Cc: Kairui Song <kasong@tencent.com>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
 ---
- mm/page_table_check.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ mm/huge_memory.c | 19 ++++---------------
+ 1 file changed, 4 insertions(+), 15 deletions(-)
 
-diff --git a/mm/page_table_check.c b/mm/page_table_check.c
-index ed3e1a76f2664..143a918c0bde2 100644
---- a/mm/page_table_check.c
-+++ b/mm/page_table_check.c
-@@ -67,7 +67,7 @@ static void page_table_check_clear(unsigned long pfn, unsigned long pgcnt)
- 	struct page *page;
- 	bool anon;
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index 54494c3fa9835..779c02e0bf6cc 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -4638,22 +4638,11 @@ static enum lru_status deferred_split_isolate(struct list_head *item,
+ 	struct folio *folio = container_of(item, struct folio, _deferred_list);
+ 	struct list_head *freeable = cb_arg;
  
--	if (!pfn_valid(pfn))
-+	if (!pfn_valid(pfn) || is_zero_pfn(pfn) || is_huge_zero_pfn(pfn))
- 		return;
+-	if (folio_try_get(folio)) {
+-		list_lru_isolate_move(lru, item, freeable);
+-		return LRU_REMOVED;
+-	}
++	/* Lost race to folio_put() or the folio is under folio_ref_freeze() */
++	if (!folio_try_get(folio))
++		return LRU_SKIP;
  
- 	page = pfn_to_page(pfn);
-@@ -102,7 +102,7 @@ static void page_table_check_set(unsigned long pfn, unsigned long pgcnt,
- 	struct page *page;
- 	bool anon;
+-	/*
+-	 * We lost race with folio_put(). Read folio state before the
+-	 * isolate: folio_unqueue_deferred_split() checks list_empty()
+-	 * locklessly, so once removed the folio can be freed any time.
+-	 */
+-	if (folio_test_partially_mapped(folio)) {
+-		folio_clear_partially_mapped(folio);
+-		mod_mthp_stat(folio_order(folio),
+-			      MTHP_STAT_NR_ANON_PARTIALLY_MAPPED, -1);
+-	}
+-	list_lru_isolate(lru, item);
++	list_lru_isolate_move(lru, item, freeable);
+ 	return LRU_REMOVED;
+ }
  
--	if (!pfn_valid(pfn))
-+	if (!pfn_valid(pfn) || is_zero_pfn(pfn) || is_huge_zero_pfn(pfn))
- 		return;
- 
- 	page = pfn_to_page(pfn);
 -- 
 2.53.0
 
