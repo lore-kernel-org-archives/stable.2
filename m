@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794068202;
-	b=ytI3O8Jzsk5FxCgUxCW6kGZcI3nqdC0lwlECyNTVIDlS/92MMdjL8+PteSWcNxsfdEeK
-	 goZv1TR0ufhfr9/3P1akVui6TS6NN5ViDiySmC8LabYmtkfYI+on1X3A/7B2ZIIoBy7ID
-	 +S4c257ZdTR0XWhcyx+Dr2ojc1legH4DDpXf77A90AoD3LRNQAj/QmSeSqOWqZ+zt/FrY
-	 LNRyWm/yNV2J/78phnGgyTymCDcV15ZTWyuptmv7QYqsQeG0Lyh7IwMx1ez0aB4oI9BOr
-	 QiiucxbrvsVLPE0WKD6vj1j1e7mj118ElbqQM7SxrRQNfL6guUH5TNv4sUQucNbHBiQ==
+	t=1794068204;
+	b=3yUMrAp+p+VTEvjbrAgih8AwEXToZVSMmSv2CwcFiW7UG31EXOLMES837zx44X/03TZ3
+	 Y/BBYKjnMVybumaSZCH+Wllj5c8ULZGdFVE52IETsqgxL+QHymK/BRiBZO55GbJw0OjT7
+	 RD/p3LbsqNPLw8bRgaDQQiOv41u0IXqnB0NCHJ4Z6IkRXcTU4lYTAW7fpK0OvF1CQvVXs
+	 1FR8Mil1vszyvYKmTlGx6gY2XCu0HyZAY+JL38caoknMG/NEdmiVoRCL2f6ycxrGSrazD
+	 3H07wfZU+UTUK/cesAc01AQiOUxxpWbW9WsmHoKt7gxYVzbbI/pXhB13+aKEfReY/2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794068202;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794068204;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=bM1hTVbW2nweBH/A6UcgC0OeSKooruA4eo//lcpz250=;
-	b=w13y/fQKeLeuy6yQ4pd6qgKA982e3LSqDV9dSKpRw2zowm/oMDHtly57FBkc/C299+Ih
-	 UTFYHhr+zuEIZwMn+XcjCVfBF2qNbC4eTO/xQaCaJOQLS7ge6QCgw3FlXjSlT/B0edrEH
-	 v57wCT2XO+KeZXsd73P6Iq5box8COsaN/8ZwxQQI+EwUb0tViO3yOv3gYtpcKjfYObg+f
-	 G6pabdR2DC+aysCSylC448+5fMRbbjFonjRVYGU9Dr+uElyj7jfmENaH1aJgNhzj2ipkn
-	 gX81ShyxrJDqU7oEeys6QxmH0l0yHs9w92KmB31X3CVFG25v1B3l+lD8qtCKDC3yTeg==
+	bh=V0tXlb3eD3nFk9zZCTTXCVj6DaeJoJ38rtbisrRciEE=;
+	b=w59/jjo+fip4SdSdFOXlH7Asb1ogL8ASxn7RpJTgaJplJKaNCVetsrTbwNoS+3STw133
+	 W3GOX+YzCQS4rqPPBOzlFMkzC9KDnkrY1U6dAw+OS/VADicK3Gm6tRvvIoSs0e43g/ARp
+	 PZ2FDWz1NTb3mBvhOdHAZ/KxnbqErMsAD0i+llgwjePJWwyX6og6wJtTmePLeXYwPkAnG
+	 kquwFFUyYrgiLaCiFCsMWwip6LzdwPpmtqHhsk4+7iFPoXlLSY7o07V7TZi1BAhHfJNAR
+	 /yGW8j1zqc3JfwKcCk1nNd/u2pe26pxzM2eTprYuAvRUi0RNaPEMhkpeQa3i5Ot9zKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=kernel.dk;
 	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=DULWFsHd;
-	arc=none smtp.remote-ip=209.85.216.41
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b="HJWJ/HxH";
+	arc=none smtp.remote-ip=209.85.214.179
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ED9A606AC32
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 16:16:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2ED9A606AC32
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6F7D606A337
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 16:16:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6F7D606A337
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=DULWFsHd
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3ae1d0caaedso735420a91.2
-        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 08:16:42 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=HJWJ/HxH
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2ed1e9ae5a8so5418265ad.1
+        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 08:16:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1794068201; x=1794673001; darn=vger.kernel.org;
+        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1794068203; x=1794673003; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=bM1hTVbW2nweBH/A6UcgC0OeSKooruA4eo//lcpz250=;
-        b=DULWFsHdf6ZSwSCSgnl2++lNc+Q0x2h6m4oFeLD1wHT6I2O3rl+pysZI9RLPwBzke4
-         aWBjOd+La4mhabaF9jWVbX8/JVa3UgRYa1LMhefThfK/k2fs5vxPsSHWiH/mjvx4tg+U
-         vlHCX432QqXQeb/kaZ/w19jRL7GLuNHUTOIILFl+71+JBanm162hSb/f1JL8iHAG1prt
-         PZTLPFS7ROX7j9H14WcSwfq1G+RH0RgU50CxDjiCvJmVYEAMlbGxhLd9sohSHmNQjm3D
-         MdqlA9YK43hDoJ3BHRySznKTsydgMpYjWW6IYpZAqlLLTpk3E8jvDuvkJGMd6WD811Cy
-         ulBA==
+        bh=V0tXlb3eD3nFk9zZCTTXCVj6DaeJoJ38rtbisrRciEE=;
+        b=HJWJ/HxHr0YZvMQNM3Lo4OeVtkTX+lACwdwcgF26uxt3sQY4Pys0C6i5yKQRydKzwg
+         1y2Nx6ATJMpgdrhpVivZLZG90hAFfWtt7ld/jfd0DPibrUG+UYhluft5VCDdUKY5hOj9
+         MCiWzgJC2Sh/Zv9lNWFH0n02QdkU1EhQeYVTSj2KpHy1wVVdEG2F8IRueIHau+072vJi
+         eJSq+z5XW7ZqG7WKhOsRm9rJfZf55GNXQUCawLQcug6HKAbh1Fd4G2hpN2XKrFIDBo52
+         ryyOGkWsw4cCnKspC6hRn0xoJ+LZn06eKKJ8BBRsdIyRWUBoG4uXoBbRTHY0YdZDepTD
+         ClLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794068201; x=1794673001;
+        d=1e100.net; s=20260707; t=1794068203; x=1794673003;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=bM1hTVbW2nweBH/A6UcgC0OeSKooruA4eo//lcpz250=;
-        b=CqIl8Hq4N6HLb75480/gyR3rwiGsQlPPelsDbVkF1S9ScvA/vj6VbtAHS8mQ3aS5Ao
-         SvyVWhlmQg/uvYGxXXSlZs0jS9AYakgXWLWSN/lpUgsBhM2sSzAW0YOwCbbyFO+mvau/
-         0rl4qjm5AsaqoUFm9ZmrnpZElzTq2BoFgsJB38gUW0EN2p4bcMdgfELopZIgN73NFuVB
-         /gyiRl338AoeiToUSMRHrYdHHals9zZK72kipw730ZFO4Eo2Nvb46XTfdddfcv4bC/Xo
-         4UotKbzs17/5CX6JB3eudI6c9RGsRiMk69GsZtIyqjqpT5ViK1wCierCjvQ6m2Bkc7W2
-         hX8g==
-X-Gm-Message-State: APuU4Z8dMjAyO3HW9yC59u4eW50pXW6yLQ6UVszW9v7hj9VP5T0A/CqJ
-	26L3f6j/0Zq0/8UvUE89E7IzPy4FQs30Ngrly4CqLGTeOIgpnmApjxJ6QkblpYc9Xu4ZQCOqOt9
-	YUJd8
-X-Gm-Gg: AYBFou3TuwQ65jR9r0Nx35pTSEeH2GAupXdX1OAdtxKYpfGjUqlStRywg8J25TQN76K
-	ImwGF7RAmGWAj4Ha5cwQikV8dH3BEs9kbT5OzUvQw6G6zTK1eRsR9QCHs5olD4Ote+TizFuoUq4
-	/728LSzCctt0TpqbHFQmFZwYYTcyxc0oXbPSODv/qrDbILhZfaxuQNSV7zfczDQgH+f/KPBdLmF
-	h2X6rz7vOaTYyqGXNFwe8xfw1VRPxcvx7r2GAMhru/52DZzVQfptTi3mj7hMaYCZdv06hF/jc+A
-	f99L9krqhbOp3jxyjbGwxoLPAnXttc5p6/6Va3g6XxRUdKnKtmSfYE26vHCSN4wykcWrBsdeEDC
-	Bnq4JHjTYY8oQ3ce8DTnqA54SdXJluWZ1J5HJOI1yX8VQ04WzahIzB6xy0udk33F6V5BksExHvu
-	jN9Hp/buaJtulKtXYAbI/K1XatW97dOcFNiouEb0VRNeMLZk85cciXczSb9GB0TUqLwIMfERz9g
-	hA6yIgXeyK2zdyEGNombEtTofu4L4JAvNoxYV0Qxghutp5RWZF6GSdssvbRbRfCKro1ZPZux4Nb
-	yixg+FBzXko+mEPvsmq2S7D3Cf3rXKSKe0Usx7w0+Hborq5ectb8Aa/XhTU0FgUCNj6yQZItRFE
-	KyjgHdgKUIvd4lBt80OP0
-X-Received: by 2002:a17:90b:270e:b0:3ab:188b:c5bc with SMTP id 98e67ed59e1d1-3b0db6d79f6mr5138851a91.14.1794068201339;
-        Sat, 07 Nov 2026 08:16:41 -0800 (PST)
+        bh=V0tXlb3eD3nFk9zZCTTXCVj6DaeJoJ38rtbisrRciEE=;
+        b=V/+xCnJx8r0v6jJUiDQIC4s1JIP4fccCH44/ZCmYiROSpvSUZ5c3clNIyejcT8C1Di
+         7fFe3a+XpogbxI73TzI2M+yTuK0/3gaeZpi1ILqAx9QOuAKypfFNdlHHV1qrMfCLk+rY
+         ej2KgUKCTmhFD084YR5jmmD6E57nga54ppD3yyQrbbgE8m9ZotoVNvsHn0niz5+c1PYE
+         L5QsZqOsWNhV5C2+41f918B1kMPILGVeVh4eOx2fOqJTd6XAElgRt9z26ft6Dq+iIOsF
+         hD8Hkm0iUWHQt70sAqUNNGPPfwlKhzCvVb+sk5TuY4rxyuexQdtD+iK/1iy3WIMc61xS
+         3y8w==
+X-Gm-Message-State: APuU4Z/PcUGLuT3dUUIdUXFfRko6ARyX3Zpvft149cWnqkftCmOQitzG
+	BAh+nUy6fral8tTyB0bGqrRO6i5OgFy5KpokaXdfYhTse+h8Gnjy/DWsIFsz4vApkm2C5aDz4Xl
+	uxhjjTew=
+X-Gm-Gg: AYBFou2qNDk3zmpTS+09kB89GybevvwoJENB1DV4/IsHIhqRB9u5auhSALuE9bxOkfA
+	CR8kOtZ7BYpWWjOgylGDVQJwCtqfwdTWu0mSfF00girAu64m5wkKTZKBsYeuehwj+56d4U8kpUt
+	iPBjsNuxE42yIC91P91bTuXw58zWosnv2kZAtX5XCi2DXTjcXQIweFCwUh3PZZWwBzzfa5kIIz2
+	njHVZphLd9YpE+aN3v8kGaEEOusUHtFXJthmKeLp5bmm+L0WD582EEzZPOXJFPAXRW+6QaiZWbP
+	V3wCqK2IxCq+Q58lxAKO9sclWQX55DDoJZYpdNiTccoIWVi5Oa1w5ErjGJChsSKWNcXBsKW1Wx0
+	+uSIoqaUO9hUmgQqPmHEn2G+WF1JHq7tFL8M75sLP5haLu40I9ikjIehl+zY2mrHD5P3NB3FVQo
+	etsqxxXirFoRMnNmeVXBRa25aFQqV1xWY+78decEuPBm7gssbOlYChkAdleJkpEPqSFyfy2ojQK
+	ceOKhVRM87oDm4St+lusGXTjYhizTUBomnCu8ZhcGSfGXgrsDLThPa3Dng4kKoX4xo/vEk7JVkp
+	E/pGPHTU4OGRyOxQQMsYFpSst6ZOXxypIkP3m8a8/HXNVAlWD7OqhDuAQbY7fRXA++lZn+em+Og
+	=
+X-Received: by 2002:a17:90a:e185:b0:398:c3ca:1ebc with SMTP id 98e67ed59e1d1-3b0db6c9b4fmr5924902a91.18.1794068202945;
+        Sat, 07 Nov 2026 08:16:42 -0800 (PST)
 Received: from xps16 ([198.8.77.135])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b10581caccsm3753898a91.10.2026.11.07.08.16.40
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b10581caccsm3753898a91.10.2026.11.07.08.16.41
         for <stable@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 08:16:40 -0800 (PST)
+        Sat, 07 Nov 2026 08:16:41 -0800 (PST)
 From: Jens Axboe <axboe@kernel.dk>
 To: stable@vger.kernel.org
-Subject: [PATCH 6.18.y 3/9] io_uring/sqpoll: don't set IO_SQ_THREAD_SHOULD_STOP on thread exit
-Date: Sat,  7 Nov 2026 09:16:28 -0700
-Message-ID: <20261107161634.2500557-4-axboe@kernel.dk>
+Subject: [PATCH 6.18.y 4/9] io_uring/sqpoll: do the return-to-userspace work in the SQPOLL thread
+Date: Sat,  7 Nov 2026 09:16:29 -0700
+Message-ID: <20261107161634.2500557-5-axboe@kernel.dk>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261107161634.2500557-1-axboe@kernel.dk>
 References: <20261107161634.2500557-1-axboe@kernel.dk>
@@ -99,86 +99,69 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Shuai Liu <847807867@qq.com>
+From: Shakeel Butt <shakeel.butt@linux.dev>
 
-Commit fca3ff9e2eee7d285585daf51942e0b5e2be354a upstream.
+Commit f013b695506491c5202a412a6568313549c81f50 upstream.
 
-io_sq_thread_stop() carries a WARN_ON_ONCE() asserting that
-IO_SQ_THREAD_SHOULD_STOP isn't set yet, i.e. that stopping the SQPOLL
-thread is never attempted twice. Since commit 22d9db9fd64a
-("io_uring/sqpoll: don't attach to a thread that is canceling"), the
-SQPOLL thread itself sets that bit on its way out, so that
-io_sq_offload_create() won't attach a new ring to a thread that is
-canceling.
+The SQPOLL thread never returns to userspace. io_sq_tw() runs its
+task_work, but the rest of resume_user_mode_work(), like memory.high
+reclaim and block cgroup throttling, only runs when the thread exits.
+So memory.high reclaim only happens inside a charge, with sqd->lock and
+ctx->uring_lock held, and not at all if the charges can't block.
 
-When the thread exits on a fatal signal, the bit is thus set before the
-ring teardown gets to io_sq_thread_stop(), which now triggers the
-warning on every such exit:
+This used to work. The loop called io_run_task_work(), which does this
+work since commit b5d3ae202fbf ("io_uring: handle TIF_NOTIFY_RESUME
+when checking for task_work"). Commit af5d68f8892f ("io_uring/sqpoll:
+manage task_work privately") replaced that call with io_sq_tw().
 
-  WARNING: io_uring/sqpoll.c:88 at io_sq_thread_stop
-  Workqueue: iou_exit io_ring_exit_work
-  Call Trace:
-   io_put_sq_data
-   io_sq_thread_finish
-   io_ring_ctx_free
-   io_ring_exit_work
+Call resume_user_mode_work() at the top of the loop when
+TIF_NOTIFY_RESUME is set, with sqd->lock dropped. It runs once per pass,
+so a pass that charges two or more batches still reclaims inside the
+charge, as before.
 
-Introduce a separate IO_SQ_THREAD_EXITING bit for the thread marking
-itself as on its way out, and check it in io_sq_offload_create() along
-with IO_SQ_THREAD_SHOULD_STOP. IO_SQ_THREAD_SHOULD_STOP regains its
-original meaning, "a stop has been requested", and the WARN_ON_ONCE()
-holds again.
+Tested in a VM with memory.high=64M and swap on zram. An SQPOLL ring
+reads 256M from /dev/zero into untouched memory, 64K at a time. Before,
+the thread made 337 calls to __mem_cgroup_handle_over_high(), all from
+inside the charge. After, it makes 704, all from the top of the loop.
+memory.peak stays at 64M. With 1M reads, 296 of its 385 calls still come
+from inside the charge. Both runs take about 50% longer, and the extra
+time is in the handler, which now runs more often. Without memory.high
+pressure, the test never calls resume_user_mode_work() and the times
+do not change. Lockdep showed no warnings, also with io_uring_register()
+racing for sqd->lock.
 
-Reproduced with an SQPOLL ring and an immediate fatal signal: the
-warning fires on v7.3.0+ (22d9db9fd64a present) and is gone with this
-change.
-
-Reported-by: syzbot+675af112519ca34f5502@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=675af112519ca34f5502
-Fixes: 22d9db9fd64a ("io_uring/sqpoll: don't attach to a thread that is canceling")
-Signed-off-by: Shuai Liu <847807867@qq.com>
-Link: https://patch.msgid.link/tencent_BB08960D79E0261B5C1EB1E589787734E907@qq.com
-[axboe: trim excessive comment]
+Fixes: af5d68f8892f ("io_uring/sqpoll: manage task_work privately")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+Link: https://patch.msgid.link/20261101022146.309201-1-shakeel.butt@linux.dev
 Signed-off-by: Jens Axboe <axboe@kernel.dk>
 ---
- io_uring/sqpoll.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ io_uring/sqpoll.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
 diff --git a/io_uring/sqpoll.c b/io_uring/sqpoll.c
-index 1c7f84192c0a..1d31a4b1a9aa 100644
+index 1d31a4b1a9aa..66405f4630e7 100644
 --- a/io_uring/sqpoll.c
 +++ b/io_uring/sqpoll.c
-@@ -28,6 +28,7 @@
- enum {
- 	IO_SQ_THREAD_SHOULD_STOP = 0,
- 	IO_SQ_THREAD_SHOULD_PARK,
-+	IO_SQ_THREAD_EXITING,
- };
+@@ -358,6 +358,18 @@ static int io_sq_thread(void *data)
+ 			timeout = jiffies + sqd->sq_thread_idle;
+ 		}
  
- void io_sq_thread_unpark(struct io_sq_data *sqd)
-@@ -441,9 +442,10 @@ static int io_sq_thread(void *data)
- 	/*
- 	 * Cancelation drops sqd->lock while it waits, and a ring could attach
- 	 * to a thread that is on its way out. A fatal signal doesn't set the
--	 * bit, so set it here for io_sq_offload_create() to see.
-+	 * stop bit, so mark the thread as exiting here for
-+	 * io_sq_offload_create() to see.
- 	 */
--	set_bit(IO_SQ_THREAD_SHOULD_STOP, &sqd->state);
-+	set_bit(IO_SQ_THREAD_EXITING, &sqd->state);
- 	io_uring_cancel_generic(true, sqd);
- 	rcu_assign_pointer(sqd->thread, NULL);
- 	put_task_struct(current);
-@@ -514,7 +516,8 @@ __cold int io_sq_offload_create(struct io_ring_ctx *ctx,
- 		/* don't attach to a dying SQPOLL thread, would be racy */
- 		ret = 0;
- 		if (attached && (!sqd->thread ||
--		    test_bit(IO_SQ_THREAD_SHOULD_STOP, &sqd->state)))
-+		    test_bit(IO_SQ_THREAD_SHOULD_STOP, &sqd->state) ||
-+		    test_bit(IO_SQ_THREAD_EXITING, &sqd->state)))
- 			ret = -ENXIO;
- 		io_sq_thread_unpark(sqd);
- 
++		/*
++		 * The SQPOLL thread never returns to userspace, so do the
++		 * return-to-userspace work, like memory.high reclaim, here.
++		 * It can sleep for a long time, so drop sqd->lock.
++		 */
++		if (test_thread_flag(TIF_NOTIFY_RESUME)) {
++			mutex_unlock(&sqd->lock);
++			resume_user_mode_work(NULL);
++			mutex_lock(&sqd->lock);
++			sqd->sq_cpu = raw_smp_processor_id();
++		}
++
+ 		cap_entries = !list_is_singular(&sqd->ctx_list);
+ 		list_for_each_entry(ctx, &sqd->ctx_list, sqd_list) {
+ 			int ret = __io_sq_thread(ctx, sqd, cap_entries, &ist);
 -- 
 2.56.0
 
