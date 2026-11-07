@@ -1,52 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794064007;
-	b=OiuCA7quUF6jCXyn+TcCqwSDLJana3hQ17ScnAu9DFolKgwp1xP758Wjz0h1nd3dl2MS
-	 zsjDKNNW2l7prsFmXbMtOL8dmJ7q7fkiALFgyqQgtJKQfXBfkiOOZHktouMF7MF9zClQE
-	 mBhfTHEWs+obGjbXJZseCrgYmALnkLKrsuOpT4XmBGRz/LZaKv6GvvualSnfRQkM0ETHR
-	 sLs/UZIKjK6HrVZq7um5l5FYKyU8eks1JFLRsC2SBqUQPLo0PSqSRIBh+pceti2q1+cTT
-	 6k8zC2MfZppZx8mLoPlh42RBbHSKxCaf2ogO3ZEOerzcYxG0LdT3H/pCWdkZImufKNw==
+	t=1794064013;
+	b=c3ja0MRTRe6i93dcFXxp17NCaulRP3LUHnBuCB4Lv3qHJTXRZh6Px3JyK4ovmcRV++0D
+	 c+kXwm5pB0ByvijywanFl5XNioehjVAANDobZrxwm32p8XLW/OJWNmoVCU21RGJuyKZ9J
+	 E5AwZZoV9dp/+zZrineC43Gy+NZZAgqv6ANjOvWGH8AgwyZz+kD9yx6Ecdl5hcy0P5YsI
+	 CSDkGpkh96V41C2Nzv5DhgYk4KGpx13AWMPK17fw6YWK2EU1wPb+W4q6cltXhRSbmWes3
+	 ptQxhchWOTdHTLCG53T7Cr7j4uA0OgHHU8kBd8bwYXixzmArljDyFceSxGkzqnod+lQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794064007;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794064013;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=CNiVHVCR3gBYfSGJtcV/lhJdlQlKWw8JT4Crb35jXz0=;
-	b=YpZwhttk7XB7f7RGhbvYp8djeAEObr38GiUfoNaxdrGNzeyMi/57scvNr2DzyC6tTtGu
-	 PHJowWnRflAQFDQ0N5VC8zP01lo+2ajCok2fM1F7whg/SnXLfF/eaW7yFikuM9iBo1QZr
-	 eow9Azs/GA5cxwb6wpYDGKx1GeRD7NAnqLk5LeQ8fit6wyIyo5FyZD7ELDJwNEKv5DNNW
-	 kPMtdztYN9LfpGXq/HU8//YI+soT++LhaFkxMXZ89q7rGwS3mZxj97uaTdnyKMe21Zvok
-	 eTgtx0VtAjhc+ncVunu74Gl6vLqaOhoeMudi9Pc5JIEJCRJAGDlsDwwEsKClERIL2BA==
+	bh=6WOceJEJFs6lyHgJ50XHRtAGNJsPue1CndtoUAz+Qbw=;
+	b=zK7RidlCJ2/nmImoshV+8QLD7yVgUhWBBZapONZWcU2mSmXesTwgBncvwmwS9tTGIIy2
+	 dOu925J2jfnUFMHPwiEu5HHPsRwsBedfTIQGD6ZLsjRHGe78WrtAJDDq7xWAo2Xvf1pGd
+	 iw6tUVfL/Y8LNUIIwC9oA5HCMgIu11Mi85US0hAhsKgFs6f2QQOKpO3gsYyl4h6SP3nr1
+	 GqLYU1h6v00ZllN33rfDP5ojtJ+WBaqDMsvmtSJTmvnfbBIqjG810LL6lgpRK2yH0FtPH
+	 0iZcSrgvFjS0rEUStUtjWCT3W80Zt7JMLDWYkjtGTTobtR72l9cLYLABpptn6+CO4xg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=QMRzpYg9;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=e2acplEb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13D65606D822;
-	Sat,  7 Nov 2026 15:06:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE014606A9C0;
+	Sat,  7 Nov 2026 15:06:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=QMRzpYg9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5FD01F008AB;
-	Sat,  7 Nov 2026 15:06:46 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=e2acplEb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BC261F008A1;
+	Sat,  7 Nov 2026 15:06:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794064006;
-	bh=CNiVHVCR3gBYfSGJtcV/lhJdlQlKWw8JT4Crb35jXz0=;
+	s=korg; t=1794064012;
+	bh=6WOceJEJFs6lyHgJ50XHRtAGNJsPue1CndtoUAz+Qbw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QMRzpYg94BwnhPXL2l6qDSuI3wkYFU4X79B7i/45QpBKmvYzoKfWkF/N8KE/Jak0i
-	 qZhZ8kZAxneECqK8fhB/nScRcEuQXdEQFhrPlvnv8Y5V31VRO2tzuydGMSoP9Cr6/s
-	 fkAqyu0NyxgMnnzK3Ku2pwjH8jY3lEHvTO5V30GA=
+	b=e2acplEbWsQ8CO9BFbXN67aXHnsAu81Z53Vd1Qd9xf6x1DfBJkRzLmXYsNAWtGEIp
+	 c0gFjD7A37z8XQ+2QYqiZKmLLX2oQWKPXKxQvIIM62UVD+6n1DNoMMqfu4NQHCfhWw
+	 t31okDHfPSzZanL69/daPO2Rh38WbhBlebPJTnTo=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Cao Guanghui <caoguanghui@kylinos.cn>,
-	Yu Kuai <yukuai@fygo.io>,
+	"jan p. springer" <regnirpsj@gmail.com>,
+	Junjie Cao <junjie.cao@intel.com>,
+	Manuel Knitza <manuel.knitza@googlemail.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 0186/1257] md/raid5: track disks array size to fix extra_page leak on error paths
-Date: Sat,  7 Nov 2026 08:41:22 -0500
-Message-ID: <20261107134944.595009424@linuxfoundation.org>
+Subject: [PATCH 7.3 0191/1257] media: i2c: cvs: Get the wake IRQ without claiming the GPIO
+Date: Sat,  7 Nov 2026 08:41:27 -0500
+Message-ID: <20261107134944.732909208@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261107134939.434104957@linuxfoundation.org>
 References: <20261107134939.434104957@linuxfoundation.org>
@@ -68,87 +70,89 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Cao Guanghui <caoguanghui@kylinos.cn>
+From: Junjie Cao <junjie.cao@intel.com>
 
-[ Upstream commit 5028ceee173bfcf844469cfb0d1c151d3f6d0296 ]
+[ Upstream commit ed447e2b1da9bfe7d076e12cde496f3f689f7fdd ]
 
-free_conf() iterates conf->pool_size entries to free extra_page
-allocations, but pool_size may not reflect the actual size of the
-conf->disks array.  Two scenarios cause a mismatch:
+The wake line is only used as an IRQ source, yet the driver requests
+it with devm_gpiod_get(). On the Dell XPS 14 DA14260 (Panther Lake)
+that request lands on the pin the four CS35L57 amplifiers read their
+speaker ID from. Each amplifier's _CRS carries
 
-1. setup_conf() early abort: pool_size is 0 (not yet set by
-   grow_stripes) but conf->disks has max_disks entries with
-   extra_page allocated.  The loop iterates 0 times, leaking all
-   pages.
+  GpioIo (Shared, PullNone, 0, 0, IoRestrictionInputOnly,
+          "\_SB.GPI1", 0, ResourceConsumer,,) {20}
 
-2. resize_stripes() Step 4 failure: conf->disks was replaced with
-   a newsize-entry array in Step 3, but pool_size is only updated
-   on success.  The loop iterates pool_size (old, smaller value)
-   times, leaking (newsize - pool_size) pages.
+and INTC10E1 builds its _CRS at runtime from pad numbers kept in NVS:
+a GpioInt (Edge, ActiveLow, Shared) first, then an Exclusive
+output-only GpioIo for reset and two lines on the USB GPIO expander.
+The driver maps index 0 to "wake". While it holds the line, cs35l56
+fails and does not retry:
 
-Add a dedicated disks_cnt field to track the actual number of
-entries in conf->disks.  Set it immediately after each allocation
-or replacement (in setup_conf and resize_stripes Step 3, where the
-array is safely stalled with no concurrent access), and use it in
-free_conf() instead of pool_size.
+  cs35l56 sdw:0:2:01fa:3557:01:2: error -EBUSY: Failed to get spk-id-gpios
 
-This leaves pool_size untouched, preserving the check_reshape()
-retry behavior that depends on pool_size only being updated on
-full success.
+All four fail and no card is registered. Fedora 7.1.13 is the first
+Fedora kernel with the driver enabled; 7.1.12 on the same board
+creates the card, and 7.2.4 creates it again with intel_cvs
+blacklisted. Where ipu-bridge does not expose the CSI endpoints, CSI
+init returns -EPROBE_DEFER and every retry claims the line again for
+the length of the handshake, which is how 7.1 fails as well.
 
-Fixes: d7bd398e97f2 ("md/r5cache: handle alloc_page failure")
+Take the IRQ from the GpioInt entry with acpi_dev_gpio_irq_get_by(),
+as the I2C core does for client->irq; this also applies the trigger
+type from _CRS. The vendor driver in intel/vision-drivers does the
+same. The driver binds as a platform device too, hence the explicit
+lookup. A DKMS build of the patched driver on a DA14260 running
+7.2.4 binds with all four amplifiers probing and the camera working
+(third link).
+
+Fixes: 8e2b43d2c10b ("media: i2c: cvs: Add driver of Intel Computer Vision Sensing Controller(CVS)")
 Cc: stable@vger.kernel.org
-Signed-off-by: Cao Guanghui <caoguanghui@kylinos.cn>
-Link: https://patch.msgid.link/20260827080341.112296-1-ghuicao@163.com
-Signed-off-by: Yu Kuai <yukuai@fygo.io>
+Reported-by: jan p. springer <regnirpsj@gmail.com>
+Closes: https://bugzilla.redhat.com/show_bug.cgi?id=2529031
+Link: https://github.com/thesofproject/sof/issues/11152
+Link: https://github.com/omacom/omarchy-pkgs/pull/419
+Signed-off-by: Junjie Cao <junjie.cao@intel.com>
+Tested-by: Manuel Knitza <manuel.knitza@googlemail.com>
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/md/raid5.c | 5 +++--
- drivers/md/raid5.h | 1 +
- 2 files changed, 4 insertions(+), 2 deletions(-)
+ drivers/media/i2c/cvs/core.c | 16 ++++++----------
+ 1 file changed, 6 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
-index b91545ce090de..e5838bf516e38 100644
---- a/drivers/md/raid5.c
-+++ b/drivers/md/raid5.c
-@@ -2642,6 +2642,7 @@ static int resize_stripes(struct r5conf *conf, int newsize)
- 		} else {
- 			kfree(conf->disks);
- 			conf->disks = ndisks;
-+			conf->disks_cnt = newsize;
- 		}
- 	} else
- 		err = -ENOMEM;
-@@ -7552,7 +7553,7 @@ static void free_conf(struct r5conf *conf)
- 	free_thread_groups(conf);
- 	shrink_stripes(conf);
- 	raid5_free_percpu(conf);
--	for (i = 0; i < conf->pool_size; i++)
-+	for (i = 0; i < conf->disks_cnt; i++)
- 		if (conf->disks[i].extra_page)
- 			put_page(conf->disks[i].extra_page);
- 	kfree(conf->disks);
-@@ -7733,7 +7734,7 @@ static struct r5conf *setup_conf(struct mddev *mddev)
+diff --git a/drivers/media/i2c/cvs/core.c b/drivers/media/i2c/cvs/core.c
+index d4a3b9c3bab1e..8d857bbd8ab51 100644
+--- a/drivers/media/i2c/cvs/core.c
++++ b/drivers/media/i2c/cvs/core.c
+@@ -725,8 +725,6 @@ static int cvs_core_probe(struct device *dev, struct i2c_client *i2c)
+ 	}
  
- 	if (!conf->disks)
- 		goto abort;
+ 	if (ctx->res == ICVS_FULLCAP) {
+-		struct gpio_desc *wake;
 -
-+	conf->disks_cnt = max_disks;
- 	for (i = 0; i < max_disks; i++) {
- 		conf->disks[i].extra_page = alloc_page(GFP_KERNEL);
- 		if (!conf->disks[i].extra_page)
-diff --git a/drivers/md/raid5.h b/drivers/md/raid5.h
-index cb5feae04db27..94b3e2c947ba9 100644
---- a/drivers/md/raid5.h
-+++ b/drivers/md/raid5.h
-@@ -667,6 +667,7 @@ struct r5conf {
- 	unsigned long		cache_state;
- 	struct shrinker		*shrinker;
- 	int			pool_size; /* number of disks in stripeheads in pool */
-+	int			disks_cnt; /* number of entries in disks[] array */
- 	spinlock_t		device_lock;
- 	struct disk_info	*disks;
- 	struct bio_set		bio_split;
+ 		ctx->rst = devm_gpiod_get(dev, "rst", GPIOD_OUT_HIGH);
+ 		if (IS_ERR(ctx->rst)) {
+ 			ret = dev_err_probe(dev, PTR_ERR(ctx->rst),
+@@ -734,14 +732,12 @@ static int cvs_core_probe(struct device *dev, struct i2c_client *i2c)
+ 			goto err_put_ipu;
+ 		}
+ 
+-		wake = devm_gpiod_get(dev, "wake", GPIOD_IN);
+-		if (IS_ERR(wake)) {
+-			ret = dev_err_probe(dev, PTR_ERR(wake),
+-					    "failed to get wake GPIO\n");
+-			goto err_put_ipu;
+-		}
+-
+-		ctx->irq = gpiod_to_irq(wake);
++		/*
++		 * Do not request the line: another device's _CRS may list
++		 * the same pin, and its driver would then fail with -EBUSY.
++		 */
++		ctx->irq = acpi_dev_gpio_irq_get_by(ACPI_COMPANION(dev),
++						    "wake", 0);
+ 		if (ctx->irq < 0) {
+ 			ret = dev_err_probe(dev, ctx->irq,
+ 					    "failed to get wake IRQ\n");
 -- 
 2.53.0
 
