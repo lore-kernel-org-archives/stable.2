@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047420;
-	b=2TbpM+/nKP2bC9+bZFQpyVfn4JXnxNAb+CPnJpkw5sDqNwVz0FLUVwjXMv5IuUQEZFW9
-	 s35AlMzge0Vw8TMWvLBuC14R5pufbgW0pmVRQ0BvvTK9TqigBn1ytfiLnvGyGTLTaLpqY
-	 0Xe8wSAH4TwuMFwPMcyNg3FVZjZ9ZMMz4w1OZtEXp+wKcN2CvUyzyJOhQUEuYiZ9aD3vY
-	 TbhYc0valh8K57WFGGCIcSUngg+9aYZetgtN8JxyfEQGs86GgYoIugG7/vQS4CegQWp/t
-	 pL2S+jSE4WwuChqNdxL8vvp1VzaczF3cUDZmESmHs84ehUxRzaNwNUDD83oLAvO3tmg==
+	t=1794047422;
+	b=dk3ig8HcbXUK2vJ8KTp6mqoz3jZA3e+teYeBiVIf2HLhl5IEGjXxYuSveJsTi3mlGdgb
+	 MRrymOfqVR4RLYnvcQgBxL2Z3AutTrbRdORnPQQKtou+HobhvJTJU4BlzW/wtbPPlEuKf
+	 S2E7ckI9g0wqpTW9Pj+riae5Wz275DrA1LTel6PXd7KL1a7rKh1xt33oM1EkRQ5zVbNyx
+	 udq2YwjYAcXXwFKPJcO4bEILQdrgkrwJB8uFXsPj9aZqZZTMGAhSLudU3fIKE//m4yZsD
+	 FQ5N76egUaI654OOAoYMvugQhPOewUnR4Fv0AXbQmaTQjfqRq/Ywwr3+PFUTdN8SeyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047420;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047422;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=UawmO9XHgs0LRk3ffIhBzXX6O3N2lWljxFX4+xI0nwU=;
-	b=QuLc4cwl9MNNEs2Sgp5emJnGAxPjJghxAZP+3sLBnlP6DjYba5nDmlxp6J7zVu8p6JfK
-	 qdG64LA9ddOgzODbz7P6dzfTDqClSgo4d/rP121y9zOx0S9Q1qIpvxxPHN245G1ZFkZ9/
-	 r/b0fNauPJP5zYs3V8Pcrq0mqsryhbqvUF2zJ5X8qOcAymTmCUzoVK4br0BDWqyyoyQrr
-	 ps+FUhbTMbrqfTgs446HXwJHIDzVtO88NUrgRhdkW/5fZ7Spm5h2Bz4TYAoy8GP9z1tqc
-	 ryQ46ruNBq2nvpp4vQ1iVhVNWYBJooAtkfNiwtjc0An2d2w7ZfZzVVt1slNza47mpZA==
+	bh=mY5+AyVy0KLDQGUnrkzG2BDMD3LH8vLzV45Zssvek7Y=;
+	b=3vXuHzEa0uRzksVu9kiqsjK+I2P82w0Wx9f6ucfsdvv+374VV4l4VzAsgRVEYiQ4tU45
+	 n7VinRwvfpu3pCGU29P7HAVaqi0QCxwwU7TBBjzzKNt0Ptc19RKq/oEI8N3IuWjuznm6i
+	 fqazQWVUShQLTCmGXP0KSmRERVqkDBLLJ7G0dvO4MQ6sgZE7nvDpnwZMYl1uC28gljHF6
+	 M6sKF29nZguBvU0Ox8qsieyOEEurofwzjqL/wxe/ubtlkw0GWXtzAD8mdHwllzIa7PA1Z
+	 uylIMyacZnF/HrQDo12ZwMRSZAPBbTk3UISex10n0AwDM6SEtCKUfI8feNuWQ5CCWIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DkEUreXs;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RZ5jMGFZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D51A606A33F
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:30:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C3A4606A32D
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:30:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DkEUreXs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E10C1F0089F;
-	Sat,  7 Nov 2026 10:30:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RZ5jMGFZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A58411F0089F;
+	Sat,  7 Nov 2026 10:30:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047420;
-	bh=UawmO9XHgs0LRk3ffIhBzXX6O3N2lWljxFX4+xI0nwU=;
+	s=k20260515; t=1794047422;
+	bh=mY5+AyVy0KLDQGUnrkzG2BDMD3LH8vLzV45Zssvek7Y=;
 	h=From:To:Cc:Subject:Date;
-	b=DkEUreXsOZ5rziQISMRBz3VjymhIPvoMkbQlPnLgrKh3+dF21GXVaHPpRemPO2e+3
-	 7NUl436Ufc36Lq6SoYcn0FPRFvma7O+q/nbj62mvwN7SkF1fqQV6rbS68mf0IqVtb6
-	 oZtaA9RlVqPbYpxAbNEMUtop/ZFS/JNtSDu37gWPoeEPNUXUOhw0IbrlXjmXHTagk9
-	 xbWr5c2BiUJa04hbvkGPiQA6GJnHdskpap4MJ0izil07Jj/RNg8iRKAmr6t80RzFUQ
-	 Ww3AF/c7+0EuRsX3FMBdiNoUxKgYVhn3hxDSHaJ7fTS9tRqqCea+OYXK+MA62DE/VV
-	 V+bCWaeIPyFTg==
+	b=RZ5jMGFZkUEnZhPQABM5SbFVUwb0bapFDw94pBTP7o32biFIdHLzSSDUvhj3OmGlb
+	 w+FX9Owb9og54TYZ9Ghr5fMExUVHYtgpYwx73JYwzMVt4i4Zxr2AWgv2/UEqHKujSh
+	 UEyQomQOSS5IXCTQRI199ZW9Iq9vxBtXtMu/0lDP1VFAzuhrQ+yhrs1rE+4sipudFH
+	 o967CUIYLdERb+YhruygL5sTpTGw9OFxz7Tlx87GCJiO8Xs+du/y8avh5Lrjv/0rqe
+	 vbu/6qOyohfsCZBJ8gJI0Wd+GuUwJe80SS/Rc1mZOehQiFZ36jM+t092wUypM8DcF4
+	 t1/U5o39umRUA==
 From: Sasha Levin <sashal@kernel.org>
-To: khurana.ridham222@gmail.com,
-	linux@roeck-us.net
+To: leitao@debian.org,
+	paulmck@kernel.org,
+	brauner@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] hwmon: (lm70) Fix rounding of negative temperatures" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:30:18 -0500
-Message-ID: <20261107053018-failed-6.6-eddb0aaacce4@kernel.org>
+Subject: FAILED: patch "[PATCH] dcache: report a Tasks-RCU quiescent state in dentry_kill()" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:30:20 -0500
+Message-ID: <20261107053020-failed-6.6-a647a53bc89a@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,76 +69,69 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x eddb0aaacce4baa9d8176eb2f4bd9e99e867f8fc
+git cherry-pick -x a647a53bc89a046bee4a12a0a5627f2dfaaef807
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053018-failed-6.6-eddb0aaacce4@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053020-failed-6.6-a647a53bc89a@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From eddb0aaacce4baa9d8176eb2f4bd9e99e867f8fc Mon Sep 17 00:00:00 2001
-From: Ridham Khurana <khurana.ridham222@gmail.com>
-Date: Thu, 24 Sep 2026 20:53:23 +0000
-Subject: [PATCH] hwmon: (lm70) Fix rounding of negative temperatures
+From a647a53bc89a046bee4a12a0a5627f2dfaaef807 Mon Sep 17 00:00:00 2001
+From: Breno Leitao <leitao@debian.org>
+Date: Fri, 18 Sep 2026 04:01:57 -0700
+Subject: [PATCH] dcache: report a Tasks-RCU quiescent state in dentry_kill()
 
-temp1_input_show() drops the low bits of the temperature register by
-dividing the raw value (raw / 32 on the LM70). These bits are not part
-of the temperature: the LM70, LM71, LM74 and TMP122/TMP124 always
-return some of them as 1, and the TMP125 fills them with copies of the
-temperature LSB. Division rounds toward zero, so a negative temperature
-with any of these bits set is reported one LSB too high.
+I am constantly seeing the following warning on Meta's fleet:
 
-For example, the TMP122 returns 0xffff for -0.0625 degrees C, which the
-driver reports as 0. The LM70 returns 0xf39f for -25 degrees C, which
-the driver reports as -24750.
+  INFO: rcu_tasks detected stalls on tasks:
+    native_queued_spin_lock_slowpath
+    locked_inode_to_wb_and_lock_list
+    inode_io_list_del
+    evict
+    __dentry_kill
+    shrink_dentry_list
+    shrink_dcache_tree
+    d_invalidate
+    btrfs_delete_subvolume
+    btrfs_ioctl_snap_destroy
+    btrfs_ioctl
+    do_syscall_64
 
-Use an arithmetic right shift instead, which drops the low bits and
-rounds down.
+dentry_kill() is the common funnel for dentry teardown: dput(),
+shrink_dentry_list() and shrink_dcache_tree() all reach it, once per
+dentry, and its cond_resched() is the only reschedule point on that path.
 
-Fixes: e1a8e913f97e ("[PATCH] lm70: New hardware monitoring driver")
-Fixes: a86e94dc946d ("hwmon: (lm70) Add support for LM71 and LM74")
-Fixes: cd929672a9ef ("hwmon: (lm70) Add ti,tmp125 support")
+cond_resched() is not an RCU-tasks quiescent state.
+
+Use cond_resched_tasks_rcu_qs() so the teardown reports an RCU-tasks
+quiescent state as it proceeds.
+
+Fixes: 9c5f1d30199d ("dcache: move cond_resched() into the end of __dentry_kill()")
 Cc: stable@vger.kernel.org
-Signed-off-by: Ridham Khurana <khurana.ridham222@gmail.com>
-Link: https://patch.msgid.link/20260924205326.1739229-1-khurana.ridham222@gmail.com
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+Signed-off-by: Breno Leitao <leitao@debian.org>
+Link: https://patch.msgid.link/20260918-dcache-task-rcu-qa-v1-1-963ec83e6d0b@debian.org
+Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- drivers/hwmon/lm70.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ fs/dcache.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/hwmon/lm70.c b/drivers/hwmon/lm70.c
-index 8b525725fef4f..b29bac7a4cc14 100644
---- a/drivers/hwmon/lm70.c
-+++ b/drivers/hwmon/lm70.c
-@@ -96,21 +96,21 @@ static ssize_t temp1_input_show(struct device *dev,
- 	 */
- 	switch (p_lm70->chip) {
- 	case LM70_CHIP_LM70:
--		val = ((int)raw / 32) * 250;
-+		val = ((int)raw >> 5) * 250;
- 		break;
+diff --git a/fs/dcache.c b/fs/dcache.c
+index 8f17db2724b38..e974d42b03e72 100644
+--- a/fs/dcache.c
++++ b/fs/dcache.c
+@@ -843,7 +843,7 @@ static struct dentry *dentry_kill(struct dentry *dentry)
+ 	if (dentry->d_op && dentry->d_op->d_release)
+ 		dentry->d_op->d_release(dentry);
  
- 	case LM70_CHIP_TMP121:
- 	case LM70_CHIP_TMP122:
- 	case LM70_CHIP_LM74:
--		val = ((int)raw / 8) * 625 / 10;
-+		val = ((int)raw >> 3) * 625 / 10;
- 		break;
- 
- 	case LM70_CHIP_LM71:
--		val = ((int)raw / 4) * 3125 / 100;
-+		val = ((int)raw >> 2) * 3125 / 100;
- 		break;
- 
- 	case LM70_CHIP_TMP125:
--		val = (sign_extend32(raw, 14) / 32) * 250;
-+		val = (sign_extend32(raw, 14) >> 5) * 250;
- 		break;
- 	}
- 
+-	cond_resched();
++	cond_resched_tasks_rcu_qs();
+ 	/* now that it's negative, ->d_parent is stable */
+ 	if (!IS_ROOT(dentry)) {
+ 		parent = dentry->d_parent;
 -- 
 2.53.0
 
