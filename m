@@ -1,54 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046434;
-	b=PZpdnABTQzcm48mcv4MrltWhUnzt8bTecKtFuZOmQF5MZLSXgBqc0QJYy1+4V5aOcpmn
-	 83rJssq155QRbinL+bV7do4dYh6Kswn4dPFd7+CyewFlk3RrKHriY7+SQ6p7psLGI87Jd
-	 67JDRDEHRKGhANELaL2Ec5C9zrKO3COQvQOAHS0EjQxkhEHX8QVFqVcQ8CWTO0PCy60nx
-	 ZBWII9r76Or8MxLwe4Pwv8aIw0fCPrnJHjkF10Ut3KPRprG5qUGvV8ExFTaiMxVscGpeC
-	 Pe117FcaJp9T09yCSo9btHTjsCds4cMfbwklfypmEAbOJOZPBT2wT9OC+zBGHlJ8swA==
+	t=1794046439;
+	b=JJVeK0kCl8M9qZQ9RIqzKthURmUxeh2k6C/+H/ADAJezediUQz5gVIaX/rTeLa/ca6oV
+	 MEU4pcAy8Z0Y48/2IRNDytUZOXzAQCb6vL9g+tq2Ie4FK/J4Xa6cz5EehucwFERHa4WDa
+	 /BlDJPNiapf/PwT0lhmT2HMBPzd8bOQqRpJCRDklHiS/GLIQ8Jf8+s9JvwN55FR4Zl0St
+	 oRL8CAUh5SJPDbRtFnoTbyBF9kqLg/VYh4f5vl3y9ebbfEqOLkk190ZdBaGYKSr9fGsGu
+	 j55YpUvO8FkPEsyvAVCXNkOvHr4N91PHZIXc/J/jgDIUTtS4TYt4q3UZ8CckfzwlD2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046434;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046439;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=rOWby7vFwoqmWQ7fDuToDbzqphzIIFxUxV634zTjUQc=;
-	b=WFrktleY3eARkVr4LxUjG5gqT+lhYeqhPQAjmwNvH+PJ+KRgfYMRKTMEM7UQtwJgsx5e
-	 iIw4cNUyjPx0vX8rWy2XPzP9/2fnEuwdDDHV0mYmzj+GLFf/NTaq5qw0b9idO4Dk0OSZA
-	 MMUNDe8/zFtfWZTifbsq2sU+gGSaf3KGbUDRtgi2AUNq2vT3QmmMCqYXmwU5aX2MXxecT
-	 ZAwNHe+TJbULBPjhWl4bmZZfI1YjGdkt+uuTwHI1S4BLe3GSOsy1jZHDYTrjgxufTFf1M
-	 IYeZI92CLUlW1xVs6RRQAwIT/AAWE6bzBQHII3THWz1xjXaAJex5B2EYl9ji8yBC9YA==
+	bh=AbX1MvO3u3KbLjbme2Eldkr1FEnQlugn03K9LKjNClg=;
+	b=hk+qC8gjlM+lK6xOEAhujMdNk0eMWpLew724DSYxrYdA4HO8JqanTzLy4GwTHx8ehJjm
+	 euZ+VAWypAsKjjHoOY3tHNZquIgLYcvos1+iRfeJMhCr7hmgxZ4O35gN78XvRPD9C16ha
+	 WLbOmZdGl1Z1+yBIDMBLZt8PD4priFOtj2J8P1S7NvvGsYjtUvMBit8ZVi72NiaySiSOo
+	 0HwjOJlPb4vbdEdLtF7W7FSyY5mT6NHAJnXEbQ9a/sNtAQuy1jXAKDD6YBWI2dcnrRHCP
+	 /X1br4iNrkV8KK+iSTlGPMzIXNSfGtHBA1E2ElJhkHYlKUKz5ddpiaMGz0brJav6pPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H1I1So9P;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i6MQ9yiW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65502606A333
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:13:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A480606D80D
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:13:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H1I1So9P
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95B821F008A4;
-	Sat,  7 Nov 2026 10:13:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i6MQ9yiW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BA6C1F008A2;
+	Sat,  7 Nov 2026 10:13:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046434;
-	bh=rOWby7vFwoqmWQ7fDuToDbzqphzIIFxUxV634zTjUQc=;
+	s=k20260515; t=1794046439;
+	bh=AbX1MvO3u3KbLjbme2Eldkr1FEnQlugn03K9LKjNClg=;
 	h=From:To:Cc:Subject:Date;
-	b=H1I1So9P+Ce3Sal2M9abUX/KJumuLb1bk+8XnXHo8TYhRUGtElGT5HZL2w9NgFEp2
-	 +7GZQ6zWk32JpZyJ4v61ws9N4Su2KBjihaa3BqkqSSETO0vMWInTG8N47HpzTdw1cj
-	 0ss8PL9B2m30HmJYtJs00jM90/+LjuII5GDmT96GQyKbrEOPe62Y/8M5ekegIu8UtW
-	 h85n4pL+SJh3FVYBQGplV349OJ8DH8fHc6ocCLD6hAKuoDDgVoTiFgbNO2F7oCjia8
-	 Q/7nifZUsdNnFRBK8/FN1P6xJ9nXBMA9hhsw7CzYXVVbd2ewsanczOtl5kgVzu+9C/
-	 7F3UXyuwFaSeQ==
+	b=i6MQ9yiWjdkT/8ltMaxphSvCx8YZcuD32qYRH7bNlIuu2ZBWT6Vax/kLFoQwN/Qkt
+	 qTx33DZEw4kpU0K+S02IBrB92eTazERqH5zryIJE4hM8JTQCY7XK0qSAYJIDIYunRK
+	 iZmATnscXAz7NaxSBR1s8RYZyTj031wYDuxoSPzmoc0WS+3XzLzLmHfF9QtGDkS95t
+	 dYpCQr8hGnlni3sfmxcd56kfsJGsuZasWz4jEeHJkE4ZC0/M1Fb8Jy4w3ebDHcMD+s
+	 fGSSjuBPubZOWzK53y7c6uWoSF3C/8LdoehqXU8cK792GJ8jX+C1QL7ZXNKq1rc5cc
+	 rbBFpqLBj9NAA==
 From: Sasha Levin <sashal@kernel.org>
-To: stanleyjhu@google.com,
-	bvanassche@acm.org,
-	beanhuo@micron.com,
-	peter.wang@mediatek.com,
-	mkp@kernel.org
+To: 4ncienth@gmail.com,
+	tglx@kernel.org,
+	shawnq1@163.com,
+	jstultz@google.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] scsi: ufs: core: Add a helper for clearing hba->outstanding_reqs" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:13:52 -0500
-Message-ID: <20261107051352-failed-6.18-22d14117ec18@kernel.org>
+Subject: FAILED: patch "[PATCH] timekeeping: Require permission to set auxiliary clocks" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:13:57 -0500
+Message-ID: <20261107051357-failed-6.18-524d95c8a200@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,129 +70,76 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 22d14117ec1845a81acb3a5c4be325f7e8332f70
+git cherry-pick -x 524d95c8a2000cba6cb80a173d76cb746c561244
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051352-failed-6.18-22d14117ec18@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051357-failed-6.18-524d95c8a200@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 22d14117ec1845a81acb3a5c4be325f7e8332f70 Mon Sep 17 00:00:00 2001
-From: Stanley Jhu <stanleyjhu@google.com>
-Date: Thu, 22 Oct 2026 11:44:39 +0800
-Subject: [PATCH] scsi: ufs: core: Add a helper for clearing
- hba->outstanding_reqs
+From 524d95c8a2000cba6cb80a173d76cb746c561244 Mon Sep 17 00:00:00 2001
+From: Daehyeon Ko <4ncienth@gmail.com>
+Date: Mon, 19 Oct 2026 17:03:24 +0900
+Subject: [PATCH] timekeeping: Require permission to set auxiliary clocks
 
-ufshcd_poll() and ufshcd_abort() each have their own copy of the code that
-clears bits in hba->outstanding_reqs under hba->outstanding_lock.
+The generic clock_settime() entry point delegates permission checks to
+each clock-specific callback. aux_clock_set() does not perform one. Once
+an administrator enables an auxiliary clock, any local process can
+therefore change the global clock offset.
 
-Move that code into ufshcd_clear_outstanding_reqs() and its locked variant
-__ufshcd_clear_outstanding_reqs(), and use them in both functions. No
-functional change.
+A test process running as UID and GID 65534 with no effective, permitted,
+inheritable, or ambient capabilities set CLOCK_AUX0 successfully, and a
+separate process observed the new value. The same process was denied by
+clock_adjtime(). An AppArmor profile denying sys_time also blocked
+CLOCK_REALTIME changes but did not see the auxiliary clock operation.
 
+Call security_settime64() before mutating the auxiliary timekeeper. This
+matches CLOCK_REALTIME's permission model, enforces initial-user-namespace
+CAP_SYS_TIME, and gives LSMs the settime hook while preserving authorized
+clock changes.
+
+Fixes: 60ecc26ec5af ("timekeeping: Provide time setter for auxiliary clocks")
+Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Tested-by: shaos <shawnq1@163.com>
+Acked-by: John Stultz <jstultz@google.com>
 Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/r/3779e125-9acc-42c8-9489-51b9e3c6716d@acm.org
-Suggested-by: Bart Van Assche <bvanassche@acm.org>
-Reviewed-by: Bean Huo <beanhuo@micron.com>
-Reviewed-by: Peter Wang <peter.wang@mediatek.com>
-Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
-Reviewed-by: Bart Van Assche <bvanassche@acm.org>
-Link: https://patch.msgid.link/20261022034443.3034432-3-stanleyjhu@google.com
-Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
+Link: https://patch.msgid.link/20261019080324.4147815-1-4ncienth@gmail.com
 ---
- drivers/ufs/core/ufshcd.c | 48 +++++++++++++++++++++++++++++----------
- 1 file changed, 36 insertions(+), 12 deletions(-)
+ kernel/time/timekeeping.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
-index f03a8d39fb7a8..f2e3b782f1fe8 100644
---- a/drivers/ufs/core/ufshcd.c
-+++ b/drivers/ufs/core/ufshcd.c
-@@ -5997,6 +5997,37 @@ static void ufshcd_clear_polled(struct ufs_hba *hba,
- 	}
- }
+diff --git a/kernel/time/timekeeping.c b/kernel/time/timekeeping.c
+index ea2e6e55f37bf..1b342825bd8f1 100644
+--- a/kernel/time/timekeeping.c
++++ b/kernel/time/timekeeping.c
+@@ -14,6 +14,7 @@
+ #include <linux/random.h>
+ #include <linux/sched/clock.h>
+ #include <linux/sched/loadavg.h>
++#include <linux/security.h>
+ #include <linux/static_key.h>
+ #include <linux/stop_machine.h>
+ #include <linux/syscore_ops.h>
+@@ -3215,11 +3216,15 @@ static int aux_clock_set(const clockid_t id, const struct timespec64 *tnew)
+ 	struct tk_data *aux_tkd = aux_get_tk_data(id);
+ 	struct timekeeper *aux_tks;
+ 	ktime_t tnow, nsecs;
++	int ret;
  
-+/*
-+ * Return a bitmask of the transfer requests cleared from
-+ * @hba->outstanding_reqs.
-+ */
-+static unsigned long __ufshcd_clear_outstanding_reqs(struct ufs_hba *hba,
-+						     unsigned long mask,
-+						     bool from_irq)
-+	__must_hold(&hba->outstanding_lock)
-+{
-+	unsigned long completed_reqs = mask & hba->outstanding_reqs;
-+
-+	if (from_irq) {
-+		/* Do not complete polled requests from interrupt context. */
-+		ufshcd_clear_polled(hba, &completed_reqs);
-+	}
-+	hba->outstanding_reqs &= ~completed_reqs;
-+
-+	return completed_reqs;
-+}
-+
-+/*
-+ * Return a bitmask of the transfer requests cleared from
-+ * @hba->outstanding_reqs.
-+ */
-+static unsigned long ufshcd_clear_outstanding_reqs(struct ufs_hba *hba,
-+						   unsigned long mask)
-+{
-+	guard(spinlock_irqsave)(&hba->outstanding_lock);
-+	return __ufshcd_clear_outstanding_reqs(hba, mask, false);
-+}
-+
- /*
-  * Return: > 0 if one or more commands have been completed or 0 if no
-  * requests have been completed.
-@@ -6007,6 +6038,7 @@ static int ufshcd_poll(struct Scsi_Host *shost, unsigned int queue_num)
- 	unsigned long completed_reqs, flags;
- 	u32 tr_doorbell;
- 	struct ufs_hw_queue *hwq;
-+	bool from_irq;
+ 	if (!timespec64_valid_settod(tnew))
+ 		return -EINVAL;
+ 	if (!aux_tkd)
+ 		return -ENODEV;
++	ret = security_settime64(tnew, NULL);
++	if (ret)
++		return ret;
  
- 	if (hba->mcq_enabled) {
- 		hwq = &hba->uhq[queue_num];
-@@ -6016,12 +6048,9 @@ static int ufshcd_poll(struct Scsi_Host *shost, unsigned int queue_num)
+ 	aux_tks = &aux_tkd->shadow_timekeeper;
  
- 	spin_lock_irqsave(&hba->outstanding_lock, flags);
- 	tr_doorbell = ufshcd_readl(hba, REG_UTP_TRANSFER_REQ_DOOR_BELL);
--	completed_reqs = ~tr_doorbell & hba->outstanding_reqs;
--	if (queue_num == UFSHCD_POLL_FROM_INTERRUPT_CONTEXT) {
--		/* Do not complete polled requests from interrupt context. */
--		ufshcd_clear_polled(hba, &completed_reqs);
--	}
--	hba->outstanding_reqs &= ~completed_reqs;
-+	from_irq = queue_num == UFSHCD_POLL_FROM_INTERRUPT_CONTEXT;
-+	completed_reqs = __ufshcd_clear_outstanding_reqs(hba, ~tr_doorbell,
-+							 from_irq);
- 	spin_unlock_irqrestore(&hba->outstanding_lock, flags);
- 
- 	if (completed_reqs)
-@@ -8056,7 +8085,6 @@ static int ufshcd_abort(struct scsi_cmnd *cmd)
- 	struct ufshcd_lrb *lrbp = scsi_cmd_priv(cmd);
- 	unsigned long flags;
- 	int err = FAILED;
--	bool outstanding;
- 	u32 reg;
- 
- 	ufshcd_hold(hba);
-@@ -8151,11 +8179,7 @@ static int ufshcd_abort(struct scsi_cmnd *cmd)
- 	 * Clear the corresponding bit from outstanding_reqs since the command
- 	 * has been aborted successfully.
- 	 */
--	spin_lock_irqsave(&hba->outstanding_lock, flags);
--	outstanding = __test_and_clear_bit(tag, &hba->outstanding_reqs);
--	spin_unlock_irqrestore(&hba->outstanding_lock, flags);
--
--	if (outstanding)
-+	if (ufshcd_clear_outstanding_reqs(hba, BIT(tag)))
- 		ufshcd_release_scsi_cmd(hba, cmd);
- 
- 	err = SUCCESS;
 -- 
 2.53.0
 
