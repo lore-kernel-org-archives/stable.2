@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049337;
-	b=LgnAGFJZECIPGODhwdO+o07NQEjLPy8oMg1J1z70vynvDyMX6a2KbFr8gTVubocmK5e3
-	 U0xm5SjdM4y/nwbsYt2bgCy7HIBNCudfKZwtpOhD83p4ayN+fIP2DDzIM1vlm7Ye51EbZ
-	 9LpPAjFtPOjH1cDb4u+iyWxDU2H64JxxeZFXeFS72qk3IEw8f/pUFsyf+r9BYTX5BOzZX
-	 8J7vXVLGViM0FB8m7B5VrK6vIwbWRax3fYSsB1crwSIeWJH81NUG9YiNljQYQxRwIOmx3
-	 tX4eEkFh7CY2dO5pjnu56NUUlN/6hBaCD7P1tpOfujda+aYlBgPfcsf6PV4w/Xfb9Mg==
+	t=1794049340;
+	b=Zbt6f1W7yULiVnsJEqomWw8b9aIgPGjnWWEiBlEf2sByRMg0j+FWPFoXVb5m3Iocx9jM
+	 Y573PMkAExssGQStUoAlG1+pBEvNKnb1mqCYma8aE/LUPNCdphwRLcYaUSbOp6JFKqKXY
+	 IkK7wSF+boc/1MK4faLYPuI3BDe90OdlvjL7QQecRPOpNdFptGSxhDKNKKAvY5ZnV8BK0
+	 aqm/S62hSSczqY//AITc3ZhMgf/odx09kfVUvmvMb4RscrogSVjUS2T2Fb71VLs17eYY1
+	 0VmZvxQDABNWLztY8CzCjblU0mg8Nmq6DP51BIlrZYlopNJBUtV5b8/Tb5f5tQ3Qfnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049337;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049340;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=nFGJJ4nyVD2OGDXP777fDtPEnkuBhR7kzvDa28HDJMI=;
-	b=Aa8ExJdQbqCgrNmzqnLX244K6gvt/r93FsHCKN+3f/FchWLpkJRpmvDZTgMybC+pdDya
-	 aY3WX0QVgsCnCLBwEI2qMbnrzGMxEygJciABqCsFfQm/5izvkyCu+7NFZFat6JJi608Bd
-	 t3YWMbiQNUdAQ8+UjERA+ddCsNH25w/ebwzLr9y5BAbjSdcovWrERQpMxtVM4nHWS+fX1
-	 Ixu1eTQFJ80WR887kT4nkTIkd9ZzRUlUn440Obfp8CNu4Pcbd7aEHMSqgOBDz35P7Exle
-	 y+/sWztjl822DGJ3bvKn9J3/OAY0F5UlIDlI9fwZEYlEZnlYR5qrmHuesqWDu2bA5Ew==
+	bh=UiCoEPl/bHbbZhcYftcl8oa/x1qfprpjkPJ1vOiK/5s=;
+	b=dFRQorhuPFoZnEIWGHJULEFMvBdq2Li8lY+glhZrCAqWa0fDvp7AP3u17yFCYjfjr3D1
+	 d7/tl2MHziQSXhIPe6pDv/rmsMgjFJ2ncHmuXQPzJZ7iikF4dUm4lE8afGWG0y9rVuvyF
+	 GupGQo6Uuwpted1uSm4yKPm9TTIUIOj6SX8GW5GG4VKd+5Y+Fsxw/RDoUJ+fdRS5Svpsa
+	 ybgcXK6IQiCJLYx5uEJsU8S9fDh2+9IjKwhyWoBwKgmW24Dk7HzwQ9WcXV0RmuwFwVxFS
+	 hUY0/j42HGyrp16V/mkuy77Pp6RduUcDn983krcc3defmIWWIfc9p81/Wwb/Wax95sw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WzaDejUd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QoxoU5iq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE549606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:02:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5E81606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:02:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WzaDejUd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 134AC1F0089F;
-	Sat,  7 Nov 2026 11:02:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QoxoU5iq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43E561F0089F;
+	Sat,  7 Nov 2026 11:02:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049336;
-	bh=nFGJJ4nyVD2OGDXP777fDtPEnkuBhR7kzvDa28HDJMI=;
+	s=k20260515; t=1794049339;
+	bh=UiCoEPl/bHbbZhcYftcl8oa/x1qfprpjkPJ1vOiK/5s=;
 	h=From:To:Cc:Subject:Date;
-	b=WzaDejUd0XJDDBEJix+H97cRCmrCZMBpIOhGvsRaA6I/OPjrz7ecCeeIihF07DGNZ
-	 shASpLvNX9TPLzzGDycC/nbmpohMh+XwmtD27bgY6Il7BsfqLMd85JDRfRV8IeDhQN
-	 LRQSZN8kY7wj8TPx8VT9UI1qCZMgAwjN8VPr1wQb+/8DlNa6EYvnH2eVvpOllEiYUG
-	 vxCDxAGp9/ZcHOa2Kv+ZHrXeL/5SDuwU6YBZHaf0yskPRIqWKVAFVGaqGlauCo2oHY
-	 CdeQ/Xu9u6kOwIC9Je1/WiktIklas9qXrF+4WfxwUpnR6n1g7+tRlefpTYtbD3nEcp
-	 GpQ5k5JGLQ8Hw==
+	b=QoxoU5iql8Mo8rRX1iupA4dDYyTNISbvPeV6J4mIvMLwva7M47rt7h7qb1eRzKLWa
+	 UU5tmRNSRWl2ZRKsI1VXuN4GpbUWk+c4KRtGTwFjDSa9TYzOyYOdUWDX0qBvLGDwu7
+	 j/Gob41HMaYKISs2dgzLMS3fuNUTgIGAoTosNjEUz5P3DFKgFofYORiaooG1lXNJMW
+	 MN44iuhcmpn1mv65sjV2QEcHj/JCJUVIPAjfJhr8LEP8xzv5l16H7tB9JVAPaUYZnp
+	 A+5AfYYlAMFhPMBPXcM62pBX4tMx5uwFRaZ/BJJBFq3G9t8dsZrwmdD8FnxCB7f5j5
+	 7gRFupBkJROmA==
 From: Sasha Levin <sashal@kernel.org>
-To: cel@kernel.org,
-	jlayton@kernel.org,
-	hch@lst.de
+To: borntraeger@linux.ibm.com,
+	hca@linux.ibm.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] NFSD: Resolve the recall-any mask names in the trace format" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:02:14 -0500
-Message-ID: <20261107060214-failed-5.15-c563a1f06795@kernel.org>
+Subject: FAILED: patch "[PATCH] s390/vmcp: Initialize full session info to zero" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 06:02:17 -0500
+Message-ID: <20261107060217-failed-5.15-f63eb4ee4a30@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,63 +68,53 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x c563a1f0679566d7d586802e5346591d0af8da78
+git cherry-pick -x f63eb4ee4a30fc5d8de07a229d92310e3c8d560c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060214-failed-5.15-c563a1f06795@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060217-failed-5.15-f63eb4ee4a30@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From c563a1f0679566d7d586802e5346591d0af8da78 Mon Sep 17 00:00:00 2001
-From: Chuck Lever <cel@kernel.org>
-Date: Tue, 18 Aug 2026 14:41:51 -0400
-Subject: [PATCH] NFSD: Resolve the recall-any mask names in the trace format
+From f63eb4ee4a30fc5d8de07a229d92310e3c8d560c Mon Sep 17 00:00:00 2001
+From: Christian Borntraeger <borntraeger@linux.ibm.com>
+Date: Tue, 29 Sep 2026 15:58:29 +0200
+Subject: [PATCH] s390/vmcp: Initialize full session info to zero
 
-RCA4_TYPE_MASK_* are enum constants, so the preprocessor cannot fold
-them into the print format that show_rca_mask() builds for the
-nfsd_cb_recall_any event. Nothing declares an eval map for them
-either, so trace_event_eval_update() has no substitution to apply at
-module load, and the event's format file ships the enumerator names
-verbatim. trace-cmd and perf cannot decode the bmval0 field.
+The cma_alloc bit as well as the response can contain old data.
+cma_release will not free the kmalloced memory in that case and
+the response code might leak kernel stack data to CAP_SYS_ADMIN
+users.
 
-Declare the eval maps for the nine mask bits show_rca_mask() decodes.
-The format then carries the shift counts as integers, the same shape
-the SUNRPC trace points already emit from their BIT() flag decoders.
-
-Fixes: 638593be55c0 ("NFSD: add CB_RECALL_ANY tracepoints")
 Cc: stable@vger.kernel.org
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Link: https://patch.msgid.link/20260818184151.31180-1-cel@kernel.org
-Signed-off-by: Chuck Lever <cel@kernel.org>
+Signed-off-by: Christian Borntraeger <borntraeger@linux.ibm.com>
+Reviewed-by: Heiko Carstens <hca@linux.ibm.com>
+Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
 ---
- include/trace/misc/nfs.h | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ drivers/s390/char/vmcp.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/include/trace/misc/nfs.h b/include/trace/misc/nfs.h
-index b5fb77d7954b3..27781bd7a3f78 100644
---- a/include/trace/misc/nfs.h
-+++ b/include/trace/misc/nfs.h
-@@ -359,6 +359,16 @@ TRACE_DEFINE_ENUM(IOMODE_ANY);
- 		{ IOMODE_RW,			"RW" }, \
- 		{ IOMODE_ANY,			"ANY" })
+diff --git a/drivers/s390/char/vmcp.c b/drivers/s390/char/vmcp.c
+index b277f9d0c321a..2cf94f23af2a6 100644
+--- a/drivers/s390/char/vmcp.c
++++ b/drivers/s390/char/vmcp.c
+@@ -104,13 +104,11 @@ static int vmcp_open(struct inode *inode, struct file *file)
+ 	if (!capable(CAP_SYS_ADMIN))
+ 		return -EPERM;
  
-+TRACE_DEFINE_ENUM(RCA4_TYPE_MASK_RDATA_DLG);
-+TRACE_DEFINE_ENUM(RCA4_TYPE_MASK_WDATA_DLG);
-+TRACE_DEFINE_ENUM(RCA4_TYPE_MASK_DIR_DLG);
-+TRACE_DEFINE_ENUM(RCA4_TYPE_MASK_FILE_LAYOUT);
-+TRACE_DEFINE_ENUM(RCA4_TYPE_MASK_BLK_LAYOUT);
-+TRACE_DEFINE_ENUM(RCA4_TYPE_MASK_OBJ_LAYOUT_MIN);
-+TRACE_DEFINE_ENUM(RCA4_TYPE_MASK_OBJ_LAYOUT_MAX);
-+TRACE_DEFINE_ENUM(RCA4_TYPE_MASK_OTHER_LAYOUT_MIN);
-+TRACE_DEFINE_ENUM(RCA4_TYPE_MASK_OTHER_LAYOUT_MAX);
-+
- #define show_rca_mask(x) \
- 	__print_flags(x, "|", \
- 		{ BIT(RCA4_TYPE_MASK_RDATA_DLG),	"RDATA_DLG" }, \
+-	session = kmalloc_obj(*session);
++	session = kzalloc_obj(*session);
+ 	if (!session)
+ 		return -ENOMEM;
+ 
+ 	session->bufsize = PAGE_SIZE;
+-	session->response = NULL;
+-	session->resp_size = 0;
+ 	mutex_init(&session->mutex);
+ 	file->private_data = session;
+ 	return nonseekable_open(inode, file);
 -- 
 2.53.0
 
