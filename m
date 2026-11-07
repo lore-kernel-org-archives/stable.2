@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047861;
-	b=GNbBu7Y5fWRygmPtTKO/lkmPbVIGbGh2PLl6GbaAQaXDRgj94RfuO2AjlnRtJng/Ck/y
-	 F0VfQ/bCT0ertb2kzagqnZP09fHSkSLSV0m5bi3AfgUrM+aJzCgXRGJib80gV+DAEtXiO
-	 FJ+d6mGRnb8UOBSeBNv09/l+t5rbUfgBoK8BP67VcVIc9qj+hemHL5dEoGlFWTVZj3VL4
-	 V85cNY39OWRpaS0zodfrDYvdsyQRVinzaqnk1Zq+YwCCMpRJWfs24Tv2uRNd04y78uf1x
-	 6qZ4Xe/CTy52mvKvIo96kPaXTGmlJo/9OUMhb6nA9C5+/0SgQo9eThkXA47ArclZUzA==
+	t=1794047863;
+	b=H/I/fNr5F7VFItZDmalSgQQRIBoWu3Ny8HFKXdEPAtFKu8RGl68WV+H6OO00p8/0EE8P
+	 KHwKEgoaddJlqXedB0j8TvSQ7hdvJ5jO+QUCgX7UFgXJtwXx0JvEu99eGlF+u2+fQEVid
+	 WWj8kUzbipB/hLstypbVpA0hDZZ8ZQKsxjO1iEzI9L9oFA5mYU9JrcG2ryVqypHWRUiIf
+	 94A6TqUptIsBNipp2xGKBWdmmwrBmOejv2aBtBdQFRONNDFJTZ/kEoEIhRcl8RFYGXCsI
+	 hzBibQ8tibPo139nie4+PlsjxAUc+4I6Bxaof9jRoLEi4PXamMGwNcOCI8yQosDLkag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047861;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047863;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=/ytHjmxbSqLU2sqvkOj00yaddAz/JRBao5Xejsso/g8=;
-	b=EmaQHI65R9BokPdWd942F45T9xHmnMVSH9Sv7xBOuf03q5QXyoVDcaOWplDb3i6OT2+N
-	 5gdHfXxdEnmwR8T0M3RdmzDv7qEmzSRafd+iCbDpL5V70lImYusg3Yltb6sQPHUmBK7wD
-	 CXbJAXoWE8ZmaSjNBq/oucT/qL/4dI5RDj9eVGmiMeEn0nnr3f9y+bfmG65myT+REsR4G
-	 jM5bS7AUxeRZCZiyjGJRgs6A27uRD/fDAC7oVrA0ovOjsxbBvzx+kK8ewLux9lmbCZ0GL
-	 xOHSj83B2z6fzlxP5ONzhnE/+A/SejmZytOmN/By2WNC4pnkz4HaURvnPTqE26TYatQ==
+	bh=mejKExHAZNujeN0Ai5L6OMzlnpVudZhaE4KpNnxZdw0=;
+	b=01d02HGb/qCllaeF99SJSJLmF7JzT5rvx0Bt1DXUiSRUwPu0uoUi+kA9qWuMuy8AstYG
+	 lMktpMycJshWrqV9q8leX9CE/DC2nYc/2+9/X8ljMnLL9AS/oEDTOw4OsHuNZN5bYUb1H
+	 WtGW/9Og/X4tn4jGBM5ZSW8k4urOFGmvWn+KnWqhBUl7u/gaNwwbs61fN+zZxUk1kPgYq
+	 fgpnrQ4nucBCvt6ih27/h20ysiFMPnBVFJmgRgVtnP2uY9NJGUmEY9XvglvksTNfYrTkw
+	 5spmGIQGn7hYLcU17bU9BZQku3JTNs4MMgUnR7NvIo0yXMTGxhacAUKooj6ND4dlFbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y8GWk9TE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UEJJjmjo;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A378606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:37:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BCF5606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:37:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y8GWk9TE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7C0B1F0089F;
-	Sat,  7 Nov 2026 10:37:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UEJJjmjo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6C831F0089F;
+	Sat,  7 Nov 2026 10:37:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047861;
-	bh=/ytHjmxbSqLU2sqvkOj00yaddAz/JRBao5Xejsso/g8=;
+	s=k20260515; t=1794047863;
+	bh=mejKExHAZNujeN0Ai5L6OMzlnpVudZhaE4KpNnxZdw0=;
 	h=From:To:Cc:Subject:Date;
-	b=Y8GWk9TEkSjsZmR4pc8fp6I3tj2pgLbNjybM9ewwicDAXCt5t+U2/HXMBPAwlQCnX
-	 /KfLXw8/NNCuzf3drB+pTPydHpN6hC3yIH/dYnTg0T4fT0tq+YJ420auE20CmXlM2a
-	 Ly4NBlhXhDvq2kgSHAJwt+xinZ+WWIoSooq6en4KEuCS6oOc0yGsRT5W8V/kwIIMy5
-	 1ajojgrgNZfv0gGXPBwUGrjZ76XH6AXVN1+kEKJ3/gKkJnATA7j/sBl+fuRr4vTedn
-	 Lre4muiWPOJLyA0zZwNQJk2DB1F0JuztKq9p/Sqf+0b+G0ONlD00xEXIhKhxsVkPe8
-	 cBV/m25R4uEoQ==
+	b=UEJJjmjoDLz9n2gmxE2N5xDrRsdgANqHayTI4X2laZ3nXIbaqE8KYZE7m2VSzHgzE
+	 ij7aGnoniHiKminJPSReIKvp6qZgjesLtah8Sw3dF0uemYSAT3gfkWQRh9znbkX4rc
+	 od+VMBZOvUpVTGDTi/xBgz4j7KJB3t8vwdF0fxiHgfYE3NA3dWdnIHHbwi/I6WcTXC
+	 izPHBXqsBlfVTsHGwtu8ZXfk3lVdOjNbmXCL7vMEjveRmtC/V2BNJ/zoUx1RDrutdx
+	 5YupKJnYkTq2Su/6ycBRDkDa0o1xm/SzPXb3d2CSNjJR/srf5GNydtoqkYqyzxtbRy
+	 uLZFA+QwlprZw==
 From: Sasha Levin <sashal@kernel.org>
-To: daehojeong@google.com,
-	chao@kernel.org,
-	jaegeuk@kernel.org
+To: daniel.phillips@amd.com,
+	felix.kuehling@amd.com,
+	alexander.deucher@amd.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] f2fs: don't use truncate_inode_pages_final() on live inodes" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:37:39 -0500
-Message-ID: <20261107053739-failed-6.6-74bbd6ada01f@kernel.org>
+Subject: FAILED: patch "[PATCH] amdkfd: Fix memory availability double accounting of kfd pinned objects" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:37:41 -0500
+Message-ID: <20261107053741-failed-6.6-16df12d7158f@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,85 +69,87 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 74bbd6ada01f91fcad60608e0417bf45a9fa99e6
+git cherry-pick -x 16df12d7158fb55f20d6e985abd1996cbabab9f8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053739-failed-6.6-74bbd6ada01f@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053741-failed-6.6-16df12d7158f@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 74bbd6ada01f91fcad60608e0417bf45a9fa99e6 Mon Sep 17 00:00:00 2001
-From: Daeho Jeong <daehojeong@google.com>
-Date: Thu, 15 Oct 2026 16:17:14 +0000
-Subject: [PATCH] f2fs: don't use truncate_inode_pages_final() on live inodes
+From 16df12d7158fb55f20d6e985abd1996cbabab9f8 Mon Sep 17 00:00:00 2001
+From: Daniel Phillips <daniel.phillips@amd.com>
+Date: Sun, 5 Mar 2023 22:54:35 -0800
+Subject: [PATCH] amdkfd: Fix memory availability double accounting of kfd
+ pinned objects
 
-truncate_inode_pages_final() is meant to be called from ->evict_inode.
-It sets AS_EXITING on the mapping, and nothing ever clears it, to tell
-the VM that the inode is going away.
+Pinned objects that are not kfd objects reduce the total vram available
+to kfd, so we subtract the total size of pinned objects from kdf vram
+availability. However this double counts objects pinned by kfd itself,
+because they are counted both as used and pinned. So track the total
+size of objects pinned by kfd and add it back to kfd availability to
+remove the double accounting.
 
-f2fs calls it in two places where the inode stays live:
-
- - F2FS_IOC_START_ATOMIC_REPLACE uses it to drop the page cache of the
-   original inode before setting i_size to 0. The atomic write then
-   goes on through this inode.
-
- - f2fs_abort_atomic_write() uses it to drop the uncommitted data. It
-   is called on eviction, but also on the last writer's close in
-   f2fs_release_file(), from f2fs_file_flush() when the atomic writer
-   exits, from F2FS_IOC_ABORT_ATOMIC_WRITE and when
-   F2FS_IOC_COMMIT_ATOMIC_WRITE fails.
-
-Other processes may still have the file open or mapped in all of these
-cases. The mapping then stays marked as exiting for as long as the
-inode is in memory. This stops reclaim from storing workingset shadow
-entries for it and breaks any code that assumes an exiting mapping has
-no users left.
-
-All we need in both places is to drop the page cache, so use
-truncate_inode_pages(mapping, 0) instead. The eviction path is not
-affected, because f2fs_pre_evict_inode() still calls
-truncate_inode_pages_final() after f2fs_abort_atomic_write().
-
-Cc: stable@kernel.org
-Fixes: 3db1de0e582c ("f2fs: change the current atomic write way")
-Fixes: 41e8f85a75fc ("f2fs: introduce F2FS_IOC_START_ATOMIC_REPLACE")
-Signed-off-by: Daeho Jeong <daehojeong@google.com>
-Reviewed-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+Signed-off-by: Daniel Phillips <daniel.phillips@amd.com>
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit b8257bdb26ca5d9a75f4b81f629422f17afa221b)
+Cc: stable@vger.kernel.org
 ---
- fs/f2fs/file.c    | 2 +-
- fs/f2fs/segment.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h       |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 11 +++++++++++
+ 2 files changed, 12 insertions(+)
 
-diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-index 3b5ad281b518e..b077e4eb790d6 100644
---- a/fs/f2fs/file.c
-+++ b/fs/f2fs/file.c
-@@ -2462,7 +2462,7 @@ static int f2fs_ioc_start_atomic_write(struct file *filp, bool truncate)
- 	fi->original_i_size = isize;
- 	if (truncate) {
- 		set_inode_flag(inode, FI_ATOMIC_REPLACE);
--		truncate_inode_pages_final(inode->i_mapping);
-+		truncate_inode_pages(inode->i_mapping, 0);
- 		f2fs_i_size_write(inode, 0);
- 		isize = 0;
- 	}
-diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
-index 92c3f255ea8fa..daf6d9617d5b6 100644
---- a/fs/f2fs/segment.c
-+++ b/fs/f2fs/segment.c
-@@ -194,7 +194,7 @@ void f2fs_abort_atomic_write(struct inode *inode, bool clean)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+index e3da382ceb3c0..a53d7e4a1eb5c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+@@ -106,6 +106,7 @@ struct amdgpu_kfd_dev {
+ 	struct kfd_dev *dev;
+ 	int64_t vram_used[MAX_XCP];
+ 	uint64_t vram_used_aligned[MAX_XCP];
++	atomic64_t vram_pinned;
+ 	bool init_complete;
+ 	struct work_struct reset_work;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index 9a7e14a3c7197..129acb88dc11e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -1536,6 +1536,11 @@ static int amdgpu_amdkfd_gpuvm_pin_bo(struct amdgpu_bo *bo, u32 domain)
+ 		pr_err("Error in Pinning BO to domain: %d\n", domain);
+ 
+ 	amdgpu_bo_sync_wait(bo, AMDGPU_FENCE_OWNER_KFD, false);
++
++	if (!ret && bo->tbo.resource->mem_type == TTM_PL_VRAM)
++		atomic64_add(amdgpu_bo_size(bo),
++			&amdgpu_ttm_adev(bo->tbo.bdev)->kfd.vram_pinned);
++
+ out:
+ 	amdgpu_bo_unreserve(bo);
+ 	return ret;
+@@ -1558,6 +1563,11 @@ static void amdgpu_amdkfd_gpuvm_unpin_bo(struct amdgpu_bo *bo)
  		return;
  
- 	if (clean)
--		truncate_inode_pages_final(inode->i_mapping);
-+		truncate_inode_pages(inode->i_mapping, 0);
+ 	amdgpu_bo_unpin(bo);
++
++	if (bo->tbo.resource->mem_type == TTM_PL_VRAM)
++		atomic64_sub(amdgpu_bo_size(bo),
++			&amdgpu_ttm_adev(bo->tbo.bdev)->kfd.vram_pinned);
++
+ 	amdgpu_bo_unreserve(bo);
+ }
  
- 	release_atomic_write_cnt(inode);
- 	clear_inode_flag(inode, FI_ATOMIC_COMMITTED);
+@@ -1679,6 +1689,7 @@ size_t amdgpu_amdkfd_get_available_memory(struct amdgpu_device *adev,
+ 		vram_available = KFD_XCP_MEMORY_SIZE(adev, xcp_id)
+ 			- adev->kfd.vram_used_aligned[xcp_id]
+ 			- atomic64_read(&adev->vram_pin_size)
++			+ atomic64_read(&adev->kfd.vram_pinned)
+ 			- reserved_for_pt
+ 			- reserved_for_ras;
+ 
 -- 
 2.53.0
 
