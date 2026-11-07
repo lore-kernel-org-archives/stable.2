@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050181;
-	b=VLfZR6ybhT1eg9ZZ32wozvmQhNY4qEqR106Iejbi0ytCrmen5BBv27ouvbY5gIzEliO0
-	 NFskzDVfAagz/gFw0aGCAmLehEr+WR3hgnH++SEv5Z/T1uDeZv+s4kZgDcNZmI4uRbNK0
-	 UOTUZHOig+kxYWOytpcD2jDQQBku2fCBCtiknFWPAm9FRmhLlfJxNQWagJmA00JmKdoMv
-	 XBgG5GegocQCypfz9/NAkgUVkrjeQ6mTuqGvldyJI5kLIwBcSFdwM59k55G8Ll11nLmbA
-	 JmCkgUjPkFaDcJBc7ZrNW93KfNpzpzPSb555/bKP5UGWfbI7DcNM2EL6vCUFX+cU8+w==
+	t=1794050184;
+	b=BotcLNfNN4EFrCv00IWutha9hUC9Ql2/k6dI0tV+GZstuCZiUAP6+EPaZMyrKb5Lpx1H
+	 uSNykT03Zzb1/YMxi/N+zkxObN+rtbOvMA4VyzWxI3t1o5uzvhpH5WhXAmeOB3YtRDNJf
+	 he0+B9eL1rHqdSbUyDGrOeU3XsKiPLWvyrRc9ECXxLoOFhOEVoKEJPpzHeMZJcOWQb+pH
+	 Ozafv5UPATfQNJwGJK5Q46zevvRfZ61PgK8D4uuBFzHXcpxRCLoy2cL0itvuIdl0HbVQa
+	 i5OiLJPbCoMG/ewoQhHGOiu/yu3JyYgwbQO+Mu+l+ky4cIXZHM5VrRdP8JWeFNGlM3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050181;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050184;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=cF9nJqHp6NUl+uyh5ayqFkpBi/yvyibI92U6VOY8HKk=;
-	b=QiMHcOukdHuvJ5pw5YQTPFocgW8dUia/Ylau/yjaZamA6f0SQ2HtOvUNBDns3E/n1cbr
-	 0MqRWOH96ItcIVhLRVrHU3xL0u5FIbvK3qkDVklMtm4ia/GLdEo/R3ZOxQ3xvjEpReNzX
-	 wqPfDF+5zKmZRMPAFMzYDNeB56qRiRwxzqOW9Ua7T0zKVZ3GJvMlzztchf6s+jtYaHZur
-	 +Ipnf+gOYfxp2KJOWVdTG2RAjNFdRKrbl6mXM463UsyoXcG7+Gz5hs2nK2TkFu3NEuBHd
-	 s1rgRqKl4/Az9Op2Ts1Lk0LiP8FxEPfESavU9BWFWPKJzK6Etjnt2LT9cLWyxJh3oXQ==
+	bh=/LElGT3zuKan0FlPt1HnMgKIbohgNg01HMaqG5vP6L0=;
+	b=wAnWN5w7+evWxDfv6S3GFkITfTO9pI7ZxNKKhbZCYBwyEJwIaJf2NXQ2UNAC4E+Ncned
+	 os761v2/EMH+GqzNhZHyEgQXJVmhl/T0VJ0+8nEqajENns+LqObOhHmDpqEtbKlTGjrR4
+	 LRJetfWYHY1WBQpZ2oDuhe3jxTENJaSo/axh8Rjjs3PMcmSWfLPvGB72hO5Hq+Ms8lbsX
+	 /kAH9det/y6SHZghIaXcPdKkkbb4eE4S3ku9XQf9FOZUDz9OhoHhLL85FjAD/Oa6l/08R
+	 TIw6+K2qEWByp6dUrbweoSHMbuDKB664Wqbs5qitsh0pMgsnQVbXC8P1aJYPv8DnJUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M5LX+Sk3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cIZLWn60;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B618606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:16:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34394606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:16:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M5LX+Sk3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E02A1F008A2;
-	Sat,  7 Nov 2026 11:16:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cIZLWn60
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DDD91F0089F;
+	Sat,  7 Nov 2026 11:16:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050181;
-	bh=cF9nJqHp6NUl+uyh5ayqFkpBi/yvyibI92U6VOY8HKk=;
+	s=k20260515; t=1794050184;
+	bh=/LElGT3zuKan0FlPt1HnMgKIbohgNg01HMaqG5vP6L0=;
 	h=From:To:Cc:Subject:Date;
-	b=M5LX+Sk3bgPlZyJiV5SweyXEcaJaQDBg9C6YCMbT2lO+qQgSGKmCFRL++O9LI2QwM
-	 3fKAIv/Y9551E5QNT43pybAmsCzirKm4XEkazMJw6HelkxXDr5MrJ4+aHaRlcN916I
-	 +80RFlhjTJZsJAa+F5xIAYAvxtHLY+wR7umUBXrRLOLZ6LCFUL9ctQookOm9FrtO7E
-	 zdmzVQdPY4XoNVXXami4sIJ2mO158uPEurZB6qdE5Gk7O9Aa3Q33sQwCNdIojtpRff
-	 VmcVNE4vJC/Ot1Ln4ec9Pj9ggNi0hQbhPxM/c1GrYpjAh6Xa4pK2ELVzAg2KuhP3MR
-	 Hh9NXEK9ygMVg==
+	b=cIZLWn60yig+WFXwUYj5u4prqwfwv9QhWWitcYfAkoJM0tHWdO9fT1t1WvAXs5UWo
+	 hth34ICrG692qUmYHyz78baIX6v7pwdUvBO2J+QBicHbUYcPzHhsKgcI/8W1HbcVSu
+	 7aZ8REECdS8cHN7aP01fzmNbVQ+Eob6BYGXMcJC1a2qP/NoepDHhovOYviqkjrtwgX
+	 9rvGAE1v3RaeiCSjXGgWNfJs9mjQobShQiIqkQyTLz7nYGaS7OtKOrEolIHxF6GMHj
+	 Kr7OB1k4ZFg3zdEr658987GIJdbCntRlONfaCpJ4XMhtIJ6DrB3A64Wh7bV/4kWzyu
+	 KpBox6xuNJbhw==
 From: Sasha Levin <sashal@kernel.org>
-To: seanjc@google.com,
-	xiaoyao.li@intel.com,
-	kai.huang@intel.com,
-	binbin.wu@linux.intel.com
+To: mhun512@gmail.com,
+	ae878000@gmail.com,
+	lee@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] KVM: VMX: Disallow using to_vmx() in common VT code" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:16:19 -0500
-Message-ID: <20261107061618-failed-5.10-f305fd31f52a@kernel.org>
+Subject: FAILED: patch "[PATCH] leds: ktd2692: Pass context to regulator cleanup" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:16:22 -0500
+Message-ID: <20261107061622-failed-5.10-c73e9f04445f@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,66 +69,94 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x f305fd31f52a8d3ce4d2bf0c88c45bb7a373809c
+git cherry-pick -x c73e9f04445f361d5f19ca2edfde742ce18348ef
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061618-failed-5.10-f305fd31f52a@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061622-failed-5.10-c73e9f04445f@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From f305fd31f52a8d3ce4d2bf0c88c45bb7a373809c Mon Sep 17 00:00:00 2001
-From: Sean Christopherson <seanjc@google.com>
-Date: Thu, 3 Sep 2026 18:03:46 -0700
-Subject: [PATCH] KVM: VMX: Disallow using to_vmx() in common VT code
+From c73e9f04445f361d5f19ca2edfde742ce18348ef Mon Sep 17 00:00:00 2001
+From: Myeonghun Pak <mhun512@gmail.com>
+Date: Thu, 10 Sep 2026 15:45:25 -0400
+Subject: [PATCH] leds: ktd2692: Pass context to regulator cleanup
 
-Poison to_vmx() in main.c and posted_intr.c so that attempting to interpret
-the vCPU as a VMX vCPU will fail at compile time, as opposed to failing at
-runtime, or worse corrupting state without outright failing.
+regulator_disable_action() retrieves the driver context from device
+driver data.  However, ktd2692_parse_dt() registers the action before
+ktd2692_probe() stores the context with platform_set_drvdata().
 
-Note, to_tdx() is buried in tdx.c, i.e. isn't broadly reachable, and so
-doesn't need the same treatment as to_vmx().
+If devm_add_action_or_reset() cannot allocate the action, it invokes the
+callback immediately.  A later probe failure also invokes it during
+managed-resource unwinding.  Both paths dereference a NULL context.
 
-Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
-Reviewed-by: Kai Huang <kai.huang@intel.com>
-Tested-by: Kai Huang <kai.huang@intel.com>
-Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
+Pass the already allocated context directly to the action and retain the
+device pointer in it for error reporting.  The context is allocated before
+the action is registered, so reverse-order devres unwinding keeps it alive
+through the callback.
+
+This issue was identified during our ongoing static-analysis research while
+reviewing kernel code.
+
+Fixes: ee78b9360e14 ("leds: ktd2692: Fix an error handling path")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260904010353.3175819-2-seanjc@google.com
-Signed-off-by: Sean Christopherson <seanjc@google.com>
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Link: https://patch.msgid.link/20260910194525.99654-1-mhun512@gmail.com
+Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- arch/x86/kvm/vmx/main.c        | 2 ++
- arch/x86/kvm/vmx/posted_intr.c | 2 ++
- 2 files changed, 4 insertions(+)
+ drivers/leds/flash/leds-ktd2692.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/arch/x86/kvm/vmx/main.c b/arch/x86/kvm/vmx/main.c
-index 4c52ab8d07869..ea0d825e556d2 100644
---- a/arch/x86/kvm/vmx/main.c
-+++ b/arch/x86/kvm/vmx/main.c
-@@ -10,6 +10,8 @@
- #include "tdx.h"
- #include "tdx_arch.h"
+diff --git a/drivers/leds/flash/leds-ktd2692.c b/drivers/leds/flash/leds-ktd2692.c
+index 22fbfccd48735..43d4d55503ab5 100644
+--- a/drivers/leds/flash/leds-ktd2692.c
++++ b/drivers/leds/flash/leds-ktd2692.c
+@@ -69,6 +69,8 @@ static const struct expresswire_timing ktd2692_timing = {
+ };
  
-+#pragma GCC poison to_vmx
+ struct ktd2692_context {
++	struct device *dev;
 +
- #ifdef CONFIG_KVM_INTEL_TDX
- static_assert(offsetof(struct vcpu_vmx, vt) == offsetof(struct vcpu_tdx, vt));
+ 	/* Common ExpressWire properties (ctrl GPIO and timing) */
+ 	struct expresswire_common_props props;
  
-diff --git a/arch/x86/kvm/vmx/posted_intr.c b/arch/x86/kvm/vmx/posted_intr.c
-index 4a6d9a17da238..24221ba553be1 100644
---- a/arch/x86/kvm/vmx/posted_intr.c
-+++ b/arch/x86/kvm/vmx/posted_intr.c
-@@ -14,6 +14,8 @@
- #include "vmx.h"
- #include "tdx.h"
+@@ -196,13 +198,12 @@ static void ktd2692_setup(struct ktd2692_context *led)
  
-+#pragma GCC poison to_vmx
-+
- /*
-  * Maintain a per-CPU list of vCPUs that need to be awakened by wakeup_handler()
-  * when a WAKEUP_VECTOR interrupted is posted.  vCPUs are added to the list when
+ static void regulator_disable_action(void *_data)
+ {
+-	struct device *dev = _data;
+-	struct ktd2692_context *led = dev_get_drvdata(dev);
++	struct ktd2692_context *led = _data;
+ 	int ret;
+ 
+ 	ret = regulator_disable(led->regulator);
+ 	if (ret)
+-		dev_err(dev, "Failed to disable supply: %d\n", ret);
++		dev_err(led->dev, "Failed to disable supply: %d\n", ret);
+ }
+ 
+ static int ktd2692_parse_dt(struct ktd2692_context *led, struct device *dev,
+@@ -233,7 +234,7 @@ static int ktd2692_parse_dt(struct ktd2692_context *led, struct device *dev,
+ 			dev_err(dev, "Failed to enable supply: %d\n", ret);
+ 		} else {
+ 			ret = devm_add_action_or_reset(dev,
+-						regulator_disable_action, dev);
++						regulator_disable_action, led);
+ 			if (ret)
+ 				return ret;
+ 		}
+@@ -290,6 +291,7 @@ static int ktd2692_probe(struct platform_device *pdev)
+ 	if (!led)
+ 		return -ENOMEM;
+ 
++	led->dev = &pdev->dev;
+ 	fled_cdev = &led->fled_cdev;
+ 	led_cdev = &fled_cdev->led_cdev;
+ 	led->props.timing = ktd2692_timing;
 -- 
 2.53.0
 
