@@ -1,93 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794036312;
-	b=ROfGPseyN6XiEWimkIkxDrgNmoJ6MuDX+tcaD/yD5jYDQ4Hee3TyUvq6sW1tIze+31CY
-	 YDHqq+nCcPrFO0z0madQjls/gI0AY0bUHwgYE00IG7UtGfXFr2JqamAm1FFIs16GT1ii1
-	 y8wbhKVroeSTjuBeSGz9rx0c4pZSD/UACDca3KmQW+RnF/fTWR/cpEJZlooOzqw/zPz2A
-	 AFE5cSqxYlQA6JNEjE6zpJEXW6m0Fk9M8L3jm+VmH224hvUCuss9V71GEf0wYzMlK3OyI
-	 seSOFZk6C6wZ8Yksnj/vm3mCSw2XJt8kSWK3Z2ofgswk5gUqmmb5DVxjJ1Ii4k9u8yQ==
+	t=1794036420;
+	b=f9SGzsjf9PkwzQi1oGVs+2ShCCDbDK9vJ+n28JaRGijnPTaEVVsXpvgOtJPxktLgj+5o
+	 4d5vjkmpnmtDem/Sj5Amz07W36G8Z6HPc8fr09lzXcX0IVWK6j+CYIUebdCy1D4vAtRLE
+	 k5dUu9P1jNMGMJUbe2sdfst+gPGLaNWHwPJ4+OwyoEFB4H+XUgdT50gQXAcVp6CRslGV/
+	 D1ejbDjeLHWTPvHGo8eHaUETgHlsfScmRCC/tZx9DeBGFAPbOzwwuXbi5Yin1PvGTHxFm
+	 w4IGWAvTUwy+kkcY/uQFa1TsaBnht0EU+VSaps0uxIuZkyqh60NBgPnmoYyHX+UzX5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794036312;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794036420;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=r2dd8jRP0W945/bWYQPeHiO11p85GGQbJrWF47zymFM=;
-	b=oL6kyXpam5jfLwbegqQbiA2M4IYUYwHUn9yfGeCrZOZ0oGoyBGvoOy543R9h2XUUYk6v
-	 hmfVlRxy73wKmsbtig+CmU6375hM4dMehBbAqlyUiu94e1no8s8+CyVZOGK6DQ4fuAEse
-	 KtXay/5Jybn3aTygZBSzuwtYlWDV5lQhyUPp8jPR2NxOU34JEvb6Hbb30XN0//WwddB3X
-	 aEAMhbfKNydqSHoMQgfeKqHon5TIdXGJN/nmwnvENGuAaNEfxhX8vWMZvUUnRVoxTT4tZ
-	 omb3e5hDSIMIWNN3gr8dpXyM5vn5xtG8EDvKyi09rluKutoIs+thepidnfdCajGWIsA==
+	bh=PSwvgBY5tKnxuW7xy2pwUvdfMnozikmSscxGDiw6G2I=;
+	b=5kJO7BtWFJRj5jHnPK8Q+bD7gc6wEuJIhGmDCWAcEdmTt4rwETUtF5w/bEtzSbchOYPt
+	 RiShbZceeujl7rb8PLxeDIKlC6YQM/c9TeXwMHswBE4NbiuHDRDqQRR0YqPVpS3sUEOrF
+	 udmcR7NrWDwhHqQqwHHa0wWLNMHRaHvO4nzy/m+eRe2caGXR7ndcHFcBlCQQgSBUAbolP
+	 5pCSigwHDd/tDqMMm5WU2DmpmZpkJnfirNeN0mbhYChYnzuhcliKTASurE9VCw9/F6/rA
+	 zKR7ls7b2MOUbWa0tYXn87infT/w+mn2LFhzMIxrBjw+YB2lyAtGQq4lgnEK+jlt/oA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Y1vSVoue;
-	arc=none smtp.remote-ip=209.85.214.182
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PQPugjLI;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A97CE606A32E
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 07:25:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A97CE606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CEC9606A32D
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 07:26:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CEC9606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Y1vSVoue
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2ed06b725fdso2182195ad.0
-        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 23:25:11 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PQPugjLI
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a60f9474c4so16203515e9.0
+        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 23:26:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794036311; x=1794641111; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794036417; x=1794641217; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=r2dd8jRP0W945/bWYQPeHiO11p85GGQbJrWF47zymFM=;
-        b=Y1vSVoueTJqDLM8jA8agI6cbb4i3g5fC3JmW4R1XHEhndYMfZ6lRtD2CHTqFq5AKqQ
-         KXYEFgbEsYMfDGduQAhK69Y23OAxMa72MP7M20XQwkYD+Ox4k1JwFWjhGg1R1b79nu7Y
-         U5gMnr4yx+rx4JkXiWjMww5TLCmEZ8g1Wg8sw/59fMAcuMexJIfqpWt9pLhZIz4hTBX5
-         0KlyCCRCG1hpOIwRRohXWvKxfTrhbnuaNPca9r4EOR/qkJlmzikAZ8r1uvkSGj7UjLuY
-         hLFhxRchs1RRPUGJM3kxBKqlvkvuS3eAh6nacqNNIjyV10nsT/DQQYx7d5iInDdK635c
-         iI4g==
+        bh=PSwvgBY5tKnxuW7xy2pwUvdfMnozikmSscxGDiw6G2I=;
+        b=PQPugjLInEABVjaemwtq7Hu8bTFa2wVlgSheOLBj1ew76vrFonee9caA3Yqej2AkYO
+         TxHEEixr8E5yJ0bQp2o1uyHpd9zyym8zxBJXbt/XDerDBsr9Q7HZi/373arHH6yrOQxI
+         E514PhTSAscHwrdKYHRiGizCCh6z4DQjjhAQN4syvRjQfZbIB+hRrcFao6nTUrnB5LUi
+         BKUB5lD0ESlT/Dof/Sb88v7mcwECxkCTrpJqe4bqNP4rUZiBbILHRLDi5fPdqS3iYuMl
+         2p13t9zik0xEVaMfekckwFJsqTbjhZ9fTBV9vSATdAmIvMzKtOMeuHWpFh6o8LSg7GF2
+         Gllg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794036311; x=1794641111;
+        d=1e100.net; s=20260707; t=1794036417; x=1794641217;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=r2dd8jRP0W945/bWYQPeHiO11p85GGQbJrWF47zymFM=;
-        b=vTPekXBlZelCeirLeNcMvrCCwRsk550HBH3KSO/m9zJvtzk2wVC+vDtrUorKrM+dOI
-         lCPumsnlQSenG8uOXTfksvMgKole4f+rLGZ3b29Yn2QEvbiiha8SuDH2y4pib6GpSJhF
-         C9sJOa0zZxVjvdmG3ACw+yW4x5HMs63br3zxAJRGmF2uT1ag1stG8jtNX614lETFA7ot
-         ndW8BL4+PTUxuH7W+ADAWXd1h6qCEKAJ1tXf7i9AlpsBLn4qHGFQxwbKhT5obVuIBgjh
-         ZsfIiiugOK+hNf4JlwO9sRI1P8CnIJ/i6mfiRAs71DBg4RrJg3JHiOaEVhkLd4H9syVp
-         1OVQ==
-X-Forwarded-Encrypted: i=1; AL+hErFdNnNQpAUARmFcx47Xi306pHRvC/9ymtU0J0FXpQZqObs+l7G8OOcczYYxuMdDZKqqmSmGd8s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8k5kSON/MvIpXjFD5vLjTYuV7fmOYdiyFVtWqEyhcBHOT0xG26
-	E2T3VEbkST7EP45wJ/kInCoi6beRIiwx1FmB7gskt+4a+X65OHPYqqtrbX1AHQHv
-X-Gm-Gg: AYBFou2yT9SwYvf929X+3nj6NwHqH1+Q1QNu/GFskrJJkBcp1wzyPXtZQoeEro95sq2
-	xjFhdWkz0Pq94eFT1H3QZ5oMd8uEvwKKF1dlbZbbmgxWSkQJtN7ql3V9X4UiA78IXc5/X0BJH5B
-	CrKh4UtQpk3VoOBswe9n/GFOJpUMOayQ0n2XxJ68WPM5qmOq1yokD3vJLVRbFvJbxkjmBC4mydp
-	kBbLlOVNsVvfFDdv6S2ENcjIVKsVis9reoQpZSF8qJkU1qYC/cneMpOgcugD61Whr9mfVM4wxEI
-	LKJ6qvjUugB7gUt0zfTC7WuuFQz/XvuNsLtnMqI/h1l0mYy4Q8BNdITuWiTUZX6Q2K+ppjr3Xil
-	KBptt1RSy4h7mx7ZOXf6lQVEkN5KrDjn3iRcmQFBGOEWjS06LHr/AiCneiYRnPNsBKIe1NZn6wE
-	HxsrBYnywGV0OOMwtIuq+dTqaKrzI8eH/fFQeQHLuaEJzPJ79YyGATMoMb5CsLghOgU4ifqTwmg
-	rPQQVmbDnbALEfal8F1/3p/JGAET6/dyj+T0ILGAm02Q9AbicSQPDGW3Qo7mNZLlCrr1qA9O+Uk
-	yyTmE9e9hpb4/EcFbVmnpyu1GgvfWmDnB607vD23hYCobJ6U
-X-Received: by 2002:a17:90b:4f42:b0:3a7:a3c8:8f4a with SMTP id 98e67ed59e1d1-3b1061d20b8mr905743a91.18.1794036310826;
-        Fri, 06 Nov 2026 23:25:10 -0800 (PST)
-Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1057c2bc8sm2238847a91.3.2026.11.06.23.25.08
+        bh=PSwvgBY5tKnxuW7xy2pwUvdfMnozikmSscxGDiw6G2I=;
+        b=nF42psPh0tl5DeNeCB1MZ1zEs2XgfaxXO2P/hCRcFBJE3YPi6LW+9wfAzLRG+x+BL9
+         +pSe6LyyDeMo5v3JrRae9bPidy9knHGfBtxaLf09Hf4g+/N+9hTw9Sr8i1nyn204NUxG
+         hQ58FO5fR4OX1CLirI7Ehk0Pl5J5c5+SI2GVBjlRc3g20363uibc6TUpcL86PqLZ6dmv
+         8udi0vEGUqI9EK4gsikp6Vm5oqaPu+1u1amtOTY3dsf4CasF/fDOlS2PmB8ystasb0Tv
+         HsN1V7bdF+YFgg8VYXLDzxu9EhJljNW3yIpSW392Zf48uqDSpk/PXAvN1fQMaBlOAKJu
+         avfg==
+X-Forwarded-Encrypted: i=1; AKwUvBw7r7EiDJkN0MqPj5AIExDsg2Z0ClTpLtyS0uLvK2lNlKSgl4LhHrKJZQe6i34PVQ4nzacjOqw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8VePAfas1/1rmqY7R551bkARGuYTKihAnULqGI/WdfooAiHHWd
+	AL9xH6+A0FvdEOzuUMsALXytZ0HIy1I5v/jVo1Q6NxS2c1MFCPVsZK7d
+X-Gm-Gg: AYBFou0inEO31uLF343jayTiHV5NY4qINl+p3iTOdkwZGmf7Q65ZBIFhojWCLzwzYBV
+	zoKkef/2YiEVI6jTK/t6lQYM2cPY7NI+v4MTNNI2GlRphIPWOA9bR+6KSRRhnQy9pbh6qfU3kjT
+	9i0sTP1IRUwiCk3FK9Gi+BCEPG7OzBvYqUigM8braw+vFHb5VJmBmNNwTpKdIwPD7NdAmHluXGa
+	TGclCE6xt4SDhJJnCN1Enq7SZjj0XeRCTZVKEmO+3Dk01PywAa7GC9qV/ZOo1yPxrD5Gvc1/8He
+	0Jd9zRzInMBgfsDEZa1jbAlnWVQ2bm6Jx2X8hfu6GCTcor7BOUUI+y1JOLQe/uHOkX9SCKqFed1
+	ox9LmYHRpoZ7/lWrn8lGvDgqJCk2OwKmSz9oK1PWR8tH07hLV9Nfn6bFWLBOrWSOc7nPtwC3f3q
+	/3pl0Hhiv5N/elQF+gjdYvsT1zSOOTy4xUS+5ZnISXMtGXXGHJxg3JgIvyq0XZPhuctbawrfIOu
+	dsOB192TX8niEVjQDpWnd5JdJ6Y0A/W+sRhHuitsPakhkOPpwrs/d6VYcpNMkJdp0YG/Qv87Q1G
+	J8m+YfEcwiB4qspTqF4/dRNEbI/BXW/DcsE0kU6St0PDJe56WCGEJ4TjXosMSEfBQNow1F3xAB9
+	QpYB8q5dtmlFlrN2XTm1+O2VJUWk496/BDWHA3WTmOijK04MnVJg=
+X-Received: by 2002:a05:600c:34ca:b0:4a1:7c56:d4e2 with SMTP id 5b1f17b1804b1-4b6df212530mr76856485e9.16.1794036417341;
+        Fri, 06 Nov 2026 23:26:57 -0800 (PST)
+Received: from DESKTOP-IR7J1S9.localdomain ([129.45.78.107])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7e3283b50sm41843175e9.10.2026.11.06.23.26.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 23:25:10 -0800 (PST)
-From: hyunjungg <hj351016@gmail.com>
-To: Neill Kapron <nkapron@google.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Hyunjung Ko <hj351016@gmail.com>,
+        Fri, 06 Nov 2026 23:26:56 -0800 (PST)
+From: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
+To: Alasdair Kergon <agk@redhat.com>,
+	Mike Snitzer <snitzer@kernel.org>,
+	Mikulas Patocka <mpatocka@redhat.com>,
+	Benjamin Marzinski <bmarzins@redhat.com>
+Cc: syzbot+3e16980543e238b95bd1@syzkaller.appspotmail.com,
+	dm-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v3] usb: gadget: pch_udc: drain vbus GPIO works before freeing the device
-Date: Sat,  7 Nov 2026 16:25:01 +0900
-Message-ID: <20261107072501.3434465-1-hj351016@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Subject: [PATCH v2] dm cache: fix divide error in too_many_discard_blocks
+Date: Sat,  7 Nov 2026 08:26:48 +0100
+Message-ID: <20261107072648.554-1-drifabdelmalekmohamedsaid@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,94 +103,41 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Hyunjung Ko <hj351016@gmail.com>
+too_many_discard_blocks() uses sector_div(), whose divisor is a u32.
+discard_block_size is a 64-bit sector_t that calculate_discard_block_size()
+keeps doubling, so once it reaches a multiple of 2^32 the divisor is
+truncated to 0 and the division traps with a divide error. Smaller values
+above 2^32 are also silently truncated, giving a wrong quotient.
 
-pch_vbus_gpio_irq() and pch_udc_dev_isr() schedule
-dev->vbus_gpio.irq_work_fall / irq_work_rise (pch_vbus_gpio_work_fall /
-pch_vbus_gpio_work_rise), whose handlers obtain the pch_udc_dev via
-container_of() and dereference it. Nothing cancels these works on
-teardown, and dev is allocated with devm_kzalloc(), so a work still
-pending or running when devres frees dev dereferences freed memory
-(use-after-free); pch_vbus_gpio_work_fall() polls for up to
-PCH_VBUS_PERIOD (3s), widening the window.
+This needs an origin of more than 2^45 sectors, which is unrealistic (this
+is a thing still in 2026!!) for a real device but reachable with a fuzzer.
 
-The two works are armed from different sources. irq_work_rise is only
-set up and scheduled once dev->vbus_gpio.intr is non-zero, from the GPIO
-interrupt handler. irq_work_fall is INIT_WORK()ed whenever a VBUS GPIO is
-present, and is scheduled either from the GPIO interrupt or, when
-dev->vbus_gpio.intr is 0, from the UDC device interrupt
-pch_udc_isr() -> pch_udc_dev_isr() on UDC_DEVINT_US.
+Switching the div operation to one that uses 64 bits divisor would cause regression,
+so we just limit the value of cache->discard_block_size to U32_MAX.
 
-pch_udc_remove() calls pch_vbus_gpio_free() before pch_udc_exit() masks
-the UDC device interrupts, and the PCI interrupt (pch_udc_isr()) is only
-released by devres after pch_udc_remove() returns. So draining the works
-in pch_vbus_gpio_free() alone races the UDC interrupt: pch_udc_dev_isr()
-can re-queue irq_work_fall after cancel_work_sync() has returned.
-
-Mask the UDC device interrupts and synchronize_irq() the PCI interrupt
-before draining, so neither source can schedule the works any more, then
-cancel them: irq_work_fall whenever a VBUS GPIO port exists, and
-irq_work_rise together with free_irq() under the intr guard. free_irq()
-runs before its cancel so the GPIO interrupt cannot re-queue either.
-
-Found by static analysis and code review; not runtime-reproduced (needs
-EG20T/ML7213 pch_udc hardware with a VBUS detection GPIO and an interrupt
-racing device removal).
-
-Fixes: 637b78eb31e0 ("usb: gadget: pch_udc: Detecting VBUS through GPIO with interrupt")
+Reported-by: syzbot+3e16980543e238b95bd1@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=3e16980543e238b95bd1
+Fixes: 08b184514f65 (" dm cache: revert "prevent corruption caused by discard_block_size > cache_block_size" ")
+Tested-by: syzbot+3e16980543e238b95bd1@syzkaller.appspotmail.com
 Cc: stable@vger.kernel.org
-Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+Signed-off-by: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
 ---
-v3: the UDC device interrupt (pch_udc_dev_isr(), UDC_DEVINT_US) can re-queue
-    irq_work_fall after cancel_work_sync() when no VBUS GPIO IRQ is in use, so
-    v2's drain alone still raced it. Mask the UDC device interrupts and
-    synchronize_irq() the PCI interrupt in pch_udc_remove() before draining.
-    Also corrected the teardown call-chain in the commit log
-    (pch_vbus_gpio_free() runs before pch_udc_exit()). Both per Sashiko review.
-v2: drain irq_work_fall under the VBUS-GPIO-port guard rather than the IRQ
-    guard, since it is scheduled when vbus_gpio.intr == 0. Per Sashiko review.
+ drivers/md/dm-cache-target.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
- drivers/usb/gadget/udc/pch_udc.c | 18 +++++++++++++++---
- 1 file changed, 15 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/usb/gadget/udc/pch_udc.c b/drivers/usb/gadget/udc/pch_udc.c
-index 99b3ce2..a22bf91 100644
---- a/drivers/usb/gadget/udc/pch_udc.c
-+++ b/drivers/usb/gadget/udc/pch_udc.c
-@@ -1406,8 +1406,12 @@ static int pch_vbus_gpio_init(struct pch_udc_dev *dev)
-  */
- static void pch_vbus_gpio_free(struct pch_udc_dev *dev)
+diff --git a/drivers/md/dm-cache-target.c b/drivers/md/dm-cache-target.c
+index 1a5072425c4a..b51ceca60afc 100644
+--- a/drivers/md/dm-cache-target.c
++++ b/drivers/md/dm-cache-target.c
+@@ -2383,6 +2383,8 @@ static int create_cache_policy(struct cache *cache, struct cache_args *ca,
+ static bool too_many_discard_blocks(sector_t discard_block_size,
+ 				    sector_t origin_size)
  {
--	if (dev->vbus_gpio.intr)
-+	if (dev->vbus_gpio.intr) {
- 		free_irq(dev->vbus_gpio.intr, dev);
-+		cancel_work_sync(&dev->vbus_gpio.irq_work_rise);
-+	}
-+	if (dev->vbus_gpio.port)
-+		cancel_work_sync(&dev->vbus_gpio.irq_work_fall);
- }
++	if (discard_block_size > U32_MAX / 2)
++		return false;
+ 	(void) sector_div(origin_size, discard_block_size);
  
- /**
-@@ -3010,9 +3014,17 @@ static void pch_udc_remove(struct pci_dev *pdev)
- 		dma_unmap_single(&dev->pdev->dev, dev->dma_addr,
- 				 UDC_EP0OUT_BUFF_SIZE * 4, DMA_FROM_DEVICE);
- 
--	pch_vbus_gpio_free(dev);
--
-+	/*
-+	 * irq_work_fall can be queued from pch_udc_dev_isr() (UDC_DEVINT_US)
-+	 * when no VBUS GPIO interrupt is in use, and the PCI interrupt is only
-+	 * released by devres after this function returns. Mask the UDC device
-+	 * interrupts and wait for any in-flight handler before draining the
-+	 * VBUS GPIO works, so the interrupt can no longer re-queue them.
-+	 */
- 	pch_udc_exit(dev);
-+	synchronize_irq(dev->pdev->irq);
-+
-+	pch_vbus_gpio_free(dev);
- }
- 
- static int __maybe_unused pch_udc_suspend(struct device *d)
+ 	return origin_size > MAX_DISCARD_BLOCKS;
 -- 
-2.43.0
+2.47.3
 
