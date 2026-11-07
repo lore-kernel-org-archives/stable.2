@@ -1,54 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794080726;
-	b=A4Di8fm7s0lGuEPLmKRmVnD4dJPAq0RNRf0np7RnaHk30Ur4aB2EidZtBMIUH18VFqh4
-	 2DSRY8w9BWyi3XKZcP2E/0t7m5dk4/7YAeTNAUNTSynvYqhn5Vnhr8OeArhINhVmOxHDA
-	 1vdwtW05p5J+YFkeskFKbAwJD/o75k+J8McLAcC/15bss2wrrbRh9+iLfRuNFw8Ru0iPE
-	 5lj7mU4cD9Vg/nRQjg51VY3GiChTp3oN8xFyL+hKXRch9mSxyUHDN1u7nnMPuYbZbDJYD
-	 o6dFv9Ok/YrfkfkGV6UuB5cg6eVKeZT8fZ/MtHLT3xOlCdwpoOdnkXu5oyf0UIrqehg==
+	t=1794080727;
+	b=1/UU3pSKBdgEmHSujpdYkNCo81ayAx9zVP7/TKyjK6gBGUT+xFG19QG6ETf3CH0iJjSf
+	 SYojd++in03qWcR0JSy12kdyPIdOmrwzXQvWwFKDt+PtONN2gNSct79JstkZ+ShmK3qXx
+	 6EWcPnaJ17lw40qM7n5faNvzLjjU7OExs7KLmTaE3KZeAPVUgt7QZlB7JHeRhWGaxTMT/
+	 Hb90U1s2p7eVqq819f3/ZSaVXIsObDHrYO4S7flUokT7V5ClX6rQGneHMVZAIA1/bdBvF
+	 f8nzbQ4/Tq3CePdFqepTV92X6+RYqADl8woayYozFMSgSJ/pa3dEpi6WrS7lFngRfXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794080726;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794080727;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=wljpyegshvl9uch8zF0fkf7hMdufa8RhIQ5Mar7QLV8=;
-	b=Url2TT7/VWiAB0wqO/ujw0rCXd2wXNPprPMnaZFzEbKntGRwXEb7KjScQf3R92BM8LlG
-	 08yc+D1+ig5vbb5UF5nuUejbJfSdJP/2ctCJRwnxk0MwxjZLV633u5XxUzkSRzfha/6Z3
-	 X4S9bl4Fyzt0WXqviS4AHEB56KT7XcvqNemFUn+6mrYw1QnunHh2wyXxuTfpzBS1NFkh8
-	 02/cAIcMg/uJ/79KVwGVZHRX5FXtaa8xoWvkvECzAoiMU2ky1Fe2aKPq7FGoFvK4DaHCb
-	 JjpyLaf8LFleyvC4qY1mn5R+CGo47TefgHfHpMi+q9bd9Pg0Xy21KwRXKLgouP1qTIg==
+	bh=kUDBLA6HWvDZrEEmzk/nlIhBvwFlldmV+Ko2ed2kvvc=;
+	b=CcpG+AfjCdRI8Bxip3HzOUI4BIGYBzrZ0D0n3jw5lFnuzZeNntCKdVLS21/9EPB0g3Cn
+	 kP94Q3gxLpSjM0V562Tx9F68mx7dWgznd6MBkHVElOJxWxu4TLaqciPlU3j81D5brDgAb
+	 Dwp32Pip4J8UoKEPUcQdP8tuUMMlp4wHtiezrae1IoV+arg+/LMFK2PRO9Shjl3Mua4DM
+	 WEiu7FBLxB6cMGcGgm/Z2ijgPbcFPnYdoCbseO6bPVRKu8NsWBeu1W6+gFDpJXZiFqg/Z
+	 VyVJAjdCpPJsYDC5QB/XzXgBc6lYpgkVhBRY8TQ84GWeaTyHYp+2Hyzk976r1hJHEBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VYYgXBsk;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fBwypzTS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77C85606A32C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC25D606A32D;
 	Sat,  7 Nov 2026 19:45:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VYYgXBsk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D9AE1F008A1;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fBwypzTS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 749BA1F008A2;
 	Sat,  7 Nov 2026 19:45:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794080726;
-	bh=wljpyegshvl9uch8zF0fkf7hMdufa8RhIQ5Mar7QLV8=;
+	bh=kUDBLA6HWvDZrEEmzk/nlIhBvwFlldmV+Ko2ed2kvvc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VYYgXBskXHPsOhiiJKc6HivmdZGMx2sP03Pvmijm2SHbXF25Wr+hWWDXeYVgmAEGS
-	 Zc59axKsP6q8Xo+betvHLRiUdqKwMOANhNZ6GeGgrpZ15H2KAjBLUy7bHau2cHuKC9
-	 SKeZrSlXpEf9fiHHMFX1+Q05abHRUBU8zTwGCX5UFSh9bi5s7U4HjFXGPhoWklNB1M
-	 cmKyDodymzSQrj4remakYjRwPPTMkAme5VgC5rXjCv7efG7fx7AmaTuSbTtql3RftG
-	 l+MhXAKx3bladXs7hBKo/AYZiD+ZNd91zSQ9fmQ4QBbHriHw3lZRzpTtDnai3ZyO0Y
-	 GuMmsTwGEqeqw==
+	b=fBwypzTS7PGE392uMznlQF6PtB2Yl5gzR4KCYvnpbBZ6D0pfJUfMhTzYvSyHULLMN
+	 00SVKG2ph8OKZwaTZle/hx8eveRQARIxOzGMu0JIm4ixhmWvkMWWuN+RgdQvcN9wfM
+	 TGKbKowCiwgHWMk1L990fOn0tZqZI5eRRbdgo+pCqf6IajnnZB3piS5QZ3uj71ESIO
+	 TkNyqmhJzbxEDOy1d5Optc5o+zSPSiJ4GhUoC0nLo6M7F2WDaaeNytlr37RGKf/GPR
+	 fw033626IWpT0/wm8QwCbgAxAwD8gAhPQBbgsRN3DaXkXdZYGuT+Js3DVQx6iShndr
+	 r+mV1ebFhbwgA==
 From: Eric Biggers <ebiggers@kernel.org>
 To: stable@vger.kernel.org
 Cc: fsverity@lists.linux.dev,
-	Eric Biggers <ebiggers@google.com>,
-	Victor Hsieh <victorhsieh@google.com>,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	Chao Yu <yuchao0@huawei.com>
-Subject: [PATCH 5.10 1/2] fs-verity: factor out fsverity_get_descriptor()
-Date: Sat,  7 Nov 2026 11:44:44 -0800
-Message-ID: <20261107194445.55959-2-ebiggers@kernel.org>
+	Eric Biggers <ebiggers@kernel.org>
+Subject: [PATCH 5.10 2/2] fsverity: Be more careful with return value of ->get_verity_descriptor()
+Date: Sat,  7 Nov 2026 11:44:45 -0800
+Message-ID: <20261107194445.55959-3-ebiggers@kernel.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261107194445.55959-1-ebiggers@kernel.org>
 References: <20261107194445.55959-1-ebiggers@kernel.org>
@@ -63,243 +60,101 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Eric Biggers <ebiggers@google.com>
+commit 8f8faec82aa902b1997ae578c46bcc84afbad811 upstream.
 
-commit c2c8261151b32f1956fc4ecd71c9a3e7972084b6 upstream.
+If fsverity_operations::get_verity_descriptor() returns that the verity
+descriptor has 0 size, then a zero-size buffer is allocated to hold it,
+and it's called again with bufsize=0.
 
-The FS_IOC_READ_VERITY_METADATA ioctl will need to return the fs-verity
-descriptor (and signature) to userspace.
+But bufsize=0 is a special case that says to return the actual size.  If
+in the meantime the filesystem has decided that the size is some
+actually valid size, it will return that size, and then
+validate_fsverity_descriptor() will read from ZERO_SIZE_PTR and crash.
 
-There are a few ways we could implement this:
+Of course, for the filesystem to misbehave in that strange way, it
+generally would require direct writes to the block device.
 
-- Save a copy of the descriptor (and signature) in the fsverity_info
-  struct that hangs off of the in-memory inode.  However, this would
-  waste memory since most of the time it wouldn't be needed.
+Regardless, fsverity_get_descriptor() might as well guard against it.
+Make it do so.  Specifically, validate that the first call to
+->get_verity_descriptor() returns at least the minimum descriptor size,
+and validate that the second call returns the same size as the first.
 
-- Regenerate the descriptor from the merkle_tree_params in the
-  fsverity_info.  However, this wouldn't work for the signature, nor for
-  the salt which the merkle_tree_params only contains indirectly as part
-  of the 'hashstate'.  It would also be error-prone.
-
-- Just get them from the filesystem again.  The disadvantage is that in
-  general we can't trust that they haven't been maliciously changed
-  since the file has opened.  However, the use cases for
-  FS_IOC_READ_VERITY_METADATA don't require that it verifies the chain
-  of trust.  So this is okay as long as we do some basic validation.
-
-In preparation for implementing the third option, factor out a helper
-function fsverity_get_descriptor() which gets the descriptor (and
-appended signature) from the filesystem and does some basic validation.
-
-As part of this, start checking the sig_size field for overflow.
-Currently fsverity_verify_signature() does this.  But the new ioctl will
-need this too, so do it earlier.
-
-Link: https://lore.kernel.org/r/20210115181819.34732-2-ebiggers@kernel.org
-Reviewed-by: Victor Hsieh <victorhsieh@google.com>
-Reviewed-by: Jaegeuk Kim <jaegeuk@kernel.org>
-Reviewed-by: Chao Yu <yuchao0@huawei.com>
-Signed-off-by: Eric Biggers <ebiggers@google.com>
+Fixes: fd2d1acfcadf ("fs-verity: add the hook for file ->open()")
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20261025203831.120095-1-ebiggers@kernel.org
+Signed-off-by: Eric Biggers <ebiggers@kernel.org>
 ---
- fs/verity/fsverity_private.h |   7 +-
- fs/verity/open.c             | 130 +++++++++++++++++++++++------------
- 2 files changed, 91 insertions(+), 46 deletions(-)
+ fs/verity/open.c | 38 +++++++++++++++++++-------------------
+ 1 file changed, 19 insertions(+), 19 deletions(-)
 
-diff --git a/fs/verity/fsverity_private.h b/fs/verity/fsverity_private.h
-index e96d99d5145e1..08cd74c193d40 100644
---- a/fs/verity/fsverity_private.h
-+++ b/fs/verity/fsverity_private.h
-@@ -152,12 +152,17 @@ int fsverity_init_merkle_tree_params(struct merkle_tree_params *params,
- 				     const u8 *salt, size_t salt_size);
- 
- struct fsverity_info *fsverity_create_info(const struct inode *inode,
--					   void *desc, size_t desc_size);
-+					   struct fsverity_descriptor *desc,
-+					   size_t desc_size);
- 
- void fsverity_set_info(struct inode *inode, struct fsverity_info *vi);
- 
- void fsverity_free_info(struct fsverity_info *vi);
- 
-+int fsverity_get_descriptor(struct inode *inode,
-+			    struct fsverity_descriptor **desc_ret,
-+			    size_t *desc_size_ret);
-+
- int __init fsverity_init_info_cache(void);
- void __init fsverity_exit_info_cache(void);
- 
 diff --git a/fs/verity/open.c b/fs/verity/open.c
-index 67d71f7b1b483..804bd717c4d32 100644
+index 804bd717c4d32..7a786126a1340 100644
 --- a/fs/verity/open.c
 +++ b/fs/verity/open.c
-@@ -142,45 +142,17 @@ static int compute_file_measurement(struct fsverity_hash_alg *hash_alg,
- }
- 
- /*
-- * Validate the given fsverity_descriptor and create a new fsverity_info from
-- * it.  The signature (if present) is also checked.
-+ * Create a new fsverity_info from the given fsverity_descriptor (with optional
-+ * appended signature), and check the signature if present.  The
-+ * fsverity_descriptor must have already undergone basic validation.
-  */
- struct fsverity_info *fsverity_create_info(const struct inode *inode,
--					   void *_desc, size_t desc_size)
-+					   struct fsverity_descriptor *desc,
-+					   size_t desc_size)
+@@ -221,12 +221,6 @@ static bool validate_fsverity_descriptor(struct inode *inode,
+ 					 const struct fsverity_descriptor *desc,
+ 					 size_t desc_size)
  {
--	struct fsverity_descriptor *desc = _desc;
- 	struct fsverity_info *vi;
- 	int err;
- 
 -	if (desc_size < sizeof(*desc)) {
 -		fsverity_err(inode, "Unrecognized descriptor size: %zu bytes",
 -			     desc_size);
--		return ERR_PTR(-EINVAL);
+-		return false;
 -	}
 -
--	if (desc->version != 1) {
--		fsverity_err(inode, "Unrecognized descriptor version: %u",
--			     desc->version);
--		return ERR_PTR(-EINVAL);
--	}
--
--	if (memchr_inv(desc->__reserved, 0, sizeof(desc->__reserved))) {
--		fsverity_err(inode, "Reserved bits set in descriptor");
--		return ERR_PTR(-EINVAL);
--	}
--
--	if (desc->salt_size > sizeof(desc->salt)) {
--		fsverity_err(inode, "Invalid salt_size: %u", desc->salt_size);
--		return ERR_PTR(-EINVAL);
--	}
--
--	if (le64_to_cpu(desc->data_size) != inode->i_size) {
--		fsverity_err(inode,
--			     "Wrong data_size: %llu (desc) != %lld (inode)",
--			     le64_to_cpu(desc->data_size), inode->i_size);
--		return ERR_PTR(-EINVAL);
--	}
--
- 	vi = kmem_cache_zalloc(fsverity_info_cachep, GFP_KERNEL);
- 	if (!vi)
- 		return ERR_PTR(-ENOMEM);
-@@ -245,15 +217,57 @@ void fsverity_free_info(struct fsverity_info *vi)
- 	kmem_cache_free(fsverity_info_cachep, vi);
- }
- 
--/* Ensure the inode has an ->i_verity_info */
--static int ensure_verity_info(struct inode *inode)
-+static bool validate_fsverity_descriptor(struct inode *inode,
-+					 const struct fsverity_descriptor *desc,
-+					 size_t desc_size)
+ 	if (desc->version != 1) {
+ 		fsverity_err(inode, "Unrecognized descriptor version: %u",
+ 			     desc->version);
+@@ -266,31 +260,37 @@ int fsverity_get_descriptor(struct inode *inode,
+ 			    struct fsverity_descriptor **desc_ret,
+ 			    size_t *desc_size_ret)
  {
--	struct fsverity_info *vi = fsverity_get_info(inode);
--	struct fsverity_descriptor *desc;
 -	int res;
-+	if (desc_size < sizeof(*desc)) {
-+		fsverity_err(inode, "Unrecognized descriptor size: %zu bytes",
-+			     desc_size);
-+		return false;
-+	}
++	int size, res;
+ 	struct fsverity_descriptor *desc;
  
--	if (vi)
--		return 0;
-+	if (desc->version != 1) {
-+		fsverity_err(inode, "Unrecognized descriptor version: %u",
-+			     desc->version);
-+		return false;
-+	}
-+
-+	if (memchr_inv(desc->__reserved, 0, sizeof(desc->__reserved))) {
-+		fsverity_err(inode, "Reserved bits set in descriptor");
-+		return false;
-+	}
-+
-+	if (desc->salt_size > sizeof(desc->salt)) {
-+		fsverity_err(inode, "Invalid salt_size: %u", desc->salt_size);
-+		return false;
-+	}
-+
-+	if (le64_to_cpu(desc->data_size) != inode->i_size) {
+-	res = inode->i_sb->s_vop->get_verity_descriptor(inode, NULL, 0);
+-	if (res < 0) {
+-		fsverity_err(inode,
+-			     "Error %d getting verity descriptor size", res);
+-		return res;
++	size = inode->i_sb->s_vop->get_verity_descriptor(inode, NULL, 0);
++	if (size < 0) {
++		fsverity_err(inode, "Error %d getting verity descriptor size",
++			     size);
++		return size;
+ 	}
+-	if (res > FS_VERITY_MAX_DESCRIPTOR_SIZE) {
+-		fsverity_err(inode, "Verity descriptor is too large (%d bytes)",
+-			     res);
++	if (size < sizeof(*desc) || size > FS_VERITY_MAX_DESCRIPTOR_SIZE) {
 +		fsverity_err(inode,
-+			     "Wrong data_size: %llu (desc) != %lld (inode)",
-+			     le64_to_cpu(desc->data_size), inode->i_size);
-+		return false;
-+	}
-+
-+	if (le32_to_cpu(desc->sig_size) > desc_size - sizeof(*desc)) {
-+		fsverity_err(inode, "Signature overflows verity descriptor");
-+		return false;
-+	}
-+
-+	return true;
-+}
-+
-+/*
-+ * Read the inode's fsverity_descriptor (with optional appended signature) from
-+ * the filesystem, and do basic validation of it.
-+ */
-+int fsverity_get_descriptor(struct inode *inode,
-+			    struct fsverity_descriptor **desc_ret,
-+			    size_t *desc_size_ret)
-+{
-+	int res;
-+	struct fsverity_descriptor *desc;
- 
- 	res = inode->i_sb->s_vop->get_verity_descriptor(inode, NULL, 0);
- 	if (res < 0) {
-@@ -272,20 +286,46 @@ static int ensure_verity_info(struct inode *inode)
- 	res = inode->i_sb->s_vop->get_verity_descriptor(inode, desc, res);
++			     "Verity descriptor has invalid size (%d bytes)",
++			     size);
+ 		return -EMSGSIZE;
+ 	}
+-	desc = kmalloc(res, GFP_KERNEL);
++	desc = kmalloc(size, GFP_KERNEL);
+ 	if (!desc)
+ 		return -ENOMEM;
+-	res = inode->i_sb->s_vop->get_verity_descriptor(inode, desc, res);
++	res = inode->i_sb->s_vop->get_verity_descriptor(inode, desc, size);
  	if (res < 0) {
  		fsverity_err(inode, "Error %d reading verity descriptor", res);
--		goto out_free_desc;
-+		kfree(desc);
-+		return res;
-+	}
-+
-+	if (!validate_fsverity_descriptor(inode, desc, res)) {
+ 		kfree(desc);
+ 		return res;
+ 	}
+-
+-	if (!validate_fsverity_descriptor(inode, desc, res)) {
++	if (res != size) {
++		fsverity_err(inode, "Verity descriptor size changed (%d => %d)",
++			     size, res);
 +		kfree(desc);
 +		return -EINVAL;
++	}
++	if (!validate_fsverity_descriptor(inode, desc, size)) {
+ 		kfree(desc);
+ 		return -EINVAL;
  	}
- 
--	vi = fsverity_create_info(inode, desc, res);
-+	*desc_ret = desc;
-+	*desc_size_ret = res;
-+	return 0;
-+}
-+
-+/* Ensure the inode has an ->i_verity_info */
-+static int ensure_verity_info(struct inode *inode)
-+{
-+	struct fsverity_info *vi = fsverity_get_info(inode);
-+	struct fsverity_descriptor *desc;
-+	size_t desc_size;
-+	int err;
-+
-+	if (vi)
-+		return 0;
-+
-+	err = fsverity_get_descriptor(inode, &desc, &desc_size);
-+	if (err)
-+		return err;
-+
-+	vi = fsverity_create_info(inode, desc, desc_size);
- 	if (IS_ERR(vi)) {
--		res = PTR_ERR(vi);
-+		err = PTR_ERR(vi);
- 		goto out_free_desc;
- 	}
- 
- 	fsverity_set_info(inode, vi);
--	res = 0;
-+	err = 0;
- out_free_desc:
- 	kfree(desc);
--	return res;
-+	return err;
- }
- 
- /**
 -- 
 2.56.0
 
