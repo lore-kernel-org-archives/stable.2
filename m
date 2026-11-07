@@ -1,53 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047604;
-	b=Ba4InH0Q7hZcVD+oSkMnSyCWsw1wa9zc9gXAkfzLcKOan2UnpcEjuLAYYNLjGbP/6eEc
-	 3l9GK/oHGW40ddLfeHvGfHsTzB5FsVQMyOBYFHCrqb3zhqcIevSIqZy3+CT6zB363x0uN
-	 +5V631EoKlAraKFQOE2pSAjqZCU0/cpWV134QPG5jfBbEBZFDxx94G6pLKzg1He3EqRjk
-	 IOXbIgMen01LPtGiYKSKnnxqeODv4Jdi//KMEroC45frmbHoZ8aXXLdn4vQwEDojpZs/n
-	 pW9tH/nXFQqQPErmPApZL6Qvcsq+lIE/53HofTl6DYFfBWNdupzWU+em+NyVEItyYpg==
+	t=1794047606;
+	b=1nFppXP273l2rRZuBvz/0EBkoTUGTY2zM01MUct2CB2OWsB/ZcMSRK5/FZrdF+rJqHXA
+	 SUX7RS1ht+olipRG14WWFoV+qa+TRZJIG+punWAwr7irWK3jaBgx5z0XjmEl6bQFasKbM
+	 hgPymsdAimRfgEjTxeObw5T9pBjaipruwi7DF2pB/ZsUZsIj1YWTvkujwDQeHb/fChC9u
+	 jSR9ghGpYff3ZRZ53tDgV2sa15beaAHApfzlF4tBuWcISvWXvDslnCHnVe0lHGY4CT1iS
+	 9fkMozMaVeD0DFGP6HtTUotSWr9KZ7DLl5FaZv2dqEIPXDHLX289t3+bBngwlWvM15Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047604;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047606;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=oi99CN3qPJwYt/5CqbDtQUlqn8npFUWqNExLCEprZ6w=;
-	b=VOQF4zHgmLVK+HZGZelyYQKb1wrsVjNj+v3muSZdhqcWl+ik+Rs6N9AiUQ9rOINvLNjm
-	 Ku5poDCDD62ptZag/7EvP6lc32RF6x16klKhD49i0E5e792o9sFJj6pPMIL2L9kGCawEu
-	 eUaoAXc95pKWcdXh69Fy4OO0VCPuKZEns/H2oWIfUtvexmK4PyLZnmn6y2OQszWCRpm+K
-	 rKdkujP53zEKxoXdr1vFpjSwLCU77hu3iYp/z+eBuQV7CBRPh8PDqtIrQNvz4WyF7yE/k
-	 kTNqfKZY6AdNo+8MMWorYhk+hBfuOPnMe2XjcjhTgi9Iph75Ckwvjoj605d/Lqo2BHg==
+	bh=nIbaFlgpd9d7prKtpvgUrRo5wkaSswGgNvtpRy25IEM=;
+	b=Sss8NG2t9rVIPT/2Z0e6znkndIdZ5T17QUT8fumBSLjdX5MOzfmBxEhhm/RKH9X9EfuN
+	 +9LSpUW6VQj4WLormugh11AOdfl26f+zvuuqSMj/O8f3w5Lv5p4r8wPzr75IfJaSb9WnF
+	 qErHxtjGZinv+gnzgfVs6Ed/uSgbhgccjleGp2vA2KXxydb0t2v0STcTchaxUoDJQc6so
+	 /zRg4rcfVaMQykO2ven0Ay+9UtSKuz9hTSzo8m3HIHcZSpIqxBToOyKPPOwJOUalm+OC8
+	 Y67jsA/fZQND2yi5xJaqfOu+9B1JNrh4YvYRX+M95h7JOkkP84LR7BEefNa6U/f/SYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jnicTZCj;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EP9RsVgB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4647606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:33:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAA98606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:33:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jnicTZCj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17E681F0089F;
-	Sat,  7 Nov 2026 10:33:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EP9RsVgB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55EE61F0089F;
+	Sat,  7 Nov 2026 10:33:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047603;
-	bh=oi99CN3qPJwYt/5CqbDtQUlqn8npFUWqNExLCEprZ6w=;
+	s=k20260515; t=1794047605;
+	bh=nIbaFlgpd9d7prKtpvgUrRo5wkaSswGgNvtpRy25IEM=;
 	h=From:To:Cc:Subject:Date;
-	b=jnicTZCj4XMtpyAX7o49bugoLW8gIQEjsYw+IvqWegFamAXWwgQJ+f1jmdpFiMnxO
-	 5uN7fPo/7+vB45dr0WA47rNfd0w9GQcc/2xF2lX6umRxlEi3siHiNeNZ4shQEDUvVv
-	 jHcjzF446aM9PN3C0UG9XqICtz6mbjnulEUKFCKhCdVZkX1dnXVoShJsCCCD+rwqJO
-	 Wq1E2HusmbocULMk1DyEPwDbm6WUzH7GXURkQUb0wuQ4X9nls/Xy+hirGEbBBys+/4
-	 Wm+AACBH+FVUKJ9iiaKq1vUTwWWFHHmzw6jvMAE0jw0Mt5VgyQqy1x838fxoDrfeCd
-	 8NXoVC9JPxyOA==
+	b=EP9RsVgBS8nYNDHmUxxS+KggNo/uaESwKSoOi57hlMI8Ms/aIe0Bh2l4j2oYuTfHJ
+	 JbESwC/lUHzNVqcgZ5su/RIc2+sSCpw/bD2NeXW5hx7t97zw4nbH3hm9HKhcApq9Yl
+	 I+XP1EFcH1Vdqt3aM6lLlnjNMdZPdWdTJXjW+a4br19O5YcqJsXhr7ftt5G53uJV4W
+	 M4yNhI2z0dxy6I8fAO3uEhIqsAUkm3RV3sWimAcPxatwXNP3hNl4bbky5LK9dB3JGR
+	 XXcA+/NMobtiZKFVIzKcI0qp6YLq5nGeGrMLCG0dAHgCCEPxtamqSgbWni/gcp9IqS
+	 dWAeBSL1XzXDA==
 From: Sasha Levin <sashal@kernel.org>
-To: jianping.li@oss.qualcomm.com,
-	ekansh.gupta@oss.qualcomm.com,
-	srini@kernel.org,
+To: aliresool567@gmail.com,
 	gregkh@linuxfoundation.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] misc: fastrpc: Allocate entire reserved memory for Audio PD in probe" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:33:22 -0500
-Message-ID: <20261107053322-failed-6.6-9e47ad9c562e@kernel.org>
+Subject: FAILED: patch "[PATCH] USB: quirks: add USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE for GameSir G7 SE" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:33:24 -0500
+Message-ID: <20261107053324-failed-6.6-40224df29729@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,341 +68,61 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 9e47ad9c562e82cabfbb9afa6c2b0dcdf2702a39
+git cherry-pick -x 40224df29729618ecd88c5c0077e71b1e82c7a3a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053322-failed-6.6-9e47ad9c562e@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053324-failed-6.6-40224df29729@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 9e47ad9c562e82cabfbb9afa6c2b0dcdf2702a39 Mon Sep 17 00:00:00 2001
-From: Jianping Li <jianping.li@oss.qualcomm.com>
-Date: Fri, 2 Oct 2026 11:12:20 +0100
-Subject: [PATCH] misc: fastrpc: Allocate entire reserved memory for Audio PD
- in probe
+From 40224df29729618ecd88c5c0077e71b1e82c7a3a Mon Sep 17 00:00:00 2001
+From: Ali Resool Tuama <aliresool567@gmail.com>
+Date: Fri, 2 Oct 2026 20:42:12 +0300
+Subject: [PATCH] USB: quirks: add USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE for
+ GameSir G7 SE
 
-Allocating and freeing Audio PD memory from userspace is unsafe because
-the kernel cannot reliably determine when the DSP has finished using the
-memory. Userspace may free buffers while they are still in use by the DSP,
-and remote free requests cannot be safely trusted.
+The GameSir G7 SE wired controller first enumerates as 3537:10a0 and
+then re-enumerates in a mode it picks from how the host enumerated it.
 
-Additionally, the current implementation allows userspace to repeatedly
-grow the Audio PD heap, but does not support shrinking it. This can lead
-to unbounded memory usage over time, effectively causing a memory leak.
+When the configuration descriptor is fetched the Linux way, 9 bytes
+followed by the full 80, the controller disconnects about 1 ms after
+its string descriptors have been read, before SET_CONFIGURATION, and
+comes back as 3537:1082, a generic HID gamepad without force feedback.
 
-Fix this by allocating the entire Audio PD reserved-memory region during
-rpmsg probe and tying its lifetime to the rpmsg channel. This removes
-userspace-controlled alloc/free and ensures that memory is reclaimed only
-when the DSP process is torn down.
+When the configuration descriptor is fetched in one 255-byte request,
+as Windows does, it comes back as 3537:1010 in Xbox One (GIP) mode,
+which xpad already supports, including rumble.
 
-The reserved-memory region is now mandatory for the Audio PD domain.
-Rather than failing rpmsg probe when it is missing, validate it in
-fastrpc_init_create_static_process() and reject only the static-process
-creation. This keeps the fastrpc device probing for all other domains
-even on a misconfigured device tree.
+Skipping the device qualifier requests (USB_QUIRK_DEVICE_QUALIFIER)
+makes no difference; the configuration descriptor request size alone
+decides the mode. Add USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE for the 10a0
+identity, as is already done for the ShanWan Wireless Gamepad.
 
-Fixes: 0871561055e66 ("misc: fastrpc: Add support for audiopd")
-Cc: stable@kernel.org
-Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
-Reviewed-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-Link: https://lore.kernel.org/all/20260814101955.234238-1-jianping.li@oss.qualcomm.com/
-Signed-off-by: Srinivas Kandagatla <srini@kernel.org>
-Link: https://patch.msgid.link/20261002101220.1084101-3-srinivas.kandagatla@oss.qualcomm.com
+Cc: stable <stable@kernel.org>
+Assisted-by: claude-opus-5-5
+Signed-off-by: Ali Resool Tuama <aliresool567@gmail.com>
+Link: https://patch.msgid.link/20261002-master-v2-1-24b05d8792b5@gmail.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/misc/fastrpc.c | 188 ++++++++++++++++++++++-------------------
- 1 file changed, 101 insertions(+), 87 deletions(-)
+ drivers/usb/core/quirks.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index 904f538f0dd0e..af18ff1992eed 100644
---- a/drivers/misc/fastrpc.c
-+++ b/drivers/misc/fastrpc.c
-@@ -70,8 +70,6 @@
- #define ADSP_MMAP_HEAP_ADDR  4
- /* MAP static DMA buffer on DSP User PD */
- #define ADSP_MMAP_DMA_BUFFER  6
--/* Add memory to static PD pool protection thru hypervisor */
--#define ADSP_MMAP_REMOTE_HEAP_ADDR  8
- /* Add memory to userPD pool, for user heap */
- #define ADSP_MMAP_ADD_PAGES 0x1000
- /* Add memory to userPD pool, for LLC heap */
-@@ -314,10 +312,14 @@ struct fastrpc_channel_ctx {
- 	struct kref refcount;
- 	/* Flag if dsp attributes are cached */
- 	bool valid_attributes;
-+	/* Flag if audio PD init mem was allocated */
-+	bool audio_init_mem;
-+	/* Audio PD reserved remote heap region */
-+	phys_addr_t remote_heap_addr;
-+	u64 remote_heap_size;
- 	u32 dsp_attributes[FASTRPC_MAX_DSP_ATTRIBUTES];
- 	struct fastrpc_device *secure_fdevice;
- 	struct fastrpc_device *fdevice;
--	struct fastrpc_buf *remote_heap;
- 	struct list_head invoke_interrupted_mmaps;
- 	bool secure;
- 	bool unsigned_support;
-@@ -1454,15 +1456,24 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
- 	struct fastrpc_init_create_static init;
- 	struct fastrpc_invoke_args *args;
- 	struct fastrpc_phy_page pages[1];
-+	struct fastrpc_channel_ctx *cctx = fl->cctx;
- 	char *name;
- 	int err;
--	bool scm_done = false;
- 	struct {
- 		int client_id;
- 		u32 namelen;
- 		u32 pageslen;
- 	} inbuf;
- 	u32 sc;
-+	unsigned long flags;
-+	bool sent_heap = false;
+diff --git a/drivers/usb/core/quirks.c b/drivers/usb/core/quirks.c
+index b5b577f0b931c..a4bcbe9c913cf 100644
+--- a/drivers/usb/core/quirks.c
++++ b/drivers/usb/core/quirks.c
+@@ -612,6 +612,9 @@ static const struct usb_device_id usb_quirk_list[] = {
+ 	/* ezcap401 - BOS descriptor fetch hangs at SuperSpeed Plus */
+ 	{ USB_DEVICE(0x32ed, 0x0401), .driver_info = USB_QUIRK_NO_BOS },
+ 
++	/* GameSir G7 SE */
++	{ USB_DEVICE(0x3537, 0x10a0), .driver_info = USB_QUIRK_WINDOWS_CONFIG_REQ_SIZE },
 +
-+	if (!cctx->remote_heap_addr || !cctx->remote_heap_size) {
-+		err = -ENOMEM;
-+		dev_err(fl->sctx->dev,
-+			"remote heap memory region is not added\n");
-+		return err;
-+	}
- 
- 	args = kzalloc_objs(*args, FASTRPC_CREATE_STATIC_PROCESS_NARGS);
- 	if (!args)
-@@ -1486,31 +1497,6 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
- 	inbuf.client_id = fl->client_id;
- 	inbuf.namelen = init.namelen;
- 	inbuf.pageslen = 0;
--	if (!fl->cctx->remote_heap) {
--		err = fastrpc_remote_heap_alloc(fl, fl->sctx->dev, init.memlen,
--						&fl->cctx->remote_heap);
--		if (err)
--			goto err_name;
--
--		/* Map if we have any heap VMIDs associated with this ADSP Static Process. */
--		if (fl->cctx->vmcount) {
--			u64 src_perms = BIT(QCOM_SCM_VMID_HLOS);
--
--			err = qcom_scm_assign_mem(fl->cctx->remote_heap->dma_addr,
--							(u64)fl->cctx->remote_heap->size,
--							&src_perms,
--							fl->cctx->vmperms, fl->cctx->vmcount);
--			if (err) {
--				dev_err(fl->sctx->dev,
--					"Failed to assign memory with dma_addr %pad size 0x%llx err %d\n",
--					&fl->cctx->remote_heap->dma_addr,
--					fl->cctx->remote_heap->size, err);
--				goto err_map;
--			}
--			scm_done = true;
--			inbuf.pageslen = 1;
--		}
--	}
- 
- 	fl->pd = USER_PD;
- 
-@@ -1522,8 +1508,25 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
- 	args[1].length = inbuf.namelen;
- 	args[1].fd = -1;
- 
--	pages[0].addr = fl->cctx->remote_heap->dma_addr;
--	pages[0].size = fl->cctx->remote_heap->size;
-+	/*
-+	 * Audio PD is a static PD and retains the remote heap
-+	 * information across daemon restarts. Therefore only
-+	 * the first attach should provide heap information to
-+	 * DSP. Subsequent attaches reuse the previously
-+	 * initialized memory pool.
-+	 */
-+	spin_lock_irqsave(&cctx->lock, flags);
-+	if (!cctx->audio_init_mem) {
-+		pages[0].addr = cctx->remote_heap_addr;
-+		pages[0].size = cctx->remote_heap_size;
-+		cctx->audio_init_mem = true;
-+		inbuf.pageslen = 1;
-+		sent_heap = true;
-+	} else {
-+		pages[0].addr = 0;
-+		pages[0].size = 0;
-+	}
-+	spin_unlock_irqrestore(&cctx->lock, flags);
- 
- 	args[2].ptr = (u64)(uintptr_t) pages;
- 	args[2].length = sizeof(*pages);
-@@ -1541,27 +1544,11 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
- 
- 	return 0;
- err_invoke:
--	if (fl->cctx->vmcount && scm_done) {
--		u64 src_perms = 0;
--		struct qcom_scm_vmperm dst_perms;
--		u32 i;
--
--		for (i = 0; i < fl->cctx->vmcount; i++)
--			src_perms |= BIT(fl->cctx->vmperms[i].vmid);
--
--		dst_perms.vmid = QCOM_SCM_VMID_HLOS;
--		dst_perms.perm = QCOM_SCM_PERM_RWX;
--		err = qcom_scm_assign_mem(fl->cctx->remote_heap->dma_addr,
--						(u64)fl->cctx->remote_heap->size,
--						&src_perms, &dst_perms, 1);
--		if (err)
--			dev_err(fl->sctx->dev, "Failed to assign memory dma_addr %pad size 0x%llx err %d\n",
--				&fl->cctx->remote_heap->dma_addr, fl->cctx->remote_heap->size, err);
-+	if (sent_heap) {
-+		spin_lock_irqsave(&cctx->lock, flags);
-+		cctx->audio_init_mem = false;
-+		spin_unlock_irqrestore(&cctx->lock, flags);
- 	}
--err_map:
--	fastrpc_buf_free(fl->cctx->remote_heap);
--	fl->cctx->remote_heap = NULL;
--err_name:
- 	kfree(name);
- err:
- 	kfree(args);
-@@ -2086,7 +2073,7 @@ static int fastrpc_req_mmap(struct fastrpc_user *fl, char __user *argp)
- 	if (copy_from_user(&req, argp, sizeof(req)))
- 		return -EFAULT;
- 
--	if (req.flags != ADSP_MMAP_ADD_PAGES && req.flags != ADSP_MMAP_REMOTE_HEAP_ADDR) {
-+	if (req.flags != ADSP_MMAP_ADD_PAGES) {
- 		dev_err(dev, "flag not supported 0x%x\n", req.flags);
- 
- 		return -EINVAL;
-@@ -2097,10 +2084,7 @@ static int fastrpc_req_mmap(struct fastrpc_user *fl, char __user *argp)
- 		return -EINVAL;
- 	}
- 
--	if (req.flags == ADSP_MMAP_REMOTE_HEAP_ADDR)
--		err = fastrpc_remote_heap_alloc(fl, dev, req.size, &buf);
--	else
--		err = fastrpc_buf_alloc(fl, dev, req.size, &buf);
-+	err = fastrpc_buf_alloc(fl, dev, req.size, &buf);
- 
- 	if (err) {
- 		dev_err(dev, "failed to allocate buffer\n");
-@@ -2139,20 +2123,6 @@ static int fastrpc_req_mmap(struct fastrpc_user *fl, char __user *argp)
- 	/* let the client know the address to use */
- 	req.vaddrout = rsp_msg.vaddr;
- 
--	/* Add memory to static PD pool, protection thru hypervisor */
--	if (req.flags == ADSP_MMAP_REMOTE_HEAP_ADDR && fl->cctx->vmcount) {
--		u64 src_perms = BIT(QCOM_SCM_VMID_HLOS);
--
--		err = qcom_scm_assign_mem(buf->dma_addr, (u64)buf->size,
--			&src_perms, fl->cctx->vmperms, fl->cctx->vmcount);
--		if (err) {
--			dev_err(fl->sctx->dev,
--				"Failed to assign memory dma_addr %pad size 0x%llx err %d",
--				&buf->dma_addr, buf->size, err);
--			goto err_assign;
--		}
--	}
--
- 	spin_lock(&fl->lock);
- 	list_add_tail(&buf->node, &fl->mmaps);
- 	spin_unlock(&fl->lock);
-@@ -2533,6 +2503,45 @@ static const struct of_device_id fastrpc_poll_supported_machines[] __maybe_unuse
- 	{},
- };
- 
-+static int fastrpc_init_reserved_mem(struct fastrpc_channel_ctx *cctx,
-+				     struct device *rdev, u32 domain_id)
-+{
-+	struct resource res;
-+	u64 src_perms;
-+	int err;
-+
-+	/* Only SDSP and ADSP domains use a reserved remote heap region */
-+	if (domain_id != SDSP_DOMAIN_ID && domain_id != ADSP_DOMAIN_ID)
-+		return 0;
-+
-+	err = of_reserved_mem_region_to_resource(rdev->of_node, 0, &res);
-+	if (err) {
-+		/*
-+		 * The reserved-memory region is optional at probe time. For
-+		 * the Audio PD (ADSP) domain its absence is validated later in
-+		 * fastrpc_init_create_static_process(), so keep probing here.
-+		 */
-+		return 0;
-+	}
-+
-+	/*
-+	 * Audio PD (ADSP) is a static PD: cache the region so its lifetime
-+	 * is tied to the rpmsg channel instead of being controlled by
-+	 * userspace.
-+	 */
-+	if (domain_id == ADSP_DOMAIN_ID) {
-+		cctx->remote_heap_addr = res.start;
-+		cctx->remote_heap_size = resource_size(&res);
-+	}
-+
-+	if (!cctx->vmcount)
-+		return 0;
-+
-+	src_perms = BIT(QCOM_SCM_VMID_HLOS);
-+	return qcom_scm_assign_mem(res.start, resource_size(&res), &src_perms,
-+				  cctx->vmperms, cctx->vmcount);
-+}
-+
- static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
- {
- 	struct device *rdev = &rpdev->dev;
-@@ -2580,21 +2589,9 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
- 		}
- 	}
- 
--	if (domain_id == SDSP_DOMAIN_ID) {
--		struct resource res;
--		u64 src_perms;
--
--		err = of_reserved_mem_region_to_resource(rdev->of_node, 0, &res);
--		if (!err) {
--			src_perms = BIT(QCOM_SCM_VMID_HLOS);
--
--			err = qcom_scm_assign_mem(res.start, resource_size(&res), &src_perms,
--				    data->vmperms, data->vmcount);
--			if (err)
--				goto err_free_data;
--		}
--
--	}
-+	err = fastrpc_init_reserved_mem(data, rdev, domain_id);
-+	if (err)
-+		goto err_free_data;
- 
- 	secure_dsp = !(of_property_read_bool(rdev->of_node, "qcom,non-secure-domain"));
- 	data->secure = secure_dsp;
-@@ -2694,8 +2691,25 @@ static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
- 	list_for_each_entry_safe(buf, b, &cctx->invoke_interrupted_mmaps, node)
- 		list_del(&buf->node);
- 
--	if (cctx->remote_heap)
--		fastrpc_buf_free(cctx->remote_heap);
-+	if (cctx->remote_heap_size && cctx->vmcount) {
-+		u64 src_perms = 0;
-+		int err, i;
-+		struct qcom_scm_vmperm dst_perms;
-+
-+		for (i = 0; i < cctx->vmcount; i++)
-+			src_perms |= BIT(cctx->vmperms[i].vmid);
-+
-+		dst_perms.vmid = QCOM_SCM_VMID_HLOS;
-+		dst_perms.perm = QCOM_SCM_PERM_RWX;
-+
-+		err = qcom_scm_assign_mem(cctx->remote_heap_addr,
-+					  cctx->remote_heap_size, &src_perms,
-+					  &dst_perms, 1);
-+		if (err)
-+			dev_err(&rpdev->dev,
-+				"Failed to assign memory back to HLOS: addr %pa size %#llx err %d\n",
-+				&cctx->remote_heap_addr, cctx->remote_heap_size, err);
-+	}
- 
- 	of_platform_depopulate(&rpdev->dev);
+ 	/* DELL USB GEN2 */
+ 	{ USB_DEVICE(0x413c, 0xb062), .driver_info = USB_QUIRK_NO_LPM | USB_QUIRK_RESET_RESUME },
  
 -- 
 2.53.0
