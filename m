@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047769;
-	b=BSQ5avA/SsKaCrIRchp/ftyI3NVtA9mQX2Ie3at0D6wSf36Tbex1T60lP5+jDaFbr1xp
-	 bo9xEw/dGBIYuFE8IvgHe93vdPYKYv/yYULyU2neKJ9eVlulc24lyRjv16dmHgZU5ceEh
-	 /3HZNk61D+esX6dq516iOgSlpKh8OH43GHLA9rTXpeqfVJybUAhWZDUPSWNyNHPkbO/Fr
-	 p2UCjszJqCSnB8bZv7eO2B3AXZqNtRzH+47tau61wI7a2rqVvcMRy2szgWfcAg/OuJhuA
-	 k6uCtOVQJn9q5g8BbwGwH3ymofzMaWfYqWZjpHkEo14xj9ZuHZTx30VIvB33zyZztgA==
+	t=1794047771;
+	b=PF87DwGec3qDoa1cIsDpQHlpdYrZoxo7C9RMLnvlBC+ZTe4RtFXU/d+gOGlODb3In8fe
+	 7z721/Uv3WKD+yTNu1Q/dCTSne68opVNgVaCTk1+mvZrZ9EFceCa9ic3W9l1ahUdLtYqS
+	 10L0CqlM2dGy9n1I9bBgVOkS8/VV8WEuTR4rTUoj1PeYDgQ4i+t2RriAbIQjGcOdgiCoy
+	 wrEoO6dJBj8K4g72eQMUdjOLM8K0eEVnCnMSUfPDvazYwHqcqfNJM/5KKbZvqNitQ/Jqf
+	 PCioF1zHb4cRriEghU3DiC59Gmum7uXkAlgn9X3rAE2dVqNxLIgWlOGvlqUv9fUcYxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047769;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047771;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=usoTDUmG2DKDW/XSm+x5rc1nr1OCZqQPQDzd7K0jVX8=;
-	b=u/wa7OBOPWXiSEt27q0I6aTtR4iXzVrTYnhCKpsY2mCgaVo/XOhBGjjGVHOhuzeurDXd
-	 2ZTyOjzuPTbe3uCZqkKaSTXNGYBwJOJRrbY35CzIpwU4uz0/hBSBy0okVX8S5wTjxlWXu
-	 XVsw68YjllNWIz3syYtL+hxpDxHo8zCmL1vTFSZsFdmNeMYSurZgK1lKrd05nxEOLpCKW
-	 CsyovlJHvM2Le6HDiQNT6wh4dJHxTxQsAmV66rY3C160Zf6ZoTWX0Ms4kIV9WkmPosd2E
-	 LSmtzLUUat/mr4zx304jN6cPjI3m4RfnO92SMWbxPlOqVD+lMMP2r4HTH2pipEQsG0A==
+	bh=Rft6JZ9CENievdftLW9lNvXhOyshPK9fA6JjzqYDbUY=;
+	b=3320fnEjJCIudDkzYgeJP9e2T3WjOWHJyNxZ5DI3v0ULI5DhtdssCMe7tWD6f0WTfVpM
+	 cI5uUoH299k4z55586Y4wPC+GHOtfUqHrccRDrenvJU/SoziXXpc1ktGugh72Jf7agBlX
+	 EaICDEOaG4u85mNVePiCXT8Atcb0UHKkLRbOkSZmoAIax3szzoEHIRDCI1A8OTsA0NxUD
+	 PTGuz7kYzZvcm7pd5v+OtZV1+dSjBBiLBjs6+ODcepUS/COAfL3YViirHt3YoIv77MrgR
+	 eEdAOCzrE+BTsqvyymYTebVEch/GG7RS8OshvLKe67ELnj4B5KSeLzhZiiVV5MD5TsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gbznQF3J;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JAWfkYJI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CA2B606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:36:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4770C606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:36:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gbznQF3J
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A83ED1F0089F;
-	Sat,  7 Nov 2026 10:36:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JAWfkYJI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBEFB1F0089F;
+	Sat,  7 Nov 2026 10:36:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047769;
-	bh=usoTDUmG2DKDW/XSm+x5rc1nr1OCZqQPQDzd7K0jVX8=;
+	s=k20260515; t=1794047771;
+	bh=Rft6JZ9CENievdftLW9lNvXhOyshPK9fA6JjzqYDbUY=;
 	h=From:To:Cc:Subject:Date;
-	b=gbznQF3J7C88Z8RHqdWNTTXffR4pYQv9Gq3hLYgAXesAnDZyhIHUmB3+QA3wCopjF
-	 jSDeVLBobZaoJLTFl1Yp43ruBpznMI/ITFnUiOY9Y53ToMMtF+/NpJmRe4iIlo961V
-	 10gLMzojrW6c14LKCV9RWsRQIz2wUdhk9n3GbwwLP8kKMIZK4lR0bGn3kd3kP1MaKm
-	 tSfRxQ2BrnrRfNfd5L5vIeeG7kpH0qfkGB90GuQbL63l8wYIecEwte1qpDvuRhM+gI
-	 W6bvhiDpFr17sm1B9Gevu0NSvxCfSx3sEQocAMXT+EuUPeQhbchSJDeGmANF0LhoLT
-	 iLOUdSdnVCZJg==
+	b=JAWfkYJIq0ekr7Ojm5QV/14yjeQOjeZBdRT4EBjcCG188w5jbHZgzzHiZ8lNMbun0
+	 4dwB3UsAO3SQIlQ1EhA4OIju5OeX9/8ball7YoArtst1xEzbfYjwy8mcbX8JTVdIsC
+	 +VSP2k7QMDGPBYpRuRxYaateUiPSg2Tq7cJvPP1/uZXV0ighNTadGgwUduI7KitHp+
+	 1bnrLD8jOVveQPpybWkn7EcwsNrNAe+8kvuL5hypK7WFOONunBYJj0oQHI4q+F0ZKy
+	 N3wQcwkq3egwCslZWj8oQhcvakBBF5iVwEDriwBRl3zMeIKRyexnqGEN5rBeIqOSoN
+	 Ujc0SroPLfS5Q==
 From: Sasha Levin <sashal@kernel.org>
-To: fanwu01@zju.edu.cn,
-	songl@zju.edu.cn,
+To: tjdqudcks0424@naver.com,
 	mszeredi@redhat.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] virtio_fs: read the vring size under virtio_fs_mutex in ->get_tree" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:36:07 -0500
-Message-ID: <20261107053607-failed-6.6-e7ccc777a040@kernel.org>
+Subject: FAILED: patch "[PATCH] virtiofs: validate fixed-output response length" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:36:09 -0500
+Message-ID: <20261107053609-failed-6.6-5364d081125a@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,97 +68,110 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x e7ccc777a040343b80f95f4cc5c12ce1df3187f4
+git cherry-pick -x 5364d081125a34e90851fbb46ecc93f79339ce78
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053607-failed-6.6-e7ccc777a040@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053609-failed-6.6-5364d081125a@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From e7ccc777a040343b80f95f4cc5c12ce1df3187f4 Mon Sep 17 00:00:00 2001
-From: Fan Wu <fanwu01@zju.edu.cn>
-Date: Tue, 22 Sep 2026 08:13:18 +0000
-Subject: [PATCH] virtio_fs: read the vring size under virtio_fs_mutex in
- ->get_tree
+From 5364d081125a34e90851fbb46ecc93f79339ce78 Mon Sep 17 00:00:00 2001
+From: Sung Byeongchan <tjdqudcks0424@naver.com>
+Date: Wed, 7 Oct 2026 15:19:49 +0900
+Subject: [PATCH] virtiofs: validate fixed-output response length
 
-The vring size was read after virtio_fs_find_instance() had dropped
-virtio_fs_mutex, so a concurrent virtio_fs_remove() could free the
-virtqueue first. The reference from the lookup keeps the virtio_fs
-alive, but not its virtqueues.
+A short successful virtiofs response can leave the fixed-output portion of
+the request argument buffer unwritten.  The completion path nevertheless
+copies the full declared output to the request destination, allowing stale
+allocator contents to reach callers such as fuse_statfs().
 
-Hold the mutex across the lookup and the read.
+Require successful fixed-output responses to contain their complete
+declared output.  Continue to permit a shorter final argument only for
+out_argvar requests.  Reject positive and internal restart error values
+and require valid error replies to be header-only.  The error already
+stored in the FUSE output header is returned by fuse_request_end(), so do
+not copy output arguments from an error reply.
 
-This issue was found by an in-house static analysis tool.
+This was found by source review with AI assistance.  A header-only
+successful FUSE_STATFS reply returned stale fields in nine of nine calls
+across three boots.  The fixed kernel rejected the short response and
+preserved complete replies, valid negative-error replies, and
+variable-output replies.
 
-Fixes: a7f0d7aab0b4 ("virtiofs: split requests that exceed virtqueue size")
+Fixes: a62a8ef9d97d ("virtio-fs: add virtiofs filesystem")
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Assisted-by: LLM
+Signed-off-by: Sung Byeongchan <tjdqudcks0424@naver.com>
 Signed-off-by: Miklos Szeredi <mszeredi@redhat.com>
 ---
- fs/fuse/virtio_fs.c | 21 +++++++++++----------
- 1 file changed, 11 insertions(+), 10 deletions(-)
+ fs/fuse/virtio_fs.c | 30 ++++++++++++++++++++++++++++++
+ 1 file changed, 30 insertions(+)
 
 diff --git a/fs/fuse/virtio_fs.c b/fs/fuse/virtio_fs.c
-index 4f334766b8c30..674fd784cdb80 100644
+index 674fd784cdb80..ba8d79c4bcac6 100644
 --- a/fs/fuse/virtio_fs.c
 +++ b/fs/fuse/virtio_fs.c
-@@ -455,26 +455,23 @@ static int virtio_fs_add_instance(struct virtio_device *vdev,
- 	return ret;
- }
+@@ -727,6 +727,10 @@ static void copy_args_from_argbuf(struct fuse_args *args, struct fuse_req *req)
+ 	unsigned int num_out;
+ 	unsigned int i;
  
--/* Return the virtio_fs with a given tag, or NULL */
-+/* Return the virtio_fs with a given tag, or NULL.
-+ * Callers hold virtio_fs_mutex, which also keeps the virtqueues alive.
-+ */
- static struct virtio_fs *virtio_fs_find_instance(const char *tag)
- {
- 	struct virtio_fs *fs;
- 
--	mutex_lock(&virtio_fs_mutex);
-+	lockdep_assert_held(&virtio_fs_mutex);
- 
- 	list_for_each_entry(fs, &virtio_fs_instances, list) {
- 		if (strcmp(fs->tag, tag) == 0) {
- 			kobject_get(&fs->kobj);
--			goto found;
-+			return fs;
- 		}
- 	}
- 
--	fs = NULL; /* not found */
--
--found:
--	mutex_unlock(&virtio_fs_mutex);
--
--	return fs;
-+	return NULL; /* not found */
- }
- 
- static void virtio_fs_free_devs(struct virtio_fs *fs)
-@@ -1700,13 +1697,17 @@ static int virtio_fs_get_tree(struct fs_context *fsc)
- 	 * in chan->iq->priv. Once fuse_conn is going away, it calls ->put()
- 	 * to drop the reference to this object.
- 	 */
-+	mutex_lock(&virtio_fs_mutex);
- 	fs = virtio_fs_find_instance(fsc->source);
-+	if (fs)
-+		virtqueue_size = virtqueue_get_vring_size(fs->vqs[VQ_REQUEST].vq);
-+	mutex_unlock(&virtio_fs_mutex);
++	/* fuse_request_end() returns this error; there are no args to copy. */
++	if (req->out.h.error)
++		goto out;
 +
- 	if (!fs) {
- 		pr_info("virtio-fs: tag <%s> not found\n", fsc->source);
- 		return -EINVAL;
- 	}
+ 	remaining = req->out.h.len - sizeof(req->out.h);
+ 	num_in = args->in_numargs - args->in_pages;
+ 	num_out = args->out_numargs - args->out_pages;
+@@ -752,6 +756,7 @@ static void copy_args_from_argbuf(struct fuse_args *args, struct fuse_req *req)
+ 	if (args->out_argvar)
+ 		args->out_args[args->out_numargs - 1].size = remaining;
  
--	virtqueue_size = virtqueue_get_vring_size(fs->vqs[VQ_REQUEST].vq);
- 	if (WARN_ON(virtqueue_size <= FUSE_HEADER_OVERHEAD))
- 		goto out_err;
++out:
+ 	kfree(req->argbuf);
+ 	req->argbuf = NULL;
+ }
+@@ -759,7 +764,9 @@ static void copy_args_from_argbuf(struct fuse_args *args, struct fuse_req *req)
+ /* Verify that the server properly follows the FUSE protocol */
+ static bool virtio_fs_verify_response(struct fuse_req *req, unsigned int len)
+ {
++	struct fuse_args *args = req->args;
+ 	struct fuse_out_header *oh = &req->out.h;
++	unsigned int expected;
+ 
+ 	if (len < sizeof(*oh)) {
+ 		pr_warn("virtio-fs: response too short (%u)\n", len);
+@@ -774,6 +781,29 @@ static bool virtio_fs_verify_response(struct fuse_req *req, unsigned int len)
+ 			oh->unique, req->in.h.unique);
+ 		return false;
+ 	}
++	if (oh->error <= -ERESTARTSYS || oh->error > 0) {
++		pr_warn("virtio-fs: invalid error value (%d)\n", oh->error);
++		return false;
++	}
++
++	if (oh->error) {
++		if (len != sizeof(*oh)) {
++			pr_warn("virtio-fs: error response too long (%u)\n", len);
++			return false;
++		}
++		return true;
++	}
++
++	expected = sizeof(*oh) +
++		   fuse_len_args(args->out_numargs, args->out_args);
++	if (len > expected ||
++	    (len < expected &&
++	     (!args->out_argvar ||
++	      expected - len > args->out_args[args->out_numargs - 1].size))) {
++		pr_warn("virtio-fs: invalid response length (%u, expected %u)\n",
++			len, expected);
++		return false;
++	}
+ 	return true;
+ }
  
 -- 
 2.53.0
