@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049098;
-	b=1LSYeOVZnFOQBqxSBUJnSKW8U4y8HEkNBekJUVX07DdtXplSV1FqsKOfimAFFw3jvs1s
-	 73x+353RCvgaihfylhIs+QjByTD5u32m9P3/6wYRotXBloFx+/YLMStMUia1aEG0+8SVY
-	 /gbkznrnVVdkqlQ1WQHvLMwFHc5Uftx9JkojLjJ28cFnlq+lLraChaIBGeCrXXvhsWTyq
-	 JTs5ZFsAZDKJqU0Je9ncLa+wiU4PVngPbXxtCR1WZi3D2n3EqczsilnE6DP4umwqWYuz2
-	 IWtTfeIKEm335IBMIp34KLhzH2QTbr/qsqpYG+2tb/5gqvhmBJ3uS/bAXJQKwKl6gCw==
+	t=1794049100;
+	b=ObM4pvlIdN90E/TdisVq9B6sWYAAY4jD/HjN5uChs+Jhzfr2asNNFmC2GsTkmZYS3ryw
+	 j3DPjfzxyztW/Y7dBVyqPJ1MeuNbojm5eqTPj/kWdAHyar4MX7FWLVS6/k14Wid7Td90w
+	 BysN1RXloEDx3d7ph8KYQop/lmULuczsSeNkr64gwwyeK45TbdP8pYNmJdGOJQZ996WX7
+	 gw7uaWTzso1ThRdEBaS0Q6CzcOrzqprCPySviJ7vUUBGvItEQnVmG2EXRaIw62S24KPny
+	 FKnInOwWX9cj+lbxEVT1PlwHaEAUrxr30lFvCXaohHZ7fhZEMruxYb7KHqof1PgStaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049098;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049100;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ZzefYa533xHrIRbvoJ0Zap2cCEuyQ4mMXJr7NI9JdRw=;
-	b=ptU/DteSiH8QoG2T8WGn4MSTka4unzLeoZegY9Ws1j/UZJQcAhA6l1Tw8Uf7zpMncMwW
-	 cbUA415LP0SvohLALQGhYkSp2hq8KB7u41HsXXzdwmELv+6fE4sfVurGdC63yIvd5uP1K
-	 Fv9IsH9qN2HKb5qoNbQhyDKWV10E3gztXvhKd4wWBtQRcxdph57KoM4dPe8daJdEQ0+UT
-	 I+TWWmP21mE9bg0m0L2F/Zim+u2lYzLlbyOpAqwKhSAS2ES6P7e5NiendvtheGY2ofwws
-	 r+7UXwTUTMTnNZJuiBDlRJNwQdRNT7qOUjOjS3x1nFY6YFIuHQ4RR5fzv0tHMRxlo9A==
+	bh=HUj/seBiW9LT4FSm7zd2z04esNTSuyr3VmgjaM9/lSk=;
+	b=bYaIvc4PHsoZpvNRewJWgYb/yI3rR5yJVvECm35J1BCwA/MurSWZVcuJ89x4lZo0AQ/e
+	 JnzDIWUrfWaWZ2hp7IGFXpadEg9gVgUNB0Hdo2UAYnQUmbabYuG64bxsnR0TPWeO0y1LF
+	 dcYuAnUsDUgNvqricgG4ixEpSQc6fIgYb+GDX/om5I73ckfGR0kJM6qww/knyMJkWiGp8
+	 qrZl9wSldOD0zdGMSBZ8dzTAp0ATYIWwv4LsOnIiRozEQCiFSBkaJl7hySuRuelo7hkIj
+	 YrrGu3ErFjuLVGOI3pAjw7iWXRrU4fDtsP0n3sTUifRqGs3kXXCPpgiZj4pCNUX3UtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nU1Ea9i7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lMVshH1K;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC9EE606A330
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:58:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3E59606A331
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:58:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nU1Ea9i7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 164061F0089F;
-	Sat,  7 Nov 2026 10:58:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lMVshH1K
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A9CB1F008A3;
+	Sat,  7 Nov 2026 10:58:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049096;
-	bh=ZzefYa533xHrIRbvoJ0Zap2cCEuyQ4mMXJr7NI9JdRw=;
+	s=k20260515; t=1794049099;
+	bh=HUj/seBiW9LT4FSm7zd2z04esNTSuyr3VmgjaM9/lSk=;
 	h=From:To:Cc:Subject:Date;
-	b=nU1Ea9i7xsxgQcKdh3dGBg0uk1yPG8a3tjG2ohjI2gZr10i96I6tOfvSQQONUNL6F
-	 XEXI4EYw6Gn9FVrAnpixnJ8qNln1BQuf0jgFmT7W356tPXTjvYlEsjPy1OGYPdusK/
-	 +B5b6ZwS300DKqnL+Wspb5yDwDAFpZeGmbpIqt6gsrZUPrgzbbZj03t4sdv90wndn6
-	 b+Xwn/yCS0bv5C84Fhh2f0uoBBFuBKp1bE7zzvff0PQfHMeWhd7rHn18PMcREr2Klc
-	 W/5EI3e9ULLqK5APTD2buZ/qTg6GIGWNvHX0PIs5bqDhPdOVSmMPSVu6+XRgfxg0SH
-	 L7cmowuYm5rkw==
+	b=lMVshH1KpVWrfxffc6jMGE+CvzBKGf77IwDzT0j7TRpiBs7Y/f/klZ6QsMsxJg+cN
+	 a90cEuNT4GNAVthBHn+eqdV4RwJbcBMVUpu/9S43VflgY/TiU0YJiPIKAi5eT+0RDh
+	 tKyqVDI/sHcrP3l5PWolW+lQu/aucLKyFD9uxIj1DYbWgyzeFSNv2zruIYGbRdfGUY
+	 OaFaFGEs/mgyUTKW57kszMkho+u7R2O24Cfkzi0DRMiYuLbqmwLoS6RRQUHaz3IKNI
+	 55p3QAP8oerC7UNzdRonMPOBuuXN8yGw9oAzZ7ebRwTBgRMllZLxXlH7lZavGM3dDh
+	 g5vWlQP5L9sZg==
 From: Sasha Levin <sashal@kernel.org>
-To: balakrishnan.s@microchip.com,
-	ehristev@kernel.org,
+To: pengpeng@iscas.ac.cn,
 	hverkuil+cisco@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] media: microchip-isc: fix WB offset and gain register field masking" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 05:58:14 -0500
-Message-ID: <20261107055814-failed-5.15-6e9eaa3b9387@kernel.org>
+Subject: FAILED: patch "[PATCH] media: require two-byte Cypress type 04 records" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 05:58:17 -0500
+Message-ID: <20261107055817-failed-5.15-e22872703386@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,84 +68,67 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 6e9eaa3b93870e4edac1bd2539fe113c24663eaf
+git cherry-pick -x e22872703386c3885d8c6bd595124587bc4e5081
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055814-failed-5.15-6e9eaa3b9387@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055817-failed-5.15-e22872703386@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 6e9eaa3b93870e4edac1bd2539fe113c24663eaf Mon Sep 17 00:00:00 2001
-From: Balakrishnan Sambath <balakrishnan.s@microchip.com>
-Date: Mon, 17 Aug 2026 12:22:07 +0530
-Subject: [PATCH] media: microchip-isc: fix WB offset and gain register field
- masking
+From e22872703386c3885d8c6bd595124587bc4e5081 Mon Sep 17 00:00:00 2001
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Date: Fri, 14 Aug 2026 16:08:02 +0800
+Subject: [PATCH] media: require two-byte Cypress type 04 records
 
-ISC_WB_O_* and ISC_WB_G_* each pack two 13-bit fields. A negative offset
-sign-extends and corrupts the adjacent field. Add masks for the two
-fields and write them with FIELD_PREP(), which masks each value into its
-field, so sign extension can no longer bleed across.
+Both Cypress Intel HEX parsers read two address bytes from type 04
+records. Generic record framing permits any record length, so a short
+record can make the parser consume the checksum or bytes beyond the
+firmware record. A longer record also violates the Intel HEX type 04
+layout.
 
-Fixes: 73c1a577b839 ("media: atmel: atmel-isc: reworked white balance feature")
-Cc: stable@vger.kernel.org
-Reviewed-by: Eugen Hristev <ehristev@kernel.org>
-Signed-off-by: Balakrishnan Sambath <balakrishnan.s@microchip.com>
+Require the type 04 payload length to be exactly two bytes in both
+implementations.
+
+Fixes: 79a63c60a6a2 ("[media] media: move dvb-usb-v2/cypress_firmware.c to media/common")
+Fixes: 776338e121b9 ("[PATCH] dvb: Add generalized dvb-usb driver")
+Cc: stable@kernel.org
+Assisted-by: Codex:gpt-5
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 ---
- .../platform/microchip/microchip-isc-base.c      | 16 ++++++++--------
- .../platform/microchip/microchip-isc-regs.h      |  6 ++++++
- 2 files changed, 14 insertions(+), 8 deletions(-)
+ drivers/media/common/cypress_firmware.c      | 2 ++
+ drivers/media/usb/dvb-usb/dvb-usb-firmware.c | 2 ++
+ 2 files changed, 4 insertions(+)
 
-diff --git a/drivers/media/platform/microchip/microchip-isc-base.c b/drivers/media/platform/microchip/microchip-isc-base.c
-index e5ecf6ffd24a8..963d5fd53b589 100644
---- a/drivers/media/platform/microchip/microchip-isc-base.c
-+++ b/drivers/media/platform/microchip/microchip-isc-base.c
-@@ -63,17 +63,17 @@ static inline void isc_update_awb_ctrls(struct isc_device *isc)
- 	/* In here we set our actual hw pipeline config */
+diff --git a/drivers/media/common/cypress_firmware.c b/drivers/media/common/cypress_firmware.c
+index 66274fdf52438..d0f66ed01c4b1 100644
+--- a/drivers/media/common/cypress_firmware.c
++++ b/drivers/media/common/cypress_firmware.c
+@@ -59,6 +59,8 @@ static int cypress_get_hexline(const struct firmware *fw,
+ 	if (hx->type == 0x04) {
+ 		/* b[4] and b[5] are the Extended linear address record data
+ 		 * field */
++		if (hx->len != 2)
++			return -EINVAL;
+ 		hx->addr |= (b[4] << 24) | (b[5] << 16);
+ 	}
  
- 	regmap_write(isc->regmap, ISC_WB_O_RGR,
--		     ((ctrls->offset[ISC_HIS_CFG_MODE_R])) |
--		     ((ctrls->offset[ISC_HIS_CFG_MODE_GR]) << 16));
-+		     FIELD_PREP(ISC_WB_O_LO, ctrls->offset[ISC_HIS_CFG_MODE_R]) |
-+		     FIELD_PREP(ISC_WB_O_HI, ctrls->offset[ISC_HIS_CFG_MODE_GR]));
- 	regmap_write(isc->regmap, ISC_WB_O_BGB,
--		     ((ctrls->offset[ISC_HIS_CFG_MODE_B])) |
--		     ((ctrls->offset[ISC_HIS_CFG_MODE_GB]) << 16));
-+		     FIELD_PREP(ISC_WB_O_LO, ctrls->offset[ISC_HIS_CFG_MODE_B]) |
-+		     FIELD_PREP(ISC_WB_O_HI, ctrls->offset[ISC_HIS_CFG_MODE_GB]));
- 	regmap_write(isc->regmap, ISC_WB_G_RGR,
--		     ctrls->gain[ISC_HIS_CFG_MODE_R] |
--		     (ctrls->gain[ISC_HIS_CFG_MODE_GR] << 16));
-+		     FIELD_PREP(ISC_WB_G_LO, ctrls->gain[ISC_HIS_CFG_MODE_R]) |
-+		     FIELD_PREP(ISC_WB_G_HI, ctrls->gain[ISC_HIS_CFG_MODE_GR]));
- 	regmap_write(isc->regmap, ISC_WB_G_BGB,
--		     ctrls->gain[ISC_HIS_CFG_MODE_B] |
--		     (ctrls->gain[ISC_HIS_CFG_MODE_GB] << 16));
-+		     FIELD_PREP(ISC_WB_G_LO, ctrls->gain[ISC_HIS_CFG_MODE_B]) |
-+		     FIELD_PREP(ISC_WB_G_HI, ctrls->gain[ISC_HIS_CFG_MODE_GB]));
- }
+diff --git a/drivers/media/usb/dvb-usb/dvb-usb-firmware.c b/drivers/media/usb/dvb-usb/dvb-usb-firmware.c
+index 0fb3fa6100e4a..675d9d1d4f472 100644
+--- a/drivers/media/usb/dvb-usb/dvb-usb-firmware.c
++++ b/drivers/media/usb/dvb-usb/dvb-usb-firmware.c
+@@ -141,6 +141,8 @@ int dvb_usb_get_hexline(const struct firmware *fw, struct hexline *hx,
  
- static inline void isc_reset_awb_ctrls(struct isc_device *isc)
-diff --git a/drivers/media/platform/microchip/microchip-isc-regs.h b/drivers/media/platform/microchip/microchip-isc-regs.h
-index 9ddbbb6dd68bf..fe145b142b826 100644
---- a/drivers/media/platform/microchip/microchip-isc-regs.h
-+++ b/drivers/media/platform/microchip/microchip-isc-regs.h
-@@ -149,6 +149,12 @@
- /* ISC White Balance Gain for B, GB Register */
- #define ISC_WB_G_BGB	0x0000006c
- 
-+/* Each WB offset/gain register packs two 13-bit fields, low and high */
-+#define ISC_WB_O_LO	GENMASK(12, 0)	/* R or B  offset [12:0]  */
-+#define ISC_WB_O_HI	GENMASK(28, 16)	/* GR or GB offset [28:16] */
-+#define ISC_WB_G_LO	GENMASK(12, 0)	/* R or B  gain [12:0]  */
-+#define ISC_WB_G_HI	GENMASK(28, 16)	/* GR or GB gain [28:16] */
-+
- /* ISC Color Filter Array Control Register */
- #define ISC_CFA_CTRL    0x00000070
- 
+ 	if (hx->type == 0x04) {
+ 		/* b[4] and b[5] are the Extended linear address record data field */
++		if (hx->len != 2)
++			return -EINVAL;
+ 		hx->addr |= (b[4] << 24) | (b[5] << 16);
+ /*		hx->len -= 2;
+ 		data_offs += 2; */
 -- 
 2.53.0
 
