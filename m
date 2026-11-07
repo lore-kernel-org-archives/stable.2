@@ -1,62 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050933;
-	b=kBlipVDs7nBF/WlFE8h8sLkYjMxlPHGTtaCwVPcn2KD6YzFimQUWs/6MpOUhOwdX9Zpc
-	 FoEtA7NUmydupQmps4+8v1Tvr9/YOZ0OfiHhyoV5QS+XMGwnOzngEubv+JgxvBHh0AzKh
-	 hJ3M4V6xKlJ5ykdzBXtLARDyqbwD/ekqlwmOD+dL59tiuC8pfnoeioPE/m/tCM9JMgHIl
-	 PLQX24US9mrbyj0N69fRwYa7uaen9s2FGx0aSsTdxuT/F3N4Fp5oAnbIUyUtrEsMnvz3v
-	 +Eagv0TPjWw+HXW7UUAoKFoE0PrLRTL/B3AooB81EKc53EXdmiSNnyZegKrp7xTKfoA==
+	t=1794050936;
+	b=mHMamtWAyQLeA8RG7vttteZNUuLWZvrD9PbwTnYW8bdC5lunn2DiuS6d9c8sWRzA+lK/
+	 uovTqnF7bwTcPJzOLaR0x710XXpvmHFrMQDXJ9i6OQQ7CPuFHqSVKxsca56TTnmho+IFc
+	 1sG82UVyW57ChifK2sUJMFcdulceahCavfsm1wp/SoaE3LU/j4urTVSCRy7tdqKGM2iOa
+	 MxKM6y06vVFcSa2JHSnCVWNe2tB41G+eU6RwqYtVjrnMZ0wiSrEq6ncOr+3RoVexDDkpd
+	 mokGJrj85wHeDol5TW3jYnL5vNhh43E7Xc8D2jKHB51eUJNXS5/9jMwaqKEPl2sCaQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050933;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050936;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=com3EgPSA5PpraFEKttMi8iMKRG0ykEGKWCRwhtXWaw=;
-	b=AL4OT/ydVV0qIYcVYat7npcDfiApIc0l0Zofz8t7nJtZ2uublYe0SunHaWjKp2HVg5O2
-	 kBfQAj12SHdYe10pj15m0EE1eeBWME7KayoyAH3f08DdYyiSXj+ub4eYgssIk+hL7+4cT
-	 e3OvaLz6rVJn5vqkjPC4tESWWcNPRRnalPYj0AJFwsj6Re6BA9Cc3JZmfp3zColXJzs7p
-	 m+CljUPTbm74WQ++2Uf+18b3oyE2+PWvq0FrdnlPvWvn1Vhg8sCu/xXCi19S5n5/YB1Vj
-	 drVIccloCip86udJNX96mU8x/aZvisvZ2MqcSoy++gSX1hyCeaGvv9NaQwi+3MYpymg==
+	bh=80IRSIZxiM5SiB1daAwBXu2APmFytFUplREAupxNgfA=;
+	b=ITnAVvrWqUZjgUtJu/X8XTkBuvkwDVltLiGx1mWVE4j5tFFUDRxRoYOWah9HGBqGdQsy
+	 TjKmGjfE3DiwxeOLg7tSVS17ZEgE/qzXqLJWvslmMv99FFcuR6ltgZxz4+5OTyPdUAjJp
+	 kvklg5DGby1hlQT7ithj6gPMPWABSaY4NbWNOejtsDW/2OscBcAV+uXbUkOTiFhtTAxHo
+	 meekhcczu3X5glR7lkh6QSAm9BUxsaOzt/uzeyRNnZPR4M6S5hLIk519xVbKCGTqMpnXS
+	 RvrOepYeBqYJBcTDNhRMU/sZT2yPiRX4NPShTsnIkou3oSRZKYC+/4TmUuzmGKpTKNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nmcsHGWz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jsIFsEPK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2621606D802
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:28:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD4C0606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:28:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nmcsHGWz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DD441F0089F;
-	Sat,  7 Nov 2026 11:28:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jsIFsEPK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4735F1F0089F;
+	Sat,  7 Nov 2026 11:28:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050932;
-	bh=com3EgPSA5PpraFEKttMi8iMKRG0ykEGKWCRwhtXWaw=;
+	s=k20260515; t=1794050935;
+	bh=80IRSIZxiM5SiB1daAwBXu2APmFytFUplREAupxNgfA=;
 	h=From:To:Cc:Subject:Date;
-	b=nmcsHGWzh1vbDSU7Uuc4hFv1SmKQMBlYzzXubM4CFZ1xXkJEDvqTWKBjYV/mlhhBM
-	 8ckvDuTiHbylPOkLB8xN7JENLTAP4RASMqUKpgJZg10PEKoXeWPY/24WKSd2jEw5L1
-	 v+VP9Y4Ato8VFjrfo874zDFvsXz2jMnznsaftIMa8dmz2iI9qR2BwcPzH/LW2PpPRh
-	 97IF20GKV6A8jTDOVace8/agO+weHYcpVhrQaKxTCnCC7XhMT/n+tjScr/2TeNdXI/
-	 QjXI8oSBguV7gu4QDy4Ljhaf5v4U0Cum7Y5QoHO/td0BUudJF+JqzZ/nH1yE7mCiyP
-	 W/j5D3sqqRr2Q==
+	b=jsIFsEPKlDkISBYd+q2xeU3EnipBEnD0DnG7qXfzY7kZxmQ5kO8NQjMPDDDByitlU
+	 u2P9C/gv68ua2tN+k9OmdD3HvjP8SJGCYTgnNsbWXPKsWF7zUi9iLTyAuW+U7W6cEQ
+	 w2e4254EXY7toHgyOuYrqrXl1aZONVszDAc4sSCH8zooZfC6MgTrSWYk1F887zl24r
+	 MOLtMeAFoIpdYcX749HFIoP5iI4aALJ31BrpxEolvp8nqzkTOFg58hakabCXB2RSHO
+	 bdqtqqH5zCpcAEL6HTzhrOI1nAUjZaFAPg4qAGZ+1CXda9lTZdKfeLGdLO1Y3R2a1v
+	 ZqcK/eqbuRBMA==
 From: Sasha Levin <sashal@kernel.org>
-To: ljs@kernel.org,
-	akpm@linux-foundation.org,
-	shawnq1@163.com,
-	kas@kernel.org,
-	gourry@gourry.net,
-	xueyuan.chen21@gmail.com,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	jannh@google.com,
-	pfalcato@suse.de,
-	rppt@linux.vnet.ibm.com,
-	peterx@redhat.com,
-	david@kernel.org
+To: dennylin0707@gmail.com,
+	tglx@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/vma: avoid broken uffd merge on mremap" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:28:50 -0500
-Message-ID: <20261107062849-failed-5.10-68cb098eadda@kernel.org>
+Subject: FAILED: patch "[PATCH] posix-timers: Accept NULL clock_getres() output in stubs" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:28:54 -0500
+Message-ID: <20261107062853-failed-5.10-5b819071e434@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -79,103 +68,61 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 68cb098eadda190783f8f8bdf9fe764df59f7d32
+git cherry-pick -x 5b819071e4346256c4edbae5cc2095dff25694fc
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062849-failed-5.10-68cb098eadda@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062853-failed-5.10-5b819071e434@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 68cb098eadda190783f8f8bdf9fe764df59f7d32 Mon Sep 17 00:00:00 2001
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Tue, 20 Oct 2026 15:55:30 +0100
-Subject: [PATCH] mm/vma: avoid broken uffd merge on mremap
+From 5b819071e4346256c4edbae5cc2095dff25694fc Mon Sep 17 00:00:00 2001
+From: Hungyu Lin <dennylin0707@gmail.com>
+Date: Tue, 20 Oct 2026 16:11:21 +0000
+Subject: [PATCH] posix-timers: Accept NULL clock_getres() output in stubs
 
-Userfaultfd often causes unexpected interactions within mm, and does so at
-the intersection of uffd, mremap() and VMA merging.
+With CONFIG_POSIX_TIMERS disabled, clock_getres() returns -EFAULT for a
+supported clock when the result pointer is NULL. POSIX permits a NULL
+result pointer to suppress returning the clock resolution.
 
-When an mremap of a VMA occurs, copy_vma_and_data() calls
-mremap_userfaultfd_prep() to notify uffd of this.
+Only copy the result when a destination is provided, in both the native
+and time32 stubs. This matches the full POSIX timer implementation and
+preserves clock ID validation.
 
-However, mremap_userfaultfd_prep() simply drops the UFFD context for the
-VMA if the user did not register it for remap, i.e. didn't specify the
-UFFD_FEATURE_EVENT_REMAP flag.
-
-This is OK for the VMA itself, as upon page table move, move_ptes() clears
-UFFD page table flags, using vma_has_uffd_without_event_remap() to
-determine whether to do so.
-
-However, this doesn't account for merging with adjacent VMAs, whose page
-tables won't have received this treatment, and thus latent UFFD markers
-will be left around.
-
-Worse, it'll break UFFD for any VMAs it is merged with. This is very
-surprising behaviour for a user, who will then simply not receive UFFD
-events for VMAs they ought to.
-
-Resolve the issue by explicitly checking for this case via
-vma_has_uffd_without_event_remap() in vma_merge_copied_range(), the merge
-function explicitly designated for mremap() operations.
-
-Also update the userland VMA tests accordingly.
-
-Link: https://lore.kernel.org/20261020-uffd-remap-fix-v1-1-0f34fc181f0a@kernel.org
-Fixes: 3cfd22be0ad6 ("userfaultfd: clear flag if remap event not enabled")
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: shaos <shawnq1@163.com>
-Closes: https://lore.kernel.org/all/20261020110748.959870-1-shawnq1@163.com/
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-Reviewed-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Jann Horn <jannh@google.com>
-Cc: Pedro Falcato <pfalcato@suse.de>
-Cc: Mike Rapoport <rppt@linux.vnet.ibm.com>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: <stable@vger.kernel.org>
+Fixes: baa73d9e478f ("posix-timers: Make them configurable")
+Fixes: d822cdcce43f ("posix-timers: Move compat versions of clock_gettime/settime/getres")
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20261020161121.85042-1-dennylin0707@gmail.com
 ---
- mm/vma.c                          | 5 +++++
- tools/testing/vma/include/stubs.h | 5 +++++
- 2 files changed, 10 insertions(+)
+ kernel/time/posix-stubs.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/mm/vma.c b/mm/vma.c
-index de5ebc57e7a58..1be613044b4a5 100644
---- a/mm/vma.c
-+++ b/mm/vma.c
-@@ -1211,6 +1211,11 @@ static struct vm_area_struct *vma_merge_copied_range(struct vma_merge_struct *vm
- 
- 	vmg->copied_from = vmg->middle;
- 	vmg->middle = NULL;
-+
-+	/* If not registered for remap, uffd context will be cleared. */
-+	if (vma_has_uffd_without_event_remap(vmg->copied_from))
-+		return NULL;
-+
- 	return vma_merge_new_range(vmg);
- }
- 
-diff --git a/tools/testing/vma/include/stubs.h b/tools/testing/vma/include/stubs.h
-index be8f5161f92a2..f786a585caf05 100644
---- a/tools/testing/vma/include/stubs.h
-+++ b/tools/testing/vma/include/stubs.h
-@@ -386,6 +386,11 @@ static inline bool is_mergeable_vm_userfaultfd_ctx(struct vm_area_struct *vma,
- 	return true;
- }
- 
-+static inline bool vma_has_uffd_without_event_remap(struct vm_area_struct *vma)
-+{
-+	return false;
-+}
-+
- static inline bool anon_vma_name_eq(struct anon_vma_name *anon_name1,
- 				    struct anon_vma_name *anon_name2)
- {
+diff --git a/kernel/time/posix-stubs.c b/kernel/time/posix-stubs.c
+index 9b6fcb8d85e78..5a27335a917ec 100644
+--- a/kernel/time/posix-stubs.c
++++ b/kernel/time/posix-stubs.c
+@@ -83,7 +83,7 @@ SYSCALL_DEFINE2(clock_getres, const clockid_t, which_clock, struct __kernel_time
+ 	case CLOCK_REALTIME:
+ 	case CLOCK_MONOTONIC:
+ 	case CLOCK_BOOTTIME:
+-		if (put_timespec64(&rtn_tp, tp))
++		if (tp && put_timespec64(&rtn_tp, tp))
+ 			return -EFAULT;
+ 		return 0;
+ 	default:
+@@ -166,7 +166,7 @@ SYSCALL_DEFINE2(clock_getres_time32, clockid_t, which_clock,
+ 	case CLOCK_REALTIME:
+ 	case CLOCK_MONOTONIC:
+ 	case CLOCK_BOOTTIME:
+-		if (put_old_timespec32(&rtn_tp, tp))
++		if (tp && put_old_timespec32(&rtn_tp, tp))
+ 			return -EFAULT;
+ 		return 0;
+ 	default:
 -- 
 2.53.0
 
