@@ -1,92 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794070377;
-	b=G0s9UbMgUIv3W2sjux6xiEa37Hgs1WZpiF4U34sBqQHXEY8sOGLhx3uXS1XbBdV+WIli
-	 gFMb9KExiO3gZteS245lYu6kDHiD7vRXcEGUxB1jRqBBNwO4O2Btt8+N5NpfBhxvzaRN+
-	 9XHV711H3d7S/usmvivRgGZ0EDfkyaA0bCjQhxDB6k7E42E98ZVznBJDKaysCUUmgrL89
-	 fyoXke6Nt98qMlYoSOMsB2AMKp81iLyQp8HiPtGZj3vTLzFkW+dOYrQJA1zmL51FoVEr/
-	 5UJK5Esxi+QOOlcSBZX3a4vxwwTBpZyGRO1fCee6TaTXFtgVRZOJe2+CThi1U3R5uIQ==
+	t=1794070379;
+	b=0gH1zmyeyuG1IvuiEbqwmbxOPY9rSlUi2Wu2smkwnvRVkzmWYytc4YVpf8KPk8HcwWSj
+	 YFH9W2l/J7LT4IgqERN+txtUsCWayRgoaZtBcQNwqxPrCMdJUKdCfk/Z0t0mP1Ce0nu1E
+	 nxIi6ELQbbRLNubyYe5sTP1xck0lqgAI4vlvG3L3qkAG+wT1MlWZvZbtK0QAb64xs2yS1
+	 znmq4guXDmgtrBOxH3e2fY2U5v51J/xweAAAENcRLXgncnRqBfg6tuHOr7pq9ysLnhR8a
+	 u0lpIq0m55GzhUqRix2iOuPyH9HFAi+DOzwQlLYnxLKkI9s9fM85Av6cDwwKojxkPYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794070377;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794070379;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=cPWF++YSBdHbkvl7nrr/KFPVgdn7Cxr+5lc/XMN2idE=;
-	b=sH9JXk95CCpK0y4/RF9vOzYe8+CJhhzjXm6R+9Z7jTGsdiauQKWjWVkTewwmwxuI7S6T
-	 +0/TdoXLf4h2T84DNtGpLlYBQYxCaH/fFGDaoi+0ApJCxjkM9X7kufELJpvYKe+qQJgu1
-	 vuKFE+qfyn3thGMrMvsm5UC11xIloLpnGrVFKnPtXCR3VnFjm/I8V0xbcTW7wUQxkE4yU
-	 42OxrbJSKjV1eoovzs7NSF1UmSMq70vDdq/cKH1HL1B+yNNvbqyogpQ+3Zfo1sQzDuU/X
-	 zRO4f2TYGmfeoDWzUHF7/OkthmHqlxxOHPt4bsktG1Z9/Lfr/u0upJbyj7tKyxHQBxw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=OX53f82pg8rAzuHCIXr3W8ktDCdjNfY0YDDamqZGbzs=;
+	b=NVV0s55Iwa+OBNStgXP6jznHgF5a85BS1nzBAKSU/eoK2GIy6C11qJvUilwrXA1A+My1
+	 TnYmhhFJftP2PFTrhPaKyftQ5LEc0KP4pH/bz6FhNywW92bckrniJYaDUOLAn7Fc8VHqZ
+	 hcMD/MU23QM3MqYVr3kyJrhjgxXeGgIK9x0J++4V2KMySq8lmSulnwPB6ohmDb8k4z0xh
+	 7ygifE1VT4OPNqy3wJ+bZGb4XclSfUrItRbrMq5UyhTl7hDpyNjAL1943ttulVHSaikdk
+	 Eg7ZfHQx5dNBJ7LiM6lMEsTNzvirQpGpw9QKq6sUkiGP3xtCXq6T10R04KcDbxGBMWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BPFQp9tV;
-	arc=none smtp.remote-ip=209.85.218.53
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=l20rkbso;
+	arc=none smtp.remote-ip=209.85.208.50
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6365E606A32F
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 16:52:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6365E606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A94A5606A32E
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 16:52:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A94A5606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BPFQp9tV
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c4d427836e9so175385566b.1
-        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 08:52:57 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=l20rkbso
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b71b012e3cso70617a12.1
+        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 08:52:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794070376; x=1794675176; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cPWF++YSBdHbkvl7nrr/KFPVgdn7Cxr+5lc/XMN2idE=;
-        b=BPFQp9tVatt9VZ2zoXqToEMmnO6yRi01IO7NvRug4oqSzFEVfRUAG9iucJEX71sN9A
-         DtVtim/pBUXO0dangQ7pLm420S99RJ2pY+i3JwbA+aNmMfi8dQD7nYzSYr2HaYkXw36O
-         RMbfmEGfTthcI1n5BUjNH/QjxedwFIViHsw8fcjJme1HqZOysAxXhfJ7SJ0fsCNhzKiZ
-         aPAGaGAtpQtlza9dLYDmTAR3EcepvQIJympjGggki+xUypV07LkNYR+evVB1iZNQlk9a
-         nRRIx9esqnoqwlDzbYu0F1E+OdqdA1beytm7L3bblo/cs0/zTsN9Kiecq0u1iIGFWv4K
-         GXfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794070376; x=1794675176;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794070377; x=1794675177; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=cPWF++YSBdHbkvl7nrr/KFPVgdn7Cxr+5lc/XMN2idE=;
-        b=ZbpXK6VsBresFV2rzU7yBvq6L3cPPGAd2pa7zlu3msvcU7+S92aV2yxM6xf3JvIAnr
-         HJU0nnWHLoiqgCPpNzTrqOWlWK7Uvk1vrfa/HGUlUna2wpnpDF6Yz1GsVpQiiJZhSFPL
-         gS64o4UjJGCoSpYNVdoYMWTN+wb+oTNE7Dd9cGuwrJo7k3WNatMhUm5rEYV0xgTgbNY2
-         vohpHTtyIC8uP+qRUrlqakdiha91GzN3/K1JTTouclwmrBXu0lBO1L6YNV5oaCgztu0f
-         jemTm70mm38mP/CjnaJb0Hd1S66CxWeWmqPDRnEdqbrNvwKSnB4v19D1lCwXIuTHHmfm
-         fENA==
-X-Forwarded-Encrypted: i=1; AKwUvBysFbOQkcN1Zh6me1laoWf2kKjpz3lbL6zbvpofCPcn6pfNtq7TDQeaYARy0Pvl+X2U2r78XzM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9sDxh3oscKggsSXVmAjGmx3dQe2gokmZyvffY5OA+cf25M7sNT
-	0K+8FT+MTN0zW22cfJn+V0G29xQDXGtAQh05DhWGED6pUntDDeMTm7Lm839QMIQx
-X-Gm-Gg: AYBFou0vDJHBarKh0nELvo9LtOwpMyAPPe+OsIjCkEpbmqPbcEtNu+GBS2vgAuNozTw
-	gGEuFh8E+KXa3UyemGz8J79HG2brgv/qt8Pi1BNAhHA6nxr2AazBr8cvfB8zx9wko66RPfjTl1w
-	2LdjlP8fn52blA9JMVrw5ysGxVv9ZTTT9q/qnKn/fJTn/6NMadg9TCReKdC6+9x4FyxMWE4pEgB
-	MnWmzY50QtXZ9Zps6N3n2M1Z70TX8rWeK9kN79VJQ2AbLJi9UzEfh1druKvcB8WdnmmUGJJHlEv
-	X3+b0DIXQLhs1wTOP3Ucyj26qJ3neVQzdxecUZvivabtuETE19zW/5+PTRWJxzO9+e6w1qX9ZHI
-	UUh32ORlIK1W4QjFjidI52N2g6PwvnsiXMpP3g2X8NAet526CL9X2va7uBUZmzrrgeEFFgU++ls
-	vOIGoi1yjgx9vjkrGiUqfX7NC48oEY5wCog2SUET/COx/2jSGRGi/I0Bgr1W5PkHOFxtkXDgfoi
-	VB2WMp3VNfdwGEgaSWkqRwjq59SnwxCYBjcOM24PvOOZxtoHeitqoEHjteCQKMubmeGzziX3cFF
-	SAdOeixKbbyzJW8xPkvruik4DT5CfJaatFDBAjUjBigY09VCkZxEM6/bv0zx43zPl2EZ2O711Ua
-	j3UIElDC7w34=
-X-Received: by 2002:a17:907:7282:b0:c40:eb1a:4c8b with SMTP id a640c23a62f3a-c4d35485055mr439589266b.29.1794070375728;
-        Sat, 07 Nov 2026 08:52:55 -0800 (PST)
+        bh=OX53f82pg8rAzuHCIXr3W8ktDCdjNfY0YDDamqZGbzs=;
+        b=l20rkbso1w2CKDV3qqva9CCmi8ZfT3r/ydjSwEyT28X+YT1e5HxNbk0Lei9pLEtMOR
+         1AGRqlEw80l3VG2EB20DfZPTqTqhEsickI/j2cz1mrVF0wOQ+EQL3oK2CbFW9f8wIyPJ
+         OfGg5NO9x/06OsFBhKo8Z968v91WsNhlei4xq6tzglGViwwmOwSenspTgRlSxD/0w8SZ
+         GXJy0CaS1QI22z29LYBUqbYCJ4XJMyilbxYisyiKvW+q4J+g3oi14o5iTdjjg02mt40O
+         PGjSX0HKu966FX69A5+iobmB+2+z7Iakh9pJPHLMfaKGy8E4L/H52zyT4Ukt0G8toSr3
+         UZJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794070377; x=1794675177;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OX53f82pg8rAzuHCIXr3W8ktDCdjNfY0YDDamqZGbzs=;
+        b=CD1sq7BZpVe130esb1LgiWBz5hyw90kGZ2zXPyU2iG9S6+OAkY6GkyGk9vyGhsRRnK
+         HQDItWSc52FV+GXscwFKlnWSXoMUAzKYdPoXSeMue5IjP6tgfQIsQdIsQ939WX+RUUHS
+         FoGy5UU0s9F4+oKjlSPbZurO2rKN/vkxtKBffRRAG5KgPWsPQm5BHv6UrLbfDnQJ5iAw
+         HSIOKHC5nt4Rx2U5DXAax5crupJTVoeUqYG4TZCQx9YmgoaVAogq6N0+JfUvyYJK1iY2
+         KDR9SqeixpPH/zzZLPCAe7R+D/atWupXtQ483pDLwZTAhcLCVpa/gvVHKTqF31cbM+7L
+         kAEA==
+X-Forwarded-Encrypted: i=1; AL+hErEMhyNN9I44gozZ8ZNwJ3QnSGs+ZI/2QPnE1rcvH+pvQzIIFEXkMqKWDh2Wbpy7R8OpIOHkrr8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9XkGI89bucTtZpQrwGV6YKxYai4eiSQ64snphAyWKDkEYVrSsG
+	41edrRul0izTSgqbZZ0yIEbW6YdqdZ1CVR3HO+UYyIJEFMu5oRhg2jAhl5c/2Ipa
+X-Gm-Gg: AYBFou0Cf7BhFKZLD3fmjVORBvJn6pLckrrEo5f+myzU2p5R3Vih40xxJcwMfIzfc7G
+	UzK4XiiZFY5aaXWXxESdPzJ5B0rCP6vAQvYqv24km5aJcrbOLs/VZkoaDriNjKsmtYWsnIyjcdG
+	A1sWk5gqcCxeGMLysMvxUGvr5FvMjzcKKItJowEEBgAbWcbiSfQJdtvXWWIMCQxGllyfYqXBrjq
+	3MQrmVt2n5YvV+PzRpaqmPy8J9X8tvrS0/93bVOyD68fxmFfw6DFl0WaP364XlKQqSeoDvseyR/
+	RZDden0MY3KxLfZbrRDF4g2ce82eeJGdIoH0QD7emzf0WO/IwNSNV0KeMHXkyEPHkW8Rz8FcQS/
+	QD9Pj6xHPFIIr3K0l32NeN7yQcs77pBAll8Td/sR8yZmWaCxQa+O0L1z3kAQa4Qmezp9rkBEK76
+	HKpiSa3pgBvby1QaSKEVZE7FWDK2eSrN99JvgcKO94nPtpFRpqGkO10ek/Ws9eNR9UrTEMOFUw/
+	cgtzjf2X4NgK54b2nTTDNNICwjFMPFkLul5PfiyTt0JfbE4VcI6MvLU5tdgPBPA1WiI4Cd8UODs
+	JIDVvPbwvw1zinEEszgqbd18AAoNHswXMSBrDVESwesIZOfLLFGHse3dpgsa5BYXoRt4O82D0IU
+	ILCXt5FDj1YhXrlQmyFW/653hgO231UXL
+X-Received: by 2002:aa7:d987:0:b0:6ab:6e:a8e4 with SMTP id 4fb4d7f45d1cf-6b5978378a2mr2719660a12.44.1794070377007;
+        Sat, 07 Nov 2026 08:52:57 -0800 (PST)
 Received: from localhost (178-84-201-199.dynamic.upc.nl. [178.84.201.199])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d356eae34sm160787966b.85.2026.11.07.08.52.54
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b65d6b3811sm1908827a12.5.2026.11.07.08.52.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 08:52:55 -0800 (PST)
+        Sat, 07 Nov 2026 08:52:56 -0800 (PST)
 From: Amir Goldstein <amir73il@gmail.com>
 To: Miklos Szeredi <miklos@szeredi.hu>
 Cc: Giuseppe Scrivano <giuseppe@scrivano.org>,
 	linux-unionfs@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 1/2] ovl: fix leak of lowerdata redirect on ovl_get_inode() failure
-Date: Sat,  7 Nov 2026 17:52:53 +0100
-Message-ID: <20261107165254.3989119-1-amir73il@gmail.com>
+Subject: [PATCH 2/2] ovl: do not check the deferred lowerdata redirect on index lookup
+Date: Sat,  7 Nov 2026 17:52:54 +0100
+Message-ID: <20261107165254.3989119-2-amir73il@gmail.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261107165254.3989119-1-amir73il@gmail.com>
+References: <20261107165254.3989119-1-amir73il@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -98,47 +101,74 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ovl_lookup_layers() moves d->redirect into oip.lowerdata_redirect and
-clears d->redirect before calling ovl_get_inode().  When ovl_get_inode()
-fails, it does not free oip.lowerdata_redirect, and ovl_lookup() frees
-the already cleared d->redirect, so the lowerdata redirect string is
-leaked.
+When a lower metacopy has an absolute redirect into a data-only layer,
+ovl_lookup_layers() defers the data lookup and skips
+ovl_check_follow_redirect(), but leaves the redirect in d->redirect.
+If there is no upper dentry and a sibling hardlink was already copied
+up to the index dir, the index branch calls ovl_check_follow_redirect()
+again and, with redirect_dir=nofollow (e.g. forced by userxattr), fails
+the lookup with -EPERM because of the lower data redirect.
 
-Clear d->redirect only after ovl_get_inode() has succeeded, like
-d->upperredirect, so that ovl_lookup() frees it on failure.
+Take the lowerdata redirect out of d->redirect at the point where the
+data lookup is deferred, so that the index check only validates the
+redirect and metacopy state of the index entry.
 
-Fixes: 2b21da920866 ("ovl: prepare to store lowerdata redirect for lazy lowerdata lookup")
-Closes: https://sashiko.dev/#/bug/linux-dabbd363-9c71-4915-af72-e2b5e75fa58e
+Fixes: 5ef7bcdeecc9 ("ovl: relax redirect/metacopy requirements for lower -> data redirect")
+Closes: https://sashiko.dev/#/bug/linux-29bea9ea-5376-4e54-88f6-04dabce4db70
 Cc: stable@vger.kernel.org
 Signed-off-by: Amir Goldstein <amir73il@gmail.com>
 ---
- fs/overlayfs/namei.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ fs/overlayfs/namei.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
 diff --git a/fs/overlayfs/namei.c b/fs/overlayfs/namei.c
-index a27479a100275..e25858c8dbcd7 100644
+index e25858c8dbcd7..b7fb5bb2e597f 100644
 --- a/fs/overlayfs/namei.c
 +++ b/fs/overlayfs/namei.c
-@@ -1366,15 +1366,16 @@ static int ovl_lookup_layers(struct ovl_lookup_ctx *ctx, struct ovl_lookup_data
+@@ -27,6 +27,7 @@ struct ovl_lookup_data {
+ 	bool last;
+ 	char *redirect;
+ 	char *upperredirect;
++	char *lowerdata_redirect;
+ 	int metacopy;
+ 	/* Referring to last redirect xattr */
+ 	bool absolute_redirect;
+@@ -1250,6 +1251,8 @@ static int ovl_lookup_layers(struct ovl_lookup_ctx *ctx, struct ovl_lookup_data
+ 	if (d->metacopy && ctx->ctr && ofs->numdatalayer && d->absolute_redirect) {
+ 		d->metacopy = 0;
+ 		ctx->ctr++;
++		d->lowerdata_redirect = d->redirect;
++		d->redirect = NULL;
+ 	} else if (!ovl_check_follow_redirect(d)) {
+ 		err = -EPERM;
+ 		return err;
+@@ -1366,15 +1369,14 @@ static int ovl_lookup_layers(struct ovl_lookup_ctx *ctx, struct ovl_lookup_data
  		};
  
  		/* Store lowerdata redirect for lazy lookup */
--		if (ctx->ctr > 1 && !d->is_dir && !ctx->stack[ctx->ctr - 1].dentry) {
-+		if (ctx->ctr > 1 && !d->is_dir && !ctx->stack[ctx->ctr - 1].dentry)
- 			oip.lowerdata_redirect = d->redirect;
--			d->redirect = NULL;
--		}
+-		if (ctx->ctr > 1 && !d->is_dir && !ctx->stack[ctx->ctr - 1].dentry)
+-			oip.lowerdata_redirect = d->redirect;
++		if (d->lowerdata_redirect)
++			oip.lowerdata_redirect = d->lowerdata_redirect;
  
  		inode = ovl_get_inode(dentry->d_sb, &oip);
  		if (IS_ERR(inode))
  			return PTR_ERR(inode);
  
-+		if (oip.lowerdata_redirect)
-+			d->redirect = NULL;
-+
+-		if (oip.lowerdata_redirect)
+-			d->redirect = NULL;
++		d->lowerdata_redirect = NULL;
+ 
  		ctx->inode = inode;
  		if (ctx->upperdentry && !uppermetacopy)
- 			ovl_set_flag(OVL_UPPERDATA, ctx->inode);
+@@ -1427,6 +1429,7 @@ struct dentry *ovl_lookup(struct inode *dir, struct dentry *dentry,
+ 	dput(ctx.index);
+ 	ovl_stack_free(ctx.stack, ctx.ctr);
+ 	kfree(d.redirect);
++	kfree(d.lowerdata_redirect);
+ 
+ 	if (err) {
+ 		ovl_free_entry(ctx.oe);
 -- 
 2.56.0
 
