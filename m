@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794045817;
-	b=zWpiZi9mIY3DFe6i8M4IHzqJ0MFW1TmBT8NslFuA5LZSAS10HQX/qeWWiaJ4mpLpaNrC
-	 PHL+7GgSg0vIHDercX966J/NlAozLLWaCAdLCp5JrDC9KuhEU6YZpJvpWiSUegCwBqkpW
-	 4l38Q400ahjKiYZjPRH/q8XvgUHKzPSTtrEvLljQXnu+VGNFeAes4TYs0vyJHF1pRs4I5
-	 wxXxw7E+EcbucMVX99+hXJ2bI49OBj83RyFYczWDy9vgl2YSkOvQOikqI/A9O6yTY9G2L
-	 Z2lYV7e/qM3qiblpmR0y0xnTlUosHWO800ZDz9KHBdyQfSZOO4PceTZ3rTguFfUiv4Q==
+	t=1794045819;
+	b=TkZ5gLmQJbjssp6Dap0xfSJy3FqaJJTPKkS5qDf5MF78tYMpd/CfNhohrvLrd4Ji4VhV
+	 3wHCAxizR4t9v6BJ9la1KBLrfll0OhV1GtXSthb4DoUsY84rlRs1oiIst9BXPk7ZWcyH1
+	 U/C+H2iLfsySElVSa7CM2AWEhWhMBEksV5wPktGa8lKgEaw0AmSAwtkCWNiLRZcxexoRA
+	 jO2gUdHMTzMNc9aKBijx1apHl75OBglrSam4NtFIgqS+oXiFgUUfRABl6RJb8ViZaLFG3
+	 5HKNrjQQ2juE5iIxtw0fB3iMbYSPpynb74YkVmWYyC5n2OrPXhpHH7oy7XGuw1DMr5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794045817;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794045819;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Nc1wwyQz7NSeQte3wZvpjHGD4iBnEKrskM+bCUYqkyM=;
-	b=XW1i36GvmV9QmjiHnYMYRYffd/fTcH/xO9bK9WmDX8EzQ46xhYAcqx0Y/4+sFR1dQKNg
-	 6t7kVg5OUrFEuG0M7GygNS3LZ0ZPFIjmvFD+uZgHqKM2XoOy48QhWyZN+f6xTdy/bD4id
-	 YVqHa5wdAc1XmkBCgSlUeMmw5zKC/nQZrxj+AAs/SP4BWbmUA4Kxc4bRS+nBiK14+3G19
-	 8ayKQ/d4c8Dcth/oubxiBmown8SbomWkS7sleQgyKTvRpvGdtdZx8TQvyyTqwG89NQKig
-	 T+qIY6mr47c4svsLd4qo3fMG7JOMSH9xBgr3yTyBG8F2mCosbGYuVbSCjIG3OavkGxw==
+	bh=bczSPxQBDRYJpWPFXpD6wftM4qFGRO6N0vJYag+Z26Y=;
+	b=1qvDqR36CRRSaNvHwZe4Hr2YVeemPF/a5FNHxWmc4Svx3v5TKeA3XDf/kvtT/QTL90xR
+	 JQKqCCfM3B0QYRN7LQrHNb1tjLDUbkVXBdTdKohCi8U+TT14khtVwsFagfhXGMsogVpZZ
+	 15SEtinbv3n805oxpfAZBkyaTyH6oskcDA4ZnEmOtynguNaptX//lyff81AgeKtHgxF0D
+	 UKVydHMp1FPr5dJbdtpBxWwjWOirWXnppSU0JHx4vY/8XWQ7TcHCwopoZztZMHV6oVB+Z
+	 2pyA4iLPqB1seN+GMRUg5LpUHM84XQlDUrhYzvVxJ666q3NZ+xLxqD0n0fBpxU5tdmQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wq31eErr;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q8VZ2XtX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECE0A606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:03:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 718DD606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:03:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wq31eErr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31F591F0089F;
-	Sat,  7 Nov 2026 10:03:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q8VZ2XtX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 732AD1F0089F;
+	Sat,  7 Nov 2026 10:03:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794045816;
-	bh=Nc1wwyQz7NSeQte3wZvpjHGD4iBnEKrskM+bCUYqkyM=;
+	s=k20260515; t=1794045819;
+	bh=bczSPxQBDRYJpWPFXpD6wftM4qFGRO6N0vJYag+Z26Y=;
 	h=From:To:Cc:Subject:Date;
-	b=Wq31eErritnN7h8uJg+RKzzslcSRuhGEWhTGXbNSpBwPjp/2e1hV653dNDyxIM1+V
-	 ua4V8F32QA0YXWa2YolSf1I0NymoI0ff+q1o8gWVQ1GWo5Woq2s9BCASpm4vQJe1vz
-	 8dB3x3pIS0wH0Lz+WQS8DLGAKAvNEfrR0GvKQD8tXf78ZYKBb2I5VhNYiRNp/2pRDs
-	 Sxr0JNOlvsppWCT5uyl1hP51EHh9Gm63cCkn6z7PB8nCyfyKsUDblzd69oUVpAz6x7
-	 ngwWrdOcpyr2k7NWBgWfB+LAJrXFpIwWrpmaKXQywy+UBVcCKE/EcUTpeW6lAcDQkW
-	 4nfrjkqlgoEsg==
+	b=Q8VZ2XtXnmartrr9wQvecl5rgPxlwKgdSaV75H48v3YELE1PR6rsSAf5gYLU2xWOv
+	 1oZEU7r+x492sVqZGc5IzuAl3rgqO2UPqMAWLcWwkRqX71hrU7jxBVQPtdKOlXe1A8
+	 0sgedeb1nyrC/BGDx6RqIcT1ie2lX/9rio/6GrzV/InZpMIqlfi6D98Sawr4l7yTZa
+	 /CVAYbfw1YfbzkNqhkhxo9F0hqLiFLjVSkSrt5I31tILuQNGH1sKfnzIoSco3RbQrL
+	 qFtmTNr4e5Pm85IOizJuhgJH4jVBGpqGalqL4VF+m+fX5mG4Jl6ZQ7lTyHibd5cUCY
+	 4g4A8kY10powA==
 From: Sasha Levin <sashal@kernel.org>
-To: mitulkumar.ajitkumar.golani@intel.com,
-	ankit.k.nautiyal@intel.com
+To: tilak.tirumalesh.tangudu@intel.com,
+	vinay.belgaumkar@intel.com,
+	matthew.d.roper@intel.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/i915/vrr: Disable DC balance by default" failed to apply to 7.3-stable tree
-Date: Sat,  7 Nov 2026 05:03:35 -0500
-Message-ID: <20261107050335-failed-7.3-d1ef78f0581e@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/xe: harden adjust_idledly() against divide-by-zero and overflow" failed to apply to 7.3-stable tree
+Date: Sat,  7 Nov 2026 05:03:37 -0500
+Message-ID: <20261107050337-failed-7.3-d864065ea25e@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,94 +69,126 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x d1ef78f0581e856c4238c751e9ae2884ce58c275
+git cherry-pick -x d864065ea25e9d12897c175de9176ce46677e176
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050335-failed-7.3-d1ef78f0581e@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050337-failed-7.3-d864065ea25e@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From d1ef78f0581e856c4238c751e9ae2884ce58c275 Mon Sep 17 00:00:00 2001
-From: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
-Date: Thu, 17 Sep 2026 13:13:22 +0530
-Subject: [PATCH] drm/i915/vrr: Disable DC balance by default
+From d864065ea25e9d12897c175de9176ce46677e176 Mon Sep 17 00:00:00 2001
+From: Tangudu Tilak Tirumalesh <tilak.tirumalesh.tangudu@intel.com>
+Date: Wed, 16 Sep 2026 15:35:44 +0530
+Subject: [PATCH] drm/xe: harden adjust_idledly() against divide-by-zero and
+ overflow
 
-Disable VRR DC balance by default due to timing issues observed on some
-panel/TCON combinations.
+adjust_idledly() has several corner-case issues flagged during review:
 
-Keep the module parameter to enable DC balance during debugging and to
-isolate DC balance effects from underlying VRR/display timing issues.
+  1. If xe_gt_clock_init() failed to recognise the crystal clock,
+     gt->info.timestamp_base is 0, which makes idledly_units_ps also 0.
+     The subsequent DIV_ROUND_CLOSEST(..., idledly_units_ps) is then a
+     divide-by-zero and panics the kernel.
 
---v2:
-- Make enable_dc_balance a bool and keep it disabled by default; fix the
-  parameter type/value mismatch and correct the description (Chaitanya
-  Kumar Borah, Jani Nikula)
-- Explain in the commit message why the feature is gated and why a
-  module parameter is used (Jani Nikula)
+  2. The tick-to-ns conversions are done in u32:
+        idledly * idledly_units_ps, (maxcnt - 1) * 1000
+     Both overflow u32 before DIV_ROUND_CLOSEST() sees them.
 
---v3:
-- Commit message update (Jani Nikula)
+  3. If IDLE_WAIT_TIME reads back as 0, maxcnt evaluates to 0 and
+     the maxcnt - 1 clamp wraps to 0xFFFFFFFF in u32.
 
-Fixes: 555819270707 ("drm/i915/vrr: Enable DC Balance")
-Cc: <stable@vger.kernel.org> # v7.0+
-Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
-Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Link: https://patch.msgid.link/20260917074322.2606738-1-mitulkumar.ajitkumar.golani@intel.com
+  4. The register only stores whole ticks, so the clamped ns value has
+     to be converted to ticks and back. DIV_ROUND_CLOSEST() can round
+     that conversion up past maxcnt:
+
+       maxcnt = 640 ns, one tick = 666664 ps
+
+       clamp:        maxcnt - 1        = 639 ns
+       ns -> ticks:  639000 / 666664   = 0.958 -> rounds to 1 tick
+       tick -> ns:    1 * 666664 / 1000 = 667 ns
+
+     667 ns is programmed into RING_IDLEDLY, but 667 >= maxcnt (640),
+     so xe_gt_WARN_ON() fires again on every subsequent init.
+
+Return early if timestamp_base is 0 (the unknown-crystal path).
+Do the conversions in u64 via the *_ULL() helpers so they cannot wrap.
+Clamp with a floor (DIV_ROUND_DOWN_ULL) so the programmed delay stays
+strictly below maxcnt, and guard the maxcnt == 0 case with a zero delay
+while still writing RING_IDLEDLY so INHIBIT_SWITCH_UNTIL_PREEMPTED is
+cleared.
+
+v2: Drop the redundant warn on the timestamp_base == 0 path;
+    xe_gt_clock_init() already warns on an unrecognised crystal clock.
+    Keep the early return to avoid the divide-by-zero. - Vinay
+
+v3: Field-mask the RING_IDLEDLY write with REG_FIELD_PREP(IDLE_DELAY, ...)
+    instead of writing the raw tick count, which could clobber
+    INHIBIT_SWITCH_UNTIL_PREEMPTED and reserved bits. Split the
+    inhibit-switch clear from the maxcnt clamp so a set inhibit bit no
+    longer forces a needless delay overwrite when the delay itself is
+    already valid. Use gt_to_xe(gt) instead of gt_to_xe(hwe->gt).
+
+Fixes: d2de4410a88f ("drm/xe: Apply Wa_16023105232")
+Cc: stable@vger.kernel.org
+Assisted-by: GitHub_Copilot:claude-opus-4.8
+Signed-off-by: Tangudu Tilak Tirumalesh <tilak.tirumalesh.tangudu@intel.com>
+Reviewed-by: Vinay Belgaumkar <vinay.belgaumkar@intel.com>
+Link: https://patch.msgid.link/20260916100545.779894-2-tilak.tirumalesh.tangudu@intel.com
+Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display_params.c | 4 ++++
- drivers/gpu/drm/i915/display/intel_display_params.h | 1 +
- drivers/gpu/drm/i915/display/intel_vrr.c            | 4 +++-
- 3 files changed, 8 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/xe/xe_hw_engine.c | 27 +++++++++++++++++++++------
+ 1 file changed, 21 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_params.c b/drivers/gpu/drm/i915/display/intel_display_params.c
-index 2aed110c5b090..ca0ef466bb103 100644
---- a/drivers/gpu/drm/i915/display/intel_display_params.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_params.c
-@@ -120,6 +120,10 @@ intel_display_param_named_unsafe(enable_psr, int, 0400,
- 	"(0=disabled, 1=enable up to PSR1, 2=enable up to PSR2) "
- 	"Default: -1 (use per-chip default)");
- 
-+intel_display_param_named_unsafe(enable_dc_balance, bool, 0400,
-+	"Enable VRR DC balance (0=disabled, 1=enabled). "
-+	"Default: 0 (disabled)");
+diff --git a/drivers/gpu/drm/xe/xe_hw_engine.c b/drivers/gpu/drm/xe/xe_hw_engine.c
+index 010499766fce2..d868af8e33019 100644
+--- a/drivers/gpu/drm/xe/xe_hw_engine.c
++++ b/drivers/gpu/drm/xe/xe_hw_engine.c
+@@ -592,22 +592,37 @@ static void adjust_idledly(struct xe_hw_engine *hwe)
+ 	u32 idledly_units_ps = 8 * gt->info.timestamp_base;
+ 	u32 maxcnt_units_ns = 640;
+ 	bool inhibit_switch = 0;
++	bool wa_applied = false;
 +
- intel_display_param_named_unsafe(enable_panel_replay, int, 0400,
- 	"Enable Panel Replay (0=disabled, 1=enabled). Default: -1 (use per-chip default)");
++	if (!IS_SRIOV_VF(gt_to_xe(gt)) && XE_GT_WA(gt, 16023105232)) {
++		/* xe_gt_clock_init() warns and zeroes timestamp_base on unknown crystal clock. */
++		if (!idledly_units_ps)
++			return;
  
-diff --git a/drivers/gpu/drm/i915/display/intel_display_params.h b/drivers/gpu/drm/i915/display/intel_display_params.h
-index ba01aeaf89440..5c5a1a1358c32 100644
---- a/drivers/gpu/drm/i915/display/intel_display_params.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_params.h
-@@ -46,6 +46,7 @@ struct drm_printer;
- 	param(bool, enable_dp_mst, true, 0600) \
- 	param(int, enable_fbc, -1, 0600) \
- 	param(int, enable_psr, -1, 0600) \
-+	param(bool, enable_dc_balance, false, 0600) \
- 	param(int, enable_panel_replay, -1, 0600) \
- 	param(bool, psr_safest_params, false, 0400) \
- 	param(bool, enable_psr2_sel_fetch, true, 0400) \
-diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-index a516ba34e0d02..d43a06907d18a 100644
---- a/drivers/gpu/drm/i915/display/intel_vrr.c
-+++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -441,10 +441,12 @@ static bool intel_vrr_dc_balance_possible(const struct intel_crtc_state *crtc_st
- static void
- intel_vrr_dc_balance_compute_config(struct intel_crtc_state *crtc_state)
- {
-+	struct intel_display *display = to_intel_display(crtc_state);
- 	int guardband_usec, adjustment_usec;
- 	struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
+-	if (!IS_SRIOV_VF(gt_to_xe(hwe->gt)) && XE_GT_WA(gt, 16023105232)) {
+ 		idledly = xe_mmio_read32(&gt->mmio, RING_IDLEDLY(hwe->mmio_base));
+ 		maxcnt = xe_mmio_read32(&gt->mmio, RING_PWRCTX_MAXCNT(hwe->mmio_base));
  
--	if (!intel_vrr_dc_balance_possible(crtc_state) || !crtc_state->vrr.enable)
-+	if (!intel_vrr_dc_balance_possible(crtc_state) ||
-+	    !crtc_state->vrr.enable || !display->params.enable_dc_balance)
- 		return;
+ 		inhibit_switch = idledly & INHIBIT_SWITCH_UNTIL_PREEMPTED;
+ 		idledly = REG_FIELD_GET(IDLE_DELAY, idledly);
+-		idledly = DIV_ROUND_CLOSEST(idledly * idledly_units_ps, 1000);
++		idledly = DIV_ROUND_CLOSEST_ULL((u64)idledly * idledly_units_ps, 1000);
+ 		maxcnt = REG_FIELD_GET(IDLE_WAIT_TIME, maxcnt);
+ 		maxcnt *= maxcnt_units_ns;
  
- 	crtc_state->vrr.dc_balance.vmax = crtc_state->vrr.vmax;
+-		if (xe_gt_WARN_ON(gt, idledly >= maxcnt || inhibit_switch)) {
+-			idledly = DIV_ROUND_CLOSEST(((maxcnt - 1) * 1000),
+-						    idledly_units_ps);
+-			xe_mmio_write32(&gt->mmio, RING_IDLEDLY(hwe->mmio_base), idledly);
++		/* Clear the inhibit switch without disturbing a valid delay. */
++		if (inhibit_switch)
++			wa_applied = true;
++
++		if (xe_gt_WARN_ON(gt, idledly >= maxcnt)) {
++			/* Floor below maxcnt; write 0 to still clear the inhibit bit. */
++			idledly = maxcnt ?
++				DIV_ROUND_DOWN_ULL((u64)(maxcnt - 1) * 1000,
++						   idledly_units_ps) : 0;
++			wa_applied = true;
+ 		}
++
++		if (wa_applied)
++			xe_mmio_write32(&gt->mmio, RING_IDLEDLY(hwe->mmio_base),
++					REG_FIELD_PREP(IDLE_DELAY, idledly));
+ 	}
+ }
+ 
 -- 
 2.53.0
 
