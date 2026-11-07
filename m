@@ -1,60 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794076330;
-	b=QvjvnF/2wTV70zEqiVkvKHpKcnpEm4nzhEAWMqDbxaieHscUbgKBC4DkesZ9JCtxm7Ow
-	 d+IhSnpH57ohXgtGPwqpQkHU36DvpTSlMD8/U6XUVIByvmWDHNPpSkcikD5U+pLOQogdi
-	 JMYcxTMqhnQTIXlSLC+L32dkLcJdRj8iztgDJllB57KIcQ6Q1pTaExGL2oFuAOPAxdMyf
-	 2CXLTXP+U3w30N4ce5aRgX6DmgP/+tdubUWSKZd+ffTBfZsyhkZn+uGOb8J0jd2O7Tuz4
-	 t7ABgQ2q73IeaJcU6oPVxqyz5jaw1NJ3AikzcyiwHRyeNxyvWCngIHu249vCWJH+CkA==
+	t=1794076538;
+	b=nX6XqvX5t5r1/Ia/QjMhfxcCG2VkXxauogIeWBCNiy0blyTMGivVuR5ZtKPweOyO97CN
+	 LGpESHgVMCdHDGn4sEcm4KSwohtDDrwgw1mn3XM7kHXhf6jTb4R3DzBwR6HcGuVQ2VvI7
+	 pftS3AQTBnpoq2HOFHFXNrQE+tbXcxLZejW4st2YFxnIU8IHurvCwBSDiYafOQdCDmWS7
+	 xaS6ILjWk39qw3ylIqc/Q1bzVoZxUnqQKoXwCXFcg6PvCHmqCRv6r5+UAMgJuve2ne95y
+	 1w4udT9m87BZvFjGQM5ry6SzZF1gGpXXYoxdLRZr/b0iPqNCM/ekMkFxuKbbDSDSODg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794076330;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=I5WBhDYjSPXvoHDXSLP4PU4c/heeUu6oD6Q6bomZbfY=;
-	b=ZuP3MkGpyBmBZV5gBDKmoQpo/iTt9ed2grorUAn30TMUfUSgYmGYVb1jRCjm7/l0yirm
-	 ZySN7GXutb2e/2+RKwfw00yZkG53Is6DMnMA77LYPJT69cye/Vx+h2A6Y4jz4Sp2pbnjo
-	 cDFvTC0gEB6bhTPCFFjFFoqrtpQd8g4cuybbKzSxSxfMxs+XokgvB1NRZbewU6aSAk3ql
-	 I2VMQp9842d2jV8cTWZ6xFxYxY5frlIaVGccUm2H4JliL1ubO52h9MR/u+O7+7MRtZvyQ
-	 v/gnIU+HNJkJ1Gwx/JeRU/5hQnu3J6rdy6oOkU3Z2qyZJBoJTV3DnLG091bBwIcx67Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794076538;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=edAgMeDTSdzzewfHuukTFL6aVX95e9fem3szzjNzGNs=;
+	b=OYn0rl/Uu8nltUhDcefE2mO2W6Lm6NtkmLW5BgU8wHAgK/QzzvAxKSWnHnc9c+zdLGCm
+	 EYZzX0MDrF9sr38OJACw+R18OFO+N4FHdA/dEnx+fTdLFkFBtfQJ9WgF1HWsvJxdbILTz
+	 ivZjX/xKsmHxOcgayHhPBUrmnB3LCg7s980RAxXxUSmUihUXK09/WdzodjgvCOiW/oznB
+	 FOl/QEPJ+e7XauAYg4rSOg2nRqDGWkZWPLtZp0stl82SltWchtsyRcuNWDjk1zTlWre2y
+	 cpf7LEqbubvbwtvzfyONeMXKtUuCneaHdhmuKMGUZoK+zr2z0fpAqY9fbRBz1RPEnoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YBjlA1DM;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KqcwiZ3n;
+	arc=none smtp.remote-ip=209.85.215.173
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E3A4606A326;
-	Sat,  7 Nov 2026 18:32:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB1B5606A32D
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 18:35:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB1B5606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YBjlA1DM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A83FE1F0089F;
-	Sat,  7 Nov 2026 18:32:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794076330;
-	bh=I5WBhDYjSPXvoHDXSLP4PU4c/heeUu6oD6Q6bomZbfY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YBjlA1DMxdS+hZU/5ZRtiZP5hm3RMpANBVRBE8iuALrZv2Z6UpXntUdyxkh92x0Hy
-	 zx9WYHbE+iqmvdMwcZMPxgrQz6L5g5ltFjvuBEqlr02Q62d3S0p8OiLbgdUlcYvXVL
-	 UgIfsOTupu+p5Uw656LPolny4r9xpDb5XHWy0V9M89P70qeYEsHD26hJBedLgxr7UZ
-	 5R7gYdQ5n76l7dxfWyeVATs0fM1+1BLVw6LdrUdGtT1auWTF06sP/z8gJGha7VoxXt
-	 eXQvpDMN8YwYAJ+JB69tRzl/0lbrRnxr/ak19F3Be+IZEP6MbypXCUtmk8HbUINKKP
-	 Lo7/iHCb3rFaA==
-From: SJ Park <sj@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: SJ Park <sj@kernel.org>,
-	stable@vger.kernel.org,
-	patches@lists.linux.dev,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Brendan Higgins <brendan.higgins@linux.dev>,
-	David Gow <davidgow@davidgow.net>,
-	Usama Arif <usamaarif642@gmail.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: Re: [PATCH 7.3 0655/1257] mm/damon/core-kunit: test invalid damos filter commits
-Date: Sat,  7 Nov 2026 10:32:02 -0800
-Message-ID: <20261107183202.177477-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261107134957.352235224@linuxfoundation.org>
-References: 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KqcwiZ3n
+Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cdab6ae1ee9so779157a12.1
+        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 10:35:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794076537; x=1794681337; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=edAgMeDTSdzzewfHuukTFL6aVX95e9fem3szzjNzGNs=;
+        b=KqcwiZ3niNxWjz9hp9UhKgTfpndMRTTSiJDtL6X30kmtqhy87YGmMfb+zrQ9BMf9Tn
+         lmnnSftcmxK69g872T+ghkWQIjhefoQ4azpZ9psO/5EwDUEOaygpREJwXq1pcqAAAmti
+         wIPYQ7dPF73p7SYGZ17vM3360ibJ/CEpt6xBYPrvsY3Am8UbL7gnQ8ZdAddKCn5Jaknb
+         oFHoexi9TCVKysYqbZGRFKKUf1Hte8QKOWKK0+mN6M+j57tKci9afJqc3/owDNDAw0TO
+         z6qn6Z9o61otCASh3u9LlUavTlyeEzkDKb3jZmszMja8kIn8TS9d5/v3AD6W8nv8rFIV
+         4tIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794076537; x=1794681337;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=edAgMeDTSdzzewfHuukTFL6aVX95e9fem3szzjNzGNs=;
+        b=L/TYVCqP/owKl3P5TZaCF3NXCH4+rbmKINgu9EvSA+Zkseom8m9TKHUcaFJVhPKLsw
+         PTYEsQ7kEEJ2Mq2ua/lqNMx3Ef95Be8LvydB3Qo9DoPKcqYqEPA7q4EY4TSI37asGEBb
+         B3BXL4LICVu2UU5dNlu38NWy5NbjSKI3NSzRT027RlnieRZJlINL3bOpBhSK/b8FIkkn
+         AQDPnqYJO9z+DVfW5w217ulaJpuIpR7EwqCWUNbyX/iXEHMHMXScPhwoYaEwbz/ENbVn
+         QYA7fmDfvvkFJGSgO75loAA4wIGknen/LCL22lVkX618NJTGxXTs1SpTMk7zj2VQR63p
+         il4g==
+X-Forwarded-Encrypted: i=1; AL+hErEcUSK28p0OU5Ld5evOYmQyzlRO4TS4CThgdoYYnGHfn9/cn5qD6Gbu5gQTzHghO8xnHZVEjGw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+PTJCcN1OQU5dO0usdc0skFWXkGdKmby0h9BNS4tmWbU5GeWWm
+	hSWYLcT/fBhlkkEA8FRm/gr6t3APTfZ9ckc1X/9DuJbfXCYoP7AZO7a6
+X-Gm-Gg: AYBFou2ibB+Isu7LZuOu6ZYBfKFE3DDoqYaLpqUfssvLqLDIZUbLIBfoKVTDWeTbgRF
+	nwmSOKvPkUObha4PEnFK8x+SuvkFEtht6aFbCawIe/QSFcLVKeCicdcicXcmN/dYrJZNii7qW6h
+	Uhk9A7ldkvDgWTEM1NxaRBAzL5Dp+DeTseUry2Hss8Gjuo7JOkDEhK0ndq8GjSjzwWIU2lzhCrc
+	ReJoOReXf1BUG/uj8ldGfF96UOYZjt245IoHGfqVI4Z3/ydilSSp7gx03NvRXwr6HKrfI1YMArB
+	7zVT3xScT8ItwkOeL6Fdcw2jnmrE73sgItbHByDPBuPfT5RU3oIHombIkqSRugyabMl/L1GUCrf
+	UtlUXGN8IPHTKMa5PRdmF/W/nNONEWsuAXTfPOgNn2K9XengTRPIFsFRLPQKFuXikecsqMm9Anv
+	m70ZLKu22tnntAKhZIhSvhjY39CvmeSkx1CRu2Vn9IQF23H+5P/XigpAxhfnAK+AY5vSEVQGjzO
+	Bb2HE4pYqg+i6bmmiPqvS82CYE9vagZijYB8oRLw3iGJtNHSh+95kj4dy+2IhLTjmAIZ+A090QX
+	H9cozeBcZXmtE/d7TefMcCVmIkegw1lSKD1s2sR5lrm5Q7u9A+7Mt+NfIWv43q6Qbc8vPTBWXO2
+	o1gc=
+X-Received: by 2002:a17:90b:4d82:b0:3a8:f70f:2437 with SMTP id 98e67ed59e1d1-3b0db722a02mr5510329a91.50.1794076537030;
+        Sat, 07 Nov 2026 10:35:37 -0800 (PST)
+Received: from Terra.tail0ac356.ts.net ([198.176.50.208])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1152fa888sm1392566a91.9.2026.11.07.10.35.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 07 Nov 2026 10:35:36 -0800 (PST)
+From: Weiming Shi <bestswngs@gmail.com>
+To: John Johansen <john.johansen@canonical.com>,
+	Georgia Garcia <georgia.garcia@canonical.com>,
+	Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E . Hallyn" <serge@hallyn.com>
+Cc: linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Shuangpeng Bai <shuangpeng.kernel@gmail.com>,
+	Xiang Mei <xmei5@asu.edu>,
+	Weiming Shi <bestswngs@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] apparmor: hold candidate profile reference during attachment lookup
+Date: Sat,  7 Nov 2026 10:35:15 -0800
+Message-ID: <20261107183514.1575928-2-bestswngs@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,49 +105,117 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Greg,
+find_attach() retains the best matching profile in candidate while walking
+the profile list under RCU.  When matching xattrs, it pins only the current
+profile and drops the RCU read lock around aa_xattrs_match().  A concurrent
+policy removal can therefore free an earlier candidate during this window.
+If the policy revision changes, the retry also preserves candidate and its
+ranking state because they are initialized above the restart label.  The
+final aa_get_newest_profile() then dereferences the freed profile.
 
-On Sat, 7 Nov 2026 08:49:11 -0500 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
+The reproducer triggers:
 
-> 7.3-stable review patch.  If anyone has any objections, please let me know.
+  BUG: KASAN: slab-use-after-free in aa_get_newest_label
+  Read of size 8 by task poc
+  Call Trace:
+   aa_get_newest_label security/apparmor/include/label.h:413
+   find_attach security/apparmor/domain.c:505
+   profile_transition security/apparmor/domain.c:700
+   apparmor_bprm_creds_for_exec security/apparmor/domain.c:1034
+   security_bprm_creds_for_exec security/security.c:793
+   bprm_execve fs/exec.c:1861
+  Kernel panic - not syncing: KASAN: panic_on_warn set ...
 
-TL;DR: Please drop this.  It has wrong Cc: stable@ tag.
+Take a reference whenever a profile becomes the candidate, drop the
+previous candidate reference, and reset all candidate state when restarting
+the search.  Release the held reference after acquiring the newest profile
+or before returning an unsuccessful match.
 
-> 
-> ------------------
-> 
-> From: SJ Park <sj@kernel.org>
-> 
-> [ Upstream commit 409d2ab6d98209c30d45123920721710475a30b4 ]
-> 
-> Add test cases for testing the validation of damos filter arguments in
-> commit time.
+Fixes: 8c62ed27a12c ("apparmor: fix aa_xattrs_match() may sleep while holding a RCU lock")
+Reported-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+Closes: https://lore.kernel.org/linux-security-module/20261105164839.66760-1-shuangpeng.kernel@gmail.com/
+Cc: stable@vger.kernel.org
+Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+---
+ security/apparmor/domain.c | 30 +++++++++++++++++++++++-------
+ 1 file changed, 23 insertions(+), 7 deletions(-)
 
-This patch is for testing commit 1bfb9384ae0e ("mm/damon/core: disallow max <
-min damos filter range arguments commit"), which does not exist in 7.3.y.
-Hence this patch is making DAMON kunit fails.
+diff --git a/security/apparmor/domain.c b/security/apparmor/domain.c
+index af9e8431e3ea..53465caca702 100644
+--- a/security/apparmor/domain.c
++++ b/security/apparmor/domain.c
+@@ -395,9 +395,9 @@ static struct aa_label *find_attach(const struct path *path,
+ 				    struct aa_ns *ns, struct list_head *head,
+ 				    const char *name, const char **info)
+ {
+-	int candidate_len = 0, candidate_xattrs = 0;
+-	bool conflict = false;
+-	struct aa_profile *profile, *candidate = NULL;
++	struct aa_profile *profile, *tmp, *candidate = NULL;
++	int candidate_len, candidate_xattrs;
++	bool conflict;
+ 
+ 	AA_BUG(!path);
+ 	AA_BUG(!name);
+@@ -405,6 +405,12 @@ static struct aa_label *find_attach(const struct path *path,
+ 
+ 	rcu_read_lock();
+ restart:
++	aa_put_profile(candidate);
++	candidate = NULL;
++	candidate_len = 0;
++	candidate_xattrs = 0;
++	conflict = false;
++
+ 	list_for_each_entry_rcu(profile, head, base.list) {
+ 		struct aa_attachment *attach = &profile->attach;
+ 
+@@ -477,7 +483,11 @@ static struct aa_label *find_attach(const struct path *path,
+ 				/* Either the same length with more matching
+ 				 * xattrs, or a longer match
+ 				 */
+-				candidate = profile;
++				tmp = aa_get_profile_not0(profile);
++				if (!tmp)
++					goto restart;
++				aa_put_profile(candidate);
++				candidate = tmp;
+ 				candidate_len = max(count, attach->xmatch_len);
+ 				candidate_xattrs = ret;
+ 				conflict = false;
+@@ -487,7 +497,11 @@ static struct aa_label *find_attach(const struct path *path,
+ 			 * old exact non-re match, without conditionals such
+ 			 * as xattrs. no more searching required
+ 			 */
+-			candidate = profile;
++			tmp = aa_get_profile_not0(profile);
++			if (!tmp)
++				goto restart;
++			aa_put_profile(candidate);
++			candidate = tmp;
+ 			goto out;
+ 		}
+ 	}
+@@ -495,15 +509,17 @@ static struct aa_label *find_attach(const struct path *path,
+ 	if (!candidate || conflict) {
+ 		if (conflict)
+ 			*info = CONFLICTING_ATTACH_STR;
++		aa_put_profile(candidate);
+ 		rcu_read_unlock();
+ 		return NULL;
+ 	}
+ 
+ out:
+-	candidate = aa_get_newest_profile(candidate);
++	tmp = aa_get_newest_profile(candidate);
++	aa_put_profile(candidate);
+ 	rcu_read_unlock();
+ 
+-	return &candidate->label;
++	return &tmp->label;
+ }
+ 
+ static const char *next_name(int xtype, const char *name)
+-- 
+2.56.0
 
-> 
-> Link: https://lore.kernel.org/20260914142327.92510-9-sj@kernel.org
-> Signed-off-by: SJ Park <sj@kernel.org>
-> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-> Cc: Brendan Higgins <brendan.higgins@linux.dev>
-> Cc: David Gow <davidgow@davidgow.net>
-> Cc: Usama Arif <usamaarif642@gmail.com>
-> Cc: <stable@vger.kernel.org>
-
-I didn't intend this to be applied to stable@.  My original patch [1] hence
-doesn't have Cc: stable@.  But I show Cc: stable@ tag in the upstream commit.
-Seems Andrew added Cc: stable@ while applying it to mm.git and I missed it.
-Sorry for not catching this early.
-
-So, this patch is not really meant to be picked into stable@, and only causing
-the kunit failure.  Could you please drop this?
-
-[1] https://lore.kernel.org/20260914142327.92510-9-sj@kernel.org
-
-
-Thanks,
-SJ
-
-[...]
