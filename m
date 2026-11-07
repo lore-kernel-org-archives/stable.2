@@ -1,55 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048839;
-	b=lQvOqXeehMCxfD7NqZ+vLN2apRP747MQf2vfKAmEvvrRVvsbsdeYZs96BJXdBtKPT6kf
-	 8Kb0MgNRpsGCTD09M9JZ9LdbpVYQumkeruA0hsqJaNpnUaijWH/ObpHoufAdTfCYytcpJ
-	 MaCOx4NDqslb2ArVqvB2RNkRrsi+6MenJ3f3UZ5myvth3T4stfYAc6ozRGJdJIH0r1ud2
-	 kB1auwIHaMXSiGNnUV6WsmL9QU3MQm01Ut1ESC/ovxcXcAfhZAH1yGwmAoW96o93ZuMAY
-	 RAfQu9EknP3Vm2xGf7bLyaFDIwIq/SqNVPSZU999yG6Em54vz6FVCp6iPti7806i8bQ==
+	t=1794048845;
+	b=K0bR4cksKFAiia+/5oIJWyXIJ/0a91srxR3rrB37TRveo5D4HovWAVd7DvG+U7YxufXL
+	 3YXjUJ6njV29bGE9WnvqYDN3epteEmIm0BzleW8JuH2H8R00txee77ho7DZm9gYWyxNS/
+	 PU3RZKM4Bs73mF2IY3enYuc3A4250ocd3x/MNt0N7zHyOqQ4Iw7C6evDxdFxs439bUXC1
+	 23GV7TIho7SU0rIXwjGe2xQT0lg5WgqWN7Hes2lP4008QQo0nC0ijBFOTEkv6vHu4rtHc
+	 Y0o3DvtgpKw4Av+qybd3J/EMIwL5K2ZLlA9UdF0pxp6PB5pl8WCQ98H1kzL1OK1awHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048839;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048845;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=2M5WaaOl+EpCh6SnTdp3KxyapY1CBD7OX9u7y+pmDao=;
-	b=uJnh6FPHVCOt/ZVi+EM5iS60mwSBBBIKb3hToncsSFMpEDsh9qXKePstuibxzmyDb4+/
-	 Q74eDIwG72jD3cezqUf9/GVl/yaOmzc0NcK7cDbCots04XP2JJPfbsfMciBXEAKnNdJWZ
-	 AcQk6BVURo/1FyW66IGZ4Rjg2666tDeGTwr/rzs7fujI7zwRKeAQeydMsFk2BcSRvMsxV
-	 kaeAINdj3FtxuxZR1KgOa9Te3m2TFlogBvsYeZZ05AH0RC5AUop6SHJkJhJbyIdE33J5Y
-	 RNlucFga1nAFnFMBT7OMSyDbosBu/j+pPmkzxqI0z6xFaTYSjMDAWO4Z6X7P0tjZrHw==
+	bh=yzF/vRbD7CzGZzjBKdbbmAXhNpuACk6lF5gKw400/lA=;
+	b=Y0ohacFta5kp+ELw6mPmiyPDMalub5S0cMKIFE1ik09c+rnNnzt1VmsxfRgdkzSpT5Sk
+	 xcrDqJZxqCdiLpaQSbu36eLDo+5M5ypyJXCSiXBORuYn3imWWerxjdvpBnlOW2LjTvTuY
+	 onsMjd32wn7NKP+2sppyE2H+i/nSCgdQ2qUIeqE1Pica2UKxNBg88v62SfgMWhKjOQuMb
+	 qt3bw4YYPRpu4uHmTbLSza+dhtYKSJt7ldM85nVbfnW/i9TJ9fvCRRtmdEbL4D2hXFu5V
+	 jJt5C/cGmTbGoOT/Tm8TRwDKbfM0o7197shGWoPgPq9DGm0HFrS/eoIQKZ5on5JW2ig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PC0k3MTA;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QNfFwL+h;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B06CB606A338
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:53:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 095E9606A32F
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:54:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PC0k3MTA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C96D41F0089F;
-	Sat,  7 Nov 2026 10:53:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QNfFwL+h
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39FB01F008A4;
+	Sat,  7 Nov 2026 10:54:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048838;
-	bh=2M5WaaOl+EpCh6SnTdp3KxyapY1CBD7OX9u7y+pmDao=;
+	s=k20260515; t=1794048844;
+	bh=yzF/vRbD7CzGZzjBKdbbmAXhNpuACk6lF5gKw400/lA=;
 	h=From:To:Cc:Subject:Date;
-	b=PC0k3MTA/5NiAK12mxdymoTPtH/qyYHJB643DDlKlQMJfJDrA+EzprN5hWvza8BDq
-	 UK4nnbaeF168i9JppZ7hLG5qHUO6Xgs8Q+8a3VwOLQF1XWl2ldNzskoF3MhCv7uG25
-	 5JNPIkrrMPa6uNJ9PL+M6a9I8TtdG1jtXE3gr5/bAF7ktTcd5BxbgDCesNxqGThHJc
-	 gK0ZYz8zbkwE+aqmTRjc2OyBM4pBAO2ms7YaZyTvVMm1WXz30PXaJPS1cjJuhJH1R5
-	 cfxGy3G+BWkyklIG8iIrVFSuHqtYVszeahQ4/d/2vd76sPU3IqJDKPSY/NdWQolSLB
-	 PacijWs1LCyxQ==
+	b=QNfFwL+h3mfn7w+will6qPh26SWvzn1q3eSqeDeR1PsDsoNeV4YRzB/CQBnnc3An4
+	 bB+QEWo6j9TAby5RNwngD+1/dJKqxhl+bw649jD+7juYwqKHx5Kml41dZxElihJrQd
+	 DV5kvKkvN+GN+fBEJj4DrkvjbSJd87JcSaRdjxsZLPGrrkUcXl39bFsGesYGJbnx2v
+	 9AJ5D60L2n9HP8lLelf9D6ST3Z4J77psbTvvGld38yquPYxJ2WdbtI4C5eH338W90Y
+	 XmSLJTDiaQdR3KU3RQhtpkRVXcMCCeG6cM76t3+FrVXNtjy3rNcumZY6TKhaWk5SgH
+	 unVfjiAl1LDkw==
 From: Sasha Levin <sashal@kernel.org>
-To: zhilinz@nebusec.ai,
-	vega@nebusec.ai,
-	idosch@nvidia.com,
-	edumazet@google.com,
-	edumazet@kernel.org,
-	kuba@kernel.org
+To: stanleyjhu@google.com,
+	beanhuo@micron.com,
+	peter.wang@mediatek.com,
+	bvanassche@acm.org,
+	mkp@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ipmr: only copy pktinfo to cache reports" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:53:56 -0500
-Message-ID: <20261107055356-failed-6.1-94a6736bb5ab@kernel.org>
+Subject: FAILED: patch "[PATCH] scsi: ufs: bsg: Reject UIC commands with a non-zero result byte" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:54:02 -0500
+Message-ID: <20261107055402-failed-6.1-1ae42513205a@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -72,91 +71,58 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 94a6736bb5abe6b2ef38490d0cab19c1c6a7c71f
+git cherry-pick -x 1ae42513205a38b811afedb6797f9f9c4de37b90
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055356-failed-6.1-94a6736bb5ab@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055402-failed-6.1-1ae42513205a@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 94a6736bb5abe6b2ef38490d0cab19c1c6a7c71f Mon Sep 17 00:00:00 2001
-From: Zhiling Zou <zhilinz@nebusec.ai>
-Date: Tue, 20 Oct 2026 14:39:36 +0800
-Subject: [PATCH] ipmr: only copy pktinfo to cache reports
+From 1ae42513205a38b811afedb6797f9f9c4de37b90 Mon Sep 17 00:00:00 2001
+From: Stanley Jhu <stanleyjhu@google.com>
+Date: Thu, 15 Oct 2026 08:18:54 +0800
+Subject: [PATCH] scsi: ufs: bsg: Reject UIC commands with a non-zero result
+ byte
 
-ipmr_cache_report() prepares IP_PKTINFO on the original skb. The
-ipv4_pktinfo_prepare() helper updates skb->cb and clears the pktinfo fields
-when packet info is disabled. Since the skb can continue through the data
-path, preserve and restore its original control block around the helper.
+ufs_bsg_request() passes the user-supplied UIC argument2 unchanged,
+including the result byte (bits 7:0) that only the host controller
+writes. A non-zero value triggers the WARN_ON_ONCE() in
+ufshcd_dispatch_uic_cmd() and corrupts the reported result. Found by
+syzkaller.
 
-The original implementation copies the entire control block to the report
-skb. For synthetic RTM_GETROUTE packets, NETLINK_CB data is interpreted as
-IPCB by the raw IPv4 receive path. With IP_RECVOPTS or IP_RETOPTS enabled,
-corrupted option offsets cause out-of-bounds reads or a stack buffer
-overflow. WHOLEPKT and WRVIFWHOLE reports also inherit stale IP option
-offsets when their header is prepended.
+Reject UIC commands that have the result byte set with -EINVAL.
 
-Clear the report skb control block. Only prepare and copy pktinfo when the
-input skb has an IPv4 header. Synthetic route-query skbs use NETLINK_CB,
-not IPCB, so leave their report control block zeroed. Restore pkt->cb after
-preparing pktinfo for regular IPv4 packets.
-
-Fixes: bb7403655b3c ("ipmr: support IP_PKTINFO on cache report IGMP msg")
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: e77044c5a842 ("scsi: ufs-bsg: Add support for uic commands in ufs_bsg_request()")
+Fixes: 9fb4c793223b ("scsi: ufs: core: Complain if UIC argument 2 is invalid")
 Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Link: https://lore.kernel.org/netdev/20260903113055.GA90787@shredder/
-Suggested-by: Ido Schimmel <idosch@nvidia.com>
-Suggested-by: Eric Dumazet <edumazet@google.com>
-Signed-off-by: Zhiling Zou <zhilinz@nebusec.ai>
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
-Reviewed-by: Eric Dumazet <edumazet@kernel.org>
-Link: https://patch.msgid.link/0545f0c83f5ee2f6696210f87268e811ef655715.1792476357.git.zhilinz@nebusec.ai
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
+Reviewed-by: Bean Huo <beanhuo@micron.com>
+Reviewed-by: Peter Wang <peter.wang@mediatek.com>
+Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+Link: https://patch.msgid.link/20261015001855.3450573-5-stanleyjhu@google.com
+Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
 ---
- net/ipv4/ipmr.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
+ drivers/ufs/core/ufs_bsg.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/net/ipv4/ipmr.c b/net/ipv4/ipmr.c
-index e4c51ca473019..acacaae05cc49 100644
---- a/net/ipv4/ipmr.c
-+++ b/net/ipv4/ipmr.c
-@@ -1063,6 +1063,7 @@ static void ipmr_cache_resolve(struct net *net, struct mr_table *mrt,
- static int ipmr_cache_report(const struct mr_table *mrt,
- 			     struct sk_buff *pkt, vifi_t vifi, int assert)
- {
-+	unsigned char pkt_cb[sizeof(pkt->cb)];
- 	const int ihl = ip_hdrlen(pkt);
- 	struct sock *mroute_sk;
- 	struct igmphdr *igmp;
-@@ -1118,8 +1119,6 @@ static int ipmr_cache_report(const struct mr_table *mrt,
- 		msg = (struct igmpmsg *)skb_network_header(skb);
- 		msg->im_vif = vifi;
- 		msg->im_vif_hi = vifi >> 8;
--		ipv4_pktinfo_prepare(mroute_sk, pkt, false);
--		memcpy(skb->cb, pkt->cb, sizeof(skb->cb));
- 		/* Add our header.
- 		 * Note that code, csum and group fields are cleared.
- 		 */
-@@ -1130,6 +1129,15 @@ static int ipmr_cache_report(const struct mr_table *mrt,
- 		skb->transport_header = skb->network_header;
- 	}
- 
-+	memset(skb->cb, 0, sizeof(skb->cb));
-+	/* Route queries from ipmr_get_route() carry NETLINK_CB, not IPCB. */
-+	if (ip_hdr(pkt)->version) {
-+		memcpy(pkt_cb, pkt->cb, sizeof(pkt_cb));
-+		ipv4_pktinfo_prepare(mroute_sk, pkt, false);
-+		*PKTINFO_SKB_CB(skb) = *PKTINFO_SKB_CB(pkt);
-+		memcpy(pkt->cb, pkt_cb, sizeof(pkt_cb));
-+	}
-+
- 	igmpmsg_netlink_event(mrt, skb);
- 
- 	/* Deliver to mrouted */
+diff --git a/drivers/ufs/core/ufs_bsg.c b/drivers/ufs/core/ufs_bsg.c
+index 0db830e54ef0f..cadde515f040b 100644
+--- a/drivers/ufs/core/ufs_bsg.c
++++ b/drivers/ufs/core/ufs_bsg.c
+@@ -179,6 +179,10 @@ static int ufs_bsg_request(struct bsg_job *job)
+ 		break;
+ 	case UPIU_TRANSACTION_UIC_CMD:
+ 		memcpy(&uc, &bsg_request->upiu_req.uc, UIC_CMD_SIZE);
++		if (uc.argument2 & MASK_UIC_COMMAND_RESULT) {
++			ret = -EINVAL;
++			break;
++		}
+ 		ret = ufshcd_send_bsg_uic_cmd(hba, &uc);
+ 		if (ret)
+ 			dev_err(hba->dev, "send uic cmd: error code %d\n", ret);
 -- 
 2.53.0
 
