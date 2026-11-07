@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046336;
-	b=Vm0guYZ/cfTzcC0hL5IXSNYG+bLVggia5W4TNqVDJ1X+qjggCe32F9wE5jpgHA8XyLwq
-	 uGYD1xWoD+5rq1LTRaoN/TUgU+vxFXFmoRiRmPoiY6rpgq6b/p1BfNE+s88kP59hgnMXn
-	 0sVLUgtLoFgMPqz3A+w4TonwEr8Eh796UeOc7DWol9Qfo7z9bKdcIm1A44VE+/Du4pyak
-	 OGAe9TPCLX5xe9qmmsR5g+cSpzj6VPQApayMjThyetxTGdelJj0Ler8gJPX/X6AOlJpNw
-	 mVZ5HaSNloey8he6v4/fHLXfs5UM/3e3deU+5fEblB+Fym8IVp2r5swmK94II21LkkQ==
+	t=1794046338;
+	b=BIqxVwm6grxz3HYqxjmSOBCxspoWLVjdInFtGE+nJMGX7p6/Tb7ZZc96A6OsYeLKuEr4
+	 OSbtkBrurmTYgXFJBGnGIZ5S+CjXMDmEFzQIFzjQd3/lVz7ojwhif0bXRhR7+KzsKs0Ud
+	 42dvBwu4Z1v9jAnVnSBdapTFZxYylvxs0OiFBTc1ROFZ+s1KM6yiBZWOBQPpNXW1+cpIj
+	 MLPTOLqGjCkpNZ/tL8v6L0eVN7VH3Aa26dgPvUkuscO2SZa+s0aLTRL8ls6TTWu8LJPoL
+	 74Ylulp3ojEtfZ3z9efWAbf3hwl+0QElpH3hBPTm+YsmfPu3Q+GNn/qnRHM+J3IR24Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046336;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046338;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=OHN1lQSI7YQM6QfbHF2rLQxhQDCo015DQSwfy0tglOg=;
-	b=NobkQM3BafBxpWOBvajqHoNFjg60D+IJ0GxUCO1yeBh9kvORdPBHRmZKZ5MjR3mn8Djp
-	 sMCUKYHPc5aMd0RILoyPqSU3+e9MBhbPZdGf+F+ugQUbZZVH7WnLsvSOs3IzOVZ0bQ0l7
-	 zpL6Tcoty5TI3HanXE2QcIj0PW3DSe/BTbNQCW098B3ypCvBKYJoBUzP/epIwGcOQP9KW
-	 2t2edMxii4sfqTxLwG3ukTNT2LY7pL5sQws/gK5TeO4/RLaHTUSahb9qwQe2fZB1C3eEu
-	 8PpGK4YBN5O2spzUWWDHZg6AFtwElsyl2009Wuv7iDSM9B941tdpw1BbONtfCrov8og==
+	bh=e7Hf9GblvEW5yrAKl5NRUYmTaESw1fEGVF7BzoW07aE=;
+	b=V48MlPyBSt52tW/MVO7tXkc49c7F8EIM0Q3wF0P+5/UR0uCbG7zVTDYQ4Ka1pBGpCIBp
+	 Nlm1/P+oz9GOgvlhEVW29pvyVKdCM0mn+p74NzlSiO0FgKWQtoTntC9/BNNWNNzvDkxkW
+	 t9MU1AmQrR9aroWUKjAwEVfqEVQeMZ7NQ0X51bxin5R0Hw2pabe0SV+AP50eVzSOhCacO
+	 +kAdA5tE06GIt6YrZJyP/N7dwMnLBZ54UTDGUV+VcLlWpVq7AHmIaA3DVotKHbe+qZP2I
+	 cXvrvtA6pq3COUlJNLJ3jJn/YTBONo1xkKyqo1FDggChDlmUp3Y6DbtrKNyTKT0h4HQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ER/ZWQZC";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="W2tMd/v7";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A77B606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:12:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4047B606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:12:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ER/ZWQZC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 721341F0089F;
-	Sat,  7 Nov 2026 10:12:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W2tMd/v7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A4451F0089F;
+	Sat,  7 Nov 2026 10:12:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046336;
-	bh=OHN1lQSI7YQM6QfbHF2rLQxhQDCo015DQSwfy0tglOg=;
+	s=k20260515; t=1794046338;
+	bh=e7Hf9GblvEW5yrAKl5NRUYmTaESw1fEGVF7BzoW07aE=;
 	h=From:To:Cc:Subject:Date;
-	b=ER/ZWQZCWuSJvNYyKw2ELzn3u3J9LX9d53/E6e+RfBaiO3kg8XOgyqXf7y9gvqTeo
-	 V+qgjag9TZZpnss4fdOHNNopZDwi2QXQC2uKEWGqSfazKIkcTnLVwHOBTv5liAH+wc
-	 uMFkCm716NAKHjacy5gaGcUTReFZ7JNGyoEXFFJlCaI9Qq9n6gVrM6p5A9mjVypxft
-	 0WyVDyTIVtp7AkF3PbdVPz8ctaCNGxzUFdZm9fzKFrE+Anjzs7EFURrm91WY3DbxVy
-	 vj0cXNKlf64ZP1BB6IMEZ7dmcUadfc6iY8Pl06XLpm/nm0W4mWih9hIrPn0bbNKwem
-	 PmLtWvux+zEkg==
+	b=W2tMd/v7s9rLX8ynF0cRPLHs94RN8G5MWfEbVVdw2VKlHlJFxza/0P655eaoT39Cu
+	 tC2bj4e3j989xGa4vPhBWO10xtPwhB5moGNgvpvmmgkVbpux2PxuIYje4X/M+cJ5Rt
+	 UcaWCo6e081u/UBbm14s8UvpRn99hmrELbhIZUTFIdpp5i0+Nh/fk/cy+Qy1SwI/KR
+	 fUt6Y7ZLguXM0EyNKpVAFeCH9aK3x4/CeZSXBQDIovNTfYo0pNuSZLBOzTRb4Z9MfC
+	 XDqK4LiGVXWwJhzOCHBn013HUxogE9TucpM57d/qCxHi//bhO10026Xn5SEanZqReJ
+	 r+dzIvIVKX1vw==
 From: Sasha Levin <sashal@kernel.org>
-To: rosenp@gmail.com,
-	daniel.machon@microchip.com,
-	kuba@kernel.org
+To: art.home@gmail.com,
+	vijendar.mukunda@amd.com,
+	broonie@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] net: bgmac: enable interrupts only after NAPI is ready" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:12:14 -0500
-Message-ID: <20261107051214-failed-6.18-ac1f6e58cb77@kernel.org>
+Subject: FAILED: patch "[PATCH] ASoC: amd: acp-config: force SoundWire probe on Dell 14S DS14265" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:12:16 -0500
+Message-ID: <20261107051216-failed-6.18-38cb2ef26b64@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,87 +69,79 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x ac1f6e58cb77bb66b8811f7d98703e0f076a8f65
+git cherry-pick -x 38cb2ef26b6411277826da54c6bcf94523541058
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051214-failed-6.18-ac1f6e58cb77@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051216-failed-6.18-38cb2ef26b64@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From ac1f6e58cb77bb66b8811f7d98703e0f076a8f65 Mon Sep 17 00:00:00 2001
-From: Rosen Penev <rosenp@gmail.com>
-Date: Sat, 10 Oct 2026 00:00:11 -0700
-Subject: [PATCH] net: bgmac: enable interrupts only after NAPI is ready
+From 38cb2ef26b6411277826da54c6bcf94523541058 Mon Sep 17 00:00:00 2001
+From: Art O Cathain <art.home@gmail.com>
+Date: Fri, 16 Oct 2026 11:29:30 +0200
+Subject: [PATCH] ASoC: amd: acp-config: force SoundWire probe on Dell 14S
+ DS14265
 
-bgmac_open() calls bgmac_chip_init(), which unmasks the interrupts and
-enables the MAC receiver, before request_irq() and napi_enable().
-bgmac_enet_resume() also enables NAPI only after bgmac_chip_init().
+The BIOS on the Dell 14S DS14265 (ACP PCI revision 0x72) reports
+acp-audio-config-flag = FLAG_AMD_LEGACY_ONLY_DMIC. As a result
+snd_pci_ps returns early and the SoundWire links are never scanned,
+while the legacy snd_acp_pci driver probes the device, finds no
+matching machine driver ("No matching ASoC machine driver found") and
+no internal sound card is created. The CS42L45 headset codec on link 0
+and the two CS35L63 speaker amplifiers on link 1 never enumerate.
 
-When frames arrive in that window, the first RX interrupt masks all
-interrupts in bgmac_interrupt() and calls napi_schedule() on a NAPI
-instance that is still disabled, so nothing is scheduled. Nothing
-unmasks the interrupts again, the RX ring fills up and the interface
-stays deaf until it is brought down and up without traffic.
+Add a DMI entry for the model to the ACP70 ACPI flag override table so
+the firmware-provided flag is overridden and snd_pci_ps probes instead.
+Match on the product name rather than the board name, as the same
+symptom has been reported on several boards of this model (09PVND,
+0M0J65, 0C7F12).
 
-On an Asus RT-N16 (BCM4716) a single "ip link set eth0 down/up" while
-a host sends UDP to the router left INT_MASK at 0, INT_STATUS with RX
-pending and the RX DMA idle on a full ring, with the RX packet and
-interrupt counters no longer moving. With this change, 10 of 10 such
-cycles recovered on their own.
+Tested on a DS14265 (board 09PVND, BIOS 1.5.3) with Debian's 7.2.6
+kernel, with and without this entry. With it, snd_pci_ps binds, both
+SoundWire links come up, the CS42L45 and both CS35L63 enumerate, the
+existing CS42L45 + 2x CS35L63 machine entry matches, the amplifiers
+load their firmware and calibration, and the amd-soundwire card plays
+through both the internal speakers and the headphone jack. Also
+build-tested on asoc-next with W=1.
 
-Request the IRQ and enable NAPI before the chip is initialized.
+Developed with AI assistance. Claude read the ACP driver source,
+identified the BIOS flag as the cause and the override table as the
+fix, wrote the DMI entry and the out-of-tree test module, and drafted
+this changelog. All hardware testing was done by the submitter, who
+has reviewed the change, understands it and takes responsibility for
+it.
 
-Fixes: dd4544f05469 ("bgmac: driver for GBit MAC core on BCMA bus")
-Fixes: f3537b3494c0 ("net: ethernet: bgmac: driver power manangement")
 Cc: stable@vger.kernel.org
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
-Reviewed-by: Daniel Machon <daniel.machon@microchip.com>
-Link: https://patch.msgid.link/20261010070011.60403-1-rosenp@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Art O Cathain <art.home@gmail.com>
+Reviewed-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Link: https://patch.msgid.link/20261016-dell-14s-acp-v1-1-89b40d95720c@gmail.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- drivers/net/ethernet/broadcom/bgmac.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ sound/soc/amd/acp-config.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/net/ethernet/broadcom/bgmac.c b/drivers/net/ethernet/broadcom/bgmac.c
-index 3e9c57196a397..1835266fdd09f 100644
---- a/drivers/net/ethernet/broadcom/bgmac.c
-+++ b/drivers/net/ethernet/broadcom/bgmac.c
-@@ -1183,9 +1183,6 @@ static int bgmac_open(struct net_device *net_dev)
- 	if (err)
- 		return err;
+diff --git a/sound/soc/amd/acp-config.c b/sound/soc/amd/acp-config.c
+index 30e01bc47ee0c..2fb9789cac0ac 100644
+--- a/sound/soc/amd/acp-config.c
++++ b/sound/soc/amd/acp-config.c
+@@ -98,6 +98,13 @@ static const struct dmi_system_id acp70_acpi_flag_override_table[] = {
+ 			DMI_MATCH(DMI_BOARD_NAME, "8EA2"),
+ 		},
+ 	},
++	{
++		/* Dell 14S DS14265 */
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
++			DMI_MATCH(DMI_PRODUCT_NAME, "Dell 14S DS14265"),
++		},
++	},
+ 	{}
+ };
  
--	/* Specs say about reclaiming rings here, but we do that in DMA init */
--	bgmac_chip_init(bgmac);
--
- 	err = request_irq(bgmac->irq, bgmac_interrupt, IRQF_SHARED,
- 			  net_dev->name, net_dev);
- 	if (err < 0) {
-@@ -1195,6 +1192,9 @@ static int bgmac_open(struct net_device *net_dev)
- 	}
- 	napi_enable(&bgmac->napi);
- 
-+	/* Specs say about reclaiming rings here, but we do that in DMA init */
-+	bgmac_chip_init(bgmac);
-+
- 	phy_start(net_dev->phydev);
- 
- 	netif_start_queue(net_dev);
-@@ -1608,10 +1608,10 @@ int bgmac_enet_resume(struct bgmac *bgmac)
- 	if (rc)
- 		return rc;
- 
--	bgmac_chip_init(bgmac);
--
- 	napi_enable(&bgmac->napi);
- 
-+	bgmac_chip_init(bgmac);
-+
- 	netif_tx_lock(bgmac->net_dev);
- 	netif_device_attach(bgmac->net_dev);
- 	netif_tx_unlock(bgmac->net_dev);
 -- 
 2.53.0
 
