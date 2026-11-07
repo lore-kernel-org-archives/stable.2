@@ -1,55 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047501;
-	b=SMbLkyM18JDn9/SwdIBPUnvviphUDu9MCjtWPKRW0O8nGFHHcqNJNfp9KBL8CESsp0hP
-	 Ktn9/itja6ghEz2cqUkTlyLSA/nK7vQRoU/DIhhAT+/LNkQAuv1K/zqWNnDEuB2QF9fgL
-	 kOk6ZMADjSW1fWVqbOLyy5TJouVsL39HFe2jdcP498wvCR4tTUtaFqLFKkZrn8lyhYMSS
-	 rns7LNcnenbHUaRqfYjVIFwvxnta0oh1Mk83AdHQR+VRYXKeT8h7r5UpQ0kHq/3WZ5cVw
-	 ve5/Fzr6kpzCY+fT7g2I4sMEPROwll5BaPFoZm85DZHwsycdZVp3aJtXEgDBSCWsIBA==
+	t=1794047503;
+	b=slbuhE5UEMW8CzWqqUWlJRUTPQAiHq4CUoyReNSzs4Pc7Labk32UHdYDWBA7KPSohosH
+	 WJVLPvzI0r8LPihoTPAR98bQURpwb6w8I2UMnzphJfcLIyc66UNzwZLjvF/w9ZD/CdToX
+	 rujc9SOamodAHCQfSLZ4Oc9dcxWi0DuTbateALGLUcVigZjBm9t6kCVObw7Qb08J2iblh
+	 OK8GseJ4fGG4WARo3Zk4bYNaSDJsi7xoh5jHweiqF2SvkvQ4LEx/WN+6sjsuvJto18zc3
+	 FvICuh6AarAhCx3EEnJlQC9t5h7IVFUMmrWUF9tivtVYQo6C/vLThmnJHupY/R0L7cg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047501;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047503;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=c5ZcVIrt8FNpRT5dC24onjuXAX5j2QkKEAZwhxOR3/k=;
-	b=l+C+IMUhT++jLElBJNnBUInVx2v6sZkUrz7h64aXxTFLrik7zaIczi7iz69VyiyXuKeb
-	 EIs8qkwNwctP+V296Lze9Kv9wnhHfBkTJKV+u6fkThOMVnrrEt5qaVju30t6Y2I5qC2+S
-	 74dUiP4rUudWS+N4VZjT+wfFmka/6rgs3Phw4eQwKGcmVG3BiC/dYaxJ+GkxNzZm5T8Ph
-	 bTflJF6SmpoGtnfxt+Rc7PLw3i5K2he+5gIJMaV4tCXvZpeNZsy9lkUhYqb3BsD+L8Uht
-	 IA4mkrDR4dKDtyYZcJZcu+ocb2XcgfbGOFcMY65kIYz2cFbYoOx9zscNitlrMczj9sQ==
+	bh=phqHGEwnNG6KGwviCip8m3TyiNLuiT1D/Z8tM2Ka0wg=;
+	b=LqoL9zRpK2ytMsWHBE/YoknbgRZP1TQeDqG1PIAYvIX8vJtra3Y4kXys1OmfN06cIm8/
+	 R+W2VK4/51mMDKkXionGdRjbxTVvvNgKxcFs9emXdWmFBkEYDN4gfSYgGKV+7FNsFXBwn
+	 H5/MSUGA8yF7301JHwq9LVaC6/23YBXbVMCoX2pl6iRZ963ur1WjVwNI/UgXxPCVTiG72
+	 8S7kdB0/28cvXMbF5LcVOd2Cs2IOkyKzWqld1DWCPhrk9yBs4my8K4S+LBB3nb5sFpb56
+	 ZXheyjvthJ9M6KlVOjJE0wWE1ly+U6UjxjPubURe+8XSeG1JBnOQG5pTxkvRS5gl7Pg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KMQM2X56;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BZri4Fbq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F733606A339
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:31:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47AC8606D822
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:31:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KMQM2X56
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D4AE1F0089F;
-	Sat,  7 Nov 2026 10:31:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BZri4Fbq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D5E21F0089F;
+	Sat,  7 Nov 2026 10:31:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047500;
-	bh=c5ZcVIrt8FNpRT5dC24onjuXAX5j2QkKEAZwhxOR3/k=;
+	s=k20260515; t=1794047503;
+	bh=phqHGEwnNG6KGwviCip8m3TyiNLuiT1D/Z8tM2Ka0wg=;
 	h=From:To:Cc:Subject:Date;
-	b=KMQM2X56XPN1MC09psYvM4UlvAMTnZfMk35DYWUEJ13+jbiMjR48/oufhYPbK/xzY
-	 5oAfCutKPbBfAH8CWeJqIdtgCf6rkyoE1pyBzoxrAlNASmu1l/PSQYyHb8M08uxSA1
-	 3ZwzGGxGQ5BUTNXFr9XmUTKXD5a14puOPMGGSejNxZA+Ue2oqnMMYgeHJiceB1bou3
-	 /ewacd1mLVLl47K9tNDwKe9tgHwEVdkEbLgovG+CiWYtrK6Yh5XTszq8loLQnobbNB
-	 AVRV5NTBWKaJj+bVJr0C2baZUqFXATWVHmfa5m+42mn72G+kfCcoTfbGb+XB0EjEP7
-	 eyqznd+NYkWQg==
+	b=BZri4FbqGuGAKLPfnRz4PM8Sne91k+c3DuoZr7c5WOsLH7dwTcoc33VE3jSBHUOTy
+	 tmjhV4sguQ9bCLb63TzTXqA32XXwkKPE+5n3xcjzBJDLAdeLhsogACYfrGpfC82v2F
+	 fcUZN04ufohssBZG/myBxCK7ivCYBqmlhADhJr4eIZNBM0sIGe1TTfYdwLxJIJC1PP
+	 lE3UvnL91CDDZk1FLOSmhI4P60uHgT/rhBLhHaDJI3eLYO/5PQiCCoI+EhE289Dgj6
+	 0vZR4VFXX3WoSRkkCibFiplR0RJasc637JXI6AqBwWExML2BRw9O4+mH6TobvJtE4V
+	 SSgtaBZ3WYZvQ==
 From: Sasha Levin <sashal@kernel.org>
-To: abelvesa@kernel.org,
-	johan+linaro@kernel.org,
-	caleb.connolly@linaro.org,
-	andersson@kernel.org,
-	abel.vesa@linaro.org,
-	abel.vesa@oss.qualcomm.com
+To: djwong@kernel.org,
+	hch@lst.de,
+	cem@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] soc: qcom: pmic_glink: Fix device access from worker during suspend" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:31:39 -0500
-Message-ID: <20261107053139-failed-6.6-c7c56b6ec077@kernel.org>
+Subject: FAILED: patch "[PATCH] xfarray: don't crash when sorting if array element crosses a folio" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:31:41 -0500
+Message-ID: <20261107053141-failed-6.6-329750292e9d@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -72,110 +69,130 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x c7c56b6ec077cb96657494b8c18c2c78625035b1
+git cherry-pick -x 329750292e9dfbb594b375d7b30cf5ddb58b7bb9
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053139-failed-6.6-c7c56b6ec077@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053141-failed-6.6-329750292e9d@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From c7c56b6ec077cb96657494b8c18c2c78625035b1 Mon Sep 17 00:00:00 2001
-From: Abel Vesa <abel.vesa@linaro.org>
-Date: Wed, 19 Aug 2026 10:23:28 +0300
-Subject: [PATCH] soc: qcom: pmic_glink: Fix device access from worker during
- suspend
+From 329750292e9dfbb594b375d7b30cf5ddb58b7bb9 Mon Sep 17 00:00:00 2001
+From: "Darrick J. Wong" <djwong@kernel.org>
+Date: Tue, 22 Sep 2026 22:59:42 -0700
+Subject: [PATCH] xfarray: don't crash when sorting if array element crosses a
+ folio
 
-For historical reasons, the GLINK smem interrupt is registered with
-IRRQF_NO_SUSPEND flag set, which is the underlying problem here, since the
-incoming messages can be delivered during late suspend and early
-resume.
+LOLLM points out that if an array element crosses a folio boundary,
+xfile_get_folio returns a NULL folio pointer.  If this happens,
+si->folio is also set to NULL, and calling folio_pos/folio_address will
+just crash the kernel.  Teach this function to handle this condition by
+falling back to reading the array element into scratchpad memory.
 
-In this specific case, the pmic_glink_altmode_worker() currently gets
-scheduled on the system_wq which can be scheduled to run while devices
-are still suspended. This proves to be a problem when a Type-C retimer,
-switch or mux that is controlled over a bus like I2C, because the I2C
-controller is suspended.
-
-This has been proven to be the case on the X Elite boards where such
-retimers (ParadeTech PS8830) are used in order to handle Type-C
-orientation and altmode configuration. The following warning is thrown:
-
-[   35.134876] i2c i2c-4: Transfer while suspended
-[   35.143865] WARNING: CPU: 0 PID: 99 at drivers/i2c/i2c-core.h:56 __i2c_transfer+0xb4/0x57c [i2c_core]
-[   35.352879] Workqueue: events pmic_glink_altmode_worker [pmic_glink_altmode]
-[   35.360179] pstate: 61400005 (nZCv daif +PAN -UAO -TCO +DIT -SSBS BTYPE=--)
-[   35.455242] Call trace:
-[   35.457826]  __i2c_transfer+0xb4/0x57c [i2c_core] (P)
-[   35.463086]  i2c_transfer+0x98/0xf0 [i2c_core]
-[   35.467713]  i2c_transfer_buffer_flags+0x54/0x88 [i2c_core]
-[   35.473502]  regmap_i2c_write+0x20/0x48 [regmap_i2c]
-[   35.478659]  _regmap_raw_write_impl+0x780/0x944
-[   35.483401]  _regmap_bus_raw_write+0x60/0x7c
-[   35.487848]  _regmap_write+0x134/0x184
-[   35.491773]  regmap_write+0x54/0x78
-[   35.495418]  ps883x_set+0x58/0xec [ps883x]
-[   35.499688]  ps883x_sw_set+0x60/0x84 [ps883x]
-[   35.504223]  typec_switch_set+0x48/0x74 [typec]
-[   35.508952]  pmic_glink_altmode_worker+0x44/0x1fc [pmic_glink_altmode]
-[   35.515712]  process_scheduled_works+0x1a0/0x2d0
-[   35.520525]  worker_thread+0x2a8/0x3c8
-[   35.524449]  kthread+0xfc/0x184
-[   35.527749]  ret_from_fork+0x10/0x20
-
-The proper solution here should be to not deliver these kind of messages
-during system suspend at all, or at least make it configurable per glink
-client. But simply dropping the IRQF_NO_SUSPEND flag entirely will break
-other clients. The final shape of the rework of the pmic glink driver in
-order to fulfill both the filtering of the messages that need to be able
-to wake-up the system and the queueing of these messages until the system
-has properly resumed is still being discussed and it is planned as a
-future effort.
-
-Meanwhile, the stop-gap fix here is to schedule the pmic glink altmode
-worker on the system_freezable_wq instead of the system_wq. This will
-result in the altmode worker not being scheduled to run until the
-devices are resumed first, which will give the controllers like I2C a
-chance to resume before the transfer is requested.
-
-Reported-by: Johan Hovold <johan+linaro@kernel.org>
-Closes: https://lore.kernel.org/lkml/Z1CCVjEZMQ6hJ-wK@hovoldconsulting.com/
-Fixes: 080b4e24852b ("soc: qcom: pmic_glink: Introduce altmode support")
-Cc: stable@vger.kernel.org    # 6.3
-Reviewed-by: Caleb Connolly <caleb.connolly@linaro.org>
-Reviewed-by: Bjorn Andersson <andersson@kernel.org>
-Signed-off-by: Abel Vesa <abel.vesa@linaro.org>
-Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Link: https://lore.kernel.org/r/20260819-b4-soc-qcom-pmic-glink-fix-device-access-on-worker-while-suspended-v3-1-169b00e0d9d4@oss.qualcomm.com
-Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+Cc: stable@vger.kernel.org # v6.6
+Fixes: cf36f4f64c2d4e ("xfs: cache pages used for xfarray quicksort convergence")
+Signed-off-by: Darrick J. Wong <djwong@kernel.org>
+Assisted-by: LOLLM # finding obvious bugs
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
 ---
- drivers/soc/qcom/pmic_glink_altmode.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ fs/xfs/scrub/xfarray.c | 69 ++++++++++++++++++++++++++++--------------
+ 1 file changed, 47 insertions(+), 22 deletions(-)
 
-diff --git a/drivers/soc/qcom/pmic_glink_altmode.c b/drivers/soc/qcom/pmic_glink_altmode.c
-index 13c434f8d03a6..465e5d2316a04 100644
---- a/drivers/soc/qcom/pmic_glink_altmode.c
-+++ b/drivers/soc/qcom/pmic_glink_altmode.c
-@@ -451,7 +451,7 @@ static void pmic_glink_altmode_sc8180xp_notify(struct pmic_glink_altmode *altmod
- 	alt_port->mode = mode;
- 	alt_port->hpd_state = hpd_state;
- 	alt_port->hpd_irq = hpd_irq;
--	schedule_work(&alt_port->work);
-+	queue_work(system_freezable_wq, &alt_port->work);
+diff --git a/fs/xfs/scrub/xfarray.c b/fs/xfs/scrub/xfarray.c
+index 2ce24bfe4c0fa..5ea3ce4bf8d84 100644
+--- a/fs/xfs/scrub/xfarray.c
++++ b/fs/xfs/scrub/xfarray.c
+@@ -794,6 +794,46 @@ xfarray_sort_scan_done(
+ 	si->folio = NULL;
  }
  
- #define SC8280XP_DPAM_MASK	0x3f
-@@ -502,7 +502,7 @@ static void pmic_glink_altmode_sc8280xp_notify(struct pmic_glink_altmode *altmod
- 		alt_port->tbt_data = *tbt;
++static int
++xfarray_sort_load_folio(
++	struct xfarray_sortinfo	*si,
++	xfarray_idx_t		idx,
++	loff_t			idx_pos)
++{
++	struct folio		*folio;
++	loff_t			next_pos;
++
++	folio = xfile_get_folio(si->array->xfile, idx_pos, si->array->obj_size,
++			XFILE_ALLOC);
++	if (IS_ERR(folio))
++		return PTR_ERR(folio);
++	si->folio = folio;
++
++	/* No folio?  Get the caller to read into the scratchpad. */
++	if (!si->folio)
++		return 0;
++
++	si->first_folio_idx = xfarray_idx(si->array,
++			folio_pos(si->folio) + si->array->obj_size - 1);
++
++	next_pos = folio_next_pos(si->folio);
++	si->last_folio_idx = xfarray_idx(si->array, next_pos - 1);
++	if (xfarray_pos(si->array, si->last_folio_idx + 1) > next_pos)
++		si->last_folio_idx--;
++
++	/*
++	 * If this folio still doesn't cover the desired element, it must cross
++	 * a folio boundary.  Get the caller to read into the scratchpad.
++	 */
++	if (idx < si->first_folio_idx || idx > si->last_folio_idx) {
++		xfarray_sort_scan_done(si);
++		return 0;
++	}
++
++	trace_xfarray_sort_scan(si, idx);
++	return 0;
++}
++
+ /*
+  * Cache the folio backing the start of the given array element.  If the array
+  * element is contained entirely within the folio, return a pointer to the
+@@ -819,33 +859,18 @@ xfarray_sort_scan(
+ 	    (idx < si->first_folio_idx || idx > si->last_folio_idx))
+ 		xfarray_sort_scan_done(si);
+ 
+-	/* Grab the first folio that backs this array element. */
++	/* Grab the folio that backs this array element. */
+ 	if (!si->folio) {
+-		struct folio	*folio;
+-		loff_t		next_pos;
+-
+-		folio = xfile_get_folio(si->array->xfile, idx_pos,
+-				si->array->obj_size, XFILE_ALLOC);
+-		if (IS_ERR(folio))
+-			return PTR_ERR(folio);
+-		si->folio = folio;
+-
+-		si->first_folio_idx = xfarray_idx(si->array,
+-				folio_pos(si->folio) + si->array->obj_size - 1);
+-
+-		next_pos = folio_next_pos(si->folio);
+-		si->last_folio_idx = xfarray_idx(si->array, next_pos - 1);
+-		if (xfarray_pos(si->array, si->last_folio_idx + 1) > next_pos)
+-			si->last_folio_idx--;
+-
+-		trace_xfarray_sort_scan(si, idx);
++		error = xfarray_sort_load_folio(si, idx, idx_pos);
++		if (error)
++			return error;
  	}
  
--	schedule_work(&alt_port->work);
-+	queue_work(system_freezable_wq, &alt_port->work);
- }
+ 	/*
+-	 * If this folio still doesn't cover the desired element, it must cross
+-	 * a folio boundary.  Read into the scratchpad and we're done.
++	 * If we don't have a folio mapping the entire array element, read into
++	 * the scratchpad and we're done.
+ 	 */
+-	if (idx < si->first_folio_idx || idx > si->last_folio_idx) {
++	if (!si->folio) {
+ 		void		*temp = xfarray_scratch(si->array);
  
- static void pmic_glink_altmode_callback(const void *data, size_t len, void *priv)
+ 		error = xfile_load(si->array->xfile, temp, si->array->obj_size,
 -- 
 2.53.0
 
