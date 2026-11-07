@@ -1,54 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050958;
-	b=3m4S5su094oWjSA3+YkvakLZKwm0fmA83CvhthyGfnNRfsPUS/O4Ki8b24KwSnCHy5Bb
-	 jE6yBx8162keLxGBvBxA8dzyfhJoD+k+zDdLw9HQRT61dU+XCLRFYE8r+J0S9zcVWHNNH
-	 fetWUETF+v6X17+Lq/6Nfk7uYXrMRO4dGj3XhE5iy3k9afgTGfzmfefvYgSn+4tJdOV2b
-	 dDkpELRd3kmPZdDlTS2QhEs09Yb1JB7ZLO3bY9uq/ATM3Q0kOHmG81HhcRVYdDD5IGNml
-	 KSYJ60P54QFS3OKoV+WlxKSTReE1oihskwC43n5QZEd/bO/HIF8cTYr+ErLgwhB6POQ==
+	t=1794050961;
+	b=OAvAuWnqItG3/C34zRNJx3mXRGu1oSl8B9rznXgWNcGB3GpibBSgznogR/aBCCrh44hM
+	 z66VWpg4VxC9nFlbFEahGMtsTwj/wmOybT3JZol4eXBeRL7JfsEBSvXG0h92CRsruw6I0
+	 g07goqAKG/RJl/sMdVX3WrS5lfJ7Ol7ms+lariqxbqM0qRahl9vbIHRYBRLfwB7nXcv+W
+	 ly+G7RvDqSZQ7TozUUY5Z8MdWjcfgagWC7Ex6l/pQZedOcXfMOYebIQexUBVP11EktqbR
+	 Zbr7BHiNSM/ygK2Ncl9+7IZ+EbSIXEGZg+MXTc8ALS6vq1T1lkygtsmtXfwTAoixqeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050958;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050961;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=VGaNVe8rDNy6TEIzHLIsGjWS+bPJpW/DS5FNv8/oAGg=;
-	b=eMg/Ul5ozKGJCpobBN47/mEqoJ4mkqAyTPjk6oqpJ5bBDB3Ie3IWm93JW6w5pAqgdhkm
-	 /AYtwP+c6LcGsVo1Ilp3g2t38oY9kQpz65h2MS+rp4mL4urb47a9z/stp+s90aEMUaIQE
-	 a4kJKhxC/ZcbJaoI3BRojEGg+v60N/K1BurkgtRf2ougPwdcowyxwCsxxkn2pl4sBwNma
-	 M6JI5dcheymGBWRaXY6JsG017bHiMi1oucfrU4ZlXHcZ6rdlMdY/OTSX9bmwH1V6tUZCu
-	 VFz5VHpI3EBxHz3WjNuzvOpF1/TGQ9t6vl96i1tVpf4z8F81aJpMb8LXGyinGDsF1dw==
+	bh=fRGtNS5DxXfPxAfQNJwaxBKLCutoZOBSEaFy0mV1MIw=;
+	b=goI6ka9m9duqHfIt9RQ7vwtLW7RgBDxyVMHI0grQaYILQKBvGcux55BAeFdj2ZyOEhpD
+	 0colIrH57ZHEqC3MhiedpiUCbiMJD22XSH40rNIwnlGN/DjZLdf4DYOuehM6JpbMEKDCs
+	 JcMdOj2M9emZwrD58SEO9GRbwqlM3BjXaXqDolNKRZCRV82OqFdhTHaowqcwyAg1EUGZC
+	 GZEN7/jQFn/RSMEP6uBjvieEHgkqpIqi5AUvpACRg3fV4+hce9ivnSIzgpHd+3zK3jZkn
+	 cFCdt/WNG/ozmUHAhOzRb2KqEj26M9ThLPIV2nozX+XqhsgPfyO3zXJ4m5Dltm9Ni9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Aj1dXrPu;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Hrfd/ApY";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8EE8606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:29:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCAC3606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:29:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Aj1dXrPu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1475A1F0089F;
-	Sat,  7 Nov 2026 11:29:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hrfd/ApY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5162C1F0089F;
+	Sat,  7 Nov 2026 11:29:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050957;
-	bh=VGaNVe8rDNy6TEIzHLIsGjWS+bPJpW/DS5FNv8/oAGg=;
+	s=k20260515; t=1794050960;
+	bh=fRGtNS5DxXfPxAfQNJwaxBKLCutoZOBSEaFy0mV1MIw=;
 	h=From:To:Cc:Subject:Date;
-	b=Aj1dXrPuikbMEkFX0VVj7Fg3hv5Jv3VQCrdZWk7RrJcas/Hm8yQylMhl0ImWeNDYW
-	 WY5JZpsN+kpEEKbE67ZpLwXdEMtdXRAxyXk7EfDzrbQ+5CADipZuSCuiBXgULU32gG
-	 ofQRJ8+Z9y0oP3GXU+iuC0DY4fyzVYFsf1ukYZU0aa9Ys14SJNX1B9LubB+nw5u+G2
-	 qxRUEyZmnAOdeLkJ12p6MqE7X+Dw3tKOFUOh3OUry/4ItrKWhME/XQaBVHAlQTxA1L
-	 4cWxknw8WQqhKZs0euFIkYV7sI0eiplaX/WHvnkZKw9GjePnJ1KxHx0mOxMJGFq/Kx
-	 EhAd26xaYWraQ==
+	b=Hrfd/ApYqX7qvy6Df1MbH2G8PvbwQ+cknLpBIiy1G9fzegyOaZP9i75yPh8WbRMbt
+	 F7Fm7CnURojyokEeHJCCESfT/wrY1teDCqbNv77NHFAJ8BtEA83PnO6doA2lqz5pnl
+	 QZQ8RFMDZFXJFyDAumQtj1yNlIVtichbEQLPpusTd0RnYmzbS4GkF6jra5RXBllK3V
+	 JQ5wpF5IR9EcKfJSgHomBcdJzC+DlkPMURJm9G85BVlM306VMCnY0LzNDrmoqQc+yQ
+	 hB87QWO9zbr85/5E7/BprzmGYiLqSjJICoIcDnm4w2sBaYgvRTrKTrYpMKvqtEVijF
+	 vIjcF9C4SkBlg==
 From: Sasha Levin <sashal@kernel.org>
-To: zzyy19904204639@163.com,
-	vega@nebusec.ai,
-	weir@nebusec.ai,
-	amarkuze@redhat.com,
-	idryomov@gmail.com
+To: chao@kernel.org,
+	jaegeuk@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] libceph: initialize CRUSH choose argument weights" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:29:15 -0500
-Message-ID: <20261107062915-failed-5.10-c3a995ff0782@kernel.org>
+Subject: FAILED: patch "[PATCH] f2fs: fix to fetch ino via ino_of_node() under cache lock" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:29:19 -0500
+Message-ID: <20261107062918-failed-5.10-cd6d8b189139@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,49 +68,54 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x c3a995ff0782587789333c621e1f6bd5e574371e
+git cherry-pick -x cd6d8b1891395b681f2060916a4b83880b765698
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062915-failed-5.10-c3a995ff0782@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062918-failed-5.10-cd6d8b189139@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From c3a995ff0782587789333c621e1f6bd5e574371e Mon Sep 17 00:00:00 2001
-From: Darong Lu <zzyy19904204639@163.com>
-Date: Mon, 28 Sep 2026 01:44:22 +0800
-Subject: [PATCH] libceph: initialize CRUSH choose argument weights
+From cd6d8b1891395b681f2060916a4b83880b765698 Mon Sep 17 00:00:00 2001
+From: Chao Yu <chao@kernel.org>
+Date: Mon, 26 Oct 2026 08:23:49 +0800
+Subject: [PATCH] f2fs: fix to fetch ino via ino_of_node() under cache lock
 
-Initialize the CRUSH choose argument weight-set array before decoding so
-entries start in a defined state while the decoder fills them.
+In f2fs_writeback_node_caches(), it's better to fetch ino via ino_of_node()
+under cache lock, otherwise, node cache content may become stale after cache
+is unlocked due to racing w/ truncation.
 
-Cc: stable@vger.kernel.org
-Fixes: 5cf9c4a9959b ("libceph, crush: per-pool crush_choose_arg_map for crush_do_rule()")
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: LLM
-Signed-off-by: Darong Lu <zzyy19904204639@163.com>
-Signed-off-by: Ren Wei <weir@nebusec.ai>
-Reviewed-by: Alex Markuze <amarkuze@redhat.com>
-Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
+Commit 493b9dc8b52c ("f2fs: cache: use node cache") fixes similar issue in
+f2fs_flush_inline_data() introduced in commit 34c061ad85a2 ("f2fs: Avoid double
+lock for cp_rwsem during checkpoint").
+
+Cc: stable@kernel.org
+Fixes: 2049d4fcb057 ("f2fs: avoid multiple node page writes due to inline_data")
+Signed-off-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
 ---
- net/ceph/osdmap.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/f2fs/node.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/net/ceph/osdmap.c b/net/ceph/osdmap.c
-index 7d65a81148166..e69a2249ddfbf 100644
---- a/net/ceph/osdmap.c
-+++ b/net/ceph/osdmap.c
-@@ -319,7 +319,7 @@ static int decode_choose_arg(void **p, void *end, struct crush_choose_arg *arg)
- 	if (arg->weight_set_size) {
- 		u32 i;
+diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
+index 424e95ca58789..44f94000d452c 100644
+--- a/fs/f2fs/node.c
++++ b/fs/f2fs/node.c
+@@ -2195,9 +2195,11 @@ int f2fs_writeback_node_caches(struct f2fs_sb_info *sbi, long nr_to_write,
  
--		arg->weight_set = kmalloc_objs(*arg->weight_set,
-+		arg->weight_set = kzalloc_objs(*arg->weight_set,
- 					       arg->weight_set_size, GFP_NOIO);
- 		if (!arg->weight_set)
- 			return -ENOMEM;
+ 			/* flush inline_data */
+ 			if (f2fs_cache_test_inline(entry)) {
++				nid_t ino = ino_of_node(sbi, entry);
++
+ 				f2fs_cache_clear_inline(entry);
+ 				f2fs_unlock_cache(entry);
+-				flush_inline_data(sbi, ino_of_node(sbi, entry));
++				flush_inline_data(sbi, ino);
+ 				goto lock_node;
+ 			}
+ 
 -- 
 2.53.0
 
