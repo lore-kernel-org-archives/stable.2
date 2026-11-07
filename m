@@ -1,52 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794025656;
-	b=JJWf4PTQFoJtMKGhPUUDNYGg3lqgwXhsA5T6vNEKYv0yW452hVD+hDhTCWNBuqXoBK9z
-	 Qk1oSuDjutcdNnap2CF1QZw2UjalLgUkQXTI8WVeGukGchRkYmxSWg11fqYs5dLTtLuQv
-	 euBQVbXYNUr+Cjo2mQYEw7USIT/G4Xex837a7wrnlxbS1HxnfeW8q45/LX3d+8HY4CRWX
-	 Tg8UoMRxmsX0z4csaxTOrVoeRt3anazoyqMiitN7xn+NNG6kFNyDggRZWRCW2P2MgjXOH
-	 bQON/3a0zHwWA4TXEGc374Dp6SyuePyfGiNodoN7e/BostEXzl+tam095znhK1Hb3AQ==
+	t=1794025884;
+	b=uWFEiJMx47Avz7nb9gM26c/oIusvhVgUqoEl/zFYjo4RxrYAxQDujp+oZrfx58yqaT8F
+	 qx0YamX1hWocDnHujR3Bw94mScbjP5j/s44S74LKG3f3nOymc/QHtcgDTDZfflrBMG1Zl
+	 kNcNWc+g4BGvbJlZqk2gp3I4cZgt4As9w04vYlntjmCUNUz7be1CFXZOtHFfX7gK72Gyb
+	 X06ejY0qPtuPvJXgbcbNsLzw23RxCitB7akQ6nVBCpBixUgMSfv0TDNdx+yAF9etn81wq
+	 QTg0eIws7gYP0Troisxx69jgMaVSglcBXb0uv8ySEFhxWn74o8uBfPhtFhJrYENzYqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794025656;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=rAtQts0/y+DMr20KjfVhJrCziBiGrrN5MWPVuW3jcZ8=;
-	b=FPkisDdkph9JTVSJP8xkxzcHr+EsakW9fbklENqy7x7tuu5CcqubCoy/ON4/wl3p6P6P
-	 VOeFk+zSbQzGdkgIeKTL1loXkotAcNoVZrIozuKVppGBHAaKuwU1guBCWocoTTeSL1zIx
-	 rGePUh4xAunR6NBW0+7g4QNy1tMav36fkyy2WYxdA5gXSZMfk0185pL7+yLesRLnmxJI7
-	 FX3pRokgy3UJmotAGyBs3lCI5Px1MF0MPOZN1uLOeX8zObZnEaHGv1xHwn8Eg81gKO2wg
-	 erJefeNxMDnhnzAov7JZpVH67DxLgrSmGB2xV0p1uLHhHN1A4F6ulQ86sQJrQQlMbrg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794025884;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=0h921tV9Ds9KKioXJ9IFecI2/WeMjRPzZktFXa2aBNY=;
+	b=TEi7+Ovq6wDAQTdo5q3/sCRUiVQZqu8mClPi2WETxTvEHr0+AAko2sfz748n+lthXvLM
+	 C8aHZeuI4+/vV+ZkevZ55/IynOxqMRZqTS4oK8aRDvdkkMcMjPIQszR4basgr/7LaDFV9
+	 d1CYh0M5cVUGjFyDh1iPB34SGHmkHpT10D9bROr+0DauTW+wA8mL5YTeecAtXSvxtuPBW
+	 kG3PWPxnDI4Yc2yoMWT2skzvc6LrUUriExlGTUYYCEOipeKSJQMJM3aLAs9+40uBCRCHS
+	 jHXgT3WMzOvZXom8iEYp6r802eIOsRkF35VJ1wfrWtnkbY0X+HSWvH8bQ4voj3RipTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.81
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=afgtQFQ8;
+	arc=none smtp.remote-ip=209.85.161.46
+Received: from mail-oo1-f46.google.com (mail-oo1-f46.google.com [209.85.161.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43E72606A333;
-	Sat,  7 Nov 2026 04:27:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43E72606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from fc87d0ffb700.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowADX24yvqO5qbSR5AA--.17892S2;
-	Sat, 07 Nov 2026 12:27:28 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Lee Jones <lee@kernel.org>
-Cc: linusw@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-leds@vger.kernel.org,
-	pavel@kernel.org,
-	vulab@iscas.ac.cn,
-	stable@vger.kernel.org
-Subject: [PATCH v2] leds: netxbig: Fix platform device reference leak on successful probe
-Date: Sat,  7 Nov 2026 12:27:37 +0800
-Message-Id: <20261107042737.708109-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260922160323.GB3438784@google.com>
-References: <20260922160323.GB3438784@google.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6819F606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 04:31:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6819F606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=afgtQFQ8
+Received: by mail-oo1-f46.google.com with SMTP id 006d021491bc7-6f74f6b46abso604190eaf.0
+        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 20:31:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794025883; x=1794630683; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=0h921tV9Ds9KKioXJ9IFecI2/WeMjRPzZktFXa2aBNY=;
+        b=afgtQFQ8CqFm8A9ZkN2qARev23JoQK54oZ97jcMr1Uo78QBBJkeN0xAnkJ92JagxK5
+         RtnuGRdwzBqzElwbLaWQcq/vj6rIICR9SjgCclhKHjZyckSODQLOCt09A6lfyeaNzqlE
+         zY0lkk3fls7krEPREDmIlO9yAqzBOCgmdLZiGy6BKoc3EM+TdOTA1KkCvxbVUNMEWgFa
+         r8LRl/CcXVR+ZpCuPU8qnJwdktkx2ksZQ72kgpalWIjgKKrQ6lqVqaKK33WToUAc4fYc
+         9Wc6u2F8P3k/q4aP5dWKh6wFONKSINVX0Vdr6pwFuft0M6twwoN9NSCjUSCYcgG7qpfy
+         mptg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794025883; x=1794630683;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=0h921tV9Ds9KKioXJ9IFecI2/WeMjRPzZktFXa2aBNY=;
+        b=uVDMMWWfB0WcYcqMHP7FmIR1q4jBnk896OIWhQyVrweIY9p1exbmGvYTW4pxrokn3H
+         t0i0c8XN/3bkbAqHhNmSvIOmgzmiT09R+8m+TU96lUDGLOAVzzTtD12m2OCIHh5cnqhi
+         lXJlpRJI5TSZB3mOBhfXG7KBXXPBZ/aouzXQtwl42dTyqn59KFG39sGTDdTCv456cUFs
+         tFcwU8ejOa0YnFW6qSIvEHOFJuCE8EemjundbW6ImX7TVoazKrEyAjyPr/hAtB/qOYL3
+         GD7VtaWdXDEY0w9nx2YYoD9t4fBQH5MlvptDDiJaViX4kZKJmsNz9vSkqd5lrPCjJokS
+         yo5Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxdI2Bskeij84aNicYGTyeF+F3vniA/KgbL+eikdelj3rdvQkDVETIPrfXMWkSELw82WlbbuzE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z94HLLy7bMOOuqdcz+jl3ACoqSUPg8QLjhF+ZuWwnUS6f5itp8C
+	WBLaPFkZqO6EGaiVIJDkaIzI8ABasYQtsYAL2lbvrdqD4DXrvOQ9jPwA
+X-Gm-Gg: AYBFou1Pt2yflLrY9LX9zSbbhxPyvlbTaYrB2Gd6Y9uaQN6pZI8BjYH1pmNRQR/M58h
+	7j9qnceMzpdnVjLdMMY1kzERBajEWkQqczcm5W8LHcApa7CyxIXvox0gs60ywm2xxjV+lDdqbCg
+	D4F2uTdRPHRC+ZnR8aBRO6T9d/m+BkqOUWmOD3IiW870G5a0z4M+8wV/0V+tPDlyutmiPIsXSBG
+	EWn6ibd0P5fBBlMQycU0AQvZSctTjb+PgAnHjV5qrzpYXMXe0MvwgZVmymhsN4aI5isk8hqqKE4
+	RhGNQvJNnpqifLJazZuhhS9gwaZvbyNkvGXUXPsqpDSONsDuSY3RUN62juvF+W2WNrjeqs1Vtj7
+	xc80lZmggjEMOOoHdf1uDph2+YrtQKayZRPnKAwSD1tznGMfcFh68PqoY0RL5/nqQ4g9OoCcELd
+	dleH1wpddtjNgo7ZWpN7PyKkPYj1aun8fqUru1iQUgQVN5KQtk0bZ7u/78doAuM722fBufqHY4j
+	EZFxxAZO3XChTNXrwAlPAMh67dHYWNKtx95xQMwCf9UlzQkRWZMpu88J3HRwbHASuiJ5zWdh5Se
+	36MBoMMcVaUscE0cDVShzmHnAQOyI49DXKbFOayVpzNiS1iOhFNk4JQ0iDY7/fKKxRaXO8Ruduh
+	1hzhYCLZRO1dWDsDtQso1BZwMypWACemBkDqzKkcnrtb0JtEs9NG1pVDbcMsv+2/6PQ1uBJFvdM
+	hJDxEmRfoa2GrXZ5OCWuhO9ZwKuf381fUeBhj+JE2p7ADK5rniuDA=
+X-Received: by 2002:a05:6820:3417:10b0:713:da3b:9127 with SMTP id 006d021491bc7-716e7912499mr1864653eaf.46.1794025883255;
+        Fri, 06 Nov 2026 20:31:23 -0800 (PST)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4ad979ebbd1sm3579607fac.9.2026.11.06.20.31.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 20:31:21 -0800 (PST)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Fri, 06 Nov 2026 21:31:18 -0700
+Subject: [PATCH] mtdchar: initialize MEMREAD statistics before each read
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -56,198 +92,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowADX24yvqO5qbSR5AA--.17892S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxZr1Uuw4Uur4DGFWxZFyfXrb_yoWruF15p3
-	y5Cas0gFW8GFyIgF1kZa1UAFyUCr1IyayfKF1vkF9293WSvryFqFy0qF1YqFZYkFykZrW3
-	JF4rta1rJFWDZrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvm1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AE
-	w4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2
-	IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2
-	jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Cr1j6rxdM2AIxVAIcxkEcV
-	Aq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r12
-	6r1DMcIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x
-	0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_JF0_Jw1l42xK82IY
-	c2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCFx2IqxVCFs4IE7xkEbVWUJV
-	W8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF
-	1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6x
-	IIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvE
-	x4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnU
-	UI43ZEXa7VUbLiSJUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwEEA2rucYJjogAAs3
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261106-submit-mtdchar-read-stats-v1-v1-1-173ac5c3ceb0@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWM0QrCMAxFf2X02eBaoWz+iviQtpmrsCpJHcLYv
+ 5u6h/twbnLPZoQ4k5hrtxmmNUt+FQV76kycsTwIclI2rnfe2t6DfMKSKyw16Z2BCRNIxSqwWsD
+ pQujG0bthMKp4M035+9ff7gfr/kmxNmf7CCgEgbHEuVWqPbccq33/AejgRP2gAAAA
+X-Change-ID: 20261106-submit-mtdchar-read-stats-v1-af3ea2996288
+To: Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
+ =?utf-8?q?Micha=C5=82_K=C4=99pie=C5=84?= <kernel@kempniu.pl>
+Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>
+X-Mailer: b4 0.15.2
 
-of_find_device_by_node() returns the GPIO extension device with an
-elevated reference count.  The error paths release it through the
-put_device label, but the success path returns directly, so the
-reference is leaked whenever the LED driver probes successfully.
+mtd_read_oob() can reject an invalid OOB range before initializing
+ops->stats. mtdchar_read_ioctl() nevertheless accumulates the per-read
+statistics before checking the return code and copies the accumulated
+values back to userspace, even when the ioctl returns an error.
 
-Release the reference right after its last use and remove the put_device
-label and the gotos leading to it.
+Initialize the local statistics on every loop iteration so a rejected
+read contributes zero counters and preserves statistics from any earlier
+completed reads.
 
-Fixes: 9af512e81964 ("leds: netxbig: Convert to use GPIO descriptors")
-Suggested-by: Lee Jones <lee@kernel.org>
+Fixes: 095bb6e44eb1 ("mtdchar: add MEMREAD ioctl")
 Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
-Changes in v2:
- - Release the reference right after its last use and remove the put_device
-   label and the gotos, as suggested.
- - Apologies for the very late reply. 
- drivers/leds/leds-netxbig.c | 74 ++++++++++++++-----------------------
- 1 file changed, 27 insertions(+), 47 deletions(-)
+ drivers/mtd/mtdchar.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/leds/leds-netxbig.c b/drivers/leds/leds-netxbig.c
-index 99df46f2d9f5..3a0456eae2c3 100644
---- a/drivers/leds/leds-netxbig.c
-+++ b/drivers/leds/leds-netxbig.c
-@@ -462,41 +462,36 @@ static int netxbig_leds_get_of_pdata(struct device *dev,
- 	gpio_ext_dev = &gpio_ext_pdev->dev;
- 
- 	gpio_ext = devm_kzalloc(dev, sizeof(*gpio_ext), GFP_KERNEL);
--	if (!gpio_ext) {
--		of_node_put(gpio_ext_np);
-+	if (!gpio_ext)
- 		ret = -ENOMEM;
--		goto put_device;
--	}
--	ret = netxbig_gpio_ext_get(dev, gpio_ext_dev, gpio_ext);
-+	else
-+		ret = netxbig_gpio_ext_get(dev, gpio_ext_dev, gpio_ext);
-+
- 	of_node_put(gpio_ext_np);
-+	put_device(gpio_ext_dev);
- 	if (ret)
--		goto put_device;
-+		return ret;
-+
- 	pdata->gpio_ext = gpio_ext;
- 
- 	/* Timers (optional) */
- 	ret = of_property_count_u32_elems(np, "timers");
- 	if (ret > 0) {
--		if (ret % 3) {
--			ret = -EINVAL;
--			goto put_device;
--		}
-+		if (ret % 3)
-+			return -EINVAL;
- 
- 		num_timers = ret / 3;
- 		timers = devm_kcalloc(dev, num_timers, sizeof(*timers),
- 				      GFP_KERNEL);
--		if (!timers) {
--			ret = -ENOMEM;
--			goto put_device;
--		}
-+		if (!timers)
-+			return -ENOMEM;
- 		for (i = 0; i < num_timers; i++) {
- 			u32 tmp;
- 
- 			of_property_read_u32_index(np, "timers", 3 * i,
- 						   &timers[i].mode);
--			if (timers[i].mode >= NETXBIG_LED_MODE_NUM) {
--				ret = -EINVAL;
--				goto put_device;
--			}
-+			if (timers[i].mode >= NETXBIG_LED_MODE_NUM)
-+				return -EINVAL;
- 			of_property_read_u32_index(np, "timers",
- 						   3 * i + 1, &tmp);
- 			timers[i].delay_on = tmp;
-@@ -512,15 +507,12 @@ static int netxbig_leds_get_of_pdata(struct device *dev,
- 	num_leds = of_get_available_child_count(np);
- 	if (!num_leds) {
- 		dev_err(dev, "No LED subnodes found in DT\n");
--		ret = -ENODEV;
--		goto put_device;
-+		return -ENODEV;
+diff --git a/drivers/mtd/mtdchar.c b/drivers/mtd/mtdchar.c
+index bf01e6ac7293..cbc7114686b9 100644
+--- a/drivers/mtd/mtdchar.c
++++ b/drivers/mtd/mtdchar.c
+@@ -750,7 +750,7 @@ mtdchar_read_ioctl(struct mtd_info *mtd, struct mtd_read_req __user *argp)
  	}
  
- 	leds = devm_kcalloc(dev, num_leds, sizeof(*leds), GFP_KERNEL);
--	if (!leds) {
--		ret = -ENOMEM;
--		goto put_device;
--	}
-+	if (!leds)
-+		return -ENOMEM;
- 
- 	led = leds;
- 	for_each_available_child_of_node_scoped(np, child) {
-@@ -531,40 +523,34 @@ static int netxbig_leds_get_of_pdata(struct device *dev,
- 		ret = of_property_read_u32(child, "mode-addr",
- 					   &led->mode_addr);
- 		if (ret)
--			goto put_device;
-+			return ret;
- 
- 		ret = of_property_read_u32(child, "bright-addr",
- 					   &led->bright_addr);
- 		if (ret)
--			goto put_device;
-+			return ret;
- 
- 		ret = of_property_read_u32(child, "max-brightness",
- 					   &led->bright_max);
- 		if (ret)
--			goto put_device;
-+			return ret;
- 
- 		mode_val =
- 			devm_kcalloc(dev,
- 				     NETXBIG_LED_MODE_NUM, sizeof(*mode_val),
- 				     GFP_KERNEL);
--		if (!mode_val) {
--			ret = -ENOMEM;
--			goto put_device;
--		}
-+		if (!mode_val)
-+			return -ENOMEM;
- 
- 		for (i = 0; i < NETXBIG_LED_MODE_NUM; i++)
- 			mode_val[i] = NETXBIG_LED_INVALID_MODE;
- 
- 		ret = of_property_count_u32_elems(child, "mode-val");
--		if (ret < 0 || ret % 2) {
--			ret = -EINVAL;
--			goto put_device;
--		}
-+		if (ret < 0 || ret % 2)
-+			return -EINVAL;
- 		num_modes = ret / 2;
--		if (num_modes > NETXBIG_LED_MODE_NUM) {
--			ret = -EINVAL;
--			goto put_device;
--		}
-+		if (num_modes > NETXBIG_LED_MODE_NUM)
-+			return -EINVAL;
- 
- 		for (i = 0; i < num_modes; i++) {
- 			int mode;
-@@ -574,10 +560,8 @@ static int netxbig_leds_get_of_pdata(struct device *dev,
- 						   "mode-val", 2 * i, &mode);
- 			of_property_read_u32_index(child,
- 						   "mode-val", 2 * i + 1, &val);
--			if (mode >= NETXBIG_LED_MODE_NUM) {
--				ret = -EINVAL;
--				goto put_device;
--			}
-+			if (mode >= NETXBIG_LED_MODE_NUM)
-+				return -EINVAL;
- 			mode_val[mode] = val;
- 		}
- 		led->mode_val = mode_val;
-@@ -598,10 +582,6 @@ static int netxbig_leds_get_of_pdata(struct device *dev,
- 	pdata->num_leds = num_leds;
- 
- 	return 0;
--
--put_device:
--	put_device(gpio_ext_dev);
--	return ret;
- }
- 
- static const struct of_device_id of_netxbig_leds_match[] = {
--- 
-2.25.1
+ 	while (req.len > 0 || (!usr_data && req.ooblen > 0)) {
+-		struct mtd_req_stats stats;
++		struct mtd_req_stats stats = {};
+ 		struct mtd_oob_ops ops = {
+ 			.mode = req.mode,
+ 			.len = min_t(size_t, req.len, datbuf_len),
+
+---
+base-commit: 1c1a342aceec79528b3ba51f376eca2be5928fe7
+change-id: 20261106-submit-mtdchar-read-stats-v1-af3ea2996288
+
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
 
