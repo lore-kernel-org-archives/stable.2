@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046939;
-	b=Vvb5nWPaxDapNsjORHhSnECZeskhQ/92MBJe1lqkXTbuKrmOgPB+AeNIg2XOyQ7TtFBj
-	 lMSAlgO8Y+MeiilRlrqmMEhjXEC4MisFz484OkxCThBW5dmXOjs7JtL1LHqrA2sB1qIyR
-	 h4uxIp9Zrc9/u5PFdqq939gha3eS3/yCa2O5itFYelN85noE2pOgIOH7StciIH3l0NnRY
-	 USxoVQsBSc8BcVf1m+Fkcn9uBGX2AHXE4gZk8q5qEit2WJBrvS9MJE5BAUlIydTCfnhi7
-	 r5FxVAyexZx1/ClyY3Jbb+Wb6bviDU2lvdFxjp9SriaHrHh+aYXS4KOsAk3LXCsGQ7Q==
+	t=1794046941;
+	b=dDx8el0sYu0NWcb8H/Gn/JyydFnL7O3MvIS2pTC/oiCWWYIVGI+dgOuW2f4v63ouot6G
+	 YAj7Qa0MlF3bWK0P7UuqtfQCRHfzeIa9K5eWMl8vSLyfX3maCruIdmelLASAFk+uIccEl
+	 92bVsUv2EaiBlul9WF/9rVmyh4YZq6dkGlA7/sGeGY7E8W+AtLx4N7QhuHc5v+Lhl7OG4
+	 apXT92qbKuz70XmSDBr5Sc7lAz+3VpBeVOmeqcXVebI9PnoEOO8ONLNk3sfWuwhRTeOux
+	 hVmDqoR4aRK3dIChBVWb0sRQelplXMHCgNBl44zgNJnYRYRmrJZdN0iy8UDW1mTB9Xg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046939;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046941;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=pO7mq9/j233pQWjNCTS8ZTmOxnm3X/6vBai8mvNglqU=;
-	b=2cSGTtHTF5/RQEcrq4uQeg1Q0NRRbdteIJuSnW0rRcoRyeRXvlVNO1tJWB9Y7hYERkLD
-	 Q3d6ywCP4GJSNlO6MfKIjtMN5ro/RaWWxPresCMdnbiWwtF0IKkm0sI6v8Rqyv48vVZhX
-	 kFjoRgn48tlXWMUlKLUs1gW6DTQcu5Q/AGTSYRLBD0T8jdBaUv9e7w8aQoICcYxVYj2qi
-	 bdG7oWj5/94GcIuZZkUnkhQO6jEyZzU3z0JNUARsG5x9v6myjE6QZDahRD75e2iH7j/IU
-	 xtWurjipV40roKOt2sY1PJ1FISNcJjtZaqukUViXZ7mcfG1Evd+dW579+EByiNuSleQ==
+	bh=f1Tad3usgMqh2+2AXqsWYtWzNxEOcmXEQ5kO/NjKhzE=;
+	b=hA3eFCDedHDN9d9e8SX/Y4K0PReFMEl57NKTr0YBAsoO2+XBVNWTzWwbt9L2bRGvF1hM
+	 IUT7TomWvqJQA71iNFNGNyK81KWNi1Ly0e8vCFA02jQg9+lEpXlbkgPjnoRYK7+VppVvJ
+	 9Jd6LSFvVSgFtOfFQTF1h5ZeAKMjPAC+SkelovP3SK1e+046yn09jP1NtNAGmbh5jBmcQ
+	 ZYvqhoRkls2SO+bfX8aBOajRX1uVR2uADelX+i0pQALZi06lPqJu7Sq1Ty2IOl6ck3r7d
+	 TrrGCzPmw7uTV/o3thqw/TUbIztO5ZN9H4b2dVAGkIGV5OTMrUnLpezzHetaJLsfPrg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cD+mGTOK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hstyVT1g;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC700606D81E
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:22:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CB60606A8C2
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:22:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cD+mGTOK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64B2C1F0089F;
-	Sat,  7 Nov 2026 10:22:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hstyVT1g
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D6E41F0089F;
+	Sat,  7 Nov 2026 10:22:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046938;
-	bh=pO7mq9/j233pQWjNCTS8ZTmOxnm3X/6vBai8mvNglqU=;
+	s=k20260515; t=1794046941;
+	bh=f1Tad3usgMqh2+2AXqsWYtWzNxEOcmXEQ5kO/NjKhzE=;
 	h=From:To:Cc:Subject:Date;
-	b=cD+mGTOKEJXujB2IhuOwfPO+EuMW4RWkRaRcGYeEhDFmoi8MZHDq9rMdO5gdtcF54
-	 BtCaEx0MHq7QjyOGfK8QORHM7rmc3sOPjbTSpf5s0qTnaWX6WIp8j640pI+/2gXtRB
-	 dIeUwCxULWCO2IQTAiR+lUss+thC0Le61Zkfbee8tqNaYjC/GM0Nd8JjwJfTkUUGKj
-	 IwR4pMHAvDBXEbrXc0e/uwyUmZzwLJJLjvn2PBgCv0vaPmGaikq8X0YQV6+3/pRHyc
-	 GqV0d+EifQGpjVg888B3lb0hdMC+gfr7E8VtpnA8adN5yBZA/CgIX0q6+NgQIJpOz+
-	 KQfxV4sS68DzQ==
+	b=hstyVT1gg0ecKcUmUgXOl5IDmVX2N+pFauFCwO1rZpeYOMOsCiHn6xgn+1WC4kEqH
+	 xoro3Yl6YCpoO0cah1L50JOUfaAM7KXGB3+8800vsTgEn8hUv4DVpy2rFHFesjZrk1
+	 8SL/XDsuhDi+CfuBSrhyeO17c1FwNYrUHwFAapyu9pG9tuc+5ux5pGlfo1B3WlnE26
+	 xLQqitYc8SF3sWmW4DnRSoj4tgSy3wr9/d9nQ0oXwtfkqM8p5hWtfzZp1hl68jU+Hj
+	 BJFlK4Zb6EKZAD0fBbh9yFSELfWauXmxwO2e3P6xalO8S9ygJr8zmlc+XYEYV8A7Qg
+	 q59/it8AbdeWw==
 From: Sasha Levin <sashal@kernel.org>
 To: chao@kernel.org,
 	jaegeuk@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] f2fs: fix to invalidate curseg if change_curseg() fails" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:22:17 -0500
-Message-ID: <20261107052217-failed-6.12-e74476ad8162@kernel.org>
+Subject: FAILED: patch "[PATCH] f2fs: fix to use bio_in_atomic() in f2fs_read_end_io()" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:22:19 -0500
+Message-ID: <20261107052219-failed-6.12-a605d5d71a6d@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,128 +68,84 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x e74476ad8162c1facc74b74ce2d1372492df872e
+git cherry-pick -x a605d5d71a6d280c43c7ede9778dda63fb5c3f22
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052217-failed-6.12-e74476ad8162@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052219-failed-6.12-a605d5d71a6d@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From e74476ad8162c1facc74b74ce2d1372492df872e Mon Sep 17 00:00:00 2001
+From a605d5d71a6d280c43c7ede9778dda63fb5c3f22 Mon Sep 17 00:00:00 2001
 From: Chao Yu <chao@kernel.org>
-Date: Tue, 13 Oct 2026 10:55:38 +0000
-Subject: [PATCH] f2fs: fix to invalidate curseg if change_curseg() fails
+Date: Sat, 10 Oct 2026 14:55:46 +0800
+Subject: [PATCH] f2fs: fix to use bio_in_atomic() in f2fs_read_end_io()
 
-Our consistency stress test (fsstress + fio + atomic write workers +
-"f2fs_io shutdown 1") triggers below kernel BUG:
+f2fs_read_end_io() uses "in_task() && !irqs_disabled()" to decide
+whether it is safe to sleep, the result is passed down as @in_task to:
+- f2fs_put_dic() -> f2fs_free_dic() -> f2fs_release_decomp_mem()
+  -> vm_unmap_ram(), which may sleep.
+- f2fs_end_read_compressed_page() -> f2fs_cache_compressed_page()
+  -> f2fs_grab_cache() -> f2fs_lock_cache(), which may sleep in
+  wait_on_bit_lock().
 
- F2FS-fs (vdd): Stopped filesystem due to reason: 0
- ------------[ cut here ]------------
- kernel BUG at fs/f2fs/segment.c:3989!
- Oops: invalid opcode: 0000 [#1] SMP KASAN PTI
- Workqueue: writeback wb_workfn (flush-253:48)
- RIP: 0010:f2fs_allocate_data_block+0x257a/0x38e0
- Call Trace:
-  <TASK>
-  do_write_block+0x155/0xc10
-  f2fs_outplace_write_data+0x192/0x340
-  f2fs_do_write_data_page+0xc57/0x1880
-  f2fs_write_single_data_page+0xda9/0x15a0
-  f2fs_write_cache_pages+0x973/0x1f20
-  __f2fs_write_data_pages+0x6c4/0x1890
-  do_writepages+0x21e/0x560
-  __writeback_single_inode+0x119/0x11b0
-  writeback_sb_inodes+0x67d/0x17a0
-  wb_writeback+0x207/0x820
-  wb_workfn+0x128/0xc30
-  process_one_work+0x925/0x1600
-  worker_thread+0x60a/0xff0
-  kthread+0x35f/0x460
-  ret_from_fork+0x474/0x7e0
-  ret_from_fork_asm+0x1a/0x30
-  </TASK>
+However, the check still treats below task contexts as sleepable:
+- with spinlock held via spin_lock(), i.e. preempt count != 0 while
+  irqs are enabled.
+- with BH disabled via local_bh_disable().
+- inside an RCU read lock on kernels with CONFIG_PREEMPTION.
+- with any spinlock held on kernels without CONFIG_PREEMPT_COUNT.
 
-The BUG is f2fs_bug_on(sbi, curseg->next_blkoff >= BLKS_PER_SEG(sbi))
-in f2fs_allocate_data_block(), next_blkoff was 512.
+So the "sleeping function called from invalid context" issue fixed by
+commit 08a7efc5b02a ("f2fs: vm_unmap_ram() may be called from an
+invalid context") can still be triggered.
 
-The root cause is a race in between atomic write commit and shutdown
-as below:
+The block layer provides bio_in_atomic() for exactly this purpose, it
+checks rcu_preempt_depth() and preemptible(), and conservatively returns
+true if CONFIG_PREEMPT_COUNT is disabled, let's use it instead. The
+difference is as below:
 
-Thread A (commit atomic write)  Thread B (shutdown)        Thread C (writeback)
-- f2fs_ioc_commit_atomic_write
- - f2fs_commit_atomic_write
-  - __f2fs_commit_atomic_write
-   - __replace_atomic_write_block
-    - f2fs_replace_block
-     - __f2fs_replace_block
-                                - f2fs_ioc_shutdown
-                                 - f2fs_do_shutdown
-                                 : F2FS_GOING_DOWN_METASYNC
-                                  - f2fs_sync_fs
-                                                           - f2fs_write_single_data_page
-                                                           : pass f2fs_cp_error() check
-                                  - f2fs_stop_checkpoint
-                                  : set CP_ERROR_FLAG
-      - change_curseg
-       - reset_curseg
-       : curseg->segno = new_segno
-       : curseg->alloc_type = SSR
-       : curseg->next_blkoff = __next_free_blkoff()
-         which is BLKS_PER_SEG if there is no free
-         slot in new_segno
-       - f2fs_get_sum_cache
-       : return -EIO due to f2fs_cp_error()
-      : return error w/o restoring curseg
-     : goto out_unlock, skip restoring
-       old segno, blkoff and alloc_type
-                                                            - f2fs_do_write_data_page
-                                                             - f2fs_outplace_write_data
-                                                              - do_write_block
-                                                               - f2fs_allocate_data_block
-                                                               : curseg->segno is valid
-                                                               : f2fs_bug_on(next_blkoff >=
-                                                                 BLKS_PER_SEG)
+ old: intask = in_task() && !irqs_disabled()
+ new: intask = !bio_in_atomic()
 
-Since commit 86f33603f8c5 ("f2fs: handle errors of
-f2fs_get_meta_page_nofail"), change_curseg() can fail after the curseg
-has already been switched to the new segment, then the curseg is left
-in an inconsistent state: it points to a segment which may have no
-free slot, its summary block is zeroed, and the caller can not restore
-it. Subsequent block allocation on the curseg will trigger the BUG.
-Moreover, the writeback thread dies with curseg_lock, curseg_mutex and
-sentry_lock held, so the commit, shutdown and other I/O threads hang
-in D state.
+ Context                              | old intask     | new intask
+ -------------------------------------+----------------+----------------
+ Hard IRQ / softirq                   | false          | false
+ IRQs disabled                        | false          | false
+ spin_lock() held, IRQs enabled       | true (wrong)   | false
+ BH disabled by local_bh_disable()    | true (wrong)   | false
+ RCU read lock (CONFIG_PREEMPTION)    | true (wrong)   | false
+ Spinlock held, w/o PREEMPT_COUNT     | true (wrong)   | false
 
-Since change_curseg() only fails once CP_ERROR_FLAG is set, no
-checkpoint will be committed afterward, let's invalidate the curseg via
-reset_curseg_fields() on failure, as new_curseg() does for -ENOSPC,
-then f2fs_allocate_data_block() will fail with -ENOSPC on the curseg
-instead of triggering BUG, and do_write_block() can handle the error
-since CP_ERROR_FLAG has been set.
+Note that on kernels without CONFIG_PREEMPT_COUNT, bio_in_atomic()
+always returns true, so dic freeing will always be offloaded to sbi->wq,
+and compressed pages will not be cached in f2fs_read_end_io(); this is
+the price of correctness, since there is no way to tell whether the
+current context can sleep.
 
 Cc: stable@kernel.org
-Fixes: 86f33603f8c5 ("f2fs: handle errors of f2fs_get_meta_page_nofail")
+Fixes: 08a7efc5b02a ("f2fs: vm_unmap_ram() may be called from an invalid context")
 Signed-off-by: Chao Yu <chao@kernel.org>
 Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
 ---
- fs/f2fs/segment.c | 1 +
- 1 file changed, 1 insertion(+)
+ fs/f2fs/data.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
-index dab66ab3311d5..453f9284ec863 100644
---- a/fs/f2fs/segment.c
-+++ b/fs/f2fs/segment.c
-@@ -3243,6 +3243,7 @@ static int change_curseg(struct f2fs_sb_info *sbi, int type)
- 	if (IS_ERR(entry)) {
- 		/* GC won't be able to use stale summary blocks by cp_error */
- 		memset(curseg->sum_blk, 0, sbi->sum_entry_size);
-+		reset_curseg_fields(curseg);
- 		return PTR_ERR(entry);
- 	}
- 	sum_node = SUM_BLK_ENTRY_ADDR(sbi, entry, new_segno);
+diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+index ae3bde0767f3c..a8d39add5cbe0 100644
+--- a/fs/f2fs/data.c
++++ b/fs/f2fs/data.c
+@@ -271,7 +271,7 @@ static void f2fs_read_end_io(struct bio *bio)
+ {
+ 	struct f2fs_sb_info *sbi = F2FS_F_SB(bio_first_folio_all(bio));
+ 	struct bio_post_read_ctx *ctx;
+-	bool intask = in_task() && !irqs_disabled();
++	bool intask = !bio_in_atomic();
+ 
+ 	iostat_update_and_unbind_ctx(bio);
+ 	ctx = bio->bi_private;
 -- 
 2.53.0
 
