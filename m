@@ -1,115 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.155
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794056997;
-	b=mS8RO/lipgQq6eoSHYJbUct53e7z4vOiQmTgGaW9TvryeW8GPB0uFH8o93/XJ3qwJd75
-	 FUHShapPWX+0tMSulbdK6jLNaEbxSPJ6HiaMLHv1liTRx4WDAA9554LJxMfYdwfnkzB6j
-	 QcujyBOBOQ6F/ySomv+1ioXdLGacwLlKTgY+RsS8+c32jXyErP8omjsvYIa6Fut060UhI
-	 ZgLSSh5VonaNvpP+0RkiGbD0KBhJygYpz6TlsTn0hLAaAoeCiJ9PW8yur04Wi3sJaXxA+
-	 NCakkvnk8NWJeLzliiVyKW8wGxqXPDRJsDCdXaT4a4y1o+Mqni7aNsSKANLu3729F3w==
+	t=1794057222;
+	b=4hdwG2Eq2nwx+t0y7gULjbA9MYtioz5CEb/6WGIyZXIP4C92bSZ8iIKg9MN7ikbGZW+c
+	 u+B6b8UDFu8ndRA5ct4xOo3P+lqOkivqmhexniFIRd4p72W7zW/mkQP0oocHhkOCr+wZY
+	 iQE9ryggo8Zz3G/ciDkgFhJXbYnc/nD8O4HjV57I5qSW9GeGMDv9MCZ2QYW0SjOrWQkQ9
+	 GFD9gzl7F847L3+ltTd1xadKQTr8JbqeOuVNE1MGJuEoFcIftuIqqw4k19h1ZkLNixk/z
+	 9bitUM19atksp/mRjb5LW+G1p0FHXu/hPdxpvJmm6gk0wtgmJVbYfZYbsOSxaQIcwAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794056997;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:From:To:Cc:
-	 References:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=9l6rdHhASisWsN17Qt71S6XsJq5+Km/0GXmn4dRBL98=;
-	b=nQPGnvEuaXy19Oa8Ozlk49vB4F4pp7aozBgkyHRmDyIk3UZaclSl+EH5QccHKDT87Cvu
-	 Sq4r7Gy9ugibm4fHYjd/TdX7W/lQ7g2xVEHCEzv1VI5nanoeNTNmoB7Vihpn3YTPIaMT2
-	 Zfk1IWC3fkZhm+y9Lyzm+jKzUXn+unsM3D3kqpIoDYE7/fq4xwhiD8e0knv2SAAb5XN4L
-	 aMhkOS4qBfnljNGWkklJ4X04s2VJOK88fbosWuvZ9nGMBBxRzfHvtOJzOA/bnY/Vjy0i2
-	 Jo+Wtcani6naycZ9BzftmgskFJ5eb3ntsV/1mwwTUSV1AfhBsJH4mZqAHkkQsB9YCkQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794057222;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=Ck14fKV6LP02+4pNJEFmV4SbeAH9q4KUqAqJ8rl5z8k=;
+	b=eQQFYcmpAo9UdSSi/QayMyqPQNgKs0fZoTZw7lQHbnDoR55SOZA3QJQZkD+tDRFb68b8
+	 FfzsyPOOe3mE5Yyv5oEsbe/Pa8s7Eqb6yoRy0QaCbeqOjT3RjasOuKPkU0RU4EO7HZ6kM
+	 +07oVsC+SnLNXQBopgW/Z7A6lbJFAEuWegnXqayrR10H4LkfKZIlSwbctxcu4cNf2Rasf
+	 EIIAJFeMCWcQWbAELqOYW9jpRdDIexoAV8Kb9yR2CCiCNzwgZ2i5mAxp24fo8wt4XqbYA
+	 pPkgLeqZx/0hBP8fLiQKWTV3tGvM56/tEGITpye19W4aq4xdatFavqcvYhB/V4VjI9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pobox.com;
-	spf=pass smtp.mailfrom=pobox.com;
-	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=bnYisetc;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=DkJWQI4a;
-	arc=none smtp.remote-ip=202.12.124.155
-Received: from fhigh-b4-smtp.messagingengine.com (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vysbNISz;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08892606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 13:09:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08892606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 544BA606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 13:13:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 544BA606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=bnYisetc;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=DkJWQI4a
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 065727A0155
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 08:09:55 -0500 (EST)
-Received: from phl-frontend-01 ([10.202.2.160])
-  by phl-compute-03.internal (MEProxy); Sat, 07 Nov 2026 08:09:55 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1794056994;
-	 x=1794143394; bh=9l6rdHhASisWsN17Qt71S6XsJq5+Km/0GXmn4dRBL98=; b=
-	bnYisetcchZTe4wu+vofZEUXCSrUxCJ2qEENcqpU9O1RU76ECQxadT7liEAE8Jqo
-	DAZ2vZ4GoFhTbaDoyhy7EXJJx5ooiHphTFYGXMcM8bRATHMR7AkgxI1eu3eLiZ2K
-	e3hksrUwlv9hXixvK0YsdykBQTimlUOp9b8z6kdXOHSFK6Km5rmRhvCXmDQWEIyn
-	3FPd1XY5ZJoUF0wcuisBR527pAi2ePLEYVrdkFqG2d5kv+w8VhXACFLxnpkJq6R7
-	jgduA9xn6xa58G2bA9A/qqZNoDQyJ8Yv6eKTIlF5cUHiMlqAkaCsHbgdgb/XP+dP
-	BHx36ud+AyusSBidHTqn9Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794056994; x=
-	1794143394; bh=9l6rdHhASisWsN17Qt71S6XsJq5+Km/0GXmn4dRBL98=; b=D
-	kJWQI4ayo2qE3873jm+PwAX16r1YqT5c3R8LNHqKr9ctSBqY6PxYkZ73NBtQUrfk
-	o0lf3miB03XABoTvifPLq1dp+xC5Qjz2WCRuYm0aajFIoeR60pIHY3rCQHb+ygIn
-	IBaKWI9EJB/o/3jFAVVuDKr7RivCGWV2KgaK3rtcG1GFNI7hbEGMXEMxtS0bv59X
-	QxgofF3U3Y/9e1qVApyPQdJprR7gKhG8BbtQY6w1+RjsnxmXSR21Xzw98o0K/SJU
-	vaV6ab5kNUHbJ/D5iUceHk9IdLwKLIbMBJZkpZwsDGKCSR+DSjjf/gZTlUnBLWHf
-	h1K7Y9UVdiCT1D8wsgG+A==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=pobox.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794056994; d=pobox.com;
-	mf=PGJhcnJ5bkBwb2JveC5jb20+;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:ddjR69cgKyctB53IvD+qARROizRZWWzUIALQe8XZgLbMAfu
-	aSL1MkwcW5SupGTBHPMqhv76ybWFaqdwaPrG4OYdpXdkKpGxayxQega3ytmpjYk9
-	a4j6cdIkR1CTcWXAQESuJgs+bbN0jZxSY1HY3cCyY7cU8XU51D6SCEa8MLnyBJUq
-	kqTiuq9jBTMOotzcJ/gONNeQpSkWVtbPIb1wXggYkNGYIfVaWI8hajB0zrLBBKDh
-	P6r55UYspfXWIl+U0mHNEMpFNhbPhPGWhKGFM66yhwStCf/NFr/WEVA7yFbo9QG2
-	I1cmUT0Cw8u5MU5ApjihwIZDndCXFo6t4g1tpuQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=14;
-	hn=cc,content-language,content-transfer-encoding,content-type,
-	date,feedback-id,from,in-reply-to,message-id,mime-version,
-	references,subject,to,user-agent;
-Message-Instance: m=1; h=sha256:qVyn+63do8ljrgQhFNlI+etN4PtLLJeZC39Z3V4hS4k=:r9iUrbBlc3jb65H1OpY/dV4CzN6MdQ78M1pnTbPNiHk=;
-X-ME-Sender: <xms:IiPvarp4tSJUxEe3tQJbb-aPui8r_cJqmQ2yHp95_yPkkOXKAAa7LA>
-    <xme:IiPvau_yIE3WjgMDa7EmeI7Xmltv4DQa30yN2Dp1Rg7s1voB5JX3U6cWPYF_72OY3
-    bwgVwnbQJO0a0aaCngXhuLxtR9JSBrbuictTDbeDc-Es_UH7gtnbP_M>
-X-ME-Received: <xmr:IiPvavf4Ew7xsAbdHi6SenUyEfmmff_n8S9ahuD-bxMrisSlf3VkRSmN5g6liFHhXJbXTBoiT8kx5zg-YTxtjUDu5X_H7ZrA>
-X-ME-Proxy-Cause: dmFkZTEf+pFFFTVm3IEswDBYBUXTyc5+3mbJR+ZuoAU8Cjj9jinNQlbXf368IsalONSUbf
-    nfjOlqOW2zP5HJRFL6HOPPg1CGM1OdImorLj6srsgAEZcvh7TQsolZysBHNcWPYFInVe0m
-    uL5Ya0P9Pu/Fa3nEE36xBp1xOmeSFBPVKORd7gHlFn3vBzTt37CvCK31fQBbwKQe5eGSkX
-    lZSyBQNBQ57Dxdviao1WMMEVzzMYUxF5nMBp9JqcyVhkZ5N1FhNWLTmCqISoEjhe/yrkXy
-    EPYHlI4W1nC1tkKZ7a8UXwUaJVc/4krcoFxB35eE1JGyylpSyjpBQmoyT4E0ALpuw4tkDy
-    40rCpE7UPR92upKy0BiEStxHcwmlGtO3AOAGPxOAbWawgZ/vR2ueG3vL1p7iyKYR/ofzdK
-    Hx6Ka4rV2aZ94iZjK8P3YTTe6LIfpE49tBiJRNqtLMPOEbf8dvg2POFedjiajl105p5Tyr
-    2V7JNOjKocO/cUYCrNwoOShi+J8eIg+tR5RlIqBCGkq5LYqhyyrRjSIuRdm2qv+ESy+Ydr
-    DZQORfYswbwFoyhpzEtDhXAT3eczVYd0y77c46tYoY1L8xuRTRDdNMj6ZqmmvWfreLQ4Y1
-    txI71b6ZteQoCy/SQxdCFoalCfcx31W2mXeoSXbg7MsLv5mkz6r9gT3zjpRw
-X-ME-Proxy: <xmx:IiPvagIKEzUOyU7R7q6hpj68fOwZ8_bP4oEWehN3dAxfxEdpsxkE7A>
-    <xmx:IiPvaniF-bdqXMeP-PwHjY0YZZaMdp4xJpMmQi_8eQ0-76QXKt1t9A>
-    <xmx:IiPvamSolZxuYLG_oNnVLIxOf_cNMCNOqT8OXJKuuNIObUwPeBRdvg>
-    <xmx:IiPvapVmdgAdrFTw3vM5u_4dP-Qkx30YXlEfMM7hMTEa-Qi59T4Rzw>
-    <xmx:IiPvak1otailYMnADYBo4E5aQJ7LbB1Odo8nKY86veDghLPZRr7eM27t>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 7 Nov 2026 08:09:53 -0500 (EST)
-Message-ID: <7840e515-e7d5-4ef9-8c1d-6390374a5b33@pobox.com>
-Date: Sat, 7 Nov 2026 05:09:52 -0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vysbNISz
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so14067005e9.2
+        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 05:13:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794057220; x=1794662020; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Ck14fKV6LP02+4pNJEFmV4SbeAH9q4KUqAqJ8rl5z8k=;
+        b=vysbNISz8SzWFmHI7OcsIgVE/V/ABSV+2GuqrFioIU8vzq1zVTXOrd25yYMsQGul9y
+         IEto4XwlcWxPi87QSsB987nCN8kie9R//K940kp2cy4w6DGnnusCyWiKypiGT0BosmEK
+         k5hRpohwrzdagbuCUHEuGHglN/d/4vS2TmukSYXpzdr+2SZzmtkZHqLmc4kZuEjaDeUX
+         XslpIvKrRJ+13BcESV/cnCaiDh7rnm5AclHVYWdWPQ47JMwWb0M68A2i4c3+TVsyOqtQ
+         MNaCauf99Dry39oFPQdwQZw+o75uxbi9RVSDmZ2KrCIvyH5J9NjIVPMhm/dxtrbOtxbn
+         Je6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794057220; x=1794662020;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=Ck14fKV6LP02+4pNJEFmV4SbeAH9q4KUqAqJ8rl5z8k=;
+        b=Vh2t2mnCLD1YzLPWXC99Qy4ktwKLakD8RAsCGYjBXlwvoGT/bm29QPX6iizX3gWXqb
+         a5nC1disxolFVo/NGRtuQSWj5yCvIV8NWh94ohYODJhzJqFhkaoeMFg0RJYcyF1/Ymgc
+         nhkuwQIN+8KKd0+K8Wves1ekuB/UHK+yaapTI5zH8hwiRbxv5OTKMjkaY6D+CMNtjlJ9
+         vWgrTWIANJgjI26dLat7kPecyL3rGVWAxCOyItdJU+hTxsp+F9zJtJib3Skp5GFsPLhj
+         +skdkMSZTM+PLDg0mw+9k0PL4UkceZEICQacTA153qi/O+9lAkzuoVzZbbvED6eLQEnm
+         Lpkg==
+X-Forwarded-Encrypted: i=1; AKwUvBy5rmHic16fCQ5lKCFgmjAcDi92UR5IYAR7CJO6XnO/JAOuY30NADcnm+C/m9terIJrrPDna6M=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/K1ac8gJfC0OGs5TK8qD+h0aZ2g4BV9v2em/H86IHRXNYe8N8H
+	oGz9BGGhhph+Z70wvgYCsxqiUusJS19JDS7F/REGl+G7O/+UDTZBl8Ft
+X-Gm-Gg: AYBFou2tPwwuwVjPYuqf/uwUlJVUtZOKmJWC1ob/1LkdrhCU1D+gnPe1WSL58LfYqNK
+	U9eUTpJilZGBP3Wa12Lf5F9Yhafd2kMu0FjcS++6HVUVOt4VI6EDrgn0jkURfde0CDdRrYbgS3D
+	Igl/YP/wo8gjuexvKNLj7/XUcpT3xO2ax6TOMVWqs2x0tTAuUyfuZdf7emkHTTBTDJr9rMh4JMY
+	sByra/6lGl7DTNesjBxa7Pfb3oYwkeBNVeejpBs7RTnRpWHqxaxmpmFH2ID6nHcqtAVLVisCpMn
+	nczxW9d00+AoMYE2LAcfUnBenXyfyjn2aaFnB9fGPMZaBbC6RNfDmY2UY6CiGuSOth4F2CeAwXW
+	1t5onxc7RBJ0OH/e7zKtQEQCjbn6XD+rgt2Daj83eVVjnG83CX5TLBMyvA8zk0Wo7H46PjwI5DW
+	4393kxELipkJJd8hnRt1bGtmPSJMNRBCrg1Zb8Fs66khmdncPBx+IksjV+f6oBmZXWz/VWvjaNh
+	F79pg56xIWgn2Xk8tXvIjFs9XayTfgTxLaHEQYXGVtkUf5QiqWiUZZPrBDOAT6x7iRDcrw+owBy
+	CZKZsEow1qFuZ/53rz5Cy3hyNmBiPPGfnmHvS3Ijph6Iix+K1ZOVEK89cpuJ20tEO5k3aiqNn+V
+	eShZzDM/8W1RbMw42nhIDEsc5ljR6BGiigLEdtC7NXDkouR2rsfK8IQ2gp/HE5hWo9/Q=
+X-Received: by 2002:a05:600c:6994:b0:4a0:1fb9:2f51 with SMTP id 5b1f17b1804b1-4b6df11de39mr98136025e9.14.1794057219338;
+        Sat, 07 Nov 2026 05:13:39 -0800 (PST)
+Received: from PC-Marco.local ([151.59.49.14])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7e2e9ad95sm64282305e9.3.2026.11.07.05.13.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 07 Nov 2026 05:13:38 -0800 (PST)
+From: Marco Ziliani <rylos78@gmail.com>
+Date: Sat, 07 Nov 2026 14:13:30 +0100
+Subject: [PATCH v2] ata: libata-pmp: disable the SEMB port on Marvell
+ 88SM9705
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -119,85 +93,129 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.3 330/547] xfs: cross-reference the primary superblock
-From: "Barry K. Nathan" <barryn@pobox.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, "Darrick J. Wong" <djwong@kernel.org>,
- Christoph Hellwig <hch@lst.de>, Carlos Maiolino <cem@kernel.org>
-References: <20261104211038.406938024@linuxfoundation.org>
- <20261104211047.605532149@linuxfoundation.org>
- <194b6b81-1521-4dfe-b86f-c693917bb78e@pobox.com>
- <15a1f7c4-3110-4a2a-adeb-cd1e97d5b6c3@pobox.com>
-Content-Language: en-US
-In-Reply-To: <15a1f7c4-3110-4a2a-adeb-cd1e97d5b6c3@pobox.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261107-pmp-88sm9705-v2-1-18eed983d3db@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNQQ6CMBBFr0JmbQ1TKAVX3sOwgDqFMZaSFomGc
+ HcB1y5f8v77C0QKTBEuyQKBZo7shw3kKQHTN0NHgu8bg0xlgaksxehGUZbRVTpVQlqdY5tnymI
+ B22QMZPl95G71j+OrfZCZ9sZu9BwnHz7H34y79yc9o0BhbKXQks6Vzq6da/h5Nt5Bva7rF/qbB
+ xG6AAAA
+X-Change-ID: 20261028-pmp-88sm9705-2f741b435f16
+To: Damien Le Moal <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>
+Cc: Kyrylo Biryuk <illofspeed@gmail.com>, linux-ide@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Marco Ziliani <rylos78@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794057217; l=4258;
+ i=rylos78@gmail.com; s=20261027; h=from:subject:message-id;
+ bh=1bZ0/g/Vqj0TVjKKgVi14x/QhYjtWqwjUDv/wvKppsM=;
+ b=yXxfwA1Y8VSA1X8Ye6NPG87dZVzkjbfYENcw35RNXLaGSsA9OXP6rmIMkNGKpSr1PVgwY1p4A
+ s6DSuuJSftKBL9Gzz7JNyMoT1pFyrci2879OTsSivs6lterDy04biLp
+X-Developer-Key: i=rylos78@gmail.com; a=ed25519;
+ pk=nXCfiK5yExPZCMp+lfKif3gdXkfjkUK2qk7bDW+ixMo=
 
-On 11/7/26 5:07 AM, Barry K. Nathan wrote:
-> On 11/5/26 7:38 AM, Barry K. Nathan wrote:
->> This patch is breaking the build for me with CONFIG_WERROR enabled,
->> for both 6.18.61-rc1 and 7.3.2-rc1, on both arm64 and amd64, when
->> I compile with clang (I tried 19.1.7, 22.1.8 and 23.1.5). It only
->> happens if I build with CONFIG_XFS_ONLINE_SCRUB enabled. However, it
->> doesn't happen with 7.4-rc1, and it does not happen with gcc.
->>
->> fs/xfs/scrub/agheader.c:123:6: error: variable 'error' is used uninitialized
->>        whenever 'if' condition is true [-Werror,-Wsometimes-uninitialized]
->>    123 |         if (agno == 0)
->>        |             ^~~~~~~~~
->> fs/xfs/scrub/agheader.c:435:9: note: uninitialized use occurs here
->>    435 |         return error;
->>        |                ^~~~~
->> fs/xfs/scrub/agheader.c:123:2: note: remove the 'if' if its condition is always
->>        false
->>    123 |         if (agno == 0)
->>        |         ^~~~~~~~~~~~~~
->>    124 |                 goto out_xref;
->>        |                 ~~~~~~~~~~~~~
->> fs/xfs/scrub/agheader.c:111:13: note: initialize the variable 'error' to silence
->>        this warning
->>    111 |         int                     error;
->>        |                                      ^
->>        |                                       = 0
->> 1 error generated.
->> make[4]: *** [scripts/Makefile.build:287: fs/xfs/scrub/agheader.o] Error 1
->> make[3]: *** [scripts/Makefile.build:544: fs/xfs] Error 2
->> make[2]: *** [scripts/Makefile.build:544: fs] Error 2
->> make[2]: *** Waiting for unfinished jobs....
->>
->> I bisected 7.3.2-rc1 and this patch is the culprit. Reverting it fixes
->> the build on both 6.18.61-rc1 and 7.3.2-rc1. Another possible fix, which
->> built successfully for me on top of both 6.18.61-rc1 and 7.3.2-rc1, is to
->> cherry-pick commit 612d2e7506c3553b1deedc694846d1c0364ae446 from mainline
->> ("xfs: read primary superblock from disk during scrub").
-> 
-> This was reverted for 7.3.2, but I see that it's back in the queue again
-> as of stable-queue commit 77ecab77b25567c54df997dcb8030dea6bca03ed
-> ("Fixes for all trees"). I just tried applying the queue on top of
-> 7.3.3 and the build error still happens.
+The Marvell 88SM9705 is a 1-to-5 SATA port multiplier with one
+additional SEMB (SATA Enclosure Management Bridge) port [1].  Ports
+0-4 are device ports and port 5 is the SEMB.  The number of fan-out
+ports in GSCR[2] is 6 when the SEMB is enabled and 5 when it is not,
+so on boards without the SEMB there is no link 5 and this quirk does
+nothing.  That includes the common 8-port PCIe cards that pair an
+88SE9215 with an 88SM9705, which report 5 ports.
 
-Just to be clear, I meant "dropped for 7.3.2" not "reverted for 7.3.2".
-(Sorry I didn't catch the mistake before hitting send.)
+The SEMB port never answers SRST.  libata probes it like a device
+port, and every EH round on the PMP ends in a retry loop that lasts
+about a minute before EH gives up, then starts over:
 
-> Since the mainline fix is not a stable candidate, maybe something
-> like this (just initializing error to 0 when it's first defined)
-> would work? (This fixes the build error for me, but I haven't
-> tried running it yet.)
-> 
-> diff -rup a/fs/xfs/scrub/agheader.c b/fs/xfs/scrub/agheader.c
-> --- a/fs/xfs/scrub/agheader.c    2026-11-06 22:42:57.147299404 -0800
-> +++ b/fs/xfs/scrub/agheader.c    2026-11-06 22:45:59.898908897 -0800
-> @@ -108,7 +108,7 @@ xchk_superblock(
->       xfs_agnumber_t        agno = sc->sm->sm_agno;
->       uint32_t        v2_ok;
->       __be32            features_mask;
-> -    int            error;
-> +    int            error = 0;
->       __be16            vernum_mask;
-> 
->       /*
-> 
--- 
--Barry K. Nathan  <barryn@pobox.com>
+  ata19.15: Port Multiplier 1.2, 0x1b4b:0x9705 r160, 6 ports, feat 0x1/0x1f
+  ata19.05: hard resetting link
+  ata19.05: failed to resume link (SControl 0)
+  ata19.05: softreset failed (1st FIS failed)
+  ata19.05: hard resetting link
+  ...
+  ata20.05: reset failed, giving up
+
+Disk discovery waits for this, including disks on other controllers.
+
+libata.force only partly works around it.  The "disable" horkage
+only takes effect after IDENTIFY, which the SEMB link never reaches.
+"norst" on port 5 stops the retry loop, but the disks still come up
+about a minute later than with this change (see below).
+
+Treat port 5 the same way as port 4 of the Marvell 88SM4140 and mark
+the link ATA_LFLAG_DISABLED.
+
+Tested on a Synology DX1222 expansion unit (four 88SM9705 r160 behind
+a Marvell 88SE9235, passed through to a KVM guest, 6 disks), 7.4-rc1
+with and without this change, one boot each:
+
+                                    softreset  reset failed,  last disk
+                                    failed     giving up      attached
+  7.4-rc1, no libata.force          60         12             197 s
+  7.4-rc1, libata.force=N.05:norst   0          0              70 s
+  7.4-rc1 + this patch, no force     0          0              11 s
+
+The problem was first found on a Synology DX1215 with the same chain,
+where this change brought the disks up after about 20 s instead of
+about 200 s, including a disk on a separate AHCI controller.
+
+Each PMP still logs one "failed to resume link (SControl 0)" for port 5
+at probe time.
+
+Link: https://www.marvell.com/content/dam/marvell/en/public-collateral/storage/marvell-storage-88sm9705-functional-specifications-2015-06.pdf [1]
+Cc: stable@vger.kernel.org
+Tested-by: Kyrylo Biryuk <illofspeed@gmail.com>
+Signed-off-by: Marco Ziliani <rylos78@gmail.com>
+---
+I don't have this hardware myself: the problem was found and measured
+on a DX1215 by a user who preferred not to send the patch, and Kyrylo
+has since tested it on his DX1222.
+
+I used an AI coding assistant to draft the patch and the changelog;
+I reviewed them and can answer for them.
+---
+Changes in v2:
+- Say that libata.force "norst" only partly works around the problem
+  (Niklas).
+- Use Kyrylo's 7.4-rc1 results on a DX1222 as the test data, and drop
+  the references to the downstream distribution (Niklas).
+- Mention the DX1222 in the comment.
+- Add Kyrylo's Tested-by.
+- Link to v1: https://patch.msgid.link/20261028-pmp-88sm9705-v1-1-cf951fe74573@gmail.com
+---
+ drivers/ata/libata-pmp.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+diff --git a/drivers/ata/libata-pmp.c b/drivers/ata/libata-pmp.c
+index 904f418387..43991e54eb 100644
+--- a/drivers/ata/libata-pmp.c
++++ b/drivers/ata/libata-pmp.c
+@@ -482,6 +482,20 @@ static void sata_pmp_quirks(struct ata_port *ap)
+ 			if (link->pmp == 4)
+ 				link->flags |= ATA_LFLAG_DISABLED;
+ 		}
++	} else if (vendor == 0x1b4b && devid == 0x9705) {
++		/*
++		 * Marvell 88SM9705 quirks
++		 *
++		 * 1-to-5 PMP with an extra SEMB port.  It reports 6 ports and
++		 * port 5 is the SEMB, which never answers SRST: EH spends about
++		 * a minute per round retrying it, and disk discovery waits for
++		 * that.  Seen behind a Marvell 88SE9235 in the Synology DX1215
++		 * and DX1222.
++		 */
++		ata_for_each_link(link, ap, EDGE) {
++			if (link->pmp == 5)
++				link->flags |= ATA_LFLAG_DISABLED;
++		}
+ 	}
+ }
+ 
+
+---
+base-commit: fb2c3f44a7e14627b9dca8e6b568e6cdc234b40b
+change-id: 20261028-pmp-88sm9705-2f741b435f16
+
+Best regards,
+--  
+Marco Ziliani <rylos78@gmail.com>
 
