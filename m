@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794045787;
-	b=eZvE95mVc2JynwSDtGqnUHLaTkMLQtq8ltLAZmIfqgAZW5feL75iEVZ5Zz2eCGmemiOP
-	 hudFFr1BJQVwungekpasyCvirgC/vHjf1d/AFJ4OnuiDBIYXMUkl1zBRpn5zfbPe9PSH5
-	 sb5sdvRNVSwMwEc31aa3IkZf/CtLr7MA/r/L+ySTCaT1Ebt09SMr9bktV8iNOIZ7N/Xgx
-	 6V4ZHKVquAJgqJGLZRa9LAo9h/zeCBQRd3Lz8ulPOUvAbNWsaRyHPkJgU4BgWm0D4FDzh
-	 1wG9TbD3dP2e+lR1QzYTP/S9hMOhxuwwRsmvewwa1fp2RES4X1BMJI+wYJ21GlntKOg==
+	t=1794045789;
+	b=bQK+616j/sW6CDzCeyS8lrECiINdkY+LZHQO70z9LM322RKtiPwiAH5VYThgx07ym6Jk
+	 GEd7K9XjetOz5GFAMnMqpEKGoq2MHrEgWSrRTjDvkBRQ4aj/H6hpRf3ySZdxAMSdZCgJK
+	 LY85mfB63xqk/kfDi0h2hIG/hqVr3Nl6+i0JbCbtCRozkhDbxjT3Ry7dAL0OVfIDp8Kqe
+	 fxRUZorPAAVcM7vTj5Jogx19ncvL7o+A4XdhVjGe6H12zNv9Bfz5s05UMwPzsoBlYmUkD
+	 YQfMEw3WTqg9SUgk+O1bXv/2WAPArTpLCWKLqbwE5AZXHjcjhkW3sunhIdI8VJdy/Iw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794045787;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794045789;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=4+q7kprI3OqUpH3xhSiABpKNCA6VQjJDxhoeYmPfzg8=;
-	b=ZX4QmVpREtifFySYn972FMpRGCOAdY2O0thCynFPOeU0ZoDxiRNOdw4KmHMe2l46l0Eh
-	 4bawhgeYJIJiXoLHD8L89VyL3bNsld2egWke8NevvNMBm2RxZHHhRFs3JNJ26M3gJx2ie
-	 2ci5XYGOIyPLmhOX1o6hLzAOJgSOKxdkkTEVGr2MmhcGNChDuoKCvQbHHkUcpV8OAKhsM
-	 Yi/oJTPCQ6VFxKIudFP4smjMZ2EZoQrdcvUKiHnXk7W4ShNQ9VmOVYL/YCQsyFBP7Sqqv
-	 bx1uPjcYtVu3ElcHcBhJz5H+E8Okep5EjPABoDlDGIRi9EmBe/6unbmLJPOTHxVKNFQ==
+	bh=AjQTQrV9y4WERXaBLWhxon7hPgjqhaskj63jzTkcQE4=;
+	b=y8X83WLO4Nhr4KNIn0q/WxknfFqNWDaWmj9DqOlx9AWPyA1EifserPNHKDsdtj3ysSrR
+	 +c58qmfnTN95weY8D5XtkAcH+GmUPQL+c4WRFlakiXZ/lZ8o3PSyMImMNfpxPQ1CLXG+C
+	 ihCyuwFwZV8jzLfsADfQoJ0QfM9hPwZVI+6fwZkBDU0lxBx1w+BvzX8GGqi3V1swOYmTZ
+	 cJeJixIqfiJ8uhrn++g2xkvvUOC/76hELUzGYm132/Di08pGlJXCQhKKj9MYTxq7ekHi/
+	 luEFXLE7hT1sGrVvEZicYyWESu6ZgdmcS1XvvIq5meuu2uTjVNTy4+uO3tzHce38Thg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GMuId2m8;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Csp3MLwb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E209F606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:03:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78A6E606A32D
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:03:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GMuId2m8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 441011F008A1;
-	Sat,  7 Nov 2026 10:03:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Csp3MLwb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 887AD1F008A2;
+	Sat,  7 Nov 2026 10:03:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794045786;
-	bh=4+q7kprI3OqUpH3xhSiABpKNCA6VQjJDxhoeYmPfzg8=;
+	s=k20260515; t=1794045789;
+	bh=AjQTQrV9y4WERXaBLWhxon7hPgjqhaskj63jzTkcQE4=;
 	h=From:To:Cc:Subject:Date;
-	b=GMuId2m8WCPpfO5Lvwl7iUtA/YzjiV2gRIuGUBrOtwykPwKEYabXLvE0kjWhNnqTL
-	 sLUnXmd6gIKq2pPz/jj4G/ihZy9XbVgA44tfHttOBk9j3At+xoXrjM9bsfYNaakMTQ
-	 LKYQny9IakwVH8WGe5AKPOtb9SYaRMMJM+PaSzyla0WGUzt5fAHu8YDo98p1Fm6BxD
-	 rd4toIYtilbOVpR4PpaRPYs6Ez4+c6AJdSDKfnHf4qU32qR/Re3klpxgZAqMkJsOHA
-	 d6aIqhXXnx9gf6gGcBreh4fAYuPAjVd4MWDJjKBJtwXlamtfVsQgVVKAa5yaK7wkUf
-	 MCZh8E/GKXfRQ==
+	b=Csp3MLwbXAn8/Gfi73W4GyhvdVeQwQjSDqRcaMa3MztbzrSpkkYXyfguOT+uq7YnG
+	 KfdZp0fwL/y124WVigDwiqIHJqjEwRlg0HphMn3IuyB4n08vhJqHzxehgrPEo3rbjh
+	 o7rswQTbFjbYh88T141ZiVwBrYxeg71sPV6XX2iB/CBlNjZI0jokDshBkOFBPfeRDj
+	 lpR43sxyBiXawvnok8i6F/tt5pPRjL7PtAO1vgj1woVibujB5EMYsqz8Yl3MHfwYWd
+	 vKSsU0IPPce5IOx6Qv9+jn8UnxIak/afIwwuFddk3AgXd2otrtbH5xwB11tz1t0S+m
+	 7+8kMPcPGnYBQ==
 From: Sasha Levin <sashal@kernel.org>
-To: blum@kernel.org,
-	thorsten.blum@linux.dev,
-	andi.shyti@linux.intel.com
+To: chao@kernel.org,
+	zhiguo.niu@unisoc.com,
+	jaegeuk@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/i915: Fix memory leak in query_perf_config_list()" failed to apply to 7.3-stable tree
-Date: Sat,  7 Nov 2026 05:03:05 -0500
-Message-ID: <20261107050305-failed-7.3-9977e9d84f46@kernel.org>
+Subject: FAILED: patch "[PATCH] f2fs: fix to avoid folio->mapping dereference in is_{meta, node}_folio()" failed to apply to 7.3-stable tree
+Date: Sat,  7 Nov 2026 05:03:07 -0500
+Message-ID: <20261107050307-failed-7.3-b5a71253c5c7@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,50 +69,253 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x 9977e9d84f46d4f12ad35fbbc0ec4638554bce87
+git cherry-pick -x b5a71253c5c7e1139eab2f3e1e13e0bf2cbcaac7
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050305-failed-7.3-9977e9d84f46@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050307-failed-7.3-b5a71253c5c7@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 9977e9d84f46d4f12ad35fbbc0ec4638554bce87 Mon Sep 17 00:00:00 2001
-From: Thorsten Blum <thorsten.blum@linux.dev>
-Date: Sun, 23 Aug 2026 22:50:28 +0200
-Subject: [PATCH] drm/i915: Fix memory leak in query_perf_config_list()
+From b5a71253c5c7e1139eab2f3e1e13e0bf2cbcaac7 Mon Sep 17 00:00:00 2001
+From: Chao Yu <chao@kernel.org>
+Date: Thu, 10 Sep 2026 02:20:26 +0000
+Subject: [PATCH] f2fs: fix to avoid folio->mapping dereference in is_{meta,
+ node}_folio()
 
-When krealloc() fails, free the original oa_config_ids before returning
-to avoid a memory leak.
+Otherwise, it may cause NULL pointer dereference in race condition:
 
-Fixes: 4f6ccc74a85c ("drm/i915: add support for perf configuration queries")
-Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
-Cc: <stable@vger.kernel.org> # v5.5+
-Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
-Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
-Link: https://patch.msgid.link/20260823205028.178597-2-thorsten.blum@linux.dev
+Thread A			Thread B
+				- f2fs_setattr
+				 - f2fs_truncate
+				  - f2fs_truncate_blocks
+			    	   - f2fs_do_truncate_blocks
+				    - f2fs_truncate_inode_blocks
+				     - truncate_dnode
+				      - truncate_node
+				       - invalidate_mapping_pages
+				        - folio->mapping = NULL
+- folio_lock
+- is_node_folio
+ - F2FS_F_SB(folio): dereference on folio->mapping
+
+Cc: stable@kernel.org
+Fixes: 019a8912425e ("f2fs: introduce is_{meta,node}_folio")
+Reported-by: Zhiguo Niu <zhiguo.niu@unisoc.com>
+Closes: https://lore.kernel.org/linux-f2fs-devel/c5d29b31-e764-4782-9639-be84b1b2bfc2@kernel.org
+Signed-off-by: Chao Yu <chao@kernel.org>
+Reviewed-by: Zhiguo Niu <zhiguo.niu@unisoc.com>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
 ---
- drivers/gpu/drm/i915/i915_query.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ fs/f2fs/checkpoint.c |  4 ++--
+ fs/f2fs/data.c       |  7 ++++---
+ fs/f2fs/f2fs.h       | 10 +++++-----
+ fs/f2fs/gc.c         |  2 +-
+ fs/f2fs/node.c       | 22 +++++++++++-----------
+ fs/f2fs/segment.c    |  2 +-
+ 6 files changed, 24 insertions(+), 23 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_query.c b/drivers/gpu/drm/i915/i915_query.c
-index 0c55fb6e9727d..11157fb14db31 100644
---- a/drivers/gpu/drm/i915/i915_query.c
-+++ b/drivers/gpu/drm/i915/i915_query.c
-@@ -403,8 +403,10 @@ static int query_perf_config_list(struct drm_i915_private *i915,
- 		ids = krealloc(oa_config_ids,
- 			       n_configs * sizeof(*oa_config_ids),
- 			       GFP_KERNEL);
--		if (!ids)
-+		if (!ids) {
-+			kfree(oa_config_ids);
- 			return -ENOMEM;
-+		}
+diff --git a/fs/f2fs/checkpoint.c b/fs/f2fs/checkpoint.c
+index dffd63eedea89..e95cd2118750f 100644
+--- a/fs/f2fs/checkpoint.c
++++ b/fs/f2fs/checkpoint.c
+@@ -291,7 +291,7 @@ static struct folio *__get_meta_folio(struct f2fs_sb_info *sbi, pgoff_t index,
+ 	f2fs_update_iostat(sbi, NULL, FS_META_READ_IO, F2FS_BLKSIZE(sbi));
  
- 		alloc = fetch_and_zero(&n_configs);
+ 	folio_lock(folio);
+-	if (unlikely(!is_meta_folio(folio))) {
++	if (unlikely(!is_meta_folio(sbi, folio))) {
+ 		f2fs_folio_put(folio, true);
+ 		goto repeat;
+ 	}
+@@ -638,7 +638,7 @@ long f2fs_sync_meta_pages(struct f2fs_sb_info *sbi, long nr_to_write,
  
+ 			folio_lock(folio);
+ 
+-			if (unlikely(!is_meta_folio(folio))) {
++			if (unlikely(!is_meta_folio(sbi, folio))) {
+ continue_unlock:
+ 				folio_unlock(folio);
+ 				continue;
+diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+index 87010db21bc9f..a3b02c067e89b 100644
+--- a/fs/f2fs/data.c
++++ b/fs/f2fs/data.c
+@@ -172,7 +172,8 @@ static void f2fs_finish_read_bio(struct bio *bio, bool in_task)
+ 			dec_page_count(F2FS_F_SB(folio), __read_io_type(folio));
+ 
+ 		if (bio->bi_status == BLK_STS_OK &&
+-			F2FS_F_SB(folio)->node_inode && is_node_folio(folio) &&
++			F2FS_F_SB(folio)->node_inode &&
++			is_node_folio(F2FS_F_SB(folio), folio) &&
+ 			f2fs_sanity_check_node_footer(F2FS_F_SB(folio),
+ 				folio, folio->index, NODE_TYPE_REGULAR, true))
+ 			bio->bi_status = BLK_STS_IOERR;
+@@ -359,12 +360,12 @@ static void f2fs_write_end_bio(struct bio *bio)
+ 			}
+ 		}
+ 
+-		if (is_node_folio(folio)) {
++		if (is_node_folio(sbi, folio)) {
+ 			f2fs_sanity_check_node_footer(sbi, folio,
+ 				folio->index, NODE_TYPE_REGULAR, true);
+ 			f2fs_bug_on(sbi, folio->index != nid_of_node(sbi, folio));
+ 		}
+-		if (f2fs_in_warm_node_list(folio))
++		if (f2fs_in_warm_node_list(sbi, folio))
+ 			f2fs_del_fsync_node_entry(sbi, folio);
+ 
+ 		dec_page_count(sbi, type);
+diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+index 66443d770a6c4..6b40a74448ebf 100644
+--- a/fs/f2fs/f2fs.h
++++ b/fs/f2fs/f2fs.h
+@@ -2371,14 +2371,14 @@ static inline struct address_space *NODE_MAPPING(struct f2fs_sb_info *sbi)
+ 	return sbi->node_inode->i_mapping;
+ }
+ 
+-static inline bool is_meta_folio(struct folio *folio)
++static inline bool is_meta_folio(struct f2fs_sb_info *sbi, struct folio *folio)
+ {
+-	return folio->mapping == META_MAPPING(F2FS_F_SB(folio));
++	return folio->mapping == META_MAPPING(sbi);
+ }
+ 
+-static inline bool is_node_folio(struct folio *folio)
++static inline bool is_node_folio(struct f2fs_sb_info *sbi, struct folio *folio)
+ {
+-	return folio->mapping == NODE_MAPPING(F2FS_F_SB(folio));
++	return folio->mapping == NODE_MAPPING(sbi);
+ }
+ 
+ static inline bool is_sbi_flag_set(struct f2fs_sb_info *sbi, unsigned int type)
+@@ -4063,7 +4063,7 @@ enum node_type;
+ 
+ int f2fs_check_nid_range(struct f2fs_sb_info *sbi, nid_t nid);
+ bool f2fs_available_free_memory(struct f2fs_sb_info *sbi, int type);
+-bool f2fs_in_warm_node_list(struct folio *folio);
++bool f2fs_in_warm_node_list(struct f2fs_sb_info *sbi, struct folio *folio);
+ void f2fs_init_fsync_node_info(struct f2fs_sb_info *sbi);
+ void f2fs_del_fsync_node_entry(struct f2fs_sb_info *sbi, struct folio *folio);
+ void f2fs_reset_fsync_node_info(struct f2fs_sb_info *sbi);
+diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
+index aedb45c8ee4a1..c70deac9f1a31 100644
+--- a/fs/f2fs/gc.c
++++ b/fs/f2fs/gc.c
+@@ -1431,7 +1431,7 @@ static int move_data_block(struct inode *inode, block_t bidx,
+ 						F2FS_BLKSIZE(fio.sbi));
+ 
+ 		folio_lock(mfolio);
+-		if (unlikely(!is_meta_folio(mfolio) ||
++		if (unlikely(!is_meta_folio(fio.sbi, mfolio) ||
+ 			     !folio_test_uptodate(mfolio))) {
+ 			err = -EIO;
+ 			f2fs_folio_put(mfolio, true);
+diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
+index 8c150d4966e54..f16144b75d119 100644
+--- a/fs/f2fs/node.c
++++ b/fs/f2fs/node.c
+@@ -332,10 +332,10 @@ static unsigned int __gang_lookup_nat_set(struct f2fs_nm_info *nm_i,
+ 							start, nr);
+ }
+ 
+-bool f2fs_in_warm_node_list(struct folio *folio)
++bool f2fs_in_warm_node_list(struct f2fs_sb_info *sbi, struct folio *folio)
+ {
+-	return is_node_folio(folio) && IS_DNODE(F2FS_F_SB(folio), folio) &&
+-					is_cold_node(F2FS_F_SB(folio), folio);
++	return is_node_folio(sbi, folio) && IS_DNODE(sbi, folio) &&
++					is_cold_node(sbi, folio);
+ }
+ 
+ void f2fs_init_fsync_node_info(struct f2fs_sb_info *sbi)
+@@ -1296,7 +1296,7 @@ int f2fs_truncate_inode_blocks(struct inode *inode, pgoff_t from)
+ 			goto fail;
+ 		if (offset[1] == 0 && get_nid(sbi, folio, offset[0], true)) {
+ 			folio_lock(folio);
+-			BUG_ON(!is_node_folio(folio));
++			BUG_ON(!is_node_folio(sbi, folio));
+ 			set_nid(sbi, folio, offset[0], 0, true);
+ 			folio_unlock(folio);
+ 		}
+@@ -1612,7 +1612,7 @@ static struct folio *__get_node_folio(struct f2fs_sb_info *sbi, pgoff_t nid,
+ 
+ 	folio_lock(folio);
+ 
+-	if (unlikely(!is_node_folio(folio))) {
++	if (unlikely(!is_node_folio(sbi, folio))) {
+ 		f2fs_folio_put(folio, true);
+ 		goto repeat;
+ 	}
+@@ -1731,7 +1731,7 @@ static struct folio *last_fsync_dnode(struct f2fs_sb_info *sbi, nid_t ino)
+ 
+ 			folio_lock(folio);
+ 
+-			if (unlikely(!is_node_folio(folio))) {
++			if (unlikely(!is_node_folio(sbi, folio))) {
+ continue_unlock:
+ 				folio_unlock(folio);
+ 				continue;
+@@ -1841,7 +1841,7 @@ static bool __write_node_folio(struct folio *folio, bool atomic, bool do_fsync,
+ 				f2fs_need_dentry_mark(sbi, ino_of_node(sbi, folio)));
+ 
+ 	/* should add to global list before clearing PAGECACHE status */
+-	if (f2fs_in_warm_node_list(folio)) {
++	if (f2fs_in_warm_node_list(sbi, folio)) {
+ 		seq = f2fs_add_fsync_node_entry(sbi, folio);
+ 		if (seq_id)
+ 			*seq_id = seq;
+@@ -1965,7 +1965,7 @@ int f2fs_fsync_node_pages(struct f2fs_sb_info *sbi, struct inode *inode,
+ 
+ 			folio_lock(folio);
+ 
+-			if (unlikely(!is_node_folio(folio))) {
++			if (unlikely(!is_node_folio(sbi, folio))) {
+ continue_unlock:
+ 				folio_unlock(folio);
+ 				continue;
+@@ -2023,7 +2023,7 @@ int f2fs_fsync_node_pages(struct f2fs_sb_info *sbi, struct inode *inode,
+ 		f2fs_debug(sbi, "Retry to write fsync mark: ino=%u, idx=%lx",
+ 			   ino, last_folio->index);
+ 		folio_lock(last_folio);
+-		if (unlikely(!is_node_folio(last_folio))) {
++		if (unlikely(!is_node_folio(sbi, last_folio))) {
+ 			f2fs_folio_put(last_folio, true);
+ 			ret = -EAGAIN;
+ 			goto out;
+@@ -2101,7 +2101,7 @@ void f2fs_flush_inline_data(struct f2fs_sb_info *sbi)
+ 
+ 			folio_lock(folio);
+ 
+-			if (unlikely(!is_node_folio(folio)))
++			if (unlikely(!is_node_folio(sbi, folio)))
+ 				goto unlock;
+ 			if (!folio_test_dirty(folio))
+ 				goto unlock;
+@@ -2173,7 +2173,7 @@ int f2fs_sync_node_pages(struct f2fs_sb_info *sbi,
+ 			else if (!folio_trylock(folio))
+ 				continue;
+ 
+-			if (unlikely(!is_node_folio(folio))) {
++			if (unlikely(!is_node_folio(sbi, folio))) {
+ continue_unlock:
+ 				folio_unlock(folio);
+ 				continue;
+diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
+index 0b6267d0354e8..ffdd2c510b3cc 100644
+--- a/fs/f2fs/segment.c
++++ b/fs/f2fs/segment.c
+@@ -4161,7 +4161,7 @@ static void do_write_page(struct f2fs_summary *sum, struct f2fs_io_info *fio)
+ 			__func__, fio->ino, folio->index, type,
+ 			fio->old_blkaddr, fio->new_blkaddr, err);
+ 		folio_end_writeback(folio);
+-		if (f2fs_in_warm_node_list(folio))
++		if (f2fs_in_warm_node_list(fio->sbi, folio))
+ 			f2fs_del_fsync_node_entry(fio->sbi, folio);
+ 		f2fs_bug_on(fio->sbi, !is_set_ckpt_flags(fio->sbi,
+ 							CP_ERROR_FLAG));
 -- 
 2.53.0
 
