@@ -1,54 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794045839;
-	b=YUn664TPbLNBOlHkkQxW8kDtiyzCfFNu+UAuK+u2tJh+EmuWhPOXMJ8SWXWZ1SrtH8Gt
-	 /uzXQ8l3lrD6d0xzFKTx9a26HmjlNelMhmAGrq9jRORZlEI/Zf5dPAhPoypdEVHJ2QEyl
-	 jZlNz+MZIMG5hFGuCYhANPMwUsvcRmvgZqRIH5RVBSL0aa0ANU8QvzmO2dGgDisdFECPN
-	 eWWGC6vAJq1RLdrighyXz0XHQnaqBvALvTTto9E4/zDZS088EByyAlQ87EAW4kgl/TZHF
-	 UEmRJq1LYB3y0jYUcc2e1Uw3EQcaFcoxKsOVWhZVq/OV0RtPiJOA/K4CkToRB5UQadg==
+	t=1794045841;
+	b=uoqG/mos/Qcn8C2Z7KRNaEqRuzaPU3mky6k7siZF9Aqj5N9bLfFBy9HlkXOIgrJRtdHN
+	 P2qx1fYi5GIaSuCkqZXvfc5uWdQY51AZ8CXTf/SJP09d2YcPjVqhJlU4zr+Is8M7mqR7V
+	 AdDjiwFNFRnAjyGRKrknDkGUjlYkO0SYUFVzgKXXFGTTCqwLN4Ro4SenvQ309clAlu8Uy
+	 B8hlzn2mEZ8Qh3GSDES80iKqkwnpov37jRO0CevoR6hmHlz5EurfjKJAplkuKhGABHxeU
+	 l+9oC0Psq9vzpbLGBl0LTfD0+G0GVL1YVtu6Fxe+Q749EF4WxuRjztDrVJCdolTDEzA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794045839;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794045841;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=EHAWRtrT5VlEDpq9yYd6LC+jE9NP9sXAjlSQPaLTrks=;
-	b=B6T8QcrF28MwjrN7LNM1IIn59Wg2FDTe2sfEgC2mhMn4+iu7BkjgB2dVQgGmzm+wn5DM
-	 765eHmN5ctrmToKoa+cGhc1sQv5YNUvi2zrA1vddXavIZjsvuSLCtgAl8vKvDhIOnJo9l
-	 qBeZXlv9Gbq9dfSD3Epb9O7F/JdFvYdx0S0bZll/KOPowzhdrkEnraE9AkGsc5fab1qvQ
-	 LPkj4mDhTObWXD7rYQHGx3z55yxjduTy5JgG4HPdTDFspvMkSzflzfWa7seR8V7whvbPS
-	 bMvDL9yX7Sy/kOaj73KdqUBOdu9eggc8VhaFbT3eQ49H0PQrVpn8rjdhNWZ64SJAxBQ==
+	bh=sWUsH2W8H3NIFmjLC1vPfBDd5QdAXOSp1a1lMsH5nyg=;
+	b=PJZAFssf0EywR0wekn2l5w0dFBMnwTpBrAkNanfkWHxGQ1OLa6NqFad3CNe2hZ5Y/Rdw
+	 ha2iUw+ySxkZCECu5y3KII7YParE7oJJCcCBJz/aXVIETuP6kfe/k++hYE+UEyONgv2or
+	 WEBzrSZviK8g4wTS7wSyyTBiweCqEWrtu0ySLh0COvvnt1izhhuXgWlVPIDRF+EU70jju
+	 Sz4pR5rsAH1bG/bU7oKd+Q7uCk2jZl20G8BjUuuX9blUnqpBx+dJHZOmjQ0g/Ybw0B0Lf
+	 OFdueRE1WjXiWmfem6dCn7VALVSIrHms+4i+lEysz+zHDQ9+mew1cK6CplAzOf1BhLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H7KcCbgR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iej+K3YW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53C86606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:03:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33C07606A32F
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:04:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H7KcCbgR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38FBF1F0089F;
-	Sat,  7 Nov 2026 10:03:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iej+K3YW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EAA51F0089F;
+	Sat,  7 Nov 2026 10:04:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794045838;
-	bh=EHAWRtrT5VlEDpq9yYd6LC+jE9NP9sXAjlSQPaLTrks=;
+	s=k20260515; t=1794045841;
+	bh=sWUsH2W8H3NIFmjLC1vPfBDd5QdAXOSp1a1lMsH5nyg=;
 	h=From:To:Cc:Subject:Date;
-	b=H7KcCbgRUgwV9skBnetKRQEJxZrwjWnOrCWdc4DRstzz4zv9uBojmRvMSZhRshRF0
-	 dhkq8E59kHmarI9lR3g5fI7k7FhtzE1bIo8Sfc59+Tl2c5NXmUzurXYNiFKhDAFwzd
-	 vtbMkjAPEZfxDbKPzPLr592yzg2cextNm4mATVnIfBek5jCivkJu3BD/ZtWdnt5raX
-	 UzAxCxoyM7D8K0s4vsdbhPQI3667Bby7pb4gHz8NZXmMLLvQhJeO6o7Krh7kNBg74h
-	 r4ySsOXb/xpdxB7CfJjK9dKrhG8b0Pszq9lgGQ6BxUuaE+shfIAHDMhicXMEW1vDW2
-	 /of9WKHd2X5/A==
+	b=iej+K3YWZ/Q7Cv2L7UTPVdtflOHr90Boze6Gf7Voa6Y/fRILYpOZ0EPicX4R68RT7
+	 7OI4h7116kN0aA1bomR3QhhS3vhPaDmfaqsGLcOyWAfOL2tc1AlwCy4ez1pPmqQd5l
+	 a7dPJgLG7QPxYZPP0Z/ihamv3DYWTFd0JpQXc4lYkkbUjPuhbeJQJn2Yh5EXiwQ2QS
+	 /wASfBsJQtLEYcx60xZ48HMdAMMFNY9NtzzvVa9plZ7ki7cAYLmMRMHDG86ahxACDk
+	 KFiFWcja0PXj8/q3tBYYFFiWEelfHYuSSZsF5UHCEL59mMvxHzZNlnI7y99fNi91Rr
+	 VedN4O0p0BaaQ==
 From: Sasha Levin <sashal@kernel.org>
-To: ribalda@chromium.org,
-	edwin.gatier@protonmail.com,
-	laurent.pinchart@ideasonboard.com,
-	johannes.goede@oss.qualcomm.com,
-	hverkuil+cisco@kernel.org
+To: vdonnefort@google.com,
+	fuad.tabba@linux.dev,
+	maz@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] media: uvcvideo: Force UVC version for Avermedia GC515" failed to apply to 7.3-stable tree
-Date: Sat,  7 Nov 2026 05:03:57 -0500
-Message-ID: <20261107050357-failed-7.3-65444446f0c5@kernel.org>
+Subject: FAILED: patch "[PATCH] KVM: arm64: Use kvm_s2_fault_vma_info in pkvm_mem_abort()" failed to apply to 7.3-stable tree
+Date: Sat,  7 Nov 2026 05:03:59 -0500
+Message-ID: <20261107050359-failed-7.3-0cdcc1039200@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,715 +69,151 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x 65444446f0c595c0e250368cde88735b59ccc446
+git cherry-pick -x 0cdcc1039200b3c4fbc2ae3f9b5c1be1bc9155e8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050357-failed-7.3-65444446f0c5@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050359-failed-7.3-0cdcc1039200@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 65444446f0c595c0e250368cde88735b59ccc446 Mon Sep 17 00:00:00 2001
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Mon, 28 Sep 2026 14:32:04 +0000
-Subject: [PATCH] media: uvcvideo: Force UVC version for Avermedia GC515
+From 0cdcc1039200b3c4fbc2ae3f9b5c1be1bc9155e8 Mon Sep 17 00:00:00 2001
+From: Vincent Donnefort <vdonnefort@google.com>
+Date: Mon, 28 Sep 2026 10:54:53 +0100
+Subject: [PATCH] KVM: arm64: Use kvm_s2_fault_vma_info in pkvm_mem_abort()
 
-The device announces itself as UVC 1.5, but it only accepts UVC 1.1
-controls.
+To paraphrase Marc in commit 08f97454b7fa ("KVM: arm64: Fix protected
+mode handling of pages larger than 4kB"), pkvm_pgtable_stage2_map()
+assumes the address passed as a parameter is aligned to the size of the
+intended mapping, while HPFAR_EL2 gives the IPA minus the bottom 12
+bits, regardless of the system page size configuration.
 
-The camera can probably be handled by the automatic uvc_version handler,
-but it is more correct to add a quirk and keep some tracking of what
-vendors are more or less compliant. Also it might be more robust if we
-introduce more UVC version-dependent code.
+To fix this alignment, bring support for kvm_s2_fault_vma_info in
+pkvm_mem_abort() and use its members where possible. They do contain the
+page-alignment we need to fix the fault on system with pages larger than
+4K.
 
-Bus 003 Device 021: ID 07ca:1515 AVerMedia Technologies, Inc. X'tra Go GC515
-Negotiated speed: High Speed (480Mbps)
-Device Descriptor:
-  bLength                18
-  bDescriptorType         1
-  bcdUSB               2.00
-  bDeviceClass          239 Miscellaneous Device
-  bDeviceSubClass         2 [unknown]
-  bDeviceProtocol         1 Interface Association
-  bMaxPacketSize0        64
-  idVendor           0x07ca AVerMedia Technologies, Inc.
-  idProduct          0x1515 X'tra Go GC515
-  bcdDevice            0.10
-  iManufacturer           1 AVerMedia
-  iProduct                2 X'tra Go GC515
-  iSerial                 3 5313180000221
-  bNumConfigurations      1
-  Configuration Descriptor:
-    bLength                 9
-    bDescriptorType         2
-    wTotalLength       0x03fd
-    bNumInterfaces          4
-    bConfigurationValue     1
-    iConfiguration          0
-    bmAttributes         0xc0
-      Self Powered
-    MaxPower              500mA
-    Interface Association:
-      bLength                 8
-      bDescriptorType        11
-      bFirstInterface         0
-      bInterfaceCount         2
-      bFunctionClass         14 Video
-      bFunctionSubClass       3 Video Interface Collection
-      bFunctionProtocol       0
-      iFunction               0
-    Interface Descriptor:
-      bLength                 9
-      bDescriptorType         4
-      bInterfaceNumber        0
-      bAlternateSetting       0
-      bNumEndpoints           1
-      bInterfaceClass        14 Video
-      bInterfaceSubClass      1 Video Control
-      bInterfaceProtocol      1
-      iInterface              0
-      VideoControl Interface Descriptor:
-        bLength                13
-        bDescriptorType        36
-        bDescriptorSubtype      1 (HEADER)
-        bcdUVC               1.50
-        wTotalLength       0x0059
-        dwClockFrequency       30.000000MHz
-        bInCollection           1
-        baInterfaceNr( 0)       1
-      VideoControl Interface Descriptor:
-        bLength                18
-        bDescriptorType        36
-        bDescriptorSubtype      2 (INPUT_TERMINAL)
-        bTerminalID             1
-        wTerminalType      0x0201 Camera Sensor
-        bAssocTerminal          0
-        iTerminal               0
-        wObjectiveFocalLengthMin      0
-        wObjectiveFocalLengthMax      0
-        wOcularFocalLength            0
-        bControlSize                  3
-        bmControls           0x00000000
-      VideoControl Interface Descriptor:
-        bLength                 9
-        bDescriptorType        36
-        bDescriptorSubtype      3 (OUTPUT_TERMINAL)
-        bTerminalID             2
-        wTerminalType      0x0101 USB Streaming
-        bAssocTerminal          0
-        bSourceID               4
-        iTerminal               0
-      VideoControl Interface Descriptor:
-        bLength                 7
-        bDescriptorType        36
-        bDescriptorSubtype      4 (SELECTOR_UNIT)
-        bUnitID                 3
-        bNrInPins               1
-        baSource( 0)            1
-        iSelector               0
-      VideoControl Interface Descriptor:
-        bLength                13
-        bDescriptorType        36
-        bDescriptorSubtype      5 (PROCESSING_UNIT)
-        bUnitID                 4
-        bSourceID               3
-        wMaxMultiplier          0
-        bControlSize            3
-        bmControls     0x00000000
-        iProcessing             0
-        bmVideoStandards     0x00
-      VideoControl Interface Descriptor:
-        bLength                29
-        bDescriptorType        36
-        bDescriptorSubtype      6 (EXTENSION_UNIT)
-        bUnitID                 5
-        guidExtensionCode         {55be8e1c-2fdb-4f7a-bd8d-b9b1108d20c3}
-        bNumControls           24
-        bNrInPins               1
-        baSourceID( 0)          4
-        bControlSize            4
-        bmControls( 0)       0xff
-        bmControls( 1)       0xff
-        bmControls( 2)       0xff
-        bmControls( 3)       0x00
-        iExtension              0
-      Endpoint Descriptor:
-        bLength                 7
-        bDescriptorType         5
-        bEndpointAddress     0x85  EP 5 IN
-        bmAttributes            3
-          Transfer Type            Interrupt
-          Synch Type               None
-          Usage Type               Data
-        wMaxPacketSize     0x0040  1x 64 bytes
-        bInterval               1
-        VideoControl Endpoint Descriptor:
-          bLength                 5
-          bDescriptorType        37
-          bDescriptorSubtype      3 (EP_INTERRUPT)
-          wMaxTransferSize       64
-    Interface Descriptor:
-      bLength                 9
-      bDescriptorType         4
-      bInterfaceNumber        1
-      bAlternateSetting       0
-      bNumEndpoints           1
-      bInterfaceClass        14 Video
-      bInterfaceSubClass      2 Video Streaming
-      bInterfaceProtocol      1
-      iInterface              0
-      VideoStreaming Interface Descriptor:
-        bLength                            16
-        bDescriptorType                    36
-        bDescriptorSubtype                  1 (INPUT_HEADER)
-        bNumFormats                         3
-        wTotalLength                   0x0303
-        bEndpointAddress                 0x81  EP 1 IN
-        bmInfo                              0
-        bTerminalLink                       2
-        bStillCaptureMethod                 1
-        bTriggerSupport                     0
-        bTriggerUsage                       0
-        bControlSize                        1
-        bmaControls( 0)                     4
-        bmaControls( 1)                     4
-        bmaControls( 2)                     0
-      VideoStreaming Interface Descriptor:
-        bLength                            28
-        bDescriptorType                    36
-        bDescriptorSubtype                 16 (FORMAT_FRAME_BASED)
-        bFormatIndex                        1
-        bNumFrameDescriptors                8
-        guidFormat                            {34363248-0000-0010-8000-00aa00389b71}
-        bBitsPerPixel                      24
-        bDefaultFrameIndex                  1
-        bAspectRatioX                       0
-        bAspectRatioY                       0
-        bmInterlaceFlags                 0x00
-          Interlaced stream or variable: No
-          Fields per frame: 2 fields
-          Field 1 first: No
-          Field pattern: Field 1 only
-        bCopyProtect                        1
-        bVariableSize                     1
-      VideoStreaming Interface Descriptor:
-        bLength                            62
-        bDescriptorType                    36
-        bDescriptorSubtype                 17 (FRAME_FRAME_BASED)
-        bFrameIndex                         1
-        bmCapabilities                   0x01
-          Still image supported
-        wWidth                           1920
-        wHeight                          1080
-        dwMinBitRate                 33554432
-        dwMaxBitRate                268435456
-        dwDefaultFrameInterval         166666
-        bFrameIntervalType                  9
-        dwBytesPerLine                      0
-        dwFrameInterval( 0)             83333
-        dwFrameInterval( 1)             83416
-        dwFrameInterval( 2)            166666
-        dwFrameInterval( 3)            166833
-        dwFrameInterval( 4)            200000
-        dwFrameInterval( 5)            333333
-        dwFrameInterval( 6)            333667
-        dwFrameInterval( 7)            400000
-        dwFrameInterval( 8)            416666
-      VideoStreaming Interface Descriptor:
-        bLength                            42
-        bDescriptorType                    36
-        bDescriptorSubtype                 17 (FRAME_FRAME_BASED)
-        bFrameIndex                         2
-        bmCapabilities                   0x01
-          Still image supported
-        wWidth                           3840
-        wHeight                          2160
-        dwMinBitRate                 33554432
-        dwMaxBitRate                268435456
-        dwDefaultFrameInterval         333333
-        bFrameIntervalType                  4
-        dwBytesPerLine                      0
-        dwFrameInterval( 0)            333333
-        dwFrameInterval( 1)            333667
-        dwFrameInterval( 2)            400000
-        dwFrameInterval( 3)            416666
-      VideoStreaming Interface Descriptor:
-        bLength                            34
-        bDescriptorType                    36
-        bDescriptorSubtype                 17 (FRAME_FRAME_BASED)
-        bFrameIndex                         3
-        bmCapabilities                   0x01
-          Still image supported
-        wWidth                           2560
-        wHeight                          1440
-        dwMinBitRate                 33554432
-        dwMaxBitRate                268435456
-        dwDefaultFrameInterval         166666
-        bFrameIntervalType                  2
-        dwBytesPerLine                      0
-        dwFrameInterval( 0)            166666
-        dwFrameInterval( 1)            166833
-      VideoStreaming Interface Descriptor:
-        bLength                            34
-        bDescriptorType                    36
-        bDescriptorSubtype                 17 (FRAME_FRAME_BASED)
-        bFrameIndex                         4
-        bmCapabilities                   0x01
-          Still image supported
-        wWidth                           1280
-        wHeight                           800
-        dwMinBitRate                 33554432
-        dwMaxBitRate                268435456
-        dwDefaultFrameInterval         166666
-        bFrameIntervalType                  2
-        dwBytesPerLine                      0
-        dwFrameInterval( 0)            166666
-        dwFrameInterval( 1)            166833
-      VideoStreaming Interface Descriptor:
-        bLength                            38
-        bDescriptorType                    36
-        bDescriptorSubtype                 17 (FRAME_FRAME_BASED)
-        bFrameIndex                         5
-        bmCapabilities                   0x01
-          Still image supported
-        wWidth                           1280
-        wHeight                           720
-        dwMinBitRate                 33554432
-        dwMaxBitRate                268435456
-        dwDefaultFrameInterval         166666
-        bFrameIntervalType                  3
-        dwBytesPerLine                      0
-        dwFrameInterval( 0)            166666
-        dwFrameInterval( 1)            166833
-        dwFrameInterval( 2)            200000
-      VideoStreaming Interface Descriptor:
-        bLength                            34
-        bDescriptorType                    36
-        bDescriptorSubtype                 17 (FRAME_FRAME_BASED)
-        bFrameIndex                         6
-        bmCapabilities                   0x01
-          Still image supported
-        wWidth                            720
-        wHeight                           576
-        dwMinBitRate                 33554432
-        dwMaxBitRate                268435456
-        dwDefaultFrameInterval         200000
-        bFrameIntervalType                  2
-        dwBytesPerLine                      0
-        dwFrameInterval( 0)            200000
-        dwFrameInterval( 1)            400000
-      VideoStreaming Interface Descriptor:
-        bLength                            42
-        bDescriptorType                    36
-        bDescriptorSubtype                 17 (FRAME_FRAME_BASED)
-        bFrameIndex                         7
-        bmCapabilities                   0x01
-          Still image supported
-        wWidth                            720
-        wHeight                           480
-        dwMinBitRate                 33554432
-        dwMaxBitRate                268435456
-        dwDefaultFrameInterval         166666
-        bFrameIntervalType                  4
-        dwBytesPerLine                      0
-        dwFrameInterval( 0)            166666
-        dwFrameInterval( 1)            166833
-        dwFrameInterval( 2)            333333
-        dwFrameInterval( 3)            333667
-      VideoStreaming Interface Descriptor:
-        bLength                            34
-        bDescriptorType                    36
-        bDescriptorSubtype                 17 (FRAME_FRAME_BASED)
-        bFrameIndex                         8
-        bmCapabilities                   0x01
-          Still image supported
-        wWidth                            640
-        wHeight                           480
-        dwMinBitRate                 33554432
-        dwMaxBitRate                268435456
-        dwDefaultFrameInterval         166666
-        bFrameIntervalType                  2
-        dwBytesPerLine                      0
-        dwFrameInterval( 0)            166666
-        dwFrameInterval( 1)            166833
-      VideoStreaming Interface Descriptor:
-        bLength                             6
-        bDescriptorType                    36
-        bDescriptorSubtype                 13 (COLORFORMAT)
-        bColorPrimaries                     0 (Unspecified)
-        bTransferCharacteristics            0 (Unspecified)
-        bMatrixCoefficients                 0 (Unspecified)
-      VideoStreaming Interface Descriptor:
-        bLength                            28
-        bDescriptorType                    36
-        bDescriptorSubtype                 16 (FORMAT_FRAME_BASED)
-        bFormatIndex                        2
-        bNumFrameDescriptors                8
-        guidFormat                            {43564548-0000-0010-8000-00aa00389b71}
-        bBitsPerPixel                      24
-        bDefaultFrameIndex                  1
-        bAspectRatioX                       0
-        bAspectRatioY                       0
-        bmInterlaceFlags                 0x00
-          Interlaced stream or variable: No
-          Fields per frame: 2 fields
-          Field 1 first: No
-          Field pattern: Field 1 only
-        bCopyProtect                        1
-        bVariableSize                     1
-      VideoStreaming Interface Descriptor:
-        bLength                            62
-        bDescriptorType                    36
-        bDescriptorSubtype                 17 (FRAME_FRAME_BASED)
-        bFrameIndex                         1
-        bmCapabilities                   0x01
-          Still image supported
-        wWidth                           1920
-        wHeight                          1080
-        dwMinBitRate                 33554432
-        dwMaxBitRate                268435456
-        dwDefaultFrameInterval         166666
-        bFrameIntervalType                  9
-        dwBytesPerLine                      0
-        dwFrameInterval( 0)             83333
-        dwFrameInterval( 1)             83416
-        dwFrameInterval( 2)            166666
-        dwFrameInterval( 3)            166833
-        dwFrameInterval( 4)            200000
-        dwFrameInterval( 5)            333333
-        dwFrameInterval( 6)            333667
-        dwFrameInterval( 7)            400000
-        dwFrameInterval( 8)            416666
-      VideoStreaming Interface Descriptor:
-        bLength                            42
-        bDescriptorType                    36
-        bDescriptorSubtype                 17 (FRAME_FRAME_BASED)
-        bFrameIndex                         2
-        bmCapabilities                   0x01
-          Still image supported
-        wWidth                           3840
-        wHeight                          2160
-        dwMinBitRate                 33554432
-        dwMaxBitRate                268435456
-        dwDefaultFrameInterval         333333
-        bFrameIntervalType                  4
-        dwBytesPerLine                      0
-        dwFrameInterval( 0)            333333
-        dwFrameInterval( 1)            333667
-        dwFrameInterval( 2)            400000
-        dwFrameInterval( 3)            416666
-      VideoStreaming Interface Descriptor:
-        bLength                            34
-        bDescriptorType                    36
-        bDescriptorSubtype                 17 (FRAME_FRAME_BASED)
-        bFrameIndex                         3
-        bmCapabilities                   0x01
-          Still image supported
-        wWidth                           2560
-        wHeight                          1440
-        dwMinBitRate                 33554432
-        dwMaxBitRate                268435456
-        dwDefaultFrameInterval         166666
-        bFrameIntervalType                  2
-        dwBytesPerLine                      0
-        dwFrameInterval( 0)            166666
-        dwFrameInterval( 1)            166833
-      VideoStreaming Interface Descriptor:
-        bLength                            34
-        bDescriptorType                    36
-        bDescriptorSubtype                 17 (FRAME_FRAME_BASED)
-        bFrameIndex                         4
-        bmCapabilities                   0x01
-          Still image supported
-        wWidth                           1280
-        wHeight                           800
-        dwMinBitRate                 33554432
-        dwMaxBitRate                268435456
-        dwDefaultFrameInterval         166666
-        bFrameIntervalType                  2
-        dwBytesPerLine                      0
-        dwFrameInterval( 0)            166666
-        dwFrameInterval( 1)            166833
-      VideoStreaming Interface Descriptor:
-        bLength                            38
-        bDescriptorType                    36
-        bDescriptorSubtype                 17 (FRAME_FRAME_BASED)
-        bFrameIndex                         5
-        bmCapabilities                   0x01
-          Still image supported
-        wWidth                           1280
-        wHeight                           720
-        dwMinBitRate                 33554432
-        dwMaxBitRate                268435456
-        dwDefaultFrameInterval         166666
-        bFrameIntervalType                  3
-        dwBytesPerLine                      0
-        dwFrameInterval( 0)            166666
-        dwFrameInterval( 1)            166833
-        dwFrameInterval( 2)            200000
-      VideoStreaming Interface Descriptor:
-        bLength                            34
-        bDescriptorType                    36
-        bDescriptorSubtype                 17 (FRAME_FRAME_BASED)
-        bFrameIndex                         6
-        bmCapabilities                   0x01
-          Still image supported
-        wWidth                            720
-        wHeight                           576
-        dwMinBitRate                 33554432
-        dwMaxBitRate                268435456
-        dwDefaultFrameInterval         200000
-        bFrameIntervalType                  2
-        dwBytesPerLine                      0
-        dwFrameInterval( 0)            200000
-        dwFrameInterval( 1)            400000
-      VideoStreaming Interface Descriptor:
-        bLength                            42
-        bDescriptorType                    36
-        bDescriptorSubtype                 17 (FRAME_FRAME_BASED)
-        bFrameIndex                         7
-        bmCapabilities                   0x01
-          Still image supported
-        wWidth                            720
-        wHeight                           480
-        dwMinBitRate                 33554432
-        dwMaxBitRate                268435456
-        dwDefaultFrameInterval         166666
-        bFrameIntervalType                  4
-        dwBytesPerLine                      0
-        dwFrameInterval( 0)            166666
-        dwFrameInterval( 1)            166833
-        dwFrameInterval( 2)            333333
-        dwFrameInterval( 3)            333667
-      VideoStreaming Interface Descriptor:
-        bLength                            34
-        bDescriptorType                    36
-        bDescriptorSubtype                 17 (FRAME_FRAME_BASED)
-        bFrameIndex                         8
-        bmCapabilities                   0x01
-          Still image supported
-        wWidth                            640
-        wHeight                           480
-        dwMinBitRate                 33554432
-        dwMaxBitRate                268435456
-        dwDefaultFrameInterval         166666
-        bFrameIntervalType                  2
-        dwBytesPerLine                      0
-        dwFrameInterval( 0)            166666
-        dwFrameInterval( 1)            166833
-      VideoStreaming Interface Descriptor:
-        bLength                             6
-        bDescriptorType                    36
-        bDescriptorSubtype                 13 (COLORFORMAT)
-        bColorPrimaries                     0 (Unspecified)
-        bTransferCharacteristics            0 (Unspecified)
-        bMatrixCoefficients                 0 (Unspecified)
-      VideoStreaming Interface Descriptor:
-        bLength                            11
-        bDescriptorType                    36
-        bDescriptorSubtype                  6 (FORMAT_MJPEG)
-        bFormatIndex                        3
-        bNumFrameDescriptors                1
-        bFlags                              0
-          Fixed-size samples: No
-        bDefaultFrameIndex                  1
-        bAspectRatioX                       0
-        bAspectRatioY                       0
-        bmInterlaceFlags                 0x00
-          Interlaced stream or variable: No
-          Fields per frame: 1 fields
-          Field 1 first: No
-          Field pattern: Field 1 only
-        bCopyProtect                        1
-      VideoStreaming Interface Descriptor:
-        bLength                            30
-        bDescriptorType                    36
-        bDescriptorSubtype                  7 (FRAME_MJPEG)
-        bFrameIndex                         1
-        bmCapabilities                   0x01
-          Still image supported
-        wWidth                           1920
-        wHeight                          1080
-        dwMinBitRate                314572800
-        dwMaxBitRate                314572800
-        dwMaxVideoFrameBufferSize     4147200
-        dwDefaultFrameInterval         166666
-        bFrameIntervalType                  1
-        dwFrameInterval( 0)            166666
-      VideoStreaming Interface Descriptor:
-        bLength                             6
-        bDescriptorType                    36
-        bDescriptorSubtype                 13 (COLORFORMAT)
-        bColorPrimaries                     0 (Unspecified)
-        bTransferCharacteristics            0 (Unspecified)
-        bMatrixCoefficients                 0 (Unspecified)
-      Endpoint Descriptor:
-        bLength                 7
-        bDescriptorType         5
-        bEndpointAddress     0x81  EP 1 IN
-        bmAttributes            2
-          Transfer Type            Bulk
-          Synch Type               None
-          Usage Type               Data
-        wMaxPacketSize     0x0200  1x 512 bytes
-        bInterval               0
-    Interface Association:
-      bLength                 8
-      bDescriptorType        11
-      bFirstInterface         2
-      bInterfaceCount         2
-      bFunctionClass          1 Audio
-      bFunctionSubClass       2 Streaming
-      bFunctionProtocol       0
-      iFunction               0
-    Interface Descriptor:
-      bLength                 9
-      bDescriptorType         4
-      bInterfaceNumber        2
-      bAlternateSetting       0
-      bNumEndpoints           0
-      bInterfaceClass         1 Audio
-      bInterfaceSubClass      1 Control Device
-      bInterfaceProtocol      0
-      iInterface              0
-      AudioControl Interface Descriptor:
-        bLength                 9
-        bDescriptorType        36
-        bDescriptorSubtype      1 (HEADER)
-        bcdADC               1.00
-        wTotalLength       0x0026
-        bInCollection           1
-        baInterfaceNr(0)        3
-      AudioControl Interface Descriptor:
-        bLength                12
-        bDescriptorType        36
-        bDescriptorSubtype      2 (INPUT_TERMINAL)
-        bTerminalID             1
-        wTerminalType      0x0602 Digital Audio Interface
-        bAssocTerminal          0
-        bNrChannels             2
-        wChannelConfig     0x0003
-          Left Front (L)
-          Right Front (R)
-        iChannelNames           0
-        iTerminal               0
-      AudioControl Interface Descriptor:
-        bLength                 9
-        bDescriptorType        36
-        bDescriptorSubtype      3 (OUTPUT_TERMINAL)
-        bTerminalID             2
-        wTerminalType      0x0101 USB Streaming
-        bAssocTerminal          0
-        bSourceID               3
-        iTerminal               0
-      AudioControl Interface Descriptor:
-        bLength                 8
-        bDescriptorType        36
-        bDescriptorSubtype      6 (FEATURE_UNIT)
-        bUnitID                 3
-        bSourceID               1
-        bControlSize            1
-        bmaControls(0)       0x03
-          Mute Control
-          Volume Control
-        iFeature                0
-    Interface Descriptor:
-      bLength                 9
-      bDescriptorType         4
-      bInterfaceNumber        3
-      bAlternateSetting       0
-      bNumEndpoints           0
-      bInterfaceClass         1 Audio
-      bInterfaceSubClass      2 Streaming
-      bInterfaceProtocol      0
-      iInterface              0
-    Interface Descriptor:
-      bLength                 9
-      bDescriptorType         4
-      bInterfaceNumber        3
-      bAlternateSetting       1
-      bNumEndpoints           1
-      bInterfaceClass         1 Audio
-      bInterfaceSubClass      2 Streaming
-      bInterfaceProtocol      0
-      iInterface              0
-      AudioStreaming Interface Descriptor:
-        bLength                 7
-        bDescriptorType        36
-        bDescriptorSubtype      1 (AS_GENERAL)
-        bTerminalLink           2
-        bDelay                  1 frames
-        wFormatTag         0x0001 PCM
-      AudioStreaming Interface Descriptor:
-        bLength                11
-        bDescriptorType        36
-        bDescriptorSubtype      2 (FORMAT_TYPE)
-        bFormatType             1 (FORMAT_TYPE_I)
-        bNrChannels             2
-        bSubframeSize           2
-        bBitResolution         16
-        bSamFreqType            1 Discrete
-        tSamFreq[ 0]        48000
-      Endpoint Descriptor:
-        bLength                 9
-        bDescriptorType         5
-        bEndpointAddress     0x83  EP 3 IN
-        bmAttributes            5
-          Transfer Type            Isochronous
-          Synch Type               Asynchronous
-          Usage Type               Data
-        wMaxPacketSize     0x00c4  1x 196 bytes
-        bInterval               4
-        bRefresh                0
-        bSynchAddress           0
-        AudioStreaming Endpoint Descriptor:
-          bLength                 7
-          bDescriptorType        37
-          bDescriptorSubtype      1 (EP_GENERAL)
-          bmAttributes         0x01
-            Sampling Frequency
-          bLockDelayUnits         0 Undefined
-          wLockDelay         0x0000
+Also, add a check at the start of pkvm_pgtable_stage2_map(), it does not
+support !PAGE_ALIGNED arguments.
 
-Cc: stable@vger.kernel.org # 5.12.x
-Reported-by: Edwin Gatier <edwin.gatier@protonmail.com>
-Closes: https://lore.kernel.org/linux-media/CANiDSCu4AW=JZ9FS+Ny=DK_+LqqytGvSe+V6aVncRiGRiyDMfA@mail.gmail.com/T/#me584c35c4b523ac455925a1590a3de8efc354349
-Tested-by: Edwin Gatier <edwin.gatier@protonmail.com>
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
-Link: https://patch.msgid.link/20260928-uvc-version-v4-5-da0e983fcb95@chromium.org
-Signed-off-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Fixes: ea03466e806f ("KVM: arm64: Handle aborts from protected VMs")
+Cc: stable@vger.kernel.org
+Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
+Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
+Tested-by: Fuad Tabba <fuad.tabba@linux.dev>
+Link: https://patch.msgid.link/20260928095454.3255918-5-vdonnefort@google.com
+Signed-off-by: Marc Zyngier <maz@kernel.org>
 ---
- drivers/media/usb/uvc/uvc_driver.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ arch/arm64/kvm/mmu.c  | 27 ++++++++++++++++++---------
+ arch/arm64/kvm/pkvm.c |  3 +++
+ 2 files changed, 21 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
-index 468d46dfb9e74..cbc14569716b6 100644
---- a/drivers/media/usb/uvc/uvc_driver.c
-+++ b/drivers/media/usb/uvc/uvc_driver.c
-@@ -2863,6 +2863,17 @@ static const struct usb_device_id uvc_ids[] = {
- 	  .bInterfaceSubClass	= 1,
- 	  .bInterfaceProtocol	= 0,
- 	  .driver_info		= (kernel_ulong_t)&uvc_quirk_fix_bandwidth },
-+	/* Avermedia GC515 */
-+	{ .match_flags		= USB_DEVICE_ID_MATCH_DEVICE
-+				| USB_DEVICE_ID_MATCH_INT_INFO,
-+	  .idVendor		= 0x07ca,
-+	  .idProduct		= 0x1515,
-+	  .bInterfaceClass	= USB_CLASS_VIDEO,
-+	  .bInterfaceSubClass	= 1,
-+	  .bInterfaceProtocol	= UVC_PC_PROTOCOL_15,
-+	  .driver_info		= (kernel_ulong_t)&(const struct uvc_device_info){
-+		.uvc_version = 0x0110,
-+	  } },
- 	/* AVerMedia Live Gamer HD 2 capture card */
- 	{ .match_flags		= USB_DEVICE_ID_MATCH_DEVICE
- 				| USB_DEVICE_ID_MATCH_INT_INFO,
+diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
+index 658ac6a09e7ba..9ee5a5c122cbf 100644
+--- a/arch/arm64/kvm/mmu.c
++++ b/arch/arm64/kvm/mmu.c
+@@ -1374,9 +1374,11 @@ static bool fault_supports_stage2_huge_mapping(const struct kvm_s2_fault_desc *s
+ 	if (map_size == PAGE_SIZE)
+ 		return true;
+ 
+-	/* pKVM only supports PMD_SIZE huge-mappings */
+-	if (is_protected_kvm_enabled() && map_size != PMD_SIZE)
+-		return false;
++	/* pKVM only supports PMD_SIZE huge-mappings for non-protected VMs */
++	if (is_protected_kvm_enabled()) {
++		if (vcpu_is_protected(s2fd->vcpu) || map_size != PMD_SIZE)
++			return false;
++	}
+ 
+ 	size = memslot->npages * PAGE_SIZE;
+ 
+@@ -1621,6 +1623,9 @@ struct kvm_s2_fault_vma_info {
+ 	bool		map_non_cacheable;
+ };
+ 
++static int kvm_s2_fault_get_vma_info(const struct kvm_s2_fault_desc *s2fd,
++				     struct kvm_s2_fault_vma_info *s2vi);
++
+ static gfn_t get_canonical_gfn(const struct kvm_s2_fault_desc *s2fd,
+ 			       const struct kvm_s2_fault_vma_info *s2vi);
+ 
+@@ -1710,12 +1715,12 @@ static int gmem_abort(const struct kvm_s2_fault_desc *s2fd)
+ static int pkvm_mem_abort(const struct kvm_s2_fault_desc *s2fd)
+ {
+ 	unsigned int flags = FOLL_HWPOISON | FOLL_LONGTERM | FOLL_WRITE;
++	struct kvm_s2_fault_vma_info s2vi = {};
+ 	struct kvm_vcpu *vcpu = s2fd->vcpu;
+ 	struct kvm_pgtable *pgt = vcpu->arch.hw_mmu->pgt;
+ 	struct mm_struct *mm = current->mm;
+ 	struct kvm *kvm = vcpu->kvm;
+ 	void *hyp_memcache;
+-	struct page *page;
+ 	int ret;
+ 
+ 	hyp_memcache = get_mmu_memcache(vcpu);
+@@ -1723,12 +1728,16 @@ static int pkvm_mem_abort(const struct kvm_s2_fault_desc *s2fd)
+ 	if (ret)
+ 		return -ENOMEM;
+ 
++	ret = kvm_s2_fault_get_vma_info(s2fd, &s2vi);
++	if (ret)
++		return ret;
++
+ 	ret = account_locked_vm(mm, 1, true);
+ 	if (ret)
+ 		return ret;
+ 
+ 	mmap_read_lock(mm);
+-	ret = pin_user_pages(s2fd->hva, 1, flags, &page);
++	ret = pin_user_pages(s2fd->hva, 1, flags, &s2vi.page);
+ 	mmap_read_unlock(mm);
+ 
+ 	if (ret == -EHWPOISON) {
+@@ -1738,7 +1747,7 @@ static int pkvm_mem_abort(const struct kvm_s2_fault_desc *s2fd)
+ 	} else if (ret != 1) {
+ 		ret = -EFAULT;
+ 		goto dec_account;
+-	} else if (!folio_test_swapbacked(page_folio(page))) {
++	} else if (!folio_test_swapbacked(page_folio(s2vi.page))) {
+ 		/*
+ 		 * We really can't deal with page-cache pages returned by GUP
+ 		 * because (a) we may trigger writeback of a page for which we
+@@ -1758,8 +1767,8 @@ static int pkvm_mem_abort(const struct kvm_s2_fault_desc *s2fd)
+ 	}
+ 
+ 	write_lock(&kvm->mmu_lock);
+-	ret = pkvm_pgtable_stage2_map(pgt, s2fd->fault_ipa, PAGE_SIZE,
+-				      page_to_phys(page), KVM_PGTABLE_PROT_RWX,
++	ret = pkvm_pgtable_stage2_map(pgt, gfn_to_gpa(s2vi.gfn), PAGE_SIZE,
++				      page_to_phys(s2vi.page), KVM_PGTABLE_PROT_RWX,
+ 				      hyp_memcache, 0);
+ 	write_unlock(&kvm->mmu_lock);
+ 	if (ret) {
+@@ -1770,7 +1779,7 @@ static int pkvm_mem_abort(const struct kvm_s2_fault_desc *s2fd)
+ 
+ 	return 0;
+ unpin:
+-	unpin_user_pages(&page, 1);
++	unpin_user_page(s2vi.page);
+ dec_account:
+ 	account_locked_vm(mm, 1, false);
+ 	return ret;
+diff --git a/arch/arm64/kvm/pkvm.c b/arch/arm64/kvm/pkvm.c
+index 8e4c6e4bec123..c298a5b9b12a6 100644
+--- a/arch/arm64/kvm/pkvm.c
++++ b/arch/arm64/kvm/pkvm.c
+@@ -414,6 +414,9 @@ int pkvm_pgtable_stage2_map(struct kvm_pgtable *pgt, u64 addr, u64 size,
+ 	u64 end = addr + size;
+ 	int ret;
+ 
++	if (WARN_ON_ONCE(!PAGE_ALIGNED(addr | size)))
++		return -EINVAL;
++
+ 	lockdep_assert_held_write(&kvm->mmu_lock);
+ 	mapping = pkvm_mapping_iter_first(&pgt->pkvm_mappings, addr, end - 1);
+ 
 -- 
 2.53.0
 
