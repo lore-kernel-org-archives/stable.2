@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048583;
-	b=ix/Fv1NZ8Ac/O1aHs+qOgW7qQdUB8PteEGQdIgg54buTXTJSekMfkvnpXRWv0lHHSR8b
-	 FJAPpf1MITaeVlwGDS+f4X0EzF90ytn0NK0WHVNh+Ebv3Zs1qa0lyBjzs+4zxjR0r1NCA
-	 x5eE35TUQJmL0icDXk3NH+nT9VdjaEeMC/q8YYii+Shg82DmQnlb/prVgeuD0zuKXEiGj
-	 tyr/f8k2Z2jvpaseZT4EO3aliBHmxWLp8SUVGZiWdwMl939l0NJ56mgNvNvRj/osU1LsI
-	 LsM1PYQFXf9Nlod6O9L3GEtXmbcT/3VMz69H2lKBSzySCh91LmDJRjk5VlSHJXbgLAQ==
+	t=1794048586;
+	b=5HojV0gxO5CjLMT4y1GsWjvr1ALBR5DeS4H+FdV1IpSD/5prRdShMaVoKbLskD6FksWt
+	 5xVO6L1vVM5VkIFHNDQdeufgDHVsJva/rxcQ7ndX344T5sxsJ781KZJq4F8C8J+sNe5/l
+	 2OUqSc/X32Ee6tyTMp4h1tsv3tRTSiNzZYksqhTpuS7UjKK9Wl8Y2XYlyn3ZDEeDb44Y+
+	 xk7cX9tVyGK1bDh721WcmIeBZnZoUwvPBXouZlh7mFhgp9h52O9Bbjv9Sk+jFlLEL9El1
+	 qxFEaKEgI9XokoOhuIr9dO5csxRY20lsMBdpBDCpOsCWAp93jxE9YCEBCXY9i5zR+ag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048583;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048586;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=KNDn+s/TRMpt8bknOeYPaxty1mrXcoEio/VatznRpK0=;
-	b=t6VB6+eGKw5dYMUJ8iSbDvJg4RISEtHqAgX4Li1LAugyV9eUV4oNDipib79j22xYr5XX
-	 XJjKa27sXcEyfbHmT1L5MXTmhNcPvVRUH9C6YT2SpgrX04Y6E0ugZ/LuCOsBkdDBRvY+6
-	 jXI5kClk15BFCkDQPkrC63+fnBnAs/rLKZwHZWk7r1vkwYNtT25EGyJ71kI+DZVq1GP/M
-	 DSUvEYvdRiwb2YUHBqTQBptGzvYxd3+jnC59d5rFtMawBr/lrNYWDSzo4N8WOOMGl0mqu
-	 DzA/KhcooKONFpF4Eg5rjSS8MTRCakCyTsS/6h5/ymGex7b8KagWeYERVyGSvTSBSoA==
+	bh=Ggtp6QSwtoMkYVJh5THjVyMVmaRlyVoJBcoTbXLANJs=;
+	b=yHwTjABJDWuftCY3LGErp6nLgtGwJPKEbRl0wDB9xErPwa1dV5vgEvqVkkEywFvtX/zR
+	 KG1HSlVqZ0PwCoRWoOJ3fKqripj/CWJboRu5KP0ri+Ga2EOseBhr6L2Fe+ZCQ6AQfTgw0
+	 eDR9L94Ug5y+K3+ju/WK4/Rt3xMi5YeVtzhk4FUkRvblbA60N5//w5Bao0HfaKIb7wU+7
+	 8AgeNWi69mtzDqkTe//+G2Bh2rWlXdptWXN/kywjsd0NOjMvWOEUENfLQY6Ul+TzOWJhz
+	 HSbRgu+bbaf+8DEyDXRY+KfkIZaXG1LJUCbzh9LxKqHjj6Cfv+ibJHIcSbj2sdn556g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VfrNhza9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=asfTTUhm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 679AD606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:49:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D3AB606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:49:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VfrNhza9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E9D01F008A1;
-	Sat,  7 Nov 2026 10:49:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=asfTTUhm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A86F1F0089F;
+	Sat,  7 Nov 2026 10:49:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048583;
-	bh=KNDn+s/TRMpt8bknOeYPaxty1mrXcoEio/VatznRpK0=;
+	s=k20260515; t=1794048586;
+	bh=Ggtp6QSwtoMkYVJh5THjVyMVmaRlyVoJBcoTbXLANJs=;
 	h=From:To:Cc:Subject:Date;
-	b=VfrNhza9bV4gJDJajyXuNPKprqNlKPmblJVb5h81lECQKULypxOlHQoS+D6mrolHC
-	 dI2/KPGqvedLNwX8mVB7QyR3AwpK4Gt7dEpoFqIToO6HVdF7ASuRf9iSf3yUdGysid
-	 Gg0QQn3TkpbRjrGAa1LJp9EyKBOqiQQLhhZQ+h5IOpHNKso/jMZ4FJRopzmvZ0JF4Q
-	 MGQN4S5QAJzHYaqNPPjPTITfLOLejhjSlQfld/sKEqB9Y8pds64XoD4+wgaCAcDPgK
-	 6I+YHPh1qangPyWtI+c1Kc/LoLSaBAqgJSEcIOYYHUOLUKENDxKnfj27nL1kShKf7x
-	 WyosTbKwAhV2g==
+	b=asfTTUhmbRkj/sc97uW4rqYBQWZtZVzguaJFjTDmZtJHQcnHqqfQ9gv/olj5DzZF2
+	 4e3dfPWyQ7aBWPJYz+cKQMOoOEeoYiWtBIDHU+A77pRfqjuHhIrOYoHXl7gFs1JDRp
+	 QplByZ4OSQUT0r/GbNX1/E+JWtrsAKpAjBWHvWT5hV0ncKGGvyZfMe4EXoPVZKbZkb
+	 VpldcfTVutzKJSlaAZCKUyzULzGTEvCFCcFYF4xKveowvZR1ERtPo7T0u4LHx0G/Xi
+	 9DfHfVneKT8CyS+UPsqG+OL087fbuFvDBHG8AqOmHTfNRJc9qxY3JX8C7qJdaEg9EW
+	 LHrBAP+DF9zQg==
 From: Sasha Levin <sashal@kernel.org>
-To: lgs201920130244@gmail.com,
+To: kmehltretter@gmail.com,
 	tglx@kernel.org,
-	frank.li@nxp.com,
 	radu@rendec.net
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] irqchip/imx-intmux: Fix runtime PM teardown on remove" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:49:41 -0500
-Message-ID: <20261107054940-failed-6.1-b167c1a30e9e@kernel.org>
+Subject: FAILED: patch "[PATCH] irqchip/atmel-aic[5]: Disable interrupts in the irq_pm_shutdown() callbacks" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:49:44 -0500
+Message-ID: <20261107054944-failed-6.1-0ca21fe11145@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,91 +69,87 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x b167c1a30e9e020e4c5e102c7a555943742c024b
+git cherry-pick -x 0ca21fe111457c843624a835641bb490e704bb2f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054940-failed-6.1-b167c1a30e9e@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054944-failed-6.1-0ca21fe11145@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From b167c1a30e9e020e4c5e102c7a555943742c024b Mon Sep 17 00:00:00 2001
-From: Guangshuo Li <lgs201920130244@gmail.com>
-Date: Mon, 14 Sep 2026 21:42:11 +0800
-Subject: [PATCH] irqchip/imx-intmux: Fix runtime PM teardown on remove
+From 0ca21fe111457c843624a835641bb490e704bb2f Mon Sep 17 00:00:00 2001
+From: Karl Mehltretter <kmehltretter@gmail.com>
+Date: Sat, 26 Sep 2026 02:41:24 +0200
+Subject: [PATCH] irqchip/atmel-aic[5]: Disable interrupts in the
+ irq_pm_shutdown() callbacks
 
-imx_intmux_probe() enables the IPG clock and then drops its runtime PM
-reference with pm_runtime_put(). With CONFIG_PM enabled, the runtime
-suspend callback disables the IPG clock. With CONFIG_PM disabled, the
-clock remains enabled after probe.
+irq_gc_shutdown() calls the irq_pm_shutdown() callbacks from
+syscore_shutdown() with interrupts enabled. aic_pm_shutdown() and
+aic5_pm_shutdown() take the generic chip lock with raw_spin_lock(), and
+irq_gc_eoi() takes the same lock from the interrupt handler. An
+interrupt from the chip while the lock is held spins in irq_gc_eoi()
+and hangs the reboot.
 
-imx_intmux_remove() accesses the CHANIER registers without first making
-sure that the device is runtime active. The device may therefore be
-runtime suspended with the IPG clock disabled when these registers are
-accessed. In addition, the remove path only calls pm_runtime_disable()
-and does not balance the clock enable when CONFIG_PM is disabled.
+Lockdep reports this on every reboot of a SAM9X75 Curiosity board:
 
-Resume the device and acquire a runtime PM reference before accessing
-the registers. If resume fails, skip the register accesses but still
-tear down the chained handlers and IRQ domains. Disable runtime PM
-afterwards, drop the acquired reference without triggering another
-runtime suspend, and explicitly disable the IPG clock.
+  WARNING: inconsistent lock state
+  inconsistent {IN-HARDIRQ-W} -> {HARDIRQ-ON-W} usage.
+  busybox/101 [HC0[0]:SC0[0]:HE1:SE1] takes:
+  c1c2b434 (&gc->lock){?.-.}-{2:2}, at: aic5_pm_shutdown+0x34/0xd8
+  {IN-HARDIRQ-W} state was registered at:
+    ...
+    irq_gc_eoi+0x28/0x60
+    handle_fasteoi_irq+0x120/0x214
+  ...
+   aic5_pm_shutdown from irq_gc_shutdown+0x4c/0x58
+   irq_gc_shutdown from syscore_shutdown+0x5c/0x9c
+   syscore_shutdown from kernel_restart+0x34/0x78
+   kernel_restart from sys_reboot+0x180/0x25c
 
-This keeps the clock enabled while the hardware registers are accessed
-and balances the clk_prepare_enable() performed during probe for both
-CONFIG_PM configurations.
+Use the irqsave guard, as
+commit 33517881ede7 ("irqchip/brcmstb-l2: Use _irqsave locking variants in non-interrupt code")
+did for brcmstb-l2.
 
-This issue was found by manual code inspection.
-
-Fixes: bb403111e017 ("irqchip/imx-intmux: Implement intmux runtime power management")
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Fixes: b1479ebb7720 ("irqchip: atmel-aic: Add atmel AIC/AIC5 drivers")
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Assisted-by: LLM
 Reviewed-by: Radu Rendec <radu@rendec.net>
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260914134211.1734163-1-lgs201920130244@gmail.com
+Link: https://patch.msgid.link/20260926004124.88221-1-kmehltretter@gmail.com
 ---
- drivers/irqchip/irq-imx-intmux.c | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
+ drivers/irqchip/irq-atmel-aic.c  | 2 +-
+ drivers/irqchip/irq-atmel-aic5.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/irqchip/irq-imx-intmux.c b/drivers/irqchip/irq-imx-intmux.c
-index 47c2681d138a0..de2a8f98f6255 100644
---- a/drivers/irqchip/irq-imx-intmux.c
-+++ b/drivers/irqchip/irq-imx-intmux.c
-@@ -288,12 +288,16 @@ static int imx_intmux_probe(struct platform_device *pdev)
- static void imx_intmux_remove(struct platform_device *pdev)
+diff --git a/drivers/irqchip/irq-atmel-aic.c b/drivers/irqchip/irq-atmel-aic.c
+index 1dcc52760ecae..4a7935e75e4dd 100644
+--- a/drivers/irqchip/irq-atmel-aic.c
++++ b/drivers/irqchip/irq-atmel-aic.c
+@@ -123,7 +123,7 @@ static void aic_pm_shutdown(struct irq_data *d)
  {
- 	struct intmux_data *data = platform_get_drvdata(pdev);
--	int i;
-+	int i, ret;
-+
-+	ret = pm_runtime_resume_and_get(&pdev->dev);
-+	if (ret < 0)
-+		dev_warn(&pdev->dev, "failed to resume device: %d\n", ret);
+ 	struct irq_chip_generic *gc = irq_data_get_irq_chip_data(d);
  
- 	for (i = 0; i < data->channum; i++) {
- 		/* disable all interrupt sources of this channel */
--		writel_relaxed(0, data->regs + CHANIER(i));
--
-+		if (ret >= 0)
-+			writel_relaxed(0, data->regs + CHANIER(i));
- 		irq_set_chained_handler_and_data(data->irqchip_data[i].irq,
- 						 NULL, NULL);
- 
-@@ -301,6 +305,11 @@ static void imx_intmux_remove(struct platform_device *pdev)
- 	}
- 
- 	pm_runtime_disable(&pdev->dev);
-+	if (ret >= 0) {
-+		pm_runtime_put_noidle(&pdev->dev);
-+		clk_disable_unprepare(data->ipg_clk);
-+		pm_runtime_set_suspended(&pdev->dev);
-+	}
+-	guard(raw_spinlock)(&gc->lock);
++	guard(raw_spinlock_irqsave)(&gc->lock);
+ 	irq_reg_writel(gc, 0xffffffff, AT91_AIC_IDCR);
+ 	irq_reg_writel(gc, 0xffffffff, AT91_AIC_ICCR);
  }
+diff --git a/drivers/irqchip/irq-atmel-aic5.c b/drivers/irqchip/irq-atmel-aic5.c
+index 1f14b401f71d0..07a317ed06ef4 100644
+--- a/drivers/irqchip/irq-atmel-aic5.c
++++ b/drivers/irqchip/irq-atmel-aic5.c
+@@ -217,7 +217,7 @@ static void aic5_pm_shutdown(struct irq_data *d)
+ 	struct irq_chip_generic *gc = irq_data_get_irq_chip_data(d);
+ 	int i;
  
- #ifdef CONFIG_PM
+-	guard(raw_spinlock)(&bgc->lock);
++	guard(raw_spinlock_irqsave)(&bgc->lock);
+ 	for (i = 0; i < dgc->irqs_per_chip; i++) {
+ 		irq_reg_writel(bgc, i + gc->irq_base, AT91_AIC5_SSR);
+ 		irq_reg_writel(bgc, 1, AT91_AIC5_IDCR);
 -- 
 2.53.0
 
