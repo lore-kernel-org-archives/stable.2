@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046349;
-	b=nspX7TdeEfzUaAvgRbPejR6Cl/c2vBp90d09amGJOfl6p7nc6CU/OMWYyOxCFooPiQK1
-	 VtP4C3bETza0iTUZyGMrp1g6+cffMg4pX5JI0AXaKFA/XzbZ3ukCr3ZVmw56vypjMi/E6
-	 eCiMBs+kIjUxw+aMlGIe+bepK3eQ1ZRXXXOzW8jjgjwxWq5pvvAsSV3ZZHuF1mb9EG3uT
-	 As6Jd/nme8UM91F+FuEp79cFwbbymUtsw6UmF2ncqZ45B3t3hmldzECV4tzviUb+5rLeS
-	 ztjHVt2jJ65EyLPSRq0YDInSn3lQzxHW7gNjE+NdD9rb00KWKkLWiFvM7BHRy+aIy1g==
+	t=1794046351;
+	b=RJIGvhv/aUj1KqB0oGEQLKk2t9eVxMeDUpeu1ieI7pf7YkYL8Wwo5kp12dlcJmgHeVTU
+	 P6nvHxrqVX4LfSFu02XIxlBxxmis/hSfxpZROsPZa/21Yu4YK3EY/Cm5STjol1ZbrId6w
+	 Mj4YC69XukZ0lSDUNwDpYvjOmEAekswAcr6mOFLx5uuv3obLUsKZtxXXAga27MhRz5QV9
+	 +JOTrnfBmGGusR2j24YK2erUoixZgJdlgewaAHo9VwnHnXC+eH6buW5UXfHnJmbpkRwgx
+	 mrph3kmYAUmrmfWaeVnGSk7hyxfEyt9PV4zyTLuL6TaQBJ3eO4SOMSGjRV8m4+CLIPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046349;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046351;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=m9yXNcxBiUlaCiVb1sND3cBRzbHBmxXfcuSEdNNP3Uw=;
-	b=NjhNyYW8EVikh26/nEas45HL1ZQ536NhSrc2cpUz+JH6tygupBvoFSkfQriUOjCNWQ1d
-	 JwpAi1Rj+0hXwTAnJ8pfQrCT2DQFcGFGCEQISqKgCvvbdGqKV2BVkB9aE68nsi3QWRzlh
-	 Czr6YWNVKay5nW/+8g0BPrnMJjBr+6o2pOBIl/U2nyD/9KlbRnh8PNYNXSi/bVQhH+axu
-	 UV7iuz70LgqGfEHBcNnDR4usYlwuwTB+erNWaZ8IQFc0k6re4iMImNwrgvRbA9n9JgghO
-	 QtMB2NpWrVgdeZdtFVizQOniNXYxBSeWAWq9v0RxxPN4D4V21XY86gPPVn351NVBb2g==
+	bh=yXDwiXiIcgqpyAzYO+RfMb6ejZFhN6Cfhp/vAzv5tco=;
+	b=VtC0DwzUb9WeS+McUkIKu5ArVoXe7wwiBXf543p/JXDC2KfSgYO7K4R0aPQ6FXCJy+i+
+	 IUwHwY6tdthiymjWT3Rz9166bP9ha6OxUcyuOxSbKRvQ+yiuqvryv7x+gHiijEHooDVrE
+	 kPJdVa5nw6frz8KEneX8OXAhXANQuC09zN4djT3PIkdC4/HUL972vcVapzONiBsU70zez
+	 mYIw76875q1+tnpPFwkzeZ7wUZiBgmNgio2FZt32d45D0eNQWwZKg7OxyWkWi1YqID162
+	 +nlhkE422pAObii0i1eTy0Wg5lTd6dIIgdSr+9Pji8txrIO1vHvt0dVVYQzJe+iqwGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GLrGhNBf;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uoau+IIe;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B64D606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:12:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 858E8606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:12:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GLrGhNBf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A91351F008A1;
-	Sat,  7 Nov 2026 10:12:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uoau+IIe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE6491F008A1;
+	Sat,  7 Nov 2026 10:12:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046349;
-	bh=m9yXNcxBiUlaCiVb1sND3cBRzbHBmxXfcuSEdNNP3Uw=;
+	s=k20260515; t=1794046351;
+	bh=yXDwiXiIcgqpyAzYO+RfMb6ejZFhN6Cfhp/vAzv5tco=;
 	h=From:To:Cc:Subject:Date;
-	b=GLrGhNBfhYiqtEnWTXJi04FkYaGv0jtWTe24rQtRSoJx1WGFifig+It2sd9waBSUu
-	 VtzKk05iOSHycEg75t4XBbPlp8dj/XxyfygakvA9eViTkaHJWvd/aA6pt2lsbiaS9/
-	 SqoHE4soCuXe+GnDnUZ6LhvwrQnNAiTLAwWsHeIU2zVU6ze6hLFtCwKdxJ8ySP2UyJ
-	 e9mnczXjKud1vKRoC5ThDqH6kqVKCad6FNUE9bcp1WaqZJ2V1IDw2J9Qc61eVedB3z
-	 Axe/f9BpNwmuED3yf6G3QugThADKXD1sk0CFC9f/Xr4hug8DA43c64MIw2heUA0D7S
-	 3PC+xbZ8EcQGw==
+	b=Uoau+IIe+ldZuKNySfu7RFpO4OVNtNxJhX6n6QJcUussZzVnlT6/7alLqrO6z2RQu
+	 yC8TRUj2k1xWnIXjJVAuWODdikYGxjDkrXmxMXCXXBaPeHuTM0KBqyAosG0GQ0dH0z
+	 fTzkmBrk1t20LlZw0B9eCvw6VGiOXWN94ajEfJedE0xLL/zcdUGAzTomhuRAcQVoAW
+	 g7Qmgc0KWH63nR3uecEf6VEu7eS+0nHiz5Y35KjmWzJGq8J1ghBjjbmFZrzAZ2/mtp
+	 aqYDIaKy4XET2xOe7Qb6P+147qjTNVynmcqSefct8Cixmisl1btNY5g5XKQFbERlaN
+	 H+oeYrkcMekvg==
 From: Sasha Levin <sashal@kernel.org>
 To: acme@redhat.com,
 	sashiko-bot@kernel.org,
 	irogers@google.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] perf python: Free the parse error entries when parsing fails" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:12:27 -0500
-Message-ID: <20261107051227-failed-6.18-39e0022c89ab@kernel.org>
+Subject: FAILED: patch "[PATCH] perf evsel: Close the fds opened so far when disabling missing features" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:12:29 -0500
+Message-ID: <20261107051229-failed-6.18-16d1234793d4@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,59 +69,100 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 39e0022c89abcdc1a811dfc0aeec2a2b9010b660
+git cherry-pick -x 16d1234793d42a5a594db99522845996ab8e0d29
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051227-failed-6.18-39e0022c89ab@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051229-failed-6.18-16d1234793d4@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 39e0022c89abcdc1a811dfc0aeec2a2b9010b660 Mon Sep 17 00:00:00 2001
+From 16d1234793d42a5a594db99522845996ab8e0d29 Mon Sep 17 00:00:00 2001
 From: Arnaldo Carvalho de Melo <acme@redhat.com>
-Date: Thu, 15 Oct 2026 22:06:19 -0300
-Subject: [PATCH] perf python: Free the parse error entries when parsing fails
+Date: Thu, 15 Oct 2026 22:07:03 -0300
+Subject: [PATCH] perf evsel: Close the fds opened so far when disabling
+ missing features
 
-pyrf__parse_events() prints the entries parse_events_error__print()
-receives with the details of a failed parse, but returns without freeing
-them, leaking whatever parse_events_error__handle() allocated, so call
-parse_events_error__exit() on both paths, as the other parse_events()
-callers do.
+evsel__open_cpu() opens the events one by one and, when an open fails
+with EINVAL and evsel__detect_missing_features() has a feature to leave
+out, goes back to fallback_missing_features to open them all again from
+start_cpu_map_idx, without closing what the abandoned attempt opened:
+the fd of every CPU or thread that was opened before the failing one is
+overwritten in the FD() array, leaking it.
 
-The perf test attr core PMU probe takes this failure path on machines
-without a core PMU, where the leak then happens on every test run.
+Close them first, the same way out_close does when returning an error,
+leaving the entries at -1 for the retry.
 
-Fixes: f081defccd93 ("perf python: Add parse_events function")
+Fixes: af954f76eea5 ("perf tools: Check fallback error and order")
 Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/r/sashiko-outbox-173525@kernel.org
+Closes: https://lore.kernel.org/r/sashiko-outbox-173532@kernel.org
 Reviewed-by: Ian Rogers <irogers@google.com>
 Tested-by: Ian Rogers <irogers@google.com>
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
 ---
- tools/perf/util/python.c | 2 ++
- 1 file changed, 2 insertions(+)
+ tools/perf/util/evsel.c | 30 +++++++++++++++++++++---------
+ 1 file changed, 21 insertions(+), 9 deletions(-)
 
-diff --git a/tools/perf/util/python.c b/tools/perf/util/python.c
-index 4eb17bdc5fd12..60dbe2dad5eb8 100644
---- a/tools/perf/util/python.c
-+++ b/tools/perf/util/python.c
-@@ -3824,10 +3824,12 @@ static PyObject *pyrf__parse_events(PyObject *self, PyObject *args)
- 	perf_evlist__set_maps(evlist__core(evlist), cpus, threads);
- 	if (parse_events(evlist, input, &err)) {
- 		parse_events_error__print(&err, input);
-+		parse_events_error__exit(&err);
- 		PyErr_SetFromErrno(PyExc_OSError);
- 		evlist__put(evlist);
- 		return NULL;
- 	}
-+	parse_events_error__exit(&err);
- 	result = pyrf_evlist__from_evlist(evlist);
- 	evlist__put(evlist);
- 	return result;
+diff --git a/tools/perf/util/evsel.c b/tools/perf/util/evsel.c
+index 59318fef03cb1..d060fca8090f6 100644
+--- a/tools/perf/util/evsel.c
++++ b/tools/perf/util/evsel.c
+@@ -3005,6 +3005,19 @@ static bool evsel__detect_missing_features(struct evsel *evsel, struct perf_cpu
+ 	return false;
+ }
+ 
++static void evsel__close_fds(struct evsel *evsel, int start_cpu_map_idx,
++			     int cpu_map_idx, int thread, int nthreads)
++{
++	do {
++		while (--thread >= 0) {
++			if (FD(evsel, cpu_map_idx, thread) >= 0)
++				close(FD(evsel, cpu_map_idx, thread));
++			FD(evsel, cpu_map_idx, thread) = -1;
++		}
++		thread = nthreads;
++	} while (--cpu_map_idx >= start_cpu_map_idx);
++}
++
+ static int evsel__open_cpu(struct evsel *evsel, struct perf_cpu_map *cpus,
+ 		struct perf_thread_map *threads,
+ 		int start_cpu_map_idx, int end_cpu_map_idx)
+@@ -3150,8 +3163,14 @@ static int evsel__open_cpu(struct evsel *evsel, struct perf_cpu_map *cpus,
+ 	if (err == -EMFILE && rlimit__increase_nofile(&set_rlimit))
+ 		goto retry_open;
+ 
+-	if (err == -EINVAL && evsel__detect_missing_features(evsel, cpu))
++	if (err == -EINVAL && evsel__detect_missing_features(evsel, cpu)) {
++		/*
++		 * The restart opens the events again, so close what this
++		 * attempt opened before its entries are overwritten.
++		 */
++		evsel__close_fds(evsel, start_cpu_map_idx, idx, thread, nthreads);
+ 		goto fallback_missing_features;
++	}
+ 
+ 	if (evsel__precise_ip_fallback(evsel))
+ 		goto retry_open;
+@@ -3161,14 +3180,7 @@ static int evsel__open_cpu(struct evsel *evsel, struct perf_cpu_map *cpus,
+ 		threads->err_thread = thread;
+ 
+ 	old_errno = errno;
+-	do {
+-		while (--thread >= 0) {
+-			if (FD(evsel, idx, thread) >= 0)
+-				close(FD(evsel, idx, thread));
+-			FD(evsel, idx, thread) = -1;
+-		}
+-		thread = nthreads;
+-	} while (--idx >= start_cpu_map_idx);
++	evsel__close_fds(evsel, start_cpu_map_idx, idx, thread, nthreads);
+ 	errno = old_errno;
+ out:
+ 	if (err)
 -- 
 2.53.0
 
