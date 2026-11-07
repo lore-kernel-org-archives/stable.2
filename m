@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794063861;
-	b=TFZ+U9EjFJj7jf4oGtkvgo26qKRo2bj/nqcsVjnqrspWVmkABtM2/LXAP0WaBYnTqyfp
-	 IK9puu+dQ8t1nszm8CjRg/tMV0PLHXvpgYq2E1Mia+T/oLTtHifq8ioXZukVrajrBMJ3W
-	 aEVgGC44P8bmAaNuuYrIXgRlTnNhnLIZI2yOqqdFjLUE7oQqPX32Iwgg2uZchhJrFS4K/
-	 M8TpjmOmvocErVZKLCNOeku6s47n8iNmCCZimL+LdSjSiAYAfx5vQP2g83pkUj66pX+vh
-	 /HB50NOWiJLKC3VBuvfGeVOM5T0BLmfReprQAOPMpCsAkTZ9eyJYlqieWMh/QDqfqWg==
+	t=1794063856;
+	b=DPKfk54mrOjWQySiKosnmNtg95vdSIwxRHSK+Lmte9tZs7eQxBrPo7iOCQBYImLhul40
+	 y8LCo9tJQyAakTAwNHJ4tg4Pr5ZewYx3ncnDv9W45pwUJfy2/YU+Nso+vutvJDhMK1mzr
+	 /2mwmgy7CkZcCEWLGaLvg7RX4jt9htq6HABs3MdnCb5NYef7tcmiyEr/DRndwi10+SrzR
+	 mwmt535aKrpjFElv1rFazV8GjxNFN1xLjTmz8VsjTeANhojZ3Dxrj01R5KjX33Et2wa+e
+	 06iu90WAaZocZTbrYT08R7mkwxi7iHtLR8UnA3bYxnpwf8M8rbbIfM3PI7N9AG+U02g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794063861;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794063856;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=cWo4YV1LWp1wq6Kdz2GN/6JOmPqB0Znkm+uaRXtd5FQ=;
-	b=RhkaAPf7L13zRWgRMMObSI/QVInMVjHsimdP/KuxW9XNdz4TL8BchCxRwXFGV5Y6nRen
-	 IeSGuxVIuDY4b3C7h5LeEA5XLr1jEueafUNtUeCu74C0IX6EJtG1yPdZmOi7TgDBRswk6
-	 uGujvfTMjjctuI08a3gXGoi0YZm9iwx6yBE6St8eI/zTQc7c7KSpLYl6WU25VnF5s/d6Q
-	 sFppd28cuN2aj/C5P1zdYPuRwgL2BYXCSQhwsbf+l3B8nSOVWgCPz9Iaunp9U4GRCPmGm
-	 djbAHi8l7MGHtRmBwr/gTkZC4Fwvi4kCZP3wmFU+Kx/+RW7xLp9ImC9ukYIaYgXiJ5Q==
+	bh=JOf4US9q8yCjkIDHxkVxboNmsCCVoI8Rrw4UkxO2NEM=;
+	b=Eti4o8txDImrrzMlXnFn2sFO3Y9EqZ9hUHyINhQtJQ6FEHtKps0DWL1tpi4spXDNisY+
+	 inUglykrVLoK9Gy2Tv+N5TtxkRKV2oyz3LszHYmQN6LEzSep617lzhFuI4OTcI9q/B9Tt
+	 QtdPjZvvbNCrE0utRUezqiVanyqH4H69zbygmFU1oCa1xBzlBKi/na/TJDt/09RghltAw
+	 3dgPV4T0PDOLA78lSk7SfUVXZKOPZlgdC61DfpNm+j9bsWhes5jDtPBk3hYu5r8mAGPBH
+	 AO6hhHowfEDxdfGwOwLBcHarUx4ttIHQmhRU82zjTVYWS7E6qRYQfUKIyFB37Fjx+BQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jag2cmCt;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cFJCTuaD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2460E606A9FB;
-	Sat,  7 Nov 2026 15:04:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26F93606C03D;
+	Sat,  7 Nov 2026 15:04:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jag2cmCt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C27811F0089F;
-	Sat,  7 Nov 2026 15:04:20 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cFJCTuaD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA0501F0089F;
+	Sat,  7 Nov 2026 15:04:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794063861;
-	bh=cWo4YV1LWp1wq6Kdz2GN/6JOmPqB0Znkm+uaRXtd5FQ=;
+	s=korg; t=1794063856;
+	bh=JOf4US9q8yCjkIDHxkVxboNmsCCVoI8Rrw4UkxO2NEM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jag2cmCtbCaGCUIsTQsMiGoVe6dO5ntAtV2zk5848ISFowNc+PRjuOrBo5R9/xFUx
-	 QSS1wSvQfmu92mIHSW8UkY/jVfVrgz3sEYVvWu0sayebMVr+QDKV1sx/O6/B3wFz/5
-	 YlC0fccN76UDI4pgxyxi2NNgYxqx5/2K+l085knY=
+	b=cFJCTuaDNIT0MXBhJINkBdGewpzXUa1LTvmrOh5UXI0SQ9/bLYdNDRDAwmPQ5n0gf
+	 WSU5W1javkDB4N14V3h+ad1IMeGoLZ22HFETfISvkrefdFGSqvgyEfgsZ95hFPxoVX
+	 EFT+gO8OoKNf5qFNuibb89HTLNZirBKRdm8pd10s=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Ricardo Ribalda <ribalda@chromium.org>,
-	Chen-Yu Tsai <wenst@chromium.org>,
-	Brian Masney <bmasney@redhat.com>,
+	Yuan Chen <chenyuan@kylinos.cn>,
+	Andrii Nakryiko <andrii@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 0068/1257] clk: mediatek: Add missing depend for COMMON_CLK_MT8173
-Date: Sat,  7 Nov 2026 08:39:24 -0500
-Message-ID: <20261107134941.271019015@linuxfoundation.org>
+Subject: [PATCH 7.3 0064/1257] bpf: Fix queue/stack map u32 index overflow
+Date: Sat,  7 Nov 2026 08:39:20 -0500
+Message-ID: <20261107134941.167797103@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261107134939.434104957@linuxfoundation.org>
 References: <20261107134939.434104957@linuxfoundation.org>
@@ -69,42 +68,54 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Ricardo Ribalda <ribalda@chromium.org>
+From: Yuan Chen <chenyuan@kylinos.cn>
 
-[ Upstream commit 84964d0ce3faed815e1b8e048ce5ce1c93badb18 ]
+[ Upstream commit 802a30c5db726639df7f93b3a1982ecc64202abe ]
 
-PM_GENERIC_DOMAINS_OF depends on OF, by adding a select to it without
-adding a depend on OF, the following warning is triggered:
+The queue/stack map addresses elements[] with the product of a u32
+head/tail index and value_size, but the storage itself is allocated in
+64-bit arithmetic.  When max_entries * value_size reaches or exceeds
+U32_MAX, the product wraps and push/peek/pop operate on the wrong
+element, corrupting map data and leaking stale values to user space.
+max_entries == U32_MAX would also make the u32 capacity counter
+qs->size (max_entries + 1) wrap to 0 and permanently break the map.
 
-WARNING: unmet direct dependencies detected for PM_GENERIC_DOMAINS_OF
-  Depends on [n]: PM_GENERIC_DOMAINS [=y] && OF [=n]
-  Selected by [y]:
-  - COMMON_CLK_MT8173_MFGTOP [=y] && COMMON_CLK [=y] && (ARCH_MEDIATEK || COMPILE_TEST [=y]) && COMMON_CLK_MT8173 [=y] && PM [=y]
+The original bound check was removed by commit a37fb7ef24a4 ("bpf:
+Eliminate rlimit-based memory accounting for queue_stack_maps maps"),
+which deleted the bpf_map_charge_init() call and with it the
+U32_MAX - PAGE_SIZE check that had earlier been moved into
+bpf_map_charge_init() by c85d69135a91.  Oversized queue/stack maps can
+therefore be created again.
 
-This patch explicitly adds a dependency on OF to solve this issue.
+Restore the bound in queue_stack_map_alloc_check() with a single
+comparison that rejects any max_entries/value_size combination whose
+element storage would reach or exceed U32_MAX bytes, keeping the u32
+index multiplication overflow-free and the capacity counter valid.
 
+Fixes: a37fb7ef24a4 ("bpf: Eliminate rlimit-based memory accounting for queue_stack_maps maps")
+Signed-off-by: Yuan Chen <chenyuan@kylinos.cn>
+Signed-off-by: Andrii Nakryiko <andrii@kernel.org>
 Cc: stable@vger.kernel.org
-Fixes: ebd0b73d2137 ("clk: mediatek: Add mt8173-mfgtop driver")
-Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
-Reviewed-by: Chen-Yu Tsai <wenst@chromium.org>
-Signed-off-by: Brian Masney <bmasney@redhat.com>
+Link: https://lore.kernel.org/bpf/20260831063226.621309-2-chenyuan_fl@163.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/clk/mediatek/Kconfig | 1 +
- 1 file changed, 1 insertion(+)
+ kernel/bpf/queue_stack_maps.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/clk/mediatek/Kconfig b/drivers/clk/mediatek/Kconfig
-index b059d44577f1e..ba1ca9c90dbf1 100644
---- a/drivers/clk/mediatek/Kconfig
-+++ b/drivers/clk/mediatek/Kconfig
-@@ -541,6 +541,7 @@ config COMMON_CLK_MT8173_MFGTOP
- 	tristate "Clock and power driver for MediaTek MT8173 mfgtop"
- 	depends on COMMON_CLK_MT8173
- 	depends on PM
-+	depends on OF
- 	default COMMON_CLK_MT8173
- 	select PM_GENERIC_DOMAINS
- 	select PM_GENERIC_DOMAINS_OF
+diff --git a/kernel/bpf/queue_stack_maps.c b/kernel/bpf/queue_stack_maps.c
+index 6e8b18c32a106..1cee2ba6e332b 100644
+--- a/kernel/bpf/queue_stack_maps.c
++++ b/kernel/bpf/queue_stack_maps.c
+@@ -59,6 +59,9 @@ static int queue_stack_map_alloc_check(union bpf_attr *attr)
+ 		 */
+ 		return -E2BIG;
+ 
++	if (attr->max_entries >= U32_MAX / attr->value_size)
++		return -E2BIG;
++
+ 	return 0;
+ }
+ 
 -- 
 2.53.0
 
