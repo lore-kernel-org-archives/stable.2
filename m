@@ -1,119 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794073083;
-	b=SH23jVSHkJ5AfSDMqqehbXgc7XhZSqHtqRUG06Rna2pYdA1V7Gf2LbnuUmSsFN+Emcgj
-	 KJgeP7KZRar8OR8IS67FJfy03VMZ7gdSBY4LqERTSNwI5ehk2S1sCB39klozjdRVOaQag
-	 7zALghT6iGzYuxHi+UieOoElrVAljrkF45YfZFLH7wHAnN3JzjXvepkxrNo+awhfg3Q3T
-	 6UyhkMq3O+iANvavrCoKKqroNRD7u9zDlMZGIW03uQV0eqVyBmj+Z3tmkTTdugZu2Ks8Z
-	 X51qLLGM6dJOg6HNBRV1resFptcXdJFIZ/O+kIeXOeiDlaS59GPqVEZnU4Rz6qRFPxw==
+	t=1794074299;
+	b=3MWlF81MMYVmbQbWoo3aLn4o+ZULoUVjjHNm5b1GDe1Tjcc+mYVaXOL1dHaEG8OTA+in
+	 m3ihr7+CGRgLYL2Sb8aHOe/Xhiwrscpk0aiM57/DdJ9Xv8NZcpC2jz5skCLsozGI3Lsx9
+	 uvWdCAQPK1q+gtqMAsY/z4mm/dXz31xS5FJ8SwOEcv5HMiXrgOCQuXhzl892+6oTSxY9f
+	 OXMrm7A62UAd4v0YCwKlfYu2MpLVx/vOjaQP5GPxrDwhLauciKwo6AetIAnoBogfi7IjK
+	 Sj7p58XfsUCSvaswmts3E61falnF/r+hUSls2Ipx+RD05Q8wGKxuMQ1JAIapOXS681A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794073083;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Z24fIgrg332IE6A60r7YoNBcp+hbvJa6DyUXEc2zlxA=;
-	b=KvzqiE2QbnGAjRQXWC7PHgZHzh3F1BA1hL/LN+Od4OJEUn1wvwLHWZvYIcsejD+i9L9V
-	 KNMo66iaEqHTS1q0ouf8r6uQkdxdsnznHzSL66+qbjLnXQpYGjGiHjCObG4P+jomAVdU5
-	 7ffBx/+vR3tV3Big602Hfc4zPI4JmFvrdxoX2ZGqfYUKtrnUL8dXJwpzWw508h3RAWuBy
-	 l1aJxMXx7ShZscOnMoj2JS00/nSwduTy/hFjVUnO8bc7O4HeE0ZT2XFd3cYHdnr502ZvM
-	 b7r9NA5zDxm2cD8331/VuWdclgw5/MGAnwCK6W5MaE1eJxuLlW99t9Vhq3HZl5YGxwA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794074299;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=le9G8wIlRJSWgn7Gbz0879zwb1b/fclQvbIib7zoTIw=;
+	b=3b0JvgUKh6hQatSSgH+uN4ZE8ofeKjTtZdIK08ylvjc/NAJX0gaflI4NGA8G8osDgzdM
+	 BWv35i4DqyPaYfI1VI25EZaMAySFZ6gXyC29qkouOfGXtw4411zSeGmIoxFdCOy7NIyf9
+	 54XvS9YNxf2Q5Mq1Gs0Ks0+n3Hu2yx+2T3OvIfbeAGuRinpLIjtZhXXhGK+vyycql4J8z
+	 oJXNIFqr9TFUmWQ4V6vjXzDgu8hCnpitctfkPgSfpbcQ0g0zjQvvwH3ovftohi1u65N1Y
+	 XCEWUeAukWn8SUPCDB+J03nomIfyg5oq/3et9+zlkimaDgExIw+8JSegxniWKGZ/MIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=H5ztWKaV;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=UToDImFb;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FSbXkZAG;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04E0E606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 17:38:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04E0E606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88CCB606A32C;
+	Sat,  7 Nov 2026 17:58:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=H5ztWKaV;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=UToDImFb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794073081;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Z24fIgrg332IE6A60r7YoNBcp+hbvJa6DyUXEc2zlxA=;
-	b=H5ztWKaV7PH/3Ved7RuKZSru+bN6CAalPIaoK9/gW+tAimk3TDf2lLH1AHK05UJVovSvwy
-	kfw/4zucOQw/YE7873fOkagR3Q8dhP0T7x45klS12ReDjZuouCHVpyAGxCHV8xdNu9YoNN
-	yXTgpul8DerW4mKN0MN+RYZlcm6OPiQ=
-Received: from mail-yw1-f199.google.com (mail-yw1-f199.google.com
- [209.85.128.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-623-7Y9So77jO5uCHe1qSV9s7w-1; Sat, 07 Nov 2026 12:38:00 -0500
-X-MC-Unique: 7Y9So77jO5uCHe1qSV9s7w-1
-X-Mimecast-MFC-AGG-ID: 7Y9So77jO5uCHe1qSV9s7w_1794073080
-Received: by mail-yw1-f199.google.com with SMTP id 00721157ae682-8b0d978e4faso24148817b3.0
-        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 09:38:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794073080; x=1794677880; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Z24fIgrg332IE6A60r7YoNBcp+hbvJa6DyUXEc2zlxA=;
-        b=UToDImFbgIathTRFcm0KCUed+Rq+pCXk9AjiiRXnexCf10ZTT/1t33J3uGJtXxw3oo
-         L2vBOwAUTi87dlYvU7h68uQrvBfEgpf708DjZkBr2gvk5zIZ0keeqITRbi86k0zyc/mT
-         mzcIoBIUfUgkgWfQKM+zkRkHSZMRmalmeWRnydT7DwzfKeQ7e+KYX8G9mnzcXmIG3wFe
-         Nqn8rMKoWkNxXJ3O9y2MQMNsPKI4Hqz4iMbF/3jl5LiiliNbZBXgbDQ/Duq9UgOIQzzl
-         85pD+pmL7M8/NQio698gkwH2SVGby2o0OaDfot4/PflOP0uxquxVvy1e8tYTpmSess6p
-         hxIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794073080; x=1794677880;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Z24fIgrg332IE6A60r7YoNBcp+hbvJa6DyUXEc2zlxA=;
-        b=jKIYhVWzHfMMdQR1VEvqJX/SlVX3F7PVvspJWTmCWc6o0KLS3TYPL/XSzfW8Olrdwm
-         zS6V64hPRXUR9UkD9I8HSKpUUczdLtTDfv1wcYt/cnqhx41bbrkc6+u52xtnEDIUMq2n
-         Rj4EEs0vPcvYbLqgWkeaHl1yjguV+qyDrHfOVOc/2KFB3AmdyuAoG2LmMkyhpWvk/LZ4
-         Eh+qvtIL16LpeLSCUITrGMTrdpjk6S3JOUYF2i15LquGDZV8AdVc7WDHP1nK9Z7M9ItO
-         AdScBiIW8cSBGzjwIP8YoUfbIfKPMxqvBnV5Q2GIgde/sTm/xz54EIaj1b/D0d9iHU9g
-         mpPQ==
-X-Forwarded-Encrypted: i=1; AL+hErG738oodg9pEIn2cHZn1PlNEs4qinssLUs9NNkeUaKmXM7B+L09yazPVKYGYSGRmicC2h6reAI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+bCYs2YqnHwHzZOJBpDvyltKRRhlsfM0tF5+FenxObG4KCTwoF
-	nHENsxjZrBcK4JYiHPPAH2L9WxUTUbQL0ffnGHwNOZP2Au/4n9jdpDGlXzQRC3/I9CB7kq+3hSL
-	yLqCZD3r0jvwSTIUFhy9eWT7hjrayBYqSRINKaznkoSpJHqucaE3OzviqWw==
-X-Gm-Gg: AYBFou3+lAy2WM097WYSXb/GLLQ3NKLFyY0EAu3YOBKbiN12WA7VXtPoMSzMxwJ8qLO
-	DWDy5ahgKQNpjairruPOG2qfnHvL/8WQ5Ea3/gYjc8ME6nGbBsrftXul/GpDFdgVI7kZZb42E6t
-	ntrZ55rLznqgyo9dGUYus9AUPcedNHZWLcavYPkhlKSqUympBRPGukjT8tZzBpMJdGQrMgM3OaD
-	uJ7WhD5UezcgPmJDDqorM+/ioyfQ9zzLpy3OHa6us1O6JfLh0xuPKTABeYSzJUT6EY7PmN11kGl
-	HanxHB//z3RaE2dFn0jVeG9ank6iCt+AN230tGOaonCgjoiGSAkea/bBWjMSldlHGG2W15TUPM/
-	+7q5FSBUkHkjt60/H2df20NSh
-X-Received: by 2002:a05:690c:dc3:b0:8b0:ecb2:883a with SMTP id 00721157ae682-8b341b65934mr35021297b3.62.1794073080174;
-        Sat, 07 Nov 2026 09:38:00 -0800 (PST)
-X-Received: by 2002:a05:690c:dc3:b0:8b0:ecb2:883a with SMTP id 00721157ae682-8b341b65934mr35020987b3.62.1794073079453;
-        Sat, 07 Nov 2026 09:37:59 -0800 (PST)
-Received: from rhdev ([2600:1700:f361:20bf::14c1])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b33f5f525fsm44439167b3.5.2026.11.07.09.37.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 09:37:58 -0800 (PST)
-Date: Sat, 7 Nov 2026 12:37:56 -0500
-From: Jennifer Berringer <jberring@redhat.com>
-To: gaohan@iscas.ac.cn
-Cc: Ard Biesheuvel <ardb@kernel.org>,
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Javier Martinez Canillas <javierm@redhat.com>,
-	Borislav Petkov <bp@suse.de>,
-	Simona Vetter <simona.vetter@ffwll.ch>, linux-efi@vger.kernel.org,
-	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	linux-riscv@lists.infradead.org, Han Gao <rabenda.cn@gmail.com>,
-	stable@vger.kernel.org, Xincheng Ji <jixincheng@ultrarisc.com>,
-	Jia Wang <wangjia@ultrarisc.com>
-Subject: Re: [PATCH] firmware/sysfb: Avoid simple-framebuffer behind DT PCI
- host bridges
-Message-ID: <20261107173756.1d273aa5@redhat.com>
-References: <20261107-sysfb-dt-pci-efifb-v1-1-86d6c598671a@iscas.ac.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FSbXkZAG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFA581F0089F;
+	Sat,  7 Nov 2026 17:58:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794074299;
+	bh=le9G8wIlRJSWgn7Gbz0879zwb1b/fclQvbIib7zoTIw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=FSbXkZAGAl9UVltlm9AXIlfugA/kSzlzN3A2PCw6vtMcTyVk033kyq7VLGisrFopV
+	 IZyLx1/Vec5RWOolLg9b1i/oznWTl+NpQmlhB9CiOKZyabwcBg/amZkwlrNP5SujWN
+	 j8ZVlXjdk+vm42UjUcwob+P4CluieylukHXhUsgNERk+YUf6ucYBJuW/MAn66f3hJX
+	 xlYL++DaGRqszkRBCjMW7Pa5Qqyv8QA/kjJJ+aWlPPBCg7YwybKrR47fVhXK5Tqt6R
+	 +tREd5IYwIc5ohsaaf3/t3KubTAcrSZNCw5ntlKWHFdmVuQmmCJ4Saf7VbDw2wAUg3
+	 srM+jGb4leYwQ==
+Message-ID: <7abb3aa1-385a-422f-86bd-7aac9661c4d8@kernel.org>
+Date: Sat, 7 Nov 2026 18:58:10 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -123,134 +51,167 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261107-sysfb-dt-pci-efifb-v1-1-86d6c598671a@iscas.ac.cn>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/3] mm: gup: allow long-term pins of CMA-allocated
+ HugeTLB folios
+To: Qi Zheng <qi.zheng@linux.dev>, muchun.song@linux.dev, osalvador@suse.de,
+ akpm@linux-foundation.org, azpijr@gmail.com, lance.yang@linux.dev
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ Qi Zheng <zhengqi.arch@bytedance.com>, stable@vger.kernel.org
+References: <cover.1794046188.git.zhengqi.arch@bytedance.com>
+ <586d6c53ab7e4c64d6e89ad3cf0cf7e07dabbfaf.1794046188.git.zhengqi.arch@bytedance.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <586d6c53ab7e4c64d6e89ad3cf0cf7e07dabbfaf.1794046188.git.zhengqi.arch@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi,
-
-On Sat, Nov 07, 2026 at 04:46:40PM +0800, Han Gao via B4 Relay wrote:
-> From: Han Gao <gaohan@iscas.ac.cn>
+On 11/7/26 11:30, Qi Zheng wrote:
+> From: Qi Zheng <zhengqi.arch@bytedance.com>
 > 
-> With SYSFB_SIMPLEFB, sysfb registers a simple-framebuffer device that
-> claims the framebuffer memory when it is added. On DT systems, the PCI
-> host bridge may probe later and then fails to claim its memory window.
-> On QEMU RISC-V virt with EDK2, a bochs-display and pci-host-generic
-> built as a module:
+> Long-term pinning treats explicitly CMA-allocated HugeTLB folios as
+> unpinnable, causing unnecessary migration or pinning failures.
 > 
->   [    0.703813] pci-host-generic 30000000.pci: resource collision: [mem 0x40000000-0x7fffffff] conflicts with BOOTFB [mem 0x40000000-0x403e7fff]
+> These folios already own their CMA bitmap ranges, and memory blocks
+> overlapping CMA areas cannot be offlined. Allow HugeTLB folios with
+> HPG_cma to be pinned directly, including in ZONE_MOVABLE.
 > 
-> In that case, register an efi-framebuffer device instead. It claims no
-> memory before it probes, and commit 64c8a0cd0a53 ("efi/arm: Defer probe
-> of PCIe backed efifb on DT systems") makes it wait for the host bridge.
-> 
-> Tested on a HiFive Unmatched with EDK2 and a PCIe graphics card, and on
-> QEMU.
-> 
-> Fixes: 8633ef82f101 ("drivers/firmware: consolidate EFI framebuffer setup for all arches")
+> Fixes: cf11e85fc08c ("mm: hugetlb: optionally allocate gigantic hugepages using cma")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
+> Suggested-by: Muchun Song <muchun.song@linux.dev>
+> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+> Acked-by: Muchun Song <muchun.song@linux.dev>
+> Reviewed-by: Oscar Salvador <osalvador@suse.de>
+> Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
 > ---
-
-This issue also affects UltraRISC DP1000 boards such as Milk-V Titan.
-For that system, a2d4a2d2479b ("clk: ultrarisc: Register DP1000 clock
-provider earlier") was recently added to clk-next and can serve as a
-workaround to make its pci driver be able to initialize before sysfb,
-but only if both the clock and pci drivers are built in rather than
-built as modules.
-
-I confirmed that your patch resolves the issue on Milk-V Titan even when
-building with CONFIG_PCIE_ULTRARISC=m, making a PCIe graphics card able
-to initialize and function without issue. CC'd the ultrarisc developers.
-
-Tested-by: Jennifer Berringer <jberring@redhat.com> # Milk-V Titan
-
-> In QEMU, efifb takes over with SYSFB_SIMPLEFB and efidrm without it.
-> With pci-host-generic built in, simpledrm is still used.
-> ---
->  drivers/firmware/efi/sysfb_efi.c | 16 ++++++++++++++++
->  drivers/firmware/sysfb.c         |  8 +++++++-
->  include/linux/sysfb.h            |  6 ++++++
->  3 files changed, 29 insertions(+), 1 deletion(-)
+>  include/linux/mm.h | 29 +----------------------------
+>  mm/gup.c           | 31 +++++++++++++++++++++++++++++++
+>  2 files changed, 32 insertions(+), 28 deletions(-)
 > 
-> diff --git a/drivers/firmware/efi/sysfb_efi.c b/drivers/firmware/efi/sysfb_efi.c
-> index 2338de73c62c..5c2cb87178ff 100644
-> --- a/drivers/firmware/efi/sysfb_efi.c
-> +++ b/drivers/firmware/efi/sysfb_efi.c
-> @@ -421,6 +421,22 @@ __init void sysfb_apply_efi_quirks(struct screen_info *si)
->  		dmi_check_system(efifb_dmi_swap_width_height);
+> diff --git a/include/linux/mm.h b/include/linux/mm.h
+> index 2d0b8a4c9974f..75dd40265d3f4 100644
+> --- a/include/linux/mm.h
+> +++ b/include/linux/mm.h
+> @@ -2975,35 +2975,8 @@ static inline bool is_zero_folio(const struct folio *folio)
+>  	return is_zero_page(&folio->page);
 >  }
 >  
-> +/* Returns true if the EFI framebuffer is in a DT PCI host bridge window */
-> +__init bool sysfb_efifb_behind_dt_pci(const struct screen_info *si)
-> +{
-> +	struct device_node *np;
-> +
-> +	if (si->orig_video_isVGA != VIDEO_TYPE_EFI || !IS_ENABLED(CONFIG_PCI))
-> +		return false;
-> +
-> +	np = find_pci_overlap_node();
-> +	if (!np)
-> +		return false;
-> +
-> +	of_node_put(np);
-> +	return true;
-> +}
-> +
->  __init void sysfb_set_efifb_fwnode(const struct screen_info *si, struct platform_device *pd)
->  {
->  	if (si->orig_video_isVGA == VIDEO_TYPE_EFI && IS_ENABLED(CONFIG_PCI)) {
-> diff --git a/drivers/firmware/sysfb.c b/drivers/firmware/sysfb.c
-> index 8833582c1883..8853a74560b9 100644
-> --- a/drivers/firmware/sysfb.c
-> +++ b/drivers/firmware/sysfb.c
-> @@ -164,8 +164,14 @@ static __init int sysfb_init(void)
->  		goto unlock_mutex;
->  	}
->  
-> -	/* try to create a simple-framebuffer device */
-> +	/*
-> +	 * Try to create a simple-framebuffer device. It claims the memory
-> +	 * when it is added, so a DT PCI host bridge that probes later would
-> +	 * fail. Use an efi-framebuffer device there; it waits for the bridge.
-> +	 */
->  	compatible = sysfb_parse_mode(si, &mode);
-> +	if (compatible && !parent && sysfb_efifb_behind_dt_pci(si))
-> +		compatible = false;
->  	if (compatible) {
->  		pd = sysfb_create_simplefb(si, &mode, parent);
->  		if (!IS_ERR(pd))
-> diff --git a/include/linux/sysfb.h b/include/linux/sysfb.h
-> index ed23d6516223..b136fdebc746 100644
-> --- a/include/linux/sysfb.h
-> +++ b/include/linux/sysfb.h
-> @@ -95,6 +95,7 @@ static inline bool sysfb_handles_screen_info(void)
->  
->  extern struct efifb_dmi_info efifb_dmi_list[];
->  void sysfb_apply_efi_quirks(struct screen_info *si);
-> +bool sysfb_efifb_behind_dt_pci(const struct screen_info *si);
->  void sysfb_set_efifb_fwnode(const struct screen_info *si, struct platform_device *pd);
->  
->  #else /* CONFIG_EFI */
-> @@ -103,6 +104,11 @@ static inline void sysfb_apply_efi_quirks(struct screen_info *si)
->  {
->  }
->  
-> +static inline bool sysfb_efifb_behind_dt_pci(const struct screen_info *si)
-> +{
-> +	return false;
-> +}
-> +
->  static inline void sysfb_set_efifb_fwnode(const struct screen_info *si,
->  					  struct platform_device *pd)
->  {
-> 
-> ---
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-> change-id: 20261107-sysfb-dt-pci-efifb-d73b08ded4b2
-> 
-> Best regards,
-> --  
-> Han Gao <gaohan@iscas.ac.cn>
-> 
+> -/* MIGRATE_CMA and ZONE_MOVABLE do not allow pin folios */
+>  #ifdef CONFIG_MIGRATION
+> -static inline bool folio_is_longterm_pinnable(struct folio *folio)
+> -{
+> -#ifdef CONFIG_CMA
+> -	int mt = folio_migratetype(folio);
+> -
+> -	if (mt == MIGRATE_CMA || mt == MIGRATE_ISOLATE)
+> -		return false;
+> -#endif
+> -	/* The zero page can be "pinned" but gets special handling. */
+> -	if (is_zero_folio(folio))
+> -		return true;
+> -
+> -	/* Coherent device memory must always allow eviction. */
+> -	if (folio_is_device_coherent(folio))
+> -		return false;
+> -
+> -	/*
+> -	 * Filesystems can only tolerate transient delays to truncate and
+> -	 * hole-punch operations
+> -	 */
+> -	if (folio_is_fsdax(folio))
+> -		return false;
+> -
+> -	/* Otherwise, non-movable zone folios can be pinned. */
+> -	return !folio_is_zone_movable(folio);
+> -
+> -}
 
+Moving code while adding new stuff to it, please don't.
+
+Move code first, then modify it.
+
+I don't want to play "find the difference between two pictures" on a Saturday
+evening.
+
+> +bool folio_is_longterm_pinnable(struct folio *folio);
+>  #else
+>  static inline bool folio_is_longterm_pinnable(struct folio *folio)
+>  {
+> diff --git a/mm/gup.c b/mm/gup.c
+> index 2b405cce2ca5c..f41701c603500 100644
+> --- a/mm/gup.c
+> +++ b/mm/gup.c
+> @@ -2216,6 +2216,37 @@ struct page *get_dump_page(unsigned long addr, int *locked)
+>  
+>  #ifdef CONFIG_MIGRATION
+>  
+> +bool folio_is_longterm_pinnable(struct folio *folio)
+> +{
+> +#ifdef CONFIG_CMA
+> +	int mt = folio_migratetype(folio);
+> +
+> +	/* These HugeTLB folios own the CMA memory, so they can be long-term pinned. */
+> +	if (folio_test_hugetlb(folio) && folio_test_hugetlb_cma(folio))
+> +		return true;
+More hugetlb hackery ... don't like that, sorry.
+
+I think this just goes down to a problem we discussed a while ago that is
+independent of hugetlb: we'd need some way to identify that the the page was
+actually allocated by the CMA owner, and it's not just some other movable
+allcoation that ended up there.
+
+For something generic non-hugetlb thing, can't we call into CMA to ask whether
+the current chunk is marked allocated?
+
+If that's too hard, we could add a temporary hugetlb hack.
+
+But we all hate hugetlb hacks. :)
+
+-- 
+Cheers,
+
+David
