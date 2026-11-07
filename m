@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047488;
-	b=GXWVoLzFT/E4G2GLzn7wlmSZoplaTeWk1Cv6ae0RfgL5iSV8Q5y7/SRTl+humpht5oHe
-	 La1LeAojDAx2XT8HT/IQKj6FDbDZ/OeU6ZQnXFlXll1obwbtCkD7tvPIM0MM79MF2dAzp
-	 CM0WbQUWpoeEXxznIsXfWCKhoJydwl0gG/IxD+4f26BpWhQAA0eoHEEya0V5SGmZikVA4
-	 WxSJrJel8A+onykimo6TmYbe8wbxX7odBHhM8qL+M4GfCrvf9jISHL/1dN6feChtMYiGt
-	 iga3DglXzioe1M7Kto6s+dw44gSW/bHB1PRsBD0zeSPaJyBmUftkgW6XfHLoosdGrqA==
+	t=1794047478;
+	b=qsMHbi/zs6MvMHNwz4ieD2Mn0e1c62zNACEMXWxC05kth362h44LvFE6zcdT6miPqdNo
+	 648Fpv4KWTfvN2z/W3NPRkCfXRo0BxNKFD9Sy7YP7ji2Yd6xy48DF1bvq6g0bzPUCjmgt
+	 /K5RG5kHyxSDaCAvv5o0mq5Lk/aezwzoGMSRUxE40LUcYn/sG/J6fZ2IL671vxcOTGuRz
+	 /IJN/LGj/2LiN9OfyStQV2ArS3tdHMmpwfmokCz30juF9kK1ZNxXpxqkZkObKRw1cIKlC
+	 L92HlFAI+FaSyoblYQXzEjdk5nbc9fheq/PNg52glX/JZW55/p8EaD9lffB2AzkR/+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047488;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047478;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=RpNmUbzCLH4JM7Nk/nNreorsd6e+a1Bwh8pqorbnJ/E=;
-	b=4hSY792/kPp9WsR9vy1sEfuRcWrcL/Y/H4UMBB2uQ8xFuHLAiKBrGqiWMCuNrDZXCrtj
-	 2PRO3QSyZasIf20B5j1iTtJpsy4gd3OhSdXgdcuj7BLy6ybPFvMh3N6Dean6nZc+l0BAO
-	 V2WHLtPTfYkJwJqGZmhhbxMX+unzgL+k/fWsVwKvzQC5cyXkomj0aamjrANg039jD24fH
-	 sCZS8nAXj82YToIi0E+ZOFyUAvj5M9C3QjwwWDjrwPdtFk5KbuLuz2QGUbZpgezrtoapO
-	 3Q0ZzNe7qf4D+4k3jsDoKLfxINSF7nEdeNtHnOVF84SSaCTuCzDuDw5179+56nNyPDA==
+	bh=HxOqliNGtdKLLjndk5h5olYkyRuRxErO/mWSe/r6rgo=;
+	b=f9k/0Wd4W/d/TvqBPpqjoMnFmt03mvf+3PxBsvxlplqjzB+GphbF8PrAYbyfNAMl+AGy
+	 ilKrC90Wr37QWA8nI9/h0VJNQ8QiWqyrGSBk8+bHeKvJMIXppbtqNjjFxBshCqdZGDD1/
+	 aDQXGml13EsoMFwkDwGBhO9ly1p3ijFwuguYbrypxBzf38+kuiat+qs1BHMqcIJPJirp2
+	 /cBaPUNt+db3P8pMFnPF5yQD0QBGJG/XBkcaEAZ/VCFdJu+uooTh1ZRd+Mr+aOAfRfS0L
+	 7SjHHU7jgBzrU4brGdqc8/LqlH0viyw8x9JXiMs2wcK6fuKBiM2UZTQTEQ0cXhzGy9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bxx5xsjh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UWgoZ0EX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD3F3606EE81
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:31:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49A9F606A33E
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:31:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bxx5xsjh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EB631F008A4;
-	Sat,  7 Nov 2026 10:31:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UWgoZ0EX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BCD61F008A3;
+	Sat,  7 Nov 2026 10:31:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047487;
-	bh=RpNmUbzCLH4JM7Nk/nNreorsd6e+a1Bwh8pqorbnJ/E=;
+	s=k20260515; t=1794047477;
+	bh=HxOqliNGtdKLLjndk5h5olYkyRuRxErO/mWSe/r6rgo=;
 	h=From:To:Cc:Subject:Date;
-	b=bxx5xsjhrxqOcLpVMOMZbmYWjJdqgDDzjfTcUTbRdcaaO0Rtb2iuPRHdO9bBtrti8
-	 9KzFcGwAfApmEDhvldizAsjIVhcJlM5L1Is8RAxB/arfeE6ewtRiSBFjoQeSTc5fCC
-	 WyeIFrZGn76+O/syOkFntNcMoWUt1Dq00BvfaebM34OvLDvaGqP4OTpkPSeoTZG2t7
-	 n5xoHScsw1R2gRWCrwvO5ZmQ1qYtOvzPaQ+2D+EJo8VlOj7JgDhQLrOOKznXzCRdT4
-	 jbd9XY4K0l2/kGcwyqaOEQZKOURAlHjyoOV3A+6sag1HeEdGf4KrKDW/I3IIGxQjwc
-	 b1KqxOPSngRTA==
+	b=UWgoZ0EXVv0wVTtWdiMxBdLgL79Exzpr6FtzT/O/rJEEhN24Z5F16GJxJnolxZetG
+	 BbEyuW9GFHBXTrPcCBgVWMM/wIJ/stUNr7cr1YMpgyPInpqClrbP2NPn3OSqhHfNL7
+	 Tt7MHjRqLBo3BvT5qRxF8CuIPRZErkfvQ3I54pUWzqsfKUPqiS9rO1bAuuLQEJrEeV
+	 rKvdFZ33XN92eW9zXoCrNEl3QYKfT4sAqzi6NbQwDJgtsuz3dPp6Ignm3OsZMN5CDr
+	 mSIp2jOS2tpuE2sALYQKdzHDot8rL4LcFnhTxC4jFBjSnO2I9zYvvEVgygOE+tNkyt
+	 4QPbCFtya5AoQ==
 From: Sasha Levin <sashal@kernel.org>
-To: tharitt97@gmail.com,
-	frank.li@nxp.com,
+To: fanwu01@zju.edu.cn,
 	nicolas.dufresne@collabora.com,
 	hverkuil+cisco@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] media: hantro: release runtime resources when device_run fails" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:31:25 -0500
-Message-ID: <20261107053125-failed-6.6-556ab0b2741d@kernel.org>
+Subject: FAILED: patch "[PATCH] media: rockchip: rga: quiesce IRQ before releasing m2m state" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:31:16 -0500
+Message-ID: <20261107053116-failed-6.6-a875c43dd95e@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,176 +69,75 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 556ab0b2741d653455637ffdd453d65c0439914a
+git cherry-pick -x a875c43dd95ee4f9c4e3e5ae1cb8362cc6d7817d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053125-failed-6.6-556ab0b2741d@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053116-failed-6.6-a875c43dd95e@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 556ab0b2741d653455637ffdd453d65c0439914a Mon Sep 17 00:00:00 2001
-From: Tharit Tangkijwanichakul <tharitt97@gmail.com>
-Date: Wed, 29 Jul 2026 06:04:39 +0000
-Subject: [PATCH] media: hantro: release runtime resources when device_run
- fails
+From a875c43dd95ee4f9c4e3e5ae1cb8362cc6d7817d Mon Sep 17 00:00:00 2001
+From: Fan Wu <fanwu01@zju.edu.cn>
+Date: Sat, 4 Jul 2026 08:46:59 +0000
+Subject: [PATCH] media: rockchip: rga: quiesce IRQ before releasing m2m state
 
-device_run() acquires a runtime PM reference and enables the VPU clocks
-before invoking the codec-specific run callback.
+rga_remove() releases the m2m state before the IRQ is freed. The IRQ is
+devm-managed and is only released once rga_remove() returns, so rga_isr()
+can still run while the m2m device state is being torn down.
 
-If clk_bulk_enable() fails, the runtime PM reference is left held. If
-the codec-specific run callback fails, both the enabled clocks and the
-runtime PM reference are left held.
+Store the IRQ number in struct rockchip_rga, unregister the video device
+first, and free the IRQ before releasing the m2m state so the handler
+cannot run against the freed state.
 
-Make the clocks part of the device's runtime PM state by enabling them
-from the runtime-resume callback and disabling them from the
-runtime-suspend callback.
-
-Fixes: 775fec69008d ("media: add Rockchip VPU JPEG encoder driver")
+Fixes: f7e7b48e6d79 ("[media] rockchip/rga: v4l2 m2m support")
 Cc: stable@vger.kernel.org
-Signed-off-by: Tharit Tangkijwanichakul <tharitt97@gmail.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 ---
- .../media/platform/verisilicon/hantro_drv.c   | 66 +++++++++++--------
- 1 file changed, 39 insertions(+), 27 deletions(-)
+ drivers/media/platform/rockchip/rga/rga.c | 4 +++-
+ drivers/media/platform/rockchip/rga/rga.h | 1 +
+ 2 files changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/media/platform/verisilicon/hantro_drv.c
-index ad71c0402ef3b..43f67b9fcf273 100644
---- a/drivers/media/platform/verisilicon/hantro_drv.c
-+++ b/drivers/media/platform/verisilicon/hantro_drv.c
-@@ -59,8 +59,7 @@ static const struct v4l2_event hantro_eos_event = {
- 	.type = V4L2_EVENT_EOS
- };
- 
--static void hantro_job_finish_no_pm(struct hantro_dev *vpu,
--				    struct hantro_ctx *ctx,
-+static void hantro_job_finish_no_pm(struct hantro_ctx *ctx,
- 				    enum vb2_buffer_state result)
- {
- 	struct vb2_v4l2_buffer *src, *dst;
-@@ -86,15 +85,13 @@ static void hantro_job_finish_no_pm(struct hantro_dev *vpu,
- 					 result);
- }
- 
--static void hantro_job_finish(struct hantro_dev *vpu,
--			      struct hantro_ctx *ctx,
-+static void hantro_job_finish(struct hantro_ctx *ctx,
- 			      enum vb2_buffer_state result)
- {
--	pm_runtime_put_autosuspend(vpu->dev);
--
--	clk_bulk_disable(vpu->variant->num_clocks, vpu->clocks);
-+	struct hantro_dev *vpu = ctx->dev;
- 
--	hantro_job_finish_no_pm(vpu, ctx, result);
-+	pm_runtime_put_autosuspend(vpu->dev);
-+	hantro_job_finish_no_pm(ctx, result);
- }
- 
- void hantro_irq_done(struct hantro_dev *vpu,
-@@ -111,7 +108,7 @@ void hantro_irq_done(struct hantro_dev *vpu,
- 	if (cancel_delayed_work(&vpu->watchdog_work)) {
- 		if (result == VB2_BUF_STATE_DONE && ctx->codec_ops->done)
- 			ctx->codec_ops->done(ctx);
--		hantro_job_finish(vpu, ctx, result);
-+		hantro_job_finish(ctx, result);
+diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
+index b3cb6bf8eb863..fbc99462dce28 100644
+--- a/drivers/media/platform/rockchip/rga/rga.c
++++ b/drivers/media/platform/rockchip/rga/rga.c
+@@ -797,6 +797,7 @@ static int rga_probe(struct platform_device *pdev)
+ 		ret = irq;
+ 		goto err_put_clk;
  	}
- }
++	rga->irq = irq;
  
-@@ -127,7 +124,7 @@ void hantro_watchdog(struct work_struct *work)
- 		vpu_err("frame processing timed out!\n");
- 		if (ctx->codec_ops->reset)
- 			ctx->codec_ops->reset(ctx);
--		hantro_job_finish(vpu, ctx, VB2_BUF_STATE_ERROR);
-+		hantro_job_finish(ctx, VB2_BUF_STATE_ERROR);
- 	}
- }
+ 	ret = devm_request_irq(rga->dev, irq, rga_isr,
+ 			       rga_has_internal_iommu(rga) ? 0 : IRQF_SHARED,
+@@ -876,8 +877,9 @@ static void rga_remove(struct platform_device *pdev)
  
-@@ -170,29 +167,24 @@ void hantro_end_prepare_run(struct hantro_ctx *ctx)
- static void device_run(void *priv)
- {
- 	struct hantro_ctx *ctx = priv;
-+	struct hantro_dev *vpu = ctx->dev;
- 	struct vb2_v4l2_buffer *src, *dst;
- 	int ret;
+ 	v4l2_info(&rga->v4l2_dev, "Removing\n");
  
- 	src = hantro_get_src_buf(ctx);
- 	dst = hantro_get_dst_buf(ctx);
+-	v4l2_m2m_release(rga->m2m_dev);
+ 	video_unregister_device(rga->vfd);
++	devm_free_irq(rga->dev, rga->irq, rga);
++	v4l2_m2m_release(rga->m2m_dev);
+ 	v4l2_device_unregister(&rga->v4l2_dev);
  
--	ret = pm_runtime_resume_and_get(ctx->dev->dev);
--	if (ret < 0)
--		goto err_cancel_job;
--
--	ret = clk_bulk_enable(ctx->dev->variant->num_clocks, ctx->dev->clocks);
--	if (ret)
--		goto err_cancel_job;
-+	ret = pm_runtime_resume_and_get(vpu->dev);
-+	if (ret < 0) {
-+		hantro_job_finish_no_pm(ctx, VB2_BUF_STATE_ERROR);
-+		return;
-+	}
- 
- 	v4l2_m2m_buf_copy_metadata(src, dst);
- 
--	if (ctx->codec_ops->run(ctx))
--		goto err_cancel_job;
--
--	return;
--
--err_cancel_job:
--	hantro_job_finish_no_pm(ctx->dev, ctx, VB2_BUF_STATE_ERROR);
-+	ret = ctx->codec_ops->run(ctx);
-+	if (ret)
-+		hantro_job_finish(ctx, VB2_BUF_STATE_ERROR);
- }
- 
- static const struct v4l2_m2m_ops vpu_m2m_ops = {
-@@ -1302,10 +1294,30 @@ static void hantro_remove(struct platform_device *pdev)
- static int hantro_runtime_resume(struct device *dev)
- {
- 	struct hantro_dev *vpu = dev_get_drvdata(dev);
-+	int ret;
-+
-+	ret = clk_bulk_enable(vpu->variant->num_clocks, vpu->clocks);
-+	if (ret)
-+		return ret;
-+
-+	if (vpu->variant->runtime_resume) {
-+		ret = vpu->variant->runtime_resume(vpu);
-+		if (ret)
-+			goto err_disable_clocks;
-+	}
-+
-+	return 0;
- 
--	if (vpu->variant->runtime_resume)
--		return vpu->variant->runtime_resume(vpu);
-+err_disable_clocks:
-+	clk_bulk_disable(vpu->variant->num_clocks, vpu->clocks);
-+	return ret;
-+}
- 
-+static int hantro_runtime_suspend(struct device *dev)
-+{
-+	struct hantro_dev *vpu = dev_get_drvdata(dev);
-+
-+	clk_bulk_disable(vpu->variant->num_clocks, vpu->clocks);
- 	return 0;
- }
- #endif
-@@ -1313,7 +1325,7 @@ static int hantro_runtime_resume(struct device *dev)
- static const struct dev_pm_ops hantro_pm_ops = {
- 	SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
- 				pm_runtime_force_resume)
--	SET_RUNTIME_PM_OPS(NULL, hantro_runtime_resume, NULL)
-+	SET_RUNTIME_PM_OPS(hantro_runtime_suspend, hantro_runtime_resume, NULL)
- };
- 
- static struct platform_driver hantro_driver = {
+ 	pm_runtime_disable(rga->dev);
+diff --git a/drivers/media/platform/rockchip/rga/rga.h b/drivers/media/platform/rockchip/rga/rga.h
+index bd431534d0d39..7bcdf36c11b4d 100644
+--- a/drivers/media/platform/rockchip/rga/rga.h
++++ b/drivers/media/platform/rockchip/rga/rga.h
+@@ -73,6 +73,7 @@ struct rockchip_rga {
+ 	struct device *dev;
+ 	struct regmap *grf;
+ 	void __iomem *regs;
++	int irq;
+ 	struct clk_bulk_data *clks;
+ 	int num_clks;
+ 	struct rockchip_rga_version version;
 -- 
 2.53.0
 
