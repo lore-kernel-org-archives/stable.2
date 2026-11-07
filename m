@@ -1,53 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048507;
-	b=ELokleROi9zxFvHrwZgEBIrP3tZAgO+O1HRTBPAok2fXQrOf4bFz+DR6l+DU3YgHhoAB
-	 XExSJwi+2bHQJhps/i+Kc2nhe88qvivfLCPLEVMKBAPWZlPfE2LnGuk0o1EnZGMA5iSM6
-	 oPQSrjW9C2nWhzOV9JRbzSmkV48IVQFUOcOP6ljPyCHrGGU0MQtTmo5UqniaG+4i1MPF5
-	 AVLjZs0Gt1VOx6eqmVMtZtrxd4jM4SljnKyhW3hsr9gpjYsBQ/sK53MPZZ/D1Si0qxW/f
-	 Paz8IFTCEpsqR81uULlpoILJJ+jt3I5h8ipFsHTnU5Ka0kWFfDe6XnI2Xhmqdg1bykQ==
+	t=1794048510;
+	b=qtmXv0yayS65TEc5JzJKDBGJSxBLLDgo/5L0pZujn4m0kWP/1cEcpnBwXzfPSSO6lkBC
+	 xsigKMLSX8BmOitmB3bBHPLWOan/sOi3xZ3jOb6prv7jbROBC2cRS/7Q+/yxb3G1qSI/n
+	 h5CZs5dcsL0LAkmhQ3mMK/Rgsh4mCZSiG4Xr+Tvb8UXDfUICap2Ot6GnEtK8kA/cvdYyg
+	 gRL8w7gSKobiJZcm9i0qW3OdtTuEAfhAEove4OD7xUWxhfzTaB2jaisHodkrsbhU09w8y
+	 kxfFOFCBJqUHT+Zr1C34P5Oq1BQZgO/qZBP7vpLpGplB5m8dwAa0MdG1iNmocFfIJlQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048507;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048510;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=oucSPzRlBRrSJmiZ10Q5MWRzx9pRzjfJQbDScRV8100=;
-	b=S01SqvBzrN7kIc4lGRyekPbO6jww8vVrstGf1CV4yadIbCT2NqFejRCuc69UvSbcBDFN
-	 WTF8oHtrJ6eMAPqsdkYz69nJHJnDLsUsk4Zs7Fwt8QeEXgeYBjouE6bEhxvNbZa+e5FSR
-	 OEmdKR7pMoTvn8jElgErqGeF5oOv1jmPu0E8S3EtkdWPJx+CEe5SzA+hNww1lpXkEs/uT
-	 UeWJnSdODrPXCNGCW3nq+ODpO5RPFmX6BSw3Bmw3tv7kB7/JjDZxRe5Biqj2u5Gi/iAiF
-	 7ZhbmAuOvjBnklr84QDdgGuwgAIISynMPM5HLGRo+v7GBGdDgOLnS8r7Q2xIc8g8RkA==
+	bh=g1wpdOpb6feshjsUb532YttlsVFmJRrRuu4jeNfas5Y=;
+	b=0LBRrx3F4rMs+wy/PnedDsip2MWNVv+uULOeEMKZPxaUYYZAYpqtuujVQ00HuzmMNQCm
+	 6rtRWSK6Jyjdng6WU4CBKeO1tTseuLvZ6ybJOdqPBJpLenllYaJoJcEVFIHXnePJ+df56
+	 NCIaf+SQMRkLo4/XAhWFRoQp6g3L7VEYf6eja5vo8DipwsxhkLflhYAckN/JgSRDpL1d7
+	 l32QutynjK5NSK2mA/GOOggaCdwkmEfxBZ5g3eqVmwRDsiulGUvpFDSWabacEKRe/fa3H
+	 tE9PB3IbdTitc/kVxZHQF/pZZwxmRCHCNIq2FIbgoOgG1jgyHeymJdqoFFvXCcAtpJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E9bpk+Jf;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C9f5WPbJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62264606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:48:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 693CF606A32E
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:48:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E9bpk+Jf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0A2A1F0089F;
-	Sat,  7 Nov 2026 10:48:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C9f5WPbJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2A8C1F0089F;
+	Sat,  7 Nov 2026 10:48:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048507;
-	bh=oucSPzRlBRrSJmiZ10Q5MWRzx9pRzjfJQbDScRV8100=;
+	s=k20260515; t=1794048510;
+	bh=g1wpdOpb6feshjsUb532YttlsVFmJRrRuu4jeNfas5Y=;
 	h=From:To:Cc:Subject:Date;
-	b=E9bpk+Jf7xQjOQ5cS3CGY3tZ7yAQISKj6kmRhHhYvEZeoT5sderwJqV6v0HE1Vi0u
-	 WzkbXNkRtB74QxjuL7p9rda/VJtl3Rbrl5XjiNzHc9Rc9tKyXMbSv/JKekjgSPJDD3
-	 9yZ+ZdFec9zzd7PTDkktf5EtcJArXivA0zmfyaDzVLEgoH84iqdYcWiOOEB2xviZVv
-	 Lk0F89Kd+TvzTA4RmLDw+8KgW657TSK9w+o+u2tlwRew8V39FkfIsFSiIUP27lhbfd
-	 J9yDW/McVk1eaM983x4DvN1k+KmEytSWOHnp50zocEcf5LRV0McnfVHHB14Uec3R9W
-	 uVkhhXWgkcYFQ==
+	b=C9f5WPbJrchxqmSm2NHaez9m2Nv7npbOejR6VeJWpgwmSD2XCcy5TbUHK8DkgQ0Iw
+	 rB5Ailb86ifSvJ0Aeb6xh+UG0YM9zPy6j6Obcf1GUfoPQ2L82eXB6KEw5y2Xg8Ir6S
+	 5fwy9yOsBcRkU8A2v+dTfUEgm0J/+d/uMuNXyjnvcC1e+a3kiMCHwQiL85V4pZypnV
+	 SqnUNrUj57Ayfz32njUQKgcr6MCXz2poRUwjpBOoatyfdUJA53Z+2K5jv5hKfLn2dO
+	 Xfy/WEjce+nhC9Rc+6em9GAmZ7j/Aq9tS0jQaXPvECcR+F8QOE/Ta9waZzaFwjPHWH
+	 sodkpMRZBGoBw==
 From: Sasha Levin <sashal@kernel.org>
-To: zhanxusheng1024@gmail.com,
-	zhanxusheng@xiaomi.com,
-	chao@kernel.org,
+To: chao@kernel.org,
 	jaegeuk@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] f2fs: fix defragment writeback range truncation on 32-bit" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:48:25 -0500
-Message-ID: <20261107054825-failed-6.1-92154fe28c37@kernel.org>
+Subject: FAILED: patch "[PATCH] f2fs: fix to invalidate curseg if change_curseg() fails" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:48:28 -0500
+Message-ID: <20261107054828-failed-6.1-e74476ad8162@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,70 +68,128 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 92154fe28c3701bebf75176dc5522bec62519a8f
+git cherry-pick -x e74476ad8162c1facc74b74ce2d1372492df872e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054825-failed-6.1-92154fe28c37@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054828-failed-6.1-e74476ad8162@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 92154fe28c3701bebf75176dc5522bec62519a8f Mon Sep 17 00:00:00 2001
-From: Zhan Xusheng <zhanxusheng1024@gmail.com>
-Date: Mon, 5 Oct 2026 23:49:54 +0800
-Subject: [PATCH] f2fs: fix defragment writeback range truncation on 32-bit
+From e74476ad8162c1facc74b74ce2d1372492df872e Mon Sep 17 00:00:00 2001
+From: Chao Yu <chao@kernel.org>
+Date: Tue, 13 Oct 2026 10:55:38 +0000
+Subject: [PATCH] f2fs: fix to invalidate curseg if change_curseg() fails
 
-f2fs_defragment_range() flushes the range it is about to defragment:
+Our consistency stress test (fsstress + fio + atomic write workers +
+"f2fs_io shutdown 1") triggers below kernel BUG:
 
-	filemap_write_and_wait_range(inode->i_mapping,
-				pg_start << PAGE_SHIFT,
-				(pg_end << PAGE_SHIFT) - 1);
+ F2FS-fs (vdd): Stopped filesystem due to reason: 0
+ ------------[ cut here ]------------
+ kernel BUG at fs/f2fs/segment.c:3989!
+ Oops: invalid opcode: 0000 [#1] SMP KASAN PTI
+ Workqueue: writeback wb_workfn (flush-253:48)
+ RIP: 0010:f2fs_allocate_data_block+0x257a/0x38e0
+ Call Trace:
+  <TASK>
+  do_write_block+0x155/0xc10
+  f2fs_outplace_write_data+0x192/0x340
+  f2fs_do_write_data_page+0xc57/0x1880
+  f2fs_write_single_data_page+0xda9/0x15a0
+  f2fs_write_cache_pages+0x973/0x1f20
+  __f2fs_write_data_pages+0x6c4/0x1890
+  do_writepages+0x21e/0x560
+  __writeback_single_inode+0x119/0x11b0
+  writeback_sb_inodes+0x67d/0x17a0
+  wb_writeback+0x207/0x820
+  wb_workfn+0x128/0xc30
+  process_one_work+0x925/0x1600
+  worker_thread+0x60a/0xff0
+  kthread+0x35f/0x460
+  ret_from_fork+0x474/0x7e0
+  ret_from_fork_asm+0x1a/0x30
+  </TASK>
 
-pg_start and pg_end are pgoff_t, 32 bits on 32-bit kernels, so both
-shifts are evaluated in 32 bits and truncated before they are widened to
-the loff_t parameters.  pg_end is only capped by the file's page count,
-so for a file larger than 4 GiB the shift wraps.
+The BUG is f2fs_bug_on(sbi, curseg->next_blkoff >= BLKS_PER_SEG(sbi))
+in f2fs_allocate_data_block(), next_blkoff was 512.
 
-For a 5 GiB file pg_end is 1310720 and the range collapses from
-[0, 5 GiB) to [0, 1 GiB), leaving the rest of the dirty pages unwritten
-before the blocks are moved.  For 8 GiB the shift yields 0, the minus one
-makes it (loff_t)-1, and the range becomes [0, LLONG_MAX].
+The root cause is a race in between atomic write commit and shutdown
+as below:
 
-The matching call in f2fs_collapse_range() already casts:
+Thread A (commit atomic write)  Thread B (shutdown)        Thread C (writeback)
+- f2fs_ioc_commit_atomic_write
+ - f2fs_commit_atomic_write
+  - __f2fs_commit_atomic_write
+   - __replace_atomic_write_block
+    - f2fs_replace_block
+     - __f2fs_replace_block
+                                - f2fs_ioc_shutdown
+                                 - f2fs_do_shutdown
+                                 : F2FS_GOING_DOWN_METASYNC
+                                  - f2fs_sync_fs
+                                                           - f2fs_write_single_data_page
+                                                           : pass f2fs_cp_error() check
+                                  - f2fs_stop_checkpoint
+                                  : set CP_ERROR_FLAG
+      - change_curseg
+       - reset_curseg
+       : curseg->segno = new_segno
+       : curseg->alloc_type = SSR
+       : curseg->next_blkoff = __next_free_blkoff()
+         which is BLKS_PER_SEG if there is no free
+         slot in new_segno
+       - f2fs_get_sum_cache
+       : return -EIO due to f2fs_cp_error()
+      : return error w/o restoring curseg
+     : goto out_unlock, skip restoring
+       old segno, blkoff and alloc_type
+                                                            - f2fs_do_write_data_page
+                                                             - f2fs_outplace_write_data
+                                                              - do_write_block
+                                                               - f2fs_allocate_data_block
+                                                               : curseg->segno is valid
+                                                               : f2fs_bug_on(next_blkoff >=
+                                                                 BLKS_PER_SEG)
 
-	filemap_write_and_wait_range(inode->i_mapping,
-				(loff_t)index << PAGE_SHIFT,
-				((loff_t)pg_end << PAGE_SHIFT) - 1);
+Since commit 86f33603f8c5 ("f2fs: handle errors of
+f2fs_get_meta_page_nofail"), change_curseg() can fail after the curseg
+has already been switched to the new segment, then the curseg is left
+in an inconsistent state: it points to a segment which may have no
+free slot, its summary block is zeroed, and the caller can not restore
+it. Subsequent block allocation on the curseg will trigger the BUG.
+Moreover, the writeback thread dies with curseg_lock, curseg_mutex and
+sentry_lock held, so the commit, shutdown and other I/O threads hang
+in D state.
 
-Do the same here.  On i386 the shift changes from "shl $0xc,%ecx" to
-"shld", i.e. from a 32-bit shift to a double-precision one.
+Since change_curseg() only fails once CP_ERROR_FLAG is set, no
+checkpoint will be committed afterward, let's invalidate the curseg via
+reset_curseg_fields() on failure, as new_curseg() does for -ENOSPC,
+then f2fs_allocate_data_block() will fail with -ENOSPC on the curseg
+instead of triggering BUG, and do_write_block() can handle the error
+since CP_ERROR_FLAG has been set.
 
 Cc: stable@kernel.org
-Fixes: d323d005ac4a ("f2fs: support file defragment")
-Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
-Reviewed-by: Chao Yu <chao@kernel.org>
+Fixes: 86f33603f8c5 ("f2fs: handle errors of f2fs_get_meta_page_nofail")
+Signed-off-by: Chao Yu <chao@kernel.org>
 Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
 ---
- fs/f2fs/file.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ fs/f2fs/segment.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-index 713fb6f49bcb3..d4d859dbef880 100644
---- a/fs/f2fs/file.c
-+++ b/fs/f2fs/file.c
-@@ -3036,8 +3036,8 @@ static int f2fs_defragment_range(struct f2fs_sb_info *sbi,
- 
- 	/* writeback all dirty pages in the range */
- 	err = filemap_write_and_wait_range(inode->i_mapping,
--						pg_start << PAGE_SHIFT,
--						(pg_end << PAGE_SHIFT) - 1);
-+						(loff_t)pg_start << PAGE_SHIFT,
-+						((loff_t)pg_end << PAGE_SHIFT) - 1);
- 	if (err)
- 		goto out;
- 
+diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
+index dab66ab3311d5..453f9284ec863 100644
+--- a/fs/f2fs/segment.c
++++ b/fs/f2fs/segment.c
+@@ -3243,6 +3243,7 @@ static int change_curseg(struct f2fs_sb_info *sbi, int type)
+ 	if (IS_ERR(entry)) {
+ 		/* GC won't be able to use stale summary blocks by cp_error */
+ 		memset(curseg->sum_blk, 0, sbi->sum_entry_size);
++		reset_curseg_fields(curseg);
+ 		return PTR_ERR(entry);
+ 	}
+ 	sum_node = SUM_BLK_ENTRY_ADDR(sbi, entry, new_segno);
 -- 
 2.53.0
 
