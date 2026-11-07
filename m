@@ -1,62 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049402;
-	b=ZocFkZUJbClIdpv4lLiDBYo7xY2DdnBX7cf36nbnnoieRuRl5NMmXWCmQ8//IGhg9fDF
-	 28GhVUwYLRoqb2nhrAHLfQBVbzRUdowc2VibE+tHVuhb6XxPkRpu3oRYgIy1x0qvVjKVs
-	 hz80hUrVQkYplNMj8vzaO/4cxeJYx6/N1GK/o3Cpz7V1IwyVPuIGNS1C4JBFDxD2h5+Bj
-	 iE0qQzzbjdL0YGAJRqS55L09hadbwZCkVkDC7+Fp6fSA3zA7Hj1a1X8mNY23wMflgOB00
-	 LjeTapWk+bZtGFSR5dIlBX/5WiiHM4w24VH+8zjQwF5zn7Q/XxWR436UaoLUBT/db+Q==
+	t=1794049403;
+	b=dR3r+2frKdPsd4ROR2iN80tGXGfLTsC3tQw0VqHD4FPMaKLdiCi12qezBzgkFAZOG2In
+	 VC31RB0y2KNrSlxX7ThK9pH18NctWA/72hN8UnlHdals1K0ThUxS11WZ3oGBVBn1CAKex
+	 hzMCXqruZSzVJT6K4O/5H3PDtTWTleS3wxYrM9qhGeBUix5aw9Kt+Pbtx5UytxPcOe2d6
+	 WskvG648xs6qis1LAcTvu8814j3K84WUUOUFEcZI3AkXIt9QJPnqd3lPdpC1+45Q90sYc
+	 eN7hXiId6+QZqznkHqg22jz63D4smiYGfh6wr2u4XPDPB7twEpcy6JkOaUuBlZ3H0bg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049402;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Bu8kNuOvhDJhtXC1HumyJFWHQYGicz5WFbvrchgm3lo=;
-	b=H/WAcObJ7OFE9GngY+jtiVtG2LvNhyBJoOPOHTk1L4iy55Ul3t72A6aU017iX35PAztr
-	 VK5BnGFzK0NSFCYen4Msgg3ChHvebPtf8kOaId1blJAodtbRQPA/E6W57k6xZ4kk3ZtA8
-	 YUbuSGNTzJmYt3GhxOllx9Iy8FEZUZWI06mLFZcblDRwI9ros2xJt7KYQIROGaWWqWpTA
-	 e0YWGHQNx4Feh5+0X/zZsdTWZ+RLK2psg4AeW2ItsLt7QFWEDBLJRtFNIKkJArRowN9CQ
-	 nBp2rL8FWdMXyVj3ih20W0W+BJhKKDl1GrE6N0cvhbiaGI6Bq6VIhKAij91Qhe6vbyQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049403;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=/wX9SkEQ6GTlYhulXYx5S+rXELMWgypRE+xtTTGp6Js=;
+	b=RfcOQoVbIy62UtTgUTm910te/LVvakThv2SySrNVqe/dMPAZODNE/7Ta0jYWxcLwZ4vO
+	 O/oDIPkEtVLHGVIWnyAdoKeWbs7gNBVresnXz7vfc0dxhoP78+40JFKRLOyaDn+cgysaD
+	 KKzdh75JgNs/uACdf1vLmvxUsnIU0PV7ftNWIOLQdut5cMWk34wpNO2CvA1vuHaMvBUzt
+	 +q5ZpSLt5J2ZJboO1ikPAtNIg/Mt9dxBucSnDkoGeOTKikUhskN3MaGOQC4L3H5Ljb8Yg
+	 tInTlzXy3aqwBcEiI0EBGzAoPltZw2RXlL9N8/7DFZSum/tuVERgNBhzWiAd8Sw5e4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IcoKwKWM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ps2vc9Su;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7918F606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:03:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1796F606A32E;
+	Sat,  7 Nov 2026 11:03:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IcoKwKWM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 096C81F0089F;
-	Sat,  7 Nov 2026 11:03:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ps2vc9Su
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 714AC1F008A5;
+	Sat,  7 Nov 2026 11:03:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794049402;
-	bh=Bu8kNuOvhDJhtXC1HumyJFWHQYGicz5WFbvrchgm3lo=;
-	h=From:To:Cc:Subject:Date;
-	b=IcoKwKWMg74gxaphjfMES4acWTepzr2+pH8Lz3/2nGB8mGvMZFKMWEz/qE5VHAIWz
-	 srQBrgtBLrVYcyRtWZ8n9I5m6qYThCtfpv0xJasoEHTKHb2c3YJDcBY8I5CtAIFuEm
-	 zv8mLcbVr1GoOvrJtSP/YfXAJn0STekyeSa0Be5K7bgtJ/RveXlI1KHfr0RoQWxspr
-	 UwVL5ZZRkn2A4EveRmCQ8zgMW8po0OaOlj2gz5TZbHOTu4fy15LAJ8RuG87/6yDBSK
-	 PyOmLAN8huL35nH5M2V8X0hcfoGRg5rjpq8XQgB7S6/iKBdM2aaZITCBU16z1HmeXO
-	 6+fjGeQ2fPP3A==
-From: Sasha Levin <sashal@kernel.org>
-To: rakukuip@gmail.com,
-	weir@nebusec.ai,
-	akpm@linux-foundation.org,
-	vega@nebusec.ai,
-	david@kernel.org,
-	notasas@gmail.com,
-	liam@infradead.org,
-	ljs@kernel.org,
-	mhocko@suse.com,
-	rppt@kernel.org,
-	surenb@google.com,
-	vbabka@kernel.org
-Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/memory: constrain generic_access_phys() to page boundary" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:03:19 -0500
-Message-ID: <20261107060319-failed-5.15-ae0298a5fbef@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	bh=/wX9SkEQ6GTlYhulXYx5S+rXELMWgypRE+xtTTGp6Js=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Ps2vc9SuDCF12+y7TxOsF7TFVyNHBqgqzYpiLLB5ICAz1Pj5vIdTizDFJN0ycPCx2
+	 R+t6/i0CT4QBLOjUlOYrr6crUEJchGMAVsUi0tCPYYbhcmDbViCsZ+Dre68Sz7ZmNL
+	 NOYQp2wOAzfB7yf+k+b9jfpbs7Cn5Zo2aoRYw+R+0v95ef5VGGt+O2Q4H6+IPmDPmZ
+	 Vh+4JmUIlNsRtthe/BoqLlASiCKEDNRskHO/1ST227/gzwaE5txYt4SFZgnbjc/R0a
+	 WNmg3l6BdL2i/wG0NZzHN2l+7Kc90cM6ckJh5WEvl1ZN7vNrD+fsuIdBQ3pi/IgbTh
+	 QkA2hDRf2LGDg==
+Subject:
+ Re: [PATCH] net: cxgb4: do not leak a PTP skb when the Tx queue is busy
+From: netdev-bot+sashiko@kernel.org
+To: vulab@iscas.ac.cn
+Cc: bharat@chelsio.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Sat, 07 Nov 2026 11:03:21 +0000
+Message-ID: <179404940199.994134.17549120390579622204@kernel.org>
+In-Reply-To: <20261103100530.1309928-1-vulab@iscas.ac.cn>
+References: <20261103100530.1309928-1-vulab@iscas.ac.cn>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,116 +63,207 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-The patch below does not apply to the 5.15-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Critical: 0 · High: 0 (1) · Medium: 1 · Low: 1 (1)
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
-git checkout FETCH_HEAD
-git cherry-pick -x ae0298a5fbeff32951c0d31398ccec97ec6aa0ea
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060319-failed-5.15-ae0298a5fbef@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Thanks,
-Sasha
+- [Medium] The patch splits the claim on adap->ptp_tx_skb into a NULL
+  check at the top of cxgb4_eth_xmit() (sge.c:1526) and a store about…
+- [Low] The commit message lists "an unsupported FCoE offload" as one of
+  the out_free paths that leaks the PTP reference.
 
------------------- original commit in Linus's tree ------------------
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but the consumer
+  side of adapter->ptp_tx_skb has no synchronization.
+- [Low] This problem wasn't introduced by this patch, but
+  cxgb4_eth_xmit() still sets SKBTX_IN_PROGRESS (sge.c:1528) before the…
 
-From ae0298a5fbeff32951c0d31398ccec97ec6aa0ea Mon Sep 17 00:00:00 2001
-From: Luxiao Xu <rakukuip@gmail.com>
-Date: Thu, 10 Sep 2026 11:42:50 +0800
-Subject: [PATCH] mm/memory: constrain generic_access_phys() to page boundary
+--
 
-This patch addresses an issue in generic_access_phys() where accessing
-memory across page boundaries in PFNMAP VMAs assumes physical pages are
-contiguous, which can lead to accessing unintended physical memory or
-exceeding VMA boundaries.
+net: cxgb4: do not leak a PTP skb when the Tx queue is busy
 
-generic_access_phys() improperly validates the memory access range: it
-only validates the start address using follow_pfnmap_start() and passes
-PAGE_ALIGN(len + offset) to ioremap_prot().
+This patch moves the skb_get() that stores the PTP skb in
+adap->ptp_tx_skb. It used to sit at the top of cxgb4_eth_xmit() and now
+runs just before the packet is handed to the hardware, so the
+NETDEV_TX_BUSY and out_free paths no longer leak the extra reference.
+The early check for an outstanding PTP skb is kept, and the patch relies
+on adap->ptp_lock for serialization.
 
-This poses two problems:
-1. In PFNMAP VMAs, consecutive virtual pages are not guaranteed to be
-   physically contiguous, and individual PTEs may have different access
-   permissions or writability.
-2. The mapping may cross VMA boundaries if len extends beyond vma->vm_end.
+> cxgb4_eth_xmit() stores the PTP skb in adap->ptp_tx_skb with an extra
+> reference before the descriptor credits are checked.  When the PTP
+> queue is full the function returns NETDEV_TX_BUSY, and later failures
+> such as an unsupported FCoE offload or a failed DMA mapping jump to
+> out_free.
 
-Constrain the access in generic_access_phys() to at most the current page
-boundary (PAGE_SIZE - offset) and map only a single PAGE_SIZE via
-ioremap_prot().  Since the caller __access_remote_vm() already loops over
-the requested length and handles partial transfers, it will naturally
-iterate over the remaining pages.
+[Severity: Low]
+Can a PTP skb actually reach the FCoE path?
 
-Also add a missing (resource_size_t) cast during PFN re-validation to
-avoid truncation on 32-bit PAE systems.
+is_ptp_enabled() requires cxgb4_ptp_is_ptp_tx(), which only matches
+skb->protocol == htons(ETH_P_IP). For anything else,
+cxgb_fcoe_offload() returns 0 right away:
 
-Link: https://lore.kernel.org/e06e28a46c2a176238f03b5740df0913e57c2861.1788842306.git.rakukuip@gmail.com
-Fixes: 9cb12d7b4cca ("mm/memory.c: actually remap enough memory")
-Signed-off-by: Luxiao Xu <rakukuip@gmail.com>
-Signed-off-by: Ren Wei <weir@nebusec.ai>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: Vega <vega@nebusec.ai>
-Suggested-by: David Hildenbrand <david@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Assisted-by: LLM
-Cc: Grazvydas Ignotas <notasas@gmail.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: <stable@vger.kernel.org>
----
- mm/memory.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+	if (skb->protocol != htons(ETH_P_FCOE))
+		return 0;
 
-diff --git a/mm/memory.c b/mm/memory.c
-index ec63dd6212ac5..926276d419202 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -7131,6 +7131,12 @@ int generic_access_phys(struct vm_area_struct *vma, unsigned long addr,
- 	bool writable;
- 	struct follow_pfnmap_args args = { .vma = vma, .address = addr };
- 
-+	/*
-+	 * Limit access to one page at a time, as that's what follow_pfnmap_start()
-+	 * guarantees; expect the caller to retry to read larger ranges.
-+	 */
-+	len = min_t(int, len, PAGE_SIZE - offset);
-+
- retry:
- 	if (follow_pfnmap_start(&args))
- 		return -EINVAL;
-@@ -7142,7 +7148,7 @@ int generic_access_phys(struct vm_area_struct *vma, unsigned long addr,
- 	if ((write & FOLL_WRITE) && !writable)
- 		return -EINVAL;
- 
--	maddr = ioremap_prot(phys_addr, PAGE_ALIGN(len + offset), prot);
-+	maddr = ioremap_prot(phys_addr, PAGE_SIZE, prot);
- 	if (!maddr)
- 		return -ENOMEM;
- 
-@@ -7150,7 +7156,7 @@ int generic_access_phys(struct vm_area_struct *vma, unsigned long addr,
- 		goto out_unmap;
- 
- 	if ((pgprot_val(prot) != pgprot_val(args.pgprot)) ||
--	    (phys_addr != (args.pfn << PAGE_SHIFT)) ||
-+	    (phys_addr != ((resource_size_t)args.pfn << PAGE_SHIFT)) ||
- 	    (writable != args.writable)) {
- 		follow_pfnmap_end(&args);
- 		iounmap(maddr);
+Even for real FCoE frames, cxgb_fcoe_offload() returns -ENOTSUPP, but
+cxgb4_eth_xmit() compares against a different errno:
+
+	ret = cxgb_fcoe_offload(skb, adap, pi, &cntrl);
+	if (unlikely(ret == -EOPNOTSUPP))
+		goto out_free;
+
+So that goto out_free never runs. Should the FCoE example be removed
+from the commit message? That would leave only the NETDEV_TX_BUSY and
+DMA mapping failure paths.
+
+> diff --git a/drivers/net/ethernet/chelsio/cxgb4/sge.c b/drivers/net/ethernet/chelsio/cxgb4/sge.c
+> index 9fccb8ea9bcd1..7e83f60bd14ec 100644
+> --- a/drivers/net/ethernet/chelsio/cxgb4/sge.c
+> +++ b/drivers/net/ethernet/chelsio/cxgb4/sge.c
+> @@ -1523,12 +1523,9 @@ static netdev_tx_t cxgb4_eth_xmit(struct sk_buff *skb, struct net_device *dev)
+>  
+>  	qidx = skb_get_queue_mapping(skb);
+>  	if (ptp_enabled) {
+> -		if (!(adap->ptp_tx_skb)) {
+> -			skb_shinfo(skb)->tx_flags |= SKBTX_IN_PROGRESS;
+> -			adap->ptp_tx_skb = skb_get(skb);
+> -		} else {
+> +		if (adap->ptp_tx_skb)
+>  			goto out_free;
+
+[Severity: High]
+This is a pre-existing issue, but ptp_lock does not protect the consumer
+side of adap->ptp_tx_skb. Can two RX contexts free the same skb?
+
+t4_tx_hststamp() checks the pointer without taking the lock:
+
+	if (!is_t4(adapter->params.chip) && adapter->ptp_tx_skb) {
+		cxgb4_ptp_read_hwstamp(adapter, pi);
+
+cxgb4_ptp_read_hwstamp() then timestamps and frees the skb before it
+clears the pointer under the lock:
+
+	skb_tstamp_tx(adapter->ptp_tx_skb, skb_ts);
+	dev_kfree_skb_any(adapter->ptp_tx_skb);
+	spin_lock(&adapter->ptp_lock);
+	adapter->ptp_tx_skb = NULL;
+	spin_unlock(&adapter->ptp_lock);
+
+t4_ethrx_handler() takes this path for any non-MPS RX frame on a
+ptp_enable port that has RXF_UDP_F set and UDP source and destination
+port 319. Nothing checks that the frame really is the hardware Tx
+loopback.
+
+ptp_tx_skb is shared by the whole adapter, but each port's RX queue runs
+in its own NAPI context. Suppose such a frame arrives on one port while
+the real loopback is handled on another port. Both CPUs can then see the
+same non-NULL pointer, and both call dev_kfree_skb_any() on it.
+
+In the immediate path, the second CPU writes hwtstamps into freed memory
+and then frees the skb again. In the SGL path, the second free drops the
+reference that still belongs to sgl_sdesc->skb, so the later TX reclaim
+frees memory that is already freed.
+
+I could not confirm whether the hardware delivers non-loopback UDP
+319->319 frames as plain CPL_RX_PKT. Two cases where it might are the
+rx_filter modes in which cxgb_hwtstamp_set() does not call
+cxgb4_ptprx_timestamping(), and frames that the hardware PTP classifier
+does not timestamp.
+
+There is also a smaller effect on the transmit side. The check above
+holds ptp_lock, but it can still see the freed, not yet NULL pointer and
+drop a new PTP packet.
+
+Could ptp_tx_skb be read and set to NULL in one step under ptp_lock,
+with the timestamp and free done outside the lock?
+
+> -		}
+> +		skb_shinfo(skb)->tx_flags |= SKBTX_IN_PROGRESS;
+
+[Severity: Low]
+This isn't a bug introduced by this patch, but SKBTX_IN_PROGRESS is
+still set before the credit check that can return NETDEV_TX_BUSY. The
+flag is never cleared on that path. Can the requeued packet end up with
+no TX timestamp at all?
+
+Suppose cxgb_hwtstamp_set() clears pi->ptp_enable before the qdisc
+retries the skb. The retry then goes through the normal ethtxq path
+without TXPKT_TSTAMP_F, so the hardware produces no timestamp.
+
+Because SKBTX_IN_PROGRESS is still set, __skb_tstamp_tx() also skips the
+software timestamp, unless SOF_TIMESTAMPING_OPT_TX_SWHW is set.
+
+>  		q = &adap->sge.ptptxq;
+>  	} else {
+>  		q = &adap->sge.ethtxq[qidx + pi->first_qset];
+
+[ ... ]
+
+> @@ -1707,6 +1704,9 @@ static netdev_tx_t cxgb4_eth_xmit(struct sk_buff *skb, struct net_device *dev)
+>  
+>  	skb_tx_timestamp(skb);
+>  
+> +	if (ptp_enabled)
+> +		adap->ptp_tx_skb = skb_get(skb);
+> +
+
+[Severity: Medium]
+The commit message says "PTP transmits are serialized by
+adap->ptp_lock". Is that guaranteed when this store runs?
+
+t4_start_xmit() decides whether to take ptp_lock from its own call to
+is_ptp_enabled():
+
+	if (is_ptp_enabled(skb, dev)) {
+		...
+		spin_lock(&adap->ptp_lock);
+		ret = cxgb4_eth_xmit(skb, dev);
+		spin_unlock(&adap->ptp_lock);
+		return ret;
+	}
+
+	return cxgb4_eth_xmit(skb, dev);
+
+cxgb4_eth_xmit() then calls it a second time and uses that result:
+
+	bool ptp_enabled = is_ptp_enabled(skb, dev);
+
+is_ptp_enabled() reads pi->ptp_enable without any synchronization.
+cxgb_hwtstamp_set() can set it while holding only RTNL:
+
+	if (config->rx_filter != HWTSTAMP_FILTER_NONE) {
+		if (cxgb4_ptp_redirect_rx_packet(adapter, pi) >= 0)
+			pi->ptp_enable = true;
+	}
+
+If the flag goes from false to true between the two calls,
+cxgb4_eth_xmit() runs the PTP path without ptp_lock. Two CPUs on
+different TX queues could then both see adap->ptp_tx_skb == NULL at the
+top of the function. The same applies to one unlocked CPU and another
+port that does hold ptp_lock.
+
+Both CPUs would then build descriptors and reach this store. The second
+skb_get() overwrites the first, so the first skb's extra reference
+leaks. That is the leak this patch is meant to fix.
+
+Before the patch, the check and the store were next to each other. Now
+the whole descriptor build sits between them, which makes the window
+much wider.
+
+The concurrent writes to the ptptxq descriptors and pidx were already
+possible before this patch.
+
+Would it be more robust to evaluate is_ptp_enabled() once and pass the
+result into cxgb4_eth_xmit()? Another option would be to take ptp_lock
+inside cxgb4_eth_xmit() based on its own ptp_enabled value.
+
 -- 
-2.53.0
-
-
-
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261103100530.1309928-1-vulab%40iscas.ac.cn
