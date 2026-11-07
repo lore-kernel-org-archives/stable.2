@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048770;
-	b=UGtkjR1LxcnUbP236KMzwQT1NoFCdtQ+8iLQH+uMJOx+wnYMCqBcZMquWlJfAorStNLa
-	 YjCkx6gtfmhzeUqCKL+XmyTuKQXfFe0+8JxRRT9g2puyTJU43DwCGAv1HtbHFoXUtPn+g
-	 IPd4rXSg8oCtV8peQba96uw1kHrQUXHe+ZMGvw/xmf8rxWs0JxsBrgUpNXpZgumR2PZ15
-	 KNt6m1hSAljKSjxIAAxgS6Yca8RV7WD27vow5JEq9LG6N6xWtYEnoU9Odr2mfXVfqnTPF
-	 kzKpg+URnQnT/jj6HbIiYnv8nrlbczRcCJ1h14YmXiqNt5zPO3rqyXnVenkZJ/4NIcw==
+	t=1794048773;
+	b=ze22ZVVnPX8N1L/l05lnN5Hn3BgtNE+ZofuXozhjM+EsJvsmvQVMJNmliZ/cSXsBF/pB
+	 sPdeuVTbgoDq99U2qq/aOcyoyW+RPUjpZf/hSMXWEW3W7G9S+7yJdoTCtBRppPCI3N8Ce
+	 MgdztqJRJ5ko0vOmnBPguUfsHLBZeXVOdS076Rc6g1/gAIHQ/T/8U+6HKiPN80acNjAoC
+	 t2rlFmmIVBvib7P8oZJ0lDlK9wXo0jiN7fjnqRrTFP6C+CToy+dkl1JkzbymhhlF7HZ0a
+	 jbUMoo96NC48YHiXdVhEUXLQTavoNzMqW0HArlb+L5JW6pMZNlzT0TJt2gL5mBNqlvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048770;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048773;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=S8YoXjLoGEpsIA/Hi5AVKpIJzpWxRvsJcH1NAk+scEA=;
-	b=wvMwfBUuuUIa1Sfp+iVvvLhXTSPhai8ayi/eru+EzYKZaGGnBYUt0g5cz7siuy/RAqPr
-	 oaJN5+ii97e/boYARmShbkpot57QDXW8TqsdmG+DKE6rA4/12SVGWfN1uGtjBlTfdRFqo
-	 BLXhjwOzOvmo07aYJPInV/FDv3huX/Pt/9UNdG6JGoHB6p6QPFO83G4gixBsdcHQY9Wcd
-	 y/BUKPVyOaW2Naa5aT7z4n9npX1lhaLi8dE8O5EVufF2MB8j96imCCKGlylREizceIUQv
-	 86gIokkULIh+JLSbCWfzrWM1MlPygDQw/6N1lCAoNPwc8Rqx6iSE+oLhU94e3LrF2Bw==
+	bh=Yty/pMkOpM40ACgF6g2sY0ALy2x2q8xgT6QniG7o6BU=;
+	b=NcFarQh223SmUS841kHCB5H0j1/vBinKeqlj90a6cQXZWh47L+imQt7uKWDqPJuIug9O
+	 RjnCt9mbCeydsohp3lQlvj7SGh3N7l78UO2y5SANdL+bZlH4Nsgh85KcRtss9H7OthhmF
+	 ZvHcUQS8Yv3nJWZT3bje8sRzeMCPYR+As5Z6I7IAUdst6913hhHqceJ/7X5XirjIFjiLM
+	 zJK/i1/jbOmi1dH462P8/3hwNMQv6Vb6z3j8chC309wBkuXWaMPOBkkgvw+zPaqXA9nhP
+	 zrSfCuXO7li0cld/1SDBhkE95aDWWlNETbl+10f1zmlblg+gNucT98MhZbxsbwpoUZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Or/LD4mW";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fo1JaELG;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2D17606A32D
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:52:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D87DA606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:52:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Or/LD4mW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 494F11F008A1;
-	Sat,  7 Nov 2026 10:52:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fo1JaELG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BB991F008A1;
+	Sat,  7 Nov 2026 10:52:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048769;
-	bh=S8YoXjLoGEpsIA/Hi5AVKpIJzpWxRvsJcH1NAk+scEA=;
+	s=k20260515; t=1794048772;
+	bh=Yty/pMkOpM40ACgF6g2sY0ALy2x2q8xgT6QniG7o6BU=;
 	h=From:To:Cc:Subject:Date;
-	b=Or/LD4mWfOD8GUnYBRCmFUJvruztEddznjTKyU+eT6+StInGHTCuvlBzJys7a85nN
-	 dn+4bvrdhSgajuqBWljV2Lae4uJml5gEM7QZMA1GbyC6uQ8U5filDXlLU+GvecGoAL
-	 QSAOqB2eHfxbjrqRzs7DSRR4m0JJFTdcboR1/oBZdXK8rpWUDaz53SRdVq/oFJEci2
-	 lYkXoSwLlFrvtMSJhMergRYsUUdFusqtwYsGrEUW76dKvKzrxrQzwZZcMVT0Lj3Bo2
-	 Pp20JBDRyUu5k/2yF1plCjjVjlLbogIcPZJcI+NWUppqAjpilU2p1CERAZVZdzYC5L
-	 YJmnib26i3CFQ==
+	b=Fo1JaELGdSkQRrCthjxrTKMsTdsyafVhFTUgY7LCSrje4aqgsTztxCFtrZrrZ0MHd
+	 CLRziu5X8A4KB0dwWfT7vqO3gt1cjxajIJ7tHs6GFifmTzSw5g2k6Qz0QCK41IWaRq
+	 EuVL4b4boE5rmzunpuVQ2iw61RsQTRxQu9L0fbrdkhxgB/i765VrI7r84k0BMxbU2A
+	 UDgrG5fcYPAZrcoFLB6VE51vQ2JDUxusi/1BdoGlDKWPJ2zJLMKcc0umuEmAVhKyGC
+	 Kg5sltScPu6B3H7D3b8KDQzBvWRheqz9bQb7Txsjrju4jkX1Fuk4k0/5bs2Y5sFvnQ
+	 YNroZaZ6ruW0w==
 From: Sasha Levin <sashal@kernel.org>
-To: yaoyiqi3@huawei.com,
-	tzimmermann@suse.de,
-	deller@gmx.de
+To: lgs201920130244@gmail.com,
+	manivannan.sadhasivam@oss.qualcomm.com,
+	bhelgaas@google.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] fbcon: Rebuild rotated font buffer on font change" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:52:47 -0500
-Message-ID: <20261107055247-failed-6.1-e4b6b865d45d@kernel.org>
+Subject: FAILED: patch "[PATCH] PCI: qcom-ep: Deinitialize endpoint on remove" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:52:51 -0500
+Message-ID: <20261107055250-failed-6.1-ed1d71e41c7b@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,178 +69,59 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x e4b6b865d45d8dafb6c6f28c8a993a5b4431d25a
+git cherry-pick -x ed1d71e41c7b2e755e0ef8e9af9cab9b6b185c4b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055247-failed-6.1-e4b6b865d45d@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055250-failed-6.1-ed1d71e41c7b@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From e4b6b865d45d8dafb6c6f28c8a993a5b4431d25a Mon Sep 17 00:00:00 2001
-From: Yao Yiqi <yaoyiqi3@huawei.com>
-Date: Mon, 19 Oct 2026 17:43:30 +0800
-Subject: [PATCH] fbcon: Rebuild rotated font buffer on font change
+From ed1d71e41c7b2e755e0ef8e9af9cab9b6b185c4b Mon Sep 17 00:00:00 2001
+From: Guangshuo Li <lgs201920130244@gmail.com>
+Date: Wed, 16 Sep 2026 17:01:26 +0800
+Subject: [PATCH] PCI: qcom-ep: Deinitialize endpoint on remove
 
-fbcon_rotate_font() caches a rotated copy of the console font in
-par->rotated.buf. The buffer is sized from the font's width, height
-and charcount, and is rebuilt in fbcon_init(), fbcon_switch() and
-fbcon_modechanged(), but not in fbcon_do_set_font().
+qcom_pcie_ep_probe() initializes the DesignWare PCIe endpoint with
+dw_pcie_ep_init(). The probe failure paths call dw_pcie_ep_deinit() to
+release the corresponding endpoint resources, but the remove path does
+not perform the matching teardown after a successful probe.
 
-When the font is changed through KDFONTOP, the new geometry is
-installed and vc_resize() redraws before the buffer is rebuilt. The
-rotated putcs/cursor ops then index the old buffer with the new cell
-size; KASAN reports a slab-out-of-bounds read in soft_cursor().
+As a result, resources initialized by the DesignWare endpoint core can
+remain allocated when the endpoint controller is removed.
 
-Rebuild the buffer for the visible console before the redraw, as the
-other callers do: select the console's blitting state with
-set_blitting_type() (which also uploads the new font's map on
-tile-blitting hardware), then rebuild. Background consoles keep
-their rebuild at fbcon_switch() time, as the buffer is shared per
-framebuffer and must not be updated for a console that is not being
-displayed.
+Notify endpoint functions about EPC deinitialization and call
+dw_pcie_ep_deinit() before disabling the controller resources. Keep the
+existing early return when the link is already disabled since Qualcomm
+endpoint controllers depend on the host refclk for hardware cleanup.
 
-To ensure a correct rollback when the rebuild or the following
-vc_resize() fails, save the rotated font state, clear it before
-rebuilding, and restore it in the error path of
-fbcon_do_set_font().
+This issue was found by manual code inspection.
 
-Fixes: 6cc50e1c5b57 ("[PATCH] fbcon: Console Rotation - Add support to rotate font bitmap")
+Fixes: f55fee56a631 ("PCI: qcom-ep: Add Qualcomm PCIe Endpoint controller driver")
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Yao Yiqi <yaoyiqi3@huawei.com>
-Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
-Signed-off-by: Helge Deller <deller@gmx.de>
+Link: https://patch.msgid.link/20260916090126.2963064-1-lgs201920130244@gmail.com
 ---
- drivers/video/fbdev/core/fbcon.c | 46 ++++++++++++++++++++++++++++++++
- drivers/video/fbdev/core/fbcon.h | 22 ++++++++-------
- 2 files changed, 59 insertions(+), 9 deletions(-)
+ drivers/pci/controller/dwc/pcie-qcom-ep.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
-index ba689d42792d7..af587ff02e437 100644
---- a/drivers/video/fbdev/core/fbcon.c
-+++ b/drivers/video/fbdev/core/fbcon.c
-@@ -2391,6 +2391,10 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
- 	font_data_t *old_fontdata = p->fontdata;
- 	const u8 *old_data = vc->vc_font.data;
- 	unsigned short old_hi_font_mask = vc->vc_hi_font_mask;
-+#ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
-+	struct fbcon_rotated saved_rotated = { };
-+	bool rotated_saved = false;
-+#endif
+diff --git a/drivers/pci/controller/dwc/pcie-qcom-ep.c b/drivers/pci/controller/dwc/pcie-qcom-ep.c
+index 56184e6ca6e69..28949386b0e87 100644
+--- a/drivers/pci/controller/dwc/pcie-qcom-ep.c
++++ b/drivers/pci/controller/dwc/pcie-qcom-ep.c
+@@ -944,6 +944,8 @@ static void qcom_pcie_ep_remove(struct platform_device *pdev)
  
- 	font_data_get(data);
+ 	if (pcie_ep->link_status == QCOM_PCIE_EP_LINK_DISABLED)
+ 		return;
++	pci_epc_deinit_notify(pcie_ep->pci.ep.epc);
++	dw_pcie_ep_deinit(&pcie_ep->pci.ep);
  
-@@ -2409,6 +2413,27 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
- 	else if (!vc->vc_hi_font_mask && charcount == 512)
- 		set_vc_hi_font(vc, true);
- 
-+	/*
-+	 * Select the console's blitting state and update par->rotated to
-+	 * match the new font, so that the rendering below does not use a
-+	 * cache that was built for the old font. Clear the cached state so
-+	 * the rebuild allocates a fresh buffer; the old state is kept until
-+	 * the font change can no longer fail.
-+	 */
-+	if (con_is_visible(vc)) {
-+		set_blitting_type(vc, info);
-+		if (par->bitops->rotate_font) {
-+#ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
-+			saved_rotated = par->rotated;
-+			memset(&par->rotated, 0, sizeof(par->rotated));
-+			rotated_saved = true;
-+#endif
-+			ret = par->bitops->rotate_font(info, vc);
-+			if (ret)
-+				goto err_out;
-+		}
-+	}
-+
- 	if (resize) {
- 		int cols, rows;
- 
-@@ -2425,12 +2450,26 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
- 		update_screen(vc);
- 	}
- 
-+#ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
-+	if (rotated_saved)
-+		kfree(saved_rotated.buf);
-+#endif
- 	if (old_fontdata)
- 		font_data_put(old_fontdata);
- 
- 	return 0;
- 
- err_out:
-+#ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
-+	/*
-+	 * Drop the buffer built for the new font and restore the saved
-+	 * state.
-+	 */
-+	if (rotated_saved) {
-+		kfree(par->rotated.buf);
-+		par->rotated = saved_rotated;
-+	}
-+#endif
- 	p->fontdata = old_fontdata;
- 	vc->vc_font.data = old_data;
- 	vc->vc_font.width = old_width;
-@@ -2443,6 +2482,13 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
- 	else if (!old_hi_font_mask && vc->vc_hi_font_mask)
- 		set_vc_hi_font(vc, false);
- 
-+	/*
-+	 * Re-select the blitting type, which re-uploads the font map on
-+	 * tile-blitting hardware.
-+	 */
-+	if (con_is_visible(vc))
-+		set_blitting_type(vc, info);
-+
- 	font_data_put(data);
- 
- 	return ret;
-diff --git a/drivers/video/fbdev/core/fbcon.h b/drivers/video/fbdev/core/fbcon.h
-index 91b59b2990d29..d93a89877d043 100644
---- a/drivers/video/fbdev/core/fbcon.h
-+++ b/drivers/video/fbdev/core/fbcon.h
-@@ -72,6 +72,18 @@ struct fbcon_bitops {
- 	int  (*rotate_font)(struct fb_info *info, struct vc_data *vc);
- };
- 
-+#ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
-+struct fbcon_rotated {
-+	font_data_t *fontdata;       /* source font */
-+	u8 *buf;                     /* rotated glyphs */
-+	size_t bufsize;
-+	int buf_rotate;              /* rotation of buf */
-+	unsigned int buf_width;      /* geometry of source font */
-+	unsigned int buf_height;
-+	unsigned int buf_charcount;
-+};
-+#endif
-+
- struct fbcon_par {
- 	struct fb_var_screeninfo var;  /* copy of the current fb_var_screeninfo */
- 	struct delayed_work cursor_work; /* Cursor timer */
-@@ -88,15 +100,7 @@ struct fbcon_par {
- 	int    rotate;
- 	char  *cursor_data;
- #ifdef CONFIG_FRAMEBUFFER_CONSOLE_ROTATION
--	struct {
--		font_data_t *fontdata;       /* source font */
--		u8 *buf;                     /* rotated glyphs */
--		size_t bufsize;
--		int buf_rotate;              /* rotation of buf */
--		unsigned int buf_width;      /* geometry of source font */
--		unsigned int buf_height;
--		unsigned int buf_charcount;
--	} rotated;
-+	struct fbcon_rotated rotated;
- #endif
- 	u8    *cursor_src;
- 	u32    cursor_size;
+ 	qcom_pcie_disable_resources(pcie_ep);
+ }
 -- 
 2.53.0
 
