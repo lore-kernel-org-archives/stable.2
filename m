@@ -1,52 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794045966;
-	b=PO8C7bwL4MdgGAn628O4qZxF5XUDbqx+JMdhgXZSoJL4tfjM+cXM/lC7inKa0Ij+AR95
-	 eZjoYk5KteAFEeAJbuSHKXPRDSbU/Pr7iGJjOxGQ1jYOZpC1uM4hhcnu5IO5wrQj42bfw
-	 +J8b9tjSX86wWEkGFTPCe2zltSV7MX0IRQNR/OAPmtaxVS9PbIFrfosGhXFTFiSwi/pw7
-	 DonKojL3kPRTJRBG0GUIDi5UfMEzwfHZ2piOG3GUnAIrTb5ybrq3ZHYEY79ARCHl4pbSU
-	 Y7BH5XXX1NDmzK4cFBMqq1PP0fxqAm2Xxs3izn2M0XeHAC+z7mnk14nX62cARs4ZL0w==
+	t=1794045968;
+	b=FbrKWkn8y+xPyJP59tmPI4/dzCuKvM1Yx4scO22fJw+RE7Oh+3/SeYanDwEZ1yDjmDhD
+	 ux1xkClHTtlX5PhaYDffA4vcu70f3GbL/8x4KSXtplGonhFf+BoWERC40cfqkrhNnjqNC
+	 77BWyzuRFiXjFUFeqY9uu/Jj0Igf05knU9zIz/YyOgk/Vt/+ToqkI4XVNf/qN78umOx75
+	 BAixw9wXv2ojcPb79YpfpyK/aaiGUqwREnkHKDz+stkQSLjzuXdr6ZMa6s6DRPHI7WKrg
+	 x/bRuJ5DAOxCXDNDOEpK0iesJqkipekROGRABNN1muqtLUaFY2HD2jOA16zrzoeJv2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794045966;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794045968;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=KDxsP8uYHVDykS0miyihNOG1A8Aep1vpJZKJt1cPVwk=;
-	b=pqjV9SH47wINwco1J/EhOktB46pDZLe4wNW6C7q9pfKipk73WcW91hwIyihMjUIw0Vte
-	 nPiwaqrjZCx+QagJrBsAv+ZLgQIEWYmC9GScXThehM4ZarvaL5CHYiQ9f0ragnecK3OLx
-	 S9IoA7lBG+7MRrNsz1IFkAKeJgUKHJQ8+RQfJLZpDv/co7BEp85PB0y2nCNwRskha9wK2
-	 U/5BtiHbUmvzLh+XeF5orsYBLM4lKrMmBkUmIi6xrcgBqNaLk1N8dWBckJ1f15FXCUnPC
-	 xITHlQhOaHCvMtw3jum+/3EW2a7sWNK0432fJm6sxP/QCAofKcG0Vy/apLgCEvsfdig==
+	bh=o7HZfV06GlCjrBTWeE3dpD15tvBFV7dU4hiREXpvjk8=;
+	b=fcjlKddLDqygRiXAEf6Cd8ftLq2U16yprNGiYjsbFsZuYyJVw3e+ISjRMdQp1pE97xKu
+	 1QNHxDIZY8YfPZy4nG7wNlFj8fM0wJzLIFZPVVJVyCbSltEmFDeb+//PpboYCTvlAEVzR
+	 FS1iGm12fVZ4slCAx4aZhMc7Kv3qeY0CbmxlGkdmPxbzHhLKmWxqekBbRLj3J93mHYwrU
+	 QJrYJjKMTh0PTiSsw/N95VvY1Idt1ChOStX19ITqGLxV82Y8gL7FU6vIPS9tYz5VBDTib
+	 1lAyeKLB0xKQSDrRhTbvryUcHJeR39VCEyQ+SZKXMsTxdyCWIHRLhnkhv3NaV1ZnMDg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XHsOhTqG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UnrEuUV8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2970606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:06:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F43A606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:06:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XHsOhTqG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 259461F0089F;
-	Sat,  7 Nov 2026 10:06:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UnrEuUV8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53D731F0089F;
+	Sat,  7 Nov 2026 10:06:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794045965;
-	bh=KDxsP8uYHVDykS0miyihNOG1A8Aep1vpJZKJt1cPVwk=;
+	s=k20260515; t=1794045967;
+	bh=o7HZfV06GlCjrBTWeE3dpD15tvBFV7dU4hiREXpvjk8=;
 	h=From:To:Cc:Subject:Date;
-	b=XHsOhTqGXw5VT4mwPDeX6NIM3Uj79GJZxQ4rc99pcHasnYO7AtJXa2KOSWNYjGzy8
-	 a9JHGnwIudgsCGfM1LyiQVktuHa9fFcARV6p3wReJBVJSrEVng46DSddwpZYx6KHdt
-	 P/Yo+JKmqhmSgTq11hgEoEexbRVES/BkH85W/sBkBeXshb+IovfXYF0BHdy9f2OBuT
-	 4aJGIdOK5KAZZSOXjxHVZNIgy4ivLH8B+7Z0Qz3JLKKu7b5yioXyxhBw2T73RetWh1
-	 SqxtCZIx1z0AYLqGFlL5ekXEm0Hx3Y2k5O5zgTFOLil2PMTiKJTcokCKQKiVBFxHMh
-	 PYz6xf76tsLgw==
+	b=UnrEuUV8mSqnIZQSEZ50SdaGBfOgajtcS/ffpmUkUm/BwW04gfgFt03iahxbjsjS6
+	 Sb+cXVITcVpo64dGIhyT1UWt4of0zJ6FVZq6A+hncBmi8I9A0XFRMVij1bbWmsoSd1
+	 B9gz5gBBCyaltn+SSql5pacfdRJCaMYngrY4kout6Lis4X1Q9YYKil3N1wkjEBvN/d
+	 Jn5QkZ75L3/m/DMLsjPI6q8XSX9lYITg3ywMolIZdf7xewAUGHOKSRA0tMBxhppTBS
+	 fPHrVhjrmq8jTRjvePtZU/09DoRBF1ZrOVMdE6noO2CmRWic0FEejZJ+VMNwI5IjRp
+	 dW6brpB1XW2Jw==
 From: Sasha Levin <sashal@kernel.org>
-To: nemesa.garg@intel.com,
-	jouni.hogander@intel.com,
-	animesh.manna@intel.com
+To: heikki.krogerus@linux.intel.com,
+	raag.jadav@intel.com,
+	ramesh.babu.b@intel.com,
+	rodrigo.vivi@intel.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/i915/display: Clear SEL_FETCH_PLANE_CTL on plane disable" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:06:03 -0500
-Message-ID: <20261107050603-failed-6.18-600a7c9d40e5@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/xe/i2c: Fix the interrupt handling" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:06:06 -0500
+Message-ID: <20261107050606-failed-6.18-a55b76b8bc2c@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,139 +70,578 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 600a7c9d40e5e0c5544f42d1c9592c8d15224dc0
+git cherry-pick -x a55b76b8bc2c49b11d753c1c6d06ec3a2c61c85e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050603-failed-6.18-600a7c9d40e5@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050606-failed-6.18-a55b76b8bc2c@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 600a7c9d40e5e0c5544f42d1c9592c8d15224dc0 Mon Sep 17 00:00:00 2001
-From: Nemesa Garg <nemesa.garg@intel.com>
-Date: Tue, 18 Aug 2026 15:21:49 +0530
-Subject: [PATCH] drm/i915/display: Clear SEL_FETCH_PLANE_CTL on plane disable
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From a55b76b8bc2c49b11d753c1c6d06ec3a2c61c85e Mon Sep 17 00:00:00 2001
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Date: Tue, 11 Aug 2026 14:10:07 +0200
+Subject: [PATCH] drm/xe/i2c: Fix the interrupt handling
 
-icl_plane_disable_sel_fetch_arm() wrote SEL_FETCH_PLANE_CTL = 0 only when
-crtc_state->enable_psr2_sel_fetch was set. If a plane was disabled after
-selective fetch had been turned off, the guard fired early and left the
-register's enable bit set in hardware.
+The platforms that support the interrupt from the I2C
+adapter can not handle the amount of interrupts the adapter
+generates because of the way the IRQ is routed in the
+hardware. The I2C controller driver has to be kept in
+polling mode because of that.
 
-The bit is harmless until selective fetch is re-enabled.  When it is, the
-hardware resumes fetching for the now-disabled plane and keeps its old DDB
-range reserved.
+The AMC MCU can still generate critical alerts that have to
+be handled. The interrupt from SMBus Alert is left enabled
+and handled separately in the Xe. The alerts from the AMC
+will cause the device to be declared wedged for now.
 
-i9xx_cursor_disable_sel_fetch_arm() has the same guard on SEL_FETCH_CUR_CTL
-and is fixed the same way.
-
-v2: Add same check for cursor also. [sashiko]
-
+Fixes: f0e53aadd702 ("drm/xe: Support for I2C attached MCUs")
 Cc: stable@vger.kernel.org
-Fixes: b1f5279b5981 ("drm/i915/psr: Move plane sel fetch configuration into plane source files")
-Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8739
-Assisted-by: GitHub-Copilot:claude-opus-4.6
-Signed-off-by: Nemesa Garg <nemesa.garg@intel.com>
-Reviewed-by: Jouni Högander <jouni.hogander@intel.com>
-Signed-off-by: Animesh Manna <animesh.manna@intel.com>
-Link: https://patch.msgid.link/20260818095149.2172935-1-nemesa.garg@intel.com
+Reviewed-by: Raag Jadav <raag.jadav@intel.com>
+Co-developed-by: Ramesh Babu B <ramesh.babu.b@intel.com>
+Signed-off-by: Ramesh Babu B <ramesh.babu.b@intel.com>
+Signed-off-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Link: https://patch.msgid.link/20260811121008.1493015-3-heikki.krogerus@linux.intel.com
+Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_cursor.c       | 15 ++++++++++-----
- .../gpu/drm/i915/display/skl_universal_plane.c    | 15 ++++++++++-----
- 2 files changed, 20 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/xe/Makefile           |   4 +-
+ drivers/gpu/drm/xe/regs/xe_i2c_regs.h |   2 +
+ drivers/gpu/drm/xe/xe_amc.c           | 197 ++++++++++++++++++++++++++
+ drivers/gpu/drm/xe/xe_amc.h           |  25 ++++
+ drivers/gpu/drm/xe/xe_i2c.c           | 128 +++++++----------
+ drivers/gpu/drm/xe/xe_i2c.h           |  13 +-
+ 6 files changed, 282 insertions(+), 87 deletions(-)
+ create mode 100644 drivers/gpu/drm/xe/xe_amc.c
+ create mode 100644 drivers/gpu/drm/xe/xe_amc.h
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cursor.c b/drivers/gpu/drm/i915/display/intel_cursor.c
-index 0673f16f6fd0d..86bb96ac449b0 100644
---- a/drivers/gpu/drm/i915/display/intel_cursor.c
-+++ b/drivers/gpu/drm/i915/display/intel_cursor.c
-@@ -530,13 +530,18 @@ static int i9xx_check_cursor(struct intel_crtc_state *crtc_state,
+diff --git a/drivers/gpu/drm/xe/Makefile b/drivers/gpu/drm/xe/Makefile
+index 7ac3954737f9d..adc2de37e7682 100644
+--- a/drivers/gpu/drm/xe/Makefile
++++ b/drivers/gpu/drm/xe/Makefile
+@@ -154,7 +154,9 @@ xe-y += xe_bb.o \
+ 	xe_wait_user_fence.o \
+ 	xe_wopcm.o
+ 
+-xe-$(CONFIG_I2C)	+= xe_i2c.o
++xe-$(CONFIG_I2C)	+= xe_i2c.o \
++			   xe_amc.o
++
+ xe-$(CONFIG_DRM_XE_GPUSVM) += xe_svm.o
+ xe-$(CONFIG_DRM_GPUSVM) += xe_userptr.o
+ 
+diff --git a/drivers/gpu/drm/xe/regs/xe_i2c_regs.h b/drivers/gpu/drm/xe/regs/xe_i2c_regs.h
+index f2e455e2bfe45..37550e4a20f80 100644
+--- a/drivers/gpu/drm/xe/regs/xe_i2c_regs.h
++++ b/drivers/gpu/drm/xe/regs/xe_i2c_regs.h
+@@ -20,4 +20,6 @@
+ #define I2C_CONFIG_CMD			XE_REG(I2C_CONFIG_SPACE_OFFSET + PCI_COMMAND)
+ #define I2C_CONFIG_PMCSR		XE_REG(I2C_CONFIG_SPACE_OFFSET + 0x84)
+ 
++#define I2C_REG(reg)			XE_REG((reg) + I2C_MEM_SPACE_OFFSET)
++
+ #endif /* _XE_I2C_REGS_H_ */
+diff --git a/drivers/gpu/drm/xe/xe_amc.c b/drivers/gpu/drm/xe/xe_amc.c
+new file mode 100644
+index 0000000000000..8ecadee6eea39
+--- /dev/null
++++ b/drivers/gpu/drm/xe/xe_amc.c
+@@ -0,0 +1,197 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (C) 2026 Intel Corporation.
++ */
++
++#include <linux/delay.h>
++#include <linux/dev_printk.h>
++#include <linux/err.h>
++#include <linux/i2c.h>
++#include <linux/pci_ids.h>
++#include <linux/slab.h>
++#include <linux/string.h>
++#include <linux/workqueue.h>
++
++#include "regs/xe_i2c_regs.h"
++
++#include "xe_amc.h"
++#include "xe_device.h"
++#include "xe_i2c.h"
++#include "xe_mmio.h"
++
++/**
++ * DOC: Add-In Management Controller (AMC)
++ *
++ * Handler for the SMBus Alerts from the AMC. All the alerts from AMC will cause
++ * the device to be declared wedged.
++ */
++
++#define AMC_COMMAND		0x0f
++#define AMC_GPU_I2C_ADDR	0x8f
++#define AMC_VERSION_V1		0x01
++#define AMC_DESTINATION_ID	12
++#define AMC_SOURCE_ID		8
++#define AMC_FLAGS		0xc8
++
++#define AMC_MSG_TYPE		0x7e
++#define AMC_GET_ALERT_REASON	0x01
++
++enum xe_amc_alert {
++	AMC_ALERT_UNKNOWN,
++	AMC_ALERT_FW_DOWNLOAD,
++	AMC_ALERT_THERMAL_TRIP,
++	AMC_ALERT_OOB_REQUEST,
++	AMC_ALERT_OOB_RESET,
++	AMC_ALERT_CATERR,
++};
++
++static const char * const amc_alert[] = {
++	[AMC_ALERT_FW_DOWNLOAD]		= "Firmware Download",
++	[AMC_ALERT_THERMAL_TRIP]	= "Thermal Trip",
++	[AMC_ALERT_OOB_REQUEST]		= "OOB Request",
++	[AMC_ALERT_OOB_RESET]		= "OOB Reset",
++	[AMC_ALERT_CATERR]		= "Catastrophic",
++};
++
++struct xe_amc {
++	struct xe_i2c *i2c;
++	struct work_struct work;
++};
++
++struct amc_header {
++	u8 command;
++	u8 len;
++	u8 address;
++	u8 version;
++	u8 destination;
++	u8 source;
++	u8 flags;
++} __packed;
++
++struct amc_message {
++	u8 type;
++	u16 vendor;
++	u8 command;
++} __packed;
++
++struct amc_request {
++	struct amc_header header;
++	struct amc_message message;
++	u32 reserved;
++} __packed;
++
++struct amc_response {
++	struct amc_header header;
++	struct amc_message message;
++	u8 error;
++	u8 value;
++} __packed;
++
++static const struct amc_request amc_get_alert_reason = {
++	.header = {
++		.command	= AMC_COMMAND,
++		.len		= sizeof(struct amc_request) - 2,
++		.address	= AMC_GPU_I2C_ADDR,
++		.version	= AMC_VERSION_V1,
++		.destination	= AMC_DESTINATION_ID,
++		.source		= AMC_SOURCE_ID,
++		.flags		= AMC_FLAGS,
++	},
++	.message = {
++		.type		= AMC_MSG_TYPE,
++		.vendor		= htons(PCI_VENDOR_ID_INTEL),
++		.command	= AMC_GET_ALERT_REASON,
++	},
++};
++
++static void xe_amc_work(struct work_struct *work)
++{
++	const struct amc_request *request = &amc_get_alert_reason;
++	struct xe_amc *amc = from_work(amc, work, work);
++	u8 alert_reason = AMC_ALERT_UNKNOWN;
++	struct amc_response response;
++	struct i2c_client *client;
++	int ret;
++
++	client = amc->i2c->client[XE_I2C_CLIENT_AMC];
++	if (IS_ERR_OR_NULL(client))
++		goto out_reassert_interrupt;
++
++	ret = i2c_master_send(client, (u8 *)request, sizeof(*request));
++	if (ret < 0) {
++		dev_err(&client->dev, "failed to send request (%d)\n", ret);
++		goto out_reassert_interrupt;
++	}
++
++	/* AMC needs 20ms to generate the response. */
++	fsleep(20 * USEC_PER_MSEC);
++
++	ret = i2c_master_recv(client, (u8 *)&response, sizeof(response));
++	if (ret < 0) {
++		dev_err(&client->dev, "failed to read response (%d)\n", ret);
++		goto out_reassert_interrupt;
++	}
++
++	if (!response.header.len) {
++		dev_err(&client->dev, "empty response from AMC\n");
++		goto out_reassert_interrupt;
++	}
++
++	if (memcmp(&response.message, &request->message, sizeof(struct amc_message))) {
++		dev_err(&client->dev, "response does not match the request\n");
++		goto out_reassert_interrupt;
++	}
++
++	if (response.error) {
++		dev_err(&client->dev, "AMC error 0x%02x\n", response.error);
++		goto out_reassert_interrupt;
++	}
++
++	alert_reason = response.value;
++	dev_dbg(&client->dev, "Alert reason: %d\n", alert_reason);
++
++out_reassert_interrupt:
++	xe_mmio_rmw32(amc->i2c->mmio, I2C_CONFIG_CMD, PCI_COMMAND_INTX_DISABLE, 0);
++
++	switch (alert_reason) {
++	case AMC_ALERT_FW_DOWNLOAD:
++	case AMC_ALERT_THERMAL_TRIP:
++	case AMC_ALERT_OOB_REQUEST:
++	case AMC_ALERT_OOB_RESET:
++	case AMC_ALERT_CATERR:
++		dev_warn(amc->i2c->drm_dev, "AMC Alert: %s\n", amc_alert[alert_reason]);
++		xe_device_declare_wedged(i2c_client_to_xe_device(client));
++		break;
++	default:
++		dev_warn(amc->i2c->drm_dev, "unknown AMC alert: %d\n", alert_reason);
++		break;
++	}
++}
++
++void xe_amc_handle_alert(struct xe_i2c *i2c)
++{
++	queue_work(system_long_wq, &i2c->amc->work);
++}
++
++int xe_amc_init(struct xe_i2c *i2c)
++{
++	struct xe_amc *amc;
++
++	amc = kzalloc(sizeof(*amc), GFP_KERNEL);
++	if (!amc)
++		return -ENOMEM;
++
++	INIT_WORK(&amc->work, xe_amc_work);
++	i2c->amc = amc;
++	amc->i2c = i2c;
++
++	return 0;
++}
++
++void xe_amc_exit(struct xe_i2c *i2c)
++{
++	if (i2c->amc) {
++		cancel_work_sync(&i2c->amc->work);
++		kfree(i2c->amc);
++	}
++}
+diff --git a/drivers/gpu/drm/xe/xe_amc.h b/drivers/gpu/drm/xe/xe_amc.h
+new file mode 100644
+index 0000000000000..b1d5311fee536
+--- /dev/null
++++ b/drivers/gpu/drm/xe/xe_amc.h
+@@ -0,0 +1,25 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef _XE_AMC_H_
++#define _XE_AMC_H_
++
++#include <linux/i2c.h>
++
++#include "xe_device.h"
++
++struct xe_i2c;
++
++static inline struct xe_device *i2c_adapter_to_xe_device(struct i2c_adapter *adapter)
++{
++	return kdev_to_xe_device(adapter->dev.parent->parent);
++}
++
++static inline struct xe_device *i2c_client_to_xe_device(struct i2c_client *client)
++{
++	return i2c_adapter_to_xe_device(client->adapter);
++}
++
++int xe_amc_init(struct xe_i2c *i2c);
++void xe_amc_exit(struct xe_i2c *i2c);
++void xe_amc_handle_alert(struct xe_i2c *i2c);
++
++#endif /* _XE_AMC_H_ */
+diff --git a/drivers/gpu/drm/xe/xe_i2c.c b/drivers/gpu/drm/xe/xe_i2c.c
+index a26c38bb17a15..32767570e43d4 100644
+--- a/drivers/gpu/drm/xe/xe_i2c.c
++++ b/drivers/gpu/drm/xe/xe_i2c.c
+@@ -12,8 +12,6 @@
+ #include <linux/err.h>
+ #include <linux/i2c.h>
+ #include <linux/ioport.h>
+-#include <linux/irq.h>
+-#include <linux/irqdomain.h>
+ #include <linux/notifier.h>
+ #include <linux/pci.h>
+ #include <linux/platform_device.h>
+@@ -24,9 +22,12 @@
+ #include <linux/types.h>
+ #include <linux/workqueue.h>
+ 
++#include <linux/designware_i2c.h>
++
+ #include "regs/xe_i2c_regs.h"
+ #include "regs/xe_irq_regs.h"
+ 
++#include "xe_amc.h"
+ #include "xe_device.h"
+ #include "xe_i2c.h"
+ #include "xe_mmio.h"
+@@ -61,16 +62,32 @@ static inline void xe_i2c_read_endpoint(struct xe_mmio *mmio, void *ep)
+ 	val[1] = xe_mmio_read32(mmio, REG_SG_REMAP_ADDR_POSTFIX);
  }
  
- static void i9xx_cursor_disable_sel_fetch_arm(struct intel_dsb *dsb,
--					      struct intel_plane *plane,
--					      const struct intel_crtc_state *crtc_state)
-+					      struct intel_plane *plane)
++static void xe_i2c_handle_smbus_alert(struct xe_i2c *i2c)
++{
++	u32 stat;
++
++	stat = xe_mmio_read32(i2c->mmio, I2C_REG(DW_IC_SMBUS_INTR_STAT));
++	if (!stat)
++		return;
++
++	xe_mmio_write32(i2c->mmio, I2C_REG(DW_IC_CLR_SMBUS_INTR), stat);
++
++	if (stat & DW_IC_SMBUS_INTR_ALERT && i2c->amc)
++		xe_amc_handle_alert(i2c);
++	else
++		xe_mmio_rmw32(i2c->mmio, I2C_CONFIG_CMD, PCI_COMMAND_INTX_DISABLE, 0);
++}
++
+ static void xe_i2c_client_work(struct work_struct *work)
  {
- 	struct intel_display *display = to_intel_display(plane);
- 	enum pipe pipe = plane->pipe;
+ 	struct xe_i2c *i2c = container_of(work, struct xe_i2c, work);
+ 	struct i2c_board_info info = {
+ 		.type	= "amc",
+ 		.flags	= I2C_CLIENT_HOST_NOTIFY,
+-		.addr	= i2c->ep.addr[1],
++		.addr	= i2c->ep.addr[XE_I2C_CLIENT_AMC],
+ 	};
  
--	if (!crtc_state->enable_psr2_sel_fetch)
-+	/*
-+	 * Clear this whenever the hardware has selective fetch, not just when
-+	 * the current state uses it. The cursor may have been enabled with
-+	 * selective fetch earlier and had its enable bit orphaned when the
-+	 * feature was switched off.
-+	 */
-+	if (!HAS_PSR2_SEL_FETCH(display))
- 		return;
+-	i2c->client[0] = i2c_new_client_device(i2c->adapter, &info);
++	i2c->client[XE_I2C_CLIENT_AMC] = i2c_new_client_device(i2c->adapter, &info);
+ }
  
- 	intel_de_write_dsb(display, dsb, SEL_FETCH_CUR_CTL(pipe), 0);
-@@ -586,7 +591,7 @@ static void i9xx_cursor_update_sel_fetch_arm(struct intel_dsb *dsb,
- 		if (crtc_state->enable_psr2_su_region_et)
- 			wa_16021440873(dsb, plane, crtc_state, plane_state);
- 		else
--			i9xx_cursor_disable_sel_fetch_arm(dsb, plane, crtc_state);
-+			i9xx_cursor_disable_sel_fetch_arm(dsb, plane);
+ static int xe_i2c_notifier(struct notifier_block *nb, unsigned long action, void *data)
+@@ -115,16 +132,6 @@ static int xe_i2c_register_adapter(struct xe_i2c *i2c)
+ 		goto err_fwnode_remove;
  	}
- }
  
-@@ -695,7 +700,7 @@ static void i9xx_cursor_update_arm(struct intel_dsb *dsb,
- 	if (plane_state)
- 		i9xx_cursor_update_sel_fetch_arm(dsb, plane, crtc_state, plane_state);
- 	else
--		i9xx_cursor_disable_sel_fetch_arm(dsb, plane, crtc_state);
-+		i9xx_cursor_disable_sel_fetch_arm(dsb, plane);
+-	if (i2c->adapter_irq) {
+-		struct resource res;
+-
+-		res = DEFINE_RES_IRQ_NAMED(i2c->adapter_irq, "xe_i2c");
+-
+-		ret = platform_device_add_resources(pdev, &res, 1);
+-		if (ret)
+-			goto err_pdev_put;
+-	}
+-
+ 	pdev->dev.parent = i2c->drm_dev;
+ 	pdev->dev.fwnode = fwnode;
+ 	i2c->adapter_node = fwnode;
+@@ -166,7 +173,8 @@ bool xe_i2c_present(struct xe_device *xe)
  
- 	if (plane->cursor.base != base ||
- 	    plane->cursor.size != fbc_ctl ||
-diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-index 07a6832933521..5cda1ab90e40f 100644
---- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
-+++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-@@ -879,13 +879,18 @@ skl_plane_disable_arm(struct intel_dsb *dsb,
- }
- 
- static void icl_plane_disable_sel_fetch_arm(struct intel_dsb *dsb,
--					    struct intel_plane *plane,
--					    const struct intel_crtc_state *crtc_state)
-+					    struct intel_plane *plane)
+ static bool xe_i2c_irq_present(struct xe_device *xe)
  {
- 	struct intel_display *display = to_intel_display(plane);
- 	enum pipe pipe = plane->pipe;
+-	return xe->i2c && xe->i2c->adapter_irq;
++	return xe->i2c && xe->i2c->ep.capabilities & XE_I2C_EP_CAP_IRQ &&
++		!xe_survivability_mode_is_boot_enabled(xe);
+ }
  
--	if (!crtc_state->enable_psr2_sel_fetch)
-+	/*
-+	 * Clear this whenever the hardware has selective fetch, not just when
-+	 * the current state uses it. The plane may have been enabled with
-+	 * selective fetch earlier and had its enable bit orphaned when the
-+	 * feature was switched off.
-+	 */
-+	if (!HAS_PSR2_SEL_FETCH(display))
+ /**
+@@ -179,18 +187,10 @@ static bool xe_i2c_irq_present(struct xe_device *xe)
+  */
+ void xe_i2c_irq_handler(struct xe_device *xe, u32 master_ctl)
+ {
+-	struct xe_mmio *mmio = xe_root_tile_mmio(xe);
+-
+ 	if (!(master_ctl & I2C_IRQ) || !xe_i2c_irq_present(xe))
  		return;
  
- 	intel_de_write_dsb(display, dsb, SEL_FETCH_PLANE_CTL(pipe, plane->id), 0);
-@@ -921,7 +926,7 @@ icl_plane_disable_arm(struct intel_dsb *dsb,
- 
- 	skl_write_plane_wm(dsb, plane, crtc_state);
- 
--	icl_plane_disable_sel_fetch_arm(dsb, plane, crtc_state);
-+	icl_plane_disable_sel_fetch_arm(dsb, plane);
- 
- 	if (plane_has_normalizer(plane))
- 		intel_de_write_dsb(display, dsb,
-@@ -1641,7 +1646,7 @@ static void icl_plane_update_sel_fetch_arm(struct intel_dsb *dsb,
- 		intel_de_write_dsb(display, dsb, SEL_FETCH_PLANE_CTL(pipe, plane->id),
- 				   SEL_FETCH_PLANE_CTL_ENABLE);
- 	else
--		icl_plane_disable_sel_fetch_arm(dsb, plane, crtc_state);
-+		icl_plane_disable_sel_fetch_arm(dsb, plane);
+-	/* Forward interrupt to I2C adapter */
+-	generic_handle_irq_safe(xe->i2c->adapter_irq);
+-
+-	/* Deassert after I2C adapter clears the interrupt */
+-	xe_mmio_rmw32(mmio, I2C_CONFIG_CMD, 0, PCI_COMMAND_INTX_DISABLE);
+-	/* Reassert to allow subsequent interrupt generation */
+-	xe_mmio_rmw32(mmio, I2C_CONFIG_CMD, PCI_COMMAND_INTX_DISABLE, 0);
++	xe_i2c_handle_smbus_alert(xe->i2c);
  }
  
- static void
+ void xe_i2c_irq_reset(struct xe_device *xe)
+@@ -215,45 +215,6 @@ void xe_i2c_irq_postinstall(struct xe_device *xe)
+ 	xe_mmio_rmw32(mmio, I2C_CONFIG_CMD, PCI_COMMAND_INTX_DISABLE, 0);
+ }
+ 
+-static int xe_i2c_irq_map(struct irq_domain *h, unsigned int virq,
+-			  irq_hw_number_t hw_irq_num)
+-{
+-	irq_set_chip_and_handler(virq, &dummy_irq_chip, handle_simple_irq);
+-	return 0;
+-}
+-
+-static const struct irq_domain_ops xe_i2c_irq_ops = {
+-	.map = xe_i2c_irq_map,
+-};
+-
+-static int xe_i2c_create_irq(struct xe_device *xe)
+-{
+-	struct xe_i2c *i2c = xe->i2c;
+-	struct irq_domain *domain;
+-
+-	if (!(i2c->ep.capabilities & XE_I2C_EP_CAP_IRQ) ||
+-	    xe_survivability_mode_is_boot_enabled(xe))
+-		return 0;
+-
+-	domain = irq_domain_create_linear(dev_fwnode(i2c->drm_dev), 1, &xe_i2c_irq_ops, NULL);
+-	if (!domain)
+-		return -ENOMEM;
+-
+-	i2c->adapter_irq = irq_create_mapping(domain, 0);
+-	i2c->irqdomain = domain;
+-
+-	return 0;
+-}
+-
+-static void xe_i2c_remove_irq(struct xe_i2c *i2c)
+-{
+-	if (!i2c->irqdomain)
+-		return;
+-
+-	irq_dispose_mapping(i2c->adapter_irq);
+-	irq_domain_remove(i2c->irqdomain);
+-}
+-
+ static int xe_i2c_read(void *context, unsigned int reg, unsigned int *val)
+ {
+ 	struct xe_i2c *i2c = context;
+@@ -267,8 +228,16 @@ static int xe_i2c_write(void *context, unsigned int reg, unsigned int val)
+ {
+ 	struct xe_i2c *i2c = context;
+ 
+-	xe_mmio_write32(i2c->mmio, XE_REG(reg + I2C_MEM_SPACE_OFFSET), val);
++	switch (reg) {
++	case DW_IC_SMBUS_INTR_MASK:
++		/* Make sure the Alert is never masked. */
++		val |= DW_IC_SMBUS_INTR_ALERT;
++		break;
++	default:
++		break;
++	}
+ 
++	xe_mmio_write32(i2c->mmio, I2C_REG(reg), val);
+ 	return 0;
+ }
+ 
+@@ -310,12 +279,15 @@ static void xe_i2c_remove(void *data)
+ 	struct xe_i2c *i2c = data;
+ 	unsigned int i;
+ 
+-	for (i = 0; i < XE_I2C_MAX_CLIENTS; i++)
++	xe_amc_exit(i2c);
++
++	for (i = 0; i < XE_I2C_MAX_CLIENTS; i++) {
+ 		i2c_unregister_device(i2c->client[i]);
++		i2c->client[i] = NULL;
++	}
+ 
+ 	bus_unregister_notifier(&i2c_bus_type, &i2c->bus_notifier);
+ 	xe_i2c_unregister_adapter(i2c);
+-	xe_i2c_remove_irq(i2c);
+ }
+ 
+ /**
+@@ -363,22 +335,18 @@ int xe_i2c_probe(struct xe_device *xe)
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = xe_i2c_create_irq(xe);
+-	if (ret)
+-		goto err_unregister_notifier;
+-
+ 	ret = xe_i2c_register_adapter(i2c);
+-	if (ret)
+-		goto err_remove_irq;
++	if (ret) {
++		bus_unregister_notifier(&i2c_bus_type, &i2c->bus_notifier);
++		return ret;
++	}
++
++	ret = xe_amc_init(i2c);
++	if (ret) {
++		xe_i2c_remove(i2c);
++		return ret;
++	}
+ 
+ 	xe_i2c_irq_postinstall(xe);
+ 	return devm_add_action_or_reset(drm_dev, xe_i2c_remove, i2c);
+-
+-err_remove_irq:
+-	xe_i2c_remove_irq(i2c);
+-
+-err_unregister_notifier:
+-	bus_unregister_notifier(&i2c_bus_type, &i2c->bus_notifier);
+-
+-	return ret;
+ }
+diff --git a/drivers/gpu/drm/xe/xe_i2c.h b/drivers/gpu/drm/xe/xe_i2c.h
+index 425d8160835f4..b200966b00484 100644
+--- a/drivers/gpu/drm/xe/xe_i2c.h
++++ b/drivers/gpu/drm/xe/xe_i2c.h
+@@ -11,18 +11,21 @@ struct device;
+ struct fwnode_handle;
+ struct i2c_adapter;
+ struct i2c_client;
+-struct irq_domain;
+ struct platform_device;
++struct xe_amc;
+ struct xe_device;
+ struct xe_mmio;
+ 
+-#define XE_I2C_MAX_CLIENTS		3
+-
+ #define XE_I2C_EP_COOKIE_DEVICE		0xde
+ 
+ /* Endpoint Capabilities */
+ #define XE_I2C_EP_CAP_IRQ		BIT(0)
+ 
++enum XE_I2C_CLIENT {
++	XE_I2C_CLIENT_AMC = 1,
++	XE_I2C_MAX_CLIENTS = 3,
++};
++
+ struct xe_i2c_endpoint {
+ 	u8 cookie;
+ 	u8 capabilities;
+@@ -38,13 +41,11 @@ struct xe_i2c {
+ 	struct notifier_block bus_notifier;
+ 	struct work_struct work;
+ 
+-	struct irq_domain *irqdomain;
+-	int adapter_irq;
+-
+ 	struct xe_i2c_endpoint ep;
+ 	struct device *drm_dev;
+ 
+ 	struct xe_mmio *mmio;
++	struct xe_amc *amc;
+ };
+ 
+ #if IS_ENABLED(CONFIG_I2C)
 -- 
 2.53.0
 
