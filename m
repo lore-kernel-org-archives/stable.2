@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794045792;
-	b=u66qg3ajBYCD3K46jlriTk2e2CeFQAguJBY1NgvHXPyFkjV1POmq6ZXMImnGsRD+uWYE
-	 v+8bcGEps8eX2Ay9CTNfF2ZYw6q3UbEUgOFBhFBPCcxVLCEuBLsOdJnRm7Nhi/HD/x29J
-	 MSAXapl3vvjRhtWN3eCPu1AnEIDcG8dYXR6A3uzSVgvwJraNUxquoV7E+n8Y3/h0kSiFN
-	 TiNmIRIvC5PdlxsDmvGGWNvCLbPghKnmdi1MR3+DWI8r62IOEyiahZnw/G+pCse1hxQ5d
-	 Jv4DUvvhKYQlG5E1xInAG/TrNjEzIJYB2lLFUgP9why+t2x79kbiEpemWkWg+KfHztw==
+	t=1794045794;
+	b=R2cZ7fPknVQmphjanFIFnhEnyZgDMLJc/C2j82bf7ppJ0xlIRyVG2y5CL69INZ9H/WPh
+	 NuocIG5Iiuc3US+AIVN6Gadz2mMwL6vJyXmE0RoA7vZqo3lvBrHmMrZ6FcwyL8Dfe0eg/
+	 AJ7PWgt0Ku265uZPBwrRbPMeLfRU94WTDnWcojY5O+swvgCnmTk2rUb7sMFEEzpZNRYQ5
+	 p8FZo4ahYSjRxBVjQBfMRCXWiwBwoqZ1caazN0f0DtExgBAUjIeb9Lh/PKfBbJvClOhd/
+	 BXoGEgPMAtMnOgYt4ypPGDxL6CWdI7yMC0p26YCGU8m+eQNY+9zVXGQMtM0FsHZ5sMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794045792;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794045794;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=P1YImaThlcHXEwxmgoS3h80sdI90+eoVG2410OEnRe4=;
-	b=MBOOVzwte4m2Wec008IO+arzrjbAguGYtGWdTTc36iug2A8dSDrm4FUlXZO1zwa/lNDj
-	 R6Q7+5FVzLNfxW6N7SoIwnU653Ucd6J0FMrrVJzNq8Ly/pnUeo6WwjqKXGwf8/ZI3nFMj
-	 QY/ddlmFhlmNbdzC5yx4VKU0LlDCbMwHtQIgut1YqrqVcyx7MewR7Fkwa7UKwC+PlqRw+
-	 KT9NK/XnEwZMQkZoz2oVIYZWgYZ18vfU7ntJQanUTUJbTWbOx9phWOgtGlBuvR+ci1q0W
-	 HU28SvDWwbiqBh7JeH5tN6NuenxGwdaMNCYSoY2cxOeKbiEALd/t8nm1M+K19sEEBkA==
+	bh=DeAvFJCS031cl/E+Q8VXXOLqGYdzwPyK51g0xGmQOAw=;
+	b=Ixf/zrtc8295/meW5jH74Lg++Bti+wD3CH3AITsQm0iUL3EhUCuEjc+Ro7/Vc2Jq5o/z
+	 x5UJgGI6dWOSSGIN5zARLFBEgQJ1fCWgkfOejX/pp+ZuhgA61WitSdYwTYAsip+NfBQ+y
+	 X393Qk+Viwpg5ZhpxA9gs3IrsYtteTenQBhL6W1BU9WnrMdTr5jQjcQqgBH3PPJsKhixs
+	 uA+R1kjTmfJ5SBKfBG1EaLhYtQjFTgoQs13Zj2PaXMol6YOfBUeirhrIsKS+JEJ7TFnCY
+	 flKndwBAmrHYX8YGtweemCeHm3LmreMcMTppYmGPPQg1zE2G0RqeKjoHtEGOFJZEG5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fLWfLuPX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BSWFKClX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB1D1606A32E
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:03:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5843606A32E
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:03:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fLWfLuPX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B16BE1F0089F;
-	Sat,  7 Nov 2026 10:03:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BSWFKClX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 114301F008A1;
+	Sat,  7 Nov 2026 10:03:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794045791;
-	bh=P1YImaThlcHXEwxmgoS3h80sdI90+eoVG2410OEnRe4=;
+	s=k20260515; t=1794045793;
+	bh=DeAvFJCS031cl/E+Q8VXXOLqGYdzwPyK51g0xGmQOAw=;
 	h=From:To:Cc:Subject:Date;
-	b=fLWfLuPXVowFN6swBPUH45hQb5tnRNmGNgYidMGSEv2FZwaX+ZHXUKW2sbK7NoO8o
-	 Fp6CsvK61B9fCQjUo/FIKdIW4vET4vaqKo1Eys4DDOtC4MCURXeaUsqP56H8tKi9iv
-	 X5O+oMU9FwuzfZfKeGZnhWAbkdrljjDEU4oEY/t9cO1y+8V4AmORarGHqCWEha5wEW
-	 B1/DHbWO/21fKeyx5+d+qwQwNxxlqrgJq716NxRnlQQaLfox/IoDFzWVoYs9uraJuL
-	 bu4ipb8aR0MjBd4xaxBoWWO/6hAznHzRF/KHpUKlSIetOcbTuSHs7Cebo24wzn2uER
-	 EFERomexkZeCA==
+	b=BSWFKClXfpy0Dg2qY4fRdmrT5JdR+iNPMnK4RRlxMIXWBzh2Og7gdC8eqkOBVVCxg
+	 N2CY4v3ZOi2NaCZEcDDdJZtORi6h9f/RthIneAKFiiqhKNFdcuvLfV6llUDg5NXDqT
+	 TW2C9nEBErOvOFbUAF23KnzxOOYGXfTQJGCcGPr+3j6HiHcK4nJopZK2IAobGTIgen
+	 N5HWly40Wr7OkwsBlIziiwj4UPRsF23H14SyQiugavlwO7q1elJl3mEQUlO6Et0w2h
+	 8i+83CApICDP4C7B6EBe32b6Edmlou0DlZEeKIom0TDQNs/EENhu1F27wl9oWxwleh
+	 dzNs3DTzVtYog==
 From: Sasha Levin <sashal@kernel.org>
-To: nemesa.garg@intel.com,
-	jouni.hogander@intel.com,
-	suraj.kandpal@intel.com
+To: imre.deak@intel.com,
+	luciano.coelho@intel.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] Revert "drm/i915/display: Clear SEL_FETCH_PLANE_CTL on plane disable"" failed to apply to 7.3-stable tree
-Date: Sat,  7 Nov 2026 05:03:09 -0500
-Message-ID: <20261107050309-failed-7.3-d39352939416@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/i915/dp_mst: Fix configuring FEC for a disconnected stream" failed to apply to 7.3-stable tree
+Date: Sat,  7 Nov 2026 05:03:11 -0500
+Message-ID: <20261107050311-failed-7.3-270681fbffbb@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,139 +68,65 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x d393529394167e0f5f706657eebe84d8529ce4fc
+git cherry-pick -x 270681fbffbba2b6ccf5b7e3c34b8b563b36167f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050309-failed-7.3-d39352939416@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050311-failed-7.3-270681fbffbb@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From d393529394167e0f5f706657eebe84d8529ce4fc Mon Sep 17 00:00:00 2001
-From: Nemesa Garg <nemesa.garg@intel.com>
-Date: Wed, 9 Sep 2026 16:33:31 +0530
-Subject: [PATCH] Revert "drm/i915/display: Clear SEL_FETCH_PLANE_CTL on plane
- disable"
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 270681fbffbba2b6ccf5b7e3c34b8b563b36167f Mon Sep 17 00:00:00 2001
+From: Imre Deak <imre.deak@intel.com>
+Date: Mon, 7 Sep 2026 20:44:12 +0300
+Subject: [PATCH] drm/i915/dp_mst: Fix configuring FEC for a disconnected
+ stream
 
-This reverts commit 7f1172a2ac0d7e50850785e2e65789c8aac8411a.
+During an atomic commit after all the MST stream CRTC state is computed
+the driver ensures that the FEC is configured the same way (enabled or
+disabled) for all the streams on a given MST topology's link.
+drm_dp_mst_port_downstream_of_parent() used to determine if a stream is
+downstream of an MST port will return false if the whole topology is
+disconnected, since in that case it can't verify that the port/
+parent_port passed to it is in the given MST topology. This is a problem
+during the above FEC configuration check, since
+intel_dp_mst_check_dsc_change()->get_pipes_downstream_of_mst_ports()
+will not return all the stream CRTCs/pipes for the topology as expected.
+Since passing parent_port==NULL to get_pipes_downstream_of_mst_port()
+is meant to return all the streams for the given topology (i.e. mst_mgr)
+skip checking if an MST port is downstream of a parent port in this
+case.
 
-This commit replaced the crtc_state->enable_psr2_sel_fetch guard in
-icl_plane_disable_sel_fetch_arm() and i9xx_cursor_disable_sel_fetch_arm()
-with HAS_PSR2_SEL_FETCH(). This is a display version check and
-says nothing about the pipe, so every plane and cursor disable on a
-display 12+ platform started writing SEL_FETCH_PLANE_CTL() /
-SEL_FETCH_CUR_CTL(), including on pipes that do not implement them.
-It shows up as an unclaimed register access on pipes driving HDMI where
-selective fetch was never enabled.
+This fixes a problem where the FEC configuration check explained above
+failed to ensure that all streams' FEC is configured the same way if the
+topology was disconnected, leading to a FEC state mismatch error.
 
-The stale selective fetch enable bit that commit addressed is handled
-in the next patch.
-
-Fixes: 7f1172a2ac0d ("drm/i915/display: Clear SEL_FETCH_PLANE_CTL on plane disable")
-Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16876
-Cc: stable@vger.kernel.org
-Signed-off-by: Nemesa Garg <nemesa.garg@intel.com>
-Reviewed-by: Jouni Högander <jouni.hogander@intel.com>
-Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
-Link: https://patch.msgid.link/20260909110332.3528029-2-nemesa.garg@intel.com
+Cc: stable@vger.kernel.org # v6.10+
+Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16073
+Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16384
+Reviewed-by: Luca Coelho <luciano.coelho@intel.com>
+Signed-off-by: Imre Deak <imre.deak@intel.com>
+Link: https://patch.msgid.link/20260907174413.741851-1-imre.deak@intel.com
 ---
- drivers/gpu/drm/i915/display/intel_cursor.c       | 15 +++++----------
- .../gpu/drm/i915/display/skl_universal_plane.c    | 15 +++++----------
- 2 files changed, 10 insertions(+), 20 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp_mst.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cursor.c b/drivers/gpu/drm/i915/display/intel_cursor.c
-index cce041e1da51d..90173040d8253 100644
---- a/drivers/gpu/drm/i915/display/intel_cursor.c
-+++ b/drivers/gpu/drm/i915/display/intel_cursor.c
-@@ -531,18 +531,13 @@ static int i9xx_check_cursor(struct intel_crtc_state *crtc_state,
- }
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index 6a869d0f6ffc0..20766b6c0bcfa 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -856,7 +856,8 @@ static u8 get_pipes_downstream_of_mst_port(struct intel_atomic_state *state,
+ 		if (&connector->mst.dp->mst.mgr != mst_mgr)
+ 			continue;
  
- static void i9xx_cursor_disable_sel_fetch_arm(struct intel_dsb *dsb,
--					      struct intel_plane *plane)
-+					      struct intel_plane *plane,
-+					      const struct intel_crtc_state *crtc_state)
- {
- 	struct intel_display *display = to_intel_display(plane);
- 	enum pipe pipe = plane->pipe;
- 
--	/*
--	 * Clear this whenever the hardware has selective fetch, not just when
--	 * the current state uses it. The cursor may have been enabled with
--	 * selective fetch earlier and had its enable bit orphaned when the
--	 * feature was switched off.
--	 */
--	if (!HAS_PSR2_SEL_FETCH(display))
-+	if (!crtc_state->enable_psr2_sel_fetch)
- 		return;
- 
- 	intel_de_write_dsb(display, dsb, SEL_FETCH_CUR_CTL(pipe), 0);
-@@ -592,7 +587,7 @@ static void i9xx_cursor_update_sel_fetch_arm(struct intel_dsb *dsb,
- 		if (crtc_state->enable_psr2_su_region_et)
- 			wa_16021440873(dsb, plane, crtc_state, plane_state);
- 		else
--			i9xx_cursor_disable_sel_fetch_arm(dsb, plane);
-+			i9xx_cursor_disable_sel_fetch_arm(dsb, plane, crtc_state);
- 	}
- }
- 
-@@ -701,7 +696,7 @@ static void i9xx_cursor_update_arm(struct intel_dsb *dsb,
- 	if (plane_state)
- 		i9xx_cursor_update_sel_fetch_arm(dsb, plane, crtc_state, plane_state);
- 	else
--		i9xx_cursor_disable_sel_fetch_arm(dsb, plane);
-+		i9xx_cursor_disable_sel_fetch_arm(dsb, plane, crtc_state);
- 
- 	if (plane->cursor.base != base ||
- 	    plane->cursor.size != fbc_ctl ||
-diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-index 5cda1ab90e40f..07a6832933521 100644
---- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
-+++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-@@ -879,18 +879,13 @@ skl_plane_disable_arm(struct intel_dsb *dsb,
- }
- 
- static void icl_plane_disable_sel_fetch_arm(struct intel_dsb *dsb,
--					    struct intel_plane *plane)
-+					    struct intel_plane *plane,
-+					    const struct intel_crtc_state *crtc_state)
- {
- 	struct intel_display *display = to_intel_display(plane);
- 	enum pipe pipe = plane->pipe;
- 
--	/*
--	 * Clear this whenever the hardware has selective fetch, not just when
--	 * the current state uses it. The plane may have been enabled with
--	 * selective fetch earlier and had its enable bit orphaned when the
--	 * feature was switched off.
--	 */
--	if (!HAS_PSR2_SEL_FETCH(display))
-+	if (!crtc_state->enable_psr2_sel_fetch)
- 		return;
- 
- 	intel_de_write_dsb(display, dsb, SEL_FETCH_PLANE_CTL(pipe, plane->id), 0);
-@@ -926,7 +921,7 @@ icl_plane_disable_arm(struct intel_dsb *dsb,
- 
- 	skl_write_plane_wm(dsb, plane, crtc_state);
- 
--	icl_plane_disable_sel_fetch_arm(dsb, plane);
-+	icl_plane_disable_sel_fetch_arm(dsb, plane, crtc_state);
- 
- 	if (plane_has_normalizer(plane))
- 		intel_de_write_dsb(display, dsb,
-@@ -1646,7 +1641,7 @@ static void icl_plane_update_sel_fetch_arm(struct intel_dsb *dsb,
- 		intel_de_write_dsb(display, dsb, SEL_FETCH_PLANE_CTL(pipe, plane->id),
- 				   SEL_FETCH_PLANE_CTL_ENABLE);
- 	else
--		icl_plane_disable_sel_fetch_arm(dsb, plane);
-+		icl_plane_disable_sel_fetch_arm(dsb, plane, crtc_state);
- }
- 
- static void
+-		if (connector->mst.port != parent_port &&
++		if (parent_port &&
++		    connector->mst.port != parent_port &&
+ 		    !drm_dp_mst_port_downstream_of_parent(mst_mgr,
+ 							  connector->mst.port,
+ 							  parent_port))
 -- 
 2.53.0
 
