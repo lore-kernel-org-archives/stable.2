@@ -1,52 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046665;
-	b=2LFIvwsfRz/k88xLmrwIxTJBc/NlEn4wD++S5qLjhctMo+tY+fH/acTANjE+QP5+QcFc
-	 AKV6asESO7JZcKHPvDzJ/8jsqyqcj2Uwz8bWb55QrH4yOhdlzLccMjO3VzHXFWJesMqIM
-	 /o5BCCX1SSQg4xSVBpnhwDc5+y10DCq2gayG89vFLomCoNYonu3twpS+8Rdf71d/R3vQ3
-	 1elvS07sGuJrhjMSIqPCBz2bH5PUKxMn0bgF7vnDCaaIfUDUa/kyRaWgL24VDMTI7cKnY
-	 PFntCl+FF61CE4fj00jPQmTmClNB0oMBGS9oGZn96frwK40WJgSfsouBGtzZVVl4HFw==
+	t=1794046667;
+	b=J3AcBjBJdxBrwxt/+DB9YJPPgcQnLBSCjp6zn4ER0PlKiXEpA3ssp1k2hQQCT8MKSqLs
+	 auj+O7B9ylkAPV1A7qjSnwzGKq96DB/OlDo4q4aetv5SmM/kQh6B15dxWjWZQcxxDxsxn
+	 THE9BC10/88TuLb24lbLM2IjioVbQuVaw2QefjHRXBGM5cyMnEp/oiQe4M4ADFZtHsJT2
+	 XB6Tg5cDyi3dwv6KiB3nA4fKJ+G6QfcscZp0Q6oXtLR14rpyuv3GwrCKwCJmiw/ZuvBe/
+	 zQLtC8yaMQVjcGJPXkp3xCs5G+JgS9gj9imIYb9RBq4cSEecVzDT0BLkXUpjoMF5jRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046665;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046667;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=U4lQBFYRYl5bUtH+KlylPnteANJA3NUOjrY5WvK4zuw=;
-	b=KJN4WsPJVGZnpBVk4drdplMFGjHqtxiucPVj7xkIU55iO2JqNGhWK7OOLkbTGRyNYTMI
-	 mFb/p682m7zAYv4s8iEr9LM0gf89hi4IWnJZ4mCpB1ZzpmOm8pZNPylYLcOQw9shIzF7I
-	 jJCLtnhWYvG+My/LfrinrG7Rky2Ow+gAHcTzP2J+3eC0rasp+vy5EfkeJqwRlQhxpl5YU
-	 ea5HgAc3Vy2uApQoE+gh2TkqCL8q5O2yTJ3ikJhte0r4ICQpN21TumZSNWoo6wtm8JQuK
-	 K8AR/RduDaj9s4iaMhaTyeaZQGcqemRHrzf0rJ4gJ/oMAXN0SKgw1c1u/6Lnv3//dxw==
+	bh=+u526MVZ80KW3WebeZlyo2R9AOCNgmye+oAPudrqwIY=;
+	b=fIpbBs5K+GTPYv6RYInrQAiR+fIye54vmZw0nQUf6+bKG1Bhm7JMtvkNXvtwMs8YVW0e
+	 EZoRLW/17+ur7Od33aZaIbKQPjFv68XHe5D+jli1FOIEB3zgLm0f9zWHLMRwkVhxTb8C1
+	 N0e8HtZPlo7yzyFdU5WNIwiUvuNR0dGpTntm7NFtxHGQlqZbpHKvoRJvA3t91mM4VhY02
+	 ZQmTcwgJjAQx2r9amRUiU86LWHytVof8skrnrpQEGfhKbwbUV8oCEiPY0mONN4IHkHTJj
+	 ND9wycJd/pYXbq+gFDyCPQCh++6+EIvLU/5y60KnBGQ5+/ezQk8ldn04VeOgI8P+Tww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iScpiTd6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xk+vViBC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEA6D606D807
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:17:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C3C2606D807
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:17:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iScpiTd6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 310DF1F008A1;
-	Sat,  7 Nov 2026 10:17:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xk+vViBC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 655961F0089F;
+	Sat,  7 Nov 2026 10:17:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046664;
-	bh=U4lQBFYRYl5bUtH+KlylPnteANJA3NUOjrY5WvK4zuw=;
+	s=k20260515; t=1794046667;
+	bh=+u526MVZ80KW3WebeZlyo2R9AOCNgmye+oAPudrqwIY=;
 	h=From:To:Cc:Subject:Date;
-	b=iScpiTd6Yb/ZQKdcw5l35WL5qGeGFsIHWiyi08Lmd/AzTbt2mLCxPZ9oYSG0iRjHr
-	 D0/ygCPmGJcgFMbI1wcj+DlxFDpLJARUB9+fMlxmxnX0aCpeaGRAkt+78w8idGPJIp
-	 5z2khx08WWmemr9xtzTGZN5H72R41GmqNvcKk5rBwSLCc0ebUViK18cVmWy+guMUxX
-	 EoXa7EUP6I5oiOZJtJB7Cx6lz7mKMIQmdGVp5w8Xf0KQqibJojdBjCJOaVCEbz+/1O
-	 Avga0bYa/QBA2rAgNpm4pU1PVE7DeJIE2b6kRMtPwBSimfXCU5sPlr30elUUc44jFg
-	 AnnZ08M85O3PQ==
+	b=Xk+vViBCXmqJpM+pUWAVSts2LVeqGpUt3J8gwoKvOBqLWD7j+PBE1fBezjJnClPJD
+	 08APiFnur8TNKdpgISH1oKuKaT/KG6A3jgJlUB5BuOPtXYgspNwmBZZqWhxZAua8hf
+	 nQyfAXMWFvGseAnz2ueKDSCeMBm3rCM3mcIkpcANJniOvDZlDPYHLx9LkP4AUqgKaZ
+	 rjcYX43Rw7sOIjk7Nrb9jQlZxsi4MlvAXBIbyUvqQka8AnmWVPj//2rSo1T10d84rj
+	 k+rQ/Nq1fy2cs/8zcakytn2yBUhVoYd8RbhyGTaQ6qUePqDu9k/rHFWuyf3UtpaeBL
+	 Q47Ikbig76ZOw==
 From: Sasha Levin <sashal@kernel.org>
-To: mhun512@gmail.com,
-	ae878000@gmail.com,
-	lee@kernel.org
+To: weilin.chang@arm.com,
+	sashiko-bot@kernel.org,
+	vdonnefort@google.com,
+	itaru.kitayama@fujitsu.com,
+	maz@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mfd: twl-core: Unregister the auxiliary platform device on unbind" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:17:43 -0500
-Message-ID: <20261107051743-failed-6.12-3c5c55d979dd@kernel.org>
+Subject: FAILED: patch "[PATCH] KVM: arm64: ptdump: Check the page tables aren't freed when accessing" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:17:45 -0500
+Message-ID: <20261107051745-failed-6.12-7d7199bdf77a@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,118 +71,143 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 3c5c55d979ddcb0765ce531bc7ba173c87c8712a
+git cherry-pick -x 7d7199bdf77a3a6ed74d0037133f435a7febe97c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051743-failed-6.12-3c5c55d979dd@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051745-failed-6.12-7d7199bdf77a@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 3c5c55d979ddcb0765ce531bc7ba173c87c8712a Mon Sep 17 00:00:00 2001
-From: Myeonghun Pak <mhun512@gmail.com>
-Date: Sun, 13 Sep 2026 16:50:12 -0400
-Subject: [PATCH] mfd: twl-core: Unregister the auxiliary platform device on
- unbind
+From 7d7199bdf77a3a6ed74d0037133f435a7febe97c Mon Sep 17 00:00:00 2001
+From: Wei-Lin Chang <weilin.chang@arm.com>
+Date: Thu, 24 Sep 2026 10:49:50 +0100
+Subject: [PATCH] KVM: arm64: ptdump: Check the page tables aren't freed when
+ accessing
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-twl_probe() registers a standalone platform device named "twl", but keeps
-its pointer only in a local variable. Probe errors unregister the device,
-while successful probe leaves no way for twl_remove() to release it. The
-platform device therefore remains registered after the I2C driver unbinds.
+An open debugfs file keeps the KVM structure alive, but does not prevent
+mmu notifier release from freeing the stage-2 page tables when the VMM’s
+address space is torn down. Therefore page tables belonging to the mmus
+could have been freed when a thread opens or reads the ptdump files.
+Take the mmu_lock and check mmu->pgt is still alive before accessing the
+page tables.
 
-Register a managed action on the I2C device immediately after adding the
-platform device. This unregisters it on probe failure and driver unbind,
-and also handles failure to register the action itself. Remove the manual
-error-path unregister to avoid releasing the device twice.
+Also for the ipa_range file and stage2_levels file, switch from keeping
+the pointer to the page tables to keeping the pointer to the mmu.
 
-This issue was identified during our ongoing static-analysis research while
-reviewing kernel code.
-
-Fixes: defa6be1c821 ("mfd: Fix compile for twl-core.c by removing cpu_is_omap usage")
+Fixes: 7c4f73548ed1 ("KVM: arm64: Register ptdump with debugfs on guest creation")
+Reported-by: Sashiko AI <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/kvmarm/20260623144054.B91D21F000E9@smtp.kernel.org/
+Reviewed-by: Vincent Donnefort <vdonnefort@google.com>
+Tested-by: Vincent Donnefort <vdonnefort@google.com>
+Tested-by: Itaru Kitayama <itaru.kitayama@fujitsu.com>
+Signed-off-by: Wei-Lin Chang <weilin.chang@arm.com>
 Cc: stable@vger.kernel.org
-Assisted-by: OpenAI:GPT-5.6
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-Link: https://patch.msgid.link/20260913205013.54777-1-mhun512@gmail.com
-Signed-off-by: Lee Jones <lee@kernel.org>
+Link: https://patch.msgid.link/20260924094951.727352-2-weilin.chang@arm.com
+Signed-off-by: Marc Zyngier <maz@kernel.org>
 ---
- drivers/mfd/twl-core.c | 23 +++++++++++++++--------
- 1 file changed, 15 insertions(+), 8 deletions(-)
+ arch/arm64/kvm/ptdump.c | 43 +++++++++++++++++++++++++++++++----------
+ 1 file changed, 33 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/mfd/twl-core.c b/drivers/mfd/twl-core.c
-index b7d749208131b..7fbce76efd305 100644
---- a/drivers/mfd/twl-core.c
-+++ b/drivers/mfd/twl-core.c
-@@ -719,6 +719,11 @@ static const struct mfd_cell twl6032_cells[] = {
- 	{ .name = "twl6032-clk" },
- };
+diff --git a/arch/arm64/kvm/ptdump.c b/arch/arm64/kvm/ptdump.c
+index 69899797dbad8..b5a0584260e8b 100644
+--- a/arch/arm64/kvm/ptdump.c
++++ b/arch/arm64/kvm/ptdump.c
+@@ -115,15 +115,28 @@ static int kvm_ptdump_build_levels(struct ptdump_pg_level *level, u32 start_lvl)
  
-+static void twl_unregister_device(void *data)
-+{
-+	platform_device_unregister(data);
-+}
+ static struct kvm_ptdump_guest_state *kvm_ptdump_parser_create(struct kvm_s2_mmu *mmu)
+ {
++	struct kvm *kvm = kvm_s2_mmu_to_kvm(mmu);
+ 	struct kvm_ptdump_guest_state *st;
+-	struct kvm_pgtable *pgtable = mmu->pgt;
++	s8 start_level;
+ 	int ret;
+ 
++	/*
++	 * We only need the pgt start level to initialize the ptdump, get it
++	 * while holding the mmu_lock. It's fine if the pgt gets freed
++	 * afterwards, we'll check again when doing the actual dump.
++	 */
++	scoped_guard(read_lock, &kvm->mmu_lock) {
++		if (mmu->pgt)
++			start_level = mmu->pgt->start_level;
++		else
++			return ERR_PTR(-ENOENT);
++	}
 +
- /* NOTE: This driver only handles a single twl4030/tps659x0 chip */
- static int
- twl_probe(struct i2c_client *client)
-@@ -754,17 +759,22 @@ twl_probe(struct i2c_client *client)
- 		return status;
- 	}
+ 	st = kzalloc_obj(struct kvm_ptdump_guest_state, GFP_KERNEL_ACCOUNT);
+ 	if (!st)
+ 		return ERR_PTR(-ENOMEM);
  
-+	status = devm_add_action_or_reset(&client->dev, twl_unregister_device,
-+					  pdev);
-+	if (status)
-+		return status;
+-	ret = kvm_ptdump_build_levels(&st->level[0], pgtable->start_level);
++	ret = kvm_ptdump_build_levels(&st->level[0], start_level);
+ 	if (ret) {
+ 		kfree(st);
+ 		return ERR_PTR(ret);
+@@ -149,6 +162,9 @@ static int kvm_ptdump_guest_show(struct seq_file *m, void *unused)
+ 	};
+ 
+ 	guard(write_lock)(&kvm->mmu_lock);
++	if (!mmu->pgt)
++		return 0;
 +
- 	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C)) {
- 		dev_dbg(&client->dev, "can't talk I2C?\n");
- 		status = -EIO;
--		goto free;
-+		goto out;
- 	}
+ 	st->parser_state = (struct ptdump_pg_state) {
+ 		.marker		= &st->ipa_marker[0],
+ 		.end_address	= BIT(mmu->pgt->ia_bits),
+@@ -211,17 +227,27 @@ static const struct file_operations kvm_ptdump_guest_fops = {
  
- 	twl_priv = devm_kzalloc(&client->dev, sizeof(struct twl_private),
- 				GFP_KERNEL);
- 	if (!twl_priv) {
- 		status = -ENOMEM;
--		goto free;
-+		goto out;
- 	}
+ static int kvm_pgtable_range_show(struct seq_file *m, void *unused)
+ {
+-	struct kvm_pgtable *pgtable = m->private;
++	struct kvm_s2_mmu *mmu = m->private;
++	struct kvm *kvm = kvm_s2_mmu_to_kvm(mmu);
++
++	guard(read_lock)(&kvm->mmu_lock);
++
++	if (mmu->pgt)
++		seq_printf(m, "%2u\n", mmu->pgt->ia_bits);
  
- 	if ((id->driver_data) & TWL6030_CLASS) {
-@@ -784,7 +794,7 @@ twl_probe(struct i2c_client *client)
- 					 GFP_KERNEL);
- 	if (!twl_priv->twl_modules) {
- 		status = -ENOMEM;
--		goto free;
-+		goto out;
- 	}
- 
- 	for (i = 0; i < num_slaves; i++) {
-@@ -880,7 +890,7 @@ twl_probe(struct i2c_client *client)
- 		status = devm_mfd_add_devices(&client->dev, PLATFORM_DEVID_NONE,
- 					      cells, num_cells, NULL, 0, NULL);
- 		if (status < 0)
--			goto free;
-+			goto out;
- 
- 		if (of_device_is_system_power_controller(node)) {
- 			if (!pm_power_off)
-@@ -896,10 +906,7 @@ twl_probe(struct i2c_client *client)
- fail:
- 	if (status < 0)
- 		twl_remove(client);
--free:
--	if (status < 0)
--		platform_device_unregister(pdev);
--
-+out:
- 	return status;
+-	seq_printf(m, "%2u\n", pgtable->ia_bits);
+ 	return 0;
  }
  
+ static int kvm_pgtable_levels_show(struct seq_file *m, void *unused)
+ {
+-	struct kvm_pgtable *pgtable = m->private;
++	struct kvm_s2_mmu *mmu = m->private;
++	struct kvm *kvm = kvm_s2_mmu_to_kvm(mmu);
++
++	guard(read_lock)(&kvm->mmu_lock);
++
++	if (mmu->pgt)
++		seq_printf(m, "%1d\n", KVM_PGTABLE_MAX_LEVELS - mmu->pgt->start_level);
+ 
+-	seq_printf(m, "%1d\n", KVM_PGTABLE_MAX_LEVELS - pgtable->start_level);
+ 	return 0;
+ }
+ 
+@@ -230,15 +256,12 @@ static int kvm_pgtable_debugfs_open(struct inode *m, struct file *file,
+ {
+ 	struct kvm_s2_mmu *mmu = m->i_private;
+ 	struct kvm *kvm = kvm_s2_mmu_to_kvm(mmu);
+-	struct kvm_pgtable *pgtable;
+ 	int ret;
+ 
+ 	if (!kvm_get_kvm_safe(kvm))
+ 		return -ENOENT;
+ 
+-	pgtable = mmu->pgt;
+-
+-	ret = single_open(file, show, pgtable);
++	ret = single_open(file, show, mmu);
+ 	if (ret < 0)
+ 		kvm_put_kvm(kvm);
+ 	return ret;
 -- 
 2.53.0
 
