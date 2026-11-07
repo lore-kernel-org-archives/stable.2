@@ -1,54 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794063850;
-	b=RgigGVVbUYpzC41eoYiK+c4OJPvNfef9QEuoRnVwa6E6Z2iT+gXPgWB0/64GgWWpM+ai
-	 JyKOOlBjtkRQLeZ2Q+LzrLgwQp/r8iEmZ+DQdtRAI29IVvEJ2njNjlitk/X7ORsYgJbc0
-	 R2uCBycCIZ1oBqvl7a+COEIJA1mGvQ0vUUTI9hz+5DGcJGHxEBqe6JtszOneCr7YEQbKe
-	 bzsoxafKx+B848BHkVlo04O3g7NG7cw4Qi+IxCBTsaAHi2U2YsWAo9R679LsfFqLeM9AR
-	 isyQrgRbd5/3byZsXdutmozPvXYdo8mErtI3InAtmFKGQMdlUwvmRWnG+CmGyqFSMLw==
+	t=1794063853;
+	b=aqnHezTN6enJEEjLvePP9G3BUzNETUaEd33DpdvvNCaxYNO2ALon+Wx/QP0Nw/MM1k2a
+	 R2iX5SxKpryUUqSjOMzL11IaKTdKcF68ATAjneRWH+pxEoLr3ERHafiH2BiDMvFpVjVeM
+	 7WX8y/HyFo+GUy+fJPIyWd4XkQKCack8frKAydraU63lavSXYG6BGMcHc11tRdzNKvwpg
+	 lUhupBnc/Ve0D6ah4h+Iv+jnwqtGpDXd8cbWyqb9jkInhe/SMN48GnA7ygMmuqBecdnqB
+	 jjo22bweAX7KdQgSzpJl1eUvj00aduc4QLEaUfbIiCgyakPVu1gGOcWriIRIvwUS0+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794063850;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794063853;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=1DAgQEgV1Yd+vSG98eT6oFALO7oReuXq3Aj8DvFpeGY=;
-	b=ImHq8xF9tZMZsJUtv9Q+XFg+HZrDHxgBAIoHIOONZEyQ55IAEpXzwo9Doo84T+eLaDN9
-	 3OjawYFF58JejI+Av2Fke/D+tHE4ZtkkqmfQ/9+tYqydZudP8ekhWOkgQRWYVPrvNEisP
-	 SxlOhu5DgHEoiQhU8ChA4lJjdFIM29fK6MyX5usMbzc0h9DLQcUh2WsaCfYCSCzhhA4z4
-	 A3gJDkxHSWGR+TV7rx/CTsWlaFCQFYXn43lbunaYJc+B3hQOGRwiw1i/eLaS3uoG9MnF7
-	 67RhmAT0AiLuAXGa8BA3/LZXBvas8BDLVEEQx0BxsNOz5TDcQuS2igexy+Dr9tgk/yw==
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=ZDQD99cL0wlNfsNUdQ8DJdG8XNiCVCWauTB/018+NKU=;
+	b=g0cXDBHKtjwMTqu8fpBikEgT5A+whV+TsMseNnnTEF52mYpcumPZYRrAqIornGDVgKd0
+	 h+7tqGfro9twv5GYybd60WnbZvThWeQ2fmpAM/IqOQTtyC1tumsPSrIxmx/oSQ8mlIP+f
+	 NvfOBKG37g6Uc1+Uh/yXvXIrajbK+cjNI6wDGQWLyBAqXa589IzqV33bVKLfdmXAxQqPc
+	 1gmhpEzOHd9UpMC7YqNkYkqqyUleaq7nm4UeKnvyxpEjWCjkn/TebmHp+NVS3GSCkvDOG
+	 Qsf/PAuM+I1MDC0Yx4Vcbmy8MntuYyKDPvINlQfp2UiTPw4c4gCSobhiqlEtzaj+vlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=kxGucAQb;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=u6nf2QMZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45084606C011;
-	Sat,  7 Nov 2026 15:04:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C265B606C034;
+	Sat,  7 Nov 2026 15:04:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=kxGucAQb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1DBE1F0089F;
-	Sat,  7 Nov 2026 15:04:09 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=u6nf2QMZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BF6E1F0089F;
+	Sat,  7 Nov 2026 15:04:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794063849;
-	bh=1DAgQEgV1Yd+vSG98eT6oFALO7oReuXq3Aj8DvFpeGY=;
+	s=korg; t=1794063852;
+	bh=ZDQD99cL0wlNfsNUdQ8DJdG8XNiCVCWauTB/018+NKU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kxGucAQbY+aWPwAuir3dsLLk8D3yNCufCDIQRbC3fjjuWan67WRF6bmmnvbH9JQLZ
-	 BeQS+JPdEhfZA50jFEZt90fxpX6x8bV+sw+h9hdLNPqob1peuvN953owER/dnrVzFT
-	 SpqIxc1hcHKFeh3AnGS6weJOxS9uAjkzSTdz4zMQ=
+	b=u6nf2QMZTZOCzwrlG1PGJxKGRgQAm6nEibXayN1PywlCOnyUT9XO7a8siVhTJqGY/
+	 pr+jZgdeBIe57kvO5B+spqLD9b13xVAZ9pcWI472FQRMUayBXfLZSfhhdReMc0RFY+
+	 XqkvBJdV6q50xGs6WLrPYzRBPqmV9JuxX5SnpOlM=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Ricardo Ribalda <ribalda@chromium.org>,
-	"Rafael J. Wysocki (Intel)" <rafael@kernel.org>,
-	Daniel Scally <dan.scally@ideasonboard.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
+	Bjorn Andersson <andersson@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 0060/1257] platform/x86: int3472: Fix uninitialised variable warning
-Date: Sat,  7 Nov 2026 08:39:16 -0500
-Message-ID: <20261107134941.059671601@linuxfoundation.org>
+Subject: [PATCH 7.3 0044/1257] soc: qcom: geni-se: Fix fw_end computed before round-up; propagate size to caller
+Date: Sat,  7 Nov 2026 08:39:00 -0500
+Message-ID: <20261107134940.626438233@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261107134939.434104957@linuxfoundation.org>
 References: <20261107134939.434104957@linuxfoundation.org>
@@ -64,111 +63,117 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 7.3-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
+From: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
 
-[ Upstream commit 70e6384fe0f4cf9768944f81924f6c1478b0ce43 ]
+[ Upstream commit d1750c530e9b9b75c8d1b29d3c76e052a049f51f ]
 
-Fix a compiler warning about an uninitialised err_msg variable by printing
-the error where it is handled:
+fw_end was computed from the raw fw_size_in_items, before the odd-word
+round-up. A segment with an odd word count could pass the bounds check
+at the unrounded value but then be copied one word past the validated
+limit. Move fw_end (and the cfg_{idx,val}_end) calculations to after
+the round-up so they always reflect the true copy extent.
 
-drivers/platform/x86/intel/int3472/discrete.c:440:24: warning: ‘err_msg’ may be used uninitialized [-Wmaybe-uninitialized]
-  440 |                 return dev_err_probe(int3472->dev, ret, err_msg);
+The caller geni_load_se_fw() re-read hdr->fw_size_in_items for the
+memcpy_toio() length, bypassing the validated and rounded value
+established by geni_find_protocol_fw(). Add a fw_size_out output
+parameter and use it in the caller.
 
-Fixes: 5de691bffe57 ("platform/x86: Add intel_skl_int3472 driver")
+Fixes: d4bf06592ad6 ("soc: qcom: geni-se: Add support to load QUP SE Firmware via Linux subsystem")
 Cc: stable@vger.kernel.org
-Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-Reviewed-by: Ricardo Ribalda <ribalda@chromium.org>
-Acked-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
-Reviewed-by: Daniel Scally <dan.scally@ideasonboard.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+Link: https://lore.kernel.org/r/20260821-fix-write-to-read-only-firmware-buffer-v3-3-43e6a3abd651@oss.qualcomm.com
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/platform/x86/intel/int3472/discrete.c | 25 +++++++++++--------
- 1 file changed, 14 insertions(+), 11 deletions(-)
+ drivers/soc/qcom/qcom-geni-se.c | 23 ++++++++++++++---------
+ 1 file changed, 14 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/platform/x86/intel/int3472/discrete.c b/drivers/platform/x86/intel/int3472/discrete.c
-index 6c729fcfce5db..9cd4f78875abf 100644
---- a/drivers/platform/x86/intel/int3472/discrete.c
-+++ b/drivers/platform/x86/intel/int3472/discrete.c
-@@ -329,7 +329,6 @@ static int skl_int3472_handle_gpio_resources(struct acpi_resource *ares,
- 	unsigned long gpio_flags;
- 	union acpi_object *obj;
- 	struct gpio_desc *gpio;
--	const char *err_msg;
- 	const char *con_id;
- 	int ret;
+diff --git a/drivers/soc/qcom/qcom-geni-se.c b/drivers/soc/qcom/qcom-geni-se.c
+index 54c0a66d6dd6f..11ca8223fbcd6 100644
+--- a/drivers/soc/qcom/qcom-geni-se.c
++++ b/drivers/soc/qcom/qcom-geni-se.c
+@@ -1230,6 +1230,8 @@ EXPORT_SYMBOL_GPL(geni_se_resources_init);
+  * @se: Pointer to the serial engine structure.
+  * @fw: Pointer to the firmware image.
+  * @protocol: Expected serial engine protocol type.
++ * @fw_size_out: Non-NULL output parameter; receives the rounded, validated
++ *               firmware word count on success.
+  *
+  * Identifies the appropriate firmware image or configuration required for a
+  * specific communication protocol instance running on a Qualcomm GENI
+@@ -1239,7 +1241,8 @@ EXPORT_SYMBOL_GPL(geni_se_resources_init);
+  * Return: pointer to a valid 'struct se_fw_hdr' if found, or NULL otherwise.
+  */
+ static struct se_fw_hdr *geni_find_protocol_fw(struct geni_se *se, const struct firmware *fw,
+-					       enum geni_se_protocol_type protocol)
++					       enum geni_se_protocol_type protocol,
++					       u32 *fw_size_out)
+ {
+ 	struct device *dev = se->dev;
+ 	const struct elf32_hdr *ehdr;
+@@ -1289,11 +1292,6 @@ static struct se_fw_hdr *geni_find_protocol_fw(struct geni_se *se, const struct
  
-@@ -375,7 +374,8 @@ static int skl_int3472_handle_gpio_resources(struct acpi_resource *ares,
- 	case INT3472_GPIO_TYPE_HOTPLUG_DETECT:
- 		ret = skl_int3472_map_gpio_to_sensor(int3472, agpio, con_id, gpio_flags);
- 		if (ret)
--			err_msg = "Failed to map GPIO pin to sensor\n";
-+			dev_err_probe(int3472->dev, ret,
-+				      "Failed to map GPIO pin to sensor\n");
+ 		sefw = (struct se_fw_hdr *)(fw->data + phdr->p_offset);
+ 		fw_size = le16_to_cpu(sefw->fw_size_in_items);
+-		fw_end = le16_to_cpu(sefw->fw_offset) + fw_size * sizeof(u32);
+-		cfg_idx_end = le16_to_cpu(sefw->cfg_idx_offset) +
+-			      le16_to_cpu(sefw->cfg_size_in_items) * sizeof(u8);
+-		cfg_val_end = le16_to_cpu(sefw->cfg_val_offset) +
+-			      le16_to_cpu(sefw->cfg_size_in_items) * sizeof(u32);
  
- 		break;
- 	case INT3472_GPIO_TYPE_CLK_ENABLE:
-@@ -387,7 +387,7 @@ static int skl_int3472_handle_gpio_resources(struct acpi_resource *ares,
- 		gpio = skl_int3472_gpiod_get_from_temp_lookup(int3472, agpio, con_id, gpio_flags);
- 		if (IS_ERR(gpio)) {
- 			ret = PTR_ERR(gpio);
--			err_msg = "Failed to get GPIO\n";
-+			dev_err_probe(int3472->dev, ret, "Failed to get GPIO\n");
- 			break;
+ 		if (le32_to_cpu(sefw->magic) != SE_MAGIC_NUM || le32_to_cpu(sefw->version) != 1)
+ 			continue;
+@@ -1306,6 +1304,12 @@ static struct se_fw_hdr *geni_find_protocol_fw(struct geni_se *se, const struct
+ 			sefw->fw_size_in_items = cpu_to_le16(fw_size);
  		}
  
-@@ -395,14 +395,16 @@ static int skl_int3472_handle_gpio_resources(struct acpi_resource *ares,
- 		case INT3472_GPIO_TYPE_CLK_ENABLE:
- 			ret = skl_int3472_register_gpio_clock(int3472, gpio);
- 			if (ret)
--				err_msg = "Failed to register clock\n";
-+				dev_err_probe(int3472->dev, ret,
-+					      "Failed to register clock\n");
++		fw_end = le16_to_cpu(sefw->fw_offset) + fw_size * sizeof(u32);
++		cfg_idx_end = le16_to_cpu(sefw->cfg_idx_offset) +
++			      le16_to_cpu(sefw->cfg_size_in_items) * sizeof(u8);
++		cfg_val_end = le16_to_cpu(sefw->cfg_val_offset) +
++			      le16_to_cpu(sefw->cfg_size_in_items) * sizeof(u32);
++
+ 		prog_ram_depth = FIELD_GET(PROG_RAM_DEPTH_MSK,
+ 					   readl_relaxed(se->base + SE_HW_PARAM_2));
+ 		if (fw_size >= prog_ram_depth) {
+@@ -1320,6 +1324,7 @@ static struct se_fw_hdr *geni_find_protocol_fw(struct geni_se *se, const struct
+ 			continue;
+ 		}
  
- 			break;
- 		case INT3472_GPIO_TYPE_PRIVACY_LED:
- 		case INT3472_GPIO_TYPE_STROBE:
- 			ret = skl_int3472_register_led(int3472, gpio, con_id);
- 			if (ret)
--				err_msg = "Failed to register LED\n";
-+				dev_err_probe(int3472->dev, ret,
-+					      "Failed to register LED\n");
++		*fw_size_out = fw_size;
+ 		return sefw;
+ 	}
  
- 			break;
- 		case INT3472_GPIO_TYPE_POWER_ENABLE:
-@@ -413,7 +415,8 @@ static int skl_int3472_handle_gpio_resources(struct acpi_resource *ares,
- 			ret = skl_int3472_register_regulator(int3472, gpio, enable_time_us,
- 							     con_id, second_sensor);
- 			if (ret)
--				err_msg = "Failed to register regulator\n";
-+				dev_err_probe(int3472->dev, ret,
-+					      "Failed to register regulator\n");
+@@ -1430,11 +1435,11 @@ static int geni_load_se_fw(struct geni_se *se, const struct firmware *fw,
+ {
+ 	const u32 *fw_data, *cfg_val_arr;
+ 	const u8 *cfg_idx_arr;
+-	u32 i, reg_value;
++	u32 i, reg_value, fw_size_in_items;
+ 	int ret;
+ 	struct se_fw_hdr *hdr;
  
- 			break;
- 		default: /* Never reached */
-@@ -436,11 +439,11 @@ static int skl_int3472_handle_gpio_resources(struct acpi_resource *ares,
- 	int3472->ngpios++;
- 	ACPI_FREE(obj);
+-	hdr = geni_find_protocol_fw(se, fw, protocol);
++	hdr = geni_find_protocol_fw(se, fw, protocol, &fw_size_in_items);
+ 	if (!hdr)
+ 		return -EINVAL;
  
--	if (ret < 0)
--		return dev_err_probe(int3472->dev, ret, err_msg);
--
--	/* Tell acpi_dev_get_resources() to not make a copy of the resource */
--	return 1;
-+	/*
-+	 * Either return an error or tell acpi_dev_get_resources() to not make a
-+	 * copy of the resource.
-+	 */
-+	return ret < 0 ? ret : 1;
- }
+@@ -1511,7 +1516,7 @@ static int geni_load_se_fw(struct geni_se *se, const struct firmware *fw,
  
- int int3472_discrete_parse_crs(struct int3472_discrete_device *int3472)
+ 	/* Program RAM address space. */
+ 	memcpy_toio(se->base + SE_GENI_CFG_RAMN, fw_data,
+-		    le16_to_cpu(hdr->fw_size_in_items) * sizeof(u32));
++		    fw_size_in_items * sizeof(u32));
+ 
+ 	/* Put default values on GENI's output pads. */
+ 	writel_relaxed(0x1, se->base + GENI_FORCE_DEFAULT_REG);
 -- 
 2.53.0
 
