@@ -1,98 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794028724;
-	b=O3LtvdA/kVLVtJKVW84pOQATkHLGM0VNhfQ/GrtrFyw1pQIGEdugCaU3h8RKqgY5OgIX
-	 OeO4GkkO7A/j1qPY4XKQBgU4dymZKAPHvEzy98R/LUoFkGkD6dJcIoCLmsZjZ2ebtI5Vz
-	 IVGnsKADMbohHJgt9/4T3XFVJ6EKOsHs0ydgI6fVOG59KKE1Zfatu9Q7WiQKN7K2BdKyj
-	 LJkHi1+bHr4Vmo9Uh2jlgpO2iDTORVlndll3Fywh69gGWVB9SoOEwMGlWu1kpRIuhJiSC
-	 aX+KNDhOjmtHWUTDM0Nz8ETsdud3p+YFDNHwhKuiYnXrHLdsZsswmVriqY4AGQLbjCQ==
+	t=1794028846;
+	b=liRTc+v9jm5yuRWDO/Izk9h9INapVAwybFtH4Whs91qVL+zCjeJaUWx8ZHjdU5YTawkx
+	 qHsdcmsjAuehaHeCHXRk5X5enHn1UufPCEy8Tj7yq2833VKRSuIzXQzea/XhibNAu5Qfm
+	 IEXec8f5Hg3oHz+kB2Tkg67V/IGdspikdrdBfVOejwWDeSnkNpcdREPZpuuJLyPWaxrIq
+	 7xcYh1LXkvVUQ1w3BE43FIxSOw5xPSyBjve0lIZPzonvhjssIjRU35agRcstmYp3p0Klw
+	 n1bptGwzFzBmPGBzuG0+mPrZh17IIeikzHQrEd32rlRg0XhEvK92Erpio8L3oHRVIog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794028724;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794028846;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=69iwLbdEo82R3C2faWyiFypCoPu1ycnBrcOnH1bGBkg=;
-	b=15RWgf7TI3IVrp2Set5zYHMWn+VE63toZVknmeo9Fjtw3eWjs/ZtmdZnLJVdsIEDoGO9
-	 EkUyL1Tptnd8ZDV5iJXou+ARz3bEqBS7NDvBUTB/pbeTiIIegtoo4GQ2hV52PMHlFJmNC
-	 ZG/mMhgRNRd2k44zFqgzLP1Rqo8YPhhNfkNrs96Kecihl7AxrdLFh2k+YmKu5Gmu4yXP3
-	 z5nR8wVJPe7gE93MNlX1juNxiaFgObwJL4r9m3mbTAnSzj7bCbBRC1WJMPLADLbxT0vKq
-	 HXb4ZJQDUkDJgdbfwRZ95xSz3WxmmRTtpfP6nf9fTpdSMN2WDsuxeyhgWMEzUcQPTxA==
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=1C7NKpuGv/wKA/5W5MbBMWRwcogQYVy0tjrhwg6RUVQ=;
+	b=VPjtfoEGHuCiFT162oWxrXX27oU8IEEHlYpyBpXslA/JOWTcsa9RHkHcK99+mmKGoUDy
+	 M4blOLmzYgw+aCUPZ6Ui79M8+Nn+nX7t5nUmQEODzNVqsG64/HPq/Dff64+KUXM6RUwqc
+	 5N22tNkSxeHRoaiWuAtakXZeHhKaz8TQ21+NvfP1O7Sq23+1Tz7sas/zoxjoO99AsCUbH
+	 dToF7nKWAIcAB4NmyzNh4lb3qf8Q49ol+f/0Ol1PhT+hGta6yXc+yfCvsZ+YNo2UBFsos
+	 EQfkiyILrdhFkKztN0F72di9+KAarABmzXBjZX8MHjrFk7RAq56AgeG07QQEYJVY7Ww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h5v5llPK;
-	arc=none smtp.remote-ip=209.85.216.48
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="s7SrH/my";
+	arc=none smtp.remote-ip=209.85.167.175
+Received: from mail-oi1-f175.google.com (mail-oi1-f175.google.com [209.85.167.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC092606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 05:18:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC092606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D21B1606A335
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 05:20:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D21B1606A335
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h5v5llPK
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3b0bbdeae06so672887a91.1
-        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 21:18:43 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=s7SrH/my
+Received: by mail-oi1-f175.google.com with SMTP id 5614622812f47-4f55a53898cso683656b6e.3
+        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 21:20:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794028723; x=1794633523; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=69iwLbdEo82R3C2faWyiFypCoPu1ycnBrcOnH1bGBkg=;
-        b=h5v5llPKaFu3fMlhcSWhfngsLZGQd1TsUbhsX3QVDmc9B0roRkq/BB1xhC+cbZGT71
-         gsoeU7oTfZsWAi4FaTjTShYUrrfBzMX2KNC8ZJG07iUr4Fc2Q7R8TiPEUchyrNx19LrB
-         sqwcarkOC6aKMXpV/Cp0Cw1B2HWHmiFYt4rtur/gJiliNQXYcZSfKXqT4G8HJvCRHVwy
-         ZFFKVW3bcubzPMKQD1u3aaLOPHRNoiN8P/lUJC5+aikahIHxco7AzjfW8tPNWgXcsfvq
-         MOFVqI4ZGCxigpeA26DC4+gyp1BBT5m4egxv23UMlbSeskvfXVY06IrKv6VgBQ+vd8UA
-         +lZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794028723; x=1794633523;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794028845; x=1794633645; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=69iwLbdEo82R3C2faWyiFypCoPu1ycnBrcOnH1bGBkg=;
-        b=rtIExBUUcLyjamiN7dLqwqzH3VdLmAqI8pc/bZsa5WFnNkmYqJQVFj0auqXORaZPB8
-         F2CXtrU6v3Fxrdd5FLuF7VnSKKlGt8xetFGLdkmKxsnM+zDEDYyvSlS3EtB2MErv73SA
-         wQ9JDpHDN1nka+r8uPohAOerNAwt9eiYmrB3bmq4ulGdcQ8YWqaBgW6Zi8opNdWDZQxY
-         1WwE0CEYKN66xUPK2sLhzBMPcUUFwpUO8p2XB+CM4k7HexL5UtvxGn4kUrNZ5xJV3Hnv
-         3aQELebnXPzic1M+oJu7MbHT2MhYs3p8F+WM7pjx9RRU1Yc+ElYfNKNhf1ndf/l19Sta
-         Y7qQ==
-X-Forwarded-Encrypted: i=1; AL+hErGzMvBRgda8h2s6WDW8S4TxGq6QEHc5/gHC1GdapITP1HH2SUIRxWYQEZaw8JaMT0NkeGA2a28=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/+Zu4lH+mkSp9Md0ZQcU+Q5OWcPFgs/uZQMlD0Yyc+yEWyrBDl
-	O/KvUkdV9qjq0bwpCTGlmFvnTRL06kRe8qN+y/Odn5O70P6qhEeXWQxePmlt5BlF
-X-Gm-Gg: AYBFou1amJjIVUIi4nHMIi7Ru0XATVSPISqIfBwdSd9cvwgznRhO8KpTaR6Yflaykww
-	2bs+RUxAPQUgEz8gmCHsYkN6+MHWjJD1HUsgbYRaQ+yJhUTJTwqCnLgmdZrs7wGgh7SV0SnjxK+
-	PrGNCqGNmLT5WpdYyCmecz09tlwd40s5OeP36iSa7K+Oifkeu9Em+lM6XY0XFrwhfrWd6n2Bdmm
-	nTSj49CluPOpbrTqAqaHRyFr01iRWeTNnRnbp2/7i94WEnIiHT0IYCKVLXPBsWsUQaAasVXexLJ
-	dLgMP/KFuthMHWRHnokBWEdB4V0V03bpAVYIarTf3IIc/6xv5+Gd3+lKthwXnWA2yGoTrhONycy
-	cGfHvgkraD1YQ5omte2/Z9gqycI6zPwc/iFBJa2T9IK0vBXh+d55SmgM8+D5YI08hDkZRQRQHmX
-	dd9B10+jZGMm5i5N+GriT5aY8yyfaJ1C/ThIymE0xlew0WPBrb9YIt5xhVKIK+D4aXducbTHgoc
-	Hd/xWTamNfpmVFCKJ28qatjJ1ZXzfxTI+2LobeybpO9iqJCXWXuJEaTnxLP34pJirpZeg0mokIj
-	SC4AnDP13rfUeGSgrfxdbhIHZO8bCrg9N7gtZ4/sG37rUPkR
-X-Received: by 2002:a17:90b:4d85:b0:3ab:884b:659e with SMTP id 98e67ed59e1d1-3b0db6d7bb6mr4232399a91.9.1794028723184;
-        Fri, 06 Nov 2026 21:18:43 -0800 (PST)
-Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1057c1c2csm1785860a91.2.2026.11.06.21.18.39
+        bh=1C7NKpuGv/wKA/5W5MbBMWRwcogQYVy0tjrhwg6RUVQ=;
+        b=s7SrH/my3/aCBubYnKNX6Vr1kLtOLjg63USFilh/1DnLB0dMpLYbFb/EaAwMPcVnvZ
+         OXYnfkRuRx+8eGqEr7x+rujQ9NY30yWyA7PIccWIn/EP2Loa5IFWTLtBGT5N8DfXNdhS
+         UnnYEbRovoChfQZJAsvFszCQk+0v5qlTuH8Jtm6Sd082bSMRI6no30r5SmZidxvrF8Mg
+         +iwRu3HnY8naxMqezJKDnRnLUjAniN0J6THfyfMJoyrM22P3f5B7PmIFAJCcOFSHpfzR
+         CFsqy2nyKIKfaIm/QnJcmtCjlMxz5NRChb9vnzGvw8I20hRAJdWhntDy92pWD/3mGuHN
+         NRLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794028845; x=1794633645;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1C7NKpuGv/wKA/5W5MbBMWRwcogQYVy0tjrhwg6RUVQ=;
+        b=hQQnB/QKsXcp/vOCatB+zcKkUgGmEHwsqT6ykktPx5ELt1GpNHXWMwdQKmsNrtY6FC
+         CWxHtrS75oxMSGRIDiR6uy1mxUus5U7cQUreUa2GutHas9WCgGPo1Pg7zwdZB5lejYqW
+         RV+EX+UkMLO68skNFJvd7Q2aPRC1Zvxr5YygTTaDdRjSjJCPMK77/E+rCjHVxxCAXFZA
+         Y8GtIxvZPYx1fvPTCTDtvrI6RPbuIl60BqvHuGxRnNGasHMYGVACmrgFmp49SWR2uo1e
+         PuQQO2y0/SGN0O7JD0Dw7WP+UUdKd5kZO5zdzyF6aRV4FKGE8xGHKiqYCjNWeE0vrdjS
+         X/2w==
+X-Forwarded-Encrypted: i=1; AKwUvByYh68ocgGEXdfane/oU9KPK94FaWpzBb2ZnaLby/K3FAg+nwNI2bQMe/YC54NMhSM8MC5647A=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+yvwzkI/Zro7+FfzD9U8DJy9uqXgUOEbQ1lWBji/DVNyOeNOns
+	r5rV/NQ3WwcMCvrHzDKFIBy6DtLyoo6dxquGg/APbQ00/Wl6MDd2xr4h5bOksA==
+X-Gm-Gg: AYBFou2ddLBur7grl/L6oS7J8wENYAmy/tlTxDnh+7wwFfdOqZt4aTa6AH1lFgA0R4l
+	7QTf7RbiSqandhiHmujxkHBrecU111IyIODhJ7BNa287+TTCbIIdgF/mw/4Rs+H+PnH/jUX+lwh
+	G7J4u1WLUfV9JdhaOGAAlVbclJr/DHJkUHClxLtFmsXuOtZd93bd2ff9YK3cXQbaTeNayFoq5iU
+	L5NLIEoV/ZDBhves/L3hI4ji1ZjPq0fTHlaXg6mf3o2A6ryU0Lrp6szhehMsYxcAbykq+1B2TuW
+	kIQFODsZQqWtzwcTd7/EDNkh719LPDcmK9V2L0CO4cE3bxUmvq9UNjFKSDgX/k35wVqsGqjXiiK
+	W5I/BHj/HHmYbRNm33rXObgEhcFgiX47NjF2snNV+dy0HnGlbIAGSU3vcAWzFWTrmJdWyn9hvgW
+	djNvov6GLmEpZumbrCkV3eU2yMtsFkP64McdmTV3e1VCQw11ou5A+97rOlEUgw5YeZXZsjgM9JU
+	Qmv9MPNCFXF+hTg33BL5qpm3A+i3jCwk4AZNab8cg3zHuKX+dhlWd8fF7cWlKSWE8Wpvre5E5Ki
+	fpmxDF5IGBk3XxJFC6W/gfLGiW0x1Wuo68clBsNQ2JB8b+Z2NXkXRG3C+l9yW/0o/e6cwhp+5FN
+	RIQmpQMpFkh/hXMvBUecpcLnwbdsy9ixMa/qdZhj8dzGdJ51g+t0dzpyMOdfsv9c0l6qJLiZ9cX
+	UuydHZVcmLQxv60BLN49tB/DQbJjUGMbwGEhUjwP/N9nONPXvMgkGqfw==
+X-Received: by 2002:a05:6808:1244:b0:539:4d53:1708 with SMTP id 5614622812f47-567e15e074cmr3293716b6e.49.1794028844621;
+        Fri, 06 Nov 2026 21:20:44 -0800 (PST)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-567e7ebf4edsm3059846b6e.13.2026.11.06.21.20.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 06 Nov 2026 21:18:42 -0800 (PST)
-From: hyunjungg <hj351016@gmail.com>
-To: Samuel Mendoza-Jonas <sam@mendozajonas.com>,
-	Paul Fertser <fercerpav@gmail.com>,
-	netdev@vger.kernel.org
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Hyunjung Ko <hj351016@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net] net/ncsi: disable the ncsi work before freeing channels and packages
-Date: Sat,  7 Nov 2026 14:18:25 +0900
-Message-ID: <20261107051825.3313019-1-hj351016@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Fri, 06 Nov 2026 21:20:43 -0800 (PST)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Fri, 06 Nov 2026 22:20:40 -0700
+Subject: [PATCH 2/3] mtdchar: bound OOB reads to the data in intermediate
+ chunks
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,79 +94,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261106-submit-mtdchar-page-chunking-v1-v1-2-2973a03531bc@gmail.com>
+References: <20261106-submit-mtdchar-page-chunking-v1-v1-0-2973a03531bc@gmail.com>
+In-Reply-To: <20261106-submit-mtdchar-page-chunking-v1-v1-0-2973a03531bc@gmail.com>
+To: Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
+ =?utf-8?q?Micha=C5=82_K=C4=99pie=C5=84?= <kernel@kempniu.pl>
+Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ James Hilliard <james.hilliard1@gmail.com>, stable@vger.kernel.org
+X-Mailer: b4 0.15.2
 
-From: Hyunjung Ko <hj351016@gmail.com>
+MEMREAD limits the data and OOB lengths independently for each call to
+mtd_read_oob(). A backend such as SPI-NAND continues reading until both
+streams are exhausted, so an intermediate call can read OOB from pages
+beyond the end of its data chunk.
 
-ncsi_unregister_dev() frees all channels and packages via
-ncsi_remove_package() and only afterwards calls
-disable_work_sync(&ndp->work):
+The next call advances by the data bytes transferred, not by the pages
+visited for OOB. If OOB remains, it starts again at pages already read
+and returns their OOB a second time.
 
-	list_for_each_entry_safe(np, tmp, &ndp->packages, node)
-		ncsi_remove_package(np);	/* kfree(nc), kfree(np) */
-	...
-	disable_work_sync(&ndp->work);
-	kfree(ndp);
+Limit OOB in intermediate reads to the pages covered by their data,
+as MEMWRITE already does. Leave the final call unchanged so SPI-NAND
+can still return additional OOB pages when no data chunk follows.
 
-The state-machine work, ncsi_dev_work(), dereferences channels and
-packages (it walks ndp->channel_queue with list_for_each_entry_rcu()
-and operates on the per-package channel lists).  ncsi_remove_channel()
-and ncsi_remove_package() free those objects with a bare kfree() right
-after list_del_rcu(), without waiting for a grace period or for the
-work to stop.  If ncsi_dev_work() is pending or running when
-ncsi_unregister_dev() executes, it can therefore dereference a channel
-or package that has already been freed -> use-after-free.
-
-Commit a0ffa68c70b3 ("net/ncsi: Disable the ncsi work before freeing
-the associated structure") added disable_work_sync() to fix the
-use-after-free of the ncsi_dev_priv itself, but placed it immediately
-before kfree(ndp) -- that is, after the channels and packages have
-already been freed -- so the channel/package use-after-free window
-remains.
-
-Move disable_work_sync() ahead of the ncsi_remove_package() loop, so
-the work is quiesced before any channel or package it may still be
-touching is freed.
-
-Found by code review; not runtime-reproduced (requires NC-SI capable
-hardware and the state-machine work racing device unregister).
-
-Fixes: a0ffa68c70b3 ("net/ncsi: Disable the ncsi work before freeing the associated structure")
+Fixes: 095bb6e44eb1 ("mtdchar: add MEMREAD ioctl")
 Cc: stable@vger.kernel.org
-Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- net/ncsi/ncsi-manage.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ drivers/mtd/mtdchar.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/net/ncsi/ncsi-manage.c b/net/ncsi/ncsi-manage.c
-index 1d63958..1c2dadf 100644
---- a/net/ncsi/ncsi-manage.c
-+++ b/net/ncsi/ncsi-manage.c
-@@ -1960,6 +1960,15 @@ void ncsi_unregister_dev(struct ncsi_dev *nd)
+diff --git a/drivers/mtd/mtdchar.c b/drivers/mtd/mtdchar.c
+index 19d33dacb62d..189e462a9df0 100644
+--- a/drivers/mtd/mtdchar.c
++++ b/drivers/mtd/mtdchar.c
+@@ -769,6 +769,9 @@ mtdchar_read_ioctl(struct mtd_info *mtd, struct mtd_read_req __user *argp)
+ 		if (ops.len == mtd->erasesize)
+ 			ops.len -= mtd_mod_by_ws(req.start + ops.len, mtd);
  
- 	dev_remove_pack(&ndp->ptype);
- 
-+	/*
-+	 * Quiesce the state-machine work before freeing any channel or
-+	 * package it may still be dereferencing (via the channel_queue /
-+	 * package lists).  Commit a0ffa68c70b3 added this disable only
-+	 * ahead of kfree(ndp), i.e. after the channels and packages had
-+	 * already been freed below, leaving that use-after-free window.
-+	 */
-+	disable_work_sync(&ndp->work);
++		if (ops.len < req.len)
++			adjust_oob_length(mtd, req.start, &ops);
 +
- 	list_for_each_entry_safe(np, tmp, &ndp->packages, node)
- 		ncsi_remove_package(np);
+ 		ret = mtd_read_oob(mtd, (loff_t)req.start, &ops);
  
-@@ -1967,8 +1976,6 @@ void ncsi_unregister_dev(struct ncsi_dev *nd)
- 	list_del_rcu(&ndp->node);
- 	spin_unlock_irqrestore(&ncsi_dev_lock, flags);
- 
--	disable_work_sync(&ndp->work);
--
- 	kfree(ndp);
- }
- EXPORT_SYMBOL_GPL(ncsi_unregister_dev);
+ 		req.ecc_stats.uncorrectable_errors +=
+
 -- 
-2.43.0
+2.53.0
 
