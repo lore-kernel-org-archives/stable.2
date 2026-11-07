@@ -1,66 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048362;
-	b=O5zt+A7xKPleajIwijqa90ZC3PdLVu4WMZm14BLIZaQzaTeYW/+KvGNtJwITWLYE7JWd
-	 rLiKb4cW31Y3n+4SIK7fVJiNbnadfXd2ESwpM5oOg61AsPzWt3iu3UqDLgSx9p7883PKe
-	 AEYm8wOczgDqABVJ1WZJQ2Epjz2PXzccGxtADQU4wpzzs6zAflM5+nJ91HJOUbppg/wy5
-	 6Lo3sEMzOZcy/nuxRr8jactTouKzR9kNDnsmrQ7d0F3l+t2ixU0wOjze3dQbW7EiGjWbw
-	 d09Qhlh79XWxEHhR/8Y4llQ9bvhqp9UbgQXyZyKW8dYQd1FqKezes+r1SlKldr5TxbA==
+	t=1794048364;
+	b=snSW+SOcuhu9wACvKGFQfTffE0a3+V2B9Kngxvhst6pAwa9n0FJrkWT1qXScm6ynTR86
+	 x7EhIokkauhTMSaau8ca4FKcbdVp/IUth+IRug0PtSLc5eheI3F1QjK+4RbNZcC+Rse21
+	 4jd48/9Ux3sVtt5gCEpu0lW0+6N/C1WR0FFua6tcnY5i4nqPuUALS4OSVNAcMRUeIuHUn
+	 /CwXTagoeWoaQYNhANLKTIa6tYuMwKNATKtYtpnIOchRDgatgTvg5eZOKJ5XtLjAeeV4W
+	 RHmpR5eYHMt6Gn5DndKvZsC/1scSVPn98GH2RCTJx2W+QdedqhVW+REf7Fgi9oVZoLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048362;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048364;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=hgISpY2JCDTGTCgNDoep7J5fv46qtX2mowO5u7FVewI=;
-	b=0k8dR20AC/tHbuuANyRrwb5/Db+rOG56oq936WMoNEfK0NHbs5qlEtG3WN9e/bABebyL
-	 c6opSfOF7mRdHguYmqRVkNG4mKtz/JoWjgkgjoMvxDTr7rA2Xh5MBFNHFSTg7EtS6+ptl
-	 Dc/Y42iEGjZdqwsVa/NaC4T7u5RRYGJWKs3nY7IjBZt282jENMfSlDrdNLjflAIH/SwcM
-	 Jdp8J4Z1TmexTi5CaUjIcUnc06mLG5/WlmhXIhyaYHstB6DSfpbUNT8nO4XOaM8bT3OTY
-	 sC0J5/cjTWw0pZxw1ub/QT2aPSaK1SR8w1Gf+q13lNfn5qSC9BIX5HlrcY5+RfT9TNw==
+	bh=gxKkkiTxsgtc22sLvLrZUDhDfKePcyDNnaF+0Vc1NAc=;
+	b=KjBoruXiyq7eRFn6pkcdI0YZe14U3YAnk+6HtcHY8n1j883mDUSqcFNriviic+2ttR2O
+	 CWDN+U7KcQ3kLQLSkJ3E5jaeIKm0eIyeDAsKB9lhKeuKv2QrSfHMgpn5UVu0DUQN/fC7+
+	 acJdIqVrRYDG2xAX0qcxpVyBHzxrrGgyUvQuaKDwXSeyOw5t5ktz57Zm3edc3HQmx7/M3
+	 AkZqHVFp0VGeNPkBQbuDXEGdjXRkXfeHhJZlnRx7z2vS0GlRzToakxSU+9bs9rXcuMgsS
+	 TqqSgr83DAXXP+CcTUmm7M2Tqeps/2f7fc0mtO+IcPmE9lVl/IsARDW/qk9esg4pMFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eZEYSC2M;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=koAVWdI3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C837C606A32D
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:46:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71800606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:46:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eZEYSC2M
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9261C1F0089F;
-	Sat,  7 Nov 2026 10:45:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=koAVWdI3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E32A51F0089F;
+	Sat,  7 Nov 2026 10:46:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048361;
-	bh=hgISpY2JCDTGTCgNDoep7J5fv46qtX2mowO5u7FVewI=;
+	s=k20260515; t=1794048364;
+	bh=gxKkkiTxsgtc22sLvLrZUDhDfKePcyDNnaF+0Vc1NAc=;
 	h=From:To:Cc:Subject:Date;
-	b=eZEYSC2Mp2+k5X5ar4cFF40nmEC8Hfjc+BHjVgGmWurWxn0Jk7KdqMrKwSc85z8OA
-	 FYo1voBbuL/Dyvp6gsRH6ItqJA1GPiRzHdARauGLUo4hxjgiYyTOBfvm5pcAQ7EpDM
-	 LTml9g6ASW3tnBKCqOgHlh7jxLKZsjngEa0Ct9wKIxdSayNNLN3cn3zg6dRL46DDKA
-	 LmS685VK0CdolJJz+A94fJ0fiKiXvDu7FGjuM6kYbhJYxfOKDjFVgqdo4NNv2wHPJC
-	 SyvZVMIoBw4w/o18abpMkdSt0vFfAm5kCDJ2cKpmUvDWEFS+gbit5a+MCuzf+X/blt
-	 nSaIVTbJBFW4g==
+	b=koAVWdI3vbnURxVx0Pr7X9eERr3Hm8wj85BmxwnisgJBoXncXws/DTCNUo39qw1tO
+	 bk61TnmqsAWUo1GXX1znGexAmEFNlOGaTSbdxpo9pA1DFfhqXMjal3XKxsW36fNmeY
+	 mAHlROH9yzaZpmjXn5SE9gRo77KZ4MZiVBMmqTRqXGaKRSaMVRJm9VTegyHyA3dG/o
+	 f4RkRQqWq2PnDp4lusQMYxc/BA9HveF9qxUqeLsFB/KNrJ9CnwUX3lfvBVULiPfRL6
+	 RYaLtfWWQpw+RYJ2Ea8Ubt/WCG5NYvKMro0zn5BJW++i+h3UT4Dx4ZVGcuF8NeNe2y
+	 3ZGW5bddJW2dA==
 From: Sasha Levin <sashal@kernel.org>
-To: chenridong@xiaomi.com,
-	baohua@kernel.org,
-	hannes@cmpxchg.org,
-	akpm@linux-foundation.org,
-	axelrasmussen@google.com,
-	chris@chrisdown.name,
-	david@kernel.org,
-	kasong@tencent.com,
-	ljs@kernel.org,
-	mhocko@kernel.org,
-	muchun.song@linux.dev,
-	roman.gushchin@linux.dev,
-	shakeel.butt@linux.dev,
-	tj@kernel.org,
-	weixugc@google.com,
-	yuanchu@google.com,
-	yuzhao@google.com
+To: suruurism@gmail.com,
+	jgross@suse.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/page_counter: avoid integer overflow in effective_protection()" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:45:58 -0500
-Message-ID: <20261107054558-failed-6.1-7809ce47b056@kernel.org>
+Subject: FAILED: patch "[PATCH] xen/gntdev: prevent private mappings from becoming writable" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:46:02 -0500
+Message-ID: <20261107054602-failed-6.1-2176dea8d8c1@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -83,130 +68,62 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 7809ce47b05671e1fa6d74bead892d6ad6c1403b
+git cherry-pick -x 2176dea8d8c19cb43a9b3651bfa1cb21eab1b31a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054558-failed-6.1-7809ce47b056@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054602-failed-6.1-2176dea8d8c1@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 7809ce47b05671e1fa6d74bead892d6ad6c1403b Mon Sep 17 00:00:00 2001
-From: Ridong Chen <chenridong@xiaomi.com>
-Date: Mon, 7 Sep 2026 10:54:44 +0800
-Subject: [PATCH] mm/page_counter: avoid integer overflow in
- effective_protection()
+From 2176dea8d8c19cb43a9b3651bfa1cb21eab1b31a Mon Sep 17 00:00:00 2001
+From: Abdifatah Suruur <suruurism@gmail.com>
+Date: Wed, 19 Aug 2026 11:42:17 +0300
+Subject: [PATCH] xen/gntdev: prevent private mappings from becoming writable
 
-Patch series "mm/mglru: fix ineffective memory protection for non-kswapd
-reclaim", v4.
+gntdev_mmap() rejects writable private (non-shared) mappings of foreign
+grant pages, because a private writable mapping takes the COW path on
+pages that have no proper struct-page backing.  However, VM_MAYWRITE is
+left set, so userspace can map the grant read-only and then upgrade the
+mapping to writable with mprotect(), hitting the same COW path the
+check was written to prevent.
 
-For MGLRU, memory.min/low is not honored during non-kswapd global reclaim
-(global direct reclaim and root-level memory.reclaim), because these paths
-shrink memcgs using stale protection (emin/elow).
+Clear VM_MAYWRITE for private mappings, as i915 does for its read-only
+objects and as fixed in drm/vc4 (CVE-2026-68445) and drm/panthor
+(CVE-2024-53071) and ptp: vmclock (commit
+a5edadbae57e2298a56cf7a4e774a027905a331f).
 
-Patch 2 is the actual fix.  Patch 1 is a prerequisite: an integer overflow
-in effective_protection(), spotted by the sashiko review tool, which patch
-2's new caller would also be exposed to.
+Fixes: ab31523c2fcac ("xen/gntdev: allow usermode to map granted pages")
+Cc: stable@vger.kernel.org
+Signed-off-by: Abdifatah Suruur <suruurism@gmail.com>
+Reviewed-by: Juergen Gross <jgross@suse.com>
+Signed-off-by: Juergen Gross <jgross@suse.com>
 
-
-This patch (of 2):
-
-effective_protection() scales a parent's protection by a ratio of page
-counts, e.g.  for recursive protection:
-
-	(parent_effective - siblings_protected) * (usage - protected)
-		/ (parent_usage - siblings_protected)
-
-The multiply is done at unsigned long width before dividing.  On systems
-with >= 16TB RAM the product can exceed 2^64 and wrap, giving a bogus
-protection value and silently breaking memory.min/low enforcement.
-
-Use mul_u64_u64_div_u64() to multiply in a 128-bit intermediate.  Because
-usage and parent_usage are not read atomically (a child is charged before
-its parent), usage - protected can briefly exceed the divisor, making the
-quotient overflow 64 bits and trap (#DE on x86).  Cap it so the ratio
-stays <= 1.
-
-Reported by the sashiko review tool [1].
-
-Link: https://lore.kernel.org/20260907025445.1836238-1-ridong.chen@linux.dev
-Link: https://lore.kernel.org/20260907025445.1836238-2-ridong.chen@linux.dev
-Link: https://sashiko.dev/#/patchset/20260826133054.88529-1-ridong.chen@linux.dev?part=1 [1]
-Fixes: bc50bcc6e00b ("mm: memcontrol: clean up and document effective low/min calculations")
-Fixes: 8a931f801340 ("mm: memcontrol: recursive memory.low protection")
-Reviewed-by: Barry Song <baohua@kernel.org>
-Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
-Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Assisted-by: Claude:claude-opus-4-8
-Cc: Axel Rasmussen <axelrasmussen@google.com>
-Cc: Chris Down <chris@chrisdown.name>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Kairui Song <kasong@tencent.com>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Michal Hocko <mhocko@kernel.org>
-Cc: Muchun Song <muchun.song@linux.dev>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Tejun Heo <tj@kernel.org>
-Cc: Wei Xu <weixugc@google.com>
-Cc: Yuanchu Xie <yuanchu@google.com>
-Cc: Yu Zhao <yuzhao@google.com>
-Cc: <stable@vger.kernel.org>
+Message-ID: <20260819084217.1577-1-suruurism@gmail.com>
 ---
- mm/page_counter.c | 21 +++++++++++++++------
- 1 file changed, 15 insertions(+), 6 deletions(-)
+ drivers/xen/gntdev.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/mm/page_counter.c b/mm/page_counter.c
-index 450543f4b318b..98322803941a7 100644
---- a/mm/page_counter.c
-+++ b/mm/page_counter.c
-@@ -8,6 +8,7 @@
- #include <linux/page_counter.h>
- #include <linux/atomic.h>
- #include <linux/kernel.h>
-+#include <linux/math64.h>
- #include <linux/string.h>
- #include <linux/sched.h>
- #include <linux/bug.h>
-@@ -376,7 +377,8 @@ static unsigned long effective_protection(unsigned long usage,
- 	 * otherwise get a smaller chunk than what they claimed.
- 	 */
- 	if (siblings_protected > parent_effective)
--		return protected * parent_effective / siblings_protected;
-+		return mul_u64_u64_div_u64(protected, parent_effective,
-+					   siblings_protected);
+diff --git a/drivers/xen/gntdev.c b/drivers/xen/gntdev.c
+index 1dcc4675580ed..b71f5bae25b63 100644
+--- a/drivers/xen/gntdev.c
++++ b/drivers/xen/gntdev.c
+@@ -1066,6 +1066,13 @@ static int gntdev_mmap(struct file *flip, struct vm_area_struct *vma)
+ 	if ((vma->vm_flags & VM_WRITE) && !(vma->vm_flags & VM_SHARED))
+ 		return -EINVAL;
  
- 	/*
- 	 * Ok, utilized protection of all children is within what the
-@@ -417,13 +419,20 @@ static unsigned long effective_protection(unsigned long usage,
- 	if (parent_effective > siblings_protected &&
- 	    parent_usage > siblings_protected &&
- 	    usage > protected) {
--		unsigned long unclaimed;
-+		unsigned long parent_unclaimed, parent_unprotected, unprotected;
- 
--		unclaimed = parent_effective - siblings_protected;
--		unclaimed *= usage - protected;
--		unclaimed /= parent_usage - siblings_protected;
-+		parent_unclaimed = parent_effective - siblings_protected;
-+		parent_unprotected = parent_usage - siblings_protected;
- 
--		ep += unclaimed;
-+		/*
-+		 * The usages aren't read atomically, so a child can transiently
-+		 * appear to use more than its parent, making the ratio exceed 1
-+		 * and the quotient overflow 64 bits (#DE on x86).  Cap it.
-+		 */
-+		unprotected = min(usage - protected, parent_unprotected);
++	/*
++	 * Private mappings of foreign grant pages must never become
++	 * writable: they would take the COW path on granted pages.
++	 */
++	if (!(vma->vm_flags & VM_SHARED))
++		vm_flags_clear(vma, VM_MAYWRITE);
 +
-+		ep += mul_u64_u64_div_u64(parent_unclaimed, unprotected,
-+					  parent_unprotected);
- 	}
+ 	pr_debug("map %d+%d at %lx (pgoff %lx)\n",
+ 		 index, count, vma->vm_start, vma->vm_pgoff);
  
- 	return ep;
 -- 
 2.53.0
 
