@@ -1,60 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794087936;
-	b=jT4mfArrlrxg0A+JacS/dWLCt5UY4wI6IaDWw82OXh0qgz4xJm71wgVwnDOI3uUyy9VI
-	 EN6hbxtydHMgE5awJ0u2T7xSxUAaLo4dyiExSUD3T491wZvEZtYv4yZFBT2cUveq/SRhp
-	 kVUEBNKswHUq4jl2pCe2/w+/dL+/hS/2BCD/PYt/ZIdIXpISHT/0q2H7wqfBCc9f48NGy
-	 zN1Tpizvj708/yXvFyaUQk5Oss88IpabfwPUU6LOYeNpf1lfKsVrkA/iO4qVXmV2j9YU+
-	 Q7aBpgEAR/9lDElMin6KU+g5byqO8ys7eNmsxARbyM3xmtHArr3B8XAPlLz2wp/Agfw==
+	b=l8N/g8TOgdHa5kYxY3vrggtQF/3SZ1UVzR/KGAhGPnTMhm8u72Qs0SVg8GibNjDHtkKp
+	 towNMuaZmeYbOGocK3boeMyR1vJk1Md055RhzmfekKuuU+ie+5kmCJKeTW3Fo1+u9lFic
+	 bvAZzNcvU2rh1hTI/eoz+DmWRSpg15xGgeiKZEgoHnj7bUknk8l8oVlOzDPYOqFJNxP9B
+	 vW9ULilFx42tuxt0/PQDG+TLUwWmaW/kf8sVpwc0z9HXXxyU9RI4vaETcPjcRpMXS52kL
+	 msAKM3aPX2hCfpj9rMcK0J1ftRt/qP+1TvOWB5AvznL7cWNl0lp6iRfbQv5RYltLIcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794087936;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=vOx4qL3rBGLSIPXxU4NuO61z7Gu3DhBSLmuQAAlPYBc=;
-	b=QjjfnZQJJhmBUqGM6XaYDakoVqaFoEXAYIjTRxbrcn74tgmPuLFuO99mZ4BdZfR3E0Uv
-	 W9n/+g81EPP9tojRAcrkNuxQ6HTh8vge3TA8LfypVUK0pL7X76IzTUrOoI/v9v0qlZIwf
-	 VUkBGqThHvNGaf1IaQ5fWthxo41qZAx6+/OxlbGPoSJhQeGUPBEEQlMK3zin0H/KjYNpL
-	 PPixSZcnPp3VpT2gjQbdMnDMojAsM0OB3igUzLPbIfF4TF9wUEpMgfn+6SgGakaMyi5V/
-	 p3/PXM7QtukT9TzUjZdgnHUguENdUl7F0vans1Cb2sVsuuAEOzAZNQq3MEL/esdn9IQ==
+	bh=nyCIxBA5mJ06vHi0FAU5PamOp23wz03gHLUhBxnc4Z0=;
+	b=S1s78I+5ryqFue7Cz1uO0MWn7oPIq+Mw8s218GFt77ZfpnX3HY/FVKpQD7B25/hyUCRE
+	 J1kn56to1iLOYcsH/gZAHNvYPDUK6vUWbXUdAZ4bY8TXz9rfUn2aUVoGAEsY0F5NoQIzl
+	 qBw53c+jj0qfvAQZTz211KDZ0Bjl6fd5pRWnxPc2Mk8kBWxFkHqjQ9lLiQ5nUpXQ4jz/j
+	 4W/I5aMDmq8m++RSZZ2tOYOUtlqu3NNd6GIR0srB+l6Ci0hwXrgvHYcUaXqsVMfYmM+EH
+	 waG+VfQYWQxxMHVzZYlnfMOhm4zlBWHTooH8Priz53dr1/CN2gFuGyEYcBHmk9XdXAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rgob1eXt;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Waouwtiq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06736606D804;
-	Sat,  7 Nov 2026 21:45:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76734606D80B;
+	Sat,  7 Nov 2026 21:45:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rgob1eXt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5291D1F008A2;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Waouwtiq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3EEE1F008BC;
 	Sat,  7 Nov 2026 21:45:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794087935;
-	bh=vOx4qL3rBGLSIPXxU4NuO61z7Gu3DhBSLmuQAAlPYBc=;
+	s=k20260515; t=1794087936;
+	bh=nyCIxBA5mJ06vHi0FAU5PamOp23wz03gHLUhBxnc4Z0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Rgob1eXtdv2UmztDyt5IdCdFEy+qFB0tzYedbFmfzDILucvsc8rrSXoEwNLtcwRFk
-	 kKpjego6wf039GawfVoixG/fSb7lMgSO3E7HV0uu5VROGB7sBhrLAxtrzLmPmxOqxS
-	 rLxpyzJu/ffGgADA1ds/IAly+g+vQn7chEO4rcgQmJWtgnsItzmljoJuA8KlRMSlnK
-	 fYL+ADxIdyfWilnN/WYL+/no6p6UHlv/dDssTn2V7M2juJF/h06kAnZpC/8mWeHYnx
-	 EXF1oNrB4L5dYJcTPfIjhLpcetwUYJ/+dIwGrJGKPJgMvQzKAGsLERk76KBQR2r2nx
-	 bFedBA+U6vyZg==
+	b=WaouwtiqMvq5L/CDViXEiAdw/ify/xGtuBEoGC+6GV4wH3ZjrEhVyp1IXJeFliMGU
+	 oADm7fa9Oot61Dq9T/QSCq3mKpsEeEaxTptLJ4FJJuo9RWzKYTQudvMWhCdg+Ts/XP
+	 NaLfACOcdoKZYCqxKqFrqY+V4vwguWrNLPoy4SS4JBNioPAA0iwlo3KCZvz8PtlXhW
+	 gByffuXzLXe2qT94Gml5QrWNLmBGbLnvOxSpLM0vyox7R8YuErLavXqyZAJwedZ3pw
+	 6c/xTnnkiTa0AVBSvybrKW8Eca8wfCnsgSL30JeU0fISFGFCFuuwVaaLfzpUcUoHj8
+	 F5aPM7J1o6NTA==
 From: SJ Park <sj@kernel.org>
 To: 
 Cc: SJ Park <sj@kernel.org>,
 	stable@vger.kernel.org,
 	Andrew Morton <akpm@linux-foundation.org>,
-	Brendan Higgins <brendan.higgins@linux.dev>,
-	David Gow <davidgow@davidgow.net>,
-	Quanmin Yan <yanquanmin1@huawei.com>,
 	damon@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	Lian Wang <lianux.mm@gmail.com>,
-	Kunwu Chan <kunwu.chan@gmail.com>
-Subject: [RFC PATCH 6.12.y 3/5] mm/damon/core: handle uninitialized damos_quota_goal->last_psi_total
-Date: Sat,  7 Nov 2026 13:45:22 -0800
-Message-ID: <20261107214525.304638-4-sj@kernel.org>
+	linux-mm@kvack.org
+Subject: [RFC PATCH 6.12.y 4/5] mm/damon/core: filter out damos address filter-split failed region
+Date: Sat,  7 Nov 2026 13:45:23 -0800
+Message-ID: <20261107214525.304638-5-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261107214525.304638-1-sj@kernel.org>
 References: <20261107214525.304638-1-sj@kernel.org>
@@ -69,96 +64,138 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When DAMOS_QUOTA_SOME_MEM_PSI_US metric damos quota goal is set, the PSI
-delta for the feedback loop is calculated using
-damos_quota_goal->last_psi_total.  However, it is initialized only after
-the first feedback loop.  The first iteration of the loop uses the
-uninitialized value.  As a result, the feedback loop can change the
-effective quota in an unexpected way at the first iteration.
+When an address type DAMOS filter is configured, DAMOS tries to split the
+region for the filter range, and apply DAMOS action to the filter-in
+region.  The split operation (damon_split_region_at()) could fail from
+allocation failure under extreme memory pressure.  In the case, DAMOS
+action could be applied more or less than expected, ignoring the address
+filter.
 
-The user impact of the issue is not big, because the issue impacts only
-the first iteration of the feedback loop.  The feedback loop also has an
-internal cap of the quota adjustment.  The wrong adjustment will soon be
-corrected over a few iterations.  For this reason, doing no initialization
-at commit time was intentional.  It is also explicitly commented.  That
-said, nobody likes behaviors that are unexpected or difficult to be
-expected.
+The issue only rarely happens under extreme memory pressure.  No crash or
+leak happens.  Occasionally not applying the action to a few regions
+shouldn't be a real problem.  But applying the action to a region that the
+user has excluded via address filter could be a surprise depending on the
+use case.  It is only theoretical.  No such real case is found yet.
 
-Check last_psi_total initialization and skip the tuning round when it is
-not initialized.  For this, initialize last_psi_total with U64_MAX in the
-goal creation and the goal commit time.  U64_MAX means the field is not
-initialized.  The tuning round shows the value and adjusts it to guarantee
-the current quota is maintained for the round, and last_psi_total is
-correctly initialized on the next round.
+Filter out the entire region if the split is failed.  Update
+damos_filter_match() signature to receive the error from split.  Also
+update kunit tests for the updated signature.
 
-Before this change, committing a new PSI goal on an existing PSI goal with
-goal-only DAMON sysfs command (commit_schemes_quota_goals) just worked.
-After this change, the tuning round right after the commit will be
-unnecessarily skipped, because last_psi_total is unconditionally marked as
-not initialized in the damos_commit_quota_goal_union().  This is an
-intended tradeoff for simplicity.  Skipping just one round of tuning is no
-problem.  Meanwhile it makes both the code and the behavior simple to
-understand.
+The issue was discovered [1] by sashiko.
 
-Also update the quota goal commit unit test for changed last_psi_total
-setup behavior.
-
-The issue was discovered [1] by Sashiko.
-
-Link: https://lore.kernel.org/20260902002725.108635-3-sj@kernel.org
-Link: https://lore.kernel.org/20260718005316.89585-1-sj@kernel.org [1]
-Fixes: 2dbb60f789cb ("mm/damon/core: implement PSI metric DAMOS quota goal")
+Link: https://lore.kernel.org/20261020004119.106690-1-sj@kernel.org
+Link: https://lore.kernel.org/20260801203121.117449-1-sj@kernel.org [1]
+Fixes: ab9bda001b68 ("mm/damon/core: introduce address range type damos filter")
 Signed-off-by: SJ Park <sj@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Lian Wang <lianux.mm@gmail.com>
-Tested-by: Lian Wang <lianux.mm@gmail.com>
-Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
-Cc: Brendan Higgins <brendan.higgins@linux.dev>
-Cc: David Gow <davidgow@davidgow.net>
-Cc: Quanmin Yan <yanquanmin1@huawei.com>
-Cc: <stable@vger.kernel.org> # 6.9.x
-(cherry picked from commit 29c6084658af41b5b1fefd873d26d441830ced34)
+Cc: <stable@vger.kernel.org> # 6.6.x
+(cherry picked from commit bbeec2d8324d7aac438bb12dd2d22b184e0a8d43)
 Signed-off-by: SJ Park <sj@kernel.org>
 ---
- mm/damon/core.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
+ mm/damon/core.c             | 13 +++++++++----
+ mm/damon/tests/core-kunit.h | 11 ++++++-----
+ 2 files changed, 15 insertions(+), 9 deletions(-)
 
 diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 6ef77741b783b..52f01a6508b66 100644
+index 52f01a6508b66..046c07b86a6e7 100644
 --- a/mm/damon/core.c
 +++ b/mm/damon/core.c
-@@ -324,6 +324,8 @@ struct damos_quota_goal *damos_new_quota_goal(
- 		return NULL;
- 	goal->metric = metric;
- 	goal->target_value = target_value;
-+	if (metric == DAMOS_QUOTA_SOME_MEM_PSI_US)
-+		goal->last_psi_total = U64_MAX;
- 	INIT_LIST_HEAD(&goal->list);
- 	return goal;
- }
-@@ -705,7 +707,8 @@ static void damos_commit_quota_goal(
- 	dst->target_value = src->target_value;
- 	if (dst->metric == DAMOS_QUOTA_USER_INPUT)
- 		dst->current_value = src->current_value;
--	/* keep last_psi_total as is, since it will be updated in next cycle */
-+	else if (dst->metric == DAMOS_QUOTA_SOME_MEM_PSI_US)
-+		dst->last_psi_total = U64_MAX;
+@@ -1372,13 +1372,14 @@ static void damos_update_stat(struct damos *s,
  }
  
- /**
-@@ -1608,7 +1611,12 @@ static void damos_set_quota_goal_current_value(struct damos_quota_goal *goal)
- 		break;
- 	case DAMOS_QUOTA_SOME_MEM_PSI_US:
- 		now_psi_total = damos_get_some_mem_psi_total();
--		goal->current_value = now_psi_total - goal->last_psi_total;
-+		/* uninitialized last_psi_total; make no effect this round */
-+		if (goal->last_psi_total == U64_MAX)
-+			goal->current_value = goal->target_value;
-+		else
-+			goal->current_value = now_psi_total -
-+				goal->last_psi_total;
- 		goal->last_psi_total = now_psi_total;
+ static bool __damos_filter_out(struct damon_ctx *ctx, struct damon_target *t,
+-		struct damon_region *r, struct damos_filter *filter)
++		struct damon_region *r, struct damos_filter *filter, int *err)
+ {
+ 	bool matched = false;
+ 	struct damon_target *ti;
+ 	int target_idx = 0;
+ 	unsigned long start, end;
+ 
++	*err = 0;
+ 	switch (filter->type) {
+ 	case DAMOS_FILTER_TYPE_TARGET:
+ 		damon_for_each_target(ti, ctx) {
+@@ -1404,12 +1405,13 @@ static bool __damos_filter_out(struct damon_ctx *ctx, struct damon_target *t,
+ 		}
+ 		/* start before the range and overlap */
+ 		if (r->ar.start < start) {
+-			damon_split_region_at(t, r, start - r->ar.start);
++			*err = damon_split_region_at(t, r,
++					start - r->ar.start);
+ 			matched = false;
+ 			break;
+ 		}
+ 		/* start inside the range */
+-		damon_split_region_at(t, r, end - r->ar.start);
++		*err = damon_split_region_at(t, r, end - r->ar.start);
+ 		matched = true;
  		break;
  	default:
+@@ -1423,9 +1425,12 @@ static bool damos_filter_out(struct damon_ctx *ctx, struct damon_target *t,
+ 		struct damon_region *r, struct damos *s)
+ {
+ 	struct damos_filter *filter;
++	bool matching;
++	int err;
+ 
+ 	damos_for_each_filter(filter, s) {
+-		if (__damos_filter_out(ctx, t, r, filter))
++		matching = __damos_filter_out(ctx, t, r, filter, &err);
++		if (matching || err)
+ 			return true;
+ 	}
+ 	return false;
+diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
+index ff9f73579f7b3..6b7cd8149a0e2 100644
+--- a/mm/damon/tests/core-kunit.h
++++ b/mm/damon/tests/core-kunit.h
+@@ -527,6 +527,7 @@ static void damos_test_filter_out(struct kunit *test)
+ 	struct damon_target *t;
+ 	struct damon_region *r, *r2;
+ 	struct damos_filter *f;
++	int err;
+ 
+ 	f = damos_new_filter(DAMOS_FILTER_TYPE_ADDR, true);
+ 	f->addr_range = (struct damon_addr_range){
+@@ -537,25 +538,25 @@ static void damos_test_filter_out(struct kunit *test)
+ 	damon_add_region(r, t);
+ 
+ 	/* region in the range */
+-	KUNIT_EXPECT_TRUE(test, __damos_filter_out(NULL, t, r, f));
++	KUNIT_EXPECT_TRUE(test, __damos_filter_out(NULL, t, r, f, &err));
+ 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
+ 
+ 	/* region before the range */
+ 	r->ar.start = DAMON_MIN_REGION * 1;
+ 	r->ar.end = DAMON_MIN_REGION * 2;
+-	KUNIT_EXPECT_FALSE(test, __damos_filter_out(NULL, t, r, f));
++	KUNIT_EXPECT_FALSE(test, __damos_filter_out(NULL, t, r, f, &err));
+ 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
+ 
+ 	/* region after the range */
+ 	r->ar.start = DAMON_MIN_REGION * 6;
+ 	r->ar.end = DAMON_MIN_REGION * 8;
+-	KUNIT_EXPECT_FALSE(test, __damos_filter_out(NULL, t, r, f));
++	KUNIT_EXPECT_FALSE(test, __damos_filter_out(NULL, t, r, f, &err));
+ 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
+ 
+ 	/* region started before the range */
+ 	r->ar.start = DAMON_MIN_REGION * 1;
+ 	r->ar.end = DAMON_MIN_REGION * 4;
+-	KUNIT_EXPECT_FALSE(test, __damos_filter_out(NULL, t, r, f));
++	KUNIT_EXPECT_FALSE(test, __damos_filter_out(NULL, t, r, f, &err));
+ 	/* filter should have split the region */
+ 	KUNIT_EXPECT_EQ(test, r->ar.start, DAMON_MIN_REGION * 1);
+ 	KUNIT_EXPECT_EQ(test, r->ar.end, DAMON_MIN_REGION * 2);
+@@ -570,7 +571,7 @@ static void damos_test_filter_out(struct kunit *test)
+ 	/* region started in the range */
+ 	r->ar.start = DAMON_MIN_REGION * 2;
+ 	r->ar.end = DAMON_MIN_REGION * 8;
+-	KUNIT_EXPECT_TRUE(test, __damos_filter_out(NULL, t, r, f));
++	KUNIT_EXPECT_TRUE(test, __damos_filter_out(NULL, t, r, f, &err));
+ 	/* filter should have split the region */
+ 	KUNIT_EXPECT_EQ(test, r->ar.start, DAMON_MIN_REGION * 2);
+ 	KUNIT_EXPECT_EQ(test, r->ar.end, DAMON_MIN_REGION * 6);
 -- 
 2.47.3
