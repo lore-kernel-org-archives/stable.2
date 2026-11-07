@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046565;
-	b=JvCkNCmHmNc6lB6OYIBVKAOXbuellXjlgBMaBArFlHUMavSsq55pexdS1nV5DS5QYwaG
-	 6trTLwPmmBoV6QzYvxWmq8ZL4BsfLVg3ficcl/01YKNSeXVdZcxDuISYUjInFHMW2L0sY
-	 4K+Cu/or/rV5PujQg0BSuoKcApYlsSbs2vv2qQD82GuMRYV4/Nl0P5XJBdMzAaYwf00xs
-	 EAF4ATaqW6RrbPuXXkE8BiWzi7p0wLW+tM1y7MPXYTkzL/HlWt74nReKKJvWkT5X/9GA6
-	 nOBpd53fOCl3pVBmcKKiMLBFaa/BfIV75xbL8r1i8blgRG7uNwnltsLiDpY7YuYnq4A==
+	t=1794046568;
+	b=upG+CYAUkcqtXcP3t8frNLAEGFWGmmLLnRmgPB/qi71vs04On4aV8dJdB+t1GNbURFkF
+	 YBnMw1eBb4FfOnpDhRRyDuyUSAo9BDBmJRgiMcHkUl1BCc7OgxgAf+Nln0ejq0UBOEYn9
+	 HJWWae3PiveFy0E7FLTAZ7RHzVIRPwqpKlBO5fQ0Q8KfrygdDl06emDq/UL006tFMzuz+
+	 dwkZ7zWgUVb0FLFVMbv/+5bb/UGbiZZdWhceioVR53Lv8dBqkJgyYdi7bf6+TLqa/ld9H
+	 UxjEUOUsfghWH0NzUspjwogk1e3bdVCv3qtp6+kWQUIAwkRuOIo8YCr0IkJT7pCk6pQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046565;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046568;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=bHrAuYfO9evY3XqOQE8n6WXXDGMIvXwvCH4MXSZnkYs=;
-	b=thyx1dYaQJPJGxvxdpvW3a135GENpPlx1ro1mhkDsLVXsL1W+Q/qS3bWOBTHAaqhoUW6
-	 ETpBR6+E6rO2sgv1a2C6KdHxkc/R9vIbmgkdnpAKIpCI85DJCo6bzRVGnLxwMnH9SWawC
-	 OUL8r6C0y3zEzb2u/v2EPaTZbgTIPIkzQDAkFRKmJ2dRdw6AXUJQ5EwJTCagbleaMP3wz
-	 RFDEto1VDWTKm4Vi/3LxT0O6y52yymFTnENHIXlN/5CCaDzmu6wM+TGZGahcwUptWaAEt
-	 gNKdGFhvBZv/A/ZFZ5xyxCOtq+8YrtuMgWPdUPjlbYB/rcfRaV0RyM5VPUUyaPW0OIw==
+	bh=5Eu0ky/4OqxxeJea8ZLZyeq0WbBvPhzFBNsjYqP3Xho=;
+	b=Vclc+y/2TWvUlVDfuRcWSbTizBi3MQY12HjhwQKrnYvwoXHHWD0QG/Ss4EQlnHhjwlKH
+	 fqMLVcswKmAS7/VBqRiB1vRlPOR5E6gJHqvxiuwHhxQtdDrifnqWD3PY9NZ/HIjn/dJ2q
+	 zDYHdPMVSGQEIEPXh0B0LS7GSyvKDfpGwWNNRGDaZFrSWPGlgSAK70zuP4nkph6rsSDnX
+	 Ej4xHo4rqLMYAGEAJR6l2jF79g/9l5A5XUwsSHSXuT8Z85Ud8QPrEZ3KROnzW4YW6p6iI
+	 fQfh5DPT2fe3HH+xm3uiQI4uv84QPfFi1X1VDAb9QyQNOra5BdAQswbv6Dz+nGC5Paw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Llfi803d;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HeAjdRiI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A8E6606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:16:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8449606A331
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:16:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Llfi803d
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13F3E1F008A1;
-	Sat,  7 Nov 2026 10:16:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HeAjdRiI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 300941F008A1;
+	Sat,  7 Nov 2026 10:16:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046565;
-	bh=bHrAuYfO9evY3XqOQE8n6WXXDGMIvXwvCH4MXSZnkYs=;
+	s=k20260515; t=1794046567;
+	bh=5Eu0ky/4OqxxeJea8ZLZyeq0WbBvPhzFBNsjYqP3Xho=;
 	h=From:To:Cc:Subject:Date;
-	b=Llfi803dfrZHqRrDc+DrwhXSsT4ngCj00i5Fk1Zl9qCLdLHK/i5eDLcEWdGzvOhb3
-	 7xa1J/rPbJGr0OaKS90QhIfDEu70M3UkNqd8JLcdg5//fhov53CbjhXBvEQIWBAcNu
-	 xgwvIFmguRlD4odXZcPzAM7GnJMHALVBUYrUiQq/vRtz1wkU96oEgq9aPARP9wqprd
-	 V5WMH3/CzybbFJixvEIvnI6qumP+RLOFhYpjYFqbpFaDZisdktheCS5c4Cu5pqucp0
-	 4KiDijJ1BhdtD9YUftmhGsNAzH+urfiiBSIqaqlW9f5AyXrMUXIpmALfMAtHwdXIY2
-	 bRzlsa37gatCg==
+	b=HeAjdRiIjBW33+A0g/Ocu/V1G2JHmEtIEYNLFf2yuWpN4j8NCAYr5BJyXZemn46/i
+	 bjnTq6ZtKpconxQiJFI/V/gr5rkP/LSmmFfQyX2Hv97dTUdnUHCuE5yCe12eHkEmgk
+	 xM05wgBW6dTug+2svNPV1qQ3ESmeBDOoHTMZocij8sSua44t4bZXy5O3WpLiwyuECm
+	 nbYDNnWT1xjJaljuIAmpop5l+OivVQ8YN0xp6n5D5fOTCvMUBKjb8curiYou17mYUj
+	 ERH7QpyhtK/I0CrydPskvnU1nYd7ZG8vJTxjUpmlGouv1x0wTk404538BSwDv7e4Z7
+	 UtRXixJmltivw==
 From: Sasha Levin <sashal@kernel.org>
-To: brauner@kernel.org,
-	yi1.lai@intel.com
+To: nemesa.garg@intel.com,
+	jouni.hogander@intel.com,
+	animesh.manna@intel.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ns: don't add init_ipc_ns and init_net without namespace support" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:16:03 -0500
-Message-ID: <20261107051603-failed-6.18-82f1c815aaef@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/i915/display: Clear SEL_FETCH_PLANE_CTL on plane disable" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:16:06 -0500
+Message-ID: <20261107051606-failed-6.12-600a7c9d40e5@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -59,133 +60,148 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 82f1c815aaef1905c5c6c386c8a0d74f6ff70a54
+git cherry-pick -x 600a7c9d40e5e0c5544f42d1c9592c8d15224dc0
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051603-failed-6.18-82f1c815aaef@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051606-failed-6.12-600a7c9d40e5@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 82f1c815aaef1905c5c6c386c8a0d74f6ff70a54 Mon Sep 17 00:00:00 2001
-From: Christian Brauner <brauner@kernel.org>
-Date: Fri, 30 Oct 2026 16:50:07 +0100
-Subject: [PATCH] ns: don't add init_ipc_ns and init_net without namespace
- support
+From 600a7c9d40e5e0c5544f42d1c9592c8d15224dc0 Mon Sep 17 00:00:00 2001
+From: Nemesa Garg <nemesa.garg@intel.com>
+Date: Tue, 18 Aug 2026 15:21:49 +0530
+Subject: [PATCH] drm/i915/display: Clear SEL_FETCH_PLANE_CTL on plane disable
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-When CONFIG_IPC_NS or CONFIG_NET_NS are turned off we still add the
-initial ipc and network namespace to the namespace trees. ipc_ns_init()
-calls ns_tree_add(&init_ipc_ns) whenever CONFIG_SYSVIPC is set and
-setup_net() calls ns_tree_add_raw() on init_net whenever CONFIG_NET is
-set.
+icl_plane_disable_sel_fetch_arm() wrote SEL_FETCH_PLANE_CTL = 0 only when
+crtc_state->enable_psr2_sel_fetch was set. If a plane was disabled after
+selective fetch had been turned off, the guard fired early and left the
+register's enable bit set in hardware.
 
-But without CONFIG_IPC_NS and CONFIG_NET_NS these aren't namespaces
-userspace can do anything with. They don't have proc_ns_operations so
-there's no /proc/<pid>/ns/{ipc,net} for them, nsfs_fh_to_dentry()
-refuses them with -EOPNOTSUPP, and since ns->ops is NULL
-__ns_tree_add_raw() doesn't add them to the owner list of init_user_ns
-either. So they end up half registered. That's also not how we treat
-any of the other namespace types. Without CONFIG_UTS_NS, CONFIG_PID_NS,
-CONFIG_TIME_NS or CONFIG_USER_NS the initial namespace is never added
-to the tree.
+The bit is harmless until selective fetch is re-enabled.  When it is, the
+hardware resumes fetching for the now-disabled plane and keeps its old DDB
+range reserved.
 
-listns() walks the unified tree and calls is_current_namespace() for
-every namespace it finds via may_list_ns(). But is_current_namespace()
-only knows about CLONE_NEWIPC and CLONE_NEWNET if CONFIG_IPC_NS and
-CONFIG_NET_NS are set. Otherwise we end up in the default case and its
-VFS_WARN_ON_ONCE(). Any unprivileged caller can trigger that with a
-plain listns() call:
+i9xx_cursor_disable_sel_fetch_arm() has the same guard on SEL_FETCH_CUR_CTL
+and is fixed the same way.
 
-  WARNING: CPU: 0 PID: 526 at fs/nsfs.c:508 is_current_namespace+0x12f/0x440
-  Call Trace:
-   legitimize_ns+0x25f/0x4c0
-   do_listns+0x185/0x5c0
-   __do_sys_listns+0x13b/0x300
+v2: Add same check for cursor also. [sashiko]
 
-Instead of teaching is_current_namespace() about namespaces that can't
-be opened, only add the initial namespaces to the tree if their
-namespace type is enabled. Move the registration of init_ipc_ns into
-ipc/namespace.c which is only built with CONFIG_IPC_NS. That also fixes
-CONFIG_SYSVIPC=n, CONFIG_POSIX_MQUEUE=y, CONFIG_IPC_NS=y where
-ipc/shm.c isn't built and init_ipc_ns was never added at all. For the
-network namespace only call ns_tree_add_raw() if CONFIG_NET_NS is set.
-Without CONFIG_NET_NS cleanup_net() isn't built and init_net is never
-removed so there's nothing to balance.
-
-Fixes: 74b24a582e1f ("ipc: support ns lookup")
-Fixes: 195f7422298d ("net: support ns lookup")
-Reported-by: kernel test robot <yi1.lai@intel.com>
-Closes: https://lore.kernel.org/oe-lkp/202610260917.6248e316-lkp@intel.com
-Cc: stable@vger.kernel.org # v6.18+
-Link: https://patch.msgid.link/20261030-work-nsfs-init_ns_tree-v1-1-7ec0adb47c54@kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Cc: stable@vger.kernel.org
+Fixes: b1f5279b5981 ("drm/i915/psr: Move plane sel fetch configuration into plane source files")
+Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8739
+Assisted-by: GitHub-Copilot:claude-opus-4.6
+Signed-off-by: Nemesa Garg <nemesa.garg@intel.com>
+Reviewed-by: Jouni Högander <jouni.hogander@intel.com>
+Signed-off-by: Animesh Manna <animesh.manna@intel.com>
+Link: https://patch.msgid.link/20260818095149.2172935-1-nemesa.garg@intel.com
 ---
- ipc/namespace.c          | 7 +++++++
- ipc/shm.c                | 2 --
- net/core/net_namespace.c | 4 +++-
- 3 files changed, 10 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_cursor.c       | 15 ++++++++++-----
+ .../gpu/drm/i915/display/skl_universal_plane.c    | 15 ++++++++++-----
+ 2 files changed, 20 insertions(+), 10 deletions(-)
 
-diff --git a/ipc/namespace.c b/ipc/namespace.c
-index 75aa7b4693484..b54d23fd83d70 100644
---- a/ipc/namespace.c
-+++ b/ipc/namespace.c
-@@ -255,3 +255,10 @@ const struct proc_ns_operations ipcns_operations = {
- 	.install	= ipcns_install,
- 	.owner		= ipcns_owner,
- };
-+
-+static int __init ipc_ns_tree_init(void)
-+{
-+	ns_tree_add(&init_ipc_ns);
-+	return 0;
-+}
-+pure_initcall(ipc_ns_tree_init);
-diff --git a/ipc/shm.c b/ipc/shm.c
-index bb1a721a3e746..cbab3d16cf70b 100644
---- a/ipc/shm.c
-+++ b/ipc/shm.c
-@@ -45,7 +45,6 @@
- #include <linux/mount.h>
- #include <linux/ipc_namespace.h>
- #include <linux/rhashtable.h>
--#include <linux/nstree.h>
- 
- #include <linux/uaccess.h>
- 
-@@ -149,7 +148,6 @@ void shm_exit_ns(struct ipc_namespace *ns)
- static int __init ipc_ns_init(void)
- {
- 	shm_init_ns(&init_ipc_ns);
--	ns_tree_add(&init_ipc_ns);
- 	return 0;
+diff --git a/drivers/gpu/drm/i915/display/intel_cursor.c b/drivers/gpu/drm/i915/display/intel_cursor.c
+index 0673f16f6fd0d..86bb96ac449b0 100644
+--- a/drivers/gpu/drm/i915/display/intel_cursor.c
++++ b/drivers/gpu/drm/i915/display/intel_cursor.c
+@@ -530,13 +530,18 @@ static int i9xx_check_cursor(struct intel_crtc_state *crtc_state,
  }
  
-diff --git a/net/core/net_namespace.c b/net/core/net_namespace.c
-index da5f881fbd3b9..52c2bd44778a8 100644
---- a/net/core/net_namespace.c
-+++ b/net/core/net_namespace.c
-@@ -447,7 +447,9 @@ static __net_init int setup_net(struct net *net)
- 	down_write(&net_rwsem);
- 	list_add_tail_rcu(&net->list, &net_namespace_list);
- 	up_write(&net_rwsem);
--	ns_tree_add_raw(net);
-+	/* Without CONFIG_NET_NS init_net isn't exposed as a namespace. */
-+	if (IS_ENABLED(CONFIG_NET_NS))
-+		ns_tree_add_raw(net);
- out:
- 	return error;
+ static void i9xx_cursor_disable_sel_fetch_arm(struct intel_dsb *dsb,
+-					      struct intel_plane *plane,
+-					      const struct intel_crtc_state *crtc_state)
++					      struct intel_plane *plane)
+ {
+ 	struct intel_display *display = to_intel_display(plane);
+ 	enum pipe pipe = plane->pipe;
  
+-	if (!crtc_state->enable_psr2_sel_fetch)
++	/*
++	 * Clear this whenever the hardware has selective fetch, not just when
++	 * the current state uses it. The cursor may have been enabled with
++	 * selective fetch earlier and had its enable bit orphaned when the
++	 * feature was switched off.
++	 */
++	if (!HAS_PSR2_SEL_FETCH(display))
+ 		return;
+ 
+ 	intel_de_write_dsb(display, dsb, SEL_FETCH_CUR_CTL(pipe), 0);
+@@ -586,7 +591,7 @@ static void i9xx_cursor_update_sel_fetch_arm(struct intel_dsb *dsb,
+ 		if (crtc_state->enable_psr2_su_region_et)
+ 			wa_16021440873(dsb, plane, crtc_state, plane_state);
+ 		else
+-			i9xx_cursor_disable_sel_fetch_arm(dsb, plane, crtc_state);
++			i9xx_cursor_disable_sel_fetch_arm(dsb, plane);
+ 	}
+ }
+ 
+@@ -695,7 +700,7 @@ static void i9xx_cursor_update_arm(struct intel_dsb *dsb,
+ 	if (plane_state)
+ 		i9xx_cursor_update_sel_fetch_arm(dsb, plane, crtc_state, plane_state);
+ 	else
+-		i9xx_cursor_disable_sel_fetch_arm(dsb, plane, crtc_state);
++		i9xx_cursor_disable_sel_fetch_arm(dsb, plane);
+ 
+ 	if (plane->cursor.base != base ||
+ 	    plane->cursor.size != fbc_ctl ||
+diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+index 07a6832933521..5cda1ab90e40f 100644
+--- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
++++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+@@ -879,13 +879,18 @@ skl_plane_disable_arm(struct intel_dsb *dsb,
+ }
+ 
+ static void icl_plane_disable_sel_fetch_arm(struct intel_dsb *dsb,
+-					    struct intel_plane *plane,
+-					    const struct intel_crtc_state *crtc_state)
++					    struct intel_plane *plane)
+ {
+ 	struct intel_display *display = to_intel_display(plane);
+ 	enum pipe pipe = plane->pipe;
+ 
+-	if (!crtc_state->enable_psr2_sel_fetch)
++	/*
++	 * Clear this whenever the hardware has selective fetch, not just when
++	 * the current state uses it. The plane may have been enabled with
++	 * selective fetch earlier and had its enable bit orphaned when the
++	 * feature was switched off.
++	 */
++	if (!HAS_PSR2_SEL_FETCH(display))
+ 		return;
+ 
+ 	intel_de_write_dsb(display, dsb, SEL_FETCH_PLANE_CTL(pipe, plane->id), 0);
+@@ -921,7 +926,7 @@ icl_plane_disable_arm(struct intel_dsb *dsb,
+ 
+ 	skl_write_plane_wm(dsb, plane, crtc_state);
+ 
+-	icl_plane_disable_sel_fetch_arm(dsb, plane, crtc_state);
++	icl_plane_disable_sel_fetch_arm(dsb, plane);
+ 
+ 	if (plane_has_normalizer(plane))
+ 		intel_de_write_dsb(display, dsb,
+@@ -1641,7 +1646,7 @@ static void icl_plane_update_sel_fetch_arm(struct intel_dsb *dsb,
+ 		intel_de_write_dsb(display, dsb, SEL_FETCH_PLANE_CTL(pipe, plane->id),
+ 				   SEL_FETCH_PLANE_CTL_ENABLE);
+ 	else
+-		icl_plane_disable_sel_fetch_arm(dsb, plane, crtc_state);
++		icl_plane_disable_sel_fetch_arm(dsb, plane);
+ }
+ 
+ static void
 -- 
 2.53.0
 
