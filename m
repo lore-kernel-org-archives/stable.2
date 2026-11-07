@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048136;
-	b=nx7YWKiZgy3FMRWBT5B7tkyZ1gRkr422DO4vVMCE4ZWcQXTtRgNFrBM09gzcQd/6PEt4
-	 LIsjpeA4xnLk5jqgBpMeAMRTD52PNbX8U9ZBza2N+GytJEVGB6FSgSdV+71pOjdyn1h2w
-	 NKsT/xYO4BS+IJ2nTFosrKvVmFPQ2eatTwj6m9XNSNsdbWbCIyIrJgzRAhnVSYEKJQW+K
-	 dHGgE0x0/8M8NKDQyUPSJgMlbg7eqldcY0ss3GX1aMlQNqAScv+MFOg3/5ywes36bulN+
-	 IAn1e4ph4Q0oinI4Vgo9goAd8BbYuMjZRGpQJq6jTxpGmmJ0avAqw4lwH1kXIWEKmQg==
+	t=1794048138;
+	b=tOaKewoT8EF1Efu9nfBum4Oi5342IAD/cVkVCPeJt06xHu7W7wmi8RJ+vSTAWhW+7mu2
+	 L74MYaAxLBFgkVyWGUP4g5eh6IgkOtvV6zcy/ekQXGuxtlqf8IXN55eb1wUwhs2qj2ZSQ
+	 KDUV53xZNGg36Uz5CDD52SCYJ+ZtuGvAJZw3Dvx7kfljrWKIta0RylZgXoWsx4cALTTqa
+	 SzuimoAg8kCNl05heMCWdeXXQOyLfdiD03TND8ayzUpTdXGENko9klCIa3323AAHkGcFE
+	 DtZCjaq9GvBW8PxKzJpUo5ybt68M0fA61Qgjsy57jR4e59TGiHFCP3hRXNpX24BJ98w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048136;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048138;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=fs6YyVjCGbT8T4avRcmGXNQ2B76hxrTwa3XgWRmkjF0=;
-	b=N8J8yTot7++aK5bM1TF47JRdoejj7BFcxClLEChxdyvxdD7pQRJ48RGWGgbnNj425E3I
-	 1yma8L65eQeegKc2RCNLeXamLGVNX+VwjMDtCweD5Ib6VQ8YTrQdDiJG+N19lpypCc3Et
-	 uDrtbbYx2vCOzBMdy9u8yxFQah6L9Hos3hh5lOyaUbbVpY8Vh3k2LLxtz9xxsmQbxuyBp
-	 79FOvdlbK3PvEVzOd4yCEn5x/LHTDqDytS0+x/IgHDTqA0uJJur3YJZsxShpmeevAZLCD
-	 6JTFBtptwUXxHNgi5dQIuQS5Yt8OkPNq+vNi0z09L42MXjzpMbYWfJ4WZoAlYW2g5kA==
+	bh=bGciTzQQ3BCupzVbFeGAMtpBw8e5QaDanpqmxqWr6iE=;
+	b=ouAjbYx5lY5KnfSawssjNQYGp4VSlrEGtrQgus7ZuU8ONIc7tX9PTpYDkop6Jc039a7w
+	 f/djZdzqseC2c1BG+RfdO45et0Ionl8jsHZH63f62edix5It2WdJaIjfEybYNhSEs6USK
+	 TN4IBNeq9h56n1ePRzC+WgITvlyMI4vxqXyo5gv/oA6UGZxAoT+v07NRLSPnV6xmkDl2V
+	 LqpaRnCR3ikdJisn+nQedWyjZ5+AgUDJdd4So45ZgkhpU8dxqg6iPpXwRUew14rlOzqxn
+	 LJ3/1PMuWtJj5ebmGnehjsFYJjGIG9h1q/IPtOuo9kt+LWkPFSC2HFmBm7Dw/Ld8E7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NM0ZPlL6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RBER7MkJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBE72606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:42:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10A69606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:42:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NM0ZPlL6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51AEA1F0089F;
-	Sat,  7 Nov 2026 10:42:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RBER7MkJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C5511F0089F;
+	Sat,  7 Nov 2026 10:42:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048135;
-	bh=fs6YyVjCGbT8T4avRcmGXNQ2B76hxrTwa3XgWRmkjF0=;
+	s=k20260515; t=1794048137;
+	bh=bGciTzQQ3BCupzVbFeGAMtpBw8e5QaDanpqmxqWr6iE=;
 	h=From:To:Cc:Subject:Date;
-	b=NM0ZPlL6itpPyzh7eXjK5xxY2z+Ik0RYMM8b0oyM9IXwAWaSurJ3u6MOmBJs8MbXk
-	 4SWPRH1+gS05RwZt5LqwM5ohFxuIWLTam28iviE2CyZRjGYTPOI3RWDbRjZ26UMcCg
-	 t6Dn8kD+grdfYZy2uBiwdwoZRFqIGWk/EG6FfCWFZRByOGR1PzeWWejMgeDpAmJM29
-	 1w6Lw3fPOMlocuQqNHxGIGgb2H9lJ/jBLk8fJgliegRIG0/fEZ3KjRVbDNeZAb6fTl
-	 M1fmhxBBiaZTSEf+xpjOQfnNn17WKSEwhjkLYvEItDCrer40vqaAxA0XQ6CJxmxTH6
-	 MdhTgidGZNCgA==
+	b=RBER7MkJJ5D3NVedA92r4ox97qa+J/KR2tGVDkK50FxfiDn7UE+DIQupIv1dxVTUz
+	 vhjHDAbKYlOZAZry9QsyO12cU+SfnFE4kJ2vMY9G0hMnaeK6dN6/icyFk2MyYs0mee
+	 z/ceZfGKGXqcVAydIg03nmXSnGZMh+2m9SQk1WK9bHUFtZbRNaqsAvYB6gZ5GIQgR+
+	 GK02uzf7HADJvGXuuMP2Az5MvIKEN1WHVLD9IUegUfP9O4WgdZH5lkmEf/9irzoRxs
+	 qmdE6K+YNW6qlL+bDTxvaS9f6SiemZbXyAB66/2MZ9YR3GSLvoXtVIUQ0cRnztXgjE
+	 FxP6YKiXeropQ==
 From: Sasha Levin <sashal@kernel.org>
-To: r772577952@gmail.com,
-	konishi.ryusuke@gmail.com,
-	slava@dubeyko.com
+To: christian.loehle@arm.com,
+	sumitg@nvidia.com,
+	rafael.j.wysocki@intel.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] nilfs2: force clear dirty state when restoring from the shadow map" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:42:14 -0500
-Message-ID: <20261107054214-failed-6.1-cb6702e63e0a@kernel.org>
+Subject: FAILED: patch "[PATCH] ACPI: CPPC: Propagate errors from cross-CPU FFH calls" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:42:16 -0500
+Message-ID: <20261107054216-failed-6.1-36e96b469da2@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,214 +69,135 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x cb6702e63e0a16afd83875294e5ce53becdd1b1f
+git cherry-pick -x 36e96b469da24868f727b4cd168d7cf01cbd163d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054214-failed-6.1-cb6702e63e0a@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054216-failed-6.1-36e96b469da2@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From cb6702e63e0a16afd83875294e5ce53becdd1b1f Mon Sep 17 00:00:00 2001
-From: Jiaming Zhang <r772577952@gmail.com>
-Date: Wed, 2 Sep 2026 19:21:21 +0800
-Subject: [PATCH] nilfs2: force clear dirty state when restoring from the
- shadow map
+From 36e96b469da24868f727b4cd168d7cf01cbd163d Mon Sep 17 00:00:00 2001
+From: Christian Loehle <christian.loehle@arm.com>
+Date: Wed, 16 Sep 2026 17:28:02 +0100
+Subject: [PATCH] ACPI: CPPC: Propagate errors from cross-CPU FFH calls
 
-When garbage collection fails, nilfs2 rolls the DAT metadata file's page
-cache back to a shadow copy taken before GC started.
-nilfs_clear_dirty_pages() drops the dirty state of the folios in the DAT
-cache, then nilfs_copy_back_pages() overwrites them with the saved
-contents and warns if one is still dirty:
+The arm64 and RISC-V CPPC FFH accessors ignore the return value of
+smp_call_function_single(). If the target CPU is offline, the call can
+return -ENXIO without running the callback. The accessors then consume
+callback output which was never initialized and may report success.
 
-	/* overwrite existing folio in the destination cache */
-	WARN_ON(folio_test_dirty(dfolio));
+CPU offlining leaves the CPU's CPPC sysfs attributes present. On arm64,
+the AMU feature mask does not exclude an offline CPU, so a paired counter
+read can expose uninitialized stack values through feedback_ctrs. RISC-V
+has the same problem in both SBI and CSR reads, and its write paths also
+inspect an uninitialized callback status after a failed cross-CPU call.
 
-nilfs_clear_dirty_pages() used to clear the dirty state unconditionally,
-which is safe here because the rollback runs with the log writer
-stopped, so nothing else can dirty the cache while it runs.  The same
-helper is also used when writeback finds dirty folios after the
-filesystem has degraded to read-only, where it does run concurrently
-with the log writer, so commit ca76bb226bf4 ("nilfs2: do not force clear
-folio if buffer is referenced") made nilfs_clear_folio_dirty() skip a
-folio if any of its buffer heads is busy.  The rollback caller shares
-that helper, so its clearing step can now return with a folio still
-dirty.
+Return the SMP call error before using callback output. The arm64 single
+and paired counter readers already check the helper's return value. For
+RISC-V, also check the callback status before copying a read value: an
+unsupported CSR sets the error but does not initialize the value.
 
-A DAT folio can hold a busy buffer head without anyone modifying the
-folio: nilfs_mdt_read_block() submits read-ahead for the blocks
-following the one it was asked for and waits only for the first, so the
-read-ahead buffers are still locked when it returns.  With a block size
-smaller than the page size, a locked read-ahead buffer can share a folio
-with a block that GC dirtied and keep the whole folio dirty past the
-clearing step.
-
-Add a force flag to nilfs_clear_dirty_pages() and
-nilfs_clear_folio_dirty() that skips the busy buffer check, and set it
-in the two calls from nilfs_mdt_restore_from_shadow_map().  The
-read-only fallback callers keep passing false, so that commit still
-protects them and the WARN_ON() is left alone.
-
-Fixes: ca76bb226bf4 ("nilfs2: do not force clear folio if buffer is referenced")
-Closes: https://lore.kernel.org/lkml/CANypQFZSYrtcshnUzOPiqatyLd-M8_OReOewQoAi_V5yY0dTtg@mail.gmail.com/
-Cc: stable@vger.kernel.org
-Suggested-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-Assisted-by: Claude Code:claude-opus-5
-Signed-off-by: Jiaming Zhang <r772577952@gmail.com>
-Acked-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
+Fixes: 68c5debcc06d ("arm64: implement CPPC FFH support using AMUs")
+Fixes: 30f3ffbee86b ("ACPI: RISC-V: Add CPPC driver")
+Cc: All applicable <stable@vger.kernel.org>
+Signed-off-by: Christian Loehle <christian.loehle@arm.com>
+Tested-by: Sumit Gupta <sumitg@nvidia.com>
+Link: https://patch.msgid.link/20260916162805.1039247-18-christian.loehle@arm.com
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 ---
- fs/nilfs2/inode.c |  2 +-
- fs/nilfs2/mdt.c   |  6 +++---
- fs/nilfs2/page.c  | 50 +++++++++++++++++++++++++++--------------------
- fs/nilfs2/page.h  |  4 ++--
- 4 files changed, 35 insertions(+), 27 deletions(-)
+ arch/arm64/kernel/topology.c |  2 +-
+ drivers/acpi/riscv/cppc.c    | 26 ++++++++++++++++++++------
+ 2 files changed, 21 insertions(+), 7 deletions(-)
 
-diff --git a/fs/nilfs2/inode.c b/fs/nilfs2/inode.c
-index 778274203f4ca..cc2f67eca0562 100644
---- a/fs/nilfs2/inode.c
-+++ b/fs/nilfs2/inode.c
-@@ -163,7 +163,7 @@ static int nilfs_writepages(struct address_space *mapping,
- 	int err = 0;
- 
- 	if (sb_rdonly(inode->i_sb)) {
--		nilfs_clear_dirty_pages(mapping);
-+		nilfs_clear_dirty_pages(mapping, false);
- 		return -EROFS;
+diff --git a/arch/arm64/kernel/topology.c b/arch/arm64/kernel/topology.c
+index 2c030e78d5e45..55bd8fa3e95cf 100644
+--- a/arch/arm64/kernel/topology.c
++++ b/arch/arm64/kernel/topology.c
+@@ -427,7 +427,7 @@ int counters_read_on_cpu(int cpu, smp_call_func_t func, void *val)
+ 			return -EPERM;
+ 		func(val);
+ 	} else {
+-		smp_call_function_single(cpu, func, val, 1);
++		return smp_call_function_single(cpu, func, val, 1);
  	}
  
-diff --git a/fs/nilfs2/mdt.c b/fs/nilfs2/mdt.c
-index 2a435349fd219..b50c88b651839 100644
---- a/fs/nilfs2/mdt.c
-+++ b/fs/nilfs2/mdt.c
-@@ -405,7 +405,7 @@ static int nilfs_mdt_write_folio(struct folio *folio,
- 		 * have dirty folios that try to be flushed in background.
- 		 * So, here we simply discard this dirty folio.
- 		 */
--		nilfs_clear_folio_dirty(folio);
-+		nilfs_clear_folio_dirty(folio, false);
- 		folio_unlock(folio);
- 		return -EROFS;
+ 	return 0;
+diff --git a/drivers/acpi/riscv/cppc.c b/drivers/acpi/riscv/cppc.c
+index 42c1a90524707..4ea4ddedd91f1 100644
+--- a/drivers/acpi/riscv/cppc.c
++++ b/drivers/acpi/riscv/cppc.c
+@@ -97,6 +97,7 @@ bool cpc_ffh_supported(void)
+ int cpc_read_ffh(int cpu, struct cpc_reg *reg, u64 *val)
+ {
+ 	struct sbi_cppc_data data;
++	int ret;
+ 
+ 	if (WARN_ON_ONCE(irqs_disabled()))
+ 		return -EPERM;
+@@ -107,19 +108,27 @@ int cpc_read_ffh(int cpu, struct cpc_reg *reg, u64 *val)
+ 
+ 		data.reg = FFH_CPPC_SBI_REG(reg->address);
+ 
+-		smp_call_function_single(cpu, sbi_cppc_read, &data, 1);
++		ret = smp_call_function_single(cpu, sbi_cppc_read, &data, 1);
++		if (ret)
++			return ret;
++		if (data.ret.error)
++			return sbi_err_map_linux_errno(data.ret.error);
+ 
+ 		*val = data.ret.value;
+ 
+-		return (data.ret.error) ? sbi_err_map_linux_errno(data.ret.error) : 0;
++		return 0;
+ 	} else if (FFH_CPPC_TYPE(reg->address) == FFH_CPPC_CSR) {
+ 		data.reg = FFH_CPPC_CSR_NUM(reg->address);
+ 
+-		smp_call_function_single(cpu, cppc_ffh_csr_read, &data, 1);
++		ret = smp_call_function_single(cpu, cppc_ffh_csr_read, &data, 1);
++		if (ret)
++			return ret;
++		if (data.ret.error)
++			return data.ret.error;
+ 
+ 		*val = data.ret.value;
+ 
+-		return data.ret.error;
++		return 0;
  	}
-@@ -648,10 +648,10 @@ void nilfs_mdt_restore_from_shadow_map(struct inode *inode)
- 	if (mi->mi_palloc_cache)
- 		nilfs_palloc_clear_cache(inode);
  
--	nilfs_clear_dirty_pages(inode->i_mapping);
-+	nilfs_clear_dirty_pages(inode->i_mapping, true);
- 	nilfs_copy_back_pages(inode->i_mapping, shadow->inode->i_mapping);
- 
--	nilfs_clear_dirty_pages(ii->i_assoc_inode->i_mapping);
-+	nilfs_clear_dirty_pages(ii->i_assoc_inode->i_mapping, true);
- 	nilfs_copy_back_pages(ii->i_assoc_inode->i_mapping,
- 			      NILFS_I(shadow->inode)->i_assoc_inode->i_mapping);
- 
-diff --git a/fs/nilfs2/page.c b/fs/nilfs2/page.c
-index cf4f1c6798f5e..857926da9f21d 100644
---- a/fs/nilfs2/page.c
-+++ b/fs/nilfs2/page.c
-@@ -369,8 +369,9 @@ void nilfs_copy_back_pages(struct address_space *dmap,
- /**
-  * nilfs_clear_dirty_pages - discard dirty pages in address space
-  * @mapping: address space with dirty pages for discarding
-+ * @force: whether to clear the dirty state regardless of busy buffer heads
-  */
--void nilfs_clear_dirty_pages(struct address_space *mapping)
-+void nilfs_clear_dirty_pages(struct address_space *mapping, bool force)
+ 	return -EINVAL;
+@@ -128,6 +137,7 @@ int cpc_read_ffh(int cpu, struct cpc_reg *reg, u64 *val)
+ int cpc_write_ffh(int cpu, struct cpc_reg *reg, u64 val)
  {
- 	struct folio_batch fbatch;
- 	unsigned int i;
-@@ -391,7 +392,7 @@ void nilfs_clear_dirty_pages(struct address_space *mapping)
- 			 * was acquired.  Skip processing in that case.
- 			 */
- 			if (likely(folio->mapping == mapping))
--				nilfs_clear_folio_dirty(folio);
-+				nilfs_clear_folio_dirty(folio, force);
+ 	struct sbi_cppc_data data;
++	int ret;
  
- 			folio_unlock(folio);
- 		}
-@@ -403,13 +404,16 @@ void nilfs_clear_dirty_pages(struct address_space *mapping)
- /**
-  * nilfs_clear_folio_dirty - discard dirty folio
-  * @folio: dirty folio that will be discarded
-+ * @force: whether to clear the states regardless of busy buffer heads
-  *
-  * nilfs_clear_folio_dirty() clears working states including dirty state for
-- * the folio and its buffers.  If the folio has buffers, clear only if it is
-- * confirmed that none of the buffer heads are busy (none have valid
-- * references and none are locked).
-+ * the folio and its buffers.  If the folio has buffers and force is false,
-+ * clear only if it is confirmed that none of the buffer heads are busy (none
-+ * have valid references and none are locked).  If force is true, the states
-+ * are cleared unconditionally, the caller should guarantee that the folio is
-+ * not being modified concurrently.
-  */
--void nilfs_clear_folio_dirty(struct folio *folio)
-+void nilfs_clear_folio_dirty(struct folio *folio, bool force)
- {
- 	struct buffer_head *bh, *head;
+ 	if (WARN_ON_ONCE(irqs_disabled()))
+ 		return -EPERM;
+@@ -139,14 +149,18 @@ int cpc_write_ffh(int cpu, struct cpc_reg *reg, u64 val)
+ 		data.reg = FFH_CPPC_SBI_REG(reg->address);
+ 		data.val = val;
  
-@@ -422,24 +426,28 @@ void nilfs_clear_folio_dirty(struct folio *folio)
- 			 BIT(BH_Async_Write) | BIT(BH_NILFS_Volatile) |
- 			 BIT(BH_NILFS_Checked) | BIT(BH_NILFS_Redirected) |
- 			 BIT(BH_Delay));
--		bool busy, invalidated = false;
-+
-+		if (!force) {
-+			bool busy, invalidated = false;
+-		smp_call_function_single(cpu, sbi_cppc_write, &data, 1);
++		ret = smp_call_function_single(cpu, sbi_cppc_write, &data, 1);
++		if (ret)
++			return ret;
  
- recheck_buffers:
--		busy = false;
--		bh = head;
--		do {
--			if (atomic_read(&bh->b_count) | buffer_locked(bh)) {
--				busy = true;
--				break;
-+			busy = false;
-+			bh = head;
-+			do {
-+				if (atomic_read(&bh->b_count) |
-+				    buffer_locked(bh)) {
-+					busy = true;
-+					break;
-+				}
-+			} while (bh = bh->b_this_page, bh != head);
-+
-+			if (busy) {
-+				if (invalidated)
-+					return;
-+				invalidate_bh_lrus();
-+				invalidated = true;
-+				goto recheck_buffers;
- 			}
--		} while (bh = bh->b_this_page, bh != head);
--
--		if (busy) {
--			if (invalidated)
--				return;
--			invalidate_bh_lrus();
--			invalidated = true;
--			goto recheck_buffers;
- 		}
+ 		return (data.ret.error) ? sbi_err_map_linux_errno(data.ret.error) : 0;
+ 	} else if (FFH_CPPC_TYPE(reg->address) == FFH_CPPC_CSR) {
+ 		data.reg = FFH_CPPC_CSR_NUM(reg->address);
+ 		data.val = val;
  
- 		bh = head;
-diff --git a/fs/nilfs2/page.h b/fs/nilfs2/page.h
-index 136cd1c143c9c..c3ba3468af5cb 100644
---- a/fs/nilfs2/page.h
-+++ b/fs/nilfs2/page.h
-@@ -41,8 +41,8 @@ void nilfs_folio_bug(struct folio *);
+-		smp_call_function_single(cpu, cppc_ffh_csr_write, &data, 1);
++		ret = smp_call_function_single(cpu, cppc_ffh_csr_write, &data, 1);
++		if (ret)
++			return ret;
  
- int nilfs_copy_dirty_pages(struct address_space *, struct address_space *);
- void nilfs_copy_back_pages(struct address_space *, struct address_space *);
--void nilfs_clear_folio_dirty(struct folio *folio);
--void nilfs_clear_dirty_pages(struct address_space *mapping);
-+void nilfs_clear_folio_dirty(struct folio *folio, bool force);
-+void nilfs_clear_dirty_pages(struct address_space *mapping, bool force);
- unsigned int nilfs_page_count_clean_buffers(struct folio *folio,
- 		unsigned int from, unsigned int to);
- unsigned long nilfs_find_uncommitted_extent(struct inode *inode,
+ 		return data.ret.error;
+ 	}
 -- 
 2.53.0
 
