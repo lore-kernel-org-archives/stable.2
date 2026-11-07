@@ -1,74 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794080230;
-	b=DG8T/Js2A8msj/YI1AGfQSsDH3yGLreJ/CBbFyiDxKjO2+B+X2m08InA/xBZkhIZuNaE
-	 oyPy/1WGJEE53EGgGaO4LsTsWuw5fk7Js8lbQDcOsl37Qk9QdvRuAQqyRRmJyPkgoUXTc
-	 M5bYIHpe0chE6fUuFwww8PYZxXJVzsp5TyAqapbjnMcEIcO0qN/WHmD3jPi1rXeCh89AQ
-	 keCgowKbnsVJHO17c78qdX4wVYc+JKuvtgmv4B3LGCdKGzVBMNQt4Dld1XCXnPcFfnMBT
-	 iF5i+PICHZCSj7UmOtT1EbDoJGg6pNAkpsaSUmmeWqsXYJRDUewjivgdB4KYRr64e0g==
+	t=1794080489;
+	b=LHRlTd7QmI7+maphuLnoFLxsbRdmt2DFi9QAao98dHYMn/XbfBehuyauaEhL6JQMJKYj
+	 izzizp4upbo71Ftt8UujpBijYdLC65Ychum55wo1x/wcW0t1wFd8spX610kzHdvM4bHjz
+	 rlByFWovRHTYeLYxaxe+wHrIowq3nKrazBTHckqkz20sH9E7JdTolkOPB6ltaZ+uVJ54k
+	 ZenfrIQQGDZL1cd9DAzavVMchuOuEVxe2XqgladsxCd81E69KMYWhRSnrd5AJ+fHeAQWA
+	 39WjTPp8byrsPU9Cj/JowV19hAzvufbMS2YcQaivbPEaZU0ioa6H33F93ujW+HKQwYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794080230;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=Ba/8if6tQUDjhYKFvTmEGvpv0JRQFM7xPWSrhR1kNZg=;
-	b=0OLZP5QH9sP/2nIt1DhxyU/PFRJFeaNkKT/kb0r3ZDcHgVvhHtWCWRbqcgL7ZRrIOZDA
-	 dJ062nG+Fv1HnlkG2+61p8s0ZVRriBrP1w2MxXnhOZfzNUieuB8FEQsgey1fcgWiEXxFA
-	 H9sH91mPz7b/2yV7q58CXk9H6aUfd8i7BmvSZ/x63CkHq3lB8PXRl8m2n5Fp80WZuH03H
-	 oZAvvSRI0uv7RhT7w6btVuCTztz+Y6xgM8iR1Cw9gIlPc9uQgtoFASbP0QKKDa4O6U8YD
-	 On2Ay0oUzxetTDaMt+LU3iQryHARfD2ebd2iKJ5Gt2ylMckFf4dNtFBNhiXCjvWcplg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794080489;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=qrayV5HgmTcSMMMhveHmxbWzQ03GCDulO+jtmHjEwSs=;
+	b=D8ToVfB6ha4PXjbRYsqkejdupw/CqTY+CR8eqA9GlhsR+JnptMk+V8QrZ4C0QWhHOvri
+	 /825gszztdhcinLnRADuYpbISKXoVohRwqXD05+V3nNwLNfVwPA8nWnLb7gJwOUFFDmAP
+	 GvV+igPQ1T/3xBmEXwB1atvU7JUTuG9+b7Hq5sjlcQY4mpEgy1/n48wA9z0CmoC5TX43D
+	 10YEqT9poRfod1SLtmtnXkFdDsd0d3QVAt4U9f86JTmm5khGyUDojKp/q88zRvHq71c9r
+	 NBDeBzXWt1EdVGWbsbBbSNdd8PQNQsceqZVoE6keWJXA8BNzC4fPJ0dNuTgCR2r4fMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ByK4imwF;
-	arc=none smtp.remote-ip=209.85.214.200
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R7xKMfQW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE1E1606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 19:37:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE1E1606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCF84606A326;
+	Sat,  7 Nov 2026 19:41:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ByK4imwF
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2e8dd9b9743so18716635ad.1
-        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 11:37:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794080229; x=1794685029; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ba/8if6tQUDjhYKFvTmEGvpv0JRQFM7xPWSrhR1kNZg=;
-        b=ByK4imwFna3/KYzQ0O+TZzdsIb/Erf6wIjoJkQv3G1x+2xnq3FcmalVU2H4oKf/VcI
-         +GiTWuh+io7HiYBKomc1DVtSVUnJet7Vg5U75IK9f8HwenUPB0xaTFj+q3eVrjLNEdgj
-         Z00Toc9xErF5tCpwYm9epPKIJMKEJIbtCJ/USGq90Un4ETrkMRsClobiPlIUp7IpAfxW
-         yWIGT1pyCRVXeeR41RACstB1ag4SXd0Px6tOfZM8TtyWWY0Pg/8pazvIS7yXOqtdDlxK
-         HQdIlRdf1aDvpGT4joMQxsBhz6eTsObYcqJxW95PNPAQrNOp8UAKUhfzoOMUHf41t02i
-         dlaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794080229; x=1794685029;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ba/8if6tQUDjhYKFvTmEGvpv0JRQFM7xPWSrhR1kNZg=;
-        b=r+58pfDcF1bn2N/ui4XSz2EVz3pbjL4gFhtrHgs4juQ6XwQxqCE8R/s0cTZSAJxXaE
-         MhVeZm0EqYrOraTdFfOQ3TZWfZ+hWEy5ghiEr8OKIjV0C2q7VqCUbP94FVFpKkqQIO9u
-         +QMgDm+aGb16qlSkZha5XPbiHPY8oMfblbSf1Kk5g5+k0+tNc/RO/NckxQSC2Is9ITw5
-         MoVgZRYsb0FK0bngh8NIOTp+rNFqkuXtq5e2ajP7b3camOLv1GOkNYPird2Jm4vIxf/Z
-         N/04Ydvy2Gk/qHVUDI5cSqPlDAxH67polK3iAEJts7HYToAkLdvT4Rr/9wENG8FrKGSt
-         GMBw==
-X-Forwarded-Encrypted: i=1; AL+hErF5eHATLpwTvyHwVxTZ4qbFE56XRj9JnxF97Mw6tsQa2pY4JFlFqGWdXw2yImqsGNh83OTO4LE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8DdH/m+r/e1YBZg6pWh3YaXWTpXsj+YwkLDY+5WCKo0nQci61/
-	RIgshoXaKUTlgad42v7CTSV0CFWdI9/s4qE6Y53UejFNZmhnyuxJU0tJh8GI8P2yEDS9sPHzgai
-	X5WkR2w==
-X-Received: from plmm4.prod.google.com ([2002:a17:902:c444:b0:2ed:5073:70bd])
- (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:ec86:b0:2ed:1cf0:4cda
- with SMTP id d9443c01a7336-2ed412fc4eamr68907245ad.8.1794080228818; Sat, 07
- Nov 2026 11:37:08 -0800 (PST)
-Date: Sat, 7 Nov 2026 19:37:08 +0000
-In-Reply-To: <20261106135841.418-1-ljp1205831794@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R7xKMfQW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C4C31F0089F;
+	Sat,  7 Nov 2026 19:41:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794080488;
+	bh=qrayV5HgmTcSMMMhveHmxbWzQ03GCDulO+jtmHjEwSs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=R7xKMfQWAmEBP+7jr8m/rTZ0qcf3cHfKaGgUQmL4AL+Jj4Q2KlaWLJPKn2wxc/iKK
+	 w9lZQcb/W0uS33hvwpHeyja1a1AQGSExELOIHIA+c/XPHnmuVxQ56RTUbkNWaePdN+
+	 SB78P3uixsTGMMZNrngsUP4hm6/kMzANIxudL81PFPRxkj4MztpEE7T1Kn7dxsTZmz
+	 PhkVPpKh/5AYLInaD/Ev+Y+vUawgIT+MO67PN3fHo5eAvvaSeA2gbcEXbMlKgwbKUS
+	 MozNuMr9XlaQ1OoA7p69wSmY1N6ilueUU+3XjSJknb7Y7qum6Wb/FLvYPYvJ3s1Wzf
+	 Ll0jmq/T6D4tw==
+Message-ID: <a2ec6814-d3d3-425a-b379-f99b219aa55e@kernel.org>
+Date: Sat, 7 Nov 2026 20:41:20 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,74 +50,96 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261106135841.418-1-ljp1205831794@gmail.com>
-Message-ID: <au99hnLthtlu0Mln@google.com>
-Subject: Re: [PATCH net] net: reuseport: avoid duplicate closed socket insertion
-From: Kuniyuki Iwashima <kuniyu@google.com>
-To: Lin Jiapeng <ljp1205831794@gmail.com>
-Cc: Eric Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Willem de Bruijn <willemb@google.com>, "David S. Miller" <davem@davemloft.net>, 
-	Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>, Martin KaFai Lau <kafai@fb.com>, 
-	Daniel Borkmann <daniel@iogearbox.net>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	TencentOS Corvus AI <corvus@tencent.com>, stable@vger.kernel.org, 
-	Lin Jiapeng <jiapenglin@tencent.com>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/memory_hotplug: don't offline a hwpoisoned page still
+ in the page cache
+To: Mani Tofigh <mt4022@columbia.edu>, Oscar Salvador <osalvador@suse.de>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Miaohe Lin <linmiaohe@huawei.com>,
+ Naoya Horiguchi <nao.horiguchi@gmail.com>,
+ Vlastimil Babka <vbabka@kernel.org>, Gregory Price <gourry@gourry.net>,
+ linux-mm@kvack.org, linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org,
+ tz2294@columbia.edu, stable@vger.kernel.org
+References: <20261101-memhp-hwpoison-pagecache-v1-1-ed8785ca44eb@columbia.edu>
+ <1b6a6d13-8a01-414b-9bbe-cd194af1f539@kernel.org>
+ <a002901b-715a-4adc-bdcb-7a6fcda67711@columbia.edu>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <a002901b-715a-4adc-bdcb-7a6fcda67711@columbia.edu>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, 06 Nov 2026 21:58:38 +0800, Lin Jiapeng wrote:
-> Clearing SO_REUSEPORT on a TCP listener clears sk_reuseport but leaves
-> sk_reuseport_cb attached to its reuseport group. A subsequent listen()
-> does not put the socket back into the listening section because
-> inet_hash() checks sk_reuseport. However, inet_unhash() checks
-> sk_reuseport_cb and calls reuseport_stop_listen_sock().
+On 11/3/26 20:59, Mani Tofigh wrote:
+> On 11/2/26 1:56 AM, David Hildenbrand (Arm) wrote:
+>>
+>> What if we still have the page pinned somehow? (vmscplice etc).
+>>
+>> Wouldn't it be better to make sure that poisoning code holds exactly one
+>> reference (whoever set hwpoison) and check here that the refcount is 1 ?
+>>
+>> Pagecache references would turn it > 1.
 > 
-> With request migration enabled, reuseport_stop_listen_sock() ignores
-> whether __reuseport_detach_sock() actually removed the socket from the
-> listening section and unconditionally appends it to the closed section.
-> Repeated connect(AF_UNSPEC)/listen() cycles therefore insert the same
-> socket until num_closed_socks exceeds max_socks. The next insertion
-> writes before socks[], overlapping prog on x86-64 and leading to type
-> confusion when a reuseport program is attached or detached.
 > 
-> Only insert the socket into the closed section when it was actually
-> removed from the listening section. A socket that was not rehashed as a
-> listener is already represented in the closed section, so leaving it
-> there preserves request migration semantics and prevents duplicate
-> entries and the resulting negative array indices.
+> Yes right, a pin isn't covered (neither before nor with this patch).
 > 
-> Fixes: 333bb73f620e1 ("tcp: Keep TCP_CLOSE sockets in the reuseport group.")
-> Reported-by: TencentOS Corvus AI <corvus@tencent.com>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lin Jiapeng <jiapenglin@tencent.com>
+> I don't think refcount == 1 can replace the mapping check though. In the
+> race from the changelog memory_failure() has set PG_hwpoison but is 
+> still waiting in get_hwpoison_page(), so it doesn't hold its reference 
+> yet, and a clean page-cache folio then has just the one reference from 
+> the page cache. memory_failure() also doesn't take a reference on the 
+> kernel pages it ignores, and a poisoned page that gets freed later sits 
+> at 0.
 
-The right fix is to disallow changing SO_REUSEPORT once
-the socket is bind()ed.
+So the right fix is to fix that then.
 
-I was sidetacked while preparing fixes, so let me post them.
+We'd need to sync memory_failure() with memory offlining, correct?
 
-https://lore.kernel.org/netdev/20260928174546.4022833-1-kuniyu@google.com/
+-- 
+Cheers,
 
-pw-bot: rejected
-
-> ---
->  net/core/sock_reuseport.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/net/core/sock_reuseport.c b/net/core/sock_reuseport.c
-> index fccbdd0430b0..775f446516c3 100644
-> --- a/net/core/sock_reuseport.c
-> +++ b/net/core/sock_reuseport.c
-> @@ -480,8 +480,8 @@ void reuseport_stop_listen_sock(struct sock *sk)
->  			 */
->  			bpf_sk_reuseport_detach(sk);
->  
-> -			__reuseport_detach_sock(sk, reuse);
-> -			__reuseport_add_closed_sock(sk, reuse);
-> +			if (__reuseport_detach_sock(sk, reuse))
-> +				__reuseport_add_closed_sock(sk, reuse);
->  
->  			spin_unlock_bh(&reuseport_lock);
->  			return;
-> -- 
-> 2.55.0
-> 
+David
