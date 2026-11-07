@@ -1,58 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794065403;
-	b=kgDrAOmLETFXrdzs4WB0S8Ow/z4YIDzS92f07ruVzJN/XX+6AsJfPNbO1roBcREGZsA6
-	 CnQm9tpjHAqQPv1DoYbJb6HFES8zjh8ldhqL2ikYyLrn9pSMI5fVitfLI0acJCc2c1fV9
-	 ABsvJT8taxkUmOQ2EqoqvSLMioJTPCMBTE4qwNruy++aULe7Z9sMvHBXK7Aw+rJV6TE2j
-	 a4y9/+57qwnoxwYvSjmtX+phN5VtStC0GZl62hSUpgi/LO2gKcnm63v1JcTks7MwsjfEB
-	 Qh60UlpLYEJHcxQZDoVw9vcYXUzCMMwN9h44g6TPOMztX4tqGJ0vxmsWxOuaN6OOYAA==
+	t=1794065410;
+	b=m13y7ALQ8aqMh0LKo6IXT3DHBqFpF7CcgWh4KeRI+Z0I5hIQRyJj8tAIvk7PXkcKV4XN
+	 EsYFXtkUUGEkBllH/OMHrGqsqVOI0A+ll3CuPJglzwwY1gxncfOk1v/IzRyxI9q0EOP3O
+	 0dMk4Zg8yEhpM10zC+suTfS+wwHiYlbbgkXPD1j92083cHxGZor27zE6A3HkjKkSL771K
+	 OTNH2bfTZK2kdl8B2trqcBxJrAkSaGU2riZyQK+bHuSEvaGuLdrIIxzmKJiTGSPVBe44c
+	 zVB7AXZmlh0cs2wwWwuNqTO03Ta5DY40SzZAgN6xj6cvetbS8uWd+kDtyiLrYJ8D6hg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794065403;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794065410;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=UMNJt4znPkPdPr80r32H1PeBb5hBAprPEXSWHyKuYEs=;
-	b=jPv2CyGR0yYR+CReNR8BJbovVn0fSvlX2r5kRDss/9oKIoWwxd1B80nNCYlXxV+RTEl7
-	 Hv2Nz3381x2moB2YgKD+1GMUa7vBb7/leBENlWJzN3ckeDHbIT+ANysEVZGlfgu04cCcQ
-	 c5LfBe6Jr2BMnJYhV4Oe/IJf2fIbkrrBbeCOL58hBmVYQQfmdcovB2BvaB8hfWyqgriJE
-	 Al0Sgzudt/I2M//lAk2jbcL+p1qpbNSUa2f0Id5ZE7+qLM1PcOe9ew+sjQdNSBmCmnsgT
-	 zq9Ndc9GhvfT/4FW5Wdy/Sbj401p4jpQpqel60RbYzYiY5DpIrjJl5BUwf5pfYEQryQ==
+	bh=pP/W8PCSG2MCJkh6d4APe6b+BPsJ7kJ8rTtj5B9+g+I=;
+	b=nZLdEErGd5Ta7QlczxYLfBSWZVr/6sc+JkZgBbh1cieDRqWTfjU8G+hMbouWsa4OVQ39
+	 Usu9NbgPta0fXX0UWwtkbtlWdL1Q0x4sU3c/NXvu/fJOHiz9lMqaODo1E+bKdoQR9+lMK
+	 BlaH4Op9YlocKNyvR1cqBW9KaspXbMi4Rl+wz+slC0wCJFCjTcpyHshcOSh4HgJ3k45zk
+	 8Tv+0xmnEOuwTvC8H2/WNwUD1TPDc9uEQZ3BQm4NXAFAeDPk66kzL2LKmMmgW6lRN9gyH
+	 c1jMutpORDY3r/Cku+YHIJNWZ/E3X0gZ7ipKStBz/CMAees3Sl9mbkAGLqRD4yACPxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="uVKs/+25";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=gr5d9aik;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4129F606A33C;
-	Sat,  7 Nov 2026 15:30:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A941F606A33E;
+	Sat,  7 Nov 2026 15:30:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=uVKs/+25
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1DCC1F008A2;
-	Sat,  7 Nov 2026 15:30:02 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=gr5d9aik
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F4EC1F008A1;
+	Sat,  7 Nov 2026 15:30:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794065403;
-	bh=UMNJt4znPkPdPr80r32H1PeBb5hBAprPEXSWHyKuYEs=;
+	s=korg; t=1794065409;
+	bh=pP/W8PCSG2MCJkh6d4APe6b+BPsJ7kJ8rTtj5B9+g+I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=uVKs/+251/BMqlnZ7cd2FnGjphteWoUkMhzwrwYZW8QlwrPFu3+TEJg7NOKfO/7Ju
-	 MdrmrtaWjBu36JV0bkQQtQBZiEDOlGaI6curvaIA0m1ZtcjWq9liMVMrQuiSULCkNA
-	 W8Y8k/x3mlMfrDBsR2DHox930y0sXokQm+sWMQA4=
+	b=gr5d9aikximRl0YLCXEoh4QQSQt35ohvLzRxie/o/XMRsP+usfRlikKMpl1DxkmXq
+	 ie83kw0PXNsRPGML/xqDhJBu44UNqmU3O+E6Lh32HYiNkFbmOOHMiRM44Cgp2YFjXj
+	 sQDda3dah9Q24/WTDHpTHPqp88y2THTua/uUCj7w=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	"Harry Yoo (Meta)" <harry@kernel.org>,
+	Jiayuan Chen <jiayuan.chen@shopee.com>,
 	Andrew Morton <akpm@linux-foundation.org>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>,
-	Dennis Zhou <dennis@kernel.org>,
-	Tejun Heo <tj@kernel.org>,
-	Christoph Lameter <cl@gentwo.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Hao Ge <hao.ge@linux.dev>,
+	Kairui Song <kasong@tencent.com>,
+	Chris Li <chrisl@kernel.org>,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Youngjun Park <youngjun.park@lge.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 1085/1257] mm/percpu: account full object size for percpu memory allocations
-Date: Sat,  7 Nov 2026 08:56:21 -0500
-Message-ID: <20261107135009.227084832@linuxfoundation.org>
+Subject: [PATCH 7.3 1089/1257] mm/swap: fix swap_cache_get_folio() returning a folio that left the swap cache
+Date: Sat,  7 Nov 2026 08:56:25 -0500
+Message-ID: <20261107135009.343092436@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261107134939.434104957@linuxfoundation.org>
 References: <20261107134939.434104957@linuxfoundation.org>
@@ -74,78 +75,115 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Harry Yoo (Meta) <harry@kernel.org>
+From: Jiayuan Chen <jiayuan.chen@shopee.com>
 
-[ Upstream commit c7a467fbcbbc31e57a5077bfc9456d9f29cb1571 ]
+[ Upstream commit 60f34fedf3a4c91ed631ed2f80713ab993cde5ee ]
 
-When memory allocation profiling is enabled, the pages backing percpu
-memory chunks are attributed to func:pcpu_alloc_pages.  However, the
-accounting of individual percpu memory allocations via alloc_percpu()
-and friends record only the size of a single object rather than its
-full size across all CPUs.
+swap_cache_get_folio() reads the folio from the swap table and takes a
+reference with folio_try_get(), without any lock.  If the folio is removed
+from the swap cache and freed in between, and its memory gets reused,
+folio_try_get() still succeeds and we return a page that has nothing to do
+with the swap entry:
 
-As a result, it is often not straightforward to identify which kernel code
-is actually responsible for percpu memory, because the size is
-under-accounted by a factor of num_possible_cpus().
+  CPU 0                                  CPU 1
+  do_swap_page()
+    swap_cache_get_folio()
+      swp_tb = swap_table_get()
+      folio = swp_tb_to_folio(swp_tb)
+                                         madvise(MADV_DONTNEED)
+                                           zap_nonpresent_ptes()
+                                             swap_put_entries_direct()
+                                               swap_put_entries_cluster()
+                                                 __try_to_reclaim_swap()
+                                                   swap_cache_del_folio()
+                                                   folio_put()   <- freed
+                                         page reused, e.g. as an anon
+                                         folio of another task
+      folio_try_get(folio)               <- succeeds
+      return folio
+    swap_update_readahead()              <- may clear PG_readahead on it
+    folio_lock_or_retry()                <- locks it
+    folio_matches_swap_entry() fails, unlock and put
 
-Account full object size with pcpu_obj_full_size(size) instead, which
-multiplies the object size by num_possible_cpus() and adds the objcg
-pointer overhead.  This is consistent with what memcg already does for
-charging percpu allocations.
+filemap_get_entry() does the same lockless lookup for the page cache, and
+after folio_try_get() it rechecks the xarray, because the folio may have
+been freed and reused in between.  swap_cache_get_folio() lost that
+recheck when the swap cache moved to the swap table.
 
-Verified with 64-CPU VM by spawning 400 processes in a memory cgroup and
-measuring mm_init()'s rss_stat counters.
+So CPU 0 writes to a folio it doesn't own: it may clear PG_readahead and
+takes the folio lock of someone else's page, before
+folio_matches_swap_entry() finds out the folio is not ours.
 
-Delta of kernel/fork.c:1142 func:mm_init in /proc/allocinfo:
+When the race occurs, a swap fault can acquire a reference to a
+physical page that has been freed and reused for an unrelated purpose,
+potentially by another process.  The fault handler may then clear that
+page's PG_readahead/PG_reclaim flag, wait on or acquire its folio lock,
+and potentially attempt to remove it from an unrelated swap cache.
 
-                  bytes   calls   per allocation
-    unpatched      6320     395         16
-    patched      418176     396       1056
+These operations can interfere with unrelated workloads and may cause
+unexpected stalls and impaired reclaim.  The subsequent swap-entry
+validation normally prevents the wrong folio from being mapped into the
+faulting process.
 
-'percpu' field in memory.stat: 422400 (1056 bytes per process)
+It's documented that caller always double checks the folio so this part
+is harmless from the aspect of data corruption or crash.
 
-Memory allocation profiling now accounts the same amount of memory as
-what memcg charges.
+Recheck the slot after folio_try_get() and retry if it no longer holds
+this folio.
 
-Link: https://lore.kernel.org/20261013-fix-alloc-percpu-accounting-v1-1-03e788a1e41f@kernel.org
-Fixes: 60fa4a9e2323 ("mm: percpu: add codetag reference into pcpuobj_ext")
-Signed-off-by: Harry Yoo (Meta) <harry@kernel.org>
+[akpm@linux-foundation.org: add LLM-generated description of userspace impact]
+Link: https://lore.kernel.org/20261015060528.302634-1-jiayuan.chen@linux.dev
+Fixes: 8578e0c00dcf ("mm, swap: use the swap table for the swap cache and switch API")
+Signed-off-by: Jiayuan Chen <jiayuan.chen@shopee.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
-Assisted-by: LLM # Verification
-Cc: Dennis Zhou <dennis@kernel.org>
-Cc: Tejun Heo <tj@kernel.org>
-Cc: Christoph Lameter <cl@gentwo.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Hao Ge <hao.ge@linux.dev>
+Reviewed-by: Kairui Song <kasong@tencent.com>
+Cc: Chris Li <chrisl@kernel.org>
+Cc: Kemeng Shi <shikemeng@huaweicloud.com>
+Cc: Nhat Pham <nphamcs@gmail.com>
+Cc: Baoquan He <baoquan.he@linux.dev>
+Cc: Barry Song <baohua@kernel.org>
+Cc: Youngjun Park <youngjun.park@lge.com>
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/percpu.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ mm/swap_state.c | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
 
-diff --git a/mm/percpu.c b/mm/percpu.c
-index a802d72c116fb..b0a4aa4e852bf 100644
---- a/mm/percpu.c
-+++ b/mm/percpu.c
-@@ -1698,14 +1698,15 @@ static void pcpu_alloc_tag_alloc_hook(struct pcpu_chunk *chunk, int off,
+diff --git a/mm/swap_state.c b/mm/swap_state.c
+index cb574030b814f..0d9b0d876b565 100644
+--- a/mm/swap_state.c
++++ b/mm/swap_state.c
+@@ -92,17 +92,27 @@ void show_swap_cache_info(void)
+  */
+ struct folio *swap_cache_get_folio(swp_entry_t entry)
  {
- 	if (mem_alloc_profiling_enabled() && likely(chunk->obj_exts)) {
- 		alloc_tag_add(&chunk->obj_exts[off >> PCPU_MIN_ALLOC_SHIFT].tag,
--			      current->alloc_tag, size);
-+			      current->alloc_tag, pcpu_obj_full_size(size));
- 	}
- }
++	struct swap_cluster_info *ci = __swap_entry_to_cluster(entry);
++	unsigned int ci_off = swp_cluster_offset(entry);
+ 	unsigned long swp_tb;
+ 	struct folio *folio;
  
- static void pcpu_alloc_tag_free_hook(struct pcpu_chunk *chunk, int off, size_t size)
- {
- 	if (mem_alloc_profiling_enabled() && likely(chunk->obj_exts))
--		alloc_tag_sub(&chunk->obj_exts[off >> PCPU_MIN_ALLOC_SHIFT].tag, size);
-+		alloc_tag_sub(&chunk->obj_exts[off >> PCPU_MIN_ALLOC_SHIFT].tag,
-+			      pcpu_obj_full_size(size));
- }
- #else
- static void pcpu_alloc_tag_alloc_hook(struct pcpu_chunk *chunk, int off,
+ 	for (;;) {
+-		swp_tb = swap_table_get(__swap_entry_to_cluster(entry),
+-					swp_cluster_offset(entry));
++		swp_tb = swap_table_get(ci, ci_off);
+ 		if (!swp_tb_is_folio(swp_tb))
+ 			return NULL;
+ 		folio = swp_tb_to_folio(swp_tb);
+-		if (likely(folio_try_get(folio)))
++		if (!folio_try_get(folio))
++			continue;
++		/*
++		 * The folio may have been freed and its memory reused before
++		 * we got the reference. Make sure it is still in the slot.
++		 */
++		swp_tb = swap_table_get(ci, ci_off);
++		if (likely(swp_tb_is_folio(swp_tb) &&
++			   swp_tb_to_folio(swp_tb) == folio))
+ 			return folio;
++		folio_put(folio);
+ 	}
+ 
+ 	return NULL;
 -- 
 2.53.0
 
