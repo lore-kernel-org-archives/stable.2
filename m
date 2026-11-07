@@ -1,79 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=85.220.129.60
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=85.220.129.31
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794067473;
-	b=LmgLG5QDRLYLdLVQiv2bfnSbv4FOuZNIE7jAz/LHGN032DVAgsv5dJAzYeEs0IbuuRLN
-	 EprBYeiKZIjFDMV8u5wwml746x7mqDRjvp1Tj8+3dgGE16cWSGC/oGRKuA5YUIKOBV05w
-	 Ay8Qbi9XXuwAsRz/0Og5jw5jFbR5QEBZQg/ufqXDynDhxW1LnRm/feeUWWE5YXuh1JxjP
-	 QZ0ai8LNDX7mK50GODbgHeAB66q/npMXiNY/HIUo+GADNLM0yYcLY/luKMnHAu04S7ubV
-	 sqxdSmDbcVbNKo/q6/WdIBoHImFM1YGjQ7M+asNptCAaNpbng0HRYyXHuBEoFoQT1/g==
+	t=1794067524;
+	b=zWiwebXQe1NanpB3Yl+fhRRZd2SOGhQ1xE8vThwzdE+a7p7fm4L91cDcQeuczSt8eBBc
+	 XOp0E8weQ5nJtJNvzRdJ2G4WdeBlWP1oBzwTUtxvesKF6ZCdrwIiZcT7/gM0jBp71m7Qa
+	 rM2ZVuihAGJn/Z8mCQx4sbfxuKkO7V61NdrAu9DR2kUuZ/aAo/DLBQbSQqS3WnER69vDc
+	 iZZVP3SCtMZzN/voiyn9edDnZvC4yMw+aL+GgCrJ66RSDXRCHeT3inO+p6yJLNu4cUle+
+	 dVheTp2LzRzvEznGSBv2btdixUf4UuSCiLhvFr6jcqBuaXxFPHLwcJ8cijHXwbr0dFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794067473;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794067524;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:Received:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Rspamd-UID:X-Rspamd-UID;
-	bh=LeDn0vdh7KWF5yjJU57P2hNoa81ahEwHQHJcnjpszzU=;
-	b=4f/tIBdOzBD2RxEop+FfK+bftCydpi90KXGnJOkyLzitwn7aQz8mWN2o7ZC4+hp1G49q
-	 /Qneg5v/iBFV21WEc3wy6w2Bjrbv1HhNXt9BGC9sTm8Sgy+AcIcije+CtcTHIpygzMDZH
-	 r+qoBnfnTSfW5sJsWkAa6vNYl5vBpWOivlI9abYSr8IU5569OqE1hn7f7p45wg/uX9uiO
-	 3Nz8bky7HOw+DmB0PH/cw3PcIdsAC/NLRsFpO7lVvyiuYFNNK5Uwrct4yRZPZ3wy9j1u4
-	 CzBFIci7XsqLwOsq3dt0R40pIR40DQjTlRmbNGtBiWmUXh7a226R51ViG2LepqJyfZw==
+	bh=FL+cY77yqiBb4Jfyi25p4DMX+Ki7C0GbdZcyWTGQu48=;
+	b=0aQTcDLguJXcwBnn9ySqgsTET3oSGjaqXhCUHce8eOeUP3UyFdRn0zMOHLSjwNLBvglG
+	 L+mltpkU0vflB18hbwI4R8Rm7Y9Adq33stVDNULOAe1ACc9SvkNxTiuD0I3ELJmzGBVum
+	 7ZRkcELAPt2xfe9z+FMEn8OeI2ioM6HVRSE/Xo31ClwwHi31dPr/HSrUgD0abN4kclryg
+	 nd8Y8809NvP+evyEZewKC1+tqS6foWmWn5C/dIkFXVX2f8mgEY42xVKypMnn6slhHzLgh
+	 hRM6N9copOMj/WsiZK8bbMcvrqcF3zYeMuNh7woXqpcPJ9hm2Ma+Iwb8CaSv4Rt3sGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=tk154.de;
 	spf=pass smtp.mailfrom=tk154.de;
-	dkim=pass header.d=tk154.de header.i=@tk154.de header.a=rsa-sha256 header.s=DKIM001 header.b=fECVpkYX;
-	arc=none smtp.remote-ip=85.220.129.60
-Received: from smtp052.goneo.de (smtp052.goneo.de [85.220.129.60])
+	dkim=pass header.d=tk154.de header.i=@tk154.de header.a=rsa-sha256 header.s=DKIM001 header.b=s0mD3KWu;
+	arc=none smtp.remote-ip=85.220.129.31
+Received: from smtp6.goneo.de (smtp6.goneo.de [85.220.129.31])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9A30606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 16:04:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9A30606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF75D606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 16:05:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF75D606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tk154.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tk154.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tk154.de header.i=@tk154.de header.a=rsa-sha256 header.s=DKIM001 header.b=fECVpkYX
-Received: from hub2.goneo.de (hub2.goneo.de [IPv6:2001:1640:5::8:53])
+	dkim=pass (2048-bit key, unprotected) header.d=tk154.de header.i=@tk154.de header.a=rsa-sha256 header.s=DKIM001 header.b=s0mD3KWu
+Received: from hub2.goneo.de (hub2.goneo.de [85.220.129.53])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519)
 	(No client certificate requested)
-	by smtp5.goneo.de (Postfix) with ESMTPS id 0FB43240A56;
-	Sat, 07 Nov 2026 17:04:31 +0100 (CET)
+	by smtp6.goneo.de (Postfix) with ESMTPS id 62F232413AC;
+	Sat, 07 Nov 2026 17:05:16 +0100 (CET)
 Received: from hub2.goneo.de (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519)
 	(No client certificate requested)
-	by hub2.goneo.de (Postfix) with ESMTPS id 2FBA3240095;
-	Sat, 07 Nov 2026 17:04:29 +0100 (CET)
+	by hub2.goneo.de (Postfix) with ESMTPS id 3F571240091;
+	Sat, 07 Nov 2026 17:05:13 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tk154.de; s=DKIM001;
-	t=1794067469;
+	t=1794067513;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=LeDn0vdh7KWF5yjJU57P2hNoa81ahEwHQHJcnjpszzU=;
-	b=fECVpkYXCGottX0MJwSjkGbCqR148N64CUwJDNEwSzcZavXVSbn2eWIEd5GGJaH2uu6SM3
-	QdbFpoS0Ar25NxNmJLSCuAQUzWc2EGjct74RzBhdbn+dYTDoFygQGADWlrLjhnuix08t6c
-	7SDIxie549srpWBy7gKdtOB3wqof95bzF5y86sxuEe6nXRI6WxjEvZ3IxvmpTPQm2hcN5O
-	vd/g/ljhi024bfkunKUOeBjyk1qrp31SFuldGD/MtAA3WDb/2iEmdvdd7KZHA4JtJDoluY
-	CrbCLngcKOKBXs53HSlX0G4lBHzIjqlYqtuAiMr0iX8PtO9C13QG9sFYcfo9wQ==
+	bh=FL+cY77yqiBb4Jfyi25p4DMX+Ki7C0GbdZcyWTGQu48=;
+	b=s0mD3KWucl/gMEWlLetJ3KTxkfiLmj1MYVO4QVaj1l4BDv+IyKJ/RnMy47QtzjXdHYXvqN
+	1aeZXbJiyYaiacCFSROfMJi/gyUZZA2h+CkHwIVwvhpZwoR8gHq6wINGLn2PTwqGs8bZDo
+	faXDkWJACCK0KUNpnZZhMHXtZcSgIddDoGT9RMx4uzNcOSnn0CQ7cA0H9AlQhXIELmu1Ez
+	0MDtAzDx0Ob3nvIprdSrh4pNDhSRup1CgwPTlWbFxuD0j6zBqM2drEkj+yZHiWimFu84i/
+	b/aLugeVlIfQm1gMLd/COmMG9RBFap1iq8sGXg8UyPyDOfbT/kXQcbFBTx3/8Q==
 Received: from CASE (unknown [195.37.88.189])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by hub2.goneo.de (Postfix) with ESMTPSA id 00B5A240093;
-	Sat, 07 Nov 2026 17:04:28 +0100 (CET)
+	by hub2.goneo.de (Postfix) with ESMTPSA id 0D518240092;
+	Sat, 07 Nov 2026 17:05:13 +0100 (CET)
 From: Til Kaiser <mail@tk154.de>
 To: stable@vger.kernel.org
 Cc: Til Kaiser <mail@tk154.de>,
 	Ido Schimmel <idosch@nvidia.com>,
 	Jakub Kicinski <kuba@kernel.org>
-Subject: [PATCH 6.6.y] mlxsw: Initialize register query payloads
-Date: Sat,  7 Nov 2026 17:04:23 +0100
-Message-ID: <20261107160423.666028-1-mail@tk154.de>
+Subject: [PATCH 6.1.y] mlxsw: Initialize register query payloads
+Date: Sat,  7 Nov 2026 17:05:07 +0100
+Message-ID: <20261107160507.676124-1-mail@tk154.de>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261107053757-failed-6.6-15b7a86a8888@kernel.org>
-References: <20261107053757-failed-6.6-15b7a86a8888@kernel.org>
+In-Reply-To: <20261107055300-failed-6.1-15b7a86a8888@kernel.org>
+References: <20261107055300-failed-6.1-15b7a86a8888@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,8 +84,8 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-UID: 0fb0e7
-X-Rspamd-UID: 251a4d
+X-Rspamd-UID: 3e8e4c
+X-Rspamd-UID: 3e7110
 
 MFGD register queries can exhaust EMAD retries and leave Mellanox
 Spectrum switches stuck during boot or shutdown when running OpenWrt
@@ -140,10 +140,10 @@ Signed-off-by: Jakub Kicinski <kuba@kernel.org>
  3 files changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/net/ethernet/mellanox/mlxsw/core.c b/drivers/net/ethernet/mellanox/mlxsw/core.c
-index 85507d01fd45..68cc3278ef26 100644
+index f36a416ffcfe..4aafcbe9d90a 100644
 --- a/drivers/net/ethernet/mellanox/mlxsw/core.c
 +++ b/drivers/net/ethernet/mellanox/mlxsw/core.c
-@@ -2065,7 +2065,7 @@ mlxsw_core_health_fw_fatal_test(struct devlink_health_reporter *reporter,
+@@ -2015,7 +2015,7 @@ mlxsw_core_health_fw_fatal_test(struct devlink_health_reporter *reporter,
  				struct netlink_ext_ack *extack)
  {
  	struct mlxsw_core *mlxsw_core = devlink_health_reporter_priv(reporter);
@@ -152,7 +152,7 @@ index 85507d01fd45..68cc3278ef26 100644
  	int err;
  
  	/* Read the register first to make sure no other bits are changed. */
-@@ -2086,7 +2086,7 @@ mlxsw_core_health_fw_fatal_ops = {
+@@ -2036,7 +2036,7 @@ mlxsw_core_health_fw_fatal_ops = {
  static int mlxsw_core_health_fw_fatal_config(struct mlxsw_core *mlxsw_core,
  					     bool enable)
  {
