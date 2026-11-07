@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794063487;
-	b=twYPEUYRYlJO/I4Rv+j+K8M0EPr9APJl85do+O2bAeEYZDk6pQRoXsdbwSLIHDHNSRem
-	 tb/NUtUrkaFzd4BfrvsTats3tBfT1POlqdlVLdnp+EKm+7r6v7FoeOIYc/oUI+cUY8oCG
-	 fhmFCxfFe800RtgRhSfyQ3DMDmAI+G4Yfa2zdPRDbUyhMXS+RYH3xrzChVWWUmZfSUmet
-	 LjEOrNqxM68dh6XcuMuWjWswmYLhiX4RoLUYCcGzvMCMd38+hCq37CZBMl5TJCgJK3x6H
-	 RfIqiPHvyFSDqKunYbdbZAWDK5yt2xO/ReDd9VZ6vF3Cudt44eT6YZps+jLu8p3BLSw==
+	t=1794063493;
+	b=kMeu2sz8U9s87utEMfMCOGwCyWhUMs3MT8Pq6NkONz/hezyyQ05/DkcK1fm5y4ujggkh
+	 aNzC6a2T5wcDv9zJaLNmXTC6/E57vrQOkO3cWQM0iAN/Ognk9AOWihaeSw2EkMnIS2I5l
+	 MdVwgBxvuddEr6edrXJXtnP9j5nB5i/Q6mc/5CnxtNYhIZ2dMWQ/zrUvQGf3bCEXYbkwA
+	 jUocmCUusDVvxsytm/xbxuuyJ5DWxBO7JKwijsIIqK67hJartctczHlTIaKfju7aljEOV
+	 jG+SIXOu2LqORLvNShdkFWZ1ViVZ0uLZ+UyL0ouIHgcGFLLrKZeaADyZCy0upm6amzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794063487;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794063493;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=VJob6o2oskB0OEC69K8EZo2R8ZFYTTwW0xBbYoRg+m0=;
-	b=rYIOWXSQoMrodMOrNQKzEwHua3YXw49mLxGVcsh1Tq6sEf7waf8qQZ2Sq+fDmlxlmOl4
-	 dLiB+mVN2IpCgU9shzgu3wdLq/sjTTkWjGcsOGf11PMrKFK+FhxZrE0kmjE1gwtJxmXKT
-	 fc61wEhUJH9TF2kP3Y+tn0f69zengwEYHIIciaU+vuX1zSPvUCv6lZJUFP4sAfMbDXZPl
-	 LI14RUmlPi7/QyIjkDScS4Sk5XKpbcgzxj/c5ig9CW/HVniRHZmVZWcWFJPkqsHQ/ENDT
-	 f0q4CEqme2lRkRNG5JsdEwDW5aeTgjjX5kdrG5pR2wcDOvPGbeggegL4FmEiGtSG1wQ==
+	bh=FLDJK2QP7lgP1FTABZkZg8z7mOPcwMqIMrBfYmFf3dU=;
+	b=c4zBCilgzDiJCogFZRgiU0gquNWCavD7VScgwouPUmFQNlQb88XrKx5/DqL08Y1tYy4c
+	 PfO/d4vGkB2qLrkUU5+2AMjO1xK/YLVlXpV/jIEk6Kky+THOkFTxcg8UkXTBwtx7q683w
+	 hKhvLgFlvbb9XV9PFwbGECAI1MNwSZy3A/bB2CM1/yGziw9dUwd0wnrw+/fTAfCAnA9re
+	 tT7XaSxcsmUYbT126CTiueofLsMfKLdqU4eGoLGL2IUOgdknPx1csdUv2ItHqP3qOCnZb
+	 oCsjO6rONotVExz7EzNgcO+wQLI0ctiQF+AXcfiZTGfZOx3zYpsQ98NcobnB4e7jIYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=e4QbRqXf;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RflxIv8P;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 499C0606EEAF;
-	Sat,  7 Nov 2026 14:58:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AFC7606A33A;
+	Sat,  7 Nov 2026 14:58:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=e4QbRqXf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC6FF1F008A1;
-	Sat,  7 Nov 2026 14:58:06 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RflxIv8P
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAFCE1F008A2;
+	Sat,  7 Nov 2026 14:58:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794063486;
-	bh=VJob6o2oskB0OEC69K8EZo2R8ZFYTTwW0xBbYoRg+m0=;
+	s=korg; t=1794063493;
+	bh=FLDJK2QP7lgP1FTABZkZg8z7mOPcwMqIMrBfYmFf3dU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=e4QbRqXfy+tWloreut7xHyhQv0sZd8R8tJksYKeahK2lmpNtn26fKvNT/HcgU7ssR
-	 SVx9s+q9SrsGyLt0dPBhzzhkzZfEy8NN89sFtWCHZ5+lgBYqGlFaUWgMs2uc+Re4PW
-	 BTNy1EGDab1MwMnZmhBmwEs+YeCYpl3PELMgSLwI=
+	b=RflxIv8PloxsNaIDsJr1dYG/d8FLwi96TKklr7S1Pqr8lbAg4pm0LSob2UD7vYqxs
+	 bRYstI9f2mcaXJHrRpJJGkk3f1BtCF97NumcevWyLnznE3fOMh5ObxqM0WEFcyqwFk
+	 9QgjrTKh2Sp+FAb6vVNfPgooFdorCNjBgMLKKRr0=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Matt Turner <mattst88@gmail.com>,
-	Magnus Lindholm <linmag7@gmail.com>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 633/869] alpha: do not clear remote MMU contexts in migrate_flush_tlb_page()
-Date: Sat,  7 Nov 2026 08:55:15 -0500
-Message-ID: <20261107134914.423971484@linuxfoundation.org>
+Subject: [PATCH 6.18 602/869] net: skbuff: dont BUG() on a bad csum_start in skb_copy_and_csum_dev()
+Date: Sat,  7 Nov 2026 08:54:44 -0500
+Message-ID: <20261107134913.459829108@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261107134852.069646174@linuxfoundation.org>
 References: <20261107134852.069646174@linuxfoundation.org>
@@ -68,64 +68,61 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Magnus Lindholm <linmag7@gmail.com>
+From: Josef Bacik <josef@toxicpanda.com>
 
-[ Upstream commit 16266d50c51eb5eb98f1c345c5aa9ff359a305aa ]
+[ Upstream commit 56453199d28f0072a8196fba14b2d702632e2219 ]
 
-After the on_each_cpu() rendezvous, migrate_flush_tlb_page() walks the
-other CPUs and zeroes their mm->context[cpu] when mm_users is at most one,
-described as mimicking flush_tlb_mm()'s mm_users<=1 optimization.
+skb_copy_and_csum_dev() copies everything up to the checksum start out
+of the linear area, and BUG()s if the checksum start is past the end of
+the linear area.  It misses the other direction: a CHECKSUM_PARTIAL skb
+that has been pulled past its csum_start gives a negative offset, which
+gets past the check and becomes a ~4GB copy.  It also trusts
+csum_offset when it stores the folded checksum.  So far
+skb_copy_and_csum_bits() BUG()ing on a short skb has covered for that,
+but once it returns instead, a bad csum_offset would write past the end
+of the caller's buffer.
 
-It is not one. flush_tlb_mm() tests mm_users before deciding whether to
-send the IPIs; here every CPU has already been visited and waited for, so
-nothing is saved. The callback has also just set each CPU's own slot
-correctly, so the loop only overwrites it, and does so while that CPU may
-still be running in the address space.
+The function returns void and its callers are drivers copying a frame
+into a bounce buffer just before handing it to the hardware.  There's
+nothing for them to back out of, so check both ends of csum_start and
+that the checksum field fits in the frame, and if not, copy the whole
+frame with skb_copy_bits() without filling in the checksum, with a
+DEBUG_NET_WARN_ON_ONCE() for debug kernels.  The frame
+goes out with a bad checksum and is dropped by the receiver.  If even
+that copy fails, zero the buffer so the driver doesn't send stale bytes.
 
-Remove it. The shootdown shortcuts in flush_tlb_mm(), flush_tlb_page()
-and flush_icache_user_page() clear remote slots too; once the next patch
-removes those as well, every runtime update of mm->context[cpu] is made by
-CPU cpu itself. That patch relies on the invariant when it reads those
-slots to decide whether a shootdown can be skipped, so this one is tagged
-for stable as its prerequisite.
-
-Fixes: dd5712f3379c ("alpha: fix user-space corruption during memory compaction")
-Cc: stable@vger.kernel.org
-Reviewed-by: Matt Turner <mattst88@gmail.com>
-Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
-Link: https://lore.kernel.org/r/20261010144621.974850-2-linmag7@gmail.com
-Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Cc: stable? The trailers only have Assisted-by: and Signed-off-by:. No
+Link: https://patch.msgid.link/20261007-b4-skbuff-bug-on-v2-5-b9a5f732895b@toxicpanda.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/alpha/mm/tlbflush.c | 16 ----------------
- 1 file changed, 16 deletions(-)
+ net/core/skbuff.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
 
-diff --git a/arch/alpha/mm/tlbflush.c b/arch/alpha/mm/tlbflush.c
-index ccbc317b9a348..239c72b8a7412 100644
---- a/arch/alpha/mm/tlbflush.c
-+++ b/arch/alpha/mm/tlbflush.c
-@@ -90,22 +90,6 @@ void migrate_flush_tlb_page(struct vm_area_struct *vma, unsigned long addr)
- 	 */
- 	preempt_disable();
- 	on_each_cpu(ipi_flush_mm_and_page, &d, 1);
--
--	/*
--	 * mimic flush_tlb_mm()'s mm_users<=1 optimization.
--	 */
--	if (atomic_read(&mm->mm_users) <= 1) {
--
--		int cpu, this_cpu;
--		this_cpu = smp_processor_id();
--
--		for (cpu = 0; cpu < NR_CPUS; cpu++) {
--			if (!cpu_online(cpu) || cpu == this_cpu)
--				continue;
--			if (READ_ONCE(mm->context[cpu]))
--				WRITE_ONCE(mm->context[cpu], 0);
--		}
--	}
- 	preempt_enable();
- }
+diff --git a/net/core/skbuff.c b/net/core/skbuff.c
+index 1808bed195af1..227c889fba578 100644
+--- a/net/core/skbuff.c
++++ b/net/core/skbuff.c
+@@ -3899,7 +3899,18 @@ void skb_copy_and_csum_dev(const struct sk_buff *skb, u8 *to)
+ 	else
+ 		csstart = skb_headlen(skb);
+ 
+-	BUG_ON(csstart > skb_headlen(skb));
++	if (unlikely(csstart < 0 || csstart > skb_headlen(skb) ||
++		     (skb->ip_summed == CHECKSUM_PARTIAL &&
++		      csstart + skb->csum_offset + sizeof(__sum16) >
++		      skb->len))) {
++		DEBUG_NET_WARN_ON_ONCE(1);
++		/* Send the frame without the checksum filled in, or send
++		 * zeroes if we can't even copy it.
++		 */
++		if (skb_copy_bits(skb, 0, to, skb->len))
++			memset(to, 0, skb->len);
++		return;
++	}
+ 
+ 	skb_copy_from_linear_data(skb, to, csstart);
  
 -- 
 2.53.0
