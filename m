@@ -1,73 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794070756;
-	b=n70C5xnnI1bQv7RYjxoM4OFYz+A6Fyct55MRv4yoOK9SfipM9KIyvvyPs1qd0PG5oldA
-	 gaJ/ZboNGei3GKUIAq/SUFn5xVuISConBSMdua8CPwlQJwUooc6ydeXZ/cN5cWsaAQlcM
-	 LojGlVn19c/XFUv0g+s9reBRVmb0qRq0m0A2fmNui5bLoaXRwTd7s7Hyz/eGHt2x7eRJN
-	 Q54ViLm+2oaUlcQTbROv0NXyWpNWLb580zU6qtiZxw3xJwWAah65Ne1jvcy9QLHwe9ykO
-	 j5FVAA1m1+6bG+PxlIxrKvn0larDUUHvXo012NIxfPfI5P6aPsmQ5eySFPIdtOjfr+g==
+	t=1794070979;
+	b=p921VeHwt7Pda6IDvqNsx6BxRN4xHoFNDmiZ3zZgjjR50taHG0i9A580l4sPnTpxcWvh
+	 inOBk47xEjUCBuu5aloqlSLorpADVTnj7s9yZjS8lB7f2rEy839dy18yb1tn7hU7lhcI2
+	 InJjvG/tei/B19s03b4oHJ/a3lmzZ5pCyse+0ZVV9rdRAJDVmuL+R4X6KJiF+94cCYD/1
+	 i06q6rc5PVeAdzAzYSe6py50YN53mSuK/nuKPECJUXpXHWbWuXalfuYkpLeo2wQozZ5FL
+	 1QMNXvEoAnv1CRSzfK+n0Y+8nXeFpzSiOMjaeLxt+IYZrZqoo2xWnvfG0EqmwA8NZuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794070756;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=XB+OkVQbMcO+LUraUbLF1sANoiWbTCfLaAjVLeE4XeA=;
-	b=kcC0pyLOqzeaP5IksD/1f2NDTfQKEIWop3Q4NmUPU95NdY6z22/Ov5bwEMbFe+GUACuF
-	 2YCHsIq7UAjfkLez1iOWhnPWQZZMjtkv8+/Xx+w9ZGBJWrImQ9tZ+5PcwZ4VQ8+vxTMVM
-	 PWWDePWvhdj6iA3KXkoVyKMwkb2Ezy2+Vm8/6weSxygZ8fPgrSH3XuzfBVA0KJLVlf28U
-	 wbuIHgY+gXQovh1PX0b23qVdlQNnTR+ATLe1l+zEH8ZBOol19aojOc/rBGpeFp/5GktnQ
-	 2qSVN2MwFBJynwN7DWlH37LUDY4+wuteE53D8gH5bXaWRtAvZr7gdn8rRhyIbmGejQw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794070979;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=0mX/y4k2TVn6iq3BNEMGtb9KP33DM0c49ZsBCKXcWRg=;
+	b=rKSZdxprvsoKasWF/FlqxU7ZQ7+sengih1IW0jGDIBPP+O/x+v5FqWSmlUiHMo8kSfkM
+	 Pc3cDiJg90TjieMkbXm1Qayg/ofq1rwFfvTmXdvOdwJjzjN9qHVl5cHCViCV+0V+8We6c
+	 wb1YDEoIQUZDoxemUgl7BeEuGEX1DMnftOaHZNGFdCz68vVMbEOnJ7bY+RtBqqPlhQ87g
+	 WWwXYJv9+w7rOlFGbpsaU9r5ftmLTQQTBGZ5gIkr497J9nlKNMIJngcR+4NH1X9F3+DDC
+	 mzjLXrl/U/GYk960UzqnZZFZqblaGVnZy3RMzjpLm3bmrIjH7rBRK+kVKEnShaoPZkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hZQjyFkE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="E/+7iNKI";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7118C606A32C;
-	Sat,  7 Nov 2026 16:59:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 655CD606A32C;
+	Sat,  7 Nov 2026 17:02:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hZQjyFkE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAA261F008A1;
-	Sat,  7 Nov 2026 16:59:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E/+7iNKI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F67C1F0089F;
+	Sat,  7 Nov 2026 17:02:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794070756;
-	bh=XB+OkVQbMcO+LUraUbLF1sANoiWbTCfLaAjVLeE4XeA=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=hZQjyFkEJrCUrkJL/lgPJO7YnpMyCvVhznZNGPovMVM/8c4DQ1panVIMM1+n4PZFc
-	 +PXut6vDzHA7gRVhT4mDnYOsP+CmHlsyIwj8zHhhPUtQCYlpImRiVh6+YtP5nFqKiW
-	 cJJNtyFJDXpEg20cKPE9B83myeolSvj1NTH7P6micajX2R6Bbny2IDfLiHvVYT2c26
-	 eXESbFK9IS5EqMJNSViQnO2kVYRbVtFvxzz/rDTzmlJxzX8V5IHK76x5anu1s7nCpj
-	 vIlWbTpJCH+5kgRgAoJab6/I5yqmaPM5AOewqeKvhwvKAlyzgRcEu1fld9oNxIxOOQ
-	 UgA4JgI1Fd+8A==
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfauth.phl.internal (Postfix) with ESMTP id 0A5C2F40066;
-	Sat,  7 Nov 2026 11:59:15 -0500 (EST)
-Received: from phl-imap-15 ([10.202.2.104])
-  by phl-compute-10.internal (MEProxy); Sat, 07 Nov 2026 11:59:15 -0500
-X-ME-Sender: <xms:4ljvallngjRD6NWmzW0TMN5VFxlk1hbAtOKUXy0cfbmfA80qxAwOug>
-    <xme:4ljvarrK-tNzlp-nORRnAyeB6PW8w0Q7a-T9H_TCWs33WQVy_wwv9m4axjhD7obUD
-    bWk3spjmF1nT1K2bVnWTgwTemO_e7ONzYVe8HP1r4IanMkh7yt9bVk5>
-X-ME-Proxy-Cause: dmFkZTEr9g/XhpKHR3x3/gHE4Vc2Qx2ysHbLTUw6akZAqKGISsDhwGj4wuHOZmVz7MncHU
-    iJl5g6rJ/lomWih3rWZNXpegajuRwU9tP1BYlUhmgjd25/5s6oPTSyrYtYawYyQnki9gK5
-    LN4IjBYAauKA16Xzh3kQ7jBOzCVyIfkpTOXJWUoVWsrAwx7zPJTrKJqSoAgMirOOsfVb2Q
-    jYIrYG72M0AT53sHLc+lzyY50KYnv+Ks5dFfZpEubRdAoH5x6BzfYbf1lXBkCBbmejjw5a
-    ZiZbfOJ0ijfpye91J7ToH7MzjxqPYFFEwbM+QwhLEHT3OzALAaazPZvIsa8CoTIcW+dAGF
-    1e3kLZwCuylsCFMj8Nvo3VkFtob4lvT86zl1/dYnNtVhGWH49nMjkyFmzzG14acwtbK4vS
-    Mf0vPKVv5OIL85adxsrTsNiRmCaXZ77Nvv9+UagMsMFs6xzsyhOpwu2gVC49iMa0OtqNQd
-    kSfYtLDb6YlYXPr6iYCWbGLvYHD9Fh+WpA49yUFNlvV8VxzFpsUWxJQ8HouCb48j5um2Ug
-    4FI43FS4bKkS7faNBeHMSHWZh8fjjV5FaAGzQY1PnObKATkp7R10V80TidWYLsh0Wdfok8
-    gJM9XD5osm33VzFak2yQ94XpD1fOfdZAyojpXditfNcn6vWlyGby/ngLnfcQ
-X-ME-Proxy: <xmx:4ljvaoGgTcMb0KFTMZaPAQBPg81YxtJxeM50mjGLwsDY2hdynCzrrw>
-    <xmx:41jvasRbXUrCycmPp_aefi8Yk0z9VSEDqDwuJsIhugqEtBFlSJ_3ig>
-    <xmx:41jvahKh6ijn6scCuFieCrq8TXYrEnryoctmV0UdmLNaPmMPok4i7g>
-    <xmx:41jvavbEAlDbmY-ltmQToFeCU9irThuRHEBitR3in7U-68hVjNDLQA>
-    <xmx:41jvar-8LmBWDEykKQvyT1rcK4E2a-QIwaUMZ1pf9Blgq1KWigsN1g_a>
-Feedback-ID: ifa6e4810:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id DF82F782738; Sat,  7 Nov 2026 11:59:14 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+	s=k20260515; t=1794070979;
+	bh=0mX/y4k2TVn6iq3BNEMGtb9KP33DM0c49ZsBCKXcWRg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=E/+7iNKIdaG5gbWEYpyg2UfFr94ke15gdduH9urZWVzhEh582YL5KB6iGOai6sqe3
+	 cZ2PdRf+mJF2g6ww9THusLf2cZDLNNRMGTFPBpci2J/c4LCshj8YzluBSYUG6KsVNu
+	 c8kuxuccSBJmLZgvibKE8ERHoZzsyHD5R1LR3gDpJ+Ea1x7KWsqIr7MJmfqby3tBMP
+	 2WWa3dKF3mYKz+GOgThScHb95M63t0DMrasydXIByoxJSxcVIlIa1TVhPNKU/OyacN
+	 9F6/wup/1n0l1Sy8gR1UVt5JOOiSZYBtsVgVliJPq7wQSJkbwxYZ3fVeBTrCfS8Mrb
+	 XKGBtAWP2BOGQ==
+Date: Sat, 7 Nov 2026 18:02:53 +0100
+From: "Oscar Salvador (SUSE)" <osalvador@kernel.org>
+To: Qi Zheng <qi.zheng@linux.dev>
+Cc: muchun.song@linux.dev, osalvador@suse.de, david@kernel.org,
+	akpm@linux-foundation.org, azpijr@gmail.com, lance.yang@linux.dev,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+	Qi Zheng <zhengqi.arch@bytedance.com>, stable@vger.kernel.org
+Subject: Re: [PATCH v3 3/3] mm: hugetlb: fix GFP mask propagation to CMA
+Message-ID: <au9ZvQObSY3y2s2c@localhost.localdomain>
+References: <cover.1794046188.git.zhengqi.arch@bytedance.com>
+ <61ee04513d6cac32347ebec9b295025b8a1f07ca.1794046188.git.zhengqi.arch@bytedance.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,38 +59,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: ADLdsf9o_80g
-Date: Sat, 07 Nov 2026 11:58:54 -0500
-From: "Chuck Lever" <cel@kernel.org>
-To: "Chengyu Liu" <lui2012qwq@gmail.com>,
- "Trond Myklebust" <trondmy@kernel.org>, "Anna Schumaker" <anna@kernel.org>
-Cc: "Jeff Layton" <jlayton@kernel.org>, linux-nfs@vger.kernel.org,
- stable@vger.kernel.org
-Message-Id: <9120727b-38e6-4ac5-86a1-db40fbb6f085@app.fastmail.com>
-In-Reply-To: 
- <CAE=Q7=7Ct5pPrT+HLG6PgWKW0z__WDZ0LtRJWQs00SYfFJjQ6Q@mail.gmail.com>
-References: <20261103181410.1601083-1-lui2012qwq@gmail.com>
- <CAE=Q7=7Ct5pPrT+HLG6PgWKW0z__WDZ0LtRJWQs00SYfFJjQ6Q@mail.gmail.com>
-Subject: Re: [PATCH] nfs_common: release decoded ACL on nfsacl_decode() error
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <61ee04513d6cac32347ebec9b295025b8a1f07ca.1794046188.git.zhengqi.arch@bytedance.com>
+
+On Sat, Nov 07, 2026 at 06:30:47PM +0800, Qi Zheng wrote:
+> From: Qi Zheng <zhengqi.arch@bytedance.com>
+> 
+> cma_alloc_frozen_compound() uses GFP_KERNEL, allowing direct reclaim
+> during the first MPOL_PREFERRED_MANY allocation attempt even though
+> the caller clears __GFP_DIRECT_RECLAIM.
+> 
+> Pass the caller's GFP mask through the helper so CMA respects its
+> reclaim constraints when trying the preferred nodes.
+> 
+> Fixes: 9bda131c6093 ("mm: cma: add cma_alloc_frozen{_compound}()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+> Acked-by: Muchun Song <muchun.song@linux.dev>
+> Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+
+Reviewed-by: Oscar Salvador (SUSE) <osalvador@kernel.org>
+
+A comment below:
+
+> --- a/mm/cma.c
+> +++ b/mm/cma.c
+> @@ -933,9 +933,10 @@ struct page *cma_alloc_frozen(struct cma *cma, unsigned long count,
+>  	return __cma_alloc_frozen(cma, count, align, gfp);
+>  }
+>  
+> -struct page *cma_alloc_frozen_compound(struct cma *cma, unsigned int order)
+> +struct page *cma_alloc_frozen_compound(struct cma *cma, unsigned int order, gfp_t gfp)
+>  {
+> -	gfp_t gfp = GFP_KERNEL | __GFP_COMP | __GFP_NOWARN;
+> +	if (WARN_ON_ONCE(!(gfp & __GFP_COMP)))
+> +		return NULL;
+
+I think this needs a comment explaining why we are checking for __GFP_COMP,
+because it might not be obvious to the casual reader.
+Something like:
+
+ "The only caller of cma_alloc_frozen_compound() is hugetlb, and hugetlb
+  constructs its gfp mask via htlb_alloc_mask(), which already sets
+  __GFP_COMP. Check here for usecases bypassing htlb_alloc_mask()."
 
 
-
-On Fri, Nov 6, 2026, at 11:38 PM, Chengyu Liu wrote:
-> Hi,
->
-> I noticed that the Patchwork status of my patch has changed to
-> "Handled Elsewhere". I'm not sure how to interpret this status. Has
-> the patch been picked up by another maintainer, or is there anything I
-> need to do on my end, such as resubmitting it to another mailing list?
-
-I manage the patchwork instance for NFSD. The NFS client maintainers
-don't use it. "Handled elsewhere" in this case means I could have
-taken it through the NFSD tree, but since the NFS client is now the
-only consumer of that API, I'm going to let the client folks handle
-it.
-
+Maybe in the future we do have some other users of this function which are outside
+of the hugetlb realm, but if we are propagating the gfp mask down the chain to this
+point, we do have to check that those users are also setting __GFP_COMP.
+  
+ 
 
 -- 
-Chuck Lever (Come to NFS bake-a-thon! https://nfsv4bat.org)
+Oscar Salvador
+SUSE Labs
