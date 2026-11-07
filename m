@@ -1,59 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794064585;
-	b=ceoWCc0ebmI7Mo2h7k9nIDDs3NJG8VmOJIn8z4SIu+nNUi+l3T0mLOO7QAYjMBlEAIJx
-	 dDUHOGaYgTXdFcdohWTFjwjVWmxM8r0yWclzecIdUDS4G9DMnEDNz4268IJJzJMd+wusW
-	 PCegYgmZ53S/Xo+ndFnebk0fev+G7r4ehP1QKTADCeyMfnKiLMDSWKlhWrtdosyB25u5n
-	 LKiF+x93OwYq6owNxLSiS1khhbBeiWSUF9CoyB7IZ9X/dQovTU7xxYAKvaoRVWTr3iznq
-	 k+/lT5c/A1ENG8hK5sQbU0sKBbUShmECWaMouZJZPgZ7n7FF/hxeUEOmtFsy/oL7CVA==
+	t=1794064591;
+	b=FXzMIQqbZV0j9M+/Caq9qcsgunoUuzFqkLPFi1KgBC8x5gahMVjMOgD8IMvz7NIt61Q+
+	 HKTZBPEa4arJIvAdVZfSRo4Yg2kr/4AyRadEjeshWnblzB/42HEDA5CPHEPrEF8hVEC3M
+	 jS1pJEb7CEK0dzJYH28WyBbvOAoNteLIWizCc/K6fWenN3dogMRiGqpI23ccZhotxkrrt
+	 G0H4smiB+8ZdftUmysPcMZmW6gBNWMCM6NBAksi0bZOUUkkeKN2qLfQ86YQTH8RVG152h
+	 XnzMuDviWvO+1KPzA3/mGR/pvt4hJp7u1mfV4zb4WEn1cR8uDn13W08D5w+lCaP1wog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794064585;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=fmTPVOyd1cQq/DQTsVIa0U0d4oxVcQ44aVcpPa+R3AU=;
-	b=Hqiesm+qacwq9MWM06DMfQ1R/Vlzawnu192gCfD/2jDpPedrpv5x6A7dP6X7aFxsapAN
-	 lfcgyI+TXwCvr1OxB89ehiMPEJuDQBQnJ78Fi5h6JVC2y6sMoxwXo1DcKHr5iUBFk30dk
-	 LNN9KLUvxOGgEtlERbvigh9M+rgdUaY8LHCGX46rJh9ztITxAJqyo9I2Vz0oe7pWc28Wi
-	 7R9K8c8/VvQAZypxdrItn4NCuo0+1HiOSBRfWG0dMa75NRJlPAjR+8y+/bUMVPwWde1JN
-	 DFi9o5lSHsx+JZwAyTUTyZluehoqZH1LdKEF/oX7T+rlkzf7v0B7ULWkWoD8tdLfwYQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794064591;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=PirJUwFocu5n5/zfUOdGtii6MV1stMLH4I3E4fhvutg=;
+	b=QlAcg2aJbN9LWoYWJPiSp4hF/N1mJu4ra1LbqO7u5fJSwjtbd57U2KYl+XueJObyOEc7
+	 kBARumzPg58gHGMn2s0Eto0Q71qbii4Jd5/2IY0QqxMJg73Rjr6Jl5xhvIz13xydbJ39B
+	 zJc7c4FqSv+5XVuRZahWYpGzYGMSpa04NugGvrA2bBDpWQ/8CkG4UhbSA9K3LgD5xUsJh
+	 2RKmZnbTO2a/jaa6ehn17Z/U3qkd+jYkG66r4p6nvtNo2Yf9wBBkifRXgcvG6RjOLnTc1
+	 SssR668TyJsmWGy7U0fNbTdVIw3pq1hF2Y8QtVu+pRXEWM6J0jodZOPuanfeFXkMD4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hIr3afK1;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dwGvlfZD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9A61606A9C0;
-	Sat,  7 Nov 2026 15:16:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD464606A9C0;
+	Sat,  7 Nov 2026 15:16:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hIr3afK1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E683D1F008A1;
-	Sat,  7 Nov 2026 15:16:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794064584;
-	bh=fmTPVOyd1cQq/DQTsVIa0U0d4oxVcQ44aVcpPa+R3AU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=hIr3afK1NEdfK2hUtPa73OpNAiYqypYV3mbFMFhq9F9bMZq6ANRoashrX79qOZqoW
-	 mH/iay2XCs1hRG/mRtvy7MQh9T8JJ+Og83+qGBUEBRJPOyV1pRwuBteWEp7tjOd5/0
-	 RPvNZPDkPTmSjUQAjsCsnru7Ns+IWwhCHJ4+qv/Va6S4IIO/RDYtUm/9sYcS1/aosY
-	 CwlycAC6Abmr8oTuE57AbdUNqpboa/vwnMWmuuUOSE67/YtHRvjVeXTLz4TctQpdBx
-	 v5OLDL0ke80B5y44JHtNhvKvHO4gbeDkFeDnWTgr1wmxQzD3Ki3iDXLyXRuWLTqXJp
-	 b4/U1CUOuZ2Og==
-Subject: Re: [PATCH net v3 2/2] net/sched: sch_teql: keep skb->dev consistent
- on the arp-queue path
-From: netdev-bot+sashiko@kernel.org
-To: jhs@mojatatu.com
-Cc: netdev@vger.kernel.org, victor@mojatatu.com, jiri@resnulli.us,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, stable@vger.kernel.org, sashiko-bot@kernel.org
-Date: Sat, 07 Nov 2026 15:16:23 +0000
-Message-ID: <179406458348.994134.6942745655171316289@kernel.org>
-In-Reply-To: <QDISC-6HS9.v3.r0.20261103062649-2@mojatatu.com>
-References: <QDISC-6HS9.v3.r0.20261103062649-2@mojatatu.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dwGvlfZD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E4E51F0089F;
+	Sat,  7 Nov 2026 15:16:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1794064590;
+	bh=PirJUwFocu5n5/zfUOdGtii6MV1stMLH4I3E4fhvutg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=dwGvlfZDrQltm2qx4uudVj7PoAmAW8i/clYBnlU7Nzc7efcgqOiq8Eq68gxdOl/sl
+	 xbW+mHoQLx3LYGtw1k0m9mUhUJxQUUwxkFsTa/RwdKkP1mWG0f8+q7aGKjugcxvyt7
+	 FOiFtdxYXBSn3w1LaUkFoUdBdbDJbdgVmnGqgJFY=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	stable@kernel.org,
+	Jianping Li <jianping.li@oss.qualcomm.com>,
+	Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+	Srinivas Kandagatla <srini@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3 0606/1257] misc: fastrpc: Allocate entire reserved memory for Audio PD in probe
+Date: Sat,  7 Nov 2026 08:48:22 -0500
+Message-ID: <20261107134956.050432693@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261107134939.434104957@linuxfoundation.org>
+References: <20261107134939.434104957@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,137 +64,339 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+7.3-stable review patch.  If anyone has any objections, please let me know.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+------------------
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+From: Jianping Li <jianping.li@oss.qualcomm.com>
 
-- [Medium] The new gate in neigh_update_process_arp_queue()
-  (net/core/neighbour.c), `if (!n1->dev->header_ops) skb->dev =…
-- [Low] The comment added in neigh_update_process_arp_queue()
-  (net/core/neighbour.c), '/* headerless outputs (teql, shaper) transmit…
+[ Upstream commit 9e47ad9c562e82cabfbb9afa6c2b0dcdf2702a39 ]
 
---
+Allocating and freeing Audio PD memory from userspace is unsafe because
+the kernel cannot reliably determine when the DSP has finished using the
+memory. Userspace may free buffers while they are still in use by the DSP,
+and remote free requests cannot be safely trusted.
 
-net/sched: sch_teql: keep skb->dev consistent on the arp-queue path
+Additionally, the current implementation allows userspace to repeatedly
+grow the Audio PD heap, but does not support shrinking it. This can lead
+to unbounded memory usage over time, effectively causing a memory leak.
 
-The commit sets skb->dev to the teql slave before teql_resolve(). This
-means an skb parked on the slave's arp_queue no longer points at a master
-that teql_exit() can free on module unload. It also changes
-neigh_update_process_arp_queue() to set skb->dev to the top-level
-neighbour's device when that device has no header_ops, so the skb goes
-back through teql_master_xmit().
+Fix this by allocating the entire Audio PD reserved-memory region during
+rpmsg probe and tying its lifetime to the rpmsg channel. This removes
+userspace-controlled alloc/free and ensures that memory is reclaimed only
+when the DSP process is torn down.
 
-Link: https://lore.kernel.org/netdev/20260824115928.4099988-1-victor@mojatatu.com/
-Link: https://lore.kernel.org/netdev/20261026160747.283702-1-horms@kernel.org/
-Link: https://lore.kernel.org/netdev/20261031165925.780930-1-horms@kernel.org/
-Link: https://lore.kernel.org/netdev/179363700308.3131.11778179538290251434@kernel.org/
+The reserved-memory region is now mandatory for the Audio PD domain.
+Rather than failing rpmsg probe when it is missing, validate it in
+fastrpc_init_create_static_process() and reject only the static-process
+creation. This keeps the fastrpc device probing for all other domains
+even on a misconfigured device tree.
 
-> diff --git a/net/core/neighbour.c b/net/core/neighbour.c
-> index d6e9c7c59a892..541cf699abae4 100644
-> --- a/net/core/neighbour.c
-> +++ b/net/core/neighbour.c
-> @@ -1339,6 +1339,9 @@ static void neigh_update_process_arp_queue(struct neighbour *neigh)
->  			if (n2)
->  				n1 = n2;
->  		}
-> +		/* headerless outputs (teql, shaper) transmit on skb->dev */
+Fixes: 0871561055e66 ("misc: fastrpc: Add support for audiopd")
+Cc: stable@kernel.org
+Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
+Reviewed-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+Link: https://lore.kernel.org/all/20260814101955.234238-1-jianping.li@oss.qualcomm.com/
+Signed-off-by: Srinivas Kandagatla <srini@kernel.org>
+Link: https://patch.msgid.link/20261002101220.1084101-3-srinivas.kandagatla@oss.qualcomm.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/misc/fastrpc.c | 188 ++++++++++++++++++++++-------------------
+ 1 file changed, 101 insertions(+), 87 deletions(-)
 
-[Severity: Low]
-This isn't a bug, but the shaper driver is no longer in the tree. There
-is no entry for it in drivers/net/Makefile, and the older comment block
-just above also names it.
-
-Would it be clearer to name in-tree devices this gate is meant for, such
-as teql and eql?
-
-> +		if (!n1->dev->header_ops)
-> +			skb->dev = n1->dev;
-> +		READ_ONCE(n1->output)(n1, skb);
-
-[Severity: Medium]
-This gate is in generic neighbour code, and it doesn't check whether
-sch_teql parked the skb. n1 comes from the skb's retained dst via
-dst_neigh_lookup_skb().
-
-Can it fire for any skb parked on an arp_queue whose original route uses
-a device with NULL header_ops? Examples include ppp, geneve in L3 mode,
-vxlan when header_ops is NULL, rmnet, qmi_wwan, mhi_net, ipa, iosm,
-mhi_wwan_mbim, eql and teql.
-
-Two producers park skbs on another device's neighbour while keeping the
-original dst.
-
-The first is nft_fwd_neigh_eval(), which nft_fwd_validate() allows on
-NF_NETDEV_EGRESS:
-
-	ip_decrease_ttl(iph);
-	...
-	skb->dev = dev;
-	skb_clear_tstamp(skb);
-
-	nf_dev_xmit_recursion_inc();
-	neigh_xmit(neigh_table, dev, addr, skb);
-
-The second is bpf_redirect_neigh() with an explicit nexthop.
-__bpf_redirect_neigh_v4() replaces the dst only when nh == NULL:
-
-	if (!nh) {
-	...
-		skb_dst_drop(skb);
-		skb_dst_set(skb, &rt->dst);
-	}
-
-bpf_out_neigh_v4() then sets skb->dev to the target and calls
-neigh_output() with the old dst still attached.
-
-When the target device X's neighbour resolves, the drain takes this path
-(Y is the original route device):
-
-neigh_update_process_arp_queue()
-  dst_neigh_lookup_skb()  -> Y's neighbour (Y has no header_ops)
-  skb->dev = Y
-  neigh_direct_output()
-    dev_queue_xmit() on Y
-
-Does this run Y's egress hooks a second time? In __dev_queue_xmit(),
-nf_hook_egress() runs before nf_skip_egress(skb, true) is set, so the
-nft egress chain runs again. sch_handle_egress() and tc BPF also run
-again.
-
-For nft fwd, this would decrement TTL/hop_limit twice. A packet that
-reaches Y's egress with TTL 2 would then be dropped.
-
-Counters, quotas and limits would also be applied twice. A tc BPF program
-that encapsulates could encapsulate twice. If the second pass gives a
-different verdict, the packet would leave through Y and not through the
-device it was forwarded to.
-
-Before this patch these skbs went out X without a link header, which was
-also wrong. Running Y's egress hooks a second time is new, though.
-
-The commit message acknowledges this:
-
-  "Those forwards supply their own device and nexthop and do not consult
-  the retained dst, so dropping it at those two sites is where that is
-  fixed; that is a separate change to the producers, not part of this
-  series."
-
-The patch is tagged Cc: stable. Would stable trees get the new behaviour
-without the producer-side fix?
-
-Should the dst drop in nft_fwd_neigh_eval() and in the bpf_redirect_neigh()
-explicit nexthop path go in the same series as this change?
-
->  		if (n2)
->  			neigh_release(n2);
-
+diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+index b35751212095d..adc6f850e7536 100644
+--- a/drivers/misc/fastrpc.c
++++ b/drivers/misc/fastrpc.c
+@@ -70,8 +70,6 @@
+ #define ADSP_MMAP_HEAP_ADDR  4
+ /* MAP static DMA buffer on DSP User PD */
+ #define ADSP_MMAP_DMA_BUFFER  6
+-/* Add memory to static PD pool protection thru hypervisor */
+-#define ADSP_MMAP_REMOTE_HEAP_ADDR  8
+ /* Add memory to userPD pool, for user heap */
+ #define ADSP_MMAP_ADD_PAGES 0x1000
+ /* Add memory to userPD pool, for LLC heap */
+@@ -314,10 +312,14 @@ struct fastrpc_channel_ctx {
+ 	struct kref refcount;
+ 	/* Flag if dsp attributes are cached */
+ 	bool valid_attributes;
++	/* Flag if audio PD init mem was allocated */
++	bool audio_init_mem;
++	/* Audio PD reserved remote heap region */
++	phys_addr_t remote_heap_addr;
++	u64 remote_heap_size;
+ 	u32 dsp_attributes[FASTRPC_MAX_DSP_ATTRIBUTES];
+ 	struct fastrpc_device *secure_fdevice;
+ 	struct fastrpc_device *fdevice;
+-	struct fastrpc_buf *remote_heap;
+ 	struct list_head invoke_interrupted_mmaps;
+ 	bool secure;
+ 	bool unsigned_support;
+@@ -1454,15 +1456,24 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
+ 	struct fastrpc_init_create_static init;
+ 	struct fastrpc_invoke_args *args;
+ 	struct fastrpc_phy_page pages[1];
++	struct fastrpc_channel_ctx *cctx = fl->cctx;
+ 	char *name;
+ 	int err;
+-	bool scm_done = false;
+ 	struct {
+ 		int client_id;
+ 		u32 namelen;
+ 		u32 pageslen;
+ 	} inbuf;
+ 	u32 sc;
++	unsigned long flags;
++	bool sent_heap = false;
++
++	if (!cctx->remote_heap_addr || !cctx->remote_heap_size) {
++		err = -ENOMEM;
++		dev_err(fl->sctx->dev,
++			"remote heap memory region is not added\n");
++		return err;
++	}
+ 
+ 	args = kzalloc_objs(*args, FASTRPC_CREATE_STATIC_PROCESS_NARGS);
+ 	if (!args)
+@@ -1486,31 +1497,6 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
+ 	inbuf.client_id = fl->client_id;
+ 	inbuf.namelen = init.namelen;
+ 	inbuf.pageslen = 0;
+-	if (!fl->cctx->remote_heap) {
+-		err = fastrpc_remote_heap_alloc(fl, fl->sctx->dev, init.memlen,
+-						&fl->cctx->remote_heap);
+-		if (err)
+-			goto err_name;
+-
+-		/* Map if we have any heap VMIDs associated with this ADSP Static Process. */
+-		if (fl->cctx->vmcount) {
+-			u64 src_perms = BIT(QCOM_SCM_VMID_HLOS);
+-
+-			err = qcom_scm_assign_mem(fl->cctx->remote_heap->dma_addr,
+-							(u64)fl->cctx->remote_heap->size,
+-							&src_perms,
+-							fl->cctx->vmperms, fl->cctx->vmcount);
+-			if (err) {
+-				dev_err(fl->sctx->dev,
+-					"Failed to assign memory with dma_addr %pad size 0x%llx err %d\n",
+-					&fl->cctx->remote_heap->dma_addr,
+-					fl->cctx->remote_heap->size, err);
+-				goto err_map;
+-			}
+-			scm_done = true;
+-			inbuf.pageslen = 1;
+-		}
+-	}
+ 
+ 	fl->pd = USER_PD;
+ 
+@@ -1522,8 +1508,25 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
+ 	args[1].length = inbuf.namelen;
+ 	args[1].fd = -1;
+ 
+-	pages[0].addr = fl->cctx->remote_heap->dma_addr;
+-	pages[0].size = fl->cctx->remote_heap->size;
++	/*
++	 * Audio PD is a static PD and retains the remote heap
++	 * information across daemon restarts. Therefore only
++	 * the first attach should provide heap information to
++	 * DSP. Subsequent attaches reuse the previously
++	 * initialized memory pool.
++	 */
++	spin_lock_irqsave(&cctx->lock, flags);
++	if (!cctx->audio_init_mem) {
++		pages[0].addr = cctx->remote_heap_addr;
++		pages[0].size = cctx->remote_heap_size;
++		cctx->audio_init_mem = true;
++		inbuf.pageslen = 1;
++		sent_heap = true;
++	} else {
++		pages[0].addr = 0;
++		pages[0].size = 0;
++	}
++	spin_unlock_irqrestore(&cctx->lock, flags);
+ 
+ 	args[2].ptr = (u64)(uintptr_t) pages;
+ 	args[2].length = sizeof(*pages);
+@@ -1541,27 +1544,11 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
+ 
+ 	return 0;
+ err_invoke:
+-	if (fl->cctx->vmcount && scm_done) {
+-		u64 src_perms = 0;
+-		struct qcom_scm_vmperm dst_perms;
+-		u32 i;
+-
+-		for (i = 0; i < fl->cctx->vmcount; i++)
+-			src_perms |= BIT(fl->cctx->vmperms[i].vmid);
+-
+-		dst_perms.vmid = QCOM_SCM_VMID_HLOS;
+-		dst_perms.perm = QCOM_SCM_PERM_RWX;
+-		err = qcom_scm_assign_mem(fl->cctx->remote_heap->dma_addr,
+-						(u64)fl->cctx->remote_heap->size,
+-						&src_perms, &dst_perms, 1);
+-		if (err)
+-			dev_err(fl->sctx->dev, "Failed to assign memory dma_addr %pad size 0x%llx err %d\n",
+-				&fl->cctx->remote_heap->dma_addr, fl->cctx->remote_heap->size, err);
++	if (sent_heap) {
++		spin_lock_irqsave(&cctx->lock, flags);
++		cctx->audio_init_mem = false;
++		spin_unlock_irqrestore(&cctx->lock, flags);
+ 	}
+-err_map:
+-	fastrpc_buf_free(fl->cctx->remote_heap);
+-	fl->cctx->remote_heap = NULL;
+-err_name:
+ 	kfree(name);
+ err:
+ 	kfree(args);
+@@ -2086,7 +2073,7 @@ static int fastrpc_req_mmap(struct fastrpc_user *fl, char __user *argp)
+ 	if (copy_from_user(&req, argp, sizeof(req)))
+ 		return -EFAULT;
+ 
+-	if (req.flags != ADSP_MMAP_ADD_PAGES && req.flags != ADSP_MMAP_REMOTE_HEAP_ADDR) {
++	if (req.flags != ADSP_MMAP_ADD_PAGES) {
+ 		dev_err(dev, "flag not supported 0x%x\n", req.flags);
+ 
+ 		return -EINVAL;
+@@ -2097,10 +2084,7 @@ static int fastrpc_req_mmap(struct fastrpc_user *fl, char __user *argp)
+ 		return -EINVAL;
+ 	}
+ 
+-	if (req.flags == ADSP_MMAP_REMOTE_HEAP_ADDR)
+-		err = fastrpc_remote_heap_alloc(fl, dev, req.size, &buf);
+-	else
+-		err = fastrpc_buf_alloc(fl, dev, req.size, &buf);
++	err = fastrpc_buf_alloc(fl, dev, req.size, &buf);
+ 
+ 	if (err) {
+ 		dev_err(dev, "failed to allocate buffer\n");
+@@ -2139,20 +2123,6 @@ static int fastrpc_req_mmap(struct fastrpc_user *fl, char __user *argp)
+ 	/* let the client know the address to use */
+ 	req.vaddrout = rsp_msg.vaddr;
+ 
+-	/* Add memory to static PD pool, protection thru hypervisor */
+-	if (req.flags == ADSP_MMAP_REMOTE_HEAP_ADDR && fl->cctx->vmcount) {
+-		u64 src_perms = BIT(QCOM_SCM_VMID_HLOS);
+-
+-		err = qcom_scm_assign_mem(buf->dma_addr, (u64)buf->size,
+-			&src_perms, fl->cctx->vmperms, fl->cctx->vmcount);
+-		if (err) {
+-			dev_err(fl->sctx->dev,
+-				"Failed to assign memory dma_addr %pad size 0x%llx err %d",
+-				&buf->dma_addr, buf->size, err);
+-			goto err_assign;
+-		}
+-	}
+-
+ 	spin_lock(&fl->lock);
+ 	list_add_tail(&buf->node, &fl->mmaps);
+ 	spin_unlock(&fl->lock);
+@@ -2533,6 +2503,45 @@ static const struct of_device_id fastrpc_poll_supported_machines[] __maybe_unuse
+ 	{},
+ };
+ 
++static int fastrpc_init_reserved_mem(struct fastrpc_channel_ctx *cctx,
++				     struct device *rdev, u32 domain_id)
++{
++	struct resource res;
++	u64 src_perms;
++	int err;
++
++	/* Only SDSP and ADSP domains use a reserved remote heap region */
++	if (domain_id != SDSP_DOMAIN_ID && domain_id != ADSP_DOMAIN_ID)
++		return 0;
++
++	err = of_reserved_mem_region_to_resource(rdev->of_node, 0, &res);
++	if (err) {
++		/*
++		 * The reserved-memory region is optional at probe time. For
++		 * the Audio PD (ADSP) domain its absence is validated later in
++		 * fastrpc_init_create_static_process(), so keep probing here.
++		 */
++		return 0;
++	}
++
++	/*
++	 * Audio PD (ADSP) is a static PD: cache the region so its lifetime
++	 * is tied to the rpmsg channel instead of being controlled by
++	 * userspace.
++	 */
++	if (domain_id == ADSP_DOMAIN_ID) {
++		cctx->remote_heap_addr = res.start;
++		cctx->remote_heap_size = resource_size(&res);
++	}
++
++	if (!cctx->vmcount)
++		return 0;
++
++	src_perms = BIT(QCOM_SCM_VMID_HLOS);
++	return qcom_scm_assign_mem(res.start, resource_size(&res), &src_perms,
++				  cctx->vmperms, cctx->vmcount);
++}
++
+ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+ {
+ 	struct device *rdev = &rpdev->dev;
+@@ -2580,21 +2589,9 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+ 		}
+ 	}
+ 
+-	if (domain_id == SDSP_DOMAIN_ID) {
+-		struct resource res;
+-		u64 src_perms;
+-
+-		err = of_reserved_mem_region_to_resource(rdev->of_node, 0, &res);
+-		if (!err) {
+-			src_perms = BIT(QCOM_SCM_VMID_HLOS);
+-
+-			err = qcom_scm_assign_mem(res.start, resource_size(&res), &src_perms,
+-				    data->vmperms, data->vmcount);
+-			if (err)
+-				goto err_free_data;
+-		}
+-
+-	}
++	err = fastrpc_init_reserved_mem(data, rdev, domain_id);
++	if (err)
++		goto err_free_data;
+ 
+ 	secure_dsp = !(of_property_read_bool(rdev->of_node, "qcom,non-secure-domain"));
+ 	data->secure = secure_dsp;
+@@ -2694,8 +2691,25 @@ static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
+ 	list_for_each_entry_safe(buf, b, &cctx->invoke_interrupted_mmaps, node)
+ 		list_del(&buf->node);
+ 
+-	if (cctx->remote_heap)
+-		fastrpc_buf_free(cctx->remote_heap);
++	if (cctx->remote_heap_size && cctx->vmcount) {
++		u64 src_perms = 0;
++		int err, i;
++		struct qcom_scm_vmperm dst_perms;
++
++		for (i = 0; i < cctx->vmcount; i++)
++			src_perms |= BIT(cctx->vmperms[i].vmid);
++
++		dst_perms.vmid = QCOM_SCM_VMID_HLOS;
++		dst_perms.perm = QCOM_SCM_PERM_RWX;
++
++		err = qcom_scm_assign_mem(cctx->remote_heap_addr,
++					  cctx->remote_heap_size, &src_perms,
++					  &dst_perms, 1);
++		if (err)
++			dev_err(&rpdev->dev,
++				"Failed to assign memory back to HLOS: addr %pa size %#llx err %d\n",
++				&cctx->remote_heap_addr, cctx->remote_heap_size, err);
++	}
+ 
+ 	of_platform_depopulate(&rpdev->dev);
+ 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/QDISC-6HS9.v3.r0.20261103062649%40mojatatu.com
+2.53.0
+
+
+
