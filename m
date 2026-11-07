@@ -1,52 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046926;
-	b=HsESGZZ2Uzr8/KtqGrDGk87bGrEYz0oiUrHc+TiUudonZAH29vgdkPMPC8YWWsMP5J8x
-	 uNHmJ3PEesVFDKvLar+Y/dndmH4DGzp28K/Yf6K2jpUlEBLwHim0TcR6zhSLqyDchr8TZ
-	 Y8Qc2FYK4yn4YUb1FoG9xWQFIhLBrA4+Du2oBvumEQnMqhNKxTVbDTawKlVBspDqNsZGV
-	 /F9N8pJTwUU4zMrOavQ21OJASZlmiSVyufnSxmBpwOEdixTAbz4Plx49rrf/IrJMgeZ5+
-	 YVe3NWqypYIhVVgQnS5zLkaUOs2z+lOAFw1nrpHnU373mKqm59mshfw93CwtjRMvu8g==
+	t=1794046929;
+	b=MTlD1E7+XleqSzCvepfOTNGTplhp79Es/i+xJoylS8GvzhGDxQThRyj2yw5MMCyOJbg6
+	 /rdj2yvaJx/qExv96IZ2Ijv3gYqkqjnkpZ9DpzTUDlxJ8+nrZF/OP4yzriVN3GhvPTnyP
+	 Y9xDMlLEeoFdHj2gue10fAM6K092JqGF7SRHEpjO4IFk10QUFAJ2CLRBcnt9sie0bngFA
+	 Zt7F0+MFdE9Ha/b4r0ngWw8jYLGFcPMDQ17cz96/GEx5HhT1kAWpkDM9crWqtANwaEHh0
+	 z/hw+nAbBpZujEz0vwbXjMaocPA1MQbgnNQ7vlNb0E7833LyZ+nc8D1/t1ksv4Fl+jA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046926;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046929;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Np7FH57bYaeVkp4jZN27D3ewUM95MQjB3k6Dl/Eb6CM=;
-	b=xY4oLjg7VhxSmmTsa25YWwAd16c/wwasGZLP3AIU6eJndSQ5a6br5GoA2pAI1fQ0gVJY
-	 BWN8Q4F7MRq9LCtCi40RZxe7jCqVtlSDzDpjlXCo9iZasMoPx27PAqObu2SzuxSv677Tl
-	 r7ZYc+gT2/WkSRw6CqZrtxnxNCnbsaDj4X1CmMovQwivpfNS5RrxLtfYqlVANyE3omCAn
-	 SnGZ+oAVv37dr0FtWG6D8CDJOe2RuKVEVtP5e0nrVbZQ3zNVcTKuyibV4xA2yUThrwr5c
-	 KmlAjp61ojhsZQE8fIa+zjDwHGwJapc9qZcz7ogdOIiRUZCCPdCw8a9bYGz4nS8xmtQ==
+	bh=CZUIOnj1sFc3MWyvjIXzmuXBDnpzeM5IGwp9LsG5/O8=;
+	b=DcmaZxobklX6/GyCIbdy7XIlxCoR+imOqZLJmCF0pUj2EUy8lqvE4nGLw6hvqQ449tIy
+	 2NREdUCs2S/e8OQMY3bl1KG3euanwxqrE2rPg0CkWB58sYigQZneJwhk4LsqiHsuLcMZi
+	 0eCyU46tO+1qIdqiLuQDNh5MNcDpS84OxkBxaa9Cyw6c/BNFX8RIGnBLriGk/DyjEjJEZ
+	 ToCyMFzh5RPUrcVW6iwnpkPLzYphTABp1ACF2h43tGltVb+eic4ktFxBHtERlrrD2X6rR
+	 ywgBbx7YWH07Q3AEhgeKIxZk5NpnVbAZUyGiaS44nsv5yUWGgivcxs+Y+xwu5GKu5qw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SqaruoG0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X0eX79yC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5845606D825
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:22:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF5F4606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:22:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SqaruoG0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09D421F0089F;
-	Sat,  7 Nov 2026 10:22:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X0eX79yC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DA591F0089F;
+	Sat,  7 Nov 2026 10:22:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046926;
-	bh=Np7FH57bYaeVkp4jZN27D3ewUM95MQjB3k6Dl/Eb6CM=;
+	s=k20260515; t=1794046928;
+	bh=CZUIOnj1sFc3MWyvjIXzmuXBDnpzeM5IGwp9LsG5/O8=;
 	h=From:To:Cc:Subject:Date;
-	b=SqaruoG0AG/AfOX3lKdgTSExJ5jl9m+2ijAphxCS9xwrGIfDGPSEXoXHlRgJ55XJu
-	 btvNgbuhH07v9bWqJZ2f/uzN81WpOzfRb2r6vK9ghdJNsnCtGvwozw2ui5yn7yHTv5
-	 IfQBApATVwwxx9ufxTeEDTIJJ+IICBHhu8WUWgCpLnfHfgYWhUvDz0NNT85Y1kvnaV
-	 ZcOVWCdB5e8nvZPAhq96t0sVIN5vwsGZ01kNZvUf1DpinMzxcTR2Gm5ky1dap4sCry
-	 wzOIvVeVSxe8B7k5Rytro7hyBEC+xJUqzoVq3px1FkkXTVXMWcch/cRWNQcCeo80sz
-	 LlHySy4DaqbWQ==
+	b=X0eX79yCdd9ShP1rICy6aJMFCn4v7iOHvXNh6g8lIjU5QrCcXPpQi8SVfdWvm6ph+
+	 vLVAOtI19+EySI/W6kuy4SGYS8f9FnePSgnT4kOZ6UHqRd3n06ZylarLpu7TP4wgXB
+	 PMx3J59VfBaYHXsKbcKZy4pqfqGMcd5cwWvKBsOFoidOjN7tUphwrIF/q/g5Bqy/kV
+	 vaWxwhWudIu197a2u+2M4oQqAKeSfG69vCjH2ldoivU50f3I//0X2wgO7dADPfBjgm
+	 lxlbn63Vt/9tN1cPqNNVkyw2xzrjKs+DlpWDbeCiFkgdsedc8khhmuQNwUaz5E9Rff
+	 uWsHfV2stLg4g==
 From: Sasha Levin <sashal@kernel.org>
-To: ts@linux.ibm.com,
-	schnelle@linux.ibm.com,
-	hca@linux.ibm.com
+To: geraldogabriel@gmail.com,
+	dsimic@manjaro.org,
+	shawn.lin@rock-chips.com,
+	manivannan.sadhasivam@oss.qualcomm.com,
+	bhelgaas@google.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] s390/pci: Add error cleanup in zpci_directed_irq_init()" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:22:04 -0500
-Message-ID: <20261107052204-failed-6.12-769f66f595c1@kernel.org>
+Subject: FAILED: patch "[PATCH] PCI: rockchip: Drive at 2.5 GT/s, error other speeds" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:22:07 -0500
+Message-ID: <20261107052207-failed-6.12-84d08ff902f1@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,91 +71,105 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 769f66f595c11185c66913ea5d96420504bfebc3
+git cherry-pick -x 84d08ff902f1ec01177fef1a21a38934927f5aee
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052204-failed-6.12-769f66f595c1@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052207-failed-6.12-84d08ff902f1@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 769f66f595c11185c66913ea5d96420504bfebc3 Mon Sep 17 00:00:00 2001
-From: Tobias Schumacher <ts@linux.ibm.com>
-Date: Fri, 9 Oct 2026 08:15:52 +0200
-Subject: [PATCH] s390/pci: Add error cleanup in zpci_directed_irq_init()
+From 84d08ff902f1ec01177fef1a21a38934927f5aee Mon Sep 17 00:00:00 2001
+From: Geraldo Nascimento <geraldogabriel@gmail.com>
+Date: Tue, 16 Jun 2026 12:26:10 -0300
+Subject: [PATCH] PCI: rockchip: Drive at 2.5 GT/s, error other speeds
 
-If per-CPU airq_iv allocation fails in the loop, previously allocated
-vectors and arrays leak. Add proper error path to release all resources
-on failure.
+Configure the core to be driven at 2.5 GT/s Link Speed and ignore any other
+speed with a warning. Also drop the 5.0 GT/s Link Speed defines from
+Rockchip PCIe header.
 
-The error path frees zpci_sbv, but SIC_IRQ_MODE_DIRECT has already
-programmed its address into the hardware. Set the directed interrupt
-mode only after all allocations have succeeded, so a failed init leaves
-no freed memory registered with the hardware.
+The reason is that Shawn Lin from Rockchip has reiterated that there may be
+danger of "catastrophic failure" in using their PCIe with 5.0 GT/s speeds.
 
-Fixes: e979ce7bced2 ("s390/pci: provide support for CPU directed interrupts")
+While Rockchip has done so informally without issuing a proper errata, and
+the particulars are thus unknown, this may cause data loss or worse.
+
+This change is corroborated by RK3399 official datasheet [1], which states
+maximum link speed for this platform is 2.5 GT/s.
+
+[1] https://opensource.rock-chips.com/images/d/d7/Rockchip_RK3399_Datasheet_V2.1-20200323.pdf
+
+Fixes: 956cd99b35a8 ("PCI: rockchip: Separate common code from RC driver")
+Reported-by: Dragan Simic <dsimic@manjaro.org>
+Reported-by: Shawn Lin <shawn.lin@rock-chips.com>
+Link: https://lore.kernel.org/all/ffd05070-9879-4468-94e3-b88968b4c21b@rock-chips.com/
+Signed-off-by: Geraldo Nascimento <geraldogabriel@gmail.com>
+Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
+Reviewed-by: Dragan Simic <dsimic@manjaro.org>
+Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Tobias Schumacher <ts@linux.ibm.com>
-Reviewed-by: Niklas Schnelle <schnelle@linux.ibm.com>
-Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
+Link: https://patch.msgid.link/7421df7a7b7778ee99363cccfdfabbfa8aa6ab5e.1781622998.git.geraldogabriel@gmail.com
 ---
- arch/s390/pci/pci_irq.c | 26 +++++++++++++++++++-------
- 1 file changed, 19 insertions(+), 7 deletions(-)
+ drivers/pci/controller/pcie-rockchip.c | 14 ++++++--------
+ drivers/pci/controller/pcie-rockchip.h |  3 ---
+ 2 files changed, 6 insertions(+), 11 deletions(-)
 
-diff --git a/arch/s390/pci/pci_irq.c b/arch/s390/pci/pci_irq.c
-index c5fabad381395..bcf11585df8d8 100644
---- a/arch/s390/pci/pci_irq.c
-+++ b/arch/s390/pci/pci_irq.c
-@@ -569,14 +569,9 @@ static int __init zpci_directed_irq_init(void)
- 	if (!zpci_sbv)
- 		return -ENOMEM;
- 
--	iib.diib.isc = PCI_ISC;
--	iib.diib.nr_cpus = num_possible_cpus();
--	iib.diib.disb_addr = virt_to_phys(zpci_sbv->vector);
--	zpci_set_irq_ctrl(SIC_IRQ_MODE_DIRECT, 0, &iib);
--
- 	zpci_dibv = kzalloc_objs(*zpci_dibv, num_possible_cpus());
- 	if (!zpci_dibv)
--		return -ENOMEM;
-+		goto out_free_sbv;
- 
- 	for_each_possible_cpu(cpu) {
- 		/*
-@@ -589,13 +584,30 @@ static int __init zpci_directed_irq_init(void)
- 						AIRQ_IV_CACHELINE |
- 						(!cpu ? AIRQ_IV_ALLOC : 0), NULL);
- 		if (!zpci_dibv[cpu])
--			return -ENOMEM;
-+			goto out_free_dibv;
+diff --git a/drivers/pci/controller/pcie-rockchip.c b/drivers/pci/controller/pcie-rockchip.c
+index 8d78ab1b31f0f..45cc888ac5537 100644
+--- a/drivers/pci/controller/pcie-rockchip.c
++++ b/drivers/pci/controller/pcie-rockchip.c
+@@ -66,8 +66,10 @@ int rockchip_pcie_parse_dt(struct rockchip_pcie *rockchip)
  	}
-+
-+	iib.diib.isc = PCI_ISC;
-+	iib.diib.nr_cpus = num_possible_cpus();
-+	iib.diib.disb_addr = virt_to_phys(zpci_sbv->vector);
-+	zpci_set_irq_ctrl(SIC_IRQ_MODE_DIRECT, 0, &iib);
- 	on_each_cpu(cpu_enable_directed_irq, NULL, 1);
  
- 	zpci_irq_chip.irq_set_affinity = zpci_set_irq_affinity;
- 
- 	return 0;
-+
-+out_free_dibv:
-+	for_each_possible_cpu(cpu) {
-+		if (zpci_dibv[cpu])
-+			airq_iv_release(zpci_dibv[cpu]);
+ 	rockchip->link_gen = of_pci_get_max_link_speed(node);
+-	if (rockchip->link_gen < 0 || rockchip->link_gen > 2)
+-		rockchip->link_gen = 2;
++	if (rockchip->link_gen < 0 || rockchip->link_gen >= 2) {
++		rockchip->link_gen = 1;
++		dev_warn(dev, "invalid max-link-speed, limited to 2.5 GT/s\n");
 +	}
-+	kfree(zpci_dibv);
-+	zpci_dibv = NULL;
-+out_free_sbv:
-+	airq_iv_release(zpci_sbv);
-+	zpci_sbv = NULL;
-+	return -ENOMEM;
- }
  
- static int __init zpci_floating_irq_init(void)
+ 	for (i = 0; i < ROCKCHIP_NUM_PM_RSTS; i++)
+ 		rockchip->pm_rsts[i].id = rockchip_pci_pm_rsts[i];
+@@ -147,12 +149,8 @@ int rockchip_pcie_init_port(struct rockchip_pcie *rockchip)
+ 		goto err_exit_phy;
+ 	}
+ 
+-	if (rockchip->link_gen == 2)
+-		rockchip_pcie_write(rockchip, PCIE_CLIENT_GEN_SEL_2,
+-				    PCIE_CLIENT_CONFIG);
+-	else
+-		rockchip_pcie_write(rockchip, PCIE_CLIENT_GEN_SEL_1,
+-				    PCIE_CLIENT_CONFIG);
++	rockchip_pcie_write(rockchip, PCIE_CLIENT_GEN_SEL_1,
++			    PCIE_CLIENT_CONFIG);
+ 
+ 	regs = PCIE_CLIENT_ARI_ENABLE |
+ 	       PCIE_CLIENT_CONF_LANE_NUM(rockchip->lanes);
+diff --git a/drivers/pci/controller/pcie-rockchip.h b/drivers/pci/controller/pcie-rockchip.h
+index 3e82a69b9c006..b5da15601b585 100644
+--- a/drivers/pci/controller/pcie-rockchip.h
++++ b/drivers/pci/controller/pcie-rockchip.h
+@@ -42,7 +42,6 @@
+ #define   PCIE_CLIENT_MODE_RC			HWORD_SET_BIT(0x0040)
+ #define   PCIE_CLIENT_MODE_EP			HWORD_CLR_BIT(0x0040)
+ #define   PCIE_CLIENT_GEN_SEL_1			HWORD_CLR_BIT(0x0080)
+-#define   PCIE_CLIENT_GEN_SEL_2			HWORD_SET_BIT(0x0080)
+ #define PCIE_CLIENT_LEGACY_INT_CTRL	(PCIE_CLIENT_BASE + 0x0c)
+ #define   PCIE_CLIENT_INT_IN_ASSERT		HWORD_SET_BIT(0x0002)
+ #define   PCIE_CLIENT_INT_IN_DEASSERT		HWORD_CLR_BIT(0x0002)
+@@ -197,8 +196,6 @@
+ 	(((x) & PCIE_CORE_PL_CONF_LS_MASK) == PCIE_CORE_PL_CONF_LS_READY)
+ #define PCIE_LINK_UP(x) \
+ 	(((x) & PCIE_CLIENT_LINK_STATUS_MASK) == PCIE_CLIENT_LINK_STATUS_UP)
+-#define PCIE_LINK_IS_GEN2(x) \
+-	(((x) & PCIE_CORE_PL_CONF_SPEED_MASK) == PCIE_CORE_PL_CONF_SPEED_5G)
+ 
+ #define RC_REGION_0_ADDR_TRANS_H		0x00000000
+ #define RC_REGION_0_ADDR_TRANS_L		0x00000000
 -- 
 2.53.0
 
