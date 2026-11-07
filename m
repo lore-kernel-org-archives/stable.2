@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048264;
-	b=KUPl44bplNhCy0BsY6KrTv2+0E8PhRcNlxzlZ9R+c9ocgLGG1fpElq+171PMztl04ng4
-	 KEmq5zw0bRjoXYpBvHCKKOIbViJpINxt3gBrYqp5u1E7kX4ylEj73axcNswzbjm6INgJk
-	 8fUPfQnZQy7+OxtE3mfhH/cTIKXJ6MuwuF/RC0yb6Lvaj5oTKfFce0v48fE7uh94HmEuv
-	 cLPmRZIgvy78RaCdgZJq7d6huusjWGWrZZLA89+z2gHGylCmXcgDMsAmavusrJojxBizu
-	 7bdSVbYsuQWT7G5FKGqszmNANDYWT3TrQRyqGqQSrnEbdmyjWpcmX2wxhyU4lcLoksw==
+	t=1794048267;
+	b=qmkEv9yUv25S7E/Z+9G4Gr6fAEuHo6DuWkhsde+o/nLjPTD+aZM1J+AJrAjQGhucNe7z
+	 rjSEb8rtfEuJuffExxf84dKnW0BO8iUXdN1dri+2uVEl+rqFXoufYhEuGf7QXWy1dzT6n
+	 Cm5z1pKSEGiHMNl8SpoUvja9RrqdElNb5siBRipMs8ge3m7OmiXukp2eqzmkVk+8KzZeu
+	 jSAIxVOj6XohmNeY2H/FLGeUWAVototpCBZ+vQ0atdAGAYbgM+1QDQwVA43BvKqWJSOf9
+	 IoPAWpVSTvYxibqvrWN0tjQ5nE1fkaXse9FjudxEyvgQf8Kx25aQyzrDvoOz+xiykDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048264;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048267;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=JZVLB1GgkeM1oF/UCczi5bGpFclX7NrJPnh/dDtk+4I=;
-	b=JG1jKPV7nQlccT4WIcli4JFblGFgWUDu3U7Ez6y57zLKqRuxXeYaiPyZhY+Va94GlzCU
-	 apYC6m/CBymDIzxHyjOIepERXYdRn9kmVYn8RoQq75RPRahoQA5QMTRfnb8zp41HwTl4Z
-	 vFdRanbn4ZS/2du0SDF6SjHdKSrY7oIVZnjQkxc9YG5LyZAD/c6w51mX7TIm8Izb2Fpcl
-	 0+CpOXFHuH/EFgz9NvAx3a/YL4mzIAFpgh9iYSlY1aOil/pSxUI3VpiFLkIk8Ok3dNOEC
-	 N5b8/osTpz+7C0W4LwBxivCc+WDTPDwLfPXWt1+yAuFxpdi0mB7Ro8H2mne0VijnKkQ==
+	bh=QNr3nlKv8ksxa69hUumTTbC7ZT83Tpi8K5zPKycQgdA=;
+	b=wkRdShjUWAH8AEOdf0s9LGxIfFOfhNx+g+MbeZiktwCzWzv2JzKVuPFgx/sYOIVFiFWa
+	 2hmFuwJiZwLU88OyyVhC8LI9dAXe9LudNhqLrki2FgapL6elJtR6R+rl3DpecBrIMVltr
+	 663vaUTpWejuRX48bz7fjxnmqbzog1YGSa1ToyOWpiVVfDguM7IMVzOzMJajAko20zMCR
+	 0J/SSNc6Fyj5W9AzrkhMijZa0/nk+PosZMe93zXp4aMsGTBHBLBDqXDsCf9p1gQg0Rf5E
+	 lvznydrJRRj67PyqjunA8W1kwj3yhuaxBqJS+TKeMvzP/vk3vkxNg+TSQBcj9HxswVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZhmAxD8D;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KwqU8huc;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C83D606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:44:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70F31606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:44:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZhmAxD8D
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7E211F0089F;
-	Sat,  7 Nov 2026 10:44:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KwqU8huc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E35861F008A1;
+	Sat,  7 Nov 2026 10:44:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048264;
-	bh=JZVLB1GgkeM1oF/UCczi5bGpFclX7NrJPnh/dDtk+4I=;
+	s=k20260515; t=1794048267;
+	bh=QNr3nlKv8ksxa69hUumTTbC7ZT83Tpi8K5zPKycQgdA=;
 	h=From:To:Cc:Subject:Date;
-	b=ZhmAxD8DQmzmE8L7c4fJ3TwMwy4tPdlco+w5blh/bWKo5aojJGGNTpYEAWTakLUXF
-	 9Bk8AncC9waPDfSl+HzaNSY6knIc3rnCnJpQa0RDzvjYRSEmFa6xkyB4qUse4nZUJC
-	 1OwphH5bJ8ITXdXvMuvj2uitVFnaSpLyJn1LHM+1Faz1adA6qqR+MtAoslYhLdv/Vx
-	 pjV+setvHjttxZCdNnCR9gSIL1hvXyqEOHaU+bAU0YJ7ui2ClQKm9NWJ86nfIe9W0I
-	 P85DXBIV2rzRRwVdMBrvJh9kVfo+c5fvmDYn9pGnlEiw/w0Yazx9qEvwnaU02EmoSu
-	 It7U7v0ju/FXA==
+	b=KwqU8hucLvB/6v9oEaPfaELAYuPMgIzg9WeDHOPN4p4ogU+P9rZ9amyDpY1cZ2ATT
+	 vgpyQ3jEWrLvb2T3sST50ip08rMLfka6mirURQWHohkY2qyDFT7cHaqESG7WWNrbc+
+	 zZx8d0/0n58npC42Ty86XRyjrjjSF4Ph417h30sYUBFk+xdrM2zBmCgizDYDHJpz5z
+	 Nq1VzoV6gEJ9IqU5daAp5ri+kUud2yLeIFOYI4Swp91jnzDZc5ZVyNAJDWfQ0h7QjV
+	 9tpEXxGlZk2igX9KNRHFv6HDJhcmnKhxfyzbu2Gd4j/837KxIerjLxgQjQN9eGC3hT
+	 AeulbPMyvOjJw==
 From: Sasha Levin <sashal@kernel.org>
-To: henrik.enquist@gmail.com,
-	pavel.hofman@ivitera.com,
-	tiwai@suse.de
+To: borntraeger@linux.ibm.com,
+	hca@linux.ibm.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ALSA: aloop: Don't constrain playback params in notify mode" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:44:22 -0500
-Message-ID: <20261107054422-failed-6.1-ded106036984@kernel.org>
+Subject: FAILED: patch "[PATCH] s390/vmcp: Initialize full session info to zero" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:44:25 -0500
+Message-ID: <20261107054425-failed-6.1-f63eb4ee4a30@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,127 +68,53 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x ded106036984a9dd766e7e1451b02e2d15c81438
+git cherry-pick -x f63eb4ee4a30fc5d8de07a229d92310e3c8d560c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054422-failed-6.1-ded106036984@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054425-failed-6.1-f63eb4ee4a30@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From ded106036984a9dd766e7e1451b02e2d15c81438 Mon Sep 17 00:00:00 2001
-From: Henrik Enquist <henrik.enquist@gmail.com>
-Date: Sat, 3 Oct 2026 15:26:11 +0200
-Subject: [PATCH] ALSA: aloop: Don't constrain playback params in notify mode
+From f63eb4ee4a30fc5d8de07a229d92310e3c8d560c Mon Sep 17 00:00:00 2001
+From: Christian Borntraeger <borntraeger@linux.ibm.com>
+Date: Tue, 29 Sep 2026 15:58:29 +0200
+Subject: [PATCH] s390/vmcp: Initialize full session info to zero
 
-With notify enabled (the pcm_notify module parameter or the "PCM
-Notify" control), the playback side of a cable may change format, rate
-and channels while a capture is running. loopback_check_format() then
-stops the capture and notifies the "PCM Slave" controls, so that the
-capture application can reopen with the new parameters. For this
-reason loopback_open() still gives a notify mode playback the
-unconstrained loopback_pcm_hardware.
+The cma_alloc bit as well as the response can contain old data.
+cma_release will not free the kmalloced memory in that case and
+the response code might leak kernel stack data to CAP_SYS_ADMIN
+users.
 
-Since commit 898dfe4687f4 ("ALSA: aloop: Fix racy hw constraints
-adjustment") the hw rules refine against the shared cable->hw instead
-of the substream's own runtime->hw. This pins the playback side to the
-parameters of an open capture whatever the notify setting is. A player
-probing the device sees only the capture's rate, format and channels,
-and the format change path in loopback_check_format() can't be reached
-by a new playback.
-
-Skip the format, rate and channels rules for the playback substream
-when notify is enabled. Skip the period bytes rule as well: with a
-sound timer source, params_change() already takes the period size from
-a notify mode playback, and keeping the old capture's period bytes
-leaves a playback at another rate with a period that doesn't match the
-timer. The capture side stays constrained to the cable parameters.
-
-The capture stop this makes reachable again was hardened by commit
-826af7fa62e3 ("ALSA: aloop: Fix racy access at PCM trigger") and
-commit e5c33cdc6f40 ("ALSA: aloop: Fix peer runtime UAF during
-format-change stop"), which need to be applied first when backporting.
-
-Reproducer, with notify enabled on the cable:
-  arecord -D hw:Loopback,1,0 -r 44100 -f S32_LE -c 2 /dev/null &
-  aplay -D hw:Loopback,0,0 96k.wav
-Before: aplay is forced to 44100 Hz and the capture keeps running.
-After: aplay runs at 96000 Hz, the capture is stopped and "PCM Slave
-Rate" reports 96000.
-
-Fixes: 898dfe4687f4 ("ALSA: aloop: Fix racy hw constraints adjustment")
-Reported-by: Pavel Hofman <pavel.hofman@ivitera.com>
-Closes: https://lore.kernel.org/all/b4af9071-f8d7-5b47-4d7a-c5743bd67394@ivitera.com/
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Henrik Enquist <henrik.enquist@gmail.com>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Link: https://patch.msgid.link/20261003-aloop-notify-fix-v1-1-ba5dfb831bf5@gmail.com
+Signed-off-by: Christian Borntraeger <borntraeger@linux.ibm.com>
+Reviewed-by: Heiko Carstens <hca@linux.ibm.com>
+Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
 ---
- sound/drivers/aloop.c | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
+ drivers/s390/char/vmcp.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/sound/drivers/aloop.c b/sound/drivers/aloop.c
-index 81cb1f59f703b..5f0e2dc96769e 100644
---- a/sound/drivers/aloop.c
-+++ b/sound/drivers/aloop.c
-@@ -1073,6 +1073,18 @@ static unsigned int get_cable_index(struct snd_pcm_substream *substream)
- 		return !substream->stream;
- }
+diff --git a/drivers/s390/char/vmcp.c b/drivers/s390/char/vmcp.c
+index b277f9d0c321a..2cf94f23af2a6 100644
+--- a/drivers/s390/char/vmcp.c
++++ b/drivers/s390/char/vmcp.c
+@@ -104,13 +104,11 @@ static int vmcp_open(struct inode *inode, struct file *file)
+ 	if (!capable(CAP_SYS_ADMIN))
+ 		return -EPERM;
  
-+/*
-+ * In notify mode the playback side may change format, rate, channels and,
-+ * with a sound timer, the period size. A running capture that no longer
-+ * matches is stopped by loopback_check_format().
-+ * call in loopback->cable_lock
-+ */
-+static bool loopback_playback_unconstrained(struct loopback_pcm *dpcm)
-+{
-+	return dpcm->substream->stream == SNDRV_PCM_STREAM_PLAYBACK &&
-+	       get_notify(dpcm);
-+}
-+
- static int rule_format(struct snd_pcm_hw_params *params,
- 		       struct snd_pcm_hw_rule *rule)
- {
-@@ -1082,6 +1094,8 @@ static int rule_format(struct snd_pcm_hw_params *params,
+-	session = kmalloc_obj(*session);
++	session = kzalloc_obj(*session);
+ 	if (!session)
+ 		return -ENOMEM;
  
- 	snd_mask_none(&m);
- 	scoped_guard(mutex, &dpcm->loopback->cable_lock) {
-+		if (loopback_playback_unconstrained(dpcm))
-+			return 0;
- 		m.bits[0] = (u_int32_t)cable->hw.formats;
- 		m.bits[1] = (u_int32_t)(cable->hw.formats >> 32);
- 	}
-@@ -1096,6 +1110,8 @@ static int rule_rate(struct snd_pcm_hw_params *params,
- 	struct snd_interval t;
- 
- 	scoped_guard(mutex, &dpcm->loopback->cable_lock) {
-+		if (loopback_playback_unconstrained(dpcm))
-+			return 0;
- 		t.min = cable->hw.rate_min;
- 		t.max = cable->hw.rate_max;
- 	}
-@@ -1112,6 +1128,8 @@ static int rule_channels(struct snd_pcm_hw_params *params,
- 	struct snd_interval t;
- 
- 	scoped_guard(mutex, &dpcm->loopback->cable_lock) {
-+		if (loopback_playback_unconstrained(dpcm))
-+			return 0;
- 		t.min = cable->hw.channels_min;
- 		t.max = cable->hw.channels_max;
- 	}
-@@ -1128,6 +1146,8 @@ static int rule_period_bytes(struct snd_pcm_hw_params *params,
- 	struct snd_interval t;
- 
- 	scoped_guard(mutex, &dpcm->loopback->cable_lock) {
-+		if (loopback_playback_unconstrained(dpcm))
-+			return 0;
- 		t.min = cable->hw.period_bytes_min;
- 		t.max = cable->hw.period_bytes_max;
- 	}
+ 	session->bufsize = PAGE_SIZE;
+-	session->response = NULL;
+-	session->resp_size = 0;
+ 	mutex_init(&session->mutex);
+ 	file->private_data = session;
+ 	return nonseekable_open(inode, file);
 -- 
 2.53.0
 
