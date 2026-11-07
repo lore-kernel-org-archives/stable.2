@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047615;
-	b=n0bjtI5dJTQwVZvl/arlK1GwI8dCLlM226KXVE+Ep5oh+j60UMAQnPwSlCpW7grurbcm
-	 RTmuQ6TZMkvrlVa9Sc6XQ45/Rde1F+e/HWMQBF1cbafvT9Z7lbmm/mhX+P+2fdB3YDoHY
-	 hskcFGc4fxs5gi2/FtaysfWjHvPZNfXNjnRsRT+f7gbszzwdxgdoOff7uldBRijDMyxf9
-	 2v4uYoVPV4NvikJLXxjIdWmB4l1RD3R3KTSKDxUPHNr9RtgbjjExuNIoz/cdWsjEZ/Yok
-	 pZR+rsDSqcbdQUocSG3n+5AdRsuwyJN5qzpc0NJ84DlXJ25xLHD7CK0SUAyie4+WORQ==
+	t=1794047617;
+	b=nMQCxXwtJsaGWYE6i8blrhgaZH1x70oKJQKyeGbQJJRR41hMWoSa9dtd2Kn3CqI7DsCm
+	 QOpMNu6BzSlw1OQE9/eK5eXI4SbH3CrQZQbQ/f04oot9eFue4ecDiHL7xY1A+ECwMRnKm
+	 zTyoA4JfhxeU5U82s8ftia1JHh33OGf5rdDJtdLcUoXip72TZpKanuDnSeS1mOFI0ZvMA
+	 YltrnVap20fr87QT4EDyZAnU77jg9k+cwv2u46Bh3zkSehloPp2wwvsIAjCX0ov2Hytel
+	 CtL0h4tnGj3U6w5hJiUyLEGnyfB1nBJT3HwWmvpuhEVCzxlXC3L7gF0RY3YovLLVBhg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047615;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047617;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=W0fLuKR5S5whJtYKuapNaz+J1R175rR5pi2fBhqz2Eo=;
-	b=p0FV/YN4avwAg2Jp99IGrlbOCgTxWfCtuOIu0i8ktIFoh2ggQjRClaistQgcBHTo3+Sb
-	 SzGOVFuhdWBxW9yZ5Hsql3owWyMEO63vbfJNOs5w4sKqpQoz+wCSrGpVyeMLYsmB28gqK
-	 iVfa3yu8W7oQODm/XoTL6Yh0mvNwA3iF9ZoN/BBID2G2Fyhb00jgf6BqIPjZnBVdLnYZH
-	 ozekSgBrMTUWjOopMtIQnPCTTZ5eNrW46O4u+e8zC7I2NpBprDVCzyDP1B8JU8404LTAJ
-	 rmIoQEGAer1XxiPVzkc1n5fHhUP/7ax+4CM100sj4kZlmVHEw1qT1Gta28JKeZZAlqg==
+	bh=qExnHh5r+bk+FJaal2Rgl0fw4g+zZQOi24NO4sbUp44=;
+	b=OfQd9l+ZpRvadb/SkhLGwPPljfO4GJkjQDQA4LFP8kijvDJOCdo2zTgd3aIhATtwizJH
+	 r6PHP1MWg6esjGNJDtDqFoiI/G67tVGmveJJdFamY3GXIiY6GmFqXQK6+EPa+Tc2kuFnp
+	 4W34GtNx44/A4umZjIX6d53Dr9hxDEHZTHKlCQfSbGWAfPVvle8hGnpx53pPsh1ydm8YQ
+	 PAiLUhqyc+iLEizRr0dYIjjMlt/6CQlpH4SSkILC5Jw+/XGFi2xvuN+JkL1KEUdZRHWhd
+	 hx21C/5X8pqPjW55b1wmDdsBFmWulXYYIBg9nQRB7arEdkkfSn5MEdbnidgcZi7hrVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JEH96y2n;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RUCN05p1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8C2B606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:33:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12AA6606A32D
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:33:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JEH96y2n
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66BBE1F0089F;
-	Sat,  7 Nov 2026 10:33:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RUCN05p1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 852831F0089F;
+	Sat,  7 Nov 2026 10:33:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047614;
-	bh=W0fLuKR5S5whJtYKuapNaz+J1R175rR5pi2fBhqz2Eo=;
+	s=k20260515; t=1794047616;
+	bh=qExnHh5r+bk+FJaal2Rgl0fw4g+zZQOi24NO4sbUp44=;
 	h=From:To:Cc:Subject:Date;
-	b=JEH96y2nXmg8OnEVp8ASENBOnd4rpz7BP0nW5XiiIQ3GJwbH5KVOEid6Z7kPaQAvl
-	 w+xavla47R3bc4FdE5zmY8fjvkFushlnXGdV+vri5oU8IuIk2hMydxyauzxSZuIQTb
-	 fAypFKbCmrVHbatDGZEoV9xe6TNUVG9ivqd3R1ipeBdVYYYQCKRuN27VWV5FamOCPw
-	 bB1k20+/O/EcNajzRJx3AAcfifRQ0p/MJlAuco7IhzkTOjn9n/tcHWX5EoCLWut2fo
-	 3Ys/Uhs+ai6BIHs4Mq/9iAKEYrOD9Ww4gTGOCZtNhdEm3X84IGX3IseVjZ1Kl6Sdt3
-	 wkbmZVdnZIjWQ==
+	b=RUCN05p1sq0HgPg325gk7kdkCzl9N5/nOO6uY7Gdzd4811kXmrdGu8G66G+V0oDYq
+	 fIESpz4SiZqnSp+2P/j+ihcXToTKbNHK8/DAT3B7moO/BD1nFwdo9WlpZvHNdddKoI
+	 f3RrWNUXHb/QNO1RNudXaURNiIYfg0BoZX+vAJtrTWSptVZPOlShIyUyL1IiFXGOA9
+	 a94XyV1RbQaGXL1U+gOYcxQ+F+yHmn0uK2zB4LeBbonAhC+MIcY1tDhbfRFKGxmIYi
+	 fpO+i8Bo1DCONlRznujqHJxjScZeriC24zNpuEVbF6fkX2s+JOFAeG1sQFQhIg6B6o
+	 +v3plW4Z4iavA==
 From: Sasha Levin <sashal@kernel.org>
-To: runyu.xiao@seu.edu.cn,
+To: vulab@iscas.ac.cn,
 	jassisinghbrar@gmail.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mailbox: altera: shut down RX polling timer on channel teardown" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:33:33 -0500
-Message-ID: <20261107053333-failed-6.6-0cf10e65639c@kernel.org>
+Subject: FAILED: patch "[PATCH] mailbox: mtk-cmdq: Fix runtime PM leak in cmdq_mbox_flush()" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:33:35 -0500
+Message-ID: <20261107053335-failed-6.6-18e3e9798267@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,54 +68,62 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 0cf10e65639cba32d05994f85e6a8f08dd0ffe08
+git cherry-pick -x 18e3e979826795b62e8916743bec4de660e7cb22
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053333-failed-6.6-0cf10e65639c@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053335-failed-6.6-18e3e9798267@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 0cf10e65639cba32d05994f85e6a8f08dd0ffe08 Mon Sep 17 00:00:00 2001
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Date: Fri, 4 Sep 2026 14:19:39 +0800
-Subject: [PATCH] mailbox: altera: shut down RX polling timer on channel
- teardown
+From 18e3e979826795b62e8916743bec4de660e7cb22 Mon Sep 17 00:00:00 2001
+From: Wentao Liang <vulab@iscas.ac.cn>
+Date: Thu, 17 Sep 2026 09:39:23 +0000
+Subject: [PATCH] mailbox: mtk-cmdq: Fix runtime PM leak in cmdq_mbox_flush()
 
-The RX polling callback unconditionally rearms the timer after it
-processes mailbox data.  altera_mbox_shutdown() uses
-timer_delete_sync(), which waits for a running callback but does not
-prevent that callback from rearming the timer after the deletion.
+pm_runtime_get_sync() leaves the runtime PM usage counter incremented
+even when it fails, but cmdq_mbox_flush() returns the error without
+dropping it.  The same happens when the GCE thread does not drain in
+time and the function bails out with -EFAULT.
 
-Use timer_shutdown_sync() for the final polling teardown so the timer
-cannot be queued again while the mailbox channel is being released.
-The timer is reinitialized with timer_setup() on a later channel startup,
-so polling mode remains reusable.
+Undo the reference on both error paths.
 
-Fixes: f62092f6d77d ("mailbox: Add Altera mailbox driver")
+Fixes: b0524f7c9635 ("mailbox: mediatek: implement flush function")
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:GPT-5
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 Signed-off-by: Jassi Brar <jassisinghbrar@gmail.com>
 ---
- drivers/mailbox/mailbox-altera.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/mailbox/mtk-cmdq-mailbox.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/mailbox/mailbox-altera.c b/drivers/mailbox/mailbox-altera.c
-index 17278c2571d34..7cb91413ef7fc 100644
---- a/drivers/mailbox/mailbox-altera.c
-+++ b/drivers/mailbox/mailbox-altera.c
-@@ -270,7 +270,7 @@ static void altera_mbox_shutdown(struct mbox_chan *chan)
- 		writel_relaxed(~0, mbox->mbox_base + MAILBOX_INTMASK_REG);
- 		free_irq(mbox->irq, chan);
- 	} else if (!mbox->is_sender) {
--		timer_delete_sync(&mbox->rxpoll_timer);
-+		timer_shutdown_sync(&mbox->rxpoll_timer);
- 	}
- }
+diff --git a/drivers/mailbox/mtk-cmdq-mailbox.c b/drivers/mailbox/mtk-cmdq-mailbox.c
+index e523c84b48088..96462ca844715 100644
+--- a/drivers/mailbox/mtk-cmdq-mailbox.c
++++ b/drivers/mailbox/mtk-cmdq-mailbox.c
+@@ -565,8 +565,10 @@ static int cmdq_mbox_flush(struct mbox_chan *chan, unsigned long timeout)
+ 	int ret;
  
+ 	ret = pm_runtime_get_sync(cmdq->mbox.dev);
+-	if (ret < 0)
++	if (ret < 0) {
++		pm_runtime_put_noidle(cmdq->mbox.dev);
+ 		return ret;
++	}
+ 
+ 	spin_lock_irqsave(&thread->chan->lock, flags);
+ 	if (list_empty(&thread->task_busy_list))
+@@ -603,6 +605,9 @@ static int cmdq_mbox_flush(struct mbox_chan *chan, unsigned long timeout)
+ 		dev_err(cmdq->mbox.dev, "Fail to wait GCE thread 0x%x done\n",
+ 			(u32)(thread->base - cmdq->base));
+ 
++		pm_runtime_mark_last_busy(cmdq->mbox.dev);
++		pm_runtime_put_autosuspend(cmdq->mbox.dev);
++
+ 		return -EFAULT;
+ 	}
+ 	pm_runtime_mark_last_busy(cmdq->mbox.dev);
 -- 
 2.53.0
 
