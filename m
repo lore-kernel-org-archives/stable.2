@@ -1,57 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794063639;
-	b=iyjvW0X4ILaKgJ4oIQ7nKYuYrxbyVEx96BY2Cu5r0RIDAwimjQoDcZmET9f8QuAzje0Q
-	 fEbqRQwc+eQJcigOZcl3Z6dV7YR2dZNS3Sn6yBgDeQKeDm02WL7s6Hr5RJF/Oc+fOQHXo
-	 2RlNnxd8HZ7x05WvZDjkzG7sVIQOQY0luTe2A3+ZQ27a5u1kNppbM90FPCZzbvKDJDQfR
-	 PmmGfKRuSkYZ49KI4OZRPgT9msjgQO2b0W0lYiK3y0ln9FAe61OqWVfR9na2xOTMgWyfm
-	 gVizb+vkPl+ctW1pj/9mGLt80EsQkvvnrIm4ruUZmHv9NzhOPGL08S82RF6QytIHA5g==
+	t=1794063641;
+	b=v+NyKB7IhLjXvhfCGZvb+IbjOzffasaOq8QtzSpoFYCBf0/M1WdkDGoeOMiNHwPR0J7D
+	 EJ4TdjQz/TwKi2yc/x9eKIEePPp6eCacf6iBq4U6nvHI9ag3xS283MwhyD1kDfNXWVwYV
+	 CMSworpogh1qhze14mxLwdK/Sa855KJQCvwSWNvaOD2Nqrz4C174bztqmIjepvTeELMjf
+	 zLSGqLZzN4PbDi2Rp05Yo7tjngyjOSJogBf3yZB8WLPgCK4KGC7wX/G/NNp9rKY73a1nI
+	 gxsAWAFLRSSr3diOj/zjkoEUkxdm+0TGdI692dOXXRWZUrisnL3IQ1GAwHSDEcABNCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794063639;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794063641;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=OuIy3hAUzvRxqw4dq+UidRWxeszZ1by4tCKlT1wpoqE=;
-	b=rvJwEu026hi4MnYcuwNavs383TyU9gVUbCJoqpQ+UGxBnNKTMnvAwe0pRlmgrPsQr17F
-	 Q5fSUEVoexwGjkGKYEFVhZ67ZgpxiRh4fpHMSa4eniNs+rhjLHw9LkyUoShQ0bW/emCSt
-	 R0RFO3DnLTZpFKdSXFI3ZHdTTPshCHFEoSOtGndPAADw6z7t72Ndk/swp/KBCNgbsXAa7
-	 G8WA3k5Bd9FjLHyCvigTnuJnUq6aA5Sckgj+Kl6CEoL8cfza5e1JADBQdY0ZiUcrUDc+C
-	 cMq6Qg6LkWF38WamzvnqXFOR8O5AV8XGXHuEjUkskNdYrDXgTsAFaUej2AXP5WNQkwA==
+	bh=tdc5n407z0SjVrYQFS0J6Pw3S84mdgjS5kOD3Ryhl9Y=;
+	b=Hj2Ppo/+T5LC8Ho20LdM84v1lopxpUR9Kijly2Lqb0ESPGNdAssGXTzdzNm+xs0VGX+D
+	 QXxBl5V44C7lYL6JCmwCqXbsbviSX67fuWpbcyS6rMoRga09HLtugXkOjFyd4509U2S2F
+	 3C3FolZBBxipGBj1o/Ojxk1q8olaED/mdWana1W1NcVuIVSj3fV+huCaDAvmIHc/gZyGN
+	 nne9snqDPYZhuC78SSBzoc9Epn5W/nZxf/uNO+Scj4qBMDaQxQQEIwgJteagu9qwaRn1i
+	 Kf3dcXgGDEiOpWw4+X1gQphQruMnhmMJZDZzBdEdKEqKM0QAB7d3AIOVHiYq7zoRZlw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Shu3zMnr;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=s2icX2af;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B84D606A333;
-	Sat,  7 Nov 2026 15:00:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87DEC6082BF3;
+	Sat,  7 Nov 2026 15:00:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Shu3zMnr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF4171F0089F;
-	Sat,  7 Nov 2026 15:00:38 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=s2icX2af
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 377001F0089F;
+	Sat,  7 Nov 2026 15:00:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794063639;
-	bh=OuIy3hAUzvRxqw4dq+UidRWxeszZ1by4tCKlT1wpoqE=;
+	s=korg; t=1794063641;
+	bh=tdc5n407z0SjVrYQFS0J6Pw3S84mdgjS5kOD3Ryhl9Y=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Shu3zMnrRtfbXY5xcSgEPJa17pQL6ZRprBqPE5ViGjrcNoardXaDVkqdrceSPvPFE
-	 lhzmq/gr+jo46VzCMGynvYSvOthAYZuxVR+lOqCKUcEuce46u1TM2/G3w4LgieRJo8
-	 iQZ8C7TeXdeiUeENTsWyDIrx0bFGyI+GV7/kBuDM=
+	b=s2icX2afX/qAMKojVYDC4o91CqFU4/lYRkCLC1wfYkzXQEj9QsPPlGUkyD6pR713c
+	 dbxbeLnbSGSLw1ItcbrxhOSAQnzYGMQpA9uVfzGVwlwEaKgGat7PEJ2KAGYTuSuInw
+	 odXTegxY5NiTl0GUzRJOXTjUyNSBAQH83CEtB344=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Nickolai Zeldovich <nickolai@csail.mit.edu>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>,
-	Jan Kara <jack@suse.cz>,
-	Baokun Li <libaokun@linux.alibaba.com>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	Brian Foster <bfoster@redhat.com>,
-	Theodore Tso <tytso@mit.edu>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Jann Horn <jannh@google.com>,
+	Pedro Falcato <pfalcato@suse.de>,
+	Brian Geffon <bgeffon@google.com>,
+	Dmitry Safonov <0x7f454c46@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 754/869] mm/truncate: fix the zeroing end of pagecache_isize_extended()
-Date: Sat,  7 Nov 2026 08:57:16 -0500
-Message-ID: <20261107134918.300618598@linuxfoundation.org>
+Subject: [PATCH 6.18 756/869] mm/mremap: correctly uncharge accountable VMAs in error path
+Date: Sat,  7 Nov 2026 08:57:18 -0500
+Message-ID: <20261107134918.356215057@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261107134852.069646174@linuxfoundation.org>
 References: <20261107134852.069646174@linuxfoundation.org>
@@ -73,73 +74,69 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Nickolai Zeldovich <nickolai@csail.mit.edu>
+From: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-[ Upstream commit 8f9039840588dd618c72a726c192126bb7b98228 ]
+[ Upstream commit 65e722a74df992719676ead85a9e93fb2b5a0983 ]
 
-A process that extends a file by 4 GiB or more past a dirty folio, on a
-file system whose block size is smaller than the page size (ext4 with 1k
-blocks), reads back the bytes it wrote through a shared mapping beyond the
-old end of file instead of zeroes, and a later write into that block
-carries them to the disk.  With the example of commit 52aecaee1c26 ("mm:
-zero range of eof folio exposed by inode size extension") and the truncate
-taken 4 GiB further (pwrite 2k at 0, mmap the first page and write 'X'
-over [2k, 4k), truncate(2) to 4 GiB + 2k), the read of [2k, 4k) returns
-the 2048 'X' bytes, and a pwrite of 16 bytes at 3k followed by fsync() and
-a remount leaves 1008 'X' bytes on the disk in [3k+16, 4k).  No privilege
-is needed, and every size extension of 4 GiB or more reaches it:
-truncate(2)/ftruncate(2) through truncate_setsize(), writes beyond the end
-of file through generic_write_end(), ext4, iomap, btrfs, exfat, ntfs, afs
-and orangefs.  Affected since v6.13.
+The mremap error path is a fragile and unwieldy beast - it reverses the
+page table move then updates vma_remap_struct state to swap VMA, length and
+address between old and new VMAs in copy_vma_and_data().
 
-pagecache_isize_extended() zeroes the part of the dirty folio straddling
-the old end of file that the size extension exposes, from the old size to
-the new size or the end of the folio, whichever comes first:
+If the mremap() operation didn't specify MREMAP_DONTUNMAP then its caller,
+move_vma(), invokes unmap_source_vma(), which unmaps the new VMA rather
+than the old one.
 
-	end = min_t(unsigned int, to - folio_pos(folio), folio_size(folio));
+For accountable VMAs when MREMAP_DONTUNMAP is not specified,
+unmap_source_vma() unsets VMA_ACCOUNT_BIT during this unmap in order that
+only the delta of a VMA expansion is charged (performed by
+vrm_calc_charge() earlier).
 
-min_t() converts both operands to unsigned int before comparing, so the
-loff_t difference to - folio_pos(folio) is reduced modulo 2^32 first.
-When the file grows by 4 GiB or more past the folio, end is that residue
-instead of folio_size(folio): below offset nothing is zeroed, above it
-only [offset, end) is.  The bytes beyond the old end of file stay in the
-dirty folio and, now inside i_size, are file data.
+Therefore nothing uncharges the expanded VMA size, and there is a permanent
+leak in global Committed_AS.
 
-Compare in loff_t; the result is at most folio_size(folio) and fits end.
+Resolve the issue by uncharging when MREMAP_DONTUNMAP is not specified.
 
-Found while formally verifying pagecache_isize_extended() against the
-kernel binary.
-
-Link: https://lore.kernel.org/20261016222721.791785-1-nickolai@csail.mit.edu
-Fixes: 52aecaee1c26 ("mm: zero range of eof folio exposed by inode size extension")
-Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+Link: https://lore.kernel.org/20261019-other-mremap-charge-leak-v1-1-d94477fe6545@kernel.org
+Fixes: fdbef6149135 ("mm/mremap: don't account pages in vma_to_resize()")
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Jan Kara <jack@suse.cz>
-Reviewed-by: Baokun Li <libaokun@linux.alibaba.com>
-Assisted-by: LLM
-Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
-Cc: Brian Foster <bfoster@redhat.com>
-Cc: Theodore Ts'o <tytso@mit.edu>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Pedro Falcato <pfalcato@suse.de>
+Cc: Brian Geffon <bgeffon@google.com>
+Cc: Dmitry Safonov <0x7f454c46@gmail.com>
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/truncate.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ mm/mremap.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/mm/truncate.c b/mm/truncate.c
-index 9b1baa688a104..3534bc320a9c5 100644
---- a/mm/truncate.c
-+++ b/mm/truncate.c
-@@ -880,8 +880,7 @@ void pagecache_isize_extended(struct inode *inode, loff_t from, loff_t to)
- 		unsigned int offset, end;
+diff --git a/mm/mremap.c b/mm/mremap.c
+index 593e6f94eba3d..8ed7c50e499b8 100644
+--- a/mm/mremap.c
++++ b/mm/mremap.c
+@@ -1239,6 +1239,20 @@ static int copy_vma_and_data(struct vma_remap_struct *vrm,
+ 		pmc_revert.need_rmap_locks = true;
+ 		move_page_tables(&pmc_revert);
  
- 		offset = from - folio_pos(folio);
--		end = min_t(unsigned int, to - folio_pos(folio),
--			    folio_size(folio));
-+		end = min_t(loff_t, to - folio_pos(folio), folio_size(folio));
- 		folio_zero_segment(folio, offset, end);
- 	}
- 
++		/*
++		 * When copy_vma_and_data() returns, the new VMA will be
++		 * unmapped rather than the old one.
++		 *
++		 * When an accountable move is being performed, this unmapping
++		 * will not uncharge any expansion, so do that now.
++		 *
++		 * A move is accountable if the VMA is accountable and
++		 * MREMAP_DONTUNMAP is not specified, so only do so if the
++		 * latter is true.
++		 */
++		if (!(vrm->flags & MREMAP_DONTUNMAP))
++			vrm_uncharge(vrm);
++
+ 		vrm->vma = new_vma;
+ 		vrm->old_len = vrm->new_len;
+ 		vrm->addr = vrm->new_addr;
 -- 
 2.53.0
 
