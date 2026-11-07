@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048592;
-	b=bp+6f3cZX4KBdRbg/EtHJmM4xKocVATH64q9HK4v7Cfp70/wd3vMwNXL7erAdsNu3ayK
-	 0jfYCeKyE+t00SX9eXY8T4Tpl5Kj2bToPZG1wxeUtAdma/a/wkaE5vhSQNLpGL2u9CPVj
-	 GsheTR+saGbvPFw0KITN2jheRjyndi791PT8y4/x2rzY3rRqmlXHty/4CshexmU6j82A5
-	 DY4rjR1T2a/rGpKILtjbopHjDB2PamseB4VS1seczWLnnFvaEhstSvnnkqMXerToR39+w
-	 AQQ5uZ/rAdC4puJ01EwoObHsb6u1qunh7F4YMOfIYuKfLocOqqaFKYzJ692AmzBttHw==
+	t=1794048596;
+	b=a5ll/MXtRJLlLrzixgHJhbFoiaRB1Osoae0Tb1uFDAblFUkOXYX2h5seI05StT+4XRMw
+	 VjeFNZj45LKi9DLvR5fZSL/+IJpSi/8ZjCUk8CTuJlzMUKxJEF8qn/bddak0ZA9rgWfJp
+	 P3g7egUHFk0CQhAImXO8exZ6/fwxTmY1fqQogiwd9VUWrWEuTvUMTLMOt9JGn9mez53jW
+	 LgyAoHKkRwwfVdRhoTJm2dih5/p7xXx32geXYd5//nIGTow4hWi1hvtel8MYuQ6Q5Bqh9
+	 aiZ+mT1OmqBKX/ssqwzVo5WlhWgDPAjg+pP2mRepaaIhpwMi63QMMJ7f3JEkXJqTtvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048592;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048596;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=hKaBmfiosnJ4ZgyTESymXDHBUIcUzj1NXfyBcc/TPWU=;
-	b=myvgsBRKbU15dtoQzhk/WnoGbS4/hkxRBTw4fhO7ON0ns1ip3Bcri/ANmv1a2aAG3l9m
-	 x7q+og47bueaHQIdbKR4xV5Q4uTKYCpbAZc4NHaneeu3mqmHIlOEprH/mqLoFT79Rzyzu
-	 YXyfPtYkZSyUr7lWoBBYYSB4lQnpJ7WEI8DBTBzHsnzOHiM1q98tasjB2+fHeZmtVTcdk
-	 O1caCz/Xu26rvS2L1kl8kJW/tKKOBMO/L1s+B6UpyU0alVKAS+/KAnTanpQo9j+vCp+z+
-	 O/rx+7FNPPhXx/XucsJFB+KILareik4ozR99Gyi1r+NUQkGOIcjbfhzCjVhxr9PheqA==
+	bh=Tc0klBFDQchfaKE5YriV15nRRq2fcIkgJ+tJDWcel6c=;
+	b=jwIoyc6WKay5eak1F8qIj19ek+lQM6lsbPuXY2eveeKMyM+aENBzue7vaF+1x84PFIBT
+	 CDzjGJLCtqt/rsbLS+hhNFEsgobTuNx5XUIznoGDFZU5WhTbpzqkHK6YLTu++NtWpUiLl
+	 pmcdno0/H/owz5drThAVLGP9Oemu4N0GFuL2Sxse/wk5OIvwwUgd6Q1EtG9dcEqMs5fjM
+	 Z7Lbq6wGkmI3+netR/f5atR11O4dL3lWm09eiaFBj44FEpJN2XB3/pu0Evd+GAV1LYHIr
+	 uTelxzq13MiGTSTJ3vN+1NWiEEy/n5G6eQbbO24LnJyzDTavsKxRuofq51AfJqRlDLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lPtcimgg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ka96uw0t;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A846606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:49:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9E43606D808
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:49:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lPtcimgg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0D031F008A4;
-	Sat,  7 Nov 2026 10:49:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ka96uw0t
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3543E1F008A3;
+	Sat,  7 Nov 2026 10:49:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048592;
-	bh=hKaBmfiosnJ4ZgyTESymXDHBUIcUzj1NXfyBcc/TPWU=;
+	s=k20260515; t=1794048595;
+	bh=Tc0klBFDQchfaKE5YriV15nRRq2fcIkgJ+tJDWcel6c=;
 	h=From:To:Cc:Subject:Date;
-	b=lPtcimggYf29UqzJZFPk9hvZkIs7d9iFQWl+Qrx2y6GYrHzIup6kdMLPBuDQL+DK0
-	 ctWxIxVMDkgM4FoEtrmPXq+v52OZqIFkPaGuv0mGIvj1amY2IlMKRW04vrJXagf1wt
-	 YUlX6YaBWWJNycndLcO5j7S2FrZjJHfvlmilPdNYgUectvwp41KX39JckUG5MgBGG4
-	 6kv4KuZtvylFSK2nn8/hKCMwhYwHA+1nvE9Eg/E9x7tNZMfBO+ZpwZrP8k0rKtdmap
-	 KJxcKQXp99bgEfjN4UnSh/i4TlJW+SBL0f53Z55lRbt4YxAvKt3nF1q2VSCMa6gBxz
-	 NBv5Qd4yaTkCw==
+	b=Ka96uw0t7qU+T+jzLSEr76/6ISZrYMN/l+lgKxssHtAeaFaw/qaDwqsGf6g6/HXUk
+	 ijve1vNzahGkbcc6JS35IeMx4rWXabqPrxJf6/uokExJQuwoFsvU2jjLLXu2sYPwBo
+	 Nv9Kd00mDUSrFtGKqw9q9ksoLBLxzuAHlchhZVywb+vHXMXJZuDzhE+5nTDy8Z3Tcp
+	 NhUQfKT2bKZ5NBQQ3G9vi8SeCaAjYtchahRKYT9uk7714pYlcthMKKSX7p8JQOn9Fr
+	 1qpX/HVxSkKhBhfhYwuUq3JpmkFEXuyODvHZkGZq7vDq8T8darqJ1x2obGUYlN9HXV
+	 WpYxUrxzVv9wA==
 From: Sasha Levin <sashal@kernel.org>
-To: r.zhambakiev@prosoftsystems.ru,
-	lee@kernel.org
+To: parri.andrea@gmail.com,
+	jgg@nvidia.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mfd: tps65217: Use devres for IRQ domain and wake teardown" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:49:50 -0500
-Message-ID: <20261107054950-failed-6.1-cffd44d2d895@kernel.org>
+Subject: FAILED: patch "[PATCH] iommufd/iova_bitmap: Ensure that iova_bitmap_set() handles the full IOVA" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:49:53 -0500
+Message-ID: <20261107054953-failed-6.1-e21952d72b47@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,150 +68,86 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x cffd44d2d89524e2dda6adc7b0dd59363be1c8e6
+git cherry-pick -x e21952d72b4740f08a272d694cca223b6b0099ca
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054950-failed-6.1-cffd44d2d895@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054953-failed-6.1-e21952d72b47@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From cffd44d2d89524e2dda6adc7b0dd59363be1c8e6 Mon Sep 17 00:00:00 2001
-From: Radiy Zhambakiev <r.zhambakiev@prosoftsystems.ru>
-Date: Fri, 2 Oct 2026 11:36:54 +0000
-Subject: [PATCH] mfd: tps65217: Use devres for IRQ domain and wake teardown
+From e21952d72b4740f08a272d694cca223b6b0099ca Mon Sep 17 00:00:00 2001
+From: Andrea Parri <parri.andrea@gmail.com>
+Date: Fri, 25 Sep 2026 18:11:37 +0200
+Subject: [PATCH] iommufd/iova_bitmap: Ensure that iova_bitmap_set() handles
+ the full IOVA
 
-Removing the parent device used to tear the IRQ domain down in
-tps65217_remove() before the MFD children are unbound: the i2c core
-only releases the parent's devres after the remove callback returns,
-whereas devm_mfd_add_devices() registered its own devres action which
-unbinds the children. Children that requested interrupts from the
-domain (e.g. tps65217-charger) therefore call free_irq() on virtual
-IRQs whose descriptors have already been disposed. With
-CONFIG_SPARSE_IRQ free_irq() then returns early without stopping the
-threaded handler, leaking the irqaction, the IRQ kthread and a module
-reference.
+Generally userspace is going to step the dirty bitmap through the IOVA
+space. However if the bitmap ends in the middle of a large PTE this is
+problematic. The first step will clear the dirty bit and report dirty to
+the end of its bitmap while the second step will see the clear'd dirty and
+report clean for the start of the bitmap. If it happens this ends up
+losing dirties.
 
-Register the domain teardown as a devres action right after the domain
-is created instead. Devres actions are released in reverse order of
-registration, so the MFD children release their IRQs first, then the
-parent interrupt is freed and its thread stopped, and only then is the
-domain torn down. The same ordering covers probe failure, which no
-longer needs manual cleanup, and the remove callback can be dropped
-entirely.
+Further this function is missing bounds checking so if this does happen
+ther is a good chance it will write memory beyond what the userspace was
+expecting.
 
-Balance the enable_irq_wake() in tps65217_irq_init() by registering
-disable_irq_wake() as a devres action as well. Only do so when
-enabling actually succeeded, since the parent chip may not support
-setting wake-up.
+Return an error code if this illegal condition happens.
 
-Fixes: 6556bdacf646fcaa ("mfd: tps65217: Add support for IRQs")
+Fixes: 58ccf0190d19 ("vfio: Add an IOVA bitmap support")
 Cc: stable@vger.kernel.org
-Signed-off-by: Radiy Zhambakiev <r.zhambakiev@prosoftsystems.ru>
-Link: https://patch.msgid.link/20261002113624.178588-4-r.zhambakiev@prosoftsystems.ru
-Signed-off-by: Lee Jones <lee@kernel.org>
+Assisted-by: LLM
+Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
+Link: https://patch.msgid.link/20260925161142.189813-2-parri.andrea@gmail.com
+Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
 ---
- drivers/mfd/tps65217.c | 57 +++++++++++++++++++++++++++++-------------
- 1 file changed, 39 insertions(+), 18 deletions(-)
+ drivers/iommu/iommufd/iova_bitmap.c | 12 ++++++++++++
+ include/uapi/linux/iommufd.h        |  6 ++++++
+ 2 files changed, 18 insertions(+)
 
-diff --git a/drivers/mfd/tps65217.c b/drivers/mfd/tps65217.c
-index ee640e3fcf7b4..569c28c8b20f5 100644
---- a/drivers/mfd/tps65217.c
-+++ b/drivers/mfd/tps65217.c
-@@ -146,6 +146,31 @@ static const struct irq_domain_ops tps65217_irq_domain_ops = {
- 	.map = tps65217_irq_map,
- };
+diff --git a/drivers/iommu/iommufd/iova_bitmap.c b/drivers/iommu/iommufd/iova_bitmap.c
+index 483f0cc846466..953f6a57d0ca7 100644
+--- a/drivers/iommu/iommufd/iova_bitmap.c
++++ b/drivers/iommu/iommufd/iova_bitmap.c
+@@ -409,6 +409,18 @@ void iova_bitmap_set(struct iova_bitmap *bitmap,
+ 	struct iova_bitmap_map *mapped = &bitmap->mapped;
+ 	unsigned long cur_bit, last_bit, last_page_idx;
  
-+static void tps65217_irq_cleanup(void *data)
-+{
-+	struct tps65217 *tps = data;
-+	unsigned int virq;
-+
-+	if (!tps->irq_domain)
++	/*
++	 * If the range cannot be recorded then the system call returns failure.
++	 * This is to prevent loosing dirties if userspace is expecting to step
++	 * the bitmap through the IOVA space.
++	 */
++	if (!length || length > bitmap->length || iova < bitmap->iova ||
++	    iova - bitmap->iova > bitmap->length - length) {
++		if (!bitmap->err)
++			bitmap->err = -EPROTO;
 +		return;
-+
-+	for (int i = 0; i < TPS65217_NUM_IRQ; i++) {
-+		virq = irq_find_mapping(tps->irq_domain, i);
-+		if (virq)
-+			irq_dispose_mapping(virq);
 +	}
 +
-+	irq_domain_remove(tps->irq_domain);
-+	tps->irq_domain = NULL;
-+}
-+
-+static void tps65217_irq_wake_disable(void *data)
-+{
-+	unsigned long irq = (unsigned long)data;
-+
-+	disable_irq_wake(irq);
-+}
-+
- static int tps65217_irq_init(struct tps65217 *tps, int irq)
- {
- 	int ret;
-@@ -169,6 +194,10 @@ static int tps65217_irq_init(struct tps65217 *tps, int irq)
- 		return -ENOMEM;
- 	}
- 
-+	ret = devm_add_action_or_reset(tps->dev, tps65217_irq_cleanup, tps);
-+	if (ret)
-+		return ret;
-+
- 	ret = devm_request_threaded_irq(tps->dev, irq, NULL,
- 					tps65217_irq_thread, IRQF_ONESHOT,
- 					"tps65217-irq", tps);
-@@ -178,7 +207,16 @@ static int tps65217_irq_init(struct tps65217 *tps, int irq)
- 		return ret;
- 	}
- 
--	enable_irq_wake(irq);
-+	ret = enable_irq_wake(irq);
-+	if (ret) {
-+		dev_warn(tps->dev, "failed to enable IRQ wake: %d\n", ret);
-+		return 0;
-+	}
-+
-+	ret = devm_add_action_or_reset(tps->dev, tps65217_irq_wake_disable,
-+				       (void *)(unsigned long)irq);
-+	if (ret)
-+		return ret;
- 
- 	return 0;
- }
-@@ -379,22 +417,6 @@ static int tps65217_probe(struct i2c_client *client)
- 	return 0;
- }
- 
--static void tps65217_remove(struct i2c_client *client)
--{
--	struct tps65217 *tps = i2c_get_clientdata(client);
--	unsigned int virq;
--	int i;
--
--	for (i = 0; i < TPS65217_NUM_IRQ; i++) {
--		virq = irq_find_mapping(tps->irq_domain, i);
--		if (virq)
--			irq_dispose_mapping(virq);
--	}
--
--	irq_domain_remove(tps->irq_domain);
--	tps->irq_domain = NULL;
--}
--
- static const struct i2c_device_id tps65217_id_table[] = {
- 	{"tps65217", TPS65217},
- 	{ /* sentinel */ }
-@@ -408,7 +430,6 @@ static struct i2c_driver tps65217_driver = {
- 	},
- 	.id_table	= tps65217_id_table,
- 	.probe		= tps65217_probe,
--	.remove		= tps65217_remove,
- };
- 
- static int __init tps65217_init(void)
+ update_indexes:
+ 	if (unlikely(!iova_bitmap_mapped_range(mapped, iova, length))) {
+ 		/*
+diff --git a/include/uapi/linux/iommufd.h b/include/uapi/linux/iommufd.h
+index b4c7194cb08d2..010f47f7d3d23 100644
+--- a/include/uapi/linux/iommufd.h
++++ b/include/uapi/linux/iommufd.h
+@@ -871,6 +871,12 @@ enum iommufd_hwpt_get_dirty_bitmap_flags {
+  * Walk the IOMMU pagetables for a given IOVA range to return a bitmap
+  * with the dirty IOVAs. In doing so it will also by default clear any
+  * dirty bit metadata set in the IOPTE.
++ *
++ * The IOVA range given must fully enclose any IOPTE. If the range starts or
++ * ends inside a dirty IOPTE then the ioctl will fail. This avoids partially
++ * reporting a dirty range.
++ *
++ * On failure the dirty state becomes unknown and the userspace must restart.
+  */
+ struct iommu_hwpt_get_dirty_bitmap {
+ 	__u32 size;
 -- 
 2.53.0
 
