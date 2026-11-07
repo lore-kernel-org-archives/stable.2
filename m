@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046256;
-	b=tj/P4N3KtV4gRVLtuNVeO1GUJb6hM7s6yqSmJtU0ojCDRtYoMISsD2L4UIymFGIMJYJC
-	 vpL+Nu6kZJdHHhM1/7/k7ekmJilGni3vgNLMdH0Zl7RjPbVAomCxocelWQXRbaRGlZ0MX
-	 rZ0xbN+oR4uONcHxqXUxpa9z5hBzMKnB698BLtSk8Wu/z5T5u130l4P4yL72VGTP4B0j3
-	 pgfbVy4cH3Nm5E4Md7mP+EOCg1LVRrCBUsSit59NYhePN5B7mFvcYqavvA8/8ygxes667
-	 0JrFC18cMXr7i6A6emVuFojTjrAwZNnI9j/nzxrZw/Ijfzv24n+o1b1eoTIPwFXNB+Q==
+	t=1794046258;
+	b=k5Gb5ci1iy9diBKkXjnAy/564/k6GiQJF4O5ok/JRwMRG56HWo0SB0l8uWKYlYtAS9pf
+	 KlH5GNaYqUrf8r82flwfiKWi09d83i5RajlhAufN1taHh33Lk6jp/cMGN42p12u5BDEcK
+	 KzmtM14ao366HmaXArXNBrF1ZYsBVdDpchXpuwrzUS+2d/340HZ0H1TZgWJ6AyoDyEh9V
+	 CHSJzk0xApFxVR5c2hxE6QlsAam6n9aBTbW5q7g2Ph7wwDqI61LkkfDf3c3YG22Z+A2AS
+	 J75zxUfaX7edXQtPXDA2gHDuIIh4wCnKoFm4q9TG3LFWJHDgq8/SaBxZYUIWCN7atug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046256;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046258;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=N2VDx6IPqMlV0ZCoPWpAtlouFfRFH6uhXczXX2K9qVc=;
-	b=KEtjuC1ZwA4LKEQy2sv/Gx+kEN0updcIqqWADNhVp+v8YDcSbhELBYjxQcUILs6VfVDZ
-	 7eGSl2z2dJg+dahkNQaGhkN/oxMhQE5zthl9c4z7g3ZhK6Plt8w0RNdsOq7bmAr7ONw/w
-	 H3QSFREKxZHzFeVWlEO5IXAOXaCM93aqd7SY2KwjFV9L6tl6iBjGhNoILxeOhk1Ms6fDX
-	 rVs94tmhwhWz1tGpu3YCwT3OjjqDIcj1gCQJ2H3Lpn4IDRt/NciZj1CKEsfxjyeHs5/MB
-	 Ze6m/1UZJsuTsTGldssZUuzkqKv/knSW/L5l5B4qRIoBROKFWoi2S4eJ6mQ7eOBwEwA==
+	bh=RUYgjtvm3EytjnpRhNQkuqp1/1YarXfWa64tR1HmJf4=;
+	b=HFdb8uTUDmfmBqhQq4fOurF7O3JDAQJDLDucqnRqcIJKfznMNNb/h7jTnrXLQ/jQsLGb
+	 yo3FaaD/5GOJh5MvcDIsYwVywUhO/5QSYxMZ/kXu3Z+evOSNFyf1L5Qo9/F1pZAx31mHM
+	 JuHSBNfz1FDn2zaPPWeo+MfTIIFsZTNDXaMUAPcCdPGuaAV0ayeV5pbCbQVQx10AnaJwR
+	 bVpVbmKmlDLwWk9e2N3Lt8LXdDYvoUtP4AdPVSMkaIg43IkA/EyykNaEbDaBuhewpS17K
+	 qaqLqySdbuW3J6z3phiq9M0Horzw2t3kJ73fU+94B0gtBDXrOkFLvOa+Cx4mSfqgMHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eO57Ho0B;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FftpJ4X1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BB94606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:10:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E56C5606A330
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:10:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eO57Ho0B
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 501231F0089F;
-	Sat,  7 Nov 2026 10:10:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FftpJ4X1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61D201F0089F;
+	Sat,  7 Nov 2026 10:10:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046255;
-	bh=N2VDx6IPqMlV0ZCoPWpAtlouFfRFH6uhXczXX2K9qVc=;
+	s=k20260515; t=1794046257;
+	bh=RUYgjtvm3EytjnpRhNQkuqp1/1YarXfWa64tR1HmJf4=;
 	h=From:To:Cc:Subject:Date;
-	b=eO57Ho0B/3rlccoCBwFtQKW1QD1G2rz0Sn1QR2XSBML+aEmNGYZ+uTI6rAd9dL+8I
-	 gps8lwHBkxcY8plhKlCuz0PLAKJZjyLCIEYrU5FfoPAFduw2K7duqW8YYAhHGXy6GP
-	 NIoWneqgVNzddAO5IKDllTGITJ9S8hTD5VZt4EszDbtj14AEru8x9W2fcTw83sqm7U
-	 0acL72sDhW6DY+uERr63dtNDo8cl62m+/edVXKqb3CESGQLGsEF5/W7k36BjHGvJ6o
-	 X7drbI+lsWbG59PGnYODn8eqN1KAKvgFTBPBBs67ZXOQ/wi8DmuB4Ol1pBCBCUFv9i
-	 AFqPMcepFH8nw==
+	b=FftpJ4X16jVu37GIB3tyDiexO5oEzYb9Uq41WU4zkNqOdQ7BDb54LFs6AdH/n9OeO
+	 b4HeIIRNVZs3fZ74cYbRM//dQy1R/dliM1bMXD2akNi2CGDOrloo5OQEsA2fGwcYeC
+	 +Z/rC4qbbAHnQaP4/M1kMg7DPrliKdu+A5MdbVL2Su4doaMCftZpk7PsyWKx6f+4v4
+	 yVLf7csBerv0VbbjSJUL3Jk9VpXsBRbyI1CVtfPHKQ7lPqDGdcvWmO9KpeK5V85Enh
+	 u/yjoHKQIQ7V13e2DusPtTmqysCGMFpDd7ZLtT/45J0UIusdUHfweRBr7fK1FCOR8f
+	 BgabpKLXURYgA==
 From: Sasha Levin <sashal@kernel.org>
-To: kmehltretter@gmail.com,
+To: andrey.misyrov@gmail.com,
 	deller@gmx.de
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] fbdev: sh_mobile_lcdcfb: Restore the per-overlay sysfs attributes" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:10:54 -0500
-Message-ID: <20261107051054-failed-6.18-317a8be73091@kernel.org>
+Subject: FAILED: patch "[PATCH] fbdev: core: Initialize modelist in framebuffer_alloc()" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:10:56 -0500
+Message-ID: <20261107051056-failed-6.18-0c9cb9321cb3@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,128 +68,87 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 317a8be730919177956be32422ebe00cf7e46710
+git cherry-pick -x 0c9cb9321cb3863b52bdea4b8ae5a27705762c9e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051054-failed-6.18-317a8be73091@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051056-failed-6.18-0c9cb9321cb3@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 317a8be730919177956be32422ebe00cf7e46710 Mon Sep 17 00:00:00 2001
-From: Karl Mehltretter <kmehltretter@gmail.com>
-Date: Sat, 12 Sep 2026 12:21:52 +0200
-Subject: [PATCH] fbdev: sh_mobile_lcdcfb: Restore the per-overlay sysfs
- attributes
+From 0c9cb9321cb3863b52bdea4b8ae5a27705762c9e Mon Sep 17 00:00:00 2001
+From: Andrey Misiurov <andrey.misyrov@gmail.com>
+Date: Mon, 12 Oct 2026 19:53:38 +0200
+Subject: [PATCH] fbdev: core: Initialize modelist in framebuffer_alloc()
 
-The ovl_* files documented in
-Documentation/ABI/testing/sysfs-devices-platform-sh_mobile_lcdc_fb no
-longer exist.
+framebuffer_alloc() returns zeroed memory, so info->modelist starts out
+with NULL next and prev pointers. The list head is initialized only
+later, by fb_videomode_to_modelist() or by do_register_framebuffer().
 
-Commit a979182a2453 ("fbdev: lcdcfb: Register sysfs groups through driver
-core") moved the attributes from each overlay's framebuffer device to
-the platform driver's dev_groups and renamed them overlay_*. There is
-now only one set of attributes for the whole LCDC. The callbacks still
-expect dev_get_drvdata() to return a struct fb_info, but the platform
-device holds struct sh_mobile_lcdc_priv, so they access the wrong
-structure.
+The "fix potential memory leak" commits listed below added
+fb_destroy_modelist(&info->modelist) to the probe error paths of s3fb,
+tdfxfb, tridentfb, i740fb and carminefb. These paths can run before
+the list head is initialized:
 
-Restore the documented names and register the group on each overlay's
-framebuffer device with device_add_groups(). Remove it with
-device_remove_groups() before unregistering the framebuffer. Skip
-creation when dev_of_fbinfo(info) is NULL, as the old device_create_file()
-calls did.
+ - s3fb, tdfxfb, tridentfb and i740fb call fb_videomode_to_modelist()
+   only after a successful EDID read, and tridentfb can also hit the
+   error path on an ioremap() or kmalloc() failure before that;
+ - carminefb jumps to the error path when fb_find_mode() fails, before
+   its fb_videomode_to_modelist() call.
 
-Drop the CONFIG_FB_DEVICE guard, since the driver already depends on it.
+fb_destroy_modelist() then dereferences the NULL head. Reproduced on
+Debian 12 (6.1.180) by binding s3fb to a VGA device without EDID and
+forcing fb_alloc_cmap() to fail:
 
-Fixes: a979182a2453 ("fbdev: lcdcfb: Register sysfs groups through driver core")
+  s3fb 0000:00:03.0: cannot allocate colormap
+  BUG: kernel NULL pointer dereference, address: 0000000000000000
+  RIP: 0010:fb_destroy_modelist+0x10/0x80
+  Call Trace:
+   s3_pci_probe.cold+0x12b/0x2bf [s3fb]
+   local_pci_probe+0x41/0x80
+   pci_device_probe+0xc3/0x240
+   really_probe+0xde/0x380
+   __driver_probe_device+0x84/0x150
+   driver_probe_device+0x1f/0x90
+   __driver_attach+0xce/0x1c0
+   bus_for_each_dev+0x87/0xd0
+   bus_add_driver+0x1ae/0x200
+   driver_register+0x89/0xe0
+   do_one_initcall+0x59/0x220
+   do_init_module+0x4a/0x1f0
+
+Initialize the list head in framebuffer_alloc(), so info->modelist is
+always a valid, possibly empty, list and fb_destroy_modelist() is safe
+on every error path. Keep the lazy initialization in
+do_register_framebuffer(), as drivers that embed struct fb_info rather
+than calling framebuffer_alloc() still depend on it.
+
+Fixes: 3b0ed04bc852 ("fbdev: s3fb: fix potential memory leak in s3_pci_probe()")
+Fixes: bb019d755366 ("fbdev: tdfxfb: fix potential memory leak in tdfxfb_probe()")
+Fixes: 7a35ec619d9a ("fbdev: tridentfb: fix potential memory leak in trident_pci_probe()")
+Fixes: 5936063409af ("fbdev: i740fb: fix potential memory leak in i740fb_probe()")
+Fixes: 6fcca16a2b19 ("fbdev: carminefb: fix potential memory leak in alloc_carmine_fb()")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Signed-off-by: Andrey Misiurov <andrey.misyrov@gmail.com>
 Signed-off-by: Helge Deller <deller@gmx.de>
 ---
- drivers/video/fbdev/sh_mobile_lcdcfb.c | 39 +++++++++++++++++---------
- 1 file changed, 25 insertions(+), 14 deletions(-)
+ drivers/video/fbdev/core/fb_info.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/video/fbdev/sh_mobile_lcdcfb.c b/drivers/video/fbdev/sh_mobile_lcdcfb.c
-index e8324b01700f6..5743c96d54814 100644
---- a/drivers/video/fbdev/sh_mobile_lcdcfb.c
-+++ b/drivers/video/fbdev/sh_mobile_lcdcfb.c
-@@ -1337,22 +1337,24 @@ overlay_rop3_store(struct device *dev, struct device_attribute *attr,
- 	return count;
- }
+diff --git a/drivers/video/fbdev/core/fb_info.c b/drivers/video/fbdev/core/fb_info.c
+index 52f9bd2c5417a..05988a936bebb 100644
+--- a/drivers/video/fbdev/core/fb_info.c
++++ b/drivers/video/fbdev/core/fb_info.c
+@@ -43,6 +43,7 @@ struct fb_info *framebuffer_alloc(size_t size, struct device *dev)
+ 	info->device = dev;
+ 	info->fbcon_rotate_hint = -1;
+ 	info->blank = FB_BLANK_UNBLANK;
++	INIT_LIST_HEAD(&info->modelist);
  
--static DEVICE_ATTR_RW(overlay_alpha);
--static DEVICE_ATTR_RW(overlay_mode);
--static DEVICE_ATTR_RW(overlay_position);
--static DEVICE_ATTR_RW(overlay_rop3);
--
--static struct attribute *overlay_sysfs_attrs[] __maybe_unused = {
--	&dev_attr_overlay_alpha.attr,
--	&dev_attr_overlay_mode.attr,
--	&dev_attr_overlay_position.attr,
--	&dev_attr_overlay_rop3.attr,
-+static struct device_attribute dev_attr_ovl_alpha =
-+	__ATTR(ovl_alpha, 0644, overlay_alpha_show, overlay_alpha_store);
-+static struct device_attribute dev_attr_ovl_mode =
-+	__ATTR(ovl_mode, 0644, overlay_mode_show, overlay_mode_store);
-+static struct device_attribute dev_attr_ovl_position =
-+	__ATTR(ovl_position, 0644, overlay_position_show, overlay_position_store);
-+static struct device_attribute dev_attr_ovl_rop3 =
-+	__ATTR(ovl_rop3, 0644, overlay_rop3_show, overlay_rop3_store);
-+
-+static struct attribute *overlay_sysfs_attrs[] = {
-+	&dev_attr_ovl_alpha.attr,
-+	&dev_attr_ovl_mode.attr,
-+	&dev_attr_ovl_position.attr,
-+	&dev_attr_ovl_rop3.attr,
- 	NULL,
- };
- 
--#ifdef CONFIG_FB_DEVICE
- ATTRIBUTE_GROUPS(overlay_sysfs);
--#endif
- 
- static const struct fb_fix_screeninfo sh_mobile_lcdc_overlay_fix  = {
- 	.id =		"SH Mobile LCDC",
-@@ -1510,9 +1512,10 @@ sh_mobile_lcdc_overlay_fb_unregister(struct sh_mobile_lcdc_overlay *ovl)
- {
- 	struct fb_info *info = ovl->info;
- 
--	if (info == NULL || info->dev == NULL)
-+	if (!info || !dev_of_fbinfo(info))
- 		return;
- 
-+	device_remove_groups(dev_of_fbinfo(info), overlay_sysfs_groups);
- 	unregister_framebuffer(ovl->info);
- }
- 
-@@ -1530,6 +1533,15 @@ sh_mobile_lcdc_overlay_fb_register(struct sh_mobile_lcdc_overlay *ovl)
- 	if (ret < 0)
- 		return ret;
- 
-+	/* The framebuffer device is optional, see fb_device_create(). */
-+	if (dev_of_fbinfo(info)) {
-+		ret = device_add_groups(dev_of_fbinfo(info), overlay_sysfs_groups);
-+		if (ret < 0) {
-+			unregister_framebuffer(info);
-+			return ret;
-+		}
-+	}
-+
- 	dev_info(lcdc->dev, "registered %s/overlay %u as %dx%d %dbpp.\n",
- 		 dev_name(lcdc->dev), ovl->index, info->var.xres,
- 		 info->var.yres, info->var.bits_per_pixel);
-@@ -2637,7 +2649,6 @@ static int sh_mobile_lcdc_probe(struct platform_device *pdev)
- static struct platform_driver sh_mobile_lcdc_driver = {
- 	.driver		= {
- 		.name		= "sh_mobile_lcdc_fb",
--		.dev_groups	= overlay_sysfs_groups,
- 		.pm		= &sh_mobile_lcdc_dev_pm_ops,
- 	},
- 	.probe		= sh_mobile_lcdc_probe,
+ #if IS_ENABLED(CONFIG_FB_BACKLIGHT)
+ 	mutex_init(&info->bl_curve_mutex);
 -- 
 2.53.0
 
