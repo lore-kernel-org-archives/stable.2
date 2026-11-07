@@ -1,66 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049407;
-	b=BijILQa9KwiWlrGV3UF8m39BFe+bR/ospqbeIo1QXUcN4mYcQW++X9NEko/tcpmiwfRk
-	 AUB1vyIyWapesxGSB9hT9M4jPM6QizClzPCdokPVWvWciHTfZPvRSwClI5iItDBorMk+m
-	 PZigG2fB5yKeTGWBt+rB4ibPWANUGicMqeec8rWinBBa3ZV7+tVBOURuACDP3xLpHJYSC
-	 bVlqY2uptak1rs793PqeuQCQ15ekqVcbSbwds9Xs3KCKI1J5Fu2YaweGwTB5n49fyPqth
-	 SRV8/U/9hHU6nXbF+QzRMJa12P8LJZyvCCLFdCnr3LjVdClDzCi6+RRAVNODMu6y4NA==
+	t=1794049410;
+	b=K+NfWsBDRs2XbzMakgT2YoO6f99lBLS2+GvqxXrf6ac2tvM2PmVrjbi6vNJh6QXb3BKW
+	 5U5Rh7osEVmrZT/2Bn8UtJyBIJUvZrymoS8hP/ReLFyajZil67XSyLGKDm6rkgH7a+hMp
+	 7Jc+EYsoFPG+5NGHfqLmLw+tPpOpnwhUqsZJVorsh3BfoeduNin4EMEXolqq2plFm1KOA
+	 MGIDG+yjLQgtTarkyEijvh6RCeIM2oAjAShB/djQBQHtI7nwueppHbrEC5EEbw4VRzdvU
+	 /QWVzK1ARpPDppKQ2TgZZThxMP3zGkX+8dK7bqXiVOFMMRSYWYfcX0yI0/YUjO3hrbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049407;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049410;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=GRwgRH360+rd4/XzFm/j4dHz2hIx0tLUCxrakjwj4Qs=;
-	b=GnKHGDSmvVOd3gZfUpbxABAD4+55Ha2UzX6eh+blciXk+8GhFxQoIQ0rZSYUPHOSAKU1
-	 H6wM48yd9JcXcm9f9sivN61AUpLIHwT6o89r2T1ebsYzrLIwnNgZUzoOUurMZ2gSv/dTj
-	 dvotz1VB3z5TfDzWx2eEtg3jdGSKBqLbG0Bv2WNkLGxUyN3sutvRyvZBrTbX9OdAe1I2k
-	 5c5l0NDEaRI1qnZEfjCXemxBa4Il63l95wpbH7VlVIH88kQp4Nf/URNY+RFbSvgPsSG7I
-	 s+w3IgvwmrACJ1x2hz0sJZG8ZanjCrkunmzGegN3+BuwftHDj1sx/VNPM9j+IkBLK5Q==
+	bh=jCfYE6XLmISefJn3qacWqN39Vc845XaUXRFvEFUyikc=;
+	b=NpsHRK8K4YFUvDznXmOsoCsqYB3GFIy8CPEjIXvRlCudUFe50yJbXyllhCcyANLUvA9P
+	 ubNaumj0UVO4yKV5WqEPCkSVbGHqfyJQJ4pDVFI0v4BfOexWof5QtCQsz9wsc591UE8iz
+	 V4ZU3u5MQyHCvfZjtX0yR3fpU+IZfcrfIMBKqBKebIwHR/hQL19lLE1Oq0+Wts7yOTYTC
+	 zC661JbjhfcNl0KdieYJbAW7m5pRCqIesYfg5ytQuo4AhKzG87eGnnPpVOFoBsisgbxlB
+	 Kbjb4P54Bsrf958gbnRESKvbdLzvEjCttifMfJjbjj3oRAsyoiXOTKNBmudWMRMQvow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rt6wZ0kJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="MvJW9/5N";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC83B606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:03:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF164606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:03:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rt6wZ0kJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18D1D1F0089F;
-	Sat,  7 Nov 2026 11:03:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MvJW9/5N
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DC371F0089F;
+	Sat,  7 Nov 2026 11:03:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049406;
-	bh=GRwgRH360+rd4/XzFm/j4dHz2hIx0tLUCxrakjwj4Qs=;
+	s=k20260515; t=1794049409;
+	bh=jCfYE6XLmISefJn3qacWqN39Vc845XaUXRFvEFUyikc=;
 	h=From:To:Cc:Subject:Date;
-	b=Rt6wZ0kJk1Yu/iXqHG/IW7Ahsf0AMkjPaLH5Lb98TYGNkeJU7IykacMJTTVtP6rs0
-	 jmhkNUCau9/nynUfp7ID6r/c+q4q8FONgqvLQ07yvcV4WutxTvyg8JcytK7PsFhwx8
-	 hoovWlyoTAe8jqV0cRfJG/LSISzxupjE7gC2MaZy0aKIqKAFR0rmt5540eXG+tgMA6
-	 qp4UDKVYzDertrA5e+c0FqRqUcTuHdDupNOEkqZ0y0psKQ1h/KtKFkYpzvM6QumbWz
-	 TmEE42U5N4ujC5yP/yLDn2HVO0kJX4DkmonVvcw7QOBrft1C9QA0/jdWUPpUu7OZVt
-	 6QTkoA9PaYVdw==
+	b=MvJW9/5NmrYIbVx9oqszfgUBcEq4SSn3UTm57QrwRA1I3ZivwHf56whvDfg1lWxrg
+	 sPSU/0YaxccsU574GLmySCuwbYT2aurtbJw/bZzMHZ1APNiAIN3ENZD/eYl17NbWsd
+	 lh7ko7l3y9rwu24IvhRugI0seodymtTWjJhwf3jmkQvhIIxrrbhZINheUDwmtPQerd
+	 LTJCbQst1R+3vnDc0JNGY9626ja16U51BwkEAxx6SFXAhI5bGJ5hFpdWcwE6x6IH4H
+	 lHspdaJLjdu4QQTn+fqJ4J+5cvEQVKJcVS//9Ib/UBTc0WIH0KyRTtKNTBFxq/EPYQ
+	 UF5NO5+ya4lmw==
 From: Sasha Levin <sashal@kernel.org>
-To: chenridong@xiaomi.com,
-	baohua@kernel.org,
-	hannes@cmpxchg.org,
-	akpm@linux-foundation.org,
-	axelrasmussen@google.com,
-	chris@chrisdown.name,
-	david@kernel.org,
-	kasong@tencent.com,
-	ljs@kernel.org,
-	mhocko@kernel.org,
-	muchun.song@linux.dev,
-	roman.gushchin@linux.dev,
-	shakeel.butt@linux.dev,
-	tj@kernel.org,
-	weixugc@google.com,
-	yuanchu@google.com,
-	yuzhao@google.com
+To: olivier.kaloudoff@gmail.com,
+	tiwai@suse.de
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/page_counter: avoid integer overflow in effective_protection()" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:03:23 -0500
-Message-ID: <20261107060323-failed-5.15-7809ce47b056@kernel.org>
+Subject: FAILED: patch "[PATCH] ALSA: usb-audio: Add mic resolution quirk for Logitech Webcam C200" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 06:03:28 -0500
+Message-ID: <20261107060327-failed-5.15-874323b68c93@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -83,130 +68,57 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 7809ce47b05671e1fa6d74bead892d6ad6c1403b
+git cherry-pick -x 874323b68c93c6808e034dc0113681e822e6fb42
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060323-failed-5.15-7809ce47b056@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060327-failed-5.15-874323b68c93@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 7809ce47b05671e1fa6d74bead892d6ad6c1403b Mon Sep 17 00:00:00 2001
-From: Ridong Chen <chenridong@xiaomi.com>
-Date: Mon, 7 Sep 2026 10:54:44 +0800
-Subject: [PATCH] mm/page_counter: avoid integer overflow in
- effective_protection()
+From 874323b68c93c6808e034dc0113681e822e6fb42 Mon Sep 17 00:00:00 2001
+From: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
+Date: Fri, 9 Oct 2026 01:08:44 +0200
+Subject: [PATCH] ALSA: usb-audio: Add mic resolution quirk for Logitech Webcam
+ C200
 
-Patch series "mm/mglru: fix ineffective memory protection for non-kswapd
-reclaim", v4.
+The C200 (046d:0802) reports a mic capture volume range of
+1536..7680 with a resolution of 1 (6144 steps), triggering
+"Warning! Unlikely big volume step count (=6144), linear volume or
+wrong cval->res?" at probe and exposing a uselessly fine-grained
+mixer control.  This is the same firmware behavior as the other
+UVC-era Logitech webcams already carrying QUIRK_FLAG_MIC_RES_384
+(C500, C600, C210, C270, C310, C510, C525, ...), so apply the same
+quirk: CTL_MSG_DELAY_1M (which the Logitech VENDOR_FLG would provide
+if the device-specific entry did not short-circuit the lookup) plus
+MIC_RES_384.
 
-For MGLRU, memory.min/low is not honored during non-kswapd global reclaim
-(global direct reclaim and root-level memory.reclaim), because these paths
-shrink memcgs using stale protection (emin/elow).
+Verified on real hardware: with the quirk the warning disappears and
+the driver logs "set resolution quirk: cval->res = 384".
 
-Patch 2 is the actual fix.  Patch 1 is a prerequisite: an integer overflow
-in effective_protection(), spotted by the sashiko review tool, which patch
-2's new caller would also be exposed to.
-
-
-This patch (of 2):
-
-effective_protection() scales a parent's protection by a ratio of page
-counts, e.g.  for recursive protection:
-
-	(parent_effective - siblings_protected) * (usage - protected)
-		/ (parent_usage - siblings_protected)
-
-The multiply is done at unsigned long width before dividing.  On systems
-with >= 16TB RAM the product can exceed 2^64 and wrap, giving a bogus
-protection value and silently breaking memory.min/low enforcement.
-
-Use mul_u64_u64_div_u64() to multiply in a 128-bit intermediate.  Because
-usage and parent_usage are not read atomically (a child is charged before
-its parent), usage - protected can briefly exceed the divisor, making the
-quotient overflow 64 bits and trap (#DE on x86).  Cap it so the ratio
-stays <= 1.
-
-Reported by the sashiko review tool [1].
-
-Link: https://lore.kernel.org/20260907025445.1836238-1-ridong.chen@linux.dev
-Link: https://lore.kernel.org/20260907025445.1836238-2-ridong.chen@linux.dev
-Link: https://sashiko.dev/#/patchset/20260826133054.88529-1-ridong.chen@linux.dev?part=1 [1]
-Fixes: bc50bcc6e00b ("mm: memcontrol: clean up and document effective low/min calculations")
-Fixes: 8a931f801340 ("mm: memcontrol: recursive memory.low protection")
-Reviewed-by: Barry Song <baohua@kernel.org>
-Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
-Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Assisted-by: Claude:claude-opus-4-8
-Cc: Axel Rasmussen <axelrasmussen@google.com>
-Cc: Chris Down <chris@chrisdown.name>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Kairui Song <kasong@tencent.com>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Michal Hocko <mhocko@kernel.org>
-Cc: Muchun Song <muchun.song@linux.dev>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Tejun Heo <tj@kernel.org>
-Cc: Wei Xu <weixugc@google.com>
-Cc: Yuanchu Xie <yuanchu@google.com>
-Cc: Yu Zhao <yuzhao@google.com>
-Cc: <stable@vger.kernel.org>
+Signed-off-by: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20261008230844.11246-1-olivier.kaloudoff@gmail.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- mm/page_counter.c | 21 +++++++++++++++------
- 1 file changed, 15 insertions(+), 6 deletions(-)
+ sound/usb/quirks.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/mm/page_counter.c b/mm/page_counter.c
-index 450543f4b318b..98322803941a7 100644
---- a/mm/page_counter.c
-+++ b/mm/page_counter.c
-@@ -8,6 +8,7 @@
- #include <linux/page_counter.h>
- #include <linux/atomic.h>
- #include <linux/kernel.h>
-+#include <linux/math64.h>
- #include <linux/string.h>
- #include <linux/sched.h>
- #include <linux/bug.h>
-@@ -376,7 +377,8 @@ static unsigned long effective_protection(unsigned long usage,
- 	 * otherwise get a smaller chunk than what they claimed.
- 	 */
- 	if (siblings_protected > parent_effective)
--		return protected * parent_effective / siblings_protected;
-+		return mul_u64_u64_div_u64(protected, parent_effective,
-+					   siblings_protected);
- 
- 	/*
- 	 * Ok, utilized protection of all children is within what the
-@@ -417,13 +419,20 @@ static unsigned long effective_protection(unsigned long usage,
- 	if (parent_effective > siblings_protected &&
- 	    parent_usage > siblings_protected &&
- 	    usage > protected) {
--		unsigned long unclaimed;
-+		unsigned long parent_unclaimed, parent_unprotected, unprotected;
- 
--		unclaimed = parent_effective - siblings_protected;
--		unclaimed *= usage - protected;
--		unclaimed /= parent_usage - siblings_protected;
-+		parent_unclaimed = parent_effective - siblings_protected;
-+		parent_unprotected = parent_usage - siblings_protected;
- 
--		ep += unclaimed;
-+		/*
-+		 * The usages aren't read atomically, so a child can transiently
-+		 * appear to use more than its parent, making the ratio exceed 1
-+		 * and the quotient overflow 64 bits (#DE on x86).  Cap it.
-+		 */
-+		unprotected = min(usage - protected, parent_unprotected);
-+
-+		ep += mul_u64_u64_div_u64(parent_unclaimed, unprotected,
-+					  parent_unprotected);
- 	}
- 
- 	return ep;
+diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
+index 170f68db74fa4..7a5c95de86ceb 100644
+--- a/sound/usb/quirks.c
++++ b/sound/usb/quirks.c
+@@ -2494,6 +2494,8 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
+ 		   QUIRK_FLAG_DISABLE_AUTOSUSPEND),
+ 	DEVICE_FLG(0x045e, 0x070f, /* MS LifeChat LX-3000 Headset */
+ 		   QUIRK_FLAG_MIXER_PLAYBACK_MIN_MUTE),
++	DEVICE_FLG(0x046d, 0x0802, /* Logitech Webcam C200 */
++		   QUIRK_FLAG_CTL_MSG_DELAY_1M | QUIRK_FLAG_MIC_RES_384),
+ 	DEVICE_FLG(0x046d, 0x0807, /* Logitech Webcam C500 */
+ 		   QUIRK_FLAG_CTL_MSG_DELAY_1M | QUIRK_FLAG_MIC_RES_384),
+ 	DEVICE_FLG(0x046d, 0x0808, /* Logitech Webcam C600 */
 -- 
 2.53.0
 
