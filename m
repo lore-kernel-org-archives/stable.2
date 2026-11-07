@@ -1,52 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047879;
-	b=A8uQmuvT64eQoiJ9c3awtywECdn/uoKj8to+Zck+qrhy3PBYChpPwFWfgT6zxpUjayq1
-	 S5M29CbrkfXBswRDByClY9baOAPpvaqK5R/YamcjJMCrRB8oJPp4qa5NpkSAjiIWaip1r
-	 2H1nB+Hpzl+Pyfc16A7UF4IwEfmjE38eGh6jTp+U7AmEhc6v3rrViytd/kvKKq1/tHhba
-	 dAKbhYISyqIneQ11TSTtHSc5EaX/bXfvPMYZUid3bDsXLef7viXpH32D30cJJC0MblrUk
-	 8traAnTs4c8TYNFO6wFSHb0F5f/zgCAqU/LCRjfaRBwsLw+lSbnOAq5+sIjAz4lZmyg==
+	t=1794047881;
+	b=RrGdlMTS83+whMTDcB0qesIp/CeJqJl3D1mI0DVAabPH/BUnBamQV3mM+ujUa9KljwxX
+	 IJOozZdsphBJfzUalnmfCg1IWQUU0mMTITnaqzlHeldJfL3zy5IE7g1GnR1usKYnsB9OZ
+	 uEtUSkW9NgX4g0Drtf6qmkg2JJDrsnz7DuH6VGaH57Rjajuvs/AzciWkZ2EAWpgjAHaY1
+	 uKITFmCqL46p9Nh6dg+Phm3D0Bm0uJD3WscsQ0GVUuJqLyaSFTE+Ozt8MKUQT1/nu87yt
+	 a03bGSLpro1PPI2SnKap5JWyW2wKVxtm6+jne9lyu5IjuO87XaM8z9OVea0Cb7funWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047879;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047881;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=metw2JSZRw6m5cXs99q7KXaSwX7xxYXEIo+aFB8n0/c=;
-	b=KnQ6xbrovumoNlaGYbPGcfzp1xOD5U7GbBuXNTLZomQZaWglLL+iTlsRIo2r+wV/HBZb
-	 ToWa53P8njmqZObidFeG8HI5w5vtpo6mwrwFp5R91kug1aWWp/VLGeOj3EuyLzWcrSo5W
-	 C2ihS3D0956lmbBPUzex6XjinVL2V/Cl2/TeAnnz6hCoQ+weD2KrNOsGjIWnTJTrZL0s4
-	 SfXyEka82tD3t8gGVm1e3fapqmKRKzw4MmcxihKdrd9HrCtawPIXbNZZHrgYCRMUiqFOz
-	 Asj+SgNMUgWaN3+W7CHnq8VTbQp8M/ihCNrCgYMc/i2i5uPA++bH4q6t6UYaFmF9tog==
+	bh=DypwD0G+EL++7T9AOQr7f7kjr1ygrGkJeHL+GmpUXzs=;
+	b=p/A04eIoJX3udBO4MD0ZcwU6tkAyYtDp0I/VFdxz6yS9T2FX4ll15nLDck9xRyxGSrMN
+	 A7vhOGzr8n9TLUutPGfxeHppYnniP25IZGF+bbtLofPIaztOIGSZN2RcgHosD8s38L9/p
+	 rw1P/JaQzSmBpdBRj08PNPe6tI/aW5gxchc9mx1EKGmvQBYHcUVSOZwTOxceiGTGrr6w9
+	 tXCCabq2XCNv2RtCJ0C3QYwiiGH7nO51u7T/grwoiUpYzl0BMRndklp6QGy6VQQspZ+dz
+	 O2ZXMkHkdF2L55xQRYG0Z8GXiYneHelwg3GTucixR7dQ/bK14wTeN0I4EOLgjx+qOfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MHJXgH9M;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VvbI1PbI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD93F606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:37:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BD17606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:38:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MHJXgH9M
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 316761F008A1;
-	Sat,  7 Nov 2026 10:37:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VvbI1PbI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 707731F0089F;
+	Sat,  7 Nov 2026 10:38:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047878;
-	bh=metw2JSZRw6m5cXs99q7KXaSwX7xxYXEIo+aFB8n0/c=;
+	s=k20260515; t=1794047881;
+	bh=DypwD0G+EL++7T9AOQr7f7kjr1ygrGkJeHL+GmpUXzs=;
 	h=From:To:Cc:Subject:Date;
-	b=MHJXgH9MnYHqlVa2eKyVgrtSi8BDxl+13QkXHci9iBCoAhdDoWNJIWe5GrKe3cAk1
-	 C7Tq7mHc6LKu5XTJoHrydDHO7+qouDs1qm1lwG0pKduoA0I7LftrO6D6D9AMQXjgKV
-	 d1si0FvLBuah1jeVOv1lIveDOUdnpisGxU7iGWjuedtHfw7a/uF21H/lKElH8llJKC
-	 3nDmRjS7Al2q0C2avQdzSEZuXURRfzD2k9PGzVV+79ojhH1/VJTS5UCDrsj2eI1vqh
-	 4dSFOtNnLGOKpYNfRlAAchnyrEJ4RAfspTlCE87o9YmemsSM87INeXnlxiIEB6Qs0b
-	 /52Duj83VeYiA==
+	b=VvbI1PbImqOKr3/eSDCwDSeHl8hjKu0o+3fqBCu8Q8y2aWoW1p/ff6NWTXEq59/2l
+	 2ZLckqTS5/YItshMqVNiBXFSGjHX1zecGIDIf1G0mz0u+uq28zNf/OsB8c+Z4zYc+P
+	 tJVxCehNW47fc0yJH8CnLZu1fqJhCZ9uPlVBAd8PBJrKw7crRlHXCctXIW/00KxvgE
+	 tHVy+ivaxs9PJtsD5m1cBgeA/elJp4NbuTH7EDYQ8Fm9iE4eaNtFr8ZAnHFs1aEd7d
+	 GJZlYvnuPv9EzpDJj1A29i6Gfs+ml2q51gh31mouCrB6u6EO32s6tyZYSnDzrhpVQl
+	 Ftz6YcUjlchtw==
 From: Sasha Levin <sashal@kernel.org>
-To: mail@tk154.de,
-	idosch@nvidia.com,
-	kuba@kernel.org
+To: armaan.sandhu0504@gmail.com,
+	akpm@linux-foundation.org,
+	lzsx618@gmail.com,
+	andriy.shevchenko@intel.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mlxsw: Initialize register query payloads" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:37:57 -0500
-Message-ID: <20261107053757-failed-6.6-15b7a86a8888@kernel.org>
+Subject: FAILED: patch "[PATCH] lib/cmdline: fix get_options() count and overflow with large ranges" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:37:59 -0500
+Message-ID: <20261107053759-failed-6.6-5d72266218b1@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,129 +70,142 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 15b7a86a8888dc6a8fd19e181757e32389de9064
+git cherry-pick -x 5d72266218b1c4dd2917f1df2b86f3b0e0a605c9
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053757-failed-6.6-15b7a86a8888@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053759-failed-6.6-5d72266218b1@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 15b7a86a8888dc6a8fd19e181757e32389de9064 Mon Sep 17 00:00:00 2001
-From: Til Kaiser <mail@tk154.de>
-Date: Wed, 14 Oct 2026 19:31:17 +0200
-Subject: [PATCH] mlxsw: Initialize register query payloads
+From 5d72266218b1c4dd2917f1df2b86f3b0e0a605c9 Mon Sep 17 00:00:00 2001
+From: Armaan Sandhu <armaan.sandhu0504@gmail.com>
+Date: Mon, 5 Oct 2026 17:39:45 -0400
+Subject: [PATCH] lib/cmdline: fix get_options() count and overflow with large
+ ranges
 
-MFGD register queries can exhaust EMAD retries and leave Mellanox
-Spectrum switches stuck during boot or shutdown when running OpenWrt
-built with GCC 15.
+get_range() stops writing once the array is full, but get_options() still
+advances its index by the whole range.  So "1-100" parsed into four ints
+reports 99 numbers, and a range like "0-2147483647" wraps the index
+negative and writes outside the array.
 
-An example failure is shown below with the second line wrapped:
+Stop once a range fills the array, bail out in validation mode before the
+count overflows, and saturate the range length in get_range().  Add KUnit
+cases; without the fix "0-2147483647" panics the test kernel.
 
-  EMAD retries (5/5) (tid=9b544fc100001f35)
-  EMAD reg access failed (tid=9b544fc100001f35,reg_id=90f0(mfgd),
-                          type=query,status=0(operation performed))
+Only root can supply this input, so this is a robustness fix.
 
-On an SN2100, the failure occurs during driver teardown on reboot.
-On an SN3420, it occurs while probing mlxsw_spectrum during boot.
-
-The register query API transmits the supplied payload to the device
-before replacing it with the response. Both MFGD callers pass an
-uninitialized stack buffer, so the request contains arbitrary register
-field values and reserved bits. This makes the request depend on stack
-contents and compiler code generation.
-
-Initialize both MFGD query buffers in the firmware fatal event
-configuration and reporter test paths. The initialization has been
-confirmed to eliminate the boot and shutdown hangs on both switches.
-The subsequent read-modify-write still preserves the other fields
-returned by the device.
-
-Also initialize the FORE fan fault query and the MOGCR mirroring policer
-base query, which pass entirely uninitialized payloads. Restore the MTMP
-query initialization in the temperature history reset path, where only
-the slot and sensor index fields are set before querying the register.
-
-This follows commit 5b0907407e7f ("mlxsw: core: Zero payload buffers for
-couple of registers"), which initialized other query payloads after a
-firmware field length bug caused firmware to consume uninitialized data.
-
-Tested with firmware 2020.1148 and with 2016.3900 from linux-firmware.
-
-Fixes: 7d83ee111008 ("mlxsw: core: Introduce fw_fatal health reporter")
-Fixes: 2c6a33cd334b ("mlxsw: core: Extend hwmon interface with fan fault attribute")
-Fixes: 4039504e6a0c ("mlxsw: spectrum_span: Allow setting policer on a SPAN agent")
-Fixes: b890ad418e1f ("mlxsw: core_hwmon: Extend internal structures to support multi hwmon objects")
-Cc: stable@vger.kernel.org
-Signed-off-by: Til Kaiser <mail@tk154.de>
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
-Link: https://patch.msgid.link/20261014173117.26305-1-mail@tk154.de
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[akpm@linux-foundation.org: add additional test case from Leizhen]
+Link: https://lore.kernel.org/20261005213945.359905-1-armaan.sandhu0504@gmail.com
+Fixes: 22f2e2801799 ("[PATCH] get_options to allow a hypenated range for isolcpus")
+Signed-off-by: Armaan Sandhu <armaan.sandhu0504@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: Leizhen Zhang <lzsx618@gmail.com>
+Reviewed-by: Leizhen Zhang <lzsx618@gmail.com>
+Cc: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: <stable@vger.kernel.org>
 ---
- drivers/net/ethernet/mellanox/mlxsw/core.c          | 4 ++--
- drivers/net/ethernet/mellanox/mlxsw/core_hwmon.c    | 4 ++--
- drivers/net/ethernet/mellanox/mlxsw/spectrum_span.c | 2 +-
- 3 files changed, 5 insertions(+), 5 deletions(-)
+ lib/cmdline.c             | 13 ++++++++++++-
+ lib/tests/cmdline_kunit.c | 39 +++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 51 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/mellanox/mlxsw/core.c b/drivers/net/ethernet/mellanox/mlxsw/core.c
-index 308d8a94865f8..42e9689d7f357 100644
---- a/drivers/net/ethernet/mellanox/mlxsw/core.c
-+++ b/drivers/net/ethernet/mellanox/mlxsw/core.c
-@@ -2001,7 +2001,7 @@ mlxsw_core_health_fw_fatal_test(struct devlink_health_reporter *reporter,
- 				struct netlink_ext_ack *extack)
+diff --git a/lib/cmdline.c b/lib/cmdline.c
+index 16cce6621cec1..40b98d943a9ae 100644
+--- a/lib/cmdline.c
++++ b/lib/cmdline.c
+@@ -11,6 +11,7 @@
+ 
+ #include <linux/export.h>
+ #include <linux/kernel.h>
++#include <linux/overflow.h>
+ #include <linux/string.h>
+ #include <linux/ctype.h>
+ 
+@@ -26,7 +27,9 @@ static int get_range(char **str, int *pint, int n)
+ 
+ 	(*str)++;
+ 	upper_range = simple_strtol((*str), NULL, 0);
+-	inc_counter = upper_range - *pint;
++	/* Keep the sign of the result when the difference doesn't fit */
++	if (check_sub_overflow(upper_range, *pint, &inc_counter))
++		inc_counter = upper_range < *pint ? -1 : INT_MAX;
+ 	for (x = *pint; n && x < upper_range; x++, n--)
+ 		*pint++ = x;
+ 	return inc_counter;
+@@ -122,6 +125,14 @@ char *get_options(const char *str, int nints, int *ints)
+ 			range_nums = get_range((char **)&str, pint, n);
+ 			if (range_nums < 0)
+ 				break;
++			/* The range didn't fit, so the array is full */
++			if (!validate && range_nums > n) {
++				i = nints;
++				break;
++			}
++			/* Leave room for the upper number of the range */
++			if (range_nums >= INT_MAX - i)
++				break;
+ 			/*
+ 			 * Decrement the result by one to leave out the
+ 			 * last number in the range.  The next iteration
+diff --git a/lib/tests/cmdline_kunit.c b/lib/tests/cmdline_kunit.c
+index 3f61ff8d31782..12b85f255b651 100644
+--- a/lib/tests/cmdline_kunit.c
++++ b/lib/tests/cmdline_kunit.c
+@@ -140,6 +140,44 @@ static void cmdline_test_range(struct kunit *test)
+ 	} while (++i < ARRAY_SIZE(cmdline_test_range_strings));
+ }
+ 
++static const struct {
++	const char *in;
++	int parsed[4];
++	int validated;
++} cmdline_test_range_overflow_cases[] = {
++	{ "1-100",         { 3, 1, 2, 3, },    100,        },
++	{ "1,5-100,7",     { 3, 1, 5, 6, },    98,         },
++	{ "1-2147483646",  { 3, 1, 2, 3, },    2147483646, },
++	{ "0-2147483647",  { 3, 0, 1, 2, },    0,          },
++	{ "-5-2147483647", { 3, -5, -4, -3, }, 0,          },
++	{ "2147483647--5", { 0, 2147483647, }, 0,          },
++	{ "1,0-2147483647", { 3, 1, 0, 1, },   1, },
++};
++
++static void cmdline_test_range_overflow(struct kunit *test)
++{
++	unsigned int i, j;
++
++	for (i = 0; i < ARRAY_SIZE(cmdline_test_range_overflow_cases); i++) {
++		const char *in = cmdline_test_range_overflow_cases[i].in;
++		const int *e = cmdline_test_range_overflow_cases[i].parsed;
++		/* Two guard elements past the array handed to get_options() */
++		int r[ARRAY_SIZE(cmdline_test_range_overflow_cases[0].parsed) + 2];
++		int n;
++
++		memset(r, 0, sizeof(r));
++		get_options(in, ARRAY_SIZE(r) - 2, r);
++		for (j = 0; j < ARRAY_SIZE(r) - 2; j++)
++			KUNIT_EXPECT_EQ_MSG(test, r[j], e[j], "Pattern: %s at %u", in, j);
++		for (; j < ARRAY_SIZE(r); j++)
++			KUNIT_EXPECT_EQ_MSG(test, r[j], 0, "Pattern: %s out of bound at %u", in, j);
++
++		get_options(in, 0, &n);
++		KUNIT_EXPECT_EQ_MSG(test, n, cmdline_test_range_overflow_cases[i].validated,
++				    "Pattern: %s (validated)", in);
++	}
++}
++
+ static void cmdline_test_next_arg_quoted_value(struct kunit *test)
  {
- 	struct mlxsw_core *mlxsw_core = devlink_health_reporter_priv(reporter);
--	char mfgd_pl[MLXSW_REG_MFGD_LEN];
-+	char mfgd_pl[MLXSW_REG_MFGD_LEN] = {0};
- 	int err;
- 
- 	/* Read the register first to make sure no other bits are changed. */
-@@ -2022,7 +2022,7 @@ mlxsw_core_health_fw_fatal_ops = {
- static int mlxsw_core_health_fw_fatal_config(struct mlxsw_core *mlxsw_core,
- 					     bool enable)
- {
--	char mfgd_pl[MLXSW_REG_MFGD_LEN];
-+	char mfgd_pl[MLXSW_REG_MFGD_LEN] = {0};
- 	int err;
- 
- 	/* Read the register first to make sure no other bits are changed. */
-diff --git a/drivers/net/ethernet/mellanox/mlxsw/core_hwmon.c b/drivers/net/ethernet/mellanox/mlxsw/core_hwmon.c
-index 30f172ce822cf..a5e7aee730d6a 100644
---- a/drivers/net/ethernet/mellanox/mlxsw/core_hwmon.c
-+++ b/drivers/net/ethernet/mellanox/mlxsw/core_hwmon.c
-@@ -120,7 +120,7 @@ static ssize_t mlxsw_hwmon_temp_rst_store(struct device *dev,
- 			container_of(attr, struct mlxsw_hwmon_attr, dev_attr);
- 	struct mlxsw_hwmon_dev *mlxsw_hwmon_dev = mlxsw_hwmon_attr->mlxsw_hwmon_dev;
- 	struct mlxsw_hwmon *mlxsw_hwmon = mlxsw_hwmon_dev->hwmon;
--	char mtmp_pl[MLXSW_REG_MTMP_LEN];
-+	char mtmp_pl[MLXSW_REG_MTMP_LEN] = {0};
- 	unsigned long val;
- 	int index;
- 	int err;
-@@ -177,7 +177,7 @@ static ssize_t mlxsw_hwmon_fan_fault_show(struct device *dev,
- 			container_of(attr, struct mlxsw_hwmon_attr, dev_attr);
- 	struct mlxsw_hwmon_dev *mlxsw_hwmon_dev = mlxsw_hwmon_attr->mlxsw_hwmon_dev;
- 	struct mlxsw_hwmon *mlxsw_hwmon = mlxsw_hwmon_dev->hwmon;
--	char fore_pl[MLXSW_REG_FORE_LEN];
-+	char fore_pl[MLXSW_REG_FORE_LEN] = {0};
- 	bool fault;
- 	int err;
- 
-diff --git a/drivers/net/ethernet/mellanox/mlxsw/spectrum_span.c b/drivers/net/ethernet/mellanox/mlxsw/spectrum_span.c
-index ae63d549b5429..d54fe5e612963 100644
---- a/drivers/net/ethernet/mellanox/mlxsw/spectrum_span.c
-+++ b/drivers/net/ethernet/mellanox/mlxsw/spectrum_span.c
-@@ -1720,7 +1720,7 @@ static int mlxsw_sp2_span_init(struct mlxsw_sp *mlxsw_sp)
- static int mlxsw_sp2_span_policer_id_base_set(struct mlxsw_sp *mlxsw_sp,
- 					      u16 policer_id_base)
- {
--	char mogcr_pl[MLXSW_REG_MOGCR_LEN];
-+	char mogcr_pl[MLXSW_REG_MOGCR_LEN] = {0};
- 	int err;
- 
- 	err = mlxsw_reg_query(mlxsw_sp->core, MLXSW_REG(mogcr), mogcr_pl);
+ 	char in[] = "foo=\"bar baz\" qux=1";
+@@ -258,6 +296,7 @@ static struct kunit_case cmdline_test_cases[] = {
+ 	KUNIT_CASE(cmdline_test_lead_int),
+ 	KUNIT_CASE(cmdline_test_tail_int),
+ 	KUNIT_CASE(cmdline_test_range),
++	KUNIT_CASE(cmdline_test_range_overflow),
+ 	KUNIT_CASE(cmdline_test_next_arg_quoted_value),
+ 	KUNIT_CASE(cmdline_test_next_arg_bare_quote_regression),
+ 	KUNIT_CASE(cmdline_test_next_arg_mixed_tokens),
 -- 
 2.53.0
 
