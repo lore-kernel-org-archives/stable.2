@@ -1,52 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047247;
-	b=i2hAa7X3LDzjnu+SEwCpPoeRvUerbOIkAUML/ebqTG2RF8m8c6TdOmc6n2w402SzdfMz
-	 kA+5PHvIGJ3VEbmfQeepMNFCmVyik0971MvzNoeK3kcZPLDTFXkiZ99PuvfyvILzSkPKp
-	 SnRbi++lzClpZxCSfG0G5QX+X4IiTFXn8dbFHTQmuKF4dQBzxyIeRzbldWWO0jGjMp+AN
-	 P9klUIgJUaDpFZFdWuQ4mD5SX8xiMMB4LRwvaxda5sXaqSbfIkZ+Yk1u5LuBzevG4Gj5+
-	 tf0RuF+lx5GG0qRzgwcEuqhyKP3KDo8t+P/09IbuS54yRQpsZRzhcMoWiHCc1qQPiXg==
+	t=1794047249;
+	b=39huxGBkvJFpl43Ee+/NGFSoaC5PPLJ17REGkZJ4VbxDjr1TZ3+u3vNijep54BU7Opkf
+	 bOpiIrCb8T2/eZrjS24WLuc2tYTcS8YFUFc96GR7Tmt4qapyHhrBbKTjD9XmooLJt/Jub
+	 BOosE1HS+DoNMbpj1q/kEw5AXPMTmgY6AieCbu/Iot0hz2bPKItLOW3MdO8N8+kSS+1iw
+	 Izh0LRY1Kmo6Za2ywIAU1bJpFvsy8u6+qDGvZ7VpElTy5scDfilDNkDnsI/W1qGwAm2Dg
+	 RbPNJifRIrEVhW/9l/Ioj+/vMzSEJwST6F4VC/gRAE87Q3rPazhup+Ye28uAi7tdPAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047247;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047249;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=nFghWMV0qVQE6wenUI+WZ+bgVZkvBkfJfTpxqErbjsc=;
-	b=a5y5k5KgKzibfXlYdd32UicLlDdbjnjB9HqIdpz+PapaTA3bD/V+wUO1PIanaLKSt8C+
-	 0GjdAmNAwthLA9byIVgThhI1rvvwbrte50ZTGlmComnW8F3ibi701hEN8tqRjagGwu0R8
-	 Uh9Ys+ATKTaGuG8kd1SH9/Ic3v60T5XlF8i0nk0WEHyfObGklL5TA6zT1U8YxXAkk2WS3
-	 r9azGUQUIW8s34yTC99BqQRXBoTDameXQGP2/AwGmuGj4jkCdgi6nyNkLEidNkslrF+f9
-	 LpF/gk6AVt+qj925BMOfWpxHDNIy5UZ7l0Gi7TxYWMdKRKuLeOVrpsckFAqeW8jR3Qw==
+	bh=JRatUjwEfk4+Vykq29iYQa30nmVpcPYt+cJpemig/BQ=;
+	b=zw5fVkI9zeviDhaq9ZUpShANuyG01tuYp5mz45/TeRQfxaCvuOT4YkL6WtL4ygh6kqy2
+	 iGPEOErE9PXCGyzBEG/17RflDiOg5Ow6nyUk5jQfKTDGXa9RzuhEESkDRe6VbJB5s/P6R
+	 a548q7bL64LR5eezuFjBKHfqxgsfeaUISUBFTDP44tLzk5wWv6aOjNGI16ynyWLROf39A
+	 CjHZxwWNjKCpIWMTdVxJ/cVHJ6zh4QmsLfo6rTAA1wW3TmV+A+W31lHP2W+Os0hhf7Hwx
+	 NnMobx2J+yFN8DlzZwbQfRTUQszgnBNOFRhK0j5GKpxgMhw44qh3whBhP3kej9Cc/FA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AosLgdxS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kt8HIs23;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E094606A32E
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:27:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E92D606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:27:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AosLgdxS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 698651F008A1;
-	Sat,  7 Nov 2026 10:27:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kt8HIs23
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E4491F008A1;
+	Sat,  7 Nov 2026 10:27:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047246;
-	bh=nFghWMV0qVQE6wenUI+WZ+bgVZkvBkfJfTpxqErbjsc=;
+	s=k20260515; t=1794047249;
+	bh=JRatUjwEfk4+Vykq29iYQa30nmVpcPYt+cJpemig/BQ=;
 	h=From:To:Cc:Subject:Date;
-	b=AosLgdxSe48L6C8+jJ0omxGkKluSg+1ZutSzNL33IFInJv7A4T7SDBFaEIHufNtzv
-	 KaMZxo41YnrxM6tjIHsZ7XeasZE9rwh23g9CpsHH8bb+fV/HCuNIbFkbfPdivTopnb
-	 UgwuhnZYgE0StEOOHE7k2HprsMoV2EefJM2CJXzSXQrPXYbPyAUFTrdyyPE2NFU3P8
-	 bV61wNB40b9syAqByduhC8vBEchuaD1ne+f653KwQyVbWHM0jdEYXFWUjtakNPzY1R
-	 LL019elpfGFwvqRgolDIMlqlTPCsIJLxuIJ1GmNiAZVuHnK35Of62KdC39cQW23X/H
-	 6ifJzwQdlxe4g==
+	b=kt8HIs23RiurWBndzjMnxnxsQPLySOVcRTWmoS+WCJoBm0R8Qwtq5ckdDtMIJ8qWD
+	 qnvb6uVxeHem/kMLzFHwhznc0LKswt44mBohbBSiQ1UAihBTvLU0AEe8YzBj9BMQIj
+	 /ofuHYZxaJ9rkbT7bydz13TRN15kE6WNfvOQQrveK9U9W79ZWnSEGBVsWJebRc2PWt
+	 bCoz2kTcnm3n+RMGXIxacbTiZYC5wlyCoi+mXrmFaOgANq2waytW5bN83iNiZRuVF5
+	 n3NTXrCqLr8fWZ+pc2oAvR9xXIc7V4aAYw3wncZ34AiLuPEzoBcKSyE+ettVyLEvGH
+	 NqQBpA5gbadTg==
 From: Sasha Levin <sashal@kernel.org>
-To: jesse.zhang@amd.com,
-	christian.koenig@amd.com,
-	alexander.deucher@amd.com
+To: user148783812897@gmail.com,
+	willemb@google.com,
+	kuniyu@google.com,
+	edumazet@kernel.org,
+	kuba@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/amdgpu: drop the gang leader reference when freeing gang jobs" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:27:25 -0500
-Message-ID: <20261107052725-failed-6.12-c1584e10a7de@kernel.org>
+Subject: FAILED: patch "[PATCH] net: limit priority VLAN untag depth" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:27:27 -0500
+Message-ID: <20261107052727-failed-6.12-d3ff07f5acc5@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,110 +71,82 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x c1584e10a7deb655438f21867b2b7a356a9aaf9f
+git cherry-pick -x d3ff07f5acc573e5f72bf1c581bae5d05191ba61
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052725-failed-6.12-c1584e10a7de@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052727-failed-6.12-d3ff07f5acc5@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From c1584e10a7deb655438f21867b2b7a356a9aaf9f Mon Sep 17 00:00:00 2001
-From: Jesse Zhang <Jesse.Zhang@amd.com>
-Date: Thu, 15 Oct 2026 22:59:25 +0800
-Subject: [PATCH] drm/amdgpu: drop the gang leader reference when freeing gang
- jobs
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From d3ff07f5acc573e5f72bf1c581bae5d05191ba61 Mon Sep 17 00:00:00 2001
+From: Kamil Sawicki <user148783812897@gmail.com>
+Date: Fri, 23 Oct 2026 20:48:35 -0400
+Subject: [PATCH] net: limit priority VLAN untag depth
 
-Every job of a gang except the leader holds a reference to the
-scheduled fence of the leader in job->gang_submit. Only
-amdgpu_job_free(), used for jobs which never ran, drops it, so for every
-gang submission which completes the scheduler fence of the leader, and
-with it its hardware fence, is leaked. amdgpu_job_free() in turn checks
-for the leader only after drm_sched_job_cleanup() cleared the scheduler
-fence, so a leader freed there drops a reference it never took.
+The priority VLAN receive path can repeatedly remove VID 0 tags and retry
+packet processing. Unlike the read-only VLAN protocol parser, this path has
+no limit on the number of nested tags it consumes.
 
-On navi31, 100 submissions of a GFX + COMPUTE gang grow the slab cache
-drm_sched_fence is merged into by 60 to 180 objects each time, while
-100 GFX only submissions don't.
+Each skb_vlan_untag() advances skb->data and resets header offsets. The
+offsets are stored in 16-bit fields. With enough nested tags, the network
+or transport offset can wrap. A later protocol handler can then derive a
+large pull length from the wrapped offsets and access memory outside the
+skb allocation.
 
-Use amdgpu_job_free() for the jobs the scheduler frees too, and check
-for the gang leader there before drm_sched_job_cleanup() clears the
-scheduler fence. As the scheduler clears the entity of the jobs it
-picked up, check for the scheduler fence instead to tell whether the job
-needs cleaning up.
+Apply the existing VLAN_MAX_DEPTH limit to the exceptional VID 0 retry.
+Count the tag already stored in skb VLAN metadata as the first level, then
+stop before untagging a ninth level. Keep the accounting inside this
+uncommon branch so the regular VLAN receive path is unaffected.
 
-Keep freeing the remaining IBs with amdgpu_job_free_resources() after
-drm_sched_job_cleanup(), so that it frees them with the hardware fence or
-right away and not with the scheduler fence, which nobody signals for
-jobs aborted after drm_sched_job_arm(), like a CS returning -EAGAIN.
+A single VID 0 priority tag before a real VLAN tag is valid. No normal
+deployment was found that intentionally emits multiple consecutive VID 0
+tags; permitting eight levels is therefore conservative.
 
-v2: unify amdgpu_job_free() and amdgpu_job_free_cb() (Christian), don't
-    free the remaining IBs with the scheduler fence
-v3: drop the comments (Christian)
-v4: free the IBs with amdgpu_job_free_resources() again (Christian)
+The issue was found while researching the Linux network receive path for
+Google kvmCTF, with OpenAI Codex (gpt-5.6-sol) assisting the analysis. The
+affected path, reproducer and fix were manually reviewed and tested.
 
-Fixes: 68ce8b242242 ("drm/amdgpu: add gang submit backend v2")
-Fixes: f7d66fb2ea43 ("drm/amdgpu: cleanup scheduler job initialization v2")
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit df4d6d404d44bbc8fc850bc7f9f136a25dabf180)
+Fixes: 36b2f61a42c2 ("net: handle 802.1P vlan 0 packets properly")
 Cc: stable@vger.kernel.org
+Reviewed-by: Willem de Bruijn <willemb@google.com>
+Signed-off-by: Kamil Sawicki <user148783812897@gmail.com>
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+Reviewed-by: Eric Dumazet <edumazet@kernel.org>
+Link: https://patch.msgid.link/20261024004835.17862-1-user148783812897@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 24 +++++-------------------
- 1 file changed, 5 insertions(+), 19 deletions(-)
+ net/core/dev.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-index 9cc210198fa45..8689a3c933b27 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-@@ -313,22 +313,7 @@ void amdgpu_job_free_resources(struct amdgpu_job *job)
+diff --git a/net/core/dev.c b/net/core/dev.c
+index 9021e6d36ab2b..b3622e532f269 100644
+--- a/net/core/dev.c
++++ b/net/core/dev.c
+@@ -6315,6 +6315,8 @@ static int __netif_receive_skb_core(struct sk_buff **pskb, bool pfmemalloc,
+ 	}
  
- static void amdgpu_job_free_cb(struct drm_sched_job *s_job)
- {
--	struct amdgpu_job *job = to_amdgpu_job(s_job);
--
--	drm_sched_job_cleanup(s_job);
--
--	amdgpu_sync_free(&job->explicit_sync);
--
--	if (dma_fence_was_initialized(&job->hw_fence->base))
--		dma_fence_put(&job->hw_fence->base);
--	else
--		kfree(job->hw_fence);
--	if (dma_fence_was_initialized(&job->hw_vm_fence->base))
--		dma_fence_put(&job->hw_vm_fence->base);
--	else
--		kfree(job->hw_vm_fence);
--
--	kfree(job);
-+	amdgpu_job_free(to_amdgpu_job(s_job));
- }
- 
- void amdgpu_job_set_gang_leader(struct amdgpu_job *job,
-@@ -349,13 +334,14 @@ void amdgpu_job_set_gang_leader(struct amdgpu_job *job,
- 
- void amdgpu_job_free(struct amdgpu_job *job)
- {
--	if (job->base.entity)
-+	if (job->gang_submit != &job->base.s_fence->scheduled)
-+		dma_fence_put(job->gang_submit);
+ 	if (unlikely(skb_vlan_tag_present(skb)) && !netdev_uses_dsa(skb->dev)) {
++		unsigned int priority_tag_depth = 1;
 +
-+	if (job->base.s_fence)
- 		drm_sched_job_cleanup(&job->base);
- 
- 	amdgpu_job_free_resources(job);
- 	amdgpu_sync_free(&job->explicit_sync);
--	if (job->gang_submit != &job->base.s_fence->scheduled)
--		dma_fence_put(job->gang_submit);
- 
- 	if (dma_fence_was_initialized(&job->hw_fence->base))
- 		dma_fence_put(&job->hw_fence->base);
+ check_vlan_id:
+ 		if (skb_vlan_tag_get_id(skb)) {
+ 			/* Vlan id is non 0 and vlan_do_receive() above couldn't
+@@ -6326,6 +6328,12 @@ static int __netif_receive_skb_core(struct sk_buff **pskb, bool pfmemalloc,
+ 			 * 802.1Q or 802.1AD and vlan_do_receive() above could
+ 			 * not find vlan dev for vlan id 0.
+ 			 */
++			if (unlikely(priority_tag_depth >= VLAN_MAX_DEPTH)) {
++				drop_reason = SKB_DROP_REASON_RECURSION_LIMIT;
++				goto drop;
++			}
++
++			priority_tag_depth++;
+ 			__vlan_hwaccel_clear_tag(skb);
+ 			skb = skb_vlan_untag(skb);
+ 			if (unlikely(!skb))
 -- 
 2.53.0
 
