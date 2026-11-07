@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050992;
-	b=2tfulMHGz5uRVNcDBVG8HEYt6x8KW7lEt5ENBSWbpFkGoBGYErwIv6sPUd80wagruZRn
-	 8LRuvDZn2FBjMNk3F2T2iH6O4AG8/DN1TDApeqUEIKQF1Sg2WvSHXOljKwxPQS37mO0tt
-	 aNcWwbV9uS5qSC8yIm0PWOiJHOjvssemnX0mAGRIC0GjHwDLyw8De1/oSTHncSyI7NExn
-	 ajYlH1VKGwXMo2jLrCAojHhsmF73Yx05lBEYMsDyxpoecshbjqN9rbDenQzs8qKroFte8
-	 ZFTHrAvKZMHiYYFiN+0isJOVJZ0cCxTh0nwS3/C8CS3os5GzpReHw0r5ZoLSXaHUwBQ==
+	t=1794050995;
+	b=GlD1omJ+KrNkIxoWAd/AJo9jZ/ad/jNUm/grfQaXSY1N58SrXisVw0uBfKy0dH0jidxx
+	 xeTKIXn+szKBcM7YJGQxZOBzot5nLIvscXHSL9Ux+J8PEMQo81zvoN6QmTITksAA2asZ/
+	 8rXqUaRkaBgKc4t6ZTBgy73TKx0BbZZmpThxCfAt5dNv352DmV2+9noX3hBuFwxv+Gect
+	 q/bse6MxOESe1D9oN7G7hs4xXHWhm46m8LS4vhbPSyoM46Q6oB7oNpXMiGV0liyleiWhw
+	 GS2CzbjNIrTHc0pNB5HjOoUaaqitN5mR5dAabQvpPs39PGZqW3WQy62Ozn2xIkfnbPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050992;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050995;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=a/42u5b2db6xrZpA8tvhkCCGG++rHs6ZypEQZcQ23GQ=;
-	b=PAydi+gUQvoYSiVAQjp/mjsEBA4bHRcvUy9TEyiSkHdm2xlDVxU/H6Vi3bR2PzvIVVqV
-	 /RXP35yCP2G6jOi2wwxaiy9SzbnDwSIEqEcKryqwi9yZY8dCUPML2lBqtBEGForsTckar
-	 /jstUdR8WS/rl7l8dJmRxo9iM8w9EEQilxCPq/iB0Co85zhICxK9ry67oRWyx422PW9xK
-	 kRxGJFgdxSWGIi6IkP0b5tvZsO+ibzbK8+BzNqEcsSt+C2OjZ7j71jS6P2bBzIiQ1+oc/
-	 rkIGGQ1IUegllG4lKXESFruKT+SIVQeluDz5I/ZeovKWmdDNVcIjfKJrqPnhHNTvh/w==
+	bh=ZRs8KKclIFtm6tqUrj4DvjP0dG97ixsXPfzYm2JqaH8=;
+	b=k+HYi3xBGkDg78kGDoHeElHbhIb0r9Vt3HmtCFVD/3X+1WvmQVqageDkcceKHJhGfRDF
+	 mlEHux9XB1udXr3OYrGUn6vuI6TsUHAJ2YktXwVJaCm9NZDnAj8DE1+V4SHsjyDZZBYDs
+	 hcYHOjhLfU4wKIY3rxp+qtNSDC5+hjv8UThF9K+t42JXIFUqRJeAz3eZnPP7uGBmAkBlh
+	 PORIUF8AX6JEWmEMSt34IfVNixNoP8JxD8J0EKT1Ow+2fe4vQbqQNFhDjotoi1G3exjl9
+	 V/P9e3l9uWfCQwwST4LGazd2H8/SA1r/TQ+j8Y4VnWIfoFKGCUsNmz1ye2ODBTiDn5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NVlGNtrt;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WaCfy3Gc;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ED9B606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:29:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 670E9606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:29:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NVlGNtrt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 617781F0089F;
-	Sat,  7 Nov 2026 11:29:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WaCfy3Gc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7EB91F0089F;
+	Sat,  7 Nov 2026 11:29:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050992;
-	bh=a/42u5b2db6xrZpA8tvhkCCGG++rHs6ZypEQZcQ23GQ=;
+	s=k20260515; t=1794050995;
+	bh=ZRs8KKclIFtm6tqUrj4DvjP0dG97ixsXPfzYm2JqaH8=;
 	h=From:To:Cc:Subject:Date;
-	b=NVlGNtrtEgfVI1VhziUl0kDSGjyGFKbv5MDhyghd9hzrWVZdkqDLhGbqXSnlxH+Ug
-	 DTH++LABbUYV7JUk7uArfb2VSrt3Xbc3iLJpGb1t2Y/11zPsyAw+bc3RPZMD2NwSg2
-	 xoX2ozUNnEb2eovo912qheZvzEysxAoZfmYbqVa5aZfH/7ov2QClnYppHVC26jYUK9
-	 AEn5JYroZOZKv5qoLh34FXGF1eqeDIZAs3AprV2+776FUiJwLASHZH9P7nmsvYH/aQ
-	 TNSTRJbLbq8v1z66i6jdCAtitsPWQ8kBegvxN+wvM6UtjYlrVp7c88ei4STn2yL4Ty
-	 NjD4FEhcuheKg==
+	b=WaCfy3Gc0+9ItV6Oll947NB9zzgxip9B37aECwUKNYr9PFNtY/+GGzCidBciUnvXj
+	 KzrFMCb5+rakeF0sfPoZzsTt0dxJaqwFZ5JwdpDGeof1PbyuXoJxzPUs24y9z476Yz
+	 9O6oQ4PnYsVpBrBxXtlaRrX3l98z1fD+xSimRAmMJ8Vz/TEzXC5mVIAjsXPnQP6W0c
+	 XZkuVqy0fapxi2HnxOrGLrtKk5KmxHgPf/iPZ3H5RkZOVL+d5FmvKTIlL1+2gltdig
+	 2jIRU1OF0jGCgSXSXZySVrrIwOrU9V3/s1u4hGZEccspCMxZxjrco9PXpX40QQ1Shk
+	 lZx7pgWnFrTTg==
 From: Sasha Levin <sashal@kernel.org>
 To: olivier.kaloudoff@gmail.com,
 	xiaogang.chen@amd.com,
 	felix.kuehling@amd.com,
 	alexander.deucher@amd.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/amdkfd: tear down KFD processes before early fini_sw on disconnect" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:29:50 -0500
-Message-ID: <20261107062950-failed-5.10-1233dd17f99c@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/amdkfd: stop restore retries on device unplug" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:29:53 -0500
+Message-ID: <20261107062953-failed-5.10-3254ed0b15f2@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,90 +70,128 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 1233dd17f99c75787a31035656ecfeff80522421
+git cherry-pick -x 3254ed0b15f2fe656c9cb36ccb59b92422440bf8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062950-failed-5.10-1233dd17f99c@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062953-failed-5.10-3254ed0b15f2@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 1233dd17f99c75787a31035656ecfeff80522421 Mon Sep 17 00:00:00 2001
+From 3254ed0b15f2fe656c9cb36ccb59b92422440bf8 Mon Sep 17 00:00:00 2001
 From: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
-Date: Tue, 13 Oct 2026 20:53:11 +0200
-Subject: [PATCH] drm/amdkfd: tear down KFD processes before early fini_sw on
- disconnect
+Date: Tue, 13 Oct 2026 20:53:12 +0200
+Subject: [PATCH] drm/amdkfd: stop restore retries on device unplug
 
-On surprise removal, amdgpu_device_fini_hw() calls
-amdgpu_amdkfd_device_fini_sw() when pci_dev_is_disconnected() is true.
-fini_sw frees kfd.dev, but KFD processes may still be alive and hold
-references to it: kfd_process_destroy() dereferences kfd.dev via
-kfd_processes_remove(), and svm_range_list_fini() /
-kfd_process_free_outstanding_kfd_bos() touch per-device SVM state.
+amdgpu_amdkfd_restore_userptr_worker() and svm_range_restore_work()
+reschedule themselves when validation fails with evicted objects
+pending. After a surprise removal the restore paths fail with -ENODEV
+permanently, so rescheduling just spins the worker uselessly until
+cancel_delayed_work_sync() in fini finally stops it - which can take
+a while, since process teardown itself is delayed by the dead device.
 
-The kfd_processes_count wait only happens later in
-kgd2kfd_teardown_processes(), called from the top-half remove path
-well after fini_sw. In the observed failure the killed KFD process
-(SIGBUS on unplug) stuck in D state on its exit path, so
-kfd_processes_count never drained and the PCIe removal thread wedged
-permanently in cond_resched(), producing soft-lockup and hung-task
-splats.
-
-Tear KFD processes down before freeing kfd.dev on the disconnect
-path, and guard kgd2kfd_teardown_processes() against kfd.dev already
-being gone when it runs a second time.
+Treat -ENODEV as terminal in both workers.
 
 Cc: Xiaogang Chen <xiaogang.chen@amd.com>
 Signed-off-by: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>
 Signed-off-by: Felix Kuehling <felix.kuehling@amd.com>
 Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 836f44ba87ed7b1d83e2b7bfc788f8c6437b03a7)
+(cherry picked from commit 266fab83139600e58db7e900e930c722e619b78c)
 Cc: stable@vger.kernel.org
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 5 ++++-
- drivers/gpu/drm/amd/amdkfd/kfd_device.c    | 9 ++++++++-
- 2 files changed, 12 insertions(+), 2 deletions(-)
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c   | 18 +++++++++++++-----
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c           |  8 +++++---
+ 2 files changed, 18 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index f147c0c459da5..c65bc575a57a8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -4331,8 +4331,11 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev)
- 	 * before ip_fini_early to prevent kfd locking refcount issues by calling
- 	 * amdgpu_amdkfd_suspend()
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index ff77e8ae9fe6f..3a4b3424b5b29 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -2854,6 +2854,7 @@ static void amdgpu_amdkfd_restore_userptr_worker(struct work_struct *work)
+ 	struct task_struct *usertask;
+ 	struct mm_struct *mm;
+ 	uint32_t evicted_bos;
++	int ret;
+ 
+ 	mutex_lock(&process_info->notifier_lock);
+ 	evicted_bos = process_info->evicted_bos;
+@@ -2873,14 +2874,16 @@ static void amdgpu_amdkfd_restore_userptr_worker(struct work_struct *work)
+ 
+ 	mutex_lock(&process_info->lock);
+ 
+-	if (update_invalid_user_pages(process_info, mm))
++	ret = update_invalid_user_pages(process_info, mm);
++	if (ret)
+ 		goto unlock_out;
+ 	/* userptr_inval_list can be empty if all evicted userptr BOs
+ 	 * have been freed. In that case there is nothing to validate
+ 	 * and we can just restart the queues.
  	 */
--	if (pci_dev_is_disconnected(adev->pdev))
-+	if (pci_dev_is_disconnected(adev->pdev)) {
-+		/* Drain KFD processes while kfd.dev is still valid */
-+		amdgpu_amdkfd_teardown_processes(adev);
- 		amdgpu_amdkfd_device_fini_sw(adev);
+ 	if (!list_empty(&process_info->userptr_inval_list)) {
+-		if (validate_invalid_user_pages(process_info))
++		ret = validate_invalid_user_pages(process_info);
++		if (ret)
+ 			goto unlock_out;
+ 	}
+ 	/* Final check for concurrent evicton and atomic update. If
+@@ -2889,11 +2892,14 @@ static void amdgpu_amdkfd_restore_userptr_worker(struct work_struct *work)
+ 	 * reference counting inside KFD will handle this case.
+ 	 */
+ 	mutex_lock(&process_info->notifier_lock);
+-	if (process_info->evicted_bos != evicted_bos)
++	if (process_info->evicted_bos != evicted_bos) {
++		ret = -EAGAIN;
+ 		goto unlock_notifier_out;
 +	}
  
- 	amdgpu_coredump_fini(adev);
- 	amdgpu_device_ip_fini_early(adev);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-index bb4c6695f3cf9..0f96c9e3fa4d9 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-@@ -1814,7 +1814,14 @@ void kgd2kfd_teardown_processes(struct amdgpu_device *adev)
+ 	if (confirm_valid_user_pages_locked(process_info)) {
+ 		WARN(1, "User pages unexpectedly invalid");
++		ret = -EINVAL;
+ 		goto unlock_notifier_out;
+ 	}
  
- 	mutex_unlock(&kfd_processes_mutex);
+@@ -2911,8 +2917,10 @@ static void amdgpu_amdkfd_restore_userptr_worker(struct work_struct *work)
+ unlock_out:
+ 	mutex_unlock(&process_info->lock);
  
--	/* wait all kfd processes use adev terminate */
-+	/* kfd.dev may already be freed on surprise removal */
-+	if (!adev->kfd.dev)
-+		return;
-+
-+	/*
-+	 * Wait for all KFD processes using adev to terminate. Must be
-+	 * unbounded: device state is freed once they are gone.
+-	/* If validation failed, reschedule another attempt */
+-	if (evicted_bos) {
++	/* If validation failed, reschedule another attempt, unless the
++	 * device is gone for good
 +	 */
- 	while (!!atomic_read(&adev->kfd.dev->kfd_processes_count))
- 		cond_resched();
- }
++	if (evicted_bos && ret != -ENODEV) {
+ 		queue_delayed_work(system_freezable_wq,
+ 			&process_info->restore_userptr_work,
+ 			msecs_to_jiffies(AMDGPU_USERPTR_RESTORE_DELAY_MS));
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index 1f5d73f0ebce3..a4ce54b06975b 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -1963,7 +1963,7 @@ static void svm_range_restore_work(struct work_struct *work)
+ 	struct mm_struct *mm;
+ 	int evicted_ranges;
+ 	int invalid;
+-	int r;
++	int r = 0;
+ 
+ 	svms = container_of(dwork, struct svm_range_list, restore_work);
+ 	evicted_ranges = atomic_read(&svms->evicted_ranges);
+@@ -2037,8 +2037,10 @@ static void svm_range_restore_work(struct work_struct *work)
+ 	mmap_write_unlock(mm);
+ 	mutex_unlock(&process_info->lock);
+ 
+-	/* If validation failed, reschedule another attempt */
+-	if (evicted_ranges) {
++	/* If validation failed, reschedule another attempt, unless the
++	 * device is gone for good
++	 */
++	if (evicted_ranges && r != -ENODEV) {
+ 		pr_debug("reschedule to restore svm range\n");
+ 		queue_delayed_work(system_freezable_wq, &svms->restore_work,
+ 			msecs_to_jiffies(AMDGPU_SVM_RANGE_RESTORE_DELAY_MS));
 -- 
 2.53.0
 
