@@ -1,54 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049883;
-	b=sz88QDayTMbYKuJsv1U7lODGzycJUjQkexxsf3Kfp5/yvkvbZhF1LaYBKJ0QP4ILnYmV
-	 v/4rPcDoOmlNCj6Lmk3gGRyPru5dUXgwXtKjaVO/klF/k+gCy69jZhrzpGzXHdsqFvX5e
-	 b1Ss05apUkfA7Bow8mQU62jq1o7yIB2Kqo7pfuWbw8rg6MusRGo5hLM6KmZP9frFhLmP3
-	 VkudZyvE6492ncyP1jpcBut+EutvSyWbwb7iMR7Akz8cfrZKFWyoAafCcJZz/6sBRABv2
-	 Nc+zzF51LU1i50FNyo3QpFWqNGkzVkYH82km/mnPY9gEY9KQFrC3q1AEOZpw2fh4fXg==
+	t=1794049886;
+	b=zJjybZOVRas5v7NKK3UypGKklkM8lGglhPUf8egPajSNFuc6sVxMfsI/JG1IeJAPQAhD
+	 x5keD0+yZYuVvuErDPfvUi12WflbVY1FlTiWyLsaJ51aNR/6DFqW/hDZYmRrm4x7PxYEy
+	 kXXgOx5Vh/YnVSl2UDjnd17wNWqrKl8J/v8tpokuYNqbuROuwTflKpiDLNK3YrCNSy2I8
+	 7YW1gxkajm0IMHCYcNqXusFVo+1bF2IajESUu4Cq37ckG73k7J22kRXNdRqPliH2dd6v9
+	 eV+qFR5wQZtJ0aPNKOocFWpb6Tww9J47nMG4zSPfbx3BWugd/TGMwTTNfJFgXER4Uyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049883;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049886;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=bg4q+14JS7R490qLNcS2osSigQIDQ2Dik5rF+ZUVAxc=;
-	b=LOROulHZsmdQYHgidnJxyAqzL21mljNzatBti5RO1p63SuWxSvT749CjSdWeT2qLHpax
-	 Mff4drHQth6IAECpLczH9dseYarEx/+LugBNstdDMIqnoUKPkKw8q1TLFK8mHeTELxO16
-	 6ckjO5Vs3IFPJrJyg2h4+Wk4yt//nK2koZ6Lv+MPyGQOro7tR3njIibgiMRHDsdwrr78+
-	 WjL9xjO8p6QvXxynje6p5tF0aPK0ByZDDfGdmDyffifhTg3VWZTqlKlLQKcupMICDD02f
-	 wykXngauxG4jrh/0KGfJyTamjBB+yqDazB9KiIrval0Jg/ZvsEV1ClK7ep/MwEfto4g==
+	bh=8DhlE7QNeu1TU9SIzhTj951f3WLPjQsaQhz0J58o9WE=;
+	b=WwjWzP0xeWsuBTft3rrfgwPPI/O3MHPd3TRXXzRiFUKzjG/3XakK1VADuG0fetajzFqG
+	 DSSo0OsNeEPNvAa+g0Kbzk21fQwXK+iL7hQx9mg7AwYR6yB3chtwyb0QzwdUzfF911nBw
+	 Ii4a32CbKAldK2a6fxJ0tcEJyiTZhMX8zTMcHfjMscMvDZwYsgfbLxz6L5r3Jr3wJpFhY
+	 /rGQJx0fYGRQlotLzKLjetneLU8LlA7SJ4iSNpGYWBn4syshZ19urgAXIxHJLr7pcXauk
+	 y22VV+ry8G1Xofn5rIfYbUCTdV8a7VfACTe6/IVpu5DLD+PgiD/HRFM0aL4WDvE+d3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d89L6JUZ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dqUgiP+u;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0974E606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:11:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70467606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:11:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d89L6JUZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 319D01F008A1;
-	Sat,  7 Nov 2026 11:11:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dqUgiP+u
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C8F91F0089F;
+	Sat,  7 Nov 2026 11:11:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049882;
-	bh=bg4q+14JS7R490qLNcS2osSigQIDQ2Dik5rF+ZUVAxc=;
+	s=k20260515; t=1794049886;
+	bh=8DhlE7QNeu1TU9SIzhTj951f3WLPjQsaQhz0J58o9WE=;
 	h=From:To:Cc:Subject:Date;
-	b=d89L6JUZWUIAvOEqU2LiAdP7U/uY7djGe2LR/G0dMkJuEwsbAFzvByH3/+WqrOYkO
-	 /9jGbj5qc5rlWy/qdybdCa0BO6MLkyrWl2Y3zqQZ2Msz3JsukuymjOYRjd9QTiO98c
-	 SrvhslsBketqYQYSNfwTAeK17yj91QnyWOYjXzQTKpKLEbv+QN7njIMnhdsIsNG4VT
-	 aYXgOMfnxYrf0ceJFg5x1o+luLuw8CBDMAL0m9EEvknOLGEBYGMsQFr4r6uUOxHpVS
-	 80jLTTwW1ihcvwgtc+nmuritJIXixuzZeSr9LTJWc8VbSrz4hldy5S9UQj4tbBUzzs
-	 QqKEJDFC3TEGA==
+	b=dqUgiP+ujqEaQLKEL8OOKdbHQiULMnhlT2vn/86rAITRhxBJKW55Or6y97/PANUCz
+	 5NQMvEnnm2PJbQf3QWqCQghD/ivaTaoTaIgP7Ubq3r0x+tkdU/6LERLo5c6t069gwE
+	 iWx7BbVcmzr+PFPAPrxeW+UcJqzqCCu7P6HY/7gjZm2/XZoHA4yoTyZd6mUG0MOctw
+	 ALp1XDfLYVJKiv8Wq8wMyLr+8+jfSfblxepTeuFV2tsj1b2LdT/VznGEnJ8jx92eQt
+	 y00V1FmkCRPzKZkndtw5iGSuE/hWYb7dewTz8gpNgAsbcUrxb2GFpUzzUXMcLK7naY
+	 ocZySjhM7czFw==
 From: Sasha Levin <sashal@kernel.org>
-To: stanleyjhu@google.com,
-	peter.wang@mediatek.com,
-	beanhuo@micron.com,
-	bvanassche@acm.org,
-	mkp@kernel.org
+To: albinwyang@tencent.com,
+	akpm@linux-foundation.org,
+	gourry@gourry.net,
+	david@kernel.org,
+	ljs@kernel.org,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	jannh@google.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] scsi: ufs: core: Remove completed-without-interrupt path in ufshcd_abort()" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:11:20 -0500
-Message-ID: <20261107061120-failed-5.15-7cfdfdd65579@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/madvise: add cond_resched() in THP branch of madvise_cold_or_pageout_pte_range()" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 06:11:24 -0500
+Message-ID: <20261107061124-failed-5.15-f5cfc8e3b20a@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,78 +74,93 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 7cfdfdd6557906fd09cf0a9a564a07012e7fb0c1
+git cherry-pick -x f5cfc8e3b20ad71949a1e5623ff45882c063a71b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061120-failed-5.15-7cfdfdd65579@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061124-failed-5.15-f5cfc8e3b20a@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 7cfdfdd6557906fd09cf0a9a564a07012e7fb0c1 Mon Sep 17 00:00:00 2001
-From: Stanley Jhu <stanleyjhu@google.com>
-Date: Thu, 22 Oct 2026 11:44:42 +0800
-Subject: [PATCH] scsi: ufs: core: Remove completed-without-interrupt path in
- ufshcd_abort()
+From f5cfc8e3b20ad71949a1e5623ff45882c063a71b Mon Sep 17 00:00:00 2001
+From: Wei Yang <albinwyang@tencent.com>
+Date: Sat, 10 Oct 2026 10:40:42 +0800
+Subject: [PATCH] mm/madvise: add cond_resched() in THP branch of
+ madvise_cold_or_pageout_pte_range()
 
-In SDB mode, a command that times out right as the controller finishes it
-can be completed twice:
+During stress testing with stress-ng on a 256-CPU system, a softlockup was
+observed when madvise(MADV_COLD) was called on a 31GB memory region backed
+by transparent hugepages.  The region contains 15935 THP PMD entries, and
+the softlockup was triggered after 14485 of them had been processed.
 
- 1. The command times out and scsi_timeout() schedules ufshcd_abort().
+The THP branch of madvise_cold_or_pageout_pte_range() has no scheduling
+point.  walk_pmd_range() invokes it once per 2MB PMD entry with no
+cond_resched() anywhere in the loop.  Each iteration calls
+pmdp_invalidate() which issues a synchronous TLB shootdown (dsb ish)
+waiting for all CPUs to acknowledge.  This operation can be time-consuming
+under heavy system load, causing the accumulated time across all PMD
+entries to exceed the softlockup threshold (20s) and panic when
+softlockup_panic=1.  On a CONFIG_PREEMPT_NONE=y kernel, there is no other
+opportunity to reschedule during this entire traversal.
 
- 2. The controller finishes the command and clears its doorbell bit in
-    REG_UTP_TRANSFER_REQ_DOOR_BELL, while the completion handler has not
-    yet cleared BIT(tag) in hba->outstanding_reqs.
+The regular PTE path already has an unconditional cond_resched() at the
+function tail (introduced by commit 9c276cc65a58 ("mm: introduce
+MADV_COLD") and commit 1a4e58cce84e ("mm: introduce MADV_PAGEOUT") when
+MADV_COLD and MADV_PAGEOUT were first introduced) and a conditional one
+inside the loop (commit b2f557a21bc8 ("mm/madvise: add cond_resched() in
+madvise_cold_or_pageout_pte_range()")).  The THP branch never received
+equivalent treatment.
 
- 3. ufshcd_abort() sees the doorbell bit clear and calls
-    __ufshcd_transfer_req_compl() without clearing BIT(tag) in
-    hba->outstanding_reqs.
+Fix by adding cond_resched() at the huge_unlock exit path after
+spin_unlock(ptl) and reclaim_pages(), which is the single exit point for
+all goto paths in the THP branch.
 
- 4. The normal completion handler or the logical unit reset that follows
-    sees BIT(tag) still set in hba->outstanding_reqs and completes the same
-    command a second time.
+Crash log:
+  watchdog: BUG: soft lockup - CPU#63 stuck for 23s! [stress-ng-vm:1665914]
+  ...
+  Call trace:
+  pmdp_invalidate+0x48/0x68
+  madvise_cold_or_pageout_pte_range+0x84c/0xb00
+  walk_pmd_range.isra.0+0x1ac/0x3b0
+  walk_pud_range+0x120/0x190
+  walk_pgd_range+0x170/0x1b8
+  __walk_page_range+0x184/0x198
+  walk_page_range_vma+0x94/0x128
+  madvise_cold+0xd8/0x198
+  madvise_vma_behavior+0x234/0x638
+  madvise_walk_vmas.constprop.0+0xdc/0x210
+  madvise_do_behavior+0xa8/0x328
+  do_madvise+0xd8/0x140
+  __arm64_sys_madvise+0x2c/0xe0
 
-This branch only exists for a rare corner case, a completion interrupt that
-is lost or arrives late. Remove it to simplify the abort path and leave
-such a command to the SCSI error handler, like any other command that
-cannot be aborted. The cost is a slower recovery in this corner case, which
-is acceptable since it only happens after a timeout.
-
-Fixes: 169f5eb28869 ("scsi: ufs: Optimize SCSI command processing")
-Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/r/fdb5c391-01ef-4a23-94c2-4f3853909348@acm.org
-Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
-Reviewed-by: Peter Wang <peter.wang@mediatek.com>
-Reviewed-by: Bean Huo <beanhuo@micron.com>
-Reviewed-by: Bart Van Assche <bvanassche@acm.org>
-Link: https://patch.msgid.link/20261022034443.3034432-6-stanleyjhu@google.com
-Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
+Link: https://lore.kernel.org/20261010024042.4070048-1-albin_yang@163.com
+Signed-off-by: Wei Yang <albinwyang@tencent.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: <stable@vger.kernel.org>
 ---
- drivers/ufs/core/ufshcd.c | 9 ---------
- 1 file changed, 9 deletions(-)
+ mm/madvise.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
-index 6cb5767b69fdf..834c7f3b592e3 100644
---- a/drivers/ufs/core/ufshcd.c
-+++ b/drivers/ufs/core/ufshcd.c
-@@ -8125,15 +8125,6 @@ static int ufshcd_abort(struct scsi_cmnd *cmd)
+diff --git a/mm/madvise.c b/mm/madvise.c
+index 8f407610c089f..8702b082a02d8 100644
+--- a/mm/madvise.c
++++ b/mm/madvise.c
+@@ -454,6 +454,7 @@ static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
+ 		spin_unlock(ptl);
+ 		if (pageout)
+ 			reclaim_pages(&folio_list);
++		cond_resched();
+ 		return 0;
  	}
- 	hba->req_abort_count++;
  
--	if (!hba->mcq_enabled && !(reg & (1 << tag))) {
--		/* only execute this code in single doorbell mode */
--		dev_err(hba->dev,
--		"%s: cmd was completed, but without a notifying intr, tag = %d",
--		__func__, tag);
--		__ufshcd_transfer_req_compl(hba, 1UL << tag);
--		goto release;
--	}
--
- 	/*
- 	 * Task abort to the device W-LUN is illegal. When this command
- 	 * will fail, due to spec violation, scsi err handling next step
 -- 
 2.53.0
 
