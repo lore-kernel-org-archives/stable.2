@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046846;
-	b=LyKU1d7/0T9ZSa0obUEzV4GwKPW4uPRpzfn8/gpmoy4wXoY/uT03Gzvc1Lwt5Rnica6g
-	 goAJAFFYUFpe/exoFyKIJT9walwrf5P6xUOIVU7W+2CdshJ9ezDZz9M1IQSKLlA3XJt2J
-	 7YmsroPDT5+zoHq9Ji8fPQadN/Rl4+m6U4S+3ELrT3UcWid3+EPIj1ZUhKqKY30JWJpP9
-	 8F5vcKdP4opLFuuYoKOj64WLbK4DZQ/fWLQ/nReP23569DJrteXJw9S9IOF/BGpPwTEYS
-	 D6YeBAepXT7rSTM5PmXu136EtwTABzVGvo52Exp4JFL2jXzjDFN69j1HHNeawUlUFtQ==
+	t=1794046848;
+	b=tB04hRFDylk68AkH2BzBeQfZaTsW1x/TW5qG3LPR583+lOi4Bn/Kdfnb89b40LcIhiO4
+	 tQDGmajR9ioYpGaMqGaUboX8Xm5Wk6axNJeDcFfEAYsYRqpalH+HlJPqJv83EBct4SHvL
+	 hwl++0DIgESxrqHuOIoiFeKPXMsKZutwJRI1xSWLL/1vEGcUs0J2NTw4uUbpIFOcDpGgE
+	 riQOTw1Ti2gE1OuEaZJdmTbSejbqdkGGgWPRK4ZzaunEjiHt7lcin8W24CmRuwGhyLnaT
+	 RXBn3aHwvU9aTO0vsdsekF+qMxO5QvnYSlqfwb4G9DKfH0EjfHK/fAj9jBOdtlCe7qA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046846;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046848;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=tfbdPVkq0CD5L4HrlVJdUt0XOnaZq1x4c78kNQPtu08=;
-	b=WYecVe/ZhcoG9YM76AB/NkZnvt7HuXjyxJGdcUu7wKsG9x8A7wKFcwhQeXVqC067h8VR
-	 iq1eQTtyp6/EWJx0i/ogucTCPr1V5+0cgKmF6Yqh/I4dwuFuQDZYP1mFa+fdouUpr7zxA
-	 VTqjJYYMOkdUviW/PB792Zx1FWBHxi6A/FxWHbHjOQFwlkVSwhCAWGMSey/zDhO/XDYRN
-	 kO+DHf3NOnwz3dn07owcrp/TcG5G2iVsQUeYwS1ZXAUeI5qtriyfdEaXSrvjmlDXpu6la
-	 fDmEn/xQj1IQXUcJ+v3l5jIUuV8F3ZK0j8aevf1Ra5fCR2d0zys9PDTL8y0PfGPd3MQ==
+	bh=4Kbi9p1kmhyB9/CPi/HkvhOIsUl1lx/iZOGEW8X67M0=;
+	b=ZSXo4bKSLsFEeSruYawGvnKmaO9oIV+MSa/qdvDWUOCJQoSZZrgF2hLgmvWKhNZuNQt1
+	 5k1+yT4Xvdyht/qRIt4EDuXgOWzpCPZkMdu6fRB0frPmYonSNi1Mt25bjjhFZh6lnh1DH
+	 PsdaJWaRPgW2XI1W65/25MhSPTcOemA9xSem5+aDHAXrIiaaBfohpIcFOOCGv3SCLhQl/
+	 F4y7nShQBHaW9LNdp/edZty1xU0qru4LN9RHZVZIdXEsW5yVkPVDCArrtJMf9eS1qaQHy
+	 n5oKaTFycXJc2HS8kE71f80OsbiETCFKFrTdJC5j63WSWwGfLgEyvAa4lP1Wg8MnAsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WeyVLTt6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gosfayl0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EEA8606A334
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:20:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86693606A334
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:20:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WeyVLTt6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF44A1F008A1;
-	Sat,  7 Nov 2026 10:20:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gosfayl0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09FD81F0089F;
+	Sat,  7 Nov 2026 10:20:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046846;
-	bh=tfbdPVkq0CD5L4HrlVJdUt0XOnaZq1x4c78kNQPtu08=;
+	s=k20260515; t=1794046848;
+	bh=4Kbi9p1kmhyB9/CPi/HkvhOIsUl1lx/iZOGEW8X67M0=;
 	h=From:To:Cc:Subject:Date;
-	b=WeyVLTt67xEyGG8OhbwrhabzO/4kAAjo7NgylDxiNrWuMRvbNbkjQsU3vYRnZx7nS
-	 5oX/IxaoJoJOrbb8Jb1Fk2JfMrMkxlCTAgvU9GbNpVecLyifE2Bp8saYnHLOLm2YYh
-	 Fcnn7xe1/WaHxMYpKIwg8wlwpnZ4ca93zp+B5mrcFjeiJ5xtJD+YfEpKLrZaopydZt
-	 SZn3i5YHcjhFmQRYYHYTCFQeIkfLJUc2fNn36Ao7fn2bIKKp4HA96x/U9zfrj05rAM
-	 rYUsDffdrIaO5pFQ8kXJXV+4poJhctRQtPQOyVLagc28F0msKXc6+LSyh9HMhbhXi1
-	 e2dK4wIBurPdA==
+	b=Gosfayl0Y0cmIDLejqMZKB/7GA7edGcu54GHHhDBplLVsrk1xxvOssseLqPZKeKLg
+	 2Nj19kPzD9akzu4/EBuYnQUIKOXZurrXpR6RpHa0C5f+qbIlVlIDZFKgxd0W+g/rGD
+	 VqUGODaPGrdwaPiV90pgrduymIJJ0Jp05YaAguBU6YjB2H4vMX+2iXltHHzvoLMw6s
+	 4Ey2dvmwMDPerR3r8R2y02tXV6vMHwaNGRvugjuYVui4zW8NPqSNCcVXHJJGzFhQDa
+	 juxqP+NoS52Vg1OHe2E24B5O5Asn5yjBov1h1lH/eBHPf5eDixM6ux57Njjp6Y+agg
+	 Fmm96fKFONdMw==
 From: Sasha Levin <sashal@kernel.org>
-To: yhlee@isslab.korea.ac.kr,
+To: vulab@iscas.ac.cn,
 	jgross@suse.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] xen/scsifront: check for a NULL shadow entry on a backend response" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:20:44 -0500
-Message-ID: <20261107052044-failed-6.12-992df081bc88@kernel.org>
+Subject: FAILED: patch "[PATCH] xen/gntdev: Fix gntdev_dmabuf ref leak in dmabuf_exp_wait_released()" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:20:46 -0500
+Message-ID: <20261107052046-failed-6.12-6f165abe2b40@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,61 +68,59 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 992df081bc8878d11e1eb5ae4a609910fd35c62b
+git cherry-pick -x 6f165abe2b40ede71c98956cd74cd17c18505e75
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052044-failed-6.12-992df081bc88@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052046-failed-6.12-6f165abe2b40@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 992df081bc8878d11e1eb5ae4a609910fd35c62b Mon Sep 17 00:00:00 2001
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-Date: Mon, 5 Oct 2026 21:35:54 +0900
-Subject: [PATCH] xen/scsifront: check for a NULL shadow entry on a backend
- response
+From 6f165abe2b40ede71c98956cd74cd17c18505e75 Mon Sep 17 00:00:00 2001
+From: Wentao Liang <vulab@iscas.ac.cn>
+Date: Wed, 16 Sep 2026 17:09:56 +0000
+Subject: [PATCH] xen/gntdev: Fix gntdev_dmabuf ref leak in
+ dmabuf_exp_wait_released()
 
-scsifront_do_response() validates the rqid in a backend response against
-VSCSIIF_MAX_REQS before using it to index info->shadow[], but then
-dereferences the entry to test ->inflight without checking that the slot
-is populated.  Shadow slots are NULL before a command is submitted (the
-host private area is zeroed at allocation) and are reset to NULL in
-_scsifront_put_rqid() once a request completes, so an in-range rqid that
-does not correspond to an outstanding request makes the frontend
-dereference a NULL pointer.
+dmabuf_exp_wait_released() takes a reference on the exported
+gntdev_dmabuf with dmabuf_exp_wait_obj_get_dmabuf() and passes it to
+dmabuf_exp_wait_obj_new(), which drops that reference after adding the
+wait object to the wait list.  When the wait object allocation fails,
+dmabuf_exp_wait_obj_new() returns ERR_PTR(-ENOMEM) early and the
+reference is never dropped, leaking a reference to the exported
+gntdev_dmabuf.
 
-A malicious or buggy backend can thus crash the guest by returning a
-response whose rqid is in range but not in flight -- for example a
-spurious response before any command has been issued, or a duplicate of
-one already completed.  The ring has only VSCSIIF_MAX_REQS (16) slots, so
-before the first command every in-range rqid selects a NULL slot.
+Drop the reference on the allocation failure path so the reference is
+consumed whether the wait object is created or not.
 
-Reject a response whose shadow slot is not populated.
-
-Fixes: 6d1c2f48f3fc ("xen/scsifront: harden driver against malicious backend")
+Fixes: 932d6562179e ("xen/gntdev: Add initial support for dma-buf UAPI")
 Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 Reviewed-by: Juergen Gross <jgross@suse.com>
 Signed-off-by: Juergen Gross <jgross@suse.com>
-Message-ID: <20261005123555.253995-1-yhlee@isslab.korea.ac.kr>
+Message-ID: <20260916170956.2086505-1-vulab@iscas.ac.cn>
 ---
- drivers/scsi/xen-scsifront.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/xen/gntdev-dmabuf.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/scsi/xen-scsifront.c b/drivers/scsi/xen-scsifront.c
-index f86a47056ea8c..9d7e12e400896 100644
---- a/drivers/scsi/xen-scsifront.c
-+++ b/drivers/scsi/xen-scsifront.c
-@@ -367,6 +367,7 @@ static void scsifront_do_response(struct vscsifrnt_info *info,
- 	struct vscsifrnt_shadow *shadow;
+diff --git a/drivers/xen/gntdev-dmabuf.c b/drivers/xen/gntdev-dmabuf.c
+index 83b0df4608941..df1883aca850e 100644
+--- a/drivers/xen/gntdev-dmabuf.c
++++ b/drivers/xen/gntdev-dmabuf.c
+@@ -96,8 +96,10 @@ dmabuf_exp_wait_obj_new(struct gntdev_dmabuf_priv *priv,
+ 	struct gntdev_dmabuf_wait_obj *obj;
  
- 	if (ring_rsp->rqid >= VSCSIIF_MAX_REQS ||
-+	    !info->shadow[ring_rsp->rqid] ||
- 	    !info->shadow[ring_rsp->rqid]->inflight) {
- 		scsifront_set_error(info, "illegal rqid returned by backend!");
- 		return;
+ 	obj = kzalloc_obj(*obj);
+-	if (!obj)
++	if (!obj) {
++		kref_put(&gntdev_dmabuf->u.exp.refcount, dmabuf_exp_release);
+ 		return ERR_PTR(-ENOMEM);
++	}
+ 
+ 	init_completion(&obj->completion);
+ 	obj->gntdev_dmabuf = gntdev_dmabuf;
 -- 
 2.53.0
 
