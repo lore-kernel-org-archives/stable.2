@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047709;
-	b=Uh6u/gqLFLWMe3Y4YdAQBjRYEEZ+MCEeMRhajgRQxz/6gOy3fPTx7OEP7/Hg8p1sz1cZ
-	 y4hM5XsN4IqrWEj/y1aVIdiv5C7Aa7BkSenapo3bppf+gL8DzhwfAofDUWDQYktoBLDoV
-	 Mb23CBxMO4sDP7O8w1MjNBFyjGluNyc44CetU2S8EZx9HQMeDf56UbZTXyF87LjUN2hTM
-	 AKXUtsV7yxx4jqwQCEUiSq8ZFRBeSAd6SHYnvgodmRxwt3bm+g2KuZCWrFu2dIZWgiJi2
-	 R7yfJJwkdMkglXcMm2HzHepb9d4xqKMsSBRQuK0zoAQR2gerPOrRCc5h0x6+1Lj75fQ==
+	t=1794047710;
+	b=dF3JX1mBC5r8lIqMElm1AoDHQi+YtDApOLWhdne0DvpTUlY2XSCWmxlU8lbAe4Lyxy9M
+	 lPBM54KYD/eAmv+S7TGLhu+wgdvIdhEGkQuP6ATLREbXVR60dtnPuGwldlt7ebGs54vfF
+	 ycsS4D3MpchIIxmc0xu0TUB56exvrGtBntU3X7z+OD4y8AaXWeMKUTdcYey9CFG577baQ
+	 1y1N1iVeZxw90O70eMoPjzI7gdbbAhqOR80Frd7Kbgl3h8LSy78ITWy6qrro9RZn6LF3B
+	 lhz4rq1hme3Zs8AFfe0AzI1DLgOJEHB77V4qHf0PurUGPcZ5TsInefKtO2cen89BXcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047709;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047710;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Jy2EyR6WYNLvbaHXsrfld9l9x7yllvHp7OW08EaPRg4=;
-	b=A6nTylgL3Te1ElrkKietnN3sID3VPHKyFubvrPo7HLu7h4EwLI3vRWk9SW75ASr2hNMH
-	 YToPavhh1Hr10/e1Hbq5XZy7YbbbmPUhHQ8QlplYocNLCvgQnLeJMskBmINv6DhhTd8QI
-	 krQIGWkv2qYiKHxplnR3YBri3jpEaBm1q3XYh53v3pcmsUAOHaWgqXybI3UPaNpIidxFr
-	 tmM1PulNsS9b2PpO09UsxQd1FhIC3t1XG6C/+Xf7JjHDt/IioyQxAJxSesaG9lbQ02zGR
-	 PIr2J+nrZZDStKYtWw0QMx0yHKNKB7VYc7rO0IgHzkclOtP1BHsDVIRfmUyuggTZAig==
+	bh=lLOMeeU9Qi0Jsq6h6WKtCqKujrVmcMoGiys2QhrV2CU=;
+	b=srRQFt6ai7qMpXHWr5TzrN8KCRQigxSEt55m7ZaNC/zo0ywWeUO+iHVpXM7KWmuo8vbq
+	 9SOrmzkZfqWFh/Oj3PU2ui7RnapthWaRqPwWwlq2AC2WuIFBviMqUsQ8BTW36jBUKs+kX
+	 C/mYYZOrv38xxPveHnIimt2wzzC9+mi7708H0Cz2Up/oThUAyoHXPR3pY2UOXudS3dXBo
+	 4TSs3aUeQN3wU3HB/Y1zuq/OC8xnQh82CtG8uKWgP6IDqQmRGp5caZDUY9iwaUUxvhbDT
+	 GFcsBoNKwstSRYzBo+0sQiwLR23L0T1pRg/AXRTXwffbaXMuhLweWcdHoFyc38guaMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="gbl5Li/D";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wj6J1cpS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C540E606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:35:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89EE5606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:35:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gbl5Li/D
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05B961F0089F;
-	Sat,  7 Nov 2026 10:35:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wj6J1cpS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 060F91F0089F;
+	Sat,  7 Nov 2026 10:35:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047708;
-	bh=Jy2EyR6WYNLvbaHXsrfld9l9x7yllvHp7OW08EaPRg4=;
+	s=k20260515; t=1794047710;
+	bh=lLOMeeU9Qi0Jsq6h6WKtCqKujrVmcMoGiys2QhrV2CU=;
 	h=From:To:Cc:Subject:Date;
-	b=gbl5Li/DbLrSQbFmlGnFfiSpdLyh/Ug42xSMZDaWx2Kul7cDzVW6+YIt3kjLgKsm2
-	 u5GDc5bTf8hpjm8JwwaXvWw2ZMlunmNODvdmdC4xBaIlEnJgv11FRUs/RwaU89vqOb
-	 ijnIAJ9VA3x6HIm6ng2+HjbEl3IiFmwxGOgr81BmXHrcbr7fR2gjD+23nB0/WisqfF
-	 wkKsZYrJ83pbGAgVybZ8hYoQ1Y9d2gdajUq8xlrsNdkgBELLD2cPABtTFzPODQ1BtV
-	 ecYfoCpsISjdJd1I0JyzPcOOXOJEvDAJLTM/PQFzrd3oNVuCdxTjd/Hai+ALp5JZj5
-	 wAH8kElzG/bYQ==
+	b=Wj6J1cpSNgMNBzXUb0Rh9Cyt6b+VU2nLm+1mYQpkoWdc4zapDkx+zMMF3xAs3ZGGg
+	 V9XnLfVLtEacVnIk7In0pwtUxrjH4dxPpFiRF4U3tR0KiUSBSNc0qCcVq5YdpRORsY
+	 h5jFamKqm/ZaGbFHupi1WXsYRq/K/mLh70IW2wbpRvd/61oDFg4LEgWCr9r1nPr3GZ
+	 DEUmxmsVYKRRE6M6B8V9KuTsButjj0B1fXMA/agZBcYWgqGZhzAcJa3AmiItuLGf97
+	 DgDnRCrCcTdFaPBdk87gpv+MTQn69VsWWoM5xhOmdCJu+iEBSKlMirVYWrCQXx0vHg
+	 4Gd6LWCVXlG/Q==
 From: Sasha Levin <sashal@kernel.org>
-To: jirislaby@kernel.org,
-	gregkh@linuxfoundation.org
+To: liuwb@xiaopeng.com,
+	broonie@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] serial: 8250_omap: set priv->line before enabling the IRQ" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:35:06 -0500
-Message-ID: <20261107053506-failed-6.6-8276a44f0a0b@kernel.org>
+Subject: FAILED: patch "[PATCH] spi: cadence-xspi: reject SDMA transfers larger than the requested length" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:35:09 -0500
+Message-ID: <20261107053509-failed-6.6-ea9854a169e9@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,62 +68,165 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 8276a44f0a0b68c07b2331cc0058036ac4c4190d
+git cherry-pick -x ea9854a169e9c1437df8829bea21c2f2e80b137c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053506-failed-6.6-8276a44f0a0b@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053509-failed-6.6-ea9854a169e9@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 8276a44f0a0b68c07b2331cc0058036ac4c4190d Mon Sep 17 00:00:00 2001
-From: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
-Date: Tue, 13 Oct 2026 08:48:50 +0200
-Subject: [PATCH] serial: 8250_omap: set priv->line before enabling the IRQ
+From ea9854a169e9c1437df8829bea21c2f2e80b137c Mon Sep 17 00:00:00 2001
+From: Weibin Liu <liuwb@xiaopeng.com>
+Date: Tue, 29 Sep 2026 16:11:44 +0800
+Subject: [PATCH] spi: cadence-xspi: reject SDMA transfers larger than the
+ requested length
 
-omap8250_irq() is requested in omap8250_probe() with IRQ_NOAUTOEN and
-enabled only in omap_8250_startup(). The handler obtains the port by
-serial8250_get_port(priv->line), but probe stores priv->line only after
-serial8250_register_8250_port() returns.
+The XSPI controller reports the size of the slave-DMA transaction
+through SDMA_SIZE_REG. Both SDMA handlers take this register at face
+value and copy the reported number of bytes between the SDMA FIFO and
+the transfer buffers, without checking it against the length of the
+transfer that was actually requested.
 
-The port becomes visible to userspace already inside
-serial8250_register_8250_port() (uart_add_one_port()). So it can be
-opened -- and the IRQ enabled -- before probe stores the line. An
-interrupt in that window makes the handler call
-serial8250_get_port(-ENODEV) and dereference a pointer outside of
-serial8250_ports[].
+While cdns_xspi_adjust_mem_op_size() clamps the size of the operations
+issued by the SPI core, the device can still report a bigger SDMA size
+than what was programmed, which makes the handlers read from or write
+to memory beyond the end of the transfer buffers.
 
-Store the line in omap_8250_startup() before enable_irq(), so the
-handler never runs with an unset line. Keep the assignment in probe
-too, as remove and the system PM callbacks rely on it even when the
-port was never opened.
+Track the number of bytes requested for the current data phase in a new
+sdma_xfer_len field, set by cdns_xspi_send_stig_command() and by the
+Marvell b0 transfer path, and reject any SDMA size that exceeds it.
 
-Fixes: fef4f600319e ("serial: 8250: omap: Fix life cycle issues for interrupt handlers")
-Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
-Assisted-by: LLM
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/3b3a642f7df2285f49a7bbbe5d1c23fa442c7d94.1791873876.git.jirislaby@kernel.org
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Fixes: a16cc8077627 ("spi: cadence: add support for Cadence XSPI controller")
+Cc: stable@vger.kernel.org # 5.16+
+Signed-off-by: Weibin Liu <liuwb@xiaopeng.com>
+Link: https://patch.msgid.link/20260929081146.41041-2-liuwb@xiaopeng.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- drivers/tty/serial/8250/8250_omap.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/spi/spi-cadence-xspi.c | 36 +++++++++++++++++++++++++++++-----
+ 1 file changed, 31 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/tty/serial/8250/8250_omap.c b/drivers/tty/serial/8250/8250_omap.c
-index 3a1473bf54d0f..137175aa4183a 100644
---- a/drivers/tty/serial/8250/8250_omap.c
-+++ b/drivers/tty/serial/8250/8250_omap.c
-@@ -711,6 +711,9 @@ static int omap_8250_startup(struct uart_port *port)
- 	struct uart_8250_dma *dma = &priv->omap8250_dma;
- 	int ret;
+diff --git a/drivers/spi/spi-cadence-xspi.c b/drivers/spi/spi-cadence-xspi.c
+index 39c868a5b171c..1f1cd45359d34 100644
+--- a/drivers/spi/spi-cadence-xspi.c
++++ b/drivers/spi/spi-cadence-xspi.c
+@@ -332,6 +332,7 @@ struct cdns_xspi_dev {
+ 	int irq;
+ 	int cur_cs;
+ 	unsigned int sdmasize;
++	unsigned int sdma_xfer_len;
  
-+	/* ISR and runtime PM need the line; probe sets it only after registration */
-+	priv->line = port->line;
+ 	struct completion cmd_complete;
+ 	struct completion auto_cmd_complete;
+@@ -346,7 +347,7 @@ struct cdns_xspi_dev {
+ 	u8 hw_num_banks;
+ 
+ 	const struct cdns_xspi_driver_data *driver_data;
+-	void (*sdma_handler)(struct cdns_xspi_dev *cdns_xspi);
++	int (*sdma_handler)(struct cdns_xspi_dev *cdns_xspi);
+ 	void (*set_interrupts_handler)(struct cdns_xspi_dev *cdns_xspi, bool enabled);
+ 
+ 	bool xfer_in_progress;
+@@ -496,7 +497,7 @@ static inline void cdns_xspi_sdma_write(struct cdns_xspi_dev *cdns_xspi, size_t
+ 	iowrite8_rep(dst, (const u8 *)buf + offset, len);
+ }
+ 
+-static void cdns_xspi_sdma_handle(struct cdns_xspi_dev *cdns_xspi)
++static int cdns_xspi_sdma_handle(struct cdns_xspi_dev *cdns_xspi)
+ {
+ 	u32 sdma_size, sdma_trd_info;
+ 	u8 sdma_dir;
+@@ -505,6 +506,13 @@ static void cdns_xspi_sdma_handle(struct cdns_xspi_dev *cdns_xspi)
+ 	sdma_trd_info = readl(cdns_xspi->iobase + CDNS_XSPI_SDMA_TRD_INFO_REG);
+ 	sdma_dir = FIELD_GET(CDNS_XSPI_SDMA_DIR, sdma_trd_info);
+ 
++	if (sdma_size > cdns_xspi->sdma_xfer_len) {
++		dev_err(cdns_xspi->dev,
++			"SDMA size %u exceeds the requested length %u\n",
++			sdma_size, cdns_xspi->sdma_xfer_len);
++		return -EINVAL;
++	}
 +
- #ifdef CONFIG_PM
- 	up->capabilities |= UART_CAP_RPM;
- #endif
+ 	switch (sdma_dir) {
+ 	case CDNS_XSPI_SDMA_DIR_READ:
+ 		cdns_xspi_sdma_read(cdns_xspi, sdma_size);
+@@ -514,6 +522,8 @@ static void cdns_xspi_sdma_handle(struct cdns_xspi_dev *cdns_xspi)
+ 		cdns_xspi_sdma_write(cdns_xspi, sdma_size);
+ 		break;
+ 	}
++
++	return 0;
+ }
+ 
+ static int cdns_xspi_send_stig_command(struct cdns_xspi_dev *cdns_xspi,
+@@ -559,6 +569,7 @@ static int cdns_xspi_send_stig_command(struct cdns_xspi_dev *cdns_xspi,
+ 
+ 		cdns_xspi->in_buffer = op->data.buf.in;
+ 		cdns_xspi->out_buffer = op->data.buf.out;
++		cdns_xspi->sdma_xfer_len = op->data.nbytes;
+ 
+ 		cdns_xspi_trigger_command(cdns_xspi, cmd_regs);
+ 
+@@ -567,7 +578,11 @@ static int cdns_xspi_send_stig_command(struct cdns_xspi_dev *cdns_xspi,
+ 			cdns_xspi->set_interrupts_handler(cdns_xspi, false);
+ 			return -EIO;
+ 		}
+-		cdns_xspi->sdma_handler(cdns_xspi);
++		ret = cdns_xspi->sdma_handler(cdns_xspi);
++		if (ret) {
++			cdns_xspi->set_interrupts_handler(cdns_xspi, false);
++			return ret;
++		}
+ 	}
+ 
+ 	wait_for_completion(&cdns_xspi->cmd_complete);
+@@ -950,7 +965,7 @@ static void m_iowriteq(void __iomem *addr, const void *buf, int len)
+ 	}
+ }
+ 
+-static void marvell_xspi_sdma_handle(struct cdns_xspi_dev *cdns_xspi)
++static int marvell_xspi_sdma_handle(struct cdns_xspi_dev *cdns_xspi)
+ {
+ 	u32 sdma_size, sdma_trd_info;
+ 	u8 sdma_dir;
+@@ -959,6 +974,13 @@ static void marvell_xspi_sdma_handle(struct cdns_xspi_dev *cdns_xspi)
+ 	sdma_trd_info = readl(cdns_xspi->iobase + CDNS_XSPI_SDMA_TRD_INFO_REG);
+ 	sdma_dir = FIELD_GET(CDNS_XSPI_SDMA_DIR, sdma_trd_info);
+ 
++	if (sdma_size > cdns_xspi->sdma_xfer_len) {
++		dev_err(cdns_xspi->dev,
++			"SDMA size %u exceeds the requested length %u\n",
++			sdma_size, cdns_xspi->sdma_xfer_len);
++		return -EINVAL;
++	}
++
+ 	switch (sdma_dir) {
+ 	case CDNS_XSPI_SDMA_DIR_READ:
+ 		m_ioreadq(cdns_xspi->sdmabase,
+@@ -970,6 +992,8 @@ static void marvell_xspi_sdma_handle(struct cdns_xspi_dev *cdns_xspi)
+ 			     cdns_xspi->out_buffer, sdma_size);
+ 		break;
+ 	}
++
++	return 0;
+ }
+ 
+ static const struct spi_controller_mem_ops marvell_xspi_mem_ops = {
+@@ -1131,9 +1155,11 @@ static int cdns_xspi_transfer_one_message_b0(struct spi_controller *controller,
+ 				cdns_xspi_prepare_transfer(cs, 1, current_transfer_len - 1,
+ 							   cmd_regs);
+ 				cdns_xspi_trigger_command(cdns_xspi, cmd_regs);
++				cdns_xspi->sdma_xfer_len = current_transfer_len - 1;
+ 				if (!cdns_xspi_is_sdma_ready(cdns_xspi, true))
+ 					return -EIO;
+-				cdns_xspi->sdma_handler(cdns_xspi);
++				if (cdns_xspi->sdma_handler(cdns_xspi))
++					return -EIO;
+ 				if (!cdns_xspi_is_stig_ready(cdns_xspi, true))
+ 					return -EIO;
+ 
 -- 
 2.53.0
 
