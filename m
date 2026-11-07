@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048544;
-	b=UP5YWx2cUrufYC1BjdaJAQkQSOzAY8su9UGtBTwEQKqc68ftkxkIUH7/aGR0N3K8uX7v
-	 owk62UT7LSFeNybxc5txRXpyl3FGON4QACueNQwwxb8N6PQKFQK4Sm3MagB0INtZ072J6
-	 qMvg+zzFp/TwT2pu48QTDVR0lvPP0Cij4tWz+Jna4M1g29MlVgFDO5ejyooX5ryGs3eLW
-	 ucr4wtkT4mdzftQQ46X3KnwJgsE3HocGPJekGJ28NXA3dv7JkeVn3ciKsBaPDk48tQCQV
-	 +uE/12UEJ5ONh5BK85GaeSXD4O4i0pS5AFbNB5Th7gvY5HsU0JYYNFslwUPJsD9zDZw==
+	t=1794048547;
+	b=2IF129jn6lGtsYlQyneUNBui0x35OMZhvoeVsk2+HiqfWtlvTWDai/zS42g+BtLL5B1Y
+	 P1rIJg/9iLwU9T5BLdOckHuqnOKUsKqN507Ec86FbkyTKz5guLTmto8kt3Uk3sPAsen40
+	 PKdwK6/s/uR+t3iqbFJpPWOVnxWYVzhFDNbnfjRslohGqNl/EMao07VinZ02GBNlT1Gsk
+	 MCmV5+l+2mEDEVft4P8p67WVzNrorV4rj4ToavoN+u2lmWi1zZi07xdXfYVJImnn19DwM
+	 R922+WVDPpz/rP6zLmFfXiLf2BADEDmRv55kh4JFXgfDSGz9IPyDYe0gUxQTf/ES5fw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048544;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048547;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=/nZJzZzZULdXRRn96xyosswiinKqvkEREM/RwDQjYWQ=;
-	b=mxlKT+S+YZmyPiGUCsrw1GxFHYHCkD+D6JisPiVtwTJ3XIT5Jff4fY5tgi56cOkUGUXD
-	 eAF3BSluggIZvUFa/FD3CEz+PaceTLYQI9eu2fbYzU/AEcDSHJQtmY38F8C4LcDnF3Bfc
-	 ymT39/csLPmJ9pkGz0CkaRm4+AaaOgDhIGCasVRNZON7/S3EXDqrvA5oCY25bp2We2MLC
-	 HM31JJ6JucQoghQ9byBAIN4nw+zOxnd96e0356sQHb1rb8GmfEv+mwVa+a0s4do7kG6MS
-	 FKPU4EW4aHE/a9VO5lrOBFBV3DWOZm1YBi8jDuQEhdjfVJkM+sWKH4phwpnbLw9VZOg==
+	bh=wW+7m3NV3fBwUhRL8NVzDUtmWupAd1c2fi5mWKQZoO8=;
+	b=rmlnoAYXtnJBCvW8Ld7QrvQHAwcxX2RcAJcsaWPvJNFr8L+TEhNaSW0ZraejySygu38n
+	 4NyaAJmUXhJZz08ugHqITHRY4ZU2vcCr22Tzf4vwY/exbFuvd4wvSxOPwUwzunupzhwmY
+	 05l7guSDeJ2vsYOxVVCJgWg0/hTqhL80mtFpi9PJm0okV1otORibZzA2waoeDHYHHgPCz
+	 W8gTbJmFrTp39qkMTE9YO7+7M4jwXSG9NvoRIycRfZM7L9iZp/cPE1IUf6x43/s3DoCyt
+	 htYQz5FHigBM1GeUvW7QerUzth3uIp4GbJAh6JyNmpNTzsrHwV2SbQviQmMs0noSNiA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VJAyKQcr;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=di21BgBB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06F8D606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:49:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0236C606A337
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:49:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VJAyKQcr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 701331F0089F;
-	Sat,  7 Nov 2026 10:49:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=di21BgBB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53EA31F008A7;
+	Sat,  7 Nov 2026 10:49:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048543;
-	bh=/nZJzZzZULdXRRn96xyosswiinKqvkEREM/RwDQjYWQ=;
+	s=k20260515; t=1794048546;
+	bh=wW+7m3NV3fBwUhRL8NVzDUtmWupAd1c2fi5mWKQZoO8=;
 	h=From:To:Cc:Subject:Date;
-	b=VJAyKQcrWG76W6MbpKxiuQEGAKkbeuZ4g+O9TGi77nWIU0NgAe7+n+KwrAmVFjCo8
-	 y3EAIi/9LYpG9HoiiPfHg+PWGr1gsZLO7sCfydvUAV60T7oKfZbMo6W9oeT5xzVgEH
-	 MlqQ5p5w1jbv9lO5SPFMzzmi3ZKaxnUQsBnnthk+zeXOFP1P6zaWpRCwcGNYrOApfs
-	 wC3NHq6pxanzy9UlsGkA8MNXL8Z6pmoC4i6YEVq20rVqXmBUdxyzytxCoX7Ou+y2db
-	 n2MtITmdSBg2TsoSs+i0r3Fd8NhPO9AP2S8K9aLQwopJUTGC6l9HcfVgvQgMpaYSGT
-	 stfeZJ8BL75dw==
+	b=di21BgBBSbsRnRtatWTdiQWhlqQVDNhhh/pB+nWlpgayH/4YBbs87LE/vyiyzgLJP
+	 fasoIOEPArUqhQ7oJbclnwKWy4h45qZXUYgyZwyKiVIS7PFDAdirw8/jx5i97OJYEO
+	 grRtHOjLK5pkWwCvROLLh30jrr2IIiWjIs9xDIYMzJUQQ/m1xZWe9kOpCrdMKueUWk
+	 jakoxwvAAoQBmhpV2uXdH3sLqzMjs5Ixs981/NR9gHg9eNQF+dKoDaY3IMkEW5OBWn
+	 WpA7j0BkfWevPTdCTT0d3NToPXsfMQ96T/dObCA3repWjEDMJvdiZSMSwbO7XB3QOC
+	 WqTebDnRg2hEQ==
 From: Sasha Levin <sashal@kernel.org>
-To: francesco.orlando99@libero.it,
-	dmitry.torokhov@gmail.com
+To: kmehltretter@gmail.com,
+	ardb@kernel.org,
+	rmk+kernel@armlinux.org.uk
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] Input: xpad - add GameSir Nova Lite support" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:49:02 -0500
-Message-ID: <20261107054902-failed-6.1-2e6f2e5799f3@kernel.org>
+Subject: FAILED: patch "[PATCH] ARM: 9488/1: smp: set current pointer in assembly before jumping into C" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:49:05 -0500
+Message-ID: <20261107054905-failed-6.1-f6e551e7d515@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,44 +69,136 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 2e6f2e5799f328ca0879dad14d7f3709c7f7496b
+git cherry-pick -x f6e551e7d515579b952422c93415470fb672d848
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054902-failed-6.1-2e6f2e5799f3@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054905-failed-6.1-f6e551e7d515@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 2e6f2e5799f328ca0879dad14d7f3709c7f7496b Mon Sep 17 00:00:00 2001
-From: Francesco Orlando <francesco.orlando99@libero.it>
-Date: Sun, 11 Oct 2026 18:58:21 +0200
-Subject: [PATCH] Input: xpad - add GameSir Nova Lite support
+From f6e551e7d515579b952422c93415470fb672d848 Mon Sep 17 00:00:00 2001
+From: Karl Mehltretter <kmehltretter@gmail.com>
+Date: Sat, 8 Aug 2026 22:08:26 +0100
+Subject: [PATCH] ARM: 9488/1: smp: set current pointer in assembly before
+ jumping into C
 
-Add vendor and product ID for GameSir Nova Lite (0x3537:0x1040) in
-XInput mode to enable force feedback rumble support.
+With CONFIG_KCOV_INSTRUMENT_ALL=y, secondary CPUs fail to come online
+on ARMv6K/ARMv7 SMP:
 
-Signed-off-by: Francesco Orlando <francesco.orlando99@libero.it>
-Link: https://patch.msgid.link/20261011165821.72698-1-francesco.orlando99@libero.it
+  CPU1: failed to boot: -38
+
+The compiler inserts a call to __sanitizer_cov_trace_pc() at the entry
+of secondary_start_kernel(), before set_current(task). The KCOV hook
+dereferences current while TPIDRURO is still uninitialized, causing a
+data abort before cpu_init() has installed the exception stacks. The
+secondary CPU consequently never completes startup.
+
+Initialize current in the secondary assembly handoff, as
+__mmap_switched already does for the boot CPU.
+
+With current set in assembly, the set_current() call in
+secondary_start_kernel() is redundant. Drop it together with the
+function and the task argument. The hotplug resuscitate path in
+arch_cpu_idle_dead() needs no hand-off either, as smp_ops.cpu_die()
+can only return if the CPU kept its register state, TPIDRURO included.
+
+Assisted-by: Claude:claude-fable-5
+
+Fixes: 50596b7559bf ("ARM: smp: Store current pointer in TPIDRURO register if available")
 Cc: stable@vger.kernel.org
-Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Reviewed-by: Ard Biesheuvel <ardb@kernel.org>
+Signed-off-by: Russell King <rmk+kernel@armlinux.org.uk>
 ---
- drivers/input/joystick/xpad.c | 1 +
- 1 file changed, 1 insertion(+)
+ arch/arm/include/asm/smp.h   |  2 +-
+ arch/arm/kernel/head-nommu.S |  1 +
+ arch/arm/kernel/head.S       |  1 +
+ arch/arm/kernel/smp.c        | 15 ++-------------
+ 4 files changed, 5 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/input/joystick/xpad.c b/drivers/input/joystick/xpad.c
-index 810e52782ae89..d2eb48d98fead 100644
---- a/drivers/input/joystick/xpad.c
-+++ b/drivers/input/joystick/xpad.c
-@@ -408,6 +408,7 @@ static const struct xpad_device {
- 	{ 0x3537, 0x1004, "GameSir T4 Kaleid", 0, XTYPE_XBOX360 },
- 	{ 0x3537, 0x100f, "GameSir Nova 2 Lite", 0, XTYPE_XBOX360 },
- 	{ 0x3537, 0x1010, "GameSir G7 SE", 0, XTYPE_XBOXONE },
-+	{ 0x3537, 0x1040, "GameSir Nova Lite", 0, XTYPE_XBOX360 },
- 	{ 0x3651, 0x1000, "CRKD SG", 0, XTYPE_XBOX360 },
- 	{ 0x366c, 0x0005, "ByoWave Proteus Controller", MAP_SHARE_BUTTON, XTYPE_XBOXONE, FLAG_DELAY_INIT },
- 	{ 0x3767, 0x0101, "Fanatec Speedster 3 Forceshock Wheel", 0, XTYPE_XBOX },
+diff --git a/arch/arm/include/asm/smp.h b/arch/arm/include/asm/smp.h
+index 8c05a7f374d8b..84aa6a663e816 100644
+--- a/arch/arm/include/asm/smp.h
++++ b/arch/arm/include/asm/smp.h
+@@ -43,7 +43,7 @@ extern void set_smp_ipi_range(int ipi_base, int nr_ipi);
+  * Called from platform specific assembly code, this is the
+  * secondary CPU entry point.
+  */
+-asmlinkage void secondary_start_kernel(struct task_struct *task);
++asmlinkage void secondary_start_kernel(void);
+ 
+ 
+ /*
+diff --git a/arch/arm/kernel/head-nommu.S b/arch/arm/kernel/head-nommu.S
+index b9d6818f1ee16..f80bbfbd3a6f8 100644
+--- a/arch/arm/kernel/head-nommu.S
++++ b/arch/arm/kernel/head-nommu.S
+@@ -116,6 +116,7 @@ ENTRY(secondary_startup)
+ 	ldr	r7, __secondary_data		@ reload r7
+ 	ldr	sp, [r7, #12]			@ set up the stack pointer
+ 	ldr	r0, [r7, #16]			@ set up task pointer
++	set_current r0, r1
+ 	mov	fp, #0
+ 	b	secondary_start_kernel
+ ENDPROC(secondary_startup)
+diff --git a/arch/arm/kernel/head.S b/arch/arm/kernel/head.S
+index f22c50d4bd417..a22403a629efa 100644
+--- a/arch/arm/kernel/head.S
++++ b/arch/arm/kernel/head.S
+@@ -442,6 +442,7 @@ ENTRY(__secondary_switched)
+ 	adr_l	r7, secondary_data + 12		@ get secondary_data.stack
+ 	ldr	sp, [r7]
+ 	ldr	r0, [r7, #4]			@ get secondary_data.task
++	set_current r0, r1
+ 	mov	fp, #0
+ 	b	secondary_start_kernel
+ ENDPROC(__secondary_switched)
+diff --git a/arch/arm/kernel/smp.c b/arch/arm/kernel/smp.c
+index b5fb4697bc3f8..a9f4600fe4d08 100644
+--- a/arch/arm/kernel/smp.c
++++ b/arch/arm/kernel/smp.c
+@@ -371,12 +371,9 @@ void __noreturn arch_cpu_idle_dead(void)
+ 	 */
+ 	__asm__("mov	sp, %0\n"
+ 	"	mov	fp, #0\n"
+-	"	mov	r0, %1\n"
+ 	"	b	secondary_start_kernel"
+ 		:
+-		: "r" (task_stack_page(current) + THREAD_SIZE - 8),
+-		  "r" (current)
+-		: "r0");
++		: "r" (task_stack_page(current) + THREAD_SIZE - 8));
+ 
+ 	unreachable();
+ }
+@@ -397,23 +394,15 @@ static void smp_store_cpu_info(unsigned int cpuid)
+ 	check_cpu_icache_size(cpuid);
+ }
+ 
+-static void set_current(struct task_struct *cur)
+-{
+-	/* Set TPIDRURO */
+-	asm("mcr p15, 0, %0, c13, c0, 3" :: "r"(cur) : "memory");
+-}
+-
+ /*
+  * This is the secondary CPU boot entry.  We're using this CPUs
+  * idle thread stack, but a set of temporary page tables.
+  */
+-asmlinkage void secondary_start_kernel(struct task_struct *task)
++asmlinkage void secondary_start_kernel(void)
+ {
+ 	struct mm_struct *mm = &init_mm;
+ 	unsigned int cpu;
+ 
+-	set_current(task);
+-
+ 	secondary_biglittle_init();
+ 
+ 	/*
 -- 
 2.53.0
 
