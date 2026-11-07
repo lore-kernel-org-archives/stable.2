@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047551;
-	b=QZ8Z2G1e7yvTLX+Zmyv6i4oIIinVStoydIGKNyWFCaHU7yWkjTQXSt46NZsL/tAw3R/S
-	 5NcpyoHAG9V95Ne89aNc7DzM5tXw5PBCFrTnsBGl4L8VuM1/HuQfhwhpo/wsIZ10AFZ+d
-	 fqI5BY7YoaWvCji9PNEECabXQOrqW76mjblEtagttok9ZuuFgqWHawGKGj9tj00p7vRhK
-	 6AarN5HuXgDOO9uglWWRu8JNnK1JQlgHr+oldEB5pIjygMoFA21iDr1tNEV7WIj7RvQfG
-	 1CzkbuWiY8fSwRh6piL5Zr8bT7/OyHRQgLQEj0klw55SBh+9ne8Ro9K13mx1aW/7GEw==
+	t=1794047553;
+	b=b51lhcVbSKWDWUmi+4q9N4WOstiFdGLIwNvZ5+3+YEQ9v3HDS1UZELM8TL3vAzqsYKCy
+	 OI79uOhgh65wnsvDhlSYGOSfA5WoRihsl6DqCMDA0VEY4Y3OqNSim2HHTE9/dlXNJzUnK
+	 ZKZ8orA7+kh2XUOtZRFHpqb8WdP9bOepgfhZRfSzYbuYjSyEWj9jDSemNmC0a4UEoCQvB
+	 H5vWFZj1JIVUpti9BeIm7jlk8/7yKgfMCsHaY63jfmKlgCWb73PY3OkkX747K/jH0/41M
+	 7HuTTOY3ubPgKgo3j7ZzcCXkOLWRDb38qOgtXv4AIRu+kKIvbLYNtjY46EJEfvv7VgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047551;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047553;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Vda/UAlo6Nh0jWVyarOhRn3uYL3r089vPRKwYnVojZg=;
-	b=nNJdSDdYtWVSueJL7WbfUdhitWhKZJLy79yuYGFtMEMYbr4dbgE1zndUEXxDLssU3T+Q
-	 HCl375lvvsj56oFnL6w+KxWXNgYJiYAC2BW9ColjYTq4m9UjFc8MFvFD3uDk+B/FNCQ6v
-	 DJ9OPjtU4hjfLiSoyNeAFbb4UYuaKgEi6vek38Fl0DVwBK7Fin7+bnV0YtJ9Y+PD7MzSN
-	 zUPL7GEgz7KBa/gbl5q3Pm5Q2ygWUI3fDAaUwXezE61ZEsG7CjCqLe+YGt2nk3/Cq82Z3
-	 2oCe1XRAxQVP4MmXc2RnQZONkAVeEdfxgSN0fEvNDfaSeQh3GR7eIqgGVvWTgO97DQQ==
+	bh=eOMIvCxmVH8kQxck3c8QNwqVAGpKsFFpig61a89QS+Y=;
+	b=fw1zX61UQnXNiT0zpWZcJGdiZ4aNCiilGUanf4X/C54H+vR3pewApK0sC+LHt5VAIWUW
+	 5vf2lJScPWEJQF11usnPEiFse3Rv0Rdc7/GbigIwatD+Bt4E2vbiOHeaMbcgX0EnII60y
+	 Q8+/kGxVHM/0U9OjnCmM1O3CjZn7XLHDAIW9SNAGpswsGLE3Z556ahDrtwc3p7F/Bg123
+	 ++LKOBEJU+q45raEe7TUsiHmIyr46hp9DWrOmVDn9kDAqqHyw/UQvJe+amqVYFZDVHpUc
+	 smpTXHEbpj2vYqMR9YTOZby2TFVmZpVl7DRUj3QJQ9LefnfBq9lK8PzQ6EikrqhAPUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SUZLKdvg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dmIBq4U+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 232D1606A32F
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:32:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5210B606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:32:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SUZLKdvg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A0171F0089F;
-	Sat,  7 Nov 2026 10:32:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dmIBq4U+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7CD21F0089F;
+	Sat,  7 Nov 2026 10:32:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047551;
-	bh=Vda/UAlo6Nh0jWVyarOhRn3uYL3r089vPRKwYnVojZg=;
+	s=k20260515; t=1794047553;
+	bh=eOMIvCxmVH8kQxck3c8QNwqVAGpKsFFpig61a89QS+Y=;
 	h=From:To:Cc:Subject:Date;
-	b=SUZLKdvg9xVy6dmLc3gb8KagTSqziGWKy3apTgszZzn3f3QH5m8RyoddWq77NZtTm
-	 EQAAKarXcTq1EWatIuIpwmFtSIkIphz9BS05zE/Alvw241eT314HdDh++PVFeDL+7C
-	 NaZfaw2TFxA9ndO7jhSItu6F1Xy1p0E96gDRkpgqhXBi6pwWos6uv6wNvkeiA1yJzm
-	 T5HJFeP6a/OVKETu9rczPNnxhdtT2VcnlFyyi/GWb7WuH6c4L00QyN+62a8CejbQ6q
-	 sEFEvDvju3+kRdRW6SKjOXl3PHXRQAYIp71U7RUqeEPeOAVFmBjd/Jns1M1ikf1lY/
-	 2m2YE/gQ//1pA==
+	b=dmIBq4U+F1ijaQtE2jldE0KlvSHkJsM8//hwQnfiuJdUkN4srOa/XajobW/a6dWEf
+	 f3Vtul2QDgxy3eM6ljqgn+p4YhchzEcZ6SrswLUChRI85EUoTeTHLq97LThlTalCUj
+	 u0vOEX7mMHwQN0lx26t3c/4HfEYPYWBatx53JcSD1E/HlBm+cXi6d34ME9xxX9XTO8
+	 CAXA4XiYfSkyPUFUzfsIHuZyAgfwh+aG+GE2YdcehDDMJWvz7dSvKj8pofuqhVm3xD
+	 pQAQt/hqP72uziVDTVOdfwiiLla5t8WpOO3UvTwAAoqF3rSLHMsbCg8WrOjrd6I8uE
+	 5RpTeKOF1/guQ==
 From: Sasha Levin <sashal@kernel.org>
-To: mhun512@gmail.com,
-	ae878000@gmail.com,
+To: lucid_duck@justthetip.ca,
+	hoopyfrood42@gmail.com,
 	nbd@nbd.name
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] wifi: mt76: mt7615: restore DBDC state after ext PHY failure" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:32:29 -0500
-Message-ID: <20261107053229-failed-6.6-7907d5270dc5@kernel.org>
+Subject: FAILED: patch "[PATCH] wifi: mt76: move the channel survey when the channel changes" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:32:31 -0500
+Message-ID: <20261107053231-failed-6.6-68342a7bd7e5@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,86 +69,136 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 7907d5270dc5c13b6a95754c08a77d5b06bbc786
+git cherry-pick -x 68342a7bd7e5e273e2969e3c0f4c62ee3d006ce8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053229-failed-6.6-7907d5270dc5@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053231-failed-6.6-68342a7bd7e5@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 7907d5270dc5c13b6a95754c08a77d5b06bbc786 Mon Sep 17 00:00:00 2001
-From: Myeonghun Pak <mhun512@gmail.com>
-Date: Thu, 10 Sep 2026 17:54:41 -0400
-Subject: [PATCH] wifi: mt76: mt7615: restore DBDC state after ext PHY failure
+From 68342a7bd7e5e273e2969e3c0f4c62ee3d006ce8 Mon Sep 17 00:00:00 2001
+From: Devin Wittmayer <lucid_duck@justthetip.ca>
+Date: Wed, 30 Sep 2026 17:35:01 -0700
+Subject: [PATCH] wifi: mt76: move the channel survey when the channel changes
 
-mt7615_register_ext_phy() limits the primary PHY to DBDC capabilities
-before allocating and registering the secondary PHY. If allocation,
-EEPROM override, or PHY registration fails, it returns without restoring
-the primary PHY capabilities. The EEPROM override failure also leaks the
-newly allocated ieee80211_hw.
+mt7921 and mt7925 report every survey counter against one channel and
+never mark the one in use. With firmware channel management, both use
+channel contexts and never call __mt76_set_channel(), so
+phy->chan_state, phy->chandef and phy->main_chandef keep the first
+channel of the band.
 
-Route all failures through common labels that free the secondary hardware
-when it was allocated and restore the primary PHY capabilities.
+Update them when a context is assigned or changed, after booking the
+time spent on the old channel. This also makes the legacy rate lookup
+in mt76_connac2_mac_fill_txs() and mt7925_mac_add_txs_skb() use the
+band of the current channel.
 
-This issue was identified during our ongoing static-analysis research while
-reviewing kernel code.
+With two channel contexts (multi-channel or MLO), the survey follows
+the context that was assigned or changed last, since the driver reads
+the band 0 counters only.
 
-Fixes: 0f2173f093b3 ("mt76: mt7615: add support for registering a second wiphy via debugfs")
+Tested on MT7922 over PCIe, MT7921AU and MT7925 over USB.
+
+Fixes: 41ac53c899bd ("wifi: mt76: mt7921: introduce chanctx support")
+Fixes: c948b5da6bbe ("wifi: mt76: mt7925: add Mediatek Wi-Fi7 driver for mt7925 chips")
 Cc: stable@vger.kernel.org
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-Link: https://patch.msgid.link/20260910215441.76683-1-mhun512@gmail.com
+Reported-by: Chris <hoopyfrood42@gmail.com>
+Closes: https://lore.kernel.org/linux-wireless/CAHaeJsT8O8Nhq351hFp3NAL8e0iU85N-LBdYZ9nYHFHVy7t_hQ@mail.gmail.com/
+Signed-off-by: Devin Wittmayer <lucid_duck@justthetip.ca>
+Link: https://patch.msgid.link/20261001003501.2425492-1-lucid_duck@justthetip.ca
 Signed-off-by: Felix Fietkau <nbd@nbd.name>
 ---
- .../net/wireless/mediatek/mt76/mt7615/init.c    | 17 +++++++++++++----
- 1 file changed, 13 insertions(+), 4 deletions(-)
+ drivers/net/wireless/mediatek/mt76/mac80211.c    | 14 ++++++++++++++
+ drivers/net/wireless/mediatek/mt76/mt76.h        |  2 ++
+ drivers/net/wireless/mediatek/mt76/mt7921/main.c |  1 +
+ drivers/net/wireless/mediatek/mt76/mt7925/main.c |  2 ++
+ drivers/net/wireless/mediatek/mt76/mt792x_core.c |  1 +
+ 5 files changed, 20 insertions(+)
 
-diff --git a/drivers/net/wireless/mediatek/mt76/mt7615/init.c b/drivers/net/wireless/mediatek/mt76/mt7615/init.c
-index e437e088b2e91..665b0f1e939f1 100644
---- a/drivers/net/wireless/mediatek/mt76/mt7615/init.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt7615/init.c
-@@ -541,8 +541,10 @@ int mt7615_register_ext_phy(struct mt7615_dev *dev)
- 
- 	mt7615_cap_dbdc_enable(dev);
- 	mphy = mt76_alloc_phy(&dev->mt76, sizeof(*phy), &mt7615_ops, MT_BAND1);
--	if (!mphy)
--		return -ENOMEM;
-+	if (!mphy) {
-+		ret = -ENOMEM;
-+		goto error;
-+	}
- 
- 	phy = mphy->priv;
- 	phy->dev = dev;
-@@ -572,7 +574,7 @@ int mt7615_register_ext_phy(struct mt7615_dev *dev)
- 
- 	ret = mt76_eeprom_override(mphy);
- 	if (ret)
--		return ret;
-+		goto error_free_hw;
- 
- 	/* second phy can only handle 5 GHz */
- 	mphy->cap.has_5ghz = true;
-@@ -590,7 +592,14 @@ int mt7615_register_ext_phy(struct mt7615_dev *dev)
- 	ret = mt76_register_phy(mphy, true, mt76_rates,
- 				ARRAY_SIZE(mt76_rates));
- 	if (ret)
--		ieee80211_free_hw(mphy->hw);
-+		goto error_free_hw;
-+
-+	return 0;
-+
-+error_free_hw:
-+	ieee80211_free_hw(mphy->hw);
-+error:
-+	mt7615_cap_dbdc_disable(dev);
- 
- 	return ret;
+diff --git a/drivers/net/wireless/mediatek/mt76/mac80211.c b/drivers/net/wireless/mediatek/mt76/mac80211.c
+index 0e45533ea89c7..3991696515e27 100644
+--- a/drivers/net/wireless/mediatek/mt76/mac80211.c
++++ b/drivers/net/wireless/mediatek/mt76/mac80211.c
+@@ -1045,6 +1045,20 @@ void mt76_update_survey(struct mt76_phy *phy)
  }
+ EXPORT_SYMBOL_GPL(mt76_update_survey);
+ 
++void mt76_phy_chandef_set(struct mt76_phy *phy,
++			  struct cfg80211_chan_def *chandef)
++{
++	if (!chandef->chan)
++		return;
++
++	mt76_update_survey(phy);
++
++	phy->chandef = *chandef;
++	phy->main_chandef = *chandef;
++	phy->chan_state = mt76_channel_state(phy, chandef->chan);
++}
++EXPORT_SYMBOL_GPL(mt76_phy_chandef_set);
++
+ int __mt76_set_channel(struct mt76_phy *phy, struct cfg80211_chan_def *chandef,
+ 		       bool offchannel)
+ {
+diff --git a/drivers/net/wireless/mediatek/mt76/mt76.h b/drivers/net/wireless/mediatek/mt76/mt76.h
+index 2ade848fe3bbb..e9bbec1269fac 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt76.h
++++ b/drivers/net/wireless/mediatek/mt76/mt76.h
+@@ -1555,6 +1555,8 @@ void mt76_sta_ps_transition(struct mt76_dev *dev, struct mt76_wcid *wcid,
+ bool mt76_has_tx_pending(struct mt76_phy *phy);
+ int mt76_update_channel(struct mt76_phy *phy);
+ void mt76_update_survey(struct mt76_phy *phy);
++void mt76_phy_chandef_set(struct mt76_phy *phy,
++			  struct cfg80211_chan_def *chandef);
+ void mt76_update_survey_active_time(struct mt76_phy *phy, ktime_t time);
+ int mt76_get_survey(struct ieee80211_hw *hw, int idx,
+ 		    struct survey_info *survey);
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7921/main.c b/drivers/net/wireless/mediatek/mt76/mt7921/main.c
+index d0f6460c7fd88..d041df807f615 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7921/main.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7921/main.c
+@@ -1421,6 +1421,7 @@ mt7921_change_chanctx(struct ieee80211_hw *hw,
+ 	} else {
+ 		mt76_connac_mcu_uni_set_chctx(mvif->phy->mt76, &mvif->bss_conf.mt76, ctx);
+ 	}
++	mt76_phy_chandef_set(mvif->phy->mt76, &ctx->def);
+ 	mt792x_mutex_release(phy->dev);
+ }
+ 
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7925/main.c b/drivers/net/wireless/mediatek/mt76/mt7925/main.c
+index d124d46667071..3a5d6f51832ca 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7925/main.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7925/main.c
+@@ -2077,6 +2077,7 @@ mt7925_change_chanctx(struct ieee80211_hw *hw,
+ 						      link_conf, ctx);
+ 		}
+ 	}
++	mt76_phy_chandef_set(mvif->phy->mt76, &ctx->def);
+ 
+ 	mt792x_mutex_release(phy->dev);
+ }
+@@ -2413,6 +2414,7 @@ static int mt7925_assign_vif_chanctx(struct ieee80211_hw *hw,
+ 
+ 	mconf->mt76.ctx = ctx;
+ 	mctx->bss_conf = mconf;
++	mt76_phy_chandef_set(mvif->phy->mt76, &ctx->def);
+ 	mutex_unlock(&dev->mt76.mutex);
+ 
+ 	return 0;
+diff --git a/drivers/net/wireless/mediatek/mt76/mt792x_core.c b/drivers/net/wireless/mediatek/mt76/mt792x_core.c
+index 0ad33f74c2285..f56f03bfe3874 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt792x_core.c
++++ b/drivers/net/wireless/mediatek/mt76/mt792x_core.c
+@@ -472,6 +472,7 @@ int mt792x_assign_vif_chanctx(struct ieee80211_hw *hw,
+ 	mutex_lock(&dev->mt76.mutex);
+ 	mvif->bss_conf.mt76.ctx = ctx;
+ 	mctx->bss_conf = &mvif->bss_conf;
++	mt76_phy_chandef_set(&dev->mphy, &ctx->def);
+ 	mutex_unlock(&dev->mt76.mutex);
+ 
+ 	return 0;
 -- 
 2.53.0
 
