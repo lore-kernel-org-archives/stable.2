@@ -1,54 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048979;
-	b=5KBZ4wlq2EmtxJ8pAoKM2jeOPLq9eaSj/lXR8fEMX5wIv3QeDtOt8exAH9ArqtuqXq5C
-	 oFJzvlEoCZh1Vc2b3zJ0qZFsZYR4V9IUyBfhPpf2Tix+eQ96sB+Q5+/NaxdDJ7G467ncY
-	 QZvEUmXz4MzEpzfiFdVwPqttABNZphQbp7Im1V8sugdS87aXdCEu0kMFC2j1oAqMG0PjN
-	 o4EoFw+cMKqP8khAZPIJt+Dl9fSkA+Y9OWgjej2+SF7Etz4m+oQBfOWauS2tyzRBcAU0a
-	 IFfxNz8Er/sIudpmR11Wqycz8g0ewz1QWqVTuAaquREBmfmAPuoTwkmfCVu9VFAL3Dg==
+	t=1794048982;
+	b=H5Fe1dLYoghIVY5wEcpnhLrw3MVPQgWPtR9VzygGrX05y0XA/A3o+R+eIMuL8cmiSwO7
+	 g0/4z2WGsNNmhSnI8CGbKB5n7Rn3kcd6UF1Y0wU0Iwy0s+KxG8w55AJZiCkCJ71R2F3Pv
+	 2CW6ng4T8cLgJ5Hecbkxlr7CaTs3nmJ6LTj6OKJ5hmMDueSnM7WGNU0kMQwsQsrWaVOc+
+	 GMd6im4NQVz1L2yjIUvRTJusfwEh1YlYmxWBvr4jQvAO7MsfEW1g9EbymfXELZ6zbpQaa
+	 zvKh3raF5FltlG+/ALk7zIqN39bTD4uvG3/3sSoQxDskVisdj0AhWP+NGXNa4DYAsew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048979;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048982;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=6w8DXEd6NeGjFbwPLC/gMC+TDvub91NokmTR9wUC7Gs=;
-	b=tl1XekRPyk6RSP5CxUj1MQWJEmIu7KnxI0eag+6DAc3kk0AQj6GZDuMnCYo287E4B+Up
-	 xgywqRwUZDhN1dm7E4d0ME563W6whHuMFbUAfaiykTxN6hqPmcFT8mrhv/dN6kGJbI5JI
-	 sj23kgRSmDbirpLQ200zPCQPmNf2/EmgfSlSIVBqdMWC5APYqtuDRRcCSvLBwhcv0HcYj
-	 5Pfgw8AnxhJTvfwvsTYbvGQz6Z2Nn0HWIRU6uT0DklDYrQkjQdZewwYzMZ/j5683oevNQ
-	 PdWY69r70CmfWH8KrSEu4nC7vv5+Ko+DBJxq6yT7doWU7azXh9YVwhBAEUyi9yfEmLA==
+	bh=oU4MfmhVQnJxq5TqGcW5DUhJoa7HTXThikNddGBX6DY=;
+	b=fxdmSUneyAq7aOJyYpi9YA1tPQsI8+eWwgPbTfm9mEp46lf7VXQVV4IwChg3hZfnBCVW
+	 2Iyt350POMN/1Z8GYHL8zkkmmwMvD6A9cZ+gKg7bej4MStSPsMPLN2IKCWQuGoiLcdntJ
+	 nIdKQhJFzjH9yATaTt/u5dcDmcT6SWNixMWnPqGo1cVHTD2x2LFvanymb2NOzxVxCHx0S
+	 axnGh+HHJH5P+p5cTpu09l0HQGd5rMRUEuQaP5iFY/c3Pqfjyiv/8JhIqAJzgJay62j6I
+	 6z1OCtdr3h9Oq5VqJlgNSquF3kjozGvXWw2BGS8moELOc+l+x2dArMc+oFnXZ7HVXTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gCJuiN7c;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S5XgXGni;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45AE8606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:56:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 219B4606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:56:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gCJuiN7c
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 403251F0089F;
-	Sat,  7 Nov 2026 10:56:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S5XgXGni
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90CE41F0089F;
+	Sat,  7 Nov 2026 10:56:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048978;
-	bh=6w8DXEd6NeGjFbwPLC/gMC+TDvub91NokmTR9wUC7Gs=;
+	s=k20260515; t=1794048982;
+	bh=oU4MfmhVQnJxq5TqGcW5DUhJoa7HTXThikNddGBX6DY=;
 	h=From:To:Cc:Subject:Date;
-	b=gCJuiN7cHvjsoyuQioLtDyfrFpbUl1Tz8hMYB0EPkkeT2FKtf2Ud+abXVdje1gSDu
-	 xdlXgLCWcb9cDwRIvZPy5CxeHA3iAJsqDBuqlBbLAAxuzKaW5K5dlL9L0AQLt2EITD
-	 dT+FMXIHcZt0Is9R37/xDHpGzY6+NKgSt+xx1Uv5KHadJSgAyPwhdP2cv4pekD1JVF
-	 XVY007PBLuRc5X0j02cmpoxg8FigrRWEyzNQeV0xnnZK/GOZ0us3fgPBsq92FLK8aE
-	 5b9nrEN17ZUfXi6RdxqtMVNcE6GCDtqsdlSCsY0zdDMrXj/aOSAXXyuX1T7CTHYIcB
-	 Hp55Mnp4eyCPA==
+	b=S5XgXGnijuJ/8F0apzw1iViFnyiMasBccvKWnqNSmmEKBHCrzrt/E6IWgfofsNExL
+	 dJciqQvkz5c4jSzxIhTMWgrr0BtptTLZzsFYCGu4il67G7DxQOzYnEjLDM2slgfDs4
+	 B1HTTuGVQeaYTEJJ0m0dPd0iO+mz9zOIuArUvaGMW59JPx9/CKOkWkTXyAoGECQg9K
+	 GHJVskSnF/qfqpBhtu/NW4NUoc1jrdXj80cOQrLSMWLTWBQhctUW0Qp7SH44Y/dVVF
+	 +DnfUAzHYvhmIEAfBaOoEXjw4pHt/+0ofkhR7gJCRWpuAnrQ/O5CE5sMlmJWL8PBLO
+	 WfpqCI91kgwlw==
 From: Sasha Levin <sashal@kernel.org>
-To: user148783812897@gmail.com,
-	willemb@google.com,
-	kuniyu@google.com,
-	edumazet@kernel.org,
-	kuba@kernel.org
+To: syjcnss@gmail.com,
+	almaz.alexandrovich@paragon-software.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] net: limit priority VLAN untag depth" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:56:16 -0500
-Message-ID: <20261107055616-failed-6.1-d3ff07f5acc5@kernel.org>
+Subject: FAILED: patch "[PATCH] fs/ntfs3: validate the EA value length in ntfs_read_ea()" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:56:20 -0500
+Message-ID: <20261107055620-failed-6.1-351817226fbf@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,82 +68,177 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x d3ff07f5acc573e5f72bf1c581bae5d05191ba61
+git cherry-pick -x 351817226fbf0031c4c63d1f5d7f15c3172312eb
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055616-failed-6.1-d3ff07f5acc5@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055620-failed-6.1-351817226fbf@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From d3ff07f5acc573e5f72bf1c581bae5d05191ba61 Mon Sep 17 00:00:00 2001
-From: Kamil Sawicki <user148783812897@gmail.com>
-Date: Fri, 23 Oct 2026 20:48:35 -0400
-Subject: [PATCH] net: limit priority VLAN untag depth
+From 351817226fbf0031c4c63d1f5d7f15c3172312eb Mon Sep 17 00:00:00 2001
+From: Yuejie Shi <syjcnss@gmail.com>
+Date: Mon, 3 Aug 2026 12:34:32 +0800
+Subject: [PATCH] fs/ntfs3: validate the EA value length in ntfs_read_ea()
 
-The priority VLAN receive path can repeatedly remove VID 0 tags and retry
-packet processing. Unlike the read-only VLAN protocol parser, this path has
-no limit on the number of nested tags it consumes.
+ntfs_read_ea() checks the $EA list for consistency, but it only
+recomputes the packed size of an entry when the entry's own size field is
+zero:
 
-Each skb_vlan_untag() advances skb->data and resets header offsets. The
-offsets are stored in 16-bit fields. With enough nested tags, the network
-or transport offset can wrap. A later protocol handler can then derive a
-large pull length from the wrapped offsets and access memory outside the
-skb allocation.
+	for (off = 0; off < size; off += ea_size) {
+		const struct EA_FULL *ef = Add2Ptr(ea_p, off);
+		u32 bytes = size - off;
+		...
+		if (ef->size) {
+			ea_size = le32_to_cpu(ef->size);
+			if (ea_size > bytes)
+				goto out1;
+			continue;              /* <- elength never checked */
+		}
+		...
+		ea_size = ALIGN(struct_size(ef, name,
+					    1 + ef->name_len +
+						    le16_to_cpu(ef->elength)),
+				4);
+		if (ea_size > bytes)
+			goto out1;
+	}
 
-Apply the existing VLAN_MAX_DEPTH limit to the exceptional VID 0 retry.
-Count the tag already stored in skb VLAN metadata as the first level, then
-stop before untagging a ninth level. Keep the accounting inside this
-uncommon branch so the regular VLAN receive path is unaffected.
+ef->size is non-zero for every entry except the last one, and it is what
+ntfs3 itself writes (ntfs_set_ea() stores exactly that aligned packed
+size), so in practice elength is not validated at all.  find_ea() then
+uses unpacked_ea_size(), which also prefers ea->size when it is set, so
+it agrees and hands the entry back.
 
-A single VID 0 priority tag before a real VLAN tag is valid. No normal
-deployment was found that intentionally emits multiple consecutive VID 0
-tags; permitting eight levels is therefore conservative.
+ntfs_get_ea() copies elength bytes with no further bound of its own:
 
-The issue was found while researching the Linux network receive path for
-Google kvmCTF, with OpenAI Codex (gpt-5.6-sol) assisting the analysis. The
-affected path, reproducer and fix were manually reviewed and tested.
+	len = le16_to_cpu(ea->elength);
+	...
+	if (len > size) {              /* size is the *caller's* buffer */
+		err = -ERANGE;
+		...
+	}
+	memcpy(buffer, ea->name + ea->name_len + 1, len);
 
-Fixes: 36b2f61a42c2 ("net: handle 802.1P vlan 0 packets properly")
+so a caller that supplies a large enough buffer receives up to 64 KiB of
+whatever follows the small $EA allocation -- straight to userspace via
+getxattr(2).
+
+Compute the packed size unconditionally and require it to fit in the
+entry.  Hoist the "bytes < offsetof(struct EA_FULL, name)" test above the
+ef->size branch as well: name_len and elength were being read there
+without it, which is itself a small over-read of the kmalloc'd buffer
+when fewer than 8 bytes are left.  The old "bytes < sizeof(ef->size)"
+test is subsumed by it.
+
+  # mkntfs image; create /mnt/ntfs/poc with user.ntfs6 set, then rewrite
+  # that EA_FULL's elength from 0xf to 0xff00 on the raw device
+  mount -t ntfs3 -o ro /dev/vda /mnt/ntfs
+  getxattr("/mnt/ntfs/poc", "user.ntfs6", buf, 128 * 1024);
+
+  BUG: KASAN: slab-out-of-bounds in ntfs_get_ea+0x294/0x3e0
+  Read of size 65280 at addr ffff0000cca53acf by task xattr_probe/142
+   __asan_memcpy+0x3c/0xa0
+   ntfs_get_ea+0x294/0x3e0
+   ntfs_getxattr+0x284/0x318
+   __vfs_getxattr+0x104/0x160
+   vfs_getxattr+0x1b4/0x1e0
+   do_getxattr+0xcc/0x230
+   path_getxattrat+0x184/0x270
+   __arm64_sys_getxattr+0x64/0x80
+  Allocated by task 142:
+   __kmalloc_noprof+0x294/0x668
+   ntfs_read_ea+0x1e4/0x420
+   ntfs_get_ea+0x2c8/0x3e0
+  The buggy address belongs to the object at ffff0000cca53a80
+   which belongs to the cache kmalloc-96 of size 96
+
+The object being over-read is the one ntfs_read_ea() just allocated, and
+it is 96 bytes.
+
+Entries written by ntfs3 and by Windows set size to the aligned packed
+size, so the new test does not reject anything a working filesystem
+produces.
+
+Fixes: be71b5cba2e6 ("fs/ntfs3: Add attrib operations")
 Cc: stable@vger.kernel.org
-Reviewed-by: Willem de Bruijn <willemb@google.com>
-Signed-off-by: Kamil Sawicki <user148783812897@gmail.com>
-Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
-Reviewed-by: Eric Dumazet <edumazet@kernel.org>
-Link: https://patch.msgid.link/20261024004835.17862-1-user148783812897@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Yuejie Shi <syjcnss@gmail.com>
+[almaz.alexandrovich@paragon-software.com: applied as-is, logic is the same but the code is cleaner]
+Signed-off-by: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
 ---
- net/core/dev.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ fs/ntfs3/xattr.c | 45 ++++++++++++++-------------------------------
+ 1 file changed, 14 insertions(+), 31 deletions(-)
 
-diff --git a/net/core/dev.c b/net/core/dev.c
-index 9021e6d36ab2b..b3622e532f269 100644
---- a/net/core/dev.c
-+++ b/net/core/dev.c
-@@ -6315,6 +6315,8 @@ static int __netif_receive_skb_core(struct sk_buff **pskb, bool pfmemalloc,
- 	}
+diff --git a/fs/ntfs3/xattr.c b/fs/ntfs3/xattr.c
+index d6ad06415318d..e1fa58aa03611 100644
+--- a/fs/ntfs3/xattr.c
++++ b/fs/ntfs3/xattr.c
+@@ -146,49 +146,32 @@ static int ntfs_read_ea(struct ntfs_inode *ni, struct EA_FULL **ea,
+ 	for (off = 0; off < size; off += ea_size) {
+ 		const struct EA_FULL *ef = Add2Ptr(ea_p, off);
+ 		u32 bytes = size - off;
+-		size_t need;
+-
+-		/* Check if we can use field ea->size. */
+-		if (bytes < sizeof(ef->size))
+-			goto out1;
++		u32 packed_size;
  
- 	if (unlikely(skb_vlan_tag_present(skb)) && !netdev_uses_dsa(skb->dev)) {
-+		unsigned int priority_tag_depth = 1;
-+
- check_vlan_id:
- 		if (skb_vlan_tag_get_id(skb)) {
- 			/* Vlan id is non 0 and vlan_do_receive() above couldn't
-@@ -6326,6 +6328,12 @@ static int __netif_receive_skb_core(struct sk_buff **pskb, bool pfmemalloc,
- 			 * 802.1Q or 802.1AD and vlan_do_receive() above could
- 			 * not find vlan dev for vlan id 0.
- 			 */
-+			if (unlikely(priority_tag_depth >= VLAN_MAX_DEPTH)) {
-+				drop_reason = SKB_DROP_REASON_RECURSION_LIMIT;
-+				goto drop;
-+			}
-+
-+			priority_tag_depth++;
- 			__vlan_hwaccel_clear_tag(skb);
- 			skb = skb_vlan_untag(skb);
- 			if (unlikely(!skb))
+ 		/* Check if we can use fields ef->name_len and ef->elength. */
+ 		if (bytes < offsetof(struct EA_FULL, name))
+ 			goto out1;
+ 
+-		/* Size needed to hold this record's name and value. */
+-		need = struct_size(ef, name,
+-				   1 + ef->name_len + le16_to_cpu(ef->elength));
++		/*
++		 * The name and the value have to fit in the entry whether or
++		 * not ef->size is set, because ntfs_get_ea() copies elength
++		 * bytes out of this buffer and checks them only against the
++		 * caller supplied buffer size.
++		 */
++		packed_size =
++			ALIGN(struct_size(ef, name,
++					  1 + ef->name_len +
++						  le16_to_cpu(ef->elength)),
++			      4);
+ 
+ 		if (ef->size) {
+ 			ea_size = le32_to_cpu(ef->size);
+-			/* ef->size must fit the list and cover the record. */
+-			if (ea_size > bytes || ea_size < need)
+-				goto out1;
+-			if (bytes < offsetof(struct EA_FULL, name))
+-				goto out1;
+-
+-			/* Check if we can use fields ef->name_len and ef->elength. */
+-			if (bytes < offsetof(struct EA_FULL, name))
+-				goto out1;
+-
+-			/*
+-			 * The declared entry size (ef->size) must be large
+-			 * enough to hold the name and value.  Otherwise a later
+-			 * reader such as ntfs_get_ea() copies ef->elength bytes
+-			 * starting past the entry, reading out of bounds of the
+-			 * ea buffer and leaking adjacent heap memory to
+-			 * userspace via getxattr().
+-			 */
+-			if (struct_size(ef, name,
+-					1 + ef->name_len +
+-						le16_to_cpu(ef->elength)) >
+-			    ea_size)
++			if (ea_size > bytes || packed_size > ea_size)
+ 				goto out1;
+ 			continue;
+ 		}
+ 
+-		ea_size = ALIGN(need, 4);
++		ea_size = packed_size;
+ 		if (ea_size > bytes)
+ 			goto out1;
+ 	}
 -- 
 2.53.0
 
