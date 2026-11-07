@@ -1,60 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050420;
-	b=YUMKBpNiN0Q3JPJOEAbI1F/VrqJBYcid937rVrz5QsZTzcMI7Qq45NMPMsiFJs9m0hqZ
-	 t4wv6d6M3NFefaLGZasdlm9fT3AGttTGW/89gTD7jxFHsstsijN1Pu12IIc8Q4mjOb1tX
-	 K1bcpDwkEjZsZLt5YtSFMDrW9gOilQx+WjNCapu4x4+exEgBe0Ye5XGcbpO6QvXD/lIjK
-	 1aEhgqHjUrHuH0UJXPS4+ZZw2qSBhSnXdVrYmFCz4k9gzasr0gqilNKYvWEnBGq4tU5nx
-	 gv+Oi2jIWSv8OkfHpmFKmMiziv642+2czaRHHxkh4eroeD3BzOTQft3FERNI+i54GLg==
+	t=1794050421;
+	b=LLRSfU8Et+M+eYEeCsBGw+Bps9PInPovfB4zEpLODq1R86q3oKTXWWPSyzJCKcx15FEg
+	 0TI82+O++CmmJLdWFFN33V0vmMyyGBDFwqfKFxRZ23OlTYIvbyWFjQvTHJ7LRvguTzevf
+	 3//dwfuEWUOMyjro4k1ZVPzn3KID7sv5GnXTnZiPejLl3VOUXuMckD1jjG81e16ZGuklN
+	 WYNHU5G/44F8wUqHOZL6wsaWQM29/hvgCsDHHgujZGq1o/u6CyfrZThcvXPOK1gPQZBNp
+	 HDVev4PRasjrbFKS8Nzk8Euio/1I2nIRY06J2X9TAIXus2AUSCn/IHu8lcmOvdJvqtA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050420;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=7lJq3zjrCdb3/Kci2Xd2dr95m6yoQ8Kd15x70oIxTkk=;
-	b=apgkOwmTvbGw213zfpoUavYzmAX3+utQxToaPCG59s05pdFr3Ar+xLiQjsHDjE0yTF7P
-	 CuH/p7GYSXR7b7tMbz+cmyAY+W/gl32/Tcq8z8ktnG0UFcJOMjWpqDBp7WMsyG+3XCoJf
-	 W6ojQpIIiD4JnJn6GLVIQ+xH6mib0mzO9Kr8WIlz2b8kGZaKhsJBfe2vdEpW3P/Fxxvdr
-	 gH8IrgGjcV/hlDrjSpZLcvJLr0CFNlyVCf9eLtG5ScKaBACP05fJS8M50SpLs8gxM7LGj
-	 peLTmWodF0mKTpZU1GtIC3lmpCzuY6IZ2BI6D2pc+Jc8uMSIXzldvBmyir0RshlH+4A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050421;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=GrwVuwNRNdB1Ahwu44IbR12Z7rZxAcnt9yxGc1kOEfc=;
+	b=Ay1M80BMp1xnfmcusigG1bfo3YSvu3tJSUMAK3R4IhwdZ5AtGF3K5RiFgRmHXR4DIOCU
+	 EzfYz4FEaR9Z+nZpcfd+d5zMEbFXgCkvGkhY49UOJAOnxCvpVb8trYfTHeDUL6ZgCTCO4
+	 7tztd8qk9Gm7bnCeBK/e8FGWEq5gNgxs9ajMdjOzEhaG7SSeANGRTqzwSaIYOAa6guOR3
+	 gR1sIYOBUBn+mqDaO0ET4kF/rWSfNoLcSSbd3t8n0rUZHGho4tkrgBc4dTybvLYtLj/c4
+	 ShJ/7oNKp3zBTRKxENrh4T+sxFS3f4n1kKO2VcRq6AZ5Eu0fS9i8xzoTOcCfEzo99CQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=tipi-net.de;
-	spf=pass smtp.mailfrom=tipi-net.de;
-	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=QgllUKZ2;
-	arc=none smtp.remote-ip=194.13.80.246
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iL3nzfNY;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AFBB606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:20:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8AFBB606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88C82606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:20:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=QgllUKZ2
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 561E8A1583;
-	Sat, 07 Nov 2026 12:20:15 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1794050415; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=7lJq3zjrCdb3/Kci2Xd2dr95m6yoQ8Kd15x70oIxTkk=;
-	b=QgllUKZ2uka+e91jCfzxbNQIFiRISN3sR8iJsbWES0AkYPX7Q1lDhqzi7pGa3DERNXPd3r
-	k2V75VjkI5t7HTBODtVEELkG1d9XYpY2Ylm/bs1eLeHdJ4acofnb26BmNyHsYTjFqShsAh
-	E30xEiZE+Ozv5HOv/QkK6mgGxxwvCH4zph0QPoAiPBtzhFcbub37dtiah5zwer+9NwcbkE
-	XDUh+GDSCJsAf0zKW4qwsna10NagSVGB2SVBDFhg4cNsVDE6QG2yZhdbnRPpP2iPsWtH1t
-	qSQh5BzFQqPIeCdCVSB2jWbvWvNPXRIF/HcsGnQXYQU/QhX+QTfzO2lGjeWS6A==
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: stable@vger.kernel.org
-Cc: Nicolai Buchwitz <nb@tipi-net.de>,
-	stable@kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [PATCH 6.6.y] serial: amba-pl011: keep transmitter enabled when disabling RS485
-Date: Sat,  7 Nov 2026 12:20:10 +0100
-Message-ID: <c649ede67d8a2e4bb0c86e322bc07eda86c1ae5c.1794050290.git.nb@tipi-net.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iL3nzfNY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E17131F0089F;
+	Sat,  7 Nov 2026 11:20:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794050421;
+	bh=GrwVuwNRNdB1Ahwu44IbR12Z7rZxAcnt9yxGc1kOEfc=;
+	h=From:To:Cc:Subject:Date;
+	b=iL3nzfNY6ZNsaEIfxB76ghzaPuvoxVCRmBzSoEfcjUSPQgMDPMm/NKINGUyevw+As
+	 PGhODYMqH/Wnp/5HR2M/H1xxEw8DgcagraA09mzbNUyEkq650F5xy8HOMbsDTuN5Pf
+	 H73MpiNtD1UfZQZ3qilchxkFmenetciKFoskmouO7GW8RBeOuOZCMF23HpgUis2WPw
+	 hvSMotgZe4ihB0ELm0B9sntAky+IDuRIRYoYfloA8gdRvhMsRYfdAXD8JVMbJMtkOD
+	 i6vsFuwhOuLn5rXzL68EUi+j9BItGzzCI4sGN/5QgIC6H3sWz9Z58qbdrnpjpSPhh5
+	 Rh2D8OGDOJiag==
+From: Sasha Levin <sashal@kernel.org>
+To: yhlee@isslab.korea.ac.kr,
+	jgross@suse.com,
+	bhelgaas@google.com
+Cc: stable@vger.kernel.org
+Subject: FAILED: patch "[PATCH] xen/pcifront: check that an AER callback exists before calling it" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:20:19 -0500
+Message-ID: <20261107062019-failed-5.10-3b4854b69ee7@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107053504-failed-6.6-97f85204275a@kernel.org>
-References: <20261107053504-failed-6.6-97f85204275a@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,64 +57,91 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-commit 97f85204275ae4d7fb530e451f3acc65c1ec1155 upstream.
+The patch below does not apply to the 5.10-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Disabling RS485 on an open port calls pl011_rs485_tx_stop(), which
-turns off the transmitter. Only the RS485 TX path turns it back on, so
-any later output stays queued and tcdrain() hangs until the port is
-closed.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-pl011_rs485_tx_stop() also checks only the hardware FIFO. If a DMA
-transfer has started but has not filled the FIFO yet, the transmitter
-is turned off under the transfer and the DMA channel never recovers.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git checkout FETCH_HEAD
+git cherry-pick -x 3b4854b69ee70fffb2fa7acac09e715a7efcbae1
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062019-failed-5.10-3b4854b69ee7@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
-When leaving RS485 mode, cancel pending deferred starts and stops, leave
-the transmitter enabled and start any TX that was still waiting for
-delay_rts_before_send.
+Thanks,
+Sasha
 
-Fixes: 8d479237727c ("serial: amba-pl011: add RS485 support")
-Cc: stable@kernel.org
-Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
-Link: https://patch.msgid.link/20261012-fix-pl011-rs485-txe-v2-1-e9bf7d218389@tipi-net.de
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[nb: Use rs485_tx_started and omit timer handling on older kernels.]
-Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+------------------ original commit in Linus's tree ------------------
+
+From 3b4854b69ee70fffb2fa7acac09e715a7efcbae1 Mon Sep 17 00:00:00 2001
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Date: Tue, 6 Oct 2026 11:34:43 +0900
+Subject: [PATCH] xen/pcifront: check that an AER callback exists before
+ calling it
+
+pcifront_common_process() handles an AER request from the backend by
+dispatching on aer_op.cmd to the bound driver's PCI error handler.  It
+only checks that err_handler and err_handler->error_detected are present,
+then for the mmio_enabled, slot_reset and resume commands it calls the
+corresponding callback unconditionally.  Those three callbacks are
+optional -- the PCI core NULL-checks each of them individually before
+use -- and many drivers (for example igb, igc, ice and ixgbevf) install
+error_detected without all of them.
+
+aer_op.cmd comes from the shared ring, so a malicious or buggy backend
+can send XEN_PCI_OP_aer_mmio (or _slotreset/_resume) for a device whose
+driver leaves that callback NULL and make the frontend call through a
+NULL pointer, crashing the guest.
+
+Check each callback before calling it.  When mmio_enabled or slot_reset is
+absent, return PCI_ERS_RESULT_RECOVERED so recovery proceeds, as the PCI
+core does for a missing callback; returning PCI_ERS_RESULT_NONE would
+instead make xen-pciback tear the guest domain down.
+
+Fixes: 956a9202cd12 ("xen-pcifront: Xen PCI frontend driver.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Reviewed-by: Juergen Gross <jgross@suse.com>
+Acked-by: Bjorn Helgaas <bhelgaas@google.com>
+Signed-off-by: Juergen Gross <jgross@suse.com>
+Message-ID: <20261006023443.338194-1-yhlee@isslab.korea.ac.kr>
 ---
- drivers/tty/serial/amba-pl011.c | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
+ drivers/pci/xen-pcifront.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/tty/serial/amba-pl011.c b/drivers/tty/serial/amba-pl011.c
-index 17b8b56565194..d7dbd4c0eae15 100644
---- a/drivers/tty/serial/amba-pl011.c
-+++ b/drivers/tty/serial/amba-pl011.c
-@@ -2242,8 +2242,21 @@ static int pl011_rs485_config(struct uart_port *port, struct ktermios *termios,
- 	struct uart_amba_port *uap =
- 		container_of(port, struct uart_amba_port, port);
- 
--	if (port->rs485.flags & SER_RS485_ENABLED)
-+	if ((port->rs485.flags & SER_RS485_ENABLED) &&
-+	    !(rs485->flags & SER_RS485_ENABLED)) {
-+		u32 cr = pl011_read(uap, REG_CR);
-+
-+		/*
-+		 * Leaving RS485 mode, which only enables the transmitter while
-+		 * sending. Don't stop it, as that stalls a DMA transfer still
-+		 * in flight. Keep the transmitter and receiver enabled.
-+		 */
-+		uap->rs485_tx_started = false;
-+		cr |= UART011_CR_TXE | UART011_CR_RXE;
-+		pl011_write(cr, uap, REG_CR);
-+	} else if (port->rs485.flags & SER_RS485_ENABLED) {
- 		pl011_rs485_tx_stop(uap);
-+	}
- 
- 	/* Make sure auto RTS is disabled */
- 	if (rs485->flags & SER_RS485_ENABLED) {
-
-base-commit: 5139929c698c273e07cb0635732f6a918a7b8e78
+diff --git a/drivers/pci/xen-pcifront.c b/drivers/pci/xen-pcifront.c
+index 0dea8a69fa36c..b8f2921cc253f 100644
+--- a/drivers/pci/xen-pcifront.c
++++ b/drivers/pci/xen-pcifront.c
+@@ -598,11 +598,16 @@ static pci_ers_result_t pcifront_common_process(int cmd,
+ 		case XEN_PCI_OP_aer_detected:
+ 			return pdrv->err_handler->error_detected(pcidev, state);
+ 		case XEN_PCI_OP_aer_mmio:
+-			return pdrv->err_handler->mmio_enabled(pcidev);
++			if (pdrv->err_handler->mmio_enabled)
++				return pdrv->err_handler->mmio_enabled(pcidev);
++			return PCI_ERS_RESULT_RECOVERED;
+ 		case XEN_PCI_OP_aer_slotreset:
+-			return pdrv->err_handler->slot_reset(pcidev);
++			if (pdrv->err_handler->slot_reset)
++				return pdrv->err_handler->slot_reset(pcidev);
++			return PCI_ERS_RESULT_RECOVERED;
+ 		case XEN_PCI_OP_aer_resume:
+-			pdrv->err_handler->resume(pcidev);
++			if (pdrv->err_handler->resume)
++				pdrv->err_handler->resume(pcidev);
+ 			return PCI_ERS_RESULT_NONE;
+ 		default:
+ 			dev_err(&pdev->xdev->dev,
 -- 
 2.53.0
+
+
+
 
