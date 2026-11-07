@@ -1,53 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794063028;
-	b=PHahH+h8uqw79Vle1El1u/nhlWXWf1ETOI61VtOTbWn4OKu3nnqoiHXBMNIi+zpFtNOo
-	 2AWDbt0xmMf8WIEO0RF+htbVxcOFS7vQX/5TDQEDfc/iUShlq19IWLjcNLX3mfTpMazzO
-	 JqvY9ss6109fzK2ZSi941rApbjaWThhPOj8/+4lLSHezSl1QiH+0sYhhJFKTJ9Ed+zB5z
-	 oadN8NlreVEIecCBGu10uqNi2cy5tkPRJZvHVKoM8noh/UFj2cs669hf6dPu97mF8EJj6
-	 VBZyUFxdiXWFCGLyGGYtkvt+dHxuqroI1e27g9G97C8mwexm2iGYYHvbExqs3sJHfgw==
+	t=1794063034;
+	b=ZWFiqQlsbgano2CwN0w+vDzu5kyo8+hD0p8jVM4WkT11V8Dc5s8Dn9mGBVRTPuzKrgen
+	 S9hCEL9JX4hscvhZeLUs1bmF/iavE++ZT8eBnvuMi6WY3+lNtAHeQIofHEdQFxaCYNEur
+	 SosQAVbgTv3hi4jlWYyqpRMEqZ7ByCerrWR9iPA4ovsouB/C5e8Cyn69hWiQq7FLCpG4t
+	 8sRjIo1msnVgXSRrSfVNUUC9xUZpOa5iUOFPDbbQVPREWhVzG+Oz1ejoqJ18YGFm8c9xl
+	 ErNLqBJvj8kC48ewlRDLvx+TPL1edgCQ+J/g5b/iTTXDvlSUv8A7/YmRjpT27Nhycag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794063028;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794063034;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=GnFy9/F1FITb8aPtNuQCNPeuaG8LJNgjOBbGSI+BXwg=;
-	b=06p9TQ62iNSXGNxVoQGbtNyJ3BVHwor/alztOgGAKGnzQXKeFZCYbFsllmX/ZjhBiSvN
-	 TeXWVUYS1XPvu9vfvanzTHcqXI2gpEDSNmnKTYkthYijXPhFJc6bjJpBW25mQTW++EfJl
-	 bnX5UllxORBkAJpqlgnOTSAwUSy333BDaBRAt6gsPAIycoWy8zqU7c0UQi4MYtF6DWdfV
-	 0wKYdxyscok7AJYMFv8ugd030Uj8YLr9iuoSPS0cT2J+VvxZVzUYNFwxjSoZH1p5xWQT4
-	 37WQ4iowCODCel7maCZG7LtCRZNp/ZN4JZCDX7DKNsUErXg7qp29WcHv2XQC//qs4Fw==
+	bh=EvoJZe0+tNixCdXb4TRdDsT1jyWJUZ0o0KEbFoN+St0=;
+	b=yRO5z3D1D9+UnwYAq3sdjrt/smXl/8q5sg/DfO/WjmmaQoTKpuEfIbDkNb9NnfPyzZen
+	 shQFdbzQqYcLa5eub2g3ADv5LZNyLwba8oukeOwU+FQwQ3OPZ5pGPizA6ve4qYCtq34OJ
+	 jUJRzpQEnpjJC2Oz2CmodUtdrE8KM0TORk8Rv8JEQxXEW6qlfPx0gpAnRQFNVfbOiRl0z
+	 rVw0QebZVGbFNw6f1Zy+BeMX2ngph8J9jyOVdqYbkVVNQ9agDaSYstXQy1J1ST6cjkydg
+	 unaQUwGdOikfEL8qqjI2wO8ygqfMVZdYIWZzv/IBVIUn6bryj+Fm4nKBcp/QJThkcrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=EB9UsfPE;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=aWvPjZ4h;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00F38606EEA1;
-	Sat,  7 Nov 2026 14:50:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 164C4606D802;
+	Sat,  7 Nov 2026 14:50:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=EB9UsfPE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AB7D1F008A3;
-	Sat,  7 Nov 2026 14:50:27 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=aWvPjZ4h
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7C9D1F0089F;
+	Sat,  7 Nov 2026 14:50:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794063027;
-	bh=GnFy9/F1FITb8aPtNuQCNPeuaG8LJNgjOBbGSI+BXwg=;
+	s=korg; t=1794063033;
+	bh=EvoJZe0+tNixCdXb4TRdDsT1jyWJUZ0o0KEbFoN+St0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EB9UsfPERYbc8jYnOPe3X/iiAkMclPhjlcBxyvZ8cHG8jLK2GVdrjDCQ/SORBNAxz
-	 WamE4awpUY5/7Gr+nXlWT6HR9gt8n4F9jSyKjEvPbnt9GYHiSjuyXOWUFS37aVGXmo
-	 UdMp26Z2vkrYyMFZs2y4fZTB4bvLKUtnNoISRZfo=
+	b=aWvPjZ4hKobFSJLQwK8QzAqaXzAHtlveVRa7J95g2DO72FbyNs7xvzcBSLNPU9/Bf
+	 2YWrAaGQTH1obyE5mjJ7gYA5Uge5EC8pXQ6EVXwJAiuBs3Lfcd9K4VrSsfHFr0gLK+
+	 H6Dzjg2Ltrd0gUUIDHDGTPvIqfYinzlyi4mufzfY=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Cheick Traore <cheick.traore-ext@st.com>,
-	Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+	Bryan ODonoghue <bryan.odonoghue@linaro.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Hitesh Patel <hitesh@ebytelogic.com>,
+	Bryan ODonoghue <bod@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 278/869] iio: adc: stm32: fix minimum sampling time values
-Date: Sat,  7 Nov 2026 08:49:20 -0500
-Message-ID: <20261107134901.125505546@linuxfoundation.org>
+Subject: [PATCH 6.18 283/869] media: qcom: camss: vfe-17x: Fix write master selection for RDI lines
+Date: Sat,  7 Nov 2026 08:49:25 -0500
+Message-ID: <20261107134901.313590876@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261107134852.069646174@linuxfoundation.org>
 References: <20261107134852.069646174@linuxfoundation.org>
@@ -69,49 +70,102 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Cheick Traore <cheick.traore-ext@st.com>
+From: Hitesh Patel <hitesh@ebytelogic.com>
 
-[ Upstream commit ef04fdc999ee40a58d513ea48d391c7dc78c908c ]
+[ Upstream commit fc02156a3efb747b724a490cc50e1ad8c28a3b23 ]
 
-- On stm32mp15: vddcpu and vddq_ddr are not connected to internal
-channel, so their sampling time shouldn't be set.
+On the gen2 VFE bus there is no crossbar between the RDI paths and
+the bus write masters: RDI n is served by write master n. The common
+vfe_get_output_v2() reflects this by mapping line->id to write master
+line->id, and every gen2 VFE except 17x uses it.
 
-- On stm32mp13: vddcpu and vddq_ddr are connected to internal channels
-and the value for vddcore was not correct. Values from the datasheet
-are 1us (e.g. 1000ns) for ts_vddcore, ts_vddcpu and ts_vddq_ddr.
+The 17x code kept its own vfe_get_output(), which reserves whichever
+write master is free first. That happens to be the right one as long
+as a single line streams and it is RDI0. As soon as two lines of the
+same VFE stream, for instance two virtual channels demultiplexed by
+the CSID to RDI0 and RDI1, the second line to start is given the
+write master of the other RDI. Both write masters are then programmed
+with the buffer address and frame size of the wrong line. The frames
+are truncated to the smaller of the two buffers and the SMMU faults
+on the larger one.
 
-Fixes: 7cb2303dd024 ("iio: adc: stm32: manage min sampling time on all internal channels")
+Use vfe_get_output_v2() on 17x like the other gen2 VFEs and drop the
+duplicate. This also removes an error path that released
+output->wm_idx[0] before it had been assigned.
+
+The gen1 VFEs are not affected: they have a bus crossbar and any write
+master can serve any line, so vfe_reserve_wm() is correct there.
+
+Fixes: 7319cdf189bb ("media: camss: Add support for VFE hardware version Titan 170")
 Cc: stable@vger.kernel.org
-Signed-off-by: Cheick Traore <cheick.traore-ext@st.com>
-Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Signed-off-by: Hitesh Patel <hitesh@ebytelogic.com>
+Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/iio/adc/stm32-adc.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ .../media/platform/qcom/camss/camss-vfe-17x.c | 41 +------------------
+ 1 file changed, 1 insertion(+), 40 deletions(-)
 
-diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
-index dae35ab929b62..ab4433210ad09 100644
---- a/drivers/iio/adc/stm32-adc.c
-+++ b/drivers/iio/adc/stm32-adc.c
-@@ -2743,7 +2743,7 @@ static const struct stm32_adc_cfg stm32h7_adc_cfg = {
- 	.set_ovs = stm32h7_adc_set_ovs,
- };
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe-17x.c b/drivers/media/platform/qcom/camss/camss-vfe-17x.c
+index c011f64f63e93..62c2405359a06 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe-17x.c
++++ b/drivers/media/platform/qcom/camss/camss-vfe-17x.c
+@@ -382,45 +382,6 @@ static int vfe_halt(struct vfe_device *vfe)
+ 	return 0;
+ }
  
--static const unsigned int stm32_adc_min_ts_mp1[] = { 100, 100, 100, 4300, 9800 };
-+static const unsigned int stm32_adc_min_ts_mp1[] = { 100, 0, 0, 4300, 9800 };
- static_assert(ARRAY_SIZE(stm32_adc_min_ts_mp1) == STM32_ADC_INT_CH_NB);
+-static int vfe_get_output(struct vfe_line *line)
+-{
+-	struct vfe_device *vfe = to_vfe(line);
+-	struct vfe_output *output;
+-	unsigned long flags;
+-	int wm_idx;
+-
+-	spin_lock_irqsave(&vfe->output_lock, flags);
+-
+-	output = &line->output;
+-	if (output->state > VFE_OUTPUT_RESERVED) {
+-		dev_err(vfe->camss->dev, "Output is running\n");
+-		goto error;
+-	}
+-
+-	output->wm_num = 1;
+-
+-	wm_idx = vfe_reserve_wm(vfe, line->id);
+-	if (wm_idx < 0) {
+-		dev_err(vfe->camss->dev, "Can not reserve wm\n");
+-		goto error_get_wm;
+-	}
+-	output->wm_idx[0] = wm_idx;
+-
+-	output->drop_update_idx = 0;
+-
+-	spin_unlock_irqrestore(&vfe->output_lock, flags);
+-
+-	return 0;
+-
+-error_get_wm:
+-	vfe_release_wm(vfe, output->wm_idx[0]);
+-	output->state = VFE_OUTPUT_OFF;
+-error:
+-	spin_unlock_irqrestore(&vfe->output_lock, flags);
+-
+-	return -EINVAL;
+-}
+-
+ /*
+  * vfe_enable - Enable streaming on VFE line
+  * @line: VFE line
+@@ -441,7 +402,7 @@ static int vfe_enable(struct vfe_line *line)
  
- static const struct stm32_adc_cfg stm32mp1_adc_cfg = {
-@@ -2765,7 +2765,7 @@ static const struct stm32_adc_cfg stm32mp1_adc_cfg = {
- 	.set_ovs = stm32h7_adc_set_ovs,
- };
+ 	mutex_unlock(&vfe->stream_lock);
  
--static const unsigned int stm32_adc_min_ts_mp13[] = { 100, 0, 0, 4300, 9800 };
-+static const unsigned int stm32_adc_min_ts_mp13[] = { 1000, 1000, 1000, 4300, 9800 };
- static_assert(ARRAY_SIZE(stm32_adc_min_ts_mp13) == STM32_ADC_INT_CH_NB);
+-	ret = vfe_get_output(line);
++	ret = vfe_get_output_v2(line);
+ 	if (ret < 0)
+ 		goto error_get_output;
  
- static const struct stm32_adc_cfg stm32mp13_adc_cfg = {
 -- 
 2.53.0
 
