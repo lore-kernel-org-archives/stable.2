@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794045900;
-	b=rjjJ+Crw6QJ4UCIYUJ4N19vE7g61Y9ycGB44iwcZEUyeQjC0FLxwCMYBtzuxCIAnB0ny
-	 lPzzbk8ooJDcxoeOWxm1J7m0ZdvcHhedNHyMchbL5TIgk93SjK0iFNTyfnszMMgnhWG7V
-	 PZ0A8AkLPx5McW9ozwvAZxhMbcVBZcG9mb8PhwTY6pnfYii4lQiwn0xmQcOuADW5Q+Omf
-	 u26UtGmObcaLQjE2NehKq79VyQdsR9kA4gq20x3QBPlo8cZ2Fcg+K3peXfZheJuk2WHOA
-	 ocJ6Da0Rx5ZWS/Spht6Pb399IZkknkkj7wMPS4MCfppyeOExELdA/6f5guA2LeJsAfA==
+	t=1794045902;
+	b=Z0irIQaUUOq5W6N9i0EzY1tjkgWc/7FCTFajluHGx7rO/XZIVjcW4PomMXVZ6Dk2GhUS
+	 0HdwndxVIGzojXHeKLfskF2X5xqQ1Lc4wuldLPYzlmTZnN/Bmo81MFP1IZKXMkitjEf8y
+	 zJzRselw5YEF4shWnn/FHKcqQS/Eh0cQmkhKHSB1pa2B3DK4gvqefGpcV9Zoh5/y5hvxg
+	 1hnVhcdyJHgT/6M0ITM9HLGegAYPtstLes5LhcaZC6+FlIqKV0Q6xV/CQbeVCvb0HJPqC
+	 wstExZuybvlwoJ5HVOXQKaB3IZyn/M5bdMn7yhBu4jv8xWHIXcKlJtvziEC9om7eIng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794045900;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794045902;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=2plouk3Ge6jkrWJ1iTWn9Sf+M3j4BgCiksFQ51pmR30=;
-	b=HM3XxNVbzdGRga6AwDRfQqxRvclROL4m9rg6ycvqUNuII6Whnsnpx9441wZ+Rl+BaIAP
-	 UVccdF0kOFNnMzDC+EL0yEDKEb+iocwesv7qxoq8w+cijnmnjEYL3yRb0bbVOdiPLcbCR
-	 gwlfzJeO3N0nugeYkDzv3fYH2GYnzoawzvVcMMeQAiN7sAeIaa1hhH1NqTeMJTnlsIg2r
-	 b9K6dwr32WK4tWLQRNMZkxxCr6q0bNdRdJ8uNr0jGPCikDfX4kOj1l14kbghA/J5xaFOI
-	 XUdRvCAcpq3IWR62BMjryhC5gdmRKa3WAGL+i9fC5wJS7YXlcIkeoobSSanRHnHpc0A==
+	bh=HizMVVFiJS5xJEblOhNDrlZ4BfIoF59Leg3feiuIock=;
+	b=fAEYd2heuUwadDowPT4aYhfyQcaKBcrAkdP/rTHVH4fZBN0VFzvKUzEjO+52TXXUCR3Q
+	 31pkseDboiVoqHQI+GZtbDRXK5ZeeJDtmQOBHo6dX5e1g3I9S9mOznPf1sGPsD9lLGy8h
+	 1pMLkOpWkabXjjUwgSY/LwzdB8A/HsPo3sqQSBhorDPZy5HS2GRDmFWgDWclzKp2KBfUC
+	 VGbr8uzJ2hQLU03JLz4xZRX/ymdv0BYe+IF2uAoN/Dl3N/IcW1gwvBh7ZdaLf2z4e8OGF
+	 eKM8IZvjbD12/exZjNkQX65bt8MNhyjvrYNCHIUdXqn45uARmds6obgsgq27sRGkpEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PnqS2tjV;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jknlwMn0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44541606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:05:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64DEC606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:05:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PnqS2tjV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E37F1F008A1;
-	Sat,  7 Nov 2026 10:04:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jknlwMn0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B99811F0089F;
+	Sat,  7 Nov 2026 10:05:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794045900;
-	bh=2plouk3Ge6jkrWJ1iTWn9Sf+M3j4BgCiksFQ51pmR30=;
+	s=k20260515; t=1794045902;
+	bh=HizMVVFiJS5xJEblOhNDrlZ4BfIoF59Leg3feiuIock=;
 	h=From:To:Cc:Subject:Date;
-	b=PnqS2tjVSxYRz+K442PFMFLq/Uvbt9Ew9lSfPJ30NADAQtBP+QlxKhlSaNMFxAseq
-	 F27wStZqWo//H73haQyH1tMm8EL9ezqmPRoD90QecsbShKvdwm+xMS4Rd1sMsq9oRd
-	 F/TIclhb3fy+HNozTY/BbI0ten9mYWRWMV4sdOXFiXBU8wH5IAamnzexOOVoNW9WKM
-	 T0yE0WU678wldm6XD9O5AD9xKX9220s4WVB6RSkDHzj4Q5V2XHs58COzTXLSTnuBDN
-	 DftJkZINhPt8mMCfxhEi66MzMXD3zBOxnw5E+ef0XN717Ur3yEpmURG2alublcLZz3
-	 5x5w1o5EKMt6Q==
+	b=jknlwMn0b4OAbo+C7S4V5eZnD7IXIO/UL3b6NmCOp/SVJUHxAe+PJiYYLGVT5/WR5
+	 Qm2LJsiWmEL8HcNjWfYaQLuMFz+Tll0l2YMWPXg45gRrkFqFCiCwFhQrlN2zW+PGtk
+	 G280fiGV+NqMid1CYbEuj+aH0CltLf/+NPVfLVpoV4RvObCJKclRBLitcU6VDbdSog
+	 p4naRP1YFC2iy5JMeZ5LKQLeBDWqxGeR8cvRlFEHjm26QDx9VyuOSR5R1F7L9KV0wE
+	 Evh5g756aFALcZrQAejWu4yV5noyTRIvl8Vf9WNC2fm+EwoM9rhX2iEhrHXs22cxwo
+	 qzE7BYnYm8Oqg==
 From: Sasha Levin <sashal@kernel.org>
-To: daehojeong@google.com,
+To: kaixuanli0131@gmail.com,
 	chao@kernel.org,
 	jaegeuk@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] f2fs: return -EIO for a lost inode block after cp_error" failed to apply to 7.3-stable tree
-Date: Sat,  7 Nov 2026 05:04:58 -0500
-Message-ID: <20261107050458-failed-7.3-53b12b63304b@kernel.org>
+Subject: FAILED: patch "[PATCH] f2fs: bound the SIT/NAT bitmaps by the checkpoint pack" failed to apply to 7.3-stable tree
+Date: Sat,  7 Nov 2026 05:05:00 -0500
+Message-ID: <20261107050500-failed-7.3-080833a32fd5@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,72 +69,90 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x 53b12b63304b34a3850a901c4de3cc6ad08e0aee
+git cherry-pick -x 080833a32fd5dc10b3acf2fa9af9b3213e6cb617
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050458-failed-7.3-53b12b63304b@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050500-failed-7.3-080833a32fd5@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 53b12b63304b34a3850a901c4de3cc6ad08e0aee Mon Sep 17 00:00:00 2001
-From: Daeho Jeong <daehojeong@google.com>
-Date: Mon, 12 Oct 2026 18:22:33 +0000
-Subject: [PATCH] f2fs: return -EIO for a lost inode block after cp_error
+From 080833a32fd5dc10b3acf2fa9af9b3213e6cb617 Mon Sep 17 00:00:00 2001
+From: Kaixuan Li <kaixuanli0131@gmail.com>
+Date: Sat, 19 Sep 2026 21:09:24 +0800
+Subject: [PATCH] f2fs: bound the SIT/NAT bitmaps by the checkpoint pack
 
-After cp_error, dirty node caches are dropped without being written.
-If such an inode was never written, its NAT entry is still NEW_ADDR,
-and reading its inode block returns -ENOENT.
+sit_ver_bitmap_bytesize and nat_ver_bitmap_bytesize are used as memcpy
+lengths into and out of sbi->ckpt, which is sized from cp_payload alone,
+and nothing compares either length against that allocation.
 
-f2fs_get_dnode_of_data() passes that -ENOENT up, and callers take it
-as a hole. Since the inode block is missing, the next offset can only
-advance one block, so fiemap walks block by block up to maxbytes,
-about 2^30 blocks, while holding the inode lock. It took hours in a
-power-off recovery test after shutdown and blocked unlink and umount
-on the file.
+sanity_check_ckpt() has checked these two fields since c77ec61ca0a4, which
+added them after a crafted image overran build_sit_info(). That check ties
+each length to a segment count; it never compares either against the
+allocation, which is the half this adds.
 
-Return -EIO instead of -ENOENT when the inode block itself is missing
-after cp_error or shutdown. A missing direct or indirect node is still
-reported as -ENOENT.
+Mounting over-reads in build_sit_info() and build_node_manager(), and the
+first checkpoint writes the same lengths back through the same pointers,
+so the over-read's contents reach the on-disk checkpoint. An unmount is
+enough; the filesystem does not have to be used.
 
+Bound both ends the way __bitmap_ptr() lays them out. The three branches
+differ, so a single sum of the two lengths would still admit a small
+overflow when cp_payload is non-zero.
+
+Fixes: 39a53e0ce0df ("f2fs: add superblock and major in-memory structure")
 Cc: stable@kernel.org
-Fixes: 28607bf3aa6f ("f2fs: drop dirty node pages when cp is in error status")
-Signed-off-by: Daeho Jeong <daehojeong@google.com>
+Signed-off-by: Kaixuan Li <kaixuanli0131@gmail.com>
 Reviewed-by: Chao Yu <chao@kernel.org>
 Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
 ---
- fs/f2fs/node.c | 16 ++++++++++++++--
- 1 file changed, 14 insertions(+), 2 deletions(-)
+ fs/f2fs/super.c | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
-index 1863e8f1c859f..2dc136dbee34f 100644
---- a/fs/f2fs/node.c
-+++ b/fs/f2fs/node.c
-@@ -842,8 +842,20 @@ int f2fs_get_dnode_of_data(struct dnode_of_data *dn, pgoff_t index, int mode)
+diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
+index 54431da34edf9..3a191fda7030f 100644
+--- a/fs/f2fs/super.c
++++ b/fs/f2fs/super.c
+@@ -4278,6 +4278,7 @@ int f2fs_sanity_check_ckpt(struct f2fs_sb_info *sbi)
+ 	block_t avail_node_count, valid_node_count;
+ 	unsigned int nat_blocks, nat_bits_bytes, nat_bits_blocks;
+ 	unsigned int sit_blk_cnt;
++	unsigned long long ckpt_size, sit_end, nat_end;
+ 	int i, j;
  
- 	if (!dn->inode_entry) {
- 		nentry[0] = f2fs_get_inode_cache(sbi, nids[0]);
--		if (IS_ERR(nentry[0]))
--			return PTR_ERR(nentry[0]);
-+		if (IS_ERR(nentry[0])) {
-+			err = PTR_ERR(nentry[0]);
-+			/*
-+			 * cp_error drops dirty node caches, so the inode block
-+			 * of an inode that was never written reads as NEW_ADDR
-+			 * and returns -ENOENT. It is not a hole; the inode is
-+			 * gone. Callers treat -ENOENT as a hole and keep
-+			 * looking block by block (e.g. fiemap up to maxbytes).
-+			 */
-+			if (err == -ENOENT && (f2fs_cp_error(sbi) ||
-+					is_sbi_flag_set(sbi, SBI_IS_SHUTDOWN)))
-+				err = -EIO;
-+			return err;
-+		}
- 	} else {
- 		nentry[0] = dn->inode_entry;
+ 	total = le32_to_cpu(raw_super->segment_count);
+@@ -4409,6 +4410,29 @@ int f2fs_sanity_check_ckpt(struct f2fs_sb_info *sbi)
+ 		return 1;
  	}
+ 
++	/*
++	 * Nothing above ties the bitmap lengths to sbi->ckpt, which is
++	 * (1 + cp_payload) blocks. Bound both ends the way __bitmap_ptr()
++	 * lays them out.
++	 */
++	ckpt_size = (unsigned long long)(cp_payload + 1) * F2FS_BLKSIZE(sbi);
++	if (__is_set_ckpt_flags(ckpt, CP_LARGE_NAT_BITMAP_FLAG)) {
++		nat_end = CP_MIN_CHKSUM_OFFSET + sizeof(__le32) + nat_bitmap_size;
++		sit_end = nat_end + sit_bitmap_size;
++	} else if (cp_payload > 0) {
++		nat_end = CP_MIN_CHKSUM_OFFSET + nat_bitmap_size;
++		sit_end = F2FS_BLKSIZE(sbi) + sit_bitmap_size;
++	} else {
++		sit_end = CP_MIN_CHKSUM_OFFSET + sit_bitmap_size;
++		nat_end = sit_end + nat_bitmap_size;
++	}
++
++	if (sit_end > ckpt_size || nat_end > ckpt_size) {
++		f2fs_err(sbi, "Bitmaps do not fit the checkpoint pack: sit ends at %llu, nat at %llu, pack is %llu bytes",
++			 sit_end, nat_end, ckpt_size);
++		return 1;
++	}
++
+ 	if (__is_set_ckpt_flags(ckpt, CP_LARGE_NAT_BITMAP_FLAG) &&
+ 		le32_to_cpu(ckpt->checksum_offset) != CP_MIN_CHKSUM_OFFSET) {
+ 		f2fs_warn(sbi, "using deprecated layout of large_nat_bitmap, "
 -- 
 2.53.0
 
