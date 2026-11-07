@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050871;
-	b=h4wACybYtlyQ0pnbgXRe7HrBWyJemylVSrprw0WbkK/eu6hM3Aj1kSaJOVeA6W0smYrM
-	 hYuhy6fRMjZH+WPkoTNolZMje5aNCTsDShDH3oNJhxq+jk6PM45MIDP5GQJ+Nf1tLa85n
-	 Eb3BGpgHrdSMLU27XH86BelrK95niU72v9qW1EZDviblMWQ0H2zdJEGOz0SbSjjGvD7ut
-	 /1MDJCG5qA1nE0CTyPtFrqnzNfwz1bRfjimaJmHISYegzb83vxv29/q7/zMtplXOt2onB
-	 VYGGuu07k5RywlHQRiYX/ceUa6uHxXy6+oBjW/wUY0fkg0hYCajZuA5nyixhnb1QCrw==
+	t=1794050874;
+	b=Q+AhZzDjLeyVgY6LHMQ8bW1ppZB7W/efyMn+QClUl5+OyMk7WsxFVGAKZPDGdtwXt7kw
+	 dKwD1hkQjJ5EQ3tsc34WNlDVgsxx8XJFeEb4TSrOTgG9qeYHz6jBU6XZsoqtQ1EfYugXZ
+	 qABsbmNGYhzwYA0f7v2nrzhjzxY9xXrS+Yk+MTZ+OywqhkLickvIA0vx6NwAjz9eadDy5
+	 S/2zFx9G4LhwlQUDv0EH4dZAnL5/4JAskEJ5DwSCsFy2V8yQKhJa1oFOD8vHC9kza4YqD
+	 8e/UtToIkP1YLhC7Zhcty43wY98CaMnLGQdYLyPedLZ7G+si7cXR+DkaHZpX+Mk0Tew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050871;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050874;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=o0gXqCNtbzCvju7Aqv4VCA2kETH6frAVZNud7QY4BKk=;
-	b=COz6XJabCBlPlsqFJUDcQymhwbLOOxHEjKx3hIY6j1/Ga62B0iFr1x8KLuugUHRXzeV8
-	 cbFVS8yvP2lsjhoQtBzzTi2yKjMB96ifL3lmtngD6BD3injtyGL/L6T+Cne3mAIqUlOkZ
-	 jgyS74pv+eRNdhpccHOO/aq8/eCxubYryY0KvQW2xpz2+gDjKQTFE8bi5DEWRYdVubhWp
-	 ocVPPDBLL0yu20oeWduz2RfHpECpfbhj+Lqat8Fq83jOHgWfzXjkaI3/baM93aaYVUoiC
-	 cqJHe0sDumWrVDaRcq9cjl3RzwJVcqYuQDcbmH3DOydVWLSa1eM2UVk9g5bpt1iBDFw==
+	bh=3uWIUHf2GcvFRE4k1U7aobWs0/r5OiOlV5HRMJ4fJMo=;
+	b=TWVIilE2KhH5jz14y107gMsl7sYOw79vGmwpKSjqb8QTh5CXlwcLDawZ6ni9q3AlhE7A
+	 Mgsb3I08CHp07d2RBPyxGEiM8/c6glR7Ptj3H0lzvsXHaHK8zmPhaKqW7tfuxox3rT5Wl
+	 mPGMMHY6AkZLpbUd/FQ52V0uO5AuAH4ynvEb4fiUvNMAcpmmJI68G8Se58TtnHjtCwR5j
+	 sfpZRXjBauMaHlmPBh09uK+I7RrY+V77klQOEsDsNcN2R82lVle0u3W8xOl4DVlgMs3Wy
+	 YZnybIaUIqJOPWR22M/o0hc6CQr0+VtTmtkkamxnxfoEDRSJGBR7VK3NXG0VjP0fY6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hxVU8GLW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g18GIWNi;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28D29606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:27:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 307AF606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:27:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hxVU8GLW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FCFF1F0089F;
-	Sat,  7 Nov 2026 11:27:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g18GIWNi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2AEB1F0089F;
+	Sat,  7 Nov 2026 11:27:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050871;
-	bh=o0gXqCNtbzCvju7Aqv4VCA2kETH6frAVZNud7QY4BKk=;
+	s=k20260515; t=1794050874;
+	bh=3uWIUHf2GcvFRE4k1U7aobWs0/r5OiOlV5HRMJ4fJMo=;
 	h=From:To:Cc:Subject:Date;
-	b=hxVU8GLWinF5yRRGzBR4+OUi0gZVXLvZg9w9qbliiP3rFJvuvAVDYcBmm4jpcUJJT
-	 Ae2EFqmuamBnxJQAOFRZWCrHmBz7EdW9eMqPnao+4aCzIsrbNKiKDYS7JodBwTeA7Q
-	 UL7ZHankGQM/Z1EKrPk98l1/+L6iDzuWMpL2UzGWr5o+l6CaWR60gdK4bzbzYjvjtx
-	 O5aSRipuyCvGAo+n1ZbahsfweTmrfownK9EJJEe4lP58RIMTcMsSghqvSOGoHIB7ZW
-	 vy9Gyp3Omo6b21RPERdJXN31JRITq04ugp1Qqeyz4lYaDFG3pNxYJPupnj0tzAdjbG
-	 G/bJiZFjfuTbg==
+	b=g18GIWNiqkjg2iGjZmBMpWaOju4ctxWrq6PQf/7uG1/9zrS94SkVbgpdttBljjdbB
+	 gAfSITAP+L6qzvy9HKUjyP0iBrfsRV/UaEWCFesmmwY75cUWAL7+y+lzV7fpsphryn
+	 e5mdb+6T6icNMoaoCu+u1c2McbY4mUD3e02MstmIt4X8V4k9Y6hJq+VeAw0RNOYfWr
+	 P9X/h0CBXIgbhMNW4COqXi5fe4dQ30nQqKW6viPNeP2U2NVilNXJiEbCXbfzXJD2q1
+	 XiJkotuT2oj5N5hO/1ggk74iKEKOX/oiayIuoKxz32EuKW97Hadc27GvGpqTvcZEKs
+	 RcO7oVdp13MYA==
 From: Sasha Levin <sashal@kernel.org>
-To: seanjc@google.com,
-	rick.p.edgecombe@intel.com,
-	bp@alien8.de
+To: alexander.sverdlin@siemens.com,
+	jarkko@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] x86/cpuid: Mark CPUID function 0x23 as being indexed" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:27:49 -0500
-Message-ID: <20261107062749-failed-5.10-108775fa28fe@kernel.org>
+Subject: FAILED: patch "[PATCH] tpm: tpm2_probe: propagate transport errors" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:27:52 -0500
+Message-ID: <20261107062752-failed-5.10-7d4f1cbfe063@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,47 +68,59 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 108775fa28fe04a16f19a828a779689f3d0ea9f0
+git cherry-pick -x 7d4f1cbfe063af5581dac66abe9e9c965e1031cc
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062749-failed-5.10-108775fa28fe@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062752-failed-5.10-7d4f1cbfe063@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 108775fa28fe04a16f19a828a779689f3d0ea9f0 Mon Sep 17 00:00:00 2001
-From: Sean Christopherson <seanjc@google.com>
-Date: Thu, 22 Oct 2026 14:01:32 -0700
-Subject: [PATCH] x86/cpuid: Mark CPUID function 0x23 as being indexed
+From 7d4f1cbfe063af5581dac66abe9e9c965e1031cc Mon Sep 17 00:00:00 2001
+From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+Date: Thu, 1 Oct 2026 08:01:11 +0200
+Subject: [PATCH] tpm: tpm2_probe: propagate transport errors
 
-Add function 0x23 to the set of CPUID functions that are indexed, as per
-the SDM and the many sub-leafs defined in leaf_types.h.
+tpm2_probe() reads the protocol version from the response tag and is
+documented to return -errno on failure, but it always returns 0.  A
+transport error (tpm_transmit_cmd() < 0) is thus swallowed together with
+the intentionally ignored TPM response code, leaving TPM_CHIP_FLAG_TPM2
+unset. A transient bus failure on the first command then misdetects a
+TPM 2.0 as a 1.2 and the probe fails on the TPM 1.2 path:
 
-Closes: https://lore.kernel.org/all/213d614fe73e183a230c8f4e0c8fa1cc3d45df39.camel@intel.com
-Reported-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-Tested-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
+  tpm_tis_i2c 0-002e: 1.2 TPM (device-id 0x1C, rev-id 22)
+  tpm tpm0: A TPM error (-62) occurred attempting to determine the timeouts
+
+Return the transport error instead; rc >= 0 still means a valid header was
+received and the TPM's own response code is still ignored.
+
+Fixes: 94e266ba1fa3 ("tpm: migrate tpm2_probe() to use struct tpm_buf")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261022210134.612848-2-seanjc@google.com
+Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+Link: https://lore.kernel.org/r/20261001060114.1582092-1-alexander.sverdlin@siemens.com
+Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
 ---
- arch/x86/include/asm/cpuid/api.h | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/char/tpm/tpm2-cmd.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/arch/x86/include/asm/cpuid/api.h b/arch/x86/include/asm/cpuid/api.h
-index 2d9f3d4d63de6..759b12d94bbfe 100644
---- a/arch/x86/include/asm/cpuid/api.h
-+++ b/arch/x86/include/asm/cpuid/api.h
-@@ -181,6 +181,7 @@ static __always_inline bool cpuid_function_is_indexed(u32 function)
- 	case 0x1d:
- 	case 0x1e:
- 	case 0x1f:
-+	case 0x23:
- 	case 0x24:
- 	case 0x8000001d:
- 		return true;
+diff --git a/drivers/char/tpm/tpm2-cmd.c b/drivers/char/tpm/tpm2-cmd.c
+index ae22295df7981..119c73a603e65 100644
+--- a/drivers/char/tpm/tpm2-cmd.c
++++ b/drivers/char/tpm/tpm2-cmd.c
+@@ -483,8 +483,9 @@ int tpm2_probe(struct tpm_chip *chip)
+ 		out = (struct tpm_header *)buf->data;
+ 		if (be16_to_cpu(out->tag) == TPM2_ST_NO_SESSIONS)
+ 			chip->flags |= TPM_CHIP_FLAG_TPM2;
++		return 0;
+ 	}
+-	return 0;
++	return rc;
+ }
+ EXPORT_SYMBOL_GPL(tpm2_probe);
+ 
 -- 
 2.53.0
 
