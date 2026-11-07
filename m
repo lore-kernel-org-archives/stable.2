@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048157;
-	b=OA/uHSsLIBQB0Ad3VohhDI+aNg2kGxdl4HbpFgJqW2XL2yeg0/xIopxbZko+Rb3K4zYm
-	 6BqNAPdbT85pig/GbzuC1cHltyeeNz3DjgL2z7WcOE3D8m2P6tj2pKqG27MihDZMiiu4q
-	 wtu+TG2FjEEvM0Sfb/EjnehiVxArpC9WeoJrioTXRGJu+8pYUUQniKD5IinK9xVVoG9Vp
-	 LEDFXhsBRbVX1q78I7p8NXQHxLK+MXrp/D8sDvs23bQhdR3JyBWIb2AfjsXMdcX6bjxDA
-	 HP59mhhneNJ82FyafcbtLftoaebNhSCCm5oYLC0/aqUW60yzd2R8pHs8j7M9ogOCP1w==
+	t=1794048160;
+	b=KPvfAgxfQhLIKZyObKVKez1494C0Xx3BFhz+oqapVssPQRUNwme+sFaQ7TYzqARPyr1N
+	 jqg+dC880Jt2X7KwU3rusPI7tq/SfdWXla3jpa6P3ZukTRDUkrS8Z5s1QWiozRv3j11Et
+	 IufztdQMvFnUVSzed6I6qJ638CRLWX+0HBWXhEYuY6YvkE19NxlMRxg7RR8HiSrADYNng
+	 QFfS82plcXpldZZgok8BUEiHFsGunPtpB0M1jVSyEdKHk+Wa5+bF8j8MjdrJ46CW5FnRD
+	 1eY0pR5kFFBmpbVOekUANC0buHa1Fhvvv/LFDRd5N+4nPg5OIM3KvmWTs0Pk7cvKw6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048157;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048160;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=DPXrNlaO6E8WtYEVSx20JINKmDa0j+1HcrXXGAKQIPI=;
-	b=Ljx6EmG1WN7F/gIFA6YW+YL2eFQWRI1WhOWfs3Ky3hEYlWX67awQyEca89EDzQzGU8+N
-	 BWrhrLRwedbs2HSPAQ0ytd5O82jAlARPaKtRaZeySCageYz9kSoMqyzX0FRJbg5Dldo8E
-	 4wReMd//rN4I+rbg/QcdXDtBEE8LmYc5M2C8tpJEZpIOqs62Xty8atf2Aj+3l/qB9/Edg
-	 NSmsNY5kJPcEjsX65hPd0p+Cri3je5+ZkvPi3liewcBsGKgBeDv6OufAsNrQMj96EK1uK
-	 zCR+tU8T/X2ulJhmEQuYccEnff8ZnsAk6FOCo9Tje/U2mginEbzakH7ZjaQXzSNmTNg==
+	bh=366QEZVoRHFuhOn2C9dEkV96D44cDyR08r4iBbUnyTk=;
+	b=TDguZE0/ORCZI95pAAX8B0YM9H/+ifSuU59XglXeXBXooeVnSUSrav0jXH9JEmrfT9ip
+	 OSZC75As94UJ+DDQSeGlE24RnjUpfjKnpJovI/YWqC2WfADqp2K5f24VSqdbZFTJVZCyl
+	 AsWIy1TbyNtTPu6CWvvk5j/NKMGIopPtLy4RomU+A42Y1wpCTmMFKOK6uyHIYKhmkOvWc
+	 RQ0YpoksCi6NffIoWtnTNBqlga/zbI3fgyRyRcabUXkL4W8gEmDMEqk/n+y3/I/yAS48v
+	 mF8fBDTO5LO51071XjVnRhQSaPhN4zEbXv2kVGJ5x89srsBefwD1kPKAV5WKejAleQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=REePSPJr;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P1dqSY7a;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E787606A32E
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:42:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEE8F606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:42:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=REePSPJr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F03681F0089F;
-	Sat,  7 Nov 2026 10:42:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P1dqSY7a
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A8A41F008A1;
+	Sat,  7 Nov 2026 10:42:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048157;
-	bh=DPXrNlaO6E8WtYEVSx20JINKmDa0j+1HcrXXGAKQIPI=;
+	s=k20260515; t=1794048159;
+	bh=366QEZVoRHFuhOn2C9dEkV96D44cDyR08r4iBbUnyTk=;
 	h=From:To:Cc:Subject:Date;
-	b=REePSPJrU5aO06mnxJL/Lk4nDIc0WjyaO3WL5D+s4/IF7ugsVn+VNhLsYJBYPdJFa
-	 j3Wv2rq/Jrl0eq3JWoiSI72di7mXjXG8sL7i1TvURDsnkFREHoWDhv9Np2pFi3nL8L
-	 +XB6jUsm8H+ONNbd2GGLo+aWLI9QxNFtqSWWsRrTHpSYTf02Qp3MJUrmXJZaveEdEH
-	 CEpK07YQnBZvyeF251ztoFWGuJERG5ACXwewiJZ1guPA6ggAJExgf3Fi4/SM2uz0r9
-	 pJsVCa23SPG8KS3WQ/SGxPGQjYm6Gl57Imbpz29WvAYW9IGGHP2QQnX3gYqcAKXN9M
-	 v+QBNEeGg6R3w==
+	b=P1dqSY7aX4qae7KS+6DnLiH+4las+1k7fmvY5F4W6GjDAF56Z2YhWJcmProsCQXYY
+	 eYADRyzyxteHlHaIKJCOTLQhaJYjbnF3aHrhMXq5Rw81yuoZNq+h8ypNQlZlDdEyZk
+	 z06mYtdXUVatO99LDM6yZYcyYS9LitCEgvKxUcVbAo9WnNS9UZGZuejb9JmGyklNW6
+	 tOeg5iP9nLN3eFuCkBWoD7qW5Ehru3u9W6MM7xrq5SQYF5uTu+AUPojgXhoc6Dbp+G
+	 18CRD7mPhVwVarIEKHQANnZbHaWEr67BDfAXvfsHI/N0a6lwILRP98J4xXIv6Wh6g/
+	 XqnmpXYoF8xbA==
 From: Sasha Levin <sashal@kernel.org>
-To: seanjc@google.com,
-	david@kernel.org
+To: jm@ti.com,
+	m-shah@ti.com,
+	nm@ti.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] KVM: guest_memfd: Split bind() into prepare()+commit() phases" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:42:35 -0500
-Message-ID: <20261107054235-failed-6.1-83411f32b8ad@kernel.org>
+Subject: FAILED: patch "[PATCH] arm64: dts: ti: k3-am625-sk-common: Set eMMC clock pin as OUTPUT" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:42:38 -0500
+Message-ID: <20261107054237-failed-6.1-8ef8a0e38d13@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,217 +69,51 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 83411f32b8ad96c6b05b1511d1a588daab44bd25
+git cherry-pick -x 8ef8a0e38d1377c6d51c06f95c64d87641b2c717
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054235-failed-6.1-83411f32b8ad@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054237-failed-6.1-8ef8a0e38d13@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 83411f32b8ad96c6b05b1511d1a588daab44bd25 Mon Sep 17 00:00:00 2001
-From: Sean Christopherson <seanjc@google.com>
-Date: Mon, 21 Sep 2026 17:13:30 -0700
-Subject: [PATCH] KVM: guest_memfd: Split bind() into prepare()+commit() phases
+From 8ef8a0e38d1377c6d51c06f95c64d87641b2c717 Mon Sep 17 00:00:00 2001
+From: Judith Mendez <jm@ti.com>
+Date: Wed, 9 Sep 2026 16:47:38 -0500
+Subject: [PATCH] arm64: dts: ti: k3-am625-sk-common: Set eMMC clock pin as
+ OUTPUT
 
-Split binding a memslot to a guest_memfd instance into prepare() and
-commit() phases so that KVM can separate preparing the memslot from binding
-the memslot to the gmem instance, i.e. from committing the memslot.  This
-will allow waiting to commit the memslot+gmem binding until the memslot is
-fully prepared, which is necessary as the memslot becomes reachable when
-the binding is created.
+MMC clock pins must be configured as OUTPUT-only per TRM [0] with
+receiver disabled (RXACTIVE bit = 0). Change MMC CLK pins from
+PIN_INPUT to PIN_OUTPUT to match documentation.
 
-As a bonus, drop the unwind-on-failure from the commit phase (other than
-nullifying the bindings), as the only reason bind() did the full unwind is
-because it technically didn't own the memslot, i.e. "needed" to leave
-memslot in the same state it started in.
+[0] https://www.ti.com/lit/pdf/spruiv7 Rev. C: Table 12-246. MMCSDi I/O Signals
 
-No functional change intended (the unwinding down on bind() failure was
-effectively dead code since KVM simply deletes the memslot on failure,
-i.e. there was nothing that could actually observe the unwind).
-
+Fixes: d19a66ae488a ("arm64: dts: ti: k3-am625-sk: Enable on board peripherals")
 Cc: stable@vger.kernel.org
-Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
-Link: https://patch.msgid.link/20260922001332.1121266-5-seanjc@google.com
-Signed-off-by: Sean Christopherson <seanjc@google.com>
+Signed-off-by: Judith Mendez <jm@ti.com>
+Reviewed-by: Moteen Shah <m-shah@ti.com>
+Link: https://patch.msgid.link/20260909214743.899477-11-jm@ti.com
+Signed-off-by: Nishanth Menon <nm@ti.com>
 ---
- virt/kvm/guest_memfd.c | 68 ++++++++++++++++++++++++------------------
- virt/kvm/guest_memfd.h | 19 ++++++++----
- virt/kvm/kvm_main.c    | 18 ++++++++++-
- 3 files changed, 70 insertions(+), 35 deletions(-)
+ arch/arm64/boot/dts/ti/k3-am625-sk-common.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
-index 751d0ad94f746..c813c20de7f30 100644
---- a/virt/kvm/guest_memfd.c
-+++ b/virt/kvm/guest_memfd.c
-@@ -642,15 +642,14 @@ int kvm_gmem_create(struct kvm *kvm, struct kvm_create_guest_memfd *args)
- 	return __kvm_gmem_create(kvm, size, flags);
- }
- 
--int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
--		  unsigned int fd, uoff_t offset)
-+int kvm_gmem_prepare_memory_region(struct kvm *kvm, struct kvm_memory_slot *slot,
-+				   unsigned int fd, uoff_t offset)
- {
- 	uoff_t size = slot->npages << PAGE_SHIFT;
--	unsigned long start, end;
- 	struct gmem_file *f;
- 	struct inode *inode;
- 	struct file *file;
--	int r = -EINVAL;
-+
- 
- 	BUILD_BUG_ON(sizeof(gpa_t) != sizeof(offset));
- 	BUILD_BUG_ON(sizeof(gfn_t) != sizeof(slot->gmem.pgoff));
-@@ -674,44 +673,55 @@ int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
- 	if (!PAGE_ALIGNED(offset) || offset + size > i_size_read(inode))
- 		goto err;
- 
--	filemap_invalidate_lock(inode->i_mapping);
--
--	start = offset >> PAGE_SHIFT;
--	end = start + slot->npages;
--
--	if (!xa_empty(&f->bindings) &&
--	    xa_find(&f->bindings, &start, end - 1, XA_PRESENT)) {
--		r = -EEXIST;
--		filemap_invalidate_unlock(inode->i_mapping);
--		goto err;
--	}
--
- 	/*
- 	 * memslots of flag KVM_MEM_GUEST_MEMFD are immutable to change, so
- 	 * kvm_gmem_bind() must occur on a new memslot.  Because the memslot
- 	 * is not visible yet, kvm_gmem_get_pfn() is guaranteed to see the file.
- 	 */
- 	WRITE_ONCE(slot->gmem.file, file);
--	slot->gmem.pgoff = start;
-+	slot->gmem.pgoff = offset >> PAGE_SHIFT;
- 	if (kvm_gmem_supports_mmap(inode))
- 		slot->flags |= KVM_MEMSLOT_GMEM_ONLY;
- 
--	r = xa_err(xa_store_range(&f->bindings, start, end - 1, slot, GFP_KERNEL));
--	if (r) {
--		xa_store_range(&f->bindings, start, end - 1, NULL, GFP_KERNEL);
--		slot->gmem.file = NULL;
--		slot->gmem.pgoff = 0;
--		slot->flags &= ~KVM_MEMSLOT_GMEM_ONLY;
--	}
--	filemap_invalidate_unlock(inode->i_mapping);
--
- 	/*
--	 * Drop the reference to the file, even on success.  The file pins KVM,
--	 * not the other way 'round.  Active bindings are invalidated if the
--	 * file is closed before memslots are destroyed.
-+	 * Gift the caller a reference to the file.  The reference will be
-+	 * dropped after bindings are established, or if installing the new
-+	 * memslot ultimately fails.
- 	 */
-+	return 0;
-+
- err:
- 	fput(file);
-+	return -EINVAL;
-+}
-+
-+int kvm_gmem_commit_memory_region(struct kvm *kvm, struct kvm_memory_slot *slot)
-+{
-+	struct gmem_file *f = slot->gmem.file->private_data;
-+	struct inode *inode = file_inode(slot->gmem.file);
-+	unsigned long start, end;
-+	int r;
-+
-+	if (WARN_ON_ONCE(slot->gmem.file->f_op != &kvm_gmem_fops))
-+		return -EIO;
-+
-+	filemap_invalidate_lock(inode->i_mapping);
-+
-+	start = slot->gmem.pgoff;
-+	end = start + slot->npages;
-+
-+	if (!xa_empty(&f->bindings) &&
-+	    xa_find(&f->bindings, &start, end - 1, XA_PRESENT)) {
-+		filemap_invalidate_unlock(inode->i_mapping);
-+		return -EEXIST;
-+	}
-+
-+	r = xa_err(xa_store_range(&f->bindings, start, end - 1, slot, GFP_KERNEL));
-+	if (r)
-+		xa_store_range(&f->bindings, start, end - 1, NULL, GFP_KERNEL);
-+
-+	filemap_invalidate_unlock(inode->i_mapping);
-+
- 	return r;
- }
- 
-diff --git a/virt/kvm/guest_memfd.h b/virt/kvm/guest_memfd.h
-index 0f9c6f8408389..01bd359d27e30 100644
---- a/virt/kvm/guest_memfd.h
-+++ b/virt/kvm/guest_memfd.h
-@@ -8,8 +8,9 @@
- int kvm_gmem_init(struct module *module);
- void kvm_gmem_exit(void);
- int kvm_gmem_create(struct kvm *kvm, struct kvm_create_guest_memfd *args);
--int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
--		  unsigned int fd, uoff_t offset);
-+int kvm_gmem_prepare_memory_region(struct kvm *kvm, struct kvm_memory_slot *slot,
-+				   unsigned int fd, uoff_t offset);
-+int kvm_gmem_commit_memory_region(struct kvm *kvm, struct kvm_memory_slot *slot);
- void kvm_gmem_unbind(struct kvm_memory_slot *slot);
- #else
- static inline int kvm_gmem_init(struct module *module)
-@@ -17,9 +18,17 @@ static inline int kvm_gmem_init(struct module *module)
- 	return 0;
- }
- static inline void kvm_gmem_exit(void) {};
--static inline int kvm_gmem_bind(struct kvm *kvm,
--					 struct kvm_memory_slot *slot,
--					 unsigned int fd, uoff_t offset)
-+
-+static inline int kvm_gmem_prepare_memory_region(struct kvm *kvm,
-+						 struct kvm_memory_slot *slot,
-+						 unsigned int fd, uoff_t offset)
-+{
-+	WARN_ON_ONCE(1);
-+	return -EIO;
-+}
-+
-+static inline int kvm_gmem_commit_memory_region(struct kvm *kvm,
-+						struct kvm_memory_slot *slot)
- {
- 	WARN_ON_ONCE(1);
- 	return -EIO;
-diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-index c53a88cea1f23..c7526c1617f7a 100644
---- a/virt/kvm/kvm_main.c
-+++ b/virt/kvm/kvm_main.c
-@@ -2107,7 +2107,23 @@ static int kvm_set_memory_region(struct kvm *kvm,
- 	new->flags = mem->flags;
- 	new->userspace_addr = mem->userspace_addr;
- 	if (change == KVM_MR_CREATE && (mem->flags & KVM_MEM_GUEST_MEMFD)) {
--		r = kvm_gmem_bind(kvm, new, mem->guest_memfd, mem->guest_memfd_offset);
-+		r = kvm_gmem_prepare_memory_region(kvm, new, mem->guest_memfd,
-+						   mem->guest_memfd_offset);
-+		if (r)
-+			goto out;
-+
-+		r = kvm_gmem_commit_memory_region(kvm, new);
-+
-+		/*
-+		 * Drop the reference to the file, even on success.  The file
-+		 * pins KVM, not the other way 'round.  Active bindings are
-+		 * invalidated if the file is closed before memslots are
-+		 * destroyed.
-+		 */
-+#ifdef CONFIG_KVM_GUEST_MEMFD
-+		 fput(new->gmem.file);
-+#endif
-+
- 		if (r)
- 			goto out;
- 	}
+diff --git a/arch/arm64/boot/dts/ti/k3-am625-sk-common.dtsi b/arch/arm64/boot/dts/ti/k3-am625-sk-common.dtsi
+index a5922bd746d86..8e07d2c2e62fd 100644
+--- a/arch/arm64/boot/dts/ti/k3-am625-sk-common.dtsi
++++ b/arch/arm64/boot/dts/ti/k3-am625-sk-common.dtsi
+@@ -98,7 +98,7 @@ main_mmc0_pins_default: main-mmc0-default-pins {
+ 		bootph-all;
+ 		pinctrl-single,pins = <
+ 			AM62X_IOPAD(0x220, PIN_INPUT, 0) /* (Y3) MMC0_CMD */
+-			AM62X_IOPAD(0x218, PIN_INPUT, 0) /* (AB1) MMC0_CLK */
++			AM62X_IOPAD(0x218, PIN_OUTPUT, 0) /* (AB1) MMC0_CLK */
+ 			AM62X_IOPAD(0x214, PIN_INPUT, 0) /* (AA2) MMC0_DAT0 */
+ 			AM62X_IOPAD(0x210, PIN_INPUT_PULLUP, 0) /* (AA1) MMC0_DAT1 */
+ 			AM62X_IOPAD(0x20c, PIN_INPUT_PULLUP, 0) /* (AA3) MMC0_DAT2 */
 -- 
 2.53.0
 
