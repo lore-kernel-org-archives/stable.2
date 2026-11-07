@@ -1,53 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046063;
-	b=Qr+n59VUu7Pq9xT5nJYzwGeYijwoCbkN6J0WIn4D2/jriH/xFeDvYVvb9QnVHbHy6l5C
-	 XyEdOx4ZFnPn2yR0DNBk6xAExlbj79oqK0MtGrsZwxrOvRRh7Lo8/x6tTQb8JeC9O8irt
-	 4jQhLq6G0hC1EdzFNybh2QxBAP14wPtyd1lcT0ZD0nN4q8GVOMJ8Ap2+8cWU4e42bkwPV
-	 N1Rk1jJjthguk5zvwgRqTqQ7SySb8X/Z/R/EBN6VtVqCGFlt04Bb8QGBsJQutMjZg3NkP
-	 iB8IjFZGkGeLjp7oCGg4HPzQVEieiWROKBfKMqDY/tGqzHO3aAVmmmTv69Aduj6iDmg==
+	t=1794046066;
+	b=bsgTX/IdkMHj/sjHae4/lydpZMAZ80Fg1x+bxhJTZ3eWs36l0TtVcPMj/uDQ9JPzooYz
+	 EODhrGY2EiabftCRRvkWBhOMbOuE7e622fdwX8oewimxpRfbgYnmoA5A+gEvV5sEuM4Zj
+	 Pa8CPmJ7ig2Tfr5iw7YkYOmhL1kMZugKhulttZ+ERx8fq7tNWxzi/y7ynU0YM5GcSb46H
+	 y+QXQu/LEp1hK6ty6KprTGr4OV2uR6/X7OWSUnyRr0Eny6f/2Dyknx1TD05eu5dGn9dY3
+	 icz90Cu8dUuWYi/ugsyeY0rxaNGRmSg2c8Z+qNd1TqIUHS3J1tewneAyC6lAG23MdLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046063;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046066;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=qNNBSuFL+miPxaP9Ls001ZYVNIp/DLvggfVu5sGpId0=;
-	b=dNMYS4MEQufOuGw7UIx36wChiqDq/Xg55oGldNZOHewkvBKKFtAjaCyZklbodOWjT2Mn
-	 DzwLkDZyPlNYumGE5NenjRvZd7M3T6r72cFIta8F8ySXl7UbBSCqC8TbPMhV8EbN1//3J
-	 2CE2fTI/QX2JcWnp9qTM/1iVQ34cOMXyqFJyj+GuyGeQdvQHRcJN6OutJ9L1t1Gv6YmJX
-	 YrFFi0Dy7loZLetmbRXbo2UjdzZOuHTYQUzRwgk9pZ/ScdMiPA1d0A3FZx6HUgjjztt8/
-	 zCftM+POMi4HHgiZ4ZfWViYHZfU4L9j6+6G7OGNMfxmfwlTDGxUdwuF3spSI3xWRJwQ==
+	bh=GW0hYIN7+IceEmMSeevV4pIzk2+GIFsu79mR7Humawg=;
+	b=ZbXXStVU6TyobPL9IFyrnqcjDo8zd7TVjbrZM66ly4Wd8JO6TAV0IVgv49y1QBYJKE3r
+	 YPrjb0Cz6Us1+opLZS91yY+SXFCIcyC9wgKpiXrxV77/53D8INhJqA8dUTaq29U78ndl+
+	 VeXKgiroftT9dzf0/5icTJTwArVkSkTuxK273o00s+uOHQvj81BMc6UwGyvtP1KXSHXGv
+	 0lK9Pg6fWi6ssxvMOGMMLgqLX9YkCO3rClMRfBbRz7z559XDbNI/iJ9R6TSckZzmszEeh
+	 R6nLo9R3FyzTzqL88fZkLxBQgt79lmiug30G3Fn1af83NO/F1/31tSagP7kGmpYZQaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ntnI/zKz";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gY5H3FMV;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82851606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:07:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE7E8606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:07:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ntnI/zKz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4B861F008A1;
-	Sat,  7 Nov 2026 10:07:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gY5H3FMV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A9491F0089F;
+	Sat,  7 Nov 2026 10:07:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046063;
-	bh=qNNBSuFL+miPxaP9Ls001ZYVNIp/DLvggfVu5sGpId0=;
+	s=k20260515; t=1794046065;
+	bh=GW0hYIN7+IceEmMSeevV4pIzk2+GIFsu79mR7Humawg=;
 	h=From:To:Cc:Subject:Date;
-	b=ntnI/zKzqdFk8FJCyMyh0IuUjgncWHK3BNJ31tuncQrOfanpRvvFqYKD+NWUUJxyH
-	 sRgGykYljpNljb0qQqcFT78c+PqjDuMpsNsFoVKu8Aq4Wf+xVND6a4Uw6g8D72voHq
-	 6ETWXwZsDehmdAfo3Ry+XpMzqO5r/wmjqb6VK5yfFGcZwVQRvnFkzWM3h776DU4cWM
-	 9PmMWF6sCEwAODNZEv44O7/0fyVTyUFCnApUFXqhHX/OroLtR3Ty0NHnBEKdHScpi0
-	 niyoOS1D/ajAbRBrbDkjdXTYu3nm5yB5btjTYMjzdQbmZ4JGzz18XjcOlw9SihQ2Nj
-	 pJSKo0W9heeNg==
+	b=gY5H3FMVftRNCxW1bmp6I+afKAqar/xGLhdYhrVhEzt/RHPFbS6zfkGAfJW79hyFS
+	 DW846UBegj0FqpK7ozF4lwh56gRsChjmJnVHXt7RDf+zPpuzmqnmRW525hFJQWetwf
+	 vcCk3Viug+c1KlVeV1hJ9LNGcBrdT0fi5ldw4CAm1V9ASzxsN69GNYOByRN1tL+FMP
+	 xZTz2a6q7BMftgJ6PT8BN26pCp83pq1ylqzUc1u77pylyfPhVIq/nzJKBhBpix+SKk
+	 nHrpqcW3cW7dnJxSlii09wBbDTkQre9u4d67QQWfvm2SYqPf7MHoZ9yFUNno7HJjAn
+	 OaubZHblOEERg==
 From: Sasha Levin <sashal@kernel.org>
-To: busanna.reddy@oss.qualcomm.com,
-	vikash.garodia@oss.qualcomm.com,
-	dmitry.baryshkov@oss.qualcomm.com,
-	bod@kernel.org
+To: runyu.xiao@seu.edu.cn,
+	tiwai@suse.de
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] media: iris: Fix iova allocation from restrict region" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:07:41 -0500
-Message-ID: <20261107050741-failed-6.18-200473c198b2@kernel.org>
+Subject: FAILED: patch "[PATCH] ALSA: usb-audio: Protect Roland control activation" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:07:44 -0500
+Message-ID: <20261107050744-failed-6.18-19b42c1fff7f@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,195 +68,117 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 200473c198b201c308dfb916fb3233074d9407fa
+git cherry-pick -x 19b42c1fff7f220a6346c614d79ce1bda6d95b40
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050741-failed-6.18-200473c198b2@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050744-failed-6.18-19b42c1fff7f@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 200473c198b201c308dfb916fb3233074d9407fa Mon Sep 17 00:00:00 2001
-From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Date: Tue, 18 Aug 2026 20:43:22 +0530
-Subject: [PATCH] media: iris: Fix iova allocation from restrict region
+From 19b42c1fff7f220a6346c614d79ce1bda6d95b40 Mon Sep 17 00:00:00 2001
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Date: Tue, 29 Sep 2026 22:17:26 +0800
+Subject: [PATCH] ALSA: usb-audio: Protect Roland control activation
 
-The VPU issues DMA through several SMMU streams, and the hardware does
-not give every stream the same addressable range. The non-pixel stream
-cannot address the low 600MB of IOVA space, while the pixel stream can
-address the full range:
-    +-----------------------------------------------------------+
-    | non-pixel stream addressable range (600 MB - 3.5 GB)      |
-    | 0x25800000 - 0xe0000000                                   |
-    +-----------------------------------------------------------+
-    | pixel stream addressable range (0 - 3.5 GB)               |
-    | 0x00000000 - 0xe0000000                                   |
-    +-----------------------------------------------------------+
+The USB MIDI driver changes the Roland MIDI Input Mode control's access
+flags directly from the rawmidi open and close paths.  These changes are
+not protected by the ALSA control core and the corresponding notifications
+can race with control access.
 
-A single "iommus" property on the video-codec node puts every stream
-in one IOMMU domain sharing one IOVA space, so nothing stops a
-non-pixel buffer from landing below 600MB. Once an allocation lands
-below that boundary the hardware faults, which shows up as unhandled
-SMMU page faults and spontaneous reboots.
-https://gitlab.freedesktop.org/drm/msm/-/work_items/100
+Use snd_ctl_activate_id() so that the control core updates the access flags
+and sends the notification under its lock.  Release the USB MIDI mutex
+before calling it because the control write path holds controls_rwsem while
+roland_load_put() takes the USB MIDI mutex.
 
-Fix this by reserving the 0-600MB range, below the boundary the
-non-pixel stream cannot address, using dma_iova_try_alloc() so the
-IOMMU-DMA core never hands that range out to a real DMA mapping. This
-reserves only IOVA space, it does not allocate any physical memory.
+Keep the state transition and alternate-setting change under the USB MIDI
+mutex; rawmidi's open mutex serializes the enclosing open and close paths.
 
-Since sub-nodes for non-pixel, pixel, and secure streams do not exist
-yet and only a single device is available, the restriction is applied
-to both non-pixel and pixel stream IDs.
-
-Fixes: d7378f84e94e ("media: iris: introduce iris core state management with shared queues")
+Fixes: 96f61d9ade82 ("sound: usb-audio: allow switching altsetting on Roland USB MIDI devices")
 Cc: stable@vger.kernel.org
-Reviewed-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
+Assisted-by: LLM
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Link: https://patch.msgid.link/20260929141726.2166899-1-runyu.xiao@seu.edu.cn
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- drivers/media/platform/qcom/iris/iris_core.h  |  6 ++
- drivers/media/platform/qcom/iris/iris_probe.c | 62 ++++++++++++++++++-
- 2 files changed, 67 insertions(+), 1 deletion(-)
+ sound/usb/midi.c | 53 ++++++++++++++++++++++++------------------------
+ 1 file changed, 27 insertions(+), 26 deletions(-)
 
-diff --git a/drivers/media/platform/qcom/iris/iris_core.h b/drivers/media/platform/qcom/iris/iris_core.h
-index 24da60448cf24..3e4cf652bf39a 100644
---- a/drivers/media/platform/qcom/iris/iris_core.h
-+++ b/drivers/media/platform/qcom/iris/iris_core.h
-@@ -7,6 +7,7 @@
- #define __IRIS_CORE_H__
- 
- #include <linux/types.h>
-+#include <linux/dma-mapping.h>
- #include <linux/pm_domain.h>
- #include <media/v4l2-device.h>
- 
-@@ -25,6 +26,9 @@ struct icc_info {
- #define IRIS_FW_VERSION_LENGTH		128
- #define IFACEQ_CORE_PKT_SIZE		(1024 * 4)
- 
-+#define IRIS_NP_RESERVE_IOVA_START	0x0
-+#define IRIS_NP_RESERVE_IOVA_SIZE	0x25800000
-+
- enum domain_type {
- 	ENCODER	= BIT(0),
- 	DECODER	= BIT(1),
-@@ -77,6 +81,7 @@ struct qcom_ubwc_cfg_data;
-  * @instances: a list_head of all instances
-  * @inst_fw_caps_dec: an array of supported instance capabilities by decoder
-  * @inst_fw_caps_enc: an array of supported instance capabilities by encoder
-+ * @iova_state: a pointer to an array of dma_iova_state entries reserved for restricted IOVA region
-  */
- 
- struct iris_core {
-@@ -123,6 +128,7 @@ struct iris_core {
- 	/* encoder and decoder have overlapping caps, so two different arrays are required */
- 	struct platform_inst_fw_cap		inst_fw_caps_dec[INST_FW_CAP_MAX];
- 	struct platform_inst_fw_cap		inst_fw_caps_enc[INST_FW_CAP_MAX];
-+	struct dma_iova_state			*iova_state;
- };
- 
- int iris_core_init(struct iris_core *core);
-diff --git a/drivers/media/platform/qcom/iris/iris_probe.c b/drivers/media/platform/qcom/iris/iris_probe.c
-index e4acf4a74f944..6581a969fe3fb 100644
---- a/drivers/media/platform/qcom/iris/iris_probe.c
-+++ b/drivers/media/platform/qcom/iris/iris_probe.c
-@@ -150,6 +150,57 @@ static int iris_init_resources(struct iris_core *core)
- 	return iris_init_resets(core);
- }
- 
-+static void iris_unreserve_iova_region(struct device *dev, struct dma_iova_state *iova_state)
-+{
-+	unsigned int i;
-+
-+	for (i = 0; dma_iova_size(&iova_state[i]); i++)
-+		dma_iova_free(dev, &iova_state[i]);
-+}
-+
-+static int iris_reserve_iova_region(struct device *dev, struct dma_iova_state **iova_state,
-+				    unsigned long start, unsigned long size)
-+{
-+	unsigned long dma_limit = dev->bus_dma_limit;
-+	unsigned long end, rem, chunk;
-+	struct dma_iova_state *state;
-+	unsigned int count = 0;
-+	int ret = -ENOMEM;
-+
-+	state = devm_kcalloc(dev, BITS_PER_TYPE(dma_addr_t) + 1, sizeof(*state), GFP_KERNEL);
-+	if (!state)
-+		return ret;
-+
-+	end = start + size;
-+	rem = end - max(start, PAGE_SIZE);
-+	dev->bus_dma_limit = end - 1;
-+
-+	while (rem) {
-+		chunk = min(end & -end, (u64)1 << (fls64(rem) - 1));
-+
-+		if (!dma_iova_try_alloc(dev, &state[count], 0, chunk))
-+			goto err_free_iova;
-+
-+		if (state[count].addr != end - chunk || state[count].__size != chunk)
-+			goto err_free_iova;
-+
-+		rem -= chunk;
-+		end -= chunk;
-+		count++;
-+	}
-+
-+	*iova_state = state;
-+	dev->bus_dma_limit = dma_limit;
-+
-+	return 0;
-+
-+err_free_iova:
-+	iris_unreserve_iova_region(dev, state);
-+	dev->bus_dma_limit = dma_limit;
-+
-+	return ret;
-+}
-+
- static int iris_register_video_device(struct iris_core *core, enum domain_type type)
+diff --git a/sound/usb/midi.c b/sound/usb/midi.c
+index 0480a9b89e8f3..e3d1575540613 100644
+--- a/sound/usb/midi.c
++++ b/sound/usb/midi.c
+@@ -1150,41 +1150,42 @@ static int substream_open(struct snd_rawmidi_substream *substream, int dir,
+ 			  int open)
  {
- 	struct video_device *vdev;
-@@ -207,6 +258,8 @@ static void iris_remove(struct platform_device *pdev)
+ 	struct snd_usb_midi *umidi = substream->rmidi->private_data;
+-	struct snd_kcontrol *ctl;
++	struct snd_ctl_elem_id ctl_id;
++	bool activate_ctl = false;
++	bool active;
  
- 	v4l2_device_unregister(&core->v4l2_dev);
+ 	guard(rwsem_read)(&umidi->disc_rwsem);
+ 	if (umidi->disconnected)
+ 		return open ? -ENODEV : 0;
  
-+	iris_unreserve_iova_region(core->dev, core->iova_state);
-+
- 	mutex_destroy(&core->lock);
+-	guard(mutex)(&umidi->mutex);
+-	if (open) {
+-		if (!umidi->opened[0] && !umidi->opened[1]) {
+-			if (umidi->roland_load_ctl) {
+-				ctl = umidi->roland_load_ctl;
+-				ctl->vd[0].access |=
+-					SNDRV_CTL_ELEM_ACCESS_INACTIVE;
+-				snd_ctl_notify(umidi->card,
+-				       SNDRV_CTL_EVENT_MASK_INFO, &ctl->id);
+-				update_roland_altsetting(umidi);
++	scoped_guard(mutex, &umidi->mutex) {
++		if (open) {
++			if (!umidi->opened[0] && !umidi->opened[1]) {
++				if (umidi->roland_load_ctl) {
++					ctl_id = umidi->roland_load_ctl->id;
++					activate_ctl = true;
++					active = false;
++					update_roland_altsetting(umidi);
++				}
+ 			}
+-		}
+-		umidi->opened[dir]++;
+-		if (umidi->opened[1])
+-			snd_usbmidi_input_start(&umidi->list);
+-	} else {
+-		umidi->opened[dir]--;
+-		if (!umidi->opened[1] && !umidi->keep_input_running)
+-			snd_usbmidi_input_stop(&umidi->list);
+-		if (!umidi->opened[0] && !umidi->opened[1]) {
+-			if (umidi->roland_load_ctl) {
+-				ctl = umidi->roland_load_ctl;
+-				ctl->vd[0].access &=
+-					~SNDRV_CTL_ELEM_ACCESS_INACTIVE;
+-				snd_ctl_notify(umidi->card,
+-				       SNDRV_CTL_EVENT_MASK_INFO, &ctl->id);
++			umidi->opened[dir]++;
++			if (umidi->opened[1])
++				snd_usbmidi_input_start(&umidi->list);
++		} else {
++			umidi->opened[dir]--;
++			if (!umidi->opened[1] && !umidi->keep_input_running)
++				snd_usbmidi_input_stop(&umidi->list);
++			if (!umidi->opened[0] && !umidi->opened[1]) {
++				if (umidi->roland_load_ctl) {
++					ctl_id = umidi->roland_load_ctl->id;
++					activate_ctl = true;
++					active = true;
++				}
+ 			}
+ 		}
+ 	}
++	if (activate_ctl)
++		snd_ctl_activate_id(umidi->card, &ctl_id, active);
+ 	return 0;
  }
  
-@@ -269,10 +322,15 @@ static int iris_probe(struct platform_device *pdev)
- 	if (ret)
- 		return ret;
- 
--	ret = v4l2_device_register(dev, &core->v4l2_dev);
-+	ret = iris_reserve_iova_region(dev, &core->iova_state, IRIS_NP_RESERVE_IOVA_START,
-+				       IRIS_NP_RESERVE_IOVA_SIZE);
- 	if (ret)
- 		return ret;
- 
-+	ret = v4l2_device_register(dev, &core->v4l2_dev);
-+	if (ret)
-+		goto err_unresv_iova_region;
-+
- 	ret = iris_register_video_device(core, DECODER);
- 	if (ret)
- 		goto err_v4l2_unreg;
-@@ -306,6 +364,8 @@ static int iris_probe(struct platform_device *pdev)
- 	video_unregister_device(core->vdev_dec);
- err_v4l2_unreg:
- 	v4l2_device_unregister(&core->v4l2_dev);
-+err_unresv_iova_region:
-+	iris_unreserve_iova_region(dev, core->iova_state);
- 
- 	return ret;
- }
 -- 
 2.53.0
 
