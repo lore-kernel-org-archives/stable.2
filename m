@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794045982;
-	b=VZ1ES8Ph1Ld8XRocmxT+YMfY4Rnbq8LM+9Sr8U/nw5jX/pVLPca8IBHLYBpccUqeKdt6
-	 zSlFGIELP477erpmf/YVR3qJ5xLFu2IcaSKgwsZstR42KecUDAFMabjd7BMFQ60iWAbki
-	 SNv4Xxk7uLunnzAKIIE8aBz9TdBbFKMtprk4S/t6k3lhtRZd/L0ofFdsipN8Chppg7/ZT
-	 Yw/l60BKROiNVRq+C7GtSzy0g/IFpqKIngZWrjLtLQgHyAHn7+DKw4gvcQapQUOEgJ5uB
-	 xitqx9FPpf9hepZnl0jozODBUSDDLxwI7+pXjBzdm+ceZuCWB7/xAF5J+pl7J171Tvg==
+	t=1794045984;
+	b=EWQ3dUrReTxGjdnIp2+tUbrxFRNLD5HFOmajdr1qqXv7mRGua2Dc1bIw/+fV7ykB1U2l
+	 Fo7byRvBTnNGuJMXHiDdaP2SerPlETSz4zptyGtVTgeyu9wHdG4+c+ZyMJn5RndO3Mp1J
+	 NcU+zRCQBH734PPHDdwqqmicXCZI5ScdAK7h6/8g1X8t6MRqSIuiNIsQZm5e2hfyWF3A+
+	 YGkcrXRBcxGfJHsRAFj6f1LR+d2KPfsoy1g6EGKMr1gPzka3yNe0f3uKQhJYB21MJKy5k
+	 x1kQPmlZvbJI0+T55qkJtT+mj/A9OMJTIZ1GaxXBsrl3zdG3SiUdp8fkHQLnQ/cuLoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794045982;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794045984;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=DTjmfm0YFsc6IPt9Uk325eN1mOz3ofnAF0awSjTJCx8=;
-	b=pCdqpn558s2Nwp/s3xtHIiuUVDkklhjPuCNV9BOqKavpzgSKtVMjzY5Oj1ny5cEFWAUh
-	 i5r2yUdVCKsP/6C3m/soOE/oyvRpm2EOCykCBuAtzhYN3YHkJ44i/2ysUnn2J7SJFGGRx
-	 Ij3mg3ru5VU61W+6v1VCo3nBFm9YnVXEWrLwY/hTv1UdoT2CtpMJ0bZWfNKTimNULRO0p
-	 lZTnsyQPx1dPDaBOiVAXk+uUyVaaRL6wbG+oGqD/jQKHOFvm8/aH60ApPOVH4voyPSSW4
-	 nPV9KL14wo2ujsLASJ1EbuEErHu5koLXS/yPQ6fI5yLQKbvIi2HwPVL6ndbwohFWoQA==
+	bh=7xedkogbBW6xkks2cZzp0OnzpWJ1Md6QrrZXbOTJy08=;
+	b=umXN96n+OPSWDA/E/wPYuRPtK3KM4v81xWF/bQllasrAo+391AnDONcxEP7JijPo6sJ4
+	 Aej95pd4X0KvPfNH3/S55fer/zyAwaRa2ILu3F4zwiv7o/tcQJwHTUuqen4ihVvI6edoO
+	 qsoQ/i2pNT7l1ynlBSyILjIQzgBe4jJzo3SnegEFWTj2CTuDBLEbCrjIeXHR9RYdP518R
+	 uZb26nnS7pWGsPFJ+owy8QQ84nHbWAXAMvp8sxuXY71gg/I80DmJ7gf7zYGWO9JtK0ZcG
+	 dCMEl9KgBCeDzFK9Vs8Zn4Q1dIYyAZCaRLtPNeciiyBVtsp34ERf9Un4Z0sa2HNYfYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RqfXqkVC;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O9ZCHiYC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBB50606A333
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:06:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E305606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:06:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RqfXqkVC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2444E1F0089F;
-	Sat,  7 Nov 2026 10:06:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O9ZCHiYC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 658261F0089F;
+	Sat,  7 Nov 2026 10:06:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794045981;
-	bh=DTjmfm0YFsc6IPt9Uk325eN1mOz3ofnAF0awSjTJCx8=;
+	s=k20260515; t=1794045983;
+	bh=7xedkogbBW6xkks2cZzp0OnzpWJ1Md6QrrZXbOTJy08=;
 	h=From:To:Cc:Subject:Date;
-	b=RqfXqkVCX2g/p75XvAyaV7gf00d4zdXCmPMfTDgzhcTg1ln9NW8l6FWNrmAdr13hE
-	 nwtOpQWUaT2RHYm2pFn1nVQbX/dFhJgGjVgHAC6/lCWdu/hv8UatNAR5F8iWLkWfYt
-	 IY9ltEd8ITLEzgMGraNLLt9ZjIV6xvlunXbkrTtd/XYSNj3d01wzyZeevjwamEEKi1
-	 n5NYCTxnPhvj60SCI0oGFuF5tth2OTB/3qqMNVeAXWkeTRBG7GzkapCOjnq1rSpTAs
-	 ovLcvGvDNoZbPqmyR87LsytTDtl1g9/I/3sbMHVDKAUZc3jclTIhpia7kEKl4rsCHD
-	 LxwFO67FSLd0w==
+	b=O9ZCHiYCmWfbmUjpFiRbGn3JEckbTs8Lv4ML7J+I6nmgdMOwshgc7j+e5GKDhhthQ
+	 Ud4amatRWUomttxLN1sPBeDYLz9PAkq3C1WLJcqG7ukSGI8ISIsGx+CX64wU58WQKr
+	 mGwjI5OENYMuRfO+gqGb64G9VRiFEKMh7ziFvi+NsngSGtdCyEunB802bVZ3aPwxV8
+	 XNK4+fiT2e+M2KY+SDsD2M5IO/KOMmQDuNYrJx1f5gweabDcmicl1clEpwCS+0vYKK
+	 nH+gHXS7Jvwhpw3bwZzGnar16CWzogzo2GgG6xAEp1peZqcQ1Rwm/6O2Hqozwhx1az
+	 IV82zKIu9plCw==
 From: Sasha Levin <sashal@kernel.org>
-To: johannes.goede@oss.qualcomm.com,
-	opensource@inspiredexperts.com,
-	sakari.ailus@linux.intel.com
+To: marek.vasut+renesas@mailbox.org,
+	manivannan.sadhasivam@oss.qualcomm.com,
+	bhelgaas@google.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] platform/x86: int3472: Increase handshake GPIO delay to 200 ms" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:06:19 -0500
-Message-ID: <20261107050619-failed-6.18-844982d3b993@kernel.org>
+Subject: FAILED: patch "[PATCH] PCI: rcar-gen4: Limit Max_Read_Request_Size to 256 Bytes" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:06:22 -0500
+Message-ID: <20261107050622-failed-6.18-f0a5c6bd797c@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,87 +69,160 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 844982d3b99340c21dd2125f44e1ad04ace6a38e
+git cherry-pick -x f0a5c6bd797c2b9900034983a1118d27eb2f2f16
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050619-failed-6.18-844982d3b993@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050622-failed-6.18-f0a5c6bd797c@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 844982d3b99340c21dd2125f44e1ad04ace6a38e Mon Sep 17 00:00:00 2001
-From: Hans de Goede <johannes.goede@oss.qualcomm.com>
-Date: Tue, 18 Aug 2026 14:28:21 +0200
-Subject: [PATCH] platform/x86: int3472: Increase handshake GPIO delay to 200
- ms
+From f0a5c6bd797c2b9900034983a1118d27eb2f2f16 Mon Sep 17 00:00:00 2001
+From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Date: Fri, 21 Aug 2026 04:05:51 +0200
+Subject: [PATCH] PCI: rcar-gen4: Limit Max_Read_Request_Size to 256 Bytes
 
-There have been several reports of the sensor not properly powering on,
-on laptops where an INT3472 handshake GPIO is used. Both with ov08x40 and
-hi556 sensors.
+R-Car Gen4 PCIe controller has a hardware limitation of 256 Bytes
+Max_Payload_Size (MPS). PCIe specification indicates that the MPS must not
+exceed minimum MPS of any element along the packet path.  The PCI core
+already enforces this, but add a check to warn if MPS is ever set larger
+than 256.
 
-Testing has shown that a delay of 200 ms is necessary in some cases.
-The handshake GPIO is typically used to signal an extra bridge or other IC
-with that IC running the full sensor power sequence based on the handshake
-signal and also possible controlling I2C pass-through.
+R-Car Gen4 Reference Manual, chapter 104.4.8 Usage notes for MRRS (Max Read
+Request Size) states:
 
-It seems that in some cases that extra IC takes up to 200 ms to before
-the sensor is fully powered up and ready for I2C communication.
+  Please set "Max Read Request Size" to 128 bytes or 256 bytes.
+  If "Max Read Request Size" is set to anything other than the
+  above, the transferred data will not match the expected value.
 
-With the default handshake signal delay increased to 200 ms the quirk to
-increase it to 45 ms for the ov08x40 is no longer necessary and is actually
-undesirable since some ov08x40 setups also need the longer delay, drop it.
+This limitation also seems to apply to devices doing DMA reads, i.e.,
+issuing MRd TLPs.  This limitation can be triggered by using non-HMB NVMe
+SSD with Max_Read_Request_Size 512 Bytes, for example Crucial P5 Plus.  Any
+write to the SSD (MRd TLP issued by the SSD controller) longer than 256
+Bytes wraps around at the 256 Byte boundary, and the same data are written
+to the SSD starting at offset 0 and at 256 Bytes.
 
-Fixes: 30359c239ba8 ("platform/x86: int3472: Increase ov08x40 handshake GPIO delay to 45 ms")
-Closes: https://lore.kernel.org/platform-driver-x86/20260816204247.2844986-1-opensource@inspiredexperts.com/
-Reported-by: James Alexander <opensource@inspiredexperts.com>
-Closes: https://bugzilla.redhat.com/show_bug.cgi?id=2333331
-Closes: https://bugzilla.redhat.com/show_bug.cgi?id=2333647
+Limit Max_Read_Request_Size to at most 256 Bytes for each device connected
+to this PCIe controller to avoid this behavior.
+
+A non-HMB (Host Memory Buffer) NVMe SSD can be identified using the
+following command. Affected SSD reports 'hmpre' field as 0:
+
+  $ nvme id-ctrl /dev/nvme0 | grep hmpre
+  hmpre     : 0
+
+The symptom is a read from the SSD which wraps around at 256 Byte boundary.
+The test for this symptom can be implemented by writing 512 Byte of random
+data into the SSD and reading the data back. If the read back data repeat
+after 256 Bytes, the device is affected.
+
+  $ dd if=/dev/urandom of=/tmp/data.bin bs=256 count=2 ; \
+    dd if=/tmp/data.bin of=/dev/nvme0n1 bs=256 count=2 ; \
+    dd if=/dev/nvme0n1 bs=256 count=2 of=/tmp/readback.bin
+
+Expected data:
+  $ hexdump -vC /tmp/data.bin
+  00000000  97 81 b7 3b 0e 38 2b 4d  a7 d3 e0 47 ff c2 4b ca
+  00000010  c1 85 98 f0 4a ac 03 a0  3b ab f3 19 44 dd 06 8b
+  ...
+  00000100  7a ce 3c b2 e1 d5 d9 11  88 63 10 59 76 3c dc 32 <-- random
+  00000110  72 32 2a 7d a3 e1 aa 13  7c da 58 a1 7b 21 11 50 <-- data
+
+Faulty readback, collected without this change in place:
+  $ hexdump -vC /tmp/readback.bin
+  00000000  97 81 b7 3b 0e 38 2b 4d  a7 d3 e0 47 ff c2 4b ca <---.
+  00000010  c1 85 98 f0 4a ac 03 a0  3b ab f3 19 44 dd 06 8b <-. |
+  ...                                                          | |
+  00000100  97 81 b7 3b 0e 38 2b 4d  a7 d3 e0 47 ff c2 4b ca <-:-+- repeated
+  00000110  c1 85 98 f0 4a ac 03 a0  3b ab f3 19 44 dd 06 8b <-+--- data
+       ^^^
+        |
+        '--- Repeat starts at offset 0x100 = 256 Bytes
+
+Fixes: 0d0c551011df ("PCI: rcar-gen4: Add R-Car Gen4 PCIe controller support for host mode")
+Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Link: https://patch.msgid.link/20260821020636.111719-1-marek.vasut+renesas@mailbox.org
 ---
- drivers/platform/x86/intel/int3472/discrete.c | 12 +++---------
- 1 file changed, 3 insertions(+), 9 deletions(-)
+ drivers/pci/controller/dwc/pcie-rcar-gen4.c | 54 +++++++++++++++++++++
+ 1 file changed, 54 insertions(+)
 
-diff --git a/drivers/platform/x86/intel/int3472/discrete.c b/drivers/platform/x86/intel/int3472/discrete.c
-index 1f8751a7db0c0..749e2e323583e 100644
---- a/drivers/platform/x86/intel/int3472/discrete.c
-+++ b/drivers/platform/x86/intel/int3472/discrete.c
-@@ -15,6 +15,7 @@
- #include <linux/platform_data/x86/int3472.h>
- #include <linux/platform_device.h>
- #include <linux/string_choices.h>
-+#include <linux/time64.h>
- #include <linux/uuid.h>
+diff --git a/drivers/pci/controller/dwc/pcie-rcar-gen4.c b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
+index fbe465a29068f..241adcd727894 100644
+--- a/drivers/pci/controller/dwc/pcie-rcar-gen4.c
++++ b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
+@@ -411,6 +411,57 @@ static int rcar_gen4_pcie_host_msi_init(struct dw_pcie_rp *pp)
+ 	return ret;
+ }
  
- /*
-@@ -178,13 +179,6 @@ static const struct int3472_gpio_map int3472_gpio_map[] = {
- 		.type_to = INT3472_GPIO_TYPE_RESET,
- 		.con_id = "enable",
- 	},
--	{	/* ov08x40's handshake pin needs a 45 ms delay on some HP laptops */
--		.hids = (const char * const[]) { "OVTI08F4", NULL },
--		.type_from = INT3472_GPIO_TYPE_HANDSHAKE,
--		.type_to = INT3472_GPIO_TYPE_HANDSHAKE,
--		.con_id = "dvdd",
--		.enable_time_us = 45 * USEC_PER_MSEC,
--	},
- 	{	/* Sensors which expect "vana" as con_id for power enable */
- 		.hids = power_enable_hids_vana,
- 		.type_from = INT3472_GPIO_TYPE_POWER_ENABLE,
-@@ -273,8 +267,8 @@ static void int3472_get_con_id_and_polarity(struct int3472_discrete_device *int3
- 	case INT3472_GPIO_TYPE_HANDSHAKE:
- 		*con_id = "dvdd";
- 		*gpio_flags = GPIO_ACTIVE_HIGH;
--		/* Setups using a handshake pin need 25 ms enable delay */
--		*enable_time_us = 25 * USEC_PER_MSEC;
-+		/* Powering up the sensor through the handshake pin takes up to 200 ms */
-+		*enable_time_us = 200 * USEC_PER_MSEC;
- 		break;
- 	default:
- 		*con_id = "unknown";
++static int rcar_gen4_pcie_enable_device(struct pci_host_bridge *bridge,
++					struct pci_dev *dev)
++{
++	/*
++	 * R-Car Gen4 PCIe controller has a hardware limitation of 256 Bytes
++	 * Max_Payload_Size (MPS). PCIe specification indicates that the MPS
++	 * must not exceed minimum MPS of any element along the packet path.
++	 * The controller reports Max_Payload_Size_Supported (MPSS) 256 Bytes
++	 * for header type 0 and 128 Bytes for header type 1. The PCIe core
++	 * will not allow MPS to be set higher than MPSS; warn here in case
++	 * something went very wrong in the core.
++	 *
++	 * For details, refer to chapter "104.1.1 Features" in either of:
++	 * R-Car S4 R19UH0161EJ0140 Rev.1.40 Jul. 31, 2026 or
++	 * R-Car V4H R19UH0186EJ0140 Rev.1.40 Aug. 7, 2026 or
++	 * R-Car V4M R19UH0217EJ0110 Rev.1.10 Jun. 30, 2026.
++	 */
++	WARN_ON(pcie_get_mps(dev) > 256);
++
++	/*
++	 * R-Car Gen4 Reference Manual, chapter 104.4.8 Usage notes for
++	 * MRRS (Max Read Request Size) states:
++	 *
++	 *   Please set "Max Read Request Size" to 128 bytes or 256 bytes.
++	 *   If "Max Read Request Size" is set to anything other than the
++	 *   above, the transferred data will not match the expected value.
++	 *
++	 * This limitation also seems to apply to devices issuing MRd TLPs.
++	 * This limitation can be triggered by using non-HMB NVMe SSD with
++	 * Max_Read_Request_Size 512 Bytes, for example Crucial P5 Plus.
++	 * Any write into the SSD (MRd TLP issued by the SSD) longer than
++	 * 256 Bytes wraps around at 256 Byte boundary, and the same data
++	 * are written into the SSD starting at offset 0 and at 256 Bytes.
++	 *
++	 * Limit Max_Read_Request_Size to at most 256 Bytes for each
++	 * device connected to this PCIe controller to avoid this behavior.
++	 *
++	 * For details, refer to aforementioned chapter in either of:
++	 * R-Car S4 R19UH0161EJ0140 Rev.1.40 Jul. 31, 2026 or
++	 * R-Car V4H R19UH0186EJ0140 Rev.1.40 Aug. 7, 2026 or
++	 * R-Car V4M R19UH0217EJ0110 Rev.1.10 Jun. 30, 2026.
++	 */
++	bridge->no_inc_mrrs = 1;
++	if (pcie_get_readrq(dev) > 256) {
++		pci_info(dev, "Limiting MRRS to 256 bytes\n");
++		pcie_set_readrq(dev, 256);
++	}
++
++	return 0;
++}
++
+ /* Host mode */
+ static int rcar_gen4_pcie_host_init(struct dw_pcie_rp *pp)
+ {
+@@ -418,6 +469,9 @@ static int rcar_gen4_pcie_host_init(struct dw_pcie_rp *pp)
+ 	struct rcar_gen4_pcie *rcar = to_rcar_gen4_pcie(dw);
+ 	int ret;
+ 
++	if (pp->bridge)
++		pp->bridge->enable_device = rcar_gen4_pcie_enable_device;
++
+ 	gpiod_set_value_cansleep(dw->pe_rst, 1);
+ 
+ 	ret = rcar_gen4_pcie_common_init(rcar);
 -- 
 2.53.0
 
