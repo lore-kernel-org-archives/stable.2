@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046809;
-	b=kdNUuWPKtgEhG9Fhu96FupH5vIhcZR6PMvRCqLPbLuwFYLoxwVAzyE9WyqvU1ZNiXr4m
-	 nojGd0P1uwGGCqAKI/hMOUnYPyOb/Yn3dSeehhYtry7vR0/7TCRFb8MCqe+L5ZjZt3baJ
-	 PqnoElDbSyTYYeIOwNeBvMTQ40OWl6/wee2mTtJiG9T/Pi+ti1b86jtUoRcpoXIWD6Hu0
-	 VSqhwZjYtQGyFumPT7Y+I+sz6GESe4UFrIgoM6Fc6jq99YtlKEYjIAzhE00Q9JBpp2kvl
-	 ZjEYEM2sACAbahCZKML4U7CXgHzrF1ZBot2qW0fnjEzJfEwW2YaAAVLCPlPTMiY7THg==
+	t=1794046811;
+	b=TFr3xGGjf4AO84OUaWzxsXxrKfUc9oYbMhaXqlq8rXpWmf7TK3VsL0xFGmTaAHxhvAgH
+	 iZ/YWTe5fWpIkhzShvHEqvmyEYPzOT1f/R7Rep/J7IdsSxT6lws0KtXDKNzqaNSEt7AvP
+	 SQ6GUtz9JLA+MJ6Y0AllYp3eOjnIYt3ob8eBOiR2ZIKcWxX2lxP0WEBHe4JaAPsaCUnI1
+	 Olybf2Pe/7nON6+X7Fp+zbYjMAEoRUjPc2vElt/3MCcgodzth3on0lPtFTwdp9kfCeWFZ
+	 ywbCY/2DCwR0XPBH1TP/SeGf1qIkiph2kTt3UoPirzDXX3HIcOQF34SdwkcB5E2cAAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046809;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046811;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=9z03sd+7RIjTNb5+W9UVLbzxCNucBNO5hiL4jD279Sk=;
-	b=O1FW+HEvgzuzp7S1ZTdwrd7OQSf0g6g6XfUHeVj4ZLoCezsv3lXvzzzZ/JdqmtNQEPUu
-	 7NFMr11imyKEXqLSnt/EsugFSBaAfslifallxGwomMvzPqM/sspu90149Txb48AVY7jpQ
-	 u3kfu+z8NkX9uPMfrK8YZaJQAImZklo+XEdTdNnEnReGBGqZG7BlCBb9zvgW7EUEBOw4w
-	 TyBhk019YI3MObDx6Y9yLFbiYCDlXne1F0X3uCSgvkJc0AQTjF6GYBSIi8J8TDQwZK6i8
-	 I3YrM+GYVxqJS294WUkg24gJ9x2e6TYSm4yM3Ig1uZE2tmAyvV9iW1gieFKKc6l2r/w==
+	bh=cw+RHJ8m38fsnvt/AzqVJyC9AfhS1fyMk9hnccF5iuo=;
+	b=FBu8LHbFnHDrLHBnFcQ5b7Hx/9Z23zSj7PNgmPlw4D3NNJxIIkS+/0MFJO+R2NJUsseb
+	 /u+FB0M5b1KkqNfQpeOyW73cSF8njXXIRNhSksRKyt4EXCrhhODEFbX7MGR3Uafx32zij
+	 aHSFNamMzacoDkH1nfeOGRNLxDiwmZDMy1dcepUZsLuZGHJ6WG5gjCZ8CsBdL69NIAZ9q
+	 k/7ZY8hThIWiSOz4m1MkeBFlZ6oJjKi96XdY1aHQonytw+J0q2X+7kBbNaek92UC876Ik
+	 X8/h5pxn9qJ8Q0TnxQIhoPFeSR2J8jW9lDmb60w4DaKj71biCMsCEFyI7ME6vseICYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CzGx0UGr;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i8Cv3GgC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F13E606D81E
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:20:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33C6C606A8C0
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:20:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CzGx0UGr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 923541F0089F;
-	Sat,  7 Nov 2026 10:20:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i8Cv3GgC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A30EF1F0089F;
+	Sat,  7 Nov 2026 10:20:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046809;
-	bh=9z03sd+7RIjTNb5+W9UVLbzxCNucBNO5hiL4jD279Sk=;
+	s=k20260515; t=1794046811;
+	bh=cw+RHJ8m38fsnvt/AzqVJyC9AfhS1fyMk9hnccF5iuo=;
 	h=From:To:Cc:Subject:Date;
-	b=CzGx0UGrWTPFpl9WbuOY7JX9NOxviwqkoSDVZ7GST3yqjE4Nf+rpiyxp1VYTrYROx
-	 FNVxofUM0xlXFxT2/m3dDZVtKA7NgrgW2Vy23EjsIzhSM1ZGLarMfYnHf851SqqAlm
-	 Yn0J3RGFhjunhzvdJ+BPvXNBgKJPXPGH0OJMcWSeaXPrUX00+oNhc+BN9I2HmylD0c
-	 HuFYULrwSRCYPd0hHfli3tWMkK8OCjlKlqY+Fi1nM0w3uAvGDC2XG6jjaVtnuNOzIq
-	 Q9GGD89cbSwz3Y8kmTXEg6IkjqgtBtt5isn3JnATWPJdJ8IGMI1yZKyPXGW4H0cV12
-	 FWZlCr+SWVT6Q==
+	b=i8Cv3GgCYo7OIf/xvzW28+KJDZd2mJDbEeTKjO4JaUn7kEaVhPpDveDiima1BwhTo
+	 J3EpH9YwkHlPLO5RO05UJ2AzANfZzio7aRkjOx84ntudsZZy3uyRXoAOO/a3A0vrYv
+	 CzzumGIwHfaf37f4IhMb5aNvNjot8qnEIx7xrZJijnBMMq/GKV0n236ZMXuDCm3gAx
+	 K3xtLtdeUH0b+IIqNZda00jSn7nh+Lup+3weVCF2N2Jmb+TiyBjZuvFSGqlYJPHSvH
+	 axitKmf57P8uR9uZHwgXmRhuyBQ936hGUx5Ksmnsmc2NE4R2jSCsjnvKlG7wT3TPM6
+	 yne8OhuIQTi+A==
 From: Sasha Levin <sashal@kernel.org>
-To: yicong@kylinos.cn,
-	nbd@nbd.name
+To: chao@kernel.org,
+	jaegeuk@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] wifi: mt76: mt792x: fix negative errno truncation in offload capability" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:20:07 -0500
-Message-ID: <20261107052007-failed-6.12-d0115096429c@kernel.org>
+Subject: FAILED: patch "[PATCH] f2fs: zone: fix to avoid bio split on sequential zone" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:20:09 -0500
+Message-ID: <20261107052009-failed-6.12-b9b036bd1e2c@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,69 +68,124 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x d0115096429ca090a592770c7645f9553a839954
+git cherry-pick -x b9b036bd1e2cfbc189d5811d62d8711e216c40b3
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052007-failed-6.12-d0115096429c@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052009-failed-6.12-b9b036bd1e2c@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From d0115096429ca090a592770c7645f9553a839954 Mon Sep 17 00:00:00 2001
-From: Yi Cong <yicong@kylinos.cn>
-Date: Mon, 24 Aug 2026 10:14:29 +0800
-Subject: [PATCH] wifi: mt76: mt792x: fix negative errno truncation in offload
- capability
+From b9b036bd1e2cfbc189d5811d62d8711e216c40b3 Mon Sep 17 00:00:00 2001
+From: Chao Yu <chao@kernel.org>
+Date: Wed, 7 Oct 2026 10:18:12 +0000
+Subject: [PATCH] f2fs: zone: fix to avoid bio split on sequential zone
 
-Returning a negative errno as u8 turned -ENOENT into 0xfe, wrongly
-enabling CNM and NAN caps. Return int and default to no caps on error.
+In the block layer, bio_split_to_limits() splits a bio if it exceeds
+any underlying queue limits:
+1. queue_max_sectors: Splits bios larger than the transfer limit. This
+   limit is set by the device driver/DMA controller (max_hw_sectors) and
+   device-mapper targets. When flushing dirty pages (governed by VFS
+   writeback_chunk_size() and f2fs nr_pages_to_skip()), f2fs merges
+   contiguous pages into bios up to 512KB (1024 sectors) or more without
+   checking queue_max_sectors, which will be split if the device or DM
+   target enforces a smaller limit.
+2. queue_max_segments: Splits bios exceeding scatter-gather segment
+   limits. f2fs allocates bios with up to 256 pages, exceeding the
+   128-segment limit of DM targets (dm-default-key/dm-crypt) if pages
+   are discontiguous.
+3. chunk_sectors: Splits bios crossing chunk/zone boundaries. In f2fs,
+   section_size strictly matches zone_size, and block allocation never
+   spans across section boundaries, so bios never cross chunk_sectors.
 
-Fixes: e8a264ccd2de ("wifi: mt76: mt7921: move init shared code in mt792x-lib module")
+Crucially, when bio_split_to_limits() splits a bio, bio_submit_split()
+submits the tail half via submit_bio_noacct() before returning the head
+half to the caller. On a sequential zoned device, this causes the tail
+bio to arrive at the zone write plug before the head:
+
+  dm-3: zone 7: prepare_bio wp mismatch: bio sector 30720 offset 2048
+  != wp_offset 248, len 248
+
+The write plug rejects the out-of-order tail with BLK_STS_IOERR, causing
+f2fs_stop_checkpoint() and remounting the filesystem read-only:
+
+2026-09-30T22:09:23.725678+08:00 localhost kernel: CPU: 9 UID: 0 PID: 243 Comm: kworker/9:1H Not tainted 6.12.81-gb3ef518fb26d #5
+2026-09-30T22:09:23.725750+08:00 localhost kernel: Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-debian-1.17.0-1 04/01/2014
+2026-09-30T22:09:23.725753+08:00 localhost kernel: Workqueue: dm-3_zwplugs blk_zone_wplug_bio_work
+2026-09-30T22:09:23.725756+08:00 localhost kernel: Call Trace:
+2026-09-30T22:09:23.725758+08:00 localhost kernel:  <TASK>
+2026-09-30T22:09:23.725758+08:00 localhost kernel:  dump_stack_lvl+0x4d/0x70
+2026-09-30T22:09:23.725759+08:00 localhost kernel:  f2fs_stop_checkpoint+0x1df/0x5d0
+2026-09-30T22:09:23.725759+08:00 localhost kernel:  ? blk_zone_wplug_bio_work+0x4eb/0x740
+2026-09-30T22:09:23.725760+08:00 localhost kernel:  f2fs_cache_write_end_io+0x545/0x6e0
+2026-09-30T22:09:23.725761+08:00 localhost kernel:  blk_zone_wplug_bio_work+0x4eb/0x740
+2026-09-30T22:09:23.725762+08:00 localhost kernel:  process_one_work+0x5c6/0xde0
+2026-09-30T22:09:23.725764+08:00 localhost kernel:  ? assign_work+0x124/0x4e0
+2026-09-30T22:09:23.725765+08:00 localhost kernel:  worker_thread+0x403/0xb70
+2026-09-30T22:09:23.725765+08:00 localhost kernel:  ? __kthread_parkme+0x82/0x140
+2026-09-30T22:09:23.725766+08:00 localhost kernel:  ? __pfx_worker_thread+0x10/0x10
+2026-09-30T22:09:23.725766+08:00 localhost kernel:  kthread+0x235/0x2e0
+2026-09-30T22:09:23.725767+08:00 localhost kernel:  ? recalc_sigpending+0x128/0x1d0
+2026-09-30T22:09:23.725767+08:00 localhost kernel:  ? __pfx_kthread+0x10/0x10
+2026-09-30T22:09:23.725769+08:00 localhost kernel:  ret_from_fork+0x2f/0x70
+2026-09-30T22:09:23.725769+08:00 localhost kernel:  ? __pfx_kthread+0x10/0x10
+2026-09-30T22:09:23.725770+08:00 localhost kernel:  ret_from_fork_asm+0x1a/0x30
+2026-09-30T22:09:23.725771+08:00 localhost kernel:  </TASK>
+2026-09-30T22:09:23.725771+08:00 localhost kernel: F2FS-fs (dm-0): Stopped filesystem due to reason: 3
+
+To prevent write bios destined for sequential zones from being split:
+1. In __bio_alloc(), bound npages to bdev_max_segments(bdev) for writes to
+   sequential zone areas.
+2. In page_is_mergeable(), check queue_max_segments() and queue_max_sectors()
+   for sequential zone areas, so f2fs will not merge beyond the queue limits.
+
+Fixes: 52763a4b7a21 ("f2fs: detect host-managed SMR by feature flag")
+Fixes: 664ba972df9b ("f2fs: use BIO_MAX_PAGES for bio allocation")
 Cc: stable@vger.kernel.org
-Signed-off-by: Yi Cong <yicong@kylinos.cn>
-Link: https://patch.msgid.link/20260824021429.43761-1-cong.yi@linux.dev
-Signed-off-by: Felix Fietkau <nbd@nbd.name>
+Signed-off-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
 ---
- drivers/net/wireless/mediatek/mt76/mt792x_core.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ fs/f2fs/data.c | 18 +++++++++++++++++-
+ 1 file changed, 17 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/wireless/mediatek/mt76/mt792x_core.c b/drivers/net/wireless/mediatek/mt76/mt792x_core.c
-index f56f03bfe3874..3ce6c6ceac81c 100644
---- a/drivers/net/wireless/mediatek/mt76/mt792x_core.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt792x_core.c
-@@ -858,7 +858,7 @@ int mt792x_init_wiphy(struct ieee80211_hw *hw)
- }
- EXPORT_SYMBOL_GPL(mt792x_init_wiphy);
+diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+index 4bfa301a5df63..15c6af8515f30 100644
+--- a/fs/f2fs/data.c
++++ b/fs/f2fs/data.c
+@@ -536,6 +536,10 @@ static struct bio *__bio_alloc(struct f2fs_io_info *fio, int npages)
+ 	struct bio *bio;
  
--static u8
-+static int
- mt792x_get_offload_capability(struct device *dev, const char *fw_wm)
- {
- 	const struct mt76_connac2_fw_trailer *hdr;
-@@ -927,13 +927,20 @@ mt792x_get_mac80211_ops(struct device *dev,
- 			void *drv_data, u8 *fw_features)
- {
- 	struct ieee80211_ops *ops;
-+	int ret;
- 
- 	ops = devm_kmemdup(dev, mac80211_ops, sizeof(struct ieee80211_ops),
- 			   GFP_KERNEL);
- 	if (!ops)
- 		return NULL;
- 
--	*fw_features = mt792x_get_offload_capability(dev, drv_data);
-+	ret = mt792x_get_offload_capability(dev, drv_data);
-+	if (ret < 0) {
-+		dev_warn(dev, "failed to read firmware offload caps: %d\n", ret);
-+		*fw_features = 0;
-+	} else {
-+		*fw_features = ret;
+ 	bdev = f2fs_target_device(sbi, fio->new_blkaddr, &sector);
++	/* avoid reversed IO if bio is split due to exceeding max_segments */
++	if (npages > 1 && !is_read_io(fio->op) &&
++	    f2fs_is_sequential_zone_area(sbi, fio->new_blkaddr))
++		npages = min_t(int, npages, bdev_max_segments(bdev));
+ 	bio = bio_alloc_bioset(bdev, npages,
+ 				fio->op | fio->op_flags | f2fs_io_flags(fio),
+ 				GFP_NOIO, &f2fs_bioset);
+@@ -892,7 +896,19 @@ static bool page_is_mergeable(struct f2fs_sb_info *sbi, struct bio *bio,
+ 		return false;
+ 	if (last_blkaddr + 1 != cur_blkaddr)
+ 		return false;
+-	return bio->bi_bdev == f2fs_target_device(sbi, cur_blkaddr, NULL);
++	if (bio->bi_bdev != f2fs_target_device(sbi, cur_blkaddr, NULL))
++		return false;
++	/* avoid reversed IO if bio is split due to exceeding max_segments/sectors */
++	if (f2fs_is_sequential_zone_area(sbi, cur_blkaddr)) {
++		struct request_queue *q = bdev_get_queue(bio->bi_bdev);
++
++		if (bio->bi_vcnt >= queue_max_segments(q))
++			return false;
++		if (bio_sectors(bio) + (F2FS_BLKSIZE(sbi) >> SECTOR_SHIFT) >
++				queue_max_sectors(q))
++			return false;
 +	}
++	return true;
+ }
  
- 	if (mt792x_needs_cnm_runtime(drv_data))
- 		*fw_features |= MT792x_FW_CAP_CNM;
+ static bool io_type_is_mergeable(struct f2fs_bio_info *io,
 -- 
 2.53.0
 
