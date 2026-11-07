@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050063;
-	b=3TfO2XXqULdCuilppGRw8DwcbmEaa/7heJd+psMQrVTnj/TjFBbJWLHMqVraGWpIq4QK
-	 TmnZL6yeSJkvvV3ktQqUAeNAc+4Ul03qewNYJ3fKeoL1q7SeC/sLfd7qqau4shrfRcScx
-	 jvI1aG0ryMKEYoCDzAqkcOOFup+WEbwcHaRifObVfHX0YCeY3Sis2Q5XjrZXJIUz3CVhI
-	 r0uyzqsDmL3UuliIINm3Jh2AxsXUqAGDG0JGJwWaKyQmR+aK5YX39jB8XBC3oc4LX7p4G
-	 A+w5N6XXhyiJS+38W7FXElUyRpnt8VTRKLcmaFyh3Ew/dMYxH7FpeNjU6rqrobHmBqw==
+	t=1794050066;
+	b=fqNd3PE90OgwdKxD2zAWrNGWyg3SA/3WzA+dTKm0zQALmAO2YzmBAnqmKtoH2w49Qoyy
+	 i3W4zT4iXBGYCjgVkF95tvkJlxM0XSiag4mBNH3fRz3KsjHwBFpnJaSMj+u4C1fQbc/AJ
+	 72V8ZJT67we3cE6A5HrHN6p3lq/ouAJZ0gOQZseOwPZK//4BqBtTp6p6qQ+UDdQGmWUBW
+	 ov02vEtsaZ+TWqzJdHoqjCLRdzIBBwN8LSpKIEm13Gaaxpps33ObX8cPUYXWocrVXMJLx
+	 ONw7BWkpxyZZkTpnVqGbB7HHzwNadhPH6IlmDgEO5nlnA1dWZE2E6YinYgJwxqdxB2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050063;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050066;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=XRC7DNesaC7nKX9pTwHhHzCVf5ZWtK/2qt12h0BEyo8=;
-	b=2VwcIT/Jj1b8AqeYfJgyle3M3tkCOweZK5Bfce0sB7MKpkRGoHlmXm+0JTPKTDFtKcdx
-	 WE1rS2WYXCdYTeLhMWc/FDcsxV89kTSu4H58m8kaJ88+UgJadN6KLnZP6IiZp5e7iepHE
-	 QqgTxUjkEMENDhy1OeAezWvv0dTN57xSC3ZcNwYEExjXEtIOwSG1pYv/2sfYLAHH9CRvo
-	 jSVwU/+h4zcVUT3ZccLfeCglCDhdNuTxCW5nmjBILIBnPV8+aKBLTde5dAxQXoG4MDl6d
-	 UdSkIVpI0ZOXu2O/ZtrtXCT6ViSC3mmn9bnbN9ONu617wnhYPS2utigZisl+reda6Ug==
+	bh=HWApybBv8y6qEDzuAY7tKsS3WlWTCQ8q7Cw9WvpjWdY=;
+	b=gHuEthQ/JWXxH55jcnMnGu4uyxOei4xZoXuJgIEF0WgjCLkY3Bq8mQ45RF4uZDuGXv+D
+	 IXe/Sx7o1xAgq4BTd1I2gDa3bSS8DKV4vYprw4862TBhCdpUoUuaYYCyto/4heEcUK/Pe
+	 zlSSH3aPWwl81Pszo/ByD1TmRNBHQkYJTK0iwtos2x7DwM7A6SCCg+aJ46XuvY1Qzirbd
+	 QcABAKsUU/Bw+FGi4mMHWw9GB2UatXkpzyDipYI5lsxdVQa9tTZfbp3sfhMiFt2Q2Glho
+	 hEUI+cW7iPWKyrCxq2KzzHLx2p+bfqWmBgvHBGdWF7riWpU6jrqoYQWL8Owi0MLLRIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IAg1twnF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="UBi2dp/z";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 707E1606A32D
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:14:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BEBC606A32D
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:14:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IAg1twnF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E370C1F0089F;
-	Sat,  7 Nov 2026 11:14:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UBi2dp/z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC4DD1F0089F;
+	Sat,  7 Nov 2026 11:14:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050063;
-	bh=XRC7DNesaC7nKX9pTwHhHzCVf5ZWtK/2qt12h0BEyo8=;
+	s=k20260515; t=1794050066;
+	bh=HWApybBv8y6qEDzuAY7tKsS3WlWTCQ8q7Cw9WvpjWdY=;
 	h=From:To:Cc:Subject:Date;
-	b=IAg1twnFTOkDBHd5bQgRcPqGOta5SK5SrlsK6st+FowsFMEZog3CIJ3ZbqPKdDKPu
-	 ZM4ywGk1fbumDHvtApdUg/0BzuaH0KgKiKXiw79ItkyVkshsh9pQQe92UTy/zYPDYS
-	 gMkew+IkAAWcpu1hM132uU37IxZYeFco40ZJuJHK4LdWjLAiweTzTIbCv2KuNy3wCB
-	 ZTLJ698j7yTHIdIfGN36fGpm5xtd2FB/H+rCj4SlHbu63vUSpOS4qppN8TAMJhXQ8C
-	 RTi0xnjZC+4eWvxFxShoPQ51RkYhwIUcuGJ/bWUH5r0v8FhM6y9gJYaR+SxGopTxNd
-	 Jo+lz5pWClikg==
+	b=UBi2dp/ztavnKQQfzngha/5WA9wIY/+oMgVnP9Hugbkca+ZO5mCdFoH4fCSjW7VK6
+	 GNM4/3Vh0zcQMUT5ul+2OsThxsvYIhzJY1FfFcn0d7iu1qeJvTGv67rAhxKMeoJybU
+	 uq+9wN835jnE2LpCG2nkISLFPD2JWFQV6JzbtB8h0SeuuPiIkkbSjaiYkSYAJnp8tv
+	 WFg0ZpPsera/XCHKnQCCunFrLINhSlqO1IbyfgKtInr8qBeuwDmHYyQu1gvUjfLoT/
+	 Yp6dSu+ugXFJlT/DMZfohhbZIaRViYY7yIU0ifiO7ggNX55wMTxn1Vtre1PJ3cw+JS
+	 qn5mwNVivMhaQ==
 From: Sasha Levin <sashal@kernel.org>
-To: sean@mess.org,
-	hverkuil+cisco@kernel.org
+To: 4ncienth@gmail.com,
+	brauner@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] media: redrat3: Error path leaves device in transmitting state" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:14:21 -0500
-Message-ID: <20261107061421-failed-5.10-8024d5e84531@kernel.org>
+Subject: FAILED: patch "[PATCH] aio: prevent eventfd/epoll recursion on poll" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:14:24 -0500
+Message-ID: <20261107061424-failed-5.10-398e3fa789aa@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,74 +68,74 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 8024d5e84531d828535365718278f1cf0ce67db0
+git cherry-pick -x 398e3fa789aa5ffddc8689d8cbc7b31e1824130c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061421-failed-5.10-8024d5e84531@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061424-failed-5.10-398e3fa789aa@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 8024d5e84531d828535365718278f1cf0ce67db0 Mon Sep 17 00:00:00 2001
-From: Sean Young <sean@mess.org>
-Date: Mon, 13 Jul 2026 13:08:40 +0100
-Subject: [PATCH] media: redrat3: Error path leaves device in transmitting
- state
+From 398e3fa789aa5ffddc8689d8cbc7b31e1824130c Mon Sep 17 00:00:00 2001
+From: Daehyeon Ko <4ncienth@gmail.com>
+Date: Thu, 13 Aug 2026 22:38:43 +0900
+Subject: [PATCH] aio: prevent eventfd/epoll recursion on poll
 
-In the allocation failure error path, the transmitting boolean is not
-cleared. If this error path is followed the transmitter cannot be
-used again until the device is replugged or the module reloaded.
+aio_poll_wake() can complete a keyed poll request inline while the
+provider waitqueue lock is held.  If the polled file is an epoll instance
+and the AIO result eventfd is watched by that same instance, signaling the
+result can feed back into epoll and try to take the provider waitqueue lock
+again.
 
-Fix the error path by moving the assignment statement.
+For example, a timerfd wake can follow this path:
 
-Remove the check for the transmitting state in transmit, since rc-core
-ensures there is never a reentrant call to the driver transmit function;
-the transmit function is always called with dev->lock held.
+  timerfd -> ep_poll_callback -> aio_poll_wake -> aio_complete
+          -> eventfd_signal -> ep_poll_callback -> ep_poll_safewake
 
-The transmitting boolean is only used for interpretting firmware errors.
+The second ep_poll_safewake() recursively acquires ep->poll_wait.lock.
+eventfd_signal_allowed() does not prevent this because the wake chain did
+not begin in eventfd, so the task's eventfd recursion bit is still clear
+when aio_poll_wake() decides to complete inline.
 
-Fixes: fac59136bc22 ("[media] RedRat3: Return directly after a failed kcalloc() in redrat3_transmit_ir()")"
-Signed-off-by: Sean Young <sean@mess.org>
+An unprivileged process can construct this graph and make a CPU spin on the
+recursive lock.  DEBUG_SPINLOCK reports "BUG: spinlock recursion", and
+lockdep reports the same epoll waitqueue lock as both held and requested.
+
+Always defer eventfd-backed poll completions through the existing
+aio_poll_put_work() path.  At this point the request has already been
+detached from the waitqueue and active request list, so the work item can
+publish the completion after the provider callback releases its lock.
+Poll completions without a result eventfd remain inline.
+
+Fixes: e8693bcfa0b4 ("aio: allow direct aio poll comletions for keyed wakeups")
 Cc: stable@vger.kernel.org
-Reviewed-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+Link: https://patch.msgid.link/20260813133843.2933127-1-4ncienth@gmail.com
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- drivers/media/rc/redrat3.c | 11 +++--------
- 1 file changed, 3 insertions(+), 8 deletions(-)
+ fs/aio.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/rc/redrat3.c b/drivers/media/rc/redrat3.c
-index 30111deb6013c..b07ff832a938c 100644
---- a/drivers/media/rc/redrat3.c
-+++ b/drivers/media/rc/redrat3.c
-@@ -773,17 +773,9 @@ static int redrat3_transmit_ir(struct rc_dev *rcdev, unsigned *txbuf,
- 	u8 curlencheck = 0;
- 	unsigned i, sendbuf_len;
- 
--	if (rr3->transmitting) {
--		dev_warn(dev, "%s: transmitter already in use\n", __func__);
--		return -EAGAIN;
--	}
--
- 	if (count > RR3_MAX_SIG_SIZE - RR3_TX_TRAILER_LEN)
- 		return -EINVAL;
- 
--	/* rr3 will disable rc detector on transmit */
--	rr3->transmitting = true;
--
- 	sample_lens = kzalloc_objs(*sample_lens, RR3_DRIVER_MAXLENS);
- 	if (!sample_lens)
- 		return -ENOMEM;
-@@ -794,6 +786,9 @@ static int redrat3_transmit_ir(struct rc_dev *rcdev, unsigned *txbuf,
- 		goto out;
- 	}
- 
-+	/* rr3 will disable rc detector on transmit */
-+	rr3->transmitting = true;
-+
- 	for (i = 0; i < count; i++) {
- 		cur_sample_len = redrat3_us_to_len(txbuf[i]);
- 		if (cur_sample_len > 0xffff) {
+diff --git a/fs/aio.c b/fs/aio.c
+index d78acc69f4870..92241a24d9e28 100644
+--- a/fs/aio.c
++++ b/fs/aio.c
+@@ -1869,7 +1869,12 @@ static int aio_poll_wake(struct wait_queue_entry *wait, unsigned mode, int sync,
+ 		list_del_init(&req->wait.entry);
+ 		list_del(&iocb->ki_list);
+ 		iocb->ki_res.res = mangle_poll(mask);
+-		if (iocb->ki_eventfd && !eventfd_signal_allowed()) {
++		/*
++		 * We hold an arbitrary provider waitqueue lock here.  Signaling a
++		 * result eventfd can feed back through epoll and try to take the same
++		 * lock again.  Defer all eventfd-backed poll completions.
++		 */
++		if (iocb->ki_eventfd) {
+ 			iocb = NULL;
+ 			INIT_WORK(&req->work, aio_poll_put_work);
+ 			schedule_work(&req->work);
 -- 
 2.53.0
 
