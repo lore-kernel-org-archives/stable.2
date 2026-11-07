@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046360;
-	b=kquzpXMoZy7xKyav9Xs4srBHk/KZunVyOpzmJEtSnGvjpu2T8qLFUzGzu35tJmfxV+Sk
-	 aSUAtPySnfMBJxH4Ny4Ws8udhTXriCUHWqnFcX08BK6GRFw60gm+C57EsJyGVZX/6BiG1
-	 x7cFrR49iKwb8WT5+hzPqbWVtcctaPbK+uKgyyhw1M8nY/d47R+uIn9n8OOEa0e5PvsdN
-	 P3T7pm+9zawTx5FLXaeG55iCJRDAMkB8sjtkLfYIlPBHhupgeypFgpbf3X4unVyu4EZjC
-	 R0cEYVEZKZBnibFOKDpmK6J5r0UJR9GcoUKfGRiQUQRisQuOqPARl/2y32F8dTDVLMw==
+	t=1794046362;
+	b=uicT17shnVlKwJxBtl1wValLGOTJ02NiuoXNGh7K6aT235P6//yjP7ESRI1NUnZRSMYv
+	 MqyWdUMgOzJ3ggqd/xTyNEX03MfldpeydMK+gS0BPvcUvBqp/EGUjLX+4tKyzAE1+OZEO
+	 +NQOV/gJC6UJnOCnKwR3QwV1OcMhROjai2L9ArTXMwSyT17NJPv3iOJLUmjQrF7YUN4dG
+	 oxLKCbQ+qS56o0Jsc1I1KwNZ91ONUWIGhnQJgW/ctsfEIJ3YaR6ehQidjKFgf4m7odhtb
+	 bPEeT+Waz38ubPEWmybyIXIrzBAWCExIOBGOLLjpUZJkBJlI4EEWbYL3GahrK2dz1Tw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046360;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046362;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=BtWnLZqKNH3IiK3pe0JVUfIp0lOOkssgcnYnhxfIlzs=;
-	b=uwCveqNbMirw2JU0eRoeYQ6oadQLF1bImHLwq4DRORHsK7aww/cCTYjLt91sOfauvqDu
-	 /Y/8V/pwJJAfFi0Ji3lO95UzKpwu/YFcw/+rlYafd+3LqQTotKMfx27slxlJlq2QPr3Jb
-	 XlzhYiU4XvFLtBE10Og5thDE8YaBAR6U4jQIUWkeAyJ4LanIZu6Ghi/eNARvupqFeel3V
-	 2fAHj/xDfn8cftmXTPRJzIRKAuiM3x2apvypAnRE7IhWh6XgraGXlvnPXih3OStgmhwR4
-	 NVXpdLX7iZWbr3we7QNlZkWqZpro5pgNMImYTqNeW9YS7X8PxGGt69XSBMTZV8OebrA==
+	bh=VLhZ14W84aa9HMreZvRY/6UEzhuEeh9jx2uZZminK+s=;
+	b=U1xHRhuNcTgCQt4+5vfp1okU+qz1f5VQiR9jGSVdxMb7kh6SxSkHgxzH5ktfmeg/z5Ab
+	 DHI6kruPc6AIvm01ytp8ZzpqiqtGDOj/hXyvqbOYVFFca0KqDmzL7rpmai062FwmaZT0v
+	 RtlbMFnlsFeMHc787Jrc+YXfVkhSwTyli0XBFSHXR6dBsEnzsgi7dNetbMHC8P8qvUsQf
+	 i81PV/VsQKcH0uvBKACJ2W8bPppLhrcdW+4sV4WYJPiJlW7HGhszBH0chbU268f95XLb0
+	 5VAsH/L/crPb576/WdTgM+nNhb9UMt49Y7sV4GOhpqHonNfvb1spt8ju/7WSuHQRZZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y9hqbIfa;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=adKb5wDx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FC02606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:12:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7610E606A330
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:12:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y9hqbIfa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3E581F0089F;
-	Sat,  7 Nov 2026 10:12:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=adKb5wDx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1F7E1F0089F;
+	Sat,  7 Nov 2026 10:12:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046360;
-	bh=BtWnLZqKNH3IiK3pe0JVUfIp0lOOkssgcnYnhxfIlzs=;
+	s=k20260515; t=1794046362;
+	bh=VLhZ14W84aa9HMreZvRY/6UEzhuEeh9jx2uZZminK+s=;
 	h=From:To:Cc:Subject:Date;
-	b=Y9hqbIfaTp3gj36v3fjiV2ijXOUczYb0I/b+8kxE5kneq7YxIByOahF6sjR53cT84
-	 bTNth6VXlftv3Lzog+xxlQKqL7C/SM17NfwviN9D/ZINIhKZqsIQTcm272+nentqWZ
-	 YItlVPqu78YMHnl7w7jCwH97QVop6Roywtib0UgHFeQK/JwZpnO7jnOhaEMHNpZw3f
-	 Sq6k6dIM07U7I4QJkCt81Ra8fsqSjKpsuOcPWzjBUpmCTNFVESBj3PURJrcLpaCmTm
-	 cHp58twjHmMr4UY8qBvGL/ZSRk7cnLPOhWdH/QJ6eM5RhjgJORrhd7NPHuUyBS/P4x
-	 FHIW08OWdSU2Q==
+	b=adKb5wDxhGLpL1hwi967UdVREGX3Jo1JDB0BEHpB4HkwUa6q07RSAA39P2v+ff9kG
+	 YikpYveMI9CgnrKauEDuagDgU497TZyxR3RdBAVIsrtphInR0ZNUP8JqpAAkCVqHMb
+	 klO6GlwT6Zq2FGW39IhIe2923hGxZBEpLLf43D06k8G7r51Qtv22BDd/SAOliDvJSm
+	 +kDFY0yiBTFup3c+P7me5JXMWcoAqIKpou1EAD93f+jTGvGxtNqe734nK+3MZhTNFE
+	 Bzrm4lNLn+flk5KEt7CJ/7TKoZA8yBRjarkFK9i683K5O5chF7xUFrsNwD5CECdH3x
+	 jY3TmTgvUVm1A==
 From: Sasha Levin <sashal@kernel.org>
-To: gourry@gourry.net,
-	alexandre.belloni@bootlin.com
+To: michalblk@google.com,
+	arighi@nvidia.com,
+	tj@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] rtc: cmos: Honor explicit use_acpi_alarm parameter value" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:12:38 -0500
-Message-ID: <20261107051238-failed-6.18-3c7acb209e1d@kernel.org>
+Subject: FAILED: patch "[PATCH] sched_ext: Reset runnable_at when a task leaves its scheduler" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:12:40 -0500
+Message-ID: <20261107051240-failed-6.18-993e8fbfecbb@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,88 +69,90 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 3c7acb209e1d630b734a2ec72bd988f5da2ac55c
+git cherry-pick -x 993e8fbfecbbf284b9644c6f10741b28fb914094
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051238-failed-6.18-3c7acb209e1d@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051240-failed-6.18-993e8fbfecbb@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 3c7acb209e1d630b734a2ec72bd988f5da2ac55c Mon Sep 17 00:00:00 2001
-From: Gregory Price <gourry@gourry.net>
-Date: Thu, 15 Oct 2026 13:30:29 -0400
-Subject: [PATCH] rtc: cmos: Honor explicit use_acpi_alarm parameter value
+From 993e8fbfecbbf284b9644c6f10741b28fb914094 Mon Sep 17 00:00:00 2001
+From: Michal Blaszczyk <michalblk@google.com>
+Date: Mon, 19 Oct 2026 12:41:45 +0000
+Subject: [PATCH] sched_ext: Reset runnable_at when a task leaves its scheduler
 
-An explicit rtc_cmos.use_acpi_alarm=0 command-line argument is ignored
-on systems where use_acpi_alarm_quirks() enables ACPI RTC alarms. The
-argument appears in /proc/cmdline, but the read-only parameter reports Y.
+The watchdog measures how long a task has been waiting from
+p->scx.runnable_at, which set_task_runnable() resets when the task becomes
+runnable after it last ran. ops_dequeue() never asks for a reset, as the
+dequeue of a waiting task is temporary, e.g. for a migration or an
+attribute change.
 
-The boolean parameter defaults to false, so the driver cannot distinguish
-an omitted argument from an explicit false value. Use a custom setter to
-record whether parsing occurred and skip automatic selection when it did.
-Preserve the bool parameter type metadata. Automatic selection remains
-unchanged when the parameter is omitted.
+Leaving the scheduler isn't temporary. A task which is switched out of
+SCHED_EXT while it's waiting keeps its runnable_at. When it's switched back
+and becomes runnable, its wait appears to have started before it left, and
+the time it spent in another class counts towards the timeout. If the
+watchdog checks before the task runs, it aborts the scheduler:
 
-On the affected system, the explicit false value reports N after this
-change. The HPET-emulated path completed 100 test runs without a failure
-while the ACPI RTC event counter remained at zero.
+  sched_ext: class_switch_stall: runner[418] failed to run for 3.010s
 
-Fixes: 36d91a4d401c ("rtc: cmos: introduce quirks to enable use_acpi_alarm mode")
-Cc: stable@vger.kernel.org
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-Link: https://patch.msgid.link/20261015173029.3091872-3-gourry@gourry.net
-Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Here, the task waited for a few milliseconds before it was switched to
+SCHED_OTHER, slept outside of SCHED_EXT for three seconds, and was charged
+for all of it as soon as it woke up on SCHED_EXT again.
+
+The same happens when scx_sub_enable_workfn() hands a waiting task over to
+a new sub-scheduler, which can then be blamed for time the task waited
+under the parent. scx_rehome_task() isn't affected, as it moves the task
+through SCX_TASK_INIT, which resets runnable_at. The stale runnable_at also
+skews the default core-sched ordering in scx_prio_less().
+
+Reset runnable_at in scx_disable_task(), when the task leaves the control
+of its scheduler.
+
+Fixes: 8a010b81b3a5 ("sched_ext: Implement runnable task stall watchdog")
+Cc: stable@vger.kernel.org # v6.12+
+Assisted-by: LLM
+Signed-off-by: Michal Blaszczyk <michalblk@google.com>
+Reviewed-by: Andrea Righi <arighi@nvidia.com>
+Signed-off-by: Tejun Heo <tj@kernel.org>
 ---
- drivers/rtc/rtc-cmos.c | 26 +++++++++++++++++++++++++-
- 1 file changed, 25 insertions(+), 1 deletion(-)
+ kernel/sched/ext/ext.c | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/rtc/rtc-cmos.c b/drivers/rtc/rtc-cmos.c
-index fe514b1aa3433..209aa4ec732c8 100644
---- a/drivers/rtc/rtc-cmos.c
-+++ b/drivers/rtc/rtc-cmos.c
-@@ -57,7 +57,28 @@
-  */
+diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+index aa00b75371822..6fec09fd09707 100644
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -2454,7 +2454,11 @@ static void ops_dequeue(struct rq *rq, struct task_struct *p, u64 deq_flags)
+ 	struct scx_sched *sch = scx_task_sched(p);
+ 	unsigned long opss;
  
- static bool use_acpi_alarm;
--module_param(use_acpi_alarm, bool, 0444);
-+static bool use_acpi_alarm_explicit;
-+
-+static int set_use_acpi_alarm(const char *val, const struct kernel_param *kp)
-+{
-+	int ret;
-+
-+	ret = param_set_bool(val, kp);
-+	if (!ret)
-+		use_acpi_alarm_explicit = true;
-+
-+	return ret;
-+}
-+
-+static const struct kernel_param_ops use_acpi_alarm_ops = {
-+	.flags = KERNEL_PARAM_OPS_FL_NOARG,
-+	.set = set_use_acpi_alarm,
-+	.get = param_get_bool,
-+};
-+
-+param_check_bool(use_acpi_alarm, &use_acpi_alarm);
-+module_param_cb(use_acpi_alarm, &use_acpi_alarm_ops, &use_acpi_alarm, 0444);
-+__MODULE_PARM_TYPE(use_acpi_alarm, "bool");
+-	/* dequeue is always temporary, don't reset runnable_at */
++	/*
++	 * Don't reset runnable_at. If @p is waiting, the wait continues across
++	 * temporary dequeues, e.g. for a migration or an attribute change.
++	 * scx_disable_task() ends it if @p leaves its scheduler.
++	 */
+ 	clr_task_runnable(p, false);
  
- static inline int cmos_use_acpi_alarm(void)
- {
-@@ -822,6 +843,9 @@ static void rtc_wake_off(struct device *dev)
- #ifdef CONFIG_X86
- static void use_acpi_alarm_quirks(void)
- {
-+	if (use_acpi_alarm_explicit)
-+		return;
-+
- 	if (acpi_gbl_FADT.flags & ACPI_FADT_FIXED_RTC)
- 		return;
+ retry:
+@@ -4554,6 +4558,14 @@ static void scx_disable_task(struct scx_sched *sch, struct task_struct *p)
+ 	scx_set_task_slice(p, 0);
+ 	p->scx.reenq_cnt = 0;
  
++	/*
++	 * If @p is runnable but not running, its wait started at runnable_at,
++	 * which ops_dequeue() didn't reset. Leaving @sch ends the wait. Reset
++	 * runnable_at the next time @p is enqueued on SCX, so that the watchdog
++	 * doesn't count the time @p spends elsewhere.
++	 */
++	p->scx.flags |= SCX_TASK_RESET_RUNNABLE_AT;
++
+ 	/*
+ 	 * Verify the task is not in BPF scheduler's custody. If flag
+ 	 * transitions are consistent, the flag should always be clear
 -- 
 2.53.0
 
