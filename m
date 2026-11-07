@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049508;
-	b=iaYtPcu6gLyNJ1kx3kl2Fvhyha70dIiqQAqT0GWuE1QrKOELRSK6Dpo+2v0bOHrJ1PBe
-	 eNvDB1oQM/1ClYxRb1lXn8wPHz4LT9LHxHzoD+k2YX8Wj/r7O+uzfrY5TgelCSuiXpbyC
-	 tLCSV0mWlRI4BtuEO6G5FZ9PclVwgWdZtqOZzIZ8FJUrUwf+berGczfkYJkGlRBpK8X0Z
-	 Nby1zfXVWBqpfdiR1IpzO2/oGEUVAyTmu0QwSBXbfv4NFRYhZj5X9+VYhBvNMgzD40qbb
-	 vniEzYxmUGVbnvLCdYY7jhijPOFIb3kBBwUAul08iPTDQrx7liX8+vQNlQdUM+ZqBpw==
+	t=1794049511;
+	b=oIILvk+y69FNQ3RDLNQFKVtjV4AG+x7RLBFJo+gSkePrbotB6FKy5mOYDW9J4l2uxksS
+	 WI7T+NGLnVvh0GtzgwCOfyCtIKNkqr/+TjyZ1g5RT5PqztwlFQ9C6QaKbbUt70UpGHvng
+	 LRTgljQgH6Ge3ymMfUiEzjNaKjHUGdg7UXeXVr9umRRcjbGuxvoSzJJH8igxqq+cmpHNg
+	 0QUo6fRPkKWetv27UJay3f7Y/Vem5sIyvC6mUEcLhS69lhCpdBdqzFcaBpizZzBUL8nx0
+	 vVpOOj9N4V5N14MHF/TbrrdbN+7KpPxxJdX2+uJYLJkTrHaYhk7iQrZliQi/WaDqDhg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049508;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049511;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=e5tudLaykzN+e/LQIJk7/ui1k7S4vKVYC2viBXDui4E=;
-	b=5c7Bj/a935CV132TUgtvrPmkGeVujDUIC3UlMF/huHjNskV74rs11wRcasnRbtD+Zw+c
-	 7jtFGSzXGWXpHC5UlqpZFdJSaPK0ewVPV4X67b8QEq4Qm3aTw+hO+UoZH8tD6e5iesUNX
-	 LfjLsUllqVCEv4WuQYbT4/9ZdECllYHOMB6NIqXtERDmXYsklAA0L0HdHaCM2QGTcaeOj
-	 bOUatfHJFv6t/AIveM1fZdRxgMlreVm2KffSmhL9CBRxR66WnrcwirpyVIJJuO9MPXvFf
-	 zj8KGncnTiTPFJZVqvwG5W+sis0M5sjxt+c5+x4VotU5eg7INnjwbIPF6G8CJVr0mfw==
+	bh=7T6RjE+8y6yR7RWpJaEBVuxFdoy3uCgnfdtnogo5veA=;
+	b=0oodAdEShMypmwcyu/yJiFQ4MdJnbMLwjhXS22wojks+AkJX4dyeY51PJmebPQuX6f0n
+	 SVihnGACbfXtfK1gMjnVTFNWXcEWtJjJJKviWz+b4icAh987k0hvl+C7vk02sodRvHnfn
+	 7c0syVkfYme1lE83Au9udlaEG5qC8vdel6GNPOAJI7hIScNZhPg160rKeTopW3ZUFyDzv
+	 2KVOwAkmd+XF4m5VC+sJNGN0aSUReyiyRQ0IpDilou5RYULApqv/rY84AcFTscva3PVc4
+	 cwdDghIHNv+PtnVZwz5OCC8XA8qWCHUmFCxoHa3Utm1CzZMRQZhC5Pu/G2w8OHlmEBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VJCqnump;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RGkG5OUy;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CA3B606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:05:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70B9F606A32F
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:05:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VJCqnump
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C03421F0089F;
-	Sat,  7 Nov 2026 11:05:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RGkG5OUy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC3D61F0089F;
+	Sat,  7 Nov 2026 11:05:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049508;
-	bh=e5tudLaykzN+e/LQIJk7/ui1k7S4vKVYC2viBXDui4E=;
+	s=k20260515; t=1794049511;
+	bh=7T6RjE+8y6yR7RWpJaEBVuxFdoy3uCgnfdtnogo5veA=;
 	h=From:To:Cc:Subject:Date;
-	b=VJCqnumpXIvMYZytt4d7joIaOtJPCFe3FxlrFPYH1YUCPup4m5SYprXlY0rLINgvb
-	 5Ptho/Inp3ASDJv2MtvfKAGF88jt+Bb8Fbjq23qUBMExXj0swGKsfC8p43jqzmPXux
-	 Es1OAEpl27G/W/9WMuK4OtNFK3roQfOrT+luKIfdy6kl2rUbR6xB5Lm70TmkE4VX7f
-	 9YJDBwEb+I+cTg6UZtZATBRXxYChyfs08pcLEDzY0wWqL5gnjsxpRLrwgtMZbltMhd
-	 u9/1lrWY2a+rHAJj2PHiG73yhfc7CRJl7OZI9PLlJ+ha/arB5alClyMMOAgNANmv/i
-	 uI6VpigfeWDYg==
+	b=RGkG5OUyuxjc9AKxJbU/4TcJxpJQDRGGFQM0ny4pIbV8A0tFRLHkC1yLkuIw2cj+2
+	 4gWbKWX6rLAMiNPVNmbJpnYYWYMFBtTTBAMsffKuUmLMlpkQtJKXQdjQLEX6ba/oHt
+	 6kSHyVbcRNQU1T+ykcy3yUDKOQB9l/OupI+o4P6K8qtcF6DoIsrhIUhj9EPUF+ChSZ
+	 LXWV+JuIkZIxEMfuCln2AP9LkAiR2O7kN5Li7B7hTY+cca28aMlWTdNHblPaMvQQsg
+	 CX/pdcSu0aVBW+slB5VS8v7/4qJ/gY4zXOvivcudWKpu3hP5vHL75TvbQDShzfBHcn
+	 3Xcbxch8IZaDA==
 From: Sasha Levin <sashal@kernel.org>
-To: scardracs@disroot.org,
-	denis.benato@linux.dev,
-	w_armin@gmx.de,
-	ilpo.jarvinen@linux.intel.com
+To: mhun512@gmail.com,
+	ae878000@gmail.com,
+	deller@gmx.de
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] platform/x86: asus-wmi: Serialize WMI method evaluations with a mutex" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:05:06 -0500
-Message-ID: <20261107060506-failed-5.15-b9428edaf410@kernel.org>
+Subject: FAILED: patch "[PATCH] fbdev: kyro: Release WC setup on registration failure" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 06:05:09 -0500
+Message-ID: <20261107060509-failed-5.15-d3bc005a6294@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,145 +69,63 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x b9428edaf4109e86a97254228d831767d0acc1f8
+git cherry-pick -x d3bc005a62945aec57059201092b12b7c955e5a7
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060506-failed-5.15-b9428edaf410@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060509-failed-5.15-d3bc005a6294@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From b9428edaf4109e86a97254228d831767d0acc1f8 Mon Sep 17 00:00:00 2001
-From: Marco Scardovi <scardracs@disroot.org>
-Date: Fri, 18 Sep 2026 11:14:59 +0200
-Subject: [PATCH] platform/x86: asus-wmi: Serialize WMI method evaluations with
- a mutex
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From d3bc005a62945aec57059201092b12b7c955e5a7 Mon Sep 17 00:00:00 2001
+From: Myeonghun Pak <mhun512@gmail.com>
+Date: Mon, 14 Sep 2026 20:52:43 -0400
+Subject: [PATCH] fbdev: kyro: Release WC setup on registration failure
 
-Concurrent evaluations of ASUS WMI management methods (from ACPI notify,
-HID, userspace daemons, and debugfs) enter the BIOS ACPI/SMM interface
-simultaneously, triggering re-entrant SMIs or EC mailbox buffer corruption.
+If register_framebuffer() fails, kyrofb_probe() frees the framebuffer
+without releasing its write-combining range. Release the range before
+freeing the framebuffer. Earlier failures still skip this cleanup.
 
-Fix this at the root by introducing a centralized evaluation helper
-(asus_wmi_evaluate_method_locked()) protected by a global mutex
-(asus_wmi_eval_lock) using guard(mutex). Route all evaluations of
-ASUS_WMI_MGMT_GUID (method3, method5, method_buf, and show_call) through
-this helper.
+The missing cleanup already exists in the initial Git import, before
+the conversion from mtrr_add() to arch_phys_wc_add().
 
-A static mutex is required because asus_wmi_evaluate_method() is an
-exported symbol used by external modules (such as hid-asus and
-asus-armoury) that lack access to struct asus_wmi drvdata, and the
-underlying ASUS ACPI/EC management method is a single physical platform
-resource.
+This issue was identified during our ongoing static-analysis research
+while reviewing kernel code.
 
-The mutex is non-recursive: nested ACPI/WMI notify handlers must not call
-back into evaluate on the same task (defer via workqueue, as
-asus_rfkill_notify already does).
-
-The sysfs-versus-notify race predates the later export of
-asus_wmi_evaluate_method(), so Fixes points at the original shared
-evaluate helper rather than that export.
-
-Link: https://github.com/OpenGamingCollective/asusctl/issues/328
-Fixes: d33da3b68669 ("asus-wmi: factorise wmi_evaluate_method call")
 Cc: stable@vger.kernel.org
-Signed-off-by: Marco Scardovi <scardracs@disroot.org>
-Reviewed-by: Denis Benato <denis.benato@linux.dev>
-Reviewed-by: Armin Wolf <W_Armin@gmx.de>
-Link: https://patch.msgid.link/b6a1981777e63f0c28bd719d8203ebbda57d6957.1789722252.git.scardracs@disroot.org
-Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Assisted-by: LLM
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Signed-off-by: Helge Deller <deller@gmx.de>
 ---
- drivers/platform/x86/asus-wmi.c | 30 +++++++++++++++++++++---------
- 1 file changed, 21 insertions(+), 9 deletions(-)
+ drivers/video/fbdev/kyro/fbdev.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
-index a2e552b207fba..60fbe13e100fe 100644
---- a/drivers/platform/x86/asus-wmi.c
-+++ b/drivers/platform/x86/asus-wmi.c
-@@ -16,6 +16,7 @@
- #include <linux/acpi.h>
- #include <linux/backlight.h>
- #include <linux/bits.h>
-+#include <linux/cleanup.h>
- #include <linux/debugfs.h>
- #include <linux/delay.h>
- #include <linux/dmi.h>
-@@ -28,6 +29,7 @@
- #include <linux/leds.h>
- #include <linux/minmax.h>
- #include <linux/module.h>
-+#include <linux/mutex.h>
- #include <linux/pci.h>
- #include <linux/pci_hotplug.h>
- #include <linux/platform_data/x86/asus-wmi.h>
-@@ -353,6 +355,20 @@ static void asus_wmi_show_deprecated(void)
+diff --git a/drivers/video/fbdev/kyro/fbdev.c b/drivers/video/fbdev/kyro/fbdev.c
+index c237389888229..94d6af54e6c46 100644
+--- a/drivers/video/fbdev/kyro/fbdev.c
++++ b/drivers/video/fbdev/kyro/fbdev.c
+@@ -765,7 +765,7 @@ static int kyrofb_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 	fb_memset_io(info->screen_base, 0, size);
  
- /* WMI ************************************************************************/
+ 	if (register_framebuffer(info) < 0)
+-		goto out_free_fb;
++		goto out_free_wc;
  
-+/*
-+ * Concurrent evaluations of ASUS WMI methods can re-enter firmware
-+ * SMI/EC mailbox handling and corrupt the mailbox.
-+ */
-+static DEFINE_MUTEX(asus_wmi_eval_lock);
-+
-+static acpi_status asus_wmi_evaluate_method_locked(u32 method_id,
-+						   struct acpi_buffer *input,
-+						   struct acpi_buffer *output)
-+{
-+	guard(mutex)(&asus_wmi_eval_lock);
-+	return wmi_evaluate_method(ASUS_WMI_MGMT_GUID, 0, method_id, input, output);
-+}
-+
- static int asus_wmi_evaluate_method3(u32 method_id,
- 		u32 arg0, u32 arg1, u32 arg2, u32 *retval)
- {
-@@ -367,8 +383,7 @@ static int asus_wmi_evaluate_method3(u32 method_id,
- 	union acpi_object *obj;
- 	u32 tmp = 0;
+ 	fb_info(info, "%s frame buffer device, at %dx%d@%d using %ldk/%ldk of VRAM\n",
+ 		info->fix.id,
+@@ -776,6 +776,8 @@ static int kyrofb_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
  
--	status = wmi_evaluate_method(ASUS_WMI_MGMT_GUID, 0, method_id,
--				     &input, &output);
-+	status = asus_wmi_evaluate_method_locked(method_id, &input, &output);
+ 	return 0;
  
- 	pr_debug("%s called (0x%08x) with args: 0x%08x, 0x%08x, 0x%08x\n",
- 		__func__, method_id, arg0, arg1, arg2);
-@@ -419,8 +434,7 @@ static int asus_wmi_evaluate_method5(u32 method_id,
- 	union acpi_object *obj;
- 	u32 tmp = 0;
++out_free_wc:
++	arch_phys_wc_del(currentpar->wc_cookie);
+ out_free_fb:
+ 	framebuffer_release(info);
  
--	status = wmi_evaluate_method(ASUS_WMI_MGMT_GUID, 0, method_id,
--				     &input, &output);
-+	status = asus_wmi_evaluate_method_locked(method_id, &input, &output);
- 
- 	pr_debug("%s called (0x%08x) with args: 0x%08x, 0x%08x, 0x%08x, 0x%08x, 0x%08x\n",
- 		__func__, method_id, arg0, arg1, arg2, arg3, arg4);
-@@ -467,8 +481,7 @@ static int asus_wmi_evaluate_method_buf(u32 method_id,
- 	union acpi_object *obj;
- 	int err = 0;
- 
--	status = wmi_evaluate_method(ASUS_WMI_MGMT_GUID, 0, method_id,
--				     &input, &output);
-+	status = asus_wmi_evaluate_method_locked(method_id, &input, &output);
- 
- 	pr_debug("%s called (0x%08x) with args: 0x%08x, 0x%08x\n",
- 		__func__, method_id, arg0, arg1);
-@@ -5092,9 +5105,8 @@ static int show_call(struct seq_file *m, void *data)
- 	union acpi_object *obj;
- 	acpi_status status;
- 
--	status = wmi_evaluate_method(ASUS_WMI_MGMT_GUID,
--				     0, asus->debug.method_id,
--				     &input, &output);
-+	status = asus_wmi_evaluate_method_locked(asus->debug.method_id,
-+						 &input, &output);
- 
- 	if (ACPI_FAILURE(status))
- 		return -EIO;
 -- 
 2.53.0
 
