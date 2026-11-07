@@ -1,55 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050503;
-	b=QQonj6/GkdeMEpT6VX12OIxWzHOsX6ZdCEW6xAebPtE2g2l1gTAu8YQ4hgxBsYEEMxx9
-	 0PFgbdzR2seqVUnZzJ0l2bOgcCQAZFbbHu/MqOZ6D675yjYboXVvKlrMyonsulGR06HzZ
-	 rNcYhkfKm1k++DJhXSP19Z+tMjuR82b6PL1xr3v1w5cdgIv4ZpCZn+h5xaFIf8wcPQF/D
-	 XohV0lyjHQwzWLcT9uzRAP0BiLhRQkTKUAG+UeLZs7et2jYTtpgqQSrjszVyST+3qwABY
-	 RAkLFomt92n+I2wKb/ftZ9rJzfxeMcO8/Z0ki8sl7gFIYNNclCVu0Q7qVC2XGUJGZvw==
+	t=1794050506;
+	b=1rmp4GxRe3u0dUyczq675Fyjn/EN8PGf20bvlXMzu3p3GvH5xxeZc8MZOudqtkIqWgqi
+	 sCCP2AdoxqxxwkLsMIKVRnJmQi+N4097BmWXKFGpCWH6rNmz41ZbjOX6U+sieTKo+FGZr
+	 9mwpxj0XrVTMybygyPUyAB4S1+pZH9w8ZfMnx5MEbBzD0NzwzuGBkx4UTnSxQPOztADTE
+	 kr8+8vKy4eMO6VR+AssXPq4JxPlxszDEyR++LWnU2WK0VY17alxqssrvCAzN2TLzqOu27
+	 +zTwwj7tzkdNsNgB4rHmAz+V/bDJ7tZgUj6sXwEexEPSpUxdkcnHaG9iSxVZZ0YrMWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050503;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050506;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=X0NDkBUj2jyZ73KCh+xGkhZR843hRMX+PwB2TZNnSHM=;
-	b=3HL14Fkj8SMvhZ4DkbGiJDPuC8CGRtnpqNkiI/AJ4r4X658/6gSepvR1aF8dpfkCVL4I
-	 eCwtN7WDCRxJYfSdMBrCDabW2etWoTVv8WDzIQAHByG2h14xJFpyGpGcxXN/rZokKBDSb
-	 kFuEbIhrSSEQvY+vQLL6TYszkjRUqkafuQyodbzEmJeytqoBCIdCc91/WkR0jrlhOHPdf
-	 DYZ0PvtKpWC3OuXepBBZfsryltfFlhi7iHxQOCW+zqK6MsCaMq10fMJu7IKdi7D6dMPmT
-	 WCLmL+Kx1C95iXkbDVgqdHEhxLbx3SUD+x/obAUxbCOX76WxHmkYR1J/KLLkS0swbyw==
+	bh=hWGQuDvbkG16Ye3amvQKnIt/3bMnWBAIZnDq5QKL+w4=;
+	b=B9rMk5IUlDvlq+AhPsiVjhi6JddW+Nag2a68BRUQqe6WqHPGr4E8XYaO1ezCKwt+UPWZ
+	 bYrQNsAiV9Zz8Kwm+NeEES9K+/K+4J20OimsKTF6Z05gyziKBk/+LLNFWTRnW7jlbOIIM
+	 jasqDoDftwaCEHDgzfgYbh8v+LiQu6LZ98hS4Tykr+GbJtjvyeLJr8z1XQLAPctkbRuya
+	 hLCtrS8ZR0XPpQMO5NTh79JuxdFu4n2uWZUlWIAlxjcr3/lTkzYDFoDVkUn3XKepaHHwR
+	 fkp1s/ReaVXZeV9AZPTWql0js+gR6saKe+1zydpYmR4M7mbfbIPl7EmDpFwREFzs/8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=okNoC64N;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="MThPt/fU";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7C91606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:21:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4FEA606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:21:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=okNoC64N
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC70F1F0089F;
-	Sat,  7 Nov 2026 11:21:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MThPt/fU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 614A41F0089F;
+	Sat,  7 Nov 2026 11:21:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050502;
-	bh=X0NDkBUj2jyZ73KCh+xGkhZR843hRMX+PwB2TZNnSHM=;
+	s=k20260515; t=1794050505;
+	bh=hWGQuDvbkG16Ye3amvQKnIt/3bMnWBAIZnDq5QKL+w4=;
 	h=From:To:Cc:Subject:Date;
-	b=okNoC64Ni1KJCjN8Fs2Q+M8nsDNy3294YTba8ogGpVsHf2bZGxXB2lM/4XrdkrJ3I
-	 +GVU/tj/HFEITALsHjmr9ZfmlscTNfdXpH5Kl3xZDMGSsTMvPTsDTvKboGfPaFA0p9
-	 YOPm/CgfKVccI9ujVPcQ/MKCIw56BkokBuPghQ0Di+Zz1l1CivfHwPN9pgGizMSIHf
-	 86/EU2mcaA4aASWvMHaU31Ml6ALxp+Jhia/YWN8CjIjO48ouxZVwDpP2w/6r+d+swu
-	 WF/9oZfatB5pfUYOa5C0jlswCPlCw8fHJQARTc214lntfDOcPqsycJ2Nhffj587SRk
-	 LMX4/TGE8myOg==
+	b=MThPt/fUJTGq2/x516TK7T3kYWB8F7AQMhlOTbkmDZB9b+fB7huyW7ObnhlG/7fYL
+	 05mfKCV32/M65aQCkaFC7FTHQGdVKpN3TdMEhUNcQn8KTB9nD3opwuJ2Zm0R9eEqHR
+	 nev2yOLHAcytw8eaFlC3p1rrPgg9TRJb/1UA61F0lc4Db2dwBCAoDQjoc6Xfy+KVhu
+	 iX/tFdAoZVGRDTtCC5kx4LhiXPB4w6rU2WkJmSZjb3oc3BV/hugkDBl8ALXjdffytT
+	 qoS9a60yAenYAqR+QQudFLTf4AiJajRMIllj5OhuY9AyFsO+HsTSc501N22Dbfzmo1
+	 gKnwri4SU6CPg==
 From: Sasha Levin <sashal@kernel.org>
-To: leitao@debian.org,
-	akpm@linux-foundation.org,
-	sj@kernel.org,
-	baolin.wang@linux.alibaba.com,
-	hughd@google.com,
-	paulmck@kernel.org
+To: ciro.pedrini@gmail.com,
+	ilpo.jarvinen@linux.intel.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/shmem: report RCU-tasks quiescent states while undoing a range" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:21:40 -0500
-Message-ID: <20261107062140-failed-5.10-ebd1a08c1921@kernel.org>
+Subject: FAILED: patch "[PATCH] platform/x86: hp-wmi: Add OMEN board 8A17 thermal profile support" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:21:44 -0500
+Message-ID: <20261107062143-failed-5.10-d35a1ea827a2@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -72,81 +68,72 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x ebd1a08c192109c83a87ddf42793ed6283180faf
+git cherry-pick -x d35a1ea827a2efaea7fb059ffafefae7c13b9556
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062140-failed-5.10-ebd1a08c1921@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062143-failed-5.10-d35a1ea827a2@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From ebd1a08c192109c83a87ddf42793ed6283180faf Mon Sep 17 00:00:00 2001
-From: Breno Leitao <leitao@debian.org>
-Date: Fri, 18 Sep 2026 04:24:37 -0700
-Subject: [PATCH] mm/shmem: report RCU-tasks quiescent states while undoing a
- range
+From d35a1ea827a2efaea7fb059ffafefae7c13b9556 Mon Sep 17 00:00:00 2001
+From: Ciro Pedrini <ciro.pedrini@gmail.com>
+Date: Fri, 25 Sep 2026 17:52:26 -0300
+Subject: [PATCH] platform/x86: hp-wmi: Add OMEN board 8A17 thermal profile
+ support
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-This shows up in the Meta fleet on ftruncate() of large tmpfs files:
+The HP OMEN 17-ck1xxx (board 8A17) isn't in omen_thermal_profile_boards,
+so hp-wmi uses the generic thermal profile query. The firmware only
+stores that value and never acts on it, so the EC stays in its default
+mode and the CPU is held at 45 W whatever profile is selected.
 
-  INFO: rcu_tasks detected stalls on tasks:
-  00000000752fd185: .. nvcsw: 59455/59455 holdout: 1 idle_cpu: -1/0
-  task:rocksdb:bottom  state:R  running task
-    __folio_split
-    find_get_entry
-    find_get_entries
-    truncate_inode_partial_folio
-    shmem_undo_range
-    shmem_setattr
-    notify_change
-    do_ftruncate
-    __x64_sys_ftruncate
-    do_syscall_64
+The board uses the OMEN interface (mode byte at EC 0x95, thermal policy
+v1) and also needs the timed profile quirk: without it, the EC drops
+back to the default mode about two minutes after each profile change.
 
-shmem_undo_range() walks the whole of the requested range in folio_batch
-sized steps, twice, and its two cond_resched() calls are the only
-reschedule points in that walk.
+Add 8A17 to omen_thermal_profile_boards and
+omen_timed_thermal_profile_boards.
 
-cond_resched() is not an RCU-tasks quiescent state.  Use
-cond_resched_tasks_rcu_qs() at both points so the walk reports an
-RCU-tasks quiescent state as it proceeds.
+With this, all three profiles work and sustained package power under
+load goes from 45 W to 56-79 W.
 
-Link: https://lore.kernel.org/20260918-shmem-tasks-rcu-v1-1-79acf91a2569@debian.org
-Fixes: 8315f42295d2 ("rcu: Add call_rcu_tasks()")
-Signed-off-by: Breno Leitao <leitao@debian.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: SJ Park <sj@kernel.org>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Hugh Dickins <hughd@google.com>
-Cc: "Paul E . McKenney" <paulmck@kernel.org>
-Cc: <stable@vger.kernel.org>
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Ciro Pedrini <ciro.pedrini@gmail.com>
+Link: https://patch.msgid.link/20260925205226.883724-1-ciro.pedrini@gmail.com
+Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 ---
- mm/shmem.c | 4 ++--
+ drivers/platform/x86/hp/hp-wmi.c | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/mm/shmem.c b/mm/shmem.c
-index f33dbf5af2cb7..f2a36a1b53750 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -1367,7 +1367,7 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, uoff_t lend,
- 		}
- 		folio_batch_remove_exceptionals(&fbatch);
- 		folio_batch_release(&fbatch);
--		cond_resched();
-+		cond_resched_tasks_rcu_qs();
- 	}
+diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
+index 64d0ea8de32e6..a2afa86f2fe49 100644
+--- a/drivers/platform/x86/hp/hp-wmi.c
++++ b/drivers/platform/x86/hp/hp-wmi.c
+@@ -207,7 +207,7 @@ static const char * const omen_thermal_profile_boards[] = {
+ 	"886B", "886C", "88C8", "88CB", "88D1", "88D2", "88F4", "88F5", "88F6",
+ 	"88F7", "88FD", "88FE", "88FF",
+ 	"8900", "8901", "8902", "8912", "8917", "8918", "8949", "894A", "89EB",
+-	"8A15", "8A18", "8A42", "8A43",
++	"8A15", "8A17", "8A18", "8A42", "8A43",
+ 	"8BAD",
+ 	"8C58",
+ 	"8E41",
+@@ -227,7 +227,7 @@ static const char * const omen_thermal_profile_force_v0_boards[] = {
+  * "balanced" when reaching zero.
+  */
+ static const char * const omen_timed_thermal_profile_boards[] = {
+-	"8A15", "8A42",
++	"8A15", "8A17", "8A42",
+ 	"8BAD",
+ };
  
- 	/*
-@@ -1408,7 +1408,7 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, uoff_t lend,
- 
- 	index = start;
- 	while (index < end) {
--		cond_resched();
-+		cond_resched_tasks_rcu_qs();
- 
- 		if (!find_get_entries(mapping, &index, end - 1, &fbatch,
- 				indices)) {
 -- 
 2.53.0
 
