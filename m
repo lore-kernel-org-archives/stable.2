@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049626;
-	b=eO/uLECs+jauo1F9MztF1cGH78lJK3aE2TdBC38fufis+j4WJSDb5ADCHjmFhcXGP+JD
-	 e718CZJzavmHe0ueX7Ww+UsECj6V35DwORekcUh/hsChJsvLkAjMKw+bienqP3DqhIvnm
-	 zR9W7xGbsEHgKw9iq7fDdI9NN/hqf9X3twLYOui3mttIa9RdN5m0tLr8r6WiZS0PqMo24
-	 CpbazmjSn6KSqheuXQZh0xfXg9v3Q74kyAjlxLskkY3KODlrY77Lm6odODLvC3awS2MeM
-	 ff2BQLgN/nMxQZvAcVHhYaIcViNnBSo4QFYn2jfUlhozMH4X7e911+9osDP3pm0k1Nw==
+	t=1794049629;
+	b=yISN/DUAeHvP/s9xaR3eeuJlTnZL7qKd+xQJFLZptSr05wk4WJjN2Nh28L1G2m3mFnmG
+	 uH4qHdbiYPZmgVz0Ar8+Tg4jG4Cd3mC/ssW3rznac7PDjfzks3sEGlI96g+qvWG6oHJBe
+	 okorTH1u+WQKB5ZHBAyg2Cgt3FFdinNmOrfAjcEVdWdwToolsVcU0GLHLNCkB4zqK0OOv
+	 AU1CtWTGwoe1CZulGxGq1vGLe/XGkDe30MvpwYjaTiPvI42lTC+pXT3yzXpWfykhySn3N
+	 xt/zynsDFOe7Tyx8XZbp54cjpH0pMlQenJp7hYjue54MfScYfjUKcahsTxMIweLf5MQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049626;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049629;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=qjO9YOnYMa6bPiKqnZyHKOMOJojZIu3hTmgxtwqbyP4=;
-	b=yftu/r2rmUmxsW6Sh6mi3L/9CVAaPaZBbRVu4I2JyRFrHfhw/dUJEM6QXdarB4th17Yr
-	 gC4VvMnlv/aAhVR5zw+2xFkvDqsttSAK8yIkIWUDaAiM1fUjKQZMyQi+ej8O8T87ZSLlu
-	 mlBCJyQTPca+WVOL2ncNVTdALskal7CMGeR9WxC776unOlbK71+0wBpOvVFE+sYtibGcf
-	 CqnhuMWwuteGD07cz6zy2eGY5dGUs30j+BVdK2AIJGWc0BgQv0eyWKLWtnI9c75vhwIsD
-	 fxWsFM9SQGNacXLSF1w62wl4zVHZQvtAqLB3n+v48LuB5fv0ZtlEUPT2joWO1STAyfg==
+	bh=7VIy3EdthoID7rLnYQrSoyQhpDvJVUjVvDifHObXaWc=;
+	b=k252kokMJp0ojh2Lnxb5o097w0o9y7Nq8WgG0qsgdPG4kNv1W070U/MXaDNaSWA/gEs1
+	 2ryEa5lzwWdpTXWQ4sPefGINHs44+HOEhOVecG50E6CQoIvks6lDrz7ciDyfUp1116VGO
+	 Mzy5ck4QEOQcLsqC352aZKa4x+dPGy8RY9onjEd18obuDpBTGxgrzYhAoe94hvV/MlLzf
+	 B4aFYyEh1nQrFFCLG5vQ8680J7LjxX991urtK4Ut8FoOqT1v2OW/QB715NS6es2vUeuEA
+	 Awzye4B0Gaz7+jX37MRb0MhoOdalI6ZrhM2e6naKzLs+hWonKd4EDoBUtLAGMW70EaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SVRTz5mV;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="AduLIu/k";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53D96606A33F
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:07:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E196606D802
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:07:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SVRTz5mV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B13E81F0089F;
-	Sat,  7 Nov 2026 11:07:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AduLIu/k
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD3D71F0089F;
+	Sat,  7 Nov 2026 11:07:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049626;
-	bh=qjO9YOnYMa6bPiKqnZyHKOMOJojZIu3hTmgxtwqbyP4=;
+	s=k20260515; t=1794049629;
+	bh=7VIy3EdthoID7rLnYQrSoyQhpDvJVUjVvDifHObXaWc=;
 	h=From:To:Cc:Subject:Date;
-	b=SVRTz5mVQt0NYz3OmBDZKlr3LyIzBvUYxNNyRAlSfm4SWikTKOfVi+axREdBT/Qyn
-	 SF+aQHkTXR//5YGY7Gv8FRbYXbEIAJmCtocizJh0trKWG8Vm8ZLpgOMNEz7Ng/BXkg
-	 Ts5NBSJqwcg1tYiz/mlokyiaEJh11fFvp3EiXeLHy2f54lKCI6ye1YUN0NZ7PRi8S7
-	 qRW+QiUBA8axrt3nYwmfTBivNqpja/lDkqmgsJRr/Q5BvBkxlkH2ibk8eMlZ+YbFaX
-	 utjrDVTQKRzr70EP2+I4Lp/N+igOzq06Db7InQWdLvTEoK9nBdggRhWvi6YlDidDLD
-	 LZgtYpr5L+hZQ==
+	b=AduLIu/kMOyEhXN1TFfE3c2Ri3L/J+PrYrWLzuCHu8lRoceTLJ4TbVlk+l/ca2HRM
+	 QWAz8nB05+z/534bAO0MenpD2vGSGOzIj33YmMQn5Bv17mZB2CpW4cDn7/MbFq4MD7
+	 wdLgeqhB76pZ9mBpd2DTdODTuxpQSSibMDVFubc4Q9ao4uWu75+8mGBxagyHMNdW8h
+	 Qpnlctbxa1aMzpafZk7/c4FhVcQNBIMXbJdrmFDIZcnfwqx0Y9dWEC6hBcoJYpOe2q
+	 YUfISJZ82aFjgjXBFXb5ZQ/mL4lbYIiy6K2yQA1qAsz08kTmI8CpHQh5z4yReEKF0w
+	 CVx0lgB6ZnoIQ==
 From: Sasha Levin <sashal@kernel.org>
-To: liuwb@xiaopeng.com,
-	zhugl3@xiaopeng.com,
-	broonie@kernel.org
+To: daehojeong@google.com,
+	chao@kernel.org,
+	jaegeuk@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] spi: bcm-qspi: reject oversized dummy bytes in mspi exec_mem_op" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:07:04 -0500
-Message-ID: <20261107060704-failed-5.15-9e44f0df3fff@kernel.org>
+Subject: FAILED: patch "[PATCH] f2fs: return -EIO for a lost inode block after cp_error" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 06:07:07 -0500
+Message-ID: <20261107060707-failed-5.15-53b12b63304b@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,60 +69,72 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 9e44f0df3fff215d9033089e85980048c3ac132a
+git cherry-pick -x 53b12b63304b34a3850a901c4de3cc6ad08e0aee
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060704-failed-5.15-9e44f0df3fff@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060707-failed-5.15-53b12b63304b@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 9e44f0df3fff215d9033089e85980048c3ac132a Mon Sep 17 00:00:00 2001
-From: Weibin Liu <liuwb@xiaopeng.com>
-Date: Thu, 15 Oct 2026 10:16:12 +0800
-Subject: [PATCH] spi: bcm-qspi: reject oversized dummy bytes in mspi
- exec_mem_op
+From 53b12b63304b34a3850a901c4de3cc6ad08e0aee Mon Sep 17 00:00:00 2001
+From: Daeho Jeong <daehojeong@google.com>
+Date: Mon, 12 Oct 2026 18:22:33 +0000
+Subject: [PATCH] f2fs: return -EIO for a lost inode block after cp_error
 
-bcm_qspi_mspi_exec_mem_op() builds a local command buffer cmd[6]
-holding one opcode byte, up to four address bytes and one spare
-byte, and sets t[0].len = op->addr.nbytes + op->dummy.nbytes + 1.
-bcm_qspi_exec_mem_op() only validates op->addr.nbytes <= 4 and never
-bounds op->dummy.nbytes, which spi_mem_check_op() also leaves
-unrestricted. With addr.nbytes = 4 and dummy.nbytes >= 2 the length
-becomes 7 or more, so write_to_hw() reads past cmd[] on the kernel
-stack and pushes the leaked bytes into the hardware TXRAM.
+After cp_error, dirty node caches are dropped without being written.
+If such an inode was never written, its NAT entry is still NEW_ADDR,
+and reading its inode block returns -ENOENT.
 
-Reject operations whose dummy phase does not fit the remaining byte
-of cmd[] by requiring op->dummy.nbytes <= 1, so such transfers fall
-back to the generic SPI path instead of overrunning the buffer.
+f2fs_get_dnode_of_data() passes that -ENOENT up, and callers take it
+as a hole. Since the inode block is missing, the next offset can only
+advance one block, so fiemap walks block by block up to maxbytes,
+about 2^30 blocks, while holding the inode lock. It took hours in a
+power-off recovery test after shutdown and blocked unlink and umount
+on the file.
 
-Reviewed-by: Guanglei Zhu <zhugl3@xiaopeng.com>
-Fixes: 5f195ee7d830c ("spi: bcm-qspi: Implement the spi_mem interface")
-Cc: stable@vger.kernel.org # 4.18+
-Signed-off-by: Weibin Liu <liuwb@xiaopeng.com>
-Link: https://patch.msgid.link/20261015-bcm-qspi-dummy-bytes-v1-1-c319da3c2497@xiaopeng.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Return -EIO instead of -ENOENT when the inode block itself is missing
+after cp_error or shutdown. A missing direct or indirect node is still
+reported as -ENOENT.
+
+Cc: stable@kernel.org
+Fixes: 28607bf3aa6f ("f2fs: drop dirty node pages when cp is in error status")
+Signed-off-by: Daeho Jeong <daehojeong@google.com>
+Reviewed-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
 ---
- drivers/spi/spi-bcm-qspi.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ fs/f2fs/node.c | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/spi/spi-bcm-qspi.c b/drivers/spi/spi-bcm-qspi.c
-index 0f96ac59da114..5031b21424795 100644
---- a/drivers/spi/spi-bcm-qspi.c
-+++ b/drivers/spi/spi-bcm-qspi.c
-@@ -1197,8 +1197,9 @@ static int bcm_qspi_exec_mem_op(struct spi_mem *mem,
- 	u32 addr = 0, len;
- 	u_char *buf;
+diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
+index 1863e8f1c859f..2dc136dbee34f 100644
+--- a/fs/f2fs/node.c
++++ b/fs/f2fs/node.c
+@@ -842,8 +842,20 @@ int f2fs_get_dnode_of_data(struct dnode_of_data *dn, pgoff_t index, int mode)
  
-+	/* cmd[] holds 1 opcode + 4 address + 1 dummy byte at most */
- 	if (!op->data.nbytes || !op->addr.nbytes || op->addr.nbytes > 4 ||
--	    op->data.dir != SPI_MEM_DATA_IN)
-+	    op->dummy.nbytes > 1 || op->data.dir != SPI_MEM_DATA_IN)
- 		return -EOPNOTSUPP;
- 
- 	buf = op->data.buf.in;
+ 	if (!dn->inode_entry) {
+ 		nentry[0] = f2fs_get_inode_cache(sbi, nids[0]);
+-		if (IS_ERR(nentry[0]))
+-			return PTR_ERR(nentry[0]);
++		if (IS_ERR(nentry[0])) {
++			err = PTR_ERR(nentry[0]);
++			/*
++			 * cp_error drops dirty node caches, so the inode block
++			 * of an inode that was never written reads as NEW_ADDR
++			 * and returns -ENOENT. It is not a hole; the inode is
++			 * gone. Callers treat -ENOENT as a hole and keep
++			 * looking block by block (e.g. fiemap up to maxbytes).
++			 */
++			if (err == -ENOENT && (f2fs_cp_error(sbi) ||
++					is_sbi_flag_set(sbi, SBI_IS_SHUTDOWN)))
++				err = -EIO;
++			return err;
++		}
+ 	} else {
+ 		nentry[0] = dn->inode_entry;
+ 	}
 -- 
 2.53.0
 
