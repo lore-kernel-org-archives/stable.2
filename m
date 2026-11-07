@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794045796;
-	b=NGEpwH5SdFfPivtvDEXHXx2Nybe/LZWtyRasaRhiIgNiA//5qDXMAaYu5JXiHM9tSM8r
-	 82k2ccGGra3anUYJg/WbxaLcSudI2ag3DpCuvW72ShpIsKojNF/D9bRbeYB6+aHC0G9xd
-	 LAOdGPo8RNGvPTAVYnNWaGkab3w3mSZCP7vhTEfugUiiYvo93UFJ4wjrEmxFMlCqzPUhv
-	 NjviSNurLylkPIOvyXAMPHISmcjFl7AsKMNLyvDhRfPPzncMjJqzL0OC4BdLfC8vX4xOO
-	 FC/QF3CPdmOMvz06X/3NhS9x/HYRBce6QkHsVzPBTPa8EaDoVf2p8vrXwNFFhcOfAag==
+	t=1794045798;
+	b=UlsjaMKnzYk4ddal0VOkM2MjfMnE/lqy91uBIJM3Zp08wo/L+2+xF7WiTZur457s7T+0
+	 LCYOMRFbbrkkdNw8UoRhGnVlTfU7skx24/dclVDckCUjq8ECch2BIgQQeWkldrCSUAfPh
+	 w1XJ7yvk2AznazABgZwE4mmEJ55OfEwy9MZ63M984QE13Y8MjAOKMC59eGgIUgCl3sdXM
+	 BwLXZDv1JkeJ+v+9oxogMftVvoWH2srvyaYcqRZxnoVmStv0jphCoqntTa7ScxlyygqTT
+	 WvfiADG1VIMh0z7LUNiszMUPH0F3IKDXDSVmVZbRcyT2Bin+xPLe+ccYWdL94x3AwVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794045796;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794045798;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=XRuGdrMmH1oQ13WQsXtuEpoaHgaYltffJM4G9I2DUoA=;
-	b=NsuJ/fXqH8WhQHawtx/QvBif0Ms3sdtYSYFLC6w5nERXFdzOrtp132Z5GApVtS5+uYA3
-	 XdaYFgDxaoc/DEER1vvo1856oty05qVbpig0ZwRe32oe+WOKek9pkA26MNp0tOmqMsK/8
-	 RhWuTtITHMwnjbXxPzz99F1INHCv8qsVh2aBcWAt0TqJXUOEz08VzpLbsKrzK/kA50fhK
-	 xfUzpCMJRmvWoOJ3gVHqlrvF0wsC/dpVEIac3qhyhsJXUuyilFLySPywSKNCi9mTsCGyb
-	 FmfOEOcyacP3VuEwJwolxDO145bsPW9BDSs8hjIE7MpjQ/LLZSnYa8dCG9J7ZhkLyHA==
+	bh=DcAmRD8cD5nfkuOTtG9Ju67kAIfXKWUV+G74ZkKVqU8=;
+	b=GCzXQyT7XgDABNVCQm8w2m0MR/7K4D4QD8TYV1qvWFa9jlIlsSlV/sq6EwyUH+/1FRTE
+	 PPtQaC88jOGNVXMX65yoWG/0/JjyTVYqICogXZvbQDCV1BJOqbPGrht1nxM9B1T7IZDn2
+	 VgsgIYJmMQaVAA9vCJeqMCaWkNHxU/8O0GmvKviFV8kbSMQy6Vm1AYHp0olnThpvxCPkc
+	 AATrc63445lDbpKQ5why0VkPPNn7CFORsS5nxCbhotx0jJfc/EXoAOuCxy24fz1HUB0oe
+	 /q61o1qiQu8IP7pMPhLE9DdHHq9GkppJQgO8oaTQgsBygWf5HefLUiieKpefTRnRT5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LmAiAwWG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hqT9dAu3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06DA1606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:03:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40020606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:03:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LmAiAwWG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45C731F0089F;
-	Sat,  7 Nov 2026 10:03:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hqT9dAu3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9798C1F0089F;
+	Sat,  7 Nov 2026 10:03:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794045795;
-	bh=XRuGdrMmH1oQ13WQsXtuEpoaHgaYltffJM4G9I2DUoA=;
+	s=k20260515; t=1794045798;
+	bh=DcAmRD8cD5nfkuOTtG9Ju67kAIfXKWUV+G74ZkKVqU8=;
 	h=From:To:Cc:Subject:Date;
-	b=LmAiAwWGOJVOG8W7h6DyWN/Q/febki7dTbOd/B+Qjk6UvQXtybV9zWCneQhn+z6uQ
-	 ahzbkXSJj5LRhJNE783e027u6LtTFjcCTDKsnBKWaqxnHK31q2u267CDmZQ8NZfhXM
-	 NHafLe6Rd6D3njBnwM17xmCc/Ae8n27F51zUG/3W7q6a0MUZ3NTE1ddWVEarKKKszT
-	 6MWBr3Sj/ssR+OdRgzCqUHh13nJKQcbVZGuALN/l8AceC5L+5vWTypiBkzEZfWV/Ms
-	 VxnYlzybGqFIxpembr3FSB9Tq+dD54y6ILfwDXzzBiD3f/C8OOuiOaE+v/8xLuhKTx
-	 Qri4LnmWz1lhw==
+	b=hqT9dAu3IHEMPxuhMs4r4VOEMSRYOfaXDqfwV2UUxQ6uddi5cbwjjPlFtWH904smA
+	 zcjS72iIifu3mp4RgIvYNIWAe4jxsRWfVp1eMytS9ATPFXWh24HXN/j6sUGtgFT/Go
+	 cuCQ6Jo2JmQ/0vl8F2BBabQlsn/G926q9FuMZBbhzBZ9K0UExM1ODTg4LngCTOhals
+	 4d98nX138MWY+4BoDN0MObrWpZANBfX0NxnS5AmWeFuUL/SN2eT3+MsUSEseLq3AeT
+	 pTPRmE5sZLpjya8POJion/dbw2/Xk5WNWwcrr4u/nNnzdOQ1pUXqqtvGiQLG6H3Ydx
+	 ioJYPbp5XBAkg==
 From: Sasha Levin <sashal@kernel.org>
-To: imre.deak@intel.com,
-	luciano.coelho@intel.com
+To: ankit.k.nautiyal@intel.com,
+	annoycc@gmail.com,
+	nemesa.garg@intel.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/i915/dp_mst: Fix configuring TUs for a disconnected stream" failed to apply to 7.3-stable tree
-Date: Sat,  7 Nov 2026 05:03:14 -0500
-Message-ID: <20261107050314-failed-7.3-ee00f8fbb2b2@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/i915/quirks: Limit eDP rate to HBR2 on HP Pavilion Plus 14-ew1" failed to apply to 7.3-stable tree
+Date: Sat,  7 Nov 2026 05:03:16 -0500
+Message-ID: <20261107050316-failed-7.3-550b703fdbb2@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,109 +69,62 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x ee00f8fbb2b202002ab90834e02e9ba372773a36
+git cherry-pick -x 550b703fdbb2a2022faa75b4b11ab135241afbd9
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050314-failed-7.3-ee00f8fbb2b2@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050316-failed-7.3-550b703fdbb2@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From ee00f8fbb2b202002ab90834e02e9ba372773a36 Mon Sep 17 00:00:00 2001
-From: Imre Deak <imre.deak@intel.com>
-Date: Mon, 7 Sep 2026 20:44:13 +0300
-Subject: [PATCH] drm/i915/dp_mst: Fix configuring TUs for a disconnected
- stream
+From 550b703fdbb2a2022faa75b4b11ab135241afbd9 Mon Sep 17 00:00:00 2001
+From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Date: Mon, 7 Sep 2026 09:15:55 +0530
+Subject: [PATCH] drm/i915/quirks: Limit eDP rate to HBR2 on HP Pavilion Plus
+ 14-ew1
 
-During an atomic commit after all the MST stream CRTC state is computed
-the driver ensures that the sum of TUs of all the streams on a given MST
-topology link is within limits (63 for 8b10 and 64 for 128b132b). For a
-disconnected stream the DRM MST core's BW verification doesn't ensure
-this, because the topology state it uses for this is destroyed as soon
-as the stream (i.e. MST connector/port) is disconnected. The driver
-should keep the link state valid even for such disconnected streams, as
-userspace may disable them one-by-one only in a deferred way. Ensure the
-link's sum of TUs stays within limits in this case by simply reusing the
-maximum link BPP limit from the stream's (i.e. CRTC's) old state.
+The eDP panel on the HP Pavilion Plus Laptop 14-ew1xxx advertises HBR3
+while leaving the TPS4 support bit clear. The output however flickers, once
+link is trained with HBR3.
 
-The disconnection can happen either via the whole topology getting
-disconnected or via only the given stream's port getting disconnected.
-Check for both of these conditions separately, as a connector gets
-unregistered after a link disconnect event only in a deferred way.
+Until commit 8c9006283e4b ("Revert "drm/i915/dp: Reject HBR3 when sink
+doesn't support TPS4"") such sinks were capped at HBR2 by the TPS4 check
+which incidentally kept this panel stable. That check was reverted because
+other panels legitimately need HBR3 without advertising TPS4, and the
+per-machine QUIRK_EDP_LIMIT_RATE_HBR2 was introduced to handle the affected
+machines instead.
 
-Cc: stable@vger.kernel.org # v6.10+
-Link: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16073
-Link: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16384
-Reviewed-by: Luca Coelho <luciano.coelho@intel.com>
-Signed-off-by: Imre Deak <imre.deak@intel.com>
-Link: https://patch.msgid.link/20260907174413.741851-2-imre.deak@intel.com
+Add the machine to the list of devices that need the
+QUIRK_EDP_LIMIT_RATE_HBR2.
+
+Fixes: 8c9006283e4b ("Revert "drm/i915/dp: Reject HBR3 when sink doesn't support TPS4"")
+Reported-by: Annoy Cc <annoycc@gmail.com>
+Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16743
+Cc: <stable@vger.kernel.org> # v6.18+
+Tested-by: Annoy Cc <annoycc@gmail.com>
+Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Reviewed-by: Nemesa Garg <nemesa.garg@intel.com>
+Link: https://patch.msgid.link/20260907034555.2753846-1-ankit.k.nautiyal@intel.com
 ---
- drivers/gpu/drm/i915/display/intel_dp_mst.c  | 21 ++++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_dp_mst.h  |  2 ++
- drivers/gpu/drm/i915/display/intel_link_bw.c |  3 ++-
- 3 files changed, 25 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_quirks.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index 20766b6c0bcfa..0c362784afe4a 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -2172,6 +2172,27 @@ bool intel_dp_mst_crtc_needs_modeset(struct intel_atomic_state *state,
- 	return false;
- }
+diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
+index 33245f44c0d50..7d7db774d8c7b 100644
+--- a/drivers/gpu/drm/i915/display/intel_quirks.c
++++ b/drivers/gpu/drm/i915/display/intel_quirks.c
+@@ -257,6 +257,9 @@ static struct intel_quirk intel_quirks[] = {
+ 	/* Dell XPS 13 7390 2-in-1 */
+ 	{ 0x8a52, 0x1028, 0x08b0, quirk_edp_limit_rate_hbr2 },
  
-+bool intel_dp_mst_stream_disconnected(struct intel_atomic_state *state,
-+				      const struct intel_crtc *crtc)
-+{
-+	struct intel_connector *connector;
++	/* HP Pavilion Plus Laptop 14-ew1xxx */
++	{ 0x7d55, 0x103c, 0x8c31, quirk_edp_limit_rate_hbr2 },
 +
-+	connector = get_connector_in_state_for_crtc(state, crtc);
-+	if (!connector)
-+		return false;
-+
-+	if (!connector->mst.dp)
-+		return false;
-+
-+	if (!connector->mst.dp->mst.mgr.mst_state)
-+		return true;
-+
-+	if (drm_connector_is_unregistered(&connector->base))
-+		return true;
-+
-+	return false;
-+}
-+
- /**
-  * intel_dp_mst_prepare_probe - Prepare an MST link for topology probing
-  * @intel_dp: DP port object
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.h b/drivers/gpu/drm/i915/display/intel_dp_mst.h
-index ab09b487c6bb5..8ce89242c05c9 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.h
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.h
-@@ -28,6 +28,8 @@ int intel_dp_mst_atomic_check_link(struct intel_atomic_state *state,
- 				   struct intel_link_bw_limits *limits);
- bool intel_dp_mst_crtc_needs_modeset(struct intel_atomic_state *state,
- 				     struct intel_crtc *crtc);
-+bool intel_dp_mst_stream_disconnected(struct intel_atomic_state *state,
-+				      const struct intel_crtc *crtc);
- void intel_dp_mst_prepare_probe(struct intel_dp *intel_dp);
- bool intel_dp_mst_verify_dpcd_state(struct intel_dp *intel_dp);
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_link_bw.c b/drivers/gpu/drm/i915/display/intel_link_bw.c
-index b47474a3e9fec..e71e76d6fd3e0 100644
---- a/drivers/gpu/drm/i915/display/intel_link_bw.c
-+++ b/drivers/gpu/drm/i915/display/intel_link_bw.c
-@@ -64,7 +64,8 @@ void intel_link_bw_init_limits(struct intel_atomic_state *state,
- 			intel_atomic_get_new_crtc_state(state, crtc);
- 		int forced_bpp_x16 = get_forced_link_bpp_x16(state, crtc);
- 
--		if (state->base.duplicated && crtc_state) {
-+		if ((state->base.duplicated && crtc_state) ||
-+		    intel_dp_mst_stream_disconnected(state, crtc)) {
- 			limits->max_bpp_x16[pipe] = crtc_state->max_link_bpp_x16;
- 			if (intel_dsc_enabled_on_link(crtc_state))
- 				limits->link_dsc_pipes |= BIT(pipe);
+ 	/* Xiaomi Book Pro 14 2026 */
+ 	{ 0xb081, 0x1d72, 0x2424, quirk_disable_psr2 },
+ };
 -- 
 2.53.0
 
