@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047562;
-	b=mvIstAHdXyJOpEISt3BEocy+LtGZVg5UJiEwhzLamplJnadwzcLpgqlhZETd1+rvs9uU
-	 KElV9U3RhNwX19YjuUTz+stRPJ/j1Lfo89eS8M4R2wlciFc+KExG8ZPDsCGjVMkjXSRjY
-	 FoVuup4pGpl3V3bOShea9YeZmjMhTGGRFz0TiP+TSzBmcqEnAJZU5D+lX4P9AJ6IZMXVw
-	 ky/SR2fzsnIRHzRFKewRCY0qrcEqSiYIV5xCJVMfUXfluKUq/FQhujMkhd9vB/I/N7F58
-	 l5vgACKBky6Ieui20ZyBcT5OFjORAXx+EWXKxhEWcJBAUIcyVpl2SHS0Mpz422RJ9FQ==
+	t=1794047564;
+	b=G/6WKoO2wrcF3KjH8fG2R6NMCgh1bbqjX1EPXk776WyQLL4z95LzJYbSiTBhtY72locy
+	 H0DW8wuW863qvtEB4GPL8vc2mNl7VBn9r+Zo1l36zhy64QkmkTWWCj6HE680tSScW7Wvt
+	 4QPT0o+CIbq2AcojoTEeezq4EIz7ggtfbbTVMUyOoh7X9JrDMwawJG3tZYK/xEhElXL8y
+	 s0Fx3yJrq/PT1EfEG9JeINslGf/JfNtKlvV+A3ToZhgq3/eHzdOkhB7RKM/g+MMPaWLjm
+	 5kPfz+4knJGztP4Qj3vlvXlglIqXCxbr/PfmggHcLy6Vp95FqPbfRDH/e25m1gO/5Ww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047562;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047564;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=cuJpuDny+opWrndvugD1UiSp3IVdUYSZr5ic3XkVISU=;
-	b=ZWRNbxcBOHLA4YstFHRjIpS32sF+ElaosUC5ZJ5b3mlgm9P+2bQQrdQ/P9ZXfuUUd25w
-	 gGglv6yqxoi0OhfcW44cd6uq6BgxW5pBDj/FO+7JgQYAR25MycN738xCu2/ugcpIbOiIi
-	 7eQYDjsigRQcU0aMSlJSoQYYWXeXpRMd0fXWxyD9PZvGIQSQQbz0L8IkREKVy5x+DKzRw
-	 EA+KduSfXArCuNveexxCWtpgANei577BSi0xn7q3v1J03hSY0tPnbCGDTvuv8p6bKPLUU
-	 qfjxl1bXGJUIP65lAsyrZS147ZhvZ8Vp9EVA1Ruav+7MPf9H+uF3ek4JWe5P8S7o9YA==
+	bh=pNfZvzKPPSNOdssX1xJNPb57cIuJMeDURk4YrFUPIck=;
+	b=j8oFapKewNiZ0WTapFNpjmCyYFPcGs4vARhsFdSfHu79k8uNyseXLtyIquqr1S2+T/hX
+	 aQfLma9STDSVRfxjSDTDhD/IXfMbxhwE+rYihrNQswDGSpANRZkLmaoYRDV6S9ov1Puzk
+	 jd9yd/PqE9719ot6dvQzZns8V4UwMOnMA93BlWjNMjHeAYVX2hnMENhQARahXfbYkjgBJ
+	 Tlep+6RcP4hrdV4t6+35mXqXdAz4okxmxBqE47B933XzE+qmBBXohVnM5J90MiPAy74qU
+	 gdc6VlG1KatUQ6PZOlS8R+6rD9EpZtwWeaqYFnrGtiaMW6zogl+6IxMhO8YG8lJXI4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m+Qs5NsW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RXfGFytu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3155606A330
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:32:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2C25606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:32:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m+Qs5NsW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DFA01F0089F;
-	Sat,  7 Nov 2026 10:32:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RXfGFytu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FD601F0089F;
+	Sat,  7 Nov 2026 10:32:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047561;
-	bh=cuJpuDny+opWrndvugD1UiSp3IVdUYSZr5ic3XkVISU=;
+	s=k20260515; t=1794047563;
+	bh=pNfZvzKPPSNOdssX1xJNPb57cIuJMeDURk4YrFUPIck=;
 	h=From:To:Cc:Subject:Date;
-	b=m+Qs5NsWxa+LSVN/p3f3syrw0vmwbK6jQPLOKY7VQUleMEUrFYOYgF413fmtV8CHU
-	 eMUNUiPpJVmbJuCDPXY9JKIkbbkH5q77rQ1IZeOBekoZ7rawNeKH0DjCTz6AabTFuF
-	 UJmuUrnXYVf9rc5gklQ3O6Gk4lMrja99GXE0ma6Gl3j6MQdVt4t5AdZnYu8pWbHUnv
-	 DuZedBynmDePDL87rpNI2PTEUim+LCOc2wzQJZma9EonDJvc0BbRip25ylbrtfbutU
-	 EeUx510Ko7pH0fvyRzIbXDHEqsv1OCaRA+ekdjHXEoY32zwxo4x7MBdo1K+RziQj0e
-	 Rjnpw21Ciq7dQ==
+	b=RXfGFytuW+3K89+eAix7p1gi5BvJx3EXGIb4FljIzaT9jnbDJ81KbHc7R5ZdOJnh+
+	 SLst3hvU+rvmzkAljX0c0VR6Z4F9MAF0Q4sbuw4fWjkgMheyxueak4JvTQdnd2tn7E
+	 AZhZY4A7C+WNIm2SjGrQkCo2jjGfUz0kH2uhhGzpf5rSsEQdV2FE8ZgpXij979YlTV
+	 fDGxACcR3DGmjUoDmQomdSATEkIhEReuf3IswUC0wS9hUm0l+niLczeOY7BI1gvj3K
+	 5lgmm1ycvZeOwJLlFIVJUX5DWxi/NkdBzSLOf80bSnUZeRrXZW+A50Ipu14yEMwz2H
+	 2zC+HlGM+/5SA==
 From: Sasha Levin <sashal@kernel.org>
-To: qwe.aldo@gmail.com,
-	almaz.alexandrovich@paragon-software.com
+To: 4ncienth@gmail.com,
+	herbert@gondor.apana.org.au
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] fs/ntfs3: validate that EA entry size covers its name and value" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:32:40 -0500
-Message-ID: <20261107053240-failed-6.6-60bd50014cc9@kernel.org>
+Subject: FAILED: patch "[PATCH] crypto: algif_skcipher - rewind rounded output bytes" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:32:42 -0500
+Message-ID: <20261107053242-failed-6.6-2f90facc7b94@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,94 +68,77 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 60bd50014cc9a97c5e34a8bddd2bad4d2dc5acb7
+git cherry-pick -x 2f90facc7b94934653eb7ebfadcc25d503b89196
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053240-failed-6.6-60bd50014cc9@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053242-failed-6.6-2f90facc7b94@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 60bd50014cc9a97c5e34a8bddd2bad4d2dc5acb7 Mon Sep 17 00:00:00 2001
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Date: Thu, 23 Jul 2026 19:10:45 -0300
-Subject: [PATCH] fs/ntfs3: validate that EA entry size covers its name and
- value
+From 2f90facc7b94934653eb7ebfadcc25d503b89196 Mon Sep 17 00:00:00 2001
+From: Daehyeon Ko <4ncienth@gmail.com>
+Date: Sun, 4 Oct 2026 14:09:46 +0900
+Subject: [PATCH] crypto: algif_skcipher - rewind rounded output bytes
 
-ntfs_read_ea() walks the on-disk $EA attribute and checks each EA_FULL
-entry for consistency.  For an entry with a non-zero ef->size (the
-offset to the next entry) the loop only verifies that this stride fits
-in the remaining buffer, and then continues:
+af_alg_get_rsgl() advances the receive iterator by the unrounded RX
+scatterlist length.  For a continuing skcipher request,
+_skcipher_recvmsg() then rounds its local length down to a whole chunksize
+without restoring the iterator.
 
-	if (ef->size) {
-		ea_size = le32_to_cpu(ef->size);
-		if (ea_size > bytes)
-			goto out1;
-		continue;
-	}
+A later chunk starts after bytes which the provider never wrote, while the
+syscall returns only the processed length.  When copy_splice_read()
+supplies non-zeroed pages and publishes that return as a dense prefix, the
+gap exposes stale bytes from a previous page lifetime.
 
-It never verifies that the entry's own name (ef->name_len) and value
-(ef->elength) actually fit inside ef->size.  A later reader trusts
-ef->elength unconditionally; ntfs_get_ea() does:
+With unprivileged xts(aes), a 31-byte MSG_MORE request followed by one
+final byte advances a 47-byte destination while returning 32 bytes.  A
+hardened v7.2-rc5 image retained all 15 seeded stale bytes in 4,829 of
+4,829 records.  With init_on_alloc enabled, all 72,345 gap bytes observed
+were zero.
 
-	len = le16_to_cpu(ea->elength);		/* up to 0xffff */
-	...
-	if (len > size)				/* size is the user buffer */
-		return -ERANGE;
-	memcpy(buffer, ea->name + ea->name_len + 1, len);
+Rewind the iterator by the tail excluded during rounding, before rejecting
+a zero processed length.  The crypto request uses only the rounded length;
+af_alg_free_resources() releases the entire RX list before another receive
+iteration.
 
-A crafted image with a small but valid ef->size (e.g. 24) and
-ef->elength == 0xffff therefore passes validation, and a getxattr()
-with a large enough user buffer copies up to 64 KiB starting just past
-the short entry -- an out-of-bounds read of the ea_all allocation that
-leaks adjacent kernel heap memory to userspace.
+The fixed target-like kernel returned byte-identical dense 48-byte output
+in 4,771 of 4,771 rounds.  The unmodified kernel returned the vulnerable
+32-byte short record in 2,409 of 2,409 rounds.
 
-  BUG: KASAN: slab-out-of-bounds in ntfs_get_ea+0x2b8/0x3f0
-  Read of size 65535 ...
-   ntfs_get_ea -> ntfs_getxattr -> vfs_getxattr -> do_getxattr
-
-The zero-ef->size branch already computes the same struct_size() to
-derive the stride; mirror that in the non-zero branch and reject the
-entry when its declared size cannot hold the name and value.
-
-Fixes: 0e8235d28f3a ("fs/ntfs3: Check fields while reading")
+Fixes: e870456d8e7c ("crypto: algif_skcipher - overhaul memory management")
 Cc: stable@vger.kernel.org
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Signed-off-by: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+Assisted-by: LLM
+Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
 ---
- fs/ntfs3/xattr.c | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+ crypto/algif_skcipher.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/fs/ntfs3/xattr.c b/fs/ntfs3/xattr.c
-index 7f77df9c46f85..2cf45bdd93d54 100644
---- a/fs/ntfs3/xattr.c
-+++ b/fs/ntfs3/xattr.c
-@@ -167,6 +167,24 @@ static int ntfs_read_ea(struct ntfs_inode *ni, struct EA_FULL **ea,
- 				goto out1;
- 			if (bytes < offsetof(struct EA_FULL, name))
- 				goto out1;
+diff --git a/crypto/algif_skcipher.c b/crypto/algif_skcipher.c
+index 1e61fe6e24b99..291dbd6989325 100644
+--- a/crypto/algif_skcipher.c
++++ b/crypto/algif_skcipher.c
+@@ -135,12 +135,16 @@ static int _skcipher_recvmsg(struct socket *sock, struct msghdr *msg,
+ 	 * full block size buffers.
+ 	 */
+ 	if (ctx->more || len < ctx->used) {
+-		if (len < bs) {
++		size_t excess = len % bs;
 +
-+			/* Check if we can use fields ef->name_len and ef->elength. */
-+			if (bytes < offsetof(struct EA_FULL, name))
-+				goto out1;
++		len -= excess;
++		iov_iter_revert(&msg->msg_iter, excess);
 +
-+			/*
-+			 * The declared entry size (ef->size) must be large
-+			 * enough to hold the name and value.  Otherwise a later
-+			 * reader such as ntfs_get_ea() copies ef->elength bytes
-+			 * starting past the entry, reading out of bounds of the
-+			 * ea buffer and leaking adjacent heap memory to
-+			 * userspace via getxattr().
-+			 */
-+			if (struct_size(ef, name,
-+					1 + ef->name_len +
-+						le16_to_cpu(ef->elength)) >
-+			    ea_size)
-+				goto out1;
- 			continue;
++		if (!len) {
+ 			err = -EINVAL;
+ 			goto free;
  		}
+ 
+-		len -= len % bs;
+ 		cflags |= CRYPTO_SKCIPHER_REQ_NOTFINAL;
+ 	}
  
 -- 
 2.53.0
