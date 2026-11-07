@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048991;
-	b=dWqmtvHT3E6VAjg7ZN+FJbh4hVbNqtZ85DYxPL/PUfZEyqlzODF5L6CFEDmYxEHuFHtr
-	 Cv9bVICJlPioivjDJAfVIdA0Bx4DgZw9caPsrRlf2NeyLaymY0gyFJy4IWSwQG6ntcotL
-	 mmyDXbs7WtTNKJ0TW2KTArYR+HIlsrsDSo5i8nDxZFj6p8KqCR222IUcdLKWkgfY3+IFp
-	 GlOL8pNuDyekbv8pLrF+75f5mrEytV1ahFYqS5xHYRob+CanufwKZQd6qDBevzescWNUp
-	 mwCdwvCdNobmAcnXLDU0rAQJsZ3D057kfBN4fHr8uxoRX9NSgQUGUzXtK1IWyI/SJ3A==
+	t=1794048994;
+	b=u5ZzYmSOD54KWUmeuaREVnq/RNfjrQWxx/01CLzOsbSGk4vnLl1Hm+bsZR0PB8R7W4sP
+	 j3Cza7AdogB9tgEh3UFZyPPEcCfW2qxDpdC/YLA/iK6nc2gXsbu2kwwUO+1nbSLlwK8T4
+	 lddKKvYZCGZJGI1FqA1thRX0dbPsTaSv0TSDuBPg19UkHaxx5hVMXqGxih9x9ktsstTWf
+	 M/+bSKfLpx9y4wuu5K9KH5iUa7QUAoxBBfbOKl7B3H8Z6CRXzDEFHxJPpZL9uo1mbUjPQ
+	 9Ssgcv+0sRywX1LkDSdd8iQrYdWlLgGctsyZxtI6afQ3Ndv8XzYyF8PlaolZDSP6GMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048991;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048994;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=lk0PL2hu5ZSAIdqMRZVJMb30hTJrxXCejCJftExj730=;
-	b=ZKm8vHCGwPSPmW3aVv3m3PtGt3syVR6LsKsk/6RzvWrbDMGo6AYOWOdehvGB4zvGjdA6
-	 RQGgK3D/dx9MVOvBxJH+vlrekpGVj/1xOWdznb39l5MP45h92oEYDMX5PaVhIsfOCK0kM
-	 D0V/Q+Pe8S3LwOmCUQn8uo4fW0zcp+PudP4iedar4alW38vX/8Eo/uU++kMD9rPIzlpeu
-	 dTLYbH1jjf4fwCZMg6Z8s91yFJtU/2Ji0w/tes+mXcZzh9nk/ChjPwa4U5Cgz8D8LxJbW
-	 XiN2b5odim0FDHLh84vLK0lOYqAM6cShdbgs7e8IFPRmbECy0OrzvNyiGcmKBF9wWNA==
+	bh=HpHiR7zfeUCCSVaEFY3E2Jx7BUXwNoMio96pvIjqbCw=;
+	b=bqoMvJEBCuYZbvukZuQZi6IUysAFdehI5FVh7VkTPwxJpGiHKm39M6y/NYRGKUv0zlY2
+	 4+5kniKRyHEkloBXbR3JPu0RhVg4uPxkyBKhaxvfxp+qmpXJXnOq09TPiQvnyxkNB1Kt6
+	 K23tOL3s5fwvpBmW38UUhp6nVbF0NxwYq0vA2lTTddquU6opn3pGpd8XGNsMDpMV1fta6
+	 JbofOq0B9vIlICJIoLrnJjcgbJenG9qmKBZc4WP+7rFrWcFabZ2hWv3+/TGhZPLoNTfCs
+	 pZfRektjt8CUEmdLy2eTVgZPDtwwEqVobThy9wLlpy9CUBqu+QTI1s6dLPpelQcPFFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tadc6jFM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="V0v+/Nt0";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70AAB606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:56:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 838DB606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:56:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tadc6jFM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBDA71F0089F;
-	Sat,  7 Nov 2026 10:56:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V0v+/Nt0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA39E1F008A1;
+	Sat,  7 Nov 2026 10:56:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048991;
-	bh=lk0PL2hu5ZSAIdqMRZVJMb30hTJrxXCejCJftExj730=;
+	s=k20260515; t=1794048994;
+	bh=HpHiR7zfeUCCSVaEFY3E2Jx7BUXwNoMio96pvIjqbCw=;
 	h=From:To:Cc:Subject:Date;
-	b=Tadc6jFM3ZZd/SByg9eOjI47Eab/B/xCWFdjG7GBGy2H9H6pQFpB8J0kxq6BV6u9M
-	 HXY2ThyuRiF30Cna1i1hm9oln8bS0zBrDPCp/qWltW6N05bBMW7rHczipiLwrH5El/
-	 ZHSWScnZ3TJxKfl9C6kMVEUOCgOu4/B+gxieiNSn7LdTzgBz8tx6x1WZws5Mj92QGc
-	 GeeWjxwdem3y93TZr/QONEXltmDlyyDpg22k10lltSt0GHiDRtxUOmSzEBtAlrm9bG
-	 SPuZISzj/3covyk4zLz4EVnmK2QfcQHHG6kUIImmITS4Z1qAeieTmWzZ1T/YnyAUlx
-	 qISsMeUQd8yEg==
+	b=V0v+/Nt0sU5JxnZZO/qQ3QKp9eFtHg+BgM+iXpbYB26WNjEVcKebpKWXi4A4JP3j6
+	 iCBh498pWBvpa/QGtIap1GPujX2H7MKE8L+AWQG7RL4iMDfSG8gNqQmGc9auoJgL/T
+	 kRzrVxCMKeeLAw6RXGB9hGK24lrkXWzF+vP7bNzSAo58QGxsWSyCbHQpo2zwtaQumo
+	 Z+AxAxEr0uYPPiHQSUMmK+mF1X43zAx7kFmF7AQkaEUV8hsZoYB4Y9it5FSSEZ1vNC
+	 ZbeYZ4EsDqSA10bFEoHwuZf9nK8K1GzqybMG8QBjnM1iaT/ZgJ7tms3KF8OtGtBS+g
+	 Hx4sNmFnBOiqg==
 From: Sasha Levin <sashal@kernel.org>
-To: kanie@linux.alibaba.com,
-	nilay@linux.ibm.com,
-	kbusch@kernel.org
+To: ebiggers@kernel.org,
+	aalbersh@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] nvme-tcp: Validate the queue state under the queue lock in the address attribute" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:56:29 -0500
-Message-ID: <20261107055629-failed-6.1-2eeeaa9c1ff0@kernel.org>
+Subject: FAILED: patch "[PATCH] fsverity: Explicitly require FMODE_READ to retrieve hashes" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:56:32 -0500
+Message-ID: <20261107055632-failed-6.1-1acb4fd2d011@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,187 +68,137 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 2eeeaa9c1ff0c429096acc2947c296db6a56f96d
+git cherry-pick -x 1acb4fd2d011c4bd6cc961095ae17361c71ff61a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055629-failed-6.1-2eeeaa9c1ff0@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055632-failed-6.1-1acb4fd2d011@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 2eeeaa9c1ff0c429096acc2947c296db6a56f96d Mon Sep 17 00:00:00 2001
-From: Guixin Liu <kanie@linux.alibaba.com>
-Date: Wed, 28 Oct 2026 10:09:04 +0800
-Subject: [PATCH] nvme-tcp: Validate the queue state under the queue lock in
- the address attribute
+From 1acb4fd2d011c4bd6cc961095ae17361c71ff61a Mon Sep 17 00:00:00 2001
+From: Eric Biggers <ebiggers@kernel.org>
+Date: Thu, 22 Oct 2026 21:15:22 +0000
+Subject: [PATCH] fsverity: Explicitly require FMODE_READ to retrieve hashes
 
-Reading the "address" sysfs attribute calls kernel_getsockname() on the
-admin queue socket, which can race with the queue teardown during
-connection error recovery: a reader can observe NVME_TCP_Q_LIVE set,
-then block on the queue lock while nvme_tcp_free_queue() releases the
-socket and clears queue->sock without holding the lock.  Once the
-reader acquires the lock it dereferences the NULL socket pointer.
+The comment in fsverity_ioctl_read_metadata(), which justifies not
+checking for FMODE_READ, doesn't consider that the nonstandard access
+mode 3 (ioctl-only) exists.
 
-Commit 76d54bf20cdc ("nvme-tcp: don't access released socket during
-error recovery") had the queue liveness check inside the lock.
-Commit 782373ba2766 ("nvme: tcp: avoid race between queue_lock lock
-and destroy") moved it back out because the lock itself is destroyed
-in nvme_tcp_free_queue(), so a reader arriving late trips
-mutex_destroy().
+Opening an ioctl-only fd generally requires read (and write) permission.
+However, there are gaps with certain LSMs: an ioctl-only fd requests
+read (and write) permission via security_inode_permission, but not
+security_file_open.  With certain LSMs relying on the latter, such as
+Landlock and AppArmor, an ioctl-only fd can be opened without the LSM
+granting read (and write) permission.
 
-Check the queue liveness inside the queue lock, and clear queue->sock
-under the same lock.  The teardown clears NVME_TCP_Q_LIVE under the
-lock well before the socket is released, so a reader either sees the
-bit cleared or a socket that cannot be released while it holds the
-lock.  To also close the lock lifetime race, the queue locks are now
-owned by the controller: they are initialized with the queue array and
-only destroyed when the controller is freed, which cannot happen while
-a sysfs attribute read is still in progress.  The queue count is
-computed by the NVME_TCP_OPT_NR_QUEUES() macro from the original
-connect options for both initialization and destruction, as reconnects
-may shrink ctrl->queue_count.
+Since FS_IOC_READ_VERITY_METADATA returns hashes of file contents
+blocks, it should require read permission.  This also applies to
+FS_IOC_MEASURE_VERITY, which returns a hash for the whole file.
 
-Fixes: 782373ba2766 ("nvme: tcp: avoid race between queue_lock lock and destroy")
+Meanwhile, ioctl-only fds are a rarely-used feature, not known to be
+used with either ioctl.
+
+Therefore, just disallow these ioctls on ioctl-only file descriptors,
+similar to what was already done with FS_IOC_ENABLE_VERITY.
+
+More specifically, explicitly check for FMODE_READ.  This also covers
+write-only fds to non-verity files which otherwise would have failed
+with ENODATA.  This change in error code for write-only fds should be
+fine too, as these ioctls cannot be usefully used with write-only fds
+anyway, but it's worth noting as another technicality.
+
+Fixes: 4dd893d832cf ("fs-verity: implement FS_IOC_MEASURE_VERITY ioctl")
+Fixes: e17fe6579de0 ("fs-verity: add FS_IOC_READ_VERITY_METADATA ioctl")
 Cc: stable@vger.kernel.org
-Signed-off-by: Guixin Liu <kanie@linux.alibaba.com>
-Reviewed-by: Nilay Shroff <nilay@linux.ibm.com>
-Signed-off-by: Keith Busch <kbusch@kernel.org>
+Reviewed-by: Andrey Albershteyn <aalbersh@kernel.org>
+Link: https://patch.msgid.link/20261022211522.1489943-1-ebiggers@kernel.org
+Signed-off-by: Eric Biggers <ebiggers@kernel.org>
 ---
- drivers/nvme/host/tcp.c | 47 ++++++++++++++++++++++++++++-------------
- 1 file changed, 32 insertions(+), 15 deletions(-)
+ Documentation/filesystems/fsverity.rst |  3 +++
+ fs/verity/measure.c                    | 10 ++++++++++
+ fs/verity/read_metadata.c              | 14 ++++++++++----
+ 3 files changed, 23 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
-index 1f7a2de954197..39cb636872938 100644
---- a/drivers/nvme/host/tcp.c
-+++ b/drivers/nvme/host/tcp.c
-@@ -103,6 +103,9 @@ enum nvme_tcp_queue_flags {
- 	NVME_TCP_Q_IO_CPU_SET	= 3,
- };
+diff --git a/Documentation/filesystems/fsverity.rst b/Documentation/filesystems/fsverity.rst
+index 22b49b295d1f9..e5d38439bf585 100644
+--- a/Documentation/filesystems/fsverity.rst
++++ b/Documentation/filesystems/fsverity.rst
+@@ -170,6 +170,7 @@ fatal signal), no changes are made to the file.
+ FS_IOC_ENABLE_VERITY can fail with the following errors:
  
-+#define NVME_TCP_OPT_NR_QUEUES(opts) ((opts)->nr_io_queues + \
-+	(opts)->nr_write_queues + (opts)->nr_poll_queues + 1)
+ - ``EACCES``: the process does not have write access to the file
++- ``EBADF``: the file descriptor is not open for reading
+ - ``EBADMSG``: the builtin signature is malformed
+ - ``EBUSY``: this ioctl is already running on the file
+ - ``EEXIST``: the file already has verity enabled
+@@ -232,6 +233,7 @@ regardless of the size of the file.
+ 
+ FS_IOC_MEASURE_VERITY can fail with the following errors:
+ 
++- ``EBADF``: the file descriptor is not open for reading
+ - ``EFAULT``: the caller provided inaccessible memory
+ - ``ENODATA``: the file is not a verity file
+ - ``ENOTTY``: this type of filesystem does not implement fs-verity
+@@ -310,6 +312,7 @@ blocks from disk without actually verifying the path to the root node.
+ 
+ FS_IOC_READ_VERITY_METADATA can fail with the following errors:
+ 
++- ``EBADF``: the file descriptor is not open for reading
+ - ``EFAULT``: the caller provided inaccessible memory
+ - ``EINTR``: the ioctl was interrupted before any data was read
+ - ``EINVAL``: reserved fields were set, or ``offset + length``
+diff --git a/fs/verity/measure.c b/fs/verity/measure.c
+index 68dfccb697720..0c75616dca011 100644
+--- a/fs/verity/measure.c
++++ b/fs/verity/measure.c
+@@ -31,6 +31,16 @@ int fsverity_ioctl_measure(struct file *filp, void __user *_uarg)
+ 	const struct fsverity_hash_alg *hash_alg;
+ 	struct fsverity_digest arg;
+ 
++	/*
++	 * This ioctl returns a hash of the file contents, so it should require
++	 * read permission.  Disallow it on ioctl-only (i.e., nonstandard access
++	 * mode 3) fds, which can in some cases be acquired without passing all
++	 * LSM read-permission checks.  Also disallow write-only fds, which can
++	 * refer only to non-verity files which would fail with ENODATA anyway.
++	 */
++	if (!(filp->f_mode & FMODE_READ))
++		return -EBADF;
 +
- enum nvme_tcp_recv_state {
- 	NVME_TCP_RECV_PDU = 0,
- 	NVME_TCP_RECV_DATA,
-@@ -1549,14 +1552,21 @@ static void nvme_tcp_free_queue(struct nvme_ctrl *nctrl, int qid)
- 	 * nvme_reset_ctrl_work(), queue teardown is immediately followed by
- 	 * re-allocation. fput() defers socket cleanup to delayed_fput_work
- 	 * in workqueue context, which can race with new queue setup.
-+	 *
-+	 * Clear queue->sock under the queue lock so that a sysfs reader in
-+	 * nvme_tcp_get_address() either observes the NVME_TCP_Q_LIVE bit
-+	 * cleared or a still valid socket.  The queue lock itself is owned
-+	 * by the controller and only destroyed when the controller is
-+	 * freed, so readers blocked on it cannot race its teardown.
- 	 */
-+	mutex_lock(&queue->queue_lock);
- 	__fput_sync(queue->sock->file);
- 	queue->sock = NULL;
-+	mutex_unlock(&queue->queue_lock);
- 	memalloc_noio_restore(noio_flag);
+ 	vi = fsverity_get_info(inode);
+ 	if (!vi)
+ 		return -ENODATA; /* not a verity file */
+diff --git a/fs/verity/read_metadata.c b/fs/verity/read_metadata.c
+index b4c0892430cde..6694149f7b467 100644
+--- a/fs/verity/read_metadata.c
++++ b/fs/verity/read_metadata.c
+@@ -166,13 +166,19 @@ int fsverity_ioctl_read_metadata(struct file *filp, const void __user *uarg)
+ 	int length;
+ 	void __user *buf;
  
- 	kfree(queue->pdu);
- 	mutex_destroy(&queue->send_mutex);
--	mutex_destroy(&queue->queue_lock);
++	/*
++	 * This ioctl returns file contents block hashes, so it should require
++	 * read permission.  Disallow it on ioctl-only (i.e., nonstandard access
++	 * mode 3) fds, which can in some cases be acquired without passing all
++	 * LSM read-permission checks.  Also disallow write-only fds, which can
++	 * refer only to non-verity files which would fail with ENODATA anyway.
++	 */
++	if (!(filp->f_mode & FMODE_READ))
++		return -EBADF;
++
+ 	vi = fsverity_get_info(inode);
+ 	if (!vi)
+ 		return -ENODATA; /* not a verity file */
+-	/*
+-	 * Note that we don't have to explicitly check that the file is open for
+-	 * reading, since verity files can only be opened for reading.
+-	 */
  
- #ifdef CONFIG_DEBUG_LOCK_ALLOC
- 	lockdep_unregister_key(&queue->nvme_tcp_sk_key);
-@@ -1992,7 +2002,6 @@ static int nvme_tcp_alloc_queue(struct nvme_ctrl *nctrl, int qid,
- 	int ret, rcv_pdu_size;
- 	struct file *sock_file;
- 
--	mutex_init(&queue->queue_lock);
- 	queue->ctrl = ctrl;
- 	init_llist_head(&queue->req_list);
- 	INIT_LIST_HEAD(&queue->send_list);
-@@ -2136,7 +2145,6 @@ static int nvme_tcp_alloc_queue(struct nvme_ctrl *nctrl, int qid,
- #endif
- err_destroy_mutex:
- 	mutex_destroy(&queue->send_mutex);
--	mutex_destroy(&queue->queue_lock);
- 	return ret;
- }
- 
-@@ -2823,6 +2831,9 @@ static void nvme_tcp_stop_ctrl(struct nvme_ctrl *ctrl)
- static void nvme_tcp_free_ctrl(struct nvme_ctrl *nctrl)
- {
- 	struct nvme_tcp_ctrl *ctrl = to_tcp_ctrl(nctrl);
-+	/* the same count used to size and initialize the queue array */
-+	unsigned int nr_queues = NVME_TCP_OPT_NR_QUEUES(nctrl->opts);
-+	unsigned int i;
- 
- 	if (list_empty_careful(&ctrl->list))
- 		goto free_ctrl;
-@@ -2834,6 +2845,8 @@ static void nvme_tcp_free_ctrl(struct nvme_ctrl *nctrl)
- 	nvmf_free_options(nctrl->opts);
- free_ctrl:
- 	put_net(ctrl->net);
-+	for (i = 0; i < nr_queues; i++)
-+		mutex_destroy(&ctrl->queues[i].queue_lock);
- 	kfree(ctrl->queues);
- 	kfree(ctrl);
- }
-@@ -3086,17 +3099,18 @@ static int nvme_tcp_get_address(struct nvme_ctrl *ctrl, char *buf, int size)
- 
- 	len = nvmf_get_address(ctrl, buf, size);
- 
--	if (!test_bit(NVME_TCP_Q_LIVE, &queue->flags))
--		return len;
--
- 	mutex_lock(&queue->queue_lock);
- 
--	ret = kernel_getsockname(queue->sock, (struct sockaddr *)&src_addr);
--	if (ret > 0) {
--		if (len > 0)
--			len--; /* strip trailing newline */
--		len += scnprintf(buf + len, size - len, "%ssrc_addr=%pISc\n",
--				(len) ? "," : "", &src_addr);
-+	if (test_bit(NVME_TCP_Q_LIVE, &queue->flags)) {
-+		ret = kernel_getsockname(queue->sock,
-+				(struct sockaddr *)&src_addr);
-+		if (ret > 0) {
-+			if (len > 0)
-+				len--; /* strip trailing newline */
-+			len += scnprintf(buf + len, size - len,
-+					"%ssrc_addr=%pISc\n",
-+					(len) ? "," : "", &src_addr);
-+		}
- 	}
- 
- 	mutex_unlock(&queue->queue_lock);
-@@ -3173,8 +3187,7 @@ static struct nvme_tcp_ctrl *nvme_tcp_alloc_ctrl(struct device *dev,
- 	 */
- 	context_unsafe(INIT_LIST_HEAD(&ctrl->list));
- 	ctrl->ctrl.opts = opts;
--	ctrl->ctrl.queue_count = opts->nr_io_queues + opts->nr_write_queues +
--				opts->nr_poll_queues + 1;
-+	ctrl->ctrl.queue_count = NVME_TCP_OPT_NR_QUEUES(opts);
- 	ctrl->ctrl.sqsize = opts->queue_size - 1;
- 	ctrl->ctrl.kato = opts->kato;
- 
-@@ -3237,14 +3250,18 @@ static struct nvme_tcp_ctrl *nvme_tcp_alloc_ctrl(struct device *dev,
- 	 * its requests already allocates the PDUs from the page frag caches of
- 	 * the queues, sized by their header digest setting, so set up the
- 	 * locks and hdr_digest here.
-+	 *
-+	 * The queue locks are owned by the controller, not the queues:
-+	 * they outlive the per-queue connect/disconnect cycles so that
-+	 * sysfs readers can never race their destruction.
- 	 */
- 	for (i = 0; i < ctrl->ctrl.queue_count; i++) {
- 		mutex_init(&ctrl->queues[i].pf_cache_lock);
- 		ctrl->queues[i].hdr_digest = opts->hdr_digest;
-+		mutex_init(&ctrl->queues[i].queue_lock);
- 	}
- 
- 	ctrl->net = get_net(current->nsproxy->net_ns);
--
- 	ret = nvme_init_ctrl(&ctrl->ctrl, dev, &nvme_tcp_ctrl_ops, 0);
- 	if (ret)
- 		goto out_kfree_queues;
+ 	if (copy_from_user(&arg, uarg, sizeof(arg)))
+ 		return -EFAULT;
 -- 
 2.53.0
 
