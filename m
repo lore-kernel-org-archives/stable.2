@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048125;
-	b=cxl8Y9YH8QTbpEOEf7uXk5Py6eYtupaNrIMk1wDdLS1vPXdsxlL4sewf/lc7Q8q0lpM3
-	 of7joSHbyAFlwHgXgDircUXkn4SZs40W7eUNINVVn6j7Iol9nrQuf80s+0sRk5TeAcqJN
-	 aFFdSAF/8B7cpMfixqAaUmZee+5qvIo46eZEnnPbxhUdMCkOdjx2Wl1XsPW89jDyB6YTz
-	 UkzpHGAK9ffMrWYaIZsPPa2Ph0RxDU9UIypG2pp0wGssjYtaLFbHBcXZtV9Dd8PPXG72C
-	 q/KvxKAMt8eJbf27z6Axa++yELEcCuGmIj6QVTnBGGrIaVlwnGI9jMdpKPhMCQuIr0Q==
+	t=1794048127;
+	b=4JYHNcXi/rdgb1AQj9FgOJek15x+x33B9fL+gXYBQtNtcKjU05jRAgFF7VyexwHbjQcl
+	 odKA4GH12pyB2J8Mee9jIxIFv04irKX1cha/YtdlhoFhzLtSbCfMtlvl4WcAg2XUbVibh
+	 T3tekHdaQnohxvlxNlCWNvL6WEWaW43784PZeNl0lvQtjlQEtH46Z6vxE7kimPrgU6Eju
+	 Eo7qHhP3boxCxJ91+svi6TNO5uzPQdmrDKGM/Oek0+Q5RaSGg9sJ/ZKp2NE7OvBH+bfs4
+	 3XGDKh+QZvfrx71gnUxAe4BvESPlk9OyI0eMaPoyC1PDxv5/+SClaogo9CHVCXx6m0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048125;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048127;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=EhFPW4WwrrQxXgf68Ly3TkYrtq4Nk4ZmsWWuAr0xmgk=;
-	b=0J06oYW3Xg3W8JHbejlSOvJRl5dTOJnCxKPQHf3SB7i5LSKJwiSPUW8IfwKZTKmiprUj
-	 uNOI0ognyDqfA84TmPET8HiYUkW0G6SBqW6xknkMGaaUVMhUC+nmzPnJGodpBKO95Xhi3
-	 QQq3iQoU4vSylgHCEC3KxlivlnvZpVFprAjtW9V0w5StjbQ7x0co77d/agvZMXbpDaSvi
-	 BWkvF3gptTtu659JSyR1dUWqqjwxx6K1kwgO+WOv38qhvEMptX8mJLPa9ObTO0KM7z8IU
-	 +aic73uYhqEOAlhDnd9vshulghq9WKSFrJ6ViYxcFmGTd6+xlvfitHHYFK546KUkJdA==
+	bh=N5rewoNyMWFLdT+i9vTGxOhxmKQyzdgcNxHNh1ipFjM=;
+	b=lIwNqFwnLLATzlcTsT48mpDmhSnHx87W1ZXANm2TLmfjhKDfBvGe7TX+AzGgMLeJUriA
+	 4hqkTXvJTgBYNd3ECOlxYD/1eMGWIEoSCLZaOxap3b43U0kYHqDSPKVOOzrpsh2UlGg2U
+	 8lcWZIr7eyTPsRGPUI3aX2Tt6w02+4qGxtuy0HgCMq0rzqS1Kl4AI/8fIJfzuGXEx6iKF
+	 QKvgelHMJ932uecCP0aJrNHc47oc8z+ze+SfeMWNMnVrIH8eSHDIVb0wwUEe3RAJ5WD1X
+	 bqy/S14IVMQgarcUcuqOn4XXg7Jett/WUMewaCsZnr7tFA3Lx0sFWusQ9npZ1pNyDng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LqFdKddc;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=buQ7W1zG;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D4D2606A32F
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:42:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38778606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:42:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LqFdKddc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A03F81F0089F;
-	Sat,  7 Nov 2026 10:42:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=buQ7W1zG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A82A21F0089F;
+	Sat,  7 Nov 2026 10:42:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048125;
-	bh=EhFPW4WwrrQxXgf68Ly3TkYrtq4Nk4ZmsWWuAr0xmgk=;
+	s=k20260515; t=1794048127;
+	bh=N5rewoNyMWFLdT+i9vTGxOhxmKQyzdgcNxHNh1ipFjM=;
 	h=From:To:Cc:Subject:Date;
-	b=LqFdKddcH+I+RQtBSdaaXa61R/TNBZMmqYr2CsmxMMJMguJOHHYtp5eja0CKSesSh
-	 oxcLXbz7a0T75K6Da9n2KqaNRBBGUN+l/4/+Tr5/3hYqa/NY3oWJxkJXvBPbaB68Q6
-	 jYpENe1EsORGLMkugfQIM6XkWxgd4VOdw9QecSp8yKBI5/vMVNGVWKzwCZUARDMGa5
-	 vJ47D5ML41BggT4XLyXeLMJGdeNXFx2dgigpAilTPP6iZBgyAq1NvC1/9m1W7ExvRZ
-	 bcrXyBeR9Xq9k92eA1Ah7kjMRLzrFPo4MXbfkJZJt7Vqpd8Y/w6kuIV5AT4Rgw/tzk
-	 pr9b2wgRqS5BA==
+	b=buQ7W1zGrGYkYnmV60g9nQNgNypIWpImpIxs8Ah7N8CFvznxm82MwIvHB9Ekcht23
+	 GsLDCStGv5hx55OKw9/cPMDjsEHSjWevH81Izo/jGKlx5Ee8v+WDAtZTK+MEeJZrkL
+	 vKFXIUiRf5eF3Tco4/VTr/UZ3GcJNF9NKlhP2/AW6s6SI4PlHMsz4iV3Xk0HkhsLGC
+	 21sORPzp+sCJwABl+jZr3Jvjq340HhrmpMS7cx2V5h/4mcH+l7KHTz8F20u8qK08OD
+	 jsrZInRu3qPcH+NAkJgTwUGUq4u9GQ9Sk/sAgURBoY/crVOp6+5fhQmi6/Q4Txal7L
+	 Xe14MoYELTsAQ==
 From: Sasha Levin <sashal@kernel.org>
-To: imre.deak@intel.com,
-	luciano.coelho@intel.com
+To: cassel@kernel.org,
+	dlemoal@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/i915/dp_mst: Fix configuring FEC for a disconnected stream" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:42:03 -0500
-Message-ID: <20261107054203-failed-6.1-270681fbffbb@kernel.org>
+Subject: FAILED: patch "[PATCH] ata: libahci: Free the IRQs when activating a multi-IRQ host fails" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:42:05 -0500
+Message-ID: <20261107054205-failed-6.1-34a4a34431ed@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,65 +68,96 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 270681fbffbba2b6ccf5b7e3c34b8b563b36167f
+git cherry-pick -x 34a4a34431ed81d85d14f8fb8035e5a25214ad39
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054203-failed-6.1-270681fbffbb@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054205-failed-6.1-34a4a34431ed@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 270681fbffbba2b6ccf5b7e3c34b8b563b36167f Mon Sep 17 00:00:00 2001
-From: Imre Deak <imre.deak@intel.com>
-Date: Mon, 7 Sep 2026 20:44:12 +0300
-Subject: [PATCH] drm/i915/dp_mst: Fix configuring FEC for a disconnected
- stream
+From 34a4a34431ed81d85d14f8fb8035e5a25214ad39 Mon Sep 17 00:00:00 2001
+From: Niklas Cassel <cassel@kernel.org>
+Date: Tue, 15 Sep 2026 10:41:30 +0200
+Subject: [PATCH] ata: libahci: Free the IRQs when activating a multi-IRQ host
+ fails
 
-During an atomic commit after all the MST stream CRTC state is computed
-the driver ensures that the FEC is configured the same way (enabled or
-disabled) for all the streams on a given MST topology's link.
-drm_dp_mst_port_downstream_of_parent() used to determine if a stream is
-downstream of an MST port will return false if the whole topology is
-disconnected, since in that case it can't verify that the port/
-parent_port passed to it is in the given MST topology. This is a problem
-during the above FEC configuration check, since
-intel_dp_mst_check_dsc_change()->get_pipes_downstream_of_mst_ports()
-will not return all the stream CRTCs/pipes for the topology as expected.
-Since passing parent_port==NULL to get_pipes_downstream_of_mst_port()
-is meant to return all the streams for the given topology (i.e. mst_mgr)
-skip checking if an MST port is downstream of a parent port in this
-case.
+ahci_host_activate_multi_irqs() requests one IRQ per port, but it does
+not free them when requesting one of them, or when registering the host,
+fails. The IRQs are only freed by the driver core, when it releases the
+devres of the device after probe() has returned, while the caller of
+ahci_host_activate() releases the resources of the host in its probe()
+error path, e.g. ahci_probe() disables the clocks, regulators, resets and
+PHYs of the host. An IRQ handler running in that window would access the
+MMIO of a host which is no longer clocked.
 
-This fixes a problem where the FEC configuration check explained above
-failed to ensure that all streams' FEC is configured the same way if the
-topology was disconnected, leading to a FEC state mismatch error.
+ahci_host_activate_multi_irqs() did free the IRQs until commit
+0a142b26921c ("ahci: cleanup ahci_host_activate_multi_irqs"), which
+removed the explicit free because devm makes it unnecessary. That is true
+for freeing the IRQs as such, but not for the window described above:
+devres is only released after probe() has returned, i.e. after the error
+path of the caller has released the resources of the host.
 
-Cc: stable@vger.kernel.org # v6.10+
-Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16073
-Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16384
-Reviewed-by: Luca Coelho <luciano.coelho@intel.com>
-Signed-off-by: Imre Deak <imre.deak@intel.com>
-Link: https://patch.msgid.link/20260907174413.741851-1-imre.deak@intel.com
+Note that this window cannot be hit with the current users: the only user
+of AHCI_HFLAG_MULTI_MSI is the AHCI PCI driver, which does not release
+any resource in its probe() error path, and the ports of the host are
+still frozen, i.e. their interrupts are masked, when ata_host_register()
+fails.
+
+Free the IRQs explicitly again, like ata_host_activate() does, so that
+the IRQ handlers cannot run once ahci_host_activate() has failed.
+
+Fixes: 0a142b26921c ("ahci: cleanup ahci_host_activate_multi_irqs")
+Cc: stable@vger.kernel.org
+Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
+Link: https://lore.kernel.org/r/20260915084127.692494-12-cassel@kernel.org
+Signed-off-by: Niklas Cassel <cassel@kernel.org>
 ---
- drivers/gpu/drm/i915/display/intel_dp_mst.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/ata/libahci.c | 26 ++++++++++++++++++++++++--
+ 1 file changed, 24 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index 6a869d0f6ffc0..20766b6c0bcfa 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -856,7 +856,8 @@ static u8 get_pipes_downstream_of_mst_port(struct intel_atomic_state *state,
- 		if (&connector->mst.dp->mst.mgr != mst_mgr)
- 			continue;
+diff --git a/drivers/ata/libahci.c b/drivers/ata/libahci.c
+index bea9a39dacedf..1290dd5401011 100644
+--- a/drivers/ata/libahci.c
++++ b/drivers/ata/libahci.c
+@@ -2724,11 +2724,33 @@ static int ahci_host_activate_multi_irqs(struct ata_host *host,
+ 				0, pp->irq_desc, host->ports[i]);
  
--		if (connector->mst.port != parent_port &&
-+		if (parent_port &&
-+		    connector->mst.port != parent_port &&
- 		    !drm_dp_mst_port_downstream_of_parent(mst_mgr,
- 							  connector->mst.port,
- 							  parent_port))
+ 		if (rc)
+-			return rc;
++			goto free_irqs;
+ 		ata_port_desc_misc(host->ports[i], irq);
+ 	}
+ 
+-	return ata_host_register(host, sht);
++	rc = ata_host_register(host, sht);
++	if (rc)
++		goto free_irqs;
++
++	return 0;
++
++free_irqs:
++	/*
++	 * Free the IRQs which have been requested, so that the handlers can no
++	 * longer access the MMIO of the host once we return, e.g. after the
++	 * caller has disabled the clocks of the host.
++	 */
++	while (--i >= 0) {
++		struct ahci_port_priv *pp = host->ports[i]->private_data;
++
++		if (!pp)
++			continue;
++
++		devm_free_irq(host->dev, hpriv->get_irq_vector(host, i),
++			      host->ports[i]);
++	}
++
++	return rc;
+ }
+ 
+ /**
 -- 
 2.53.0
 
