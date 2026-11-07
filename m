@@ -1,52 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046418;
-	b=PnbfpJdOhRYruH0BXM2TuLEHeowyJWWTwe1v3u1Q+/glt9jbR/2IdtjLe87XuFJAVwoO
-	 f1hw+uB9BH+uAkN+WT67ps/hLWAbdL2KeirpZTOdG3r+MpdiyBIhvC38Zk5CMcDQXy6I4
-	 t0K5Off0rs+qJJbznJfTOxRhAbxuL6P+i/Vhz0BKI6uETBORLSPs46gDYspBcTX1CDfTl
-	 cCv9Js/cBjTGXTCVwJAjVkBfqj4YmmK25A+tvLzvErD3hXwpv8kbckXB6lUE/5H3p/BSy
-	 3VlH04FwFTCW3x5itgFWnSAB2SpcWoin2SwKAuP4j8wNJuQ4CYG2ftqXJLWTw6ZbYyA==
+	t=1794046420;
+	b=WoG8FneYHEchy9eOd1E406S6BlD3PuJszlfxecC5REqME54wLLUhuccNSKje0fIm36Eb
+	 uKaWxFohebdCFp6OSxWaIPSovA19wj8sGFoJRQfONkJH+qagQOmfFtwQSZyGPVlyzWMvE
+	 odU7E1uhSbTZhH8rBj+w0OqNnC8oqxvT30iek0xzEe6NbPrLetbhFo8VUTzHXPhB7Vd9L
+	 02sPwqbiF5p6AtLYRX/S0cMfgeKzcUhxjU3CK3TjjKZfY2xjI4s+1zXq926mquK7pDsM/
+	 tncJUpjADebYM7wnxOpUvuavgvWdFpzpIcZYMNJ3NkGzPtQXGrD/Nimiyp9svOcQLZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046418;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046420;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=sq5DyEKbmc+xoh/hwNdgjEfmUyR/QfaRRg6S538urDg=;
-	b=wYZHoBCDAOK1eq1xWP000yOBgkQvQAb2jyPdyW7D3IpzPQ2G082ABPMBBVOjvfL9On05
-	 vbLCcGZG0gL7AA0DzTmazZsdGSC1JJldZd/4LmEv7zn15Ir2UaBCUYM4BTd6fySxTTQCm
-	 dtRdtGsbaymT9dqZt4In0otP7SEhWyFvEBoq7ahJYdbTgRtV3479IB1iwuw1YJRJdeYXN
-	 Mz/oP1Yep7uyReUZD3tjyIp1pHT6+013pZEK/Dnz+LsH3tHsUq98hriSZHLBgEvtkcUWW
-	 FP+ECMBBdBCQWN+2FO0K9wnTh1bbucsUD4srFrpLMSuHx7r6av9WPOXjt0RRh54XMrw==
+	bh=7B6HDtTFpk7H+yQsrA8CT9PT7ZPHI2l+K5nP4Xi6dxU=;
+	b=kah1qeG92oPnBtr333IlTnBrSX4tFP5KYfKz7pyoq1ApJV4DE+wLSqUIVME7lNFll31H
+	 xNqZvIy43yMxwxF87EwBZfS6xUSCm3hMrjeurdrpRLOJsokBla5K419InqHk5APO8x0Jx
+	 MNhVxHYVBEz6mVts3oX1zXbn1P0gb1QOs0BOfQvd8N6bcutBHGCaAd9CJwpGX3Kq2fSoz
+	 2oAzwM4dzG9338XI6QgUD4riibdl9FhHtZEP4r4Akh6jD754cMgy9HCyLeI57Qj5i6VdU
+	 IdnW1xL/b+VLQHqZPvkJLJhXbpod/pPRQX2Z/UO5xMxq94xcPvWKTduQPCAfhczIhWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U8gasSNw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nnNwQDXi;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73152606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:13:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2498606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:13:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U8gasSNw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE56F1F0089F;
-	Sat,  7 Nov 2026 10:13:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nnNwQDXi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E77CC1F0089F;
+	Sat,  7 Nov 2026 10:13:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046418;
-	bh=sq5DyEKbmc+xoh/hwNdgjEfmUyR/QfaRRg6S538urDg=;
+	s=k20260515; t=1794046420;
+	bh=7B6HDtTFpk7H+yQsrA8CT9PT7ZPHI2l+K5nP4Xi6dxU=;
 	h=From:To:Cc:Subject:Date;
-	b=U8gasSNwGFlkU9RgysH0nJ2fWQCD8mljM5rx33P0ptpCOxNI3Zc/Hs4sUxW8wm7jZ
-	 SxAfSwc7oD6x+r2NqrURkTe0o5YHMO7b3S/Nief0d23MCDsDm60iZhl1Ytymzgunai
-	 O9tYg4RWr67AgOkmhdR+xen8poegQj4uD+Cy69wP6ueGrdJ9rQI1XwTMs7yQD3wGGF
-	 CLtgz1R5MPPmG9BhkAK6uZQjMB+X4F8El6xwT9tMF86qFW9zXFcPu6+rsdChpYHWJi
-	 rLycsfrR8xFkUwasSM/sg9XgkcSr2Ik3C2c9NxSQv+xtbsaAagzpjGb427sbBpvKi1
-	 RMivIhW6jO8oQ==
+	b=nnNwQDXit01Hf2YQsbj9guat6xTwPWIubEGwcqfXL2fVble2x29/ZDernOY0ycWW0
+	 PIAqNlpTxw9J/gZhIVtgix/SLujcHcvZMvr0dMFCnycPRnoNcVvUgcwhRVmMQnsqfl
+	 6w5VMutSnw0fPSX5t4Usc9rcyP2xcNuUEmVGftx6BNac9hlQVEaGbav1e4TMIbUgoJ
+	 Y/6tbIPwPqJ4o6SvxrW4HC+bdE7m4iwirN5CiHYIC9Yt6yaFyVrt1mY4/GorJOO+ML
+	 PjKBKt7WtXzAg4G0bsOAk4Ps8g6YLqSBS3oYPnsrOCbqPKKSn8VKMF6C8P6wnNqVqk
+	 AwZPtxR+jjv5Q==
 From: Sasha Levin <sashal@kernel.org>
-To: aliamemis@disroot.org,
-	i@rong.moe,
-	rafael.j.wysocki@intel.com
+To: nick@karaolidis.com,
+	jack@suse.cz,
+	chengzhihao1@huawei.com,
+	brauner@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] platform/x86: ideapad-laptop: Evaluate ACPI methods exclusively" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:13:36 -0500
-Message-ID: <20261107051336-failed-6.18-f91c2cd6dbce@kernel.org>
+Subject: FAILED: patch "[PATCH] fs: rotate inodes whose page cache could not be dropped" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:13:38 -0500
+Message-ID: <20261107051338-failed-6.18-8ee09f597763@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,94 +70,86 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x f91c2cd6dbcedf52e227b2eea8d7b99ecbac7552
+git cherry-pick -x 8ee09f597763acfd31c62a578ba88b792fc41b24
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051336-failed-6.18-f91c2cd6dbce@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051338-failed-6.18-8ee09f597763@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From f91c2cd6dbcedf52e227b2eea8d7b99ecbac7552 Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?Ali=20Ahmet=20Memi=C5=9F?= <aliamemis@disroot.org>
-Date: Sun, 18 Oct 2026 15:23:48 +0300
-Subject: [PATCH] platform/x86: ideapad-laptop: Evaluate ACPI methods
- exclusively
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 8ee09f597763acfd31c62a578ba88b792fc41b24 Mon Sep 17 00:00:00 2001
+From: Nikolaos Karaolidis <nick@karaolidis.com>
+Date: Fri, 16 Oct 2026 10:25:15 +0000
+Subject: [PATCH] fs: rotate inodes whose page cache could not be dropped
 
-On some Lenovo IdeaPad and Yoga models, the battery _BIX takes the EC
-AML mutex and then calls the serialized RDER through RDIF, while GBMD
-calls RDER first and then takes the EC mutex. When the two run
-interleaved they deadlock until the mutex acquisition in RDER times
-out, and GBMD returns garbage that is reported as both charge types
-being enabled.
+When inode_lru_isolate() drops the page cache of an unused inode, it
+has to unlock the list, so it returns LRU_RETRY and the walk restarts
+at the head of the list, where the inode still is. If
+invalidate_mapping_pages() could not empty the mapping, the restarted
+walk strips the same inode again, and so on until nr_to_walk runs out.
+Every walk of that list then ends on this inode, and nothing behind it
+is reclaimed for as long as its cache stays.
 
-Evaluate all methods with the exclusive helpers, so that GBMD never runs
-interleaved with the battery methods.
+Before commit 2a0629834cd8 ("vfs: Don't evict inode under the inode lru
+traversing context") the walker pinned the inode with a reference, and
+dropping it in iput_final() set I_REFERENCED, so the restarted walk
+rotated the inode to the tail. Set I_REFERENCED again when the mapping
+is still populated after the invalidation, in the same i_lock section
+that clears I_LRU_ISOLATING. inode_unpin_lru_isolating() now expects
+i_lock to be held, like inode_pin_lru_isolating().
 
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=221065
-Link: https://lore.kernel.org/all/58586fa666f09c209f9d7fe8c692a8bdda6d4410.camel@rong.moe/
-Signed-off-by: Ali Ahmet Memiş <aliamemis@disroot.org>
-Reviewed-by: Rong Zhang <i@rong.moe>
-Cc: All applicable <stable@vger.kernel.org> # 80892972ff23 ACPI: utils: Add exclusive AML evaluation helpers
-Link: https://patch.msgid.link/20261018122348.679126-1-aliamemis@disroot.org
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+On CONFIG_HIGHMEM kernels this can happen to any unused inode: a folio
+is left behind if it is locked, under writeback, spliced into a pipe,
+or still in another CPU's LRU-add batch after being read. Without
+HIGHMEM it happens to DAX inodes whose only entry is at index 0, which
+mapping_shrinkable() lets onto the LRU and invalidate_mapping_pages()
+never removes.
+
+Fixes: 2a0629834cd8 ("vfs: Don't evict inode under the inode lru traversing context")
+Cc: stable@vger.kernel.org
+Signed-off-by: Nikolaos Karaolidis <nick@karaolidis.com>
+Link: https://patch.msgid.link/20261016102515.111285-1-nick@karaolidis.com
+Reviewed-by: Jan Kara <jack@suse.cz>
+Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- drivers/platform/x86/lenovo/ideapad-laptop.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+ fs/inode.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/platform/x86/lenovo/ideapad-laptop.c b/drivers/platform/x86/lenovo/ideapad-laptop.c
-index 8213524504eeb..1335f4e488702 100644
---- a/drivers/platform/x86/lenovo/ideapad-laptop.c
-+++ b/drivers/platform/x86/lenovo/ideapad-laptop.c
-@@ -297,12 +297,16 @@ static void ideapad_shared_exit(struct ideapad_private *priv)
- #define IDEAPAD_EC_POLL_MIN_US 150
- #define IDEAPAD_EC_POLL_MAX_US 300
+diff --git a/fs/inode.c b/fs/inode.c
+index 1cb6293b237a3..d6353b8d1e634 100644
+--- a/fs/inode.c
++++ b/fs/inode.c
+@@ -593,12 +593,11 @@ static void inode_pin_lru_isolating(struct inode *inode)
  
-+/*
-+ * On some models GBMD and the battery _BIX take the EC mutex and a
-+ * serialized method in opposite order, so evaluate all methods exclusively.
-+ */
- static int eval_int(acpi_handle handle, const char *name, unsigned long *res)
+ static void inode_unpin_lru_isolating(struct inode *inode)
  {
- 	unsigned long long result;
- 	acpi_status status;
- 
--	status = acpi_evaluate_integer(handle, (char *)name, NULL, &result);
-+	status = acpi_evaluate_integer_exclusive(handle, (char *)name, NULL, &result);
- 	if (ACPI_FAILURE(status))
- 		return -EIO;
- 
-@@ -324,7 +328,7 @@ static int eval_int_with_arg(acpi_handle handle, const char *name, unsigned long
- 	in_obj.type = ACPI_TYPE_INTEGER;
- 	in_obj.integer.value = arg;
- 
--	status = acpi_evaluate_integer(handle, (char *)name, &params, &result);
-+	status = acpi_evaluate_integer_exclusive(handle, (char *)name, &params, &result);
- 	if (ACPI_FAILURE(status))
- 		return -EIO;
- 
-@@ -336,7 +340,7 @@ static int eval_int_with_arg(acpi_handle handle, const char *name, unsigned long
- 
- static int exec_simple_method(acpi_handle handle, const char *name, unsigned long arg)
- {
--	acpi_status status = acpi_execute_simple_method(handle, (char *)name, arg);
-+	acpi_status status = acpi_execute_simple_method_exclusive(handle, (char *)name, arg);
- 
- 	return ACPI_FAILURE(status) ? -EIO : 0;
+-	spin_lock(&inode->i_lock);
++	lockdep_assert_held(&inode->i_lock);
+ 	WARN_ON(!(inode_state_read(inode) & I_LRU_ISOLATING));
+ 	inode_state_clear(inode, I_LRU_ISOLATING);
+ 	/* Called with inode->i_lock which ensures memory ordering. */
+ 	inode_wake_up_bit(inode, __I_LRU_ISOLATING);
+-	spin_unlock(&inode->i_lock);
  }
-@@ -394,7 +398,7 @@ static int eval_vpcw(acpi_handle handle, unsigned long cmd, unsigned long data)
- 	in_obj[1].type = ACPI_TYPE_INTEGER;
- 	in_obj[1].integer.value = data;
  
--	status = acpi_evaluate_object(handle, "VPCW", &params, NULL);
-+	status = acpi_evaluate_object_exclusive(handle, "VPCW", &params, NULL);
- 	if (ACPI_FAILURE(status))
- 		return -EIO;
+ static void inode_wait_for_lru_isolating(struct inode *inode)
+@@ -981,7 +980,13 @@ static enum lru_status inode_lru_isolate(struct list_head *item,
+ 		else
+ 			__count_vm_events(PGINODESTEAL, reap);
+ 		mm_account_reclaimed_pages(reap);
++
++		spin_lock(&inode->i_lock);
++		/* The walk restarts here: don't retry leftovers right away */
++		if (!mapping_empty(&inode->i_data))
++			inode_state_set(inode, I_REFERENCED);
+ 		inode_unpin_lru_isolating(inode);
++		spin_unlock(&inode->i_lock);
+ 		return LRU_RETRY;
+ 	}
  
 -- 
 2.53.0
