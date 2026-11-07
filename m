@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046318;
-	b=zj3UbfuYUJVTybaOCVQlIHxEvgJFfEUUXVAqpeIpYGReqN5DNd/yP5UF299NTzwczGaE
-	 2BzOZEktMKjfK5Wvr3sZJW97smjjMioSI7CnK28NvEbNMK9+65HgvdgEdRjhdxJ09GPd+
-	 66KWLMl/6CJ5igD8qA1/G60pufIv8NXkt16jalrpdd9tU+MoOprur24QHuvgtLrkvza/A
-	 lHoctYxuPnctIoOLLlMjXwYzJ/XazjZlgnyQTiiE8X5TIpWAQazIR1PqqQ/p9e+0x9aug
-	 hlC87i/1rTdN0WQozK7fTMLtF5R+iRk7J4EftAmrcg/DOj02JS83iMZDWnRdMZfGNvA==
+	t=1794046320;
+	b=eBdxGWGzIpBQgvXdG1xioulO13XBMkkBFqrJ35KJPytUahJGmqvgkLUzOwMC2eN3ghOH
+	 tdBiDya1NZMUWOpQDknaZ60xJYzPx9Vkdgge7Ur/QDhjcjjTcBDYXx1Kw8dZc7YD889pf
+	 o5cWJZA8YDXlnwZcpDRdJ2tAmOyF8muu91FU8uxbWe+HjqU/5C8CYnVO7WhuCpiPN/8AH
+	 6L6+zo4CRWsM/TN+m1EN9dNqFw7DgjpyPhZXdeIK4iHkd9PvrcW9es1TCg3jXNsSgiJ2m
+	 9MuTzoBtKQf1hlnSV83iZEc6EGs+peGhIHlnHu01VmduOhtC7keMFhH3RUvkVrqtHaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046318;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046320;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Hx89+idkjzoGDZFo6pGHZ1h2KUrp5kOj6HWYXoRIGq0=;
-	b=037OTXxpA4YyX8kwCfuEZolFTya5bxbdmA86Ft9TJj2BH6Ubfv1YsTW/7JveqYiJDWi0
-	 r/lvYF3g4XyMj19EHO6zT3paY/ZidoBIA9/j9gKUi3HwAmmGsy6PImMe19fAYGtddV/0Q
-	 tTlcKbtp+vbVxwRBp1gJSD8PwJ/ETqHlbcEijZIeet/YoaYCG/2we+1ptYmIaWRIeJek/
-	 +0E2Yv1ZIoCL/elrNQB0Ipjj7O0mCaOOZ1rTf7rBOcehZWJw0g0MABzEiDqUdalB9RdGF
-	 ADa1FqHLhDfv15792pqNYChNmkJiWNO5ujn5QbP6H2qLKdvluW8OLs8BE9NYYyKmhvQ==
+	bh=R6emEKRREYsmsoWRL1YzEYBgGaC0EmU4XL550n3naY8=;
+	b=IxaTBB6sUNX/sm0BOmFloK8Vl1k88swLerm72DccdC4wbEfDLnRL7S97SXOj5JVIXxPG
+	 bN98vYlNCIwuAZO8vz1i+luKz2HlJhRKdtEFOfghSJeUEHiVS/JAbtbOHLDkE9Ui18H5/
+	 NoM7ht7lJDqJ2rKuPE0AnA5mzFT6jRXOJlUPAWAmx/UGb4tF8/PpFU8k66NDzf5qvnAlN
+	 16tmJyJDxydIfExli89CB3XwYCrCbk2awgvxL5eZA0wXAqg5EuHf1Nh3OprIM/SsyFp+v
+	 9I+Hq5YJCwN2UuUY5qQuDTlTOlbKb/ykrd5NaLOEGTzhgrIRd8PaosUGbvQmjqYXdkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AIvPwbbF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UYt1+bWC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0118B606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:11:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38E30606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:12:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AIvPwbbF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A1ED1F008A1;
-	Sat,  7 Nov 2026 10:11:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UYt1+bWC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92B951F008A1;
+	Sat,  7 Nov 2026 10:11:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046317;
-	bh=Hx89+idkjzoGDZFo6pGHZ1h2KUrp5kOj6HWYXoRIGq0=;
+	s=k20260515; t=1794046320;
+	bh=R6emEKRREYsmsoWRL1YzEYBgGaC0EmU4XL550n3naY8=;
 	h=From:To:Cc:Subject:Date;
-	b=AIvPwbbF+Bfp4VrUJ1/xYx5gizlUwsqrwIhqjLVLgMu6/cmtNqpgp8gHCdzGhq6nu
-	 j2wIzCtSkHiEGbBOFTN1zhlezE0tfJb+3nPU2UYVyhiGAgB8OKFGiRzLzySFf6tkCV
-	 Co4BQ0MMfsZQUUs+OrNE0UbtJyIscftoWwYIqezsnudnC9nFF6B2T35dRyrLeTff12
-	 ssZX1w2TvAc6+QZInRslBM4kO5PFeYrUosfj94P1qGI4kFnk7X+YiyNSTiJcb8500r
-	 PJT+qN9vdWKE2EQP6Zh4+V62PB2lGckzF1ojho57cpRLiCIpedsJAlQj9H7mjnh0fa
-	 cxali3HIGWf+Q==
+	b=UYt1+bWCYUKOr2s0VWnoXMjHE895AdJtifrqD4jy7aLDLyRVmOMFnAdHjfKoNILqC
+	 4RfylZ8oSPMR8pJxQots0K0xCOOBsN7OqJ6i9cL2OAR/BSOcOFqRAqilmOKdRwMTPH
+	 n2UOT2xg/3RYDCQtBUdr/ZB3oBWP7iShJm86kRGm+wQ9L1JjO+PXFTOFtKJUx7f5cJ
+	 0qySyh0NLAnG5nuFx/aDiF7bXzwWu1R6907ddDuopdVeNohULIYJUkQ2HG/fRkNhfG
+	 oldVSbZKH6j7jMRU2eZGj5EWspzEQTyIk7QzAgQYheJdVQfcfLVcKg1PgSQPFjyGR5
+	 WUHPezDBSPUGA==
 From: Sasha Levin <sashal@kernel.org>
-To: daehojeong@google.com,
+To: kaixuanli0131@gmail.com,
 	chao@kernel.org,
 	jaegeuk@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] f2fs: release a removed xattr node in roll-forward recovery" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:11:56 -0500
-Message-ID: <20261107051156-failed-6.18-f5924de8867c@kernel.org>
+Subject: FAILED: patch "[PATCH] f2fs: bound the SIT/NAT bitmaps by the checkpoint pack" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:11:58 -0500
+Message-ID: <20261107051158-failed-6.18-080833a32fd5@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,100 +69,90 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x f5924de8867c09206ba631b9faed63862ec00a10
+git cherry-pick -x 080833a32fd5dc10b3acf2fa9af9b3213e6cb617
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051156-failed-6.18-f5924de8867c@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051158-failed-6.18-080833a32fd5@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From f5924de8867c09206ba631b9faed63862ec00a10 Mon Sep 17 00:00:00 2001
-From: Daeho Jeong <daehojeong@google.com>
-Date: Thu, 15 Oct 2026 02:57:31 +0000
-Subject: [PATCH] f2fs: release a removed xattr node in roll-forward recovery
+From 080833a32fd5dc10b3acf2fa9af9b3213e6cb617 Mon Sep 17 00:00:00 2001
+From: Kaixuan Li <kaixuanli0131@gmail.com>
+Date: Sat, 19 Sep 2026 21:09:24 +0800
+Subject: [PATCH] f2fs: bound the SIT/NAT bitmaps by the checkpoint pack
 
-When xattrs shrink enough to fit in the inline xattr area,
-write_all_xattrs() truncates the xattr node and clears i_xattr_nid. If
-the file is then fsynced without a checkpoint, only the inode block is
-written, with i_xattr_nid of 0.
+sit_ver_bitmap_bytesize and nat_ver_bitmap_bytesize are used as memcpy
+lengths into and out of sbi->ckpt, which is sized from cp_payload alone,
+and nothing compares either length against that allocation.
 
-Roll-forward recovery starts from the checkpointed inode, whose
-i_xattr_nid still points to the old xattr node.
-f2fs_recover_inline_xattr() copies only the inline xattr area, and
-f2fs_update_inode() writes the old i_xattr_nid back. So the inode keeps
-the stale xattr node:
+sanity_check_ckpt() has checked these two fields since c77ec61ca0a4, which
+added them after a crafted image overran build_sit_info(). That check ties
+each length to a segment count; it never compares either against the
+allocation, which is the half this adds.
 
- - The node block is never released, and fsck reports "nonzero bytes in
-   xattr space after end of list".
- - If the inline xattr list ends exactly at the end of the inline area,
-   its terminator is read from the stale node, and the removed xattrs
-   come back after recovery.
+Mounting over-reads in build_sit_info() and build_node_manager(), and the
+first checkpoint writes the same lengths back through the same pointers,
+so the over-read's contents reach the on-disk checkpoint. An unmount is
+enough; the filesystem does not have to be used.
 
-When the fsynced inode has no xattr node but the checkpointed one has,
-release the old xattr node as truncate_node() does: check its block
-address, invalidate the block and drop its node cache, which may still
-be dirty.
+Bound both ends the way __bitmap_ptr() lays them out. The three branches
+differ, so a single sum of the two lengths would still admit a small
+overflow when cp_payload is non-zero.
 
-Fixes: 28cdce0459cc ("f2fs: recover inline xattr data in roll-forward process")
-Cc: stable@vger.kernel.org
-Signed-off-by: Daeho Jeong <daehojeong@google.com>
+Fixes: 39a53e0ce0df ("f2fs: add superblock and major in-memory structure")
+Cc: stable@kernel.org
+Signed-off-by: Kaixuan Li <kaixuanli0131@gmail.com>
 Reviewed-by: Chao Yu <chao@kernel.org>
 Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
 ---
- fs/f2fs/node.c | 37 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 37 insertions(+)
+ fs/f2fs/super.c | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
-index 2dc136dbee34f..424e95ca58789 100644
---- a/fs/f2fs/node.c
-+++ b/fs/f2fs/node.c
-@@ -2846,6 +2846,43 @@ int f2fs_recover_inline_xattr(struct inode *inode, struct f2fs_cached_block *ent
- 	f2fs_cache_wait_writeback(ientry);
- 	memcpy(dst_addr, src_addr, inline_size);
- update_inode:
+diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
+index 54431da34edf9..3a191fda7030f 100644
+--- a/fs/f2fs/super.c
++++ b/fs/f2fs/super.c
+@@ -4278,6 +4278,7 @@ int f2fs_sanity_check_ckpt(struct f2fs_sb_info *sbi)
+ 	block_t avail_node_count, valid_node_count;
+ 	unsigned int nat_blocks, nat_bits_bytes, nat_bits_blocks;
+ 	unsigned int sit_blk_cnt;
++	unsigned long long ckpt_size, sit_end, nat_end;
+ 	int i, j;
+ 
+ 	total = le32_to_cpu(raw_super->segment_count);
+@@ -4409,6 +4410,29 @@ int f2fs_sanity_check_ckpt(struct f2fs_sb_info *sbi)
+ 		return 1;
+ 	}
+ 
 +	/*
-+	 * The xattr node of the checkpoint was removed before fsync, e.g. the
-+	 * xattrs became small enough to fit inline. Release it as well, or
-+	 * the inode keeps pointing to the stale xattrs.
++	 * Nothing above ties the bitmap lengths to sbi->ckpt, which is
++	 * (1 + cp_payload) blocks. Bound both ends the way __bitmap_ptr()
++	 * lays them out.
 +	 */
-+	if (!ri->i_xattr_nid && F2FS_I(inode)->i_xattr_nid) {
-+		struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
-+		struct node_info ni;
-+		int err;
-+
-+		err = f2fs_get_node_info(sbi, F2FS_I(inode)->i_xattr_nid,
-+								&ni, false);
-+		if (err) {
-+			f2fs_put_cache(ientry, true);
-+			return err;
-+		}
-+
-+		if (ni.blk_addr != NEW_ADDR &&
-+		    !f2fs_is_valid_blkaddr(sbi, ni.blk_addr,
-+					   DATA_GENERIC_ENHANCE)) {
-+			f2fs_err_ratelimited(sbi,
-+				"nat entry is corrupted, run fsck to fix it, ino:%u, nid:%u, blkaddr:%u",
-+				ni.ino, ni.nid, ni.blk_addr);
-+			set_sbi_flag(sbi, SBI_NEED_FSCK);
-+			f2fs_handle_error(sbi, ERROR_INCONSISTENT_NAT);
-+			f2fs_put_cache(ientry, true);
-+			return -EFSCORRUPTED;
-+		}
-+
-+		f2fs_invalidate_blocks(sbi, ni.blk_addr, 1);
-+		dec_valid_node_count(sbi, inode, false);
-+		set_node_addr(sbi, &ni, NULL_ADDR, false);
-+		/* drop the cached xattr node, which may be dirty */
-+		f2fs_truncate_node_caches(sbi, ni.nid, 1);
-+		f2fs_i_xnid_write(inode, 0);
++	ckpt_size = (unsigned long long)(cp_payload + 1) * F2FS_BLKSIZE(sbi);
++	if (__is_set_ckpt_flags(ckpt, CP_LARGE_NAT_BITMAP_FLAG)) {
++		nat_end = CP_MIN_CHKSUM_OFFSET + sizeof(__le32) + nat_bitmap_size;
++		sit_end = nat_end + sit_bitmap_size;
++	} else if (cp_payload > 0) {
++		nat_end = CP_MIN_CHKSUM_OFFSET + nat_bitmap_size;
++		sit_end = F2FS_BLKSIZE(sbi) + sit_bitmap_size;
++	} else {
++		sit_end = CP_MIN_CHKSUM_OFFSET + sit_bitmap_size;
++		nat_end = sit_end + nat_bitmap_size;
 +	}
 +
- 	f2fs_update_inode(inode, ientry);
- 	f2fs_put_cache(ientry, true);
- 	return 0;
++	if (sit_end > ckpt_size || nat_end > ckpt_size) {
++		f2fs_err(sbi, "Bitmaps do not fit the checkpoint pack: sit ends at %llu, nat at %llu, pack is %llu bytes",
++			 sit_end, nat_end, ckpt_size);
++		return 1;
++	}
++
+ 	if (__is_set_ckpt_flags(ckpt, CP_LARGE_NAT_BITMAP_FLAG) &&
+ 		le32_to_cpu(ckpt->checksum_offset) != CP_MIN_CHKSUM_OFFSET) {
+ 		f2fs_warn(sbi, "using deprecated layout of large_nat_bitmap, "
 -- 
 2.53.0
 
