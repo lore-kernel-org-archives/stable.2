@@ -1,51 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046340;
-	b=Ivh6pOA/5roskaYlAXctIROA7KJo68r+3xSSx9dyPKlsuDv91kk+YnKOd7f3+ci8CHv2
-	 jALh91ErDIfi7QFPUxuBnV7Dhoswc72ZXk/Y/TkdgdTNpvUVjXaxdeZa4l+Du2RX4xUZC
-	 6kmFgWG4JBTe5EJMnctj89Lf/0fuQyq84/PJx6829w5Dnl+Mc6D85y+dd5BbUFugp8uq3
-	 sbeEs2AM5wqQiF9+d72pNtVC6NPL4nA+mB7M42Y//cjq4TqGtAEnuhCmVnoWgU05nWF5b
-	 q3BrmrfqZvF70NdsH+Tjg8VWg4n61VOFjEdnPC4aZbdyo5nXNOuzcV/3MBKTcOn1fdQ==
+	t=1794046343;
+	b=EHkF8+S8ncIII6m0DeLHUQDfz1eKoQB1X/XkjIXhqFtbAd73vkV8EpIPYdQZRzNsDecU
+	 poact+5el3EgXwP4WA858b3SosJKmDoYERokHymzELJtOqZwudeu5Q6d10eQhFCo0HAVh
+	 4CuiofQOIu6XZPvwv+c+py6fLw9ZGKzwiN8BQV8KCsGJAsMcceDRjhwfWSlsMk2IovPje
+	 bn3PZvrVMhiQKEh++dqR6IO4LsYZijzspXWfAVSH0wuZgeV0hXPLrTngVkDiaA8EejglC
+	 mpckOuuHf7b8IbOmuEufScso+2Ssh5PoDOUcy+w7VxrzhvoepVRS8lAA5Hlr+UEkeXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046340;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046343;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Iit2wBkFpFdNOcNceJSCguwjc8jF6iBb9N7gFnHZ/ns=;
-	b=zyI3PQFJeH7XKgadoVDRjPMGQpV+e0FMKPhjrK531d5V3x+8miksA4ENoNhFlDYXdxAR
-	 ZTS1u6z+slzHJ8qFKCpZvncGl9JpBw9Ry8iJAt7XvftQYf32S3eKfzZhKTNiwOxD6zUF6
-	 d5hJequIBj6//rTrIfaK8DWSaQKyfgk9ZxY8TboD+t6EAVnu62E4WcmCMA484fa/1ve7H
-	 R+kxt7EFh6YOwYcnM29ad7tqqhNeQpeg4teVvF93/8oDiUAYR5r2Z8jCQmecK/lkkwWnh
-	 kwjn2fTx1Fzm6AMwa71rSuEtPSUwk71K4QewF1PYN9Vi3SPfK45jut6YvKKxqxcnKCw==
+	bh=fnRTBjXjwpAnSJA9N/MuDLcd0zpGR7I6y3vf+oGLW6g=;
+	b=Zt4kqvkZCZPFInlwXu6PSjCwply7TOhgHQ5v5rOTsIWpwRF8QRn7uN9P3ah2UWn9KjUc
+	 +A7/x0wM8+6MlJL3hhVVsJmLdEcGEZM+DTXIHKcxhcLSrVX2gowLEIK8TFU8E2bdkHxlC
+	 BZLv2tzfK1HUd4JMD6EkUrEAKuEIXinQ9prAaX5i3EEVWOafNEiEzcb5kyFCLR8xzcfzC
+	 pSqy66Mmb+tfd3FUHsdMTYn24JGvES1sw4EfO8sNRaqJ0SJ3AFkRoEuR1NS9rV8z9c6hp
+	 DUNXtLR2pshUI8TdbbPNgJuM3oiKk9oCEhBJwAHnwdIgG0D3QqLIpaKGfua8ySP2zOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CT9dntUL;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WrxN7aQK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 437C7606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:12:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E987606A32F
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:12:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CT9dntUL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B82541F0089F;
-	Sat,  7 Nov 2026 10:12:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WrxN7aQK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B99311F008A1;
+	Sat,  7 Nov 2026 10:12:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046340;
-	bh=Iit2wBkFpFdNOcNceJSCguwjc8jF6iBb9N7gFnHZ/ns=;
+	s=k20260515; t=1794046342;
+	bh=fnRTBjXjwpAnSJA9N/MuDLcd0zpGR7I6y3vf+oGLW6g=;
 	h=From:To:Cc:Subject:Date;
-	b=CT9dntULGxBg29AFhO0FW2U5Lcz0tHW00fA4RSk0StB+Z09wGMMyaO9ldifAoRO+M
-	 eMM8Qfdo6nRshvtXTx2DdWZYaobWyuAkPWofoFjCcdf9UT/2kwm3KKr6GB/73M1nXa
-	 kzSZwtM66tL+XIJSdx40zXN6M7FI6p8IS+2z8p2pODU4VXqbrmYAgxQOzC7q34iHS6
-	 YAyiIMMLvWa/QonEYkdxlmy/ydQ1giCng3UpIt2MrzxqAwxCiW873H7rIUXhS0APFM
-	 ofNMClIxPKn0m0RnrfXtXQ6QNVwejBaYjoMc/vWgDu5s7bCB2+w1P7zYHm1vMJSGWt
-	 VHIraLPsCiLOg==
+	b=WrxN7aQKlDlNAMFKrn1dQx20eSjNQ89DGSlBgL9CupiX69Kbo1fyMtkX5hzrODGRX
+	 Erbzi8kwKi5LCn6/jJR4W2y5AAKIibNabgvb61ldphAufvudAOrM5WNm+R42P7GE6a
+	 jAKDY5psDAOM79eoWnZ/LSw0b3esfyI9rml/6nfkUOB7mzxb03S+gTRZEEon/IkW/2
+	 l3A/LwycWKj91IbXieMWb4t9Y+2tzRQK7KWiNhn9krlV18LSyrA2spFyo+mDEjtWQP
+	 fRWQv6eqQUYk9/PKGbpu4K6JsPBiNjtgOvDxpNzIXfAXwzEo2HWtUNe/xPXgUw1LaL
+	 ixQpp5yrTE1uA==
 From: Sasha Levin <sashal@kernel.org>
-To: tjdqudcks0424@naver.com,
-	mszeredi@redhat.com
+To: caoruide123@gmail.com,
+	vega@nebusec.ai,
+	sashiko-bot@kernel.org,
+	weir@nebusec.ai,
+	matttbe@kernel.org,
+	kuba@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] virtiofs: validate fixed-output response length" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:12:18 -0500
-Message-ID: <20261107051218-failed-6.18-5364d081125a@kernel.org>
+Subject: FAILED: patch "[PATCH] mptcp: fix MP_CAPABLE token migration when cloning reqsk" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:12:20 -0500
+Message-ID: <20261107051220-failed-6.18-2093bc7fa500@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,111 +72,305 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 5364d081125a34e90851fbb46ecc93f79339ce78
+git cherry-pick -x 2093bc7fa50056fef8620d2b82bcb2e9a0a5575d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051218-failed-6.18-5364d081125a@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051220-failed-6.18-2093bc7fa500@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 5364d081125a34e90851fbb46ecc93f79339ce78 Mon Sep 17 00:00:00 2001
-From: Sung Byeongchan <tjdqudcks0424@naver.com>
-Date: Wed, 7 Oct 2026 15:19:49 +0900
-Subject: [PATCH] virtiofs: validate fixed-output response length
+From 2093bc7fa50056fef8620d2b82bcb2e9a0a5575d Mon Sep 17 00:00:00 2001
+From: Ruide Cao <caoruide123@gmail.com>
+Date: Tue, 13 Oct 2026 16:29:22 +0200
+Subject: [PATCH] mptcp: fix MP_CAPABLE token migration when cloning reqsk
 
-A short successful virtiofs response can leave the fixed-output portion of
-the request argument buffer unwritten.  The completion path nevertheless
-copies the full declared output to the request destination, allowing stale
-allocator contents to reach callers such as fuse_statfs().
+TCP request migration clones pending request sockets with
+inet_reqsk_clone().  For MPTCP MP_CAPABLE requests this byte-copies the
+token_node hlist state into the clone even though the token table still
+names the original request, and the following warning can be seen:
 
-Require successful fixed-output responses to contain their complete
-declared output.  Continue to permit a shorter final argument only for
-out_argvar requests.  Reject positive and internal restart error values
-and require valid error replies to be header-only.  The error already
-stored in the FUSE output header is returned by fuse_request_end(), so do
-not copy output arguments from an error reply.
+  WARNING: net/mptcp/token.c:364 at mptcp_token_destroy_request+0x2b0/0x330, CPU#2: swapper/2/0
+  CPU: 2 UID: 0 PID: 0 Comm: swapper/2 Not tainted 7.2.0-rc5-00353-gc27e36054537 #10 PREEMPT(full)
+  RIP: 0010:mptcp_token_destroy_request (net/mptcp/token.c:364 (discriminator 1))
+  Call Trace:
+   <IRQ>
+   subflow_v4_req_destructor (net/mptcp/subflow.c:694)
+   __reqsk_free (net/ipv4/inet_connection_sock.c:906)
+   reqsk_timer_handler (include/net/request_sock.h:137 net/ipv4/inet_connection_sock.c:1147)
+   call_timer_fn (kernel/time/timer.c:1748)
 
-This was found by source review with AI assistance.  A header-only
-successful FUSE_STATFS reply returned stale fields in nine of nine calls
-across three boots.  The fixed kernel rejected the short response and
-preserved complete replies, valid negative-error replies, and
-variable-output replies.
+Move token request ownership from the original request to the clone under
+the token bucket lock.  Make mptcp_token_accept() and
+mptcp_token_destroy_request() re-check token_node under the same lock and
+treat an already moved or removed request as a normal race instead of
+warning.  This also keeps token bucket chain_len accounting balanced.
 
-Fixes: a62a8ef9d97d ("virtio-fs: add virtiofs filesystem")
+If a passive MP_CAPABLE socket cannot claim the token, destroy the
+provisional MPTCP socket and let the subflow fall back rather than
+installing a socket with mismatched token ownership.  Mark that path as a
+passive handshake fallback so MPCapableFallbackACK records the downgrade.
+
+If the speculative clone later loses the inet_ehash_insert() ownership
+arbitration, the original request may find that its token was already moved
+and fall back to plain TCP.  The clone destructor then releases the token
+reservation and keeps chain_len balanced.  This trades an exceptionally
+rare fallback for eliminating the warning and persistent accounting drift.
+
+Fixes: c905dee62232 ("tcp: Migrate TCP_NEW_SYN_RECV requests at retransmitting SYN+ACKs.")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Sung Byeongchan <tjdqudcks0424@naver.com>
-Signed-off-by: Miklos Szeredi <mszeredi@redhat.com>
+Reported-by: Vega <vega@nebusec.ai>
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/86e2514b533bf4d55d4aa2fdbf1404022e8c9430.1776149210.git.caoruide123%40gmail.com
+Signed-off-by: Ruide Cao <caoruide123@gmail.com>
+Signed-off-by: Ren Wei <weir@nebusec.ai>
+Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Link: https://patch.msgid.link/20261013-net-mptcp-misc-fixes-7-3-rc8-v1-4-932c9b182fc7@kernel.org
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 ---
- fs/fuse/virtio_fs.c | 30 ++++++++++++++++++++++++++++++
- 1 file changed, 30 insertions(+)
+ net/mptcp/protocol.c   | 31 +++++++++++++++----
+ net/mptcp/protocol.h   |  4 ++-
+ net/mptcp/subflow.c    |  6 +++-
+ net/mptcp/token.c      | 68 +++++++++++++++++++++++++++++++++++++-----
+ net/mptcp/token_test.c |  4 +--
+ 5 files changed, 97 insertions(+), 16 deletions(-)
 
-diff --git a/fs/fuse/virtio_fs.c b/fs/fuse/virtio_fs.c
-index 674fd784cdb80..ba8d79c4bcac6 100644
---- a/fs/fuse/virtio_fs.c
-+++ b/fs/fuse/virtio_fs.c
-@@ -727,6 +727,10 @@ static void copy_args_from_argbuf(struct fuse_args *args, struct fuse_req *req)
- 	unsigned int num_out;
- 	unsigned int i;
- 
-+	/* fuse_request_end() returns this error; there are no args to copy. */
-+	if (req->out.h.error)
-+		goto out;
-+
- 	remaining = req->out.h.len - sizeof(req->out.h);
- 	num_in = args->in_numargs - args->in_pages;
- 	num_out = args->out_numargs - args->out_pages;
-@@ -752,6 +756,7 @@ static void copy_args_from_argbuf(struct fuse_args *args, struct fuse_req *req)
- 	if (args->out_argvar)
- 		args->out_args[args->out_numargs - 1].size = remaining;
- 
-+out:
- 	kfree(req->argbuf);
- 	req->argbuf = NULL;
+diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
+index e6f73a5ee630a..05c38564e8fdf 100644
+--- a/net/mptcp/protocol.c
++++ b/net/mptcp/protocol.c
+@@ -3706,6 +3706,24 @@ static void mptcp_copy_ip_options(struct sock *newsk, const struct sock *sk)
+ 	rcu_read_unlock();
  }
-@@ -759,7 +764,9 @@ static void copy_args_from_argbuf(struct fuse_args *args, struct fuse_req *req)
- /* Verify that the server properly follows the FUSE protocol */
- static bool virtio_fs_verify_response(struct fuse_req *req, unsigned int len)
- {
-+	struct fuse_args *args = req->args;
- 	struct fuse_out_header *oh = &req->out.h;
-+	unsigned int expected;
  
- 	if (len < sizeof(*oh)) {
- 		pr_warn("virtio-fs: response too short (%u)\n", len);
-@@ -774,6 +781,29 @@ static bool virtio_fs_verify_response(struct fuse_req *req, unsigned int len)
- 			oh->unique, req->in.h.unique);
- 		return false;
++static void mptcp_sk_clone_destroy(struct sock *nsk)
++{
++	struct mptcp_sock *msk = mptcp_sk(nsk);
++
++	mptcp_release_sched(msk);
++	mptcp_set_state(nsk, TCP_CLOSE);
++	/* inet_csk_prepare_forced_close() clears TCP sock_ops state via
++	 * tcp_sk(), but nsk is an MPTCP master socket; keep the inet-level
++	 * destroy preparation here.
++	 */
++	bh_unlock_sock(nsk);
++	sock_put(nsk);
++	sock_set_flag(nsk, SOCK_DEAD);
++	tcp_orphan_count_inc();
++	inet_sk(nsk)->inet_num = 0;
++	inet_csk_destroy_sock(nsk);
++}
++
+ struct sock *mptcp_sk_clone_init(const struct sock *sk,
+ 				 const struct mptcp_options_received *mp_opt,
+ 				 struct sock *ssk,
+@@ -3765,11 +3783,6 @@ struct sock *mptcp_sk_clone_init(const struct sock *sk,
+ 	list_add(&subflow->node, &msk->conn_list);
+ 	sock_hold(ssk);
+ 
+-	/* new mpc subflow takes ownership of the newly
+-	 * created mptcp socket
+-	 */
+-	mptcp_token_accept(subflow_req, msk);
+-
+ 	/* set msk addresses early to ensure mptcp_pm_get_local_id()
+ 	 * uses the correct data
+ 	 */
+@@ -3778,6 +3791,14 @@ struct sock *mptcp_sk_clone_init(const struct sock *sk,
+ 	mptcp_rcv_space_init(msk, ssk);
+ 	msk->rcvq_space.time = mptcp_stamp();
+ 
++	if (!mptcp_token_accept(subflow_req, msk)) {
++		list_del_init(&subflow->node);
++		WRITE_ONCE(msk->first, NULL);
++		sock_put(ssk);
++		mptcp_sk_clone_destroy(nsk);
++		return NULL;
++	}
++
+ 	if (mp_opt->suboptions & OPTION_MPTCP_MPC_ACK)
+ 		__mptcp_subflow_fully_established(msk, subflow, mp_opt);
+ 	bh_unlock_sock(nsk);
+diff --git a/net/mptcp/protocol.h b/net/mptcp/protocol.h
+index c006110b1c56d..4ed598febbf01 100644
+--- a/net/mptcp/protocol.h
++++ b/net/mptcp/protocol.h
+@@ -1083,9 +1083,11 @@ static inline void mptcp_token_init_request(struct request_sock *req)
+ }
+ 
+ int mptcp_token_new_request(struct request_sock *req);
++void mptcp_token_move_request(struct request_sock *req,
++			      struct request_sock *new_req);
+ void mptcp_token_destroy_request(struct request_sock *req);
+ int mptcp_token_new_connect(struct sock *ssk);
+-void mptcp_token_accept(struct mptcp_subflow_request_sock *r,
++bool mptcp_token_accept(struct mptcp_subflow_request_sock *r,
+ 			struct mptcp_sock *msk);
+ bool mptcp_token_exists(u32 token);
+ struct mptcp_sock *mptcp_token_get_sock(struct net *net, u32 token);
+diff --git a/net/mptcp/subflow.c b/net/mptcp/subflow.c
+index 3139a9ab2853a..2c72cb50fbf36 100644
+--- a/net/mptcp/subflow.c
++++ b/net/mptcp/subflow.c
+@@ -78,6 +78,8 @@ void mptcp_subflow_reqsk_clone(struct request_sock *req,
  	}
-+	if (oh->error <= -ERESTARTSYS || oh->error > 0) {
-+		pr_warn("virtio-fs: invalid error value (%d)\n", oh->error);
-+		return false;
-+	}
+ 
+ 	new_subflow_req->msk = msk;
 +
-+	if (oh->error) {
-+		if (len != sizeof(*oh)) {
-+			pr_warn("virtio-fs: error response too long (%u)\n", len);
-+			return false;
-+		}
-+		return true;
-+	}
-+
-+	expected = sizeof(*oh) +
-+		   fuse_len_args(args->out_numargs, args->out_args);
-+	if (len > expected ||
-+	    (len < expected &&
-+	     (!args->out_argvar ||
-+	      expected - len > args->out_args[args->out_numargs - 1].size))) {
-+		pr_warn("virtio-fs: invalid response length (%u, expected %u)\n",
-+			len, expected);
-+		return false;
-+	}
- 	return true;
++	mptcp_token_move_request(req, new_req);
  }
  
+ static void subflow_generate_hmac(u64 key1, u64 key2, u32 nonce1, u32 nonce2,
+@@ -922,8 +924,10 @@ static struct sock *subflow_syn_recv_sock(const struct sock *sk,
+ 
+ 		if (ctx->mp_capable) {
+ 			ctx->conn = mptcp_sk_clone_init(listener->conn, &mp_opt, child, req);
+-			if (!ctx->conn)
++			if (!ctx->conn) {
++				fallback = true;
+ 				goto fallback;
++			}
+ 
+ 			ctx->subflow_id = 1;
+ 			owner = mptcp_sk(ctx->conn);
+diff --git a/net/mptcp/token.c b/net/mptcp/token.c
+index f1a50f367add8..e0f2823f92efb 100644
+--- a/net/mptcp/token.c
++++ b/net/mptcp/token.c
+@@ -180,6 +180,43 @@ int mptcp_token_new_connect(struct sock *ssk)
+ 	return 0;
+ }
+ 
++/**
++ * mptcp_token_move_request - move request token ownership to a clone
++ * @req: original request socket
++ * @new_req: cloned request socket
++ *
++ * Move the token hash entry from the original request to its clone.
++ */
++void mptcp_token_move_request(struct request_sock *req,
++			      struct request_sock *new_req)
++{
++	struct mptcp_subflow_request_sock *subflow_req = mptcp_subflow_rsk(req);
++	struct mptcp_subflow_request_sock *new_subflow_req;
++	struct mptcp_subflow_request_sock *pos;
++	struct token_bucket *bucket;
++
++	new_subflow_req = mptcp_subflow_rsk(new_req);
++
++	if (hlist_nulls_unhashed_lockless(&subflow_req->token_node)) {
++		mptcp_token_init_request(new_req);
++		return;
++	}
++
++	bucket = token_bucket(subflow_req->token);
++	spin_lock_bh(&bucket->lock);
++	if (hlist_nulls_unhashed(&subflow_req->token_node)) {
++		mptcp_token_init_request(new_req);
++	} else {
++		pos = __token_lookup_req(bucket, subflow_req->token);
++		if (pos == subflow_req)
++			hlist_nulls_replace_init_rcu(&subflow_req->token_node,
++						     &new_subflow_req->token_node);
++		else
++			mptcp_token_init_request(new_req);
++	}
++	spin_unlock_bh(&bucket->lock);
++}
++
+ /**
+  * mptcp_token_accept - replace a req sk with full sock in token hash
+  * @req: the request socket to be removed
+@@ -187,24 +224,36 @@ int mptcp_token_new_connect(struct sock *ssk)
+  *
+  * Called when a SYN packet creates a new logical connection, i.e.
+  * is not a join request.
++ *
++ * Return: true on success.
+  */
+-void mptcp_token_accept(struct mptcp_subflow_request_sock *req,
++bool mptcp_token_accept(struct mptcp_subflow_request_sock *req,
+ 			struct mptcp_sock *msk)
+ {
+ 	struct mptcp_subflow_request_sock *pos;
+ 	struct sock *sk = (struct sock *)msk;
+ 	struct token_bucket *bucket;
++	bool ret = false;
+ 
+-	sock_prot_inuse_add(sock_net(sk), sk->sk_prot, 1);
+ 	bucket = token_bucket(req->token);
+ 	spin_lock_bh(&bucket->lock);
++	if (hlist_nulls_unhashed(&req->token_node))
++		goto unlock;
+ 
+-	/* pedantic lookup check for the moved token */
+ 	pos = __token_lookup_req(bucket, req->token);
+-	if (!WARN_ON_ONCE(pos != req))
+-		hlist_nulls_del_init_rcu(&req->token_node);
++	if (pos != req)
++		goto unlock;
++
++	hlist_nulls_del_init_rcu(&req->token_node);
+ 	__sk_nulls_add_node_rcu((struct sock *)msk, &bucket->msk_chain);
++	ret = true;
++
++unlock:
+ 	spin_unlock_bh(&bucket->lock);
++	if (ret)
++		sock_prot_inuse_add(sock_net(sk), sk->sk_prot, 1);
++
++	return ret;
+ }
+ 
+ bool mptcp_token_exists(u32 token)
+@@ -355,16 +404,21 @@ void mptcp_token_destroy_request(struct request_sock *req)
+ 	struct mptcp_subflow_request_sock *pos;
+ 	struct token_bucket *bucket;
+ 
+-	if (hlist_nulls_unhashed(&subflow_req->token_node))
++	if (hlist_nulls_unhashed_lockless(&subflow_req->token_node))
+ 		return;
+ 
+ 	bucket = token_bucket(subflow_req->token);
+ 	spin_lock_bh(&bucket->lock);
++	if (hlist_nulls_unhashed(&subflow_req->token_node))
++		goto unlock;
++
+ 	pos = __token_lookup_req(bucket, subflow_req->token);
+-	if (!WARN_ON_ONCE(pos != subflow_req)) {
++	if (pos == subflow_req) {
+ 		hlist_nulls_del_init_rcu(&pos->token_node);
+ 		bucket->chain_len--;
+ 	}
++
++unlock:
+ 	spin_unlock_bh(&bucket->lock);
+ }
+ 
+diff --git a/net/mptcp/token_test.c b/net/mptcp/token_test.c
+index 4fc39fa2e262d..be9acce8a5673 100644
+--- a/net/mptcp/token_test.c
++++ b/net/mptcp/token_test.c
+@@ -99,7 +99,7 @@ static void mptcp_token_test_accept(struct kunit *test)
+ 	KUNIT_ASSERT_EQ(test, 0,
+ 			mptcp_token_new_request((struct request_sock *)req));
+ 	msk->token = req->token;
+-	mptcp_token_accept(req, msk);
++	KUNIT_EXPECT_TRUE(test, mptcp_token_accept(req, msk));
+ 	KUNIT_EXPECT_PTR_EQ(test, msk, mptcp_token_get_sock(&init_net, msk->token));
+ 
+ 	/* this is now a no-op */
+@@ -122,7 +122,7 @@ static void mptcp_token_test_destroyed(struct kunit *test)
+ 	KUNIT_ASSERT_EQ(test, 0,
+ 			mptcp_token_new_request((struct request_sock *)req));
+ 	msk->token = req->token;
+-	mptcp_token_accept(req, msk);
++	KUNIT_EXPECT_TRUE(test, mptcp_token_accept(req, msk));
+ 
+ 	/* simulate race on removal */
+ 	refcount_set(&sk->sk_refcnt, 0);
 -- 
 2.53.0
 
