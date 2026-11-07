@@ -1,51 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794045766;
-	b=uQpaeHzjvek0ZCjlKtTuYJJWYx2OvkYAaCT4j5qq7TerN6YNnvVJucA/kQu57tGRXKH8
-	 ADAsp8wYis91OjIFvckENyh4uM9XT67/q9llzEM3SQ/L0JnBrmUYNkCKLiIo3hEb+YORo
-	 cUwVAxyLqjGv0Gtr0WOK6xYh4K2BYmYTwBzXdf2x7GTFnNuLNhmQ/w7A2eQ1x1u8Xvwdu
-	 KRk5kLwsQffcO4DJmUgpst0wtq2Sxh8Dt5QUynWg8+G6YDiBv46NGsuhGmS4oyTtkjMP+
-	 yF4pZjFxX0gUTDB6gRcwIGIrt3mx+uJfAMzIBDRkzsaoXJjVZjC5j3CmEW8QyvtXUeQ==
+	t=1794045769;
+	b=JMnQZXHMqY2PhHM5yXPLoQb/4WtcLYQdRQcCPoXF9NPeoTuxethE9vXD2H07rBhB60SJ
+	 1T5uY4jIESkl6WeSRsmxS290ScsKYxNFCajD0fCTG2rklvISwVV3Fq4HjdbSZbz8Q8mOf
+	 RTPDn1LEJJzkhqeHFbZORiSwtmUo05Pcs8REw0758M1GGx127RmTuuNCacAqzIHLWt/pc
+	 xfhiErdnB8qOTl+z5ICXGzFYDLXvUPA3d1Zd+KmuEybJCZteeRwH6BlKMuebuh9/3UgSO
+	 ZJPLT6rWp7TjmxfkC8EzM6qdXBrTJfdPTKWUKidP+pau6FzgEGu8zR40Hsz+l7MNfvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794045766;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794045769;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=VKpUcx9HUS1t2zCY49tw8S2aNrc/OarMzDib6MPigZg=;
-	b=wHRdysxECaJt+QtbZkcxfjhrj+KLP50gBqXY5XRrKOvv/rIQ+wINiNHw8jWe3kGBrO7l
-	 pfd0JMiCKK7KM5Uu/xspgS70Gt9LiV0Se0CeYY4VS3hb3o2egXkHWiFt871EnjOKDgwQF
-	 cg5SQPEXjA4Q8KwmWFshN9OC33c/CdsV4o6rM+zAWrbCx1OJpkqYr/m62bGC9v2ZGiMty
-	 KYW/luRplk0iP3YTbm+z8q6NWHowVsx+5aBr5BqIxqvt5mRWmtoVaOxdZgcvcqHnDxSNe
-	 K+RpK0PxLorcBgwcEqXTktWr7qavwoylh6e63x5xoVME58cQtIgrmJBK0JcuOMtKoVA==
+	bh=AO6w+3jcu46bKoU97zVIIOOFD/OugL+0GFjXB73j5Yk=;
+	b=KCp39E1SXmHzOFyFE6Ao1Xn0uH/5DF8/4RgBOmyJJc1Fwc5+LR+LDPArGp0AItp7k2ss
+	 xwkVRCc/ulnF/2OfxlAmwyZbzdKK4CLznu+gw52cX3kzauCrSjsmpMI2xVZOlufapzzkN
+	 sLI3n6ohANHzc7wPtVjllmumiMLStb5twFxvUfWcCuskK0znVumYyhGF1exOr+g8L4XIY
+	 v8HYdI+cv8epbMxiPZSn8yiq7aWKHGmhejxOQisQTVrZYRVcqb/edodKbI2lOL/PdO5AN
+	 /G70d70vYqNsbkgAzuaa8W48+3lrje/kmFKqHzz9Dk6D/QZ8N3Ccy6fGo440vuIcEBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KE2GkkEm;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UiPvwDYX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ACA7606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:02:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6617606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:02:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KE2GkkEm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C574F1F0089F;
-	Sat,  7 Nov 2026 10:02:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UiPvwDYX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E55151F0089F;
+	Sat,  7 Nov 2026 10:02:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794045766;
-	bh=VKpUcx9HUS1t2zCY49tw8S2aNrc/OarMzDib6MPigZg=;
+	s=k20260515; t=1794045768;
+	bh=AO6w+3jcu46bKoU97zVIIOOFD/OugL+0GFjXB73j5Yk=;
 	h=From:To:Cc:Subject:Date;
-	b=KE2GkkEm75+cwrmW0EouPOkpSKmSRuuLSr4Wx/XKFfUT9mUEbSCxTTcfnEuiJkA9d
-	 8kgnjWCP0kD3fZKNXbMowiF68g3ZzW4OxidkR6r4WDT/DFp0d+ZOwoQJEqiSikKHot
-	 FQprznSbfiMZS5e/HwYDC3PdldA2wDyTgAUiuK00m6Exq/fm3G9yOy+rpFkcZG3wMH
-	 mulWzfZuSKhg6fxQtk1wUu2EESR1ipxcHxbT5yPUPogXRE3hfYF04bndIafze6sudB
-	 f2WiWDchuKt50pBzqqPeL0/+Qdtd+dOEFP86MiorrftR79TM7AK/XjtImOCCJbR6uS
-	 dmDXdMswYO82Q==
+	b=UiPvwDYXTiAn48mRK/J0KonGFFn/ns9HE9IvrEJ93GVQ7NCnhvf1UX6e2zTOwMp9F
+	 cYQ0TxJ5IVtxIRB0rH0tyiZac3aC0vTC7kLCFddFdXbJfHNP3oARppQzbLF9cPg33F
+	 5x2lnTJicwr00Mwrx9OhcnkefTT5/OQQne39Pd2rqWVg/YL+DQylsKisj+NrEpfI44
+	 ba5Pd9b2aV66q8PMDLwlXGnQ7PUgGcs1myGX6vAvYr9/bvKm1c8bR527RL+3pmDY+R
+	 5WmpaGpvntFlSI/WMgoj3JoNWy0FyKcRDNJIXZ2cEBXei+IB2DQaIitQxeQPZHeRS0
+	 wOBNxcZNK/3sw==
 From: Sasha Levin <sashal@kernel.org>
-To: lyude@redhat.com,
-	airlied@redhat.com
+To: heikki.krogerus@linux.intel.com,
+	raag.jadav@intel.com,
+	ramesh.babu.b@intel.com,
+	rodrigo.vivi@intel.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] Revert "nouveau/gsp: fix suspend/resume regression on r570 firmware"" failed to apply to 7.3-stable tree
-Date: Sat,  7 Nov 2026 05:02:44 -0500
-Message-ID: <20261107050244-failed-7.3-94097122bfd7@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/xe/i2c: Fix the interrupt handling" failed to apply to 7.3-stable tree
+Date: Sat,  7 Nov 2026 05:02:46 -0500
+Message-ID: <20261107050246-failed-7.3-a55b76b8bc2c@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,118 +70,578 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x 94097122bfd701976bc1a62ccd434c13f3f67cde
+git cherry-pick -x a55b76b8bc2c49b11d753c1c6d06ec3a2c61c85e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050244-failed-7.3-94097122bfd7@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050246-failed-7.3-a55b76b8bc2c@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 94097122bfd701976bc1a62ccd434c13f3f67cde Mon Sep 17 00:00:00 2001
-From: Lyude Paul <lyude@redhat.com>
-Date: Fri, 14 Aug 2026 15:43:48 -0400
-Subject: [PATCH] Revert "nouveau/gsp: fix suspend/resume regression on r570
- firmware"
+From a55b76b8bc2c49b11d753c1c6d06ec3a2c61c85e Mon Sep 17 00:00:00 2001
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Date: Tue, 11 Aug 2026 14:10:07 +0200
+Subject: [PATCH] drm/xe/i2c: Fix the interrupt handling
 
-This reverts commit 8302d0afeaec0bc57d951dd085e0cffe997d4d18.
+The platforms that support the interrupt from the I2C
+adapter can not handle the amount of interrupts the adapter
+generates because of the way the IRQ is routed in the
+hardware. The I2C controller driver has to be kept in
+polling mode because of that.
 
-It turns out this looked like the right fix on some systems, but it's not -
-as this causes runtime PM to actually fail on many a laptop.
+The AMC MCU can still generate critical alerts that have to
+be handled. The interrupt from SMBus Alert is left enabled
+and handled separately in the Xe. The alerts from the AMC
+will cause the device to be declared wedged for now.
 
-Fixes: 8302d0afeaec ("nouveau/gsp: fix suspend/resume regression on r570 firmware")
-Cc: <stable@vger.kernel.org> # v6.19+
-Signed-off-by: Lyude Paul <lyude@redhat.com>
-Reviewed-by: Dave Airlie <airlied@redhat.com>
-Link: https://patch.msgid.link/20260814194542.781955-2-lyude@redhat.com
+Fixes: f0e53aadd702 ("drm/xe: Support for I2C attached MCUs")
+Cc: stable@vger.kernel.org
+Reviewed-by: Raag Jadav <raag.jadav@intel.com>
+Co-developed-by: Ramesh Babu B <ramesh.babu.b@intel.com>
+Signed-off-by: Ramesh Babu B <ramesh.babu.b@intel.com>
+Signed-off-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Link: https://patch.msgid.link/20260811121008.1493015-3-heikki.krogerus@linux.intel.com
+Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 ---
- drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/fbsr.c | 2 +-
- drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c  | 2 +-
- drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c | 8 ++++----
- drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h        | 2 +-
- 4 files changed, 7 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/xe/Makefile           |   4 +-
+ drivers/gpu/drm/xe/regs/xe_i2c_regs.h |   2 +
+ drivers/gpu/drm/xe/xe_amc.c           | 197 ++++++++++++++++++++++++++
+ drivers/gpu/drm/xe/xe_amc.h           |  25 ++++
+ drivers/gpu/drm/xe/xe_i2c.c           | 128 +++++++----------
+ drivers/gpu/drm/xe/xe_i2c.h           |  13 +-
+ 6 files changed, 282 insertions(+), 87 deletions(-)
+ create mode 100644 drivers/gpu/drm/xe/xe_amc.c
+ create mode 100644 drivers/gpu/drm/xe/xe_amc.h
 
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/fbsr.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/fbsr.c
-index f128330f30d7b..40bf83ea33ac0 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/fbsr.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/fbsr.c
-@@ -208,7 +208,7 @@ r535_fbsr_resume(struct nvkm_gsp *gsp)
+diff --git a/drivers/gpu/drm/xe/Makefile b/drivers/gpu/drm/xe/Makefile
+index 7ac3954737f9d..adc2de37e7682 100644
+--- a/drivers/gpu/drm/xe/Makefile
++++ b/drivers/gpu/drm/xe/Makefile
+@@ -154,7 +154,9 @@ xe-y += xe_bb.o \
+ 	xe_wait_user_fence.o \
+ 	xe_wopcm.o
+ 
+-xe-$(CONFIG_I2C)	+= xe_i2c.o
++xe-$(CONFIG_I2C)	+= xe_i2c.o \
++			   xe_amc.o
++
+ xe-$(CONFIG_DRM_XE_GPUSVM) += xe_svm.o
+ xe-$(CONFIG_DRM_GPUSVM) += xe_userptr.o
+ 
+diff --git a/drivers/gpu/drm/xe/regs/xe_i2c_regs.h b/drivers/gpu/drm/xe/regs/xe_i2c_regs.h
+index f2e455e2bfe45..37550e4a20f80 100644
+--- a/drivers/gpu/drm/xe/regs/xe_i2c_regs.h
++++ b/drivers/gpu/drm/xe/regs/xe_i2c_regs.h
+@@ -20,4 +20,6 @@
+ #define I2C_CONFIG_CMD			XE_REG(I2C_CONFIG_SPACE_OFFSET + PCI_COMMAND)
+ #define I2C_CONFIG_PMCSR		XE_REG(I2C_CONFIG_SPACE_OFFSET + 0x84)
+ 
++#define I2C_REG(reg)			XE_REG((reg) + I2C_MEM_SPACE_OFFSET)
++
+ #endif /* _XE_I2C_REGS_H_ */
+diff --git a/drivers/gpu/drm/xe/xe_amc.c b/drivers/gpu/drm/xe/xe_amc.c
+new file mode 100644
+index 0000000000000..8ecadee6eea39
+--- /dev/null
++++ b/drivers/gpu/drm/xe/xe_amc.c
+@@ -0,0 +1,197 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (C) 2026 Intel Corporation.
++ */
++
++#include <linux/delay.h>
++#include <linux/dev_printk.h>
++#include <linux/err.h>
++#include <linux/i2c.h>
++#include <linux/pci_ids.h>
++#include <linux/slab.h>
++#include <linux/string.h>
++#include <linux/workqueue.h>
++
++#include "regs/xe_i2c_regs.h"
++
++#include "xe_amc.h"
++#include "xe_device.h"
++#include "xe_i2c.h"
++#include "xe_mmio.h"
++
++/**
++ * DOC: Add-In Management Controller (AMC)
++ *
++ * Handler for the SMBus Alerts from the AMC. All the alerts from AMC will cause
++ * the device to be declared wedged.
++ */
++
++#define AMC_COMMAND		0x0f
++#define AMC_GPU_I2C_ADDR	0x8f
++#define AMC_VERSION_V1		0x01
++#define AMC_DESTINATION_ID	12
++#define AMC_SOURCE_ID		8
++#define AMC_FLAGS		0xc8
++
++#define AMC_MSG_TYPE		0x7e
++#define AMC_GET_ALERT_REASON	0x01
++
++enum xe_amc_alert {
++	AMC_ALERT_UNKNOWN,
++	AMC_ALERT_FW_DOWNLOAD,
++	AMC_ALERT_THERMAL_TRIP,
++	AMC_ALERT_OOB_REQUEST,
++	AMC_ALERT_OOB_RESET,
++	AMC_ALERT_CATERR,
++};
++
++static const char * const amc_alert[] = {
++	[AMC_ALERT_FW_DOWNLOAD]		= "Firmware Download",
++	[AMC_ALERT_THERMAL_TRIP]	= "Thermal Trip",
++	[AMC_ALERT_OOB_REQUEST]		= "OOB Request",
++	[AMC_ALERT_OOB_RESET]		= "OOB Reset",
++	[AMC_ALERT_CATERR]		= "Catastrophic",
++};
++
++struct xe_amc {
++	struct xe_i2c *i2c;
++	struct work_struct work;
++};
++
++struct amc_header {
++	u8 command;
++	u8 len;
++	u8 address;
++	u8 version;
++	u8 destination;
++	u8 source;
++	u8 flags;
++} __packed;
++
++struct amc_message {
++	u8 type;
++	u16 vendor;
++	u8 command;
++} __packed;
++
++struct amc_request {
++	struct amc_header header;
++	struct amc_message message;
++	u32 reserved;
++} __packed;
++
++struct amc_response {
++	struct amc_header header;
++	struct amc_message message;
++	u8 error;
++	u8 value;
++} __packed;
++
++static const struct amc_request amc_get_alert_reason = {
++	.header = {
++		.command	= AMC_COMMAND,
++		.len		= sizeof(struct amc_request) - 2,
++		.address	= AMC_GPU_I2C_ADDR,
++		.version	= AMC_VERSION_V1,
++		.destination	= AMC_DESTINATION_ID,
++		.source		= AMC_SOURCE_ID,
++		.flags		= AMC_FLAGS,
++	},
++	.message = {
++		.type		= AMC_MSG_TYPE,
++		.vendor		= htons(PCI_VENDOR_ID_INTEL),
++		.command	= AMC_GET_ALERT_REASON,
++	},
++};
++
++static void xe_amc_work(struct work_struct *work)
++{
++	const struct amc_request *request = &amc_get_alert_reason;
++	struct xe_amc *amc = from_work(amc, work, work);
++	u8 alert_reason = AMC_ALERT_UNKNOWN;
++	struct amc_response response;
++	struct i2c_client *client;
++	int ret;
++
++	client = amc->i2c->client[XE_I2C_CLIENT_AMC];
++	if (IS_ERR_OR_NULL(client))
++		goto out_reassert_interrupt;
++
++	ret = i2c_master_send(client, (u8 *)request, sizeof(*request));
++	if (ret < 0) {
++		dev_err(&client->dev, "failed to send request (%d)\n", ret);
++		goto out_reassert_interrupt;
++	}
++
++	/* AMC needs 20ms to generate the response. */
++	fsleep(20 * USEC_PER_MSEC);
++
++	ret = i2c_master_recv(client, (u8 *)&response, sizeof(response));
++	if (ret < 0) {
++		dev_err(&client->dev, "failed to read response (%d)\n", ret);
++		goto out_reassert_interrupt;
++	}
++
++	if (!response.header.len) {
++		dev_err(&client->dev, "empty response from AMC\n");
++		goto out_reassert_interrupt;
++	}
++
++	if (memcmp(&response.message, &request->message, sizeof(struct amc_message))) {
++		dev_err(&client->dev, "response does not match the request\n");
++		goto out_reassert_interrupt;
++	}
++
++	if (response.error) {
++		dev_err(&client->dev, "AMC error 0x%02x\n", response.error);
++		goto out_reassert_interrupt;
++	}
++
++	alert_reason = response.value;
++	dev_dbg(&client->dev, "Alert reason: %d\n", alert_reason);
++
++out_reassert_interrupt:
++	xe_mmio_rmw32(amc->i2c->mmio, I2C_CONFIG_CMD, PCI_COMMAND_INTX_DISABLE, 0);
++
++	switch (alert_reason) {
++	case AMC_ALERT_FW_DOWNLOAD:
++	case AMC_ALERT_THERMAL_TRIP:
++	case AMC_ALERT_OOB_REQUEST:
++	case AMC_ALERT_OOB_RESET:
++	case AMC_ALERT_CATERR:
++		dev_warn(amc->i2c->drm_dev, "AMC Alert: %s\n", amc_alert[alert_reason]);
++		xe_device_declare_wedged(i2c_client_to_xe_device(client));
++		break;
++	default:
++		dev_warn(amc->i2c->drm_dev, "unknown AMC alert: %d\n", alert_reason);
++		break;
++	}
++}
++
++void xe_amc_handle_alert(struct xe_i2c *i2c)
++{
++	queue_work(system_long_wq, &i2c->amc->work);
++}
++
++int xe_amc_init(struct xe_i2c *i2c)
++{
++	struct xe_amc *amc;
++
++	amc = kzalloc(sizeof(*amc), GFP_KERNEL);
++	if (!amc)
++		return -ENOMEM;
++
++	INIT_WORK(&amc->work, xe_amc_work);
++	i2c->amc = amc;
++	amc->i2c = i2c;
++
++	return 0;
++}
++
++void xe_amc_exit(struct xe_i2c *i2c)
++{
++	if (i2c->amc) {
++		cancel_work_sync(&i2c->amc->work);
++		kfree(i2c->amc);
++	}
++}
+diff --git a/drivers/gpu/drm/xe/xe_amc.h b/drivers/gpu/drm/xe/xe_amc.h
+new file mode 100644
+index 0000000000000..b1d5311fee536
+--- /dev/null
++++ b/drivers/gpu/drm/xe/xe_amc.h
+@@ -0,0 +1,25 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef _XE_AMC_H_
++#define _XE_AMC_H_
++
++#include <linux/i2c.h>
++
++#include "xe_device.h"
++
++struct xe_i2c;
++
++static inline struct xe_device *i2c_adapter_to_xe_device(struct i2c_adapter *adapter)
++{
++	return kdev_to_xe_device(adapter->dev.parent->parent);
++}
++
++static inline struct xe_device *i2c_client_to_xe_device(struct i2c_client *client)
++{
++	return i2c_adapter_to_xe_device(client->adapter);
++}
++
++int xe_amc_init(struct xe_i2c *i2c);
++void xe_amc_exit(struct xe_i2c *i2c);
++void xe_amc_handle_alert(struct xe_i2c *i2c);
++
++#endif /* _XE_AMC_H_ */
+diff --git a/drivers/gpu/drm/xe/xe_i2c.c b/drivers/gpu/drm/xe/xe_i2c.c
+index a26c38bb17a15..32767570e43d4 100644
+--- a/drivers/gpu/drm/xe/xe_i2c.c
++++ b/drivers/gpu/drm/xe/xe_i2c.c
+@@ -12,8 +12,6 @@
+ #include <linux/err.h>
+ #include <linux/i2c.h>
+ #include <linux/ioport.h>
+-#include <linux/irq.h>
+-#include <linux/irqdomain.h>
+ #include <linux/notifier.h>
+ #include <linux/pci.h>
+ #include <linux/platform_device.h>
+@@ -24,9 +22,12 @@
+ #include <linux/types.h>
+ #include <linux/workqueue.h>
+ 
++#include <linux/designware_i2c.h>
++
+ #include "regs/xe_i2c_regs.h"
+ #include "regs/xe_irq_regs.h"
+ 
++#include "xe_amc.h"
+ #include "xe_device.h"
+ #include "xe_i2c.h"
+ #include "xe_mmio.h"
+@@ -61,16 +62,32 @@ static inline void xe_i2c_read_endpoint(struct xe_mmio *mmio, void *ep)
+ 	val[1] = xe_mmio_read32(mmio, REG_SG_REMAP_ADDR_POSTFIX);
  }
  
- static int
--r535_fbsr_suspend(struct nvkm_gsp *gsp, bool runtime)
-+r535_fbsr_suspend(struct nvkm_gsp *gsp)
++static void xe_i2c_handle_smbus_alert(struct xe_i2c *i2c)
++{
++	u32 stat;
++
++	stat = xe_mmio_read32(i2c->mmio, I2C_REG(DW_IC_SMBUS_INTR_STAT));
++	if (!stat)
++		return;
++
++	xe_mmio_write32(i2c->mmio, I2C_REG(DW_IC_CLR_SMBUS_INTR), stat);
++
++	if (stat & DW_IC_SMBUS_INTR_ALERT && i2c->amc)
++		xe_amc_handle_alert(i2c);
++	else
++		xe_mmio_rmw32(i2c->mmio, I2C_CONFIG_CMD, PCI_COMMAND_INTX_DISABLE, 0);
++}
++
+ static void xe_i2c_client_work(struct work_struct *work)
  {
- 	struct nvkm_subdev *subdev = &gsp->subdev;
- 	struct nvkm_device *device = subdev->device;
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
-index f544afa12b6bb..4a3b771ded255 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
-@@ -1749,7 +1749,7 @@ r535_gsp_fini(struct nvkm_gsp *gsp, enum nvkm_suspend_state suspend)
- 		sr->sysmemAddrOfSuspendResumeData = gsp->sr.radix3.lvl0.addr;
- 		sr->sizeOfSuspendResumeData = len;
+ 	struct xe_i2c *i2c = container_of(work, struct xe_i2c, work);
+ 	struct i2c_board_info info = {
+ 		.type	= "amc",
+ 		.flags	= I2C_CLIENT_HOST_NOTIFY,
+-		.addr	= i2c->ep.addr[1],
++		.addr	= i2c->ep.addr[XE_I2C_CLIENT_AMC],
+ 	};
  
--		ret = rm->api->fbsr->suspend(gsp, suspend == NVKM_RUNTIME_SUSPEND);
-+		ret = rm->api->fbsr->suspend(gsp);
- 		if (ret) {
- 			nvkm_gsp_mem_dtor(&gsp->sr.meta);
- 			nvkm_gsp_radix3_dtor(gsp, &gsp->sr.radix3);
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
-index 8ef8b4f655883..2945d5b4e5707 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/fbsr.c
-@@ -62,7 +62,7 @@ r570_fbsr_resume(struct nvkm_gsp *gsp)
+-	i2c->client[0] = i2c_new_client_device(i2c->adapter, &info);
++	i2c->client[XE_I2C_CLIENT_AMC] = i2c_new_client_device(i2c->adapter, &info);
  }
  
- static int
--r570_fbsr_init(struct nvkm_gsp *gsp, struct sg_table *sgt, u64 size, bool runtime)
-+r570_fbsr_init(struct nvkm_gsp *gsp, struct sg_table *sgt, u64 size)
- {
- 	NV2080_CTRL_INTERNAL_FBSR_INIT_PARAMS *ctrl;
- 	struct nvkm_gsp_object memlist;
-@@ -81,7 +81,7 @@ r570_fbsr_init(struct nvkm_gsp *gsp, struct sg_table *sgt, u64 size, bool runtim
- 	ctrl->hClient = gsp->internal.client.object.handle;
- 	ctrl->hSysMem = memlist.handle;
- 	ctrl->sysmemAddrOfSuspendResumeData = gsp->sr.meta.addr;
--	ctrl->bEnteringGcoffState = runtime ? 1 : 0;
-+	ctrl->bEnteringGcoffState = 1;
+ static int xe_i2c_notifier(struct notifier_block *nb, unsigned long action, void *data)
+@@ -115,16 +132,6 @@ static int xe_i2c_register_adapter(struct xe_i2c *i2c)
+ 		goto err_fwnode_remove;
+ 	}
  
- 	ret = nvkm_gsp_rm_ctrl_wr(&gsp->internal.device.subdevice, ctrl);
+-	if (i2c->adapter_irq) {
+-		struct resource res;
+-
+-		res = DEFINE_RES_IRQ_NAMED(i2c->adapter_irq, "xe_i2c");
+-
+-		ret = platform_device_add_resources(pdev, &res, 1);
+-		if (ret)
+-			goto err_pdev_put;
+-	}
+-
+ 	pdev->dev.parent = i2c->drm_dev;
+ 	pdev->dev.fwnode = fwnode;
+ 	i2c->adapter_node = fwnode;
+@@ -166,7 +173,8 @@ bool xe_i2c_present(struct xe_device *xe)
+ 
+ static bool xe_i2c_irq_present(struct xe_device *xe)
+ {
+-	return xe->i2c && xe->i2c->adapter_irq;
++	return xe->i2c && xe->i2c->ep.capabilities & XE_I2C_EP_CAP_IRQ &&
++		!xe_survivability_mode_is_boot_enabled(xe);
+ }
+ 
+ /**
+@@ -179,18 +187,10 @@ static bool xe_i2c_irq_present(struct xe_device *xe)
+  */
+ void xe_i2c_irq_handler(struct xe_device *xe, u32 master_ctl)
+ {
+-	struct xe_mmio *mmio = xe_root_tile_mmio(xe);
+-
+ 	if (!(master_ctl & I2C_IRQ) || !xe_i2c_irq_present(xe))
+ 		return;
+ 
+-	/* Forward interrupt to I2C adapter */
+-	generic_handle_irq_safe(xe->i2c->adapter_irq);
+-
+-	/* Deassert after I2C adapter clears the interrupt */
+-	xe_mmio_rmw32(mmio, I2C_CONFIG_CMD, 0, PCI_COMMAND_INTX_DISABLE);
+-	/* Reassert to allow subsequent interrupt generation */
+-	xe_mmio_rmw32(mmio, I2C_CONFIG_CMD, PCI_COMMAND_INTX_DISABLE, 0);
++	xe_i2c_handle_smbus_alert(xe->i2c);
+ }
+ 
+ void xe_i2c_irq_reset(struct xe_device *xe)
+@@ -215,45 +215,6 @@ void xe_i2c_irq_postinstall(struct xe_device *xe)
+ 	xe_mmio_rmw32(mmio, I2C_CONFIG_CMD, PCI_COMMAND_INTX_DISABLE, 0);
+ }
+ 
+-static int xe_i2c_irq_map(struct irq_domain *h, unsigned int virq,
+-			  irq_hw_number_t hw_irq_num)
+-{
+-	irq_set_chip_and_handler(virq, &dummy_irq_chip, handle_simple_irq);
+-	return 0;
+-}
+-
+-static const struct irq_domain_ops xe_i2c_irq_ops = {
+-	.map = xe_i2c_irq_map,
+-};
+-
+-static int xe_i2c_create_irq(struct xe_device *xe)
+-{
+-	struct xe_i2c *i2c = xe->i2c;
+-	struct irq_domain *domain;
+-
+-	if (!(i2c->ep.capabilities & XE_I2C_EP_CAP_IRQ) ||
+-	    xe_survivability_mode_is_boot_enabled(xe))
+-		return 0;
+-
+-	domain = irq_domain_create_linear(dev_fwnode(i2c->drm_dev), 1, &xe_i2c_irq_ops, NULL);
+-	if (!domain)
+-		return -ENOMEM;
+-
+-	i2c->adapter_irq = irq_create_mapping(domain, 0);
+-	i2c->irqdomain = domain;
+-
+-	return 0;
+-}
+-
+-static void xe_i2c_remove_irq(struct xe_i2c *i2c)
+-{
+-	if (!i2c->irqdomain)
+-		return;
+-
+-	irq_dispose_mapping(i2c->adapter_irq);
+-	irq_domain_remove(i2c->irqdomain);
+-}
+-
+ static int xe_i2c_read(void *context, unsigned int reg, unsigned int *val)
+ {
+ 	struct xe_i2c *i2c = context;
+@@ -267,8 +228,16 @@ static int xe_i2c_write(void *context, unsigned int reg, unsigned int val)
+ {
+ 	struct xe_i2c *i2c = context;
+ 
+-	xe_mmio_write32(i2c->mmio, XE_REG(reg + I2C_MEM_SPACE_OFFSET), val);
++	switch (reg) {
++	case DW_IC_SMBUS_INTR_MASK:
++		/* Make sure the Alert is never masked. */
++		val |= DW_IC_SMBUS_INTR_ALERT;
++		break;
++	default:
++		break;
++	}
+ 
++	xe_mmio_write32(i2c->mmio, I2C_REG(reg), val);
+ 	return 0;
+ }
+ 
+@@ -310,12 +279,15 @@ static void xe_i2c_remove(void *data)
+ 	struct xe_i2c *i2c = data;
+ 	unsigned int i;
+ 
+-	for (i = 0; i < XE_I2C_MAX_CLIENTS; i++)
++	xe_amc_exit(i2c);
++
++	for (i = 0; i < XE_I2C_MAX_CLIENTS; i++) {
+ 		i2c_unregister_device(i2c->client[i]);
++		i2c->client[i] = NULL;
++	}
+ 
+ 	bus_unregister_notifier(&i2c_bus_type, &i2c->bus_notifier);
+ 	xe_i2c_unregister_adapter(i2c);
+-	xe_i2c_remove_irq(i2c);
+ }
+ 
+ /**
+@@ -363,22 +335,18 @@ int xe_i2c_probe(struct xe_device *xe)
  	if (ret)
-@@ -92,7 +92,7 @@ r570_fbsr_init(struct nvkm_gsp *gsp, struct sg_table *sgt, u64 size, bool runtim
+ 		return ret;
+ 
+-	ret = xe_i2c_create_irq(xe);
+-	if (ret)
+-		goto err_unregister_notifier;
+-
+ 	ret = xe_i2c_register_adapter(i2c);
+-	if (ret)
+-		goto err_remove_irq;
++	if (ret) {
++		bus_unregister_notifier(&i2c_bus_type, &i2c->bus_notifier);
++		return ret;
++	}
++
++	ret = xe_amc_init(i2c);
++	if (ret) {
++		xe_i2c_remove(i2c);
++		return ret;
++	}
+ 
+ 	xe_i2c_irq_postinstall(xe);
+ 	return devm_add_action_or_reset(drm_dev, xe_i2c_remove, i2c);
+-
+-err_remove_irq:
+-	xe_i2c_remove_irq(i2c);
+-
+-err_unregister_notifier:
+-	bus_unregister_notifier(&i2c_bus_type, &i2c->bus_notifier);
+-
+-	return ret;
  }
+diff --git a/drivers/gpu/drm/xe/xe_i2c.h b/drivers/gpu/drm/xe/xe_i2c.h
+index 425d8160835f4..b200966b00484 100644
+--- a/drivers/gpu/drm/xe/xe_i2c.h
++++ b/drivers/gpu/drm/xe/xe_i2c.h
+@@ -11,18 +11,21 @@ struct device;
+ struct fwnode_handle;
+ struct i2c_adapter;
+ struct i2c_client;
+-struct irq_domain;
+ struct platform_device;
++struct xe_amc;
+ struct xe_device;
+ struct xe_mmio;
  
- static int
--r570_fbsr_suspend(struct nvkm_gsp *gsp, bool runtime)
-+r570_fbsr_suspend(struct nvkm_gsp *gsp)
- {
- 	struct nvkm_subdev *subdev = &gsp->subdev;
- 	struct nvkm_device *device = subdev->device;
-@@ -133,7 +133,7 @@ r570_fbsr_suspend(struct nvkm_gsp *gsp, bool runtime)
- 		return ret;
+-#define XE_I2C_MAX_CLIENTS		3
+-
+ #define XE_I2C_EP_COOKIE_DEVICE		0xde
  
- 	/* Initialise FBSR on RM. */
--	ret = r570_fbsr_init(gsp, &gsp->sr.fbsr, size, runtime);
-+	ret = r570_fbsr_init(gsp, &gsp->sr.fbsr, size);
- 	if (ret) {
- 		nvkm_gsp_sg_free(device, &gsp->sr.fbsr);
- 		return ret;
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h
-index a9af94adf9efc..0fb0e67406c67 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h
-@@ -78,7 +78,7 @@ struct nvkm_rm_api {
- 	} *device;
+ /* Endpoint Capabilities */
+ #define XE_I2C_EP_CAP_IRQ		BIT(0)
  
- 	const struct nvkm_rm_api_fbsr {
--		int (*suspend)(struct nvkm_gsp *, bool runtime);
-+		int (*suspend)(struct nvkm_gsp *);
- 		void (*resume)(struct nvkm_gsp *);
- 	} *fbsr;
++enum XE_I2C_CLIENT {
++	XE_I2C_CLIENT_AMC = 1,
++	XE_I2C_MAX_CLIENTS = 3,
++};
++
+ struct xe_i2c_endpoint {
+ 	u8 cookie;
+ 	u8 capabilities;
+@@ -38,13 +41,11 @@ struct xe_i2c {
+ 	struct notifier_block bus_notifier;
+ 	struct work_struct work;
  
+-	struct irq_domain *irqdomain;
+-	int adapter_irq;
+-
+ 	struct xe_i2c_endpoint ep;
+ 	struct device *drm_dev;
+ 
+ 	struct xe_mmio *mmio;
++	struct xe_amc *amc;
+ };
+ 
+ #if IS_ENABLED(CONFIG_I2C)
 -- 
 2.53.0
 
