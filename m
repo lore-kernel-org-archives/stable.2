@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048323;
-	b=Ax7JYL4n5iGR45EA5twjrpcL7M0c5WfYCxM5qs+ShkVAPFZDZB3Bbu+jGIxEJph0xDVa
-	 sysqKM5lqSqQ8sIiIAk0PHYr7CyDt0yLtlzO1SCxDW8xRIbwAujxgAxTjBgsSLeMdKAfP
-	 xh6XBYhT2o7hXTXTGI/Yxcj91TqHxr9p3CxnGf0p0oipB3roff1AKKIDzuE3zd64sWTqq
-	 +Sl4nE+R5OauoqNWzeup7YA3S+eVDUAP85mg201lLFsXTH2gtkf8dkMm9XrwdgCidbSZT
-	 /FMO93bZcPqE1XFAK6ylL1huu3R483puPsbGob7ykGwnY5Ays9mOpesonZQN11++yZA==
+	t=1794048326;
+	b=ipkXADLVYuZ25CGmnO1wAG94xJ+ZdzuFAjMoVkT+dLPUDMGG8u9e55E04R3Ooy6nLpAv
+	 s/b+9qAvFH5ZND82QoIkMpHnZLAqgJjVDNmS8txSD8CACVfMMXJqZwD+G5LzAE+GGyukc
+	 P4vf4Ju6GGyAEFXgM9OYXn8j0Dve5JZ1PFLGw6pfyL15h99LyAX3wK7trd5N7O6aZYh+d
+	 U+s9rJfKgeecSftn7uzFtuKpIfU8UZyZ1dzc9NzVM+c4ecfR/yFzAZQi0SFqwfMn+RTn+
+	 2n8jJV8tWhkFAbH5TPwjqJEX9B70YBjilZqUsVSAcEK4t+D/WJ0YFU1V15EtnMF1TPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048323;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048326;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=yxD2ZuO5Lr/s/JPtmTgpC5x4eroudIMNS30Zm4CnWtM=;
-	b=Jqbz2J0ZJNepNBe0d3cAccqYwAiIT/yGN9ORVKBU024OgHrwgexgGtU3CEKqaSsztCWU
-	 08W6RYvMowClwU7gZn2rbvLz7RUorlW810U+F4bR06utmPqJVo9od9/Ua/whxUojyJQiE
-	 Vb/2QDmvOCqWy0Al96lTfwMMgI+bdfhuL0bDvWivQcujzviAR8RQC4J5JGrTw1yArGm4c
-	 c0UoG52tqUs32TYMF5U8loLZzGXLS81EYnbQVxc98QG8hVRjkjliQgyTBhlquhge677aB
-	 vjclibOnfuN2BER9o8W7MoK73Pf1Ko4zYAORlsW5Pjf0Gy4ak2DxlPQAGWRWZwzJj0A==
+	bh=B4etl6gN/tXD662HKecD1P5huhoRqkFwxGu/YvaR3hE=;
+	b=WWc5H0u0APejauMZKOMg4fOowkVKSHLXYCbJBek1Oo6QkWj02Pjk71D9s9h6siXHk6Zj
+	 E55gWfgqu5MLQpgi0kioDz420+czfqtWiRwzCAVO14ukmO50VOCBePKDwTdnyDujg9psX
+	 KUV+VWG4OPYfKle8wasTs9/xBK+SBTsma7QTeUrU4XwEeO9KNR+TRdzfK2YKb1K5Ytxh7
+	 3Q3FXvZS2uMNTjQ1kj4GrDmqlpQDM8x4817DyzON5asEKWFAFH6tO5zyO1b2xgTK2O+TK
+	 dy0CqXXG3poPSfWW9v5+yPg4pOuTLiCmRmwoVBJsKNCZHfdF2vmxRrbOgYeTu2TvV5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SFOOdnXp;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="cFG/+/A6";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55311606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:45:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49025606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:45:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SFOOdnXp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2FA51F0089F;
-	Sat,  7 Nov 2026 10:45:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cFG/+/A6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDB391F0089F;
+	Sat,  7 Nov 2026 10:45:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048323;
-	bh=yxD2ZuO5Lr/s/JPtmTgpC5x4eroudIMNS30Zm4CnWtM=;
+	s=k20260515; t=1794048326;
+	bh=B4etl6gN/tXD662HKecD1P5huhoRqkFwxGu/YvaR3hE=;
 	h=From:To:Cc:Subject:Date;
-	b=SFOOdnXp1phBV8pNZi/U7xfNCi568Criw+BTPhipV2ehj+K9A2esFvSN2xQGI2x7x
-	 xuSTAVuaBAcEuY04zDqK4kSV0CULhXOD/zCLk1G+LTnrjglRzCM3qOBA4fTgNKQepg
-	 N/OifP+KPgJJE84wXsQEzLli1fVP2DETCW+kqTKnSJZUgwrQKy6vqW5XNjRmJsp8/C
-	 JSKjCckRCkqzuOwYpZ+QiZ9LWycAmv8ecZIiYPHD7BJt+4tNv9fmGqlVpeJ3zDkWKh
-	 oihQ1Vu8Cu00GbLO4LEJ5FxTSfQJDGyXWFXd2T6fcO5C2UH/QP2Cd3ioq2+09oPT5g
-	 A2d8+Yv9DDSoQ==
+	b=cFG/+/A6mbQqG37bHx/20eD3RlCbt/lbwbqN3hxW1SCuE2Z6DcaCXqka+O7iJgCIE
+	 9roWBQmjfsB4OLEsxU2XQ+HT21FClToABpXupFobNwbIR6/6n27MI+DL93SStfR7JW
+	 nuFVXF3DpcOIGQdwu/D13Bp0KrvonGwEVI4E9QcVTJ9FBsRHhgARQIFbJhyjwkFWg2
+	 TzuO9tGGkrEfuilfs+kbi6I1xctpvL+d81/k6FMlWv+77GupY6StioTgrz0ZmMN8rZ
+	 AOWGUrtkQSezVhOYZ+W4ZqW0GCgf6rUdu3r0798fURUPWMCnbU+BsI9Jg6SklMgPpV
+	 sBeHMz42IDiJw==
 From: Sasha Levin <sashal@kernel.org>
-To: mhun512@gmail.com,
-	ae878000@gmail.com,
-	nbd@nbd.name
+To: chao@kernel.org,
+	jaegeuk@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] wifi: mt76: mt7615: restore DBDC state after ext PHY failure" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:45:21 -0500
-Message-ID: <20261107054521-failed-6.1-7907d5270dc5@kernel.org>
+Subject: FAILED: patch "[PATCH] f2fs: zone: fix to avoid bio split on sequential zone" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:45:24 -0500
+Message-ID: <20261107054524-failed-6.1-b9b036bd1e2c@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,86 +68,124 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 7907d5270dc5c13b6a95754c08a77d5b06bbc786
+git cherry-pick -x b9b036bd1e2cfbc189d5811d62d8711e216c40b3
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054521-failed-6.1-7907d5270dc5@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054524-failed-6.1-b9b036bd1e2c@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 7907d5270dc5c13b6a95754c08a77d5b06bbc786 Mon Sep 17 00:00:00 2001
-From: Myeonghun Pak <mhun512@gmail.com>
-Date: Thu, 10 Sep 2026 17:54:41 -0400
-Subject: [PATCH] wifi: mt76: mt7615: restore DBDC state after ext PHY failure
+From b9b036bd1e2cfbc189d5811d62d8711e216c40b3 Mon Sep 17 00:00:00 2001
+From: Chao Yu <chao@kernel.org>
+Date: Wed, 7 Oct 2026 10:18:12 +0000
+Subject: [PATCH] f2fs: zone: fix to avoid bio split on sequential zone
 
-mt7615_register_ext_phy() limits the primary PHY to DBDC capabilities
-before allocating and registering the secondary PHY. If allocation,
-EEPROM override, or PHY registration fails, it returns without restoring
-the primary PHY capabilities. The EEPROM override failure also leaks the
-newly allocated ieee80211_hw.
+In the block layer, bio_split_to_limits() splits a bio if it exceeds
+any underlying queue limits:
+1. queue_max_sectors: Splits bios larger than the transfer limit. This
+   limit is set by the device driver/DMA controller (max_hw_sectors) and
+   device-mapper targets. When flushing dirty pages (governed by VFS
+   writeback_chunk_size() and f2fs nr_pages_to_skip()), f2fs merges
+   contiguous pages into bios up to 512KB (1024 sectors) or more without
+   checking queue_max_sectors, which will be split if the device or DM
+   target enforces a smaller limit.
+2. queue_max_segments: Splits bios exceeding scatter-gather segment
+   limits. f2fs allocates bios with up to 256 pages, exceeding the
+   128-segment limit of DM targets (dm-default-key/dm-crypt) if pages
+   are discontiguous.
+3. chunk_sectors: Splits bios crossing chunk/zone boundaries. In f2fs,
+   section_size strictly matches zone_size, and block allocation never
+   spans across section boundaries, so bios never cross chunk_sectors.
 
-Route all failures through common labels that free the secondary hardware
-when it was allocated and restore the primary PHY capabilities.
+Crucially, when bio_split_to_limits() splits a bio, bio_submit_split()
+submits the tail half via submit_bio_noacct() before returning the head
+half to the caller. On a sequential zoned device, this causes the tail
+bio to arrive at the zone write plug before the head:
 
-This issue was identified during our ongoing static-analysis research while
-reviewing kernel code.
+  dm-3: zone 7: prepare_bio wp mismatch: bio sector 30720 offset 2048
+  != wp_offset 248, len 248
 
-Fixes: 0f2173f093b3 ("mt76: mt7615: add support for registering a second wiphy via debugfs")
+The write plug rejects the out-of-order tail with BLK_STS_IOERR, causing
+f2fs_stop_checkpoint() and remounting the filesystem read-only:
+
+2026-09-30T22:09:23.725678+08:00 localhost kernel: CPU: 9 UID: 0 PID: 243 Comm: kworker/9:1H Not tainted 6.12.81-gb3ef518fb26d #5
+2026-09-30T22:09:23.725750+08:00 localhost kernel: Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-debian-1.17.0-1 04/01/2014
+2026-09-30T22:09:23.725753+08:00 localhost kernel: Workqueue: dm-3_zwplugs blk_zone_wplug_bio_work
+2026-09-30T22:09:23.725756+08:00 localhost kernel: Call Trace:
+2026-09-30T22:09:23.725758+08:00 localhost kernel:  <TASK>
+2026-09-30T22:09:23.725758+08:00 localhost kernel:  dump_stack_lvl+0x4d/0x70
+2026-09-30T22:09:23.725759+08:00 localhost kernel:  f2fs_stop_checkpoint+0x1df/0x5d0
+2026-09-30T22:09:23.725759+08:00 localhost kernel:  ? blk_zone_wplug_bio_work+0x4eb/0x740
+2026-09-30T22:09:23.725760+08:00 localhost kernel:  f2fs_cache_write_end_io+0x545/0x6e0
+2026-09-30T22:09:23.725761+08:00 localhost kernel:  blk_zone_wplug_bio_work+0x4eb/0x740
+2026-09-30T22:09:23.725762+08:00 localhost kernel:  process_one_work+0x5c6/0xde0
+2026-09-30T22:09:23.725764+08:00 localhost kernel:  ? assign_work+0x124/0x4e0
+2026-09-30T22:09:23.725765+08:00 localhost kernel:  worker_thread+0x403/0xb70
+2026-09-30T22:09:23.725765+08:00 localhost kernel:  ? __kthread_parkme+0x82/0x140
+2026-09-30T22:09:23.725766+08:00 localhost kernel:  ? __pfx_worker_thread+0x10/0x10
+2026-09-30T22:09:23.725766+08:00 localhost kernel:  kthread+0x235/0x2e0
+2026-09-30T22:09:23.725767+08:00 localhost kernel:  ? recalc_sigpending+0x128/0x1d0
+2026-09-30T22:09:23.725767+08:00 localhost kernel:  ? __pfx_kthread+0x10/0x10
+2026-09-30T22:09:23.725769+08:00 localhost kernel:  ret_from_fork+0x2f/0x70
+2026-09-30T22:09:23.725769+08:00 localhost kernel:  ? __pfx_kthread+0x10/0x10
+2026-09-30T22:09:23.725770+08:00 localhost kernel:  ret_from_fork_asm+0x1a/0x30
+2026-09-30T22:09:23.725771+08:00 localhost kernel:  </TASK>
+2026-09-30T22:09:23.725771+08:00 localhost kernel: F2FS-fs (dm-0): Stopped filesystem due to reason: 3
+
+To prevent write bios destined for sequential zones from being split:
+1. In __bio_alloc(), bound npages to bdev_max_segments(bdev) for writes to
+   sequential zone areas.
+2. In page_is_mergeable(), check queue_max_segments() and queue_max_sectors()
+   for sequential zone areas, so f2fs will not merge beyond the queue limits.
+
+Fixes: 52763a4b7a21 ("f2fs: detect host-managed SMR by feature flag")
+Fixes: 664ba972df9b ("f2fs: use BIO_MAX_PAGES for bio allocation")
 Cc: stable@vger.kernel.org
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-Link: https://patch.msgid.link/20260910215441.76683-1-mhun512@gmail.com
-Signed-off-by: Felix Fietkau <nbd@nbd.name>
+Signed-off-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
 ---
- .../net/wireless/mediatek/mt76/mt7615/init.c    | 17 +++++++++++++----
- 1 file changed, 13 insertions(+), 4 deletions(-)
+ fs/f2fs/data.c | 18 +++++++++++++++++-
+ 1 file changed, 17 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/wireless/mediatek/mt76/mt7615/init.c b/drivers/net/wireless/mediatek/mt76/mt7615/init.c
-index e437e088b2e91..665b0f1e939f1 100644
---- a/drivers/net/wireless/mediatek/mt76/mt7615/init.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt7615/init.c
-@@ -541,8 +541,10 @@ int mt7615_register_ext_phy(struct mt7615_dev *dev)
+diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+index 4bfa301a5df63..15c6af8515f30 100644
+--- a/fs/f2fs/data.c
++++ b/fs/f2fs/data.c
+@@ -536,6 +536,10 @@ static struct bio *__bio_alloc(struct f2fs_io_info *fio, int npages)
+ 	struct bio *bio;
  
- 	mt7615_cap_dbdc_enable(dev);
- 	mphy = mt76_alloc_phy(&dev->mt76, sizeof(*phy), &mt7615_ops, MT_BAND1);
--	if (!mphy)
--		return -ENOMEM;
-+	if (!mphy) {
-+		ret = -ENOMEM;
-+		goto error;
+ 	bdev = f2fs_target_device(sbi, fio->new_blkaddr, &sector);
++	/* avoid reversed IO if bio is split due to exceeding max_segments */
++	if (npages > 1 && !is_read_io(fio->op) &&
++	    f2fs_is_sequential_zone_area(sbi, fio->new_blkaddr))
++		npages = min_t(int, npages, bdev_max_segments(bdev));
+ 	bio = bio_alloc_bioset(bdev, npages,
+ 				fio->op | fio->op_flags | f2fs_io_flags(fio),
+ 				GFP_NOIO, &f2fs_bioset);
+@@ -892,7 +896,19 @@ static bool page_is_mergeable(struct f2fs_sb_info *sbi, struct bio *bio,
+ 		return false;
+ 	if (last_blkaddr + 1 != cur_blkaddr)
+ 		return false;
+-	return bio->bi_bdev == f2fs_target_device(sbi, cur_blkaddr, NULL);
++	if (bio->bi_bdev != f2fs_target_device(sbi, cur_blkaddr, NULL))
++		return false;
++	/* avoid reversed IO if bio is split due to exceeding max_segments/sectors */
++	if (f2fs_is_sequential_zone_area(sbi, cur_blkaddr)) {
++		struct request_queue *q = bdev_get_queue(bio->bi_bdev);
++
++		if (bio->bi_vcnt >= queue_max_segments(q))
++			return false;
++		if (bio_sectors(bio) + (F2FS_BLKSIZE(sbi) >> SECTOR_SHIFT) >
++				queue_max_sectors(q))
++			return false;
 +	}
- 
- 	phy = mphy->priv;
- 	phy->dev = dev;
-@@ -572,7 +574,7 @@ int mt7615_register_ext_phy(struct mt7615_dev *dev)
- 
- 	ret = mt76_eeprom_override(mphy);
- 	if (ret)
--		return ret;
-+		goto error_free_hw;
- 
- 	/* second phy can only handle 5 GHz */
- 	mphy->cap.has_5ghz = true;
-@@ -590,7 +592,14 @@ int mt7615_register_ext_phy(struct mt7615_dev *dev)
- 	ret = mt76_register_phy(mphy, true, mt76_rates,
- 				ARRAY_SIZE(mt76_rates));
- 	if (ret)
--		ieee80211_free_hw(mphy->hw);
-+		goto error_free_hw;
-+
-+	return 0;
-+
-+error_free_hw:
-+	ieee80211_free_hw(mphy->hw);
-+error:
-+	mt7615_cap_dbdc_disable(dev);
- 
- 	return ret;
++	return true;
  }
+ 
+ static bool io_type_is_mergeable(struct f2fs_bio_info *io,
 -- 
 2.53.0
 
