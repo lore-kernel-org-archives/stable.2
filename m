@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794015900;
-	b=GySz4QKiy3ftXZn2CDtYHUmVtcZ+2JQESCmUGjX1IV4vYdCZYL3qkmanYe4C44VvAWec
-	 nMYiwaizSxW3ZAwV5s3LxCRZ2moK6k+jQ6KgtdA7b9iz/7740u3EvHGGqTzJIyGPCD24M
-	 p5SeEr4N2Ea68HQL3u9OaV0aTcSPxjFjMeHoobxoOkFg3ZzF6ZkSY+SyxshJqavOhvPXZ
-	 MX6PJk4Xd3hq0jTQMVlsyai4bk1/4jJ2koMUs4imnPxNMZwPKgsKESnFAfJ67D7+7MFGm
-	 NjKbk/PyrHRZQN0TK4JxNFSWWK3vOZrFjHRjekAQqb+qplOkFULeJdezWKcsRIBZPww==
+	t=1794015908;
+	b=4Ix1KdlAPRivLl8VCvGYZa2LHNTem9avhLBM3kkUeVZqsiMdKq8YrXmNAC5p+PwTEQJx
+	 k5+/KY8QWovR5ttt9Fj70srezXGsLgoR47wj+APEVnn+EMfwIJ7MhWpUCnm8gCPFx0WZA
+	 PTW8Glc1qpvroh/gnewme1AWnZZffSE3LFfN6Ea1cSg+rhXuEj5E02JZqyHGAgJZoz3DC
+	 PDZJyAuUe7H/5x2V8feTEOPC7lu1kyQ4GK8JzgGxzvH6VqEZhI6WwyNMoZKlCaomAd5/X
+	 mgiU0cUXbj0WjwkVUaG9y6NUMCRcfnj3Lk1aNkPqmz+6Uk//C/ktkw5xcaeU9i2yIeg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794015900;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794015908;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=86euM9Gfx67Z/jCzCvP+9zClJRgbdRmi1RRM/bKJC7A=;
-	b=cgMqlaacnvwCmKi4SfyNhjdthxf1xFoXQ2asiIIG7Z7XjkoKN/YcPaVv9tJsLrYbgddT
-	 WCYWUeZuXDIB3a7T/vrHbGmXLNghIZ7FxjlNGYJ6XNLg3MEL/fUS4pPdEYZD3COtbdFuv
-	 22CuU+FnBIkoqSOYWAzvcaoPgHm4igUp3JkTR39nQZGNBZIkkU+8VDzEft22VO0xMBQch
-	 M7gxrsXFYX1sezSsRnRAn1PftTnX0nC6eGYDw4IUtZW0SKUDdirhzDG8XZvUZFk/zEmA8
-	 dbrnBBK5sA9HOU6KTFgSBHE3fmT7gb72YoSlOdYZDFB6E4wG4gJGOqzNbk31To5l9bg==
+	bh=aU6jN2r+8yRSTgHrrUWHXBCfiAztbUEfpMJtmTd0QqM=;
+	b=NEgrjgRZnqLSk4B4dl5e/A2E6LX+yHRJgvn7N58TcDZ34Ir5kttfof8N5/9nwb+sb0ON
+	 1ythKmVOnKg2MeqElpbPNKJe0z7eVglX0j9wz9gnCTPo65qRS2YKWJItRz8s7XXlfuEYh
+	 GMusJcbsI+XBPKao8OTK0fbHMWTa/75QfzAISpkii49Nhoum5VyJ2UhKuxSmLYq40jZP9
+	 4Qz2pnSmluAcg1kRsfm3OgUosHWiBflvXkcN/EMItQ0GVj95ZP78TdxZ8jwKDJ3Wh12Sw
+	 qkeGlzT8AWPbUxVersz2INOkJ+VlGf/A+TgOKcxXG/cV7jhkK+YnklVXyFCMvRDYIKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=efficios.com;
 	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=sL14LSRQ;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=xXOUpSpP;
 	arc=none smtp.remote-ip=158.69.130.18
 Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88915606A32F;
-	Sat,  7 Nov 2026 01:44:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88915606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73A326082BD2;
+	Sat,  7 Nov 2026 01:45:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73A326082BD2
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=sL14LSRQ
+	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=xXOUpSpP
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=smtpout1; t=1794015898;
-	bh=86euM9Gfx67Z/jCzCvP+9zClJRgbdRmi1RRM/bKJC7A=;
+	s=smtpout1; t=1794015906;
+	bh=aU6jN2r+8yRSTgHrrUWHXBCfiAztbUEfpMJtmTd0QqM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=sL14LSRQ2O/7aqTYuF+0rNby+HniyA1vPz03lJ+Jtqudop7ufjjGJq47ri9wpcSQj
-	 Q/lWf1dKnadjhNJIcEVvSdPeN4azsCoIRrr51iSHASULO8WzjUqLoK1XlRG0VZpaO1
-	 uy58arcSFFkg5aZxl+EO6a8LHBcX8zfoE+n//moAEgww/2X0XqgnAvadqOhb1lHPs7
-	 w9C4iF/hmDAVNrVcEqpsP8ygOgs4XnpSE23JOUadAoijXywW/psSexX73IIJ2bLvcr
-	 cPxpv6OO3AdQXB1MAf4kNgXTlB1nhsNi7Bqw+EPM75yxVwkr85Wni8slQ046RiX1/T
-	 w5kVQ7wPiKViA==
+	b=xXOUpSpPqITNh0ni9NbOK/M6m2xLxwXP6paxbD7YdLR+G76Z+26b3LoRTm8+mxaGh
+	 +3HPeKcmsGBt/ERrcRfDsJeTWi043GLwEbzd2afCtwTs7YVt98QlHS6RwRCqyIraUZ
+	 4teRe7puXz/IfSr6S7ZkcNDgDA044HJZO//CSetMdY9aFn40lT73o5Jb5c/lHG/Dot
+	 cG6E7xBejWfSDZP3c7nPhdTiF0KAlSDr1E9WhyfTWsCie6XApMAw0Sa5IofNEj2UAC
+	 hlGCs8utUr3IUd1nQxBUPVA1XQLY2sF3PC/aVVmqKU5XwvTeaN1Hsl698DfabBF/AK
+	 7CRjRr2SWR1fA==
 Received: from thinkos.internal.efficios.com (unknown [64.58.40.251])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jLzPk30VqzLZ4;
-	Fri, 06 Nov 2026 20:44:58 -0500 (EST)
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jLzPt33TXzLxQ;
+	Fri, 06 Nov 2026 20:45:06 -0500 (EST)
 From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 To: juri.lelli@redhat.com,
 	peterz@infradead.org,
@@ -79,11 +79,10 @@ Cc: linux-kernel@vger.kernel.org,
 	cgroups@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	linux-rt-devel@lists.linux.dev,
-	Sashiko <sashiko-bot@kernel.org>,
 	stable@vger.kernel.org
-Subject: [PATCH v4 01/26] sched: Fix cpuset_mutex double unlock in __sched_setscheduler()
-Date: Fri,  6 Nov 2026 20:44:26 -0500
-Message-Id: <20261107014451.1487825-2-mathieu.desnoyers@efficios.com>
+Subject: [PATCH v4 20/26] sched/deadline: Credit a rebuild to the CPU recorded with the task's bandwidth
+Date: Fri,  6 Nov 2026 20:44:45 -0500
+Message-Id: <20261107014451.1487825-21-mathieu.desnoyers@efficios.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20261107014451.1487825-1-mathieu.desnoyers@efficios.com>
 References: <20261107014451.1487825-1-mathieu.desnoyers@efficios.com>
@@ -98,163 +97,152 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Andrea Parri <parri.andrea@gmail.com>
+A rebuild of the root domains' accounting counts each deadline task in
+the root domain of the first active CPU of its cpuset,
+dl_add_task_root_domain() through dl_get_task_effective_cpus(): a guess
+that admission did not make, wrong three ways:
 
-A sched_setattr() with SCHED_FLAG_KEEP_POLICY on a SCHED_DEADLINE task
-unlocks cpuset_mutex twice if the task's policy changes concurrently:
+ - the cpuset of a task on a housekeeping CPU can hold CPUs isolated by
+   isolcpus="domain" beside it, as the root cpuset does, and without
+   cpusets the mask is every CPU the task may run on: an isolated CPU
+   coming first has the task counted in the default root domain, which
+   underflows when the task leaves the class, or dies;
+ - a task confined to isolated CPUs that all go offline, which nothing
+   refuses, has no active CPU left, and the rebuild BUG()s;
+ - a throttled task whose CPUs went offline is moved, with its
+   bandwidth, to an active CPU by dl_task_offline_migration(), and the
+   rebuild counts it again where its cpuset says.
 
-  WARNING: bad unlock balance detected!
-  7.4.0-rc1 #1 Not tainted
-  -------------------------------------
-  repro/126 is trying to release lock (cpuset_mutex) at:
-  [<ffffffff9a17cacc>] __sched_setscheduler+0x9cc/0xc40
-  but there are no more locks to release!
-  ...
-  Call Trace:
-   print_unlock_imbalance_bug.part.0+0xfb/0x110
-   lock_release+0x286/0x2e0
-   __mutex_unlock_slowpath+0x1a/0x400
-   __sched_setscheduler+0x9cc/0xc40
-   __x64_sys_sched_setattr+0xa3/0x1b0
-   do_syscall_64+0x106/0x5f0
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+Take the CPU recorded with the task's bandwidth where it is active and
+the task's mask allows it: the rebuild counts the bandwidth where
+admission, or the last move, put it. Otherwise take the first active CPU
+of the task's own mask, a housekeeping one where it has any: a change of
+partitions sets the masks of its tasks before its rebuild, while the
+housekeeping mask that dl_get_task_effective_cpus() reads lags it. The
+cpuset answers for a task with no active CPU of its own, as before, and
+a task with no active CPU at all is left out: the generation of
+"sched/deadline: Keep departing bandwidth across a root domain rebuild"
+keeps its release out as well, and dl_task_offline_migration() counts it
+where it moves it.
 
-__sched_setscheduler() samples p->policy before taking any lock, and
-restarts from the recheck label if p->policy differs under the rq lock.
-The restart drops cpuset_mutex but leaves cpuset_locked set, so a pass
-that no longer needs the mutex still unlocks it on its way out:
+Found by the Sashiko AI reviews of the first three postings of this
+series.
 
-  CPU 1                                CPU 2
-  __sched_setscheduler(KEEP_POLICY)
-    policy = p->policy /* DEADLINE */
-                                       __sched_setscheduler(SCHED_OTHER)
-                                         p->policy = SCHED_OTHER
-    cpuset_locked = true
-    cpuset_lock()
-    rq = task_rq_lock(p)
-    oldpolicy != p->policy
-      cpuset_unlock()
-      goto recheck
-    /* no cpuset_lock() this time */
-    ...
-    if (cpuset_locked)
-      cpuset_unlock()
-
-Without CONFIG_DEBUG_MUTEXES, or CONFIG_DEBUG_RT_MUTEXES on PREEMPT_RT,
-nothing warns. The second unlock still clears the owner field regardless
-of who holds the mutex, so another task can lose cpuset_mutex inside its
-critical section. Entering SCHED_DEADLINE needs CAP_SYS_NICE, but a
-racing caller that owns the task does not need it if it samples a policy
-other than SCHED_DEADLINE.
-
-Clear cpuset_locked when dropping the mutex for the restart. This should be
-safe because the flag is only tested on the paths leaving the next pass,
-after that pass has set it again if it took the mutex.
-
-The following program, run as root, reproduces the splat, which no longer
-appears with this applied. On PREEMPT_RT it crashes the kernel within
-seconds, which this also fixes:
-
-  #define _GNU_SOURCE
-  #include <pthread.h>
-  #include <stdint.h>
-  #include <sys/syscall.h>
-  #include <unistd.h>
-
-  struct attr {
-      uint32_t size, policy;
-      uint64_t flags;
-      int32_t nice;
-      uint32_t prio;
-      uint64_t runtime, deadline, period;
-  };
-
-  static volatile int stop;
-  static volatile pid_t target;
-
-  static void set(struct attr a)
-  {
-      a.size = sizeof(a);
-      syscall(SYS_sched_setattr, target, &a, 0);
-  }
-
-  static void *sleeper(void *arg)
-  {
-      target = syscall(SYS_gettid);
-      while (!stop)
-          usleep(1000);
-      return arg;
-  }
-
-  static void *switcher(void *arg)
-  {
-      while (!stop) {
-          /* SCHED_DEADLINE, 2us every 1s */
-          set((struct attr){ .policy = 6, .runtime = 2000,
-                             .deadline = 1000000000,
-                             .period = 1000000000 });
-          set((struct attr){ .policy = 0 }); /* SCHED_OTHER */
-      }
-      return arg;
-  }
-
-  static void *racer(void *arg)
-  {
-      /* KEEP_POLICY | KEEP_PARAMS */
-      while (!stop)
-          set((struct attr){ .flags = 0x18 });
-      return arg;
-  }
-
-  int main(void)
-  {
-      pthread_t t[5];
-      int i;
-
-      pthread_create(&t[0], NULL, sleeper, NULL);
-      while (!target)
-          usleep(100);
-      pthread_create(&t[1], NULL, switcher, NULL);
-      for (i = 2; i < 5; i++)
-          pthread_create(&t[i], NULL, racer, NULL);
-      sleep(30);
-      stop = 1;
-      for (i = 0; i < 5; i++)
-          pthread_join(t[i], NULL);
-      return 0;
-  }
-
-An LLM helped find the PREEMPT_RT crash and write this patch and its test.
-
-Fixes: 111cd11bbc54 ("sched/cpuset: Bring back cpuset_mutex")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://sashiko.dev/#/patchset/20261016062629.2102883-1-sh_def%40163.com
-Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
+Fixes: f9a25f776d78 ("cpusets: Rebuild root domain deadline accounting information")
 Cc: stable@vger.kernel.org
-Reviewed-by: Waiman Long <longman@redhat.com>
-Reviewed-by: Kayra Cizmeci <kayracizmeci@gmail.com>
-Reviewed-by: Juri Lelli <juri.lelli@redhat.com>
 Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 ---
- kernel/sched/syscalls.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ kernel/sched/deadline.c | 74 +++++++++++++++++++++++++++++++++++------
+ 1 file changed, 63 insertions(+), 11 deletions(-)
 
-diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
-index 45a127deeadd..2af550f92ac6 100644
---- a/kernel/sched/syscalls.c
-+++ b/kernel/sched/syscalls.c
-@@ -640,8 +640,10 @@ int __sched_setscheduler(struct task_struct *p,
- 	if (unlikely(oldpolicy != -1 && oldpolicy != p->policy)) {
- 		policy = oldpolicy = -1;
- 		task_rq_unlock(rq, p, &rf);
--		if (cpuset_locked)
-+		if (cpuset_locked) {
- 			cpuset_unlock();
-+			cpuset_locked = false;
-+		}
- 		goto recheck;
+diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+index f169cf35e313..ed951246e3d2 100644
+--- a/kernel/sched/deadline.c
++++ b/kernel/sched/deadline.c
+@@ -878,14 +878,20 @@ static struct rq *dl_task_offline_migration(struct rq *rq, struct task_struct *p
+ 			__dl_sub(dl_b, p->dl.dl_bw,
+ 				 cpumask_weight(src_rq->rd->span));
+ 			raw_spin_unlock(&dl_b->lock);
+-
+-			dl_b = &later_rq->rd->dl_bw;
+-			raw_spin_lock(&dl_b->lock);
+-			__dl_add(dl_b, p->dl.dl_bw,
+-				 cpumask_weight(later_rq->rd->span));
+-			raw_spin_unlock(&dl_b->lock);
+ 		}
++		/*
++		 * Counted from here in the root domain the task moves to,
++		 * also where a rebuild left it out for want of an active
++		 * CPU: a walk that reaches it after this finds the
++		 * generation current and leaves it alone.
++		 */
++		dl_b = &later_rq->rd->dl_bw;
++		raw_spin_lock(&dl_b->lock);
++		__dl_add(dl_b, p->dl.dl_bw,
++			 cpumask_weight(later_rq->rd->span));
++		raw_spin_unlock(&dl_b->lock);
+ 		p->dl.dl_bw_cpu = later_rq->cpu;
++		p->dl.dl_bw_gen = dl_bw_gen;
  	}
  
+ 	set_task_cpu(p, later_rq->cpu);
+@@ -3656,6 +3662,47 @@ static void dl_get_task_effective_cpus(struct task_struct *p, struct cpumask *cp
+ 	cpuset_cpus_allowed_locked(p, cpus);
+ }
+ 
++/*
++ * A CPU of the root domain that a rebuild of the accounting counts @p's
++ * bandwidth in. The one recorded with it, where it is active and the
++ * cpuset of @p allows it: that of the root domain that admitted the
++ * bandwidth, or that the last move put it in, which the cpuset alone does
++ * not tell where it holds CPUs of two root domains, housekeeping ones
++ * beside the ones isolcpus="domain" leaves to the default root domain. The
++ * record answers as well for a task whose own CPUs went offline, moved to
++ * an active one by dl_task_offline_migration(). Else the first active CPU
++ * the cpuset allows, a housekeeping one where it has any; and nr_cpu_ids
++ * where it allows none, which the isolated CPUs allow, no deadline task
++ * of theirs keeping the last of them online.
++ */
++static unsigned int dl_task_rebuild_cpu(struct task_struct *p)
++{
++	struct cpumask *msk = this_cpu_cpumask_var_ptr(local_cpu_mask_dl);
++	int recorded = p->dl.dl_bw_cpu;
++	unsigned int cpu;
++
++	/*
++	 * The task's own CPUs first: a change of cpusets sets the mask of
++	 * each task before the rebuild it makes, where the housekeeping mask
++	 * that dl_get_task_effective_cpus() reads lags that change. With
++	 * none of them active, the CPU recorded is where
++	 * dl_task_offline_migration() moved the task; else its cpuset says.
++	 */
++	cpumask_and(msk, &p->cpus_mask, cpu_active_mask);
++	if (cpumask_empty(msk)) {
++		if (recorded >= 0 && cpu_active(recorded))
++			return recorded;
++		dl_get_task_effective_cpus(p, msk);
++		cpumask_and(msk, msk, cpu_active_mask);
++	}
++	if (recorded >= 0 && cpumask_test_cpu(recorded, msk))
++		return recorded;
++	cpu = cpumask_first_and(msk, housekeeping_cpumask(HK_TYPE_DOMAIN_BOOT));
++	if (cpu < nr_cpu_ids)
++		return cpu;
++	return cpumask_first(msk);
++}
++
+ /* From dl_rebuild_rd_accounting(), under the locks it asserts. */
+ void dl_add_task_root_domain(struct task_struct *p)
+ {
+@@ -3663,7 +3710,6 @@ void dl_add_task_root_domain(struct task_struct *p)
+ 	struct rq *rq;
+ 	struct dl_bw *dl_b;
+ 	unsigned int cpu;
+-	struct cpumask *msk;
+ 
+ 	raw_spin_lock_irqsave(&p->pi_lock, rf.flags);
+ 	/*
+@@ -3677,10 +3723,16 @@ void dl_add_task_root_domain(struct task_struct *p)
+ 		return;
+ 	}
+ 
+-	msk = this_cpu_cpumask_var_ptr(local_cpu_mask_dl);
+-	dl_get_task_effective_cpus(p, msk);
+-	cpu = cpumask_first_and(cpu_active_mask, msk);
+-	BUG_ON(cpu >= nr_cpu_ids);
++	cpu = dl_task_rebuild_cpu(p);
++	if (cpu >= nr_cpu_ids) {
++		/*
++		 * No active CPU to count this task's bandwidth: leave it out
++		 * of this rebuild, where dl_bw_gen keeps its release out as
++		 * well, until one has a CPU for it.
++		 */
++		raw_spin_unlock_irqrestore(&p->pi_lock, rf.flags);
++		return;
++	}
+ 
+ 	raw_spin_lock(&dl_departed_lock);
+ 	/*
 -- 
 2.47.3
 
