@@ -1,52 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794063856;
-	b=DPKfk54mrOjWQySiKosnmNtg95vdSIwxRHSK+Lmte9tZs7eQxBrPo7iOCQBYImLhul40
-	 y8LCo9tJQyAakTAwNHJ4tg4Pr5ZewYx3ncnDv9W45pwUJfy2/YU+Nso+vutvJDhMK1mzr
-	 /2mwmgy7CkZcCEWLGaLvg7RX4jt9htq6HABs3MdnCb5NYef7tcmiyEr/DRndwi10+SrzR
-	 mwmt535aKrpjFElv1rFazV8GjxNFN1xLjTmz8VsjTeANhojZ3Dxrj01R5KjX33Et2wa+e
-	 06iu90WAaZocZTbrYT08R7mkwxi7iHtLR8UnA3bYxnpwf8M8rbbIfM3PI7N9AG+U02g==
+	t=1794063851;
+	b=4quky1QnW1goD0FRsq+9TKUbXQQIRMLqrVQ+12AQEwgMf27oo4O+eqo6SXXyYGgvOtaT
+	 yp0sDa2fTF7vZ8qyROARsZRJ/BikGz+O7IvcY3wH/RDUC7aiCd+5SJWkBnf8eX1PG6NTX
+	 /pTJZN46dx6VGznwNEdmGZ3ELQyVsMIeH/++YTbjsOI+0CuE8bY1baBV1IL1UBKMv9Xhh
+	 vo7rXEwnYkD3rzaaqqkHSfQKte1rH/nj6EP2eGiJW1Fj7gfkrqbMfYIIfGGGmu7tnDU3W
+	 F3FVCbJwKzMciM7CuThwf9XA6xE7MVoV2lAUjLaftg8Kprrw9o6KpOPHuiAy/BoYtPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794063856;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794063851;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=JOf4US9q8yCjkIDHxkVxboNmsCCVoI8Rrw4UkxO2NEM=;
-	b=Eti4o8txDImrrzMlXnFn2sFO3Y9EqZ9hUHyINhQtJQ6FEHtKps0DWL1tpi4spXDNisY+
-	 inUglykrVLoK9Gy2Tv+N5TtxkRKV2oyz3LszHYmQN6LEzSep617lzhFuI4OTcI9q/B9Tt
-	 QtdPjZvvbNCrE0utRUezqiVanyqH4H69zbygmFU1oCa1xBzlBKi/na/TJDt/09RghltAw
-	 3dgPV4T0PDOLA78lSk7SfUVXZKOPZlgdC61DfpNm+j9bsWhes5jDtPBk3hYu5r8mAGPBH
-	 AO6hhHowfEDxdfGwOwLBcHarUx4ttIHQmhRU82zjTVYWS7E6qRYQfUKIyFB37Fjx+BQ==
+	bh=q7AncIuv2aTF9efxI4uC4XcMAEGa9qMs/9IrNUUmbqs=;
+	b=1Q+5amVKytKUeIci4aigiUv0U7zDSbytL6mC8rkAnF+RE0EIPlh1yIqrqi2rto++gi0L
+	 pJaCVkvH0QLK8C9csr6wgXte2GBteGqlu0hR/gNPPidtLwJ1K36ssS3MvrF/DyEiMCCnc
+	 TCx0M+TYOxZR/7jn4KvyIGM2XzwnKoTZ7aMlUTS1iDkh6lfWCQcCx+U3PPV9sPeM5yiR7
+	 sjdzd3H+qxf1XTx6SfDL8uyT1b6jnJDpcFYcvDXXeTeodQxaUrWUmQYqiZqfJorLD69V0
+	 tyJ6RjE8tvXdA21lbDpnLRONqAONMcpt1Iajyt1f0YiicPoJ+9wENBzly+frz8QbFyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cFJCTuaD;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=I7IHvbyE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26F93606C03D;
-	Sat,  7 Nov 2026 15:04:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B3AA606A9EE;
+	Sat,  7 Nov 2026 15:04:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cFJCTuaD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA0501F0089F;
-	Sat,  7 Nov 2026 15:04:15 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=I7IHvbyE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E06601F008A1;
+	Sat,  7 Nov 2026 15:04:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794063856;
-	bh=JOf4US9q8yCjkIDHxkVxboNmsCCVoI8Rrw4UkxO2NEM=;
+	s=korg; t=1794063851;
+	bh=q7AncIuv2aTF9efxI4uC4XcMAEGa9qMs/9IrNUUmbqs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cFJCTuaDNIT0MXBhJINkBdGewpzXUa1LTvmrOh5UXI0SQ9/bLYdNDRDAwmPQ5n0gf
-	 WSU5W1javkDB4N14V3h+ad1IMeGoLZ22HFETfISvkrefdFGSqvgyEfgsZ95hFPxoVX
-	 EFT+gO8OoKNf5qFNuibb89HTLNZirBKRdm8pd10s=
+	b=I7IHvbyEb3wX+r4S2Ec7b9d2cfgNdnQ9eOXksnnvqiAPic2sD0o8oJwgT+wgc5FNY
+	 RyVDwiaag60okG0VG/AzNnBp7yTTWPa7rabdSbgD526JOxlknduLc19ITB6LNTRlXJ
+	 Iag5c/r55vOnJZv+HdG6X3FbXyUTd0az/U8yfZG0=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Yuan Chen <chenyuan@kylinos.cn>,
-	Andrii Nakryiko <andrii@kernel.org>,
+	James Alexander <opensource@inspiredexperts.com>,
+	Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 0064/1257] bpf: Fix queue/stack map u32 index overflow
-Date: Sat,  7 Nov 2026 08:39:20 -0500
-Message-ID: <20261107134941.167797103@linuxfoundation.org>
+Subject: [PATCH 7.3 0061/1257] platform/x86: int3472: Increase handshake GPIO delay to 200 ms
+Date: Sat,  7 Nov 2026 08:39:17 -0500
+Message-ID: <20261107134941.086207273@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261107134939.434104957@linuxfoundation.org>
 References: <20261107134939.434104957@linuxfoundation.org>
@@ -68,54 +69,76 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Yuan Chen <chenyuan@kylinos.cn>
+From: Hans de Goede <johannes.goede@oss.qualcomm.com>
 
-[ Upstream commit 802a30c5db726639df7f93b3a1982ecc64202abe ]
+[ Upstream commit 844982d3b99340c21dd2125f44e1ad04ace6a38e ]
 
-The queue/stack map addresses elements[] with the product of a u32
-head/tail index and value_size, but the storage itself is allocated in
-64-bit arithmetic.  When max_entries * value_size reaches or exceeds
-U32_MAX, the product wraps and push/peek/pop operate on the wrong
-element, corrupting map data and leaking stale values to user space.
-max_entries == U32_MAX would also make the u32 capacity counter
-qs->size (max_entries + 1) wrap to 0 and permanently break the map.
+There have been several reports of the sensor not properly powering on,
+on laptops where an INT3472 handshake GPIO is used. Both with ov08x40 and
+hi556 sensors.
 
-The original bound check was removed by commit a37fb7ef24a4 ("bpf:
-Eliminate rlimit-based memory accounting for queue_stack_maps maps"),
-which deleted the bpf_map_charge_init() call and with it the
-U32_MAX - PAGE_SIZE check that had earlier been moved into
-bpf_map_charge_init() by c85d69135a91.  Oversized queue/stack maps can
-therefore be created again.
+Testing has shown that a delay of 200 ms is necessary in some cases.
+The handshake GPIO is typically used to signal an extra bridge or other IC
+with that IC running the full sensor power sequence based on the handshake
+signal and also possible controlling I2C pass-through.
 
-Restore the bound in queue_stack_map_alloc_check() with a single
-comparison that rejects any max_entries/value_size combination whose
-element storage would reach or exceed U32_MAX bytes, keeping the u32
-index multiplication overflow-free and the capacity counter valid.
+It seems that in some cases that extra IC takes up to 200 ms to before
+the sensor is fully powered up and ready for I2C communication.
 
-Fixes: a37fb7ef24a4 ("bpf: Eliminate rlimit-based memory accounting for queue_stack_maps maps")
-Signed-off-by: Yuan Chen <chenyuan@kylinos.cn>
-Signed-off-by: Andrii Nakryiko <andrii@kernel.org>
+With the default handshake signal delay increased to 200 ms the quirk to
+increase it to 45 ms for the ov08x40 is no longer necessary and is actually
+undesirable since some ov08x40 setups also need the longer delay, drop it.
+
+Fixes: 30359c239ba8 ("platform/x86: int3472: Increase ov08x40 handshake GPIO delay to 45 ms")
+Closes: https://lore.kernel.org/platform-driver-x86/20260816204247.2844986-1-opensource@inspiredexperts.com/
+Reported-by: James Alexander <opensource@inspiredexperts.com>
+Closes: https://bugzilla.redhat.com/show_bug.cgi?id=2333331
+Closes: https://bugzilla.redhat.com/show_bug.cgi?id=2333647
 Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/bpf/20260831063226.621309-2-chenyuan_fl@163.com
+Signed-off-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/bpf/queue_stack_maps.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/platform/x86/intel/int3472/discrete.c | 12 +++---------
+ 1 file changed, 3 insertions(+), 9 deletions(-)
 
-diff --git a/kernel/bpf/queue_stack_maps.c b/kernel/bpf/queue_stack_maps.c
-index 6e8b18c32a106..1cee2ba6e332b 100644
---- a/kernel/bpf/queue_stack_maps.c
-+++ b/kernel/bpf/queue_stack_maps.c
-@@ -59,6 +59,9 @@ static int queue_stack_map_alloc_check(union bpf_attr *attr)
- 		 */
- 		return -E2BIG;
+diff --git a/drivers/platform/x86/intel/int3472/discrete.c b/drivers/platform/x86/intel/int3472/discrete.c
+index 9cd4f78875abf..6bc0ab3e8d1f4 100644
+--- a/drivers/platform/x86/intel/int3472/discrete.c
++++ b/drivers/platform/x86/intel/int3472/discrete.c
+@@ -15,6 +15,7 @@
+ #include <linux/platform_data/x86/int3472.h>
+ #include <linux/platform_device.h>
+ #include <linux/string_choices.h>
++#include <linux/time64.h>
+ #include <linux/uuid.h>
  
-+	if (attr->max_entries >= U32_MAX / attr->value_size)
-+		return -E2BIG;
-+
- 	return 0;
- }
- 
+ /*
+@@ -178,13 +179,6 @@ static const struct int3472_gpio_map int3472_gpio_map[] = {
+ 		.type_to = INT3472_GPIO_TYPE_RESET,
+ 		.con_id = "enable",
+ 	},
+-	{	/* ov08x40's handshake pin needs a 45 ms delay on some HP laptops */
+-		.hids = (const char * const[]) { "OVTI08F4", NULL },
+-		.type_from = INT3472_GPIO_TYPE_HANDSHAKE,
+-		.type_to = INT3472_GPIO_TYPE_HANDSHAKE,
+-		.con_id = "dvdd",
+-		.enable_time_us = 45 * USEC_PER_MSEC,
+-	},
+ 	{	/* Sensors which expect "vana" as con_id for power enable */
+ 		.hids = power_enable_hids_vana,
+ 		.type_from = INT3472_GPIO_TYPE_POWER_ENABLE,
+@@ -273,8 +267,8 @@ static void int3472_get_con_id_and_polarity(struct int3472_discrete_device *int3
+ 	case INT3472_GPIO_TYPE_HANDSHAKE:
+ 		*con_id = "dvdd";
+ 		*gpio_flags = GPIO_ACTIVE_HIGH;
+-		/* Setups using a handshake pin need 25 ms enable delay */
+-		*enable_time_us = 25 * USEC_PER_MSEC;
++		/* Powering up the sensor through the handshake pin takes up to 200 ms */
++		*enable_time_us = 200 * USEC_PER_MSEC;
+ 		break;
+ 	default:
+ 		*con_id = "unknown";
 -- 
 2.53.0
 
