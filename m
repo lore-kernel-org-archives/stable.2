@@ -1,54 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050489;
-	b=Jcp236GXAyqEfOmySOjF3Ct3vxFqxagopatYbwNjQd/qgxoju/Lkvw67G6rKGXBv+vJU
-	 AvQGzyZgu5yhEqLExpRyI0VeauPBu/ITYYEFLZhvCf1t8RDIsiwcbMJajc0dAeJbYdJs3
-	 lUfJVdtW+fy8pJU/RwfrE+nYcmT9xMEgjvGLiqr615C5RKLG3TilFTMamW/OZFWv5Fkvv
-	 hmNreiCatOKInpbzbP85/zn2/dUmrsCEwIByPkNIyWLV8VWzjcQe7EjTCfQ7V0OX4s4Qh
-	 z2KFCtG6JkIR2k7HgtYr108ft4ZdPG6qfH1y0d7Y5+SX3FEWV5+F9zL6dVcPsdByc3g==
+	t=1794050493;
+	b=qa18jTYsZ+QHZnrof7FrHIkCfeotYR1j6r7SYhcD0RJM5hw9g4uwG+ezjzm4i2qSgV1Q
+	 GNO9IljL91sX6969Nhy1ZEGFO9MVu4eV2+VxI35rFz54F29PT6OZp3wW6njyG8TUpoISc
+	 NI5FuY+XHdZhZLhJlhwqao2aZLHIltNINHxrabUv9P8wqX1vKNCKfmKYAO6jrT3iPk5cl
+	 7VX9GqRFCrcLNY5wWWyNbh1J3rbWV253cUdOq1sxvcQZoM5JNF90duyfi1vDkpjYYDKmc
+	 eOiSLzOt16fLXGrtwRvPsb0SecP1wTVOxzQ2gvbuSB+9Ix/XQFtqpokorR2FGbEr+0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050489;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050493;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=EvOV87/xQz4TRY/AWvSTbwercTHOLnqc6A98cs+lJ5k=;
-	b=f5C+0JhJozZg7ji2WaVSIehaqtoy0oFvvblBhnP4Ug5SNY86ENSIzi/XJ8wQyIreUaPY
-	 Ask3Z7/zB86Vd3YSzUUuKl0b2e6u1BLXXLigyE6sdMddAytp7G9p+iy5C24+t6T9yfV/d
-	 iHF4zpFEL8Q1jSJ5r2rK6KgUXdHcoAN9K3WinvD4gncYkK4WqUuaVzjxJk+QtW0+NkvbO
-	 YmyBpWcOE9U7215rC7ffRDW1OcTjoRJijFGedtRdI5/tBlvjpWKwY1igYyzjlp9zNcRz9
-	 UqvZJV0OFVQCE2KFASWsG/xY3+8LM3PB6O/3bTHZETbB7rU17r98HxwwUWUhNOaFKTA==
+	bh=E4F4UeTfrYQuOB4/eOfgQffPrdntINeHQPqF63N0kF8=;
+	b=ouwJuSqK7NxTtF+V9ucR67uU8I1KVJJQDcfZODhr6d9VD+v30T/fDRtuM87jn6r8+yA/
+	 QsQPwOxGqdZRDokBPbK7IRAgIK4NWRTX4w1RaLr9cGayF2lzAyE3uY9TAK15wDL8j753T
+	 DbUn5usxAhI/C5sPyQuu6CvODV7qpaoWMhHyEFpYQV/61BYxjYK+tIlxhBv+Iscb3ntML
+	 N0GhJKSMSpO8o+O3NeyG8SSIM0+imtsoPtKE6Bkh3GssCwagDZbr0DK6yAAGDziiblYFu
+	 RbqnNPuoFO6W/hN8wwCtkJzMr6AfYYHr2XkveB/DeAf49TYvnvuwX5pza5NRINMm5gw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X7odF26v;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Wdremp2/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 607E1606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:21:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 009C6606A32F
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:21:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X7odF26v
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E2261F008A2;
-	Sat,  7 Nov 2026 11:21:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wdremp2/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E23E71F008A1;
+	Sat,  7 Nov 2026 11:21:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050489;
-	bh=EvOV87/xQz4TRY/AWvSTbwercTHOLnqc6A98cs+lJ5k=;
+	s=k20260515; t=1794050492;
+	bh=E4F4UeTfrYQuOB4/eOfgQffPrdntINeHQPqF63N0kF8=;
 	h=From:To:Cc:Subject:Date;
-	b=X7odF26v/bYwTRUYaO2PQ669mLCM7nDkCVFdiK8+4PalA2vcSBTTcwed7My7KF5iK
-	 schoEtX4V0u/Fz/1pHLdnZ1exSmEjB7cHnR/SWekMREhHSNyHrZ+LwkNz0JbIV3ScV
-	 huoOGV+8zbkLionvSaGt1/H9HHY+Hj/Fgr2SmqDn2p00pg4rUodsWmD8v029GL2/+y
-	 0ia35xBtuucSExAjTZWY08h+5nQbCaUKgL87ygYfLndxhyzZpDR6Tcg60QdGPx7GSJ
-	 +LA0Lu7zrZ+6enYQAoin7tMhjTIJAXsOFMVh3fxwlGVMSRz985s7CSk9Yk2W+bn6zp
-	 ZU4h1Oye0DUxA==
+	b=Wdremp2/NnkID2Kq89KsddKWB/0LpfEm6+5hnpUnIh7mKCg54LK7jq/dEJKt3Xb80
+	 gMNkwHewDCYIIHCZCWPeQwpCpjaWoMwt5ybfvUJUhHE5AcKCrvZ2MpGn3QyuJH9Q7p
+	 cGIEyMm/QwO8oeNHbdh40HWdqyeq2LyJZEOjx60SyXt7e4SDXG8YlCuAu3qdWB7QVQ
+	 nm9i6zkrR7nU0G7FlR9hmGfkbq4EcsLbaUfurous/khQJfnKs5LOUiXH4fAIhKqRcn
+	 08A/BGAoKrdgTa0UZQ+T43gDmZCregGfK627mvUJHA7CkC5oh28gRaJNbFNl5pPM+t
+	 I0pEdnD9xxEmw==
 From: Sasha Levin <sashal@kernel.org>
-To: sj@kernel.org,
+To: gourry@gourry.net,
 	akpm@linux-foundation.org,
-	brendan.higgins@linux.dev,
-	davidgow@davidgow.net,
-	usamaarif642@gmail.com
+	sashiko-bot@kernel.org,
+	ljs@kernel.org,
+	david@kernel.org,
+	jannh@google.com,
+	liam@infradead.org,
+	vbabka@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/damon/core-kunit: extend damos_commit_filter_for() for wrong input" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:21:27 -0500
-Message-ID: <20261107062127-failed-5.10-a1c7fdaf1657@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/madvise: use folio_trylock() in the cold/pageout PMD split" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:21:30 -0500
+Message-ID: <20261107062130-failed-5.10-5a6c9cf117fc@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,116 +74,88 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x a1c7fdaf165755fff928a6c25b69d7e0966b6910
+git cherry-pick -x 5a6c9cf117fca3c38a98fb2a2d5549795c8b0b73
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062127-failed-5.10-a1c7fdaf1657@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062130-failed-5.10-5a6c9cf117fc@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From a1c7fdaf165755fff928a6c25b69d7e0966b6910 Mon Sep 17 00:00:00 2001
-From: SJ Park <sj@kernel.org>
-Date: Mon, 14 Sep 2026 07:23:24 -0700
-Subject: [PATCH] mm/damon/core-kunit: extend damos_commit_filter_for() for
- wrong input
+From 5a6c9cf117fca3c38a98fb2a2d5549795c8b0b73 Mon Sep 17 00:00:00 2001
+From: Gregory Price <gourry@gourry.net>
+Date: Sat, 12 Sep 2026 07:05:40 -0400
+Subject: [PATCH] mm/madvise: use folio_trylock() in the cold/pageout PMD split
 
-damos_commit_filter_for() supposes damos_commit_filter() to always succeed
-with given inputs.  damos_commit_filter() could return an error for
-invalid inputs.  Existing callers always pass only valid inputs, but they
-may pass invalid inputs in future, for test purposes.  Extend the function
-to be able to be used for wrong inputs-caused error testing.
+MADV_COLD or MADV_PAGEOUT over part of a PMD splits the THP in
+madvise_cold_or_pageout_pte_range().  Two threads doing that to the same
+THP create spurious failures.
 
-Link: https://lore.kernel.org/20260914142327.92510-8-sj@kernel.org
-Signed-off-by: SJ Park <sj@kernel.org>
+  CPU0                          CPU1
+  ----                          ----
+  folio_get()
+  spin_unlock(ptl)
+  folio_lock()
+                                folio_get()
+                                spin_unlock(ptl)
+                                folio_lock()  <- blocks, keeps its ref
+  split_folio()
+    folio_expected_ref_count(folio) != folio_ref_count(folio) - 1
+    -EAGAIN
+
+CPU1 cannot drop its reference until it gets the lock CPU0 holds, so
+CPU0's split always fails.  folio_trylock() makes CPU1 leave without ever
+taking a reference.  The PTE branch of this same function already does
+this, as do madvise_free_pte_range() and madvise_free_huge_pmd().
+
+Reproducer: 400 rounds of eight threads calling MADV_COLD on half of each
+of eight THPs, re-formed with MADV_COLLAPSE between rounds.  From
+/proc/vmstat:
+
+                     thp_split_page   thp_split_page_failed
+    before                     3186                     860
+    after                      3200                       0
+
+The short before count is rounds where every thread failed and the advice
+was dropped for that THP entirely.
+
+On failure the walker returns 0 and nothing retries.  The PMD path becomes
+best effort when the folio lock is held elsewhere - same as the PTE path.
+
+Link: https://lore.kernel.org/20260912110540.3203010-1-gourry@gourry.net
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: Brendan Higgins <brendan.higgins@linux.dev>
-Cc: David Gow <davidgow@davidgow.net>
-Cc: Usama Arif <usamaarif642@gmail.com>
+Reported-by: sashiko-bot <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260817220810.1175596-1-gourry%40gourry.net
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Assisted-by: LLM
+Cc: Jann Horn <jannh@google.com>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
 Cc: <stable@vger.kernel.org>
 ---
- mm/damon/tests/core-kunit.h | 24 +++++++++++++++---------
- 1 file changed, 15 insertions(+), 9 deletions(-)
+ mm/madvise.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
-index c01e6a75cadc1..2b0931cf6fb32 100644
---- a/mm/damon/tests/core-kunit.h
-+++ b/mm/damon/tests/core-kunit.h
-@@ -1116,9 +1116,15 @@ static void damos_test_commit_dests(struct kunit *test)
- }
+diff --git a/mm/madvise.c b/mm/madvise.c
+index 8943ae1811449..bef4de4425f29 100644
+--- a/mm/madvise.c
++++ b/mm/madvise.c
+@@ -417,9 +417,10 @@ static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
+ 		if (next - addr != HPAGE_PMD_SIZE) {
+ 			int err;
  
- static void damos_test_commit_filter_for(struct kunit *test,
--		struct damos_filter *dst, struct damos_filter *src)
-+		struct damos_filter *dst, struct damos_filter *src,
-+		bool expect_fail)
- {
--	damos_commit_filter(dst, src);
-+	int err;
-+
-+	err = damos_commit_filter(dst, src);
-+	KUNIT_EXPECT_EQ(test, err != 0, expect_fail);
-+	if (expect_fail)
-+		return;
- 	KUNIT_EXPECT_EQ(test, dst->type, src->type);
- 	KUNIT_EXPECT_EQ(test, dst->matching, src->matching);
- 	KUNIT_EXPECT_EQ(test, dst->allow, src->allow);
-@@ -1157,47 +1163,47 @@ static void damos_test_commit_filter(struct kunit *test)
- 			.type = DAMOS_FILTER_TYPE_ANON,
- 			.matching = true,
- 			.allow = true,
--			});
-+			}, false);
- 	damos_test_commit_filter_for(test, &dst,
- 			&(struct damos_filter){
- 			.type = DAMOS_FILTER_TYPE_MEMCG,
- 			.matching = false,
- 			.allow = false,
- 			.memcg_id = 123,
--			});
-+			}, false);
- 	damos_test_commit_filter_for(test, &dst,
- 			&(struct damos_filter){
- 			.type = DAMOS_FILTER_TYPE_YOUNG,
- 			.matching = true,
- 			.allow = true,
--			});
-+			}, false);
- 	damos_test_commit_filter_for(test, &dst,
- 			&(struct damos_filter){
- 			.type = DAMOS_FILTER_TYPE_HUGEPAGE_SIZE,
- 			.matching = false,
- 			.allow = false,
- 			.sz_range = {.min = 234, .max = 345},
--			});
-+			}, false);
- 	damos_test_commit_filter_for(test, &dst,
- 			&(struct damos_filter){
- 			.type = DAMOS_FILTER_TYPE_UNMAPPED,
- 			.matching = true,
- 			.allow = true,
--			});
-+			}, false);
- 	damos_test_commit_filter_for(test, &dst,
- 			&(struct damos_filter){
- 			.type = DAMOS_FILTER_TYPE_ADDR,
- 			.matching = false,
- 			.allow = false,
- 			.addr_range = {.start = 456, .end = 567},
--			});
-+			}, false);
- 	damos_test_commit_filter_for(test, &dst,
- 			&(struct damos_filter){
- 			.type = DAMOS_FILTER_TYPE_TARGET,
- 			.matching = true,
- 			.allow = true,
- 			.target_idx = 6,
--			});
-+			}, false);
- }
- 
- static void damos_test_help_initailize_scheme(struct damos *scheme)
++			if (!folio_trylock(folio))
++				goto huge_unlock;
+ 			folio_get(folio);
+ 			spin_unlock(ptl);
+-			folio_lock(folio);
+ 			err = split_folio(folio);
+ 			folio_unlock(folio);
+ 			folio_put(folio);
 -- 
 2.53.0
 
