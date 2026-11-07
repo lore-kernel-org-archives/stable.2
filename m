@@ -1,52 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050366;
-	b=auHWDVuM6ad2MpsnzS5cnKl9nYN7m5ykc2ZeoYV354TD83hNLQTQx9IjfqUJlnp5mDGs
-	 J6+l5IV/MbR4PTdKMkIwM8AjN8vMBo3Kysjyi+F8MeH57XRE/Q+zqdJZWGkSIX6AXqFOB
-	 hScqrrMmOhb2D8QAqCpCyo9OFQ7qw/etSdNtHDbMvz/ZD0/vl0Auvwl924yH2Rw2X4vY7
-	 qOzJIGb+YjuuMNh8N+ZXrUjgvWjRMJJNbmH3PqI+IXsOsGr0Wn0QX5Vqs8bwD9UwFezbk
-	 BvkS/ax0PCIsogqD29dBG8ddNpEPVGKggAAzIG+JEZL1lLA+wUgaK3wq24ZiBCQlgKg==
+	t=1794050370;
+	b=v+FxuyVWDFpmshjYwedmGBk/twqoBI2EdosowehP1rhwOYy0gbLLRmzT7uOE4SgtFAfW
+	 nndxjrcC6AoZISaOLRoRDTpRA9CV7fHW4EK7KZ7mjnRq10lwvcgt8OemMH6PF8H+dMTB+
+	 Xn1H6GhIGcp3ohxYarseSFp3JHQD//er3ilyJgXrLb7P1SndB/tNwiZZmxFBCEhhmdEJ+
+	 vZn0wsC1eYKIQyNp0cDLm2gdUBwPsiLVAPj4HGMo767nNl+4aKm6VQKmIZh5xgWj++6Vg
+	 u/V4A6tVuAu9HPDHbex2ofcNEJy8Csy0aW2ibIcQumxND1dsnMpoOMaq5uiU/0SzFcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050366;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050370;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=p/L4k1ND37c/pWrmIdLa/4ELspRgzQletED8e0qZx5g=;
-	b=SdQYuXji0F29vdPq9W49q12emZN9l4SGV8c4rMcWhToQaDmtUl04ll/WRAF930bA+zNC
-	 8trndZyGIOf2MbHCsXYlZSxBnKX/S1WoK8fpslmjgGPAsDdTAsJ4b3qMavFKRcfKTgEXO
-	 ShBLV6DWnvQj4EVv3V1ItbvX59gBoEkUFPYBblX8B2NFcaJtF3iXMZxrvZUUIjlVvuBm6
-	 NYMYBthfsDmNuoj38sYN0t9IC0gCepfMpklRtZ+FqzIVP1JfrM8s5q+GJbcOgVrhUhAEr
-	 CPg6xk0qhV2xBCY+CNc7zUx7IWKHt/f7vrS9f/lq0C1O7EPg7i6qbt/Ju0Fuhvnot4w==
+	bh=UwqewlgcIpfoFR7mq/HUHUiq0o2Hmqb+w6NurBkCnW4=;
+	b=Dj2bz+v4/zmVGd8BT17u0lQF59HkihXG+5YjVJBKgQ1sZ4SfT/okNWNzoPJZ+hxdxnk7
+	 D+nAHB8Z9Njv5Wpsk/mzoiTCw4zxnnjthk+/EiEM24nh7//r2M2uYM2aU6Vw2QjoeTDO9
+	 k1A642QvrO6p0N9Vm8N1Jlj0wq74+2EMh+HxaXKGSkEvwZ+A5ejNkxbBQ1ORrYgUMEsyw
+	 ZB1LZpcFRbzEZlfwqglQyeny7xy2pRgqdQ1BIwiZUEIo9XDGOD52ZHDxMXRg7dY/GDMYL
+	 541arFyBG5WUPrCGHxipq3wZxh7DVjyB6j6hjHx4dz41lXMGuOqdgfbHfBCWgbFFZoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YP5l0Cld;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CDCjCSIw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AB0F606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:19:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C702606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:19:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YP5l0Cld
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C55361F0089F;
-	Sat,  7 Nov 2026 11:19:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CDCjCSIw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42E461F0089F;
+	Sat,  7 Nov 2026 11:19:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050366;
-	bh=p/L4k1ND37c/pWrmIdLa/4ELspRgzQletED8e0qZx5g=;
+	s=k20260515; t=1794050369;
+	bh=UwqewlgcIpfoFR7mq/HUHUiq0o2Hmqb+w6NurBkCnW4=;
 	h=From:To:Cc:Subject:Date;
-	b=YP5l0CldrupMDU+9IzvV58azrRvg4JIltGiLBH4WjaiLGKl5ej4HArSPsORgDFog0
-	 u+PFkqz3YgTJoMGvGTxPSjxxG9bfpVlX1qEIvdjJ3I5k2cuk+YspY7utuTojL7s0oQ
-	 NJXCSNC3jHSIV6pkxLtD0XcloPdYiV3j2/M1qZNMxNzRnkW3l5ol102cjBkYLhfoa9
-	 +7HOvLhkEtM1Mf01buapmMELnKi0s9X3qQYM4uDsQI+9AhzS3xzAipV5198Ip848we
-	 ATJr2f1NxFjWRr0DPc0RVww/n9c1ab64zKZ0d/s2YMsPaRfaWfH4zUDhqK+31Kod2h
-	 +1U3F6sdAc5pw==
+	b=CDCjCSIwukGECHKBBD0y+LeKrbvy69HtBxazJwxvKYetdwBXQZHQGVnj3Jg5MSqq/
+	 A4V3dAeSQP37XBqxnCDDWhCnzEmlXmzWQQKAbZx8PgfX3SAlN7+WHVhz1YgEp1cNoy
+	 EuDtGoxvq0fJg4MsFdhHH4CD5ZyfMCiRL1gHGtK3X1wdICRcEjOax0ebppjrJr+R1t
+	 H8XY347Gd+w0uR+zPUJfuvMO4jPCLJTnWS5vKfeaT1DhXbdbfdcuWroogZLDR4k7/U
+	 9mq6cfBCjQz4K+6X9PRLKTM/HzNS/qV4y0w1g6VSf/ljItS0vboiZMplGwNd7XuZU6
+	 ahVYgSwqOEG0w==
 From: Sasha Levin <sashal@kernel.org>
-To: mhun512@gmail.com,
-	ae878000@gmail.com,
+To: eason.lai@mediatek.com,
+	lucid_duck@justthetip.ca,
+	hbuchheim@gmail.com,
+	sergei.melnichenko@gmail.com,
 	nbd@nbd.name
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] wifi: mt76: mt7615: restore DBDC state after ext PHY failure" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:19:24 -0500
-Message-ID: <20261107061924-failed-5.10-7907d5270dc5@kernel.org>
+Subject: FAILED: patch "[PATCH] wifi: mt76: fix memory leak in USB TX path" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:19:27 -0500
+Message-ID: <20261107061927-failed-5.10-82856da2d3b6@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,86 +71,110 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 7907d5270dc5c13b6a95754c08a77d5b06bbc786
+git cherry-pick -x 82856da2d3b6a30011f4db6ea5f34c13484e0ef8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061924-failed-5.10-7907d5270dc5@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061927-failed-5.10-82856da2d3b6@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 7907d5270dc5c13b6a95754c08a77d5b06bbc786 Mon Sep 17 00:00:00 2001
-From: Myeonghun Pak <mhun512@gmail.com>
-Date: Thu, 10 Sep 2026 17:54:41 -0400
-Subject: [PATCH] wifi: mt76: mt7615: restore DBDC state after ext PHY failure
+From 82856da2d3b6a30011f4db6ea5f34c13484e0ef8 Mon Sep 17 00:00:00 2001
+From: Eason Lai <eason.lai@mediatek.com>
+Date: Mon, 14 Sep 2026 10:19:20 +0800
+Subject: [PATCH] wifi: mt76: fix memory leak in USB TX path
 
-mt7615_register_ext_phy() limits the primary PHY to DBDC capabilities
-before allocating and registering the secondary PHY. If allocation,
-EEPROM override, or PHY registration fails, it returns without restoring
-the primary PHY capabilities. The EEPROM override failure also leaks the
-newly allocated ieee80211_hw.
+When errors occur in mt76u_tx_queue_skb(), the skb is not properly
+freed, leading to memory leaks. This happens when:
+- The queue is full
+- tx_prepare_skb() drops zero-length frames (such as WMM NULL frames)
+  to prevent hardware TX hangs
+- Buffer setup fails
 
-Route all failures through common labels that free the secondary hardware
-when it was allocated and restore the primary PHY capabilities.
+Fix by properly releasing the skb with ieee80211_tx_status_ext() when
+the queue is full or tx_prepare_skb() fails, and using
+mt76_tx_complete_skb() when mt76u_tx_setup_buffers() fails (since
+tx_prepare_skb() has already succeeded and may have allocated resources
+that need cleanup)
 
-This issue was identified during our ongoing static-analysis research while
-reviewing kernel code.
-
-Fixes: 0f2173f093b3 ("mt76: mt7615: add support for registering a second wiphy via debugfs")
+Fixes: b40b15e1521f ("mt76: add usb support to mt76 layer")
 Cc: stable@vger.kernel.org
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-Link: https://patch.msgid.link/20260910215441.76683-1-mhun512@gmail.com
+Tested-by: Devin Wittmayer <lucid_duck@justthetip.ca>
+Closes: https://github.com/morrownr/mt76/issues/83
+Signed-off-by: Eason Lai <eason.lai@mediatek.com>
+Tested-by: Hans Buchheim <hbuchheim@gmail.com>
+Reported-by: Sergei Melnichenko <sergei.melnichenko@gmail.com>
+Signed-off-by: Devin Wittmayer <lucid_duck@justthetip.ca>
+Link: https://patch.msgid.link/20260914021920.32246-3-eason.lai@mediatek.com
 Signed-off-by: Felix Fietkau <nbd@nbd.name>
 ---
- .../net/wireless/mediatek/mt76/mt7615/init.c    | 17 +++++++++++++----
- 1 file changed, 13 insertions(+), 4 deletions(-)
+ drivers/net/wireless/mediatek/mt76/usb.c | 31 ++++++++++++++++++++----
+ 1 file changed, 26 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/net/wireless/mediatek/mt76/mt7615/init.c b/drivers/net/wireless/mediatek/mt76/mt7615/init.c
-index e437e088b2e91..665b0f1e939f1 100644
---- a/drivers/net/wireless/mediatek/mt76/mt7615/init.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt7615/init.c
-@@ -541,8 +541,10 @@ int mt7615_register_ext_phy(struct mt7615_dev *dev)
+diff --git a/drivers/net/wireless/mediatek/mt76/usb.c b/drivers/net/wireless/mediatek/mt76/usb.c
+index a9af3aa6b80a9..dfc12f6944a74 100644
+--- a/drivers/net/wireless/mediatek/mt76/usb.c
++++ b/drivers/net/wireless/mediatek/mt76/usb.c
+@@ -893,6 +893,9 @@ mt76u_tx_queue_skb(struct mt76_phy *phy, struct mt76_queue *q,
+ 		   enum mt76_txq_id qid, struct sk_buff *skb,
+ 		   struct mt76_wcid *wcid, struct ieee80211_sta *sta)
+ {
++	struct ieee80211_tx_status status = {
++		.sta = sta,
++	};
+ 	struct mt76_tx_info tx_info = {
+ 		.skb = skb,
+ 	};
+@@ -900,17 +903,27 @@ mt76u_tx_queue_skb(struct mt76_phy *phy, struct mt76_queue *q,
+ 	u16 idx = q->head;
+ 	int err;
  
- 	mt7615_cap_dbdc_enable(dev);
- 	mphy = mt76_alloc_phy(&dev->mt76, sizeof(*phy), &mt7615_ops, MT_BAND1);
--	if (!mphy)
--		return -ENOMEM;
-+	if (!mphy) {
-+		ret = -ENOMEM;
-+		goto error;
+-	if (q->queued == q->ndesc)
+-		return -ENOSPC;
++	if (q->queued == q->ndesc) {
++		err = -ENOSPC;
++		goto err_free_skb;
 +	}
  
- 	phy = mphy->priv;
- 	phy->dev = dev;
-@@ -572,7 +574,7 @@ int mt7615_register_ext_phy(struct mt7615_dev *dev)
+ 	skb->prev = skb->next = NULL;
+ 	err = dev->drv->tx_prepare_skb(dev, NULL, qid, wcid, sta, &tx_info);
+ 	if (err < 0)
+-		return err;
++		goto err_free_skb;
  
- 	ret = mt76_eeprom_override(mphy);
- 	if (ret)
--		return ret;
-+		goto error_free_hw;
+ 	err = mt76u_tx_setup_buffers(dev, tx_info.skb, q->entry[idx].urb);
+-	if (err < 0)
+-		return err;
++	if (err < 0) {
++		/*
++		 * mt76_tx_status_skb_get() walks the idr and dereferences
++		 * a freed skb. This SKB is not counted in non-AQL counter
++		 * due to error return, so using 0xffff as wcid to keep
++		 * balanced.
++		 */
++		mt76_tx_complete_skb(dev, 0xffff, tx_info.skb);
++		goto err_ret;
++	}
  
- 	/* second phy can only handle 5 GHz */
- 	mphy->cap.has_5ghz = true;
-@@ -590,7 +592,14 @@ int mt7615_register_ext_phy(struct mt7615_dev *dev)
- 	ret = mt76_register_phy(mphy, true, mt76_rates,
- 				ARRAY_SIZE(mt76_rates));
- 	if (ret)
--		ieee80211_free_hw(mphy->hw);
-+		goto error_free_hw;
+ 	mt76u_fill_bulk_urb(dev, USB_DIR_OUT, q->ep, q->entry[idx].urb,
+ 			    mt76u_complete_tx, &q->entry[idx]);
+@@ -921,6 +934,14 @@ mt76u_tx_queue_skb(struct mt76_phy *phy, struct mt76_queue *q,
+ 	q->queued++;
+ 
+ 	return idx;
 +
-+	return 0;
-+
-+error_free_hw:
-+	ieee80211_free_hw(mphy->hw);
-+error:
-+	mt7615_cap_dbdc_disable(dev);
- 
- 	return ret;
++err_free_skb:
++	status.skb = tx_info.skb;
++	spin_lock_bh(&dev->rx_lock);
++	ieee80211_tx_status_ext(dev->hw, &status);
++	spin_unlock_bh(&dev->rx_lock);
++err_ret:
++	return err;
  }
+ 
+ static void mt76u_tx_kick(struct mt76_dev *dev, struct mt76_queue *q)
 -- 
 2.53.0
 
