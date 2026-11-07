@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046914;
-	b=secUTHyGMUHm4KhZ/6CIhyuxukeIpmiUPO+WjSDNElohITjXzGt5BpZNVXhdWiiaPm1W
-	 lkJC/aCkZDmCg2a6d4MrqZTf/W9bSHHiC5PaQD082OShOE7FB5+UkKZCmvzWYE5i5chUg
-	 YNV1JsFdngCwDsFmb/fjB4UCGRtzhr5imgViYIEZP4AI9ZKokN8++pgvE7Lj8GDgnB8u2
-	 AFJOUPFU9I5pY5Orj05KFiElYPhZzBnjh7MX+SQyc3hvpcIyHgodZYiVNQ3sdtVFmzal1
-	 6+AIltXEFrlB47gfa3BVv7hsmvOjW0H00lKiJIpR90LLlv+Um9Z9tSWcEKtZ2cPRkNg==
+	t=1794046916;
+	b=C34HAMTAWA7bRWskCrnIN+j/v6vDlD9RSLRXONNoGv6tZMF9IKQIw5EXEUTZ1TtHOhUc
+	 KFnBsNK80CYc081vhr3h8mC5NcQ6rAgMbLcq/SqZ0ixKQikHvTjkKs6e5EqKG4Yg0vR28
+	 zkA5BhBp68Q6aY50o0k90FHkXdNxt1uhVqEibl6nAo/DEEHnS0qETleupFt8zz++s4GCD
+	 0vD7m0s9oY9SizGJpnW4iOxIRYN5JspdQlKrultn4J8dgiuWd/kPrKdx0Imqoz/R7TFiw
+	 UWg8W4BP7yvrHkBgk1hDiMDiGny8a9AJGX19lHAIPrPVDU6EvMvfJ+UJkTAhO1NG4XA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046914;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046916;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=9wvJsnzuX7kRtcrx8/iN5rJasSpG+V84ZsiNEsuv7r4=;
-	b=V4h+Or4S5IWSaTub5HJFmc/Rf0pH8Ba/mUAJyuJrhDlGl6m0D/yPE+W+Rz4XB5neYkWX
-	 YTjLMeyumUeTxhZ7gmW0lDh8chqkvQmn3RfpZBTdFDVQflkFTCuKqhzkg8ie/IudB/JEa
-	 LtiW8sgpmb4hQCyMggI5MHNwsRNtO3KFwL8DC+/s1UhbxbtIB3iVUqYYITjARnQPiXwSt
-	 nJF4edjJaUN/SOCmCG6gieq/RkSn5Z5L1Qek9YTY/gsLAGkU5BRDczOJKX4THg/NGUbKA
-	 PXfMBHCTaU2A18zap+OBo9rHGVugvQkvJgLWVuRcvSA8tckYJSPgdy5IRHvVpVbDUIg==
+	bh=QFqDUyLvsoyIXvlhDFNkb3cdpDWZ9LfVnzSLt9HYSO0=;
+	b=sgMtrMg3D66VbomVaI2balvvr5s7ASd47sPJlEBQOOI7M1BN99hRIIHk2z44MRSwTssU
+	 lRzSVqkBdc6NmZz9iTG1qdT7HCCAC8/NGFz2GNxAQp++CZ5secSn72M0fhrxqP75xHEfp
+	 /Qz1gUj1nnm54FKVbxhjA+ECdIzqk5vWoR+PiLlV4Kq6EEvQsLKyuRvXL/rikwlZrAqW9
+	 nUr5kWGSzSl4SoicmEemqf54GIVY+xvr94HyV4NPe8207Z2a/zr3h0flRFZA5WjlVHiy/
+	 l9pjvaLGajxs88AsAytNIGJjZLSETLv2PJga3ju+BQGHEsJ79ROr6wy1MdViPxH6msg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UipyvTEq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JRD+J0XN;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06004606D81B
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:21:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29A0F606D81B
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:21:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UipyvTEq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24CBB1F008A1;
-	Sat,  7 Nov 2026 10:21:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JRD+J0XN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61B3C1F008A1;
+	Sat,  7 Nov 2026 10:21:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046913;
-	bh=9wvJsnzuX7kRtcrx8/iN5rJasSpG+V84ZsiNEsuv7r4=;
+	s=k20260515; t=1794046915;
+	bh=QFqDUyLvsoyIXvlhDFNkb3cdpDWZ9LfVnzSLt9HYSO0=;
 	h=From:To:Cc:Subject:Date;
-	b=UipyvTEqhGWx87Rr9lRyRqiD50KZKDhyIdgQOhWB8yNCq60oh/JrjNwOTojtsMmGD
-	 X3vz1vZVpgUqfKzx1ImjlawxW/OgPAAKF0AzEb4zdpmrDK/G+uUo5pmcvsbkTxAhp/
-	 Mzr4lvY6bPB0RhSt8I+wftAD6ZlNORaCs1JNz8/c56RgBDUhvRsww0MDnGnULMesLx
-	 Na01/GhZ+wgflIiM6uVF7pGWjhM8dWOPf8rtEroCqhrpjHhefnAwowIDhgOrvN0Mp+
-	 BJX2Bqih7UrfGqmbhAE2SF0GTRJoxN9kfF8077AeM02h0Y6n5azWL5Xp0NOaaNavsd
-	 Vs2AjZgQ5+cBg==
+	b=JRD+J0XNp7vcW16V0A0mAfVWHtWOnx1RqScbGdCEKzxycAk4ad8dYvI4ppJWdvqEI
+	 Z4Jnr7/OnzOSbJAK+10uqi/RNCq59CatX97JK0b98jt2TNckKm2EKUBNl7C88gZSPR
+	 0apliQyI8Wa1bOQmAiWRX3evgWeMcUd+IBZeZv1s1NEZYZu+A15SjAb/9ljzQwA9fV
+	 WaY2fRpwaLmBPyleiq064eW6gX1LcomSCL9A3pN/UrB+dBweyoR9LNwDeO8t44AU1t
+	 XLFbUoRDiuTVNyfTe8hLxN3v3ELwTthQuL6tPY56AEC2UEPqPMrikPYwAv6ZysnMu6
+	 mYrfFEq9Yglsg==
 From: Sasha Levin <sashal@kernel.org>
-To: mhun512@gmail.com,
-	ae878000@gmail.com,
+To: andrey.misyrov@gmail.com,
 	deller@gmx.de
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] fbdev: kyro: Release WC setup on registration failure" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:21:52 -0500
-Message-ID: <20261107052152-failed-6.12-d3bc005a6294@kernel.org>
+Subject: FAILED: patch "[PATCH] fbdev: core: Initialize modelist in framebuffer_alloc()" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:21:54 -0500
+Message-ID: <20261107052154-failed-6.12-0c9cb9321cb3@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,63 +68,87 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x d3bc005a62945aec57059201092b12b7c955e5a7
+git cherry-pick -x 0c9cb9321cb3863b52bdea4b8ae5a27705762c9e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052152-failed-6.12-d3bc005a6294@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052154-failed-6.12-0c9cb9321cb3@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From d3bc005a62945aec57059201092b12b7c955e5a7 Mon Sep 17 00:00:00 2001
-From: Myeonghun Pak <mhun512@gmail.com>
-Date: Mon, 14 Sep 2026 20:52:43 -0400
-Subject: [PATCH] fbdev: kyro: Release WC setup on registration failure
+From 0c9cb9321cb3863b52bdea4b8ae5a27705762c9e Mon Sep 17 00:00:00 2001
+From: Andrey Misiurov <andrey.misyrov@gmail.com>
+Date: Mon, 12 Oct 2026 19:53:38 +0200
+Subject: [PATCH] fbdev: core: Initialize modelist in framebuffer_alloc()
 
-If register_framebuffer() fails, kyrofb_probe() frees the framebuffer
-without releasing its write-combining range. Release the range before
-freeing the framebuffer. Earlier failures still skip this cleanup.
+framebuffer_alloc() returns zeroed memory, so info->modelist starts out
+with NULL next and prev pointers. The list head is initialized only
+later, by fb_videomode_to_modelist() or by do_register_framebuffer().
 
-The missing cleanup already exists in the initial Git import, before
-the conversion from mtrr_add() to arch_phys_wc_add().
+The "fix potential memory leak" commits listed below added
+fb_destroy_modelist(&info->modelist) to the probe error paths of s3fb,
+tdfxfb, tridentfb, i740fb and carminefb. These paths can run before
+the list head is initialized:
 
-This issue was identified during our ongoing static-analysis research
-while reviewing kernel code.
+ - s3fb, tdfxfb, tridentfb and i740fb call fb_videomode_to_modelist()
+   only after a successful EDID read, and tridentfb can also hit the
+   error path on an ioremap() or kmalloc() failure before that;
+ - carminefb jumps to the error path when fb_find_mode() fails, before
+   its fb_videomode_to_modelist() call.
 
+fb_destroy_modelist() then dereferences the NULL head. Reproduced on
+Debian 12 (6.1.180) by binding s3fb to a VGA device without EDID and
+forcing fb_alloc_cmap() to fail:
+
+  s3fb 0000:00:03.0: cannot allocate colormap
+  BUG: kernel NULL pointer dereference, address: 0000000000000000
+  RIP: 0010:fb_destroy_modelist+0x10/0x80
+  Call Trace:
+   s3_pci_probe.cold+0x12b/0x2bf [s3fb]
+   local_pci_probe+0x41/0x80
+   pci_device_probe+0xc3/0x240
+   really_probe+0xde/0x380
+   __driver_probe_device+0x84/0x150
+   driver_probe_device+0x1f/0x90
+   __driver_attach+0xce/0x1c0
+   bus_for_each_dev+0x87/0xd0
+   bus_add_driver+0x1ae/0x200
+   driver_register+0x89/0xe0
+   do_one_initcall+0x59/0x220
+   do_init_module+0x4a/0x1f0
+
+Initialize the list head in framebuffer_alloc(), so info->modelist is
+always a valid, possibly empty, list and fb_destroy_modelist() is safe
+on every error path. Keep the lazy initialization in
+do_register_framebuffer(), as drivers that embed struct fb_info rather
+than calling framebuffer_alloc() still depend on it.
+
+Fixes: 3b0ed04bc852 ("fbdev: s3fb: fix potential memory leak in s3_pci_probe()")
+Fixes: bb019d755366 ("fbdev: tdfxfb: fix potential memory leak in tdfxfb_probe()")
+Fixes: 7a35ec619d9a ("fbdev: tridentfb: fix potential memory leak in trident_pci_probe()")
+Fixes: 5936063409af ("fbdev: i740fb: fix potential memory leak in i740fb_probe()")
+Fixes: 6fcca16a2b19 ("fbdev: carminefb: fix potential memory leak in alloc_carmine_fb()")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Signed-off-by: Andrey Misiurov <andrey.misyrov@gmail.com>
 Signed-off-by: Helge Deller <deller@gmx.de>
 ---
- drivers/video/fbdev/kyro/fbdev.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/video/fbdev/core/fb_info.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/video/fbdev/kyro/fbdev.c b/drivers/video/fbdev/kyro/fbdev.c
-index c237389888229..94d6af54e6c46 100644
---- a/drivers/video/fbdev/kyro/fbdev.c
-+++ b/drivers/video/fbdev/kyro/fbdev.c
-@@ -765,7 +765,7 @@ static int kyrofb_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 	fb_memset_io(info->screen_base, 0, size);
+diff --git a/drivers/video/fbdev/core/fb_info.c b/drivers/video/fbdev/core/fb_info.c
+index 52f9bd2c5417a..05988a936bebb 100644
+--- a/drivers/video/fbdev/core/fb_info.c
++++ b/drivers/video/fbdev/core/fb_info.c
+@@ -43,6 +43,7 @@ struct fb_info *framebuffer_alloc(size_t size, struct device *dev)
+ 	info->device = dev;
+ 	info->fbcon_rotate_hint = -1;
+ 	info->blank = FB_BLANK_UNBLANK;
++	INIT_LIST_HEAD(&info->modelist);
  
- 	if (register_framebuffer(info) < 0)
--		goto out_free_fb;
-+		goto out_free_wc;
- 
- 	fb_info(info, "%s frame buffer device, at %dx%d@%d using %ldk/%ldk of VRAM\n",
- 		info->fix.id,
-@@ -776,6 +776,8 @@ static int kyrofb_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 
- 	return 0;
- 
-+out_free_wc:
-+	arch_phys_wc_del(currentpar->wc_cookie);
- out_free_fb:
- 	framebuffer_release(info);
- 
+ #if IS_ENABLED(CONFIG_FB_BACKLIGHT)
+ 	mutex_init(&info->bl_curve_mutex);
 -- 
 2.53.0
 
