@@ -1,97 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794071905;
-	b=pJFACs22aFWDwzyxvvBwsGCz2p7IMQPT7QPRQ8tEbEB+w9O3Hg7gJ2vG0R/zAKNm+W/E
-	 e9uGHJUgtObVlEXyP2+kMLB3RlHeQYsoLaLResKAEsQ9qxlOTRHjQcseNqk49b7JCmIEA
-	 L8imdWJtuv1XVsuLxijna2ufPahp0i8zcNsyqZNkyQ4/hf2qCPxsSsTxuS4QOhyPIeoBg
-	 phfPhbCVeO/5gUfMAL/hunUst82HMv0OYSK003ccgmyj2fp1JipGqHnWv+pusWNOn4PMZ
-	 37DiNpcduTkXvsqytwtR2PrvS7YW4+TfP0JELwVqSphDCywE0RFoK7M2mM4cH3eUnyg==
+	t=1794072333;
+	b=DexkW7qOGhfB3SKlhOjZtHbJGOImE/ybkuRo4BNYubR3pPsRlcZ9V1+prQkV0DhH4BZX
+	 u9mnU/GnLJUTOxmVXM2rwCpy7IInekxW4MIw+lePq29PD4mGGERNXqbfGXQusmt+lMpEc
+	 2OUV3NgDcWZFaOH3h8VLNZm/N4F18/A54Ok+TqD/ZMzo8f0rLimxsjpUW5HdjnCQuaEWb
+	 OoqEUj414AgZsHD0zJCkZAoqXVW7WAOaN5j3beiIIPBxwRy9opCle4UVrtMSgR8wfVLpx
+	 fW3BZ2cTrJ74HPrKdE8ftjXA4dRuTAuO7ijM+8Huo+cnVX7Fjk4cdemutr/oVa8Jt1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794071905;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=GzJZLxK0N1nyYDcTPn6m0/DSL3brMWaSJHk89v88tFE=;
-	b=E5VXP4npkzoHME+fh1ZbHSO6k1TJYtkRNTEQhnfABubicnLDmpo4nQarfKmhAw1rWSrp
-	 XisY8ceCH3R1Dx/1YTvgvUx0zrHUx+ebpLxW6fqILz5hQzfU8q+T009KbuhFJk/ueDUtS
-	 qTFz0eldhX/TKT9/14hHKMBI2GFC9sBZOYsiaBwLdp9m26YquHYhquefmqMDnaXtm7Qjm
-	 m061FHOahessKGQ9Foi1jyom0QEn7BHoFTlYXTMT2ZY8XQYLP1lLaJaALx+42f8k+nYLB
-	 H3zix+RIgCbhSzL5toSIHGy4e8zLHwOWCafZmV9kgdZNACedjuCjujjL4aB0tYwb30A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794072333;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=GdNqUYJ/pamJl/A6pJ+FkUakABRRqEdgRFgal2+P0I4=;
+	b=Q4bvkY1A0+kHcPGVkUEy0iNPVEmtcBrpO15ZwoqNaop83EG4CsXO0XVlZAYral1syXeY
+	 pt8tja5jDav2f0PaT0yRG6EseFcXPw3/GpzpNMFRo9HW5dbdLMCoKWxo1q/BCTqh7Ykgu
+	 rt7ZdkaYiVQIvcFvgGm1DBXSvvgrexJS59ejuJKhIk7Td2VjSGFr7kk3LfNdXW8tP8rC6
+	 ezdsUvrd0zGHnNTf4E4holW2L0/r39P8r7zNJGhKybCXg+OyI/UVfByKji1IL7nJwWEbp
+	 exScVh62lSANGJbWjn0JzC5WXTtXVBBtPioEJ2AF9VZQUP1mHQe+745huToQTSRGTBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=meeIzSY7;
-	arc=none smtp.remote-ip=209.85.221.44
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NfvTmLN6;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5F15606A32D
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 17:18:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5F15606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F918606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 17:25:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=meeIzSY7
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-491971ac844so1436356f8f.2
-        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 09:18:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794071903; x=1794676703; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GzJZLxK0N1nyYDcTPn6m0/DSL3brMWaSJHk89v88tFE=;
-        b=meeIzSY7RiL12Tn3Dqy72t250PR3HKMAjCIPHV4Omp6Mw3jPK4J3zRT8GCOtu5xHcc
-         7pbvxi83nXPIbAcHu2iQaTzNHsPBAsGfbvnuVzokTJjkn4ohQsqtVt4bZ/lweyutZ91Y
-         32vE9QA/inLVmrEbueeW5OPZUoq/vGZtQzZmgl9OIwrw4V4KFl2Q3JniZ/qg9w6kbGxC
-         SSUyIfn+ifg2OPg4AiA/jGXOU8gj3nmMsCmKI+gKnXUZ2wN3eEXMwWhxPWOT/UN1JdCT
-         Z9Pr6Tse8nRiazmtN3PjIw+NqOPcIgOdncSpQ1KARz47z80F/45HJux7AAhZf5AHVO9J
-         yDzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794071903; x=1794676703;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GzJZLxK0N1nyYDcTPn6m0/DSL3brMWaSJHk89v88tFE=;
-        b=uZOdvwdA1xxKEyJpzNAwumUcTKlXYGOZCqHvf0ESaKsZLbtxVzFlDbfmcm82KTQVHd
-         9dj8Q4VYv3BmVwaeOl7xJDsPaVqdQLEYYD119r4aKUbwTWTzzzigGMCcvfHfm5d/ypBq
-         /tDocw/axACvwuQicJOqtozzVg1afbMI3X7ohnwOQw4rP9AjryetUEgM88+psbgYbhKU
-         m5LAojJM0cmySSjsCJFiHKuMpH4pNIZ4s3VCcRboNmXJctgCY/KBT/jf3m9ccs5g3jlp
-         fS6MWeyLCnolDzA9BBvjjqMxPoCcj63QjssTr3Cgkj3Fd+GIxh1Td9C7eXJZuZwwI3so
-         mNlw==
-X-Forwarded-Encrypted: i=1; AL+hErG5NcuugeTZSn4pf5PdonrKkK1Jf3kkMAHssDPt3C/lM2sILJJwtnmZ2+Q7li+g9BgUVebuD24=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/MfiqrZhBTWc3ngsslcL9KAiGLu531krWJlozFJ8xJI7efPG3L
-	ezlBY6buXxoWpqIw8cX7fI5zAQSDaGdH1FdHwIh/LFZdptAd7vOtdI4=
-X-Gm-Gg: AYBFou1E5gduO3F+IRuSPyzRI5Qd1B684vOqRVO7uTtpzQ5anwYpi7ifpaihxbMvWbX
-	WOetTTnthu+ChZz7fY8zk9nqf7khSZuoowRZvlDuPXdIxAnqTeeG4RetPZFW1CL/YxfSl/bxlH0
-	9HBN5pLS7IHOI3neh/nhI/5sxExybrhxP3LPG7jnZOjLxmfPV+P/GUECLGJ3Xqtlgib2ETgETO7
-	9rjHatMahpVMJGbGNqm/iksuYVcERVbG5IBtJ4OJxeZR2vt6MpBLyA7QwQnEle6JGc1cLtG24lf
-	pVQthbZOIby+dIOtRNUk61sMzeipfBSnzVtRkWt1qj+G1D/E9kyKx3gH2U+xLa2swdvarKdXp7X
-	qKs+XidjxJ/3YWrgSIUJzbLxlidgvmM93lW4zxAyeEnNM7q98EbrghCM3dge1m6TaKPImRbTbey
-	IjAYpxeM6D8SqT2+FZ8VxGIBGiAMlt9BeAlkK9lJLhv/jBkOHKK59WzJCb75dIhcvRYvn+im/7R
-	x9tidTc+r8PQzUe5/BHFNI8AuAoy6mYNf6j+WTgoNj13w7h3PNB7wqwUpDtKskSbeHMh94nIASY
-	IWmNnOr48jpBMGA=
-X-Received: by 2002:a5d:64ce:0:b0:48f:e879:5890 with SMTP id ffacd0b85a97d-492760da597mr10879426f8f.32.1794071902970;
-        Sat, 07 Nov 2026 09:18:22 -0800 (PST)
-Received: from localhost.localdomain ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-492d7cc628dsm10434892f8f.48.2026.11.07.09.18.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 09:18:22 -0800 (PST)
-From: Tristan Madani <tristmd@gmail.com>
-To: Oder Chiou <oder_chiou@realtek.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Cc: Bard Liao <bardliao@realtek.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Tristan Madani <tristan@talencesecurity.com>
-Subject: [PATCH v2] ASoC: rt5659: fix teardown order and stale state across card rebind
-Date: Sat,  7 Nov 2026 17:18:13 +0000
-Message-ID: <20261107171813.2561973-1-tristmd@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NfvTmLN6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 119D51F0089F;
+	Sat,  7 Nov 2026 17:25:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794072333;
+	bh=GdNqUYJ/pamJl/A6pJ+FkUakABRRqEdgRFgal2+P0I4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=NfvTmLN6zUvqtGpWMPdIv1XJd6S3Ta5hjxihJQ2WUI3ZQjQwMlUwKK2cDcziG4I/9
+	 5i98IF/ilh6ECG9kd56TuAmRhW3VJVmzfh5iriXS6uknpkHKk3XvafLeXwFGrtIyx3
+	 udkXbOFFfQcwvsrR3XRpKJITaOdSAfe+NpAJ8JhC2M5R+/KDUyl7VwIEj8IuOJzJLv
+	 0ioq7GMtidC6AtJod6ISf2D1s738LrvSgSd4yZhh4hA2gyAwS8JfsFq3zwNznBebPE
+	 hVEJJmK5K1b/eweGLCslmk8DqPXE8sQh483xLzyPDoT1VMOzlBqhmGAfOrSCPvKVYr
+	 3SXcMSeCqfD6A==
+From: SJ Park <sj@kernel.org>
+To: stable@vger.kernel.org
+Cc: SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: [PATCH 7.3.y] mm/damon/core: remove unreachable damos charge_{target,addr}_from
+Date: Sat,  7 Nov 2026 09:25:23 -0800
+Message-ID: <20261107172523.109273-1-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261107050537-failed-7.3-5695abc4e742@kernel.org>
+References: <20261107050537-failed-7.3-5695abc4e742@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,161 +60,80 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tristan Madani <tristan@talencesecurity.com>
+damos_quota->charge_{target,addr}_from saves the target and region the
+scheme's quota limit is reached.  damos_skip_charged_region() skips the
+target and regions before the point.  The target that was assigned to
+charge_target_from could be dynamically removed from the context by the
+runtime parameters update (aka commit) feature.  In this case,
+damos_skip_charged_region() cannot find if the point is passed or not,
+so the scheme is effectively disabled.
 
-The cleanup in rt5659_remove() does not reset hs_jack, jack_type, or
-the component pointer, and does not mark the regmap cache dirty after
-the codec reset.  On card rebind this leaves a dangling hs_jack pointer
-and causes regmap_update_bits() to skip re-programming jack-detection
-registers because the cache still holds the pre-reset values.
+Similarly, the user could also remove all the regions of the target
+using the runtime parameters update feature.  It would be uncommon to do
+that, but it is a supported feature.  Because the skip pointer detection
+logic (damos_skip_charged_region()) works for each region of targets,
+this result in the logic is entirely skipped and the scheme is
+effectively disabled again.
 
-Only clear headset detection state via rt5659_headset_detect() for
-JD3-mode jacks.  In HDA header mode the SAR, 4BTN_IL, and IL_IRQ
-registers are set up once during I2C probe by
-rt5659_intel_hd_header_probe_setup() and are not re-enabled on card
-rebind, so clearing them in remove would leave mic detection disabled
-after the next bind.
+The user impact is that the DAMOS scheme could suddenly stop working
+under certain uses of the runtime parameters update feature.  It could
+surprise users. No crash or leak happens though.  Users could also
+simply work around by re-installing the scheme.
 
-Reset the HDA IRQ polarity bits in RT5659_IRQ_CTRL_1 and
-RT5659_IRQ_CTRL_2 to their unplugged defaults before marking the
-regmap cache dirty.  Without this, regcache_sync() on rebind restores
-plugged-in polarity while hda_hp_plugged and hda_mic_plugged are
-false, so the polarity-flip logic in
-rt5659_jack_detect_intel_hd_header() never fires and subsequent
-plug/unplug events do not generate an interrupt.
+Catch the corner cases in damos_adjust_quota() and reset the pointers.
 
-If the I2C device unbinds without a card bound, rt5659_remove() is
-never called and the IRQ keeps queuing jack_detect_work until devres
-frees the private data.  Register a devm action to disable the IRQ
-and cancel the delayed work on any I2C teardown path.  Guard
-disable_irq() in rt5659_i2c_shutdown() with the irq_disabled flag
-to avoid an unbalanced disable when rt5659_remove() already ran.
-
-Store the I2C client pointer in rt5659_priv so all paths can
-reference it directly.
-
-Fixes: d3cb2de2479b ("ASoC: rt5659: add rt5659 codec driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+Link: https://lore.kernel.org/20261020023958.108276-1-sj@kernel.org
+Fixes: da87878010e5 ("mm/damon/sysfs: support online inputs update")
+Signed-off-by: SJ Park <sj@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Closes: https://sashiko.dev/#/bug/linux-cd0c55fc-0cc8-45d8-9637-3334811c49b8
+Cc: <stable@vger.kernel.org> # 5.19.x
+(cherry picked from commit 5695abc4e742b947f586bfb6a080a80ad9957e5d)
+Signed-off-by: SJ Park <sj@kernel.org>
 ---
-Changes in v2:
-  - Only call rt5659_headset_detect() for JD3-mode jacks; HDA header
-    mode registers are set during I2C probe and not re-enabled on rebind
-  - Reset HDA IRQ polarity bits to unplugged defaults before
-    regcache_mark_dirty() to prevent stale polarity on rebind
+ mm/damon/core.c | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
- sound/soc/codecs/rt5659.c | 47 ++++++++++++++++++++++++++++++++++++---
- sound/soc/codecs/rt5659.h |  1 +
- 2 files changed, 45 insertions(+), 3 deletions(-)
-
-diff --git a/sound/soc/codecs/rt5659.c b/sound/soc/codecs/rt5659.c
-index 68f7d5673e190..b28804fa15806 100644
---- a/sound/soc/codecs/rt5659.c
-+++ b/sound/soc/codecs/rt5659.c
-@@ -3660,6 +3660,16 @@ static int rt5659_set_bias_level(struct snd_soc_component *component,
- 	return 0;
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index 74d22a596fc13..1d84e668f8e46 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -3149,6 +3149,26 @@ static void damos_trace_esz(struct damon_ctx *c, struct damos *s,
+ 	trace_damos_esz(cidx, sidx, quota->esz);
  }
  
-+static void rt5659_i2c_disable_irq_and_cancel_work(void *data)
++static void damos_fix_stale_charge_pointers(struct damon_ctx *c,
++		struct damos *s)
 +{
-+	struct rt5659_priv *rt5659 = data;
++	struct damos_quota *quota;
++	struct damon_target *t;
 +
-+	if (rt5659->irq_acquired && !rt5659->irq_disabled)
-+		disable_irq(rt5659->i2c->irq);
-+	if (rt5659->jack_detect_work_inited)
-+		cancel_delayed_work_sync(&rt5659->jack_detect_work);
++	quota = &s->quota;
++	if (!quota->charge_target_from)
++		return;
++	damon_for_each_target(t, c) {
++		if (t == quota->charge_target_from) {
++			if (damon_nr_regions(t) > 0)
++				return;
++			break;
++		}
++	}
++	quota->charge_target_from = NULL;
++	quota->charge_addr_from = 0;
 +}
 +
- static int rt5659_probe(struct snd_soc_component *component)
+ static void damos_adjust_quota(struct damon_ctx *c, struct damos *s)
  {
- 	struct snd_soc_dapm_context *dapm = snd_soc_component_to_dapm(component);
-@@ -3667,8 +3677,10 @@ static int rt5659_probe(struct snd_soc_component *component)
- 
- 	rt5659->component = component;
- 
-+	regcache_sync(rt5659->regmap);
-+
- 	if (rt5659->irq_disabled) {
--		enable_irq(to_i2c_client(component->dev)->irq);
-+		enable_irq(rt5659->i2c->irq);
- 		rt5659->irq_disabled = false;
+ 	struct damos_quota *quota = &s->quota;
+@@ -3184,6 +3204,8 @@ static void damos_adjust_quota(struct damon_ctx *c, struct damos *s)
+ 			damos_trace_esz(c, s, quota);
  	}
  
-@@ -3689,17 +3701,34 @@ static int rt5659_probe(struct snd_soc_component *component)
- static void rt5659_remove(struct snd_soc_component *component)
- {
- 	struct rt5659_priv *rt5659 = snd_soc_component_get_drvdata(component);
--	struct i2c_client *i2c = to_i2c_client(component->dev);
- 
- 	if (rt5659->irq_acquired) {
--		disable_irq(i2c->irq);
-+		disable_irq(rt5659->i2c->irq);
- 		rt5659->irq_disabled = true;
- 	}
- 
- 	if (rt5659->jack_detect_work_inited)
- 		cancel_delayed_work_sync(&rt5659->jack_detect_work);
- 
-+	if (rt5659->jack_type && rt5659->pdata.jd_src == RT5659_JD3)
-+		rt5659_headset_detect(component, 0);
++	damos_fix_stale_charge_pointers(c, s);
 +
-+	rt5659->hs_jack = NULL;
-+	rt5659->jack_type = 0;
-+	rt5659->hda_hp_plugged = false;
-+	rt5659->hda_mic_plugged = false;
-+
-+	if (rt5659->pdata.jd_src == RT5659_JD_HDA_HEADER) {
-+		regmap_update_bits(rt5659->regmap, RT5659_IRQ_CTRL_1,
-+				   0x10, 0x10);
-+		regmap_update_bits(rt5659->regmap, RT5659_IRQ_CTRL_2,
-+				   0x2, 0x0);
-+	}
-+
-+	rt5659->component = NULL;
-+
- 	regmap_write(rt5659->regmap, RT5659_RESET, 0);
-+	regcache_mark_dirty(rt5659->regmap);
- }
+ 	if (!c->ops.get_scheme_score)
+ 		return;
  
- #ifdef CONFIG_PM
-@@ -4328,6 +4357,13 @@ static int rt5659_i2c_probe(struct i2c_client *i2c)
- 				   RT5659_GP1_PIN_MASK, RT5659_GP1_PIN_IRQ);
- 	}
- 
-+	rt5659->i2c = i2c;
-+	ret = devm_add_action_or_reset(&i2c->dev,
-+				      rt5659_i2c_disable_irq_and_cancel_work,
-+				      rt5659);
-+	if (ret)
-+		return ret;
-+
- 	return devm_snd_soc_register_component(&i2c->dev,
- 			&soc_component_dev_rt5659,
- 			rt5659_dai, ARRAY_SIZE(rt5659_dai));
-@@ -4337,6 +4373,11 @@ static void rt5659_i2c_shutdown(struct i2c_client *client)
- {
- 	struct rt5659_priv *rt5659 = i2c_get_clientdata(client);
- 
-+	if (rt5659->irq_acquired && !rt5659->irq_disabled)
-+		disable_irq(client->irq);
-+	if (rt5659->jack_detect_work_inited)
-+		cancel_delayed_work_sync(&rt5659->jack_detect_work);
-+
- 	regmap_write(rt5659->regmap, RT5659_RESET, 0);
- }
- 
-diff --git a/sound/soc/codecs/rt5659.h b/sound/soc/codecs/rt5659.h
-index e10b3844501b9..1118e6ab1887d 100644
---- a/sound/soc/codecs/rt5659.h
-+++ b/sound/soc/codecs/rt5659.h
-@@ -1793,6 +1793,7 @@ struct rt5659_priv {
- 	struct snd_soc_component *component;
- 	struct rt5659_platform_data pdata;
- 	struct regmap *regmap;
-+	struct i2c_client *i2c;
- 	struct gpio_desc *gpiod_ldo1_en;
- 	struct gpio_desc *gpiod_reset;
- 	struct snd_soc_jack *hs_jack;
 -- 
 2.47.3
 
