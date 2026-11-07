@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794045753;
-	b=y8Gk2AIxdqKaWPJsBKQNCU4HN2rQ44ixkoh9GlG2pzjDW06cTpKP9m6lAhF1n9Y19FM0
-	 dKPEyYI7r1QHoWqjI4Xfsf69ELKhqYXEcBxoAf7eHQDSqgUlkrrnME6I9oXE8YeO4NzMi
-	 O2LoFdvPKzwDApfCfEl2lEAiMGQnWQbFi/D0iGkw1XpJUNVnMTtVp7uBm9KUOxwgr9png
-	 J9PtFBOHyVP01K2GDpqIMMGssmnywgrnL6D4Po5MYfQEjXQVxrdBxOyMgtPtIyPQjggmX
-	 GCS0eUgzhDojgtH1qZaPa8Qrac0C78CPeNUfCdEwycC0Ilx0trgAUK/xgw6x7Hs+LMQ==
+	t=1794045749;
+	b=RXt7/NBsUOQB6Ipa1DAAgNf6h3NnRZ4LX179KOZAvBbEJcLOqoAz/LFh9kCtGnEg5E14
+	 pMt52tv2SBqfp5DIXMidrIG5SgZ0RdG2Gh1eNFz9whEBXDDeatYyJYPjyN8riRDvv/rwG
+	 p3xg91Kj43U8u9q5PyYTvf9u39iuWtSxXWfypHmhJuIWHFJRiqARwNfzdFUej5RtczUol
+	 PBMHgNtGXjAN74L8vZIG6h4HerqvW7g+/kKzbH4vITLgQ+zDg9ii0DB3sojqGPIXu0Ybr
+	 j06kfxefp1FeJs0oIRazFFF9xkAJQ7qTt8DVOU+3iWY95jTB6XD8oWvdOkQEcKSGaiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794045753;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794045749;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=8GyZjF+osm7FQBm9oX3hxXZ3iC4xbsgKq2KyufkDfj0=;
-	b=KR2ncfzyz3fE5nJmRw+px+tAZOsManxMJgIqvya2uC6S9wPQaK28iPikF3nDfxzoh9O1
-	 zc2Gt7Grti7FrKSZQTltsyyIQnJKcFdbqi0hJqfjUpseMuowa2S/ACic3MrCpTR8BjX6G
-	 Sl2O8zLidAng8BUx1HI3FhKAPfhPWN7NcUMBXYhDaoiSV2MydNmfMEEPiLXN+nAKyZshW
-	 rasksA2+D+nsQwjN5U1khi6aGIGPcr1Eu419MqUJkS9dp6RTeVzsbriGClRyMHfAjAi1F
-	 WNSEa3yM5IFZ0HESdlxqvDZaWRkCoREggNyEvv9FQut9wQ9XgvLktOkEcHyuyvBl/uw==
+	bh=9hbUU9DemNhdFhyLqXtdEnqBULUUB71JPN16si0oTvw=;
+	b=b7SAjD9nkdFQy9LLmRNlR5NhCgYYH8Lsgh2t/4WgjCS5nKaZNKcY1nG+sFFWS8vG/VJG
+	 SkDpLPIghlCoxu1o6dwpSLdJUNLQrXKnoH4MG6pO9+KbUvAtkgtyOJ/8bR+O90JfA4UQG
+	 CQ7AUKCfA3sBvi2W/me4gpr/LrP92HOoO8RG8PwAW1D7Ck+FCTcodJkTzSo++u2nyYYw7
+	 ARfqJIFTSJu+ndUITsC88GUumzVmLvjwBmMq5raO+t688Z7h1xy1ht3a0Z3B8gyFxCqBu
+	 LBZ8s5O/R4Xdah5iWmOPCNlTBmG9AglhMwnZfDh4w2yDqr/JV79D7IfGMmg/uQyFOqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dBSPhXfb;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WwZddNdx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69798606A333
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:02:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D160606A331
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:02:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dBSPhXfb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FF211F0089F;
-	Sat,  7 Nov 2026 10:02:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WwZddNdx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CC801F008A1;
+	Sat,  7 Nov 2026 10:02:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794045752;
-	bh=8GyZjF+osm7FQBm9oX3hxXZ3iC4xbsgKq2KyufkDfj0=;
+	s=k20260515; t=1794045748;
+	bh=9hbUU9DemNhdFhyLqXtdEnqBULUUB71JPN16si0oTvw=;
 	h=From:To:Cc:Subject:Date;
-	b=dBSPhXfbmPGkHKVKMEKFaRmUSJxsHY9+TnYmwVtkV80OkGjRRI+Ho4zgXKv6LS+aI
-	 RGQAH1LLzX52gHdD/fF4K+5jkI8hVsJ3IQ6/Iv7o+equU2t1b4b9si9jL2PJuIzc5t
-	 6orkC+qPd3ypjfxIxrA2CapYYC9j94JIZ5exlTQJp6yvQNVhxfLffG3VQMQFAX/NW5
-	 iFI3dLN6HPwZ2DGxS97oNysw9wHk94+CAdOc31DAPvdq2lgCVBfQ6JS/8L4xoKNleT
-	 XBkxyNMNy90nB2HhRzH0RPxfSRQw2QQKVtphEvA9Og8MaxQ0pfhuHKx42q5s+R3xaK
-	 LnWWyeHz/cJJA==
+	b=WwZddNdxUudZRh3I/Eauo+RD+PkRfDfNh+rJG+bFB2JPvyrwRWN64An0FJN1ErZRG
+	 Gr+wHSCt+98C74R45c0GlnIYn5Xc5t4UWfI0nA7tWzvkhXxRg+YEgXm91bc2UxCHQe
+	 CArxRmojnmWpFX9if2zhMgTv/LC2+93qbwsbjxK8MXMyO9zW6qoqf3qj8n3MqQhnAx
+	 KgQb4kVQe4Pa8Hvw4VSz+p9XEZbFfEOaT3BzKJtPq2SUNq4ohFRnsIUWwW3FKFELuY
+	 W/VKmQl4pXOukd6K8g6P1ZG9Jtg+CTKGooCjx9M8u3zgiNzE4dSVl0uejfh6wHucRT
+	 a1OBgLufx9rDQ==
 From: Sasha Levin <sashal@kernel.org>
-To: lyude@redhat.com,
-	airlied@redhat.com
+To: jia.yao@intel.com,
+	gwan-gyeong.mun@intel.com,
+	matthew.auld@intel.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/nouveau/gsp: Increase delay for magic sleep in r535_gsp_fini()" failed to apply to 7.3-stable tree
-Date: Sat,  7 Nov 2026 05:02:31 -0500
-Message-ID: <20261107050231-failed-7.3-09b47186a416@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/xe/guc_ads: allocate UM queues in a separate BO" failed to apply to 7.3-stable tree
+Date: Sat,  7 Nov 2026 05:02:27 -0500
+Message-ID: <20261107050227-failed-7.3-6af05de0dc19@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,104 +69,258 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x 09b47186a4164f3aaa3591313f80794443117342
+git cherry-pick -x 6af05de0dc19bbf3aaeec2020fe48b37c834b811
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050231-failed-7.3-09b47186a416@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050227-failed-7.3-6af05de0dc19@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 09b47186a4164f3aaa3591313f80794443117342 Mon Sep 17 00:00:00 2001
-From: Lyude Paul <lyude@redhat.com>
-Date: Fri, 14 Aug 2026 15:43:51 -0400
-Subject: [PATCH] drm/nouveau/gsp: Increase delay for magic sleep in
- r535_gsp_fini()
+From 6af05de0dc19bbf3aaeec2020fe48b37c834b811 Mon Sep 17 00:00:00 2001
+From: Jia Yao <jia.yao@intel.com>
+Date: Tue, 4 Aug 2026 16:50:55 +0000
+Subject: [PATCH] drm/xe/guc_ads: allocate UM queues in a separate BO
 
-As it turns out, Turing isn't the only architecture that needs this. On
-this Dell Precision 7780 with an AD103 GPU, along with pretty much every
-other laptop I tested, runtime PM is still somewhat unreliable. At first
-glance it seems as if it's fixed, but lowering the autosuspend delay to
-500ms and then doing a stress test of suspend/resume cycles on the GPU ends
-up causing everything to start timing out.
+Move the UM queues into a dedicated BO (ads->um_queue_bo) and avoid
+CPU memset operations on it, which eliminates the CPU as a potential
+cacheline-polluting agent and helps maintain consistency between GAM
+writes and GuC reads.
 
-After quite a lot of digging, I eventually landed back on this magic
-timeout in r535_gsp_fini(). As it turns out, increasing the timeout ends up
-fixing the runtime PM issues as far as I can tell, even during intense
-stress testing.
+We also need to ensure the base_dpa for the queue is contiguous on hw
+where this is used instead of a GGTT address. Another good reason to
+split this out to a separate BO.
 
-Unfortunately after spending quite a bit of time trying to dig through
-OpenRM to figure out what this magic sleep is actually doing, I've also
-come up short with any reasonable explanation. In lieu of that, I'm going
-to include the observations I did make while trying to figure this out in
-hopes someone eventually does figure this out:
-
-* The magic sleep has to occur after fbsr is initialized. Performing it at
-  any time before that doesn't appear to work.
-* In situations where runtime PM starts getting flaky, some rather
-  interesting visual effects end up happening on occasion before the GPU
-  fully falls over. In particular, squares that look like the result of an
-  incomplete blitting operation to a tiled buffer end up showing up on
-  applications like vkcube. Interestingly enough, they remain in precisely
-  the same place between runtime PM cycles until the GPU falls over - even
-  when restarting vkcube multiple times, and even when vkcube is actively
-  updating the screen. Even more interestingly, they're not limited to a
-  specific framebuffer - you can see the squares changing as the cube
-  rotates around.
-  We cannot however, say that this is likely to be a incomplete fbsr
-  operation. The magic sleep happens before fbsr is actually saved (which
-  happens on the GSP unload), so it's something else.
-* During a short bit of testing with a desktop that I have, the magic sleep
-  seemed to make no difference to whether or not suspend/resume works. It
-  seems to generally work almost always. So we can assume this is likely
-  exclusive to runtime PM, not S3.
-
-As well, here's a list of the things I tried before settling on the magic
-sleep:
-
-* Hooking up NV2080_CTRL_CMD_INTERNAL_GCX_ENTRY_PREREQUISITE and then
-  blocking runtime PM until OpenRM signals that GC6/GCOFF is ready appears
-  to make no difference.
-* Hooking up some (maybe not all, unsure about that part) bits of comptag
-  saving including:
-  * Fetching static memsys information from GSP
-  * Adding the size of the comptag storage to the fbsr data
-  * Adding a GA103+ workaround for disabling raw compression mode during
-    fbsr (it doesn't seem like it applies for any systems I tried it on
-    anyhow)
-  * Setting bPreserveVideoMemoryAllocations=1 in GspSystemInfo
-
-So, until we can figure this out properly - just sleep for longer.
-
-Signed-off-by: Lyude Paul <lyude@redhat.com>
-Fixes: 53dac0623853 ("drm/nouveau/gsp: add support for 570.144")
-Cc: <stable@vger.kernel.org> # v6.16+
-Reviewed-by: Dave Airlie <airlied@redhat.com>
-Link: https://patch.msgid.link/20260814194542.781955-5-lyude@redhat.com
+Fixes: 9c57bc08652a ("drm/xe/lnl: Drop force_probe requirement")
+Cc: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: <stable@vger.kernel.org> # v6.12+
+Signed-off-by: Jia Yao <jia.yao@intel.com>
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+Link: https://patch.msgid.link/20260804165057.129529-2-jia.yao@intel.com
 ---
- drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/xe/xe_bo.h            | 14 +++++
+ drivers/gpu/drm/xe/xe_guc.c           |  6 ++
+ drivers/gpu/drm/xe/xe_guc_ads.c       | 90 +++++++++++++++++----------
+ drivers/gpu/drm/xe/xe_guc_ads_types.h |  5 ++
+ 4 files changed, 83 insertions(+), 32 deletions(-)
 
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
-index 4a3b771ded255..94925f1590ea4 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
-@@ -1761,8 +1761,12 @@ r535_gsp_fini(struct nvkm_gsp *gsp, enum nvkm_suspend_state suspend)
- 		 * TODO: Debug the GSP firmware / RPC handling to find out why
- 		 * without this Turing (but none of the other architectures)
- 		 * ends up resetting all channels after resume.
-+		 * Additionally, runtime suspend on other architectures quickly
-+		 * becomes unreliable without this sleep. If you're experiencing
-+		 * issues with runtime suspend, try bumping this delay up and
-+		 * sending a patch if it fixes your GPU.
- 		 */
--		msleep(50);
-+		msleep(200);
- 	}
+diff --git a/drivers/gpu/drm/xe/xe_bo.h b/drivers/gpu/drm/xe/xe_bo.h
+index c6d80e1bd6e7b..e8081af5bfc18 100644
+--- a/drivers/gpu/drm/xe/xe_bo.h
++++ b/drivers/gpu/drm/xe/xe_bo.h
+@@ -6,6 +6,7 @@
+ #ifndef _XE_BO_H_
+ #define _XE_BO_H_
  
- 	ret = r535_gsp_rpc_unloading_guest_driver(gsp, suspend);
++#include <drm/drm_prime.h>
+ #include <drm/ttm/ttm_tt.h>
+ 
+ #include "xe_bo_types.h"
+@@ -549,6 +550,19 @@ void xe_bo_dev_fini(struct xe_bo_dev *bo_device);
+ 
+ struct sg_table *xe_bo_sg(struct xe_bo *bo);
+ 
++/**
++ * xe_bo_sg_is_contiguous() - Check if a BO's DMA address space is contiguous.
++ * @bo: the BO to check (must have a valid sg table, i.e. !xe_bo_is_vram())
++ * @len: required contiguous length in bytes
++ *
++ * Returns true if the first @len bytes of the BO are mapped to a contiguous
++ * DMA address range.
++ */
++static inline bool xe_bo_sg_is_contiguous(struct xe_bo *bo, size_t len)
++{
++	return drm_prime_get_contiguous_size(xe_bo_sg(bo)) >= len;
++}
++
+ /*
+  * xe_sg_segment_size() - Provides upper limit for sg segment size.
+  * @dev: device pointer
+diff --git a/drivers/gpu/drm/xe/xe_guc.c b/drivers/gpu/drm/xe/xe_guc.c
+index 4286bd05c6861..4f132bf8539da 100644
+--- a/drivers/gpu/drm/xe/xe_guc.c
++++ b/drivers/gpu/drm/xe/xe_guc.c
+@@ -732,6 +732,12 @@ static int xe_guc_realloc_post_hwconfig(struct xe_guc *guc)
+ 	if (ret)
+ 		return ret;
+ 
++	if (guc->ads.um_queue_bo) {
++		ret = xe_managed_bo_reinit_in_vram(xe, tile, &guc->ads.um_queue_bo);
++		if (ret)
++			return ret;
++	}
++
+ 	return 0;
+ }
+ 
+diff --git a/drivers/gpu/drm/xe/xe_guc_ads.c b/drivers/gpu/drm/xe/xe_guc_ads.c
+index f0ac00586d3ac..f8c679cef0039 100644
+--- a/drivers/gpu/drm/xe/xe_guc_ads.c
++++ b/drivers/gpu/drm/xe/xe_guc_ads.c
+@@ -64,10 +64,14 @@ ads_to_map(struct xe_guc_ads *ads)
+ 
+ /*
+  * The Additional Data Struct (ADS) has pointers for different buffers used by
+- * the GuC. One single gem object contains the ADS struct itself (guc_ads) and
+- * all the extra buffers indirectly linked via the ADS struct's entries.
++ * the GuC. One gem object (ads->bo) contains the ADS struct itself (guc_ads)
++ * and most of the extra buffers linked via the ADS struct's entries.  The UM
++ * fault queues (PAGE_FAULT, PAGE_FAULT_RESPONSE, ACCESS_COUNTER rings) are
++ * kept in a separate BO (ads->um_queue_bo) so that the full memset of ads->bo
++ * performed on every GT reset does not discard fault descriptors already
++ * written into the rings by the GPU.
+  *
+- * Layout of the ADS blob allocated for the GuC:
++ * Layout of the ADS blob (ads->bo):
+  *
+  *      +---------------------------------------+ <== base
+  *      | guc_ads                               |
+@@ -99,10 +103,6 @@ ads_to_map(struct xe_guc_ads *ads)
+  *      +---------------------------------------+
+  *      | padding                               |
+  *      +---------------------------------------+ <== 4K aligned
+- *      | UM queues                             |
+- *      +---------------------------------------+
+- *      | padding                               |
+- *      +---------------------------------------+ <== 4K aligned
+  *      | private data                          |
+  *      +---------------------------------------+
+  *      | padding                               |
+@@ -156,16 +156,6 @@ static size_t guc_ads_capture_size(struct xe_guc_ads *ads)
+ 	return PAGE_ALIGN(ads->capture_size);
+ }
+ 
+-static size_t guc_ads_um_queues_size(struct xe_guc_ads *ads)
+-{
+-	struct xe_device *xe = ads_to_xe(ads);
+-
+-	if (!xe->info.has_usm)
+-		return 0;
+-
+-	return GUC_UM_QUEUE_SIZE * GUC_UM_HW_QUEUE_MAX;
+-}
+-
+ static size_t guc_ads_private_data_size(struct xe_guc_ads *ads)
+ {
+ 	return PAGE_ALIGN(ads_to_guc(ads)->fw.private_data_size);
+@@ -206,22 +196,12 @@ static size_t guc_ads_capture_offset(struct xe_guc_ads *ads)
+ 	return PAGE_ALIGN(offset);
+ }
+ 
+-static size_t guc_ads_um_queues_offset(struct xe_guc_ads *ads)
+-{
+-	u32 offset;
+-
+-	offset = guc_ads_capture_offset(ads) +
+-		 guc_ads_capture_size(ads);
+-
+-	return PAGE_ALIGN(offset);
+-}
+-
+ static size_t guc_ads_private_data_offset(struct xe_guc_ads *ads)
+ {
+ 	size_t offset;
+ 
+-	offset = guc_ads_um_queues_offset(ads) +
+-		guc_ads_um_queues_size(ads);
++	offset = guc_ads_capture_offset(ads) +
++		guc_ads_capture_size(ads);
+ 
+ 	return PAGE_ALIGN(offset);
+ }
+@@ -461,6 +441,46 @@ int xe_guc_ads_init(struct xe_guc_ads *ads)
+ 
+ 	ads->bo = bo;
+ 
++	if (xe->info.has_usm) {
++		/*
++		 * Allocate a separate BO for the HW fault ring (UM queues).
++		 *
++		 * Round the size up to the next power of two so that
++		 * (system memory, no IOMMU) the TTM pool issues a single
++		 * alloc_pages(order=N) call, maximising the chance of getting
++		 * a physically contiguous block.  GuC requires contiguous DPA.
++		 */
++		size_t um_size = roundup_pow_of_two(GUC_UM_QUEUE_SIZE *
++						    GUC_UM_HW_QUEUE_MAX);
++
++		u32 um_flags = XE_BO_FLAG_SYSTEM |
++			       XE_BO_FLAG_GGTT |
++			       XE_BO_FLAG_GGTT_INVALIDATE |
++			       XE_BO_FLAG_PINNED_NORESTORE;
++
++		bo = xe_managed_bo_create_pin_map(xe, tile, um_size, um_flags);
++		if (IS_ERR(bo))
++			return PTR_ERR(bo);
++
++		/*
++		 * On pre-Xe3p platforms, GAM (not GuC) accesses the UM queue
++		 * ring via base_dpa, which must be a contiguous DMA address
++		 * range.  Verify that the allocated pages are contiguous in
++		 * DMA address space.
++		 */
++		if (!xe_bo_is_vram(bo) &&
++		    !xe_guc_using_main_gamctrl_queues(ads_to_guc(ads)) &&
++		    unlikely(!xe_bo_sg_is_contiguous(bo,
++						     GUC_UM_QUEUE_SIZE *
++						     GUC_UM_HW_QUEUE_MAX))) {
++			drm_err(&xe->drm,
++				"UM fault queue memory is not contiguous in DMA address space; GAM requires contiguous DPA\n");
++			return -ENOMEM;
++		}
++
++		ads->um_queue_bo = bo;
++	}
++
+ 	return 0;
+ }
+ ALLOW_ERROR_INJECTION(xe_guc_ads_init, ERRNO); /* See xe_pci_probe() */
+@@ -893,7 +913,7 @@ static void guc_mmio_reg_state_init(struct xe_guc_ads *ads)
+ 
+ static void guc_um_init_params(struct xe_guc_ads *ads)
+ {
+-	u32 um_queue_offset = guc_ads_um_queues_offset(ads);
++	struct xe_bo *um_bo = ads->um_queue_bo;
+ 	struct xe_guc *guc = ads_to_guc(ads);
+ 	struct xe_device *xe = ads_to_xe(ads);
+ 	u64 base_dpa;
+@@ -903,8 +923,14 @@ static void guc_um_init_params(struct xe_guc_ads *ads)
+ 
+ 	with_dpa = !xe_guc_using_main_gamctrl_queues(guc);
+ 
+-	base_ggtt = xe_bo_ggtt_addr(ads->bo) + um_queue_offset;
+-	base_dpa = xe_bo_main_addr(ads->bo, PAGE_SIZE) + um_queue_offset;
++	if (um_bo) {
++		/* All USM platforms: UM queues in dedicated um_queue_bo */
++		base_ggtt = xe_bo_ggtt_addr(um_bo);
++		base_dpa = xe_bo_main_addr(um_bo, PAGE_SIZE);
++	} else {
++		/* Platform does not support USM: no UM queues, nothing to do */
++		return;
++	}
+ 
+ 	for (i = 0; i < GUC_UM_HW_QUEUE_MAX; ++i) {
+ 		/*
+diff --git a/drivers/gpu/drm/xe/xe_guc_ads_types.h b/drivers/gpu/drm/xe/xe_guc_ads_types.h
+index 48a8e092023fa..845c1fbd93a4e 100644
+--- a/drivers/gpu/drm/xe/xe_guc_ads_types.h
++++ b/drivers/gpu/drm/xe/xe_guc_ads_types.h
+@@ -16,6 +16,11 @@ struct xe_bo;
+ struct xe_guc_ads {
+ 	/** @bo: Xe BO for GuC ads blob */
+ 	struct xe_bo *bo;
++	/**
++	 * @um_queue_bo: Dedicated BO for the HW fault ring (UM queues).
++	 * NULL if the platform does not support USM.
++	 */
++	struct xe_bo *um_queue_bo;
+ 	/** @golden_lrc_size: golden LRC size */
+ 	size_t golden_lrc_size;
+ 	/** @regset_size: size of register set passed to GuC for save/restore */
 -- 
 2.53.0
 
