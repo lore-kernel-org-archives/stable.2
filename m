@@ -1,53 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047058;
-	b=ZuDC9EzcKmU8kZLZ3SqLNuJcWDzw3qRhZ8pDSspcZkBnNN2GcIzqQUUoWdic4CriLQpZ
-	 EtInGWAHyfG/O6oL6hCmQK+USXIghwgK/dOR17IZ6FrIVkY9hJ7q2PsewNVTHTXIYwXEa
-	 wx9ZERMBpM5apWuSX6QokuEMAta035U0ZZwwkgfnWcluxjOcUhv/hFYosWd5VuIusN+ah
-	 NLdASYAL3oDrV20ZCXRJDlwHk7t1pmSj46ZY61dtJvriZWsU+EOjezRu1HSXBzXO8hD/5
-	 uRLL2OD/mkN7ZlJq3JthxVS2hXadjKBqotdIZ2v0LrzIR0q2RTGvcKgs4h2nN9TNjMQ==
+	t=1794047060;
+	b=3MMG1AbSMrhv2CjU5hHXlRS7n2DTajJbRiIGIxLSZLuNaSMvZX/NDv15Mrf8gB52aD++
+	 YpvtJxQnB6jdl4FiEet6YL2a3TvJ6WZTEC+hQk3U97zv7ZvIW87QA/xMWj1a2A5WfwVSo
+	 xpcbLzy6D8fsZPoqFpRB1mS84hXjtazjZKDxGF4ZHxRN5Qz+nX09E8BMaqC7+wIsk/dQ6
+	 jOiWMw1o0tWijKgTLyd24ZQ0WDClUhFdsnnDM4rihVBBLGs8ke6i55CVn//rHvGzqegpe
+	 9LMmqDPTm6l9iz44v9+hNN63UEJqMSAt9dM0JEiRX3fUvoeTlN9JIRdBm8eCVCA0WzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047058;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047060;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=UY5SiFiHq/OPIMTs+LfMYtTWE4KqRtP2Rt/AldnbkHU=;
-	b=cm4kw7M7VYlBWmGWGHkp6AsSFiidU/bpUJo15bqwA978QnuVjyNFz/IOtDxWKVrSFXgg
-	 XJb9Jq06DiFfiNYaeQF6ylAkU8dr8fedq7hLmSkJ3BeKeJcgUeGXEypYrjFR09D4sw4IY
-	 1G6T2C3yeRc7kJo9IfIcHSJ54v2dcu0s9AUtSD5nXdNcNnctd2kA9nh3krWcBr87gU/CU
-	 d1z1faD+wQUQifh7Ot9DefeLDDFsC75fKt8ilspOo3VeFzRErVJIZKoF1u1PK+RLTtwWK
-	 rZhlNmDd5+9VPqJoFdlXbWSAtYVk1BxkkxQHvkiizdBUci5oJ0dQR71JYztJZ9Q1AjA==
+	bh=c5MtwZUVuj+4t2cWGIbR1go79WF4EaoGRNKQ18RaivU=;
+	b=ejRfQyFkRghS+WBDPAu2OJTnQEetgsmCyq7Nn0gI2iJx82fuQmmYWJwuE/wqadTEAz9L
+	 3oMoO2IvceeEBk9VkX5UnECEBJcqnOT8w0yHO/irWoS/DGlJby5kpqjldvwrCNmTAKgzK
+	 jQAoa6FZmiIt8OHSZBs38qKzI8/9e3/+BTkdrxQX/NJTSX+9GdecxU1/mLx9gpnyZHYvl
+	 N9yi064vcXEj3ofhHi6M3TiWX1MU+uRsRbUcpw9AIK8VFh6WQuNYr0oNZIn/dAMxvsY5Q
+	 JK2eHflKlQeY+ULCUimqy2iR3iTGVhFjTslck8vzFAsQgZaf1pthkmwo0MopD3jmHdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GtHwkiDD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VkYdu8RD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EA52606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:24:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A81E606A32F
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:24:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GtHwkiDD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95D821F0089F;
-	Sat,  7 Nov 2026 10:24:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VkYdu8RD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD6451F0089F;
+	Sat,  7 Nov 2026 10:24:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047058;
-	bh=UY5SiFiHq/OPIMTs+LfMYtTWE4KqRtP2Rt/AldnbkHU=;
+	s=k20260515; t=1794047060;
+	bh=c5MtwZUVuj+4t2cWGIbR1go79WF4EaoGRNKQ18RaivU=;
 	h=From:To:Cc:Subject:Date;
-	b=GtHwkiDDbvJeCgjvXRH+eJVQDbltc4gX13iCqHjnwVlzGOiCD1BwXE3sOlN9MXN7t
-	 t/qViiXzOY220/S573pkLBjDP0fDrBhuOtuOIBS/NpqkXp/fMnDNo0QvS8x0tjsLJY
-	 YfDyw4YQQjca+k/mmCq+ROrPNsci3zcQaSOXLd9nisPYtaGRDTBR+E8zDzR+fWIIvh
-	 ru0APtUtUfjQdhY5d8pOqqHJ7qlWfP6CXB3fU2kEuRxbR+niSacZvv97bL1BT8r6rz
-	 WDaeBCQyg4PPc+K2VHZ57sOu4zl7h7vjBPMQEuIZlwEjOA+MuHyILoXo6PkAGxL8Lx
-	 1WvFYiHgmvBbQ==
+	b=VkYdu8RDqEjf9zIZOYS339gtvIiRpzc7WavmlN0ElrZtm5vU+biYQxpufxjUFeS39
+	 3YN8Rza8WXMIiBL3ZZllnF6BRgx7OkQmakjDVADtdJO5sPKRHauZ4TsGug8hR/MZ0B
+	 w1TE6pEHg+4KoOhZhjVaNyiZ4mpFncMIMy41QHujY72pYYz5aqs1YlkccLwyQV7bJb
+	 msciOdEcgIkmk9VW3dUr1f7rDEPpBeu2CR9DYU40M+5tLpCeALUZDua78KyFNW80K/
+	 ngFMz/L4EI47AOyAf3aeg1OtGmYQbWyk0EdvKVEezcq5w6x3mOkyfgZ5gUN9vHVQkV
+	 WJV8XWCliFVMw==
 From: Sasha Levin <sashal@kernel.org>
-To: zenghongling@kylinos.cn,
-	liubaolin@kylinos.cn,
-	hyc.lee@gmail.com,
-	linkinjeon@kernel.org
+To: nicoyip.dev@gmail.com,
+	pabeni@redhat.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ntfs: set the volume dirty bit unconditionally on metadata changes" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:24:16 -0500
-Message-ID: <20261107052416-failed-6.12-55af94ca0ee3@kernel.org>
+Subject: FAILED: patch "[PATCH] l2tp: snapshot sequencing state when building transmit headers" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:24:18 -0500
+Message-ID: <20261107052418-failed-6.12-d06ae66516e1@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,189 +68,344 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 55af94ca0ee3512c08d12ffbbb948229da4e1565
+git cherry-pick -x d06ae66516e1aaf023808912af6292aef09d46c3
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052416-failed-6.12-55af94ca0ee3@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052418-failed-6.12-d06ae66516e1@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 55af94ca0ee3512c08d12ffbbb948229da4e1565 Mon Sep 17 00:00:00 2001
-From: Hongling Zeng <zenghongling@kylinos.cn>
-Date: Mon, 21 Sep 2026 23:13:19 +0900
-Subject: [PATCH] ntfs: set the volume dirty bit unconditionally on metadata
- changes
+From d06ae66516e1aaf023808912af6292aef09d46c3 Mon Sep 17 00:00:00 2001
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+Date: Tue, 13 Oct 2026 17:05:00 +0800
+Subject: [PATCH] l2tp: snapshot sequencing state when building transmit
+ headers
 
-The callers in file.c and namei.c skip ntfs_set_volume_flags() when
-the in-memory vol_flags already show VOLUME_IS_DIRTY, but that check
-runs without any lock: if it observes the bit set and ntfs_sync_fs()
-clears it under the mrec_lock before the caller's metadata update
-completes, the set is skipped and the volume can end up clean on disk
-despite the modification, so chkdsk will not run on the next mount.
+Updates to send_seq from netlink, PPP setsockopt and receive-side
+negotiation race with packet transmission. The header length is updated
+separately, while transmit reads both fields repeatedly without
+synchronization.
 
-Drop the caller-side checks and call ntfs_set_volume_flags()
-unconditionally: ntfs_write_volume_flags() already skips the write
-under the mrec_lock when the combined value is unchanged.  That
-unconditional call costs one mrec_lock acquisition per metadata
-operation even in the already-dirty steady state; it cannot be
-avoided, because deciding to skip the call without the lock is itself
-what allows a concurrent ntfs_sync_fs() clear to lose the set.
+For example, transmit can push a ten-byte L2TPv2 header, then a concurrent
+writer clears send_seq before the header builder reads it. The builder
+writes only six bytes, leaving four bytes of uninitialized skb headroom
+in the outgoing packet. The reverse mismatch overwrites the beginning of
+the payload. A later hdr_len read can also make the UDP length disagree
+with the skb length.
 
-The IOCB_NOWAIT path in ntfs_file_write_iter() goes through the same
-sleeping call: a RWF_NOWAIT write can block in the marking, as it
-already could before this change whenever the volume appeared clean.
-Giving that path a non-blocking variant is left as follow-up work.
-The callers keep the pre-existing behavior of proceeding when the
-marking fails, so the dirty bit remains best-effort.
+KCSAN reported:
 
-This closes the variant where the set is skipped outright.  A clear
-for a concurrent, error-free sync can still land between the set and
-the end of the metadata operation; that mark-at-start lifecycle is
-pre-existing and is not changed by this patch.
+  BUG: KCSAN: data-race in l2tp_session_set_header_len / l2tp_xmit_skb
 
-Reported-by: Baolin Liu <liubaolin@kylinos.cn>
+  write to 0xffff888100d0944a of 2 bytes by task 116 on cpu 1:
+   l2tp_session_set_header_len+0x81/0xc0
+   l2tp_nl_cmd_session_modify+0x122/0x2c0
+   genl_family_rcv_msg_doit+0x170/0x1d0
+
+  read to 0xffff888100d0944a of 2 bytes by task 115 on cpu 0:
+   l2tp_xmit_skb+0x9c/0xc80
+   pppol2tp_sendmsg+0x21c/0x2a0
+   __sys_sendto+0x28c/0x2a0
+
+The bug can lead to leak kernel base address for KASLR bypass, the
+corresponding reproducer can be provided per request.
+
+Initialize hdr_len to the maximum header size and leave it unchanged
+when sequencing is toggled. Snapshot send_seq once per packet and use
+that snapshot for the actual header length and header construction,
+including the sequence flag. Use the same length for headroom, the header
+push and the UDP length. PPP callers can safely reserve the maximum size;
+L2TPv3 header sizes do not depend on sequencing.
+
+Make send_seq a separate bool so READ_ONCE() and WRITE_ONCE() can be used
+without sharing a bitfield storage unit with other configuration flags.
+Preserve the netlink attribute's existing low-bit truncation.
+
+Fixes: 3557baabf280 ("[L2TP]: PPP over L2TP driver core")
 Cc: stable@vger.kernel.org
-Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
-Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
-Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+Assisted-by: GPT-6 Astra
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+Link: https://patch.msgid.link/20261013090500.1180376-1-nicoyip.dev@gmail.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 ---
- fs/ntfs/file.c  | 20 +++++++++++---------
- fs/ntfs/namei.c | 24 ++++++++----------------
- 2 files changed, 19 insertions(+), 25 deletions(-)
+ net/l2tp/l2tp_core.c    | 51 +++++++++++++++++++----------------------
+ net/l2tp/l2tp_core.h    |  6 ++---
+ net/l2tp/l2tp_debugfs.c |  4 ++--
+ net/l2tp/l2tp_netlink.c | 11 ++++-----
+ net/l2tp/l2tp_ppp.c     |  8 +++----
+ 5 files changed, 35 insertions(+), 45 deletions(-)
 
-diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
-index 2b6588a4ee73c..e8b056c3e4ccd 100644
---- a/fs/ntfs/file.c
-+++ b/fs/ntfs/file.c
-@@ -341,8 +341,7 @@ int ntfs_setattr(const struct mnt_idmap *idmap, struct dentry *dentry,
- 		goto out;
+diff --git a/net/l2tp/l2tp_core.c b/net/l2tp/l2tp_core.c
+index 4712cc41881a3..7e042a3e648ce 100644
+--- a/net/l2tp/l2tp_core.c
++++ b/net/l2tp/l2tp_core.c
+@@ -915,11 +915,9 @@ void l2tp_recv_common(struct l2tp_session *session, struct sk_buff *skb,
+ 		 * check if we sre sending sequence numbers and if not,
+ 		 * configure it so.
+ 		 */
+-		if (!session->lns_mode && !session->send_seq) {
++		if (!session->lns_mode && !READ_ONCE(session->send_seq)) {
+ 			trace_session_seqnum_lns_enable(session);
+-			session->send_seq = 1;
+-			l2tp_session_set_header_len(session, tunnel->version,
+-						    tunnel->encap);
++			WRITE_ONCE(session->send_seq, true);
+ 		}
+ 	} else {
+ 		/* No sequence numbers.
+@@ -937,12 +935,10 @@ void l2tp_recv_common(struct l2tp_session *session, struct sk_buff *skb,
+ 		 * If we're the LNS and we're sending sequence numbers, the
+ 		 * LAC is broken. Discard the frame.
+ 		 */
+-		if (!session->lns_mode && session->send_seq) {
++		if (!session->lns_mode && READ_ONCE(session->send_seq)) {
+ 			trace_session_seqnum_lns_disable(session);
+-			session->send_seq = 0;
+-			l2tp_session_set_header_len(session, tunnel->version,
+-						    tunnel->encap);
+-		} else if (session->send_seq) {
++			WRITE_ONCE(session->send_seq, false);
++		} else if (READ_ONCE(session->send_seq)) {
+ 			pr_debug_ratelimited("%s: recv data has no seq numbers when required. Discarding.\n",
+ 					     session->name);
+ 			atomic_long_inc(&session->stats.rx_seq_discards);
+@@ -1138,7 +1134,8 @@ static void l2tp_udp_encap_err_recv(struct sock *sk, struct sk_buff *skb, int er
+ 
+ /* Build an L2TP header for the session into the buffer provided.
+  */
+-static int l2tp_build_l2tpv2_header(struct l2tp_session *session, void *buf)
++static int l2tp_build_l2tpv2_header(struct l2tp_session *session, void *buf,
++				    bool send_seq)
+ {
+ 	struct l2tp_tunnel *tunnel = session->tunnel;
+ 	__be16 *bufp = buf;
+@@ -1147,14 +1144,14 @@ static int l2tp_build_l2tpv2_header(struct l2tp_session *session, void *buf)
+ 	u32 tunnel_id = tunnel->peer_tunnel_id;
+ 	u32 session_id = session->peer_session_id;
+ 
+-	if (session->send_seq)
++	if (send_seq)
+ 		flags |= L2TP_HDRFLAG_S;
+ 
+ 	/* Setup L2TP header. */
+ 	*bufp++ = htons(flags);
+ 	*bufp++ = htons(tunnel_id);
+ 	*bufp++ = htons(session_id);
+-	if (session->send_seq) {
++	if (send_seq) {
+ 		*bufp++ = htons(session->ns);
+ 		*bufp++ = 0;
+ 		session->ns++;
+@@ -1165,7 +1162,8 @@ static int l2tp_build_l2tpv2_header(struct l2tp_session *session, void *buf)
+ 	return bufp - optr;
+ }
+ 
+-static int l2tp_build_l2tpv3_header(struct l2tp_session *session, void *buf)
++static int l2tp_build_l2tpv3_header(struct l2tp_session *session, void *buf,
++				    bool send_seq)
+ {
+ 	struct l2tp_tunnel *tunnel = session->tunnel;
+ 	char *bufp = buf;
+@@ -1191,7 +1189,7 @@ static int l2tp_build_l2tpv3_header(struct l2tp_session *session, void *buf)
+ 	if (session->l2specific_type == L2TP_L2SPECTYPE_DEFAULT) {
+ 		u32 l2h = 0;
+ 
+-		if (session->send_seq) {
++		if (send_seq) {
+ 			l2h = 0x40000000 | session->ns;
+ 			session->ns++;
+ 			session->ns &= 0xffffff;
+@@ -1225,19 +1223,24 @@ static int l2tp_xmit_queue(struct l2tp_tunnel *tunnel, struct sk_buff *skb, stru
+ static int l2tp_xmit_core(struct l2tp_session *session, struct sk_buff *skb, unsigned int *len)
+ {
+ 	struct l2tp_tunnel *tunnel = session->tunnel;
++	bool send_seq = READ_ONCE(session->send_seq);
+ 	unsigned int data_len = skb->len;
+ 	struct sock *sk = tunnel->sock;
++	u16 hdr_len = session->hdr_len;
+ 	int headroom, uhlen, udp_len;
+ 	int ret = NET_XMIT_SUCCESS;
+ 	struct inet_sock *inet;
+ 	struct udphdr *uh;
+ 
++	if (tunnel->version == L2TP_HDR_VER_2 && !send_seq)
++		hdr_len -= 4;
++
+ 	/* Check that there's enough headroom in the skb to insert IP,
+ 	 * UDP and L2TP headers. If not enough, expand it to
+ 	 * make room. Adjust truesize.
+ 	 */
+ 	uhlen = (tunnel->encap == L2TP_ENCAPTYPE_UDP) ? sizeof(*uh) : 0;
+-	headroom = NET_SKB_PAD + sizeof(struct iphdr) + uhlen + session->hdr_len;
++	headroom = NET_SKB_PAD + sizeof(struct iphdr) + uhlen + hdr_len;
+ 	if (skb_cow_head(skb, headroom)) {
+ 		kfree_skb(skb);
+ 		return NET_XMIT_DROP;
+@@ -1245,9 +1248,9 @@ static int l2tp_xmit_core(struct l2tp_session *session, struct sk_buff *skb, uns
+ 
+ 	/* Setup L2TP header */
+ 	if (tunnel->version == L2TP_HDR_VER_2)
+-		l2tp_build_l2tpv2_header(session, __skb_push(skb, session->hdr_len));
++		l2tp_build_l2tpv2_header(session, __skb_push(skb, hdr_len), send_seq);
+ 	else
+-		l2tp_build_l2tpv3_header(session, __skb_push(skb, session->hdr_len));
++		l2tp_build_l2tpv3_header(session, __skb_push(skb, hdr_len), send_seq);
+ 
+ 	/* Reset control buffer */
+ 	memset(skb->cb, 0, sizeof(skb->cb));
+@@ -1290,7 +1293,7 @@ static int l2tp_xmit_core(struct l2tp_session *session, struct sk_buff *skb, uns
+ 		uh = udp_hdr(skb);
+ 		uh->source = inet->inet_sport;
+ 		uh->dest = inet->inet_dport;
+-		udp_len = uhlen + session->hdr_len + data_len;
++		udp_len = uhlen + hdr_len + data_len;
+ 		if (udp_len > U16_MAX) {
+ 			kfree_skb(skb);
+ 			ret = NET_XMIT_DROP;
+@@ -1759,16 +1762,11 @@ static void l2tp_session_del_work(struct work_struct *work)
+ 	l2tp_session_put(session);
+ }
+ 
+-/* We come here whenever a session's send_seq, cookie_len or
+- * l2specific_type parameters are set.
+- */
+-void l2tp_session_set_header_len(struct l2tp_session *session, int version,
+-				 enum l2tp_encap_type encap)
++static void l2tp_session_set_header_len(struct l2tp_session *session, int version,
++					enum l2tp_encap_type encap)
+ {
+ 	if (version == L2TP_HDR_VER_2) {
+-		session->hdr_len = 6;
+-		if (session->send_seq)
+-			session->hdr_len += 4;
++		session->hdr_len = 10;
+ 	} else {
+ 		session->hdr_len = 4 + session->cookie_len;
+ 		session->hdr_len += l2tp_get_l2specific_len(session);
+@@ -1776,7 +1774,6 @@ void l2tp_session_set_header_len(struct l2tp_session *session, int version,
+ 			session->hdr_len += 4;
  	}
+ }
+-EXPORT_SYMBOL_GPL(l2tp_session_set_header_len);
  
--	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
--		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
-+	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+ struct l2tp_session *l2tp_session_create(int priv_size, struct l2tp_tunnel *tunnel, u32 session_id,
+ 					 u32 peer_session_id, struct l2tp_session_cfg *cfg)
+diff --git a/net/l2tp/l2tp_core.h b/net/l2tp/l2tp_core.h
+index ffd8ced3a51ff..25ae4c25d3eff 100644
+--- a/net/l2tp/l2tp_core.h
++++ b/net/l2tp/l2tp_core.h
+@@ -76,7 +76,7 @@ struct l2tp_session {
+ 	u8			peer_cookie[8];
+ 	int			peer_cookie_len;
+ 	u16			l2specific_type;
+-	u16			hdr_len;
++	u16			hdr_len;	/* maximum L2TP header length */
+ 	u32			nr;		/* session NR state (receive) */
+ 	u32			ns;		/* session NR state (send) */
+ 	struct sk_buff_head	reorder_q;	/* receive reorder queue */
+@@ -94,8 +94,8 @@ struct l2tp_session {
  
- 	if (ia_valid & ATTR_SIZE) {
- 		err = ntfs_setattr_size(vi, attr);
-@@ -636,8 +635,13 @@ static ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
- 		goto out_lock;
- 	}
+ 	char			name[L2TP_SESSION_NAME_MAX]; /* for logging */
+ 	char			ifname[IFNAMSIZ];
++	bool			send_seq;	/* send packets with sequence numbers? */
+ 	unsigned int		recv_seq:1;	/* expect receive packets with sequence numbers? */
+-	unsigned int		send_seq:1;	/* send packets with sequence numbers? */
+ 	unsigned int		lns_mode:1;	/* behave as LNS?
+ 						 * LAC enables sequence numbers under LNS control.
+ 						 */
+@@ -257,8 +257,6 @@ void l2tp_recv_common(struct l2tp_session *session, struct sk_buff *skb,
+ int l2tp_udp_encap_recv(struct sock *sk, struct sk_buff *skb);
  
--	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
--		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
-+	/*
-+	 * The volume must be marked dirty before the modification is made,
-+	 * without an unlocked check of the in-memory flag: ntfs_sync_fs()
-+	 * can clear the bit concurrently and the modification would then
-+	 * land on a volume that is clean on disk.
-+	 */
-+	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+ /* Transmit path helpers for sending packets over the tunnel socket. */
+-void l2tp_session_set_header_len(struct l2tp_session *session, int version,
+-				 enum l2tp_encap_type encap);
+ int l2tp_xmit_skb(struct l2tp_session *session, struct sk_buff *skb);
  
- 	pos = iocb->ki_pos;
- 	count = ret;
-@@ -1169,11 +1173,9 @@ static long ntfs_fallocate(struct file *file, int mode, loff_t offset, loff_t le
- 			return err;
- 	}
+ /* Pseudowire management.
+diff --git a/net/l2tp/l2tp_debugfs.c b/net/l2tp/l2tp_debugfs.c
+index c12d5e1ee550c..58d1d6a7768ef 100644
+--- a/net/l2tp/l2tp_debugfs.c
++++ b/net/l2tp/l2tp_debugfs.c
+@@ -182,12 +182,12 @@ static void l2tp_dfs_seq_session_show(struct seq_file *m, void *v)
+ 		   session->pwtype == L2TP_PWTYPE_ETH ? "ETH" :
+ 		   session->pwtype == L2TP_PWTYPE_PPP ? "PPP" :
+ 		   "");
+-	if (session->send_seq || session->recv_seq)
++	if (READ_ONCE(session->send_seq) || session->recv_seq)
+ 		seq_printf(m, "   nr %u, ns %u\n", session->nr, session->ns);
+ 	seq_printf(m, "   refcnt %d\n", refcount_read(&session->ref_count));
+ 	seq_printf(m, "   config 0/0/%c/%c/-/%s %08x %u\n",
+ 		   session->recv_seq ? 'R' : '-',
+-		   session->send_seq ? 'S' : '-',
++		   READ_ONCE(session->send_seq) ? 'S' : '-',
+ 		   session->lns_mode ? "LNS" : "LAC",
+ 		   0,
+ 		   jiffies_to_msecs(session->reorder_timeout));
+diff --git a/net/l2tp/l2tp_netlink.c b/net/l2tp/l2tp_netlink.c
+index 38aac59d052c4..89ef04c78787d 100644
+--- a/net/l2tp/l2tp_netlink.c
++++ b/net/l2tp/l2tp_netlink.c
+@@ -700,12 +700,9 @@ static int l2tp_nl_cmd_session_modify(struct sk_buff *skb, struct genl_info *inf
+ 	if (info->attrs[L2TP_ATTR_RECV_SEQ])
+ 		session->recv_seq = nla_get_u8(info->attrs[L2TP_ATTR_RECV_SEQ]);
  
--	if (!(vol->vol_flags & VOLUME_IS_DIRTY)) {
--		err = ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
--		if (err)
--			return err;
+-	if (info->attrs[L2TP_ATTR_SEND_SEQ]) {
+-		struct l2tp_tunnel *tunnel = session->tunnel;
+-
+-		session->send_seq = nla_get_u8(info->attrs[L2TP_ATTR_SEND_SEQ]);
+-		l2tp_session_set_header_len(session, tunnel->version, tunnel->encap);
 -	}
-+	err = ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
-+	if (err)
-+		return err;
++	if (info->attrs[L2TP_ATTR_SEND_SEQ])
++		WRITE_ONCE(session->send_seq,
++			   nla_get_u8(info->attrs[L2TP_ATTR_SEND_SEQ]) & 1);
  
- 	inode_lock(vi);
- 	if (NInoCompressed(ni) || NInoEncrypted(ni) || NInoWofCompressed(ni)) {
-diff --git a/fs/ntfs/namei.c b/fs/ntfs/namei.c
-index 2cde39da6beec..028efad7d9c0f 100644
---- a/fs/ntfs/namei.c
-+++ b/fs/ntfs/namei.c
-@@ -756,8 +756,7 @@ static int ntfs_create(const struct mnt_idmap *idmap, struct inode *dir,
- 		return err;
- 	}
+ 	if (info->attrs[L2TP_ATTR_LNS_MODE])
+ 		session->lns_mode = nla_get_u8(info->attrs[L2TP_ATTR_LNS_MODE]);
+@@ -748,7 +745,7 @@ static int l2tp_nl_session_send(struct sk_buff *skb, u32 portid, u32 seq, int fl
+ 	    (session->peer_cookie_len &&
+ 	     nla_put(skb, L2TP_ATTR_PEER_COOKIE, session->peer_cookie_len, session->peer_cookie)) ||
+ 	    nla_put_u8(skb, L2TP_ATTR_RECV_SEQ, session->recv_seq) ||
+-	    nla_put_u8(skb, L2TP_ATTR_SEND_SEQ, session->send_seq) ||
++	    nla_put_u8(skb, L2TP_ATTR_SEND_SEQ, READ_ONCE(session->send_seq)) ||
+ 	    nla_put_u8(skb, L2TP_ATTR_LNS_MODE, session->lns_mode) ||
+ 	    (l2tp_tunnel_uses_xfrm(tunnel) &&
+ 	     nla_put_u8(skb, L2TP_ATTR_USING_IPSEC, 1)) ||
+diff --git a/net/l2tp/l2tp_ppp.c b/net/l2tp/l2tp_ppp.c
+index ef8fdfaf051d4..4f311d473a646 100644
+--- a/net/l2tp/l2tp_ppp.c
++++ b/net/l2tp/l2tp_ppp.c
+@@ -1195,9 +1195,7 @@ static int pppol2tp_session_setsockopt(struct sock *sk,
+ 			err = -EINVAL;
+ 			break;
+ 		}
+-		session->send_seq = !!val;
+-		l2tp_session_set_header_len(session, session->tunnel->version,
+-					    session->tunnel->encap);
++		WRITE_ONCE(session->send_seq, !!val);
+ 		break;
  
--	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
--		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
-+	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+ 	case PPPOL2TP_SO_LNSMODE:
+@@ -1307,7 +1305,7 @@ static int pppol2tp_session_getsockopt(struct sock *sk,
+ 		break;
  
- 	ni = __ntfs_create(idmap, dir, uname, uname_len, S_IFREG | mode, 0, NULL, 0);
- 	kmem_cache_free(ntfs_name_cache, uname);
-@@ -1031,8 +1030,7 @@ static int ntfs_unlink(struct inode *dir, struct dentry *dentry)
- 		return err;
- 	}
+ 	case PPPOL2TP_SO_SENDSEQ:
+-		*val = session->send_seq;
++		*val = READ_ONCE(session->send_seq);
+ 		break;
  
--	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
--		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
-+	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
- 
- 	err = ntfs_delete(ni, NTFS_I(dir), uname, uname_len, true);
- 	if (err)
-@@ -1075,8 +1073,7 @@ static struct dentry *ntfs_mkdir(const struct mnt_idmap *idmap, struct inode *di
- 		return ERR_PTR(err);
- 	}
- 
--	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
--		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
-+	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
- 
- 	ni = __ntfs_create(idmap, dir, uname, uname_len, mode, 0, NULL, 0);
- 	kmem_cache_free(ntfs_name_cache, uname);
-@@ -1117,8 +1114,7 @@ static int ntfs_rmdir(struct inode *dir, struct dentry *dentry)
- 		return err;
- 	}
- 
--	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
--		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
-+	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
- 
- 	err = ntfs_delete(ni, NTFS_I(dir), uname, uname_len, true);
- 	if (err)
-@@ -1304,8 +1300,7 @@ static int ntfs_rename(const struct mnt_idmap *idmap, struct inode *old_dir,
- 		new_dir_first = is_subdir(new_dentry->d_parent,
- 					  old_dentry->d_parent);
- 
--	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
--		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
-+	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
- 
- 	mutex_lock_nested(&old_ni->mrec_lock, NTFS_INODE_MUTEX_NORMAL);
- 	if (new_ni)
-@@ -1428,8 +1423,7 @@ static int ntfs_symlink(const struct mnt_idmap *idmap, struct inode *dir,
- 		goto out;
- 	}
- 
--	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
--		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
-+	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
- 
- 	ni = __ntfs_create(idmap, dir, usrc, usrc_len, S_IFLNK | 0777, 0,
- 			   symname, symlen);
-@@ -1473,8 +1467,7 @@ static int ntfs_mknod(const struct mnt_idmap *idmap, struct inode *dir,
- 		return err;
- 	}
- 
--	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
--		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
-+	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
- 
- 	switch (mode & S_IFMT) {
- 	case S_IFCHR:
-@@ -1520,8 +1513,7 @@ static int ntfs_link(struct dentry *old_dentry, struct inode *dir,
- 		return -ENOMEM;
- 	}
- 
--	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
--		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
-+	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
- 
- 	ihold(vi);
- 	mutex_lock_nested(&ni->mrec_lock, NTFS_INODE_MUTEX_NORMAL);
+ 	case PPPOL2TP_SO_LNSMODE:
+@@ -1546,7 +1544,7 @@ static void pppol2tp_seq_session_show(struct seq_file *m, void *v)
+ 		   state, user_data_ok);
+ 	seq_printf(m, "   0/0/%c/%c/%s %08x %u\n",
+ 		   session->recv_seq ? 'R' : '-',
+-		   session->send_seq ? 'S' : '-',
++		   READ_ONCE(session->send_seq) ? 'S' : '-',
+ 		   session->lns_mode ? "LNS" : "LAC",
+ 		   0,
+ 		   jiffies_to_msecs(session->reorder_timeout));
 -- 
 2.53.0
 
