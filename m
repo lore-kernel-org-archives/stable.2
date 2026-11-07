@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050203;
-	b=HYPnohrtF3N8PuNnKeYO4H4bUcLYSUgCqCIaVW2Jhk7OThBhTtHRzY57S234WTwblRyJ
-	 Ncwbk++OrsfkCedIQXNx0VmdUuY1tp2FvicOB+7wMCMfGNwBH7fKkpeSIZ5XdEhIPVUBB
-	 f23eQZc6pd9+24q/FFpwg0NlUI7ae7QhPvUxhLQOt/Serj/E/RmA8iW4OJYllou48jei2
-	 7zbL0TnRBvKUxUQVSjl8cbTfOASHrFgjRMoeXxBDudmMEtXJ6hDrnHJOSBdzYyBMsGOxc
-	 tIvHRDYGY3bMqqWKNTx0dSpgjzP6gofh+FQn+ZzWCYT5q1WQJWAcHny2Rw0L2R/kg+g==
+	t=1794050206;
+	b=4vnGSs+GSCl5BVXwWALD6iURUYipB4uA3i9EcLGyulfXdQPCA8QU7e/ZgeIwe226NNyB
+	 PnPT/VmjuET3YIxdJGgKmsh3k1qpqHAG5QDCg9G8IUzpG4YdQnzlMSpFBME3GMq2a7U6b
+	 vpJZBvBoXQzCTC5BlO9oQ7d9fJ8PuAlBhHZBQoTPgECJS+C9IzoiaG1tgkI4TNxDMY10O
+	 w3W4D9WneHDbV6S1jLp7aoJ3k6VfL7UjZP8gb6AtIMjQF+T+YaRAJK6AmRICXD1+MybTl
+	 hn3K90isUYbEjJwvVg0joaM+Bsrsh7va05ZdjANW49VVvtXdIJL+LkGTwz+QULzQ08w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050203;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050206;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=6H3QqUICF7t4vbTGv+T3vliqpeCUJiEwAUBAJfjEyeQ=;
-	b=fCk7sEs0tv70CeugAF+3edYWfmeusuN7ol5A+h8SVYioeA2wZjpHMp9NlJAuliaMkwAf
-	 OYqYO0Uy+TKbN0bejr44DSSs2Ldmpdq99j5H6K78SJxUVfmkTXp6W0ZZH0EUZsrBnkVC6
-	 M41sl7soflHI50wNLSmiCA77QeIq0HaekFx+l7py5FWO7zalR1VMnyW/UkVav7T6cntmA
-	 7/PzQel3Njlw9QjY3ZNkebnBlyT5QTowEPziB6z5Ml125jfMdYp8j8rYChL8un7DiwNAh
-	 rixLrXIL357IjSnNM4iKd1HFd1mpzCVeJuf5xHndgO3u1qGqzu/7L4ASCeOLfNqvGVg==
+	bh=2X4Z9NhGBXVcEWcBmHHrU4SiNzYVZhEntscqtdB63V8=;
+	b=lrDlluOd3HFUKbz7OZYDqJ1PZEmAG44gAgNwcPz1MN5doq+hApRbUBoQQHHlYC7rZFNm
+	 X0PhSvxX3oaTyNHIh8OeG+GtMe8SkWo3XhTy5uGrACnur/bw+mXnz1VJAdZDXhtPovqMO
+	 CB2cOStJl6/lz1QGq15WY6+Pf0imsBezuHhUlNHL3ahc0Td3qu6RjdeSza2jxO8KV1ffs
+	 SoXLzhW+hsdfy1gZTebnCYjxn3iFAzlD4qPJ8JaiPp/9PoJbvnQd0e9BHcxpH9Ayu6ZMB
+	 R0zOVZHz6y8HciF6EjIlcDWlm+p4w9D+VLFPGQLwNnzt5ouponyD9Y9l6/9sBbstEAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d7Xg9C5u;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F2YRjWo1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BDF5606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:16:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA273606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:16:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d7Xg9C5u
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 339021F0089F;
-	Sat,  7 Nov 2026 11:16:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F2YRjWo1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53C241F0089F;
+	Sat,  7 Nov 2026 11:16:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050202;
-	bh=6H3QqUICF7t4vbTGv+T3vliqpeCUJiEwAUBAJfjEyeQ=;
+	s=k20260515; t=1794050205;
+	bh=2X4Z9NhGBXVcEWcBmHHrU4SiNzYVZhEntscqtdB63V8=;
 	h=From:To:Cc:Subject:Date;
-	b=d7Xg9C5uncM7hS+5/GnOg1Tk7k9YbFfumw/dPtEWAs/+K00U/d4OdObG37DYSvDqL
-	 dke/9ttpQIINr8/ng68QSQEbzoSl+JpOcuMmEdUxSEoIJoHRdqbgrcG1qGAyYeYqvn
-	 51K2OOFkuHrA1zYErykvL/UiBtuiGoIdbAl8Hr9XzlOUrWCB0Nkj5HP9dgg7g3dxj5
-	 rapFiW4BSwXsKQlC8Ld1IjgzJZyAsc3pyOdZzbwNAPq+4lEFTiuDi+bBoi5NgcAKhi
-	 dNeD3Y9/sPpXBY4Vp9YypA/mHCW4Nc0zMk00ylEWICLnRwP4rSNWuUBHuCjOTKbdo8
-	 XtxQ7QzgQX12A==
+	b=F2YRjWo1gfI4aVsrnayz7JJxJnAigYxRGQVT35w972S5d17TYNFuVK/t9Ll2GNx/Q
+	 cryX7faeO4NFtU8ymcYO4eDNiINjdIuqfd7sQUKYyrmE4P7/3OHI7JPPmuhXH1R9g+
+	 zGWH2g3UFO40VM0Rv+a3yFic2Qo65y+ZTMsxTv6w8DC6P4PeaLXKxHb++/Gy0eUbe1
+	 W4elpMi1/nDToiwtU0EevnHZS5BCQ+pnaGzO1+gqKef2FgNccyAuk7J4bi98Y4J/Lh
+	 RsV5N/bOhGAGydHgsUHP8NPTk/pM8rgf6rHfBNy3fnnNDJ0pHHSQCgi0CqG7rJJPCp
+	 qlTxFTccUiXRg==
 From: Sasha Levin <sashal@kernel.org>
-To: ruoyuw560@gmail.com,
+To: vulab@iscas.ac.cn,
 	hverkuil+cisco@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] media: adv748x: Fix endpoint reference leaks on probe failure" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:16:40 -0500
-Message-ID: <20261107061640-failed-5.10-359db09cf055@kernel.org>
+Subject: FAILED: patch "[PATCH] media: vpif_capture: Fix i2c adapter reference leak in vpif_probe()" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:16:44 -0500
+Message-ID: <20261107061644-failed-5.10-b00fbdad64d4@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,91 +68,66 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 359db09cf055497075a668b192f4578a0ed00955
+git cherry-pick -x b00fbdad64d4ea7d594bc67988c1722fe5b3be50
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061640-failed-5.10-359db09cf055@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061644-failed-5.10-b00fbdad64d4@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 359db09cf055497075a668b192f4578a0ed00955 Mon Sep 17 00:00:00 2001
-From: Ruoyu Wang <ruoyuw560@gmail.com>
-Date: Fri, 11 Sep 2026 09:56:40 +0800
-Subject: [PATCH] media: adv748x: Fix endpoint reference leaks on probe failure
+From b00fbdad64d4ea7d594bc67988c1722fe5b3be50 Mon Sep 17 00:00:00 2001
+From: Wentao Liang <vulab@iscas.ac.cn>
+Date: Thu, 17 Sep 2026 10:12:22 +0000
+Subject: [PATCH] media: vpif_capture: Fix i2c adapter reference leak in
+ vpif_probe()
 
-adv748x_parse_dt() takes an extra reference for every endpoint saved in
-state->endpoints. If parsing later fails, adv748x_probe() skips
-adv748x_dt_cleanup(), so the saved references remain held. A CSI-2 lane
-parsing error also returns from for_each_endpoint_of_node() without
-dropping the iterator's reference.
+vpif_probe() takes a reference to the i2c adapter with
+i2c_get_adapter() and passes it to v4l2_i2c_new_subdev_board(),
+which does not consume it, but the reference is never released, so
+it is leaked both when the probe succeeds and when it fails after
+the adapter has been acquired.
 
-Save the endpoint reference only after lane parsing succeeds. Drop the
-iterator reference before returning a lane parsing error and route all
-parse failures through the endpoint cleanup path to release any saved
-references. This retains the endpoints only for a successful probe.
+Release the reference with i2c_put_adapter() on the success path
+and in the probe_subdev_out cleanup, and initialise i2c_adap so
+that the cleanup is a no-op when the adapter was never acquired.
 
-This issue was found by a static analysis checker and confirmed by
-manual source review.
-
-Fixes: 6a18865da8e3 ("media: i2c: adv748x: store number of CSI-2 lanes described in device tree")
-Fixes: eccf442ce156 ("media: i2c: adv748x: Support probing a single output")
+Fixes: 6ffefff5a9e7 ("V4L/DVB (12906c): V4L : vpif capture driver for DM6467")
 Cc: stable@vger.kernel.org
-Suggested-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-Signed-off-by: Ruoyu Wang <ruoyuw560@gmail.com>
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 ---
- drivers/media/i2c/adv748x/adv748x-core.c | 13 +++++++------
- 1 file changed, 7 insertions(+), 6 deletions(-)
+ drivers/media/platform/ti/davinci/vpif_capture.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/i2c/adv748x/adv748x-core.c b/drivers/media/i2c/adv748x/adv748x-core.c
-index 3eb6d5e8f0826..70594d0018048 100644
---- a/drivers/media/i2c/adv748x/adv748x-core.c
-+++ b/drivers/media/i2c/adv748x/adv748x-core.c
-@@ -675,9 +675,6 @@ static int adv748x_parse_dt(struct adv748x_state *state)
- 			continue;
+diff --git a/drivers/media/platform/ti/davinci/vpif_capture.c b/drivers/media/platform/ti/davinci/vpif_capture.c
+index 91cb6223561a8..397f3115af5b7 100644
+--- a/drivers/media/platform/ti/davinci/vpif_capture.c
++++ b/drivers/media/platform/ti/davinci/vpif_capture.c
+@@ -1602,7 +1602,7 @@ vpif_capture_get_pdata(struct platform_device *pdev,
+ static int vpif_probe(struct platform_device *pdev)
+ {
+ 	struct vpif_subdev_info *subdevdata;
+-	struct i2c_adapter *i2c_adap;
++	struct i2c_adapter *i2c_adap = NULL;
+ 	int subdev_count;
+ 	int res_idx = 0;
+ 	int i, err;
+@@ -1692,9 +1692,12 @@ static int vpif_probe(struct platform_device *pdev)
  		}
+ 	}
  
--		of_node_get(ep_np);
--		state->endpoints[ep.port] = ep_np;
--
- 		/*
- 		 * At least one input endpoint and one output endpoint shall
- 		 * be defined.
-@@ -689,8 +686,13 @@ static int adv748x_parse_dt(struct adv748x_state *state)
- 
- 		/* Store number of CSI-2 lanes used for TXA and TXB. */
- 		ret = adv748x_parse_csi2_lanes(state, ep.port, ep_np);
--		if (ret)
-+		if (ret) {
-+			of_node_put(ep_np);
- 			return ret;
-+		}
++	i2c_put_adapter(i2c_adap);
 +
-+		of_node_get(ep_np);
-+		state->endpoints[ep.port] = ep_np;
- 	}
+ 	return 0;
  
- 	return in_found && out_found ? 0 : -ENODEV;
-@@ -739,7 +741,7 @@ static int adv748x_probe(struct i2c_client *client)
- 	ret = adv748x_parse_dt(state);
- 	if (ret) {
- 		adv_err(state, "Failed to parse device tree");
--		goto err_free_mutex;
-+		goto err_cleanup_dt;
- 	}
- 
- 	/* Configure IO Regmap region */
-@@ -809,7 +811,6 @@ static int adv748x_probe(struct i2c_client *client)
- 	adv748x_unregister_clients(state);
- err_cleanup_dt:
- 	adv748x_dt_cleanup(state);
--err_free_mutex:
- 	mutex_destroy(&state->mutex);
- 
- 	return ret;
+ probe_subdev_out:
++	i2c_put_adapter(i2c_adap);
+ 	v4l2_async_nf_cleanup(&vpif_obj.notifier);
+ 	/* free sub devices memory */
+ 	kfree(vpif_obj.sd);
 -- 
 2.53.0
 
