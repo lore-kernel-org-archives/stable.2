@@ -1,52 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046733;
-	b=e1RBaH0uP2PPSwLIVF4JUNsb9+UK021ziTCiE/YFZ3S4RbrtUqAorOlpg0/RpzXD35/p
-	 Kf30pjp2SzlboLhLKhoEywBv1lqtH+rrZgrQ+FuMcIXuB5HTGarDGwSviBq7ZiLFnlv8k
-	 2c5msfvk8LizKrrbdg2AtHNb/fAPjkz+vqK117Npji8WCZKrB/K+8WyOvzQdPy04WSu6w
-	 79dwBFvcI3Ppmip0MRYTp3Fbns57TbCu7la1mrwGt1WTAqjuKqLskB8augNAG0L81Ji/g
-	 XFYXyDbeobVZrOhPUcWnMYTUKdCs2TaypiLw1Ob7/stBPCj/1RnwfBl+IeqtJPHGwyw==
+	t=1794046735;
+	b=A4xQ3AcKM531PpHe9MtZLdroe1wP15m0cyjpcmPlguDbvn8CWX1equh7cXtJahT4SAlI
+	 kL4CJFwE0OB7dE3Seo7ubqM/yFcCRm5N62eDYQdgyltcU7yEORnzqgND2HG9s0hUwDDJa
+	 kP2JLdnLMvI/gtxLYoRIp8R0NG3Y96V2H8VpQVuvcvFFQ8Mvc1xMB77UWp0rcxVuIe+Xa
+	 RnCWIM5BbA0cTEm5dErKsP2S9Jzvs3Nv1iemx9M/zrzmMUtyfItjyot47SQlC9xlpWBYr
+	 5KldOH/nmUEjaI+/Jex2Zzg7XgUNLoBwx+jgdevAw3KVjVPO4bO3csnEd1m5NmkNRMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046733;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046735;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=4UY9BTrVTP38dhNfCNzWWtZ5IXOqRjUzWare5o/JHAg=;
-	b=kyolQtGCXb5NH/ViQRKlmhn7P9itJkJnk68IFyy7k/TcOarcbVi3g7J6rPX70SSFssNt
-	 jOFWfym3lWJJgzEwuW5PcWBb7Ee32rz0e2ufCcdemeeVVUcQ4jn2atjh+Q3vQk0lCP3s8
-	 VyHU4ayUoCnV3Cy/rlNjPmd9QBq55QmxABi+S0Yk32O/yJgrqIyK/vJm0koLZOJlqpYgo
-	 KI98TblEJycjFLy+M7EuDi+NvwGzlyXKqIgDU84Q9F4XcF8AWpuDsUDjRmDaFMnnnljPb
-	 hMDSD3y7SaZXk/vMFbxVKn2BnaYrFxdmmAzkgBt9f5huabK06RQV6x268YkcI4pRPWA==
+	bh=MkPi0Ebe62vCpZ+xTlWyLQczlYjzpktBL/OJuy7MX7w=;
+	b=bA7QfYz/LsWYfkqs3rim0e2HhgEBeE/TGyRkKktRNtRuc7gyEeUfz4uTtYn8qel7HQ6h
+	 2y+84Ktl2beyOZGjQW0groAmgcOTKULAEpF731fnDqZIOC9JtUjavtyDUvvDB42+tj+UC
+	 9EQX/1Ky1GoGfS//zjIjL8nX8glYDk67v5OOH7uiDi6r1DILqbo4cCcA3cRCrsXOvM0u9
+	 tfvq11ZKYWCPYnCbcR+WIxtG41gOsq1bzZTxJbJIt0ZGgNTNW9njcbPmJ/jP4Tc2jlWXE
+	 9DsWNyr4xWk+mRcn0ro7QcnpNm94JF3F92MlY7c8RsvtW5q6eSH5O+WEfBtjKAOJP+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jo4igFGD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IRNOYmFL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03C5E606A33B
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:18:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ACF5606A33B
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:18:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jo4igFGD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2473C1F008A4;
-	Sat,  7 Nov 2026 10:18:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IRNOYmFL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CAFD1F008A1;
+	Sat,  7 Nov 2026 10:18:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046732;
-	bh=4UY9BTrVTP38dhNfCNzWWtZ5IXOqRjUzWare5o/JHAg=;
+	s=k20260515; t=1794046734;
+	bh=MkPi0Ebe62vCpZ+xTlWyLQczlYjzpktBL/OJuy7MX7w=;
 	h=From:To:Cc:Subject:Date;
-	b=jo4igFGDRi+AqbCWkv+jLlGtCVtdsyUEOXgULPXZLIc7QNsFPlo0GEIs/Iiv0SgKp
-	 OggCHA52/JKL3kx7gg9K+d78qXIGgKUWU1hDUdkWnJw05hirMA1YghGWoAU03MDfb3
-	 C3ANgYiaLAv+eQ7o2EyG5qCA966V9U0+wb/VEXMuFK0A1tnNXRmh2gt8QkPiE5saLC
-	 ZW7A02REYYI/+zVCuQdIpm+8NTgflKPu2QmVBesKZDiVeId4ilMJAuJQWH+GjUnCV2
-	 rSsahPE61FA7G5W9w7o77l7dM+RymAcSd8G0LQygg4gbYqwsN6QkXARDJJ5l70gwoz
-	 sn2+0hslUOr+A==
+	b=IRNOYmFLmI0KOpIUD4j1nOWdkamBEsPr8ep4yiHODKBOodeyGITHu8By/F+rJ7c47
+	 5Gqoh6g9V2dqC7JVCaGZ9BBRXXxXt8K3ITsavcHNZskesSvXvhkYnu5lk/3E1Ojtax
+	 zfNCLV0QYomwMA6MGrZb3u7urO+8JmbauS/ZAh9hOWghmnVQZryRTbUabkSAYUUIkL
+	 mlz/mNDuK6Da/AP1THQ5fKgx2DDV6Dhwpq9SAdLzM8jxaRzmLr5AaOETC5LCMHuMMX
+	 oEAjIhe/yzUVKtPRiPSVu3yq4roHE4toozWByW3x3YJqFIhFP/jlHh2deF3r+PHyor
+	 lyt/8PxbUh04g==
 From: Sasha Levin <sashal@kernel.org>
-To: jkeeping@inmusicbrands.com,
+To: tharitt97@gmail.com,
+	frank.li@nxp.com,
 	nicolas.dufresne@collabora.com,
 	hverkuil+cisco@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] media: rockchip: rga: fix rotation on rev0 hardware" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:18:51 -0500
-Message-ID: <20261107051851-failed-6.12-a67578c01798@kernel.org>
+Subject: FAILED: patch "[PATCH] media: hantro: release runtime resources when device_run fails" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:18:53 -0500
+Message-ID: <20261107051853-failed-6.12-556ab0b2741d@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,78 +70,176 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x a67578c0179850e80cf08b1e0b8b1eb857f0fc46
+git cherry-pick -x 556ab0b2741d653455637ffdd453d65c0439914a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051851-failed-6.12-a67578c01798@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051853-failed-6.12-556ab0b2741d@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From a67578c0179850e80cf08b1e0b8b1eb857f0fc46 Mon Sep 17 00:00:00 2001
-From: John Keeping <jkeeping@inmusicbrands.com>
-Date: Tue, 29 Sep 2026 10:41:42 +0100
-Subject: [PATCH] media: rockchip: rga: fix rotation on rev0 hardware
+From 556ab0b2741d653455637ffdd453d65c0439914a Mon Sep 17 00:00:00 2001
+From: Tharit Tangkijwanichakul <tharitt97@gmail.com>
+Date: Wed, 29 Jul 2026 06:04:39 +0000
+Subject: [PATCH] media: hantro: release runtime resources when device_run
+ fails
 
-On RK3288 where the RGA reports version zero [1], rotating a buffer
-gives corrupt output where one edge will be truncated.  This is a result
-of some adjustment done specifically for hardware revision zero.  But it
-seems this is not necessary and there is no evidence for why this
-adjustment should be applied on these hardware revisions.
+device_run() acquires a runtime PM reference and enables the VPU clocks
+before invoking the codec-specific run callback.
 
-Comparing the TRMs between RK3288 with revision zero and RK3588 with
-revision 3.2 there is evidence of new features supported by later
-hardware, but nothing indicating any difference in behaviour for
-rotation which is supported by all hardware revisions.
+If clk_bulk_enable() fails, the runtime PM reference is left held. If
+the codec-specific run callback fails, both the enabled clocks and the
+runtime PM reference are left held.
 
-The logic here looks wrong anyway, since it's bizarre that minor
-revision zero would need the adjustment for _all_ major revisions.  This
-was added with the initial version of the driver in commit f7e7b48e6d796
-("[media] rockchip/rga: v4l2 m2m support") so there is no detail in the
-Git history to indicate why this special-case might be needed.
+Make the clocks part of the device's runtime PM state by enabling them
+from the runtime-resume callback and disabling them from the
+runtime-suspend callback.
 
-[1] Comparing with the vendor code, it seems this is actually 1.3 with
-    the hardware reporting zero more by coincidence than design since the
-    version register is not defined for RK3288.
-
-Fixes: f7e7b48e6d796 ("[media] rockchip/rga: v4l2 m2m support")
+Fixes: 775fec69008d ("media: add Rockchip VPU JPEG encoder driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: John Keeping <jkeeping@inmusicbrands.com>
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Signed-off-by: Tharit Tangkijwanichakul <tharitt97@gmail.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 ---
- drivers/media/platform/rockchip/rga/rga-hw.c | 8 --------
- 1 file changed, 8 deletions(-)
+ .../media/platform/verisilicon/hantro_drv.c   | 66 +++++++++++--------
+ 1 file changed, 39 insertions(+), 27 deletions(-)
 
-diff --git a/drivers/media/platform/rockchip/rga/rga-hw.c b/drivers/media/platform/rockchip/rga/rga-hw.c
-index be1bc8ddbd03b..2e7ec8b7c20f7 100644
---- a/drivers/media/platform/rockchip/rga/rga-hw.c
-+++ b/drivers/media/platform/rockchip/rga/rga-hw.c
-@@ -158,7 +158,6 @@ static void rga_cmd_set_dst_addr(struct rga_ctx *ctx, dma_addr_t dma_addr)
+diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/media/platform/verisilicon/hantro_drv.c
+index ad71c0402ef3b..43f67b9fcf273 100644
+--- a/drivers/media/platform/verisilicon/hantro_drv.c
++++ b/drivers/media/platform/verisilicon/hantro_drv.c
+@@ -59,8 +59,7 @@ static const struct v4l2_event hantro_eos_event = {
+ 	.type = V4L2_EVENT_EOS
+ };
  
- static void rga_cmd_set_trans_info(struct rga_ctx *ctx)
+-static void hantro_job_finish_no_pm(struct hantro_dev *vpu,
+-				    struct hantro_ctx *ctx,
++static void hantro_job_finish_no_pm(struct hantro_ctx *ctx,
+ 				    enum vb2_buffer_state result)
  {
--	struct rockchip_rga *rga = ctx->rga;
- 	u32 *dest = ctx->cmdbuf_virt;
- 	unsigned int scale_dst_w, scale_dst_h;
- 	unsigned int src_h, src_w, dst_h, dst_w;
-@@ -251,13 +250,6 @@ static void rga_cmd_set_trans_info(struct rga_ctx *ctx)
- 	 */
- 	if (src_info.data.rot_mode == RGA_SRC_ROT_MODE_90_DEGREE ||
- 	    src_info.data.rot_mode == RGA_SRC_ROT_MODE_270_DEGREE) {
--		if (rga->version.major == 0 || rga->version.minor == 0) {
--			if (dst_w == src_h)
--				src_h -= 8;
--			if (abs(src_w - dst_h) < 16)
--				src_w -= 16;
--		}
+ 	struct vb2_v4l2_buffer *src, *dst;
+@@ -86,15 +85,13 @@ static void hantro_job_finish_no_pm(struct hantro_dev *vpu,
+ 					 result);
+ }
+ 
+-static void hantro_job_finish(struct hantro_dev *vpu,
+-			      struct hantro_ctx *ctx,
++static void hantro_job_finish(struct hantro_ctx *ctx,
+ 			      enum vb2_buffer_state result)
+ {
+-	pm_runtime_put_autosuspend(vpu->dev);
 -
- 		scale_dst_h = dst_w;
- 		scale_dst_w = dst_h;
- 	} else {
+-	clk_bulk_disable(vpu->variant->num_clocks, vpu->clocks);
++	struct hantro_dev *vpu = ctx->dev;
+ 
+-	hantro_job_finish_no_pm(vpu, ctx, result);
++	pm_runtime_put_autosuspend(vpu->dev);
++	hantro_job_finish_no_pm(ctx, result);
+ }
+ 
+ void hantro_irq_done(struct hantro_dev *vpu,
+@@ -111,7 +108,7 @@ void hantro_irq_done(struct hantro_dev *vpu,
+ 	if (cancel_delayed_work(&vpu->watchdog_work)) {
+ 		if (result == VB2_BUF_STATE_DONE && ctx->codec_ops->done)
+ 			ctx->codec_ops->done(ctx);
+-		hantro_job_finish(vpu, ctx, result);
++		hantro_job_finish(ctx, result);
+ 	}
+ }
+ 
+@@ -127,7 +124,7 @@ void hantro_watchdog(struct work_struct *work)
+ 		vpu_err("frame processing timed out!\n");
+ 		if (ctx->codec_ops->reset)
+ 			ctx->codec_ops->reset(ctx);
+-		hantro_job_finish(vpu, ctx, VB2_BUF_STATE_ERROR);
++		hantro_job_finish(ctx, VB2_BUF_STATE_ERROR);
+ 	}
+ }
+ 
+@@ -170,29 +167,24 @@ void hantro_end_prepare_run(struct hantro_ctx *ctx)
+ static void device_run(void *priv)
+ {
+ 	struct hantro_ctx *ctx = priv;
++	struct hantro_dev *vpu = ctx->dev;
+ 	struct vb2_v4l2_buffer *src, *dst;
+ 	int ret;
+ 
+ 	src = hantro_get_src_buf(ctx);
+ 	dst = hantro_get_dst_buf(ctx);
+ 
+-	ret = pm_runtime_resume_and_get(ctx->dev->dev);
+-	if (ret < 0)
+-		goto err_cancel_job;
+-
+-	ret = clk_bulk_enable(ctx->dev->variant->num_clocks, ctx->dev->clocks);
+-	if (ret)
+-		goto err_cancel_job;
++	ret = pm_runtime_resume_and_get(vpu->dev);
++	if (ret < 0) {
++		hantro_job_finish_no_pm(ctx, VB2_BUF_STATE_ERROR);
++		return;
++	}
+ 
+ 	v4l2_m2m_buf_copy_metadata(src, dst);
+ 
+-	if (ctx->codec_ops->run(ctx))
+-		goto err_cancel_job;
+-
+-	return;
+-
+-err_cancel_job:
+-	hantro_job_finish_no_pm(ctx->dev, ctx, VB2_BUF_STATE_ERROR);
++	ret = ctx->codec_ops->run(ctx);
++	if (ret)
++		hantro_job_finish(ctx, VB2_BUF_STATE_ERROR);
+ }
+ 
+ static const struct v4l2_m2m_ops vpu_m2m_ops = {
+@@ -1302,10 +1294,30 @@ static void hantro_remove(struct platform_device *pdev)
+ static int hantro_runtime_resume(struct device *dev)
+ {
+ 	struct hantro_dev *vpu = dev_get_drvdata(dev);
++	int ret;
++
++	ret = clk_bulk_enable(vpu->variant->num_clocks, vpu->clocks);
++	if (ret)
++		return ret;
++
++	if (vpu->variant->runtime_resume) {
++		ret = vpu->variant->runtime_resume(vpu);
++		if (ret)
++			goto err_disable_clocks;
++	}
++
++	return 0;
+ 
+-	if (vpu->variant->runtime_resume)
+-		return vpu->variant->runtime_resume(vpu);
++err_disable_clocks:
++	clk_bulk_disable(vpu->variant->num_clocks, vpu->clocks);
++	return ret;
++}
+ 
++static int hantro_runtime_suspend(struct device *dev)
++{
++	struct hantro_dev *vpu = dev_get_drvdata(dev);
++
++	clk_bulk_disable(vpu->variant->num_clocks, vpu->clocks);
+ 	return 0;
+ }
+ #endif
+@@ -1313,7 +1325,7 @@ static int hantro_runtime_resume(struct device *dev)
+ static const struct dev_pm_ops hantro_pm_ops = {
+ 	SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
+ 				pm_runtime_force_resume)
+-	SET_RUNTIME_PM_OPS(NULL, hantro_runtime_resume, NULL)
++	SET_RUNTIME_PM_OPS(hantro_runtime_suspend, hantro_runtime_resume, NULL)
+ };
+ 
+ static struct platform_driver hantro_driver = {
 -- 
 2.53.0
 
