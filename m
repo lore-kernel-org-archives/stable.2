@@ -1,58 +1,69 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794063640;
-	b=LA+NLWK7hKQfozzsh8Nu174f6AWySolulQFgRLM3mFgeONALaeFZJcCPzvJ6KTz9FAu+
-	 y0YlzTNz7NUde2BcbYOTRRDm0jd1XzvhVdOxkL7As05/SRLbT8BmAh0CjsJJaVtapKuCT
-	 AEN23J7IVDnvBxXIr67XqV5kbV3+CkrTav5DAeHfI9v90+uOoo94XZANbqfpa2m8yI9ka
-	 QfxmmxthYMCFUEQJ18HYEiFJwnR0xZMIxLNq2HiXiFzRqmorMmPRz4dfM2Of/GZt/k7/h
-	 u2fw5GWx3IjHMeoAhHX0Pup5jojF5Nr4OGKM+h5CZyMKNyDtv9xB1GhN4POx8C9OPEA==
+	t=1794063646;
+	b=cLBFx4mhuvuZR0wLEQ3LmH8KHNhgugsI21zaFzXm9itZnLyE5MeJxWyZuWbIvW58B3iS
+	 zPXpX2tB8+gmW/MF3gmm0EWRG4OOsy+O1kdF5AgsZkrMNS9Rh9N7MbJelYtWQt4JXMd+F
+	 PvuX7Gkg/Qunn7WvGR7sellOh5kh6nZ2RfQaW9EJUtJtxj5bIoT2JfeOB6MPtJaDDYsfP
+	 PaRz56jBp9w+WhZpRMXhwtQCHw/FGn8sY5HHutnRZRURY6xv6n/n5o1JhTbXKB1xrVr9F
+	 D/FyzhjJr0pVas3t3ahOpPTfVX+/hWaCFCY4p+EzjBiM2hibu9k6jDwAq8I1Pr9CWAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794063640;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794063646;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=VQnQOWx9ACtMAxLEs2CnQtIZAdA547mxasMVtjFm61w=;
-	b=T/zJxaHKjSvRvJCKBciiUvrnQD+sAJsMEPyz7Z0IeH1OubGCHczpfJWmXHCTiZaqcmom
-	 GWratgHAYw8lxjBFMyo3oDMt0IffJ6pEWIQBKgPQ3uQ/I70P6qZZrVKCMpkfoehdJW/gR
-	 rdRJ57D/0xZ4Rb+v9A7YlPRUYOyzb+r56sTmJbSerTQGILJYBaXSFjak4M7pT2ZCiV+yu
-	 2kU/Staof6HDxw5LQSB4Z40Nr4aYrJYCdKHS3TOAT7aMLgp/miyXt1C6n9Ozx+O7f2oSQ
-	 +t8MGmWXIBYIT5IBUuXasYAgXWW4MaAlQAbb6qyYcfH/DAtkJinZxLfR7QKq3G1+nDg==
+	bh=/cVFRIPiR15X+CvdKG2xtPdIROGWaSfDLWjBSD3nzoE=;
+	b=QbKzj1n09qP3eUNFHG+vEj26dUtyusybtWBEMjHSjtbCxoHr6/79fF5fM3yTOApK4pNE
+	 NeLcmzxUB7/QAXL3gNy0kxpe4U5a8HtJxyjWLPbd9o66CdCL/twaD3TmW0pI4lAjwXSXV
+	 2DmFkPGoam1pZ7gTi0BHlBW/K4ZlAi8laQLDmON/qT66HP3j0kZgtAot2/6y9NocgwbYP
+	 PecrWzZ/NPD2Sa3XS1ghhTk6o/d4yiAjSZ37BRtQg6igkMtyfvcbXJpssjaGyTlaMcL0W
+	 LLvgvZIvS/RUP0BYZkto/SllqxATZ5ThMp96Ocr2zKmP5FNVoQE3yXqHrtRUv6lNKvw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=HQZcCmHu;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hnuUUZCM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 502AC606D833;
-	Sat,  7 Nov 2026 15:00:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34D6F606A9C1;
+	Sat,  7 Nov 2026 15:00:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=HQZcCmHu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02FC01F0089F;
-	Sat,  7 Nov 2026 15:00:39 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hnuUUZCM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6D851F0089F;
+	Sat,  7 Nov 2026 15:00:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794063640;
-	bh=VQnQOWx9ACtMAxLEs2CnQtIZAdA547mxasMVtjFm61w=;
+	s=korg; t=1794063646;
+	bh=/cVFRIPiR15X+CvdKG2xtPdIROGWaSfDLWjBSD3nzoE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HQZcCmHu29fAbXJ17KKaQZSWJ55RZtelLo1xcyLaokhRPTRBzaPkyhsG/FA/XXEAK
-	 7Ut4wHt94o2OQeizmKtGMUBzxm41bZ/Nm9fMO8be/SkyflLmIu1fkcNN7lRU8+HCXC
-	 a/scMpccAy/1d6EQSHIdCmNEwPXV0AlRyjXicFgM=
+	b=hnuUUZCMcL29+ig/3e/vkeZpVLA4Rupav1KqqQRoRZKtdmgPq4LJWaUf8mSBhRKpH
+	 VZHjH6hEdK6ouOVl+SgC+DI1f+LInNV2mjto7ZNvelc7kLFKs5mnVbGEaz8ycjuwyd
+	 KjJGN3otOraWPyYQ8f3tXTsBlJAaPpqiJOSmXebc=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Siddharth Chintamaneni <sidchintamaneni@gmail.com>,
+	Hardik Garg <hargar@linux.microsoft.com>,
 	Andrew Morton <akpm@linux-foundation.org>,
-	Nickolai Zeldovich <nickolai@csail.mit.edu>,
-	Xueyuan Chen <xueyuan.chen21@gmail.com>,
-	Pedro Falcato <pfalcato@suse.de>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Jann Horn <jannh@google.com>,
+	Barry Song <baohua@kernel.org>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	David Hildenbrand <david@kernel.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Kairui Song <kasong@tencent.com>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Yu Zhao <yuzhao@google.com>,
+	apais@microsoft.com,
+	rlmenge@gmail.com,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 755/869] mm/mremap: populate calculated fields in vrm state correctly
-Date: Sat,  7 Nov 2026 08:57:17 -0500
-Message-ID: <20261107134918.328504472@linuxfoundation.org>
+Subject: [PATCH 6.18 760/869] mm: multi-gen LRU: fix NULL lruvec->pgdat deref with memcg disabled on cmdline
+Date: Sat,  7 Nov 2026 08:57:22 -0500
+Message-ID: <20261107134918.468918198@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261107134852.069646174@linuxfoundation.org>
 References: <20261107134852.069646174@linuxfoundation.org>
@@ -74,104 +85,117 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+From: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
 
-[ Upstream commit 34e753f8d927069785f6b675f5769da5da4ef78e ]
+[ Upstream commit 183895979c441e52dbd651b388553b09eaa35cfa ]
 
-Commit d5c8aec0542e ("mm/mremap: initial refactor of move_vma()")
-introduced the vma_remap_struct helper to pass state sanely through
-mremap() logic.
+When CONFIG_MEMCG=y, lruvec_pgdat() returns lruvec->pgdat, which for the
+per-node pgdat->__lruvec is left NULL by lruvec_init() and only filled in
+lazily by mem_cgroup_lruvec(). Normally that happens early, e.g. on the
+first folio_add_lru().
 
-Part of this state is vrm->delta - equal to the absolute difference between
-vrm->old_len and vrm->new_len (the old and new lengths of the VMA,
-respectively).
+With cgroup_disable=memory, lru_gen_shrink_node() passes &pgdat->__lruvec
+directly to shrink_one(). If direct reclaim runs before anything has
+called mem_cgroup_lruvec() for the node, which can happen during early
+boot under memory pressure (e.g. a kdump kernel), get_swappiness() ends
+up dereferencing a NULL pgdat:
 
-This value is used to correctly charge accounted VMAs.
+  Unable to handle kernel NULL pointer dereference at virtual address 0000000000005040
+  pc : get_swappiness+0x68/0xb0
+  lr : try_to_shrink_lruvec+0x54/0x2c0
+  Call trace:
+   get_swappiness+0x68/0xb0 (P)
+   try_to_shrink_lruvec+0x54/0x2c0
+   shrink_one+0x8c/0x240
+   shrink_node+0xc6c/0xe08
+   do_try_to_free_pages+0xdc/0x570
+   try_to_free_pages+0x124/0x278
+   __alloc_frozen_pages_noprof+0x6e8/0xf78
+   alloc_pages_mpol+0xc4/0x1c0
+   alloc_frozen_pages_noprof+0x54/0xe8
+   alloc_pages_noprof+0x1c/0x40
+   atomic_pool_expand+0x98/0x300
+   __dma_atomic_pool_init+0x58/0xd8
+   dma_atomic_pool_init+0x154/0x170
+   do_one_initcall+0x64/0x350
+   kernel_init_freeable+0x214/0x430
+   kernel_init+0x2c/0x208
+   ret_from_fork+0x10/0x20
 
-When shrinking a VMA, mremap_to() sets vrm->old_len equal to vrm->new_len
-having performed the shrink of the VMA first, prior to any potential move
-(e.g.  MREMAP_FIXED | MREMAP_MAYMOVE specified).
+The classic LRU path and MGLRU before per-node lru_gen_folio lists
+obtained the lruvec through mem_cgroup_lruvec(), which sets
+lruvec->pgdat.
 
-However it does not recalculate vrm->delta, which results in incorrectly
-overcharging the VMA when both moving and shrinking a VMA.
+The above was hit on an arm64 kdump kernel (6.18-based) booted with
+cgroup_disable=memory nr_cpus=4. It also reproduces on mainline on an
+arm64 VM with CONFIG_ARM64_64K_PAGES=y, CONFIG_MEMCG=y,
+CONFIG_LRU_GEN_ENABLED=y and:
 
-The charge leaks to Committed_AS globally, meaning a mischievous user can
-cause allocations to fail across the system in strict overcommit mode.
+  mem=160M nr_cpus=4 coherent_pool=512M cgroup_disable=memory
 
-Resolve the issue by abstracting the update of vrm->delta to
-vrm_populate_calculated() and invoking this from mremap_to() when
-vrm->old_len is changed.
+These options only serve to force direct reclaim early in boot; with
+160M the boot eventually ends in OOM regardless. On mainline the first
+LRU reclaim happens while unpacking the initramfs, and faults the same
+way:
 
-Additionally, update vrm->remap_type whose value depends on vrm->delta.
-The field is not read again after the shrink, but it is the logically
-correct thing to do and protects against future changes which break this.
+  Unable to handle kernel NULL pointer dereference at virtual address 0000000000005040
+  pc : get_swappiness+0xd4/0x150
+  Call trace:
+   get_swappiness+0xd4/0x150 (P)
+   try_to_shrink_lruvec+0x44/0x2b8
+   shrink_one+0x80/0x1a0
+   shrink_node+0xd98/0xea8
+   do_try_to_free_pages+0xf4/0x4b0
+   try_to_free_pages+0x110/0x360
+   __alloc_frozen_pages_noprof+0x8b0/0x1718
+   ...
+   __filemap_get_folio_mpol+0x2ac/0x548
+   simple_write_begin+0x44/0xf8
+   page_symlink+0x178/0x198
+   ...
+   do_populate_rootfs+0x13c/0x200
 
-Link: https://lore.kernel.org/20261019-mremap-fix-shrink-charge-v1-1-a3ce209e5360@kernel.org
-Fixes: d5c8aec0542e ("mm/mremap: initial refactor of move_vma()")
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Link: https://lore.kernel.org/20261017050928.128582-1-sidchintamaneni@gmail.com
+Fixes: e4dde56cd208 ("mm: multi-gen LRU: per-node lru_gen_folio lists")
+Signed-off-by: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
+Signed-off-by: Hardik Garg <hargar@linux.microsoft.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
-Closes: https://lore.kernel.org/all/20261017233527.797191-1-nickolai@csail.mit.edu/
-Reviewed-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Jann Horn <jannh@google.com>
-Cc: <stable@vger.kernel.org>
+Reviewed-by: Barry Song <baohua@kernel.org>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Assisted-by: LLM
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Michal Hocko <mhocko@kernel.org>
+Cc: Qi Zheng <qi.zheng@linux.dev>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Kairui Song <kasong@tencent.com>
+Cc: Axel Rasmussen <axelrasmussen@google.com>
+Cc: Yuanchu Xie <yuanchu@google.com>
+Cc: Wei Xu <weixugc@google.com>
+Cc: Baoquan He <baoquan.he@linux.dev>
+Cc: Yu Zhao <yuzhao@google.com>
+Cc: <apais@microsoft.com>
+Cc: <rlmenge@gmail.com>
+Cc: <stable@vger.kernel.org> # 6.3+
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/mremap.c | 17 +++++++++--------
- 1 file changed, 9 insertions(+), 8 deletions(-)
+ mm/vmscan.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/mm/mremap.c b/mm/mremap.c
-index f023b05dfb3d9..593e6f94eba3d 100644
---- a/mm/mremap.c
-+++ b/mm/mremap.c
-@@ -874,12 +874,6 @@ unsigned long move_page_tables(struct pagetable_move_control *pmc)
- 	return pmc_progress(pmc);
- }
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 8fb0d79a00b9e..e72d50bab730a 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -5082,7 +5082,7 @@ static void lru_gen_shrink_node(struct pglist_data *pgdat, struct scan_control *
+ 		sc->nr_reclaimed = 0;
  
--/* Set vrm->delta to the difference in VMA size specified by user. */
--static void vrm_set_delta(struct vma_remap_struct *vrm)
--{
--	vrm->delta = abs_diff(vrm->old_len, vrm->new_len);
--}
--
- /* Determine what kind of remap this is - shrink, expand or no resize at all. */
- static enum mremap_type vrm_remap_type(struct vma_remap_struct *vrm)
- {
-@@ -892,6 +886,13 @@ static enum mremap_type vrm_remap_type(struct vma_remap_struct *vrm)
- 	return MREMAP_EXPAND;
- }
+ 	if (mem_cgroup_disabled())
+-		shrink_one(&pgdat->__lruvec, sc);
++		shrink_one(mem_cgroup_lruvec(NULL, pgdat), sc);
+ 	else
+ 		shrink_many(pgdat, sc);
  
-+/* Populate calculated fields. */
-+static void vrm_populate_calculated(struct vma_remap_struct *vrm)
-+{
-+	vrm->delta = abs_diff(vrm->old_len, vrm->new_len);
-+	vrm->remap_type = vrm_remap_type(vrm);
-+}
-+
- /*
-  * When moving a VMA to vrm->new_adr, does this result in the new and old VMAs
-  * overlapping?
-@@ -1422,6 +1423,7 @@ static unsigned long mremap_to(struct vma_remap_struct *vrm)
- 
- 		/* Set up for the move now shrink has been executed. */
- 		vrm->old_len = vrm->new_len;
-+		vrm_populate_calculated(vrm);
- 	}
- 
- 	/* MREMAP_DONTUNMAP expands by old_len since old_len == new_len */
-@@ -1694,8 +1696,7 @@ static int check_prep_vma(struct vma_remap_struct *vrm)
- 	if (is_vm_hugetlb_page(vma) && !align_hugetlb(vrm))
- 		return -EINVAL;
- 
--	vrm_set_delta(vrm);
--	vrm->remap_type = vrm_remap_type(vrm);
-+	vrm_populate_calculated(vrm);
- 	/* For convenience, we set new_addr even if VMA won't move. */
- 	if (!vrm_implies_new_addr(vrm))
- 		vrm->new_addr = addr;
 -- 
 2.53.0
 
