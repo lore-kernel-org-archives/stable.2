@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048131;
-	b=LcUJwyoU2FeNymBJo02xlbpV6ian6q3+KXoQXcFmbqYN8h5fro9F0r/nQbR6qVp7tkFG
-	 MNcxdxLrJ1Ies1Xl+sMt1oJAbrR2jf6HUOQ1ZHm8IMLiIxkYJRbbrumFuk6UeJG17qN5P
-	 BpyYAMBJdY6u18u8Zaj6r82oAdwIFoj50UCNjmW37HrwqEgJdIzmEGOiKUpfTfWtBxYyo
-	 HYeRIFbWaxXj15L/sfcvavo99h4OwFZ5m8Hapm5MANPNw6oL+PuETONb1B6P7ZJWbHvO9
-	 KwX3xltKP+8uZA/5M4+HR2aTtKHzkcF6Xy4AJzLfn9DMOIkBcM6COK60kpE8LWh3Xqw==
+	t=1794048134;
+	b=m4dSF00oGC+mesBkOXlz9tjSE9se15FzpU5pIq+pDPYFBv0JHNDj0yVbwU5pL9mRNlzi
+	 IjEqmvxRMe/MemD4K4Hu/paRanWr0PpcCGDIE8mMpHldPOfwi74BPqR/6xd0LdRHgVREH
+	 CHKvRftWGiueyYe5Bc6hSZAqJVnbSGewH+on1M8mpWAMnt0wJ6KcoqWutiNTLpPmjJ8zX
+	 gg83O9K5hC5r/PIYXKq9TqRhiawem6omJKUm4hgaZy1TxEq2GW4qO4PPHuCfLma6p3B73
+	 LwWlA5P664F6xusjmkO/JqWtjWZ2RoN84SVsG1XQaiiTJeXt3DIMfxuFfM0ahiBM13A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048131;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048134;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=T2PdCi6Dyvfq6o5VNbDVAXNfvY/VpYcdDlBqWWlQxuA=;
-	b=oPS/vtMEAkPPzcIz5T1FAakW7OF1r3QoZh2JRX93digI29WMqYRMdrOnS/yMI37jnGtN
-	 2GgletRSDuqH5F2jH8qptt6TLeEzE7HqvU6W13BC+NpCrbx7hqDXZo0iOWbPUOPyVYb+D
-	 kcKdBSotPU5QDNElN6qufXTV03rR+tOdBR/ZAyMSK4pvjD9dQthl9OjOSrEsWNLjcIbre
-	 8hwz+d2udi3EdUa76e6bvH054Ld/dtW+XNYET7htxPKpsF7NJcxGCskXayyb8P/rhGB1n
-	 p7gW87IAtyt8QZtITFgwgTIqUo1TGlTZHLvVn4w6YZ8c7TJt2SWgMRWu99d33xVBqPg==
+	bh=YO9Dwtaw0hlhkco/TtYb1rPdz6jGAQUxnrqUmUexq0k=;
+	b=d24XPwCrpAiuVIw8t33A0748lRnwMY2tS6s9xxy7YczOrEPNXRDKlfQNEDjiWl5jGVvg
+	 XwqUzS6q6XZczn1lcwaeofm+68ivZU7NYNeZjWc0ILEKfgJQ8FvtpJdAzl+tiIqCdtd4j
+	 L7SraHOEa1kth1s3oaVjM1TGJv18NfYyDk6lM3TQGmRFE9oznJ0l+YsHqiNWdp9M90oRy
+	 +0NLH81vnAl/dF4wC2cvim+N9fyJ+zKQxjEjrJuDTVfDn379HgTVlipc6kBVKb/2Fh4DX
+	 WF7QEKd61W7O5C6fXpbtVR169XdsqKVhgDDue/uAqeJQFLtpRPOfyCJrYS34zXKy5DQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C4LUahmP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="R+/0HgBJ";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8971F606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:42:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B38D1606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:42:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C4LUahmP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06CC21F0089F;
-	Sat,  7 Nov 2026 10:42:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R+/0HgBJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EE7A1F0089F;
+	Sat,  7 Nov 2026 10:42:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048131;
-	bh=T2PdCi6Dyvfq6o5VNbDVAXNfvY/VpYcdDlBqWWlQxuA=;
+	s=k20260515; t=1794048133;
+	bh=YO9Dwtaw0hlhkco/TtYb1rPdz6jGAQUxnrqUmUexq0k=;
 	h=From:To:Cc:Subject:Date;
-	b=C4LUahmPKPMBtNykAyyzgTkzjUTFMi9vMk1yZraRGiwDIbLnD6hP2pzt+2zCMUDGr
-	 ddjdwvI4cwV5o1woY2+jQkSNmcAafhd7w2c9iiB+XH7R2I4dyBkH3qIY/LRIHJdUPp
-	 ibgc65JNDk6ckm64uu32dVIXyUWVLuxnX6WFE5aOz7PaTCUWRe9SetL187HkkoLnZp
-	 YsRfw8CKGys6/HgDJr9X6Ace4LTW9VD6eDfHEC0dSTxbKgypWF61dkHuODWzDhtSPg
-	 jq4vQ2Uwmjn65IjR6szy2qD0JXc8dkWpHVMGDqNhZxbVEU7RlQBw3JX7qtB2dvRo1r
-	 JCnRygP0blJJg==
+	b=R+/0HgBJWGbfNSKMsZtPB6HoyNYlMZ0q3BsnpIjqt8Wem5vmXCT41N6ldQ3dDeCrG
+	 CEJ8yBRBBMXxXsh/9mvoZtH40oMR75aW9pTCU2U6OT/Qez5aDUsRJB92slbSt1UQD4
+	 OsmV3j4HW176cDX+S+h18c2cI3JGynUbK6RjosJBCUM7jsoxREEJgTm5NXJuj1mdgL
+	 z8UgssF0Mgk5zfXSlN518C4lLDQKVRbhwzaGF039dJ4pVoTqn8qrrvH/9x/BaqqR8N
+	 SO2eigBkcQ5Z3OUuqMvFSS3SamHyqTBGkkfaR9JchIDH2UfH4Q6SLJm/ikEQblu8/z
+	 pIzKNT1b71tAg==
 From: Sasha Levin <sashal@kernel.org>
 To: lgs201920130244@gmail.com,
 	herbert@gondor.apana.org.au
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] crypto: omap-des - fix crypto engine cleanup" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:42:09 -0500
-Message-ID: <20261107054209-failed-6.1-5d69ed4cd4f9@kernel.org>
+Subject: FAILED: patch "[PATCH] crypto: omap-sham - fix crypto engine cleanup" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:42:12 -0500
+Message-ID: <20261107054212-failed-6.1-be51ea091c65@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,22 +68,22 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 5d69ed4cd4f9c68ff9a6ebb2e8a1079223a4ec6e
+git cherry-pick -x be51ea091c6563158531e8c74e040552fdb1e28c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054209-failed-6.1-5d69ed4cd4f9@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054212-failed-6.1-be51ea091c65@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 5d69ed4cd4f9c68ff9a6ebb2e8a1079223a4ec6e Mon Sep 17 00:00:00 2001
+From be51ea091c6563158531e8c74e040552fdb1e28c Mon Sep 17 00:00:00 2001
 From: Guangshuo Li <lgs201920130244@gmail.com>
-Date: Sat, 12 Sep 2026 22:41:16 +0800
-Subject: [PATCH] crypto: omap-des - fix crypto engine cleanup
+Date: Sat, 12 Sep 2026 22:46:08 +0800
+Subject: [PATCH] crypto: omap-sham - fix crypto engine cleanup
 
-omap_des_probe() allocates and starts a crypto engine, but the remove
+omap_sham_probe() allocates and starts a crypto engine, but the remove
 path does not call the matching crypto_engine_exit(). The probe failure
 path already performs this cleanup.
 
@@ -97,27 +97,26 @@ engine and destroys its worker.
 
 This issue was found by manual code inspection.
 
-Fixes: f1b77aaca85a ("crypto: omap-des - Integrate with the crypto engine framework")
+Fixes: 133c3d434d91 ("crypto: omap-sham - convert to use crypto engine")
 Cc: stable@vger.kernel.org
 Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
 ---
- drivers/crypto/omap-des.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/crypto/omap-sham.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/crypto/omap-des.c b/drivers/crypto/omap-des.c
-index 3b7104cb4487b..4b5a8d13f505e 100644
---- a/drivers/crypto/omap-des.c
-+++ b/drivers/crypto/omap-des.c
-@@ -1082,6 +1082,8 @@ static void omap_des_remove(struct platform_device *pdev)
- 
- 	omap_des_unregister_algs(dd->pdata);
- 
+diff --git a/drivers/crypto/omap-sham.c b/drivers/crypto/omap-sham.c
+index 12d6dc68438a7..5e739415a0102 100644
+--- a/drivers/crypto/omap-sham.c
++++ b/drivers/crypto/omap-sham.c
+@@ -2129,6 +2129,7 @@ static void omap_sham_remove(struct platform_device *pdev)
+ 	list_del(&dd->list);
+ 	spin_unlock_bh(&sham.lock);
+ 	omap_sham_unregister_algs(dd->pdata);
 +	crypto_engine_exit(dd->engine);
-+
  	cancel_work_sync(&dd->done_task);
- 	omap_des_dma_cleanup(dd);
- 	pm_runtime_disable(dd->dev);
+ 	pm_runtime_dont_use_autosuspend(&pdev->dev);
+ 	pm_runtime_disable(&pdev->dev);
 -- 
 2.53.0
 
