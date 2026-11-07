@@ -1,98 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.181
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.174
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794089603;
-	b=h1EUxMf9bKYSoat7LdNmKDM8pwic/VQkv9aAedCghtBtOyJLz1LBcFJftsixgg6vLAXc
-	 BSPPzihAQ69bZysi3/Ni1AyOpC7qDk+8VGtXdv16cJxwVakLEIKU844pUjalzh89tuvmC
-	 pn9VeETAGqcsEGbGgIre6yOP4UkahpXRQMlxNigerFSQaVtF2cRG27DdGe6FLU3uuTUVt
-	 Mi6IzCxoEKdc4iHnz8MZ6hBS+nR+0HCKRaq0wXVP2gStwOOAngtyuTQgzNYVuq4M/NfWR
-	 nADR4NBIXRwS3b210wPVbcFMtmt8KrRnf7KHeFwDO8xCe3rHiZuT+D/fnHOZqi8A1Ag==
+	t=1794089762;
+	b=jtLxgpZAtRR3V8uVnjuge/Lz41kDAMmWHxbp8uJ9isbCPWPftVMtmwCkpQ8zuG/hz+xL
+	 VtLGPBtKHrsFl5sVCYWtyvX4+Vj2Hpfk7IyMaffUTghT+dlURj/EIE3oOttqR6UwxH4yj
+	 eTvbIOKxTPQsxY6WNRDF1ZUKfewubffWASLFvrIZ7ugzbO/R4ApX8U3tzGBRjuqWz6uQd
+	 VHEccnFHxxa/dyxl/cYUSXkfFFE/eI5OLF33yAGVl7ucwOqAt7GS//LU7WtRNrLA9kgNN
+	 p52N+34QRPiA0OzSoNXeU4XL7BmjfSPEbuqCUmi9OPJKdZuxrWCmzEQt3PpeUfz+WGA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794089603;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794089762;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Ri5ORY3eJx7Dxs5dHTw0DMoceR4v2VXZ5izkz0UQP3A=;
-	b=aKGeS/7RQ7oW+OwbtCGd5MSeNXPS4i7gdlofrOrKQxRO+nBviczVred/508ZeXL5bAwX
-	 VvFN14Y6FYOqHAFoRHRgeKfFcCIB/zITBZIU4PDyyLjPZnXleZ31HwjYxb54DOBzPWNAY
-	 e1i+cCygfkuqsrtC45Sb3Fn7ymbVmI1KJupGXjdcooBdQKdi1vwTlPXldUIV//acMtKF8
-	 qJ4fMbF6duJ5SRkRjUv+Ap5sgjgBHYQacRQqVlva++72NgqeEVXaBJfeqEIG6Q84TK+R+
-	 9eglFev7WN4gBcdbdSFYDz4fW8xU3nt5tV8vOj+4PE45MxjpI7oFv/AVlmVRNLvE66A==
+	bh=o4tz06DzCLHV+ZlaAK8efvWKy5+EgQA7F7usPbcqp/o=;
+	b=SBRNDYbSJN1tZlIt+e4KzCrxKrqBgzRin4k3qhAq1AD54RrgkxeD8EjfBUqEGHqO2jq6
+	 p6tqLjIVWSRzAFDAiyK9WRllR5hEkwVVeQ9pa+YaIbMVmL0HJZAg7gQH0tC6Y4sqAJV4x
+	 1hn8tGPg04IG6rAb57sTPApeWKT/TufnlAPZJncdlT9pxyI9e1qeJvVAq8pmcH3hJgFT6
+	 Jm5z/vD514UarmEYora7+C/W8bugZ0507kkQwxAJdERdim18RmxNpVlupuqUdJ9lVnQ1r
+	 a37ygwoisHoOd+s+99WP9m5frd9N/PouqAwDPOO84SqMk+c/6ZelkpMsQebztDIX7yQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=none header.from=mojatatu.com;
 	spf=none smtp.mailfrom=mojatatu.com;
-	dkim=pass header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=XJmhDb1+;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.181
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+	dkim=pass header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=b6B1HkjM;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.174
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BE10606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 22:13:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BE10606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAF00606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 22:16:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CAF00606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=XJmhDb1+
-Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-8b58d6f67a5so19894b3a.2
-        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 14:13:22 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794089602; cv=none;
+	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=b6B1HkjM
+Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-8a594d313a3so22530b3a.1
+        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 14:16:01 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794089761; cv=none;
         d=google.com; s=arc-20260327;
-        b=BOUdixkV7R3rLP40+RMt+fNVwI2A8vS6h6VzgdxBDY99OQohLltvguIW7ZBJXyeV9o
-         j3PCZPnV8fQCDi9dCnjUmIOS2VVZeZgFIdKtyfCY0CuJtTBK4MJexPRCOy/PKhpKXF2Q
-         a0T270vxMFAqBDc8RMUMRPqm6ZOAZ6qP57mYVSEenTOLZqxsyxLbg1oDBABfQ0JKVSTw
-         0vkr2nv55RtVnPWQCjHK2E7OQ29eZbv36UZvq8z2KEORCMtRpXoVN8G7u4fPtSpjr20l
-         bAPYWKLgbwYpxm26Ene+BWINB10WSIFYXdgrst8zM6etlkNMHbZSme+f1terdlo6Sc25
-         shGg==
+        b=kbteM0Zv3cbcagkE8LrjI2U9KNF5vt9AzIt2WG8BHSMcMiXi8vveyLCorW7P/mvoPs
+         Ai9Vwm/M3eUxQYT96Ekrz0lMvYh4ChB2K6promDEpoCDU0sklwlHNKldO1VR8gKa0GLE
+         jniNCJrshwa6FeAjNN1I+uIQdSZ4nLndMnfUig5WXyh/37xuQK/HenD3oXfAUYfo7XMB
+         0TwN818OGaFoNuu1NgzkZNadS37j9ygWrBKvCitpA7EDF1cKhMizzhEdHzVW8uxQyOhf
+         gixoJuG4+md9bFvZpQD+EmlS/Cp+5wvX0oFuqKh6PD3ZsjziO0W5w31ixTM/Y1uwBzav
+         JGww==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=Ri5ORY3eJx7Dxs5dHTw0DMoceR4v2VXZ5izkz0UQP3A=;
-        fh=Z2BHYi5cjKfJfvcgvKEMCGRLAL3lhkLl51IHjTh5YAg=;
-        b=N8lctst+G+tiE4Jvsi7YTvuvAL1oVESb3Ou8u1zCiJKVmooGT19RfPRx9TBWsgSq9f
-         l3ALIdva/v//fSLGp5WQDfBO2kDxD4JIhdJADu+XRViue2V3BKG8AwlQPyRBgp5aW96B
-         kEsBtaxlyns9pB68Go6LdmixfjnA7sQgoAcq3YvVkxeElBacGU+uC/Qm+IZcwoIotONG
-         4ENVl8dDkFU8fMYJZ+hMHLO+PuSZy9RzBm0xRhcmsIpL6CnMwP0itDTDrumeci6kUUWx
-         2uCPgpzqYpwZFNOmAG3YENkso2sd5s1pX3CE5mRnhOJyz+vgH3xadhYufJDlMYCoJ82k
-         FRdg==;
+        bh=o4tz06DzCLHV+ZlaAK8efvWKy5+EgQA7F7usPbcqp/o=;
+        fh=zw/sTASzbQfFQeeBshh3Lfwo3TrrSGYVWC/VpF8eUPE=;
+        b=XyV5EamFP5A3Et2yqrdWFgxOkdsPyz0+B3MxYpxVa9Vpvk77frUJ23X7ykFOMLnUut
+         GKOjdPb0pdzPeFT+pj8xZURuarPee35wq60ZxM8zF4QckCh47O1exh46W5u5cfRvb73w
+         DvrTQGxLLBl3WUvhpeShTxL10qnq1IskDT/rIDRwe+4zM1qQGkb2zEWM9LHV+odH/Zu2
+         LLsqsMQH5w+ujFgOJ32BzX4cLvmS0O78FdxuOrp8JqJqx6+rsZ8vo98Ab7da6/ksi7sU
+         UqNz8pOi+sHiyEyUyXjjjeG5bmp1jcxC8AsW4kivffSQt8ATpLLJruaQ10ebQIo8wmHS
+         brjw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1794089602; x=1794694402; darn=vger.kernel.org;
+        d=mojatatu.com; s=google; t=1794089761; x=1794694561; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Ri5ORY3eJx7Dxs5dHTw0DMoceR4v2VXZ5izkz0UQP3A=;
-        b=XJmhDb1+YdoXCsxpJ/S44gGck8KS5crPC19DOevfgL7KXi4xY5ul/Qw9sV0uPvEazc
-         BaYVdahO8EZhvdGdmVHatq+IvfjpGEjU9A+jia196v+3ocfrBu3FKnmmbzoe70eCVErZ
-         HkmrKcspsgDf+Das7hUVwqdfpl64ooRseyl+o=
+        bh=o4tz06DzCLHV+ZlaAK8efvWKy5+EgQA7F7usPbcqp/o=;
+        b=b6B1HkjMie2eGJo3x8MJmf60WsxZxJJdti4ZsqUx0TMMxyZ79rdu3kQQc6rFk0D5sa
+         ZsqXWWEVjbso/gRYe/uPyC2uwx4/Bhz6ACkkSiO7TYzk26LofQnI8avHKILhdp1oM6I+
+         j6DoiWo90zQi9A6fJOjmq47PZja6MkjlMn3/k=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794089602; x=1794694402;
+        d=1e100.net; s=20260707; t=1794089761; x=1794694561;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Ri5ORY3eJx7Dxs5dHTw0DMoceR4v2VXZ5izkz0UQP3A=;
-        b=0MiBFRE+RaYGyMddD+OfOKhIYm34QdHRjHq3YRWu1LIVm+V2cO22GX/Ah3rPgONfOy
-         AR+/Oj/Qob5wzS2ICXnclqexp6Mn3ZD3wb/NOFCUscrTwTTs8aHncpYzOAPLmmRax1lq
-         +GsIcq5HmFGV+8G4JWKbl17dAe/InswFRO6c98LHCsN7ogx+KEIX0JepWV5l0D2TXwgE
-         xK2Fj+Y/alwpi3q97H7cnjr1z+f5IlcJIppbYNgTrzOyc3MX+/Gnn5MfNSkKnzbUUGgY
-         fvmJ4zrkxFp178EG2Zn3KZiZVgRtLiJD5XwHL3VpWm8MF/WwSZAWliOLPLCpxQby0xwo
-         FYcA==
-X-Forwarded-Encrypted: i=1; AL+hErFXyROQyRL5i27GRjWqs3gYsdcyJ54LeghRAZvWnqsxiTPoY37vWU2MHLuOBuBB31Q7DJY36DI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8L67VEdIEuJJxkIGbQzEH5Ww9ASv1/yUqi/p0w/B6/YUheoVdL
-	G69M4BU+9/CavbCTgYgF8zJqXDeHAXWhsIsSNXoF9NIaUkN8tMBmzNIPtSEB6uZYJUJ8atnCDW4
-	Imhm0fhc5CcscHcW9YWlUXM8JJ5k9POsW0/MXuyN2
-X-Gm-Gg: AYBFou0YMluW/jccZB4fQKEiSQN7ct1s3U3tmK6sjeaP6H7UFx7qEGBSo/FzRrVW7Su
-	j9SIN4QvgbUbDV7wJrcoBpBCi3SK1byeqiM83jZXHh+jaw/OBPKN7N0l+pVFt8rPenS7rKcL2PX
-	qVCjcBkODlU3kTuW4avUkTUkyTEXcmSAT2RAv4TU2D4LzP7nng4Jf16QGqTV5bFa/19VhFkVPqy
-	10SO9BXVui00U8ZUxMoHjlXWJ562LANBom2KpL9/lyjBNMn9HPjqtbutIvR8ISlJT9VOoqYNbzz
-	lb3g152/hSuSwMsbKy8/EULAlz1BjPZd/008fgkrz2quD3x1RnfrCXekQpGhLTlhe+sw18vRsef
-	TM9TfR7a/KLV/H5N+FcfxXxnshFha526wefhyyscZ/vrky3pUzC3Yt52a4lGPpJSS6CX8jl1pzQ
-	Zywap2KUunkF2OFnY=
-X-Received: by 2002:a05:6a00:430c:b0:88d:20ff:15c9 with SMTP id
- d2e1a72fcca58-8b66c3ee757mr60184b3a.17.1794089601977; Sat, 07 Nov 2026
- 14:13:21 -0800 (PST)
+        bh=o4tz06DzCLHV+ZlaAK8efvWKy5+EgQA7F7usPbcqp/o=;
+        b=jdX1gc1PtJQ7CbW19LXOpW7I/G+eYNp4ei+LLAsIlhcl7mw147a1b8rUUxtPoVFKqx
+         hg/Eit7m1n8ClRF53mXnSNrR7Gc29/2xp95RDiKnR5CTgK2dOVR538pD3KQQIHEdM55+
+         woc152aqtGk89CXYYM8G2Lzp7vDnofG0uGqqeLszzxCfBgglfhGOiUr00YcoqamS0Kuo
+         4j2hSr4/zy4hHVDBn8yuHEcpC76Z3SWH+f9Pi/l1nU0aQNKCfpM4cMKfQ8dMXy0FSLl8
+         gumUmnX0S8R9phFJf7TCR/scqDAbNIPEu/Vs2g6/XcnEhUG0lwprYR9R+K6RJqT3NxKp
+         nTXg==
+X-Forwarded-Encrypted: i=1; AL+hErE1VqS26rZLudElwu7+6qnLpw1EY+Yek4hrloT/3RJAanMhE1t2dnS9KpMxT2puz/hkxflnywg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/6rOroBqiMv7/euA9itdCr247yBkJvb2x+RrejuLZ1Cr/8t75m
+	6TLVPr530iBYKmXw8d0hJz7jb0Q78nFPzS2pSJkJnLNsQXV0qDk/MXLM1LSQPi1sgpvdXi1m/CZ
+	JJdVEjjNdHjSX7S+I2p8c+EuMenVUZVKutw145xSz
+X-Gm-Gg: AYBFou3RUDPd3JeVfSfrJuTjxnFL+H+97EmN6VN4Topya39kVuItyEcE8cG91JTNWDj
+	FOsAxgkYeHIG216FwhdzMO/4m9sIY5TG/rcdKFuYRRY0XJmgJQCJU2UK3k8eXAZBDIL8EVrxAIJ
+	JHHtBIs5uJZh4wSvx3JK/eLEJ79lJR/1+hCwCvKvLPrGQcxVEII695MALYAy2axL1JSnUos1bTv
+	FS0iyJKqkqUgoUzkXqtxZNEBa94JQ847+UWAtNeruBptombfFAxomv/nEz7Vl4FDAxmuKgjI3rA
+	InYOSDWVVS2kZdWwcBwMtC6Y40NIfg6LsXXNozJqxB9j4SaPmBSwhAuL6N6PinJQT+EwPVanj4F
+	qimfJeeSfDbFzyq3fHuy1caP8YHGXUbM7ZAacXG54o1IlTSnhfbt1urmlrsphCj9dzEfdU0ss17
+	rz/WbGoPQzFK7NRG0=
+X-Received: by 2002:a05:6a00:3d4d:b0:8b1:3137:d78b with SMTP id
+ d2e1a72fcca58-8b67082f822mr37510b3a.48.1794089761173; Sat, 07 Nov 2026
+ 14:16:01 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,14 +102,14 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <SER-NSBD.v3.r0.20261103064310-3@mojatatu.com> <179406301946.994134.7212801896124135602@kernel.org>
-In-Reply-To: <179406301946.994134.7212801896124135602@kernel.org>
+References: <SER-NSBD.v3.r0.20261103064310-4@mojatatu.com> <179406302081.994134.2324214805948881495@kernel.org>
+In-Reply-To: <179406302081.994134.2324214805948881495@kernel.org>
 From: Jamal Hadi Salim <jhs@mojatatu.com>
-Date: Sat, 7 Nov 2026 17:13:10 -0500
-X-Gm-Features: AclHuK-DdyhjEwGSmkn65EuH-Exx6Vi4NCxhfLsT3bmzjz441IxX6sjyxKbhEI0
-Message-ID: <CAM0EoMmZ6msUa_HDx5511GYPpKiaWFw+G9OAJFB61hGvVm1D3A@mail.gmail.com>
-Subject: Re: [PATCH net v3 3/4] net/sched: sch_teql: reject qdiscs from
- another network namespace
+Date: Sat, 7 Nov 2026 17:15:49 -0500
+X-Gm-Features: AclHuK-EImvDmozLrSXa89DezzPdIm_N3VnO1x4Pj8HHQtC5v1kgy6BRB_djrq0
+Message-ID: <CAM0EoMnjMoHQ2kU01naxDT0L3JXx61uKa7XBEWSQTJ9DaUa0_w@mail.gmail.com>
+Subject: Re: [PATCH net v3 4/4] selftests: tc-testing: teql: cover each attach
+ rejection on its own
 To: netdev-bot+sashiko@kernel.org
 Cc: netdev@vger.kernel.org, stable@vger.kernel.org, shawnq1@163.com, 
 	davem@davemloft.net, edumazet@kernel.org, horms@kernel.org, jiri@resnulli.us, 
@@ -121,186 +121,160 @@ Content-Transfer-Encoding: quoted-printable
 On Sat, Nov 7, 2026 at 9:50=E2=80=AFAM <netdev-bot+sashiko@kernel.org> wrot=
 e:
 >
-> Thank you for your contribution! Sashiko AI review found 3 potential
-> issue(s) to consider.
+> Thank you for your contribution! Sashiko AI review found more severe
+> issue(s) in other patches of this series. This mail is only an FYI, in ca=
+se
+> you want to address the nit picks below when you respin.
 >
-> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 2
+> Low priority / nit picks for your consideration:
 >
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwor=
-k
-> know by including "pw-bot: cr" as a separate line at the end of your repl=
-y
-> (one such reply per series is enough).
->
-> - [Medium] The fix checks that the slave device and the master are in the
->   same network namespace only once, in teql_qdisc_init()=E2=80=A6
-> - [Low] The commit message says only that a qdisc from another netns
->   could attach to the init-net master "and change its MTU and flags".
-> - [Low] Moving skb_queue_head_init(&q->q) to the top of teql_qdisc_init()
->   (sch_teql.c:203) is presented as groundwork for the new netns failure=
-=E2=80=A6
+> - [Low] The commit body describes the patch as a change relative to an
+>   unmerged v2 posting, not as a change to the tree.
+> - [Low] Both rejection cases check only that tc exits with 2 and that no
+>   matching qdisc is dumped.
 >
 
-Again, cosmetics i will fix if i have to resend.
-The netns_immutable gap is pre-existing and needs CAP_NET_ADMIN in
-init_net, so it stays the net-next follow-up.
-The reorder keeps this patch's Fixes: because the namespace refusal is
-itself reachable through qdisc_create_dflt() -> qdisc_reset() ->
-teql_reset(), and if i have to resend then I will state the
-interception impact in the body...
+Again cosmetics - so far no reason to resend.
+6a06 is added by this commit, not by a previous posting, if i resend i
+would reword to state that.
+The module point cannot cause a pass here - it would fail several other tes=
+ts..
 
 
 cheers,
 jamal
 > --
 >
-> net/sched: sch_teql: reject qdiscs from another network namespace
+> selftests: tc-testing: teql: cover each attach rejection on its own
 >
-> This patch makes teql_qdisc_init() reject a teql qdisc whose device is
-> in a different network namespace than the teql master. It returns
-> -EOPNOTSUPP with an extack message. It also moves skb_queue_head_init()
-> of the private queue to the top of teql_qdisc_init(), so every
-> constructor failure path sees an initialized queue.
+> This commit moves tdc case 124e out of the nsPlugin test namespace and
+> into init_net with its own dummy device. Only the root-only check in
+> teql_qdisc_init() can then refuse it. It also adds case 6a06, which
+> attaches teql0 at root from the test namespace, so that only the
+> namespace check can refuse that one.
 >
-> Link: https://lore.kernel.org/netdev/20261022144830.67948-1-shawnq1@163.c=
-om/
-> Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/SER-NSBD.v1.r2.=
-20261031160050-3%40mojatatu.com
 > Link: https://lore.kernel.org/netdev/179366641863.488856.1736857159146600=
 0274@kernel.org/
+> Link: https://lore.kernel.org/netdev/179366641986.488856.2193313144081673=
+076@kernel.org/
 >
-> > The issue:
-> > The teql master devices are created once in the initial network
-> > namespace and their Qdisc_ops are global. teql_qdisc_init() takes the
-> > teql_master embedded in the registered sch->ops and uses it without
-> > checking whether the new qdisc's device lives in the same network
-> > namespace as the master. A qdisc created in another netns can therefore
-> > attach to the init-net master and change its MTU and flags.
->
-> [Severity: Low]
-> Does this description understate the impact of the bug?
->
-> Besides changing the MTU and flags, teql_qdisc_init() links the foreign
-> qdisc into the master's slave ring, or makes it the first slave:
->
->     rcu_assign_pointer(NEXT_SLAVE(first), sch);
->
-> >From then on, teql_master_xmit() round-robins init_net traffic sent
-> through teqlN onto the device from the other netns. There is no netns
-> check and no skb scrubbing:
->
->     skb->dev =3D slave;
->     if (!netif_xmit_frozen_or_stopped(slave_txq))
->         rc =3D netdev_start_xmit(skb, slave, slave_txq, false);
->
-> If teql0 is already up with slaves, the attach still succeeds as long as
-> the foreign device has compatible flags and an MTU at least as large as
-> the master's. A CAP_NET_ADMIN holder in a user namespace can set both.
->
-> With a veth slave, the netns owner could capture or drop part of the
-> host's teql traffic. It could also answer ARP that __teql_resolve()
-> sends on that device.
->
-> The code change closes this path as well. Since stable and CVE triage
-> depend on the stated impact, could the commit message describe the
-> cross-netns traffic interception?
->
-> > Initialize the private skb queue before any validation so every
-> > constructor failure path, including qdisc_create_dflt(), which resets t=
-he
-> > qdisc before destroying it, sees an initialized empty queue.
->
-> [Severity: Low]
-> This isn't a bug, but should the commit message say that this reorder
-> also fixes an existing NULL pointer dereference?
->
-> Before this patch, three returns happened before skb_queue_head_init():
-> -EINVAL (hard_header_len), -ELOOP (m->dev =3D=3D dev) and -EOPNOTSUPP
-> (non-root parent). On those paths q->q was still zeroed. When init
-> fails, qdisc_create_dflt() calls qdisc_put(), which leads to:
->
->     qdisc_put()
->       __qdisc_destroy()
->         qdisc_reset()
->           teql_reset()
->             skb_queue_purge(&dat->q)
->
-> skb_queue_purge_reason() sees list->next =3D=3D NULL. That is not equal t=
-o
-> list, so it treats the queue as non-empty, and skb_queue_splice_init()
-> dereferences a NULL first pointer.
->
-> This looks reachable with net.core.default_qdisc=3Dteql0. mq, mqprio and
-> taprio create children with a non-root parent, and
-> attach_one_default_qdisc() on teql0 itself returns -ELOOP. Setting
-> default_qdisc needs CAP_NET_ADMIN in init_net.
->
-> Would it be worth calling out the crash fix explicitly, for backports
-> and Fixes: attribution?
->
-> > diff --git a/net/sched/sch_teql.c b/net/sched/sch_teql.c
-> > index 70c948a26f809..dc21cd9704a25 100644
-> > --- a/net/sched/sch_teql.c
-> > +++ b/net/sched/sch_teql.c
+> > It no longer proves that a child attach is
+> > refused as such, and the case added in the previous posting covers the
+> > namespace check alone.
 >
 > [ ... ]
 >
-> > @@ -211,9 +213,12 @@ static int teql_qdisc_init(struct Qdisc *sch, stru=
-ct nlattr *opt,
-> >               return -EOPNOTSUPP;
-> >       }
-> >
-> > -     q->m =3D m;
-> > +     if (dev_net(dev) !=3D dev_net(m->dev)) {
-> > +             NL_SET_ERR_MSG_MOD(extack, "teql master is in a different=
+> > Attach a root qdisc from the test namespace in the second case, so that
+> > only the namespace check can refuse that one.
+>
+> [Severity: Low]
+> This isn't a bug, but these sentences read as if a namespace rejection
+> case is already in the tree. Is that the case?
+>
+> Case 6a06 ("Reject TEQL attach from a different network namespace") is
+> added in full by this commit. The parent commit, "net/sched: sch_teql:
+> reject qdiscs from another network namespace", changes nothing under
+> tools/testing/selftests/tc-testing/.
+>
+> The only place that says a new case is added is the v1 -> v2 and
+> v2 -> v3 changelog. That text sits below the "---", so it is dropped
+> when the patch is applied.
+>
+> Could the body say outright that this commit adds new coverage for the
+> namespace rejection and moves 124e into init_net?
+>
+> > diff --git a/tools/testing/selftests/tc-testing/tc-tests/qdiscs/teql.js=
+on b/tools/testing/selftests/tc-testing/tc-tests/qdiscs/teql.json
+> > index 0179c57104adb..ab5d0881c0070 100644
+> > --- a/tools/testing/selftests/tc-testing/tc-tests/qdiscs/teql.json
+> > +++ b/tools/testing/selftests/tc-testing/tc-tests/qdiscs/teql.json
+>
+> [ ... ]
+>
+> > @@ -104,7 +100,35 @@
+> >          "verifyCmd": "$TC -s -j qdisc ls dev $DUMMY parent 1:1",
+> >          "matchJSON": [],
+> >          "teardown": [
+> > -            "$TC qdisc del dev $DUMMY root handle 1:"
+> > +            "$TC qdisc del dev $DUMMY root handle 1:",
+> > +            "$IP link del dev $DUMMY"
+> > +        ]
+> > +    },
+> > +    {
+> > +        "id": "6a06",
+> > +        "name": "Reject TEQL attach from a different network namespace=
+",
+>
+> [ ... ]
+>
+> > +        "setup": [],
+> > +        "cmdUnderTest": "$TC qdisc add dev $DUMMY root handle 3: teql0=
+",
+> > +        "expExitCode": "2",
+> > +        "verifyCmd": "$TC qdisc show dev $DUMMY",
+> > +        "matchPattern": "qdisc teql0 3: root",
+> > +        "matchCount": "0",
+>
+> [Severity: Low]
+> Can this case pass even when the namespace check is not what refused
+> the attach?
+>
+> tc exits with 2 for any netlink error. The verify step only checks that
+> no teql0 qdisc shows up in the dump. Case 124e has the same weakness:
+> it checks only expExitCode "2" and matchJSON [].
+>
+> In teql_qdisc_init(), both rejections return the same errno. Only the
+> extack text tells them apart:
+>
+> net/sched/sch_teql.c:teql_qdisc_init() {
+>     ...
+>         if (sch->parent !=3D TC_H_ROOT) {
+>                 NL_SET_ERR_MSG_MOD(extack, "teql can only be used as root=
+");
+>                 return -EOPNOTSUPP;
+>         }
+>
+>         if (dev_net(dev) !=3D dev_net(m->dev)) {
+>                 NL_SET_ERR_MSG_MOD(extack, "teql master is in a different=
  network namespace");
-> > +             return -EOPNOTSUPP;
-> > +     }
+>                 return -EOPNOTSUPP;
+>         }
+>     ...
+> }
 >
-> [Severity: Medium]
-> Is a netns check at attach time enough to keep the master and its
-> slaves in the same namespace?
+> The tc-testing config sets CONFIG_NET_SCH_TEQL=3Dm. Unlike the other
+> sch_* modules, sch_teql.c has no MODULE_ALIAS_NET_SCH(). So the
+> alias-based request_module() never autoloads it, and the lookup fails:
 >
-> teql_master_setup() never sets dev->netns_immutable. That means
-> __dev_change_net_namespace() lets teqlN move to another netns while
-> slaves are attached, because this is the only guard:
+> net/sched/sch_api.c:qdisc_create() {
+>     ...
+>         ops =3D qdisc_lookup_ops(kind);
+>         if (!ops) {
+>                 err =3D -ENOENT;
+>                 NL_SET_ERR_MSG(extack, "Specified qdisc kind is unknown")=
+;
+>                 goto err_out;
+>         }
+>     ...
+> }
 >
->     if (dev->netns_immutable) {
->         NL_SET_ERR_MSG(extack, "The interface netns is immutable");
->         goto out;
->     }
+> When that happens, tc still exits with 2 and nothing named teql0
+> appears. Both 6a06 and 124e then pass, whether or not the kernel has
+> either check. That includes a kernel without the namespace fix.
 >
-> The move runs dev_shutdown() only on teqlN's own qdisc. The teql slave
-> qdiscs on the init-net devices stay linked in m->slaves:
-> teql_master_close() only stops the queue, and teql registers no netdev
-> notifier.
+> The module is loaded only by try_modprobe() in tdc.sh. That function
+> just prints "skipping" when modprobe fails. Running tdc.py directly,
+> for example with -e 6a06 or -c teql, never loads it.
 >
-> Once the master is in netns B, three things can happen:
+> The commit message says "only the root-only check can refuse it" and
+> "only the namespace check can refuse that one". That only holds when
+> sch_teql is loaded.
 >
-> The owner of B, who may be root in an unprivileged user namespace,
-> passes the new dev_net(dev) =3D=3D dev_net(m->dev) check. It can then add
-> its own devices to a ring that still holds init-net slaves.
+> Would it make sense for each case to match the specific extack
+> message? Another option is to fail when the teql0 kind is unavailable.
 >
-> teql_master_open() takes the MTU and flags from the init-net slaves.
->
-> Traffic sent through teqlN in B reaches teql_master_xmit(), which sets
-> skb->dev =3D slave and calls netdev_start_xmit() on the init-net slave.
-> Through __teql_resolve(), it also calls ipv4_neigh_create() on the
-> init-net slave.
->
-> Moving teqlN out of init_net needs CAP_NET_ADMIN in init_net, so the
-> unprivileged user cannot do this alone. After this patch, though,
-> moving the master seems to be the only way a container can use teql.
->
-> Should the master be marked netns_immutable? Alternatively, should a
-> netns change of the master be refused, or detach the existing slaves?
->
-> > -     skb_queue_head_init(&q->q);
-> > +     q->m =3D m;
-> >
-> >       raw_spin_lock_irqsave(&m->slaves_lock, flags);
+> The positive teql cases would fail in the same setup, so the suite as a
+> whole would still show that something is wrong.
 >
 > --
 > Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
