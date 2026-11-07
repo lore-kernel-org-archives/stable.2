@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050948;
-	b=YMYQPosthUhhUErMHWNqCZPqPvNVpwyikd+l4/jVRmb6Unq8jE6uWmhVvkGfCx/Hjs4/
-	 5/3XYDcnJcb2YN040B6Lsn37GHt8xMbEOYcRJKhDd/mx5CTQaxC12MVNgKD+PI7+DaxgM
-	 AJ7i65gQamQdVBPQmyqOWwTe1yScZR2TuonsAsEF10paIwft0bhM5Z/o3Cd9cbqXPiD2B
-	 NoDOrzRpoKdzoCL2KAsa1q7nv6TZe5ktw5SF6z/oqwwnl6uFfCGdtESw8B58UyyoaXE6d
-	 BVUJd/TSteMjiodznkyJug4YXpxMIpoqXV4z05HINyu7fucNSRgkpE8/GpPG+rs0zVg==
+	t=1794050952;
+	b=E17J3okCV5B//v4Vrohgu6MW/8OllHYh62SXe0M6hfVJrZzSxb9B+OMNXnGjzVcpX6Lq
+	 m6HWfAflN7p+Xy7EaUb06lOs1B2NXojgs9/Heh2V0EDn+fzGu28bPp1nbC0kRcUxLylXS
+	 2+dvzUucMsCDqfqh9cuDbGsz1HGODZr6/NTesha4B+hBVmAlzwKPBehRHNad1iEbivOMP
+	 zFARjjZGyDRA2cmx/28gufIynvLtYx+LTPHpEL4LFhAZlypIEUp/wjjqL1INmK3Q99YUZ
+	 vlrLVxmZuSEFJM5BTFbCfiV7KW1+g6idysNZM/iDjVGzGWywLMQJKSEOmg4jC3soxkw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050948;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050952;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=LPCQuNQtkvuPcT3kT7vqEzG8o7EI5UF6IZsSGOLJtOw=;
-	b=eIis2J54I+f9JHheAGZD3blRCh8wopNbk5LDMxhN94YGiE56SVnwJFGrJgyngMXoJfXp
-	 PpSC1I0PEFZXDqUs8CC9wHy5thJll0zTcyhSua/PbW5kDIOZTL9d3X/oBbu7YVtVMebeE
-	 vDXCuBw745YowQuHkNW5pZgJdDcM6KW1CKvIMBKmb+ntfNpGiUPihD7nBezxxMTRXC8OX
-	 KeDctvrq+kFgAipum23b6RUrTpxtt+IIO30BqT71dJw9VjOcESaR8S1Kp5Js3iWMW+u1K
-	 Ufb5o0EehYZpOpTkPI7ezp7Pfgy8cU1itmTuzj5UyuDPxkP20/UkXXSPqGsuhy+mlNg==
+	bh=loedWa4AZ8EHvXb4kYs2RE/aobTWpyfY7RwVZc9xLxw=;
+	b=iIvdB3+MeZj+fhKwGo0y2kfe4Wla4U/NOFRV32Ad03j416Y3yHU53TZzIzIL6bfBbOqW
+	 be9+Fh2+fVMUvPO/nXnPtDvPZAgzy7eELoGaRjPBsJNcNRaJuhHNu+qwTKSpUR8Hb1XOD
+	 R31pYN3UXTmGxSrISPG9PM5lc+C0bg3tBmW0maNIMDUiJWv2wdq2VcsONlxHy1LpQnAOP
+	 CNF2WXuYznHXujqCCebrTmr/takNnAt3pdbF/5F7gaMQPbs5TlTdJz63v/iSp/ftk/QHi
+	 Sb6uZaD+FyUTR7HrnwVlieNH+yfSlax7BVpDPMuEHje1zPLUyqNUUJ2NIKtwg8RMYiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N3Yrk285;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SUCDKqBm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D710606A32F
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:29:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA028606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:29:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N3Yrk285
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD3051F0089F;
-	Sat,  7 Nov 2026 11:29:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SUCDKqBm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25C671F0089F;
+	Sat,  7 Nov 2026 11:29:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050948;
-	bh=LPCQuNQtkvuPcT3kT7vqEzG8o7EI5UF6IZsSGOLJtOw=;
+	s=k20260515; t=1794050951;
+	bh=loedWa4AZ8EHvXb4kYs2RE/aobTWpyfY7RwVZc9xLxw=;
 	h=From:To:Cc:Subject:Date;
-	b=N3Yrk285qu2DYXkh/+zW5ULqvHD/sq+8CekOkFJXQmJE64lLL0ToAtMKki32uzCZs
-	 TtCtOPINhpcHNPStK09rUORWNqGkDDb0Xa5rArkhACBeru7GYrgTayZhtLib3Lc9vA
-	 6DSq5Ia/jRfyLK6NOZMVzMxa6jbrmJEeztiG2XJVuJy5uTJGPfpJT5Xtk1DERyL0mI
-	 prRFyYk1v2/4kmahVFhfEwfklraP5UMPTtJx+RHuPa9snH2x0QzXL14fbCcBHOuQYZ
-	 EWThqInaRIwAakVECqOUIl06ughiXCROtkuWr85NPk2v1309rKGY8CFwvOdYqoyQin
-	 rheTE1OjD1z9A==
+	b=SUCDKqBmT8TVpSF337NyV7rb4cnOWCHD2PCX8WboxWVbVa5lNWgNH9NmokQzN1ikK
+	 yr0XmWt369JZt+7PuliEduw6a+SbxVMzK/PUXzO7DGU7QxR3IAoGTqa7qZb0Ff6XKy
+	 XvLs3I7Hono8sHq5Cb2E+F/5O0NMjEwjQzzr8O+aB2m0DMwek3AxsLlTe/H7SFWRBo
+	 20W68bLQdKn9kwxWFv7NhgzOLcMHnAMPwScBkYPyntk4DwpkK2ygw0BZ243aBsIkU1
+	 e4lxTCrAF5AMem2bfwUHQp+AseZTg2DbwlN2WmUwDDwX342bEM6+UrMMkiQP8ELi5x
+	 uAi3Qsikb3//g==
 From: Sasha Levin <sashal@kernel.org>
-To: xmei5@asu.edu,
-	co+ecaada42f806f629@bugs.sh,
+To: jeremy.jean@oss.cyber.gouv.fr,
 	amarkuze@redhat.com,
 	idryomov@gmail.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ceph: fix integer overflow in the snap trace bounds check" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:29:06 -0500
-Message-ID: <20261107062906-failed-5.10-b3bf89767e3c@kernel.org>
+Subject: FAILED: patch "[PATCH] ceph: fix 32-bit overflow in readdir reply count check" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:29:09 -0500
+Message-ID: <20261107062909-failed-5.10-52913831ba56@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,97 +69,60 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x b3bf89767e3ca9506f1c7167cac97c41ec254d42
+git cherry-pick -x 52913831ba56efceaafd80b501d68fa00f79bde6
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062906-failed-5.10-b3bf89767e3c@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062909-failed-5.10-52913831ba56@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From b3bf89767e3ca9506f1c7167cac97c41ec254d42 Mon Sep 17 00:00:00 2001
-From: Xiang Mei <xmei5@asu.edu>
-Date: Tue, 15 Sep 2026 14:40:27 -0700
-Subject: [PATCH] ceph: fix integer overflow in the snap trace bounds check
+From 52913831ba56efceaafd80b501d68fa00f79bde6 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+Date: Wed, 23 Sep 2026 20:25:34 +0000
+Subject: [PATCH] ceph: fix 32-bit overflow in readdir reply count check
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-ceph_update_snap_trace() bounds the two encoded snapid arrays that follow a
-struct ceph_mds_snap_realm with sizeof(u64) * (num_snaps +
-num_prior_parent_snaps).  Both counts come straight off the wire as __le32,
-so the addition is evaluated in unsigned int and wraps before sizeof(u64)
-promotes it to size_t: an MDS sending num_snaps = 1 and
-num_prior_parent_snaps = 0xffffffff makes the sum zero and the check
-degenerates to ceph_decode_need(&p, e, 0, bad), which always passes.
-dup_array() then reads num_snaps * 8 bytes past the end of the message
-front, which ceph_msg_new2() allocates at exactly front_len bytes.  An
-unsolicited CEPH_MSG_CLIENT_SNAP reaches this from a malicious or
-compromised MDS with no client-side action, as do the snaptraces carried in
-an MDS reply and in a cap import.
+parse_reply_info_readdir() checks how many entries are in a readdir
+reply by computing the end pointer of the decoded array. That pointer
+addition can wrap on 32-bit kernels and let an oversized count pass the
+check. For example, a count of 0x40000000 with 156-byte entries wraps
+to a zero offset, so the decoder can write past the preallocated buffer.
 
-Compute the length with size_add()/size_mul() so it saturates at SIZE_MAX
-instead of wrapping, in the style fs/ceph/mdsmap.c already uses for
-num_export_targets.
-
-  BUG: KASAN: slab-out-of-bounds in dup_array (include/linux/unaligned.h:28 fs/ceph/snap.c:500)
-  Read of size 8 at addr ffff8880102a16c8 by task kworker/1:2/129
-  Workqueue: ceph-msgr ceph_con_workfn
-  Call Trace:
-   dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
-   print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
-   kasan_report (mm/kasan/report.c:595)
-   dup_array (include/linux/unaligned.h:28 fs/ceph/snap.c:500)
-   ceph_update_snap_trace (fs/ceph/snap.c:836)
-   ceph_handle_snap (fs/ceph/snap.c:1155)
-   mds_dispatch (fs/ceph/mds_client.c:7234)
-   ceph_con_process_message (net/ceph/messenger.c:1424)
-   ceph_con_v1_try_read (net/ceph/messenger_v1.c:1430)
-   ceph_con_workfn (net/ceph/messenger.c:1576)
-   process_one_work (kernel/workqueue.c:3396)
-   worker_thread (kernel/workqueue.c:3479 kernel/workqueue.c:3560)
-   kthread (kernel/kthread.c:436)
-   ret_from_fork (arch/x86/kernel/process.c:158)
-   ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
-  ...
-  The buggy address is located 0 bytes to the right of
-   allocated 72-byte region [ffff8880102a1680, ffff8880102a16c8)
+Check the count against the number of entries that fit in the allocation
+before publishing dir_nr. Reject oversized replies through the existing
+error path.
 
 Cc: stable@vger.kernel.org
-Fixes: 963b61eb041e ("ceph: snapshot management")
-Reported-by: co+ecaada42f806f629@bugs.sh
+Fixes: 54008399dc0c ("ceph: preallocate buffer for readdir reply")
 Assisted-by: LLM
-Signed-off-by: Xiang Mei <xmei5@asu.edu>
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
 Reviewed-by: Alex Markuze <amarkuze@redhat.com>
 Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
 ---
- fs/ceph/snap.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ fs/ceph/mds_client.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/fs/ceph/snap.c b/fs/ceph/snap.c
-index 498ffc1a91cb8..5c1540d95b8c3 100644
---- a/fs/ceph/snap.c
-+++ b/fs/ceph/snap.c
-@@ -788,6 +788,7 @@ int ceph_update_snap_trace(struct ceph_mds_client *mdsc,
- 	struct ceph_snap_realm *first_realm = NULL;
- 	struct ceph_snap_realm *realm_to_rebuild = NULL;
- 	struct ceph_client *client = mdsc->fsc->client;
-+	size_t snaps_len;
- 	int rebuild_snapcs;
- 	int err = -ENOMEM;
- 	int ret;
-@@ -802,8 +803,10 @@ int ceph_update_snap_trace(struct ceph_mds_client *mdsc,
- 	ceph_decode_need(&p, e, sizeof(*ri), bad);
- 	ri = p;
- 	p += sizeof(*ri);
--	ceph_decode_need(&p, e, sizeof(u64)*(le32_to_cpu(ri->num_snaps) +
--			    le32_to_cpu(ri->num_prior_parent_snaps)), bad);
-+	snaps_len = size_mul(size_add(le32_to_cpu(ri->num_snaps),
-+				      le32_to_cpu(ri->num_prior_parent_snaps)),
-+			     sizeof(u64));
-+	ceph_decode_need(&p, e, snaps_len, bad);
- 	snaps = p;
- 	p += sizeof(u64) * le32_to_cpu(ri->num_snaps);
- 	prior_parent_snaps = p;
+diff --git a/fs/ceph/mds_client.c b/fs/ceph/mds_client.c
+index a207b342e7dae..9f13f3f7b800f 100644
+--- a/fs/ceph/mds_client.c
++++ b/fs/ceph/mds_client.c
+@@ -504,10 +504,8 @@ static int parse_reply_info_readdir(void **p, void *end,
+ 		goto done;
+ 
+ 	BUG_ON(!info->dir_entries);
+-	if ((unsigned long)(info->dir_entries + num) >
+-	    (unsigned long)info->dir_entries + info->dir_buf_size) {
++	if (num > info->dir_buf_size / sizeof(*info->dir_entries)) {
+ 		pr_err_client(cl, "dir contents are larger than expected\n");
+-		WARN_ON(1);
+ 		goto bad;
+ 	}
+ 
 -- 
 2.53.0
 
