@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047346;
-	b=gPggSpkGOWzeWXqC0TiY916BCT6NHsE2dLDaZESTGD8u0F++ZKNrorhzM8L4yKO3dsop
-	 CujOk9ED7vzYRQWTLFNq3G85WRYG4wMaKCkAQbICmZak/0ZTLcJpA7AvsiL12g7FpN+Is
-	 9RcjbS9hlh6m5YcHKKjo2tZ+BCDct43m8Z9Lp7Q5knmthFElkfN/E5ViJzHnydGQ0FEOS
-	 dWSFqJAQnE81z0qJQJ/oqhHgDsD7uZ4REN8l69t6QyFpyTvbKxAK8YlNcTZ1NnSubq/tl
-	 MVAyXMrNNlDvxZuqJSe17QvSSDhfoawCsaV6EhLHK5WrAirYfabN1fKevpi4GdbLKUQ==
+	t=1794047348;
+	b=HT7sufRn3te8azmV8tgV7cFR+JzCuwY4P7M2RtIqVB207sjMv4JqOdympW6XsU92LBta
+	 DCD3hGw3OckvJX6iuYaG6KScqvI1/kWvKiuEPag9oTg5Iq2ExUf4woH+bS2f3Hv2pv51p
+	 /9+/ugQuCVe+x1gwgyuHAGLovmHuItJhbTJ/DLplKkOsUZSmldmjGoVior86OIAv4beFt
+	 TzETThAXjltCWwmvO6WnsKqGXSdR0gUlGU8a4mqG4bsSg9qZGXDU6PPQ4vVQ6A4JUY/JF
+	 v/zlz0T0Z/ehjxu7V9A+YfHCzvFYGymlkUUy911DZxkZat7ifoFt+FzUBz8YMxsEeNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047346;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047348;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=YxHNHlP3tncIjtGxgyVcZ6nmHmGW3x8vcYv5+aKUCBw=;
-	b=C6xfP1aqhTzdX1WcAt6H4NiwHLFkEeMX7nQ2dGVKZa7HHxaOLAF2BX/tPliykUfV5Wtq
-	 EWXG5a1jXJYZMHU+ldAS8OmDAHqHjrVa/3ryl1xaht61vAIt4yE9U4O31ork+QVwje0hU
-	 rIH6aVTxjTJQotWYaeKkc9wYlYVdHwYyFbo1QNAKya4TWqoAtxUvzv8PKpk6wrk9FHXCO
-	 1IJBBsdNjUOE0w2PL7LYHGeYPp/vAD/stmUfwg88REZut+obYzxVsQLVnWaZjJbNXi7Nv
-	 8h43Q4dwNfZlizTudysHLVSE+mVh4A/k9ko8U1fXL+UVk7ozW20dAGq/nSYukb0+c/w==
+	bh=sSJlDMs95YqloNG/qitNoPH8IEmcvNCI55c3Qa9KZeE=;
+	b=J4fhBpXT0KWnAyh0s7am2a9kR9b2II1D93i/2ESvrcrwdJFGsMIMLq+agHVT8yS4qRKa
+	 qLNpXvK/u6OUThin/Ud5snRSfrs31Lz5M1uK5woY38/dzTp0NOheiNn2f6mk653lPk/r8
+	 uQJeiWMX3zAipKeY3Vp9Mikmej3S6bvyISYuRDIy/WTSbjXpX65wqn+ckoiBEBKiYSajc
+	 jHCU7IILHvRxSr1hWisj3PkLDXgzSYPkjjRBkCmXFvdkM4Dic4gqpxUAozpmOoWlvMysw
+	 z6Qkd9jbYyX6Teg/WUv43UFKosKXduzLUfYjD+FI81x90aJ2Kjbbekz2qF5EKIt5UiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G50znMQC;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e6ITkz6F;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43FD2606D817
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:29:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 498C7606A33D
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:29:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G50znMQC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF0DA1F008BC;
-	Sat,  7 Nov 2026 10:29:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e6ITkz6F
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDC831F0089F;
+	Sat,  7 Nov 2026 10:29:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047346;
-	bh=YxHNHlP3tncIjtGxgyVcZ6nmHmGW3x8vcYv5+aKUCBw=;
+	s=k20260515; t=1794047348;
+	bh=sSJlDMs95YqloNG/qitNoPH8IEmcvNCI55c3Qa9KZeE=;
 	h=From:To:Cc:Subject:Date;
-	b=G50znMQC4Mk3zuwjRFQqner0ZzlKNK5o+7xi+9IZR+WopOYc+G5y1vTu/lKJJC6Tv
-	 e38oDR0Xl2H7OiKdCDwfwWKED3j6oE8pUet/HibrA/qPamZXN3sx6fh9Yes+TIfp1u
-	 3DzYsVdUBsK+G8WJQUaVD36o+VWXy9AIZ1UTkJxTmJrImvM5hAWB5hnXBg99bU11Ag
-	 55XnIJ1rMxhhEwV5IFMsGnnRfWT2hX1erm8fSUYffKygF/6226znQasxZb8rYsKB85
-	 Bgk1qo6V59UfMobFs3a4umN1IxYaQeWSzX6dq2qS9RrltVmb/8mhmDUv3Ee3BeRnXo
-	 jizjODJHN0a1A==
+	b=e6ITkz6FvByDGY5ncvFis6regr2mP05tcd++sYX2y/MdDUO0lMBkKwpgfkXSwsyyf
+	 7DYRHW4wvNCSfU9drtWJIlO81ab4T2VlKVQEj9qmP709evHm6ccnvlpRik0/4+hWZS
+	 MCJ5HRpxOdM7DiKCeWYkw7e+3X4RRLN3RL0Q9N9e4aryuRNJSWIAyuf5GX6xStp/iD
+	 cq36cTlQe9kdhgu2ffSwC4m4FOaMuG3E41QpwLa0/4m+D3lWc9fFsBSgI4qp9TEHur
+	 Dt02pedrFKB8DvRXVz56zm+3KQOvaBsha/Ay2OT5KQnZtP63oCj0feVhOr8r/Rewd/
+	 jvzE2MSt64x7A==
 From: Sasha Levin <sashal@kernel.org>
 To: msakai@redhat.com,
 	mpatocka@redhat.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] dm vdo indexer: prevent delta list overflow on load" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:29:04 -0500
-Message-ID: <20261107052904-failed-6.6-936293c9f3f4@kernel.org>
+Subject: FAILED: patch "[PATCH] dm vdo indexer: validate record page numbers better" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:29:06 -0500
+Message-ID: <20261107052906-failed-6.6-e3683a76a313@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,78 +68,76 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 936293c9f3f4f2a0d1b80df9332e96c552ac3b37
+git cherry-pick -x e3683a76a313a81f3f7bc7f65e4fc1e61232838b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052904-failed-6.6-936293c9f3f4@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052906-failed-6.6-e3683a76a313@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 936293c9f3f4f2a0d1b80df9332e96c552ac3b37 Mon Sep 17 00:00:00 2001
+From e3683a76a313a81f3f7bc7f65e4fc1e61232838b Mon Sep 17 00:00:00 2001
 From: Matthew Sakai <msakai@redhat.com>
-Date: Tue, 11 Aug 2026 15:02:33 -0400
-Subject: [PATCH] dm vdo indexer: prevent delta list overflow on load
+Date: Tue, 11 Aug 2026 15:02:34 -0400
+Subject: [PATCH] dm vdo indexer: validate record page numbers better
 
-Check for corrupted delta lists sizes that overflow the
-memory available for the delta_lists. An overflow can
-cause the delta list data to be written outside the
-reserved delta memory space.
+Move the record_page_number validation check into the
+chapter index lookup function in order to detect (and
+discard) corrupted values on all paths.
 
 Signed-off-by: Matthew Sakai <msakai@redhat.com>
 Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
 Cc: stable@vger.kernel.org
 ---
- drivers/md/dm-vdo/indexer/delta-index.c | 17 ++++++++++++++---
- 1 file changed, 14 insertions(+), 3 deletions(-)
+ drivers/md/dm-vdo/indexer/chapter-index.c | 15 +++++++++++----
+ drivers/md/dm-vdo/indexer/volume.c        |  6 ------
+ 2 files changed, 11 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/md/dm-vdo/indexer/delta-index.c b/drivers/md/dm-vdo/indexer/delta-index.c
-index b288749067dee..257612b81a9d9 100644
---- a/drivers/md/dm-vdo/indexer/delta-index.c
-+++ b/drivers/md/dm-vdo/indexer/delta-index.c
-@@ -800,7 +800,7 @@ static void compute_new_list_offsets(struct delta_zone *delta_zone, u32 growing_
- 		(delta_zone->size * BITS_PER_BYTE - delta_lists[tail_guard_index].size);
- }
+diff --git a/drivers/md/dm-vdo/indexer/chapter-index.c b/drivers/md/dm-vdo/indexer/chapter-index.c
+index bb3b0ab5d50dc..9fb9e59238d4c 100644
+--- a/drivers/md/dm-vdo/indexer/chapter-index.c
++++ b/drivers/md/dm-vdo/indexer/chapter-index.c
+@@ -284,10 +284,17 @@ int uds_search_chapter_index_page(struct delta_index_page *index_page,
+ 	if (result != UDS_SUCCESS)
+ 		return result;
  
--static void rebalance_lists(struct delta_zone *delta_zone)
-+static int rebalance_lists(struct delta_zone *delta_zone)
- {
- 	struct delta_list *delta_lists;
- 	u32 i;
-@@ -811,9 +811,17 @@ static void rebalance_lists(struct delta_zone *delta_zone)
- 	for (i = 0; i <= delta_zone->list_count + 1; i++)
- 		used_space += get_delta_list_byte_size(&delta_lists[i]);
- 
-+	if (delta_zone->size < used_space) {
-+		return vdo_log_warning_strerror(UDS_CORRUPT_DATA,
-+						"delta zone lists overflow zone size %zu",
-+						delta_zone->size);
-+	}
-+
- 	compute_new_list_offsets(delta_zone, 0, 0, used_space);
- 	for (i = 1; i <= delta_zone->list_count + 1; i++)
- 		delta_lists[i].start = delta_zone->new_offsets[i];
-+
-+	return UDS_SUCCESS;
- }
- 
- /* Start restoring a delta index from multiple input streams. */
-@@ -941,8 +949,11 @@ int uds_start_restoring_delta_index(struct delta_index *delta_index,
- 	}
- 
- 	/* Prepare each zone to start receiving the delta list data. */
--	for (z = 0; z < delta_index->zone_count; z++)
--		rebalance_lists(&delta_index->delta_zones[z]);
-+	for (z = 0; z < delta_index->zone_count; z++) {
-+		result = rebalance_lists(&delta_index->delta_zones[z]);
-+		if (result != UDS_SUCCESS)
-+			return result;
+-	if (was_entry_found(&entry, address))
+-		*record_page_ptr = uds_get_delta_entry_value(&entry);
+-	else
++	if (!was_entry_found(&entry, address)) {
+ 		*record_page_ptr = NO_CHAPTER_INDEX_ENTRY;
++		return UDS_SUCCESS;
 +	}
  
- 	return UDS_SUCCESS;
+-	return UDS_SUCCESS;
++	*record_page_ptr = uds_get_delta_entry_value(&entry);
++	result = VDO_ASSERT(*record_page_ptr < geometry->record_pages_per_chapter,
++			    "0 <= %d < %u", *record_page_ptr,
++			    geometry->record_pages_per_chapter);
++	if (result != VDO_SUCCESS)
++		*record_page_ptr = NO_CHAPTER_INDEX_ENTRY;
++
++	return result;
  }
+diff --git a/drivers/md/dm-vdo/indexer/volume.c b/drivers/md/dm-vdo/indexer/volume.c
+index 78c3729f1f65e..38e51fa1cbd05 100644
+--- a/drivers/md/dm-vdo/indexer/volume.c
++++ b/drivers/md/dm-vdo/indexer/volume.c
+@@ -891,12 +891,6 @@ int uds_search_cached_record_page(struct volume *volume, struct uds_request *req
+ 	if (record_page_number == NO_CHAPTER_INDEX_ENTRY)
+ 		return UDS_SUCCESS;
+ 
+-	result = VDO_ASSERT(record_page_number < geometry->record_pages_per_chapter,
+-			    "0 <= %d < %u", record_page_number,
+-			    geometry->record_pages_per_chapter);
+-	if (result != VDO_SUCCESS)
+-		return result;
+-
+ 	page_number = geometry->index_pages_per_chapter + record_page_number;
+ 
+ 	physical_page = map_to_physical_page(&volume->geometry, chapter, page_number);
 -- 
 2.53.0
 
