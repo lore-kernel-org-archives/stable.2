@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046019;
-	b=gI17c1/Evvq9udnNSG/ahwMNwkd1kEMlvhv0PFajoP3pZTkSORSpL8gvtq6N7nLZWZJC
-	 G5En33A0H8igVVh7/rVf/Mp8AGp9MjK1EbTP4sCGzlH+NclSOKUeCZsuC2kEp1BQm+bb/
-	 gE20JWibjBy29wgxM3+oIezxtPaMZcB3vEB9IQf/9aMMdsCt5A6LBSND8Web9PWPw+pgR
-	 S/RS1LV6O3iQttmyvtrcm8dpS8wQ6srlz0mVd8ssK9gsm/akVEcn7pXj5mm/NDCGGEp5Y
-	 PxCvy5C6JBLci4eTrsSkwDewl4X3UAGgRZpzkBdTXXxDF9bZ26tv/SaN7DYdjnHrptA==
+	t=1794046022;
+	b=NCbN3WJWcdHKzmpQLNQT+XQUHImGpQmnUiFgLBoeNT7RdWp4da0GsUyQFUh1mJiZMJmM
+	 WyGBD9XqyQOaoF1tijxesD8La51JH5FoQvx5RYx706phfMQDb6fXR+ltAUkbOHMSKJa+b
+	 qXRH25UZw2UroDvh8SuUpJXt6DCOAY6O1lgLL/EqI/MQOVglbmXN/sF8txgPKY8AdMjw/
+	 /68SSP+0olj2bCSQJn31bA37JQ9NyXW6hwCWPY03XZW3v8v7eZUConfGD4k7255utbCwH
+	 e9XzH7AewfVy+kNchtGkRW/FbnWV1U93eleQY7UsUNw5kwZqw5oMzuNb+fCzc1HUhDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046019;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046022;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ERlBYZ4xAp+9e4+HzV92HJMzDBW04RSBL+5LrAiRODo=;
-	b=U1EmsDWIA1oXcvzHAB4EspUMAqXr/EyDA42rnwkGJM9OuEJEEIs5CUsY+A9A6Ksejwbc
-	 DxVcb8qZbu0d0MslBdb/NAuYVIDFBQbhAhQvFD1ZKy/MNZwSiRlufFs7iTsYWhDfhDUwH
-	 4LnybXtlaoEMsZ1JxpuQoRwFO9aR5Lmhz1VaZe8fgEZGbptT6FxBlbcceH5p0lFXPBj1q
-	 ynY97SmD7uk2UdM6hOD/ZobsDsisxH3k+o9+A4BYNpOPXMatGg8GXZDF8zpiKzUUH+roH
-	 cSMgsaIsOLbUwbJaaWRJbS3gxdBEQwpp5N1hho7XQmoLnGDyUx27RLeVJc4KvpsK24g==
+	bh=oRhog28cW94Mphg3TQBvfT8x1YdrsWQgUK4zK2ZwxIc=;
+	b=j4FPCKy6RMpaxsrnAFn6fpjaPdXdFaUiVLAYN/SqREsUsOTqIlnJHuunoR5CbjaSR5MJ
+	 cqeX5FXVxiC0rzb/0gKznRlLTVX5wpIucf3AhSCvu8z3fZI3NTk8eCZE6Aouer4UzM06n
+	 1W7pfqiKpiFR8rnJWamAC8KZ07wKU9o+EZKWLikg8cePVn59QFXoQLd6hN/9AAKBgEQZC
+	 52gkqznkMHB7ZXwXyT2Fdf+nH6Ywf9YUy1TVsV0RM5jtY9WrretKn8ZtvMJBKq7QZSORI
+	 /CFIt+Q5vOYdT1jIcekC22801hVTyRk94ZaK4d8rcKjlbNAoz3Ca8YjkiXiY7CBX7NA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h5j9ffGM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mXgpoPw7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61C45606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:06:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6C90606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:07:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h5j9ffGM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B78451F0089F;
-	Sat,  7 Nov 2026 10:06:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mXgpoPw7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F26E1F0089F;
+	Sat,  7 Nov 2026 10:07:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046019;
-	bh=ERlBYZ4xAp+9e4+HzV92HJMzDBW04RSBL+5LrAiRODo=;
+	s=k20260515; t=1794046021;
+	bh=oRhog28cW94Mphg3TQBvfT8x1YdrsWQgUK4zK2ZwxIc=;
 	h=From:To:Cc:Subject:Date;
-	b=h5j9ffGMBUTnPUGDjvBgxiwkh5vbsZhlEAGUgv8ts22zYqaioJjKYI7F1BMnsS8ix
-	 7EnbeIV1oHu4XAtYCsAib9hkd45CZVShKiI6TIgzvVL7lti8jA28Rao4eGM+fFoSQd
-	 xNSMYD8b6tEEMzQP4pTDFrw/ZHOIYSByfLqEHqjdPsWU7+71tWZsSiPJe8qBdnNQdT
-	 zM0zojDeAOYZEkcgfsSjsL39VswRsulsnw6e57iH0b7VhqfBiZE2nAjiP6piBXnuxg
-	 /FCX9Ap0/hvEbMM2w5gWUiXQjjuHQUWMXeC48ds/8urapuBcqvPctmsfAvkc5VHSC+
-	 ObXaXm+AKQhiA==
+	b=mXgpoPw7u2kEMsJPpas+jmmgDIV7dcrNY4gfrRQWpCqStvesr32DE/uVGJkP/kLcK
+	 +np0LyolXYa/TtIjAHMHxat1+4A9AWUWfjOJg4Dj1r1WnRnzgCPdrXxYZBlPyn6AUV
+	 OW8b+sbAFqOyb8xlNSHuHJFvZsrO+kVTMYqsN3tPkdATC9vcckxtzQYiisDHEgKA9z
+	 mM0kEJeIBIj9vAlfWpw8AftTI5zcXz3P/KVHVy2KvUb/LvgsaEfF3myId79H59qZID
+	 CVR6FIwpAusBlT6e4C0wOat2LI28LPUI10SCEPiSA+H7Cj6zO7o4QypKJLBB9zzroH
+	 1r/7csdOxi8lA==
 From: Sasha Levin <sashal@kernel.org>
-To: sakari.ailus@linux.intel.com,
-	dave.stevenson@raspberrypi.com,
-	laurent.pinchart@ideasonboard.com
+To: christian.loehle@arm.com,
+	sumitg@nvidia.com,
+	rafael.j.wysocki@intel.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] media: imx219: The horizontal blanking step is 8" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:06:57 -0500
-Message-ID: <20261107050657-failed-6.18-47576c541e9b@kernel.org>
+Subject: FAILED: patch "[PATCH] ACPI: CPPC: Validate FFH register fields before hardware access" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:06:59 -0500
+Message-ID: <20261107050659-failed-6.18-6b016c5c9644@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,67 +69,181 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 47576c541e9b473841742bd0686d4940f5c93564
+git cherry-pick -x 6b016c5c96448c0a5f09328d37f66562d154a5e5
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050657-failed-6.18-47576c541e9b@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050659-failed-6.18-6b016c5c9644@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 47576c541e9b473841742bd0686d4940f5c93564 Mon Sep 17 00:00:00 2001
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-Date: Mon, 22 Jun 2026 14:23:40 +0300
-Subject: [PATCH] media: imx219: The horizontal blanking step is 8
+From 6b016c5c96448c0a5f09328d37f66562d154a5e5 Mon Sep 17 00:00:00 2001
+From: Christian Loehle <christian.loehle@arm.com>
+Date: Wed, 16 Sep 2026 17:28:01 +0100
+Subject: [PATCH] ACPI: CPPC: Validate FFH register fields before hardware
+ access
 
-The step for the LINE_LENGTH_A register on imx219 is 8. Take this into
-account in creating and modifying the horizontal blanking control. The
-minimum line length in pixels as well as the horizontal blanking values
-are already divisible by 8.
+The x86 CPPC FFH accessors construct masks and shift values using the
+firmware's Bit Width and Bit Offset without checking that the field fits
+in an MSR. A zero-width field or a field extending beyond bit 63 can
+therefore cause an invalid shift. The safe MSR accessors only handle an
+access fault, not invalid field arithmetic after a successful read.
 
-Fixes: cd5e2fd89923 ("media: i2c: imx219: make HBLANK r/w to allow longer exposures")
-Cc: stable@vger.kernel.org
-Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Also, the 64-bit GAS address is implicitly narrowed to the 32-bit MSR
+number. A descriptor with nonzero upper address bits can access a different
+MSR from the one described by firmware.
+
+The arm64 AMU counter readers have the same unchecked field arithmetic.
+Validate the field bounds before reading a counter, including both
+descriptors in the paired counter path.
+
+Dispatch FFH accesses before decoding the GAS Access Size in the common
+read and write paths. Otherwise, a large access_width can trigger an
+invalid shift in GET_BIT_WIDTH() before the architecture validates its
+register. That field has architecture-specific FFH semantics and is not
+needed by the generic memory/port accessor on this path.
+
+Validate x86 MSR addresses and share the field-bounds checks between
+related accessors within each architecture.
+
+Fixes: a6cbcdd5ab5f ("ACPI / CPPC: Add support for functional fixed hardware address")
+Fixes: 68c5debcc06d ("arm64: implement CPPC FFH support using AMUs")
+Fixes: f489c948028b ("ACPI: CPPC: Fix access width used for PCC registers")
+Cc: All applicable <stable@vger.kernel.org>
+Signed-off-by: Christian Loehle <christian.loehle@arm.com>
+Tested-by: Sumit Gupta <sumitg@nvidia.com>
+Link: https://patch.msgid.link/20260916162805.1039247-17-christian.loehle@arm.com
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 ---
- drivers/media/i2c/imx219.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ arch/arm64/kernel/topology.c | 12 +++++++++++-
+ arch/x86/kernel/acpi/cppc.c  | 14 ++++++++++++++
+ drivers/acpi/cppc_acpi.c     | 10 ++++++----
+ 3 files changed, 31 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/media/i2c/imx219.c b/drivers/media/i2c/imx219.c
-index b1f29037af742..05717b1e32244 100644
---- a/drivers/media/i2c/imx219.c
-+++ b/drivers/media/i2c/imx219.c
-@@ -78,6 +78,7 @@
- #define IMX219_LLP_MIN			0x0d78
- #define IMX219_BINNED_LLP_MIN		0x0de8
- #define IMX219_LLP_MAX			0x7ff0
-+#define IMX219_LLP_STEP			8
+diff --git a/arch/arm64/kernel/topology.c b/arch/arm64/kernel/topology.c
+index d28438f8b83f1..2c030e78d5e45 100644
+--- a/arch/arm64/kernel/topology.c
++++ b/arch/arm64/kernel/topology.c
+@@ -470,6 +470,12 @@ static void amu_read_core_const_ctrs(void *val)
+ 	cpu_read_corecnt(&ctrs->corecnt);
+ }
  
- #define IMX219_REG_X_ADD_STA_A		CCI_REG16(0x0164)
- #define IMX219_REG_X_ADD_END_A		CCI_REG16(0x0166)
-@@ -593,7 +594,8 @@ static int imx219_init_controls(struct imx219 *imx219)
- 	imx219->hblank = v4l2_ctrl_new_std(ctrl_hdlr, &imx219_ctrl_ops,
- 					   V4L2_CID_HBLANK,
- 					   IMX219_LLP_MIN - mode->width,
--					   IMX219_LLP_MAX - mode->width, 1,
-+					   IMX219_LLP_MAX - mode->width,
-+					   IMX219_LLP_STEP,
- 					   IMX219_LLP_MIN - mode->width);
- 	exposure_max = mode->fll_def - IMX219_EXPOSURE_OFFSET;
- 	exposure_def = (exposure_max < IMX219_EXPOSURE_DEFAULT) ?
-@@ -935,7 +937,8 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
- 				  IMX219_BINNED_LLP_MIN : IMX219_LLP_MIN;
- 		ret = __v4l2_ctrl_modify_range(imx219->hblank,
- 					       llp_min - mode->width,
--					       IMX219_LLP_MAX - mode->width, 1,
-+					       IMX219_LLP_MAX - mode->width,
-+					       IMX219_LLP_STEP,
- 					       llp_min - mode->width);
- 		if (ret)
- 			return ret;
++static bool cpc_ffh_reg_valid(const struct cpc_reg *reg)
++{
++	return reg->bit_width && reg->bit_width <= 64 &&
++	       reg->bit_offset <= 64 - reg->bit_width;
++}
++
+ static u64 cpc_ffh_extract_bits(const struct cpc_reg *reg, u64 val)
+ {
+ 	val &= GENMASK_ULL(reg->bit_offset + reg->bit_width - 1,
+@@ -506,7 +512,8 @@ int cpc_read_ffh_fb_ctrs(int cpu, struct cpc_reg *reg1, u64 *val1,
+ 	struct amu_ffh_ctrs ctrs;
+ 	int ret;
+ 
+-	if (!is_amu_ctr_reg(reg1) || !is_amu_ctr_reg(reg2))
++	if (!is_amu_ctr_reg(reg1) || !is_amu_ctr_reg(reg2) ||
++	    !cpc_ffh_reg_valid(reg1) || !cpc_ffh_reg_valid(reg2))
+ 		return -EINVAL;
+ 
+ 	ret = counters_read_on_cpu(cpu, amu_read_core_const_ctrs, &ctrs);
+@@ -530,6 +537,9 @@ int cpc_read_ffh(int cpu, struct cpc_reg *reg, u64 *val)
+ {
+ 	int ret = -EOPNOTSUPP;
+ 
++	if (!cpc_ffh_reg_valid(reg))
++		return -EINVAL;
++
+ 	switch ((u64)reg->address) {
+ 	case CPC_FFH_CTR_CORE:
+ 		ret = counters_read_on_cpu(cpu, cpu_read_corecnt, val);
+diff --git a/arch/x86/kernel/acpi/cppc.c b/arch/x86/kernel/acpi/cppc.c
+index bbade0da5130f..d2185b7a20306 100644
+--- a/arch/x86/kernel/acpi/cppc.c
++++ b/arch/x86/kernel/acpi/cppc.c
+@@ -5,6 +5,7 @@
+  */
+ 
+ #include <linux/bitfield.h>
++#include <linux/limits.h>
+ 
+ #include <acpi/cppc_acpi.h>
+ #include <asm/msr.h>
+@@ -45,10 +46,20 @@ bool cpc_ffh_supported(void)
+ 	return true;
+ }
+ 
++static bool cpc_ffh_reg_valid(const struct cpc_reg *reg)
++{
++	return reg->address <= U32_MAX && reg->bit_width &&
++	       reg->bit_width <= 64 &&
++	       reg->bit_offset <= 64 - reg->bit_width;
++}
++
+ int cpc_read_ffh(int cpunum, struct cpc_reg *reg, u64 *val)
+ {
+ 	int err;
+ 
++	if (!cpc_ffh_reg_valid(reg))
++		return -EINVAL;
++
+ 	err = rdmsrq_safe_on_cpu(cpunum, reg->address, val);
+ 	if (!err) {
+ 		u64 mask = GENMASK_ULL(reg->bit_offset + reg->bit_width - 1,
+@@ -65,6 +76,9 @@ int cpc_write_ffh(int cpunum, struct cpc_reg *reg, u64 val)
+ 	u64 rd_val;
+ 	int err;
+ 
++	if (!cpc_ffh_reg_valid(reg))
++		return -EINVAL;
++
+ 	err = rdmsrq_safe_on_cpu(cpunum, reg->address, &rd_val);
+ 	if (!err) {
+ 		u64 mask = GENMASK_ULL(reg->bit_offset + reg->bit_width - 1,
+diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
+index 0e218f2be0fe0..96a94df242312 100644
+--- a/drivers/acpi/cppc_acpi.c
++++ b/drivers/acpi/cppc_acpi.c
+@@ -2446,6 +2446,9 @@ static int cpc_read(int cpu, struct cpc_register_resource *reg_res, u64 *val)
+ 	}
+ 
+ 	*val = 0;
++	if (reg->space_id == ACPI_ADR_SPACE_FIXED_HARDWARE)
++		return cpc_read_ffh(cpu, reg, val);
++
+ 	size = GET_BIT_WIDTH(reg);
+ 
+ 	if (reg->space_id == ACPI_ADR_SPACE_SYSTEM_IO) {
+@@ -2490,8 +2493,6 @@ static int cpc_read(int cpu, struct cpc_register_resource *reg_res, u64 *val)
+ 		return 0;
+ 	} else if (reg->space_id == ACPI_ADR_SPACE_SYSTEM_MEMORY)
+ 		vaddr = reg_res->sys_mem_vaddr;
+-	else if (reg->space_id == ACPI_ADR_SPACE_FIXED_HARDWARE)
+-		return cpc_read_ffh(cpu, reg, val);
+ 	else
+ 		return acpi_os_read_memory((acpi_physical_address)reg->address,
+ 				val, size);
+@@ -2538,6 +2539,9 @@ static int cpc_write(int cpu, struct cpc_register_resource *reg_res, u64 val)
+ 		return -EOPNOTSUPP;
+ 
+ 	reg = &reg_res->cpc_entry.reg;
++	if (reg->space_id == ACPI_ADR_SPACE_FIXED_HARDWARE)
++		return cpc_write_ffh(cpu, reg, val);
++
+ 	size = GET_BIT_WIDTH(reg);
+ 
+ 	if (reg->space_id == ACPI_ADR_SPACE_SYSTEM_IO) {
+@@ -2581,8 +2585,6 @@ static int cpc_write(int cpu, struct cpc_register_resource *reg_res, u64 val)
+ 		return 0;
+ 	} else if (reg->space_id == ACPI_ADR_SPACE_SYSTEM_MEMORY)
+ 		vaddr = reg_res->sys_mem_vaddr;
+-	else if (reg->space_id == ACPI_ADR_SPACE_FIXED_HARDWARE)
+-		return cpc_write_ffh(cpu, reg, val);
+ 	else
+ 		return acpi_os_write_memory((acpi_physical_address)reg->address,
+ 				val, size);
 -- 
 2.53.0
 
