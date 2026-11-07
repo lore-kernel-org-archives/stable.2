@@ -1,52 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794060829;
-	b=zpDFOfRpXePagab6tzn6oKjligAEopFPIk1HMa16Spn++Mrvd2nDiyhAcTmLLcJt2ZJu
-	 PSfc4a0Oz4jlqUzkeFC3AFIzZu6YbaGA8ncy1xEkEDuC/ZG8h9YH97y4FanbjCo9UVxZ7
-	 wg3eOFy3Q5UXos0ooI1tPKObDspsWS3XUjrgurzrEnmKz5u9eatLRCm7drGoh6eHYW4GQ
-	 L0b8Xi2Yhk74v5kAyA3YH7e9z4KqTX7X74wYpUrMbjpo4ae7j5cnlJhHoFEIXW1f+ArEK
-	 a6nXdV0f9b1AGcpFd/wizAzKIoVdS09zN2mKZQCFrC/Ynk7PS10EzrFNY66BAOat9PA==
+	t=1794060835;
+	b=uokArDf+c0IkqbPCEHR36QVeowlsXQemFmKNvD3qKNox8xOYaAK/83P2bsqJP0Wf2xl1
+	 ilOjDMmRym1k3EofIaxbpSxPYHgBWjCHM73yQ45sAbxUSyGL7ufc6GpVZn5JkYK1S/uVG
+	 37U1eOCMDBleF3kGKz1QZKREvcbkNWavRKpC/9ZSywkE3DaALS/Ic4ZGhxHXGJYEfdoBD
+	 mhUPLowKwOkY6o/SPi9eiR10GwbVmVW+T0pLA7uw1QTkA3ToM02PEUzvWA6RCvuwMKqAm
+	 Qv7tXs+eP0llN6SkLvbQ7NvO042m41ur3KwXcuyfnLXCS10tPhpIwjgS0Domexivk5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794060829;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794060835;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=bkHT1/HNA+ffN9OMzn1fK137Z9s3jnwnUCrVi/CnJNo=;
-	b=KOV1+nWmGURpu/dmHT+YDKw2BtcnaN5EBmTU2AZM9lLYuCRgMrOoqQQ5eDzShcoxbKFh
-	 EQVy9KcpVOslJ1TLZBMr0k3AjV2KOt+sp1e8k+cGxMpWR8JDRyWz7jy4IBcG1T4kMX0Ro
-	 DRRaPzs+svw6J0LWwJXnBz9FCMU0zr2iV1iPm3HqSkaz1GFvSHP7O6a/MeUii4OStbvRQ
-	 rftd/Na1YX6ubzR5p5RdGcB38blOx01bl6rxWfPNjkrZVYd5JaZ5F2VyygHQ0D5Nrzth8
-	 FHiic4C6OQu97+091v7cYXYpZyyfY6eFmAuurhExJXG7OEq494S2nPWcb3SNwYeIYEw==
+	bh=jJFfgFgpKt7DuN6+/JH6QzB2nT3lShWMb/0rv3V9I0A=;
+	b=ww92S/9CLE/KBQ1RwzM8SwEMjmdqolBx95XldMQWqZVCbWIrX62EYlmJSSu+8fbjPhvD
+	 TNGMkgHYyMM1Y1GSXii/eUmpx0BmiHnxtPhiED6TdlRqzkDu2ZCE1/ISF9OO65ldZ0vvv
+	 LlKsiRSiVcnJyCGzKTdCZJKHFtoi3FPQ/2ZN+8aBm+tB6F8lDjeh1Rgb/6THm8Anbwifi
+	 LvXXI73/H9BGwCE3nfsM9a1ED86KkZSJyMhFNh2bXV3Seyygv0FOVBEbffwQd85t9hhgE
+	 5hscINe3L+i2kBRVN67I8goTDRmScysSDtWo6SXAnwTxTbdETDcdv90xKe/FvnfPnDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=SG6uNlvA;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=LgT50YHq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 614A3606A326;
-	Sat,  7 Nov 2026 14:13:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02F83606A33E;
+	Sat,  7 Nov 2026 14:13:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=SG6uNlvA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA9FD1F0089F;
-	Sat,  7 Nov 2026 14:13:48 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=LgT50YHq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36F691F008A1;
+	Sat,  7 Nov 2026 14:13:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794060829;
-	bh=bkHT1/HNA+ffN9OMzn1fK137Z9s3jnwnUCrVi/CnJNo=;
+	s=korg; t=1794060834;
+	bh=jJFfgFgpKt7DuN6+/JH6QzB2nT3lShWMb/0rv3V9I0A=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SG6uNlvAalsenUjCp4lwUkzn5JZh7GMky0VMbvPELcBhJyTaaHUnzSgn0rGTj58jx
-	 8fvvSSRYjEi9bphISn7kkjmuYFm0rlsAt8wCDUOaGLh4HQCZ7w76XeD/3tx40rj1Pn
-	 kuXt4zEyLylgW79Zs9dfZwQqn8xXXNcR1HcirYTk=
+	b=LgT50YHqiw+gMl44TULYbVnknfYYvdkQ09dVjo5Sj+LUzW8LRfMQYZtZyaTqZdktK
+	 F4cuVTy0qAOrD2XETvfQGbbNuWunRLVWE1LHnHG4McNbNwv25kYjIWJrH8694mUNvs
+	 xqTwMqxKr1ZAw2njEcx2JsyigjnaktErd1OFm3HE=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Chen Changcheng <chenchangcheng@kylinos.cn>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Damien Le Moal <dlemoal@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 0224/1536] media: cx88: fix memory leak in cx8802_register_driver() error path
-Date: Sat,  7 Nov 2026 08:37:20 -0500
-Message-ID: <20261107135003.956738277@linuxfoundation.org>
+Subject: [PATCH 6.12 0226/1536] ata: ata_generic: Dont store pci_device_id
+Date: Sat,  7 Nov 2026 08:37:22 -0500
+Message-ID: <20261107135004.016712637@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261107134957.653319350@linuxfoundation.org>
 References: <20261107134957.653319350@linuxfoundation.org>
@@ -68,37 +70,51 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Chen Changcheng <chenchangcheng@kylinos.cn>
+From: Gary Guo <gary@garyguo.net>
 
-[ Upstream commit e228b8b1a5b47a72b265671dc6d864c0da5528d0 ]
+[ Upstream commit 4f3075f629077a8cb3d3455c794a1f4a8fc8b43e ]
 
-In cx8802_register_driver(), when drv->probe(driver) fails (non-zero),
-the allocated cx8802_driver struct is freed neither in the else branch
-nor later in cx8802_unregister_driver() (which only frees entries that
-were added to dev->drvlist on success). Each failed probe leaks the
-driver struct.
+pci_device_id is not guaranteed to live longer than probe due to presence
+of dynamic ID. All information apart from driver_data can be easily
+retrieved from pci_dev, so just store driver_data.
 
-Add kfree(driver) in the else branch to fix the leak.
-
-Signed-off-by: Chen Changcheng <chenchangcheng@kylinos.cn>
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Signed-off-by: Gary Guo <gary@garyguo.net>
+Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
+Reviewed-by: Danilo Krummrich <dakr@kernel.org>
+Acked-by: Damien Le Moal <dlemoal@kernel.org>
+Link: https://patch.msgid.link/20260723-pci_id_fix-v4-1-3580726844e1@garyguo.net
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/pci/cx88/cx88-mpeg.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/ata/ata_generic.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/media/pci/cx88/cx88-mpeg.c b/drivers/media/pci/cx88/cx88-mpeg.c
-index 2c1d5137ac470..bc08b35e247e0 100644
---- a/drivers/media/pci/cx88/cx88-mpeg.c
-+++ b/drivers/media/pci/cx88/cx88-mpeg.c
-@@ -640,6 +640,7 @@ int cx8802_register_driver(struct cx8802_driver *drv)
- 			list_add_tail(&driver->drvlist, &dev->drvlist);
- 		} else {
- 			pr_err("cx8802 probe failed, err = %d\n", err);
-+			kfree(driver);
- 		}
- 		mutex_unlock(&drv->core->lock);
+diff --git a/drivers/ata/ata_generic.c b/drivers/ata/ata_generic.c
+index 2f57ec00ab821..ef5e817e96b26 100644
+--- a/drivers/ata/ata_generic.c
++++ b/drivers/ata/ata_generic.c
+@@ -51,11 +51,11 @@ enum {
+ static int generic_set_mode(struct ata_link *link, struct ata_device **unused)
+ {
+ 	struct ata_port *ap = link->ap;
+-	const struct pci_device_id *id = ap->host->private_data;
++	unsigned long driver_data = (unsigned long)ap->host->private_data;
+ 	int dma_enabled = 0;
+ 	struct ata_device *dev;
+ 
+-	if (id->driver_data & ATA_GEN_FORCE_DMA) {
++	if (driver_data & ATA_GEN_FORCE_DMA) {
+ 		dma_enabled = 0xff;
+ 	} else if (ap->ioaddr.bmdma_addr) {
+ 		/* Bits 5 and 6 indicate if DMA is active on master/slave */
+@@ -206,7 +206,7 @@ static int ata_generic_init_one(struct pci_dev *dev, const struct pci_device_id
+ 			return rc;
+ 		pcim_pin_device(dev);
  	}
+-	return ata_pci_bmdma_init_one(dev, ppi, &generic_sht, (void *)id, 0);
++	return ata_pci_bmdma_init_one(dev, ppi, &generic_sht, (void *)id->driver_data, 0);
+ }
+ 
+ static struct pci_device_id ata_generic[] = {
 -- 
 2.53.0
 
