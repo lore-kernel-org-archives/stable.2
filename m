@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049154;
-	b=eZiwCZq4GrAc2koH0TGDgI7gIJ5n+Fqm5ODeaEg6ifKWm5k08YkzFfrd4wXvya97wOXV
-	 VqRg+2FM4VZDnP/SMhdpM05hU2cDFeYNVqfQfF+c+xWJV70F0egsPJoSOTCJY1kDXsjMM
-	 +fOs4+PnYKDrB+Jynx4cOOb6AObhDr/5WxS78oD84+PPIiCZyp7UQC0nUakn+Fnv9CGdN
-	 8GCWYRB1SVVE6umEcSSRO+501bhgS5gAyoeDGv40s6mvpBVf3tD7CTEGo+njH0bENiSFi
-	 xrdGJby66EtPwa6KU4J4uW9C5fGf6flcZUMNdO8jLPUkS7JXkpEh4CGMOUtmPNQjJlg==
+	t=1794049158;
+	b=j5dhC47EjrXJlMi6CdFzUA4l8fm5IrJvaXDP/pbb9GA2N6kvqvVxTmx5mSwyRWIkWRFM
+	 Xe6FtYny3fFy5T/rNwpHQW/mlvZltoXI4qKEwzyuDixKKS57EFeOlm/PhFBUtQrKDPT3G
+	 TVB+aXHnXSWP654e9PXwD/aEtp5vSdvWQo4rSmOdZB9tC8DTSUELpzMkVlaJegU8Cdkz+
+	 fL5edOkV71OXA12MpiQ2sMFmyjRgSAWgBRcdXCxdREh133d2KX7K4k7CEvXRDjG9NAMhR
+	 H9okRMoONbXPCP/7s85NBxOhcZbx2+tjdMUXoLoGecDsVi8QeiiC+ZOzI1lSUnbwrFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049154;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049158;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=x79g2gdU6nk0h4/PhIJG84gAKIvmKduOOUfzTi+PoKs=;
-	b=lzTyaNxbcgWL4Trfey1YQXvZege2NY0MSpeCQ1EvEva6xliiocC5HqjGIECFgkgj2MHG
-	 tsFK/snyg0IaHYZXk4Mg/eRVmHfzt5taK8+CzHfGUKE7hvtzehIL2IkR14AHGdqdL2H4q
-	 ecS05GGTpHsbdu44zbNi1L9w0hvzTui7BWMFx0amtrenNZ7FX5/LJVDlyCAEEho5NyRmt
-	 EXPPCdFUOB5HrbceGeQokXlAMORdzDquO1X0FqMCNdeIIeeFcxohNL7evxRLJsfV/a6PG
-	 mq97l2VhtvFJys8jlinwJWuc3zxVTCPRIYwBygCKd9ClCGJThVUn7981PxgM1aiJZCQ==
+	bh=Crr8fqHU5Jop9yLw09OOioyXZztrC9VidLLxwGgEbAs=;
+	b=2e0WhrrQ1dlAqbt44y+NV0wPH2O8UHK7X3DTIaqDnn6WapyfIgNxYCLjD4EnbqYip1y3
+	 T0+nMWYx/stHKDVE50r+IZNeXtyOi1FN/dEhHm6g4Jabz10HK/yA9nyqK16vrPRP7sVk6
+	 RrnGoOlGqi+DkSeAglYawAdtCJAPbuJyLznHJwAd3DwRyxcrtmIMOCAMtPJP4I6D96ZKE
+	 kRpjmRsbknNHx/J7qlfJDy9ytDOd02XIof/EFB4vq7B3ZFk4LaCxaKtA3LoUkZxpKpT0P
+	 nVfysjVHtKKtdeNfL//WYrwg/vt/Azcz3sZWfbLYFbDykoWOQQ5gBNfP9lk2CthQ9yA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hTmCGDhz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IHXDatEF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E265606A332
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:59:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5285606A32E
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:59:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hTmCGDhz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B0421F008A3;
-	Sat,  7 Nov 2026 10:59:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IHXDatEF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E0391F0089F;
+	Sat,  7 Nov 2026 10:59:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049154;
-	bh=x79g2gdU6nk0h4/PhIJG84gAKIvmKduOOUfzTi+PoKs=;
+	s=k20260515; t=1794049157;
+	bh=Crr8fqHU5Jop9yLw09OOioyXZztrC9VidLLxwGgEbAs=;
 	h=From:To:Cc:Subject:Date;
-	b=hTmCGDhzUuyizWBKE3E5lS+m05HSo7rGteVqOThPoEWmXM504slT/Tfq7MF+aYOWE
-	 rr0si6++v5PVgF+mxdYKczS0Mh/w8qtAv5ZuSAZbcf79IwmvQnx2ev9AnuFj1q1v01
-	 jVODiNdx0A+AgmjoUrbGql55NM6hi1BwBUREY5VNQsiI5rIMZK/9eylt7lWuzR3WOq
-	 Fl9OKX/V7xF3d84KGQbYkig0xeBzu6gn+mjNoqB05euYjEEioJHSdOc8JXUtV1UnS+
-	 GK1jmeyZ5Z5n0vacTJKg2JGFw0pG0qvssZLNyUqZEuYqIyzpz2hbI86lOTZjlzJx8W
-	 +PMfQT5zaz9Ow==
+	b=IHXDatEF8Vp1RZCpgn5ETeGhsKJr8FxatMcyC3By5+QkdUb2oJGZUcqzJ725IJiIL
+	 VVUvIRScQG1LLfeHGsq8qE/9KZirfwwiQlJwzvx/ltKbQE5IHXg5Ijf0VgzqnxhVf3
+	 4bkkdabifhP/QsHG5VxwXLG4S02NDENGwBmkwINEPDMGTBHf55fcdIPiCDmfvLncFT
+	 6SLnH6m9Db6nkYRdQM9keWdz8hAvIY0coda5NTi/XOKJzE4Xsxb2VDB9csPW0WLotz
+	 ePWP4KnkwjXXF+kmQkhdtliq4fF/+WTpJ35faJZgAZNESKrQeeFJKtbW9Sl5r2ZLT8
+	 v71fC/lWHTubw==
 From: Sasha Levin <sashal@kernel.org>
-To: lgs201920130244@gmail.com,
-	herbert@gondor.apana.org.au
+To: christian.loehle@arm.com,
+	sumitg@nvidia.com,
+	rafael.j.wysocki@intel.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] crypto: omap-sham - fix crypto engine cleanup" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 05:59:12 -0500
-Message-ID: <20261107055912-failed-5.15-be51ea091c65@kernel.org>
+Subject: FAILED: patch "[PATCH] ACPI: CPPC: Validate FFH register fields before hardware access" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 05:59:15 -0500
+Message-ID: <20261107055915-failed-5.15-6b016c5c9644@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,55 +69,181 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x be51ea091c6563158531e8c74e040552fdb1e28c
+git cherry-pick -x 6b016c5c96448c0a5f09328d37f66562d154a5e5
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055912-failed-5.15-be51ea091c65@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055915-failed-5.15-6b016c5c9644@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From be51ea091c6563158531e8c74e040552fdb1e28c Mon Sep 17 00:00:00 2001
-From: Guangshuo Li <lgs201920130244@gmail.com>
-Date: Sat, 12 Sep 2026 22:46:08 +0800
-Subject: [PATCH] crypto: omap-sham - fix crypto engine cleanup
+From 6b016c5c96448c0a5f09328d37f66562d154a5e5 Mon Sep 17 00:00:00 2001
+From: Christian Loehle <christian.loehle@arm.com>
+Date: Wed, 16 Sep 2026 17:28:01 +0100
+Subject: [PATCH] ACPI: CPPC: Validate FFH register fields before hardware
+ access
 
-omap_sham_probe() allocates and starts a crypto engine, but the remove
-path does not call the matching crypto_engine_exit(). The probe failure
-path already performs this cleanup.
+The x86 CPPC FFH accessors construct masks and shift values using the
+firmware's Bit Width and Bit Offset without checking that the field fits
+in an MSR. A zero-width field or a field extending beyond bit 63 can
+therefore cause an invalid shift. The safe MSR accessors only handle an
+access fault, not invalid field arithmetic after a successful read.
 
-crypto_engine_alloc_init() creates a kthread worker for processing
-requests. Without crypto_engine_exit() during driver removal, the
-worker is left running after the device is removed.
+Also, the 64-bit GAS address is implicitly narrowed to the 32-bit MSR
+number. A descriptor with nonzero upper address bits can access a different
+MSR from the one described by firmware.
 
-Call crypto_engine_exit() after unregistering the algorithms and before
-tearing down the remaining request handling resources. This stops the
-engine and destroys its worker.
+The arm64 AMU counter readers have the same unchecked field arithmetic.
+Validate the field bounds before reading a counter, including both
+descriptors in the paired counter path.
 
-This issue was found by manual code inspection.
+Dispatch FFH accesses before decoding the GAS Access Size in the common
+read and write paths. Otherwise, a large access_width can trigger an
+invalid shift in GET_BIT_WIDTH() before the architecture validates its
+register. That field has architecture-specific FFH semantics and is not
+needed by the generic memory/port accessor on this path.
 
-Fixes: 133c3d434d91 ("crypto: omap-sham - convert to use crypto engine")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+Validate x86 MSR addresses and share the field-bounds checks between
+related accessors within each architecture.
+
+Fixes: a6cbcdd5ab5f ("ACPI / CPPC: Add support for functional fixed hardware address")
+Fixes: 68c5debcc06d ("arm64: implement CPPC FFH support using AMUs")
+Fixes: f489c948028b ("ACPI: CPPC: Fix access width used for PCC registers")
+Cc: All applicable <stable@vger.kernel.org>
+Signed-off-by: Christian Loehle <christian.loehle@arm.com>
+Tested-by: Sumit Gupta <sumitg@nvidia.com>
+Link: https://patch.msgid.link/20260916162805.1039247-17-christian.loehle@arm.com
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 ---
- drivers/crypto/omap-sham.c | 1 +
- 1 file changed, 1 insertion(+)
+ arch/arm64/kernel/topology.c | 12 +++++++++++-
+ arch/x86/kernel/acpi/cppc.c  | 14 ++++++++++++++
+ drivers/acpi/cppc_acpi.c     | 10 ++++++----
+ 3 files changed, 31 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/crypto/omap-sham.c b/drivers/crypto/omap-sham.c
-index 12d6dc68438a7..5e739415a0102 100644
---- a/drivers/crypto/omap-sham.c
-+++ b/drivers/crypto/omap-sham.c
-@@ -2129,6 +2129,7 @@ static void omap_sham_remove(struct platform_device *pdev)
- 	list_del(&dd->list);
- 	spin_unlock_bh(&sham.lock);
- 	omap_sham_unregister_algs(dd->pdata);
-+	crypto_engine_exit(dd->engine);
- 	cancel_work_sync(&dd->done_task);
- 	pm_runtime_dont_use_autosuspend(&pdev->dev);
- 	pm_runtime_disable(&pdev->dev);
+diff --git a/arch/arm64/kernel/topology.c b/arch/arm64/kernel/topology.c
+index d28438f8b83f1..2c030e78d5e45 100644
+--- a/arch/arm64/kernel/topology.c
++++ b/arch/arm64/kernel/topology.c
+@@ -470,6 +470,12 @@ static void amu_read_core_const_ctrs(void *val)
+ 	cpu_read_corecnt(&ctrs->corecnt);
+ }
+ 
++static bool cpc_ffh_reg_valid(const struct cpc_reg *reg)
++{
++	return reg->bit_width && reg->bit_width <= 64 &&
++	       reg->bit_offset <= 64 - reg->bit_width;
++}
++
+ static u64 cpc_ffh_extract_bits(const struct cpc_reg *reg, u64 val)
+ {
+ 	val &= GENMASK_ULL(reg->bit_offset + reg->bit_width - 1,
+@@ -506,7 +512,8 @@ int cpc_read_ffh_fb_ctrs(int cpu, struct cpc_reg *reg1, u64 *val1,
+ 	struct amu_ffh_ctrs ctrs;
+ 	int ret;
+ 
+-	if (!is_amu_ctr_reg(reg1) || !is_amu_ctr_reg(reg2))
++	if (!is_amu_ctr_reg(reg1) || !is_amu_ctr_reg(reg2) ||
++	    !cpc_ffh_reg_valid(reg1) || !cpc_ffh_reg_valid(reg2))
+ 		return -EINVAL;
+ 
+ 	ret = counters_read_on_cpu(cpu, amu_read_core_const_ctrs, &ctrs);
+@@ -530,6 +537,9 @@ int cpc_read_ffh(int cpu, struct cpc_reg *reg, u64 *val)
+ {
+ 	int ret = -EOPNOTSUPP;
+ 
++	if (!cpc_ffh_reg_valid(reg))
++		return -EINVAL;
++
+ 	switch ((u64)reg->address) {
+ 	case CPC_FFH_CTR_CORE:
+ 		ret = counters_read_on_cpu(cpu, cpu_read_corecnt, val);
+diff --git a/arch/x86/kernel/acpi/cppc.c b/arch/x86/kernel/acpi/cppc.c
+index bbade0da5130f..d2185b7a20306 100644
+--- a/arch/x86/kernel/acpi/cppc.c
++++ b/arch/x86/kernel/acpi/cppc.c
+@@ -5,6 +5,7 @@
+  */
+ 
+ #include <linux/bitfield.h>
++#include <linux/limits.h>
+ 
+ #include <acpi/cppc_acpi.h>
+ #include <asm/msr.h>
+@@ -45,10 +46,20 @@ bool cpc_ffh_supported(void)
+ 	return true;
+ }
+ 
++static bool cpc_ffh_reg_valid(const struct cpc_reg *reg)
++{
++	return reg->address <= U32_MAX && reg->bit_width &&
++	       reg->bit_width <= 64 &&
++	       reg->bit_offset <= 64 - reg->bit_width;
++}
++
+ int cpc_read_ffh(int cpunum, struct cpc_reg *reg, u64 *val)
+ {
+ 	int err;
+ 
++	if (!cpc_ffh_reg_valid(reg))
++		return -EINVAL;
++
+ 	err = rdmsrq_safe_on_cpu(cpunum, reg->address, val);
+ 	if (!err) {
+ 		u64 mask = GENMASK_ULL(reg->bit_offset + reg->bit_width - 1,
+@@ -65,6 +76,9 @@ int cpc_write_ffh(int cpunum, struct cpc_reg *reg, u64 val)
+ 	u64 rd_val;
+ 	int err;
+ 
++	if (!cpc_ffh_reg_valid(reg))
++		return -EINVAL;
++
+ 	err = rdmsrq_safe_on_cpu(cpunum, reg->address, &rd_val);
+ 	if (!err) {
+ 		u64 mask = GENMASK_ULL(reg->bit_offset + reg->bit_width - 1,
+diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
+index 0e218f2be0fe0..96a94df242312 100644
+--- a/drivers/acpi/cppc_acpi.c
++++ b/drivers/acpi/cppc_acpi.c
+@@ -2446,6 +2446,9 @@ static int cpc_read(int cpu, struct cpc_register_resource *reg_res, u64 *val)
+ 	}
+ 
+ 	*val = 0;
++	if (reg->space_id == ACPI_ADR_SPACE_FIXED_HARDWARE)
++		return cpc_read_ffh(cpu, reg, val);
++
+ 	size = GET_BIT_WIDTH(reg);
+ 
+ 	if (reg->space_id == ACPI_ADR_SPACE_SYSTEM_IO) {
+@@ -2490,8 +2493,6 @@ static int cpc_read(int cpu, struct cpc_register_resource *reg_res, u64 *val)
+ 		return 0;
+ 	} else if (reg->space_id == ACPI_ADR_SPACE_SYSTEM_MEMORY)
+ 		vaddr = reg_res->sys_mem_vaddr;
+-	else if (reg->space_id == ACPI_ADR_SPACE_FIXED_HARDWARE)
+-		return cpc_read_ffh(cpu, reg, val);
+ 	else
+ 		return acpi_os_read_memory((acpi_physical_address)reg->address,
+ 				val, size);
+@@ -2538,6 +2539,9 @@ static int cpc_write(int cpu, struct cpc_register_resource *reg_res, u64 val)
+ 		return -EOPNOTSUPP;
+ 
+ 	reg = &reg_res->cpc_entry.reg;
++	if (reg->space_id == ACPI_ADR_SPACE_FIXED_HARDWARE)
++		return cpc_write_ffh(cpu, reg, val);
++
+ 	size = GET_BIT_WIDTH(reg);
+ 
+ 	if (reg->space_id == ACPI_ADR_SPACE_SYSTEM_IO) {
+@@ -2581,8 +2585,6 @@ static int cpc_write(int cpu, struct cpc_register_resource *reg_res, u64 val)
+ 		return 0;
+ 	} else if (reg->space_id == ACPI_ADR_SPACE_SYSTEM_MEMORY)
+ 		vaddr = reg_res->sys_mem_vaddr;
+-	else if (reg->space_id == ACPI_ADR_SPACE_FIXED_HARDWARE)
+-		return cpc_write_ffh(cpu, reg, val);
+ 	else
+ 		return acpi_os_write_memory((acpi_physical_address)reg->address,
+ 				val, size);
 -- 
 2.53.0
 
