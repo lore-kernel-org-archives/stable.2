@@ -1,53 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049006;
-	b=QaSk+qGEQAVFpbXotrILCewXsRmF2Akg2LomayODkTsWfa7G9bwpdgnirjVOVzTPve/I
-	 okAwEGT8PaBA+15NlVpT8oP8m+ITPNIaWdg4ke+PsVqxdd4Q+5Jmwv1lcWrZSGpYsqP/G
-	 S1oQLh0AdAiFHauZilCc8MNm9e7nyApf24KdKXLw54kJgRa5eK+2+djhjUSEYgTfudxww
-	 NqIHircwLkIwp0eEZixyA4R/CXrcNtX6jnUwkq/o/ElOVjL+rIwVH8Vv0Ax4SXgDXMI9W
-	 pDWTXYP89wFo7k4087hb8kyipy5GQvgZ79It9TmLbKwpFVlK0/b1UcG3J2VrcZhUXrw==
+	t=1794049010;
+	b=RI910UZpdV6i5ZhGWmXq6fFnft2+cg9q4SvZA+wFLO9Ko+PVwrGB8WB51GCR9a9IIB/b
+	 p3GIsnZrNbyiGrTgDWhdr1IcmYIfxecV2Qc/SHXNaxhLajOS24OLnUQl2IjeWJVQ5oeoT
+	 nVYMCIaj/roriPinzgpZTp187MKvTOep1KpokUBa7NRxQ5v/h3U3Z2FWuY+WbtVm21HDd
+	 t2xved6O0EfqIlc1xcz5vSd/volTp0PYnnqF8UzGtQmw3hch3JHlVyirRnpijqG80TlOQ
+	 fU/fAILCAA5Z659eDQ5ELKj4RYBKPq9utRGdlSVzNch8ep9qXD46uvXc/cKf14mpEIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049006;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049010;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Qvhw/fmBUQGoePEDktPTViH8qyP+u5b2QXtq3K8eAXA=;
-	b=uLibWj4A6euTAu0hiUYZf97+mZoBiXrIByzYm28KUliMSQZEBA7r/VTHBY2bNZHmNBdx
-	 ion7v57+6bTktfT+nrF3iVm7h0wyMpxwNKkqYprdXp4PuD2Hsvf2egLUb2ru/E3UqCswF
-	 jjYGdgPRVCcTjE2R6+QwFM7K2CtE3Q0F077PumM1Ptxmd6LEOb/Mo3lVYdxpzv06L2xtF
-	 Cis7AXqV+xUDVao4o8ojWaAOQgx1IUvOt3nxmXiJ1lTCRI+O0t5S5XzgqhDCvk3QW32DS
-	 xN9NpZfMfvQgPNZQ/pkrDVWD8xiwejnFHSpsRBWCzaHExtsTSFkXHkrPLwYfdadoHmQ==
+	bh=V4pT3J7xf2s1CygPBwrVGhzTyq1W2+Yo2ohspomtUIE=;
+	b=ck35i8PkAhmqRGCtUUkMJmbwoc3Y5toe6Vx/2eQVoVWXKNw+uD3OHdkuwrf9pvOghGbp
+	 hn4+twzE7tSKzjum8nEbcTLU0j+6pMFnM+RRGuD5HLq0wvC2AirlhAJE7qQyBpWFgh85C
+	 AK2IBuNh3JsLUbuYVOcskFdqs1mzON14ExV9RIKKmBZBhey2CCoY+Ob22ZDOdfVGzCJAi
+	 XbHumNATO1VRkeSDGMOES2MSbpO0m9RIkB2jlmX12O25g/lkULIn+8/YsATMomrBnq7JL
+	 stNhvHKpwkvJz9KyDlSPN5rhexOWzi7kX7ihSOR6aUId0y6CmfLqiunUWa+DFrKxTLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A47YVuPT;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ThLyEkxJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EA9A606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:56:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1008606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:56:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A47YVuPT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C496A1F0089F;
-	Sat,  7 Nov 2026 10:56:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ThLyEkxJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C4DD1F0089F;
+	Sat,  7 Nov 2026 10:56:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049006;
-	bh=Qvhw/fmBUQGoePEDktPTViH8qyP+u5b2QXtq3K8eAXA=;
+	s=k20260515; t=1794049009;
+	bh=V4pT3J7xf2s1CygPBwrVGhzTyq1W2+Yo2ohspomtUIE=;
 	h=From:To:Cc:Subject:Date;
-	b=A47YVuPTa1YVgvUmXCB/ldwUjRVqfasQc5NoxZ66m4XB/0ZS8RktDY5GtTJVb6wLH
-	 4QLiDggmMvKzEF3/d7YHDHTpdSeSIhxGdBJTpBjCO2FY53RoJStHJP1ckb87QFeip0
-	 fQse+8t+kfRKaIRpsRR1LGZ5Wdngvn3X41PGDi47usom40QHzU/44xrbOfNxCIiVWb
-	 vxlGbvbQefc1GBe5vCoA2npLo3YpG/ytWXbU9D44O0BZvfEEn33jNxF/Fylja6Kit9
-	 vwr7aS68ImxgemeEVZaFsVbFzyPUZt7o+t5SlsuUr4Rux9uENF9DoLtN8wqBegV3p0
-	 uLJOlbEwmylgA==
+	b=ThLyEkxJz8C6aLhfvM7/XDT/6VsfSZqzQXAyTsAlJlAxaNlvo4kmO9i1JphLPxkJ6
+	 OltdxQNdVQeVLt94SdSq7WTMNu1qxMJmDBXEDJ2V4dC7zgelsCL/NcKBlQ7yx+N08G
+	 Jm+2y6QpXcBp9EEvTJeX0YFIMFW/oYbci2xomi17/PrCM8no2+IHV3pCQUY2OuBEwL
+	 pvU71yw5crySsqdSQKbCnQdwG3rpsMXREvYNNo/73Rc+X1V2JDddv2xMmtmQpXq6YB
+	 RPmju+beN7l1UViVla0Dp3dbgZEZaq6bLRgzkK4r6PgxaliNNuaBi0GI2wKvwCwOa3
+	 HxI+ZtNZoPdwA==
 From: Sasha Levin <sashal@kernel.org>
-To: cenzhang@linux.microsoft.com,
-	francis@akrites.dev,
-	autonomouscodesecurity@microsoft.com,
-	john.johansen@canonical.com
+To: kylebot@openai.com,
+	willemdebruijn.kernel@gmail.com,
+	edumazet@kernel.org,
+	willemb@google.com,
+	kuba@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] apparmor: fix query_data() output overlapping the lookup key" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:56:44 -0500
-Message-ID: <20261107055644-failed-6.1-d30844001360@kernel.org>
+Subject: FAILED: patch "[PATCH] net/packet: check TX_RING fragments before memory accounting" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:56:47 -0500
+Message-ID: <20261107055647-failed-6.1-dc4dd12f80e4@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,119 +71,81 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x d30844001360a403a511cf24fc75ecaa6a7a7544
+git cherry-pick -x dc4dd12f80e499dc034710cd8195489abcf0b059
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055644-failed-6.1-d30844001360@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055647-failed-6.1-dc4dd12f80e4@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From d30844001360a403a511cf24fc75ecaa6a7a7544 Mon Sep 17 00:00:00 2001
-From: "Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>
-Date: Mon, 12 Oct 2026 17:57:03 -0400
-Subject: [PATCH] apparmor: fix query_data() output overlapping the lookup key
+From dc4dd12f80e499dc034710cd8195489abcf0b059 Mon Sep 17 00:00:00 2001
+From: Kyle Zeng <kylebot@openai.com>
+Date: Wed, 28 Oct 2026 19:14:50 +0100
+Subject: [PATCH] net/packet: check TX_RING fragments before memory accounting
 
-In query_data(), buf and query point into the same multi_transaction
-buffer: buf at the start, query a few bytes in, and the lookup key
-right after the label string that query points to. Reusing the buffer
-is by design and is safe as long as the query is fully parsed before
-buf is written to, but the key is not: it is dereferenced on every
-iteration of label_for_each_confined(), after output has already been
-written. So when the label has more than one profile with a data
-table, the data of the first matching profile is written to buf while
-the key is still needed, and overwrites it if the data is large enough.
-The later lookups then run on a corrupted key. Besides, if the data has
-no NUL byte from the key's position to the end of the allocation,
-strhash() -> strlen() -> jhash() reads past the 4096-byte slab object,
-triggering an out-of-bound read:
+tpacket_fill_skb() adds the full non-linear payload length to
+skb->truesize and sk_wmem_alloc before checking MAX_SKB_FRAGS. With
+PACKET_VNET_HDR, userspace can submit a ring-sized frame even when it
+greatly exceeds the device MTU.
 
-  BUG: KASAN: slab-out-of-bounds in jhash+0x595/0x5e0
-  Read of size 1 at addr ff1100001159d000 by task exploit/155
-  CPU: 0 UID: 1000 PID: 155 Comm: exploit Not tainted 7.3.0-rc7 #1
-  Call Trace:
-   jhash+0x595/0x5e0
-   aa_write_access+0x880/0x1400
-   vfs_write+0x26f/0xd20
-   ksys_write+0x115/0x210
+A near-INT_MAX frame can saturate sk_wmem_alloc before the fragment
+loop rejects it. A subsequent refcount_add(0x40000001) can temporarily
+turn REFCOUNT_SATURATED into 1. A concurrent TX completion can then
+drop that apparent last reference and free the still-live packet
+socket before refcount_warn_saturate() restores the counter.
 
-Writing to the .access file is unprivileged (0666), but triggering this
-requires loaded profiles that carry a data table, which needs
-CAP_MAC_ADMIN and is not the case on default distribution policies.
+Check that the remaining payload fits in MAX_SKB_FRAGS pages before
+accounting it. Include the initial page offset in the calculation,
+and move the existing -EFAULT handling out of the fragment loop.
+This preserves the accepted packet sizes and error code while
+preventing an invalid frame from injecting an oversized byte charge.
 
-Fix by copying the key with kstrdup() before writing any output to buf,
-so the key stays valid across all loop iterations regardless of what
-gets written to the overlapping buffer.
-
-Fixes: 317d9a054e1c ("apparmor: update query interface to support label queries")
-Cc: stable@vger.kernel.org # v4.13+
-Cc: Francis Perron <francis@akrites.dev>
-Reported-by: AutonomousCodeSecurity@microsoft.com
-Signed-off-by: Cen Zhang (Microsoft) <cenzhang@linux.microsoft.com>
-Signed-off-by: John Johansen <john.johansen@canonical.com>
+Fixes: 69e3c75f4d54 ("net: TX_RING and packet mmap")
+Cc: stable@vger.kernel.org
+Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+[edumazet: use net_warn_ratelimited() instead of pr_err(), add a Fixes: tag]
+Signed-off-by: Eric Dumazet <edumazet@kernel.org>
+Reviewed-by: Willem de Bruijn <willemb@google.com>
+Link: https://patch.msgid.link/20261028181450.2221013-1-edumazet@kernel.org
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 ---
- security/apparmor/apparmorfs.c | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
+ net/packet/af_packet.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/security/apparmor/apparmorfs.c b/security/apparmor/apparmorfs.c
-index 5b42140e12e87..9df06fdd894f3 100644
---- a/security/apparmor/apparmorfs.c
-+++ b/security/apparmor/apparmorfs.c
-@@ -919,7 +919,7 @@ static void profile_query_cb(const struct aa_profile *profile,
- static ssize_t query_data(char *buf, size_t buf_len,
- 			  char *query, size_t query_len)
- {
--	char *out;
-+	char *out, *keydup;
- 	const char *key;
- 	struct label_it i;
- 	struct aa_label *label, *curr;
-@@ -941,11 +941,18 @@ static ssize_t query_data(char *buf, size_t buf_len,
- 	if (buf_len < sizeof(bytes) + sizeof(blocks))
- 		return -EINVAL; /* not enough space */
- 
-+	/* buf overlaps query, keep a copy of the key for the later lookups */
-+	keydup = kstrdup(key, GFP_KERNEL);
-+	if (!keydup)
-+		return -ENOMEM;
-+
- 	curr = begin_current_label_crit_section(&needput);
- 	label = aa_label_parse(curr, query, GFP_KERNEL, false, false);
- 	end_current_label_crit_section(curr, needput);
--	if (IS_ERR(label))
-+	if (IS_ERR(label)) {
-+		kfree(keydup);
- 		return PTR_ERR(label);
-+	}
- 
- 	/* We are going to leave space for two numbers. The first is the total
- 	 * number of bytes we are writing after the first number. This is so
-@@ -963,13 +970,14 @@ static ssize_t query_data(char *buf, size_t buf_len,
- 		if (!profile->data)
- 			continue;
- 
--		data = rhashtable_lookup_fast(profile->data, &key,
-+		data = rhashtable_lookup_fast(profile->data, &keydup,
- 					      profile->data->p);
- 
- 		if (data) {
- 			if (out + sizeof(outle32) + data->size > buf +
- 			    buf_len) {
- 				aa_put_label(label);
-+				kfree(keydup);
- 				return -EINVAL; /* not enough space */
- 			}
- 			outle32 = __cpu_to_le32(data->size);
-@@ -981,6 +989,7 @@ static ssize_t query_data(char *buf, size_t buf_len,
- 		}
+diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
+index 823e0911c910f..cf6429f094772 100644
+--- a/net/packet/af_packet.c
++++ b/net/packet/af_packet.c
+@@ -2655,6 +2655,12 @@ static int tpacket_fill_skb(struct packet_sock *po, struct sk_buff *skb,
  	}
- 	aa_put_label(label);
-+	kfree(keydup);
  
- 	outle32 = __cpu_to_le32(out - buf - sizeof(bytes));
- 	memcpy(buf, &outle32, sizeof(outle32));
+ 	offset = offset_in_page(data);
++	if (unlikely(to_write > MAX_SKB_FRAGS * PAGE_SIZE - offset)) {
++		net_warn_ratelimited("Packet exceed the number of skb frags(%u)\n",
++				     (unsigned int)MAX_SKB_FRAGS);
++		return -EFAULT;
++	}
++
+ 	len_max = PAGE_SIZE - offset;
+ 	len = ((to_write > len_max) ? len_max : to_write);
+ 
+@@ -2666,12 +2672,6 @@ static int tpacket_fill_skb(struct packet_sock *po, struct sk_buff *skb,
+ 	while (likely(to_write)) {
+ 		nr_frags = skb_shinfo(skb)->nr_frags;
+ 
+-		if (unlikely(nr_frags >= MAX_SKB_FRAGS)) {
+-			pr_err("Packet exceed the number of skb frags(%u)\n",
+-			       (unsigned int)MAX_SKB_FRAGS);
+-			return -EFAULT;
+-		}
+-
+ 		page = pgv_to_page(data);
+ 		data += len;
+ 		flush_dcache_page(page);
 -- 
 2.53.0
 
