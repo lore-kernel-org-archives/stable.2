@@ -1,78 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=119.15.109.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=143.255.12.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794023632;
-	b=EImKyMPYZPpz1S1Fk35hxwEiaU2I//drMVrHKMBzF3C+14n1b0RpaeVBIBzxtA7tpwF+
-	 CkFQiskqrJPDAfPIaDuUeFMcuY9qi/kUojleT+zAXCfBOfvRHAKzskb1Ws3LAipfwupN1
-	 B1stDQVSiWUvA6lXthIdHQJVdF0YPlWjniObbDe06PW9m0AuUJ3LcaxSpDeBm3h4Rcxku
-	 xuIrkF/snPR+snS1sVYpyRDyI3w5OJPjxeCssJvg9pEtXKVKrozVvhXaxx6ChpwMvrx51
-	 dzKt3LO5j4UpVNhHgVRuOa0245KYEHHpCIb4D4MRFQXn6//eUtJahxvKimi0/qnp3tQ==
+	t=1794024587;
+	b=jKAP9hqDrEF+2a2owikt48C/OHh6ME2oURa3QC5WXzJvF+3tKJxOObqoXfdL3z1gCKZs
+	 2+ooLv5woVJlEIRtlq8XW3Nel7tn26f50DcIIETAuJ7w29mD6uM8eKg3IypV67TOR4x+e
+	 STFgq9VwA7htxQygWg3l0HF/ZnrJqU8174XahSZDEbSb+WoF6eCDFOMPSUPoPSu4rfyEs
+	 zCuYfqBNRtoa/xAHJ1FXjH1ryxTUExCzejyFXP5z6BmCjJjIsZgXsP1U0Xpc1mJ8e+wwK
+	 v9+qy88oXXXqchbkORMUyaleHHKptUj9urdMzez+Qn7DAiN93/BoAa8jB2oK8BgeyNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794023632;
-	h=DMARC-Filter:Received:DKIM-Signature:X-GPT-Reason:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794024587;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=z84MDJbPpqXOM9T+d54FB5Dj+031ISd0PNBoH9DHtpA=;
-	b=S/6PQBEFcJmNniY98zoBpgywlKEfMhODgtxflG0xARc1sx2MnsE5V5Pb1uQuJoWzoAyH
-	 fZc5A5Ye7b09KhkKuGiDTTAEEG6092s4JyPB+3C6j5niiLwgOHrKCHo5KZToXWdEJEvwn
-	 WmpufwPZw7h3O177qtkVhzULkyERTLOugsnktb1AJNwhpKs5Wy971aQbvSqaRucmKPnIg
-	 X5MTeqweU7QyKqelkAPkJXm2hdTp+rwWsXhogvIVcI//tS5ETC5uRG+2KIrv17RNgYhiC
-	 F3Akf6VTJnVKYg6leH0wV1daQr0xzVvfPqsYY52P4UjlVvX8zFcvrnv0HsUcVNB3F+A==
+	bh=lHQnMIa1BPBilg1hVVzdNc6mjRHb1cIB4++UQLG5LpI=;
+	b=F6yadb025zC3Nw/DhF3thMzXGJWXXclbtXJR2BP9rGRbsGqxK2Ul8Vh3X/hWmlLNDkfV
+	 IuWUX8WbAWP4v3ddZl8MhA3B/ZQPTXGNXz307SnTvy9BDc+NvFzqx3T0ocu94zEZxGjva
+	 A6KHBRLDLFlV4/aDWhMjlJsgilinz5R8iLt1SP0k9Ydx80GdMRTjLY2JVggmoryD7YoKT
+	 YY8mXwoQ2yEDHWYet85P/CTz4fy9tID4kXjGI6XnHvSpl1TkuhfqXM51f11SYX2/Qnrql
+	 Kk9bK9TFz/fpbNKiVmFkNQieDBmYIwRZh/PHIS7azg1+MSa1KJlZIG6giwHWifHVDYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=d-silva.org;
-	spf=pass smtp.mailfrom=d-silva.org;
-	dkim=pass header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=W+6TZeUN;
-	arc=none smtp.remote-ip=119.15.109.137
-Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
+	dmarc=pass header.from=manguebit.org;
+	spf=pass smtp.mailfrom=manguebit.org;
+	dkim=pass header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=Aj8F2rpm;
+	arc=none smtp.remote-ip=143.255.12.172
+Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCFF8606A326;
-	Sat,  7 Nov 2026 03:53:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CCFF8606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EA77606A330;
+	Sat,  7 Nov 2026 04:09:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EA77606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=W+6TZeUN
-Received: from Hawking.lan (hawking.lan [10.0.1.4])
-	by www.nmnhosting.com (Postfix) with ESMTP id 92AEE4098B;
-	Sat,  7 Nov 2026 14:53:43 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
-	t=1794023623;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=z84MDJbPpqXOM9T+d54FB5Dj+031ISd0PNBoH9DHtpA=;
-	b=W+6TZeUNvku1HwwRXquP1nQMbEG6Nml0Ta5aOSyYe2H7gdFzn8XUYZuq9WfBdphpM9jcqx
-	vySo/LyNq6Zo3aUv6h/9ZITA5IXMkDCmmteCRQ8xqeQTLbNDvvzfh41WPrGrNnBqNTu19x
-	vIwobfI3zOaLtbi1gktWgxCAE2fRX2M3nwjOHjYI/5mJ4ucNDUSmTlRS/UDTuIIdXTZcXa
-	a05Et8/Ccb4ezXkGUTJMf1T3YfVcGzWmsRMvga0Oie7gfoqtieeAjeGDcpLJO5s2yIKQ8S
-	htrnmEvYvtUnBz1dlpU/c20DiJhc7j1ReZMzde5JReNHp/QanBBTKDiBUKE0VQ==
-X-GPT-Reason: legitimate; the email is a technical Linux kernel
-	patch submission that perfectly matches the personal identity
-	of the recipient (alastair@d-silva.org) and the sender
-	(alastair@d-silva.org); there are no phishing indicators, no marketing
-	content, and no suspicious links; the technical content (rtw88 wifi
-	driver fix) is consistent with an engineer's correspondence and
-	includes standard "Signed-off-by" and "Cc" headers for kernel
-	mailing lists.
-From: Alastair D'Silva <alastair@d-silva.org>
-To: linux-wireless@vger.kernel.org,
-	Ping-Ke Shih <pkshih@realtek.com>,
-	Kalle Valo <kvalo@kernel.org>
-Cc: Luka Gejak <luka.gejak@linux.dev>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Ulf Hansson <ulfh@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Alastair D'Silva <alastair@d-silva.org>,
+	dkim=pass (2048-bit key, unprotected) header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=Aj8F2rpm
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=manguebit.org; s=dkim; h=Content-Transfer-Encoding:MIME-Version:References:
+	In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Content-Type:Reply-To:
+	Content-ID:Content-Description;
+	bh=lHQnMIa1BPBilg1hVVzdNc6mjRHb1cIB4++UQLG5LpI=; b=Aj8F2rpmfhR7MYlnp3c/zhEe+f
+	otPKrJoAgLYc5+LX+VULWH9acKYOR3X2HLoJrD4oTm5j19aICvwUM4jVWpWXA8nQVDJZek19l2CzQ
+	AgaDtbsecMuyScPkFVwIYaSBLsF3cTHOcx4okq+Ow84SnuVQ5FaGZYRZSjURJTWP/fTEnaHvkvTIO
+	/wia9NTrfvK3hH5S0LruRKaabxxrJn8Rpm66yxr4uy0lURwI8i1YYhb0ZlcdQmaEZjY6ceBC7E7M1
+	8jKaP/UPt8sctvZBe23jxArtPbYWpOVDS2mISzzRXlNCEy7BhNaVm4ryFUsoV+vxMzfxJzVDwp2uM
+	3TdEdqfg==;
+Received: from pc by mx1.manguebit.org with local (Exim 4.100.1)
+	id 1xPXkM-000000015Lm-0TFy;
+	Sat, 07 Nov 2026 01:09:43 -0300
+From: Paulo Alcantara <pc@manguebit.org>
+To: linux-cifs@vger.kernel.org,
+	netfs@lists.linux.dev,
+	David Howells <dhowells@redhat.com>
+Cc: Namjae Jeon <linkinjeon@kernel.org>,
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+	Shyam Prasad N <sprasad@microsoft.com>,
+	Tom Talpey <tom@talpey.com>,
+	Bharath SM <bharathsm@microsoft.com>,
+	Christian Brauner <brauner@kernel.org>,
 	stable@vger.kernel.org
-Subject: [PATCH rtw-next v9 3/4] wifi: rtw88: sdio: Fix unhandled RX request interrupt storm
-Date: Sat,  7 Nov 2026 14:53:20 +1100
-Message-ID: <20261107035321.1210303-4-alastair@d-silva.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107035321.1210303-1-alastair@d-silva.org>
-References: <20261107035321.1210303-1-alastair@d-silva.org>
+Subject: [PATCH v8 06/19] smb: client: don't give up writeback on the first replayable error
+Date: Sat,  7 Nov 2026 01:09:27 -0300
+Message-ID: <20261107040940.2692656-7-pc@manguebit.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261107040940.2692656-1-pc@manguebit.org>
+References: <20261107040940.2692656-1-pc@manguebit.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,129 +74,122 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On 3081-based SDIO chips (observed on RTL8821CS; RTL8822BS and RTL8822CS
-are inferred to be affected as they share the 3081 architecture), clearing
-REG_SDIO_HISR_RX_REQUEST requires both a software W1C acknowledge and an
-empty RX FIFO. Masking this bit out before writing back to HISR prevents
-the software acknowledge from happening, leaving the bit asserted even
-after the FIFO is drained and causing an infinite interrupt storm loop
-that locks up the system.
+Read and write retries follow the hard and retrans mount options, and
+mounts are soft with no retrans by default.  For writeback this means
+that a single replayable error, e.g. a reconnect while sending, fails
+the subrequest and netfs ends writeback with its folios clean: the data
+is gone, possibly long after write(2) succeeded, with only fsync(2) left
+to notice.  NFS soft mounts, by comparison, wait minutes for a server to
+answer before failing a request.
 
-8051-based chips instead clear this bit in hardware once the RX buffer is
-empty without a W1C writeback, and software must not clear it.
+Keep retrying writeback on replayable errors, with exponential backoff:
+forever on hard mounts, and on soft mounts for max(3, retrans) echo
+intervals from the first failure - 3 minutes by default, the time after
+which a silent server is considered unresponsive.  The window applies to
+each write sent to the server, not to the whole writeback.  umount -f or
+a shutdown still stops it right away.  Direct and unbuffered writes,
+whose callers get the error, keep following the mount options.
 
-Split rtw_sdio_handle_interrupt() into separate 8051 and 3081 handlers.
-For 3081, disable interrupts via HIMR, acknowledge all pending status
-bits via W1C writeback (preserving the existing full status word
-writeback used on non-RTL8723BS chips, now including
-REG_SDIO_HISR_RX_REQUEST), service pending events, and re-enable
-interrupts under irq_lock if still running.
-
-If unread packets remain in the FIFO when interrupts are re-enabled (or
-if new packets arrived), REG_SDIO_HISR_RX_REQUEST remains asserted and
-re-triggers the IRQ line. For 8051 chips, preserve the existing behavior.
-
-Fixes: 65371a3f14e7 ("wifi: rtw88: sdio: Add HCI implementation for SDIO based chipsets")
+Fixes: 2c1238a7477a ("cifs: make retry logic in read/write path consistent with other paths")
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Alastair D'Silva <alastair@d-silva.org>
 ---
- drivers/net/wireless/realtek/rtw88/sdio.c | 73 ++++++++++++++++++-----
- 1 file changed, 57 insertions(+), 16 deletions(-)
+ fs/smb/client/cifsglob.h  |  1 +
+ fs/smb/client/file.c      | 21 +++++++++++++++++++++
+ fs/smb/client/smb2ops.c   |  9 +--------
+ fs/smb/client/smb2proto.h |  9 +++++++++
+ 4 files changed, 32 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/net/wireless/realtek/rtw88/sdio.c b/drivers/net/wireless/realtek/rtw88/sdio.c
-index 3edbc627f9707..6100e691a5ca4 100644
---- a/drivers/net/wireless/realtek/rtw88/sdio.c
-+++ b/drivers/net/wireless/realtek/rtw88/sdio.c
-@@ -1513,6 +1513,58 @@ static void rtw_sdio_rx_isr(struct rtw_dev *rtwdev)
- 	} while (total_rx_bytes < SZ_64K && hisr & REG_SDIO_HISR_RX_REQUEST);
+diff --git a/fs/smb/client/cifsglob.h b/fs/smb/client/cifsglob.h
+index fb732c178e76..b6a993cc0245 100644
+--- a/fs/smb/client/cifsglob.h
++++ b/fs/smb/client/cifsglob.h
+@@ -1499,6 +1499,7 @@ struct cifs_io_subrequest {
+ 	bool				replay;
+ 	unsigned int			retries;	/* number of retries so far */
+ 	unsigned int			cur_sleep;	/* time to sleep before replay */
++	unsigned long			retry_deadline;
+ 	struct kvec			iov[2];
+ 	struct TCP_Server_Info		*server;
+ #ifdef CONFIG_CIFS_SMB_DIRECT
+diff --git a/fs/smb/client/file.c b/fs/smb/client/file.c
+index 270858e526f9..e8557c670dc3 100644
+--- a/fs/smb/client/file.c
++++ b/fs/smb/client/file.c
+@@ -53,12 +53,33 @@ bool cifs_io_stopped(struct cifs_io_subrequest *subreq)
+ 	return aborts && rwsem_is_contended(&sb->s_umount);
  }
  
-+static void rtw_sdio_handle_interrupt_8051(struct rtw_dev *rtwdev, u32 hisr)
++static bool cifs_writeback_retry_expired(struct cifs_io_subrequest *subreq,
++					 struct cifs_tcon *tcon)
 +{
-+	if (hisr & REG_SDIO_HISR_TXERR)
-+		rtw_sdio_tx_err_isr(rtwdev);
-+	if (hisr & REG_SDIO_HISR_RX_REQUEST) {
-+		hisr &= ~REG_SDIO_HISR_RX_REQUEST;
-+		rtw_sdio_rx_isr(rtwdev);
++	struct TCP_Server_Info *server = tcon->ses->server;
++	unsigned long window;
++
++	if (tcon->retry)
++		return false;
++	if (!subreq->retry_deadline) {
++		window = max(3U, server->retrans) * server->echo_interval;
++		subreq->retry_deadline = (jiffies + window) | 1;
 +	}
-+
-+	/*
-+	 * RTL8723BS keeps raising the interrupt after resume if undefined
-+	 * status bits are written back, so acknowledge only the bits this
-+	 * driver defines. Other chips keep the existing behaviour.
-+	 */
-+	if (rtw_is_8723bs(rtwdev))
-+		hisr &= RTW_SDIO_HISR_CLEAR_MASK;
-+
-+	rtw_write32(rtwdev, REG_SDIO_HISR, hisr);
++	return time_after(jiffies, subreq->retry_deadline);
 +}
 +
-+static void rtw_sdio_handle_interrupt_3081(struct rtw_dev *rtwdev, u32 hisr)
-+{
-+	struct rtw_sdio *rtwsdio = (struct rtw_sdio *)rtwdev->priv;
-+
-+	rtw_sdio_disable_interrupt(rtwdev);
-+
-+	/*
-+	 * Acknowledge all pending status bits via W1C writeback. Unlike 8051,
-+	 * 3081 requires REG_SDIO_HISR_RX_REQUEST to be explicitly cleared by
-+	 * software.
-+	 */
-+	rtw_write32(rtwdev, REG_SDIO_HISR, hisr);
-+
-+	if (hisr & REG_SDIO_HISR_TXERR)
-+		rtw_sdio_tx_err_isr(rtwdev);
-+	if (hisr & REG_SDIO_HISR_RX_REQUEST)
-+		rtw_sdio_rx_isr(rtwdev);
-+
-+	/*
-+	 * Unmasking HIMR re-asserts the IRQ line if new packets arrived or if
-+	 * unread data remains in the RX FIFO (e.g. if the 64KB budget was
-+	 * reached or an RX error occurred). On 3081 hardware, clearing
-+	 * REG_SDIO_HISR_RX_REQUEST requires both the W1C writeback above and
-+	 * an empty RX FIFO, so the bit remains asserted as long as unread
-+	 * data is in the buffer and re-triggers the interrupt when unmasked.
-+	 */
-+	scoped_guard(mutex, &rtwsdio->irq_lock) {
-+		if (rtwsdio->running)
-+			rtw_sdio_enable_interrupt(rtwdev);
-+	}
-+}
-+
- static void rtw_sdio_handle_interrupt(struct sdio_func *sdio_func)
+ bool cifs_io_should_replay(struct cifs_io_subrequest *subreq)
  {
- 	struct ieee80211_hw *hw = sdio_get_drvdata(sdio_func);
-@@ -1531,24 +1583,13 @@ static void rtw_sdio_handle_interrupt(struct sdio_func *sdio_func)
- 	rtwsdio->irq_thread = current;
+ 	struct cifs_tcon *tcon = tlink_tcon(subreq->req->cfile->tlink);
  
- 	hisr = rtw_read32(rtwdev, REG_SDIO_HISR);
--
--	if (hisr & REG_SDIO_HISR_TXERR)
--		rtw_sdio_tx_err_isr(rtwdev);
--	if (hisr & REG_SDIO_HISR_RX_REQUEST) {
--		hisr &= ~REG_SDIO_HISR_RX_REQUEST;
--		rtw_sdio_rx_isr(rtwdev);
-+	if (hisr) {
-+		if (rtw_chip_wcpu_8051(rtwdev))
-+			rtw_sdio_handle_interrupt_8051(rtwdev, hisr);
-+		else
-+			rtw_sdio_handle_interrupt_3081(rtwdev, hisr);
+ 	if (cifs_io_stopped(subreq))
+ 		return false;
++	if (subreq->rreq->origin == NETFS_WRITEBACK) {
++		if (cifs_writeback_retry_expired(subreq, tcon))
++			return false;
++		smb2_replay_backoff(&subreq->cur_sleep);
++		return true;
++	}
+ 	return smb2_should_replay(tcon, &subreq->retries, &subreq->cur_sleep);
+ }
+ 
+diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
+index dc55cd512616..457f18ce3245 100644
+--- a/fs/smb/client/smb2ops.c
++++ b/fs/smb/client/smb2ops.c
+@@ -2934,14 +2934,7 @@ bool smb2_should_replay(struct cifs_tcon *tcon,
+ 		return false;
+ 
+ 	if (tcon->retry || (*pretries)++ < tcon->ses->server->retrans) {
+-		/* Update sleep time for exponential backoff */
+-		if (!(*pcur_sleep))
+-			(*pcur_sleep) = 1;
+-		else {
+-			(*pcur_sleep) = ((*pcur_sleep) << 1);
+-			if ((*pcur_sleep) > CIFS_MAX_SLEEP)
+-				(*pcur_sleep) = CIFS_MAX_SLEEP;
+-		}
++		smb2_replay_backoff(pcur_sleep);
+ 		return true;
  	}
  
--	/*
--	 * RTL8723BS keeps raising the interrupt after resume if undefined
--	 * status bits are written back, so acknowledge only the bits this
--	 * driver defines. Other chips keep the existing behaviour.
--	 */
--	if (rtw_is_8723bs(rtwdev))
--		hisr &= RTW_SDIO_HISR_CLEAR_MASK;
--
--	rtw_write32(rtwdev, REG_SDIO_HISR, hisr);
--
- 	rtwsdio->irq_thread = NULL;
- }
+diff --git a/fs/smb/client/smb2proto.h b/fs/smb/client/smb2proto.h
+index c79e5cb2ce26..b2acff8938f3 100644
+--- a/fs/smb/client/smb2proto.h
++++ b/fs/smb/client/smb2proto.h
+@@ -121,6 +121,15 @@ unsigned long smb_rqst_len(struct TCP_Server_Info *server,
+ void smb2_set_next_command(struct cifs_tcon *tcon, struct smb_rqst *rqst);
+ void smb2_set_related(struct smb_rqst *rqst);
+ void smb2_set_replay(struct TCP_Server_Info *server, struct smb_rqst *rqst);
++
++static inline void smb2_replay_backoff(int *pcur_sleep)
++{
++	if (!*pcur_sleep)
++		*pcur_sleep = 1;
++	else
++		*pcur_sleep = min(*pcur_sleep << 1, CIFS_MAX_SLEEP);
++}
++
+ bool smb2_should_replay(struct cifs_tcon *tcon, int *pretries,
+ 			int *pcur_sleep);
  
 -- 
-2.53.0
+2.56.0
 
