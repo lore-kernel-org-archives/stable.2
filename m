@@ -1,54 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046509;
-	b=c3FFI7HY/NR/gGkKzyOLim/LdKZVwFshKv2A3f9/9SJwy9kjzCjhHsEdnswVD2NPp1s/
-	 +qsYqPXJB5KH+f2JkDJY6HENk/nEZare+qEcmrMgZXVoRVPGt0CT2U2eP7PMXZ5gnSbtg
-	 r9+OEVbK8dHh2SMjxojOpZDC6bfcU+jIpEanfEXjl6PK5zhsR9potNVQkqqpk/GyFQTey
-	 hvgAtpqW42U0UWkbmgOB+n8sOeEwSQ78WnwZye7U/hYueyzN4UOr5FTYabQIvgMp5dz69
-	 ACJSKy7YjqNw8EEdRdr24qXmjm+YQ9tug93tg53y9B/F9yXfeCwK5C+ShjxY5BaoAlA==
+	t=1794046511;
+	b=EHR6cpFFPy7Se6YrM9lOa+y1h8/bdaxDaHQnYeMTfChG6idJNHKe73ZaSsPZj4QpPuXU
+	 1Q0iDS3eiLJN/eqCQ/N9i0KgLtrOM9qfDyDhCq2ks0vGeXzg+0Il7/+r/Y9nI8SVojByl
+	 5n0eoll4sfjW5VBpCyENllvxrDjiFTQdDxPbaOzp89abmO05A4Un8nxdE1g+/HAHaReDd
+	 7BXpY9E987CEuVR1WRO242L7uE9LKcWzD1KVUF84L2TSZK4YQjktOazBK+bUS/piqbRJv
+	 khtkcsPEiWNTdyS+ds/CL7KBvOIbRBYd2AEJt9jj+OckCGnl3zpYFG0uRZikefvyQPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046509;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046511;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=0dOByf+SjD7IEn/P1IG/LE31nlHbNC7RZwNrBYheH8M=;
-	b=hzlDXOyn08baL44yBb/z5f7uA4aV/9Xy8wIk1pyl38KJ0LkX2nmRZJw7YIVJRnPLcnw/
-	 Hy22+gdQmdqDHabS6j2p1lpqOrfr2hd/VVgRHnb7ftQpca1Okbvqny61XsExXDWoz5iV7
-	 851n+rC+MftKhn9OI1iG1S5cSbff1GsQf6GB1IzyNseAEQVJeoMwiqnUD2TCoD+gqUDS9
-	 cuM+OQyhj/PdeloKD+c5MJmKFkKUM3hb2UbWPKz5F8R+QlQN6FKnzoV3c+hoQHFWrrjue
-	 ozfkNsSIICJgn1uKQFGowlfx6kpEMo+2fsppcsKywQy9afnrwYCdxBfVZTIYtbB8HhQ==
+	bh=hmwqsE1UWLrton768BTFebLe6mCm/M+rgGbUe9vqfmY=;
+	b=AkF0mE0hJP3CoaVNJIh4EajCNr5IWK1WZK/7W+LL0avoxyAmxbH52zxFoXlgM++C/xSa
+	 99tJbiuLq772OMBZ7DN0pD1FGMjCFuRn79RNlUVl0NphA/letTsc4MsCca59d7LdKO8Pz
+	 /tcWsv1Sb8UAOGW9IZf9ria8v459hvhtWMK+dmMCyR0Lmo88lRm4juqnLZN91lG07S3ga
+	 mxFoB7sD0+jSbWrVy0nIanpKsnw4D8lIWX7Muv7CV0zJUgJk3GuEFOwylij5HlecbE2kS
+	 LZjrDZN6BXymRzRIX7G4ym9BVOs2XUrnUBgc3w+0YiP9Ti5DQgkaqxJjRSkkDh5o59w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JS91k4KP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Exq+tH5Z;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 449E3606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:15:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17F82606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:15:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JS91k4KP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0018C1F0089F;
-	Sat,  7 Nov 2026 10:15:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Exq+tH5Z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E5621F0089F;
+	Sat,  7 Nov 2026 10:15:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046508;
-	bh=0dOByf+SjD7IEn/P1IG/LE31nlHbNC7RZwNrBYheH8M=;
+	s=k20260515; t=1794046510;
+	bh=hmwqsE1UWLrton768BTFebLe6mCm/M+rgGbUe9vqfmY=;
 	h=From:To:Cc:Subject:Date;
-	b=JS91k4KP3ENPDw1ckHa0aoPY8sgvkXW+lIrp53DXoRtNeMhBcXxTiFxr0MIYc/UgN
-	 nEgs9OTwBVMRI/WbM1OSMK9q5PXRpc2NIg1jw0cHbO+aggu+R/wEpnNGoqpbvrOvQ/
-	 Qb3qQ3UYcpE66CYkG/++VHhoSgrP5QqBzkxPll+SYaf0KoMyquMPFUGs+PG0zcZoXO
-	 9Vj26BOgDoQ4c7HFXAwC9HNVb//YwUc2fs1UlY1A4SbnsmBvyjIcRZUkJ9406R6W4F
-	 fQsZ+RMRHw0Y+H72eyJdNEiMDaT1WvOPv5cRivH0QFsC+qrEtIGnNIrMPHq29V1Nps
-	 9ry6WxDyUe3UA==
+	b=Exq+tH5ZwDQIf5WFnPSFSsXyaIl88mOY9BXeuiZUqVfTdmEnS4z7vZsLS90H4alGk
+	 SmUB1M20qLlbbIy4D6Yp6h4gB97a9Nv11rrQMigCWzL5aNcqjKjRwm+N1X/ph2daka
+	 JQces/avXMqDcVTNwfmWy6oZ9XL4YsDGEaA/hv+Uf2fBYeXcVGUEN++uf3WgKUbZGE
+	 KhGmPZSrqebU7QK7rTlf1M7D1x/45gPz7Yf/zx7zy4lBaOuf+ACdfrgkdWXr9yf3lZ
+	 P+04nk+KtEHVwa3yumviIGm/MS4eDQB7JDD62NiqyOiOp5HR5Ddg3RLS0gcnezDfQn
+	 QpKJlrZ2FtSEQ==
 From: Sasha Levin <sashal@kernel.org>
-To: zhilinz@nebusec.ai,
-	vega@nebusec.ai,
-	idosch@nvidia.com,
-	namangulati@google.com,
-	kuba@kernel.org
+To: miquel.raynal@bootlin.com,
+	ychuang570808@gmail.com,
+	jbrunet@baylibre.com,
+	bmasney@redhat.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ipmr: drop packets with unknown ingress VIF" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:15:06 -0500
-Message-ID: <20261107051506-failed-6.18-09280680f2ea@kernel.org>
+Subject: FAILED: patch "[PATCH] clk: nuvoton: ma35d1: Add missing WDT/WWDT parent clocks" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:15:09 -0500
+Message-ID: <20261107051509-failed-6.18-1dc3871ce7ec@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -71,81 +70,65 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 09280680f2ea060514be2a39ea84209fb6d721d4
+git cherry-pick -x 1dc3871ce7ec819030c22297f8960c61cc42a990
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051506-failed-6.18-09280680f2ea@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051509-failed-6.18-1dc3871ce7ec@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 09280680f2ea060514be2a39ea84209fb6d721d4 Mon Sep 17 00:00:00 2001
-From: Zhiling Zou <zhilinz@nebusec.ai>
-Date: Thu, 22 Oct 2026 03:01:16 +0800
-Subject: [PATCH] ipmr: drop packets with unknown ingress VIF
+From 1dc3871ce7ec819030c22297f8960c61cc42a990 Mon Sep 17 00:00:00 2001
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+Date: Wed, 30 Sep 2026 19:24:51 +0200
+Subject: [PATCH] clk: nuvoton: ma35d1: Add missing WDT/WWDT parent clocks
 
-A packet can race with VIF publication and make ipmr_find_vif() return
--1 even though the VIF device pointer is already visible. The parent VIF
-device check can then pass with an invalid ingress VIF. For (*,G)
-entries, this can also let the packet be forwarded back out its ingress
-VIF.
+The WDT and WWDT muxes list PCLK3/4096 and PCLK4/4096 among their
+possible parents, but the driver never registers the corresponding
+clocks, so these parents could never be used.
 
-Drop packets whose ingress VIF lookup fails in both IPv4 and IPv6
-forwarding, before checking the MFC parent device. This prevents
-forwarding with an unknown ingress VIF and avoids the (*,G) hairpin.
+Add pclk3_div4096 and pclk4_div4096 as fixed factor children of pclk3
+and pclk4 and expose them through the clock provider.
 
-Without the early check, the negative index can reach the IPv4 offload
-lookup only for an skb marked for L3 forwarding offload, currently done
-by mlxsw. The race is rare; the supplied PoC reports only the UBSAN
-negative-index diagnostic.
-
-Fixes: 4eadb88244d1 ("ipmr: do not acquire mrt_lock while calling ip_mr_forward()")
-Fixes: 9b1c21d898fd ("ip6mr: do not acquire mrt_lock while calling ip6_mr_forward()")
+Reported-by: Jacky Huang <ychuang570808@gmail.com>
+Closes: https://lore.kernel.org/linux-clk/b8a8a65b-e302-4747-bc90-4920fc48795a@gmail.com/
+Suggested-by: Jacky Huang <ychuang570808@gmail.com>
+Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock controller")
 Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Link: https://lore.kernel.org/netdev/b966eb102e98f299e45be59ada033a8766e4c6df.1791899747.git.zhilinz@nebusec.ai/
-Suggested-by: Ido Schimmel <idosch@nvidia.com>
-Suggested-by: Naman Gulati <namangulati@google.com>
-Signed-off-by: Zhiling Zou <zhilinz@nebusec.ai>
-Reviewed-by: Naman Gulati <namangulati@google.com>
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
-Link: https://patch.msgid.link/5271fcb94a4d9e697ed64a348e92ea9e74faab1c.1792608753.git.zhilinz@nebusec.ai
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Reviewed-by: Jerome Brunet <jbrunet@baylibre.com>
+Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+Link: https://patch.msgid.link/20260930-perso-ma35d1-upstream-clk-v6-5-48937ee6c9bb@bootlin.com
+[jbrunet@baylibre.com: removed stale link trailer]
+Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
+Signed-off-by: Brian Masney <bmasney@redhat.com>
 ---
- net/ipv4/ipmr.c  | 3 ++-
- net/ipv6/ip6mr.c | 3 ++-
- 2 files changed, 4 insertions(+), 2 deletions(-)
+ drivers/clk/nuvoton/clk-ma35d1.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/net/ipv4/ipmr.c b/net/ipv4/ipmr.c
-index 915b210c4512b..e8f7d3b573d0f 100644
---- a/net/ipv4/ipmr.c
-+++ b/net/ipv4/ipmr.c
-@@ -2089,7 +2089,8 @@ static void ip_mr_forward(struct net *net, struct mr_table *mrt,
- 	}
+diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk-ma35d1.c
+index 6aa42a3e1be3b..c914079cee2d4 100644
+--- a/drivers/clk/nuvoton/clk-ma35d1.c
++++ b/drivers/clk/nuvoton/clk-ma35d1.c
+@@ -17,7 +17,7 @@
+ static DEFINE_SPINLOCK(ma35d1_lock);
  
- 	/* Wrong interface: drop packet and (maybe) send PIM assert. */
--	if (rcu_access_pointer(mrt->vif_table[vif].dev) != dev) {
-+	if (true_vifi < 0 ||
-+	    rcu_access_pointer(mrt->vif_table[vif].dev) != dev) {
- 		if (rt_is_output_route(skb_rtable(skb))) {
- 			/* It is our own packet, looped back.
- 			 * Very complicated situation...
-diff --git a/net/ipv6/ip6mr.c b/net/ipv6/ip6mr.c
-index a628acf50b0d8..af968a2c2a784 100644
---- a/net/ipv6/ip6mr.c
-+++ b/net/ipv6/ip6mr.c
-@@ -2225,7 +2225,8 @@ static void ip6_mr_forward(struct net *net, struct mr_table *mrt,
- 	/*
- 	 * Wrong interface: drop packet and (maybe) send PIM assert.
- 	 */
--	if (rcu_access_pointer(mrt->vif_table[vif].dev) != dev) {
-+	if (true_vifi < 0 ||
-+	    rcu_access_pointer(mrt->vif_table[vif].dev) != dev) {
- 		atomic_long_inc(&c->_c.mfc_un.res.wrong_if);
+ #define PLL_MAX_NUM		5
+-#define	MA35D1_CLK_COUNT	236
++#define	MA35D1_CLK_COUNT	238
  
- 		if (true_vifi >= 0 && READ_ONCE(mrt->mroute_do_assert) &&
+ /* Clock Control Registers Offset */
+ #define REG_CLK_PWRCTL		0x00
+@@ -544,6 +544,8 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
+ 	hws[HCLK3] = ma35d1_clk_fixed_factor(dev, "hclk3", "sysclk1_mux", 1, 2);
+ 	hws[PCLK3] = ma35d1_clk_fixed_factor(dev, "pclk3", "sysclk1_mux", 1, 2);
+ 	hws[PCLK4] = ma35d1_clk_fixed_factor(dev, "pclk4", "sysclk1_mux", 1, 2);
++	hws[PCLK3_DIV4096] = ma35d1_clk_fixed_factor(dev, "pclk3_div4096", "pclk3", 1, 4096);
++	hws[PCLK4_DIV4096] = ma35d1_clk_fixed_factor(dev, "pclk4_div4096", "pclk4", 1, 4096);
+ 
+ 	hws[USBPHY0] = ma35d1_clk_fixed("usbphy0", 480000000);
+ 	hws[USBPHY1] = ma35d1_clk_fixed("usbphy1", 480000000);
 -- 
 2.53.0
 
