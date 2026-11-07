@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048082;
-	b=gaJ7Lc2B5lmfwoFUkw9NlaLZa0BPI8DE3KrvRoILYMgVfGjziQ7Jl0GdOdPXxibJ5206
-	 UjKT8lr3UCD4jAeNouV6NBuOSBKlxFk87VmAbtPI3ucbbD6V3C30bx/go9vCpsfJ8yIGr
-	 LtdEF8HlGVGxD4yaNd2rMfkIopWAKWV8o1tXyg2XRyLxg3xQG2YP5DTPdmKTYC34ZIUR2
-	 Hz50eJi8lZnJG5x1ynN1KttYcLS4b5w8HMF0bEmx5arzVe2cereY9/5Y7T7FSw4wdAt+8
-	 oK9PcvnufRiCM3RpghTd/0v3LaVMTGcMzTlDdWP7byUTEi4xXcOpXh3ooJ8B1zb4X7w==
+	t=1794048084;
+	b=zGTeFGESrCBVobUZwyEdfWz3P4HD9CSCj8Go733VU7cR2e4yeBhFrtElfJWImDrq0vUF
+	 e/r6REnqlcSCBz8jdeDPqzCCajIl8pfVouQ+udzmLguKFTUGYiLnMGrygqsmoripjCb4+
+	 r/cm2STyJFG4JVGSLzW1L6N0F7N9a63Cf68rShT+zHC/BELiNqt/GrdPU8Lrj7HlEcAkC
+	 Ky3//uOakJDMSdVvKIgk+TrX2F3PEgen/kGB4uhcYDUvpvwQwZdr8CB/iR/Bz/AatwRE6
+	 Ah3c75d1FTU8+mYiCdwvow4x53ZzVCIOp2+pDpwgk178to62IV9RuuXXWI/rrWSrdGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048082;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048084;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=EJqF7mlF01yQ4K6nLMjffiT5TWXxjVLxD+zED8Bz1Pc=;
-	b=kWitGcIv+HOmyj9FEsBJbZUKiWIaD16yS5hDX2tW3HLBW4DEyFXMeMz1CtWzvfNI/lng
-	 5Lhc/mBXW3DCTHTPBcZsAZ05Ua3z7o9mGOQVWWCZEMY36BkBQylwXellgbNazHZpKcdZS
-	 TRWWyaXseFm8mQ9ydK5U080ktxEaz0RPcpi6KSsyqhYnZLLZO4l/HijDcu6KvIUupQAL5
-	 gp4/RWUM7QINkqyln9KTUGHA3R6DEERk/bU8Hcsz6EcrIQI+zkT4oD44RQDCtIygNN/MW
-	 mwfRj+uZbHZSdEzCwK1Ukp4gDSyPWYAqbSU5Aex70SPF8eVLM9/ykKmMv7/Q/Y/oPXA==
+	bh=nB2UJT/KZSIv9r73ED7mZispBAM7Oo5TSmJE1rtF8pM=;
+	b=Z46e1vLvl7UGLtRUyf9mdaBtAYZ/BFTXdy9yt+/q50cAgJl33Vewgv0B1ZpVYAC+bIqV
+	 SVGSKFA4nSBvC8udqavMhkH2ZtHgV+UuFi4H85PewUGs/VVRGaeF5SXFn6Zmw05P71hqv
+	 BaC2i+aX+Cx0/nJUv4aFgwDSk/cWheGHv/mqCudKDPltLFjXd80z6m0CQaz30CjJJOWQi
+	 RtnErT4wtwgdJkJKO/sMmGSBO2puOOxk4/3dlWPHkIM5MdNkRyiKM0OWBdaogCBmGCXRL
+	 mc1Uo5onWqbtnvLVaFeUXkBW26GfrhInFjyZM1OwawpEuxiDHL4hf4Fx2znBO5W3riw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="mFBiYE/J";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ViNW+cEb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5244E606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:41:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ED57606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:41:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mFBiYE/J
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C409B1F0089F;
-	Sat,  7 Nov 2026 10:41:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ViNW+cEb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8B681F0089F;
+	Sat,  7 Nov 2026 10:41:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048082;
-	bh=EJqF7mlF01yQ4K6nLMjffiT5TWXxjVLxD+zED8Bz1Pc=;
+	s=k20260515; t=1794048084;
+	bh=nB2UJT/KZSIv9r73ED7mZispBAM7Oo5TSmJE1rtF8pM=;
 	h=From:To:Cc:Subject:Date;
-	b=mFBiYE/J//gyxrEPvmSzUOjaTWHsn5NP6Tw+lzQTIZ2pUcYInT2zpQyaJD5JoTNPI
-	 RoaJoBowRMcK6Sy7obrOEmeIsZUqcFm6E+FYyfTD7PED4LvaQ07a7PWh9hAPhDfTzQ
-	 t78edFymG9ZdTu1hz6zkmNbI3RQzOmGjX7M2SpzLJWssbJxAePy7wklhODK0N1nXvU
-	 VSxXsQJGBwHaCukHZCYjfN5g05GhHWO8uztglfjGgbeMU1HCDSq7vNFd+fsl26OHH8
-	 6U62BcLSkSLJn6WCXn2b/uM039GX37oPasoM+ONGYrUckf3phGQ0gjVoJbeUewCKQJ
-	 J51RjNGt2sjsg==
+	b=ViNW+cEbMxUl/j02OczLCdJ9zjT4E/fvFzsSogdpf9uYJvaRUU3OpSmyKbGewz1+M
+	 H5D7y/94IiN2/7tj91NpVqFQ+0qvb7S1FIEGuxubxWM6tqyiMOcFFXmAo+3x6DVoph
+	 0RAFEmeOMH6chpoHEPpdwGTUQNdSE583Azbn4BWFmaVdNT6Oqe75oZCIw2f95FeCx/
+	 3f28x8RtFiUc8TUQxj/zLpotXKbsN8iV0dVo87ECKHrHDX6f7eLnXZqqBRkdnSm0Ka
+	 Nnjl9uQ+SzGmQQ22TdzhJuXY3B4g0uKmiGAbSpPwJ+CcBzEuOunzAu43Aj+mG/Tjo2
+	 jS5lkF+JSOJ6w==
 From: Sasha Levin <sashal@kernel.org>
-To: punnaysharma805@gmail.com,
+To: balakrishnan.s@microchip.com,
+	ehristev@kernel.org,
 	hverkuil+cisco@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] staging: media: av7110: fix sp8870 initialization failure state" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:41:20 -0500
-Message-ID: <20261107054120-failed-6.1-30684fa98394@kernel.org>
+Subject: FAILED: patch "[PATCH] media: microchip-isc: fix awb_mutex and lock lifecycle" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:41:22 -0500
+Message-ID: <20261107054122-failed-6.1-5540b48c0702@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,68 +69,170 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 30684fa98394bc0eb4362282908612aab7d4dad9
+git cherry-pick -x 5540b48c0702f6a1389db3d473d7fd0db930422a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054120-failed-6.1-30684fa98394@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054122-failed-6.1-5540b48c0702@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 30684fa98394bc0eb4362282908612aab7d4dad9 Mon Sep 17 00:00:00 2001
-From: Punnay Sharma <punnaysharma805@gmail.com>
-Date: Sat, 8 Aug 2026 00:04:43 +0530
-Subject: [PATCH] staging: media: av7110: fix sp8870 initialization failure
- state
+From 5540b48c0702f6a1389db3d473d7fd0db930422a Mon Sep 17 00:00:00 2001
+From: Balakrishnan Sambath <balakrishnan.s@microchip.com>
+Date: Mon, 17 Aug 2026 12:21:58 +0530
+Subject: [PATCH] media: microchip-isc: fix awb_mutex and lock lifecycle
 
-The SP8870 DVB frontend driver prematurely flags the device as
-initialized at the very beginning of the sp8870_init() routine, prior
-to requesting the firmware (dvb-fe-sp8870.fw) and executing the I2C
-upload sequence.
+isc->lock and awb_mutex were initialised in isc_async_complete() and
+destroyed in isc_async_unbind(), tying their lifetime to the subdev
+bind/unbind cycle instead of the device:
 
-If request_firmware() times out or sp8870_firmware_upload() encounters
-an I2C bus error, the function aborts and returns -EIO. However,
-because `state->initialised` is already set to 1, all subsequent
-invocations of `fe->ops.init()` by the DVB core will immediately return
-0 (success) without attempting to load the firmware again. This leaves
-the demodulator microcontroller halted and the frontend permanently dead
-until the module is forcibly reloaded.
+ - isc_async_unbind() destroyed awb_mutex before cancel_work_sync(),
+   which takes it;
+ - a failed .complete() left them initialised, and isc->lock was
+   destroyed only on the .complete() error path, so the normal unbind
+   path leaked it;
+ - a rebind runs .complete() again and reinitialises a live mutex.
 
-Relocate the `state->initialised = 1` assignment to the end of
-sp8870_init(), ensuring the flag is only set after the firmware is
-successfully uploaded and the system controller is actually restarted.
+Initialise both with devm_mutex_init() at probe so they live for the
+whole device lifetime and are freed at remove, and drop the init and
+destroy from the .complete()/.unbind() callbacks.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+isc_async_complete_err then only returned ret, so drop the label and
+return directly at each error site.
+
+Fixes: 314c96e5203d ("media: atmel: atmel-isc-base: use mutex to lock awb workq from streaming")
 Cc: stable@vger.kernel.org
-Signed-off-by: Punnay Sharma <punnaysharma805@gmail.com>
+Reviewed-by: Eugen Hristev <ehristev@kernel.org>
+Signed-off-by: Balakrishnan Sambath <balakrishnan.s@microchip.com>
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 ---
- drivers/staging/media/av7110/sp8870.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ .../media/platform/microchip/microchip-isc-base.c | 15 ++++-----------
+ .../platform/microchip/microchip-sama5d2-isc.c    |  9 +++++++++
+ .../platform/microchip/microchip-sama7g5-isc.c    |  9 +++++++++
+ 3 files changed, 22 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/staging/media/av7110/sp8870.c b/drivers/staging/media/av7110/sp8870.c
-index 340e4b22859d6..aecdbd87976fd 100644
---- a/drivers/staging/media/av7110/sp8870.c
-+++ b/drivers/staging/media/av7110/sp8870.c
-@@ -315,7 +315,6 @@ static int sp8870_init(struct dvb_frontend *fe)
- 	sp8870_wake_up(state);
- 	if (state->initialised)
- 		return 0;
--	state->initialised = 1;
+diff --git a/drivers/media/platform/microchip/microchip-isc-base.c b/drivers/media/platform/microchip/microchip-isc-base.c
+index a7cdc743fda71..eebbcb28a7eed 100644
+--- a/drivers/media/platform/microchip/microchip-isc-base.c
++++ b/drivers/media/platform/microchip/microchip-isc-base.c
+@@ -1703,7 +1703,6 @@ static void isc_async_unbind(struct v4l2_async_notifier *notifier,
+ {
+ 	struct isc_device *isc = container_of(notifier->v4l2_dev,
+ 					      struct isc_device, v4l2_dev);
+-	mutex_destroy(&isc->awb_mutex);
+ 	cancel_work_sync(&isc->awb_work);
+ 	video_unregister_device(&isc->video_dev);
+ 	v4l2_ctrl_handler_free(&isc->ctrls.handler);
+@@ -1767,8 +1766,6 @@ static int isc_async_complete(struct v4l2_async_notifier *notifier)
  
- 	dprintk("initialising frontend...\n");
+ 	isc->current_subdev = container_of(notifier,
+ 					   struct isc_subdev_entity, notifier);
+-	mutex_init(&isc->lock);
+-	mutex_init(&isc->awb_mutex);
  
-@@ -353,6 +352,8 @@ static int sp8870_init(struct dvb_frontend *fe)
- 	sp8870_writereg(state, 0x0D00, 0x010);
- 	sp8870_writereg(state, 0x0D01, 0x000);
+ 	init_completion(&isc->comp);
  
-+	state->initialised = 1;
-+
- 	return 0;
+@@ -1787,7 +1784,7 @@ static int isc_async_complete(struct v4l2_async_notifier *notifier)
+ 	ret = vb2_queue_init(q);
+ 	if (ret < 0) {
+ 		dev_err(isc->dev, "vb2_queue_init() failed: %d\n", ret);
+-		goto isc_async_complete_err;
++		return ret;
+ 	}
+ 
+ 	/* Init video dma queues */
+@@ -1798,13 +1795,13 @@ static int isc_async_complete(struct v4l2_async_notifier *notifier)
+ 	ret = isc_set_default_fmt(isc);
+ 	if (ret) {
+ 		dev_err(isc->dev, "Could not set default format\n");
+-		goto isc_async_complete_err;
++		return ret;
+ 	}
+ 
+ 	ret = isc_ctrl_init(isc);
+ 	if (ret) {
+ 		dev_err(isc->dev, "Init isc ctrols failed: %d\n", ret);
+-		goto isc_async_complete_err;
++		return ret;
+ 	}
+ 
+ 	/* Register video device */
+@@ -1824,7 +1821,7 @@ static int isc_async_complete(struct v4l2_async_notifier *notifier)
+ 	ret = video_register_device(vdev, VFL_TYPE_VIDEO, -1);
+ 	if (ret < 0) {
+ 		dev_err(isc->dev, "video_register_device failed: %d\n", ret);
+-		goto isc_async_complete_err;
++		return ret;
+ 	}
+ 
+ 	ret = isc_scaler_link(isc);
+@@ -1839,10 +1836,6 @@ static int isc_async_complete(struct v4l2_async_notifier *notifier)
+ 
+ isc_async_complete_unregister_device:
+ 	video_unregister_device(vdev);
+-
+-isc_async_complete_err:
+-	mutex_destroy(&isc->awb_mutex);
+-	mutex_destroy(&isc->lock);
+ 	return ret;
  }
  
+diff --git a/drivers/media/platform/microchip/microchip-sama5d2-isc.c b/drivers/media/platform/microchip/microchip-sama5d2-isc.c
+index 66d3d7891991e..25d241b4c66a8 100644
+--- a/drivers/media/platform/microchip/microchip-sama5d2-isc.c
++++ b/drivers/media/platform/microchip/microchip-sama5d2-isc.c
+@@ -30,6 +30,7 @@
+ #include <linux/interrupt.h>
+ #include <linux/math64.h>
+ #include <linux/module.h>
++#include <linux/mutex.h>
+ #include <linux/of.h>
+ #include <linux/of_graph.h>
+ #include <linux/platform_device.h>
+@@ -417,6 +418,14 @@ static int microchip_isc_probe(struct platform_device *pdev)
+ 	platform_set_drvdata(pdev, isc);
+ 	isc->dev = dev;
+ 
++	ret = devm_mutex_init(dev, &isc->lock);
++	if (ret)
++		return ret;
++
++	ret = devm_mutex_init(dev, &isc->awb_mutex);
++	if (ret)
++		return ret;
++
+ 	io_base = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(io_base))
+ 		return PTR_ERR(io_base);
+diff --git a/drivers/media/platform/microchip/microchip-sama7g5-isc.c b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
+index 7383341ec51d6..28d975002476f 100644
+--- a/drivers/media/platform/microchip/microchip-sama7g5-isc.c
++++ b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
+@@ -33,6 +33,7 @@
+ #include <linux/interrupt.h>
+ #include <linux/math64.h>
+ #include <linux/module.h>
++#include <linux/mutex.h>
+ #include <linux/of.h>
+ #include <linux/of_graph.h>
+ #include <linux/platform_device.h>
+@@ -406,6 +407,14 @@ static int microchip_xisc_probe(struct platform_device *pdev)
+ 	platform_set_drvdata(pdev, isc);
+ 	isc->dev = dev;
+ 
++	ret = devm_mutex_init(dev, &isc->lock);
++	if (ret)
++		return ret;
++
++	ret = devm_mutex_init(dev, &isc->awb_mutex);
++	if (ret)
++		return ret;
++
+ 	io_base = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(io_base))
+ 		return PTR_ERR(io_base);
 -- 
 2.53.0
 
