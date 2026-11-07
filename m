@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046934;
-	b=j7+hi4xzAmix6PqxzI7UmOeG8q2Y314ZnoXn6F+P9HA9C8mRDMSiB/+nxGCbBA4g4MK+
-	 ROUvnNTBCESIlpiplXjDH0Bt6t1TclSDUZ6iNYwk/Mbrhu73ElavlLB2wDqz5qJNDQSZn
-	 AWQWDHh2mp4B3cpx5xuRrJQ7N0f9KouypV+vyiIMTZkd6EtcAdjDLGdWYghuA4yPCCvKN
-	 xxdcK0Hu9czQ3HcIcSwmx54uQ4EsXRcwcV9tH9//ZfbH+Q/LJywxk1jEHY8ZFouF3Dm8P
-	 xUfcbD4/F3f/WbAqoO+JSRpwaFqH76iq7c+9pU/U+alpo/qtBCvcFRNoI01af78ARaQ==
+	t=1794046937;
+	b=D2YB/qxe6+k2VjZFg/GGEq8HXpVTMifTiKdoZ6hvCL7XIpUZWE0k6rLTBtuascw2GmRd
+	 YTTtxd+CR9Z7+i5Eo/8zaF58bplhHsQjn+q9laCwnjo4b4JJ/gpk6EprSONiHAESGw6l2
+	 PZ0ZftQinmI0qK5Dh0aHDlTk+4s8BE2SMs4dolK7ePNa19RkN9vFkMoa0cfip20uw438a
+	 VmPDYaZmE3gyJOhQXO5lTK6Mi+9kz7dV9nvx0tux7rA951MMdpEaYIWHt6S9cbPIzG7Ju
+	 +KNs47YSkQ4TV19kT8XEWLW2Fz8T6cJpU+9fjo5FXIw3B0Ca4UsMiM0GRukV2L7Cixw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046934;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046937;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=6DyQlvb4bm6O+IWgeXaxvfCI0FObeysWFUJTGI0QGV8=;
-	b=hcpIiTN8wopK3iWwsvjlwApgGGv2IE+eweLcb8FvpVll+HhjSXzJt4KVTCqHwlreJcr7
-	 CHg3ET6fIogfyEO5NKkmgYBZv9+/jRzJCC6N6EoNx5ugMfQxVP15dW1DVYTt/9SvKLfbl
-	 nP+0W/zqmTuOPcxIDHuCdbfqg9R8P3mxX91PMrkjjNlq12EHeMd7UopmtRwfK1bL66flY
-	 Red2QKnNcVfMQBW7KnDIfxeqDALA6wMxMv+EO4063w0oXeOc/+P6cLbhQElTwBXpDtg7G
-	 QqYbKRsoPWms6mzHjelOv/fXB/LIx/s5MHBHkOiRHsfEQhXwMI1AfSfG/2xG+givakQ==
+	bh=VrnsvAyaUL3Wobe869ngAAJ8N7dj0Fk3eY3DPBSNH7A=;
+	b=UCgmG+ibW0jJ8Aou+hWr0fKy2Ft0AEXM0/p7o2FFPXBJiiUrcqde4enwZ6qMKWjbf6F3
+	 RayqoTt7gkyzg5vep/JB0Zde5BTA4/41j9Mq8Amv5gdKDJV9cYuevdNiM2mEs9bfgozEy
+	 rYXWWNvEO/GAikGTi768YOQdUaBt3XSPLWNcjjgX8WwsvM4Wzfh8IBYG7djb1WEsQ9M60
+	 UY3Ue9X8P51n9oJcGqabeJxVEaVaunlGGjL6MzF9Kaj1FLPbODpyXccP12VzsIlr1hakk
+	 mwrG8DEYaRqSxbg7cPLnwdrXcLs2sh/AnK8qCpFfC1oC9d4KhNziv9KApTLbHjFq3fA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="VJe/NQXg";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EOaRe7H3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28F61606EEBA
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:22:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF503606D823
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:22:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VJe/NQXg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E7C01F0089F;
-	Sat,  7 Nov 2026 10:22:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EOaRe7H3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0F7C1F0089F;
+	Sat,  7 Nov 2026 10:22:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046934;
-	bh=6DyQlvb4bm6O+IWgeXaxvfCI0FObeysWFUJTGI0QGV8=;
+	s=k20260515; t=1794046936;
+	bh=VrnsvAyaUL3Wobe869ngAAJ8N7dj0Fk3eY3DPBSNH7A=;
 	h=From:To:Cc:Subject:Date;
-	b=VJe/NQXgOWs2pHs8ncN9qOoB6B7lb9CVQGoJS8l/sxrPGDoPd5NIf/qJa/xZ49uOf
-	 5THPPVV2se8IHGYuzLgKiyx2n2msdEheKLwO5za8EKIoowHg5OodOCc2XW6pRNcC8Q
-	 y85xbp1YAq6fyMoy2/DX+feWxPiLymk8pYplU5LMZVQKeHXNfJdjq8ZT4WiL95vCJ/
-	 5ndwShvU07DpXnRie5GyqxKcHbo97rEuGZqFE2b9O3xvrQ69tRg/yVa65YSfd5NHMo
-	 5Ys16FMlJNJLMhF1qcvUH0hYpzfq+A7A8kaiogCWrFeAk6KvAeC2d0rZs+E0dHHQ0p
-	 VQumHLoOPT7sQ==
+	b=EOaRe7H3WoxEh0Pb/zj/mjr+DZsf8SHiFY4253UbvEzHbVEeuyY/MMNCnu9oj37r2
+	 tbztdNk1JDMW5tJ1rNkqmpqBog53UmxPuuTpBcO3+0gNe2Z/WeZjoX+BNDdv0dvC0f
+	 QKkyg7DUTaN1emnVoFIHhSfyR/YTQQrWfHibElin6Oo3NZcgslm9IDT+GBAM4Yw2Xb
+	 P6MqTZZx8lcjZU4n58iubYUOy985YGAeWwaE1Vag9Y7E+N+lJObMuFJ2ZSdeql4aTj
+	 fDagLwMKOVmsF454NDrT4+FPI/FnW7uNHNFh7Zxk3pnpL9ucKQZWVaIshkfuNA3WN9
+	 z5ISv7BhCUeOA==
 From: Sasha Levin <sashal@kernel.org>
 To: brads@mainlining.org,
 	akpm@linux-foundation.org,
@@ -48,9 +48,9 @@ To: brads@mainlining.org,
 	wangjinchao600@gmail.com,
 	wim@linux-watchdog.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] panic: restore variable arguments to nmi_panic()" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:22:12 -0500
-Message-ID: <20261107052212-failed-6.12-ed9e4c1ff15d@kernel.org>
+Subject: FAILED: patch "[PATCH] panic: kill the "buffer unavailable" redirect fallback" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:22:14 -0500
+Message-ID: <20261107052214-failed-6.12-68d956e9e235@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -73,44 +73,38 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x ed9e4c1ff15d5b935f467811541ca0aa6e49c5d0
+git cherry-pick -x 68d956e9e235c2e125f77a9e98831e297b624a75
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052212-failed-6.12-ed9e4c1ff15d@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052214-failed-6.12-68d956e9e235@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From ed9e4c1ff15d5b935f467811541ca0aa6e49c5d0 Mon Sep 17 00:00:00 2001
+From 68d956e9e235c2e125f77a9e98831e297b624a75 Mon Sep 17 00:00:00 2001
 From: Bradley Morgan <brads@mainlining.org>
-Date: Wed, 16 Sep 2026 18:29:55 +0000
-Subject: [PATCH] panic: restore variable arguments to nmi_panic()
+Date: Wed, 16 Sep 2026 18:29:57 +0000
+Subject: [PATCH] panic: kill the "buffer unavailable" redirect fallback
 
-nmi_panic() used to accept variable arguments until commit ebc41f20d77f
-("panic: change nmi_panic from macro to function") flattened it to a final
-message string.  vpanic() did not exist back then, so the function had to
-format through panic("%s", msg).
+The redirect buffer is a disgusting terrible hack.  panic_force_buf is
+kmalloc'ed in a late_initcall, and until then the redirect delivers this
+as the panic message:
 
-Bring the variable arguments back and format with vpanic() directly.
-The next patch makes nmi_panic() try the panic_force_cpu= redirect
-before claiming panic_cpu.  panic_try_force_cpu() needs to print the
-message but it is used also by panic() which accepts variable argument
-list.  The string could be formatted only when a CPU gets assigned to
-process the redirection.  Otherwise, there might be a race when writing
-to the `panic_force_buf`.
+  Redirected panic (buffer unavailable)
 
-No current caller passes a string with format specifiers.  The closest one
-is hpwdt_pretimeout(), which builds panic_msg with hex_byte_pack() and has
-only two variants, both plain strings.  But the new __printf() annotation
-on nmi_panic() would warn with -Wformat-security there because the buffer
-is passed directly as the format argument, so switch it to nmi_panic(regs,
-"%s", panic_msg).
+The whole point of the redirect is to hand the panic message to the target
+CPU, so the crash kernel boots knowing it panicked and not why.  And that
+window is the entire boot, from the early_param to the late_initcall,
+which is exactly when you most want the message.
 
-[pmladek@suse.com: changelog fix]
-	Link: https://lore.kernel.org/arJxFybmtD7OBIcL@pathway.suse.cz
-Link: https://lore.kernel.org/20260916182957.7788-5-brads@mainlining.org
+Make it a static 1KB buffer and kill the initcall.  The cost is 1KB of
+.bss in SMP crash dump builds, and it is only ever touched when
+panic_force_cpu= is set anyway.  The local msg variable is gone too, the
+buffer goes directly to panic_smp_redirect_cpu().
+
+Link: https://lore.kernel.org/20260916182957.7788-7-brads@mainlining.org
 Signed-off-by: Bradley Morgan <brads@mainlining.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Suggested-by: Petr Mladek <pmladek@suse.com>
@@ -121,64 +115,83 @@ Cc: Wang Jinchao <wangjinchao600@gmail.com>
 Cc: Wim Van Sebroeck <wim@linux-watchdog.org>
 Cc: <stable@vger.kernel.org>
 ---
- drivers/watchdog/hpwdt.c |  2 +-
- include/linux/panic.h    |  3 ++-
- kernel/panic.c           | 10 ++++++++--
- 3 files changed, 11 insertions(+), 4 deletions(-)
+ kernel/panic.c | 34 +++++++---------------------------
+ 1 file changed, 7 insertions(+), 27 deletions(-)
 
-diff --git a/drivers/watchdog/hpwdt.c b/drivers/watchdog/hpwdt.c
-index 8af1fad2de0bd..78227d200afe4 100644
---- a/drivers/watchdog/hpwdt.c
-+++ b/drivers/watchdog/hpwdt.c
-@@ -199,7 +199,7 @@ static int hpwdt_pretimeout(unsigned int ulReason, struct pt_regs *regs)
- 	}
- 
- 	hex_byte_pack(panic_msg, nmistat);
--	nmi_panic(regs, panic_msg);
-+	nmi_panic(regs, "%s", panic_msg);
- 
- 	return NMI_HANDLED;
- }
-diff --git a/include/linux/panic.h b/include/linux/panic.h
-index 98dd7dfd27de7..17e61b61c45f8 100644
---- a/include/linux/panic.h
-+++ b/include/linux/panic.h
-@@ -13,7 +13,8 @@ __printf(1, 2)
- void panic(const char *fmt, ...) __noreturn __cold;
- __printf(1, 0)
- void vpanic(const char *fmt, va_list args) __noreturn __cold;
--void nmi_panic(struct pt_regs *regs, const char *msg);
-+__printf(2, 3)
-+void nmi_panic(struct pt_regs *regs, const char *fmt, ...);
- void check_panic_on_warn(const char *origin);
- extern void oops_enter(void);
- extern void oops_exit(void);
 diff --git a/kernel/panic.c b/kernel/panic.c
-index 7388eb81a1c47..e240ca06faab2 100644
+index 29c981926f5f3..170744163fc2a 100644
 --- a/kernel/panic.c
 +++ b/kernel/panic.c
-@@ -518,13 +518,19 @@ EXPORT_SYMBOL(panic_on_other_cpu);
-  * nmi_panic_self_stop() which can provide architecture dependent code such
-  * as saving register state for crash dump.
-  */
--void nmi_panic(struct pt_regs *regs, const char *msg)
-+void nmi_panic(struct pt_regs *regs, const char *fmt, ...)
+@@ -307,7 +307,7 @@ atomic_t panic_cpu = ATOMIC_INIT(PANIC_CPU_INVALID);
+ atomic_t panic_redirect_cpu = ATOMIC_INIT(PANIC_CPU_INVALID);
+ 
+ #if defined(CONFIG_SMP) && defined(CONFIG_CRASH_DUMP)
+-static char *panic_force_buf;
++static char panic_force_buf[PANIC_MSG_BUFSZ];
+ 
+ static int __init panic_force_cpu_setup(char *str)
  {
-+	va_list args;
-+
-+	va_start(args, fmt);
-+
- 	if (panic_try_start())
--		panic("%s", msg);
-+		vpanic(fmt, args);
- 
- 	if (panic_on_other_cpu())
- 		nmi_panic_self_stop(regs);
-+
-+	va_end(args);
+@@ -326,17 +326,6 @@ static int __init panic_force_cpu_setup(char *str)
  }
- EXPORT_SYMBOL(nmi_panic);
+ early_param("panic_force_cpu", panic_force_cpu_setup);
  
+-static int __init panic_force_cpu_late_init(void)
+-{
+-	if (panic_force_cpu < 0)
+-		return 0;
+-
+-	panic_force_buf = kmalloc(PANIC_MSG_BUFSZ, GFP_KERNEL);
+-
+-	return 0;
+-}
+-late_initcall(panic_force_cpu_late_init);
+-
+ static void do_panic_on_target_cpu(void *info)
+ {
+ 	panic("%s", (char *)info);
+@@ -380,7 +369,7 @@ static bool panic_try_force_cpu(const char *fmt, va_list args)
+ {
+ 	int this_cpu = raw_smp_processor_id();
+ 	int old_cpu = PANIC_CPU_INVALID;
+-	const char *msg;
++	va_list ap;
+ 
+ 	/* Feature not enabled via boot parameter */
+ 	if (panic_force_cpu < 0)
+@@ -413,20 +402,11 @@ static bool panic_try_force_cpu(const char *fmt, va_list args)
+ 		return old_cpu != this_cpu;
+ 
+ 	/*
+-	 * Use dynamically allocated buffer if available, otherwise
+-	 * fall back to static message for early boot panics or allocation failure.
++	 * Do not consume args, the caller reuses them if we fail.
+ 	 */
+-	if (panic_force_buf) {
+-		va_list ap;
+-
+-		/* Do not consume args, the caller reuses it if we fail */
+-		va_copy(ap, args);
+-		vsnprintf(panic_force_buf, PANIC_MSG_BUFSZ, fmt, ap);
+-		va_end(ap);
+-		msg = panic_force_buf;
+-	} else {
+-		msg = "Redirected panic (buffer unavailable)";
+-	}
++	va_copy(ap, args);
++	vsnprintf(panic_force_buf, PANIC_MSG_BUFSZ, fmt, ap);
++	va_end(ap);
+ 
+ 	console_verbose();
+ 	bust_spinlocks(1);
+@@ -441,7 +421,7 @@ static bool panic_try_force_cpu(const char *fmt, va_list args)
+ 		dump_stack();
+ 	}
+ 
+-	if (panic_smp_redirect_cpu(panic_force_cpu, (void *)msg) != 0) {
++	if (panic_smp_redirect_cpu(panic_force_cpu, panic_force_buf) != 0) {
+ 		atomic_set(&panic_redirect_cpu, PANIC_CPU_INVALID);
+ 		pr_warn("panic: failed to redirect to CPU %d, continuing on CPU %d\n",
+ 			panic_force_cpu, this_cpu);
 -- 
 2.53.0
 
