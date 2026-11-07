@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049511;
-	b=oIILvk+y69FNQ3RDLNQFKVtjV4AG+x7RLBFJo+gSkePrbotB6FKy5mOYDW9J4l2uxksS
-	 WI7T+NGLnVvh0GtzgwCOfyCtIKNkqr/+TjyZ1g5RT5PqztwlFQ9C6QaKbbUt70UpGHvng
-	 LRTgljQgH6Ge3ymMfUiEzjNaKjHUGdg7UXeXVr9umRRcjbGuxvoSzJJH8igxqq+cmpHNg
-	 0QUo6fRPkKWetv27UJay3f7Y/Vem5sIyvC6mUEcLhS69lhCpdBdqzFcaBpizZzBUL8nx0
-	 vVpOOj9N4V5N14MHF/TbrrdbN+7KpPxxJdX2+uJYLJkTrHaYhk7iQrZliQi/WaDqDhg==
+	t=1794049514;
+	b=Jh+FQVh+XuLUci9YGhQ61WGWP4Ggs9xjaxAkBc+GAqK3nw8XfdbiB4fftRQ/AcDhoUrm
+	 Jjii4svq0IphPzMk20N64Sb5qi9kIb33naQ9RrXJbByYpNgfUJ0/+3uWyrYtErGT8Zj2k
+	 IwsFQz4Iv5jPbz2kKiqFtDS+f6hNvMRdU1SC33+s9L4Tn4K6iTeJJXmPWyk6H9CRMglu9
+	 kR08T21A1NR73cHxxVOSr0C7ALfp0B8tCM855fyzlKRCfBYQkaVQfg0WLeP300sAOQLwY
+	 AbxuXHjWTKObAGrPD8cx9QHAbzoG4gfEsY7OVbAvLZWcux32SMUJF7YcTpQT64P3TFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049511;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049514;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=7T6RjE+8y6yR7RWpJaEBVuxFdoy3uCgnfdtnogo5veA=;
-	b=0oodAdEShMypmwcyu/yJiFQ4MdJnbMLwjhXS22wojks+AkJX4dyeY51PJmebPQuX6f0n
-	 SVihnGACbfXtfK1gMjnVTFNWXcEWtJjJJKviWz+b4icAh987k0hvl+C7vk02sodRvHnfn
-	 7c0syVkfYme1lE83Au9udlaEG5qC8vdel6GNPOAJI7hIScNZhPg160rKeTopW3ZUFyDzv
-	 2KVOwAkmd+XF4m5VC+sJNGN0aSUReyiyRQ0IpDilou5RYULApqv/rY84AcFTscva3PVc4
-	 cwdDghIHNv+PtnVZwz5OCC8XA8qWCHUmFCxoHa3Utm1CzZMRQZhC5Pu/G2w8OHlmEBw==
+	bh=w7TqUyoX/VjVpQ6aiBEEdZNPt7jtBc9WT2b/xOwysM4=;
+	b=X958knDN/Eufht90uKpDQvrAvxiqXBiVh95Swl/BrEsCdRpf9OsKKeZVl/5rU1gre+gR
+	 Y/F2xMPzxF/wxk4q5MaUPBHDzzKXmevUpgrx5lVlBBMtL04ctIC54KyixFuRCCNMgO3nO
+	 V+N+2obwSsbEBWEqvb9eb2ktxdxG8xJem6kzjjoEt1csu/Q+uzBxD37pVKf/o50o2n6ac
+	 iH+WBe7yMasLnJ+IlNcCIA5P7UfEvcsM/2ltXyGjQbXx5CbwULbiunINEE8A4lBKKwPhl
+	 IfJMMmUfzmZMDkVgwi2zlNjBNbVGvpoDrx2yxf15GT21fdKzqF/nUVMBCXS3NpG1FoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RGkG5OUy;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dpo90v8c;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70B9F606A32F
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:05:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ED4E606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:05:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RGkG5OUy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC3D61F0089F;
-	Sat,  7 Nov 2026 11:05:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dpo90v8c
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB3FF1F0089F;
+	Sat,  7 Nov 2026 11:05:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049511;
-	bh=7T6RjE+8y6yR7RWpJaEBVuxFdoy3uCgnfdtnogo5veA=;
+	s=k20260515; t=1794049514;
+	bh=w7TqUyoX/VjVpQ6aiBEEdZNPt7jtBc9WT2b/xOwysM4=;
 	h=From:To:Cc:Subject:Date;
-	b=RGkG5OUyuxjc9AKxJbU/4TcJxpJQDRGGFQM0ny4pIbV8A0tFRLHkC1yLkuIw2cj+2
-	 4gWbKWX6rLAMiNPVNmbJpnYYWYMFBtTTBAMsffKuUmLMlpkQtJKXQdjQLEX6ba/oHt
-	 6kSHyVbcRNQU1T+ykcy3yUDKOQB9l/OupI+o4P6K8qtcF6DoIsrhIUhj9EPUF+ChSZ
-	 LXWV+JuIkZIxEMfuCln2AP9LkAiR2O7kN5Li7B7hTY+cca28aMlWTdNHblPaMvQQsg
-	 CX/pdcSu0aVBW+slB5VS8v7/4qJ/gY4zXOvivcudWKpu3hP5vHL75TvbQDShzfBHcn
-	 3Xcbxch8IZaDA==
+	b=dpo90v8c3RjLMsQPBZXYn96LMks1g7Pug69k2DwEbAZY45tqC9mAwLgx344f8ZlPy
+	 zDptPTG0GtmY6n/LowJfqfSbbPaZtdKaoNEKutfWLGVMdt08yIGnCyLqILGHWBDQ/b
+	 QfLZGePl1zum0x8asVlCpsdZjjW4P9+nsZSV32NsBjd2kiKvZYsRtQovvhphROQwew
+	 3z3newO4lj6vQSoIpXfwRn/yk04uCfrcSc/nRzTGwKJd+Dh5h//2egbVfZyYTbzScu
+	 3+ZIFWhJUdSi7ljnQ7TutKq7hjINcbPMdUKnA9gCqdjijdgJeSa/JHn149qKPyLuvR
+	 v5WPS683pZ7RQ==
 From: Sasha Levin <sashal@kernel.org>
 To: mhun512@gmail.com,
 	ae878000@gmail.com,
 	deller@gmx.de
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] fbdev: kyro: Release WC setup on registration failure" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:05:09 -0500
-Message-ID: <20261107060509-failed-5.15-d3bc005a6294@kernel.org>
+Subject: FAILED: patch "[PATCH] fbdev: nvidia: Release write-combining handle on probe failure" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 06:05:12 -0500
+Message-ID: <20261107060512-failed-5.15-8710af6a3520@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,27 +69,28 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x d3bc005a62945aec57059201092b12b7c955e5a7
+git cherry-pick -x 8710af6a35201a6d01b5af8f7e4bad29cc40467f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060509-failed-5.15-d3bc005a6294@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060512-failed-5.15-8710af6a3520@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From d3bc005a62945aec57059201092b12b7c955e5a7 Mon Sep 17 00:00:00 2001
+From 8710af6a35201a6d01b5af8f7e4bad29cc40467f Mon Sep 17 00:00:00 2001
 From: Myeonghun Pak <mhun512@gmail.com>
-Date: Mon, 14 Sep 2026 20:52:43 -0400
-Subject: [PATCH] fbdev: kyro: Release WC setup on registration failure
+Date: Mon, 14 Sep 2026 20:54:47 -0400
+Subject: [PATCH] fbdev: nvidia: Release write-combining handle on probe
+ failure
 
-If register_framebuffer() fails, kyrofb_probe() frees the framebuffer
-without releasing its write-combining range. Release the range before
-freeing the framebuffer. Earlier failures still skip this cleanup.
+Failures in nvidia_set_fbinfo() or register_framebuffer() leave the handle
+from arch_phys_wc_add() allocated. Release it in the shared error path,
+as nvidiafb_remove() already does on normal removal.
 
-The missing cleanup already exists in the initial Git import, before
-the conversion from mtrr_add() to arch_phys_wc_add().
+The missing cleanup was already present in the initial Git import,
+when the driver used mtrr_add() directly.
 
 This issue was identified during our ongoing static-analysis research
 while reviewing kernel code.
@@ -101,31 +102,21 @@ Signed-off-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 Signed-off-by: Helge Deller <deller@gmx.de>
 ---
- drivers/video/fbdev/kyro/fbdev.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/video/fbdev/nvidia/nvidia.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/video/fbdev/kyro/fbdev.c b/drivers/video/fbdev/kyro/fbdev.c
-index c237389888229..94d6af54e6c46 100644
---- a/drivers/video/fbdev/kyro/fbdev.c
-+++ b/drivers/video/fbdev/kyro/fbdev.c
-@@ -765,7 +765,7 @@ static int kyrofb_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 	fb_memset_io(info->screen_base, 0, size);
- 
- 	if (register_framebuffer(info) < 0)
--		goto out_free_fb;
-+		goto out_free_wc;
- 
- 	fb_info(info, "%s frame buffer device, at %dx%d@%d using %ldk/%ldk of VRAM\n",
- 		info->fix.id,
-@@ -776,6 +776,8 @@ static int kyrofb_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 
+diff --git a/drivers/video/fbdev/nvidia/nvidia.c b/drivers/video/fbdev/nvidia/nvidia.c
+index 4ef7a5ba43cc4..395f5d0455fa4 100644
+--- a/drivers/video/fbdev/nvidia/nvidia.c
++++ b/drivers/video/fbdev/nvidia/nvidia.c
+@@ -1423,6 +1423,7 @@ static int nvidiafb_probe(struct pci_dev *pd, const struct pci_device_id *ent)
  	return 0;
  
-+out_free_wc:
-+	arch_phys_wc_del(currentpar->wc_cookie);
- out_free_fb:
- 	framebuffer_release(info);
- 
+ err_out_iounmap_fb:
++	arch_phys_wc_del(par->wc_cookie);
+ 	fb_destroy_modelist(&info->modelist);
+ err_out_free_base1:
+ 	fb_destroy_modedb(info->monspecs.modedb);
 -- 
 2.53.0
 
