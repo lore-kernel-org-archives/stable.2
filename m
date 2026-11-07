@@ -1,52 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048670;
-	b=oJ6VTlzX0Ph3M5DZwqgEm9zj/QVIGqcbMLxXenPiMhwAFeGDHA5sX3XF2T57ggXUASz+
-	 izLOfts+ZSXIxvEO8orvJPKfvMf/VY+ibwPeAv1jD7CM/8Jxx5Qt4OqvEGqBfpxpHcYRd
-	 BNVRkYlQ0mnL4D8rBhm7tTFYXffFFHXIUZTpy/UDdOATFCn1r3pnuBGDmyMk+lrWjo9Qa
-	 ak3WbeIVrVLMha2ZcvYRQzXTfquHRdl+Pkoc0ODpdXjaZpmRHz+fj3ozeRbC0/3JfSCL0
-	 BWwsBGCTcUznzI+PVvMzqFFuVGQtmwB/hIYApFIQNnmiTu3Tf+kqRINU7SYwI6GSVqg==
+	t=1794048674;
+	b=yObh0E+K5l+YE2IbXIVRDHA/NlTawVHQGZW0XYtxVemB8I5elxQnlYY5ToxYIiRpPVTL
+	 nwyKwuCbrI6DHRVYGaRDC9/t/5B52KCiIvP10IvY73kgRVd1YLrrxkYcSBSrM9NWVdaKT
+	 17fYom/qxjoCxFj++Yz0AcxNZh3oH0d4Xk8D6AbtNuBsaTeeKgn8MyGNkIid27f8/U/G2
+	 KN9GJtKYLE1ry3tx31YTLuCTe/oC7t4U0avl7vTUWDNpTGmaSozWeNwsqNTuzN/GBvZeA
+	 TofHhf2XSe6In/l+i39bNtR4tRHshY0E7RunsJ6fsprzKKhThDbozKAFjMfCx62WfIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048670;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048674;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=LgTuFv/P8wGgq6Xg+TZ+lz4wjIbDeW14bMiZLIjX8X8=;
-	b=dAaj3CgbgSZedeeFNKbJBEDZOdEj2r5gSz6K8i5cJodKKkjklYZZOquOXCTqZX6XwL+1
-	 ho9meX036MJIyab/js9q0XDqazlxyjhIDbJ66UHpWZB1+3M6n6G3Zntjf13M6nCdXIcxT
-	 bNmfOLp2szJlOivz1S/x4/R/R934vZqi5K/sqJBSuU3Beo26Gq7ooFbxDNvIhzoSN/4+f
-	 Rbwy9jjc0QzcriAhk519kOn0i1ZftinpWZyfCDQen2gMmpoXX9dgMEvtuFL84vv8Lj1hy
-	 H7bvs2XTrXjoYzsbj1tB/P+a9j3IqX+WDF8X0ALQ7uZVRH8gu14n448vYL1ND0W1MzA==
+	bh=uXUNCXk7bXKsicpJHXFGCCC6DJD+3icvfMnax00aUig=;
+	b=o3c+1OFSvocI16pBf7QM1//tOcLer6uvffEo23IWdmFqzML2jq/xtIoxj0U0/5AALZ2G
+	 AIqvc81Y5PEd0qoZlsfM/lMCo+AoGwKPJjp/iDWpJ7WS4+OnjQzR+xGxXO/rJtpQXRyt2
+	 6iH5xhf4aWYjwW0eO/cSc7xdi/eFnNa/TSXJiCm0BRAvd6Vfnq4HhU01tD/fnQnwbAFLp
+	 PWeMvS48R49vWb2RD6nwmQzv5Jyv9qvI/eORaFuRSgmt8CkBgX3PQz9Fqs1SQxTWq62S+
+	 /aQZBdI6G+2OXzr9y8NM1Db0TVT/CEPP93LNOL821BAjAJ2G7ZLkDD4N1J1XFKyT1EQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NzCM2Fis;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KkeNixNc;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 658F7606EE9A
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:51:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A909606EE92
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:51:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NzCM2Fis
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD6C01F0089F;
-	Sat,  7 Nov 2026 10:51:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KkeNixNc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6B111F0089F;
+	Sat,  7 Nov 2026 10:51:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048670;
-	bh=LgTuFv/P8wGgq6Xg+TZ+lz4wjIbDeW14bMiZLIjX8X8=;
+	s=k20260515; t=1794048673;
+	bh=uXUNCXk7bXKsicpJHXFGCCC6DJD+3icvfMnax00aUig=;
 	h=From:To:Cc:Subject:Date;
-	b=NzCM2FisTgfV4Nsdihhwf3J72HJ02QQ/atFqw1Bo5em2BlMU+87YwDOERB82AHvmn
-	 c/jVctHfoicsuMv/8ODKEfJbU4iB0nGmfkrlomovlaVsUwueS6h7sZqJ5a/1YWjMl6
-	 4d+CsgZMeU61XslbCgDKX3LWbFE9zwkVxCBoCmHYZ3RIcTapsTe+M9zjtKRIv0zs8W
-	 FeHpKawRWMhsseeqEjtFp2LVgSmHk/MLoMZmbpOHHVtfGpHa2dThXbqmaOeRMmtDHm
-	 koMcxBgrOvCdQM4g9camEFk4Of14zn27LZ4EhYBF4XU511VcV2PZ41Ic7JtC9rGcFY
-	 MQDxdGQSxJ+/Q==
+	b=KkeNixNcHtNi66KaUL2VREZhl6gRN+PaDQ9mQmW+BfyVftlrsTeOvb9lt8ArQh7PH
+	 /ceZbip+ViJfyi5z/f1uGGKePhEcNp7XvL9i8s69rpjt5hKfx39mcFz47Tm+5FuSEb
+	 M2J2iDpzdV6ypDqDiuSmr+VkZHVOOyW4mCvpaWlsgjEUE5vGYXYCsabcL5qmuJGpTD
+	 NZqq8K1MN8pVURC77pbj4sMW1ajJL+l1GNnDZtveqJgGMTpAnuYVunKhSeYK2UZRJX
+	 QIB3WVA4dSP3xJzyQjkfz4HtaWBLo+GZaFnvYDjwmOhMfgF+kh5Zj8H3Gi0a0ngLiO
+	 Wc8pGMRjTjJtA==
 From: Sasha Levin <sashal@kernel.org>
-To: vnagare@redhat.com,
-	horms@kernel.org,
-	pabeni@redhat.com
+To: liuc63@xiaopeng.com,
+	liuwb@xiaopeng.com,
+	fw@strlen.de,
+	pablo@netfilter.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] bnxt_en: don't leave an XDP program installed when the open fails" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:51:08 -0500
-Message-ID: <20261107055108-failed-6.1-78731b46967e@kernel.org>
+Subject: FAILED: patch "[PATCH] netfilter: nf_conntrack_netlink: fix inverted IPv6 tuple filter" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:51:11 -0500
+Message-ID: <20261107055111-failed-6.1-cd37ab22a74e@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,150 +70,64 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 78731b46967e3e7102b5cd5062bef185f3404b5c
+git cherry-pick -x cd37ab22a74e05aae5c16c67295cbf5188b16268
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055108-failed-6.1-78731b46967e@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055111-failed-6.1-cd37ab22a74e@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 78731b46967e3e7102b5cd5062bef185f3404b5c Mon Sep 17 00:00:00 2001
-From: Vaibhav Nagare <vnagare@redhat.com>
-Date: Mon, 12 Oct 2026 12:58:02 +0530
-Subject: [PATCH] bnxt_en: don't leave an XDP program installed when the open
- fails
+From cd37ab22a74e05aae5c16c67295cbf5188b16268 Mon Sep 17 00:00:00 2001
+From: Liu Chao <liuc63@xiaopeng.com>
+Date: Mon, 19 Oct 2026 15:56:26 +0800
+Subject: [PATCH] netfilter: nf_conntrack_netlink: fix inverted IPv6 tuple
+ filter
 
-bnxt_xdp_set() stores the new program and drops the reference on the old
-one before reopening the NIC.  If bnxt_open_nic() then fails, ndo_bpf()
-returns an error with the new program still in bp->xdp_prog.  The caller
-treats the error as "nothing was installed" and drops its own reference,
-so bp->xdp_prog is left pointing at a freed program and the next XDP
-update dereferences it:
+ctnetlink_filter_match_tuple() returns 0 (no match) when the IPv6
+source or destination address differs from the filter, because the
+!ipv6_addr_cmp() test is inverted.  ipv6_addr_cmp() returns 0 when
+the addresses are equal, so the negation makes the branch trigger on
+a match instead of a mismatch, which is the opposite of the IPv4
+path above.
 
-  BUG: unable to handle page fault for address: ff78ecc80ddd1038
-  RIP: 0010:__bpf_prog_put+0x5/0x80
-  Call Trace:
-   bnxt_xdp_set+0xad/0x1b0 [bnxt_en]
-   dev_xdp_propagate+0x36/0xa0
-   bond_xdp_set+0xeb/0x2d0 [bonding]
-   dev_xdp_install+0x1b1/0x350
-   bpf_xdp_link_update+0xc5/0x1b0
-   link_update+0x104/0x1e0
-   __sys_bpf+0x662/0xcf0
+Drop the '!' so the IPv6 branch returns 0 only when the addresses
+differ, matching the IPv4 semantics and the caller's expectation.
 
-Seen on a 6.12 based kernel after bnxt_alloc_mem() failed an order-4
-allocation on a fragmented host:
-
-  bnxt_en 0000:a0:00.1 ens4f1np1: nic open fail (rc: fffffff4)
-  bond1: (slave ens4f1np1): Error -12 calling ndo_bpf
-
-Bonding is not required to hit this; a plain XDP attach on a bnxt
-interface takes the same path.
-
-Restore the previous program when an attach or a replace fails, and
-recompute the page-mode and XDP TX ring configuration from it.  The
-configuration matters because bnxt_init_one_rx_ring() only assigns
-rxr->xdp_prog in page mode, and __bnxt_set_rx_skb_mode() derives
-dev->max_mtu from the installed program.  Release the old program only
-once the change has been committed.
-
-A detach is not undone.  dev_xdp_detach_link() clears the core's record
-of the program even when the driver returns an error, so putting the
-program back would leave the driver running a program the core has
-already dropped.  If the reopen fails during a detach, bnxt_xdp_set()
-therefore returns 0 with the device closed; bnxt_open_nic() has already
-logged the failure.
-
-Found in a crash dump; the change was not tested on hardware.
-
-Fixes: c6d30e8391b8 ("bnxt_en: Add basic XDP support.")
+Fixes: cb8aa9a3affb ("netfilter: ctnetlink: add kernel side filtering for dump")
 Cc: stable@vger.kernel.org
-Signed-off-by: Vaibhav Nagare <vnagare@redhat.com>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Link: https://patch.msgid.link/20261012072802.2153706-1-vnagare@redhat.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
+Reviewed-by: Weibin Liu <liuwb@xiaopeng.com>
+Reviewed-by: Florian Westphal <fw@strlen.de>
+Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
 ---
- drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c | 49 +++++++++++++------
- 1 file changed, 33 insertions(+), 16 deletions(-)
+ net/netfilter/nf_conntrack_netlink.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c b/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c
-index 9e5009be8e989..96845c8646e06 100644
---- a/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c
-+++ b/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c
-@@ -381,11 +381,31 @@ int bnxt_xdp_xmit(struct net_device *dev, int num_frames,
- 	return nxmit;
- }
+diff --git a/net/netfilter/nf_conntrack_netlink.c b/net/netfilter/nf_conntrack_netlink.c
+index 4e5d7c7014368..cc8695d5356d2 100644
+--- a/net/netfilter/nf_conntrack_netlink.c
++++ b/net/netfilter/nf_conntrack_netlink.c
+@@ -1098,13 +1098,13 @@ static int ctnetlink_filter_match_tuple(struct nf_conntrack_tuple *filter_tuple,
+ 		break;
+ 	case NFPROTO_IPV6:
+ 		if ((flags & CTA_FILTER_FLAG(CTA_IP_SRC)) &&
+-		    !ipv6_addr_cmp(&filter_tuple->src.u3.in6,
+-				   &ct_tuple->src.u3.in6))
++		    ipv6_addr_cmp(&filter_tuple->src.u3.in6,
++				  &ct_tuple->src.u3.in6))
+ 			return 0;
  
-+static void bnxt_xdp_apply_cfg(struct bnxt *bp, int tx_xdp)
-+{
-+	struct net_device *dev = bp->dev;
-+	int tc = bp->num_tc ? : 1;
-+
-+	if (bp->xdp_prog) {
-+		bnxt_set_rx_skb_mode(bp, true);
-+		xdp_features_set_redirect_target_locked(dev, true);
-+	} else {
-+		xdp_features_clear_redirect_target_locked(dev);
-+		bnxt_set_rx_skb_mode(bp, false);
-+	}
-+	bp->tx_nr_rings_xdp = tx_xdp;
-+	bp->tx_nr_rings = bp->tx_nr_rings_per_tc * tc + tx_xdp;
-+	bnxt_set_cp_rings(bp, true);
-+	bnxt_set_tpa_flags(bp);
-+	bnxt_set_ring_params(bp);
-+}
-+
- static int bnxt_xdp_set(struct bnxt *bp, struct bpf_prog *prog)
- {
- 	struct net_device *dev = bp->dev;
- 	int tx_xdp = 0, rc, tc;
- 	struct bpf_prog *old;
-+	int old_tx_xdp;
- 
- 	netdev_assert_locked(dev);
- 
-@@ -418,25 +438,22 @@ static int bnxt_xdp_set(struct bnxt *bp, struct bpf_prog *prog)
- 	if (netif_running(dev))
- 		bnxt_close_nic(bp, true, false);
- 
-+	old_tx_xdp = bp->tx_nr_rings_xdp;
- 	old = xchg(&bp->xdp_prog, prog);
--	if (old)
--		bpf_prog_put(old);
--
--	if (prog) {
--		bnxt_set_rx_skb_mode(bp, true);
--		xdp_features_set_redirect_target_locked(dev, true);
--	} else {
--		xdp_features_clear_redirect_target_locked(dev);
--		bnxt_set_rx_skb_mode(bp, false);
-+	bnxt_xdp_apply_cfg(bp, tx_xdp);
-+
-+	if (netif_running(dev)) {
-+		rc = bnxt_open_nic(bp, true, false);
-+		/* a detach cannot be undone, only an attach */
-+		if (rc && prog) {
-+			WRITE_ONCE(bp->xdp_prog, old);
-+			bnxt_xdp_apply_cfg(bp, old_tx_xdp);
-+			return rc;
-+		}
+ 		if ((flags & CTA_FILTER_FLAG(CTA_IP_DST)) &&
+-		    !ipv6_addr_cmp(&filter_tuple->dst.u3.in6,
+-				   &ct_tuple->dst.u3.in6))
++		    ipv6_addr_cmp(&filter_tuple->dst.u3.in6,
++				  &ct_tuple->dst.u3.in6))
+ 			return 0;
+ 		break;
  	}
--	bp->tx_nr_rings_xdp = tx_xdp;
--	bp->tx_nr_rings = bp->tx_nr_rings_per_tc * tc + tx_xdp;
--	bnxt_set_cp_rings(bp, true);
--	bnxt_set_tpa_flags(bp);
--	bnxt_set_ring_params(bp);
- 
--	if (netif_running(dev))
--		return bnxt_open_nic(bp, true, false);
-+	if (old)
-+		bpf_prog_put(old);
- 
- 	return 0;
- }
 -- 
 2.53.0
 
