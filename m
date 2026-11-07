@@ -1,54 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794082201;
-	b=Pt5SqtSdyb8BbwhtMzLNqcu2Hwo2pT6jxIG2nBY0m5OIuxl2FPTQ9wr/asTWQd8jRdcK
-	 s0jkjLjCvdCJ5Bz83iV6lQdmo5npn5ezSIjoYRboqLbjs7ipSh+X+RzY2eXIWjB9xm6s+
-	 DCM4Du204LJXWQEufJD2YThCreFNNLSt2+HPQSZa7fuw6f9DyF5HcgnVsA7Xq8M+iZ5DJ
-	 qNe1Mubkq2j3HiRWU9h8fgSNJSnr1UfOfWGCrrlzS7oflk+EokaAzLkHyA9rvmH/UMAkl
-	 tWJRO1rf9Zz7wixjxfAneFT2UIx+6HITWe4mIM06pPoPifp6LyNkiWqHpxX9yZF3iFQ==
+	t=1794082209;
+	b=eKZ+gdApyDkIRyy7D+YMG3cjfrkG9+nc1WBjPKIVsVXbagFQNpRZRv/Xg7mV3zySn6YU
+	 6VZvK5yXyS80er/rNtor3wpNMFNGHix66t/JTZwhqgXR7Y9gS+nWKoj3Z6qlMDolWMDMi
+	 D4zfm7xXxhJIdTD8H0/QNHuNYeflpsqWrqcQYBfjmfzR03Ls4J/2jnD01aScoIQzCe50K
+	 ywtLq56i2xcukgWFTktTzfPUCmQzRQkNlN7XahdwEnjT+438uxiLSKFpMd7MjHrT3J6sy
+	 JB2mFGD39MmU7Gr9rmoHS6rhr63ynfi70T0cryzcC5tepNDyM+l8csYEoTtawWC/AdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794082201;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794082209;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=a2Di98h1MA6w1Gllqd0OxJso9nwH4xImQNkACxV4XuU=;
-	b=lnBrzjUVPzFLjioZPyM8AmzVV1EqlYgdoKC2oNRlmSAnl9ZDfY8PtteM2H3/cSfn0GwR
-	 fWu4PyBwcrEBK4VGVdCiU5QsFmXRSBKr9mSuo4zsmiioQD3Vgh/ionntkAqLo+VcCO7jS
-	 eyuTtB19oKUxo0jJqkbUgkWcyPlWdY9JwceApPLRm3EFqnODS001pAFUURmAedg+Gr9ut
-	 geg0gxihYMwrX03PIEMRb/qHkUsS2mGxpizyDAjAodep6vYJ4XRDmO+HS9MgXvaNDMQIh
-	 AuwG3cmR5GkGIBJkbu/n5mL231iNSZzxJU4v2PLgRe5g7uLKKVJkoF4suPFrituqbbg==
+	bh=KcvosEEs4C5uASYPUIJSJcPZ+WqW144BqAVvtj0NdMI=;
+	b=woWUuSscmruA7gmidL8nXNq0z3N/pQXtlcRKSpm4GTreZ2Bt6v332IN14ArRIt1D+JNL
+	 eGbyInW9tZUgxfIiVgyJRukZgziASBSNJmkq/kAPuj1dgnVFnl1aOcKrHujBq4t9CxmTk
+	 fRzw8+uoK6DHaTkm/CSmanteiMhJWl81xkHLPm4ES2lhmFp17bJuhqyxrGEFNkyZfdjt9
+	 6KR8vbjGp5Cp1utxBD9DTUiCpFy9K2DJnH1HLv4xQFUnzTTcqlfXepUxqlASEkfrvWasW
+	 5uZcLFXUxdPJ4KihJwZHdbyCEW2HVuL7tQR78GTTfArOujVR9TTaFCF8qjhUU9xpJHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mOHA+Swk;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IudT9GhW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89BB0606A335;
-	Sat,  7 Nov 2026 20:10:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F585606A32D;
+	Sat,  7 Nov 2026 20:10:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mOHA+Swk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F5951F008A5;
-	Sat,  7 Nov 2026 20:10:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IudT9GhW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 153CB1F0089F;
+	Sat,  7 Nov 2026 20:10:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794082201;
-	bh=a2Di98h1MA6w1Gllqd0OxJso9nwH4xImQNkACxV4XuU=;
+	s=k20260515; t=1794082209;
+	bh=KcvosEEs4C5uASYPUIJSJcPZ+WqW144BqAVvtj0NdMI=;
 	h=From:To:Cc:Subject:Date;
-	b=mOHA+SwkXi9NYpM3hr4DFtFRjwA3gTo7UPZHI9hwTqWgzSj3MxSepxsOZVsV3Z9pt
-	 JblyFQCf/HkfjmfwD32cnJjM0LtBXQEUc+MwaPDp1mXzSH0YTSY/mYjFXnPH+jmFbt
-	 j96l22Y7zsITlTjUq4vxSK9MSAzXije92+kXhQdaubDqN1MBYp/zvU2aRLYXZze7YH
-	 z8Hm0GLeSWObZk2pSyj0UYbGQiz97/TK3L9inOsoX4I4ZVCF0nxHWyVNrM1A0/MdU8
-	 zLkdx0jjvEiywbxljwV2cpOPYJPWaKZ+gRUZcfhXSJDcuO9R2cUMMxS2JrkT0ak4H7
-	 o47/bDF2B/hAQ==
-From: Eric Biggers <ebiggers@kernel.org>
-To: stable@vger.kernel.org
-Cc: linux-raid@vger.kernel.org,
-	Eric Biggers <ebiggers@kernel.org>,
+	b=IudT9GhWhndqHy3FqR1+Izf6avXc2zjv/IR9kPWwCH9tNrYphn/6NCI/49cR5+/a0
+	 6TwTZTzxSXdHzqwsRREk8fg1FtpV47aBkAQA3MDPvdA39fOf6U04VAUh5O8SbpPp7K
+	 jX6c+kQAKNKP5+hmDt9AumFD72AtJEDzrLhoZYvWzyGrla/tLU4PhFm30+CpD2Iu5O
+	 TYomYie9xTmU9eg2pZb/shCd64b/ifeswFnc0yLaS6hbHsyGFljPgh2SNPPen9THt+
+	 Yj/sHltHlorrI8FX7CJOMH+cTZ7abahlxNWAesAKocstZRw8yK93WgdENyKIDeJ56b
+	 OjhoxfHrpyTNw==
+From: SJ Park <sj@kernel.org>
+To: 
+Cc: SJ Park <sj@kernel.org>,
+	stable@vger.kernel.org,
 	Andrew Morton <akpm@linux-foundation.org>,
-	Christoph Hellwig <hch@lst.de>
-Subject: [PATCH 6.6] raid6: add missing vzeroupper to AVX-512 code
-Date: Sat,  7 Nov 2026 12:09:59 -0800
-Message-ID: <20261107200959.106570-1-ebiggers@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	Brendan Higgins <brendan.higgins@linux.dev>,
+	David Gow <davidgow@davidgow.net>,
+	Quanmin Yan <yanquanmin1@huawei.com>,
+	Usama Arif <usamaarif642@gmail.com>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [RFC PATCH 6.18.y 0/5] mm/damon: porting fixes that cherry-pick failed on 2026-11-07
+Date: Sat,  7 Nov 2026 12:09:56 -0800
+Message-ID: <20261107201001.206120-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,98 +66,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit b82cf9e49c1be7cf1fd8e1bd806b0cdd25ab8127 upstream.
+Manually port five DAMON fixes that cherry-pick failed [1-5] and turned
+out to really need to be picked.  Note that seven patches [6-12] that
+also failed in the same day were having wrong Cc:stable@ tags, so
+ignored.
 
-Since the AVX-512 optimized RAID6 code uses ZMM registers, execute
-vzeroupper before returning from it.  This is needed to avoid degrading
-the performance of any later SSE code that may happen to be executed.
+Patches that this series is porting.
+[1] https://lore.kernel.org/20261107050847-failed-6.18-90c2fa6adfed@kernel.org
+[2] https://lore.kernel.org/20261107050851-failed-6.18-29c6084658af@kernel.org
+[3] https://lore.kernel.org/20261107051039-failed-6.18-af19aff38d6f@kernel.org
+[4] https://lore.kernel.org/20261107051438-failed-6.18-5695abc4e742@kernel.org
+[5] https://lore.kernel.org/20261107051441-failed-6.18-bbeec2d8324d@kernel.org
 
-Link: https://lore.kernel.org/20260831212316.213896-1-ebiggers@kernel.org
-Fixes: e0a491c12968 ("lib/raid6: Add AVX512 optimized gen_syndrome functions")
-Fixes: 13c520b2993c ("lib/raid6: Add AVX512 optimized recovery functions")
-Signed-off-by: Eric Biggers <ebiggers@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: Christoph Hellwig <hch@lst.de>
-Cc: <stable@vger.kernel.org>
----
- lib/raid6/avx512.c       | 6 ++++++
- lib/raid6/recov_avx512.c | 2 ++
- 2 files changed, 8 insertions(+)
+Patches that also cherry-pick failed but deliverately ignored.
+[6] https://lore.kernel.org/20261107050853-failed-6.18-df7d9a0f8d91@kernel.org
+[7] https://lore.kernel.org/20261107051022-failed-6.18-6f276422aded@kernel.org
+[8] https://lore.kernel.org/20261107051024-failed-6.18-1bfb9384ae0e@kernel.org
+[9] https://lore.kernel.org/20261107051027-failed-6.18-1d2397b2c414@kernel.org
+[10] https://lore.kernel.org/20261107051029-failed-6.18-cec08aad3def@kernel.org
+[11] https://lore.kernel.org/20261107051032-failed-6.18-a1c7fdaf1657@kernel.org
+[12] https://lore.kernel.org/20261107051034-failed-6.18-409d2ab6d982@kernel.org
 
-diff --git a/lib/raid6/avx512.c b/lib/raid6/avx512.c
-index 9c3e822e1adf5..30956989e7d74 100644
---- a/lib/raid6/avx512.c
-+++ b/lib/raid6/avx512.c
-@@ -95,6 +95,7 @@ static void raid6_avx5121_gen_syndrome(int disks, size_t bytes, void **ptrs)
- 	}
- 
- 	asm volatile("sfence" : : : "memory");
-+	asm volatile("vzeroupper");
- 	kernel_fpu_end();
- }
- 
-@@ -154,6 +155,7 @@ static void raid6_avx5121_xor_syndrome(int disks, int start, int stop,
- 	}
- 
- 	asm volatile("sfence" : : : "memory");
-+	asm volatile("vzeroupper");
- 	kernel_fpu_end();
- }
- 
-@@ -227,6 +229,7 @@ static void raid6_avx5122_gen_syndrome(int disks, size_t bytes, void **ptrs)
- 	}
- 
- 	asm volatile("sfence" : : : "memory");
-+	asm volatile("vzeroupper");
- 	kernel_fpu_end();
- }
- 
-@@ -311,6 +314,7 @@ static void raid6_avx5122_xor_syndrome(int disks, int start, int stop,
- 	}
- 
- 	asm volatile("sfence" : : : "memory");
-+	asm volatile("vzeroupper");
- 	kernel_fpu_end();
- }
- 
-@@ -417,6 +421,7 @@ static void raid6_avx5124_gen_syndrome(int disks, size_t bytes, void **ptrs)
- 	}
- 
- 	asm volatile("sfence" : : : "memory");
-+	asm volatile("vzeroupper");
- 	kernel_fpu_end();
- }
- 
-@@ -550,6 +555,7 @@ static void raid6_avx5124_xor_syndrome(int disks, int start, int stop,
- 			       "m" (q[d+128]), "m" (q[d+192]));
- 	}
- 	asm volatile("sfence" : : : "memory");
-+	asm volatile("vzeroupper");
- 	kernel_fpu_end();
- }
- const struct raid6_calls raid6_avx512x4 = {
-diff --git a/lib/raid6/recov_avx512.c b/lib/raid6/recov_avx512.c
-index fd9e15bf3f30f..c8a152d9ab6da 100644
---- a/lib/raid6/recov_avx512.c
-+++ b/lib/raid6/recov_avx512.c
-@@ -221,6 +221,7 @@ static void raid6_2data_recov_avx512(int disks, size_t bytes, int faila,
- #endif
- 	}
- 
-+	asm volatile("vzeroupper");
- 	kernel_fpu_end();
- }
- 
-@@ -363,6 +364,7 @@ static void raid6_datap_recov_avx512(int disks, size_t bytes, int faila,
- #endif
- 	}
- 
-+	asm volatile("vzeroupper");
- 	kernel_fpu_end();
- }
- 
+SJ Park (5):
+  mm/damon/core: skip applying scheme if region split for quota fails
+  mm/damon/core: handle uninitialized damos_quota_goal->last_psi_total
+  mm/damon/sysfs-schemes: read sysfs_filter->sz_range only once
+  mm/damon/core: remove unreachable damos charge_{target,addr}_from
+  mm/damon/core: filter out damos address filter-split failed region
 
-base-commit: 5139929c698c273e07cb0635732f6a918a7b8e78
+ mm/damon/core.c             | 63 +++++++++++++++++++++++++++++++------
+ mm/damon/sysfs-schemes.c    |  5 ++-
+ mm/damon/tests/core-kunit.h | 16 +++++++---
+ 3 files changed, 66 insertions(+), 18 deletions(-)
+
+
+base-commit: 270830fb661321a6230f2433667a328e41b2fb7f
 -- 
-2.56.0
-
+2.47.3
