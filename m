@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047359;
-	b=gY4iVnv6naWC70ElqT3hC9LLHApeXHFLIai9wyB/Ruw6SVyLQViSYxmGdIO06lkxZCkV
-	 NbYqNCIK3kJe5E5kUBrw2JvWR2JeuJaG/CCf36a3nqPNbHsmoR8n3RMnWeglZsoa04du3
-	 ZzdfmSbX2zQ4vSU5Xajmg2radjAv+3gnqS6/2qE3OHH/1V+VCtdM98jfSz/6JsQVgi/dH
-	 zsetXf10yWsdrcuotY5T5PblagL0thR7IRNXQ80rvjZz47+kx6FC9kVMGXu7Et0bFhmmI
-	 bZKgjLUBJLmckeMc9s9U7JlklT9Gsf9H09QCdg4JS/mvV/08cwujJOa6uhUxJaz4Fsw==
+	t=1794047361;
+	b=TOIJoDY73Y0uJT3EHUFXYfYe7bS+ONuh6GkTRwJ8iDfBHHTtt+Nnjn/NPt9qo8ZFD0Yt
+	 n0fAWzdxVCiwjR9e2rGZ+nS79HhJei0HZ85TcBi+5StHlY6CAZPKDYE+gx0dLyVTvLZYo
+	 UbQY3Jf998rKKUiNwTl6Kfjalfisybgl3piI6rDMJHjzqnBRJOQ6Gduw9Us1AtVarvlKQ
+	 EpY7fNF9Yd9D06gClYQyDGEgcEkAfcwVZTsTPUVN07GeGb4Atfi5t21es6/Zhq/mcTCTR
+	 5TJjp7ySsFReiZOJAIomForo2uWD449JbFHVjceinS88iWH9i0Fgz4x1W7lXn0A25pg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047359;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047361;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=MHNo6hceOKzxY4N0S1zOBVJxCeUyNLQ2bxyA6EcpUSs=;
-	b=w/9khEK4I0RTTJByJf3M0hmeyp2Q8hkuMJU17QyCKI1RByWqzu+2bD8Vzy3hpyACrRHx
-	 SdmIMdovJpHVmRZmMxQt4np1q67RMrJBMmnF1XKJuAsJ6lV7MvVjCH/5uhmD/s6+JpiFI
-	 vyHhtXP1WDwVECPAX5nduDB0/Ci9nVjXY1qp7bD5URBtWnBEHa07fupEBbDvK/xcu3Xph
-	 MZQqvejyGux4EqvIoYYUkyFpthIHLjZQsaA7ABNYDcnM9CbyMFYpbEDZEksxAEBP8gza1
-	 WU0LoQjLSpCWbTXCxuaagv8GOFAp12Em4yRlI4WocetpK3+Y/MeMnh4Qkt/efFGheNw==
+	bh=j8nUTgqPWUcV4jHUVvBL3l7ZM0nWMeGspyfDGdTr5GA=;
+	b=SeHBBhxz5smZBKyRd0qTcoPxD0PiYrCw4BGP4YZu3QYgeX7DMP8Y/4Pd4VRfstNi8pqy
+	 cXdl5J8R/fIgznA9hZph+lHquwbCCzOJARGYov7XtgZ4AU6pVn8iz17xcVXHbxJY2VDg/
+	 6nSZi6rdCiSL9EW4dQAxJEWjNH2wmEZlfvfyCMVfcATH1bbbp/l5I0Qc1gzruPtQiWGIb
+	 VAW5heDQnJrw7RNkyer1/1KwPkWbldUCWB/dnWnaP3crpI6lbiQX1Hy6emLUIkKR5vW0y
+	 RrgRqaPlMhX4MJ0CvQGUKXvd1Lo2S9zey5o1Po9/Am9CMipeSAwyRL2LDZnJX43jZdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=juiXxbl3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bu0mP+nV;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53642606D80B
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:29:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69766606A337
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:29:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=juiXxbl3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C454B1F0089F;
-	Sat,  7 Nov 2026 10:29:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bu0mP+nV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCFC21F0089F;
+	Sat,  7 Nov 2026 10:29:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047359;
-	bh=MHNo6hceOKzxY4N0S1zOBVJxCeUyNLQ2bxyA6EcpUSs=;
+	s=k20260515; t=1794047361;
+	bh=j8nUTgqPWUcV4jHUVvBL3l7ZM0nWMeGspyfDGdTr5GA=;
 	h=From:To:Cc:Subject:Date;
-	b=juiXxbl3uYmvaXCYrSDVlJuXZxUil8TdBXEfG4rJJMbdA1gwTiaPbHh3tCqZ8kA+j
-	 1FTdKG8CoII7QLpUxsWYOTevi19Al0qARzviAGOSRhq9ymM/kXhO5vVs/vcZafXcgq
-	 A0/GENHxcAK5fAZ6UUJnLMTNP49wnwNO4cq2VRViGyLfw6e8NrMIuwYB9e2R0yDPmn
-	 0HYckLOF/ops6nHbz8E3yJduWlxQ+TbykPbrADQuBNHtu5p1Xzj97rIo1nzdamuvXq
-	 Or68Df4cBMDGDPkCEMIIaK8a49mKBpPQ4BtiIgrBWYyUUUW3lw3TaLfEz+BGGy7m0n
-	 7jOyGoZLvIYqA==
+	b=bu0mP+nVyh6Oc10/GY31YbXBZb59xdr2FMQblQRDEAMGmP/hvXlCIwosMYFFbs/p6
+	 OX9C+E5SEFf9EXD/9Zxt9hiH5NTH8RzZmdOj5WnM9OxMTBXiqlio0uliYMqkKm4SY3
+	 9iyhlMAOx0fqN2QEZ63TG21FI+cLqC/lFUR71BeOfGGwVumye/gzw99KKBPa6thWBF
+	 9Ck0Ebe4l2EY5nCSvhKfJHU5Oz1Cp3pI1/X6aZzVExIG94wOQwDltmkamLVcmUAOLg
+	 o4qFOE7mtqX28LlVzZ4HrSgaa2feFmFZtLuPaIDWM/hr6gvvt6GMlAFsJ8aKKUahxF
+	 0/H8x2IxL8sJw==
 From: Sasha Levin <sashal@kernel.org>
 To: imre.deak@intel.com,
 	luciano.coelho@intel.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/i915/dp_mst: Fix configuring FEC for a disconnected stream" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:29:17 -0500
-Message-ID: <20261107052917-failed-6.6-270681fbffbb@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/i915/dp_mst: Fix configuring TUs for a disconnected stream" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:29:19 -0500
+Message-ID: <20261107052919-failed-6.6-ee00f8fbb2b2@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,65 +68,109 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 270681fbffbba2b6ccf5b7e3c34b8b563b36167f
+git cherry-pick -x ee00f8fbb2b202002ab90834e02e9ba372773a36
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052917-failed-6.6-270681fbffbb@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052919-failed-6.6-ee00f8fbb2b2@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 270681fbffbba2b6ccf5b7e3c34b8b563b36167f Mon Sep 17 00:00:00 2001
+From ee00f8fbb2b202002ab90834e02e9ba372773a36 Mon Sep 17 00:00:00 2001
 From: Imre Deak <imre.deak@intel.com>
-Date: Mon, 7 Sep 2026 20:44:12 +0300
-Subject: [PATCH] drm/i915/dp_mst: Fix configuring FEC for a disconnected
+Date: Mon, 7 Sep 2026 20:44:13 +0300
+Subject: [PATCH] drm/i915/dp_mst: Fix configuring TUs for a disconnected
  stream
 
 During an atomic commit after all the MST stream CRTC state is computed
-the driver ensures that the FEC is configured the same way (enabled or
-disabled) for all the streams on a given MST topology's link.
-drm_dp_mst_port_downstream_of_parent() used to determine if a stream is
-downstream of an MST port will return false if the whole topology is
-disconnected, since in that case it can't verify that the port/
-parent_port passed to it is in the given MST topology. This is a problem
-during the above FEC configuration check, since
-intel_dp_mst_check_dsc_change()->get_pipes_downstream_of_mst_ports()
-will not return all the stream CRTCs/pipes for the topology as expected.
-Since passing parent_port==NULL to get_pipes_downstream_of_mst_port()
-is meant to return all the streams for the given topology (i.e. mst_mgr)
-skip checking if an MST port is downstream of a parent port in this
-case.
+the driver ensures that the sum of TUs of all the streams on a given MST
+topology link is within limits (63 for 8b10 and 64 for 128b132b). For a
+disconnected stream the DRM MST core's BW verification doesn't ensure
+this, because the topology state it uses for this is destroyed as soon
+as the stream (i.e. MST connector/port) is disconnected. The driver
+should keep the link state valid even for such disconnected streams, as
+userspace may disable them one-by-one only in a deferred way. Ensure the
+link's sum of TUs stays within limits in this case by simply reusing the
+maximum link BPP limit from the stream's (i.e. CRTC's) old state.
 
-This fixes a problem where the FEC configuration check explained above
-failed to ensure that all streams' FEC is configured the same way if the
-topology was disconnected, leading to a FEC state mismatch error.
+The disconnection can happen either via the whole topology getting
+disconnected or via only the given stream's port getting disconnected.
+Check for both of these conditions separately, as a connector gets
+unregistered after a link disconnect event only in a deferred way.
 
 Cc: stable@vger.kernel.org # v6.10+
-Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16073
-Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16384
+Link: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16073
+Link: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16384
 Reviewed-by: Luca Coelho <luciano.coelho@intel.com>
 Signed-off-by: Imre Deak <imre.deak@intel.com>
-Link: https://patch.msgid.link/20260907174413.741851-1-imre.deak@intel.com
+Link: https://patch.msgid.link/20260907174413.741851-2-imre.deak@intel.com
 ---
- drivers/gpu/drm/i915/display/intel_dp_mst.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_dp_mst.c  | 21 ++++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_dp_mst.h  |  2 ++
+ drivers/gpu/drm/i915/display/intel_link_bw.c |  3 ++-
+ 3 files changed, 25 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index 6a869d0f6ffc0..20766b6c0bcfa 100644
+index 20766b6c0bcfa..0c362784afe4a 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -856,7 +856,8 @@ static u8 get_pipes_downstream_of_mst_port(struct intel_atomic_state *state,
- 		if (&connector->mst.dp->mst.mgr != mst_mgr)
- 			continue;
+@@ -2172,6 +2172,27 @@ bool intel_dp_mst_crtc_needs_modeset(struct intel_atomic_state *state,
+ 	return false;
+ }
  
--		if (connector->mst.port != parent_port &&
-+		if (parent_port &&
-+		    connector->mst.port != parent_port &&
- 		    !drm_dp_mst_port_downstream_of_parent(mst_mgr,
- 							  connector->mst.port,
- 							  parent_port))
++bool intel_dp_mst_stream_disconnected(struct intel_atomic_state *state,
++				      const struct intel_crtc *crtc)
++{
++	struct intel_connector *connector;
++
++	connector = get_connector_in_state_for_crtc(state, crtc);
++	if (!connector)
++		return false;
++
++	if (!connector->mst.dp)
++		return false;
++
++	if (!connector->mst.dp->mst.mgr.mst_state)
++		return true;
++
++	if (drm_connector_is_unregistered(&connector->base))
++		return true;
++
++	return false;
++}
++
+ /**
+  * intel_dp_mst_prepare_probe - Prepare an MST link for topology probing
+  * @intel_dp: DP port object
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.h b/drivers/gpu/drm/i915/display/intel_dp_mst.h
+index ab09b487c6bb5..8ce89242c05c9 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.h
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.h
+@@ -28,6 +28,8 @@ int intel_dp_mst_atomic_check_link(struct intel_atomic_state *state,
+ 				   struct intel_link_bw_limits *limits);
+ bool intel_dp_mst_crtc_needs_modeset(struct intel_atomic_state *state,
+ 				     struct intel_crtc *crtc);
++bool intel_dp_mst_stream_disconnected(struct intel_atomic_state *state,
++				      const struct intel_crtc *crtc);
+ void intel_dp_mst_prepare_probe(struct intel_dp *intel_dp);
+ bool intel_dp_mst_verify_dpcd_state(struct intel_dp *intel_dp);
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_link_bw.c b/drivers/gpu/drm/i915/display/intel_link_bw.c
+index b47474a3e9fec..e71e76d6fd3e0 100644
+--- a/drivers/gpu/drm/i915/display/intel_link_bw.c
++++ b/drivers/gpu/drm/i915/display/intel_link_bw.c
+@@ -64,7 +64,8 @@ void intel_link_bw_init_limits(struct intel_atomic_state *state,
+ 			intel_atomic_get_new_crtc_state(state, crtc);
+ 		int forced_bpp_x16 = get_forced_link_bpp_x16(state, crtc);
+ 
+-		if (state->base.duplicated && crtc_state) {
++		if ((state->base.duplicated && crtc_state) ||
++		    intel_dp_mst_stream_disconnected(state, crtc)) {
+ 			limits->max_bpp_x16[pipe] = crtc_state->max_link_bpp_x16;
+ 			if (intel_dsc_enabled_on_link(crtc_state))
+ 				limits->link_dsc_pipes |= BIT(pipe);
 -- 
 2.53.0
 
