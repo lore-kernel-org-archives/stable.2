@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794060863;
-	b=fZbgdPfQynkNGbZ4bvUniPBLbjgUCPvtbbSKblRL+FravlQBJno07q/C0SSvzDyy460q
-	 tlheFnw/sXVZxLUmtkwS9WzVHCIDEd4lbtPBC3FBclBnIzw194aLYV119iWnuEMNBH+c6
-	 3/DkMBlayfsvCyWzbFkjzZi+QWPohq/j0jwn34R8bYGcFy/Tt6EoEBk4RXcTGY8OQVVDb
-	 tNapO5vFJyOqLyTsVHOUXX54K5VACy/5BkENPkJ/OhjLz6GewgP1UqsFOZVYN25W/11gR
-	 GCVe8ZfW/J1a/AHOnB9q9aL7lts9FWuJC8g/alpRNUQkhN0J5U624IunJDRGbDeiwRw==
+	t=1794060864;
+	b=uqdlBi8HGYzKp1Llzy+6BnA6LNnpLVE+hu0JMNfHTB8ukKHuPrpQx2jfQyGvGg42w52Q
+	 ty+12m1r54LPjtVQ3gAsHPuALGJSyg57CaVcG9tCo+xn9bKBSujq6RNVQjg2U4Kvjj546
+	 0m5cWy+slIPcdXLD1Gozy+hAoAoNzjaapiPG+U11gIg/PJ+qxaOxp3WIC+CCQRGVLUH5K
+	 g/lSkXTu4ej2MInsHmv08Co5Q8GhCF0fX/m/Gx1SRPSqQ85oY3Z9/AsqW4mNs+UNh0mzS
+	 Voox/9TvvbAg06aGG58jG/Ftg5EzPNuvuWEiekjH3/+FMEoty23o5lhU4c0Ffhwiiwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794060863;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794060864;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=n9/qCxza3/E/98lSP/OQLhtLvBV9EDNIPvEo8Xr1Vtc=;
-	b=bHZPVE41xFnrBnEI13Iy4zLM4fzGquhNDjQuFzpr/9r8hb3dmtxs9ZTZnEY/0Iit9ev5
-	 laHXtqCGNvvm0/zP+vCT/iS2vmmyF0bJVFp4Tjsio4yQrdzlL1gvhU8Fci7StOH69JU1C
-	 fXmRgFS/vpYZzRUfNL9HN63juRdqM4dWCCJIbe2uTdfSTFB6eNfemnyX0pbN3o7yQbm66
-	 8hpqDOfmZBRdEFRrY+LaWAYgtOid0QNIx/pDBeW0PgmZSCir2yA8GFOJFuBofQW4xoB4q
-	 //PNcNPN1BjcPo9tqlNe+FWRXQoUzZ1XbEwji+cuTNdj3j4BxJes0lEHc/89AxzqPWw==
+	bh=QKx613dasEPvth/LkrRrgAX/SZPKUgMh3IRB808pXns=;
+	b=aAhwm8TgDRu9sPJ1ddu4nLXw0JieVwkYptf2fR1OnLULmDF3nCki9aOWa/gF96iuIwdB
+	 jR7HhpAL7Q8IQ7kyiaQXYY/I/XH3Qu44XJih2F1sv9TKBW3VmNbU+tR8om4rBVgood7kC
+	 qf3pDcBK1wMFBn7JzInTiGF0wn0rfo8F/MnKSZae6UeC1pbe6twKDQdC28BZCE6nmqRgL
+	 BUeYywgwpl/PHF6W3z40gxscXnlwXjKyPe2eTye+CXkiMmClxcCWzJ7f9eptQyF0c9Cyg
+	 p++DPVQkdijLioGtJrqYMq6rYp4P8N31HmvhdhIosnyVRcl38IAT1ki57pwxJHtAilQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=K5QvIaKW;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=e+Kqd4k+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C4CB606A338;
-	Sat,  7 Nov 2026 14:14:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78751606A338;
+	Sat,  7 Nov 2026 14:14:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=K5QvIaKW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C95EC1F0089F;
-	Sat,  7 Nov 2026 14:14:22 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=e+Kqd4k+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1148A1F0089F;
+	Sat,  7 Nov 2026 14:14:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794060863;
-	bh=n9/qCxza3/E/98lSP/OQLhtLvBV9EDNIPvEo8Xr1Vtc=;
+	s=korg; t=1794060864;
+	bh=QKx613dasEPvth/LkrRrgAX/SZPKUgMh3IRB808pXns=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=K5QvIaKWiOCW+DoyeqeUCr+8+RSFW0EbE/vzSXfbUsVjjBImXLAEFF12RiYJN6i7E
-	 MwDCYVKecpupHQ1ATwLGM311UD+t4OAORvPZBviXXsXV9R4VTTU49VP/Pw/gQM13mz
-	 Z+P06Tr/MVb5/o77jXAJ/4cD/dgp4QzEYMTaLweU=
+	b=e+Kqd4k+akscBj5nEFKeioVoBCG9hUae3fAYSlTu90XhFr0EmfmaLUuxY2rkgjm2Y
+	 og8uJaKVcK5+YP2W5bw0vr/fuusjYKVYEKGQ5hF3mkfvAQvKMIsNxR+R9GNpcRaSCp
+	 yDde4I3EVe/Xyu0rNJJVjOPdYVGCTtYuSuyCyz9o=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Frank Li <Frank.Li@nxp.com>,
+	Prashant Rahul <prashantrahul23@gmail.com>,
+	Felix Fietkau <nbd@nbd.name>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 0209/1536] firmware: imx: scu: manage mailbox channels and global handle
-Date: Sat,  7 Nov 2026 08:37:05 -0500
-Message-ID: <20261107135003.529298543@linuxfoundation.org>
+Subject: [PATCH 6.12 0245/1536] wifi: mt76: mt7921: fix memory leak when skb_linearize fails in mcu rx event
+Date: Sat,  7 Nov 2026 08:37:41 -0500
+Message-ID: <20261107135004.562760261@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261107134957.653319350@linuxfoundation.org>
 References: <20261107134957.653319350@linuxfoundation.org>
@@ -68,84 +68,52 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+From: Prashant Rahul <prashantrahul23@gmail.com>
 
-[ Upstream commit 55c748d596f841a18cf659ce0999f64029a5c88c ]
+[ Upstream commit 4361f1660101270611eb5dc39799f620b35f2e4d ]
 
-imx_scu_probe() requests mailbox channels with the non-managed
-mbox_request_channel_byname() helper and then publishes sc_ipc through
-the global imx_sc_ipc_handle.  Later probe failures, including child
-population failure, can leave the channels and global handle live after
-the probe has failed.
+The ownership of sk_buff skb is passed to mt7921_queue_rx_skb, each
+path inside it under the switch case handles cleaning of skb and it
+is true for mt7921_mcu_rx_event as well.
 
-Register devres actions to free each mailbox channel and clear the global
-handle.  Also depopulate partially created child devices when
-devm_of_platform_populate() reports an error.
+mt7921_mcu_rx_event, on a success path, either queues skb via
+mt76_mcu_rx_event or cleans it immediately inside
+mt7921_mcu_uni_rx_unsolicited_event.
 
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Signed-off-by: Frank Li <Frank.Li@nxp.com>
+However inside mt7921_mcu_rx_event, if skb_linearize fails, the function
+returns immediately and never bothers cleaning skb which leaks skb.
+
+Since skb is fully owned at this point, it is safe to call
+dev_kfree_skb which fixes the leak.
+
+Granted, the skb_linearize failure is rare as it can only fail under
+heavy memory usage, but at the same time, leaking memory under heavy
+memory usage can worsen the OOM condition.
+
+Signed-off-by: Prashant Rahul <prashantrahul23@gmail.com>
+Link: https://patch.msgid.link/20260716-mt7921-mem-leak-v1-1-6e9c0ea19f63@gmail.com
+Signed-off-by: Felix Fietkau <nbd@nbd.name>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/firmware/imx/imx-scu.c | 25 ++++++++++++++++++++++++-
- 1 file changed, 24 insertions(+), 1 deletion(-)
+ drivers/net/wireless/mediatek/mt76/mt7921/mcu.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/firmware/imx/imx-scu.c b/drivers/firmware/imx/imx-scu.c
-index 8c28e25ddc8a6..28d745ae06067 100644
---- a/drivers/firmware/imx/imx-scu.c
-+++ b/drivers/firmware/imx/imx-scu.c
-@@ -82,6 +82,17 @@ static int imx_sc_linux_errmap[IMX_SC_ERR_LAST] = {
- 
- static struct imx_sc_ipc *imx_sc_ipc_handle;
- 
-+static void imx_scu_free_mbox_chan(void *data)
-+{
-+	mbox_free_channel(data);
-+}
-+
-+static void imx_scu_clear_handle(void *data)
-+{
-+	if (imx_sc_ipc_handle == data)
-+		imx_sc_ipc_handle = NULL;
-+}
-+
- static inline int imx_sc_to_linux_errno(int errno)
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7921/mcu.c b/drivers/net/wireless/mediatek/mt76/mt7921/mcu.c
+index 6caf8fbd6a7f2..bc7a99b58ba48 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7921/mcu.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7921/mcu.c
+@@ -348,8 +348,10 @@ void mt7921_mcu_rx_event(struct mt792x_dev *dev, struct sk_buff *skb)
  {
- 	if (errno >= IMX_SC_ERR_NONE && errno < IMX_SC_ERR_LAST)
-@@ -321,6 +332,11 @@ static int imx_scu_probe(struct platform_device *pdev)
- 		dev_dbg(dev, "request mbox chan %s\n", chan_name);
- 		/* chan_name is not used anymore by framework */
- 		kfree(chan_name);
-+
-+		ret = devm_add_action_or_reset(dev, imx_scu_free_mbox_chan,
-+					       sc_chan->ch);
-+		if (ret)
-+			return ret;
- 	}
+ 	struct mt76_connac2_mcu_rxd *rxd;
  
- 	sc_ipc->dev = dev;
-@@ -328,6 +344,9 @@ static int imx_scu_probe(struct platform_device *pdev)
- 	init_completion(&sc_ipc->done);
+-	if (skb_linearize(skb))
++	if (skb_linearize(skb)) {
++		dev_kfree_skb(skb);
+ 		return;
++	}
  
- 	imx_sc_ipc_handle = sc_ipc;
-+	ret = devm_add_action_or_reset(dev, imx_scu_clear_handle, sc_ipc);
-+	if (ret)
-+		return ret;
+ 	rxd = (struct mt76_connac2_mcu_rxd *)skb->data;
  
- 	ret = imx_scu_soc_init(dev);
- 	if (ret)
-@@ -340,7 +359,11 @@ static int imx_scu_probe(struct platform_device *pdev)
- 
- 	dev_info(dev, "NXP i.MX SCU Initialized\n");
- 
--	return devm_of_platform_populate(dev);
-+	ret = devm_of_platform_populate(dev);
-+	if (ret)
-+		of_platform_depopulate(dev);
-+
-+	return ret;
- }
- 
- static const struct of_device_id imx_scu_match[] = {
 -- 
 2.53.0
 
