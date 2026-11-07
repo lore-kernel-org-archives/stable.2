@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794062077;
-	b=EvBF3gEqqNz2h5rHqoWJTMhdvMbRNBU6BfHJzSivjVEhkVh+2Jw/IKONQ2JcRYbwYS+b
-	 GqkytYvNF90OmEKRWJSeZt4aYdvvnAf4+x7PE92ZBs53RhKKMos9FEzTpK0iEVHCoCHuL
-	 NNxhgwjQU5kCVwGotcACDhS2SCuIk/CKMB0kWZlR0M4r8HCcZYieltLI7yc/QE0RYEeQT
-	 XNBMUDJrxJ+bg9rwMcl/VFhnFAwaOvqL9xKMUIitN5YoOrsJMAQAAbPWGo5bDN37GgOjV
-	 De2fuez+/IAWInFIAJRI8xXVzrU4dL/ZUpBAgc7hr8FTefr35kMlKwm4gQBBOM/muwA==
+	t=1794062088;
+	b=SU6hJvDJKWu+yT9wV+3TbcEeyzYIf2Vz6RZj0hbtxNY3EYMS6fKhMzcIoxDPKvC3HeJD
+	 APPh8u1G8TnrBXeUgPyxVY9eXbFLqONnxhOfsO82Sxal0H/Q4amUecacNMhzeZLcUDw8T
+	 ql9w3lI/UYr06rvyed4JRrrAHk1khTZsst9Q3FQIgo7QC2Vvk2kBi5cPjnCz8FO2EBKjI
+	 GM9iRAGuBWLKEqCLfM4Wj9XzWlOdY+O8nWCX928Prdzcm4OlZuU/ByqWFnbjQzRL1eUkx
+	 dCTTN+3YUlTYrJR8YEQsZkjo+NTtOOl3q6G6Y9oK1WFBDgg0KZFM5K+0/3II3f62SJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794062077;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794062088;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=ZQQgsNfUKJAm/6PQbFzclseo/DsOr+vtNFrAq750BkM=;
-	b=Fc6YoNsTLBiIRzBWPGEZD9ooLStA7fcBSHciCiM3cww3oGB2tjZKAlZbrY2z3PeMntmd
-	 cPxYEBh12I5VikBHNQvVwOkYDof783zTDRoFLYHvmXGHytv2V4r1F8dYzlg44+STxLTn1
-	 l9Qiknd+SlylnHR8oHyH6ElPBv+EXCW6QXW+mfUCw4aFOJCTcMrm1KJuUbpqnkA0QeWmZ
-	 DJ8F1oDWIK0mi53Y0XQbkKYGWSKU37W22eM9H3YDrYhz3qTmi8WnZmeC72YYXDq2OIqHk
-	 FnwFvIpeq1ffQd2FjJTuChqt1w6VqAcNx9nfb0iKZU+lwW877zmxIDBa22VKw6f3eZg==
+	bh=xFTQ6OXZZeB3hp38cuS4N75K+jfFM2BPrI81bamS6RA=;
+	b=kFDGTNM9NwqGOgr4o/6JuaQauuTcvoq/IWoADRHrdeQ9gL2KJRMXjeg81xcX0NBWcf02
+	 RvuNqoGif5NqmLcqvNUC4/fFY+Fu2h6zBpS9AFv/F/GybkjzgCbXGrfg2a2YAFveag9p9
+	 UNVaJc9np4cmlYWVBNQxnXecU7dABRjIBx91J6nJkZ5lbVgXMgBBPFM1zlzD54cYtotgR
+	 N3APPXHRXGmoP6t/NUDU7R0wywUXj0VssdOhquDxepj9/FgqZHrC2tQp/7+4nEyBs1nm/
+	 O/0YqM/QY3FxoqayoJ3FnGPqm3zFFLcUbQm5Z34gd0hI65gwUgec5+DrhH6UWFuRsqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=bm5Fvavi;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=EzojGb7F;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57A96606A33D;
-	Sat,  7 Nov 2026 14:34:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C51C606D826;
+	Sat,  7 Nov 2026 14:34:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=bm5Fvavi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 045681F0089F;
-	Sat,  7 Nov 2026 14:34:36 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=EzojGb7F
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE31A1F008AB;
+	Sat,  7 Nov 2026 14:34:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794062077;
-	bh=ZQQgsNfUKJAm/6PQbFzclseo/DsOr+vtNFrAq750BkM=;
+	s=korg; t=1794062088;
+	bh=xFTQ6OXZZeB3hp38cuS4N75K+jfFM2BPrI81bamS6RA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bm5FvaviVdFNvr9kS0kjmzb5Tb27k8Z+nIdYywU8+OUPFejTyq1UTOFSa7qp25Wsx
-	 PbNFL27hTF5NRNGUL78321QTNDDY0lQ5HOQte0ayiLWIaftxJoVmlkBqdhZ3A9CMCH
-	 3bGimDt2BUKQV2/y9flP2woeMl3Sdx5kArC0rj3E=
+	b=EzojGb7Fbpzm1r/Ztz/K4ZgPlrS5PwSgxblbI2nzy8FDupWSpMEetZIaY/OPjjC1L
+	 pPy8VzAfunMvNrcEalDfVFtCFaZ8PyTPX+andIh5t0DO1+WJ5q3kCFPDyd+ZjfYz46
+	 I7AueBlXsNElflRmcm5z7zfZqMFyjeYm1PJUM76Y=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	David Heidelberg <david@ixit.cz>,
-	Lee Jones <lee@kernel.org>,
+	Aamir Ahmed <elb12345@hotmail.co.uk>,
+	Brian Masney <bmasney@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 1054/1536] mfd: wcd934x: set DMA mask on parent to silence "DMA mask not set"
-Date: Sat,  7 Nov 2026 08:51:10 -0500
-Message-ID: <20261107135027.284851983@linuxfoundation.org>
+Subject: [PATCH 6.12 1062/1536] clk: mvebu: ap-cpu-clk: Assign .num before accessing .hws
+Date: Sat,  7 Nov 2026 08:51:18 -0500
+Message-ID: <20261107135027.511564335@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261107134957.653319350@linuxfoundation.org>
 References: <20261107134957.653319350@linuxfoundation.org>
@@ -68,50 +68,64 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: David Heidelberg <david@ixit.cz>
+From: Aamir Ahmed <elb12345@hotmail.co.uk>
 
-[ Upstream commit b296be1dc008fe3a536341afae01f66bb302e67f ]
+[ Upstream commit b4243850393f2f24e21b9f4b2c56233e60c904b4 ]
 
-The wcd934x MFD parent (a slim_device) never initializes its
-dma_mask/coherent_dma_mask. When the DT-aware children pass through
-of_dma_configure() this triggers the "DMA mask not set" warning for
-each child.
+Commit f316cdff8d67 ("clk: Annotate struct clk_hw_onecell_data with
+__counted_by") annotated the hws member of 'struct clk_hw_onecell_data'
+with __counted_by, which informs the bounds sanitizer (UBSAN_BOUNDS)
+about the number of elements in .hws[], so that it can warn when .hws[]
+is accessed out of bounds. As noted in that change, the __counted_by
+member must be initialized with the number of elements before the first
+array access happens, otherwise there will be a warning from each access
+prior to the initialization because the number of elements is zero.
+This occurs in ap_cpu_clock_probe(), which reads .hws[] to skip clusters
+that have already been set up and writes it inside the CPU node loop,
+but only assigns .num after the loop. With CONFIG_UBSAN_BOUNDS and a
+compiler that implements __counted_by (GCC 15.1+ or Clang 20.1+), this
+triggers an array-index-out-of-bounds report during probe of the AP806
+and AP807 CPU clocks, and with CONFIG_UBSAN_TRAP the first access traps.
+
+Initialize .num with nclusters, the number of elements .hws[] was
+allocated with, right after the allocation. For the in-tree AP806 and
+AP807 device trees, which list the CPU nodes in ascending order, this is
+exactly the value the old assignment produced. It is also the correct
+value for any other node order, since of_clk_hw_onecell_get() rejects
+indices at or beyond .num.
 
 Cc: stable@vger.kernel.org
-Fixes: f959dcd6ddfd ("dma-direct: Fix potential NULL pointer dereference")
-Assisted-by: tencent:hy3
-Signed-off-by: David Heidelberg <david@ixit.cz>
-Link: https://patch.msgid.link/20260903-wcd-dma-v2-1-189cff560a28@ixit.cz
-Signed-off-by: Lee Jones <lee@kernel.org>
+Fixes: f316cdff8d67 ("clk: Annotate struct clk_hw_onecell_data with __counted_by")
+Assisted-by: LLM
+Signed-off-by: Aamir Ahmed <elb12345@hotmail.co.uk>
+Signed-off-by: Brian Masney <bmasney@redhat.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/mfd/wcd934x.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/clk/mvebu/ap-cpu-clk.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/mfd/wcd934x.c b/drivers/mfd/wcd934x.c
-index fcd182d519811..6f9e8e5fb20b8 100644
---- a/drivers/mfd/wcd934x.c
-+++ b/drivers/mfd/wcd934x.c
-@@ -2,6 +2,7 @@
- // Copyright (c) 2019, Linaro Limited
+diff --git a/drivers/clk/mvebu/ap-cpu-clk.c b/drivers/clk/mvebu/ap-cpu-clk.c
+index 677cc35148497..3cd9693d74cc6 100644
+--- a/drivers/clk/mvebu/ap-cpu-clk.c
++++ b/drivers/clk/mvebu/ap-cpu-clk.c
+@@ -282,6 +282,8 @@ static int ap_cpu_clock_probe(struct platform_device *pdev)
+ 	if (!ap_cpu_data)
+ 		return -ENOMEM;
  
- #include <linux/clk.h>
-+#include <linux/dma-mapping.h>
- #include <linux/gpio/consumer.h>
- #include <linux/interrupt.h>
- #include <linux/kernel.h>
-@@ -217,6 +218,11 @@ static int wcd934x_slim_probe(struct slim_device *sdev)
- 	struct gpio_desc *reset_gpio;
- 	int ret;
- 
-+	ret = dma_coerce_mask_and_coherent(dev, DMA_BIT_MASK(32));
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "Failed to set DMA mask\n");
++	ap_cpu_data->num = nclusters;
 +
- 	ddata = devm_kzalloc(dev, sizeof(*ddata), GFP_KERNEL);
- 	if (!ddata)
- 		return	-ENOMEM;
+ 	for_each_of_cpu_node(dn) {
+ 		char *clk_name = "cpu-cluster-0";
+ 		struct clk_init_data init;
+@@ -331,8 +333,6 @@ static int ap_cpu_clock_probe(struct platform_device *pdev)
+ 		ap_cpu_data->hws[cluster_index] = &ap_cpu_clk[cluster_index].hw;
+ 	}
+ 
+-	ap_cpu_data->num = cluster_index + 1;
+-
+ 	ret = of_clk_add_hw_provider(np, of_clk_hw_onecell_get, ap_cpu_data);
+ 	if (ret)
+ 		dev_err(dev, "failed to register OF clock provider\n");
 -- 
 2.53.0
 
