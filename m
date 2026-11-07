@@ -1,53 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.68.63.102
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794070055;
-	b=iVF00dtBU/WvcycG0/2BzcHz9Zg5FhQkEvchfrdzjTnq4dhlbCaLwfVUGjN07lx/zDxR
-	 /fbDKIhCn2AyPTgi5fYPIaLQT7dTcn2W+lqNhaCSM1AJC32sW+vi91A5+Kl/Oqb94uKGI
-	 KXD2p+gdIwVP+j5lDj8w2osSqrAVL5zowPH96Wo2Em2oneUxZCVaMZtPOg2ySbEeE5Ggf
-	 Rc7aCWYuL2tobNM0jPj7+ObYF/SYYfwWwEo2yVx+PTmC7WxPZQhUG7O6XHCxKjWycyf2x
-	 lV9aaK7rM5y5BmF550TCkQKOks/qJhvw1mDnnRTQ3JdYrY350niLj+BMV4CxG+F46jQ==
+	t=1794070284;
+	b=hzx7xG6u2TE1qJ7HFY92CLF1lMu1VWOlTEjCphH+A7PI5sEXy7HlflWUivwYIdMzqWqC
+	 LtB+m5mA0iiJuy8NfgRj+UHW6+ZhFHIJO/Jx5XQuxOczr0KqTl9MpX6UsQos4i//goY7s
+	 CGjj62vGPC5bauzgpaBOEfSVR/OjRLlxZUE10qgTKvNND4N++6eMpVohcMnyZf/JcIc0C
+	 mj/dlevPg+Ao9EZcdgKDwfTmsrXeVKoRt7gXKmKo4udepMAAk3aYs1EmVRFAkOyl3KGCl
+	 nBU7BORr+6Z3fpvlwASJN+uSk2trgoKuXFjsYg76aKKZHmjU5peHhaJM0JzDlFQRfVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794070055;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
-	 References:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=ItbgdgnENEoPsdQ6poBV1dztwqhADCnafQjgGSY9xfU=;
-	b=psmEoPEW/FIUmKyvRY1+ohoHZAdhh7nQmRBIvlaqyk/gXBK/MrO5/0EskXNvm5sXJAWr
-	 yFLdlfeECwjMRGqnc+BVIMjUzVwgx7Vi9eNatxXzXtK169rBQ+AiSgzrZ627+VAPMHsN6
-	 /+F3wRd5E+LZlypAMcoljYVMC314zLzoOcHq13Kv1iOOhrX2CQuE0daeOTVAIyxj11D6j
-	 tqGtt5k9jj/9A6zfbBlqftD1ZoImQebUka2zJzgxoK4To80RABVp6GOzVeUszDP3r1RL9
-	 yhRSFnoCGYCnupNYfehzJ1r0iUO8RF9023HjYGxJsHNf4X93GrU/BrePMt66fSoL8Aw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794070284;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:X-Virus-Scanned:
+	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Spam-Status:Received:Received:
+	 Received-SPF:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:From:Content-Language:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-PPP-Message-ID:X-Rspamd-Server:
+	 X-Rspamd-Queue-Id:X-NC-CID;
+	bh=qRO/LhoNHzQDuHYrAy6gaiy6iK5ILUoNKm7gazg+Oo0=;
+	b=SiNEDUtEkg0fRXL4nk1gItTDcSuyWCrY1m2auCO6Kkyff38CM/qYEktgdRS5XoZ1VQQP
+	 ZCg6O3KbpUcSP7lN4Y78EB0qvXBoHZVn3JVgiBF8dkhgVg7sUCp2WG/T69o2NDMaOVDsq
+	 oAUQBTlHpXJaHdAS4vIV2geMD3MGptYCxNQW8MWK2XPWJ1W3MHVa/wQ6tuPvBhswhzNyx
+	 9hiMPHN/zRCBNrAZ/VIGBsSxRIMhD5/z9k04kruO7npSLLAW0TFqIMRmKO/n56ltXADyY
+	 xNoihrxDjFCbiuXIMyaKy3SJ9DUxkQYdjTQVBzoX1kkqVye3CdLHIQN/vvpaHJOF/7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.81
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	dmarc=pass header.from=leemhuis.info;
+	spf=pass smtp.mailfrom=leemhuis.info;
+	arc=none smtp.remote-ip=188.68.63.102
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.102])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90D53606A326;
-	Sat,  7 Nov 2026 16:47:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90D53606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from [172.100.0.8] (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowAA3QpMeVu9qDB6CAA--.41016S2;
-	Sun, 08 Nov 2026 00:47:26 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Bin Liu <b-liu@ti.com>,
- Linus Walleij <linusw@kernel.org>,
- linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- stable@vger.kernel.org,
- vulab@iscas.ac.cn
-Subject:
- [PATCH v2] usb: musb: ux500: Fix transceiver leak in ux500_musb_init()
-Date: Sat, 07 Nov 2026 16:46:53 +0000
-Message-ID: <20261107164653.481516-1-vulab@iscas.ac.cn>
-In-Reply-To: <2026091648-ozone-opponent-8a42@gregkh>
-References: <20260916165055.2085246-1-vulab@iscas.ac.cn>
- <2026091648-ozone-opponent-8a42@gregkh>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F6F5606A32C;
+	Sat,  7 Nov 2026 16:51:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F6F5606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
+Received: from mors-relay-2502.netcup.net (localhost [127.0.0.1])
+	by mors-relay-2502.netcup.net (Postfix) with ESMTPS id 4jMMVt7314z6Nh8;
+	Sat,  7 Nov 2026 17:50:46 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1794070247;
+	bh=7sFUzNCPUQYAY+iiWHy92/LW8Ghkh3sGUkMXnoq7yUk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Ioa1txZy/QZf+iZLivL0kV8DdLztLwgUyUKSNstrdN7aN5QRi8FJkcJ+Q8bXABQlG
+	 4CArOVLbi4tlsHSguthL37NH+gDz3kNPqaiflk0YOX2VEoQumFcoU/4YjwotU/MU58
+	 XT7c9A7Q99jwo8H2qDk7l6oAfV/8I767XbjJIbOR6/ghHRI510VwUo9h7bL4VBLThb
+	 gWnywG/6oA20UpMaOJbaWezbbQR2xOH7nnYwMwtA+7Yi9U+3O0JUZ7vi3nsZSu8sX7
+	 2F+BtyW1gZZotr5pMaEXE6fytGdg2KhBlZWZok4xEM+BqO0bSHa5M/VQxQbxBtVcmy
+	 uLie1scdkYj2Q==
+Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
+	by mors-relay-2502.netcup.net (Postfix) with ESMTPS id 4jMMTc5FXdz4yvc;
+	Sat,  7 Nov 2026 17:49:40 +0100 (CET)
+X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
+X-Spam-Flag: NO
+X-Spam-Score: -2.898
+X-Spam-Level: 
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy01-mors.netcup.net (Postfix) with ESMTPS id 4jMMTZ0Y6cz8v23;
+	Sat,  7 Nov 2026 17:49:37 +0100 (CET)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 938185FB03;
+	Sat,  7 Nov 2026 17:49:27 +0100 (CET)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=linux@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <0f632371-ee07-44ab-b574-a762b4063fca@leemhuis.info>
+Date: Sat, 7 Nov 2026 17:49:27 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,79 +76,114 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:rQCowAA3QpMeVu9qDB6CAA--.41016S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Ww48Jw1DGF1UZF1rJF13Arb_yoW8KF15pa
-	y7Gr47CrWDK3yIyF42qr18ZFy8Aa97trWFkry8Z3y3Zr98G3W7WFW5ta4FqFW8Gws3CFW5
-	tr4Yqayv9rsIvaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvS1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AE
-	w4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2
-	IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2
-	jsIE14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJwAS0I0E0xvYzx
-	vE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
-	tVWrXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI4
-	8JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWUAVWUtwCF04k20xvY0x0E
-	wIxGrwCF04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI
-	8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AK
-	xVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI
-	8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280
-	aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43
-	ZEXa7VUjd-PUUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAAEA2rvPp4hhQAAsK
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.3 0000/1257] 7.3.4-rc1 review
+To: Ronald Warsow <rwarsow@gmx.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com, Pascal Ernster <git@hardfalcon.net>
+References: <20261107134939.434104957@linuxfoundation.org>
+ <68c2efb8-e54f-40bc-9c36-76c719a590d5@gmx.de>
+From: Thorsten Leemhuis <linux@leemhuis.info>
+Content-Language: de-DE, en-US
+Autocrypt: addr=linux@leemhuis.info; keydata=
+ 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 MEK4
+In-Reply-To: <68c2efb8-e54f-40bc-9c36-76c719a590d5@gmx.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-PPP-Message-ID: <179407016847.3182742.2836733914992484162@mxe9fb.netcup.net>
+X-Rspamd-Server: rspamd-worker-8404
+X-Rspamd-Queue-Id: 938185FB03
+X-NC-CID: kfG2x75ENRT7qX18+iX/yyMLXOzA8J5Bq4WFe1ephN6zwk5RJ0Y=
 
-ux500_musb_init() takes a reference on the USB2 transceiver with
-usb_get_phy() and stores it in musb->xceiv. If the following
-usb_register_notifier() fails, the function returns without releasing
-that reference.
+On 11/7/26 16:34, Ronald Warsow wrote:
+> 
+> kernel build / boot test on x86_64 (Intel).
+> 
+> I need to revert (here)
+> 
+> 1564da6afd7ce5297ba24f2d1e61d6a79a9ff6db
 
-The reference is only dropped in ux500_musb_exit(), and that callback is
-not reached on this path: musb_init_controller() jumps straight to its
-fail1 label when musb_platform_init() returns an error, while
-musb_platform_exit() is only called from the fail2 path. The reference is
-therefore leaked.
+FWIW, that is "sched_ext: Fix the stall watchdog testing and blaming the
+wrong sched under bypass". Ran into the same problem; Pascal (now CCed)
+did so earlier (even before the new -rc was out afaics), too:
+https://lore.kernel.org/all/c2569e78-f102-429a-a4a6-0b59d14226e1@hardfalcon.net/
 
-Put the transceiver on the notifier registration failure path. The
-notifier itself does not need to be unregistered, since
-usb_register_notifier() failed and never added it to the chain.
+Ciao, Thorsten
 
-The bug was found with a static analysis tool; the candidate was then
-audited and the fix written with the help of DeepSeek-V4.1-Flash and
-GPT-6.1-Sol, and the result was checked by hand before submission.
-
-Fixes: 0135522c4898 ("usb: musb: ux500: add otg notifier support")
-Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/all/20260916165055.2085246-1-vulab@iscas.ac.cn/
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
-Changes in v2:
- - Do not add the Assisted-by trailer: current checkpatch.pl reports it as a
-   non-standard signature, and Documentation/process/generated-content.rst
-   asks for the tooling to be described in the changelog, which the commit
-   message now does. Say the word if you would rather have the trailer and
-   I will add it back.
- - Explain why musb_platform_exit() is not reached on this path, so the added
-   usb_put_phy() cannot double-put.
- - Code unchanged from v1, so Linus's Reviewed-by is kept.
- - Sorry it took me this long to come back, and sorry for the extra work of
-   chasing it.
-
- drivers/usb/musb/ux500.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/usb/musb/ux500.c b/drivers/usb/musb/ux500.c
-index 8c2a43d992f5..14c5e986937e 100644
---- a/drivers/usb/musb/ux500.c
-+++ b/drivers/usb/musb/ux500.c
-@@ -155,6 +155,7 @@ static int ux500_musb_init(struct musb *musb)
- 	status = usb_register_notifier(musb->xceiv, &musb->nb);
- 	if (status < 0) {
- 		dev_dbg(musb->controller, "notification register failed\n");
-+		usb_put_phy(musb->xceiv);
- 		return status;
- 	}
- 
--- 
-2.34.1
+> otherwise I get:
+> 
+> In file included from kernel/sched/build_policy.c:71:
+> kernel/sched/ext/ext.c: In function ‘check_rq_for_timeouts’:
+> kernel/sched/ext/ext.c:3852:41: error: implicit declaration of function
+> ‘scx_exec_sched’; did you mean ‘scx_prog_sched’? [-Wimplicit-function-
+> declaration]
+>  3852 |                 struct scx_sched *sch =
+> scx_exec_sched(scx_task_sched(p), cpu_of(rq));
+>       |                                         ^~~~~~~~~~~~~~
+>       |                                         scx_prog_sched
+> kernel/sched/ext/ext.c:3852:41: error: initialization of ‘struct
+> scx_sched *’ from ‘int’ makes pointer from integer without a cast [-
+> Wint-conversion]
+> make[4]: *** [scripts/Makefile.build:290: kernel/sched/build_policy.o]
+> Error 1
+> make[3]: *** [scripts/Makefile.build:551: kernel/sched] Error 2
+> make[2]: *** [scripts/Makefile.build:551: kernel] Error 2
+> make[2]: *** Waiting for unfinished jobs....
+> 
+> 
+> apart from that no regression
+> 
+> same .config:
+> https://marc.info/?l=linux-kernel&m=179390956799135&w=4
+> 
+> Thanks
+> 
+> Tested-by: Ronald Warsow <rwarsow@gmx.de>
 
