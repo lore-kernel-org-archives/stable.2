@@ -1,98 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.155
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794056825;
-	b=NritZy+cfE9IkbJ94l/uRlWJI/6oUrbwS+Ksf+s9hq2tj6SDbCPpHxULMgUv9FY9GxY/
-	 TUa9PCYQ4M+cYwjPvOsWKkKHOa5ThXPzj1Dto+AIRvUTCxOY9C6S3RO9rZqMBD1W31Hm8
-	 c1AyhGACfSdtms7ZQ0qTm6Gz5mt+AtByBnTZILy6ijWUYZnVP4z7gUJtlDLtzieMRxaiS
-	 ju0DxQUhJRRd/5x7SeDgBIamL85S7hYr/REJ63xL72ysGuOKKrs5EE1qKKOv/f4SP3EGE
-	 YFYyaTlsocJnmpJBlnQn399Z1kYbTUR7StIfKSktLGHMmZWmg2dOVuB6GkN2lmXARVA==
+	t=1794056841;
+	b=CNwEjnA/nXVcLXZtjkwxSqCiIEZY49VwS9qqkmmK+9M1GmJXv4us07QLeVA8yJYjz89k
+	 aZLJ5VXUtR0zw795NLJ6Fa/5s9ZjkI9tFYuqcI9QnAjJLsWMQSMUNIJG+VlmOaZY3gmnf
+	 ZKHXC1pN8Ri397lcmV423umG94ie8KGHWTkfbhewX/iURe8zA6ybEZbPUE/pWVNIQt7zt
+	 Mxgox0cmGX7vxtyU7iv8D05szjAXll8b5GY0oDCaYQG1MSf4FqtQ8eL/jKAaDl09/wL84
+	 lvTJPZg+F2A08WHXz/dylDUlF4ZLbFOdpprcrBxv47VdjKPwhFytH2IC6RPMxI/GspQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794056825;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=61Rzp6o+z7DbcxgwTRzElpmwApTyzJgIDqvPIvaYaus=;
-	b=VfeXkMtgjg79lZytAQocIxCt2vaoE+tv9DIjKNfNDeoLEa1Zrg8xpym9G4xmyVAQCITI
-	 RVP8LLgxsvxJhUCIBQWk4R8vwugkTkhYjLcD9hszLWx/Tq5LUmlvxAUCK3ReYVUSOWHyf
-	 bs5cTLEUfGw4gdqT6Xd3KKljgJke53N6+wabm5lno0Dg4DN+uYEwmHTjUqiuyShAycdMM
-	 hu99Wh4/he/IBLrXRJ0M5zFhIACqhrMFN1qzIfZ0ecGgl2YrP7fcAY8XkJ389sVmvzkUX
-	 zpoK7e/4EMYqVYUDtQZDVg+bCy9A4pZAOIV7uTEkTLM39xhgYiucZHyg6236FC5DP9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794056841;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:From:To:Cc:
+	 References:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=wdDwWLw8oUqNYv2c9OvRdxGV3qrYo84KzC2YAfBYQL8=;
+	b=DP7x3lCt6T83HvrV9gEGi0re5DftNgpBN7PVMWP7b6+7o9ltkGnf82icU84VGC2I0J8Q
+	 EopaPxnG4MCzE+2ZalR+cW4/1WALY4krUi7boqH9MC2HBeoyBzN40/S2Ec7d8Gu8ybMfG
+	 NC5QZu1MUz6VO8hn3EyiceJhe+ukeYRyih8cao0Kb9XE6JJrCP7oyAlRY4IzKBZ/0ppUg
+	 HT+VuxddN8s+q4gCP8UDUwBm/IOU9pl0VU9vGm+d4rcD0Nyf+73E8iel7ElCgEkGJncGp
+	 z2d1aDW/XpOlL+FUpmCipEHdidYFSh9o/ky53vbe1DY9WHTIpZy0bV8qo+Z8xvb1xPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tu6lqaHc;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=pobox.com;
+	spf=pass smtp.mailfrom=pobox.com;
+	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=QCBDDrBG;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=HeBlTmt6;
+	arc=none smtp.remote-ip=202.12.124.155
+Received: from fhigh-b4-smtp.messagingengine.com (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE510606A32D
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 13:07:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE510606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76BE7606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 13:07:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76BE7606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tu6lqaHc
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a215e64962so16694025e9.1
-        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 05:07:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794056823; x=1794661623; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=61Rzp6o+z7DbcxgwTRzElpmwApTyzJgIDqvPIvaYaus=;
-        b=tu6lqaHcLt2g7SX8faDpQ3dOYQP+QezLCsfEHldu9X5qEHP2EsbIJrZtamC2k2ZouT
-         e4je1KJzbsDcwUgt3SsrIIWDDI09exBzNlLM/p4ROCPKzMjpVxJgBJL+cvdzPndQi7HA
-         hYjrdq+1Zy1nmtO30V4/mRIcXAPMrbvyybhbywl9cvu/ZLRzA0WNW2TyZRVN1VDWI2VF
-         ZWPsnj/Yk3KsKNKiU/WBHOEx02zudjrBAcdEZSES58psQW+fX8IaED4B5enxj0cVcvLi
-         PfEoODFY4vCOz2FA01d9e8dn27zF1dCu6EYzJ6W20bhNLSgRc35SCWASqp+gPt5IdX02
-         B09w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794056823; x=1794661623;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=61Rzp6o+z7DbcxgwTRzElpmwApTyzJgIDqvPIvaYaus=;
-        b=hq/3nbtsmLnuu7kIs3rbhWijTSaj2R3ryPtPfA3/qsvqMJ2bbdYaqBSFFSwpE5tNN0
-         1SI4vYCFIucTrkKWsh2X7cNdz4ZF6RSpTtkvk0JkrYWVBNYyaURQyFzs4KSAbC13gn6A
-         vSmuiVLMDvjdoi11zfxiLmnvxFCR4gcogSYh3kp8zGctq8t78uwdWkkfZjr2dHgdfoRg
-         SJiqeJ9BEiMKAKvdorWeYSZ+ZGaYE9fsJeD9xY6JX+1kge9RjwjOCLs9j6leRcpx/40X
-         B4GIiUq+e9y+45CmusiIFaEPUFeTDVrWHU0YqU12lLN0sNdygarpAcQclhd++jBoODt6
-         BP5A==
-X-Forwarded-Encrypted: i=1; AKwUvBx1pnhXltf9Pvi8kzOHPZeBq95YRT1COJYDRk0rHf82bGlh8AVXt8Ss5povRGlEYFsB4exopNc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8pnDvIH5NKgFKZsXTWEhf3GWlyNVplorjDrI3kTY8OWG1qxfx8
-	d+arRASj+9ivTd0QjbV1+SDHaoSk4kIvBMO2of3w2AE6azgAlWnkeUJkX+Wk
-X-Gm-Gg: AYBFou3lBlp6/Gbk7+oXs1kw6U3Qun73WxxJxfDMf2rRlS/vpJFQx9oD8VFsIuQ6Fjo
-	/+Jb5EcZlb+kkkIQ7edYhlABCJc05W+Qfu4E1n1qRcr26SzzdY8y7xmlhabRfPObQj9VOJwoQ5u
-	yDvRM0hLQ/D8cC7dHTajXS3haeRn7PKaZq1SruOVcsbpXSReWJ4m449B4ksCO+L6uyknCdmn0/7
-	TfQxuzyYrJE+MTk6cAjulEAYup24zw07B4QvkmC0U7EUO1LdHF9Z0N+JjKyIvW5lN6DzLtfcw9C
-	22AzL315ikd0JvKdQXpKil5rcvObbFnyptQARiNFmMZ8/+H5gIttv+grLaaSh7Lv4Kj6kpcrZqe
-	/u4dYBTvfZBibFRxfKcYzO3nybuCKxzf9y8/ugg7a+2gvD76ozkz6qAeVW8eXHFB806sZxVNAOD
-	gLsRBiDN42H/NTsYpBiM/BuI7q1L9Y9wgSyfnrrFM5EpehPNz8NHph4RAx9bhSqx2zZ61N3q+dM
-	WTDK2d+EjckkzUwvQ8iQFXEY+Y0vtqsMEB+slkipttVoWjee986xBU8cIBEwAuFQ5YqtdoVHtcB
-	WmGn+ND2I8XVoqUUG4ES7PEOTYWs
-X-Received: by 2002:a05:600c:c8a:b0:4a1:f377:5c75 with SMTP id 5b1f17b1804b1-4b6e0454dbfmr92462475e9.33.1794056822953;
-        Sat, 07 Nov 2026 05:07:02 -0800 (PST)
-Received: from localhost.localdomain ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b76cbfa121sm48372785e9.1.2026.11.07.05.06.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 05:07:01 -0800 (PST)
-From: Tristan Madani <tristmd@gmail.com>
-X-Google-Original-From: Tristan Madani <tristan@talencesecurity.com>
-To: Oder Chiou <oder_chiou@realtek.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Bard Liao <bardliao@realtek.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Tristan Madani <tristan@talencesecurity.com>
-Subject: [PATCH] ASoC: rt5668: fix teardown order and stale state across card rebind
-Date: Sat,  7 Nov 2026 13:06:50 +0000
-Message-ID: <20261107130651.2059891-1-tristan@talencesecurity.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=QCBDDrBG;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=HeBlTmt6
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id A86177A0156
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 08:07:19 -0500 (EST)
+Received: from phl-frontend-01 ([10.202.2.160])
+  by phl-compute-01.internal (MEProxy); Sat, 07 Nov 2026 08:07:19 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1794056839;
+	 x=1794143239; bh=wdDwWLw8oUqNYv2c9OvRdxGV3qrYo84KzC2YAfBYQL8=; b=
+	QCBDDrBGl4HPRib5N9/M8Qn2yczOah6UkCXRV2e9MAc5b8m03qffw37HkW9CEqYj
+	ysmBnxPET3zWAvohpTUKylIo6GfeV9TNn6v9gqr+jdS3nsgn6Ta/3/OOiwNeFFrN
+	uouuppIX4xIZbEn783DVZMHp88nODb5ynIRul8Ci8uuuk2cVpgrvK39S+TxAZlZy
+	qzV3TKmt2GojjAsTJTQawEb34Yi8xJ7I3H9YDLkO0L8MYS1Xf1CrUwskoiW1yA4u
+	a72onKUEzLUNqjTVrNYxdF97zlP+pDdYlaxlqOVV9nqq0AibFj7yt2LYWhd4H2b4
+	gU0urxf1GqNDv36yJ8ZdjQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794056839; x=
+	1794143239; bh=wdDwWLw8oUqNYv2c9OvRdxGV3qrYo84KzC2YAfBYQL8=; b=H
+	eBlTmt6/ZjYweL0Clk8pxeBcA6JyU09GhdCGvUWNLKXy+WYLiCtoAVitotkWM+z5
+	j7jH6LJ6JcwVGD3Kj9eMcvSZYS/fSNd7iczE4rEEmdAsp/GjXiH7sNqx8ZgPtcZs
+	08lwvm64HemJrcC+/iJ/oRnYp7+W6VET4nmBc+aJDe2AXnoQKQDWkQ5WVxq9PFZ4
+	tII34jjsuFvRDbJdlr3Ps/rU8xcD6Ew3ds4q30VwhfRjO2SUwxKSC7ytF44labGU
+	rHkEJBQljdqhrVyfFuzajAVGfX90LclvAUKxx6FJevlO9Y4VTRtMruZuEatM1ELv
+	48O1bEpqVZ92A4ueWaayg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=pobox.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794056839; d=pobox.com;
+	mf=PGJhcnJ5bkBwb2JveC5jb20+;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:Vuy2PThMtGpVy22OFuSyjlzCpXi4t+tqUh0nWF0umWbIlzZ
+	pmpIksciHd45dJg2XdRBgqRZO3Vg+Ops6hHaoSbhVGPFAwkB/ZsRFfp7H+YRFOOa
+	JpfNblRoQTi7Tg+N730c4z/v+cQJjow9PtDIx0w8ud0mxamzMPtAZ51RQG9Cy1Xv
+	8Tg6yoDtPr18B5lQ4yvFvreEmvLc+CngPetZf85kVHaw1J65ouXvIEmM0zcYK0Bg
+	33VS4n3rI1xi5yRhMmtEAhukfXqgRvRsn090UV+ZmTjL3LfOdpIuBlvsBlosEkFv
+	jMISjtg5+RvefS5VI9SKMBJBeKfCW4+Svph2vYw==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=14;
+	hn=cc,content-language,content-transfer-encoding,content-type,
+	date,feedback-id,from,in-reply-to,message-id,mime-version,
+	references,subject,to,user-agent;
+Message-Instance: m=1; h=sha256:6U5cuYk01P+q++IbdD57gkCorrr3EvkXwHQISqZSVts=:aNs+jOg3Cjx4FXZRYFcy9YR3rt7v5jpzbDoD9+18gqU=;
+X-ME-Sender: <xms:hiLvaoy6u6VYdotBfcFDmLBpYbDxeqEoU68hE9CBSn4Hc-jjO1INEw>
+    <xme:hiLvalmlhX8z5u0snAggGP15UVLzQ0xqNWCAeRCOnu_D0-AWRH-e2chcKfFPzHJ0J
+    PMnz4u7jj4bdb3kMrkcOEhi1kTnCxGk6LqhRl9GM7PEu0n45ZQdy42O>
+X-ME-Received: <xmr:hiLvahks92CuM26QAQlmdHEZ6TdZImWrqH7w4VSf8ERTrR4nngda8WUPATNqTEPEmR5g623FXumu_DiIET6s-z4Bg6-OYWIu>
+X-ME-Proxy-Cause: dmFkZTEf+pFFFTVm3IEswDBYBUXTyc5+3mbJR+ZuoAU8Cjj9jinNQlbXf368IsalONSUbf
+    nfjOlqOW2zP5HJRFL6HOPPg1CGM1OdImorLj6srsgAEZcvh7TQsolZysBHNcWPYFInVe0m
+    uL5Ya0P9Pu/Fa3nEE36xBp1xOmeSFBPVKORd7gHlFn3vBzTt37CvCK31fQBbwKQe5eGSkX
+    lZSyBQNBQ57Dxdviao1WMMEVzzMYUxF5nMBp9JqcyVhkZ5N1FhNWLTmCqISoEjhe/yrkXy
+    EPYHlI4W1nC1tkKZ7a8UXwUaJVc/4krcoFxB35eE1JGyylpSyjpBQmoyT4E0ALpuw4tkfr
+    qBhKk1qmmMdI3a9QadDPYwFH3EBkTA+iK2CPgD9/DlcJVmwQTmKiOCEc6AxAQZmKt8MVEa
+    BDC0Iyi1pfmmzxtx8ETb+Bsb2wqFYeqCKODw+x66CjIDHwshUzfJjBTdfWFSUKJf/U2YxG
+    ZRX9//WlzQBLf/qa5RctXxuMVtQwFHYznudMbRVCmigS8x95jFEv/OJCmeG7fhNqWU69Xq
+    kM5wbK6n1Jss57qg0sfYegueeDzitSrUKaErUSeUPLvSXVX/EGBDm9PLhIaXVz8Ol99OzW
+    KUpQDGqabAqxBedUJUdwea0S2XENrc6sMKdj/RiAD8R8JUxoSrsPuXX6JLlg
+X-ME-Proxy: <xmx:hiLvanxbGD-1PY8R7ifdEG4RbeBeA_M466s7zMNKvpMtuLVtcFcpOw>
+    <xmx:hiLvamrS6Ks77JuwWL2SqK6yNrYItgahAGZyX-RaCSSA4ziFTeg3fA>
+    <xmx:hiLvam7XskOxGHUoEgWTHlL_si7lm4EkLUHuNCdSXbbGbYNecz3LAA>
+    <xmx:hiLvatdpXmk7xZ2A1CLFJ-OJ72HQKcSAesFtywDJnWa55vbpDdfwCA>
+    <xmx:hyLvav8SvDtIjEtP49dBU8m9JxDaYe6_rmyxpwlhTESzC3NpsQolBtFT>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 7 Nov 2026 08:07:17 -0500 (EST)
+Message-ID: <15a1f7c4-3110-4a2a-adeb-cd1e97d5b6c3@pobox.com>
+Date: Sat, 7 Nov 2026 05:07:16 -0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,124 +119,80 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.3 330/547] xfs: cross-reference the primary superblock
+From: "Barry K. Nathan" <barryn@pobox.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, "Darrick J. Wong" <djwong@kernel.org>,
+ Christoph Hellwig <hch@lst.de>, Carlos Maiolino <cem@kernel.org>
+References: <20261104211038.406938024@linuxfoundation.org>
+ <20261104211047.605532149@linuxfoundation.org>
+ <194b6b81-1521-4dfe-b86f-c693917bb78e@pobox.com>
+Content-Language: en-US
+In-Reply-To: <194b6b81-1521-4dfe-b86f-c693917bb78e@pobox.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-The cleanup in rt5668_remove() does not reset hs_jack, jack_type, or
-the component pointer, and does not mark the regmap cache dirty after
-the codec reset.  On card rebind this leaves a dangling hs_jack pointer
-and causes regmap_update_bits() to skip re-programming jack-detection
-registers because the cache still holds the pre-reset values.
+On 11/5/26 7:38 AM, Barry K. Nathan wrote:
+> This patch is breaking the build for me with CONFIG_WERROR enabled,
+> for both 6.18.61-rc1 and 7.3.2-rc1, on both arm64 and amd64, when
+> I compile with clang (I tried 19.1.7, 22.1.8 and 23.1.5). It only
+> happens if I build with CONFIG_XFS_ONLINE_SCRUB enabled. However, it
+> doesn't happen with 7.4-rc1, and it does not happen with gcc.
+> 
+> fs/xfs/scrub/agheader.c:123:6: error: variable 'error' is used uninitialized
+>        whenever 'if' condition is true [-Werror,-Wsometimes-uninitialized]
+>    123 |         if (agno == 0)
+>        |             ^~~~~~~~~
+> fs/xfs/scrub/agheader.c:435:9: note: uninitialized use occurs here
+>    435 |         return error;
+>        |                ^~~~~
+> fs/xfs/scrub/agheader.c:123:2: note: remove the 'if' if its condition is always
+>        false
+>    123 |         if (agno == 0)
+>        |         ^~~~~~~~~~~~~~
+>    124 |                 goto out_xref;
+>        |                 ~~~~~~~~~~~~~
+> fs/xfs/scrub/agheader.c:111:13: note: initialize the variable 'error' to silence
+>        this warning
+>    111 |         int                     error;
+>        |                                      ^
+>        |                                       = 0
+> 1 error generated.
+> make[4]: *** [scripts/Makefile.build:287: fs/xfs/scrub/agheader.o] Error 1
+> make[3]: *** [scripts/Makefile.build:544: fs/xfs] Error 2
+> make[2]: *** [scripts/Makefile.build:544: fs] Error 2
+> make[2]: *** Waiting for unfinished jobs....
+> 
+> I bisected 7.3.2-rc1 and this patch is the culprit. Reverting it fixes
+> the build on both 6.18.61-rc1 and 7.3.2-rc1. Another possible fix, which
+> built successfully for me on top of both 6.18.61-rc1 and 7.3.2-rc1, is to
+> cherry-pick commit 612d2e7506c3553b1deedc694846d1c0364ae446 from mainline
+> ("xfs: read primary superblock from disk during scrub").
 
-If the I2C device unbinds without a card bound, rt5668_remove() is
-never called and the threaded IRQ keeps queuing jack_detect_work, which
-self-rearms every 15 ms until devres frees the private data.
-rt5668_i2c_shutdown() has the same gap: it resets the codec without
-disabling the IRQ or cancelling the works.
+This was reverted for 7.3.2, but I see that it's back in the queue again
+as of stable-queue commit 77ecab77b25567c54df997dcb8030dea6bca03ed
+("Fixes for all trees"). I just tried applying the queue on top of
+7.3.3 and the build error still happens.
 
-Store the I2C client pointer in rt5668_priv so all paths can reference
-it directly.  Clear stale driver state and mark the regmap cache dirty
-in rt5668_remove(), and sync the cache in rt5668_probe() to restore
-register values on rebind.  Register a devm action to disable the IRQ
-and cancel both delayed works on any I2C teardown path.  Apply the same
-cleanup in rt5668_i2c_shutdown().
+Since the mainline fix is not a stable candidate, maybe something
+like this (just initializing error to 0 when it's first defined)
+would work? (This fixes the build error for me, but I haven't
+tried running it yet.)
 
-Fixes: d59fb2856223 ("ASoC: rt5668: add rt5668B codec driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
----
- sound/soc/codecs/rt5668.c | 35 ++++++++++++++++++++++++++++++++---
- 1 file changed, 32 insertions(+), 3 deletions(-)
+diff -rup a/fs/xfs/scrub/agheader.c b/fs/xfs/scrub/agheader.c
+--- a/fs/xfs/scrub/agheader.c	2026-11-06 22:42:57.147299404 -0800
++++ b/fs/xfs/scrub/agheader.c	2026-11-06 22:45:59.898908897 -0800
+@@ -108,7 +108,7 @@ xchk_superblock(
+  	xfs_agnumber_t		agno = sc->sm->sm_agno;
+  	uint32_t		v2_ok;
+  	__be32			features_mask;
+-	int			error;
++	int			error = 0;
+  	__be16			vernum_mask;
+  
+  	/*
 
-diff --git a/sound/soc/codecs/rt5668.c b/sound/soc/codecs/rt5668.c
-index 29d70802a046a..2ceae9d9f40f6 100644
---- a/sound/soc/codecs/rt5668.c
-+++ b/sound/soc/codecs/rt5668.c
-@@ -45,6 +45,7 @@ struct rt5668_priv {
- 	struct rt5668_platform_data pdata;
- 	struct gpio_desc *ldo1_en;
- 	struct regmap *regmap;
-+	struct i2c_client *i2c;
- 	struct snd_soc_jack *hs_jack;
- 	struct regulator_bulk_data supplies[RT5668_NUM_SUPPLIES];
- 	struct delayed_work jack_detect_work;
-@@ -2213,14 +2214,26 @@ static int rt5668_set_bias_level(struct snd_soc_component *component,
- 	return 0;
- }
- 
-+static void rt5668_i2c_disable_irq_and_cancel_work(void *data)
-+{
-+	struct rt5668_priv *rt5668 = data;
-+
-+	if (rt5668->irq_acquired && !rt5668->irq_disabled)
-+		disable_irq(rt5668->i2c->irq);
-+	cancel_delayed_work_sync(&rt5668->jack_detect_work);
-+	cancel_delayed_work_sync(&rt5668->jd_check_work);
-+}
-+
- static int rt5668_probe(struct snd_soc_component *component)
- {
- 	struct rt5668_priv *rt5668 = snd_soc_component_get_drvdata(component);
- 
- 	rt5668->component = component;
- 
-+	regcache_sync(rt5668->regmap);
-+
- 	if (rt5668->irq_disabled) {
--		enable_irq(to_i2c_client(component->dev)->irq);
-+		enable_irq(rt5668->i2c->irq);
- 		rt5668->irq_disabled = false;
- 	}
- 
-@@ -2230,17 +2243,21 @@ static int rt5668_probe(struct snd_soc_component *component)
- static void rt5668_remove(struct snd_soc_component *component)
- {
- 	struct rt5668_priv *rt5668 = snd_soc_component_get_drvdata(component);
--	struct i2c_client *i2c = to_i2c_client(component->dev);
- 
- 	if (rt5668->irq_acquired) {
--		disable_irq(i2c->irq);
-+		disable_irq(rt5668->i2c->irq);
- 		rt5668->irq_disabled = true;
- 	}
- 
- 	cancel_delayed_work_sync(&rt5668->jack_detect_work);
- 	cancel_delayed_work_sync(&rt5668->jd_check_work);
- 
-+	rt5668->hs_jack = NULL;
-+	rt5668->jack_type = 0;
-+	rt5668->component = NULL;
-+
- 	rt5668_reset(rt5668->regmap);
-+	regcache_mark_dirty(rt5668->regmap);
- }
- 
- #ifdef CONFIG_PM
-@@ -2576,6 +2593,13 @@ static int rt5668_i2c_probe(struct i2c_client *i2c)
- 			rt5668->irq_acquired = true;
- 	}
- 
-+	rt5668->i2c = i2c;
-+	ret = devm_add_action_or_reset(&i2c->dev,
-+				      rt5668_i2c_disable_irq_and_cancel_work,
-+				      rt5668);
-+	if (ret)
-+		return ret;
-+
- 	return devm_snd_soc_register_component(&i2c->dev, &soc_component_dev_rt5668,
- 			rt5668_dai, ARRAY_SIZE(rt5668_dai));
- }
-@@ -2584,6 +2608,11 @@ static void rt5668_i2c_shutdown(struct i2c_client *client)
- {
- 	struct rt5668_priv *rt5668 = i2c_get_clientdata(client);
- 
-+	if (rt5668->irq_acquired)
-+		disable_irq(client->irq);
-+	cancel_delayed_work_sync(&rt5668->jack_detect_work);
-+	cancel_delayed_work_sync(&rt5668->jd_check_work);
-+
- 	rt5668_reset(rt5668->regmap);
- }
- 
 -- 
-2.47.3
+-Barry K. Nathan  <barryn@pobox.com>
 
