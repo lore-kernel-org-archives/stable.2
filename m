@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049209;
-	b=bgcx+OwcCSVEqikHpLp2ZpPpQeNbUVW6B+CN7DEAfPsJ5FIAocTTXzIpHAK6Cusw/hUz
-	 T9npP9Y22FNXyJh9fPE+mZfSSUf31RfdxOBZjR9p74W4bYpqz5MOVHYoNS05CqhDTwMAx
-	 KsGFrrnF0cnNAtreAGgh4daf9iv9atOjbyhNkjPIHDd5s5d5Am1AQUmRA/cn1nXSosVrl
-	 vKCjxLL6YGtKKJOb6LHqXQQ9L21Tpu0ROwLpfmxR9A7/kOFeu8ZhyBcJGeDOTEtMCOusO
-	 BLHdqNQDXqREI7kNEt4Gs10XYN3JpkSXz6Eu5JAuaRglXW8KMrZdyIMHR4P5iv15yeA==
+	t=1794049212;
+	b=MJ/FLRPDWsTwa5eNZxdOEL/X0Grn7tfMFcNDG/XwYw4CGJ4wsQhjMhMP7Vc4Gnv2ysWD
+	 qKQ+axXZturo/D6lwcEbBXfJBhepktVBwyNTeAGwpzf49yaR6j8CznMheVqoVRuewMJMA
+	 wQZZ32JAwA9wKXYXl6DTgduqXotkbUG753zZlDuay7PLc1ridAMvjtQxmia4t7NiXGuVk
+	 nzXraFgrDyRitedWWCaB4wJXH3LvJi6IeNR61k/iyWPXA2JaVlsx8Jc3nGY/2wo/AHSrB
+	 Eip3g65uVcWeXbDCCsxhfXNL09p8PK0ljORdSdyIBUBq+686WCMUOO+7CrUJDBfX5pQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049209;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049212;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=gPxtRzSxUEpPqSDMxPl67CnSYF3HELrxIEULOwxwjPs=;
-	b=MfJRD+3bhgXcrHI84bYky+FREGRy43ze5yMeZ9Z+XjYsTdUPGa//hwWR3NA3MVoQJBiy
-	 ZT6PlIQhrSHUgq5HGxXJd6SKKeFfMh5oAbwiZK+1oXLR2rhOOH0HLDu6i01/V9WlS7gth
-	 /197XlGYFQaoMIr2r9I8L/QMRqSww4wY3tkQFBEvnLS7JGtcO1RSeZUQsuxmwZBdks0qO
-	 0hUz8f2xSX8gqQBwvKbdF4sdztyDw7egfL7tg1v3RKdd2fnmUl3zO3Ygbi8YNLQzzmt8R
-	 vKPDvwhPMzZrvdut5watH2wMb2GwNJrnZ+VeJkZCqDvpfFGRT2E89+HGytJcc5bu7pQ==
+	bh=TOjsJgiA5okj8AmeTG0z3t+SYI/4o5zKp4BfLu1UA2w=;
+	b=g5gwmvuZRn5sqpEsSiU0ZbXZeY74wDkQLIqUJ6LkuvS/CtVmqrgyb3i4qLdQ6KDnce/K
+	 kalrkn2l2cnLF80uhasv/PpQ016MSevLwK7lUiA6vK6bjWa8K1EzVmN0XaJLiQDZxuK0P
+	 yLKJ4ufk+bHdjQcLHhhoIPEcTvTlKQ/EUp5WU5/jisZdv0p9UXjg4K8OYgywQpJOHhqhZ
+	 kbJUZuwIrFlfj62UPTMgsE5NIwF/CV/3DP6pTxlLz0lQaDT+QBcsXVC54TZuUR+tCskIT
+	 dRvNJvg3RdrmXnXLqWYf+AkyQHzxpIUzEMw1dNhXzv7MF39YZPcCx7CamUQu0Xw299g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aTYUn2qI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fhXpB0Y1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BFAE606A33C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:00:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91E89606D804
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:00:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aTYUn2qI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1534A1F008A1;
-	Sat,  7 Nov 2026 11:00:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fhXpB0Y1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECDF71F00907;
+	Sat,  7 Nov 2026 11:00:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049209;
-	bh=gPxtRzSxUEpPqSDMxPl67CnSYF3HELrxIEULOwxwjPs=;
+	s=k20260515; t=1794049212;
+	bh=TOjsJgiA5okj8AmeTG0z3t+SYI/4o5zKp4BfLu1UA2w=;
 	h=From:To:Cc:Subject:Date;
-	b=aTYUn2qIiWoEoL+ctdl7SRfR/xR6nVkow8H/Yz/u8CDF9LJUrl2v+/auURusnKAC8
-	 uYZDKAmXkuuY1w7sIkzHj6cRceh9mtJaECHQ67lL2GufUT/GVirKy3UcRkZQqw+kiR
-	 nnbNq3AbSBizk+8EynbKydSoZ7FthRx1VHWVpp3Bcte4TZalsC4OvzeBxppNeblZuY
-	 HyVw79czjb2WiPkDo9mo7yIosJSBgWWcA2Sh2IieT2Ppn8+UD5hQFLllzHw3RvRKJm
-	 YP/jLDrDdgzq0w3qebO/ybEpj0iXH4rQOCDol/YjLvy/NNt+mvmzHppy+X3Hv4iHAB
-	 MHC59UgUxnS+g==
+	b=fhXpB0Y1QD4z4BrSzXmiC7h0C0MzqhJh9y9vzSkSz4fZDzOEjhvHEDl8fCOyOHniz
+	 D3mznGhmEEvNsqSZyASxSrWYRc4sdQgfIC8BhiyZXYScAEHVLkkEwjCGSCjWYXs0PY
+	 W+qq+EU7Z8Cml9yOhhd2HTRS4Zm5kFx9Hh9amjl0ifvv9Kp2+YhDGZOPd0NqW8rvkH
+	 yuDzhEvxCVsgg10VQdm30Q7qJfNUObt7Q6nraljeElSF4GgwzSOW+rFq5POwlNAIgC
+	 WQi+ZFxBA0vUk7opaMCXws7Xxjg32prnaymEMR+xFHfooz1uLWhdSJboc8w/lkGTFm
+	 +LEqaJHneKcKQ==
 From: Sasha Levin <sashal@kernel.org>
-To: getshell@seu.edu.cn,
+To: mhun512@gmail.com,
+	ae878000@gmail.com,
 	lee@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mfd: da903x: Cancel IRQ work during teardown" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:00:07 -0500
-Message-ID: <20261107060007-failed-5.15-fd2258999ecd@kernel.org>
+Subject: FAILED: patch "[PATCH] mfd: twl-core: Unregister the auxiliary platform device on unbind" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 06:00:10 -0500
+Message-ID: <20261107060010-failed-5.15-3c5c55d979dd@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,127 +69,117 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x fd2258999ecdc7164ef0cda2d4102e4558a5660f
+git cherry-pick -x 3c5c55d979ddcb0765ce531bc7ba173c87c8712a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060007-failed-5.15-fd2258999ecd@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060010-failed-5.15-3c5c55d979dd@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From fd2258999ecdc7164ef0cda2d4102e4558a5660f Mon Sep 17 00:00:00 2001
-From: Hongyan Xu <getshell@seu.edu.cn>
-Date: Fri, 14 Aug 2026 23:30:19 +0800
-Subject: [PATCH] mfd: da903x: Cancel IRQ work during teardown
+From 3c5c55d979ddcb0765ce531bc7ba173c87c8712a Mon Sep 17 00:00:00 2001
+From: Myeonghun Pak <mhun512@gmail.com>
+Date: Sun, 13 Sep 2026 16:50:12 -0400
+Subject: [PATCH] mfd: twl-core: Unregister the auxiliary platform device on
+ unbind
 
-The IRQ handler disables the IRQ and schedules irq_work. Releasing the
-IRQ does not drain that work, which can continue to use the devm-allocated
-chip and notifier state.
+twl_probe() registers a standalone platform device named "twl", but keeps
+its pointer only in a local variable. Probe errors unregister the device,
+while successful probe leaves no way for twl_remove() to release it. The
+platform device therefore remains registered after the I2C driver unbinds.
 
-Manage both IRQ-work cancellation and subdevice removal with devres.
-Register the subdevice-removal action before requesting the IRQ, then add
-the IRQ-work action after the request. This avoids leaving a live IRQ
-without work cancellation if action registration fails. Devres cleanup
-then disables the IRQ and drains the work before releasing the IRQ and
-removing child devices. Register both actions before creating the children
-so partial probe failures use the same ordering.
+Register a managed action on the I2C device immediately after adding the
+platform device. This unregisters it on probe failure and driver unbind,
+and also handles failure to register the action itself. Remove the manual
+error-path unregister to avoid releasing the device twice.
 
-This issue was found by the author's in-house static analysis tool.
-The patch was reviewed by the author against the latest mainline tree.
+This issue was identified during our ongoing static-analysis research while
+reviewing kernel code.
 
-Fixes: 26b8f5e1e2d1 ("mfd: add base support for Dialog DA9030/DA9034 PMICs")
+Fixes: defa6be1c821 ("mfd: Fix compile for twl-core.c by removing cpu_is_omap usage")
 Cc: stable@vger.kernel.org
-Suggested-by: Lee Jones <lee@kernel.org>
-Assisted-by: Codex:GPT-5
-Signed-off-by: Hongyan Xu <getshell@seu.edu.cn>
-Link: https://patch.msgid.link/20260814153019.1114-1-getshell@seu.edu.cn
+Assisted-by: OpenAI:GPT-5.6
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Link: https://patch.msgid.link/20260913205013.54777-1-mhun512@gmail.com
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/mfd/da903x.c | 34 +++++++++++++++++++++++++---------
- 1 file changed, 25 insertions(+), 9 deletions(-)
+ drivers/mfd/twl-core.c | 23 +++++++++++++++--------
+ 1 file changed, 15 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/mfd/da903x.c b/drivers/mfd/da903x.c
-index e86b39de3303a..e4ad48e1f139b 100644
---- a/drivers/mfd/da903x.c
-+++ b/drivers/mfd/da903x.c
-@@ -421,6 +421,14 @@ static irqreturn_t da903x_irq_handler(int irq, void *data)
- 	return IRQ_HANDLED;
- }
+diff --git a/drivers/mfd/twl-core.c b/drivers/mfd/twl-core.c
+index b7d749208131b..7fbce76efd305 100644
+--- a/drivers/mfd/twl-core.c
++++ b/drivers/mfd/twl-core.c
+@@ -719,6 +719,11 @@ static const struct mfd_cell twl6032_cells[] = {
+ 	{ .name = "twl6032-clk" },
+ };
  
-+static void da903x_cancel_irq_work(void *data)
++static void twl_unregister_device(void *data)
 +{
-+	struct da903x_chip *chip = data;
-+
-+	disable_irq(chip->client->irq);
-+	cancel_work_sync(&chip->irq_work);
++	platform_device_unregister(data);
 +}
 +
- static const struct da903x_chip_ops da903x_ops[] = {
- 	[0] = {
- 		.init_chip	= da9030_init_chip,
-@@ -456,6 +464,13 @@ static int da903x_remove_subdevs(struct da903x_chip *chip)
- 	return device_for_each_child(chip->dev, NULL, __remove_subdev);
- }
- 
-+static void da903x_remove_subdevs_action(void *data)
-+{
-+	struct da903x_chip *chip = data;
-+
-+	da903x_remove_subdevs(chip);
-+}
-+
- static int da903x_add_subdevs(struct da903x_chip *chip,
- 					struct da903x_platform_data *pdata)
- {
-@@ -484,7 +499,6 @@ static int da903x_add_subdevs(struct da903x_chip *chip,
- 	return 0;
- 
- failed:
--	da903x_remove_subdevs(chip);
- 	return ret;
- }
- 
-@@ -520,6 +534,11 @@ static int da903x_probe(struct i2c_client *client)
- 	chip->ops->mask_events(chip, chip->events_mask);
- 	chip->ops->read_events(chip, &tmp);
- 
-+	ret = devm_add_action_or_reset(&client->dev,
-+				       da903x_remove_subdevs_action, chip);
-+	if (ret)
-+		return ret;
-+
- 	ret = devm_request_irq(&client->dev, client->irq, da903x_irq_handler,
- 			IRQF_TRIGGER_FALLING,
- 			"da903x", chip);
-@@ -529,14 +548,12 @@ static int da903x_probe(struct i2c_client *client)
- 		return ret;
+ /* NOTE: This driver only handles a single twl4030/tps659x0 chip */
+ static int
+ twl_probe(struct i2c_client *client)
+@@ -754,17 +759,22 @@ twl_probe(struct i2c_client *client)
+ 		return status;
  	}
  
--	return da903x_add_subdevs(chip, pdata);
--}
++	status = devm_add_action_or_reset(&client->dev, twl_unregister_device,
++					  pdev);
++	if (status)
++		return status;
++
+ 	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C)) {
+ 		dev_dbg(&client->dev, "can't talk I2C?\n");
+ 		status = -EIO;
+-		goto free;
++		goto out;
+ 	}
+ 
+ 	twl_priv = devm_kzalloc(&client->dev, sizeof(struct twl_private),
+ 				GFP_KERNEL);
+ 	if (!twl_priv) {
+ 		status = -ENOMEM;
+-		goto free;
++		goto out;
+ 	}
+ 
+ 	if ((id->driver_data) & TWL6030_CLASS) {
+@@ -784,7 +794,7 @@ twl_probe(struct i2c_client *client)
+ 					 GFP_KERNEL);
+ 	if (!twl_priv->twl_modules) {
+ 		status = -ENOMEM;
+-		goto free;
++		goto out;
+ 	}
+ 
+ 	for (i = 0; i < num_slaves; i++) {
+@@ -880,7 +890,7 @@ twl_probe(struct i2c_client *client)
+ 		status = devm_mfd_add_devices(&client->dev, PLATFORM_DEVID_NONE,
+ 					      cells, num_cells, NULL, 0, NULL);
+ 		if (status < 0)
+-			goto free;
++			goto out;
+ 
+ 		if (of_device_is_system_power_controller(node)) {
+ 			if (!pm_power_off)
+@@ -896,10 +906,7 @@ twl_probe(struct i2c_client *client)
+ fail:
+ 	if (status < 0)
+ 		twl_remove(client);
+-free:
+-	if (status < 0)
+-		platform_device_unregister(pdev);
 -
--static void da903x_remove(struct i2c_client *client)
--{
--	struct da903x_chip *chip = i2c_get_clientdata(client);
-+	ret = devm_add_action_or_reset(&client->dev, da903x_cancel_irq_work,
-+				       chip);
-+	if (ret)
-+		return ret;
- 
--	da903x_remove_subdevs(chip);
-+	return da903x_add_subdevs(chip, pdata);
++out:
+ 	return status;
  }
- 
- static struct i2c_driver da903x_driver = {
-@@ -544,7 +561,6 @@ static struct i2c_driver da903x_driver = {
- 		.name	= "da903x",
- 	},
- 	.probe		= da903x_probe,
--	.remove		= da903x_remove,
- 	.id_table	= da903x_id_table,
- };
  
 -- 
 2.53.0
