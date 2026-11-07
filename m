@@ -1,51 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048466;
-	b=Z45a9yUl79zE2NY23Cq896M8SJ9s9yAcRqGHyFWhWEocgnbGfNt6olR/+mgXSK+fnwlX
-	 bihe+hhrbHivUXUoxC4zAil1DSjfUPel9939VTtjG9O6vPWaNtGbJZuSTZnLbzzIak7Xy
-	 PtyuwP0BveQd3P5/dISTUnEDFlW9Ayqa6u0OO96bHJ3MkYO+64YZiNWvYKyzdq8/LELQE
-	 lssrHc9VJTOnKWct3UvKRv9u3JumCJukV4VRZacHmj32GYgyD+BSpQ8+zlysp6iVeyFW1
-	 PhTOQuINQn4C8H0fNDYLOlinQlOxqOZxB4HtlqNxNd1E9gbNzb9bIMQmHL/8Q0tVkFA==
+	t=1794048464;
+	b=OPd3nZ04XnCQmoMf2YA/qeUmyU0IsAgzYS57XcX8sZLBCrK8bUM5Ly6ULvhIxDeiegml
+	 L6laukzG44S37U/Dc9kOzy3z3xqk7gjxxPrCCbBcOnNWUoOX54xsIQolyrKfG5+LBpFZM
+	 TNrsrzJ5YM3x4VR/9xzPjr8JGzjl520n+jx/0IaUnqgMOAHWmEqK2jaEO2leuORFH9r9F
+	 2zOtOpm0JjOqp9Sc3ywT5Dxq0eDEwdhAmwPynQBURkQgrnp44n6UzRkIwnGeDPM+lF9qE
+	 Rz0wIZvKxcp1TBS8jP3Zwd8eRpfMBfcJKf+/NrqyFfMwzmMEkAwwmYGLeEs1iD83vIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048466;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048464;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ZCF8/XsmnL3CkzwiBC8C+1ZWr9CkyK9KqlWsH9PZzMY=;
-	b=NgN9JNEGl8daDInQiBIZvHFnyp2zZbM9Mo4rQiy7VXV1KsRUm26hxT+hjBW/sdR80d41
-	 uqYmdVDGx04Z6qL4NxMVntsZ7tCA2iCq0EYQZhAkBYqVBEHfUYRhCFbPjBpGzkueoa3Un
-	 tLWWSAMdUQPk3t0+N60YdfKhZs041hJpqoQWNUsTZt42fFxyxcW1M0T+eLXXMrcAh1J55
-	 tIsc4GHxftiBYNXTcxz1EaIJ43l66j9oo23ADaFjh0e/wW6hxJn7dAFc+xc/aaKILXms8
-	 /c8iRyhgzQX7lGN5D212HfrRl+B9mHzNSumrdIsqwKl/8XHaMfd8ufJP0YqxM5mIdZQ==
+	bh=16luP++um/nZ2HHvDC2Zwe2dfNxXTQLxAnlwACnMZfE=;
+	b=KqDjvoiX3Myy94PxkVjJ4GVRoG016igejZJ8BezhswxleMPR71HD4FRcGsrUHn5oCM2b
+	 FpA8c5JWy2brSus79CVHqF0RG88c0fTz05CBHaWpOIMmsWjt+8kJuuIaMGq+vMgKAoYGv
+	 tA96z0neb/Z8b9S/dRZFnc7JQsqOQ4KKecglPgsFG18FTWck/EcsSV1aTPwDgKmq2bzWf
+	 Fu9JRyyEkJM8m40S2nT8PjVPpc+g9LxSHuHkc4lhq3bne2i5x+hvqYShM4rrLgySiTcgV
+	 I5qR8Yz9vrIa6ghKpo3t+wHzOpFAORK+hDwOeuCr3JQgmmDePmT40BJoP1md9Mc+dQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TOQeFp5r;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PwqGozvq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 849A2606D821
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:47:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C41F606D81F
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:47:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TOQeFp5r
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAA491F008A5;
-	Sat,  7 Nov 2026 10:47:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PwqGozvq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A278A1F008A5;
+	Sat,  7 Nov 2026 10:47:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048466;
-	bh=ZCF8/XsmnL3CkzwiBC8C+1ZWr9CkyK9KqlWsH9PZzMY=;
+	s=k20260515; t=1794048463;
+	bh=16luP++um/nZ2HHvDC2Zwe2dfNxXTQLxAnlwACnMZfE=;
 	h=From:To:Cc:Subject:Date;
-	b=TOQeFp5rxTKvrHHgr1uyr2t0FuFeZ1ea0KCXeHYhKjH8PRNy5i9kjxVjvc7DEmaMB
-	 sD/Xb2pF0ZifPQXd5/kLDGylqkdlySNNmygEU+Lke4cTj4D6mjzm2aPEtrBojQr5XB
-	 R2Qcrt9Ak1RELFFdy0EgWY7nduUqseeU9SyQF8oxWXdEHKft2xOK4vExZMf1D2lSrg
-	 olLU8/EYjV1JfvGLVlNIVvpSZkDE7QGrppk8EdzQOGsXVMX81tNgwiDxs7LxPds0bd
-	 it8JCwJOXG/3Io4r2peT9YgXtwfaCVAcxIIkz5S2htHV4RDS4QFFOabmbxhmPuiaO+
-	 4QHc0c+xwyK0A==
+	b=PwqGozvqCn+z/URncKJs1aBfopesZd+hfmah/JwVao/PhGz8XaHrFrckJtM1pHF20
+	 WSJNCTuId3z0/NvSsMICVH2pEcn/hk/9d57IlwHbkqlQrUWv+RGHdEhTcNO+AgZmZw
+	 0kTcY+vp7xXnaHY5HVBegOtw7Pk1lxUS06HAlBnJLYkRyieOq5NjWigxocjfAYZDRq
+	 LY4nhoKelcSBpWglYoK236xosTYLIc0WuoyIGUi9+dor699nj5kNFN6B/eN/lsfpyX
+	 X2LmI/sVA1CjmwN2X4dle9giHsTmBCElzKUZHOccNyTNFXr3EqmyHc8ekFxLf5rVDt
+	 GpJQY3jGNwKQg==
 From: Sasha Levin <sashal@kernel.org>
-To: lgs201920130244@gmail.com,
+To: scardracs@disroot.org,
+	denis.benato@linux.dev,
+	w_armin@gmx.de,
 	ilpo.jarvinen@linux.intel.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] platform/x86: simatic-ipc: fix platform device leak on registration failure" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:47:44 -0500
-Message-ID: <20261107054744-failed-6.1-9523698252fd@kernel.org>
+Subject: FAILED: patch "[PATCH] platform/x86: asus-wmi: Serialize WMI method evaluations with a mutex" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:47:41 -0500
+Message-ID: <20261107054741-failed-6.1-b9428edaf410@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,102 +70,145 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 9523698252fd583d6987582b9c34ec6500d10986
+git cherry-pick -x b9428edaf4109e86a97254228d831767d0acc1f8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054744-failed-6.1-9523698252fd@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054741-failed-6.1-b9428edaf410@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 9523698252fd583d6987582b9c34ec6500d10986 Mon Sep 17 00:00:00 2001
-From: Guangshuo Li <lgs201920130244@gmail.com>
-Date: Thu, 24 Sep 2026 19:56:17 +0800
-Subject: [PATCH] platform/x86: simatic-ipc: fix platform device leak on
- registration failure
+From b9428edaf4109e86a97254228d831767d0acc1f8 Mon Sep 17 00:00:00 2001
+From: Marco Scardovi <scardracs@disroot.org>
+Date: Fri, 18 Sep 2026 11:14:59 +0200
+Subject: [PATCH] platform/x86: asus-wmi: Serialize WMI method evaluations with
+ a mutex
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-register_platform_devices() registers the battery, LED, and watchdog
-platform devices in sequence. If LED registration fails, the battery
-device remains registered. If watchdog registration fails, the LED and
-battery devices remain registered.
+Concurrent evaluations of ASUS WMI management methods (from ACPI notify,
+HID, userspace daemons, and debugfs) enter the BIOS ACPI/SMM interface
+simultaneously, triggering re-entrant SMIs or EC mailbox buffer corruption.
 
-These failure paths leave successful platform_device_register_data()
-calls without the matching platform_device_unregister() calls.
+Fix this at the root by introducing a centralized evaluation helper
+(asus_wmi_evaluate_method_locked()) protected by a global mutex
+(asus_wmi_eval_lock) using guard(mutex). Route all evaluations of
+ASUS_WMI_MGMT_GUID (method3, method5, method_buf, and show_call) through
+this helper.
 
-Add an unwind ladder to unregister previously registered platform
-devices in reverse order before returning the registration error.
+A static mutex is required because asus_wmi_evaluate_method() is an
+exported symbol used by external modules (such as hid-asus and
+asus-armoury) that lack access to struct asus_wmi drvdata, and the
+underlying ASUS ACPI/EC management method is a single physical platform
+resource.
 
-The issue was identified by a static analysis tool I developed and
-confirmed by manual review.
+The mutex is non-recursive: nested ACPI/WMI notify handlers must not call
+back into evaluate on the same task (defer via workqueue, as
+asus_rfkill_notify already does).
 
-Fixes: dd123e62bded ("platform/x86: simatic-ipc: add main driver for Siemens devices")
+The sysfs-versus-notify race predates the later export of
+asus_wmi_evaluate_method(), so Fixes points at the original shared
+evaluate helper rather than that export.
+
+Link: https://github.com/OpenGamingCollective/asusctl/issues/328
+Fixes: d33da3b68669 ("asus-wmi: factorise wmi_evaluate_method call")
 Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-Link: https://patch.msgid.link/20260924115617.1578309-1-lgs201920130244@gmail.com
+Signed-off-by: Marco Scardovi <scardracs@disroot.org>
+Reviewed-by: Denis Benato <denis.benato@linux.dev>
+Reviewed-by: Armin Wolf <W_Armin@gmx.de>
+Link: https://patch.msgid.link/b6a1981777e63f0c28bd719d8203ebbda57d6957.1789722252.git.scardracs@disroot.org
 Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 ---
- drivers/platform/x86/siemens/simatic-ipc.c | 21 +++++++++++++++++----
- 1 file changed, 17 insertions(+), 4 deletions(-)
+ drivers/platform/x86/asus-wmi.c | 30 +++++++++++++++++++++---------
+ 1 file changed, 21 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/platform/x86/siemens/simatic-ipc.c b/drivers/platform/x86/siemens/simatic-ipc.c
-index 7039874d8f112..4a4509fc9263e 100644
---- a/drivers/platform/x86/siemens/simatic-ipc.c
-+++ b/drivers/platform/x86/siemens/simatic-ipc.c
-@@ -92,6 +92,7 @@ static int register_platform_devices(u32 station_id)
- 	u8 wdtmode = SIMATIC_IPC_DEVICE_NONE;
- 	u8 battmode = SIMATIC_IPC_DEVICE_NONE;
- 	char *pdevname;
-+	int ret;
- 	int i;
+diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
+index a2e552b207fba..60fbe13e100fe 100644
+--- a/drivers/platform/x86/asus-wmi.c
++++ b/drivers/platform/x86/asus-wmi.c
+@@ -16,6 +16,7 @@
+ #include <linux/acpi.h>
+ #include <linux/backlight.h>
+ #include <linux/bits.h>
++#include <linux/cleanup.h>
+ #include <linux/debugfs.h>
+ #include <linux/delay.h>
+ #include <linux/dmi.h>
+@@ -28,6 +29,7 @@
+ #include <linux/leds.h>
+ #include <linux/minmax.h>
+ #include <linux/module.h>
++#include <linux/mutex.h>
+ #include <linux/pci.h>
+ #include <linux/pci_hotplug.h>
+ #include <linux/platform_data/x86/asus-wmi.h>
+@@ -353,6 +355,20 @@ static void asus_wmi_show_deprecated(void)
  
- 	for (i = 0; i < ARRAY_SIZE(device_modes); i++) {
-@@ -139,8 +140,10 @@ static int register_platform_devices(u32 station_id)
- 				pdevname, PLATFORM_DEVID_NONE,
- 				&platform_data,
- 				sizeof(struct simatic_ipc_platform));
--		if (IS_ERR(ipc_led_platform_device))
--			return PTR_ERR(ipc_led_platform_device);
-+		if (IS_ERR(ipc_led_platform_device)) {
-+			ret = PTR_ERR(ipc_led_platform_device);
-+			goto err_unregister_batt;
-+		}
+ /* WMI ************************************************************************/
  
- 		pr_debug("device=%s created\n",
- 			 ipc_led_platform_device->name);
-@@ -153,8 +156,10 @@ static int register_platform_devices(u32 station_id)
- 				KBUILD_MODNAME "_wdt", PLATFORM_DEVID_NONE,
- 				&platform_data,
- 				sizeof(struct simatic_ipc_platform));
--		if (IS_ERR(ipc_wdt_platform_device))
--			return PTR_ERR(ipc_wdt_platform_device);
-+		if (IS_ERR(ipc_wdt_platform_device)) {
-+			ret = PTR_ERR(ipc_wdt_platform_device);
-+			goto err_unregister_led;
-+		}
- 
- 		pr_debug("device=%s created\n",
- 			 ipc_wdt_platform_device->name);
-@@ -169,6 +174,14 @@ static int register_platform_devices(u32 station_id)
- 	}
- 
- 	return 0;
++/*
++ * Concurrent evaluations of ASUS WMI methods can re-enter firmware
++ * SMI/EC mailbox handling and corrupt the mailbox.
++ */
++static DEFINE_MUTEX(asus_wmi_eval_lock);
 +
-+err_unregister_led:
-+	if (ledmode != SIMATIC_IPC_DEVICE_NONE)
-+		platform_device_unregister(ipc_led_platform_device);
-+err_unregister_batt:
-+	if (battmode != SIMATIC_IPC_DEVICE_NONE)
-+		platform_device_unregister(ipc_batt_platform_device);
-+	return ret;
- }
++static acpi_status asus_wmi_evaluate_method_locked(u32 method_id,
++						   struct acpi_buffer *input,
++						   struct acpi_buffer *output)
++{
++	guard(mutex)(&asus_wmi_eval_lock);
++	return wmi_evaluate_method(ASUS_WMI_MGMT_GUID, 0, method_id, input, output);
++}
++
+ static int asus_wmi_evaluate_method3(u32 method_id,
+ 		u32 arg0, u32 arg1, u32 arg2, u32 *retval)
+ {
+@@ -367,8 +383,7 @@ static int asus_wmi_evaluate_method3(u32 method_id,
+ 	union acpi_object *obj;
+ 	u32 tmp = 0;
  
- static void request_additional_modules(u32 station_id)
+-	status = wmi_evaluate_method(ASUS_WMI_MGMT_GUID, 0, method_id,
+-				     &input, &output);
++	status = asus_wmi_evaluate_method_locked(method_id, &input, &output);
+ 
+ 	pr_debug("%s called (0x%08x) with args: 0x%08x, 0x%08x, 0x%08x\n",
+ 		__func__, method_id, arg0, arg1, arg2);
+@@ -419,8 +434,7 @@ static int asus_wmi_evaluate_method5(u32 method_id,
+ 	union acpi_object *obj;
+ 	u32 tmp = 0;
+ 
+-	status = wmi_evaluate_method(ASUS_WMI_MGMT_GUID, 0, method_id,
+-				     &input, &output);
++	status = asus_wmi_evaluate_method_locked(method_id, &input, &output);
+ 
+ 	pr_debug("%s called (0x%08x) with args: 0x%08x, 0x%08x, 0x%08x, 0x%08x, 0x%08x\n",
+ 		__func__, method_id, arg0, arg1, arg2, arg3, arg4);
+@@ -467,8 +481,7 @@ static int asus_wmi_evaluate_method_buf(u32 method_id,
+ 	union acpi_object *obj;
+ 	int err = 0;
+ 
+-	status = wmi_evaluate_method(ASUS_WMI_MGMT_GUID, 0, method_id,
+-				     &input, &output);
++	status = asus_wmi_evaluate_method_locked(method_id, &input, &output);
+ 
+ 	pr_debug("%s called (0x%08x) with args: 0x%08x, 0x%08x\n",
+ 		__func__, method_id, arg0, arg1);
+@@ -5092,9 +5105,8 @@ static int show_call(struct seq_file *m, void *data)
+ 	union acpi_object *obj;
+ 	acpi_status status;
+ 
+-	status = wmi_evaluate_method(ASUS_WMI_MGMT_GUID,
+-				     0, asus->debug.method_id,
+-				     &input, &output);
++	status = asus_wmi_evaluate_method_locked(asus->debug.method_id,
++						 &input, &output);
+ 
+ 	if (ACPI_FAILURE(status))
+ 		return -EIO;
 -- 
 2.53.0
 
