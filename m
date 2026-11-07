@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047887;
-	b=cSEeT1JkOOVBpHGem6wgRwU03GxtXgNI+RPX0BkxmfwmOVFQdlK7TWF4gkEZbXSg0W1w
-	 4mO7CNv1IhonMC3RHNLO9SJmgTCEH8f1y+xJrDyKHl7rf6sMqKROn82y+GfUyyrcgbHaG
-	 wDWoDcE/NzBjTePCX4Z3JYN9LOjd5fBTeEQyfCvlDET1AAB+6wjdrJCDJzn6/Jv7IX6mO
-	 3q1lnaTpzXoZbBWZ151se9ojzCqE9ZQsX0h7Yhsow3yNn//ByhKlWVZCfaoMkNrwGv8/v
-	 jCFrT+FvFGE4npgGm9JxNXy+iCTheDQIpgik/bVA5/4Wy/MgyKA3Z740xJqLkrVhj/g==
+	t=1794047889;
+	b=zo0D8EAWr9GfKNjTujcRb3CtvvrUa37iw+cnZWKijuHL3f/oB+9T/gfgDsWcFGghbxE+
+	 9tNiQGFZ96Sf0/T39GZPwA7ExjjLgXx05yJtN1mq9kHtVUJ5mvPao2MBni3KZNEG1ELAw
+	 ig6KgGDoOAGL2b+rR/osHujlyClgH1zQ9BI/YTsZ07rGxOtoQ7VQeMQo7hTTnEqVaX7Tk
+	 MRIMJgoOQpHeBx+9SCTOAeGvYEY4+KRV9Xo3t3/IFaAb8jQKqsqnUorqm/1QoQcaMKgx0
+	 oG2ZYxrvO9Q2xztnxToT9NYeh03s9FEkZuMUIiKDVSZopYjd+uFCBAjldxJPhQQcWtw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047887;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047889;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=/7JkXGvzV6yWLuln5o1ebvuIjCVYYwKX+DnhDIp1tT8=;
-	b=UbmoSUzs8jRbTKTvblpiuHEdqeR6b7JYUqEkl66Fqs92EBM3hdRQAOzqWr/cKdX7WQYE
-	 tXwO0nT/k03fuwoU5XWwH942kjwFxUA8fUl4rf+7392NN/k6W+Ujvcwcb64+NM5QBFgVu
-	 Wgl5n04LFTVrrbXeaeFQL1qwNbJqpRPYBWTUHYiJZuz8j1WPC6SqqH9QpSuSnpOLwxehT
-	 /oVOJ6RSZglh9KO1xHoQAjgoPxyHRSMX9qrL+dyHXuQMCcsu60BZh4DJyJApxjWe/qcN4
-	 0CKd8PwM7f6wUe2VgaUpNm9vHIMH20QdVLdSf5zveRyH2fWoD8x6pKm7LZ/B8gQ4Z8g==
+	bh=t1P4dI4I01zsdEHIWljCDb/yoU5h2B4KlKe3RTzOxW0=;
+	b=fjMJb+1ydc/CvDfKUVoUGSCKgqmBCRHDMUXhQEczm3lUTzd9zZn7joyT0+JFou+9dDh1
+	 apxGgUJsRsr28CrTopC+GtucAc4Hp+8rjeIuDQ+Q1f3jfSXHrHJ667rs8kxpeOl2ux4rg
+	 AjQNDmf1QJsnBsuB3tfDle6o53f55h/y96hToS2nXa1Jft+nB1Z44ExhaI0A6Qwkdp998
+	 BNfJAm+gU6LTo6oqhMg/5ACWmIn568S/U+DUcJ5KyURpMnX9vXBMO4aVWjT4LVMQciS8O
+	 6CitvL4sF7GBjN2/UP8y3Z3pNv6cueBjg9CLZ4IGw5+MERiTHHViPKLFSZ9rbDqd0lA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cNUwHtP6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qpykzlkf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64349606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:38:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D5AB606A330
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:38:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cNUwHtP6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D33EA1F0089F;
-	Sat,  7 Nov 2026 10:38:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qpykzlkf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9BD51F0089F;
+	Sat,  7 Nov 2026 10:38:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047887;
-	bh=/7JkXGvzV6yWLuln5o1ebvuIjCVYYwKX+DnhDIp1tT8=;
+	s=k20260515; t=1794047889;
+	bh=t1P4dI4I01zsdEHIWljCDb/yoU5h2B4KlKe3RTzOxW0=;
 	h=From:To:Cc:Subject:Date;
-	b=cNUwHtP6xVCHWeoHtTt9BUM9nODxsvVM+11p9J30YeBGv/UJ/FeDLDL9GI7TPsw81
-	 3icO3mv2kvdLED//rqGXz7m2MeblpIBpCREMN6Ft8Jt68rEBpnwncEzlJLsoHzgIIR
-	 zBrXmg31N1gkUn8bw5bGMjQLvfG0nj6h0qgw3PbeYF7nWJHKLc0cRtL+OvApSEe272
-	 KFwShUKQ1yRbIF5uV2e7ozv6NMKZoG4NBSEQlK+CpT1oc8OYXY0BLHFL5tbS8F7Kvl
-	 0UwSeO4TCmOoM6YYsTyhSjiSEGlKQ40vd1EldZqvoC677I1pwANQIqMQ6EaJGhc9zq
-	 H3hh7JDHD7Asg==
+	b=Qpykzlkfp69yYgZhSQAOAAwBwfgGzdVcRAP9OIzl5Fe0eQjiAPKMWlQnc0UXeMdDM
+	 xwYwOJ6TSOfqPu+Qsb+GDiMP8kOYP6M3mL6Q0ybw5k3I06H2osojrAzEu026mj/sVE
+	 lIBRme7vpC4eUhnpOr5VqPsJCklqmhoYTqRx9ane7pLpdyHdVMq/deFA0eobpLJQ8B
+	 BYmL1gmbKMQPiBUeT67tmCM7X6SwdNf/YSfjP/KICdQcPrhzcBxhULcCCcxlIgLTgQ
+	 R1NxnIzK/aHdprvyzZSGK/ShYb/c1WHXmIRF4lbpKbKceRU4DEFnSyA959FNFkCTIo
+	 jyLcCgM0/YMkg==
 From: Sasha Levin <sashal@kernel.org>
-To: qingfang.deng@linux.dev,
-	kuba@kernel.org
+To: aliamemis@disroot.org,
+	i@rong.moe,
+	rafael.j.wysocki@intel.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] pppoe: delete session hash entries by pointer match" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:38:05 -0500
-Message-ID: <20261107053805-failed-6.6-b5b8c81836e2@kernel.org>
+Subject: FAILED: patch "[PATCH] platform/x86: ideapad-laptop: Evaluate ACPI methods exclusively" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:38:07 -0500
+Message-ID: <20261107053807-failed-6.6-f91c2cd6dbce@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,112 +69,94 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x b5b8c81836e2bec7b444dfa2b14fd14e912e9d63
+git cherry-pick -x f91c2cd6dbcedf52e227b2eea8d7b99ecbac7552
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053805-failed-6.6-b5b8c81836e2@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053807-failed-6.6-f91c2cd6dbce@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From b5b8c81836e2bec7b444dfa2b14fd14e912e9d63 Mon Sep 17 00:00:00 2001
-From: Qingfang Deng <qingfang.deng@linux.dev>
-Date: Tue, 20 Oct 2026 17:21:11 +0800
-Subject: [PATCH] pppoe: delete session hash entries by pointer match
+From f91c2cd6dbcedf52e227b2eea8d7b99ecbac7552 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ali=20Ahmet=20Memi=C5=9F?= <aliamemis@disroot.org>
+Date: Sun, 18 Oct 2026 15:23:48 +0300
+Subject: [PATCH] platform/x86: ideapad-laptop: Evaluate ACPI methods
+ exclusively
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-pppoe_connect() copies the requested PPPoE address to a socket before
-attempting to insert the socket into the session hash table. If the
-tuple already exists, __set_item() returns -EALREADY, but the copied
-address and ifindex remain set on the failed socket.
+On some Lenovo IdeaPad and Yoga models, the battery _BIX takes the EC
+AML mutex and then calls the serialized RDER through RDIF, while GBMD
+calls RDER first and then takes the EC mutex. When the two run
+interleaved they deadlock until the mutex acquisition in RDER times
+out, and GBMD returns garbage that is reported as both charge types
+being enabled.
 
-Closing that socket then deletes the existing socket's hash entry
-through pppoe_release(), preventing it from receiving further session
-traffic. An unprivileged process in the same network namespace can
-trigger this through a duplicate connection attempt.
+Evaluate all methods with the exclusive helpers, so that GBMD never runs
+interleaved with the battery methods.
 
-To avoid the accidental delete, pass the pppox_sock to __delete_item(),
-and unlink only an entry whose pointer matches the requested socket.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Qingfang Deng <qingfang.deng@linux.dev>
-Link: https://patch.msgid.link/20261020092118.47416-1-qingfang.deng@linux.dev
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Link: https://bugzilla.kernel.org/show_bug.cgi?id=221065
+Link: https://lore.kernel.org/all/58586fa666f09c209f9d7fe8c692a8bdda6d4410.camel@rong.moe/
+Signed-off-by: Ali Ahmet Memiş <aliamemis@disroot.org>
+Reviewed-by: Rong Zhang <i@rong.moe>
+Cc: All applicable <stable@vger.kernel.org> # 80892972ff23 ACPI: utils: Add exclusive AML evaluation helpers
+Link: https://patch.msgid.link/20261018122348.679126-1-aliamemis@disroot.org
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 ---
- drivers/net/ppp/pppoe.c | 22 ++++++++--------------
- 1 file changed, 8 insertions(+), 14 deletions(-)
+ drivers/platform/x86/lenovo/ideapad-laptop.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/net/ppp/pppoe.c b/drivers/net/ppp/pppoe.c
-index bf7414b46a260..ee0e318d6a2a4 100644
---- a/drivers/net/ppp/pppoe.c
-+++ b/drivers/net/ppp/pppoe.c
-@@ -194,18 +194,16 @@ static int __set_item(struct pppoe_net *pn, struct pppox_sock *po)
- 	return 0;
- }
+diff --git a/drivers/platform/x86/lenovo/ideapad-laptop.c b/drivers/platform/x86/lenovo/ideapad-laptop.c
+index 8213524504eeb..1335f4e488702 100644
+--- a/drivers/platform/x86/lenovo/ideapad-laptop.c
++++ b/drivers/platform/x86/lenovo/ideapad-laptop.c
+@@ -297,12 +297,16 @@ static void ideapad_shared_exit(struct ideapad_private *priv)
+ #define IDEAPAD_EC_POLL_MIN_US 150
+ #define IDEAPAD_EC_POLL_MAX_US 300
  
--static void __delete_item(struct pppoe_net *pn, __be16 sid,
--					char *addr, int ifindex)
-+static void __delete_item(struct pppoe_net *pn, const struct pppox_sock *po)
++/*
++ * On some models GBMD and the battery _BIX take the EC mutex and a
++ * serialized method in opposite order, so evaluate all methods exclusively.
++ */
+ static int eval_int(acpi_handle handle, const char *name, unsigned long *res)
  {
--	int hash = hash_item(sid, addr);
-+	int hash = hash_item(po->pppoe_pa.sid, po->pppoe_pa.remote);
- 	struct pppox_sock *ret, __rcu **src;
+ 	unsigned long long result;
+ 	acpi_status status;
  
- 	ret = rcu_dereference_protected(pn->hash_table[hash], lockdep_is_held(&pn->hash_lock));
- 	src = &pn->hash_table[hash];
+-	status = acpi_evaluate_integer(handle, (char *)name, NULL, &result);
++	status = acpi_evaluate_integer_exclusive(handle, (char *)name, NULL, &result);
+ 	if (ACPI_FAILURE(status))
+ 		return -EIO;
  
- 	while (ret) {
--		if (cmp_addr(&ret->pppoe_pa, sid, addr) &&
--		    ret->pppoe_ifindex == ifindex) {
-+		if (ret == po) {
- 			struct pppox_sock *next;
+@@ -324,7 +328,7 @@ static int eval_int_with_arg(acpi_handle handle, const char *name, unsigned long
+ 	in_obj.type = ACPI_TYPE_INTEGER;
+ 	in_obj.integer.value = arg;
  
- 			next = rcu_dereference_protected(ret->next,
-@@ -236,11 +234,10 @@ static inline struct pppox_sock *get_item(struct pppoe_net *pn, __be16 sid,
- 	return po;
- }
+-	status = acpi_evaluate_integer(handle, (char *)name, &params, &result);
++	status = acpi_evaluate_integer_exclusive(handle, (char *)name, &params, &result);
+ 	if (ACPI_FAILURE(status))
+ 		return -EIO;
  
--static inline void delete_item(struct pppoe_net *pn, __be16 sid,
--					char *addr, int ifindex)
-+static void delete_item(struct pppoe_net *pn, const struct pppox_sock *po)
+@@ -336,7 +340,7 @@ static int eval_int_with_arg(acpi_handle handle, const char *name, unsigned long
+ 
+ static int exec_simple_method(acpi_handle handle, const char *name, unsigned long arg)
  {
- 	spin_lock(&pn->hash_lock);
--	__delete_item(pn, sid, addr, ifindex);
-+	__delete_item(pn, po);
- 	spin_unlock(&pn->hash_lock);
+-	acpi_status status = acpi_execute_simple_method(handle, (char *)name, arg);
++	acpi_status status = acpi_execute_simple_method_exclusive(handle, (char *)name, arg);
+ 
+ 	return ACPI_FAILURE(status) ? -EIO : 0;
  }
+@@ -394,7 +398,7 @@ static int eval_vpcw(acpi_handle handle, unsigned long cmd, unsigned long data)
+ 	in_obj[1].type = ACPI_TYPE_INTEGER;
+ 	in_obj[1].integer.value = data;
  
-@@ -570,8 +567,7 @@ static int pppoe_release(struct socket *sock)
- 	 * protect "po" from concurrent updates
- 	 * on pppoe_flush_dev
- 	 */
--	delete_item(pn, po->pppoe_pa.sid, po->pppoe_pa.remote,
--		    po->pppoe_ifindex);
-+	delete_item(pn, po);
- 
- 	sock_orphan(sk);
- 	sock->sk = NULL;
-@@ -621,8 +617,7 @@ static int pppoe_connect(struct socket *sock, struct sockaddr_unsized *uservaddr
- 	if (stage_session(po->pppoe_pa.sid)) {
- 		pppox_unbind_sock(sk);
- 		pn = pppoe_pernet(sock_net(sk));
--		delete_item(pn, po->pppoe_pa.sid,
--			    po->pppoe_pa.remote, po->pppoe_ifindex);
-+		delete_item(pn, po);
- 		if (po->pppoe_dev) {
- 			dev_put(po->pppoe_dev);
- 			po->pppoe_dev = NULL;
-@@ -672,8 +667,7 @@ static int pppoe_connect(struct socket *sock, struct sockaddr_unsized *uservaddr
- 
- 		error = ppp_register_net_channel(dev_net(dev), &po->chan);
- 		if (error) {
--			delete_item(pn, po->pppoe_pa.sid,
--				    po->pppoe_pa.remote, po->pppoe_ifindex);
-+			delete_item(pn, po);
- 			goto err_put;
- 		}
+-	status = acpi_evaluate_object(handle, "VPCW", &params, NULL);
++	status = acpi_evaluate_object_exclusive(handle, "VPCW", &params, NULL);
+ 	if (ACPI_FAILURE(status))
+ 		return -EIO;
  
 -- 
 2.53.0
