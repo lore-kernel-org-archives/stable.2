@@ -1,52 +1,69 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046446;
-	b=JWn7PnpU2Zva9VY8JvNu3otvFhTmaac8Q/GZJX2sWP5vPWy1zNjwzqA4r14UsBZmsWDb
-	 DfWmJBcH0og2umag8sKVwoya1I+iGUYtGopbD2ZUXIvZMrLyr1KaPMCywnnJmadqgPkXU
-	 VV451G5IZeD/1yXf0mC+Sv5eqc1PBTDmt7X3KkoVeSiKImHD9HpILSjJ8g67y1fQBhs9w
-	 oeqk+hvuH/SBHeC0Bx3zd/hGoR2zwQ3O1avtfL5Su4uAkAoFCTU5dPxvXv8AifIxH0S7A
-	 EDj1aci535E2NcG++bCn+0SDgbqQmJTTQ4tRwOo3cU4JMlRFmWqpV7O/rQSeT26CO5A==
+	t=1794046450;
+	b=xIlW5ya+44Iz3hYEeap1wxL/z8squV7TjHVvHbHuFBPjkx8dYKfuvtrClgHhe9dZqhr4
+	 Y3SMEGqiCbhhlKJNoM8oTsmXQyz6wbo8aCuEMhx9fXklBeHu8KorDX2BcuElb9ICoy00/
+	 6yEJ4YI2TKyRL08i+x6cwhmg0XtgPEZESW0vlSr8EG2vsQkbQaPxRWujHrnW0/9q0C5P0
+	 E5uiMa75ceSmz0yhlxxRW1NQU1ogZf7ZZmbWYSAN7iAYmFDSyz6wCpgWHew1B00J/ms4h
+	 HDeDAxFwtJxAeB2EiyO3CVGzFkZejDQScC+RXYyafkvzYyGx8wraIcO+4iw+oFX30yQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046446;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046450;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=mlI5tyQZBlJFcPWqdRvi9PkcrCPoiKlP1xsUIW15RU8=;
-	b=whDkC0g0m/AOMg9Nvq61VzO3wZ5PwtO+LOrb5hZTk8/Ll4V2efZ59kI7wPozFDxtFpSN
-	 z46RHcanI67ct1zv8UEUSGRXi/FOHIw6KGaWJ3iTo8+GnvEAGi7y9ksLDtNJx6Anqrktq
-	 mfv44s/N2OEDxaFPeIiILjlFhxe9MWSmf3jx+uocUMtfHo+uK/tyfDm5HnGA9ZsW9zyCy
-	 E6zs6HzbZBfJIK3D2Xha5QTQ7ykVz6323FGe1PjT1olwGeMvoRUuJUn1M6l/IzxhZbV93
-	 s0VXIx+bnxFiYNNQ9kHJ2tj891i6f3NaKLZfcdJ3C9k9vbgyLH5MRkyFMfAaH83LXXg==
+	bh=FPYHeTLsmZqo7yK2bVBcSXmW3EMoJqv4zevOb0CSniE=;
+	b=1DdBnfMB8VHX5SzajqBk9jWJ4f4E/zKLFvpKJoyYSpXyK4D5U3E0e/sQJWQZAMQw96B8
+	 isU9wl7uq59/BvhiGL8jaCQ31pQfqWuiFkOgN3iXCUOGyGFxkoVgypPGxx6iZ3kFm8qdp
+	 8ouLCPtrNUGDSz2mOjSPGKd8jkFsBaWG8thqiFC6e4h+KI7eT6DlX1Y4iPBzq1o2vJMLG
+	 N2nFuMzm+jxG/iB8hFpsAWUE7nRIxITfwQChHIdwX5jugFtRGMOUkRO2HBIufjiLfOk+h
+	 3hlPPPRmGUquqoMFfPiCjiJGNnnGrSIOcPObdoeXS9k+nbKPDlShgVruxV+s1oxnTmQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D2SegoRQ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PBOH82GJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4659A606A32F
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:14:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15E0B606A32F
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:14:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D2SegoRQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1AD91F008A3;
-	Sat,  7 Nov 2026 10:14:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PBOH82GJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E38D81F008A1;
+	Sat,  7 Nov 2026 10:14:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046446;
-	bh=mlI5tyQZBlJFcPWqdRvi9PkcrCPoiKlP1xsUIW15RU8=;
+	s=k20260515; t=1794046449;
+	bh=FPYHeTLsmZqo7yK2bVBcSXmW3EMoJqv4zevOb0CSniE=;
 	h=From:To:Cc:Subject:Date;
-	b=D2SegoRQmPJ8mTBSGZ/lCnPem7LnvgSrAxh7JTkcdOAf4iTllLPG/L9HNKL74Qpla
-	 88ZEwXql6XFjD8/3Dj0RY98KluNPkAE8bCJlpUMxC4Hyb07LcYaw429dzHWfQsreWL
-	 uyYjJFHvkk0S3IUJxhFEsMqqSguqM/umnGsu164v6LDqVjuuFK5siJqPyrruvcWrfg
-	 UXGdew1H6cUwlv8t6LDLsKn48j1YxMz3U+vzSlK7xI5SIK2jWB4w7LdEoF6e+ChaeO
-	 0tTRI8F724DV2wbZufY9D546rcVn1eIjoLGn+M7se8MWMPdkNeDr+yv+Rk/4Dqppqi
-	 soeyrfCwLfHkA==
+	b=PBOH82GJ7Iz6if9Al/rPjj8mIk9+Lt00yVMKW6PSk6v4r6AVjCys/XBBUSHOepBwx
+	 oLzo4SIO2kVBG9oebWiDsturU9P4RV5B+MC7kFgRuMoO+sxkMQY7wrL3XhGeUTc+KQ
+	 5lflUblsfrVbuZ7yRP/P71QNDbIqxeQInUBV3+2Bw3LOvrzXf6xrmfwWTb4uIeoBmQ
+	 urNRVFrXcDfTNdfFzYAvp1XQ+281slRfhuN+NI9023L6uymwyCEXzrOAVofwQDn7Oo
+	 Rbhwtg0T9TTmlie7NkfE0t51zDGzjBq2MSe/w4xbSA1mmpD+Kvldb19c2Jm3tLgRG+
+	 6UrOf+R/2RCXw==
 From: Sasha Levin <sashal@kernel.org>
-To: x-professor@outlook.com,
-	bvanassche@acm.org,
-	mkp@kernel.org
+To: josef@toxicpanda.com,
+	david@kernel.org,
+	akpm@linux-foundation.org,
+	mason@kernel.org,
+	ljs@kernel.org,
+	muchun.song@linux.dev,
+	lance.yang@linux.dev,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	jannh@google.com,
+	pfalcato@suse.de,
+	osalvador@suse.de,
+	linmiaohe@huawei.com,
+	nao.horiguchi@gmail.com,
+	agl@us.ibm.com,
+	mgorman@techsingularity.net,
+	riel@surriel.com,
+	peterx@redhat.com,
+	kas@kernel.org,
+	rppt@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] scsi: handle out-of-range SG_SET_TIMEOUT values" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:14:04 -0500
-Message-ID: <20261107051404-failed-6.18-9a6cb1da4f3b@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/hugetlb: unmap the page where the other VMA maps it" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:14:06 -0500
+Message-ID: <20261107051406-failed-6.18-ae99c503eb36@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,101 +86,161 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 9a6cb1da4f3bc4633bf6669faed25a361834b1b9
+git cherry-pick -x ae99c503eb362b42cd5d24d80bc6cba669acc4c2
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051404-failed-6.18-9a6cb1da4f3b@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051406-failed-6.18-ae99c503eb36@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 9a6cb1da4f3bc4633bf6669faed25a361834b1b9 Mon Sep 17 00:00:00 2001
-From: Yingjie Wang <x-professor@outlook.com>
-Date: Thu, 22 Oct 2026 02:55:11 +0000
-Subject: [PATCH] scsi: handle out-of-range SG_SET_TIMEOUT values
+From ae99c503eb362b42cd5d24d80bc6cba669acc4c2 Mon Sep 17 00:00:00 2001
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Thu, 15 Oct 2026 18:07:10 +0200
+Subject: [PATCH] mm/hugetlb: unmap the page where the other VMA maps it
 
-SG_SET_TIMEOUT accepts a signed int in USER_HZ units. The sg character
-device rejects negative values and limits positive values so the converted
-timeout fits its destination field. The block SCSI and BSG paths instead
-pass the value to clock_t_to_jiffies(), which accepts an unsigned long, and
-store the result in an unsigned int.
+If the owner of a MAP_PRIVATE hugetlb mapping fails to allocate a page
+for CoW, unmap_ref_private() unmaps the old page from all other private
+VMAs that have no reservation of their own.  It finds them by the offset
+in the file, but then zaps each of them at the address of the faulting
+VMA.  Nothing says that another VMA maps the offset at that address: a
+child can have moved its copy of the VMA with mremap(), and a second
+mapping of the file is wherever mmap() has put it.
 
-Negative values are converted into large unsigned timeouts. On 64-bit
-systems, large positive values can also exceed UINT_MAX after conversion
-and are truncated on assignment. With HZ=1000 and USER_HZ=100, for example,
-429496730 clock ticks become 4294967300 jiffies and are stored as 4
-jiffies. On 32-bit systems, an overflowing conversion becomes ULONG_MAX,
-which is an unsafe relative interval for the block timer comparisons.
+So __unmap_hugepage_range() walks the page tables of the other mm at an
+address outside of iter_vma, where i_mmap_rwsem of this file protects
+nothing and where anything can be mapped, and the page stays mapped where
+it really is.
 
-Reject negative values with -EIO, matching drivers/scsi/sg.c. Saturate the
-converted value at the smaller of the destination field limit and
-MAX_JIFFY_OFFSET. This preserves successful ioctl behavior while avoiding
-both narrowing wraparound and an unsafe 32-bit timer interval.
+All of the following was seen on v7.3-rc6+ (g6c377d19d4a5) in KVM guests,
+as a user without any privilege.  It takes a pool of 2 MiB pages with no
+free page that is not reserved, so that the allocation fails: the user
+can take or reserve what is free itself.
 
-The block SCSI behavior predates Git history. BSG has exposed the same
-behavior since it was introduced.
+ - The child moves its VMA away.  The page is never unmapped, the
+   mapcount stays 2, and the owner goes round retry_avoidcopy in
+   hugetlb_wp() until the child is gone or a page becomes free.  SIGKILL
+   to the owner does not end it.  5 of 5 runs.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Fixes: 3d6392cfbd7d ("bsg: support for full generic block layer SG v3")
-Cc: stable@vger.kernel.org
-Reported-by: Bart Van Assche <bvanassche@acm.org>
-Link: https://lore.kernel.org/r/9321a59c-c560-4742-8b71-5b0ec1f30c2f@acm.org
-Signed-off-by: Yingjie Wang <x-professor@outlook.com>
-Link: https://patch.msgid.link/20261022025508.294713-1-x-professor@outlook.com
-Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
+ - The owner's mm has a second private mapping of the offset, made with
+   MAP_NORESERVE.  The owner zaps its own entry and reads zeroes where
+   its data was.  5 of 5 runs.
+
+ - The child moves its VMA away and maps a 1 GiB hugetlb page at the old
+   address, so this one takes a pool with a 1 GiB page as well.
+   huge_pte_offset() for the 2 MiB size steps through the PUD
+   leaf, so the "PMD table" is the 1 GiB page itself and its "page table
+   lock" is folio->private of that page, which holds 2.  Kernels with
+   lock debugging oops in __unmap_hugepage_range(), 7 of 7 runs.  Others
+   spin on that word for ever with preemption disabled, 5 of 5 runs:
+
+     watchdog: BUG: soft lockup - CPU#0 stuck for 26s! [u_det3:130]
+     RIP: 0010:queued_spin_lock_slowpath+0x8a/0x290
+     RAX: 0000000000000002 RBX: ffffea0001000028
+     Call Trace:
+      __unmap_hugepage_range+0x154/0x6d0
+      unmap_hugepage_range+0xc1/0x140
+      hugetlb_wp+0x55c/0x700
+      hugetlb_fault+0x5f3/0x8f0
+
+   RCU stalls follow, and killing all tasks of the user changes nothing.
+   Four such owners, whose children share a single 1 GiB page, took down
+   the whole guest with its four CPUs, 2 of 2 runs: one reported soft
+   lockups on all four, the other gave no sign of life any more.
+
+   i_mmap_rwsem stays write locked.  With a MAP_PRIVATE mapping of a
+   hugetlbfs file that belongs to another user, and that the attacker
+   can only read, the next mmap() of that file by its owner sleeps
+   uninterruptibly in __mmap_region(), 4 of 4 runs.
+
+Compute the address from the offset for each VMA.  The tree walk returns
+only VMAs that cover pgoff, and vm_start, vm_end and vm_pgoff of a hugetlb
+VMA are aligned to the huge page size, as pgoff is, so the whole range
+lies inside iter_vma.  Its page tables can not go away there, since the
+VMA is unlinked from the file under i_mmap_rwsem first.
+
+With the right address the page is unmapped from all VMAs but the
+owner's, so the retry in hugetlb_wp() finds a mapcount of 1 and reuses the
+page.
+
+A child that has moved its copy of the VMA now loses the page, and gets
+SIGBUS when it faults on a missing page of that VMA.  That is what the
+comment above the function has always promised to those who do not own
+the reservation, and what already happens to a child that has left the
+VMA in place.
+
+The address has been wrong from the start, and the second case needs
+only mmap() and fork().  mremap() of hugetlb VMAs, which the other cases
+use, came with commit 550a7d60bd5e ("mm, hugepages: add mremap() support
+for hugepage backed vma") in v5.16.
+
+Original fix generated by an LLM and sent in private by Josef.
+
+[david@kernel.org: switch to vma_filebacked_address, add VM_WARN_ON_ONCE, refine comments]
+Link: https://lore.kernel.org/20261015-urgent_fixes-v1-4-42796911043b@kernel.org
+Fixes: 04f2cbe35699 ("hugetlb: guarantee that COW faults for a process that called mmap(MAP_PRIVATE) on hugetlbfs will succeed")
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: Chris Mason <mason@kernel.org>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Acked-by: Muchun Song <muchun.song@linux.dev>
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Pedro Falcato <pfalcato@suse.de>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Miaohe Lin <linmiaohe@huawei.com>
+Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
+Cc: Adam Litke <agl@us.ibm.com>
+Cc: Mel Gorman <mgorman@techsingularity.net>
+Cc: Rik van Riel <riel@surriel.com>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: Kiryl Shutsemau <kas@kernel.org>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: <stable@vger.kernel.org>
 ---
- block/bsg.c               |  5 ++++-
- drivers/scsi/scsi_ioctl.c | 11 ++++++++---
- 2 files changed, 12 insertions(+), 4 deletions(-)
+ mm/hugetlb.c | 17 +++++++++++++----
+ 1 file changed, 13 insertions(+), 4 deletions(-)
 
-diff --git a/block/bsg.c b/block/bsg.c
-index 82aaf3cee5825..b296fa3732924 100644
---- a/block/bsg.c
-+++ b/block/bsg.c
-@@ -132,7 +132,10 @@ static long bsg_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
- 	case SG_SET_TIMEOUT:
- 		if (get_user(val, intp))
- 			return -EFAULT;
--		bd->timeout = clock_t_to_jiffies(val);
-+		if (val < 0)
-+			return -EIO;
-+		bd->timeout = min(clock_t_to_jiffies(val),
-+				  min(UINT_MAX, MAX_JIFFY_OFFSET));
- 		return 0;
- 	case SG_GET_TIMEOUT:
- 		return jiffies_to_clock_t(bd->timeout);
-diff --git a/drivers/scsi/scsi_ioctl.c b/drivers/scsi/scsi_ioctl.c
-index 122403ec3ab8d..bf049d9cb7191 100644
---- a/drivers/scsi/scsi_ioctl.c
-+++ b/drivers/scsi/scsi_ioctl.c
-@@ -9,6 +9,7 @@
- #include <linux/blkdev.h>
- #include <linux/interrupt.h>
- #include <linux/errno.h>
-+#include <linux/jiffies.h>
- #include <linux/kernel.h>
- #include <linux/sched.h>
- #include <linux/mm.h>
-@@ -196,10 +197,14 @@ static int sg_set_timeout(struct scsi_device *sdev, int __user *p)
- {
- 	int timeout, err = get_user(timeout, p);
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index 5db64fa984041..4fca859bbd7ea 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -5482,6 +5482,8 @@ static void unmap_ref_private(struct mm_struct *mm, struct vm_area_struct *vma,
+ 	struct address_space *mapping;
+ 	pgoff_t pgoff;
  
--	if (!err)
--		sdev->sg_timeout = clock_t_to_jiffies(timeout);
-+	if (err)
-+		return err;
-+	if (timeout < 0)
-+		return -EIO;
- 
--	return err;
-+	sdev->sg_timeout = min(clock_t_to_jiffies(timeout),
-+			       min(UINT_MAX, MAX_JIFFY_OFFSET));
-+	return 0;
++	VM_WARN_ON_ONCE(!folio_test_anon(folio));
++
+ 	/*
+ 	 * vm_pgoff is in PAGE_SIZE units, hence the different calculation
+ 	 * from page cache lookup which is in HPAGE_SIZE units.
+@@ -5516,10 +5518,17 @@ static void unmap_ref_private(struct mm_struct *mm, struct vm_area_struct *vma,
+ 		 * could insert a zeroed page instead of the data existing
+ 		 * from the time of fork. This would look like data corruption
+ 		 */
+-		if (!is_vma_resv_set(iter_vma, HPAGE_RESV_OWNER))
+-			unmap_hugepage_range(iter_vma, address,
+-					     address + huge_page_size(h),
+-					     folio, 0);
++		if (is_vma_resv_set(iter_vma, HPAGE_RESV_OWNER))
++			continue;
++
++		/*
++		 * The address in other VMAs can differ. Even though our old
++		 * folio is anon, we always operate on the underlying hugetlb
++		 * file.
++		 */
++		address = vma_filebacked_address(iter_vma, pgoff, 1);
++		unmap_hugepage_range(iter_vma, address,
++				     address + huge_page_size(h), folio, 0);
+ 	}
+ 	i_mmap_unlock_write(mapping);
  }
- 
- static int sg_get_reserved_size(struct scsi_device *sdev, int __user *p)
 -- 
 2.53.0
 
