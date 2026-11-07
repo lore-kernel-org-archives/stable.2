@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048683;
-	b=MIcbanheUFJoi8VUXFzg3UBLzSqOs+3A0nwuhhHz6Ry4WnxlRhU62hncVJiJ4Dn5ZbAe
-	 kLKqonJO4H6mfWLXWW4zHa8WbPyCmtkOyTkBvXexptsGJbomZ/UHVIvcLzTE8GVW14ZbW
-	 FszU4HpCpGG94mQT3Pc4/6lAC1NzzdNOcy8TOKEH182J5T717N9IaVkM4bgcjrERRCTY0
-	 JH/CYIXxuGJYU454jt+D5X35AG6dWOkw2dHlUkqLyUVOeyRHrxur5sIjYliSgI+STVINZ
-	 L7y2J+wiWtO4/J7R2jJstCaanmPmqrOPmeR0iPRH9163YZUeH855VnObMLtWl4Zd3mw==
+	t=1794048686;
+	b=i3J7x67XkjteWZbyDrGVc7jw34+Csksmp4J2Xwto47AumT/ONTt9c4CEfIoKrLepUyyZ
+	 TvyL57YvQGqnz1FvyPTngK1H1EKof7SkwZY4uUWxQD3XghVrloF/vJjbJWNaT/r++h59/
+	 N9robPaaHMF/8k75Pm6025JqMpN32cQS9PBxXqEDikND80sfTFbSIbrXy8W09DAxdcJw0
+	 YKgzYF9bvhkmlNeUZoTdf/JGq9mZq97IBjc61jJ85HhYJJlN26V2ItBCVpKq7cwIjnwzQ
+	 taAS265bhrI/qy9i09TzBsTNnsPSY+dIrKVf+96SVFk73wxDz7g/uqSHPWoqiFrVeDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048683;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048686;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Td3OqBe1NFhyDFJVCVStksDc54lak+/tCcaVjgvltQs=;
-	b=14V3prA3e65rU4nbog02peaq6gskjHG897uoEL4I0Uf6FLBXLoseFA/+ZrfKAAvvgsnV
-	 bvysuYWXt8EKCzqlcadEHJqZlVxg4ajde5Jbv8hy3tjYKL4ywqA2J+6hRxqQTIgSeHysH
-	 MOOGWNs7UB4UsX1vGbNMLqhHPS8nYOw0f71jOJHyMtF0UAYg6bzR7vh9pK8RubTRfvs/s
-	 hOLKXPWsdwHYECSv0WTGFaAnBeSfNj00RUgJrzBKxJB74GGV1rOBpyIrCWxKArhmq19Tw
-	 luHA8NPYsE29GU6o2Oz7eAQ2NKlqeN0mE0dIiNciTT6K9R0DA4sKf4LgyhqtObZ5OJQ==
+	bh=uGdjODQ4n1S1s3zMPyIUPJsDWnMZUuz4/Vp3SPj3ckU=;
+	b=BA/KNkGR0KnZ4/SryqTOm5evd4FHb9N3iRaNhi3R5P3XY9X/cmId17rLwcgFkvZtDmFH
+	 MC+WJtMbBOPAHLz9Cbd7Jb0yc0rzXvqGm5TPvwhvvVBs/tjUKBZy0T1Z3fxnsbP2Ljqnc
+	 UruiBSwKno3EPMGhX7WNbAcYGIf8ZpQNqEilIvgHZ8s6QIXvSxUrv5pySM1chThMoHhUQ
+	 vJ8ryvCA3JRM+C//RX9IxC5qQOlOfRZskgw+eG27oOKSzURf6tJnS3TeeOgvzfyFexYed
+	 WGA3m0jAFMzz7c3MwZIqYrzl1Cee8OrgC/9Pywb+mlODz+eDur/0rDPDAOTVM3/+1wQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dsYqpJqp;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UxtV7jiY;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBA1F606EE8A
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:51:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02125606A32F
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:51:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dsYqpJqp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 065AB1F0089F;
-	Sat,  7 Nov 2026 10:51:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UxtV7jiY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7440D1F0089F;
+	Sat,  7 Nov 2026 10:51:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048682;
-	bh=Td3OqBe1NFhyDFJVCVStksDc54lak+/tCcaVjgvltQs=;
+	s=k20260515; t=1794048685;
+	bh=uGdjODQ4n1S1s3zMPyIUPJsDWnMZUuz4/Vp3SPj3ckU=;
 	h=From:To:Cc:Subject:Date;
-	b=dsYqpJqpX+/gqGY6dYmDgmhixbhfLEuWXjPlgm5m2p09a97WrHZq9j2e8dfjzpTWR
-	 Biq1l0dR/woYZDjXESqhed8bj9MsPt9mRRxiabdOY7KVnhn8ttGafhafJ+REoPT4Wt
-	 kx7BEyyOFoASJ1HBb0kiQLwWRaiaGspR7SQQuIINjIOU3TEBc2X66u+Ete4pRF9eLV
-	 G3Uj8pVW+NeQM7F1u/hOSY6voinhbNGaFFjOPUs8iMTLI40HdLWJanmQXsG5b2SMwW
-	 ifaBKPkSUKJ+neej66/iOpLwwmgokCWwVuH8RF5HP+G/KbnhyCp9ZwReoQhFSGoPlQ
-	 M8kgErgReVCfg==
+	b=UxtV7jiY+TiFowQoVtF3zagrj0Z72Xlku+CvutWYeSJnsh57c6LEva5cGMTXY0RHD
+	 eVsPgbR5W562tvkHXSPWETxDXYInn8rDOggf18DEXz6bhu8/wHtSohu1EkSjRP4wiM
+	 6JQ/YW2VwyLRn2UUHjWLWwZHBRyRGbHNumRpJKOCP5K3gqqmDlYYRfL58Fmu83vlHI
+	 GT4oCPUzKoueSpcYlBtf7ZW2jO8474JiwYVrzNBY62iZZEAyWOnLt2Sybz5vgjtue8
+	 ssJNxFHpqJhb5bsDdIOJh95kNmWbGxu1Dl2E8NnL+bxzOmx88XaMfx077Lk5CvGVQv
+	 YXSQ0+JPq1XMg==
 From: Sasha Levin <sashal@kernel.org>
-To: w_armin@gmx.de,
-	github@firefishy.com,
-	linux@roeck-us.net
+To: peter.ujfalusi@linux.intel.com,
+	tiwai@suse.de
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] hwmon: (acpi_power_meter) Fix 18.45 TW bug" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:51:20 -0500
-Message-ID: <20261107055120-failed-6.1-0b6eda22f9ab@kernel.org>
+Subject: FAILED: patch "[PATCH] ALSA: compress: fix buffer leak on failed SET_PARAMS" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:51:24 -0500
+Message-ID: <20261107055123-failed-6.1-fbc74ca9fbf7@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,77 +68,64 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 0b6eda22f9ab67ddb2a872b0c3fc578ad9f4e27e
+git cherry-pick -x fbc74ca9fbf7e0b8f6872ccac62f9f4a1f3b5e53
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055120-failed-6.1-0b6eda22f9ab@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055123-failed-6.1-fbc74ca9fbf7@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 0b6eda22f9ab67ddb2a872b0c3fc578ad9f4e27e Mon Sep 17 00:00:00 2001
-From: Armin Wolf <W_Armin@gmx.de>
-Date: Wed, 7 Oct 2026 01:45:34 +0200
-Subject: [PATCH] hwmon: (acpi_power_meter) Fix 18.45 TW bug
+From fbc74ca9fbf7e0b8f6872ccac62f9f4a1f3b5e53 Mon Sep 17 00:00:00 2001
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Date: Mon, 19 Oct 2026 17:45:30 +0300
+Subject: [PATCH] ALSA: compress: fix buffer leak on failed SET_PARAMS
 
-The ACPI specification says:
+When the driver has neither ops->copy nor a preallocated dma_buffer_p,
+snd_compr_allocate_buffer() kmallocs runtime->buffer. If
+ops->set_params() then rejects the parameters, SET_PARAMS fails, the
+stream stays in the OPEN state and keeps the buffer. The next
+SET_PARAMS allocates a new buffer and overwrites the pointer, so
+repeated SET_PARAMS calls with parameters that the driver rejects leak
+one buffer per call.
 
-"If an error occurs while obtaining the meter reading or if the value
-is not available then an Integer with all bits set is returned"
+Release the framework-owned buffer when ops->set_params() fails on an
+OPEN stream, so that a failed SET_PARAMS leaves no buffer behind and
+the buffer is allocated only once per successful setup. Use the same
+ownership check as snd_compr_free().
 
-This integer can also be 64-bit wide on ACPI 2.0 and later systems,
-so we have to check for that too.
-
-Compile-tested only.
-
-Reported-by: Grant Slater <github@firefishy.com>
-Closes: https://github.com/lm-sensors/lm-sensors/issues/460
-Fixes: 1fefca6c57fb ("hwmon: (acpi_power_meter) Fix 4.29 MW bug")
+Fixes: b21c60a4edd2 ("ALSA: core: add support for compress_offload")
 Cc: stable@vger.kernel.org
-Signed-off-by: Armin Wolf <W_Armin@gmx.de>
-Link: https://patch.msgid.link/20261006234618.10943-1-W_Armin@gmx.de
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Link: https://patch.msgid.link/20261019144533.30665-2-peter.ujfalusi@linux.intel.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- drivers/hwmon/acpi_power_meter.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ sound/core/compress_offload.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/hwmon/acpi_power_meter.c b/drivers/hwmon/acpi_power_meter.c
-index d8e8715094055..3891962f03db1 100644
---- a/drivers/hwmon/acpi_power_meter.c
-+++ b/drivers/hwmon/acpi_power_meter.c
-@@ -10,6 +10,7 @@
- #include <linux/hwmon.h>
- #include <linux/hwmon-sysfs.h>
- #include <linux/jiffies.h>
-+#include <linux/limits.h>
- #include <linux/mutex.h>
- #include <linux/dmi.h>
- #include <linux/slab.h>
-@@ -30,7 +31,12 @@
- #define POWER_METER_CAN_NOTIFY	(1 << 3)
- #define POWER_METER_IS_BATTERY	(1 << 8)
- #define UNKNOWN_HYSTERESIS	0xFFFFFFFF
--#define UNKNOWN_POWER		0xFFFFFFFF
-+/*
-+ * ACPI integers can either be 32-bit or 64-bit wide, so
-+ * we have to check for both values.
-+ */
-+#define UNKNOWN_POWER_32	U32_MAX
-+#define UNKNOWN_POWER_64	U64_MAX
+diff --git a/sound/core/compress_offload.c b/sound/core/compress_offload.c
+index 5c0db178d635f..50301f72579ee 100644
+--- a/sound/core/compress_offload.c
++++ b/sound/core/compress_offload.c
+@@ -702,8 +702,15 @@ snd_compr_set_params(struct snd_compr_stream *stream, unsigned long arg)
+ 			return -ENOMEM;
  
- #define METER_NOTIFY_CONFIG	0x80
- #define METER_NOTIFY_TRIP	0x81
-@@ -452,7 +458,7 @@ static int power_meter_read(struct device *dev, enum hwmon_sensor_types type,
- 		ret = update_meter(res);
- 		if (ret)
- 			return ret;
--		if (res->power == UNKNOWN_POWER)
-+		if (res->power == UNKNOWN_POWER_32 || res->power == UNKNOWN_POWER_64)
- 			return -ENODATA;
- 		*val = res->power * 1000;
- 		break;
+ 		retval = stream->ops->set_params(stream, params);
+-		if (retval)
++		if (retval) {
++			/* the stream stays OPEN: drop the buffer of the rejected setup */
++			if (stream->runtime->state == SNDRV_PCM_STATE_OPEN &&
++			    !stream->runtime->dma_buffer_p) {
++				kfree(stream->runtime->buffer);
++				stream->runtime->buffer = NULL;
++			}
+ 			return retval;
++		}
+ 
+ 		if (stream->next_track)
+ 			return retval;
 -- 
 2.53.0
 
