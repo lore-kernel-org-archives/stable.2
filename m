@@ -1,61 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046175;
-	b=k+q8qh6mD8FB5sq5NayndeF3UPm2f8wO93o61NVht0RTBGBn6eRArsR6FJjAEFsVFSvJ
-	 IVxalcmFULN4xcOA8hZ7PfjP3kbDVFo38a4hbxTpldzHZFwaVA8NefG3uo8E30Tz8cGEm
-	 ZgU7/CeFLHSsWgJvfua5BSebLHbRJit5zAi2BY3JQiY6efpt56us64TVSag1ZzQJSk5GD
-	 gC10U+J/CquatGqtX2/6Dj7/GcE8hM9etqOErDySZNsnM6udOBImTWIRJsgXLwN7N8Zci
-	 FmiNKQh+AQm+21stNe1EwzM+olSy3smao8EutqHmNGEGU68GApdADK/eY1ni3yRLRiw==
+	t=1794046178;
+	b=zHist6sgaQahQXDI7OAvdvkHis1oFftsRYs3tFXCCzwkV6hT/C1jGN9tWPkeqj6yHWlM
+	 GsgVR2xfmiYydrefXt/nuNrdLvHLLYeFs+Q7vODCDwcVLn4I4tgy9ZmESR4yq6q/JmBrz
+	 LLxrqkszH1px4n/2u1QnNC8bRCMQp9eizj4JoV7GTDyrH9j+Bej3CIeq7u5upe2xu7hVO
+	 GqTWdlMbCtRdM/wy2Ze2DwbcAhay5+Z6aE80IT8N4M4CPRV+/A1K4tJkbSA6n+VUgpLAu
+	 oDoxj+jiSQoJ7i8dcl6ed3CnzbCt3jiYPMhckZYiDmUh6vToFKdTcnq668amQx+nM/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046175;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046178;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=lrtlk6vzwq3FNZRQQvYR/vQu9TVr6dt1JKhuKUGHcL0=;
-	b=XG7p7F6FAyj+SENq0njJIFoOLSlOJXMw5bncRmqA4mLfyiCh5MzNVGYMC5cWbp/UHsOo
-	 TiTpY/tHkM7Qdo+TKz6LWwrvWI88K00kNX07Z5afxpQ6BHDTLTId1aIuDr3ik25B7+wIl
-	 5dq3YTHDuYtNcbi/Jw6yopPtZFrCc3+5CYkVD2Ep+R+VwEaYKt8b8uFu+sBwZmSRKQM9/
-	 HGVdP4D8tdNIu0TSs0QvHMBMJI/b0QI92RTMmfCchoQ4JZTTyctb+Hb+hey0VzRnVNmEY
-	 sO4GQrjEtrVauAVaCRHpBVkikdBMYp5+Psu+O4Ej75HVS42ZnnfdVhwmczmpAHtoLaw==
+	bh=vgoLQsiD7EatUWTw7XW5fkAVobMBho1qFSBS8jND9ys=;
+	b=06eJipoOGNrGkRHjvsc4h/9QrJ/YQXl+LRGEVi8YHfdW/wLnT2e6z0T5g6hCQGX8h+AG
+	 iK4zE5nncwZdG7FdmmuWjszFFPdy6DAccYvPiuEheLoXKwx1UuovbL+wsfr8P8RA3DHob
+	 tVPcvSgBSJa3R16DvuxgA3rDOt5vq/SKj3LVwZKoYuRuJVA6/y086EPEbTPP/eKiHVRqk
+	 3gR4pSUJeZ5zELwqCFh7PHnhUYUvJoR8aDY2ywFRnSJg4IoyfuyM/bqqGaauKfxDDc/8y
+	 MmCn8OV8ilRUOZ+zTsh/9cXNqXrF8XYFcZqKhEa7XOox/wGWoX1CTLkk09+RJC62Hug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LtLsg23P;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JfS418gM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDBB7606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:09:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6626B606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:09:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LtLsg23P
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7485C1F0089F;
-	Sat,  7 Nov 2026 10:09:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JfS418gM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A45C1F0089F;
+	Sat,  7 Nov 2026 10:09:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046174;
-	bh=lrtlk6vzwq3FNZRQQvYR/vQu9TVr6dt1JKhuKUGHcL0=;
+	s=k20260515; t=1794046178;
+	bh=vgoLQsiD7EatUWTw7XW5fkAVobMBho1qFSBS8jND9ys=;
 	h=From:To:Cc:Subject:Date;
-	b=LtLsg23PAJagOpk0g0zU8z6bQA6bVx+IhptxPQX8WUMhv56WOXSQgsD0k3RpeqdA/
-	 5mEBDO6sqs0thEEVYd4ANX3WDv0nkC8hYOfeFDEdblJ0Yn4ZNJfnYTuAAU4ovywLgp
-	 fdw7AZQtr1mmwr2Ww8TL/8hoAC6+ZzZFBKP5KZljAHboN6Wm4GUucL6xZZ5kP3Niv7
-	 kVcGlz0SmC+7a4rAubW+wI20QhkOFVBo+6JGkY7kJFSw6K/ln9VX67NsFOakNN14l4
-	 gGgKLFiL7GMUKdK+AC/sHKIOGg23afyqqtEkw+OWkDEUn8BjPwlaKuwjXSqYsJcC+l
-	 wFRFDUoClOVxw==
+	b=JfS418gMqH/4dChYKUJrOrd3R4MWRxai6Hb49rn3YiuM979dhRFoxGNY97j/FUf7m
+	 ObJvl8c0NaIJoiSyVObjJsk16k3Bw/j5mfq9Ws0bl7zzWKfwquayRc+eGs7kP9p2p2
+	 C14rEMESCPgl2afQcM3a/JPSmoxzPyr7zMryt3yBtaGpFsyHSS3gUzsLLI7qpJcQj3
+	 AnswCs/pt6zsUbfJh91wgg29eoRdo5t1gIiQC/Wd134Db+q4FHzBlx2w6384qs/KC3
+	 zM7zMcWXwpAHxuhRVUJMPs2zLNs7voHgB9ESj34qmTgs59FZKQjznPuD7haKw5gmV9
+	 iiG6s+8OMn0jg==
 From: Sasha Levin <sashal@kernel.org>
-To: jinmengzhou22@gmail.com,
-	zhoujinmeng@bytedance.com,
-	akpm@linux-foundation.org,
-	muchun.song@linux.dev,
-	lihongfu@kylinos.cn,
-	david@kernel.org,
+To: chenridong@xiaomi.com,
+	baohua@kernel.org,
 	hannes@cmpxchg.org,
+	akpm@linux-foundation.org,
+	axelrasmussen@google.com,
+	chris@chrisdown.name,
+	david@kernel.org,
+	kasong@tencent.com,
+	ljs@kernel.org,
 	mhocko@kernel.org,
-	nphamcs@gmail.com,
-	osalvador@suse.de,
+	muchun.song@linux.dev,
 	roman.gushchin@linux.dev,
-	shakeel.butt@linux.dev
+	shakeel.butt@linux.dev,
+	tj@kernel.org,
+	weixugc@google.com,
+	yuanchu@google.com,
+	yuzhao@google.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/hugetlb: charge folios to the target mm's memcg" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:09:32 -0500
-Message-ID: <20261107050932-failed-6.18-c2deb1356d82@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/page_counter: avoid integer overflow in effective_protection()" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:09:35 -0500
+Message-ID: <20261107050935-failed-6.18-7809ce47b056@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -78,169 +83,130 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x c2deb1356d82c9d54bd2fcf1241cc97eb66fd81f
+git cherry-pick -x 7809ce47b05671e1fa6d74bead892d6ad6c1403b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050932-failed-6.18-c2deb1356d82@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050935-failed-6.18-7809ce47b056@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From c2deb1356d82c9d54bd2fcf1241cc97eb66fd81f Mon Sep 17 00:00:00 2001
-From: Jinmeng Zhou <jinmengzhou22@gmail.com>
-Date: Thu, 3 Sep 2026 15:50:48 +0800
-Subject: [PATCH] mm/hugetlb: charge folios to the target mm's memcg
+From 7809ce47b05671e1fa6d74bead892d6ad6c1403b Mon Sep 17 00:00:00 2001
+From: Ridong Chen <chenridong@xiaomi.com>
+Date: Mon, 7 Sep 2026 10:54:44 +0800
+Subject: [PATCH] mm/page_counter: avoid integer overflow in
+ effective_protection()
 
-HugeTLB folios are currently charged to the memcg of the allocating task.
-This gives the wrong result when a userfaultfd handler populates a HugeTLB
-VMA that belongs to another process.  The UFFDIO_COPY ioctl operates on
-the userfaultfd context's mm, but get_mem_cgroup_from_current() charges
-the folio to the handler's memcg instead.
+Patch series "mm/mglru: fix ineffective memory protection for non-kswapd
+reclaim", v4.
 
-This can be reproduced by placing the faulting process and its userfaultfd
-handler in different memory cgroups.  Have the target process register a
-HugeTLB mapping with userfaultfd, trigger a missing fault, and let the
-handler resolve it with UFFDIO_COPY.  The hugepage usage is then reported
-in the handler's memory.current instead of the target's.
+For MGLRU, memory.min/low is not honored during non-kswapd global reclaim
+(global direct reclaim and root-level memory.reclaim), because these paths
+shrink memcgs using stale protection (emin/elow).
 
-The generic userfaultfd population path avoids this problem by charging
-folios to dst_vma->vm_mm.
+Patch 2 is the actual fix.  Patch 1 is a prerequisite: an integer overflow
+in effective_protection(), spotted by the sashiko review tool, which patch
+2's new caller would also be exposed to.
 
-Pass the target mm through hugetlb_alloc_folio() and charge the folio by
-using get_mem_cgroup_from_mm().  This preserves the existing charge timing
-and error handling while making HugeTLB userfaultfd population consistent
-with the generic path.
 
-Link: https://lore.kernel.org/20260903075048.3316-1-zhoujinmeng@bytedance.com
-Fixes: 8cba9576df60 ("hugetlb: memcg: account hugetlb-backed memory in memory controller")
-Signed-off-by: Jinmeng Zhou <zhoujinmeng@bytedance.com>
+This patch (of 2):
+
+effective_protection() scales a parent's protection by a ratio of page
+counts, e.g.  for recursive protection:
+
+	(parent_effective - siblings_protected) * (usage - protected)
+		/ (parent_usage - siblings_protected)
+
+The multiply is done at unsigned long width before dividing.  On systems
+with >= 16TB RAM the product can exceed 2^64 and wrap, giving a bogus
+protection value and silently breaking memory.min/low enforcement.
+
+Use mul_u64_u64_div_u64() to multiply in a 128-bit intermediate.  Because
+usage and parent_usage are not read atomically (a child is charged before
+its parent), usage - protected can briefly exceed the divisor, making the
+quotient overflow 64 bits and trap (#DE on x86).  Cap it so the ratio
+stays <= 1.
+
+Reported by the sashiko review tool [1].
+
+Link: https://lore.kernel.org/20260907025445.1836238-1-ridong.chen@linux.dev
+Link: https://lore.kernel.org/20260907025445.1836238-2-ridong.chen@linux.dev
+Link: https://sashiko.dev/#/patchset/20260826133054.88529-1-ridong.chen@linux.dev?part=1 [1]
+Fixes: bc50bcc6e00b ("mm: memcontrol: clean up and document effective low/min calculations")
+Fixes: 8a931f801340 ("mm: memcontrol: recursive memory.low protection")
+Reviewed-by: Barry Song <baohua@kernel.org>
+Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
+Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Muchun Song <muchun.song@linux.dev>
-Reviewed-by: Hongfu Li <lihongfu@kylinos.cn>
+Assisted-by: Claude:claude-opus-4-8
+Cc: Axel Rasmussen <axelrasmussen@google.com>
+Cc: Chris Down <chris@chrisdown.name>
 Cc: David Hildenbrand <david@kernel.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Kairui Song <kasong@tencent.com>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
 Cc: Michal Hocko <mhocko@kernel.org>
-Cc: Nhat Pham <nphamcs@gmail.com>
-Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Muchun Song <muchun.song@linux.dev>
 Cc: Roman Gushchin <roman.gushchin@linux.dev>
 Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Tejun Heo <tj@kernel.org>
+Cc: Wei Xu <weixugc@google.com>
+Cc: Yuanchu Xie <yuanchu@google.com>
+Cc: Yu Zhao <yuzhao@google.com>
 Cc: <stable@vger.kernel.org>
 ---
- include/linux/hugetlb.h    | 3 ++-
- include/linux/memcontrol.h | 8 +++++---
- mm/hugetlb.c               | 9 ++++++---
- mm/memcontrol.c            | 6 ++++--
- 4 files changed, 17 insertions(+), 9 deletions(-)
+ mm/page_counter.c | 21 +++++++++++++++------
+ 1 file changed, 15 insertions(+), 6 deletions(-)
 
-diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
-index 900c95e346b2e..80a5a03e9cee7 100644
---- a/include/linux/hugetlb.h
-+++ b/include/linux/hugetlb.h
-@@ -694,7 +694,8 @@ enum hugetlb_alloc_flag {
- #define HUGETLB_ALLOC_USE_GLOBAL_RESERVATIONS BIT(HUGETLB_ALLOC_USE_GLOBAL_RESERVATIONS_BIT)
- 
- struct folio *hugetlb_alloc_folio(struct hstate *h,
--		struct mempolicy_interpreted *mpoli, u8 alloc_flags);
-+		struct mempolicy_interpreted *mpoli, struct mm_struct *mm,
-+		u8 alloc_flags);
- struct folio *alloc_hugetlb_folio(struct vm_area_struct *vma,
- 				unsigned long addr, bool cow_from_owner);
- struct folio *alloc_hugetlb_folio_nodemask(struct hstate *h, int preferred_nid,
-diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
-index c799926435560..058ebd73ff160 100644
---- a/include/linux/memcontrol.h
-+++ b/include/linux/memcontrol.h
-@@ -647,7 +647,8 @@ static inline int mem_cgroup_charge(struct folio *folio, struct mm_struct *mm,
- 	return __mem_cgroup_charge(folio, mm, gfp);
- }
- 
--int mem_cgroup_charge_hugetlb(struct folio* folio, gfp_t gfp);
-+int mem_cgroup_charge_hugetlb(struct folio *folio, struct mm_struct *mm,
-+			      gfp_t gfp);
- 
- int mem_cgroup_swapin_charge_folio(struct folio *folio, unsigned short id,
- 				   struct mm_struct *mm, gfp_t gfp);
-@@ -1146,9 +1147,10 @@ static inline int mem_cgroup_charge(struct folio *folio,
- 	return 0;
- }
- 
--static inline int mem_cgroup_charge_hugetlb(struct folio* folio, gfp_t gfp)
-+static inline int mem_cgroup_charge_hugetlb(struct folio *folio,
-+					    struct mm_struct *mm, gfp_t gfp)
- {
--        return 0;
-+	return 0;
- }
- 
- static inline int mem_cgroup_swapin_charge_folio(struct folio *folio,
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index cdb7d8df666a7..c59ebbcf66845 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -2844,6 +2844,7 @@ void wait_for_freed_hugetlb_folios(void)
-  * hugetlb_alloc_folio - Allocate a hugetlb folio.
-  * @h: Hugetlb state control block.
-  * @mpoli: Interpreted memory policy to use for allocation.
-+ * @mm: Memory descriptor of the allocation target.
-  * @alloc_flags: Flags controlling the allocation behavior.
-  *
-  * Allocates a hugetlb folio and handles cgroup charging and global hstate
-@@ -2853,7 +2854,8 @@ void wait_for_freed_hugetlb_folios(void)
-  *         -ENOSPC if cgroup charging fails or no folio is available.
-  */
- struct folio *hugetlb_alloc_folio(struct hstate *h,
--		struct mempolicy_interpreted *mpoli, u8 alloc_flags)
-+		struct mempolicy_interpreted *mpoli, struct mm_struct *mm,
-+		u8 alloc_flags)
- {
- 	bool charge_hugetlb_cgroup_rsvd = alloc_flags &
- 					  HUGETLB_ALLOC_CHARG_CGROUP_RSVD;
-@@ -2908,7 +2910,8 @@ struct folio *hugetlb_alloc_folio(struct hstate *h,
- 
- 	spin_unlock_irq(&hugetlb_lock);
- 
--	ret = mem_cgroup_charge_hugetlb(folio, gfp | __GFP_RETRY_MAYFAIL);
-+	ret = mem_cgroup_charge_hugetlb(folio, mm,
-+					gfp | __GFP_RETRY_MAYFAIL);
- 	/*
- 	 * Unconditionally increment NR_HUGETLB here because if
- 	 * mem_cgroup_charge_hugetlb failed, freeing the page will
-@@ -3051,7 +3054,7 @@ struct folio *alloc_hugetlb_folio(struct vm_area_struct *vma,
- 		.nodemask = nodemask,
- 	};
- 
--	folio = hugetlb_alloc_folio(h, &mpoli, alloc_flags);
-+	folio = hugetlb_alloc_folio(h, &mpoli, vma->vm_mm, alloc_flags);
- 
- 	mpol_cond_put(mpol);
- 
-diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index bd1e7e1544265..86ff580c70183 100644
---- a/mm/memcontrol.c
-+++ b/mm/memcontrol.c
-@@ -5265,6 +5265,7 @@ int __mem_cgroup_charge(struct folio *folio, struct mm_struct *mm, gfp_t gfp)
- /**
-  * mem_cgroup_charge_hugetlb - charge the memcg for a hugetlb folio
-  * @folio: folio being charged
-+ * @mm: mm context of the allocation target
-  * @gfp: reclaim mode
-  *
-  * This function is called when allocating a huge page folio, after the page has
-@@ -5274,9 +5275,10 @@ int __mem_cgroup_charge(struct folio *folio, struct mm_struct *mm, gfp_t gfp)
-  * Returns ENOMEM if the memcg is already full.
-  * Returns 0 if either the charge was successful, or if we skip the charging.
-  */
--int mem_cgroup_charge_hugetlb(struct folio *folio, gfp_t gfp)
-+int mem_cgroup_charge_hugetlb(struct folio *folio, struct mm_struct *mm,
-+			      gfp_t gfp)
- {
--	struct mem_cgroup *memcg = get_mem_cgroup_from_current();
-+	struct mem_cgroup *memcg = get_mem_cgroup_from_mm(mm);
- 	int ret = 0;
+diff --git a/mm/page_counter.c b/mm/page_counter.c
+index 450543f4b318b..98322803941a7 100644
+--- a/mm/page_counter.c
++++ b/mm/page_counter.c
+@@ -8,6 +8,7 @@
+ #include <linux/page_counter.h>
+ #include <linux/atomic.h>
+ #include <linux/kernel.h>
++#include <linux/math64.h>
+ #include <linux/string.h>
+ #include <linux/sched.h>
+ #include <linux/bug.h>
+@@ -376,7 +377,8 @@ static unsigned long effective_protection(unsigned long usage,
+ 	 * otherwise get a smaller chunk than what they claimed.
+ 	 */
+ 	if (siblings_protected > parent_effective)
+-		return protected * parent_effective / siblings_protected;
++		return mul_u64_u64_div_u64(protected, parent_effective,
++					   siblings_protected);
  
  	/*
+ 	 * Ok, utilized protection of all children is within what the
+@@ -417,13 +419,20 @@ static unsigned long effective_protection(unsigned long usage,
+ 	if (parent_effective > siblings_protected &&
+ 	    parent_usage > siblings_protected &&
+ 	    usage > protected) {
+-		unsigned long unclaimed;
++		unsigned long parent_unclaimed, parent_unprotected, unprotected;
+ 
+-		unclaimed = parent_effective - siblings_protected;
+-		unclaimed *= usage - protected;
+-		unclaimed /= parent_usage - siblings_protected;
++		parent_unclaimed = parent_effective - siblings_protected;
++		parent_unprotected = parent_usage - siblings_protected;
+ 
+-		ep += unclaimed;
++		/*
++		 * The usages aren't read atomically, so a child can transiently
++		 * appear to use more than its parent, making the ratio exceed 1
++		 * and the quotient overflow 64 bits (#DE on x86).  Cap it.
++		 */
++		unprotected = min(usage - protected, parent_unprotected);
++
++		ep += mul_u64_u64_div_u64(parent_unclaimed, unprotected,
++					  parent_unprotected);
+ 	}
+ 
+ 	return ep;
 -- 
 2.53.0
 
