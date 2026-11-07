@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794045760;
-	b=xeBsQhv5TxQCsZKzWdY5agPwTja6JHILJLEHvYNE5YfW195mO7KpsbDU6pTymnxSrvWb
-	 UyzX5AdH2VdJbZE5Ekjfx/euRrJywWM111Kbmt8QTBWVBVK98dBFaifVqMIEUt4Lo45Jk
-	 s5VhCush+0JnP98rWZ/ZhsFltYAuI7yarYITGdKUUYMt798npOKQvFGJrDxVoSamsWoQy
-	 D4wKQsBhNpYpgO4s+b9l/O9PBBZ/QhVM7iIq2XEFLHN71SN9NhQBIBujrKHeMm560ou9s
-	 yf05569I3itNq2KDiEgh+E0i774y4PmzptzUPH2cg+i2ZWKrmmIWof5/NQ1yhHdIs6Q==
+	t=1794045762;
+	b=pax2IuVQOI5WaoknXfn6fJ2tksJaggv1PkTVpYiqfVfPTA7nSF3IXT09Cq0ZSoxPQVEd
+	 eQ7K8TXvV9wvNkK71rcSPhnOpW2qMcvHXJ2/AFSAjjawDePHYdRM/o520hkgGodSRHMK+
+	 PdGX1M2Ig61VAQCakuKBHyhiLhxLdkC7CrExRjxp6Ht2UMzMQmSaL2z2/RRTKacw8p5b6
+	 jlzQMHRrVSoPIc9JvvZlrBLSt6y5xj1zHb8KxnbSfDFWJOJ8t2AQIaqdmzTOIjxSOHJFF
+	 jRxqNfeiPuVv+2xvCbguw4ZE4/1hQKoNKHLJID645OP0YsTVUHB2FpNYj5fv5RP7yRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794045760;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794045762;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=RtKDnhhrGdNCuJhrh6v8caKHHau5rgyLItp8B6yqpuA=;
-	b=ejSMcXEbgkrR2TjbJYv7UyAMSkpUU4Wz8kBVP6Mk2nHxJlW2+XvgZ7oTVOjQ4RcithVr
-	 7cKVw22ffgA+8zgU1nRp+mhpTuJQoQf63zLgE8Vp2Zun7RL/fXBMiOw/etvrCC+nzeieJ
-	 b8sY5hg0VQht4d5ysM60yTP7Q5UuiM/RU+XR73dMotnNwpzSdvegDSkd7yTNBsq3u9hln
-	 X/83+OT6yNwC2x3fHcKuUkBbBrYNVvrz07/bKkP3M2SRRBXnr4zyhL1SUpASjJOfSCJX/
-	 sRfu4/jukWEYqQ95dXBxbuJzugRMRYGzatEEAu/f5vK1I/6cRtS9wo86B0KrHHr2P3g==
+	bh=oaA2Apj022opC+sBLotOeWDRJHe782U/OKSUO7MnIOw=;
+	b=3eAbxkyScb/z+E+ps8Sw2aIcYEPx0pNY+rzvWmQTcf2KxpBN5ojCr5uS+Ayh04/cer8S
+	 owyH7I67we7nk+8kBQxfXQsohEP5Ngk+ptO58Ti1Jdb71pmB7mHmOLqAqZRHKT1AGSiDB
+	 W1gT8OwEBGp4prSPfiNIAvRw+87frGi2wqmQ3aN7YGgvp0HjeM6Uy3EPg6z6uEnzle/vD
+	 /POa/r83va7WH+nU6TEAZWl2hZNUPlWbGkFGN7ueyVN4mRsF5M5ONkKAB6bzyU9mIeJRE
+	 xqCbvajPsP4qehEd3u+GX+8lMnyoEQphpKRIPD8joaW6p9D54FNAiCLFlyHqjwiXg/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F1RC4Dil;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="mIossZ/1";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAF64606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:02:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BA86606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:02:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F1RC4Dil
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D05F1F0089F;
-	Sat,  7 Nov 2026 10:02:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mIossZ/1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 752501F0089F;
+	Sat,  7 Nov 2026 10:02:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794045759;
-	bh=RtKDnhhrGdNCuJhrh6v8caKHHau5rgyLItp8B6yqpuA=;
+	s=k20260515; t=1794045762;
+	bh=oaA2Apj022opC+sBLotOeWDRJHe782U/OKSUO7MnIOw=;
 	h=From:To:Cc:Subject:Date;
-	b=F1RC4DiloNGQLVDIyY36ImSQzzuLvxopZeIj49ltPsyDGD4dt+uroVRKq+8CPyeC+
-	 F5Gzk1iiokniiW6JHCQKRAzE9ML7+RGwqpw06l38SDdcqMhmL/GBy5mYcSmkFnJ4P+
-	 atkl2AHeJObNohNtH8FflV9u9n5xhvT9xWTScg6k1zmCdg7QCeHSR2/fDd7fMQ+izp
-	 uYJKVh5FxeDP5z8NJMLMrTidOAVPivksYKAx5FFRchbyMqSCzJ14MMInvlQILsIFL8
-	 IUls48B1RFoVhxS/wUNsdo9pmycxvRb2j1ipyLOHye0Y+mssHYPRhIozUFUga25f8o
-	 hJqiPFR94Bljw==
+	b=mIossZ/1mBRh5iJ0M7BF3Ev7RJ7XditPW+CMbkci1qsRm/EBozLPabPc7Hsn1IMlf
+	 D1pCxSB/tZEbkVkmqF0/ExnGYJpZO1055LW5DRdPRpU4y8NQQw5KgzRLOh9nWUZFza
+	 2JHCyENoWjFe2dp2hii3TwkO7MahlOy5Ie4XN7sXwLtMAJrfbYEDoxWXibq8PBUH21
+	 pAstMySdnix0v7ioiv+IEdCtCoBIiUVklavOFLYUtkClQBB1C2DWZueLl3htUPQTIt
+	 Bw02ATBByT8HW2mTHHf3efd2gfP7yB8dMjUocHQ0lZkecVUM92fWLQhjKKp4fd9th9
+	 qpj26xKfmCLtg==
 From: Sasha Levin <sashal@kernel.org>
-To: nemesa.garg@intel.com,
-	jouni.hogander@intel.com,
-	animesh.manna@intel.com
+To: jia.yao@intel.com,
+	gwan-gyeong.mun@intel.com,
+	matthew.auld@intel.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/i915/display: Clear SEL_FETCH_PLANE_CTL on plane disable" failed to apply to 7.3-stable tree
-Date: Sat,  7 Nov 2026 05:02:37 -0500
-Message-ID: <20261107050237-failed-7.3-600a7c9d40e5@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/xe/guc_ads: allocate UM queues in VRAM on dGFX" failed to apply to 7.3-stable tree
+Date: Sat,  7 Nov 2026 05:02:40 -0500
+Message-ID: <20261107050240-failed-7.3-ace076ef0a85@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,139 +69,81 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x 600a7c9d40e5e0c5544f42d1c9592c8d15224dc0
+git cherry-pick -x ace076ef0a854ab5940bacc539bf66afd61d118c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050237-failed-7.3-600a7c9d40e5@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050240-failed-7.3-ace076ef0a85@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 600a7c9d40e5e0c5544f42d1c9592c8d15224dc0 Mon Sep 17 00:00:00 2001
-From: Nemesa Garg <nemesa.garg@intel.com>
-Date: Tue, 18 Aug 2026 15:21:49 +0530
-Subject: [PATCH] drm/i915/display: Clear SEL_FETCH_PLANE_CTL on plane disable
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From ace076ef0a854ab5940bacc539bf66afd61d118c Mon Sep 17 00:00:00 2001
+From: Jia Yao <jia.yao@intel.com>
+Date: Tue, 4 Aug 2026 16:50:56 +0000
+Subject: [PATCH] drm/xe/guc_ads: allocate UM queues in VRAM on dGFX
 
-icl_plane_disable_sel_fetch_arm() wrote SEL_FETCH_PLANE_CTL = 0 only when
-crtc_state->enable_psr2_sel_fetch was set. If a plane was disabled after
-selective fetch had been turned off, the guard fired early and left the
-register's enable bit set in hardware.
+On iGPU, the UM queue BO is allocated in system memory. On dGFX, the BO
+was previously created in system memory and later reallocated in
+xe_guc_realloc_post_hwconfig().  Allocate the UM queue BO directly in
+VRAM on dGFX, where it is ultimately required.
 
-The bit is harmless until selective fetch is re-enabled.  When it is, the
-hardware resumes fetching for the now-disabled plane and keeps its old DDB
-range reserved.
-
-i9xx_cursor_disable_sel_fetch_arm() has the same guard on SEL_FETCH_CUR_CTL
-and is fixed the same way.
-
-v2: Add same check for cursor also. [sashiko]
-
-Cc: stable@vger.kernel.org
-Fixes: b1f5279b5981 ("drm/i915/psr: Move plane sel fetch configuration into plane source files")
-Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8739
-Assisted-by: GitHub-Copilot:claude-opus-4.6
-Signed-off-by: Nemesa Garg <nemesa.garg@intel.com>
-Reviewed-by: Jouni Högander <jouni.hogander@intel.com>
-Signed-off-by: Animesh Manna <animesh.manna@intel.com>
-Link: https://patch.msgid.link/20260818095149.2172935-1-nemesa.garg@intel.com
+Fixes: 9c57bc08652a ("drm/xe/lnl: Drop force_probe requirement")
+Cc: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: <stable@vger.kernel.org> # v6.12+
+Signed-off-by: Jia Yao <jia.yao@intel.com>
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+Signed-off-by: Matthew Auld <matthew.auld@intel.com>
+Link: https://patch.msgid.link/20260804165057.129529-3-jia.yao@intel.com
 ---
- drivers/gpu/drm/i915/display/intel_cursor.c       | 15 ++++++++++-----
- .../gpu/drm/i915/display/skl_universal_plane.c    | 15 ++++++++++-----
- 2 files changed, 20 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/xe/xe_guc.c     | 6 ------
+ drivers/gpu/drm/xe/xe_guc_ads.c | 8 +++++---
+ 2 files changed, 5 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cursor.c b/drivers/gpu/drm/i915/display/intel_cursor.c
-index 0673f16f6fd0d..86bb96ac449b0 100644
---- a/drivers/gpu/drm/i915/display/intel_cursor.c
-+++ b/drivers/gpu/drm/i915/display/intel_cursor.c
-@@ -530,13 +530,18 @@ static int i9xx_check_cursor(struct intel_crtc_state *crtc_state,
+diff --git a/drivers/gpu/drm/xe/xe_guc.c b/drivers/gpu/drm/xe/xe_guc.c
+index 4f132bf8539da..4286bd05c6861 100644
+--- a/drivers/gpu/drm/xe/xe_guc.c
++++ b/drivers/gpu/drm/xe/xe_guc.c
+@@ -732,12 +732,6 @@ static int xe_guc_realloc_post_hwconfig(struct xe_guc *guc)
+ 	if (ret)
+ 		return ret;
+ 
+-	if (guc->ads.um_queue_bo) {
+-		ret = xe_managed_bo_reinit_in_vram(xe, tile, &guc->ads.um_queue_bo);
+-		if (ret)
+-			return ret;
+-	}
+-
+ 	return 0;
  }
  
- static void i9xx_cursor_disable_sel_fetch_arm(struct intel_dsb *dsb,
--					      struct intel_plane *plane,
--					      const struct intel_crtc_state *crtc_state)
-+					      struct intel_plane *plane)
- {
- 	struct intel_display *display = to_intel_display(plane);
- 	enum pipe pipe = plane->pipe;
+diff --git a/drivers/gpu/drm/xe/xe_guc_ads.c b/drivers/gpu/drm/xe/xe_guc_ads.c
+index f8c679cef0039..77429ff4d2a9a 100644
+--- a/drivers/gpu/drm/xe/xe_guc_ads.c
++++ b/drivers/gpu/drm/xe/xe_guc_ads.c
+@@ -445,15 +445,17 @@ int xe_guc_ads_init(struct xe_guc_ads *ads)
+ 		/*
+ 		 * Allocate a separate BO for the HW fault ring (UM queues).
+ 		 *
+-		 * Round the size up to the next power of two so that
++		 * Round the size up to the next power of two so that on iGPU
+ 		 * (system memory, no IOMMU) the TTM pool issues a single
+ 		 * alloc_pages(order=N) call, maximising the chance of getting
+ 		 * a physically contiguous block.  GuC requires contiguous DPA.
+ 		 */
+-		size_t um_size = roundup_pow_of_two(GUC_UM_QUEUE_SIZE *
++		size_t um_size = IS_DGFX(xe) ?
++				 GUC_UM_QUEUE_SIZE * GUC_UM_HW_QUEUE_MAX :
++				 roundup_pow_of_two(GUC_UM_QUEUE_SIZE *
+ 						    GUC_UM_HW_QUEUE_MAX);
  
--	if (!crtc_state->enable_psr2_sel_fetch)
-+	/*
-+	 * Clear this whenever the hardware has selective fetch, not just when
-+	 * the current state uses it. The cursor may have been enabled with
-+	 * selective fetch earlier and had its enable bit orphaned when the
-+	 * feature was switched off.
-+	 */
-+	if (!HAS_PSR2_SEL_FETCH(display))
- 		return;
- 
- 	intel_de_write_dsb(display, dsb, SEL_FETCH_CUR_CTL(pipe), 0);
-@@ -586,7 +591,7 @@ static void i9xx_cursor_update_sel_fetch_arm(struct intel_dsb *dsb,
- 		if (crtc_state->enable_psr2_su_region_et)
- 			wa_16021440873(dsb, plane, crtc_state, plane_state);
- 		else
--			i9xx_cursor_disable_sel_fetch_arm(dsb, plane, crtc_state);
-+			i9xx_cursor_disable_sel_fetch_arm(dsb, plane);
- 	}
- }
- 
-@@ -695,7 +700,7 @@ static void i9xx_cursor_update_arm(struct intel_dsb *dsb,
- 	if (plane_state)
- 		i9xx_cursor_update_sel_fetch_arm(dsb, plane, crtc_state, plane_state);
- 	else
--		i9xx_cursor_disable_sel_fetch_arm(dsb, plane, crtc_state);
-+		i9xx_cursor_disable_sel_fetch_arm(dsb, plane);
- 
- 	if (plane->cursor.base != base ||
- 	    plane->cursor.size != fbc_ctl ||
-diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-index 07a6832933521..5cda1ab90e40f 100644
---- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
-+++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-@@ -879,13 +879,18 @@ skl_plane_disable_arm(struct intel_dsb *dsb,
- }
- 
- static void icl_plane_disable_sel_fetch_arm(struct intel_dsb *dsb,
--					    struct intel_plane *plane,
--					    const struct intel_crtc_state *crtc_state)
-+					    struct intel_plane *plane)
- {
- 	struct intel_display *display = to_intel_display(plane);
- 	enum pipe pipe = plane->pipe;
- 
--	if (!crtc_state->enable_psr2_sel_fetch)
-+	/*
-+	 * Clear this whenever the hardware has selective fetch, not just when
-+	 * the current state uses it. The plane may have been enabled with
-+	 * selective fetch earlier and had its enable bit orphaned when the
-+	 * feature was switched off.
-+	 */
-+	if (!HAS_PSR2_SEL_FETCH(display))
- 		return;
- 
- 	intel_de_write_dsb(display, dsb, SEL_FETCH_PLANE_CTL(pipe, plane->id), 0);
-@@ -921,7 +926,7 @@ icl_plane_disable_arm(struct intel_dsb *dsb,
- 
- 	skl_write_plane_wm(dsb, plane, crtc_state);
- 
--	icl_plane_disable_sel_fetch_arm(dsb, plane, crtc_state);
-+	icl_plane_disable_sel_fetch_arm(dsb, plane);
- 
- 	if (plane_has_normalizer(plane))
- 		intel_de_write_dsb(display, dsb,
-@@ -1641,7 +1646,7 @@ static void icl_plane_update_sel_fetch_arm(struct intel_dsb *dsb,
- 		intel_de_write_dsb(display, dsb, SEL_FETCH_PLANE_CTL(pipe, plane->id),
- 				   SEL_FETCH_PLANE_CTL_ENABLE);
- 	else
--		icl_plane_disable_sel_fetch_arm(dsb, plane, crtc_state);
-+		icl_plane_disable_sel_fetch_arm(dsb, plane);
- }
- 
- static void
+-		u32 um_flags = XE_BO_FLAG_SYSTEM |
++		u32 um_flags = XE_BO_FLAG_VRAM_IF_DGFX(tile) |
+ 			       XE_BO_FLAG_GGTT |
+ 			       XE_BO_FLAG_GGTT_INVALIDATE |
+ 			       XE_BO_FLAG_PINNED_NORESTORE;
 -- 
 2.53.0
 
