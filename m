@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049374;
-	b=dDiJ9kfzAN6MvwKUJ3Hu3PJNgUdL3wBxPdIUj3eo1mno8LYdCZzEKW6YjuDU+cJeYflV
-	 haeVju6CJH7wmO81eUflLHVOIEvzPPegPq1Kwv6CF7EKtYczxE+X2U17RCt7mwkxUapLb
-	 rHsAOhMkfaI1Rl1dBhzOcZmTqqEj/+rJ5/UOCdP2XHXDysFgP4BKnn/7t7WLsvUPbMJBO
-	 t7hzs2fD3ULZighdcsIQr3nTGMdxzWZmb5TEdkc95Y+exsDCdvR6YClL9dkoT8A8yO/Qs
-	 NctCe5Zb+P+UlTeEdYqgX1ePIZ/045zLPKw42xmziDCrre9ytaH/KTgsrbpWyK1OU0w==
+	t=1794049377;
+	b=l3pcM8QcJHp+oaBHC+okRrPEK1hDic8mkLvWTt0XYqc1lWOqU6PR8rszzfz09WYMrjFB
+	 xyXwH/LaZqULNpx1VuWfTtDIz1/+qOgp6QHqkNFclJpiGnH9ooK4Qk02MaeryFzQKR7o4
+	 vWGVEofNOTzbcEk9M3lIEGxfsDl6F+UNnOb04Xq3W56lMOOxYc7Y5TqdYgFkKbMlKDB3u
+	 GhWWN9poH7QTxnFKfsxL8uq/MYicJYD0tU95S/XEu5kAOm3U9drODehRdoikpe0PcXnwB
+	 V0ndezPaPu1fqfkXUx3LpmbwrmsekYIypOF1WRQcopHCqwA1wLPRJJTOBGaMMn8N8VA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049374;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049377;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=FZDhLBRFhR7fvGYDcZkTr8Kzh2hKKWbKBd8fFOB4pkE=;
-	b=2LUPo9+4sfCtBBkC16BgcM1us465qXGd+14UnkwSuoxwoK6lDCFmD/llyFGEcdzHW9ou
-	 +mhZy+vJOBXrY+3b2LqHBCptoxAU8G7E6355KuKASR82/zkfEIZVhc2Lf2N8alzxnq+kY
-	 SrqRCaP0mU6BlW1y6H91X3wKh7TgFAnEF2VlIkCtAXVw9w1ou91QopLOE+bW7BH1WT9J1
-	 Rl2xY8YBWwJY9TPIaBBllP0GtPsGFUSzNUMrB4chQmbdAFDXjmweocdYAJCMZcO4P41Bc
-	 aSuA9pgYl17hk7DoX1c0QMS/D63fcj+uBJJW2TfD1p/YI9w9sxV5I56gDQzxiRVadfQ==
+	bh=z+bp1e2kXNcp9zhyRtaW5KSYmJiNAj1RS3Qf+VG1FjA=;
+	b=O9gnuCgda02XBim2e/oFv3tFjcHFJ7kQYXffEgg8ZXVOaAMg1lmsU+tBAeP0hn4IRQR2
+	 HeLRpNYy4WTZwr3b5H1nCgtw2TFxYwEmPSuZahBHaZi/93fDhrS7nffqPdOC+W/j3ngPt
+	 lju0qSVkfkfctfbwY3upq+zw12SMkLEDugRz6witKHRlRZZDVnN++vyBfhvVC2T1rf0Pd
+	 R6RTtG60M6Om0r+qssDhF/ogcEj85ncXIitgwYE6musZignbFy/6s76gihhuacP/KDvfp
+	 MY5JaXIAAYV/0crdnISYJmn7nbNal6TG1ZC6D2l52YVEYPK+Fi8dth+sAVp8CuRgnIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FRNuFF81;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=obBFPtZr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15B2F606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:02:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F55D606A32E
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:02:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FRNuFF81
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8571B1F0089F;
-	Sat,  7 Nov 2026 11:02:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=obBFPtZr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EE681F0089F;
+	Sat,  7 Nov 2026 11:02:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049373;
-	bh=FZDhLBRFhR7fvGYDcZkTr8Kzh2hKKWbKBd8fFOB4pkE=;
+	s=k20260515; t=1794049376;
+	bh=z+bp1e2kXNcp9zhyRtaW5KSYmJiNAj1RS3Qf+VG1FjA=;
 	h=From:To:Cc:Subject:Date;
-	b=FRNuFF81SBPJRtJvSgpZ9P/abvzQlYInFQ82H7RnNqVZFZQC4cBqHZmYa9fWk43pf
-	 wLAHqLbsa6Il2ThUMAgxs3MkoiV44vbgdnf1WMT70+zfS9oz17WTPi1R+QG8GFKgmg
-	 xxCf9q1woscoJY4JOwtsZ9FwjKiFL6QshOgDvHLiub5PK9FTijxu2WOSgoLNhtVUTl
-	 FCpkMktfTXjd9gSnU5P5j+QuzIPRgIRMiI1tL7Jo9GZpx4VXOHLxhu/C1sfGKjPme0
-	 fK3ljyzAlKLmUMXkuiCC4DL1yHC5p5fJO1NrxbPJ94GT6xptldPE4E8WD/zt20a1Ir
-	 IXUJcRHI6is+g==
+	b=obBFPtZrmRn3TVas2ZBIMg59UnfS73Yn8k4Ztk4KFPAS4D/vGHCz/AveC+fruBJjG
+	 tQHXfPJYeWzcgD98a0rqUSN2T+HzfByXFjx5aOoKF+B3z1xxXv5dGtLcPoGPB5/TCY
+	 an6VQqSHYUVv08oEbn/ubxpHqUhyNbnuIc5QhpohQr9wBWFQ9f2JPyuFyaeofMugBf
+	 B8dNefzlg5W2wSISXwg30H//md2zUUV62GEuj0Zi4FAwYmFBW4G8HzYUrs1aUe5bLk
+	 1DpHvJtrVckE78EPfn8RpdP3AJ2WXg757st4EYUESPNse3MdzZBjh+4VSxxexDGpxR
+	 FOvlE3kSjIkNw==
 From: Sasha Levin <sashal@kernel.org>
-To: 4ncienth@gmail.com,
-	herbert@gondor.apana.org.au
+To: peter.ujfalusi@linux.intel.com,
+	tiwai@suse.de
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] crypto: algif_skcipher - rewind rounded output bytes" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:02:52 -0500
-Message-ID: <20261107060252-failed-5.15-2f90facc7b94@kernel.org>
+Subject: FAILED: patch "[PATCH] ALSA: hda/hdmi: clamp num_cvts against cvt_nids[] in hdmi_read_pin_conn" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 06:02:55 -0500
+Message-ID: <20261107060255-failed-5.15-6cf3ab38b0d5@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,78 +68,63 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 2f90facc7b94934653eb7ebfadcc25d503b89196
+git cherry-pick -x 6cf3ab38b0d53d41f00fe594b2986849bdf994ae
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060252-failed-5.15-2f90facc7b94@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060255-failed-5.15-6cf3ab38b0d5@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 2f90facc7b94934653eb7ebfadcc25d503b89196 Mon Sep 17 00:00:00 2001
-From: Daehyeon Ko <4ncienth@gmail.com>
-Date: Sun, 4 Oct 2026 14:09:46 +0900
-Subject: [PATCH] crypto: algif_skcipher - rewind rounded output bytes
+From 6cf3ab38b0d53d41f00fe594b2986849bdf994ae Mon Sep 17 00:00:00 2001
+From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Date: Thu, 8 Oct 2026 11:51:22 +0300
+Subject: [PATCH] ALSA: hda/hdmi: clamp num_cvts against cvt_nids[] in
+ hdmi_read_pin_conn
 
-af_alg_get_rsgl() advances the receive iterator by the unrounded RX
-scatterlist length.  For a continuing skcipher request,
-_skcipher_recvmsg() then rounds its local length down to a whole chunksize
-without restoring the iterator.
+hdmi_add_cvt() stores each converter's NID into the fixed-size
+spec->cvt_nids[] array (used only by the Intel Haswell pin-connection
+fixup), but only when spec->num_cvts is still within
+ARRAY_SIZE(cvt_nids); the num_cvts counter itself is incremented
+unconditionally regardless of whether the store happened. A codec
+that reports more converters than cvt_nids[] can hold therefore ends
+up with num_cvts > ARRAY_SIZE(cvt_nids).
 
-A later chunk starts after bytes which the provider never wrote, while the
-syscall returns only the processed length.  When copy_splice_read()
-supplies non-zeroed pages and publishes that return as a dense prefix, the
-gap exposes stale bytes from a previous page lifetime.
+hdmi_read_pin_conn(), on the intel_hsw_fixup path, copies num_cvts
+elements from cvt_nids[] with memcpy(), so once num_cvts exceeds the
+array size this reads past cvt_nids[] and writes the resulting
+garbage NIDs into per_pin->mux_nids[].
 
-With unprivileged xts(aes), a 31-byte MSG_MORE request followed by one
-final byte advances a 47-byte destination while returning 32 bytes.  A
-hardened v7.2-rc5 image retained all 15 seeded stale bytes in 4,829 of
-4,829 records.  With init_on_alloc enabled, all 72,345 gap bytes observed
-were zero.
+Clamp the copy length to the actual size of cvt_nids[] instead of
+trusting num_cvts, which is also used unbounded as the size of the
+separate, dynamically-sized spec->cvts array and must not be
+truncated at the source.
 
-Rewind the iterator by the tail excluded during rounding, before rejecting
-a zero processed length.  The crypto request uses only the rounded length;
-af_alg_free_resources() releases the entire RX list before another receive
-iteration.
-
-The fixed target-like kernel returned byte-identical dense 48-byte output
-in 4,771 of 4,771 rounds.  The unmodified kernel returned the vulnerable
-32-byte short record in 2,409 of 2,409 rounds.
-
-Fixes: e870456d8e7c ("crypto: algif_skcipher - overhaul memory management")
+Fixes: bce0d2a80e42 ("ALSA: hda - Allow unlimited pins and converters in patch_hdmi.c")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
-Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Link: https://patch.msgid.link/20261008085122.9442-1-peter.ujfalusi@linux.intel.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- crypto/algif_skcipher.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ sound/hda/codecs/hdmi/hdmi.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/crypto/algif_skcipher.c b/crypto/algif_skcipher.c
-index 1e61fe6e24b99..291dbd6989325 100644
---- a/crypto/algif_skcipher.c
-+++ b/crypto/algif_skcipher.c
-@@ -135,12 +135,16 @@ static int _skcipher_recvmsg(struct socket *sock, struct msghdr *msg,
- 	 * full block size buffers.
- 	 */
- 	if (ctx->more || len < ctx->used) {
--		if (len < bs) {
-+		size_t excess = len % bs;
-+
-+		len -= excess;
-+		iov_iter_revert(&msg->msg_iter, excess);
-+
-+		if (!len) {
- 			err = -EINVAL;
- 			goto free;
- 		}
+diff --git a/sound/hda/codecs/hdmi/hdmi.c b/sound/hda/codecs/hdmi/hdmi.c
+index a8aac0b36c73f..355fd3e731836 100644
+--- a/sound/hda/codecs/hdmi/hdmi.c
++++ b/sound/hda/codecs/hdmi/hdmi.c
+@@ -983,7 +983,8 @@ static int hdmi_read_pin_conn(struct hda_codec *codec, int pin_idx)
+ 	snd_hda_set_dev_select(codec, pin_nid, dev_id);
  
--		len -= len % bs;
- 		cflags |= CRYPTO_SKCIPHER_REQ_NOTFINAL;
- 	}
- 
+ 	if (spec->intel_hsw_fixup) {
+-		conns = spec->num_cvts;
++		/* spec->cvt_nids[] only has ARRAY_SIZE(spec->cvt_nids) slots */
++		conns = min_t(int, spec->num_cvts, ARRAY_SIZE(spec->cvt_nids));
+ 		memcpy(per_pin->mux_nids, spec->cvt_nids,
+ 		       sizeof(hda_nid_t) * conns);
+ 	} else {
 -- 
 2.53.0
 
