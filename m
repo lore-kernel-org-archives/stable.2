@@ -1,52 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048373;
-	b=z840KlAaTKrs0ng2CzPFC6eUhRiXhZ82JYFwT8zdmlclRxaIY+VjLmQUSVky3loici77
-	 BYN3yA0bFh8+tRPwDIgfZta3BU7XRmvmp7L1j6LsauZ6fQXVkC/5dJZDeUiF0oXJ8KZxC
-	 dCCt+XT45+hGH0dI76U6OgJum+wXuDja3dYJ7JIM98I1AId7xIi3cfAbrJXdXg8QgSzxa
-	 v/rdR/QCQYZbMovIDB1LR44XAHlDYH8nkBw6xQRyW09Y/Ap6wOSr2dMy81Fv4bdw5zdoS
-	 m7HadObcDqU3Pv8YvXp+0wQQh+AJHn6awLts6lCitJxv5esPkExlMK7fnuUbq+gZ5Gg==
+	t=1794048377;
+	b=RgfdRdR2DPTBxNRG4z9dPUoFNd2XrgfWtzHdL3NxHegg4JmZTFqWoZV0rIbV2wR/3vFs
+	 9/Vk/sBzTi5COj9xYk8shDOT0JcEHX/sfJVwlV5X+9Y6DApjS3ur4wwwOoG8kf5DAJ29q
+	 3ntdo3JNJDb/yu1xbA0PqQiOXIjcX4vuQzqeTdSjz2i+E+1zVulQK8ISjHi50XN5/DW5m
+	 7WnZ4phXrJm7ik6wlVCjNxHw5xs1vE0hlMKk5Hg6/nAr74MoqvU/hsiSb5BdISPbVLsQQ
+	 DCfhFgJS5hUe0wIeLm65IVLPMoLnHv0L9NPLNvPE7go/6HFo+i5VahxeJmg9ovnQlGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048373;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048377;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Vh8G/NOVyem66M/6riNFbNE1bVIC7dygNSMqHQpCVVI=;
-	b=FnTzcLESjyAxUIIszxOOc9GJ3oLHe0L/21b0CDHOjUGAZgLMNEHZFDC0oE6bXj8VNBu4
-	 izH/o9LdE9UVQMNlRoFovwqa9c0QgDE5yJGg8QiPMiTk1biDsJD0W08eQHUn3+4lmXtIY
-	 uN12/vCtNyjqUiTRPzxQvxpmDjhJMqPGYj9puh7++zOjjZSFhHz2O4Wqh4YYL1sETZw9I
-	 YUvDXqaT37hTJWG3xcu9tv5gAohvI9T4fmk4MshOAkE9vVgvQeAP6CTwdOHZbbKyI51GE
-	 lN+qXbjfSJMNOaR/eBJpG5Pvj3FVIMHzqG5vKXmLWO6tE789my7MJvZ4Djc+CPkd2dQ==
+	bh=SzZHqVbybIB5CEXs+00sU+pkM3Dtbr4nnDDqjgyu8Sc=;
+	b=TMUe20GgKRn47VNiyUCfmEIwD28uDBaebYObgM/6VaIJ5oex1agGW9XaDerxQWOeX8MH
+	 IWbmH3lQoRYMN2/YSBlaCBiNUUaI3pFLP5osOsINcVZBDGu8uNjhtvvB8IsQsWPtoq3Sb
+	 nkc7HySjR+t6EFl4Tzjxg1MxmlSnHeYQ2vNXnBQvl1HhuNy3fuLbqyRa74wdVZ1//AhDT
+	 D4d6Y5IZbpcGcCh1whhHPv5duaL42iIMrlY2tcbVDI3jQJtQl6D0aJpqqzTWVVvQk2Xfr
+	 2WQ+xvtnl4jJ+3oaDIGWKi70EDsVp0bNAXlyRgociqskRK89lEvcFRHtKHyw0XtAXrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hPoFL+eo;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fzIywKnn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 918A3606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:46:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6C1D606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:46:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hPoFL+eo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB5D81F0089F;
-	Sat,  7 Nov 2026 10:46:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fzIywKnn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AEBE1F0089F;
+	Sat,  7 Nov 2026 10:46:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048373;
-	bh=Vh8G/NOVyem66M/6riNFbNE1bVIC7dygNSMqHQpCVVI=;
+	s=k20260515; t=1794048376;
+	bh=SzZHqVbybIB5CEXs+00sU+pkM3Dtbr4nnDDqjgyu8Sc=;
 	h=From:To:Cc:Subject:Date;
-	b=hPoFL+eoT1f6rrsyDPkI0MqOSDXoAnZXvMfLcLbKAdFdjdBmQEg21XbUA6POCu2kN
-	 TF6MYwA6KLBEPylBIPcoMM8rWBT6vKkj73tgmM2GhyorJppjb3n3kUNxSBzy9WG4HX
-	 kER6Gs5+ZHUrhOtcrs0o8+wZDC251lwI8K/cLQeuQ7nQr6Nw81r5/R0oZJw8+0Z38K
-	 cH9R60P2xwS+u0YQURIuQ2rDekWHLZ/8BBS5B/l4AqTNglgx+TgkY2Ig8QrSkB14ku
-	 fX9S4LDtlSWC6cLkssQdJNPSLKastVw9q5wauzqfOE9gQKFL2+K04yf5sypyGzoznv
-	 YGbD9J6FNKszA==
+	b=fzIywKnnIrhOz3PsWnUT7PnU1eMX3rOxxQ6xjwAD1Y4bpx0es+NHnc+HxfR6tm9Uw
+	 ZfYEwxTeGPFXoXRpN+lSK6zwjMtiT244nLH14ORh2oGe0DSRAr5O/j8HElhjT3bIs6
+	 qGwPdQbhlh6Q4auvcARzC6pEX/G5Sq66hGudDQNf55H7kUu+WdNCdMOErLkpK3OBGC
+	 LuGnAwYtNRlIa0DGziBaaXndRNEzL5RJvlqZw2t1650BIkDO5vJdl8W1yzk7iFZjn2
+	 0mONKlzUaktggsSDQo8+bQ0Q6YCKk0IE4tuB+koBfmQqaaT1Fnv+dX+nOu/rjYJ87K
+	 F6gMKj8telbpw==
 From: Sasha Levin <sashal@kernel.org>
-To: ross.lagerwall@citrix.com,
-	roger@xenproject.org,
-	jgross@suse.com
+To: krzysztof.karas@intel.com,
+	robin.murphy@arm.com,
+	sebastian.brzezinka@intel.com,
+	joerg.roedel@amd.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] xen-blkfront: Fix IO race during unplug" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:46:11 -0500
-Message-ID: <20261107054611-failed-6.1-61b6d1df1d62@kernel.org>
+Subject: FAILED: patch "[PATCH] iommu/dma: Catch scatterlist length overflows" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:46:14 -0500
+Message-ID: <20261107054614-failed-6.1-1c8f6308e557@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,65 +70,80 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 61b6d1df1d6234c38a6ea7e4f58e7da035ef6ab4
+git cherry-pick -x 1c8f6308e557f32412e9d4678b3f029f47f6d9aa
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054611-failed-6.1-61b6d1df1d62@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054614-failed-6.1-1c8f6308e557@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 61b6d1df1d6234c38a6ea7e4f58e7da035ef6ab4 Mon Sep 17 00:00:00 2001
-From: Ross Lagerwall <ross.lagerwall@citrix.com>
-Date: Tue, 6 Oct 2026 17:34:07 +0100
-Subject: [PATCH] xen-blkfront: Fix IO race during unplug
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 1c8f6308e557f32412e9d4678b3f029f47f6d9aa Mon Sep 17 00:00:00 2001
+From: Krzysztof Karas <krzysztof.karas@intel.com>
+Date: Fri, 2 Oct 2026 05:33:20 +0000
+Subject: [PATCH] iommu/dma: Catch scatterlist length overflows
 
-During unplug, blkfront stops the hw queues and marks the disk as dead,
-then later during removal calls del_gendisk(). However, IO issued after
-the hw queues are stopped but before the call to del_gendisk() will be
-queued but never handled. This causes del_gendisk() to hang forever
-waiting for the queue refcount to drop to zero.
+It is possible, when a very large mapping uses only one
+scatterlist, that padding overflows scatterlist's length field.
+This results in:
+ 1) silently wrapping the value
+ 2) smaller than desired mappings produced by iommu_map_sg
+ 3) leaving mapped bytes in memory (no iommu_unmap)
 
-This can be reproduced by issuing IO during an artificial delay after
-stopping the hw queues.
+Address this issue by adding overflow detection for scatterlist
+length field.
 
-Fix this by simply not stopping the hw queues directly. Marking the disk
-as dead already freezes the queue which prevents new requests being
-added and it synchronously runs the hw queues to clear anything pending.
-If the hw queues are stopped when calling blk_mark_disk_dead(), running
-the hw queues is a no-op and can leave queued requests unprocessed.
-
+Fixes: 809eac54cdd6 ("iommu/dma: Implement scatterlist segment merging")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
-Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
-Acked-by: Roger Pau Monné <roger@xenproject.org>
-Signed-off-by: Juergen Gross <jgross@suse.com>
-Message-ID: <20261006163411.2583538-1-ross.lagerwall@citrix.com>
+Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
+Reviewed-by: Robin Murphy <robin.murphy@arm.com>
+Reviewed-by: Sebastian Brzezinka <sebastian.brzezinka@intel.com>
+Signed-off-by: Joerg Roedel <joerg.roedel@amd.com>
 ---
- drivers/block/xen-blkfront.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ drivers/iommu/dma-iommu.c | 20 +++++++++++++++++++-
+ 1 file changed, 19 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/block/xen-blkfront.c b/drivers/block/xen-blkfront.c
-index 86f5dd3aced13..ad0cb42c10197 100644
---- a/drivers/block/xen-blkfront.c
-+++ b/drivers/block/xen-blkfront.c
-@@ -2142,10 +2142,8 @@ static void blkfront_closing(struct blkfront_info *info)
- 		return;
+diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
+index 1b80121232322..c19f668a7be9b 100644
+--- a/drivers/iommu/dma-iommu.c
++++ b/drivers/iommu/dma-iommu.c
+@@ -1478,6 +1478,11 @@ int iommu_dma_map_sg(struct device *dev, struct scatterlist *sg, int nents,
+ 		sg_dma_len(s) = s_length;
+ 		s->offset -= s_iova_off;
+ 		s_length = iova_align(iovad, s_length + s_iova_off);
++		if (overflows_type(s_length, s->length)) {
++			ret = -EOVERFLOW;
++
++			goto out_restore_sg;
++		}
+ 		s->length = s_length;
  
- 	/* No more blkif_request(). */
--	if (info->rq && info->gd) {
--		blk_mq_stop_hw_queues(info->rq);
-+	if (info->gd)
- 		blk_mark_disk_dead(info->gd);
--	}
+ 		/*
+@@ -1494,7 +1499,20 @@ int iommu_dma_map_sg(struct device *dev, struct scatterlist *sg, int nents,
+ 		 *   time through here (i.e. before it has a meaningful value).
+ 		 */
+ 		if (pad_len && pad_len < s_length - 1) {
+-			prev->length += pad_len;
++			unsigned int new_prev_len;
++
++			/*
++			 * For large mappings spanning multiple GBs we
++			 * may not be able to fit all needed padding into
++			 * sg->length.
++			 */
++			if (check_add_overflow(prev->length, pad_len, &new_prev_len)) {
++				ret = -EOVERFLOW;
++
++				goto out_restore_sg;
++			}
++
++			prev->length = new_prev_len;
+ 			iova_len += pad_len;
+ 		}
  
- 	for_each_rinfo(info, rinfo, i) {
- 		/* No more gnttab callback work. */
 -- 
 2.53.0
 
