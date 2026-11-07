@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049762;
-	b=GSJg8R7zHbosh7q/o5r1/FWhiwpQreukRtnDVtK08agJtRh45DAj3tRpY7wXn6vGq1cV
-	 JUXnDqoiAMF6hpL5GEa8yrpcxlXJK0i9IwQP+/gQ53vyxs+oKD8Cg5BP/PBXjjSO05IVH
-	 s79AT98s4MiDcus8dfnwqoetAJ1tukNBfsNGz7EI1Q3CkY5yxAzfMxvgT9EvH6+lp8XnP
-	 NgdWc/qdS4AfxkEdnH4Gy4A9o/EQnMTI32LtReT4qSf4bh2fIvgW8TCX2N78+faXF/40X
-	 y4lRBnq42JhnwAo9rNSiA1cwCTNLjcz3HeMs6Ono3hZ6Vkn7BMmC0LlQxQdO7p3su6g==
+	t=1794049765;
+	b=slb98DYFJc7KTF2DtGauE/Kw2bFpYb8hQRjoFparaRDgbBGjCzZIwHQZdJ37OWqVbrvR
+	 RwYrVidQIGhC427BZdsSdiwFJV+Yg4sgZ+8jk3wtggl6p0730nv6EQxuSdbhTjdz2/9Lm
+	 FnDGvDdAj+TMDnSGGXXypi5NECYn9AxxBJBpIgzRAUi0fn+0iTHDMeNr/BCA/rsXdlvd2
+	 M8FKfsfvByTZHthUSIpHuiK9/BCZz3rN4Ecvo8601bvN19irtzbPX+owXKZXOGRHWPxsH
+	 286IAUQcgFqRByzxsEgSg07VA4NfUzo5pcMP70ULB2GyMzI/9trg3AMxX2ualz1GbZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049762;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049765;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=LdywdZpVpyoxyMmGJbGC0AJo9PAMK3knCcVg1d809Ms=;
-	b=19VWRKUpJdFe2cWFqslz5KlQJxawutM8xluaekGU4fBEHJ/scIP2YvuhoCF0sW4nYT1x
-	 RLqfmfwTPUewwAMjMVACNseOhCe7/oRg8Ih5/g1Wc5GPJB1KbTAbxYkPeoQb2Lck2svcC
-	 3L0Kj8GPuDamCw1jhrCi9cGJXP8jn8MuXiTm3LBiOJlfjrP4CWb1YHLFbcZMFL4Nexq/7
-	 UWr/6jLifHNMRHmMewkNxE7Ps+7mnGxPNKxUq5Ry6m4a/iYw0iR0zsJ8KpbWWCbPjYp/U
-	 hj2lhGBK4BQD9QJgfOTixkZ0HZebJ1P3YKZyQMhb78LFq6zGZRX0pRhnrv9p7CeVUcQ==
+	bh=bz10sdFVKlKcsV36HMhh3f6Q1B01ResZK6bpYt40Qfc=;
+	b=RBgf2Hci28NW8kwEnMQfM9p/Ms3mWhimEFBp43ln7wVt9j3LHyE+m3WxM+w8GD8WxGuX
+	 DuFtTVqnGJrexrHmk1YFediNbLKk+20BdtsOexh/zBoA1tXJXNmsIxnGtGcO1Xl/mGgjQ
+	 vhlICaRnIIKGwgNG1RVSlXLhVVIJ9kFCzcRZDjLVVUzzhmWsOJmdieNb41/5rDtl2xQkd
+	 P/9hoTuUhiQEx5WmxfdbPu8hw60mFz5n37kMadcOB/BW83XY4jyoQsYf5V5oa1Jb9idup
+	 nrLNpdFNO0quk0QalHAQLXomcV5xvf5Smk7Lccgku+FuSZGn2pJrhZcVKCUZ0JfBVHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e80SXbrQ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MCqY3rIT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 223A2606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:09:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D22A2606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:09:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e80SXbrQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FE5D1F008A1;
-	Sat,  7 Nov 2026 11:09:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MCqY3rIT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CA081F008A1;
+	Sat,  7 Nov 2026 11:09:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049761;
-	bh=LdywdZpVpyoxyMmGJbGC0AJo9PAMK3knCcVg1d809Ms=;
+	s=k20260515; t=1794049764;
+	bh=bz10sdFVKlKcsV36HMhh3f6Q1B01ResZK6bpYt40Qfc=;
 	h=From:To:Cc:Subject:Date;
-	b=e80SXbrQbdvsERp3hxC9FA1n3AoPkeywtj19gsOiBIjm9wwqLsunGKUYvUInpNJSn
-	 fiTrtmFKq85TlFB9ycAXbWqgn8QLUdIYgmt41Yz25vxHl3W+IytzA2DKGKcqC3eG/B
-	 EQPRwMZH8vSta8KIj5yFGvx1xr53aM94uJqrl87ElYF41TzQMadMYeoG6WivxsAF0r
-	 wNc29BGdtmdTkQxARrlXivHdKd5EQFjmxSzJq0KtBFo7arBgXHcqFYyiJaRn+1oYj8
-	 r/xQTbCxazZzhiYU3e7zHPn/ywoHx1N2UQJIaPreNroPTvpRRNfv1oxgZ3WY4Z7J1O
-	 JmkFeS8V0JBKQ==
+	b=MCqY3rIT3OtP1igdiVJOiYOznrgx/hJt2DKg0any+r9N/y1lgBgOX1f6TpGHaFoSw
+	 hndVvP3ScvWsjWLnfTiZhSZx1vz+e3IQIFR7pLmO7Q31ZmbIrrDlGQ+/OmyGfSsDLz
+	 LFio6s0W/fqrrqFg5wmyA0/IdqoySfa3zgVQLjmotQq3FqCf0sqiWKTdDqV4HdRJWq
+	 iQ91nUxdYZWbG+N80u6RePUU+YgyGnbjk0Fz5I+awZWTO+2hjRvJLszK+TrHsnBXve
+	 5bmetVYhDBm326po50sBOg924rq7LEDoePAK+gQSka/po8hvZ45WJaOOXtOJ3dlXuC
+	 9abx1xFiK3v/A==
 From: Sasha Levin <sashal@kernel.org>
-To: sahaj123.sc@gmail.com,
-	geert+renesas@glider.be,
-	bartosz.golaszewski@oss.qualcomm.com
+To: qchcio@gmail.com,
+	alexander.deucher@amd.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] gpio: pca953x: Preserve wakeup accounting on parent IRQ failure" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:09:19 -0500
-Message-ID: <20261107060919-failed-5.15-a38bf551726a@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/amdgpu: reset SI ASIC on MacBookPros with VRAM at 0" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 06:09:22 -0500
+Message-ID: <20261107060922-failed-5.15-5b56ede88031@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,71 +68,91 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x a38bf551726a21c9bcc001b02164f30378b64b64
+git cherry-pick -x 5b56ede880317bd912f914d5cd38ba1d357677fa
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060919-failed-5.15-a38bf551726a@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060922-failed-5.15-5b56ede88031@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From a38bf551726a21c9bcc001b02164f30378b64b64 Mon Sep 17 00:00:00 2001
-From: Sahaj Chaudhari <sahaj123.sc@gmail.com>
-Date: Sun, 18 Oct 2026 21:40:42 +0530
-Subject: [PATCH] gpio: pca953x: Preserve wakeup accounting on parent IRQ
- failure
+From 5b56ede880317bd912f914d5cd38ba1d357677fa Mon Sep 17 00:00:00 2001
+From: Maciej Kucharek <qchcio@gmail.com>
+Date: Thu, 15 Oct 2026 11:57:11 +0200
+Subject: [PATCH] drm/amdgpu: reset SI ASIC on MacBookPros with VRAM at 0
 
-pca953x_irq_set_wake() updates wakeup_path before asking the parent
-IRQ controller to change its wake state. If irq_set_irq_wake() fails,
-the IRQ core rolls back its wake state but the driver's counter remains
-changed.
+On MacBookPros with switchable graphics, the firmware puts VRAM at MC
+address 0 when the iGPU is enabled.  The EFI stub enables the iGPU on
+these machines through apple_set_os().  On a MacBookPro11,5 (Radeon R9
+M370X, 1002:6821, subsystem 106b:0149), the driver adopts this layout
+at init:
 
-A failed enable can therefore leave the expander marked as part of the
-wakeup path when no child IRQ has successfully enabled wakeup. A failed
-disable can make the driver stop retaining power even though wakeup is
-still enabled. The suspend and resume paths use this counter to decide
-whether to disable or enable the regulator.
+  MC_VM_FB_LOCATION=0x007f0000, HDP_NONSURFACE_BASE=0
+  VRAM at 0x0-0x7fffffff, GART table at 0x1400000
 
-Update wakeup_path only after the parent operation succeeds, leaving it
-unchanged on error.
+The driver posts the ASIC again on S3 resume and after a GPU reset.
+The VBIOS asic_init table then moves VRAM back to the VBIOS default:
 
-Fixes: f70fbc15bae2 ("gpio: pca953x: Configure wake-up path when wake-up is enabled")
+  MC_VM_FB_LOCATION=0xf47ff400, HDP_NONSURFACE_BASE=0xf4000000
+
+gmc_v6_0 does not reprogram these registers.  The GART table is then
+no longer in VRAM, and the gfx ring test times out:
+
+  amdgpu: ring gfx test failed (-110)
+  amdgpu: resume of IP block <gfx_v6_0> failed -110
+
+Reset and post the ASIC at driver load on Apple boards with VRAM at 0.
+The driver then uses the VBIOS layout (VRAM at 0xf400000000) from the
+start, and later posts keep it.  After the reset, FB_BASE is not 0, so
+a module reload does not reset the ASIC again.
+
+The test is the same one that commit c54e4d105077 ("drm/amdgpu: make
+Mac FB workaround generic") uses: an Apple subsystem vendor and VRAM at
+0.  The VI quirk for the MacBookPro14,3 resets at load for the same
+reason:
+
+  commit b6b1d9721851 ("drm/amdgpu: reset VI ASIC on MacBookPro14,3")
+
+Other Apple SI boards get the same reset if FB_BASE reads 0 at load.
+
+Tested on a MacBookPro11,5 with 7.2.5 and this patch: the panel comes
+up at boot, and 4 of 4 deep S3 cycles resume.  Without the patch, S3
+resume fails every time.  The GPU reset path is not tested.
+
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5978
+Assisted-by: Claude:claude-opus-5-5
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Maciej Kucharek <qchcio@gmail.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 60dd16ae10f286cb9cce5b6027b2d5ee869637af)
 Cc: stable@vger.kernel.org
-Signed-off-by: Sahaj Chaudhari <sahaj123.sc@gmail.com>
-Fixes: f70fbc15bae2c89f ("gpio: pca953x: Configure wake-up path when wake-up is enabled")
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-Link: https://patch.msgid.link/20261018161042.3298045-1-sahaj123.sc@gmail.com
-Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 ---
- drivers/gpio/gpio-pca953x.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/si.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/drivers/gpio/gpio-pca953x.c b/drivers/gpio/gpio-pca953x.c
-index aac9ea7520b60..869ed4264d48a 100644
---- a/drivers/gpio/gpio-pca953x.c
-+++ b/drivers/gpio/gpio-pca953x.c
-@@ -838,13 +838,18 @@ static int pca953x_irq_set_wake(struct irq_data *d, unsigned int on)
+diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu/si.c
+index 0adfd4b101aaf..e5e590425f42e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/si.c
++++ b/drivers/gpu/drm/amd/amdgpu/si.c
+@@ -1512,6 +1512,16 @@ static void si_invalidate_hdp(struct amdgpu_device *adev,
+ 
+ static bool si_need_reset_on_init(struct amdgpu_device *adev)
  {
- 	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
- 	struct pca953x_chip *chip = gpiochip_get_data(gc);
-+	int ret;
++	/*
++	 * MacBookPros with switchable graphics put VRAM at 0 when the iGPU
++	 * is enabled.  Any later post (S3 resume, GPU reset) moves it back to
++	 * the vbios default, so reset and post on load to start with the
++	 * vbios layout.
++	 */
++	if (adev->pdev->subsystem_vendor == PCI_VENDOR_ID_APPLE &&
++	    !(RREG32(mmMC_VM_FB_LOCATION) & MC_VM_FB_LOCATION__FB_BASE_MASK))
++		return true;
 +
-+	ret = irq_set_irq_wake(chip->client->irq, on);
-+	if (ret)
-+		return ret;
- 
- 	if (on)
- 		atomic_inc(&chip->wakeup_path);
- 	else
- 		atomic_dec(&chip->wakeup_path);
- 
--	return irq_set_irq_wake(chip->client->irq, on);
-+	return 0;
+ 	return false;
  }
  
- static void pca953x_irq_bus_lock(struct irq_data *d)
 -- 
 2.53.0
 
