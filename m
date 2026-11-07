@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048049;
-	b=EjeWsByu4VECWQSxNluKKIZEyi+076vbhujB1jqHZ3JjlmhPF/czeBW+aEnRRPg+wZsv
-	 RFWQiL10mcrClSORVCqfXQPLY7epZGdKKMi4/ThymwVq4q4/YQOZHlrYHHWZnGTOluhaz
-	 dsajHabWd3qRZe316VWBF7ttguy2HvSu/Ylbb/qBWwsTsFWl3VR/2T4u2Me7aFI9To0NC
-	 mpNCyKZG8KDuqL3CTU5vEOkqe31o73Mlw9Z0Psy+VqMxUYS9Zhc4AI73bI6+fMvH7JLga
-	 3gowgLIM0oAlRD56s/MqxmgETeuymFynm0w0VfFPQ2HhVFksuOlCD2k3rApH4nHCy7A==
+	t=1794048051;
+	b=HiG6y0E749kTBWoTBIbAtc7Tk0oT+PnnwrO59H6F8fB8tviXKFFx8j7xcVrYWzNY1qp5
+	 DhQapuQQJWSvg1k47pKTGyVDR1vLcYD8S95npBWQaBaNNnUagQLCG5phrA08XbOyYfzKU
+	 skUNC4DoirVSBfhsogUHzflk8XyTdZsaUyg2gwmbCsR/SZZ6GP2b9qhOryj7jSCtn6FNn
+	 AI0I0iLI+yhEFZhn9IMzo+2Nb8v/CXH8HwDKaE4PoziFmibSYAyuF48GnTz6dzxb3tMlS
+	 +vIyqV+1Vj2Ah+rvscYV5Ri2G+pypHAQmkz9/Om3otOzvLUXrUZUGvcTWZDjakCGnKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048049;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048051;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=yMmKjAxPmczaP3pMbG4p05bUKDj169dSyQWfhFEt2U8=;
-	b=xvq7k6j9xfUoqrmTvkS5WGlAqeGZ1wGI3L8szTh1MhEbAjakxx1gkkCQeFt0dfjtB4wy
-	 4xRdvy1PKdrTafWD6kIx6n2EaQnYqhE8GJzvhJC8+8Cp5PiPiEJ4UEs8LmnqpNYlCssQe
-	 en0k189k9rcLdxL4AG2sOo5O3QlDoPwtgYCp9J6ZAkM6YpmY4Nqg+sJGsrSjFmSSCJ9U9
-	 Uw/HaOY9ki53eaS03eNA+yp5KiI1objAkE1jEID7Y3/qo+H5wEQ3PXhymJQ+wySgFwlJs
-	 cypy+0uRdJm8vnb8YdKExHTbdExM1vbZ8meR3Bgv3wqzZzAJX+D/nGqFShbhnmeWobg==
+	bh=o/yxbxkEfzqMvTEthZZN/k5EDlKh5OGwvxjWuPKqSPM=;
+	b=AHSnboUEs4dl4kPn6XY8sSs08NPOsMlyMTrKoF4ACOHnnVMUeBujnsnalXqCPNOaMXPj
+	 DmMVFZeVJzVrfaEva5qC7027oJff7uwH3u8yaDJAD+TG+aef1DKFDmSPil4rzLh5VGPK2
+	 2fAzb6BgSSckD+dBr+/tCrcskMMHEzYnE5Dx76Y8KDWUb20RY0bmvLWstzNXIkLSY9s24
+	 hqwtPd8k5WTMihWXwiG2BiJwOBAa4jCL06f1Kk3hpFo/iS4VU5rYS0LviuEcpOdzCLuJw
+	 /uWJcUG/NRZ55TxmcAijULMozWnDJCRTvbhGzyZPvd5PSmdNxmxSOAbIw5MjckY9w3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=moDPeIiJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L6NR+PtA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51DE1606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:40:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EB5B606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:40:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=moDPeIiJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE3631F0089F;
-	Sat,  7 Nov 2026 10:40:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L6NR+PtA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D93611F0089F;
+	Sat,  7 Nov 2026 10:40:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048049;
-	bh=yMmKjAxPmczaP3pMbG4p05bUKDj169dSyQWfhFEt2U8=;
+	s=k20260515; t=1794048051;
+	bh=o/yxbxkEfzqMvTEthZZN/k5EDlKh5OGwvxjWuPKqSPM=;
 	h=From:To:Cc:Subject:Date;
-	b=moDPeIiJzYx9U14A6CSbS7CporP1ot5+V12C1ZKTqkN1r8TNOjCGJpd+FhIhMaLrF
-	 72ZaOJHG40yqHJn2e+bDa5zkuSIBaHMavy0QGeUY+G+TNdf+xuQN8d8rhEIF/zwMOB
-	 a2eoM6xfNxZIxggDE0D2tuk03rcE7Bgrc8SWcICObj5hdMdYDTb6hoIUAZizicxo45
-	 hZFy0ggG2NBnHIeUoa+Zf7lbh68ryaDFU8Pt/wvpU4OGTor4sRS8A5aMi5r35TSfNf
-	 sSpb3ZmyBLeJsP8g+tm4UqHewrr1CYd3jADWhRmypB7vDULO53DDIGlIVqBAtEiMQe
-	 IAfF2wChyGWbw==
+	b=L6NR+PtApYl+sWxJlO3tEE/0Zg/8LsjFLJf9jPeqyI4OMt9OPjzwl14teDMoZyEIU
+	 YiuBVdR9o/HBqkVQOIbIzTiBgefc6ss5lNDVU8kcmX5Ata/hO+TbCTxP8PZ9KFnyml
+	 BiGTgwyr0aHIKJY5M9K0x9A92J4Qi7khgMyNfUyN4vmFVQ993WPJcSFF7Rs4Z9APpG
+	 i00YYoH9n56vNZWWsgMuoVoAIxS9moWsav5axkdr4UTdVGctsQWvBMXpuLorKyTAMn
+	 AMdMjpIOhJWGGuwxwiOAh/HQtglYdU4hc5Mx1Xk9DXq9OrDU4+7Omr2tgdS7Zi77o1
+	 Lj61nhljarxug==
 From: Sasha Levin <sashal@kernel.org>
-To: whi4ed0g@gmail.com,
-	danisjiang@gmail.com,
+To: marek@czernohous.de,
+	fabstz-it@yahoo.fr,
 	lyude@redhat.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/nouveau/svm: drain fault handler before freeing svmm" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:40:47 -0500
-Message-ID: <20261107054047-failed-6.1-b46ddaf08234@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/nouveau/pci: use config-space MSI rearm on MCP79/MCP7A (NVAC)" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:40:49 -0500
+Message-ID: <20261107054049-failed-6.1-354d47fb3f35@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,77 +69,147 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x b46ddaf0823405f81e681eb26ec98508f3eb9a07
+git cherry-pick -x 354d47fb3f35461b7f942831c1b2a7105e92b57f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054047-failed-6.1-b46ddaf08234@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054049-failed-6.1-354d47fb3f35@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From b46ddaf0823405f81e681eb26ec98508f3eb9a07 Mon Sep 17 00:00:00 2001
-From: Zhenhao Wan <whi4ed0g@gmail.com>
-Date: Fri, 14 Aug 2026 18:00:05 +0800
-Subject: [PATCH] drm/nouveau/svm: drain fault handler before freeing svmm
+From 354d47fb3f35461b7f942831c1b2a7105e92b57f Mon Sep 17 00:00:00 2001
+From: Marek Czernohous <marek@czernohous.de>
+Date: Sun, 16 Aug 2026 15:09:04 +0200
+Subject: [PATCH] drm/nouveau/pci: use config-space MSI rearm on MCP79/MCP7A
+ (NVAC)
 
-The SVM fault handler nouveau_svm_fault() looks up each fault's
-nouveau_svmm under svm->mutex, caches it in the fault array, then drops
-svm->mutex and dereferences the svmm across blocking faults
-(mmu_interval_notifier_insert(), hmm_range_fault()).
+NVAC (MCP79/MCP7A) uses g94_pci_func, whose .msi_rearm is
+nv40_pci_msi_rearm(): a re-arm write through the MMIO mirror of PCI
+config space.  On this IGP that path is unreliable; when a re-arm is
+missed the interrupt line stays dead, command submission times out and
+the GPU appears hung until reboot.  On an Apple Mac mini (early 2009,
+MCP79, boot0 0x0ac080b1) this showed as sporadic fifo timeouts and GPU
+hangs under load unless MSI was disabled via config=NvMSI=0.
 
-nouveau_svmm is not refcounted. On DRM file close nouveau_svmm_fini() ->
-mmu_notifier_put() frees it asynchronously via call_srcu() without
-waiting for the handler, and mmget_not_zero() pins the mm, not the svmm.
-flush_work() on the fault buffer otherwise runs only at device removal
-and suspend, never on close, so a fault handled concurrently with a close
-can dereference a freed svmm.
+Give NVAC its own pci func that re-arms through real PCI config space
+(nv46_pci_msi_rearm) instead.  This follows existing precedent: nv46.c
+documents the MMIO-mirror re-arm as broken on several related parts,
+and commit 5112abc6a433 ("drm/nouveau/pci/g92: Fix rearm") fixed g92
+the same way while moving the remaining chipsets, NVAC included, into
+the newly added shared g94 table, where NVAC stayed on the MMIO path.
+This change completes that fix for NVAC.  The sibling IGP NVAA
+(MCP77/MCP78) has MSI disabled entirely as "reported broken" in
+nvkm_pci_new_(); NVAC works correctly once the re-arm goes through
+config space, so disabling MSI is not necessary.
 
-The instance is already unlinked by nouveau_svmm_part() earlier in the
-same close, so no new fault can resolve to it. Drain the handler in
-nouveau_svmm_fini() before the free, guarding the flush with a NULL check
-on drm->svm: on device teardown nouveau_svm_fini() runs first and frees
-drm->svm (NULL) after blocking the notify and flushing the buffer, so the
-handler is already drained; on per-client close drm->svm is alive and the
-flush runs.
+Only NVAC is switched: that is the hardware this has been validated
+on.  The other users of g94_pci_func (G94/G96/G98/GT2xx and the
+MCP77/MCP89 IGPs) keep their current behavior; MCP77 and MCP89
+plausibly want the same treatment but were not tested.
 
-Fixes: eeaf06ac1a55 ("drm/nouveau/svm: initial support for shared virtual memory")
-Reported-by: Yuhao Jiang <danisjiang@gmail.com>
-Assisted-by: Claude:claude-opus-5
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
+Tested on the Mac mini as a daily driver for two months with MSI
+enabled and zero fifo timeouts.  Independently confirmed stable on an
+iMac9,1 (MCP79) running 6.12.90 with the v1 form of this change (the
+same one-line functional switch, applied to that kernel's g94
+implementation).
+
+Fixes: 5112abc6a433 ("drm/nouveau/pci/g92: Fix rearm")
+Cc: <stable@vger.kernel.org> # v6.16+
+Tested-by: Fab Stz <fabstz-it@yahoo.fr>
+Assisted-by: Claude:claude-opus-4-7
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Marek Czernohous <marek@czernohous.de>
 Reviewed-by: Lyude Paul <lyude@redhat.com>
 Signed-off-by: Lyude Paul <lyude@redhat.com>
-Link: https://patch.msgid.link/20260814-nouveau-svm-svmm-uaf-v2-1-8e6590519f07@gmail.com
+Link: https://patch.msgid.link/178688574401.522643.12812428444459119913@gmail.com
 ---
- drivers/gpu/drm/nouveau/nouveau_svm.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ .../gpu/drm/nouveau/include/nvkm/subdev/pci.h |  1 +
+ .../gpu/drm/nouveau/nvkm/engine/device/base.c |  2 +-
+ .../gpu/drm/nouveau/nvkm/subdev/pci/Kbuild    |  1 +
+ .../gpu/drm/nouveau/nvkm/subdev/pci/mcp79.c   | 35 +++++++++++++++++++
+ 4 files changed, 38 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/gpu/drm/nouveau/nvkm/subdev/pci/mcp79.c
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_svm.c b/drivers/gpu/drm/nouveau/nouveau_svm.c
-index dcc92131488ea..a87406d3da300 100644
---- a/drivers/gpu/drm/nouveau/nouveau_svm.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_svm.c
-@@ -304,6 +304,19 @@ nouveau_svmm_fini(struct nouveau_svmm **psvmm)
- {
- 	struct nouveau_svmm *svmm = *psvmm;
- 	if (svmm) {
-+		struct nouveau_svm *svm = svmm->vmm->cli->drm->svm;
+diff --git a/drivers/gpu/drm/nouveau/include/nvkm/subdev/pci.h b/drivers/gpu/drm/nouveau/include/nvkm/subdev/pci.h
+index 112b674ed9c8a..0172e0d200f81 100644
+--- a/drivers/gpu/drm/nouveau/include/nvkm/subdev/pci.h
++++ b/drivers/gpu/drm/nouveau/include/nvkm/subdev/pci.h
+@@ -46,6 +46,7 @@ int nv4c_pci_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct n
+ int g84_pci_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct nvkm_pci **);
+ int g92_pci_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct nvkm_pci **);
+ int g94_pci_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct nvkm_pci **);
++int mcp79_pci_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct nvkm_pci **);
+ int gf100_pci_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct nvkm_pci **);
+ int gf106_pci_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct nvkm_pci **);
+ int gk104_pci_new(struct nvkm_device *, enum nvkm_subdev_type, int inst, struct nvkm_pci **);
+diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c b/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c
+index ea62dc97f1189..f7e02a16e5bc4 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c
++++ b/drivers/gpu/drm/nouveau/nvkm/engine/device/base.c
+@@ -1237,7 +1237,7 @@ nvac_chipset = {
+ 	.mc       = { 0x00000001, g98_mc_new },
+ 	.mmu      = { 0x00000001, mcp77_mmu_new },
+ 	.mxm      = { 0x00000001, nv50_mxm_new },
+-	.pci      = { 0x00000001, g94_pci_new },
++	.pci      = { 0x00000001, mcp79_pci_new },
+ 	.therm    = { 0x00000001, g84_therm_new },
+ 	.timer    = { 0x00000001, nv41_timer_new },
+ 	.volt     = { 0x00000001, nv40_volt_new },
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/pci/Kbuild b/drivers/gpu/drm/nouveau/nvkm/subdev/pci/Kbuild
+index a14ea0f7b1c87..90f03baeb22ac 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/pci/Kbuild
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/pci/Kbuild
+@@ -9,6 +9,7 @@ nvkm-y += nvkm/subdev/pci/nv4c.o
+ nvkm-y += nvkm/subdev/pci/g84.o
+ nvkm-y += nvkm/subdev/pci/g92.o
+ nvkm-y += nvkm/subdev/pci/g94.o
++nvkm-y += nvkm/subdev/pci/mcp79.o
+ nvkm-y += nvkm/subdev/pci/gf100.o
+ nvkm-y += nvkm/subdev/pci/gf106.o
+ nvkm-y += nvkm/subdev/pci/gk104.o
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/pci/mcp79.c b/drivers/gpu/drm/nouveau/nvkm/subdev/pci/mcp79.c
+new file mode 100644
+index 0000000000000..e2ae242f1aa77
+--- /dev/null
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/pci/mcp79.c
+@@ -0,0 +1,35 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright 2026 Marek Czernohous
++ *
++ * MCP79/MCP7A (NVAC): like g94, but MSI re-arm goes through real PCI
++ * config space.  The MMIO-mirror re-arm is unreliable on this IGP and a
++ * missed re-arm kills the interrupt line (see the nv46 comment; g92
++ * already re-arms through config space for the same reason).
++ */
++#include "priv.h"
 +
-+		/* The fault handler caches svmm pointers under svm->mutex and
-+		 * dereferences them after dropping it, across blocking faults.
-+		 * The instance is already unlinked (nouveau_svmm_part), so drain
-+		 * the handler before the free to release any in-flight reference.
-+		 *
-+		 * On device teardown nouveau_svm_fini() ran first and freed
-+		 * drm->svm (NULL) after draining the buffer; nothing to flush.
-+		 */
-+		if (svm)
-+			flush_work(&svm->buffer[0].work);
++static const struct nvkm_pci_func
++mcp79_pci_func = {
++	.cfg = { .addr = 0x088000, .size = 0x1000 },
 +
- 		mutex_lock(&svmm->mutex);
- 		svmm->vmm = NULL;
- 		mutex_unlock(&svmm->mutex);
++	.init = g84_pci_init,
++	.msi_rearm = nv46_pci_msi_rearm,
++
++	.pcie.init = g84_pcie_init,
++	.pcie.set_link = g84_pcie_set_link,
++
++	.pcie.max_speed = g84_pcie_max_speed,
++	.pcie.cur_speed = g84_pcie_cur_speed,
++
++	.pcie.set_version = g84_pcie_set_version,
++	.pcie.version = g84_pcie_version,
++	.pcie.version_supported = g92_pcie_version_supported,
++};
++
++int
++mcp79_pci_new(struct nvkm_device *device, enum nvkm_subdev_type type, int inst,
++	      struct nvkm_pci **ppci)
++{
++	return nvkm_pci_new_(&mcp79_pci_func, device, type, inst, ppci);
++}
 -- 
 2.53.0
 
