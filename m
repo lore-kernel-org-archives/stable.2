@@ -1,58 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794064607;
-	b=hN+9OwarkI3+GzgoNc+jIL9S1KZt4S6pRB/jvqPsT5XUOj7iDOiNNU0YBljytgvgW7Gy
-	 DiJuaDl7KaRtI7ZDbttL9rUh5L7HWwRqMbuUJxw+6pZk4jHZScninvn6ETFW2nuJdMYeq
-	 Q+lbvgEabFTypQwLb1QFwYG1pHOTuTB95k55TeRQCgq7RSDjnUOX2lYV4VtdnlON9Tcof
-	 +ALpiVjSosfORqcqYeHnuJtE3VRu3tlqZGmfzA22cRL1kuKKv5VmHHRXBzIVV2zPl+XSc
-	 XbWXdz0+pQxRq6o+cz0XlsT6RNc+NhgxhHu2y4dRSp5dOd4/gNrenQeexQVKuT9BVHw==
+	t=1794064608;
+	b=wAIwHPlkStWDhuxEoFEzVfYSduTRbOWvYBi8qGLGdxjbWYBjQV/q6eX2dj8HB9osWc/L
+	 ItgUThidad+Qx567tCTfekiwqBqzU/TXPNxy5PDlDSWxbBVxn1+elY69wVHDVkC+j7AHX
+	 eA6o84IbDkSVK2Wwi4LLAGqYS17G6vA6AT4ddxdiFXRxD4mF3/ykpLyeNfiRc4ms4jQK3
+	 DxRAgtyo4ni4Ic2OFhwqVddAJJ88fNfSVATKDO7r66zw6kueIJqY+cs6PoHcZh34+zlV8
+	 tlcaJdksGdTGvIKUO2381p7qwxDAEZDh+yDnZFZqr2t79E/nUxpbt2d+6ft8V5wwe7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794064607;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=AVmbFX6t6xcUu/vimmAgkG5zOzmY8smU+XL6/FLtg/4=;
-	b=YnmgFRXucrWXWCuZnQjcXmf4DNyp9qpw54sRhvR0yLGCU0NbYeXmT4mmCcmziBDPBzOx
-	 Pegh4K6oeY361l3uncRsCt8CjgzxhCcUy3nT8398uStGdxixAHZ0w9Fn2C4Xn45fzb2Ks
-	 MzZQbsVQuO1deLPD/pzaaMYTcp7j+IIpaW5C2M6pSNr06BwWvGsnKYXDdjSB0BrN8Rl9n
-	 1K7Dy2brUjrTfRkNSpWD1xARrQGzgRBo77qf/DvGS4vixYAm1Pn3u2kjqc5xtA7qN79Tc
-	 dazpuluQF+u1oT/XqWSrHLfIIkEHEgvLMOhXqJFeRdaCvUwBsuMMF1V+CM7hNrg62lg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794064608;
+	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
+	 Subject:Message-Id:Date:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=WcuhQ3hFkrb8fQW7yfgUWsh40+d8FzchJmD0Z3lY1go=;
+	b=vM7I6AFLzBVe+cvtHSsf54U764xZnLukUoR2gfyEBr2of/x2COz5b+5J3jvrpCtFxYBY
+	 /9ZeFenpkj2f7KmVSUi6khy4CfrgduI935YahfNFcGF6JUd9gPr9nCc9vvbH08eqeAzoJ
+	 DB4smlYTX4FB9l/1jX2qHITojNrAH8sYHURx1HQVA/DjWPWwEBex2NjGdOROB6R1wsGbL
+	 JkWG/SYKEI5LuNBU1NKKZqumUhfxeYqI/c8YCUrj6hZtdetdEUqMp4uhNuTMBAgyS8q3d
+	 WwFTFW5Umr7w0u1+32oDDR2FeXWlqsGhf0AaJrzjZGDQrsuNBpbAV8JYUuFSWQ1u1hA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=1h3y6eti;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SEm2vt8I;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23966606E8FE;
-	Sat,  7 Nov 2026 15:16:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9C75606EE82;
+	Sat,  7 Nov 2026 15:16:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=1h3y6eti
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71A371F0089F;
-	Sat,  7 Nov 2026 15:16:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794064606;
-	bh=AVmbFX6t6xcUu/vimmAgkG5zOzmY8smU+XL6/FLtg/4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=1h3y6etinK5QspZoej9U42A0Vwv1UfFRUSMbBlY9laIB3p2Y/Hr//zn8WL/SszJxx
-	 Xm6h/EEibWzOkD38DdoYwqXPbU0yGsOiitaESLJM6o4OHKcyyt8IX5tgUKvEOpGuJJ
-	 dya4sUGActGUJgNGv7jPU19Q+hNx+lf+5Fe+bv+A=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Evgeny Akhtimirov <evgeny@devduty.com>,
-	Takashi Iwai <tiwai@suse.de>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 0618/1257] ALSA: hda/realtek: Enable all four speaker amps on Lenovo ThinkBook X G2 IAH
-Date: Sat,  7 Nov 2026 08:48:34 -0500
-Message-ID: <20261107134956.368725671@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261107134939.434104957@linuxfoundation.org>
-References: <20261107134939.434104957@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SEm2vt8I
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 556851F008A1;
+	Sat,  7 Nov 2026 15:16:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794064607;
+	bh=WcuhQ3hFkrb8fQW7yfgUWsh40+d8FzchJmD0Z3lY1go=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=SEm2vt8I8KjX5pguj4Q5aJz9jX1eNs7x7V5O9ZQVk+YVFE19U/R7fV5rL0nsx2eK/
+	 bKgTe1ovA4ocWzOuyQVDNPE+xkYmpWvqgEi06f+UHvN9p3CRPkqkfh625BFSUoSCuy
+	 fIVWJw7OTF9MnSGV0OgDb+iUMkhQypncKbjbGweOHMQQIMBHkeMS1r4Fbz02hhHvI9
+	 gGY+CetZy3+4qa8h2SrIsm2lq/IV/XVdIBd3Qs+bfJM/Zkfbs8EVZgmjRI/4HWbBpF
+	 vpyYBoVj9sKVksFgqyrSSe7Tgzq1giBvOpUsBesFyTjIihdmeuOjIqtnHFDYzPZ7Pi
+	 JkzIrlDkQJPhg==
+Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 2372B2AB30DE;
+	Sat, 07 Nov 2026 15:16:45 +0000 (GMT)
+From: Mark Brown <broonie@kernel.org>
+To: ldewangan@nvidia.com, linux-spi@vger.kernel.org, 
+ Weibin Liu <liuwb@xiaopeng.com>
+Cc: thierry.reding@kernel.org, jonathanh@nvidia.com, 
+ linux-kernel@vger.kernel.org, swarren@nvidia.com, 
+ linux-tegra@vger.kernel.org, zhugl3@xiaopeng.com, stable@vger.kernel.org
+In-Reply-To: <20261026132146.3806906-1-liuwb@xiaopeng.com>
+References: <20261026132146.3806906-1-liuwb@xiaopeng.com>
+Subject: Re: [PATCH v2] spi: tegra20-slink: size words with
+ spi_bpw_to_bytes()
+Message-Id: <179405581085.3424803.13259814176477205026.b4-ty@b4>
+Date: Sat, 07 Nov 2026 12:50:10 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,85 +65,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1120; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=cHLJXGgW2xV+vqVUshhFt0YpDCp2IMvEvkL3bjmPUsw=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLLeO9yxTDMMijji+X+v3uYPn7qVbq7JYlxpcSqWQVmzn
+ 4t/yvXvHaUsDGJcDLJiiixxWdwv60ter+E7uLANZg4rE8gQBi5OAZhIqgcjw3oV986U71pXxKJ7
+ Z6klyGn+a10Tflstze+e8UnWzTOLyxgZlnHUf7sb4N/zIyCDoy3CNu3vZ9se0zveeQurd7THnXT
+ jAQA=
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-7.3-stable review patch.  If anyone has any objections, please let me know.
+On Mon, 26 Oct 2026 21:21:46 +0800, Weibin Liu wrote:
+> spi: tegra20-slink: size words with spi_bpw_to_bytes()
 
-------------------
+Applied to
 
-From: Evgeny Akhtimirov <evgeny@devduty.com>
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.5
 
-[ Upstream commit f2293e7b2ddd803b1461e0490f9b2f32089c1dd0 ]
+Thanks!
 
-The Lenovo ThinkBook X G2 IAH (MTM 21TU) has an ALC287 codec with four
-CS35L41 amplifiers on I2C (CSC3551). It reports codec SSID 17aa:3929,
-which it shares with the ThinkBook 13x Gen 5, and PCI SSID 17aa:3842.
+[1/1] spi: tegra20-slink: size words with spi_bpw_to_bytes()
+      https://git.kernel.org/broonie/spi/c/6a50b668331b
 
-Since PCI SSID 17aa:3842 has no quirk entry, the codec SSID matches
-ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_THINKPAD. That fixup binds only
-two amps (cs35l41-hda.0 and .1), while the CS35L41 configuration table
-describes four for 17AA3929. Amps .2 and .3 probe and load firmware,
-but they are never bound to the codec, so half of the speakers stay
-silent.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-Add a ThinkPad-style fixup chain that binds four I2C amps, and match the
-laptop by its PCI SSID so the ThinkBook 13x Gen 5 is not affected.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-Tested with hda_model=1028:0c4d (alias to ALC287_FIXUP_CS35L41_I2C_4):
-all four amps bind, apply their calibration and are runtime-active
-during playback.
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Evgeny Akhtimirov <evgeny@devduty.com>
-Link: https://patch.msgid.link/20261009-thinkbook-x-g2-iah-v1-1-56012188aee0@devduty.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- sound/hda/codecs/realtek/alc269.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-index c66dd4a003f39..980e5029b2dbf 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -4339,6 +4339,8 @@ enum {
- 	ALC245_FIXUP_HP_X360_MUTE_LEDS,
- 	ALC287_FIXUP_THINKPAD_I2S_SPK,
- 	ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_THINKPAD,
-+	ALC287_FIXUP_CS35L41_I2C_4_THINKPAD_ACPI,
-+	ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_4_THINKPAD,
- 	ALC2XX_FIXUP_HEADSET_MIC,
- 	ALC289_FIXUP_DELL_CS35L41_SPI_2,
- 	ALC256_FIXUP_ACER_SFG16_MICMUTE_LED,
-@@ -6906,6 +6908,18 @@ static const struct hda_fixup alc269_fixups[] = {
- 		.chained = true,
- 		.chain_id = ALC287_FIXUP_CS35L41_I2C_2_THINKPAD_ACPI,
- 	},
-+	[ALC287_FIXUP_CS35L41_I2C_4_THINKPAD_ACPI] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = cs35l41_fixup_i2c_four,
-+		.chained = true,
-+		.chain_id = ALC285_FIXUP_THINKPAD_NO_BASS_SPK_HEADSET_JACK,
-+	},
-+	[ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_4_THINKPAD] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = alc287_fixup_tb_vmaster_led,
-+		.chained = true,
-+		.chain_id = ALC287_FIXUP_CS35L41_I2C_4_THINKPAD_ACPI,
-+	},
- 	[ALC2XX_FIXUP_HEADSET_MIC] = {
- 		.type = HDA_FIXUP_FUNC,
- 		.v.func = alc2xx_fixup_headset_mic,
-@@ -8236,6 +8250,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x17aa, 0x3827, "Ideapad S740", ALC285_FIXUP_IDEAPAD_S740_COEF),
- 	SND_PCI_QUIRK(0x17aa, 0x3834, "Lenovo IdeaPad Slim 9i 14ITL5", ALC287_FIXUP_YOGA7_14ITL_SPEAKERS),
- 	SND_PCI_QUIRK(0x17aa, 0x383d, "Legion Y9000X 2019", ALC285_FIXUP_LEGION_Y9000X_SPEAKERS),
-+	SND_PCI_QUIRK(0x17aa, 0x3842, "ThinkBook X G2 IAH", ALC287_FIXUP_MG_RTKC_CSAMP_CS35L41_I2C_4_THINKPAD),
- 	SND_PCI_QUIRK(0x17aa, 0x3843, "Lenovo Yoga 9i / Yoga Book 9i", ALC287_FIXUP_LENOVO_YOGA_BOOK_9I),
- 	/* Yoga Pro 7 14IMH9 shares PCI SSID 17aa:3847 with Legion 7 16ACHG6;
- 	 * use codec SSID to distinguish them
--- 
-2.53.0
-
-
+Thanks,
+Mark
 
