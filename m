@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046501;
-	b=3TfWHwG2l0CfzOgPHuSads2zSeyT6NDeVhhhe2u5VWKQSjGsv+H74aiguCQcR/mHPVuE
-	 39QBfQdn6Ku59hbOk/Aum4IuCstfxDsoJjHR6DqfL4sgqKAFqk80AAQhGGLPoaPinxN0k
-	 vXeFOIs3wqmCZPJVadUA2rbpeSo6lb+XL2xUD1pJKw2OhgUMvwpgIX6qlEW45vXpQ1yUz
-	 xsT8fRyzNOw8v7EIJgrYR7jEo9CCNyNNVTSS8xIXPXY4bIfmp73HTv15WR/9KCToU66vw
-	 sk023fzU7dZIqR89ZeRThZdip9fbriqtL8EFZxLGDMNNczd65PxV8mXLYF/JBabVayQ==
+	t=1794046504;
+	b=ExJqzHVpxc6FX2i8Ng3MT5OzbnT5TSa2ZLw7lMjDZ1kHXvs9cjkYD3CLfCNIIWD5N+QN
+	 YXa7WfRq3ZFAFS+R+K91TmZOkKYIqQ/vBYNz2cMFh49nndIWCmSvWZTLjol/9ud7qO1aE
+	 QGS/Gi3sdCXJqcmUhZzci/pyroojceYnnU/ZQAdzeptbhkHv5c9Wu5JSLAM2qgE/5G6cd
+	 JP8bgLKFWog8M9NVlLi8wqiFwZirRvPODUYj2N2hXBn4eHqJP9QM8ALrbgdwxC8Gx6K/8
+	 ByqUJC1RoyFIwtb7FxFtXcHIdfPn4tgMTFpayMkVZkyLPo8AD8Jb5oQdEn2iCx+lqBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046501;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046504;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=3YcsBXsdhpmoXJ2jJK1YS3XZTC3ykpd+p2duB+EBVqw=;
-	b=j50i2zYlFuhe45rTz5RQSC1ghr5QZ/RMR6KvE7RCp7xk0uxZVJL7DDacnjKConSv2gd8
-	 XgoPUT77qcILVuYT+5FzdoWkERdS3zqWDxy2bO8bhte1C6WqHfI8nGDpnGmYKjJvSs+0Z
-	 ptjVdsoRHoKKDLFx2fs3knwq4nPkEXbwxV0lEIYu/Mvb3yzSXwsty/u1KZaDGr8FbdItJ
-	 uRxs6fq/4dnZjMNlx9O82UbpOpRPZXFJM1Dm32eHOaSQPDC9ash3RPmndxtO61gruJ4GC
-	 yP0kWIEnkQrHVS6Mtd7rEBJs1kuXql8j0bQz5T9peD7bbA8m64V9At1ivnEQj0ZtHSw==
+	bh=RpUOAWO9jD3EsIzNaJ3qKVjlpUFSkIMV08l3jtqJBcI=;
+	b=J9l17DT+udf1sV4pbxMs6gPdGtosBL35Ws1REY3GWcrACMj6/nEVCkvNUFnwqtQXuAgd
+	 5sgc2/rBnNl/QxDh3cj0RZ9emhxga6cKmWAtFbTDTQUoWsHe4Yyc0xYNk46ZnS7EcEU3R
+	 UyrHwhpUm9wx9eJMdxKJuLOkh8rqcXtFLVa/1aC36NIIafGUlddRo1zHVEhytpbAE+DEb
+	 joGAdV4GjkUO21ZlNo+QgVegM5wI995P0qhnWLQvKdv87YT+PDSdVy7K8uyoz6te/GcCV
+	 0TcMTKHGBCXSMVOrVOp5nfY6u6c23pOeLvg0a7567mFqaX5c7bvXwpNB866rECPAPag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iDvrRjYS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="n0i/av+Y";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6823D606A32D
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:15:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF8B8606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:15:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iDvrRjYS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B63FD1F0089F;
-	Sat,  7 Nov 2026 10:15:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n0i/av+Y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 411E81F0089F;
+	Sat,  7 Nov 2026 10:15:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046501;
-	bh=3YcsBXsdhpmoXJ2jJK1YS3XZTC3ykpd+p2duB+EBVqw=;
+	s=k20260515; t=1794046503;
+	bh=RpUOAWO9jD3EsIzNaJ3qKVjlpUFSkIMV08l3jtqJBcI=;
 	h=From:To:Cc:Subject:Date;
-	b=iDvrRjYSzYzTZB5DWW89ecCOANMr4idlmpqZUcPpaiIVI6uRJi8fjBqAVia17BwlI
-	 HvDlv3myzoHzacdTZBUfXHxnBWjIxeFmpAJyiekeEVubjbaYRy3DZLJ5nft+VkKMpS
-	 Iiu/XzdlE9nqpZfURr8YB/aY+FqQMjqbIoq4GbBHtiGxhmNsET36wvVP/ho6xfjcgU
-	 uBMkQHSdoVv7E/gkLCyDwsXIN5uPQ2igNuT7zlokGope+UgHG97Ndxci0KYY6TI1ZB
-	 RS2eL4OihhXIxXFDuccf80mT2Bn87XfQGNJ50jbJTDGe5gZlnvYbE0I9X5UrdydibF
-	 lLEG01bVbZpjg==
+	b=n0i/av+Yev5oFRZu6slm4bSHInhiuAyPh4dmxLcHUbD7LwylrB7/QLlXA1a0b8vJM
+	 DiI5KWlUhg7sDNKH0eRMJA9mJ2LipM2ZrYyYtPDFyMA7PLALWUQdWdewk4eZPNFiG/
+	 6Tn7rPKtsuDrVgnD76IPmD7vsSGcH3anQs0/mKJ6ZBAtJKRHOugoGQnz49xUxmSE74
+	 nLL+6N/O3WvLoimqWRMab/48Xbrrwz/5g+hfmUVqCz0ZxvqJZOWY5QoZR27vIBFOVm
+	 /LME1096b+LgO+fAyConxDUeeMmDKEOb0/XHIfk6C6P9IwUfM0KNdv6S7iOI58mNQR
+	 chTZeg0DgdkTw==
 From: Sasha Levin <sashal@kernel.org>
-To: chao@kernel.org,
-	jaegeuk@kernel.org
+To: ravi.hothi@oss.qualcomm.com,
+	srinivas.kandagatla@oss.qualcomm.com,
+	broonie@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] f2fs: fix to fetch ino via ino_of_node() under cache lock" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:14:58 -0500
-Message-ID: <20261107051458-failed-6.18-cd6d8b189139@kernel.org>
+Subject: FAILED: patch "[PATCH] ASoC: qcom: audioreach: fix module cfg blob size handling" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:15:02 -0500
+Message-ID: <20261107051502-failed-6.18-e21fb64a8c4a@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,54 +69,103 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x cd6d8b1891395b681f2060916a4b83880b765698
+git cherry-pick -x e21fb64a8c4aecae31ec63f994423ac944705c3e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051458-failed-6.18-cd6d8b189139@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051502-failed-6.18-e21fb64a8c4a@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From cd6d8b1891395b681f2060916a4b83880b765698 Mon Sep 17 00:00:00 2001
-From: Chao Yu <chao@kernel.org>
-Date: Mon, 26 Oct 2026 08:23:49 +0800
-Subject: [PATCH] f2fs: fix to fetch ino via ino_of_node() under cache lock
+From e21fb64a8c4aecae31ec63f994423ac944705c3e Mon Sep 17 00:00:00 2001
+From: Ravi Hothi <ravi.hothi@oss.qualcomm.com>
+Date: Fri, 23 Oct 2026 18:13:10 +0100
+Subject: [PATCH] ASoC: qcom: audioreach: fix module cfg blob size handling
 
-In f2fs_writeback_node_caches(), it's better to fetch ino via ino_of_node()
-under cache lock, otherwise, node cache content may become stale after cache
-is unlocked due to racing w/ truncation.
+audioreach_get_module_priv_data() passes mod_array->size, a byte count,
+as the element count of the __le32 data[] flex array. The allocation and
+the copy are four times too large, and the memcpy() can read past the end
+of the topology firmware buffer. The size is also never checked against
+the private data it must lie within, and a zero size makes the loop spin
+forever.
 
-Commit 493b9dc8b52c ("f2fs: cache: use node cache") fixes similar issue in
-f2fs_flush_inline_data() introduced in commit 34c061ad85a2 ("f2fs: Avoid double
-lock for cp_rwsem during checkpoint").
+Convert the size to a word count, bound the blob by the remaining private
+data and reject a zero size. Also check the returned pointer before
+storing it in mod->data, as an error pointer there is dereferenced when
+the graph is opened.
 
-Cc: stable@kernel.org
-Fixes: 2049d4fcb057 ("f2fs: avoid multiple node page writes due to inline_data")
-Signed-off-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+Fixes: c7ed4c2debfd ("ASoC: qcom: audioreach: add support for static calibration")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ravi Hothi <ravi.hothi@oss.qualcomm.com>
+Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Link: https://patch.msgid.link/20261023171316.819857-2-srinivas.kandagatla@oss.qualcomm.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- fs/f2fs/node.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ sound/soc/qcom/qdsp6/topology.c | 31 ++++++++++++++++++++++++++-----
+ 1 file changed, 26 insertions(+), 5 deletions(-)
 
-diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
-index 424e95ca58789..44f94000d452c 100644
---- a/fs/f2fs/node.c
-+++ b/fs/f2fs/node.c
-@@ -2195,9 +2195,11 @@ int f2fs_writeback_node_caches(struct f2fs_sb_info *sbi, long nr_to_write,
+diff --git a/sound/soc/qcom/qdsp6/topology.c b/sound/soc/qcom/qdsp6/topology.c
+index faafbc5c0ad00..612d8f03e6e98 100644
+--- a/sound/soc/qcom/qdsp6/topology.c
++++ b/sound/soc/qcom/qdsp6/topology.c
+@@ -312,22 +312,37 @@ audioreach_get_module_priv_data(const struct snd_soc_tplg_private *private)
  
- 			/* flush inline_data */
- 			if (f2fs_cache_test_inline(entry)) {
-+				nid_t ino = ino_of_node(sbi, entry);
+ 	for (sz = 0; sz < le32_to_cpu(private->size); ) {
+ 		const struct snd_soc_tplg_vendor_array *mod_array;
++		u32 array_size;
+ 
+ 		mod_array = (struct snd_soc_tplg_vendor_array *)((u8 *)private->array + sz);
++		array_size = le32_to_cpu(mod_array->size);
 +
- 				f2fs_cache_clear_inline(entry);
- 				f2fs_unlock_cache(entry);
--				flush_inline_data(sbi, ino_of_node(sbi, entry));
-+				flush_inline_data(sbi, ino);
- 				goto lock_node;
- 			}
+ 		if (le32_to_cpu(mod_array->type) == SND_SOC_AR_TPLG_MODULE_CFG_TYPE) {
+ 			struct audioreach_module_priv_data *pdata;
++			u32 nwords;
++
++			/* size is the byte count of the __le32 data[] */
++			nwords = array_size / sizeof(__le32);
++
++			/* the blob must lie within the private data */
++			if (sizeof(*pdata) + (u64)array_size >
++			    le32_to_cpu(private->size) - sz)
++				return ERR_PTR(-EINVAL);
  
+-			pdata = kzalloc_flex(*pdata, data,
+-					     le32_to_cpu(mod_array->size));
++			pdata = kzalloc_flex(*pdata, data, nwords);
+ 			if (!pdata)
+ 				return ERR_PTR(-ENOMEM);
+ 
+-			memcpy(pdata, ((u8 *)private->data + sz), struct_size(pdata, data,
+-						le32_to_cpu(mod_array->size)));
++			memcpy(pdata, ((u8 *)private->data + sz),
++			       struct_size(pdata, data, nwords));
+ 			return pdata;
+ 		}
+ 
+-		sz = sz + le32_to_cpu(mod_array->size);
++		/* a zero size would never advance the walk */
++		if (!array_size)
++			return ERR_PTR(-EINVAL);
++
++		sz = sz + array_size;
+ 	}
+ 
+ 	return NULL;
+@@ -611,6 +626,12 @@ static int audioreach_widget_load_module_common(struct snd_soc_component *compon
+ 		return mod ? PTR_ERR(mod) : -ENODEV;
+ 
+ 	mod->data = audioreach_get_module_priv_data(&tplg_w->priv);
++	if (IS_ERR(mod->data)) {
++		int rc = PTR_ERR(mod->data);
++
++		mod->data = NULL;
++		return rc;
++	}
+ 
+ 	dobj = &w->dobj;
+ 	dobj->private = mod;
 -- 
 2.53.0
 
