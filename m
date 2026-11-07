@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046376;
-	b=r22hwhdM4mee/f85EWD8cWiD9sskeSzDDtmjTo3cco2a8HAYOUXLyx7DHJEgvXaOXYW/
-	 mrjUrCX0bB6NEvIeY9uBVKrn6FPYjaYGy/m4jvb1+PsFJrAXa4eM4irDXl3/xJmufS9tA
-	 8Ccb4788yqXhDClEgbbSCuFs5TepURqPdoCrDZbWfo7SmYvNLsTRlLwSaMJZR0X4qhnwC
-	 dyXdXvhlb1MQ2tRvIwXTSCLnSLTjRWhmWfzu0hlIU72duolO58bm/8Mz8P7qHsvEWEC9n
-	 Fa7sM+98VSYndfOkP2RGxdhtrSN3zpB2G/SpXjUOWmFW1l0Y7N+k6AS/pbMz8yzo0Rg==
+	t=1794046378;
+	b=eWArxgqGXtGMezF0oyFtGFdf4+DGGg/69WwdSbQv7DFeOnNB0mcwYaPh+3lipmPj6Zvh
+	 yYx9sxaa72busSEzRKSZ7UAoI8gZU5JpjsbVsZTsY7dVYDu6bDsTZxfR9IW+q+bHgxjhC
+	 4zT69KCK0+0IvbrLj5ZUyGUxIatJY9KdF/xxLkq9RZCHuUaxTpRnkDD/ljzxb6oFvtVMe
+	 j4uwudBHt2t7mnUMeRMfRYbbrLtiBYUYsYuJMCFyo/IQzuxZ1d6k4ddrwVAadyxnixE1J
+	 8zQKbhI22wpJthrSPbbbeBUlMt79NMQd/8PIe7572JRKnRxC2Gwo1HjwQNX3xaF4cwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046376;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046378;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=SbsBwmI5I19mPMu7dQDjN5dzAdlHkUoL95RWWX9rXu4=;
-	b=aXyAdGUEh0fE6ox3FyiEsJF8Zyui6mEfAPQn7dEz1jK/Vv89grICP1FmnNicwcdTFZVr
-	 vpzwwkqddntPJKHo0G87IgYrfzNuGUfQnXQ+yoQXZMfJa+XR4lFePAYnRckz4wFkiQ3zz
-	 vfM0CNQdcXSbPTyQqLriwp+nOhNH+5XLw9y0QxleJAkQgPvbgIV5Cg9kA++ToWBICBeHM
-	 7AmWenxfGvn9tlGYhA59doTcUHnun6rHdcMUFRAlb+xrfYA0R7oKtbcfq8NfN7Q3U239S
-	 /wVqEE08NJu5U1tDLxkUrGKicKcyxe2HfT6rdkg8w3H7VjYHU5HWsQVqp/2D2CA9EfQ==
+	bh=yeJ/cbpgQplQRcUAyuZlpjA7AqA7et0ru9c47XsR0ps=;
+	b=RyjHtPc0y827JfebHzBf0NvdOIe58YuLmtn6gQKTpJh+fRxNMAbbCmucKU3kgwfvFz5t
+	 OHg7fGBdISLX0Nag0FSvdoVDXvDK9Eme8s0Wgcj20gR++EflgZ5gNLcMFMr2OfnsVY/cU
+	 RQoteyiwwLnY6tqvWpmnEdJtSkc4jCqX1VwWXxNFvbIzLgYjYxxWGNQN/3BDR51ZvZMwy
+	 mLPzeI89sJp8s+ZKpT9B811IAjAQO9fP5bG2XyD9qznxVNECIPrnPHpO5KsOaq/3SuX4t
+	 AgRRRgnafTwPW2wbr3OgTFfd7rzAtNCnYQAzPFUphtgPNk8fbkzHHKMkglSzVqRr2sw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cGg71bMg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VsKhpeby;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4186A606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:12:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B191606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:12:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cGg71bMg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 830221F0089F;
-	Sat,  7 Nov 2026 10:12:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VsKhpeby
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF4E81F0089F;
+	Sat,  7 Nov 2026 10:12:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046376;
-	bh=SbsBwmI5I19mPMu7dQDjN5dzAdlHkUoL95RWWX9rXu4=;
+	s=k20260515; t=1794046378;
+	bh=yeJ/cbpgQplQRcUAyuZlpjA7AqA7et0ru9c47XsR0ps=;
 	h=From:To:Cc:Subject:Date;
-	b=cGg71bMgjFGMsDapvI7m5Dam9hGX/rlkK3gDFAOkPBehHE2rukr28iwplMwGacJHo
-	 bPN7vjKWgGhBbFBrHNAvlFtM9tYpIUFdT2t8Bk+Nie8EmhqxbvqPAImvgft5fZW9us
-	 opHZTCONXObqGhWLaT8w5zJQnq/HMUIsgEziipf1YUy57LVvyU+AfdKLLdbjua9oJH
-	 79wfdWl8utGSDLH4s0Qzjd3FasyuCB8+eNrzBUYOtpGFFrRl4M0YB4DCrc9aqgXoqh
-	 r2srrEBPXexefW1FXiaOLIRBRQgFeoHn7wL7MTRcvEh4aIYmFrcnXlk9+rQCEmCZjq
-	 2n/572A77TXJw==
+	b=VsKhpebyuSQFMNocgv5UeJbsG38dwVS6+KPys9GWis4sgzLB0w6KfVVZgfCPhkiLp
+	 Bu8mPQxOt9II6YfmwVMmy+Oaz3Tnc4KuAvyhewDsm1LTvbjI5MvljZclH2H7P1BPqE
+	 Lv3ErCGZ3WRsCTNWs5xfiEfo+WXmXEzgadfg14BQVgMzDdok82e+F3tacSKjym/Jlb
+	 3ZGIrENY+GB8kMHFQ5mBW8X9y1N/KiEw0jMNYkkSTgbERBjw3VS99Av69fvqyHINlG
+	 8QKyOu5mJr5s9fWVDapVG5uHf0LIErlqlsQf+kUGKew9CmEkz0fJF1geEe20+yxaW5
+	 ut+EsHfcxe6zg==
 From: Sasha Levin <sashal@kernel.org>
 To: zenghongling@kylinos.cn,
-	liubaolin@kylinos.cn,
 	hyc.lee@gmail.com,
+	liubaolin@kylinos.cn,
 	linkinjeon@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ntfs: do not clear the volume dirty bit during sync" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:12:54 -0500
-Message-ID: <20261107051254-failed-6.18-4a1bb54f571c@kernel.org>
+Subject: FAILED: patch "[PATCH] ntfs: fail remount on sync errors and keep the dirty bit on SB_FORCE" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:12:56 -0500
+Message-ID: <20261107051256-failed-6.18-17a1edda75fd@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,140 +70,88 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 4a1bb54f571cbef67a7c470a3139ffec1a15a8e4
+git cherry-pick -x 17a1edda75fd371f36085b1568e0b70baff99969
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051254-failed-6.18-4a1bb54f571c@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051256-failed-6.18-17a1edda75fd@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 4a1bb54f571cbef67a7c470a3139ffec1a15a8e4 Mon Sep 17 00:00:00 2001
+From 17a1edda75fd371f36085b1568e0b70baff99969 Mon Sep 17 00:00:00 2001
 From: Hongling Zeng <zenghongling@kylinos.cn>
-Date: Tue, 15 Sep 2026 16:32:50 +0800
-Subject: [PATCH] ntfs: do not clear the volume dirty bit during sync
+Date: Tue, 15 Sep 2026 16:32:52 +0800
+Subject: [PATCH] ntfs: fail remount on sync errors and keep the dirty bit on
+ SB_FORCE
 
-ntfs_sync_fs() clears VOLUME_IS_DIRTY while the volume is still mounted
-read-write, so a sync running concurrently with an in-flight metadata
-modification can clear and persist a bit that was just set: the
-modification then lands on a volume that is clean on disk, and a crash
-does not run chkdsk.
+ntfs_reconfigure() currently ignores sync_filesystem() errors, allowing
+a regular read-only remount to succeed even when dirty data was not
+synced. Check the error and fail regular remounts, leaving the
+superblock read-write so ntfs_put_super() can retry at unmount.
 
-Stop clearing the bit in ntfs_sync_fs() and leave the clearing to the
-remount-to-read-only path, which the VFS reaches only after
-sb_prepare_remount_readonly() has drained in-flight writers, and to
-ntfs_put_super(), which runs after evict_inodes() on a quiesced
-filesystem.  A mounted read-write volume now keeps the dirty bit until
-it is dismounted cleanly, which matches the NTFS semantics; the cost is
-a needless chkdsk if the machine crashes between a sync and the unmount.
+SB_FORCE does not wait for writers already in progress, so it must not
+clear the on-disk dirty bit. Warn and continue on sync errors for
+SB_FORCE. A forced remount updates the dirty state only when errors
+have been recorded, and never clears the dirty bit. Skip the commit if
+that state update fails, since the in-memory flags may be inconsistent.
 
-A recorded error state is still persisted right away when the
-filesystem is synced: with NVolErrors() set,
-ntfs_sync_volume_dirty_state() can only set the bit, never clear it,
-so it cannot lose a modification the way the old unconditional call
-did.  This keeps the error report from being lost to a crash on a
-volume that has seen no modification; an error recorded after the
-last sync is still only persisted at the next quiescent transition.
-
-sync_blockdev() and blkdev_issue_flush() are both called and the first
-error is returned, so a writeback failure neither hides a flush failure
-nor skips it.
-
-A RWF_NOWAIT write still blocks in the marking when the volume looks
-clean, as it already did on the base; a non-blocking marking is
-follow-up work.
-
-Reported-by: Baolin Liu <liubaolin@kylinos.cn>
+Reported-by: Hyunchul Lee <hyc.lee@gmail.com>
 Cc: stable@vger.kernel.org
 Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
 Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
 Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
 Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 ---
- fs/ntfs/file.c  |  7 ++++---
- fs/ntfs/super.c | 31 ++++++++++++++++++++++++-------
- 2 files changed, 28 insertions(+), 10 deletions(-)
+ fs/ntfs/super.c | 27 +++++++++++++++++++++------
+ 1 file changed, 21 insertions(+), 6 deletions(-)
 
-diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
-index e8b056c3e4ccd..bb8641103d268 100644
---- a/fs/ntfs/file.c
-+++ b/fs/ntfs/file.c
-@@ -637,9 +637,10 @@ static ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
- 
- 	/*
- 	 * The volume must be marked dirty before the modification is made,
--	 * without an unlocked check of the in-memory flag: ntfs_sync_fs()
--	 * can clear the bit concurrently and the modification would then
--	 * land on a volume that is clean on disk.
-+	 * without an unlocked check of the in-memory flag: the dirty bit
-+	 * is only cleared at the quiescent transitions, under the same
-+	 * $Volume mrec_lock this call takes, so an unlocked skip could
-+	 * lose the set to one of them.
- 	 */
- 	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
- 
 diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
-index 42d895776f326..a08523457fe01 100644
+index 0ec4d2ddf6219..6a107ec0d0f68 100644
 --- a/fs/ntfs/super.c
 +++ b/fs/ntfs/super.c
-@@ -493,8 +493,9 @@ int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags)
-  * This is the single point that persists the in-memory error state to disk.
-  * The runtime error paths only record NVolErrors() because they run under a
-  * variety of ntfs locks the dirty-bit write cannot be taken under (runlist
-- * locks, vol->lcnbmp_lock, vol->mftbmp_lock, mrec_locks); the first
-- * ntfs_sync_fs(), a remount, or the unmount then persists the flag here.
-+ * locks, vol->lcnbmp_lock, vol->mftbmp_lock, mrec_locks); a sync of a
-+ * volume with recorded errors, a remount to read-only, or the unmount,
-+ * then persists the flag here.
-  *
-  * A hibernated volume is not written from these persistence paths:
-  * resuming Windows from a modified image corrupts it, so the dirty bit
-@@ -2023,7 +2024,7 @@ static void ntfs_shutdown(struct super_block *sb)
- static int ntfs_sync_fs(struct super_block *sb, int wait)
- {
- 	struct ntfs_volume *vol = NTFS_SB(sb);
--	int err = 0;
-+	int ret, err = 0;
+@@ -273,7 +273,13 @@ static int ntfs_reconfigure(struct fs_context *fc)
  
- 	if (NVolShutdown(vol))
- 		return -EIO;
-@@ -2031,14 +2032,30 @@ static int ntfs_sync_fs(struct super_block *sb, int wait)
- 	if (!wait)
- 		return 0;
+ 	ntfs_debug("Entering with remount");
  
--	/* If there are some dirty buffers in the bdev inode */
--	if (ntfs_sync_volume_dirty_state(vol)) {
-+	/*
-+	 * The volume dirty bit is deliberately not cleared here: a sync
-+	 * running concurrently with an in-flight modification could clear
-+	 * and persist a bit that was just set, leaving the modification
-+	 * on a volume that is clean on disk.  The bit is only cleared at
-+	 * the quiescent state transitions, remounting read-only and clean
-+	 * unmount.  A recorded error state, however, is persisted right
-+	 * away so that it is not lost to a crash on a volume that has
-+	 * seen no modification; with NVolErrors() set this can only set
-+	 * the bit, never clear it.
-+	 */
-+	if (NVolErrors(vol) &&
-+	    ntfs_sync_volume_dirty_state(vol)) {
- 		ntfs_warning(sb, "Failed to sync dirty bit in volume information flags.  Run chkdsk.");
- 		err = -EIO;
- 	}
- 	sync_inodes_sb(sb);
--	sync_blockdev(sb->s_bdev);
--	blkdev_issue_flush(sb->s_bdev);
-+	ret = sync_blockdev(sb->s_bdev);
-+	if (ret && !err)
-+		err = ret;
-+
-+	ret = blkdev_issue_flush(sb->s_bdev);
-+	if (ret && !err)
-+		err = ret;
- 	return err;
- }
+-	sync_filesystem(sb);
++	err = sync_filesystem(sb);
++	if (err) {
++		ntfs_warning(sb, "Failed to sync the filesystem.");
++		/* A forced remount must still turn the superblock read-only. */
++		if (!(fc->sb_flags & SB_FORCE))
++			return err;
++	}
  
+ 	/*
+ 	 * For the read-write compiled driver, if we are remounting read-write,
+@@ -336,11 +342,20 @@ static int ntfs_reconfigure(struct fs_context *fc)
+ 		 * or flush fails the remount, leaving the superblock
+ 		 * read-write so ntfs_put_super() retries at unmount.
+ 		 */
+-		err = ntfs_sync_volume_dirty_state(vol);
+-		if (err) {
+-			ntfs_warning(sb,
+-				"Failed to update dirty bit in volume information flags.  Run chkdsk.");
+-			return err;
++		/*
++		 * A forced remount does not drain writers in progress,
++		 * so one may still be modifying metadata when the flags
++		 * are committed: never clear the dirty bit then; if
++		 * errors have been recorded, the update preserves or
++		 * sets it; otherwise, skip the update entirely.
++		 */
++		if (!(fc->sb_flags & SB_FORCE) || NVolErrors(vol)) {
++			err = ntfs_sync_volume_dirty_state(vol);
++			if (err) {
++				ntfs_warning(sb,
++					"Failed to update dirty bit in volume information flags.  Run chkdsk.");
++				return err;
++			}
+ 		}
+ 		if (NInoDirty(NTFS_I(vol->vol_ino))) {
+ 			/* ntfs_commit_inode() would discard the error. */
 -- 
 2.53.0
 
