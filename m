@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049078;
-	b=StgfyHc01VD6lwTOyVB4UOojAA8K8aIUbxkaPIHzGgEPLOzDbl5CyG6iG2Nhm0bV8F9W
-	 QwONzQUTQZr6UWMa51rrjFW94lOBqsY4vwc+XMcMJjghSLNMRUXCUCIk2Ee+XYiOgZwIx
-	 DkIYHIi4KdBxK9TeN+zJNt9sDxnD/5lskdSyxwNCaO2vo21LSlJ1nBGlJI5SX5BOFfKyM
-	 wcOKesXvmfStQ30LlxKOruEn8RERJsDk6JtycxyYNgBR3raqsy8fQjhTRSE7oNMNAg/DH
-	 v/WVJtZUY88PvqvNZYAFerngcWmqX8Fd705Sm3f5JQQG5cxtDx1o1igPOzRu37Dk1Xw==
+	t=1794049081;
+	b=ZzHbj/9SajDwpyJPyAmwWWb+UFKfPliuWNP0vhN93RIqg1MC+DFjG9VA571BLBUpWS52
+	 yErhu1XqKSZaqaINqF9T1Q6JleKJz2dhDW2UHeI23gDW4r4/BAXasJ9tbCzbdHqVQ9oMJ
+	 s6vYxeR/IXi4laGydDOUpUr9iIkT4dqV3CeSbAy7UZzwugUv85asyfxoMlVJZFiUe2LvV
+	 +yNpwnJes1JKnOj0poghjpTeiu6bTqFegNkply7K50j1tD9CVu/W633ctelHTHaGNVZRF
+	 WQzLMLz/o0IBFkx1cl+QkXm7BS1kisuuSVFUHHeGcU2jivmoFA1sCmTgC2XabXAsN8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049078;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049081;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=JHDr255qnrPhOPV6hQFF5QEgtfqLG+MLFlve/aDZZNk=;
-	b=uvvY7w5a4jP2BwWn3t74L+s6Uean9IyylEzRbHgscooKBcAh6b+T/Qgs6O65c0wBAVWm
-	 GqbeRLlYZ6cCNlubdGzRcZIfUAfxbS6JUvfxSvHmapq7A38IjO6IaWa2bAwbEqiZQQ77Q
-	 2h52agGIE9V+0uRyHz5J3pOa3kazHWX9f1EhJnKtiEn0uRn005Jj04zGa4jq4Q946pgZR
-	 5rUBSKVX5QH+Qe5sJZvBDS1pjTJrlS40m7DYnJKJF8AHn833e0DoY2/YPdzqJSw/M/bLU
-	 pXaIuFnyfbZ10bwDiS+RtADd1q+ObDHBVrQ8sz3ZA3dYNGy3RGnq1o6LkiRZ3gwf5Cg==
+	bh=67PxVWbFW+mbDBniDK5CmSf08PxKk40KqK0ypYTsrzA=;
+	b=e51lfplAThhBBU+q8uwvUW/ebeadPFAc9F5gDqecKqZHegttrgfk+DpmE0rbAhlVvt9h
+	 WnMA5BvBLbqX2Pb/BtQsnLtKN8YJP7ilaa84nzXiJeq2wOxsm+UsCpn+YLe/1xXGEAm+c
+	 PjdJDfhSIr1pMQsAZ4LMUPG+LGd4AttAYmC6F/i2vKs4IRjeGjCirGEjAB55CyDctUTXe
+	 YE+/BIXSeLkQCIrTE06zExuXlxKW++zjVGr/9sejk5yz577yNCQoGziwWmOlxVzXmX1US
+	 IK3LQjHXCx4bWxefFKSJWJwaoRnU4/b/RVhBPKs9WtUNeqQtNhD4NXCsZdFc0K0BqfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XIsjSbqd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LIDrc6j+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72F54606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:57:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48412606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:58:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XIsjSbqd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A307C1F0089F;
-	Sat,  7 Nov 2026 10:57:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LIDrc6j+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F28D1F0089F;
+	Sat,  7 Nov 2026 10:58:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049078;
-	bh=JHDr255qnrPhOPV6hQFF5QEgtfqLG+MLFlve/aDZZNk=;
+	s=k20260515; t=1794049081;
+	bh=67PxVWbFW+mbDBniDK5CmSf08PxKk40KqK0ypYTsrzA=;
 	h=From:To:Cc:Subject:Date;
-	b=XIsjSbqdDh7RmUvKIl9rORlZZK8PHmJ1Uuqyl2++JXfdkEApXslXHZ1AwYi3I5l0U
-	 GUABExs4h8nfLsqW6Z6TU8pVMLUvSpXDgsk6WnkU6JG/jlDSYsS72bdMgVDwQwDy9d
-	 C1ZJzz8JI+BCBmkzOlNDYScuxUPU50FMvPKcrdIPSJgMP5j/fa+4A10rmdp6bsKBWF
-	 +r2yMGlRL8DbKsLPuKq95tnilKaKSjWPbEdJd2cLRexJ/HvE6HgqQoG+nW8uwdIAd0
-	 lm3pWKKu5QIQEovSBfo3LswQZKjnev+/jcChFk20lzJXd0XJpXKWcchKTP+K+1V2vN
-	 KhHyhapTFbSBA==
+	b=LIDrc6j+tKsp2a6QJIDWq4W0hEvq5vy+GZnXlh4L8CSH2ojCn+E7UD8Usm+6YaW3p
+	 PitjHWb8FrDccSqjNMja9lEhzAlr3EVrEdRPzc6vqIfjhwr6XdsOCkS6NTvEMUizXo
+	 mvCHINaaQQk2MimDvxF4zTmUDjzHK7RMMliPwbILWAXjZ2OaUw5piRGyv5TmzodMhD
+	 V74IWeuk2anF9QbSNS2tXuvyYOZ8AO2fNBrWoBkTURs1mC4kqmt6hFbhFOlyHYmao4
+	 OrnBWHuphbOyFlgTeSs42gyjI6rWJGokpJezLKdDFyRh/6EFZRuhMV9X9JAz2Z/8IH
+	 bXOBYWBZnHOag==
 From: Sasha Levin <sashal@kernel.org>
-To: punnaysharma805@gmail.com,
+To: balakrishnan.s@microchip.com,
+	ehristev@kernel.org,
 	hverkuil+cisco@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] staging: media: av7110: fix sp8870 initialization failure state" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 05:57:56 -0500
-Message-ID: <20261107055756-failed-5.15-30684fa98394@kernel.org>
+Subject: FAILED: patch "[PATCH] media: microchip-isc: do not touch WB registers when not streaming" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 05:57:59 -0500
+Message-ID: <20261107055759-failed-5.15-d8983c47d4d9@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,68 +69,80 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 30684fa98394bc0eb4362282908612aab7d4dad9
+git cherry-pick -x d8983c47d4d95eb1ed889dbb7516d3738fa854d8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055756-failed-5.15-30684fa98394@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055759-failed-5.15-d8983c47d4d9@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 30684fa98394bc0eb4362282908612aab7d4dad9 Mon Sep 17 00:00:00 2001
-From: Punnay Sharma <punnaysharma805@gmail.com>
-Date: Sat, 8 Aug 2026 00:04:43 +0530
-Subject: [PATCH] staging: media: av7110: fix sp8870 initialization failure
- state
+From d8983c47d4d95eb1ed889dbb7516d3738fa854d8 Mon Sep 17 00:00:00 2001
+From: Balakrishnan Sambath <balakrishnan.s@microchip.com>
+Date: Mon, 17 Aug 2026 12:22:02 +0530
+Subject: [PATCH] media: microchip-isc: do not touch WB registers when not
+ streaming
 
-The SP8870 DVB frontend driver prematurely flags the device as
-initialized at the very beginning of the sp8870_init() routine, prior
-to requesting the firmware (dvb-fe-sp8870.fw) and executing the I2C
-upload sequence.
+isc_s_awb_ctrl() called isc_update_awb_ctrls() unconditionally, writing
+the white balance registers even when the device is runtime suspended;
+on many ARM platforms accessing the unclocked registers is an external
+abort. The write was also done without awb_lock, racing isc_awb_work(),
+which holds it so the DMA done IRQ cannot latch a half-updated pipeline.
 
-If request_firmware() times out or sp8870_firmware_upload() encounters
-an I2C bus error, the function aborts and returns -EIO. However,
-because `state->initialised` is already set to 1, all subsequent
-invocations of `fe->ops.init()` by the DVB core will immediately return
-0 (success) without attempting to load the firmware again. This leaves
-the demodulator microcontroller halted and the frontend permanently dead
-until the module is forcibly reloaded.
+Write the registers only while streaming and not stopping, under
+awb_lock, and update the profile there. The isc->stop check covers the
+window where isc_stop_streaming() has gated the clocks but vb2 still
+reports streaming. Otherwise the new values stay cached and
+isc_configure() programs them at the next stream start.
 
-Relocate the `state->initialised = 1` assignment to the end of
-sp8870_init(), ensuring the flag is only set after the firmware is
-successfully uploaded and the system controller is actually restarted.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: 4e52889f48fe ("media: atmel: atmel-isc-base: expose white balance as v4l2 controls")
 Cc: stable@vger.kernel.org
-Signed-off-by: Punnay Sharma <punnaysharma805@gmail.com>
+Reviewed-by: Eugen Hristev <ehristev@kernel.org>
+Signed-off-by: Balakrishnan Sambath <balakrishnan.s@microchip.com>
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 ---
- drivers/staging/media/av7110/sp8870.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ .../platform/microchip/microchip-isc-base.c   | 20 +++++++++++--------
+ 1 file changed, 12 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/staging/media/av7110/sp8870.c b/drivers/staging/media/av7110/sp8870.c
-index 340e4b22859d6..aecdbd87976fd 100644
---- a/drivers/staging/media/av7110/sp8870.c
-+++ b/drivers/staging/media/av7110/sp8870.c
-@@ -315,7 +315,6 @@ static int sp8870_init(struct dvb_frontend *fe)
- 	sp8870_wake_up(state);
- 	if (state->initialised)
- 		return 0;
--	state->initialised = 1;
+diff --git a/drivers/media/platform/microchip/microchip-isc-base.c b/drivers/media/platform/microchip/microchip-isc-base.c
+index 0f486dd5bd82c..cf4611443fd13 100644
+--- a/drivers/media/platform/microchip/microchip-isc-base.c
++++ b/drivers/media/platform/microchip/microchip-isc-base.c
+@@ -1511,20 +1511,24 @@ static int isc_s_awb_ctrl(struct v4l2_ctrl *ctrl)
+ 		if (ctrl->cluster[ISC_CTRL_GB_OFF]->is_new)
+ 			ctrls->offset[ISC_HIS_CFG_MODE_GB] = isc->gb_off_ctrl->val;
  
- 	dprintk("initialising frontend...\n");
- 
-@@ -353,6 +352,8 @@ static int sp8870_init(struct dvb_frontend *fe)
- 	sp8870_writereg(state, 0x0D00, 0x010);
- 	sp8870_writereg(state, 0x0D01, 0x000);
- 
-+	state->initialised = 1;
+-		isc_update_awb_ctrls(isc);
+-
+ 		mutex_lock(&isc->awb_mutex);
+-		if (vb2_is_streaming(&isc->vb2_vidq)) {
++		if (vb2_is_streaming(&isc->vb2_vidq) && !isc->stop) {
++			unsigned long flags;
 +
- 	return 0;
- }
- 
+ 			/*
+-			 * If we are streaming, we can update profile to
+-			 * have the new settings in place.
++			 * awb_lock keeps the DMA done IRQ from latching a
++			 * partially written WB pipeline.
+ 			 */
++			spin_lock_irqsave(&isc->awb_lock, flags);
++			isc_update_awb_ctrls(isc);
++			spin_unlock_irqrestore(&isc->awb_lock, flags);
++
+ 			isc_update_profile(isc);
+ 		} else {
+ 			/*
+-			 * The auto cluster will activate automatically this
+-			 * control. This has to be deactivated when not
+-			 * streaming.
++			 * Not streaming: keep the cached values for the next
++			 * stream start and deactivate the cluster-activated
++			 * do_white_balance button.
+ 			 */
+ 			v4l2_ctrl_activate(isc->do_wb_ctrl, false);
+ 		}
 -- 
 2.53.0
 
