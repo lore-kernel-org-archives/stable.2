@@ -1,56 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048514;
-	b=B0Aa2NRsBx3JuUJM6gPaZXmK73uE/RuYrAv5EqwsXaFa2BFZqIZ99shMkYv1ou8hat1b
-	 HBGb2bqAwsygzQ4ST0cZ+Rb9owvV6tY/k7EIC04/o1odEwCurz2Jzm4gSIZzmzPxOeE+a
-	 JRgwJ/Zd9v8Kzpn86kN5AUGOrKI9QiA4mQGG07OAyw0VcMkbVqs1L8ngb4/xLt+onRSGU
-	 LfHClVZRXClHBFdw1HYYTK8V2QUhUrol0babCb7PazZ+Qrier6pcORA213OlFvmZAJ7wh
-	 4+rmkw2UiEi2A5zrwmVcDgGWqxdpdOWvtDFhOoyk5b50spch5XCJvRN9HGG3K9dWQhg==
+	t=1794048517;
+	b=sNCtlSnwlP0vlkGpGZsWRAyB916Ifeq0DmTHVELis9JLIfAs7/ePpNvubwBzuXM/cq2+
+	 CjkhEVXzt9A5zxS01Y64DE9ZFoNrLaXA2/AS/TvSvKRUPFwcL1DEcFKWGDE9VrW7H4ue6
+	 /eJykYf1LIv6/+bw01qRotK00wxd3vh2xsjeFLkCgCnyjhb4e7ef3VHuWEFObOWFfMEe1
+	 7JrZ9UgbylxVZ0rYkA4QPwRyIVWkyIZIorpelWfZmrsLgfrA1/b5HFW8W1+fL8J78M44F
+	 TvGvlQuwwiVUuB26sdM8HhazGXPMIcrYC3kSIMv7WnHKqh1KAil97xBhr+bf+3cD4Gg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048514;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048517;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=gR2RK6sZRb06u4Ivk5Eu/eKdQeIlR6M4EdPfnsANwSs=;
-	b=wFa8eqeuP2GtbWoLQSJy98lvccwQxzAywCXjqdaQsy/MKAnuxoCfrW9dtFGFKoHMfVgk
-	 YPkn4/mb/cvj6zrRmx6bTg7SUi13lzAGmiEbV8i+OgDkV+vjSjf6HWSkTl80OAZqZkZKL
-	 yDhcrZ+hqzlMMRB9Oa0MEqtyewQ0KmPyjRvVD1wciVKuPyAo/SypB8ORUXkzguG5BJz+E
-	 OodcZz9k6KmCS2D/XzY7u09CcwYAht1YoZA026ZbAxnd/sno7hANyZkEz1MVtP0S5k9a4
-	 KqMFhfdS3dkHpOViDbJov9LRONsNHOYkHwmnL72+0zu3mOEpLMpwpJopv/4F+0G1o7Q==
+	bh=EDovJVMIvU5Y3gGB6q3ZceH2l7B8fbdjRgbC+EXnT64=;
+	b=laPCgwT+gy/rHo+lgojyCrxKU6pI1NGM08veToBj0Dy5lpzYwgFe6RTgUL111YAJH8cl
+	 ymYmrrrn7P43FMViRkLfhpdF4ig6jDyCVXF/ww2Lk3EKAcWrX7CPmd/q9e3GXE2VzDIHF
+	 KON9mfdjydDCcF8xlIIROmJHa9XPAD0T6uAeRCL1fODF99FXOKyhFEqU5Z5Mv+tzp1/9o
+	 amivwg8wYAvodsEfNyJsoKXDLWC+GipK8HvQHCKQCxvISpR/eqcsWF/j0FbHIlD9gVdaQ
+	 +J3UWJ/HBdt9LfdfQIcsKsDVXlt/THc4/p++VMAesY1uVSR9Nfnv1O9bUMXlzqzbfFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fACmxw0d;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q+ajY4aT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC3FE606A32E
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:48:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8185606A32D
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:48:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fACmxw0d
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0C7E1F0089F;
-	Sat,  7 Nov 2026 10:48:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q+ajY4aT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BBA31F0089F;
+	Sat,  7 Nov 2026 10:48:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048513;
-	bh=gR2RK6sZRb06u4Ivk5Eu/eKdQeIlR6M4EdPfnsANwSs=;
+	s=k20260515; t=1794048516;
+	bh=EDovJVMIvU5Y3gGB6q3ZceH2l7B8fbdjRgbC+EXnT64=;
 	h=From:To:Cc:Subject:Date;
-	b=fACmxw0d7hs0scaEaGyoNrx7QsvHsS4+prQ+pxTEOhiujmf1K170WyYo0Mt9rsgFd
-	 3ib70S6JfzmOy2IOvX3QyrjbD5ZWA0INYTZiEjQTZuVoqugvae5sNFii9EZiqlqV8w
-	 rXUa1X8QAtjcpvzoCJiY6MpCrGOGtfGNmGEPBodGU5/ISKQ3zaU0jFMJhl+ddECUxc
-	 A/bf8Kh1Bisx4XsKdPrBMfYVPHr+L+7NVhEEfSvmYyBkrjElZLz2+U66KdsEzc2DmH
-	 xY9+cb0f2XtiUGYqZQdpOgoqXtiCMFCmiaWW0G1RDlAQWJB1hcew5So8OC1RWJdi7P
-	 IaF6nAu3fxZHQ==
+	b=Q+ajY4aTR4G0Jewjx+ab97CD459vIBlWD/L02OrdT1FS84R4PwbouDelPuewGT9uy
+	 8dYgJCzYVPfXgmUJkQSp3X6xamG2/J2QBM6uEIrJhdAHIgFP52nb2Sx46R0zo19ufD
+	 CWJpw59AzeAdC5w7ByThFmIfossnH+TpuPTxGTKCifhH8AexAZCjoQ0oKmUD9cro1D
+	 pH3HCkA/lgO1kristHDen7AqhgXUHVDKv4S1R2rHN2PO55JaBjBUjZN7x5Uxuckf0e
+	 lS9kWc6Y2F+HvHWgd2koH3RPa6vhxN6NFIIZIuxq77fYk3hkT4RiTaCAs1h5ZtPqxy
+	 96tBrcc5f2StA==
 From: Sasha Levin <sashal@kernel.org>
-To: brads@mainlining.org,
-	akpm@linux-foundation.org,
-	pmladek@suse.com,
-	linux@roeck-us.net,
-	sashiko-bot@kernel.org,
-	wangjinchao600@gmail.com,
-	wim@linux-watchdog.org
+To: daehojeong@google.com,
+	chao@kernel.org,
+	jaegeuk@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] panic: restore variable arguments to nmi_panic()" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:48:31 -0500
-Message-ID: <20261107054831-failed-6.1-ed9e4c1ff15d@kernel.org>
+Subject: FAILED: patch "[PATCH] f2fs: disallow mmap write and data-modifying fallocate on atomic files" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:48:34 -0500
+Message-ID: <20261107054834-failed-6.1-06dfe4a7eb69@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -73,112 +69,101 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x ed9e4c1ff15d5b935f467811541ca0aa6e49c5d0
+git cherry-pick -x 06dfe4a7eb696d868b196c2a49873142f19bd862
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054831-failed-6.1-ed9e4c1ff15d@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054834-failed-6.1-06dfe4a7eb69@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From ed9e4c1ff15d5b935f467811541ca0aa6e49c5d0 Mon Sep 17 00:00:00 2001
-From: Bradley Morgan <brads@mainlining.org>
-Date: Wed, 16 Sep 2026 18:29:55 +0000
-Subject: [PATCH] panic: restore variable arguments to nmi_panic()
+From 06dfe4a7eb696d868b196c2a49873142f19bd862 Mon Sep 17 00:00:00 2001
+From: Daeho Jeong <daehojeong@google.com>
+Date: Sat, 10 Oct 2026 02:41:33 +0000
+Subject: [PATCH] f2fs: disallow mmap write and data-modifying fallocate on
+ atomic files
 
-nmi_panic() used to accept variable arguments until commit ebc41f20d77f
-("panic: change nmi_panic from macro to function") flattened it to a final
-message string.  vpanic() did not exist back then, so the function had to
-format through panic("%s", msg).
+Stores through a shared writable mapping and fallocate with
+FALLOC_FL_PUNCH_HOLE, FALLOC_FL_ZERO_RANGE, FALLOC_FL_COLLAPSE_RANGE or
+FALLOC_FL_INSERT_RANGE do not go through ->write_begin, so they bypass
+the COW inode and modify the original inode directly. Reject them while
+the file is in atomic write mode, as fallocate already does for pinned
+and compressed files. A write fault gets SIGBUS and fallocate gets
+-EOPNOTSUPP.
 
-Bring the variable arguments back and format with vpanic() directly.
-The next patch makes nmi_panic() try the panic_force_cpu= redirect
-before claiming panic_cpu.  panic_try_force_cpu() needs to print the
-message but it is used also by panic() which accepts variable argument
-list.  The string could be formatted only when a CPU gets assigned to
-process the redirection.  Otherwise, there might be a race when writing
-to the `panic_force_buf`.
+fallocate without these flags only preallocates blocks and stays
+allowed.
 
-No current caller passes a string with format specifiers.  The closest one
-is hpwdt_pretimeout(), which builds panic_msg with hex_byte_pack() and has
-only two variants, both plain strings.  But the new __printf() annotation
-on nmi_panic() would warn with -Wformat-security there because the buffer
-is passed directly as the format argument, so switch it to nmi_panic(regs,
-"%s", panic_msg).
+f2fs_vm_page_mkwrite() cannot take inode_lock, so check the flag under
+invalidate_lock, and hold invalidate_lock in
+f2fs_ioc_start_atomic_write() from the flush until the flag is set.
+Otherwise a fault could check the flag, then start_atomic_write could
+flush and set the flag, and the fault would dirty the folio afterwards.
 
-[pmladek@suse.com: changelog fix]
-	Link: https://lore.kernel.org/arJxFybmtD7OBIcL@pathway.suse.cz
-Link: https://lore.kernel.org/20260916182957.7788-5-brads@mainlining.org
-Signed-off-by: Bradley Morgan <brads@mainlining.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Suggested-by: Petr Mladek <pmladek@suse.com>
-Reviewed-by: Petr Mladek <pmladek@suse.com>
-Cc: Guenetr Roeck <linux@roeck-us.net>
-Cc: Sashiko <sashiko-bot@kernel.org>
-Cc: Wang Jinchao <wangjinchao600@gmail.com>
-Cc: Wim Van Sebroeck <wim@linux-watchdog.org>
-Cc: <stable@vger.kernel.org>
+Cc: stable@kernel.org
+Fixes: 3db1de0e582c ("f2fs: change the current atomic write way")
+Signed-off-by: Daeho Jeong <daehojeong@google.com>
+Reviewed-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
 ---
- drivers/watchdog/hpwdt.c |  2 +-
- include/linux/panic.h    |  3 ++-
- kernel/panic.c           | 10 ++++++++--
- 3 files changed, 11 insertions(+), 4 deletions(-)
+ fs/f2fs/file.c | 20 ++++++++++++++++++--
+ 1 file changed, 18 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/watchdog/hpwdt.c b/drivers/watchdog/hpwdt.c
-index 8af1fad2de0bd..78227d200afe4 100644
---- a/drivers/watchdog/hpwdt.c
-+++ b/drivers/watchdog/hpwdt.c
-@@ -199,7 +199,7 @@ static int hpwdt_pretimeout(unsigned int ulReason, struct pt_regs *regs)
- 	}
+diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
+index d4d859dbef880..58599ab4937de 100644
+--- a/fs/f2fs/file.c
++++ b/fs/f2fs/file.c
+@@ -188,6 +188,17 @@ static vm_fault_t f2fs_vm_page_mkwrite(struct vm_fault *vmf)
+ 	file_update_time(vmf->vma->vm_file);
+ 	filemap_invalidate_lock_shared(inode->i_mapping);
  
- 	hex_byte_pack(panic_msg, nmistat);
--	nmi_panic(regs, panic_msg);
-+	nmi_panic(regs, "%s", panic_msg);
- 
- 	return NMI_HANDLED;
- }
-diff --git a/include/linux/panic.h b/include/linux/panic.h
-index 98dd7dfd27de7..17e61b61c45f8 100644
---- a/include/linux/panic.h
-+++ b/include/linux/panic.h
-@@ -13,7 +13,8 @@ __printf(1, 2)
- void panic(const char *fmt, ...) __noreturn __cold;
- __printf(1, 0)
- void vpanic(const char *fmt, va_list args) __noreturn __cold;
--void nmi_panic(struct pt_regs *regs, const char *msg);
-+__printf(2, 3)
-+void nmi_panic(struct pt_regs *regs, const char *fmt, ...);
- void check_panic_on_warn(const char *origin);
- extern void oops_enter(void);
- extern void oops_exit(void);
-diff --git a/kernel/panic.c b/kernel/panic.c
-index 7388eb81a1c47..e240ca06faab2 100644
---- a/kernel/panic.c
-+++ b/kernel/panic.c
-@@ -518,13 +518,19 @@ EXPORT_SYMBOL(panic_on_other_cpu);
-  * nmi_panic_self_stop() which can provide architecture dependent code such
-  * as saving register state for crash dump.
-  */
--void nmi_panic(struct pt_regs *regs, const char *msg)
-+void nmi_panic(struct pt_regs *regs, const char *fmt, ...)
- {
-+	va_list args;
++	/*
++	 * mmap stores bypass the COW inode and would break atomicity. Check
++	 * under invalidate_lock: f2fs_ioc_start_atomic_write() holds it while
++	 * flushing dirty folios and setting FI_ATOMIC_FILE, so either it sees
++	 * our dirty folio and writes it back, or we see the flag.
++	 */
++	if (unlikely(f2fs_is_atomic_file(inode))) {
++		err = -EOPNOTSUPP;
++		goto out_sem;
++	}
 +
-+	va_start(args, fmt);
-+
- 	if (panic_try_start())
--		panic("%s", msg);
-+		vpanic(fmt, args);
+ 	folio_lock(folio);
+ 	/*
+ 	 * A concurrent buffered write can extend isize, so we store isize in a
+@@ -2113,9 +2124,11 @@ static long f2fs_fallocate(struct file *file, int mode,
  
- 	if (panic_on_other_cpu())
- 		nmi_panic_self_stop(regs);
-+
-+	va_end(args);
- }
- EXPORT_SYMBOL(nmi_panic);
+ 	/*
+ 	 * Pinned file should not support partial truncation since the block
+-	 * can be used by applications.
++	 * can be used by applications. Atomic files should not either, since
++	 * these modify the original inode directly and break atomicity.
+ 	 */
+-	if ((f2fs_compressed_file(inode) || f2fs_is_pinned_file(inode)) &&
++	if ((f2fs_compressed_file(inode) || f2fs_is_pinned_file(inode) ||
++	     f2fs_is_atomic_file(inode)) &&
+ 		(mode & (FALLOC_FL_PUNCH_HOLE | FALLOC_FL_COLLAPSE_RANGE |
+ 			FALLOC_FL_ZERO_RANGE | FALLOC_FL_INSERT_RANGE))) {
+ 		ret = -EOPNOTSUPP;
+@@ -2403,6 +2416,8 @@ static int f2fs_ioc_start_atomic_write(struct file *filp, bool truncate)
  
+ 	f2fs_down_write(&fi->i_gc_rwsem[WRITE]);
+ 	f2fs_down_write(&fi->i_gc_rwsem[READ]);
++	/* serialize with f2fs_vm_page_mkwrite(), see the comment there */
++	filemap_invalidate_lock(inode->i_mapping);
+ 
+ 	/*
+ 	 * Should wait end_io to count F2FS_WB_CP_DATA correctly by
+@@ -2458,6 +2473,7 @@ static int f2fs_ioc_start_atomic_write(struct file *filp, bool truncate)
+ 	f2fs_i_size_write(fi->cow_inode, isize);
+ 
+ out_unlock:
++	filemap_invalidate_unlock(inode->i_mapping);
+ 	f2fs_up_write(&fi->i_gc_rwsem[READ]);
+ 	f2fs_up_write(&fi->i_gc_rwsem[WRITE]);
+ 	if (ret)
 -- 
 2.53.0
 
