@@ -1,57 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047549;
-	b=L3z6uv5W586ps0a/YPMaJaC/2WmfCwqMdWkVuRJTdLFOXcmXT5hC/6OPJ08F/T4Ohv9R
-	 me0sJ3/1arV4CeBBzIHhOPO8DLjVAY20YckICh4QBjxRBJmuAF8arJlxJlckxMOfuqWFV
-	 AUXate8OgYge77WbTXfichjmnqWp3z3J4tmDYCu9ha/TPR5Ayu1oqiv8Ir0zhcQHUhQTc
-	 Zw092dAULSGQJoShuDIHY3tGREZjRm8JNJR0SAA/53AE5oriFVdQeBXAsNn9t5tMgy7y7
-	 wLjI0b39gNhPHjZaOmfDeJswX/TFTMtlSv97Fgne/w0VQmTxI2GUxe9efeNNQRmcKHw==
+	t=1794047551;
+	b=QZ8Z2G1e7yvTLX+Zmyv6i4oIIinVStoydIGKNyWFCaHU7yWkjTQXSt46NZsL/tAw3R/S
+	 5NcpyoHAG9V95Ne89aNc7DzM5tXw5PBCFrTnsBGl4L8VuM1/HuQfhwhpo/wsIZ10AFZ+d
+	 fqI5BY7YoaWvCji9PNEECabXQOrqW76mjblEtagttok9ZuuFgqWHawGKGj9tj00p7vRhK
+	 6AarN5HuXgDOO9uglWWRu8JNnK1JQlgHr+oldEB5pIjygMoFA21iDr1tNEV7WIj7RvQfG
+	 1CzkbuWiY8fSwRh6piL5Zr8bT7/OyHRQgLQEj0klw55SBh+9ne8Ro9K13mx1aW/7GEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047549;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047551;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=h/w3CtOPlI7L8uPwwCMwqxA+WvwenLh/8BZKVja6yTQ=;
-	b=ojoWb0/Dg3C+LZdsccMhAQIxBWnJQxrCBxiJPje2LILk3HnugzYcUNgv/aK8jIAwhA2Y
-	 YZmM/OmpfSPAyY/k+iAsfUMqWNcgM/MlndYZY6g7L4+U1TukxuM2D/JEV64TpcOjY3wVj
-	 nZoFQF3ENo0FtWxyvN1gikjtZ+EFBtbmXc/X0Bn5AFTjWsOqMI5BXE39n7kvxWPN3gJV0
-	 pfTWwZenuzuRqIQFLt/XpkKCcSa7oJB7Ok+pOU2xwowOVW1mUHQizOzLmKO6TsY4pcHI0
-	 SSOcsScVYzJYhDGKph5buYL83/nvj+zA0xJy8gQ04Vo3Ktn/McjxIZ/yN4N6BYfQoFw==
+	bh=Vda/UAlo6Nh0jWVyarOhRn3uYL3r089vPRKwYnVojZg=;
+	b=nNJdSDdYtWVSueJL7WbfUdhitWhKZJLy79yuYGFtMEMYbr4dbgE1zndUEXxDLssU3T+Q
+	 HCl375lvvsj56oFnL6w+KxWXNgYJiYAC2BW9ColjYTq4m9UjFc8MFvFD3uDk+B/FNCQ6v
+	 DJ9OPjtU4hjfLiSoyNeAFbb4UYuaKgEi6vek38Fl0DVwBK7Fin7+bnV0YtJ9Y+PD7MzSN
+	 zUPL7GEgz7KBa/gbl5q3Pm5Q2ygWUI3fDAaUwXezE61ZEsG7CjCqLe+YGt2nk3/Cq82Z3
+	 2oCe1XRAxQVP4MmXc2RnQZONkAVeEdfxgSN0fEvNDfaSeQh3GR7eIqgGVvWTgO97DQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hc2Fu6dR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SUZLKdvg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2623606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:32:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 232D1606A32F
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:32:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hc2Fu6dR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D09C31F0089F;
-	Sat,  7 Nov 2026 10:32:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SUZLKdvg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A0171F0089F;
+	Sat,  7 Nov 2026 10:32:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047548;
-	bh=h/w3CtOPlI7L8uPwwCMwqxA+WvwenLh/8BZKVja6yTQ=;
+	s=k20260515; t=1794047551;
+	bh=Vda/UAlo6Nh0jWVyarOhRn3uYL3r089vPRKwYnVojZg=;
 	h=From:To:Cc:Subject:Date;
-	b=Hc2Fu6dRk+EiAegpgMgazl3v0GkulEDR0CDUQ2UhxFciUTWpZfqq6P0SWcZzCbBiY
-	 SlfcmYB4MDBwEbQy62pRTW8s4y3zimQr5VH/5f8bcDH5z1lEytp/FvorJe1itrWcY2
-	 greoyfyNjJcD0cP3dWAnJLk5mYlMVpQSz1mV61kanRDncWVWHt5jZRsacRWviNIG1l
-	 s9pHD+UPdYDwvkmV0qEqZt94C3U76Nr2d1kDYePN+q4Jk/8b7oz4jCQ6D3L2kNbupq
-	 Rs+zMyuLjcwFG5bSZ8kUAkiJiaVNZsWEyRbFLf6BdxEQQD7DwjUKvHfnnHWSknVysI
-	 EWMquE1hv8eww==
+	b=SUZLKdvg9xVy6dmLc3gb8KagTSqziGWKy3apTgszZzn3f3QH5m8RyoddWq77NZtTm
+	 EQAAKarXcTq1EWatIuIpwmFtSIkIphz9BS05zE/Alvw241eT314HdDh++PVFeDL+7C
+	 NaZfaw2TFxA9ndO7jhSItu6F1Xy1p0E96gDRkpgqhXBi6pwWos6uv6wNvkeiA1yJzm
+	 T5HJFeP6a/OVKETu9rczPNnxhdtT2VcnlFyyi/GWb7WuH6c4L00QyN+62a8CejbQ6q
+	 sEFEvDvju3+kRdRW6SKjOXl3PHXRQAYIp71U7RUqeEPeOAVFmBjd/Jns1M1ikf1lY/
+	 2m2YE/gQ//1pA==
 From: Sasha Levin <sashal@kernel.org>
-To: joseph.qi@linux.alibaba.com,
-	akpm@linux-foundation.org,
-	gechangwei@live.cn,
-	heming.zhao@suse.com,
-	jlbec@evilplan.org,
-	piaojun@huawei.com,
-	junxiao.bi@oracle.com,
-	mark@fasheh.com
+To: mhun512@gmail.com,
+	ae878000@gmail.com,
+	nbd@nbd.name
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ocfs2: restrict OCFS2_INVALID_SLOT suballoc slot to system inodes" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:32:26 -0500
-Message-ID: <20261107053226-failed-6.6-25bf9e549360@kernel.org>
+Subject: FAILED: patch "[PATCH] wifi: mt76: mt7615: restore DBDC state after ext PHY failure" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:32:29 -0500
+Message-ID: <20261107053229-failed-6.6-7907d5270dc5@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -74,153 +69,86 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 25bf9e549360b656a6763232e0e9e58a00c3aff7
+git cherry-pick -x 7907d5270dc5c13b6a95754c08a77d5b06bbc786
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053226-failed-6.6-25bf9e549360@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053229-failed-6.6-7907d5270dc5@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 25bf9e549360b656a6763232e0e9e58a00c3aff7 Mon Sep 17 00:00:00 2001
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-Date: Tue, 1 Sep 2026 20:52:18 +0800
-Subject: [PATCH] ocfs2: restrict OCFS2_INVALID_SLOT suballoc slot to system
- inodes
+From 7907d5270dc5c13b6a95754c08a77d5b06bbc786 Mon Sep 17 00:00:00 2001
+From: Myeonghun Pak <mhun512@gmail.com>
+Date: Thu, 10 Sep 2026 17:54:41 -0400
+Subject: [PATCH] wifi: mt76: mt7615: restore DBDC state after ext PHY failure
 
-Patch series "ocfs2: validate suballoc slot and bit of metadata blocks", v3.
+mt7615_register_ext_phy() limits the primary PHY to DBDC capabilities
+before allocating and registering the secondary PHY. If allocation,
+EEPROM override, or PHY registration fails, it returns without restoring
+the primary PHY capabilities. The EEPROM override failure also leaks the
+newly allocated ieee80211_hw.
 
-The ocfs2 metadata validators trust the on-disk suballoc slot and bit
-without checking them against the slot range of the mounted filesystem and
-the capacity of the block group bitmap.  A corrupted image can carry
-OCFS2_INVALID_SLOT or another out-of-range slot, or a suballoc bit beyond
-the bitmap, and once the corresponding inode, extent block, xattr block,
-dir index root or refcount block gets freed, the bad value goes straight
-into ocfs2_get_system_file_inode() or _ocfs2_free_suballoc_bits() and hits
-a BUG_ON() or runs off the end of local_system_inodes[].
+Route all failures through common labels that free the secondary hardware
+when it was allocated and restore the primary PHY capabilities.
 
-This series rejects such values at read time, in the existing validators,
-so corrupted objects fail with -EROFS (and a read-only remount) instead of
-crashing:
+This issue was identified during our ongoing static-analysis research while
+reviewing kernel code.
 
-  patch 1 restricts OCFS2_INVALID_SLOT dinodes to system inodes,
-        completing fe7a283b3916 ("ocfs2: add suballoc slot check in
-        ocfs2_validate_inode_block()"), and turns the "system file
-        state is ambiguous" BUG_ON() in ocfs2_read_locked_inode() into
-        an ocfs2_error();
-  patch 2 rejects oversized dinode suballoc bits;
-  patch 3 validates the suballoc slot and bit of xattr and dir index
-        blocks;
-  patch 4 validates the suballoc slot and bit of extent and refcount
-        blocks.
-
-The checks only enforce what the kernel and mkfs.ocfs2 already write: a
-valid slot from meta_ac->ac_alloc_slot and a bit within the block group
-bitmap, with system inodes carrying OCFS2_INVALID_SLOT plus
-OCFS2_SYSTEM_FL and extent blocks using slot 0.  Nothing changes for
-healthy filesystems.
-
-Each new check was exercised under QEMU by corrupting the field in
-question with an out-of-range value; with the series applied the access
-fails with -EROFS and the filesystem remounts read-only instead of hitting
-the BUG_ON().
-
-
-This patch (of 4):
-
-ocfs2_validate_inode_block() currently permits i_suballoc_slot to be
-OCFS2_INVALID_SLOT for any dinode.  Only system inodes created by
-mkfs.ocfs2 are allocated from the global allocator and thus legitimately
-carry this value; regular inodes are always allocated from a per-slot
-suballocator and hence must have a valid slot.
-
-If a corrupted regular inode with OCFS2_INVALID_SLOT is accepted,
-ocfs2_remove_inode() will pass the slot to ocfs2_get_system_file_inode()
-and get_local_system_inode() will hit BUG_ON(slot == OCFS2_INVALID_SLOT)
-when the inode is deleted.  This can be triggered by an unprivileged user
-unlinking such a corrupted file.
-
-Reject OCFS2_INVALID_SLOT for non-system dinodes during validation, while
-still accepting it for system inodes.  Note that a crafted dinode carrying
-OCFS2_SYSTEM_FL passes the check above, yet a plain lookup of it still
-used to BUG() in ocfs2_read_locked_inode() ("system file state is
-ambiguous").  Since i_flags comes from disk, handle that mismatch with
-ocfs2_error() instead of BUG_ON() as well.
-
-Link: https://lore.kernel.org/20260901125221.1634686-1-joseph.qi@linux.alibaba.com
-Link: https://lore.kernel.org/20260901125221.1634686-2-joseph.qi@linux.alibaba.com
-Fixes: fe7a283b3916 ("ocfs2: add suballoc slot check in ocfs2_validate_inode_block()")
-Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: Changwei Ge <gechangwei@live.cn>
-Cc: Heming Zhao <heming.zhao@suse.com>
-Cc: Joel Becker <jlbec@evilplan.org>
-Cc: Jun Piao <piaojun@huawei.com>
-Cc: Junxiao Bi <junxiao.bi@oracle.com>
-Cc: Mark Fasheh <mark@fasheh.com>
-Cc: <stable@vger.kernel.org>
+Fixes: 0f2173f093b3 ("mt76: mt7615: add support for registering a second wiphy via debugfs")
+Cc: stable@vger.kernel.org
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Link: https://patch.msgid.link/20260910215441.76683-1-mhun512@gmail.com
+Signed-off-by: Felix Fietkau <nbd@nbd.name>
 ---
- fs/ocfs2/inode.c | 37 ++++++++++++++++++++++++++++---------
- 1 file changed, 28 insertions(+), 9 deletions(-)
+ .../net/wireless/mediatek/mt76/mt7615/init.c    | 17 +++++++++++++----
+ 1 file changed, 13 insertions(+), 4 deletions(-)
 
-diff --git a/fs/ocfs2/inode.c b/fs/ocfs2/inode.c
-index 180107a11046c..9228d6ef23c24 100644
---- a/fs/ocfs2/inode.c
-+++ b/fs/ocfs2/inode.c
-@@ -638,14 +638,18 @@ static int ocfs2_read_locked_inode(struct inode *inode,
- 	fe = (struct ocfs2_dinode *) bh->b_data;
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7615/init.c b/drivers/net/wireless/mediatek/mt76/mt7615/init.c
+index e437e088b2e91..665b0f1e939f1 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7615/init.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7615/init.c
+@@ -541,8 +541,10 @@ int mt7615_register_ext_phy(struct mt7615_dev *dev)
  
- 	/*
--	 * This is a code bug. Right now the caller needs to
--	 * understand whether it is asking for a system file inode or
--	 * not so the proper lock names can be built.
-+	 * The caller must know whether it is asking for a system file inode
-+	 * or not so the proper lock names can be built.  Since i_flags comes
-+	 * from disk, a mismatch is filesystem corruption instead of a code
-+	 * bug, so handle it with ocfs2_error() rather than BUG_ON().
- 	 */
--	mlog_bug_on_msg(!!(fe->i_flags & cpu_to_le32(OCFS2_SYSTEM_FL)) !=
--			!!(args->fi_flags & OCFS2_FI_FLAG_SYSFILE),
--			"Inode %llu: system file state is ambiguous\n",
--			(unsigned long long)args->fi_blkno);
-+	if (!!(fe->i_flags & cpu_to_le32(OCFS2_SYSTEM_FL)) !=
-+	    !!(args->fi_flags & OCFS2_FI_FLAG_SYSFILE)) {
-+		status = ocfs2_error(osb->sb,
-+				     "Inode %llu: system file state is ambiguous\n",
-+				     (unsigned long long)args->fi_blkno);
-+		goto bail;
+ 	mt7615_cap_dbdc_enable(dev);
+ 	mphy = mt76_alloc_phy(&dev->mt76, sizeof(*phy), &mt7615_ops, MT_BAND1);
+-	if (!mphy)
+-		return -ENOMEM;
++	if (!mphy) {
++		ret = -ENOMEM;
++		goto error;
 +	}
  
- 	if (S_ISCHR(le16_to_cpu(fe->i_mode)) ||
- 	    S_ISBLK(le16_to_cpu(fe->i_mode)))
-@@ -1520,8 +1524,23 @@ int ocfs2_validate_inode_block(struct super_block *sb,
- 		goto bail;
- 	}
+ 	phy = mphy->priv;
+ 	phy->dev = dev;
+@@ -572,7 +574,7 @@ int mt7615_register_ext_phy(struct mt7615_dev *dev)
  
--	if (le16_to_cpu(di->i_suballoc_slot) != (u16)OCFS2_INVALID_SLOT &&
--	    (u32)le16_to_cpu(di->i_suballoc_slot) > OCFS2_SB(sb)->max_slots - 1) {
-+	/*
-+	 * Only system inodes created by mkfs.ocfs2 are allocated from the
-+	 * global allocator and thus legitimately carry OCFS2_INVALID_SLOT.
-+	 * Regular inodes are always allocated from a per-slot suballocator.
-+	 * If a regular inode with OCFS2_INVALID_SLOT was accepted here,
-+	 * deleting it would pass the slot to get_local_system_inode() via
-+	 * ocfs2_remove_inode() and trigger BUG_ON(slot == OCFS2_INVALID_SLOT).
-+	 */
-+	if (le16_to_cpu(di->i_suballoc_slot) == (u16)OCFS2_INVALID_SLOT) {
-+		if (!(le32_to_cpu(di->i_flags) & OCFS2_SYSTEM_FL)) {
-+			rc = ocfs2_error(sb,
-+					 "Invalid dinode %llu: suballoc slot %u for non-system inode\n",
-+					 (unsigned long long)bh->b_blocknr,
-+					 le16_to_cpu(di->i_suballoc_slot));
-+			goto bail;
-+		}
-+	} else if ((u32)le16_to_cpu(di->i_suballoc_slot) > OCFS2_SB(sb)->max_slots - 1) {
- 		rc = ocfs2_error(sb, "Invalid dinode %llu: suballoc slot %u\n",
- 				 (unsigned long long)bh->b_blocknr,
- 				 le16_to_cpu(di->i_suballoc_slot));
+ 	ret = mt76_eeprom_override(mphy);
+ 	if (ret)
+-		return ret;
++		goto error_free_hw;
+ 
+ 	/* second phy can only handle 5 GHz */
+ 	mphy->cap.has_5ghz = true;
+@@ -590,7 +592,14 @@ int mt7615_register_ext_phy(struct mt7615_dev *dev)
+ 	ret = mt76_register_phy(mphy, true, mt76_rates,
+ 				ARRAY_SIZE(mt76_rates));
+ 	if (ret)
+-		ieee80211_free_hw(mphy->hw);
++		goto error_free_hw;
++
++	return 0;
++
++error_free_hw:
++	ieee80211_free_hw(mphy->hw);
++error:
++	mt7615_cap_dbdc_disable(dev);
+ 
+ 	return ret;
+ }
 -- 
 2.53.0
 
