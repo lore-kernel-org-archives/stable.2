@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794065218;
-	b=iIkHd6mbqTeYNBugNNQXfTSsOAWPTDdvyRgt0XvJddtsI1YB0SK80up36Od1PbBAJAke
-	 ubxmmbEFA8vYvXb6llkEvZoLcmg0+nEbrT9eHr3KLuiY9NSspA5YlR+5qQPz5IXL6YOao
-	 QvGwuNuNo/6RENNLiUyc34wNfVNSbJLOK1/hXfeZ5WJ/KOZJJPjcNri56Ax2Jv+dxQM3p
-	 89sjlL5yletH7Poc6u+91ojHPja45jg2og36efiALVnIDZG19HwJGfglWvoQjbiCu63s1
-	 1Gm0gcupD5/bLNrpyOpzuymjzEg4IZ28xBOnGmdjAsecPEoAlWSOLXYqr7hjbcR1qXQ==
+	t=1794065219;
+	b=Zt4h/or4e/i4JryslP8UaRRQgPhRVUYIQJLEqrlrHEX2E40iRS5DNfnsXDIF8yRejCka
+	 DZesaf+lo/RyFgRwJYV5Diei789sFpFzI/NUH+1fuYANrAPFMmHT0HxXmqkjCXzrHQXaL
+	 bjPgr8oWx4fWeIrSxr0nOZOaojpsjtBjnx3OvMc+imgnDUNN1YW4Q5mu8hmKPHhFJaCFT
+	 1ZkPVFW9yjNRbDOrhyv+DaCSafZsLBGEz5H0m5IQMRZve8c8C7zLmuILQLTSJDA5c/GFH
+	 c1gofsdA9nX+JzW4fA/PIqjLhyMdw8PIV+VJd5cBb+K1MdnURUz96U1E/zwUVa73GIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794065218;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794065219;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=QGazwSKHCs71ooC4udure0TdZgHO2BSgOWYI7wKNX5Q=;
-	b=LvFeafhOStallEgUmxq8GUhLNNbOt3pYYaRI8bAXXydITqusGrcY9KD/b2SvZ2kbiL4R
-	 Lq92A3sVGgKFoTVQPLZvbHJ/3phk7NGKyfwFfEkXrX4tpRr3i0WOdnO4Dx/yRBWpFZawM
-	 CdMHUCCzMc51zZfh2qijjb0yEQrrxuYKkSP2RRc4wbfwap+HO/62OQqxsrb8nLRWDTBWK
-	 ywSTCZ/AbV997nROCDcBCeU0wbTr+wBZdU5mRy957o9wMm9NfG99YCFd18hxNov1ZitkQ
-	 A9XAZx4l5YlbAkUz/NZGo/GIyw4HKzOkvBP7CVobiDebSOj16To0NlSp8dTNF8ApYmw==
+	bh=RFgpxMYf9Q/H6x2agZQzmrPTOo8Ys6OveuEK1MTDXdw=;
+	b=I1j4iZRgx+7GWTz71Iu3I/Ul7ryC7PDkgF6U7Blyr8envaJMFJs0b5RjZ0UdfmUe8ILy
+	 03wfysrW25qXI+ONA+X4rdKMJgr12qT7Nac4oc/Kax3J04C2W2aM5n9nSu8r8nQztY3jk
+	 7eU+qd479CKsU3gYiQY0L52IUN+YyFrfyl0PVVnoDaWhDIYm/4LbbgokWqFBJtPe+Q5m7
+	 EBizUGg+Wcqg0KPpPEuEXGWy2y53XjvlqrT2z4CJsFSwj/gcktEqKAjZ9gcxJjprOQtbV
+	 9teAzNc2xXyBhpSapVTP1HkoxYwKl6aKK860fcP92DrfINFrYkVl+ZWRNCZy4lT3k2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=KQ9BdLnd;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Ke48Jd2J;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC054606A33F;
-	Sat,  7 Nov 2026 15:26:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39112606D801;
+	Sat,  7 Nov 2026 15:26:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=KQ9BdLnd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5901C1F0089F;
-	Sat,  7 Nov 2026 15:26:57 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Ke48Jd2J
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BF231F0089F;
+	Sat,  7 Nov 2026 15:26:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794065217;
-	bh=QGazwSKHCs71ooC4udure0TdZgHO2BSgOWYI7wKNX5Q=;
+	s=korg; t=1794065218;
+	bh=RFgpxMYf9Q/H6x2agZQzmrPTOo8Ys6OveuEK1MTDXdw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KQ9BdLnd6ZkIyiM1TWugbk+W0+cOJglexaubUeOQFjRvx8S9mqqpAunzsIuCaCjjF
-	 cqLx3ibiCmeWXVMMcAtbH1IQCLRl3yY6cCBRK7fSUPo/wpXt/nmRQjb1PcVnF5tZvs
-	 geyRDRzI5OHcmKh8ibj/GsBULPnugjXOtceRlVCc=
+	b=Ke48Jd2JZv7xd5Mrpsm0xAVPGipq72xJQUusLXUrT3AEoc2tVTYOYFwdvdncvAYxZ
+	 5VmYZXwbOdg2q1Ev9Y0aNeGDa2nceUiyx4YPrVU9AsvI4rWr8D/JP3y1Y5YlcUm61G
+	 1Il1ObeTkK0D9KXnw32/mKJ9Pkoo9XY8ij3TDh2g=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Daehyeon Ko <4ncienth@gmail.com>,
-	Naman Jain <namjain@linux.microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>,
+	Qingfang Deng <qingfang.deng@linux.dev>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 1011/1257] mshv_vtl: reject poll files with multiple waitqueues
-Date: Sat,  7 Nov 2026 08:55:07 -0500
-Message-ID: <20261107135007.260213851@linuxfoundation.org>
+Subject: [PATCH 7.3 1012/1257] pppoe: delete session hash entries by pointer match
+Date: Sat,  7 Nov 2026 08:55:08 -0500
+Message-ID: <20261107135007.288686921@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261107134939.434104957@linuxfoundation.org>
 References: <20261107134939.434104957@linuxfoundation.org>
@@ -69,108 +68,103 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Daehyeon Ko <4ncienth@gmail.com>
+From: Qingfang Deng <qingfang.deng@linux.dev>
 
-[ Upstream commit 70cd4623f3e5068a72c72791b96f2dcb4c991131 ]
+[ Upstream commit b5b8c81836e2bec7b444dfa2b14fd14e912e9d63 ]
 
-MSHV_SET_POLL_FILE invokes a file descriptor poll callback with a poll
-table backed by a single embedded wait entry. A poll callback may,
-however, register the table with more than one waitqueue. pipe_poll()
-does this naturally for an O_RDWR FIFO.
+pppoe_connect() copies the requested PPPoE address to a socket before
+attempting to insert the socket into the session hash table. If the
+tuple already exists, __set_item() returns -EALREADY, but the copied
+address and ifindex remain set on the failed socket.
 
-The second registration currently warns but then inserts the same list
-node into another list. The new insertion overwrites the entry links while
-the first waitqueue still points at it, corrupting the first waitqueue and
-causing an invalid callback traversal when that queue wakes.
+Closing that socket then deletes the existing socket's hash entry
+through pppoe_release(), preventing it from receiving further session
+traffic. An unprivileged process in the same network namespace can
+trigger this through a duplicate connection attempt.
 
-Reject a second distinct waitqueue, remove the first registration through
-the common removal helper, and return -EINVAL from the ioctl. Repeated
-registration of the same waitqueue is treated as a no-op. A rejected
-replacement leaves the CPU slot unregistered, consistent with the existing
-remove-before-register ordering. Single-waitqueue users such as the OpenHCL
-io_uring poll file keep their existing behavior.
+To avoid the accidental delete, pass the pppox_sock to __delete_item(),
+and unlink only an entry whose pointer matches the requested socket.
 
-An LLM assisted the source audit, fix development, and validation of this
-issue.
-
-Fixes: 7bfe3b8ea6e3 ("Drivers: hv: Introduce mshv_vtl driver")
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
-Reviewed-by: Naman Jain <namjain@linux.microsoft.com>
-Signed-off-by: Wei Liu <wei.liu@kernel.org>
+Signed-off-by: Qingfang Deng <qingfang.deng@linux.dev>
+Link: https://patch.msgid.link/20261020092118.47416-1-qingfang.deng@linux.dev
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hv/mshv_vtl_main.c | 23 +++++++++++++++++++++--
- 1 file changed, 21 insertions(+), 2 deletions(-)
+ drivers/net/ppp/pppoe.c | 22 ++++++++--------------
+ 1 file changed, 8 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/hv/mshv_vtl_main.c b/drivers/hv/mshv_vtl_main.c
-index c6f1e2157d258..9133646b5b66c 100644
---- a/drivers/hv/mshv_vtl_main.c
-+++ b/drivers/hv/mshv_vtl_main.c
-@@ -73,6 +73,7 @@ struct mshv_vtl_poll_file {
- 	wait_queue_entry_t wait;
- 	wait_queue_head_t *wqh;
- 	poll_table pt;
-+	int error;
- 	int cpu;
- };
+diff --git a/drivers/net/ppp/pppoe.c b/drivers/net/ppp/pppoe.c
+index bf7414b46a260..ee0e318d6a2a4 100644
+--- a/drivers/net/ppp/pppoe.c
++++ b/drivers/net/ppp/pppoe.c
+@@ -194,18 +194,16 @@ static int __set_item(struct pppoe_net *pn, struct pppox_sock *po)
+ 	return 0;
+ }
  
-@@ -482,7 +483,18 @@ static void mshv_vtl_ptable_queue_proc(struct file *file, wait_queue_head_t *wqh
+-static void __delete_item(struct pppoe_net *pn, __be16 sid,
+-					char *addr, int ifindex)
++static void __delete_item(struct pppoe_net *pn, const struct pppox_sock *po)
  {
- 	struct mshv_vtl_poll_file *poll_file = container_of(pt, struct mshv_vtl_poll_file, pt);
+-	int hash = hash_item(sid, addr);
++	int hash = hash_item(po->pppoe_pa.sid, po->pppoe_pa.remote);
+ 	struct pppox_sock *ret, __rcu **src;
  
--	WARN_ON(poll_file->wqh);
-+	if (poll_file->error)
-+		return;
-+
-+	if (poll_file->wqh) {
-+		if (poll_file->wqh == wqh)
-+			return;
-+
-+		mshv_vtl_poll_file_remove_wait_queue(poll_file);
-+		poll_file->error = -EINVAL;
-+		return;
-+	}
-+
- 	poll_file->wqh = wqh;
- 	add_wait_queue(wqh, &poll_file->wait);
- }
-@@ -492,6 +504,7 @@ static int mshv_vtl_ioctl_set_poll_file(struct mshv_vtl_set_poll_file __user *us
- 	struct file *file, *old_file;
- 	struct mshv_vtl_poll_file *poll_file;
- 	struct mshv_vtl_set_poll_file input;
-+	int ret;
+ 	ret = rcu_dereference_protected(pn->hash_table[hash], lockdep_is_held(&pn->hash_lock));
+ 	src = &pn->hash_table[hash];
  
- 	if (copy_from_user(&input, user_input, sizeof(input)))
- 		return -EFAULT;
-@@ -518,6 +531,7 @@ static int mshv_vtl_ioctl_set_poll_file(struct mshv_vtl_set_poll_file __user *us
+ 	while (ret) {
+-		if (cmp_addr(&ret->pppoe_pa, sid, addr) &&
+-		    ret->pppoe_ifindex == ifindex) {
++		if (ret == po) {
+ 			struct pppox_sock *next;
  
- 	old_file = poll_file->file;
- 	poll_file->file = file;
-+	poll_file->error = 0;
- 	poll_file->cpu = input.cpu;
- 
- 	if (file) {
-@@ -525,13 +539,18 @@ static int mshv_vtl_ioctl_set_poll_file(struct mshv_vtl_set_poll_file __user *us
- 		init_poll_funcptr(&poll_file->pt, mshv_vtl_ptable_queue_proc);
- 		vfs_poll(file, &poll_file->pt);
- 	}
-+	ret = poll_file->error;
-+	if (ret)
-+		poll_file->file = NULL;
- 
- 	mutex_unlock(&mshv_vtl_poll_file_lock);
- 
- 	if (old_file)
- 		fput(old_file);
-+	if (ret)
-+		fput(file);
- 
--	return 0;
-+	return ret;
+ 			next = rcu_dereference_protected(ret->next,
+@@ -236,11 +234,10 @@ static inline struct pppox_sock *get_item(struct pppoe_net *pn, __be16 sid,
+ 	return po;
  }
  
- /* Static table mapping register names to their corresponding actions */
+-static inline void delete_item(struct pppoe_net *pn, __be16 sid,
+-					char *addr, int ifindex)
++static void delete_item(struct pppoe_net *pn, const struct pppox_sock *po)
+ {
+ 	spin_lock(&pn->hash_lock);
+-	__delete_item(pn, sid, addr, ifindex);
++	__delete_item(pn, po);
+ 	spin_unlock(&pn->hash_lock);
+ }
+ 
+@@ -570,8 +567,7 @@ static int pppoe_release(struct socket *sock)
+ 	 * protect "po" from concurrent updates
+ 	 * on pppoe_flush_dev
+ 	 */
+-	delete_item(pn, po->pppoe_pa.sid, po->pppoe_pa.remote,
+-		    po->pppoe_ifindex);
++	delete_item(pn, po);
+ 
+ 	sock_orphan(sk);
+ 	sock->sk = NULL;
+@@ -621,8 +617,7 @@ static int pppoe_connect(struct socket *sock, struct sockaddr_unsized *uservaddr
+ 	if (stage_session(po->pppoe_pa.sid)) {
+ 		pppox_unbind_sock(sk);
+ 		pn = pppoe_pernet(sock_net(sk));
+-		delete_item(pn, po->pppoe_pa.sid,
+-			    po->pppoe_pa.remote, po->pppoe_ifindex);
++		delete_item(pn, po);
+ 		if (po->pppoe_dev) {
+ 			dev_put(po->pppoe_dev);
+ 			po->pppoe_dev = NULL;
+@@ -672,8 +667,7 @@ static int pppoe_connect(struct socket *sock, struct sockaddr_unsized *uservaddr
+ 
+ 		error = ppp_register_net_channel(dev_net(dev), &po->chan);
+ 		if (error) {
+-			delete_item(pn, po->pppoe_pa.sid,
+-				    po->pppoe_pa.remote, po->pppoe_ifindex);
++			delete_item(pn, po);
+ 			goto err_put;
+ 		}
+ 
 -- 
 2.53.0
 
