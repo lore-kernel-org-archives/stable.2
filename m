@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794045848;
-	b=Oie9V6YmSLPW03VI1H4Wl8hIt1MYYMyyZOLhQetFiLVtvN7PHjGqwtK4cAzhvKTYof0q
-	 sWYgGJFuiwHdNYCT61/Dqj7haq6D7MPT4f8UXHvm9ug/9wswrs1H6OO8J3+rSr+RSfTcF
-	 Z4P+jL267gNJkY/gL5oZQoducelVVTGYuaLCFIwGqKiAg+5GtwEHk04Zt1jsxAmPe8Jpz
-	 PaeEYatVaGAXgx9TNyzULZi71pepLRzVOFcS6vaNHq5XEfIp4XGb+qbVYDP1PfVlJfV9/
-	 UwBMLCV8vcgqtcOzmVbLzb331z/1lIhxZoOWvMoV6OvXJIlvjdnSIOjkdRVrs8svbRw==
+	t=1794045850;
+	b=e11LswJy451lBFc3ry7ieWTMeG9b66mhrT/sWQyXEcFhycKt3oV6wYr2oyVAeImfi2Rx
+	 jCpZwf2TMZ+4wkze1cuHlBY3a3xAurZnR6SmGZHSv7JiesGbD+V9NqnGKH9bz1Ssu7lOr
+	 HlW7idwrx09qT21hEitNuyW96sQr8cPf6R955MWHkLu6dmIGvhdDdqCMIauWBHWOMqdJ3
+	 HRkB9GNmRF7ckOtiLpw9vu5abPqI2qLOqHGhxbXORaAA94x101SgE/nXRyaiLeiR8zNsN
+	 NGGfEeM7lv32ldzkF4S5dKPPhgOGEDB1JnF+u7O3jAzVpOva5NLvv0nILi3cya9Gy9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794045848;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794045850;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=q1B06p3fr3W3yPp1C3GEziSCx0JC5et1AB7QdBlcF/U=;
-	b=xN2KVvBQTXTRSHZlFBu219aM2gpfCNiHbK0FSiJr42uFyfDzQYrmV+/tgltYE4pKFBpc
-	 y8whkElmXyv6muykHsPDh6FK//jmneO2lJug2/gXOw687wG9m3FJlaNVcqb+bsYDhV5I8
-	 G/01BVS+qKwrz1iNb2tYkMC4rK1VjeVGQ9BOoNivWhiimWOuIf7nI+C6zmes11aotEs8s
-	 sXPjKolquDEza8RJsP3g7tvnSX+R+TuQXen2UHNUZGBh3ycz3cuX72h7ijjYJBJLW53rU
-	 8ZKVRcOX4DEYqnyNC6a5lXF5X7J3fmdf7oWR/mFd6rhMdzEgi0VFjt1vVKezrKjoCgw==
+	bh=Rl/FWPZrVIS4/B2wt9tqRmy29PkC98amqcpjsQmS4oU=;
+	b=agNsenX7BqIwrl4i295Wn5Z0URAhkZsxhjO3I01muSCSp7jE3unlhJ3JwVSXvx1GShYg
+	 un6c4A40/e4OYtCFKNlFprgKatbjGwajLAjgmaBS18WxOzwL2jO9Rrrj3nDoUZKxJGiQ6
+	 OosOcpWziEGlwcoT8Gx7X+4gkxxaqToyJaE2eEamcDb3P36BjUmho94OIYN8I6vQNxwbC
+	 9TKuk80I0J4pV7eYjx7My9mCpdxNU8bfbOjwMClR4ZkcfgaVaoMlaHbJ25AHmPdWB5YGA
+	 2Q+f5el+/6oJxUG5jhFND7IgFqppYIRU3Jr3mi9fiEQdET594t4Gm9rJ06sHkH6c32g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QctwrQPN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cECYOsXn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 124A6606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:04:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41BFC606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:04:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QctwrQPN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5664B1F0089F;
-	Sat,  7 Nov 2026 10:04:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cECYOsXn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C9661F0089F;
+	Sat,  7 Nov 2026 10:04:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794045847;
-	bh=q1B06p3fr3W3yPp1C3GEziSCx0JC5et1AB7QdBlcF/U=;
+	s=k20260515; t=1794045850;
+	bh=Rl/FWPZrVIS4/B2wt9tqRmy29PkC98amqcpjsQmS4oU=;
 	h=From:To:Cc:Subject:Date;
-	b=QctwrQPNBm4QVD0SdWHcJXZt6BhwGp3bsJ6Bca5yzXBSa4pgdI0iHpWDPzMqnmvNs
-	 LGQMC16zPm0wE/mQn6bDPlwnMD0gQArj+QBk9K74xDC1e/3V4LI1Hnx3e96P9tO8er
-	 Zc44wkzcoLgmF+nzykHVllsiM2P1Zh4gx8AFOdD5a9SL5b5id7hvWuSkmmG+P5EjEl
-	 pJaN082RERqWQKY/1VaSXFTtr2G2Lh4bCzuetLdqrxJEtlR6dNulnRZkvC70DLC60i
-	 U4PpB+JQ+1e8u6Qn7PzZSHxflBS/3luod9kgOKquvlnTZx9opnArdn+dydxCjCmjCL
-	 Slj5W14sze29w==
+	b=cECYOsXnI0HJuKGBUsZabd37D7GSFCkhrq2fQFQUB946HmerBs3zXxXSFgTTerT8g
+	 nwK9Kucy2g9Wtt8nWOX9UrHl+lB0x0LbhilA+/lN5msg539YgRNy0P17yABdqKfBXi
+	 hs0DXNF7PDFV5UKoDu5mXOTju+E0fOk9+z3Hbrcqz349LNfyqg4x7SWwO5FHWmUKIq
+	 IirsBHT7nwG675l5AQ316qCCKGQd/q37PC1ieEGpYY/AKfqAo5ymlsfMerwAg+0z2z
+	 6AHip9D7eSe6fjBX77u2NUvmcpcBZbI2k8a4Cr0e0GU+9oPydV5ShIDlFa85wEFpdU
+	 lpyP0x0AmdeZg==
 From: Sasha Levin <sashal@kernel.org>
-To: j@jannau.net,
-	neal@gompa.dev,
-	arend.vanspriel@broadcom.com,
-	johannes.berg@intel.com
+To: rathodpriyank@google.com,
+	bhelgaas@google.com,
+	sathyanarayanan.kuppuswamy@linux.intel.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] wifi: brcmfmac: cfg80211: Report port_authorized for 4-way HS offload" failed to apply to 7.3-stable tree
-Date: Sat,  7 Nov 2026 05:04:06 -0500
-Message-ID: <20261107050406-failed-7.3-6fff9de5c5b4@kernel.org>
+Subject: FAILED: patch "[PATCH] PCI/AER: Fix memory leak in aer_recover_work_func() when pci_dev is missing" failed to apply to 7.3-stable tree
+Date: Sat,  7 Nov 2026 05:04:08 -0500
+Message-ID: <20261107050408-failed-7.3-d4c842c3af5b@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,93 +69,95 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x 6fff9de5c5b425817588eeed42bd56d665751c13
+git cherry-pick -x d4c842c3af5bc52b3ca0b8a7f116114e43b6ba44
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050406-failed-7.3-6fff9de5c5b4@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050408-failed-7.3-d4c842c3af5b@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 6fff9de5c5b425817588eeed42bd56d665751c13 Mon Sep 17 00:00:00 2001
-From: Janne Grunau <j@jannau.net>
-Date: Tue, 15 Sep 2026 21:17:38 +0200
-Subject: [PATCH] wifi: brcmfmac: cfg80211: Report port_authorized for 4-way HS
- offload
+From d4c842c3af5bc52b3ca0b8a7f116114e43b6ba44 Mon Sep 17 00:00:00 2001
+From: Priyank Rathod <rathodpriyank@google.com>
+Date: Mon, 28 Sep 2026 17:40:13 +0000
+Subject: [PATCH] PCI/AER: Fix memory leak in aer_recover_work_func() when
+ pci_dev is missing
 
-Since commit 416386060 ("Mark authorization completed on driver
-indication during 4-way HS offload") [0] wpa_supplicant expects
-NL80211_CMD_PORT_AUTHORIZED to complete the authentication when the
-driver supports 4-way handshake offload.
-This was apparently never tested with the upstream brcmfmac driver as it
-does not report this. This broke authentication on Apple silicon devices
-(BRCM4378, BRMC4387, BRMC4388) and other devices when wpa_supplicant
-2.11 was released [1]. This was initially dealt with by reverting the
-commit in Fedora [2] and other Linux distributions.
-Instead of carrying the revert over to wpa_supplicant 2.12 add the
-expected NL80211_CMD_PORT_AUTHORIZED when the connection is established.
+When ACPI APEI/GHES processes PCIe AER error records, it allocates memory
+for aer_capability_regs (entry.regs) from ghes_estatus_pool and queues the
+entry into aer_recover_ring.
 
-The "Fixes:" tag is not fully accurate as this has only became an issue
-after userspace changes years after the change. Since the change is
-expected to be required in all active stable branches for wpa_supplicant
-2.11 / 2.12 compatibility it is helpful even though
-BRCMF_PROFILE_FWSUP_SAE did not exists then.
+In aer_recover_work_func(), items are popped from aer_recover_ring via
+kfifo_get(). If pci_get_domain_bus_and_slot() fails to find a matching
+pci_dev, the code previously executed 'continue', bypassing the call to
+ghes_estatus_pool_region_free(). As a result, the memory allocated for
+entry.regs from ghes_estatus_pool was leaked.
 
-Link: https://github.com/zephyrproject-rtos/hostap/commit/41638606054a09867fe3f9a2b5523aa4678cbfa5 [0]
-Link: https://lists.infradead.org/pipermail/hostap/2024-August/042893.html [1]
-Link: https://bugzilla.redhat.com/show_bug.cgi?id=2302577 [2]
-Link: https://lore.kernel.org/linux-wireless/20260911065656.1269623-5-Jason.Huang2@infineon.com/ [3]
+This is reachable whenever the device reported by firmware is not (or is no
+longer) present in the PCI device tree, e.g. after hot-removal or when
+firmware reports an error for a device the kernel never enumerated.
+
+Refactor aer_recover_work_func() to ensure ghes_estatus_pool_region_free()
+is called unconditionally for every dequeued entry, releasing the pool
+memory even when pci_dev is missing.
+
+Fixes: e2abc47a5a1a ("ACPI: APEI: Fix AER info corruption when error status data has multiple sections")
+Signed-off-by: Priyank Rathod <rathodpriyank@google.com>
+Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
+Reviewed-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
 Cc: stable@vger.kernel.org
-Fixes: b8a64f0e96c2 ("brcmfmac: support 4-way handshake offloading for WPA/WPA2-PSK")
-Signed-off-by: Janne Grunau <j@jannau.net>
-Reviewed-by: Neal Gompa <neal@gompa.dev>
-Acked-by: Arend van Spriel <arend.vanspriel@broadcom.com>
-Link: https://patch.msgid.link/20260915-brcmfmac-4way-handshake-offload-authenticated-event-v2-1-fbb9cc7ac177@jannau.net
-Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+Link: https://patch.msgid.link/20260928-b4-fix-aer-memleaks-v5-2-ba6b94c9c9a6@google.com
 ---
- .../broadcom/brcm80211/brcmfmac/cfg80211.c    | 20 +++++++++++++++----
- 1 file changed, 16 insertions(+), 4 deletions(-)
+ drivers/pci/pcie/aer.c | 23 ++++++++++++-----------
+ 1 file changed, 12 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-index fc08c5b2d572f..e32b46b7cbe25 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c
-@@ -6588,6 +6588,21 @@ brcmf_bss_roaming_done(struct brcmf_cfg80211_info *cfg,
- 	return err;
+diff --git a/drivers/pci/pcie/aer.c b/drivers/pci/pcie/aer.c
+index b013b853b5555..a6600801af6e4 100644
+--- a/drivers/pci/pcie/aer.c
++++ b/drivers/pci/pcie/aer.c
+@@ -1366,14 +1366,13 @@ static void aer_recover_work_func(struct work_struct *work)
+ 	while (kfifo_get(&aer_recover_ring, &entry)) {
+ 		pdev = pci_get_domain_bus_and_slot(entry.domain, entry.bus,
+ 						   entry.devfn);
+-		if (!pdev) {
++		if (!pdev)
+ 			pr_err_ratelimited("%04x:%02x:%02x.%x: no pci_dev found\n",
+ 					   entry.domain, entry.bus,
+ 					   PCI_SLOT(entry.devfn),
+ 					   PCI_FUNC(entry.devfn));
+-			continue;
+-		}
+-		pci_print_aer(pdev, entry.severity, entry.regs);
++		else
++			pci_print_aer(pdev, entry.severity, entry.regs);
+ 
+ 		/*
+ 		 * Memory for aer_capability_regs(entry.regs) is being
+@@ -1385,13 +1384,15 @@ static void aer_recover_work_func(struct work_struct *work)
+ 		ghes_estatus_pool_region_free((unsigned long)entry.regs,
+ 					    sizeof(struct aer_capability_regs));
+ 
+-		if (entry.severity == AER_NONFATAL)
+-			pcie_do_recovery(pdev, pci_channel_io_normal,
+-					 aer_root_reset);
+-		else if (entry.severity == AER_FATAL)
+-			pcie_do_recovery(pdev, pci_channel_io_frozen,
+-					 aer_root_reset);
+-		pci_dev_put(pdev);
++		if (pdev) {
++			if (entry.severity == AER_NONFATAL)
++				pcie_do_recovery(pdev, pci_channel_io_normal,
++						 aer_root_reset);
++			else if (entry.severity == AER_FATAL)
++				pcie_do_recovery(pdev, pci_channel_io_frozen,
++						 aer_root_reset);
++			pci_dev_put(pdev);
++		}
+ 	}
  }
  
-+static bool
-+brcmf_fwsup_is_authorized(struct brcmf_cfg80211_profile *profile,
-+			  struct cfg80211_connect_resp_params *conn_params)
-+{
-+	if ((profile->use_fwsup == BRCMF_PROFILE_FWSUP_1X ||
-+	     profile->use_fwsup == BRCMF_PROFILE_FWSUP_ROAM) &&
-+	    brcmf_has_pmkid(conn_params->req_ie, conn_params->req_ie_len))
-+		return true;
-+	if (profile->use_fwsup == BRCMF_PROFILE_FWSUP_SAE ||
-+	    profile->use_fwsup == BRCMF_PROFILE_FWSUP_PSK)
-+		return true;
-+
-+	return false;
-+}
-+
- static s32
- brcmf_bss_connect_done(struct brcmf_cfg80211_info *cfg,
- 		       struct net_device *ndev, const struct brcmf_event_msg *e,
-@@ -6625,10 +6640,7 @@ brcmf_bss_connect_done(struct brcmf_cfg80211_info *cfg,
- 		conn_params.resp_ie = conn_info->resp_ie;
- 		conn_params.resp_ie_len = conn_info->resp_ie_len;
- 		authorized = completed &&
--			     (profile->use_fwsup == BRCMF_PROFILE_FWSUP_1X ||
--			      profile->use_fwsup == BRCMF_PROFILE_FWSUP_ROAM) &&
--			     brcmf_has_pmkid(conn_params.req_ie,
--					     conn_params.req_ie_len);
-+			     brcmf_fwsup_is_authorized(profile, &conn_params);
- 		cfg80211_connect_done(ndev, &conn_params, GFP_KERNEL);
- 		if (authorized)
- 			cfg80211_port_authorized(ndev, profile->bssid, NULL, 0,
 -- 
 2.53.0
 
