@@ -1,57 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046802;
-	b=DE+GJ093/1QbY3aJwqbFTuiN1DKLP1ibp330bNzF8yDwAbP+MtLGIVtFOl4iShxY+4f5
-	 /DrbuLdPlbt6xK9lmu0+4C34MN5tDVX/0gzCy0k/5UH0jzChfoIOfjRd8xkUa6phDpsJ8
-	 uxyXciCnFLOqW8G6UlHpgKI21OhXk11dlIPBg6lSE7ZH6XAM6ZhYjYJTBLclYCm/jNFCX
-	 BIkIAFw+o1Twzggk/82lee04WMgQWyIBQXOokxpDViyWVWqQ27nvAUnReONH+mwNMtHWU
-	 C2iEtfusdLJ1/8WxLednamFn+dj4/nEdZdCiqlNMdSg6lXm7m25A/zB84IRELTBj4DQ==
+	t=1794046805;
+	b=oNf7tOQJsEjBaXdHp2+FNgI3pSfBX3vGUjOw/rX88xaJ5g7Q5iLPyDRmmnZ8+VucAEkW
+	 rvkDDCCZ8QW12no4RdJ/yo2/Ex0pBeWLJ4P2OizygnaplYdE/PafZ1AjgD6vmANko0l/n
+	 w/WX9eyTUwFuQAZfXIPHguE04ovJaJOcjoSEmLz59l5Z/d4i1S0mtJ+4tXRDhSYuK3ZEj
+	 yS+Ge5IbgewhqwbMXGqeVhlQtKa8DPdH/KYtvfHqNMgcCl7Vayb245Rc5GGjtaIz8qnnE
+	 QgafIDkl5Ho8nKbcO/6nDHo/b61cPkuPjwcPMX9wN4lK7hBKShxicauTzy+MfKYHqQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046802;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046805;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=oHR5nAt1v8w4VW0Mg3SS/0H6yHsSeAJYx03Hvn5vms4=;
-	b=KLbPZZep5ZV/k6yfUewoJD/GR8RDrpd197ScnU1fxaUf+/8d9ynSD5pm1ULTiwJhPm//
-	 CiutxBWW7JM4c9Z3kD0wW+8dJMtnyzwBoW9P2+showO/3RdmNO9jcHnf2/GqMTvtXx7+l
-	 fAAdJ+A9m+ZPefw/CU5kmuwC5Ajuwd47UaMi+BeQnljK5XIYDs3Meq+h3nRQ++edQTT7G
-	 gf4wk7cMwuVk4iIWfgJXil83hQ0ovIxiDnThvgqNvx8Yrn+X8Z5KVuj4X2R8FcoH/utrH
-	 eS1i8gihZ0i6/2eYTsKhK35BBP4M3olrLwjW6f/tF0g/Hem4+u4aUNo7+O/lmdIhvDA==
+	bh=XLXe2gMgMVn/U7f424VnqzEEC0nYciriCd+5ozc/Ja8=;
+	b=lDpkXH6jFffAZrGl+7FnKDkSiB0vLXRXhDUL3MW1sKYAutB4kAZfiDLHnjKvfBRN9vAi
+	 UOTv3B165V6L+AddFpIxMSKo4ljQ06ggEOSrAAp/cb1Y+ZaJ8xVRQ0nRvTSqsXRsptZ6h
+	 l33m1sKjM8yJAOssBeZTbdu8tZ5gLeDKmR/VtZPuE7fStAR8qTLU9i2uv1R46r7zP6vY+
+	 HwLZJzzD7TeorVVRJTE0ZELafOjXKzqB+HhfwyHirKmal3oNqqlvrjNWX5StxL2zndM/B
+	 /UGPGYX5j7Xba5JRTemr76m5RW15T8rStB0AebN4Kya3qVNB8k7YqLHSM5lGjZ+2IOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qg6pHCrh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mlVNvfIq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F16C606D81E
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:20:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CD81606D81E
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:20:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qg6pHCrh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B32F1F0089F;
-	Sat,  7 Nov 2026 10:20:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mlVNvfIq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 401201F0089F;
+	Sat,  7 Nov 2026 10:20:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046802;
-	bh=oHR5nAt1v8w4VW0Mg3SS/0H6yHsSeAJYx03Hvn5vms4=;
+	s=k20260515; t=1794046804;
+	bh=XLXe2gMgMVn/U7f424VnqzEEC0nYciriCd+5ozc/Ja8=;
 	h=From:To:Cc:Subject:Date;
-	b=Qg6pHCrhykIDVN/bieRcvPjpua0y9j1v/RATvfu4ybM2EwVuFmx8zzbrMzjReg75C
-	 blSs81we+yQtQ8MaGw5xxrCTt8BYo996AIZMvjENEJnV28VHFH/2WTGkyepJjEqcUn
-	 dCQBy2Jdo0yDeGy0HiBQ22R9ZJK2mwl4pvy5YcmYIn2oUIXYri2TRZZTm4ssL2zBY8
-	 iiVsrLX7Z9Ltt3TQ7u8DN0+nYgrVXxa21bmyhZRI+ngb8alFW/HWAZ+awUe++UsxPc
-	 zCddbqkJLKUBxKZuU4dFWmD+5KlweSmLxL4jCyyweCGMXuuWxlsQZCqa/RFc7V4z+C
-	 Kir1s7kJTn0wA==
+	b=mlVNvfIq6inbIWGa7cptlPyS5EWajUCpfRruOo11qHg3Q6QQvLGkrSFIHWpmwEzNr
+	 MRkXPpUzurpA6dKtumAlAhibtdZ5gAKYzQ5y8GErr8pcLl6Bm2vsSJxwdr6v+3ne26
+	 CruR4ANwpuE6veS7d1fptg4UUsqI/ker3bfL4nOuQh7DGJdiwCcx6Cz+cO7bqMFToT
+	 QQY+jgmu/pOv/eIhaup3gbuSC+699Z2LtYUJ213mfNVgSz1rQVYqonTNNNqy7zwG4Z
+	 qJlpTE+xUcq4xhSFJieXk0/buLoUiL2VPluviP8Lp2XgaTBgKt8xC+anDPhTQ1n9vT
+	 CjMKyagqLJ86g==
 From: Sasha Levin <sashal@kernel.org>
-To: joseph.qi@linux.alibaba.com,
-	akpm@linux-foundation.org,
-	gechangwei@live.cn,
-	heming.zhao@suse.com,
-	jlbec@evilplan.org,
-	piaojun@huawei.com,
-	junxiao.bi@oracle.com,
-	mark@fasheh.com
+To: lucid_duck@justthetip.ca,
+	hoopyfrood42@gmail.com,
+	nbd@nbd.name
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ocfs2: restrict OCFS2_INVALID_SLOT suballoc slot to system inodes" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:20:00 -0500
-Message-ID: <20261107052000-failed-6.12-25bf9e549360@kernel.org>
+Subject: FAILED: patch "[PATCH] wifi: mt76: move the channel survey when the channel changes" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:20:03 -0500
+Message-ID: <20261107052003-failed-6.12-68342a7bd7e5@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -74,153 +69,136 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 25bf9e549360b656a6763232e0e9e58a00c3aff7
+git cherry-pick -x 68342a7bd7e5e273e2969e3c0f4c62ee3d006ce8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052000-failed-6.12-25bf9e549360@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052003-failed-6.12-68342a7bd7e5@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 25bf9e549360b656a6763232e0e9e58a00c3aff7 Mon Sep 17 00:00:00 2001
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-Date: Tue, 1 Sep 2026 20:52:18 +0800
-Subject: [PATCH] ocfs2: restrict OCFS2_INVALID_SLOT suballoc slot to system
- inodes
+From 68342a7bd7e5e273e2969e3c0f4c62ee3d006ce8 Mon Sep 17 00:00:00 2001
+From: Devin Wittmayer <lucid_duck@justthetip.ca>
+Date: Wed, 30 Sep 2026 17:35:01 -0700
+Subject: [PATCH] wifi: mt76: move the channel survey when the channel changes
 
-Patch series "ocfs2: validate suballoc slot and bit of metadata blocks", v3.
+mt7921 and mt7925 report every survey counter against one channel and
+never mark the one in use. With firmware channel management, both use
+channel contexts and never call __mt76_set_channel(), so
+phy->chan_state, phy->chandef and phy->main_chandef keep the first
+channel of the band.
 
-The ocfs2 metadata validators trust the on-disk suballoc slot and bit
-without checking them against the slot range of the mounted filesystem and
-the capacity of the block group bitmap.  A corrupted image can carry
-OCFS2_INVALID_SLOT or another out-of-range slot, or a suballoc bit beyond
-the bitmap, and once the corresponding inode, extent block, xattr block,
-dir index root or refcount block gets freed, the bad value goes straight
-into ocfs2_get_system_file_inode() or _ocfs2_free_suballoc_bits() and hits
-a BUG_ON() or runs off the end of local_system_inodes[].
+Update them when a context is assigned or changed, after booking the
+time spent on the old channel. This also makes the legacy rate lookup
+in mt76_connac2_mac_fill_txs() and mt7925_mac_add_txs_skb() use the
+band of the current channel.
 
-This series rejects such values at read time, in the existing validators,
-so corrupted objects fail with -EROFS (and a read-only remount) instead of
-crashing:
+With two channel contexts (multi-channel or MLO), the survey follows
+the context that was assigned or changed last, since the driver reads
+the band 0 counters only.
 
-  patch 1 restricts OCFS2_INVALID_SLOT dinodes to system inodes,
-        completing fe7a283b3916 ("ocfs2: add suballoc slot check in
-        ocfs2_validate_inode_block()"), and turns the "system file
-        state is ambiguous" BUG_ON() in ocfs2_read_locked_inode() into
-        an ocfs2_error();
-  patch 2 rejects oversized dinode suballoc bits;
-  patch 3 validates the suballoc slot and bit of xattr and dir index
-        blocks;
-  patch 4 validates the suballoc slot and bit of extent and refcount
-        blocks.
+Tested on MT7922 over PCIe, MT7921AU and MT7925 over USB.
 
-The checks only enforce what the kernel and mkfs.ocfs2 already write: a
-valid slot from meta_ac->ac_alloc_slot and a bit within the block group
-bitmap, with system inodes carrying OCFS2_INVALID_SLOT plus
-OCFS2_SYSTEM_FL and extent blocks using slot 0.  Nothing changes for
-healthy filesystems.
-
-Each new check was exercised under QEMU by corrupting the field in
-question with an out-of-range value; with the series applied the access
-fails with -EROFS and the filesystem remounts read-only instead of hitting
-the BUG_ON().
-
-
-This patch (of 4):
-
-ocfs2_validate_inode_block() currently permits i_suballoc_slot to be
-OCFS2_INVALID_SLOT for any dinode.  Only system inodes created by
-mkfs.ocfs2 are allocated from the global allocator and thus legitimately
-carry this value; regular inodes are always allocated from a per-slot
-suballocator and hence must have a valid slot.
-
-If a corrupted regular inode with OCFS2_INVALID_SLOT is accepted,
-ocfs2_remove_inode() will pass the slot to ocfs2_get_system_file_inode()
-and get_local_system_inode() will hit BUG_ON(slot == OCFS2_INVALID_SLOT)
-when the inode is deleted.  This can be triggered by an unprivileged user
-unlinking such a corrupted file.
-
-Reject OCFS2_INVALID_SLOT for non-system dinodes during validation, while
-still accepting it for system inodes.  Note that a crafted dinode carrying
-OCFS2_SYSTEM_FL passes the check above, yet a plain lookup of it still
-used to BUG() in ocfs2_read_locked_inode() ("system file state is
-ambiguous").  Since i_flags comes from disk, handle that mismatch with
-ocfs2_error() instead of BUG_ON() as well.
-
-Link: https://lore.kernel.org/20260901125221.1634686-1-joseph.qi@linux.alibaba.com
-Link: https://lore.kernel.org/20260901125221.1634686-2-joseph.qi@linux.alibaba.com
-Fixes: fe7a283b3916 ("ocfs2: add suballoc slot check in ocfs2_validate_inode_block()")
-Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: Changwei Ge <gechangwei@live.cn>
-Cc: Heming Zhao <heming.zhao@suse.com>
-Cc: Joel Becker <jlbec@evilplan.org>
-Cc: Jun Piao <piaojun@huawei.com>
-Cc: Junxiao Bi <junxiao.bi@oracle.com>
-Cc: Mark Fasheh <mark@fasheh.com>
-Cc: <stable@vger.kernel.org>
+Fixes: 41ac53c899bd ("wifi: mt76: mt7921: introduce chanctx support")
+Fixes: c948b5da6bbe ("wifi: mt76: mt7925: add Mediatek Wi-Fi7 driver for mt7925 chips")
+Cc: stable@vger.kernel.org
+Reported-by: Chris <hoopyfrood42@gmail.com>
+Closes: https://lore.kernel.org/linux-wireless/CAHaeJsT8O8Nhq351hFp3NAL8e0iU85N-LBdYZ9nYHFHVy7t_hQ@mail.gmail.com/
+Signed-off-by: Devin Wittmayer <lucid_duck@justthetip.ca>
+Link: https://patch.msgid.link/20261001003501.2425492-1-lucid_duck@justthetip.ca
+Signed-off-by: Felix Fietkau <nbd@nbd.name>
 ---
- fs/ocfs2/inode.c | 37 ++++++++++++++++++++++++++++---------
- 1 file changed, 28 insertions(+), 9 deletions(-)
+ drivers/net/wireless/mediatek/mt76/mac80211.c    | 14 ++++++++++++++
+ drivers/net/wireless/mediatek/mt76/mt76.h        |  2 ++
+ drivers/net/wireless/mediatek/mt76/mt7921/main.c |  1 +
+ drivers/net/wireless/mediatek/mt76/mt7925/main.c |  2 ++
+ drivers/net/wireless/mediatek/mt76/mt792x_core.c |  1 +
+ 5 files changed, 20 insertions(+)
 
-diff --git a/fs/ocfs2/inode.c b/fs/ocfs2/inode.c
-index 180107a11046c..9228d6ef23c24 100644
---- a/fs/ocfs2/inode.c
-+++ b/fs/ocfs2/inode.c
-@@ -638,14 +638,18 @@ static int ocfs2_read_locked_inode(struct inode *inode,
- 	fe = (struct ocfs2_dinode *) bh->b_data;
+diff --git a/drivers/net/wireless/mediatek/mt76/mac80211.c b/drivers/net/wireless/mediatek/mt76/mac80211.c
+index 0e45533ea89c7..3991696515e27 100644
+--- a/drivers/net/wireless/mediatek/mt76/mac80211.c
++++ b/drivers/net/wireless/mediatek/mt76/mac80211.c
+@@ -1045,6 +1045,20 @@ void mt76_update_survey(struct mt76_phy *phy)
+ }
+ EXPORT_SYMBOL_GPL(mt76_update_survey);
  
- 	/*
--	 * This is a code bug. Right now the caller needs to
--	 * understand whether it is asking for a system file inode or
--	 * not so the proper lock names can be built.
-+	 * The caller must know whether it is asking for a system file inode
-+	 * or not so the proper lock names can be built.  Since i_flags comes
-+	 * from disk, a mismatch is filesystem corruption instead of a code
-+	 * bug, so handle it with ocfs2_error() rather than BUG_ON().
- 	 */
--	mlog_bug_on_msg(!!(fe->i_flags & cpu_to_le32(OCFS2_SYSTEM_FL)) !=
--			!!(args->fi_flags & OCFS2_FI_FLAG_SYSFILE),
--			"Inode %llu: system file state is ambiguous\n",
--			(unsigned long long)args->fi_blkno);
-+	if (!!(fe->i_flags & cpu_to_le32(OCFS2_SYSTEM_FL)) !=
-+	    !!(args->fi_flags & OCFS2_FI_FLAG_SYSFILE)) {
-+		status = ocfs2_error(osb->sb,
-+				     "Inode %llu: system file state is ambiguous\n",
-+				     (unsigned long long)args->fi_blkno);
-+		goto bail;
-+	}
- 
- 	if (S_ISCHR(le16_to_cpu(fe->i_mode)) ||
- 	    S_ISBLK(le16_to_cpu(fe->i_mode)))
-@@ -1520,8 +1524,23 @@ int ocfs2_validate_inode_block(struct super_block *sb,
- 		goto bail;
++void mt76_phy_chandef_set(struct mt76_phy *phy,
++			  struct cfg80211_chan_def *chandef)
++{
++	if (!chandef->chan)
++		return;
++
++	mt76_update_survey(phy);
++
++	phy->chandef = *chandef;
++	phy->main_chandef = *chandef;
++	phy->chan_state = mt76_channel_state(phy, chandef->chan);
++}
++EXPORT_SYMBOL_GPL(mt76_phy_chandef_set);
++
+ int __mt76_set_channel(struct mt76_phy *phy, struct cfg80211_chan_def *chandef,
+ 		       bool offchannel)
+ {
+diff --git a/drivers/net/wireless/mediatek/mt76/mt76.h b/drivers/net/wireless/mediatek/mt76/mt76.h
+index 2ade848fe3bbb..e9bbec1269fac 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt76.h
++++ b/drivers/net/wireless/mediatek/mt76/mt76.h
+@@ -1555,6 +1555,8 @@ void mt76_sta_ps_transition(struct mt76_dev *dev, struct mt76_wcid *wcid,
+ bool mt76_has_tx_pending(struct mt76_phy *phy);
+ int mt76_update_channel(struct mt76_phy *phy);
+ void mt76_update_survey(struct mt76_phy *phy);
++void mt76_phy_chandef_set(struct mt76_phy *phy,
++			  struct cfg80211_chan_def *chandef);
+ void mt76_update_survey_active_time(struct mt76_phy *phy, ktime_t time);
+ int mt76_get_survey(struct ieee80211_hw *hw, int idx,
+ 		    struct survey_info *survey);
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7921/main.c b/drivers/net/wireless/mediatek/mt76/mt7921/main.c
+index d0f6460c7fd88..d041df807f615 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7921/main.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7921/main.c
+@@ -1421,6 +1421,7 @@ mt7921_change_chanctx(struct ieee80211_hw *hw,
+ 	} else {
+ 		mt76_connac_mcu_uni_set_chctx(mvif->phy->mt76, &mvif->bss_conf.mt76, ctx);
  	}
++	mt76_phy_chandef_set(mvif->phy->mt76, &ctx->def);
+ 	mt792x_mutex_release(phy->dev);
+ }
  
--	if (le16_to_cpu(di->i_suballoc_slot) != (u16)OCFS2_INVALID_SLOT &&
--	    (u32)le16_to_cpu(di->i_suballoc_slot) > OCFS2_SB(sb)->max_slots - 1) {
-+	/*
-+	 * Only system inodes created by mkfs.ocfs2 are allocated from the
-+	 * global allocator and thus legitimately carry OCFS2_INVALID_SLOT.
-+	 * Regular inodes are always allocated from a per-slot suballocator.
-+	 * If a regular inode with OCFS2_INVALID_SLOT was accepted here,
-+	 * deleting it would pass the slot to get_local_system_inode() via
-+	 * ocfs2_remove_inode() and trigger BUG_ON(slot == OCFS2_INVALID_SLOT).
-+	 */
-+	if (le16_to_cpu(di->i_suballoc_slot) == (u16)OCFS2_INVALID_SLOT) {
-+		if (!(le32_to_cpu(di->i_flags) & OCFS2_SYSTEM_FL)) {
-+			rc = ocfs2_error(sb,
-+					 "Invalid dinode %llu: suballoc slot %u for non-system inode\n",
-+					 (unsigned long long)bh->b_blocknr,
-+					 le16_to_cpu(di->i_suballoc_slot));
-+			goto bail;
-+		}
-+	} else if ((u32)le16_to_cpu(di->i_suballoc_slot) > OCFS2_SB(sb)->max_slots - 1) {
- 		rc = ocfs2_error(sb, "Invalid dinode %llu: suballoc slot %u\n",
- 				 (unsigned long long)bh->b_blocknr,
- 				 le16_to_cpu(di->i_suballoc_slot));
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7925/main.c b/drivers/net/wireless/mediatek/mt76/mt7925/main.c
+index d124d46667071..3a5d6f51832ca 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7925/main.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7925/main.c
+@@ -2077,6 +2077,7 @@ mt7925_change_chanctx(struct ieee80211_hw *hw,
+ 						      link_conf, ctx);
+ 		}
+ 	}
++	mt76_phy_chandef_set(mvif->phy->mt76, &ctx->def);
+ 
+ 	mt792x_mutex_release(phy->dev);
+ }
+@@ -2413,6 +2414,7 @@ static int mt7925_assign_vif_chanctx(struct ieee80211_hw *hw,
+ 
+ 	mconf->mt76.ctx = ctx;
+ 	mctx->bss_conf = mconf;
++	mt76_phy_chandef_set(mvif->phy->mt76, &ctx->def);
+ 	mutex_unlock(&dev->mt76.mutex);
+ 
+ 	return 0;
+diff --git a/drivers/net/wireless/mediatek/mt76/mt792x_core.c b/drivers/net/wireless/mediatek/mt76/mt792x_core.c
+index 0ad33f74c2285..f56f03bfe3874 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt792x_core.c
++++ b/drivers/net/wireless/mediatek/mt76/mt792x_core.c
+@@ -472,6 +472,7 @@ int mt792x_assign_vif_chanctx(struct ieee80211_hw *hw,
+ 	mutex_lock(&dev->mt76.mutex);
+ 	mvif->bss_conf.mt76.ctx = ctx;
+ 	mctx->bss_conf = &mvif->bss_conf;
++	mt76_phy_chandef_set(&dev->mphy, &ctx->def);
+ 	mutex_unlock(&dev->mt76.mutex);
+ 
+ 	return 0;
 -- 
 2.53.0
 
