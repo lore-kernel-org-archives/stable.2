@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050651;
-	b=cg2LhG7UJV6h2rPl/+l+TsbfxUw+EmykooO7dpmPNDMicAqnOTYkqjc0l+jYwPxCfOoR
-	 oAZnTgXVGCF9j1g+sK+78E8oIHAZgsN+feTb2vwvcNhWe6/m1i9FTX2q58z2BWBdsG8Cs
-	 qMMGfhRjG6scvRUtYoV2nPlhHlystxKpER5M4uuw2CgOEmV0C0Zkk9I+pP1fatFxhy0Bc
-	 P0tMu9t3jouEei3MCOgnfqULN3+PRCOW/SW5qj9kfuH0b+ozBNtlKNdWf5RWljsl3cYWc
-	 Wpqj5Kx6Hqd6F0SoS+MAQ1J4JsVyEmd8XMGrPy3CFl2Swh44Au1Jp0Os0QF55Y4pqvA==
+	t=1794050654;
+	b=YBLxQUXp8xxKKotEawyIQtx5ZDomkIRUYpxC94U/AcdGsk3YS1DIEZKdKWrcbVhPYEZB
+	 Gsu/ONM4rRLKdggBFn3Cf1hGsNPNlx+YuNgERfJbn65A7791x/rgDwkCE03r9uyBT8hq+
+	 K3CTilbl4y0xIWIMJDSiw2Xr357gcukBglTOG9U1dYBe5wkhGdekl43Y4rEMxGcMuU/nu
+	 qBu/zBLvManXwelAaZzWOKuGGnfw7IUPswQkbIikAD9w2gSJlMuFsXLAjv9+szchgBQJx
+	 ALRVMRlaL6s/qUiq/PT1ktAjVkQIFfY5KIGTuYw72qXkHjjdUs/pQpJqL/1egG2nUjQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050651;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050654;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=F1qN3DA0OMnsd2DLH8GmV6UiOtfjbmivi0UCouHra/M=;
-	b=YEZbqgbYLEaj4BFhbm5VyicY/X6yCZBYvObpOIscmnl6fvNMh/sRHrphHYiGJ9m4k5iu
-	 rM5VxPie2xt1xtA6Yg1nHo5WedU4GpLNe4GnLWv8TxUsUE4EDdroYr8auDeG+OsfEs76H
-	 GwAR09qHUUUH/hu+0+uDlrllxOPZTShaZt0R2I2h3bHilbPDjI7IGkOBqJhf9LfaUmDux
-	 CkwzYVBkNxCWsoYyzR/jmdiSJMSGui2JU+RN6b3FEPJdCL2eshR4Ee7xXR881IwSwA0x9
-	 XiIhgB8B6QiNJQ2KI/Jo/GYES0LvmdOCM2JLx8WWu+cytRQq8s1RSS8R03+D4psFumQ==
+	bh=3xEJlQchyhUE7+aAWUe8tlrRfzqljIxOST7Xtd/mjJY=;
+	b=ODvNIcpqaNpt7N6oxJVHoBoZhj4Ys69vZpY4Ua/IALkfF7k5Z76BPr5ChhcGFBKVXlop
+	 8G5fyePHcsFrPRd2Fiwfk76++0Rf7/IU0zsVy8Hz3lM+S3QFCejvJmuWeLjjLecAeX3t/
+	 TYlXwAmIjlPe5pdUArit1BZkf5SAlKVm3X5Vb0jay6xb/RV3ZNllKveCAZCeteMw06sj+
+	 fWYrjUx46D4Mcr0cZ5Wx5dHBQwVle/mQrzZy/Tybz0S20oeBjduRRgv4y6/UHiQcgWmk7
+	 i4A4+S6s8SVpRMA5KG151HVE4kQ4J0Hx8wlZPD9lJmzwD6SypIRdqtiH7ZNw0FFBexg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OxxpC4cf;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hzkg5+lh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31532606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:24:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F201C606A330
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:24:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OxxpC4cf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46B571F0089F;
-	Sat,  7 Nov 2026 11:24:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hzkg5+lh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49B7B1F0089F;
+	Sat,  7 Nov 2026 11:24:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050650;
-	bh=F1qN3DA0OMnsd2DLH8GmV6UiOtfjbmivi0UCouHra/M=;
+	s=k20260515; t=1794050653;
+	bh=3xEJlQchyhUE7+aAWUe8tlrRfzqljIxOST7Xtd/mjJY=;
 	h=From:To:Cc:Subject:Date;
-	b=OxxpC4cfHyRC4wRTEvGAdNlJdtUNgi+TXP0DraaLbl/VGZTZ0BHakbD9WLsMO+4YV
-	 r4/JVF7cacthhogDxXX6slsSCwKgVKjeoF6PWhcwdGlVE9J2reNUPjBlaIWu/xlgvs
-	 YYwUIhGpgyTVvV9Gwfv4fQxkVVlR5MTXvDJtWP+1T9KWJ/W3yY5/4F+3JOTNF05byg
-	 suLQSWxSB5Au+XCGbD1QIt0NBpuyMNp+6K5iwgzuICc5av3M3v3dRn8v6iNjGRrbnz
-	 gP47nH9JV4Pru9S18a23CCUWemFypvcpeyCUkw7QX8bF0uyXvOVe0JOMVTX4DL8W88
-	 x5J6PsC5Gw8ww==
+	b=Hzkg5+lhAqSHO53wJfx05vyrk1ckWd5BbCsfhzAkZ3IJS8Q7QFRtbtRHSkRzzQuCx
+	 rwlj3wpizRBcVX/p9rcnZbGZqsrPVmDvlzK9I/F4CG5D3JYOSWPrgWBC1bQuTMTXXF
+	 iE0bCdwOIk3XYg6RiuDML3lWHIlazsW8hvqjtCTJrJco36dXYp96D1wZWXWvcj3IHc
+	 WvFTWPbTXukyngFxenXI2FAghcgILgYMQXtXkZ8YO+ULMAgGkFk8zQFgF4Iydf0k5P
+	 Bq+fVPP1PkUSDgYFg50G176DGSDUoi4xK3Rj4zxixT4euyj2bakVg8xkWGzznFGZBK
+	 raBhIGJ1jeXwA==
 From: Sasha Levin <sashal@kernel.org>
-To: liuwb@xiaopeng.com,
-	zhugl3@xiaopeng.com,
-	broonie@kernel.org
+To: daehojeong@google.com,
+	chao@kernel.org,
+	jaegeuk@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] spi: amd: fix len==0 underflow and FIFO overflow" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:24:09 -0500
-Message-ID: <20261107062408-failed-5.10-e2f4edfc061e@kernel.org>
+Subject: FAILED: patch "[PATCH] f2fs: release a removed xattr node in roll-forward recovery" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:24:12 -0500
+Message-ID: <20261107062411-failed-5.10-f5924de8867c@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,92 +69,100 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x e2f4edfc061e493fddde16c4bbe1c4f230f41e4a
+git cherry-pick -x f5924de8867c09206ba631b9faed63862ec00a10
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062408-failed-5.10-e2f4edfc061e@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062411-failed-5.10-f5924de8867c@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From e2f4edfc061e493fddde16c4bbe1c4f230f41e4a Mon Sep 17 00:00:00 2001
-From: Weibin Liu <liuwb@xiaopeng.com>
-Date: Wed, 14 Oct 2026 20:39:13 +0800
-Subject: [PATCH] spi: amd: fix len==0 underflow and FIFO overflow
+From f5924de8867c09206ba631b9faed63862ec00a10 Mon Sep 17 00:00:00 2001
+From: Daeho Jeong <daehojeong@google.com>
+Date: Thu, 15 Oct 2026 02:57:31 +0000
+Subject: [PATCH] f2fs: release a removed xattr node in roll-forward recovery
 
-amd_spi_fifo_xfer() unconditionally decrements xfer->len when a tx_buf
-is present. The SPI core does not reject zero-length transfers, so a
-transfer submitted through the SPI_IOC_MESSAGE ioctl with len == 0 and
-a tx_buf makes the u32 len wrap to 0xFFFFFFFF, and the following
-per-byte loop writes far past the FIFO window.
+When xattrs shrink enough to fit in the inline xattr area,
+write_all_xattrs() truncates the xattr node and clears i_xattr_nid. If
+the file is then fsynced without a checkpoint, only the inode block is
+written, with i_xattr_nid of 0.
 
-The driver also never checks the cumulative FIFO offset against
-AMD_SPI_FIFO_SIZE. The core splits each transfer down to the
-controller's max transfer size but does not bound the total message
-length, so a message of several transfers whose total exceeds the FIFO
-overflows it with out-of-bounds MMIO writes (tx) and reads (rx).
+Roll-forward recovery starts from the checkpointed inode, whose
+i_xattr_nid still points to the old xattr node.
+f2fs_recover_inline_xattr() copies only the inline xattr area, and
+f2fs_update_inode() writes the old i_xattr_nid back. So the inode keeps
+the stale xattr node:
 
-Skip zero-length transfers and reject any transfer that would run past
-the end of the FIFO window.
+ - The node block is never released, and fsck reports "nonzero bytes in
+   xattr space after end of list".
+ - If the inline xattr list ends exactly at the end of the inline area,
+   its terminator is read from the stale node, and the removed xattrs
+   come back after recovery.
 
-Tested with a user-space replica of the fifo_xfer length arithmetic
-(ASAN build): a zero-length transfer with tx_buf makes len-- wrap to
-0xffffffff, and skipping zero-length transfers avoids the wrap. No AMD
-SPI hardware was available, so the FIFO bound check was verified by
-inspection against AMD_SPI_FIFO_SIZE.
+When the fsynced inode has no xattr node but the checkpointed one has,
+release the old xattr node as truncate_node() does: check its block
+address, invalidate the block and drop its node cache, which may still
+be dirty.
 
-Fixes: bbb336f39efc ("spi: spi-amd: Add AMD SPI controller driver support")
-Cc: stable@vger.kernel.org # 5.8+
-Reviewed-by: Guanglei Zhu <zhugl3@xiaopeng.com>
-Signed-off-by: Weibin Liu <liuwb@xiaopeng.com>
-Link: https://patch.msgid.link/20261014-spi-amd-fifo-fix-v1-1-9fec9ab753e8@xiaopeng.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Fixes: 28cdce0459cc ("f2fs: recover inline xattr data in roll-forward process")
+Cc: stable@vger.kernel.org
+Signed-off-by: Daeho Jeong <daehojeong@google.com>
+Reviewed-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
 ---
- drivers/spi/spi-amd.c | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+ fs/f2fs/node.c | 37 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 37 insertions(+)
 
-diff --git a/drivers/spi/spi-amd.c b/drivers/spi/spi-amd.c
-index 71a6e5c475b03..ddf89e5353c55 100644
---- a/drivers/spi/spi-amd.c
-+++ b/drivers/spi/spi-amd.c
-@@ -322,11 +322,22 @@ static inline int amd_spi_fifo_xfer(struct amd_spi *amd_spi,
- 
- 	list_for_each_entry(xfer, &message->transfers,
- 			    transfer_list) {
-+		/* Skip zero-length transfers to avoid len underflow below */
-+		if (!xfer->len)
-+			continue;
+diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
+index 2dc136dbee34f..424e95ca58789 100644
+--- a/fs/f2fs/node.c
++++ b/fs/f2fs/node.c
+@@ -2846,6 +2846,43 @@ int f2fs_recover_inline_xattr(struct inode *inode, struct f2fs_cached_block *ent
+ 	f2fs_cache_wait_writeback(ientry);
+ 	memcpy(dst_addr, src_addr, inline_size);
+ update_inode:
++	/*
++	 * The xattr node of the checkpoint was removed before fsync, e.g. the
++	 * xattrs became small enough to fit inline. Release it as well, or
++	 * the inode keeps pointing to the stale xattrs.
++	 */
++	if (!ri->i_xattr_nid && F2FS_I(inode)->i_xattr_nid) {
++		struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
++		struct node_info ni;
++		int err;
 +
- 		if (xfer->speed_hz)
- 			amd_set_spi_freq(amd_spi, xfer->speed_hz);
- 		else
- 			amd_set_spi_freq(amd_spi, spi->max_speed_hz);
- 
-+		/* Reject transfers that would overflow the FIFO window */
-+		if (fifo_pos + xfer->len >
-+		    AMD_SPI_FIFO_BASE + AMD_SPI_FIFO_SIZE) {
-+			message->status = -EMSGSIZE;
-+			goto fin_msg;
++		err = f2fs_get_node_info(sbi, F2FS_I(inode)->i_xattr_nid,
++								&ni, false);
++		if (err) {
++			f2fs_put_cache(ientry, true);
++			return err;
 +		}
 +
- 		if (xfer->tx_buf) {
- 			buf = (u8 *)xfer->tx_buf;
- 			if (!tx_len) {
-@@ -369,6 +380,12 @@ static inline int amd_spi_fifo_xfer(struct amd_spi *amd_spi,
- 
- 		list_for_each_entry(xfer, &message->transfers, transfer_list)
- 			if (xfer->rx_buf) {
-+				/* Reject transfers that would overflow the FIFO window */
-+				if (fifo_pos + xfer->len >
-+				    AMD_SPI_FIFO_BASE + AMD_SPI_FIFO_SIZE) {
-+					message->status = -EMSGSIZE;
-+					goto fin_msg;
-+				}
- 				buf = (u8 *)xfer->rx_buf;
- 				/* Read data from FIFO to receive buffer */
- 				for (i = 0; i < xfer->len; i++)
++		if (ni.blk_addr != NEW_ADDR &&
++		    !f2fs_is_valid_blkaddr(sbi, ni.blk_addr,
++					   DATA_GENERIC_ENHANCE)) {
++			f2fs_err_ratelimited(sbi,
++				"nat entry is corrupted, run fsck to fix it, ino:%u, nid:%u, blkaddr:%u",
++				ni.ino, ni.nid, ni.blk_addr);
++			set_sbi_flag(sbi, SBI_NEED_FSCK);
++			f2fs_handle_error(sbi, ERROR_INCONSISTENT_NAT);
++			f2fs_put_cache(ientry, true);
++			return -EFSCORRUPTED;
++		}
++
++		f2fs_invalidate_blocks(sbi, ni.blk_addr, 1);
++		dec_valid_node_count(sbi, inode, false);
++		set_node_addr(sbi, &ni, NULL_ADDR, false);
++		/* drop the cached xattr node, which may be dirty */
++		f2fs_truncate_node_caches(sbi, ni.nid, 1);
++		f2fs_i_xnid_write(inode, 0);
++	}
++
+ 	f2fs_update_inode(inode, ientry);
+ 	f2fs_put_cache(ientry, true);
+ 	return 0;
 -- 
 2.53.0
 
