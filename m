@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048034;
-	b=BVUT4vRI36mQ4X7UAthOGBBjHgY02IbNYUPEGRgJwOxm7UIctqmao6g0+ZOic5RnRJ3D
-	 k+MHrvS3vgB9fJnARuxjFBvAGL3Ed+QU+58kuNfojqt2QNsMez/7mq3aKzUVX4iDjJYNr
-	 uGF4+oex0dpDXTi8dyQXekgeig9Vw7jpH+0xo2ob6nXDjK6Tzdaul55sUSeTEAH6VIm+h
-	 L2e1DtYxRS+HiQSgwlHY0wpPgkstLsJ+QqYMTlwt6UIuElZG8PwkLTUFAw6QZ8156HwoY
-	 zrT+10dVDJI5nRhtbcxJ3YPiggEXBxIDa8nrY6lqWpEuBvENdOLysxA6zlcJJEf6+1Q==
+	t=1794048036;
+	b=2z4SeCOT4me1hdOU/cNGKjCiu2U0mffQd6hTATrn02rJ6SPCx8u9kNkWipA4NbVc2GVX
+	 W3bEB7xb8YrIIGwTXj/t2PK+75FqP6EZU8TQrDKH1L7rFvCdiQLOA/qAylk10wzIJ9bRA
+	 4K+32lEiDrbjSZ+oExdoJ8aQYO+6GeOuzjTWXrL7XqlVKJfpUOlp91AsUj9Ta5jYz4+gp
+	 qkaupxSIxDh1LZx95D6StYbQsq2nKyeNoKyw6KkNfuV4XDt+uc8vOFaDKCrq+RMMwQzbs
+	 U+4jHN3MlKCa4b8KBKZ/ihuQLwSxZ9+G0wpUvKxaLul0zmunjqptMBlM+1+N18yXMKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048034;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048036;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=2ipXHJX+r3/JacULsc7NhPYpoTQT3gH244wefR/U8Bg=;
-	b=L5tqbkV0YL8tGy2JxX0SckJ2kXq7MTenMqPtc69w+8xoR3pkHtA/0njDHmoin8FNUnaw
-	 LvppdXvXUwGjZruUbHV/aL/uaxx6YKzitLyOufMeu4h3z1+Xb6AYIlAa2jog49rQvr9Ea
-	 gwLLGvP9palddI4h0YlK7pAwMmlOImmFrBd+t1i/32fVvfwMt/igJ1T9RkZIG/MZbgA5a
-	 2gRYCrJq/djpFu0UNyB2X8gxO1ztnYKvXfVSXI65C7qqEYML2/RAcnEZADdlzPmOdHXP0
-	 8Wl7d5CyxDsuqLP0qkhU/6hNWr6wt2HBvoacmyczY8pWS1IMLzUCzcgZyaEqopovq8g==
+	bh=7FuFKpZMolS7/hkfhncBYcF0y2gNd6aUMTUeeo3yXqE=;
+	b=H7hzCiukalicVbHBhPCO64DBoLLxYGkwT0QAzXYSUxiyPk2yeheRnmkNOXT3uzmP3A7f
+	 rgGL8m+upqIZuCGDZroKopfG2h7nPeO17I8HqraLJ7S0jPWme7W4t+av1acZCle29Kb4b
+	 4xibjCsukpUtTNMM9NtxoDkL3YcfWdRRcjHlwE3Nzg23gzpdFtd8zD3LG0mdkSiDMATOP
+	 dlJ4X5kCM1Gzv3j6Kl8kmzcOa5SjvNIQyWIZHrmPBPIjNBJlFux7RT0de1PwNVxJ6mmYm
+	 fFE4J66Q1rcP20nCDNgkwJ+mljjz/R16Su37xNrVbS4y2yh97oc7hXSComs44dr4alA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bD2Zkuhx;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n+bIzwQM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 273D6606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:40:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2800D606A32E
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:40:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bD2Zkuhx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C1BE1F0089F;
-	Sat,  7 Nov 2026 10:40:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n+bIzwQM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D2441F0089F;
+	Sat,  7 Nov 2026 10:40:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048034;
-	bh=2ipXHJX+r3/JacULsc7NhPYpoTQT3gH244wefR/U8Bg=;
+	s=k20260515; t=1794048036;
+	bh=7FuFKpZMolS7/hkfhncBYcF0y2gNd6aUMTUeeo3yXqE=;
 	h=From:To:Cc:Subject:Date;
-	b=bD2ZkuhxCv4ZOxy0VsuK+C6c+xy6NZqeEpUF74GGHFsSLNBkI3O+1/Fabm+O+99e3
-	 hH3A1T6pe7jCKyrzbr5kyhunDAtVgbalLSowranCONZg3RhcYjkdvyeMF22xk+uS/w
-	 goUBwqKewMB4GKKLbSwIVt3oDAcs+jfrX5u+78Ux12VCUv72IHV3hq8rqQ40GzKZTI
-	 jE86SSe0m2q0x4znhcKBcKebK7m91jAGFnd5U/GGdWK+mhHi8bcy8fLK2+GHV6N8oo
-	 YnEh7FgX00pLQTGN6lFpt0Ygk1M/fjLgWM+2+XcnYFfoYwoLkRt2GiwtN6ajduYbKB
-	 Dq2HaSoPR7Isg==
+	b=n+bIzwQMt3ZOVT8GImgJvPGThyHG2BThtesNmDUEzfO7IrgaH53RfwMhDitv4+9Wg
+	 LQQYlEonIRp/l/ouTvcMtXtt+RFJlbtm/nG7QplS7khaRz55pNXdQz41AOuPs+BCeS
+	 zkagVYy4CwvaxAew0WM9CIOKFWAtynkJT3v9QqUEIcBPbFdGRjVmNmuXRSbBBzOL9j
+	 RcLrSfoXZGufnnkCNRGaeveDQ/L6ef2zKVvc5Xkeo0LijxxJcDSh4SeiNVcVEmz2Zy
+	 oG2dGFSQeVfP8iOq1gAqusdoXp63m9ZdQp4s3eFm5Ua9URJFJMqcPYrEmyoIlFtbRP
+	 w22z90h9WeXlw==
 From: Sasha Levin <sashal@kernel.org>
 To: brauner@kernel.org,
-	jack@suse.cz,
-	aleksa@amutable.com
+	josef@toxicpanda.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] proc: don't let an entry below /proc/<pid>/net be a mountpoint" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:40:32 -0500
-Message-ID: <20261107054032-failed-6.6-eeecea75ece2@kernel.org>
+Subject: FAILED: patch "[PATCH] iomap: don't mark unwritten parts of a folio uptodate" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:40:34 -0500
+Message-ID: <20261107054034-failed-6.6-a4193b4af359@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,257 +68,83 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x eeecea75ece2ba894bee4d3c53ed2e40abda8f0e
+git cherry-pick -x a4193b4af359db84b2cdf3a040752861984c636b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054032-failed-6.6-eeecea75ece2@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054034-failed-6.6-a4193b4af359@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From eeecea75ece2ba894bee4d3c53ed2e40abda8f0e Mon Sep 17 00:00:00 2001
+From a4193b4af359db84b2cdf3a040752861984c636b Mon Sep 17 00:00:00 2001
 From: Christian Brauner <brauner@kernel.org>
-Date: Sat, 24 Oct 2026 12:38:27 +0200
-Subject: [PATCH] proc: don't let an entry below /proc/<pid>/net be a
- mountpoint
+Date: Thu, 29 Oct 2026 11:34:48 +0100
+Subject: [PATCH] iomap: don't mark unwritten parts of a folio uptodate
 
-proc_net_d_revalidate() always returns 0 so that a dentry below
-/proc/<pid>/net is never reused after setns(). So lookup_fast() will end
-up calling d_invalidate(), which unhashes the dentry and detaches every
-mount on it, in every mount namespace; including locked mounts.
+For a buffered write into a hole, an unwritten or new extent, or past
+EOF __iomap_write_begin() zeroes the parts of the blocks outside of the
+write and then marks the blocks uptodate. That includes the range of the
+write itself which still holds whatever was in the folio before. It only
+becomes valid once the copy from userspace has filled it in.
 
-Then lookup_slow() creates a new dentry for the same entry. So a mount
-on /proc/<pid>/net/dev succeeds and goes away with the first lookup of
-the name by anybody with search permission on the directory. Given it's
-0555 that's everyone's grandma. A mask on such a name hides nothing as
-the repro below shows.
+But the copy can come up short and __iomap_write_end() only rejects a
+short copy if the folio isn't uptodate. If the zeroed blocks were all
+that was missing the folio is uptodate by then, the short copy is
+accepted, and the rest of the range is exposed to readers and can end up
+on disk. A source buffer that ends in an unmapped page is enough:
 
-Treat those entries like I did fd/, fdinfo/ and map_files/ and refuse to
-mount on them in the first place. It's nonsensical theater otherwise:
+        ftruncate(fd, 4096);
+        pwrite(fd, p, 3000, 100);    /* 16 bytes at p, then PROT_NONE */
+        pread(fd, buf, 4096, 0);
 
-  procnet net/dev stat
+The write returns 16 and the read returns 2984 bytes of whatever was in
+that page before. If other blocks of the folio aren't uptodate the short
+copy is rejected but the zeroed blocks keep their uptodate bits and the
+retry with the copied length leaves the same bytes behind.
 
-  // SPDX-License-Identifier: GPL-2.0
-  /*
-   * procnet: cover an entry of /proc/<pid>/ with a bind mount, lock the mount,
-   * then look the name up.
-   *
-   * The first task stays alive, <pid> is its pid. The "container" task has its
-   * own mount namespace. There it binds a mask on /proc/<pid>/<name>. It drops to
-   * uid 1000 and enters a new user namespace with a new mount namespace, so that
-   * the mask is locked. Then one task looks the name up:
-   *
-   *   stat    the container calls stat() on the name
-   *   umount  the container calls umount2(MNT_DETACH) on the name
-   *   nobody  a task with uid 65534 in the first namespaces calls stat()
-   *
-   * The container lists its mounts before and after (that does not look the
-   * name up) and then reads the name. MASK is fine. Anything else means that
-   * the lookup uncovered the entry.
-   *
-   * usage: procnet <name> stat|umount|nobody
-   *   name "status" is the control, "net/dev" is a file below net, "net/stat" is
-   *   a directory below net
-   */
-  #define _GNU_SOURCE
-  #include <dirent.h>
-  #include <errno.h>
-  #include <fcntl.h>
-  #include <sched.h>
-  #include <stdio.h>
-  #include <stdlib.h>
-  #include <string.h>
-  #include <time.h>
-  #include <unistd.h>
-  #include <sys/mount.h>
-  #include <sys/prctl.h>
-  #include <sys/stat.h>
-  #include <sys/wait.h>
+Only mark blocks uptodate in __iomap_write_begin() after reading them.
+__iomap_write_end() marks the zeroed blocks uptodate once the copy has
+succeeded and rejects a short copy.
 
-  #define WORK "/run/pn"
+Willy reported this back in 2024 (cf. [1]) and Zhang Yi posted the same
+fix (cf. [2]) but it never got merged.
 
-  static char target[128];
+[1]: https://lore.kernel.org/all/ZqsN5ouQTEc1KAzV@casper.infradead.org
+[2]: https://lore.kernel.org/all/20240812121159.3775074-6-yi.zhang@huaweicloud.com
 
-  static void die(const char *what)
-  {
-  	fprintf(stderr, "FATAL %s: %s\n", what, strerror(errno));
-  	exit(2);
-  }
-
-  static void write_str(const char *path, const char *s, int flags)
-  {
-  	int fd = open(path, O_WRONLY | flags, 0644);
-
-  	if (fd < 0 || write(fd, s, strlen(s)) < 0)
-  		die(path);
-  	close(fd);
-  }
-
-  /* list the mounts below /proc without a lookup of the target */
-  static void mounts(const char *when)
-  {
-  	char line[512];
-  	FILE *f = fopen("/proc/self/mountinfo", "r");
-  	int n = 0;
-
-  	if (!f)
-  		die("mountinfo");
-  	while (fgets(line, sizeof(line), f)) {
-  		if (!strstr(line, " /proc/"))
-  			continue;
-  		printf("container: %s: mount: %s", when, line);
-  		n++;
-  	}
-  	fclose(f);
-  	if (!n)
-  		printf("container: %s: nothing is mounted below /proc\n", when);
-  }
-
-  static void show(const char *when, int isdir)
-  {
-  	char buf[48] = "";
-  	int fd;
-
-  	if (isdir) {
-  		struct dirent *de;
-  		DIR *d = opendir(target);
-  		int hit = 0;
-
-  		if (!d) {
-  			printf("container: %s: opendir(%s) = %s\n", when, target, strerror(errno));
-  			return;
-  		}
-  		printf("container: %s: readdir(%s) =", when, target);
-  		while ((de = readdir(d))) {
-  			if (de->d_name[0] == '.')
-  				continue;
-  			printf(" %s", de->d_name);
-  			hit |= strcmp(de->d_name, "MASK");
-  		}
-  		closedir(d);
-  		printf("%s\n", hit ? "   <-- HIT" : "");
-  		return;
-  	}
-  	fd = open(target, O_RDONLY);
-  	if (fd < 0) {
-  		printf("container: %s: open(%s) = %s\n", when, target, strerror(errno));
-  		return;
-  	}
-  	if (read(fd, buf, sizeof(buf) - 1) < 0)
-  		die("read");
-  	close(fd);
-  	if (strchr(buf, '\n'))
-  		*strchr(buf, '\n') = 0;
-  	printf("container: %s: read(%s) = \"%s\"%s\n", when, target, buf,
-  	       strncmp(buf, "MASK", 4) ? "   <-- HIT" : "");
-  }
-
-  int main(int argc, char **argv)
-  {
-  	const char *name = argc > 1 ? argv[1] : "net/dev";
-  	const char *op = argc > 2 ? argv[2] : "stat";
-  	int isdir = !strcmp(name, "net/stat");
-  	int to_host[2], to_cont[2];
-  	struct stat st;
-  	pid_t pid;
-  	char c;
-
-  	setvbuf(stdout, NULL, _IOLBF, 0);
-  	snprintf(target, sizeof(target), "/proc/%d/%s", getpid(), name);
-  	if (unshare(CLONE_NEWNS) || mount(NULL, "/", NULL, MS_REC | MS_PRIVATE, NULL))
-  		die("unshare");
-  	mkdir(WORK, 0755);
-  	if (mount("W", WORK, "tmpfs", 0, NULL))
-  		die("mount W");
-  	write_str(WORK "/mask", "MASK", O_CREAT);
-  	mkdir(WORK "/maskdir", 0755);
-  	write_str(WORK "/maskdir/MASK", "MASK", O_CREAT);
-  	if (pipe(to_host) || pipe(to_cont))
-  		die("pipe");
-
-  	pid = fork();
-  	if (pid < 0)
-  		die("fork");
-  	if (!pid) {
-  		if (unshare(CLONE_NEWNS))
-  			die("container unshare");
-  		if (mount(isdir ? WORK "/maskdir" : WORK "/mask", target, NULL, MS_BIND, NULL)) {
-  			printf("container: bind the mask on %s: %s\n", target, strerror(errno));
-  			exit(0);
-  		}
-  		printf("container: bind the mask on %s: ok\n", target);
-  		if (setgid(1000) || setuid(1000) || prctl(PR_SET_DUMPABLE, 1))
-  			die("setuid");
-  		/* lock the mount: a new user namespace with a copy of the tree */
-  		if (unshare(CLONE_NEWUSER | CLONE_NEWNS))
-  			die("container userns");
-  		write_str("/proc/self/setgroups", "deny", 0);
-  		write_str("/proc/self/uid_map", "0 1000 1", 0);
-  		write_str("/proc/self/gid_map", "0 1000 1", 0);
-  		mounts("before");
-  		errno = 0;
-  		if (!strcmp(op, "stat")) {
-  			stat(target, &st);
-  			printf("container: stat(%s): %s\n", target, strerror(errno));
-  		} else if (!strcmp(op, "umount")) {
-  			umount2(target, MNT_DETACH);
-  			printf("container: umount2(%s, MNT_DETACH): %s\n", target, strerror(errno));
-  		} else if (write(to_host[1], "g", 1) != 1 || read(to_cont[0], &c, 1) != 1) {
-  			die("sync");
-  		}
-  		mounts("after");
-  		show("after", isdir);
-  		exit(0);
-  	}
-  	close(to_host[1]);
-  	if (read(to_host[0], &c, 1) == 1) {
-  		pid_t p2 = fork();
-
-  		if (!p2) {
-  			if (setgid(65534) || setuid(65534))
-  				die("setuid");
-  			errno = 0;
-  			stat(target, &st);
-  			printf("nobody: uid %u: stat(%s): %s\n", getuid(), target, strerror(errno));
-  			exit(0);
-  		}
-  		waitpid(p2, NULL, 0);
-  		if (write(to_cont[1], "g", 1) != 1)
-  			die("sync");
-  	}
-  	waitpid(pid, NULL, 0);
-  	return 0;
-  }
-
-Fixes: 1fde6f21d90f ("proc: fix /proc/net/* after setns(2)")
+Fixes: 9dc55f1389f9 ("iomap: add support for sub-pagesize buffered I/O without buffer heads")
+Reported-by: Josef Bacik <josef@toxicpanda.com>
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261024-work-procfs-fixes-v1-1-46b03c3a8fac@kernel.org
-Acked-by: Jan Kara <jack@suse.cz>
-Reviewed-by: Aleksa Sarai <aleksa@amutable.com>
+Link: https://patch.msgid.link/20261029-work-iomap-ai-fixes-v1-1-7eda63bc1b13@kernel.org
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- fs/proc/generic.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ fs/iomap/buffered-io.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/fs/proc/generic.c b/fs/proc/generic.c
-index 2b1971da4a85a..4c3fcaf68ef40 100644
---- a/fs/proc/generic.c
-+++ b/fs/proc/generic.c
-@@ -256,9 +256,10 @@ struct dentry *proc_lookup_de(struct inode *dir, struct dentry *dentry,
- 		inode = proc_get_inode(dir->i_sb, de);
- 		if (!inode)
- 			return ERR_PTR(-ENOMEM);
-+		/* never reused and so never a mountpoint for long */
- 		if (de->flags & PROC_ENTRY_FORCE_LOOKUP)
--			return d_splice_alias_ops(inode, dentry,
--						  &proc_net_dentry_ops);
-+			return proc_splice_unmountable(inode, dentry,
-+						       &proc_net_dentry_ops);
- 		return d_splice_alias_ops(inode, dentry,
- 					  &proc_misc_dentry_ops);
- 	}
+diff --git a/fs/iomap/buffered-io.c b/fs/iomap/buffered-io.c
+index 678f4c5329e79..a6ab6f31cbbf3 100644
+--- a/fs/iomap/buffered-io.c
++++ b/fs/iomap/buffered-io.c
+@@ -920,6 +920,7 @@ static int __iomap_write_begin(const struct iomap_iter *iter,
+ 		if (iomap_block_needs_zeroing(iter, block_start)) {
+ 			if (WARN_ON_ONCE(iter->flags & IOMAP_UNSHARE))
+ 				return -EIO;
++			/* uptodate once copied, see __iomap_write_end() */
+ 			folio_zero_segments(folio, poff, from, to, poff + plen);
+ 		} else {
+ 			const struct iomap *iomap = iomap_iter_srcmap(iter);
+@@ -943,8 +944,8 @@ static int __iomap_write_begin(const struct iomap_iter *iter,
+ 
+ 			if (iomap->flags & IOMAP_F_ZERO_TAIL)
+ 				folio_zero_segment(folio, to, poff + plen);
++			iomap_set_range_uptodate(folio, poff, plen);
+ 		}
+-		iomap_set_range_uptodate(folio, poff, plen);
+ 	} while ((block_start += plen) < block_end);
+ 
+ 	return 0;
 -- 
 2.53.0
 
