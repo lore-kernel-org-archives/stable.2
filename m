@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046483;
-	b=Xr/iTjYi4P6bZZfKWmjwgih9AyCj5ZxItockwvZzdX3NRTnduHgMseAZKFGz0Zew0rBJ
-	 d87G01l5HA7glyR8iWyef8QM5o3UHTF8pvUCLee8+WTsVgBGkQtM0BfklgqqycybHCRwO
-	 WjG/n1LZrdZlZWxh2yUXUSyYOSe2v8+cPnOfPB5KaZQLwe26mk3srobsM9NQhyXFHTUwm
-	 F2ziu/bk5nDiABmYZzv21CcWEX6v00V3fq1nIbiOOlKsRzg1GrzXxtDC5LyBJy3FBSswn
-	 qu8kTauzSqi0Vi7HMRpEJWQVDh1C6OiUwwPQ4C8/2GhOQnpzSn3GmMi6p6Gob66sfDA==
+	t=1794046485;
+	b=cEAeyOK0oWmMtChX3Szxw5WOykz7GoYh8EceZGxJOyh3cFufDfuuyV+W6//TH3TR1/M6
+	 j+LroW1jjlQXOIF+dDd96ZWcxwk0x0S80KL9sCt/aDr+qtQlgg3trD1A8EtA+5qsbafnh
+	 +N4S+oU68139OLSXF3DX5Po7ggjrKvziWIzrPY7WSHpc6DdbIpiDX3FISNYZkU1WOCmwe
+	 ApLGeSt7qzVUblyfxxP48Jjd27G4xWiBkXGMwWLx36esXyza7JrIUTN9JZTtC/j353gEt
+	 raKJmUDK99OG6/zj/R8WLFNOHGZLpg7OPrQxxPuu54TvXUyH2C8qY4jdU2RhBL8cqUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046483;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046485;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=hiK9yWjwPbF9TdJG/p5Ev9P/FhYe1GfcIp9gIfSeC9g=;
-	b=bBXp98rEuXGV/x8Y/qjBOGhxGTIdTi0YQjcWLTyrVdOt10BHZ5LXbd0hdU55z1E8wQr5
-	 Spqtf7zyrR1H53F9OVLZU1LHE3FUb9Ese90iLdu6iXZxA9GJiqyy2Qc+MAmOlisqogoPa
-	 79FGSiNgRxtuxo4Fgnz4csFddPwmt7OjbLfgEZ/6oJeokNdxAVf8gdfpEt5E+gCWrO5ps
-	 T8ckCIiFYT3oEJhM8yDHuebdiexGOLVs6ZbeBqpr4LZihQ5MFcayafqSSh1+H3M8IjjoN
-	 6BweYBtoPiYc7u02KKWpwu3v4QBS5EdAPnMLZxKnMHHwGyA/5LGsHxoWKDbej6H8I+A==
+	bh=RX7mW50jKTwI2nNoo8HVhY+0MYrjQ5F9aqTK6H7/OYE=;
+	b=uRtQeu6RIn9Y0J643RaJmmHEEe/6P9doc6XgD9uAGc80JcBmW9FedZwkJO4EjECBpefS
+	 /TlhSkEQ4g00CcMe3CPaDijB88uwTFEj73iFjz1YukvwVA6TjxGZUEl8mvfy92c4VNfEe
+	 kgkDIqkwsMj2yL+aM7cGZteWiBpxXi3Ms533NJrysUiG3kbo6bro6mV2n9DNDtVabe5B1
+	 SVwO4xVbRulWgG12FM1NQKqbSZ7cSB7I2E7+OPJnMxvFBNhBpmuLHeNG4h7yn2nnxfFDh
+	 ZPVbTrJaG9ThfB1NpkZtgNjQT5cn7FV55PmARRsjKQw5JwFFlau821HmVBYsn8mQpAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NRwtKLVa;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=deWnD+zD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB4A7606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:14:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F11ED606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:14:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NRwtKLVa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 254E71F0089F;
-	Sat,  7 Nov 2026 10:14:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=deWnD+zD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3916D1F0089F;
+	Sat,  7 Nov 2026 10:14:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046482;
-	bh=hiK9yWjwPbF9TdJG/p5Ev9P/FhYe1GfcIp9gIfSeC9g=;
+	s=k20260515; t=1794046484;
+	bh=RX7mW50jKTwI2nNoo8HVhY+0MYrjQ5F9aqTK6H7/OYE=;
 	h=From:To:Cc:Subject:Date;
-	b=NRwtKLVaNLVS2z0Tmu+5oqL/WIlYs5qPGx0J4AvKeh+99Od6bpPUA1U0VBwqZhOQh
-	 QAsiZm8F/+Da9mtTFYE+b57m3YFhGcDre4kIxDvXOEXyu4oRjWCki7MMhDGhaAGbsK
-	 gCEDu0jkeb/QgjlY4HqiQRdyXSx9RRK6fKzB6GZ7LqD9BxYg9x7gfAAbxmJYWDYaD8
-	 B1RccvBSEmpeI0PrXoYvmDgZGVH2HkS3xOfDNFZ35f+pikmBkDM3F5IgMK3S1GaiiP
-	 tRauajbHTAGTzc/Vd8BkYf9SlEkFYe1IV92nH9U1y+BMnuOVApIaPipgTzElBO7MoE
-	 O9A15i7rdi1Qg==
+	b=deWnD+zDsW/tqv9AcEBy0NZLBWqB2/WFO/VhyXjapedwcrD0f8v1EJnAJyl5INw0j
+	 BbLydoeqeWMazH7aT5n2/sOCWfRHaDXPP31OS0YWlJjByu9yqzGuAPnazyub2yL6NW
+	 XzQU8NQ6k6lujV0UDzQ8rSKLoupfsLgL/r6e8M/RQrodASZsTHNKEbv9kvesZJOCTz
+	 QfoHQvlOXQfdttT4EGXUw+EWsQrZHPaZe+nvqJSl+VFF9j3WE5TKFDGyaavYA1lRhZ
+	 qZTmkB+evSvYlQyCeyqP2BAu8BBEIdRMuGhF1CjNeWjinUE6bjD/ATrtU5bVh9iLkr
+	 dnPQaKdP2v3Jg==
 From: Sasha Levin <sashal@kernel.org>
-To: sj@kernel.org,
-	akpm@linux-foundation.org
+To: dennylin0707@gmail.com,
+	tglx@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/damon/core: filter out damos address filter-split failed region" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:14:41 -0500
-Message-ID: <20261107051441-failed-6.18-bbeec2d8324d@kernel.org>
+Subject: FAILED: patch "[PATCH] posix-timers: Accept NULL clock_getres() output in stubs" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:14:43 -0500
+Message-ID: <20261107051443-failed-6.18-5b819071e434@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,159 +68,61 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x bbeec2d8324d7aac438bb12dd2d22b184e0a8d43
+git cherry-pick -x 5b819071e4346256c4edbae5cc2095dff25694fc
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051441-failed-6.18-bbeec2d8324d@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051443-failed-6.18-5b819071e434@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From bbeec2d8324d7aac438bb12dd2d22b184e0a8d43 Mon Sep 17 00:00:00 2001
-From: SJ Park <sj@kernel.org>
-Date: Mon, 19 Oct 2026 17:41:18 -0700
-Subject: [PATCH] mm/damon/core: filter out damos address filter-split failed
- region
+From 5b819071e4346256c4edbae5cc2095dff25694fc Mon Sep 17 00:00:00 2001
+From: Hungyu Lin <dennylin0707@gmail.com>
+Date: Tue, 20 Oct 2026 16:11:21 +0000
+Subject: [PATCH] posix-timers: Accept NULL clock_getres() output in stubs
 
-When an address type DAMOS filter is configured, DAMOS tries to split the
-region for the filter range, and apply DAMOS action to the filter-in
-region.  The split operation (damon_split_region_at()) could fail from
-allocation failure under extreme memory pressure.  In the case, DAMOS
-action could be applied more or less than expected, ignoring the address
-filter.
+With CONFIG_POSIX_TIMERS disabled, clock_getres() returns -EFAULT for a
+supported clock when the result pointer is NULL. POSIX permits a NULL
+result pointer to suppress returning the clock resolution.
 
-The issue only rarely happens under extreme memory pressure.  No crash or
-leak happens.  Occasionally not applying the action to a few regions
-shouldn't be a real problem.  But applying the action to a region that the
-user has excluded via address filter could be a surprise depending on the
-use case.  It is only theoretical.  No such real case is found yet.
+Only copy the result when a destination is provided, in both the native
+and time32 stubs. This matches the full POSIX timer implementation and
+preserves clock ID validation.
 
-Filter out the entire region if the split is failed.  Update
-damos_filter_match() signature to receive the error from split.  Also
-update kunit tests for the updated signature.
-
-The issue was discovered [1] by sashiko.
-
-Link: https://lore.kernel.org/20261020004119.106690-1-sj@kernel.org
-Link: https://lore.kernel.org/20260801203121.117449-1-sj@kernel.org [1]
-Fixes: ab9bda001b68 ("mm/damon/core: introduce address range type damos filter")
-Signed-off-by: SJ Park <sj@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: <stable@vger.kernel.org> # 6.6.x
+Fixes: baa73d9e478f ("posix-timers: Make them configurable")
+Fixes: d822cdcce43f ("posix-timers: Move compat versions of clock_gettime/settime/getres")
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20261020161121.85042-1-dennylin0707@gmail.com
 ---
- mm/damon/core.c             | 16 ++++++++++++----
- mm/damon/tests/core-kunit.h | 11 ++++++-----
- 2 files changed, 18 insertions(+), 9 deletions(-)
+ kernel/time/posix-stubs.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index b63e60ef89901..479169dc9ac75 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -2551,13 +2551,14 @@ static void damos_update_stat(struct damos *s,
- 
- static bool damos_filter_match(struct damon_ctx *ctx, struct damon_target *t,
- 		struct damon_region *r, struct damos_filter *filter,
--		unsigned long min_region_sz)
-+		unsigned long min_region_sz, int *err)
- {
- 	bool matched = false;
- 	struct damon_target *ti;
- 	int target_idx = 0;
- 	unsigned long start, end, wsum;
- 
-+	*err = 0;
- 	switch (filter->type) {
- 	case DAMOS_FILTER_TYPE_TARGET:
- 		damon_for_each_target(ti, ctx) {
-@@ -2583,12 +2584,13 @@ static bool damos_filter_match(struct damon_ctx *ctx, struct damon_target *t,
- 		}
- 		/* start before the range and overlap */
- 		if (r->ar.start < start) {
--			damon_split_region_at(t, r, start - r->ar.start);
-+			*err = damon_split_region_at(t, r,
-+					start - r->ar.start);
- 			matched = false;
- 			break;
- 		}
- 		/* start inside the range */
--		damon_split_region_at(t, r, end - r->ar.start);
-+		*err = damon_split_region_at(t, r, end - r->ar.start);
- 		matched = true;
- 		break;
- 	case DAMOS_FILTER_TYPE_PROBE_HITS_WSUM:
-@@ -2607,10 +2609,16 @@ static bool damos_core_filter_out(struct damon_ctx *ctx, struct damon_target *t,
- 		struct damon_region *r, struct damos *s)
- {
- 	struct damos_filter *filter;
-+	bool matching;
-+	int err;
- 
- 	s->core_filters_allowed = false;
- 	damos_for_each_core_filter(filter, s) {
--		if (damos_filter_match(ctx, t, r, filter, ctx->min_region_sz)) {
-+		matching = damos_filter_match(ctx, t, r, filter,
-+				ctx->min_region_sz, &err);
-+		if (err)
-+			return true;
-+		if (matching) {
- 			if (filter->allow)
- 				s->core_filters_allowed = true;
- 			return !filter->allow;
-diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
-index 3fbb4e4e36fac..43e2f950f8ff4 100644
---- a/mm/damon/tests/core-kunit.h
-+++ b/mm/damon/tests/core-kunit.h
-@@ -1783,6 +1783,7 @@ static void damos_test_filter_out(struct kunit *test)
- 	struct damon_target *t;
- 	struct damon_region *r, *r2;
- 	struct damos_filter *f;
-+	int err;
- 
- 	f = damos_new_filter(DAMOS_FILTER_TYPE_ADDR, true, false);
- 	if (!f)
-@@ -1803,27 +1804,27 @@ static void damos_test_filter_out(struct kunit *test)
- 	damon_add_region(r, t);
- 
- 	/* region in the range */
--	KUNIT_EXPECT_TRUE(test, damos_filter_match(NULL, t, r, f, 1));
-+	KUNIT_EXPECT_TRUE(test, damos_filter_match(NULL, t, r, f, 1, &err));
- 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
- 
- 	/* region before the range */
- 	r->ar.start = 1;
- 	r->ar.end = 2;
- 	KUNIT_EXPECT_FALSE(test,
--			damos_filter_match(NULL, t, r, f, 1));
-+			damos_filter_match(NULL, t, r, f, 1, &err));
- 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
- 
- 	/* region after the range */
- 	r->ar.start = 6;
- 	r->ar.end = 8;
- 	KUNIT_EXPECT_FALSE(test,
--			damos_filter_match(NULL, t, r, f, 1));
-+			damos_filter_match(NULL, t, r, f, 1, &err));
- 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
- 
- 	/* region started before the range */
- 	r->ar.start = 1;
- 	r->ar.end = 4;
--	KUNIT_EXPECT_FALSE(test, damos_filter_match(NULL, t, r, f, 1));
-+	KUNIT_EXPECT_FALSE(test, damos_filter_match(NULL, t, r, f, 1, &err));
- 	/* filter should have split the region */
- 	KUNIT_EXPECT_EQ(test, r->ar.start, 1);
- 	KUNIT_EXPECT_EQ(test, r->ar.end, 2);
-@@ -1839,7 +1840,7 @@ static void damos_test_filter_out(struct kunit *test)
- 	r->ar.start = 2;
- 	r->ar.end = 8;
- 	KUNIT_EXPECT_TRUE(test,
--			damos_filter_match(NULL, t, r, f, 1));
-+			damos_filter_match(NULL, t, r, f, 1, &err));
- 	/* filter should have split the region */
- 	KUNIT_EXPECT_EQ(test, r->ar.start, 2);
- 	KUNIT_EXPECT_EQ(test, r->ar.end, 6);
+diff --git a/kernel/time/posix-stubs.c b/kernel/time/posix-stubs.c
+index 9b6fcb8d85e78..5a27335a917ec 100644
+--- a/kernel/time/posix-stubs.c
++++ b/kernel/time/posix-stubs.c
+@@ -83,7 +83,7 @@ SYSCALL_DEFINE2(clock_getres, const clockid_t, which_clock, struct __kernel_time
+ 	case CLOCK_REALTIME:
+ 	case CLOCK_MONOTONIC:
+ 	case CLOCK_BOOTTIME:
+-		if (put_timespec64(&rtn_tp, tp))
++		if (tp && put_timespec64(&rtn_tp, tp))
+ 			return -EFAULT;
+ 		return 0;
+ 	default:
+@@ -166,7 +166,7 @@ SYSCALL_DEFINE2(clock_getres_time32, clockid_t, which_clock,
+ 	case CLOCK_REALTIME:
+ 	case CLOCK_MONOTONIC:
+ 	case CLOCK_BOOTTIME:
+-		if (put_old_timespec32(&rtn_tp, tp))
++		if (tp && put_old_timespec32(&rtn_tp, tp))
+ 			return -EFAULT;
+ 		return 0;
+ 	default:
 -- 
 2.53.0
 
