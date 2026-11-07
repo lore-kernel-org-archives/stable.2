@@ -1,53 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047263;
-	b=hbkNpdqCbX1m1prylrGpr59LnvKsUSYXDkkM6e04Y8mAyFR5UiACrtpja45hcfl6QpNP
-	 fdNUDmEd9/8j1VFSn8m7I4CMJ6wHGJyvNrVdYuiJhzCtFHmn2nAjG7lTOqFbzKXrE4VBY
-	 MSc5SnZPzonCuhPgVxrLLaP11uxfemcS8Kt+gZbOkE+vwNSAmlJe1stBd3Q2s2evNrK/d
-	 Qi9baE/PMdRdXJx+7BEXYaocYFCxma9RgF+i3GL3/LUY5+EcDjX2PYW8aZYJ41PjAgrgV
-	 KZEM/ZD/2FufZGM7C+5Zdy7TNRSWheDQTU1tUIM9hMU5uDLlKfY2N5bPHtXJMGOL13Q==
+	t=1794047265;
+	b=UhbDNUFzmC3tFFtZpbUHJngM4NY8qtg6G1+XyTemINoRcPSGZowkYOB6bT545aQBVACi
+	 NKNot+qxbf0hECkdPJwt53Qan1VpvPjeZFq60o1BAPlqZKGypCZLZ8x/Bx2jJcGP1Hf74
+	 AOl/mnR8y/G9LSX0zl2LUNZwB3qtgEYB3r4wL6xDM+NXkG+nlmBSgyJxqLZoR4I8IXHHW
+	 3vvuN/dMNVSyUr1yiFbUfiBXPa1hAA3M4xmR9Mjf7MMcGnVc7Z0nqI0fpk3UTf97N1Mma
+	 NFs4AbqPAGGC3gUzU2NlVZdfgWl6s/Fz+hDTo/h8u8wIEWR9IKF4xT4md1LFCm399Bg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047263;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047265;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=HV5e9oERrLhMurHtcQ1jb4ClsjWHANLAVAmy0KfecHc=;
-	b=NWvPS5Zpda28DZSRNodKxiXbFNissV3j+xHV16vymSqEUpMN+vTLbv55emL3UzZYmtod
-	 8hOdsi9tsLtdkpSIETG2TK78YwqzrQVXfZ+oTWP+DDHHxj3hlodEb0IUaFE3yNfclrYAV
-	 tQWtxYjcG6a8ci1BLykA1yQbAJKb6lMtNlsXbW4IKl/sXvy1U+yvw/HVfHjUJpe6Z66l/
-	 xC3AhPBjZaEWfHxz/VwjoDephYhW7WA30bZJPmXqVgCmS6GeFZu22DhHSe8WwHk4C3vSI
-	 cCnwwDLvMea8DCMfiYEdyPCYIRosHZq1XIhOFtunvl2aoPUFX4+THQwA8uGqXfU+64w==
+	bh=hSiCUa21YkgriRruF1UgOJDZSQ28TKXfIaF4xMsRBrM=;
+	b=yIcvxZFIp8Hf2nBvgy2ZPVYFfwxbJU0Z0zU4B3ENkhUb+bFPf5dlf8pfVlvmksHtKvTD
+	 u6PoUjTk60xnZ/p3O5XZOwkYTAOtnEsKDe3bJwIEmGVVmFT5IvVJkPvZv5DA37+1ZQw7W
+	 o58wSST3gOHLyYOvjIYORWlJ/THSdNtgqsRH4n/qcbh7MO5uLpBXw0PrfGFQiP8swwr6N
+	 XKkv0tnYLRpaZ520fWHr4rCN1SjwerKu0fuYUBD23GflBGmPf9LL6ZEbToghdxLmdx9ir
+	 ADF03sIFuavTEowjDgoQkj4ikJrquPQ4LdwUzqayTT98ldP0y6pZG8kxQFu7h0HnkWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CoNuzN3d;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RqsUNIgk;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFEB1606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:27:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB95D606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:27:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CoNuzN3d
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02BA11F0089F;
-	Sat,  7 Nov 2026 10:27:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RqsUNIgk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 586B91F0089F;
+	Sat,  7 Nov 2026 10:27:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047262;
-	bh=HV5e9oERrLhMurHtcQ1jb4ClsjWHANLAVAmy0KfecHc=;
+	s=k20260515; t=1794047264;
+	bh=hSiCUa21YkgriRruF1UgOJDZSQ28TKXfIaF4xMsRBrM=;
 	h=From:To:Cc:Subject:Date;
-	b=CoNuzN3dvRhQV+0ahrs8SzXlv0M9+nYksE5rQ016wdlPr29Ncj8JgCb6q4LJijm5g
-	 n21mL2YjmvzmSmajlEFF1oMJQhHUL2K4zIllHB/3NYo87SCUmDBfs7KFGHxmp8uOir
-	 y7MdSQfYnz4hiZnY+uBPmmjW9hs2FeCn/NodBj32nK4mIg2tKwuDuEulHTXcmXZN7M
-	 67smL3w62/Kr+k6GGPkrV5JYZ6D4n4YSXoYo6fqHLYkFsq0TEZy1bMa3vSQ0FreulE
-	 NSpiOxeI23doWb3FU72QCgCfqEm+gNPmuhzjPBdwdC4QmTTGShg4PISDeJOfeQPmkV
-	 NIqZcKUoISpqg==
+	b=RqsUNIgkV0bN4Z7BUsxOWd0V5UK08rkjktU7H8hlGmeqftXqbAqg4shKSEeM+XOR7
+	 8y9eI3tZSjdna28+Ht8iTiwen3RIs9WY8k1fp9s7aIpd+TwVcSv33ghg/tvPjhPXmM
+	 h4fFR4HST12KxpuNuGnVUGlCUq8f5xiBrBUtGhPi3WeHeEYXd0Q9gClcdiYIaX3qOA
+	 rJ0gmi6caI+jpq4ngzQUxFsz0cHjTp3PlLi9+m7uZ2P+ty1hT4+jvzAhe4uIh0MB9o
+	 rtOjOy5Cka8T5zBtredsiXkwlFO/rSIekS5n6fcAXVShcte/ulyJKtRBRYCXPaZm2X
+	 Ldr90zbsgOE+g==
 From: Sasha Levin <sashal@kernel.org>
-To: 1075151112@qq.com,
-	hare@kernel.org,
-	hch@lst.de,
+To: snishika@redhat.com,
 	kbusch@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] nvme-tcp: validate the TLS handshake timeout" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:27:41 -0500
-Message-ID: <20261107052740-failed-6.12-799203afd298@kernel.org>
+Subject: FAILED: patch "[PATCH] nvme-tcp: fix io_work priority inversion when send_mutex is held" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:27:43 -0500
+Message-ID: <20261107052743-failed-6.12-5db358f3a7f9@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,147 +68,111 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 799203afd298b1f8e9ee49815eb38f775f211299
+git cherry-pick -x 5db358f3a7f9c33717622c1597d15c4c91997b19
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052740-failed-6.12-799203afd298@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052743-failed-6.12-5db358f3a7f9@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 799203afd298b1f8e9ee49815eb38f775f211299 Mon Sep 17 00:00:00 2001
-From: Yingjie Wang <1075151112@qq.com>
-Date: Wed, 28 Oct 2026 19:57:20 +0800
-Subject: [PATCH] nvme-tcp: validate the TLS handshake timeout
+From 5db358f3a7f9c33717622c1597d15c4c91997b19 Mon Sep 17 00:00:00 2001
+From: Seiji Nishikawa <snishika@redhat.com>
+Date: Wed, 14 Oct 2026 15:45:24 +0900
+Subject: [PATCH] nvme-tcp: fix io_work priority inversion when send_mutex is
+ held
 
-tls_handshake_timeout is writable but stored as a signed int. Multiplying
-the value by MSEC_PER_SEC and HZ therefore uses signed arithmetic.
+Commit f42d4796ee10 ("nvme-tcp: fix I/O stalls on congested sockets")
+added a check in nvme_tcp_io_work() that sets pending to true when the
+queue has pending requests and the socket is writeable. The check is
+placed after the mutex_trylock() block, so it also runs when
+mutex_trylock(&queue->send_mutex) failed and io_work did not send
+anything.
 
-With HZ=1000, setting it to 2147484 overflows both multiplications. If
-the handshake request is accepted and its completion remains pending,
-schedule_timeout() reports a wrong timeout value with a stack dump and
-returns zero. The handshake then fails immediately with -ETIMEDOUT,
-while the handshake agent was given about 24.9 days. Negative values
-such as -1 have the same kernel-side effect.
+When .queue_rq sends a request directly from its own context, it holds
+send_mutex and can give up the CPU in lock_sock_nested() when another
+task needs the CPU, for example the io_work kworker of the same queue,
+which runs on the same CPU. Then io_work cannot take send_mutex, but
+the requests are still on req_list and the socket is writeable, so
+pending is set to true. io_work loops until the deadline and queues
+itself again on io_cpu, without sleeping.
 
-Store the parameter as an unsigned int and reject values that cannot be
-represented both by tls_handshake_args::ta_timeout_ms and by a safe
-jiffies delay. Take one snapshot so a concurrent parameter update cannot
-give the handshake agent and completion wait different timeouts.
-Document the accepted range for built-in use.
+This is a priority inversion. io_work runs on the high priority
+nvme_tcp_wq and cannot make progress until send_mutex is released, but
+it keeps running. The task holding send_mutex runs at normal priority
+and needs the CPU to release it. The scheduler keeps giving the CPU to
+io_work, so the task holding send_mutex may not run again, and the
+requests on the queue are not sent and time out.
 
-wait_for_completion_interruptible_timeout() returns the remaining
-jiffies as a long after a successful completion. Keep that result in a
-long because an accepted timeout can exceed INT_MAX jiffies on 64-bit
-systems.
+This is the same problem that commit 70f437fb4395 ("nvme-tcp: fix
+io_work priority inversion") fixed. That commit removed
+"pending = !llist_empty(&queue->req_list)" from the path where
+mutex_trylock() fails, and let the task holding send_mutex queue
+io_work again in nvme_tcp_queue_request() after it releases the mutex.
+The new check brings back the same behavior in a different form.
 
-Negative and oversized values now fail with -EINVAL. Keep zero valid,
-preserving the existing immediate-timeout behavior.
+Two things make this easier to hit. nvme_tcp_queue_request() sends
+directly only when it runs on io_cpu, so the task that takes send_mutex
+is on the same CPU as the io_work kworker of that queue when it takes
+the mutex. Also, when the tasks are in a cgroup with the cpu controller
+enabled, the whole group competes with the nice -20 kworker as one
+entity, so each task in the group gets even less CPU time.
 
-Fixes: be8e82caa685 ("nvme-tcp: enable TLS handshake upcall")
-Cc: stable@vger.kernel.org
-Reviewed-by: Hannes Reinecke <hare@kernel.org>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Yingjie Wang <1075151112@qq.com>
+We hit this on a 6 CPU VM running a database on nvme-tcp storage. In
+the vmcore, 2 tasks held send_mutex of 2 queues and were runnable in
+lock_sock_nested() for 103 seconds, while the kworkers for those queues
+kept running io_work on their CPUs. All database tasks were in one
+cgroup, which got only about 0.3% of the CPU against the nice -20
+kworker. Requests timed out, and blk_mq_timeout_work() waited in
+synchronize_srcu() for the tasks still in .queue_rq.
+
+Only do the pending check if io_work could take send_mutex. If it could
+not, the task holding send_mutex sends what it can in
+nvme_tcp_send_all(), and queues io_work again after it releases the
+mutex if requests are still pending, so no request is left behind.
+
+Fixes: f42d4796ee10 ("nvme-tcp: fix I/O stalls on congested sockets")
+Cc: stable@vger.kernel.org # v6.16+
+Signed-off-by: Seiji Nishikawa <snishika@redhat.com>
 Signed-off-by: Keith Busch <kbusch@kernel.org>
 ---
- .../admin-guide/kernel-parameters.txt         |  5 +++
- drivers/nvme/host/tcp.c                       | 34 ++++++++++++++-----
- 2 files changed, 31 insertions(+), 8 deletions(-)
+ drivers/nvme/host/tcp.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index 5bd8a24be6b61..187917a4f196d 100644
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -4801,6 +4801,11 @@ Kernel parameters
- 			Example:
- 			nvme.quirks=7710:2267:bogus_nid,^identify_cns-9900:7711:broken_msi
- 
-+	nvme_tcp.tls_handshake_timeout=
-+			[NVME] NVMe/TCP host TLS handshake timeout in seconds.
-+			Valid values range from 0 to the smaller of
-+			UINT_MAX / 1000 and MAX_JIFFY_OFFSET / HZ. Default: 10
-+
- 	nvmet_tcp.tls_handshake_timeout=
- 			[NVME] NVMe/TCP target TLS handshake timeout in seconds.
- 			Valid values range from 0 to the smaller of
 diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
-index e69e6535e1a17..a8e94e4866db2 100644
+index 191e5811d25ea..1f7a2de954197 100644
 --- a/drivers/nvme/host/tcp.c
 +++ b/drivers/nvme/host/tcp.c
-@@ -6,6 +6,7 @@
- #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
- #include <linux/module.h>
- #include <linux/init.h>
-+#include <linux/jiffies.h>
- #include <linux/slab.h>
- #include <linux/async.h>
- #include <linux/err.h>
-@@ -48,9 +49,24 @@ MODULE_PARM_DESC(wq_unbound, "Use unbound workqueue for nvme-tcp IO context (def
- /*
-  * TLS handshake timeout
-  */
--static int tls_handshake_timeout = 10;
-+static unsigned int tls_handshake_timeout = 10;
- #ifdef CONFIG_NVME_TCP_TLS
--module_param(tls_handshake_timeout, int, 0644);
-+static int tls_handshake_timeout_set(const char *val,
-+				     const struct kernel_param *kp)
-+{
-+	return param_set_uint_minmax(val, kp, 0,
-+		min_t(unsigned long, UINT_MAX / MSEC_PER_SEC,
-+		      MAX_JIFFY_OFFSET / HZ));
-+}
-+
-+static const struct kernel_param_ops tls_handshake_timeout_ops = {
-+	.set = tls_handshake_timeout_set,
-+	.get = param_get_uint,
-+};
-+
-+module_param_cb(tls_handshake_timeout, &tls_handshake_timeout_ops,
-+		&tls_handshake_timeout, 0644);
-+__MODULE_PARM_TYPE(tls_handshake_timeout, "uint");
- MODULE_PARM_DESC(tls_handshake_timeout,
- 		 "nvme TLS handshake timeout in seconds (default 10)");
- #endif
-@@ -1946,8 +1962,10 @@ static int nvme_tcp_start_tls(struct nvme_ctrl *nctrl,
- {
- 	int qid = nvme_tcp_queue_id(queue);
- 	int ret;
-+	long wait_ret;
- 	struct tls_handshake_args args;
--	unsigned long tmo = tls_handshake_timeout * HZ;
-+	unsigned int timeout = READ_ONCE(tls_handshake_timeout);
-+	unsigned long tmo = (unsigned long)timeout * HZ;
- 	key_serial_t keyring = nvme_keyring_id();
+@@ -1461,9 +1461,11 @@ static void nvme_tcp_io_work(struct work_struct *w)
  
- 	dev_dbg(nctrl->device, "queue %d: start TLS with key %x\n",
-@@ -1961,7 +1979,7 @@ static int nvme_tcp_start_tls(struct nvme_ctrl *nctrl,
- 	if (nctrl->opts->keyring)
- 		keyring = key_serial(nctrl->opts->keyring);
- 	args.ta_keyring = keyring;
--	args.ta_timeout_ms = tls_handshake_timeout * 1000;
-+	args.ta_timeout_ms = timeout * MSEC_PER_SEC;
- 	queue->tls_err = -EOPNOTSUPP;
- 	init_completion(&queue->tls_complete);
- 	ret = tls_client_hello_psk(&args, GFP_KERNEL);
-@@ -1970,10 +1988,10 @@ static int nvme_tcp_start_tls(struct nvme_ctrl *nctrl,
- 			qid, ret);
- 		return ret;
- 	}
--	ret = wait_for_completion_interruptible_timeout(&queue->tls_complete, tmo);
--	if (ret <= 0) {
--		if (ret == 0)
--			ret = -ETIMEDOUT;
-+	wait_ret = wait_for_completion_interruptible_timeout(&queue->tls_complete,
-+							     tmo);
-+	if (wait_ret <= 0) {
-+		ret = wait_ret < 0 ? -ERESTARTSYS : -ETIMEDOUT;
+ 	do {
+ 		bool pending = false;
++		bool got_send_mutex = false;
+ 		int result;
  
- 		dev_err(nctrl->device,
- 			"queue %d: TLS handshake failed, error %d\n",
+ 		if (mutex_trylock(&queue->send_mutex)) {
++			got_send_mutex = true;
+ 			result = nvme_tcp_try_send(queue);
+ 			mutex_unlock(&queue->send_mutex);
+ 			if (result > 0)
+@@ -1478,8 +1480,13 @@ static void nvme_tcp_io_work(struct work_struct *w)
+ 		else if (unlikely(result < 0))
+ 			return;
+ 
+-		/* did we get some space after spending time in recv? */
+-		if (nvme_tcp_queue_has_pending(queue) &&
++		/*
++		 * did we get some space after spending time in recv?
++		 * Only check this if we could take send_mutex. Otherwise
++		 * the task holding it sends the requests and queues io_work
++		 * again after it releases the mutex.
++		 */
++		if (got_send_mutex && nvme_tcp_queue_has_pending(queue) &&
+ 		    sk_stream_is_writeable(queue->sock->sk))
+ 			pending = true;
+ 
 -- 
 2.53.0
 
