@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794045914;
-	b=v82iP5kPsw/5Cj99H2c80kYPubv50+arggh7ehopk+0xFqhJ2a7WNmRmFBBr7agh1Tpc
-	 MlFYr1dTbDV89mcWOq2FKDyqE6KPDqKFSD5VXlgLhMajctMgy/p+DKHKU4yJJz3qq54EO
-	 hO4uTjz5CzPcmUnGRi+7V8B9OFCzHVVBO/WRc7YlRINJVTpo0cvElT6EnFGz/5///BPzk
-	 odKpPzHZ4fRkIDrBZ2SJbUihVbiyta+nJXhClDjvUaMoh5bEqZFuGCn7EUTtmXh4n3Mdz
-	 xAfUAifknjF+q+Mp1FCQQ01dDJekPql/9qTYvQ3sX3OI6VLc/2txvGAC2ae02veh8Gg==
+	t=1794045917;
+	b=GIYETqaRbr/uY+jhKpqUDckJb8vl8a4lllqtSwlr4j/AXXIGghdwYis2UDn0iho4GvPA
+	 M0brPH5J1+N+RFAK9V0rdutpHxGhdHfKPyT0H0VliuLFljvgn4xoYTdFsZY+agXXoO5k1
+	 oFEebeAVmKQhAmztaKb0duZCW/Ik6U3IgFOHti3NdiKFrtaNTVbflDRWFGfnDegOsjFUt
+	 6UTNxjEKa9FlxOSDQ1HQzJ5LnFoQzt2VHO8PCtmThWtb2cvVuzg9roXZcDdA00DfQtjnB
+	 ai2wz3s2RmY+3RY7GmGwQyKJPQYMPs3ULUiz7Nz16cqVR0nwicfRFjUpDatTGOvWxvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794045914;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794045917;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=nLiM/ROmDjeuM8cfuHury5Iw6YyXV7gF8ZxgByRFLjo=;
-	b=vjw7hvFSLKLOHTOzzWLLxd/Wg9vrtfL3WrouvcbcNbJm4lc37Q+y3PYhPL3Y2wOSMvxT
-	 fL8paGIAGiQ25oHfs50fiIDWVVpquXYHNDn/qGRdUu6FpnNoHcri166Rg9moN71+OymRK
-	 dIGfnOo/dFI65Vns2Zp9uoK10KF4uK31yIhrYfKgb+N11jU4lTB4vS4k3LO2Ko6vzR6MH
-	 rVyeOTDoRP9gmadJOmtdhncR/H2Xu24tHKRbPVyZmfchBzTf7Gk3VJhQMQUOPH3UfNmBc
-	 HdhXWLqJUq4BOkY2JOB0Ixkz6ic22GkWQ7mln9P5DWqQ/KyVN/kSZCxvuMnpxN35vSg==
+	bh=PeZNAdMXgSqoMvXat2V4VvKFLioTAA0MT7sPXX744RQ=;
+	b=0eYTeQTd2HiE9v9dcS5uBH+mn295HTKpbCCMeJwKvzubQDucEYGN/+Mq7Ur3Pct9Hhgq
+	 u+WRwYAAdHrRhMQcLr65iFFRlm4WuastdJm+f/vnzcBRkfFflfwe1AQ5fZzJopvFqt8eY
+	 wupsOR9nNLw07hvx9WpHPnpi8r/vYj5zbm/Upv7i6myoitZVQBV+xOSF0jgD2GVSwim8R
+	 Y4tFi6YpEvDzTrw14HMF/9fkDACgsDd7/wFNAubuminZo0XXxGaDJx0hHKfAoc1DFCBNN
+	 s3qpSz9THkp/Ltz1wbSZoKmLVrOTb+oiCtJ7GPNwg9aWETwATawAajFvGdSV87W+sng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="R/Mhv+Zs";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QAugf89P;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B614606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:05:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32EEB606A32F
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:05:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R/Mhv+Zs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DC9F1F0089F;
-	Sat,  7 Nov 2026 10:05:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QAugf89P
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2B241F0089F;
+	Sat,  7 Nov 2026 10:05:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794045914;
-	bh=nLiM/ROmDjeuM8cfuHury5Iw6YyXV7gF8ZxgByRFLjo=;
+	s=k20260515; t=1794045916;
+	bh=PeZNAdMXgSqoMvXat2V4VvKFLioTAA0MT7sPXX744RQ=;
 	h=From:To:Cc:Subject:Date;
-	b=R/Mhv+ZsLSE3/CQLy5LMGGH/BLUnbUVb8UmLSo32HwOWvNODTfP4yXesig8dszv6s
-	 dDKaJBGhmK3C/iSRsLIvAR8UwdXLWGPYg7gzyAWn4rcimzt/RAJ2WtLIdUC8d3o4da
-	 ljmeXzUQsLvbebM+NQrdNYPXBna+xf02DWj2jM0rJssOe5bublUdpPpzEOEwNqnQ3H
-	 4yF5+8B//auwHPF6cx93aAICpZFhmv2/NzioYI5ruAYUs5Fp0pvrDxVTLsVBlq1SOV
-	 cTDKMhiuASIu3u7vT0TNbGKKTDSxwXc2BwY1kNKCogGRbjv0M15IKivJDqBcf5/R9a
-	 eAu0a2iywIcng==
+	b=QAugf89P8E4eoCacpCd5Z+Qoq3WFcmy9iHlXBhY7iAVrQiKivUSeCj2zQyyM5MDF1
+	 LoIR0fEYwds48MQfupYtPeNBJLDM5QL+ecgzYBs2slFJ6yCzGfAdrAcYRsAkS4HLpp
+	 ahRLoCOiEPZId5STzSA0aIZx0TQejSZukC14MoXD5g0KbIdokrTQaeMnstTM5xYFsy
+	 0DcNTrdU8XxUFobYlLL5xBOlUAC5cLWIxRJ5mQCDHwAMxlsMQP73zqpXTvePUZ85s6
+	 S3hCyd/oMOK0CtYgZd+OLeLoU7f+wOmlHIC1Haa+F+p0K5lWQwGUo/jG0Tly884Xmp
+	 PQOzUce2XV8lA==
 From: Sasha Levin <sashal@kernel.org>
-To: chao@kernel.org,
-	daehojeong@google.com,
-	jaegeuk@kernel.org
+To: arighi@nvidia.com,
+	tj@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] f2fs: fix to avoid potential reference count leak in do_garbage_collect()" failed to apply to 7.3-stable tree
-Date: Sat,  7 Nov 2026 05:05:12 -0500
-Message-ID: <20261107050512-failed-7.3-894ca8b85666@kernel.org>
+Subject: FAILED: patch "[PATCH] sched_ext: Queue the kick_sync wait from set_next_task_scx()" failed to apply to 7.3-stable tree
+Date: Sat,  7 Nov 2026 05:05:14 -0500
+Message-ID: <20261107050514-failed-7.3-e2859566ffbc@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,71 +68,142 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x 894ca8b856668a82426dbd0a0042b61541a1a9ec
+git cherry-pick -x e2859566ffbc3a9f33308255114ccf167124e048
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050512-failed-7.3-894ca8b85666@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050514-failed-7.3-e2859566ffbc@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 894ca8b856668a82426dbd0a0042b61541a1a9ec Mon Sep 17 00:00:00 2001
-From: Chao Yu <chao@kernel.org>
-Date: Fri, 16 Oct 2026 10:17:37 +0800
-Subject: [PATCH] f2fs: fix to avoid potential reference count leak in
- do_garbage_collect()
+From e2859566ffbc3a9f33308255114ccf167124e048 Mon Sep 17 00:00:00 2001
+From: Andrea Righi <arighi@nvidia.com>
+Date: Sun, 18 Oct 2026 18:24:15 +0200
+Subject: [PATCH] sched_ext: Queue the kick_sync wait from set_next_task_scx()
 
-In do_garbage_collect(), we have reserved reference counts on summary cache
-of all segments, once gc_thread encounter freezing, we need to release all
-reference counts.
+The SCX_KICK_WAIT wait is deferred to rq->scx.kick_sync_bal_cb, which a
+final pick queues on the local rq. Under core scheduling, a pick that
+returns a task isn't final: pick_next_task() goes on to pick the SMT
+siblings, and their dispatch can release the shared rq lock with the
+callback still queued. A CPU acquiring the rq lock in that window then
+finds a pending balance callback and triggers the warning in
+rq_pin_lock().
 
-Cc: stable@kernel.org
-Cc: Daeho Jeong <daehojeong@google.com>
-Fixes: 02d91398a602 ("f2fs: fix to freeze GC and discard threads quickly")
-Signed-off-by: Chao Yu <chao@kernel.org>
-Reviewed-by: Daeho Jeong <daehojeong@google.com>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+Fix this by queuing the callback from set_next_task_scx() on SNT_PICK
+and SNT_REPICK. put_prev_set_next_task() calls it once the pick is
+final, after the core-wide selection, so the rq lock can't be dropped
+with the callback queued. If the CPU ends up running idle or a higher
+class task, no SCX task runs there and there's nothing to wait for:
+kick_sync_pending stays set and the next pick of an SCX task waits
+before running it.
+
+Also, proxy exec zaps the balance callbacks and picks again when
+find_proxy_task() fails, so clear kick_sync_pending when the callback
+runs rather than when it's queued.
+
+Fixes: 415cb193bb97 ("sched_ext: Fix SCX_KICK_WAIT deadlock by deferring wait to balance callback")
+Cc: stable@vger.kernel.org # v7.0+: c72945693b90: sched: Restart fair hrtick after same-task repicks
+Cc: stable@vger.kernel.org # v7.0+
+Suggested-by: Tejun Heo <tj@kernel.org>
+Signed-off-by: Andrea Righi <arighi@nvidia.com>
+Signed-off-by: Tejun Heo <tj@kernel.org>
 ---
- fs/f2fs/gc.c | 10 +++-------
- 1 file changed, 3 insertions(+), 7 deletions(-)
+ kernel/sched/ext/ext.c | 50 ++++++++++++++++++++++++------------------
+ 1 file changed, 29 insertions(+), 21 deletions(-)
 
-diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
-index 540769ad58acc..18aa6a12e805d 100644
---- a/fs/f2fs/gc.c
-+++ b/fs/f2fs/gc.c
-@@ -1871,6 +1871,9 @@ static int do_garbage_collect(struct f2fs_sb_info *sbi,
- 		if (block_end_segno > end_segno)
- 			block_end_segno = end_segno;
+diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+index 6fec09fd09707..5efc3ad1b1198 100644
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -3422,6 +3422,8 @@ static void scx_start_task_running(struct rq *rq, struct task_struct *p)
+ 	p->scx.flags |= SCX_TASK_RUN_TRACKED;
+ }
  
-+		if (unlikely(freezing(current)))
-+			goto next_block;
++static void kick_sync_wait_bal_cb(struct rq *rq);
 +
- 		if (is_cursec(sbi, GET_SEC_FROM_SEG(sbi, segno))) {
- 			f2fs_err(sbi, "%s: segment %u is used by log",
- 							__func__, segno);
-@@ -1938,12 +1941,6 @@ static int do_garbage_collect(struct f2fs_sb_info *sbi,
- 				sbi->next_victim_seg[gc_type] =
- 					(cur_segno + 1 < sec_end_segno) ?
- 					cur_segno + 1 : NULL_SEGNO;
+ static void set_next_task_scx(struct rq *rq, struct task_struct *p, enum snt_e type)
+ {
+ 	bool first = type == SNT_PICK;
+@@ -3437,6 +3439,20 @@ static void set_next_task_scx(struct rq *rq, struct task_struct *p, enum snt_e t
+ 	    (type == SNT_PICK || type == SNT_REPICK))
+ 		rq->scx.flags |= SCX_RQ_PROXY_PENDING;
+ 
++	/*
++	 * Defer the kick_sync wait to a balance callback which can drop rq lock
++	 * and enable IRQs. Waiting directly in the pick path would deadlock
++	 * against CPUs sending us IPIs (e.g., TLB flushes) while we wait for
++	 * them.
++	 *
++	 * Queue it only once the pick is final, so that the rq lock can't be
++	 * released with the callback queued (e.g., by another dispatch during
++	 * a core-wide selection). If no SCX task gets picked, there's nothing
++	 * to wait for and kick_sync_pending stays set for the next SCX pick.
++	 */
++	if (unlikely(rq->scx.kick_sync_pending) && (type == SNT_PICK || type == SNT_REPICK))
++		queue_balance_callback(rq, &rq->scx.kick_sync_bal_cb, kick_sync_wait_bal_cb);
++
+ 	if (type == SNT_REPICK)
+ 		return;
+ 
+@@ -3717,17 +3733,22 @@ static void kick_sync_wait_bal_cb(struct rq *rq)
+ 	s32 cpu;
+ 
+ 	/*
+-	 * This callback is queued and normally flushed within @rq's own
+-	 * scheduling pass. However, dispatch can drop the rq lock while it sits
+-	 * queued, and lock takers in that window (the sched class change paths,
+-	 * the scx task iterator) flush pending balance callbacks on release,
+-	 * running this one on a foreign CPU whose snapshots are unrelated. The
+-	 * kicked CPUs are already on their way to advance the kick_syncs being
+-	 * waited on. Don't get in the way.
++	 * This callback is queued once the pick is final and flushed within
++	 * @rq's own scheduling pass. If a lock taker on a foreign CPU ever
++	 * flushes it, the snapshots are unrelated to that CPU. Don't get in the
++	 * way and leave the wait pending for @rq's next pick.
+ 	 */
+ 	if (unlikely(cpu_of(rq) != smp_processor_id()))
+ 		return;
+ 
++	/*
++	 * Clear only when the wait actually runs. The callback can be dropped
++	 * without running (e.g., proxy exec zaps the balance callbacks and
++	 * picks again when find_proxy_task() fails), in which case the next
++	 * pick must queue it again.
++	 */
++	rq->scx.kick_sync_pending = false;
++
+ 	ks = __this_cpu_read(scx_kick_syncs);
+ 	ksyncs = rcu_dereference_sched(ks)->syncs;
+ 
+@@ -3926,25 +3947,12 @@ do_pick_task_scx(struct rq *rq, struct rq_flags *rf, bool force_scx)
+ 	 * NULL pick from the dl_server, the core continues picking and can
+ 	 * release the rq lock (e.g., prev_balance() or another dispatch). In
+ 	 * that case, run the deferred work from irq_work, which doesn't depend
+-	 * on the current rq lock section, and leave the kick sync wait pending
+-	 * for the next pick.
++	 * on the current rq lock section.
+ 	 */
+ 	if (p != RETRY_TASK && (p || !force_scx)) {
+ 		/* under core scheduling, see dispatch_core_pick() */
+ 		if (!core_sched)
+ 			maybe_queue_balance_callback(rq);
 -
--			if (unlikely(freezing(current))) {
--				f2fs_put_cache(sum_entry, false);
--				f2fs_put_cache(sum_entry, false);
--				goto stop;
--			}
- 		}
- next_block:
- 		f2fs_put_cache(sum_entry, false);
-@@ -1951,7 +1948,6 @@ static int do_garbage_collect(struct f2fs_sb_info *sbi,
- 		segno = block_end_segno;
- 	}
- 
--stop:
- 	if (submitted)
- 		f2fs_submit_merged_write(sbi, data_type);
- 
+-		/*
+-		 * Defer to a balance callback which can drop rq lock and enable
+-		 * IRQs. Waiting directly in the pick path would deadlock against
+-		 * CPUs sending us IPIs (e.g., TLB flushes) while we wait for
+-		 * them.
+-		 */
+-		if (unlikely(rq->scx.kick_sync_pending)) {
+-			rq->scx.kick_sync_pending = false;
+-			queue_balance_callback(rq, &rq->scx.kick_sync_bal_cb,
+-					       kick_sync_wait_bal_cb);
+-		}
+ 	} else if (!core_sched && (rq->scx.flags & SCX_RQ_BAL_CB_PENDING)) {
+ 		rq->scx.flags &= ~SCX_RQ_BAL_CB_PENDING;
+ 		schedule_deferred(rq);
 -- 
 2.53.0
 
