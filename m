@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050116;
-	b=y3iMO0beZFhFvx77/fQCyWThG7bSAFRcaVfaWRKLf5iTyAgBfJpfnf85wShW/lMg8Zsb
-	 kM1wPNzTAV8Wn1ug8S+rRvSPhrLIL9zuaYdy61CAzVoDBcF/omLvpR0Rz1BoXuNz9jC2E
-	 hkrTBZ4M9FdBgfvISLTvTE9/kEbFmyskV4/Y5u7k9IJbaJqp6GL5QQfpy+vKW/W0roEJs
-	 lZtELmPk+BNoEn5CCWx7D0zlagYtT14K2gbMl6yzsKl08lF6zxI9TvEM4KmxKF2kDMuIy
-	 /2vazvgJridiujyRvD8c49sz5q8zoXoAjUeyrJQDPY130d38PMRMVFCWtvVu8zW4Lvw==
+	t=1794050120;
+	b=boIuSkCzItPeodbJZWO09lBh0k8+Q+OlADKeftZniLS64KryU25DA+rdKMJ2NpSsJU4Y
+	 zLjom+Sh2r+sHRK3Z5pBKPnEFYMBvveG9pXII8Yzrn/xB7B60LAqF/DSGyGqlaRYtliV/
+	 64jwp63+EEebU/Xl/O9cZ/OFQCTUy9ipYh3qrbh5tci1eBPRZd8pM7fWi6dgkzycAGsKl
+	 hLgqXAHDB/vMsxX4TmQHt16tEzjR4IxjE16Ynj69+RS9UNy/ONdOIuLoQmhbgjVPPFfYm
+	 +RAJt1dgZWBIY+I8dMrl2CuQflDu2OO7wL3XOhUDQcUZYdGQV/cgx42zNu7+3XZy5zA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050116;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050120;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=hztmqY7Y+MGcUg1JzJTU+IazNJVURSMUYIBtmKLPn2U=;
-	b=XiFwdEbwtqNwmN+6z6UMqY+ygIJp5bMZGt7737Znf+V0c4wrzQm5FBXUV3OmoZoS4p88
-	 0DZfZtJm9rholwOpf3/XbhbUAIQuKWCbAKJY0rGmqQw7NY72Mkprjd9JhNhjig0R2xSfK
-	 ULUl+p2YrJdbKnoEt73Bbof9ZZyB95aMhK6k0AdccwoDPmiuCJB42f4yqxdths0BazUmQ
-	 JH5tizmQUcIQo/lYjeum+udWO4pP8DCeXq5mNptVya9boBftVsXzkoYgLi5I6inaMucg1
-	 O02vqTW3ZMWaxsqp8yCxoJKdxp8s8K2KaznRcguPt7Qlzz80B5oZivVpr4m5DDrMZsA==
+	bh=gStmxWUA3wSRLQJ735zS9XMWPYc7E8cuDyw3RzRrgMk=;
+	b=07ofDz1/9FDnyNmUYPdf+/dYQh9o6Re1aasRi9jfbJ5C8aejXMbxBF9lh12lXctP/Irk
+	 dsM/raw8bdU1yughuRZqwdB/14de6Jya6Rs/f0jSjzTrbeJpptLE/EHmeiuK9Dg1MIoru
+	 9NsG0LoSFImfrBGsrlmXxLCwvmjDPYSmBuIKXHZG8eiaWCBw6r1fiMVcmoZH6gS8eUxri
+	 Hlpea701NptsUSzhzSoV/CSMMul6IXESwSV8TyK1fSFsbW9oMUNig32og7ol9lAWsjDz2
+	 MIe6BZMd/pNeOW2pGTlE8yYNDUsG+Nz+92sz58JJzPhNA9ERnCtGHT6myjdSDsb6KLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lhUN3bvh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EKR4uuNF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E1D6606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:15:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC74E606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:15:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lhUN3bvh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08F351F0089F;
-	Sat,  7 Nov 2026 11:15:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EKR4uuNF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06BD01F0089F;
+	Sat,  7 Nov 2026 11:15:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050116;
-	bh=hztmqY7Y+MGcUg1JzJTU+IazNJVURSMUYIBtmKLPn2U=;
+	s=k20260515; t=1794050119;
+	bh=gStmxWUA3wSRLQJ735zS9XMWPYc7E8cuDyw3RzRrgMk=;
 	h=From:To:Cc:Subject:Date;
-	b=lhUN3bvhGXCQNQo6Nmc8W0+M5Vjj8bfppgyyn3TfvDRp/G0OnDrtIyUdAJtcpyBRI
-	 51ebgdbh0l57KWSlfcizPk2YtntLIDfLy8LGGfzbwQXL0K1qm0uTE8Z1FildAcfey4
-	 5SLNsh9jicZscpGyvw6Vi6IMdvfaW3h1L3BWRcxtJvQUKJNNTGYwpMg/POW6wY3uEO
-	 0oATGXaI09NFsAElgF5G17dftORuQbE5UfkuKp2RGjgYDf5nLYC2RS+4DDfOFsBwcs
-	 MZvi/YQG0iD423lNIqhmrtolD965poyehmM283riDG6oMjASyVhLw2jnjz7NhvcyXq
-	 ANPzAmwlIhRvA==
+	b=EKR4uuNF8ATNxrr47wSvvSslCB0xRi7tNrwtKsSASRDYWcOOcqWdQ2SpX3/WhUS6/
+	 dPTvQFuk8GSLip0LCdz7SprMyjXo7H6Yj1guQCecnIfLjuq0uupEC5FlCL63naxAPM
+	 AX5kXSuezQyxHPMfE3ej24RgJO8LoFIdSG4gEmllYQI736Ai06qn09WP/u7KGUInmv
+	 5opDwjcy6mSj4SeHUxfr109yWKoH8eS+XRQPVJ3EiImxQ2A/DkqEnD0O1y4zUxlmmD
+	 dKDg0w2POy/fnkvwjdT/ig6HUMNM21qYL/2NvBZPHBUfWNGyOa/ZDhXEnM80nJ7Lpw
+	 Oo+dsnfaU9e0g==
 From: Sasha Levin <sashal@kernel.org>
-To: pengpeng@iscas.ac.cn,
-	hverkuil+cisco@kernel.org
+To: fanwu01@zju.edu.cn,
+	songl@zju.edu.cn,
+	sebastian.reichel@collabora.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] media: require two-byte Cypress type 04 records" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:15:14 -0500
-Message-ID: <20261107061514-failed-5.10-e22872703386@kernel.org>
+Subject: FAILED: patch "[PATCH] power: supply: bq27xxx: Ensure poll work is cancelled on remove" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:15:17 -0500
+Message-ID: <20261107061517-failed-5.10-db560f4b1c52@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,67 +69,90 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x e22872703386c3885d8c6bd595124587bc4e5081
+git cherry-pick -x db560f4b1c5253853f978385db066220e0c218dc
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061514-failed-5.10-e22872703386@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061517-failed-5.10-db560f4b1c52@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From e22872703386c3885d8c6bd595124587bc4e5081 Mon Sep 17 00:00:00 2001
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Date: Fri, 14 Aug 2026 16:08:02 +0800
-Subject: [PATCH] media: require two-byte Cypress type 04 records
+From db560f4b1c5253853f978385db066220e0c218dc Mon Sep 17 00:00:00 2001
+From: Fan Wu <fanwu01@zju.edu.cn>
+Date: Thu, 3 Sep 2026 08:13:12 +0000
+Subject: [PATCH] power: supply: bq27xxx: Ensure poll work is cancelled on
+ remove
 
-Both Cypress Intel HEX parsers read two address bytes from type 04
-records. Generic record framing permits any record length, so a short
-record can make the parser consume the checksum or bytes beyond the
-firmware record. A longer record also violates the Intel HEX type 04
-layout.
+The di->work poll work is queued from the poll callback itself and from
+bq27xxx_external_power_changed(). The cancel_delayed_work_sync() in
+bq27xxx_battery_teardown() runs while the power_supply is still
+registered, so external_power_changed() can re-arm the work after the
+cancel, and it runs after the driver data has been freed.
 
-Require the type 04 payload length to be exactly two bytes in both
-implementations.
+Register a devm_delayed_work_autocancel() before
+devm_power_supply_register(), so on unwind the power_supply is
+unregistered first, after which no new external_power_changed()
+callback can be dispatched, and the poll work is cancelled only then.
+Drop the now-redundant cancel from bq27xxx_battery_teardown().
 
-Fixes: 79a63c60a6a2 ("[media] media: move dvb-usb-v2/cypress_firmware.c to media/common")
-Fixes: 776338e121b9 ("[PATCH] dvb: Add generalized dvb-usb driver")
-Cc: stable@kernel.org
-Assisted-by: Codex:gpt-5
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+This issue was found by an in-house static analysis tool.
+
+Fixes: 740b755a3b34 ("bq27x00: Poll battery state")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Link: https://patch.msgid.link/20260903081312.225535-1-fanwu01@zju.edu.cn
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/media/common/cypress_firmware.c      | 2 ++
- drivers/media/usb/dvb-usb/dvb-usb-firmware.c | 2 ++
- 2 files changed, 4 insertions(+)
+ drivers/power/supply/bq27xxx_battery.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/media/common/cypress_firmware.c b/drivers/media/common/cypress_firmware.c
-index 66274fdf52438..d0f66ed01c4b1 100644
---- a/drivers/media/common/cypress_firmware.c
-+++ b/drivers/media/common/cypress_firmware.c
-@@ -59,6 +59,8 @@ static int cypress_get_hexline(const struct firmware *fw,
- 	if (hx->type == 0x04) {
- 		/* b[4] and b[5] are the Extended linear address record data
- 		 * field */
-+		if (hx->len != 2)
-+			return -EINVAL;
- 		hx->addr |= (b[4] << 24) | (b[5] << 16);
- 	}
+diff --git a/drivers/power/supply/bq27xxx_battery.c b/drivers/power/supply/bq27xxx_battery.c
+index 4d4809a70b622..cd30993b8a89e 100644
+--- a/drivers/power/supply/bq27xxx_battery.c
++++ b/drivers/power/supply/bq27xxx_battery.c
+@@ -43,6 +43,7 @@
+  */
  
-diff --git a/drivers/media/usb/dvb-usb/dvb-usb-firmware.c b/drivers/media/usb/dvb-usb/dvb-usb-firmware.c
-index 0fb3fa6100e4a..675d9d1d4f472 100644
---- a/drivers/media/usb/dvb-usb/dvb-usb-firmware.c
-+++ b/drivers/media/usb/dvb-usb/dvb-usb-firmware.c
-@@ -141,6 +141,8 @@ int dvb_usb_get_hexline(const struct firmware *fw, struct hexline *hx,
+ #include <linux/device.h>
++#include <linux/devm-helpers.h>
+ #include <linux/module.h>
+ #include <linux/mutex.h>
+ #include <linux/param.h>
+@@ -2234,7 +2235,6 @@ int bq27xxx_battery_setup(struct bq27xxx_device_info *di)
+ 	};
+ 	int ret;
  
- 	if (hx->type == 0x04) {
- 		/* b[4] and b[5] are the Extended linear address record data field */
-+		if (hx->len != 2)
-+			return -EINVAL;
- 		hx->addr |= (b[4] << 24) | (b[5] << 16);
- /*		hx->len -= 2;
- 		data_offs += 2; */
+-	INIT_DELAYED_WORK(&di->work, bq27xxx_battery_poll);
+ 	ret = devm_mutex_init(di->dev, &di->lock);
+ 	if (ret)
+ 		return ret;
+@@ -2255,6 +2255,12 @@ int bq27xxx_battery_setup(struct bq27xxx_device_info *di)
+ 	psy_desc->get_property = bq27xxx_battery_get_property;
+ 	psy_desc->external_power_changed = bq27xxx_external_power_changed;
+ 
++	/* Cancel the poll work after the power_supply is unregistered. */
++	ret = devm_delayed_work_autocancel(di->dev, &di->work,
++					   bq27xxx_battery_poll);
++	if (ret)
++		return ret;
++
+ 	di->bat = devm_power_supply_register(di->dev, psy_desc, &psy_cfg);
+ 	if (IS_ERR(di->bat))
+ 		return dev_err_probe(di->dev, PTR_ERR(di->bat),
+@@ -2281,8 +2287,6 @@ void bq27xxx_battery_teardown(struct bq27xxx_device_info *di)
+ 	mutex_lock(&di->lock);
+ 	di->removed = true;
+ 	mutex_unlock(&di->lock);
+-
+-	cancel_delayed_work_sync(&di->work);
+ }
+ EXPORT_SYMBOL_GPL(bq27xxx_battery_teardown);
+ 
 -- 
 2.53.0
 
