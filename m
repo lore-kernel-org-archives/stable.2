@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049215;
-	b=3P7AGfpqT0ho6EoqYPgta3t6HDWEQRPJlaOznW50a3sEXO5ZhekVFdaH88PBO9Csnv0t
-	 gULbg+mpkuG+m4DmqFRYqE1iHk9NmrDJRw4ST4LHN52pEZBxxKzeumcaN9q9ZhVk/8BJj
-	 rQZP3T2qvh/VAsHY2FCEPmkzuteVCaipmuZMUJ9GLowlLLyNfoo//af5cR8LqrRMJfzxo
-	 deJovu5UA3n5z5TOrWfNem2pzEMwU3XbxhFdna5tnr9/jp9cEkcYZFSmfuSBoOO1+IcQu
-	 o8L47e0RcYtrahnOc7uzQqD2l638HmSldEdTGqPnpTrk++P8ZbcUkap1NofJAoBZ9Yw==
+	t=1794049218;
+	b=IFxfP6FDpgWJuA9wlTMGpEpUYroRdgSI273UWK+y7S4E9g6C/at5PUPCpHhkH0KpH8TW
+	 n+P8o0HRJ95RxID7MaLtUeCLNax9DPF3e215wq0W8s2PlXiCorw/MAS0UIl8Hs0ZCqv48
+	 nNcKFGcSwLN+GaEPjzV5sR+bKlQvZS65Oi5cdMh40Dq5NzSvXy3kw3H/mQADseuSp45T2
+	 Mgep+KSGQFAUs1hFv6G61OBqU+9M0yhupglb7KUuC7tI9Xzgf14xqobcgdJtUby05bK2j
+	 AMnLoBrJRZoSEa0xK3eWbw6m62FbVfGNDdz1XtalY4pzCWtAPaHhvRPWTamPHfjcfbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049215;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049218;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=2OWCaoxSHDFFCt5rqE5JK8bwZnXcPL43WAInZ/uvMD8=;
-	b=Q0T9RPHkgvA65oifDJYQL5bcStSShcdhS0ssW5etes7x70JokYRvHypohoNkR4DPf9EE
-	 spYNFAGorEvVxtAwDCaLZ5q2iAxbBTJAbqhWutdqwqkc3Y1KNqdtzA/kMc8MeLi5tR+jJ
-	 PBVApN7uUC2/JeWoOxxTL4YozulGKR2l2wMV/6Xy8RiSfh9+qVF9UgNI4ABoU8mJ89e1K
-	 1qmh0xgeWEdGSK3qVV1sodFG8BDLBp9p08Pc+6aWwoDdzLZdmXQNkAGC6zDWjOQ+Itcm6
-	 0zYxOd+3GqMNPLuU05oUOmEWtJwT2DRoDiRBFiRrkBTpxJdpOaWhELeapgfbH59nqVA==
+	bh=aDuT/GESes1/AAVtpRQDJhhfEjAz10zaTc6op7bdl3o=;
+	b=gSlEZNUms+dLw/BkNQdSvQPas2ZirbwUmj94Yz6gB7LGCDyf2y497BpEDO4LrY2TfjsT
+	 UN1hmg+QgRwNLNXldMAMOHWfv3FKzTYB7HXKlD5ApJLfK7Rcs77FvBrVEhfYihPbG/u9C
+	 BMhp7rM+4US+Md1YIOurvdGFVV640Mw7GkrapMvfoxGEnheZ/Svvkx5CSosIX7fhd5P1t
+	 QEVdNya2HYhq5+t8xWezAdYxhiK1xrY23T09wFaktXQ+MzxmGl4yypshf0z0r30enEqsp
+	 ub3gBeaa0TmYLFG9i5/bl8ApNoivTG3S9As9u+FcnpaVybKuMpZmxvnIfPUCiB8Rc2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eMSfcSXd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ii3Zcsds;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 745B6606D815
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:00:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AA8B606A32D
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:00:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eMSfcSXd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5CA51F008A1;
-	Sat,  7 Nov 2026 11:00:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ii3Zcsds
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9C7F1F0089F;
+	Sat,  7 Nov 2026 11:00:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049215;
-	bh=2OWCaoxSHDFFCt5rqE5JK8bwZnXcPL43WAInZ/uvMD8=;
+	s=k20260515; t=1794049218;
+	bh=aDuT/GESes1/AAVtpRQDJhhfEjAz10zaTc6op7bdl3o=;
 	h=From:To:Cc:Subject:Date;
-	b=eMSfcSXdimryHBvq+kgJ1zatcv/JRYRzUjXj4QeCMsu0oCbm5su/5EV/7RyfKV7Lr
-	 O7ovD/dRkZJv7pdohZtzJcPII7s7sEceOaqjf7syjHj2s28JMWcCOmQUCtmrUl8afv
-	 Bv6MXsUdPPH1gsLUjgs9C1libT8CW1EfFFo+fObPJv9SFKmhmMcPRreI63eDrPLHWa
-	 bBTRRBQF74xPSEKI9yDLYLZi+d9KE0zQAbfLMhgijNC4DoMbspNKoPVy6aYr3O13l7
-	 Kf8x4FLI1V9rffRzkCPH6dPvBP38zNs0VGzwp9XC/51S3P+IyyX8q1+Vggka62YUvE
-	 dhUd3DnqRIVyg==
+	b=Ii3ZcsdsX2fmdLOluPAgAUKXJvzKqHEOL8bhJ74SWTzmboyoBAFl7yUxGA3AL99+K
+	 6sPHoOQx3vB/t2Ar58nU629RAwBjvL35tEo14r1HkkbzagnZK1bvPWVZBLl2AyH0WX
+	 RhrZVdoFewoN65aMKGE8J/65sYAjBKsN+2JvJGs7Rnmm7DJp7wcs4zoJCSG7meD08F
+	 sQHZdlfpTiAwEr2mJkhWA/lFU1abfuBuNqVTHctRhuLJlD0ZGCG0AHR7k4w5QofNxr
+	 Z/+AYaRqYh5kIaFi4tM4lXpSry9ol+IbgSzmF0XBUpY7uGDWiR+l7n+RVk7t1HNZMt
+	 1EBqzJulAKnNg==
 From: Sasha Levin <sashal@kernel.org>
-To: joannelkoong@gmail.com,
-	mszeredi@redhat.com
+To: khurana.ridham222@gmail.com,
+	linux@roeck-us.net
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] fuse: don't drop destination page cache on a zero byte copy reply" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:00:13 -0500
-Message-ID: <20261107060013-failed-5.15-f7585e1ce341@kernel.org>
+Subject: FAILED: patch "[PATCH] hwmon: (lm70) Fix rounding of negative temperatures" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 06:00:16 -0500
+Message-ID: <20261107060016-failed-5.15-eddb0aaacce4@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,72 +68,76 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x f7585e1ce3418ec282485854b3d8d31c6a961e37
+git cherry-pick -x eddb0aaacce4baa9d8176eb2f4bd9e99e867f8fc
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060013-failed-5.15-f7585e1ce341@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060016-failed-5.15-eddb0aaacce4@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From f7585e1ce3418ec282485854b3d8d31c6a961e37 Mon Sep 17 00:00:00 2001
-From: Joanne Koong <joannelkoong@gmail.com>
-Date: Tue, 15 Sep 2026 16:53:41 -0700
-Subject: [PATCH] fuse: don't drop destination page cache on a zero byte copy
- reply
+From eddb0aaacce4baa9d8176eb2f4bd9e99e867f8fc Mon Sep 17 00:00:00 2001
+From: Ridham Khurana <khurana.ridham222@gmail.com>
+Date: Thu, 24 Sep 2026 20:53:23 +0000
+Subject: [PATCH] hwmon: (lm70) Fix rounding of negative temperatures
 
-__fuse_copy_file_range() clears the destination page cache after the
-server replies:
+temp1_input_show() drops the low bits of the temperature register by
+dividing the raw value (raw / 32 on the LM70). These bits are not part
+of the temperature: the LM70, LM71, LM74 and TMP122/TMP124 always
+return some of them as 1, and the TMP125 fills them with copies of the
+temperature LSB. Division rounds toward zero, so a negative temperature
+with any of these bits set is reported one LSB too high.
 
-	truncate_inode_pages_range(inode_out->i_mapping,
-				   ALIGN_DOWN(pos_out, PAGE_SIZE),
-				   ALIGN(pos_out + bytes_copied, PAGE_SIZE) - 1);
+For example, the TMP122 returns 0xffff for -0.0625 degrees C, which the
+driver reports as 0. The LM70 returns 0xf39f for -25 degrees C, which
+the driver reports as -24750.
 
-A server may legitimately reply that it copied nothing, eg if the source
-file turns out to be shorter than the size the kernel has cached for it.
+Use an arithmetic right shift instead, which drops the low bits and
+rounds down.
 
-If pos_out is 0 as well, the end of the range is ALIGN(0, PAGE_SIZE) - 1,
-which is -1. lend is a uoff_t and truncate_inode_pages_range() takes -1
-as its end of file sentinel, so rather than clearing nothing it drops
-every folio in the destination mapping.
-
-That is not only a cache drop. truncate_cleanup_folio() calls
-folio_cancel_dirty(), and fuse_writeback_range() only wrote back
-[pos_out, pos_out + len - 1], so dirty data elsewhere in the destination
-file is discarded without ever reaching the server.
-
-Skip the call when the server copied nothing, since there is nothing
-stale to clear in that case.
-
-Fixes: 9b46418c40fe ("fuse: copy_file_range should truncate cache")
+Fixes: e1a8e913f97e ("[PATCH] lm70: New hardware monitoring driver")
+Fixes: a86e94dc946d ("hwmon: (lm70) Add support for LM71 and LM74")
+Fixes: cd929672a9ef ("hwmon: (lm70) Add ti,tmp125 support")
 Cc: stable@vger.kernel.org
-Signed-off-by: Joanne Koong <joannelkoong@gmail.com>
-Signed-off-by: Miklos Szeredi <mszeredi@redhat.com>
+Signed-off-by: Ridham Khurana <khurana.ridham222@gmail.com>
+Link: https://patch.msgid.link/20260924205326.1739229-1-khurana.ridham222@gmail.com
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
 ---
- fs/fuse/file.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ drivers/hwmon/lm70.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/fs/fuse/file.c b/fs/fuse/file.c
-index 3bf7cb5905385..2aa575a02e054 100644
---- a/fs/fuse/file.c
-+++ b/fs/fuse/file.c
-@@ -3062,9 +3062,11 @@ static ssize_t __fuse_copy_file_range(struct file *file_in, loff_t pos_in,
- 		goto out;
+diff --git a/drivers/hwmon/lm70.c b/drivers/hwmon/lm70.c
+index 8b525725fef4f..b29bac7a4cc14 100644
+--- a/drivers/hwmon/lm70.c
++++ b/drivers/hwmon/lm70.c
+@@ -96,21 +96,21 @@ static ssize_t temp1_input_show(struct device *dev,
+ 	 */
+ 	switch (p_lm70->chip) {
+ 	case LM70_CHIP_LM70:
+-		val = ((int)raw / 32) * 250;
++		val = ((int)raw >> 5) * 250;
+ 		break;
+ 
+ 	case LM70_CHIP_TMP121:
+ 	case LM70_CHIP_TMP122:
+ 	case LM70_CHIP_LM74:
+-		val = ((int)raw / 8) * 625 / 10;
++		val = ((int)raw >> 3) * 625 / 10;
+ 		break;
+ 
+ 	case LM70_CHIP_LM71:
+-		val = ((int)raw / 4) * 3125 / 100;
++		val = ((int)raw >> 2) * 3125 / 100;
+ 		break;
+ 
+ 	case LM70_CHIP_TMP125:
+-		val = (sign_extend32(raw, 14) / 32) * 250;
++		val = (sign_extend32(raw, 14) >> 5) * 250;
+ 		break;
  	}
  
--	truncate_inode_pages_range(inode_out->i_mapping,
--				   ALIGN_DOWN(pos_out, PAGE_SIZE),
--				   ALIGN(pos_out + bytes_copied, PAGE_SIZE) - 1);
-+	if (bytes_copied)
-+		truncate_inode_pages_range(inode_out->i_mapping,
-+					   ALIGN_DOWN(pos_out, PAGE_SIZE),
-+					   ALIGN(pos_out + bytes_copied,
-+						 PAGE_SIZE) - 1);
- 
- 	file_update_time(file_out);
- 	fuse_write_update_attr(inode_out, pos_out + bytes_copied, bytes_copied);
 -- 
 2.53.0
 
