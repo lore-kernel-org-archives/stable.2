@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794045986;
-	b=kz8Gj9T90A0FYkKtjcD9EyPz+EfmAjnGNsBk4a0NKUj4t4dJHYY4KoV+jYA/3850ZE38
-	 zK+uCxJCRwZ+Lf3ym0x2/rKeZiygZBNuNN6OAco+r6qujKvlt5jolBVG+LPoz2G59uKoT
-	 S7+F8V576FyCV6izqxZtOKYZxj/JxajsWU/XZSR1VztMsm9WD4z3jgLk1XIOhcCEdx/ef
-	 fXgDHg10yY0VkYfB7YH9bJz4e9UEpS/e3Ps03heBv2g9bWmivCh6Q1VrgidI6NdvK8nsO
-	 q6smq8IIEdXa9gBgIm3jnKDyFIQA8l50pQPRpjHAEcCkLKsKSC4AKnx2eH3no4ukx7g==
+	t=1794045988;
+	b=tTYeadCdpvjANTMjBmihnEQIdKRzZKQwM6qSzu9N0v/oN6nTDZN1EPT0yfcWZ5dSlRZ0
+	 66BuDvRSwTYgAs+tq6tY1p8v/mNFfbCCzdxR/IZHoLbt2B9tRNHUSz4CC8IohyN6thBQb
+	 0g3p55YHRUna0zUoFVhCjdtRL/v/MltrYuP+uPxd59hhDobA4SAz+pismxgx1sTx7pwAW
+	 /vuFj9IWzGrfdxY0Q8ge6thEuBAnt1OTKtfKDI2+k/TjionvAYqBqsAqLuaabws3SjXc/
+	 axh5DuHJ7k+8Gwzf10V5kJRXRLPOsETE9dS0Sdc4TLS4nNOPOsX7qvfXG1buhQTsnyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794045986;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794045988;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=1ZbQ6ubOndzMDBg6Pa3XEuui+dzpsM1i1PlchpLoZ4s=;
-	b=pLwnxY+EaaAgAER2V5EWLMH4ZysO0d8LWs33jE4v2RdRg3gr35iHEZjYBFfqNlswhQRF
-	 UbOH3eEmDzh1A8//qfJMJCz9aMkUZRPa293r4yGKx7Bi3VrUGXFkeJYQblO7P5UgN5ppr
-	 7wNsSYbMiLyGtW/rZ5GNolTW08m0j4tsO5syR7Z+83j45LwRuN0nEiqOpf1qX1TweObt4
-	 Byq3TK+93GQ7HDSOF+v4k7vAHtqs2i7rgw+M/AClrRM3SCzixE9CrXbYyt1oPmsQ/pkbV
-	 34uCV6QDeyOcuXCtrrj4rJC6RjErVyoqb6GF3ELHP/RvDRgVAbA73br7P4t57r3+0Ng==
+	bh=iazoU4tL/ZNyR1NYZTvp5wnprGiN1HBvb7fLB0lJwRM=;
+	b=07H01AGrAuH7TrlCLgi+dXTUI8YVFb4YHWBn6e3iiiJk3UKSTFQn8eJyB4VY6vFkj9KQ
+	 VFjMk6sTlu1FLDtmsiku8PlcHbZ66jRljEqIOWiu6YvZ2ukxwKuu12qYSAaS1Q39qoPgq
+	 NLB4zGCeCxx8G/REkul/TPdNfwNUOUpirmdJa13G5OIJYc/4nokLkXKMATGdsC6I1Ft0P
+	 dGQ3jhMFVYiQ8qL8tmCOaOE0iD0fUmawCGA+6dVVYSSuWaOep1G+I7XhabnkRaCaBdCxx
+	 DSVEVAjCvbp0/AOKoSWqmqHOHcUly0p2JPbZyawyn5CklkYYxU1m4Pqjx0v8xZRO44A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GtFfnXnU;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jHJxl7bz;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45330606A332
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:06:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DF2F606A32D
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:06:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GtFfnXnU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9ED421F008A1;
-	Sat,  7 Nov 2026 10:06:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jHJxl7bz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA03A1F0089F;
+	Sat,  7 Nov 2026 10:06:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794045986;
-	bh=1ZbQ6ubOndzMDBg6Pa3XEuui+dzpsM1i1PlchpLoZ4s=;
+	s=k20260515; t=1794045988;
+	bh=iazoU4tL/ZNyR1NYZTvp5wnprGiN1HBvb7fLB0lJwRM=;
 	h=From:To:Cc:Subject:Date;
-	b=GtFfnXnU88PDN7qPDXvmbzYdWVuqOuVy2qH3CjAHGGbY0LjdVxWUP1m569JsCuG9D
-	 svZjdphAED8UVlC79ZMEcCsdjGuYHpx0TM+ZdWiHtMubcK9/Pa3xdeET69fVjGRykm
-	 0dGBiDPMXKiIqfz/C8hT7pjndVKLZHo+k0osgS/mTg/hoSUfGTWUnI1QbBtt9/TSOg
-	 UXBgNWPsjg9DG3lUCKYj9Yt8UV5v5pWog4vjnLBdC8Lf2oHGnFpYDsVzs2F2Jz/qSu
-	 q8BXxupf2qlwCvotv38hQvDLx2gdN9BxAJZdq7G0rKZIRszEx0+FXuaY4/qozV3Ek6
-	 2zlzE0tifn/4Q==
+	b=jHJxl7bzbV5VoJEwR3nOPvXK/Jx2Y34w+OeaP5+jIEt4E00lnZ/BECVewXDINJfeY
+	 SthG9vRI/thEC6qfQ4cje3Q8lkle0BdxH+b968itqZR+H+XNpVuRtujRZ9uFM3E5iA
+	 WBmy/gXOLeM5bIhu5vSNtBIqUtd0el5UQqjJJZZ8/WdBGK+6QIrdBKyUznorV/qMl6
+	 PXz8+RtPQ5bU6z/8q/6SiRvd9AdHZm0EP4+EZIdW23ySM9Kd9V4e4NBAbWSZN7Ur6I
+	 UxjqGOx3sa7LBOEHSSaxBDL5GBEOS/4tXDlJtkn0jmNIkRyO8GXZJB4fqktqiMTYzk
+	 I7pH3XY9NOBVw==
 From: Sasha Levin <sashal@kernel.org>
-To: chengminglin@mxic.com.tw,
-	mwalle@kernel.org,
-	russell@personaltelco.net
+To: rosenp@gmail.com,
+	miquel.raynal@bootlin.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mtd: spi-nor: macronix: Restore fallback parameters for MX25L12805D" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:06:24 -0500
-Message-ID: <20261107050624-failed-6.18-01739ccea21b@kernel.org>
+Subject: FAILED: patch "[PATCH] mtd: rawnand: ndfc: use devm_platform_ioremap_resource()" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:06:26 -0500
+Message-ID: <20261107050626-failed-6.18-0d66f9895f28@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,62 +68,91 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 01739ccea21b69818dc071096a249e6f84a6b13d
+git cherry-pick -x 0d66f9895f286d2fab396a71e6efeb95c4a7e5a6
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050624-failed-6.18-01739ccea21b@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050626-failed-6.18-0d66f9895f28@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 01739ccea21b69818dc071096a249e6f84a6b13d Mon Sep 17 00:00:00 2001
-From: Cheng Ming Lin <chengminglin@mxic.com.tw>
-Date: Fri, 5 Jun 2026 16:48:37 +0800
-Subject: [PATCH] mtd: spi-nor: macronix: Restore fallback parameters for
- MX25L12805D
+From 0d66f9895f286d2fab396a71e6efeb95c4a7e5a6 Mon Sep 17 00:00:00 2001
+From: Rosen Penev <rosenp@gmail.com>
+Date: Mon, 24 Aug 2026 13:21:20 -0700
+Subject: [PATCH] mtd: rawnand: ndfc: use devm_platform_ioremap_resource()
 
-In a previous effort to drop flash_info fields and rely on SFDP, the
-static size and no_sfdp_flags were removed from the MX25L12805D entry
-(JEDEC ID 0xc22018).
+Replace the open-coded of_iomap()/iounmap() with the managed
+devm_platform_ioremap_resource() helper. This fixes a mapping leak on
+driver remove (the old code never called iounmap()) and simplifies the
+error path by dropping the manual cleanup in ndfc_probe().
 
-At that time, the legacy MX25L12805D was already EOL and unavailable
-for physical testing. Verification was inadvertently performed using
-the newer MX25L12833F, which shares the same JEDEC ID but supports
-SFDP. As a result, the probe succeeded during testing, leading to
-the mistaken removal of the fallback parameters.
+There is no overlapping memory-region concern introduced by this
+change: each supported board DT describes a single ndfc node with a
+unique 0x2000 register region, and the EBC parent uses dcr-reg rather
+than a MEM reg resource, so the newly added request_mem_region() cannot
+conflict with an existing reservation. Distinct chip selects map to
+distinct 64-bit physical addresses, so CS instances do not overlap.
 
-Since the actual MX25L12805D lacks SFDP support entirely, it strictly
-requires these static parameters.
-
-Restore .size = SZ_16M and .no_sfdp_flags = SECT_4K to this entry
-to fix the probe failure for the legacy part.
-
-Fixes: 947c86e481a0 ("mtd: spi-nor: macronix: Drop the redundant flash info fields")
+Fixes: a808ad3b0d28 ("[MTD] [NAND] ndfc driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Cheng Ming Lin <chengminglin@mxic.com.tw>
-Reviewed-by: Michael Walle <mwalle@kernel.org>
-Tested-by: Russell Senior <russell@personaltelco.net>
-Signed-off-by: Michael Walle <mwalle@kernel.org>
+Assisted-by: opencode:hy3-free
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 ---
- drivers/mtd/spi-nor/macronix.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/mtd/nand/raw/ndfc.c | 21 ++++++++-------------
+ 1 file changed, 8 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/mtd/spi-nor/macronix.c b/drivers/mtd/spi-nor/macronix.c
-index c3b0bf38a6506..332e09c8332c0 100644
---- a/drivers/mtd/spi-nor/macronix.c
-+++ b/drivers/mtd/spi-nor/macronix.c
-@@ -155,7 +155,9 @@ static const struct flash_info macronix_nor_parts[] = {
- 	}, {
- 		/* MX25L12805D, MX25L12833F, MX25L12845G */
- 		.id = SNOR_ID(0xc2, 0x20, 0x18),
-+		.size = SZ_16M,
- 		.flags = SPI_NOR_HAS_LOCK | SPI_NOR_4BIT_BP,
-+		.no_sfdp_flags = SECT_4K,
- 		.fixups = &mx25l12805d_4pp3b_fixups,
- 	}, {
- 		/* MX25L25635E, MX25L25645G */
+diff --git a/drivers/mtd/nand/raw/ndfc.c b/drivers/mtd/nand/raw/ndfc.c
+index a48274297d3b1..d6db04d48c45a 100644
+--- a/drivers/mtd/nand/raw/ndfc.c
++++ b/drivers/mtd/nand/raw/ndfc.c
+@@ -185,10 +185,15 @@ static int ndfc_chip_init(struct ndfc_controller *ndfc,
+ static int ndfc_probe(struct platform_device *ofdev)
+ {
+ 	struct ndfc_controller *ndfc;
++	void __iomem *ndfcbase;
+ 	const __be32 *reg;
+ 	u32 ccr;
+ 	u32 cs;
+-	int err, len = 0;
++	int len = 0;
++
++	ndfcbase = devm_platform_ioremap_resource(ofdev, 0);
++	if (IS_ERR(ndfcbase))
++		return PTR_ERR(ndfcbase);
+ 
+ 	/* Read the reg property to get the chip select */
+ 	reg = of_get_property(ofdev->dev.of_node, "reg", &len);
+@@ -210,11 +215,7 @@ static int ndfc_probe(struct platform_device *ofdev)
+ 	ndfc->ofdev = ofdev;
+ 	dev_set_drvdata(&ofdev->dev, ndfc);
+ 
+-	ndfc->ndfcbase = of_iomap(ofdev->dev.of_node, 0);
+-	if (!ndfc->ndfcbase) {
+-		dev_err(&ofdev->dev, "failed to get memory\n");
+-		return -EIO;
+-	}
++	ndfc->ndfcbase = ndfcbase;
+ 
+ 	ccr = NDFC_CCR_BS(ndfc->chip_select);
+ 
+@@ -232,13 +233,7 @@ static int ndfc_probe(struct platform_device *ofdev)
+ 		iowrite32be(be32_to_cpup(reg), ndfc->ndfcbase + offset);
+ 	}
+ 
+-	err = ndfc_chip_init(ndfc, ofdev->dev.of_node);
+-	if (err) {
+-		iounmap(ndfc->ndfcbase);
+-		return err;
+-	}
+-
+-	return 0;
++	return ndfc_chip_init(ndfc, ofdev->dev.of_node);
+ }
+ 
+ static void ndfc_remove(struct platform_device *ofdev)
 -- 
 2.53.0
 
