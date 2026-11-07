@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794087935;
-	b=qITRR3esj7mL8WKcsWYqawsYS17w1CZQqhEyViZCxbiELBA8ooJ1Pb4IqAZqNwnJeNr1
-	 zas9x54i/+0coS51dAxOif8ffcHwUci0QCSNXa0lzUDtWfrtHKSPE6XqtTNxI+neLNoBi
-	 gMwr26Op83QREDogyRKqxY10lBzi6V196Cj8ABlzcPscVRYQHnDz6HOs5ZciDTo99i/LU
-	 Bl4yDCeaekXNtZgU/xOc7Gk04QKtoeRE6NR3Lf4nKltmufF0EE28GxYYsyXrYpjLlwUqW
-	 cdu86kmljGYNirgb255RFjegc7KUXHRVqEDqXJCzYjj8PNB2I5JZYZmKkjz/7wngL2g==
+	t=1794087936;
+	b=jT4mfArrlrxg0A+JacS/dWLCt5UY4wI6IaDWw82OXh0qgz4xJm71wgVwnDOI3uUyy9VI
+	 EN6hbxtydHMgE5awJ0u2T7xSxUAaLo4dyiExSUD3T491wZvEZtYv4yZFBT2cUveq/SRhp
+	 kVUEBNKswHUq4jl2pCe2/w+/dL+/hS/2BCD/PYt/ZIdIXpISHT/0q2H7wqfBCc9f48NGy
+	 zN1Tpizvj708/yXvFyaUQk5Oss88IpabfwPUU6LOYeNpf1lfKsVrkA/iO4qVXmV2j9YU+
+	 Q7aBpgEAR/9lDElMin6KU+g5byqO8ys7eNmsxARbyM3xmtHArr3B8XAPlLz2wp/Agfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794087935;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794087936;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=FY7qwVWBZaVu0fZDA6G5pfiPoOpiQaFFaAvwMZq9K8Y=;
-	b=DNw1A8HyoGFM7s/i7DS5jBd90CN/UojFfaQ3NlQpLo+5QvP4h9nYPESKQIVjGzAOXe/M
-	 oPDS2lMbKZ0vKinE+Jpfj8wHTkGZ+I3XUPnXiGVXEatwgMBD0bvgA/pYMQRQyOPMyevWB
-	 DlfFSVKuD+DAYSSexJWeNVXM/Hto2TdDVfoGjTfZvh6fG2r8/OKbpHulurjL9UAN8S3Nd
-	 Q4Fp2ZLd25hOnkPeQ6kVWQksLzGx0PdbmHPwy4NTCd0ui5PjsMNFfEPQYp0wbGC2F048c
-	 ZkTilkZRVPFHyenFKmAzucyecl1naka6z9g5R3LOF1GCTPw33XwoVSYCx3NCBbc1P2w==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=vOx4qL3rBGLSIPXxU4NuO61z7Gu3DhBSLmuQAAlPYBc=;
+	b=QjjfnZQJJhmBUqGM6XaYDakoVqaFoEXAYIjTRxbrcn74tgmPuLFuO99mZ4BdZfR3E0Uv
+	 W9n/+g81EPP9tojRAcrkNuxQ6HTh8vge3TA8LfypVUK0pL7X76IzTUrOoI/v9v0qlZIwf
+	 VUkBGqThHvNGaf1IaQ5fWthxo41qZAx6+/OxlbGPoSJhQeGUPBEEQlMK3zin0H/KjYNpL
+	 PPixSZcnPp3VpT2gjQbdMnDMojAsM0OB3igUzLPbIfF4TF9wUEpMgfn+6SgGakaMyi5V/
+	 p3/PXM7QtukT9TzUjZdgnHUguENdUl7F0vans1Cb2sVsuuAEOzAZNQq3MEL/esdn9IQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G4c9ftAQ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rgob1eXt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98C94606A326;
-	Sat,  7 Nov 2026 21:45:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06736606D804;
+	Sat,  7 Nov 2026 21:45:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G4c9ftAQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE5FC1F0089F;
-	Sat,  7 Nov 2026 21:45:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rgob1eXt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5291D1F008A2;
+	Sat,  7 Nov 2026 21:45:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794087934;
-	bh=FY7qwVWBZaVu0fZDA6G5pfiPoOpiQaFFaAvwMZq9K8Y=;
-	h=From:To:Cc:Subject:Date;
-	b=G4c9ftAQlcZVnIcqMjz+xNKtNkGQzTDKz0PKeR/caHowjELL6QFJ8bjRvDrpXllPN
-	 ngix5yUxQ9UvJiLOq+vXuFQ+52RBJGrgoAoWq44ZdEv2AtWdl3wjbuPsFG5xX/TXh3
-	 GPouKTSkyjhrAc3ZnGu5dji8yydj3Lb7PbSgGb0ars+wlhQL8POcPngAXEPova7I6C
-	 GTRhmtii2jl2h0ua+LnUuHtNuyw9XuYBTExJZjxStUmJN3yDLKZMtwSVeUShY/yM8R
-	 uQw3w18qEOOeYV6S4Xz2+6LBYGVEbMkpip5WhEDWTrFNwM60AIOAzIOqO3/4T14wui
-	 RDomJEREViHDw==
+	s=k20260515; t=1794087935;
+	bh=vOx4qL3rBGLSIPXxU4NuO61z7Gu3DhBSLmuQAAlPYBc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Rgob1eXtdv2UmztDyt5IdCdFEy+qFB0tzYedbFmfzDILucvsc8rrSXoEwNLtcwRFk
+	 kKpjego6wf039GawfVoixG/fSb7lMgSO3E7HV0uu5VROGB7sBhrLAxtrzLmPmxOqxS
+	 rLxpyzJu/ffGgADA1ds/IAly+g+vQn7chEO4rcgQmJWtgnsItzmljoJuA8KlRMSlnK
+	 fYL+ADxIdyfWilnN/WYL+/no6p6UHlv/dDssTn2V7M2juJF/h06kAnZpC/8mWeHYnx
+	 EXF1oNrB4L5dYJcTPfIjhLpcetwUYJ/+dIwGrJGKPJgMvQzKAGsLERk76KBQR2r2nx
+	 bFedBA+U6vyZg==
 From: SJ Park <sj@kernel.org>
 To: 
 Cc: SJ Park <sj@kernel.org>,
@@ -47,14 +47,17 @@ Cc: SJ Park <sj@kernel.org>,
 	Brendan Higgins <brendan.higgins@linux.dev>,
 	David Gow <davidgow@davidgow.net>,
 	Quanmin Yan <yanquanmin1@huawei.com>,
-	Usama Arif <usamaarif642@gmail.com>,
 	damon@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [RFC PATCH 6.12.y 0/5] mm/damon: porting fixes that cherry-pick failed on 2026-11-07
-Date: Sat,  7 Nov 2026 13:45:19 -0800
-Message-ID: <20261107214525.304638-1-sj@kernel.org>
+	linux-mm@kvack.org,
+	Lian Wang <lianux.mm@gmail.com>,
+	Kunwu Chan <kunwu.chan@gmail.com>
+Subject: [RFC PATCH 6.12.y 3/5] mm/damon/core: handle uninitialized damos_quota_goal->last_psi_total
+Date: Sat,  7 Nov 2026 13:45:22 -0800
+Message-ID: <20261107214525.304638-4-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261107214525.304638-1-sj@kernel.org>
+References: <20261107214525.304638-1-sj@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,42 +69,96 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Manually port five DAMON fixes that cherry-pick failed [1-5] and turned
-out to really need to be picked.  Note that seven patches [6-12] that
-also failed in the same day were having wrong Cc:stable@ tags, so
-ignored.
+When DAMOS_QUOTA_SOME_MEM_PSI_US metric damos quota goal is set, the PSI
+delta for the feedback loop is calculated using
+damos_quota_goal->last_psi_total.  However, it is initialized only after
+the first feedback loop.  The first iteration of the loop uses the
+uninitialized value.  As a result, the feedback loop can change the
+effective quota in an unexpected way at the first iteration.
 
-Patches that this series is porting.
+The user impact of the issue is not big, because the issue impacts only
+the first iteration of the feedback loop.  The feedback loop also has an
+internal cap of the quota adjustment.  The wrong adjustment will soon be
+corrected over a few iterations.  For this reason, doing no initialization
+at commit time was intentional.  It is also explicitly commented.  That
+said, nobody likes behaviors that are unexpected or difficult to be
+expected.
 
-[1] https://lore.kernel.org/20261107051942-failed-6.12-90c2fa6adfed@kernel.org
-[2] https://lore.kernel.org/20261107051944-failed-6.12-1613ac9edf38@kernel.org
-[3] https://lore.kernel.org/20261107051946-failed-6.12-29c6084658af@kernel.org
-[4] https://lore.kernel.org/20261107052624-failed-6.12-bbeec2d8324d@kernel.org
-[5] https://lore.kernel.org/20261107052626-failed-6.12-5695abc4e742@kernel.org
+Check last_psi_total initialization and skip the tuning round when it is
+not initialized.  For this, initialize last_psi_total with U64_MAX in the
+goal creation and the goal commit time.  U64_MAX means the field is not
+initialized.  The tuning round shows the value and adjusts it to guarantee
+the current quota is maintained for the round, and last_psi_total is
+correctly initialized on the next round.
 
-Patches that also cherry-pick failed but deliverately ignored.
+Before this change, committing a new PSI goal on an existing PSI goal with
+goal-only DAMON sysfs command (commit_schemes_quota_goals) just worked.
+After this change, the tuning round right after the commit will be
+unnecessarily skipped, because last_psi_total is unconditionally marked as
+not initialized in the damos_commit_quota_goal_union().  This is an
+intended tradeoff for simplicity.  Skipping just one round of tuning is no
+problem.  Meanwhile it makes both the code and the behavior simple to
+understand.
 
-[6] https://lore.kernel.org/20261107051949-failed-6.12-df7d9a0f8d91@kernel.org
-[7] https://lore.kernel.org/20261107052123-failed-6.12-6f276422aded@kernel.org
-[8] https://lore.kernel.org/20261107052125-failed-6.12-a1c7fdaf1657@kernel.org
-[9] https://lore.kernel.org/20261107052128-failed-6.12-1bfb9384ae0e@kernel.org
-[10] https://lore.kernel.org/20261107052130-failed-6.12-cec08aad3def@kernel.org
-[11] https://lore.kernel.org/20261107052132-failed-6.12-409d2ab6d982@kernel.org
-[12] https://lore.kernel.org/20261107052135-failed-6.12-1d2397b2c414@kernel.org
+Also update the quota goal commit unit test for changed last_psi_total
+setup behavior.
 
-SJ Park (5):
-  mm/damon/core: skip applying scheme if region split for quota fails
-  mm/damon/paddr: respect folio end for DAMOS actions except STAT
-  mm/damon/core: handle uninitialized damos_quota_goal->last_psi_total
-  mm/damon/core: filter out damos address filter-split failed region
-  mm/damon/core: remove unreachable damos charge_{target,addr}_from
+The issue was discovered [1] by Sashiko.
 
- mm/damon/core.c             | 59 ++++++++++++++++++++++++++++++-------
- mm/damon/paddr.c            |  6 ++--
- mm/damon/tests/core-kunit.h | 11 +++----
- 3 files changed, 58 insertions(+), 18 deletions(-)
+Link: https://lore.kernel.org/20260902002725.108635-3-sj@kernel.org
+Link: https://lore.kernel.org/20260718005316.89585-1-sj@kernel.org [1]
+Fixes: 2dbb60f789cb ("mm/damon/core: implement PSI metric DAMOS quota goal")
+Signed-off-by: SJ Park <sj@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: Lian Wang <lianux.mm@gmail.com>
+Tested-by: Lian Wang <lianux.mm@gmail.com>
+Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
+Cc: Brendan Higgins <brendan.higgins@linux.dev>
+Cc: David Gow <davidgow@davidgow.net>
+Cc: Quanmin Yan <yanquanmin1@huawei.com>
+Cc: <stable@vger.kernel.org> # 6.9.x
+(cherry picked from commit 29c6084658af41b5b1fefd873d26d441830ced34)
+Signed-off-by: SJ Park <sj@kernel.org>
+---
+ mm/damon/core.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-
-base-commit: 76e5c9c4cde792b3376e382e973c8ce7b978496a
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index 6ef77741b783b..52f01a6508b66 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -324,6 +324,8 @@ struct damos_quota_goal *damos_new_quota_goal(
+ 		return NULL;
+ 	goal->metric = metric;
+ 	goal->target_value = target_value;
++	if (metric == DAMOS_QUOTA_SOME_MEM_PSI_US)
++		goal->last_psi_total = U64_MAX;
+ 	INIT_LIST_HEAD(&goal->list);
+ 	return goal;
+ }
+@@ -705,7 +707,8 @@ static void damos_commit_quota_goal(
+ 	dst->target_value = src->target_value;
+ 	if (dst->metric == DAMOS_QUOTA_USER_INPUT)
+ 		dst->current_value = src->current_value;
+-	/* keep last_psi_total as is, since it will be updated in next cycle */
++	else if (dst->metric == DAMOS_QUOTA_SOME_MEM_PSI_US)
++		dst->last_psi_total = U64_MAX;
+ }
+ 
+ /**
+@@ -1608,7 +1611,12 @@ static void damos_set_quota_goal_current_value(struct damos_quota_goal *goal)
+ 		break;
+ 	case DAMOS_QUOTA_SOME_MEM_PSI_US:
+ 		now_psi_total = damos_get_some_mem_psi_total();
+-		goal->current_value = now_psi_total - goal->last_psi_total;
++		/* uninitialized last_psi_total; make no effect this round */
++		if (goal->last_psi_total == U64_MAX)
++			goal->current_value = goal->target_value;
++		else
++			goal->current_value = now_psi_total -
++				goal->last_psi_total;
+ 		goal->last_psi_total = now_psi_total;
+ 		break;
+ 	default:
 -- 
 2.47.3
