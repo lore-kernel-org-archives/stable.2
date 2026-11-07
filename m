@@ -1,52 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046996;
-	b=RcVP4b+iF9puhC30HZ46wDCaB+xka06EjakVFc+n2O02fflq3+rQ1vqOXGas02vIR40Q
-	 c026Jz0pNd/RdMbgkwVAk1zDrPEgnaH/0ealtFwo0SvIj84qCioxRQ5AupXRWvLUj69A+
-	 WmPz77lg4zpYauHRxE5A0rYN90ARs3qNH99TL2jQci3LTecKVcti77phs33gKW8+I4KYq
-	 g4I7LQEGN14uu9Rj/Hz9SgDzC4oPekuTTkpq/l+eJHM4hbqHDJ4aIukuug290BJ75Ns37
-	 8hlIHFNKFKO6VW6TFKOnAWfwX5IX2z+bVJLRWboSkOcM/iPlylp7nGErt3+Y/l9RVaA==
+	t=1794047000;
+	b=xj3xldepBxeNynjIbG9pTFn0XyAKZPC0hyajsgWYJ+40DFVWmT1L49ulE9I8r5fjBzro
+	 kOES5vtPUJKY880onIVKjIxNE9ZRhtw/TFpcQ17eCHQPDfvWGnG/bF48YUFCbMitbzQqC
+	 aQs2PXSLsw5phhD23kNHml23Q4CdLcGeqeuc0E9I9zn+ZwxJIfk7J+wVkR6KVGsyLZVEv
+	 kLTXEvbl7UfzZrXzUdyZuwXh/RI9Ld6dlaEAkxVO8KBIginkTJZRYawOiYeQrTXBvldjj
+	 S0ABHqNNYSpzzDlkNvZ0AiITENNFSyV57Xv626hqxnRF/9J7xgUNOuoZLKI6ozJGzig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046996;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047000;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=0tKZa/nDE8wgHxgyNTYb3K3HC9u4Ft+S/xtnqqGtCt8=;
-	b=ox6dX9RKR/GothYW9a/PdUZY3B3Mlvx5ZLu6UNnZ0Nmp9CfoWKCfSlfYmwSxzkTeRmVO
-	 3wPxOz7Ej2HAZXyli/HQjv646Ucvv4xCnY2O786LmRWFe8BSuYoZK5fX7U7VeO1MeWLp5
-	 UmL6wlxyN5EzhWIddnpztWXfSc014smuzuDBIQqcFxRsJAT1QPY+U5oy5taAIBmv+Er5N
-	 7rBQ7+AAqrF9Iim3mgWYr1n86kKOaTSlCaAUO4hyceTsvdruuylTWsFJbS+KqbYa9U5rO
-	 PIX7oZRV966C+HRgaOWuTeNof2NDvcCkFXio6B0qYZ9cU03UreuRnzhz6Iz2VT03axg==
+	bh=tQWuEeswabUTL1at5Um5PhoB9BfARlHK0DFQg13RPDs=;
+	b=ueSqBo2z+bp6d+2Am0t+Nu8zuP2UwIF7ObtYKddcwin3ts89nRxOOLWOBnuQLkaXI+NE
+	 N30O8HYL5foK+/5YYGT45tQG+w8ro+fN18qwkSRAhthCSuQiKJDshnrivH9IfE3ubB85/
+	 ftk0tqWhsVZb1x/qXn/kYXuuGNyIvH1FOvuB4B0U4tIX4hZGxa/X/ECj/oMXiON1riAFk
+	 XVPs0O5V016EHYlcl0KR4J7NtXGwxq8XsNPRqJIqa6+YZ0za0lZURk884L9NSjRmgYAq+
+	 5GOlJ5yMN6inu4NaO55HPrPGhjAFfujB0hqz8CeRiAA7ct9/IjCDhP4HK3IrqNRFaHg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gB9UB1Dr;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PtdSZkV3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0780B606A8F8
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:23:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35870606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:23:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gB9UB1Dr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62D1C1F0089F;
-	Sat,  7 Nov 2026 10:23:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PtdSZkV3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B4651F0089F;
+	Sat,  7 Nov 2026 10:23:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046995;
-	bh=0tKZa/nDE8wgHxgyNTYb3K3HC9u4Ft+S/xtnqqGtCt8=;
+	s=k20260515; t=1794046998;
+	bh=tQWuEeswabUTL1at5Um5PhoB9BfARlHK0DFQg13RPDs=;
 	h=From:To:Cc:Subject:Date;
-	b=gB9UB1Dr9wIa3bhWbaNMl8SRm5EKLlpTBKynaIyK0LWKiAqfldkpWJSgBwYBdPEvG
-	 VAmQxlX9/AwxGoo43Afrd30ysp0sn74viROalgq3x+5j4IjCok0h4siyK+4W1od1+M
-	 Fnp63ZjY7dw320cFoPaPT3r+0dvyyBKK1lEMXdz5iawqVurtOoN0VJD/Tjc5ZFxLr2
-	 UNoSztAtQ9oRZ4TWy1NbVzdEK0EZ2rmMXq+G2bWm3sbPCR7zuTSPwb8dK8Ug3/R+WN
-	 9GMQjNYgls30U9kRbZ6WVokToKYyw1z5AD0hde+JNd2GZAYhjuOKLvgc3sfislgtZh
-	 iM5C5GzIxPMEQ==
+	b=PtdSZkV3qw+l3YVgMoG+7m/InP2bNbstEzLbS+AdUUU2V/j6AHEevornrG1QwUsyY
+	 bfIDdCzVaCI2qil9QHo2tycMH9jbYUqaxH20CsIGnE70Wt4s+N9iRiFUuyxtmCe1h/
+	 LX1WB0FxBd2HO1TRTcvz6R7qtTJUSnGtlYMaTIAm23toQxWcnyujy2UskEZtKujUlF
+	 iRbDuNfGHVZcyhsffXSXAylkno0sRteLJrbAR2HLU5vGXTC/2XkP5hz7DlVhLmTnFB
+	 pnSXu5ellTGJtscX12dS7iwr9R5hBig00PY7UOBU41sFWbKvZU3mFlrms9NCysL08l
+	 DDXvMwDgxhqTg==
 From: Sasha Levin <sashal@kernel.org>
-To: daehojeong@google.com,
-	chao@kernel.org,
-	jaegeuk@kernel.org
+To: junvyyang@tencent.com,
+	corvus@tencent.com,
+	lucien.xin@gmail.com,
+	kuba@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] f2fs: release a removed xattr node in roll-forward recovery" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:23:14 -0500
-Message-ID: <20261107052314-failed-6.12-f5924de8867c@kernel.org>
+Subject: FAILED: patch "[PATCH] sctp: re-point retained control chunks on association migration" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:23:16 -0500
+Message-ID: <20261107052316-failed-6.12-52ffeaa358d1@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,100 +70,171 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x f5924de8867c09206ba631b9faed63862ec00a10
+git cherry-pick -x 52ffeaa358d1f3d91aa87a26ad90d77769cff74b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052314-failed-6.12-f5924de8867c@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052316-failed-6.12-52ffeaa358d1@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From f5924de8867c09206ba631b9faed63862ec00a10 Mon Sep 17 00:00:00 2001
-From: Daeho Jeong <daehojeong@google.com>
-Date: Thu, 15 Oct 2026 02:57:31 +0000
-Subject: [PATCH] f2fs: release a removed xattr node in roll-forward recovery
+From 52ffeaa358d1f3d91aa87a26ad90d77769cff74b Mon Sep 17 00:00:00 2001
+From: Jun Yang <junvyyang@tencent.com>
+Date: Fri, 9 Oct 2026 15:42:32 +0800
+Subject: [PATCH] sctp: re-point retained control chunks on association
+ migration
 
-When xattrs shrink enough to fit in the inline xattr area,
-write_all_xattrs() truncates the xattr node and clears i_xattr_nid. If
-the file is then fsynced without a checkpoint, only the inode block is
-written, with i_xattr_nid of 0.
+sctp_sock_migrate() transfers DATA chunk ownership but leaves retained
+control chunks pointing at the old socket. A later retransmission can
+therefore access the socket after it has been freed.
 
-Roll-forward recovery starts from the checkpointed inode, whose
-i_xattr_nid still points to the old xattr node.
-f2fs_recover_inline_xattr() copies only the inline xattr area, and
-f2fs_update_inode() writes the old i_xattr_nid back. So the inode keeps
-the stale xattr node:
+Extend the migration walk to cover retained control chunks and use
+sctp_control_set_owner_w() to assign their new owner. Reuse the DATA
+ownership check so each chunk is processed once per pass, even when it
+is reachable through multiple lists or retained pointers.
 
- - The node block is never released, and fsck reports "nonzero bytes in
-   xattr space after end of list".
- - If the inline xattr list ends exactly at the end of the inline area,
-   its terminator is read from the stale node, and the removed xattrs
-   come back after recovery.
+Preserve a control chunk's existing authentication key across migration
+so its final release can still generate SCTP_AUTH_FREE_KEY when needed.
 
-When the fsynced inode has no xattr node but the checkpointed one has,
-release the old xattr node as truncate_node() does: check its block
-address, invalidate the block and drop its node cache, which may still
-be dirty.
-
-Fixes: 28cdce0459cc ("f2fs: recover inline xattr data in roll-forward process")
-Cc: stable@vger.kernel.org
-Signed-off-by: Daeho Jeong <daehojeong@google.com>
-Reviewed-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+Fixes: d04adf1b3551 ("sctp: reset owner sk for data chunks on out queues when migrating a sock")
+Cc: stable@kernel.org
+Reported-by: TencentOS Corvus AI <corvus@tencent.com>
+Signed-off-by: Jun Yang <junvyyang@tencent.com>
+Acked-by: Xin Long <lucien.xin@gmail.com>
+Link: https://patch.msgid.link/20261009074244.3718-3-juny24602@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 ---
- fs/f2fs/node.c | 37 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 37 insertions(+)
+ include/net/sctp/sm.h    |  1 +
+ net/sctp/sm_make_chunk.c |  5 ++--
+ net/sctp/socket.c        | 53 ++++++++++++++++++++++++++++++----------
+ 3 files changed, 44 insertions(+), 15 deletions(-)
 
-diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
-index 2dc136dbee34f..424e95ca58789 100644
---- a/fs/f2fs/node.c
-+++ b/fs/f2fs/node.c
-@@ -2846,6 +2846,43 @@ int f2fs_recover_inline_xattr(struct inode *inode, struct f2fs_cached_block *ent
- 	f2fs_cache_wait_writeback(ientry);
- 	memcpy(dst_addr, src_addr, inline_size);
- update_inode:
-+	/*
-+	 * The xattr node of the checkpoint was removed before fsync, e.g. the
-+	 * xattrs became small enough to fit inline. Release it as well, or
-+	 * the inode keeps pointing to the stale xattrs.
-+	 */
-+	if (!ri->i_xattr_nid && F2FS_I(inode)->i_xattr_nid) {
-+		struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
-+		struct node_info ni;
-+		int err;
+diff --git a/include/net/sctp/sm.h b/include/net/sctp/sm.h
+index 3bfd261a53cc9..76605d1ee8391 100644
+--- a/include/net/sctp/sm.h
++++ b/include/net/sctp/sm.h
+@@ -252,6 +252,7 @@ struct sctp_chunk *sctp_make_fwdtsn(const struct sctp_association *asoc,
+ 				    struct sctp_fwdtsn_skip *skiplist);
+ struct sctp_chunk *sctp_make_auth(const struct sctp_association *asoc,
+ 				  __u16 key_id);
++void sctp_control_set_owner_w(struct sctp_chunk *chunk);
+ struct sctp_chunk *sctp_make_strreset_req(const struct sctp_association *asoc,
+ 					  __u16 stream_num, __be16 *stream_list,
+ 					  bool out, bool in);
+diff --git a/net/sctp/sm_make_chunk.c b/net/sctp/sm_make_chunk.c
+index 84a4c97d0f755..ddc31a5dbad32 100644
+--- a/net/sctp/sm_make_chunk.c
++++ b/net/sctp/sm_make_chunk.c
+@@ -94,7 +94,7 @@ static void sctp_control_release_owner(struct sk_buff *skb)
+ 	}
+ }
+ 
+-static void sctp_control_set_owner_w(struct sctp_chunk *chunk)
++void sctp_control_set_owner_w(struct sctp_chunk *chunk)
+ {
+ 	struct sctp_association *asoc = chunk->asoc;
+ 	struct sk_buff *skb = chunk->skb;
+@@ -107,7 +107,8 @@ static void sctp_control_set_owner_w(struct sctp_chunk *chunk)
+ 	 *  For now don't do anything for now.
+ 	 */
+ 	if (chunk->auth) {
+-		chunk->shkey = asoc->shkey;
++		if (!chunk->shkey)
++			chunk->shkey = asoc->shkey;
+ 		sctp_auth_shkey_hold(chunk->shkey);
+ 	}
+ 	skb->sk = asoc ? asoc->base.sk : NULL;
+diff --git a/net/sctp/socket.c b/net/sctp/socket.c
+index 696e679362512..8cf3e955ae180 100644
+--- a/net/sctp/socket.c
++++ b/net/sctp/socket.c
+@@ -155,9 +155,24 @@ static void sctp_clear_owner_w(struct sctp_chunk *chunk)
+ 
+ static void sctp_set_owner_w_migrate(struct sctp_chunk *chunk)
+ {
+-	sctp_set_owner_w(chunk);
+-	if (chunk->shkey)
+-		sctp_auth_shkey_release(chunk->shkey);
++	struct sctp_shared_key *shkey = chunk->shkey;
 +
-+		err = f2fs_get_node_info(sbi, F2FS_I(inode)->i_xattr_nid,
-+								&ni, false);
-+		if (err) {
-+			f2fs_put_cache(ientry, true);
-+			return err;
-+		}
++	if (chunk->msg)
++		sctp_set_owner_w(chunk);
++	else
++		sctp_control_set_owner_w(chunk);
 +
-+		if (ni.blk_addr != NEW_ADDR &&
-+		    !f2fs_is_valid_blkaddr(sbi, ni.blk_addr,
-+					   DATA_GENERIC_ENHANCE)) {
-+			f2fs_err_ratelimited(sbi,
-+				"nat entry is corrupted, run fsck to fix it, ino:%u, nid:%u, blkaddr:%u",
-+				ni.ino, ni.nid, ni.blk_addr);
-+			set_sbi_flag(sbi, SBI_NEED_FSCK);
-+			f2fs_handle_error(sbi, ERROR_INCONSISTENT_NAT);
-+			f2fs_put_cache(ientry, true);
-+			return -EFSCORRUPTED;
-+		}
++	if (shkey)
++		sctp_auth_shkey_release(shkey);
++}
 +
-+		f2fs_invalidate_blocks(sbi, ni.blk_addr, 1);
-+		dec_valid_node_count(sbi, inode, false);
-+		set_node_addr(sbi, &ni, NULL_ADDR, false);
-+		/* drop the cached xattr node, which may be dirty */
-+		f2fs_truncate_node_caches(sbi, ni.nid, 1);
-+		f2fs_i_xnid_write(inode, 0);
-+	}
++static void sctp_process_tx_chunk(struct sctp_association *asoc,
++				  struct sctp_chunk *chunk, bool clear,
++				  void (*cb)(struct sctp_chunk *))
++{
++	if ((clear && asoc->base.sk == chunk->skb->sk) ||
++	    (!clear && asoc->base.sk != chunk->skb->sk))
++		cb(chunk);
+ }
+ 
+ #define traverse_and_process()	\
+@@ -165,17 +180,14 @@ do {				\
+ 	msg = chunk->msg;	\
+ 	if (msg == prev_msg)	\
+ 		continue;	\
+-	list_for_each_entry(c, &msg->chunks, frag_list) {	\
+-		if ((clear && asoc->base.sk == c->skb->sk) ||	\
+-		    (!clear && asoc->base.sk != c->skb->sk))	\
+-			cb(c);	\
+-	}			\
++	list_for_each_entry(c, &msg->chunks, frag_list)	\
++		sctp_process_tx_chunk(asoc, c, clear, cb);	\
+ 	prev_msg = msg;		\
+ } while (0)
+ 
+-static void sctp_for_each_tx_datachunk(struct sctp_association *asoc,
+-				       bool clear,
+-				       void (*cb)(struct sctp_chunk *))
++static void sctp_for_each_tx_chunk(struct sctp_association *asoc,
++				   bool clear,
++				   void (*cb)(struct sctp_chunk *))
+ 
+ {
+ 	struct sctp_datamsg *msg, *prev_msg = NULL;
+@@ -198,6 +210,21 @@ static void sctp_for_each_tx_datachunk(struct sctp_association *asoc,
+ 
+ 	list_for_each_entry(chunk, &q->out_chunk_list, list)
+ 		traverse_and_process();
 +
- 	f2fs_update_inode(inode, ientry);
- 	f2fs_put_cache(ientry, true);
- 	return 0;
++	list_for_each_entry(chunk, &q->control_chunk_list, list)
++		sctp_process_tx_chunk(asoc, chunk, clear, cb);
++
++	list_for_each_entry(chunk, &asoc->asconf_ack_list, transmitted_list)
++		sctp_process_tx_chunk(asoc, chunk, clear, cb);
++
++	list_for_each_entry(chunk, &asoc->addip_chunk_list, list)
++		sctp_process_tx_chunk(asoc, chunk, clear, cb);
++
++	if (asoc->strreset_chunk)
++		sctp_process_tx_chunk(asoc, asoc->strreset_chunk, clear, cb);
++
++	if (asoc->addip_last_asconf)
++		sctp_process_tx_chunk(asoc, asoc->addip_last_asconf, clear, cb);
+ }
+ 
+ static void sctp_for_each_rx_skb(struct sctp_association *asoc, struct sock *sk,
+@@ -9645,9 +9672,9 @@ static int sctp_sock_migrate(struct sock *oldsk, struct sock *newsk,
+ 	 * paths won't try to lock it and then oldsk.
+ 	 */
+ 	lock_sock_nested(newsk, SINGLE_DEPTH_NESTING);
+-	sctp_for_each_tx_datachunk(assoc, true, sctp_clear_owner_w);
++	sctp_for_each_tx_chunk(assoc, true, sctp_clear_owner_w);
+ 	sctp_assoc_migrate(assoc, newsk);
+-	sctp_for_each_tx_datachunk(assoc, false, sctp_set_owner_w_migrate);
++	sctp_for_each_tx_chunk(assoc, false, sctp_set_owner_w_migrate);
+ 
+ 	/* If the association on the newsk is already closed before accept()
+ 	 * is called, set RCV_SHUTDOWN flag.
 -- 
 2.53.0
 
