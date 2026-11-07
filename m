@@ -1,58 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047955;
-	b=qBLJQHtZYhgDSHo3MIJO9sPiQylVxdeGrGIZneHn9hT0K4WIY8MojWmgyKHB7JHhGCN4
-	 GVjW6aAPYBZXtftMl9CaTDXte367OPnNL1YLYM45D5PpN4dg3sK4U+6FWMA6N5ERtLOPs
-	 3W09Wjfrtba8o7lwghFcpAhkKhr1CXxvw4JsgGlGOme+Hgvl/IPBHyT/XyMWvjcaZN+TQ
-	 FQzF6bRfLWsWKskwlo39gs7pz/9lruxmfBNhT7+u8yhLdlkaG0ywy26SH4GaFRmTP/Dzp
-	 C5XbnlPm/fs1LSR+McdliUSz4l6gGjpsGunw2dhzpPBev8+PoWnOeTQsl4l06ES8g0Q==
+	t=1794047957;
+	b=MWItnvkNaK5Kh5Si1vJFj088V+m3wB16Yivh3I5Bb5+aoJ6VyEfIZRdc4oxsQ5f5yUvC
+	 6qeQicUSp1LI+o5Y52UUnb+tX2J4IBQRYF8O6JUopPg/k4xxvLUeKyU++yWQAlABkwaBH
+	 EmtqiBs9ww/+B4B/n9BA1Ew12PzlOtdbKhSrV/TTZnI8Q+1CosM9JT/1bx8oFk8qUMnqx
+	 QlWV3ZNFVGt/JSR8kq3tyZsTsxmaQzHnirHU6spJMt67hocIRE1XaNl7oVe1gmi9t/z5J
+	 NUWYA3zxItJc3C3Sb/VvWIQSYQqLhaKH9o89BdDf2TNVh7+75nWy6+4X8/3nL1Wc9hA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047955;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047957;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=wPvjBK9J0fpuVW5J4O9g7gx3ecF5UAXa+ASW5vGFmtc=;
-	b=d5Mz6bQxSexP7fok/8E3jHdlvc/Sfau4rf+g4uFH8KhJzmgPRjfOcg6iuLDM50RCvyWM
-	 izE7bWKK578mQ7Ujq+QUvHVmQVT2PHHvMTWmZhnKmsuh+VSZWa96atPdvz2PjU/UWZaru
-	 VaO77UZ3J+caG07s2o8ftD6byi/e/1hFuFYAONPEV90e5DGSdw++IoC5Q0sCcj5Q6bLJ0
-	 uc7eeDfgiWz5UpEC+7aNH2mfHfqgaOd3r8kWcAQQxZf7MX5F0eiTPvaT6+9GWCV4EP4eD
-	 5QW8tzLULgY05ouq6PWX5+V2STH5HbWN/66f2COnCz0GLuktx3I3VRdKiaZuXA9RhKg==
+	bh=obnLPYGIX6VSed5yIZh8HbM3Z0mWcT38nCTUwoCbLws=;
+	b=RZguW6tjlZFvv2cB4jwoh9DIJCUnPTZyzUzvn2adHiO544Yi5QcUg+/UmxUWXXj0PI41
+	 wHm8eCD+awzJYk32TezPqB4fgsSHXzYVABajo30RvXN2RvK8TSoI57egAvISrlEU2NXPm
+	 uNAQoX7b4azQTpfJVL1WMkWvqyp0RYFfNMh65/uJMz6MXhX4f74ebJ0Kn8eusNXbeQWZt
+	 Klls0n6AVMKkE59JTjtFdqde4xIiYGyaaSPJV19Zl8USNHCfZkcKfXWPCLKEfcZcwihqh
+	 AokZ1GpK14sZ0YpVDFLB/y3L58dE6Q422JLxKLfCznAfYfq5qTrHGS0wDWnYwezewXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dc5vZlKb;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=In+XY+K2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFC94606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:39:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3A60606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:39:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dc5vZlKb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA3961F0089F;
-	Sat,  7 Nov 2026 10:39:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=In+XY+K2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62BEA1F0089F;
+	Sat,  7 Nov 2026 10:39:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047954;
-	bh=wPvjBK9J0fpuVW5J4O9g7gx3ecF5UAXa+ASW5vGFmtc=;
+	s=k20260515; t=1794047956;
+	bh=obnLPYGIX6VSed5yIZh8HbM3Z0mWcT38nCTUwoCbLws=;
 	h=From:To:Cc:Subject:Date;
-	b=dc5vZlKbmjm6I7dXlsow+4OsYJU0OT6mJJ9lJ+Pr3HeaRE3IwMfP9q/UqTggOF1nj
-	 IYYbv7Ms3qQH22SbdLvdsVJxnwkkgTOZpXRq/9LaCWV/yJL1TfnM5bNNDJPkAJ21CK
-	 o/c6FeZsKKJJFwlsu3zGQ7H7A10YRoe6YQPw6giK8VsFiqycu7V9h5OTxIGPbuDoKx
-	 VzguR0PQStDZ6MStJW8DfA/+R+j0fK4zu6pEJ9rbsaT9A2B9Ftx0aPiFYe50Qfh/Sr
-	 GNhNRqrm5/VXbmPiyoCFZgjtxVV28EiUy8FOw0hpXgn2iT7mR9KIg3bVe0BikD/eIb
-	 pFqmJJCdnzPFw==
+	b=In+XY+K2PIgY1iO3SFlW4NkV+qpdwkWzS+rl9OWZhM3anSTBzs5qtfpID4OV34L8y
+	 3vXSQHbaANXGGf+8jGtbQrEkmCFZuYN0ef7u+vsyGj879YltQw2M2ObvWIkjFw4vgi
+	 byIQRyCqfCjfWbQQf3DNxBxBp/4eQ1fSI2CKUSe72zk8DwzyCMIDB7XaSDt8CVo8W1
+	 z9uI94Aw1rAvLGnmg6/tJ9S7gT55C8hnX+AbhMtwZ3lUHtmOi5p0JPD0IW1UQCWqUm
+	 Y2ExMmjEzrsc0prwykQOvmvYx4pzE8SyME5Pc8EmcOX+RqHFrMj6CmrOf/t3MRW7ZS
+	 tcTyHVRIXaypA==
 From: Sasha Levin <sashal@kernel.org>
-To: gourry@gourry.net,
-	akpm@linux-foundation.org,
-	joshua.hahnjy@gmail.com,
-	david@kernel.org,
-	ziy@nvidia.com,
-	rakie.kim@sk.com,
-	ying.huang@linux.alibaba.com,
-	pasha.tatashin@soleen.com,
-	mhocko@suse.com
+To: sj@kernel.org,
+	akpm@linux-foundation.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm/mempolicy: apply bind policies against the scoped allocation zone" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:39:12 -0500
-Message-ID: <20261107053912-failed-6.6-d4ea410ce4b8@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/damon/core: remove unreachable damos charge_{target,addr}_from" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:39:15 -0500
+Message-ID: <20261107053915-failed-6.6-5695abc4e742@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -75,99 +68,94 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x d4ea410ce4b8aa46a316476ea2624a357bf31fa9
+git cherry-pick -x 5695abc4e742b947f586bfb6a080a80ad9957e5d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053912-failed-6.6-d4ea410ce4b8@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053915-failed-6.6-5695abc4e742@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From d4ea410ce4b8aa46a316476ea2624a357bf31fa9 Mon Sep 17 00:00:00 2001
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-Date: Sat, 17 Oct 2026 22:33:49 -0400
-Subject: [PATCH] mm/mempolicy: apply bind policies against the scoped
- allocation zone
+From 5695abc4e742b947f586bfb6a080a80ad9957e5d Mon Sep 17 00:00:00 2001
+From: SJ Park <sj@kernel.org>
+Date: Mon, 19 Oct 2026 19:39:56 -0700
+Subject: [PATCH] mm/damon/core: remove unreachable damos
+ charge_{target,addr}_from
 
-QEMU fails to start a guest with a VFIO device when guest RAM comes
-from a memory backend bound to a movable-only node:
+damos_quota->charge_{target,addr}_from saves the target and region the
+scheme's quota limit is reached.  damos_skip_charged_region() skips the
+target and regions before the point.  The target that was assigned to
+charge_target_from could be dynamically removed from the context by the
+runtime parameters update (aka commit) feature.  In this case,
+damos_skip_charged_region() cannot find if the point is passed or not,
+so the scheme is effectively disabled.
 
-  vfio_container_dma_map(0x55b1b1317800, 0x0, 0x10000000,
-                         0x7f39a2200000)
-    = -12 (Cannot allocate memory)
+Similarly, the user could also remove all the regions of the target
+using the runtime parameters update feature.  It would be uncommon to do
+that, but it is a supported feature.  Because the skip pointer detection
+logic (damos_skip_charged_region()) works for each region of targets,
+this result in the logic is entirely skipped and the scheme is
+effectively disabled again.
 
-VFIO pins guest RAM when the device is realized, and the pin faults
-the pages in. io_uring fixed buffers fail the same way. Faulting the
-range in before pinning lets the same pin succeed, since resident
-pages are migrated off the node instead.
+The user impact is that the DAMOS scheme could suddenly stop working
+under certain uses of the runtime parameters update feature.  It could
+surprise users. No crash or leak happens though.  Users could also
+simply work around by re-installing the scheme.
 
-A long-term pin faults under memalloc_pin_save(). PF_MEMALLOC_PIN makes
-current_gfp_context() clear __GFP_MOVABLE, but policy_nodemask() tests
-apply_policy_zone() against the caller's gfp.
+Catch the corner cases in damos_adjust_quota() and reset the pointers.
 
-The bind keeps its movable-only nodemask, and the allocation finds no
-usable zone:
-
-  page allocation failure:
-      order:0,
-      mode:0x140dc2(GFP_HIGHUSER|__GFP_ZERO|__GFP_COMP),
-      nodemask=1,cpuset=/,mems_allowed=0-1
-
-  Call Trace:
-   warn_alloc+0x136/0x150
-   __alloc_frozen_pages_noprof+0xed8/0x1720
-   alloc_pages_mpol+0xaa/0x170
-   vma_alloc_folio_noprof+0x65/0xd0
-   __handle_mm_fault+0x137b/0x1ac0
-   handle_mm_fault+0xa0/0x270
-   __get_user_pages+0x250/0xfd0
-   __gup_longterm_locked+0x116/0x870
-   gup_fast_fallback+0xcfc/0xdf0
-   pin_user_pages_fast+0x47/0x60
-   io_pin_pages+0x9a/0x110
-
-Base page faults fail with -ENOMEM.
-hugetlb faults fail with -EFAULT.
-
-Check the policy zone against current_gfp_context(gfp), so a pin-scoped
-fault falls back off the movable-only nodemask, like any other
-non-movable allocation under the same bind.
-
-Tested in qemu with a dax/kmem movable-only node 1. io_uring and VFIO
-pins of unfaulted base pages and 2MB hugetlb pages now succeed and land
-on node 0 (correct). QEMU now starts with the same backend binding.
-
-Link: https://lore.kernel.org/20261018023349.1697434-1-gourry@gourry.net
-Fixes: 8e3560d963d2 ("mm: honor PF_MEMALLOC_PIN for all movable pages")
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+Link: https://lore.kernel.org/20261020023958.108276-1-sj@kernel.org
+Fixes: da87878010e5 ("mm/damon/sysfs: support online inputs update")
+Signed-off-by: SJ Park <sj@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Zi Yan <ziy@nvidia.com>
-Cc: Rakie Kim <rakie.kim@sk.com>
-Cc: Ying Huang <ying.huang@linux.alibaba.com>
-Cc: Pasha Tatashin <pasha.tatashin@soleen.com>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: <stable@vger.kernel.org>
+Closes: https://sashiko.dev/#/bug/linux-cd0c55fc-0cc8-45d8-9637-3334811c49b8
+Cc: <stable@vger.kernel.org> # 5.19.x
 ---
- mm/mempolicy.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ mm/damon/core.c | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
-diff --git a/mm/mempolicy.c b/mm/mempolicy.c
-index 70298fded1b4a..0884c629670dd 100644
---- a/mm/mempolicy.c
-+++ b/mm/mempolicy.c
-@@ -2302,7 +2302,7 @@ static nodemask_t *policy_nodemask(gfp_t gfp, struct mempolicy *pol,
- 		break;
- 	case MPOL_BIND:
- 		/* Restrict to nodemask (but not on lower zones) */
--		if (apply_policy_zone(pol, gfp_zone(gfp)) &&
-+		if (apply_policy_zone(pol, gfp_zone(current_gfp_context(gfp))) &&
- 		    cpuset_nodemask_valid_mems_allowed(&pol->nodes))
- 			nodemask = &pol->nodes;
- 		if (pol->home_node != NUMA_NO_NODE)
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index 479169dc9ac75..eb1fcdabc0075 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -3383,6 +3383,26 @@ static void damos_trace_esz(struct damon_ctx *c, struct damos *s,
+ 	trace_damos_esz(cidx, sidx, quota->esz);
+ }
+ 
++static void damos_fix_stale_charge_pointers(struct damon_ctx *c,
++		struct damos *s)
++{
++	struct damos_quota *quota;
++	struct damon_target *t;
++
++	quota = &s->quota;
++	if (!quota->charge_target_from)
++		return;
++	damon_for_each_target(t, c) {
++		if (t == quota->charge_target_from) {
++			if (damon_nr_regions(t) > 0)
++				return;
++			break;
++		}
++	}
++	quota->charge_target_from = NULL;
++	quota->charge_addr_from = 0;
++}
++
+ static void damos_adjust_quota(struct damon_ctx *c, struct damos *s)
+ {
+ 	struct damos_quota *quota = &s->quota;
+@@ -3418,6 +3438,8 @@ static void damos_adjust_quota(struct damon_ctx *c, struct damos *s)
+ 			damos_trace_esz(c, s, quota);
+ 	}
+ 
++	damos_fix_stale_charge_pointers(c, s);
++
+ 	if (damos_quota_is_full(quota, c->min_region_sz))
+ 		return;
+ 	if (!c->ops.get_scheme_score)
 -- 
 2.53.0
 
