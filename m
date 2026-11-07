@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046869;
-	b=b0GLdFY6n/u8GD3CLYBikljfUhZgkVzmaG4uK71AXDH1X1tKXvxruzPuvFwSvxMh+pGV
-	 hQH+vHs+vE2at+UiBvH2+u127j8y6HQArY1T65DTcwl/q+v7DaXxny/H0FLxuAT4NWjtR
-	 K2elI0Um30ibuPk/v2eLrBodXs/tq7mM4oYZMW+cfE8N8LJNVDr9BKKK8GpJldxNIU+/3
-	 mJEDlz4FYFxOCjvlAfQj1nv9jxkA+ibIL/fCFyWDBWDiFCVL253stshjwa9xIdEdNqPL0
-	 5DIBBPZ0KOErY+bwxWBAo7vyql8jUTc6E7BYgfeQC83UbDULpoVpjaleLvT5kPyEtBg==
+	t=1794046871;
+	b=Yaf2k6dRo9WSeZkWRYI7NrmA+LjYpJfMYdcwOnU4c37R74ZLd9pQiuI2UeWZeFAK5wEQ
+	 92cOHMbmleO7WepCUWIGAORoIZFDnpMnZuwv+AAAIyvBCjExu2xCKt8SQ0FKEa94KXgCR
+	 lfoRX29jpFp9pQPyObfWAAeGH7ynjNMxh1aoEgQjVlGIuO3Mls6HYma/jK0hTECkUhx1u
+	 tmmGhwKTcjyBgdtOu8oT1SxWoZd0RA6YKZzAwJpL3/ja0eC8gY6HBUDn3/zaXZtJg9D9F
+	 zZMo/VZw4RLP16/oO2myXEo4zSWnEAjEbv1ZSUDNtIm89ipdtu2x1DYZ6LOaO30ZGBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046869;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046871;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=o0dsnmySG/yvfcJTFsKAKBLiIpDnRwd/NJpCsl88VIM=;
-	b=ZyfXpcuZ2opqFYX03W5iO/lTqEUMM+7HVIBanTzsFHrpaNY025Q7rz1Ls2TboC2cQ/Qu
-	 A7rIj8/kblW1LUQ22h30nqfRyqPtUd00+zDb0ThuIn1h2dACmi90rlT4+wvnitnqMHMGT
-	 EYTafGpPu9yK/A3n929Jl1S0cbcSY8qj8ZvbDW/iRnCo+hvF+MR/hd4YsEPPOr7hjOvjW
-	 5K0UWV5VemZU+Br9aurZgVtb6iStm6J+ZKn/QeB8j35NkgjDV/mc2DnCLgqU6uwuDEJKz
-	 DIxIVd+osuJh3DrNIoN0tzGwYFkQgIK98KmrCUG8yMIx3UQQb4iNNaTku2HlC8swg3Q==
+	bh=1A2LRO9Av3ZkJMaSzmCd4OKVz+T4jQsq2I4AsrT+p6A=;
+	b=qAfsCqTeTmEX1d2OSdfk8lxelM7KmUQ2dL9DYZVU3+KkNAVJ7mSiLFxENMByHbnRMb6N
+	 1sunrcLjTzmMdnMkEg48yZ6A6F4QowyZzGCj0PWqkycZQJe6IJh4hEStgPw3x63wR/Un7
+	 PWNo7DUJi9rwiYs3ZAnBXOaaFHDyQAUdXnJa0ZNZhcZBHV1yB6sYd8e5L3+t4wO3TsMuK
+	 atT850LxtovPGYc6vWum54BNc0SgBdVzhStnNsTvtEZsJ5ABfLJlHwwrkJELg6EgstTES
+	 BI430DqfYAM5LUbBXEfcec8E7+0iSYNJN63D9NUxTjL6+E3fxLaaDg2QSXGEXA1oaNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hmCNPr89;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hDN9LXtn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCB48606A8FB
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:21:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B88E606A8FF
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:21:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hmCNPr89
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47F581F0089F;
-	Sat,  7 Nov 2026 10:21:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hDN9LXtn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 793661F0089F;
+	Sat,  7 Nov 2026 10:21:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046868;
-	bh=o0dsnmySG/yvfcJTFsKAKBLiIpDnRwd/NJpCsl88VIM=;
+	s=k20260515; t=1794046871;
+	bh=1A2LRO9Av3ZkJMaSzmCd4OKVz+T4jQsq2I4AsrT+p6A=;
 	h=From:To:Cc:Subject:Date;
-	b=hmCNPr89ZALv18UhyFfnz0I8M7HxQ+lvZXnBBdXLySdY23PlFoWWNjkUBGy5vs3e5
-	 8EtTpDb6gwUlcJTBWExYRBCpWhdwJpyFmsr/f46cXXcFF0dzA2HoWl/mEjnOcObZB9
-	 ltlMWf4ZBZYYeQVFuMloSDkfBhgaCx3Dtwo7oACZbstdd6oMLTCTbqBM9+YV8x8IaR
-	 Xl2GBqPEhWacbHFS4QsAAZS1ReUCiX6vKQO66uxWFK1YCQf060dTxJgT7KgIb90o1K
-	 Q6Wenfst7Ebf9kdpIC5AZtOedIPEvutRVVc69sR0ZMBTu7RGQJlX5w1qcXGW91J7WZ
-	 li9a8NU2tJC7w==
+	b=hDN9LXtnZkLeRy+4RalG5e9gCcj1vfLK0jmAOu9xlVqPx2nOTF/sqEnPpp9/SaBv/
+	 cKG64e/Oy924JUwf1DaypidlMCEnFtOoXIq2Pzi76+aRQ46R+3T4c/U7Bb/0DCuac2
+	 gy+QUQ377BxWcDSZQk7ASgvmieh1JyZEjBp49ZiXhOd/J3u02pHz9fI2ZXinhV4aoG
+	 B4leJTkqr8xo6W3gavaA5n2H5qDSHojWEYZ5WucWWksabxSxson7LbDZ/JS9ph05+K
+	 XIyw96tAbJvdhDJpjWQXs5hBKV5rL+f8GXxyVWHsmFH/o/XnqjZtVBdefhVQuPSrNC
+	 IRTp+qEdb0+ZA==
 From: Sasha Levin <sashal@kernel.org>
-To: runyu.xiao@seu.edu.cn,
-	jassisinghbrar@gmail.com
+To: clusk@northecho.dev,
+	schwab@linux-m68k.org,
+	gerg@linux-m68k.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mailbox: altera: shut down RX polling timer on channel teardown" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:21:07 -0500
-Message-ID: <20261107052107-failed-6.12-0cf10e65639c@kernel.org>
+Subject: FAILED: patch "[PATCH] m68k: Fix seccomp filtering on ColdFire and 68000" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:21:09 -0500
+Message-ID: <20261107052109-failed-6.12-48859f8018d9@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,54 +69,79 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 0cf10e65639cba32d05994f85e6a8f08dd0ffe08
+git cherry-pick -x 48859f8018d93bd93ef35f7430fdf5b97f2f9715
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052107-failed-6.12-0cf10e65639c@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052109-failed-6.12-48859f8018d9@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 0cf10e65639cba32d05994f85e6a8f08dd0ffe08 Mon Sep 17 00:00:00 2001
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Date: Fri, 4 Sep 2026 14:19:39 +0800
-Subject: [PATCH] mailbox: altera: shut down RX polling timer on channel
- teardown
+From 48859f8018d93bd93ef35f7430fdf5b97f2f9715 Mon Sep 17 00:00:00 2001
+From: Christopher Lusk <clusk@northecho.dev>
+Date: Sun, 13 Sep 2026 09:17:53 -0400
+Subject: [PATCH] m68k: Fix seccomp filtering on ColdFire and 68000
 
-The RX polling callback unconditionally rearms the timer after it
-processes mailbox data.  altera_mbox_shutdown() uses
-timer_delete_sync(), which waits for a running callback but does not
-prevent that callback from rearming the timer after the deletion.
+m68k selects HAVE_ARCH_SECCOMP_FILTER for all configurations, but the
+ColdFire and 68000 syscall entry paths only branch to
+syscall_trace_enter() for TIF_SYSCALL_TRACE. TIF_SECCOMP alone falls
+through to syscall dispatch, leaving installed filters ineffective.
 
-Use timer_shutdown_sync() for the final polling teardown so the timer
-cannot be queued again while the mailbox channel is being released.
-The timer is reinitialized with timer_setup() on a later channel startup,
-so polling mode remains reusable.
+Test the combined TIF_SYSCALL_TRACE and TIF_SECCOMP mask in both paths
+and route either flag through the existing slow path. Leave the classic
+MMU syscall entry implementation unchanged.
 
-Fixes: f62092f6d77d ("mailbox: Add Altera mailbox driver")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:GPT-5
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Signed-off-by: Jassi Brar <jassisinghbrar@gmail.com>
+Validated the combined test under QEMU mcf5208evb (ColdFire): filters
+denying getpid, openat, unlinkat, and reboot each returned -EPERM. A
+classic-MMU control (q800) denied the filtered getpid syscall both before
+and after this change. The 68000 path shares the same source-level
+omission and receives the identical masked test but was not separately
+emulated. Compile-tested W=1 with CONFIG_SECCOMP_FILTER=y on both
+m5208evb_defconfig and a custom no-MMU UCSIMM configuration; the latter
+built arch/m68k/68000/entry.o and vmlinux.
+
+Fixes: 6baaade15594 ("m68k: Add kernel seccomp support")
+Cc: stable@vger.kernel.org # v6.3+
+Suggested-by: Andreas Schwab <schwab@linux-m68k.org>
+Assisted-by: Claude:claude-opus-4-8
+Assisted-by: Codex:gpt-5.6-sol
+Signed-off-by: Christopher Lusk <clusk@northecho.dev>
+Signed-off-by: Greg Ungerer <gerg@linux-m68k.org>
 ---
- drivers/mailbox/mailbox-altera.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ arch/m68k/68000/entry.S    | 3 ++-
+ arch/m68k/coldfire/entry.S | 3 ++-
+ 2 files changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/mailbox/mailbox-altera.c b/drivers/mailbox/mailbox-altera.c
-index 17278c2571d34..7cb91413ef7fc 100644
---- a/drivers/mailbox/mailbox-altera.c
-+++ b/drivers/mailbox/mailbox-altera.c
-@@ -270,7 +270,7 @@ static void altera_mbox_shutdown(struct mbox_chan *chan)
- 		writel_relaxed(~0, mbox->mbox_base + MAILBOX_INTMASK_REG);
- 		free_irq(mbox->irq, chan);
- 	} else if (!mbox->is_sender) {
--		timer_delete_sync(&mbox->rxpoll_timer);
-+		timer_shutdown_sync(&mbox->rxpoll_timer);
- 	}
- }
+diff --git a/arch/m68k/68000/entry.S b/arch/m68k/68000/entry.S
+index c257cc415c478..0d3cbededc43c 100644
+--- a/arch/m68k/68000/entry.S
++++ b/arch/m68k/68000/entry.S
+@@ -79,7 +79,8 @@ ENTRY(system_call)
  
+ 	/* Doing a trace ? */
+ 	getthreadinfo
+-	btst	#(TIF_SYSCALL_TRACE%8),%a2@(TINFO_FLAGS+(31-TIF_SYSCALL_TRACE)/8)
++	moveb	%a2@(TINFO_FLAGS+2),%d1
++	andl	#((_TIF_SYSCALL_TRACE + _TIF_SECCOMP) >> 8),%d1
+ 	jne	do_trace
+ 	cmpl	#NR_syscalls,%d0
+ 	jcc	badsys
+diff --git a/arch/m68k/coldfire/entry.S b/arch/m68k/coldfire/entry.S
+index 4ea08336e2fb0..d658abdc52075 100644
+--- a/arch/m68k/coldfire/entry.S
++++ b/arch/m68k/coldfire/entry.S
+@@ -72,7 +72,8 @@ ENTRY(system_call)
+ 	movel	%d2,%a0
+ 	movel	%a0@,%a1		/* save top of frame */
+ 	movel	%sp,%a1@(TASK_THREAD+THREAD_ESP0)
+-	btst	#(TIF_SYSCALL_TRACE%8),%a0@(TINFO_FLAGS+(31-TIF_SYSCALL_TRACE)/8)
++	moveb	%a0@(TINFO_FLAGS+2),%d2
++	andl	#((_TIF_SYSCALL_TRACE + _TIF_SECCOMP) >> 8),%d2
+ 	bnes	1f
+ 
+ 	movel	%d3,%a0
 -- 
 2.53.0
 
