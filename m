@@ -1,54 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046439;
-	b=JJVeK0kCl8M9qZQ9RIqzKthURmUxeh2k6C/+H/ADAJezediUQz5gVIaX/rTeLa/ca6oV
-	 MEU4pcAy8Z0Y48/2IRNDytUZOXzAQCb6vL9g+tq2Ie4FK/J4Xa6cz5EehucwFERHa4WDa
-	 /BlDJPNiapf/PwT0lhmT2HMBPzd8bOQqRpJCRDklHiS/GLIQ8Jf8+s9JvwN55FR4Zl0St
-	 oRL8CAUh5SJPDbRtFnoTbyBF9kqLg/VYh4f5vl3y9ebbfEqOLkk190ZdBaGYKSr9fGsGu
-	 j55YpUvO8FkPEsyvAVCXNkOvHr4N91PHZIXc/J/jgDIUTtS4TYt4q3UZ8CckfzwlD2A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046439;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=AbX1MvO3u3KbLjbme2Eldkr1FEnQlugn03K9LKjNClg=;
-	b=hk+qC8gjlM+lK6xOEAhujMdNk0eMWpLew724DSYxrYdA4HO8JqanTzLy4GwTHx8ehJjm
-	 euZ+VAWypAsKjjHoOY3tHNZquIgLYcvos1+iRfeJMhCr7hmgxZ4O35gN78XvRPD9C16ha
-	 WLbOmZdGl1Z1+yBIDMBLZt8PD4priFOtj2J8P1S7NvvGsYjtUvMBit8ZVi72NiaySiSOo
-	 0HwjOJlPb4vbdEdLtF7W7FSyY5mT6NHAJnXEbQ9a/sNtAQuy1jXAKDD6YBWI2dcnrRHCP
-	 /X1br4iNrkV8KK+iSTlGPMzIXNSfGtHBA1E2ElJhkHYlKUKz5ddpiaMGz0brJav6pPQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i6MQ9yiW;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794046430;
+	b=hFOelxRHZTwPfmK1eiVyOX6C2N9/JEQCEleeTJdpjK1nlO0Vu1BuPu8AEPR/c1Py6qke
+	 ZwENFBVLKfkzsmeih4IU6SjXxr39mnM1tIVJBbvJM1crG2vdnKLakql2p8L+rvdL4r0Ln
+	 gsQbnb5FPUEl0LCpaNHqVCnsW6ze10pE3yXsksHo5TLLGlYxAq3m+UmJe0spvRRbO3bi7
+	 +PCIRHzLBMp41LgvfJz00uxr75SzgkUUuF69o6uVSKA7+eZyS6mV57/9mjVhjGnkQROZq
+	 sh58tRbPYyrAkhyTHpqiZww9xo5sTGXaRAq0N9pn+9Tf0rhU8dQz3wvDJZTJqsa3yug==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046430;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=1x0su3qFIaIhLOOHVTg63Xzz5NRDGI3ilAjVRn4Y+J0=;
+	b=hvEjC2siMUQG/YGRfoEWswKqbJYP9JXuOsXrkSF+wERZMPsNKMY/pUlcfIDl3+XLJZ46
+	 9pL5auC0WMphveSP8GwclxE2pVCOn5LChTp7a30pwSL53jtfjq678TRl73JxR5U0uSGps
+	 SuYoAOjQXqfDPtsM5oDiJZucpEEfgi/gWKDtTX0fT8I+Az7p0qaIYetj6/TTeDrZdz/x8
+	 Ky9HQsLkFwJoLkVOPPN2NHUEhYqenu5VN+ZwHIn33Um6n1tILdslaCZQJH3CxZ0x9VLT9
+	 ZsILQnwmr0s+UroL33tldwO7q6HH3/VFcW8x0FjxqA91ElG9b34YpzonleEw2dawBxw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iJodq1ml;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A480606D80D
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:13:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC7AA606A32D;
+	Sat,  7 Nov 2026 10:13:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i6MQ9yiW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BA6C1F008A2;
-	Sat,  7 Nov 2026 10:13:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iJodq1ml
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794046429;
+	b=BFFzFEyLQlad4lN8VqQPiQP9oB9Z2XmmXQsUhIsTUSdXPmKl6yJAKjCgM6cynk4VQhNs
+	 A7wdrZtbV2nCCQNhiPzwp8wRl8kG7JUKgLfqDMZzq9UnLMGkw7+EgYg92lQDsYcZxsaKp
+	 HWbzJqX6KCngXz6zl7x44T+P1PJzjMCBF9xK5opvBpaTdaPcYzub4zXanxOZKo7MvwboA
+	 jLZmfVdnBOG06whPTNnw6e1fhxfVZmM1CzOe9yaffkuTPBfoFgoRk6uP1qGkGsuHYXVIh
+	 m7QmG335LpduEVbmdMH3b8hUqdjOW3EYikgK+Y1iUl1DUeL23RqSwQqu9+HBD0vFNRw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794046429;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=1x0su3qFIaIhLOOHVTg63Xzz5NRDGI3ilAjVRn4Y+J0=;
+	b=xr2nd3/g0n7ooPr5PiV1VYx6Ry5aK2D1CQqXEjrh02qcSgN0t2pWfUYYz7ETV7jQ/34o
+	 uqfJnzU6R7TpIGjMc4AHz35qx2mI02X2ONvuBy3Z/Coe+VIh78NATsrRb79sN2rZD1drZ
+	 r+ks9c4Z7+v6jg/UiTGxhYKem6crjbAoItEPjODEegOQyC050YqexT64oOmcRUeUMTDhx
+	 OM3fIHfnM5cDWoXyLPxqMVEtr3YqFKFkwTLDt/GmNPpRQU0NLCM0V+ByUE/y7jAiHqgEA
+	 +yRRz0VxNXUzgnzbhHz2d/RvoLkMNMc+E4wD4NaWSpJ8otyoeWZdeTeLlmoMPW4w1lg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 5BF8E1F008A1;
+	Sat,  7 Nov 2026 10:13:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046439;
-	bh=AbX1MvO3u3KbLjbme2Eldkr1FEnQlugn03K9LKjNClg=;
-	h=From:To:Cc:Subject:Date;
-	b=i6MQ9yiWjdkT/8ltMaxphSvCx8YZcuD32qYRH7bNlIuu2ZBWT6Vax/kLFoQwN/Qkt
-	 qTx33DZEw4kpU0K+S02IBrB92eTazERqH5zryIJE4hM8JTQCY7XK0qSAYJIDIYunRK
-	 iZmATnscXAz7NaxSBR1s8RYZyTj031wYDuxoSPzmoc0WS+3XzLzLmHfF9QtGDkS95t
-	 dYpCQr8hGnlni3sfmxcd56kfsJGsuZasWz4jEeHJkE4ZC0/M1Fb8Jy4w3ebDHcMD+s
-	 fGSSjuBPubZOWzK53y7c6uWoSF3C/8LdoehqXU8cK792GJ8jX+C1QL7ZXNKq1rc5cc
-	 rbBFpqLBj9NAA==
-From: Sasha Levin <sashal@kernel.org>
-To: 4ncienth@gmail.com,
-	tglx@kernel.org,
-	shawnq1@163.com,
-	jstultz@google.com
-Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] timekeeping: Require permission to set auxiliary clocks" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:13:57 -0500
-Message-ID: <20261107051357-failed-6.18-524d95c8a200@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	s=k20260515; t=1794046429;
+	bh=1x0su3qFIaIhLOOHVTg63Xzz5NRDGI3ilAjVRn4Y+J0=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=iJodq1mlSBtu854QVQ9ONyTD8j5Q95lYmdwTqfxnAsksfn20dPcESK1HxVB7tUFK5
+	 8QaQrGLUe1AapT8b4xshPMS29njcmVSln4HZzphVip6JHGzMXsh1jrv8hGBhUisJ8h
+	 hmDVZczDUcf8FmRlM3CKW3/ivKDGOjmAlBJodUEqsh3PgMdvZOSifiQm/qvt/fQ5jj
+	 W1uPPB0wrLYe2rEvBTxPfO6l5/a1GlCknPpDAwv3lKc6fbb2snBCmf00ifLCiIW5Yb
+	 3b8Jg+Gghcmo5pYCo5po3Ex7lwIjfWjuqakh0tujF9H1VCz1el5GTupr8F6AKd+z6o
+	 eqplaZPvdQacQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id E1B2C47B59;
+	Sat,  7 Nov 2026 10:13:48 +0000 (UTC)
+From: Rui Cao via B4 Relay <devnull+i.udp0.com@kernel.org>
+Date: Sat, 07 Nov 2026 18:13:43 +0800
+Subject: [PATCH] spi: mt65xx: Remove the CPU latency QoS request when probe
+ fails
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,91 +83,95 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261107-mt65xx-qos-fix-v1-1-9d9c16a584e4@udp0.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDQwNz3dwSM9OKCt3C/GLdtMwKXWOjZBPDtBRjC9OURCWgpoKiVKAw2MD
+ oWAi/uDQpKzW5BGSKUm0tANz3mEtyAAAA
+X-Change-ID: 20261107-mt65xx-qos-fix-32c41fd385da
+To: Mark Brown <broonie@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Leilk Liu <leilk.liu@mediatek.com>
+Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ stable@vger.kernel.org, Rui Cao <i@udp0.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794046428; l=2424;
+ i=i@udp0.com; s=20261107; h=from:subject:message-id;
+ bh=J9ck0Rmxdd1nbYdPYBN9FG+4oXVrAofA+j7Izp5hqPk=;
+ b=REkzO9qjpDLtQwUJ2L7TcXugkI2yWMutN5NdD7o8ySpatBLXAbAjyDeG80TTMDedIQn2d/x9A
+ T87E08PacYsCghHh8+DjFlPTrQv5tXsVOQTQ3KN19p0+P+wXDg8ZjGo
+X-Developer-Key: i=i@udp0.com; a=ed25519;
+ pk=XZJKcKgnUUjjyw8KuKy7u2QeIX0JLY/L1Fxzwwje41w=
+X-Endpoint-Received: by B4 Relay for i@udp0.com/20261107 with auth_id=1443
+X-Original-From: Rui Cao <i@udp0.com>
+Reply-To: i@udp0.com
+Content-Transfer-Encoding: 7bit
 
-The patch below does not apply to the 6.18-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+From: Rui Cao <i@udp0.com>
 
-To reproduce the conflict and resubmit, you may use the following commands:
+mtk_spi_probe() adds its CPU latency QoS request before the chip select
+checks, the interrupt request and spi_register_controller(), and none of
+their error paths removes it again. The request is embedded in the
+driver's private data, which devres frees once the probe has failed, so
+the global CPU latency constraint list keeps a node in freed memory. The
+next cpu_latency_qos_add_request() from any driver walks into it.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
-git checkout FETCH_HEAD
-git cherry-pick -x 524d95c8a2000cba6cb80a173d76cb746c561244
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051357-failed-6.18-524d95c8a200@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+On a Redmi Note 13 5G (MT6833), an SPI controller whose probe failed the
+pad_num/num_chipselect check left such a node behind, and the UFS host
+adding its own request a moment later oopsed in plist_add():
 
-Thanks,
-Sasha
+Unable to handle kernel paging request at virtual address fffffffffffffff8
 
------------------- original commit in Linus's tree ------------------
+The same happens whenever spi_register_controller() fails, which
+includes -EPROBE_DEFER while the chip select GPIOs are looked up.
 
-From 524d95c8a2000cba6cb80a173d76cb746c561244 Mon Sep 17 00:00:00 2001
-From: Daehyeon Ko <4ncienth@gmail.com>
-Date: Mon, 19 Oct 2026 17:03:24 +0900
-Subject: [PATCH] timekeeping: Require permission to set auxiliary clocks
+Nothing needs the request before the controller is registered: only the
+prepare_message() and unprepare_message() callbacks update it. Add it
+just before the registration and remove it if the registration fails.
 
-The generic clock_settime() entry point delegates permission checks to
-each clock-specific callback. aux_clock_set() does not perform one. Once
-an administrator enables an auxiliary clock, any local process can
-therefore change the global clock offset.
-
-A test process running as UID and GID 65534 with no effective, permitted,
-inheritable, or ambient capabilities set CLOCK_AUX0 successfully, and a
-separate process observed the new value. The same process was denied by
-clock_adjtime(). An AppArmor profile denying sys_time also blocked
-CLOCK_REALTIME changes but did not see the auxiliary clock operation.
-
-Call security_settime64() before mutating the auxiliary timekeeper. This
-matches CLOCK_REALTIME's permission model, enforces initial-user-namespace
-CAP_SYS_TIME, and gives LSMs the settime hook while preserving authorized
-clock changes.
-
-Fixes: 60ecc26ec5af ("timekeeping: Provide time setter for auxiliary clocks")
-Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Tested-by: shaos <shawnq1@163.com>
-Acked-by: John Stultz <jstultz@google.com>
+Fixes: 632556d5799a ("spi: mt65xx: add PM QoS support")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261019080324.4147815-1-4ncienth@gmail.com
+Signed-off-by: Rui Cao <i@udp0.com>
 ---
- kernel/time/timekeeping.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/spi/spi-mt65xx.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/kernel/time/timekeeping.c b/kernel/time/timekeeping.c
-index ea2e6e55f37bf..1b342825bd8f1 100644
---- a/kernel/time/timekeeping.c
-+++ b/kernel/time/timekeeping.c
-@@ -14,6 +14,7 @@
- #include <linux/random.h>
- #include <linux/sched/clock.h>
- #include <linux/sched/loadavg.h>
-+#include <linux/security.h>
- #include <linux/static_key.h>
- #include <linux/stop_machine.h>
- #include <linux/syscore_ops.h>
-@@ -3215,11 +3216,15 @@ static int aux_clock_set(const clockid_t id, const struct timespec64 *tnew)
- 	struct tk_data *aux_tkd = aux_get_tk_data(id);
- 	struct timekeeper *aux_tks;
- 	ktime_t tnow, nsecs;
-+	int ret;
+diff --git a/drivers/spi/spi-mt65xx.c b/drivers/spi/spi-mt65xx.c
+index b845a599f7c..49c31d4bd71 100644
+--- a/drivers/spi/spi-mt65xx.c
++++ b/drivers/spi/spi-mt65xx.c
+@@ -1295,8 +1295,6 @@ static int mtk_spi_probe(struct platform_device *pdev)
+ 		clk_disable_unprepare(mdata->spi_hclk);
+ 	}
  
- 	if (!timespec64_valid_settod(tnew))
- 		return -EINVAL;
- 	if (!aux_tkd)
- 		return -ENODEV;
-+	ret = security_settime64(tnew, NULL);
-+	if (ret)
-+		return ret;
+-	cpu_latency_qos_add_request(&mdata->qos_request, PM_QOS_DEFAULT_VALUE);
+-
+ 	if (mdata->dev_comp->need_pad_sel) {
+ 		if (mdata->pad_num != host->num_chipselect)
+ 			return dev_err_probe(dev, -EINVAL,
+@@ -1323,11 +1321,13 @@ static int mtk_spi_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "failed to register irq\n");
  
- 	aux_tks = &aux_tkd->shadow_timekeeper;
++	cpu_latency_qos_add_request(&mdata->qos_request, PM_QOS_DEFAULT_VALUE);
+ 	pm_runtime_enable(dev);
  
--- 
-2.53.0
+ 	ret = spi_register_controller(host);
+ 	if (ret) {
+ 		pm_runtime_disable(dev);
++		cpu_latency_qos_remove_request(&mdata->qos_request);
+ 		return dev_err_probe(dev, ret, "failed to register host\n");
+ 	}
+ 
 
+---
+base-commit: d48723711bae9b8cdc56719c448ba42fef28cbee
+change-id: 20261107-mt65xx-qos-fix-32c41fd385da
 
+Best regards,
+--  
+Rui Cao <i@udp0.com>
 
 
