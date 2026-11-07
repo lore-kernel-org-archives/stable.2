@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046735;
-	b=A4xQ3AcKM531PpHe9MtZLdroe1wP15m0cyjpcmPlguDbvn8CWX1equh7cXtJahT4SAlI
-	 kL4CJFwE0OB7dE3Seo7ubqM/yFcCRm5N62eDYQdgyltcU7yEORnzqgND2HG9s0hUwDDJa
-	 kP2JLdnLMvI/gtxLYoRIp8R0NG3Y96V2H8VpQVuvcvFFQ8Mvc1xMB77UWp0rcxVuIe+Xa
-	 RnCWIM5BbA0cTEm5dErKsP2S9Jzvs3Nv1iemx9M/zrzmMUtyfItjyot47SQlC9xlpWBYr
-	 5KldOH/nmUEjaI+/Jex2Zzg7XgUNLoBwx+jgdevAw3KVjVPO4bO3csnEd1m5NmkNRMw==
+	t=1794046737;
+	b=sEy3CrAMP+oODrQ46DqbmMfT4gXcTRjyaLk2jmnkePixTjwXU2LDDOnWdtUnCJcprIbS
+	 KgzczWn3rQHeJQVJ/cZJlPnQ15mpRTKvsXQIOvNLYDKq8y5uNcUrILFdBaDgEmdyz9VxU
+	 5vZGmOppxyMEkoJr/bS0nItT907vhU8MbkfxWlItuDy4uIA0VOpchnHqb4OdVK+AKmCgD
+	 85kY8zjOqu375Fev+W/FN1fLU001F28YAbr4bT6i3I+sqKidPjpaOSXZz+TqbIihVrfS+
+	 Mve73SU1AjkAM+beAPhLvuv1qlllZq0JM0LRW1pYLbC0MH1KIbyI7YYiJjHdX4S1I1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046735;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046737;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=MkPi0Ebe62vCpZ+xTlWyLQczlYjzpktBL/OJuy7MX7w=;
-	b=bA7QfYz/LsWYfkqs3rim0e2HhgEBeE/TGyRkKktRNtRuc7gyEeUfz4uTtYn8qel7HQ6h
-	 2y+84Ktl2beyOZGjQW0groAmgcOTKULAEpF731fnDqZIOC9JtUjavtyDUvvDB42+tj+UC
-	 9EQX/1Ky1GoGfS//zjIjL8nX8glYDk67v5OOH7uiDi6r1DILqbo4cCcA3cRCrsXOvM0u9
-	 tfvq11ZKYWCPYnCbcR+WIxtG41gOsq1bzZTxJbJIt0ZGgNTNW9njcbPmJ/jP4Tc2jlWXE
-	 9DsWNyr4xWk+mRcn0ro7QcnpNm94JF3F92MlY7c8RsvtW5q6eSH5O+WEfBtjKAOJP+g==
+	bh=zd8To+wAwwXGmOu5c8dGG026IFtz51zEntsSNmGYts8=;
+	b=rbMuVGLf5ovFl1ViE8M9l8dflNhzf6kmdZ8Vf/MUNwhVURKyy9MjEmdg4ftlZQg8l0W5
+	 tIrJAADUvGD2dhAk3IYags4PRkGiUCNvTnnGW0xteXXI5sT9rqy83VlQODo9iLnZ8o8qc
+	 EwB4jBTJFozWeylCbHlHe2rbLhIbR7Ci/542i0dDVIRQguHJlMkYlVHCNZzFc2olELZTE
+	 JvYU+rUT8XTXTd0e+qxJuiFiY8pfBF0FvCpLsUMHeU9RKMsjna+4R6GApAZLWfcaluAbP
+	 NXC4Myv3Mapl3nip6GIo6hr2UweAqMDDtqy0NhmgHHLODzd3bKrvgK0TzSyuPAK2Y6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IRNOYmFL;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O2MUxw+l;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ACF5606A33B
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:18:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40321606EE82
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:18:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IRNOYmFL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CAFD1F008A1;
-	Sat,  7 Nov 2026 10:18:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O2MUxw+l
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E9171F008A5;
+	Sat,  7 Nov 2026 10:18:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046734;
-	bh=MkPi0Ebe62vCpZ+xTlWyLQczlYjzpktBL/OJuy7MX7w=;
+	s=k20260515; t=1794046737;
+	bh=zd8To+wAwwXGmOu5c8dGG026IFtz51zEntsSNmGYts8=;
 	h=From:To:Cc:Subject:Date;
-	b=IRNOYmFLmI0KOpIUD4j1nOWdkamBEsPr8ep4yiHODKBOodeyGITHu8By/F+rJ7c47
-	 5Gqoh6g9V2dqC7JVCaGZ9BBRXXxXt8K3ITsavcHNZskesSvXvhkYnu5lk/3E1Ojtax
-	 zfNCLV0QYomwMA6MGrZb3u7urO+8JmbauS/ZAh9hOWghmnVQZryRTbUabkSAYUUIkL
-	 mlz/mNDuK6Da/AP1THQ5fKgx2DDV6Dhwpq9SAdLzM8jxaRzmLr5AaOETC5LCMHuMMX
-	 oEAjIhe/yzUVKtPRiPSVu3yq4roHE4toozWByW3x3YJqFIhFP/jlHh2deF3r+PHyor
-	 lyt/8PxbUh04g==
+	b=O2MUxw+lLmORyVGmrxLcEEd0s5Bpa4qzg4rhWR+TJZbAQF/nhRDuM84w1uuU3Qjee
+	 9K1hpqhMloFBSmTrFiBIYtJL4dPjXizNiRmb3KPV7M3YLRv4CBrn0nM3XSRYwS/EjY
+	 GdDpekZoEtETME+R4LMgE1c+KHJnKHZIXN5gInF9T7K+5sj4NHvsTALMAmPzIXZEDD
+	 2Yg0yIf11y9/C+wNShAzHMSUpB+tMMKWDdyNhR0Z6+UIKhZofWTbZCVHMMRROb04z2
+	 QbYurwiIWZOZJih++XUqYL8hmYZAH7b0Befx2hmI05Xx3Q2j8Jk4tAk5KGSWSrD40C
+	 JWnMPF1+0kYpQ==
 From: Sasha Levin <sashal@kernel.org>
-To: tharitt97@gmail.com,
-	frank.li@nxp.com,
+To: hnkz.64@gmail.com,
 	nicolas.dufresne@collabora.com,
 	hverkuil+cisco@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] media: hantro: release runtime resources when device_run fails" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:18:53 -0500
-Message-ID: <20261107051853-failed-6.12-556ab0b2741d@kernel.org>
+Subject: FAILED: patch "[PATCH] media: mediatek: jpeg: Avoid context access after job finish" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:18:55 -0500
+Message-ID: <20261107051855-failed-6.12-7c7f31405b76@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,176 +69,65 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 556ab0b2741d653455637ffdd453d65c0439914a
+git cherry-pick -x 7c7f31405b76acd95a628c834ee8a2d6da439782
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051853-failed-6.12-556ab0b2741d@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051855-failed-6.12-7c7f31405b76@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 556ab0b2741d653455637ffdd453d65c0439914a Mon Sep 17 00:00:00 2001
-From: Tharit Tangkijwanichakul <tharitt97@gmail.com>
-Date: Wed, 29 Jul 2026 06:04:39 +0000
-Subject: [PATCH] media: hantro: release runtime resources when device_run
- fails
+From 7c7f31405b76acd95a628c834ee8a2d6da439782 Mon Sep 17 00:00:00 2001
+From: Kazuki Hanai <hnkz.64@gmail.com>
+Date: Wed, 2 Sep 2026 20:22:28 +0900
+Subject: [PATCH] media: mediatek: jpeg: Avoid context access after job finish
 
-device_run() acquires a runtime PM reference and enables the VPU clocks
-before invoking the codec-specific run callback.
+v4l2_m2m_job_finish() publishes job completion and wakes waiters
+before it returns. A concurrent file release can therefore finish
+v4l2_m2m_ctx_release() and free the context while the single-core IRQ
+handler continues with its tail.
 
-If clk_bulk_enable() fails, the runtime PM reference is left held. If
-the codec-specific run callback fails, both the enabled clocks and the
-runtime PM reference are left held.
+Both handlers only need the device for the matching runtime PM put.
+Use the IRQ-owned jpeg pointer instead of dereferencing ctx after
+completion has been published. This preserves the get/put pairing and
+removes the post-completion context access.
 
-Make the clocks part of the device's runtime PM state by enabling them
-from the runtime-resume callback and disabling them from the
-runtime-suspend callback.
-
-Fixes: 775fec69008d ("media: add Rockchip VPU JPEG encoder driver")
+Fixes: 45f13a57d813 ("media: platform: Add jpeg enc feature")
+Fixes: 5827e4b14ee7 ("media: platform: Improve power on and power off flow")
 Cc: stable@vger.kernel.org
-Signed-off-by: Tharit Tangkijwanichakul <tharitt97@gmail.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Assisted-by: Codex:gpt-5
+Signed-off-by: Kazuki Hanai <hnkz.64@gmail.com>
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 Signed-off-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 ---
- .../media/platform/verisilicon/hantro_drv.c   | 66 +++++++++++--------
- 1 file changed, 39 insertions(+), 27 deletions(-)
+ drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/media/platform/verisilicon/hantro_drv.c
-index ad71c0402ef3b..43f67b9fcf273 100644
---- a/drivers/media/platform/verisilicon/hantro_drv.c
-+++ b/drivers/media/platform/verisilicon/hantro_drv.c
-@@ -59,8 +59,7 @@ static const struct v4l2_event hantro_eos_event = {
- 	.type = V4L2_EVENT_EOS
- };
- 
--static void hantro_job_finish_no_pm(struct hantro_dev *vpu,
--				    struct hantro_ctx *ctx,
-+static void hantro_job_finish_no_pm(struct hantro_ctx *ctx,
- 				    enum vb2_buffer_state result)
- {
- 	struct vb2_v4l2_buffer *src, *dst;
-@@ -86,15 +85,13 @@ static void hantro_job_finish_no_pm(struct hantro_dev *vpu,
- 					 result);
+diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+index 515c216058749..640ae30736f91 100644
+--- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
++++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+@@ -1574,7 +1574,7 @@ static irqreturn_t mtk_jpeg_enc_done(struct mtk_jpeg_dev *jpeg)
+ 	v4l2_m2m_buf_done(src_buf, buf_state);
+ 	v4l2_m2m_buf_done(dst_buf, buf_state);
+ 	v4l2_m2m_job_finish(jpeg->m2m_dev, ctx->fh.m2m_ctx);
+-	pm_runtime_put(ctx->jpeg->dev);
++	pm_runtime_put(jpeg->dev);
+ 	return IRQ_HANDLED;
  }
  
--static void hantro_job_finish(struct hantro_dev *vpu,
--			      struct hantro_ctx *ctx,
-+static void hantro_job_finish(struct hantro_ctx *ctx,
- 			      enum vb2_buffer_state result)
- {
--	pm_runtime_put_autosuspend(vpu->dev);
--
--	clk_bulk_disable(vpu->variant->num_clocks, vpu->clocks);
-+	struct hantro_dev *vpu = ctx->dev;
- 
--	hantro_job_finish_no_pm(vpu, ctx, result);
-+	pm_runtime_put_autosuspend(vpu->dev);
-+	hantro_job_finish_no_pm(ctx, result);
+@@ -1856,7 +1856,7 @@ static irqreturn_t mtk_jpeg_dec_irq(int irq, void *priv)
+ 	v4l2_m2m_buf_done(src_buf, buf_state);
+ 	v4l2_m2m_buf_done(dst_buf, buf_state);
+ 	v4l2_m2m_job_finish(jpeg->m2m_dev, ctx->fh.m2m_ctx);
+-	pm_runtime_put(ctx->jpeg->dev);
++	pm_runtime_put(jpeg->dev);
+ 	return IRQ_HANDLED;
  }
  
- void hantro_irq_done(struct hantro_dev *vpu,
-@@ -111,7 +108,7 @@ void hantro_irq_done(struct hantro_dev *vpu,
- 	if (cancel_delayed_work(&vpu->watchdog_work)) {
- 		if (result == VB2_BUF_STATE_DONE && ctx->codec_ops->done)
- 			ctx->codec_ops->done(ctx);
--		hantro_job_finish(vpu, ctx, result);
-+		hantro_job_finish(ctx, result);
- 	}
- }
- 
-@@ -127,7 +124,7 @@ void hantro_watchdog(struct work_struct *work)
- 		vpu_err("frame processing timed out!\n");
- 		if (ctx->codec_ops->reset)
- 			ctx->codec_ops->reset(ctx);
--		hantro_job_finish(vpu, ctx, VB2_BUF_STATE_ERROR);
-+		hantro_job_finish(ctx, VB2_BUF_STATE_ERROR);
- 	}
- }
- 
-@@ -170,29 +167,24 @@ void hantro_end_prepare_run(struct hantro_ctx *ctx)
- static void device_run(void *priv)
- {
- 	struct hantro_ctx *ctx = priv;
-+	struct hantro_dev *vpu = ctx->dev;
- 	struct vb2_v4l2_buffer *src, *dst;
- 	int ret;
- 
- 	src = hantro_get_src_buf(ctx);
- 	dst = hantro_get_dst_buf(ctx);
- 
--	ret = pm_runtime_resume_and_get(ctx->dev->dev);
--	if (ret < 0)
--		goto err_cancel_job;
--
--	ret = clk_bulk_enable(ctx->dev->variant->num_clocks, ctx->dev->clocks);
--	if (ret)
--		goto err_cancel_job;
-+	ret = pm_runtime_resume_and_get(vpu->dev);
-+	if (ret < 0) {
-+		hantro_job_finish_no_pm(ctx, VB2_BUF_STATE_ERROR);
-+		return;
-+	}
- 
- 	v4l2_m2m_buf_copy_metadata(src, dst);
- 
--	if (ctx->codec_ops->run(ctx))
--		goto err_cancel_job;
--
--	return;
--
--err_cancel_job:
--	hantro_job_finish_no_pm(ctx->dev, ctx, VB2_BUF_STATE_ERROR);
-+	ret = ctx->codec_ops->run(ctx);
-+	if (ret)
-+		hantro_job_finish(ctx, VB2_BUF_STATE_ERROR);
- }
- 
- static const struct v4l2_m2m_ops vpu_m2m_ops = {
-@@ -1302,10 +1294,30 @@ static void hantro_remove(struct platform_device *pdev)
- static int hantro_runtime_resume(struct device *dev)
- {
- 	struct hantro_dev *vpu = dev_get_drvdata(dev);
-+	int ret;
-+
-+	ret = clk_bulk_enable(vpu->variant->num_clocks, vpu->clocks);
-+	if (ret)
-+		return ret;
-+
-+	if (vpu->variant->runtime_resume) {
-+		ret = vpu->variant->runtime_resume(vpu);
-+		if (ret)
-+			goto err_disable_clocks;
-+	}
-+
-+	return 0;
- 
--	if (vpu->variant->runtime_resume)
--		return vpu->variant->runtime_resume(vpu);
-+err_disable_clocks:
-+	clk_bulk_disable(vpu->variant->num_clocks, vpu->clocks);
-+	return ret;
-+}
- 
-+static int hantro_runtime_suspend(struct device *dev)
-+{
-+	struct hantro_dev *vpu = dev_get_drvdata(dev);
-+
-+	clk_bulk_disable(vpu->variant->num_clocks, vpu->clocks);
- 	return 0;
- }
- #endif
-@@ -1313,7 +1325,7 @@ static int hantro_runtime_resume(struct device *dev)
- static const struct dev_pm_ops hantro_pm_ops = {
- 	SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
- 				pm_runtime_force_resume)
--	SET_RUNTIME_PM_OPS(NULL, hantro_runtime_resume, NULL)
-+	SET_RUNTIME_PM_OPS(hantro_runtime_suspend, hantro_runtime_resume, NULL)
- };
- 
- static struct platform_driver hantro_driver = {
 -- 
 2.53.0
 
