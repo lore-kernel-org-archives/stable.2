@@ -1,52 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047056;
-	b=vXiIsJ6IHif645ehrpBTW4CsE7XgKoWgFdosOxLgObrOya1/rGwJFXIjRodFThHFw0Ws
-	 s/MOvph9aOl1w/6Et9W1WnhbdR6btTAz/WbB6xxq7ZxbgS8fEpW40eH2r65qSuF1ZJadN
-	 rUcBtqe/FpwUEUVLdF19X0pJpEf1XqqDBZTz4aMl6YgAu7BfkUkij8cmB5EJT6BkXZkUT
-	 1pJebEqV62CR0bV2e7GpZgrYpEyHQhZWFMcEiZz70cSZJYWerElLbbghqkB8EcZRkDXtm
-	 AenJpJ0KY10yphunbCyoXuzvpJ7SrTEbC5Cw4cvq3NmbBdeMatZiq6B4I2kUOXZhYlg==
+	t=1794047058;
+	b=ZuDC9EzcKmU8kZLZ3SqLNuJcWDzw3qRhZ8pDSspcZkBnNN2GcIzqQUUoWdic4CriLQpZ
+	 EtInGWAHyfG/O6oL6hCmQK+USXIghwgK/dOR17IZ6FrIVkY9hJ7q2PsewNVTHTXIYwXEa
+	 wx9ZERMBpM5apWuSX6QokuEMAta035U0ZZwwkgfnWcluxjOcUhv/hFYosWd5VuIusN+ah
+	 NLdASYAL3oDrV20ZCXRJDlwHk7t1pmSj46ZY61dtJvriZWsU+EOjezRu1HSXBzXO8hD/5
+	 uRLL2OD/mkN7ZlJq3JthxVS2hXadjKBqotdIZ2v0LrzIR0q2RTGvcKgs4h2nN9TNjMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047056;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047058;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ygzLvzEustB1t+HakwY8vXFUGilZH9hA5lb20YnfNJ4=;
-	b=JFg+u4Ns3KlQ1U1MYjSZupYWxOH75Wq4meGM+4Tf2ImFZJO7j+EMgoVUx3+hrIQfh5oB
-	 zPzSY0+LcGza6yjFUwpB5lsauqkVPSHUc4jlbeT1+5cwyyBU2jGvuaYgsVIuMKr+3ZDD4
-	 xoIC80gUX03X/0jnZPNM+7cnNB5csQ5zKc4Yoh71qya4cOiphDzh2t/Gs3r/UD2vNcRW0
-	 9RNII7ioMPLY9C+DiQJtf3Xz1WxOufO1uxOL986QQjT5DZUVXIEJxKGOwZsEYRTIKnvvR
-	 gzVCwVEPs5hRsMoM+5aznZ6k8QZwUb9rmBbTjnhOdYFTk1N/g7VqSsxSGJk/dYRabjQ==
+	bh=UY5SiFiHq/OPIMTs+LfMYtTWE4KqRtP2Rt/AldnbkHU=;
+	b=cm4kw7M7VYlBWmGWGHkp6AsSFiidU/bpUJo15bqwA978QnuVjyNFz/IOtDxWKVrSFXgg
+	 XJb9Jq06DiFfiNYaeQF6ylAkU8dr8fedq7hLmSkJ3BeKeJcgUeGXEypYrjFR09D4sw4IY
+	 1G6T2C3yeRc7kJo9IfIcHSJ54v2dcu0s9AUtSD5nXdNcNnctd2kA9nh3krWcBr87gU/CU
+	 d1z1faD+wQUQifh7Ot9DefeLDDFsC75fKt8ilspOo3VeFzRErVJIZKoF1u1PK+RLTtwWK
+	 rZhlNmDd5+9VPqJoFdlXbWSAtYVk1BxkkxQHvkiizdBUci5oJ0dQR71JYztJZ9Q1AjA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IqMNqxGD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GtHwkiDD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BFBE606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:24:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EA52606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:24:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IqMNqxGD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A99B1F0089F;
-	Sat,  7 Nov 2026 10:24:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GtHwkiDD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95D821F0089F;
+	Sat,  7 Nov 2026 10:24:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047055;
-	bh=ygzLvzEustB1t+HakwY8vXFUGilZH9hA5lb20YnfNJ4=;
+	s=k20260515; t=1794047058;
+	bh=UY5SiFiHq/OPIMTs+LfMYtTWE4KqRtP2Rt/AldnbkHU=;
 	h=From:To:Cc:Subject:Date;
-	b=IqMNqxGDsvQLKaPU+LwhcLY/Vk433pVA4YAA+qj3COcHev+SXX6xiEDwJEs3SqVQl
-	 ikRJplnW9n3Oz94+Quu8RUrrCG3u1WY6O+zjaIvebuoPkX6TpLMOVA8QJZgXFk4OCY
-	 7NBqC4z67xATCW6Yls9b0Kjert2dsAOIir7LyH47lJevXQ7H3kFbS/6eqf5Pq4QPOZ
-	 EyORvOMo8KScs83LsnAsk2iiHdsoaVWbY7O18wUkhRX8QbrlevVH9yd51R+2D9vdBL
-	 nNstPEwhu+Aq+0Iv1XUX++pjpW4LShDxVILmQWQrtKksE55w5f9IZlNzsSRCD95uKE
-	 HKl0eA77rtbWg==
+	b=GtHwkiDDbvJeCgjvXRH+eJVQDbltc4gX13iCqHjnwVlzGOiCD1BwXE3sOlN9MXN7t
+	 t/qViiXzOY220/S573pkLBjDP0fDrBhuOtuOIBS/NpqkXp/fMnDNo0QvS8x0tjsLJY
+	 YfDyw4YQQjca+k/mmCq+ROrPNsci3zcQaSOXLd9nisPYtaGRDTBR+E8zDzR+fWIIvh
+	 ru0APtUtUfjQdhY5d8pOqqHJ7qlWfP6CXB3fU2kEuRxbR+niSacZvv97bL1BT8r6rz
+	 WDaeBCQyg4PPc+K2VHZ57sOu4zl7h7vjBPMQEuIZlwEjOA+MuHyILoXo6PkAGxL8Lx
+	 1WvFYiHgmvBbQ==
 From: Sasha Levin <sashal@kernel.org>
 To: zenghongling@kylinos.cn,
 	liubaolin@kylinos.cn,
+	hyc.lee@gmail.com,
 	linkinjeon@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ntfs: NULL vol->vol_ino in the load_system_files() error teardown" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:24:14 -0500
-Message-ID: <20261107052414-failed-6.12-a0c022c1da5b@kernel.org>
+Subject: FAILED: patch "[PATCH] ntfs: set the volume dirty bit unconditionally on metadata changes" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:24:16 -0500
+Message-ID: <20261107052416-failed-6.12-55af94ca0ee3@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,75 +70,189 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x a0c022c1da5b0fa30c61bd5b28db9f639ace5bf5
+git cherry-pick -x 55af94ca0ee3512c08d12ffbbb948229da4e1565
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052414-failed-6.12-a0c022c1da5b@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052416-failed-6.12-55af94ca0ee3@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From a0c022c1da5b0fa30c61bd5b28db9f639ace5bf5 Mon Sep 17 00:00:00 2001
+From 55af94ca0ee3512c08d12ffbbb948229da4e1565 Mon Sep 17 00:00:00 2001
 From: Hongling Zeng <zenghongling@kylinos.cn>
-Date: Mon, 7 Sep 2026 15:08:52 +0800
-Subject: [PATCH] ntfs: NULL vol->vol_ino in the load_system_files() error
- teardown
+Date: Mon, 21 Sep 2026 23:13:19 +0900
+Subject: [PATCH] ntfs: set the volume dirty bit unconditionally on metadata
+ changes
 
-The error unwind of load_system_files() drops vol->vol_ino on two
-paths but leaves the stale pointer in place while it keeps iput()ing
-the remaining system inodes ($Bitmap, $MFT bitmap, $MFTMirr; $MFT
-itself is dropped by the caller, ntfs_fill_super()).  A third path
-carried an iput() that can never execute: it sits inside the
-IS_ERR(vol->vol_ino) branch guarded by !IS_ERR(vol->vol_ino), and is
-removed along with the stale pointers.  Nothing in the teardown
-dereferences vol_ino today, so this is pure hygiene, but a stale
-pointer to a freed inode surviving the unwind is a trap for any
-future code walking the volume during teardown.
+The callers in file.c and namei.c skip ntfs_set_volume_flags() when
+the in-memory vol_flags already show VOLUME_IS_DIRTY, but that check
+runs without any lock: if it observes the bit set and ntfs_sync_fs()
+clears it under the mrec_lock before the caller's metadata update
+completes, the set is skipped and the volume can end up clean on disk
+despite the modification, so chkdsk will not run on the next mount.
 
-ntfs_put_super() and the ntfs_fill_super() error path already NULL it
-after their iput(); do the same here.
+Drop the caller-side checks and call ntfs_set_volume_flags()
+unconditionally: ntfs_write_volume_flags() already skips the write
+under the mrec_lock when the combined value is unchanged.  That
+unconditional call costs one mrec_lock acquisition per metadata
+operation even in the already-dirty steady state; it cannot be
+avoided, because deciding to skip the call without the lock is itself
+what allows a concurrent ntfs_sync_fs() clear to lose the set.
 
+The IOCB_NOWAIT path in ntfs_file_write_iter() goes through the same
+sleeping call: a RWF_NOWAIT write can block in the marking, as it
+already could before this change whenever the volume appeared clean.
+Giving that path a non-blocking variant is left as follow-up work.
+The callers keep the pre-existing behavior of proceeding when the
+marking fails, so the dirty bit remains best-effort.
+
+This closes the variant where the set is skipped outright.  A clear
+for a concurrent, error-free sync can still land between the set and
+the end of the metadata operation; that mark-at-start lifecycle is
+pre-existing and is not changed by this patch.
+
+Reported-by: Baolin Liu <liubaolin@kylinos.cn>
 Cc: stable@vger.kernel.org
 Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
 Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
 Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 ---
- fs/ntfs/super.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ fs/ntfs/file.c  | 20 +++++++++++---------
+ fs/ntfs/namei.c | 24 ++++++++----------------
+ 2 files changed, 19 insertions(+), 25 deletions(-)
 
-diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
-index 49ec1eb1520c1..9f5cf65fd3a55 100644
---- a/fs/ntfs/super.c
-+++ b/fs/ntfs/super.c
-@@ -1536,8 +1536,7 @@ static bool load_system_files(struct ntfs_volume *vol)
- 	 */
- 	vol->vol_ino = ntfs_iget(sb, FILE_Volume);
- 	if (IS_ERR(vol->vol_ino)) {
--		if (!IS_ERR(vol->vol_ino))
--			iput(vol->vol_ino);
-+		vol->vol_ino = NULL;
- volume_failed:
- 		ntfs_error(sb, "Failed to load $Volume.");
- 		goto iput_lcnbmp_err_out;
-@@ -1546,6 +1545,7 @@ static bool load_system_files(struct ntfs_volume *vol)
- 	if (IS_ERR(m)) {
- iput_volume_failed:
- 		iput(vol->vol_ino);
-+		vol->vol_ino = NULL;
- 		goto volume_failed;
+diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
+index 2b6588a4ee73c..e8b056c3e4ccd 100644
+--- a/fs/ntfs/file.c
++++ b/fs/ntfs/file.c
+@@ -341,8 +341,7 @@ int ntfs_setattr(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 		goto out;
  	}
  
-@@ -1706,6 +1706,8 @@ static bool load_system_files(struct ntfs_volume *vol)
- 	if (vol->logfile_ino)
- 		iput(vol->logfile_ino);
- 	iput(vol->vol_ino);
-+	/* Do not leave a stale pointer behind for the rest of the teardown. */
-+	vol->vol_ino = NULL;
- iput_lcnbmp_err_out:
- 	iput(vol->lcnbmp_ino);
- iput_attrdef_err_out:
+-	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+-		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
++	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+ 
+ 	if (ia_valid & ATTR_SIZE) {
+ 		err = ntfs_setattr_size(vi, attr);
+@@ -636,8 +635,13 @@ static ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
+ 		goto out_lock;
+ 	}
+ 
+-	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+-		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
++	/*
++	 * The volume must be marked dirty before the modification is made,
++	 * without an unlocked check of the in-memory flag: ntfs_sync_fs()
++	 * can clear the bit concurrently and the modification would then
++	 * land on a volume that is clean on disk.
++	 */
++	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+ 
+ 	pos = iocb->ki_pos;
+ 	count = ret;
+@@ -1169,11 +1173,9 @@ static long ntfs_fallocate(struct file *file, int mode, loff_t offset, loff_t le
+ 			return err;
+ 	}
+ 
+-	if (!(vol->vol_flags & VOLUME_IS_DIRTY)) {
+-		err = ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+-		if (err)
+-			return err;
+-	}
++	err = ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
++	if (err)
++		return err;
+ 
+ 	inode_lock(vi);
+ 	if (NInoCompressed(ni) || NInoEncrypted(ni) || NInoWofCompressed(ni)) {
+diff --git a/fs/ntfs/namei.c b/fs/ntfs/namei.c
+index 2cde39da6beec..028efad7d9c0f 100644
+--- a/fs/ntfs/namei.c
++++ b/fs/ntfs/namei.c
+@@ -756,8 +756,7 @@ static int ntfs_create(const struct mnt_idmap *idmap, struct inode *dir,
+ 		return err;
+ 	}
+ 
+-	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+-		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
++	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+ 
+ 	ni = __ntfs_create(idmap, dir, uname, uname_len, S_IFREG | mode, 0, NULL, 0);
+ 	kmem_cache_free(ntfs_name_cache, uname);
+@@ -1031,8 +1030,7 @@ static int ntfs_unlink(struct inode *dir, struct dentry *dentry)
+ 		return err;
+ 	}
+ 
+-	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+-		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
++	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+ 
+ 	err = ntfs_delete(ni, NTFS_I(dir), uname, uname_len, true);
+ 	if (err)
+@@ -1075,8 +1073,7 @@ static struct dentry *ntfs_mkdir(const struct mnt_idmap *idmap, struct inode *di
+ 		return ERR_PTR(err);
+ 	}
+ 
+-	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+-		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
++	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+ 
+ 	ni = __ntfs_create(idmap, dir, uname, uname_len, mode, 0, NULL, 0);
+ 	kmem_cache_free(ntfs_name_cache, uname);
+@@ -1117,8 +1114,7 @@ static int ntfs_rmdir(struct inode *dir, struct dentry *dentry)
+ 		return err;
+ 	}
+ 
+-	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+-		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
++	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+ 
+ 	err = ntfs_delete(ni, NTFS_I(dir), uname, uname_len, true);
+ 	if (err)
+@@ -1304,8 +1300,7 @@ static int ntfs_rename(const struct mnt_idmap *idmap, struct inode *old_dir,
+ 		new_dir_first = is_subdir(new_dentry->d_parent,
+ 					  old_dentry->d_parent);
+ 
+-	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+-		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
++	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+ 
+ 	mutex_lock_nested(&old_ni->mrec_lock, NTFS_INODE_MUTEX_NORMAL);
+ 	if (new_ni)
+@@ -1428,8 +1423,7 @@ static int ntfs_symlink(const struct mnt_idmap *idmap, struct inode *dir,
+ 		goto out;
+ 	}
+ 
+-	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+-		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
++	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+ 
+ 	ni = __ntfs_create(idmap, dir, usrc, usrc_len, S_IFLNK | 0777, 0,
+ 			   symname, symlen);
+@@ -1473,8 +1467,7 @@ static int ntfs_mknod(const struct mnt_idmap *idmap, struct inode *dir,
+ 		return err;
+ 	}
+ 
+-	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+-		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
++	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+ 
+ 	switch (mode & S_IFMT) {
+ 	case S_IFCHR:
+@@ -1520,8 +1513,7 @@ static int ntfs_link(struct dentry *old_dentry, struct inode *dir,
+ 		return -ENOMEM;
+ 	}
+ 
+-	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
+-		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
++	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+ 
+ 	ihold(vi);
+ 	mutex_lock_nested(&ni->mrec_lock, NTFS_INODE_MUTEX_NORMAL);
 -- 
 2.53.0
 
