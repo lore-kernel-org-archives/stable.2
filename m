@@ -1,53 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047045;
-	b=vW69VQq+UUhc52sofM4/tGEf8vBL2wGQDgRgifkCFltRDK6I5Qn6qeTWCH3RdgmD32Ng
-	 2gge9Y+ND5BFpddVZam1Xw9lNxVEBLXP5lrw9w/7h37k1ehRYStvok4G/NShAoFAfhjjZ
-	 5gVkzzOgSii17iOya16lb45FcDpk9iwWPAVqWpoeOsrSiT1xYqhdWXQ3rX3eRFeXDuL0e
-	 hzzENLDL3VVbSx6fMDNFT2kzzSouYE1i5ZraD5qYzErZUC0qcYKSmD4lT0hYjYx5asMGh
-	 78fsTL74yPBWb0M+oLwf1WKhcYbuT/xVI3TPBpabIXLICBcgJ2418D6edOodSGMLKug==
+	t=1794047047;
+	b=s42pnrS0bLpw9nvQE91m2cA+zC0elWeYPYZfC9g+DiOhPw7x+OmqKqcTpo6nHdxq/9X+
+	 ToyFsnapPE2MZrVD5B7guJhjA0uBbD3IQsqXhHGbdAtDl/LR3ZG6mHwzlOEdFvu5zxtxC
+	 h8lrlPu6sgC/HhCWZ3CaeIS9z91qurQOGV/K/8/Eh8bMkcTLaKo23ioi4TrELr4jFVcp/
+	 4bWTYskJLfoOhPaA0wZ90Jp9kW3S0dZ12b44t6Jm5jKFbjm5tdlXNccKl5SZlefv0wnVs
+	 TQsBnMHBqIJguortlsWnfks97xbQdN3idnNssW2q2DSJTcyxRpSn29dmDQi4vSEsGgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047045;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047047;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=GtuL4uje55KK5V9kIktk2zznIDI2aBzcTOOW2SRGUsI=;
-	b=OLxpADfjd+L1xkP2rD52gF6CHXthxWoUGpqkDHutANsyYHB8m5u01IE9haSwktiKmG43
-	 hghANSB6x/gntvlr5jfcLCiNng0WFOtHmHX4EI5BfFIMx3YP3Def7KzNvRIWEMYat/vmX
-	 55FWI/VpjH8i7scxNNnmXQH/oabHP8TnXwlHElKvzSdTyGcy5fV1qsHtlIvZ7zEZJ3m7Z
-	 YaHqpXLwIkAkvKhvNnUcWE3ELb0JE3SO45EYDTV7j0eSQ8JnhVwZ6GmOPytUQ2JsG1GzB
-	 By0nctiGSzTI61nccBgl4lWav9h2bQ12fSYsocoKoXBSgLI82AP0J01OmMByRWGCswg==
+	bh=4sUdxKJQXc/aOOUxVN0GjJjGMvvfGBrcsWc3McUQgbI=;
+	b=a0JlVLhRlHOJtAg/gC/9iTtS5+XdD6/F00NlrzpEw4rDeV4MqqjyekOemwcppiFvvLSN
+	 4syk+aBe3QnHg++FA4ddOzEStlNIeG+Qwg0gbLj6jexXSPCCWlkLWHmJk1ZDYgTQiEsUZ
+	 as4fpW7U1TK3IKPu5hUU2pJD6Hd1ngoiHdL6W9hFS/3JNnQgasMFRcPo8+b6BzcK9C7D5
+	 0Z0Ub96xbnBVV2dsvCAYYVkfh88gc3WykCoBcal8MN/Vtia9eDhMZfR0pllCZG8IA/TcO
+	 MqmwBi9DEGrbGdKinkb+wQC4Oyyx05lZygyd2SI5K/zEkmqCV6ArY2IDFz37LgXhF1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PMEekeeT;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="aYVx/OuD";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A615606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:24:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 395B2606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:24:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PMEekeeT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DCA31F0089F;
-	Sat,  7 Nov 2026 10:24:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aYVx/OuD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC78C1F0089F;
+	Sat,  7 Nov 2026 10:24:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047044;
-	bh=GtuL4uje55KK5V9kIktk2zznIDI2aBzcTOOW2SRGUsI=;
+	s=k20260515; t=1794047047;
+	bh=4sUdxKJQXc/aOOUxVN0GjJjGMvvfGBrcsWc3McUQgbI=;
 	h=From:To:Cc:Subject:Date;
-	b=PMEekeeTvnQo5nYxSU2Y7bu5EQ1XgNWBuKFQUcGmzReTX/kwWp58Z9iNf1ZPfAHCs
-	 xqhoLevYUqSQtupbqPOJLvT1bp9d26DNvHt8ZueeAqq6xGAWDUbucN7o/fJ+6XDdTm
-	 IeGkthszIwJX4+9+60Y3SssAWi7xRa67S5F5s+clhjSMtwtZOV1LqY4amU30Toxl6U
-	 jXMuVRfCgtq0eR16oqKuXdvuz3TnYpTJ2dCNuL7rjjzVIg7AYHX8lfVGmiJjknHBz8
-	 n2PhzHL6jIJN+WgkJrKzfUYNKFXlVbNSUbKPOSOpmE5B2/iof3JwSz1cqVKVPj0dr6
-	 lDgnRO1oKHZ8g==
+	b=aYVx/OuDmE1bMyjNBR5lrQqIoF7IYe6PjLRhA5vIHxOQ2qTp6HNUx3xlRvI93G6KS
+	 TKz/ELfQHLbCR5i1ZDiKhAxFkK6EzRUADxOEymAyzPVoOUM/DoVdKqPCfQ00hIzOdk
+	 mj2+biopafmQhCdCWCnOfJJ7RPptx/+qUPPdn4+JfWtvvKvnKqKvSUwoDHbVGSnGLy
+	 EKIi505fGeFM+pfMxYTVWsMiAQ2Yhm48lpegW7/3u2UYp0gb4Shz+48ZIrNpEY/oyc
+	 Y/d7UylwOgS1diGJnS24qYsfD/5b3ZQ01u0/tAZ+iZ+nfhHYAfifmlnSTET492dzcx
+	 Vnb1rh0X1Tdhw==
 From: Sasha Levin <sashal@kernel.org>
-To: jianyungao89@gmail.com,
-	jack@suse.cz,
-	djwong@kernel.org,
-	alison.schofield@intel.com
+To: gourry@gourry.net,
+	alexandre.belloni@bootlin.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] dax: fix wrong error code returned from dax_dedupe_file_range_compare()" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:24:03 -0500
-Message-ID: <20261107052403-failed-6.12-9b036546a02c@kernel.org>
+Subject: FAILED: patch "[PATCH] rtc: cmos: Honor explicit use_acpi_alarm parameter value" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:24:05 -0500
+Message-ID: <20261107052405-failed-6.12-3c7acb209e1d@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,55 +68,88 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 9b036546a02c6c9a5133f9c1e93503896595c6ba
+git cherry-pick -x 3c7acb209e1d630b734a2ec72bd988f5da2ac55c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052403-failed-6.12-9b036546a02c@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052405-failed-6.12-3c7acb209e1d@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 9b036546a02c6c9a5133f9c1e93503896595c6ba Mon Sep 17 00:00:00 2001
-From: Jianyun Gao <jianyungao89@gmail.com>
-Date: Thu, 15 Oct 2026 22:34:25 +0800
-Subject: [PATCH] dax: fix wrong error code returned from
- dax_dedupe_file_range_compare()
+From 3c7acb209e1d630b734a2ec72bd988f5da2ac55c Mon Sep 17 00:00:00 2001
+From: Gregory Price <gourry@gourry.net>
+Date: Thu, 15 Oct 2026 13:30:29 -0400
+Subject: [PATCH] rtc: cmos: Honor explicit use_acpi_alarm parameter value
 
-When dax_range_compare_iter() returns a negative error code (e.g. -EIO),
-dax_dedupe_file_range_compare() incorrectly returns 'ret' which holds the
-positive return value from iomap_iter() indicating more iterations remain.
-This positive value leaks to the caller, where vfs_dedupe_file_range()
-interprets it as success (bytes_deduped = len), causing userspace to
-incorrectly believe deduplication completed.
+An explicit rtc_cmos.use_acpi_alarm=0 command-line argument is ignored
+on systems where use_acpi_alarm_quirks() enables ACPI RTC alarms. The
+argument appears in /proc/cmdline, but the read-only parameter reports Y.
 
-Return 'status' instead to propagate the actual error code.
+The boolean parameter defaults to false, so the driver cannot distinguish
+an omitted argument from an explicit false value. Use a custom setter to
+record whether parsing occurred and skip automatic selection when it did.
+Preserve the bool parameter type metadata. Automatic selection remains
+unchanged when the parameter is omitted.
 
-Fixes: 0e79e3736d54 ("fsdax: dedupe: iter two files at the same time")
+On the affected system, the explicit false value reports N after this
+change. The HPET-emulated path completed 100 test runs without a failure
+while the ACPI RTC event counter remained at zero.
+
+Fixes: 36d91a4d401c ("rtc: cmos: introduce quirks to enable use_acpi_alarm mode")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jianyun Gao <jianyungao89@gmail.com>
-Reviewed-by: Jan Kara <jack@suse.cz>
-Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
-Link: https://patch.msgid.link/20261015143426.17620-1-jianyungao89@gmail.com
-Signed-off-by: Alison Schofield <alison.schofield@intel.com>
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+Link: https://patch.msgid.link/20261015173029.3091872-3-gourry@gourry.net
+Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
 ---
- fs/dax.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/rtc/rtc-cmos.c | 26 +++++++++++++++++++++++++-
+ 1 file changed, 25 insertions(+), 1 deletion(-)
 
-diff --git a/fs/dax.c b/fs/dax.c
-index dbb58692efecf..61dce4601aaa5 100644
---- a/fs/dax.c
-+++ b/fs/dax.c
-@@ -2266,7 +2266,7 @@ int dax_dedupe_file_range_compare(struct inode *src, loff_t srcoff,
- 		status = dax_range_compare_iter(&src_iter, &dst_iter,
- 				min(src_iter.len, dst_iter.len), same);
- 		if (status < 0)
--			return ret;
-+			return status;
- 		src_iter.status = dst_iter.status = status;
- 	}
- 	return ret;
+diff --git a/drivers/rtc/rtc-cmos.c b/drivers/rtc/rtc-cmos.c
+index fe514b1aa3433..209aa4ec732c8 100644
+--- a/drivers/rtc/rtc-cmos.c
++++ b/drivers/rtc/rtc-cmos.c
+@@ -57,7 +57,28 @@
+  */
+ 
+ static bool use_acpi_alarm;
+-module_param(use_acpi_alarm, bool, 0444);
++static bool use_acpi_alarm_explicit;
++
++static int set_use_acpi_alarm(const char *val, const struct kernel_param *kp)
++{
++	int ret;
++
++	ret = param_set_bool(val, kp);
++	if (!ret)
++		use_acpi_alarm_explicit = true;
++
++	return ret;
++}
++
++static const struct kernel_param_ops use_acpi_alarm_ops = {
++	.flags = KERNEL_PARAM_OPS_FL_NOARG,
++	.set = set_use_acpi_alarm,
++	.get = param_get_bool,
++};
++
++param_check_bool(use_acpi_alarm, &use_acpi_alarm);
++module_param_cb(use_acpi_alarm, &use_acpi_alarm_ops, &use_acpi_alarm, 0444);
++__MODULE_PARM_TYPE(use_acpi_alarm, "bool");
+ 
+ static inline int cmos_use_acpi_alarm(void)
+ {
+@@ -822,6 +843,9 @@ static void rtc_wake_off(struct device *dev)
+ #ifdef CONFIG_X86
+ static void use_acpi_alarm_quirks(void)
+ {
++	if (use_acpi_alarm_explicit)
++		return;
++
+ 	if (acpi_gbl_FADT.flags & ACPI_FADT_FIXED_RTC)
+ 		return;
+ 
 -- 
 2.53.0
 
