@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050466;
-	b=Xp/L9I/v+LHEXxt6oWHpaWvaMBYS5dodsOplfQz6ob2R2Dlk2EY+31vN+2B0cSIonf+F
-	 469/UiEN6IRTvARwjZJZZeHhQx4rK5oa444tpj5DsiBSH9lRTVA1jPE8tpyELVvr+UAdv
-	 aZg9Gm8VcuyPswMETEBQwdY1beN6bCQPeznGWqHQxvMVCWEnMLhPcDx2F3rbBK9WhkKgJ
-	 d93YP8oBbSrzKJSssJFPCXx/KCnqswt2FfwAQpfQHrdumuAJfbslq/LFD9EgTjInjnBch
-	 geE09PDgMW12TxT+GdwqbCNAkK6o57GXuqS1EMcWH0AYrRgqq9CqJx7Wwc5cYrvbWgg==
+	t=1794050469;
+	b=TpUVgwcdL/55IN9nYYvx66pIzttzJd1po7cPuoXqoq5JwdgtBzI4AGOOMRZevSIwjxoE
+	 7SnCbbFnYHnkJ0EVrmcdrKlY3h5D1cWsVBFsod86WZ+C5DMV4D8CpLh/JsctGxUe32soq
+	 8b6Qe+XNEWe1nMGdi3D9Hy4Lj3N20kwfaMdSnrrlTu/pZLpRBn1Y8GI1cGLb/UjZvYQJX
+	 fIK/g3q8bSxH+k0JPnf0kX0PPLN0dIuxc35w0c9VazWDE1TNlGFVpeWUVFzWfuhDg5YKg
+	 +D5vPyY1ESnxpf77RHEsFCrrMCtW9q3yz2y13C9bVxMPJTGwnkk8h/ZzEoPbkxc8lDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050466;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050469;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=JujCIu4KVnp9pEsUSSZrRV1K+8k1vmGxKYJSd5QPWJs=;
-	b=lHx3yN8EjteUqTnE9Gh37sBo2Py1hNGdZJ0KkiZyp4J/rWD72QYwU0pLqJ059A3V1CMA
-	 fu6EzkOBI0kvOwVFcmdUoHs+q6psYZXms2xhJ1EivUz+Qi65lZ8cAWAwpRZUb2OntjFXH
-	 Kv7ZN6wBELbVC3+JHGiyzst5WvATeaOIe6LgS70d8WCEDsTgaucDfHHDJf1hwbK9tPJtc
-	 /k9Ge1tiyWSqL9v1MKpBB9OtAJ1VWQ/O2uSkUwkJfTi5v0dgujCoCbBr+Hvmk7Kmp8L5E
-	 cdQc5OcA3W5jqTm05PX/XFGNY5zOxFQpNaG6de5zhENGPM4TIJ6A0sN7tn0NZHJcaDg==
+	bh=1s8YY3NNAO/dF0a6YTQ7X/lGKSe+gP52UoPXmf9iK04=;
+	b=PhjkUK+Rig4BIrGeqQ+rPOxjs8+WAtf6ugHtKnZaaChSbolPoYVBFIF3G+eKnTe/ynN0
+	 5V4wKTQd9Y0B81y+BIVks8R51ojHuHO5kuFnyDyUNdJTQjep7QykzNmPidRVEyBWmvQBj
+	 bdLGLjN/a3y9SSWN4uOhXv3W5bLfi59wKnkqaz26NPYM2nOdmSZzrLs7Q4jow1EO1YGPr
+	 yy8uFQIb/at6eUnXHgXk5FnUlXYYTQIxW8QTKFiXbnQU0OjdCWyuwN+HCMdHJC7jq7hjh
+	 jCXXINj4rpLMqEoogA4CWobBTlixUkwmrVJhaUYyhZ4UDGvA8GpWbB5R/k/lQWi0+yg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EHF1Bned;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ke7GtxA9;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5EB9606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:21:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07014606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:21:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EHF1Bned
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 397631F0089F;
-	Sat,  7 Nov 2026 11:21:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ke7GtxA9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F51E1F0089F;
+	Sat,  7 Nov 2026 11:21:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050465;
-	bh=JujCIu4KVnp9pEsUSSZrRV1K+8k1vmGxKYJSd5QPWJs=;
+	s=k20260515; t=1794050468;
+	bh=1s8YY3NNAO/dF0a6YTQ7X/lGKSe+gP52UoPXmf9iK04=;
 	h=From:To:Cc:Subject:Date;
-	b=EHF1BnedavCaVGeIk+l96NxEtUvhdgFMCOuni5qBTrs5JB/b2TkZrW5BafmlRzqfI
-	 O/9gJRIu0ZWE67kM5FsII3C68zhlRtKsagaMsnywMt7/0BKx4kp/D2w5Njt1LfVER6
-	 0CU77WlYQAQYo6WOwX4lAzxrmoDC6cRC17zPpxZ9ZfyElzOtPZVF2haFiD1yUezEia
-	 J+npG1x8Q+DbPxcHccUcEoZwKwi72LF/JlwH0WXiJqBYL9E4YF1y1So4MTkZrDZdNP
-	 aKmZ8IvUACYBHiPd6GCPrIXQYKWGdXM0OlzLCRsENUSE2wkvdi2vG+T5UL9/OtaZsR
-	 gBiGhpE1XRd1w==
+	b=Ke7GtxA993KcM14aRPQPCjccKD8utZSBUIbIqmPkrIteir0ahIWJxyV6ad9lRauw+
+	 SLbdkVE+JlQ8Ee3ANnUUWcp271wF8C/AFZswaQHgrvhRAaeG3YR6mXE/TAZU8zHN6s
+	 d+KrdDli4MS/A1XxHYuO9BnZY4uZGClCJmtZkMO3ZDEwuoVtvi7YSlxNWk+1oRhVmu
+	 RwC/BWP5YhV9c1HdGHog7X8waC15yXFIj0fIrxKjIFG3VVkLCJ/eyMbx/dq+SIosth
+	 FVTwL8BxLJ7aNm3eLeWqo+CEjDl+iwRxRKCpysmdjrNV/6//4apeknwzbk35pjVFw6
+	 K+BGGvfAELwiQ==
 From: Sasha Levin <sashal@kernel.org>
-To: leitao@debian.org,
-	xueshuai@linux.alibaba.com,
-	rafael.j.wysocki@intel.com
+To: tmenninger@everpuredata.com,
+	cel@kernel.org,
+	anna.schumaker@hammerspace.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ACPI: APEI: accumulate the queued flag across error sections" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:21:03 -0500
-Message-ID: <20261107062103-failed-5.10-f341307a1489@kernel.org>
+Subject: FAILED: patch "[PATCH] xprtrdma: prevent disconnect feedback during endpoint teardown" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:21:07 -0500
+Message-ID: <20261107062106-failed-5.10-0b5bb4e586f7@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,74 +69,102 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x f341307a14895e5da056fb419a31ef7fb534ab18
+git cherry-pick -x 0b5bb4e586f7b0a449f4d90a524f76a3be5db355
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062103-failed-5.10-f341307a1489@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062106-failed-5.10-0b5bb4e586f7@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From f341307a14895e5da056fb419a31ef7fb534ab18 Mon Sep 17 00:00:00 2001
-From: Breno Leitao <leitao@debian.org>
-Date: Fri, 25 Sep 2026 08:09:11 -0700
-Subject: [PATCH] ACPI: APEI: accumulate the queued flag across error sections
+From 0b5bb4e586f7b0a449f4d90a524f76a3be5db355 Mon Sep 17 00:00:00 2001
+From: Tim Menninger <tmenninger@everpuredata.com>
+Date: Thu, 24 Sep 2026 20:34:40 +0000
+Subject: [PATCH] xprtrdma: prevent disconnect feedback during endpoint
+ teardown
 
-ghes_do_proc() walks every error section of a CPER record, and
-ghes_handle_arm_hw_error() walks every error-info entry of an ARM
-processor section.  Both assign to "queued" instead of OR-ing into it,
-so only the last iteration counts: a later section or entry that queues
-no memory-failure work clears the flag an earlier one set.
+xprt_autoclose() clears XPRT_CLOSE_WAIT before invoking the transport's
+->close() operation. For RPC/RDMA, ->close() calls
+rpcrdma_xprt_disconnect(), which disconnects the RDMA CM endpoint and
+drains its QP.
 
-Instead of reassigning the variable at every time, just do an `OR`, so,
-if there was a single match, it will return "queued" as set.
+Since commit 31e62d25b5b8 ("xprtrdma: Simplify RPC wake-ups on
+connect"), RDMA_CM_EVENT_DISCONNECTED requests a SUNRPC transport
+disconnect. Today that path, along with failed completion handling,
+reaches xprt_force_disconnect() through rpcrdma_force_disconnect().
 
-The comment above the check says "If no memory failure
-work is queued", which is the semantics this patch implements. I.e, only
-SIGBUS if there are queue was not handled at all. If we want to SIGBUS
-if any event was not handled/queued at all, we will need something more
-sophisticated.
+Commit c487eb7d8e41 ("xprtrdma: Clean up disconnect") later added
+re_force_disconnect to ensure that multiple failure indications request
+only one SUNRPC disconnect. However, the gate remains open when SUNRPC
+itself begins endpoint teardown.
 
-Fixes: 7f17b4a121d0 ("ACPI: APEI: Kick the memory_failure() queue for synchronous errors")
-Fixes: ccb5ecdc2dde ("ACPI: APEI: fix synchronous external aborts in user-mode")
-Cc: All applicable <stable@vger.kernel.org>
-Signed-off-by: Breno Leitao <leitao@debian.org>
-Reviewed-by: Shuai Xue <xueshuai@linux.alibaba.com>
-Link: https://patch.msgid.link/20260925-ghes-queued-accumulate-v1-1-df50553957d4@debian.org
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+If re_force_disconnect is still clear, either a CM disconnect event or a
+completion error can set XPRT_CLOSE_WAIT again while the current close
+is in progress. When the transport send lock is subsequently released,
+xprt_clear_locked() observes XPRT_CLOSE_WAIT and queues another
+autoclose.
+
+Requesting a disconnect this way is necessary when a connection is lost
+unexpectedly, but not when the event was generated by
+rpcrdma_xprt_disconnect() itself. In that case SUNRPC is already
+committed to closing the transport.
+
+Mark re_force_disconnect before initiating local endpoint teardown so
+that CM events and completion errors caused by that teardown cannot
+request another close. An unexpected error that wins the race before
+local endpoint teardown begins can still request a disconnect normally.
+
+Use a fully ordered exchange so that the gate is globally closed before
+rdma_disconnect() can transition the QP to error and generate the
+callbacks that the gate suppresses.
+
+In 30-second traces of a sustained recovery loop, without this change
+there were 7,693 xprt_force_disconnect() calls, 6,267 SUNRPC autocloses,
+and 172,892 receive-side IB_WC_WR_FLUSH_ERR completions. With this
+change, the same tracepoints recorded 3,512 xprt_force_disconnect()
+calls, 3,212 autocloses, and 131,287 receive-side flush completions.
+Thus QP teardown continues to produce flushed completions, but closing
+the disconnect gate before teardown substantially reduces their
+feedback into the SUNRPC close path.
+
+Fixes: 31e62d25b5b8 ("xprtrdma: Simplify RPC wake-ups on connect")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tim Menninger <tmenninger@everpuredata.com>
+Reviewed-by: Chuck Lever <cel@kernel.org>
+Signed-off-by: Anna Schumaker <anna.schumaker@hammerspace.com>
 ---
- drivers/acpi/apei/ghes.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ net/sunrpc/xprtrdma/verbs.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/acpi/apei/ghes.c b/drivers/acpi/apei/ghes.c
-index ade1cc8c9f8d1..663dc2e601cf7 100644
---- a/drivers/acpi/apei/ghes.c
-+++ b/drivers/acpi/apei/ghes.c
-@@ -603,7 +603,7 @@ static bool ghes_handle_arm_hw_error(struct acpi_hest_generic_data *gdata,
- 		 * and don't filter out 'corrected' error here.
- 		 */
- 		if (is_cache && has_pa) {
--			queued = ghes_do_memory_failure(err_info->physical_fault_addr, flags);
-+			queued |= ghes_do_memory_failure(err_info->physical_fault_addr, flags);
- 			p += err_info->length;
- 			continue;
- 		}
-@@ -1000,11 +1000,11 @@ static void ghes_do_proc(struct ghes *ghes,
- 			atomic_notifier_call_chain(&ghes_report_chain, sev, mem_err);
+diff --git a/net/sunrpc/xprtrdma/verbs.c b/net/sunrpc/xprtrdma/verbs.c
+index be335eed329d1..54957295a6310 100644
+--- a/net/sunrpc/xprtrdma/verbs.c
++++ b/net/sunrpc/xprtrdma/verbs.c
+@@ -114,9 +114,9 @@ static void rpcrdma_xprt_drain(struct rpcrdma_xprt *r_xprt)
+ 	rpcrdma_ep_put(ep);
+ }
  
- 			arch_apei_report_mem_error(sev, mem_err);
--			queued = ghes_handle_memory_failure(gdata, sev, sync);
-+			queued |= ghes_handle_memory_failure(gdata, sev, sync);
- 		} else if (guid_equal(sec_type, &CPER_SEC_PCIE)) {
- 			ghes_handle_aer(gdata);
- 		} else if (guid_equal(sec_type, &CPER_SEC_PROC_ARM)) {
--			queued = ghes_handle_arm_hw_error(gdata, sev, sync);
-+			queued |= ghes_handle_arm_hw_error(gdata, sev, sync);
- 		} else if (guid_equal(sec_type, &CPER_SEC_CXL_PROT_ERR)) {
- 			struct cxl_cper_sec_prot_err *prot_err = acpi_hest_get_payload(gdata);
+-/* Ensure xprt_force_disconnect() is invoked exactly once when a
+- * connection is closed or lost. (The important thing is it needs
+- * to be invoked "at least" once).
++/* Ensure xprt_force_disconnect() is invoked at most once for an
++ * unexpected endpoint failure. Local endpoint teardown closes this
++ * gate before it can generate CM events and flushed completions.
+  */
+ void rpcrdma_force_disconnect(struct rpcrdma_ep *ep)
+ {
+@@ -587,6 +587,9 @@ void rpcrdma_xprt_disconnect(struct rpcrdma_xprt *r_xprt)
+ 	if (!ep)
+ 		return;
  
++	/* Prevent teardown-generated events from requesting another close. */
++	atomic_xchg(&ep->re_force_disconnect, 1);
++
+ 	id = ep->re_id;
+ 	rc = rdma_disconnect(id);
+ 	trace_xprtrdma_disconnect(r_xprt, rc);
 -- 
 2.53.0
 
