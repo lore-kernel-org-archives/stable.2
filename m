@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047278;
-	b=qmlDZHnEecmvoZs9MGkKdzyri0OT9j6LJ7DorkP5vJ6667rGx1+wZ0Dr5BR4Bz2sYX3I
-	 TWY2CFSfAInhjG9J8bAV52lWDwDzPHtwiqfmsvU3q2t24zHj/utuJhHINLrl+5uQVHIMt
-	 JVP6HJ+bsmeQPDNAhOhBl+p0qtYbqW4Nd+3yD67Rebr/Q1m1VJsEYGNwPU6LWuKFiCiJ3
-	 TQydiU2MBLoTsAUvjr3e80MfzcH8joJjvljoIz9tO+STkhwXxtzweDITZJGlnFU4ke4/7
-	 OknFiF7GYOYIgSmcyG+7xoJCw/sMS6D4qcowNpS8XsUxAiLAz/nATWlILgi7nJGCDGA==
+	t=1794047280;
+	b=lmZtDyT8ONFWyYzlFgGuXkW2hTkiQczlZ1YQs+z3soCNYLRgGcKl/dtdcIV8B6Ep4Ctw
+	 ZagPFgBQPndXhncG32NViu97tSk1W9MIKsZIWbzeolrV5Q+OpD8CcrCGrjmVkyRczaN02
+	 rtSGlrjJwCUwwMFJso6sYVtczmxfLQpXNPjbxt/Xe+cet222a+4ak5FEj2EfI/25cK4an
+	 iTOFEsj9jXpos/jyXwIWGBCM9mTwfF7p+X3/k4e6ToPGI9tjBFQC4H3skxK9a0IPZskEY
+	 aCDRBMjfgXyP8ZjhtWJ7bvayHX7XHx4WUmnRX3E8PB0lIRfqgP/2xa2Mm92YORWa3Yg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047278;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047280;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=SljR4jBhL4oWQ0JA5vwP9zhVFqodi1rCG+bwgwgy9Ws=;
-	b=wrEHMQsfhoXJO2GwjhsOOfYWfmhY7aKmjY9oKQukQwYVF6dcj9VNsrRlu8mQ0NHkiczN
-	 Zd7GDYKbGR37LIRsJG3ZizxFHjBMrGLBgbvwdPQurRjciLoh52Tr20uL2CVzNyVArnAY5
-	 m+W4j0EuiUFxd4Xwo1jao1cDjKZZQ/7+5FL0q6FpJ9dqJVXOw+aqa6whpic+1MsDNlRWi
-	 7jVVdY4eJRNhcA5loWKy+1LwAokoQZ0CSN5prI7TTvhzvRrXdH/0Iv8s9z/0xICUzEROE
-	 826DAtr1xTqvozBPmHEEHFV11zQfMCSCHxyapDCbx4Ky0APbGZEUcJfXd0cW6ebiSow==
+	bh=zCb9mN7zmL9sxnSvgWtnWfRHBptj1z7rF9tBCK8aFHw=;
+	b=LWKb7nc7BQdc47eSYN7qgKvZBM/Ly6TvrpW9BbEOu8GNSNjzgSfbduKdopst9ZXLF7j5
+	 RDDAvqe3XqRu2VZlPHSXeRGsKOdlMaleP93Yvh2S9HwR4yzsqyOEF3wBhP1cU1tnndrqG
+	 Ji5PH67pfz8dL8OVRoZTk9cfNKb0uBOSI3ulPhemXXeSM/GnAAa1XvllvkPPNLkLpcCWH
+	 OcsgJqoqfd2YTmbnTXGfRerUGVteA2u38laz/PHUevp5acfqbSSXLX06EjYFD4Jy5xLRv
+	 3991MPpLnpxlcLVE3R1yuoV/3U5TqbmEFwcoOhsdY/Z44QRJIFOW6aP8v+SrWrzz+uA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X0wfAEVq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H5ChsIJC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0963606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:27:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FC43606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:28:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X0wfAEVq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58BF21F0089F;
-	Sat,  7 Nov 2026 10:27:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H5ChsIJC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DC981F0089F;
+	Sat,  7 Nov 2026 10:27:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047277;
-	bh=SljR4jBhL4oWQ0JA5vwP9zhVFqodi1rCG+bwgwgy9Ws=;
+	s=k20260515; t=1794047280;
+	bh=zCb9mN7zmL9sxnSvgWtnWfRHBptj1z7rF9tBCK8aFHw=;
 	h=From:To:Cc:Subject:Date;
-	b=X0wfAEVqH1yzNYDTBM9/0EBZbmqGHReyW98MDl9SljM0hDWc3w+l8rW/3WbFzEI+h
-	 TcT2NMZu8LOnB6nA//9rLmxBnFHklJalQdkAJsuMhXYlOcHzLg3ZTF5ztw3gvx293T
-	 2dfLH0TdxlE/Q4RSQshJDgtwi6J/ptyJD1kntRUfNJWX0LwsWoV/abp6gOEDdisiJV
-	 R7PzpkCgTGAd63y9hCDEr8awtBhS5dTUO9R3uZdB54Zfl8sjB/Uzb/YCiCapP9lU2O
-	 +S4hjMuAWnoBlcaeJXOgsFjL1lKsX60hWRQb/KRjCpJXq6+LKCdY01Uat6H2vgZRo8
-	 bET1fI/jiy66Q==
+	b=H5ChsIJCaBV+k6lDZDvAHxErBxCLWATfKdaTIqmpxag+fs1V5iqSMv1uRYFqJwwiq
+	 b3KxFcUQDCEPc8MZjDa3WRGDXeuP/y2hkDNIU3/KaOybiUpCoxDXr7wL8lMtlJ10FP
+	 cux6bXaWnKYcZeGBmtptrcx55dSgA69Ggwr49Qxq24rOa7XdddnFOJoV3fu2vLiXh5
+	 4iuLI3bGAA7LehQ0fd87uyr0sit0vHJpwSk8MmvRZx79m82NTa5HYXyjC7L+poPqos
+	 r9++WUVerfxrgZxHZo4iyC/LHCEnROYpguV6vwP/LhnMMXiz6x/edZF7YSPoj1SHqp
+	 EKIpn4DJZ51eA==
 From: Sasha Levin <sashal@kernel.org>
-To: brauner@kernel.org,
-	jack@suse.cz,
-	aleksa@amutable.com
+To: zhugl3@xiaopeng.com,
+	john.johansen@canonical.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] proc: don't let an entry below /proc/<pid>/net be a mountpoint" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:27:56 -0500
-Message-ID: <20261107052756-failed-6.12-eeecea75ece2@kernel.org>
+Subject: FAILED: patch "[PATCH] apparmor: check accept index + 1 is in bounds" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:27:58 -0500
+Message-ID: <20261107052758-failed-6.12-afe5d5a74739@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,257 +68,63 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x eeecea75ece2ba894bee4d3c53ed2e40abda8f0e
+git cherry-pick -x afe5d5a747393cb3d00795db31d7fce5108a766a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052756-failed-6.12-eeecea75ece2@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052758-failed-6.12-afe5d5a74739@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From eeecea75ece2ba894bee4d3c53ed2e40abda8f0e Mon Sep 17 00:00:00 2001
-From: Christian Brauner <brauner@kernel.org>
-Date: Sat, 24 Oct 2026 12:38:27 +0200
-Subject: [PATCH] proc: don't let an entry below /proc/<pid>/net be a
- mountpoint
+From afe5d5a747393cb3d00795db31d7fce5108a766a Mon Sep 17 00:00:00 2001
+From: Guanglei Zhu <zhugl3@xiaopeng.com>
+Date: Wed, 16 Sep 2026 19:53:07 +0800
+Subject: [PATCH] apparmor: check accept index + 1 is in bounds
 
-proc_net_d_revalidate() always returns 0 so that a dentry below
-/proc/<pid>/net is never reused after setns(). So lookup_fast() will end
-up calling d_invalidate(), which unhashes the dentry and detaches every
-mount on it, in every mount namespace; including locked mounts.
+aa_lookup_condperms() returns perms[index + 1] when an accept entry has
+ACCEPT_FLAG_OWNER set and the subject uid does not match the file uid,
+so such an entry consumes two slots in the perms table.  But
+verify_dfa_accept_index() only checks that index is within the perms
+table, so a policy that sets the owner flag on the last entry is
+accepted, and the runtime lookup then reads perms[index + 1] one entry
+past the end of the table.
 
-Then lookup_slow() creates a new dentry for the same entry. So a mount
-on /proc/<pid>/net/dev succeeds and goes away with the first lookup of
-the name by anybody with search permission on the directory. Given it's
-0555 that's everyone's grandma. A mask on such a name hides nothing as
-the repro below shows.
+The perms table is allocated by unpack_perms_table() with a u16 size
+read from the policy blob, so a crafted policy can place the owner flag
+at index size - 1 to reach the out-of-bounds read.
 
-Treat those entries like I did fd/, fdinfo/ and map_files/ and refuse to
-mount on them in the first place. It's nonsensical theater otherwise:
+Check that index + 1 is also in bounds when the owner flag is set.
 
-  procnet net/dev stat
-
-  // SPDX-License-Identifier: GPL-2.0
-  /*
-   * procnet: cover an entry of /proc/<pid>/ with a bind mount, lock the mount,
-   * then look the name up.
-   *
-   * The first task stays alive, <pid> is its pid. The "container" task has its
-   * own mount namespace. There it binds a mask on /proc/<pid>/<name>. It drops to
-   * uid 1000 and enters a new user namespace with a new mount namespace, so that
-   * the mask is locked. Then one task looks the name up:
-   *
-   *   stat    the container calls stat() on the name
-   *   umount  the container calls umount2(MNT_DETACH) on the name
-   *   nobody  a task with uid 65534 in the first namespaces calls stat()
-   *
-   * The container lists its mounts before and after (that does not look the
-   * name up) and then reads the name. MASK is fine. Anything else means that
-   * the lookup uncovered the entry.
-   *
-   * usage: procnet <name> stat|umount|nobody
-   *   name "status" is the control, "net/dev" is a file below net, "net/stat" is
-   *   a directory below net
-   */
-  #define _GNU_SOURCE
-  #include <dirent.h>
-  #include <errno.h>
-  #include <fcntl.h>
-  #include <sched.h>
-  #include <stdio.h>
-  #include <stdlib.h>
-  #include <string.h>
-  #include <time.h>
-  #include <unistd.h>
-  #include <sys/mount.h>
-  #include <sys/prctl.h>
-  #include <sys/stat.h>
-  #include <sys/wait.h>
-
-  #define WORK "/run/pn"
-
-  static char target[128];
-
-  static void die(const char *what)
-  {
-  	fprintf(stderr, "FATAL %s: %s\n", what, strerror(errno));
-  	exit(2);
-  }
-
-  static void write_str(const char *path, const char *s, int flags)
-  {
-  	int fd = open(path, O_WRONLY | flags, 0644);
-
-  	if (fd < 0 || write(fd, s, strlen(s)) < 0)
-  		die(path);
-  	close(fd);
-  }
-
-  /* list the mounts below /proc without a lookup of the target */
-  static void mounts(const char *when)
-  {
-  	char line[512];
-  	FILE *f = fopen("/proc/self/mountinfo", "r");
-  	int n = 0;
-
-  	if (!f)
-  		die("mountinfo");
-  	while (fgets(line, sizeof(line), f)) {
-  		if (!strstr(line, " /proc/"))
-  			continue;
-  		printf("container: %s: mount: %s", when, line);
-  		n++;
-  	}
-  	fclose(f);
-  	if (!n)
-  		printf("container: %s: nothing is mounted below /proc\n", when);
-  }
-
-  static void show(const char *when, int isdir)
-  {
-  	char buf[48] = "";
-  	int fd;
-
-  	if (isdir) {
-  		struct dirent *de;
-  		DIR *d = opendir(target);
-  		int hit = 0;
-
-  		if (!d) {
-  			printf("container: %s: opendir(%s) = %s\n", when, target, strerror(errno));
-  			return;
-  		}
-  		printf("container: %s: readdir(%s) =", when, target);
-  		while ((de = readdir(d))) {
-  			if (de->d_name[0] == '.')
-  				continue;
-  			printf(" %s", de->d_name);
-  			hit |= strcmp(de->d_name, "MASK");
-  		}
-  		closedir(d);
-  		printf("%s\n", hit ? "   <-- HIT" : "");
-  		return;
-  	}
-  	fd = open(target, O_RDONLY);
-  	if (fd < 0) {
-  		printf("container: %s: open(%s) = %s\n", when, target, strerror(errno));
-  		return;
-  	}
-  	if (read(fd, buf, sizeof(buf) - 1) < 0)
-  		die("read");
-  	close(fd);
-  	if (strchr(buf, '\n'))
-  		*strchr(buf, '\n') = 0;
-  	printf("container: %s: read(%s) = \"%s\"%s\n", when, target, buf,
-  	       strncmp(buf, "MASK", 4) ? "   <-- HIT" : "");
-  }
-
-  int main(int argc, char **argv)
-  {
-  	const char *name = argc > 1 ? argv[1] : "net/dev";
-  	const char *op = argc > 2 ? argv[2] : "stat";
-  	int isdir = !strcmp(name, "net/stat");
-  	int to_host[2], to_cont[2];
-  	struct stat st;
-  	pid_t pid;
-  	char c;
-
-  	setvbuf(stdout, NULL, _IOLBF, 0);
-  	snprintf(target, sizeof(target), "/proc/%d/%s", getpid(), name);
-  	if (unshare(CLONE_NEWNS) || mount(NULL, "/", NULL, MS_REC | MS_PRIVATE, NULL))
-  		die("unshare");
-  	mkdir(WORK, 0755);
-  	if (mount("W", WORK, "tmpfs", 0, NULL))
-  		die("mount W");
-  	write_str(WORK "/mask", "MASK", O_CREAT);
-  	mkdir(WORK "/maskdir", 0755);
-  	write_str(WORK "/maskdir/MASK", "MASK", O_CREAT);
-  	if (pipe(to_host) || pipe(to_cont))
-  		die("pipe");
-
-  	pid = fork();
-  	if (pid < 0)
-  		die("fork");
-  	if (!pid) {
-  		if (unshare(CLONE_NEWNS))
-  			die("container unshare");
-  		if (mount(isdir ? WORK "/maskdir" : WORK "/mask", target, NULL, MS_BIND, NULL)) {
-  			printf("container: bind the mask on %s: %s\n", target, strerror(errno));
-  			exit(0);
-  		}
-  		printf("container: bind the mask on %s: ok\n", target);
-  		if (setgid(1000) || setuid(1000) || prctl(PR_SET_DUMPABLE, 1))
-  			die("setuid");
-  		/* lock the mount: a new user namespace with a copy of the tree */
-  		if (unshare(CLONE_NEWUSER | CLONE_NEWNS))
-  			die("container userns");
-  		write_str("/proc/self/setgroups", "deny", 0);
-  		write_str("/proc/self/uid_map", "0 1000 1", 0);
-  		write_str("/proc/self/gid_map", "0 1000 1", 0);
-  		mounts("before");
-  		errno = 0;
-  		if (!strcmp(op, "stat")) {
-  			stat(target, &st);
-  			printf("container: stat(%s): %s\n", target, strerror(errno));
-  		} else if (!strcmp(op, "umount")) {
-  			umount2(target, MNT_DETACH);
-  			printf("container: umount2(%s, MNT_DETACH): %s\n", target, strerror(errno));
-  		} else if (write(to_host[1], "g", 1) != 1 || read(to_cont[0], &c, 1) != 1) {
-  			die("sync");
-  		}
-  		mounts("after");
-  		show("after", isdir);
-  		exit(0);
-  	}
-  	close(to_host[1]);
-  	if (read(to_host[0], &c, 1) == 1) {
-  		pid_t p2 = fork();
-
-  		if (!p2) {
-  			if (setgid(65534) || setuid(65534))
-  				die("setuid");
-  			errno = 0;
-  			stat(target, &st);
-  			printf("nobody: uid %u: stat(%s): %s\n", getuid(), target, strerror(errno));
-  			exit(0);
-  		}
-  		waitpid(p2, NULL, 0);
-  		if (write(to_cont[1], "g", 1) != 1)
-  			die("sync");
-  	}
-  	waitpid(pid, NULL, 0);
-  	return 0;
-  }
-
-Fixes: 1fde6f21d90f ("proc: fix /proc/net/* after setns(2)")
+Fixes: 6f442d42c0d89 ("apparmor: fix profile verification and enable it")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261024-work-procfs-fixes-v1-1-46b03c3a8fac@kernel.org
-Acked-by: Jan Kara <jack@suse.cz>
-Reviewed-by: Aleksa Sarai <aleksa@amutable.com>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
+Signed-off-by: John Johansen <john.johansen@canonical.com>
 ---
- fs/proc/generic.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ security/apparmor/policy_unpack.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/fs/proc/generic.c b/fs/proc/generic.c
-index 2b1971da4a85a..4c3fcaf68ef40 100644
---- a/fs/proc/generic.c
-+++ b/fs/proc/generic.c
-@@ -256,9 +256,10 @@ struct dentry *proc_lookup_de(struct inode *dir, struct dentry *dentry,
- 		inode = proc_get_inode(dir->i_sb, de);
- 		if (!inode)
- 			return ERR_PTR(-ENOMEM);
-+		/* never reused and so never a mountpoint for long */
- 		if (de->flags & PROC_ENTRY_FORCE_LOOKUP)
--			return d_splice_alias_ops(inode, dentry,
--						  &proc_net_dentry_ops);
-+			return proc_splice_unmountable(inode, dentry,
-+						       &proc_net_dentry_ops);
- 		return d_splice_alias_ops(inode, dentry,
- 					  &proc_misc_dentry_ops);
+diff --git a/security/apparmor/policy_unpack.c b/security/apparmor/policy_unpack.c
+index 3ffbab46eec30..7ebffb4ff74fa 100644
+--- a/security/apparmor/policy_unpack.c
++++ b/security/apparmor/policy_unpack.c
+@@ -1495,6 +1495,15 @@ static bool verify_dfa_accept_index(const struct aa_dfa *dfa, int table_size)
+ 	for (i = 0; i < dfa->tables[YYTD_ID_ACCEPT]->td_lolen; i++) {
+ 		if (ACCEPT_TABLE(dfa)[i] >= table_size)
+ 			return false;
++		/*
++		 * Accept indexes for owner-conditional permissions come in
++		 * pairs, so the non-owner entry at index + 1 must also be
++		 * in bounds.
++		 */
++		if (dfa->tables[YYTD_ID_ACCEPT2] &&
++		    (ACCEPT_TABLE2(dfa)[i] & ACCEPT_FLAG_OWNER) &&
++		    ACCEPT_TABLE(dfa)[i] + 1 >= table_size)
++			return false;
  	}
+ 	return true;
+ }
 -- 
 2.53.0
 
