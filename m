@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050221;
-	b=HPafLO3A0j2F5Jkg2Y/r7Nx0kfzjPrIJgxhLo8uB0h5kC+itY3oNjTK7Cppt490CYYAg
-	 5cDZSOhowDemjm6Qfu9vuPE7kdBU5LXmq5wd3J0R+XoLq/YNss3d58dTIKTWhOTeLlnYC
-	 5Q6qT80td3zZUSdq/HgOVT3LoknJPF+Hzm9KezctWwscWGU+hBxpzmo+0GRC77b6LYutC
-	 z+FfVW6DEDQuZjvWjMq6db/duVvLyhCHfwCQLhKCwBhljcjAyGl8vbv2HyhaHeE+Hribb
-	 rHk6jdgeeE2kcDltpy2C6/uUSuGbzl6MqEhUe1yK6tU8bNhAeZhqAm9MAc+pAPoXwIw==
+	t=1794050224;
+	b=2c+e3Y8Bv6UStzk5HEregCoLJzSHPjYwS+nye8KCgWGiLzCCSV6X2ULEQVSLQh/87dc3
+	 Dn/kWCxgE/67InegDxZvC0D6Nm53lxW3OQCu9ltokrSCFuM+7criRsbvmtjDp8HR2iBdb
+	 dOpiRtF+08wKwJSpko6tmFESYz1MZ7NLLGd+W3e65cVIlbfnaqsqMC6kmvqK81pTUZKie
+	 7pMzw+zOzVTS1hUHg5CCYEIlYIw8aCljWkkauft+nLE6+ex2eGhymTFgrm6EX//i+IhWZ
+	 WteLOVhYASJ4MEhtbjPSoBuoaqBJASL0KEYKGlBCdFW7wpWsUD8TLCDYwKsu3LbvbWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050221;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050224;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=JxskVw087vNtcWSNYIUUGHu+33tlDpRVzHBj7D9H4YQ=;
-	b=JKfl3Y2dN/hPsyuUT3pfoGyLWDOARn5ZckdbXIMY8Erli31OhE9lVnrjFIUBh3/GvuzJ
-	 37Kw2m2yeuHLLvFrCpjyTf/Hnd68Jkzr/eK8zqucCTsciskK9rzDaSwuPM7bn04E/tG2f
-	 vMTvkoq0ssD9S6M3kaRjkekHdE+HHM+EyA4s8ImVOy9eihOImg4oanFk5P29ouqGriZLt
-	 OfxNTksYDo/I1jR0FDJmnzxE7clvm9SUcFcOW6YgaPvPTwQWiggCnaTR/0xWk/rTWkQwa
-	 lpSP/ZE1/i6ya3sE5NLsvAc5zL24x6nctfkG9PNfR1gQAJAjQCqbPGEbmSC9g2IwRsA==
+	bh=BuVQjOtxZ3B1iy4ygIvLK8mBYeFdoHpwfRIONf51HbU=;
+	b=AXKPvyaAUYiLB/jgUgsRdIWLw3QvsDVehPi/vwxLv4hAIDzkoYi6zm4rSbTVidgt6qrx
+	 1o8qrKl83ztCB/t38GjcCX52U0IB5c6rHa55petTMG6zTMYOVkp5F8J1F1uEJ0fzynI15
+	 BChjgW3bi7qrq3xQj65Elkw52bkP5MCU3zKkiMXuA05AyhoIfru3WGb6njpaZ1ZM0/FA/
+	 LROBdsXw4/N3CwMaReHOjEmzQ9BKFjJ7fR5BFx7+BcRPqicrjLi3+TpmFTI2pm+08XEuX
+	 kY7Fee0MsYIdYuE9+jyPRQB+bTIplG4ZxEnRu4M63n2Yz2lkSu4Ipe4+UkxA0nHAIyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FsF6dhL3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d7f8UM8B;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3828C606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:17:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24090606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:17:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FsF6dhL3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 917BF1F0089F;
-	Sat,  7 Nov 2026 11:17:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d7f8UM8B
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 955F51F0089F;
+	Sat,  7 Nov 2026 11:17:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050221;
-	bh=JxskVw087vNtcWSNYIUUGHu+33tlDpRVzHBj7D9H4YQ=;
+	s=k20260515; t=1794050224;
+	bh=BuVQjOtxZ3B1iy4ygIvLK8mBYeFdoHpwfRIONf51HbU=;
 	h=From:To:Cc:Subject:Date;
-	b=FsF6dhL3jtkBzDoXoSz7zZyNSuqYJCZCbG/cGg/9oFH/b9CYSeZ2+25KQL/H4GtHo
-	 EXnPhDiDjTkdiYRorcFy7pTSbi8dH894DbxdEpypOSm7DveaV/WlP8fbPNgDTH3mbG
-	 Gde+9qGpOajTG/M3XKyyDeDi3CKMD8JtZ4EvTpe6wLWRkrfanN/yoAuOnf90H0vQD2
-	 iZeR59u0zGeXdYa/0d1rFPpQCvFP4RvOdhJLpcBSCTAKkBuMCA5HaK0uxIErqVe2Mi
-	 SO5MGw/uLIbHnbp7o0yjs41TS34b4F2ijVz1GdGnBJtYKb47fq8yMLB8EETMF1W3VL
-	 dHii6cIbFhGKw==
+	b=d7f8UM8B2kV14vsalKzxTsxvj3yvr9WYPSKp5b8b34pbvnsTN4WtZDuXvpY6XG6ud
+	 ZVko3p6M7MxNTVpTUd6g9nGHbzduu95ulU0WQRwNh5alEVlO5bv4iXH20qzkQ2ePAu
+	 G7KJELYZ9JP0HlwqZu9MLST+M+9l8oAYwvNYHvCRhUgw70SILNee9P+LeI4KJFH12o
+	 Kr1BZOFttG0iAs7fvo64UTCJIYZCpmu43hXnpeTdFT0BwU4LSW6F5nt2lWmAVSm2If
+	 lQZRYzb01pBwNHwPyokuMGvQnwk0UC8fXlHnEdJAM22ji7kWSkZcgKjZgrCluXzhLM
+	 5slD04ayh0C5A==
 From: Sasha Levin <sashal@kernel.org>
-To: mhun512@gmail.com,
-	ae878000@gmail.com,
-	lee@kernel.org
+To: khurana.ridham222@gmail.com,
+	linux@roeck-us.net
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mfd: twl-core: Unregister the auxiliary platform device on unbind" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:16:59 -0500
-Message-ID: <20261107061659-failed-5.10-3c5c55d979dd@kernel.org>
+Subject: FAILED: patch "[PATCH] hwmon: (lm70) Fix rounding of negative temperatures" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:17:02 -0500
+Message-ID: <20261107061702-failed-5.10-eddb0aaacce4@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,117 +68,75 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 3c5c55d979ddcb0765ce531bc7ba173c87c8712a
+git cherry-pick -x eddb0aaacce4baa9d8176eb2f4bd9e99e867f8fc
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061659-failed-5.10-3c5c55d979dd@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061702-failed-5.10-eddb0aaacce4@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 3c5c55d979ddcb0765ce531bc7ba173c87c8712a Mon Sep 17 00:00:00 2001
-From: Myeonghun Pak <mhun512@gmail.com>
-Date: Sun, 13 Sep 2026 16:50:12 -0400
-Subject: [PATCH] mfd: twl-core: Unregister the auxiliary platform device on
- unbind
+From eddb0aaacce4baa9d8176eb2f4bd9e99e867f8fc Mon Sep 17 00:00:00 2001
+From: Ridham Khurana <khurana.ridham222@gmail.com>
+Date: Thu, 24 Sep 2026 20:53:23 +0000
+Subject: [PATCH] hwmon: (lm70) Fix rounding of negative temperatures
 
-twl_probe() registers a standalone platform device named "twl", but keeps
-its pointer only in a local variable. Probe errors unregister the device,
-while successful probe leaves no way for twl_remove() to release it. The
-platform device therefore remains registered after the I2C driver unbinds.
+temp1_input_show() drops the low bits of the temperature register by
+dividing the raw value (raw / 32 on the LM70). These bits are not part
+of the temperature: the LM70, LM71, LM74 and TMP122/TMP124 always
+return some of them as 1, and the TMP125 fills them with copies of the
+temperature LSB. Division rounds toward zero, so a negative temperature
+with any of these bits set is reported one LSB too high.
 
-Register a managed action on the I2C device immediately after adding the
-platform device. This unregisters it on probe failure and driver unbind,
-and also handles failure to register the action itself. Remove the manual
-error-path unregister to avoid releasing the device twice.
+For example, the TMP122 returns 0xffff for -0.0625 degrees C, which the
+driver reports as 0. The LM70 returns 0xf39f for -25 degrees C, which
+the driver reports as -24750.
 
-This issue was identified during our ongoing static-analysis research while
-reviewing kernel code.
+Use an arithmetic right shift instead, which drops the low bits and
+rounds down.
 
-Fixes: defa6be1c821 ("mfd: Fix compile for twl-core.c by removing cpu_is_omap usage")
+Fixes: e1a8e913f97e ("[PATCH] lm70: New hardware monitoring driver")
+Fixes: a86e94dc946d ("hwmon: (lm70) Add support for LM71 and LM74")
+Fixes: cd929672a9ef ("hwmon: (lm70) Add ti,tmp125 support")
 Cc: stable@vger.kernel.org
-Assisted-by: OpenAI:GPT-5.6
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-Link: https://patch.msgid.link/20260913205013.54777-1-mhun512@gmail.com
-Signed-off-by: Lee Jones <lee@kernel.org>
+Signed-off-by: Ridham Khurana <khurana.ridham222@gmail.com>
+Link: https://patch.msgid.link/20260924205326.1739229-1-khurana.ridham222@gmail.com
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
 ---
- drivers/mfd/twl-core.c | 23 +++++++++++++++--------
- 1 file changed, 15 insertions(+), 8 deletions(-)
+ drivers/hwmon/lm70.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/mfd/twl-core.c b/drivers/mfd/twl-core.c
-index b7d749208131b..7fbce76efd305 100644
---- a/drivers/mfd/twl-core.c
-+++ b/drivers/mfd/twl-core.c
-@@ -719,6 +719,11 @@ static const struct mfd_cell twl6032_cells[] = {
- 	{ .name = "twl6032-clk" },
- };
+diff --git a/drivers/hwmon/lm70.c b/drivers/hwmon/lm70.c
+index 8b525725fef4f..b29bac7a4cc14 100644
+--- a/drivers/hwmon/lm70.c
++++ b/drivers/hwmon/lm70.c
+@@ -96,21 +96,21 @@ static ssize_t temp1_input_show(struct device *dev,
+ 	 */
+ 	switch (p_lm70->chip) {
+ 	case LM70_CHIP_LM70:
+-		val = ((int)raw / 32) * 250;
++		val = ((int)raw >> 5) * 250;
+ 		break;
  
-+static void twl_unregister_device(void *data)
-+{
-+	platform_device_unregister(data);
-+}
-+
- /* NOTE: This driver only handles a single twl4030/tps659x0 chip */
- static int
- twl_probe(struct i2c_client *client)
-@@ -754,17 +759,22 @@ twl_probe(struct i2c_client *client)
- 		return status;
+ 	case LM70_CHIP_TMP121:
+ 	case LM70_CHIP_TMP122:
+ 	case LM70_CHIP_LM74:
+-		val = ((int)raw / 8) * 625 / 10;
++		val = ((int)raw >> 3) * 625 / 10;
+ 		break;
+ 
+ 	case LM70_CHIP_LM71:
+-		val = ((int)raw / 4) * 3125 / 100;
++		val = ((int)raw >> 2) * 3125 / 100;
+ 		break;
+ 
+ 	case LM70_CHIP_TMP125:
+-		val = (sign_extend32(raw, 14) / 32) * 250;
++		val = (sign_extend32(raw, 14) >> 5) * 250;
+ 		break;
  	}
- 
-+	status = devm_add_action_or_reset(&client->dev, twl_unregister_device,
-+					  pdev);
-+	if (status)
-+		return status;
-+
- 	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C)) {
- 		dev_dbg(&client->dev, "can't talk I2C?\n");
- 		status = -EIO;
--		goto free;
-+		goto out;
- 	}
- 
- 	twl_priv = devm_kzalloc(&client->dev, sizeof(struct twl_private),
- 				GFP_KERNEL);
- 	if (!twl_priv) {
- 		status = -ENOMEM;
--		goto free;
-+		goto out;
- 	}
- 
- 	if ((id->driver_data) & TWL6030_CLASS) {
-@@ -784,7 +794,7 @@ twl_probe(struct i2c_client *client)
- 					 GFP_KERNEL);
- 	if (!twl_priv->twl_modules) {
- 		status = -ENOMEM;
--		goto free;
-+		goto out;
- 	}
- 
- 	for (i = 0; i < num_slaves; i++) {
-@@ -880,7 +890,7 @@ twl_probe(struct i2c_client *client)
- 		status = devm_mfd_add_devices(&client->dev, PLATFORM_DEVID_NONE,
- 					      cells, num_cells, NULL, 0, NULL);
- 		if (status < 0)
--			goto free;
-+			goto out;
- 
- 		if (of_device_is_system_power_controller(node)) {
- 			if (!pm_power_off)
-@@ -896,10 +906,7 @@ twl_probe(struct i2c_client *client)
- fail:
- 	if (status < 0)
- 		twl_remove(client);
--free:
--	if (status < 0)
--		platform_device_unregister(pdev);
--
-+out:
- 	return status;
- }
  
 -- 
 2.53.0
