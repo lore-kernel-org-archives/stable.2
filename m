@@ -1,102 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794017359;
-	b=rmYTdz9mxfztmf6KZExe9B2xBv208x7g5n90ts0cbgcX7P/CqOT03E44o/XsPl4E7h5Y
-	 e7yYUBpxRf9hVCc+FZw1Di5KODp2tJXLcs+LWN+H4lnXcfgjiV/aVer51C0AvZGUANFG2
-	 6QeD9x9qKOb62ygMmDmUdRg11ZUD9kc0l3Es5j8knhrZiNUnxe4tOJRyt2oY2s4cgvBcu
-	 N9eAOELDdCoITmKBZ1JnwCnFtKONSN+CEscPx23w6S1qm2O0azYgl/IxPAsHzS9Lz157g
-	 l9y0+UpElnWze6cgrS1IamLPwi2y/NtLZejDpAX4uiltitbSmCgGButDHz6+8DIShgQ==
+	t=1794018409;
+	b=c7Wuz5coIYPtn2YyrfVOS7ghahtkuOsDWm3Z7g4v18HWoC035Avik7jFuALpfg1JP5vS
+	 Q+HPpcidFRLqJwdxElrMfnUrz2FddC5exTHozymA8nTWXu5KIaRKP4Rsv8CTEZnBQef0a
+	 u9KbFzg8LIX0rR2BwkTrnyWP+t9oSbF3e/mTa4ZQ7ICIBtBVWsEigDxrpy3kBmxN12rIJ
+	 B6UPwVzHmZsQ+zRgTW5Axb2En1dW1qisr/aqePgW6rRW8DKgRc7OAXFripMoA0cqGoY4T
+	 AhAV7MwXwFFNikZb5HzO4Zf9PhL9QeKaNtQAFTGusq+FoEQQ+XdRJiyUUS4w2JnVWyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794017359;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794018409;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
-	 References:Content-Transfer-Encoding:MIME-Version;
-	bh=oWCm5sO2ZJcIfwM/bU9hgd9OcLaoRmJrQ2OQCAcOYQw=;
-	b=qT2/Yjt5AJH3sFSLfq4yaBhByYIreBnA6PsDlsUnunq1++80kAtrXr4Vrb4GOegpzM4d
-	 TPsxnvRB5W7gxEsz2R8cyMlIkzs2YX77GNrWYymvohurewTFDZp/qlpvgALw0kFrkx2rI
-	 KSP7fEpgjvXOeayh0VIAB+CxOYxn14nvmob3jm2PYsIXdmvya+qxJFHVg6JJ4Qm4fsCbJ
-	 e29nLI3xlpKRa5buhTvYuM5tw+aHYUcAwzC912NDSmXWw9NTAflihuK0PX2Afd3VPBdH7
-	 ZNbi0bQLqUaQ+q8HBwkN1zHqqC5mYz4DA4H6PgWl66wR+7U5JEqsGejC9IjMqpZRXog==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=4NbOECnSKC2AUNIuqP3Ssdsa8prET02+IbfFdfmCMKg=;
+	b=o6MBgySRuMW5KLY4GPwgEfagDuaVsKnYe0t3rfJH7d0XbHgh3Wdf/b+on9GuA9x72ii8
+	 q8Y3zTiPx/i/mYmugMQqQDe7koUUHmSqir/wAOwxpVZBGPBMCrzLHIMH+bpTJqpkUgyFM
+	 R/5b2ba5ZD4ChfMrAknuqlelK+XuXF+lHaTYkWRpZ03K1CzZzzqLFO9g5Y6AsUP9+qT01
+	 VMNQYVExJXnXoIJKZVltuWmraazniV5KgbWzwq33kYQTlzokPIzSWlWDAgEC1YJORXGWD
+	 QH3t4ch0P9yVjoHfsyFEmHdDkQ4Xbeu7toktM9Ux1Zx4zzHqHnZgs45Mg+1ITfqWEZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=H+8vyume;
-	arc=none smtp.remote-ip=209.85.216.46
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="c/BtaKQd";
+	arc=none smtp.remote-ip=209.85.128.176
+Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63CED606A330
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 02:09:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63CED606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7F85606A331
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 02:26:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7F85606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=H+8vyume
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3b0e61a4decso852581a91.2
-        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 18:09:19 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=c/BtaKQd
+Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-8b0db268bd8so9277767b3.1
+        for <stable@vger.kernel.org>; Fri, 06 Nov 2026 18:26:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794017359; x=1794622159; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=oWCm5sO2ZJcIfwM/bU9hgd9OcLaoRmJrQ2OQCAcOYQw=;
-        b=H+8vyume+obI271XmNk+PDu48Q19jOLc/Va8iCJp+YPAfevLZPbtqZKst6ucyXtfSw
-         SesmJ3do6CgH0DvagS2lCWl//emQ8A8R9ws51AQTEijOWlvGxTR2vpKj7HFj7HUNesAD
-         Iz/tqmsd4wcjINMkFThPdh82py3fh0hdETwaSNa/7BESxLI2fFYv4JdsIe5+Yh+iNqwi
-         GuQQxgL9obB3jiEMRpDE9NQASENmDbDCM9g7vOrH4FzP3N/mV41LFrwuOV+fbmrRkUkI
-         PlnkIn5ku0EaxwHF2d31ktU40mx5GyEtw9tUQotInc5smSPvSCczAu0/CGscJ/0+rKLR
-         LO6Q==
+        d=gmail.com; s=20260707; t=1794018407; x=1794623207; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4NbOECnSKC2AUNIuqP3Ssdsa8prET02+IbfFdfmCMKg=;
+        b=c/BtaKQdoUSyw7MhMbhuqe8PF01x8kwtH85nic69RzP4R8bS6AcU1lqV6IQtKG3BjM
+         RgBQx0u403/OhjWB3anJi+j9YsxwocOzAhvHtvRSmihQimbL5KWJQ28fH6eV5rMP6y1A
+         FB7USgxqmcd7LTEIds/Amz/LOdsuFMkg/Ud5qSWwP2HU+AkSk6y2C3Q468lVjDbV03la
+         Gtwp89oU0J94uUZmnyXBn8hJo4Gcw18wQ93TyO10zvaGIj23Hs0/SLQoGahL3c6jvK7K
+         R0CoWiVcvIoFeSV1ChPokgSEgN1QMV4+frMfZIBdpmimZkOv/E9cGsKaqz1Y8MaRuzO9
+         2FUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794017359; x=1794622159;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oWCm5sO2ZJcIfwM/bU9hgd9OcLaoRmJrQ2OQCAcOYQw=;
-        b=A1xxMN4lk/Ak5ER5JUGGBCbrLf2WK7Ogh1P2SvdwJNKRpbfbDLFzDxuyfcYwTYkR1U
-         zoaUVA6rSrB93jBsjHIGpz1ocR96/WjtaJItI1t1A9iDFxoKSTd2AzoyrYMRQ6zlT0/p
-         76uzyi54xmUlC8KYKRIP/1iWqtf+YUNo01OxB9Wl34ETLkFmZ3EpLMEKX0azHiwVouZR
-         KBRqgL/j/mv8zPc3sR8iVDsZscT2M+kCiEJyQarsQP9GCRajfJaUwXVpKbBKq2kuiycr
-         mEYdEZXERPGwgnXVFDzfCTV6MG0lS98teaYt9B1DTVDdrk/AKKSBbYQNCDrqutfT6uxs
-         lw/g==
-X-Forwarded-Encrypted: i=1; AL+hErHCLULsHJUiQZfpBTk9t3a3fiMu+d2ULFCxQWZjNIjKgOcuZ3P6/N/9QP/ZhZ2JPePaD4w/r6w=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/CFZzda0dKVPE+65jgIAFYsaUCZtVIKqLK+RlXzUeHOna5U6pN
-	FqMQF51tr8mZWWv0FX6sBRefCN2+lf2hHcjD/StUfd70S7f8Du8wcMFH
-X-Gm-Gg: AYBFou2Np4qDkgcE8MnybujJ9QnU/Q0HJx+OuJdWNUAtivI5zQl287eHj2cAxIMuOPq
-	IHrZgyoEild9MY+RqmGWW/12jJWvZ4j6VhzWcVDPTitxf5n/O9p82kMCasyT05a+M9JO56AzTop
-	zWAXAU3sNn5Z9+6+/w1FzFWYsH8Ws0UrOf5XnpEOXV1FKuQF3e3sQ5K4u0IEZ3b+USwdARpuR8Z
-	0IxEkLGgmdOSkoKGkmaenEuyRqoDbwlqA/aE0F818k5RZ8pjgjs0PHYK2XdPdqVspFZphBtijjR
-	9vzyP4dbcZVbS6Ee+eYoXrFPYqpSfl959g1ockLCtknG8ByNIfoezXr4CkL7xNWoFHPfhfjk2YF
-	FHi8aIcnryo4mgoGfnWtadeFG7shqPwCxOz+wYA/vlLJzqbGffuB43WKBsxMzfUieeuHWT00Eca
-	tz6h+wW5lqvpTOcdjim/0Si5Y+BS659/7P1R/yU3dHsqshuuX1Iu+E3NgYqpouM7S/3gDNRpxYT
-	GY2QCqN8QVvIobhp78G0/1WHVh6RN+0+wH1URGBGl+XoQfFZoPX0sTpZdqtsM0NG5aafdjYJ3Sd
-	7vr0Wc/ukwYIR0zOmg6DXb+yvxMMgaMiC0y5OjJMNTzkglWlGbbnlgua1L3I94D6nMv8fZ+9NsX
-	s6msR979dSQnOf6192kKTGB8oUjnntCptAw==
-X-Received: by 2002:a17:90b:1a91:b0:3b0:ae41:2707 with SMTP id 98e67ed59e1d1-3b0db6fe133mr4547927a91.45.1794017358501;
-        Fri, 06 Nov 2026 18:09:18 -0800 (PST)
-Received: from localhost ([153.61.198.246])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b105864375sm1156571a91.4.2026.11.06.18.09.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 06 Nov 2026 18:09:18 -0800 (PST)
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 07 Nov 2026 02:09:17 +0000
-Message-Id: <DMOM2SFCFHYK.3BT44IQ90X9UB@gmail.com>
-Cc: "Michal Luczaj" <mhal@rbox.co>, <virtualization@lists.linux.dev>,
- <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <bpf@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: Re: [PATCH net v4 1/2] vsock/bpf: release sock lock while waiting
- for data in recvmsg
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: <jrmmhm.kernel@eldare.de>, "Stefano Garzarella" <sgarzare@redhat.com>,
- "Bobby Eshleman" <bobbyeshleman@meta.com>, "David S. Miller"
- <davem@davemloft.net>, "Eric Dumazet" <edumazet@kernel.org>, "Jakub
- Kicinski" <kuba@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>, "Simon
- Horman" <horms@kernel.org>, "Michael S. Tsirkin" <mst@redhat.com>
-In-Reply-To: <20261106-kbh3-1-022-fix-v2-v4-1-c7d36703814d@eldare.de>
-References: <20261106-kbh3-1-022-fix-v2-v4-0-c7d36703814d@eldare.de> <20261106-kbh3-1-022-fix-v2-v4-1-c7d36703814d@eldare.de>
-Content-Transfer-Encoding: 8bit
+        d=1e100.net; s=20260707; t=1794018407; x=1794623207;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4NbOECnSKC2AUNIuqP3Ssdsa8prET02+IbfFdfmCMKg=;
+        b=eAmgosZivDgakFqgaIue9dLRd9H1IUChLYpMXGfUPfU88zclDhg5mg7akrPufUN1Us
+         1MsLwqxrLIbwDabK8NX+RDaKuvS9Ph6mz9+b7OzX+AX4/kE0wrv+luqkhtBNyKg6THSe
+         GKmfSQeUjYwGinOi49U6Vrt5srE6QGDc4mYGiu3BLx7V5P0qaO20sGgkMKvT4KVeDzhx
+         3IK4W9hqMg6yuNFSDyZTH6TEtVN0tvG6zlFQ70gcSBWJCP1dPZwXZaZCswYuL/+hxtKk
+         uSbDunxp6CGigMqbqO3JZU28wNV/KCHOpyQmQW71hpBME3f4rl/2GKs8WNELU+xCvrLP
+         72gA==
+X-Forwarded-Encrypted: i=1; AL+hErG3VsxIYZL57ijklFJQQBEMDiBdLBAEGOvkY2mEzRfDHAkDP4+MyVcevlmrolnXaYmLycngQfc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z99oMPQnIf/J+86E1jExpME+Qvze1jOwpTVcTmNB2MmJtYpA2la
+	J7jkST76CRtS2AFvjdiWq5veH+xL4wl9y+X4FrUWbY+Rj9lKwqvmopCpUYrqQAhqlDw=
+X-Gm-Gg: AYBFou2ulYyAD2stQKBbkvE0I7DLnPd8vmunLHoOOumoG91oOYFNmp1gCtnSCvY3/mS
+	n5X4pevJzMmLHAEdB9jH7UEzfWDAu5EE7FmSEAyx2DovY6B7qR9+RVGaKyUgmV2lAgEBOuhloG6
+	iQCY/9205OzVxRvZkFbgYStQBs0toQfsA5ikA7GuQ45MVlzosfrHBK4aEqzoEouxDbSNvxAXztk
+	MXPztd5mCUnT+t3hdVeuLljUX6pMvUb102R/IHPHkqEFzL1BUhSCwuMZN23cs3hTWpONbOlrJEV
+	sYBVg4GsBs4oeNbS9rvUtFJU5tswv7ODEXOqIpU/FaH7dgt4TlZJ1zty4KFqBzdXeopFeRjPNuc
+	uMVG9Kg9fkCgLzkD6Z6+3F9PgH5knfj1BxmV+eHRyvxTpXtvnix7HcRVcLVUmC4/tVgdVNlz0k1
+	Ye6xGecUlCwTKaPdIhlBr3ij2NzNLeZW47UYg3lsv7atZesYLYTIV8CAg1+9L3IxbuPARqRduQk
+	oShx3bqu+y8ZMXJk6otiG2CCcCRxlJ5y+ikFPhvOxsYljvGeuR/kQlhHq3TtYEuApZVOFvBSPUl
+	wE4B+b01rHoUGXDzFuyH9ubcRLNV9ypm8MRWcmazVGVrQaU4opUKkKZijIs=
+X-Received: by 2002:a05:690e:b8b:b0:67c:1b55:8b27 with SMTP id 956f58d0204a3-67c1b558dd0mr1454574d50.5.1794018407574;
+        Fri, 06 Nov 2026 18:26:47 -0800 (PST)
+Received: from pop-os.local ([2804:868:d047:aeb1:207f:64c4:29d4:b099])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b33f5f5243sm32755517b3.3.2026.11.06.18.26.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 06 Nov 2026 18:26:47 -0800 (PST)
+From: Cristiano Souza <cristianocps@gmail.com>
+To: linux-sound@vger.kernel.org
+Cc: tiwai@suse.com,
+	Cristiano Souza <cristianocps@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v3] ALSA: usb-audio: Skip broken playback feature unit on XiiSound chips
+Date: Fri,  6 Nov 2026 23:26:43 -0300
+Message-ID: <20261107022643.135168-1-cristianocps@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,118 +95,168 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 06, 2026 at 01:57 PM Jerome Mohm via B4 Relay <devnull+jrmmhm.kernel.eldare.de@kernel.org> wrote:
-> example by a credit update. So the wait also loops until data arrives
-> or one of the native exits applies: a socket error, a local or peer
-> shutdown, a socket that is no longer connected, the timeout or a
-> pending signal. The loop alone, with the lock still held, keeps the
-> deadlock, so the fix needs both halves and stays one patch.
+Weltrend XiiSound-based devices (040b:0897, e.g. Redragon H878
+wireless headset) expose a UAC1 playback feature unit whose volume
+and mute controls are unusable in practice: the reported per-channel
+dB range is only 0..+0.39dB, yet setting any volume below the
+maximum mutes one or even both channels, and the mapping between
+logical and physical channels is unreliable.  Any attempt by
+userspace to drive the hardware volume therefore results in muted
+or one-sided audio.
 
-No need for a 2nd copy of the return values.
-The old code returns true on RCV_SHUTDOWN. The psock queue is empty, so
-the caller goes to __vsock_recvmsg(), which picks the return value.
-tcp_bpf, udp_bpf and unix_bpf do the same.
-Do it for sk_err, peer_shutdown and sk_state too.
-__vsock_recvmsg() doesn't wait in any of these states.
-It handles len == 0, MSG_OOB and MSG_ERRQUEUE as well.
+Ignore the playback feature unit via a usbmix_name_map so that
+userspace falls back to software volume, and pin the unit's master
+and per-channel volumes to the reported maximum with mutes cleared
+when the mixer is created, so the signal path always stays fully
+open.  The capture path (microphone feature unit) is not affected
+and keeps working.
 
-The copy differs from a socket that is not in a sockmap in four cases.
-The diff differs in one, the last row:
+Tested with a Redragon H878 wireless headset on PipeWire/PulseAudio:
+stereo output works on both channels at any volume, software volume
+applies smoothly, and mute/unmute works.
 
-  recv()                          no sockmap    this series   the diff
-  ------------------------------  ------------  ------------  -----------
-  after a virtio reset            -ENOTCONN     -ECONNRESET   -ENOTCONN
-  after a reset, len == 0         -ENOTCONN     0             -ENOTCONN
-  after a reset, MSG_OOB          -ENOTCONN     -EOPNOTSUPP   -ENOTCONN
-  after peer shutdown, SO_INQ on  0 + SCM_INQ   0             0 + SCM_INQ
-  asleep when the reset comes     -ECONNRESET   -ECONNRESET   -ENOTCONN
+Cc: stable@vger.kernel.org
+Signed-off-by: Cristiano Souza <cristianocps@gmail.com>
+---
+Changes in v3:
+- Re-pin the playback feature unit on resume via
+  snd_usb_mixer_resume_quirk(), as the device may lose its state
+  over suspend (Sashiko AI review).
+- Validate the UAC_GET_MAX read length instead of only checking for
+  negative errors, to avoid pinning with a short read (Sashiko AI
+  review).
 
-Instead of patches 1 and 2 (compile tested only):
+Changes in v2:
+- Skip the broken playback feature unit via a usbmix_name_map in
+  mixer_maps.c instead of open-coding the skip in the FU parser, as
+  suggested by Takashi Iwai.
+ sound/usb/mixer_maps.c   | 19 +++++++++++++
+ sound/usb/mixer_quirks.c | 59 ++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 78 insertions(+)
 
-diff --git a/net/vmw_vsock/vsock_bpf.c b/net/vmw_vsock/vsock_bpf.c
-index 9049d26..3cf017d 100644
---- a/net/vmw_vsock/vsock_bpf.c
-+++ b/net/vmw_vsock/vsock_bpf.c
-@@ -34,24 +34,34 @@ static bool vsock_has_data(struct sock *sk, struct sk_psock *psock)
- 	return vsock_sk_has_data(sk, psock);
- }
-
--static bool vsock_msg_wait_data(struct sock *sk, struct sk_psock *psock, long timeo)
-+/* __vsock_recvmsg() doesn't wait in these states and knows what to return. */
-+static bool vsock_rx_done(struct sock *sk)
- {
--	bool ret;
--
--	DEFINE_WAIT_FUNC(wait, woken_wake_function);
-+	return sk->sk_err || sk->sk_state != TCP_ESTABLISHED ||
-+	       (sk->sk_shutdown & RCV_SHUTDOWN) ||
-+	       (vsock_sk(sk)->peer_shutdown & SEND_SHUTDOWN);
-+}
-
--	if (sk->sk_shutdown & RCV_SHUTDOWN)
--		return true;
-+static int vsock_msg_wait_data(struct sock *sk, struct sk_psock *psock, long timeo)
-+{
-+	int ret = 0;
-
--	if (!timeo)
--		return false;
-+	DEFINE_WAIT_FUNC(wait, woken_wake_function);
-
- 	add_wait_queue(sk_sleep(sk), &wait);
- 	sk_set_bit(SOCKWQ_ASYNC_WAITDATA, sk);
--	ret = vsock_has_data(sk, psock);
--	if (!ret) {
--		wait_woken(&wait, TASK_INTERRUPTIBLE, timeo);
--		ret = vsock_has_data(sk, psock);
-+	while (!vsock_has_data(sk, psock) && !vsock_rx_done(sk)) {
-+		if (!timeo) {
-+			ret = -EAGAIN;
-+			break;
-+		}
-+		if (signal_pending(current)) {
-+			ret = sock_intr_errno(timeo);
-+			break;
-+		}
-+		release_sock(sk);
-+		timeo = wait_woken(&wait, TASK_INTERRUPTIBLE, timeo);
-+		lock_sock(sk);
- 	}
- 	sk_clear_bit(SOCKWQ_ASYNC_WAITDATA, sk);
- 	remove_wait_queue(sk_sleep(sk), &wait);
-@@ -80,6 +90,9 @@ static int vsock_bpf_recvmsg(struct sock *sk, struct msghdr *msg,
- 	struct vsock_sock *vsk;
- 	int copied;
-
-+	if (unlikely(!len || (flags & (MSG_OOB | MSG_ERRQUEUE))))
-+		return __vsock_recvmsg(sk, msg, len, flags);
+diff --git a/sound/usb/mixer_maps.c b/sound/usb/mixer_maps.c
+index 98b4146..9218ca6 100644
+--- a/sound/usb/mixer_maps.c
++++ b/sound/usb/mixer_maps.c
+@@ -374,6 +374,20 @@ static const struct usbmix_name_map dell_alc4020_map[] = {
+ 	{ 0 }
+ };
+ 
++/*
++ * Weltrend XiiSound chips (040b:0897, e.g. Redragon H878):
++ * the playback feature unit is broken; its volume controls act like
++ * mute switches below the maximum value and the channel mapping is
++ * unreliable, so any hardware volume change mutes one or both
++ * channels.  Skip the unit entirely and let userspace fall back to
++ * software volume; the unit is pinned to maximum/unmuted by the
++ * mixer quirk in mixer_quirks.c.
++ */
++static const struct usbmix_name_map xiisound_map[] = {
++	{ 5, NULL },	/* playback feature unit */
++	{ 0 }
++};
 +
- 	psock = sk_psock_get(sk);
- 	if (unlikely(!psock))
- 		return __vsock_recvmsg(sk, msg, len, flags);
-@@ -102,10 +115,9 @@ static int vsock_bpf_recvmsg(struct sock *sk, struct msghdr *msg,
- 	while (copied == 0) {
- 		long timeo = sock_rcvtimeo(sk, flags & MSG_DONTWAIT);
+ /*
+  * Corsair Virtuoso calls everything "Headset" without this, leading to
+  * applications moving the sidetone control instead of the main one.
+@@ -790,6 +804,11 @@ static const struct usbmix_ctl_map usbmix_ctl_maps[] = {
+ 		.id = USB_ID(0x1395, 0x0025),
+ 		.map = sennheiser_pc8_map,
+ 	},
++	{
++		/* Weltrend XiiSound (Redragon H878) */
++		.id = USB_ID(0x040b, 0x0897),
++		.map = xiisound_map,
++	},
+ 	{
+ 		/* Microsoft USB Link headset */
+ 		.id = USB_ID(0x045e, 0x083c),
+diff --git a/sound/usb/mixer_quirks.c b/sound/usb/mixer_quirks.c
+index 5839719..4c7d683 100644
+--- a/sound/usb/mixer_quirks.c
++++ b/sound/usb/mixer_quirks.c
+@@ -4603,6 +4603,59 @@ static int snd_audiofuse_controls_create(struct usb_mixer_interface *mixer)
+ 	return err;
+ }
+ 
++/*
++ * Weltrend XiiSound chips (040b:0897, e.g. Redragon H878):
++ * the playback feature unit (id 5) is broken; its volume controls act like
++ * mute switches below the maximum value and the channel mapping is
++ * unreliable, so the unit is hidden from userspace entirely (see the
++ * quirk in mixer_maps.c) and userspace falls back to software volume.
++ * Pin the unit's master and channel volumes to the reported maximum
++ * and unmute them, so the audio path stays fully open.
++ */
++static int snd_xiisound_init_fu_pins(struct usb_mixer_interface *mixer)
++{
++	struct snd_usb_audio *chip = mixer->chip;
++	unsigned char buf[2];
++	int ifnum, ch, err;
++
++	if (mixer->protocol != UAC_VERSION_1)
++		return 0;
++
++	ifnum = snd_usb_ctrl_intf(chip->ctrl_intf);
++
++	/* unit 5 is the playback feature unit on these chips */
++	for (ch = 0; ch <= 2; ch++) {
++		err = snd_usb_ctl_msg(chip->dev, usb_rcvctrlpipe(chip->dev, 0),
++				      UAC_GET_MAX,
++				      USB_DIR_IN | USB_TYPE_CLASS |
++				      USB_RECIP_INTERFACE,
++				      (UAC_FU_VOLUME << 8) | ch,
++				      (5 << 8) | ifnum, buf, 2);
++		if (err < 2)
++			return 0; /* no such unit/channels, nothing to pin */
++
++		err = snd_usb_ctl_msg(chip->dev, usb_sndctrlpipe(chip->dev, 0),
++				      UAC_SET_CUR,
++				      USB_DIR_OUT | USB_TYPE_CLASS |
++				      USB_RECIP_INTERFACE,
++				      (UAC_FU_VOLUME << 8) | ch,
++				      (5 << 8) | ifnum, buf, 2);
++		if (err < 0)
++			return err;
++
++		buf[0] = 0; /* unmute */
++		err = snd_usb_ctl_msg(chip->dev, usb_sndctrlpipe(chip->dev, 0),
++				      UAC_SET_CUR,
++				      USB_DIR_OUT | USB_TYPE_CLASS |
++				      USB_RECIP_INTERFACE,
++				      (UAC_FU_MUTE << 8) | ch,
++				      (5 << 8) | ifnum, buf, 1);
++		if (err < 0)
++			return err;
++	}
++	return 0;
++}
++
+ int snd_usb_mixer_apply_create_quirk(struct usb_mixer_interface *mixer)
+ {
+ 	int err = 0;
+@@ -4616,6 +4669,9 @@ int snd_usb_mixer_apply_create_quirk(struct usb_mixer_interface *mixer)
+ 	case USB_ID(0x0644, 0x8047):
+ 		err = snd_us16x08_controls_create(mixer);
+ 		break;
++	case USB_ID(0x040b, 0x0897):
++		err = snd_xiisound_init_fu_pins(mixer);
++		break;
+ 	case USB_ID(0x041e, 0x3020):
+ 	case USB_ID(0x041e, 0x3040):
+ 	case USB_ID(0x041e, 0x3042):
+@@ -4807,6 +4863,9 @@ void snd_usb_mixer_resume_quirk(struct usb_mixer_interface *mixer)
+ 	case USB_ID(0x0bda, 0x4014): /* Dell WD15 dock */
+ 		dell_dock_mixer_init(mixer);
+ 		break;
++	case USB_ID(0x040b, 0x0897): /* Weltrend XiiSound (Redragon H878) */
++		snd_xiisound_init_fu_pins(mixer);
++		break;
+ 	}
+ }
+ 
+-- 
+2.43.0
 
--		if (!vsock_msg_wait_data(sk, psock, timeo)) {
--			copied = -EAGAIN;
-+		copied = vsock_msg_wait_data(sk, psock, timeo);
-+		if (copied)
- 			break;
--		}
-
- 		if (sk_psock_queue_empty(psock)) {
- 			release_sock(sk);
-
-[...]
-
-> guest's virtio-vsock device. With the series applied they behave as on
-> a native socket, except for the reset case above, and the vsock
-> vmtest.sh single-VM tests and the BPF sockmap test_progs pass.
-
-None of these tests sleeps in vsock_msg_wait_data().
-The sockmap tests call select() before recv() or pass MSG_DONTWAIT.
-vmtest.sh doesn't use sockmap.
-
-pw-bot: cr
