@@ -1,53 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046204;
-	b=Fi7glF59x5/xWiwfFZ0wBPwqP28D53NTAJAteihjafk9eYdVAN2krqmDB67en1PV4mb1
-	 clfaNZa6LCjtBnssUR3hJd6zK35X6b7BfcV//8SvvKyoUdEmN8bQOGVWNn6Doa5OEiuti
-	 KQCqarxYK1XaF09ClDaaQSzXjwzSsRNJLic3Z1g6OeqTUL/R7lhhjdW/FGLJQSBIkV3PX
-	 cLVj1sXLBaJfdzxtSaLlk4m9jVqusL1s2A6pjZi0uBQju3+VR2DH8vy1VCgv7Pk1LFbeI
-	 FT1MV7WSEljYHeRL5mTYQ+4Alh4M6pmrNKjd6yN1Ofvs4eGNUtXL+G1a3hiWedviGxw==
+	t=1794046207;
+	b=G1p0kIanjsmnTlEtL+gWGDRy3vsI+LIgngW6lItlDXqy+isT3RIQhcJ2g5Xl2BQpt3Ja
+	 ATPFX45dAjOpVOPF/T/iEJcBfweDFLRbCnrglS9bKeAztcvOwTCOboujDOfX0mEq8U6i9
+	 pHx/nwSmWGoF6erDnuLwNlFOHkrgJHn8SlwsBVMKMHusudi4XsUTwO7YlzQvofdHrw8To
+	 eqVVf8JNsXNgbzltwHce9jabiICYk0BN1GE7EzbRisNlJA7+AOgm33Swtix4BwnNTLJuK
+	 P0Y7HP0oNkjwUsUkUHoPThw4SS60PoSLj006xtiWtjV+3LJfUvZmDawB0Pt3iYFT09w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046204;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046207;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=nQGRt1NcoRE0YeyBjA9LGd+43QNA7Z3t60QkTXI4WDc=;
-	b=dL7WrxQrgZVnTP2eZ3oynVUjqyMnnuhklno37Gl5xiMNLRSEcJI2OQQX5QFezoMvlLm9
-	 ebZVHw2V6YCM8L3KyTzddQ3ufW86MID/w8+H9PTxhzP6SZrROPR6UnEY8JHm93fJnoNBv
-	 /RCuAQEBhPvS5E1dNEgNPnaCujYAHV5FQEPknWCYawTnR1+fswVG8/4ktmBD6Ts7ohR8f
-	 tOHUvT4SNQxSv/KCMWXhYdqo3DZqvm6o4WyJnb04+Tm6iZlhCGlTTu3ypwNtbrkVv0yFu
-	 vPDVVYErYt3VjhgOPoMfDP3/IClL2NYcqE2rZPIvxKsZW9MwnQWQcn/pjbOF/TodZgA==
+	bh=/P8A4m6JQDO0pdOr+r9UyijVwOZWyHturJT44jKpKJc=;
+	b=CD+P/CxfDvJZnr9YEtCJkgpmItKvzx5XkaT0yhaDxzYimj7hsiaj0mUWlTLcXrKRAf9+
+	 trla2GdbLjH6VrSm5vdFaZmifb8E6oCoMuhN0JTbBm32aOSqQ8Q0JslKKKWQXPn2Nd1o9
+	 CBTJl1KejbhqferFqRu0GF5TfZ3g24bcmW3ECLKDC7CP7lx/I5paBWhQvyxgyOuoebkta
+	 HHefg1T4/Gbit8yvvQyRPC6cBd3AnDK1vREfSPfd6OdRfs0s5fR0cYrqVe4TaCSzoQHsq
+	 cfEqb80k/GNz7dp9qIlgAsjf/qAbkci+YDm/4JR1JWuoH03v4++3MSEvtUXmqDUaG9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vu2UZxAK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CkuUDD+G;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB580606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:10:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6017606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:10:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vu2UZxAK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35A901F0089F;
-	Sat,  7 Nov 2026 10:10:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CkuUDD+G
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8395C1F0089F;
+	Sat,  7 Nov 2026 10:10:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046203;
-	bh=nQGRt1NcoRE0YeyBjA9LGd+43QNA7Z3t60QkTXI4WDc=;
+	s=k20260515; t=1794046206;
+	bh=/P8A4m6JQDO0pdOr+r9UyijVwOZWyHturJT44jKpKJc=;
 	h=From:To:Cc:Subject:Date;
-	b=Vu2UZxAKdwbWTohRjH4OakHRh3EpvM3G4Du8b052WqqeQoEYcd1jRhYVHWCke0Onv
-	 sv6hBx9minrigMNkfPJJrf9H8WbqnFMld6+EcCqPQOQxQDaKOYx+uXxINBFZZCQ122
-	 1/tmHUVy5katoPyzgJhg7AQP1eYNc8bWbIl8qfyLsEMYH8qYBq5hmC+g6lrG4G7R+Y
-	 RZ5NNKAQFGP4ANDm8XvE+vGMK/Hi1lQqiAQ6r6YdRXFWYUXZNUNtfbOPiecDgzbYqw
-	 tv7CY2NPlzf+m5YxmjcKOfljnzFrXUtQ0eKCF6PawUw7nGgRR4wXYHzDJJnq2mIWCu
-	 KCdDF8ycheBJA==
+	b=CkuUDD+G/UcujpPVeaXGXWUEbYBaztifCFKPspj3+54AFBharb4/H9njFF6kTVqT4
+	 Lm5ZcgoPesSzUrm4Jr0eYB7TLn9pVhmPBDsK8LJusKTclexmTlh2uXI5x+qFAFh8He
+	 I0Zj0Ab3eNxIp9FJv3CwCsP/cnvhaSVM1qaZLBx7JLNjSFoEhAh/eO1+F3hi+yeZbA
+	 LRyM0jOTzku1K1ty/d4FX7RWMQXm3GtVnNj4zoh2ByR91EHwnAoRdioNenrnaQb3Cm
+	 JNXbhWCCsIxu3JCP1bgla5fL4GTfwWPxDq4P7jZN1yCQnhsBMqw3Ij0OjOC5nOSqNk
+	 E3DvzhUCLq5Cg==
 From: Sasha Levin <sashal@kernel.org>
-To: kanie@linux.alibaba.com,
+To: dave.jiang@intel.com,
 	jonathan.cameron@oss.qualcomm.com,
-	dave.jiang@intel.com,
+	ming.li@zohomail.com,
+	gourry@gourry.net,
 	alison.schofield@intel.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] cxl/pci: Use the Device GPF DVSEC for restricted endpoints" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:10:02 -0500
-Message-ID: <20261107051002-failed-6.18-d2654fa0d841@kernel.org>
+Subject: FAILED: patch "[PATCH] cxl/port: Clear cached dport pointers when a dport is removed" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:10:04 -0500
+Message-ID: <20261107051004-failed-6.18-019560d23450@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,61 +71,90 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x d2654fa0d841fa36ffa76577f83a2810d643ae19
+git cherry-pick -x 019560d23450a320f4060ff235563a5277ea8033
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051002-failed-6.18-d2654fa0d841@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051004-failed-6.18-019560d23450@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From d2654fa0d841fa36ffa76577f83a2810d643ae19 Mon Sep 17 00:00:00 2001
-From: Guixin Liu <kanie@linux.alibaba.com>
-Date: Thu, 8 Oct 2026 11:46:12 +0800
-Subject: [PATCH] cxl/pci: Use the Device GPF DVSEC for restricted endpoints
+From 019560d23450a320f4060ff235563a5277ea8033 Mon Sep 17 00:00:00 2001
+From: Dave Jiang <dave.jiang@intel.com>
+Date: Thu, 1 Oct 2026 08:47:42 -0700
+Subject: [PATCH] cxl/port: Clear cached dport pointers when a dport is removed
 
-cxl_gpf_get_dvsec() picks between the Port and the Device GPF DVSEC
-from the PCIe type of the given device, and only a plain endpoint
-counts as a device. A restricted CXL device is an endpoint too, but
-it falls into the port case and is probed for the Port GPF DVSEC
-instead of the Device GPF DVSEC.
+Switch decoders cache dport pointers in cxlsd->target[], and nothing
+clears them when a dport is freed. Readers then dereference freed memory.
 
-On an RCD, dirty shutdown tracking therefore never arms: the DVSEC
-lookup in cxl_nvdimm_arm_dirty_shutdown_tracking() fails, the dirty
-shutdown count stays invalid, and the warning complains about a
-missing Port GPF DVSEC on a device.
+KASAN caught it under a cxl_test load/unload loop with concurrent sysfs
+reads (abbreviated).
 
-Treat restricted endpoints as devices.
+Clear the matching slots from cxl_dport_remove(), walking the port's
+decoders the way cxl_port_update_decoder_targets() does on the add side.
+Scan all nr_targets slots, the target[] allocation size, and clear every
+hit.
 
-Fixes: 36aace15d9bd ("cxl/pci: Drop the parameter is_port of cxl_gpf_get_dvsec()")
+Fixes: 8330671c57c7 ("cxl: Add helper to delete dport")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
-Signed-off-by: Guixin Liu <kanie@linux.alibaba.com>
 Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Reviewed-by: Dave Jiang <dave.jiang@intel.com>
+Reviewed-by: Li Ming <ming.li@zohomail.com>
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
 Reviewed-by: Alison Schofield <alison.schofield@intel.com>
-Link: https://patch.msgid.link/20261008034619.28059-2-kanie@linux.alibaba.com
+Link: https://patch.msgid.link/20261001154744.1095902-2-dave.jiang@intel.com
 Signed-off-by: Dave Jiang <dave.jiang@intel.com>
 ---
- drivers/cxl/core/pci.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/cxl/core/port.c | 29 +++++++++++++++++++++++++++++
+ 1 file changed, 29 insertions(+)
 
-diff --git a/drivers/cxl/core/pci.c b/drivers/cxl/core/pci.c
-index 4af165a436d23..5667b4c5a6f3c 100644
---- a/drivers/cxl/core/pci.c
-+++ b/drivers/cxl/core/pci.c
-@@ -819,7 +819,8 @@ u16 cxl_gpf_get_dvsec(struct device *dev)
- 		return 0;
+diff --git a/drivers/cxl/core/port.c b/drivers/cxl/core/port.c
+index 95c0be57ed538..ecad766737aaa 100644
+--- a/drivers/cxl/core/port.c
++++ b/drivers/cxl/core/port.c
+@@ -1097,11 +1097,40 @@ static void cond_cxl_root_unlock(struct cxl_port *port)
+ 		device_unlock(&port->dev);
+ }
  
- 	pdev = to_pci_dev(dev);
--	if (pci_pcie_type(pdev) == PCI_EXP_TYPE_ENDPOINT)
-+	if (pci_pcie_type(pdev) == PCI_EXP_TYPE_ENDPOINT ||
-+	    is_cxl_restricted(pdev))
- 		is_port = false;
++static int clear_decoder_target(struct device *dev, void *data)
++{
++	struct cxl_dport *dport = data;
++	struct cxl_switch_decoder *cxlsd;
++
++	if (!is_switch_decoder(dev))
++		return 0;
++
++	cxlsd = to_cxl_switch_decoder(dev);
++	guard(rwsem_write)(&cxl_rwsem.region);
++
++	/*
++	 * A dport can occupy more than one position of an interleave, so
++	 * scan the whole target list rather than stopping at the first hit.
++	 */
++	for (int i = 0; i < cxlsd->nr_targets; i++) {
++		if (cxlsd->target[i] != dport)
++			continue;
++		cxlsd->target[i] = NULL;
++		dev_dbg(dev, "dport%d removed from target list, index %d\n",
++			dport->port_id, i);
++	}
++
++	return 0;
++}
++
+ static void cxl_dport_remove(void *data)
+ {
+ 	struct cxl_dport *dport = data;
+ 	struct cxl_port *port = dport->port;
  
- 	dvsec = pci_find_dvsec_capability(pdev, PCI_VENDOR_ID_CXL,
++	/* counterpart of cxl_port_update_decoder_targets() */
++	device_for_each_child(&port->dev, dport, clear_decoder_target);
++
+ 	port->nr_dports--;
+ 	xa_erase(&port->dports, (unsigned long) dport->dport_dev);
+ 	put_device(dport->dport_dev);
 -- 
 2.53.0
 
