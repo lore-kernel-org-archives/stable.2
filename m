@@ -1,60 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.162
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794046277;
-	b=iDu71o6RQzuQcssWmhgcNjohqEFyQS+YO6rl1aJw56sZrGot0VWGGJOb2S1/fqC/5EhD
-	 OPgzZ8CMohpOvVEebrUyRgzFXDsCdxPNyQfgDs+AVQySvvf8V1knyZQ2hkOS28VEMQnT2
-	 3NErkBkHJ93qoEXa7h+9Nr3UaueefdN3ORPlEp4XfRuYb9eHWncHtIM0KmScjR4X+2kWS
-	 N+VdkM7AF0GiH6Aos7eAQxL5+f7emy2TI5b2VrDwcgMeEuTPBRDaveVueKqDXVZh3DpKt
-	 F8iCoUXTfzu0UR9Fs+aK8+adSHhpR1oHo9t4XMJGFiWNLplgQsTlQScRcDwK2b7tY1A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046277;
-	h=DMARC-Filter:DKIM-Signature:Date:Subject:In-Reply-To:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:From:To:Cc:Message-ID:
-	 References:X-SimpleLogin-Type:X-SimpleLogin-EmailLog-ID:
-	 X-SimpleLogin-Want-Signing;
-	bh=D8qnkZYaP8QEiEnWStUV7Ol/+8QaugHXvxXWg6fF5ic=;
-	b=kKIUi097DgPzTx/jI380K9jLywwOlst+kNZMTi2DCNL5/Km6WE9lcNItXHC9Zx+eCNx1
-	 M9mozFIE71aBhMYFs6asjeyHVcoLfd89/4LQWsTpdjPmKtuIkhxQk5cfr533wWyWNlObO
-	 ZgrnGO0UT4meOdpvCHPB1jba+P+GYJgwFQPO25+e/RIUjRL0XR4HUtUzxZIs/+kUaq6Kz
-	 bAWf7VhbvQkgA+oenCAkF+rX0qNTuCpDpHSxiWKQYEMIHpJPMuZptMbi47/5Tf2UywD16
-	 +SZJcx9Dy2dMNzy+UmF19YTAAAUoaeVySKGkC5DcRY99CSVMdyT4xH6hVNDfiPVS5EA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=eldare.de;
-	spf=pass smtp.mailfrom=eldare.de;
-	dkim=pass header.d=eldare.de header.i=@eldare.de header.a=rsa-sha256 header.s=dkim header.b="q+//nBJo";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.162
-Received: from mail-200162.simplelogin.co (mail-200162.simplelogin.co [176.119.200.162])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794046278;
+	b=lJejZN7bcDFcKF2HYyvPzxIKi2OqN/rmqTHFACEgkQVYqvhlzXW/eeorvnTdTxyCtiqe
+	 89Lp6TwfUW76f9ZUUijYeqFBcZLC+nB59MkQmVpsUl/a8ZJMCXKSwIx7RPIrJz6OK5fbs
+	 BwWqEYrYgVgmr/sYsaAX8E/PiXljLZKArao8X6ksb8iwgmBXPY/IYk8okG4xabSVHrr/l
+	 UiCgAoPRniJocKHK0KOavUxVoWTHaqP8oYEj7IvDbwzLHxG95pUXNwd0qZXy5fg7/Z0yK
+	 9JgziaNipIEqnk4UnKn/2dAhFUafeOfYOIFkuP39HOu5h0i7rTbIJAARSohblePArtQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046278;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=cAi9SxhBTF1EMraayRCOyimuUj1KCwkhbYss6mZ7LTc=;
+	b=k69pyOgJQ/8mohZA3tBh2gMOoPZOInBEaJUzS2JIzXWL+8husuYKiMJNy9q/br0nrA+d
+	 YTYT+CwmdlkDbzhOlNh45T/HvxEvz8D3HlnFw/EiyUwm83sGw6DJ8XkDXPAPASW1q6Gts
+	 XNN0J9isUOGjd5p1krALmvzW/ynNEzrdR2xmEofYadTdliPyoAbZthTmAuaXyRpJa/shQ
+	 euiyPwG5OS4vA0pqaddo3QJxMivdbv5T7/oWkAg/vS7ucTcI6MX44dI6CWd2waRz5Ap44
+	 6EBIOy3+bBqmUwqVkBTSRT3/nUGLTd5uIPAyUOeynQ99Zqirw14wM+UFAdwdKalqspg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IHjoyY4L;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEE81606A330
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:11:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEE81606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=eldare.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eldare.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C883606A33F
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:11:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=eldare.de header.i=@eldare.de header.a=rsa-sha256 header.s=dkim header.b=q+//nBJo
-ARC-Seal: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626; t=1794046269;
-	cv=none; b=inMcURBaUnnmiFzBKA0XFDIgVEEXX6wZRINKCIAG6GakaHqeqKniiZkuGe2Hl77ebLtKhQp6gQyV2RBapiDzNs8B4QAMYgxtUtkPgoTH9yB88cTo30qmi5A88N/P9LkXEs/KkS6Ci0ch8L6tCyq7ui22YvPEKZIGNkzxk0Qz4dxnsGhzhSHdevDx/to6ttjyx66JrdfkeiczcGjyrqrF6DxVz4Y86bBOFXKDDHL8ik3cZ9+1gyEfkKrPLBstzbOg2smHdoRhn3WgqZ25M8z4/KIg68uOK1RfT2KzfW+LudGYMAzsLH7kwL/uXLtbfpleusZci3sWuuxna41qcgJ9UQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626;
-	t=1794046269; c=relaxed/simple;
-	bh=jVDqDvrRQsAZ22D6DF6i3XHA4gMN1HWL8uRQDdFvR2U=;
-	h=Date:Subject:In-Reply-To:From:To:Cc:References; b=LzapzOb5NdiOrSUdwgDyf+5xQCwbWMDd4DY56oaTxXK+EAAVDN2u6ldDaBdJsyL7hTTxv6RrLXnE54UDt2aEGapXY0CyEg5mCxCoS+rzKBA3Sv7zJQHipU0di43i19gE7nP8LeslauPhr+yrzoaD6Pe+MSwzlqFUb0QCKtBstU9dFXe0ffhvONP/XMWd4fEw33EFx8jfSfwp36sBU5+2h0KcvUzJ3X+BOpTkuEGLoivu+JksELgFaCOKWsr2PDtnMrlzy9mAXuLC97l6trOfwUY1RGmJ8WeKCOvFPrtpooEws93grPUv/yGIXgqoZq45kUukBsm3CbR7t/YQjuKj3w==
-ARC-Authentication-Results: i=1; mail.protonmail.ch
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=eldare.de; s=dkim;
-	t=1794046269;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=D8qnkZYaP8QEiEnWStUV7Ol/+8QaugHXvxXWg6fF5ic=;
-	b=q+//nBJoIM/k20Tl2DfPZ86y9MIYto7smEAAHF+Mbho6wezvb9NVx3efTxHoM1gM4akVOI
-	GImpZhMCtnE4iNLR79mmLuSp0jX/7jMu3/UPo6mh4+B4EBOA28fiegBaHurnZ259ukBvPl
-	vktk03EjoFqtNdVvf+8M0AA6ZnzelbU=
-Date: Sat, 07 Nov 2026 10:11:02 +0000
-Subject: Re: [PATCH net v4 1/2] vsock/bpf: release sock lock while waiting for
- data in recvmsg
-In-Reply-To: <DMOM2SFCFHYK.3BT44IQ90X9UB@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IHjoyY4L
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F159F1F0089F;
+	Sat,  7 Nov 2026 10:11:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794046278;
+	bh=cAi9SxhBTF1EMraayRCOyimuUj1KCwkhbYss6mZ7LTc=;
+	h=From:To:Cc:Subject:Date;
+	b=IHjoyY4L4GXDbeLqoVxLlwaYU2mqzx5bX/1rcQdI/91hbjR4yRCBmYxXvZrx+S1TO
+	 7HdFly1MXLhsYbAdmVAQKCmZp7Idbn1gw8kbeWOB4wbPMNDtmarNF8G3YYP4BMc1gV
+	 jcLAgjDLPQVgwlPxUJoUSVdZ4dzttdz4ZdJc3OFdazgFVMz1gL4d5Zlc+oFMinao6o
+	 mgo1sJQEvEORMtBKSv77obMk2Sc/5vCKLs3jx2+aVg9EMhBFbjBm3XJkff/PKGECEB
+	 JI1Ey8gXggpeTUNbCQBcB9PGFeKC0kpYRmx8xYyk8+IjRep7r4yAMs9KEnLzfSpRsu
+	 oaIArJY01DDMg==
+From: Sasha Levin <sashal@kernel.org>
+To: chao@kernel.org,
+	jaegeuk@kernel.org
+Cc: stable@vger.kernel.org
+Subject: FAILED: patch "[PATCH] f2fs: fix to use bio_in_atomic() in f2fs_read_end_io()" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:11:16 -0500
+Message-ID: <20261107051116-failed-6.18-a605d5d71a6d@kernel.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,54 +56,99 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-From: jrmmhm.kernel@eldare.de
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Cc: Stefano Garzarella <sgarzare@redhat.com>,Bobby Eshleman
- <bobbyeshleman@meta.com>,"David S. Miller" <davem@davemloft.net>,Eric Dumazet
- <edumazet@kernel.org>,Jakub  Kicinski <kuba@kernel.org>,Paolo Abeni
- <pabeni@redhat.com>,Simon  Horman <horms@kernel.org>,"Michael S. Tsirkin"
- <mst@redhat.com>,Michal Luczaj
- <mhal@rbox.co>,virtualization@lists.linux.dev,netdev@vger.kernel.org,linux-kernel@vger.kernel.org,bpf@vger.kernel.org,stable@vger.kernel.org
-Message-ID: <179404626756.7.5004773530941890450.1753698952@eldare.de>
-References: <20261106-kbh3-1-022-fix-v2-v4-0-c7d36703814d@eldare.de>
- <20261106-kbh3-1-022-fix-v2-v4-1-c7d36703814d@eldare.de>
- <DMOM2SFCFHYK.3BT44IQ90X9UB@gmail.com>
-X-SimpleLogin-Type: Reply
-X-SimpleLogin-EmailLog-ID: 1753699010
-X-SimpleLogin-Want-Signing: yes
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sat, 07 Nov 2026 02:09:17 +0000, Alexei Starovoitov wrote:
-> No need for a 2nd copy of the return values.
-[...]
->   recv()                          no sockmap    this series   the diff
->   ------------------------------  ------------  ------------  -----------
->   after a virtio reset            -ENOTCONN     -ECONNRESET   -ENOTCONN
->   after a reset, len =3D=3D 0         -ENOTCONN     0             -ENOTCO=
-NN
->   after a reset, MSG_OOB          -ENOTCONN     -EOPNOTSUPP   -ENOTCONN
->   after peer shutdown, SO_INQ on  0 + SCM_INQ   0             0 + SCM_INQ
->   asleep when the reset comes     -ECONNRESET   -ECONNRESET   -ENOTCONN
+The patch below does not apply to the 6.18-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Agreed. I ran your diff in a guest with the reproducers of this series:
-the deadlock, the dataless wakeup, signal, timeout, peer shutdown,
-MSG_ERRQUEUE and MSG_OOB cases behave as with v4, with no KASAN, lockdep
-or hung task report. In the first four rows of your table the sockmap
-socket now returns exactly what a native one returns.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-The last row is confirmed as well. I'd accept that and say so in the
-commit message, since it only changes which error a reader of an
-already reset connection sees.
-
-> None of these tests sleeps in vsock_msg_wait_data().
-> The sockmap tests call select() before recv() or pass MSG_DONTWAIT.
-> vmtest.sh doesn't use sockmap.
-
-Right. v5 won't cite them as coverage of this change.
-
-v5 will be a single patch based on your diff, with your Suggested-by.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git checkout FETCH_HEAD
+git cherry-pick -x a605d5d71a6d280c43c7ede9778dda63fb5c3f22
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051116-failed-6.18-a605d5d71a6d@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
-Jerome
+Sasha
+
+------------------ original commit in Linus's tree ------------------
+
+From a605d5d71a6d280c43c7ede9778dda63fb5c3f22 Mon Sep 17 00:00:00 2001
+From: Chao Yu <chao@kernel.org>
+Date: Sat, 10 Oct 2026 14:55:46 +0800
+Subject: [PATCH] f2fs: fix to use bio_in_atomic() in f2fs_read_end_io()
+
+f2fs_read_end_io() uses "in_task() && !irqs_disabled()" to decide
+whether it is safe to sleep, the result is passed down as @in_task to:
+- f2fs_put_dic() -> f2fs_free_dic() -> f2fs_release_decomp_mem()
+  -> vm_unmap_ram(), which may sleep.
+- f2fs_end_read_compressed_page() -> f2fs_cache_compressed_page()
+  -> f2fs_grab_cache() -> f2fs_lock_cache(), which may sleep in
+  wait_on_bit_lock().
+
+However, the check still treats below task contexts as sleepable:
+- with spinlock held via spin_lock(), i.e. preempt count != 0 while
+  irqs are enabled.
+- with BH disabled via local_bh_disable().
+- inside an RCU read lock on kernels with CONFIG_PREEMPTION.
+- with any spinlock held on kernels without CONFIG_PREEMPT_COUNT.
+
+So the "sleeping function called from invalid context" issue fixed by
+commit 08a7efc5b02a ("f2fs: vm_unmap_ram() may be called from an
+invalid context") can still be triggered.
+
+The block layer provides bio_in_atomic() for exactly this purpose, it
+checks rcu_preempt_depth() and preemptible(), and conservatively returns
+true if CONFIG_PREEMPT_COUNT is disabled, let's use it instead. The
+difference is as below:
+
+ old: intask = in_task() && !irqs_disabled()
+ new: intask = !bio_in_atomic()
+
+ Context                              | old intask     | new intask
+ -------------------------------------+----------------+----------------
+ Hard IRQ / softirq                   | false          | false
+ IRQs disabled                        | false          | false
+ spin_lock() held, IRQs enabled       | true (wrong)   | false
+ BH disabled by local_bh_disable()    | true (wrong)   | false
+ RCU read lock (CONFIG_PREEMPTION)    | true (wrong)   | false
+ Spinlock held, w/o PREEMPT_COUNT     | true (wrong)   | false
+
+Note that on kernels without CONFIG_PREEMPT_COUNT, bio_in_atomic()
+always returns true, so dic freeing will always be offloaded to sbi->wq,
+and compressed pages will not be cached in f2fs_read_end_io(); this is
+the price of correctness, since there is no way to tell whether the
+current context can sleep.
+
+Cc: stable@kernel.org
+Fixes: 08a7efc5b02a ("f2fs: vm_unmap_ram() may be called from an invalid context")
+Signed-off-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+---
+ fs/f2fs/data.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+index ae3bde0767f3c..a8d39add5cbe0 100644
+--- a/fs/f2fs/data.c
++++ b/fs/f2fs/data.c
+@@ -271,7 +271,7 @@ static void f2fs_read_end_io(struct bio *bio)
+ {
+ 	struct f2fs_sb_info *sbi = F2FS_F_SB(bio_first_folio_all(bio));
+ 	struct bio_post_read_ctx *ctx;
+-	bool intask = in_task() && !irqs_disabled();
++	bool intask = !bio_in_atomic();
+ 
+ 	iostat_update_and_unbind_ctx(bio);
+ 	ctx = bio->bi_private;
+-- 
+2.53.0
+
+
+
 
