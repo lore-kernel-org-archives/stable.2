@@ -1,50 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050253;
-	b=Ep+2ycUszAOKJ/PBLoPyYOuNPS/ihZQUR6LCx1Z+RFng7++6Fa1nUIS/cRDPbF9L/Cdk
-	 J9h9xqm23Jz+sibLLfuU+MAYVTreD4HHWUprKY4qRgaaZueveDcbXC2UWlvbE/9rQIMf6
-	 1pykX6oZt2TMt15BDWZz87z2W2COFxt2ToWsbf045t+J5WHb7/j9gNkr8KzFjjskd4eDH
-	 8WL6R/Kbl/NNJlIq8Hh8kTolQkEkdsr8zjV4FxgHIhaCq6MmilhyrZY2y2qOD7QgQa7CQ
-	 0ChE7/eL3LT4G43KcEQhlql5lS8Ks1XVMLln+e3x4HoSjlQXHdYZiesz6Vw0sf+Bn+Q==
+	t=1794050257;
+	b=fW3gXiTLaCp/UDZsw8izTs93V+HhOJebMKpQT3fcgRIN7M4nV+JgrGLxlEljOtBWJiZe
+	 FrvJgisuldax+K73/xstqL5G4MTfJyiFlFOu205wDSjWi+9+Mx55dxYZeXhZ9eJinxKfw
+	 HR3rWX27U/Nxjv7/9GGFKQ6kRwQBRLumzfz6zf8vj3J8gtdKRSmcxX5mqO4J1c1Rubpje
+	 DoJ2k3LWBlGqQCtekh5ir4vDmJ2iV8hIMAhVQjti5pazWEFUy8gLSyV2LB4MDQ5GApZJq
+	 I4i0fzc2Mje2qV/ag5+fXHLo+jXpmw4AuqTPckCzr5rgXnvR4YBlsgeZzqAwmA57h5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050253;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050257;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=6PG7kgbg9cU9qWFj/vBdzF9KUiXLX3dB2u4C8HIDGH8=;
-	b=Bm7DsTAf9igk3Qn017wv9ve0Y3O76TJz5TdVdYUIovVIY3lgP2BrWe31kh0CHLOuQOIh
-	 kw2ScN7+I0TV1J9LVoVG5aJPZ4agxhVE+9E5iwj0zwGZ38AN6di+WytDHm3Bvwcve82EH
-	 IY7haWZ8BteFBC9+fkVUKUHELcCpfMbtNRPno+RVTf/GViDwIhCc/yFoCsI8nB5qAMdPY
-	 CuIyK7eDncZHqNM/1b7HkLKM/bXrC4hFgoXxIi38J90GNijRNmBDOoWovKgpTITdc/rMV
-	 M7Rto2f/KyC1MHgUzBt2WVsvsl3cvNdKb2I9JpbxOGckvpmjAbBwK4m+psMI9mD1lxA==
+	bh=XGw0XKU12vScj3Xh68u5C4Ak1snWrE6OuNYl4tQgOZc=;
+	b=c7ltcQyyl7Gp5k4Z+LcawiafgFszLeBxE16uLvNenczBLdTRQdirN/IVTB4lT4/sc5Yq
+	 Xv/YgPkw8zKPgRII7QCV7K3VoxKscqMCIu9f0n1ggIOpFEGvjaNu7TUKkqtKdqnEeD5gp
+	 6fPCUZ6gkBgTFnInNeAva6zPE1kCQ+IEwjJQqhUxNUXIr/xzU/MgII+SVqPFza1VrS3ko
+	 zUZNJCaeTNzSblERVzhZOcNvFGUe2nlJIjx6IZN8EwMSD8MysNgUFCagCR8hqRVDBdmsn
+	 x4owbxHBrO13ns5fMbK2Y9BJbpakPIkJUQ0qv3dQtcaBaz/DXQzS51Lw8Z8obE6DhWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eN9OGCYP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BJ6hUHwN;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3588606D803
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:17:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4148606A332
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:17:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eN9OGCYP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31A601F008A7;
-	Sat,  7 Nov 2026 11:17:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BJ6hUHwN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33E8D1F008A1;
+	Sat,  7 Nov 2026 11:17:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050253;
-	bh=6PG7kgbg9cU9qWFj/vBdzF9KUiXLX3dB2u4C8HIDGH8=;
+	s=k20260515; t=1794050256;
+	bh=XGw0XKU12vScj3Xh68u5C4Ak1snWrE6OuNYl4tQgOZc=;
 	h=From:To:Cc:Subject:Date;
-	b=eN9OGCYPG/1p2rSGCozjZF/QPenjc6f7lah+2M9Yu7bD+1ATkpM+xUyrWrddPtDP7
-	 wxhfwy3fanjVmmsFgGOpnTO+I0zCjxTlyiX4S3du5GXC/vrG0eSQORAbPZCNZBbYaD
-	 4FxxRHwsH7ezrY+Ns4O750u6r9q2I8IAqxEPeok/QEawyRXz61zmkxaEQgHGivQDX/
-	 o0sC4jogQcmXqe1YrmQcpKGhVcC+VNxy/7nnYsMo5uTvoY6VRrQjur3s56ioeblhnP
-	 hGUFs9F5B2oqfYzAXgpZY5KXKR23x5kRa8NCZ34OC+WCIwQZtUINol45qBeHSP9+Ls
-	 xv6eBj1F6bn8Q==
+	b=BJ6hUHwNsDyclx0xQbUup2cVTfSSuPxPO5YP6zlk6IQI0U3CTjX6xykJq2wjeLEi9
+	 L06u/1I/Fr23Anmll0KpX3B3Ag3rt0cdpBSEzhFFzdqad1hp/z2Tty5+TWghpy/Fyq
+	 z6iDHcIsQ9XQqaoD6H5XJ9yS+VHr9DSaFu6480qLqvjilQzNPZTT2qkfSsJ9RQlkHQ
+	 WuacvpoPzKOmAX3st6dF+Oye0rLJZ/6ll3/uybXlKBS3CfTRhmv4yQVfRNHVzBlNOz
+	 FdjmY11reLgKrr9na7WniF+ZAP6AwGfSt3ZSfxJ6g6xuMK/4UUQojQQCWSFoLKsl02
+	 SEK+yQ8+4Re/g==
 From: Sasha Levin <sashal@kernel.org>
-To: tiwai@suse.de
+To: busanna.reddy@oss.qualcomm.com,
+	vikash.garodia@oss.qualcomm.com,
+	dmitry.baryshkov@oss.qualcomm.com,
+	bod@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ALSA: core: Check shutdown flag at D0 power-state, too" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:17:31 -0500
-Message-ID: <20261107061731-failed-5.10-ad63c5b62843@kernel.org>
+Subject: FAILED: patch "[PATCH] media: venus: Fix iova allocation from restrict region" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:17:34 -0500
+Message-ID: <20261107061734-failed-5.10-953439251b59@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -67,60 +70,212 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x ad63c5b62843895e8c3cd7291ed07cc659df0355
+git cherry-pick -x 953439251b596cee039fbfeaffeb1d88a4b40f43
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061731-failed-5.10-ad63c5b62843@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061734-failed-5.10-953439251b59@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From ad63c5b62843895e8c3cd7291ed07cc659df0355 Mon Sep 17 00:00:00 2001
-From: Takashi Iwai <tiwai@suse.de>
-Date: Tue, 29 Sep 2026 14:53:41 +0200
-Subject: [PATCH] ALSA: core: Check shutdown flag at D0 power-state, too
+From 953439251b596cee039fbfeaffeb1d88a4b40f43 Mon Sep 17 00:00:00 2001
+From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Date: Tue, 18 Aug 2026 20:43:23 +0530
+Subject: [PATCH] media: venus: Fix iova allocation from restrict region
 
-The snd_power_ref_and_wait() skips the card->shutdown check when the
-card is already in D0 state and immediately returns as successful, by
-assuming the all-green in D0.  This assumption makes the code after
-this sync point behaving as if all power is up and ready, even though
-actually it might have been already at the disconnected state.
+The VPU issues DMA through several SMMU streams, and the hardware does
+not give every stream the same addressable range. The non-pixel stream
+cannot address the low 600MB of IOVA space, while the pixel stream can
+address the full range:
+    +-----------------------------------------------------------+
+    | non-pixel stream addressable range (600 MB - 3.5 GB)      |
+    | 0x25800000 - 0xe0000000                                   |
+    +-----------------------------------------------------------+
+    | pixel stream addressable range (0 - 3.5 GB)               |
+    | 0x00000000 - 0xe0000000                                   |
+    +-----------------------------------------------------------+
 
-Add the missing check of shutdown flag there for the more consistent
-behavior.
+A single "iommus" property on the video-codec node puts every stream
+in one IOMMU domain sharing one IOVA space, so nothing stops a
+non-pixel buffer from landing below 600MB. Once an allocation lands
+below that boundary the hardware faults, which shows up as unhandled
+SMMU page faults and spontaneous reboots.
+https://gitlab.freedesktop.org/drm/msm/-/work_items/100
 
+Fix this by reserving the 0-600MB range, below the boundary the
+non-pixel stream cannot address, using dma_iova_try_alloc() so the
+IOMMU-DMA core never hands that range out to a real DMA mapping. This
+reserves only IOVA space, it does not allocate any physical memory.
+
+Since sub-nodes for non-pixel, pixel, and secure streams do not exist
+yet and only a single device is available, the restriction is applied
+to both non-pixel and pixel stream IDs.
+
+Fixes: af2c3834c8ca ("[media] media: venus: adding core part and helper functions")
 Cc: stable@vger.kernel.org
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Link: https://patch.msgid.link/20260929125346.1478631-2-tiwai@suse.de
+Reviewed-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+[bod: took iova_state description from iris and applied to venus in core.h]
+Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
 ---
- sound/core/init.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ drivers/media/platform/qcom/venus/core.c | 66 ++++++++++++++++++++++--
+ drivers/media/platform/qcom/venus/core.h |  6 +++
+ 2 files changed, 69 insertions(+), 3 deletions(-)
 
-diff --git a/sound/core/init.c b/sound/core/init.c
-index 1bcb6a2e75507..a51b71812fd9b 100644
---- a/sound/core/init.c
-+++ b/sound/core/init.c
-@@ -1174,12 +1174,12 @@ EXPORT_SYMBOL(snd_card_file_remove);
- int snd_power_ref_and_wait(struct snd_card *card)
- {
- 	snd_power_ref(card);
--	if (snd_power_get_state(card) == SNDRV_CTL_POWER_D0)
--		return 0;
--	wait_event_cmd(card->power_sleep,
--		       card->shutdown ||
--		       snd_power_get_state(card) == SNDRV_CTL_POWER_D0,
--		       snd_power_unref(card), snd_power_ref(card));
-+	if (snd_power_get_state(card) != SNDRV_CTL_POWER_D0) {
-+		wait_event_cmd(card->power_sleep,
-+			       card->shutdown ||
-+			       snd_power_get_state(card) == SNDRV_CTL_POWER_D0,
-+			       snd_power_unref(card), snd_power_ref(card));
+diff --git a/drivers/media/platform/qcom/venus/core.c b/drivers/media/platform/qcom/venus/core.c
+index 243e342b0ae75..2a0ab553c4519 100644
+--- a/drivers/media/platform/qcom/venus/core.c
++++ b/drivers/media/platform/qcom/venus/core.c
+@@ -377,6 +377,57 @@ static int venus_add_dynamic_nodes(struct venus_core *core)
+ static void venus_remove_dynamic_nodes(struct venus_core *core) {}
+ #endif
+ 
++static void venus_unreserve_iova_region(struct device *dev, struct dma_iova_state *state)
++{
++	unsigned int i;
++
++	for (i = 0; dma_iova_size(&state[i]); i++)
++		dma_iova_free(dev, &state[i]);
++}
++
++static int venus_reserve_iova_region(struct device *dev, struct dma_iova_state **iova_state,
++				     unsigned long start, unsigned long size)
++{
++	unsigned long dma_limit = dev->bus_dma_limit;
++	unsigned long end, rem, chunk;
++	struct dma_iova_state *state;
++	unsigned int count = 0;
++	int ret = -ENOMEM;
++
++	state = devm_kcalloc(dev, BITS_PER_TYPE(dma_addr_t) + 1, sizeof(*state), GFP_KERNEL);
++	if (!state)
++		return ret;
++
++	end = start + size;
++	rem = end - max(start, PAGE_SIZE);
++	dev->bus_dma_limit = end - 1;
++
++	while (rem) {
++		chunk = min(end & -end, (u64)1 << (fls64(rem) - 1));
++
++		if (!dma_iova_try_alloc(dev, &state[count], 0, chunk))
++			goto err_free_iova;
++
++		if (state[count].addr != end - chunk || state[count].__size != chunk)
++			goto err_free_iova;
++
++		rem -= chunk;
++		end -= chunk;
++		count++;
 +	}
- 	if (card->shutdown) {
- 		snd_power_unref(card);
- 		return  -ENODEV;
++
++	*iova_state = state;
++	dev->bus_dma_limit = dma_limit;
++
++	return 0;
++
++err_free_iova:
++	venus_unreserve_iova_region(dev, state);
++	dev->bus_dma_limit = dma_limit;
++
++	return ret;
++}
++
+ static int venus_probe(struct platform_device *pdev)
+ {
+ 	struct device *dev = &pdev->dev;
+@@ -421,10 +472,15 @@ static int venus_probe(struct platform_device *pdev)
+ 			return ret;
+ 	}
+ 
+-	ret = dma_set_mask_and_coherent(dev, core->res->dma_mask);
++	ret = venus_reserve_iova_region(dev, &core->iova_state, VENUS_NP_RESERVE_IOVA_START,
++					VENUS_NP_RESERVE_IOVA_SIZE);
+ 	if (ret)
+ 		goto err_core_put;
+ 
++	ret = dma_set_mask_and_coherent(dev, core->res->dma_mask);
++	if (ret)
++		goto err_unresv_iova_region;
++
+ 	dma_set_max_seg_size(dev, UINT_MAX);
+ 
+ 	INIT_LIST_HEAD(&core->instances);
+@@ -434,13 +490,13 @@ static int venus_probe(struct platform_device *pdev)
+ 
+ 	ret = hfi_create(core, &venus_core_ops);
+ 	if (ret)
+-		goto err_core_put;
++		goto err_unresv_iova_region;
+ 
+ 	ret = devm_request_threaded_irq(dev, core->irq, hfi_isr, venus_isr_thread,
+ 					IRQF_TRIGGER_HIGH | IRQF_ONESHOT,
+ 					"venus", core);
+ 	if (ret)
+-		goto err_core_put;
++		goto err_unresv_iova_region;
+ 
+ 	venus_assign_register_offsets(core);
+ 
+@@ -525,6 +581,8 @@ static int venus_probe(struct platform_device *pdev)
+ 	v4l2_device_unregister(&core->v4l2_dev);
+ err_hfi_destroy:
+ 	hfi_destroy(core);
++err_unresv_iova_region:
++	venus_unreserve_iova_region(dev, core->iova_state);
+ err_core_put:
+ 	if (core->pm_ops->core_put)
+ 		core->pm_ops->core_put(core);
+@@ -562,6 +620,8 @@ static void venus_remove(struct platform_device *pdev)
+ 
+ 	hfi_destroy(core);
+ 
++	venus_unreserve_iova_region(dev, core->iova_state);
++
+ 	mutex_destroy(&core->pm_lock);
+ 	mutex_destroy(&core->lock);
+ 	venus_dbgfs_deinit(core);
+diff --git a/drivers/media/platform/qcom/venus/core.h b/drivers/media/platform/qcom/venus/core.h
+index 46705a6667762..93fa77f05834c 100644
+--- a/drivers/media/platform/qcom/venus/core.h
++++ b/drivers/media/platform/qcom/venus/core.h
+@@ -8,6 +8,7 @@
+ #define __VENUS_CORE_H_
+ 
+ #include <linux/bitops.h>
++#include <linux/dma-mapping.h>
+ #include <linux/list.h>
+ #include <media/videobuf2-v4l2.h>
+ #include <media/v4l2-ctrls.h>
+@@ -30,6 +31,9 @@
+ 
+ #define VENUS_MAX_FPS			240
+ 
++#define VENUS_NP_RESERVE_IOVA_START	0x0
++#define VENUS_NP_RESERVE_IOVA_SIZE	0x25800000
++
+ extern int venus_fw_debug;
+ 
+ struct freq_tbl {
+@@ -189,6 +193,7 @@ struct venus_format {
+  * @dump_core:	a flag indicating that a core dump is required
+  * @ocs:	OF changeset pointer
+  * @hwmode_dev:	a flag indicating that HW_CTRL_TRIGGER is used in clock driver
++ * @iova_state: a pointer to an array of dma_iova_state entries reserved for restricted IOVA region
+  */
+ struct venus_core {
+ 	void __iomem *base;
+@@ -250,6 +255,7 @@ struct venus_core {
+ 	unsigned long dump_core;
+ 	struct of_changeset *ocs;
+ 	bool hwmode_dev;
++	struct dma_iova_state *iova_state;
+ };
+ 
+ struct vdec_controls {
 -- 
 2.53.0
 
