@@ -1,51 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047693;
-	b=fxtvLr1Cncb1UkuMbYZMaIsJXGMGVm8Q1bDrp1aqf5mAHBfIQ79IXcR4uZzP4ydMzjTw
-	 EYzBb0FA11nDEN9Y+SfBqf9zKbKOk/HfoJeTswFukHoj8a8MkaHJkRJoA4CghVUkR9mbF
-	 uYjHPmPdF72pNENonMR4GETuFQVvvHcyFiiEihpAXVX4iOTgTKwlcBa6xlu8lSGQ5SUnd
-	 p+IIodvyS3sp5jFL0dzq14RzggMcH4p9kbiUYhyy5XJ/HkiPArDZvlGN8EsrBesnkXVzV
-	 yrgTTgj5QCix3pTKaAA8u9CWByAu6KOEPBQnkRPhpMEz3m22XvrlvO+qGtuRrJ9k6EA==
+	t=1794047696;
+	b=3yS3bheMDpvvOIT9M2ECrLO8MRg1c1BLtbCjh5L7Sml3EBtp1vmVft4eH43YtBuuP07N
+	 SqoUGhV0TVWvxdZ6hmBg8add+eEhX5U7F8jEKEudgp02jD6z/dfCCNRAaOjz8FHE715iI
+	 m7gj4QfQ70ah8Tzc/3zjUI7kGi7v71tg3X/Sz1GYnEK/oJ7PRd7nvdvbDfYdzfMICPuMR
+	 by/91Ad+qq+3FUzw1yUXJ5HKiJecAB0FaAUlwy+fbOAPqqaE5fvxJqD5Z9J5DzOR9z1Rq
+	 a8kM15eV35vaE07llqo0/db41JU6dxucNxnGZUFvpHPx6i+s5lj7v/O65jD0UgY3aOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047693;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047696;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=+fc7bZxaQfGyCHlEvRHV3Z1buf9Ho21bfWYO0Ebh1KE=;
-	b=J2Z7lMWpqc9K6TDFjK1bzh039HvpsplD7dVj2ItkpnA/h3T3n/P+zB3UK1d1MtMfL3sv
-	 bhxoiHaXHc3ofnXAptHXUqW8z7K3QZO1pKWmKMGyWQvuwnXjptHF0YNun10dXSO9D0A+h
-	 QWQiBcGoPri2J4i5whsdavw4yCOJ3JmKZKR/GtRWHswdWd/rPtyDfmLsevkuG4Whwn/B6
-	 vS0XZNqQ+vfe/GIDcxnd+o2/7Ca6Zj/x02k0amtJZ3FWO5Y2P/tJ3K1GZhAhm6Cd6jmht
-	 vosleYEV7IZ8zLDQdzUpEfMrENQuAtmEOsRVy/t2qVuFgYfz8Df+wKo9aNIx2pafGOg==
+	bh=ANVggE661r0p9QeoE15SfxxnvNjjC0RhjRyxjCTSCYQ=;
+	b=rjh24Jeen9IYn5N8s8hxbrNLI1FlnLSRLcW/2TQY0jV3XVNGVuJtU3dW52VAoFl4CWdm
+	 o1OJp3wH8bpE8LdqdE1EG2V5BrZUxd6STfNglan2GtUwTZx3TlDHaoPkbUXtvbwXUPfYC
+	 kyjQBZG2fCmhApexEoVqkeVmKMq2MHPtrE9EkI2OwB7rx4MK/r5vRwVItCbmxzrnl+wmP
+	 tbxCbUqtFS9/smNDpnYkVE50y+jZS/ptiWOS/c1e5f5oG+TSj3R96ngjPLbxNxsfZfwv4
+	 HRhDFRP0oFvIWyNJyX/539zZrI/sJqs7en3EJeC1fZ8dXX61j7MZxSjYfGMYrjkA9/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="duaziej/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jbCBqGuM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79EB5606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:34:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A630A606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:34:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=duaziej/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B03A21F0089F;
-	Sat,  7 Nov 2026 10:34:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jbCBqGuM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE4831F0089F;
+	Sat,  7 Nov 2026 10:34:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047693;
-	bh=+fc7bZxaQfGyCHlEvRHV3Z1buf9Ho21bfWYO0Ebh1KE=;
+	s=k20260515; t=1794047695;
+	bh=ANVggE661r0p9QeoE15SfxxnvNjjC0RhjRyxjCTSCYQ=;
 	h=From:To:Cc:Subject:Date;
-	b=duaziej/rjQi9zho5XgduvOU+FzOJ0VdPJsxNA+NcX8/2Y+lVzh54eUya59agwF/1
-	 dmam4fmV/zViBblk+HiktKvsHir2yHsFYhZv5vmYa+b3zx7Vp9cjFITyz/yPRy0lOk
-	 8K9Q/rHBXRb5Cqous75evFnMjTX18Di4njaDJDdDbFGoFoKjGhHFN0pC36lP1SQHgo
-	 P+vsoyngsDeINRtXT/clDB9mLvRwg1FNppoIOMDwbpA0284bN5kpzJ0LAqxJzGXVAA
-	 z2R//umPkmaDkUxxVRKUwLnGmau6h3GTCkwuKNFH5FfnfqfwioaMLODyPJwQ9/UkNq
-	 MstNrwdWW9Ujw==
+	b=jbCBqGuMQKL4xX7MkwUXhpaIdxN8KIRJQV+kggtfRf28rA8AJTHPGgq8lE84EQAy2
+	 mMKPedhFTa7wWLFVyBJZqTmPTId9GaROoeWukDDD2kEd0lsZBrXA4sHJCdC3LLfYd4
+	 H3b31wJ0zebgTpGoeNuecUdRBLn4WxZILjFYn6tRX1qDwzvymL+5R+rnfOyKflAL4b
+	 rnWNdOxFJVpMtCQJAMJrEg8sfL6k0/tc3//EKldgXCdm2M18w4teEDAXClz1AVYWxL
+	 B1EInB8SGfuY8KdFrPi93qv9gFcRuM242+GcHKfx2qTajFo1cU5lCg2u+cVolClT3x
+	 SjN9o2rHQWn+g==
 From: Sasha Levin <sashal@kernel.org>
-To: chao@kernel.org,
-	jaegeuk@kernel.org
+To: gkobakhi@asu.edu,
+	akpm@linux-foundation.org,
+	xmei5@asu.edu,
+	joseph.qi@linux.alibaba.com,
+	mark@fasheh.com,
+	jlbec@evilplan.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] f2fs: fix to use bio_in_atomic() in f2fs_read_end_io()" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:34:51 -0500
-Message-ID: <20261107053451-failed-6.6-a605d5d71a6d@kernel.org>
+Subject: FAILED: patch "[PATCH] ocfs2: fix array out of bound access in __ocfs2_find_path()" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:34:53 -0500
+Message-ID: <20261107053453-failed-6.6-6193ce7896af@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,84 +72,98 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x a605d5d71a6d280c43c7ede9778dda63fb5c3f22
+git cherry-pick -x 6193ce7896afb52a321a0063c8b6a45e477a84e2
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053451-failed-6.6-a605d5d71a6d@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053453-failed-6.6-6193ce7896af@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From a605d5d71a6d280c43c7ede9778dda63fb5c3f22 Mon Sep 17 00:00:00 2001
-From: Chao Yu <chao@kernel.org>
-Date: Sat, 10 Oct 2026 14:55:46 +0800
-Subject: [PATCH] f2fs: fix to use bio_in_atomic() in f2fs_read_end_io()
+From 6193ce7896afb52a321a0063c8b6a45e477a84e2 Mon Sep 17 00:00:00 2001
+From: Giorgi Kobakhia <gkobakhi@asu.edu>
+Date: Tue, 22 Sep 2026 13:21:59 -0700
+Subject: [PATCH] ocfs2: fix array out of bound access in __ocfs2_find_path()
 
-f2fs_read_end_io() uses "in_task() && !irqs_disabled()" to decide
-whether it is safe to sleep, the result is passed down as @in_task to:
-- f2fs_put_dic() -> f2fs_free_dic() -> f2fs_release_decomp_mem()
-  -> vm_unmap_ram(), which may sleep.
-- f2fs_end_read_compressed_page() -> f2fs_cache_compressed_page()
-  -> f2fs_grab_cache() -> f2fs_lock_cache(), which may sleep in
-  wait_on_bit_lock().
+__ocfs2_find_path() walks down the extent tree and records path by calling
+find_path_ins(), which appends entry to path->p_node[].  It only has 5
+spots.
 
-However, the check still treats below task contexts as sleepable:
-- with spinlock held via spin_lock(), i.e. preempt count != 0 while
-  irqs are enabled.
-- with BH disabled via local_bh_disable().
-- inside an RCU read lock on kernels with CONFIG_PREEMPTION.
-- with any spinlock held on kernels without CONFIG_PREEMPT_COUNT.
+A corrupted ocfs2 image whose extent block is pointing to itself causes
+__ocfs2_find_path() descent endlessly, writing past the end of
+path->p_node[] array.
 
-So the "sleeping function called from invalid context" issue fixed by
-commit 08a7efc5b02a ("f2fs: vm_unmap_ram() may be called from an
-invalid context") can still be triggered.
+ UBSAN: array-index-out-of-bounds in fs/ocfs2/alloc.c:677:14
+ index 5 is out of range for type 'ocfs2_path_item [5]'
+ Call Trace:
+  <TASK>
+  find_path_ins (fs/ocfs2/alloc.c:677 fs/ocfs2/alloc.c:1914)
+  __ocfs2_find_path.constprop.0 (fs/ocfs2/alloc.c:1882)
+  ocfs2_commit_truncate (fs/ocfs2/alloc.c:1924 fs/ocfs2/alloc.c:7286)
+  ocfs2_truncate_file (fs/ocfs2/file.c:515)
+  ocfs2_setattr (fs/ocfs2/file.c:1224)
+  notify_change (fs/attr.c:556)
+  do_truncate (fs/open.c:68)
+  do_ftruncate (fs/open.c:194 (discriminator 1))
+  ksys_ftruncate (fs/open.c:206)
+  __x64_sys_ftruncate (fs/open.c:211 fs/open.c:209 fs/open.c:209)
 
-The block layer provides bio_in_atomic() for exactly this purpose, it
-checks rcu_preempt_depth() and preemptible(), and conservatively returns
-true if CONFIG_PREEMPT_COUNT is disabled, let's use it instead. The
-difference is as below:
+Commit a406aff8c051 ("ocfs2: validate l_tree_depth to avoid out-of-bounds
+access") already restricts el->l_tree_depth to be less than
+OCFS2_MAX_PATH_DEPTH, which is equal to 5.  However, does not handle the
+infinite descent case.
 
- old: intask = in_task() && !irqs_disabled()
- new: intask = !bio_in_atomic()
+Check if the el->l_tree_depth decreases on each descent.  Maximum descents
+are restricted to 4 and the path->p_node[] array does not overflow.
 
- Context                              | old intask     | new intask
- -------------------------------------+----------------+----------------
- Hard IRQ / softirq                   | false          | false
- IRQs disabled                        | false          | false
- spin_lock() held, IRQs enabled       | true (wrong)   | false
- BH disabled by local_bh_disable()    | true (wrong)   | false
- RCU read lock (CONFIG_PREEMPTION)    | true (wrong)   | false
- Spinlock held, w/o PREEMPT_COUNT     | true (wrong)   | false
-
-Note that on kernels without CONFIG_PREEMPT_COUNT, bio_in_atomic()
-always returns true, so dic freeing will always be offloaded to sbi->wq,
-and compressed pages will not be cached in f2fs_read_end_io(); this is
-the price of correctness, since there is no way to tell whether the
-current context can sleep.
-
-Cc: stable@kernel.org
-Fixes: 08a7efc5b02a ("f2fs: vm_unmap_ram() may be called from an invalid context")
-Signed-off-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+Link: https://lore.kernel.org/20260922202159.2421642-1-gkobakhi@asu.edu
+Fixes: dcd0538ff4e8 ("ocfs2: sparse b-tree support")
+Signed-off-by: Giorgi Kobakhia <gkobakhi@asu.edu>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Tested-by: Xiang Mei <xmei5@asu.edu>
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Assisted-by: LLM
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: <stable@vger.kernel.org>
 ---
- fs/f2fs/data.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/ocfs2/alloc.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index ae3bde0767f3c..a8d39add5cbe0 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -271,7 +271,7 @@ static void f2fs_read_end_io(struct bio *bio)
- {
- 	struct f2fs_sb_info *sbi = F2FS_F_SB(bio_first_folio_all(bio));
- 	struct bio_post_read_ctx *ctx;
--	bool intask = in_task() && !irqs_disabled();
-+	bool intask = !bio_in_atomic();
+diff --git a/fs/ocfs2/alloc.c b/fs/ocfs2/alloc.c
+index 2fdc5403b10b0..fc949e5946269 100644
+--- a/fs/ocfs2/alloc.c
++++ b/fs/ocfs2/alloc.c
+@@ -1844,6 +1844,7 @@ static int __ocfs2_find_path(struct ocfs2_caching_info *ci,
+ 	int i, ret = 0;
+ 	u32 range;
+ 	u64 blkno;
++	u32 prev_depth = OCFS2_MAX_PATH_DEPTH;
+ 	struct buffer_head *bh = NULL;
+ 	struct ocfs2_extent_block *eb;
+ 	struct ocfs2_extent_list *el;
+@@ -1851,14 +1852,16 @@ static int __ocfs2_find_path(struct ocfs2_caching_info *ci,
  
- 	iostat_update_and_unbind_ctx(bio);
- 	ctx = bio->bi_private;
+ 	el = root_el;
+ 	while (el->l_tree_depth) {
+-		if (unlikely(le16_to_cpu(el->l_tree_depth) >= OCFS2_MAX_PATH_DEPTH)) {
++		if (unlikely(le16_to_cpu(el->l_tree_depth) >= prev_depth)) {
+ 			ocfs2_error(ocfs2_metadata_cache_get_super(ci),
+-				    "Owner %llu has invalid tree depth %u in extent list\n",
++				    "Owner %llu has invalid tree depth %u in extent list (max %u)\n",
+ 				    (unsigned long long)ocfs2_metadata_cache_owner(ci),
+-				    le16_to_cpu(el->l_tree_depth));
++				    le16_to_cpu(el->l_tree_depth), prev_depth - 1);
+ 			ret = -EROFS;
+ 			goto out;
+ 		}
++		prev_depth = le16_to_cpu(el->l_tree_depth);
++
+ 		if (!el->l_next_free_rec || !el->l_count) {
+ 			ocfs2_error(ocfs2_metadata_cache_get_super(ci),
+ 				    "Owner %llu has empty extent list at depth %u\n"
 -- 
 2.53.0
 
