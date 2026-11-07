@@ -1,55 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046071;
-	b=tuBtYg82rVtKUYaT0GUWXz83DoS//8XZR552XZI56MXoFY7+4bbS9z0Wo+Fvj7+9nzrF
-	 D82vRP40bCrL43pmEgep0CnF3HmDCCCC0Au8y5ZSEU3tH4u12aEzIsTN7WKcB41XlwMMj
-	 kcOrKdO4VyCqCKozBoyVJM6giDIO5eR5VeobuiwDdnlFbZtmQOVjVEOYREWeX642ZAPfT
-	 NrMAFKM5O11IXEgRjpe3W/z4Ft/a+Ziib37G4Orni3Ko03pQ1l8toRUagCu60UTh9FLUe
-	 J8zus+iglhx/wrYKogKENJVKUn+anxX2n0DC4anm0pVlAz/GVqxzDFtJaFJYBspTcuA==
+	t=1794046073;
+	b=bM8uwh9vGAa3czTyoKJnxD03g5w8DNxYlognbG2hSzIyXFiw2uLYNcwiSgsnXS15U6Fv
+	 K8VXQ+/GSj8INK/2mQQwQ4EIMrmOFABq3WZp+a2r42PYxxCXVYG32P5r9GzKlv5MlmqJs
+	 Gq3SERt1n1dyZ5NVI8uJIMaOYJ7ttTtRgbcs5mRbMnnkXLDO0PbuODNG80eD2EGrxt8rU
+	 iWyVwxZnXk02FXocjTv5kZwBOttQ6+ldQI41FD5mMV54tOckiGKgvf/XepIhIUEEMlYKn
+	 tRbHYWplwDDonBP5RZpcXSwrEpgGIm6xH5lGlRzXf/kczDbnh7bF6Cuvl1Y4m5D6vqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046071;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046073;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=QtCA0KcKdJXlN3IyLduxuYzFvf+Hgbb7GwQmJWc7SFs=;
-	b=tCQ6L+8tIgPxnuagkSpeggKHzkFAHuFvF+Ub1wQPu/UOANIhovtkSKQNEUKblQCSSu1F
-	 MZHUrf0jQAu7/8xJVLAoacaVjgNk3FrXrEecx82iSaAHPzsEedsWWOc4qwUv5hgWQcVd6
-	 AKasYCzzLjIl25Zt0it6mkcsfUJ0FXfTZeZ06M99vgw2zuRWx6BnbOZ+PedhBUOj5bPPm
-	 rMvq4TTpOzgKLyPNOiR4Rp6+RzthPpZEy/xoqYwl4BQ2LiDWE2Hr5ij+xTZ4/1dlFMktH
-	 6Yh/R5qRng+CoY8avxw+/Us0XFOl2uKbPWaFNKTFgZoABW9R7+GpligyYEOPYYreJNg==
+	bh=A9rZ6kDzx/U3dPpMgrhys9l16m+unhKmCle1MzCZAz8=;
+	b=n7HHR0fZGF+IdKJMZ1u6KQtBAAAcPGAQlxoaxCiELXIhz9FLiiFsPiBYpT9OJj0tDnUV
+	 e/rZkT1VWCRkylj3Ioz7+Bn5op2ZQUQ0siNRa9OVItmXKpAhfKwul1ybrwMA84hVG9hva
+	 WNdZXAV1oCjEKjzrE1wL4IFAZaSrHNn6GudLbJmXtJ5phyKO495d6+2kZ0uyzvb730LrC
+	 iO0YoEztfHB9O1hDayLRAjU8OYSeWJ9x0Ht78Muc7zLej2y3vU3oo55/Dt91Xc4M6EulU
+	 wDf4PTYnAmeKntkooPHm4oBFMjCUyDVe2f7vmqkjp0ZuRRojN7a8wjav+P2qwI8ztRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AF0Iks18;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lKW4Cqss;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB02C606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:07:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 080EC606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:07:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AF0Iks18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E43821F0089F;
-	Sat,  7 Nov 2026 10:07:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lKW4Cqss
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FF021F0089F;
+	Sat,  7 Nov 2026 10:07:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046070;
-	bh=QtCA0KcKdJXlN3IyLduxuYzFvf+Hgbb7GwQmJWc7SFs=;
+	s=k20260515; t=1794046072;
+	bh=A9rZ6kDzx/U3dPpMgrhys9l16m+unhKmCle1MzCZAz8=;
 	h=From:To:Cc:Subject:Date;
-	b=AF0Iks18dl021dIzPZ7wfiNxitaBVXfB9+TXqLfWO1CPH9oTB2TwTAcB9CI8qp1L+
-	 U4fPWIIBxFeL1jhRAHXDH50uFjzWntLl8nnh/AS4Ouk5We1mAxEra948APdNk04kmP
-	 Rb95zG0oXk/oW12YTAzzABe2BBeuycljlWHKSv4m/+iGAQ35VhJl3CAqAtJngvhm00
-	 Hr8EZUs2T4MkJyIY+DUpVEi79BzOGzt4VaGeaQkXwmnuK49ByPETS6LEOGtMkosSe4
-	 tLAeWxoeJi0DhvmYTwe4z4fetCtfBH2djq2aLeDaqElJEPDwnIqVpqKs44XRtZC2e+
-	 ILbF1ueMAFm8w==
+	b=lKW4CqssclKMl1ixUKa++ZDnxxNpTLRHXCf5AuHCqoujv5LO5j4e8XCTl6Fe+bSNv
+	 4KKcG8s7RyUGN5aIPIFNAsLalrXoAy9K4t+qsET4qwEWe0jDlxQjdN3zzY9c2Qs63h
+	 8G2KuJSZ9rkF3MsjX/Jd935lMbvW16SnxnS0Tj9wYnnopu74bLnaW6w1mepDOSpEU6
+	 yos9flbOLRR3NHUp7c0r6UtvWassaFhUvHWn0toW42NF8CXCiM1JnUP+gwQKU6ss4b
+	 xjqctSsTv4EPIJg4Jnu8uhqAKj8T0Kxh8Z5rWSUGOPJcOGuq2jWvCQQQUZrr3MGFYc
+	 NRTbPuCchqU1g==
 From: Sasha Levin <sashal@kernel.org>
-To: adubey@linux.ibm.com,
-	hbathini@linux.ibm.com,
-	skb99@linux.ibm.com,
-	yeswanth@linux.ibm.com,
-	rnsastry@linux.ibm.com,
-	maddy@linux.ibm.com
+To: pkshih@realtek.com,
+	luka.gejak@linux.dev,
+	pepe.schlehofer@gmail.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] powerpc/bpf: fix alignment of long branch trampoline address" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:07:48 -0500
-Message-ID: <20261107050748-failed-6.18-04001e8ddb97@kernel.org>
+Subject: FAILED: patch "[PATCH] wifi: rtw88: TX report with long timeout for non-PCIE devices" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:07:51 -0500
+Message-ID: <20261107050751-failed-6.18-7cde94dab0e7@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -72,220 +69,80 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 04001e8ddb979f463f1c3ca8ac4d6ac59fb48921
+git cherry-pick -x 7cde94dab0e74434ccc0a387d7ad373fb3becda0
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050748-failed-6.18-04001e8ddb97@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050751-failed-6.18-7cde94dab0e7@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 04001e8ddb979f463f1c3ca8ac4d6ac59fb48921 Mon Sep 17 00:00:00 2001
-From: Abhishek Dubey <adubey@linux.ibm.com>
-Date: Mon, 28 Sep 2026 10:43:53 +0530
-Subject: [PATCH] powerpc/bpf: fix alignment of long branch trampoline address
+From 7cde94dab0e74434ccc0a387d7ad373fb3becda0 Mon Sep 17 00:00:00 2001
+From: Ping-Ke Shih <pkshih@realtek.com>
+Date: Thu, 24 Sep 2026 08:46:37 +0800
+Subject: [PATCH] wifi: rtw88: TX report with long timeout for non-PCIE devices
 
-Ensure the dummy trampoline address field present between the OOL stub
-and the long branch stub is 4/8-byte aligned, for memory compatibility
-when content loaded to a register.
+Many USB and SDIO devices can't report TX status within 500 ms, and
+extending to 2500 ms as tested USB/SDIO devices can fix the problem [1].
+To avoid adding chip ID one by one, and this change looks harmless.
+Keep PCIE using short timeout, and others use long timeout.
 
-Reported-by: Hari Bathini <hbathini@linux.ibm.com>
-Fixes: d243b62b7bd3 ("powerpc64/bpf: Add support for bpf trampolines")
+[1] https://lore.kernel.org/linux-wireless/20260921165343.8131-1-pepe.schlehofer@gmail.com/
+
 Cc: stable@vger.kernel.org
-Signed-off-by: Abhishek Dubey <adubey@linux.ibm.com>
-Signed-off-by: Saket Kumar Bhaskar <skb99@linux.ibm.com>
-Tested-by: Yeswanth Krishna Tellakula <yeswanth@linux.ibm.com>
-Tested-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
-Reviewed-by: Hari Bathini <hbathini@linux.ibm.com>
-Signed-off-by: Madhavan Srinivasan <maddy@linux.ibm.com>
-Link: https://patch.msgid.link/a8257022057cbb71928c960be589e10b89fc0899.1789982239.git.skb99@linux.ibm.com
+Signed-off-by: Ping-Ke Shih <pkshih@realtek.com>
+Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
+Tested-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
+Link: https://patch.msgid.link/20260924004637.9958-1-pkshih@realtek.com
 ---
- arch/powerpc/net/bpf_jit.h        |  7 +++---
- arch/powerpc/net/bpf_jit_comp.c   | 38 ++++++++++++++++++++++++++-----
- arch/powerpc/net/bpf_jit_comp32.c |  7 +++---
- arch/powerpc/net/bpf_jit_comp64.c |  7 +++---
- 4 files changed, 44 insertions(+), 15 deletions(-)
+ drivers/net/wireless/realtek/rtw88/tx.c | 10 +++++-----
+ drivers/net/wireless/realtek/rtw88/tx.h |  3 ++-
+ 2 files changed, 7 insertions(+), 6 deletions(-)
 
-diff --git a/arch/powerpc/net/bpf_jit.h b/arch/powerpc/net/bpf_jit.h
-index 6d58df3616489..4da8bde92e1ef 100644
---- a/arch/powerpc/net/bpf_jit.h
-+++ b/arch/powerpc/net/bpf_jit.h
-@@ -227,10 +227,11 @@ int bpf_jit_emit_func_call_rel(u32 *image, u32 *fimage, struct codegen_context *
- int bpf_jit_build_body(struct bpf_prog *fp, u32 *image, u32 *fimage, struct codegen_context *ctx,
- 		       u32 *addrs, int pass, bool extra_pass);
- void bpf_jit_build_prologue(u32 *image, struct codegen_context *ctx);
--void bpf_jit_build_epilogue(u32 *image, struct codegen_context *ctx);
--void bpf_jit_build_fentry_stubs(u32 *image, struct codegen_context *ctx);
-+void bpf_jit_build_epilogue(u32 *image, u32 *fimage, struct codegen_context *ctx);
-+void bpf_jit_build_fentry_stubs(u32 *image, u32 *fimage, struct codegen_context *ctx);
- void bpf_jit_realloc_regs(struct codegen_context *ctx);
--int bpf_jit_emit_exit_insn(u32 *image, struct codegen_context *ctx, int tmp_reg, long exit_addr);
-+int bpf_jit_emit_exit_insn(u32 *image, u32 *fimage, struct codegen_context *ctx, int tmp_reg,
-+										long exit_addr);
- void prepare_for_fsession_fentry(u32 *image, struct codegen_context *ctx, int cookie_cnt,
- 								int cookie_off, int retval_off);
- void store_func_meta(u32 *image, struct codegen_context *ctx, u64 func_meta, int func_meta_off);
-diff --git a/arch/powerpc/net/bpf_jit_comp.c b/arch/powerpc/net/bpf_jit_comp.c
-index 11981d2270a9d..8ca36a933c7ae 100644
---- a/arch/powerpc/net/bpf_jit_comp.c
-+++ b/arch/powerpc/net/bpf_jit_comp.c
-@@ -49,11 +49,35 @@ asm (
- "	.popsection				;"
- );
- 
--void bpf_jit_build_fentry_stubs(u32 *image, struct codegen_context *ctx)
-+void bpf_jit_build_fentry_stubs(u32 *image, u32 *fimage, struct codegen_context *ctx)
+diff --git a/drivers/net/wireless/realtek/rtw88/tx.c b/drivers/net/wireless/realtek/rtw88/tx.c
+index 4e110a457e71d..701ed7c4f3f75 100644
+--- a/drivers/net/wireless/realtek/rtw88/tx.c
++++ b/drivers/net/wireless/realtek/rtw88/tx.c
+@@ -196,7 +196,7 @@ void rtw_tx_report_purge_timer(struct timer_list *t)
+ void rtw_tx_report_enqueue(struct rtw_dev *rtwdev, struct sk_buff *skb, u8 sn)
  {
- 	int ool_stub_idx, long_branch_stub_idx;
-+	int ool_stub_sz;
+ 	struct rtw_tx_report *tx_report = &rtwdev->tx_report;
+-	unsigned long timeout = RTW_TX_PROBE_TIMEOUT;
++	unsigned long timeout;
+ 	unsigned long flags;
+ 	u8 *drv_data;
  
- 	/*
-+	 * Align the mis-aligned dummy_tramp_addr field in the fimage.
-+	 * The alignment NOP must appear before OOL stub, to make
-+	 * ool_stub_idx & long_branch_stub_idx constant from end.
-+	 *
-+	 * The fimage can be non 8-byte aligned, so final alignment depends
-+	 * on start of fimage and the stub's instruction count offset. The
-+	 * OOL stub size is 4 instructions (with CONFIG_PPC_FTRACE_OUT_OF_LINE)
-+	 * or 3 instructions (without) before dummy_tramp_addr.
-+	 *
-+	 * Emit a NOP here if address is not SZL aligned.
-+	 *
-+	 * In pass=0 when image==NULL, conservatively account for space
-+	 * required to accommodate alignment NOP. In case final pass skips
-+	 * emitting alignment NOP, the image buffer have 4 spare bytes and
-+	 * jited_len signifies correct program size.
-+	 */
-+
-+	ool_stub_sz = IS_ENABLED(CONFIG_PPC_FTRACE_OUT_OF_LINE) ? 16 : 12;
-+	if (!image || !IS_ALIGNED((unsigned long)fimage + ctx->idx*4 + ool_stub_sz, SZL))
-+		EMIT(PPC_RAW_NOP());
-+
-+	/*
-+	 *	nop     // optional, for alignment of dummy_tramp_addr
- 	 * Out-of-line stub:
- 	 *	mflr	r0
- 	 *	[b|bl]	tramp
-@@ -70,7 +94,7 @@ void bpf_jit_build_fentry_stubs(u32 *image, struct codegen_context *ctx)
+@@ -208,10 +208,10 @@ void rtw_tx_report_enqueue(struct rtw_dev *rtwdev, struct sk_buff *skb, u8 sn)
+ 	__skb_queue_tail(&tx_report->queue, skb);
+ 	spin_unlock_irqrestore(&tx_report->q_lock, flags);
  
- 	/*
- 	 * Long branch stub:
--	 *	.long	<dummy_tramp_addr>
-+	 *	.long	<dummy_tramp_addr>  // 8-byte aligned
- 	 *	mflr	r11
- 	 *	bcl	20,31,$+4
- 	 *	mflr	r12
-@@ -81,6 +105,7 @@ void bpf_jit_build_fentry_stubs(u32 *image, struct codegen_context *ctx)
- 	 */
- 	if (image)
- 		*((unsigned long *)&image[ctx->idx]) = (unsigned long)dummy_tramp;
-+
- 	ctx->idx += SZL / 4;
- 	long_branch_stub_idx = ctx->idx;
- 	EMIT(PPC_RAW_MFLR(_R11));
-@@ -97,7 +122,8 @@ void bpf_jit_build_fentry_stubs(u32 *image, struct codegen_context *ctx)
- 	}
+-	if ((rtwdev->chip->id == RTW_CHIP_TYPE_8723D &&
+-	     rtwdev->hci.type == RTW_HCI_TYPE_USB) ||
+-	    rtw_is_8723bs(rtwdev))
+-		timeout = msecs_to_jiffies(2500);
++	if (rtwdev->hci.type == RTW_HCI_TYPE_PCIE)
++		timeout = RTW_TX_PROBE_TIMEOUT_SHORT;
++	else
++		timeout = RTW_TX_PROBE_TIMEOUT_LONG;
+ 
+ 	mod_timer(&tx_report->purge_timer, jiffies + timeout);
  }
+diff --git a/drivers/net/wireless/realtek/rtw88/tx.h b/drivers/net/wireless/realtek/rtw88/tx.h
+index d34cdeca16f19..168f48e87853d 100644
+--- a/drivers/net/wireless/realtek/rtw88/tx.h
++++ b/drivers/net/wireless/realtek/rtw88/tx.h
+@@ -7,7 +7,8 @@
  
--int bpf_jit_emit_exit_insn(u32 *image, struct codegen_context *ctx, int tmp_reg, long exit_addr)
-+int bpf_jit_emit_exit_insn(u32 *image, u32 *fimage, struct codegen_context *ctx,
-+							int tmp_reg, long exit_addr)
- {
- 	if (exit_addr && is_offset_in_branch_range(exit_addr - (long)(ctx->idx * 4))) {
- 		PPC_JMP(exit_addr);
-@@ -106,7 +132,7 @@ int bpf_jit_emit_exit_insn(u32 *image, struct codegen_context *ctx, int tmp_reg,
- 		PPC_JMP(ctx->alt_exit_addr);
- 	} else {
- 		ctx->alt_exit_addr = ctx->idx * 4;
--		bpf_jit_build_epilogue(image, ctx);
-+		bpf_jit_build_epilogue(image, fimage, ctx);
- 	}
+ #define RTK_TX_MAX_AGG_NUM_MASK		0x1f
  
- 	return 0;
-@@ -286,7 +312,7 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_verifier_env *env, struct bpf_pr
- 	 */
- 	bpf_jit_build_prologue(NULL, &cgctx);
- 	addrs[fp->len] = cgctx.idx * 4;
--	bpf_jit_build_epilogue(NULL, &cgctx);
-+	bpf_jit_build_epilogue(NULL, NULL, &cgctx);
+-#define RTW_TX_PROBE_TIMEOUT		msecs_to_jiffies(500)
++#define RTW_TX_PROBE_TIMEOUT_SHORT	msecs_to_jiffies(500)
++#define RTW_TX_PROBE_TIMEOUT_LONG	msecs_to_jiffies(2500)
  
- 	fixup_len = fp->aux->num_exentries * BPF_FIXUP_LEN * 4;
- 	extable_len = fp->aux->num_exentries * sizeof(struct exception_table_entry);
-@@ -322,7 +348,7 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_verifier_env *env, struct bpf_pr
- 			goto out_err;
- 		}
- 		addrs[fp->len] = cgctx.idx * 4;
--		bpf_jit_build_epilogue(code_base, &cgctx);
-+		bpf_jit_build_epilogue(code_base, fcode_base, &cgctx);
- 
- 		proglen = cgctx.idx * 4;
- 
-diff --git a/arch/powerpc/net/bpf_jit_comp32.c b/arch/powerpc/net/bpf_jit_comp32.c
-index bfdc50740da8e..f5b9441cf46aa 100644
---- a/arch/powerpc/net/bpf_jit_comp32.c
-+++ b/arch/powerpc/net/bpf_jit_comp32.c
-@@ -229,7 +229,7 @@ static void bpf_jit_emit_common_epilogue(u32 *image, struct codegen_context *ctx
- 
- }
- 
--void bpf_jit_build_epilogue(u32 *image, struct codegen_context *ctx)
-+void bpf_jit_build_epilogue(u32 *image, u32 *fimage, struct codegen_context *ctx)
- {
- 	EMIT(PPC_RAW_MR(_R3, bpf_to_ppc(BPF_REG_0)));
- 
-@@ -237,7 +237,7 @@ void bpf_jit_build_epilogue(u32 *image, struct codegen_context *ctx)
- 
- 	EMIT(PPC_RAW_BLR());
- 
--	bpf_jit_build_fentry_stubs(image, ctx);
-+	bpf_jit_build_fentry_stubs(image, fimage, ctx);
- }
- 
- /* Relative offset needs to be calculated based on final image location */
-@@ -1149,7 +1149,8 @@ int bpf_jit_build_body(struct bpf_prog *fp, u32 *image, u32 *fimage, struct code
- 			 * we'll just fall through to the epilogue.
- 			 */
- 			if (i != flen - 1) {
--				ret = bpf_jit_emit_exit_insn(image, ctx, _R0, exit_addr);
-+				ret = bpf_jit_emit_exit_insn(image, fimage,
-+								ctx, _R0, exit_addr);
- 				if (ret)
- 					return ret;
- 			}
-diff --git a/arch/powerpc/net/bpf_jit_comp64.c b/arch/powerpc/net/bpf_jit_comp64.c
-index 53f67b3d2906d..c1e86fe0bd79f 100644
---- a/arch/powerpc/net/bpf_jit_comp64.c
-+++ b/arch/powerpc/net/bpf_jit_comp64.c
-@@ -398,7 +398,7 @@ static void bpf_jit_emit_common_epilogue(u32 *image, struct codegen_context *ctx
- 	}
- }
- 
--void bpf_jit_build_epilogue(u32 *image, struct codegen_context *ctx)
-+void bpf_jit_build_epilogue(u32 *image, u32 *fimage, struct codegen_context *ctx)
- {
- 	bpf_jit_emit_common_epilogue(image, ctx);
- 
-@@ -407,7 +407,7 @@ void bpf_jit_build_epilogue(u32 *image, struct codegen_context *ctx)
- 
- 	EMIT(PPC_RAW_BLR());
- 
--	bpf_jit_build_fentry_stubs(image, ctx);
-+	bpf_jit_build_fentry_stubs(image, fimage, ctx);
- }
- 
- /*
-@@ -1737,7 +1737,8 @@ int bpf_jit_build_body(struct bpf_prog *fp, u32 *image, u32 *fimage, struct code
- 			 * we'll just fall through to the epilogue.
- 			 */
- 			if (i != flen - 1) {
--				ret = bpf_jit_emit_exit_insn(image, ctx, tmp1_reg, exit_addr);
-+				ret = bpf_jit_emit_exit_insn(image, fimage, ctx,
-+								tmp1_reg, exit_addr);
- 				if (ret)
- 					return ret;
- 			}
+ struct rtw_tx_desc {
+ 	__le32 w0;
 -- 
 2.53.0
 
