@@ -1,61 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046469;
-	b=KxCIPwZoy0a1JJP7oTeFRw97nTARzl/oOFOihc0xjyXiSfFJWA7m8wvNAFaz9jj+lX3g
-	 e7pTQeLyzMY3ovs1ZoLJNtpf+48RcO0JyWxyLuXV7vFmjcBgT6hgN+jK5KO0ewqVotP7f
-	 ru5g3bxvzx89/Gn6wPOlBqgwxbKGpgP6pEsXPjLKsajOfnaKTqBLkieaomfZSWq9sRdw0
-	 QG2SiadctpPmd78cXkxDwTv3sJwVslQQKKe/7tqnYxVDlQyZDBQcVLKNddi47iUYoSdL9
-	 gXGeyLSv2d2mBTXqPxi8201I/tZfTjC8V6xWz6jyMVemtZWmQ4NS/mg/JLSth9ZietQ==
+	t=1794046473;
+	b=TgUL7dYQd/EB+vlHz9MY037pAgrjXF9KZhvuVelVHGpcnOF4zOxcsXzxX/TeBhv0vaTj
+	 3FS1kUBxXUJIpjQhHe4TZM9uWgo41736svGtHyrphV3qeU2kRjlR2kEQr8FjRBN5ko2A6
+	 SmALICnPaFQ9amsZxaMtJQ3QqR3Dua+wV4MViN86DC/jUPLxa/Cgu/S1YGS7gPVFLsLCv
+	 WoqHF1/00TqAD16XNYENCSfV3xQ9jUafcKOsKn+sNBbmmBKjr/sPNClmXLzaj7Qi12Y6y
+	 6Asjk1EWquY4EMGjmVQhSAeQh5d/eQsHjUGrsQGhU7VTgX6vPx7agPXhHV6MO0jnxdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046469;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046473;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=2fNzkqte03umeXrG16KZyldO0Gf+Q7gLsrh+1i2CmCQ=;
-	b=JJ3c2hUa4BCOVyhHLg3KahmX0CWRcRJ0AAr0kFS8CLKh+ldYqHdtyIGPr36n5ESxoiaG
-	 bHvU7FPwEdXV1vx5jM/xUzUpMQuRpsLHxfIUzI0GIl4brYHSk7+mjsMEfIFwUl29xwDTE
-	 ES1YvsHBn9JBno9GB+/kzOYx0rxKDoVJve4EaOhDQ4ibCi53VE3q5H+8LKqJ5BDK/JCIv
-	 CBMCeEDHj6DEQQXifZ7g3Kp6KjaYsKno/yL2iUPeNn/oRF+SVIWPAYbh1vBUITlymiOyR
-	 VIGZlb+aNXe67j1bCnBSXHhpXD5BZiJLzZ0DYGysDd4ZSwtuDcXgcM/fyR1rDgARhlg==
+	bh=TS9Ws62XzjUKhk2oxHfV9JZeUEfeo4Zd9nQf7vadQgk=;
+	b=4akF1XDFJriiuwzsYe+HL6vysNIIqLgRy8r3opNgBgWIJjwoZ4+dRkiYNcMR1jdBa/Aa
+	 6IazXOhczj9Zr+0LxCPw0ey8C9EMdfly58rzCkpvdEYA8T9MgxjChgSCYPVrbzFXVQQPH
+	 W1XLJwi6OAhAE0BOSY5DejdJpo3qEE/IOWa8BwJODmtU/z8nTjKYKeT0CIxn5EdaM6xgU
+	 Vrsx5ulgHzfyPGHtuNReRXycUaT1WxGT9/v8lhCCsHb4WQHSgZelOk5+xmOCIIFpMYFWg
+	 927w8oATEukKkxTmLK33ApQi2XqKoAGC1xlEkwH+4NqX5/G65rhYJaB65OaUrfvzQow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IqDZaA+5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FfVwIFzt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E61B606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:14:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9777606A332
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:14:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IqDZaA+5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDA281F0089F;
-	Sat,  7 Nov 2026 10:14:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FfVwIFzt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE79C1F0089F;
+	Sat,  7 Nov 2026 10:14:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046469;
-	bh=2fNzkqte03umeXrG16KZyldO0Gf+Q7gLsrh+1i2CmCQ=;
+	s=k20260515; t=1794046472;
+	bh=TS9Ws62XzjUKhk2oxHfV9JZeUEfeo4Zd9nQf7vadQgk=;
 	h=From:To:Cc:Subject:Date;
-	b=IqDZaA+5SbDSfCoq0LCk3xIEpSe6xmOQa/9ID+58DpJ/t4/DpuxCqe7eCv9hzPbPQ
-	 eIuH2JJEWCb9yXOvz+WIZrBx66VL/+DwRMIILwC0kHwrGJS5dr25XTzlmihNWlztcD
-	 +kbkwhp8pe+iEGk+B7gLiqhLxSNm5829adUWr317BQE2g+RBIv9PEmIV6Lo2lbDvc4
-	 69OaeogvhlVBITFfz1ROB++yE8QH+c0jCnt9GU46/tFH2CZoJyEFfjrOVkI8RPzxfP
-	 51p2aS0ex2fEi5iPeGSZBIGOTQf19AW1nB/TdNEKaDQDve/nWi0sZzmiqM5/aATwTd
-	 gnWDT7ewng9XA==
+	b=FfVwIFztmQCGjAf6L72R4FfCOEsW0f9FxoR8HvSlePfZpSqPMw7kslzE4x4YA8aDa
+	 sP7L9YsipSlW7txfUdoDsHF8imFudOH2Cxp0UsVGoJRj5VSwMaeNF9kjMBbfoUr1fG
+	 9/InQ+FGgWxq7VUV1+Uwt7vZHz/HLipzK5F56X1eXWUiaEPMir3mD2TBJfpNVZE0jV
+	 ARXvv7RecyJjaku7+jl+LK2Bbd6+EMYhSZz09xoNDR4B0eeZgLDKG95n/vpqfHGeMV
+	 CJHp/kBob+pDUE+q208+m+T3XnSVIpIK0b9vZ4dxezSR/+7zDMmLkfToJWAxUqY1hb
+	 lR6+0OX4svZig==
 From: Sasha Levin <sashal@kernel.org>
-To: kas@kernel.org,
+To: ljs@kernel.org,
 	akpm@linux-foundation.org,
-	vbabka@kernel.org,
-	hannes@cmpxchg.org,
-	david@kernel.org,
-	harry@kernel.org,
-	usama.arif@linux.dev,
+	4ncienth@gmail.com,
+	azpijr@gmail.com,
 	surenb@google.com,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	shakeel.butt@linux.dev,
+	david@kernel.org,
+	rppt@kernel.org,
 	mhocko@suse.com,
-	brendan.jackman@linux.dev,
-	ziy@nvidia.com,
-	shakeel.butt@linux.dev
+	corbet@lwn.net,
+	rdunlap@infradead.org,
+	jannh@google.com,
+	pfalcato@suse.de
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm: page_alloc: make defrag_mode retries follow the promoted order" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:14:26 -0500
-Message-ID: <20261107051426-failed-6.18-4cd78a2dcfbb@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/vma: avoid spurious write locks when mm->mm_lock_seq overflows" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:14:29 -0500
+Message-ID: <20261107051429-failed-6.18-7135a05838e8@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -78,246 +81,410 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 4cd78a2dcfbb13f049f841b98763896a3d1d7750
+git cherry-pick -x 7135a05838e85845e1bbf6caa6596a7e3b791a40
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051426-failed-6.18-4cd78a2dcfbb@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051429-failed-6.18-7135a05838e8@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 4cd78a2dcfbb13f049f841b98763896a3d1d7750 Mon Sep 17 00:00:00 2001
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-Date: Tue, 13 Oct 2026 18:37:20 +0100
-Subject: [PATCH] mm: page_alloc: make defrag_mode retries follow the promoted
- order
+From 7135a05838e85845e1bbf6caa6596a7e3b791a40 Mon Sep 17 00:00:00 2001
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Fri, 16 Oct 2026 12:34:33 +0100
+Subject: [PATCH] mm/vma: avoid spurious write locks when mm->mm_lock_seq
+ overflows
 
-Since commit 7e8756d7ad22 ("mm: page_alloc: fix non-movable reclaim storm
-in defrag_mode"), direct reclaim and compaction for non-movable requests
-under defrag_mode run at pageblock_order, to produce the whole blocks that
-ALLOC_NOFRAGMENT needs.  The retry decisions that follow still use the
-request order.  An order-0 request can therefore retry indefinitely
-without ever reaching the ALLOC_NOFRAGMENT fallback:
+So far the assumption has been that mm->mm_lock_seq overflow is benign,
+resulting only in readers spuriously falling back to the mmap lock, however
+it turns out that this was an unsafe assumption.
 
-- Reclaim at pageblock_order gives up after one pass as soon as a zone
-  looks compaction_ready(), and do_try_to_free_pages() then returns 1
-  even though nothing was reclaimed. It returns before the retry that
-  would reclaim memory.low-protected cgroups, so when most memory is
-  protected, the pass that did run finds next to nothing.
+If a VMA can be spuriously considered write locked that means read lock
+exclusion does not take place, and thus a VMA can end up write-locked with
+concurrent readers.
 
-- Compaction at pageblock_order fails or is deferred.
+Since overflow only occurs every 2^31 write lock/unlock cycles, resolve the
+issue by resetting every VMA's vma->vm_lock_seq each time such an overflow
+occurs.
 
-- should_reclaim_retry() takes the reported progress as progress for
-  the order-0 request and resets no_progress_loops. The request
-  retries.
+This is done in vma_end_write_all(), which is called when the mmap write
+lock is released, i.e. in mmap_write_unlock() and mmap_write_downgrade().
 
-Order 1-3 requests loop the same way, and should_compact_retry() also
-checks their pageblock_order compaction result against the request order.
+Care must be taken, as resetting the sequence count at overflow means
+changing the seqcount of VMAs which are already attached and observable.
 
-On a production host (64G, defrag_mode, memory.low covering most of the
-workload), 95% of direct reclaim runs were order-9 runs that returned 1
-with nothing reclaimed, at up to 60k runs per second.  Across ~200M
-should_reclaim_retry() calls in a day, no_progress_loops never left 0.
-The spinning allocations were SLUB slab refills for inode and dentry
-caches.  The time spent registers as memory pressure, and pressure-based
-OOM killing takes down both workloads and system services.
+The mm's seqcount is guaranteed to be odd when a write lock is held, and
+thus any write locked VMA will have an odd seqcount assigned.
 
-For promoted requests:
+Therefore resetting to an even value prevents spurious write locks, since
+these can only occur with the mmap write lock held, at which point the mmap
+seqcount will be odd.
 
-- Reclaim progress does not reset no_progress_loops, as for costly
-  orders.
+However, vma_start_read() also checks vma->vm_lock_seq == mm->mm_lock_seq,
+bailing if so (indicating a write lock).
 
-- should_compact_retry() checks the compaction result at the promoted
-  order and does not retry COMPACT_SKIPPED, since the request can fall
-  back. The compaction priority floor and the COMPACT_SUCCESS retry
-  limit stay those of the request order, so a non-costly request still
-  gets its COMPACT_PRIO_SYNC_FULL pass before it falls back.
+This would cause any even reset value chosen to prevent VMA read locks from
+being taken - avoid this by also checking whether the VMA seqcount is odd
+before bailing on the read lock.
 
-When a promoted request takes the fallback, reset the retry counters, so
-that the fallback attempt gets a full retry budget before the OOM killer
-is considered.  A request whose reclaim was not promoted spent its budget
-on the request itself and keeps its counters, as Usama Arif pointed out.
+So far, vma->vm_lock_seq has defaulted to UINT_MAX, but this has been
+unnecessary since commit e5e7fb278e59 ("mm: convert mm_lock_seq to a proper
+seqcount"), since this is assigned when the VMA is still detached, and
+cannot be observed.
 
-__alloc_pages_slowpath() computes the promoted order once per iteration
-and keeps it in alloc_context for direct reclaim, direct compaction and
-the two retry helpers, so no callee has to recompute it.  Harry Yoo asked
-for the promoted order to be explicit rather than derived in each callee,
-and Vlastimil Babka suggested alloc_context over new function parameters.
+Therefore perform both reset and initialisation of vma->vm_lock_seq by
+simply setting vma->vm_lock_seq to zero.
 
-In a VM reproducer (32G, defrag_mode, inode churn under memory.low):
+The reset, performed in __mm_reset_vma_seqcounts(), only needs to
+WRITE_ONCE() the value.
 
-                                        before    after
-    should_reclaim_retry() calls           63M     293k
-    peak memory pressure (PSI some avg10)  99%      12%
+However the read of vma->vm_lock_seq in vma_start_read() needs to have
+acquire semantics to pair with the smp_wmb() in do_raw_write_seqcount_end()
+so a reader reading a reset value also observes VMA modifications made
+under the write lock.
 
-File creation runs 5.7x faster.
+Since all VMA write locks were just released and the mmap write lock is
+still held, there are no concurrent VMA writers.
 
-[kas@kernel.org: s/order_nofrag_promoted/order_defrag_promoted/, per hannes]
-  Link: https://lore.kernel.org/atDL-nSFP2KVU7cI@thinkstation
-Link: https://lore.kernel.org/as5q14OsbK2CmOrh@thinkstation
-Fixes: 7e8756d7ad22 ("mm: page_alloc: fix non-movable reclaim storm in defrag_mode")
-Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Concurrent VMA readers are unaffected. New VMA readers observe either zero,
+never a write lock, or the prior seqcount, behaving as before the reset.
+
+Since this only occurs every 2^31 write lock/unlock cycles, the time taken
+to update all VMAs is considered to be acceptable.
+
+Also update comments, documentation and VMA userland tests to reflect the
+change.
+
+User facing effects are - dangerous races that could cause memory
+corruption or NULL pointer derefences (especially on page table traversal)
+are avoided.
+
+Link: https://lore.kernel.org/20261016-fix-vma-lock-overflow-v2-1-9eb778b79b58@kernel.org
+Fixes: 5e31275cc997 ("mm: add per-VMA lock and helper functions to control it")
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-Assisted-by: LLM
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Harry Yoo <harry@kernel.org>
-Cc: Usama Arif <usama.arif@linux.dev>
+Reported-by: Daehyeon Ko <4ncienth@gmail.com>
+Closes: https://lore.kernel.org/all/20261015143735.1630957-1-4ncienth@gmail.com/
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+Tested-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
 Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Brendan Jackman <brendan.jackman@linux.dev>
-Cc: Zi Yan <ziy@nvidia.com>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
 Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: <stable@vger.kernel.org>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Jonathan Corbet <corbet@lwn.net>
+Cc: Randy Dunlap <rdunlap@infradead.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Pedro Falcato <pfalcato@suse.de>
+Cc: <stable@vger.kernel.org> # 7.3.x
 ---
- mm/page_alloc.c | 65 +++++++++++++++++++++++++++++--------------------
- mm/page_alloc.h |  2 ++
- 2 files changed, 41 insertions(+), 26 deletions(-)
+ Documentation/mm/process_addrs.rst | 14 ++++-
+ include/linux/mm_types.h           | 12 ++--
+ include/linux/mmap_lock.h          | 24 ++++++--
+ mm/mmap_lock.c                     | 89 ++++++++++++++++++++++++++----
+ tools/testing/vma/include/dup.h    |  2 +-
+ tools/testing/vma/shared.c         |  8 +--
+ 6 files changed, 120 insertions(+), 29 deletions(-)
 
-diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index ff7b9acf01443..914e3c9375f24 100644
---- a/mm/page_alloc.c
-+++ b/mm/page_alloc.c
-@@ -4117,6 +4117,12 @@ __alloc_pages_may_oom(gfp_t gfp_mask, unsigned int order,
- 	return page;
+diff --git a/Documentation/mm/process_addrs.rst b/Documentation/mm/process_addrs.rst
+index 78231995e4901..04b649818cc19 100644
+--- a/Documentation/mm/process_addrs.rst
++++ b/Documentation/mm/process_addrs.rst
+@@ -819,9 +819,17 @@ All this is achieved by the use of per-mm and per-VMA sequence counts, which are
+ used in order to reduce complexity, especially for operations which write-lock
+ multiple VMAs at once.
+ 
+-If the mm sequence count, :c:member:`!mm->mm_lock_seq` is equal to the VMA
+-sequence count :c:member:`!vma->vm_lock_seq` then the VMA is write-locked. If
+-they differ, then it is not.
++The mm sequence count :c:member:`!mm->mm_lock_seq` is incremented on both mmap
++write lock and unlock, so it is odd while the mmap write lock is held. If it is
++equal to the VMA sequence count :c:member:`!vma->vm_lock_seq`, and that value
++is odd, then the VMA is write-locked. If they differ, then it is not.
++
++A VMA's sequence count is not updated on unlock, so after 2^31 write lock/unlock
++cycles the mm sequence count would wrap and match stale VMA values again. To
++prevent this, when the mm sequence count wraps to zero,
++:c:func:`!vma_end_write_all` invokes :c:func:`!__mm_reset_vma_seqcounts` to
++reset every VMA's sequence count to zero, an even value which can never
++indicate a write lock.
+ 
+ Each time the mmap write lock is released in :c:func:`!mmap_write_unlock` or
+ :c:func:`!mmap_write_downgrade`, :c:func:`!vma_end_write_all` is invoked which
+diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
+index 0dead656d3e39..1ed35d258d2e3 100644
+--- a/include/linux/mm_types.h
++++ b/include/linux/mm_types.h
+@@ -992,15 +992,19 @@ struct vm_area_struct {
+ 	 * Can only be written (using WRITE_ONCE()) while holding both:
+ 	 *  - mmap_lock (in write mode)
+ 	 *  - vm_refcnt bit at VM_REFCNT_EXCLUDE_READERS_FLAG is set
++	 * The one exception is __mm_reset_vma_seqcounts(), which stores zero
++	 * (an even value, which can never indicate a write lock) under the
++	 * mmap write lock alone once the mm seqcount has wrapped, so a reader
++	 * holding only vm_refcnt may observe the value change from odd to zero.
+ 	 * Can be read reliably while holding one of:
+ 	 *  - mmap_lock (in read or write mode)
+-	 *  - vm_refcnt bit at VM_REFCNT_EXCLUDE_READERS_BIT is set or vm_refcnt > 1
++	 *  - vm_refcnt bit at VM_REFCNT_EXCLUDE_READERS_BIT is set
+ 	 * Can be read unreliably (using READ_ONCE()) for pessimistic bailout
+ 	 * while holding nothing (except RCU to keep the VMA struct allocated).
+ 	 *
+-	 * This sequence counter is explicitly allowed to overflow; sequence
+-	 * counter reuse can only lead to occasional unnecessary use of the
+-	 * slowpath.
++	 * Assigned the (odd) mm seqcount on write lock and not updated on
++	 * unlock, so a stale value would alias the mm seqcount again 2^31 write
++	 * lock/unlock cycles later. The reset described above prevents this.
+ 	 */
+ 	unsigned int vm_lock_seq;
+ 
+diff --git a/include/linux/mmap_lock.h b/include/linux/mmap_lock.h
+index e5553f4a414cd..11b3ffef3966e 100644
+--- a/include/linux/mmap_lock.h
++++ b/include/linux/mmap_lock.h
+@@ -154,7 +154,7 @@ static inline void vma_lock_init(struct vm_area_struct *vma, bool reset_refcnt)
+ #endif
+ 	if (reset_refcnt)
+ 		refcount_set(&vma->vm_refcnt, 0);
+-	vma->vm_lock_seq = UINT_MAX;
++	vma->vm_lock_seq = 0;
  }
  
-+static inline bool order_defrag_promoted(unsigned int order,
-+					 const struct alloc_context *ac)
+ /*
+@@ -229,8 +229,9 @@ static inline void vma_refcount_put(struct vm_area_struct *vma)
+ 
+ /*
+  * Use only while holding mmap read lock which guarantees that vma lock is not
+- * contended (nobody can concurrently write-lock the vma). vma_start_read() should
+- * not be used in such cases because it might fail due to mm_lock_seq overflow.
++ * contended (nobody can concurrently write-lock the vma). vma_start_read() need
++ * not be used in such cases, as the mmap lock already excludes VMA writers so
++ * its sequence number checks are redundant.
+  * This functionality is used to obtain vma read lock and drop the mmap read lock.
+  *
+  * VMA can't be detached while we are holding mmap lock, therefore in practice this
+@@ -252,8 +253,9 @@ static inline bool vma_start_read_locked_nested(struct vm_area_struct *vma, int
+ 
+ /*
+  * Use only while holding mmap read lock which guarantees that vma lock is not
+- * contended (nobody can concurrently write-lock the vma). vma_start_read() should
+- * not be used in such cases because it might fail due to mm_lock_seq overflow.
++ * contended (nobody can concurrently write-lock the vma). vma_start_read() need
++ * not be used in such cases, as the mmap lock already excludes VMA writers so
++ * its sequence number checks are redundant.
+  * This functionality is used to obtain vma read lock and drop the mmap read lock.
+  *
+  * VMA can't be detached while we are holding mmap lock, therefore in practice this
+@@ -552,6 +554,8 @@ static inline int __must_check mmap_write_lock_killable(struct mm_struct *mm)
+ 	return ret;
+ }
+ 
++void __mm_reset_vma_seqcounts(struct mm_struct *mm);
++
+ /*
+  * Drop all currently-held per-VMA locks.
+  * This is called from the mmap_lock implementation directly before releasing
+@@ -564,6 +568,16 @@ static inline void vma_end_write_all(struct mm_struct *mm)
+ {
+ 	mmap_assert_write_locked(mm);
+ 	mm_lock_seqcount_end(mm);
++
++	/*
++	 * VMA seqcounts are not updated on unlock, so once the mm seqcount has
++	 * wrapped, any VMA still carrying a sequence number from before the
++	 * wrap would satisfy __is_vma_write_locked() when that number comes
++	 * round again, and readers would not be excluded. Reset every VMA's
++	 * seqcount so that no stale value survives the wrap.
++	 */
++	if (unlikely(!mm->mm_lock_seq.sequence))
++		__mm_reset_vma_seqcounts(mm);
+ }
+ 
+ static inline void mmap_write_unlock(struct mm_struct *mm)
+diff --git a/mm/mmap_lock.c b/mm/mmap_lock.c
+index 2f94ee0fdee2a..83b7d3ded0dc7 100644
+--- a/mm/mmap_lock.c
++++ b/mm/mmap_lock.c
+@@ -194,21 +194,38 @@ void __vma_exclude_readers_for_detach(struct vm_area_struct *vma)
+ 	WARN_ON_ONCE(!ves.detached);
+ }
+ 
++/* Do the VMA, mm seqcounts indicate the VMA is write locked? */
++static bool vma_seqcount_is_write_locked(unsigned int vma_seq, unsigned int mm_seq)
 +{
-+	return ac->reclaim_compact_order != order;
++	/* VMA and mm sequence numbers must match for a write lock. */
++	if (vma_seq != mm_seq)
++		return false;
++
++	/*
++	 * The VMA seqcount is always odd if locked. For an attached VMA an even
++	 * value can only be the zero stored by __mm_reset_vma_seqcounts(),
++	 * never a write lock.
++	 */
++	return vma_seq & 1;
 +}
 +
  /*
-  * Maximum number of compaction retries with a progress before OOM
-  * killer is consider as the only way to move forward.
-@@ -4139,22 +4145,7 @@ __alloc_pages_direct_compact(gfp_t gfp_mask, unsigned int order,
- 		.order = order,
- 		.page = NULL,
- 	};
--	int compact_order = order;
--
--	/*
--	 * If fallbacks are not permitted (defrag_mode), we either
--	 * need to reclaim space in a block of matching type, or clear
--	 * out an entire block to allow __rmqueue_claim() to convert.
--	 *
--	 * Reclaim by itself is primarily freeing space in movable
--	 * blocks, since that's where the LRU pages live. So this
--	 * works for movable requests, but not for others.
--	 *
--	 * For those, promote the order to help make blocks, instead
--	 * of spinning in reclaim alone unproductively.
--	 */
--	if ((alloc_flags & ALLOC_NOFRAGMENT) && ac->migratetype != MIGRATE_MOVABLE)
--		compact_order = max(order, pageblock_order);
-+	int compact_order = ac->reclaim_compact_order;
+  * Try to read-lock a vma. The function is allowed to occasionally yield false
+  * locked result to avoid performance overhead, in which case we fall back to
+  * using mmap_lock. The function should never yield false unlocked result.
+- * False locked result is possible if mm_lock_seq overflows or if vma gets
+- * reused and attached to a different mm before we lock it.
++ * False locked result is possible if vma gets reused and attached to a
++ * different mm before we lock it.
+  * Returns the vma on success, NULL on failure to lock and EAGAIN if vma got
+  * detached.
+  *
+  * IMPORTANT: RCU lock must be held upon entering the function, but upon error
+  *            IT IS RELEASED. The caller must handle this correctly.
+  */
+-static inline struct vm_area_struct *vma_start_read(struct mm_struct *mm,
+-						    struct vm_area_struct *vma)
++static struct vm_area_struct *vma_start_read(struct mm_struct *mm,
++					     struct vm_area_struct *vma)
+ {
++	unsigned int vma_seq;
++	unsigned int mm_seq;
+ 	struct mm_struct *other_mm;
+ 	int oldcnt;
  
- 	if (!compact_order)
- 		return NULL;
-@@ -4247,7 +4238,7 @@ should_compact_retry(gfp_t gfp_mask, struct alloc_context *ac, int order,
- 	int retries = *compaction_retries;
- 	enum compact_priority priority = *compact_priority;
- 
--	if (!order)
-+	if (!ac->reclaim_compact_order)
- 		return false;
- 
- 	if (fatal_signal_pending(current))
-@@ -4256,10 +4247,12 @@ should_compact_retry(gfp_t gfp_mask, struct alloc_context *ac, int order,
- 	/*
- 	 * Compaction was skipped due to a lack of free order-0
- 	 * migration targets. Continue if reclaim can help.
-+	 * Promoted requests fall back instead.
+@@ -220,7 +237,9 @@ static inline struct vm_area_struct *vma_start_read(struct mm_struct *mm,
+ 	 * we don't rely on for anything - the mm_lock_seq read against which we
+ 	 * need ordering is below.
  	 */
- 	if (compact_result == COMPACT_SKIPPED) {
--		ret = compaction_zonelist_suitable(ac, order, alloc_flags,
--						   gfp_mask);
-+		if (!order_defrag_promoted(order, ac))
-+			ret = compaction_zonelist_suitable(ac, order,
-+							   alloc_flags, gfp_mask);
- 		goto out;
+-	if (READ_ONCE(vma->vm_lock_seq) == READ_ONCE(mm->mm_lock_seq.sequence)) {
++	vma_seq = READ_ONCE(vma->vm_lock_seq);
++	mm_seq = READ_ONCE(mm->mm_lock_seq.sequence);
++	if (vma_seqcount_is_write_locked(vma_seq, mm_seq)) {
+ 		vma = NULL;
+ 		goto err;
  	}
+@@ -246,17 +265,26 @@ static inline struct vm_area_struct *vma_start_read(struct mm_struct *mm,
+ 		goto err_unstable;
  
-@@ -4458,11 +4451,7 @@ __alloc_pages_direct_reclaim(gfp_t gfp_mask, unsigned int order,
- 	struct page *page = NULL;
- 	unsigned long pflags;
- 	bool drained = false;
--	int reclaim_order = order;
--
--	/* Match the slowpath compaction promotion in __alloc_pages_direct_compact */
--	if ((alloc_flags & ALLOC_NOFRAGMENT) && ac->migratetype != MIGRATE_MOVABLE)
--		reclaim_order = max(order, pageblock_order);
-+	int reclaim_order = ac->reclaim_compact_order;
- 
- 	psi_memstall_enter(&pflags);
- 	*did_some_progress = __perform_reclaim(gfp_mask, reclaim_order, ac);
-@@ -4638,9 +4627,12 @@ should_reclaim_retry(gfp_t gfp_mask, unsigned order,
  	/*
- 	 * Costly allocations might have made a progress but this doesn't mean
- 	 * their order will become available due to high fragmentation so
--	 * always increment the no progress counter for them
-+	 * always increment the no progress counter for them. The same goes for
-+	 * promoted requests: their reclaim reports progress when it backs off
-+	 * for compaction without freeing anything.
+-	 * Overflow of vm_lock_seq/mm_lock_seq might produce false locked result.
+-	 * False unlocked result is impossible because we modify and check
++	 * False unlocked result is impossible because a write lock sets
+ 	 * vma->vm_lock_seq under vma->vm_refcnt protection and mm->mm_lock_seq
+ 	 * modification invalidates all existing locks.
+ 	 *
+-	 * We must use ACQUIRE semantics for the mm_lock_seq so that if we are
+-	 * racing with vma_end_write_all(), we only start reading from the VMA
+-	 * after it has been unlocked.
+-	 * This pairs with RELEASE semantics in vma_end_write_all().
++	 * ACQUIRE semantics are required for both reads.
++	 *
++	 * __mm_reset_vma_seqcounts() might reset vma->vm_lock_seq to zero
++	 * after an overflow. A reader observing that zero must also observe
++	 * the VMA modifications made under the write lock which just ended, so
++	 * the ACQUIRE pairs with the smp_wmb() in do_raw_write_seqcount_end()
++	 * that precedes the reset stores.
++	 *
++	 * The ACQUIRE semantics for the mm_lock_seq read is required so that,
++	 * if we are racing with vma_end_write_all(), we only start reading from
++	 * the VMA after it has been unlocked. This pairs with the RELEASE
++	 * semantics in vma_end_write_all().
  	 */
--	if (did_some_progress && order <= PAGE_ALLOC_COSTLY_ORDER)
-+	if (did_some_progress && order <= PAGE_ALLOC_COSTLY_ORDER &&
-+	    !order_defrag_promoted(order, ac))
- 		*no_progress_loops = 0;
- 	else
- 		(*no_progress_loops)++;
-@@ -4924,6 +4916,22 @@ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
- 	/* If allocation has taken excessively long, warn about it */
- 	check_alloc_stall_warn(gfp_mask, ac->nodemask, order, alloc_start_time);
+-	if (unlikely(vma->vm_lock_seq == raw_read_seqcount(&mm->mm_lock_seq))) {
++	vma_seq = smp_load_acquire(&vma->vm_lock_seq);
++	mm_seq = raw_read_seqcount(&mm->mm_lock_seq);
++	if (unlikely(vma_seqcount_is_write_locked(vma_seq, mm_seq))) {
+ 		vma_refcount_put(vma);
+ 		vma = NULL;
+ 		goto err;
+@@ -466,6 +494,43 @@ struct vm_area_struct *lock_next_vma(struct mm_struct *mm,
+ 	return vma;
+ }
  
-+	/*
-+	 * If fallbacks are not permitted (defrag_mode), we either
-+	 * need to reclaim space in a block of matching type, or clear
-+	 * out an entire block to allow __rmqueue_claim() to convert.
-+	 *
-+	 * Reclaim by itself is primarily freeing space in movable
-+	 * blocks, since that's where the LRU pages live. So this
-+	 * works for movable requests, but not for others.
-+	 *
-+	 * For those, promote the order to help make blocks, instead
-+	 * of spinning in reclaim alone unproductively.
-+	 */
-+	ac->reclaim_compact_order = order;
-+	if ((alloc_flags & ALLOC_NOFRAGMENT) && ac->migratetype != MIGRATE_MOVABLE)
-+		ac->reclaim_compact_order = max(order, pageblock_order);
++/*
++ * Called with mmap write lock held after mm->mm_lock_seq just overflowed (and
++ * therefore zero), with all VMA write locks now released.
++ *
++ * The stores below follow the smp_wmb() in do_raw_write_seqcount_end(), so
++ * a reader that observes a reset value also observes this cycle's VMA
++ * modifications (ordered by the ACQUIRE on vma->vm_lock_seq in
++ * vma_start_read()).
++ */
++void __mm_reset_vma_seqcounts(struct mm_struct *mm)
++{
++	struct vm_area_struct *vma;
++	VMA_ITERATOR(vmi, mm, 0);
 +
- 	/* Try direct reclaim and then allocating */
- 	if (!compact_first) {
- 		page = __alloc_pages_direct_reclaim(gfp_mask, order, alloc_flags,
-@@ -5005,6 +5013,11 @@ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
- 	/* Reclaim/compaction failed to prevent the fallback */
- 	if (defrag_mode && (alloc_flags & ALLOC_NOFRAGMENT)) {
- 		alloc_flags &= ~ALLOC_NOFRAGMENT;
-+		/* Retries went into making blocks, start the fallback afresh */
-+		if (order_defrag_promoted(order, ac)) {
-+			no_progress_loops = 0;
-+			compaction_retries = 0;
-+		}
- 		goto retry;
- 	}
++	mmap_assert_write_locked(mm);
++	VM_WARN_ON_ONCE(mm->mm_lock_seq.sequence);
++
++	/*
++	 * Failing to reset means stale vma->vm_lock_seq values could result in
++	 * those VMAs becoming spuriously write locked when mm->mm_lock_seq
++	 * happens to match their values.
++	 *
++	 * This is problematic, as it causes the VMA write lock to not exclude
++	 * readers, which can result in concurrent readers while a VMA write
++	 * lock is held.
++	 *
++	 * Avoid this by resetting to an even value (indicates no write lock
++	 * held).
++	 *
++	 * Readers will either observe zero (not write locked) or the previous
++	 * value, so this is safe.
++	 */
++	for_each_vma(vmi, vma)
++		WRITE_ONCE(vma->vm_lock_seq, 0);
++}
++EXPORT_SYMBOL(__mm_reset_vma_seqcounts);
++
+ #ifdef CONFIG_LOCK_MM_AND_FIND_VMA
+ #include <linux/extable.h>
  
-diff --git a/mm/page_alloc.h b/mm/page_alloc.h
-index b9259deddb59d..2b1017a91928c 100644
---- a/mm/page_alloc.h
-+++ b/mm/page_alloc.h
-@@ -93,6 +93,8 @@ struct alloc_context {
- 	bool spread_dirty_pages;
- 	/* Only flags that are global to the whole allocation go here. */
- 	unsigned int alloc_flags;
-+	/* Set by __alloc_pages_slowpath() before reclaim and compaction */
-+	unsigned int reclaim_compact_order;
- };
+diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
+index 718132580facf..f449129ea97a9 100644
+--- a/tools/testing/vma/include/dup.h
++++ b/tools/testing/vma/include/dup.h
+@@ -1225,7 +1225,7 @@ static inline void vma_init(struct vm_area_struct *vma, struct mm_struct *mm)
+ 	vma->vm_mm = mm;
+ 	vma->vm_ops = &vma_dummy_vm_ops;
+ 	INIT_LIST_HEAD(&vma->anon_vma_chain);
+-	vma->vm_lock_seq = UINT_MAX;
++	vma->vm_lock_seq = 0;
+ }
  
  /*
+diff --git a/tools/testing/vma/shared.c b/tools/testing/vma/shared.c
+index 8c4826499f405..c1e0c22801011 100644
+--- a/tools/testing/vma/shared.c
++++ b/tools/testing/vma/shared.c
+@@ -65,7 +65,7 @@ struct vm_area_struct *alloc_and_link_vma(struct mm_struct *mm,
+ 	 * begun. Linking to the tree will have caused this to be incremented,
+ 	 * which means we will get a false positive otherwise.
+ 	 */
+-	vma->vm_lock_seq = UINT_MAX;
++	vma->vm_lock_seq = 0;
+ 
+ 	return vma;
+ }
+@@ -97,13 +97,13 @@ int cleanup_mm(struct mm_struct *mm, struct vma_iterator *vmi)
+ 
+ bool vma_write_started(struct vm_area_struct *vma)
+ {
+-	int seq = vma->vm_lock_seq;
++	unsigned int seq = vma->vm_lock_seq;
+ 
+ 	/* We reset after each check. */
+-	vma->vm_lock_seq = UINT_MAX;
++	vma->vm_lock_seq = 0;
+ 
+ 	/* The vma_start_write() stub simply increments this value. */
+-	return seq > -1;
++	return seq > 0;
+ }
+ 
+ void __vma_set_dummy_anon_vma(struct vm_area_struct *vma,
 -- 
 2.53.0
 
