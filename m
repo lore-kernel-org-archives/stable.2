@@ -1,53 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794045984;
-	b=EWQ3dUrReTxGjdnIp2+tUbrxFRNLD5HFOmajdr1qqXv7mRGua2Dc1bIw/+fV7ykB1U2l
-	 Fo7byRvBTnNGuJMXHiDdaP2SerPlETSz4zptyGtVTgeyu9wHdG4+c+ZyMJn5RndO3Mp1J
-	 NcU+zRCQBH734PPHDdwqqmicXCZI5ScdAK7h6/8g1X8t6MRqSIuiNIsQZm5e2hfyWF3A+
-	 YGkcrXRBcxGfJHsRAFj6f1LR+d2KPfsoy1g6EGKMr1gPzka3yNe0f3uKQhJYB21MJKy5k
-	 x1kQPmlZvbJI0+T55qkJtT+mj/A9OMJTIZ1GaxXBsrl3zdG3SiUdp8fkHQLnQ/cuLoA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794045984;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=7xedkogbBW6xkks2cZzp0OnzpWJ1Md6QrrZXbOTJy08=;
-	b=umXN96n+OPSWDA/E/wPYuRPtK3KM4v81xWF/bQllasrAo+391AnDONcxEP7JijPo6sJ4
-	 Aej95pd4X0KvPfNH3/S55fer/zyAwaRa2ILu3F4zwiv7o/tcQJwHTUuqen4ihVvI6edoO
-	 qsoQ/i2pNT7l1ynlBSyILjIQzgBe4jJzo3SnegEFWTj2CTuDBLEbCrjIeXHR9RYdP518R
-	 uZb26nnS7pWGsPFJ+owy8QQ84nHbWAXAMvp8sxuXY71gg/I80DmJ7gf7zYGWO9JtK0ZcG
-	 dCMEl9KgBCeDzFK9Vs8Zn4Q1dIYyAZCaRLtPNeciiyBVtsp34ERf9Un4Z0sa2HNYfYg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O9ZCHiYC;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794045980;
+	b=q3TxZwdRsw6B0Zza/G+ckEmSVbrA5Sv36xh/kpuaWllmIvtJQ5+6LWKLfz5IPQN2uwqA
+	 4V/GsGNZ4gM+ZQWjbkv7e4Dq4z8z/gpw5ACD2m07D1a7nVOXfueFQKbtOB/dRz46AK1w/
+	 zxsh0Mu3SI781/J+Rj/20zPBtdZ7PkJvYCrbtwXQlLzkGV34YCEk1Nwd/kd9bSzNKLVdC
+	 ZtCleExGIKRfFZeLNbTrZkkKM1ed1WfVyUpXhh5nUAg7acHe2lYgXjpYyVP2uGFFNSjSy
+	 XdxfZUxx0kyM6XVFSlgWzDs9X/gRRgfgpXdp6Ms0V+DN2nFw15K+YJhIyqqyAhLd/dg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794045980;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=bCerr+Z00LP4frO9T0gK5dDmzJIA0ndilU27xwPav5Y=;
+	b=2nD2ni0NjMptF7K3jgucWj9CqrXmoG99D6aMwBWgZP0rRXG1l1P9qjLXHc9CSwGbhWtK
+	 Su2GSuigtSKZjhFC+JhUuMZoUmDBG6J9h30KbgtQfcrWggCDu//u0vCVvJDwE/dRkUeDq
+	 yWcxxjlO+V8338xhOQE6Dgn4fUGRfp0mNAZ9kAWrox3pTGMpcp/k5mxXX8rWdL1O7xbS2
+	 NAQo+xreaRZSFaK+0u1XzlJKH7fcWESOIhLQsbhEvAa4p1ZskkQUSSkyrUqYcpa3uHdJH
+	 WAOnbGorKLPIWKYsPbpaVgggvHKsxAGCW8mbiGhlWNb9G0HQAegAfakJpJK05HkT/iQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pi9Nw6ci;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E305606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:06:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8BAB606A32C;
+	Sat,  7 Nov 2026 10:06:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O9ZCHiYC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 658261F0089F;
-	Sat,  7 Nov 2026 10:06:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pi9Nw6ci
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794045979;
+	b=Qr9KRYOpo0BnzOAUh/keG8FF9wQuSVBVUlCtABCrb/d15MD+d02IHX5nutP/FLeM0AbR
+	 XwSjnmo/V7BPEOUR/LHfKdOd0G5/S5fRcBcDobisRNsLgupNqDsw8unhPL3EuTyjw5saY
+	 7kdwnQyTwjUchv8WvPFb1X1y4lMxRy2YT4XePRNXPMKQv6mwsqlI2dF7j0HZZLu2F+zCu
+	 nlBb6QJobn1DE78qF8Mm+GW1Btxllr0i3gBUAaLcNXky2MUxPC08Fkb9cIxOedZWC8COM
+	 09oIo53YAIcLO01zRxPe6VvyfNiDY+8AwnnY8RLqO4IV3tMbtiZ8rINHkYZs7apr5NA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794045979;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
+	 Content-Transfer-Encoding;
+	bh=bCerr+Z00LP4frO9T0gK5dDmzJIA0ndilU27xwPav5Y=;
+	b=yUO0utFlINnHOWOnIBYDClULjL5/f1H+iu6rK8YRETRow97UxzG0WRluMiWghz6HSG2f
+	 S979jQPS1Xf3mZdSSaJ6Yi5ks6J2DCFgyU6XEItjOXpC05XfYSy1N9FmAQtoCi+GvOK9t
+	 oKxaw/nihncVyCij7rh80TuFlf87ydZKN48X4r/WhMCLFAO3nR3Uhk2YKIw37NB2kd9j9
+	 H+fcrSIs0SVgDOWgHzoOUsmHZ2/lJQn1099t3a6AzmZqEg09HM2Y/hu4jb/GWMp1mzHZC
+	 gouezQa4NmFl/DrsQqMGSU3M3B8EaVVKq2Cy6K/YZnt3isx6YnUGMXBh8CngacVoOrA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 5434B1F008A1;
+	Sat,  7 Nov 2026 10:06:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794045983;
-	bh=7xedkogbBW6xkks2cZzp0OnzpWJ1Md6QrrZXbOTJy08=;
-	h=From:To:Cc:Subject:Date;
-	b=O9ZCHiYCmWfbmUjpFiRbGn3JEckbTs8Lv4ML7J+I6nmgdMOwshgc7j+e5GKDhhthQ
-	 Ud4amatRWUomttxLN1sPBeDYLz9PAkq3C1WLJcqG7ukSGI8ISIsGx+CX64wU58WQKr
-	 mGwjI5OENYMuRfO+gqGb64G9VRiFEKMh7ziFvi+NsngSGtdCyEunB802bVZ3aPwxV8
-	 XNK4+fiT2e+M2KY+SDsD2M5IO/KOMmQDuNYrJx1f5gweabDcmicl1clEpwCS+0vYKK
-	 nH+gHXS7Jvwhpw3bwZzGnar16CWzogzo2GgG6xAEp1peZqcQ1Rwm/6O2Hqozwhx1az
-	 IV82zKIu9plCw==
-From: Sasha Levin <sashal@kernel.org>
-To: marek.vasut+renesas@mailbox.org,
-	manivannan.sadhasivam@oss.qualcomm.com,
-	bhelgaas@google.com
-Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] PCI: rcar-gen4: Limit Max_Read_Request_Size to 256 Bytes" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:06:22 -0500
-Message-ID: <20261107050622-failed-6.18-f0a5c6bd797c@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	s=k20260515; t=1794045979;
+	bh=bCerr+Z00LP4frO9T0gK5dDmzJIA0ndilU27xwPav5Y=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=Pi9Nw6ci7z1e9bSSeYUey6YoSDHF7Rf4K/ZrIm1QDTBBH0wmqN54C9nCsU4+9hj+O
+	 RrOWdJ7WbDeO3PDZz5NUA1Jq0xfco4czc2laBPmYBgxEHwoApBIM66iUSmmILGwju1
+	 K/v+MRU/PN/KT970FtY03vMb8BwcIk33gfgLYB3Cxc8MSSNtjH8DAiw8h5Zh5E1v9R
+	 shyCfLyKzNCa3yJPyDgLos4G8ikthh6m/h5BkmVD7KCZDuntJveqSSbkg3jGcNG3uj
+	 uBnJqkXyo1ilN8KsCGY91X7WC+b5qd/OxSOChCvPiFxwre70tt7D8ifnjLeP7EmdV6
+	 yna43pvLPmNJQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id D1E9347B2F;
+	Sat,  7 Nov 2026 10:06:18 +0000 (UTC)
+From: Michael Reeves via B4 Relay <devnull+michael.reeves077.gmail.com@kernel.org>
+Date: Sat, 07 Nov 2026 10:06:17 +0000
+Subject: [PATCH] usb: typec: tipd: assign partner identity to persistent
+ memory
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,175 +83,92 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261107-tipd-stack-uaf-fix-v1-1-efcb517924ec@gmail.com>
+X-B4-Tracking: v=1; b=H4sIABj47moC/x2MSQqAMAwAvyI5G2jc9SviobSpBkGlVRGKf7d4n
+ IGZCIG9cIAhi+D5liD7loDyDMyit5lRbGIoVNEQqRZPOSyGU5sVL+3QyYO2pKpTdW8UtZDCw3P
+ S/3Sc3vcDewcuVmQAAAA=
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Janne Grunau <j@jannau.net>, Sven Peter <sven@kernel.org>, 
+ Hector Martin <marcan@marcan.st>
+Cc: Neal Gompa <neal@gompa.dev>, linux-usb@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Nicole Mazzuca <nicole@streganil.no>, 
+ stable@vger.kernel.org, Michael Reeves <michael.reeves077@gmail.com>, 
+ asahi@lists.linux.dev
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794045978; l=2080;
+ i=michael.reeves077@gmail.com; s=20261107; h=from:subject:message-id;
+ bh=11jWNoNyYcLtaaM1fNLvBsJPDBw5EU5pTtOvCfnWMwo=;
+ b=G8zeiNyKG6OsjYAWHxwP2e7A8a0o4EJnDAxqrHOhnh3417IfBii0p81xO2n0aHm5VtGC5oEU+
+ uFXHj/X3vdEB84NUrq78FxoXHyWuPOrJIdBMg3CrPlL7H6qxZF9Q4MH
+X-Developer-Key: i=michael.reeves077@gmail.com; a=ed25519;
+ pk=ykwkLcuByJYb/cdLc2UuoYP03pIzwrscEZg30+4tJL8=
+X-Endpoint-Received: by B4 Relay for michael.reeves077@gmail.com/20261107
+ with auth_id=1442
+X-Original-From: Michael Reeves <michael.reeves077@gmail.com>
+Reply-To: michael.reeves077@gmail.com
+Content-Transfer-Encoding: 7bit
 
-The patch below does not apply to the 6.18-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+From: Michael Reeves <michael.reeves077@gmail.com>
 
-To reproduce the conflict and resubmit, you may use the following commands:
+cd321x_update_work() passes a pointer to a local stack variable
+(&st.partner_identity) to typec_register_partner(). The Type-C core
+caches this pointer, leading to a stack-use-after-free and a kernel
+Oops when accessed later (e.g., via get_pd_product_type()).
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
-git checkout FETCH_HEAD
-git cherry-pick -x f0a5c6bd797c2b9900034983a1118d27eb2f2f16
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050622-failed-6.18-f0a5c6bd797c@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+Fix this by copying the identity to the heap-allocated cd321x struct
+and passing a pointer to that persistent memory instead. Move up
+the assignment to cd321x->cur_partner_identity, so this works.
 
-Thanks,
-Sasha
-
------------------- original commit in Linus's tree ------------------
-
-From f0a5c6bd797c2b9900034983a1118d27eb2f2f16 Mon Sep 17 00:00:00 2001
-From: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Date: Fri, 21 Aug 2026 04:05:51 +0200
-Subject: [PATCH] PCI: rcar-gen4: Limit Max_Read_Request_Size to 256 Bytes
-
-R-Car Gen4 PCIe controller has a hardware limitation of 256 Bytes
-Max_Payload_Size (MPS). PCIe specification indicates that the MPS must not
-exceed minimum MPS of any element along the packet path.  The PCI core
-already enforces this, but add a check to warn if MPS is ever set larger
-than 256.
-
-R-Car Gen4 Reference Manual, chapter 104.4.8 Usage notes for MRRS (Max Read
-Request Size) states:
-
-  Please set "Max Read Request Size" to 128 bytes or 256 bytes.
-  If "Max Read Request Size" is set to anything other than the
-  above, the transferred data will not match the expected value.
-
-This limitation also seems to apply to devices doing DMA reads, i.e.,
-issuing MRd TLPs.  This limitation can be triggered by using non-HMB NVMe
-SSD with Max_Read_Request_Size 512 Bytes, for example Crucial P5 Plus.  Any
-write to the SSD (MRd TLP issued by the SSD controller) longer than 256
-Bytes wraps around at the 256 Byte boundary, and the same data are written
-to the SSD starting at offset 0 and at 256 Bytes.
-
-Limit Max_Read_Request_Size to at most 256 Bytes for each device connected
-to this PCIe controller to avoid this behavior.
-
-A non-HMB (Host Memory Buffer) NVMe SSD can be identified using the
-following command. Affected SSD reports 'hmpre' field as 0:
-
-  $ nvme id-ctrl /dev/nvme0 | grep hmpre
-  hmpre     : 0
-
-The symptom is a read from the SSD which wraps around at 256 Byte boundary.
-The test for this symptom can be implemented by writing 512 Byte of random
-data into the SSD and reading the data back. If the read back data repeat
-after 256 Bytes, the device is affected.
-
-  $ dd if=/dev/urandom of=/tmp/data.bin bs=256 count=2 ; \
-    dd if=/tmp/data.bin of=/dev/nvme0n1 bs=256 count=2 ; \
-    dd if=/dev/nvme0n1 bs=256 count=2 of=/tmp/readback.bin
-
-Expected data:
-  $ hexdump -vC /tmp/data.bin
-  00000000  97 81 b7 3b 0e 38 2b 4d  a7 d3 e0 47 ff c2 4b ca
-  00000010  c1 85 98 f0 4a ac 03 a0  3b ab f3 19 44 dd 06 8b
-  ...
-  00000100  7a ce 3c b2 e1 d5 d9 11  88 63 10 59 76 3c dc 32 <-- random
-  00000110  72 32 2a 7d a3 e1 aa 13  7c da 58 a1 7b 21 11 50 <-- data
-
-Faulty readback, collected without this change in place:
-  $ hexdump -vC /tmp/readback.bin
-  00000000  97 81 b7 3b 0e 38 2b 4d  a7 d3 e0 47 ff c2 4b ca <---.
-  00000010  c1 85 98 f0 4a ac 03 a0  3b ab f3 19 44 dd 06 8b <-. |
-  ...                                                          | |
-  00000100  97 81 b7 3b 0e 38 2b 4d  a7 d3 e0 47 ff c2 4b ca <-:-+- repeated
-  00000110  c1 85 98 f0 4a ac 03 a0  3b ab f3 19 44 dd 06 8b <-+--- data
-       ^^^
-        |
-        '--- Repeat starts at offset 0x100 = 256 Bytes
-
-Fixes: 0d0c551011df ("PCI: rcar-gen4: Add R-Car Gen4 PCIe controller support for host mode")
-Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
+Reported-by: Nicole Mazzuca <nicole@streganil.no>
+Closes: https://github.com/AsahiLinux/linux/issues/668
+Fixes: 82432bbfb9e8 ("usb: typec: tipd: Handle mode transitions for CD321x")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260821020636.111719-1-marek.vasut+renesas@mailbox.org
+Signed-off-by: Michael Reeves <michael.reeves077@gmail.com>
 ---
- drivers/pci/controller/dwc/pcie-rcar-gen4.c | 54 +++++++++++++++++++++
- 1 file changed, 54 insertions(+)
+Cc: Nicole Mazzuca <nicole@streganil.no>
+Cc: asahi@lists.linux.dev
+---
+ drivers/usb/typec/tipd/core.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/pci/controller/dwc/pcie-rcar-gen4.c b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-index fbe465a29068f..241adcd727894 100644
---- a/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-+++ b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-@@ -411,6 +411,57 @@ static int rcar_gen4_pcie_host_msi_init(struct dw_pcie_rp *pp)
- 	return ret;
- }
+diff --git a/drivers/usb/typec/tipd/core.c b/drivers/usb/typec/tipd/core.c
+index 02539378ffed..dce0aa8be5e0 100644
+--- a/drivers/usb/typec/tipd/core.c
++++ b/drivers/usb/typec/tipd/core.c
+@@ -855,8 +855,10 @@ static void cd321x_update_work(struct work_struct *work)
+ 		desc.usb_pd = is_pd;
+ 		desc.accessory = TYPEC_ACCESSORY_NONE; /* XXX: handle accessories */
  
-+static int rcar_gen4_pcie_enable_device(struct pci_host_bridge *bridge,
-+					struct pci_dev *dev)
-+{
-+	/*
-+	 * R-Car Gen4 PCIe controller has a hardware limitation of 256 Bytes
-+	 * Max_Payload_Size (MPS). PCIe specification indicates that the MPS
-+	 * must not exceed minimum MPS of any element along the packet path.
-+	 * The controller reports Max_Payload_Size_Supported (MPSS) 256 Bytes
-+	 * for header type 0 and 128 Bytes for header type 1. The PCIe core
-+	 * will not allow MPS to be set higher than MPSS; warn here in case
-+	 * something went very wrong in the core.
-+	 *
-+	 * For details, refer to chapter "104.1.1 Features" in either of:
-+	 * R-Car S4 R19UH0161EJ0140 Rev.1.40 Jul. 31, 2026 or
-+	 * R-Car V4H R19UH0186EJ0140 Rev.1.40 Aug. 7, 2026 or
-+	 * R-Car V4M R19UH0217EJ0110 Rev.1.10 Jun. 30, 2026.
-+	 */
-+	WARN_ON(pcie_get_mps(dev) > 256);
-+
-+	/*
-+	 * R-Car Gen4 Reference Manual, chapter 104.4.8 Usage notes for
-+	 * MRRS (Max Read Request Size) states:
-+	 *
-+	 *   Please set "Max Read Request Size" to 128 bytes or 256 bytes.
-+	 *   If "Max Read Request Size" is set to anything other than the
-+	 *   above, the transferred data will not match the expected value.
-+	 *
-+	 * This limitation also seems to apply to devices issuing MRd TLPs.
-+	 * This limitation can be triggered by using non-HMB NVMe SSD with
-+	 * Max_Read_Request_Size 512 Bytes, for example Crucial P5 Plus.
-+	 * Any write into the SSD (MRd TLP issued by the SSD) longer than
-+	 * 256 Bytes wraps around at 256 Byte boundary, and the same data
-+	 * are written into the SSD starting at offset 0 and at 256 Bytes.
-+	 *
-+	 * Limit Max_Read_Request_Size to at most 256 Bytes for each
-+	 * device connected to this PCIe controller to avoid this behavior.
-+	 *
-+	 * For details, refer to aforementioned chapter in either of:
-+	 * R-Car S4 R19UH0161EJ0140 Rev.1.40 Jul. 31, 2026 or
-+	 * R-Car V4H R19UH0186EJ0140 Rev.1.40 Aug. 7, 2026 or
-+	 * R-Car V4M R19UH0217EJ0110 Rev.1.10 Jun. 30, 2026.
-+	 */
-+	bridge->no_inc_mrrs = 1;
-+	if (pcie_get_readrq(dev) > 256) {
-+		pci_info(dev, "Limiting MRRS to 256 bytes\n");
-+		pcie_set_readrq(dev, 256);
-+	}
-+
-+	return 0;
-+}
-+
- /* Host mode */
- static int rcar_gen4_pcie_host_init(struct dw_pcie_rp *pp)
- {
-@@ -418,6 +469,9 @@ static int rcar_gen4_pcie_host_init(struct dw_pcie_rp *pp)
- 	struct rcar_gen4_pcie *rcar = to_rcar_gen4_pcie(dw);
- 	int ret;
+-		if (desc.usb_pd)
+-			desc.identity = &st.partner_identity;
++		if (desc.usb_pd) {
++			cd321x->cur_partner_identity = st.partner_identity;
++			desc.identity = &cd321x->cur_partner_identity;
++		}
  
-+	if (pp->bridge)
-+		pp->bridge->enable_device = rcar_gen4_pcie_enable_device;
-+
- 	gpiod_set_value_cansleep(dw->pe_rst, 1);
+ 		tps->partner = typec_register_partner(tps->port, &desc);
+ 		if (IS_ERR(tps->partner)) {
+@@ -864,10 +866,8 @@ static void cd321x_update_work(struct work_struct *work)
+ 			return;
+ 		}
  
- 	ret = rcar_gen4_pcie_common_init(rcar);
+-		if (desc.identity) {
++		if (desc.identity)
+ 			typec_partner_set_identity(tps->partner);
+-			cd321x->cur_partner_identity = st.partner_identity;
+-		}
+ 	}
+ 
+ 	/* Update the TypeC MUX/PHY state */
+
+---
+base-commit: d48723711bae9b8cdc56719c448ba42fef28cbee
+change-id: 20261107-tipd-stack-uaf-fix-d3148059c017
+
+Best regards,
 -- 
-2.53.0
-
-
+Michael Reeves <michael.reeves077@gmail.com>
 
 
