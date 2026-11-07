@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794081461;
-	b=c3zdzVnlESNk7ItEIieb3ZF9oohaJPLKDnRbdu8xm2pBZJi8rLc1ydYA3wAVpjYmEI52
-	 kJ847atYBqd2aeag2RKp45hYy9s53863f2x6bDpX6UBQ3Ro1pyE3sxmmXxRE9gXfwAYq3
-	 75Q4HCAgqMKPY12FXvvwmL0/2Q73NbXG14DCbC/zrcqvE9DRkly9vG7S2TdtFXoKebco6
-	 aV7eBHPvAMGDImGZRn/Zt6zEQUh7ClL9n07ALOWQaRzYxaNSJ703QBRVaVDQkAQ6ULTfC
-	 RlsBXmvnz2LsdQD00SKhsNPUBRVlL44gkZBYJvoZgFCLsjfVcPV7dMmhJlwZePQ5gTw==
+	t=1794081499;
+	b=dCCmDvY2ILr5UzOH8fTYs6hWJ82vINQCq2pzWWnEd6YibpZnk4PKsJLw/zrzi2V3+Ldp
+	 gBpwZwk39+Zvxfy82GPa2KGSfFsakp9aX9piprvTTXdBRPCu2kixhmibMlPTdoSrG18CO
+	 Ce6EK/qY/FKBPCxKTbOuVs5l1ZiDB6We+LKzIFT62ktZ93BEyjdKdo7hoHmGtAKnXzNgD
+	 IuXC1l58HyNLt6icHzGME6JmQ98zPLSx77pjmO4an6poxYbqKNuFpfLI1d7ZeHTgYxYWQ
+	 bVryoAeLE0fQ8bpkUDjl7iqdNVNkWn5X/50cgdn54CxLeHZD2kiehb22wJrK++JMrbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794081461;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794081499;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=Ysw3yPuODH+f774xsi2kHa6BO5Vyv4FmY7WPcLGjw/k=;
-	b=Rdj4zYv16URMOmySiMZ0nMzdxfGj2+B/ywHwQn+YcJmHHigqi3PvycQH3NmHCVAzXHCv
-	 K06fGPh61s8eIFn/cm+2M2Ai1VPaf//zpypYtW2Fhic/Y84SrxBLXAhZ+Y57G/io2qwpQ
-	 9gG2WtOoJp8oa2WGX43mMsPm6QGu288V9S8kfH1qrUTmHAHg0ByRWOgDHhehPoH9rmT4Z
-	 traZoADeBDi48J0QbZg0DIn/mWNUztf63yrirSlK0+mUuwEQUMnFONs6oE/AQHIhNRVmj
-	 MK+4Pj2w+soGHYJBYerQX7Kpy7T2gsYra27izq4ykFaVfi9soKq7MDAJOcd0wnXLfVQ==
+	bh=NlGjQyu31uV9g9/CJYEFE/EWIJHar1jzX4+IaOmjCko=;
+	b=AQJl4FUq9hLZPzOOXAML/lFJp9IioWqchLAPp7mUrsznt5u1nfrVZRltG89DioAZ8Xwz
+	 MzqgyiomhsdoPMGZFpY1VJSoY7lRn0C9KUeZb4SYDgEKK0y3FrL7BCtOxQ4oSQwgCP+YY
+	 C+VcQwJMR436uD3DVCk0Snh0HMoOL+O1BzWHQp+AagYgqkAngc7Sy+eaRqpvXm+EJG5ZE
+	 F/OnWEklPKOqtuvF3+vcW3kRqlyBaxL3nIWS2qt6Qp0Ol+YOTVWZWQUJnOs0Dor6wPEEr
+	 IRHJeDFIkbW7PjXEAJBepOwQ1j09Nl6GKjgDd5+yPCBYKK39Pb8Eytc2ybwzQQIZWqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SN6PwaT7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xgieg+K3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 474D8606A32D;
-	Sat,  7 Nov 2026 19:57:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2CDC606A332;
+	Sat,  7 Nov 2026 19:58:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SN6PwaT7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE4DE1F0089F;
-	Sat,  7 Nov 2026 19:57:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xgieg+K3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B8AF1F008A2;
+	Sat,  7 Nov 2026 19:58:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794081460;
-	bh=Ysw3yPuODH+f774xsi2kHa6BO5Vyv4FmY7WPcLGjw/k=;
+	s=k20260515; t=1794081498;
+	bh=NlGjQyu31uV9g9/CJYEFE/EWIJHar1jzX4+IaOmjCko=;
 	h=From:To:Cc:Subject:Date;
-	b=SN6PwaT7VylEhsYQiqfN1woIEk+KhWvlcdNeWRPiVTRNFb3ncHnktMZEzjO0kfyBa
-	 rPBCB6wsUTjPWAchXkSPg+gOsAk7IANoqTiNw0YCySFDevc62dlWK9Dg0UkiCchAXz
-	 UGn+1esVnn1t3vW3dKofG6TvoRqT6E4r6BzMuWDZ0Ht6DEz6R3JkYeT/8pTsbw5ZjY
-	 rXbAHdFJWPNfDgGKCY5d/iMof8Yt5Sd71R57Y9bKgZejl9P1/uXVuQTU38/P1JZZWE
-	 F3S+Uhyy/GdGIBQcXIJ5fugyH6sTzxOFeLZi32tLyOkYlurdk8YQLu+ckF78Ex8xGS
-	 KPAe9wdDX5Gvw==
+	b=Xgieg+K3SKg2yshTSGc5BVdu7NBT73ycht4PIenP86HdGVinUBcD/XuBrpEIheTOq
+	 SHU4OdvNbudO+4SX4yt/QMYc4EdZ4pbWXnKHGf0fW2LGLGuaA4cRAC8/ox8S64yVbA
+	 8hToEw0esJNEMVG8SY6cNY8KTpREOT7P0SOBY6jKmoy+UuY8NspMtQL5Oy4tL1d5fb
+	 XvfPcN4/e/7xrUCCXcFJie0D8xYGERt51jGMlOSsg58W7vfON2+fR3SlycKtZw8CSW
+	 eIOB6ffImezjkX0Xij6sTFqkfYbh3bg6aXxzDJyuGrX31QHAiHRP84FSQdOT0Aq8n5
+	 P2gDVWldekoQg==
 From: Eric Biggers <ebiggers@kernel.org>
 To: stable@vger.kernel.org
 Cc: linux-raid@vger.kernel.org,
 	Eric Biggers <ebiggers@kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	Christoph Hellwig <hch@lst.de>
-Subject: [PATCH 6.1] xor: add missing vzeroupper to AVX code
-Date: Sat,  7 Nov 2026 11:57:35 -0800
-Message-ID: <20261107195735.81802-1-ebiggers@kernel.org>
+Subject: [PATCH 5.15] xor: add missing vzeroupper to AVX code
+Date: Sat,  7 Nov 2026 11:58:04 -0800
+Message-ID: <20261107195804.86498-1-ebiggers@kernel.org>
 X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -79,10 +79,10 @@ Cc: <stable@vger.kernel.org>
  1 file changed, 4 insertions(+)
 
 diff --git a/arch/x86/include/asm/xor_avx.h b/arch/x86/include/asm/xor_avx.h
-index 7f81dd5897f41..c6450acd055d1 100644
+index 0c4e5b5e3852b..10b703dfc7c43 100644
 --- a/arch/x86/include/asm/xor_avx.h
 +++ b/arch/x86/include/asm/xor_avx.h
-@@ -50,6 +50,7 @@ do { \
+@@ -49,6 +49,7 @@ do { \
  		p1 = (unsigned long *)((uintptr_t)p1 + 512);
  	}
  
@@ -90,7 +90,7 @@ index 7f81dd5897f41..c6450acd055d1 100644
  	kernel_fpu_end();
  }
  
-@@ -81,6 +82,7 @@ do { \
+@@ -79,6 +80,7 @@ do { \
  		p2 = (unsigned long *)((uintptr_t)p2 + 512);
  	}
  
@@ -98,7 +98,7 @@ index 7f81dd5897f41..c6450acd055d1 100644
  	kernel_fpu_end();
  }
  
-@@ -116,6 +118,7 @@ do { \
+@@ -112,6 +114,7 @@ do { \
  		p3 = (unsigned long *)((uintptr_t)p3 + 512);
  	}
  
@@ -106,7 +106,7 @@ index 7f81dd5897f41..c6450acd055d1 100644
  	kernel_fpu_end();
  }
  
-@@ -155,6 +158,7 @@ do { \
+@@ -148,6 +151,7 @@ do { \
  		p4 = (unsigned long *)((uintptr_t)p4 + 512);
  	}
  
@@ -115,7 +115,7 @@ index 7f81dd5897f41..c6450acd055d1 100644
  }
  
 
-base-commit: c75b0cf0982c00cddfd88d1acf3872f79b40980c
+base-commit: 29c6cdaac04a6989a7ed4ae4275ce4244e617f58
 -- 
 2.56.0
 
