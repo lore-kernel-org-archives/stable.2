@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047839;
-	b=iNc58i0tMrY+hMjiKGCvftc8SsBMQ9J4zW/5uE1Vc0UbEI0Nhgg7/H9gL7pkbRexKG/4
-	 6IEf1eWOqS0lsEEd1Gf2EHPi/5qYKhguEikahZjGKd2tH0pULXPv0FpgQnrp32ZhxL1M1
-	 FoJ6BSS/Nrl4th0NOyAAc4UhByhIMcCwCXOu/M/WaOd1VR9KYNfMpY4OBKnLNujwVVA5X
-	 cK7XyXdtg+SAfr5/sNsTWzao+te8lajhPBcO9PJxi5rH3xWiy6VJ6Swtr/qlL1+SHAvWM
-	 O/OLuDFMuOJX80bHPJIektplpyiD6ByOBcEtw4E0znBVuEKKVLNVehjAqxBfSTr0qAw==
+	t=1794047841;
+	b=HpGdFEnHfwRczdF0JXDuhqCy2jna8saPAmVqE1ghPCGdIQAcm2qR1xkjIgQNAe55sN0t
+	 0HkUba/7NcE41T8cYXJ04ZYzgMw8jtqqgaY3BcYP9m3khdX7ozslFANVgHgkW9JmaKFoD
+	 e4GelzEkQS50BqB+TURXyMduAvy1O/uFLBCLihzJG9XZZ42xUVGLYtWisI56kpapSnOOc
+	 ju7/9VrhD8HYqoqOWPGtKQDNK7LnYcJBKzmmI/PMbctRYxAMSQlilYYM1CFR2GlAeS+K2
+	 JzXG4D6WaJpY85jutgeislo4lOitkzE3oIvh6V537GmADFOhMgHutnDFugN8KrTwKAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047839;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047841;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=5ZL/a9/oMEC6zxOdqYi6O+megj0G3z8O2shAO37ToUc=;
-	b=vlGvwRASHYRLE4ADNt16jmvA4abbZeVBcFCXL7KlmII0/roNgnS/MbSnCA6xGsa8ErCY
-	 ZNlYJvcplikdZ/Fe5YuICy1CWfnJf+ljA6j3upn1RsmhsmU+PBdujLlJpGU8Q9urV+n/5
-	 iZydN+6zWnhx6uENFTLLHlp3aEcxyNRSExaIeozmKP9BxVBEVVW+WDK0jfqBRklh6gRfk
-	 uimIukxCudAXyLy0B0E6SvPGXSFv+8/qgILQdYjtogEkDtDhc7YgcVBmdpdCIV9E4CwSP
-	 VpBPXS70JcE2mc/RPDM6mGx4yeNtBjR3bCmFzDP4SgkfpUNkAdCw3WjRiljqa2s8NwA==
+	bh=w/krc7RcWs2uvlJQpCCh5wjGVOBIIbayE/U4/brAyOc=;
+	b=eGgieBgUmG8r4jtN8oyO9qFUM84BD10ubtODXdK9VRLrkBZUADsSLY34GwbCVfyerXv6
+	 HjaFld8HlukGpO/BZFoGHxaJqnFo9yi+oKsd7Ieu0xQfJb8JnuRz0K3GC5CQm+glihGmv
+	 iRUsBo6QSkRs9+8W6v0BzPRxFGmBH8QEYr3mGoCRhgWetX8E9TYPTo3C0VxWXZQqe6mLq
+	 Cm+VJhSONU7fTlQiTfAZAjH2h0MIqyokzshrYVw1UrwHdDgnj0n7mcWEwKeqJRnDUo68Q
+	 0CjEkeG+rSGnCboctrMiYEFz1C/G5s3OzFoQ1aeQbLaVlp+FA3BVrtjL5V2ejBcSP0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lfxMStAh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iV5iOsna;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 709ED606A332
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:37:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FF0F606A330
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:37:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lfxMStAh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1BDF1F0089F;
-	Sat,  7 Nov 2026 10:37:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iV5iOsna
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07D6B1F0089F;
+	Sat,  7 Nov 2026 10:37:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047839;
-	bh=5ZL/a9/oMEC6zxOdqYi6O+megj0G3z8O2shAO37ToUc=;
+	s=k20260515; t=1794047841;
+	bh=w/krc7RcWs2uvlJQpCCh5wjGVOBIIbayE/U4/brAyOc=;
 	h=From:To:Cc:Subject:Date;
-	b=lfxMStAh3QSi5UZsWoQQ6A+MvDVpFH1FTj14JxVOh6qV6EalHetcxCZ/UQwTQCPCD
-	 KhIgcXT46hu+xW1g4uJDlPOH2Nb3e968gCbJNMwAuHl227SFVWKC7wvGGZqHYyfS3s
-	 GEuH7crk8jm8BGX8TjWDETm3TMck2Qq9YewDt+RRhceRPm8JmImTWEncMxQrPO57oK
-	 rwlvUhIEC4yL7sQeBgOWn2AnwOh9fQ+8B/F9JVStj0CHCPnSF+yiwJ32fP1a/uCOSp
-	 iftdpYnyAmzyTZ9k+2nhor3wSqVbCH91T1GRPVY0krmWJKI/KVoD2QPTNzSzfynU47
-	 l2kzqZnGNubfA==
+	b=iV5iOsnanuV4zAmSswjD6ZsN9NwxEQ1fTQkBriFIK02WKaYAL961YOFWSGMa7xLeE
+	 4O6AOG2DwBOOD9zmXWvqvogIXMmDR/+wxo3SmeA7mzdps6sXEX9MSatK3oP2ecyWez
+	 7kqMWYvixgQJ4sFFVuNKS0FY+Yk9FEAjLRDvcdJL3pXTpoyG1QzaOaEbfN4T7RYVjh
+	 U5S7CzvgfARFx+U1yhbrkROT+tnxXQb8G8fnIXoXZoc6jbJxLttYcmsFmhSl4Ys/rx
+	 jVB89D/O2BBWpS3q6g0iuBI4JppClM6rzW5TgSjZTHZ+uZeG2gNE+qKx8hxaJD1ma4
+	 wQh30lJ4Phr6A==
 From: Sasha Levin <sashal@kernel.org>
-To: tiwai@suse.de,
-	sashiko-bot@kernel.org
+To: sahaj123.sc@gmail.com,
+	geert+renesas@glider.be,
+	bartosz.golaszewski@oss.qualcomm.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ALSA: emux: Fix UAF of soundfont zones at note-on" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:37:17 -0500
-Message-ID: <20261107053717-failed-6.6-34e3e04b8a17@kernel.org>
+Subject: FAILED: patch "[PATCH] gpio: pca953x: Preserve wakeup accounting on parent IRQ failure" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:37:19 -0500
+Message-ID: <20261107053719-failed-6.6-a38bf551726a@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,89 +69,71 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 34e3e04b8a1731a773797542f0781e99ce7cd755
+git cherry-pick -x a38bf551726a21c9bcc001b02164f30378b64b64
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053717-failed-6.6-34e3e04b8a17@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053719-failed-6.6-a38bf551726a@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 34e3e04b8a1731a773797542f0781e99ce7cd755 Mon Sep 17 00:00:00 2001
-From: Takashi Iwai <tiwai@suse.de>
-Date: Tue, 20 Oct 2026 12:16:20 +0200
-Subject: [PATCH] ALSA: emux: Fix UAF of soundfont zones at note-on
+From a38bf551726a21c9bcc001b02164f30378b64b64 Mon Sep 17 00:00:00 2001
+From: Sahaj Chaudhari <sahaj123.sc@gmail.com>
+Date: Sun, 18 Oct 2026 21:40:42 +0530
+Subject: [PATCH] gpio: pca953x: Preserve wakeup accounting on parent IRQ
+ failure
 
-snd_emux_note_on() looks up the matching zones via
-snd_soundfont_search_zone(), which takes sflist->lock only during the
-lookup and returns the raw zone pointers after releasing it.  The
-caller then stores them in vp->zone without any protection.
-Meanwhile, a concurrent SNDRV_EMUX_IOCTL_REMOVE_LAST_SAMPLES ioctl may
-unlink and free those zones in snd_soundfont_remove_unlocked(); this
-leads to a use-after-free in snd_emux_note_on(), and later at
-accessing the cached vp->zone, e.g. in snd_emux_send_effect().
+pca953x_irq_set_wake() updates wakeup_path before asking the parent
+IRQ controller to change its wake state. If irq_set_irq_wake() fails,
+the IRQ core rolls back its wake state but the driver's counter remains
+changed.
 
-Fix it by holding sflist->lock in snd_emux_note_on() over the whole
-zone lookup and voice setup, and let snd_soundfont_search_zone()
-require the caller to hold the lock, instead.
-snd_soundfont_lock_preset() takes sflist->lock for setting
-presets_locked, so the removal path now syncs with the note-on finish.
+A failed enable can therefore leave the expander marked as part of the
+wakeup path when no child IRQ has successfully enabled wakeup. A failed
+disable can make the driver stop retaining power even though wakeup is
+still enabled. The suspend and resume paths use this counter to decide
+whether to disable or enable the regulator.
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/bug/linux-697212bb-a434-4ff5-8778-25a84f5dad89
+Update wakeup_path only after the parent operation succeeds, leaving it
+unchanged on error.
+
+Fixes: f70fbc15bae2 ("gpio: pca953x: Configure wake-up path when wake-up is enabled")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261020101624.205638-1-tiwai@suse.de
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Sahaj Chaudhari <sahaj123.sc@gmail.com>
+Fixes: f70fbc15bae2c89f ("gpio: pca953x: Configure wake-up path when wake-up is enabled")
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Link: https://patch.msgid.link/20261018161042.3298045-1-sahaj123.sc@gmail.com
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 ---
- sound/synth/emux/emux_synth.c | 3 +++
- sound/synth/emux/soundfont.c  | 9 ++++++---
- 2 files changed, 9 insertions(+), 3 deletions(-)
+ drivers/gpio/gpio-pca953x.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/sound/synth/emux/emux_synth.c b/sound/synth/emux/emux_synth.c
-index 6982e1317da5e..2cbf12364a1e5 100644
---- a/sound/synth/emux/emux_synth.c
-+++ b/sound/synth/emux/emux_synth.c
-@@ -60,6 +60,9 @@ snd_emux_note_on(void *p, int note, int vel, struct snd_midi_channel *chan)
- 		return;
- 
- 	key = note; /* remember the original note */
-+
-+	/* hold sflist->lock for protecting against concurrent free */
-+	guard(spinlock_irqsave)(&emu->sflist->lock);
- 	nvoices = get_zone(emu, port, &note, vel, chan, table);
- 	if (! nvoices)
- 		return;
-diff --git a/sound/synth/emux/soundfont.c b/sound/synth/emux/soundfont.c
-index c172b53b17a4f..039357d96e07a 100644
---- a/sound/synth/emux/soundfont.c
-+++ b/sound/synth/emux/soundfont.c
-@@ -1225,6 +1225,9 @@ delete_preset(struct snd_sf_list *sflist, struct snd_sf_zone *zp)
-  * The found zones are stored on 'table' array.  max_layers defines
-  * the maximum number of elements in this array.
-  * This function returns the number of found zones.  0 if not found.
-+ *
-+ * The caller must hold sflist->lock, and keep holding it as long as
-+ * the returned zones are accessed.
-  */
- int
- snd_soundfont_search_zone(struct snd_sf_list *sflist, int *notep, int vel,
-@@ -1234,11 +1237,11 @@ snd_soundfont_search_zone(struct snd_sf_list *sflist, int *notep, int vel,
+diff --git a/drivers/gpio/gpio-pca953x.c b/drivers/gpio/gpio-pca953x.c
+index aac9ea7520b60..869ed4264d48a 100644
+--- a/drivers/gpio/gpio-pca953x.c
++++ b/drivers/gpio/gpio-pca953x.c
+@@ -838,13 +838,18 @@ static int pca953x_irq_set_wake(struct irq_data *d, unsigned int on)
  {
- 	int nvoices;
- 
--	/* this function is supposed to be called atomically,
--	 * so we check the lock.  if it's busy, just returns 0 to
-+	lockdep_assert_held(&sflist->lock);
+ 	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
+ 	struct pca953x_chip *chip = gpiochip_get_data(gc);
++	int ret;
 +
-+	/* if the presets are being modified, just returns 0 to
- 	 * tell the caller the busy state
- 	 */
--	guard(spinlock_irqsave)(&sflist->lock);
- 	if (sflist->presets_locked)
- 		return 0;
- 	nvoices = search_zones(sflist, notep, vel, preset, bank,
++	ret = irq_set_irq_wake(chip->client->irq, on);
++	if (ret)
++		return ret;
+ 
+ 	if (on)
+ 		atomic_inc(&chip->wakeup_path);
+ 	else
+ 		atomic_dec(&chip->wakeup_path);
+ 
+-	return irq_set_irq_wake(chip->client->irq, on);
++	return 0;
+ }
+ 
+ static void pca953x_irq_bus_lock(struct irq_data *d)
 -- 
 2.53.0
 
