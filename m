@@ -1,50 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794051033;
-	b=ghfaKxDbzmyRd0gNa77tRyRsfyZSzWnpnmtV2SZHPJBCBS33NZ+WWKv1Bx+AQBatMiTZ
-	 0BPBsnTlEPjbeE2CxtlffwKh7dzBZlc0LdN7KlMnlt+eWhqSZOkBVvcbbh3+p34fh6ovU
-	 qgZo0FayX+LjUG8PQ4LEI1JpXf6b/3MaB52kH5A7xoqgIUrdslC4TRUQUgmLiBvcU9lin
-	 QWEEajBBpzsf8+8r1Ca9RypuhKHKXmmHyY655iWaZ1WLQN21VcVVMDZmElsYSJw85itbr
-	 KLqzEWu6SSX2yIlscec9TQKLN+PQMCJQ6yJuwQS5bYAOV2f99CwdWaF7Gn147tk1PRQ==
+	t=1794051036;
+	b=lrzacWlE+AYdRZpe//Ubn2PDdt5FKIs0ruCxegMWGB2cByUtx33QMO0TVHCzHw0v3fcq
+	 h5wW5XNFhl/uRC7qbRISXNsMNpW1rzADUWQa2XQtgqGwptYxed9ZKSU9tgXCa4Eb+oGTs
+	 aK7WziKZGr8yqChuu/BaL5JifbFYUfGW+/eETdeO111dX9tWNjEa7tSBgr09JQPfC6dQF
+	 YsgF/pagmaKERi6x/Ph0Wlt7wXAy6YMatZ6rvdk7EyTK48fkPERqo6roO71DdwO53JzAp
+	 zsj6Di5Zx9iOm1Agi+Em1EuBX3oJZNnNJRh7z1eQoZ3I9EYxQdlqcb/n91QdEVIp5Uw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794051033;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794051036;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Z3Q1kfYhFy+8NSY9ZJsS7eQMwFgSFT7FUBQYo8YR3IY=;
-	b=rEgIBFImb5LY66obV6n6++aDddm32bys9E9wR8LRkc/n8q9Eas/y6nRdecrdOebfg5gK
-	 tZUwmaRrmQnOtfZSPr0SsZkYXo8Rdq6XuH8qI5jqOYomoJ1jsnf1AXqICmCqA+2cJR4f1
-	 IXwyjPlmshb0/RD0ACh6CU7PCZBSMS9n+mi7iHdX1fxoe+fj+qpCb9qmjiHNxlcP5Nbfr
-	 2egbPz5CnKOotjSF3vKJacoo63r745h8xOUVdxjdpf3JTBTw5g9EojPyeAuW7qSM5ya17
-	 XEbGfyuROjUgQQR05PXefa6bfXiyPl9C4k5ZCGHvdsiYWlizXldemaPFXdJrW6BjNIw==
+	bh=Deu74VpPuir2YUX567hbFWlwWsK3BLv8bWR/dhO0zlk=;
+	b=DM6DAIKq38UAiXZLcDMIRSFx1egI4RRLsxGqwcAK6vNSesz9O1HNV0u28J/yij0q67JP
+	 J6eZyGNOUyfBNm/hVTFHgBlwyWC9dLwX4A6dLQiHctOcjsiafIq6rm4p5WHoP31g2UV7t
+	 qaZvxhw6NNaT9sufnoRaJ64UnmALg4zIXhahv5XcDvYaDPGF3tYbUUb7tTwaTyJkdOdLW
+	 pKGR9nQ/xxY1rRk1K/xFwajHFV9XqDiy0jCkfwMPHjA7xVnBd+xT0asEfflgKvnLu6dNY
+	 m+dhHPocvppBHOPYUGjkvYm14aTn0fcSFgIoobObHoY5+ESQjHjBlnBcHhx6wngj57Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QEFww1Sf;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kt+MY8kE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 564E7606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:30:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65F8B606A334
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:30:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QEFww1Sf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7F021F0089F;
-	Sat,  7 Nov 2026 11:30:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kt+MY8kE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4BA41F0089F;
+	Sat,  7 Nov 2026 11:30:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794051033;
-	bh=Z3Q1kfYhFy+8NSY9ZJsS7eQMwFgSFT7FUBQYo8YR3IY=;
+	s=k20260515; t=1794051036;
+	bh=Deu74VpPuir2YUX567hbFWlwWsK3BLv8bWR/dhO0zlk=;
 	h=From:To:Cc:Subject:Date;
-	b=QEFww1Sfd38udYNqNRLycYhiNakPnxBd3O6NqOVC+IXDLvKj5DWKdCsjFqznH/xIv
-	 Of8QMfAsGtA2DUw2BcPkQZ9uzJCo6LlU0i644th6Znhb70wliPObzsiK/MkzIGYE73
-	 fLIVSINOOPGwEGivkjZDPATda4WE76zTe0roaXNFjDeXBVGbvVC1WO4b+EjokWYb54
-	 ITLXGxcLHrAm23VpRfiYAGA11A5stOsw2+xUS7ZAdiM/KqLq2QO4wAO+xWgIeKzeD4
-	 ps6twS+LWpN0Eui2NAIR2NfmzRib7bKMZiEVx6flTK9AmDboqHjfu0LUCt/xsK26+1
-	 UlvxjAqoPEicQ==
+	b=Kt+MY8kErKPh+GzJopNXufkD9b+5Z3TdqMSMII2ZyJoxa0Afcu3c4qN6WRJQeNX8E
+	 gI3s5PQ2yerdmgbg1UAE+4CPno2Uv5HvSdx4lZ/cQnnJNIG+0B+FadTTt+LmayhVQw
+	 /dUF4epem+EZtZe6IpgOHdEBEPAkvCVTBWTPg71paGg8vIiDq7CHxzpvbWkDYpu380
+	 qHZvyxE43nBkNKAHYVyDO0l4uEl/3K0uhqu6lZy7VwPVer9cWJQmUzBxoZuJhOnUlQ
+	 XWzQWLEUQ/H2snp+Jc+ZpGj3RntxKeOMAZjrFrCyhX++6vXs9EA/LypcANklOlRsRu
+	 RNxUi6+RsIjEQ==
 From: Sasha Levin <sashal@kernel.org>
-To: ebiggers@kernel.org
+To: noam.d.eliyahu@gmail.com,
+	pavan.chebbi@broadcom.com,
+	pabeni@redhat.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] fsverity: Be more careful with return value of ->get_verity_descriptor()" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:30:31 -0500
-Message-ID: <20261107063031-failed-5.10-8f8faec82aa9@kernel.org>
+Subject: FAILED: patch "[PATCH] tg3: Invert restart quirk logic to restrict SNP power-down bypass" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:30:34 -0500
+Message-ID: <20261107063034-failed-5.10-d7314b51341c@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -67,115 +69,140 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 8f8faec82aa902b1997ae578c46bcc84afbad811
+git cherry-pick -x d7314b51341c037973ce022f12c6009fd07b021e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107063031-failed-5.10-8f8faec82aa9@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107063034-failed-5.10-d7314b51341c@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 8f8faec82aa902b1997ae578c46bcc84afbad811 Mon Sep 17 00:00:00 2001
-From: Eric Biggers <ebiggers@kernel.org>
-Date: Sun, 25 Oct 2026 13:38:31 -0700
-Subject: [PATCH] fsverity: Be more careful with return value of
- ->get_verity_descriptor()
+From d7314b51341c037973ce022f12c6009fd07b021e Mon Sep 17 00:00:00 2001
+From: "Noam D. Eliyahu" <noam.d.eliyahu@gmail.com>
+Date: Tue, 27 Oct 2026 00:09:56 +0200
+Subject: [PATCH] tg3: Invert restart quirk logic to restrict SNP power-down
+ bypass
 
-If fsverity_operations::get_verity_descriptor() returns that the verity
-descriptor has 0 size, then a zero-size buffer is allocated to hold it,
-and it's called again with bufsize=0.
+Commit 9fc3bc764334 ("tg3: power down device only on SYSTEM_POWER_OFF")
+bypassed `tg3_power_down()` on system restarts to prevent reboot hangs and
+NMIs on servers where NICs were initialized via SNP (such as Dell PowerEdge
+R650 and R750).
 
-But bufsize=0 is a special case that says to return the actual size.  If
-in the meantime the filesystem has decided that the size is some
-actually valid size, it will return that size, and then
-validate_fsverity_descriptor() will read from ZERO_SIZE_PTR and crash.
+However, skipping the power-down flow globally causes the ACPI _PTS method
+to trigger fatal PCIe AER events and hangs on other models. Commit
+e0efe83ed325 ("tg3: Disable tg3 PCIe AER on system reboot") attempted to
+mitigate this by adding an AER-disable DMI quirk table. Maintaining a
+growing list of models for a secondary symptom misses the root cause,
+leaving systems like the PowerEdge T440 (sharing the BCM5720 NIC) exposed.
 
-Of course, for the filesystem to misbehave in that strange way, it
-generally would require direct writes to the block device.
+Fix this by inverting the quirk logic:
+1. Restrict SNP power-down avoidance strictly to
+   `tg3_restart_snp_quirk_table` for the specific systems requiring it
+   (Dell PowerEdge R650 and R750).
+2. Restore standard power-down behavior for all other systems, eliminating
+   the separate AER-disable quirk table.
 
-Regardless, fsverity_get_descriptor() might as well guard against it.
-Make it do so.  Specifically, validate that the first call to
-->get_verity_descriptor() returns at least the minimum descriptor size,
-and validate that the second call returns the same size as the first.
+For systems affected by the original SNP restart issue, their shutdown flow
+remains completely untouched.
 
-Fixes: fd2d1acfcadf ("fs-verity: add the hook for file ->open()")
+Link: https://lore.kernel.org/netdev/20251221175050.14089-1-noam.d.eliyahu@gmail.com/T/#u
+Fixes: 9fc3bc764334 ("tg3: power down device only on SYSTEM_POWER_OFF")
+Fixes: e0efe83ed325 ("tg3: Disable tg3 PCIe AER on system reboot")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261025203831.120095-1-ebiggers@kernel.org
-Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+Signed-off-by: Noam D. Eliyahu <noam.d.eliyahu@gmail.com>
+Reviewed-by: Pavan Chebbi <pavan.chebbi@broadcom.com>
+Link: https://patch.msgid.link/20261026220955.473247-1-noam.d.eliyahu@gmail.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 ---
- fs/verity/open.c | 38 +++++++++++++++++++-------------------
- 1 file changed, 19 insertions(+), 19 deletions(-)
+ drivers/net/ethernet/broadcom/tg3.c | 48 +++++++----------------------
+ 1 file changed, 11 insertions(+), 37 deletions(-)
 
-diff --git a/fs/verity/open.c b/fs/verity/open.c
-index 6646290430380..78a65154b8957 100644
---- a/fs/verity/open.c
-+++ b/fs/verity/open.c
-@@ -270,12 +270,6 @@ static bool validate_fsverity_descriptor(struct inode *inode,
- 					 const struct fsverity_descriptor *desc,
- 					 size_t desc_size)
- {
--	if (desc_size < sizeof(*desc)) {
--		fsverity_err(inode, "Unrecognized descriptor size: %zu bytes",
--			     desc_size);
--		return false;
--	}
--
- 	if (desc->version != 1) {
- 		fsverity_err(inode, "Unrecognized descriptor version: %u",
- 			     desc->version);
-@@ -314,31 +308,37 @@ static bool validate_fsverity_descriptor(struct inode *inode,
- int fsverity_get_descriptor(struct inode *inode,
- 			    struct fsverity_descriptor **desc_ret)
- {
--	int res;
-+	int size, res;
- 	struct fsverity_descriptor *desc;
+diff --git a/drivers/net/ethernet/broadcom/tg3.c b/drivers/net/ethernet/broadcom/tg3.c
+index ce108705bbaf8..95827df4cf6a1 100644
+--- a/drivers/net/ethernet/broadcom/tg3.c
++++ b/drivers/net/ethernet/broadcom/tg3.c
+@@ -18256,53 +18256,23 @@ static int tg3_resume(struct device *device)
  
--	res = inode->i_sb->s_vop->get_verity_descriptor(inode, NULL, 0);
--	if (res < 0) {
--		fsverity_err(inode,
--			     "Error %d getting verity descriptor size", res);
--		return res;
-+	size = inode->i_sb->s_vop->get_verity_descriptor(inode, NULL, 0);
-+	if (size < 0) {
-+		fsverity_err(inode, "Error %d getting verity descriptor size",
-+			     size);
-+		return size;
- 	}
--	if (res > FS_VERITY_MAX_DESCRIPTOR_SIZE) {
--		fsverity_err(inode, "Verity descriptor is too large (%d bytes)",
--			     res);
-+	if (size < sizeof(*desc) || size > FS_VERITY_MAX_DESCRIPTOR_SIZE) {
-+		fsverity_err(inode,
-+			     "Verity descriptor has invalid size (%d bytes)",
-+			     size);
- 		return -EMSGSIZE;
- 	}
--	desc = kmalloc(res, GFP_KERNEL);
-+	desc = kmalloc(size, GFP_KERNEL);
- 	if (!desc)
- 		return -ENOMEM;
--	res = inode->i_sb->s_vop->get_verity_descriptor(inode, desc, res);
-+	res = inode->i_sb->s_vop->get_verity_descriptor(inode, desc, size);
- 	if (res < 0) {
- 		fsverity_err(inode, "Error %d reading verity descriptor", res);
- 		kfree(desc);
- 		return res;
- 	}
--
--	if (!validate_fsverity_descriptor(inode, desc, res)) {
-+	if (res != size) {
-+		fsverity_err(inode, "Verity descriptor size changed (%d => %d)",
-+			     size, res);
-+		kfree(desc);
-+		return -EINVAL;
-+	}
-+	if (!validate_fsverity_descriptor(inode, desc, size)) {
- 		kfree(desc);
- 		return -EINVAL;
- 	}
+ static SIMPLE_DEV_PM_OPS(tg3_pm_ops, tg3_suspend, tg3_resume);
+ 
+-/* Systems where ACPI _PTS (Prepare To Sleep) S5 will result in a fatal
+- * PCIe AER event on the tg3 device if the tg3 device is not, or cannot
+- * be, powered down.
++/* Systems where powering down a tg3 device on restarts triggers
++ * NMIs and fatal hangs during reboot if the network adapters were
++ * initialized under SNP.
+  */
+-static const struct dmi_system_id tg3_restart_aer_quirk_table[] = {
+-	{
+-		.matches = {
+-			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
+-			DMI_MATCH(DMI_PRODUCT_NAME, "PowerEdge R440"),
+-		},
+-	},
+-	{
+-		.matches = {
+-			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
+-			DMI_MATCH(DMI_PRODUCT_NAME, "PowerEdge R540"),
+-		},
+-	},
+-	{
+-		.matches = {
+-			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
+-			DMI_MATCH(DMI_PRODUCT_NAME, "PowerEdge R640"),
+-		},
+-	},
++static const struct dmi_system_id tg3_restart_snp_quirk_table[] = {
+ 	{
+ 		.matches = {
+ 			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
+ 			DMI_MATCH(DMI_PRODUCT_NAME, "PowerEdge R650"),
+ 		},
+ 	},
+-	{
+-		.matches = {
+-			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
+-			DMI_MATCH(DMI_PRODUCT_NAME, "PowerEdge R740"),
+-		},
+-	},
+ 	{
+ 		.matches = {
+ 			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
+ 			DMI_MATCH(DMI_PRODUCT_NAME, "PowerEdge R750"),
+ 		},
+ 	},
+-	{
+-		.matches = {
+-			DMI_MATCH(DMI_SYS_VENDOR, "datto"),
+-			DMI_MATCH(DMI_PRODUCT_NAME, "SIRIS 5 1U Server"),
+-		},
+-	},
+ 	{}
+ };
+ 
+@@ -18320,14 +18290,18 @@ static void tg3_shutdown(struct pci_dev *pdev)
+ 	if (netif_running(dev))
+ 		dev_close(dev);
+ 
+-	if (system_state == SYSTEM_POWER_OFF)
++	if (!dmi_first_match(tg3_restart_snp_quirk_table) ||
++	    system_state == SYSTEM_POWER_OFF) {
+ 		tg3_power_down(tp);
+-	else if (system_state == SYSTEM_RESTART &&
+-		 dmi_first_match(tg3_restart_aer_quirk_table) &&
++	} else if (system_state == SYSTEM_RESTART &&
+ 		 pdev->current_state != PCI_D3cold &&
+ 		 pdev->current_state != PCI_UNKNOWN) {
+ 		/* Disable PCIe AER on the tg3 to avoid a fatal
+ 		 * error during this system restart.
++		 * Needed since on restarts for systems in
++		 * tg3_restart_snp_quirk_table skipping on powering down the
++		 * tg3 device causes a fatal AER error during ACPI _PTS
++		 * (Prepare To Sleep).
+ 		 */
+ 		pcie_capability_clear_word(pdev, PCI_EXP_DEVCTL,
+ 					   PCI_EXP_DEVCTL_CERE |
 -- 
 2.53.0
 
