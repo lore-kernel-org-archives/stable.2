@@ -1,59 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050147;
-	b=UCQFDz4PzeuULrddYIhhrD+bZe7jEW4V1vCGL3kOk0CKkRuTfZLJoZrHDVwf9MZ9XUN/
-	 UqvISYq3VhNB+hderj5JBf+Tg8/fuFt8/WfqNsCWkuKq4vG9ilFP3ap14ilMZe6xrU/CH
-	 S91tOQD6yMMOk39eGW5brlA2T8qv6gS7DgA7ithGO9WwwQaE2OsseF5CPGDHZwXoBQWQj
-	 5eNPAMRsnTMdEvXdpABOkz/6KKcK8qnMmor8Rzp8LGwnspM+jdBN611zBb0YnupMDoKnB
-	 5H5noNGax6p7G5sZc5hz2gjrExISDGoJYqQWaIb84TnHsSJmmjj0fCfi4gyJtNIylyA==
+	t=1794050150;
+	b=r6THrPRAxcnd2Fx1D8vWr7PtdEFlS8HxiTBn8qmMD/Yxh9TpXSfcKavq8oRJ4nDDPpeP
+	 IsfrvHRKq+FaXfXOdIfodISm07JHHUaHJbhrtMXwhb+JqBQCEhEp473KkMdOBlZ4lI8KI
+	 rKEZKDNShfo4JZiDYmou5aAjTyky9xp2ISycXNTvGtlP8/XLU7vOw2WGti4aMPqJtDpWS
+	 zQULDgRVxHy/P2u6FRboSn1fUqnpU45RFYQwMsoi+o2PWK2dEI2MyFi+NX+R8dG7mdwFY
+	 JlbwDJjDaXeLsFFcxHsx496gp3t7fPNOqTAIRLGQwtuIs8Lo9p1BZlXfwka6/2JcdzA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050147;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=HlLkPFRA47iYpBWPfJSKGrVGd9XNqqaIsaN822UA81k=;
-	b=GDhWm2ysEpWiLUSj1sclQflcIQjeN4LYq4+bqceN1C1hmZIPwmTmaQ6s02SoJBrj8PW/
-	 wDi5bl0mUmRH/BUo/JL5KzmwJT/BZO0dyYUxx70ZqFLG2E7UHTMXclIqvJsZjMhCOyYew
-	 ywgw1DpEWdlysiMsAjb016UNd/MFIg8w9fpmEpd+XK0DVtO7GPtmptFQsr2lkEaloq4iS
-	 egpq0dex86j28gE4b2owYQpCJowNw655/6m7ucoes9Pa8gJ4GTgw3RF8At8ngec6U0Fqo
-	 Iqq9He7YZx/iSagZyHEyXeg5CcLxamHuw47vU7okFV/Horr3jNaf5nLHeE2xY+N6Uaw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050150;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=3U4nAFE2rINRQpl09gq0PTq6olm2NUVCeymGZKwKpfQ=;
+	b=0nOveg4/OXbY1em52tSQIuk06WzXs00N0taD5GTujmMtrizARTVbIMATrolPe+7UcvW1
+	 IKHlE6jYi/2ZbhzBw6cmiwnlfCenOL2O6fplGMSRdAlQtqUFjiP3DSEwOLdGG6JWvDcno
+	 MklzSFvjlidUzMmdwB8evrzGMFfd2oXUlKVZtA1SqwFimI1ofx2aZEljThgtFVJFhDUrv
+	 hVEPqzf4JINR4TYoy139uVzPZTejI3xamTxY4HExIwSt9mCqIP/+Ejrbq8GfpPIOHESw0
+	 mVpoEe167vxW5s2mELaaErHvydHHqjuV9yVJ5Q84vIJwq6U/UEfFNc7RLVUa0VP2lHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E8yvilQ6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ThUvIb10;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19DCD606D802;
-	Sat,  7 Nov 2026 11:15:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F2C2606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:15:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E8yvilQ6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04FAF1F0089F;
-	Sat,  7 Nov 2026 11:15:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ThUvIb10
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D48E1F008A2;
+	Sat,  7 Nov 2026 11:15:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050146;
-	bh=HlLkPFRA47iYpBWPfJSKGrVGd9XNqqaIsaN822UA81k=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=E8yvilQ6bM1/ZFCRN2Aupy3mdGtXi1d07S7K3DERfQLlQTetUnJxAsoMfuMGva9Hl
-	 /yNdTK8FcqGwgtPsgIqT/j4OV1sSE/x/EADkVCS40ef4G/qpkCYRKa4/Uaa84EgnQb
-	 gVC6t6dvVQnIqBcHvl/bOQ4Mt8Ax7M2duIE8iepjKZQnapKpm1d+m3Zq0fMU0Zubvi
-	 FLWppSRyV+URd9AtlXGKBDedzLWfRLk4oAKWLTTrmbMmq8DIju889NrGuFj56uc9aW
-	 yMeHS6w7DP0bMzez+Q3sWtM7/iBGPHPDGHgBm0sJUvs16+kS0OnlQ9pTZ5hAjMIjmU
-	 1GKxqKehFqeyA==
-Subject: Re: [PATCH] net: ixgbe: drop the SA reference if secpath_set() fails
-From: netdev-bot+sashiko@kernel.org
-To: vulab@iscas.ac.cn
-Cc: anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, intel-wired-lan@lists.osuosl.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Sat, 07 Nov 2026 11:15:45 +0000
-Message-ID: <179405014554.994134.10719290719575125531@kernel.org>
-In-Reply-To: <20261103100534.1310039-1-vulab@iscas.ac.cn>
-References: <20261103100534.1310039-1-vulab@iscas.ac.cn>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1794050150;
+	bh=3U4nAFE2rINRQpl09gq0PTq6olm2NUVCeymGZKwKpfQ=;
+	h=From:To:Cc:Subject:Date;
+	b=ThUvIb10jXhEQ38xbKfo6/pFdYAxzQrXK2b5ZJu+sEwRj0YghrmKmr6xtiWnT+QMB
+	 sjZzMoY9vLuJMtCZR6dlm2wY5llnDU/HKPMQTUYj8qP9NXQX8B31ZBXVZDHmX6sqKI
+	 UTdKXTMBNLuiPNW5yZiNsn/Y2EXHeF5pSOKQqQceEeu3Vg21lUvrQUAZTonj7V84s9
+	 RE9H1nbZS2EWYbIMAvQ79swplJ7zsy0PMKzKTAsNjmQIHU4D3rKPpWakT104NTj6bA
+	 I0kSa9tQTaBl010+/P77LfZaNbGJIX0yNMQn75nsESH8cNgeSAXO0mCmqbRHax0ghj
+	 4WhkQEFRTwaRw==
+From: Sasha Levin <sashal@kernel.org>
+To: imre.deak@intel.com,
+	luciano.coelho@intel.com
+Cc: stable@vger.kernel.org
+Subject: FAILED: patch "[PATCH] drm/i915/dp_mst: Fix configuring TUs for a disconnected stream" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:15:48 -0500
+Message-ID: <20261107061548-failed-5.10-ee00f8fbb2b2@kernel.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,161 +56,124 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+The patch below does not apply to the 5.10-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Critical: 0 · High: 0 (2) · Medium: 1 · Low: 0
+To reproduce the conflict and resubmit, you may use the following commands:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git checkout FETCH_HEAD
+git cherry-pick -x ee00f8fbb2b202002ab90834e02e9ba372773a36
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061548-failed-5.10-ee00f8fbb2b2@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
-- [Medium] This patch fixes the SA reference leak in only one of the two
-  copies of this Rx code.
+Thanks,
+Sasha
 
-Pre-existing issues:
-- [High] ixgbe_ipsec_del_sa() unlinks the rx_sa from the RCU hash table
-  with hash_del_rcu(&rsa->hlist) (line 783) and then zeroes the same…
-- [High] ixgbe_ipsec_find_rx_state() finds rsa->xs only under
-  rcu_read_lock() and takes its reference with xfrm_state_hold(), which…
+------------------ original commit in Linus's tree ------------------
 
---
+From ee00f8fbb2b202002ab90834e02e9ba372773a36 Mon Sep 17 00:00:00 2001
+From: Imre Deak <imre.deak@intel.com>
+Date: Mon, 7 Sep 2026 20:44:13 +0300
+Subject: [PATCH] drm/i915/dp_mst: Fix configuring TUs for a disconnected
+ stream
 
-net: ixgbe: drop the SA reference if secpath_set() fails
+During an atomic commit after all the MST stream CRTC state is computed
+the driver ensures that the sum of TUs of all the streams on a given MST
+topology link is within limits (63 for 8b10 and 64 for 128b132b). For a
+disconnected stream the DRM MST core's BW verification doesn't ensure
+this, because the topology state it uses for this is destroyed as soon
+as the stream (i.e. MST connector/port) is disconnected. The driver
+should keep the link state valid even for such disconnected streams, as
+userspace may disable them one-by-one only in a deferred way. Ensure the
+link's sum of TUs stays within limits in this case by simply reusing the
+maximum link BPP limit from the stream's (i.e. CRTC's) old state.
 
-ixgbe_ipsec_find_rx_state() takes a reference on an xfrm_state. With this
-patch, ixgbe_ipsec_rx() releases that reference when secpath_set() fails
-to allocate the skb extension. Before this patch the reference was leaked
-on that error path.
+The disconnection can happen either via the whole topology getting
+disconnected or via only the given stream's port getting disconnected.
+Check for both of these conditions separately, as a connector gets
+unregistered after a link disconnect event only in a deferred way.
 
-> diff --git a/drivers/net/ethernet/intel/ixgbe/ixgbe_ipsec.c b/drivers/net/ethernet/intel/ixgbe/ixgbe_ipsec.c
-> index bd397b3d7deab..e44d5eed9ab59 100644
-> --- a/drivers/net/ethernet/intel/ixgbe/ixgbe_ipsec.c
-> +++ b/drivers/net/ethernet/intel/ixgbe/ixgbe_ipsec.c
-> @@ -1197,8 +1197,10 @@ void ixgbe_ipsec_rx(struct ixgbe_ring *rx_ring,
->  		return;
->  
->  	sp = secpath_set(skb);
-> -	if (unlikely(!sp))
-> +	if (unlikely(!sp)) {
-> +		xfrm_state_put(xs);
->  		return;
-> +	}
+Cc: stable@vger.kernel.org # v6.10+
+Link: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16073
+Link: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16384
+Reviewed-by: Luca Coelho <luciano.coelho@intel.com>
+Signed-off-by: Imre Deak <imre.deak@intel.com>
+Link: https://patch.msgid.link/20260907174413.741851-2-imre.deak@intel.com
+---
+ drivers/gpu/drm/i915/display/intel_dp_mst.c  | 21 ++++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_dp_mst.h  |  2 ++
+ drivers/gpu/drm/i915/display/intel_link_bw.c |  3 ++-
+ 3 files changed, 25 insertions(+), 1 deletion(-)
 
-[Severity: Medium]
-Does ixgbevf need the same fix? The VF driver has a copy of this Rx code
-in drivers/net/ethernet/intel/ixgbevf/ipsec.c. After this patch,
-ixgbevf_ipsec_rx() still returns without dropping the reference:
-
-drivers/net/ethernet/intel/ixgbevf/ipsec.c:ixgbevf_ipsec_rx() {
-    ...
-	sp = secpath_set(skb);
-	if (unlikely(!sp))
-		return;
-    ...
-}
-
-ixgbevf_ipsec_find_rx_state() takes the reference the same way the PF
-helper does:
-
-			ret = rsa->xs;
-			xfrm_state_hold(ret);
-			break;
-
-secpath_set()->skb_ext_add() is a GFP_ATOMIC allocation. Suppose a VF gets
-inline-offloaded ESP/AH traffic while memory is tight. Would one
-xfrm_state reference leak each time the allocation fails? If so, the state
-would never be freed after the SA is deleted.
-
-Could ixgbevf get a matching fix with its own Fixes: tag?
-
->  
->  	sp->xvec[sp->len++] = xs;
->  	sp->olen++;
-
-[Severity: High]
-This isn't a bug introduced by this patch, but is the rx_sa entry walked
-by ixgbe_ipsec_find_rx_state() safe against ixgbe_ipsec_del_sa()?
-
-ixgbe_ipsec_del_sa() unlinks the entry and zeroes it straight away. There
-is no grace period in between:
-
-drivers/net/ethernet/intel/ixgbe/ixgbe_ipsec.c:ixgbe_ipsec_del_sa() {
-    ...
-		hash_del_rcu(&rsa->hlist);
-    ...
-		memset(rsa, 0, sizeof(struct rx_sa));
-		ipsec->num_rx_sa--;
-    ...
-}
-
-The NAPI reader runs under rcu_read_lock() and loads rsa->mode and
-rsa->xs with plain loads:
-
-ixgbe_ipsec_find_rx_state() {
-    ...
-		if (rsa->mode & IXGBE_RXTXMOD_VF)
-			continue;
-		if (spi == rsa->xs->id.spi &&
-		    ((ip4 && *daddr == rsa->xs->id.daddr.a4) ||
-    ...
-}
-
-Suppose a reader picked up rsa from the bucket before hash_del_rcu(). Can
-it then see rsa->mode == 0, pass the VF check, and dereference
-rsa->xs == NULL in softirq? If ixgbe_ipsec_add_sa() reuses the slot, the
-reader could also see a mix of old and new SA fields.
-
-The trigger would be an SA deletion (XFRM_MSG_DELSA, IKE rekey or
-lifetime expiry) racing with Rx traffic whose SPI hashes to the same
-bucket.
-
-ixgbevf_ipsec_del_sa() has the same pattern:
-
-		hash_del_rcu(&ipsec->rx_tbl[sa_idx].hlist);
-		memset(&ipsec->rx_tbl[sa_idx], 0, sizeof(struct rx_sa));
-
-[Severity: High]
-This is a pre-existing issue, but is xfrm_state_hold() safe on an
-xfrm_state that was found only under rcu_read_lock()?
-
-ixgbe_ipsec_find_rx_state() does this:
-
-			ret = rsa->xs;
-			xfrm_state_hold(ret);
-
-xfrm_state_hold() is an unconditional refcount_inc(). The rx_sa entry
-holds no reference of its own on xs. __xfrm_state_delete() calls
-xfrm_dev_state_delete() and then drops the reference right away:
-
-net/xfrm/xfrm_state.c:__xfrm_state_delete() {
-    ...
-		xfrm_dev_state_delete(x);
-
-		xfrm_state_delete_tunnel(x);
-		...
-		xfrm_state_put(x);
-    ...
-}
-
-Can the refcount reach zero while a NAPI reader that has already loaded
-rsa->xs is still in its RCU section? If so, refcount_inc() would run on 0.
-That warns and saturates, but the pointer still ends up in sp->xvec[]
-above.
-
-xfrm_state_gc_task() frees the state after synchronize_rcu(). That waits
-for RCU readers, but not for skbs that hold the secpath.
-
-Suppose the skb outlives the grace period, for example when RPS queues it
-to another CPU's backlog. Would xfrm_input() and
-secpath_put()->xfrm_state_put() then touch freed memory?
-
-The xfrm core handles this case with xfrm_state_hold_rcu(), which uses
-refcount_inc_not_zero(). Should the driver take its reference with an
-inc-not-zero as well? ixgbevf_ipsec_find_rx_state() has the same pattern.
-
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index 20766b6c0bcfa..0c362784afe4a 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -2172,6 +2172,27 @@ bool intel_dp_mst_crtc_needs_modeset(struct intel_atomic_state *state,
+ 	return false;
+ }
+ 
++bool intel_dp_mst_stream_disconnected(struct intel_atomic_state *state,
++				      const struct intel_crtc *crtc)
++{
++	struct intel_connector *connector;
++
++	connector = get_connector_in_state_for_crtc(state, crtc);
++	if (!connector)
++		return false;
++
++	if (!connector->mst.dp)
++		return false;
++
++	if (!connector->mst.dp->mst.mgr.mst_state)
++		return true;
++
++	if (drm_connector_is_unregistered(&connector->base))
++		return true;
++
++	return false;
++}
++
+ /**
+  * intel_dp_mst_prepare_probe - Prepare an MST link for topology probing
+  * @intel_dp: DP port object
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.h b/drivers/gpu/drm/i915/display/intel_dp_mst.h
+index ab09b487c6bb5..8ce89242c05c9 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.h
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.h
+@@ -28,6 +28,8 @@ int intel_dp_mst_atomic_check_link(struct intel_atomic_state *state,
+ 				   struct intel_link_bw_limits *limits);
+ bool intel_dp_mst_crtc_needs_modeset(struct intel_atomic_state *state,
+ 				     struct intel_crtc *crtc);
++bool intel_dp_mst_stream_disconnected(struct intel_atomic_state *state,
++				      const struct intel_crtc *crtc);
+ void intel_dp_mst_prepare_probe(struct intel_dp *intel_dp);
+ bool intel_dp_mst_verify_dpcd_state(struct intel_dp *intel_dp);
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_link_bw.c b/drivers/gpu/drm/i915/display/intel_link_bw.c
+index b47474a3e9fec..e71e76d6fd3e0 100644
+--- a/drivers/gpu/drm/i915/display/intel_link_bw.c
++++ b/drivers/gpu/drm/i915/display/intel_link_bw.c
+@@ -64,7 +64,8 @@ void intel_link_bw_init_limits(struct intel_atomic_state *state,
+ 			intel_atomic_get_new_crtc_state(state, crtc);
+ 		int forced_bpp_x16 = get_forced_link_bpp_x16(state, crtc);
+ 
+-		if (state->base.duplicated && crtc_state) {
++		if ((state->base.duplicated && crtc_state) ||
++		    intel_dp_mst_stream_disconnected(state, crtc)) {
+ 			limits->max_bpp_x16[pipe] = crtc_state->max_link_bpp_x16;
+ 			if (intel_dsc_enabled_on_link(crtc_state))
+ 				limits->link_dsc_pipes |= BIT(pipe);
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261103100534.1310039-1-vulab%40iscas.ac.cn
+2.53.0
+
+
+
+
