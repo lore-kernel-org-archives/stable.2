@@ -1,55 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047776;
-	b=OeBtIWfSCvrNK2ieMnGEKvAM7HTFseadN4q0Ab3goHNK+J8pew8F6pU4f7/AybJdJUM4
-	 B8SE1jfbvBQacBntZsldi6V6h4BluJIs6r41iolU52tYAccB3SwJZoCGlaGkRHyxvq1/3
-	 QNkVAybDujDBfH+Ufxekaqz67eMl37eox3O/yA/K2JZWCiZezhwJDpqCfosFZR/Y66ZB/
-	 1FgK7cXy+/Nc3sgVia8qKyCdaBRVMJ+ZMQexzhCrBDqzAkm25ZjFeAmWd1op6Pz7nSCiO
-	 ZmrC1KCU4C+YWCYD38GZ19dImSux5ZYuxWt1fxV/aD+T6+98QZ7/9oQeHlVpe7v5c+Q==
+	t=1794047778;
+	b=E1rPMD/cob+MHBYfkwQ48v9krfJOi0yOveyr+/kIQpMK9f62fBROFBBuTpp6NRNzyMhZ
+	 zQzu/hfKa+dDQZwWbphxg4OCVKqO5zHYmMzh0GnmihVcpuHXsSnR9YDkQ6W1kWQgUlXgq
+	 zzkz/jqLIIF1ZJFs60FhpicrvMoac3HLrjpSbh7F+LCSbV2ckO2VpezH0WK+I9J9FpZwy
+	 a0RoH4RkY1T2xrWNB5xLbdVpyZow3p/Qjf+aE4dNhl8eJYOB4hG/A1Zc1He3FHw9Yckkf
+	 XMpdrVWIBvShhmc3yu1PlXqPRWKZIgpi9vc5fVn8cULrjQDsim76qabwE0TWq9+tsNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047776;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047778;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=/zKjvABob7Wgd+jIt/3lBTVE+pDDFkgjV0J/AzoHeaQ=;
-	b=J3wXNvF0GKDnMt3kvx0ArhI7gT+njhuIs8CJgiN6hn0liyFIYKioL/jRmNmxnPEDSBhF
-	 2mKSrJ5q/PKMJZOol3DNU5qmQw530yRpo/Oe6+3TY4E8yWAfj+kYJaUpjp7Un/H4co0GI
-	 aJsv10Ds6kPrewaeWeOcsKOU97O8CUH3qp834K/H3bstK9UHHLISYnMGAxgus8IwAixaD
-	 hJp7Cfyl1Ev4EES1mz0ODUWBUypuEMjWHiSOaMyOc5+pCk/GewZFqz/TZZJrpupmaJFor
-	 qwzdYvBaACcySL6l1uOMF6Iaokf4g3PmEVEQoK25ydemghsKrw/0IV0Pxqa9ukqJytA==
+	bh=dHp/jLLsbgdz3vf2I55Cb6b6cyzQ/mcmxfW1S1UNliU=;
+	b=Ye3uKXDl0ApndBpRu2uZxjgsbTbT4x8AisI9cCSFmVwbjkgUcRKAcovmdhNa+BYOGBYC
+	 syLrvfAXej1o686LB5/Qo31nInC7Ivm5erONHWNsJ52BBlCxI5M5TPrTF8Izzv82UP99r
+	 2lhOT5i+Jbv/m5U1/S/Ys24HaVjoSbf9qzBb9+ubkB+BECuaSIRqG5+y2K1cPkV8qyCan
+	 n1KDeClYAaVJMHMbnXn7/xaOCq3hkn9HGBEnNs3VUZ0gVaxpjTcKGGsqU0GXtHqL/o4Do
+	 G566BfzIm/OAio57bJ1S+9DZyHgCG8wBGcQZ76Fu7CPvGNMlRytoBGyzkUF7pipgX7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rl7nNzND;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UZU1c3cj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B46C9606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:36:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE737606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:36:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rl7nNzND
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC47B1F0089F;
-	Sat,  7 Nov 2026 10:36:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UZU1c3cj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 549861F0089F;
+	Sat,  7 Nov 2026 10:36:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047775;
-	bh=/zKjvABob7Wgd+jIt/3lBTVE+pDDFkgjV0J/AzoHeaQ=;
+	s=k20260515; t=1794047777;
+	bh=dHp/jLLsbgdz3vf2I55Cb6b6cyzQ/mcmxfW1S1UNliU=;
 	h=From:To:Cc:Subject:Date;
-	b=Rl7nNzNDf/K/2HjQN1fDRwDVdcck01bjwTafGGfV+Tylby0iUzVJ8EkMSfg9RRu12
-	 ruK7TzUey5OVvgwE3v+94Dn9aUCCNbDTSPDv7OBlbCgKiINtaUUk3vs/pZgfYX5UT9
-	 9Bn6VIaptEdttdvejycdoqyeNGrTzjrxG6zdvNDj6uycz6NrfKyCiWOe9xJZa2LAEM
-	 WdD9zBtU+UisbSFwe9bdnOqnj9IolMqFKqFD9oqmcD8PK/C6WCwvxZ30UUbRBw+W4X
-	 whoLpCBp2S1FOzB++ogUA+ySO5OJAI0hYs+2ecU02JxKCbhwT78ZHdznk3YfCpLuon
-	 w/a/fjEfctO4Q==
+	b=UZU1c3cjk9PEXlea83OeqVMHyNG/yIL9aVo61udoAYqfkAGBD6I/zfsXhwmVxbhUD
+	 gg1GdFaFFjRktZ4DWGiUlerCks4pMQOOcYWW/SV7h822yhs6WuFeHmJ2nIOby54fRW
+	 QhQqMlE/Y07I/zFb0Dtm8BZvyM4uWZzAAClgAdNztJo8YPhTrJPlHL3uU8RNXhYykc
+	 D7bCJ1pvDMGiuiyJPqZE616d0D59msDaEgfiYuJIizbnY/GRQMkWkKe24xj2dVLae/
+	 9LuV+GgjuwxdSFshgbH76/f8LnrErBmkZG8TVE41vpJr4gkhY6q/noR5S1wiV0mLyo
+	 /EE1n79PLaR0Q==
 From: Sasha Levin <sashal@kernel.org>
-To: caoruide123@gmail.com,
-	vega@nebusec.ai,
-	sashiko-bot@kernel.org,
-	weir@nebusec.ai,
-	matttbe@kernel.org,
-	kuba@kernel.org
+To: fuad.tabba@linux.dev,
+	maz@kernel.org,
+	oupton@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mptcp: fix MP_CAPABLE token migration when cloning reqsk" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:36:13 -0500
-Message-ID: <20261107053613-failed-6.6-2093bc7fa500@kernel.org>
+Subject: FAILED: patch "[PATCH] KVM: arm64: vgic-its: Don't map an LPI from more than one event" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:36:16 -0500
+Message-ID: <20261107053616-failed-6.6-de81b28f0b83@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -72,305 +69,143 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 2093bc7fa50056fef8620d2b82bcb2e9a0a5575d
+git cherry-pick -x de81b28f0b83b22163d7d9a9b708d7aa912e0ef7
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053613-failed-6.6-2093bc7fa500@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053616-failed-6.6-de81b28f0b83@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 2093bc7fa50056fef8620d2b82bcb2e9a0a5575d Mon Sep 17 00:00:00 2001
-From: Ruide Cao <caoruide123@gmail.com>
-Date: Tue, 13 Oct 2026 16:29:22 +0200
-Subject: [PATCH] mptcp: fix MP_CAPABLE token migration when cloning reqsk
+From de81b28f0b83b22163d7d9a9b708d7aa912e0ef7 Mon Sep 17 00:00:00 2001
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Tue, 13 Oct 2026 09:16:45 +0100
+Subject: [PATCH] KVM: arm64: vgic-its: Don't map an LPI from more than one
+ event
 
-TCP request migration clones pending request sockets with
-inet_reqsk_clone().  For MPTCP MP_CAPABLE requests this byte-copies the
-token_node hlist state into the clone even though the token table still
-names the original request, and the following warning can be seen:
+KVM keeps one vgic_irq per LPI. A MAPTI of an LPI whose vgic_irq
+already exists reuses it for the new ITE and leaves its target vCPU as
+it was. Mapping one LPI from two events is UNPREDICTABLE (IHI 0069H.b,
+5.2.10), but nothing stops a guest from doing it. If the first MAPTI
+names a collection the guest never maps and the second a mapped one,
+the LPI translates through the second event with a NULL target vCPU.
 
-  WARNING: net/mptcp/token.c:364 at mptcp_token_destroy_request+0x2b0/0x330, CPU#2: swapper/2/0
-  CPU: 2 UID: 0 PID: 0 Comm: swapper/2 Not tainted 7.2.0-rc5-00353-gc27e36054537 #10 PREEMPT(full)
-  RIP: 0010:mptcp_token_destroy_request (net/mptcp/token.c:364 (discriminator 1))
-  Call Trace:
-   <IRQ>
-   subflow_v4_req_destructor (net/mptcp/subflow.c:694)
-   __reqsk_free (net/ipv4/inet_connection_sock.c:906)
-   reqsk_timer_handler (include/net/request_sock.h:137 net/ipv4/inet_connection_sock.c:1147)
-   call_timer_fn (kernel/time/timer.c:1748)
+When the VMM routes an assigned device's MSI to that event on a host
+with GICv4 enabled, kvm_vgic_v4_set_forwarding() takes the vPE from the
+NULL target vCPU and the host oopses:
 
-Move token request ownership from the original request to the clone under
-the token bucket lock.  Make mptcp_token_accept() and
-mptcp_token_destroy_request() re-check token_node under the same lock and
-treat an already moved or removed request as a normal race instead of
-warning.  This also keeps token bucket chain_len accounting balanced.
+  Unable to handle kernel paging request at virtual address 0000000000001980
+  [...]
+  Call trace:
+   its_build_vmapti_cmd (drivers/irqchip/irq-gic-v3-its.c:943) (P)
+   its_irq_set_vcpu_affinity (drivers/irqchip/irq-gic-v3-its.c:1380)
+   irq_set_vcpu_affinity (kernel/irq/manage.c:670)
+   its_map_vlpi (drivers/irqchip/irq-gic-v4.c:326)
+   kvm_vgic_v4_set_forwarding (arch/arm64/kvm/vgic/vgic-v4.c:485)
+   kvm_arch_irq_bypass_add_producer (arch/arm64/kvm/arm.c:2977)
+   irq_bypass_register_consumer (virt/lib/irqbypass.c:44)
+   kvm_irqfd (arch/arm64/kvm/../../../virt/kvm/eventfd.c:496)
+   kvm_vm_ioctl (arch/arm64/kvm/../../../virt/kvm/kvm_main.c:5270)
 
-If a passive MP_CAPABLE socket cannot claim the token, destroy the
-provisional MPTCP socket and let the subflow fall back rather than
-installing a socket with mismatched token ownership.  Mark that path as a
-passive handshake fallback so MPCapableFallbackACK records the downgrade.
+Track in each vgic_irq whether an ITE maps it. Drop a MAPTI of an LPI
+that is already mapped, as a failed MAPTI already is. Restoring the ITS
+tables keeps the first ITE it reads for each LPI and drops any later
+one, so a guest saved with a double mapping still restores. Key the
+check on the mapping, not on the vgic_irq. A vgic_irq outlives its ITE
+while anything holds a reference to it, such as the vCPU it was last
+queued on. A later MAPTI of such an LPI succeeds as before, and now
+retargets it to its collection.
 
-If the speculative clone later loses the inet_ehash_insert() ownership
-arbitration, the original request may find that its token was already moved
-and fall back to plain TCP.  The clone destructor then releases the token
-reservation and keeps chain_len balanced.  This trades an exceptionally
-rare fallback for eliminating the warning and persistent accounting drift.
-
-Fixes: c905dee62232 ("tcp: Migrate TCP_NEW_SYN_RECV requests at retransmitting SYN+ACKs.")
+Fixes: 196b136498b35 ("KVM: arm/arm64: GICv4: Wire mapping/unmapping of VLPIs in VFIO irq bypass")
+Suggested-by: Marc Zyngier <maz@kernel.org>
 Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/86e2514b533bf4d55d4aa2fdbf1404022e8c9430.1776149210.git.caoruide123%40gmail.com
-Signed-off-by: Ruide Cao <caoruide123@gmail.com>
-Signed-off-by: Ren Wei <weir@nebusec.ai>
-Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Link: https://patch.msgid.link/20261013-net-mptcp-misc-fixes-7-3-rc8-v1-4-932c9b182fc7@kernel.org
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+Reviewed-by: Oliver Upton <oupton@kernel.org>
+Link: https://patch.msgid.link/20261013081646.933312-2-fuad.tabba@linux.dev
+Signed-off-by: Marc Zyngier <maz@kernel.org>
 ---
- net/mptcp/protocol.c   | 31 +++++++++++++++----
- net/mptcp/protocol.h   |  4 ++-
- net/mptcp/subflow.c    |  6 +++-
- net/mptcp/token.c      | 68 +++++++++++++++++++++++++++++++++++++-----
- net/mptcp/token_test.c |  4 +--
- 5 files changed, 97 insertions(+), 16 deletions(-)
+ arch/arm64/kvm/vgic/vgic-its.c | 26 ++++++++++++++++++++++++--
+ include/kvm/arm_vgic.h         |  1 +
+ 2 files changed, 25 insertions(+), 2 deletions(-)
 
-diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
-index e6f73a5ee630a..05c38564e8fdf 100644
---- a/net/mptcp/protocol.c
-+++ b/net/mptcp/protocol.c
-@@ -3706,6 +3706,24 @@ static void mptcp_copy_ip_options(struct sock *newsk, const struct sock *sk)
- 	rcu_read_unlock();
+diff --git a/arch/arm64/kvm/vgic/vgic-its.c b/arch/arm64/kvm/vgic/vgic-its.c
+index a9949ab4e4133..73d7aa700687d 100644
+--- a/arch/arm64/kvm/vgic/vgic-its.c
++++ b/arch/arm64/kvm/vgic/vgic-its.c
+@@ -776,6 +776,7 @@ static void its_free_ite(struct kvm *kvm, struct its_ite *ite)
+ 				its_unmap_vlpi(ite->irq->host_irq);
+ 
+ 			irq->hw = false;
++			irq->mapped = false;
+ 		}
+ 
+ 		vgic_put_irq(kvm, ite->irq);
+@@ -784,6 +785,23 @@ static void its_free_ite(struct kvm *kvm, struct its_ite *ite)
+ 	kfree(ite);
  }
  
-+static void mptcp_sk_clone_destroy(struct sock *nsk)
++/* Mapping one LPI from two events is UNPREDICTABLE: the first ITE keeps it. */
++static bool vgic_its_map_lpi(struct kvm *kvm, struct its_ite *ite,
++			     struct vgic_irq *irq, struct kvm_vcpu *vcpu)
 +{
-+	struct mptcp_sock *msk = mptcp_sk(nsk);
-+
-+	mptcp_release_sched(msk);
-+	mptcp_set_state(nsk, TCP_CLOSE);
-+	/* inet_csk_prepare_forced_close() clears TCP sock_ops state via
-+	 * tcp_sk(), but nsk is an MPTCP master socket; keep the inet-level
-+	 * destroy preparation here.
-+	 */
-+	bh_unlock_sock(nsk);
-+	sock_put(nsk);
-+	sock_set_flag(nsk, SOCK_DEAD);
-+	tcp_orphan_count_inc();
-+	inet_sk(nsk)->inet_num = 0;
-+	inet_csk_destroy_sock(nsk);
-+}
-+
- struct sock *mptcp_sk_clone_init(const struct sock *sk,
- 				 const struct mptcp_options_received *mp_opt,
- 				 struct sock *ssk,
-@@ -3765,11 +3783,6 @@ struct sock *mptcp_sk_clone_init(const struct sock *sk,
- 	list_add(&subflow->node, &msk->conn_list);
- 	sock_hold(ssk);
- 
--	/* new mpc subflow takes ownership of the newly
--	 * created mptcp socket
--	 */
--	mptcp_token_accept(subflow_req, msk);
--
- 	/* set msk addresses early to ensure mptcp_pm_get_local_id()
- 	 * uses the correct data
- 	 */
-@@ -3778,6 +3791,14 @@ struct sock *mptcp_sk_clone_init(const struct sock *sk,
- 	mptcp_rcv_space_init(msk, ssk);
- 	msk->rcvq_space.time = mptcp_stamp();
- 
-+	if (!mptcp_token_accept(subflow_req, msk)) {
-+		list_del_init(&subflow->node);
-+		WRITE_ONCE(msk->first, NULL);
-+		sock_put(ssk);
-+		mptcp_sk_clone_destroy(nsk);
-+		return NULL;
++	scoped_guard(raw_spinlock_irqsave, &irq->irq_lock) {
++		if (!irq->mapped) {
++			irq->mapped = true;
++			irq->target_vcpu = vcpu;
++			ite->irq = irq;
++			return true;
++		}
 +	}
 +
- 	if (mp_opt->suboptions & OPTION_MPTCP_MPC_ACK)
- 		__mptcp_subflow_fully_established(msk, subflow, mp_opt);
- 	bh_unlock_sock(nsk);
-diff --git a/net/mptcp/protocol.h b/net/mptcp/protocol.h
-index c006110b1c56d..4ed598febbf01 100644
---- a/net/mptcp/protocol.h
-+++ b/net/mptcp/protocol.h
-@@ -1083,9 +1083,11 @@ static inline void mptcp_token_init_request(struct request_sock *req)
- }
- 
- int mptcp_token_new_request(struct request_sock *req);
-+void mptcp_token_move_request(struct request_sock *req,
-+			      struct request_sock *new_req);
- void mptcp_token_destroy_request(struct request_sock *req);
- int mptcp_token_new_connect(struct sock *ssk);
--void mptcp_token_accept(struct mptcp_subflow_request_sock *r,
-+bool mptcp_token_accept(struct mptcp_subflow_request_sock *r,
- 			struct mptcp_sock *msk);
- bool mptcp_token_exists(u32 token);
- struct mptcp_sock *mptcp_token_get_sock(struct net *net, u32 token);
-diff --git a/net/mptcp/subflow.c b/net/mptcp/subflow.c
-index 3139a9ab2853a..2c72cb50fbf36 100644
---- a/net/mptcp/subflow.c
-+++ b/net/mptcp/subflow.c
-@@ -78,6 +78,8 @@ void mptcp_subflow_reqsk_clone(struct request_sock *req,
- 	}
- 
- 	new_subflow_req->msk = msk;
++	vgic_put_irq(kvm, irq);
++	return false;
++}
 +
-+	mptcp_token_move_request(req, new_req);
- }
+ static u64 its_cmd_mask_field(u64 *its_cmd, int word, int shift, int size)
+ {
+ 	return (le64_to_cpu(its_cmd[word]) >> shift) & (BIT_ULL(size) - 1);
+@@ -1093,13 +1111,14 @@ static int vgic_its_cmd_handle_mapi(struct kvm *kvm, struct vgic_its *its,
+ 		vcpu = collection_to_vcpu(kvm, collection);
  
- static void subflow_generate_hmac(u64 key1, u64 key2, u32 nonce1, u32 nonce2,
-@@ -922,8 +924,10 @@ static struct sock *subflow_syn_recv_sock(const struct sock *sk,
+ 	irq = vgic_add_lpi(kvm, lpi_nr, vcpu);
++	if (!IS_ERR(irq) && !vgic_its_map_lpi(kvm, ite, irq, vcpu))
++		irq = ERR_PTR(-EEXIST);
+ 	if (IS_ERR(irq)) {
+ 		if (new_coll)
+ 			vgic_its_free_collection(its, coll_id);
+ 		its_free_ite(kvm, ite);
+ 		return PTR_ERR(irq);
+ 	}
+-	ite->irq = irq;
  
- 		if (ctx->mp_capable) {
- 			ctx->conn = mptcp_sk_clone_init(listener->conn, &mp_opt, child, req);
--			if (!ctx->conn)
-+			if (!ctx->conn) {
-+				fallback = true;
- 				goto fallback;
-+			}
- 
- 			ctx->subflow_id = 1;
- 			owner = mptcp_sk(ctx->conn);
-diff --git a/net/mptcp/token.c b/net/mptcp/token.c
-index f1a50f367add8..e0f2823f92efb 100644
---- a/net/mptcp/token.c
-+++ b/net/mptcp/token.c
-@@ -180,6 +180,43 @@ int mptcp_token_new_connect(struct sock *ssk)
  	return 0;
  }
- 
-+/**
-+ * mptcp_token_move_request - move request token ownership to a clone
-+ * @req: original request socket
-+ * @new_req: cloned request socket
-+ *
-+ * Move the token hash entry from the original request to its clone.
-+ */
-+void mptcp_token_move_request(struct request_sock *req,
-+			      struct request_sock *new_req)
-+{
-+	struct mptcp_subflow_request_sock *subflow_req = mptcp_subflow_rsk(req);
-+	struct mptcp_subflow_request_sock *new_subflow_req;
-+	struct mptcp_subflow_request_sock *pos;
-+	struct token_bucket *bucket;
-+
-+	new_subflow_req = mptcp_subflow_rsk(new_req);
-+
-+	if (hlist_nulls_unhashed_lockless(&subflow_req->token_node)) {
-+		mptcp_token_init_request(new_req);
-+		return;
-+	}
-+
-+	bucket = token_bucket(subflow_req->token);
-+	spin_lock_bh(&bucket->lock);
-+	if (hlist_nulls_unhashed(&subflow_req->token_node)) {
-+		mptcp_token_init_request(new_req);
-+	} else {
-+		pos = __token_lookup_req(bucket, subflow_req->token);
-+		if (pos == subflow_req)
-+			hlist_nulls_replace_init_rcu(&subflow_req->token_node,
-+						     &new_subflow_req->token_node);
-+		else
-+			mptcp_token_init_request(new_req);
-+	}
-+	spin_unlock_bh(&bucket->lock);
-+}
-+
- /**
-  * mptcp_token_accept - replace a req sk with full sock in token hash
-  * @req: the request socket to be removed
-@@ -187,24 +224,36 @@ int mptcp_token_new_connect(struct sock *ssk)
-  *
-  * Called when a SYN packet creates a new logical connection, i.e.
-  * is not a join request.
-+ *
-+ * Return: true on success.
-  */
--void mptcp_token_accept(struct mptcp_subflow_request_sock *req,
-+bool mptcp_token_accept(struct mptcp_subflow_request_sock *req,
- 			struct mptcp_sock *msk)
- {
- 	struct mptcp_subflow_request_sock *pos;
- 	struct sock *sk = (struct sock *)msk;
- 	struct token_bucket *bucket;
-+	bool ret = false;
- 
--	sock_prot_inuse_add(sock_net(sk), sk->sk_prot, 1);
- 	bucket = token_bucket(req->token);
- 	spin_lock_bh(&bucket->lock);
-+	if (hlist_nulls_unhashed(&req->token_node))
-+		goto unlock;
- 
--	/* pedantic lookup check for the moved token */
- 	pos = __token_lookup_req(bucket, req->token);
--	if (!WARN_ON_ONCE(pos != req))
--		hlist_nulls_del_init_rcu(&req->token_node);
-+	if (pos != req)
-+		goto unlock;
-+
-+	hlist_nulls_del_init_rcu(&req->token_node);
- 	__sk_nulls_add_node_rcu((struct sock *)msk, &bucket->msk_chain);
-+	ret = true;
-+
-+unlock:
- 	spin_unlock_bh(&bucket->lock);
-+	if (ret)
-+		sock_prot_inuse_add(sock_net(sk), sk->sk_prot, 1);
-+
-+	return ret;
- }
- 
- bool mptcp_token_exists(u32 token)
-@@ -355,16 +404,21 @@ void mptcp_token_destroy_request(struct request_sock *req)
- 	struct mptcp_subflow_request_sock *pos;
- 	struct token_bucket *bucket;
- 
--	if (hlist_nulls_unhashed(&subflow_req->token_node))
-+	if (hlist_nulls_unhashed_lockless(&subflow_req->token_node))
- 		return;
- 
- 	bucket = token_bucket(subflow_req->token);
- 	spin_lock_bh(&bucket->lock);
-+	if (hlist_nulls_unhashed(&subflow_req->token_node))
-+		goto unlock;
-+
- 	pos = __token_lookup_req(bucket, subflow_req->token);
--	if (!WARN_ON_ONCE(pos != subflow_req)) {
-+	if (pos == subflow_req) {
- 		hlist_nulls_del_init_rcu(&pos->token_node);
- 		bucket->chain_len--;
+@@ -2219,7 +2238,10 @@ static int vgic_its_restore_ite(struct vgic_its *its, u32 event_id,
+ 		its_free_ite(kvm, ite);
+ 		return PTR_ERR(irq);
  	}
+-	ite->irq = irq;
 +
-+unlock:
- 	spin_unlock_bh(&bucket->lock);
++	/* Drop an ITE whose LPI another ITE maps, as MAPTI does. */
++	if (!vgic_its_map_lpi(kvm, ite, irq, vcpu))
++		its_free_ite(kvm, ite);
+ 
+ 	return offset;
  }
- 
-diff --git a/net/mptcp/token_test.c b/net/mptcp/token_test.c
-index 4fc39fa2e262d..be9acce8a5673 100644
---- a/net/mptcp/token_test.c
-+++ b/net/mptcp/token_test.c
-@@ -99,7 +99,7 @@ static void mptcp_token_test_accept(struct kunit *test)
- 	KUNIT_ASSERT_EQ(test, 0,
- 			mptcp_token_new_request((struct request_sock *)req));
- 	msk->token = req->token;
--	mptcp_token_accept(req, msk);
-+	KUNIT_EXPECT_TRUE(test, mptcp_token_accept(req, msk));
- 	KUNIT_EXPECT_PTR_EQ(test, msk, mptcp_token_get_sock(&init_net, msk->token));
- 
- 	/* this is now a no-op */
-@@ -122,7 +122,7 @@ static void mptcp_token_test_destroyed(struct kunit *test)
- 	KUNIT_ASSERT_EQ(test, 0,
- 			mptcp_token_new_request((struct request_sock *)req));
- 	msk->token = req->token;
--	mptcp_token_accept(req, msk);
-+	KUNIT_EXPECT_TRUE(test, mptcp_token_accept(req, msk));
- 
- 	/* simulate race on removal */
- 	refcount_set(&sk->sk_refcnt, 0);
+diff --git a/include/kvm/arm_vgic.h b/include/kvm/arm_vgic.h
+index 086b7578e5f33..5c3a0154becc4 100644
+--- a/include/kvm/arm_vgic.h
++++ b/include/kvm/arm_vgic.h
+@@ -256,6 +256,7 @@ struct vgic_irq {
+ 	bool active:1;
+ 	bool hw:1;			/* Tied to HW IRQ */
+ 	bool on_lr:1;			/* Present in a CPU LR */
++	bool mapped:1;			/* LPIs: mapped by an ITE */
+ 	refcount_t refcount;		/* Used for LPIs */
+ 	u32 hwintid;			/* HW INTID number */
+ 	unsigned int host_irq;		/* linux irq corresponding to hwintid */
 -- 
 2.53.0
 
