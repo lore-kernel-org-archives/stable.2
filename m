@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049203;
-	b=ax5xJm98lsYg4FUr+8nivQi4+XzrFBy7534Uttugus//GLhWYlBbjZkHGMa7XiAUy+Fi
-	 jma9mFuuAx1uuhWm6+x1+GH7XnVPEh4mgH6+zy+D5MokRvKRjnvofG4BUvsoUu5dIb/ZZ
-	 5ni9mAt5lH5BKHdsrqlnGcSlY54YcOOgKiLdpIHtg+We/WAB9twT2uDezfdgDrvRVUN7W
-	 cPkt/edP2R/S7ZslZmFLxR7mJa/7Xonijox8Xz5LIJc5b8mkORztc2ywpN3FE9bmSfQEw
-	 nRbf555QzMzK88239053LboScuODGTjzWWIqpE6opobyOBqnaPaNYDZ/5lI0rlVSkvg==
+	t=1794049207;
+	b=LL9/pfKmWvAR7mQvc1HDsYAiCm2D5qGx0AUX3MqGNtZY5KuEUMD/xnUfZkLgU+EovUM+
+	 klrOWMlqDdlr3G5VjrAXKUKlTnCPOsMTQk/qDc3v79zMWZNZQEC/mNI52KFs7BiHBA4FJ
+	 suEGHx+XsTvJjxTwjcYBV58TkbQjAXb4GFbVoDSTj95QUFCYNC235TNtfk6FvG52cvN6i
+	 xCoGDaRi+Wp2/bAqGwse2vK8wBxZt3yaTbaK6FNG8FWVVU+Sb1TyMKBd8xl3Ja458qdHy
+	 rGybDUO7BcSf/8aJjITKvzot92Rrtx6L/n0XvJqg2gjsCYOFxmfeOTedRZ7OfZmGRpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049203;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049207;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=RUTxvCvnx4IOTXkd0kZysUiUgbxg/XycROl4VQBTCLk=;
-	b=jj6bububkhDa13qOoJICld4I7Bv0DMb1ctIoqgXepSia1L/3MC7stFWaudESrMQGi6Er
-	 6MkLezvk195qcHLSFd3TJxubcUyDJD+YsKl05z/ns/3oBYFvAEDreIpvrxnphtDBLoGVI
-	 /8JOjUEoK2QBCXUHga65EoaXkKeV7M2zkxH+V9edYb9RgpeEWU3mQMgr4YLSot4BKZP0t
-	 Km5Gw2qylOekWqkc7018H81Im7xKvw3/DwewuMb+WXpvt7CXMU1TOEoFgl7nsJ4eyD7e3
-	 UbrbvhJail1JJ1HReKc7qtD2kOLXeBaWRo0zc8sXHPUc3gj4QEzEvVu3TA5F4icGu1g==
+	bh=kpFsFhGT+onI4UruuCX7jMijZkabn0pfml9X3/73G2w=;
+	b=m8EKwtlQG4bacdtbxOmohWI5Forx5KCQwVdpW6sMUuXmAEIzY89/DfzQp7U8bjWEY1Jg
+	 7CRegf47MaDZUWhko2DPyURXDgv3fGAySyvFvDpT4PgZKqwNpg9dXHZU/2BlJCg0SHuIy
+	 tE4IMDqnVImu9gRGgkFv8lbWpA3FROHimjO55W2UZBk8jR/tFmDN2bMHV7WbRPkfOTh9p
+	 ac/mgirfMe6B36YjepVBZMx8oYtkY9wnsoHdz51bxTRW53Dbqt3dVt+9SbUFcAp/nVB3Y
+	 BtWrmBEQsx5E0hnw3/lisGA/UckhK0jGgxCe+FGYApg0FhRVzxl3QElhsIDq3HRrHmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TeyRWfaM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kHEOa6Tb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93B06606D802
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:00:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9274606D81A
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:00:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TeyRWfaM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 039261F008A3;
-	Sat,  7 Nov 2026 11:00:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kHEOa6Tb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20D291F0089F;
+	Sat,  7 Nov 2026 11:00:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049203;
-	bh=RUTxvCvnx4IOTXkd0kZysUiUgbxg/XycROl4VQBTCLk=;
+	s=k20260515; t=1794049206;
+	bh=kpFsFhGT+onI4UruuCX7jMijZkabn0pfml9X3/73G2w=;
 	h=From:To:Cc:Subject:Date;
-	b=TeyRWfaMk083COhOMxUIF+tAyyo3qvABfPz9A9wUO4Gvh6g6SdBkmF1Fmj1p4VSxB
-	 p+PZsXQJNfgYtwKYL3Pd3iy36HpsQzoNuPn39rrmcHk7YPBdODrCJStwPNAOR9wzpP
-	 X+yNYYCmKjFLl31XKFhlnNn5UoW0oDrW/qGsEWjivDd+Wn7g1f0I5Kcf45LN42RDxQ
-	 G5D/U7yz+6MhlQNEIqc8AYzY5sL7Sx1FyFzesjvWKnZnc1YFIOFuhdiz437odud197
-	 EZe/Urlq1d03/2lhfksxCjAdD/YaieL97kZxKTa9yZEfSv0FjxGXSHSNjJhIcT3ClO
-	 kTIlsKpFAVAlg==
+	b=kHEOa6TbVM9GyuuZy/b90DjTPbG5TvEsyZbPQF1dsGH0zqwz18kd7FKUcsuTVfdTv
+	 AsMG8zHswj23udYXCC2N5fuBXWvnlEfNU3884drC9tgqniTnQBuNW3FBIVN8NurNc8
+	 lui6qYCElZNQA0oqj+jVxsVE2EcDnpMVwVlHPUgE04nDDo0lEc+ub+jEPq0+VMRtyr
+	 OiGakuLrXh5bJzqlmBd72If6UdzlWecLfDvacQpnprKrdWIEGLW7ARqLiu45GT8GtL
+	 pfYaW+MoZXuqrnN8kUXebODe1ld6wVtfs9tH2m/BlO/XMAgjomZON7dBQtC5DxS6af
+	 nvshR/u5ZyMVg==
 From: Sasha Levin <sashal@kernel.org>
-To: wanglin@open-hieco.net,
-	linux@roeck-us.net
+To: david@ixit.cz,
+	lee@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] hwmon: (k10temp) Stop matching Hygon devices" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:00:01 -0500
-Message-ID: <20261107060001-failed-5.15-08e6615c909b@kernel.org>
+Subject: FAILED: patch "[PATCH] mfd: wcd934x: set DMA mask on parent to silence "DMA mask not set"" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 06:00:04 -0500
+Message-ID: <20261107060004-failed-5.15-b296be1dc008@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,98 +68,61 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 08e6615c909b2504a5862764f3a7fca00c7ab066
+git cherry-pick -x b296be1dc008fe3a536341afae01f66bb302e67f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060001-failed-5.15-08e6615c909b@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060004-failed-5.15-b296be1dc008@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 08e6615c909b2504a5862764f3a7fca00c7ab066 Mon Sep 17 00:00:00 2001
-From: Lin Wang <wanglin@open-hieco.net>
-Date: Mon, 21 Sep 2026 13:56:00 +0800
-Subject: [PATCH] hwmon: (k10temp) Stop matching Hygon devices
+From b296be1dc008fe3a536341afae01f66bb302e67f Mon Sep 17 00:00:00 2001
+From: David Heidelberg <david@ixit.cz>
+Date: Thu, 3 Sep 2026 16:42:05 +0200
+Subject: [PATCH] mfd: wcd934x: set DMA mask on parent to silence "DMA mask not
+ set"
 
-k10temp matches the Hygon F3 device, but derives the node passed to
-amd_smn_read() from the F3 PCI slot using the AMD fixed-slot mapping
-(slot - 0x18). Hygon PCI slots do not encode DF node identity, and
-their SMN roots are grouped by socket.
+The wcd934x MFD parent (a slim_device) never initializes its
+dma_mask/coherent_dma_mask. When the DT-aware children pass through
+of_dma_configure() this triggers the "DMA mask not set" warning for
+each child.
 
-The derived node number therefore cannot identify a valid Hygon SMN
-target or provide usable temperature monitoring. Removing the match
-does not disable a working monitoring path.
-
-Remove the Hygon PCI match and Family 0x18 branch. Hygon temperature
-monitoring will use the Hygon node and SMN interfaces in a separate
-series.
-
-Fixes: d93217d84c6c ("hwmon: (k10temp) Add Hygon Dhyana support")
 Cc: stable@vger.kernel.org
-Signed-off-by: Lin Wang <wanglin@open-hieco.net>
-Link: https://patch.msgid.link/20260921055603.25112-6-wanglin@open-hieco.net
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+Fixes: f959dcd6ddfd ("dma-direct: Fix potential NULL pointer dereference")
+Assisted-by: tencent:hy3
+Signed-off-by: David Heidelberg <david@ixit.cz>
+Link: https://patch.msgid.link/20260903-wcd-dma-v2-1-189cff560a28@ixit.cz
+Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- Documentation/hwmon/k10temp.rst | 8 +++-----
- drivers/hwmon/k10temp.c         | 5 ++---
- 2 files changed, 5 insertions(+), 8 deletions(-)
+ drivers/mfd/wcd934x.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/Documentation/hwmon/k10temp.rst b/Documentation/hwmon/k10temp.rst
-index 91b99adc6c487..9680c4f3383c3 100644
---- a/Documentation/hwmon/k10temp.rst
-+++ b/Documentation/hwmon/k10temp.rst
-@@ -28,8 +28,6 @@ Supported chips:
+diff --git a/drivers/mfd/wcd934x.c b/drivers/mfd/wcd934x.c
+index 3c3080e8c8cf7..7bea64fc09562 100644
+--- a/drivers/mfd/wcd934x.c
++++ b/drivers/mfd/wcd934x.c
+@@ -2,6 +2,7 @@
+ // Copyright (c) 2019, Linaro Limited
  
- * AMD Family 17h processors: "Zen", "Zen 2"
+ #include <linux/clk.h>
++#include <linux/dma-mapping.h>
+ #include <linux/gpio/consumer.h>
+ #include <linux/interrupt.h>
+ #include <linux/kernel.h>
+@@ -217,6 +218,11 @@ static int wcd934x_slim_probe(struct slim_device *sdev)
+ 	struct gpio_desc *reset_gpio;
+ 	int ret;
  
--* AMD Family 18h processors: "Hygon Dhyana"
--
- * AMD Family 19h processors: "Zen 3"
- 
-   Prefix: 'k10temp'
-@@ -128,7 +126,7 @@ it.
- Models from 17h family report relative temperature, the driver aims to
- compensate and report the real temperature.
- 
--On Family 17h and Family 18h CPUs, additional temperature sensors may report
--Core Complex Die (CCD) temperatures. Up to 8 such temperatures are reported
--as temp{3..10}_input, labeled Tccd{1..8}. Actual support depends on the CPU
-+On Family 17h CPUs, additional temperature sensors may report Core Complex
-+Die (CCD) temperatures. Up to 8 such temperatures are reported as
-+temp{3..10}_input, labeled Tccd{1..8}. Actual support depends on the CPU
- variant.
-diff --git a/drivers/hwmon/k10temp.c b/drivers/hwmon/k10temp.c
-index 3e7e63edc6a30..e0a7211a513ca 100644
---- a/drivers/hwmon/k10temp.c
-+++ b/drivers/hwmon/k10temp.c
-@@ -64,7 +64,7 @@ MODULE_PARM_DESC(force, "force loading on processors with erratum 319");
- #define F15H_M60H_HARDWARE_TEMP_CTRL_OFFSET	0xd8200c64
- #define F15H_M60H_REPORTED_TEMP_CTRL_OFFSET	0xd8200ca4
- 
--/* Common for Zen CPU families (Family 17h and 18h and 19h and 1Ah) */
-+/* Common for Zen CPU families (Family 17h, 19h and 1Ah) */
- #define ZEN_REPORTED_TEMP_CTRL_BASE		0x00059800
- 
- #define ZEN_CCD_TEMP(offset, x)			(ZEN_REPORTED_TEMP_CTRL_BASE + \
-@@ -475,7 +475,7 @@ static int k10temp_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 		data->read_tempreg = read_tempreg_pci;
- 	}
- 
--	if (boot_cpu_data.x86 == 0x17 || boot_cpu_data.x86 == 0x18) {
-+	if (boot_cpu_data.x86 == 0x17) {
- 		switch (boot_cpu_data.x86_model) {
- 		case 0x1:	/* Zen */
- 		case 0x8:	/* Zen+ */
-@@ -583,7 +583,6 @@ static const struct pci_device_id k10temp_id_table[] = {
- 	{ PCI_VDEVICE(AMD, PCI_DEVICE_ID_AMD_1AH_M60H_DF_F3) },
- 	{ PCI_VDEVICE(AMD, PCI_DEVICE_ID_AMD_1AH_M70H_DF_F3) },
- 	{ PCI_VDEVICE(AMD, PCI_DEVICE_ID_AMD_1AH_M90H_DF_F3) },
--	{ PCI_VDEVICE(HYGON, PCI_DEVICE_ID_AMD_17H_DF_F3) },
- 	{}
- };
- MODULE_DEVICE_TABLE(pci, k10temp_id_table);
++	ret = dma_coerce_mask_and_coherent(dev, DMA_BIT_MASK(32));
++	if (ret)
++		return dev_err_probe(dev, ret,
++				     "Failed to set DMA mask\n");
++
+ 	ddata = devm_kzalloc(dev, sizeof(*ddata), GFP_KERNEL);
+ 	if (!ddata)
+ 		return	-ENOMEM;
 -- 
 2.53.0
 
