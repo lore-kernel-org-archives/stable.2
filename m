@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047289;
-	b=fKRv/gA/jOwHc5Pd6DLoOkDXHe9xQ9oZ0bhPGvGW7rZboIYgtJJ/xKZJoSzw7g2N0++j
-	 ZYXOl6wD3sEKusAVzJp6vaWp5SIWOetVLvDu94S+MrXyXRU89B0j8TKzx3UX0q0J+22pX
-	 UbfT7cWB17jFH35MulzYnqUyUWlfCKKLsQDaNzWFokRJjM+GQaJHnT3YEcs2Pai/ztR9I
-	 OxmewB5CP3m4xUhglKJOqzwXy2dEJMxpzDjTfpEbcOSI5+EjJJusq156qatfuqznNhQjF
-	 Zm5u5BjRfPeRULRjMcSOKJmUsfOTdSahdhyJ1TyKLhoSO1XHvDGKoBVT+wcjPOM4SOA==
+	t=1794047291;
+	b=U3NYRXoT+fGh+jTEAaAUf9osQPnawo51JDorgOAh5rAEj/vZTV6fF05fqMsd4uBqHImS
+	 kTBj/k1aZXgWATCpnW8SSA/eTjGgshdfna6fGl0l1O5hS3qOk2Dw5KqnqUMhNyyliUQqt
+	 k3zIX8DZ5lJaZ2RDoxz2xHZvm1uA3R+90fBR12EotOxKUiAjpoziwvMiI7us4JVI0CHid
+	 D+NIH8b4zbOe6r8AWEihyxFtSOswIo8YQW4Ueq22pQgQBX2UHWcodZiqmNx/OmM0dWwJH
+	 wTatTmwplIfusX18dVvUcyS82Bh9hFNIQBBhDUr1vTe88G4Bg3oCeXamKkNLXPatvnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047289;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047291;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=wugvbVVcACdPOsgRawQ/rGFGKpYA650b3XMofs9EFVE=;
-	b=HBSf6bVzvIrsrJFmocv25HMAownZVKtEHRqAOrOXKeQYiZWlIeiVVVnVHifb9yb6kMzy
-	 tnKBBv7msEX4IYfDpJxu33FDfG+mmT8THAqOQlzO/RYdLLXsWrTYGtzecOLUhnLSkfMS9
-	 4j98kt3IeoyONb6GX5TX+kfJaDrkg6muN5CD8YdWFj7o/K9gGXbEZvqoEX/uWc+zrrH6S
-	 8wmfDWCD+0KGNdvSVoMBVkgNCGCAhz+p7agZwsh70A6rQ0lXKKxRfXEG4YzeVEYqoMeID
-	 TiHMMqS3MNRoBRt95ADBRhJlt/ZhDi0ROzEN1tkNmFg609GWyqwyJ6IX08zc8Q0L9NQ==
+	bh=zBqPI4sxNXE8tMe1kNftYt14+6f4rh3tbpcYKQ94E+E=;
+	b=iemeiBM+002Bv4B9IO6NBX0dhCmtZoq1f91HBaySLxaUFV8hNLa5QNK8IQ+6kXfXBd62
+	 zR7AvdaFhldyY09Q9N2/OTF2MLb2vVm0Y7qzOS4Ot3kNhW+AiuwldBoj5sUc9vVtzXihW
+	 HqGekL+U9WO6cpo4AkDrati9Gglf1oTUHvz3QqH060HxCvDe5fRKArrg9xjvP88dfYU75
+	 2rr8XmvkTgZNp9QO3glY5U9lhpiLIUn0oWxKzPYMcgxfWFzQsSyEfMM5bhkQL2cFHgMG4
+	 TNiAFu7CMatMRBoThpZnbsuhSFXjd4xNtaIqNWHoAyJwDB+yV7lifo5MiwL++4ZfdzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kBsucNkn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="d8Rb/hrw";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50367606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:28:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 873CE606A32F
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:28:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kBsucNkn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9E741F0089F;
-	Sat,  7 Nov 2026 10:28:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d8Rb/hrw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFAD81F0089F;
+	Sat,  7 Nov 2026 10:28:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047289;
-	bh=wugvbVVcACdPOsgRawQ/rGFGKpYA650b3XMofs9EFVE=;
+	s=k20260515; t=1794047291;
+	bh=zBqPI4sxNXE8tMe1kNftYt14+6f4rh3tbpcYKQ94E+E=;
 	h=From:To:Cc:Subject:Date;
-	b=kBsucNknIE4KSkSIvS+/pzo8cvIw9Z+UJhBoUhsbJwdF3g7/e/551Vae8Dn0dFcoz
-	 bgg+1ojthSAIopftRHw5lcqNGJy/zQrHTXgLkRFQUJpj0/w7mAqPkF5MwtWsbCdagN
-	 FhFxpe7RtjMDUYlrCzBN/BazQRG8wZCyfNgqIR7NnOv9woqjI/mvWsBYyly8/XeONb
-	 5d/6KexLnvQTOPDF3f0WXCdBmHBJNoYqhGiBo0wydUMoyiPy7P6HRyCptq/6vPDX3c
-	 AN5WVjU7JitJj//ii3fQGU6yjk75EM1/3zCAHoX9/BS9RWxwvqz4M6aFp5aMNms0N7
-	 OvKxCCQVJUgQg==
+	b=d8Rb/hrwYnFZMgCMmmXlv2Ld9Eh3bZ9oIXeMOJRfS7CZn8co7MkEC1eUTIGjsV/V7
+	 N+x9ZX1RiA5B+0sLU4e/H8j6teXPvL2A0oMoLFQ+l1+e4NPOxbM1MvbCGbyfj8xYXM
+	 NeW8nBhVAw+L3zKGBlImc/+AVG2MA+dup5e7IJHj/ceYfaLu6Hm44gTg0BZt+b1LJC
+	 M5RPOkI8ROaVkG8Nj/hTjk8PIN3vT3GrqKFiqqD+4RJtpjriaGj3IwaUnlzKSuAIfS
+	 FbhYO4aSmXhtRW+m0sSJkpCrMiMJOg+xx7NOZKvnUISIjeBD66K9gRRytRpVVXdSLJ
+	 rW5Vag7jvBJAg==
 From: Sasha Levin <sashal@kernel.org>
-To: mason@kernel.org,
-	amir73il@gmail.com,
-	brauner@kernel.org
+To: jakubszczudlo40@gmail.com,
+	andriy.shevchenko@intel.com,
+	jonathan.cameron@oss.qualcomm.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] backing-file: always end a queued write" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:28:07 -0500
-Message-ID: <20261107052807-failed-6.12-627cdcbc2a2e@kernel.org>
+Subject: FAILED: patch "[PATCH] iio: adc: ti-ads1100: Fix incorrect reading when datarate changed in single mode" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:28:09 -0500
+Message-ID: <20261107052809-failed-6.6-38dbf24dfbd0@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -60,96 +60,211 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 627cdcbc2a2eceb0452078a0c14370f9f1f17a91
+git cherry-pick -x 38dbf24dfbd0a73b89fa2871a7148429aef05531
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052807-failed-6.12-627cdcbc2a2e@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052809-failed-6.6-38dbf24dfbd0@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 627cdcbc2a2eceb0452078a0c14370f9f1f17a91 Mon Sep 17 00:00:00 2001
-From: Chris Mason <mason@kernel.org>
-Date: Thu, 29 Oct 2026 19:03:19 +0100
-Subject: [PATCH] backing-file: always end a queued write
+From 38dbf24dfbd0a73b89fa2871a7148429aef05531 Mon Sep 17 00:00:00 2001
+From: Jakub Szczudlo <jakubszczudlo40@gmail.com>
+Date: Tue, 4 Aug 2026 21:28:38 +0200
+Subject: [PATCH] iio: adc: ti-ads1100: Fix incorrect reading when datarate
+ changed in single mode
 
-Writes to a loop device with direct I/O on an overlay file make the
-next freeze of the upper filesystem hang for ever.
+When device is suspended and it is in single mode then changing
+datarate doesn't make it actually wait for new measurement, so to
+be sure that read after change is correct, functions that changes
+datarate and gain will wait for a new data.
 
-Every kiocb_start_write() needs a kiocb_end_write(). For a write that
-is queued, vfs_iocb_iter_write() leaves the end to the completion, and
-backing_aio_rw_complete() only calls kiocb_end_write() when IOCB_WRITE
-is set in the flags copied from the submitter. In-kernel submitters
-such as loop do not set that flag, so each queued write keeps the
-freeze protection of the backing filesystem.
-
-Direct writes to a loop device with direct I/O backed by an overlay
-file left fsfreeze of the ext4 upper filesystem, and a later touch
-there, blocked in D state. It takes write access to the node of the
-loop device, which root has by default, to attach the file and to write.
-
-The fix used here is to mark a write in struct backing_aio and to call
-kiocb_end_write() on completion of every marked write.
-
-Reproduced under qemu without KVM, on v7.3-rc6-21-g602042bf29f6 with
-earlier fixes of this series applied, with and without this change,
-once each. The kernel was not changed for the run. With this change
-fsfreeze finished in about a second. Not run: the nvmet and LIO file
-backends, which do not set IOCB_WRITE either, FUSE passthrough, and an
-xfs upper filesystem.
-
-Fixes: 2406a307ac7d ("ovl: implement async IO routines")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
-[amir: use aio->is_write to explicitly mark a write aio]
-Signed-off-by: Amir Goldstein <amir73il@gmail.com>
-Link: https://patch.msgid.link/20261029180319.2852090-1-amir73il@gmail.com
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Fixes: 541880542f2b ("iio: adc: Add TI ADS1100 and ADS1000")
+Signed-off-by: Jakub Szczudlo <jakubszczudlo40@gmail.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: <Stable@vger.kernel.org>
+Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 ---
- fs/backing-file.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/iio/adc/ti-ads1100.c | 107 +++++++++++++++++++++++++++++++++--
+ 1 file changed, 103 insertions(+), 4 deletions(-)
 
-diff --git a/fs/backing-file.c b/fs/backing-file.c
-index 2424dc38d21ac..ad573f5153c7c 100644
---- a/fs/backing-file.c
-+++ b/fs/backing-file.c
-@@ -96,6 +96,7 @@ struct backing_aio {
- 	refcount_t ref;
- 	struct kiocb *orig_iocb;
- 	/* used for aio completion */
-+	bool is_write;
- 	void (*end_write)(struct kiocb *iocb, ssize_t);
- 	struct work_struct work;
- 	long res;
-@@ -136,7 +137,8 @@ static void backing_aio_rw_complete(struct kiocb *iocb, long res)
- 	struct backing_aio *aio = container_of(iocb, struct backing_aio, iocb);
- 	struct kiocb *orig_iocb = aio->orig_iocb;
+diff --git a/drivers/iio/adc/ti-ads1100.c b/drivers/iio/adc/ti-ads1100.c
+index 9fe8d54cce83c..03096d7e10914 100644
+--- a/drivers/iio/adc/ti-ads1100.c
++++ b/drivers/iio/adc/ti-ads1100.c
+@@ -15,10 +15,12 @@
+ #include <linux/module.h>
+ #include <linux/init.h>
+ #include <linux/i2c.h>
++#include <linux/iopoll.h>
+ #include <linux/mutex.h>
+ #include <linux/property.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/regulator/consumer.h>
++#include <linux/time.h>
+ #include <linux/units.h>
  
--	if (iocb->ki_flags & IOCB_WRITE)
-+	/* Pairs with kiocb_start_write() in vfs_iocb_iter_write() */
-+	if (aio->is_write)
- 		kiocb_end_write(iocb);
+ #include <linux/iio/iio.h>
+@@ -43,6 +45,9 @@
+ static const int ads1100_data_rate[] = { 128, 32, 16, 8 };
+ static const int ads1100_data_rate_bits[] = { 12, 14, 15, 16 };
  
- 	backing_aio_cleanup(aio, res);
-@@ -251,6 +253,7 @@ static int do_backing_file_write_iter(struct file *file, struct iov_iter *iter,
- 		return -ENOMEM;
++/* Timeout based on the minimum sample rate of 8 SPS (7500ms) */
++#define ADS1100_MAX_DRDY_TIMEOUT_US	(7500 * USEC_PER_MSEC)
++
+ struct ads1100_data {
+ 	struct i2c_client *client;
+ 	struct regulator *reg_vdd;
+@@ -123,10 +128,86 @@ static int ads1100_get_adc_result(struct ads1100_data *data, int chan, int *val)
+ 	return 0;
+ }
  
- 	aio->orig_iocb = iocb;
-+	aio->is_write = true;
- 	aio->end_write = end_write;
- 	kiocb_clone(&aio->iocb, iocb, get_file(file));
- 	aio->iocb.ki_flags = flags;
++static int ads1100_conversion_busy(struct ads1100_data *data)
++{
++	u8 buffer[3];
++	int ret;
++
++	ret = i2c_master_recv(data->client, (char *)&buffer, sizeof(buffer));
++	if (ret < 0) {
++		dev_err(&data->client->dev, "I2C read fail: %d\n", ret);
++		return ret;
++	}
++
++	return FIELD_GET(ADS1100_CFG_ST_BSY, buffer[2]);
++}
++
++static int ads1100_wait_single_conversion(struct ads1100_data *data)
++{
++	int data_rate_index = FIELD_GET(ADS1100_DR_MASK, data->config);
++	int data_rate_Hz = ads1100_data_rate[data_rate_index];
++	unsigned long poll_us = DIV_ROUND_CLOSEST(USEC_PER_SEC, data_rate_Hz) / 4;
++	int busy;
++	int ret;
++
++	ret = readx_poll_timeout(ads1100_conversion_busy, data,
++				 busy, busy <= 0,
++				 poll_us, ADS1100_MAX_DRDY_TIMEOUT_US);
++	if (busy < 0)
++		return busy;
++
++	return ret;
++}
++
++static int ads1100_start_single_conversion(struct ads1100_data *data)
++{
++	u8 config = data->config | ADS1100_CFG_SC;
++	int ret;
++
++	ret = i2c_master_send(data->client, &config, sizeof(config));
++	if (ret < 0) {
++		dev_err(&data->client->dev, "I2C write fail: %d\n", ret);
++		return ret;
++	}
++	/* Need to wait because of change from continuous to single mode */
++	ret = ads1100_wait_single_conversion(data);
++	if (ret)
++		return ret;
++
++	config |= ADS1100_CFG_ST_BSY;
++
++	ret = i2c_master_send(data->client, &config, sizeof(config));
++	if (ret < 0) {
++		dev_err(&data->client->dev, "I2C write fail: %d\n", ret);
++		return ret;
++	}
++
++	/* No need to cache it, it's status bit */
++	data->config = config & ~ADS1100_CFG_ST_BSY;
++
++	return 0;
++}
++
++static int ads1100_poll_data_ready(struct ads1100_data *data)
++{
++	int ret;
++
++	ret = ads1100_start_single_conversion(data);
++	if (ret)
++		return ret;
++
++	ret = ads1100_wait_single_conversion(data);
++	if (ret)
++		return ret;
++
++	return ads1100_set_config_bits(data, ADS1100_CFG_SC, ADS1100_CONTINUOUS);
++}
++
+ static int ads1100_set_scale(struct ads1100_data *data, int val, int val2)
+ {
+ 	int microvolts;
+ 	int gain;
++	int ret;
+ 
+ 	/* With Vdd between 2.7 and 5V, the scale is always below 1 */
+ 	if (val)
+@@ -135,6 +216,11 @@ static int ads1100_set_scale(struct ads1100_data *data, int val, int val2)
+ 	if (!val2)
+ 		return -EINVAL;
+ 
++	PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(&data->client->dev, pm);
++	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
++	if (ret)
++		return ret;
++
+ 	microvolts = regulator_get_voltage(data->reg_vdd);
+ 	/*
+ 	 * val2 is in 'micro' units, n = val2 / 1000000
+@@ -149,22 +235,35 @@ static int ads1100_set_scale(struct ads1100_data *data, int val, int val2)
+ 
+ 	ads1100_set_config_bits(data, ADS1100_PGA_MASK, ffs(gain) - 1);
+ 
+-	return 0;
++	return ads1100_poll_data_ready(data);
+ }
+ 
+ static int ads1100_set_data_rate(struct ads1100_data *data, int chan, int rate)
+ {
+ 	unsigned int i;
+ 	unsigned int size;
++	int ret;
+ 
+ 	size = data->supports_data_rate ? ARRAY_SIZE(ads1100_data_rate) : 1;
+ 	for (i = 0; i < size; i++) {
+ 		if (ads1100_data_rate[i] == rate)
+-			return ads1100_set_config_bits(data, ADS1100_DR_MASK,
+-						       FIELD_PREP(ADS1100_DR_MASK, i));
++			break;
+ 	}
+ 
+-	return -EINVAL;
++	if (i == size)
++		return -EINVAL;
++
++	PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(&data->client->dev, pm);
++	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
++	if (ret)
++		return ret;
++
++	ret = ads1100_set_config_bits(data, ADS1100_DR_MASK,
++				      FIELD_PREP(ADS1100_DR_MASK, i));
++	if (ret)
++		return ret;
++
++	return ads1100_poll_data_ready(data);
+ }
+ 
+ static int ads1100_get_vdd_millivolts(struct ads1100_data *data)
 -- 
 2.53.0
 
