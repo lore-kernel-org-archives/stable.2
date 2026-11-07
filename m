@@ -1,93 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794068214;
-	b=CZy+qrKQ1RtFAc1IRzji3lKRvbCC/XlVRRg/TwUBwegJRZRo8t7ttaQJtDG7SJbZ0Njj
-	 Bm7AmNmwC93E0WB7E+qPAejHH6Fh1JcijXkyxbmPyx6B6evUMqkEUy7UCj3sEC1P887kl
-	 X2I2RoXzab4liYOx4Pwatd9+/RMbynmafLPwQ+ArnmtdIKEz21v6L4QhyjbOMhBkk8p1U
-	 OK0yYDA/1vmohNtHNx/BZUtvu3Q8QJQW147qI/Ads5wC+SwYIFbMBBWXAqdDq2ZLxk+s4
-	 TrkKsEzE4TUOmYuDFK0v1OCTXqVlRTemTw+xV54WUw/G35OPWfO3ECbkjgq0qEIMo8g==
+	b=Av+VhIKlbc4femQCeC7890REcwQEox4RUV5hRiaTZQGc0nSwcX0Vr6/2e84nO/hcG7kM
+	 QjoWqP7wojYRW7UYdgB640EH/Ghn1nzYLIkoGbilTfdfBvdNS0ha2kGQ7nLPADpdc1i/x
+	 UAOPQfB0LIL5MaL0jaMrxqJi1vuGkGBE1JP0Uox+K5112lbe9RTPSJFlw63oTYZh7cSy3
+	 dardQa8nLZ+vUXBQM6TlOTPnqf08vlEk/m1QZyz4Yo2T/yfLkkiIyEIEiwI2qlX2dLzaP
+	 jFxCEcMHfdyR9XyWESSrDlfxNsOg4EBsj+VcH4j55jiwQrNIzlMgGFz+1Re3GSh//Kw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794068214;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=PVxG1GqLyKJRjybT5Mn7mq7xXDo3j+IW62Fl/6Y/B+Y=;
-	b=hHDomWbLl8Y5954PtrfH8LiA3SIKCh3tKoeW6J6r8Wkit9PHn4+YoqX0Heg2UqGJtQPe
-	 k2665EGdIVASzAWTp2GYepU5wHtyez6hjksbLpRkiZgaTe8wKoy5exbgW82ZFeeqopmnd
-	 pbf2DokX6Khe+wA9H8mPz4J/EMq0qwe1fcP5vilvTLKGq3r0F+PtbtBnPYZZhoaxHBsnJ
-	 8pTLysvmguoqC2TOgqRNLd3HWKJ4oxCsdxDMjS9RCSX10C4cnbL5+eT70ZkEXAmaxWFMO
-	 XIgs/jdsq4a12ql1FP6jlaKgITK6IfWO+9EO9I9I4nvwrPNZexTTT5+2i/fQ3puLpUA==
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=K4YnwhhJnc1W435Ar0gljAF3AGrQ4+jD6hnF5J5AmqM=;
+	b=uKt6lSGDe4HwO2+P+25doglCoUbp9sD0hvRgBo0LP68QPnjFKpwjyquVGiJP9vaeC71l
+	 gi+Fde/tLK9/jXDEMlA5Tb9TaKcnUwoJ9hBk8igob3RFIqB1RmemtJaWI+uFiPnge+IIo
+	 m8l4m3oIKbPdAQ4Ae1NRYTIGTQHDlTqjmdHGEjjcWR4Dsn4ZXMQTGrE9itCnKIP8Qx5gG
+	 RfZCE8fHYSPCSoZY/flZ+IbwOEAYqTPRzRpsS04XA5Ip15WivSLhCo+3yNLtOw2MZWX6l
+	 6wvyPxeWBdTO+I9JigNCG4Uhn6qgIcleO6aOolmXeSVsZCGuJxc6/zzOPfScs9Fjlmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kernel.dk;
-	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=JnA2MmBs;
-	arc=none smtp.remote-ip=209.85.216.45
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.81
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00C31606A332
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 16:16:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00C31606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=JnA2MmBs
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3ae691283ecso307396a91.0
-        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 08:16:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1794068213; x=1794673013; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=PVxG1GqLyKJRjybT5Mn7mq7xXDo3j+IW62Fl/6Y/B+Y=;
-        b=JnA2MmBsPLd3AOVvRzg/h8l5Rzqrt/YP+kdDcn3ihnGDOPxHOt5Ep3QiLMIo6rvPfH
-         hlhV91mDjbh3CYwV8RZjNgBbYlcWox4S4fblf+mcQpgHY0PBtfWJDa3/wI2nEu4S/NWk
-         eiRxsMCQnCQLOq/JEdXMcVpUxcwDgberR5XWu9m+ubYjwp2d9u7nciMU+UC06TeWdVJ7
-         YRw+jND3RRGZ4sDoGdnBCXP0J/cxKEYp8BTSBsvH6vCieEOTP+0XB6jDCkQ29Bs8Azry
-         A96BM32YEEjNdZYIrA/cjdyIJdddd9RwIF8g5a310xVux7InVoIGI849w/xBPme3V+ta
-         YKGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794068213; x=1794673013;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=PVxG1GqLyKJRjybT5Mn7mq7xXDo3j+IW62Fl/6Y/B+Y=;
-        b=zueiYyzd4swHjkslyRRuB2odHpKJI1L/ltEGEEJuv8/s7Z1/hNOb8eRWmJ14RE/gvj
-         SmBxLyBd1hLcDTTHFLyTbY4nH+Lc7X8IxQ/E8bcMfzd0I8VJ55ZAOvue6VfZY/SsthY8
-         Rh2ccVLlBHSlvFwAMsYgLAKrnZBMEXzjv3QIr6DpO4+XXV2R//TZ+sOpAzKk97+45qRZ
-         azfs1EuI1gjZLtVCJQVF/YUp3FaEVjFYUfCg5SS58isorkSRasQ9JY0bdqVCcPzVLK+g
-         d6t+ONQXTBFg5bSBUtwGZ1wMw6EX5VV3KXDEBOk85MBkblJ0HoTKHM965XHgqKJk8UnN
-         VCcQ==
-X-Gm-Message-State: APuU4Z+TzFNUSUvzT8vTdxYYvcRBu+Fg1BYZZmn9dsnxosT2/mNSolNf
-	NOVIKNj7CyF/PefHXpyX1+hBYfnzn09L3o7vnoATvs68XZZVtSUccOOB5EatndW8nKvvFVdk3us
-	4bcdAY2E=
-X-Gm-Gg: AYBFou0QUx7/1KL1jf+/B06q3FP0x1tiUtEMIMZzSruVnZVAmqCUscZ7EnTfhkvxNNf
-	uLNxsWClJBfQ573UspG8cXmNvBYKB/VQR9ChbzfBABW6CLW39poOK5bv1pi2BeA9q9gZ404MOe1
-	+TbJERZj+nDiaIlCY58H2gB17Uzo/eXAro4Tut8dnuObTAhTeQk6bSoMAwMD//NrnTPCI6P1m+s
-	2mBIkdNLDI5jeO7espZHby3O86g1Hi38jM1oN2wBEq7eYs3ETYt4g6kRU+mkAa1brOoaDaAWQPO
-	pWCl3SzQ53QNY1EHR/JERMRdtWtdMowoGp6WrgfxDWmZcPMoAbFFA/oL8qOyiNIkrH+OmqjI2UE
-	NWTz3/OhwEEk59hHH5EinnUzKxNKyKCQzpuPpO0z7vk1QpbvEWB2HH+sC5czFfLsfzBc2r45Bbi
-	iGuDU4GXfUuFd8FT0JbFcoQ4SNf79PZer6QDOMbhpLGYy/8loDvg0SrL7qZ2XHO3RsyWrjFDJcZ
-	ziPCAFLUut3lEASjD0CcsXbNa9+MwWD54p1ouqTjh4A2IKlZMv8ODWhuSnWH7cmRP4ixkypt66e
-	X2dlvu0/QLpbmnaVv4tzxIGrSD3/mKDl7hBoZkTLRBLVAbxSinxejv874gKqR6FEpjLmXgTo91c
-	=
-X-Received: by 2002:a17:90b:5623:b0:3a4:b509:88bd with SMTP id 98e67ed59e1d1-3b106081848mr1579527a91.2.1794068213080;
-        Sat, 07 Nov 2026 08:16:53 -0800 (PST)
-Received: from xps16 ([198.8.77.135])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b10581caccsm3753898a91.10.2026.11.07.08.16.50
-        for <stable@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 08:16:51 -0800 (PST)
-From: Jens Axboe <axboe@kernel.dk>
-To: stable@vger.kernel.org
-Subject: [PATCH 6.18.y 9/9] io_uring/rsrc: hold uring_lock across index-alloc put_user
-Date: Sat,  7 Nov 2026 09:16:34 -0700
-Message-ID: <20261107161634.2500557-10-axboe@kernel.dk>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261107161634.2500557-1-axboe@kernel.dk>
-References: <20261107161634.2500557-1-axboe@kernel.dk>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C788D606D3D1;
+	Sat,  7 Nov 2026 16:16:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C788D606D3D1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowADn9ZbtTu9qIJ6BAA--.24761S2;
+	Sun, 08 Nov 2026 00:16:45 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Justin Tee <justin.tee@broadcom.com>,
+	Paul Ely <paul.ely@broadcom.com>
+Cc: James Bottomley <James.Bottomley@hansenpartnership.com>,
+	James Smart <james.smart@broadcom.com>,
+	"Martin K . Petersen" <mkp@kernel.org>,
+	Nigel Kirkland <nigel.kirkland@broadcom.com>,
+	linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/3] scsi: lpfc: Fix ndlp reference leak in lpfc_release_rpi()
+Date: Sat,  7 Nov 2026 16:16:53 +0000
+Message-Id: <20261107161655.2628796-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <CAEQnVQn7fpgpm5zY=8ne0G5M_KXWg4qjecMK6smk-q+_0j1PEw@mail.gmail.com>
+References: <CAEQnVQn7fpgpm5zY=8ne0G5M_KXWg4qjecMK6smk-q+_0j1PEw@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -98,89 +60,66 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowADn9ZbtTu9qIJ6BAA--.24761S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7AFW7ZFy3tFW5uF4kWr4kJFb_yoW8Aw45p3
+	95Ga4Yyr95GF1SkrW7Ar1xZas0kan7Jryqkayvk34xZrZ5Xry3tF4Yqa1rXryUJF48t3y7
+	t3yDKa45WF15ZF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9C1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AE
+	w4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2
+	IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2
+	jsIE14v26r4j6F4UM28EF7xvwVC2z280aVCY1x0267AKxVW8JVW8Jr1le2I262IYc4CY6c
+	8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jw0_
+	WrylYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwI
+	xGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAa
+	w2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJw
+	CFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE
+	14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2
+	IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxK
+	x2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI
+	0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUDOz3UUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRMEA2rvPcsZdAABsC
 
-From: Yuansheng Yang <0xbeac@gmail.com>
+lpfc_release_rpi() only drops the node reference and frees the mailbox
+memory it took when lpfc_sli_issue_mbox() returns MBX_NOT_FINISHED.  The
+SLI-4 issue path can also return -EIO for a command it refuses to
+submit, in which case the completion handler never runs and both the
+reference and the mailbox are leaked.
 
-Commit d7c7037253f6935af243570635d71b4920b5a4ea upstream.
+Clean up whenever the command was not handed to the port.
 
-io_files_update_with_index_alloc() installs a fixed file via
-io_fixed_fd_install(), which drops ->uring_lock when the request runs on
-io-wq, then put_user()s the allocated slot back to userspace. If that
-faults, the error path calls __io_close_fixed() by slot index after
-re-taking the lock.
+The candidate came from a static analysis tool we run over the tree.
+DeepSeek and GPT-6.1 Sol were used to audit the finding and to help
+write the fix; I reviewed the result line by line and I am responsible
+for it.
 
-The slot can be closed and reused between the install and that cleanup:
-another fixed CLOSE plus open/accept/pipe/socket, or a FILES_UPDATE, can
-put an unrelated file into the same slot. The error path then removes
-that file instead of the one this request installed, ending an unrelated
-file's fixed-table reference early. This is a correctness/DoS issue, not
-a use-after-free: fixed-file requests hold an io_rsrc_node reference, so
-the node and file stay alive until they are done.
-
-Hold ->uring_lock across __io_fixed_fd_install() and put_user(), and do
-the failure cleanup with io_fixed_fd_remove() under the same lock. This
-is the same class as the io_pipe_fixed() fix in a3d7ee11289f. Faulting
-while holding ->uring_lock is fine, the registration paths already do
-it.
-
-Fixes: a7c41b4687f5 ("io_uring: let IORING_OP_FILES_UPDATE support choosing fixed file slots")
-Signed-off-by: Yuansheng Yang <0xbeac@gmail.com>
-Link: https://patch.msgid.link/20261104154655.81876-1-0xbeac@gmail.com
-[axboe: various touch-ups]
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
-[axboe: 6.18 uses copy_to_user() for the slot rather than put_user()]
+Fixes: 4430f7fd09ec ("scsi: lpfc: Rework locations of ndlp reference taking")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- io_uring/rsrc.c | 21 ++++++++++++++++-----
- 1 file changed, 16 insertions(+), 5 deletions(-)
+Changes in v2:
+ - Rebased on v7.4-rc1.
+ - Reworded the comment above the check so that it does not depend on the
+   SLI-4 return value.  The check itself is unchanged.
+ - Sorry for the month it took me to answer the review.
 
-diff --git a/io_uring/rsrc.c b/io_uring/rsrc.c
-index 41e5755bd9aa..7170b3f001d4 100644
---- a/io_uring/rsrc.c
-+++ b/io_uring/rsrc.c
-@@ -429,11 +429,12 @@ static int io_files_update_with_index_alloc(struct io_kiocb *req,
- {
- 	struct io_rsrc_update *up = io_kiocb_to_cmd(req, struct io_rsrc_update);
- 	__s32 __user *fds = u64_to_user_ptr(up->arg);
-+	struct io_ring_ctx *ctx = req->ctx;
- 	unsigned int done;
- 	struct file *file;
- 	int ret, fd;
+ drivers/scsi/lpfc/lpfc_nportdisc.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/scsi/lpfc/lpfc_nportdisc.c b/drivers/scsi/lpfc/lpfc_nportdisc.c
+index fb8844c69491..fbe3c97723b2 100644
+--- a/drivers/scsi/lpfc/lpfc_nportdisc.c
++++ b/drivers/scsi/lpfc/lpfc_nportdisc.c
+@@ -1155,7 +1155,11 @@ lpfc_release_rpi(struct lpfc_hba *phba, struct lpfc_vport *vport,
+ 				 ndlp->nlp_rpi, ndlp->nlp_DID, ndlp->nlp_flag);
  
--	if (!req->ctx->file_table.data.nr)
-+	if (!ctx->file_table.data.nr)
- 		return -ENXIO;
- 
- 	for (done = 0; done < up->nr_args; done++) {
-@@ -447,15 +448,25 @@ static int io_files_update_with_index_alloc(struct io_kiocb *req,
- 			ret = -EBADF;
- 			break;
- 		}
--		ret = io_fixed_fd_install(req, issue_flags, file,
--					  IORING_FILE_INDEX_ALLOC);
--		if (ret < 0)
-+		/*
-+		 * Hold the lock across the copy_to_user(), if it's dropped the
-+		 * slot can be closed and reused before the error path runs.
+ 		rc = lpfc_sli_issue_mbox(phba, pmb, MBX_NOWAIT);
+-		if (rc == MBX_NOT_FINISHED) {
++		/* The completion handler frees the mailbox and drops the node
++		 * reference, and it only runs when the command was queued or
++		 * already completed.
 +		 */
-+		io_ring_submit_lock(ctx, issue_flags);
-+		ret = __io_fixed_fd_install(ctx, file,
-+					    IORING_FILE_INDEX_ALLOC);
-+		if (ret < 0) {
-+			io_ring_submit_unlock(ctx, issue_flags);
-+			fput(file);
- 			break;
-+		}
- 		if (copy_to_user(&fds[done], &ret, sizeof(ret))) {
--			__io_close_fixed(req->ctx, issue_flags, ret);
-+			io_fixed_fd_remove(ctx, ret);
-+			io_ring_submit_unlock(ctx, issue_flags);
- 			ret = -EFAULT;
- 			break;
++		if (rc != MBX_SUCCESS && rc != MBX_BUSY) {
+ 			lpfc_nlp_put(ndlp);
+ 			mempool_free(pmb, phba->mbox_mem_pool);
  		}
-+		io_ring_submit_unlock(ctx, issue_flags);
- 	}
- 
- 	if (done)
--- 
-2.56.0
 
