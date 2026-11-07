@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047016;
-	b=NOP9uXPEV8TtLBObka5X5gqACIfSKPupTO3yIwLcMKCC0OMVb9wqm4yxLfX7V9zcGGJv
-	 8C32bvZvnVg3s9Fntg4BWwBi6KWbbW2KKjg2p8kP9idhoT/bizbcS6V/LTvmavx9Bg2Jx
-	 e9s9//MjjxMowLQqZ0O5EP2EdeFOaOdNkbUArsltTjTrZvpvgqWG4A3NJ68Eah27W0ncW
-	 O+86PajW7sRQgq/zWpIcZMTMMdkHuC3wSftNuthosJ9lxcjGDkvyPv/VJrowngRGLSYRl
-	 8/sqy2giBqTFDVkzVt4Lg4jEcMVULfi0P1+A59fRkI0CGh0lQkjuHKjZBL0qT4jdiIQ==
+	t=1794047018;
+	b=A5c4hxDZX2ohFKIwQUa/FWTSkKU554+wVQK/aZLprYL1mgupxZdtuXPq7iFW9R6wJEIa
+	 +6hEtizgrS9rTOaTUkd62y+Wdj8PFhND4DBzQedDLhXrmNLNoX6VMmksKX9FlNegugjD+
+	 jYkyOQwhmNXSD3l23O1QkMg++Q2Em80gFRP8HZphvjkizDg+qJXm20ef9usEn2c127XLH
+	 QPlxncKajLYr0tfdt/6ZpBvHrAfTZKauNRiIk2MvmqPaxrzrPMz+Fb5cHOmiOD324nk3s
+	 M4INDFlLznmm9jumG24C8XSnAR8j6Ys9DBd5Bk/zYc3IBkV5aXG690sETtd0/gx0xwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047016;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047018;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=qO+Ud6qISWvZ06OPCDG7TJ6rm1vj3sYB6FSL+PFk6qs=;
-	b=rNAAExthfmfdXcxH+dXBJEtj44zsuhxT9nA3KoW8MHQY4dtm3/xUxgRadKzymXVHD2Pb
-	 RtRhdVnNCZUdbvo5U9SWt19Z2cpb2UexjFJ1XCGA1OmG/969NMqqrk2cu+NnjFRAwa4Db
-	 TTDQV0bnl2wZXA2jTQFf6t4klzPIsFCd7INNww9fbh+55vbDC1papgcjKBk9xfcL/uT8U
-	 d9NMIsVkdqg7VSyz+vXRMLjxDA7LS6urbNVlhpuU7/dNH/+hXIFZFz/unQGXbysHBzpDg
-	 ovFUt8Y+tWq22a04gGzPnqvDAQupkiBoQ90h3rPWEqaz0NTSQDvt1X7FlsRuEcOP3BA==
+	bh=wLkbaWW/pP6GNpBTUAvSTywvjVIwpxlDAT9eiqbeCPU=;
+	b=2U1oimJWfZSL2LbwmqQMdhtYnZ3KFuoMVEEwHF7x70SVqV0Zn+Nq7LQjQixWtNKVFDWk
+	 /nO/EKxBAKdUEdk+j9GZYl/dic0h1RHdrLNHw1qncTHJNwysxEcgAeG27F9fTq31z18JI
+	 zKjg4UmpErF4y3lzSdoVdeIH1idEKYGH5jPBXFjmKGkWxmrsdAQfz312c21CSeCwEeFPL
+	 D5RvbTERFkhzkb3Bc/1TWqqL82LJa9jDHSWUvXwpNGJ6jUp5e4B+8A0/E/1wL9dRF7BXc
+	 G6L1RYscoqNTp718DE2CeGy7iLpouLZqhfN/a38+yR4yax1dIHTk5SmoA/1PvFVKVoQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MRH9V9Wq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YsSbutBK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02142606A32D
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:23:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 357F2606A32D
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:23:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MRH9V9Wq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76ADC1F0089F;
-	Sat,  7 Nov 2026 10:23:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YsSbutBK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B9661F0089F;
+	Sat,  7 Nov 2026 10:23:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047015;
-	bh=qO+Ud6qISWvZ06OPCDG7TJ6rm1vj3sYB6FSL+PFk6qs=;
+	s=k20260515; t=1794047018;
+	bh=wLkbaWW/pP6GNpBTUAvSTywvjVIwpxlDAT9eiqbeCPU=;
 	h=From:To:Cc:Subject:Date;
-	b=MRH9V9WqcRH49iMKYdbYQMDDrq6h+K2OvlrFD4BYBjtMGJpXn73siuOjN7zlYVzzM
-	 QEI5pLbhD6xpTiFU5/c+J9opgEP6wAIomyabKgEv4C0uMbF6G2fgU/24O5yNObpFDX
-	 Ao5Ff4BQla85QWJmJcnpLzIjX7bhae5Mlfj/ypQVCdnUanlmX9Oy2Qi5YtrAoCpLy0
-	 DZBsPAnWj37bgrA+guE4ggz9tTMH7fyA8Lyx3e/M8KcBabfapcTlO0GZ2WrL5m4HtE
-	 w99TZ4qPM76trXjosQLUuZMzYu9IxidQCealHi4I/nfYG9dB1K5ovrTgLOhnXOEky0
-	 a4atlwIMp/dsw==
+	b=YsSbutBKmaEhF0KDp/SMT4+OE7w/PxriMfrDgMGjE/VBP36fAyeENVKtKBnT0DSv1
+	 AdaZWCI6G/sXNIJd9imdxa84U4UpQ3uBnQezpd3KuGhSRaeovsTkI9oYZUXyDYrfVX
+	 z8fKmFB0P0KZDroR2Cscoz2uK2diSL1VmyGk44n96WY0S+H0VKZ+LeN37vGsyLqg6W
+	 vVLim6hFkp6FkNIXSdJljq4ptsLLx5J1aWT/WtEMe6TrsudKGvUFjm6CLU1ZeEE2sw
+	 8KlRzq7pg9xEg297DcYGKmbe8AIzkT55p1IOejvCfRxpKAPVrtEnUJv3IA+YjvrFbS
+	 9xPHDXniUarAg==
 From: Sasha Levin <sashal@kernel.org>
-To: tjdqudcks0424@naver.com,
-	mszeredi@redhat.com
+To: pabeni@redhat.com,
+	matttbe@kernel.org,
+	kuba@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] virtiofs: validate fixed-output response length" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:23:34 -0500
-Message-ID: <20261107052334-failed-6.12-5364d081125a@kernel.org>
+Subject: FAILED: patch "[PATCH] mptcp: fix subflow bitfield misuse" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:23:36 -0500
+Message-ID: <20261107052336-failed-6.12-7538fa33bb2f@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,111 +69,65 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 5364d081125a34e90851fbb46ecc93f79339ce78
+git cherry-pick -x 7538fa33bb2f66b8b809ff39d58308be48e197a0
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052334-failed-6.12-5364d081125a@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052336-failed-6.12-7538fa33bb2f@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 5364d081125a34e90851fbb46ecc93f79339ce78 Mon Sep 17 00:00:00 2001
-From: Sung Byeongchan <tjdqudcks0424@naver.com>
-Date: Wed, 7 Oct 2026 15:19:49 +0900
-Subject: [PATCH] virtiofs: validate fixed-output response length
+From 7538fa33bb2f66b8b809ff39d58308be48e197a0 Mon Sep 17 00:00:00 2001
+From: Paolo Abeni <pabeni@redhat.com>
+Date: Tue, 13 Oct 2026 16:29:20 +0200
+Subject: [PATCH] mptcp: fix subflow bitfield misuse
 
-A short successful virtiofs response can leave the fixed-output portion of
-the request argument buffer unwritten.  The completion path nevertheless
-copies the full declared output to the request destination, allowing stale
-allocator contents to reach callers such as fuse_statfs().
+The subflow status bitfield is protected by the subflow socket lock,
+with one notable exception: the `close_event_done` bit is actually under
+the msk socket lock protection.
 
-Require successful fixed-output responses to contain their complete
-declared output.  Continue to permit a shorter final argument only for
-out_argvar requests.  Reject positive and internal restart error values
-and require valid error replies to be header-only.  The error already
-stored in the FUSE output header is returned by fuse_request_end(), so do
-not copy output arguments from an error reply.
+As reported by Clashiko [1], flipping the latter bit may corrupt other
+entries in the same bitfield.
 
-This was found by source review with AI assistance.  A header-only
-successful FUSE_STATFS reply returned stale fields in nine of nine calls
-across three boots.  The fixed kernel rejected the short response and
-preserved complete replies, valid negative-error replies, and
-variable-output replies.
+Move the `close_event_done` outside the bitfield, in a 32bit hole.
 
-Fixes: a62a8ef9d97d ("virtio-fs: add virtiofs filesystem")
+Link: https://lore.kernel.org/178959153492.22033.1944011998010756543@kernel.org
+Fixes: d82809b6c5f2 ("mptcp: avoid duplicated SUB_CLOSED events")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Sung Byeongchan <tjdqudcks0424@naver.com>
-Signed-off-by: Miklos Szeredi <mszeredi@redhat.com>
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Link: https://patch.msgid.link/20261013-net-mptcp-misc-fixes-7-3-rc8-v1-2-932c9b182fc7@kernel.org
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 ---
- fs/fuse/virtio_fs.c | 30 ++++++++++++++++++++++++++++++
- 1 file changed, 30 insertions(+)
+ net/mptcp/protocol.h | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/fs/fuse/virtio_fs.c b/fs/fuse/virtio_fs.c
-index 674fd784cdb80..ba8d79c4bcac6 100644
---- a/fs/fuse/virtio_fs.c
-+++ b/fs/fuse/virtio_fs.c
-@@ -727,6 +727,10 @@ static void copy_args_from_argbuf(struct fuse_args *args, struct fuse_req *req)
- 	unsigned int num_out;
- 	unsigned int i;
- 
-+	/* fuse_request_end() returns this error; there are no args to copy. */
-+	if (req->out.h.error)
-+		goto out;
-+
- 	remaining = req->out.h.len - sizeof(req->out.h);
- 	num_in = args->in_numargs - args->in_pages;
- 	num_out = args->out_numargs - args->out_pages;
-@@ -752,6 +756,7 @@ static void copy_args_from_argbuf(struct fuse_args *args, struct fuse_req *req)
- 	if (args->out_argvar)
- 		args->out_args[args->out_numargs - 1].size = remaining;
- 
-+out:
- 	kfree(req->argbuf);
- 	req->argbuf = NULL;
- }
-@@ -759,7 +764,9 @@ static void copy_args_from_argbuf(struct fuse_args *args, struct fuse_req *req)
- /* Verify that the server properly follows the FUSE protocol */
- static bool virtio_fs_verify_response(struct fuse_req *req, unsigned int len)
- {
-+	struct fuse_args *args = req->args;
- 	struct fuse_out_header *oh = &req->out.h;
-+	unsigned int expected;
- 
- 	if (len < sizeof(*oh)) {
- 		pr_warn("virtio-fs: response too short (%u)\n", len);
-@@ -774,6 +781,29 @@ static bool virtio_fs_verify_response(struct fuse_req *req, unsigned int len)
- 			oh->unique, req->in.h.unique);
- 		return false;
- 	}
-+	if (oh->error <= -ERESTARTSYS || oh->error > 0) {
-+		pr_warn("virtio-fs: invalid error value (%d)\n", oh->error);
-+		return false;
-+	}
-+
-+	if (oh->error) {
-+		if (len != sizeof(*oh)) {
-+			pr_warn("virtio-fs: error response too long (%u)\n", len);
-+			return false;
-+		}
-+		return true;
-+	}
-+
-+	expected = sizeof(*oh) +
-+		   fuse_len_args(args->out_numargs, args->out_args);
-+	if (len > expected ||
-+	    (len < expected &&
-+	     (!args->out_argvar ||
-+	      expected - len > args->out_args[args->out_numargs - 1].size))) {
-+		pr_warn("virtio-fs: invalid response length (%u, expected %u)\n",
-+			len, expected);
-+		return false;
-+	}
- 	return true;
- }
- 
+diff --git a/net/mptcp/protocol.h b/net/mptcp/protocol.h
+index 0384d6a023f9d..c006110b1c56d 100644
+--- a/net/mptcp/protocol.h
++++ b/net/mptcp/protocol.h
+@@ -583,14 +583,16 @@ struct mptcp_subflow_context {
+ 		closing : 1,	    /* must not pass rx data to msk anymore */
+ 		valid_csum_seen : 1,        /* at least one csum validated */
+ 		is_mptfo : 1,	    /* subflow is doing TFO */
+-		close_event_done : 1,       /* has done the post-closed part */
+ 		mpc_drop : 1,	    /* the MPC option has been dropped in a rtx */
+ 		resetting : 1,	    /* subflow is resetting */
+-		__unused : 8;
++		__unused : 9;
+ 	bool	data_avail;
+ 	bool	scheduled;
+ 	bool	pm_listener;	    /* a listener managed by the kernel PM? */
+ 	bool	fully_established;  /* path validated */
++	bool	close_event_done;   /* has done the post-closed part,
++				     * protected by msk socket lock
++				     */
+ 	u32	lent_mem_frag;
+ 	u32	remote_nonce;
+ 	u64	thmac;
 -- 
 2.53.0
 
