@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050813;
-	b=0H4uea710RIuYv/LBWDqONUM7j1qE4EFedGkoL9n9+fCWvU19wxFJCtbY0g/37VfzvlO
-	 eXSyLYGusPw5KIbaB2GdB4E2EGeArSS/yTDC+0wBzE3r45E4Z5kYOkkjolMe8o+4cmUC1
-	 F8YhJzpl/qVbAowr74lJNwFXqrMKJh1ZG7m/sOtICZWC3e4npso6r1M4CerAdaHczqYOs
-	 BkAgAVT0++roqAFxOViH5L6qrz9CMjp5EpVKLTHtaXU5P8PBw1tX5DURYOtXTnRZHmrXe
-	 oGrRHWXr7eFgB9ZXca7Lmb8zLcts8IgnT5QkNTdn2X7Msb8xwfkUBOi66hp+JjU3b8g==
+	t=1794050816;
+	b=P2paQigaw4umYzwAdbsZPsOUci2pnWYse6dLberOCmxJDV+EX/urED4RJDsxobtatgFG
+	 yVs1pnF8Tc3Tb6R8xwGDiMje21Nbej3tYgMsjbvgJefQVVMf1+wQ7yoKixulQwQA50fh5
+	 0dnXQytCOSjFXnA4XBu8QGHsG+8YYdDKEtk+vG47/YD6NuR+TLgb2hjplQgaeHUkgY5vs
+	 Hx/C16jxU9hhPcmWJHcIThWQdp08QiqE8c14HWoEEJfeu5dPhawwlYGdk/MwnCTG4JvqX
+	 qtrOYdUFkeLs0hXQINL7mdrODQ+19HZMqtTGIqBXxBCt07BsXnIdsfnqsDyELIQ/5iw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050813;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050816;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=9r8Dd+hYOe0UP6xuHV8jq+p2cOiHYSEg8NaYmsxstcE=;
-	b=HDzE1wQFFiaU5ooj6WE1gU0sfaBnVoxdrIXbTpxzsiUOZsaMMaZ28wLSJL9LrD3AuHet
-	 NWURTMf+eALAeHev/rZSiVlDDQdCLz93SRwQp3fLPqFByUfuJYiIxiV0PSywGc2YmFr2G
-	 cPzW/het3+14nUmkFICUcGTBYbodLExWcuZELm7TIsGcJfeVS9vkqLgo3SkJECQ9qEo6g
-	 9UFS1YTnvL0Eo38Dt9bQPNgA0E1AARopBQ0HGb0thFhz1fPYK4k9LQS8zl0V47KUtorpm
-	 a8w//Ec3O7wfV9FwjBTmVs7sXuvo+EOfSYSQ0NLXaAqBrWHcRG4VnAZ0okkIxAoLfcQ==
+	bh=e+gTkBMv3yaLR8ZCl3+85urEX6IfACetfID0CskNJ4c=;
+	b=WTiT2Q0srnxfB2dZm1WSar1X/TuGwjEGRkS5SLGeC474vKSvjist3q6JoVSRBPZNvGoQ
+	 P217vN10KLipzH4GVxoIzHmcmajmb3/MHqGxTwhPvLwAocvyPy07SJ5nooTN+QcTRDp8i
+	 lF6Cb9LsH7qhehENpX2+H3urcYZ2dvaK7JxU2PI8mh2cAghtvgqSTERSPKKYAuUBBHXzj
+	 WEz7RQbnyIITAcxLmpRna41ORhJXxk3pacdkRwj4r2yGFvIWxPLQpZaSOJOvXWrjb/G2r
+	 rPH1iqExLgg2Nfe4h3RywtPVMtORoAXxsIL9q1JGe0scwhgLY6mJ7ZIpbt920S2osjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ibLfqhVJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NOS831Pc;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06F7B606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:26:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 414BE606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:26:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ibLfqhVJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46AB41F0089F;
-	Sat,  7 Nov 2026 11:26:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NOS831Pc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F4F21F008A1;
+	Sat,  7 Nov 2026 11:26:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050812;
-	bh=9r8Dd+hYOe0UP6xuHV8jq+p2cOiHYSEg8NaYmsxstcE=;
+	s=k20260515; t=1794050816;
+	bh=e+gTkBMv3yaLR8ZCl3+85urEX6IfACetfID0CskNJ4c=;
 	h=From:To:Cc:Subject:Date;
-	b=ibLfqhVJcOxJlgmQnrIdFytpC62Y7ID4lxTmOtzUUeoaTGwzVXpVrZZAyKDAu5qbd
-	 TiOEz3qlZGNIXD7pWOeieB94lTy0rwFqTQ1rczK0Hl/G4PEr8T9T9nXmEWYEv21h39
-	 p0HZMTaVOMu496tu+22ZtYgRh8ZihPagrSG191D2MH0pVVnNc9a+jSw3dv/8YMAIxn
-	 R5WA08SNQAqFfXZFwgLmx0TtudBvLJAvPcYMJyWBtww1icTS6u8cDS8Gh93mOZIZML
-	 zdN4M47ATNCAX6fNByTghH0M8N18/XS8Ml/2LyHv1+NOlZLk92FHhqZmqXujsViDvB
-	 WHFBRp6mIvdnQ==
+	b=NOS831PcVILoEKOmtBOFHjnbJyCdttK7AHPhaB/O/QhOp25yjvuATz98VUFR7VJvN
+	 Q78sM4fwsR1dLtu54tzOi+Zr497NJuI+u8a7/wQ2JmtRRfcAuf4Y48zrNf2YHUZBvi
+	 gyWzIcASZPe/vz9cGnfPN/+FZqeBdNqTE4qZTOsDxFcv24K5grCPQehS23mEynEPkB
+	 LrHURGYuvnc37qfVN5pqSgtRIvdYTF0P016UpKmohDMe2IrhgYhF2fMEgJz7aH2Z70
+	 Hrxs/h/8ObizoCYwSyuiWVPnBKDXjGsfwzVlama58iMT1bBGZJRePFdbN0WuF83jMn
+	 LQWENBfc/zctA==
 From: Sasha Levin <sashal@kernel.org>
-To: kmta1236@gmail.com,
-	daniel.wheeler@amd.com,
-	roman.li@amd.com,
-	alexander.deucher@amd.com
+To: 4ncienth@gmail.com,
+	idosch@nvidia.com,
+	kuba@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/amd/display: Fix swap in median3() for DSC rate control" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:26:50 -0500
-Message-ID: <20261107062650-failed-5.10-7b23bf82ccbd@kernel.org>
+Subject: FAILED: patch "[PATCH] ipv6: serialize address publication with device teardown" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:26:54 -0500
+Message-ID: <20261107062654-failed-5.10-06227034e2d9@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,67 +69,89 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 7b23bf82ccbdb4cf0752f2b8686e7319a7ce497f
+git cherry-pick -x 06227034e2d93942119b922cf05f2de9da0ad848
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062650-failed-5.10-7b23bf82ccbd@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062654-failed-5.10-06227034e2d9@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 7b23bf82ccbdb4cf0752f2b8686e7319a7ce497f Mon Sep 17 00:00:00 2001
-From: Keita Morisaki <kmta1236@gmail.com>
-Date: Wed, 23 Sep 2026 11:24:51 +0900
-Subject: [PATCH] drm/amd/display: Fix swap in median3() for DSC rate control
+From 06227034e2d93942119b922cf05f2de9da0ad848 Mon Sep 17 00:00:00 2001
+From: Daehyeon Ko <4ncienth@gmail.com>
+Date: Thu, 15 Oct 2026 14:06:49 +0900
+Subject: [PATCH] ipv6: serialize address publication with device teardown
 
-median3() is meant to return the median of three values, but its last
-compare-and-swap step swaps b and c instead of a and b. When c is
-smaller than both a and b, it returns max(a, b) instead of min(a, b).
-For example, median3(2, 3, 1) returns 3 instead of 2.
+ipv6_add_addr() checks idev state before allocating an ifaddr, but
+publishes the object later. addrconf_ifdown() can mark and detach the
+idev between the check and publication.
 
-_do_calc_rc_params() always passes 0 as the first argument, and the
-second argument is never below 12. So whenever the third argument is
-negative, first_line_bpg_offset (and second_line_bpg_offset for 4:2:0)
-is set to the second argument instead of 0.
+This happens when a non-loopback device MTU falls below IPV6_MIN_MTU. A
+forced interleaving published an address on a dead idev, and
+ipv6_get_ifaddr() still returned it after teardown. Later device deletion
+remained blocked with:
 
-Fix this by swapping a and b in the last step, as intended.
+  unregister_netdevice: waiting for ac0 to become free. Usage count = 3
 
-Note that this change does not affect valid DSC configurations. The
-third argument is negative only when bits per pixel exceeds the
-uncompressed rate of the colour format:
+Protect the dead indication with idev->lock and keep that lock across
+both hash and device-list publication. Recheck dead before publishing;
+if teardown wins the lock, reject the unpublished object.
 
- - 3 * bpc for 4:4:4, 3 * bpc + 2 for RGB
+Non-unregister teardown does not set dead. The preceding change covers an
+add that misses the initial hash scan but reaches the per-device list
+snapshot. Both changes are required when backporting this fix.
 
- - 2 * bpc for 4:2:2
-
- - 1.5 * bpc for 4:2:0
-
-Fixes: 97bda0322b8a ("drm/amd/display: Add DSC support for Navi (v2)")
-Signed-off-by: Keita Morisaki <kmta1236@gmail.com>
-Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
-Reviewed-by: Roman Li <roman.li@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 1ddc4bc97a62fc89d9d3681413d9f977e1fa1a83)
+Fixes: 8814c4b53381 ("[IPV6] ADDRCONF: Convert addrconf_lock to RCU.")
 Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/r/179161099408.434549.14449036924552933828@kernel.org
+Link: https://lore.kernel.org/r/20261012145306.GB779501@shredder
+Suggested-by: Ido Schimmel <idosch@nvidia.com>
+Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+Link: https://patch.msgid.link/20261015050651.1841557-3-4ncienth@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ net/ipv6/addrconf.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c
-index 71eedb3301e49..62673dc8b04ab 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c
-@@ -45,7 +45,7 @@ static int median3(int a, int b, int c)
- 	if (b > c)
- 		swap(b, c);
- 	if (a > b)
--		swap(b, c);
-+		swap(a, b);
+diff --git a/net/ipv6/addrconf.c b/net/ipv6/addrconf.c
+index 72d7df23f7967..3bede30d4e989 100644
+--- a/net/ipv6/addrconf.c
++++ b/net/ipv6/addrconf.c
+@@ -1168,14 +1168,18 @@ ipv6_add_addr(struct inet6_dev *idev, struct ifa6_config *cfg,
  
- 	return b;
- }
+ 	rcu_read_lock();
+ 
+-	err = ipv6_add_addr_hash(idev->dev, ifa);
++	write_lock_bh(&idev->lock);
++
++	if (idev->dead)
++		err = -ENODEV;
++	else
++		err = ipv6_add_addr_hash(idev->dev, ifa);
+ 	if (err < 0) {
++		write_unlock_bh(&idev->lock);
+ 		rcu_read_unlock();
+ 		goto out;
+ 	}
+ 
+-	write_lock_bh(&idev->lock);
+-
+ 	/* Add to inet6_dev unicast addr list. */
+ 	ipv6_link_dev_addr(idev, ifa);
+ 
+@@ -3897,7 +3901,9 @@ static int addrconf_ifdown(struct net_device *dev, bool unregister)
+ 	 *	   Do not dev_put!
+ 	 */
+ 	if (unregister) {
++		write_lock_bh(&idev->lock);
+ 		WRITE_ONCE(idev->dead, 1);
++		write_unlock_bh(&idev->lock);
+ 
+ 		/* protected by rtnl_lock */
+ 		RCU_INIT_POINTER(dev->ip6_ptr, NULL);
 -- 
 2.53.0
 
