@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048473;
-	b=TyL3PsoLAsLeBU9AUGt8oVMP4lFH4NA3lTcpqlNF8SrnHeUtc3+Pvq4VbSYfx5ZlKbN1
-	 dToV2kjS8aCLaccsrBbNiof1hGI/qBKqY/HdbPcJwkOuw3jiH8cSvguJmUM8uJM2QGoYK
-	 0QnAE5qJqWxTn7rKNYgFgyoqKgZe0FkXLn2stk9lDN69v1LWgNfp1+WYCYJEDgvMkLoYE
-	 tLNBGyxWZ192UJNbRjVDVe/K8hdaivVExrKfW67dKTsQa6z6SaIVlwHjv+F55r4o8UPv6
-	 lt+5ic6pB38IOtBAbJkD9p1H0QUqdBatqZT/MnBjEpVk/O/SXYDao/vmE8f89qVn30w==
+	t=1794048476;
+	b=PGI5IO0pbtzCta5jqiDk3BSheJs6etGnZlWBZKPsrAXJyEldX0mSJKTK7Ls8MJKAYTL5
+	 ygPnTYQDPcnQQOTZQXgScTkCRtV2POcyqCaIzKnqmfdkR/zKQm+1zhvO6ujqsmz5Gbewi
+	 jkkh68QPPH5vYnmO8RHUhka/1ALARRPXfDhN18js85EZA0aHRGkPelrtZE4+XmVi+0msN
+	 m+5Je8e9Os5bJ8H9AZwKVmEmwRHgRmHUJNx2zmJPh3Z1PG71y6il4qhyugNmnMcTYxK41
+	 3JCx1ZZkor1hV3NQzWnYG5CVaCVQ+A+W2JCOG0MNE0ZVHcwjA6Gs5Ue/un2QbbwrcYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048473;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048476;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=RwC8OzqTI4vdUsTJwe8CzdUT4eZeDS8fOjfPLhjU8n4=;
-	b=YlXEW4kB4dYqG3KiNbuM9XYwshmb/e0SHQ7nJgSEJCDtjm0b4w34CnHb6kipcZsUYP/p
-	 HiZIkXSDkbm5MIQPT2sZ2/jmYnHIr3kHBmI71Okrii6orARd/EDH/HSuw/xDY026cPmD9
-	 2kq9fAejOTY/ROw1z3LspfLQC83PKno9ei0q+zriojOk8wKbxBoEl0h9MRn6Pv0bgkRUo
-	 /G8xc4lUBTq2jka5n5YT41TQaXUJHF+sVUkeCaLSKdPe0dvuvSqXyiB/xjPe6I0GPjwQj
-	 3CBa9RNna7vs4aov88m7W/WpfwuICOBWPD1ki9e/G3xDeLEysEdIUaKPGdglM2U0xSQ==
+	bh=LSGM7D6FL1+KS+pGopS5AtGmbMLZ/BkrbEM5Cil2z3A=;
+	b=ka5b+CZEaIQ074ySOU/n6ea//EMJMB4LBL00nJER6WoVtXVaJKXXu9V9feAQZNr7BMhm
+	 2Ed3suEhbNxk5LH1i6N+K689Q9D2SB4QdDuV1aKN1lk1amrufbcQFlVEmYinTrL90HyQ1
+	 M7P0i1aU7ZXHc0Xxe1LRQqFsza6PxBjo06ou1i2NDc6hnAfmzu3fqjb2yliR8ywEDGBg9
+	 XrmaBA/2pQJtkJuNE0jSZgxF313Spa2aeeWqfWiISRYQg8rLLPUxCZYCeB24oRaWwnn3v
+	 PVXc3gTZ+PuJvSloIxEjaen+flTU3jzmqLnwXJKeTkeyia1/Z2/0NZjQof+kmCipoOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fjottyem;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WZQcKk0h;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9385606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:47:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D073F606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:47:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fjottyem
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F06B1F008A1;
-	Sat,  7 Nov 2026 10:47:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WZQcKk0h
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1623B1F008A4;
+	Sat,  7 Nov 2026 10:47:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048472;
-	bh=RwC8OzqTI4vdUsTJwe8CzdUT4eZeDS8fOjfPLhjU8n4=;
+	s=k20260515; t=1794048475;
+	bh=LSGM7D6FL1+KS+pGopS5AtGmbMLZ/BkrbEM5Cil2z3A=;
 	h=From:To:Cc:Subject:Date;
-	b=FjottyemfqQU+KWJJoCVbymQvVFMF5A4JgNaya8D1eeIuCsIguiTj21xTCLbI4I5a
-	 gNZypmeajRmMYq6uyYkjixi/RDZWS9dOWV/60biqXoB5Y7F/VoIPInv1ZAbIYhP0vJ
-	 EKIJrj1qpVFPcZy3IC/JZPYhJadys4XFVmpYTBoeWYU8jXAVz/h0Z01xEbF4ZmgyI5
-	 qp9Fj778eUBD8czElgp4coLAmpbrQnLXsp+5rq2uNRXHTiugJF2ndz+PhRRuOijgul
-	 mgLniaNPOk7h+MexqGu0afmvisTpWCKtBMmgy5AJFelcaLugublLZTM9VoF3ZqW2MH
-	 WGQughR+qsjvA==
+	b=WZQcKk0hPGdZ1L8ei5SGzsUx/FxtKzzYSwyegX8Y01We9jNaO/tu6qnHECnlXuP6M
+	 Z7aBeYmUN85rI+kdMSfMv7/TnmDS7qfeLaER0c3ka9Bkq2hkJpcq+tHEKCyVg0H4Y0
+	 lqaiJrnhHmxFKrzlR/o3LtSYilM9UpOP+HlQrPfNHC7iD7PNvVyFxD8oeUbcy/9VSw
+	 /1smZ2/mNDUzERwnmVRL/TxgKgATF/XPFtCqw1liL9LIqmO99a829xRmJrly2o2cuf
+	 0/FGZ/NPJc+8g2iUs9NgrE9PA4XobGaeJJBUNdk3cZT5+qljIboLbmSKXLeuBPAmpj
+	 jaSkdraSQ+n/A==
 From: Sasha Levin <sashal@kernel.org>
-To: mhun512@gmail.com,
-	ae878000@gmail.com,
+To: andrey.misyrov@gmail.com,
 	deller@gmx.de
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] fbdev: nvidia: Release write-combining handle on probe failure" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:47:50 -0500
-Message-ID: <20261107054750-failed-6.1-8710af6a3520@kernel.org>
+Subject: FAILED: patch "[PATCH] fbdev: core: Initialize modelist in framebuffer_alloc()" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:47:53 -0500
+Message-ID: <20261107054753-failed-6.1-0c9cb9321cb3@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,54 +68,87 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 8710af6a35201a6d01b5af8f7e4bad29cc40467f
+git cherry-pick -x 0c9cb9321cb3863b52bdea4b8ae5a27705762c9e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054750-failed-6.1-8710af6a3520@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054753-failed-6.1-0c9cb9321cb3@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 8710af6a35201a6d01b5af8f7e4bad29cc40467f Mon Sep 17 00:00:00 2001
-From: Myeonghun Pak <mhun512@gmail.com>
-Date: Mon, 14 Sep 2026 20:54:47 -0400
-Subject: [PATCH] fbdev: nvidia: Release write-combining handle on probe
- failure
+From 0c9cb9321cb3863b52bdea4b8ae5a27705762c9e Mon Sep 17 00:00:00 2001
+From: Andrey Misiurov <andrey.misyrov@gmail.com>
+Date: Mon, 12 Oct 2026 19:53:38 +0200
+Subject: [PATCH] fbdev: core: Initialize modelist in framebuffer_alloc()
 
-Failures in nvidia_set_fbinfo() or register_framebuffer() leave the handle
-from arch_phys_wc_add() allocated. Release it in the shared error path,
-as nvidiafb_remove() already does on normal removal.
+framebuffer_alloc() returns zeroed memory, so info->modelist starts out
+with NULL next and prev pointers. The list head is initialized only
+later, by fb_videomode_to_modelist() or by do_register_framebuffer().
 
-The missing cleanup was already present in the initial Git import,
-when the driver used mtrr_add() directly.
+The "fix potential memory leak" commits listed below added
+fb_destroy_modelist(&info->modelist) to the probe error paths of s3fb,
+tdfxfb, tridentfb, i740fb and carminefb. These paths can run before
+the list head is initialized:
 
-This issue was identified during our ongoing static-analysis research
-while reviewing kernel code.
+ - s3fb, tdfxfb, tridentfb and i740fb call fb_videomode_to_modelist()
+   only after a successful EDID read, and tridentfb can also hit the
+   error path on an ioremap() or kmalloc() failure before that;
+ - carminefb jumps to the error path when fb_find_mode() fails, before
+   its fb_videomode_to_modelist() call.
 
+fb_destroy_modelist() then dereferences the NULL head. Reproduced on
+Debian 12 (6.1.180) by binding s3fb to a VGA device without EDID and
+forcing fb_alloc_cmap() to fail:
+
+  s3fb 0000:00:03.0: cannot allocate colormap
+  BUG: kernel NULL pointer dereference, address: 0000000000000000
+  RIP: 0010:fb_destroy_modelist+0x10/0x80
+  Call Trace:
+   s3_pci_probe.cold+0x12b/0x2bf [s3fb]
+   local_pci_probe+0x41/0x80
+   pci_device_probe+0xc3/0x240
+   really_probe+0xde/0x380
+   __driver_probe_device+0x84/0x150
+   driver_probe_device+0x1f/0x90
+   __driver_attach+0xce/0x1c0
+   bus_for_each_dev+0x87/0xd0
+   bus_add_driver+0x1ae/0x200
+   driver_register+0x89/0xe0
+   do_one_initcall+0x59/0x220
+   do_init_module+0x4a/0x1f0
+
+Initialize the list head in framebuffer_alloc(), so info->modelist is
+always a valid, possibly empty, list and fb_destroy_modelist() is safe
+on every error path. Keep the lazy initialization in
+do_register_framebuffer(), as drivers that embed struct fb_info rather
+than calling framebuffer_alloc() still depend on it.
+
+Fixes: 3b0ed04bc852 ("fbdev: s3fb: fix potential memory leak in s3_pci_probe()")
+Fixes: bb019d755366 ("fbdev: tdfxfb: fix potential memory leak in tdfxfb_probe()")
+Fixes: 7a35ec619d9a ("fbdev: tridentfb: fix potential memory leak in trident_pci_probe()")
+Fixes: 5936063409af ("fbdev: i740fb: fix potential memory leak in i740fb_probe()")
+Fixes: 6fcca16a2b19 ("fbdev: carminefb: fix potential memory leak in alloc_carmine_fb()")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Signed-off-by: Andrey Misiurov <andrey.misyrov@gmail.com>
 Signed-off-by: Helge Deller <deller@gmx.de>
 ---
- drivers/video/fbdev/nvidia/nvidia.c | 1 +
+ drivers/video/fbdev/core/fb_info.c | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/drivers/video/fbdev/nvidia/nvidia.c b/drivers/video/fbdev/nvidia/nvidia.c
-index 4ef7a5ba43cc4..395f5d0455fa4 100644
---- a/drivers/video/fbdev/nvidia/nvidia.c
-+++ b/drivers/video/fbdev/nvidia/nvidia.c
-@@ -1423,6 +1423,7 @@ static int nvidiafb_probe(struct pci_dev *pd, const struct pci_device_id *ent)
- 	return 0;
+diff --git a/drivers/video/fbdev/core/fb_info.c b/drivers/video/fbdev/core/fb_info.c
+index 52f9bd2c5417a..05988a936bebb 100644
+--- a/drivers/video/fbdev/core/fb_info.c
++++ b/drivers/video/fbdev/core/fb_info.c
+@@ -43,6 +43,7 @@ struct fb_info *framebuffer_alloc(size_t size, struct device *dev)
+ 	info->device = dev;
+ 	info->fbcon_rotate_hint = -1;
+ 	info->blank = FB_BLANK_UNBLANK;
++	INIT_LIST_HEAD(&info->modelist);
  
- err_out_iounmap_fb:
-+	arch_phys_wc_del(par->wc_cookie);
- 	fb_destroy_modelist(&info->modelist);
- err_out_free_base1:
- 	fb_destroy_modedb(info->monspecs.modedb);
+ #if IS_ENABLED(CONFIG_FB_BACKLIGHT)
+ 	mutex_init(&info->bl_curve_mutex);
 -- 
 2.53.0
 
