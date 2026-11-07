@@ -1,51 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050251;
-	b=h9EqtESQg7JE4tpV8lXa0o+uaXj5tOi0z+YKHyWZodWyvBh+/8g/ZeTh8Mvpje6/uMzR
-	 WQvx8quQDXitmLGMcFTdpZTiTn/PKp+gaXCWJcbzCBZi0RpNVgivGbuAkNraaJ070ChYX
-	 0ZU/Ra3pIqpego4PnhsWQPSgQAQkI9v0ZlFuZM+Ejtfcbf28bWSbB7hfkdxH6Gq4jVxXs
-	 75JIP9jp5AMRNK8m8dQMPDo31wAVi4pwuFZYIjeDQeMeSSUDrhsGA5EbObQSdCF9AFeG3
-	 cn8ge0EjB+P1YMlzRGvyhTALHoLsg92/b2YiviDgHg3kCJKLNT/O033J8QQkKCAsjQA==
+	t=1794050253;
+	b=Ep+2ycUszAOKJ/PBLoPyYOuNPS/ihZQUR6LCx1Z+RFng7++6Fa1nUIS/cRDPbF9L/Cdk
+	 J9h9xqm23Jz+sibLLfuU+MAYVTreD4HHWUprKY4qRgaaZueveDcbXC2UWlvbE/9rQIMf6
+	 1pykX6oZt2TMt15BDWZz87z2W2COFxt2ToWsbf045t+J5WHb7/j9gNkr8KzFjjskd4eDH
+	 8WL6R/Kbl/NNJlIq8Hh8kTolQkEkdsr8zjV4FxgHIhaCq6MmilhyrZY2y2qOD7QgQa7CQ
+	 0ChE7/eL3LT4G43KcEQhlql5lS8Ks1XVMLln+e3x4HoSjlQXHdYZiesz6Vw0sf+Bn+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050251;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050253;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=aYuN9IWltrsTibOmVnqcfT2OVtF1hCxct1aK+aTcbSw=;
-	b=pZLQSGn8lehyxz9j6XL33yO6No1ZKYRRECz3JLFO86rbRtuFKuTnz+LZcQMasimu2HB1
-	 MIVEnAobBSGkLvKRmf2TL3+PgnO3B9sgufUKwzE9BxPcgXirwW1wc5sBDrlajhXOv2OBn
-	 b5pBw2/dI2q9TKHON4S57vl8L0hWxBTtuBkFLhaDvYTQiAQrghpadAKT9zavZsQCJn2gd
-	 eLjuZhsxr6GRbnckFjoFjgBikblCFt58gEkp8o5WxaZnj2sUMM0/erJD5Z6uxFmO1PRlu
-	 DwhFLVuusj/Sug+pEZRfpxDzahBeycj+YB1TmkgvOy/r+KXKl5ohqUrwWpj/EU41qGA==
+	bh=6PG7kgbg9cU9qWFj/vBdzF9KUiXLX3dB2u4C8HIDGH8=;
+	b=Bm7DsTAf9igk3Qn017wv9ve0Y3O76TJz5TdVdYUIovVIY3lgP2BrWe31kh0CHLOuQOIh
+	 kw2ScN7+I0TV1J9LVoVG5aJPZ4agxhVE+9E5iwj0zwGZ38AN6di+WytDHm3Bvwcve82EH
+	 IY7haWZ8BteFBC9+fkVUKUHELcCpfMbtNRPno+RVTf/GViDwIhCc/yFoCsI8nB5qAMdPY
+	 CuIyK7eDncZHqNM/1b7HkLKM/bXrC4hFgoXxIi38J90GNijRNmBDOoWovKgpTITdc/rMV
+	 M7Rto2f/KyC1MHgUzBt2WVsvsl3cvNdKb2I9JpbxOGckvpmjAbBwK4m+psMI9mD1lxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="dc/uS7IO";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eN9OGCYP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADEAE606A33F
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:17:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3588606D803
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:17:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dc/uS7IO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2ABF91F008A1;
-	Sat,  7 Nov 2026 11:17:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eN9OGCYP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31A601F008A7;
+	Sat,  7 Nov 2026 11:17:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050250;
-	bh=aYuN9IWltrsTibOmVnqcfT2OVtF1hCxct1aK+aTcbSw=;
+	s=k20260515; t=1794050253;
+	bh=6PG7kgbg9cU9qWFj/vBdzF9KUiXLX3dB2u4C8HIDGH8=;
 	h=From:To:Cc:Subject:Date;
-	b=dc/uS7IOjHlDI5Jt+arPIonXHLI5jSvMSZkkywXcUqQV8SMEuoqZUDLKLlf53REdq
-	 2L7TbxSdZbk2wi5M6bZA9NDVjVcIqvQi/ctKV3BXP2AyqP7mO9HYlrlhAbth70850X
-	 pBjoR+RI4kKH+LhdT7KyExD5qaiYyxFtGCWQHIiLFRO3o5XE80iZ58MXPwrtE0OGEU
-	 OQ2uhkEoc7RUD/pS1SV+l1h0Wp3M8sAubef58OTzaW0XNFDkfeW0hhncl18+qkvwKm
-	 C4+WFTItlmjwO3YzLVeROcXn2EFZ4o2lqUwZW1MHCue8qkA2PB5aFwNPR0sI9TfQ7w
-	 uSuAiL2J37KPw==
+	b=eN9OGCYPG/1p2rSGCozjZF/QPenjc6f7lah+2M9Yu7bD+1ATkpM+xUyrWrddPtDP7
+	 wxhfwy3fanjVmmsFgGOpnTO+I0zCjxTlyiX4S3du5GXC/vrG0eSQORAbPZCNZBbYaD
+	 4FxxRHwsH7ezrY+Ns4O750u6r9q2I8IAqxEPeok/QEawyRXz61zmkxaEQgHGivQDX/
+	 o0sC4jogQcmXqe1YrmQcpKGhVcC+VNxy/7nnYsMo5uTvoY6VRrQjur3s56ioeblhnP
+	 hGUFs9F5B2oqfYzAXgpZY5KXKR23x5kRa8NCZ34OC+WCIwQZtUINol45qBeHSP9+Ls
+	 xv6eBj1F6bn8Q==
 From: Sasha Levin <sashal@kernel.org>
-To: zoone.rupert@gmail.com,
-	jonathan.cameron@oss.qualcomm.com
+To: tiwai@suse.de
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] iio: pressure: dps310: fix CFG_REG bit definitions" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:17:28 -0500
-Message-ID: <20261107061728-failed-5.10-4334dc4092c2@kernel.org>
+Subject: FAILED: patch "[PATCH] ALSA: core: Check shutdown flag at D0 power-state, too" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:17:31 -0500
+Message-ID: <20261107061731-failed-5.10-ad63c5b62843@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,58 +67,60 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 4334dc4092c271e6cd010c2ee70b7f4415c4c199
+git cherry-pick -x ad63c5b62843895e8c3cd7291ed07cc659df0355
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061728-failed-5.10-4334dc4092c2@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061731-failed-5.10-ad63c5b62843@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 4334dc4092c271e6cd010c2ee70b7f4415c4c199 Mon Sep 17 00:00:00 2001
-From: Rupesh Majhi <zoone.rupert@gmail.com>
-Date: Mon, 21 Sep 2026 21:31:23 +0300
-Subject: [PATCH] iio: pressure: dps310: fix CFG_REG bit definitions
+From ad63c5b62843895e8c3cd7291ed07cc659df0355 Mon Sep 17 00:00:00 2001
+From: Takashi Iwai <tiwai@suse.de>
+Date: Tue, 29 Sep 2026 14:53:41 +0200
+Subject: [PATCH] ALSA: core: Check shutdown flag at D0 power-state, too
 
-Driver defines them as BIT(4), BIT(5) and BIT(6). Per datasheet P_SHIFT
-is bit 2, FIFO_EN is bit 1 and SPI_MODE is bit 0.
+The snd_power_ref_and_wait() skips the card->shutdown check when the
+card is already in D0 state and immediately returns as successful, by
+assuming the all-green in D0.  This assumption makes the code after
+this sync point behaving as if all power is up and ready, even though
+actually it might have been already at the disconnected state.
 
-Only P_SHIFT has a user. dps310_set_pres_precision() sets it at
-oversampling 16 or above, so with wrong bit the result register is never
-shifted and stops matching the scale factor compensation divides by.
-in_pressure_input returns -ERANGE at oversampling 16, 32 and 64.
+Add the missing check of shutdown flag there for the more consistent
+behavior.
 
-FIFO_EN needed by FIFO support later in this series.
-
-Fixes: ba6ec48e76bc ("iio: Add driver for Infineon DPS310")
-Fixes: d711a3c7dc82 ("iio: dps310: Add pressure sensing capability")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Rupesh Majhi <zoone.rupert@gmail.com>
-Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Link: https://patch.msgid.link/20260929125346.1478631-2-tiwai@suse.de
 ---
- drivers/iio/pressure/dps310.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ sound/core/init.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/iio/pressure/dps310.c b/drivers/iio/pressure/dps310.c
-index 45bdb8c7670f0..35260b3993903 100644
---- a/drivers/iio/pressure/dps310.c
-+++ b/drivers/iio/pressure/dps310.c
-@@ -50,9 +50,9 @@
- #define DPS310_CFG_REG		0x09
- #define  DPS310_INT_HL		BIT(7)
- #define  DPS310_TMP_SHIFT_EN	BIT(3)
--#define  DPS310_PRS_SHIFT_EN	BIT(4)
--#define  DPS310_FIFO_EN		BIT(5)
--#define  DPS310_SPI_EN		BIT(6)
-+#define  DPS310_PRS_SHIFT_EN	BIT(2)
-+#define  DPS310_FIFO_EN		BIT(1)
-+#define  DPS310_SPI_EN		BIT(0)
- #define DPS310_RESET		0x0c
- #define  DPS310_RESET_MAGIC	0x09
- #define DPS310_COEF_BASE	0x10
+diff --git a/sound/core/init.c b/sound/core/init.c
+index 1bcb6a2e75507..a51b71812fd9b 100644
+--- a/sound/core/init.c
++++ b/sound/core/init.c
+@@ -1174,12 +1174,12 @@ EXPORT_SYMBOL(snd_card_file_remove);
+ int snd_power_ref_and_wait(struct snd_card *card)
+ {
+ 	snd_power_ref(card);
+-	if (snd_power_get_state(card) == SNDRV_CTL_POWER_D0)
+-		return 0;
+-	wait_event_cmd(card->power_sleep,
+-		       card->shutdown ||
+-		       snd_power_get_state(card) == SNDRV_CTL_POWER_D0,
+-		       snd_power_unref(card), snd_power_ref(card));
++	if (snd_power_get_state(card) != SNDRV_CTL_POWER_D0) {
++		wait_event_cmd(card->power_sleep,
++			       card->shutdown ||
++			       snd_power_get_state(card) == SNDRV_CTL_POWER_D0,
++			       snd_power_unref(card), snd_power_ref(card));
++	}
+ 	if (card->shutdown) {
+ 		snd_power_unref(card);
+ 		return  -ENODEV;
 -- 
 2.53.0
 
