@@ -1,58 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794091694;
-	b=UmT1qNp7fml8858S+M3OI/SDeaBuRGd5dd50GT472QmFTXpw3JmA/Bp0J24vbVqdqCnD
-	 YAC3jsi6+duyKHEI4aDrEyJiEmQzIszXZspl+3hY4VgS19zZ3PSXGEOmBjqlijQBFZafX
-	 HZmwij64BijgvS10xbxfRB0DVn46adEertLpvtoBo7ntN8TmK18dvBUZzRqNb0N6leOIp
-	 pFaulfrq/A+y/oB/dKDirWobau+8QkGdRTRmFWpoNNd/nrEg8tdAnE/9f5ZL+em12fBHi
-	 UaE7xReiNdGRYlnCIlGCJ+zd/kYr0oYNEFwCDJPM5+RBC7SOpMUZNCfSbY9Lw0GN51A==
+	t=1794091728;
+	b=TrNfof/O4id4/CrC2C5n9+NdBHcSzZ7H8lSLCQOH2mxQmvfyIxYFqTsHa0p4LiBvbr5H
+	 duiFH3k6JEFdmh9AYqut4LIUELnxYy1LQ3BxghGEvn8Xv5jsgJgaUKn8Ka3X7TdK1jHAZ
+	 MEa4qYmmdEcQ9sOkU4uHFvToW1grm5ihIFgrkKKY7sd6EOdeGPWN+JjDIH7ckeZPaJTg0
+	 WMy5uTvMCykUmJWnzU4FMql2MF2P5kNstIvyYWfEkfXzPC5Uf+AhRQgiFkF1eVQcXuBU1
+	 s9RaxpelWhl6V2Z5mkFuSy4dW1/6Qc1JLuuQ1HCIjqL5ZvbhsPMSh2jIQN1Xn3b8l7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794091694;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Z5j7HhXnzELbkFkJqEZQNTDWxIhKaeKvJLsv/O41RlA=;
-	b=ZOLLSnWX6gBwhC8pzCJoRvxkRaBBQwD6uVJsmf9mbcnjqnUbjzsQvi653g74WED+09hZ
-	 mCyjWGUsy172hdPGdlxtAgvH29mzDitVveXr5GPQE60Xz6Memq00lDY881lmw3ZH6UYXx
-	 gnEJiIhPBE73Xa2BmFttPT17vQnbhHyLzTEyOolBeEYXenTQinQuyu07+Tfz00nCXjolO
-	 vVWEIIyYCbMg4oDOglvJf15zr01rTRF16d3twN4BFEwS+h8/6z80uTLQCYztTx3S3Z5IZ
-	 oBwtguUPkk2jv7VunQ9sDWvqGvvAhTC1tfl4Lw/gFUun2uCgmHSX9AwBBdH1q0rxRAQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794091728;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=QuLhFEvmmpbdFe5TBed4DD8fUH5b/6o6JMrvceQqWs0=;
+	b=tDnTAI5kcAoRj7AsWbuNmRXumLl6tkIxUi+Wq5zK6ACjmzUD/kpFFGn5k2qghQ9jYvNV
+	 +Ehbo6eC8jYsWxDjfdSHFNtZSHODOLvTOOcYyUVZWZKVf1yezofPzbkW+skpceLTqsFjs
+	 CM4A5BkzbgCjHXA97oe0X3TOqFtx3LU/eRPWH8RLxlqn00/w5rUdjFfmT2gPDzSYKIAZj
+	 yhHo4lXaOfD80aNvdI2Jmjb2Cy5960M1PcSxJYHMfe7tfsUbH9mttYSNQLIU0qJfHO040
+	 SrMKFfHZAmiCau4jhLY3hPXzqcoDrmacW2UeyTTGQ6aoSL2FyLeTbqcK4D56eBQvcFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z2DnN9FQ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iHJdESOf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B644606A330;
-	Sat,  7 Nov 2026 22:48:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C539A606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 22:48:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z2DnN9FQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D97591F008A1;
-	Sat,  7 Nov 2026 22:48:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iHJdESOf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 680971F008A2
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 22:48:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794091694;
-	bh=Z5j7HhXnzELbkFkJqEZQNTDWxIhKaeKvJLsv/O41RlA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Z2DnN9FQ/pONrpfmYqdsyadnC5aGPtVXxJDblg/cLi22vodpsA39uT285qpPCtkEf
-	 t8z1UcPayk6eXHiM30oSoskX1Wpmec2l6JudAx+tFqrot2gNRvnMqZ6aXY1wT0q+4z
-	 LUbGrWu4KcRkeFtbUXgLrHgIxFLhe0onBex8+Ov5cRNg3Wb7nm2R1h5yzObEfKyjWJ
-	 ye/UmpNJFnsa3Cms1EGXt+cCMS6N5AYo6GRDh70btIaRB6fpummEYhWZ34nldZoeFQ
-	 mV1QaeZvuSCI6u0ftfK17OigkxV+zy8trlgG2CIMbi/6LKgrKdDOcHSdmcbgCOM3yS
-	 Z/S7v5GANMagQ==
-From: SJ Park <sj@kernel.org>
-To: 
-Cc: SJ Park <sj@kernel.org>,
-	stable@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [RFC PATCH 6.1.y 2/2] mm/damon/core: remove unreachable damos charge_{target,addr}_from
-Date: Sat,  7 Nov 2026 14:47:59 -0800
-Message-ID: <20261107224800.340250-3-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261107224800.340250-1-sj@kernel.org>
-References: <20261107224800.340250-1-sj@kernel.org>
+	s=k20260515; t=1794091727;
+	bh=QuLhFEvmmpbdFe5TBed4DD8fUH5b/6o6JMrvceQqWs0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=iHJdESOfGkXUhxi+nej8FX8ZZVq7o3gGEAX9jKFPXoGubpeHyJqqMooG0NG+yeqO0
+	 KJTkGkUDnh3MrkPRD2JWUAzHOz6hLip8FKVeA/SxiDtn6RLkYs9mFYygIOSJQWEJDv
+	 ahKpcMy92jx8GhxTuoKVy0vsyHToqnZoDkCBYoXyowaJ9KNJfFscbClVLq9SNadxzz
+	 YISPSKjQdhbC5c525MeY8zTRB1PHxQiUpIOGtvVPJ7cB2crSiFYXuHnI71acuPTeh6
+	 IeC7IVxDxBf1iiMtnvibfpH3azhzoUvB65/uTkfKAa3CA4znN/rvHDaFAo5J3wzOfJ
+	 qn7yCHXQ2zCWA==
+Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-3acd304b5fbso366761fa.2
+        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 14:48:47 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErHtbosr3PL3R96hieixlwl8a6whKj3rqCfaUxsu/1s83+/Wo0MsdZ46MGgHajBwm6wb+aVljWE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/95KIk3F+q/GGKJY5KmKVxnpJfrHYFuJONLiloH6kPYwHWNo1F
+	SWSV9kTMdOXQtmUtAgOdPHgsCKHOeLx65mFqcHTyIF25g41Ogp4DA2MsiRo1Uz5k6M4cEhgxvRz
+	U04XCsr7oQxmiA2atv553rIL4QRHJGFY=
+X-Received: by 2002:a05:6512:1048:b0:5bf:cabe:23b6 with SMTP id
+ 2adb3069b0e04-5c003a9c26emr1737966e87.33.1794091726181; Sat, 07 Nov 2026
+ 14:48:46 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,81 +59,42 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261105-gpiolib-of-hog-uninitialized-v1-1-fcaeaccefab6@oss.qualcomm.com>
+In-Reply-To: <20261105-gpiolib-of-hog-uninitialized-v1-1-fcaeaccefab6@oss.qualcomm.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Sat, 7 Nov 2026 23:48:34 +0100
+X-Gmail-Original-Message-ID: <CAD++jL=xWDA=JsD+JmX+1i6fs3dRXztUk13mcTvKcnO9Lq7tqg@mail.gmail.com>
+X-Gm-Features: AclHuK-twRwCMVL7cQuNhWiRM9_Y2ubKODxjVoSRNRTWzU9h1XAiKR4cV_MVtR8
+Message-ID: <CAD++jL=xWDA=JsD+JmX+1i6fs3dRXztUk13mcTvKcnO9Lq7tqg@mail.gmail.com>
+Subject: Re: [PATCH] gpio: of: fix potential misconfiguration of hogged lines
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, Mika Westerberg <mika.westerberg@linux.intel.com>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-damos_quota->charge_{target,addr}_from saves the target and region the
-scheme's quota limit is reached.  damos_skip_charged_region() skips the
-target and regions before the point.  The target that was assigned to
-charge_target_from could be dynamically removed from the context by the
-runtime parameters update (aka commit) feature.  In this case,
-damos_skip_charged_region() cannot find if the point is passed or not,
-so the scheme is effectively disabled.
+On Thu, Nov 5, 2026 at 2:37=E2=80=AFPM Bartosz Golaszewski
+<bartosz.golaszewski@oss.qualcomm.com> wrote:
 
-Similarly, the user could also remove all the regions of the target
-using the runtime parameters update feature.  It would be uncommon to do
-that, but it is a supported feature.  Because the skip pointer detection
-logic (damos_skip_charged_region()) works for each region of targets,
-this result in the logic is entirely skipped and the scheme is
-effectively disabled again.
+> In of_gpiochip_get_lflags() the local variable xlate_flags is declared
+> without being initialized before its address is passed to
+> of_xlate_and_get_gpiod_flags() when processing a devicetree gpio-hog
+> child node. If a driver uses an of_xlate() callback that doesn't update
+> the flags argument (like gpiochip_fwd_delay_of_xlate()) we'll end up
+> passing that uninitialized value to of_convert_gpio_flags(), potentially
+> misconfiguring the hogged GPIO.
+>
+> Initialize xlate_flags to 0.
+>
+> Cc: stable@vger.kernel.org
+> Fixes: d1d564ec4992 ("gpio: move hogs into GPIO core")
+> Closes: https://sashiko.dev/#/bug/linux-2bb44847-fd6e-406c-878d-9739da2cb=
+8b5
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-The user impact is that the DAMOS scheme could suddenly stop working
-under certain uses of the runtime parameters update feature.  It could
-surprise users. No crash or leak happens though.  Users could also
-simply work around by re-installing the scheme.
+Right! Good catch from Sashiko there.
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-Catch the corner cases in damos_adjust_quota() and reset the pointers.
-
-Link: https://lore.kernel.org/20261020023958.108276-1-sj@kernel.org
-Fixes: da87878010e5 ("mm/damon/sysfs: support online inputs update")
-Signed-off-by: SJ Park <sj@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Closes: https://sashiko.dev/#/bug/linux-cd0c55fc-0cc8-45d8-9637-3334811c49b8
-Cc: <stable@vger.kernel.org> # 5.19.x
-(cherry picked from commit 5695abc4e742b947f586bfb6a080a80ad9957e5d)
-Signed-off-by: SJ Park <sj@kernel.org>
----
- mm/damon/core.c | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
-
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 9206737d05ae7..01f93146b92fe 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -860,6 +860,26 @@ static void damos_set_effective_quota(struct damos_quota *quota)
- 	quota->esz = esz;
- }
- 
-+static void damos_fix_stale_charge_pointers(struct damon_ctx *c,
-+		struct damos *s)
-+{
-+	struct damos_quota *quota;
-+	struct damon_target *t;
-+
-+	quota = &s->quota;
-+	if (!quota->charge_target_from)
-+		return;
-+	damon_for_each_target(t, c) {
-+		if (t == quota->charge_target_from) {
-+			if (damon_nr_regions(t) > 0)
-+				return;
-+			break;
-+		}
-+	}
-+	quota->charge_target_from = NULL;
-+	quota->charge_addr_from = 0;
-+}
-+
- static void kdamond_apply_schemes(struct damon_ctx *c)
- {
- 	struct damon_target *t;
-@@ -890,6 +910,8 @@ static void kdamond_apply_schemes(struct damon_ctx *c)
- 			damos_set_effective_quota(quota);
- 		}
- 
-+		damos_fix_stale_charge_pointers(c, s);
-+
- 		if (!c->ops.get_scheme_score)
- 			continue;
- 
--- 
-2.47.3
+Yours,
+Linus Walleij
