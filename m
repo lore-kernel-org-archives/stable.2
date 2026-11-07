@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047125;
-	b=UhcaBk3DsYOnpxdmW1+e3OcOsNPQDsPGYP4c86STAxzHaBdCNaCgAmGy4Ck7WdL6UcDR
-	 oPDohK/xOnsAz4ZZk9oDccozPNFWZyaspoFZXH3xR6CZc4ZqLLwgUWXiAwhtldBmbxiw8
-	 KECaHmSfV3jV+Du8AqgEKU3eYubXfMMjxbQk12hLoslo7xQ9vE/JOO5eQR+nQrhcJLpAH
-	 i3dy1e4pkHoeOmRyy8Wtzb8t1rTJVdUZlNqdD5Yyygt3yA0NDdQ+u1ZJBnqZFC8vvl9ce
-	 /ZwMDk95n2HVR22hGtnvXgilzscZN28RIF+60Yi6b0h50Zxj2sConaiApO4274fnzsg==
+	t=1794047127;
+	b=0vsw4TypsRx2b/Rq7UH5ypDKVQ3O+ktdJNQ7rMW12DFdoxdGdaLOJ9oRKj0ryakpoWp4
+	 8WS/ABCCf1Q6M23aW3KFKjxDp+d0VDFJ+f2JeOJ6be6Rp/tQ3zFF7oLkDqw7ODJiAihbE
+	 bQJ5QgwmlGtCDw6rn8rg3RNcaBiQkk+eppO9ori7/3ym0CNHccEn0X2pvVoR3d3qwZVxV
+	 cfNRoAaN+X7qOIxMwWZkZMM5njraA85fmLlOtg1JYyptg65B/6qKO8Vu+PfF2sEq95gk1
+	 q9ZVGHrh+n5GdxSDHKfRYzhwz3y9AyLS4qlKpueBegYGIHXmJgBSYaoFAbJXIT+uxqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047125;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047127;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=yjwOJk8LIYQda5f07kWoFAmst/XtUwdFIYMWHXdzxYY=;
-	b=ENpUxDAQzOVTuclw3DAPw+HeVqaWM+k1AQS2I5G6juTL2Bde1rsQVPeD6cLZAWelhkZk
-	 9b0c4HyAvZug/ZZ1SAdALGaJEnb0E7lJPXX5EDO9p3TbQY3+w7UaDOkiB4C238BVoReDW
-	 x1RQ7SM0LO/5f0bYlhybdEVAW2G6VvVixRAF/Il1jTFJPSwzYZCTfqjPhchoyHjcda9Db
-	 lU5qRJ8PQmpR0x+MGp5btnsrkCSTy/M6cdu7XpX5HABpKJ5/IIAUDS9i4mIXVZTyMP2kM
-	 0vwCfJT+I1tgXTGpIo3NXpi3O3MOseVPbWjPtFB77SczM7owHwHN9fxC9CK9GCNFQVA==
+	bh=1RXj+vyfGtiSq94Rv4uEeuTqZ533Mdea8y81TlOti4s=;
+	b=LVwtz3FnPNprYex/gDMd28Z1wWVeTaHuJh4xlBGrDr2cAbhzMpbLC1hasq+462xp4rEZ
+	 PDnzmodubsaWu8hzuNIQ4BZbmoaE7JV2wzLJJCV4xKZY485CVSlTjVei2mpewENsg1tBI
+	 n5rXVfqYk2sOd9MfKRFIQXMQmebfo1mYMY/sz/nZgp2nBefaIOSpPrKx3gTuf3y5T4goU
+	 qmZ16s2FqtG4xZ473we3Q2v5e8SgYi9gTaz1L2kfuCtTotbV7cD6nM1hshrXmsSYzzfKe
+	 RRv5Iuk8k5ZKNxyJNvBXTnwT2/8UyAaNOC46EmGj/BK4oxrntZs/F3fmsV2oBJ2WVng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YfRVZElG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XRquwI11;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58368606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:25:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E508606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:25:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YfRVZElG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A7511F0089F;
-	Sat,  7 Nov 2026 10:25:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XRquwI11
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2FCA1F0089F;
+	Sat,  7 Nov 2026 10:25:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047124;
-	bh=yjwOJk8LIYQda5f07kWoFAmst/XtUwdFIYMWHXdzxYY=;
+	s=k20260515; t=1794047127;
+	bh=1RXj+vyfGtiSq94Rv4uEeuTqZ533Mdea8y81TlOti4s=;
 	h=From:To:Cc:Subject:Date;
-	b=YfRVZElGNcJu54Ah2SIraiP4DCRTvWJQNoEFNY6/ryCp/pyVSqpb+zL7v399eFu6m
-	 v6ANw0Qa2l6tbjAhhvrxK8e63rf0yEyN2+COcfP47Ka6XhYdnO/0bHC0WbcuT5mXxv
-	 8M05jvUgLh2dV7bDAOVh+8iU85xTwwqeHIIsUvKYgpJThRWlOuL+klfhXS84XAULo4
-	 S76Wc/FA7EK6y271vDV7EaCExPdrpY3MMOa9EWrLAb/G2af1pzKNDyA5wBbsO3aNeA
-	 P4/0dTWgwcOTR92qXhQ/8LE+O1BcuXF7N1nFjq5meO+MNOa2Lm9DspwgkMd2C+2RfR
-	 Z0+e6cUY8Duhw==
+	b=XRquwI11oyhQkmroJEQD3qIqKvxhz6HxuCShlkWlHYKtT2dagrBQ+he5W6EpDL+Fu
+	 VsTQ6lzJPKwa+VKwAl2J9ys3doRohgKKbQ+U83ZcUDzaZeI6IcOQkBA9y6C+3NM//9
+	 UiQkgbmgMXKLX1bpu71tRA4SB+eapg1pGwxs+ek8c9rwbjdrZ873QxtbFbCeoGa+kQ
+	 Mrj4MtPY3KB+QCwcMF8pD/JAmmNI5zJuflyHZh8IM8Yhy/xTqzj8uj/qIgmSFXTnl6
+	 vLNFEftPAD9xCINfBLW0QFLjDuTahEBYRBn71HiMoHICN1h6cQIKLs4msQO5oeILbE
+	 wBuB1QQHF2BIA==
 From: Sasha Levin <sashal@kernel.org>
-To: lizf@honeycomb.io,
-	tj@kernel.org,
+To: nick@karaolidis.com,
+	chengzhihao1@huawei.com,
 	jack@suse.cz,
 	brauner@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] writeback: keep cleanup_offline_cgwb()'s scan out of syncs" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:25:23 -0500
-Message-ID: <20261107052523-failed-6.12-90c96612460e@kernel.org>
+Subject: FAILED: patch "[PATCH] fs: don't lose inodes that another LRU walker is isolating" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:25:25 -0500
+Message-ID: <20261107052525-failed-6.12-8dc4116041e2@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,83 +70,78 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 90c96612460e6accddbda5a195e6ddaa391ecde0
+git cherry-pick -x 8dc4116041e2b377e5e1b62ba98b37636f9f3968
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052523-failed-6.12-90c96612460e@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052525-failed-6.12-8dc4116041e2@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 90c96612460e6accddbda5a195e6ddaa391ecde0 Mon Sep 17 00:00:00 2001
-From: Liz Fong-Jones <lizf@honeycomb.io>
-Date: Sat, 17 Oct 2026 04:07:11 +0000
-Subject: [PATCH] writeback: keep cleanup_offline_cgwb()'s scan out of syncs
+From 8dc4116041e2b377e5e1b62ba98b37636f9f3968 Mon Sep 17 00:00:00 2001
+From: Nikolaos Karaolidis <nick@karaolidis.com>
+Date: Fri, 9 Oct 2026 14:24:31 +0000
+Subject: [PATCH] fs: don't lose inodes that another LRU walker is isolating
 
-On a filesystem mounted with lazytime, sync() and syncfs() can return
-without persisting timestamp updates of inodes attached to a dying
-cgroup wb, so a crash after the sync loses them. File data and sizes are
-not affected.
+When inode_lru_isolate() finds an unused inode that still has page
+cache, it sets I_LRU_ISOLATING, drops i_lock and the list_lru lock,
+invalidates the page cache, clears the flag again and returns
+LRU_RETRY so that the restarted walk can free the inode.
 
-Since commit f6988c90671e ("writeback: bound cleanup_offline_cgwb()
-rescans by rotating scanned inodes"), isw_prepare_wbs_switch() moves the
-inodes it walks to the newest end of the list. When a pass fills its isw
-before reaching an inode that got its lazytime update after a sync's
-cutoff, the walked inodes land past it on b_dirty_time, and the sync's
-queue_io(), which stops at the first inode dirtied after the cutoff,
-misses them. The late inode has to be one without a pending lazytime
-update; one already on b_dirty_time keeps its position.
+Another walker of the same list can reach the inode in that window.
+It sees a non-zero i_state and takes the inode off the LRU, as it
+would an inode that is in use. Page cache deletion requeues the inode
+once the mapping is shrinkable, so this is harmless if it happens
+before the last deletion. If it happens after, nothing puts the inode
+back: it stays in memory, unused, clean and without page cache, out
+of reach of the shrinker and of drop_caches, until it is looked up
+again or the filesystem is unmounted.
 
-The window is narrow. cleanup_offline_cgwbs_workfn() skips wbs with
-anything on b_dirty, b_io or b_more_io, so the scan has to land between
-wb_writeback() fixing dirtied_before and taking list_lock for its first
-queue_io(), unless a multi-pass drain started before the wb got dirty
-IO.
+Before commit 2a0629834cd8 ("vfs: Don't evict inode under the inode
+lru traversing context") the pin was an i_count reference, and the
+final iput() put the inode back on the LRU.
 
-Take wb_switch_rwsem for read across the scan, as
-process_inode_switch_wbs() does for the switches.
+Skip inodes that are being isolated and leave them to the walker that
+pinned them, which restarts its walk once it has unpinned them.
 
-Fixes: f6988c90671e ("writeback: bound cleanup_offline_cgwb() rescans by rotating scanned inodes")
+The window is reached by any unused inode with page cache on
+CONFIG_HIGHMEM kernels, and otherwise by inodes whose page cache is a
+single shadow entry at index 0. On an i386 HIGHMEM guest, eight
+concurrent "echo 2 > /proc/sys/vm/drop_caches" over 2000 freshly read
+one-page ext4 files leave roughly 400 of the inodes off the LRU per
+round; on x86_64, with the files' pages first evicted through
+memory.reclaim, 3 to 4 per round. With this patch, none in either case.
+
+Fixes: 2a0629834cd8 ("vfs: Don't evict inode under the inode lru traversing context")
 Cc: stable@vger.kernel.org
-Suggested-by: Tejun Heo <tj@kernel.org>
-Link: https://lore.kernel.org/all/0bc5d58533f10b4841807be3025daa11@kernel.org/
-Acked-by: Tejun Heo <tj@kernel.org>
-Signed-off-by: Liz Fong-Jones <lizf@honeycomb.io>
-Link: https://patch.msgid.link/20261017040710.1174009-1-lizf@honeycomb.io
+Signed-off-by: Nikolaos Karaolidis <nick@karaolidis.com>
+Link: https://patch.msgid.link/20261009142431.713875-1-nick@karaolidis.com
+Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>
 Reviewed-by: Jan Kara <jack@suse.cz>
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- fs/fs-writeback.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ fs/inode.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/fs/fs-writeback.c b/fs/fs-writeback.c
-index 1f192a581fb2f..ac612c02ced9f 100644
---- a/fs/fs-writeback.c
-+++ b/fs/fs-writeback.c
-@@ -790,6 +790,13 @@ bool cleanup_offline_cgwb(struct bdi_writeback *wb)
- 		new_wb = &wb->bdi->wb; /* wb_get() is noop for bdi's wb */
+diff --git a/fs/inode.c b/fs/inode.c
+index d6353b8d1e634..f63535ee36291 100644
+--- a/fs/inode.c
++++ b/fs/inode.c
+@@ -941,6 +941,12 @@ static enum lru_status inode_lru_isolate(struct list_head *item,
+ 	if (!spin_trylock(&inode->i_lock))
+ 		return LRU_SKIP;
  
- 	nr = 0;
-+	/*
-+	 * The scan moves walked inodes to the newest end of b_dirty_time,
-+	 * past ones it didn't reach. If one of those was dirtied after a
-+	 * sync's cutoff, the sync's queue_io() stops there and misses the
-+	 * moved ones. Exclude syncs as process_inode_switch_wbs() does.
-+	 */
-+	down_read(&wb->bdi->wb_switch_rwsem);
- 	spin_lock(&wb->list_lock);
++	/* Another walker is dropping its page cache, leave it to that one */
++	if (inode_state_read(inode) & I_LRU_ISOLATING) {
++		spin_unlock(&inode->i_lock);
++		return LRU_SKIP;
++	}
++
  	/*
- 	 * In addition to the inodes that have completed writeback, also switch
-@@ -804,6 +811,7 @@ bool cleanup_offline_cgwb(struct bdi_writeback *wb)
- 		restart = isw_prepare_wbs_switch(new_wb, isw, &wb->b_dirty_time,
- 						 &nr);
- 	spin_unlock(&wb->list_lock);
-+	up_read(&wb->bdi->wb_switch_rwsem);
- 
- 	/* no attached inodes? bail out */
- 	if (nr == 0) {
+ 	 * Inodes can get referenced, redirtied, or repopulated while
+ 	 * they're already on the LRU, and this can make them
 -- 
 2.53.0
 
