@@ -1,67 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794089960;
-	b=cbPOjiQ4nKNtRnaI3kvBNiAs2pQl6HXPS4K5Luf8zeIiDVaWYCumxF6AzlmFV6T9UjgM
-	 4ThT8IxBkbV67zsxFB3iBvhvkZJYjkgJKT3ZUPgSkSOOzRrBfXHlTCH/zKEGwaxzlWQH7
-	 DZcK97Z57SGLT5c9lsb3DJajJCVkPe0FMZAB/GIm7Ye9GwebAOgJVBTUVF3f577oCJ9sI
-	 SorkzXieRKiqT615JRz476SNNDWiSog4DDIXxd+AtMY9RVYw/Jlt1ZagARXJPcnztjccI
-	 xXXFnsk0d0gScXYgHTjwZUb2SOAMx7ofKShDu01bfZ7MGpuLwGup8DxsBYCWqK7peGA==
+	t=1794090131;
+	b=iI9pS7pq5OXNOHTt6iFuQwtN7H15C6eyztu47UDiyn8zQ5yi/KSqFfXbujx8YqI4FSuV
+	 AJpMEQU3g+lAHeTHsgEag0pn4xC2bEKXi3UZVilNqWzrykSF9mTXKjMrEI3DWSGipLkh7
+	 1c4ASP2D+QJNZ2fTOj5UWonsUy0zcQuXPc5qZzxkRqpAjlqBiM79uMVtiAvEUXZZoeQvy
+	 IMemxnyCKdOxOuQC10lqKCo9zjeT9Hax1cSV30pGfOqlZ2iIo6Npq6CbswGx/Gzd/xCIm
+	 jMhIAWUX3Rt7fg35SdBQY/vsnOVU2d7130bFC/1m8SlPRkIXbprqRTvnry7D3YEP4HA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794089960;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Rspamd-Server:X-Rspamd-Queue-Id:
-	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
-	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
-	bh=IrWyd/NUIg/cuTdnip5OZoVktjwrysAxByBJrTRw/Vs=;
-	b=jMBXNYYa4Wtr/hlcA0QPapmxMei9C71xwDBh4IgsThT1SxUF1Y5NdM+CbqdLVEqgyki7
-	 ynw7N+sIc7Fy64oYp2Ug6LEJ9zi+eCmowMqO644arBxC9FJia/dClk/pfYnr0130scubE
-	 isAfcLiUGTGWUNJhn24/jL4831KxsTzRynDicPE31P23jQlZNAj2ks9vVtQBBtTOo1s4O
-	 hjuwZNzYUs7kvTumlPhmm2HYK4LzZLJyoZl0IsGscd0ChKWgqFE2bgJEANnv+WVc8Zgx8
-	 +voA3Yqk9wo5xH9r14paF8AHaKqmg4hdc3KCZQ7SHeSkS8FvJxD6sWYngoiYjBmTdVA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794090131;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=oFyH1lXK+D22hmGRk2EUFASP4KJBcyjWs6rRrcnHQkU=;
+	b=bzgUUZU21HIml6rblavsks6bJclAsnGE3RGi8sKtQIehBSox1UItCjFNuhqEgztyLBAQ
+	 RktEIg87NedKLMcYvpaY3KlvmLjLxEP9ZH6b42bGhu/t7BrOt1T1pwUYgqvTYy7qbHb73
+	 tC8cS1Oh/sITpPCc8nR9q1+nZzzWHxNwRKu0jwFlSmpNWRWCWT7Vi1QkTMwi3PHwjEFEU
+	 K/cf7RJm+E/hKUFCjPKP4aZ0cMIV/xzOTASpB2hAvc083STDKQWw2VjZFUNqY+8//EJkl
+	 jCGat2Gcvs868IE5LHfjNlvOZmGxfdaAKeKIkzCg+h33AH7Bh33Vc8/OY5FW8TWZ6zQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goodmis.org;
-	spf=pass smtp.mailfrom=goodmis.org;
-	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=a2RvPuSq;
-	arc=none smtp.remote-ip=216.40.44.13
-Received: from relay.hostedemail.com (smtprelay0013.hostedemail.com [216.40.44.13])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lPcfoW1k;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0E69606A333;
-	Sat,  7 Nov 2026 22:19:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0E69606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 348B0606A326;
+	Sat,  7 Nov 2026 22:22:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=a2RvPuSq
-Received: from omf16.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay05.hostedemail.com (Postfix) with ESMTP id A253040455;
-	Sat,  7 Nov 2026 22:19:15 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf16.hostedemail.com (Postfix) with ESMTPA id 11DB62000F;
-	Sat,  7 Nov 2026 22:18:55 +0000 (UTC)
-Date: Sat, 7 Nov 2026 17:18:41 -0500
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, tglx@kernel.org,
- mingo@redhat.com, linux-kernel@vger.kernel.org, will@kernel.org,
- boqun@kernel.org, longman@redhat.com, bigeasy@linutronix.de,
- clrkwllms@kernel.org, dvhart@infradead.org, dave@stgolabs.net,
- andrealmeid@igalia.com, shuah@kernel.org, juri.lelli@redhat.com,
- linux-rt-devel@lists.linux.dev, linux-kselftest@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH 1/5] locking/rtmutex: Stop spinning on the owner when
- the waiter is woken
-Message-ID: <20261107171841.06d3ac92@fedora>
-In-Reply-To: <2a786b46-e935-4269-9bdc-edac43521a80@efficios.com>
-References: <20261106235931.1478800-1-mathieu.desnoyers@efficios.com>
-	<20261106235931.1478800-2-mathieu.desnoyers@efficios.com>
-	<20261107002927.3cbad7ff@fedora>
-	<20261107104329.GA2668564@noisy.programming.kicks-ass.net>
-	<c77635b1-9c24-459a-b75c-82cbfb67185f@efficios.com>
-	<20261107123642.149677cf@fedora>
-	<2a786b46-e935-4269-9bdc-edac43521a80@efficios.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lPcfoW1k
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7944B1F0089F;
+	Sat,  7 Nov 2026 22:22:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794090130;
+	bh=oFyH1lXK+D22hmGRk2EUFASP4KJBcyjWs6rRrcnHQkU=;
+	h=From:To:Cc:Subject:Date;
+	b=lPcfoW1kLglj1i6JIN3nPgQGGSRI0kGogIB92HmszE1lxF9XvVJLA08EG7T+wUvXY
+	 hmCvBQLap57JcbniUzaGg6q7caY0NXigaLeV2PYLCH6ppcAPphz9EHwEmWh0MS6OO4
+	 t9OtWKorGE83GpQeer47a8uum2Y9o94AY6hw02VKRgVR6XVfWysmNhz7NLggvMLD4V
+	 9Y9VYOSuzCVu8dXMYrgmfyg4yWixOz+Xw+cekNA5eDyirDRjyVfIuPVqTOKYoh/cl0
+	 8yRrR4pQvQvWnsdmCFGdB0v69UpOvGRFPRvCstQNhYloherKXePTOSSTa/uCJfQKqt
+	 R+ARw87afnLlQ==
+From: SJ Park <sj@kernel.org>
+To: 
+Cc: SJ Park <sj@kernel.org>,
+	stable@vger.kernel.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Usama Arif <usamaarif642@gmail.com>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [RFC PATCH 6.6.y 0/3] mm/damon: porting fixes that cherry-pick failed on 2026-11-07
+Date: Sat,  7 Nov 2026 14:21:58 -0800
+Message-ID: <20261107222202.331476-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -71,75 +61,39 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout02
-X-Rspamd-Queue-Id: 11DB62000F
-X-Stat-Signature: f8dy9hjpsw4m8s5z1mbfync5f847dh4y
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX18BEy50Y0R/CGiJv/72oFmfpd2bvmyyf0k=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=IrWyd/NUIg/cuTdnip5OZoVktjwrysAxByBJrTRw/Vs=; b=a2RvPuSqqUgHFxw/HeNHl/RXpo2HWnqn7eATNP1CpuCQEW5TvqcXQbBz5gtWuxZlSjQ2NAI9zuhc3zwxY6sUDHTXrxOpPLYduq83u+5Fr3SWRwJG5HexGVZgq26H/2jqB7z4r8uy+Y/wmtnRRwDJldogONAL/5jTnzAGjmBXmBg=
-X-HE-Tag: 1794089934-72919
-X-HE-Meta: U2FsdGVkX19zj3EcpEfWC0gfish/KiltpyP1399WG2W/6/JxmHM+cHe7dYWt2DCxNxJ0h1ksxTxANJxqJctYp5wxHzt8ftfMjwc7lcTMJY8xc2XOGR56D16ksSoxtoMbI04eB0ZGzKkPnHGfUoMdyx4a59DaM+YJ6+mSmVPQmP09KKdObZxxOQ69iCMovC1naJMFwPWQDIsHwA9hSuvXdGbbsbNZ4Xv5d/vSj9iErSlVHpUy4ez6Wbm1Uj8drO2cWq9YJ8zhUtCkKZGQ+eFALB89orzxDWzKBtyG2hLTldisQbGnytGWgDZoW1+GwCJ0Bjc0eIQ8+SGCw2536hTFFKAKj7jGZ1I8MlcoDMWfcXcL7iLWspj/aHoXW0KfMIrE
+Content-Transfer-Encoding: 8bit
 
-On Sat, 7 Nov 2026 14:34:12 -0500
-Mathieu Desnoyers <mathieu.desnoyers@efficios.com> wrote:
+Manually port three DAMON fixes that cherry-pick failed [1-3] and turned
+out to really need to be picked.  Note that seven patches [4-10] that
+also failed in the same day were having wrong Cc:stable@ tags, so
+ignored.
 
-> > 
-> > How about something like the above?  
-> It drops important information, such as the user visible impact of the
-> issue. How about this remix ?
-> 
-> locking/rtmutex: Stop spinning on the owner when the waiter is woken
-> 
-> The top waiter of an rt_mutex sets its sleep state. Then it spins in
-> rtmutex_spin_on_owner() as long as the owner is running. A wakeup sets
-> the waiter back to TASK_RUNNING. The spin loop does not check for this.
-> So a timeout or a signal is only handled when the owner blocks, or when
-> the waiter has to reschedule.
-> 
-> The spin is an optimization. A running owner will likely release the
-> lock soon, so the waiter spins instead of going to sleep. It comes
-> from the PREEMPT_RT adaptive spinning for rt_spin_locks. Only the
-> lock handoff wakes an rt_spin_lock waiter, so the spin did not need to
-> check for other wakeups there. The spin was then extended to all
-> rtmutex based locks. Their waiters can also be woken by a timeout, a
-> signal or a ww_mutex wound.
-> 
-> The owner of a PI futex is a user task. It can run for a long time.
-> With an owner spinning in userspace, a 1ms pthread_mutex_timedlock()
-> returned up to 1.4s late in testing. A signal to the waiter is delayed
-> too.
+Patches that this series is porting.
 
-The last sentence seems out of place. Perhaps be more specific?
+[1] https://lore.kernel.org/20261107053211-failed-6.6-90c2fa6adfed@kernel.org
+[2] https://lore.kernel.org/20261107053907-failed-6.6-bbeec2d8324d@kernel.org
+[3] https://lore.kernel.org/20261107053915-failed-6.6-5695abc4e742@kernel.org
 
- The timeout signal or any signal to the waiter will not stop it
- from spinning, and the signal will be delayed until it exits the spin.
+Patches that also cherry-pick failed but deliverately ignored.
 
-> 
-> With PREEMPT_RT, two contexts that take two ww_mutexes in opposite
-> order spin on each other. Only something else that needs one of the two
-> CPUs stops them. By default, the fair server does it after 950ms, to
-> run SCHED_OTHER tasks.
+[4] https://lore.kernel.org/20261107053348-failed-6.6-6f276422aded@kernel.org
+[5] https://lore.kernel.org/20261107053350-failed-6.6-cec08aad3def@kernel.org
+[6] https://lore.kernel.org/20261107053353-failed-6.6-409d2ab6d982@kernel.org
+[7] https://lore.kernel.org/20261107053355-failed-6.6-1bfb9384ae0e@kernel.org
+[8] https://lore.kernel.org/20261107053357-failed-6.6-a1c7fdaf1657@kernel.org
+[9] https://lore.kernel.org/20261107053400-failed-6.6-1d2397b2c414@kernel.org
+[10] https://lore.kernel.org/20261107053402-failed-6.6-1c3352282063@kernel.org
 
-Yeah, that is a big issue.
+SJ Park (3):
+  mm/damon/core: skip applying scheme if region split for quota fails
+  mm/damon/core: filter out damos address filter-split failed region
+  mm/damon/core: remove unreachable damos charge_{target,addr}_from
 
-> 
-> Fix this by also stopping the spin when the waiter is TASK_RUNNING. The
-> slowpath then handles the wakeup, as it does after schedule().
-
-The last sentence doesn't really make sense. I can figure it out
-because I know what the slowpath does, but as you see in my version, I
-go into a little more detail to why it's not an issue to break out of
-that spin on TASK_RUNNING.
+ mm/damon/core-test.h | 11 +++++-----
+ mm/damon/core.c      | 48 ++++++++++++++++++++++++++++++++++++--------
+ 2 files changed, 46 insertions(+), 13 deletions(-)
 
 
-> PI mutex throughput is unchanged. The futex and ww_mutex selftests added
-> later in this series test both cases.
-
-I think you can drop the above. I don't see it adding anything for the
-change log. That is more for cover letters.
-
-Thanks,
-
--- Steve
+base-commit: ba98b310288deb9f3814fc8f80d8a33ae0f59850
+-- 
+2.47.3
