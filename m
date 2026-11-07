@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794045887;
-	b=M7lCQy2uOpxjFKHRM9jGj63r8Ro89mbXmIncFXglyvH3vc+rd60XL9ID2Tjz6m3VBk41
-	 RDw1RQR20hD1BVDPgtzZKhUcJ7oknTp/ucGYDd+xjx2dU3wP/TUumlmPxyx50yI9vXQqf
-	 hD7tcUcyzFRHK6dvo0vTqIfqpwD+o8J5I8SQ99Kokd51Tfv0X+/wIbb4+uAnk90+BEerw
-	 +Qsu5yxRM64LAx/lPCoQzrgNbamG6u78Jqj+9LXYK/1QC4OM7yCbxBngvQOaLTvWZcOCx
-	 IXJPNS8OPf5m3Yig+1bPwTB6Ja17ia4LT2Os8Tz0EdAEXvb8gagkUMoca52A1jeTS1A==
+	t=1794045889;
+	b=uFMLYFAWkM5oH7CqoRnP65QuzRHw5sAySbMDPowJ5b48kejSEwAd0AqcuEE0HcIa9WkQ
+	 XiOWRlcXiVc9Md4ZHH8op4mFN5COs9LyeoFOuxGSvqYQ4WPn8ubfrQXK/dFSIOeqWoXqz
+	 S5ZYkyVrIq53PKCnPCCNQt2ZOgIVGM+Q0dYTVwNBzEX0PCMFimuIjl/07FfkSSJA4TnCh
+	 Vmk2kLnVRa5W47pRQPRTioeiWuWpQ3zWB4KdZ7P3J9mN7PZ0H8RHv9V0s3x+00W29zTP5
+	 /CF3rg+5+iHzHjVfEqdQjrZiMMROT503LjDr1DdO4Kx3fD+nRRqKaLNxpREiVA/P88g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794045887;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794045889;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=h0OggBIqMNjKRiN75PXrY5pyXs0hrsef9UBYw8irumM=;
-	b=OHpI+kwPmnkVJOmtuLfO1VBrcKIqun8cGtmmASlNb186d08TwBvg92A/jxAnerXirNUj
-	 tNxGsQlCB3mvYj2ICCwb/k/ThCK1KQ5R74AHKYK9C2+c68tYO/lC6c5+p0hQWiq2hsWh5
-	 IdF7hAvfaCaoPv7tpiet6qEeudIfHut8AR4OxcOJcmdnJ35eB+uj7x6KkkQtWXkC9+U2a
-	 /nI6Re/g/QpusR/YZx8Tlu3Xj8jnD6YkPczvtleFzsTuGK8QTuTq07crfyZbytsjfChHJ
-	 LBA7Fm/5iqcp8JoqabxzNV4JVJsVCx98+g7stzk0WnJWT9//XcnW5a8OkegEEwXa0qw==
+	bh=cQSRWi/hayGhlEIRjcyq9Z5xtN3Na07mB0+LcBwPp20=;
+	b=J6k5xUyrTWsZMfJUvCL+61xPZmdZgw9JW5e6Lf/ho1nZDUnwWpBsIcCx5v31ktCIgUHn
+	 CDrheIGNfD1f1qU5pxgzK6iz3K/aVgjUdzifvVjgr4akkCjr3XKqQnbr3GkbmOeb6uieU
+	 o7fIDP1OPxsPpMaOYcpPXKllrUUs8w9W3kwT4mjMtpAcAcoK91j3FauTgRP3JlxnI9zYX
+	 ifH8VK0B/tO+zxJIFxZGZ30Eb5lOsBhMjr7Z2UL8GRorf/6ZLH1W2GXIuhMmXCv/DcTJC
+	 hZbE5Rx/nd7cNzw6QHPJsJq2gHhcXWBwmL/if8WYSQEGR5TZWKpQPgPYE5rLke1IhQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VCz7pUXE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="AHPm4hp/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3982A606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:04:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52973606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:04:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VCz7pUXE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91AF11F0089F;
-	Sat,  7 Nov 2026 10:04:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AHPm4hp/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5C8A1F0089F;
+	Sat,  7 Nov 2026 10:04:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794045887;
-	bh=h0OggBIqMNjKRiN75PXrY5pyXs0hrsef9UBYw8irumM=;
+	s=k20260515; t=1794045889;
+	bh=cQSRWi/hayGhlEIRjcyq9Z5xtN3Na07mB0+LcBwPp20=;
 	h=From:To:Cc:Subject:Date;
-	b=VCz7pUXEvSwYNDdoZCwW4o6SbU1iIYdXz+B5T/QtJBz36ClAdtjv0x+KoHK64+JtS
-	 bLTB4qywNkujvTulEg53L0M3hIGoK9oLkDYT50L3CaXopR1f4EcoDwgl8aXGYGcW3j
-	 ueRdinZZP+O0R7HH9xXpvMqMesEz6aMrmT8aVJVCR+EuEuRL0bzao0jPOmK4dY8Kac
-	 Iwr15RHlD31aAkHCgtlDnoy/DxdK/mK3EJVJ2qEGp4qDZ9JNwK2zla0u6r6UbsCtBp
-	 YkwNsaaIn2rrLxFVxHaRjpvpoxv7uhiDCDkahBU0S5QNT2HKNxZidl/N1I9JuYR6c1
-	 Sa6/kUrgtplkw==
+	b=AHPm4hp/okQM08j+rapuhPznQc9VwLs/vFellJgmM7lfVn4LWL/vxsCpyLa9ZDGXA
+	 o8D0VmA+rShIeKwGC1N0gyA6PUmrePZxnMDjuOUlcJmcO0o/Y+kTWAd+WxFJqw+WdT
+	 fY0rOdMF5dO3HygLvXjBc/2Vuk5UjkpnSmSBLgsjTeAxQSKkEsXMHZ6wxBS+mdNfgU
+	 G90IvOuVZeOq3NpGOuxnW3i5wTBldUXFJkIt0yPWULr8C+35JFTbYpE09NZ5lKikv+
+	 Z/M/OUmfKVnfPdPIEUL9mMuNEfpPqZDm8G87IrLpvFGmqh4zTaqshBMk4dE+jS3QnW
+	 g1ITvtXWeR11g==
 From: Sasha Levin <sashal@kernel.org>
-To: sumit.kumar@oss.qualcomm.com,
-	manivannan.sadhasivam@oss.qualcomm.com,
-	bhelgaas@google.com
+To: oss@fourdim.xyz,
+	luiz.von.dentz@intel.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] PCI: dwc: Set DMA_BYPASS bit in outbound IATU CTRL2 register" failed to apply to 7.3-stable tree
-Date: Sat,  7 Nov 2026 05:04:45 -0500
-Message-ID: <20261107050445-failed-7.3-efadda401c5c@kernel.org>
+Subject: FAILED: patch "[PATCH] Bluetooth: L2CAP: Reject signalling responses in invalid states" failed to apply to 7.3-stable tree
+Date: Sat,  7 Nov 2026 05:04:47 -0500
+Message-ID: <20261107050447-failed-7.3-6320736af7dc@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,79 +68,107 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
 git checkout FETCH_HEAD
-git cherry-pick -x efadda401c5c8e2390ba66508eba154dbd0db5a9
+git cherry-pick -x 6320736af7dcb90da6ee9fd651ecc11c564d45b7
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050445-failed-7.3-efadda401c5c@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050447-failed-7.3-6320736af7dc@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From efadda401c5c8e2390ba66508eba154dbd0db5a9 Mon Sep 17 00:00:00 2001
-From: Sumit Kumar <sumit.kumar@oss.qualcomm.com>
-Date: Tue, 8 Sep 2026 11:48:22 +0530
-Subject: [PATCH] PCI: dwc: Set DMA_BYPASS bit in outbound IATU CTRL2 register
+From 6320736af7dcb90da6ee9fd651ecc11c564d45b7 Mon Sep 17 00:00:00 2001
+From: Siwei Zhang <oss@fourdim.xyz>
+Date: Tue, 13 Oct 2026 11:36:34 -0400
+Subject: [PATCH] Bluetooth: L2CAP: Reject signalling responses in invalid
+ states
 
-An outbound iATU region matches any local (AXI/application-side)
-address that falls within its Base/Limit window and rewrites it to
-the PCIe-side address programmed in that region's Target Address
-Registers before the transaction goes out on the link. This matching
-does not distinguish CPU-initiated transactions from ones issued by
-the internal DMA engine (eDMA/HDMA).
+A peer can send configuration messages while an
+incoming channel is in BT_CONNECT2, before the
+security or deferred accept gate has completed. A
+configuration response can then promote the channel
+to BT_CONNECTED. Configuration responses can also
+act on channels that are closing, and a late connection
+response can move a disconnecting channel back to
+BT_CONFIG.
 
-Example: outbound region 0 is programmed with Base/Limit covering
-local addresses 0x8000_0000-0x8000_0FFF and Target 0x1_0000_0000, for
-CPU-initiated accesses. The DMA engine is later given a descriptor
-whose destination is the host address 0x8000_0080, which happens to
-fall inside region 0's Base/Limit range. The iATU matches the DMA
-transaction against region 0 too and rewrites it to 0x1_0000_0080
-instead of passing 0x8000_0080 through unchanged. The transaction
-then lands on the wrong host address, causing data corruption or an
-IOMMU fault when the rewritten address has no valid mapping.
+Accept connection responses only while waiting in
+BT_CONNECT. Answer configuration requests in
+BT_CONNECT2, but defer our own request until
+BT_CONFIG so configuration cannot complete before
+the gate. Ignore configuration responses outside
+BT_CONFIG and BT_CONNECTED, and only complete
+configuration in BT_CONFIG.
 
-Set the DMA_BYPASS bit (bit 27) in PCIE_ATU_REGION_CTRL2 when
-programming outbound iATU regions so only CPU/AXI-initiated
-transactions are matched against the region; DMA engine transactions
-bypass the translation and go out on the PCIe link with their
-original address.
-
-Signed-off-by: Sumit Kumar <sumit.kumar@oss.qualcomm.com>
-Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260908-dma_bypass-v2-1-c3c81d408c0c@oss.qualcomm.com
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Siwei Zhang <oss@fourdim.xyz>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
 ---
- drivers/pci/controller/dwc/pcie-designware.c | 2 ++
- drivers/pci/controller/dwc/pcie-designware.h | 1 +
- 2 files changed, 3 insertions(+)
+ net/bluetooth/l2cap_core.c | 20 +++++++++++++++++++-
+ 1 file changed, 19 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/pci/controller/dwc/pcie-designware.c b/drivers/pci/controller/dwc/pcie-designware.c
-index 855d2a54b3c6b..074b007dc2963 100644
---- a/drivers/pci/controller/dwc/pcie-designware.c
-+++ b/drivers/pci/controller/dwc/pcie-designware.c
-@@ -577,6 +577,8 @@ int dw_pcie_prog_outbound_atu(struct dw_pcie *pci,
- 		/* The data-less messages only for now */
- 		val |= ATU_INHIBIT_PAYLOAD | atu->code;
- 	}
-+	if (dw_pcie_ver_is_ge(pci, 460A))
-+		val |= ATU_DMA_BYPASS;
- 	dw_pcie_writel_atu_ob(pci, atu->index, ATU_REGION_CTRL2, val);
+diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
+index c730da87734b3..eb55c16760a7e 100644
+--- a/net/bluetooth/l2cap_core.c
++++ b/net/bluetooth/l2cap_core.c
+@@ -4442,6 +4442,10 @@ static int l2cap_connect_create_rsp(struct l2cap_conn *conn,
  
- 	/*
-diff --git a/drivers/pci/controller/dwc/pcie-designware.h b/drivers/pci/controller/dwc/pcie-designware.h
-index aea474ad803cd..61e9c4e979af6 100644
---- a/drivers/pci/controller/dwc/pcie-designware.h
-+++ b/drivers/pci/controller/dwc/pcie-designware.h
-@@ -217,6 +217,7 @@
- #define  ATU_ENABLE			BIT(31)
- #define  ATU_BAR_MODE_ENABLE		BIT(30)
- #define  ATU_CFG_SHIFT_MODE_ENABLE	BIT(28)
-+#define  ATU_DMA_BYPASS			BIT(27)
- #define  ATU_INHIBIT_PAYLOAD		BIT(22)
- #define  ATU_FUNC_NUM_MATCH_EN		BIT(19)
- #define ATU_LOWER_BASE			0x008
+ 	lockdep_assert_held(&chan->conn->lock);
+ 
++	/* Ignore a late response after the channel has left BT_CONNECT. */
++	if (chan->state != BT_CONNECT)
++		goto done;
++
+ 	switch (result) {
+ 	case L2CAP_CR_SUCCESS:
+ 		if (__l2cap_get_chan_by_dcid(conn, dcid)) {
+@@ -4471,6 +4475,7 @@ static int l2cap_connect_create_rsp(struct l2cap_conn *conn,
+ 		break;
+ 	}
+ 
++done:
+ 	l2cap_chan_unlock(chan);
+ 	l2cap_chan_put(chan);
+ 
+@@ -4608,7 +4613,13 @@ static inline int l2cap_config_req(struct l2cap_conn *conn,
+ 		goto unlock;
+ 	}
+ 
+-	if (!test_and_set_bit(CONF_REQ_SENT, &chan->conf_state)) {
++	/* A channel in BT_CONNECT2 has not passed security or userspace
++	 * accept yet. Answer the peer's request, but hold our own until
++	 * the channel reaches BT_CONFIG: the CONNECT2 -> CONFIG sites send
++	 * it. Connected channels may also need to reconfigure.
++	 */
++	if ((chan->state == BT_CONFIG || chan->state == BT_CONNECTED) &&
++	    !test_and_set_bit(CONF_REQ_SENT, &chan->conf_state)) {
+ 		u8 buf[64];
+ 		l2cap_send_cmd(conn, l2cap_get_ident(conn), L2CAP_CONF_REQ,
+ 			       l2cap_build_conf_req(chan, buf, sizeof(buf)), buf);
+@@ -4661,6 +4672,10 @@ static inline int l2cap_config_rsp(struct l2cap_conn *conn,
+ 
+ 	lockdep_assert_held(&chan->conn->lock);
+ 
++	/* Connected channels may also receive reconfiguration responses. */
++	if (chan->state != BT_CONFIG && chan->state != BT_CONNECTED)
++		goto done;
++
+ 	switch (result) {
+ 	case L2CAP_CONF_SUCCESS:
+ 		l2cap_conf_rfc_get(chan, rsp->data, len);
+@@ -4728,6 +4743,9 @@ static inline int l2cap_config_rsp(struct l2cap_conn *conn,
+ 	if (test_bit(CONF_OUTPUT_DONE, &chan->conf_state)) {
+ 		set_default_fcs(chan);
+ 
++		if (chan->state != BT_CONFIG)
++			goto done;
++
+ 		if (chan->mode == L2CAP_MODE_ERTM ||
+ 		    chan->mode == L2CAP_MODE_STREAMING)
+ 			err = l2cap_ertm_init(chan);
 -- 
 2.53.0
 
