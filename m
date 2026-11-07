@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046017;
-	b=IQpQkoI128/cnqFCCAh8yw+WOFcMZWEer7fqkna/LMr+T84U8MdN/Gzm5/YykZvlbNtI
-	 RSx7gzp7CD4ktZqUrhxQwkbrK3UT/sQTl2IVX7IqNcNIIOTzW2OYkmkohWS8NwPwt/15t
-	 AS/gdH+j0PMwpIGEp2fpkaMsAVP7wMMzDBF9Pj6Tno8+cqez2cQ1uFrNWxaAyGb6bGkeN
-	 TrH3W4ShN1KwZOASX7VBPag9ugfzWdd6k0n2kMoynbdqKcwXw+U41wRyx/hmolIITmSlw
-	 GYoLfz53eRYf+o1EzXlhygiUU0Fc0cog9OgtMURfkCDx+18YBIreDErbHpkSbJkCBew==
+	t=1794046019;
+	b=gI17c1/Evvq9udnNSG/ahwMNwkd1kEMlvhv0PFajoP3pZTkSORSpL8gvtq6N7nLZWZJC
+	 G5En33A0H8igVVh7/rVf/Mp8AGp9MjK1EbTP4sCGzlH+NclSOKUeCZsuC2kEp1BQm+bb/
+	 gE20JWibjBy29wgxM3+oIezxtPaMZcB3vEB9IQf/9aMMdsCt5A6LBSND8Web9PWPw+pgR
+	 S/RS1LV6O3iQttmyvtrcm8dpS8wQ6srlz0mVd8ssK9gsm/akVEcn7pXj5mm/NDCGGEp5Y
+	 PxCvy5C6JBLci4eTrsSkwDewl4X3UAGgRZpzkBdTXXxDF9bZ26tv/SaN7DYdjnHrptA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046017;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046019;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=MQrgdbriL+Z4JJvBqmLUY2u5PE9cy7kafSWJgnm+WTA=;
-	b=SoB8geTJZSpcfYSFadJwHlIZJfdLJG1AELLEWAEiz4WVrKWM/fvumdzFK3nYTnJaVhhZ
-	 LQD60e21AD6CtC10Ijz5lz2cTcSLOl22CEVl50b6FPSlaS59GXWDeLJvpqLx1C5KXvPTn
-	 awEu+DBGXAuZvUgcCj98OXZVFeN8UriJoPpwqYnqz5i5oebwCZvPBGoWXcVmkCaleasE7
-	 SPeJBMafhqFcs3JXwDjDNflgf48dtpxQDfUKLtCXGh0RFh9Rh1R7jF9meKPj9n8eGH0Uk
-	 TzFg+jyTk3wx0zh52A1Udn/++GPF4SdeawbKpTQE2tsQGXm/i9LH3CDGM/5AJvn2yXA==
+	bh=ERlBYZ4xAp+9e4+HzV92HJMzDBW04RSBL+5LrAiRODo=;
+	b=U1EmsDWIA1oXcvzHAB4EspUMAqXr/EyDA42rnwkGJM9OuEJEEIs5CUsY+A9A6Ksejwbc
+	 DxVcb8qZbu0d0MslBdb/NAuYVIDFBQbhAhQvFD1ZKy/MNZwSiRlufFs7iTsYWhDfhDUwH
+	 4LnybXtlaoEMsZ1JxpuQoRwFO9aR5Lmhz1VaZe8fgEZGbptT6FxBlbcceH5p0lFXPBj1q
+	 ynY97SmD7uk2UdM6hOD/ZobsDsisxH3k+o9+A4BYNpOPXMatGg8GXZDF8zpiKzUUH+roH
+	 cSMgsaIsOLbUwbJaaWRJbS3gxdBEQwpp5N1hho7XQmoLnGDyUx27RLeVJc4KvpsK24g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iCanZumS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h5j9ffGM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D9FD606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:06:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61C45606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:06:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iCanZumS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 770B91F0089F;
-	Sat,  7 Nov 2026 10:06:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h5j9ffGM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B78451F0089F;
+	Sat,  7 Nov 2026 10:06:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046017;
-	bh=MQrgdbriL+Z4JJvBqmLUY2u5PE9cy7kafSWJgnm+WTA=;
+	s=k20260515; t=1794046019;
+	bh=ERlBYZ4xAp+9e4+HzV92HJMzDBW04RSBL+5LrAiRODo=;
 	h=From:To:Cc:Subject:Date;
-	b=iCanZumSLqQGn6+1irMZ6ez+1DO9LbFV8BCaXinPtv2azaMRXW91exHGjems5PBR7
-	 9jV1ACaQ6HexoWTkf03PuKV2BvcuuLk72+o5Kzz6R3iUB4+MDAMpmlqTq68I6eUY4d
-	 7Rxc6933s/XahejMzV2Ic3igxU+5DS8DEmJxke2o6dEBD4nAnX8RzgRqkw8JepkFwq
-	 OmfMAaDwiL3PeqLSMdjQi/1W++2wXrEKzwVS1ODpY43Db8Yo4azKUa0LzeK+ydj73G
-	 CTQDBgoFDSNJm6Yb1aqku8srZN/9QpgsxIoXexnnyjAR9WscTl/z1laB9cCfbz9Xu8
-	 vse4ChYat3Uvg==
+	b=h5j9ffGMBUTnPUGDjvBgxiwkh5vbsZhlEAGUgv8ts22zYqaioJjKYI7F1BMnsS8ix
+	 7EnbeIV1oHu4XAtYCsAib9hkd45CZVShKiI6TIgzvVL7lti8jA28Rao4eGM+fFoSQd
+	 xNSMYD8b6tEEMzQP4pTDFrw/ZHOIYSByfLqEHqjdPsWU7+71tWZsSiPJe8qBdnNQdT
+	 zM0zojDeAOYZEkcgfsSjsL39VswRsulsnw6e57iH0b7VhqfBiZE2nAjiP6piBXnuxg
+	 /FCX9Ap0/hvEbMM2w5gWUiXQjjuHQUWMXeC48ds/8urapuBcqvPctmsfAvkc5VHSC+
+	 ObXaXm+AKQhiA==
 From: Sasha Levin <sashal@kernel.org>
 To: sakari.ailus@linux.intel.com,
 	dave.stevenson@raspberrypi.com,
 	laurent.pinchart@ideasonboard.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] media: imx219: Account rate_factor in setting upper exposure limit" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:06:55 -0500
-Message-ID: <20261107050655-failed-6.18-db111b66f2db@kernel.org>
+Subject: FAILED: patch "[PATCH] media: imx219: The horizontal blanking step is 8" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:06:57 -0500
+Message-ID: <20261107050657-failed-6.18-47576c541e9b@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,28 +69,27 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x db111b66f2db7f3f79d9359f4a9762e832d6fde9
+git cherry-pick -x 47576c541e9b473841742bd0686d4940f5c93564
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050655-failed-6.18-db111b66f2db@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050657-failed-6.18-47576c541e9b@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From db111b66f2db7f3f79d9359f4a9762e832d6fde9 Mon Sep 17 00:00:00 2001
+From 47576c541e9b473841742bd0686d4940f5c93564 Mon Sep 17 00:00:00 2001
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
-Date: Mon, 20 Apr 2026 20:31:49 +0300
-Subject: [PATCH] media: imx219: Account rate_factor in setting upper exposure
- limit
+Date: Mon, 22 Jun 2026 14:23:40 +0300
+Subject: [PATCH] media: imx219: The horizontal blanking step is 8
 
-The rate_factor multiplier is used to multiply a few values in the
-sensor's timing configuration and the exposure time is one of them. This
-also needs to be taken into account in exposure time margin: multiply it
-by rate_factor so that sensor's exposure time margin is respected.
+The step for the LINE_LENGTH_A register on imx219 is 8. Take this into
+account in creating and modifying the horizontal blanking control. The
+minimum line length in pixels as well as the horizontal blanking values
+are already divisible by 8.
 
-Fixes: f513997119f4 ("media: i2c: imx219: Scale the pixel rate for analog binning")
+Fixes: cd5e2fd89923 ("media: i2c: imx219: make HBLANK r/w to allow longer exposures")
 Cc: stable@vger.kernel.org
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
@@ -100,37 +99,37 @@ Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
  1 file changed, 5 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/media/i2c/imx219.c b/drivers/media/i2c/imx219.c
-index 9571f3622d2d4..5184523de8bed 100644
+index b1f29037af742..05717b1e32244 100644
 --- a/drivers/media/i2c/imx219.c
 +++ b/drivers/media/i2c/imx219.c
-@@ -466,7 +466,8 @@ static int imx219_set_ctrl(struct v4l2_ctrl *ctrl)
- 		int exposure_max, exposure_def;
+@@ -78,6 +78,7 @@
+ #define IMX219_LLP_MIN			0x0d78
+ #define IMX219_BINNED_LLP_MIN		0x0de8
+ #define IMX219_LLP_MAX			0x7ff0
++#define IMX219_LLP_STEP			8
  
- 		/* Update max exposure while meeting expected vblanking */
--		exposure_max = format->height + ctrl->val - IMX219_EXPOSURE_OFFSET;
-+		exposure_max = format->height + ctrl->val -
-+			IMX219_EXPOSURE_OFFSET * rate_factor;
- 		exposure_def = (exposure_max < IMX219_EXPOSURE_DEFAULT) ?
- 				exposure_max : IMX219_EXPOSURE_DEFAULT;
- 		ret = __v4l2_ctrl_modify_range(imx219->exposure,
-@@ -893,6 +894,7 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
- 	crop->top = (IMX219_NATIVE_HEIGHT - crop->height) / 2;
- 
- 	if (fmt->which == V4L2_SUBDEV_FORMAT_ACTIVE) {
-+		int rate_factor = imx219_get_rate_factor(state);
- 		int exposure_max;
- 		int exposure_def;
- 		int llp_min;
-@@ -911,7 +913,8 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
+ #define IMX219_REG_X_ADD_STA_A		CCI_REG16(0x0164)
+ #define IMX219_REG_X_ADD_END_A		CCI_REG16(0x0166)
+@@ -593,7 +594,8 @@ static int imx219_init_controls(struct imx219 *imx219)
+ 	imx219->hblank = v4l2_ctrl_new_std(ctrl_hdlr, &imx219_ctrl_ops,
+ 					   V4L2_CID_HBLANK,
+ 					   IMX219_LLP_MIN - mode->width,
+-					   IMX219_LLP_MAX - mode->width, 1,
++					   IMX219_LLP_MAX - mode->width,
++					   IMX219_LLP_STEP,
+ 					   IMX219_LLP_MIN - mode->width);
+ 	exposure_max = mode->fll_def - IMX219_EXPOSURE_OFFSET;
+ 	exposure_def = (exposure_max < IMX219_EXPOSURE_DEFAULT) ?
+@@ -935,7 +937,8 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
+ 				  IMX219_BINNED_LLP_MIN : IMX219_LLP_MIN;
+ 		ret = __v4l2_ctrl_modify_range(imx219->hblank,
+ 					       llp_min - mode->width,
+-					       IMX219_LLP_MAX - mode->width, 1,
++					       IMX219_LLP_MAX - mode->width,
++					       IMX219_LLP_STEP,
+ 					       llp_min - mode->width);
+ 		if (ret)
  			return ret;
- 
- 		/* Update max exposure while meeting expected vblanking */
--		exposure_max = mode->fll_def - IMX219_EXPOSURE_OFFSET;
-+		exposure_max = mode->fll_def -
-+			IMX219_EXPOSURE_OFFSET * rate_factor;
- 		exposure_def = (exposure_max < IMX219_EXPOSURE_DEFAULT) ?
- 				exposure_max : IMX219_EXPOSURE_DEFAULT;
- 		ret = __v4l2_ctrl_modify_range(imx219->exposure,
 -- 
 2.53.0
 
