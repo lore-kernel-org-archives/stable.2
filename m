@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047453;
-	b=PWS4xz0RS/vIvwx9+bIiFjX7nTQwyl2In9w7BDkhZWN27Op7ZDIW5SvFHbzhlYNXHXBG
-	 f6O83oemDsb2Fhe6TqdVkTGbni81+QSCY1YuUnAtVeh2WJHW+QYoAv5P1V3ICyxLbfRr5
-	 c7KpWGkhCHYKQ5WCtBfsYTODsi629sJDDyXbFwUiWMk71P5GaPiziiUjmL7e5CZTNyiw4
-	 bKmAaWS/m1Tl6MNJm9oE2MXcpjHV/nHaIBYBVV683pnlEHzP/ee0v+y0oRvogbaE1FShr
-	 ct0vKRwMk/9XR43z75pQIDiypto0kpMSTqsMkdilQAAT/yHl3GbPNQZ/RXKj5zFTpsA==
+	t=1794047455;
+	b=DBKQHbW++Bqk5EjYFDlTLLlMlFt20EdfLcyyEynYte4HdYs+Gcbcc343nIjtbPVE6DeP
+	 mKDLHg8g67gvadIeUpwPzf/X/XDjn7bfjf/Gp/XtsfnRLYsbOiqU1BN2xQO1A4DnNTnla
+	 tR+QjTyhCuytiZdV4Njn2ZEnsWqrIpnTHUScxSt/h0pev+ktDUfc9hM4ZtuEKrs/90sY0
+	 m3SG5CmUCTFjJK5R0Q+7+xtJxpa6w2fGvLog5L6dRUweBKEXaWgCSvthg0TGCXnPFlGmm
+	 uC7hbIPF+33dExD7oTtFU0z5qVY7wCLmhDi18U7x4z6jbjlTzwEJ3j24Acf8zYkOhWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047453;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047455;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=cWFWKEAQt6/gxwNWKGfFdUz4Rgwt9vqCgv7Xv7RB+oc=;
-	b=xSOLdK5fB/bd72BvFm+53piVer6sdpsQI6qAzm2egNIV47XZGTdW87muXmG/tfrbFQ8C
-	 tx4QrYRHjv/GAor2ZboC/M6msWRisepa3x1dSDNaGHlNFUDhawPuJryB8mBz3HKk70sd3
-	 TeTd1LXchIIBjqP9Kf3wYleKO81YB9Zlrghnaa9Uw3pCKEvmQvss0OdPqjwB03FbwD3EF
-	 nm1aGE8wkv+PeHVAsSs0oumS53GIDqvwRZS7bJrPv15SqcNIiAiWuWUpItlIh9mmep+Xr
-	 khLs3FT8qTwZgfGUJUPMYdm36LoLV+h01JNTihg0KdazA2MfdiShk6aRdYyR9l7njgw==
+	bh=lAjmOrTb/IyhBRMMhU9CiO7NklefTjh3XqVf2X4VAxc=;
+	b=Bq1CEw82eRaEXg2Fvj/PoQMLru7ssNw7HWxA6E5Qj/b4r04PVIponHpVaZASG8zUiBFe
+	 tCiBc3Smdp8s8aOeND+8s1DVPZWs6/xqpe1YRrX9ba5g9l7B/hweqU5pVhrzw4U33K1Zv
+	 c30yeIwOXenYkI9Fsxk4Ssnjrr2hOd99f9AWqFpw+DZsfgv0O0Z+pViuJ4IwQfE/M45xz
+	 mjTW7crDfF45pCexBbOmsTMMAbSCurOLV5diUqnNOWXF+bgFPGsr8SlqAdkqluYup+kk9
+	 VqVw9ZYBBl9TILV0NyW2/b9ka9tW5yZKIF2mZ4pdvtpuNhJu2L4iWw/pKacCz0Ygf5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=njgFaSrG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bTusi+Nx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C476F606A32D
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:30:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B311606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:30:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=njgFaSrG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C3881F0089F;
-	Sat,  7 Nov 2026 10:30:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bTusi+Nx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 624031F0089F;
+	Sat,  7 Nov 2026 10:30:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047452;
-	bh=cWFWKEAQt6/gxwNWKGfFdUz4Rgwt9vqCgv7Xv7RB+oc=;
+	s=k20260515; t=1794047454;
+	bh=lAjmOrTb/IyhBRMMhU9CiO7NklefTjh3XqVf2X4VAxc=;
 	h=From:To:Cc:Subject:Date;
-	b=njgFaSrGIWncEhKWclLU3edLHyqC9Qmr5oWBCkqlc3VeOnirJFfW4oF0yZuQpPHSG
-	 coXAb5aPqXClLukNcSv3QU8VG2f7vVPZpgMrxDyuk52xKeY/pCsR1KRkDroTYS+erZ
-	 7DVNNwWXMg1NJSYhftcPWlRyFZrM8HCgiF5M3Ko6HKDxn8XvXUbLib91fHR9+B4/tj
-	 4iYjZ4dgbZO1k/t0o3n9ywZmS99PEgNUNihcN6Xq/xsP9zX00UNkvsN5N0P4iyx4Z7
-	 zhxMgQWqaRQ7JHPDvR6y1v4bih8Nm7tJhBwSz6jlx3tlcMHU4CTTvb00xrfQ3VHBI+
-	 Hl487WAGTJhOg==
+	b=bTusi+Nxx7IMsA1K/47bu8PJdJ31ozv4Fvw+ckNOBEXf3qjp8BX0uBUPICVCl7s1Z
+	 5oLGy+S3cG3yCi3lgFWShwHDfVFtaJ2/GJW1n4WOrgNQNiOooryJgDAG6Jpha6v3gf
+	 bQkzvLjWM1kGBxWaPuNWDXECH9Bm7s9MQyZEMufrpEqRWkwOwGvEeWLbVVBMYUygBz
+	 SdKZAChqMjM47E/iBZ+y/fpEo8kz6Y7AFz6WDsATZIpW9xJ/OS7a2scMktABttdKR7
+	 MrQZnIJ3zfDZ65+hB9Nq1i7MrHXA5X/AN78dh6jeO7Lo9tr2TiWsCLzUAotKQ3TWYJ
+	 sKQu/+7UfyvNQ==
 From: Sasha Levin <sashal@kernel.org>
-To: konishi.ryusuke@gmail.com,
-	wangjianjian3@huawei.com,
-	slava@dubeyko.com
+To: gbatra@linux.ibm.com,
+	ritesh.list@gmail.com,
+	maddy@linux.ibm.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] nilfs2: ignore non-fatal signals during synchronous log write wait" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:30:51 -0500
-Message-ID: <20261107053051-failed-6.6-7131aaa74bcc@kernel.org>
+Subject: FAILED: patch "[PATCH] powerpc/pseries/iommu: Add TCEs for 16GB pages when RAM is pre-mapped" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:30:53 -0500
+Message-ID: <20261107053053-failed-6.6-0b8b0c17a899@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,146 +69,227 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 7131aaa74bcc7c9da1f1d1c8724da75c775557a0
+git cherry-pick -x 0b8b0c17a8998709ecb2852d56442ea981102941
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053051-failed-6.6-7131aaa74bcc@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053053-failed-6.6-0b8b0c17a899@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 7131aaa74bcc7c9da1f1d1c8724da75c775557a0 Mon Sep 17 00:00:00 2001
-From: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-Date: Wed, 30 Sep 2026 03:26:54 +0900
-Subject: [PATCH] nilfs2: ignore non-fatal signals during synchronous log write
- wait
+From 0b8b0c17a8998709ecb2852d56442ea981102941 Mon Sep 17 00:00:00 2001
+From: Gaurav Batra <gbatra@linux.ibm.com>
+Date: Thu, 6 Aug 2026 15:50:27 -0500
+Subject: [PATCH] powerpc/pseries/iommu: Add TCEs for 16GB pages when RAM is
+ pre-mapped
 
-Based on a syzbot report, Wang Jianjian pointed out that following a
-successful directory operation in nilfs_rename(), a synchronous write
-requested within nilfs_transaction_commit(), triggered by a sync flag
-set by nilfs_commit_chunk(), could be interrupted by a user signal.
-This interruption leaves in-memory metadata updates intact while
-returning an error, causing inconsistency with the VFS dentry cache and
-ultimately triggering a kernel warning.
+In powerPC, if Dynamic DMA Window is big enough, RAM is pre-mapped. To
+determine the size of RAM, a PAPR+ property "ibm,lrdr-capacity" is used.
+This OF property dictates what is the max size of RAM an LPAR can have,
+including DR added memory.
 
-According to "signal(7)", local disks are not classified as "slow
-devices" (such as terminals, FIFOs, or pipes) and their I/O operations
-on disk devices are not interrupted by signals.  In kernel space,
-waiting for such disk I/O should therefore not be aborted by ordinary
-(non-fatal) signals.
+In PowerPC, 16GB pages can be allocated at machine level and then
+assigned to LPARs. These 16GB pages are added to LPAR memory at the time
+of boot. The address range for these 16GB pages is above MAX RAM an LPAR
+can have (ibm,lrdr-capacity). In the current implementation, these 16GB
+pages are being excluded from pre-mapped TCEs. A driver can have DMA
+buffers allocated from 16GB pages. This results in platform to raise an
+EEH when DMA is attempted on buffers in 16GB memory range.
 
-Suppress this issue by modifying nilfs_segctor_sync(), which waits for
-the log writer thread to complete synchronous writes, to catch only
-fatal signals via fatal_signal_pending() and return -EINTR rather than
--ERESTARTSYS.  To complement this change and prevent the wait loop from
-busy-looping when schedule() returns immediately due to a pending
-non-fatal signal, switch the wait state from TASK_INTERRUPTIBLE to
-TASK_KILLABLE.
+commit 6aa989ab2bd0 ("powerpc/pseries/iommu: memory notifier incorrectly
+adds TCEs for pmemory")
 
-This serves as an effective interim stabilization measure without
-structural changes until a comprehensive fix for metadata consistency
-is implemented.
+Prior to the above patch, memblock_end_of_DRAM() was being used to
+determine the MAX memory of an LPAR. This included 16GB pages as well.
+The issue with using memblock_end_of_DRAM() is that when pmemory is
+converted to RAM via daxctl command, the DDW engine will incorrectly try
+to add TCEs for pmemory as well.
 
-Reported-by: syzbot+f6c7e1f1809f235eeb90@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=f6c7e1f1809f235eeb90
-Fixes: 9ff05123e3bf ("nilfs2: segment constructor")
-Tested-by: syzbot+f6c7e1f1809f235eeb90@syzkaller.appspotmail.com
-Cc: Wang Jianjian <wangjianjian3@huawei.com>
+Below is the address distribution of RAM, 16GB pages and pmemory for an
+LPAR with max memory of 256GB, memory allocated 64GB, 2 16GB pages and
+assigned pmemory of 8GB.
+
+RANGE                                 SIZE  STATE REMOVABLE     BLOCK
+0x0000000000000000-0x0000000fffffffff  64G online       yes     0-255
+0x0000004000000000-0x00000047ffffffff  32G online       yes 1024-1151
+
+cat /sys/bus/nd/devices/region0/resource
+0x40100000000
+cat /sys/bus/nd/devices/region0/size
+8589934592
+
+The approach to fix this problem is to revert back the code changes
+introduced by the above patch and to stash away the MAX memory of an
+LPAR, including 16GB pages, at the LPAR boot time. This value is then
+used whenever TCEs are needed to be pre-mapped - enable_DDW() or,
+iommu_mem_notifier()
+
+Fixes: 6aa989ab2bd0 ("powerpc/pseries/iommu: memory notifier incorrectly adds TCEs for pmemory")
 Cc: stable@vger.kernel.org
-Signed-off-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
+Signed-off-by: Gaurav Batra <gbatra@linux.ibm.com>
+Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+Signed-off-by: Madhavan Srinivasan <maddy@linux.ibm.com>
+Link: https://patch.msgid.link/20260806205027.86428-1-gbatra@linux.ibm.com
 ---
- fs/nilfs2/ioctl.c    |  2 +-
- fs/nilfs2/recovery.c |  2 +-
- fs/nilfs2/segment.c  | 10 +++++-----
- 3 files changed, 7 insertions(+), 7 deletions(-)
+ arch/powerpc/platforms/pseries/iommu.c | 67 +++++++++++++++++---------
+ 1 file changed, 45 insertions(+), 22 deletions(-)
 
-diff --git a/fs/nilfs2/ioctl.c b/fs/nilfs2/ioctl.c
-index 01a04080ef704..b2b67d6a1f097 100644
---- a/fs/nilfs2/ioctl.c
-+++ b/fs/nilfs2/ioctl.c
-@@ -965,10 +965,10 @@ static int nilfs_ioctl_clean_segments(struct inode *inode, struct file *filp,
-  * Return: 0 on success, or one of the following negative error codes on
-  * failure:
-  * * %-EFAULT		- Failure during execution of requested operation.
-+ * * %-EINTR		- Interrupted.
-  * * %-EIO		- I/O error.
-  * * %-ENOMEM		- Insufficient memory available.
-  * * %-ENOSPC		- No space left on device (only in a panic state).
-- * * %-ERESTARTSYS	- Interrupted.
-  * * %-EROFS		- Read only filesystem.
-  */
- static int nilfs_ioctl_sync(struct inode *inode, struct file *filp,
-diff --git a/fs/nilfs2/recovery.c b/fs/nilfs2/recovery.c
-index 9a70c28ec94c1..abe4101f7550c 100644
---- a/fs/nilfs2/recovery.c
-+++ b/fs/nilfs2/recovery.c
-@@ -790,11 +790,11 @@ static void nilfs_abort_roll_forward(struct the_nilfs *nilfs)
-  *
-  * Return: 0 on success, or one of the following negative error codes on
-  * failure:
-+ * * %-EINTR		- Interrupted.
-  * * %-EINVAL		- Inconsistent filesystem state.
-  * * %-EIO		- I/O error.
-  * * %-ENOMEM		- Insufficient memory available.
-  * * %-ENOSPC		- No space left on device (only in a panic state).
-- * * %-ERESTARTSYS	- Interrupted.
-  */
- int nilfs_salvage_orphan_logs(struct the_nilfs *nilfs,
- 			      struct super_block *sb,
-diff --git a/fs/nilfs2/segment.c b/fs/nilfs2/segment.c
-index 2f0e59847d026..af0c3560444f5 100644
---- a/fs/nilfs2/segment.c
-+++ b/fs/nilfs2/segment.c
-@@ -2259,7 +2259,7 @@ static int nilfs_segctor_sync(struct nilfs_sc_info *sci)
- 	wake_up(&sci->sc_wait_daemon);
+diff --git a/arch/powerpc/platforms/pseries/iommu.c b/arch/powerpc/platforms/pseries/iommu.c
+index 272e9aab66d4f..32d414c2cb843 100644
+--- a/arch/powerpc/platforms/pseries/iommu.c
++++ b/arch/powerpc/platforms/pseries/iommu.c
+@@ -69,6 +69,8 @@ static struct iommu_table *iommu_pseries_alloc_table(int node)
+ 	return tbl;
+ }
  
- 	for (;;) {
--		set_current_state(TASK_INTERRUPTIBLE);
-+		set_current_state(TASK_KILLABLE);
++static phys_addr_t pseries_ddw_max_ram __ro_after_init;
++
+ #ifdef CONFIG_IOMMU_API
+ static struct iommu_table_group_ops spapr_tce_table_group_ops;
+ #endif
+@@ -1284,15 +1286,19 @@ struct failed_ddw_pdn {
  
- 		/*
- 		 * Synchronize only while the log writer thread is alive.
-@@ -2273,11 +2273,11 @@ static int nilfs_segctor_sync(struct nilfs_sc_info *sci)
- 			err = wait_req.err;
- 			break;
+ static LIST_HEAD(failed_ddw_pdn_list);
+ 
+-static phys_addr_t ddw_memory_hotplug_max(void)
++static phys_addr_t __init ddw_memory_hotplug_max(void)
+ {
+-	resource_size_t max_addr;
++	resource_size_t max_addr = memory_hotplug_max();
++	struct device_node *memory;
+ 
+-#if defined(CONFIG_NUMA) && defined(CONFIG_MEMORY_HOTPLUG)
+-	max_addr = hot_add_drconf_memory_max();
+-#else
+-	max_addr = memblock_end_of_DRAM();
+-#endif
++	for_each_node_by_type(memory, "memory") {
++		struct resource res;
++
++		if (of_address_to_resource(memory, 0, &res))
++			continue;
++
++		max_addr = max_t(resource_size_t, max_addr, res.end + 1);
++	}
+ 
+ 	return max_addr;
+ }
+@@ -1447,7 +1453,7 @@ static struct property *ddw_property_create(const char *propname, u32 liobn, u64
+ static bool enable_ddw(struct pci_dev *dev, struct device_node *pdn, u64 dma_mask)
+ {
+ 	int len = 0, ret;
+-	int max_ram_len = order_base_2(ddw_memory_hotplug_max());
++	int max_ram_len = order_base_2(pseries_ddw_max_ram);
+ 	struct ddw_query_response query;
+ 	struct ddw_create_response create;
+ 	int page_shift;
+@@ -1617,12 +1623,12 @@ static bool enable_ddw(struct pci_dev *dev, struct device_node *pdn, u64 dma_mas
+ 		if (default_win_removed && pmem_present && !direct_mapping) {
+ 			/* DDW is big enough to be split */
+ 			if ((1ULL << ddw_sz) >=
+-			    MIN_DDW_VPMEM_DMA_WINDOW + (1ULL << max_ram_len)) {
++			    MIN_DDW_VPMEM_DMA_WINDOW + pseries_ddw_max_ram) {
+ 
+ 				direct_mapping = true;
+ 
+ 				/* offset of the Dynamic part of DDW */
+-				dynamic_offset = 1ULL << max_ram_len;
++				dynamic_offset = pseries_ddw_max_ram;
+ 			}
+ 
+ 			/* DDW will at least have dynamic allocation */
+@@ -1669,7 +1675,7 @@ static bool enable_ddw(struct pci_dev *dev, struct device_node *pdn, u64 dma_mas
+ 
+ 	if (direct_mapping) {
+ 		/* DDW maps the whole partition, so enable direct DMA mapping */
+-		ret = walk_system_ram_range(0, ddw_memory_hotplug_max() >> PAGE_SHIFT,
++		ret = walk_system_ram_range(0, pseries_ddw_max_ram >> PAGE_SHIFT,
+ 					    win64->value, tce_setrange_multi_pSeriesLP_walk);
+ 		if (ret) {
+ 			dev_info(&dev->dev, "failed to map DMA window for %pOF: %d\n",
+@@ -1772,8 +1778,7 @@ static bool enable_ddw(struct pci_dev *dev, struct device_node *pdn, u64 dma_mas
+ 
+ 	/* For pre-mapped memory, set bus_dma_limit to the max RAM */
+ 	if (direct_mapping)
+-		dev->dev.bus_dma_limit = dev->dev.archdata.dma_offset +
+-						(1ULL << max_ram_len);
++		dev->dev.bus_dma_limit = dev->dev.archdata.dma_offset + pseries_ddw_max_ram;
+ 
+ 	dev_info(&dev->dev, "lsa_required: %x, lsa_enabled: %x, direct mapping: %x\n",
+ 			limited_addr_req, limited_addr_enabled, direct_mapping);
+@@ -2420,23 +2425,35 @@ static int iommu_mem_notifier(struct notifier_block *nb, unsigned long action,
+ {
+ 	struct dma_win *window;
+ 	struct memory_notify *arg = data;
++	unsigned long limit = arg->nr_pages;
++	unsigned long max_ram_pages = pseries_ddw_max_ram >> PAGE_SHIFT;
+ 	int ret = 0;
+ 
+ 	/* This notifier can get called when onlining persistent memory as well.
+ 	 * TCEs are not pre-mapped for persistent memory. Persistent memory will
+-	 * always be above ddw_memory_hotplug_max()
++	 * always be above pseries_ddw_max_ram
+ 	 */
++	if (arg->start_pfn >= max_ram_pages)
++		return NOTIFY_OK;
++
++	/* RAM is being DLPAR'ed. The range should never exceed max ram.
++	 * Just in case, clamp the range and throw a warning.
++	 */
++	if (arg->start_pfn + limit > max_ram_pages) {
++		limit = max_ram_pages - arg->start_pfn;
++		WARN_ONCE(1, "Limiting Page Range %lx - %lx to Max Mem Pages: %lx\n",
++					arg->start_pfn, arg->start_pfn + arg->nr_pages,
++					max_ram_pages);
++	}
+ 
+ 	switch (action) {
+ 	case MEM_GOING_ONLINE:
+ 		spin_lock(&dma_win_list_lock);
+ 		list_for_each_entry(window, &dma_win_list, list) {
+-			if (window->direct && (arg->start_pfn << PAGE_SHIFT) <
+-				ddw_memory_hotplug_max()) {
++			if (window->direct) {
+ 				ret |= tce_setrange_multi_pSeriesLP(arg->start_pfn,
+-						arg->nr_pages, window->prop);
++						limit, window->prop);
+ 			}
+-			/* XXX log error */
  		}
--		if (!signal_pending(current)) {
-+		if (!fatal_signal_pending(current)) {
- 			schedule();
- 			continue;
- 		}
--		err = -ERESTARTSYS;
-+		err = -EINTR;
+ 		spin_unlock(&dma_win_list_lock);
  		break;
- 	}
- 	finish_wait(&sci->sc_wait_request, &wait_req.wq);
-@@ -2311,10 +2311,10 @@ static void nilfs_segctor_wakeup(struct nilfs_sc_info *sci, int err, bool force)
-  *
-  * Return: 0 on success, or one of the following negative error codes on
-  * failure:
-+ * * %-EINTR		- Interrupted.
-  * * %-EIO		- I/O error (including metadata corruption).
-  * * %-ENOMEM		- Insufficient memory available.
-  * * %-ENOSPC		- No space left on device (only in a panic state).
-- * * %-ERESTARTSYS	- Interrupted.
-  * * %-EROFS		- Read only filesystem.
-  */
- int nilfs_construct_segment(struct super_block *sb)
-@@ -2341,10 +2341,10 @@ int nilfs_construct_segment(struct super_block *sb)
-  *
-  * Return: 0 on success, or one of the following negative error codes on
-  * failure:
-+ * * %-EINTR		- Interrupted.
-  * * %-EIO		- I/O error (including metadata corruption).
-  * * %-ENOMEM		- Insufficient memory available.
-  * * %-ENOSPC		- No space left on device (only in a panic state).
-- * * %-ERESTARTSYS	- Interrupted.
-  * * %-EROFS		- Read only filesystem.
-  */
- int nilfs_construct_dsync_segment(struct super_block *sb, struct inode *inode,
+@@ -2444,12 +2461,10 @@ static int iommu_mem_notifier(struct notifier_block *nb, unsigned long action,
+ 	case MEM_OFFLINE:
+ 		spin_lock(&dma_win_list_lock);
+ 		list_for_each_entry(window, &dma_win_list, list) {
+-			if (window->direct && (arg->start_pfn << PAGE_SHIFT) <
+-				ddw_memory_hotplug_max()) {
++			if (window->direct) {
+ 				ret |= tce_clearrange_multi_pSeriesLP(arg->start_pfn,
+-						arg->nr_pages, window->prop);
++						limit, window->prop);
+ 			}
+-			/* XXX log error */
+ 		}
+ 		spin_unlock(&dma_win_list_lock);
+ 		break;
+@@ -2533,6 +2548,14 @@ void __init iommu_init_early_pSeries(void)
+ 	register_memory_notifier(&iommu_mem_nb);
+ 
+ 	set_pci_dma_ops(&dma_iommu_ops);
++
++	/* During init determine the max memory an LPAR can have and set it. This
++	 * will be used for pre-mapping RAM in DDW. memblock_end_of_DRAM() can
++	 * change during the running of LPAR - daxctl can add pmemory as
++	 * "system-ram". This memory range should not be pre-mapped in DDW since
++	 * the address of pmemory can be much higher than the DDW size.
++	 */
++	pseries_ddw_max_ram = ddw_memory_hotplug_max();
+ }
+ 
+ static int __init disable_multitce(char *str)
 -- 
 2.53.0
 
