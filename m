@@ -1,51 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050245;
-	b=2vASitkSBkQACSCMpMXP+krJjq3uzBUkZXQwqi6BLlv89DXAB6Tm3Z73blbj0Lfuplze
-	 sYo5EmbL0LvW5I+NEFK+eJWEjpNw9hGQP1afAzlge43mFK7viFtpjp0Lflyrm92ASZH1e
-	 C9b8d7BzuYlP8rhEz5aBL9OuIpaHYPX29/z22DJb+ipT8kCv6kyikI2fgcek9hinmc6go
-	 7dpqYYIMQgRBX6ZGhuPyb/GGQ6Yos2iS+EzYUxE1QvuVdJDhK+dwnvDiWb5l4JFgvnRXv
-	 ZzW0LBkXiExKrwyHmesvzXkpZVShaLdiP9JubG5usuaq1lQqWicA/WvfCD7LBNZuMtQ==
+	t=1794050248;
+	b=nkBHuJaCriL8q1fyRr1F2JzMsHTPtZN6ua63N04xEMRhgyd5R90L4NV4CcshU4gxn7US
+	 ULrLcemw8/DzA+8CEIVo/vxBF6rePh1PRL2yNAmeiQAaCMbSCJmazXZacSFzv4idOyuk1
+	 XS4I0zpJwnwSfP6FUGv7hW1z7yC80X++fEMucVRbA/aVj7c0ulRpXnamdTAt10lLY8Xbm
+	 ythrmzrTwZItrhrMwyPs0M3iwkl4qDb1jOuolrqOAT8scI3xZxN1B3BgCpGTmRanHWvko
+	 yphsdl0mi2TQzcgDNK0RE/dCCo+qpsAIXB7dwk4kQCvs1oZs9H+zn2C+FepkvI9tgTg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050245;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050248;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=t9Yqr6XN9XK2B+hkTb8Qy0Y3arTmmmc6TfnUUkBIfEw=;
-	b=CpMdB4pa5xw4gXqWrEJkzDjFS8tQSRrVCK011kcAP7RaRUuLaGwZ8mpYlo8uQa7lIuWn
-	 vRiKVpD073E+ZnumwSaRmNPk6b9e8y/dAJ/5pndtzlY8/HIQWjuh4P/+5RjSFuoMrCvG1
-	 Yd/gtmCGpMXdibD1I7++ibAeDslbhXeWWOJZX2Hdj5H1I7SY7iam9+uUlml9cjCCjow8m
-	 fzrHtyLgDzrS1zcAZvURoVBWjaeoexEqm0wTHGnrp1i6+erKTijSvSBqqacOfdDNd09DA
-	 XnOS3kNxlvjYdsTfbUqBAhv7+Sj6r9LbuCXgAAdf5PV7Td68owEAxkx559KThrL7z9w==
+	bh=P68eMUZE4mPAmOPxqY8uCAylxd227jQGo18Vt1fw3kc=;
+	b=qw+VdYmjv7wvwn+5lc2g4HOSzCnoNu5xE7OwMdlxdDZ5pyAIXQh3C87PwjYiZMxXGhRX
+	 PH406mg3RxKQbm2Guvjw0m/dClOKQmgNwDs+ZdynMBPj5pXQSM/TDiGGsr4GvLX1+w/jK
+	 1fUR9Wbc2Izib+XV3Vuj2z6fy0HRyiZ5/6A/9FUPeymBX9+tPt9jkvk7Es6nlC3pqhmqi
+	 8IzkieHn144Va/LnYdnziICszrMJo5L2D9WUYAZxaHS9HPQLnJz1+xhJo2/GJMYUNvsG+
+	 HLX4ENRbVBuylzCV3SxodHoNkYToFpFr3KxaGc7rU6lHSndnQZFkE8VAU48pQtjFonA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lvNU37Cv;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="R/me/CbQ";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9B5D606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:17:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4E93606D809
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:17:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lvNU37Cv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6450B1F0089F;
-	Sat,  7 Nov 2026 11:17:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R/me/CbQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A3661F008A2;
+	Sat,  7 Nov 2026 11:17:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050244;
-	bh=t9Yqr6XN9XK2B+hkTb8Qy0Y3arTmmmc6TfnUUkBIfEw=;
+	s=k20260515; t=1794050247;
+	bh=P68eMUZE4mPAmOPxqY8uCAylxd227jQGo18Vt1fw3kc=;
 	h=From:To:Cc:Subject:Date;
-	b=lvNU37CvdKW5UY8t0ssC2rD71IYuMZWmbMa2ppkZCEo5vZpU/b7M6m4D6oRL7gShA
-	 ubLMWWLFsTMVpQ0JAeUwI2UrF0M+W02FLfX9qEIOCK95jMQV5bZP4vbiizeDLILyfk
-	 9cywbUiKoVAwXCCQzx0Vg2qRO4VBzTa0FY4sY2jV/A3Pyj0RFFCZStLoI0X4Sc9Ak3
-	 9OWiSZkMCLRMRepiQoQQMvYUs+k1/tAl9zRJSq4L27I1PhjzgdL6r5QFL/Q/3Xp6mF
-	 oo+rrR+7Drk0zFXcPvGliBaITNEuJtyfsTd+cd7gwLCe0x3lRpMrY9pjD5sWd77/Os
-	 Xy72hyGOJBCOg==
+	b=R/me/CbQe9hw7MHV1ibq9aJYcCDCiQ5R5WVNTlryjeZLVatIFQ4WW/+tXDG+QKKJa
+	 6JhggFxXrSjJp3v9O8fmugXflnO8uvXBh1xL0nRQJO4BJYHlF7/9Ru9JvbWezYyVMg
+	 jK+DIJFGznxS5BTb+R/76R+PuJTDnihBttWyQDyvIzDwmc+8APu02QVIlIrRXkvEcI
+	 Kzr2vrybuGvf39Yd7f5i6v68N97cTklYfJo5Rfmt07btYH/YTbEGBwG9Jy/H2H82an
+	 MPcyDcrk3TMeLkr49xqtLqbu8xBJvgNe8itld7W4poZ8bfTZPB2fetB38Jo+KhomsV
+	 Sh7HeZTYArFuQ==
 From: Sasha Levin <sashal@kernel.org>
-To: vulab@iscas.ac.cn,
-	broonie@kernel.org
+To: yosry@kernel.org,
+	fane@google.com,
+	nikunj@amd.com,
+	seanjc@google.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ASoC: codecs: wcd9335: Fix SLIM interface device leak in wcd9335_slim_status()" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:17:23 -0500
-Message-ID: <20261107061722-failed-5.10-082723fee626@kernel.org>
+Subject: FAILED: patch "[PATCH] KVM: SVM: Trigger new ASID allocation in both VMCBs on pCPU switch" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:17:26 -0500
+Message-ID: <20261107061725-failed-5.10-bf260dc9e7b8@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,80 +70,122 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 082723fee626532f176727b6438b666a96d5246c
+git cherry-pick -x bf260dc9e7b8bfcd06c1a8e739797b1cf0917c72
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061722-failed-5.10-082723fee626@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061725-failed-5.10-bf260dc9e7b8@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 082723fee626532f176727b6438b666a96d5246c Mon Sep 17 00:00:00 2001
-From: Wentao Liang <vulab@iscas.ac.cn>
-Date: Thu, 17 Sep 2026 16:48:53 +0000
-Subject: [PATCH] ASoC: codecs: wcd9335: Fix SLIM interface device leak in
- wcd9335_slim_status()
+From bf260dc9e7b8bfcd06c1a8e739797b1cf0917c72 Mon Sep 17 00:00:00 2001
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Thu, 3 Sep 2026 22:32:58 +0000
+Subject: [PATCH] KVM: SVM: Trigger new ASID allocation in both VMCBs on pCPU
+ switch
 
-of_slim_get_device() returns a device with an elevated reference count,
-and wcd->slim_ifc_dev is intentionally kept for the codec lifetime on
-success. However, all the failure paths of wcd9335_slim_status() return
-without dropping that reference, leaking the SLIM interface device
-whenever the register maps cannot be created or the codec fails to come
-up.
+When the pCPU where the VMCB was most recently used is switched, reset
+the ASID generation in both VMCBs, triggering new ASID allocation for
+the immediate VMRUN as well as the next VMRUN on the other VMCB.
 
-Put the device on each of those error paths.
+The ASID is shared between vmcb01 and vmcb02, and gets flushed on every
+nested transition. However, since pCPU tracking is done per VMCB, it is
+possible for one VMCB to allocate a new ASID when migrated to a new
+pCPU, and then the other VMCB reuses that ASID on the old pCPU. This can
+result in the same ASID being used by multiple vCPUs on the old pCPU.
 
-Fixes: 20aedafdf492 ("ASoC: wcd9335: add support to wcd9335 codec")
+Example scenario:
+- vCPU runs on pCPU A, vmcb01 is active, asid=1.
+- vCPU migrates to pCPU B, vmcb01 pCPU changes, new asid=2.
+- Another vCPU runs on pCPU A and allocates asid=2 as well.
+- vCPU migrates back to pCPU A, and then switches to vmcb02 before it
+  runs again with vmcb01.
+- No pCPU switch is detected for vmcb02, so VMRUN is done with asid=2.
+- Two vCPUs end up using asid=2 on the same pCPU.
+
+Keep the VMCB dirtying to the active VMCB only. Clean bits are tracked
+by a pCPU for each VMCB, so do not unnecessarily dirty a VMCB if its
+pCPU does not change.
+
+Additionally, initialize the tracked pCPU for vmcb02 to -1 on nested
+enablement as hardening, so that a new ASID allocation is always
+triggered when nested is disabled and re-enabled.
+
+No performance regression was noticed when overcommitting L1 vCPUs in L0
+(to force rescheduling), pinning L1 <-> L2 vCPUs, and running CPUID in a
+tight loop bouncing between 2 vCPUs in L2.
+
+An alternative (and perhaps more proper) fix would be tracking the ASID
+per-VMCB instead (e.g. [1]). However, that's a more involved change, and
+it would result in having different ASIDs for L1 and L2 without actually
+properly maintaining them. It would probably work because all TLB
+flushes target the current VMCB, and the other VMCB is always flushed on
+nested transitions, but the code ends up in an arguably more fragile
+state. Punt a proper clean fix to an incoming (and overdue) overhaul of
+SVM's ASID usage [2].
+
+[1] https://lore.kernel.org/lkml/20250205182402.2147495-2-yosry.ahmed@linux.dev
+[2] https://lore.kernel.org/kvm/20260728003557.1136583-1-yosry@kernel.org
+
 Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-Link: https://patch.msgid.link/20260917164853.2163184-1-vulab@iscas.ac.cn
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Reported-by: Stefan Teodorescu <fane@google.com>
+Signed-off-by: Yosry Ahmed <yosry@kernel.org>
+Reviewed-by: Nikunj A Dadhania <nikunj@amd.com>
+Link: https://patch.msgid.link/20260903223258.486034-1-yosry@kernel.org
+Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- sound/soc/codecs/wcd9335.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
+ arch/x86/kvm/svm/nested.c |  1 +
+ arch/x86/kvm/svm/svm.c    | 19 +++++++++++++++----
+ 2 files changed, 16 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/codecs/wcd9335.c b/sound/soc/codecs/wcd9335.c
-index 9332082092c79..a98d1fd789251 100644
---- a/sound/soc/codecs/wcd9335.c
-+++ b/sound/soc/codecs/wcd9335.c
-@@ -5135,25 +5135,32 @@ static int wcd9335_slim_status(struct slim_device *sdev,
- 	slim_get_logical_addr(wcd->slim_ifc_dev);
+diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
+index 73f37b050d0a0..0c55c71fc6010 100644
+--- a/arch/x86/kvm/svm/nested.c
++++ b/arch/x86/kvm/svm/nested.c
+@@ -1494,6 +1494,7 @@ int svm_allocate_nested(struct vcpu_svm *svm)
+ 	if (!svm->nested.msrpm)
+ 		goto err_free_vmcb02;
  
- 	wcd->regmap = regmap_init_slimbus(sdev, &wcd9335_regmap_config);
--	if (IS_ERR(wcd->regmap))
-+	if (IS_ERR(wcd->regmap)) {
-+		put_device(&wcd->slim_ifc_dev->dev);
- 		return dev_err_probe(dev, PTR_ERR(wcd->regmap),
- 				     "Failed to allocate slim register map\n");
-+	}
++	svm->nested.vmcb02.cpu = -1;
+ 	svm->nested.initialized = true;
+ 	return 0;
  
- 	wcd->if_regmap = regmap_init_slimbus(wcd->slim_ifc_dev,
- 						  &wcd9335_ifc_regmap_config);
--	if (IS_ERR(wcd->if_regmap))
-+	if (IS_ERR(wcd->if_regmap)) {
-+		put_device(&wcd->slim_ifc_dev->dev);
- 		return dev_err_probe(dev, PTR_ERR(wcd->if_regmap),
- 				     "Failed to allocate ifc register map\n");
-+	}
+diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
+index 7d59d301e1e54..2332814cd2034 100644
+--- a/arch/x86/kvm/svm/svm.c
++++ b/arch/x86/kvm/svm/svm.c
+@@ -3765,14 +3765,25 @@ static int pre_svm_run(struct kvm_vcpu *vcpu)
+ 	struct vcpu_svm *svm = to_svm(vcpu);
  
- 	ret = wcd9335_bring_up(wcd);
- 	if (ret) {
- 		dev_err(dev, "Failed to bringup WCD9335\n");
-+		put_device(&wcd->slim_ifc_dev->dev);
- 		return ret;
- 	}
+ 	/*
+-	 * If the previous vmrun of the vmcb occurred on a different physical
+-	 * cpu, then mark the vmcb dirty and assign a new asid.  Hardware's
+-	 * vmcb clean bits are per logical CPU, as are KVM's asid assignments.
++	 * If the previous VMRUN of the VMCB occurred on a different physical
++	 * cpu, then mark the VMCB dirty as hardware's clean bits are per pCPU.
++	 *
++	 * Reset the ASID generation in both VMCBs. This will lead to assigning
++	 * a new ASID now, and then again when switching to the other VMCB.
++	 * However, this is needed as the ASID is shared between the VMCBs, and
++	 * otherwise it would be possible to use an ASID allocated on one pCPU
++	 * on another, for example:
++	 * - vCPU migrates from pCPU A to pCPU B, allocates a new ASID.
++	 * - vCPU migrates back to pCPU A, and then switches the VMCB.
++	 * - The new VMCB does not detect a pCPU change and runs on pCPU A with
++	 *   the new ASID allocated on pCPU B, which is potentially used by
++	 *   another vCPU/VM.
+ 	 */
+ 	if (unlikely(svm->current_vmcb->cpu != vcpu->cpu)) {
+-		svm->current_vmcb->asid_generation = 0;
+ 		vmcb_mark_all_dirty(svm->vmcb);
+ 		svm->current_vmcb->cpu = vcpu->cpu;
++		svm->vmcb01.asid_generation = 0;
++		svm->nested.vmcb02.asid_generation = 0;
+         }
  
- 	ret = wcd9335_irq_init(wcd);
--	if (ret)
-+	if (ret) {
-+		put_device(&wcd->slim_ifc_dev->dev);
- 		return ret;
-+	}
- 
- 	wcd9335_probe(wcd);
- 
+ 	if (is_sev_guest(vcpu))
 -- 
 2.53.0
 
