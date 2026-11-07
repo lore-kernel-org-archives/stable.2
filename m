@@ -1,61 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794063549;
-	b=SsZRyOjaq3ztRDpxlTtJm2wzNCQwZrNjiM3JVODcfFXukGUC14XQ35voQQzaklUIwI4A
-	 MdLqw0momaxYeCAwAZyttL6842u7C8MyVsfFe09S0HCV7S04oy1ou7BPSqqqiy6FE/GHp
-	 7mtLxUC0G4F9Dr08FCnoLG5EO/cEMdleTiBp8irBKFBRrBlgpG8l6jULypaz6xQ+yrd+0
-	 uB2LhQcQSxyRch1oZkAM+SxG43VYHCZvV9jj+tTcNCGgJVl+hmgDmefCVsODeBuA7urbM
-	 HEeBKUGb2jbT/3n1Jtppx5u9G7aMtQlSo7bZBju1xKoetTigYWapm6dCUEZYAAl8iGg==
+	t=1794063550;
+	b=ef0TwIJH/UKBqimnsPUj7m6ngFvdZ495mjLzmyAwGKjE6lm3et1qxruNRy78B8R8OOFm
+	 ZvRiCIzAmfziYVkq7tFs703mwBpq/gLgyZ3o4EK4bqBofsMqmMn6RiUtdVHU6h819h5d0
+	 ehRNg7gEvVrnW5NVeq45qp1mT31SNWUcYWNTIaK+Pm5uKpJgX3Tm0eRdDCCHQ/Cs3xsKt
+	 1D0pnmM3FAJQ5yxPt6YDyhBu3C/idp+PaYxfDwYCzHEWjsnDsMhNHExyfE030uGKFyJNy
+	 oMYBdaT0J3yEGAzYNyrr77pFBsu/8AbakvMmNHnm+yvnA1x/VRu/zNm2ckOnVhfGjPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794063549;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=nsDF5Qu8dACc40WUTkMjM45LodcVsJIIsSA6RKk8azw=;
-	b=u8KKnV94AR4KJAWziDiYs1utCGADZ0lEUciutUFMzs11M/a8mMbS/R9H5DRhw+UFzTOE
-	 cD8b1tUYPItaC+PQH6lUudqg5xp0q/5Ojwm89a1VFJOoTTfNxJplq4jTD73+6iGCbRf5T
-	 5P1aMvOnYNTuYXojcDYlcoViaVSNYXPnlIRCSn30hI5mwcSp6QodPDF6Y8o9wSBKXoXGR
-	 +eJc4Q231F9Ivq9weVRmz1isxxF++BQ6TVc7oD9Q6zLyJ8Qk1N7NRbYygb/ph1jDmw/nu
-	 Dv1sQ+DhnR/6dfLMRYF+kPJ7NHheiSRpEaJBAZLjcWobvIPnxQPq65Ap6KNxTRfHuuQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794063550;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Content-Type:
+	 MIME-Version:Content-Transfer-Encoding:Subject:From:To:Cc:Reply-To:
+	 Date:Message-ID;
+	bh=M9I59tZUkJu3SsIlj0ghniQMBYuug51tK+YlhNCaR9w=;
+	b=aWTZG6ijT1Hf14jpwYZRSHRi3UbaKtcHQCaZrkQS8aBHepGIAhkAAy1LjE9N2GH6E2IH
+	 2Q7zZfqwLLXYsRv1i7V0ARDgZfr6ib9uopGuJLz8bXL71FScMzW9pTQrwHgr3kvaOZ8zG
+	 120vvIBpax/q6qelKCKFFKjAOK7ZRWFLWuzEtu1xfNzbZb9F7o6GlueNiWhqc3iT3CVvO
+	 MKmyrY1oKFRPGxof3ol58wguonBi3Ir8AwQgBQF7N4eFw5pOk5m5qJC+clt9nYOwFjgef
+	 GRhsa9OazEPoWKV7QgS0/v115qDp0+JrUr9wp7Fgi8cufMLNLqTmc1nf9yWTuDEJY0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=QMZdUqyz;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=kernelci.org;
+	spf=pass smtp.mailfrom=kernelci.org;
+	dkim=pass header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=NnY+jo2m;
+	arc=none smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D50E606A32D;
-	Sat,  7 Nov 2026 14:59:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4876D6082BC9
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 14:59:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4876D6082BC9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=QMZdUqyz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDC921F0089F;
-	Sat,  7 Nov 2026 14:59:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794063549;
-	bh=nsDF5Qu8dACc40WUTkMjM45LodcVsJIIsSA6RKk8azw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QMZdUqyzGb8Y/RJDJVAsgA7dOuH64Uxvug2P64k+c4Xb7Sy6MiDVnA7o9E/0BKgfA
-	 RCXYor8ac/gs3T/KzU5B7Xqj5UZOKCcwEL4+lHHJ6HCNnvE0ntGzorm89fEN+Dh56V
-	 uun2hJvM/27LhVIqelFo/MrwuTT5QXIDr99j8YCw=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	stable@kernel.org,
-	Wenjie Qi <qiwenjie@xiaomi.com>,
-	Daeho Jeong <daehojeong@google.com>,
-	Chao Yu <chao@kernel.org>,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 646/869] f2fs: flush SIT journal during filesystem resize
-Date: Sat,  7 Nov 2026 08:55:28 -0500
-Message-ID: <20261107134914.870383204@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261107134852.069646174@linuxfoundation.org>
-References: <20261107134852.069646174@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key, unprotected) header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=NnY+jo2m
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3282db206d3so3606665eec.0
+        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 06:59:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernelci.org; s=google; t=1794063548; x=1794668348; darn=vger.kernel.org;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=M9I59tZUkJu3SsIlj0ghniQMBYuug51tK+YlhNCaR9w=;
+        b=NnY+jo2mKhuJ/S+mhWX4cHnxBxYU/FOyMiMQ9bmLhp4S82FLGVXS+rvt3IYPk9Id/F
+         iTZKGzvnD+Kk36WuMhn/UR2LJxJJwJLvcqMPmTG97SXhH5/ISjT8IqNBAiGEVxx2ANHv
+         R4Wc5eD+C46mA1LcH8ozT8YkqAuZcmizPizsruAbXWZLMHIvEGRqEtDloZeEPQuIogev
+         8E2YrT3QpJCN0/cDgo0p86elJtlYazuaB2fLAzmyr4duEqfRQdWOyNrv7HwEMCOOp7CZ
+         louMWIAQ7X43J/23NzxQZJ1WVJ60u9yMD1PpkqCzbzF2c4CQMT2YA9Qs97O8ilnyMgxj
+         Y2XA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794063548; x=1794668348;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=M9I59tZUkJu3SsIlj0ghniQMBYuug51tK+YlhNCaR9w=;
+        b=pxkHBkwcTc+ghjpJiQy6UfqFvElQEUyAjg2XdFygnnFAtUrmOmCV21rRy5as8rPs1N
+         3E3okg7ds6Jo7ETgeEaccuG1GPXaQ955+3zsHuIruwpQLrWq6K1dwYU4tp91rs/e/8He
+         a4KM1cZ1qoVRttcQVDaqQ6LT5J1UNNmzubD9/GBz5jvkGfd89yNtxLGdm2nEEF7he/zZ
+         2IfY2JNJMYLrLlFi8swHqjmctnlqa9+scy49XQ4rU1PeCQvSus6TBufZwd8HXJt8Z9TF
+         A46rLu53fJMzFNJ3Mnm/nZiHdfQvt0dT0DlUWtLvLGNfZYO7YrYMCO4zGle/7cmE/HBc
+         m7Ng==
+X-Gm-Message-State: APuU4Z8zxbIKiEnwCZtkB/a5uMmpU2IlJzgA2XpsycqG9ScqoA/ap/ze
+	Hu0hm+2+4U0qratJxlTlzrU11+pcdA03r+Q+Bo2Kza7QO0/7pxGwoxCOloDucMbDhIPzGw5A2Pq
+	rVJxB
+X-Gm-Gg: AYBFou1NboaADf3RspRDr2bzVmjU0hHpFoMFUAHRbQob90rFHcpgidxgGciPoW9tl8u
+	JF7JGU2c1JYKpw/VzOnGrQ4x5QuXVsYQE0kCojv0SK42DHrghMkUClNa2kHFaUiWz/eZKmd9Wa6
+	XxrGMnPr08zbnaBmsw1RCaD1R88EgqHP5AEiglZ3quHzttWzjSQ4+DO0zRpHQc8WoT6noUGiKss
+	eJkt2ri1SyVrkuI5GH37hrlHDyzfkCZfyHveys5pZ/fe5RUkdA+6swcEmSjtKaCMJ3MLBonPJMx
+	WQnLNDCUQYTvcqdqOBCVhzVlAAKOYaLML6MGflAB6LHSzVAxFhdi2vMU677/stGusRTRauYf8Pj
+	5s3ekH56Pt21s1YjdmU6i/fGireiewe4WKnN4xpPql+k8pD7C8ptAFE3PA+NXusd+OF5XfWFg1c
+	WyNE3cySBoynR3pvHf+FqULXjHIS4+82ZqhJ+CjCsRt6RZ6pj0NFgfN8mGZovkd5KM2uVUcTOK1
+	RiRRYWrS41UwkeXRi4hd2JjVCFU0QdakbU6nzpa3/Sf687IcGy4MtCWbT5Bs8BW/6kqprMgXu2F
+	WP0Fg+g8fjmU5+aGA7kC4g==
+X-Received: by 2002:a05:7301:5044:b0:36d:4570:a32d with SMTP id 5a478bee46e88-36f727d41ecmr8241473eec.2.1794063548392;
+        Sat, 07 Nov 2026 06:59:08 -0800 (PST)
+Received: from 34406640b1f4 ([20.38.40.137])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36faa6a649csm16763177eec.26.2026.11.07.06.59.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 07 Nov 2026 06:59:06 -0800 (PST)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,55 +89,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Subject: [REGRESSION] stable-rc/linux-5.15.y: (build)linux/cfi_types.h: No
+ such file or
+ directory in arch/arm/mach-imx/s...
+From: KernelCI bot <bot@kernelci.org>
+To: kernelci-results@groups.io
+Cc: stable@vger.kernel.org
+Reply-To: kernelci@lists.linux.dev
+Date: Sat, 07 Nov 2026 14:59:06 -0000
+Message-ID: <179406354527.477229.3973475863060849354@kernelci.org>
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+New build issue found on stable-rc/linux-5.15.y:
 
-------------------
-
-From: Wenjie Qi <qwjhust@gmail.com>
-
-[ Upstream commit a6ede405455106bf42164ec96fd84008c5aabdd9 ]
-
-During a filesystem resize, SBI_IS_RESIZEFS prevents new SIT entries
-from being added to the journal and forces existing entries to the SIT
-area. However, f2fs_flush_sit_entries() returns early when there are no
-new dirty sentries, leaving existing journal entries behind.
-
-After the main area shrinks, a later checkpoint can access a journal
-entry whose segment number is outside the new geometry and trigger
-f2fs_bug_on().
-
-Only take the zero-dirty fast path when entries may be written back to
-the journal. This lets resize drain existing entries through
-remove_sits_in_journal() even when there are no new dirty sentries.
-
-Cc: stable@kernel.org
-Fixes: 04f0b2eaa3b3 ("f2fs: ioctl for removing a range from F2FS")
-Signed-off-by: Wenjie Qi <qiwenjie@xiaomi.com>
-Reviewed-by: Daeho Jeong <daehojeong@google.com>
-Reviewed-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/f2fs/segment.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+linux/cfi_types.h: No such file or directory in arch/arm/mach-imx/suspend-imx6.o (arch/arm/mach-imx/suspend-imx6.S) [logspec:kbuild,kbuild.compiler.fatal error]
+---
 
-diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
-index 510d073f8ec54..23f9b76ee0145 100644
---- a/fs/f2fs/segment.c
-+++ b/fs/f2fs/segment.c
-@@ -4687,7 +4687,7 @@ void f2fs_flush_sit_entries(struct f2fs_sb_info *sbi, struct cp_control *cpc)
- 
- 	down_write(&sit_i->sentry_lock);
- 
--	if (!sit_i->dirty_sentries)
-+	if (!sit_i->dirty_sentries && to_journal)
- 		goto out;
- 
- 	/*
--- 
-2.53.0
+Log excerpt:
+=====================================================
+/tmp/kci/linux/arch/arm/mach-imx/suspend-imx6.S:6:10: fatal error: linux/cfi_types.h: No such file or directory
+    6 | #include <linux/cfi_types.h>
+      |          ^~~~~~~~~~~~~~~~~~~
+compilation terminated.
 
+=====================================================
 
+When fixing this issue, please attribute this report according to the
+patch submission rules:
 
+Reported-by: kernelci.org bot <bot@kernelci.org>
+
+For complete logs and details about the environment used, see the issue
+on the KernelCI dashboard:
+
+- dashboard: https://d.kernelci.org/i/maestro:233744f37edfc04604bb8c9c0af351e081a5c51e
+- giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
+- commit HEAD:  59e2b400009b8e4dddb59189d3ce116e3c0fb6f7
+
+# Builds where the incident occurred:
+
+## multi_v7_defconfig on (arm):
+- compiler: gcc-15
+- config: None
+- dashboard: https://d.kernelci.org/build/maestro:6aef39765b429d354e114fbe
+
+#kernelci issue maestro:233744f37edfc04604bb8c9c0af351e081a5c51e
+
+--
+This is an experimental report format. Please send feedback in!
+Talk to us at kernelci@lists.linux.dev
+
+Made with love by the KernelCI team - https://kernelci.org
