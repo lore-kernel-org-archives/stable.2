@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046492;
-	b=DqfeThIgudBnoaFFdz7uWc/Z6n1f8AFQLUQsLEbWmVEShcwWkO/ZQAql+NJbLEcSw155
-	 F/0HIwVkR0WnJGg54514+N70qtfWFf+2e0WL0h4v8Z3lNOwWvmlEhku4gj2gF/dLetPfl
-	 6MsI2LFX/+up1DAgTxTTShNqwS5RIl0sTRLr0XG9OxCCVZHuzK/pIEqVvrN5kX+n6tJHU
-	 gR3uv38WwfdViRczmkDenxaM1+kkc0oDN98hU5+AzM+6SSOXXqpNPP6O7I2ZIjypr1He/
-	 WYTTjzPc1OM14R8rI40fpyR8boq/ZvmzE5M7ZtfS0F7iDEtulhBtzV00rW0m3c3FPmw==
+	t=1794046494;
+	b=ak4NGMJe9Kmo+rGgse3W0k+vyI05zOwFJabiet8cGhcxwVnAIDWGrPhwFEY/sI556+sj
+	 r3wtmOvZv05r0G8UgozfM3wmBLdD2+w3NNhkL6Pfgdc4+oerwK9kqXTCxFwiiKMRJuFHX
+	 5A5hMgbOaDKmjjwR5wbElxtk7uzgQmRqds3BZ1+MB1y8/oiBETFLp87oosqFkrHK3N7Xk
+	 6DE5bxr+J/uEX7ypxzxVKEMGw7vlARWer32MLyAqE8zD7k2be+rh1bGfaUWameEvrH56/
+	 Xji5N5qRmabxEVc78dHk735jFWli9DfkW5bMiXvf494bKR3sBa+Mg1EypiGBh7EFNew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046492;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046494;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=zocqb4yVVDHO4h7JgY/dI1QwS731GjNWEbfsQG1wDrA=;
-	b=T1+qw1tSyXZ/0olbJrCFMi3TGn8RXk9ciQEtG7ztfFWyRsvVOH16aYknOQLZFd5slU79
-	 T7vrTugODqimRhgKihk1b31BTQmYydhNYGP11r5JVFWWebf1V0kCosxC4nBD/Kwqq5GyL
-	 CeBELetLwcqQQl+n//KQczoNrBN5UQd5GG73LG19zp20JGzry6oES7njlI7tN9yheILZY
-	 sHmL4g+hrFjz7/M2h5GFYI5fpHvEkMZhaUNtKOb4ARlNPoGfWm7reC+RO0xDFjWQ3RvJ7
-	 XUjkIVrJgtlIQ4SY5MVMWUxcOkJMKO7LRJpz4uWFB9EsmoEFhOA1/ETXn7JFG5uN2zQ==
+	bh=CRxo9eTTjz5dCh1CZEeGlk3wNJTuD2A+pvpG6nuNWeI=;
+	b=m+c82lLThl62l1SIHDKaKGaNzBjK9yc0JvFsKcq5oEe4NFq+85AYc+z6GEGMaFEKKhfp
+	 RRvbCAjv5lcPua+1ZrXV0ctC6E1bapSe+5by/i9r2vY3rtnPWNDJbXQeLopnWwmubuRX0
+	 MGH2phc2RSshoXV8PeW6iDlwJKxNGRH00pI2BqZF2JnQI2a4bb61ASKIqeKxBacoJR5A1
+	 UlKaQt3zqAaJEZq4Bfgdi6M6HpelzhXVRGE4A2X7ZtoRzQykJQwoinLaATqqWezVyL8jf
+	 wvY8XpFelGC3Kg72aamN9xmFuCg4oL0QGkL3qErPLkRro/iNJYjbEuV+myNj2zy6X6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XAw90o8M;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="fxzOLT//";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB98C606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:14:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3C87606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:14:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XAw90o8M
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C654E1F0089F;
-	Sat,  7 Nov 2026 10:14:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fxzOLT//
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 385191F0089F;
+	Sat,  7 Nov 2026 10:14:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046491;
-	bh=zocqb4yVVDHO4h7JgY/dI1QwS731GjNWEbfsQG1wDrA=;
+	s=k20260515; t=1794046493;
+	bh=CRxo9eTTjz5dCh1CZEeGlk3wNJTuD2A+pvpG6nuNWeI=;
 	h=From:To:Cc:Subject:Date;
-	b=XAw90o8Mu/tXNnkgj2XWisLtCLJJjGu+2ALWk4iPNZNKX6OQCcw12yykBJM7cDW0b
-	 pxJ+JTpqvjj976bEWb+AD1NLQC1uQjrvroXvfE/USdqfbqo9L3nXyKazJ37OZVEPhi
-	 XG/q/1lOn0aAWcrRsMnQB3fL26DimjeYeN8VjEqBFhAMcSGI86aI1ZFaqJnyd3x16j
-	 BwFDJ26S+deJ+89U5xM0D89vvi9/tqULXb5le3edQ/HXneg/ykh+JZX5uCDztyrKLx
-	 FC1vqbM9ChE5sDlG7UU2+BDYW0oOO2830THIDJVDnnQH6iuDechxT/Q1aoLCe/PQP1
-	 UwLaRy5B0lwOQ==
+	b=fxzOLT//l80DEXk2WU3SlluBhSExV+9j0TiZ/OJdAr+Ix16qbsZBPWJrUy6rf6oox
+	 07CRBx/eKTcQoUMug60UTCUyiSQT5WC47TqIeMvmx6qU8nh2ddiE8K8LS2vk7VdpSm
+	 fPmpPqVx5BNm6B1igjHgQHoq+EXppwvPNNSpmQ1/RIOkL84tjjKzqy+cIZiutoj89u
+	 hlkYCxX1xWAWD5+PQ3OU5DQdn5Lsg8rNDg30FcaU+qxXobnU7jfqyAk7ziqt5/V75l
+	 VbWEZ76W/94+8iJAqd5+p5beoIk5xybRTndXfAKMyQqgEyvAGH5upHsG4N2EO+Bj/b
+	 Txfh21uYczcRA==
 From: Sasha Levin <sashal@kernel.org>
-To: maz@kernel.org,
-	broonie@kernel.org,
-	fuad.tabba@linux.dev,
-	ljs@kernel.org
+To: yijiangshan@kylinos.cn,
+	amarkuze@redhat.com,
+	idryomov@gmail.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] KVM: arm64: Sanitise ID_AA64MMFR3_EL1.S1P[IO]E" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:14:49 -0500
-Message-ID: <20261107051449-failed-6.18-68c11eed4f80@kernel.org>
+Subject: FAILED: patch "[PATCH] ceph: fix longname buffer overflow in ceph_fname_to_usr()" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:14:52 -0500
+Message-ID: <20261107051452-failed-6.18-71975d6e0db1@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,202 +69,75 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 68c11eed4f8097ef1b71c30679e96eb654df29e0
+git cherry-pick -x 71975d6e0db17646102488cf54480fda9de0f7a7
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051449-failed-6.18-68c11eed4f80@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051452-failed-6.18-71975d6e0db1@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 68c11eed4f8097ef1b71c30679e96eb654df29e0 Mon Sep 17 00:00:00 2001
-From: Marc Zyngier <maz@kernel.org>
-Date: Tue, 20 Oct 2026 07:43:06 +0100
-Subject: [PATCH] KVM: arm64: Sanitise ID_AA64MMFR3_EL1.S1P[IO]E
+From 71975d6e0db17646102488cf54480fda9de0f7a7 Mon Sep 17 00:00:00 2001
+From: Jiangshan Yi <yijiangshan@kylinos.cn>
+Date: Tue, 8 Sep 2026 11:18:23 +0800
+Subject: [PATCH] ceph: fix longname buffer overflow in ceph_fname_to_usr()
 
-KVM uses the VM's ID registers as the source of truth for what the
-guest has, but userspace can expose S1PIE or S1POE without the features
-they imply. As per the architecture, both imply TCR2 and ATS1A, and
-S1POE also implies HPDS. With TCR2 hidden, the world switch skips
-PIR_EL1, PIRE0_EL1 and POR_EL1 while KVM doesn't trap them, so the guest
-accesses registers that are neither trapped nor switched. Under VHE,
-that leaks values between guests. On nVHE and hVHE, pKVM included, the
-host kernel resumes with the guest's PIR_EL1 and PIRE0_EL1.
+Snapshot longname reconstruction formats "_<name>_<inode>" via snprintf()
+and memcpy()s the result into oname->name.  Checking the length against
+NAME_MAX only protects the LOOKUPNAME/export callers, whose buffer is
+allocated with fscrypt_fname_alloc_buffer(NAME_MAX).  The readdir path
+points oname->name straight at the altname in the MDS reply, whose
+capacity is altname_len; the reconstructed name can exceed that while
+still fitting under NAME_MAX, overflowing the in-place destination.
 
-On first run, clear S1PIE and S1POE from the VM's ID registers when the
-features they imply are missing, before anything derives state from
-them. The guest and userspace then see neither feature, and the guest's
-accesses to their registers UNDEF.
+Save the actual oname->len before the decryption overwrites it, and fail
+with -ENAMETOOLONG when the reconstructed name would not fit.
 
-Fixes: 70ed7238297fb ("KVM: arm64: Sanitise ID_AA64MMFR3_EL1")
-Fixes: d4a89e5aee23e ("KVM: arm64: Expose S1PIE to guests")
-Reported-by: Mark Brown <broonie@kernel.org>
-Link: https://lore.kernel.org/r/20260930-arm64-gcs-v21-2-3556644cd927@kernel.org
-Link: https://lore.kernel.org/r/8633u229lq.wl-maz@kernel.org
 Cc: stable@vger.kernel.org
-Co-developed-by: Fuad Tabba <fuad.tabba@linux.dev>
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-Reviewed-by: Mark Brown <broonie@kernel.org>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Link: https://patch.msgid.link/20261020064306.1542865-1-fuad.tabba@linux.dev
-Signed-off-by: Marc Zyngier <maz@kernel.org>
+Fixes: dd66df0053ef ("ceph: add support for encrypted snapshot names")
+Suggested-by: Alex Markuze <amarkuze@redhat.com>
+Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
+Reviewed-by: Alex Markuze <amarkuze@redhat.com>
+Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
 ---
- arch/arm64/include/asm/kvm_host.h |  1 +
- arch/arm64/kvm/config.c           | 78 +++++++++++++++++++++++++++++++
- arch/arm64/kvm/sys_regs.c         |  2 +
- 3 files changed, 81 insertions(+)
+ fs/ceph/crypto.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
-index 27fe0cd5b2d7a..524c01d92e71e 100644
---- a/arch/arm64/include/asm/kvm_host.h
-+++ b/arch/arm64/include/asm/kvm_host.h
-@@ -1659,6 +1659,7 @@ static inline bool kvm_arch_has_irq_bypass(void)
- 	return true;
- }
+diff --git a/fs/ceph/crypto.c b/fs/ceph/crypto.c
+index bc0a097a4cea9..845b69ba890c3 100644
+--- a/fs/ceph/crypto.c
++++ b/fs/ceph/crypto.c
+@@ -313,6 +313,7 @@ int ceph_fname_to_usr(const struct ceph_fname *fname, unsigned char *tname,
+ 	struct fscrypt_str iname;
+ 	char *name = fname->name;
+ 	int name_len = fname->name_len;
++	int dst_len;
+ 	int ret;
  
-+void kvm_idregs_enforce_dependencies(struct kvm *kvm);
- void compute_fgu(struct kvm *kvm, enum fgt_group_id fgt);
- struct resx get_reg_fixed_bits(struct kvm *kvm, enum vcpu_sysreg reg);
- void check_feature_map(void);
-diff --git a/arch/arm64/kvm/config.c b/arch/arm64/kvm/config.c
-index 1053676551aff..cfdb6c7133204 100644
---- a/arch/arm64/kvm/config.c
-+++ b/arch/arm64/kvm/config.c
-@@ -59,6 +59,7 @@ struct reg_feat_map_desc {
- 	const struct reg_bits_to_feat_map feat_map;
- 	const struct reg_bits_to_feat_map *bit_feat_map;
- 	const unsigned int		  bit_feat_map_sz;
-+	const unsigned int		  idreg_idx;
- };
- 
- #define __NEEDS_FEAT_3(m, f, w, id, fld, lim)		\
-@@ -130,6 +131,21 @@ struct reg_feat_map_desc {
- 		.bit_feat_map_sz	= ARRAY_SIZE(m),		\
+ 	if (WARN_ON_ONCE(tname && is_vmalloc_addr(tname)))
+@@ -387,6 +388,9 @@ int ceph_fname_to_usr(const struct ceph_fname *fname, unsigned char *tname,
+ 		iname.len = fname->ctext_len;
  	}
  
-+/*
-+ * Declare the dependency between the features advertised in an id
-+ * register, and the set of other features they depend on. This
-+ * generates a struct reg_feat_map_desc.
-+ */
-+#define DECLARE_IDREG_FEAT_MAP(n, r, m, f)				\
-+	struct reg_feat_map_desc n = {					\
-+		.name			= #r,				\
-+		.feat_map		= NEEDS_FEAT(~(r##_RES0 |	\
-+						       r##_RES1), f),	\
-+		.bit_feat_map		= m,				\
-+		.bit_feat_map_sz	= ARRAY_SIZE(m),		\
-+		.idreg_idx		= IDREG_IDX(SYS_##r),		\
-+	}
++	/* oname->len is overwritten by the decryption below */
++	dst_len = oname->len;
 +
- #define FEAT_SPE		ID_AA64DFR0_EL1, PMSVer, IMP
- #define FEAT_BRBE		ID_AA64DFR0_EL1, BRBE, IMP
- #define FEAT_TRC_SR		ID_AA64DFR0_EL1, TraceVer, IMP
-@@ -205,6 +221,7 @@ struct reg_feat_map_desc {
- #define FEAT_MEC		ID_AA64MMFR3_EL1, MEC, IMP
- #define FEAT_HAFT		ID_AA64MMFR1_EL1, HAFDBS, HAFT
- #define FEAT_HDBSS		ID_AA64MMFR1_EL1, HAFDBS, HDBSS
-+#define FEAT_HPDS		ID_AA64MMFR1_EL1, HPDS, IMP
- #define FEAT_HPDS2		ID_AA64MMFR1_EL1, HPDS, HPDS2
- #define FEAT_BTI		ID_AA64PFR1_EL1, BT, IMP
- #define FEAT_ExS		ID_AA64MMFR0_EL1, EXS, IMP
-@@ -280,6 +297,25 @@ static bool feat_anerr(struct kvm *kvm)
- 		kvm_has_feat(kvm, ID_AA64MMFR3_EL1, SNERR, FEAT_ANERR));
- }
+ 	_oname.name = unlikely(is_vmalloc_addr(oname->name)) ? tname : oname->name;
+ 	_oname.len = oname->len;
  
-+/*
-+ * S1PIE and S1POE imply TCR2 and ATS1A, and S1POE also implies HPDS, but
-+ * userspace can set them independently.
-+ */
-+static bool feat_s1pie(struct kvm *kvm)
-+{
-+	return (kvm_has_feat(kvm, FEAT_S1PIE) &&
-+		kvm_has_feat(kvm, FEAT_TCR2) &&
-+		kvm_has_feat(kvm, FEAT_ATS1A));
-+}
-+
-+static bool feat_s1poe(struct kvm *kvm)
-+{
-+	return (kvm_has_feat(kvm, FEAT_S1POE) &&
-+		kvm_has_feat(kvm, FEAT_TCR2) &&
-+		kvm_has_feat(kvm, FEAT_ATS1A) &&
-+		kvm_has_feat(kvm, FEAT_HPDS));
-+}
-+
- static bool feat_sme_smps(struct kvm *kvm)
- {
- 	/*
-@@ -1299,6 +1335,14 @@ static const struct reg_bits_to_feat_map vtcr_el2_feat_map[] = {
- static const DECLARE_FEAT_MAP(vtcr_el2_desc, VTCR_EL2,
- 			      vtcr_el2_feat_map, FEAT_AA64EL2);
+@@ -403,6 +407,10 @@ int ceph_fname_to_usr(const struct ceph_fname *fname, unsigned char *tname,
  
-+static const struct reg_bits_to_feat_map id_aa64mmfr3_el1_feat_map[] = {
-+	NEEDS_FEAT(ID_AA64MMFR3_EL1_S1PIE, feat_s1pie),
-+	NEEDS_FEAT(ID_AA64MMFR3_EL1_S1POE, feat_s1poe),
-+};
-+
-+static const DECLARE_IDREG_FEAT_MAP(id_aa64mmfr3_el1_desc, ID_AA64MMFR3_EL1,
-+				    id_aa64mmfr3_el1_feat_map, FEAT_AA64EL1);
-+
- static const struct reg_bits_to_feat_map ich_hfgrtr_feat_map[] = {
- 	NEEDS_FEAT(ICH_HFGRTR_EL2_ICC_APR_EL1 |
- 		   ICH_HFGRTR_EL2_ICC_IDRn_EL1 |
-@@ -1408,6 +1452,40 @@ void __init check_feature_map(void)
- 	check_reg_desc(&ich_hfgitr_desc);
- }
- 
-+static const struct reg_feat_map_desc *idreg_feat_maps[] = {
-+	&id_aa64mmfr3_el1_desc,
-+};
-+
-+static bool idreg_apply_deps(struct kvm *kvm, const struct reg_feat_map_desc *r)
-+{
-+	struct resx resx = {};
-+	u64 val;
-+
-+	for (int i = 0; i < r->bit_feat_map_sz; i++) {
-+		if ((r->bit_feat_map[i].flags & CALL_FUNC) &&
-+		    !r->bit_feat_map[i].match(kvm))
-+			resx.res0 |= reg_feat_map_bits(&r->bit_feat_map[i]);
-+	}
-+
-+	val = kvm->arch.id_regs[r->idreg_idx];
-+	kvm->arch.id_regs[r->idreg_idx] &= ~resx.res0;
-+	kvm->arch.id_regs[r->idreg_idx] |= resx.res1;
-+
-+	return val != kvm->arch.id_regs[r->idreg_idx];
-+}
-+
-+void kvm_idregs_enforce_dependencies(struct kvm *kvm)
-+{
-+	bool again;
-+
-+	do {
-+		again = false;
-+
-+		for (int i = 0; i < ARRAY_SIZE(idreg_feat_maps); i++)
-+			again |= idreg_apply_deps(kvm, idreg_feat_maps[i]);
-+	} while (again);
-+}
-+
- static bool idreg_feat_match(struct kvm *kvm, const struct reg_bits_to_feat_map *map)
- {
- 	u64 regval = kvm->arch.id_regs[map->regidx];
-diff --git a/arch/arm64/kvm/sys_regs.c b/arch/arm64/kvm/sys_regs.c
-index 44aae52c473d7..11f08e2980c47 100644
---- a/arch/arm64/kvm/sys_regs.c
-+++ b/arch/arm64/kvm/sys_regs.c
-@@ -5883,6 +5883,8 @@ int kvm_finalize_sys_regs(struct kvm_vcpu *vcpu)
- 	if (kvm_vm_has_ran_once(kvm))
- 		return 0;
- 
-+	kvm_idregs_enforce_dependencies(kvm);
-+
- 	/*
- 	 * This hacks into the ID registers, so only perform it when the
- 	 * first vcpu runs, or the kvm_set_vm_id_reg() helper will scream.
+ 		name_len = snprintf(tmp_buf, sizeof(tmp_buf), "_%.*s_%llu",
+ 				    oname->len, oname->name, dir->i_ino);
++		if (name_len > dst_len) {
++			ret = -ENAMETOOLONG;
++			goto out;
++		}
+ 		memcpy(oname->name, tmp_buf, name_len);
+ 		oname->len = name_len;
+ 	}
 -- 
 2.53.0
 
