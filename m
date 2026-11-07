@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794081499;
-	b=dCCmDvY2ILr5UzOH8fTYs6hWJ82vINQCq2pzWWnEd6YibpZnk4PKsJLw/zrzi2V3+Ldp
-	 gBpwZwk39+Zvxfy82GPa2KGSfFsakp9aX9piprvTTXdBRPCu2kixhmibMlPTdoSrG18CO
-	 Ce6EK/qY/FKBPCxKTbOuVs5l1ZiDB6We+LKzIFT62ktZ93BEyjdKdo7hoHmGtAKnXzNgD
-	 IuXC1l58HyNLt6icHzGME6JmQ98zPLSx77pjmO4an6poxYbqKNuFpfLI1d7ZeHTgYxYWQ
-	 bVryoAeLE0fQ8bpkUDjl7iqdNVNkWn5X/50cgdn54CxLeHZD2kiehb22wJrK++JMrbQ==
+	t=1794081533;
+	b=Ee/6r3oRv0Gg/kClMvFnqKYzBR5bzV4HHKtgNDBGqDstq/OUbFrDt9Px5nHzL2ixFXPz
+	 iqrMbHwMytdF1yqyCzZNvuKf0Wx1U3wgr00IXC23DhkrFM5REtwMTOSrkKd5c4X1m5XAc
+	 pTQiOr3nIG8Qa9qAgsXgFOhxHBsuH7pg2JQhAQwKMTBjkFX51Q+d2CL+Ca1gGt9OTGHjr
+	 /wt9Sc9XQJhSjC3IJCRLBH8gbMuktwbrZFhGW88ZsKaZ25NVqWaPbne/mJR5xoOb+u3pU
+	 5JU3zvNgdlvXiSHcBTg+/BeMKjpBnBjcmFHtqcc6aR+KUaJTN5I6d9DOfhxMkBntcrQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794081499;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794081533;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=NlGjQyu31uV9g9/CJYEFE/EWIJHar1jzX4+IaOmjCko=;
-	b=AQJl4FUq9hLZPzOOXAML/lFJp9IioWqchLAPp7mUrsznt5u1nfrVZRltG89DioAZ8Xwz
-	 MzqgyiomhsdoPMGZFpY1VJSoY7lRn0C9KUeZb4SYDgEKK0y3FrL7BCtOxQ4oSQwgCP+YY
-	 C+VcQwJMR436uD3DVCk0Snh0HMoOL+O1BzWHQp+AagYgqkAngc7Sy+eaRqpvXm+EJG5ZE
-	 F/OnWEklPKOqtuvF3+vcW3kRqlyBaxL3nIWS2qt6Qp0Ol+YOTVWZWQUJnOs0Dor6wPEEr
-	 IRHJeDFIkbW7PjXEAJBepOwQ1j09Nl6GKjgDd5+yPCBYKK39Pb8Eytc2ybwzQQIZWqQ==
+	bh=xFR4mDwbmHHyTyXtuI5xHvlbYQma7f5XLvvaKXC/OQ8=;
+	b=k4i7eT1cwmIcnpgL1Cf+BMpdOLZRbLMLjuYG9/UDVsJle+ap/WSUUo3Yn0T3Bmd+P8ub
+	 k1xbT7JcDi8wuV1RnnJZGhE4pUOghcpg3Co7jGbZVVC9RZHFx88u08GJg4su5OA8Cczm9
+	 nKZf8e0EZkZfeepCNMTJzPX7v50T1LE43r/vG7rg39WjqP5SCCl3OoV0qX6dTJxGN0HXl
+	 fkQYAXNE047+n8wZPw8/xgPBa/Qk6+irLte6xwRUlI7pJ0rL7xN8Z0vjmG3DjOgQwUE8l
+	 4c48z61pisVX6Qx26ujt3wKPizgjvkTdrqlQ8s+N88VEfMdXd3ajCo8p+eu3AivvwaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xgieg+K3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PgEgm0Ac;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2CDC606A332;
-	Sat,  7 Nov 2026 19:58:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D2D5606A32F;
+	Sat,  7 Nov 2026 19:58:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xgieg+K3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B8AF1F008A2;
-	Sat,  7 Nov 2026 19:58:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PgEgm0Ac
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECA2F1F008A3;
+	Sat,  7 Nov 2026 19:58:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794081498;
-	bh=NlGjQyu31uV9g9/CJYEFE/EWIJHar1jzX4+IaOmjCko=;
+	s=k20260515; t=1794081533;
+	bh=xFR4mDwbmHHyTyXtuI5xHvlbYQma7f5XLvvaKXC/OQ8=;
 	h=From:To:Cc:Subject:Date;
-	b=Xgieg+K3SKg2yshTSGc5BVdu7NBT73ycht4PIenP86HdGVinUBcD/XuBrpEIheTOq
-	 SHU4OdvNbudO+4SX4yt/QMYc4EdZ4pbWXnKHGf0fW2LGLGuaA4cRAC8/ox8S64yVbA
-	 8hToEw0esJNEMVG8SY6cNY8KTpREOT7P0SOBY6jKmoy+UuY8NspMtQL5Oy4tL1d5fb
-	 XvfPcN4/e/7xrUCCXcFJie0D8xYGERt51jGMlOSsg58W7vfON2+fR3SlycKtZw8CSW
-	 eIOB6ffImezjkX0Xij6sTFqkfYbh3bg6aXxzDJyuGrX31QHAiHRP84FSQdOT0Aq8n5
-	 P2gDVWldekoQg==
+	b=PgEgm0AckeL8jzvspUR+ma9D6C+LKcGuP+pDmf48uOe9MprtWuNSrEQDto0wGCfJu
+	 X99mQX4Et9xaWtMnS62eM1xuCgR9fhjevwVwIXdSD41RjFF9JyAs0o0YmAMYcf/DVu
+	 EYjsWG2bbHakDeSJyjQCBBmfHKlaxS2XNHmoWqem6GEN/pMfY5N8SvMBIr6BBCBDAi
+	 57L4NRqqsbpqZm3zi5wNavxP34MTndYolnZ+xcm+E60JCqBKQL1z0zBoelU05pPOK0
+	 p3oETIpjQfYGla0Lmto8D9FjHgkswiPNC9BoC88tlwJSgYcMZwiLeADHegPLQWshtK
+	 y6V+RTpntmkbw==
 From: Eric Biggers <ebiggers@kernel.org>
 To: stable@vger.kernel.org
 Cc: linux-raid@vger.kernel.org,
 	Eric Biggers <ebiggers@kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	Christoph Hellwig <hch@lst.de>
-Subject: [PATCH 5.15] xor: add missing vzeroupper to AVX code
-Date: Sat,  7 Nov 2026 11:58:04 -0800
-Message-ID: <20261107195804.86498-1-ebiggers@kernel.org>
+Subject: [PATCH 5.10] xor: add missing vzeroupper to AVX code
+Date: Sat,  7 Nov 2026 11:58:34 -0800
+Message-ID: <20261107195834.86581-1-ebiggers@kernel.org>
 X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -115,7 +115,7 @@ index 0c4e5b5e3852b..10b703dfc7c43 100644
  }
  
 
-base-commit: 29c6cdaac04a6989a7ed4ae4275ce4244e617f58
+base-commit: 3a323bc22b881a5bdc1646080f93f5ecb22850bf
 -- 
 2.56.0
 
