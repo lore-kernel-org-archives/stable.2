@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047011;
-	b=Wx6nyL98gjnctjw8nRqFEFbrFWei2/qKJ+XY1H/tVPA3XZDC/Uf5QYzSkrQvUkGmqm8W
-	 R3DKEQFpbejcYd54BZiZoUaSOCrddKoQer+hsrYJxi63rgqWicp0Q/VV0RR0QhjfFsqqM
-	 61O39gcUxYek0SKtxTRNGzT6ybDA0ogsdfctM2WcugsEm0HVVwAT5KPgiamlJ/HdNN2bv
-	 424fqsAw6O/zgBOcwOIE08rPZuljBnYvonVC0MLi1C5eTZwSOkT2veAOwY7g9wP1Yv+jY
-	 yfjgD82b9tfh446PyHdwf/g6jSlEiB4elZKUxmLB2PS69ojtLDql2vMO6gromOZC+PQ==
+	t=1794047014;
+	b=UKhWhjFxSMXU1KSs+AmdIvnE9cED9R7naf9o0RJXqynuG4Zb5gvgpsasg12XjpO5GNod
+	 ajjAvsOB1H3ktCzVIwCOlPKsXqjmtUMeuHptpYYYtCQb78GDX6ffEV/moOQkVNsDlfdH0
+	 c9GLO8dhOjhCUuqHSjb55irK0Dh2bNT5T+3+EOi16YvcqgVjPhCt125BylIBQwbACjozE
+	 G/s0mOC2T67+rO/xMRDRuSAJsibINH0F9s6sHBq7+VR86ejlUDUe1RL5KMeLlBmONRj6s
+	 +acUNyWx1/yLgAMDyot8c1uJAScay+OGrh2UfERGFKapAXYLhGgLJdkfYBrpBfixeYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047011;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047014;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=fSLBZkrzhddw43MbrVHsJn73OixIuZW3w/yDKkFSC/w=;
-	b=AgDGUQfxI2jYS87G7a2SpLfWcLTmY0plq0EgTUQxz3qpjuPP9uM4p/lijpBu0xpQrbmh
-	 ylMKv28w5J0McpevjH+AmFnPgMYsJuVojiuhHYkBAG2ewh8NpAJE8C8mN1RF1TjtNz5Bk
-	 RrGNfQXDf//kcjoG6Har93Gz+WDFaTnL1s32LMEVSw795TGNZ/y+5JXlfWraVNaY5dzA7
-	 RzOL5CsZttPbyA+YKA1OL/J9ooWNyJNt8siYxsHH8VG8vn2JW7WYY5GN/bi0A2MdWCRwC
-	 ZkFR3kBJ0tsn/ngIzJAGaomeIGG6wxPmQ79lWc7uCg6tsSpD8gNFbIMQvtlv+VMVy/w==
+	bh=rIIhlLQ9aKf3uIwHu271uIUbnR7OlvDeQ5dJdWkkmgo=;
+	b=ik6+Jh1BLRZf6KQ2nh0cupev1PtK6AjdJcJYk83pX0h7kHzXJDjgs+qWvYlN8rcZVRwr
+	 BuoaMiSjmYOD5VDt9ojXbC5iHHTMnkJZubzikNgyAJwTxSVf/8ks+Jn+K9Bd1983LzatH
+	 4xbSi1ghgmon0bBoPuUYPCuugUV+sncANRwla4GBqHnjEiS/MiVH1YvdOnoT6UPFQUsZn
+	 9ykUtSTRibUY5qfE+rbwyRX/QlCIMwo+HWemxfeS8Rn80jayH8WtYu161s8mK5hC80aJ3
+	 aurLxK4ho2ubkynxlPbkK3YJ/zZ+fXnyrEQ/umjZgTWct/GNq5wyUl/yU6NOMdcQ8vA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AKrPwVb4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H8+LeMm4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2D6E606A339
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:23:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E075D606A32D
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:23:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AKrPwVb4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A6821F0089F;
-	Sat,  7 Nov 2026 10:23:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H8+LeMm4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45B881F0089F;
+	Sat,  7 Nov 2026 10:23:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047011;
-	bh=fSLBZkrzhddw43MbrVHsJn73OixIuZW3w/yDKkFSC/w=;
+	s=k20260515; t=1794047013;
+	bh=rIIhlLQ9aKf3uIwHu271uIUbnR7OlvDeQ5dJdWkkmgo=;
 	h=From:To:Cc:Subject:Date;
-	b=AKrPwVb4NXP2XbCROMbOYpLDEZLGuiqLXR7FKJ1tIyR6oLfpLocve5Pxu64tYBfyU
-	 hrA+9PmLTrt/vswYqq2w62Y+GA0rX3a33DzpZciSoWMj1Mle/CFbbMjFOJYhYqe+vo
-	 Gfvld4onbJHouUA247BdbhUWosm/97kMlNhYCIgfLJvi4ySPjx5V+rSSOvQLRqABnx
-	 B16ztko+s0XT205bbKt8FQ7xb5L1o16eR/SEpWdNyJtftxRcM9xUPX3DgTCZoTg260
-	 ijCq+CEJrpC7z9FyXjnwxfC4aUmnwZ2Q8qGnAPr9I7Ib0Hi+kSlZ8blurS7hHEWJ3w
-	 z9ceQeoTBCN7Q==
+	b=H8+LeMm49LQoJ1JR/0mi9mA7NFCQnp4qTX4rr/814V0I4dvevq1luMrH2Rq199hdT
+	 9DEEv1QWXLIlGpT1ShB20gOS2hGrNQeB8P80U0MD4cieyGw1u19uN729Fy9lDkTDSr
+	 lfpJiVg0VYUZECdeQfiGdYWahJ4aM3cp6gG4OepSibaRLwhmkUA2zJUq9i72oQpi7k
+	 ZzbKffFEhzAHI5QGb1Kljmh8wRDQyBZmFO/tgJc6Eh77Nw+3QtKHitcN1OTk1FpT0G
+	 DMk8xmQIOBTi0iqGby/TpuhPFGJAp2CN5crctDoWAX+KzXF5m5XdPeKeqwRv5ot7Dn
+	 CoUcd5O9D3Z7g==
 From: Sasha Levin <sashal@kernel.org>
-To: art.home@gmail.com,
-	vijendar.mukunda@amd.com,
-	broonie@kernel.org
+To: joannelkoong@gmail.com,
+	hbirthelmer@ddn.com,
+	mszeredi@redhat.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ASoC: amd: acp-config: force SoundWire probe on Dell 14S DS14265" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:23:29 -0500
-Message-ID: <20261107052329-failed-6.12-38cb2ef26b64@kernel.org>
+Subject: FAILED: patch "[PATCH] fuse: don't launder folios of a bad inode" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:23:32 -0500
+Message-ID: <20261107052332-failed-6.12-01d0f3d294af@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,79 +69,79 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 38cb2ef26b6411277826da54c6bcf94523541058
+git cherry-pick -x 01d0f3d294af126f517d92c11e100525537f8be4
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052329-failed-6.12-38cb2ef26b64@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052332-failed-6.12-01d0f3d294af@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 38cb2ef26b6411277826da54c6bcf94523541058 Mon Sep 17 00:00:00 2001
-From: Art O Cathain <art.home@gmail.com>
-Date: Fri, 16 Oct 2026 11:29:30 +0200
-Subject: [PATCH] ASoC: amd: acp-config: force SoundWire probe on Dell 14S
- DS14265
+From 01d0f3d294af126f517d92c11e100525537f8be4 Mon Sep 17 00:00:00 2001
+From: Joanne Koong <joannelkoong@gmail.com>
+Date: Tue, 6 Oct 2026 03:51:36 -0700
+Subject: [PATCH] fuse: don't launder folios of a bad inode
 
-The BIOS on the Dell 14S DS14265 (ACP PCI revision 0x72) reports
-acp-audio-config-flag = FLAG_AMD_LEGACY_ONLY_DMIC. As a result
-snd_pci_ps returns early and the SoundWire links are never scanned,
-while the legacy snd_acp_pci driver probes the device, finds no
-matching machine driver ("No matching ASoC machine driver found") and
-no internal sound card is created. The CS42L45 headset codec on link 0
-and the two CS35L63 speaker amplifiers on link 1 never enumerate.
+fuse_flush() and fuse_writepages() reject writing back dirty data for
+any inode that has been marked bad, but fuse_launder_folio() doesn't.
 
-Add a DMI entry for the model to the ACP70 ACPI flag override table so
-the firmware-provided flag is overridden and snd_pci_ps probes instead.
-Match on the product name rather than the board name, as the same
-symptom has been reported on several boards of this model (09PVND,
-0M0J65, 0C7F12).
+This can cause the following warning in fuse_write_file_get() to
+trigger, as reported by syzbot:
 
-Tested on a DS14265 (board 09PVND, BIOS 1.5.3) with Debian's 7.2.6
-kernel, with and without this entry. With it, snd_pci_ps binds, both
-SoundWire links come up, the CS42L45 and both CS35L63 enumerate, the
-existing CS42L45 + 2x CS35L63 machine entry matches, the amplifiers
-load their firmware and calibration, and the amd-soundwire card plays
-through both the internal speakers and the headphone jack. Also
-build-tested on asoc-next with W=1.
+WARNING: fs/fuse/file.c:2043 at fuse_write_file_get fs/fuse/file.c:2043 [inline]
+WARNING: fs/fuse/file.c:2043 at fuse_iomap_writeback_range+0x7c8/0x18f0 fs/fuse/file.c:2227
+Call Trace:
+    iomap_writeback_folio+0x1526/0x2490 fs/iomap/buffered-io.c:2022
+    fuse_launder_folio+0x17b/0x240 fs/fuse/file.c:2331
+    folio_unmap_invalidate+0x4cd/0x830 mm/truncate.c:634
+    invalidate_inode_pages2_range+0x629/0xb30 mm/truncate.c:726
+    fuse_open+0x5a6/0x770 fs/fuse/file.c:297
 
-Developed with AI assistance. Claude read the ACP driver source,
-identified the BIOS flag as the cause and the override table as the
-fix, wrote the DMI entry and the out-of-tree test module, and drafted
-this changelog. All hardware testing was done by the submitter, who
-has reviewed the change, understands it and takes responsibility for
-it.
+This can be hit on a writeback cache mount:
+1) a writeable file is open and a buffered write dirties some pages
+2) another thread opens the same file read-only. fuse_open() passes the
+   bad inode check and sends OPEN to the server.
+3) a SETATTR reply with the wrong file type marks the inode bad
+4) the writeable file is closed. Flush and release skip writeback
+   because the inode is bad. The pages stay dirty but the file gets
+   removed from write_files.
+5) server replies to the OPEN. The reply has no FOPEN_KEEP_CACHE, so
+   fuse_open() calls invalidate_inode_pages2().
+6) the invalidation finds the dirty pages and calls
+   fuse_launder_folio(), which finds no wriable file and hits the
+   WARN_ON in fuse_write_file_get().
 
+Instead of trying to write back dirty data for the bad inode,
+fuse_launder_folio() should return -EIO.
+
+Fixes: 5d069dbe8aaf ("fuse: fix bad inode")
+Reported-by: syzbot+e8200299b0556976e13c@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=e8200299b0556976e13c
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Art O Cathain <art.home@gmail.com>
-Reviewed-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-Link: https://patch.msgid.link/20261016-dell-14s-acp-v1-1-89b40d95720c@gmail.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Joanne Koong <joannelkoong@gmail.com>
+Reviewed-by: Horst Birthelmer <hbirthelmer@ddn.com>
+Tested-by: syzbot+e8200299b0556976e13c@syzkaller.appspotmail.com
+Signed-off-by: Miklos Szeredi <mszeredi@redhat.com>
 ---
- sound/soc/amd/acp-config.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ fs/fuse/file.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/sound/soc/amd/acp-config.c b/sound/soc/amd/acp-config.c
-index 30e01bc47ee0c..2fb9789cac0ac 100644
---- a/sound/soc/amd/acp-config.c
-+++ b/sound/soc/amd/acp-config.c
-@@ -98,6 +98,13 @@ static const struct dmi_system_id acp70_acpi_flag_override_table[] = {
- 			DMI_MATCH(DMI_BOARD_NAME, "8EA2"),
- 		},
- 	},
-+	{
-+		/* Dell 14S DS14265 */
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "Dell 14S DS14265"),
-+		},
-+	},
- 	{}
- };
+diff --git a/fs/fuse/file.c b/fs/fuse/file.c
+index 6d707f2b3bff8..0ef46f6e0267f 100644
+--- a/fs/fuse/file.c
++++ b/fs/fuse/file.c
+@@ -2351,6 +2351,9 @@ static int fuse_launder_folio(struct folio *folio)
+ 		.wb_ctx	= &data,
+ 	};
  
++	if (fuse_is_bad(wpc.inode))
++		return -EIO;
++
+ 	if (folio_clear_dirty_for_io(folio)) {
+ 		err = iomap_writeback_folio(&wpc, folio);
+ 		err = fuse_iomap_writeback_submit(&wpc, err);
 -- 
 2.53.0
 
