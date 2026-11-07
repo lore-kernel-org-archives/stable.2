@@ -1,58 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794073005;
-	b=07m2ZQyxIJTX5SyMHdCtImleCI3WLtRPjY7Xrm+Zvj2AG7gFl/t57tzwRcYJhgXKS7D2
-	 ddgPWRxlGU7t8HKxiv0LaUv3BKQl0+OnwZMIChlzx29jJzjLyCr5GTQprNUl9rrsnFDiD
-	 BDaa2fvH6IDBOkTZeLarXLGArD6VioqtlymIgfglWwePoPwY6GaBMTAsQs3alD10KFHCa
-	 y4I4TREDVqo/dI5ohjvVp1u59zyoUPH6CjmIOrbJ8pM4JHWu2SG+PZ1jcylYiZrM/fT7c
-	 PlivKjf8o7LMpBkrfvdV/MoOQRuDxUuK2QCtSMBKeJwSc75cIEPr3gpJ5wlKAp/JWzw==
+	t=1794073049;
+	b=IhvdHYQpkBvjZXeql+PQFNZtTz1tyebjl1o0oFPNvio3dcG5Mfz0Zoc11jTE8YXv8Goj
+	 nan+5I6OhFRxd0R918ux+KGDHe84pHagrA4gQ106U0Tl8qy4ydtl3QyasGZsh4O7361oh
+	 7r2ul3/d37trCcUKGlYRVhykOb6M0C0Bh+Aai/FV5PSEPt4Lr8nVqiq/zHIy3/Rc19Gc3
+	 Pr6rvwTe63SKPucn9kFgZOZrp6MKi47Ri8AMQmGvTIt6gQo87USICxbe89cFO+h3vzA+k
+	 YHarfV9EGX9D0Mz945HE5UX78XfXZTZtRwVW5r7BDdi/SJFbsKaoUDk54+WCYipCdNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794073005;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=c1TXvO7TccARf170PqShOSUdoyZswTtcvgBaLxcLf58=;
-	b=UI4A4Il96XT3jQEjJOztxS+uVDlHKHqHK2UoanrTLDl3j2EVFjFp7CxJJBNGJDR7UstF
-	 mF8yP7aeOKf8FPBWDI3/wsisLs9g+HkfSU+WJ6TQcJ8qQfmYOUL643Og5Qe0XH1+CXlFt
-	 /04I6IXxjSgrJcH9A0ZHuqdyCtZ+1pUqLfUiVOhjY3HJzqKEFizuQAG5ciHE8IqpZ2IVQ
-	 nTmw7/31cy4MiICm9aay9BnMQZsy51hk6BHNhNCrDXU6QQTnpyR0C7Q3xtzWx3PiZnerX
-	 d5sn4mFoiqAcSAPFnbUxaZVmi+s3Wv/hutDxHm0U9Uh1L/TsnvrgAAZrdFzBbapppAA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794073049;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Rspamd-Queue-Id:X-Rspamd-Server:
+	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
+	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
+	bh=jA1Z4duQiQzeKq317JC2yso+OfINr1SzmCCDBHpydj0=;
+	b=DdDtheX/GOGkyNgDkw+6f+tgq0/Pkzwfn1X6xOxuGuqp+SAAdHLDCt3EwFxU/X2/BQ3m
+	 T0HVEk5d+e+858+phptwuvpMQoKG0rGwtWagElaf4LdXL3pZmsb6+kRi+6W623eoVD4El
+	 FuwTmzLNdvMdbFGgcGkcJXMc6NZsXTjHZI3kB4Wk9oxVAkRf24biyGSydtr6lhwK5YE2L
+	 ziMwBZQmEgiYUv5XpQghOwZ/wFx6NQkNUwvXYZfnpWsPe2dgkzh648u8Mjic2tSd2958J
+	 G7wsd+45sw+0Hh/zPA/XeGtyssbagNG9uPOZB+iWtV3tSv3Pc8s8Kj7wMDwtnpsPD/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cXdw7prb;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=goodmis.org;
+	spf=pass smtp.mailfrom=goodmis.org;
+	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=QHJOEINu;
+	arc=none smtp.remote-ip=216.40.44.15
+Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1CCA606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 17:36:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B2B2606A32E;
+	Sat,  7 Nov 2026 17:37:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B2B2606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cXdw7prb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13A801F0089F;
-	Sat,  7 Nov 2026 17:36:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794073004;
-	bh=c1TXvO7TccARf170PqShOSUdoyZswTtcvgBaLxcLf58=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cXdw7prbODAbe6C2xwwcqb4OLe+0KV5XmNTmilvOMBmBEwrBLX6Uk1/DouDhwXV6O
-	 RnPTr22iiSrbXIWd9dySkQD65eupiXQL9aeAoLuSKVPxC21NVpwSHj8TAoaspobTKh
-	 LbIG5JsQlnZgYo1vfCtSpdi0MI35/c20z7ymGZSm0yGKfWJePknTt1x/MIOfQdpebb
-	 Yea4u/Zq5gfwXJmCRUvb/zYh8sNPPr624tysS30q24uHC6JD7peNt8zO0KaqvUQoVw
-	 4pALzBk6PpqO6LnmH28xIhJEPoxIchppEAbSQvgISJcTfO/0bfzUsewWbc1o1ZppED
-	 ERFFTmDuZA9Jw==
-From: SJ Park <sj@kernel.org>
-To: Sasha Levin <sashal@kernel.org>
-Cc: SJ Park <sj@kernel.org>,
-	akpm@linux-foundation.org,
-	brendan.higgins@linux.dev,
-	davidgow@davidgow.net,
-	usamaarif642@gmail.com,
-	stable@vger.kernel.org
-Subject: Re: FAILED: patch "[PATCH] mm/damon/core: disallow max < min damos filter range arguments commit" failed to apply to 7.3-stable tree
-Date: Sat,  7 Nov 2026 09:36:36 -0800
-Message-ID: <20261107173637.109352-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261107050426-failed-7.3-1bfb9384ae0e@kernel.org>
-References: 
+	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=QHJOEINu
+Received: from omf11.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay01.hostedemail.com (Postfix) with ESMTP id 86C801C3AE5;
+	Sat,  7 Nov 2026 17:37:19 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf11.hostedemail.com (Postfix) with ESMTPA id 535692002C;
+	Sat,  7 Nov 2026 17:36:58 +0000 (UTC)
+Date: Sat, 7 Nov 2026 12:36:42 -0500
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, tglx@kernel.org,
+ mingo@redhat.com, linux-kernel@vger.kernel.org, will@kernel.org,
+ boqun@kernel.org, longman@redhat.com, bigeasy@linutronix.de,
+ clrkwllms@kernel.org, dvhart@infradead.org, dave@stgolabs.net,
+ andrealmeid@igalia.com, shuah@kernel.org, juri.lelli@redhat.com,
+ linux-rt-devel@lists.linux.dev, linux-kselftest@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH 1/5] locking/rtmutex: Stop spinning on the owner when
+ the waiter is woken
+Message-ID: <20261107123642.149677cf@fedora>
+In-Reply-To: <c77635b1-9c24-459a-b75c-82cbfb67185f@efficios.com>
+References: <20261106235931.1478800-1-mathieu.desnoyers@efficios.com>
+	<20261106235931.1478800-2-mathieu.desnoyers@efficios.com>
+	<20261107002927.3cbad7ff@fedora>
+	<20261107104329.GA2668564@noisy.programming.kicks-ass.net>
+	<c77635b1-9c24-459a-b75c-82cbfb67185f@efficios.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,72 +69,124 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Queue-Id: 535692002C
+X-Rspamd-Server: rspamout08
+X-Stat-Signature: m44kupjn78amr5iba158yzo71aerdhcm
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX195nEAbX1ye5HLf4TYsMhI2TyWK0f81IaE=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=jA1Z4duQiQzeKq317JC2yso+OfINr1SzmCCDBHpydj0=; b=QHJOEINuZLikmXVnkZT2L1ruJL/sFiyj1a7fbmNisUYPM3FED5UQaDWWBORf0uFWwrdV+MSQvl3GNH3g8/YiS2DTRupvspu8y8ro5C+eGzlCZIyVNXhDeXc44nGtcTwk00tHGTLiRum5o/wuaeGIUUQHOStCmkvQsjjCbVzmWuA=
+X-HE-Tag: 1794073018-50227
+X-HE-Meta: U2FsdGVkX1/xkZuEMEbBCRfnErlHYkRLRDuQ4GKd9JI66MgGk/9EtQjOr/4EcRkcQOmN7p7qTwDBZxQqLm4BRwFmhmB9b4FT7qkkG/sM2/a/lPmoftsEN/kGVVCJbP+oMtphFphXzojKGJXDoLj7973AVD34omJ6wjmlwbP7MNKbExqBzs0oifpfMCDA5FVYn1bwahkR2vCtgteuYTycxiab2tDqi1C3jnBKVa3FWckqqUst1nKjCoFXLjeCFbuaIcALKm2/gOo7lB6qmJiGE5+o5wL3iio+Gr9V6QpxtRAQCR0nLXBc00qzgheVeJuVnuguVSM304hz/NPMKas+Vb2qsxx5UeuMKzPJ0tQ0jO7+eAxCRaeVpEa1zm7Nq6bRRB8MX3GIgUJ0MPL1PjHCTqzV34xxNRpvXpf+I1wuKcH8PTU1dokdby+pxg9PhWaszNLnhPaeC4uIiIqTG7UIUQ==
 
-On Sat,  7 Nov 2026 05:04:27 -0500 Sasha Levin <sashal@kernel.org> wrote:
+On Sat, 7 Nov 2026 07:29:54 -0500
+Mathieu Desnoyers <mathieu.desnoyers@efficios.com> wrote:
 
-> The patch below does not apply to the 7.3-stable tree.
-> If someone wants it applied there, or to any other stable or longterm
-> tree, then please email the backport, including the original git commit
-> id to <stable@vger.kernel.org>.
+> >>
+> >> The above is very verbose. Are you starting to use AI? ;-)  
 > 
-> To reproduce the conflict and resubmit, you may use the following commands:
+> I definitely am, as stated in the cover letter. :-)
+
+I skipped that part of the cover letter. The first patch touches my
+code (it has my commit as fixes) so I just jumped straight to that one.
+
 > 
-> git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.3.y
-> git checkout FETCH_HEAD
-> git cherry-pick -x 1bfb9384ae0ed52d61eb601b655014b7815ff849
-> # <resolve conflicts, build, test, etc.>
-> git commit -s
-> git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107050426-failed-7.3-1bfb9384ae0e@kernel.org' --subject-prefix 'PATCH 7.3.y' 'HEAD^..'
+> > 
+> > He definitely is. I can't read the above, its word soup. Part of using
+> > AI is making sure the Changelog is actually readable. This is not.  
 > 
-> Thanks,
-> Sasha
+> Feedback on the commit message wording is welcome, I'll try to improve
+> things for next iterations. Is the following easier to parse ? I fed
+> Peter's and my own criticism to Claude and got it to rewrite the entire
+> thing (and keep those learnings for next time):
 > 
-> ------------------ original commit in Linus's tree ------------------
+> locking/rtmutex: Stop spinning on the owner when the waiter is woken
 > 
-> >From 1bfb9384ae0ed52d61eb601b655014b7815ff849 Mon Sep 17 00:00:00 2001
-> From: SJ Park <sj@kernel.org>
-> Date: Mon, 14 Sep 2026 07:23:21 -0700
-> Subject: [PATCH] mm/damon/core: disallow max < min damos filter range
->  arguments commit
+> The top waiter of an rt_mutex sets its sleep state. Then it spins in
+> rtmutex_spin_on_owner() as long as the owner is running. A wakeup sets
+> the waiter back to TASK_RUNNING. The spin loop does not check for this.
+> So a timeout or a signal is only handled when the owner blocks, or when
+> the waiter has to reschedule:
 > 
-> damos_commit_filter_arg() receives range arguments for a few types of
-> DAMOS filters.  It allows any range including max < min range.  It is fine
-> for the logic, but makes no sense to support it.  Actually DAMON sysfs
-> interface is doing the validation on its own.  To avoid duplicated
-> validations in multiple DAMON API callers, it would be better to do the
-> validation in the core layer.  Add a validation of the given range.
+>    CPU 0 (waiter)                            CPU 1 (owner)
 > 
-> Link: https://lore.kernel.org/20260914142327.92510-5-sj@kernel.org
-> Signed-off-by: SJ Park <sj@kernel.org>
-> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-> Cc: Brendan Higgins <brendan.higgins@linux.dev>
-> Cc: David Gow <davidgow@davidgow.net>
-> Cc: Usama Arif <usamaarif642@gmail.com>
-> Cc: <stable@vger.kernel.org>
+>                                              pthread_mutex_lock()
+>                                                takes the PI futex
+>                                              spins in userspace
+>    pthread_mutex_timedlock(1ms)
+>      futex_lock_pi()
+>        rt_mutex_wait_proxy_lock()
+>          set_current_state(TASK_INTERRUPTIBLE)
+>          rt_mutex_slowlock_block()
+>            rtmutex_spin_on_owner()
+>              <timeout> hrtimer_wakeup()
+>                wake_up_process(waiter)
+>                  __state = TASK_RUNNING
+>              owner_on_cpu(owner): true
+>              need_resched(): false
+>              keeps spinning                  still spins in userspace
+> 
+> The owner of a PI futex is a user task. It can run for a long time.
+> With an owner spinning in userspace, a 1ms pthread_mutex_timedlock()
+> returns up to 1.4s late. A signal to the waiter is delayed in the same
+> way.
+> 
+> With PREEMPT_RT, a ww_mutex wound is missed too. Two contexts take two
+> ww_mutexes in opposite order, on two CPUs. They spin on each other for
+> up to a second.
+> 
+> Fix this by also stopping the spin when the waiter is TASK_RUNNING. The
+> slowpath then handles the timeout, the signal or the wound, as it does
+> after schedule().
+> 
+> rtlock waiters are not affected. Only the lock handoff wakes them from
+> TASK_RTLOCK_WAIT.
+> 
+> With this patch, the 1ms timed lock returns after about 1ms. The
+> ww_mutex ABBA resolves in microseconds. PI mutex throughput is
+> unchanged. The futex and ww_mutex selftests added later in this series
+> cover both cases.
 
-Including this, five DAMON patch cherry-pick failures [1,2,3,4] for 7.3.y are
-reported last night
+Still way too verbose for the fix. It makes it sound more complicated
+than it is.
 
-The patchex except the last one [4] don't Cc: stable@ and look like not
-essential hotfixes.
+  locking/rtmutex: Stop spinning on the owner when the waiter is woken  
 
-Those are refactoring [1,2] or a very minor fix [3] that doesn't really impact
-users.  Those are not built in porting-friendly way because those were not
-meant to be hotfixes.  To port those, no small amount of refactoring or porting
-of more dependencies are expected.
+  The top waiter of an rt_mutex sets its sleep state. Then it spins in
+  rtmutex_spin_on_owner() as long as the owner is running. A wakeup sets
+  the waiter back to TASK_RUNNING. The spin loop does not check for this.
+  So a timeout or a signal is only handled when the owner blocks, or when
+  the waiter has to reschedule.
 
-I don't mind porting non-Cc: stable@ DAMON patches to stable kernels.  And I'm
-happy to help doing that.  But I'm not quite sure if this is indeed what you
-want, or picked by a mistake.  Could you please confirm?
+  The rtmutex_spin_on_owner() is just an optimization with the idea that
+  if the owner is still running on a CPU, it will likely release it soon.
+  If the owner gets preempted or schedules out on its own, the spinning
+  will stop and the waiter will sleep. This came from PREEMPT_RT adaptive
+  spinning for rt_spin_locks that allowed them to behave more like normal
+  spin locks and speed up PREEMPT_RT performance.
 
-[1] https://lore.kernel.org/20261107050429-failed-7.3-1d2397b2c414@kernel.org
-[2] https://lore.kernel.org/20261107050431-failed-7.3-cec08aad3def@kernel.org
-[3] https://lore.kernel.org/20261107050434-failed-7.3-af19aff38d6f@kernel.org
-[4] https://lore.kernel.org/20261107050537-failed-7.3-5695abc4e742@kernel.org
+  The problem is that when this was implemented for futex and normal
+  mutexes it did not account for timeouts or other mechanisms where
+  the owner releasing the lock wasn't the only way for the spinning
+  task to exit the mutex acquire. The spinning currently does not
+  account for anything else but the lock being released or the owner
+  sleeping.
+
+  Luckily, when the spinning task needs to exit the mutex lock code, it's
+  state is set to TASK_RUNNING. By having the spin check the spinning
+  task's state to see if it switches to running, it can exit the spin
+  appropriately.
+
+How about something like the above?
+
+-- Steve
 
 
-Thanks,
-SJ
+> 
+> Fixes: 992caf7f1724 ("locking/rtmutex: Add adaptive spinwait mechanism")
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Steven Rostedt <rostedt@goodmis.org>
+> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+> 
 
-[...]
