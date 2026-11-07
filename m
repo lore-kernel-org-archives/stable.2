@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049365;
-	b=OiJJKdj/+JOfnWowmPRtreSKOGr3AVFRZQK7BTZgIQJt55AoEgxvGzV5uIYt2qfkihMY
-	 pRnw4WwQaAe5HD1VG2WtQukhpmCDW+yyeiDLE5HEeIN8e9W9Li2Kknyi40vuZyzAKYV4Y
-	 LCTtcHlwa1pflr4gR+64dzoFADoVDqKZvY7PNDRodZ8zY5mieDDG4UoOM56mAGanqxGov
-	 qKxe8il2HOPRUOJQZnXXzO9CWzTVrpM+n1MIqFxtvda8Vt5/2NHhfn89nTe0B7BwShaPf
-	 dkl0G9Krn04ksNFuOm530zt10IbK2IHCZCO95n+h8xdP+cAPEZ3HFk7WKgXcRjvEJ0Q==
+	t=1794049368;
+	b=CVnMUvV/zSeDqPV2a2b62XPTlaslRZ8kVhlW5TTHdNUMK5ld94NPhyyU5PEGI1I1KN18
+	 THbf3WnBBduEP0AkemZRHRrY6iObhY8dvqgy0PWpYfm6wiFOBXYu7VfNAHXC98LMqNpKl
+	 KE1BuIxCUbzbR9GOYfV9qWyVH8NlHoiQppKRGUfcG+E9yy5FF13DxJgGqyNKttbe2pVys
+	 SqGr/oElL4DTsMf/om5TIq78g58/MKD0X2uH5EWFuycNp+s03kCcrmLXeAWips5DAiBkw
+	 Ql0tFwpOA1GfmofAxkdwUIvvTyK4IKeirgXKRHZfiKe4k2RfERgY8ZPcRWnrX2U2a5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049365;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049368;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=axNrer5ZzqcHImvEIb0335qgTR2Mha/qTRg4mQl03hU=;
-	b=q3Fky6y55V7JHSrsjx+mUwIDkhZXh2W4j/psabWd89WP/iXdQX/rxQWdkWrFm6suB4TI
-	 PK6yRWh4lkA3EB81ERRpXjIwqj7rlu0Qz/w/2k9Dq/hs7pvoThlPEfZCOt+Xt0xzGkafF
-	 ieRdXXEyjpEIpJTG6en6PYxqHfgM1q3aGDtU8klO5G9nDcw5ywaQtUDwBXOePD0Oet53x
-	 oz/dAYqFM0Hv3Bg8cXExEl6faunXMcGgJ4BfWygm9UgynOok7nqnrqPy/PNQEffLxESiP
-	 Nm9eUH7VBL2N/BPp7O4pjvE9OF6Eg+6v67e++eirlzLCw5dx25ijswaMmc4rCWJNsyw==
+	bh=G8aGkYMjqvcwWJpqZjCJPvj0aG1u9oRD1xUJFHPJnBg=;
+	b=IECDd0lCGR/NUeB6QC1s232ahZqooNjM3CyIw0b/KsmyJxvpZVLBF5H7QWcQtjGUL45r
+	 sKl9ztkVzYm5vCAZ7HBq7Y9CBT8rexAOm0nRgoPOJkGrliMX0KEjeAIahROAKo8wjwNV0
+	 acBaRb7d0AEq/j5GDsWh+DcvAFm0S/eBagJRXPPMOnFNEJAgD3nqha4aA2/uGSXCQQcO/
+	 8o9q7uHjY7Rof3oZNJTk8h8SPooKE4KjRp8mYJAUzzvh53tLq9uW+0DyE5wDImvjIXjqu
+	 sh+fjsMmq3Le5QXQTxFOHMtk/gYnZidgw3FZH5XWkPxiXNVyqUNQtjrM4Kv885cNKmw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gihE00ka;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OLs4NrO+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8D1B606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:02:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BBB1606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:02:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gihE00ka
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 502101F0089F;
-	Sat,  7 Nov 2026 11:02:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OLs4NrO+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69A081F0089F;
+	Sat,  7 Nov 2026 11:02:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049364;
-	bh=axNrer5ZzqcHImvEIb0335qgTR2Mha/qTRg4mQl03hU=;
+	s=k20260515; t=1794049367;
+	bh=G8aGkYMjqvcwWJpqZjCJPvj0aG1u9oRD1xUJFHPJnBg=;
 	h=From:To:Cc:Subject:Date;
-	b=gihE00kaNnoj7r/3dbkwe9AB//ElZNyX5I0cZu4DxyHMxR7lx8g74Qu6BiG291sPd
-	 uLHNhAKJ63ZXkkSgayUGq9V873FFv6EQtcjKgEvJlxL/DmXhhwhBJuq2L9Rmqxz6jv
-	 Yl5g0kfqFm+4oSJvmQLWTR5DIvYMK01SJoR82LvKLS0WXFPJqTei/MjpSLlUt4wBSt
-	 7SXmhXYCBuLpCFKWVXYdOqXDdQL+Z6yYSu8DmnIDt+ebrlEcgSbkil/fgcR/AYrlxu
-	 Nzc8nvu9Is35ztfNLbwN0FHaqzdgF4XksUHAAIQjxN6ZW4UxRwPAJy3/XeJuSw0GoK
-	 6K1UGJjdu8S2Q==
+	b=OLs4NrO+Ofiyr6nG0su5JVbADzK9WLh6YxTUk5OIoW/RJQ3LJOagE6b2QTLTRb8uB
+	 ShSc5i9XLZaehuSkw49Re8it3hP0bD+ZJ9jVYcFXuRhjao7mqpD/Gf5HDqqySUSAAg
+	 PyvkCUc502zJXeDSgxJFoGKLZlo2VKKW7D/SHy6mSvsLO5pYJ/QJ0sZR4AmWt/ySIY
+	 gyvB14fn2fdzteDAh42e583yxpPfqv1eFiOWCFFFQMqDkumcQRTkWOt/D+890AQxKd
+	 LQHwyjJ94UvWYHCohfXOpyrFuAr50ODOxUazp5VgGKIUxZIctyvIZRszf0oO1PafL/
+	 ClgLCeHKOzDlA==
 From: Sasha Levin <sashal@kernel.org>
-To: ebiggers@kernel.org,
-	akpm@linux-foundation.org,
-	hch@lst.de
+To: mhun512@gmail.com,
+	ae878000@gmail.com,
+	nbd@nbd.name
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] raid6: add missing vzeroupper to AVX-512 code" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:02:43 -0500
-Message-ID: <20261107060242-failed-5.15-b82cf9e49c1b@kernel.org>
+Subject: FAILED: patch "[PATCH] wifi: mt76: mt7615: restore DBDC state after ext PHY failure" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 06:02:46 -0500
+Message-ID: <20261107060245-failed-5.15-7907d5270dc5@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,109 +69,86 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x b82cf9e49c1be7cf1fd8e1bd806b0cdd25ab8127
+git cherry-pick -x 7907d5270dc5c13b6a95754c08a77d5b06bbc786
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060242-failed-5.15-b82cf9e49c1b@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060245-failed-5.15-7907d5270dc5@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From b82cf9e49c1be7cf1fd8e1bd806b0cdd25ab8127 Mon Sep 17 00:00:00 2001
-From: Eric Biggers <ebiggers@kernel.org>
-Date: Mon, 31 Aug 2026 14:23:16 -0700
-Subject: [PATCH] raid6: add missing vzeroupper to AVX-512 code
+From 7907d5270dc5c13b6a95754c08a77d5b06bbc786 Mon Sep 17 00:00:00 2001
+From: Myeonghun Pak <mhun512@gmail.com>
+Date: Thu, 10 Sep 2026 17:54:41 -0400
+Subject: [PATCH] wifi: mt76: mt7615: restore DBDC state after ext PHY failure
 
-Since the AVX-512 optimized RAID6 code uses ZMM registers, execute
-vzeroupper before returning from it.  This is needed to avoid degrading
-the performance of any later SSE code that may happen to be executed.
+mt7615_register_ext_phy() limits the primary PHY to DBDC capabilities
+before allocating and registering the secondary PHY. If allocation,
+EEPROM override, or PHY registration fails, it returns without restoring
+the primary PHY capabilities. The EEPROM override failure also leaks the
+newly allocated ieee80211_hw.
 
-Link: https://lore.kernel.org/20260831212316.213896-1-ebiggers@kernel.org
-Fixes: e0a491c12968 ("lib/raid6: Add AVX512 optimized gen_syndrome functions")
-Fixes: 13c520b2993c ("lib/raid6: Add AVX512 optimized recovery functions")
-Signed-off-by: Eric Biggers <ebiggers@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: Christoph Hellwig <hch@lst.de>
-Cc: <stable@vger.kernel.org>
+Route all failures through common labels that free the secondary hardware
+when it was allocated and restore the primary PHY capabilities.
+
+This issue was identified during our ongoing static-analysis research while
+reviewing kernel code.
+
+Fixes: 0f2173f093b3 ("mt76: mt7615: add support for registering a second wiphy via debugfs")
+Cc: stable@vger.kernel.org
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Link: https://patch.msgid.link/20260910215441.76683-1-mhun512@gmail.com
+Signed-off-by: Felix Fietkau <nbd@nbd.name>
 ---
- lib/raid/raid6/x86/avx512.c       | 6 ++++++
- lib/raid/raid6/x86/recov_avx512.c | 2 ++
- 2 files changed, 8 insertions(+)
+ .../net/wireless/mediatek/mt76/mt7615/init.c    | 17 +++++++++++++----
+ 1 file changed, 13 insertions(+), 4 deletions(-)
 
-diff --git a/lib/raid/raid6/x86/avx512.c b/lib/raid/raid6/x86/avx512.c
-index e671eb5bde63e..772bfc4af6dfd 100644
---- a/lib/raid/raid6/x86/avx512.c
-+++ b/lib/raid/raid6/x86/avx512.c
-@@ -78,6 +78,7 @@ static void raid6_avx5121_gen_syndrome(int disks, size_t bytes, void **ptrs)
- 	}
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7615/init.c b/drivers/net/wireless/mediatek/mt76/mt7615/init.c
+index e437e088b2e91..665b0f1e939f1 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7615/init.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7615/init.c
+@@ -541,8 +541,10 @@ int mt7615_register_ext_phy(struct mt7615_dev *dev)
  
- 	asm volatile("sfence" : : : "memory");
-+	asm volatile("vzeroupper");
- 	kernel_fpu_end();
+ 	mt7615_cap_dbdc_enable(dev);
+ 	mphy = mt76_alloc_phy(&dev->mt76, sizeof(*phy), &mt7615_ops, MT_BAND1);
+-	if (!mphy)
+-		return -ENOMEM;
++	if (!mphy) {
++		ret = -ENOMEM;
++		goto error;
++	}
+ 
+ 	phy = mphy->priv;
+ 	phy->dev = dev;
+@@ -572,7 +574,7 @@ int mt7615_register_ext_phy(struct mt7615_dev *dev)
+ 
+ 	ret = mt76_eeprom_override(mphy);
+ 	if (ret)
+-		return ret;
++		goto error_free_hw;
+ 
+ 	/* second phy can only handle 5 GHz */
+ 	mphy->cap.has_5ghz = true;
+@@ -590,7 +592,14 @@ int mt7615_register_ext_phy(struct mt7615_dev *dev)
+ 	ret = mt76_register_phy(mphy, true, mt76_rates,
+ 				ARRAY_SIZE(mt76_rates));
+ 	if (ret)
+-		ieee80211_free_hw(mphy->hw);
++		goto error_free_hw;
++
++	return 0;
++
++error_free_hw:
++	ieee80211_free_hw(mphy->hw);
++error:
++	mt7615_cap_dbdc_disable(dev);
+ 
+ 	return ret;
  }
- 
-@@ -137,6 +138,7 @@ static void raid6_avx5121_xor_syndrome(int disks, int start, int stop,
- 	}
- 
- 	asm volatile("sfence" : : : "memory");
-+	asm volatile("vzeroupper");
- 	kernel_fpu_end();
- }
- 
-@@ -208,6 +210,7 @@ static void raid6_avx5122_gen_syndrome(int disks, size_t bytes, void **ptrs)
- 	}
- 
- 	asm volatile("sfence" : : : "memory");
-+	asm volatile("vzeroupper");
- 	kernel_fpu_end();
- }
- 
-@@ -292,6 +295,7 @@ static void raid6_avx5122_xor_syndrome(int disks, int start, int stop,
- 	}
- 
- 	asm volatile("sfence" : : : "memory");
-+	asm volatile("vzeroupper");
- 	kernel_fpu_end();
- }
- 
-@@ -396,6 +400,7 @@ static void raid6_avx5124_gen_syndrome(int disks, size_t bytes, void **ptrs)
- 	}
- 
- 	asm volatile("sfence" : : : "memory");
-+	asm volatile("vzeroupper");
- 	kernel_fpu_end();
- }
- 
-@@ -529,6 +534,7 @@ static void raid6_avx5124_xor_syndrome(int disks, int start, int stop,
- 			       "m" (q[d+128]), "m" (q[d+192]));
- 	}
- 	asm volatile("sfence" : : : "memory");
-+	asm volatile("vzeroupper");
- 	kernel_fpu_end();
- }
- const struct raid6_calls raid6_avx512x4 = {
-diff --git a/lib/raid/raid6/x86/recov_avx512.c b/lib/raid/raid6/x86/recov_avx512.c
-index ec72d5a30c01e..299a3f044d616 100644
---- a/lib/raid/raid6/x86/recov_avx512.c
-+++ b/lib/raid/raid6/x86/recov_avx512.c
-@@ -211,6 +211,7 @@ static void raid6_2data_recov_avx512(int disks, size_t bytes, int faila,
- #endif
- 	}
- 
-+	asm volatile("vzeroupper");
- 	kernel_fpu_end();
- }
- 
-@@ -353,6 +354,7 @@ static void raid6_datap_recov_avx512(int disks, size_t bytes, int faila,
- #endif
- 	}
- 
-+	asm volatile("vzeroupper");
- 	kernel_fpu_end();
- }
- 
 -- 
 2.53.0
 
