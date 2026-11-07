@@ -1,50 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046922;
-	b=NLsl/nnHfS4Uo9poZikiSz7GjRBMhlRseK1ZnzuIH68YhHZhBt++86/HOn5K/bWXNkB5
-	 +DqSTZH79JClnM9OCn8s0Y7IFyKb8PElMTXMwHUnmud1SnlLuwov9hWoZZpE974S5+wcF
-	 NtGyciZ1VH5CQO0oQg2D0ICdHqP1pdeGKH7L5jnASC8TCsHbmtVn/v8BctGJLHIP/ShPn
-	 ++Ul5RfAUZJstQ76tKgHFoG6TbWPA8hW8VPgZORYE1xNL2DUUXpeHVtd9G58x6rUpbnjh
-	 or4RRQo+LL7ivrjOkwUeej4ZUNNX7Mw1N/B8yENULap7CYzJhvO/jeeP3voZxZmrNaw==
+	t=1794046924;
+	b=epZNqV2RaOR/46zh+9Ys7S5f0cWTtrrsFhjfWQ+MO1cscegW+fVMzkJ37OF4Q3vERWry
+	 wHzNwh57506BzSgbheFJTvJkqB0FwI82zf7zdGCz/EFKQmbOHJFmMxhRlh0WghVbYSN52
+	 eSYuhugDhxrSTG613+9Ez4OBCGwLvnMAaLS9yN7vdbtiI/57TcMG94kKrjLXb4y/b00IX
+	 oYYubCJToez1lXEo7tigwJ0qJd9o9VbgCSRwaIhYNasBMoaNFvVHw5JCKj0qo1SHsjhot
+	 Ge7WsXnOCjtwSs4ALbUH3nj6MxOIRo5FnUVE0IPpQ7+sJoSqiH+cV3kivtTnUcTQWPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046922;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046924;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=x/dYTq/rEqvcjOJ22zR3D5YTdlm0gZQ5vJm9B2qveeU=;
-	b=2LM03iJt1cfXwKlL/eVOmOQRK/FXSUe7VL68m02s8gT36d949DJS7blvU7lRRVy5eprH
-	 KvhiiLYRB9tFBYPhlpQWV0JUF+j0XRDTeqZqZmN39Q71NS3e8+EVzkzhX1a5MZ3Ik2kfh
-	 Q9JKfNIXx55KDBvrdfTrQxqKTLq//Yn6vCmuFa7i3H+ezCvUcm5TQKc5yhYjHwTRt4Tvs
-	 9b4TdHdveEi/7a0bJ0srQ8CngW6IN4lEz36JwCseANr5XvdCA4FFsRohJISjseCyaucks
-	 YebgWtJubO5JegKhlMP32s1P1TO7qTYNzh3rS3QjKzFeyeYrNNkst/ucF72ulmjVavg==
+	bh=IrdA1A1sJ6WW9XIHSjZx8ZWCBBXq+kJPwrw2mRcvJSM=;
+	b=Bg4Z27oJfSNpgFWG6NR9a11MKqUOp23Bjg0yXlOSwkK20wq9nponOyrO2k0/SNkk11pl
+	 qxzfGwvCN6kW8xz0Ojjm0jBB6zT6GMWlqPSEX9bLlzo9Y4zIQhC+/pv/CSINTzgBmApAf
+	 RBkpLKRusKBRhFbqOJSpwtJQOvCEIfFFwD8msYOf7E/w2yqLMlt0AEhKwdN1l/4JsWPrw
+	 y45b8AI/yPRcU/4uxzpp0RlUh7yh1Kxbln6i2TGWX4C5q/73Us0/5hMSFLNnFSCU73uA7
+	 aRqbTSkk1ULKiuDozrXTiX/MI3agstmaysk/26Q9K2awulH512Z4F6REYhceAlQq5tg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U34dIg0f;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="EhSTTkC/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CCC3606EEA8
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:22:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61767606D825
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:22:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U34dIg0f
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 863291F0089F;
-	Sat,  7 Nov 2026 10:22:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EhSTTkC/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91DBF1F0089F;
+	Sat,  7 Nov 2026 10:22:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046921;
-	bh=x/dYTq/rEqvcjOJ22zR3D5YTdlm0gZQ5vJm9B2qveeU=;
+	s=k20260515; t=1794046924;
+	bh=IrdA1A1sJ6WW9XIHSjZx8ZWCBBXq+kJPwrw2mRcvJSM=;
 	h=From:To:Cc:Subject:Date;
-	b=U34dIg0fcYwXiefRJc4T2mzWqrHytbkJetQALf8WRxStgFQ/YY9FdFcFjKZvAabUH
-	 j0jEF2wNkrG67usu2a6AX8rh1fvDPI8n0Hp6m1VGMOSnMjCTat+hBt7E1c+Ao1F3v3
-	 Z8IAANcE80xwIFOpzBl9iP4kZEh7XMJ8D6Ho6+QbFT7bifrkKg3kytvvZJhT38nKe9
-	 7VZFOnH/ym7VlfaRn9tZhvx7invJBq+b4paEJUR/oN98rfw4rRw4nxsYzLBoKkUsR4
-	 zzWTkcgsr6j8zYY8llmfd2pFKACT0MJX56cPxE4SOHd5KfLaPMbcWXQxnjZ4hpENy2
-	 BMYRHSI4Mi9kQ==
+	b=EhSTTkC/1yBZxmK8YBzNoEXy6prl/uqWLy770Izbosy+emPleOsEUKS8AOlio4q/V
+	 HSTJBG2Y+CXDp4pswbqMEOl9dSoJDsKNQQbwQ7BL1ONDLDbJWfZlDYY0uYUQjN2Tdg
+	 tQULHlk74aQLSkbjhvhk6c2JWxBODzQ21kVj7J1imBEVjD2VS0V6TVals6aQpOhv1S
+	 XZkgJ8neR1SUZou6VlGrIcii+XCa5OvsDkrgz5Nyd5zfc4fs+atO32sROrbx9NeDiY
+	 Jyt1ECt4C8sMUras42E0qYPRoHcHPcTxN50ofWnCf4w55E4WIjMjDcKhUF1jn/zRUt
+	 2xJgcTysLjB+g==
 From: Sasha Levin <sashal@kernel.org>
-To: mpatocka@redhat.com
+To: parri.andrea@gmail.com,
+	djwong@kernel.org,
+	p.raghav@samsung.com,
+	hch@lst.de,
+	brauner@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] dm-bufio: fix non-working memory limit" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:22:00 -0500
-Message-ID: <20261107052200-failed-6.12-1190dbeaeaa0@kernel.org>
+Subject: FAILED: patch "[PATCH] iomap: don't lose a failed direct I/O bio's error when zeroing the tail" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:22:02 -0500
+Message-ID: <20261107052202-failed-6.12-a9fd24bcbe69@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -67,107 +71,110 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 1190dbeaeaa026a4879e675b8556a150c36a7ced
+git cherry-pick -x a9fd24bcbe690ed4a5b8ea6a7516fa297fae9360
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052200-failed-6.12-1190dbeaeaa0@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052202-failed-6.12-a9fd24bcbe69@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 1190dbeaeaa026a4879e675b8556a150c36a7ced Mon Sep 17 00:00:00 2001
-From: Mikulas Patocka <mpatocka@redhat.com>
-Date: Mon, 12 Oct 2026 16:07:58 +0200
-Subject: [PATCH] dm-bufio: fix non-working memory limit
+From a9fd24bcbe690ed4a5b8ea6a7516fa297fae9360 Mon Sep 17 00:00:00 2001
+From: Andrea Parri <parri.andrea@gmail.com>
+Date: Mon, 28 Sep 2026 10:48:09 +0200
+Subject: [PATCH] iomap: don't lose a failed direct I/O bio's error when
+ zeroing the tail
 
-The function evict_old is supposed to loop and evict buffers while the
-allocated size is above the threshold. However if it hits one bufio
-client that is empty, it stops and doesn't attempt to scan other
-clients.
+iomap_dio_bio_iter() falls through to the sub-block tail zeroing when
+the data bio submission fails, so that the rest of the block is still
+zeroed and stale data is not exposed.  The zeroing result was assigned
+to ret, which overwrote the submission error with the successful
+zeroing result (zero) and the failed write was reported as success.
 
-This commit fixes it, so that it skips empty clients and retries up to
-dm_bufio_client_count times.
+iomap_dio_zero() can only return an error from a can't-happen
+WARN_ON_ONCE() (nr_vecs exceeding BIO_MAX_VECS, which the existing
+comment there says "shall never be reached" for any in-tree
+filesystem), so it isn't a real runtime failure worth reporting to
+userspace, let alone one worth losing the actual submission error for.
+Make iomap_dio_zero() return void and drop the error handling at both
+call sites instead of threading the result through a separate
+variable.
 
-Fixes: 450e8dee51aa ("dm bufio: improve concurrent IO performance")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
-Assisted-by: Claude:claude-opus-5
+Fixes: 10553a91652d ("iomap: fix iomap_dio_zero() for fs bs > system page size")
+Cc: stable@vger.kernel.org # v6.12
+Reviewed-by: Darrick J. Wong <djwong@kernel.org>
+Reviewed-by: Pankaj Raghav <p.raghav@samsung.com>
+Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
+Link: https://patch.msgid.link/0cbce1012f5333690be36a9adafb3e190fe2ca77.1790342457.git.parri.andrea@gmail.com
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- drivers/md/dm-bufio.c | 41 +++++++++++++++++++++++++++++++++++++----
- 1 file changed, 37 insertions(+), 4 deletions(-)
+ fs/iomap/direct-io.c | 16 +++++-----------
+ 1 file changed, 5 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/md/dm-bufio.c b/drivers/md/dm-bufio.c
-index d58eed96a8ff5..edad64654ef68 100644
---- a/drivers/md/dm-bufio.c
-+++ b/drivers/md/dm-bufio.c
-@@ -2545,6 +2545,13 @@ struct dm_bufio_client *dm_bufio_client_create(struct block_device *bdev, unsign
- 	init_waitqueue_head(&c->free_buffer_wait);
- 	c->async_write_error = 0;
- 
-+	/*
-+	 * A client with no buffers yet is not holding the oldest buffer in
-+	 * the system; leaving this zeroed would claim exactly that and keep
-+	 * the client pinned at the front of dm_bufio_all_clients.
-+	 */
-+	c->oldest_buffer = jiffies;
-+
- 	c->dm_io = dm_io_client_create();
- 	if (IS_ERR(c->dm_io)) {
- 		r = PTR_ERR(c->dm_io);
-@@ -2779,9 +2786,23 @@ static unsigned long __evict_a_few(unsigned long nr_buffers)
- 
- 	dm_bufio_unlock(c);
- 
--	if (count)
-+	if (count) {
- 		c->oldest_buffer = oldest_buffer;
--	__insert_client(c);
-+		__insert_client(c);
-+	} else {
-+		/*
-+		 * We evicted nothing, so 'oldest_buffer' tells us nothing new
-+		 * and the client keeps its old, possibly very stale, value.
-+		 * Requeue it at the back rather than by that value, otherwise
-+		 * __insert_client() would put it straight back at the front
-+		 * and every subsequent call would pop this same client again,
-+		 * never reaching any of the others.
-+		 *
-+		 * This leaves the list slightly out of order, which is fine -
-+		 * it is only ever an approximation.
-+		 */
-+		list_add_tail(&c->client_list, &dm_bufio_all_clients);
-+	}
- 
- 	return count;
+diff --git a/fs/iomap/direct-io.c b/fs/iomap/direct-io.c
+index 0e8d7ddf4e511..b54540391cdec 100644
+--- a/fs/iomap/direct-io.c
++++ b/fs/iomap/direct-io.c
+@@ -304,7 +304,7 @@ u32 iomap_finish_ioend_direct(struct iomap_ioend *ioend)
+ 	return vec_count;
  }
-@@ -2806,11 +2827,23 @@ static void evict_old(void)
- {
- 	unsigned long threshold = dm_bufio_cache_size -
- 		dm_bufio_cache_size / DM_BUFIO_LOW_WATERMARK_RATIO;
-+	int unproductive = 0;
  
- 	mutex_lock(&dm_bufio_clients_lock);
- 	while (dm_bufio_current_allocated > threshold) {
--		if (!__evict_a_few(64))
--			break;
-+		if (__evict_a_few(64)) {
-+			unproductive = 0;
-+		} else {
-+			/*
-+			 * This client had nothing to give.  Try the others
-+			 * before giving up: one idle client, or one whose
-+			 * buffers are all held, must not stop us evicting
-+			 * from everybody else.  Stop once a whole sweep of
-+			 * the client list has freed nothing.
-+			 */
-+			if (++unproductive >= dm_bufio_client_count)
-+				break;
-+		}
- 		cond_resched();
+-static int iomap_dio_zero(const struct iomap_iter *iter, struct iomap_dio *dio,
++static void iomap_dio_zero(const struct iomap_iter *iter, struct iomap_dio *dio,
+ 		loff_t pos, unsigned len)
+ {
+ 	struct inode *inode = file_inode(dio->iocb->ki_filp);
+@@ -313,14 +313,14 @@ static int iomap_dio_zero(const struct iomap_iter *iter, struct iomap_dio *dio,
+ 	int nr_vecs = max(1, i_blocksize(inode) / folio_size(zero_folio));
+ 
+ 	if (!len)
+-		return 0;
++		return;
+ 
+ 	/*
+ 	 * This limit shall never be reached as most filesystems have a
+ 	 * maximum blocksize of 64k.
+ 	 */
+ 	if (WARN_ON_ONCE(nr_vecs > BIO_MAX_VECS))
+-		return -EINVAL;
++		return;
+ 
+ 	bio = iomap_dio_alloc_bio(iter, dio, nr_vecs,
+ 				  REQ_OP_WRITE | REQ_SYNC | REQ_IDLE);
+@@ -336,8 +336,6 @@ static int iomap_dio_zero(const struct iomap_iter *iter, struct iomap_dio *dio,
+ 		len -= io_len;
  	}
- 	mutex_unlock(&dm_bufio_clients_lock);
+ 	iomap_dio_submit_bio(iter, dio, bio, pos);
+-
+-	return 0;
+ }
+ 
+ static ssize_t iomap_dio_bio_iter_one(struct iomap_iter *iter,
+@@ -541,10 +539,7 @@ static int iomap_dio_bio_iter(struct iomap_iter *iter, struct iomap_dio *dio)
+ 	if (need_zeroout) {
+ 		/* zero out from the start of the block to the write offset */
+ 		pad = pos & (fs_block_size - 1);
+-
+-		ret = iomap_dio_zero(iter, dio, pos - pad, pad);
+-		if (ret)
+-			goto out;
++		iomap_dio_zero(iter, dio, pos - pad, pad);
+ 	}
+ 
+ 	do {
+@@ -582,8 +577,7 @@ static int iomap_dio_bio_iter(struct iomap_iter *iter, struct iomap_dio *dio)
+ 		/* zero out from the end of the write to the end of the block */
+ 		pad = pos & (fs_block_size - 1);
+ 		if (pad)
+-			ret = iomap_dio_zero(iter, dio, pos,
+-					     fs_block_size - pad);
++			iomap_dio_zero(iter, dio, pos, fs_block_size - pad);
+ 	}
+ out:
+ 	/* Undo iter limitation to current extent */
 -- 
 2.53.0
 
