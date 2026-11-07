@@ -1,60 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046244;
-	b=a2bimcQBEa4ZH0MvWayFEcdKoFXkh+dDMoZKrxOeCbX2tm79fF8OkoumEElnmzfX6Gyb
-	 iBBYbypr0aU2hfsrjb0EppV2KLWoo+XKu2ZR7lM3VuxpisBCTTUzmhPj/oALhsYbuhUyk
-	 8VYaBepwf1CvE7d8d/Ggm0Jk9+RTh5J8Dl5B+oolYnNyzQmFkVkpTbYcmb/w9F/DG5V4V
-	 B8nADfJA2vJTrkdvl0uV2NeAnNhw0oJLJqWqlDbyKRySxmjenytw4JiPuVbkwflivQRaL
-	 XJlhNneOdZ4YeygkNuy37d938Ek7DSoJs+S13OvvuU8PiDaCuCklRSL23FFPIwLFdtg==
+	t=1794046247;
+	b=JyGa0os/S6b3WBBy8gyLoJdBwEMQ7ul03fvXE/WtiRzG4ffbPK60Nha4V0Jn5yFjB2WC
+	 Oos7wNdTS3EhJad8bbQ4MUqkmDeRKxstB4zuOpVGIT4WRQluEgF4IsAao7pSmTQmLyQt4
+	 BGA6bkZHr63GyC/gmAQfNZEYBjW6b4vNWLgN3vL02lOIlGJhqgSFwxUjRKCBEIZbY6/aF
+	 bFR8q1QUNHB8DG6Ul96GYq6kLw+Me+fEWyEI4Jxu5v06k9hqnrabW0DhBY3IhTu5b+WWG
+	 WXq8GNvqfDkD/JxOijStWuZ1946jHi2bC3GNmkoJZwSmqHyM95dCNUrgsjfPE2G2ADw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046244;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046247;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=5HSmA8hDXYesZXGmhwXnmKQoaljIjQLofyGtSJ9hbvk=;
-	b=g4WsO8WW8SrWMFad5snfwYEuaLS9+4PIJhcgOJJTVE7QM9mu7ZhnudqlHGavmIhdDREK
-	 tkdcEiyjPeGHV1bXZDDARnXPIK2RYZT0rIv/CwYBZhMduFd9FqQLqnk/Iz3H7jzl2IbQa
-	 enItekSY3iIkX8P7HfrUxnODGsXmUdbgBBgLY+Fjb9i5pE1/nogV6BuugsAjz6qS6YnBB
-	 Gz0TuLyGv7zL/6yE83bC2L7PYSVFyYFGBydooHKES6prVk7NzA1kgM13+3z3nkTyWRkH5
-	 mZJ6w7cfRZCclwDfwm8ord45FM4BI2sH0QeBzsZXWQb22gZogSSeW3tEKUIf1KDvunA==
+	bh=x1iESeEBmUkD2ThodmhWR2pWW0kpHCdRLjU0gC+xNeY=;
+	b=sTjP6jdpL6FwCJl5VR3kAUGxZ7lCGP4qtWGU+maiOeefmS8EZ52V5SxwUzw3GznGsbxn
+	 EmD7B9RqBWVYsbnHgetFxldqf89vGe+h+aMx7uGC/IqT3+83G/ekDxyNObhchJJ8AN1fG
+	 p8Cw8YsoV9hY5cYtKW7tUp3B5BuqlPP2UwjqFerEpjX8z23BPTTRgKzpO6iAicEOR0RIH
+	 p4cvTf1ovXa09LtOpUBiS81hMKK7RFrMkNVpX2piNmXc1RiuE6W4bLMHiXD2epP7hYJ/o
+	 v06udK+TDk875HNpq9wwjeJa3I1SthBvapl4P9jjZpHdyANcCmz6FE5NxIV+2yPnF4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kvqqz245;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="b79/Gb+j";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ABDD606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:10:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA2BA606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:10:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kvqqz245
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D1501F008A1;
-	Sat,  7 Nov 2026 10:10:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b79/Gb+j
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B8A41F008A1;
+	Sat,  7 Nov 2026 10:10:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046243;
-	bh=5HSmA8hDXYesZXGmhwXnmKQoaljIjQLofyGtSJ9hbvk=;
+	s=k20260515; t=1794046246;
+	bh=x1iESeEBmUkD2ThodmhWR2pWW0kpHCdRLjU0gC+xNeY=;
 	h=From:To:Cc:Subject:Date;
-	b=kvqqz245LjlJncS7kXiqLW3xxb6e0IlKGWc60zyx63eMTYHQp5SBl8RU/pI1lnssM
-	 cBMpDqx84PMcHFmT+ejZgUSEdQVcGL5ky7cCKnrQkYepvalg5iux1Iz4xt6Zume3C7
-	 wVwUWxNbkLUA/bLkKHNV0IsfNL57OcDjWoA0L/ooqGMZ8au9qH5yWK+yhY8/K4OKko
-	 ayJ5brY3gF2tq+rDsIfS1BOmIuJ2ECUG6TfMk0xxmByv/S63LD5Wu6EXIVMNbD1ne4
-	 VRiTELA1gMUxaPt4pBIIeJEX7ZK0R558rXdfxGMUceNXZmmICbIW+yKBgEQTrZaoOE
-	 2Fzoqix3FvxBA==
+	b=b79/Gb+jzjZ7Ehh2mGOC9XrBovMPjQ4HMwpfLu8fhohWBgOlSnRYHzufqqDosSg6B
+	 WVDlWobPfpMDen/uwcdCYEp8V2yn7cfAyO675xTuofrc7X611cniwAG328AOkkD9M5
+	 nvP5Y01WKKbVYy5SCWgL+aev8CaqRz4NoAQ+ADXlXYinJuC1pRA8dg+eKUWmeYpDB+
+	 5ls3ShrJC/0wnrL0XN25XGUZeDlCczJKV3aRCIJe2pNY0+kmLXjYjfGxZyABvoQ+P1
+	 iYHMSeU4B7HOqELDnrDkNiX6/U7Y+L0ZWIazARlunTFg8naoZ7bKc8MWsupBoucpeu
+	 4lNM+I/gLDIQg==
 From: Sasha Levin <sashal@kernel.org>
-To: gourry@gourry.net,
+To: devnexen@gmail.com,
 	akpm@linux-foundation.org,
-	sashiko-bot@kernel.org,
-	david@kernel.org,
-	jannh@google.com,
-	jgg@ziepe.ca,
-	liam@infradead.org,
-	ljs@kernel.org,
-	pfalcato@suse.de,
-	peterx@redhat.com,
-	vbabka@kernel.org
+	baolin.wang@linux.alibaba.com,
+	bhe@redhat.com,
+	baohua@kernel.org,
+	chrisl@kernel.org,
+	hughd@google.com,
+	kasong@tencent.com,
+	shikemeng@huaweicloud.com,
+	nphamcs@gmail.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] proc/task_mmu: handle special PMDs in clear_refs and pagemap" failed to apply to 6.18-stable tree
-Date: Sat,  7 Nov 2026 05:10:41 -0500
-Message-ID: <20261107051041-failed-6.18-d350956d829f@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/shmem: don't release a swapin-error marker as a swap entry" failed to apply to 6.18-stable tree
+Date: Sat,  7 Nov 2026 05:10:44 -0500
+Message-ID: <20261107051044-failed-6.18-e4b92891aaca@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -77,118 +76,72 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x d350956d829f4b620faf294c86116de640f1518c
+git cherry-pick -x e4b92891aaca0d37b5973362dd14747a65406650
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051041-failed-6.18-d350956d829f@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051044-failed-6.18-e4b92891aaca@kernel.org' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From d350956d829f4b620faf294c86116de640f1518c Mon Sep 17 00:00:00 2001
-From: Gregory Price <gourry@gourry.net>
-Date: Sat, 12 Sep 2026 08:28:22 -0400
-Subject: [PATCH] proc/task_mmu: handle special PMDs in clear_refs and pagemap
+From e4b92891aaca0d37b5973362dd14747a65406650 Mon Sep 17 00:00:00 2001
+From: David Carlier <devnexen@gmail.com>
+Date: Sun, 20 Sep 2026 16:50:02 +0100
+Subject: [PATCH] mm/shmem: don't release a swapin-error marker as a swap entry
 
-mshv_vtl_low can install a special PMD from a PFN supplied in the mmap file
-offset.  That PFN need not have a memmap entry.  Reading /proc/PID/pagemap
-or writing /proc/PID/clear_refs for such a mapping oopses the kernel.
+A failed shmem swapin (eg, EIO) frees the swap slot and leaves a
+PTE_MARKER_POISONED entry in the page cache.  On truncate or eviction
+shmem_free_swap() passes that marker to swap_put_entries_direct(), which
+warns because it is not a swap entry.  There is nothing left to release
+either way.
 
-With a test driver mapping the PFN at the 1 TiB mark:
+Skip the release for non-swap entries, as every other caller already does.
 
-  echo 1 > /proc/self/clear_refs
-
-  BUG: unable to handle page fault for address: fffffb5b80000008
-  #PF: supervisor read access in kernel mode
-  #PF: error_code(0x0000) - not-present page
-  RIP: 0010:clear_refs_pte_range+0xb1/0x1e0
-  Call Trace:
-   walk_pgd_range+0x50a/0xad0
-   __walk_page_range+0x6a/0x1d0
-   walk_page_range_mm_unsafe+0x193/0x230
-   clear_refs_write+0x18e/0x3f0
-
-  pread(pagemap_fd, buf, 512 * 8, addr / PAGE_SIZE * 8)
-
-  BUG: unable to handle page fault for address: fffff57840000008
-  RIP: 0010:pagemap_pmd_range+0x3cf/0x6b0
-  Call Trace:
-   walk_pgd_range+0x50a/0xad0
-   __walk_page_range+0x6a/0x1d0
-   walk_page_range_mm_unsafe+0x193/0x230
-   pagemap_read+0x1dc/0x350
-
-clear_refs_pte_range() passes the PMD to pmd_folio(), while
-pagemap_pmd_range_thp() uses pmd_page() followed by page_folio().
-
-Both paths assume the PFN has a struct page and dereference bad address.
-
-Use vm_normal_folio_pmd() and vm_normal_page_pmd() so clear_refs skips
-folio operations and pagemap skips folio-derived flags for special PMDs.
-This matches the PTE paths, which already use vm_normal_folio() and
-vm_normal_page().
-
-User-facing notes:
- - Pagemap still reports PM_PRESENT and the PFN to a CAP_SYS_ADMIN reader.
-
- - For a special PMD backed by a valid memmap entry and for the huge
-   zero PMD, PM_FILE changes from set to clear.
-
- - PM_MMAP_EXCLUSIVE is already clear in both cases.
-
- - The output for an anonymous THP is unchanged.
-
-Tested in QEMU with the test driver on broken and fixed kernels.  Both proc
-operations oops before the fix and return 0 after it.
-
-This is technically reachable via mshv_vtl_low, so I tagged it stable.
-
-Link: https://lore.kernel.org/20260912122822.3348978-1-gourry@gourry.net
-Fixes: 3c8e44c9b369 ("mm: mark special bits for huge pfn mappings when inject")
-Signed-off-by: Gregory Price <gourry@gourry.net>
+Link: https://lore.kernel.org/20260920155002.1030454-1-devnexen@gmail.com
+Fixes: ac2d3268284b ("mm/swapfile.c: remove the unneeded checking")
+Signed-off-by: David Carlier <devnexen@gmail.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260912034833.2952750-1-gourry%40gourry.net
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Assisted-by: LLM
-Cc: Jann Horn <jannh@google.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Pedro Falcato <pfalcato@suse.de>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: <stable@vger.kernel.org> # v6.19+
+Reported-by: syzbot+23b25ba3c6bf971f9c57@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=23b25ba3c6bf971f9c57
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Baoquan he <bhe@redhat.com>
+Cc: Barry Song <baohua@kernel.org>
+Cc: Chis Li <chrisl@kernel.org> (Google)
+Cc: Hugh Dickens <hughd@google.com>
+Cc: Kairui Song <kasong@tencent.com>
+Cc: Kemeng Shi <shikemeng@huaweicloud.com>
+Cc: Nhat Pham <nphamcs@gmail.com>
+Cc: <stable@vger.kernel.org>
 ---
- fs/proc/task_mmu.c | 6 ++++--
+ mm/shmem.c | 6 ++++--
  1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-index e671b4fd8dedd..78e00c6d4e2df 100644
---- a/fs/proc/task_mmu.c
-+++ b/fs/proc/task_mmu.c
-@@ -1704,7 +1704,9 @@ static int clear_refs_pte_range(pmd_t *pmd, unsigned long addr,
- 		if (!pmd_present(*pmd))
- 			goto out;
+diff --git a/mm/shmem.c b/mm/shmem.c
+index f2a36a1b53750..07b2855dfb7bd 100644
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -1184,6 +1184,7 @@ static long shmem_free_swap(struct address_space *mapping,
+ 			    pgoff_t index, pgoff_t end, void *radswap)
+ {
+ 	XA_STATE(xas, &mapping->i_pages, index);
++	const softleaf_t swp = radix_to_swp_entry(radswap);
+ 	unsigned int nr_pages = 0;
+ 	pgoff_t base;
+ 	void *entry;
+@@ -1200,8 +1201,9 @@ static long shmem_free_swap(struct address_space *mapping,
+ 	}
+ 	xas_unlock_irq(&xas);
  
--		folio = pmd_folio(*pmd);
-+		folio = vm_normal_folio_pmd(vma, addr, *pmd);
-+		if (!folio)
-+			goto out;
+-	if (nr_pages)
+-		swap_put_entries_direct(radix_to_swp_entry(radswap), nr_pages);
++	/* A swapin-error marker holds no swap slot, so just drop it. */
++	if (nr_pages && softleaf_is_swap(swp))
++		swap_put_entries_direct(swp, nr_pages);
  
- 		/* Clear accessed and referenced bits. */
- 		pmdp_test_and_clear_young(vma, addr, pmd);
-@@ -2024,7 +2026,7 @@ static int pagemap_pmd_range_thp(pmd_t *pmdp, unsigned long addr,
- 		goto populate_pagemap;
- 
- 	if (pmd_present(pmd)) {
--		page = pmd_page(pmd);
-+		page = vm_normal_page_pmd(vma, addr, pmd);
- 
- 		flags |= PM_PRESENT;
- 		if (pmd_soft_dirty(pmd))
+ 	return nr_pages;
+ }
 -- 
 2.53.0
 
