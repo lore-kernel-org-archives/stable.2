@@ -1,53 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794065401;
-	b=xKHTqOuAY9IEJKA20F2hlLiI2Otq6Dgnyx+bgraRp9v3qlgy93HOhfRN7wshpNfH4T/s
-	 736PZEyaLvx/2w26JYB7v1VwUfFr5FE4AquaWfzTVijvvYJ52d8T8RFtqVFgtRM8iZ/e0
-	 5ov30qyvty/CdcYvOR2ChifbHjqAMotak26m/js8HRlJRbRyge17bVa7DsABR3XWDjQlv
-	 HCgmiKjsKjyufRp0lCRKvE0/CtHHhANO74XlmDErFYJIO8bFoQPJEi3HmxTr0v7rBNNzc
-	 BAQbknllj1rSfVuZKlht97s+r/cIqPJtarexOA7t1jKeT31r1JbjfP+TG/6bpy10Jig==
+	t=1794065405;
+	b=CmNccpaoAGnM1aBh2GCG6ekzKSDywa8PytVyvai/2jj38ieYd3gd/edz7MT1UlpmOZqi
+	 bQ9bA7V84+3uNXUxitOWypJDv36e7UaBP6Gw3406fDLs4dty+5umg7e19hVqsqhyx1BqY
+	 nTRk9qGN/Wn0Mg4yhJCfBTMIYB9ut1FCJAknuCwylVneCEDGReq9J8ykC8kP/S2gW4Xpy
+	 GcJ+9mcZ2Yz5+qG1ctJvXOwQr8VI/a3y8Xl0oPKwyZ7cUFef2n6g7DOanHO6GToxhT7E4
+	 ucjvYoxbumPy3y2VZ5R96CBVuYwFhWEdryxmvzA49/QDtXhNjIrFxl1cT76pZG8tgmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794065401;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794065405;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=VhnCMAqe0/QdwaDckF8Y8Jtj+cy4xEl3xZrzd5bA5mo=;
-	b=BH79rSnX8O1KvMArkbKT0JOEzV9/beiD7xMIrLYfm9YlB30x9jlGUsXZ7Dug2DCaV3d0
-	 eVUZ2XNcX29/h6qKrUUwBfvc2krLgZWI58Vp5sK8A9D273JMJOFJUcdyutec6HOQnuDZv
-	 XoNA74Jpjkd9JsVN4Fhe5ORNIddZHZgY/yLnXqv3yll4UIuNPmW66cuQJ/m+Byc0bXrv7
-	 jOMW8dUkIbW9M4VFMi2eHiPF85dD0NWteXA+D6aedq0fiyD22xR51YbPSUz0sF3P5IK1m
-	 aexwyqVW8mgCe4aGwTfTnVGijuF/5yxJoUCDD5h5rEUBzQiQaD7GjbRgw5oGR2w+ohA==
+	bh=HQxaWyEzdZ+95AuNRJMsihPB9TWS7byC3b9zIrd6Pao=;
+	b=gxt3Gr2HhqvZP9NqAEe6u3BIprAU0cLppgiqywNkz6BZpI4FvE+tolRCg+8tydErP9d/
+	 pLDKvglIT+tMrjYERYp02WAyJxHQch8DearYaPVBYWKfuZKgssny2aYzjO0s7GsXuabe6
+	 /l2EbeO8kPAe0CNropJAhJN82ZZ2z0QIFrwyT/6tdGwX55pwAweK2exA5Bhzw1AELEfpA
+	 pgsE8+M29Ez4OuRbIs0elwsFG3aPrOx7wHLHnTFTCS5Nwz4ZLJj53QEccXD7G0LJC/6rN
+	 5pFSSmM9TXEsq3YwfMxl4kPQ26wepXv7bXxU7D8kPmFCNOQqaU0PI8StWN0r1EUQQAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=2hHPvvz7;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=FdNJq0Mj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79887606D801;
-	Sat,  7 Nov 2026 15:30:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 018BA606D807;
+	Sat,  7 Nov 2026 15:30:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=2hHPvvz7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93B9F1F0089F;
-	Sat,  7 Nov 2026 15:30:00 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=FdNJq0Mj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6662E1F008A1;
+	Sat,  7 Nov 2026 15:30:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794065401;
-	bh=VhnCMAqe0/QdwaDckF8Y8Jtj+cy4xEl3xZrzd5bA5mo=;
+	s=korg; t=1794065404;
+	bh=HQxaWyEzdZ+95AuNRJMsihPB9TWS7byC3b9zIrd6Pao=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=2hHPvvz7eT0x5xPWPSWIr98qmlUwhL+sV1cCWnDKTaHGZFH+NumfMSBfS+WMIHyRV
-	 uhUwOFi+EyGbBLJ8A8XeXFOO8yr3LWiWsdDsLl2k2zkaIxVtwvZd4em3ilBoR6VzpA
-	 /J3a5HdFGf04SFWFBD1km3Ie3Aho277sTBu/iQlU=
+	b=FdNJq0Mj0UWR3JMfc8gcb+EtIWa2NMPzMUaIgWGkklH0CflpsDbWNEZXhjjobEsAp
+	 1zzS14YqH/mY/cE5jVDsLDSt2vi38NUeAs/VPECZyDELgqAdnz8RY/+SWfryeuo3CQ
+	 Cj/dKlVEfTpypHg5Ig/LHZwES2KM/I/tMGP+1qKM=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Raphael Zimmer <raphael.zimmer@tu-ilmenau.de>,
-	Alex Markuze <amarkuze@redhat.com>,
-	Ilya Dryomov <idryomov@gmail.com>,
+	Pedro Falcato <pfalcato@suse.de>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Samarth Narang <samarth.colleges@gmail.com>,
+	"Gregory Price (Meta)" <gourry@gourry.net>,
+	Zi Yan <ziy@nvidia.com>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	SJ Park <sj@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Jann Horn <jannh@google.com>,
+	Minchan Kim <minchan@kernel.org>,
+	Michal Hocko <mhocko@suse.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 1120/1257] libceph: Fix unsafe decode in ceph_redirect_decode()
-Date: Sat,  7 Nov 2026 08:56:56 -0500
-Message-ID: <20261107135010.172876012@linuxfoundation.org>
+Subject: [PATCH 7.3 1086/1257] mm/madvise: atomically clear the young bit on THP MADV_COLD
+Date: Sat,  7 Nov 2026 08:56:22 -0500
+Message-ID: <20261107135009.257765908@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261107134939.434104957@linuxfoundation.org>
 References: <20261107134939.434104957@linuxfoundation.org>
@@ -69,46 +80,81 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Raphael Zimmer <raphael.zimmer@tu-ilmenau.de>
+From: Pedro Falcato <pfalcato@suse.de>
 
-[ Upstream commit 0405670e50f213594366ab7eddc07002bd7f84c0 ]
+[ Upstream commit 246c8cc33438a71c28f9b86baa492d9a0a130316 ]
 
-ceph_redirect_decode handles unchecked data received over the network
-from an OSD. Currently, there is only a bounds check covering the first
-three decode operations. After decoding the first len field from the
-message, the only remaining check ensures there is enough buffer space
-to hold len bytes. However, there is no guarantee that this value is
-large enough to hold the subsequently decoded fields. The decoding of
-the second len field is missing an explicit bounds check. Consequently,
-a corrupted message can trigger an out-of-bounds read.
+As-is, madvise_cold_or_pageout_pte_range() discards the hardware young bit
+by invalidating the PMD, doing pmd_mkold() and subsequently writing to the
+pmd again.  However, it does so in a racy manner, looking at a
+possibly-stale snapshot.  It's entirely possible that a write elsewhere
+set the hardware D bit, which this logic now loses.
 
-This patch fixes the issue by switching the decoding from
-ceph_decode_32() to the bounds-checked version ceph_decode_32_safe().
+Fix it by using pmdp_test_and_clear_young().  This is an atomic
+modification of the PMD entry, and thus safe against any possible racing
+writes.  As a (nice) side-effect, this elides one non-required TLB flush
+in pmdp_invalidate().
 
-Cc: stable@vger.kernel.org
-Fixes: 205ee1187a67 ("libceph: follow redirect replies from osds")
-Assisted-by: Cursor
-Signed-off-by: Raphael Zimmer <raphael.zimmer@tu-ilmenau.de>
-Reviewed-by: Alex Markuze <amarkuze@redhat.com>
-Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
+This bug can interact with the swapping system in complicated ways,
+leading to data loss.  For instance, if a folio is marked lazyfree, but
+was later read from, and then MADV_COLD'd while racing a write to that
+same THP, dropping the dirty bit may lead to data loss as
+reclaim/MADV_PAGEOUT drops the "clean" anon folio:
+
+T0                                T1
+================================================================
+MADV_FREE(thp)			|
+  folio marked lazyfree		|
+read(thp)			|
+  PMD marked young by hardware	|
+				| MADV_COLD(thp)
+write(thp)			|   if (pmd_young(pmd)) {
+  PMD marked dirty by hardware	|     set(pmdp, pmd_mkold(pmd));
+MADV_PAGEOUT/reclaim		|
+  dirty bit may or may not be   |
+  set				|
+    reclaim/pageout may drop    |
+    the folio			|
+
+Link: https://lore.kernel.org/20261013191719.95502-1-pfalcato@suse.de
+Fixes: 9c276cc65a58 ("mm: introduce MADV_COLD")
+Signed-off-by: Pedro Falcato <pfalcato@suse.de>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: Samarth Narang <samarth.colleges@gmail.com>
+Closes: https://lore.kernel.org/linux-mm/20261011132227.413217-1-samarth.colleges@gmail.com/
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Acked-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: SJ Park <sj@kernel.org>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Minchan Kim <minchan@kernel.org>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: <stable@vger.kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/ceph/osd_client.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ mm/madvise.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-diff --git a/net/ceph/osd_client.c b/net/ceph/osd_client.c
-index 8c2b89e2004ba..3f23027fba3c0 100644
---- a/net/ceph/osd_client.c
-+++ b/net/ceph/osd_client.c
-@@ -3639,7 +3639,7 @@ static int ceph_redirect_decode(void **p, void *end,
- 	if (ret)
- 		goto out;
+diff --git a/mm/madvise.c b/mm/madvise.c
+index aa52fd4708845..54d8397059ba6 100644
+--- a/mm/madvise.c
++++ b/mm/madvise.c
+@@ -429,10 +429,7 @@ static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
+ 		}
  
--	len = ceph_decode_32(p);
-+	ceph_decode_32_safe(p, end, len, e_inval);
- 	if (len > 0) {
- 		pr_warn("ceph_request_redirect::object_name is set\n");
- 		goto e_inval;
+ 		if (!pageout && pmd_young(orig_pmd)) {
+-			pmdp_invalidate(vma, addr, pmd);
+-			orig_pmd = pmd_mkold(orig_pmd);
+-
+-			set_pmd_at(mm, addr, pmd, orig_pmd);
++			pmdp_test_and_clear_young(vma, addr, pmd);
+ 			tlb_remove_pmd_tlb_entry(tlb, pmd, addr);
+ 		}
+ 
 -- 
 2.53.0
 
