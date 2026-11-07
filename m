@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050793;
-	b=SX8mYx/GrmE51orjO5DAPcLgnNP2FGLhT0u/jUukcVjoymEUEIzDZyQahuabu2No1F3g
-	 wSp2olgGkFBmVvBscby9brTPm+qxRiRGYyfGqTMOMAdjrNU84uxdgmQKKfsvpVF59xiWF
-	 Q0yAZMTALJjzyJ5rua+wWyns1pVW+KfThdPCssGmqip5JYnM03S9HsiwAYeTEmMtcZhBs
-	 qrfYP3XXYhr/GFnAwTW4h5VKZuf6G+EhZ1cG4QF651sdMQUxe1sZNIzqT5JWlPWnQAAYQ
-	 A483v4BM2HmA9s8o+UayakXn8rncbHiRUD60pyWOGr78f9O9crePSQotoG4f+AVrDJA==
+	t=1794050796;
+	b=Kv07rzCeu/Hy8uH/qxfdPZE3E9aHGizptVTtGQ2K+lfpGQBNFWrijh4R1cJ9OQED2RIS
+	 LpL5AeMUimBzYbNlSoh4WO6OiKJm0yuGKGV1LcNLE9DNWjX4m7OI6mwS3n5and+QBzc8C
+	 PRN9/rUGF88rXsI1HFwDeTsczerNZCIMQvrFUAACn4siRJ6jiaOJDFAMa8P4Ly77VWH+p
+	 v4RkpC+6BZ2iLW8lZ5eiR+nTrgUK0EkXM96CPyymjcWulXNtQzWbiNwZ/wCEVZH2y9w/2
+	 BhkWoY0JiD9OXNeUbplD3z0z6TlaCXJ0SKf45AAERf8LdxZ/pmMmmsjoqiQOIoUYw9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050793;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050796;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Hsfm/4gA4HbSN335oembr5gfbM2Fhany0hGeDexcXr0=;
-	b=kbakq6vcZ4D/E5dW1YNaB49AEAavTRsxmPEgWoxQLIelvctt6XaSs0dhjN18SDN7nmO9
-	 5SHHRyhH5pvkGSRS+SCYjYTwtDi56uzkAsdy0T39t62L9Fj6HPvsDOXTCGtloK3CkF4Pr
-	 TvFNe0NirHZr5zLa8E6MBHRqbFm0OSVxAGex0nf4MedKcq2IVEYEqGNmit8xTwBziadWK
-	 OLteD7caq46RVkeJ84LMKjsgztnhXU7MXxKc1TQ9BKxwZwllFWAG0/LhchtrK41xNiFSM
-	 NStahKIdoHc2qSTdeuAKQaWhdtAIm68OxnFNuRKKC68mCYwr/+TQ2ki/8I+4i4Lt0WQ==
+	bh=p0xoIGYreSoXxphhtghdPnWc9H+GA/cXWYcUK9DHMOE=;
+	b=Q6SqPx/NJVS6jfq7UgfYRsGpc4SR/yGvVCda2BfvKEZRCPLElblhzslkPTsJsHDin7Zd
+	 kBD1RcmP4uQ5V6kY2KdEoqHNoGv/BuHBQIit5UDmgIQB7jBckv9iO6SWic09/DFmETWok
+	 TZ9c8tGhi2LqCJ3SkoyXlw9gtp3kE8zj09qkfn2/n/HLeaHAe3HE2mf+5WPoeRD2FUUAK
+	 tXJcXRryF6nHvqKM+mWD1vByTZqpKYtfGopLdYE7qKqTD3kyXbwvMGNbR6gnZTl3XIK2G
+	 oKhx+rzViekd7um0REbDp0FFAApsXyxYE9QZF6+CguB+u9AXbjMn2kwq5Hv10WAfiwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="KOA/ZjJa";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HHOhtcqe;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B52DA606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:26:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51EDE606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:26:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KOA/ZjJa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A4FC1F0089F;
-	Sat,  7 Nov 2026 11:26:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HHOhtcqe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 582171F0089F;
+	Sat,  7 Nov 2026 11:26:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050792;
-	bh=Hsfm/4gA4HbSN335oembr5gfbM2Fhany0hGeDexcXr0=;
+	s=k20260515; t=1794050795;
+	bh=p0xoIGYreSoXxphhtghdPnWc9H+GA/cXWYcUK9DHMOE=;
 	h=From:To:Cc:Subject:Date;
-	b=KOA/ZjJaHzfDLiU6tWUX4IdohZZlI8Fhee5nmU6M4UmS6Fds68Gj9SWHAJVunaqcb
-	 UNJK9BFZtLjK5pHHqrFn7I0ekV4kVpfdi9JDBXXvdC8aPam84NCTIoR23ijapo+UKO
-	 lul8QSJeDj9xXUSlwC5xWMN9k2BP1tGjrRbkza4svFo4HSH06dHQzgNGmgAwf5iiBR
-	 UNS7khANa6h7EPrtj2XC3Yhq9FqInA0xU2GPrjfqyhzR5QMJEMSusG/ik4GXG3d4rm
-	 GRIRdraHpBn/wJeVH7F0q5nKmA6XRcZt0eYQ4I5OCaOH2NIn4zSZWsHFxExNha4ZUI
-	 YbmGs297EFR/w==
+	b=HHOhtcqemN/NswUv5Gkw0/vbtCS2yS9jlz1oyHCBoGr0flgbvjJlp0QJXbv9m2Zpj
+	 XXiQU1fLX9Wyl8tSlJrKmP+dgVVwexVY1ZQpSsp5+ntYxY+poomWcu623lErS/HLiE
+	 ZfCkiLiGA9JoLMYDnkKZU6pbJA4L9iFgY5Z02/748y7uQrONOlluHI+qtYztDSweEM
+	 njMHfJxa8YOkexACuoRBg0aJd9R51DOssz6f5eRF8BkvWzpjiNTVhZYzDAB5QHMnIz
+	 UxI+5gV/KrU1zLxoYVc0O7GJy0u25qe/gaSiHGnJ8HRb/xP+YvGJV1gCxSZ+uUJrR9
+	 sbJdowWIzTd9Q==
 From: Sasha Levin <sashal@kernel.org>
-To: kevin.wang@amd.com,
-	kenneth.feng@amd.com,
+To: kenneth.feng@amd.com,
+	kevin.wang@amd.com,
 	alexander.deucher@amd.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] drm/amd/pm: reapply umd profile state after recovery" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:26:30 -0500
-Message-ID: <20261107062630-failed-5.10-ad6eb088a508@kernel.org>
+Subject: FAILED: patch "[PATCH] drm/amd/pm:restate all customized OD features on every table upload for smu 13.0.0/smu 14.0.2" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:26:34 -0500
+Message-ID: <20261107062633-failed-5.10-44d0d3031e47@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,440 +69,346 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x ad6eb088a508d927641c8a76d1ca7911dfb7c80b
+git cherry-pick -x 44d0d3031e47973ed65fd327669d5e2eaaf6c565
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062630-failed-5.10-ad6eb088a508@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062633-failed-5.10-44d0d3031e47@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From ad6eb088a508d927641c8a76d1ca7911dfb7c80b Mon Sep 17 00:00:00 2001
-From: Kevin Wang <kevin.wang@amd.com>
-Date: Thu, 15 Oct 2026 15:38:26 +0800
-Subject: [PATCH] drm/amd/pm: reapply umd profile state after recovery
+From 44d0d3031e47973ed65fd327669d5e2eaaf6c565 Mon Sep 17 00:00:00 2001
+From: Kenneth Feng <kenneth.feng@amd.com>
+Date: Fri, 16 Oct 2026 15:17:43 +0800
+Subject: [PATCH] drm/amd/pm:restate all customized OD features on every table
+ upload for smu 13.0.0/smu 14.0.2
 
-Resume and full GPU reset retain the selected UMD profile level in
-driver state.
-The GFX and PMFW state behind it is reinitialized.
+PMFW interprets OverDriveTable.FeatureCtrlMask as the complete set of
+overdrive features that are currently overridden, not as a delta
+describing the operation at hand. On import it resets every feature
+whose bit is clear back to its default value - for the VF curve that
+means zeroing VoltageOffsetPerZoneBoundary[] outright.
 
-Add a generic DPM reapply path after CG and PG restoration.
-It restores the UMD GFX state and asks the PM backend to replay the
-retained level.
+The driver assumed the opposite. smu_v14_0_2_od_edit_dpm_table() clears
+the mask after a successful commit, so a subsequent above-default
+power1_cap write goes through smu_v14_0_2_set_ppt_limit() and uploads a
+table carrying only PP_OD_FEATURE_PPT_BIT. PMFW then drops the user's
+voltage offset and reverts to the stock V/F curve, while the driver's
+cached user table still reports the offset through pp_od_clk_voltage.
 
-v2:
-- Reapply only GFX CG to preserve the profile-owned GFX PG reference.
-- Fall back to AUTO when reapply fails without failing device recovery.
-- Propagate PowerPlay DPM errors before accepting AUTO fallback.
-- Limit workload-profile error reporting to the swSMU reapply path.
-
-This covers:
-- PCI runtime resume
-- Full GPU reset recovery
-- System resume, including S3 and s2idle
-
-Signed-off-by: Kevin Wang <kevin.wang@amd.com>
-Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
+Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5935
+Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
+Reviewed-by: Kevin Wang <kevin.wang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit fd0699fc9f4266fc07d6ce6dbb484fac04601106)
+(cherry picked from commit 1b63bb397db208a8f84778a9d9cafc93da9373eb)
 Cc: stable@vger.kernel.org
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  6 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       | 14 ---
- .../gpu/drm/amd/include/kgd_pp_interface.h    |  2 +
- drivers/gpu/drm/amd/pm/amdgpu_dpm.c           | 85 ++++++++++++++++++
- drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h       |  1 +
- .../gpu/drm/amd/pm/powerplay/amd_powerplay.c  | 33 +++++--
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 87 +++++++++++++++++--
- 7 files changed, 201 insertions(+), 27 deletions(-)
+ drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  2 +
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  | 35 +++++++----------
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  | 32 +++++++---------
+ .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c  | 38 +++++++++++--------
+ 4 files changed, 52 insertions(+), 55 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 866e83de950d2..f147c0c459da5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -2781,6 +2781,12 @@ static int amdgpu_device_ip_late_init(struct amdgpu_device *adev)
- 	amdgpu_device_set_cg_state(adev, AMD_CG_STATE_GATE);
- 	amdgpu_device_set_pg_state(adev, AMD_PG_STATE_GATE);
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+index f516d0d3bb92a..9d47d2ab1b49b 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+@@ -433,6 +433,8 @@ struct smu_table_context {
+ 	void                            *boot_overdrive_table;
+ 	void				*user_overdrive_table;
  
-+	r = amdgpu_dpm_reapply_umd_profile(adev);
-+	if (r) {
-+		dev_err(adev->dev, "Failed to restore UMD profile state: %d\n", r);
-+		return r;
-+	}
++	uint32_t			user_od_feature_mask;
 +
- 	amdgpu_device_fill_reset_magic(adev);
+ 	struct smu_driver_table driver_tables[SMU_DRIVER_TABLE_COUNT];
+ };
  
- 	r = amdgpu_device_enable_mgpu_fan_boost();
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index ab6f9131ac11f..3e5634de077f1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -2974,19 +2974,6 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
- 	return 0;
- }
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+index 6beafabf13065..468aaeb79ffba 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
+@@ -1569,7 +1569,6 @@ static int smu_v13_0_0_od_edit_dpm_table(struct smu_context *smu,
+ 	struct amdgpu_device *adev = smu->adev;
+ 	uint32_t offset_of_voltageoffset;
+ 	int32_t minimum, maximum;
+-	uint32_t feature_ctrlmask;
+ 	int i, ret = 0;
  
--static void amdgpu_restore_umd_profile_pstate_after_runpm(struct amdgpu_device *adev)
--{
--	enum amd_dpm_forced_level level;
--	uint32_t profile_mode_mask = AMD_DPM_FORCED_LEVEL_PROFILE_STANDARD |
--		AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK |
--		AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK |
--		AMD_DPM_FORCED_LEVEL_PROFILE_PEAK;
--
--	level = amdgpu_dpm_get_performance_level(adev);
--	if (level & profile_mode_mask)
--		amdgpu_asic_update_umd_stable_pstate(adev, true);
--}
--
- static int amdgpu_pmops_runtime_resume(struct device *dev)
- {
- 	struct pci_dev *pdev = to_pci_dev(dev);
-@@ -3032,7 +3019,6 @@ static int amdgpu_pmops_runtime_resume(struct device *dev)
- 	if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX)
- 		drm_dev->switch_power_state = DRM_SWITCH_POWER_ON;
- 
--	amdgpu_restore_umd_profile_pstate_after_runpm(adev);
- 	adev->in_runpm = false;
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-index ca818965afe1f..7db44fa24042e 100644
---- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-+++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-@@ -449,6 +449,8 @@ struct amd_pm_funcs {
- 	int (*print_clock_levels)(void *handle, enum pp_clock_type type, char *buf);
- 	int (*emit_clock_levels)(void *handle, enum pp_clock_type type, char *buf, int *offset);
- 	int (*force_performance_level)(void *handle, enum amd_dpm_forced_level level);
-+	int (*reapply_performance_level)(void *handle,
-+					 enum amd_dpm_forced_level level);
- 	int (*get_sclk_od)(void *handle);
- 	int (*set_sclk_od)(void *handle, uint32_t value);
- 	int (*get_mclk_od)(void *handle);
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-index 0394085a03281..75d8bb4868e89 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-@@ -1082,6 +1082,91 @@ static void amdgpu_dpm_exit_umd_state(struct amdgpu_device *adev)
- 					       AMD_PG_STATE_GATE);
- }
- 
-+/**
-+ * amdgpu_dpm_reapply_umd_profile - Restore the active UMD profile
-+ * @adev: amdgpu device
-+ *
-+ * Resume and reset retain the selected DPM level in software, but the
-+ * underlying GFX and PMFW state is lost. Reapply a retained UMD profile
-+ * after the common resume path has restored its default CG and PG state.
-+ */
-+int amdgpu_dpm_reapply_umd_profile(struct amdgpu_device *adev)
-+{
-+	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
-+	enum amd_dpm_forced_level level;
-+	int ret, fallback_ret;
-+
-+	if (!pp_funcs || !pp_funcs->reapply_performance_level ||
-+	    !pp_funcs->force_performance_level)
-+		return 0;
-+
-+	/* Serialize the retained level with the GFX and PMFW reprogramming. */
-+	mutex_lock(&adev->pm.mutex);
-+	if (adev->pm.dpm.thermal_active) {
-+		dev_warn(adev->dev,
-+			 "Cannot restore UMD profile while thermal control is active\n");
-+		ret = 0;
-+		goto unlock;
-+	}
-+
-+	if (pp_funcs->get_performance_level)
-+		level = pp_funcs->get_performance_level(adev->powerplay.pp_handle);
-+	else
-+		level = adev->pm.dpm.forced_level;
-+
-+	switch (level) {
-+	case AMD_DPM_FORCED_LEVEL_PROFILE_STANDARD:
-+	case AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK:
-+	case AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK:
-+	case AMD_DPM_FORCED_LEVEL_PROFILE_PEAK:
-+		break;
-+	default:
-+		ret = 0;
-+		goto unlock;
-+	}
-+
-+	/* The active profile already owns the GFX PG reference. */
-+	ret = amdgpu_device_ip_set_clockgating_state(adev, AMD_IP_BLOCK_TYPE_GFX,
-+					      AMD_CG_STATE_UNGATE);
-+	if (ret)
-+		goto fallback_auto;
-+
-+	ret = amdgpu_asic_update_umd_stable_pstate(adev, true);
-+	if (ret)
-+		goto fallback_auto;
-+
-+	ret = pp_funcs->reapply_performance_level(adev->powerplay.pp_handle,
-+						     level);
-+	if (ret)
-+		goto fallback_auto;
-+
-+unlock:
-+	mutex_unlock(&adev->pm.mutex);
-+
-+	return ret;
-+
-+fallback_auto:
-+	dev_warn(adev->dev, "Failed to restore UMD profile state: %d\n", ret);
-+
-+	/* Restore normal CG before releasing the profile's PG reference. */
-+	amdgpu_asic_update_umd_stable_pstate(adev, false);
-+	amdgpu_device_ip_set_clockgating_state(adev, AMD_IP_BLOCK_TYPE_GFX,
-+					       AMD_CG_STATE_GATE);
-+	mutex_unlock(&adev->pm.mutex);
-+
-+	mutex_lock(&adev->pm.stable_pstate_ctx_lock);
-+	fallback_ret = amdgpu_dpm_force_performance_level(adev,
-+						   AMD_DPM_FORCED_LEVEL_AUTO);
-+	if (fallback_ret)
-+		dev_warn(adev->dev, "Failed to fall back to AUTO performance level: %d\n",
-+			 fallback_ret);
-+	else
-+		adev->pm.stable_pstate_ctx = NULL;
-+	mutex_unlock(&adev->pm.stable_pstate_ctx_lock);
-+
-+	return 0;
-+}
-+
- int amdgpu_dpm_force_performance_level(struct amdgpu_device *adev,
- 				       enum amd_dpm_forced_level level)
- {
-diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-index 72b13ece22ef4..ba8624d28f28b 100644
---- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-+++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-@@ -484,6 +484,7 @@ void amdgpu_dpm_set_power_state(struct amdgpu_device *adev,
- enum amd_dpm_forced_level amdgpu_dpm_get_performance_level(struct amdgpu_device *adev);
- int amdgpu_dpm_force_performance_level(struct amdgpu_device *adev,
- 				       enum amd_dpm_forced_level level);
-+int amdgpu_dpm_reapply_umd_profile(struct amdgpu_device *adev);
- int amdgpu_dpm_get_pp_num_states(struct amdgpu_device *adev,
- 				 struct pp_states_info *states);
- int amdgpu_dpm_dispatch_task(struct amdgpu_device *adev,
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-index 239c64b8edca8..7b0ff5a0993e1 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-@@ -358,24 +358,46 @@ static void pp_dpm_en_umd_pstate(struct pp_hwmgr  *hwmgr,
- 	}
- }
- 
--static int pp_dpm_force_performance_level(void *handle,
--					enum amd_dpm_forced_level level)
-+static int pp_dpm_apply_performance_level(struct pp_hwmgr *hwmgr,
-+					  enum amd_dpm_forced_level level,
-+					  bool reapply)
- {
--	struct pp_hwmgr *hwmgr = handle;
-+	int ret;
- 
- 	if (!hwmgr || !hwmgr->pm_en)
- 		return -EINVAL;
- 
--	if (level == hwmgr->dpm_level)
-+	if (!reapply && level == hwmgr->dpm_level)
- 		return 0;
- 
- 	pp_dpm_en_umd_pstate(hwmgr, &level);
- 	hwmgr->request_dpm_level = level;
--	hwmgr_handle_task(hwmgr, AMD_PP_TASK_READJUST_POWER_STATE, NULL);
-+	ret = hwmgr_handle_task(hwmgr, AMD_PP_TASK_READJUST_POWER_STATE, NULL);
-+	if (ret)
-+		return ret;
-+
-+	ret = phm_force_dpm_levels(hwmgr, level);
-+	if (ret)
-+		return ret;
-+
-+	hwmgr->dpm_level = level;
- 
- 	return 0;
- }
- 
-+static int pp_dpm_force_performance_level(void *handle,
-+					enum amd_dpm_forced_level level)
-+{
-+	return pp_dpm_apply_performance_level(handle, level, false);
-+}
-+
-+static int
-+pp_dpm_reapply_performance_level(void *handle,
-+					 enum amd_dpm_forced_level level)
-+{
-+	return pp_dpm_apply_performance_level(handle, level, true);
-+}
-+
- static enum amd_dpm_forced_level pp_dpm_get_performance_level(
- 								void *handle)
- {
-@@ -1536,6 +1558,7 @@ static const struct amd_pm_funcs pp_dpm_funcs = {
- 	.load_firmware = pp_dpm_load_fw,
- 	.wait_for_fw_loading_complete = pp_dpm_fw_loading_complete,
- 	.force_performance_level = pp_dpm_force_performance_level,
-+	.reapply_performance_level = pp_dpm_reapply_performance_level,
- 	.get_performance_level = pp_dpm_get_performance_level,
- 	.get_current_power_state = pp_dpm_get_current_power_state,
- 	.dispatch_tasks = pp_dpm_dispatch_tasks,
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-index 3bb36668eb399..c9fe323fa6244 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -2366,6 +2366,13 @@ static int smu_set_powergating_state(struct amdgpu_ip_block *ip_block,
- 	return 0;
- }
- 
-+static void smu_enter_umd_pstate(struct smu_context *smu)
-+{
-+	smu_gpo_control(smu, false);
-+	smu_gfx_ulv_control(smu, false);
-+	smu_deep_sleep_control(smu, false);
-+}
-+
- static int smu_enable_umd_pstate(void *handle,
- 		      enum amd_dpm_forced_level *level)
- {
-@@ -2384,9 +2391,7 @@ static int smu_enable_umd_pstate(void *handle,
- 		/* enter umd pstate, save current level, disable gfx cg*/
- 		if (*level & profile_mode_mask) {
- 			smu_dpm_ctx->saved_dpm_level = smu_dpm_ctx->dpm_level;
--			smu_gpo_control(smu, false);
--			smu_gfx_ulv_control(smu, false);
--			smu_deep_sleep_control(smu, false);
-+			smu_enter_umd_pstate(smu);
- 			amdgpu_asic_update_umd_stable_pstate(smu->adev, true);
+ 	switch (type) {
+@@ -1891,21 +1890,16 @@ static int smu_v13_0_0_od_edit_dpm_table(struct smu_context *smu,
+ 			if (ret)
+ 				return ret;
+ 		} else {
+-			feature_ctrlmask = od_table->OverDriveTable.FeatureCtrlMask;
+ 			memcpy(od_table,
+ 		       table_context->boot_overdrive_table,
+ 		       sizeof(OverDriveTableExternal_t));
+-			od_table->OverDriveTable.FeatureCtrlMask = feature_ctrlmask;
++			od_table->OverDriveTable.FeatureCtrlMask = 0;
++			table_context->user_od_feature_mask = 0;
  		}
- 	} else {
-@@ -2445,7 +2450,8 @@ static void smu_power_profile_mode_put(struct smu_context *smu,
+ 		fallthrough;
+ 	case PP_OD_COMMIT_DPM_TABLE:
+-		/*
+-		 * The member below instructs PMFW the settings focused in
+-		 * this single operation.
+-		 * `uint32_t FeatureCtrlMask;`
+-		 * It does not contain actual informations about user's custom
+-		 * settings. Thus we do not cache it.
+-		 */
++		table_context->user_od_feature_mask =
++			od_table->OverDriveTable.FeatureCtrlMask;
+ 		offset_of_voltageoffset = offsetof(OverDriveTable_t, VoltageOffsetPerZoneBoundary);
+ 		if (memcmp((u8 *)od_table + offset_of_voltageoffset,
+ 			   table_context->user_overdrive_table + offset_of_voltageoffset,
+@@ -1918,7 +1912,6 @@ static int smu_v13_0_0_od_edit_dpm_table(struct smu_context *smu,
+ 				return ret;
+ 			}
  
- static int smu_adjust_power_state_dynamic(struct smu_context *smu,
- 					  enum amd_dpm_forced_level level,
--					  bool skip_display_settings)
-+					  bool skip_display_settings,
-+					  bool force_performance_level)
- {
- 	int ret = 0;
- 	struct smu_dpm_context *smu_dpm_ctx = &(smu->smu_dpm);
-@@ -2472,7 +2478,7 @@ static int smu_adjust_power_state_dynamic(struct smu_context *smu,
- 		}
- 	}
+-			od_table->OverDriveTable.FeatureCtrlMask = 0;
+ 			memcpy(table_context->user_overdrive_table + offset_of_voltageoffset,
+ 			       (u8 *)od_table + offset_of_voltageoffset,
+ 			       sizeof(OverDriveTableExternal_t) - offset_of_voltageoffset);
+@@ -2201,6 +2194,7 @@ static int smu_v13_0_0_set_default_od_settings(struct smu_context *smu)
+ 		       boot_od_table,
+ 		       sizeof(OverDriveTableExternal_t));
+ 		smu->user_dpm_profile.user_od = false;
++		smu->smu_table.user_od_feature_mask = 0;
+ 	} else if (smu->user_dpm_profile.user_od) {
+ 		memcpy(&user_od_table_bak,
+ 		       user_od_table,
+@@ -2250,12 +2244,8 @@ static int smu_v13_0_0_restore_user_od_settings(struct smu_context *smu)
+ 	OverDriveTableExternal_t *od_table = table_context->overdrive_table;
+ 	OverDriveTableExternal_t *user_od_table = table_context->user_overdrive_table;
+ 	int res;
+-
+-	user_od_table->OverDriveTable.FeatureCtrlMask = BIT(PP_OD_FEATURE_GFXCLK_BIT) |
+-							BIT(PP_OD_FEATURE_UCLK_BIT) |
+-							BIT(PP_OD_FEATURE_GFX_VF_CURVE_BIT) |
+-							BIT(PP_OD_FEATURE_FAN_CURVE_BIT) |
+-							BIT(PP_OD_FEATURE_ZERO_FAN_BIT);
++	user_od_table->OverDriveTable.FeatureCtrlMask =
++		table_context->user_od_feature_mask;
+ 	res = smu_v13_0_0_upload_overdrive_table(smu, user_od_table);
+ 	user_od_table->OverDriveTable.FeatureCtrlMask = 0;
+ 	if (res == 0)
+@@ -3069,8 +3059,10 @@ static int smu_v13_0_0_set_ppt_limit(struct smu_context *smu,
  
--	if (smu_dpm_ctx->dpm_level != level) {
-+	if (force_performance_level || smu_dpm_ctx->dpm_level != level) {
- 		ret = smu_asic_set_performance_level(smu, level);
- 		if (ret) {
- 			if (ret == -EOPNOTSUPP)
-@@ -2495,6 +2501,39 @@ static int smu_adjust_power_state_dynamic(struct smu_context *smu,
- 	return ret;
- }
- 
-+static int
-+smu_reapply_power_state_dynamic(struct smu_context *smu,
-+				enum amd_dpm_forced_level level)
-+{
-+	struct smu_dpm_context *smu_dpm_ctx = &smu->smu_dpm;
-+	int ret;
-+
-+	ret = smu_apply_clocks_adjust_rules(smu);
-+	if (ret) {
-+		dev_err(smu->adev->dev, "Failed to apply clocks adjust rules!");
-+		return ret;
-+	}
-+
-+	ret = smu_asic_set_performance_level(smu, level);
-+	if (ret) {
-+		if (ret == -EOPNOTSUPP)
-+			dev_info(smu->adev->dev, "set performance level %d not supported",
-+				 level);
-+		else
-+			dev_err(smu->adev->dev, "Failed to set performance level %d",
-+				level);
-+		return ret;
-+	}
-+
-+	smu_dpm_ctx->dpm_level = level;
-+
-+	if (smu_dpm_ctx->dpm_level == AMD_DPM_FORCED_LEVEL_MANUAL ||
-+	    smu_dpm_ctx->dpm_level == AMD_DPM_FORCED_LEVEL_PERF_DETERMINISM)
-+		return 0;
-+
-+	return smu_bump_power_profile_mode(smu, NULL, 0);
-+}
-+
- static int smu_handle_task(struct smu_context *smu,
- 			   enum amd_dpm_forced_level level,
- 			   enum amd_pp_task task_id)
-@@ -2509,13 +2548,13 @@ static int smu_handle_task(struct smu_context *smu,
- 		ret = smu_pre_display_config_changed(smu);
- 		if (ret)
+ 		if (current_od_table.OverDriveTable.Ppt) {
+ 			od_table->OverDriveTable.Ppt = 0;
+-			od_table->OverDriveTable.FeatureCtrlMask |= 1U << PP_OD_FEATURE_PPT_BIT;
+-
++			table_context->user_od_feature_mask &=
++				~(1U << PP_OD_FEATURE_PPT_BIT);
++			od_table->OverDriveTable.FeatureCtrlMask =
++				table_context->user_od_feature_mask;
+ 			ret = smu_v13_0_0_upload_overdrive_table(smu, od_table);
+ 			if (ret) {
+ 				dev_err(smu->adev->dev, "Failed to upload overdrive table!\n");
+@@ -3084,8 +3076,9 @@ static int smu_v13_0_0_set_ppt_limit(struct smu_context *smu,
  			return ret;
--		ret = smu_adjust_power_state_dynamic(smu, level, false);
-+		ret = smu_adjust_power_state_dynamic(smu, level, false, false);
- 		break;
- 	case AMD_PP_TASK_COMPLETE_INIT:
--		ret = smu_adjust_power_state_dynamic(smu, level, true);
-+		ret = smu_adjust_power_state_dynamic(smu, level, true, false);
- 		break;
- 	case AMD_PP_TASK_READJUST_POWER_STATE:
--		ret = smu_adjust_power_state_dynamic(smu, level, true);
-+		ret = smu_adjust_power_state_dynamic(smu, level, true, false);
- 		break;
- 	default:
- 		break;
-@@ -2644,6 +2683,37 @@ static int smu_force_performance_level(void *handle,
- 	return ret;
- }
  
-+static int
-+smu_reapply_performance_level(void *handle,
-+			      enum amd_dpm_forced_level level)
-+{
-+	struct smu_context *smu = handle;
-+	struct smu_dpm_context *smu_dpm_ctx = &smu->smu_dpm;
+ 		od_table->OverDriveTable.Ppt = (limit * 100) / msg_limit - 100;
+-		od_table->OverDriveTable.FeatureCtrlMask |= 1U << PP_OD_FEATURE_PPT_BIT;
+-
++		table_context->user_od_feature_mask |= 1U << PP_OD_FEATURE_PPT_BIT;
++		od_table->OverDriveTable.FeatureCtrlMask =
++			table_context->user_od_feature_mask;
+ 		ret = smu_v13_0_0_upload_overdrive_table(smu, od_table);
+ 		if (ret) {
+ 		  dev_err(smu->adev->dev, "Failed to upload overdrive table!\n");
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+index 5fe409a237726..51e419e6380c1 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
+@@ -1578,7 +1578,6 @@ static int smu_v13_0_7_od_edit_dpm_table(struct smu_context *smu,
+ 	struct amdgpu_device *adev = smu->adev;
+ 	uint32_t offset_of_voltageoffset;
+ 	int32_t minimum, maximum;
+-	uint32_t feature_ctrlmask;
+ 	int i, ret = 0;
+ 
+ 	switch (type) {
+@@ -1900,22 +1899,17 @@ static int smu_v13_0_7_od_edit_dpm_table(struct smu_context *smu,
+ 			if (ret)
+ 				return ret;
+ 		} else {
+-			feature_ctrlmask = od_table->OverDriveTable.FeatureCtrlMask;
+ 			memcpy(od_table,
+ 					table_context->boot_overdrive_table,
+ 					sizeof(OverDriveTableExternal_t));
+-			od_table->OverDriveTable.FeatureCtrlMask = feature_ctrlmask;
++			od_table->OverDriveTable.FeatureCtrlMask = 0;
++			table_context->user_od_feature_mask = 0;
+ 		}
+ 		fallthrough;
+ 
+ 	case PP_OD_COMMIT_DPM_TABLE:
+-		/*
+-		 * The member below instructs PMFW the settings focused in
+-		 * this single operation.
+-		 * `uint32_t FeatureCtrlMask;`
+-		 * It does not contain actual informations about user's custom
+-		 * settings. Thus we do not cache it.
+-		 */
++		table_context->user_od_feature_mask =
++			od_table->OverDriveTable.FeatureCtrlMask;
+ 		offset_of_voltageoffset = offsetof(OverDriveTable_t, VoltageOffsetPerZoneBoundary);
+ 		if (memcmp((u8 *)od_table + offset_of_voltageoffset,
+ 			   table_context->user_overdrive_table + offset_of_voltageoffset,
+@@ -1928,7 +1922,6 @@ static int smu_v13_0_7_od_edit_dpm_table(struct smu_context *smu,
+ 				return ret;
+ 			}
+ 
+-			od_table->OverDriveTable.FeatureCtrlMask = 0;
+ 			memcpy(table_context->user_overdrive_table + offset_of_voltageoffset,
+ 			       (u8 *)od_table + offset_of_voltageoffset,
+ 			       sizeof(OverDriveTableExternal_t) - offset_of_voltageoffset);
+@@ -2203,6 +2196,7 @@ static int smu_v13_0_7_set_default_od_settings(struct smu_context *smu)
+ 		       boot_od_table,
+ 		       sizeof(OverDriveTableExternal_t));
+ 		smu->user_dpm_profile.user_od = false;
++		smu->smu_table.user_od_feature_mask = 0;
+ 	} else if (smu->user_dpm_profile.user_od) {
+ 		memcpy(&user_od_table_bak,
+ 		       user_od_table,
+@@ -2253,11 +2247,8 @@ static int smu_v13_0_7_restore_user_od_settings(struct smu_context *smu)
+ 	OverDriveTableExternal_t *user_od_table = table_context->user_overdrive_table;
+ 	int res;
+ 
+-	user_od_table->OverDriveTable.FeatureCtrlMask = BIT(PP_OD_FEATURE_GFXCLK_BIT) |
+-							BIT(PP_OD_FEATURE_UCLK_BIT) |
+-							BIT(PP_OD_FEATURE_GFX_VF_CURVE_BIT) |
+-							BIT(PP_OD_FEATURE_FAN_CURVE_BIT) |
+-							BIT(PP_OD_FEATURE_ZERO_FAN_BIT);
++	user_od_table->OverDriveTable.FeatureCtrlMask =
++		table_context->user_od_feature_mask;
+ 	res = smu_v13_0_7_upload_overdrive_table(smu, user_od_table);
+ 	user_od_table->OverDriveTable.FeatureCtrlMask = 0;
+ 	if (res == 0)
+@@ -2689,7 +2680,10 @@ static int smu_v13_0_7_set_ppt_limit(struct smu_context *smu,
+ 
+ 		if (current_od_table.OverDriveTable.Ppt) {
+ 			od_table->OverDriveTable.Ppt = 0;
+-			od_table->OverDriveTable.FeatureCtrlMask |= 1U << PP_OD_FEATURE_PPT_BIT;
++			table_context->user_od_feature_mask &=
++				~(1U << PP_OD_FEATURE_PPT_BIT);
++			od_table->OverDriveTable.FeatureCtrlMask =
++				table_context->user_od_feature_mask;
+ 
+ 			ret = smu_v13_0_7_upload_overdrive_table(smu, od_table);
+ 			if (ret) {
+@@ -2704,7 +2698,9 @@ static int smu_v13_0_7_set_ppt_limit(struct smu_context *smu,
+ 			return ret;
+ 
+ 		od_table->OverDriveTable.Ppt = (limit * 100) / msg_limit - 100;
+-		od_table->OverDriveTable.FeatureCtrlMask |= 1U << PP_OD_FEATURE_PPT_BIT;
++		table_context->user_od_feature_mask |= 1U << PP_OD_FEATURE_PPT_BIT;
++		od_table->OverDriveTable.FeatureCtrlMask =
++			table_context->user_od_feature_mask;
+ 
+ 		ret = smu_v13_0_7_upload_overdrive_table(smu, od_table);
+ 		if (ret) {
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+index ed99e61f18e11..549716349117d 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+@@ -2360,6 +2360,7 @@ static int smu_v14_0_2_set_default_od_settings(struct smu_context *smu)
+ 		       boot_od_table,
+ 		       sizeof(OverDriveTableExternal_t));
+ 		smu->user_dpm_profile.user_od = false;
++		smu->smu_table.user_od_feature_mask = 0;
+ 	} else if (smu->user_dpm_profile.user_od) {
+ 		memcpy(&user_od_table_bak,
+ 		       user_od_table,
+@@ -2406,11 +2407,8 @@ static int smu_v14_0_2_restore_user_od_settings(struct smu_context *smu)
+ 	OverDriveTableExternal_t *user_od_table = table_context->user_overdrive_table;
+ 	int res;
+ 
+-	user_od_table->OverDriveTable.FeatureCtrlMask = BIT(PP_OD_FEATURE_GFXCLK_BIT) |
+-							BIT(PP_OD_FEATURE_UCLK_BIT) |
+-							BIT(PP_OD_FEATURE_GFX_VF_CURVE_BIT) |
+-							BIT(PP_OD_FEATURE_FAN_CURVE_BIT) |
+-							BIT(PP_OD_FEATURE_ZERO_FAN_BIT);
++	user_od_table->OverDriveTable.FeatureCtrlMask =
++		table_context->user_od_feature_mask;
+ 	res = smu_v14_0_2_upload_overdrive_table(smu, user_od_table);
+ 	user_od_table->OverDriveTable.FeatureCtrlMask = 0;
+ 	if (res == 0)
+@@ -2490,7 +2488,6 @@ static int smu_v14_0_2_od_edit_dpm_table(struct smu_context *smu,
+ 	struct amdgpu_device *adev = smu->adev;
+ 	uint32_t offset_of_voltageoffset;
+ 	int32_t minimum, maximum;
+-	uint32_t feature_ctrlmask;
+ 	int i, ret = 0;
+ 
+ 	switch (type) {
+@@ -2758,21 +2755,26 @@ static int smu_v14_0_2_od_edit_dpm_table(struct smu_context *smu,
+ 			if (ret)
+ 				return ret;
+ 		} else {
+-			feature_ctrlmask = od_table->OverDriveTable.FeatureCtrlMask;
+ 			memcpy(od_table,
+ 		       table_context->boot_overdrive_table,
+ 		       sizeof(OverDriveTableExternal_t));
+-			od_table->OverDriveTable.FeatureCtrlMask = feature_ctrlmask;
++			od_table->OverDriveTable.FeatureCtrlMask = 0;
++			table_context->user_od_feature_mask = 0;
+ 		}
+ 		fallthrough;
+ 	case PP_OD_COMMIT_DPM_TABLE:
+ 		/*
+-		 * The member below instructs PMFW the settings focused in
+-		 * this single operation.
+-		 * `uint32_t FeatureCtrlMask;`
+-		 * It does not contain actual informations about user's custom
+-		 * settings. Thus we do not cache it.
++		 * PMFW interprets FeatureCtrlMask as the complete set of OD
++		 * features that are currently overridden, not as a delta
++		 * describing this single operation. Any feature whose bit is
++		 * clear gets reset to its default on import. od_table's mask
++		 * has accumulated every feature the user touched since the
++		 * last full restore, so record it and keep restating it on
++		 * subsequent uploads.
+ 		 */
++		table_context->user_od_feature_mask =
++			od_table->OverDriveTable.FeatureCtrlMask;
 +
-+	if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled)
-+		return -EOPNOTSUPP;
-+
-+	if (!smu->is_apu && !smu_dpm_ctx->dpm_context)
-+		return -EINVAL;
-+
-+	switch (level) {
-+	case AMD_DPM_FORCED_LEVEL_PROFILE_STANDARD:
-+	case AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK:
-+	case AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK:
-+	case AMD_DPM_FORCED_LEVEL_PROFILE_PEAK:
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	if (smu_dpm_ctx->dpm_level != level)
-+		return -EINVAL;
-+
-+	smu_enter_umd_pstate(smu);
-+
-+	return smu_reapply_power_state_dynamic(smu, level);
-+}
-+
- static int smu_set_display_count(void *handle, uint32_t count)
- {
- 	struct smu_context *smu = handle;
-@@ -4030,6 +4100,7 @@ static const struct amd_pm_funcs swsmu_pm_funcs = {
- 	.force_clock_level       = smu_force_ppclk_levels,
- 	.emit_clock_levels       = smu_emit_ppclk_levels,
- 	.force_performance_level = smu_force_performance_level,
-+	.reapply_performance_level = smu_reapply_performance_level,
- 	.read_sensor             = smu_read_sensor,
- 	.get_apu_thermal_limit       = smu_get_apu_thermal_limit,
- 	.set_apu_thermal_limit       = smu_set_apu_thermal_limit,
+ 		offset_of_voltageoffset = offsetof(OverDriveTable_t, VoltageOffsetPerZoneBoundary);
+ 		if (memcmp((u8 *)od_table + offset_of_voltageoffset,
+ 			   table_context->user_overdrive_table + offset_of_voltageoffset,
+@@ -2785,7 +2787,6 @@ static int smu_v14_0_2_od_edit_dpm_table(struct smu_context *smu,
+ 				return ret;
+ 			}
+ 
+-			od_table->OverDriveTable.FeatureCtrlMask = 0;
+ 			memcpy(table_context->user_overdrive_table + offset_of_voltageoffset,
+ 			       (u8 *)od_table + offset_of_voltageoffset,
+ 			       sizeof(OverDriveTableExternal_t) - offset_of_voltageoffset);
+@@ -2829,7 +2830,10 @@ static int smu_v14_0_2_set_ppt_limit(struct smu_context *smu,
+ 
+ 		if (current_od_table.OverDriveTable.Ppt) {
+ 			od_table->OverDriveTable.Ppt = 0;
+-			od_table->OverDriveTable.FeatureCtrlMask |= 1U << PP_OD_FEATURE_PPT_BIT;
++			table_context->user_od_feature_mask &=
++				~(1U << PP_OD_FEATURE_PPT_BIT);
++			od_table->OverDriveTable.FeatureCtrlMask =
++				table_context->user_od_feature_mask;
+ 
+ 			ret = smu_v14_0_2_upload_overdrive_table(smu, od_table);
+ 			if (ret) {
+@@ -2844,7 +2848,9 @@ static int smu_v14_0_2_set_ppt_limit(struct smu_context *smu,
+ 			return ret;
+ 
+ 		od_table->OverDriveTable.Ppt = (limit * 100) / msg_limit - 100;
+-		od_table->OverDriveTable.FeatureCtrlMask |= 1U << PP_OD_FEATURE_PPT_BIT;
++		table_context->user_od_feature_mask |= 1U << PP_OD_FEATURE_PPT_BIT;
++		od_table->OverDriveTable.FeatureCtrlMask =
++			table_context->user_od_feature_mask;
+ 
+ 		ret = smu_v14_0_2_upload_overdrive_table(smu, od_table);
+ 		if (ret) {
 -- 
 2.53.0
 
