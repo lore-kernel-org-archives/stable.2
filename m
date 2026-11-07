@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048550;
-	b=vmumCBQ8gnPQ6ei9uDX/MHXuW/dwjRx67SP1iA1OILYrUZKHjs4FtTx2dpH21AywNZxH
-	 TNRiplbm4BcVGE3zb5moPQAfYtM7jwqfFe2ulHBtl2848wZBB4qBN9/0Q49c7cFwC5bYS
-	 x4pUG/p3730OA4lDTfqhmMMAlNK1ZTrGKGgBtMab0uTCjCi2ByH82n5xowSGL0HoxiXL7
-	 PXEBVGetIbkmL2o3oUsD/GFA8Z956WJb+tfivI6HDECZiaEkhD4yoOjgg3yd9Pk2s5Ypa
-	 5WTGgOLrgf/Go7JBWhu8JBwrYhxhj2M7SMfpfKVEtY/0+FLso2P5BxBU3Lnw1Rh78fg==
+	t=1794048556;
+	b=KgcvcycMjHIT1zwQnOpMr1AQ7oDCzKbE8FXaUQPDq29X+uFsGnps9EqehFF9yFJqBfKS
+	 Njcgs4Ce+6XPjy6bxzpi3WfssWf29Onu0dOEieBB0gVgkPYaTFmARZ8pyGvGAzUEDqhTJ
+	 6feZXL+miaW7FAXpPOvwXNl9GTcwhFLxTc5txYJUD+MhZe94W7AjAz4870orn6bjXTRio
+	 jvzwrJnUCerJTjVdoLof50eim/l3CQX99+YI5Nvp0OtmJbnp0zBL3j5qe+i5pzLu7EWZB
+	 7Ai9VTXxJA+Kd3O/B+IT2ttOgFLAHAgPs22gfuqAaJDUuNbWN5I2YtbM2mMoPcmi4Zw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048550;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048556;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=cpUcjLqsIZVLVOihaxNqT91iS9ymKLKdyKlXYlJaOek=;
-	b=0XrJ6o8I7SWmFleu3Kbmk4EX74KY1QX6b9Z/XrgwVCL9zfaQ0dcDJ+WTGLkfPKWIMRE6
-	 bHyC9RWM37CMWE3SwexwawbbHQbSGaRG0DjzWzYdFssuldZJa++MJmdWh17UffJ1L+FIO
-	 RvLjkd47YLMEI3x+S7+VAqYmP+uKF+SnuTqlptL3Qct+5LrqG3xhYW8OT27Aa5WYUz3Us
-	 7H/gxjuMeqk7EVO5PJYIDOapLqBYRJ23lPm5uDh1f1+YmG5XSfjUOgQd0ISSlOCvSi0tE
-	 VlR7Y+JTKzIa1evwXIXiRJkTjH+wNmz1tQoaJW29tQjWlAPfRU52zvEmIfqtuHYyTJw==
+	bh=1XsFWn+SyiA8dPE7n9bDUxOZ7KMzbd2fBhD+Qo9zHI0=;
+	b=roS0zGJLSbFkV1nRN5uaEtVLs/FVRcNvzSlgcEGPKQ+7rRYTUK9XaZxs51b/q7Ybd2y9
+	 0tqFEAcn7jMaaE0WXJziJXANxKcWl5nhkzDnU39IRwe6vsVoVJowONl2eBZ6pXc3ZieeT
+	 bfu6YE4zC3BPB2TAOP65YpBtv2ViKK5YHIjJ6FkO4VnrqX13Au3iRGP/lfdLx7iEkjyNW
+	 NKmhFc3PXLuSWThDWII87QbEY2bN7uFrvlgQgEdR2OWv58uq7naZC76rgWJvduZS72Ylz
+	 EXCBJz7iw327tRNQaMzrah9VOnpZEgMC6U988+IVsx6HgWe8EQkXhb8UVdKbT7gN2/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TP+8he43;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fq2Rj4O3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE3FC606EEA4
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:49:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D944A6082BE0
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:49:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TP+8he43
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 466681F0089F;
-	Sat,  7 Nov 2026 10:49:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fq2Rj4O3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 592C71F01562;
+	Sat,  7 Nov 2026 10:49:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048549;
-	bh=cpUcjLqsIZVLVOihaxNqT91iS9ymKLKdyKlXYlJaOek=;
+	s=k20260515; t=1794048555;
+	bh=1XsFWn+SyiA8dPE7n9bDUxOZ7KMzbd2fBhD+Qo9zHI0=;
 	h=From:To:Cc:Subject:Date;
-	b=TP+8he43kQ/pb01a9OYI5nENQWamn6+dHIgvYW7WVmaxnh0dGutsXl/BJSnAR+vpY
-	 uEYLMJow01VTl2SkQUOSQNNhRq/w+JM/QI5yhOUZfep9FRPVa7eScsZC/uGLVIQX6h
-	 CwCWTcZb9R75o6gzW/JyPQo17vYPNzNaiPl3+xH80cTNR+qr2/ytp12Y8pZbEyNQEF
-	 kH3hOIIUjr39laAadtEI5W1PF5yCychsh/IueGco+vvzzmvUyazVlBrXp5cQoFvo28
-	 0oaTuA8vP20hwzeJ+Tzs93iWm6vkNaF5e0EfptgoVesreLz1JYs5tA990eTgWTlvyZ
-	 8xKRsX6dNwCmw==
+	b=Fq2Rj4O3lncu1aXrFfCMQ01ePfm/h5Kc178RYCwEdv99EioDvvTjReH1VvxF+oyKx
+	 qNUHTsD/Qss6DP3SdxdLeVJTyvdcGa9Su6toKPrioOp7LiBSQiQCX+VGCOGBzeOMCi
+	 442VZjlV+bcWBgnH/w1cYLKiAbbKUtMvVjq80mA0JV7HncLvo2h9iTcLqSrkYXnSVl
+	 4rq/f0njDlMb32FL2ZUcmLWkwgG3u/cs3Yuirbk3ycbYeVP6cV0QLOQ7lfflRpNNqd
+	 pitvuhC6kQ/ocfFWrZrmSn72nTNL8ULCD8/zxszcF9/s2LP/N9KN3W+/v9Uq1Ufeb7
+	 tLEXaurtVKN6Q==
 From: Sasha Levin <sashal@kernel.org>
-To: martin.nvme.dev@gmail.com,
-	dwagner@suse.de,
-	kbusch@kernel.org
+To: lgs201920130244@gmail.com,
+	lee@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] nvme: make the DH-HMAC-CHAP secret attributes readable by root only" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:49:08 -0500
-Message-ID: <20261107054907-failed-6.1-bbca7c312ab2@kernel.org>
+Subject: FAILED: patch "[PATCH] mfd: ab8500: Fix child device leaks on probe failure" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:49:14 -0500
+Message-ID: <20261107054914-failed-6.1-5bf2ae8b131d@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,95 +68,109 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x bbca7c312ab25efd0024eb87545c51a76ab2ea39
+git cherry-pick -x 5bf2ae8b131d4ae9c0ed5f7aa02532645f512022
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054907-failed-6.1-bbca7c312ab2@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107054914-failed-6.1-5bf2ae8b131d@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From bbca7c312ab25efd0024eb87545c51a76ab2ea39 Mon Sep 17 00:00:00 2001
-From: Martin Belanger <martin.nvme.dev@gmail.com>
-Date: Wed, 14 Oct 2026 08:02:57 -0400
-Subject: [PATCH] nvme: make the DH-HMAC-CHAP secret attributes readable by
- root only
+From 5bf2ae8b131d4ae9c0ed5f7aa02532645f512022 Mon Sep 17 00:00:00 2001
+From: Guangshuo Li <lgs201920130244@gmail.com>
+Date: Thu, 24 Sep 2026 22:43:55 +0800
+Subject: [PATCH] mfd: ab8500: Fix child device leaks on probe failure
 
-The dhchap_secret and dhchap_ctrl_secret sysfs attributes have mode
-0644. Their show functions return the secret, so any local user can
-read the DH-HMAC-CHAP secrets of a connected controller.
+ab8500_probe() registers MFD child devices before completing the
+remaining device initialization. If a later MFD registration or sysfs
+group creation fails, previously registered child devices are not
+removed.
 
-Define them with DEVICE_ATTR_ADMIN_RW(), which sets mode 0600. The
-macro takes the show and store functions from the attribute name, so
-rename them. Writing the attributes was already limited to root and is
-not changed.
+Use devm_mfd_add_devices() so registered MFD child devices are removed
+when probe fails.
 
-Fixes: f50fff73d620 ("nvme: implement In-Band authentication")
+The issue was identified by a static analysis tool I developed and
+confirmed by manual review.
+
+Fixes: cca69b67b3ba ("mfd: Export ab8500 chip id to sysfs")
+Fixes: 9c717cf3fa16 ("mfd: ab8500-core: Add device for new RTC version for AB8540 cut2")
 Cc: stable@vger.kernel.org
-Reviewed-by: Daniel Wagner <dwagner@suse.de>
-Assisted-by: LLM
-Signed-off-by: Martin Belanger <martin.nvme.dev@gmail.com>
-Signed-off-by: Keith Busch <kbusch@kernel.org>
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Link: https://patch.msgid.link/20260924144355.1604369-1-lgs201920130244@gmail.com
+Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/nvme/host/sysfs.c | 14 ++++++--------
- 1 file changed, 6 insertions(+), 8 deletions(-)
+ drivers/mfd/ab8500-core.c | 44 ++++++++++++++++++++-------------------
+ 1 file changed, 23 insertions(+), 21 deletions(-)
 
-diff --git a/drivers/nvme/host/sysfs.c b/drivers/nvme/host/sysfs.c
-index b3abb852a3ecb..5224597a32f1d 100644
---- a/drivers/nvme/host/sysfs.c
-+++ b/drivers/nvme/host/sysfs.c
-@@ -813,7 +813,7 @@ static DEVICE_ATTR(io_timeout, S_IRUGO | S_IWUSR,
- 	nvme_io_timeout_show, nvme_io_timeout_store);
+diff --git a/drivers/mfd/ab8500-core.c b/drivers/mfd/ab8500-core.c
+index ceea1ae34dd89..d5602b2f4a0e8 100644
+--- a/drivers/mfd/ab8500-core.c
++++ b/drivers/mfd/ab8500-core.c
+@@ -1194,39 +1194,41 @@ static int ab8500_probe(struct platform_device *pdev)
+ 		return ret;
  
- #ifdef CONFIG_NVME_HOST_AUTH
--static ssize_t nvme_ctrl_dhchap_secret_show(struct device *dev,
-+static ssize_t dhchap_secret_show(struct device *dev,
- 		struct device_attribute *attr, char *buf)
- {
- 	struct nvme_ctrl *ctrl = dev_get_drvdata(dev);
-@@ -824,7 +824,7 @@ static ssize_t nvme_ctrl_dhchap_secret_show(struct device *dev,
- 	return sysfs_emit(buf, "%s\n", opts->dhchap_secret);
- }
+ 	if (is_ab9540(ab8500))
+-		ret = mfd_add_devices(ab8500->dev, 0, ab9540_devs,
+-				ARRAY_SIZE(ab9540_devs), NULL,
+-				0, ab8500->domain);
++		ret = devm_mfd_add_devices(ab8500->dev, 0, ab9540_devs,
++					   ARRAY_SIZE(ab9540_devs), NULL,
++					   0, ab8500->domain);
+ 	else if (is_ab8540(ab8500)) {
+-		ret = mfd_add_devices(ab8500->dev, 0, ab8540_devs,
+-			      ARRAY_SIZE(ab8540_devs), NULL,
+-			      0, ab8500->domain);
++		ret = devm_mfd_add_devices(ab8500->dev, 0, ab8540_devs,
++					   ARRAY_SIZE(ab8540_devs), NULL,
++					   0, ab8500->domain);
+ 		if (ret)
+ 			return ret;
  
--static ssize_t nvme_ctrl_dhchap_secret_store(struct device *dev,
-+static ssize_t dhchap_secret_store(struct device *dev,
- 		struct device_attribute *attr, const char *buf, size_t count)
- {
- 	struct nvme_ctrl *ctrl = dev_get_drvdata(dev);
-@@ -868,10 +868,9 @@ static ssize_t nvme_ctrl_dhchap_secret_store(struct device *dev,
- 	return count;
- }
+ 		if (is_ab8540_1p2_or_earlier(ab8500))
+-			ret = mfd_add_devices(ab8500->dev, 0, ab8540_cut1_devs,
+-			      ARRAY_SIZE(ab8540_cut1_devs), NULL,
+-			      0, ab8500->domain);
++			ret = devm_mfd_add_devices(ab8500->dev, 0,
++						   ab8540_cut1_devs,
++						   ARRAY_SIZE(ab8540_cut1_devs),
++						   NULL, 0, ab8500->domain);
+ 		else /* ab8540 >= cut2 */
+-			ret = mfd_add_devices(ab8500->dev, 0, ab8540_cut2_devs,
+-			      ARRAY_SIZE(ab8540_cut2_devs), NULL,
+-			      0, ab8500->domain);
++			ret = devm_mfd_add_devices(ab8500->dev, 0,
++						   ab8540_cut2_devs,
++						   ARRAY_SIZE(ab8540_cut2_devs),
++						   NULL, 0, ab8500->domain);
+ 	} else if (is_ab8505(ab8500))
+-		ret = mfd_add_devices(ab8500->dev, 0, ab8505_devs,
+-			      ARRAY_SIZE(ab8505_devs), NULL,
+-			      0, ab8500->domain);
++		ret = devm_mfd_add_devices(ab8500->dev, 0, ab8505_devs,
++					   ARRAY_SIZE(ab8505_devs), NULL,
++					   0, ab8500->domain);
+ 	else
+-		ret = mfd_add_devices(ab8500->dev, 0, ab8500_devs,
+-				ARRAY_SIZE(ab8500_devs), NULL,
+-				0, ab8500->domain);
++		ret = devm_mfd_add_devices(ab8500->dev, 0, ab8500_devs,
++					   ARRAY_SIZE(ab8500_devs), NULL,
++					   0, ab8500->domain);
+ 	if (ret)
+ 		return ret;
  
--static DEVICE_ATTR(dhchap_secret, S_IRUGO | S_IWUSR,
--	nvme_ctrl_dhchap_secret_show, nvme_ctrl_dhchap_secret_store);
-+static DEVICE_ATTR_ADMIN_RW(dhchap_secret);
+ 	/* Add battery management devices */
+-	ret = mfd_add_devices(ab8500->dev, 0, ab8500_bm_devs,
+-			      ARRAY_SIZE(ab8500_bm_devs), NULL,
+-			      0, ab8500->domain);
++	ret = devm_mfd_add_devices(ab8500->dev, 0, ab8500_bm_devs,
++				   ARRAY_SIZE(ab8500_bm_devs), NULL,
++				   0, ab8500->domain);
+ 	if (ret)
+ 		dev_err(ab8500->dev, "error adding bm devices\n");
  
--static ssize_t nvme_ctrl_dhchap_ctrl_secret_show(struct device *dev,
-+static ssize_t dhchap_ctrl_secret_show(struct device *dev,
- 		struct device_attribute *attr, char *buf)
- {
- 	struct nvme_ctrl *ctrl = dev_get_drvdata(dev);
-@@ -882,7 +881,7 @@ static ssize_t nvme_ctrl_dhchap_ctrl_secret_show(struct device *dev,
- 	return sysfs_emit(buf, "%s\n", opts->dhchap_ctrl_secret);
- }
- 
--static ssize_t nvme_ctrl_dhchap_ctrl_secret_store(struct device *dev,
-+static ssize_t dhchap_ctrl_secret_store(struct device *dev,
- 		struct device_attribute *attr, const char *buf, size_t count)
- {
- 	struct nvme_ctrl *ctrl = dev_get_drvdata(dev);
-@@ -926,8 +925,7 @@ static ssize_t nvme_ctrl_dhchap_ctrl_secret_store(struct device *dev,
- 	return count;
- }
- 
--static DEVICE_ATTR(dhchap_ctrl_secret, S_IRUGO | S_IWUSR,
--	nvme_ctrl_dhchap_ctrl_secret_show, nvme_ctrl_dhchap_ctrl_secret_store);
-+static DEVICE_ATTR_ADMIN_RW(dhchap_ctrl_secret);
- #endif
- 
- static struct attribute *nvme_dev_attrs[] = {
 -- 
 2.53.0
 
