@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794068226;
-	b=C3i6b0lR1gisTZjton/9eIeVDhKPXkwuu4cjYDJ/QilOuua09fCyOAFI1jSbr7zNpuh7
-	 vzpDKezGHLMbqxIYKAVVFq63unD/Ud4S2Jvox8/c4bJKLkLn3cMlAgbtxDv9b1c3zeJ5Q
-	 PJdmB/DRAjRZqqU/Hx+3JPGezN7lIm3sOtxnTMKpdOuzgwIa4fq54Io+z2H6msTctVCtC
-	 sgX3ztLndB0PLPiZDSXNJ8so4vA4tRCvI2CpAiI9IVhinwpczYqdB+gCMqECbx0ZUQKVN
-	 SNxzSqi5PfhzjOXU3Z7OmGwjYbVKC0pMj+ti4S1OTfQS5gLXoR+jRpUd+XG3zRRitTA==
+	t=1794068227;
+	b=WAaZHJOEMF4vTruLawuY3EEzxRwytx0Uh+HSbr42H7UniKztQMWlbRgz2BI7l/q6pTc6
+	 3eLMV23/lC7AbftQ2HTG9xrtvsjluOdxuB6ScfVFtmyDLJRoMWfPnaui0f3wb8i2voB52
+	 tFi2Uty3hcHMMga537zduzdDfs2B8NLW6w8WW6MVjClcFTmzn1Kt+kE736Jqji+kFm8Ig
+	 XUMdxFlG4zOVgw/9WacFSgfCI0qJwpkSxKi5UYmVZaVyBEoHotDYthqRniMrNTMhglh9p
+	 8lItpQ6fW2Frai8OOaksmVlkjVPt6OztLLzeWkNV/pR5/O7w/SMWDQV650ObK6INmFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794068226;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794068227;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=injL/0Nt+o+8Nf6SGEU7kdyKividSNLGZXFhmJ9vPMc=;
-	b=Q+HmN4uDyvQfn0BsnmRgnFXKaV2CttILqxeSvCH/Hqse6MsFqwZF2QDwKYlLWMGfj+WD
-	 cSJqPfbcacdoHF+HPv5DNFTM2YsEm3cVYFrD8iVQ4IqR8jnzIGVJs68AJObUBXvhYxfay
-	 pVV7bhfyJYdmgMdrLNbljvPAikIm7sm1SMHfATNyHUs0myvsL2vs1/vOnG+Spgpx7QOpO
-	 fWwpgOo1WavCG8+2zLkyTpvRWqHl5GQhNM+7KZ1Om1YdKM3M2wBN23ca+tk7RKjilmRrB
-	 PH5sajybSDWm7w8gwepewNB0o9qqUykGlwXdijHj4OOiPV9EKy0LxV7lBgcDHd2Vxnw==
+	bh=80NHUdfBUevINay9/ZU6VPfFS6YJqKUSm4yVfpp6zWM=;
+	b=kGB1h0K/ryzwTuh5ZQ/WLkarGC18sZDCqRqg0TF5u5r2+tPBJGR8x/K4YyLYsouEpPNC
+	 rthb7e4pLmmCSln8n6p14pZ7U8SqRL7WIQxcLIjE/3MflVSpbqTRZNBXp6eMJIQ9tn/De
+	 LdjnR6dLEv5R5GnUOQzdJjuhZOG3RzGujoX8P1kdpbHixgeBNniHwNj14UG69ijNEqeuf
+	 8d+gT/kmS+ecqRBdFKpTrtQLWnPNUY1NveIkfCxBuT+FFztIIWwa6bj57XSQYv09RykuW
+	 zK599xcdkRrpSr6e9+CwioJ4evIP6MAtd9GCrv8VaVijh/UPiIYJmr3znb1S+1kSOLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=kernel.dk;
 	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=ZjfVg5Iy;
-	arc=none smtp.remote-ip=209.85.215.180
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b="n2iCf2L/";
+	arc=none smtp.remote-ip=209.85.215.182
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC184606D3DE
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 16:17:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC184606D3DE
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC1A5606AC13
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 16:17:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC1A5606AC13
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=ZjfVg5Iy
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cdb681db419so126567a12.1
-        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 08:17:05 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=n2iCf2L/
+Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cdb2893531bso916517a12.1
+        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 08:17:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1794068225; x=1794673025; darn=vger.kernel.org;
+        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1794068226; x=1794673026; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=injL/0Nt+o+8Nf6SGEU7kdyKividSNLGZXFhmJ9vPMc=;
-        b=ZjfVg5IyRVRCq6JPTyhIWpDSdbW5AxgpHzvbnR4gyGKoowzF7r5Asr6+I+3pe0LsNv
-         0xLsE4dQlgL4Lb2NXLzEkrTGd6fevGqGNI0rCwaNGg8GtF0Se2dMLHTtgPI0vnoCOT6L
-         9XepuF8O1YxACUU0bPaVTxX0cpufhwrDbfXTZxzYdC7vKZrUuaN47WpnTiavwhtd341P
-         IrO5+wRcqA4R8jeu6uBzrfBpjwHtvRVucST3Sc5thdvWaOiQ5jIceu4vOqWPGDgmZ3n7
-         WwjVe0LCnuAPz5nsr84WPqxihvIFlkwyqPikuZ266TrVplBcQjSAg7BSFFmjjyMO/OBy
-         DQuQ==
+        bh=80NHUdfBUevINay9/ZU6VPfFS6YJqKUSm4yVfpp6zWM=;
+        b=n2iCf2L/vIP4eW5BtvCPfcK+HBmBvH6JiGENKI0JJ1c9ciGnBdoHi2UkdWIkz79+4n
+         /KYAqiYu5DOnrfXKkDHTVgSa/yYJO0oIhVEgqB3AKUGPGK0rMnuBs6jPU9xRB7tw8Nsv
+         f8pOcDlAT0WygtaCRrXHl68DzDIy6Mebi/7ZkStwC/pxCurX9/70RdEpjEb0jawQZpx0
+         16z2rhRbKRVwgIjElYo0yk43Cuwo/7u/FlLGUFOH6GFkkuExMuxI+I/TJpsmBDknQBtf
+         /HLqWW7uT6dkSLgFDdqXruoliHWvNf8miQ1mJGdaPmS99iQd1aWKNS/XmqHQq6ComJ3V
+         xtog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794068225; x=1794673025;
+        d=1e100.net; s=20260707; t=1794068226; x=1794673026;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=injL/0Nt+o+8Nf6SGEU7kdyKividSNLGZXFhmJ9vPMc=;
-        b=oDDLBjHDctsGyN7bmG153r8EqiMpQ+6muwWw8O7nAoPA3mClVGQkupRdh3zY/JU46i
-         31pt+d2AHp+plFtjsL8ifwJjuUrIpg08K3No1QOgO0ICOyX3+QurXDc2jbIwBR3Y/rqC
-         4zBfErqOu60w2BRkN8wKjpkKgjzcZonmMnmuSDvALHzoON84cZCrAS1Vgk2H2pBBGGNR
-         0db1uBsSoDg2cArEx1nEq+PpMXoHGBeV50s4a1Mv8qJma0jqgd2ehpUjtYKEgqhmLgEA
-         Ehle2SWoBjKdDBUkENP15CqjfbrstDGrX+6GOqBK+BlUT751DFjPiusja1Fr/039+iFH
-         27WQ==
-X-Gm-Message-State: APuU4Z+4Ee4Cp76SIKAFtrI69oueXe5yGo7ML4bri2XWgk6I4akYMo4Y
-	bc0rMD+Y2yJvdOFlZF1gPBryzgFwp565/gs5hk1VyjVzU39DR28uKk/sBkfXFLHEmDtpcG/eadg
-	SYz9/MMA=
-X-Gm-Gg: AYBFou0AFY/vC4+KNfKqvk227lKDd979Pcm2WMMVU4kZGK5BlmM66f7RYlk1QFOvylo
-	Jk8jJqBcVzw9CsgwaWwQavgMwJAGJIcCJWFW7w0I85AcFyhKnacyLvDGo4a9MwREuO+klCN9C+s
-	BXCc2xqrjxlVsKPqpjAKDwWEzoxRk4VlpF49WaMAjPAqQEVkRowqG8JlJFnDbhNqdR19LOY9KUX
-	kdqGXNNFgg2Bfi2+h6sDCo2jeE00zNhZNGNkenXnCNjRozH5ggKyWLg+GU2s77GxHyXXd/T/RQH
-	jeNjcaAOShzpwo/qegtk6o3kS774HD9MqdY+m+4TK1q+PdDcg9beAF7Inu/Ir5ebpYBYz2GAFrB
-	14hkZ6lWOP6Co2laAaUKpXfWIgGP+HuOuD2LdZXBPke7JI/i3G/OjveYiW3ob3KEgOJsudtHDV2
-	VQ8LJADVkpOBGA173owhIhTecBvm2IkI0dKjn7vlm35g2YhHR1erEfTj/Wd+0TRndYDkgBcKeNP
-	OQ5xY4DM30cI/AIfiZG2nhoSaDnVVrwM/mlmz4I5y/419gfGjrsr0kzT17Gh5qPo7NuHnv/PCkt
-	MJ76Jo3kD+c1X7fRs8d+jseuFjNnrxfFciOA/Adhq+1RBgu62Epx2h46LwknzffZrtvxKc24rKB
-	al7kh02QT+XBH8pTzoTu7
-X-Received: by 2002:a17:90b:2f4e:b0:39e:6c68:fd91 with SMTP id 98e67ed59e1d1-3b1065a4d96mr1522208a91.38.1794068225098;
-        Sat, 07 Nov 2026 08:17:05 -0800 (PST)
+        bh=80NHUdfBUevINay9/ZU6VPfFS6YJqKUSm4yVfpp6zWM=;
+        b=vR2ieU1BihAzuU/OsGHFs4/dZI3ju4MG94VxDqM0BkJPkVzFnca6oVJx76RKFG2cRf
+         6xwtEx7uJ8gakR4E5FQDXvaYuFFAXGzd04B/xpg2MBslZ5t41XnSXrvS/dZOFgLHzgl1
+         ovHzf7d7Ln+9MbuFC6EwWPmdbh2YLuw4XJ99fd5W0fs0rdBJ4WnqiOTrQa0uvg6s/AMv
+         0DHNX492za3OW+ygIqXjUGCz4G4s88xwz0NBLDs7bnXCjrUppvO113Tv+wwcToDcijqU
+         B6pf8VvSMikL/1Ilil2ZDZUcY8ACLRs6PsCdlO4vZDxGX3hMVoJLm9OHUvgVX16xCROJ
+         Xbxw==
+X-Gm-Message-State: APuU4Z84tE0B0Ob4iF8bTFzueM99omR4bRARQCjP/w5p4yGw3WXQm4fW
+	dbjw0NuDB7O+P5lKWqkfcqgjPhZi8DS7BxdCRV9JaGayOiXmMFw0boIQROVB7Lz8bPvSy7su/x7
+	2Iipr
+X-Gm-Gg: AYBFou1V4owE8ZEZQLgiAoE+aNl2VQ8QZEFDKY64H1xMfbrepRTixypFztw1DvORI0j
+	uzRRoT3zlcgPBQ3rnHparnMyaLrz8aSL4qq6VtkMAT4cn3q05dj8FaIUQ38lqDrDus+df4oKeAC
+	YmpqzvsLSKhM1yHC6IFjK4LyBk8cvaDEOB5tjld6iOdgMHfr+l/wR2nFmbz064kjzaaoR4IC0Ok
+	9hxi0D14li+MuYCfO4mZ2leZ0NVP93DWUmvSfczdKGUlsfMAH4+ttIvHH87Txwoj7NkVRB//0iP
+	lR5XChGes75wDcl0SuEpV9Yi/3eqQ91INFQGj+bwSENu80Ojds43mMK5+qSlFiPaEWfYJfYw8Sp
+	jW9VLCB3CdEGbpQCVOn3FzXAAWK6YhOxSyAi/HIJfutCky+MTcMUCDkObRIvNNfbinJ5I9UhFsC
+	A6v8+WWBPep88PO7OabSsct/UOYAxV1MyWvg5Nu+l5wTF9C1NkVuBljAuOYql2S3doqpdo6fks3
+	BMLPw/15y/U4I+pNQ/xGAhVq3M057lBTDlzP9z5eMlOT31gIzjG1c8lWRCO37R/beq8tWXar3cQ
+	Diat1jAmRgwjwS9wG7PtOCM2kzlCqwaMTttS9WDZMv9JnVhFxqXGq0gfq1iCIrqjGA/W7J265B2
+	l04sKXHLqIjsg4LLYMbP8
+X-Received: by 2002:a17:90b:4b8e:b0:3aa:6b5d:a00a with SMTP id 98e67ed59e1d1-3b0db70a29emr6105227a91.53.1794068226238;
+        Sat, 07 Nov 2026 08:17:06 -0800 (PST)
 Received: from xps16 ([198.8.77.135])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1058a7b29sm3732962a91.10.2026.11.07.08.17.03
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1058a7b29sm3732962a91.10.2026.11.07.08.17.05
         for <stable@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 08:17:04 -0800 (PST)
+        Sat, 07 Nov 2026 08:17:05 -0800 (PST)
 From: Jens Axboe <axboe@kernel.dk>
 To: stable@vger.kernel.org
-Subject: [PATCH 7.3.y 4/9] io_uring/sqpoll: do the return-to-userspace work in the SQPOLL thread
-Date: Sat,  7 Nov 2026 09:16:51 -0700
-Message-ID: <20261107161656.2500790-5-axboe@kernel.dk>
+Subject: [PATCH 7.3.y 5/9] io_uring/cancel: count all requests that a CANCEL_ALL cancels
+Date: Sat,  7 Nov 2026 09:16:52 -0700
+Message-ID: <20261107161656.2500790-6-axboe@kernel.dk>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261107161656.2500790-1-axboe@kernel.dk>
 References: <20261107161656.2500790-1-axboe@kernel.dk>
@@ -99,69 +99,41 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Shakeel Butt <shakeel.butt@linux.dev>
+From: Shang En Sim <sim@shangen.org>
 
-Commit f013b695506491c5202a412a6568313549c81f50 upstream.
+Commit 21ddbb14f7c3baab50a2a6c13ee375edc2bbe031 upstream.
 
-The SQPOLL thread never returns to userspace. io_sq_tw() runs its
-task_work, but the rest of resume_user_mode_work(), like memory.high
-reclaim and block cgroup throttling, only runs when the thread exits.
-So memory.high reclaim only happens inside a charge, with sqd->lock and
-ctx->uring_lock held, and not at all if the charges can't block.
+With IORING_ASYNC_CANCEL_ALL, __io_async_cancel() counts one for each
+io_try_cancel() call that cancels something. io_futex_cancel() and
+io_waitid_cancel() cancel every match in one call and return how many,
+so four futex waits cancelled with CANCEL_ALL give a result of 1.
 
-This used to work. The loop called io_run_task_work(), which does this
-work since commit b5d3ae202fbf ("io_uring: handle TIF_NOTIFY_RESUME
-when checking for task_work"). Commit af5d68f8892f ("io_uring/sqpoll:
-manage task_work privately") replaced that call with io_sq_tw().
+Add the number that they return.
 
-Call resume_user_mode_work() at the top of the loop when
-TIF_NOTIFY_RESUME is set, with sqd->lock dropped. It runs once per pass,
-so a pass that charges two or more batches still reclaims inside the
-charge, as before.
-
-Tested in a VM with memory.high=64M and swap on zram. An SQPOLL ring
-reads 256M from /dev/zero into untouched memory, 64K at a time. Before,
-the thread made 337 calls to __mem_cgroup_handle_over_high(), all from
-inside the charge. After, it makes 704, all from the top of the loop.
-memory.peak stays at 64M. With 1M reads, 296 of its 385 calls still come
-from inside the charge. Both runs take about 50% longer, and the extra
-time is in the handler, which now runs more often. Without memory.high
-pressure, the test never calls resume_user_mode_work() and the times
-do not change. Lockdep showed no warnings, also with io_uring_register()
-racing for sqd->lock.
-
-Fixes: af5d68f8892f ("io_uring/sqpoll: manage task_work privately")
 Cc: stable@vger.kernel.org
-Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
-Link: https://patch.msgid.link/20261101022146.309201-1-shakeel.butt@linux.dev
+Fixes: 194bb58c6090 ("io_uring: add support for futex wake and wait")
+Fixes: f31ecf671ddc ("io_uring: add IORING_OP_WAITID support")
+Signed-off-by: Shang En Sim <sim@shangen.org>
+Link: https://patch.msgid.link/20261030050319.1448530-2-sim@shangen.org
 Signed-off-by: Jens Axboe <axboe@kernel.dk>
 ---
- io_uring/sqpoll.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ io_uring/cancel.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/io_uring/sqpoll.c b/io_uring/sqpoll.c
-index e86658ede44b..d387488db2de 100644
---- a/io_uring/sqpoll.c
-+++ b/io_uring/sqpoll.c
-@@ -349,6 +349,18 @@ static int io_sq_thread(void *data)
- 			timeout = jiffies + sqd->sq_thread_idle;
- 		}
+diff --git a/io_uring/cancel.c b/io_uring/cancel.c
+index c7ed51377dea..a34543cb423c 100644
+--- a/io_uring/cancel.c
++++ b/io_uring/cancel.c
+@@ -198,7 +198,8 @@ static int __io_async_cancel(struct io_cancel_data *cd,
+ 			break;
+ 		if (!all)
+ 			return ret;
+-		nr++;
++		/* futex and waitid return how many they cancelled */
++		nr += max(ret, 1);
+ 	} while (1);
  
-+		/*
-+		 * The SQPOLL thread never returns to userspace, so do the
-+		 * return-to-userspace work, like memory.high reclaim, here.
-+		 * It can sleep for a long time, so drop sqd->lock.
-+		 */
-+		if (test_thread_flag(TIF_NOTIFY_RESUME)) {
-+			mutex_unlock(&sqd->lock);
-+			resume_user_mode_work(NULL);
-+			mutex_lock(&sqd->lock);
-+			sqd->sq_cpu = raw_smp_processor_id();
-+		}
-+
- 		cap_entries = !list_is_singular(&sqd->ctx_list);
- 		list_for_each_entry(ctx, &sqd->ctx_list, sqd_list) {
- 			int ret;
+ 	/* slow path, try all io-wq's */
 -- 
 2.56.0
 
