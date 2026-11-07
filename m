@@ -1,79 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=85.220.129.31
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794069977;
-	b=jq5d04HINNao+MNMYfA1VT20zEAtUiRJjIo9UrKF0daXfp0tYG+3UnqyYosccWnSQ8E/
-	 h/qh0y1K2//p1Dl6qYHSgzp0Ceg3kpVJLWo+NjGVg2puWeLN7Ejbq0TCA/CLenV+OqUHC
-	 w4Qa9F73TypiE5KvcqYqtvUqmukrR6k0j63Ayusw8i86jVDCW/yRzCOnWLmjV7mvvrhTK
-	 RtQigtRPkjIkgMR0+CAsUgFTWHXlg9EBwsJU9fE+bei2q+TRaklolbtOecjDeE0n4K96L
-	 t/sWrm3gRGVkCfxhulFrQBbPSRgBbPuLejPqC77u9lCCypfNl3/NJ22PHME8SCJNcJQ==
+	t=1794070055;
+	b=iVF00dtBU/WvcycG0/2BzcHz9Zg5FhQkEvchfrdzjTnq4dhlbCaLwfVUGjN07lx/zDxR
+	 /fbDKIhCn2AyPTgi5fYPIaLQT7dTcn2W+lqNhaCSM1AJC32sW+vi91A5+Kl/Oqb94uKGI
+	 KXD2p+gdIwVP+j5lDj8w2osSqrAVL5zowPH96Wo2Em2oneUxZCVaMZtPOg2ySbEeE5Ggf
+	 Rc7aCWYuL2tobNM0jPj7+ObYF/SYYfwWwEo2yVx+PTmC7WxPZQhUG7O6XHCxKjWycyf2x
+	 lV9aaK7rM5y5BmF550TCkQKOks/qJhvw1mDnnRTQ3JdYrY350niLj+BMV4CxG+F46jQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794069977;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Rspamd-UID:X-Rspamd-UID;
-	bh=6I864kQ06Ww1PBYLbP02XyZTbz1gYNGAnmhM1JpnMyQ=;
-	b=biGNSo3gpuhzdmlYDCEDDgrVyb/cU4zfwhJhWifb4OEYxhjrem+XXBaZ59bjJr7bAPfv
-	 mRDF7xO950O7GskwWu1Yy0iu6mNqgCLbZEuyYqDxhHFNof5fNxOssi/QN+/bmpaPC0spu
-	 i0O2TNyjTalLKxopLqBAcTWpAvRnQpFqYqIsa+tye3YxLTX1pLrB2js2tau7tzUd6Pzce
-	 GZxVW3977iV7H7VGU0ENm4dBtgOA0t5gC8WPJcK79bBxAj53mNl/9f6OQ8ZCmIbTA8z3O
-	 DPmSKeNapn3fka4Bsh12Af++BFEn45SjgB40rfhIEDDFIfiRuB0pk2ipUj42x2/f2Lw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794070055;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
+	 References:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=ItbgdgnENEoPsdQ6poBV1dztwqhADCnafQjgGSY9xfU=;
+	b=psmEoPEW/FIUmKyvRY1+ohoHZAdhh7nQmRBIvlaqyk/gXBK/MrO5/0EskXNvm5sXJAWr
+	 yFLdlfeECwjMRGqnc+BVIMjUzVwgx7Vi9eNatxXzXtK169rBQ+AiSgzrZ627+VAPMHsN6
+	 /+F3wRd5E+LZlypAMcoljYVMC314zLzoOcHq13Kv1iOOhrX2CQuE0daeOTVAIyxj11D6j
+	 tqGtt5k9jj/9A6zfbBlqftD1ZoImQebUka2zJzgxoK4To80RABVp6GOzVeUszDP3r1RL9
+	 yhRSFnoCGYCnupNYfehzJ1r0iUO8RF9023HjYGxJsHNf4X93GrU/BrePMt66fSoL8Aw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=tk154.de;
-	spf=pass smtp.mailfrom=tk154.de;
-	dkim=pass header.d=tk154.de header.i=@tk154.de header.a=rsa-sha256 header.s=DKIM001 header.b=T7YkE1cy;
-	arc=none smtp.remote-ip=85.220.129.31
-Received: from smtp6.goneo.de (smtp6.goneo.de [85.220.129.31])
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.81
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 524D0606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 16:46:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 524D0606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tk154.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tk154.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tk154.de header.i=@tk154.de header.a=rsa-sha256 header.s=DKIM001 header.b=T7YkE1cy
-Received: from hub2.goneo.de (hub2.goneo.de [IPv6:2001:1640:5::8:53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	by smtp6.goneo.de (Postfix) with ESMTPS id 67DBF2413A5;
-	Sat, 07 Nov 2026 17:46:13 +0100 (CET)
-Received: from hub2.goneo.de (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	by hub2.goneo.de (Postfix) with ESMTPS id 806FC2400CE;
-	Sat, 07 Nov 2026 17:46:11 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tk154.de; s=DKIM001;
-	t=1794069971;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6I864kQ06Ww1PBYLbP02XyZTbz1gYNGAnmhM1JpnMyQ=;
-	b=T7YkE1cyrLVuDBTW/wsPpwkf+9SXY02+g57NXkf04ed2I7WDwgUMT84sY0PZi9peqmUW31
-	8Y5nhiZEedNW3mbBtanfnxi4Lmj+g+dNTlB35VkKkwXrtU0f2etavpCi6DeB4tS8POyewJ
-	pIvlDIaOdDs8Y9qu5OldG6uXkjoCqrvw2AP6UWt6JSjsUEejohewLxbhVgbruPE9mSPjTn
-	GKjzIEZuPnJiMRnPx279woXWQvSWZqxRRRGvYNGayNAQ1vjYLhXSSlScxMTw8/7avYPHDT
-	9ObMuKBbWX6yUkqhAVYeqV6GlYt8iTGNPXJGKR2mb1TIhlu0OQXAIVMhV17HyQ==
-Received: from CASE (unknown [195.37.88.189])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by hub2.goneo.de (Postfix) with ESMTPSA id 367EE240095;
-	Sat, 07 Nov 2026 17:46:11 +0100 (CET)
-From: Til Kaiser <mail@tk154.de>
-To: stable@vger.kernel.org
-Cc: Til Kaiser <mail@tk154.de>,
-	Ido Schimmel <idosch@nvidia.com>,
-	Jakub Kicinski <kuba@kernel.org>
-Subject: [PATCH 5.10.y] mlxsw: Initialize register query payloads
-Date: Sat,  7 Nov 2026 17:46:05 +0100
-Message-ID: <20261107164605.964789-1-mail@tk154.de>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261107062713-failed-5.10-15b7a86a8888@kernel.org>
-References: <20261107062713-failed-5.10-15b7a86a8888@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90D53606A326;
+	Sat,  7 Nov 2026 16:47:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90D53606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from [172.100.0.8] (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowAA3QpMeVu9qDB6CAA--.41016S2;
+	Sun, 08 Nov 2026 00:47:26 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Bin Liu <b-liu@ti.com>,
+ Linus Walleij <linusw@kernel.org>,
+ linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org,
+ vulab@iscas.ac.cn
+Subject:
+ [PATCH v2] usb: musb: ux500: Fix transceiver leak in ux500_musb_init()
+Date: Sat, 07 Nov 2026 16:46:53 +0000
+Message-ID: <20261107164653.481516-1-vulab@iscas.ac.cn>
+In-Reply-To: <2026091648-ozone-opponent-8a42@gregkh>
+References: <20260916165055.2085246-1-vulab@iscas.ac.cn>
+ <2026091648-ozone-opponent-8a42@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,109 +57,79 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-UID: c843a5
-X-Rspamd-UID: 212794
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:rQCowAA3QpMeVu9qDB6CAA--.41016S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Ww48Jw1DGF1UZF1rJF13Arb_yoW8KF15pa
+	y7Gr47CrWDK3yIyF42qr18ZFy8Aa97trWFkry8Z3y3Zr98G3W7WFW5ta4FqFW8Gws3CFW5
+	tr4Yqayv9rsIvaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvS1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AE
+	w4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2
+	IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2
+	jsIE14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJwAS0I0E0xvYzx
+	vE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
+	tVWrXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI4
+	8JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWUAVWUtwCF04k20xvY0x0E
+	wIxGrwCF04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI
+	8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AK
+	xVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI
+	8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280
+	aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43
+	ZEXa7VUjd-PUUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAAEA2rvPp4hhQAAsK
 
-MFGD register queries can exhaust EMAD retries and leave Mellanox
-Spectrum switches stuck during boot or shutdown when running OpenWrt
-built with GCC 15.
+ux500_musb_init() takes a reference on the USB2 transceiver with
+usb_get_phy() and stores it in musb->xceiv. If the following
+usb_register_notifier() fails, the function returns without releasing
+that reference.
 
-An example failure is shown below with the second line wrapped:
+The reference is only dropped in ux500_musb_exit(), and that callback is
+not reached on this path: musb_init_controller() jumps straight to its
+fail1 label when musb_platform_init() returns an error, while
+musb_platform_exit() is only called from the fail2 path. The reference is
+therefore leaked.
 
-  EMAD retries (5/5) (tid=9b544fc100001f35)
-  EMAD reg access failed (tid=9b544fc100001f35,reg_id=90f0(mfgd),
-                          type=query,status=0(operation performed))
+Put the transceiver on the notifier registration failure path. The
+notifier itself does not need to be unregistered, since
+usb_register_notifier() failed and never added it to the chain.
 
-On an SN2100, the failure occurs during driver teardown on reboot.
-On an SN3420, it occurs while probing mlxsw_spectrum during boot.
+The bug was found with a static analysis tool; the candidate was then
+audited and the fix written with the help of DeepSeek-V4.1-Flash and
+GPT-6.1-Sol, and the result was checked by hand before submission.
 
-The register query API transmits the supplied payload to the device
-before replacing it with the response. Both MFGD callers pass an
-uninitialized stack buffer, so the request contains arbitrary register
-field values and reserved bits. This makes the request depend on stack
-contents and compiler code generation.
-
-Initialize both MFGD query buffers in the firmware fatal event
-configuration and reporter test paths. The initialization has been
-confirmed to eliminate the boot and shutdown hangs on both switches.
-The subsequent read-modify-write still preserves the other fields
-returned by the device.
-
-Also initialize the FORE fan fault query and the MOGCR mirroring policer
-base query, which pass entirely uninitialized payloads.
-
-This follows commit 5b0907407e7f ("mlxsw: core: Zero payload buffers for
-couple of registers"), which initialized other query payloads after a
-firmware field length bug caused firmware to consume uninitialized data.
-
-Tested with firmware 2020.1148 and with 2016.3900 from linux-firmware.
-
-Fixes: 7d83ee111008 ("mlxsw: core: Introduce fw_fatal health reporter")
-Fixes: 2c6a33cd334b ("mlxsw: core: Extend hwmon interface with fan fault attribute")
-Fixes: 4039504e6a0c ("mlxsw: spectrum_span: Allow setting policer on a SPAN agent")
+Fixes: 0135522c4898 ("usb: musb: ux500: add otg notifier support")
 Cc: stable@vger.kernel.org
-Signed-off-by: Til Kaiser <mail@tk154.de>
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
-Link: https://patch.msgid.link/20261014173117.26305-1-mail@tk154.de
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-(cherry picked from commit 15b7a86a8888dc6a8fd19e181757e32389de9064)
-[ Dropped the mtmp_pl hunk: already zero-initialized in 5.10.y. ]
-Signed-off-by: Til Kaiser <mail@tk154.de>
+Link: https://lore.kernel.org/all/20260916165055.2085246-1-vulab@iscas.ac.cn/
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/net/ethernet/mellanox/mlxsw/core.c          | 4 ++--
- drivers/net/ethernet/mellanox/mlxsw/core_hwmon.c    | 2 +-
- drivers/net/ethernet/mellanox/mlxsw/spectrum_span.c | 2 +-
- 3 files changed, 4 insertions(+), 4 deletions(-)
+Changes in v2:
+ - Do not add the Assisted-by trailer: current checkpatch.pl reports it as a
+   non-standard signature, and Documentation/process/generated-content.rst
+   asks for the tooling to be described in the changelog, which the commit
+   message now does. Say the word if you would rather have the trailer and
+   I will add it back.
+ - Explain why musb_platform_exit() is not reached on this path, so the added
+   usb_put_phy() cannot double-put.
+ - Code unchanged from v1, so Linus's Reviewed-by is kept.
+ - Sorry it took me this long to come back, and sorry for the extra work of
+   chasing it.
 
-diff --git a/drivers/net/ethernet/mellanox/mlxsw/core.c b/drivers/net/ethernet/mellanox/mlxsw/core.c
-index f568ae250393..cebfdeb22809 100644
---- a/drivers/net/ethernet/mellanox/mlxsw/core.c
-+++ b/drivers/net/ethernet/mellanox/mlxsw/core.c
-@@ -1781,7 +1781,7 @@ mlxsw_core_health_fw_fatal_test(struct devlink_health_reporter *reporter,
- 				struct netlink_ext_ack *extack)
- {
- 	struct mlxsw_core *mlxsw_core = devlink_health_reporter_priv(reporter);
--	char mfgd_pl[MLXSW_REG_MFGD_LEN];
-+	char mfgd_pl[MLXSW_REG_MFGD_LEN] = {0};
- 	int err;
+ drivers/usb/musb/ux500.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/usb/musb/ux500.c b/drivers/usb/musb/ux500.c
+index 8c2a43d992f5..14c5e986937e 100644
+--- a/drivers/usb/musb/ux500.c
++++ b/drivers/usb/musb/ux500.c
+@@ -155,6 +155,7 @@ static int ux500_musb_init(struct musb *musb)
+ 	status = usb_register_notifier(musb->xceiv, &musb->nb);
+ 	if (status < 0) {
+ 		dev_dbg(musb->controller, "notification register failed\n");
++		usb_put_phy(musb->xceiv);
+ 		return status;
+ 	}
  
- 	/* Read the register first to make sure no other bits are changed. */
-@@ -1802,7 +1802,7 @@ mlxsw_core_health_fw_fatal_ops = {
- static int mlxsw_core_health_fw_fatal_config(struct mlxsw_core *mlxsw_core,
- 					     bool enable)
- {
--	char mfgd_pl[MLXSW_REG_MFGD_LEN];
-+	char mfgd_pl[MLXSW_REG_MFGD_LEN] = {0};
- 	int err;
- 
- 	/* Read the register first to make sure no other bits are changed. */
-diff --git a/drivers/net/ethernet/mellanox/mlxsw/core_hwmon.c b/drivers/net/ethernet/mellanox/mlxsw/core_hwmon.c
-index 2196c946698a..bb9c71a9ea43 100644
---- a/drivers/net/ethernet/mellanox/mlxsw/core_hwmon.c
-+++ b/drivers/net/ethernet/mellanox/mlxsw/core_hwmon.c
-@@ -160,7 +160,7 @@ static ssize_t mlxsw_hwmon_fan_fault_show(struct device *dev,
- 	struct mlxsw_hwmon_attr *mlwsw_hwmon_attr =
- 			container_of(attr, struct mlxsw_hwmon_attr, dev_attr);
- 	struct mlxsw_hwmon *mlxsw_hwmon = mlwsw_hwmon_attr->hwmon;
--	char fore_pl[MLXSW_REG_FORE_LEN];
-+	char fore_pl[MLXSW_REG_FORE_LEN] = {0};
- 	bool fault;
- 	int err;
- 
-diff --git a/drivers/net/ethernet/mellanox/mlxsw/spectrum_span.c b/drivers/net/ethernet/mellanox/mlxsw/spectrum_span.c
-index cdb47486f377..35f6dbb52b49 100644
---- a/drivers/net/ethernet/mellanox/mlxsw/spectrum_span.c
-+++ b/drivers/net/ethernet/mellanox/mlxsw/spectrum_span.c
-@@ -1690,7 +1690,7 @@ static int mlxsw_sp2_span_init(struct mlxsw_sp *mlxsw_sp)
- static int mlxsw_sp2_span_policer_id_base_set(struct mlxsw_sp *mlxsw_sp,
- 					      u16 policer_id_base)
- {
--	char mogcr_pl[MLXSW_REG_MOGCR_LEN];
-+	char mogcr_pl[MLXSW_REG_MOGCR_LEN] = {0};
- 	int err;
- 
- 	err = mlxsw_reg_query(mlxsw_sp->core, MLXSW_REG(mogcr), mogcr_pl);
 -- 
-2.56.0
+2.34.1
 
