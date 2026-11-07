@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047745;
-	b=CTcJPyTAFrI5V5QtDsPKQFN3HJBis7zCpj1DlQq0C2qxuRKpZBOtKB3ftErPJpABYc9S
-	 DH9JmB1GydCYprz8/P+sj54cHpocVUf+Y2g7eE2u/jsoIWmp9WfWDtViJ8n89WzvbY8ox
-	 SieaAiANUmnS3/jfbQiGKCMwcOt5bHBdK2Av8F46bwnIYabRIJ5qaO1eT9y7SeCWjG41u
-	 2AP1IwfgO58tBYypwsQRDLVq2RO1ug55yUELkY7UALbP4nsZp+YHWsIcZXtq4fMNW4g5u
-	 IoLS/Swwe3G4Z1PbGGWfL1ouSaonw4U0GXp0ceITq3cTh4BdX2Hs6nEf+FpXtbBy1Tw==
+	t=1794047747;
+	b=XblsPzd7PPZ8pe5cWZL+cnY4MFiTzd/jKwyzu8UjG2Ez0rmQljQqd4qU0OOGqPVW2yup
+	 TPtzt/hhqoWDBWRNlc/g0XOleizW95Bxkb2IupB+hoy0NpglLu6vUYgEVl73vBKIocboe
+	 Fkd9DcLVeNdyi7rcED73629r5wtb3qOwajkgYjqFbE9AJKztXeVWpnbLdWmU9eVSlMLgX
+	 D+EEy0ppzj1DuQ1s5aRILubYZ0DENrI+2UI0cGd2AxpIiVdAOORdA/u+4tZeRLLCfZRIM
+	 dqKQKeQw0qyRj5QyDo6jYJjCdrWnSOoGb0+xyz9IE9JRKTrb+VBBTVstPYHkW25LI8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047745;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047747;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=UXqYFvYNT45rmA2W8Yfn50eEJx6E/quMOb2NpzyEAZI=;
-	b=4gk+duWhzS2LzCRFdSv4/HKHEv4bE4hz8lU7tEIrR7xMDtkXSgcPVL00JXHlV/81szNy
-	 tWcLGqWlNVCYlc/G30fMbWzvj81ErYQUNtJeIxlrEDgNT3XoBQ3uC97rsGO35PgFZUqAP
-	 eLQJp4ys2fFa0Linq0zKGPLj+1l0trdbkTJ7h7lSnLIBZ48NSa+PsEEaDayMHeoF9CI+W
-	 wFE290OkH/wwiTGfX9oybpb1Pajr/Jo4nrQBpklvM+SERIJUjgcBVUsimu19zxnxW0POS
-	 HE+cJkCfcUbjne9/IFqg2gpRE4kxwyvbcjAg0LGUadoiC4T2L/hPkMhLGQ5RoD7kyDQ==
+	bh=VJ95YSU3lSnTO3eaKvNfV+NpW3sV099SDandAuCAKIY=;
+	b=4VdLpRGEZvBFHL4sk0Els2+6tf03xDWyK4WNJa4me9dLhlJqVP4jhmINOFtERW2c8TPc
+	 8ablMVS1pmDoZOHf34ZmKReTbC9zPnZkHvg+pzKt1/BfcKw25C834WLrnykIqpuNmko7W
+	 ac8cGA6jpGr/Py1H/f45jW1YzM5gRAwbM8lrL4PAUGC3/0/gi9Hli1+kzJX4ZDcrFpSl+
+	 Gm3wUSfFYBlYhHetKU9K0IrbWRL8tb7Ss2wpm7PTKvIrvmqwhMa2kUpnxQk6dN8J/sC6P
+	 CqOso0AxWg8E3mD/3GdqhMGLaA3CovM6amZWVUFAwtytxTg2M4m/KfdjXskIBYcmc5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eLtYD+SV;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aF4Vfp4M;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7678606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:35:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 004A2606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:35:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eLtYD+SV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 574A11F0089F;
-	Sat,  7 Nov 2026 10:35:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aF4Vfp4M
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58B7D1F0089F;
+	Sat,  7 Nov 2026 10:35:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047744;
-	bh=UXqYFvYNT45rmA2W8Yfn50eEJx6E/quMOb2NpzyEAZI=;
+	s=k20260515; t=1794047746;
+	bh=VJ95YSU3lSnTO3eaKvNfV+NpW3sV099SDandAuCAKIY=;
 	h=From:To:Cc:Subject:Date;
-	b=eLtYD+SV/b6jomEMTZGm2iRCOCBdmpSHee0N/y/N3iQLOIoGLw5iVNbtZeHcob4qA
-	 z1a94ihX+6nLL4nnUXDOtdn+1JENdxCckwOx4BWmBiRfXdToN7yZ4cG+8KQf44SXxT
-	 g4rrF6ub87OrlOhmCZgMOzhtwE4yQYRT5Y/osnx8CfvFTdbhf1rVKNRMODBDVDtm/v
-	 8ag9GrOzqoAcelsM6+PLnJu6D3UaPsr3yQcQkgaJgczdOppI9jk/7U10JBv7kt/6Er
-	 55e8NeAxqvdkzXY8itRRmrmCzDeYk2Mblmj4PNq46TiX07LjuloAhpd69bgEpgkytv
-	 30qLDIvcg/bPg==
+	b=aF4Vfp4MYEBHPlzB84gbf0zBnBYhc5XpGzCqZjwqiH5JgvBay7OTw/jOTWPxcog8+
+	 pDcLINWC+tQSdbAudk6Vfybpf2Ibzgal4celxnNwWg3rPFan0qAvQxTaAQl7f2aakI
+	 YUfQuYCP1OcYSxMuzEFi4cLxPHCVbN3cetv8hd2/MEPvBvTNYZ7eQRyTUsILSXiI1Z
+	 5+VeXoSCdZ+myNCeDnGsn7OyZFw3/QporeAj0eDyjCq5l/zbC4HpbQk51sB7gckxJq
+	 2xSGe4/MlOsV/N6ZDY9FkuBk57ouqOEChauCK94ZPE7Wgi6zi5n38pdOOB6RG8Ll4/
+	 wrUZ67m9mfxwg==
 From: Sasha Levin <sashal@kernel.org>
-To: parri.andrea@gmail.com,
-	jgg@nvidia.com
+To: daehojeong@google.com,
+	chao@kernel.org,
+	jaegeuk@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] iommufd/iova_bitmap: Ensure that iova_bitmap_set() handles the full IOVA" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:35:43 -0500
-Message-ID: <20261107053543-failed-6.6-e21952d72b47@kernel.org>
+Subject: FAILED: patch "[PATCH] f2fs: return -EIO for a lost inode block after cp_error" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:35:45 -0500
+Message-ID: <20261107053545-failed-6.6-53b12b63304b@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,86 +69,72 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x e21952d72b4740f08a272d694cca223b6b0099ca
+git cherry-pick -x 53b12b63304b34a3850a901c4de3cc6ad08e0aee
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053543-failed-6.6-e21952d72b47@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053545-failed-6.6-53b12b63304b@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From e21952d72b4740f08a272d694cca223b6b0099ca Mon Sep 17 00:00:00 2001
-From: Andrea Parri <parri.andrea@gmail.com>
-Date: Fri, 25 Sep 2026 18:11:37 +0200
-Subject: [PATCH] iommufd/iova_bitmap: Ensure that iova_bitmap_set() handles
- the full IOVA
+From 53b12b63304b34a3850a901c4de3cc6ad08e0aee Mon Sep 17 00:00:00 2001
+From: Daeho Jeong <daehojeong@google.com>
+Date: Mon, 12 Oct 2026 18:22:33 +0000
+Subject: [PATCH] f2fs: return -EIO for a lost inode block after cp_error
 
-Generally userspace is going to step the dirty bitmap through the IOVA
-space. However if the bitmap ends in the middle of a large PTE this is
-problematic. The first step will clear the dirty bit and report dirty to
-the end of its bitmap while the second step will see the clear'd dirty and
-report clean for the start of the bitmap. If it happens this ends up
-losing dirties.
+After cp_error, dirty node caches are dropped without being written.
+If such an inode was never written, its NAT entry is still NEW_ADDR,
+and reading its inode block returns -ENOENT.
 
-Further this function is missing bounds checking so if this does happen
-ther is a good chance it will write memory beyond what the userspace was
-expecting.
+f2fs_get_dnode_of_data() passes that -ENOENT up, and callers take it
+as a hole. Since the inode block is missing, the next offset can only
+advance one block, so fiemap walks block by block up to maxbytes,
+about 2^30 blocks, while holding the inode lock. It took hours in a
+power-off recovery test after shutdown and blocked unlink and umount
+on the file.
 
-Return an error code if this illegal condition happens.
+Return -EIO instead of -ENOENT when the inode block itself is missing
+after cp_error or shutdown. A missing direct or indirect node is still
+reported as -ENOENT.
 
-Fixes: 58ccf0190d19 ("vfio: Add an IOVA bitmap support")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
-Link: https://patch.msgid.link/20260925161142.189813-2-parri.andrea@gmail.com
-Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
+Cc: stable@kernel.org
+Fixes: 28607bf3aa6f ("f2fs: drop dirty node pages when cp is in error status")
+Signed-off-by: Daeho Jeong <daehojeong@google.com>
+Reviewed-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
 ---
- drivers/iommu/iommufd/iova_bitmap.c | 12 ++++++++++++
- include/uapi/linux/iommufd.h        |  6 ++++++
- 2 files changed, 18 insertions(+)
+ fs/f2fs/node.c | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/iommu/iommufd/iova_bitmap.c b/drivers/iommu/iommufd/iova_bitmap.c
-index 483f0cc846466..953f6a57d0ca7 100644
---- a/drivers/iommu/iommufd/iova_bitmap.c
-+++ b/drivers/iommu/iommufd/iova_bitmap.c
-@@ -409,6 +409,18 @@ void iova_bitmap_set(struct iova_bitmap *bitmap,
- 	struct iova_bitmap_map *mapped = &bitmap->mapped;
- 	unsigned long cur_bit, last_bit, last_page_idx;
+diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
+index 1863e8f1c859f..2dc136dbee34f 100644
+--- a/fs/f2fs/node.c
++++ b/fs/f2fs/node.c
+@@ -842,8 +842,20 @@ int f2fs_get_dnode_of_data(struct dnode_of_data *dn, pgoff_t index, int mode)
  
-+	/*
-+	 * If the range cannot be recorded then the system call returns failure.
-+	 * This is to prevent loosing dirties if userspace is expecting to step
-+	 * the bitmap through the IOVA space.
-+	 */
-+	if (!length || length > bitmap->length || iova < bitmap->iova ||
-+	    iova - bitmap->iova > bitmap->length - length) {
-+		if (!bitmap->err)
-+			bitmap->err = -EPROTO;
-+		return;
-+	}
-+
- update_indexes:
- 	if (unlikely(!iova_bitmap_mapped_range(mapped, iova, length))) {
- 		/*
-diff --git a/include/uapi/linux/iommufd.h b/include/uapi/linux/iommufd.h
-index b4c7194cb08d2..010f47f7d3d23 100644
---- a/include/uapi/linux/iommufd.h
-+++ b/include/uapi/linux/iommufd.h
-@@ -871,6 +871,12 @@ enum iommufd_hwpt_get_dirty_bitmap_flags {
-  * Walk the IOMMU pagetables for a given IOVA range to return a bitmap
-  * with the dirty IOVAs. In doing so it will also by default clear any
-  * dirty bit metadata set in the IOPTE.
-+ *
-+ * The IOVA range given must fully enclose any IOPTE. If the range starts or
-+ * ends inside a dirty IOPTE then the ioctl will fail. This avoids partially
-+ * reporting a dirty range.
-+ *
-+ * On failure the dirty state becomes unknown and the userspace must restart.
-  */
- struct iommu_hwpt_get_dirty_bitmap {
- 	__u32 size;
+ 	if (!dn->inode_entry) {
+ 		nentry[0] = f2fs_get_inode_cache(sbi, nids[0]);
+-		if (IS_ERR(nentry[0]))
+-			return PTR_ERR(nentry[0]);
++		if (IS_ERR(nentry[0])) {
++			err = PTR_ERR(nentry[0]);
++			/*
++			 * cp_error drops dirty node caches, so the inode block
++			 * of an inode that was never written reads as NEW_ADDR
++			 * and returns -ENOENT. It is not a hole; the inode is
++			 * gone. Callers treat -ENOENT as a hole and keep
++			 * looking block by block (e.g. fiemap up to maxbytes).
++			 */
++			if (err == -ENOENT && (f2fs_cp_error(sbi) ||
++					is_sbi_flag_set(sbi, SBI_IS_SHUTDOWN)))
++				err = -EIO;
++			return err;
++		}
+ 	} else {
+ 		nentry[0] = dn->inode_entry;
+ 	}
 -- 
 2.53.0
 
