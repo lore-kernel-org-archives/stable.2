@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794050645;
-	b=zXO5VtdSpxeG5PX+TxTikSYNk8rPDZn691qsr48YRPPjRa8FFe3NVb921sOchvs84TYI
-	 8G/1lrg5fH1UNGafnRr3DIjou9RXjjd1MctsUeMSkSAiyTrSNP2YQLWIewnFVcAl2svQL
-	 HbM9yxDn9jusDRjIq8T/oZxuaMthMpXVLmENBnXbGMU58OpEMFT3Hmka6T9DsQbkkXYU3
-	 k1rrmvsQ2zOX3zaKXCCo5bTTq8OSg8/dglI0/PmOQken94CYoz7B2Ww1NF6cj4nCS1D76
-	 EuJSUFkU1jLtHM+9ZCkSGyLzbobgYjOCLVzt9OF1Mw1ztu6Hk2QZtLX9UCuklKWLOew==
+	t=1794050648;
+	b=Nyhx02p3ZjiFRGDp0cQl6Rn+xeELADbvtN2Yckaq2lGoK3BS2KdnnKM4KuptXL+ziT5Q
+	 SO/J5cxm4WdLaiXFb2WXINvNoSUmO4oUwQ7goNUaZD5o0YpuzWzLuho8ci6gtiQtqWuIC
+	 iHROAWOnRIEG4yRo4UCx7D7/py16ZceLIeVUuSlO6Il/LzR6Nzb/70878xEYJDDldo5vK
+	 m2hFVnUM+oUZDc6IpJM2QxZ6OlIBgpOqgR7znnAEfNK18j4xcsrr4KcPz1hia2edLaNEl
+	 B6d1zb026LUbAilZB4lwOq0rRZg/12wv3K5zH4WWp7xTofN+TRkARqkClYRdHSzUu+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794050645;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794050648;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=lLYFdPy3YdFkV2f/++/mr6qlRzzpmklS55Slw6x846Y=;
-	b=K1y7LFJ/tzzktCmGQf6pQDdvdHU1K19th800xZ+C+Uq2989JUU86oA0mR/J5JTnZZT82
-	 kugkt1mGo3tvSpZlK0/boTdBouKL/EwQJljBz6l2kUcuhw9AIxM3Wcd+2bVOsazfZyY95
-	 XR5XR1GArAwwJC1KOIcZ/i10ikq6gR7c9DdsFF6/XdlUX04pDsTpTyy4u+px+ZVQq2pOW
-	 hA6E3ZQA27fG+c0PQ9wormdIWOQm1MEtg6qLCEc/vEUhi8lUNQEtqC1XoI8JkF75iU5cu
-	 0Ns5tItIwBf6cRnjyP5dEVqRkC1zmmrsqr8wg+k62vnmVyD7MXjU6PBaquS27OO7zlQ==
+	bh=xx87UeZpSd7FsEslzYx8It8e5UNqHf1G6qQ62kDUXes=;
+	b=CtCUxdhb2kAWaRKd6bAYdC1I2tpnukd1GFZ9T0YWUppCarWkY6LbZIK7edjLRTul9El1
+	 Nsa7Fhy0pw7kWedKuOI1EbllTC3Mvv/EppupSlYpdkw1SjmDp8RICeBG6bZd3PGYTeAN4
+	 R43bPS85aoiU1FX0g/zpW9gKqbI72daX7zkWndTIuQX77XxDf3CYgYrifD3zs3IYTvXFR
+	 El/oZDh1kKMEcInxvxPpnmm1Fn2Q/USaMN0J+1IJjuxc5dEblA4bjbhQePScjYvHoTmeP
+	 r8lIx2KH/G42q2h81nY9cq7OTx2zWaMO4bnbL13zUIAW4LKGK8YuuIfbly5+jcGbNKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MVQUO62P;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XUsQDdZx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA4C9606A32F
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:24:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5938606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:24:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MVQUO62P
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9C791F0089F;
-	Sat,  7 Nov 2026 11:24:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XUsQDdZx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A7D81F0089F;
+	Sat,  7 Nov 2026 11:24:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794050644;
-	bh=lLYFdPy3YdFkV2f/++/mr6qlRzzpmklS55Slw6x846Y=;
+	s=k20260515; t=1794050647;
+	bh=xx87UeZpSd7FsEslzYx8It8e5UNqHf1G6qQ62kDUXes=;
 	h=From:To:Cc:Subject:Date;
-	b=MVQUO62PNXCWN/0kd+VNs54bcqEd8TP4NI0pbesPGrTNfNR9+vsz8n6yOBK0UEQUt
-	 BuGlQ6+emrpkKojbIP5xs4F5xyZKaXjoFg5Jnc/Tgi31A4mXNX9vTWL7XfEi//91FX
-	 q1eHHhB8NQi0r7HzE0R2/SQ6o5exnWqsGsyeVxOZxsRJ8EJxJw5bMQTTuWOzq8vOpj
-	 Y3WVegj4ty/XstJfwVsIMUnvgKVsOklMhHPES+AsB1QWYAPWrCiu+9U1dLXWOlxsVt
-	 29j8i3eytsgfCc+9Z1hzif7FYckC1m8CEiwJxZmebaXC22f8r9XgI/naxMfuImErXH
-	 ++Bjsmu/Zd+aw==
+	b=XUsQDdZxiuucRgsKPRD7q+/8a+QGRdfw+d2VZioHEeGhMKSDcGS2ocLU6KsXpU2ac
+	 nmgd7Gimze1mJc3Q89xZOHs+7IFykDT5v516QpV8MiWoT8xqG8vrkO4K94HQXL+n8J
+	 DqOXF4rVJXvS/m19IepOQXSlWTSXihvREAIjbunN0VpyLkJifPaTX7jPLI5rvcWMJk
+	 IqxKkUU7TRe0aAp1El2VkNtF2ismxC5/lhEhq9xH4UmT7PvrRSi6evSab2EEYzewNT
+	 WcWGv1p4hz6hSlQVflMtO4gA23EwUTV2fQLPTLgJ8m/tQP3dorq+ecPwGQmWfRIMvG
+	 PfoJfaHv8HLrA==
 From: Sasha Levin <sashal@kernel.org>
-To: liuwb@xiaopeng.com,
-	zhugl3@xiaopeng.com,
-	broonie@kernel.org
+To: kaixuanli0131@gmail.com,
+	chao@kernel.org,
+	jaegeuk@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] spi: bcm-qspi: reject oversized dummy bytes in mspi exec_mem_op" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:24:02 -0500
-Message-ID: <20261107062402-failed-5.10-9e44f0df3fff@kernel.org>
+Subject: FAILED: patch "[PATCH] f2fs: bound the SIT/NAT bitmaps by the checkpoint pack" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:24:05 -0500
+Message-ID: <20261107062405-failed-5.10-080833a32fd5@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,60 +69,90 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 9e44f0df3fff215d9033089e85980048c3ac132a
+git cherry-pick -x 080833a32fd5dc10b3acf2fa9af9b3213e6cb617
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062402-failed-5.10-9e44f0df3fff@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107062405-failed-5.10-080833a32fd5@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 9e44f0df3fff215d9033089e85980048c3ac132a Mon Sep 17 00:00:00 2001
-From: Weibin Liu <liuwb@xiaopeng.com>
-Date: Thu, 15 Oct 2026 10:16:12 +0800
-Subject: [PATCH] spi: bcm-qspi: reject oversized dummy bytes in mspi
- exec_mem_op
+From 080833a32fd5dc10b3acf2fa9af9b3213e6cb617 Mon Sep 17 00:00:00 2001
+From: Kaixuan Li <kaixuanli0131@gmail.com>
+Date: Sat, 19 Sep 2026 21:09:24 +0800
+Subject: [PATCH] f2fs: bound the SIT/NAT bitmaps by the checkpoint pack
 
-bcm_qspi_mspi_exec_mem_op() builds a local command buffer cmd[6]
-holding one opcode byte, up to four address bytes and one spare
-byte, and sets t[0].len = op->addr.nbytes + op->dummy.nbytes + 1.
-bcm_qspi_exec_mem_op() only validates op->addr.nbytes <= 4 and never
-bounds op->dummy.nbytes, which spi_mem_check_op() also leaves
-unrestricted. With addr.nbytes = 4 and dummy.nbytes >= 2 the length
-becomes 7 or more, so write_to_hw() reads past cmd[] on the kernel
-stack and pushes the leaked bytes into the hardware TXRAM.
+sit_ver_bitmap_bytesize and nat_ver_bitmap_bytesize are used as memcpy
+lengths into and out of sbi->ckpt, which is sized from cp_payload alone,
+and nothing compares either length against that allocation.
 
-Reject operations whose dummy phase does not fit the remaining byte
-of cmd[] by requiring op->dummy.nbytes <= 1, so such transfers fall
-back to the generic SPI path instead of overrunning the buffer.
+sanity_check_ckpt() has checked these two fields since c77ec61ca0a4, which
+added them after a crafted image overran build_sit_info(). That check ties
+each length to a segment count; it never compares either against the
+allocation, which is the half this adds.
 
-Reviewed-by: Guanglei Zhu <zhugl3@xiaopeng.com>
-Fixes: 5f195ee7d830c ("spi: bcm-qspi: Implement the spi_mem interface")
-Cc: stable@vger.kernel.org # 4.18+
-Signed-off-by: Weibin Liu <liuwb@xiaopeng.com>
-Link: https://patch.msgid.link/20261015-bcm-qspi-dummy-bytes-v1-1-c319da3c2497@xiaopeng.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Mounting over-reads in build_sit_info() and build_node_manager(), and the
+first checkpoint writes the same lengths back through the same pointers,
+so the over-read's contents reach the on-disk checkpoint. An unmount is
+enough; the filesystem does not have to be used.
+
+Bound both ends the way __bitmap_ptr() lays them out. The three branches
+differ, so a single sum of the two lengths would still admit a small
+overflow when cp_payload is non-zero.
+
+Fixes: 39a53e0ce0df ("f2fs: add superblock and major in-memory structure")
+Cc: stable@kernel.org
+Signed-off-by: Kaixuan Li <kaixuanli0131@gmail.com>
+Reviewed-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
 ---
- drivers/spi/spi-bcm-qspi.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ fs/f2fs/super.c | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-diff --git a/drivers/spi/spi-bcm-qspi.c b/drivers/spi/spi-bcm-qspi.c
-index 0f96ac59da114..5031b21424795 100644
---- a/drivers/spi/spi-bcm-qspi.c
-+++ b/drivers/spi/spi-bcm-qspi.c
-@@ -1197,8 +1197,9 @@ static int bcm_qspi_exec_mem_op(struct spi_mem *mem,
- 	u32 addr = 0, len;
- 	u_char *buf;
+diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
+index 54431da34edf9..3a191fda7030f 100644
+--- a/fs/f2fs/super.c
++++ b/fs/f2fs/super.c
+@@ -4278,6 +4278,7 @@ int f2fs_sanity_check_ckpt(struct f2fs_sb_info *sbi)
+ 	block_t avail_node_count, valid_node_count;
+ 	unsigned int nat_blocks, nat_bits_bytes, nat_bits_blocks;
+ 	unsigned int sit_blk_cnt;
++	unsigned long long ckpt_size, sit_end, nat_end;
+ 	int i, j;
  
-+	/* cmd[] holds 1 opcode + 4 address + 1 dummy byte at most */
- 	if (!op->data.nbytes || !op->addr.nbytes || op->addr.nbytes > 4 ||
--	    op->data.dir != SPI_MEM_DATA_IN)
-+	    op->dummy.nbytes > 1 || op->data.dir != SPI_MEM_DATA_IN)
- 		return -EOPNOTSUPP;
+ 	total = le32_to_cpu(raw_super->segment_count);
+@@ -4409,6 +4410,29 @@ int f2fs_sanity_check_ckpt(struct f2fs_sb_info *sbi)
+ 		return 1;
+ 	}
  
- 	buf = op->data.buf.in;
++	/*
++	 * Nothing above ties the bitmap lengths to sbi->ckpt, which is
++	 * (1 + cp_payload) blocks. Bound both ends the way __bitmap_ptr()
++	 * lays them out.
++	 */
++	ckpt_size = (unsigned long long)(cp_payload + 1) * F2FS_BLKSIZE(sbi);
++	if (__is_set_ckpt_flags(ckpt, CP_LARGE_NAT_BITMAP_FLAG)) {
++		nat_end = CP_MIN_CHKSUM_OFFSET + sizeof(__le32) + nat_bitmap_size;
++		sit_end = nat_end + sit_bitmap_size;
++	} else if (cp_payload > 0) {
++		nat_end = CP_MIN_CHKSUM_OFFSET + nat_bitmap_size;
++		sit_end = F2FS_BLKSIZE(sbi) + sit_bitmap_size;
++	} else {
++		sit_end = CP_MIN_CHKSUM_OFFSET + sit_bitmap_size;
++		nat_end = sit_end + nat_bitmap_size;
++	}
++
++	if (sit_end > ckpt_size || nat_end > ckpt_size) {
++		f2fs_err(sbi, "Bitmaps do not fit the checkpoint pack: sit ends at %llu, nat at %llu, pack is %llu bytes",
++			 sit_end, nat_end, ckpt_size);
++		return 1;
++	}
++
+ 	if (__is_set_ckpt_flags(ckpt, CP_LARGE_NAT_BITMAP_FLAG) &&
+ 		le32_to_cpu(ckpt->checksum_offset) != CP_MIN_CHKSUM_OFFSET) {
+ 		f2fs_warn(sbi, "using deprecated layout of large_nat_bitmap, "
 -- 
 2.53.0
 
