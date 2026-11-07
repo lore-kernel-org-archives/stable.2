@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049854;
-	b=nUhC1wk+F9rrTgDoiFoEkatU2lRBEwLmBmWpAueo00Ug3Vo8LQqyfNB72V7ORR2C7jNZ
-	 iUq3ODU6Zv8tjSgPHZxfdcCvaiajxhJPo6qA0kyGZy07WTwyronwEtzxFPpw2hplnid7u
-	 l2Ikzh2te9YiZLfpotORE37PT4tBvZlbaEJfXDRZVjcv76GW74FWj5SKgdG5Pqs2RbN0h
-	 d30EHQfKbnXMqVmMeeCgHH/qhNUrH8FmT4I42yWZrKLpaU2+3S5mxJ4804VnP9fCZIS1D
-	 t4ovrYDPzZTaudKOk+fS1LkBuIeTSOZM/PjlODTVOm2CJCJyay8gCHUYOz8wNcGsA7w==
+	t=1794049857;
+	b=Q61XUiOQr3tW5yL9hxAhabgSpf2rviR2U/M4vkPPtAzK3H3KeSfPw4uhitFmRfZZbRBn
+	 FENRyaz4JPKyiDdjmBmmjmCw3WIk5+R6EUt681nnb6Rid+9uiVW2P2vAKJtoaAP+lQcCi
+	 I9PJihisdgW9Psl2vbWoDZB88XSrSPEfjiQ821AvWik/kONOfpPcgp/dnbDb86y1AOf74
+	 tJAgMs+y8+sD+q/PIMCACbzQbmGkWRcVIgNhB9zElp6wO0kHelRBxDEBfCjVZgcbYheXJ
+	 RD9LHTMFRCbkdNyVZL/Riwp40UJEbha+V8nG8oOuMbfuV3hnrrOustiZySQfOn752JA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049854;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049857;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=gs0zyDaq9JYEthyqoUx5R9tn0WAQw/aphy9K5WC6dGg=;
-	b=JGFoNbPatDmPONXuxu7H821LznEb507QIpk19T+vq3AhkZd8zCk1h+/jwZTP7HwJBQym
-	 2TvBetmHga8nuwooj8cnB6K85ksU0ATjfx/qgMWN1IRDnkw8rep7LnR/sLA7eyi6LYoCX
-	 IozNBlVaNcgXVQ1A6QDVDIQiyxjX2T55sskf8wyxl/0uzDeUiJSTKgxjOjqUTi0Sq5Muu
-	 +/DixnpDFvFwqMsbRvZLjVNyNCpPnQHL6WQoTWL2PYB0TYNdNVMZuuSGds7bKh50ceJ7d
-	 LBTTpBbScp6LCev8jKN0lWCHWdSoLhBlQ38a+N5oAUcFBNohmdLTuZfXC0ToVZjK6kA==
+	bh=nM/cnVc3CLuot/k94U0/r3DXHN/aWGrm5v1Sn4oASBE=;
+	b=EBN4dFqIDegis3cAu/Udoe0fq8oD2Adr2k0SKnruSRt3a8rRKTHbdHM3HR010ivtwq8o
+	 YmlhmOb3/l77VpyFP4buUfeaKhoP6wW2Zir+Ad3ewSi/E0qeL/8RWhnCGF8XOTg+uwfJ/
+	 oEQzsKPX420GyLcHfCHolnzArygNIfsK7oSi53qPdbcNEZGdtDfpEKMD4K0L9NhGsOdKz
+	 wlWdproyV8LwAmghRojPMDBpOzRVmroJRHqGUDG3ct3S5l/vb7Y944ghBBBaVmqOy2RPX
+	 yFK9lpr7MBWzoVOxA2J4zzRqqFHCHNn3nlg6x/3ZUaymmDOiRa4gcWP83xOleb6yp9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kYHC8no1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bpWwukvA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F956606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:10:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35AC2606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:10:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kYHC8no1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE4A91F0089F;
-	Sat,  7 Nov 2026 11:10:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bpWwukvA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA48D1F008A1;
+	Sat,  7 Nov 2026 11:10:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049854;
-	bh=gs0zyDaq9JYEthyqoUx5R9tn0WAQw/aphy9K5WC6dGg=;
+	s=k20260515; t=1794049857;
+	bh=nM/cnVc3CLuot/k94U0/r3DXHN/aWGrm5v1Sn4oASBE=;
 	h=From:To:Cc:Subject:Date;
-	b=kYHC8no1cdtqo552yyeDFk7KRSciz5jpnqlwzvYPXsGeSttd0hQD578x1PcSKZK72
-	 mcmIaNEqh7QDXoS9AaUhau6Jy58HVgGVq/RhIycAzqlodE7Y1OuQOwivPx2XLwYvl2
-	 tj5bO6cIbi15ivAQV4+h0xGrGydHuOmazm1dj14C4p9MayMfDOM79hCHT0HmwP4Yfe
-	 nNnHYFrQPTcuyjWl/0wSH0ZO4nHUviBxMVrlP+knuZ1qMKdFDncFQ7EDSf4cqBtkZG
-	 a1leBbx36w8xp7AE0T1jHKCu5G/pT018LY5w1a5iNd93tIR1GfwEtKJ5RvsSSLAAqL
-	 jlMwtbZcEkL+A==
+	b=bpWwukvAknoNm+LjJXVo9Qz9UgahjbvhrzCtoWqADuuqAReb2kczbHA+ORfenHjfK
+	 x1mGnE1MfovKvSWKnAyidOZsVOQg4iyFZgcmLNGclRd1ESCOl/kwK8jdQ3Niu+zx9Y
+	 TC7tqq80oGuIKOFb17PQLwJ3QjIM3HkRVlaAFfH0S2tAJLkIp1x7PCq4tqNQ0Ne3G0
+	 yj8SyF5rlMJJqSmqfRbC/t5Fs7U983lub2ZDFOwoOMGZjNWqcvgHEuc3wbxI1WVXSi
+	 uJKws7oGeZtCwiiFl4G6GhYSUktyN8pKI5s27F5yKPORyRdeuM7SBVIeXkPvjOb3Xy
+	 dsTNniRjCch1g==
 From: Sasha Levin <sashal@kernel.org>
-To: a.kazinsky@ideco.ru,
+To: cyan2254650260@gmail.com,
 	broonie@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] ASoC: tlv320aic32x4: Prevent division by zero in divider callbacks" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:10:52 -0500
-Message-ID: <20261107061052-failed-5.15-8cf9607d2d85@kernel.org>
+Subject: FAILED: patch "[PATCH] spi: zynq-qspi: fix address buffer corruption and support 4-byte address" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 06:10:55 -0500
+Message-ID: <20261107061055-failed-5.15-dc5ca34f5e8d@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,84 +68,97 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 8cf9607d2d855629260fc78e6b54ea7a98525708
+git cherry-pick -x dc5ca34f5e8dc10c566ef39aa3b1a201a17ca734
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061052-failed-5.15-8cf9607d2d85@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107061055-failed-5.15-dc5ca34f5e8d@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 8cf9607d2d855629260fc78e6b54ea7a98525708 Mon Sep 17 00:00:00 2001
-From: Alex Kazinsky <a.kazinsky@ideco.ru>
-Date: Fri, 23 Oct 2026 17:08:52 +0400
-Subject: [PATCH] ASoC: tlv320aic32x4: Prevent division by zero in divider
- callbacks
+From dc5ca34f5e8dc10c566ef39aa3b1a201a17ca734 Mon Sep 17 00:00:00 2001
+From: Pufan Jin <cyan2254650260@gmail.com>
+Date: Fri, 16 Oct 2026 21:08:12 +0800
+Subject: [PATCH] spi: zynq-qspi: fix address buffer corruption and support
+ 4-byte address
 
-A zero rate requested through clk_set_rate() or clk_round_rate() reaches
-clk_aic32x4_div_determine_rate() when the minimum rate is zero. Clamping
-the requested rate to the allowed range leaves it unchanged, causing
-division by zero when calculating the divisor.
+In zynq_qspi_exec_mem_op(), when transmitting address bytes, the driver
+iterates over op->addr.nbytes and populates xqspi->txbuf[i]. However,
+xqspi->txbuf is never re-assigned before populating the address, meaning
+it still points to (u8 *)&op->cmd.opcode from the command phase.
 
-A zero parent rate can also cause division by zero in determine_rate().
-For example, if reading a parent divider's register fails,
-clk_aic32x4_div_recalc_rate() returns zero, which the clock framework
-caches as the parent's rate. A subsequent rate request for a child
-divider receives this value in best_parent_rate. With a nonzero requested
-rate, the calculated divisor is zero. It passes the existing upper-bound
-check and causes division by zero in the resulting rate calculation.
+This causes two severe issues:
+1. Memory corruption: Writing into xqspi->txbuf writes past the opcode
+   buffer on the stack (which was passed as const struct spi_mem_op *).
+   If opcode is zero, xqspi->txbuf is uninitialized.
+2. In zynq_qspi_supports_op(), operations with op->addr.nbytes > 3 are
+   rejected. When paired with SPI NOR flashes larger than 16MB (such as
+   Winbond W25Q256), spi_nor_spimem_check_read_pp_op() tests 4-byte address
+   support, which fails and causes spi_nor_select_read() to drop all read
+   capabilities, failing probe with -EINVAL (-22).
 
-The set_rate callback can receive a zero rate when an ancestor's rate
-changes. clk_calc_subtree() calculates descendant rates through
-recalc_rate() without calling their determine_rate callbacks. If reading
-a descendant divider's register fails, clk_aic32x4_div_recalc_rate()
-returns zero. This becomes the descendant's new_rate, which
-clk_change_rate() passes to clk_aic32x4_div_set_rate(), causing division
-by zero.
+The Zynq-7000 QSPI controller hardware in manual I/O mode natively supports
+transmitting 1 to 4 address bytes via its TXD FIFO registers
+(ZYNQ_QSPI_TXD_00_00_OFFSET).
 
-Reject zero rates in both callbacks and reject a zero divisor in
-clk_aic32x4_div_determine_rate().
+Fix this by introducing a local opaddr[4] buffer in zynq_qspi_exec_mem_op()
+and explicitly setting xqspi->txbuf = opaddr before populating address
+bytes. Also allow up to 4 address bytes in zynq_qspi_supports_op().
 
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
-
-Fixes: a51b50062091 ("ASoC: tlv320aic32x4: Model DAC/ADC dividers in CCF")
+Fixes: 67dca5e580f1 ("spi: spi-mem: Add support for Zynq QSPI controller")
 Cc: stable@vger.kernel.org
-Signed-off-by: Alex Kazinsky <a.kazinsky@ideco.ru>
-Link: https://patch.msgid.link/20261023130854.93639-1-a.kazinsky@ideco.ru
+Signed-off-by: Pufan Jin <cyan2254650260@gmail.com>
+Link: https://patch.msgid.link/20261016130812.282624-1-cyan2254650260@gmail.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/tlv320aic32x4-clk.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ drivers/spi/spi-zynq-qspi.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
-diff --git a/sound/soc/codecs/tlv320aic32x4-clk.c b/sound/soc/codecs/tlv320aic32x4-clk.c
-index ad15ce9c60791..27d186c72315e 100644
---- a/sound/soc/codecs/tlv320aic32x4-clk.c
-+++ b/sound/soc/codecs/tlv320aic32x4-clk.c
-@@ -318,6 +318,9 @@ static int clk_aic32x4_div_set_rate(struct clk_hw *hw, unsigned long rate,
- 	struct clk_aic32x4 *div = to_clk_aic32x4(hw);
- 	u8 divisor;
+diff --git a/drivers/spi/spi-zynq-qspi.c b/drivers/spi/spi-zynq-qspi.c
+index d762aaf452afd..bfcbcfe85b918 100644
+--- a/drivers/spi/spi-zynq-qspi.c
++++ b/drivers/spi/spi-zynq-qspi.c
+@@ -229,11 +229,10 @@ static bool zynq_qspi_supports_op(struct spi_mem *mem,
+ 		return false;
  
-+	if (!rate)
-+		return -EINVAL;
-+
- 	divisor = DIV_ROUND_UP(parent_rate, rate);
- 	if (divisor > AIC32X4_DIV_MAX)
- 		return -EINVAL;
-@@ -331,8 +334,11 @@ static int clk_aic32x4_div_determine_rate(struct clk_hw *hw,
+ 	/*
+-	 * The number of address bytes should be equal to or less than 3 bytes.
++	 * The number of address bytes should be equal to or less than 4 bytes.
+ 	 */
+-	if (op->addr.nbytes > 3)
++	if (op->addr.nbytes > 4)
+ 		return false;
+-
+ 	return true;
+ }
+ 
+@@ -526,6 +525,7 @@ static int zynq_qspi_exec_mem_op(struct spi_mem *mem,
+ 				 const struct spi_mem_op *op)
  {
- 	unsigned long divisor;
+ 	struct zynq_qspi *xqspi = spi_controller_get_devdata(mem->spi->controller);
++	u8 opaddr[4] __aligned(4);
+ 	int err = 0, i;
+ 	u8 *tmpbuf;
  
-+	if (!req->rate)
-+		return -EINVAL;
+@@ -547,12 +547,13 @@ static int zynq_qspi_exec_mem_op(struct spi_mem *mem,
+ 	}
+ 
+ 	if (op->addr.nbytes) {
+-		for (i = 0; i < op->addr.nbytes; i++) {
+-			xqspi->txbuf[i] = op->addr.val >>
++		for (i = 0; i < op->addr.nbytes; i++)
++			opaddr[i] = op->addr.val >>
+ 					(8 * (op->addr.nbytes - i - 1));
+-		}
+ 
+ 		reinit_completion(&xqspi->data_completion);
++		xqspi->txbuf = opaddr;
 +
- 	divisor = DIV_ROUND_UP(req->best_parent_rate, req->rate);
--	if (divisor > AIC32X4_DIV_MAX)
-+	if (!divisor || divisor > AIC32X4_DIV_MAX)
- 		return -EINVAL;
- 
- 	req->rate = DIV_ROUND_UP(req->best_parent_rate, divisor);
+ 		xqspi->rxbuf = NULL;
+ 		xqspi->tx_bytes = op->addr.nbytes;
+ 		xqspi->rx_bytes = op->addr.nbytes;
 -- 
 2.53.0
 
