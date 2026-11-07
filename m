@@ -1,62 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047170;
-	b=hdnXRnwPe4M9StBigs1b+NAobZtRKAo+ZgenZjw2SGW9859IV2lT+l6vKJ3ZbnbgYLZS
-	 rq15b59ZMYBeGnhl7kmbsfsyt/mpOnWgN1tIY/xz4GYmCc2L97PfZXdj20D9GsEWKoFaC
-	 3+iVgUuJVTh0mM7tUT5Czb79pLC7rj62cGZ8SiIpI+ki3HTTOIgdXnNYaxL50l99uYPe0
-	 6YfyuOgaSmyHag+EkBz602d0Td2wo5ztiko7gxmRNbc9OsfERzO4mcTx2S4zvDrBMIin8
-	 E+XKwz6CK/stM5YabBDawYAVvIVYnzhFWCzmbifeTzSD2RfAENsYDZhjdD/eBaseJuw==
+	t=1794047173;
+	b=p+n7cpaLj8dQjpAnstFbT1f7VQ7afwYfvNA3A0Ldn6BMnFtLYrqCByKskrqrktj+eXlf
+	 XcrZaWNfoaiesAf+zV85pkgNnOQrhLUZsP9VHBDUX1OcONXToE3jPnoSFYBRC7UlFhBM0
+	 8xro5AWyO5jPxyMiv3SUxaW7jIn6NQwmF0K5wv6heBpGJam8doMHyLbsn4/bqkvyN9dpK
+	 IFWrS7pi4BYa5+wUT/NGYFjyqztJzRnxLHEZyNjrXDXDFo34ZjRTClyUQ7wADMSqapEwu
+	 74YT9aSjB/lVby1xuRO8EMPC3SmJDvnmM3+UipL8vHA/eiWjQWaRgjyUNSUYTYOBKMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047170;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047173;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=U+9v9BA49TUJEosgLWMrrgPw7zATrmL1gUzXz3T/4sk=;
-	b=Yi5augi445D3D+z/hn6GYmAmxdAgpCd2JCRVOG3V9EYdCDqeqZ4mffslXBHxIefxtZxC
-	 uoVN3iVkjPs+GoNx/NoG/fs3J+VD7wwV2dqqNzO7S5+sBQNiBBYwVf9q2nPWblOvtJSdd
-	 zWPlguEoEUJSdbfBi1FRrIIRN9YngdJ7wHV+et2RsiDwdHRYSGG1LmZ4PnQfNvuDWzuyU
-	 QRH9d+3fmL3i+bMnlJ3S2FkVJ2F9rG4bazaCAGrAju+fEqTuGAyhRoLpsgkhb7qm5h5G8
-	 msOS8hoErclNZfjtQQVoidYMeyLDKEmm+zDN2k9YuVKZTU2z1fci+qwDL5l0ezO14iw==
+	bh=jpBVlxi3AUj9yXX3AHvRzi6scjGsIxqWV5OvnNDzPcE=;
+	b=mjsH0def+OpULkgwbrScQI1VtwCgIt/4PkUIZL8I126kc07sGNq6TtidbHPTbPiXlNSF
+	 1AhKqro9TLkE6nXSrt6Ny8AMiNU+hjM7ZdMESGSu5tnqr+vIg88GOu55jnwD1g4t4/FiZ
+	 pM4guJMrwSVtGw9b/9BA+yegjaXRIR55ocOILhmVokyFVFucLNXc7EqB6s/l593yzrVLb
+	 dqb5dVf9lEq+NVu4semqcSzkuhpTakx1zvHRr6MyfJMoHiZK0etvy66s78URJWiufZToL
+	 nwKStE7/Ojn/mpzRACI4mrDwyfLN0OFFK8WiPGEYd+f2TqEb7ainDJKK6sHc31RgDkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="gm3lh/ON";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XFC9JFJu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6273606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:26:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A51AE606A32C
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:26:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gm3lh/ON
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 265F41F0089F;
-	Sat,  7 Nov 2026 10:26:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XFC9JFJu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45DD31F0089F;
+	Sat,  7 Nov 2026 10:26:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047169;
-	bh=U+9v9BA49TUJEosgLWMrrgPw7zATrmL1gUzXz3T/4sk=;
+	s=k20260515; t=1794047172;
+	bh=jpBVlxi3AUj9yXX3AHvRzi6scjGsIxqWV5OvnNDzPcE=;
 	h=From:To:Cc:Subject:Date;
-	b=gm3lh/ONgnO00K5sMptV/uAWNy6JTvTyer+JRKj4RN48QhIgvX2hNJEbO+OFFZmfb
-	 axW/o30Bqz/3gZyChrqRxM//EqbAz/lZ+0D9PQ2W9yic7bYuyGSNnkULA7h0rTxJ55
-	 U8uzLmKgHqsfLwwr2/8w3462Gekw4NHkyeXXmvvHW6CSors9bmWzOJZuV9PY5rFk1s
-	 OlsQ80uHRFabG42tZO846nF0YgM60R2Yeg2MWDd2HkKeKQq82unK7xhzjuJxeAfvOB
-	 RJQ529Uf7pKwrCULOPiSuG3r0eXKIs4qrmeN3u8hx4PsNjsxGLUaXkf3UBINED4Ore
-	 pzII/aPGn8fsA==
+	b=XFC9JFJuf/i3wtiTYF/VeKgRUWH4W/eYvqujQZpL+MMIgh7wDLHsb/YaNsny0e9Hu
+	 4znxQPXqrHJHMBIw26rLGSqe011DA6qnUsmtJHzkASsCt78RKlz2jdXLh+9p3CgwZk
+	 VgbGpKT05h4Kzxsl+jvyVhnudev3MSW2tYjuGxFETtU1GeMyZ3iLmWzZnlZuoUxvSN
+	 AR4jFpr3BE7pAvO1ckpc9chagiZoLc2SlqSEkcMBFmcAlmX9qowDjmSMT0XuUumwFw
+	 /QElW87QD6SQdefiQm9FmcuQW7qNDAAyPTWAzuIBzwfAi097pVkc7hzvU6/JlXS1g7
+	 16+AUgAss2jvw==
 From: Sasha Levin <sashal@kernel.org>
 To: david@kernel.org,
 	akpm@linux-foundation.org,
-	ngocthang2710.1999@gmail.com,
+	kylebot@openai.com,
 	ljs@kernel.org,
+	muchun.song@linux.dev,
 	rppt@kernel.org,
 	lance.yang@linux.dev,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	benh@kernel.crashing.org,
-	a.p.zijlstra@chello.nl,
-	riel@redhat.com
+	osalvador@suse.de,
+	peterx@redhat.com,
+	linmiaohe@huawei.com,
+	lokeshgidra@google.com,
+	liam@infradead.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] mm: disallow ioremap'ing ordinary RAM in generic_access_phys()" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:26:07 -0500
-Message-ID: <20261107052606-failed-6.12-4590752e20aa@kernel.org>
+Subject: FAILED: patch "[PATCH] mm/userfaultfd: only allocate anon_vma in CoW mappings" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:26:10 -0500
+Message-ID: <20261107052610-failed-6.12-514c9247db30@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -79,108 +78,160 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 4590752e20aa393cc0d4fe538c0747d14a98c97a
+git cherry-pick -x 514c9247db305922591d806ec65d3c3fe420538d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052606-failed-6.12-4590752e20aa@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107052610-failed-6.12-514c9247db30@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 4590752e20aa393cc0d4fe538c0747d14a98c97a Mon Sep 17 00:00:00 2001
+From 514c9247db305922591d806ec65d3c3fe420538d Mon Sep 17 00:00:00 2001
 From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Tue, 13 Oct 2026 13:41:24 +0200
-Subject: [PATCH] mm: disallow ioremap'ing ordinary RAM in
- generic_access_phys()
+Date: Wed, 14 Oct 2026 13:53:11 +0200
+Subject: [PATCH] mm/userfaultfd: only allocate anon_vma in CoW mappings
 
-generic_access_phys() can end up getting called on CoW PFNMAP mappings,
-resulting in it trying to ioremap anonymous folios, which especially
-the x86 code doesn't enjoy, and which is in general just odd/wrong.
+find_vma_and_prepare_anon() can end up allocating an anon_vma in VMAs that
+are not CoW mappings, which is wrong.
 
-E.g., with a CoW mapping of a PCI BAR:
+If we have a MAP_SHARED R/O file mapped, we lack VM_SHARED (but do have
+VM_MAYSHARE) and lack VM_MAYWRITE.
 
-ioremap on RAM at 0x0000000045623000 - 0x0000000045623fff
-  WARNING: arch/x86/mm/ioremap.c:216 at __ioremap_caller.isra.0+0x4c2/0x5f0
-  Call Trace:
-   generic_access_phys+0x130/0x4d0 mm/memory.c:7178
-   kernfs_vma_access+0x1ce/0x280 fs/kernfs/file.c:437
-   __access_remote_vm+0x58f/0x890 mm/memory.c:7256
-   mem_rw+0x2a1/0x670 fs/proc/base.c:912
+While uffd later rejects such mappings (uffd registration requires
+VM_MAYWRITE, see comment in validate_dst_vma) find_vma_and_prepare_anon()
+still wrongly allocates an anon vma before it validates the vma.
 
-But more generically, we should disallow access to anything that looks
-like ordinary RAM in the system: including allocating memory (e.g.,
-alloc_pages) and mapping them in a VM_PFNMAP.
+This in turn later confuses copy_page_range()->vma_needs_copy() such
+that we end up calling copy_hugetlb_page_range() with ranges that
+actually do not contain *any* per-pagetable information that would
+require copying, which is the basis for PMD-table sharing in the first
+place.
 
-For pages with an online memmap, allow only pages marked as reserved
-(PageReserved). This also includes memblock allocations, however,
-distinguishing them from other MMIO is tricky, and nobody should really
-be mapping them in a PFNMAP (except someone abusing /dev/mem, which we
-do not care about).
+copy_hugetlb_page_range() should not have to worry about shared
+PMD tables at all: it doesn't make any sense to copy page tables that are
+shared, as they can be fully recreated later. Ending up in the function
+with shareable page tables is the real issue.
 
-So only allow access if there is no online memmap, or if the pages are
-marked reserved. Reject other pages with -EINVAL.
+If a destination PMD table is shared in copy_hugetlb_page_range(), it
+might get concurrently unshared as we are not holding relevant
+locks, resulting in us using a page table that is no longer mapped and
+possibly freed after calling:
 
-Note that, just like other pfn_to_online_page() users, we won't care about
-concurrent memory offlining; mapping memory that can concurrently get
-offlined is highly dubious.
+	dst_pte = huge_pte_alloc(dst, dst_vma, addr, sz);
 
-Link: https://lore.kernel.org/20261013-generic_access_phys-v1-1-b3963ef76e37@kernel.org
-Fixes: 28b2ee20c7cb ("access_process_vm device memory infrastructure")
+To fix it, do not allocate an anon_vma in non-CoW mappings and add a
+safety guard to copy_hugetlb_page_range(), making sure that we never
+end up messing with shared PMD tables in there.
+
+Before commit 867a43a34ff8a ("userfaultfd: use per-vma locks in userfaultfd
+operations") we would always validate the VMA before allocating an
+anon_vma, and consequently never wrongly allocate an anon_vma.
+
+As uffd_lock_vma() is part of the same lookup machinery and
+also contains a misleading VM_SHARED check, change that one as well
+directly for consistency.
+
+A follow-up cleanup will stop taking the hugetlb_vma_lock_read(src_vma)
+lock in copy_hugetlb_page_range() entirely. Further, the usage of
+VM_SHARED in userfaultfd code should be cleaned up later to focus on
+CoW vs. non-CoW mappings.
+
+Link: https://lore.kernel.org/20261014-copy_hugetlb_page_range-v1-1-5b68e03fe7fe@kernel.org
+Fixes: 867a43a34ff8 ("userfaultfd: use per-vma locks in userfaultfd operations")
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: <syzbot+49b1021becba70c1f3f6@syzkaller.appspotmail.com>
-Closes: https://syzkaller.appspot.com/bug?extid=49b1021becba70c1f3f6
-Reported-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Closes: https://lore.kernel.org/r/20261001152524.171115-1-ngocthang2710.1999@gmail.com/
+Reported-by: Kyle Zeng <kylebot@openai.com>
 Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Kyle Zeng <kylebot@openai.com>
+Tested-by: Kyle Zeng <kylebot@openai.com>
+Acked-by: Muchun Song <muchun.song@linux.dev>
 Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 Tested-by: Lance Yang <lance.yang@linux.dev>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: Miaohe Lin <linmiaohe@huawei.com>
+Cc: Lokesh Gidra <lokeshgidra@google.com>
 Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-Cc: Peter Zijlstra <a.p.zijlstra@chello.nl>
-Cc: Rik van Riel <riel@redhat.com>
 Cc: <stable@vger.kernel.org>
 ---
- mm/memory.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+ mm/hugetlb.c     | 24 ++++++++++++------------
+ mm/userfaultfd.c |  5 ++---
+ 2 files changed, 14 insertions(+), 15 deletions(-)
 
-diff --git a/mm/memory.c b/mm/memory.c
-index ed64455c73bdb..34e60a5baf7ce 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -7129,6 +7129,7 @@ int generic_access_phys(struct vm_area_struct *vma, unsigned long addr,
- 	resource_size_t phys_addr;
- 	pgprot_t prot = __pgprot(0);
- 	void __iomem *maddr;
-+	struct page *page;
- 	int offset = offset_in_page(addr);
- 	int ret = -EINVAL;
- 	bool writable;
-@@ -7143,6 +7144,19 @@ int generic_access_phys(struct vm_area_struct *vma, unsigned long addr,
- retry:
- 	if (follow_pfnmap_start(&args))
- 		return -EINVAL;
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index 27e8136b18150..da5d04edf7c10 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -4973,10 +4973,11 @@ int copy_hugetlb_page_range(struct mm_struct *dst, struct mm_struct *src,
+ 		raw_write_seqcount_begin(&src->write_protect_seq);
+ 	} else {
+ 		/*
+-		 * For shared mappings the vma lock must be held before
+-		 * calling hugetlb_walk() in the src vma. Otherwise, the
+-		 * returned ptep could go away if part of a shared pmd and
+-		 * another thread calls huge_pmd_unshare.
++		 * Shared mappings only need copying when we could have
++		 * information stored in page tables (e.g., userfaultfd PTE
++		 * bits or markers), which is incompatible with PMD sharing.
++		 * Still take the hugetlb VMA lock for now to satisfy
++		 * hugetlb_walk()'s locking requirements.
+ 		 */
+ 		hugetlb_vma_lock_read(src_vma);
+ 	}
+@@ -4984,6 +4985,13 @@ int copy_hugetlb_page_range(struct mm_struct *dst, struct mm_struct *src,
+ 	last_addr_mask = hugetlb_mask_last_page(h);
+ 	for (addr = src_vma->vm_start; addr < src_vma->vm_end; addr += sz) {
+ 		spinlock_t *src_ptl, *dst_ptl;
 +
-+	/*
-+	 * Reject anything that looks like ordinary RAM, including anonymous
-+	 * folios in CoW mappings or allocated kernel memory. Note that we
-+	 * cannot distinguish memblock allocations from non-RAM reliably, so
-+	 * we cannot easily reject them here.
-+	 */
-+	page = pfn_to_online_page(args.pfn);
-+	if (page && !PageReserved(page)) {
-+		follow_pfnmap_end(&args);
-+		return -EINVAL;
-+	}
++		if (WARN_ON_ONCE(want_pmd_share(src_vma, addr) ||
++				 want_pmd_share(dst_vma, addr))) {
++			ret = -EINVAL;
++			break;
++		}
 +
- 	prot = args.pgprot;
- 	phys_addr = (resource_size_t)args.pfn << PAGE_SHIFT;
- 	writable = args.writable;
+ 		src_pte = hugetlb_walk(src_vma, addr, sz);
+ 		if (!src_pte) {
+ 			addr |= last_addr_mask;
+@@ -4995,14 +5003,6 @@ int copy_hugetlb_page_range(struct mm_struct *dst, struct mm_struct *src,
+ 			break;
+ 		}
+ 
+-#ifdef CONFIG_HUGETLB_PMD_PAGE_TABLE_SHARING
+-		/* If the pagetables are shared, there is nothing to do */
+-		if (ptdesc_pmd_is_shared(virt_to_ptdesc(dst_pte))) {
+-			addr |= last_addr_mask;
+-			continue;
+-		}
+-#endif
+-
+ 		dst_ptl = huge_pte_lock(h, dst, dst_pte);
+ 		src_ptl = huge_pte_lockptr(h, src, src_pte);
+ 		spin_lock_nested(src_ptl, SINGLE_DEPTH_NESTING);
+diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+index da67d35cd9546..405f2d72f204e 100644
+--- a/mm/userfaultfd.c
++++ b/mm/userfaultfd.c
+@@ -115,8 +115,7 @@ struct vm_area_struct *find_vma_and_prepare_anon(struct mm_struct *mm,
+ 	vma = vma_lookup(mm, addr);
+ 	if (!vma)
+ 		vma = ERR_PTR(-ENOENT);
+-	else if (!(vma->vm_flags & VM_SHARED) &&
+-		 unlikely(anon_vma_prepare(vma)))
++	else if (vma_is_cow_mapping(vma) && unlikely(anon_vma_prepare(vma)))
+ 		vma = ERR_PTR(-ENOMEM);
+ 
+ 	return vma;
+@@ -145,7 +144,7 @@ static struct vm_area_struct *uffd_lock_vma(struct mm_struct *mm,
+ 		 * We know we're going to need an anon rmap, so check that
+ 		 * early.
+ 		 */
+-		if (!(vma->vm_flags & VM_SHARED) && unlikely(!vma_has_anon_rmap(vma)))
++		if (vma_is_cow_mapping(vma) && unlikely(!vma_has_anon_rmap(vma)))
+ 			vma_end_read(vma);
+ 		else
+ 			return vma;
 -- 
 2.53.0
 
