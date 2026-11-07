@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794049641;
-	b=fCXUes5GbP/Fef3SLilQt4a/ZVQdBVqCwlW9Amnr+eKk/4xomq4UnowIoqe33pIiObBS
-	 4lqut7bd/dFCjjX7O9s55HJSKrCKRrCnTTpYLfxSWIvnmUssSa2UCNJGU0/d5zfXHlJz7
-	 e5W7mCuKyt02NLuAvziA4qrNu7WI4fw54U2+tu1rRV60dVRSIkKCkEkvZ1O/Rs0Wz24ja
-	 bZiq6topUXzqFmnSxYlU99M4qCIlN7QINCXHA0mtgo4Uu88v6RFtqY8Nz3NrVtMq0BlO8
-	 eq5r8GyyCXtOduC/hZ7q3u6mdBmBlQRopwB52d3LNENMb3LAl9b1ArR52e0B5olo/CQ==
+	t=1794049644;
+	b=xVq/utZxz6G/Ao8TD/YQZ1XitEnvdPJcEwBm1gUBpiJso3BFeFjAy/EjVHrPDbDu8bbo
+	 ma4JNMbDXZjg08g+woBxIC0hiVm73MT8vaQCUx8e4TOZlUm+W3W5eLLnJTw2j2bIMyvnR
+	 jw9OVJPOpGBVr/ei+AzuFTRKJgzWuT8KwuqDq8hYObnmfW+Ilhj7dNKAZR+cLLJcESKoA
+	 ykgUSB01RXT5SYntLSh+eQ1YWt+58SpKCHnywIvSv2TZHxDzyD4TLd8Q35xtilug4R2iO
+	 B/97Vy9DEIXZQyCFn05uaZrhGG1iyAQu/I2HV/dL31rH8Tlipk4NA5KoB0fXb6VKi3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794049641;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794049644;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=R/FPPtEuSHeBQMJd36c/1cHz1x5TS9vJYxGz+eM8PZY=;
-	b=hBUUZ+mFJR3+p+967DtXgSDQkWP4GDf8qwY99CbD9FLg7YMnDy559FsH1vbIKHt01zVB
-	 CFbUH7NukzY426OvjEDqKEZT7iq1ElnNw1KqRYJQAUmIiYtbXg3jYJ3yg6JvCBh1iJ4ep
-	 o5XQRxQAwvoucSFoj+gDRd760ZZHzXBqbTYW3H5Ro/f2T8MxvLLL+Jk8w9/fG3fyjnXxz
-	 9f4JbKqkl8isuiuyFj4+LpK8nO+It8o9rgfHljdntt42AIUUwNl8fNgCviK62BZYkOb/M
-	 ZuPsa3m3cMnzOL39Xghb5CvR/WdjNSPLU2fwfbo+qXdwrx4lNS4pJUYvgmfElRHr9FQ==
+	bh=e/wZL7uAIzsH7sYIBXBM3EQjzqwX0tC8n5oDX9t7y0g=;
+	b=fehYAtWzFSAqecuOk6ztlETxrcTWvs6/veCYjC0IRFztc/aTIsoJpDG3td0TrU1cmIaL
+	 cLfaWDG2C2PK3I3TVNSI4i9dZ65MM05jfO7iCVWHMVNthHtfwvLw+Dh4vAz9tvQ9EyUtV
+	 YCV/FW7M9O7FzLrr73HFngp2QGTLGMM8wzPyuG8e4ralswH94QEA3NRBjG+GEIFNN9KlJ
+	 /9BOjmzOOMu8fW3R880ne+0xdbk3uxsBaPWAh1mPIXoojIS9VWDWCr41FSTpdgY/lRxkI
+	 z6kp8jY5GMjFA2IubCPQqvYv2Lzkd2hqIfWRZ0kvOrsfsOwYqeEj3mXf7rU/mkV8qWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hJspqJK3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fmrb4IaJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B1DE606A32E
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:07:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99EF6606D808
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:07:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hJspqJK3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D59721F0089F;
-	Sat,  7 Nov 2026 11:07:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fmrb4IaJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02A471F0089F;
+	Sat,  7 Nov 2026 11:07:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794049641;
-	bh=R/FPPtEuSHeBQMJd36c/1cHz1x5TS9vJYxGz+eM8PZY=;
+	s=k20260515; t=1794049644;
+	bh=e/wZL7uAIzsH7sYIBXBM3EQjzqwX0tC8n5oDX9t7y0g=;
 	h=From:To:Cc:Subject:Date;
-	b=hJspqJK33DIIQ3nvvVtqz9TpmxxENghI2JFk0s4T+PKuCrvhieLZbC7bbF3eXvtSa
-	 XrWVtH/qRkHZz1wVbDcqsPRxTtmURV4NY5v3jp1hh00zg1CEPVjeUeJOy2uNmajxQK
-	 xw6ajw1ffAyQMCckq+H+OsF3JGAE8+UsKMeRdQhr+LOTq9v28SoAz+5c3zS8Hr+bHM
-	 mzBwW5+Czvt53AELgkxrGT/KQKTppVdpFivanab75z59jgAWdw3O68gEybP1y7zYFl
-	 VWUh1GB9QkaZPTXhE4okJ66ukPH76LTOqBFkFjHcW/MtkxjLZOONtOy+2rMVkZJqoZ
-	 tiamNnlAlfqiA==
+	b=Fmrb4IaJLFa8Ou3f+FUw6mM5K7Ol347l+QbzgC72L9dS2NfCiX/+VLXfMWYdbWtO9
+	 r+YTxzbTeKOOZvOSWg0CIebNVMdh7CZczWvAdYisv5IdWSfF8mBh3rl4MVMIWHGCvV
+	 IKFH1OQkA2N4LfkPiJuVXgAAuk+IJj1rRgFWp1xyG5IZtVGSCRvWNgLEZaETb1L1yY
+	 IZSsfhNAWp2017gf+wYCcSpDFrIJmpOT2mQ5FqEeX2y9Eenvs+rG+rixFVEgrdhygW
+	 4lRMft/+JZnOnCbApgj6co5m4sIjbT1/RQ8F08UxyDoNX97fOpwq5ck6fCMqTLBmcr
+	 3HzyBYepo1eOA==
 From: Sasha Levin <sashal@kernel.org>
-To: kaixuanli0131@gmail.com,
-	chao@kernel.org,
-	jaegeuk@kernel.org
+To: yun.zhou@windriver.com,
+	idosch@nvidia.com,
+	kuba@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] f2fs: bound the SIT/NAT bitmaps by the checkpoint pack" failed to apply to 5.15-stable tree
-Date: Sat,  7 Nov 2026 06:07:19 -0500
-Message-ID: <20261107060719-failed-5.15-080833a32fd5@kernel.org>
+Subject: FAILED: patch "[PATCH] net: erspan: set lltx to avoid sch_direct_xmit deadlock" failed to apply to 5.15-stable tree
+Date: Sat,  7 Nov 2026 06:07:22 -0500
+Message-ID: <20261107060722-failed-5.15-2d36ec73836e@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,90 +69,80 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 080833a32fd5dc10b3acf2fa9af9b3213e6cb617
+git cherry-pick -x 2d36ec73836e83175deb467fd494c61006107e5d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060719-failed-5.15-080833a32fd5@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107060722-failed-5.15-2d36ec73836e@kernel.org' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 080833a32fd5dc10b3acf2fa9af9b3213e6cb617 Mon Sep 17 00:00:00 2001
-From: Kaixuan Li <kaixuanli0131@gmail.com>
-Date: Sat, 19 Sep 2026 21:09:24 +0800
-Subject: [PATCH] f2fs: bound the SIT/NAT bitmaps by the checkpoint pack
+From 2d36ec73836e83175deb467fd494c61006107e5d Mon Sep 17 00:00:00 2001
+From: Yun Zhou <yun.zhou@windriver.com>
+Date: Thu, 8 Oct 2026 17:38:24 +0800
+Subject: [PATCH] net: erspan: set lltx to avoid sch_direct_xmit deadlock
 
-sit_ver_bitmap_bytesize and nat_ver_bitmap_bytesize are used as memcpy
-lengths into and out of sbi->ckpt, which is sized from cp_payload alone,
-and nothing compares either length against that allocation.
+The ERSPAN xmit path re-enters the network stack, causing nested
+acquisition of _xmit_lock on the underlay device while already holding
+the ERSPAN device's _xmit_lock, creating an ABBA deadlock. This happens
+for both IPv4 ERSPAN (erspan_xmit() -> ip_tunnel_xmit()) and IPv6 ERSPAN
+(ip6erspan_tunnel_xmit() -> ip6_tnl_xmit()):
 
-sanity_check_ckpt() has checked these two fields since c77ec61ca0a4, which
-added them after a crafted image overran build_sit_info(). That check ties
-each length to a segment count; it never compares either against the
-allocation, which is the half this adds.
+  sch_direct_xmit [lock erspan] -> erspan_xmit -> ip_tunnel_xmit ->
+  ip_output -> __dev_queue_xmit -> sch_direct_xmit [lock underlay]
 
-Mounting over-reads in build_sit_info() and build_node_manager(), and the
-first checkpoint writes the same lengths back through the same pointers,
-so the over-read's contents reach the on-disk checkpoint. An unmount is
-enough; the filesystem does not have to be used.
+  sch_direct_xmit [lock erspan] -> ip6erspan_tunnel_xmit -> ip6_tnl_xmit ->
+  ip6_output -> __dev_queue_xmit -> sch_direct_xmit [lock underlay]
 
-Bound both ends the way __bitmap_ptr() lays them out. The three branches
-differ, so a single sum of the two lengths would still admit a small
-overflow when cp_payload is non-zero.
+Set dev->lltx = true so HARD_TX_LOCK() skips the spinlock for ERSPAN.
+This is safe as the ERSPAN xmit path has no shared mutable state: o_seqno
+is atomic, TX stats are per-CPU u64_stats, dst_cache is per-CPU, and
+o_flags is no longer modified in the xmit path since commit 9958e69b9893
+("gre: fix ERSPAN o_flags race/corruption in xmit and fill_info").
+GRETAP, the sibling device with identical xmit structure, already sets
+lltx.
 
-Fixes: 39a53e0ce0df ("f2fs: add superblock and major in-memory structure")
-Cc: stable@kernel.org
-Signed-off-by: Kaixuan Li <kaixuanli0131@gmail.com>
-Reviewed-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+Reported-by: syzbot+9bda1b9fbb7fbdf9b62b@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=9bda1b9fbb7fbdf9b62b
+Fixes: 84e54fe0a5ea ("gre: introduce native tunnel support for ERSPAN")
+Fixes: 5a963eb61b7c ("ip6_gre: Add ERSPAN native tunnel support")
+Cc: stable@vger.kernel.org # 9958e69b9893 ("gre: fix ERSPAN o_flags race/corruption in xmit and fill_info")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yun Zhou <yun.zhou@windriver.com>
+Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+Link: https://patch.msgid.link/20261008093824.119453-1-yun.zhou@windriver.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 ---
- fs/f2fs/super.c | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+ net/ipv4/ip_gre.c  | 1 +
+ net/ipv6/ip6_gre.c | 1 +
+ 2 files changed, 2 insertions(+)
 
-diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
-index 54431da34edf9..3a191fda7030f 100644
---- a/fs/f2fs/super.c
-+++ b/fs/f2fs/super.c
-@@ -4278,6 +4278,7 @@ int f2fs_sanity_check_ckpt(struct f2fs_sb_info *sbi)
- 	block_t avail_node_count, valid_node_count;
- 	unsigned int nat_blocks, nat_bits_bytes, nat_bits_blocks;
- 	unsigned int sit_blk_cnt;
-+	unsigned long long ckpt_size, sit_end, nat_end;
- 	int i, j;
+diff --git a/net/ipv4/ip_gre.c b/net/ipv4/ip_gre.c
+index e4878e9aa6367..149a4e83b6925 100644
+--- a/net/ipv4/ip_gre.c
++++ b/net/ipv4/ip_gre.c
+@@ -1367,6 +1367,7 @@ static int erspan_tunnel_init(struct net_device *dev)
+ 	dev->features		|= GRE_FEATURES;
+ 	dev->hw_features	|= GRE_FEATURES;
+ 	dev->priv_flags		|= IFF_LIVE_ADDR_CHANGE;
++	dev->lltx = true;
+ 	netif_keep_dst(dev);
  
- 	total = le32_to_cpu(raw_super->segment_count);
-@@ -4409,6 +4410,29 @@ int f2fs_sanity_check_ckpt(struct f2fs_sb_info *sbi)
- 		return 1;
- 	}
+ 	return ip_tunnel_init(dev);
+diff --git a/net/ipv6/ip6_gre.c b/net/ipv6/ip6_gre.c
+index 04f7c70b7320e..3429543ec77e7 100644
+--- a/net/ipv6/ip6_gre.c
++++ b/net/ipv6/ip6_gre.c
+@@ -1864,6 +1864,7 @@ static int ip6erspan_tap_init(struct net_device *dev)
+ 		dev->mtu -= 8;
  
-+	/*
-+	 * Nothing above ties the bitmap lengths to sbi->ckpt, which is
-+	 * (1 + cp_payload) blocks. Bound both ends the way __bitmap_ptr()
-+	 * lays them out.
-+	 */
-+	ckpt_size = (unsigned long long)(cp_payload + 1) * F2FS_BLKSIZE(sbi);
-+	if (__is_set_ckpt_flags(ckpt, CP_LARGE_NAT_BITMAP_FLAG)) {
-+		nat_end = CP_MIN_CHKSUM_OFFSET + sizeof(__le32) + nat_bitmap_size;
-+		sit_end = nat_end + sit_bitmap_size;
-+	} else if (cp_payload > 0) {
-+		nat_end = CP_MIN_CHKSUM_OFFSET + nat_bitmap_size;
-+		sit_end = F2FS_BLKSIZE(sbi) + sit_bitmap_size;
-+	} else {
-+		sit_end = CP_MIN_CHKSUM_OFFSET + sit_bitmap_size;
-+		nat_end = sit_end + nat_bitmap_size;
-+	}
-+
-+	if (sit_end > ckpt_size || nat_end > ckpt_size) {
-+		f2fs_err(sbi, "Bitmaps do not fit the checkpoint pack: sit ends at %llu, nat at %llu, pack is %llu bytes",
-+			 sit_end, nat_end, ckpt_size);
-+		return 1;
-+	}
-+
- 	if (__is_set_ckpt_flags(ckpt, CP_LARGE_NAT_BITMAP_FLAG) &&
- 		le32_to_cpu(ckpt->checksum_offset) != CP_MIN_CHKSUM_OFFSET) {
- 		f2fs_warn(sbi, "using deprecated layout of large_nat_bitmap, "
+ 	dev->priv_flags |= IFF_LIVE_ADDR_CHANGE;
++	dev->lltx = true;
+ 	ip6erspan_tnl_link_config(tunnel, 1);
+ 
+ 	netdev_hold(dev, &tunnel->dev_tracker, GFP_KERNEL);
 -- 
 2.53.0
 
