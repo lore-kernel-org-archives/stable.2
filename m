@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794047560;
-	b=3hUze7SF1u2f9EbKspm9PJsZBPDjwWSCX8j84W0bLcXln6BEm8fMOYizVD7fcTVp3V1k
-	 YC590GeLuqn6UgY2ijUEL3pmV7VwNFfSfQ6GJJrx/9zLxG0yjcxbeE/1BOclfsOn9E3+h
-	 273NeXwZpSd3SlrW0l02TYSS4ZeeyBHWNBthY0dTBQ8jk3Z7cahWeRagUrY6R/E2K8llV
-	 gMqrj43kxakh/SxUME0UtuoStrWET0AmGtqRhyHdBur48TomjprUczq86N/YRrX7hYYJP
-	 NIFvoByms6BTlLWMLYvfc5UCfRDO28mVJFKQXAeLB7Q0BLhsHQWQRdXqaOlEknAcJVg==
+	t=1794047562;
+	b=mvIstAHdXyJOpEISt3BEocy+LtGZVg5UJiEwhzLamplJnadwzcLpgqlhZETd1+rvs9uU
+	 KElV9U3RhNwX19YjuUTz+stRPJ/j1Lfo89eS8M4R2wlciFc+KExG8ZPDsCGjVMkjXSRjY
+	 FoVuup4pGpl3V3bOShea9YeZmjMhTGGRFz0TiP+TSzBmcqEnAJZU5D+lX4P9AJ6IZMXVw
+	 ky/SR2fzsnIRHzRFKewRCY0qrcEqSiYIV5xCJVMfUXfluKUq/FQhujMkhd9vB/I/N7F58
+	 l5vgACKBky6Ieui20ZyBcT5OFjORAXx+EWXKxhEWcJBAUIcyVpl2SHS0Mpz422RJ9FQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794047560;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794047562;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=FFMOe/ewyiO1O4w0Y+10PS41yIHQCsYjLFjp/zdlLUE=;
-	b=bCNDAmqvEgaMuQvQgeMCXdHcyBjtxQLcYo/f/FuokzGU7QurYMTW1QVhZDSDUC/SYrAX
-	 i0T7MMbIySkipICEIZn+z5hE+GuDZECc7h2y8HuQiHCTit1jSOx3otCZXEi5pKf59cz+Q
-	 hz8BTgTqv1EqDTqlaDy1nNMkCBcF/1c42mK/mDR/sBOcQnxkYmHkXtpniua2d5FiyU7eL
-	 GlHfesSLzzrQuXPQgsyxtoPOr8WB+qMQGzlCXT10VCJnVlHA4C8hIuIoler1wUMVIl0EC
-	 W/I2B679mIGxm2S++zU+3BR45NiyJ3aPM4IF9HVaMtGXcK6HiVdrasNedVgMVHw++sw==
+	bh=cuJpuDny+opWrndvugD1UiSp3IVdUYSZr5ic3XkVISU=;
+	b=ZWRNbxcBOHLA4YstFHRjIpS32sF+ElaosUC5ZJ5b3mlgm9P+2bQQrdQ/P9ZXfuUUd25w
+	 gGglv6yqxoi0OhfcW44cd6uq6BgxW5pBDj/FO+7JgQYAR25MycN738xCu2/ugcpIbOiIi
+	 7eQYDjsigRQcU0aMSlJSoQYYWXeXpRMd0fXWxyD9PZvGIQSQQbz0L8IkREKVy5x+DKzRw
+	 EA+KduSfXArCuNveexxCWtpgANei577BSi0xn7q3v1J03hSY0tPnbCGDTvuv8p6bKPLUU
+	 qfjxl1bXGJUIP65lAsyrZS147ZhvZ8Vp9EVA1Ruav+7MPf9H+uF3ek4JWe5P8S7o9YA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZCXilsWy;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m+Qs5NsW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01AFA606A32C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:32:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3155606A330
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:32:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZCXilsWy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18ABC1F0089F;
-	Sat,  7 Nov 2026 10:32:38 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m+Qs5NsW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DFA01F0089F;
+	Sat,  7 Nov 2026 10:32:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794047559;
-	bh=FFMOe/ewyiO1O4w0Y+10PS41yIHQCsYjLFjp/zdlLUE=;
+	s=k20260515; t=1794047561;
+	bh=cuJpuDny+opWrndvugD1UiSp3IVdUYSZr5ic3XkVISU=;
 	h=From:To:Cc:Subject:Date;
-	b=ZCXilsWyO/cc7GqeA+qX4H+fVsh1b8+2ROz/BDyMzfnYdvSVejLPOQpqcRrIlam0B
-	 2Qq5gTVnelpcBGyEDtnaBOC+C1h5CL9LqBaG26GiOSQfK/yofRHU6d7GTPIo67kHar
-	 nFpf0g1psUxuiOyL3ydp6xeOrmxkvBnRYnzzxIMzNQye9D4mu3RmD4lUDYslV8WIcn
-	 Pal1PHo1cwOwsMfl1TXanZeMu2Ti9fV99CSJnh9vzR2h+vcR7cYIBwxxTNxebjefv5
-	 N1i+J75TF1g4n9/nSV3UzPCZN4aJXT/Xy2Bfx59hRYd+Z6NYP3W81jzzYgnypKRr1H
-	 65izktLaIVQ9g==
+	b=m+Qs5NsWxa+LSVN/p3f3syrw0vmwbK6jQPLOKY7VQUleMEUrFYOYgF413fmtV8CHU
+	 eMUNUiPpJVmbJuCDPXY9JKIkbbkH5q77rQ1IZeOBekoZ7rawNeKH0DjCTz6AabTFuF
+	 UJmuUrnXYVf9rc5gklQ3O6Gk4lMrja99GXE0ma6Gl3j6MQdVt4t5AdZnYu8pWbHUnv
+	 DuZedBynmDePDL87rpNI2PTEUim+LCOc2wzQJZma9EonDJvc0BbRip25ylbrtfbutU
+	 EeUx510Ko7pH0fvyRzIbXDHEqsv1OCaRA+ekdjHXEoY32zwxo4x7MBdo1K+RziQj0e
+	 Rjnpw21Ciq7dQ==
 From: Sasha Levin <sashal@kernel.org>
-To: chao@kernel.org,
-	jaegeuk@kernel.org
+To: qwe.aldo@gmail.com,
+	almaz.alexandrovich@paragon-software.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] f2fs: zone: fix to avoid bio split on sequential zone" failed to apply to 6.6-stable tree
-Date: Sat,  7 Nov 2026 05:32:38 -0500
-Message-ID: <20261107053238-failed-6.6-b9b036bd1e2c@kernel.org>
+Subject: FAILED: patch "[PATCH] fs/ntfs3: validate that EA entry size covers its name and value" failed to apply to 6.6-stable tree
+Date: Sat,  7 Nov 2026 05:32:40 -0500
+Message-ID: <20261107053240-failed-6.6-60bd50014cc9@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,124 +68,95 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x b9b036bd1e2cfbc189d5811d62d8711e216c40b3
+git cherry-pick -x 60bd50014cc9a97c5e34a8bddd2bad4d2dc5acb7
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053238-failed-6.6-b9b036bd1e2c@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107053240-failed-6.6-60bd50014cc9@kernel.org' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From b9b036bd1e2cfbc189d5811d62d8711e216c40b3 Mon Sep 17 00:00:00 2001
-From: Chao Yu <chao@kernel.org>
-Date: Wed, 7 Oct 2026 10:18:12 +0000
-Subject: [PATCH] f2fs: zone: fix to avoid bio split on sequential zone
+From 60bd50014cc9a97c5e34a8bddd2bad4d2dc5acb7 Mon Sep 17 00:00:00 2001
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Date: Thu, 23 Jul 2026 19:10:45 -0300
+Subject: [PATCH] fs/ntfs3: validate that EA entry size covers its name and
+ value
 
-In the block layer, bio_split_to_limits() splits a bio if it exceeds
-any underlying queue limits:
-1. queue_max_sectors: Splits bios larger than the transfer limit. This
-   limit is set by the device driver/DMA controller (max_hw_sectors) and
-   device-mapper targets. When flushing dirty pages (governed by VFS
-   writeback_chunk_size() and f2fs nr_pages_to_skip()), f2fs merges
-   contiguous pages into bios up to 512KB (1024 sectors) or more without
-   checking queue_max_sectors, which will be split if the device or DM
-   target enforces a smaller limit.
-2. queue_max_segments: Splits bios exceeding scatter-gather segment
-   limits. f2fs allocates bios with up to 256 pages, exceeding the
-   128-segment limit of DM targets (dm-default-key/dm-crypt) if pages
-   are discontiguous.
-3. chunk_sectors: Splits bios crossing chunk/zone boundaries. In f2fs,
-   section_size strictly matches zone_size, and block allocation never
-   spans across section boundaries, so bios never cross chunk_sectors.
+ntfs_read_ea() walks the on-disk $EA attribute and checks each EA_FULL
+entry for consistency.  For an entry with a non-zero ef->size (the
+offset to the next entry) the loop only verifies that this stride fits
+in the remaining buffer, and then continues:
 
-Crucially, when bio_split_to_limits() splits a bio, bio_submit_split()
-submits the tail half via submit_bio_noacct() before returning the head
-half to the caller. On a sequential zoned device, this causes the tail
-bio to arrive at the zone write plug before the head:
+	if (ef->size) {
+		ea_size = le32_to_cpu(ef->size);
+		if (ea_size > bytes)
+			goto out1;
+		continue;
+	}
 
-  dm-3: zone 7: prepare_bio wp mismatch: bio sector 30720 offset 2048
-  != wp_offset 248, len 248
+It never verifies that the entry's own name (ef->name_len) and value
+(ef->elength) actually fit inside ef->size.  A later reader trusts
+ef->elength unconditionally; ntfs_get_ea() does:
 
-The write plug rejects the out-of-order tail with BLK_STS_IOERR, causing
-f2fs_stop_checkpoint() and remounting the filesystem read-only:
+	len = le16_to_cpu(ea->elength);		/* up to 0xffff */
+	...
+	if (len > size)				/* size is the user buffer */
+		return -ERANGE;
+	memcpy(buffer, ea->name + ea->name_len + 1, len);
 
-2026-09-30T22:09:23.725678+08:00 localhost kernel: CPU: 9 UID: 0 PID: 243 Comm: kworker/9:1H Not tainted 6.12.81-gb3ef518fb26d #5
-2026-09-30T22:09:23.725750+08:00 localhost kernel: Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-debian-1.17.0-1 04/01/2014
-2026-09-30T22:09:23.725753+08:00 localhost kernel: Workqueue: dm-3_zwplugs blk_zone_wplug_bio_work
-2026-09-30T22:09:23.725756+08:00 localhost kernel: Call Trace:
-2026-09-30T22:09:23.725758+08:00 localhost kernel:  <TASK>
-2026-09-30T22:09:23.725758+08:00 localhost kernel:  dump_stack_lvl+0x4d/0x70
-2026-09-30T22:09:23.725759+08:00 localhost kernel:  f2fs_stop_checkpoint+0x1df/0x5d0
-2026-09-30T22:09:23.725759+08:00 localhost kernel:  ? blk_zone_wplug_bio_work+0x4eb/0x740
-2026-09-30T22:09:23.725760+08:00 localhost kernel:  f2fs_cache_write_end_io+0x545/0x6e0
-2026-09-30T22:09:23.725761+08:00 localhost kernel:  blk_zone_wplug_bio_work+0x4eb/0x740
-2026-09-30T22:09:23.725762+08:00 localhost kernel:  process_one_work+0x5c6/0xde0
-2026-09-30T22:09:23.725764+08:00 localhost kernel:  ? assign_work+0x124/0x4e0
-2026-09-30T22:09:23.725765+08:00 localhost kernel:  worker_thread+0x403/0xb70
-2026-09-30T22:09:23.725765+08:00 localhost kernel:  ? __kthread_parkme+0x82/0x140
-2026-09-30T22:09:23.725766+08:00 localhost kernel:  ? __pfx_worker_thread+0x10/0x10
-2026-09-30T22:09:23.725766+08:00 localhost kernel:  kthread+0x235/0x2e0
-2026-09-30T22:09:23.725767+08:00 localhost kernel:  ? recalc_sigpending+0x128/0x1d0
-2026-09-30T22:09:23.725767+08:00 localhost kernel:  ? __pfx_kthread+0x10/0x10
-2026-09-30T22:09:23.725769+08:00 localhost kernel:  ret_from_fork+0x2f/0x70
-2026-09-30T22:09:23.725769+08:00 localhost kernel:  ? __pfx_kthread+0x10/0x10
-2026-09-30T22:09:23.725770+08:00 localhost kernel:  ret_from_fork_asm+0x1a/0x30
-2026-09-30T22:09:23.725771+08:00 localhost kernel:  </TASK>
-2026-09-30T22:09:23.725771+08:00 localhost kernel: F2FS-fs (dm-0): Stopped filesystem due to reason: 3
+A crafted image with a small but valid ef->size (e.g. 24) and
+ef->elength == 0xffff therefore passes validation, and a getxattr()
+with a large enough user buffer copies up to 64 KiB starting just past
+the short entry -- an out-of-bounds read of the ea_all allocation that
+leaks adjacent kernel heap memory to userspace.
 
-To prevent write bios destined for sequential zones from being split:
-1. In __bio_alloc(), bound npages to bdev_max_segments(bdev) for writes to
-   sequential zone areas.
-2. In page_is_mergeable(), check queue_max_segments() and queue_max_sectors()
-   for sequential zone areas, so f2fs will not merge beyond the queue limits.
+  BUG: KASAN: slab-out-of-bounds in ntfs_get_ea+0x2b8/0x3f0
+  Read of size 65535 ...
+   ntfs_get_ea -> ntfs_getxattr -> vfs_getxattr -> do_getxattr
 
-Fixes: 52763a4b7a21 ("f2fs: detect host-managed SMR by feature flag")
-Fixes: 664ba972df9b ("f2fs: use BIO_MAX_PAGES for bio allocation")
+The zero-ef->size branch already computes the same struct_size() to
+derive the stride; mirror that in the non-zero branch and reject the
+entry when its declared size cannot hold the name and value.
+
+Fixes: 0e8235d28f3a ("fs/ntfs3: Check fields while reading")
 Cc: stable@vger.kernel.org
-Signed-off-by: Chao Yu <chao@kernel.org>
-Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
+Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Signed-off-by: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
 ---
- fs/f2fs/data.c | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
+ fs/ntfs3/xattr.c | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index 4bfa301a5df63..15c6af8515f30 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -536,6 +536,10 @@ static struct bio *__bio_alloc(struct f2fs_io_info *fio, int npages)
- 	struct bio *bio;
- 
- 	bdev = f2fs_target_device(sbi, fio->new_blkaddr, &sector);
-+	/* avoid reversed IO if bio is split due to exceeding max_segments */
-+	if (npages > 1 && !is_read_io(fio->op) &&
-+	    f2fs_is_sequential_zone_area(sbi, fio->new_blkaddr))
-+		npages = min_t(int, npages, bdev_max_segments(bdev));
- 	bio = bio_alloc_bioset(bdev, npages,
- 				fio->op | fio->op_flags | f2fs_io_flags(fio),
- 				GFP_NOIO, &f2fs_bioset);
-@@ -892,7 +896,19 @@ static bool page_is_mergeable(struct f2fs_sb_info *sbi, struct bio *bio,
- 		return false;
- 	if (last_blkaddr + 1 != cur_blkaddr)
- 		return false;
--	return bio->bi_bdev == f2fs_target_device(sbi, cur_blkaddr, NULL);
-+	if (bio->bi_bdev != f2fs_target_device(sbi, cur_blkaddr, NULL))
-+		return false;
-+	/* avoid reversed IO if bio is split due to exceeding max_segments/sectors */
-+	if (f2fs_is_sequential_zone_area(sbi, cur_blkaddr)) {
-+		struct request_queue *q = bdev_get_queue(bio->bi_bdev);
+diff --git a/fs/ntfs3/xattr.c b/fs/ntfs3/xattr.c
+index 7f77df9c46f85..2cf45bdd93d54 100644
+--- a/fs/ntfs3/xattr.c
++++ b/fs/ntfs3/xattr.c
+@@ -167,6 +167,24 @@ static int ntfs_read_ea(struct ntfs_inode *ni, struct EA_FULL **ea,
+ 				goto out1;
+ 			if (bytes < offsetof(struct EA_FULL, name))
+ 				goto out1;
 +
-+		if (bio->bi_vcnt >= queue_max_segments(q))
-+			return false;
-+		if (bio_sectors(bio) + (F2FS_BLKSIZE(sbi) >> SECTOR_SHIFT) >
-+				queue_max_sectors(q))
-+			return false;
-+	}
-+	return true;
- }
++			/* Check if we can use fields ef->name_len and ef->elength. */
++			if (bytes < offsetof(struct EA_FULL, name))
++				goto out1;
++
++			/*
++			 * The declared entry size (ef->size) must be large
++			 * enough to hold the name and value.  Otherwise a later
++			 * reader such as ntfs_get_ea() copies ef->elength bytes
++			 * starting past the entry, reading out of bounds of the
++			 * ea buffer and leaking adjacent heap memory to
++			 * userspace via getxattr().
++			 */
++			if (struct_size(ef, name,
++					1 + ef->name_len +
++						le16_to_cpu(ef->elength)) >
++			    ea_size)
++				goto out1;
+ 			continue;
+ 		}
  
- static bool io_type_is_mergeable(struct f2fs_bio_info *io,
 -- 
 2.53.0
 
