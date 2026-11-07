@@ -1,53 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794051058;
-	b=yot89m0sAsTmVZgw8e+SV6KZRETTta0yX7jpI0RoR7r2NJoU7dHwyd9vyIJHcrtHMWwC
-	 Sr1HMXH0O9zs5+WQDpYIX1F5dDJiO5OZi7iDSWE3k4DODOAjreKeFLTS03M+KCN1AewPv
-	 njOB8AUAXgUHthDlInoLqSF+uFXysmK9gGrYrAYnhKq9HUDDL7qaSsYyJX9rbyvGigfaQ
-	 nCecA6nxS1MKTJ9oBCdGckWvwWicUzi/YbfJpkalV5Uue1s0yf2VIC39en6W46BMl8BPi
-	 dYGgBqE8I6OMsrNdO/TRj7rHcWtrVRlGcFSUQuxOzYdwa7VTe0LQguGn+di3x83w/wg==
+	t=1794051061;
+	b=e1t4IfQGzVMYa5Q65A7lV3ZJuLsPA9sfAfK+SRD0yN0FD8gO95VaT+HvMUnZ4WA/G7vm
+	 oQj33Dhi/nqSoiUWH73aMRZNGymuXQ8uKZFftVyBEAAM7+RCKn13AGR9PG4Id7XIrSBgu
+	 kSipRZ6YHl8nvqwz7MsomJjJgCQAj3d1pcGKuDeQ3hwkS/1Gy/ny3mvnrAc40TtX2uS8D
+	 4rk0RMw1fdUvTPBtcxgctGLf+05rfZzcxRGrppl6Vpwz9HasNt6KVV3x8ZEJ0x1WT49nt
+	 q/JUpy7Sk+OHIeE90ehk47AhVNCd5Fyqdsq1DlEKc44S9dW/Avy5g5UiBDla6eFvUeg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794051058;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794051061;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Knb769StaFOte9V/s9vn7Jhn8LVqwBa0VDY7FYBTIog=;
-	b=mK7E3jaTeB6kz5qxO49JprVFi2XrDvlwrzk4YF9ionv3YowufA628ajHiRSXu1bY1fBy
-	 viL1BHcbrlFHs8jwSoLhDRP7/j4sOM36vasNFiErF9e0TZ9nziSEkdVhMIsPF826t/UXn
-	 zj1jgo4dMEhSGB3Mg0F0HPvnTsnHL4Y4duTrHSc72thm9Jif6iSG0iz22nYWLbmTZwBPa
-	 +e79edXEsgcpRH+7rtmR+OdqjJRmds2xm9nWYz1GvzEk+jAXIb2nFNbxP6CAOSTO5cbX3
-	 OL2PZAS8Ei2mdvc6i6YxRysnzDkgufPxFOgIj2CptwXqPuOIso3PCcPwBatAjbCpy2A==
+	bh=6sO6Askn+c0tDRxRzmc1YTbR/Q/W0yPBBIUa+eOh4bc=;
+	b=ycPvW5HcN0IMAaNP7mfyWAy9ztzDBxkSIf/8viSZWJJhJhRMIpccv6Em84tn+AZqklbH
+	 39KgQ3bwlBIwKNria0fV2pB7e7hl4EPDdWGjpoLChs8BG1lYqHYrjPNrRt6dtqACIWF0K
+	 mHTBbpmcH3RqmKKXE5IdrZNmJryuhj1qKt04I/g/MLieaRfJVK3jxM8iDfpCWrzz9Fvfi
+	 c+w4Z69JmzYgupYpMt48e6pQ+4e7VmzbtaFkb8vVCnVM2CE7IMhznYPSTQiu5LQTlnYc1
+	 VJw3tW9pmjl2bprfJaQjNDu0IPWZSrnEDu0AnJgyJSsyK39sU8OMb4zL5AV/tSlEAgQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YBlJ6Io3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cwcXY8Gk;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26588606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:30:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35642606A326
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 11:31:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YBlJ6Io3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 678531F0089F;
-	Sat,  7 Nov 2026 11:30:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cwcXY8Gk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A248F1F008A1;
+	Sat,  7 Nov 2026 11:31:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794051058;
-	bh=Knb769StaFOte9V/s9vn7Jhn8LVqwBa0VDY7FYBTIog=;
+	s=k20260515; t=1794051061;
+	bh=6sO6Askn+c0tDRxRzmc1YTbR/Q/W0yPBBIUa+eOh4bc=;
 	h=From:To:Cc:Subject:Date;
-	b=YBlJ6Io3z7dvFJhRAuduFMxoCW+WL1XcwVYtH2B94QKr6WXZnczNr21LYXZ1RABxb
-	 IL25VtDVi0h6FmfnLDnxXmMOsffLTVSihJeXmz38+fIDEVlgV5EYpMzHETbMDMFRbk
-	 MQk6Jsxo66rsOmOPV8EcDywmXnybkB7Gfxf86++zImFHWSfreW6R3cEId8WtiBftwN
-	 eCMZ23AsjjiUXg42hbRmAGjBmmT2YkAXuiLjztwfLztV76D0ODC/S9h4eGhqFx8DZo
-	 fAHuC4TTqDjAc5yQ2rtYOKnmoTAmvNW4W35BkzAYVFb0PsGrO9+jFBq/kewyCKMpl4
-	 IsS5p20k/q36w==
+	b=cwcXY8GkrspFMkD4kBPlcItLc6v7JslKarP90+cgQVyjbk8GcZ/Cn9+zxPg7xxEbI
+	 baQ3mV/sKHa1iwCtXp5kD7qDkJgGxT5Ejz/0uIsZVALoCvON62Fp3Z4jPvpzNXTNF1
+	 URObQgc1uDPXR9qjGpYqwnupI2ozYJE7qwcJB0f3ZRqk0CKUn62dEfGR3XZS0BpkFA
+	 4Pokmuw751dSS2zjGk2fz/ViU8C1yynDBE5/8HeIQSwBq0yAGO+se+WFcXudra+keI
+	 Iyq5XePmc3SxBwL/v1LWcx6EACzxrjmdl4J6cM64hWCxcL7lPmdLmK3extjIL8z2wL
+	 Zw3zqf0woDw7g==
 From: Sasha Levin <sashal@kernel.org>
-To: cenzhang@linux.microsoft.com,
-	francis@akrites.dev,
-	autonomouscodesecurity@microsoft.com,
-	john.johansen@canonical.com
+To: mason@kernel.org,
+	brauner@kernel.org
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] apparmor: fix query_data() output overlapping the lookup key" failed to apply to 5.10-stable tree
-Date: Sat,  7 Nov 2026 06:30:56 -0500
-Message-ID: <20261107063056-failed-5.10-d30844001360@kernel.org>
+Subject: FAILED: patch "[PATCH] aio: fix NULL deref when a fault races ring truncation" failed to apply to 5.10-stable tree
+Date: Sat,  7 Nov 2026 06:30:59 -0500
+Message-ID: <20261107063059-failed-5.10-d53b5aa5cfae@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,119 +68,104 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x d30844001360a403a511cf24fc75ecaa6a7a7544
+git cherry-pick -x d53b5aa5cfae27e4d236fc0ab9581085d27f7d33
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107063056-failed-5.10-d30844001360@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107063059-failed-5.10-d53b5aa5cfae@kernel.org' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From d30844001360a403a511cf24fc75ecaa6a7a7544 Mon Sep 17 00:00:00 2001
-From: "Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>
-Date: Mon, 12 Oct 2026 17:57:03 -0400
-Subject: [PATCH] apparmor: fix query_data() output overlapping the lookup key
+From d53b5aa5cfae27e4d236fc0ab9581085d27f7d33 Mon Sep 17 00:00:00 2001
+From: Chris Mason <mason@kernel.org>
+Date: Thu, 29 Oct 2026 15:00:20 +0100
+Subject: [PATCH] aio: fix NULL deref when a fault races ring truncation
 
-In query_data(), buf and query point into the same multi_transaction
-buffer: buf at the start, query a few bytes in, and the lookup key
-right after the label string that query points to. Reusing the buffer
-is by design and is safe as long as the query is fully parsed before
-buf is written to, but the key is not: it is dereferenced on every
-iteration of label_for_each_confined(), after output has already been
-written. So when the label has more than one profile with a data
-table, the data of the first matching profile is written to buf while
-the key is still needed, and overwrites it if the data is large enough.
-The later lookups then run on a corrupted key. Besides, if the data has
-no NUL byte from the key's position to the end of the allocation,
-strhash() -> strlen() -> jhash() reads past the 4096-byte slab object,
-triggering an out-of-bound read:
+The aio ring lives in a file on the aio pseudo filesystem and the ring
+VMA uses filemap_fault(). aio_ctx_aops doesn't have a ->read_folio
+because aio_setup_ring() puts all folios of the ring into the page
+cache. So a fault on the ring only works as long as it finds its folio
+in the page cache. If it doesn't, filemap_fault() calls ->read_folio
+without checking and we jump to NULL.
 
-  BUG: KASAN: slab-out-of-bounds in jhash+0x595/0x5e0
-  Read of size 1 at addr ff1100001159d000 by task exploit/155
-  CPU: 0 UID: 1000 PID: 155 Comm: exploit Not tainted 7.3.0-rc7 #1
-  Call Trace:
-   jhash+0x595/0x5e0
-   aa_write_access+0x880/0x1400
-   vfs_write+0x26f/0xd20
-   ksys_write+0x115/0x210
+We already fixed this twice this year. A forked child could inherit the
+ring mapping, fixed by commit c03ce4173c7b ("fs: aio: set
+VMA_DONTCOPY_BIT in mmap to fix NULL-pointer-dereference error"). And a
+partial mremap() could leave part of the ring mapped, fixed by
+commit 3adf7ae18bf4 ("fs: aio: reject partial mremap to avoid
+Null-pointer-dereference error"). Both times a VMA outlived the ring and
+the ring file was truncated under it.
 
-Writing to the .access file is unprivileged (0666), but triggering this
-requires loaded profiles that carry a data table, which needs
-CAP_MAC_ADMIN and is not the case on default distribution policies.
+There's a third way to get there. kill_ioctx() and the error path of
+ioctx_alloc() unmap the ring with vm_munmap() and ignore the return
+value. If vm_munmap() has to wait for mmap_lock and a fatal signal is
+pending it returns -EINTR and the VMA stays. free_ioctx() then calls
+put_aio_ring_file() which truncates the ring file to zero. A fault that
+passed the i_size check in filemap_fault() before that doesn't find its
+folio anymore, allocates a new one and calls ->read_folio:
 
-Fix by copying the key with kstrdup() before writing any output to buf,
-so the key stays valid across all loop iterations regardless of what
-gets written to the overlapping buffer.
+    fault on the ring                 io_destroy() with SIGKILL pending
+    =================                 =================================
+                                      vm_munmap() returns -EINTR
+    filemap_fault()
+      i_size check passes
+                                      free_ioctx()
+                                        put_aio_ring_file()
+                                          truncate_setsize(inode, 0)
+      no folio, allocate a new one
+      filemap_read_folio()
+        ->read_folio == NULL
 
-Fixes: 317d9a054e1c ("apparmor: update query interface to support label queries")
-Cc: stable@vger.kernel.org # v4.13+
-Cc: Francis Perron <francis@akrites.dev>
-Reported-by: AutonomousCodeSecurity@microsoft.com
-Signed-off-by: Cen Zhang (Microsoft) <cenzhang@linux.microsoft.com>
-Signed-off-by: John Johansen <john.johansen@canonical.com>
+All that's needed is a second process that shares the mm. If a CLONE_VM
+child calls io_destroy() and gets SIGKILLed while it waits for mmap_lock
+the ring stays mapped for the threads of the parent. Any user can do
+that.
+
+Instead of plugging the routes one by one give the ring a ->read_folio
+that unlocks the folio and returns -EIO. All folios of a live ring are
+in the page cache so a fault can only end up there if the ring was
+truncated. The fault now gets SIGBUS. Nothing else reads the ring file
+and the aio filesystem uses noop_backing_dev_info so there's no
+readahead either.
+
+Making vm_munmap() unkillable in those two places would only close this
+one route and bring back what commit ae7987835643 ("mm: make vm_munmap
+killable") fixed.
+
+Fixes: 36bc08cc0170 ("fs/aio: Add support to aio ring pages migration")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chris Mason <mason@kernel.org>
+Link: https://patch.msgid.link/20261029-work-fs-ai-fixes-v1-1-88f22792f6f7@kernel.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- security/apparmor/apparmorfs.c | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
+ fs/aio.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/security/apparmor/apparmorfs.c b/security/apparmor/apparmorfs.c
-index 5b42140e12e87..9df06fdd894f3 100644
---- a/security/apparmor/apparmorfs.c
-+++ b/security/apparmor/apparmorfs.c
-@@ -919,7 +919,7 @@ static void profile_query_cb(const struct aa_profile *profile,
- static ssize_t query_data(char *buf, size_t buf_len,
- 			  char *query, size_t query_len)
- {
--	char *out;
-+	char *out, *keydup;
- 	const char *key;
- 	struct label_it i;
- 	struct aa_label *label, *curr;
-@@ -941,11 +941,18 @@ static ssize_t query_data(char *buf, size_t buf_len,
- 	if (buf_len < sizeof(bytes) + sizeof(blocks))
- 		return -EINVAL; /* not enough space */
+diff --git a/fs/aio.c b/fs/aio.c
+index 4f32b45cb8a0e..893db6961ad3b 100644
+--- a/fs/aio.c
++++ b/fs/aio.c
+@@ -528,7 +528,18 @@ static int aio_migrate_folio(struct address_space *mapping, struct folio *dst,
+ #define aio_migrate_folio NULL
+ #endif
  
-+	/* buf overlaps query, keep a copy of the key for the later lookups */
-+	keydup = kstrdup(key, GFP_KERNEL);
-+	if (!keydup)
-+		return -ENOMEM;
++/*
++ * filemap_fault() reads a folio that it did not find in the page cache. All
++ * folios of a live ring are there, so the ring was truncated under the fault.
++ */
++static int aio_read_folio(struct file *file, struct folio *folio)
++{
++	folio_unlock(folio);
++	return -EIO;
++}
 +
- 	curr = begin_current_label_crit_section(&needput);
- 	label = aa_label_parse(curr, query, GFP_KERNEL, false, false);
- 	end_current_label_crit_section(curr, needput);
--	if (IS_ERR(label))
-+	if (IS_ERR(label)) {
-+		kfree(keydup);
- 		return PTR_ERR(label);
-+	}
- 
- 	/* We are going to leave space for two numbers. The first is the total
- 	 * number of bytes we are writing after the first number. This is so
-@@ -963,13 +970,14 @@ static ssize_t query_data(char *buf, size_t buf_len,
- 		if (!profile->data)
- 			continue;
- 
--		data = rhashtable_lookup_fast(profile->data, &key,
-+		data = rhashtable_lookup_fast(profile->data, &keydup,
- 					      profile->data->p);
- 
- 		if (data) {
- 			if (out + sizeof(outle32) + data->size > buf +
- 			    buf_len) {
- 				aa_put_label(label);
-+				kfree(keydup);
- 				return -EINVAL; /* not enough space */
- 			}
- 			outle32 = __cpu_to_le32(data->size);
-@@ -981,6 +989,7 @@ static ssize_t query_data(char *buf, size_t buf_len,
- 		}
- 	}
- 	aa_put_label(label);
-+	kfree(keydup);
- 
- 	outle32 = __cpu_to_le32(out - buf - sizeof(bytes));
- 	memcpy(buf, &outle32, sizeof(outle32));
+ static const struct address_space_operations aio_ctx_aops = {
++	.read_folio	= aio_read_folio,
+ 	.dirty_folio	= noop_dirty_folio,
+ 	.migrate_folio	= aio_migrate_folio,
+ };
 -- 
 2.53.0
 
