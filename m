@@ -1,126 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.152
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794093591;
-	b=epAEMs51aALPlnWrJeWFxDDFTD4xVqRhopVIViYLhKlmg3lRBbAVNmqUT9N4dr1Yx+Bv
-	 DPDSwJym0Rr6oMGC1qk9R2+lg+d4P1KGTQ8KnNMvlC3vruWArLeeRYyz2oUmlEPMcOahN
-	 h6ObBmZroAdW/Vp9jO4lKKCoeFKIFdi4jjYZvykveeHNTV9ZQ+cwZgtw/cyKGfCd4hQLO
-	 WE2fkzX7+brGm24zSz0iVizKPS/hiiq2M+jKw/Ziy4zKyjlu87stpdXgwAD+68zahKCes
-	 o2YASjNU84ip8AE81bXMJ3vsTeXN1SNFmO3iBW/2gqSpqCr/zDHiKxWbYYrf4URQxDw==
+	t=1794093596;
+	b=KgFMYzZUW35AvJFm/w40Mx2DKaOGVX6XKTXC38aVvruLmFxJzlESX3DmfLS2OOPjrmrY
+	 2tmgdvP9INNyd8zlC2RJsdgrij0jFeigHcXFTLR5MEZNu4okOKfjCxuib3oSiFnKbxwkF
+	 ivltEkLuvYceDOwhKzbzP14fOUeJwwkt05PouRoo8Vnu3IJIouLMvUZwcNuLFBwNjbHrM
+	 tIxgSFA9Y4GxlAIcLeLUW3fyEUiCsQFYVJgQD8I2BloxREeH9PkuBzxUf9c+3vkxQOzeR
+	 ZJMAn3dnimxSV6LmiGSHHvpQGZJBYUkfhPXdtzy9u4792ySlAjEeKp1giO3J2njtTVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794093591;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794093596;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
 	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
 	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
 	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
 	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=U0kwmV66D0fa/q0TUmbkY0cbJnJlw/6+avpt9fMsArY=;
-	b=R+EPhh9M7RptiKNp2xpGdcjN7mtxiolE7DI0opsBIpYMZM2LlkTkxfJYGPehl0rRZu9z
-	 FiatNBWGiyv62XsFPqnVEPpRQsgy0IqdQdNZBhlT5H+Rw+Exf3iIciKdvAsFpEE+XsQei
-	 fGD3d7CvBteiwYIprUCFk2bS0lYwQEh+9lS8fR3/yjmee6GR55tg0Z/d3yFSQS8Ydi9M1
-	 2qD/wAOUbHkE7x0v8TVqR5Q9RGA5bV2iUGcJsZT5nqLP+Q+2/4xpGIPh7iQraQ32aLfTk
-	 iYpbHNb7/Q+DYsHDc8gbOaNvWTgnDWapza5ebULJFvH3unD/5EpaJMcfF+3UT7LU2tg==
+	bh=fX9K7MommWXCko1HCr+NaOAelkVqmpUMNLTfj3dJGRQ=;
+	b=SaCP+lJSHyEVtIp3j7zPGI9F1YMIMcIU8K0lY8k/sRBhxI4YXyxW1OoJfzKukrkxsPvV
+	 6Rc9Bt5gnU2I4zoOTyZz7Xb7vKdZe6ehzE5iirZgVbZVX+DwctDmc6bryNY1FlKgZ1yFy
+	 OSB3JA5t1PiSuXR69JSFH2XndD0W7B4gHyxvL3yEiDz48hHgvczigKEQvTz/Kmazp4gV5
+	 QqmFK4mGY3F8xz48G3gVeKBPnvKvrrKJnuv5Ajs+OW1+sshqKBWyqAxSvbCLSRfPS3Ic8
+	 rQFzN05FwJyZF3O1YVcbw+E38L7EqOUXD00pirqgshQUswY8eZMnx9di3BraHLeOmCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fastmail.org;
-	spf=pass smtp.mailfrom=fastmail.org;
-	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=NayXQmVT;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=lnTVoz9s;
-	arc=none smtp.remote-ip=103.168.172.152
-Received: from fhigh-a1-smtp.messagingengine.com (fhigh-a1-smtp.messagingengine.com [103.168.172.152])
+	dmarc=pass header.from=fourdim.xyz;
+	spf=pass smtp.mailfrom=fourdim.xyz;
+	dkim=pass header.d=fourdim.xyz header.i=@fourdim.xyz header.a=rsa-sha256 header.s=fm2 header.b=h6f2rbaY;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=HV6RYPVq;
+	arc=none smtp.remote-ip=202.12.124.151
+Received: from fout-b8-smtp.messagingengine.com (fout-b8-smtp.messagingengine.com [202.12.124.151])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 080CE606A33C
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 23:19:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 080CE606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FF37606A336
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 23:19:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FF37606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fourdim.xyz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fourdim.xyz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=NayXQmVT;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=lnTVoz9s
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 6C80814000C2
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 18:19:50 -0500 (EST)
+	dkim=pass (2048-bit key, unprotected) header.d=fourdim.xyz header.i=@fourdim.xyz header.a=rsa-sha256 header.s=fm2 header.b=h6f2rbaY;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=HV6RYPVq
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfout.stl.internal (Postfix) with ESMTP id 1CD451D00128
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 18:19:55 -0500 (EST)
 Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-03.internal (MEProxy); Sat, 07 Nov 2026 18:19:50 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
+  by phl-compute-01.internal (MEProxy); Sat, 07 Nov 2026 18:19:55 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fourdim.xyz; h=
 	cc:cc:content-transfer-encoding:content-type:date:date:from:from
 	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm3; t=1794093590; x=
-	1794179990; bh=U0kwmV66D0fa/q0TUmbkY0cbJnJlw/6+avpt9fMsArY=; b=N
-	ayXQmVTKGLZHKN53H/0MupEL/yzslwwTo8CztK2ObRc7wqEx3xfVN8pmIFNyE1cc
-	snJok1rNnWgDiAc3ig+/sC4Rc6KppFiYCKPhMcBnc+CvvCFqRZ7BuEGva4O7k24Y
-	18psRdEGGAvwq2c4PzIPpBVas/ejRY9F6wABxJZ0w6XjDMCTS3VJx0xItOByYN2K
-	X/xrldbWuYlsV+83944MPICx/xaE9p8RirADMAD3UCxAkYnOJWpMwjeoVDtY/Hoi
-	rMZx8DNWP0Z62F8j8DoxATTpmygCahNBFJIygsKGJqBm7zku79B2NdnB7RRyRKfw
-	SxvRa8wQdWEIXMFWMV2ZA==
+	:reply-to:subject:subject:to:to; s=fm2; t=1794093594; x=
+	1794179994; bh=fX9K7MommWXCko1HCr+NaOAelkVqmpUMNLTfj3dJGRQ=; b=h
+	6f2rbaYDB1ou2fCmhd9lwW407qOxbvHbIaCdkY6mkuUkMbD/v6Rfm8Uw07EGFqsA
+	S8t8lpgJJfqN5aTihTy2wVXTvoWWqZE0rWbYqzBO3RwtP4R/ENa59Fu0MWKvp7xf
+	gzitbJ3LWJEEdz+Z/oQxEKQzlEKO5NKxk/ei+CRH2GXJ1tlLjCVe5oLC/xoQ7JSX
+	Y2cRdZooK6MT8Adq8exheyT0BVBvjNwyT7O27yf150ma4kLn90m7/uRcoJMkRdRu
+	LI52CQx0dV2E3tQOAtKa3aaA9IHGw5VsxdkqaXOhPXdt8JoAdnMiT9/2W5VuzjEL
+	AUSjPWgZuMa2ve/j//ZOw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:date:date:feedback-id:feedback-id:from:from
 	:in-reply-to:in-reply-to:message-id:mime-version:references
 	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm3; t=1794093590; x=1794179990; bh=U
-	0kwmV66D0fa/q0TUmbkY0cbJnJlw/6+avpt9fMsArY=; b=lnTVoz9si2Bm8y2zi
-	B/MfChnE5La7yjV38K4/Qcf+DmgYzG9+V21jHWC8m1XWl905aMh+2qr9Rx9349KK
-	xuh7+nudD0pAsqfZ146AmuMVFd+V2ql3cOW+N0U8FWUJWhS4C1Mn5WMoC6Qt0IUF
-	W07ADL8yRYAFujKN1t2Ugslpl7K/EJjaoqyC4BV96m+GICj47ahXEEYTUCwR4YEp
-	gA3bVWw76Cx15IXHDxzd8/M12GBR8vUrBcK6arpPHIC2XTX0E+0LC0+tvMANwMkN
-	RJnw+yEG3OzZ0+dlwr7QEpjI++8WG2IJF3EriVjdDk/l6HErkNnujvsGTjXDpoCw
-	pf8hQ==
+	:x-me-sender:x-sasl-enc; s=fm3; t=1794093594; x=1794179994; bh=f
+	X9K7MommWXCko1HCr+NaOAelkVqmpUMNLTfj3dJGRQ=; b=HV6RYPVqdF0PDmo6V
+	wM2RscbUiuKmrP8qQMIAwrONDJ1FWokrSOfPF4C5ihN5xPZ/hcWsT3GINb+9CqCO
+	lT5SFJjUBzIfVpk+Z7NlSXlJCrJPqLYEPN0r2Qd0cmpcb2JZLy2wwzKNgQg4ctUr
+	iLCyq/roxjfXK0sIthSh9eJTZ96fXmL8r3ChZ9Hj/sdt0MwKwSEdOiQPlT439VPK
+	GVY1NxDf1c3ytZaEUBeP8c2obsusZ+G+PiRbeFgFOIktbPwuVV7GLN7vg3cR8fU3
+	zT5YuGLD8q6hwvtSG9vk7AcTuVpf0NXdomGZukpS1XwxgdEMu8oIRZ/4fCqqS+dw
+	r1vdA==
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
 	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=fastmail.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794093590; d=fastmail.org;
-	mf=PGljYkBmYXN0bWFpbC5vcmc+;
+	action=sign d=fourdim.xyz a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794093594; d=fourdim.xyz;
+	mf=PG9zc0Bmb3VyZGltLnh5ej4=;
 	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:OA0d6wOT+xPNrw05UI9tCxLhWW2WdGTyICa5kCMAG5xnUIm
-	waF9NLN+47vWnifrrsQjF2Tazx6l/NNxcNjKMsqgjUr6MHYrzVgFyddKepaP3i59
-	oKhxYEeM6oEUGWI51OHt/I63YRrgGbecadojwa3F+6oPilN/7hJlBiQnWlgqcGw9
-	fQ2KPlYpo2SjOe04eTFqVd6JfDRQEhimPfmkwQhrNnXWsXsKQJZfm/6WMLWzf2OC
-	27BsU/5j9c9TzayMmhHg2JhdQG77FXVQb0wm3XreJl3ou4etLIUpw8nqgvSl1/tu
-	fAqWLtgg73x52C4kBwWeXZskjlUK28Ta6kH2ygA==;
+	s=fm2:rsa-sha256:CVJ0bYd4P4ieJKTetxfaY8RVtkJRZXpcnFOIC3er9+pAYfm
+	r7rtpMrXmpODKiSuKCCW90W50klfG3Yd5pa03c+xDnv1zMxbm4BC9n0ea+HAKxWs
+	ulsJYt+JzEguVNRqOwpOC1lrokLsZbxyvgWyR91PZRkwUY6DyweIKzjHqruexeZA
+	+1sPTTLVKyx5DVQO0Uji5en6hmxY8x7PbXVf8prcDkNTGvT/gQ034MD05E95pwJL
+	fPSatYk7FEiV0hhIN1czesRzDCabDbEdA803n7SzjrOBxea1rQZLQyKw4zX+VeAz
+	V1LIrvXnbHFnnjSs4d8mw3cgmV+DqgCFLt9cr/w==;
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
 	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
 	action=mi-m=1; hc=11;
 	hn=cc,content-transfer-encoding,date,feedback-id,from,
 	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:iaKkzif2oamvEkXPnEbYu+8QNF7Xg4338kdp1q1X7/c=:Jou2TuM6JzbQxZTUgMj63PxMq/x3fyWlY0WHfhl8+Eo=;
-X-ME-Sender: <xms:FrLvanb1NrgjEZcR4zMMKd9aTNzlxuX_-dSzOOAQBpwkJSXE1-kIag>
-    <xme:FrLvaiaFbk0QtpQNkXeAeCc7BSPWr3YYBNxzJIqyMlCtW8orYA8bZ_pQkunJJ_OsT
-    -R_lUj4_5bDoVSeoeRyHF0Ah_9m581Ky_ABVPuw__RBt_RVqpvrlBd9>
-X-ME-Received: <xmr:FrLvasIlennnBA5zjXHlkZjavqLC06NkhjM6E0Odkt2MxvWjmGmNiycdLn4fJDUW>
-X-ME-Proxy-Cause: dmFkZTF3A2RNYDSzppuLfJv23ZeZqdZGjyr5+tBcTjdHmcnhg1lhAuR3eU80W8lWp3/t4/
-    28U5Ft9H89wUqxgNArx4xzHPGqFa/uTLcArDMuZejURvlfVcMJ7+2Sb2vI3dQTernsAfIM
-    xijTQFmgCvqYqhM+8dCUDvrUVK1Td/1Zj1qlZ25QQ5MfYQybPKaJpZSu1SyP6m+v1SdZk4
-    U3ob8VISlbglRKgsG3RRekDxTc+tSpCEs9rypv1SF8lV9q6R+t5ZeIH2K9jtMg3dndG88H
-    mFVvmQ7mZe6iNtauJYapEySSpQu1mSTsHL+MeJ033nVKZYNhgvv43tEPQWXGdePMNytJMm
-    yf/f4vhxHSy8iwiSIB0ie4+Yl5T9zWLnJR2PqLWXQenAH79qvYNcLTKJj2QidMbcBgQqQ+
-    onzjnZpQDjwkZFN5Po0EZsChD1uVge1yJ0OKjgRnmaf3A8JBng6qbGDZqll34CALlwV7m0
-    GVcC3ysek5yplIIkyuzaEQHwokRJFJxO7PT0EWKvz144MpNiUqj3eCgRq/qNHhbTOMu4YZ
-    XDiS2+KN8OH5g6eKYI5V3PBUgMV3IneESr2C+5z7qaj5QmQRGc0cGO0yfJD2hA8exulnHu
-    XFPTlx2tqm3x1uLQDG6XJEr9JmVMEbASuVfME5iD1FcprIeoOeRV0LqWAX0g
-X-ME-Proxy: <xmx:FrLvaus_erT2ulPrODDG_7efJXcccE0kCy2h4z22dlg8qE_NfCe6Ig>
-    <xmx:FrLvagUuPOtUV5P0OvKLHIVQM_8l20W4KR6ajXXaEGTzk2SyycGrxg>
-    <xmx:FrLvapjLIAp35MCHVKwaq-mDxWb53ee1HRjWEzHX93Is5Zqd-K4Yyg>
-    <xmx:FrLvaopvgchfFrR7bxykJjajauFbqJBHX8J9jmYF-lr53XvHduIFIA>
-    <xmx:FrLvagDqqnxVp43Bn76jcUiX3MXuxmSI2PzkvJ4Ui_chOYl_K37MsDxG>
-Feedback-ID: ib53e4b78:Fastmail
+Message-Instance: m=1; h=sha256:IpBRYPY/uxrfSzE5Wufb4aAPJXLm8ges68xLJWU/cMM=:mHtCaL/0E1qQrRHoDZaac6wC6l/hlqo88/9rmf0byN8=;
+X-ME-Sender: <xms:GrLvaqi_EqrY6GuaYuk6tIpHJt921GNt-Q0SH8cKkqbtd3ijppkY2w>
+    <xme:GrLvahAqoHmr2tSCdNjiSJ_XH53iPDpVspK41Jj5-cmXPTOXUHO_xaCmyadXvjj_D
+    j-mSNnBQL8ueOBBTwszIhm6ENv9cxRXBHbVX-fvlG1Beu9rdw6xTF1P>
+X-ME-Received: <xmr:GrLvavs-BYrea-Xdt-7q4NINOScsdLNuh3aaNgK3pN_Rmok254IEuN5AtS1F0Ddx9UWKXtk>
+X-ME-Proxy-Cause: dmFkZTEIZBGCpisFY+fdhMhQMR/CwWUComkm9G8pkzgx+4rdsjDawZ1p/lM4mekr6Jrfa9
+    t9lCBaxA62uSScJCDTVJZCvxUjTT8lXgI6y1ytbjQFdUJAQqlREN+nI/dOsRSO/gkOdRyc
+    pC8LDxn6x3PlPwNH8xvIt2eqfa5x/4kvAkT6Lfkd9YAUm//zW+y5QQzyOpHdANNZLZMR68
+    JqeYhLI84sK9usprfwwmkKl6Bsmrd+K1rmmi20p4W43h20l04EoN6alO8A20N0x3h2tOrR
+    Hs+B6t0zXHZI5+J2tOJigPtsZ6jVQ/WVLTNyOGH6CZRUTfmKqjC10aJjkjpnPysWnz36Gy
+    aaCOTZcs75Jf9gRu+o6k/MhaDYEKaNAIz+retldeBtmE+L0XZxkXJS9oFDw84/UK9k7OjZ
+    svs+l5zpUclLwEnzrnOOJxDmEUG1+AVXKrbCCVNW22emu4fzibVBoKqb4C0Xu8x1oRmkIo
+    kse0HCCT/SKDfU+H/G9gQDyAs6hn+VVMQ0/muiehQaDPUtMzlKldE2B6LBkPs649kxW429
+    jOncLwnFxqTrRiy048toMtnhfeyFQtocHHntuxGllTMomvzPg74ZCljYE9oXeo1Nl5/6jK
+    ZuriG9bAAJJ4Lxi+AW6AFaHcAxHlWYN22P1g8eCyqphst7oLAmXKNSytWmOA
+X-ME-Proxy: <xmx:GrLvauabD1zh7c-aRHhjhzgW-4VlgbLfnvOEVNMKhyM_YiBKNEjc3w>
+    <xmx:GrLvaqWChE6rIakpoqoQAQ0i7uh-pkUKkWqazHS9jpX2YvXQC_m28w>
+    <xmx:GrLvaq7Jf59Dfpb1wyQ4H6I3hy86f2L45qbBnf74ul2aPYldc0jMkg>
+    <xmx:GrLvatjll2RLIo989Zq4wlO4p6plEFnhYJ2QRSyV2NbtxTiRjpm-XQ>
+    <xmx:GrLvarAhi55epRZ0AIGdQnsFMsYpQjj5pzwL-n60QMdQZ8pdQykEw6cO>
+Feedback-ID: if72e4b10:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 7 Nov 2026 18:19:49 -0500 (EST)
-From: Ian Bridges <icb@fastmail.org>
-To: linkinjeon@kernel.org
-Cc: senozhatsky@chromium.org,
-	tom@talpey.com,
-	chenxiaosong@chenxiaosong.com,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ian Bridges <icb@fastmail.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 2/2] ksmbd: let the parent's DACL grant DELETE and FILE_READ_ATTRIBUTES
-Date: Sat,  7 Nov 2026 17:19:41 -0600
-Message-ID: <20261107231941.1824289-3-icb@fastmail.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261107231941.1824289-1-icb@fastmail.org>
-References: <20261107231941.1824289-1-icb@fastmail.org>
+ 7 Nov 2026 18:19:54 -0500 (EST)
+From: Siwei Zhang <oss@fourdim.xyz>
+To: stable@vger.kernel.org
+Cc: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+Subject: [PATCH 6.12.y 1/3] Bluetooth: L2CAP: Reject signalling responses in invalid states
+Date: Sat,  7 Nov 2026 18:19:12 -0500
+Message-ID: <20261107231941.1871942-2-oss@fourdim.xyz>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261107231941.1871942-1-oss@fourdim.xyz>
+References: <20261107052252-failed-6.12-6320736af7dc@kernel.org>
+ <20261107231941.1871942-1-oss@fourdim.xyz>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -132,249 +127,97 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A directory's FILE_DELETE_CHILD lets a caller delete the files in it,
-and its FILE_LIST_DIRECTORY lets a caller list them with their
-attributes. ksmbd checks only the file's DACL, so an open for DELETE
-or FILE_READ_ATTRIBUTES can be refused even when the parent grants the
-corresponding right. For example, this happens with an empty file DACL
-under a parent that grants Everyone full access. Without DELETE on the
-handle, the caller cannot rename the file or set its delete
-disposition. A caller can also see a file's attributes in a directory
-listing but be unable to open the file for FILE_READ_ATTRIBUTES.
+commit 6320736af7dcb90da6ee9fd651ecc11c564d45b7 upstream.
 
-When the file's DACL does not grant a requested DELETE or
-FILE_READ_ATTRIBUTES, check the parent's DACL for FILE_DELETE_CHILD or
-FILE_LIST_DIRECTORY respectively. Use exact SID matching, include group
-allows and denies, exclude guest and anonymous sessions from
-Authenticated Users, and fail closed on non-inherit-only object deny
-ACEs. Do not look above the mount root. A missing or unreadable parent
-DACL grants nothing.
+Adjusted context as stable does not have the lockdep_assert_held()
+calls, and l2cap_get_chan_by_scid() still returns the channel locked,
+so l2cap_config_rsp() does not lock it again.
 
-In the parent check, ACEs for the caller's groups and OWNER RIGHTS
-decide before the parent's POSIX ACL. Otherwise a POSIX ACL entry for
-the caller decides whenever no ACE names the caller, Everyone or
-Authenticated Users, and the rights that entry maps to never include
-FILE_DELETE_CHILD.
+A peer can send configuration messages while an
+incoming channel is in BT_CONNECT2, before the
+security or deferred accept gate has completed. A
+configuration response can then promote the channel
+to BT_CONNECTED. Configuration responses can also
+act on channels that are closing, and a late connection
+response can move a disconnecting channel back to
+BT_CONFIG.
 
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+Accept connection responses only while waiting in
+BT_CONNECT. Answer configuration requests in
+BT_CONNECT2, but defer our own request until
+BT_CONFIG so configuration cannot complete before
+the gate. Ignore configuration responses outside
+BT_CONFIG and BT_CONNECTED, and only complete
+configuration in BT_CONFIG.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Signed-off-by: Ian Bridges <icb@fastmail.org>
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Siwei Zhang <oss@fourdim.xyz>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
 ---
+ net/bluetooth/l2cap_core.c | 20 +++++++++++++++++++-
+ 1 file changed, 19 insertions(+), 1 deletion(-)
 
-Notes:
-    Plain MAXIMUM_ALLOWED requests and maximal-access replies get
-    neither right from the parent. Deriving DELETE for them can make
-    smb2_open() refuse opens that succeed today when POSIX denies the
-    caller write access to the parent. FILE_READ_ATTRIBUTES is left
-    out there too, so that both rights come from the parent only when
-    the request names them.
-    
-    Because smb2_open() fails an open whose maximal-access reply is
-    refused, a DELETE open requesting that reply can still fail when
-    the file DACL grants nothing, as on the base. A DELETE open also
-    still requires POSIX read access to the file.
-    
-    Other checks keep the POSIX ACL's precedence over ACEs for the
-    caller's groups and OWNER RIGHTS, as on the base.
-
- fs/smb/server/smbacl.c | 100 ++++++++++++++++++++++++++++++++++-------
- 1 file changed, 83 insertions(+), 17 deletions(-)
-
-diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
-index f773ab8efb3f..b9a7fed33a66 100644
---- a/fs/smb/server/smbacl.c
-+++ b/fs/smb/server/smbacl.c
-@@ -1494,6 +1494,11 @@ static bool smb_sid_is_owner_rights(const struct smb_sid *sid)
- 	       !compare_sids(sid, &sid_owner_rights);
- }
+diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
+index d8c39a430686..fa7124c32d91 100644
+--- a/net/bluetooth/l2cap_core.c
++++ b/net/bluetooth/l2cap_core.c
+@@ -4278,6 +4278,10 @@ static int l2cap_connect_create_rsp(struct l2cap_conn *conn,
  
-+static unsigned int smb_parent_derived_rights(struct ksmbd_conn *conn,
-+					      const struct path *path, int uid,
-+					      bool authenticated,
-+					      unsigned int want);
-+
- int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 			__le32 *pdaccess, __le32 raw_daccess, int uid,
- 			bool authenticated, bool strict)
-@@ -1514,16 +1519,19 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 	unsigned int grp_allowed = 0, grp_denied = 0, bits;
- 	struct smb_ace *others_ace = NULL;
- 	bool or_ace = false, obj_deny = false, member, counted;
-+	bool grp_ace = false;
- 	struct posix_acl_entry *pa_entry;
- 	unsigned int sid_type = SIDOWNER;
- 	unsigned short ace_size;
- 	bool is_owner, owner_rights = false;
- 	bool maximal = *pdaccess & FILE_MAXIMAL_ACCESS_LE;
- 	/*
--	 * MAXIMUM_ALLOWED requests match every session against
--	 * Authenticated Users.
-+	 * MAXIMUM_ALLOWED requests that are not strict match every session
-+	 * against Authenticated Users and do not count ACEs for the
-+	 * caller's groups. Strict ones match SIDs as explicit requests do.
- 	 */
--	bool authusers = authenticated || maximal;
-+	bool open_max = maximal && !strict;
-+	bool authusers = authenticated || open_max;
- 	vfsuid_t vfsuid;
+ 	l2cap_chan_lock(chan);
  
- 	ksmbd_debug(SMB, "check permission using windows acl\n");
-@@ -1557,13 +1565,16 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 		/*
- 		 * An empty (present, zero-ACE) DACL grants no access to
- 		 * anyone except the object owner's implicit READ_CONTROL
--		 * and WRITE_DAC (MS-DTYP 2.4.5). Deny every other caller,
--		 * deny the owner any access beyond those two bits, and do
--		 * not let trailing bytes after a zero-ACE DACL become an
--		 * implicit grant.
-+		 * and WRITE_DAC (MS-DTYP 2.5.3.2), besides what the parent
-+		 * grants. Deny every other right, and do not let trailing
-+		 * bytes after a zero-ACE DACL become an implicit grant.
- 		 */
- 		if (is_owner)
- 			allowed = READ_CONTROL | WRITE_DAC;
-+		if (!strict)
-+			allowed |= smb_parent_derived_rights(conn, path, uid,
-+							     authenticated,
-+							     requested & ~allowed);
- 		if (maximal)
- 			requested |= allowed;
- 		if (!allowed || requested & ~allowed)
-@@ -1576,9 +1587,10 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 	/*
- 	 * Evaluate the DACL in order (MS-DTYP 2.5.3.2). access_bits collects
- 	 * the result for the ACEs that apply to the caller, without its groups
--	 * for MAXIMUM_ALLOWED. grp_granted collects what ACEs for the caller's
--	 * groups, or OWNER RIGHTS for the owner, grant. It is used when the
--	 * SID lookup and POSIX ACL fallback below do not decide.
-+	 * for a MAXIMUM_ALLOWED request that is not strict. grp_granted
-+	 * collects what ACEs for the caller's groups, or OWNER RIGHTS for the
-+	 * owner, grant. It is used when the SID lookup and POSIX ACL fallback
-+	 * below do not decide.
- 	 */
- 	ace = (struct smb_ace *)((char *)pdacl + sizeof(struct smb_acl));
- 	aces_size = pdacl_size - sizeof(struct smb_acl);
-@@ -1623,8 +1635,8 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 		     compare_sids(&sid_owner_rights, &ace->sid) &&
- 		     !member))
- 			goto next_ace;
--		/* An explicit request counts only SIDs that match exactly */
--		if (!maximal && !member &&
-+		/* Other requests count only SIDs that match exactly */
-+		if (!open_max && !member &&
- 		    !smb_sid_equal(&sid, &ace->sid) &&
- 		    !smb_sid_equal(&sid_everyone, &ace->sid) &&
- 		    !(authusers && smb_sid_equal(&sid_authusers, &ace->sid)) &&
-@@ -1634,10 +1646,11 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 		bits = le32_to_cpu(ace->access_req);
- 		switch (ace->type) {
- 		case ACCESS_ALLOWED_ACE_TYPE:
-+			grp_ace |= counted;
- 			if (counted)
- 				grp_allowed |= bits;
--			/* MAXIMUM_ALLOWED takes no group grants */
--			if (maximal && member)
-+			/* An open's MAXIMUM_ALLOWED takes no group grants */
-+			if (open_max && member)
- 				break;
- 			if (counted)
- 				grp_granted |= bits;
-@@ -1645,10 +1658,11 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 			break;
- 		case ACCESS_DENIED_ACE_TYPE:
- 		case ACCESS_DENIED_CALLBACK_ACE_TYPE:
-+			grp_ace |= counted;
- 			if (counted)
- 				grp_denied |= ~grp_allowed & bits;
--			/* MAXIMUM_ALLOWED takes no group denials either */
--			if (!(maximal && member))
-+			/* nor group denials */
-+			if (!(open_max && member))
- 				denied |= ~access_bits & bits;
- 			break;
- 		}
-@@ -1663,6 +1677,9 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 			access_bits |= READ_CONTROL | WRITE_DAC |
- 				FILE_READ_ATTRIBUTES | DELETE;
- 		access_bits &= ~denied;
-+		/* An object deny ACE could deny the parent's rights */
-+		if (!open_max && obj_deny)
-+			access_bits = 0;
- 		if ((raw_daccess & FILE_GENERIC_EXECUTE_LE) &&
- 		    S_ISREG(d_inode(path->dentry)->i_mode) &&
- 		    (access_bits & GENERIC_READ_FLAGS) == GENERIC_READ_FLAGS)
-@@ -1715,7 +1732,13 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
++	/* Ignore a late response after the channel has left BT_CONNECT. */
++	if (chan->state != BT_CONNECT)
++		goto done;
++
+ 	switch (result) {
+ 	case L2CAP_CR_SUCCESS:
+ 		if (__l2cap_get_chan_by_dcid(conn, dcid)) {
+@@ -4307,6 +4311,7 @@ static int l2cap_connect_create_rsp(struct l2cap_conn *conn,
+ 		break;
+ 	}
  
- 	if (IS_ENABLED(CONFIG_FS_POSIX_ACL)) {
- 		posix_acls = get_inode_acl(d_inode(path->dentry), ACL_TYPE_ACCESS);
--		if (!IS_ERR_OR_NULL(posix_acls) && !found && !others_ace) {
-+		/*
-+		 * For a strict MAXIMUM_ALLOWED request, ACEs for the caller's
-+		 * groups or OWNER RIGHTS decide before the POSIX ACL, unless
-+		 * the DACL has an object deny ACE, which ksmbd does not parse.
-+		 */
-+		if (!IS_ERR_OR_NULL(posix_acls) && !found && !others_ace &&
-+		    !(strict && maximal && grp_ace && !obj_deny)) {
- 			unsigned int id = -1;
++done:
+ 	l2cap_chan_unlock(chan);
+ 	l2cap_chan_put(chan);
  
- 			pa_entry = posix_acls->a_entries;
-@@ -1767,6 +1790,10 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 			 */
- 			if (!obj_deny)
- 				allowed |= grp_granted;
-+			if (!strict)
-+				allowed |= smb_parent_derived_rights(conn, path, uid,
-+								     authenticated,
-+								     requested & ~allowed);
- 			if (maximal)
- 				requested |= allowed;
- 			if (!allowed || requested & ~allowed) {
-@@ -1813,6 +1840,45 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- }
- EXPORT_SYMBOL_IF_KUNIT(smb_check_perm_dacl);
+@@ -4439,7 +4444,13 @@ static inline int l2cap_config_req(struct l2cap_conn *conn,
+ 		goto unlock;
+ 	}
  
-+/*
-+ * Return the rights in @want that @path gets from its parent directory:
-+ * DELETE if the parent's DACL grants FILE_DELETE_CHILD, and
-+ * FILE_READ_ATTRIBUTES if it grants FILE_LIST_DIRECTORY
-+ * (MS-FSA 2.1.5.1.2.1). A parent with no DACL, or with one that ksmbd
-+ * cannot read, gives nothing. Callers pass only rights that the request
-+ * names.
-+ */
-+static unsigned int smb_parent_derived_rights(struct ksmbd_conn *conn,
-+					      const struct path *path, int uid,
-+					      bool authenticated,
-+					      unsigned int want)
-+{
-+	struct path parent = { .mnt = path->mnt };
-+	__le32 granted = FILE_MAXIMAL_ACCESS_LE;
-+	unsigned int rights = 0;
-+	int rc;
+-	if (!test_and_set_bit(CONF_REQ_SENT, &chan->conf_state)) {
++	/* A channel in BT_CONNECT2 has not passed security or userspace
++	 * accept yet. Answer the peer's request, but hold our own until
++	 * the channel reaches BT_CONFIG: the CONNECT2 -> CONFIG sites send
++	 * it. Connected channels may also need to reconfigure.
++	 */
++	if ((chan->state == BT_CONFIG || chan->state == BT_CONNECTED) &&
++	    !test_and_set_bit(CONF_REQ_SENT, &chan->conf_state)) {
+ 		u8 buf[64];
+ 		l2cap_send_cmd(conn, l2cap_get_ident(conn), L2CAP_CONF_REQ,
+ 			       l2cap_build_conf_req(chan, buf, sizeof(buf)), buf);
+@@ -4487,6 +4498,10 @@ static inline int l2cap_config_rsp(struct l2cap_conn *conn,
+ 	if (!chan)
+ 		return 0;
+ 
++	/* Connected channels may also receive reconfiguration responses. */
++	if (chan->state != BT_CONFIG && chan->state != BT_CONNECTED)
++		goto done;
 +
-+	if (!(want & (DELETE | FILE_READ_ATTRIBUTES)))
-+		return 0;
+ 	switch (result) {
+ 	case L2CAP_CONF_SUCCESS:
+ 		l2cap_conf_rfc_get(chan, rsp->data, len);
+@@ -4554,6 +4569,9 @@ static inline int l2cap_config_rsp(struct l2cap_conn *conn,
+ 	if (test_bit(CONF_OUTPUT_DONE, &chan->conf_state)) {
+ 		set_default_fcs(chan);
+ 
++		if (chan->state != BT_CONFIG)
++			goto done;
 +
-+	/* The root of the mount, or a disconnected dentry, has no parent */
-+	if (path->dentry == path->mnt->mnt_root || IS_ROOT(path->dentry))
-+		return 0;
-+
-+	parent.dentry = dget_parent(path->dentry);
-+	/* Strict, so the parent's own parent is not consulted */
-+	rc = smb_check_perm_dacl(conn, &parent, &granted, 0, uid,
-+				 authenticated, true);
-+	dput(parent.dentry);
-+	if (rc || granted == FILE_MAXIMAL_ACCESS_LE)
-+		return 0;
-+	if (granted & FILE_DELETE_CHILD_LE)
-+		rights |= DELETE;
-+	if (granted & FILE_LIST_DIRECTORY_LE)
-+		rights |= FILE_READ_ATTRIBUTES;
-+	return rights & want;
-+}
-+
- int set_info_sec(struct ksmbd_conn *conn, struct ksmbd_tree_connect *tcon,
- 		 const struct path *path, struct smb_ntsd *pntsd, int ntsd_len,
- 		 bool type_check, bool get_write, bool posix_open,
+ 		if (chan->mode == L2CAP_MODE_ERTM ||
+ 		    chan->mode == L2CAP_MODE_STREAMING)
+ 			err = l2cap_ertm_init(chan);
 -- 
-2.47.3
+2.56.0
 
