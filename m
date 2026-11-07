@@ -1,52 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794065498;
-	b=wMpU1fKQxuu3A4suK3Suhra4YAbPO0RaTOFicWPz7obIamr/yNH6Z6dMKwaQ6LmUgx1C
-	 VPJdis+1aEtcNXM2yPl11pxu2BfezDTBEJITghYjRM5XBmLU2jjKivWj4IUoL+cr50sNL
-	 TqGIsoN/1cl70U/9uRL/9TLESvhQNyBeZQsy9CIib3254aoLtEJcctG3iQHCiKWD0seqS
-	 YCLrlLusiKLuM3EvAmiaWz/fDCaszfIx2lFNqRB40HmmBbC2CmBkn2VtpAD4RpgdxyBxf
-	 Z8U0HHctPTxZVF5uNRGz051zJwohE0lH4sTN1M11zcs8yXwEOKr2Ji/FtXt8YvPC2Gg==
+	t=1794065500;
+	b=19NqLsRSi1h60XpyrM2jnbUOC6TNw+H0ZfgLxXfk46qdWxl81uTM2HEr38K2Olotwvxe
+	 y3wEqlrPhZ98gxI+xceOVNb9bQSJQII4ytrR/umf3N8cg3697GKZFWm+ZM/+1J84t/tE0
+	 /AGAfmtPEOhjiQrLGYcHfomtKg35hVZiYITIVywb3JtRZTQS251kI/tOXWL0lRDFqLnws
+	 eSrJ6ONafBYmF+Gt5rM4YaiiaBO6M4ejKXKxm3Zi+xzDVmJgLvcHe7g1mkiKDcEXZzgHR
+	 xxnYwY6uEjDjDBAnrZeY9lJTdcjry9YC9KURD3ftkJmUr56XPxkT7OhUjDBq79gqX7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794065498;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794065500;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=2TRIaqwBbjbwvE9lrg4NRQvw2ox1SMkplE1ua6qSiH8=;
-	b=MlRqQpFDNlET3qGVCzhgkCzxla2wiG5U2kMwiUiaT2kbJlPaUgIY3aNkRa7j7vYvTiUT
-	 Gk3GwqKIwJUXAsujSQSPwgfLb6sTLwTyA+SelXn99xaIaK48wQ51LQWnT/BQrJxgraCSn
-	 ZCeGuPTXhq75G+W6XDgF2BRdSfLyj32F0iStM1tcwy2LotJLrcVrewXMOWheGsUNQxNTw
-	 /lU7GWNG97OqnNRR5AblFJqhU5rO2ue8oshTciiTdkfZcDSHxPK7D9LTBM5pmYBUkz00T
-	 NXXmZ3k5kAA/YKfkqbtIw5rnItlU/OZEYZKrIDPre0gQUlnfZL7WFkbkBUL0czNukuQ==
+	bh=uNB1rbbSiW5vchhmeEZr9vlMcjDg5jjiWeZ3XyXypCY=;
+	b=eRachDAJwjfQDQr7Vh3MVGaAF9/JD0stY4DfJgHjcRpKhZQBThdSp0qmHW1co34qHnHA
+	 vqU8HmEpZS30YGqO8/gm2kjO9VDeaw1nw0pAuhyiIBZkpMNDF5qkkUy+4Bu+jH/82FMub
+	 x4+50VSOq68zKYqSmaK6LpbSuju60+vOgOgfdq4GfGLl196oOPQwOis+TylisMeJWLxg/
+	 fj5DsAjkXBY6iOh6dmIHNSMDAPHeFlKbujnn+g+OQgeCJvXLM/xKpeLby/dEsVFVoqm6z
+	 nIiviR/zjBqqJDe6CsOcbtCVN6aX6BiDbRIP74URACphYSoY2m1/IOC/YeRkyaJpq9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=SH5UcOQH;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=2nAPFy5N;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A943606D804;
-	Sat,  7 Nov 2026 15:31:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD4A6606D803;
+	Sat,  7 Nov 2026 15:31:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=SH5UcOQH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 999351F0089F;
-	Sat,  7 Nov 2026 15:31:37 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=2nAPFy5N
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 134B61F0089F;
+	Sat,  7 Nov 2026 15:31:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794065497;
-	bh=2TRIaqwBbjbwvE9lrg4NRQvw2ox1SMkplE1ua6qSiH8=;
+	s=korg; t=1794065499;
+	bh=uNB1rbbSiW5vchhmeEZr9vlMcjDg5jjiWeZ3XyXypCY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SH5UcOQHAphkPGUEkTWH1nStbObwZxlLEowuoROVvZjdGlJn4DpKCT/qyjJT9MAwa
-	 YLoC/9ohH0Oic3MXd3uNcGO9GiXZH6WmghN3y0Y4hLUzTWnmCTdoO111S5dgDBHLST
-	 PTqGiWLgX7Lo0VvI5fJ+1fbL7dKtT0MwF1Y4bGi4=
+	b=2nAPFy5NDAyTM9jsyUqZ+uA1Wn6pHW7jXoJFfhh2VkAFHqC0hJ9WeLg5gDII2cvqc
+	 jf9Fw6LBJzwGDplfhvceg245J38x14VtFQz+p9ONV6DpwnzkPPkl2eWW7DkR2Cp6LT
+	 bRRyOWHrOkMS37+bsbbv/8WgpdzejwBWbwX9WYlg=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
+	Felix Kuehling <felix.kuehling@amd.com>,
+	Jesse Zhang <Jesse.Zhang@amd.com>,
 	Alex Deucher <alexander.deucher@amd.com>,
-	Jiale Yao <yaojiale02@163.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 1186/1257] drm/amdkfd: validate SRAT subtables before parsing
-Date: Sat,  7 Nov 2026 08:58:02 -0500
-Message-ID: <20261107135011.923764474@linuxfoundation.org>
+Subject: [PATCH 7.3 1187/1257] drm/amdkfd: send SMI process and VM fault events only to allowed clients
+Date: Sat,  7 Nov 2026 08:58:03 -0500
+Message-ID: <20261107135011.951817510@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261107134939.434104957@linuxfoundation.org>
 References: <20261107134939.434104957@linuxfoundation.org>
@@ -68,102 +69,260 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Jiale Yao <yaojiale02@163.com>
+From: Jesse Zhang <Jesse.Zhang@amd.com>
 
-[ Upstream commit 9866cb13ba4d39aa8fed34b765d4aecabe04f02e ]
+[ Upstream commit 2e0f334f5c7140b67f16eff9d93c2ca426848664 ]
 
-The KFD SRAT walker reads the first subtable length without checking
-that a header is present and trusts subsequent lengths when accessing
-CPU and generic affinity records. Invalid firmware lengths can therefore
-cause out-of-bounds reads.
+Commit 92a8dba246d3 ("drm/amdkfd: fix SMI event cross-process
+information leak") made the VMFAULT and PROCESS_START/END SMI events
+carry the pid of the process they are about, so that
+kfd_smi_ev_enabled() only passes them to clients of that process and to
+privileged clients. Commit 1142738572ef ("drm/amdkfd: Fix SMI event PID
+reporting for containers") then switched kfd_smi_event_add() to take a
+task and passed NULL for these events, i.e. pid 0, which every client
+receives again.
 
-Validate the table header, every generic subtable range, and each
-supported typed record before reading its fields.
+On navi31, an unprivileged SMI client (uid 1000) subscribed to
+PROCESS_START/END sees root running rocminfo:
 
-Fixes: ddec8d3be0f8 ("drm/amdkfd: add ACPI SRAT parsing for topology")
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
+  event: c 223a9 rocminfo
+  event: d 223a9 rocminfo
+
+The same commit also made the filter compare PIDs of different
+namespaces: the client stores its PID in its own namespace and events
+use the PID of the task in the task's namespace, so a client that is
+PID 1 in one container receives the events of PID 1 in another. And an
+exited task has no PID in its namespace anymore, which gives pid 0 for
+PROCESS_END.
+
+Match clients by global TGID, which is unique and stays valid after the
+task exited, and keep showing the namespace PID in the event text. Pass
+the TGID of the process for the process and VM fault events again. With
+this the unprivileged client gets nothing, a root client still gets both
+events, and an unprivileged client that is PID 1 in its own PID
+namespace no longer gets the events of rocminfo running as PID 1 in
+another one.
+
+v2: rename the pid of the clients and of the filter to tgid (Felix)
+
+Fixes: 1142738572ef ("drm/amdkfd: Fix SMI event PID reporting for containers")
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit d76b655c98e8cc9e791b31502ad274f47dee2aae)
+(cherry picked from commit 77f5f4eae104a96399a5b1003730d5d739368b7d)
 Cc: stable@vger.kernel.org
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_crat.c | 35 ++++++++++++++++++---------
- 1 file changed, 24 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c | 60 ++++++++++++---------
+ 1 file changed, 35 insertions(+), 25 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-index 6e0df685503d0..32d7573dffc94 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-@@ -2056,27 +2056,33 @@ static void kfd_find_numa_node_in_srat(struct kfd_node *kdev)
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
+index 6a7b4d959541b..c87370a9f5f0a 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
+@@ -40,7 +40,7 @@ struct kfd_smi_client {
+ 	struct kfd_node *dev;
+ 	spinlock_t lock;
+ 	struct rcu_head rcu;
+-	pid_t pid;
++	pid_t tgid;
+ 	bool suser;
+ };
+ 
+@@ -160,18 +160,18 @@ static int kfd_smi_ev_release(struct inode *inode, struct file *filep)
+ 	return 0;
+ }
+ 
+-static bool kfd_smi_ev_enabled(pid_t pid, struct kfd_smi_client *client,
++static bool kfd_smi_ev_enabled(pid_t tgid, struct kfd_smi_client *client,
+ 			       unsigned int event)
+ {
+ 	uint64_t events = READ_ONCE(client->events);
+ 
+-	if (pid && client->pid != pid && !client->suser)
++	if (tgid && client->tgid != tgid && !client->suser)
+ 		return false;
+ 
+ 	return events & KFD_SMI_EVENT_MASK_FROM_INDEX(event);
+ }
+ 
+-static void add_event_to_kfifo(pid_t pid, struct kfd_node *dev,
++static void add_event_to_kfifo(pid_t tgid, struct kfd_node *dev,
+ 			       unsigned int smi_event, char *event_msg, int len)
+ {
+ 	struct kfd_smi_client *client;
+@@ -179,7 +179,7 @@ static void add_event_to_kfifo(pid_t pid, struct kfd_node *dev,
+ 	rcu_read_lock();
+ 
+ 	list_for_each_entry_rcu(client, &dev->smi_clients, list) {
+-		if (!kfd_smi_ev_enabled(pid, client, smi_event))
++		if (!kfd_smi_ev_enabled(tgid, client, smi_event))
+ 			continue;
+ 		spin_lock(&client->lock);
+ 		if (kfifo_avail(&client->fifo) >= len) {
+@@ -210,27 +210,33 @@ static inline pid_t kfd_smi_task_to_pid(struct task_struct *task)
+ 	return task ? task_tgid_nr_ns(task, task_active_pid_ns(task)) : 0;
+ }
+ 
++/*
++ * Clients are matched by global TGID, which is unique across PID namespaces
++ * and stays valid after the task exited. Events show kfd_smi_task_to_pid().
++ */
++static inline pid_t kfd_smi_task_tgid(struct task_struct *task)
++{
++	return task ? task_tgid_nr(task) : 0;
++}
++
+ __printf(4, 5)
+-static void kfd_smi_event_add(struct task_struct *task, struct kfd_node *dev,
++static void kfd_smi_event_add(pid_t tgid, struct kfd_node *dev,
+ 			      unsigned int event, char *fmt, ...)
+ {
+ 	char fifo_in[KFD_SMI_EVENT_MSG_SIZE];
+ 	int len;
+ 	va_list args;
+-	pid_t pid;
+ 
+ 	if (list_empty(&dev->smi_clients))
  		return;
+ 
+-	pid = kfd_smi_task_to_pid(task);
+-
+ 	len = scnprintf(fifo_in, sizeof(fifo_in), "%x ", event);
+ 
+ 	va_start(args, fmt);
+ 	len += vscnprintf(fifo_in + len, sizeof(fifo_in) - len, fmt, args);
+ 	va_end(args);
+ 
+-	add_event_to_kfifo(pid, dev, event, fifo_in, len);
++	add_event_to_kfifo(tgid, dev, event, fifo_in, len);
+ }
+ 
+ void kfd_smi_event_update_gpu_reset(struct kfd_node *dev, bool post_reset,
+@@ -252,14 +258,14 @@ void kfd_smi_event_update_gpu_reset(struct kfd_node *dev, bool post_reset,
+ 		amdgpu_reset_get_desc(reset_context, reset_cause,
+ 				      sizeof(reset_cause));
+ 
+-	kfd_smi_event_add(NULL, dev, event, KFD_EVENT_FMT_UPDATE_GPU_RESET(
++	kfd_smi_event_add(0, dev, event, KFD_EVENT_FMT_UPDATE_GPU_RESET(
+ 			  dev->reset_seq_num, reset_cause));
+ }
+ 
+ void kfd_smi_event_update_thermal_throttling(struct kfd_node *dev,
+ 					     uint64_t throttle_bitmask)
+ {
+-	kfd_smi_event_add(NULL, dev, KFD_SMI_EVENT_THERMAL_THROTTLE,
++	kfd_smi_event_add(0, dev, KFD_SMI_EVENT_THERMAL_THROTTLE,
+ 			  KFD_EVENT_FMT_THERMAL_THROTTLING(
+ 			  throttle_bitmask,
+ 			  amdgpu_dpm_get_thermal_throttling_counter(dev->adev)));
+@@ -271,10 +277,14 @@ void kfd_smi_event_update_vmfault(struct kfd_node *dev, uint16_t pasid)
+ 
+ 	task_info = amdgpu_vm_get_task_info_pasid(dev->adev, pasid);
+ 	if (task_info) {
+-		/* Report VM faults from user applications, not retry from kernel */
++		/*
++		 * Report VM faults from user applications, not retry from
++		 * kernel, and only to clients allowed to see that process.
++		 */
+ 		if (task_info->task.pid)
+-			kfd_smi_event_add(NULL, dev, KFD_SMI_EVENT_VMFAULT, KFD_EVENT_FMT_VMFAULT(
+-					  task_info->task.pid, task_info->task.comm));
++			kfd_smi_event_add(task_info->tgid, dev, KFD_SMI_EVENT_VMFAULT,
++					  KFD_EVENT_FMT_VMFAULT(task_info->task.pid,
++								task_info->task.comm));
+ 		amdgpu_vm_put_task_info(task_info);
  	}
+ }
+@@ -283,7 +293,7 @@ void kfd_smi_event_page_fault_start(struct kfd_node *node, struct task_struct *t
+ 				    unsigned long address, bool write_fault,
+ 				    ktime_t ts)
+ {
+-	kfd_smi_event_add(task, node, KFD_SMI_EVENT_PAGE_FAULT_START,
++	kfd_smi_event_add(kfd_smi_task_tgid(task), node, KFD_SMI_EVENT_PAGE_FAULT_START,
+ 			  KFD_EVENT_FMT_PAGEFAULT_START(ktime_to_ns(ts),
+ 			  kfd_smi_task_to_pid(task), address, node->id,
+ 			  write_fault ? 'W' : 'R'));
+@@ -292,7 +302,7 @@ void kfd_smi_event_page_fault_start(struct kfd_node *node, struct task_struct *t
+ void kfd_smi_event_page_fault_end(struct kfd_node *node, struct task_struct *task,
+ 				  unsigned long address, bool migration)
+ {
+-	kfd_smi_event_add(task, node, KFD_SMI_EVENT_PAGE_FAULT_END,
++	kfd_smi_event_add(kfd_smi_task_tgid(task), node, KFD_SMI_EVENT_PAGE_FAULT_END,
+ 			  KFD_EVENT_FMT_PAGEFAULT_END(ktime_get_boottime_ns(),
+ 			  kfd_smi_task_to_pid(task), address, node->id,
+ 			  migration ? 'M' : 'U'));
+@@ -304,7 +314,7 @@ void kfd_smi_event_migration_start(struct kfd_node *node, struct task_struct *ta
+ 				   uint32_t prefetch_loc, uint32_t preferred_loc,
+ 				   uint32_t trigger)
+ {
+-	kfd_smi_event_add(task, node, KFD_SMI_EVENT_MIGRATE_START,
++	kfd_smi_event_add(kfd_smi_task_tgid(task), node, KFD_SMI_EVENT_MIGRATE_START,
+ 			  KFD_EVENT_FMT_MIGRATE_START(ktime_get_boottime_ns(),
+ 			  kfd_smi_task_to_pid(task), start, end - start, from,
+ 			  to, prefetch_loc, preferred_loc, trigger));
+@@ -315,7 +325,7 @@ void kfd_smi_event_migration_end(struct kfd_node *node, struct task_struct *task
+ 				 uint32_t from, uint32_t to, uint32_t trigger,
+ 				 int error_code)
+ {
+-	kfd_smi_event_add(task, node, KFD_SMI_EVENT_MIGRATE_END,
++	kfd_smi_event_add(kfd_smi_task_tgid(task), node, KFD_SMI_EVENT_MIGRATE_END,
+ 			  KFD_EVENT_FMT_MIGRATE_END(ktime_get_boottime_ns(),
+ 			  kfd_smi_task_to_pid(task), start, end - start, from,
+ 			  to, trigger, error_code));
+@@ -324,14 +334,14 @@ void kfd_smi_event_migration_end(struct kfd_node *node, struct task_struct *task
+ void kfd_smi_event_queue_eviction(struct kfd_node *node, struct task_struct *task,
+ 				  uint32_t trigger)
+ {
+-	kfd_smi_event_add(task, node, KFD_SMI_EVENT_QUEUE_EVICTION,
++	kfd_smi_event_add(kfd_smi_task_tgid(task), node, KFD_SMI_EVENT_QUEUE_EVICTION,
+ 			  KFD_EVENT_FMT_QUEUE_EVICTION(ktime_get_boottime_ns(),
+ 			  kfd_smi_task_to_pid(task), node->id, trigger));
+ }
  
-+	if (table_header->length < sizeof(struct acpi_table_srat))
-+		goto invalid_srat;
-+
- 	table_end = (unsigned long)table_header + table_header->length;
+ void kfd_smi_event_queue_restore(struct kfd_node *node, struct task_struct *task)
+ {
+-	kfd_smi_event_add(task, node, KFD_SMI_EVENT_QUEUE_RESTORE,
++	kfd_smi_event_add(kfd_smi_task_tgid(task), node, KFD_SMI_EVENT_QUEUE_RESTORE,
+ 			  KFD_EVENT_FMT_QUEUE_RESTORE(ktime_get_boottime_ns(),
+ 			  kfd_smi_task_to_pid(task), node->id, '0'));
+ }
+@@ -348,7 +358,7 @@ void kfd_smi_event_queue_restore_rescheduled(struct mm_struct *mm)
+ 	for (i = 0; i < p->n_pdds; i++) {
+ 		struct kfd_process_device *pdd = p->pdds[i];
  
- 	/* Parse all entries looking for a match. */
- 	sub_header = (struct acpi_subtable_header *)
- 			((unsigned long)table_header +
- 			sizeof(struct acpi_table_srat));
--	subtable_len = sub_header->length;
+-		kfd_smi_event_add(p->lead_thread, pdd->dev,
++		kfd_smi_event_add(kfd_smi_task_tgid(p->lead_thread), pdd->dev,
+ 				  KFD_SMI_EVENT_QUEUE_RESTORE,
+ 				  KFD_EVENT_FMT_QUEUE_RESTORE(ktime_get_boottime_ns(),
+ 				  kfd_smi_task_to_pid(p->lead_thread),
+@@ -361,7 +371,7 @@ void kfd_smi_event_unmap_from_gpu(struct kfd_node *node, struct task_struct *tas
+ 				  unsigned long address, unsigned long last,
+ 				  uint32_t trigger)
+ {
+-	kfd_smi_event_add(task, node, KFD_SMI_EVENT_UNMAP_FROM_GPU,
++	kfd_smi_event_add(kfd_smi_task_tgid(task), node, KFD_SMI_EVENT_UNMAP_FROM_GPU,
+ 			  KFD_EVENT_FMT_UNMAP_FROM_GPU(ktime_get_boottime_ns(),
+ 			  kfd_smi_task_to_pid(task), address,
+ 			  last - address + 1, node->id, trigger));
+@@ -379,7 +389,7 @@ void kfd_smi_event_process(struct kfd_process_device *pdd, bool start)
+ 	task_info = amdgpu_vm_get_task_info_vm(avm);
  
--	while (((unsigned long)sub_header) + subtable_len  < table_end) {
--		/*
--		 * If length is 0, break from this loop to avoid
--		 * infinite loop.
--		 */
--		if (subtable_len == 0) {
--			pr_err("SRAT invalid zero length\n");
--			break;
--		}
-+	while ((unsigned long)sub_header < table_end) {
-+		unsigned long start = (unsigned long)sub_header;
-+
-+		if (table_end - start < sizeof(*sub_header))
-+			goto invalid_srat;
-+
-+		subtable_len = sub_header->length;
-+		if (subtable_len < sizeof(*sub_header) ||
-+		    subtable_len > table_end - start)
-+			goto invalid_srat;
+ 	if (task_info) {
+-		kfd_smi_event_add(NULL, pdd->dev,
++		kfd_smi_event_add(kfd_smi_task_tgid(pdd->process->lead_thread), pdd->dev,
+ 				  start ? KFD_SMI_EVENT_PROCESS_START :
+ 				  KFD_SMI_EVENT_PROCESS_END,
+ 				  KFD_EVENT_FMT_PROCESS(task_info->task.pid,
+@@ -408,7 +418,7 @@ int kfd_smi_event_open(struct kfd_node *dev, uint32_t *fd)
+ 	spin_lock_init(&client->lock);
+ 	client->events = 0;
+ 	client->dev = dev;
+-	client->pid = kfd_smi_task_to_pid(current);
++	client->tgid = kfd_smi_task_tgid(current);
+ 	client->suser = capable(CAP_SYS_ADMIN);
  
- 		switch (sub_header->type) {
- 		case ACPI_SRAT_TYPE_CPU_AFFINITY:
- 			cpu = (struct acpi_srat_cpu_affinity *)sub_header;
-+			if (subtable_len < sizeof(*cpu))
-+				goto invalid_srat;
-+
- 			pxm = *((u32 *)cpu->proximity_domain_hi) << 8 |
- 					cpu->proximity_domain_lo;
- 			if (pxm > max_pxm)
-@@ -2084,6 +2090,9 @@ static void kfd_find_numa_node_in_srat(struct kfd_node *kdev)
- 			break;
- 		case ACPI_SRAT_TYPE_GENERIC_AFFINITY:
- 			gpu = (struct acpi_srat_generic_affinity *)sub_header;
-+			if (subtable_len < sizeof(*gpu))
-+				goto invalid_srat;
-+
- 			bdf = *((u16 *)(&gpu->device_handle[0])) << 16 |
- 					*((u16 *)(&gpu->device_handle[2]));
- 			if (bdf == pci_id) {
-@@ -2100,9 +2109,13 @@ static void kfd_find_numa_node_in_srat(struct kfd_node *kdev)
- 
- 		sub_header = (struct acpi_subtable_header *)
- 				((unsigned long)sub_header + subtable_len);
--		subtable_len = sub_header->length;
- 	}
- 
-+	goto out;
-+
-+invalid_srat:
-+	pr_err("SRAT contains an invalid subtable\n");
-+out:
- 	acpi_put_table(table_header);
- 
- 	/* Workaround bad cpu-gpu binding case */
+ 	spin_lock(&dev->smi_lock);
 -- 
 2.53.0
 
