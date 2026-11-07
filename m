@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794087936;
-	b=l8N/g8TOgdHa5kYxY3vrggtQF/3SZ1UVzR/KGAhGPnTMhm8u72Qs0SVg8GibNjDHtkKp
-	 towNMuaZmeYbOGocK3boeMyR1vJk1Md055RhzmfekKuuU+ie+5kmCJKeTW3Fo1+u9lFic
-	 bvAZzNcvU2rh1hTI/eoz+DmWRSpg15xGgeiKZEgoHnj7bUknk8l8oVlOzDPYOqFJNxP9B
-	 vW9ULilFx42tuxt0/PQDG+TLUwWmaW/kf8sVpwc0z9HXXxyU9RI4vaETcPjcRpMXS52kL
-	 msAKM3aPX2hCfpj9rMcK0J1ftRt/qP+1TvOWB5AvznL7cWNl0lp6iRfbQv5RYltLIcA==
+	t=1794087937;
+	b=0c1KdyS1IuEPex/7pmjDTEox5VUI6D3MMEF6mdqQkA0j0ArYJvRjp6yORrXeT1myu/N/
+	 yK7/lS38TKoQ4FdHtzSAZUCDDnEDDJklBRdoscl/GK4l4fbIqIDUD8GY3WF03+CYQg5eC
+	 lqE7CQ1UCXJkYGeZw7cLNo3hfPqLGdIBd6J1ZzrCj6N5gb94deTRuAffoRXcqTu1B1DEk
+	 tDLZFwuOaoyNAuSy56fati5g8JC0hZejjxRfy3GisyC5M1iH1DURQPSxPRJ/pGv0EEPoS
+	 KEf8wEsbcD2jMDqRq0DCby8AdUe5R6hpXGqmr5dvmMGhXiggT27UWp9Evs/58Nig/rA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794087936;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794087937;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=nyCIxBA5mJ06vHi0FAU5PamOp23wz03gHLUhBxnc4Z0=;
-	b=S1s78I+5ryqFue7Cz1uO0MWn7oPIq+Mw8s218GFt77ZfpnX3HY/FVKpQD7B25/hyUCRE
-	 J1kn56to1iLOYcsH/gZAHNvYPDUK6vUWbXUdAZ4bY8TXz9rfUn2aUVoGAEsY0F5NoQIzl
-	 qBw53c+jj0qfvAQZTz211KDZ0Bjl6fd5pRWnxPc2Mk8kBWxFkHqjQ9lLiQ5nUpXQ4jz/j
-	 4W/I5aMDmq8m++RSZZ2tOYOUtlqu3NNd6GIR0srB+l6Ci0hwXrgvHYcUaXqsVMfYmM+EH
-	 waG+VfQYWQxxMHVzZYlnfMOhm4zlBWHTooH8Priz53dr1/CN2gFuGyEYcBHmk9XdXAA==
+	bh=lmfkuEncO7HrgAvrvHVaRTSKNdQ3l+JsObN4du/E/II=;
+	b=iVAtDICdLRm6NqCUVJL2j4D7po3jK+Cw1mcOT+rPgIBvQRcprnTW1gJE0dQKtW5vrFIT
+	 bFjWnhDD/zTiB4voxd57J/IF462Uft/Nnic9CWC9c8C1NrMSHsXqr9AmAByZ/MVc1pUkJ
+	 WOby2YZf7pHsIxpZOnAcJE/w5jj2luzYYQiGbBGF8A4KQ6265a5wKwsaEb7Tl6vDgnPcs
+	 LiNIkWhrFaGyvQLB+WEoWI/dq3zRNX6ahP3BIISAM5KGnoWWCR1Lzp8QpgrXLX4awkFC+
+	 jpMdW4iDegTxRPgb9Pp67iEyEcNTKakgHcdsPoOk8y1J6nLuXayh1IWkDD21z0dtCKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Waouwtiq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PgDBO7R9;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76734606D80B;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEECC606D811;
 	Sat,  7 Nov 2026 21:45:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Waouwtiq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3EEE1F008BC;
-	Sat,  7 Nov 2026 21:45:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PgDBO7R9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5218F1F0089F;
+	Sat,  7 Nov 2026 21:45:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794087936;
-	bh=nyCIxBA5mJ06vHi0FAU5PamOp23wz03gHLUhBxnc4Z0=;
+	bh=lmfkuEncO7HrgAvrvHVaRTSKNdQ3l+JsObN4du/E/II=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WaouwtiqMvq5L/CDViXEiAdw/ify/xGtuBEoGC+6GV4wH3ZjrEhVyp1IXJeFliMGU
-	 oADm7fa9Oot61Dq9T/QSCq3mKpsEeEaxTptLJ4FJJuo9RWzKYTQudvMWhCdg+Ts/XP
-	 NaLfACOcdoKZYCqxKqFrqY+V4vwguWrNLPoy4SS4JBNioPAA0iwlo3KCZvz8PtlXhW
-	 gByffuXzLXe2qT94Gml5QrWNLmBGbLnvOxSpLM0vyox7R8YuErLavXqyZAJwedZ3pw
-	 6c/xTnnkiTa0AVBSvybrKW8Eca8wfCnsgSL30JeU0fISFGFCFuuwVaaLfzpUcUoHj8
-	 F5aPM7J1o6NTA==
+	b=PgDBO7R9zy4bT6hGZ8egNmJMKX2P1CUnL3wYteY5+qxFF00Ks68Ez2rAW2khacP3H
+	 lNdfFE3FrV7jyM6hhXmy1qSPpagMXcMRRqxGTcJJQSZwcS6sAboYJ5XM9pP0K3FsVZ
+	 CVseyA4FmNo2iL9mTd8CBlHC7uqK9O/T4acfySY8rFGLfJZ/qt8kTI89QCAU7ZaE8M
+	 b9PIedAzsH4hyfPTMFG1iGFLAQ3ma43Sw2jtD0p9E4VNzF6bjiurw09NPs6M53GXvi
+	 3GMX3h+4IXnqDr4Lmt5klFIL3M7dKRqNty1BMgzV9Eb4HwjbJmbA9yAu2CKVX28k19
+	 RSSuvC3I5ZEVA==
 From: SJ Park <sj@kernel.org>
 To: 
 Cc: SJ Park <sj@kernel.org>,
@@ -47,9 +47,9 @@ Cc: SJ Park <sj@kernel.org>,
 	damon@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [RFC PATCH 6.12.y 4/5] mm/damon/core: filter out damos address filter-split failed region
-Date: Sat,  7 Nov 2026 13:45:23 -0800
-Message-ID: <20261107214525.304638-5-sj@kernel.org>
+Subject: [RFC PATCH 6.12.y 5/5] mm/damon/core: remove unreachable damos charge_{target,addr}_from
+Date: Sat,  7 Nov 2026 13:45:24 -0800
+Message-ID: <20261107214525.304638-6-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261107214525.304638-1-sj@kernel.org>
 References: <20261107214525.304638-1-sj@kernel.org>
@@ -64,138 +64,79 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When an address type DAMOS filter is configured, DAMOS tries to split the
-region for the filter range, and apply DAMOS action to the filter-in
-region.  The split operation (damon_split_region_at()) could fail from
-allocation failure under extreme memory pressure.  In the case, DAMOS
-action could be applied more or less than expected, ignoring the address
-filter.
+damos_quota->charge_{target,addr}_from saves the target and region the
+scheme's quota limit is reached.  damos_skip_charged_region() skips the
+target and regions before the point.  The target that was assigned to
+charge_target_from could be dynamically removed from the context by the
+runtime parameters update (aka commit) feature.  In this case,
+damos_skip_charged_region() cannot find if the point is passed or not,
+so the scheme is effectively disabled.
 
-The issue only rarely happens under extreme memory pressure.  No crash or
-leak happens.  Occasionally not applying the action to a few regions
-shouldn't be a real problem.  But applying the action to a region that the
-user has excluded via address filter could be a surprise depending on the
-use case.  It is only theoretical.  No such real case is found yet.
+Similarly, the user could also remove all the regions of the target
+using the runtime parameters update feature.  It would be uncommon to do
+that, but it is a supported feature.  Because the skip pointer detection
+logic (damos_skip_charged_region()) works for each region of targets,
+this result in the logic is entirely skipped and the scheme is
+effectively disabled again.
 
-Filter out the entire region if the split is failed.  Update
-damos_filter_match() signature to receive the error from split.  Also
-update kunit tests for the updated signature.
+The user impact is that the DAMOS scheme could suddenly stop working
+under certain uses of the runtime parameters update feature.  It could
+surprise users. No crash or leak happens though.  Users could also
+simply work around by re-installing the scheme.
 
-The issue was discovered [1] by sashiko.
+Catch the corner cases in damos_adjust_quota() and reset the pointers.
 
-Link: https://lore.kernel.org/20261020004119.106690-1-sj@kernel.org
-Link: https://lore.kernel.org/20260801203121.117449-1-sj@kernel.org [1]
-Fixes: ab9bda001b68 ("mm/damon/core: introduce address range type damos filter")
+Link: https://lore.kernel.org/20261020023958.108276-1-sj@kernel.org
+Fixes: da87878010e5 ("mm/damon/sysfs: support online inputs update")
 Signed-off-by: SJ Park <sj@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: <stable@vger.kernel.org> # 6.6.x
-(cherry picked from commit bbeec2d8324d7aac438bb12dd2d22b184e0a8d43)
+Closes: https://sashiko.dev/#/bug/linux-cd0c55fc-0cc8-45d8-9637-3334811c49b8
+Cc: <stable@vger.kernel.org> # 5.19.x
+(cherry picked from commit 5695abc4e742b947f586bfb6a080a80ad9957e5d)
 Signed-off-by: SJ Park <sj@kernel.org>
 ---
- mm/damon/core.c             | 13 +++++++++----
- mm/damon/tests/core-kunit.h | 11 ++++++-----
- 2 files changed, 15 insertions(+), 9 deletions(-)
+ mm/damon/core.c | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
 diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 52f01a6508b66..046c07b86a6e7 100644
+index 046c07b86a6e7..badd0628e5eb2 100644
 --- a/mm/damon/core.c
 +++ b/mm/damon/core.c
-@@ -1372,13 +1372,14 @@ static void damos_update_stat(struct damos *s,
+@@ -1686,6 +1686,26 @@ static void damos_set_effective_quota(struct damos_quota *quota)
+ 	quota->esz = esz;
  }
  
- static bool __damos_filter_out(struct damon_ctx *ctx, struct damon_target *t,
--		struct damon_region *r, struct damos_filter *filter)
-+		struct damon_region *r, struct damos_filter *filter, int *err)
++static void damos_fix_stale_charge_pointers(struct damon_ctx *c,
++		struct damos *s)
++{
++	struct damos_quota *quota;
++	struct damon_target *t;
++
++	quota = &s->quota;
++	if (!quota->charge_target_from)
++		return;
++	damon_for_each_target(t, c) {
++		if (t == quota->charge_target_from) {
++			if (damon_nr_regions(t) > 0)
++				return;
++			break;
++		}
++	}
++	quota->charge_target_from = NULL;
++	quota->charge_addr_from = 0;
++}
++
+ static void damos_adjust_quota(struct damon_ctx *c, struct damos *s)
  {
- 	bool matched = false;
- 	struct damon_target *ti;
- 	int target_idx = 0;
- 	unsigned long start, end;
- 
-+	*err = 0;
- 	switch (filter->type) {
- 	case DAMOS_FILTER_TYPE_TARGET:
- 		damon_for_each_target(ti, ctx) {
-@@ -1404,12 +1405,13 @@ static bool __damos_filter_out(struct damon_ctx *ctx, struct damon_target *t,
- 		}
- 		/* start before the range and overlap */
- 		if (r->ar.start < start) {
--			damon_split_region_at(t, r, start - r->ar.start);
-+			*err = damon_split_region_at(t, r,
-+					start - r->ar.start);
- 			matched = false;
- 			break;
- 		}
- 		/* start inside the range */
--		damon_split_region_at(t, r, end - r->ar.start);
-+		*err = damon_split_region_at(t, r, end - r->ar.start);
- 		matched = true;
- 		break;
- 	default:
-@@ -1423,9 +1425,12 @@ static bool damos_filter_out(struct damon_ctx *ctx, struct damon_target *t,
- 		struct damon_region *r, struct damos *s)
- {
- 	struct damos_filter *filter;
-+	bool matching;
-+	int err;
- 
- 	damos_for_each_filter(filter, s) {
--		if (__damos_filter_out(ctx, t, r, filter))
-+		matching = __damos_filter_out(ctx, t, r, filter, &err);
-+		if (matching || err)
- 			return true;
+ 	struct damos_quota *quota = &s->quota;
+@@ -1714,6 +1734,8 @@ static void damos_adjust_quota(struct damon_ctx *c, struct damos *s)
+ 		damos_set_effective_quota(quota);
  	}
- 	return false;
-diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
-index ff9f73579f7b3..6b7cd8149a0e2 100644
---- a/mm/damon/tests/core-kunit.h
-+++ b/mm/damon/tests/core-kunit.h
-@@ -527,6 +527,7 @@ static void damos_test_filter_out(struct kunit *test)
- 	struct damon_target *t;
- 	struct damon_region *r, *r2;
- 	struct damos_filter *f;
-+	int err;
  
- 	f = damos_new_filter(DAMOS_FILTER_TYPE_ADDR, true);
- 	f->addr_range = (struct damon_addr_range){
-@@ -537,25 +538,25 @@ static void damos_test_filter_out(struct kunit *test)
- 	damon_add_region(r, t);
++	damos_fix_stale_charge_pointers(c, s);
++
+ 	if (!c->ops.get_scheme_score)
+ 		return;
  
- 	/* region in the range */
--	KUNIT_EXPECT_TRUE(test, __damos_filter_out(NULL, t, r, f));
-+	KUNIT_EXPECT_TRUE(test, __damos_filter_out(NULL, t, r, f, &err));
- 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
- 
- 	/* region before the range */
- 	r->ar.start = DAMON_MIN_REGION * 1;
- 	r->ar.end = DAMON_MIN_REGION * 2;
--	KUNIT_EXPECT_FALSE(test, __damos_filter_out(NULL, t, r, f));
-+	KUNIT_EXPECT_FALSE(test, __damos_filter_out(NULL, t, r, f, &err));
- 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
- 
- 	/* region after the range */
- 	r->ar.start = DAMON_MIN_REGION * 6;
- 	r->ar.end = DAMON_MIN_REGION * 8;
--	KUNIT_EXPECT_FALSE(test, __damos_filter_out(NULL, t, r, f));
-+	KUNIT_EXPECT_FALSE(test, __damos_filter_out(NULL, t, r, f, &err));
- 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
- 
- 	/* region started before the range */
- 	r->ar.start = DAMON_MIN_REGION * 1;
- 	r->ar.end = DAMON_MIN_REGION * 4;
--	KUNIT_EXPECT_FALSE(test, __damos_filter_out(NULL, t, r, f));
-+	KUNIT_EXPECT_FALSE(test, __damos_filter_out(NULL, t, r, f, &err));
- 	/* filter should have split the region */
- 	KUNIT_EXPECT_EQ(test, r->ar.start, DAMON_MIN_REGION * 1);
- 	KUNIT_EXPECT_EQ(test, r->ar.end, DAMON_MIN_REGION * 2);
-@@ -570,7 +571,7 @@ static void damos_test_filter_out(struct kunit *test)
- 	/* region started in the range */
- 	r->ar.start = DAMON_MIN_REGION * 2;
- 	r->ar.end = DAMON_MIN_REGION * 8;
--	KUNIT_EXPECT_TRUE(test, __damos_filter_out(NULL, t, r, f));
-+	KUNIT_EXPECT_TRUE(test, __damos_filter_out(NULL, t, r, f, &err));
- 	/* filter should have split the region */
- 	KUNIT_EXPECT_EQ(test, r->ar.start, DAMON_MIN_REGION * 2);
- 	KUNIT_EXPECT_EQ(test, r->ar.end, DAMON_MIN_REGION * 6);
 -- 
 2.47.3
