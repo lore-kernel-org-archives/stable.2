@@ -1,61 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794063645;
-	b=NYOCwqRXqQ1I0CFrdbjo0CvpMZDkDWhiqyCNfmFEzhVySZlGOlz44yFhfykBHhnlKCNa
-	 pU/ZAU/2QfvmRwf/b54cl/ubskemn6BlDhKEoE3vtJlKP5IDGWyVJZjD04psYAWDvdi/0
-	 63VZyp+ZIAMtdNsdKZ4FKKfoYWK3gsgBDDrYuBvFIgpx9+PvXE0FdSjk70IY1QQBhBqlO
-	 MMZdl62uRxA5z21EncWN5vF/uDY0tYuheKUNI95kDhXzlaNYLr+Hk71X/d7LlxJlqwzDt
-	 YXM+cyV77/gRXI6FdrUclmiUtYip2lUxp/W8sUtu9r2zaMy+6Q6556eeu3yfe7ooDRw==
+	t=1794063640;
+	b=LA+NLWK7hKQfozzsh8Nu174f6AWySolulQFgRLM3mFgeONALaeFZJcCPzvJ6KTz9FAu+
+	 y0YlzTNz7NUde2BcbYOTRRDm0jd1XzvhVdOxkL7As05/SRLbT8BmAh0CjsJJaVtapKuCT
+	 AEN23J7IVDnvBxXIr67XqV5kbV3+CkrTav5DAeHfI9v90+uOoo94XZANbqfpa2m8yI9ka
+	 QfxmmxthYMCFUEQJ18HYEiFJwnR0xZMIxLNq2HiXiFzRqmorMmPRz4dfM2Of/GZt/k7/h
+	 u2fw5GWx3IjHMeoAhHX0Pup5jojF5Nr4OGKM+h5CZyMKNyDtv9xB1GhN4POx8C9OPEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794063645;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794063640;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=d0oTXjO+sntW4BBR+UFVmppO5AJ/OmsaursNnUyYTbQ=;
-	b=CXjP+86cC6OIU0aBDqXjRdTzzVK/Z1bnBEZkrU1N/UAJvpiolrCK/5LKDrRXHGuLpW2u
-	 KV3lMYdLO7x8RG1oidtkxjXz51D5sZouI0ps+GhDM+F+hKiD8R6O7sHXDofU/dQcjEHDN
-	 3AmpTPnmXRSBmQbAeiE9goJkEHHd+zqZ2Se/ewiaWAUERBjxgk2G9kMpcueNkwiKtsZTd
-	 +xVZHwFmcIhgJAsDuDo5oJbP58KzGmYqcsLwEupq4kyPzYlpUcz3HPcAFms3B0aJWsljc
-	 8kXamqYVzznkXTfA/bejdG7eV0KHyATHHeYxEURNqnxwLSiTLweR5DP31sxqCWMbGNg==
+	bh=VQnQOWx9ACtMAxLEs2CnQtIZAdA547mxasMVtjFm61w=;
+	b=T/zJxaHKjSvRvJCKBciiUvrnQD+sAJsMEPyz7Z0IeH1OubGCHczpfJWmXHCTiZaqcmom
+	 GWratgHAYw8lxjBFMyo3oDMt0IffJ6pEWIQBKgPQ3uQ/I70P6qZZrVKCMpkfoehdJW/gR
+	 rdRJ57D/0xZ4Rb+v9A7YlPRUYOyzb+r56sTmJbSerTQGILJYBaXSFjak4M7pT2ZCiV+yu
+	 2kU/Staof6HDxw5LQSB4Z40Nr4aYrJYCdKHS3TOAT7aMLgp/miyXt1C6n9Ozx+O7f2oSQ
+	 +t8MGmWXIBYIT5IBUuXasYAgXWW4MaAlQAbb6qyYcfH/DAtkJinZxLfR7QKq3G1+nDg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=qUQrmZGc;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=HQZcCmHu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB47E606D827;
-	Sat,  7 Nov 2026 15:00:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 502AC606D833;
+	Sat,  7 Nov 2026 15:00:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=qUQrmZGc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E4D01F0089F;
-	Sat,  7 Nov 2026 15:00:44 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=HQZcCmHu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02FC01F0089F;
+	Sat,  7 Nov 2026 15:00:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794063644;
-	bh=d0oTXjO+sntW4BBR+UFVmppO5AJ/OmsaursNnUyYTbQ=;
+	s=korg; t=1794063640;
+	bh=VQnQOWx9ACtMAxLEs2CnQtIZAdA547mxasMVtjFm61w=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=qUQrmZGcLRVCsY/eLx8SvGFkuTCWziPg2qS8h4CN74y0O7bL4oo1wuquzhncD1m4f
-	 HfWcOKk24oP8hcl6ubhJDpSYb5DBWn52Qqd+0H7ckUVN/HYVBOk24rVhHvtpu0k0t0
-	 GetX67xr/05G7W+KtcXVRGjB+emqr7cuJASUKUkA=
+	b=HQZcCmHu29fAbXJ17KKaQZSWJ55RZtelLo1xcyLaokhRPTRBzaPkyhsG/FA/XXEAK
+	 7Ut4wHt94o2OQeizmKtGMUBzxm41bZ/Nm9fMO8be/SkyflLmIu1fkcNN7lRU8+HCXC
+	 a/scMpccAy/1d6EQSHIdCmNEwPXV0AlRyjXicFgM=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Yunhui Cui <cuiyunhui@bytedance.com>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Paul Walmsley <paul.walmsley@sifive.com>,
-	tongtiangen <tongtiangen@huawei.com>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Vivian Wang <wangruikang@iscas.ac.cn>,
-	Yaxing Guo <guoyaxing@bosc.ac.cn>,
+	Nickolai Zeldovich <nickolai@csail.mit.edu>,
+	Xueyuan Chen <xueyuan.chen21@gmail.com>,
+	Pedro Falcato <pfalcato@suse.de>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Jann Horn <jannh@google.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 759/869] riscv: mm: exclude invalid THP PMDs from page table check
-Date: Sat,  7 Nov 2026 08:57:21 -0500
-Message-ID: <20261107134918.442275481@linuxfoundation.org>
+Subject: [PATCH 6.18 755/869] mm/mremap: populate calculated fields in vrm state correctly
+Date: Sat,  7 Nov 2026 08:57:17 -0500
+Message-ID: <20261107134918.328504472@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261107134852.069646174@linuxfoundation.org>
 References: <20261107134852.069646174@linuxfoundation.org>
@@ -77,76 +74,104 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Yunhui Cui <cuiyunhui@bytedance.com>
+From: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-[ Upstream commit bdda2887cbf3937c2d0f56589c2124c4167324e1 ]
+[ Upstream commit 34e753f8d927069785f6b675f5769da5da4ef78e ]
 
-RISC-V THP splitting uses a temporary invalid PMD state where
-pmd_mkinvalid() clears _PAGE_PRESENT and _PAGE_PROT_NONE but leaves
-_PAGE_LEAF set so the MM code can still recognize the PMD as a THP split
-in-progress entry.
+Commit d5c8aec0542e ("mm/mremap: initial refactor of move_vma()")
+introduced the vma_remap_struct helper to pass state sanely through
+mremap() logic.
 
-That temporary state no longer describes a user-accessible mapping, but
-page_table_check currently treats it as one because the RISC-V PMD
-user-accessibility test only checks whether the PMD is a leaf and has user
-permissions.
+Part of this state is vrm->delta - equal to the absolute difference between
+vrm->old_len and vrm->new_len (the old and new lengths of the VMA,
+respectively).
 
-As a result, when a PMD-sized anonymous THP is split during a COW fault,
-page_table_check can account the invalid intermediate PMD as a live PMD
-mapping, and then account the replacement PTE mappings again when the
-split installs the PTE table.  This leaves stale PMD accounting behind and
-later triggers page_table_check failures such as a non-zero anon_map_count
-when the folio is freed.
+This value is used to correctly charge accounted VMAs.
 
-Fix this by tightening pmd_user_accessible_page() so PMD page-table-check
-accounting only considers leaf PMDs that still carry either _PAGE_PRESENT
-or _PAGE_PROT_NONE.  This preserves the THP split semantics required by
-the MM code while preventing page_table_check from treating invalid split
-PMDs as live user mappings.
+When shrinking a VMA, mremap_to() sets vrm->old_len equal to vrm->new_len
+having performed the shrink of the VMA first, prior to any potential move
+(e.g.  MREMAP_FIXED | MREMAP_MAYMOVE specified).
 
-With CONFIG_PAGE_TABLE_CHECK=y and CONFIG_PAGE_TABLE_CHECK_ENFORCED=y,
-tools/testing/selftests/mm/cow completes successfully on RISC-V after this
-change.
+However it does not recalculate vrm->delta, which results in incorrectly
+overcharging the VMA when both moving and shrinking a VMA.
 
-Link: https://lore.kernel.org/20260523042052.35476-1-cuiyunhui@bytedance.com
-Fixes: 3fee229a8eb9 ("riscv/mm: enable ARCH_SUPPORTS_PAGE_TABLE_CHECK")
-Signed-off-by: Yunhui Cui <cuiyunhui@bytedance.com>
+The charge leaks to Committed_AS globally, meaning a mischievous user can
+cause allocations to fail across the system in strict overcommit mode.
+
+Resolve the issue by abstracting the update of vrm->delta to
+vrm_populate_calculated() and invoking this from mremap_to() when
+vrm->old_len is changed.
+
+Additionally, update vrm->remap_type whose value depends on vrm->delta.
+The field is not read again after the shrink, but it is the logically
+correct thing to do and protects against future changes which break this.
+
+Link: https://lore.kernel.org/20261019-mremap-fix-shrink-charge-v1-1-a3ce209e5360@kernel.org
+Fixes: d5c8aec0542e ("mm/mremap: initial refactor of move_vma()")
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: Albert Ou <aou@eecs.berkeley.edu>
-Cc: Palmer Dabbelt <palmer@dabbelt.com>
-Cc: Pasha Tatashin <pasha.tatashin@soleen.com>
-Cc: Paul Walmsley <paul.walmsley@sifive.com>
-Cc: tongtiangen <tongtiangen@huawei.com>
-Cc: Alexandre Ghiti <alex@ghiti.fr>
-Cc: David Hildenbrand (Arm) <david@kernel.org>
-Cc: Vivian Wang <wangruikang@iscas.ac.cn>
-Cc: Yaxing Guo <guoyaxing@bosc.ac.cn>
+Reported-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+Closes: https://lore.kernel.org/all/20261017233527.797191-1-nickolai@csail.mit.edu/
+Reviewed-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Jann Horn <jannh@google.com>
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/riscv/include/asm/pgtable.h | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ mm/mremap.c | 17 +++++++++--------
+ 1 file changed, 9 insertions(+), 8 deletions(-)
 
-diff --git a/arch/riscv/include/asm/pgtable.h b/arch/riscv/include/asm/pgtable.h
-index 9b2e967c9fe08..420d402336d0b 100644
---- a/arch/riscv/include/asm/pgtable.h
-+++ b/arch/riscv/include/asm/pgtable.h
-@@ -833,7 +833,14 @@ static inline bool pte_user_accessible_page(pte_t pte)
- 
- static inline bool pmd_user_accessible_page(pmd_t pmd)
- {
--	return pmd_leaf(pmd) && pmd_user(pmd);
-+	/*
-+	 * page_table_check() must ignore THP split invalidation entries created by
-+	 * pmd_mkinvalid(). These retain _PAGE_LEAF so pmd_present()/pmd_leaf() stay
-+	 * true during the split, but they no longer describe a user-accessible
-+	 * mapping once both _PAGE_PRESENT and _PAGE_PROT_NONE are cleared.
-+	 */
-+	return (pmd_val(pmd) & (_PAGE_PRESENT | _PAGE_PROT_NONE)) &&
-+		(pmd_val(pmd) & _PAGE_LEAF) && pmd_user(pmd);
+diff --git a/mm/mremap.c b/mm/mremap.c
+index f023b05dfb3d9..593e6f94eba3d 100644
+--- a/mm/mremap.c
++++ b/mm/mremap.c
+@@ -874,12 +874,6 @@ unsigned long move_page_tables(struct pagetable_move_control *pmc)
+ 	return pmc_progress(pmc);
  }
  
- static inline bool pud_user_accessible_page(pud_t pud)
+-/* Set vrm->delta to the difference in VMA size specified by user. */
+-static void vrm_set_delta(struct vma_remap_struct *vrm)
+-{
+-	vrm->delta = abs_diff(vrm->old_len, vrm->new_len);
+-}
+-
+ /* Determine what kind of remap this is - shrink, expand or no resize at all. */
+ static enum mremap_type vrm_remap_type(struct vma_remap_struct *vrm)
+ {
+@@ -892,6 +886,13 @@ static enum mremap_type vrm_remap_type(struct vma_remap_struct *vrm)
+ 	return MREMAP_EXPAND;
+ }
+ 
++/* Populate calculated fields. */
++static void vrm_populate_calculated(struct vma_remap_struct *vrm)
++{
++	vrm->delta = abs_diff(vrm->old_len, vrm->new_len);
++	vrm->remap_type = vrm_remap_type(vrm);
++}
++
+ /*
+  * When moving a VMA to vrm->new_adr, does this result in the new and old VMAs
+  * overlapping?
+@@ -1422,6 +1423,7 @@ static unsigned long mremap_to(struct vma_remap_struct *vrm)
+ 
+ 		/* Set up for the move now shrink has been executed. */
+ 		vrm->old_len = vrm->new_len;
++		vrm_populate_calculated(vrm);
+ 	}
+ 
+ 	/* MREMAP_DONTUNMAP expands by old_len since old_len == new_len */
+@@ -1694,8 +1696,7 @@ static int check_prep_vma(struct vma_remap_struct *vrm)
+ 	if (is_vm_hugetlb_page(vma) && !align_hugetlb(vrm))
+ 		return -EINVAL;
+ 
+-	vrm_set_delta(vrm);
+-	vrm->remap_type = vrm_remap_type(vrm);
++	vrm_populate_calculated(vrm);
+ 	/* For convenience, we set new_addr even if VMA won't move. */
+ 	if (!vrm_implies_new_addr(vrm))
+ 		vrm->new_addr = addr;
 -- 
 2.53.0
 
