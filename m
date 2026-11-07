@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794046612;
-	b=2cdC3MSZSZrOnJoo5xs/ErDValXT8zGNAokK8HCg699//yA1bJ2VUDKCve+jtWNZ7noU
-	 o9YGvt9P6FMeyllJWyK8m1ZQr7psiQjkWx9N1uj4D8WKkNxSlsAK2dtVe+Ls8rW2UlxDG
-	 lHObfIHu9SU83FGjV7QQw4ehHslK31YrYgsPdd/id8VCdwhjAhMVqEOqC7Ds+uZ9M3mRI
-	 wVVYtEdwQimMdV22Zcyqr4EWDMYQW4yLRd6DORb7BwvDSFs9YEATrVZfPtUZdbFHkYTrd
-	 MUBBNTSIfdFntKbUJYYYmZtk62/CQCeRtCjElfpr9rvZlXihiAQqMaOUUxTBPutvPEA==
+	t=1794046608;
+	b=dx6HLyi8rwSKQ7kK9EhQ5sQZgt9msXe7qfIrTSQaGlhn+tzSkhKggfMsWq0VUCxvP+TS
+	 OEuPNKIXVWnvqxb7VraqTR6/t8nNsgKdTySTPbksoSF869eCCBYWc7EmryBzpaGzRgob8
+	 dGf4eaXhtRJtXon8ecyF/3l3DGffFh2bP6pStdcPve+/yy5CVrqElTog87cQUsEbwlZAK
+	 n2qgTCcEvHw/4+PDQ2OvZ8iJY3cBOfMU2j0JJ6xKabQ1KOYytPH1puZbJYrZYXivsAZ/G
+	 4DN0aVoEqmL0njYqGBZMnqaWMd7ZVdTOSUEUqxq/C/jFUrefquIyz7IRUkbtVEWXnKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794046612;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794046608;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=NufWLlV91gTin4zjFL3sM5qhxq9R2taevfPWId+HArw=;
-	b=y8IOkGFDDEoeXW4RobZ8do8UTmJdqaVs8d2c2/hYbSvXfNqii8QhsKzglIig99J0m9HZ
-	 etzlnYZ1K0lEW32ulBoPpC1qI4LtKYU/8RkBNFbWHCzsZfc+fDorEe/FRNcTh8uFUnBfH
-	 KL/0OUw1br33p3hdZqD4lmgD9uUYnDIqYocwflvM32X34+JCPKd843KgVtkML/ZVG41Xk
-	 gTd6l2zl3+/xaonElxQi7iZcLTiubthY4FClvm1U4dEJ55yBAjRZGxKm80rKHAVayuctk
-	 6Wmgj3DnSfU0VkHaN7rfMEHO8KqdMMJZOotktZhESRNthSCCrAxfcvZz+bqgMWOR+3Q==
+	bh=blonuOr2wJ60ObJy2od9dQs1VQ+LnRnRzmBmTtor4iQ=;
+	b=ZAAIL3zf3jpnG3X+r8yabAWzZ3KULy/nhUgECs6pNAwd2q6yvrFxL7RTSm7mO4ZbiMz5
+	 cJOMqIN3PPTCuotnB3CG+AeXk9rDlFEnWduXJiVnYEz8sy9wLsWDcroIfK+QP4ZICHekw
+	 K9ww4BbEuQktn9dr2hQmDeVmsqBvI3Y2lkOQ0rsT3KopZFq89bjwiMmLtSO9sJaz7913T
+	 948THiSPx6OmDdI0ywDRyITXbGuJx+Bna4NysHDWup5+s3m0xnkazmD59AuW9OCRudquU
+	 9evdOEr5o2d1FdJ7fz/EHEvSwADjzfH6Y8YdZKjduKc3cayfKD0beWPrRaRifInFpiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vx7DT4bq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cclpnIhd;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47DC3608361A
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:16:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D9E4606D832
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:16:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vx7DT4bq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BD731F008BC;
-	Sat,  7 Nov 2026 10:16:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cclpnIhd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F9881F00926;
+	Sat,  7 Nov 2026 10:16:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794046612;
-	bh=NufWLlV91gTin4zjFL3sM5qhxq9R2taevfPWId+HArw=;
+	s=k20260515; t=1794046607;
+	bh=blonuOr2wJ60ObJy2od9dQs1VQ+LnRnRzmBmTtor4iQ=;
 	h=From:To:Cc:Subject:Date;
-	b=Vx7DT4bqGSEbFua2ttE4uZNHxhJrqDYwypaQ73YFsjYN1oU0S9Xj4nkJpVXPxGgDN
-	 MWo324s5X/LthQKZWdOiyShfxJJT6bYV8zhN682AZyFFaKC27yxDdNquEM6jtWpDi/
-	 HaJCIVDzPz09S4YdYHBBNC96TAscy1AFLoK5rZdSxXDxxzDDRI0Pz88kVjQktx8hBk
-	 sY54KFRYbOH6nsZqRD8UEvreJHimAtKJYLl0w2MkZe0xxkVwzqVo+LPpFIhEDwy5yc
-	 Fz365yPWEPDEyO0W08/lxUWMERIzfKuFoYFVJsgrM6LczeIrgS7VaGgRmamIUTD1m5
-	 Nzv4bavFBlmfA==
+	b=cclpnIhdAaSENYo0PeyN77LHmv9RYQYQ6ZWjR2K9O1KIQXJQrrvL0IlKGkINPp7iE
+	 7S6RXVl5PY53F63s6ugBc0mZORO12bLOxUvkg4RiJtH715A3ph8qz9kG6Ufjy7jpqG
+	 taXOOLSk7+cUMev731Wcvk5kdKQv2Q5ZqsOQIHfzWeO/Y+kekSCEDVit8ohT8LYXz7
+	 v3L7lYopUNY5NpUH4akPjIBPNt/bB4xo60YPwMiN7dlxkcXyqmqcAj+IGBsLhoZYi3
+	 u7/yQzwt1OAZ802mFA0bJpFUQccf8vzPD8VO7DZSDjlglwuh7QAmQYJu/Gs607Xhf0
+	 6V9JpxyQAUS9A==
 From: Sasha Levin <sashal@kernel.org>
-To: robin@snyders.xyz,
-	sebastian.reichel@collabora.com
+To: runyu.xiao@seu.edu.cn,
+	dipenp@nvidia.com
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] power: supply: qcom_smbx: validate battery float voltage" failed to apply to 6.12-stable tree
-Date: Sat,  7 Nov 2026 05:16:50 -0500
-Message-ID: <20261107051650-failed-6.12-a2d7dc538da2@kernel.org>
+Subject: FAILED: patch "[PATCH] hte: tegra194-test: shut down timer before GPIO release" failed to apply to 6.12-stable tree
+Date: Sat,  7 Nov 2026 05:16:46 -0500
+Message-ID: <20261107051646-failed-6.12-30167fadbf87@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,171 +68,56 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x a2d7dc538da2cb4a7426f0742197e762cb635f38
+git cherry-pick -x 30167fadbf87fa901a2fee49c30a5c5a506a43e8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051650-failed-6.12-a2d7dc538da2@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107051646-failed-6.12-30167fadbf87@kernel.org' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From a2d7dc538da2cb4a7426f0742197e762cb635f38 Mon Sep 17 00:00:00 2001
-From: Robin Snyders <robin@snyders.xyz>
-Date: Wed, 12 Aug 2026 01:30:01 +0200
-Subject: [PATCH] power: supply: qcom_smbx: validate battery float voltage
+From 30167fadbf87fa901a2fee49c30a5c5a506a43e8 Mon Sep 17 00:00:00 2001
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Date: Fri, 4 Sep 2026 14:11:37 +0800
+Subject: [PATCH] hte: tegra194-test: shut down timer before GPIO release
 
-power_supply_get_battery_info() leaves absent optional properties at
--EINVAL. The driver uses voltage_max_design_uv without checking it, so a
-missing or out-of-range value can become an invalid float-voltage
-selector.
+tegra_hte_test_remove() releases GPIO descriptors before stopping
+hte.timer. gpio_timer_cb() accesses hte.gpio_out and rearms the timer, so
+a callback concurrent with remove can use a released descriptor and rearm
+after teardown.
 
-Prefer the constant-charge voltage because it describes the charger's CV
-target, then fall back to the battery design voltage. Both properties are
-optional in the simple-battery binding, so preserve the hardware setting
-when neither is present. Reject a supplied target outside the SMB2 range.
+Shut down the timer before releasing the GPIO descriptors.
+timer_shutdown_sync() waits for a running callback and prevents it from
+being rearmed.
 
-smb_init_hw() enables charging before battery data is parsed and before
-the remaining fallible probe steps. Save the initial charging-enable bit
-and install a managed rollback before initialization. Keep the rollback
-active across battery-info, voltage, IRQ and wake-IRQ setup, then remove it
-only after probe can no longer fail.
-
-Fixes: 8648aeb5d7b7 ("power: supply: add Qualcomm PMI8998 SMB2 Charger driver")
+Fixes: 9a75a7cd03c9 ("hte: Add Tegra HTE test driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Robin Snyders <robin@snyders.xyz>
-Link: https://patch.msgid.link/20260812-qcom-smbx-fixes-v1-4-eb48246be599@snyders.xyz
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Assisted-by: Codex:GPT-5
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Acked-by: Dipen Patel <dipenp@nvidia.com>
+Signed-off-by: Dipen Patel <dipenp@nvidia.com>
 ---
- drivers/power/supply/qcom_smbx.c | 61 ++++++++++++++++++++++++++++++--
- 1 file changed, 58 insertions(+), 3 deletions(-)
+ drivers/hte/hte-tegra194-test.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/power/supply/qcom_smbx.c b/drivers/power/supply/qcom_smbx.c
-index e236b95c0ebf3..55ffe9857e494 100644
---- a/drivers/power/supply/qcom_smbx.c
-+++ b/drivers/power/supply/qcom_smbx.c
-@@ -353,6 +353,7 @@
- /* pmi8998 registers represent current in increments of 1/40th of an amp */
- #define CURRENT_SCALE_FACTOR				25000
- #define SMB2_FLOAT_VOLTAGE_MIN_UV			3487500
-+#define SMB2_FLOAT_VOLTAGE_MAX_UV			4920000
- #define SMB2_FLOAT_VOLTAGE_STEP_UV			7500
- /* clang-format on */
+diff --git a/drivers/hte/hte-tegra194-test.c b/drivers/hte/hte-tegra194-test.c
+index 32907d951ec9a..cca33868fb03d 100644
+--- a/drivers/hte/hte-tegra194-test.c
++++ b/drivers/hte/hte-tegra194-test.c
+@@ -217,10 +217,10 @@ static void tegra_hte_test_remove(struct platform_device *pdev)
+ {
+ 	(void)pdev;
  
-@@ -380,6 +381,7 @@ struct smb_init_register {
-  * @base:		Base address for smb registers
-  * @regmap:		Register map
-  * @batt_info:		Battery data from DT
-+ * @initial_charge_enable: Charging enable state before hardware setup
-  * @status_change_work: Worker to handle plug/unplug events
-  * @cable_irq:		USB plugin IRQ
-  * @wakeup_enabled:	If the cable IRQ will cause a wakeup
-@@ -393,6 +395,7 @@ struct smb_chip {
- 	unsigned int base;
- 	struct regmap *regmap;
- 	struct power_supply_battery_info *batt_info;
-+	u8 initial_charge_enable;
- 
- 	struct delayed_work status_change_work;
- 	int cable_irq;
-@@ -905,6 +908,19 @@ static int smb_init_hw(struct smb_chip *chip)
- 	return 0;
++	timer_shutdown_sync(&hte.timer);
+ 	free_irq(hte.gpio_in_irq, &hte);
+ 	gpiod_put(hte.gpio_in);
+ 	gpiod_put(hte.gpio_out);
+-	timer_delete_sync(&hte.timer);
  }
  
-+static void smb_restore_charge_enable(void *data)
-+{
-+	struct smb_chip *chip = data;
-+	int rc;
-+
-+	rc = regmap_update_bits(chip->regmap,
-+				chip->base + CHARGING_ENABLE_CMD,
-+				CHARGING_ENABLE_CMD_BIT,
-+				chip->initial_charge_enable);
-+	if (rc < 0)
-+		dev_err(chip->dev, "Couldn't restore charging state: %d\n", rc);
-+}
-+
- static int smb_init_irq(struct smb_chip *chip, int *irq, const char *name,
- 			 irqreturn_t (*handler)(int irq, void *data))
- {
-@@ -931,6 +947,9 @@ static int smb_probe(struct platform_device *pdev)
- 	struct power_supply_config supply_config = {};
- 	struct power_supply_desc *desc;
- 	struct smb_chip *chip;
-+	unsigned int charge_enable;
-+	unsigned int float_voltage_sel;
-+	int float_voltage_uv;
- 	int rc, irq;
- 
- 	chip = devm_kzalloc(&pdev->dev, sizeof(*chip), GFP_KERNEL);
-@@ -961,6 +980,18 @@ static int smb_probe(struct platform_device *pdev)
- 				     "Couldn't get usbin_i IIO channel\n");
- 	}
- 
-+	rc = regmap_read(chip->regmap, chip->base + CHARGING_ENABLE_CMD,
-+			 &charge_enable);
-+	if (rc < 0)
-+		return dev_err_probe(chip->dev, rc,
-+				     "Couldn't read charging state\n");
-+
-+	chip->initial_charge_enable = charge_enable & CHARGING_ENABLE_CMD_BIT;
-+	rc = devm_add_action_or_reset(chip->dev, smb_restore_charge_enable, chip);
-+	if (rc)
-+		return dev_err_probe(chip->dev, rc,
-+				     "Couldn't register charging state rollback\n");
-+
- 	rc = smb_init_hw(chip);
- 	if (rc < 0)
- 		return rc;
-@@ -995,13 +1026,35 @@ static int smb_probe(struct platform_device *pdev)
- 		return dev_err_probe(chip->dev, rc,
- 				     "Failed to init status change work\n");
- 
--	rc = (chip->batt_info->voltage_max_design_uv -
--	      SMB2_FLOAT_VOLTAGE_MIN_UV) / SMB2_FLOAT_VOLTAGE_STEP_UV;
-+	if (power_supply_battery_info_has_prop(chip->batt_info,
-+					       POWER_SUPPLY_PROP_CONSTANT_CHARGE_VOLTAGE_MAX)) {
-+		float_voltage_uv =
-+			chip->batt_info->constant_charge_voltage_max_uv;
-+	} else if (power_supply_battery_info_has_prop(chip->batt_info,
-+					      POWER_SUPPLY_PROP_VOLTAGE_MAX_DESIGN)) {
-+		float_voltage_uv = chip->batt_info->voltage_max_design_uv;
-+	} else {
-+		dev_warn(chip->dev, "No battery float voltage; preserving hardware setting\n");
-+		goto skip_float_voltage;
-+	}
-+
-+	if (float_voltage_uv < SMB2_FLOAT_VOLTAGE_MIN_UV ||
-+	    float_voltage_uv > SMB2_FLOAT_VOLTAGE_MAX_UV)
-+		return dev_err_probe(chip->dev, -EINVAL,
-+				     "float voltage %d uV outside %d-%d uV\n",
-+				     float_voltage_uv,
-+				     SMB2_FLOAT_VOLTAGE_MIN_UV,
-+				     SMB2_FLOAT_VOLTAGE_MAX_UV);
-+
-+	float_voltage_sel =
-+		(float_voltage_uv - SMB2_FLOAT_VOLTAGE_MIN_UV) /
-+		SMB2_FLOAT_VOLTAGE_STEP_UV;
- 	rc = regmap_update_bits(chip->regmap, chip->base + FLOAT_VOLTAGE_CFG,
--				FLOAT_VOLTAGE_SETTING_MASK, rc);
-+				FLOAT_VOLTAGE_SETTING_MASK, float_voltage_sel);
- 	if (rc < 0)
- 		return dev_err_probe(chip->dev, rc, "Couldn't set vbat max\n");
- 
-+skip_float_voltage:
- 	rc = smb_init_irq(chip, &irq, "bat-ov", smb_handle_batt_overvoltage);
- 	if (rc < 0)
- 		return rc;
-@@ -1025,6 +1078,8 @@ static int smb_probe(struct platform_device *pdev)
- 	if (rc < 0)
- 		return dev_err_probe(chip->dev, rc, "Couldn't set wake irq\n");
- 
-+	devm_remove_action(chip->dev, smb_restore_charge_enable, chip);
-+
- 	platform_set_drvdata(pdev, chip);
- 
- 	/* Initialise charger state */
+ static struct platform_driver tegra_hte_test_driver = {
 -- 
 2.53.0
 
