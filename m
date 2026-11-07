@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794048636;
-	b=ea7o12fMJR98raxubXG45ON6/s9Kzjj9ofauY2kX9EZ/zOICbXtB4Ly/EdIWILNAc9r/
-	 b8lxtxZhxkmI5rnsbsM0jK+IfD8lewjriWWT5W+Atda68HaM1YOLIoq8i7QU9mRU1FQYs
-	 ULumPVCteBcmjeJFt+84/fzpCEyuBoJI5IqSShShSlq5dZw+mzdwmUOk/VXdIE5j7Pou9
-	 1TGASLyejlCES9soa2Ag9tnS1yheFlmztftQt3aYUKwriJ34gqCF0SwPeAKvjY+cA+BIe
-	 eTcG1yXtWWDpa5oqvLfqGUa33tkxx3qv03LNyRKV4WOSD9jMWkwHQvU+z/059BnaJsw==
+	t=1794048639;
+	b=B4w7fqeXg5uE/gB8aq2HpuJWWvxCWXKtTP8zAEqg/EVMmNiPqDmlKNywPhplhE6H37yF
+	 RX8e1hcHsmMR1rHZ79S7BNUcY5meooBRTJeRL+0Lnc9e2FtHeC6kJOKyvhK/sh86YoEkp
+	 aJrNLOUh0Q8acw7R1KgYWlbEDuDvy5MEDEhLN82pvn0eQrMxxZ+ec19pmp+lMRAsY56HH
+	 YcZCpbnGv+5t6zDXsqQeyRt3IMo8GuOyTxRpbHFAXvFQ+uvkP8SGCeDSRCa6skeQWGTJN
+	 hTVDRtFi+UBg9TuaQW3AtjFQdnOmHAb3YMExMZkN8sq0xs60Z+YAyACc8iPlYg7rT5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794048636;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794048639;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=QUFgt+IeY8dIw/XZmApTrXqjOlABdrxr9Lv2zcnbXuo=;
-	b=sjq2gi1kcU8Ua9bCC+t8NOXcuuDHPwX6BnVQdb6YZ63TWQpm4nTebeaMOCHh3iIyZMtB
-	 ceOzs79UuQOrTvnCppzDvaSt3Qv4dcLXvrux2/Tk0l9DahnQ+03quS0yd4E1TTkvIpdit
-	 96EeVwB/9orDibwtYUuT6ijh5GC7VVKDZDwKHuqj5Xx8mh2NOSv84JNCB437Zwwjq8lwZ
-	 25RswtZipPqOJDBL2v3yDuMKMn96o8x3qBTnCLvXrxWHViMm2k1q+1syRwKbHNdwzUOjf
-	 b4YzL16WgkkxCb5v/AF+At5NQzqI0lwuen6EwilH7GognKXLIKXuSokPjyrWEQAO96g==
+	bh=PGE8Q4jvrvAw6RwsjPaMvJFsB1p6ZzLqsrwStJtsjkw=;
+	b=llOFA6OzVXlpye/tsKCMX+UJXPDQT+3wxisKtfUSHpMKs9oq8cSZvdRyj0Lp1/NwYYTz
+	 N6l/vqCVhYUGLRzfzuSuQvLD73nSQgQsEk9YMMvCWNXmoqPBSiVrhckl7AB0NhyOxRs10
+	 l+Dtj6uBFyt4dYyWUEE7MsmZj+A0CKoglk7Wjet8yESWeNHM65t5bT0hVy8hEdkyfarOH
+	 +F40413417kRqTBxRPfV3ZZPkbmAEvaL0is9BwK9AP8tPIkBVtZhgTmzrnQ10CjFtrExD
+	 NZXzxcPVEBEw7er0NATXJereRYVHrTIOCLzVhfSZ5u4wjt1DV9sNX2J5l/ZfjmCHxuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MDRXUj9A;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XPHAlmT9;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F922606A336
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:50:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D929606D839
+	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 10:50:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MDRXUj9A
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA45E1F0089F;
-	Sat,  7 Nov 2026 10:50:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XPHAlmT9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D07D61F0089F;
+	Sat,  7 Nov 2026 10:50:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794048636;
-	bh=QUFgt+IeY8dIw/XZmApTrXqjOlABdrxr9Lv2zcnbXuo=;
+	s=k20260515; t=1794048639;
+	bh=PGE8Q4jvrvAw6RwsjPaMvJFsB1p6ZzLqsrwStJtsjkw=;
 	h=From:To:Cc:Subject:Date;
-	b=MDRXUj9AOWi1+74JtnagdQCQi9ZBnOQLvoJRRFrKz+ZKMPwbqQf4+y5gd6tw3keQe
-	 4nKI5BDZToKrh8zx4eSCLmQVda4WZxKxPh+Z5nJQfUh0O35ylB2Gzs6CCQJqkfZxyw
-	 le77WXgrLDByvPMVEw5aMt+2IZGcwKVESm7zNhi6EI5vNonK79t3Hh03K5vdn7U6ks
-	 QDMxilHwdW6KYLKHr7DLvaVFmaOg+Q+BinadUc0NlXWv5OmlSZSrGw8ZFbIuXmZgd7
-	 1jMA8rONxe8L3to00t2JEUxdzsbaZ0qdYEEcdqclB25hn2eDu+zGA4gGFZQLxW9oDm
-	 VgUkHI9dGIx9Q==
+	b=XPHAlmT9sIN2zN/V2qwgNjxEwpXoaCo5JtU9ijJZM3OOaz+rtc5BPbPzY359ZNeq6
+	 XraT+3lP2C4D9gsJ9ygbgTy2b4Ff671EMa3aTA8AUCt71G0XA6LujTAX6SIfDin3vT
+	 uTkKllAyuEQJMEoHHUGn5xC/6D+cOrWyUM9EEiqtioZnOBNoyrFtO9O0agOdrKZkul
+	 fLzLDjR/rGoV8JcsOSy1kZZkZTM5gBFp9ZKJ8oZMPV88ywWUYkY6sU3KUQDo+vfmPb
+	 CYdw3VIAvDhfkoveWl6e2Ytn9Mra/eZHPvBZ1i3T2GRHrfwif5JQCS2tvSxAgDIvwl
+	 /OE3hmgFr9SWQ==
 From: Sasha Levin <sashal@kernel.org>
-To: tjdqudcks0424@naver.com,
-	mszeredi@redhat.com
+To: gamaerry@gmail.com,
+	tiwai@suse.de
 Cc: stable@vger.kernel.org
-Subject: FAILED: patch "[PATCH] virtiofs: validate fixed-output response length" failed to apply to 6.1-stable tree
-Date: Sat,  7 Nov 2026 05:50:34 -0500
-Message-ID: <20261107055034-failed-6.1-5364d081125a@kernel.org>
+Subject: FAILED: patch "[PATCH] ALSA: hda/realtek: Fix internal speakers on Acer Aspire AL16-31P" failed to apply to 6.1-stable tree
+Date: Sat,  7 Nov 2026 05:50:37 -0500
+Message-ID: <20261107055037-failed-6.1-d933955c456e@kernel.org>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,111 +68,57 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 5364d081125a34e90851fbb46ecc93f79339ce78
+git cherry-pick -x d933955c456e0573b40eae4f72a3af37ab1c15c3
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055034-failed-6.1-5364d081125a@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '20261107055037-failed-6.1-d933955c456e@kernel.org' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Thanks,
 Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 5364d081125a34e90851fbb46ecc93f79339ce78 Mon Sep 17 00:00:00 2001
-From: Sung Byeongchan <tjdqudcks0424@naver.com>
-Date: Wed, 7 Oct 2026 15:19:49 +0900
-Subject: [PATCH] virtiofs: validate fixed-output response length
+From d933955c456e0573b40eae4f72a3af37ab1c15c3 Mon Sep 17 00:00:00 2001
+From: Luis Gerardo Lopez Hernandez <gamaerry@gmail.com>
+Date: Fri, 16 Oct 2026 18:50:39 -0600
+Subject: [PATCH] ALSA: hda/realtek: Fix internal speakers on Acer Aspire
+ AL16-31P
 
-A short successful virtiofs response can leave the fixed-output portion of
-the request argument buffer unwritten.  The completion path nevertheless
-copies the full declared output to the request destination, allowing stale
-allocator contents to reach callers such as fuse_statfs().
+The Acer Aspire AL16-31P (Intel Alder Lake-N, Realtek ALC269VC,
+PCI/codec SSID 2782:1718) has its internal speakers wired to pin 0x1b,
+but the BIOS marks that pin as not connected (0x411111f0) and only
+exposes pin 0x14 as the speaker. As a result the internal speakers are
+silent while headphones, HDMI and Bluetooth work.
 
-Require successful fixed-output responses to contain their complete
-declared output.  Continue to permit a shorter final argument only for
-out_argvar requests.  Reject positive and internal restart error values
-and require valid error replies to be header-only.  The error already
-stored in the FUSE output header is returned by fuse_request_end(), so do
-not copy output arguments from an error reply.
+This is the same layout as the Infinix Y4 Max and MEDION E15433, which
+share the 0x2782 subsystem vendor. Reuse their fixup, which configures
+pin 0x1b as an internal speaker and limits the internal mic boost.
 
-This was found by source review with AI assistance.  A header-only
-successful FUSE_STATFS reply returned stale fields in nine of nine calls
-across three boots.  The fixed kernel rejected the short response and
-preserved complete replies, valid negative-error replies, and
-variable-output replies.
+Tested by booting with snd-hda-intel model=2782:1705: the fixup is
+picked, pin 0x1b is used as a speaker output, the internal speakers
+work, and they are muted when headphones are plugged in.
 
-Fixes: a62a8ef9d97d ("virtio-fs: add virtiofs filesystem")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Sung Byeongchan <tjdqudcks0424@naver.com>
-Signed-off-by: Miklos Szeredi <mszeredi@redhat.com>
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Luis Gerardo Lopez Hernandez <gamaerry@gmail.com>
+Link: https://patch.msgid.link/20261017005039.9139-1-gamaerry@gmail.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- fs/fuse/virtio_fs.c | 30 ++++++++++++++++++++++++++++++
- 1 file changed, 30 insertions(+)
+ sound/hda/codecs/realtek/alc269.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/fs/fuse/virtio_fs.c b/fs/fuse/virtio_fs.c
-index 674fd784cdb80..ba8d79c4bcac6 100644
---- a/fs/fuse/virtio_fs.c
-+++ b/fs/fuse/virtio_fs.c
-@@ -727,6 +727,10 @@ static void copy_args_from_argbuf(struct fuse_args *args, struct fuse_req *req)
- 	unsigned int num_out;
- 	unsigned int i;
- 
-+	/* fuse_request_end() returns this error; there are no args to copy. */
-+	if (req->out.h.error)
-+		goto out;
-+
- 	remaining = req->out.h.len - sizeof(req->out.h);
- 	num_in = args->in_numargs - args->in_pages;
- 	num_out = args->out_numargs - args->out_pages;
-@@ -752,6 +756,7 @@ static void copy_args_from_argbuf(struct fuse_args *args, struct fuse_req *req)
- 	if (args->out_argvar)
- 		args->out_args[args->out_numargs - 1].size = remaining;
- 
-+out:
- 	kfree(req->argbuf);
- 	req->argbuf = NULL;
- }
-@@ -759,7 +764,9 @@ static void copy_args_from_argbuf(struct fuse_args *args, struct fuse_req *req)
- /* Verify that the server properly follows the FUSE protocol */
- static bool virtio_fs_verify_response(struct fuse_req *req, unsigned int len)
- {
-+	struct fuse_args *args = req->args;
- 	struct fuse_out_header *oh = &req->out.h;
-+	unsigned int expected;
- 
- 	if (len < sizeof(*oh)) {
- 		pr_warn("virtio-fs: response too short (%u)\n", len);
-@@ -774,6 +781,29 @@ static bool virtio_fs_verify_response(struct fuse_req *req, unsigned int len)
- 			oh->unique, req->in.h.unique);
- 		return false;
- 	}
-+	if (oh->error <= -ERESTARTSYS || oh->error > 0) {
-+		pr_warn("virtio-fs: invalid error value (%d)\n", oh->error);
-+		return false;
-+	}
-+
-+	if (oh->error) {
-+		if (len != sizeof(*oh)) {
-+			pr_warn("virtio-fs: error response too long (%u)\n", len);
-+			return false;
-+		}
-+		return true;
-+	}
-+
-+	expected = sizeof(*oh) +
-+		   fuse_len_args(args->out_numargs, args->out_args);
-+	if (len > expected ||
-+	    (len < expected &&
-+	     (!args->out_argvar ||
-+	      expected - len > args->out_args[args->out_numargs - 1].size))) {
-+		pr_warn("virtio-fs: invalid response length (%u, expected %u)\n",
-+			len, expected);
-+		return false;
-+	}
- 	return true;
- }
- 
+diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
+index c33a385982f2b..af43e7fb99b71 100644
+--- a/sound/hda/codecs/realtek/alc269.c
++++ b/sound/hda/codecs/realtek/alc269.c
+@@ -8671,6 +8671,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x2782, 0x1701, "Infinix Y4 Max", ALC269VC_FIXUP_INFINIX_Y4_MAX),
+ 	SND_PCI_QUIRK(0x2782, 0x1705, "MEDION E15433", ALC269VC_FIXUP_INFINIX_Y4_MAX),
+ 	SND_PCI_QUIRK(0x2782, 0x1707, "Vaio VJFE-ADL", ALC298_FIXUP_SPK_VOLUME),
++	SND_PCI_QUIRK(0x2782, 0x1718, "Acer Aspire AL16-31P", ALC269VC_FIXUP_INFINIX_Y4_MAX),
+ 	SND_PCI_QUIRK(0x2782, 0x4900, "MEDION E15443", ALC233_FIXUP_MEDION_MTL_SPK),
+ 	SND_PCI_QUIRK(0x2782, 0xa128, "Positivo N15RPE-S", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
+ 	SND_PCI_QUIRK(0x2782, 0xa212, "Lunnen Ground 14", ALC269VC_FIXUP_LUNNEN_GROUND_14),
 -- 
 2.53.0
 
