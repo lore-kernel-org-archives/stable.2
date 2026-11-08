@@ -1,101 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.182
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794176801;
-	b=zDG6y0CMs1m+3/mTQlISLG5Fyg2rUR/GEHr/xIvptRh88xzPnULO37rhTV/9YeJ5XUMl
-	 kH8kXj+CHkJqBYcUU0obGQTFbSgNM+rwIB3bXDPwWS1dKZHChXsTUuE11vaIKoRRdn5/d
-	 8nFNe2YUyPAZy1w1zqX9LasebbIgxcxoozev8Ei9Xvl6RPwfTukGcQLxOVZIcQ3M7BlM/
-	 eKSxb1rJRi7sdnwfIzBaAJbivOUexT+f3FLmuH1b0VJZcKLbuX+hn7+xxd9DULlpcCS1Q
-	 A0tKZaJDcmfV8A145UEQpOPPEvdBBV4CgC2VMtG0ObuLkMvywSaSzwmRffQheEaSfvw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794176801;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794176889;
+	b=3jhqk2wgWaxu3U5GWbdUI6JYHapSc8nyec5CcAElPAKwzPpwzLImsMau4b85TFyDz+af
+	 hmkDQSH2oH2pGbRqVz3wfTH01VNNms8SBV2PR/ul5mkJVt/wgMfhYWdo2P1hGQFzXczIy
+	 RI+VaeOUC+kOW+SvGN0K2zmxW6ENRfQ5xZyWjTlbpvvXh6oL9KpOcc/4S4/Y/Tl4PM6wa
+	 bNEuGQ4ek5/wzpLuZ99XRAN3dJ2SCfa61MfNNOACYV/O0fiyKctddekv6Ih0ojofu9Y/a
+	 K79ZSLaiCjTwRXGtE3nSRthn/ZaCan2WK7yr0wuHktpZhf7WLLUjXfRRjaph7STRjtg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794176889;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=VE+63/5S1dGMKKpaNJJmZOgCWbbEa3XkXO0EUSmDMwQ=;
-	b=o2UCzsQUT2uKHKmtmKBny70jhKQI9IMMtV9ERPt/zZc9nJ3n32sYAaJXN2KKTcVn/YTQ
-	 AwetXA2LimvsmR9ka3bOjH4ISJvl/PSWLPZYpxKOSLH1ZZvOH/8A2tuwHaCKgVAb8oF/j
-	 cQiq6/0pXZum3jf/jLmResgvXBw/QfI8MUKHa7sb/8iDyC7rbTPJ5oivLLGFQfqm1MFht
-	 q+aswsJPMXjV72JRQXsbPIucI/4aobZHTBviZFgg5n5G9shS1apN04ZwHUuHsVBLMCD35
-	 5cXnqqhdBe+GWTJo8AveL9nzAMSmQw9TYK8jWAYyZY5QQV8rtR4lAMnDlvXJghbFLWg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=m2sxuaQy;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.182
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=7p12hu+h/2h8BDalwKmT9RqYemNdCQPSYKJ8VeGC68Y=;
+	b=xu7+XUulw46H8wEOs2DoDy+0Ucni/cY8vikeBPMnlHnfOfL0gQbw5lX+oGfEmiXZt+AR
+	 m33Yz4bcShOIBLiDUP/UgdfM1mapWtUzXzgWVSUuRaTFnBeFkXJvrGm75ng/V8aH0sp74
+	 VpWbSaRW/vMFlPa8UBvx+6GpWUGn/GzrIzOlkoE3brfKxKIQAhVQBb9n0fCIUBj5lJZZ3
+	 JI4ke7Tfj91Rr/xemu7/+oFtjFbTN/n3/Bgcz9LOD1cAVClIehha/k8FCWH4qj/QJQEhZ
+	 6/Bo5eAbtgPFzb48h9G9zeFpf/C4Rvz5VpJIZhi8FAO9dLi+ZPse2raTQPZoBJNf70A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Gc7oUUKY;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5845606A321
-	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 22:26:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5845606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD7CC6082BCA
+	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 22:28:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD7CC6082BCA
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=m2sxuaQy
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-3720addb068so452181eec.1
-        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 14:26:40 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794176800; cv=none;
-        d=google.com; s=arc-20260327;
-        b=LPW9fYNPBrHEWUt4BdZ8PR9siot6Lj48NHLhb9AUiTfWg7B8twXSy5D+qpLIH2idnf
-         zN7h41vLtO7qYWt1RpJAguoVjbpTb6hF8ZgJtRvv5ydaU/KuyJUysQKxC6oDBQtZRSse
-         9WlrtpDv0S8poRXYbKTiEyWNfWPBKioprkcECiA/bcQItT5nSR6h0HJmpKF1d/MXXdfA
-         RbCzEsCB+gurY0bVyXMRzeMMImp5iUmFRlh+UDnV46M5smQNGXaaPazM5H2fq5av6jlB
-         rVlTqcCMGcSfCsH0g4cwVQOmjz1DNgoaSLRRuy7Gi92O2iCNBfaDlMbykqRtfDa1lrNm
-         i//w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=VE+63/5S1dGMKKpaNJJmZOgCWbbEa3XkXO0EUSmDMwQ=;
-        fh=vO33nl/WUOnERuA9xgWghT0ieYfD68+92lAVrKpaiWo=;
-        b=K6Qq9UFwyJkGvNvCE85Perfqhb7qiqJlugUqVisKMpfW7YEIUZyv8IMUnBokBSCns2
-         iJTuLkoiBFaFsvNM8j6SkbXdXjyhurlR+/AEiJvOaWDHLyehxryiGQUmhwZ9+4/BU8lH
-         F+yw+Il87J9fduH3CbsKeHA+aC0fiPu2AKi4bG1Dc96u905eiAZhDMKYd0B0zBxFJjph
-         OrMU7ogPw5VEZz+A8OBuhNU7pSyvX2ggSmTz9pGNVjP/7Z1UagosQzTcw7DPVcM8KrI/
-         5q/83TSUvC2KNCofLci8HPoTLccmBAEvnWVs1OmqTjIJRp7OZLrKmjag80Aomnxa1C9a
-         JVvA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Gc7oUUKY
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a78ec32fadso365645e9.3
+        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 14:28:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794176800; x=1794781600; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VE+63/5S1dGMKKpaNJJmZOgCWbbEa3XkXO0EUSmDMwQ=;
-        b=m2sxuaQybH6P44YJ4ev4tpnAwA4jHFbnX9oMNj5668OgWBc3gGAq1vzri4q7p2Xj4Q
-         ecQNwxmEj+hrSUoceI/4kchQ2LBNBUl4kNO91z9H5WGQN7cvyNWyA9JoTzNXj5x+6fXd
-         e34jIBsW6Oab2k2elVh5SaUtdCiCPXaDbGld3M9wcni34a9cLEac7vbil4djAFm1MfdG
-         yZUAJkE2IKgmVlSv7G70VtL6QdkP+yuw2Qom2ShCS67qmdBcwQEBLt81cbqCgkMcz18J
-         KdhUZ8RC6jurbCj2fSFKYBlLL8cEycFokR1r3IsU4iYevYkBXpN5FrgPcF+u4EoluDj1
-         EwOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794176800; x=1794781600;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1794176887; x=1794781687; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=VE+63/5S1dGMKKpaNJJmZOgCWbbEa3XkXO0EUSmDMwQ=;
-        b=akdTOzk/b3hkd9NU9MbuYlz7ata1FbTmUWFjhfoGQ+NUYLcskS/FTifKW1sA7tnYZi
-         J0pC6Mvqb6SLrqmvTy+MK8nBbhe8aAuJhQ5ybN6pV7sENEFW+4Pre3rvEIJsoiWYyEqF
-         5I8jKS5jDNM3kI8BnByCeTuvkhYjmlTe+Jpv1ODgqGd+mFM7+lgke/N9tiXFakpTdwnB
-         p0FQ91dsYrrkGPLaFZDzgZos+sbUhAL/iJdbTnxOoFjooST3cgVtuCgo+0va5JzdI0aM
-         Hb394nFCGWJcdfVV+ReCHZT6ZetppzgI1nm+2Ieo1nRvxOhzLMImhHsA3dtqmPzw7hFp
-         ebKA==
-X-Forwarded-Encrypted: i=1; AL+hErEOCN94JVPjKmee2JaPrgjSTgA1YFMRlssrb5Zxr3So540Zgqr8UO1GsgT4uG6bsHNsxN4LVNc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8dXCRbJw1elotP4u0j/DKbauIXU56uxncj7p2FCLn0pDH0J8td
-	1aallg43gidUjYl5uNazobTWIaLOQ3VTTKLdwdNNOe3BcgYskOyzjsT7EH5Bqwt+yTrvG7UyBzx
-	mB46PQboYJiJOD0G4+ikDZqcTErFTC/5xQ8xetCDP
-X-Gm-Gg: AYBFou0RlwoMxNE6zq1UnggkDPd/K0oGe6c09NZBVmaj9Qe5VfK6cFPMmG0HSBqccH5
-	fjXvIa6/rwB0ahuwdTQKXFCbEigcHQCs6uxuVN6tmBpviVh5Jdt9HokDwjC7PHcu3henpg57pfr
-	0PI90xcYJ3t5mh4CLZj1sCLG9hgWhLY/qahWKUrQ3itqKzuaSi+yhFL4jqKMkHxKFXfMhWOJ3nb
-	6e9W0o1tDIDL3itJoj+eEQ0qeIudn4/UCksVGs4r3ut4RVZwKaZ1mpCliMurnfD5nh96z7HDbqD
-	m0DXHTxVBB7BvUHbsHiZGvs1u+EjqLy4QfKKbVsfT1jfVZ4osa+tG5PUIWz0qk/FwtGCl0K2y6+
-	15o2PwnmepiFWKXCdOzXklvrWf1SX5/BtuHamPkpc5B8Rw0l2Tu39L2bAu3U1CFai11T2iDpa+I
-	AZ04ie2/QApIqdImzg
-X-Received: by 2002:a05:693c:87d5:10b0:36e:a9ce:f1a with SMTP id
- 5a478bee46e88-372542bec14mr4545729eec.4.1794176798825; Sun, 08 Nov 2026
- 14:26:38 -0800 (PST)
+        bh=7p12hu+h/2h8BDalwKmT9RqYemNdCQPSYKJ8VeGC68Y=;
+        b=Gc7oUUKYhXfkzyx4k8R8oVoqd2a1GEZJYPK8L4AhkN64P4yEv7LvuatfcoSyFVoVWw
+         LgjwkaxoNOBgcBLRLPZ6qRzyJ6gy8CxIHCs45u7htBQv6+liu+k5eDu6hrOsQjCZSA3P
+         ueHS/oBEzNRSm96p8tQUy+0/WHVA/HuqX+6iDRzLP6LPc0wqvybPxavkZv7tOeqKSxyv
+         hi6WTI+N8x9ng5uL5hgJJWVXc+bvFnMEn8MfovnvgBxBL93Cqaq1Tfk5OWmc8iWTSbvy
+         jbU7JtTs/SYdTNq2cmcvjKHrvOL85H9ksfXgMDpUNnXuuqykGC0zvTaBSsFQFjpvo8tC
+         9z9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794176887; x=1794781687;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7p12hu+h/2h8BDalwKmT9RqYemNdCQPSYKJ8VeGC68Y=;
+        b=ftUBjHGYQ3nT7qPFOnNVAaV07vKIJZ/VkorpeIX13KPWyfdVdDN2dWp+a5ZiP4V+jb
+         nWuvhIkwd3fTjBJklrD3vU4+msiE5vQV8o40gX+EE9r53vmK8Hl7JDTlaMq52UKzB4JU
+         MKh/RAc1cbM7AsoW/wEfYD80nutqeraY2/u4tNjeNpg03deS0lpF5pse3lLbU3+xzM6E
+         J+4wTxCquHwu0RZFhbIT84P0FaH+R93FvIOfeFiZdKciQbvgKlBqZcIo6hxMpvwNz7L7
+         ugSlFNhh/onhgPffzgHSVaRIRu1rMNbS922w4YUXRQ5vr3GhiSHe90l3Axhq5GMFqOqo
+         B3Ug==
+X-Forwarded-Encrypted: i=1; AL+hErGWvbEsHTGWn0yLoK/+C02Gi5QDr78VFVBc2QfKGpmhxF41GiuQUxvTiPYLdOPPQxo7mQFZhq8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9uRSpxu5+tl1rbp8sf/dnpDoR2WbwnF+CGG4QeF/PxmmnMfmeC
+	lEwuV62fQS7gsqVdVDz5MXS9ebxE8nD2Q7UMKAYSA3sC78Ax6Yx3VDy/
+X-Gm-Gg: AYBFou1mH2I88AzIfM7aN8H1RfLJVmnGgqWyZ3S0+IIhBYBFZp0KsU7pmBOvZWiMTyn
+	RYKSyps3CVBOjCQGgqUqS/vwen0I7sruoUr7FiPa1mOWIAwGH+obFepXt8DaiMc+FKEM+Kh57fX
+	wl1EQWytflAldY67EXobU9WFyLLspRFNzhWDhCpHBWsZeckYORhtCBNfU+cYWR6VxhS1+tlQrxq
+	4Ej+rPEl1rlkcuqVZpUCtB5SSZhcEfXg7h2etV5prGlShaGBQfRiRyqNPDHPr+jl0xIV/iC2f2s
+	SguPUfIShe1qdp6DiizM+v5MXdwQrj6rYYs2S8BhX7E2HIKRYJ8mLvcJL/h/isnyjy8T7rqv3wl
+	Y7CYDntlA5DDUtVVGdVnv55VH/pwyS/K28+i4ZSc9UVohhNlTLEbO4vCKxxnpcdjcJ7lz5bWz3/
+	MwA9MPJyYMw8ezuJkp+YLAUceCDkMEO8TMsvgrQ/NiRx91slX8YA26FlK/krdpCZWR58qsSm2Yb
+	JmLyhVYIIsNxAoUjNuhynjzXpHO+yjSHNsqom5yrVmxeT9HbeL2yLk958d+ocbcHikBYZ1heqfE
+	qnCiE2coaqw7cVAg6NJOWLtU+cW6LTWb5nAYLijJLEJWOtdqFPmC+An2qvM+A3cH6sQQrABT5by
+	WHVy4ljB8Cj9wqxX/Iv3ovMgZ9ZdkkHoQgjCEEpw8XwJvG3ALTOnWTlMVTq3XYiUw9yf2SBIXHE
+	FTIIIzlG3Um+QRyFk2slBiTHyHBIhJLMUE9xkZIWVD8+D6ZO0=
+X-Received: by 2002:a05:600c:c09a:b0:4a0:1f9e:5f78 with SMTP id 5b1f17b1804b1-4b943f77191mr31556685e9.0.1794176886817;
+        Sun, 08 Nov 2026 14:28:06 -0800 (PST)
+Received: from ?IPV6:2a02:3100:599c:f8fc:6c90:be22:1a93:1ff? (dynamic-2a02-3100-599c-f8fc-6c90-be22-1a93-01ff.310.pool.telefonica.de. [2a02:3100:599c:f8fc:6c90:be22:1a93:1ff])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b76cb772e1sm212597315e9.0.2026.11.08.14.28.04
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 08 Nov 2026 14:28:05 -0800 (PST)
+Message-ID: <e1a0aa77-908e-4786-96b2-5d0d58675f21@gmail.com>
+Date: Sun, 8 Nov 2026 23:28:04 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,260 +94,75 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104045534.79783-1-bcochrane@google.com> <179411441563.994134.1253063049402486704@kernel.org>
-In-Reply-To: <179411441563.994134.1253063049402486704@kernel.org>
-From: Bryan Cochrane <bcochrane@google.com>
-Date: Sun, 8 Nov 2026 14:26:27 -0800
-X-Gm-Features: AclHuK_yThPQKjLu1cOv83kTvnqvD4g9kOuUo9qLmgKEyzNSc34jvrTH9xVW-DY
-Message-ID: <CALuKKxH-q4hb-Orc4MwwKE+bf5AcjOzW8k0JRpjLTPYOzjVA8A@mail.gmail.com>
-Subject: Re: [PATCH net v3] bnxt_en: Take RTNL before netif_close() when
- aborting FW reset
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v8 2/4] net: hsr: refuse forwarding devices as HSR/PRP
+ ports
 To: netdev-bot+sashiko@kernel.org
-Cc: michael.chan@broadcom.com, pavan.chebbi@broadcom.com, 
-	netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net, 
-	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, sdf@fomichev.me, 
-	joe@dama.to, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, andrew+netdev@lunn.ch,
+ shuah@kernel.org, kees@kernel.org, petr.wozniak@gmail.com,
+ qingfang.deng@linux.dev, fmaurer@redhat.com, luka.gejak@linux.dev,
+ bigeasy@linutronix.de, xiaoliang.yang_1@nxp.com, skhawaja@google.com,
+ liuhangbin@gmail.com, stable@vger.kernel.org, sdf.kernel@gmail.com,
+ lukma@denx.de, fmancera@suse.de, danishanwar@ti.com
+References: <20261107220544.20-3-xiexinet@gmail.com>
+ <179417570554.994134.17137863494736269542@kernel.org>
+Content-Language: en-GB
+From: Xin Xie <xiexinet@gmail.com>
+Autocrypt: addr=xiexinet@gmail.com; keydata=
+ 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
+ sNySbH3veZ/55EtlXA==
+In-Reply-To: <179417570554.994134.17137863494736269542@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Subject: Re: [PATCH net v3] bnxt_en: Take RTNL before netif_close()
-when aborting FW reset
+The point about cloned data is right: skb_share_check() only
+handles a shared skb, but when packet_rcv() or a tc mirror holds a
+clone, the TCP/UDP GSO handlers on the RX path still write the checksum
+into the shared head. v9 will make the head private with
+skb_cow_head(skb, 0) before __skb_gso_segment().
 
-On Sun, Nov 8, 2026 at 5:06 AM <netdev-bot+sashiko@kernel.org> wrote:
-> - [High] Permanent hang while holding RTNL and the netdev instance lock.
-> - [Medium] The patch defers the bnxt_get_registered_vfs() failure in
->   bnxt_fw_reset() to bnxt_fw_reset_task().
-> - [Medium] The patch turns a synchronous abort into an asynchronous
->   request carried only in bp->fw_reset_state.
+I will check the TX GSO cost on HW tag-insertion offloads and mention
+aggregates from older HSR senders as well as older PRP senders in the
+v9 message.
 
-Thanks, all three findings are valid consequences of deferring the
-bnxt_get_registered_vfs() failure in bnxt_fw_reset() to
-bnxt_fw_reset_task() in v3:
+v8 also conflicts with Sebastian's pending "hsr: inline PTP header" v10
+in net-next; v9 will describe how the two combine.
 
-1. [High] When bnxt_fw_reset() is entered from devlink process context
-   via bnxt_fw_recover(), bnxt_unlock_sp() still sets
-   BNXT_STATE_IN_SP_TASK with no sp_task running to clear it, so the
-   deferred netif_close() in bnxt_fw_reset_task() hangs in
-   __bnxt_close_nic() waiting on bnxt_drv_busy().
 
-2. [Medium] Deferring the close via bp->fw_reset_state =3D
-   BNXT_FW_RESET_STATE_ABORT lets a concurrent bnxt_close() ->
-   bnxt_hwrm_if_change() zero bp->fw_reset_state before
-   bnxt_fw_reset_task() runs, leaving BNXT_STATE_IN_FW_RESET stuck set.
-
-3. [Medium] Routing that pre-reset func_qcfg failure through
-   bnxt_fw_reset_abort() with fw_reset_state !=3D BNXT_FW_RESET_STATE_POLL_=
-VF
-   unintentionally marks the firmware reporter SEVERITY_FATAL via
-   bnxt_dl_health_fw_status_update(bp, false).
-
-For v4 I will go back to the synchronous close in bnxt_fw_reset() from
-v2 (using netdev_unlock() + bnxt_rtnl_lock_sp() as Michael suggested on
-v2), which avoids both Medium issues, and guard the
-BNXT_STATE_IN_SP_TASK bit operations in bnxt_[rtnl_]lock_sp() and
-bnxt_[rtnl_]unlock_sp() with current_work() =3D=3D &bp->sp_task so non-sp_t=
-ask
-callers (bnxt_fw_recover()) do not touch BNXT_STATE_IN_SP_TASK.
+-- 
+Xin
 
 pw-bot: cr
-
-On Sat, 7 Nov 2026 at 21:06, <netdev-bot+sashiko@kernel.org> wrote:
->
-> Thank you for your contribution! Sashiko AI review found 3 potential
-> issue(s) to consider.
->
-> Critical: 0 =C2=B7 High: 1 =C2=B7 Medium: 2 =C2=B7 Low: 0
->
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwor=
-k
-> know by including "pw-bot: cr" as a separate line at the end of your repl=
-y
-> (one such reply per series is enough).
->
-> - [High] Permanent hang while holding RTNL and the netdev instance lock.
-> - [Medium] The patch defers the bnxt_get_registered_vfs() failure in
->   bnxt_fw_reset() to bnxt_fw_reset_task().
-> - [Medium] The patch turns a synchronous abort into an asynchronous
->   request carried only in bp->fw_reset_state.
->
-> --
->
-> bnxt_en: Take RTNL before netif_close() when aborting FW reset
->
-> This patch takes RTNL around bnxt_fw_reset_abort() in bnxt_fw_reset_task(=
-)
-> and sends the POLL_VF ABORT_ERR case through that same path. It also
-> changes the bnxt_get_registered_vfs() failure path in bnxt_fw_reset(): th=
-at
-> path now sets fw_reset_state to BNXT_FW_RESET_STATE_ABORT and leaves the
-> netif_close() to bnxt_fw_reset_task().
->
-> > diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/et=
-hernet/broadcom/bnxt/bnxt.c
-> > index 33c4cacc8ffe3..f48e67670ccfb 100644
-> > --- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-> > +++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-> > @@ -14860,8 +14860,8 @@ void bnxt_fw_reset(struct bnxt *bp)
-> >               if (n < 0) {
-> >                       netdev_err(bp->dev, "Firmware reset aborted, rc =
-=3D %d\n",
-> >                                  n);
-> > -                     clear_bit(BNXT_STATE_IN_FW_RESET, &bp->state);
-> > -                     netif_close(bp->dev);
-> > +                     bp->fw_reset_state =3D BNXT_FW_RESET_STATE_ABORT;
-> > +                     bnxt_queue_fw_reset_work(bp, 0);
-> >                       goto fw_reset_exit;
->
-> [Severity: High]
-> Can this hang forever, holding rtnl_mutex and the instance lock, when
-> bnxt_fw_reset() is entered from devlink health recover?
->
-> bnxt_fw_recover() runs in devlink netlink process context, not from
-> bnxt_sp_task(). With BNXT_STATE_FW_NON_FATAL_COND set, the path is:
->
-> bnxt_fw_recover()
->   __bnxt_fw_recover()
->     bnxt_fw_reset()
->       bnxt_lock_sp()              /* clears BNXT_STATE_IN_SP_TASK */
->       bnxt_get_registered_vfs()   /* returns < 0 */
->       bnxt_queue_fw_reset_work(bp, 0)
->       bnxt_unlock_sp()            /* set_bit(BNXT_STATE_IN_SP_TASK) */
->
-> No sp_task is running, so nothing clears BNXT_STATE_IN_SP_TASK after this=
-.
->
-> fw_reset_task then runs on bnxt_pf_wq:
->
-> bnxt_fw_reset_task()
->   rtnl_lock(); netdev_lock(bp->dev);
->   bnxt_fw_reset_abort()
->     netif_close()
->       bnxt_close()
->         bnxt_close_nic()
->           __bnxt_close_nic()
->             while (bnxt_drv_busy(bp))
->                 msleep(20);
->
-> bnxt_drv_busy() checks BNXT_STATE_IN_SP_TASK, and this loop has no
-> timeout. For a PF, bnxt_sp_task() goes on the same ordered bnxt_pf_wq, so
-> it can't run behind the blocked fw_reset_task and clear the bit.
->
-> A second devlink health recover can't break the loop either.
-> bnxt_fw_reset_abort() has already set SEVERITY_FATAL before calling
-> netif_close(), so bnxt_fw_recover() returns -ENODEV.
->
-> Before this patch, the same branch called netif_close() inline. At that
-> point bnxt_lock_sp() had cleared BNXT_STATE_IN_SP_TASK, so the busy loop
-> exited.
->
-> The commit message says that dropping the lock would let "a concurrent
-> devlink health recover enter bnxt_fw_reset() and set BNXT_STATE_IN_SP_TAS=
-K
-> through bnxt_unlock_sp(), which the subsequent close would then wait on
-> forever".
->
-> Can the same hang still happen when the devlink health recover caller is
-> itself the bnxt_fw_reset() call that defers the close?
->
-> [Severity: Medium]
-> Is the deferred abort safe against a concurrent bnxt_close()?
->
-> After this change, bnxt_fw_reset() drops the instance lock while the
-> netdev is still open and BNXT_STATE_IN_FW_RESET is set. The pending abort
-> is recorded only in bp->fw_reset_state.
->
-> bnxt_hwrm_if_change(), called from bnxt_close(), always reads and resets
-> that state:
->
-> bnxt_hwrm_if_change() {
->     ...
->         fw_reset =3D (bp->fw_reset_state =3D=3D BNXT_FW_RESET_STATE_ABORT=
-);
->         bp->fw_reset_state =3D 0;
->     ...
-> }
->
-> A user close (ip link set down) can run before fw_reset_task reads
-> fw_reset_state. For example, work for other PFs may be queued ahead of it
-> on the single-threaded bnxt_pf_wq. The close path then sets
-> BNXT_STATE_ABORT_ERR and resets fw_reset_state to 0.
->
-> When bnxt_fw_reset_task() runs, it sees BNXT_STATE_IN_FW_RESET set and
-> fw_reset_state =3D=3D 0. No case in the switch matches, and there is no
-> default, so it returns. bnxt_fw_reset_abort() never runs, and
-> BNXT_STATE_IN_FW_RESET is never cleared.
->
-> After that, bnxt_open() -> bnxt_reinit_after_abort() fails with:
->
->         if (test_bit(BNXT_STATE_IN_FW_RESET, &bp->state))
->                 return -EBUSY;
->
-> As a result, the port can't be opened, and later firmware resets and
-> health checks skip it. The stopped ULP is also never restarted, until the
-> driver is reloaded.
->
-> The other in-progress reset states such as POLL_VF have a similar
-> exposure. This path, however, used to be fully synchronous.
->
-> >               } else if (n > 0) {
->
-> [ ... ]
->
-> > @@ -15524,6 +15524,8 @@ static void bnxt_fw_reset_task(struct work_stru=
-ct *work)
-> >       }
-> >
-> >       switch (bp->fw_reset_state) {
-> > +     case BNXT_FW_RESET_STATE_ABORT:
-> > +             goto fw_reset_abort;
->
-> [Severity: Medium]
-> With bnxt_fw_reset() now setting fw_reset_state to
-> BNXT_FW_RESET_STATE_ABORT before this runs, will bnxt_fw_reset_abort()
-> report a fatal firmware error for a func_qcfg failure?
->
-> bnxt_fw_reset_abort() {
->         clear_bit(BNXT_STATE_IN_FW_RESET, &bp->state);
->         if (bp->fw_reset_state !=3D BNXT_FW_RESET_STATE_POLL_VF)
->                 bnxt_dl_health_fw_status_update(bp, false);
->     ...
-> }
->
-> The POLL_VF exemption no longer applies on this path. As a result,
-> bnxt_dl_health_fw_status_update(bp, false) sets SEVERITY_FATAL and
-> REMEDY_POWER_CYCLE_DEVICE, and moves the devlink fw reporter to
-> DEVLINK_HEALTH_REPORTER_STATE_ERROR.
->
-> This is the same kind of failure as the POLL_VF n < 0 abort in
-> bnxt_fw_reset_task(): a bnxt_hwrm_func_qcfg() failure before any reset
-> step has run. That path skips the health update, and so did the old
-> inline abort in bnxt_fw_reset().
->
-> Once severity is SEVERITY_FATAL, bnxt_fw_recover() refuses manual
-> recovery until a new firmware event resets the severity:
->
->         if (bp->fw_health->severity =3D=3D SEVERITY_FATAL)
->                 return -ENODEV;
->
-> There is also a secondary effect. bnxt_dl_health_fw_status_update() calls
-> devlink_health_reporter_state_update(fw_health->fw_reporter, state)
-> without checking fw_reporter for NULL.
->
-> __bnxt_dl_reporter_create() can leave fw_reporter NULL, and
-> __bnxt_fw_recover() can still reach bnxt_fw_reset() in that case. The
-> other abort paths already carry this NULL dereference risk, and this
-> patch adds another way to reach it.
->
-> The commit message doesn't mention this behavior change. Was it intended?
->
-> >       case BNXT_FW_RESET_STATE_POLL_VF: {
-> >               int n =3D bnxt_get_registered_vfs(bp);
-> >               int tmo;
->
-> [ ... ]
->
-> --
-> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
-set/20261104045534.79783-1-bcochrane%40google.com
