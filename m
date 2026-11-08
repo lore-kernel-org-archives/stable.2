@@ -1,55 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794101483;
-	b=orT1U/+0H41mwyY7D4UGhGjfMFY52f25vcV2HFrZbT0uMqOLGnvdDR8WlsEwwRbegrBL
-	 S72CZI2G7FS7IOBll4a3Mh6Tgph/avofkta2e9whkF0cxer1KMiN20HyoNRJHOK3LjIdd
-	 kjch3933UIQ++8b2cn8TOautOUEQf1gACJOI/0O0vutVTXZhIu/M3q4YZj2UIPNh+O3eK
-	 Kn7n3fQ/0OLoUqsdVaDld0t5D+POm0Jvh89tgUL8JEAoP5jmJCAW8HG6JhpU+JJ2oCIF7
-	 +WoqgivUBzDOjJCdKNmmb/Vek6IpDl8kYIlvA8J13JjccucuWUlYu2QW+RcQwEH4FUg==
+	t=1794102207;
+	b=o7Pk1czaG07bj4NqNBoIqrZBxaSrQRmEOpciRKd8Meimibaf0+Q1uoFqcbMbwq0uq7K3
+	 WlBprK05g72BAuS7MNClhEKDAlvis27Kpstb6TBFMvhCvmhz3Hcg47W72apN+9bODiY+4
+	 iBZskL+VafD6szSQfNXVHDiIrLSf9CC0YYEurgLKyATnZNUK7Z/0ZRACyLo8xk6a/FhV6
+	 FP8kS6Ho0EwlTAWxLkHmZiHHDknK7w150qa3ICc/urhaPctZA9o5okULDVIBEcS0IYaCO
+	 IlFHPYhqbRl7jywR4RO+wYQ7ppfy/dvQsk7SSD3a57j3YsLv/XRHeh8khBD2wtFCTFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794101483;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=dM1vJ0OTbEs6tY2JexfLiPQVEjP+CijryoqT4IMo0+M=;
-	b=KCviwxXMnUuW5CtOD48M+UF4dcqJGM+VQ0kljTcJl7NkVVKYMOEQxPRCay2MB8HPWP7Q
-	 CmR1GrDO8eMlXTTaDkKG12+hH6ay7dvo2Q9zSK7EO/oFINC05bxCoa1O0FaemiBCOZnce
-	 DDLpJyV7fI8Ra1G4BxytZ/ne+gWJol+2saLmOCZUeyeubYfYZhbNk31A9TcSQ9AvPQjkm
-	 WM3GwzPToG5q2DG19HiNPuojPbIZ5klfYLRASTBnRKdA73ckZ9eBxNjCV9fh1oG6zkynR
-	 NiaQLJKVLwg2vwkJncPLqHhAK4ek5E/FKgtrHkvBSp/yaiiznzoEt0+Vf+5qdkJ9p/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794102207;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ZQi+wcGN8BItwBcnAAUfIFwj+xckksHXa0HxYHO7oKU=;
+	b=k3n0kf7dl/GnzIGqYjTzc+Rqx8peVegDakQyvm9LL4nnjbqLcMIkUdag5YfnScofRTIM
+	 W1SfdSj2HlGJY8/H58XN8reGUzUcnJKDn9Nuf8HnqomVBWYPs8EpykrPHJ6JflC0yCvdD
+	 95j/iVziZ0UL0uNHvt1er4ezCaQ2AfwKfxL4m79d2KRxnRDOkR0CUINiV4whTNOLWGn5S
+	 Xdl5noG59bGAL7Z48UsXA48Y248eGo78B7cat6S2KVgWNZGoBp3U784jCHRd++Yewzlyz
+	 iiNA92pzaCuLD6zDsUEpCZV++uKy8Cc9f2d2j3mdPennEWXlofFGu8icvY10ZhRG3Jg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P0Minf6H;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zswwzr1b;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCB8F606A326
-	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 01:31:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3196606A326;
+	Sun,  8 Nov 2026 01:43:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P0Minf6H
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DD271F008A1
-	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 01:31:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zswwzr1b
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80A091F0089F;
+	Sun,  8 Nov 2026 01:43:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794101482;
-	bh=dM1vJ0OTbEs6tY2JexfLiPQVEjP+CijryoqT4IMo0+M=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=P0Minf6HhPFoBhIOibmqA46xi4JB2RfwFpj84GGhJrnpDAHP5IWSFHnstgCwiot1v
-	 hcsbx/6aneuHVFV0kpySI4TfsYReBqT6EWTGcfdd6Do3H/JjEEe9BQLb1nK6zawPfl
-	 od7wrD5+czozvzQtSZldh6uV/rru0z8U/ls4ksdRPhHDe5otYHzIEfDqWJja7aYbjc
-	 Ef/JEwaxwWkGL5tjT0QB+ejKPYYVDXgTHLKxsNE1HUQ9JnTdtCHWzJTOjmid8QvTib
-	 ckaDvKUsny9wE9W6xIhJsgaMLpnyjzrhLmzU/qjFLrFs4updOLV93ucjUvV9kCNVwB
-	 DFMAhmdNS7pdw==
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c4d28f75d62so13083966b.0
-        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 17:31:22 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBxLUIYlJ1FQXPtr3E1/pw6xSPKoR4B3FYN3kijLPC9swXacexJHUzYSi2nW8ZG043+6tFQmzMU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9qioFWAU8hXF8Xg+fKLi5v+ni9Es7PpNlx0GEZIDPI6q8ruqL2
-	IGUFJVKON4W4jSTb/moNcJsi9uJTs9btYQ7gydkR8/y2yDMP8+W+P6WogIx+DnqstZXNObgmSMW
-	ngVhxWCJNibTlY2mFN67zuS0rP1JkVA8=
-X-Received: by 2002:a17:907:60c9:b0:c42:24ea:3220 with SMTP id
- a640c23a62f3a-c4d6d78ca24mr29636066b.31.1794101481018; Sat, 07 Nov 2026
- 17:31:21 -0800 (PST)
+	s=k20260515; t=1794102206;
+	bh=ZQi+wcGN8BItwBcnAAUfIFwj+xckksHXa0HxYHO7oKU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Zswwzr1b91kHAuL5JCCtAuMU22HLbhIViY10SDT8yb0U90JcrVuYn+wr/XVz8hAOH
+	 zkWpFgYuE5hooD+3UcFXvuqaO9OpGqcCgBd/ixM5cogtSh9K4d38LFzsnzrmwMeyaW
+	 M9nJgQttR5LEUAvzBmowUcsv7Fq9XiczLabjfdRywMhZtVZh0iorNC2CHxvkKad074
+	 N3GBt32vYaCaTppksqq42tEkSVTDUdAGpxPiZNxp43TelIEHsz5zS2VcpJpZgFOyd6
+	 wKIh3YzBeuCEGtFF0GFwP+MoW0E+Dy3JMUUPSpoX5iy6CNp2Hy4PNRbK8pKOEKOwzp
+	 mUgE1PZQLtqCg==
+Date: Sun, 8 Nov 2026 01:43:20 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Yu Zhang <yuz08559@gmail.com>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH v2] iio: trigger: fix use-after-free in
+ current_trigger_store() on concurrent writers
+Message-ID: <20261108014320.3f437f2c@jic23-hlaptop>
+In-Reply-To: <20261102034532.33246-1-yuz08559@gmail.com>
+References: <20261026100246.68005-1-yuz08559@gmail.com>
+	<20261102034532.33246-1-yuz08559@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,39 +63,166 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261107231941.1824289-1-icb@fastmail.org> <20261107231941.1824289-2-icb@fastmail.org>
-In-Reply-To: <20261107231941.1824289-2-icb@fastmail.org>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Sun, 8 Nov 2026 10:31:08 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd-jNcP61uk8wm2xq6dtuw4_Cf-r1WDdUHSBQLJzdkOF2w@mail.gmail.com>
-X-Gm-Features: AclHuK8ZxwM_IDYFpU40-keF-dJrDcSMiQYEPa6fwW594x2Se9ShicBNQ9Tq1Mk
-Message-ID: <CAKYAXd-jNcP61uk8wm2xq6dtuw4_Cf-r1WDdUHSBQLJzdkOF2w@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] ksmbd: evaluate the DACL in order for explicit
- access requests
-To: Ian Bridges <icb@fastmail.org>
-Cc: senozhatsky@chromium.org, tom@talpey.com, chenxiaosong@chenxiaosong.com, 
-	linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-> @@ -1680,7 +1706,8 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
->                     !(ace->flags & INHERIT_ONLY_ACE))
->                         or_ace = true;
->                 if (!compare_sids(&sid_everyone, &ace->sid) ||
-> -                   !compare_sids(&sid_authusers, &ace->sid))
-> +                   (authusers &&
-> +                    !compare_sids(&sid_authusers, &ace->sid)))
->                         others_ace = ace;
-For a guest session, this can leave both found and others_ace clear,
-allowing the POSIX ACL fallback to overwrite the ordered DACL result.
-For example, consider a file whose DACL grants only FILE_READ_DATA to
-Authenticated Users, with a named POSIX ACL entry granting rw to the
-guest UID. An explicit FILE_WRITE_DATA check returns -EACCES on the
-base tree, but succeeds after this patch. A preceding deny ACE for one
-of the guest's groups can also be bypassed through this path.
-Please retain the fact that an Authenticated Users ACE was present
-when deciding whether to use the POSIX ACL fallback, while excluding
-that ACE from the rights granted to the guest. This also affects
-anonymous sessions and remains after applying patch 2/2.
+On Mon,  2 Nov 2026 13:45:32 +1000
+Yu Zhang <yuz08559@gmail.com> wrote:
 
-Thanks.
+> current_trigger_store() holds iio_dev_opaque->mlock only around the
+> INDIO_BUFFER_TRIGGERED / trig_readonly checks and then drops it. The rest
+> runs unlocked: it reads the current trigger into oldtrig, acquires the new
+> one by name, stores it into indio_dev->trig, and drops the old trigger's
+> reference with iio_trigger_put().
+> 
+> sysfs does not serialize writes to the same attribute issued through
+> different open file descriptors (each open has its own kernfs_open_file),
+> so two threads can run current_trigger_store() on the same
+> .../trigger/current_trigger concurrently. Both read the same oldtrig, both
+> overwrite indio_dev->trig, and both call iio_trigger_put(oldtrig). The
+> extra put drops the trigger's refcount to zero while it is still in use,
+> frees it, and a concurrent writer then dereferences the freed trigger.
+> 
+> With two sets of writers hammering current_trigger between two software
+> triggers on an iio_dummy device, KASAN reports:
+> 
+>   refcount_t: addition on 0; use-after-free.
+>   WARNING: CPU: 3 PID: 3467 at refcount_warn_saturate+0xbb/0xe0
+>    kobject_get+0xf6/0x100
+>    current_trigger_store+0x15c/0x4b0
+>   ...
+>   BUG: KASAN: slab-use-after-free in current_trigger_store+0x168/0x4b0
+>   Freed by task 3468:
+>    kobject_put+0x125/0x220
+>    current_trigger_store+0x2cc/0x4b0
+>   Allocated by task 3454:
+>    __iio_trigger_alloc+0xc7/0x100
+>   ...
+>   Oops: general protection fault
+>    __module_get+0x27/0xd0
+>    current_trigger_store+0x192/0x4b0
+> 
+> Hold mlock across the whole operation so that reading oldtrig, swapping
+> indio_dev->trig and dropping the reference are atomic with respect to
+> other writers (and to buffer enable, which the -EBUSY check guards).
+> Acquiring the new trigger with iio_trigger_acquire_by_name() under mlock
+> is safe: it only takes iio_trigger_list_lock, and the buffer path already
+> calls iio_trigger_{attach,detach}_poll_func() with mlock held.
+> 
+> The trigger swap itself keeps its goto based cleanup of the newly
+> acquired trigger, so move it into a helper and take mlock with guard()
+> in current_trigger_store() around the mode checks and the helper call,
+> rather than mixing guard() and goto in one function.
+> 
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yu Zhang <yuz08559@gmail.com>
+> ---
+
+A process thing.  The change log that you have at end of
+the file goes here.
+
+Also don't send a new version in reply to a previous one.
+Sometimes it confuses tools, but more relevantly it
+ensures that your thread is way way back in a kernel
+reviewers email so by the time the reach if if they ever
+do they are half asleep!
+
+Otherwise nothing to add on the actual patch to what Andy
+already sent.
+
+>  drivers/iio/industrialio-trigger.c | 60 +++++++++++++++++-------------
+>  1 file changed, 34 insertions(+), 26 deletions(-)
+> 
+> diff --git a/drivers/iio/industrialio-trigger.c b/drivers/iio/industrialio-trigger.c
+> index 76926fe..cfc6af0 100644
+> --- a/drivers/iio/industrialio-trigger.c
+> +++ b/drivers/iio/industrialio-trigger.c
+> @@ -421,37 +421,14 @@ static ssize_t current_trigger_show(struct device *dev,
+>  	return 0;
+>  }
+>  
+> -/**
+> - * current_trigger_store() - trigger consumer sysfs set current trigger
+> - * @dev:	device associated with an industrial I/O device
+> - * @attr:	device attribute that is being processed
+> - * @buf:	string buffer that holds the name of the trigger
+> - * @len:	length of the trigger name held by buf
+> - *
+> - * For trigger consumers the current_trigger interface allows the trigger
+> - * used for this device to be specified at run time based on the trigger's
+> - * name.
+> - *
+> - * Return: negative error code on failure or length of the buffer
+> - *	   on success
+> - */
+> -static ssize_t current_trigger_store(struct device *dev,
+> -				     struct device_attribute *attr,
+> -				     const char *buf, size_t len)
+> +/* Must be called with iio_dev_opaque->mlock held. */
+> +static ssize_t iio_trigger_set_current(struct iio_dev *indio_dev,
+> +				       const char *buf, size_t len)
+>  {
+> -	struct iio_dev *indio_dev = dev_to_iio_dev(dev);
+> -	struct iio_dev_opaque *iio_dev_opaque = to_iio_dev_opaque(indio_dev);
+>  	struct iio_trigger *oldtrig = indio_dev->trig;
+>  	struct iio_trigger *trig;
+>  	int ret;
+>  
+> -	scoped_guard(mutex, &iio_dev_opaque->mlock) {
+> -		if (iio_dev_opaque->currentmode == INDIO_BUFFER_TRIGGERED)
+> -			return -EBUSY;
+> -		if (iio_dev_opaque->trig_readonly)
+> -			return -EPERM;
+> -	}
+> -
+>  	trig = iio_trigger_acquire_by_name(buf);
+>  	if (oldtrig == trig) {
+>  		ret = len;
+> @@ -492,6 +469,37 @@ out_trigger_put:
+>  	return ret;
+>  }
+>  
+> +/**
+> + * current_trigger_store() - trigger consumer sysfs set current trigger
+> + * @dev:	device associated with an industrial I/O device
+> + * @attr:	device attribute that is being processed
+> + * @buf:	string buffer that holds the name of the trigger
+> + * @len:	length of the trigger name held by buf
+> + *
+> + * For trigger consumers the current_trigger interface allows the trigger
+> + * used for this device to be specified at run time based on the trigger's
+> + * name.
+> + *
+> + * Return: negative error code on failure or length of the buffer
+> + *	   on success
+> + */
+> +static ssize_t current_trigger_store(struct device *dev,
+> +				     struct device_attribute *attr,
+> +				     const char *buf, size_t len)
+> +{
+> +	struct iio_dev *indio_dev = dev_to_iio_dev(dev);
+> +	struct iio_dev_opaque *iio_dev_opaque = to_iio_dev_opaque(indio_dev);
+> +
+> +	guard(mutex)(&iio_dev_opaque->mlock);
+> +
+> +	if (iio_dev_opaque->currentmode == INDIO_BUFFER_TRIGGERED)
+> +		return -EBUSY;
+> +	if (iio_dev_opaque->trig_readonly)
+> +		return -EPERM;
+> +
+> +	return iio_trigger_set_current(indio_dev, buf, len);
+> +}
+> +
+>  static DEVICE_ATTR_RW(current_trigger);
+>  
+>  static struct attribute *iio_trigger_consumer_attrs[] = {
+> ---
+> v2:
+>  - Move the trigger swap into a helper, iio_trigger_set_current(), and
+>    take mlock with guard() in current_trigger_store() only, so that
+>    guard() and the goto based cleanup of the newly acquired trigger are
+>    not mixed in one function (Jonathan Cameron, Sashiko). No change to
+>    the locking itself.
+> v1: https://lore.kernel.org/all/20261026100246.68005-1-yuz08559@gmail.com/
+> 
+
