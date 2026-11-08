@@ -1,97 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794098751;
-	b=cG9ySKZa85UE8SCzWYfkN2eCKsCFjTw8M/X3KmMAR36BpUracAuUskaKh6wbHC5HYLhJ
-	 gGHAn3ZdQWeqq84uB+Elorow6+s+nxjJUgFg6L3Yky8++qwVL7t/bZ9HidDe1m2wT/5EL
-	 vWt5AYKDW4ADHD3HiUKuWk+WeGPD8zwpqptg3Na+ocHkwb326M+quUL+M3aU1xKs79NNT
-	 2ehnr77C8fFzjcZv0xg/l5huZYnuDSmAYfK5VK/GdEfXrFuTLwxYoK2iKmrEa8fyZOY9j
-	 TkIy3jT7U9fAxdbzonj47wfQBunqkHrAKNUGFHUK/smbqATOx8+sCgTu1KqLMcplZPA==
+	t=1794101420;
+	b=ZzGeZJgPFQiwo7q00yJKE8HCv86OijhxetWb+MptQErr3VRfxPjWZ6T3ih+Ks9Xk2g3X
+	 sms2dUuAUm+lMFr3Y41QRs5BM3CpI+4L7tcUYF729TtjfKatCevXEstwVKbGHfAPZhV2Q
+	 pXyZjxSqLNSztg4ZILco+09AD+Po1qjcsrg7Ayva7p9fp7avxypooQA/h1c+JroB1UR36
+	 1+k7amaST3knXtZ9ZHWWkUnXYJiCuNcsjEylRT/HlWMjBMtcb2ZAkC7BC+VLQK21Db9Ia
+	 3Z52ftKYeACZAds926HLLTmNWdqrZiMFOnwZCFoNb/tIY6ig9NuakSJPisG5tP9mJDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794098751;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794101420;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=gDHxHqr/ibomT/hnh0MWIWapUMs27ULmVZLfvv9myQQ=;
-	b=PR6MxJbUO73Lxu3mQhpAA9oyVF4j6V3zZUtRhoqPt5CIebNTkI/ATyB8foXDwBrwOeuV
-	 zZ7x+2vblzIpRLnqSakt98N7xhWc1u2S8PxFq/bUjIg0KQPkftyrPrBFMb8ArOS4RG2dP
-	 lOtj1dY0wjIzNaNXf8+dh7+w66Pa7t15h2GPBwA1+P5439SvWLfb02pvVjAG2x381lld9
-	 AuVSWql1dqb1JZCayK4SWJjqE6E2xbDUJ7H2cqgAwvqOmV3xlnHOEGw/4viQEGTQExENd
-	 y8/ICx867UyxL08hBfSU5a4OBHmySYZemwBu9Sl5/46OjhoUueJolIRKk7VjeUCztWg==
+	bh=9Mc5tpEd+rEFEriA57HIWZrFdKcU8gh5hZIGJp5Pbms=;
+	b=mE7l/g/BZmSKqM4G366pKFVoz1rwa+VPO/kEsSfzo7G7SLt6XOT7BOK3pHqNGa2xCLsE
+	 2Akkm+s+PQ+RbDdfppgBCMYPKVM2/SV/rrMUBrIftuI8XBfPdHsfEI5zknrEIaO4vTawZ
+	 9EPA7BNk6f6OiPihzp1EKjeL7x2avupcqXIkUTYi4YWCECOxzNS3wiSeYc2vZGLyykGV1
+	 pyjeRQZAibehxze/VvsTrB31WfBC321I0QNIXbtvppEbWsd1lwkIk+FjpztW4D3wOn5wc
+	 Ax8Ho308PqFwRkjgutVIOgeylMKQR6/a9nN82UaMvrK3bqSJEvTPETP4UW9aH1v0VuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arista.com;
-	spf=pass smtp.mailfrom=arista.com;
-	dkim=pass header.d=arista.com header.i=@arista.com header.a=rsa-sha256 header.s=google header.b=JG2aRNNQ;
-	arc=none smtp.remote-ip=74.125.82.46
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WwNXGmIH;
+	arc=none smtp.remote-ip=209.85.210.182
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 563AF606A32E
-	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 00:45:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 563AF606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arista.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arista.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06B1A606A332
+	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 01:30:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06B1A606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arista.com header.i=@arista.com header.a=rsa-sha256 header.s=google header.b=JG2aRNNQ
-Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-1aefd1bf74aso63559c88.1
-        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 16:45:50 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WwNXGmIH
+Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-8a070755c8cso27526b3a.0
+        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 17:30:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=arista.com; s=google; t=1794098749; x=1794703549; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gDHxHqr/ibomT/hnh0MWIWapUMs27ULmVZLfvv9myQQ=;
-        b=JG2aRNNQAV3DVSv4oozAdjJQGfKrSEm8Mjs0p7/VZVdIrmgSp5nf+N2rSa8woRgUEg
-         ndOi3Adv13doRcjmE+ZDEVz0EfieK4XLL3G6ZiQBe16RsRfYs+yQtIfTQ5LKT5eCzCD7
-         tqC2pXhyeCjhWIMJlE5OtXI5dutjHOP/SDsPWiTDiVadMSdywRmfrSn/eEmrolko+ZO8
-         kBd8e+UrweowcN9HuPqzPOljqbnHsso2uZCwFMD+kyD5y9FOr6tbJ+0/w0HmTo/rjEtq
-         1Ixdh7IwTwDehrkqx8QS4HcBZkGQkfu2hCIMCvM3N1ddCSb5XrMMxdT1XI3j4IwpyHWn
-         AysA==
+        d=gmail.com; s=20260707; t=1794101419; x=1794706219; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9Mc5tpEd+rEFEriA57HIWZrFdKcU8gh5hZIGJp5Pbms=;
+        b=WwNXGmIHeHCL/N2qIhu8gHpS6ymm0Zrq+W0L4sYZrzZ41mGOpuRfn1rJO1Hm47L/pT
+         JUBOtSK/za481mdHL7y0dq7zrqdATG+ePfE5AX9EYg0lcY/0BKkvJPZwYwMFrw1GZY20
+         qn915JnCdrSaaXrv0ITy38fgQL5iEwsp39WvpNNzgGIcMRardQfX/HkmgiwIWlwnLh/2
+         oqGzPq+E9LBMlY1UnIGK3dMKkRCqm0dhSvKMUfOriv90JdXOI+i7bEkwn/shmsGqujy4
+         dnu8ir/HGDB5vyhwcpM4jtkN/afVjtPlDEjJNO12TTCLkcb8i9FUQLqqPesUaWv5ncCi
+         +cJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794098749; x=1794703549;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1794101419; x=1794706219;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=gDHxHqr/ibomT/hnh0MWIWapUMs27ULmVZLfvv9myQQ=;
-        b=eiYM6vPxflAEQvST5b1s05L2/Ast2++vKYy8qenpVdFy69UZ2loCJtkmaWbJfOwS82
-         8vx09oj/J6984p+wu44aP3cg2G/Qd1RZxrumjVxYhpZg7fvdDHqSISwaLi1pXauLUabz
-         NkohHAdg6t/LFslNMKjcI4u8eCBrEvxUJTMKMVilqGapwcL1/I51h71DwEMnx7QXepol
-         Tl/acbtsozfudQYI3A8KIhtoMD9YmGsJ3txnXdySArN9q2CN0DiB9SMmDPKGmtqDyAn7
-         BcRlqqaXWyNhHKslkadH3Rk5Hbj83BoxCyr7IAREvMMqBuntaIipLpeDLIQ8AN1Chcmr
-         rjtQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwjOTAsPfjIk1VQlSZJstJBTU3YpGU0HpQMbgq4o6eUzv7maMVQWSD3Q/rzCZnRen1/HqBdfXk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+pGaL0VobpdVT3/mZWXnLGTanF4Hvc2UuQNdUy98BJ4v4K/RN4
-	LXlKsfjaF/28BLmO9WX0fzBH6DTDQPTS3CXo28g6bmxpebh7ucDDbYtAcFiFpuxXDg==
-X-Gm-Gg: AYBFou3+X7DMusKa15VPHgzhW33usSJLRZQg0S2UVouzhTI6413y2jVk3Ul0yqwR9Ol
-	K7CJON/TaoXvXh8xLHoxr9J8TXFyIyNzvBLPi7+kOQn4fpqEC7weoFQGe8qKowOc4ZAa+dYn04P
-	XfQSFCcklKrJbdmWiku448PD8TOMsFUo4OKvGNYqJZimbbm4NzVqVYnf9oUIL0vIP0Fnw9h7SrO
-	i1xe7OYrxAUst7g62MfTyJcuX9Bd/0/+/jN4DB+ZOxIRPo0v9089nlQy8E+0pDG+b7IjEnJz1pQ
-	wkrBnYTRCSTYmKH55DtZC7Qq6zRyRtir1Zo5qBDDXRWFmTJ7iHzyfKcupqu33s05prSpUF6W7H2
-	MHqn1nD353jDaUc1LMJ/OxPMPOkSymXumZuh1nR+RnDeAaDzyA8K9DMAjXLibo1BHGFdbqlTvLd
-	EEK1sy6Rpfo5lW1J5I6+nx84jmXidW7oecIIVdzISy2KhH2RoiUXAx3zHCrPSSyyXQjBKeQ++/y
-	PcrZ9EyPXAqp9Ww1P2mMtJwwUaXGW9BVo+tV72hNAhntiV/7pqx86e8reI083ZBrF9BWhsEPtQL
-	8BsujPCVoGr8AHTfsPngAxdIoFwiWy90n++jTGo9vZxMcIOAhfC5eywrvN1cCFR/
-X-Received: by 2002:a05:7022:408b:b0:1a3:cbd7:1269 with SMTP id a92af1059eb24-1b39fedb95cmr206919c88.23.1794098749215;
-        Sat, 07 Nov 2026 16:45:49 -0800 (PST)
-Received: from mparker-home-xcrbr.sjc.aristanetworks.com ([74.123.28.20])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b375604109sm2115225c88.10.2026.11.07.16.45.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 16:45:48 -0800 (PST)
-From: Matthew Parker <mparker@arista.com>
-To: pratyush@kernel.org,
-	mwalle@kernel.org,
-	miquel.raynal@bootlin.com,
-	richard@nod.at,
-	vigneshr@ti.com
-Cc: linux-mtd@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Matthew Parker <mparker@arista.com>,
-	Adam Calabrigo <adamc@arista.com>
-Subject: [PATCH] mtd: spi-nor: issi: Add support for ISSI IS25LP512MG
-Date: Sun,  8 Nov 2026 00:45:16 +0000
-Message-ID: <20261108004516.896887-1-mparker@arista.com>
-X-Mailer: git-send-email 2.51.0
+        bh=9Mc5tpEd+rEFEriA57HIWZrFdKcU8gh5hZIGJp5Pbms=;
+        b=JDIScaAnoUMKh3SLsJbMO5DG2aKTUKoG6o9EDxpmJlSYBse/m1IkhIZsw+K+Hu3VWm
+         WPaZnG7KrTtmroqmgImiiiAZtGmnBXehyVFOSd5Os8vZSaYudyAn/ReTiU4pFQfXaEvh
+         PHCw1VwG8yjc97WWiT4ZYI4JEycqdr+qDk7tJVrnapN13jqA2duOoMtop2QJ9ddO3Oqv
+         S/wAkt1D/X9KyYHEtj02+kMvBZOOkupmFgDvXXpQdLDL5qYLB4yT2MXiPln4b4hfpfYW
+         eetm5M3gyiA8ZBlNO4MOwpFA+pl9FpRPwd7CTB85wThJuGvBfjanoChp8c/gr9h00sjA
+         cx2w==
+X-Forwarded-Encrypted: i=1; AL+hErGQBaavFnMH/rwDhqcJBd/qSBiCdQK8CkHGFpB+Zgq6SoKsHe1assV2Wx3OqQN4zffyulODYzo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9wJtRAcPZpTT2MKWxzDLb+RF2IGHTPV2bRHsZttnZ36QZyW65r
+	IVNQRGRPSn6L3hTkrz+G3jtI2eaN9Rm6Lw9JXeBfKPywmprcJ/Hy/+jV
+X-Gm-Gg: AYBFou1StQ/3YCF9vYwZd/yETUMwzumDATBqIrapFiU3hqv2Ia9fcro0DBzcQQuPVjM
+	Gn0waTVlnU/G8KeLeRjzC1/1Marr8COSN+iWIsPW2QLd3i97wyWtrk3dANShIjK+e9CHaNxHo/O
+	AI8H6uISq7k6157aYbjmpTWTNl+e9PEfAOIp729bU1klHiVxyOzvrnV5/kZ7ayYUxCfTg1uUttp
+	sTSB7ayAfl5oJVuta6sse3M+lzAlQLOwZuAD+9UpbYXcncz5kCYDGHo3N0SkL5rf/RxAIObGL8W
+	dzN4/Wluwr03E72VLwe0gAShsMAEL325li6gNC4TxuFSlBWv/+HC5TbeIP9JxlrcZozrxKEpo1e
+	j6ocLu5w+ElPrqw0DhSLpaTqxsr0gLbPC67WuJxfMLqp8Y+rhjrcPb2E35T9WKSiwpLmM6Em7zb
+	wLku9isvi3WpVsu+JU7mWxwa58XWejl4Jv9NM1/GhL/+HEh3rE7fETCG37RxlL0HjyEzqhScAOg
+	Rp3AAeFBU/cq5mzASR0fizLHJReupHsBLCoRaeu/sY1txx8v1625lUA4Gx1DU/YoGoKUbba8VMx
+	kaE3+Y2y3Wr490wWAPUbTXQp7g8io8qc
+X-Received: by 2002:a17:90b:4a89:b0:3ac:83c1:2c0 with SMTP id 98e67ed59e1d1-3b12d6071a9mr171719a91.64.1794101419251;
+        Sat, 07 Nov 2026 17:30:19 -0800 (PST)
+Received: from [192.168.100.6] ([121.144.254.242])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b103472903sm2888812a91.4.2026.11.07.17.30.15
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 07 Nov 2026 17:30:18 -0800 (PST)
+Message-ID: <68e291d9-4696-498f-a7ea-087d87febe8c@gmail.com>
+Date: Sun, 8 Nov 2026 10:30:15 +0900
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,39 +92,56 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.3 0000/1257] 7.3.4-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261107134939.434104957@linuxfoundation.org>
+Content-Language: en-US
+From: Joungmin Lee <leejm516@gmail.com>
+In-Reply-To: <20261107134939.434104957@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Add support for the ISSI IS25LP512MG 512Mbit (64 MiB) SPI NOR flash.
+On 11/7/26 10:38 PM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.3.4 release.
+> There are 1257 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Mon, 09 Nov 2026 13:46:08 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.3.4-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.3.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-The device provides JESD216B SFDP tables which accurately describe
-fast-read modes and erase geometry. Flash read, write, and erase
-operations across the full 64 MiB array have been verified on hardware.
+Hi, Greg:
 
-Cc: stable@vger.kernel.org # v6.1+
-Co-developed-by: Adam Calabrigo <adamc@arista.com>
-Signed-off-by: Adam Calabrigo <adamc@arista.com>
-Signed-off-by: Matthew Parker <mparker@arista.com>
----
- drivers/mtd/spi-nor/issi.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+7.3.4-rc1 successfully built and booted in my system once the commit
+1564da6afd7ce5297ba24f2d1e61d6a79a9ff6db was reverted.
 
-diff --git a/drivers/mtd/spi-nor/issi.c b/drivers/mtd/spi-nor/issi.c
-index 2f057d731df2..977dc5ba8028 100644
---- a/drivers/mtd/spi-nor/issi.c
-+++ b/drivers/mtd/spi-nor/issi.c
-@@ -101,6 +101,12 @@ static const struct flash_info issi_nor_parts[] = {
- 	}, {
- 		.id = SNOR_ID(0x9d, 0x60, 0x19),
- 		.name = "is25lp256",
-+	}, {
-+		.id = SNOR_ID(0x9d, 0x60, 0x20),
-+		.name = "is25lp512mg",
-+		.size = SZ_64M,
-+		.flags = SPI_NOR_QUAD_PP,
-+		.parse_sfdp = true,
- 	}, {
- 		.id = SNOR_ID(0x9d, 0x70, 0x16),
- 		.name = "is25wp032",
--- 
-2.51.0
+The error Barry encountered was not noticed.
 
+Distribution: Gentoo Linux
+Architecture: x86_64 (ASUS Zenbook UM3504DA)
+CPU: AMD Ryzen 7 7735U
+iGPU: AMD Radeon 680M
+
+[    0.000000] Linux version 7.3.4-rc1-900-myllvm+
+(user1@gentoo-zenbook) (clang version 23.1.5, LLD 23.1.5) #1 SMP
+PREEMPT_DYNAMIC Sun Nov  8 10:04:35 KST 2026
+
+Tested-by: Joungmin Lee <leejm516@gmail.com>
