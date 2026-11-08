@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794167514;
-	b=Q011LymXTzJKYP3QJrGqbYXWGXBfiO1dh1/7gpsA7TfrgpJA+adC8usDjS344SrbDlZz
-	 qC9lzdpeciMb6fvs1CMj7pa3r0TgudeEg3OJX2o7vOUWFOBqnS445EFVoqhwhWETL91N4
-	 zGQ3eULDX4WADL8fnQoFBsK10QzJLnwelsKaJTcM/k2OHgfgNDWLvlkGUf9BmJKnjPFui
-	 PtZiasiAChEct4H+GlLf7qdEBeyALf+/GqIp3NJeQz5kHyFU3jGHjaZNhaKsF4yD4GU6X
-	 +l0tI6wesXodOxHwk/IvB5FA64ETcCg++T9XUJH5+tYWDbK19JcVhz7g8YTvDb+KR7Q==
+	b=VtJ7KETII5s01b9SMkq3PX91C1gjOf6NZwpn7PwJElseF2ixiDcgFVw3L2Rqa8GC/CSi
+	 dakARKeq/1PZO0AWIK6tAlKRnzPGfRcsZ3lcauuYxmvHlIPyiZnq95e/GcEvT8hbqXIbT
+	 nuca9zg9s7aIdmPSCzhUPMcxTavZhx/gCVYmarLTm52W2gq5sfbczOcdG0wdnHC5H/ZHb
+	 qehfk+duxaEpq1Pk+Of48nAfF2m9g2L2GG2tn14uGvrULBmGn6v1fOV7mUVrC3Pkeq4Ex
+	 prs7Edh2XxcCyIuh0zik7ZyLsda9Ohu8HHzog9RZs5AivagxNIMGJbDuT0/KhKJK5oQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794167514;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Jg6uYRNhV7mTrgb91kiVKd41vY7ff4cg96iZM39MthE=;
-	b=IUcCb4asg+auks89semI+Uo9zLhZmLQx4ZAhB+KIyuN7cPmHfLYEAj33jvXtfwWJvXE7
-	 PL6WUhDfBRGdh2muwnKGbpIJznP5DLmvObMWfV07smEnoSBk5dDIysqyc7xCa430Hq9Pe
-	 A1sdU395lAlsXoJliJda9Diu3NijLSSvtJ21zyWiFmljTogzTNUGK51TXkeyp8Wp6qyJg
-	 lBwwUGuQuMtiYcyUzz+aGCqKDL3L0m6euqAqWlXO7c39Gmy735bWOT5/kSIfKReDNBP/P
-	 83rzJ0T5j5iWbrHXofZTch9+VAD2/evwFqa7JxLcEDwjXzTl4Sw5b6tpww+8kDTxGtA==
+	bh=WPf2icVK/e9KPEuHFkG431PIxwdSKi/zxFeSHw01Gc8=;
+	b=Ubc2ty4VrGWHi/jEdqWYNczQJE88IQYjOhZC516ca1pqVKLcmUdkLRLnwRxaWmS78D5u
+	 Agn9BluZShnVd4iZqa9JWT6NzB/vF8aFodidUFK4cgINA72L+Kx+sGBymK9VHH9RFgnGz
+	 8nDuQ1I5lU0Shik/t8urCMHQp8AlobCoQTIxNmgpIbGqdBHykzQpCVDjvSybkiGcUjSNZ
+	 jdmkQDz+1K72lExnLv+9huLl+UxHn47N+2Vzd4YuQhfFRQCImCme6qFvNm/UC5BL77TBH
+	 qbkJcclkGiJCifQCBZkSjSpmCuTuydiyHWee6ASj6s/9ozomy0dqBZr1URnToxykSpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GGRpdpNS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aeyY2b0U;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2926606A321;
-	Sun,  8 Nov 2026 19:51:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 499BC606A332;
+	Sun,  8 Nov 2026 19:51:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GGRpdpNS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FD5F1F008A2;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aeyY2b0U
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E021B1F008A3;
 	Sun,  8 Nov 2026 19:51:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794167513;
-	bh=Jg6uYRNhV7mTrgb91kiVKd41vY7ff4cg96iZM39MthE=;
+	s=k20260515; t=1794167514;
+	bh=WPf2icVK/e9KPEuHFkG431PIxwdSKi/zxFeSHw01Gc8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GGRpdpNSlnixmFRcxOam5Xr9cd4WIg9InJNq8/OEj6XM7D6OI8m6OGoMVXRRg6d5Q
-	 JaTM6vuG1Wx2S1p9lUf9Y6HBlmfEylhOhS0iFsdfTEpKL+yHtBAv4ASDR+eReHbMHc
-	 8kWd6sXcQ9n/swYGctvmFS8jEYRo+H83apV7rYX8E8PhUah/rFi9AJqO+3KW4AqBdd
-	 JIdrquJRl7TiGijHsuffQlopjjL0vjDTrrLEcYN9ClKFex0f6LWl751J87XIRP73Vy
-	 oaixSZhwq+EXWCTyeNylOmasbCETMRiQwtiSsWRX4UYFiQxWPRMIrIatlCTZPs12o2
-	 YXzU8b2nH6GaA==
+	b=aeyY2b0U+pVvzfaEu7crV5Q638Y6kIWS973xwV4XFRmGvJloYgfALxwwnftPYNWAz
+	 d8EGZM2evKBPjgNjn+aTz898OjjvLMz4E4arzIekSwelFlp+F85rrR5bQjgO8xz2WU
+	 VpJwSR6o8QzW3XZRNuzZ6aM7S0t4z4tfj1noDvDNZ9gClfV1oV+3VnVWQCNXwlzNTL
+	 PmZp/8LSUaHpTFdX4jBqrovLJyIdObNTZJB4o4kFCi/jzVFA3IK77vOJYz0iRHthlw
+	 fLcS/12S41EFbZzTGYkspxL+zkyDiQKRkvhMD2mF3cVIpua/bpcJHokGTdr0NO5wUI
+	 qC1tPjt1wMLSg==
 From: SJ Park <sj@kernel.org>
 To: stable@vger.kernel.org
 Cc: SJ Park <sj@kernel.org>,
@@ -47,9 +47,9 @@ Cc: SJ Park <sj@kernel.org>,
 	damon@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [PATCH 6.12.y 1/5] mm/damon/core: skip applying scheme if region split for quota fails
-Date: Sun,  8 Nov 2026 11:51:40 -0800
-Message-ID: <20261108195145.115792-2-sj@kernel.org>
+Subject: [PATCH 6.12.y 2/5] mm/damon/paddr: respect folio end for DAMOS actions except STAT
+Date: Sun,  8 Nov 2026 11:51:41 -0800
+Message-ID: <20261108195145.115792-3-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261108195145.115792-1-sj@kernel.org>
 References: <20261108195145.115792-1-sj@kernel.org>
@@ -64,102 +64,65 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Patch series "mm/damon: fix DAMOS bugs in core, paddr and vaddr".
+A few functions for applying DAMOS actions including pageout, lru_[de]prio
+and migrate_{hot,cold} in DAMON physical address space operation set
+(paddr) collect folios of the given region by getting the folios of
+region-internal addresses.  Then, those functions apply the action to the
+collected folios at once.  The collection starts from the region start
+address and advances the address by the size of the folio of the address
+until it goes out of the region.  If the start address is in the middle of
+a large folio, and if the next folios are small, some of the next folios
+could be skipped.  Fix the issue by advancing the address to exactly the
+start address of the next folio.
 
-Fix misc bugs of DAMOS.  Patch 1 makes DAMOS less stress memory allocator
-under extreme situation.  Patches 2 and 3 fix wrong folios walking in
-DAMON_PADDR.  Patches 4 and 5 fix wrong folios walking in DAMON_VADDR.
-Patches 6-8 handle extreme and unlikely memory situations that can cause
-divide by zero and underflow.
-
-All bugs are discovered by Sashiko.
-
-This patch (of 8):
-
-damos_apply_scheme() splits a region and apply the action to the subregion
-if it is needed for not violating the quota.  The split operation
-(damon_split_region_at()) could fail for allocation failure.  In the case,
-the quota could be violated.  From the user's perspective, DAMOS becomes
-more aggressive than expected under the extreme situation.  Handle the
-failure.
-
-The user impact is not critical.  The failure of damon_split_region_at()
-is unlikely since it is arguably too small to fail.  Also DAMOS being
-aggressive is limited to the single region.  Users can set min_nr_regions
-to set the maximum size of each region.  If it is reasonably set, the
-transient overhead shouldn't be critical.
+The user impact is that DAMOS action is applied to less than expected
+amount of memory.  Given the best effort nature of DAMON, it is no big
+problem, but it is clearly a bug that is better to be fixed.
 
 The issue was discovered [1] by Sashiko.
 
-6.12.y porting notes.  Modify damon_split_region_at() to return
-failures.  It is a part of commit c60874860762 ("mm/damon/core: handle
-region split failure in apply_min_nr_regions()").  Without it, build
-fails.
-
-Link: https://lore.kernel.org/20260901131850.98037-1-sj@kernel.org
-Link: https://lore.kernel.org/20260901131850.98037-2-sj@kernel.org
-Link: https://lore.kernel.org/20260718171523.87547-1-sj@kernel.org [1]
-Fixes: 2b8a248d5873 ("mm/damon/schemes: implement size quota for schemes application speed control")
+Link: https://lore.kernel.org/20260901131850.98037-4-sj@kernel.org
+Link: https://lore.kernel.org/20260517234112.89245-1-sj@kernel.org [1]
+Fixes: 3a06696305e7 ("mm/damon/ops: have damon_get_folio return folio even for tail pages")
 Signed-off-by: SJ Park <sj@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Cc: Usama Arif <usamaarif642@gmail.com>
-Cc: <stable@vger.kernel.org> # 5.16.x
-(cherry picked from commit 90c2fa6adfed7abe0935506a43cdff3a05c1fff0)
-Signed-off-by: SJ Park <sj@kernel.org>
+Cc: <stable@vger.kernel.org> # 6.15.x
+(cherry picked from commit 1613ac9edf385c35f171a25610e2706a7e6afad6)
 ---
- mm/damon/core.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+ mm/damon/paddr.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 81d44e41de210..6ef77741b783b 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -1266,7 +1266,7 @@ static void kdamond_reset_aggregated(struct damon_ctx *c)
+diff --git a/mm/damon/paddr.c b/mm/damon/paddr.c
+index a6b1de97b1e8a..6bac269cd679e 100644
+--- a/mm/damon/paddr.c
++++ b/mm/damon/paddr.c
+@@ -273,7 +273,7 @@ static unsigned long damon_pa_pageout(struct damon_region *r, struct damos *s)
+ 		else
+ 			list_add(&folio->lru, &folio_list);
+ put_folio:
+-		addr += folio_size(folio);
++		addr = PFN_PHYS(folio_pfn(folio)) + folio_size(folio);
+ 		folio_put(folio);
  	}
- }
- 
--static void damon_split_region_at(struct damon_target *t,
-+static int damon_split_region_at(struct damon_target *t,
- 				  struct damon_region *r, unsigned long sz_r);
- 
- static bool __damos_valid_target(struct damon_region *r, struct damos *s)
-@@ -1470,7 +1470,8 @@ static void damos_apply_scheme(struct damon_ctx *c, struct damon_target *t,
- 					DAMON_MIN_REGION);
- 			if (!sz)
- 				goto update_stat;
--			damon_split_region_at(t, r, sz);
-+			if (damon_split_region_at(t, r, sz))
-+				goto update_stat;
- 		}
- 		if (damos_filter_out(c, t, r, s))
- 			return;
-@@ -1861,15 +1862,17 @@ static void kdamond_merge_regions(struct damon_ctx *c, unsigned int threshold,
-  *
-  * r		the region to be split
-  * sz_r		size of the first sub-region that will be made
-+ *
-+ * Return: 0 on success, negative error code otherwise.
-  */
--static void damon_split_region_at(struct damon_target *t,
-+static int damon_split_region_at(struct damon_target *t,
- 				  struct damon_region *r, unsigned long sz_r)
- {
- 	struct damon_region *new;
- 
- 	new = damon_new_region(r->ar.start + sz_r, r->ar.end);
- 	if (!new)
--		return;
-+		return -ENOMEM;
- 
- 	r->ar.end = new->ar.start;
- 
-@@ -1879,6 +1882,7 @@ static void damon_split_region_at(struct damon_target *t,
- 	new->nr_accesses = r->nr_accesses;
- 
- 	damon_insert_region(new, r, damon_next_region(r), t);
-+	return 0;
- }
- 
- /* Split every region in the given target into 'nr_subs' regions */
+ 	if (install_young_filter)
+@@ -306,7 +306,7 @@ static inline unsigned long damon_pa_mark_accessed_or_deactivate(
+ 			folio_deactivate(folio);
+ 		applied += folio_nr_pages(folio);
+ put_folio:
+-		addr += folio_size(folio);
++		addr = PFN_PHYS(folio_pfn(folio)) + folio_size(folio);
+ 		folio_put(folio);
+ 	}
+ 	return applied * PAGE_SIZE;
+@@ -483,7 +483,7 @@ static unsigned long damon_pa_migrate(struct damon_region *r, struct damos *s)
+ 				folio_is_file_lru(folio));
+ 		list_add(&folio->lru, &folio_list);
+ put_folio:
+-		addr += folio_size(folio);
++		addr = PFN_PHYS(folio_pfn(folio)) + folio_size(folio);
+ 		folio_put(folio);
+ 	}
+ 	applied = damon_pa_migrate_pages(&folio_list, s->target_nid);
 -- 
 2.47.3
