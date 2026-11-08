@@ -1,95 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794127147;
-	b=1GX8paGmbyglS7YlDWk5k3/NdoDJncNARjcO2uVD9I93ocWPTX1M3BxVQJNbz1WmMaKz
-	 6i4PIVvujug/fXZ7VeG69UWm0yGR1OqH+YB7FqQGhroqjjVlkRohtvufEW+bwdJbAkg7+
-	 jB1JMhGHKZ7gvpZcnvEDxwKnCoUZZkoui5MYKyeqr+4iY3xn3bzUAnP0kbiE7yOHqsANc
-	 g3J4Nc1zxrrZ3u8Ka8C1ZqWzQykYIYLBt+E1mBLZQWM3r0jX5N1lnygoNxe3Acq84BAXv
-	 YpCk4+MUtYimWYloAMlPG3d351ZX6QoY6j+9jvIP+xYuLzv33EHRPzlJn8EWeHFQ/aQ==
+	t=1794127149;
+	b=mcNmmuG0O/sSXElXHd4EJZxsUuGKXPXrmmkfaXXrpxw7pCzfQg6kAN70zD145fuV1nJx
+	 nC/bCSdgug/vmmRJRNzspakxyGD29W5gX2nMIKov3H4vKPbYniifSkhF7eLaNk3QQY563
+	 G3q7lvFct7jPiLK0LO6FcPLD01AOOXyJV88C45Srs3eZeUbi/uyXQ7JxXCKZe9YwAP6tr
+	 4gMcDI4sRN4/KTR933D2mUUIZMKw75eIkHFXwoG2afxs067E28CcHlT1RdYd27Vk+VjP4
+	 ZFgge1HM+mWQkGQvFbu7D+fPT6pCRcOPaFSpGJC17BDMocN/PhITmZJz59in+WrdpNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794127147;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794127149;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=i+Hscu/b432fpbnQOigJY3FITlcuwims0oMJWnfEl3M=;
-	b=UaD8RGzkFI3p9A/Jxi4fdYLyacHQcOyrVD1GwgUnCmJXarexTjax7ghrtknBxNhJc5Xl
-	 vboJSB8J81yi5UbeXgP6ceORncbVsx6PqneJstG0QbP1WXXH2VR0FudXK9CngXap/WZ3f
-	 jVDYQiXHLvbrZPsPNXqZq8r1Lj4nJnQM3syGR77w+lUM9o2GWPfoPnFZhSjRveWxvZOrV
-	 Lzhq6FNvTaR32A+nlZSs6CPn3jJvpfHgVdY2FmOFx605M07U/zRaEkNLNANVaGiEf35qa
-	 nEH1Ov6SMolZEI/NaDM/ynb/OjLVgczligDF+ZAu3RVlHryVLG7TaSv7+zClki2vu2Q==
+	bh=p7DZgWa5KOa/hEIH+j5ORiTSRSAUyyMJmdv5WzgkC1Q=;
+	b=Nb9i85kjA1bQqtgITuUsNVky8SLNf+LRQQrqxIjpxHnRmddPiyDqLTXuskWPQG7silI6
+	 6mXh3Y6KRmiNnlLjKFyygvkOWI/dK1VuK9UkiwXg3PqFm8OCG8ZyHa3csnzRLnFJ/PUVd
+	 mI/nP342TS9GwnWsFunKkqMHbAdF5QUnePMU8RP3QE68go4sQhb6dK8i4TRnpR6Z8d4M9
+	 O43D7ZtcsrOuYZvu93KvmE+gTHB0mUtmkE41nUQiEE00vHiz4WbSgE74Ryf9t58vteL4v
+	 /aIuwJsxAD3m2Ubk+zykeLgaqIlLNo3P+P7zpO7n+DIpIrjoWhn17O9E42Z1xa5k8uw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=l2vgT292;
-	arc=none smtp.remote-ip=209.85.221.45
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Kyq4vZ7r;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 666EB606A31C
-	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 08:39:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 666EB606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11A5A606A31C
+	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 08:39:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11A5A606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=l2vgT292
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48dee593f18so63404f8f.3
-        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 00:39:07 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Kyq4vZ7r
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a214af2076so1404015e9.0
+        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 00:39:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794127146; x=1794731946; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794127147; x=1794731947; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=i+Hscu/b432fpbnQOigJY3FITlcuwims0oMJWnfEl3M=;
-        b=l2vgT292Kjm9c8ACY/SB/SoEkt6Cd5FtQnvgVVkGNos+aU97TWMw9rIp70hQ+xH1Fy
-         P7OQP7RcsMWUkRfHuY1S6rBB8byxxpa9i+RH5CAKNsqfhbuzSEwA22LGLGPLiv62DVai
-         L8sdVNey8cnF7DQsC+aJGNMgPJBV3tdyH16IWwweG+cLxDUd6+vV7smZfzLwQEQ/clwk
-         ecaxBVZCqsJv0UumsGhd1XCv3y6038wtM5LLrxwEb0ok41/OEqBFP9ACZS0bd5LRSn5j
-         gZbXCwYCXAWgVfYsFNRvQYYcci89HicHUTfeOkvFOctfRWI5EjdoFBfSTHJzRrtF1o8O
-         K6Wg==
+        bh=p7DZgWa5KOa/hEIH+j5ORiTSRSAUyyMJmdv5WzgkC1Q=;
+        b=Kyq4vZ7rEFOskuKza7i5bRPnb++vnQEKqK+fYF8cbrDG/a/kxaF5Eq+DID2cCCPbrK
+         SwiB66VNENvtpqLGKe9ubEsgrgxTq+UM67Aprl4RiCQt2CPiAE9412OQuhE5HbZgfnSb
+         Fu3M9VkMbmN793Q0V+QwqkKdqpT5Dn89XJLkaHIzg9MS1qyCaRnMOhoHp8mIzBHcnrK7
+         jn3KY6bKzSbz52TatPVew+dnWxTARoqFHvtT1L3v/0Jm98I7n9xP2PQMjzips4iW719f
+         +jWJrLG11nqXLSVar6UBn0RrbRYQte1BBdwcKiD//WBW/q/sV1BXlZeQBHx2MM466xFc
+         kYTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794127146; x=1794731946;
+        d=1e100.net; s=20260707; t=1794127147; x=1794731947;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=i+Hscu/b432fpbnQOigJY3FITlcuwims0oMJWnfEl3M=;
-        b=RL46k7IxJTzIe63CkreV784SOrmDci0ED99aFhywV3Ey2u/FsOsLboUkrG5dzZ2LoS
-         IHsb8cdxMYbL3xATUNXX/ko2RcfW/kwTsAlkomaQQWpk3+aA7Q+HcZWiQWH1QFvT417V
-         2s+fr8BRoaQSr5BXkf2n73bEQ1rmmT4T5NWauwiHkZpW+jgzIxT8vuLw2ya+zUHA4jcg
-         LK6lFJ4sPj37DDpwU4aCzUvfEOOX5/H3yalk//8GXQMvhRWHos62YAtj/iwATSFQMxUy
-         rA56VN5EhjR+CICZRn6c8AwwzNkT7T3quAmLUAS6P97CNhqcSEsJ0UCFptkb6U5gsuMT
-         u0ig==
-X-Gm-Message-State: APuU4Z+kqZXph4b5kvaYsn6lKsLciEyCL1WxuFnB9nhcXv0Uyxtv4IRt
-	vwtjVukU2il6oePowKZyfrxeFc7p2aK7rO1RKfD/GCd1/G+lambalpamM7TIHgQL
-X-Gm-Gg: AYBFou1yZfqZQKHNGwFta8mrzeVqX/Sa4UEYHiZ6/Ou1xBNbFjH++EGz80q6LAHDNK4
-	6VsLgNOCpSjwD00mSAON7L7cdnX6az963bHKNTXLjlG1CucPIpC2N0SJMNLNu+/f5+ScjEZgDNQ
-	g5nUCXwg+ESAO4TQTzN5nQRznVdPtX1Io+spKzs+JDHye68c3ByxY2q9Q6oQVt7tVyS3R7Lc83h
-	zQfomxrzzclQT6WzJqCcHBkH7l9O9FBc3e25JYSrEh3+p3UznPfj2Yb1xPDIZ/G8bxPFp+Jt6CS
-	7TgNVr0Gu2qZWomVaHzc7GCddABKST6XY5p4Dm0tcW+A+eYWAbaKVAKTmokBz+IK0RlcPdXBXJN
-	y1hL9j1rtJGkWQV2AU9Q56aeNREj7NrVY781Xm7+cpHuRHHLgodDytCk51vLQ19VQJBy1P+AkJM
-	RB3F+wZdYVqO4y0Q2csxh9O/dZfLVEzJEItEghDnAodTkDt/S68rYNfWG8kDVvwDAC9e9ZcqgmB
-	Vv1YGzZljoXgDiL83V+9xYcwE3p7ddU+oaM26rXkMRv0iEqeyMyhWeCstJDDXv/AFg9z1vr20T/
-	TAa5tDh2nBYv/bVOQtAToDvs2P5DHmaKRlJXgoaQc7dAwxLctMNcJPLM2AXQ6L8MG/Mb0Z6mhI6
-	6H6UCPzUvVy7SNIh+PH1/BknC2FNjArTsX4aSsveT4uv09bYSYCNouvfSS0XUOWe+lD6YR3kFj8
-	+e2DrPXBG6JYQ56rolaj4mBmw3FApTHLTATPWOYxO8ILXgxYLz8njkmzs=
-X-Received: by 2002:a5d:5f84:0:b0:48b:9d2:1a6a with SMTP id ffacd0b85a97d-4958684e8b2mr2173818f8f.1.1794127145513;
-        Sun, 08 Nov 2026 00:39:05 -0800 (PST)
+        bh=p7DZgWa5KOa/hEIH+j5ORiTSRSAUyyMJmdv5WzgkC1Q=;
+        b=tnWvVyIAMZCVJ6JmQY1LreHEGTZcqZ6cgRG0YBRA/zkGIflzcJXawMQYUCbJzFFGSi
+         Pjky08CpU6qOFVtTO+zAcHhJs7qg11rIxEcLzwPc6wB+ZG2BXyYJDaUhYHpuN/7L5+kn
+         TvyVSuffh8Wpg796zQPcp7vNBHincS2+06IlwIAWVUZij0EydQ0pY9jzUScumsPcfY2O
+         1YBZUWtPuucJClI8NRI+FD8g9vUzLaxqHVbHiyPNp9sHPtXrr6/neCeMZTm5zfsLSF15
+         lvywNFyyKGWPtB8Q/GHnbpEcDDRK7oPotrJlNdjAwxjb7ykWKCOl7AsrG95fYGWelLi8
+         UMtQ==
+X-Gm-Message-State: APuU4Z/tVOkyc7aABJ3bCDM0HaKtJEp0OBu4QFCX1BV8ta+HqWAqbonk
+	AKv0D2Cv1K6LWVgYdh1uKWXNCB9ZvvqC4V5uFtAwg8bbNYBpNZOm7grx6XvL6vbq
+X-Gm-Gg: AYBFou1B+46dvOQpxjEB+kXEYstlFOMM+i0V/WZk4DuscgOsBhPWECHQIuunJqH0L8N
+	BfApSJe4lvMqmyd5Am2ojwHsl/UuiTtNTq2LtLUAqYMz4ybibC4R3/q3ch6lhQIoyq0xC9hsfXT
+	z9V+5JryEPuNxQ8OYFLyO5YrTlud19f0PEeTcSbn9/8Q03rMZmXE0594Y6U1p7TlwmlqCctegiL
+	rz3A5CLNybsfyBZOZWGlN8uoEn9MBb64ECAkBGvN8RWNkNdf571K8/56FyVATgpvYdMwkD7mg6n
+	uzQA1KoLQo5yb+9J9XWEgbI5oTjk+0szH0/m+4aQCY4I2f2M7I2J+hfQqgycn2mxWMRccaruC4F
+	iFJkb7hQoSRSBr+OzkenCkG+pWC1s7SxCmphH95M6C0V9tf8lSDyFoB43NA5WdXpRTDoXPX8WOW
+	OrYnjoXuDL6sOXBL2Vxt2S8bdVHV+LERJa0b/L4RNnObT54VLN2I0PXMpve8ksn0nfqwlVFjGv5
+	L/+Ci1HS9TWqwqK55Z2e4B6FWEpgpYWWK4t1P5LKE2IloorSbJuX+NIP0Zi/KSoGCfpWB76RhKB
+	RP2yz9OFxsc5grD1BfmVeSoQUhzw9t4bnRbolB+3+37wArLjNXq8RS+tcuF8obhPpoCnN528Fr+
+	WEY7ZRsSZmBmCiIg+tb61gQ2H06b/caiBAtfEUqVFPYBQyi6/pprn5FQqwSkr+U/eK+7kjb9Zqn
+	ls5ioVj0sdTJB4YY6Lcxq1FBys/v0z9X7/tfWMIpKA/s5aCB8izvr3zA==
+X-Received: by 2002:a05:600d:82c8:b0:4b0:a7aa:843 with SMTP id 5b1f17b1804b1-4b963c89155mr19807205e9.25.1794127147164;
+        Sun, 08 Nov 2026 00:39:07 -0800 (PST)
 Received: from localhost.localdomain (dynamic-2a00-1028-8388-a84e-d52e-5e86-2394-20dc.ipv6.o2.cz. [2a00:1028:8388:a84e:d52e:5e86:2394:20dc])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4959011c995sm2791111f8f.0.2026.11.08.00.39.04
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b90619bbd2sm44965335e9.1.2026.11.08.00.39.06
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 08 Nov 2026 00:39:05 -0800 (PST)
+        Sun, 08 Nov 2026 00:39:06 -0800 (PST)
 From: Josef Schlehofer <pepe.schlehofer@gmail.com>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
 	Ping-Ke Shih <pkshih@realtek.com>,
 	Luka Gejak <luka.gejak@linux.dev>
-Subject: [PATCH 7.3.y] wifi: rtw88: TX report with long timeout for non-PCIE devices
-Date: Sun,  8 Nov 2026 09:39:03 +0100
-Message-ID: <20261108083903.54132-1-pepe.schlehofer@gmail.com>
+Subject: [PATCH 6.18.y] wifi: rtw88: TX report with long timeout for non-PCIE devices
+Date: Sun,  8 Nov 2026 09:39:05 +0100
+Message-ID: <20261108083905.54152-1-pepe.schlehofer@gmail.com>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261107050343-failed-7.3-7cde94dab0e7@kernel.org>
-References: <20261107050343-failed-7.3-7cde94dab0e7@kernel.org>
+In-Reply-To: <20261107050751-failed-6.18-7cde94dab0e7@kernel.org>
+References: <20261107050751-failed-6.18-7cde94dab0e7@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -131,7 +131,7 @@ Not run on hardware on this tree.
  2 files changed, 7 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/net/wireless/realtek/rtw88/tx.c b/drivers/net/wireless/realtek/rtw88/tx.c
-index 8786bbb421..701ed7c4f3 100644
+index e73c06b268..b46f4fc838 100644
 --- a/drivers/net/wireless/realtek/rtw88/tx.c
 +++ b/drivers/net/wireless/realtek/rtw88/tx.c
 @@ -196,7 +196,7 @@ void rtw_tx_report_purge_timer(struct timer_list *t)
