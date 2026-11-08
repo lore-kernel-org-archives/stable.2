@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794121168;
-	b=19pNAsHJ7WyvS4Ky9vkGiFhYUet+6B2RdvfTJQTOYQxyeqVqgluCGG5s5mmh1mCA1PYa
-	 CjQo5GbVFwpmWvVGr0WYZGU9LFJVKF0oYnQ5cEZPNjbdUqo/sIIamw5IXptCTKD4UO3ni
-	 RBYaD2pvnJgmd8HGndDUqvIACV5itQW1kcFXb5GZ6PnTeo9pbjkHRm+t58cC37E/QrjPG
-	 IOimKlQ+wDKLd4MkK2BWTfHiL/GfvweaCmO+dzDq1+BTRpqs4y6aXtcJmZGWjPfMcNECr
-	 WSVV4/sf6iHMJ8+lmDErLUMPVKYRjURyrviJyUOinTGDgahFXxXQewnTDz4jydd2fnQ==
+	t=1794121169;
+	b=YHmQbAHK6n0h2o9V0C4fiKgPvgbddscoKpJEWk9d64URhcRIL9vV6bitJUZfyq0zTxXi
+	 5dxVjUb+OzP3rcgRGQoXDlE2c6yIMWFXoxZQtVf8ZqGKSWI+DYjv3nynCgSUJMCoSPo1H
+	 jZPZwwDgTp77w6rAry8gCL4S2yJbbPQDb/xoKG9b6aeTJYrKE4osMImgugwThJ64PIi3m
+	 H/yuTBT5DIeS/SMlUtw+dCbTtz1JFln1BoeL/aZcmE5zEFs7yg4mN4egm+EEuNVJ604Ke
+	 7hhD1swXRhtdU9tgF2uA0+oMHuXM7ZZRpPRD+BsJ2yIW27NKHJSWwkOf5/5/mtoAtXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794121168;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794121169;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=TxIUb5bWZGmoAUzDYkV/qaWh4k4doHszwohpd1hGknw=;
-	b=cTS4jGLl+1WqV+vBiC4DGZOvZqewDAX2xuGQBBVQT4U3ROxs3GymK/cXsQ080QzKPaOm
-	 kAj3ADztdas7n3OuUq2vNhbaddOLvknsk1Po4pI9xxJu+gfAoNZ+ipgsh5P7arZFHfqu8
-	 C3YDK6yA70QYf/yyBJZiSTwTxkFizQhyUKmskZEcglxs8WXNjlIXDGq8V0vGs5vp4C7Tm
-	 SPfJLt+ABp5r9+rkC+rnoP6B8/9buG2DDaoUOaoqI3sW1f2d39/XinKWtyP496TWSQEso
-	 lyBJbvYD77+mPLpsmNUw90WKjJTklFjLTokbp0xLqy8t5qavdOb4+i+hTdjez1tOV3g==
+	bh=TupQffIQ2RIrTTxvmihRQ2AE3+BnRRzJKFVznFFWYHE=;
+	b=1WOsciAAQEL75crC1vXwtD2xrYViTHGSBDRrwWkfKbq8BcWzXL4lS/uenX1f9KEGxyTw
+	 rvGG59eC1NtOjDDf6XESXbTvnn7S/YCIEuN6mcya+VzNqdwmj95Ui5TcC/BovMFwll8Tj
+	 P0Jz3maLcUAgX7E7xFmihmJSq1+MV3bOG3onsAVtN9TB5XOzlodL9fcLZ5m9GnjIW2izM
+	 92hep8vw6Hi0Blhlxt/A30VdlYr3j8Xg1KljJqdW+Ot/JL0wQ6nA4C/2jH/r9+y3oyztJ
+	 oN9MYCBMnidChokn+z1H/pCYY4pmSyamWZVocsRsNyYILXo9woQMAqV9LnDN0b5l/9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xpy7CNth;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mZkPxRwR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C4D9606A31A;
-	Sun,  8 Nov 2026 06:59:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72CCF606A331;
+	Sun,  8 Nov 2026 06:59:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xpy7CNth
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 678F61F0089F;
-	Sun,  8 Nov 2026 06:59:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mZkPxRwR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84EA51F008A1;
+	Sun,  8 Nov 2026 06:59:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794121167;
-	bh=TxIUb5bWZGmoAUzDYkV/qaWh4k4doHszwohpd1hGknw=;
+	s=k20260515; t=1794121169;
+	bh=TupQffIQ2RIrTTxvmihRQ2AE3+BnRRzJKFVznFFWYHE=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Xpy7CNthMHn7JInJJ7zre/OqP5C8GcTpHaAlrXr7G+LZmitImXzREGNi8Acd3uiy/
-	 98Mv1j0teruR8uzB/8vZJflMq1xUKNjP0vftBPeJ9sLaGTVPv1/p07cViCdHqE9Osn
-	 Fhy6zhNjTAopyoC9ni7qR1s4H6Z9aC6u+mJQ7FW5ry7aPVh6h3csm8rGiKTvGK1gYU
-	 ZcNxMLybVNYi7nWKBJq1uUJ2NJlJzMbjMDWgTgsga4g+UopjTdOaWr20Ir0l/ltiQ/
-	 GHOxM5SQR40nA6apXUStl0Z5+FtpqrRJEJyTZiUbom1wghv6DfAYo8+V+TnLyh/3Wo
-	 oglY2IQYn0t9g==
-Subject: Re: [PATCH net 1/3] net: atl1: disable work before freeing the netdev
+	b=mZkPxRwRsVE64BANolon3xxYqB4PqdbqnPKH0+KNwG67kh+jF60AfGefQuCORxwR0
+	 yCbKpfXSM+uP2jMBbfV9j4PWeA5BAjBKj3F3FKJbUjcnHT7zxrzxFHdJYSPT4m5QlF
+	 nwvSJbnMLYxdLO28sYs9LA7DisJ6hZfJTbk+N62oya3HO9DybNBzdaEpsVHr6iqITF
+	 6erwb6zImmwUK8xDBeJss29fjaOTm27atOj7jLBBCZR1EUic20/YUeTDthttFoGjvU
+	 dF6w9N1gRhI3Iu+T9xeKcfBR7wxOCgaCZK0SBpeCVWH5M2Pj+nWdjDvBLglGC8311u
+	 AsGL9ueo0ie6Q==
+Subject:
+ Re: [PATCH net 2/3] net: enc28j60: disable work before freeing the netdev
 From: netdev-bot+sashiko@kernel.org
 To: 0xbeac@gmail.com
 Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
  kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Sun, 08 Nov 2026 06:59:26 +0000
-Message-ID: <179412116691.994134.8959848817104495766@kernel.org>
-In-Reply-To: <20261104063245.23402-2-0xbeac@gmail.com>
-References: <20261104063245.23402-2-0xbeac@gmail.com>
+Date: Sun, 08 Nov 2026 06:59:28 +0000
+Message-ID: <179412116809.994134.6737039110469421460@kernel.org>
+In-Reply-To: <20261104063245.23402-3-0xbeac@gmail.com>
+References: <20261104063245.23402-3-0xbeac@gmail.com>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -63,10 +64,10 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential
+Thank you for your contribution! Sashiko AI review found 3 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 (1) · Medium: 1 · Low: 0
+Critical: 0 · High: 0 · Medium: 2 · Low: 1
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -74,155 +75,162 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] The commit message offers atl2_remove() as a correct sibling:
-  "atl2_remove() cancels both works and deletes the timer before…
-
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but
-  atl1_reset_dev_task()…
+- [Medium] The skb in flight is leaked when the device is removed, and
+  the new teardown makes this worse.
+- [Medium] net: enc28j60: tx_work and setrx_work run after
+  enc28j60_lowpower() sleep
+- [Low] The commit message justifies disable_work_sync() over
+  cancel_work_sync() because it "rejects a later queue_work(), which a…
 
 --
 
-net: atl1: disable work before freeing the netdev
+net: enc28j60: disable work before freeing the netdev
 
-This patch changes atl1_remove() to call disable_work_sync() on
-reset_dev_task and link_chg_task before unregister_netdev(). After that,
-it deletes the PHY config timer. The goal is to stop either work from
-running after free_netdev().
+This commit adds disable_work_sync() calls for tx_work, setrx_work and
+restart_work in enc28j60_remove(). They run after unregister_netdev() and
+before free_irq() and free_netdev(). The goal is to stop the work
+handlers from touching freed private data when they are pending or
+running at remove time.
 
-> Disable both works synchronously before unregistering the interface,
-> then delete the PHY configuration timer.  disable_work_sync() drains a
-> queued or running instance and rejects a later queue_work(), which a
-> plain cancel_work_sync() would not.  Deleting the timer after the works
-> have stopped also prevents a running link work from rearming it.
-> atl2_remove() cancels both works and deletes the timer before
-> unregistering for the same reason.
+> Unregister the interface first so the xmit and set_rx_mode paths can no
+> longer queue work, then disable the three works synchronously before
+> freeing the IRQ and the netdev.  disable_work_sync() drains a queued or
+> running instance and rejects a later queue_work(), which a plain
+> cancel_work_sync() would not.
+>
+> Fixes: 3ec9c11da033 ("add driver for enc28j60 ethernet chip")
+> Cc: stable@vger.kernel.org # 6.10+
 
-[Severity: Medium]
-Is atl2_remove() a correct precedent here? By the reasoning in this
-message, it looks like atl2 still has the same use-after-free:
+[Severity: Low]
+Is the "rejects a later queue_work()" justification accurate for this
+driver? The only schedule_work() callers are ndo callbacks:
 
-drivers/net/ethernet/atheros/atlx/atl2.c:atl2_remove() {
-    ...
-	set_bit(__ATL2_DOWN, &adapter->flags);
+    enc28j60_send_packet()        -> tx_work      (ndo_start_xmit)
+    enc28j60_tx_timeout()         -> restart_work (ndo_tx_timeout)
+    enc28j60_set_multicast_list() -> setrx_work   (ndo_set_rx_mode)
 
-	timer_delete_sync(&adapter->watchdog_timer);
-	timer_delete_sync(&adapter->phy_config_timer);
-	cancel_work_sync(&adapter->reset_task);
-	cancel_work_sync(&adapter->link_chg_task);
+None of these can run once unregister_netdev() has gone through
+dev_close() and dev_deactivate(). The threaded IRQ handler queues no
+work, and none of the three work handlers queues another work.
+enc28j60_restart_work_handler() also checks netif_running() under rtnl.
 
-	unregister_netdev(netdev);
-    ...
-}
+The new comment in enc28j60_remove() says the same thing: after
+unregister_netdev() the xmit and set_rx_mode paths "can no longer queue
+new work". So it looks like cancel_work_sync() would be just as correct
+here.
 
-When the cancel_work_sync() calls run, the IRQ is still requested. It is
-only freed by atl2_close(), from inside unregister_netdev(), and
-dev_watchdog is still active as well. That leaves these paths able to
-queue work again after the cancels:
+Because the patch uses disable_work_sync(), it carries "# 6.10+", while
+the Fixes: tag points at the original driver. The 5.10, 5.15, 6.1 and
+6.6 stable trees have the same use-after-free on remove.
 
-  atl2_intr()
-    schedule_work(&adapter->reset_task);      (link-down and DMA errors)
-  atl2_intr() -> atl2_check_for_link()
-    schedule_work(&adapter->link_chg_task);   (ISR_PHY or ISR_MANUAL)
-  dev_watchdog -> atl2_tx_timeout()
-    schedule_work(&adapter->reset_task);
+Could the commit message be corrected? Would using cancel_work_sync()
+let the fix be backported to those older trees too?
 
-None of these check __ATL2_DOWN. atl2_close() and atl2_down() never
-cancel the works, so anything queued in that window can still be pending
-at free_netdev().
-
-The ordering is also the reverse of what the message says is needed.
-atl2 deletes the timers before it cancels the works, and relies on
-__ATL2_DOWN to block rearming. But atl2_reset_task() ->
-atl2_reinit_locked() -> atl2_up() runs:
-
-	clear_bit(__ATL2_DOWN, &adapter->flags);
-
-atl2_up() also sets MASTER_CTRL_MANUAL_INT, which can raise a manual
-interrupt that queues link_chg_task again.
-
-No other patch in the series touches atl2.c. Should the message stop
-describing atl2_remove() as equivalent, or should atl2_remove() get the
-same conversion?
-
-> diff --git a/drivers/net/ethernet/atheros/atlx/atl1.c b/drivers/net/ethernet/atheros/atlx/atl1.c
-> index 2883e9462f6fd..2bd35c3cfc820 100644
-> --- a/drivers/net/ethernet/atheros/atlx/atl1.c
-> +++ b/drivers/net/ethernet/atheros/atlx/atl1.c
-> @@ -3132,6 +3132,18 @@ static void atl1_remove(struct pci_dev *pdev)
->  
->  	adapter = netdev_priv(netdev);
+> diff --git a/drivers/net/ethernet/microchip/enc28j60.c b/drivers/net/ethernet/microchip/enc28j60.c
+> index d6c9491537e47..bb29a94a1e2c1 100644
+> --- a/drivers/net/ethernet/microchip/enc28j60.c
+> +++ b/drivers/net/ethernet/microchip/enc28j60.c
+> @@ -1600,7 +1600,16 @@ static void enc28j60_remove(struct spi_device *spi)
+>  {
+>  	struct enc28j60_net *priv = spi_get_drvdata(spi);
 >  
 > +	/*
-> +	 * reset_dev_task is queued from the interrupt handler and from the
-> +	 * tx watchdog; link_chg_task is queued from the interrupt handler
-> +	 * when ISR_GPHY reports a link event.  Disable both before
-> +	 * unregistering the interface so that neither a pending nor a late
-> +	 * queue attempt can run after free_netdev().
+> +	 * Stop the interface first so the xmit and set_rx_mode paths can no
+> +	 * longer queue new work.  Then drain the works that were already
+> +	 * queued; the IRQ handler does not queue work, so the IRQ can be
+> +	 * released after the drain and before free_netdev().
 > +	 */
-> +	disable_work_sync(&adapter->reset_dev_task);
+>  	unregister_netdev(priv->netdev);
+> +	disable_work_sync(&priv->tx_work);
 
-[Severity: High]
-This is a pre-existing issue and was not introduced by this patch. Can
-atl1_reset_dev_task() race with atl1_close() and the ethtool
-reconfiguration paths? It takes no lock and does not check
-netif_running():
+[Severity: Medium]
+Does draining tx_work and setrx_work only after unregister_netdev()
+still leave a window where they touch the chip after it has been put
+to sleep?
 
-drivers/net/ethernet/atheros/atlx/atl1.c:atl1_reset_dev_task() {
-    ...
-	netif_device_detach(netdev);
-	atl1_down(adapter);
-	atl1_up(adapter);
-	netif_device_attach(netdev);
-}
+When the interface is up, unregister_netdev() goes through dev_close()
+and calls enc28j60_net_close() before any of the new
+disable_work_sync() calls run:
 
-atl1_close() (ndo_stop), atl1_change_mtu(), atl1_set_link_ksettings(),
-atl1_set_ringparam() and atl1_nway_reset() all run atl1_down() and
-atl1_up() under RTNL. Nothing serializes them against this work, and
-atl1_close() does not cancel it:
+    enc28j60_hw_disable(priv);
+    enc28j60_lowpower(priv, true);
+    netif_stop_queue(dev);
 
-drivers/net/ethernet/atheros/atlx/atl1.c:atl1_close() {
-    ...
-	atl1_down(adapter);
-	atl1_free_ring_resources(adapter);
-	return 0;
-}
+enc28j60_lowpower() clears ECON1_RXEN and waits for ESTAT_RXBUSY and
+ECON1_TXRTS to clear. Then it sets ECON2_PWRSV. Nothing in
+enc28j60_net_close() cancels or waits for tx_work or setrx_work. An
+instance queued by enc28j60_send_packet() or
+enc28j60_set_multicast_list() just before the interface went down can
+still run after enc28j60_lowpower() has returned.
 
-Here is one possible sequence:
+In that case enc28j60_tx_work_handler() calls enc28j60_hw_tx(). That
+writes the frame into the TX buffer and sets ECON1_TXRTS on a chip that
+is in power-save mode with EIE cleared. This is the state that
+enc28j60_lowpower() polled to avoid. enc28j60_setrx_work_handler()
+likewise writes ERXFCON after the chip went to sleep. No TX interrupt
+follows, so priv->tx_skb is also left behind, as in the leak noted
+above.
 
-  atlx_tx_timeout() or atl1_intr()
-    queue reset_dev_task
-  ip link set dev ethX down
-    __dev_close_many()           (no netif_device_present() check)
-      atl1_close()
-        atl1_down()              napi_disable(), free_irq(), ring cleanup
-        atl1_free_ring_resources()
-  kworker: atl1_reset_dev_task()
-    atl1_down()
-      napi_disable()
-        netdev_lock(n->dev);
-        napi_disable_locked(n);  spins forever, SCHED never clears
+The disable_work_sync() calls in enc28j60_remove() come too late for
+this. They cannot undo a handler that already ran between ndo_stop and
+the disable. The same window exists on a plain ifdown, and on the
+close/open cycle in enc28j60_restart_work_handler().
 
-When that happens, the kworker blocks while holding the netdev instance
-lock. A later atl1_open() -> atl1_up() -> napi_enable() -> netdev_lock()
-would then deadlock with RTNL held.
+Would it be better to cancel tx_work and setrx_work in
+enc28j60_net_close() before enc28j60_hw_disable(), and free any pending
+priv->tx_skb there? Those two handlers appear to take only priv->lock,
+so cancel_work_sync() under rtnl looks safe for them. That is not true
+of restart_work, which takes rtnl_lock itself.
 
-If the work instead runs at the same time as close or ethtool -G, both
-CPUs end up in atl1_down(). That can call free_irq() twice and double
-free skbs in atl1_clean_rx_ring() and atl1_clean_tx_ring(). It can also
-let atl1_set_ringparam() or atl1_close() free the descriptor rings while
-the worker's atl1_up() is refilling them in atl1_alloc_rx_buffers().
+[Severity: Medium]
+Can this leak the skb held in priv->tx_skb?
 
-With this patch applied, this disable_work_sync() would also wait forever
-on a worker stuck that way. Should the reset work take rtnl_lock() and
-check netif_running(), as other drivers do in their reset tasks?
+After enc28j60_send_packet() hands the skb to tx_work and returns
+NETDEV_TX_OK, the driver owns it:
 
-> +	disable_work_sync(&adapter->link_chg_task);
-> +	timer_delete_sync(&adapter->phy_config_timer);
-> +	adapter->phy_timer_pending = false;
-> +
+    priv->tx_skb = skb;
+    schedule_work(&priv->tx_work);
 
-[ ... ]
+    return NETDEV_TX_OK;
+
+The skb is freed in only one place, enc28j60_tx_clear(). That function is
+reached only from the TXIF/TXERIF handling in enc28j60_irq():
+
+    dev_kfree_skb(priv->tx_skb);
+    priv->tx_skb = NULL;
+
+By the time disable_work_sync() runs, this call chain has already masked
+all chip interrupts:
+
+  unregister_netdev()->dev_close()->enc28j60_net_close()->enc28j60_hw_disable()
+
+    nolock_regb_write(priv, EIE, 0x00);
+
+If tx_work is still pending, disable_work_sync() cancels it without
+running it. If tx_work runs during or after close, the frame is written
+to the chip with interrupts masked, so no TX-complete interrupt follows.
+
+Either way, free_netdev() frees priv while priv->tx_skb is still set.
+Nothing frees the skb, and its socket wmem charge is never released.
+
+The new comment says this code will "drain the works that were already
+queued". But disable_work_sync() cancels a pending instance and only
+waits for one that is already running.
+
+The skb could be freed after the disable_work_sync() calls and after
+free_irq(), since the IRQ thread can still free it and clear the
+pointer. For example, just before free_netdev():
+
+    dev_kfree_skb(priv->tx_skb);
+    priv->tx_skb = NULL;
+
+Would that work?
+
+> +	disable_work_sync(&priv->setrx_work);
+> +	disable_work_sync(&priv->restart_work);
+>  	free_irq(spi->irq, priv);
+>  	free_netdev(priv->netdev);
+>  }
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261104063245.23402-1-0xbeac%40gmail.com
