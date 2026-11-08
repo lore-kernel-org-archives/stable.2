@@ -1,57 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=89.58.8.210
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794145011;
-	b=JFUcI2pbuzhW8fS1gEWbZC1h1TTA3aMqJi1gdBT14uyHMeG3lLdopE1OH8DRuA7Lhu8/
-	 mbNRgT2DADmWF0UsbdHcxBPb6pIgnbkIuKMZt05yiY8iWrX3IPJXvan9EauCkzi6Lybl5
-	 siy+G6oG3fXGdzV2CyHCK53JU6c+p5zUJFXx7o1glKn17UpD9whCRq/C1yUDIt6bsrT6p
-	 QjQrkBHg77pqYHsDM9PjRhX0AN7QwwEIwfVPakl6Ue8UpzNoOawJ5PaKHxcXtHwjbdOsG
-	 dJR6wF1+d7SSVex3yanjiU2UOnk86rFLg0n+PR6R23IKqU/VclR3vUgwXhI/j+dYIjQ==
+	t=1794145113;
+	b=Wm6tULgz9j929H4GoIW6n52XPG0vUaS5yDB4PrdJfmoLt8vaNC8n2KClzbMpINJJQmQY
+	 Ar5YoR2UFoONxuMDpfEOzVaJ9x1+DgduS+jrudr1ZKFrZ6ZIb4FYLuSM4wOQxy9APFE3l
+	 iIhxf7WlInzS74EdpKkvImFzLZ7FcjiD3/N2RJU4Vv1lwleqoFWV/Q4qGL8vLP4WOuvtL
+	 BFpjt7nYpANtdBCXkOVc7oaK+JzgAj6d14Y16IF0Nw6tz6MsTVwjxgLqlwKEITxQqqyF+
+	 mWg7SHG9USVcnlsARcMw7O8k+bzi/bpyJ44hD6e1xCDDcNCZdNl1RQqNfe6BZ+6Li/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794145011;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:X-Mailer:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794145113;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=ksfeohUu2MOYYJCfG6rnR7jwX7L3AOvI7nh2YtUJ5tw=;
-	b=LRAcyjw7hJ22Rr5QVbrpqYXcKnkZf7yuP1VZTZNyWT4bIU/pe24/3Zz4BfNLJ4D2kFhd
-	 skqOyskovwA+bLVy/IH49VpjfhvuhDaXqoQMGUhbtMBxc1QXGdDk9882zeY8T5nBly80V
-	 YLlaP+kwkPKsUyjMy+ZwiYgi/BWhz4DWl3AAaQZ6D3ej2zySwbFiiPjaspHEOGAET1GWx
-	 VTB71C69t+dnxUVaNzMsA6R2v6QeY5qX5GEqfsUKS3rAFU6CJ5m1xggAXvrewURQhFDS+
-	 spmUzLZjn5s7YnrpaBTnu3PTsXaJ11cisCr+3ngtpfOfBIdaUzKYfc4VAUqLk1NWLYg==
+	bh=OxFXA2A8vf97MLqDI2dXStFoDohf1oeX4s7Z28iiyTE=;
+	b=Df/fQyOaFyXMdwsPSTpDaMK/HY5lY1ojhuzrfdt5x/dUsJIl55pyaeAM6VZxg8/3b0pW
+	 qv66xcCgvswl6TBF2vCyl5F+jlBtvuZthxcI0Iu0KHt/Y8hypuJFfksaVHP8OFon2N7l8
+	 WAvYtBXm7gTQPEsQjtyKgjaBP9GeN8YMtLmBGcNcatJkE2VKAbP4lZR5SD8CZw+wHzmYw
+	 kmY0HZ9Vq9Oue9KYkf6dR5n4FU0FD3M0/hFrLGpwi/TJ2wu/aCEF62N8w0B6b5EX5TdmD
+	 DRcaNEC/UwWZQTyMy1IKrl4Kw8w2EV5XVZPvza13BJn7O1s8GUqN8kKvOiDyhLo3azw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=wagner-flo.de;
-	spf=pass smtp.mailfrom=wagner-flo.de;
-	dkim=pass header.d=wagner-flo.de header.i=@wagner-flo.de header.a=rsa-sha256 header.s=fuldigor header.b=jLbol+X8;
-	arc=none smtp.remote-ip=89.58.8.210
-Received: from fuldigor.wagner-flo.de (fuldigor.wagner-flo.de [89.58.8.210])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OndAluFL;
+	arc=none smtp.remote-ip=74.125.82.48
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E810B606A320;
-	Sun,  8 Nov 2026 13:36:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E810B606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wagner-flo.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wagner-flo.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09ABA606A321
+	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 13:38:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09ABA606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=wagner-flo.de header.i=@wagner-flo.de header.a=rsa-sha256 header.s=fuldigor header.b=jLbol+X8
-Received: from teclador (p4fe8fa45.dip0.t-ipconnect.de [79.232.250.69])
-	by fuldigor.wagner-flo.de (Postfix) with ESMTPSA id 18E401EC71;
-	Sun, 08 Nov 2026 14:36:42 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=wagner-flo.de;
-	s=fuldigor; t=1794145002;
-	bh=cj56BryqCAaDQKgw9207kfTg1TbElKjmb1l6QWsloKc=;
-	h=Date:From:To:Cc:Subject;
-	b=jLbol+X8vCXSJ2EJ+GmuF2GI6LhU+cZEnobAw0gz2/sBvI56oQ/Y/EAJQtvKtAS7Q
-	 xJ+o014/q2dYMWace55zO8CN1tocQb7hqhXc+v+lFozb+u25b895p5d+EBLGyXNxX4
-	 B2FBbfOQDNTw5nmSwV2t2lQm/Qiwj/6vPsmBDsGE=
-Date: Sun, 8 Nov 2026 14:36:40 +0100
-From: Florian Wagner <florian@wagner-flo.de>
-To: stable@vger.kernel.org
-Cc: regressions@lists.linux.dev, linux-acpi@vger.kernel.org,
- rafael@kernel.org, sashal@kernel.org
-Subject: [REGRESSION 6.18.y] ACPI: button: lid events lost since 6.18.57,
- please backport a004b8f0d3bc
-Message-ID: <20261108143640.6252e6a8@teclador>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-unknown-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OndAluFL
+Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-15ea896ddc8so180398c88.0
+        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 05:38:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794145112; x=1794749912; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OxFXA2A8vf97MLqDI2dXStFoDohf1oeX4s7Z28iiyTE=;
+        b=OndAluFLYQ0ImKAKq1jHnVrqGsXubi2j/NdImWBrrb5hYsZFLTPTaGF3DKFkO/tcoS
+         t2DV+AWof8yg+skrFd5sosrJQe/T3NtDsYBQdeg9ivuLcShfR6LGmS93ycc7SvKPKFqk
+         vkVtgwCZJKSPUFnUvCIKh7O8Skj5BgOCOcp+BgEtbhXACxwMgwt0KfdjBuWKqcOy2TkJ
+         9vVupA1eEDOOuOCOm9dtdIhGZef+5X9gFVBrCdXv7Rvb8y0hH/BhAlQGfxop7xAEPHR/
+         wVQvoDCqUZGPEiEzvRXXJ+oVxWrDA1ODwzL8XCbUjZHdHwwMcfbuyHYSq8Hb//WEkqsM
+         aAJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794145112; x=1794749912;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OxFXA2A8vf97MLqDI2dXStFoDohf1oeX4s7Z28iiyTE=;
+        b=YSIIHGieReRwk2lNE4zqsrbNvRWvI5OWaJJU27JLZQ6fwiRr0KdQe7YMG+JBGNfFrb
+         fvOcD4EtIG5rWQJ+AK/z4ua3yLYWqqOvx15f6ATUxVvNSk1qOILgj+TidKRBQtPSxels
+         KwGDVIKZC1rJhTSmMbfaaZUOXgvvuBgC/7IE9omPtc4jN0X8oafewKtLTo3GRf5m+jIu
+         Hsk+LhJFgLxvvqKb1tbDwEyhjO+NoCiFMLvk2z3RymKCfDp/Dqa6VJ8QIB8TPx4lmGug
+         V87DVbdjfUExRMQSgM8gnExMAmPMr1qcGIKxr6Jod/Pagupx+v+x/MsKi7XIGJhw1tRX
+         t+mQ==
+X-Forwarded-Encrypted: i=1; AL+hErGTE0yYMEH9R1z+XZzzNbGG3a06JOleKSHFGGd6CvSdPMGwJz1Gk0rP3fEY24JTE7dNYzd09gU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9vFqkBcg1ovXJvAPhmCLL1VqgRXgcEuT+Qo+a0ZK0rib3zLrR6
+	WKvW58pIZLHfrddJuUIIauSPK42mqHiRScdqFT+Ar7zJSQixE3C9WiKH
+X-Gm-Gg: AYBFou0LzqRiP+bM7TkWMQKYuEIOFB83JQb2H2ZBAWEBElkhau6Xtaj0F7wEeJPnC9F
+	1G436D4aeEE/BMqoD6ZKNqJhBN7Hosnb1BJEr9ALWs/HxbI7iIIhRjHbsydUgKlBC37w9lICdbA
+	YNcA5pnJb+Uw/PHRt3Llyx3oU7MOTbtSzFC/M3yQcD3YzKxMl3DpfVJDEOrt8ImKYgb+qBF4859
+	cVq41hehN57mXDb+7CtEDKr7kT8J9Q3ZnGwAA6K2h2DSyhqI0LoWXct1AsFBQPzit9v9Bt1tZpE
+	ai35qN2ySRS/udCOSCoMWeLK3doOnu/hNJ/lXvB0Ir3pOuxwhhG073Vk9AP2gSop+ou2yW4Otef
+	+s+BNwyhpLTdv9JY9j3w1RyE9cmq5PNKs54xvKLUAfZVofHZG/yfdPLCcNpSGaauYc9K6K6pF8e
+	8HGLWC4V8sni6OeUgEMh/5PdSmE1FJd5hQftxTh3pfylJSw9Pqt5IbaRZ4OW4ExpQuy4rgYK7Bi
+	kuIVWet+0WSM3XvfWI1KHaRkNzcf9Y8JFMuIiVeNGUAg/7cqwsfA7JA8BzAnHCOzDGbXPkZiO1y
+	kOiIY+yw9JgXdzaES8Df86lttZt+03YO5zgR7m6EC8EqER1eg4W2bjR5Okb5SlcQH0bEZg==
+X-Received: by 2002:a05:7022:5f1b:b0:1b1:251f:d732 with SMTP id a92af1059eb24-1b39fea9b18mr2244971c88.31.1794145111975;
+        Sun, 08 Nov 2026 05:38:31 -0800 (PST)
+Received: from hj.. ([163.239.22.29])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b37561ccabsm5515696c88.12.2026.11.08.05.38.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 05:38:30 -0800 (PST)
+From: hyunjungg <hj351016@gmail.com>
+To: Jiri Kosina <jikos@kernel.org>
+Cc: Benjamin Tissoires <bentiss@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hyunjung Ko <hj351016@gmail.com>
+Subject: [PATCH] HID: microsoft: cancel ff_worker on remove to avoid use-after-free
+Date: Sun,  8 Nov 2026 22:38:21 +0900
+Message-ID: <20261108133821.535139-1-hj351016@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,56 +98,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hey there,
+From: Hyunjung Ko <hj351016@gmail.com>
 
-Claude did most of the work on this one, but it looks valid from the
-point of view of my (very little) kernel dev experience.
+ms_play_effect() schedules ms->ff_worker to send the force-feedback
+report. ms is devm-allocated, so it is freed only after ms_remove()
+returns. Commit 1cfc77a64b71 ("HID: microsoft: move FF initialization
+to .input_configured()") dropped the cancel_work_sync(&ms->ff_worker)
+call that the remove path previously had, so an ff_worker scheduled just
+before the device goes away can still run after ms (and ms->hdev,
+ms->output_report_dmabuf) has been freed -- a use-after-free.
 
-Please backport the following upstream commit to 6.18.y:
+Cancel ff_worker before hid_hw_stop() in ms_remove(), restoring the
+teardown the driver had before the FF-init rework (and matching
+hid-bigbenff). cancel_work_sync() is safe even if ff_worker was never
+initialized: ms is zero-allocated, so the work reads as idle.
 
-  a004b8f0d3bc ("ACPI: button: Enable wakeup GPEs for ACPI buttons at
-  probe time")
+Fixes: 1cfc77a64b71 ("HID: microsoft: move FF initialization to .input_configured()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+---
+ drivers/hid/hid-microsoft.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-It fixes a regression that 6.18.y picked up in 6.18.57 and that is
-still present in 6.18.62.
+diff --git a/drivers/hid/hid-microsoft.c b/drivers/hid/hid-microsoft.c
+index a7d3493..462fdaf 100644
+--- a/drivers/hid/hid-microsoft.c
++++ b/drivers/hid/hid-microsoft.c
+@@ -384,6 +384,9 @@ static int ms_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ }
+ static void ms_remove(struct hid_device *hdev)
+ {
++	struct ms_data *ms = hid_get_drvdata(hdev);
++
++	cancel_work_sync(&ms->ff_worker);
+ 	hid_hw_stop(hdev);
+ }
+ 
+-- 
+2.43.0
 
-Background: 6.18.57 received 52d864019636 ("ACPI: button: Convert the
-driver to a platform one") as a dependency of fe80251152fe ("ACPI:
-button: Fix ACPI GPE handler leak during removal"), together with
-57c31e6d620f ("ACPI: scan: Use acpi_setup_gpe_for_wake() for
-buttons"), which fixes the former. Since 57c31e6d620f, button wakeup
-GPEs that have handler methods are no longer enabled at runtime.
-Upstream fixed this in v7.1 with a004b8f0d3bc, but that commit is
-tagged "Cc: stable # 7.0+", so it was never picked up for 6.18.y,
-even though 6.18.y now carries the commit it fixes.
-
-Symptoms on my laptop (FUJITSU LIFEBOOK U9311, BIOS 2.54) with the Void
-Linux kernel packages:
-
-- 6.18.52: lid works, acpid receives "button/lid LID close/open".
-- 6.18.62: the "Lid Switch" input device (PNP0C0D:00) emits no SW_LID
-  events at all (evtest shows nothing), so closing the lid does not
-  suspend the machine. /proc/acpi/button/lid/LID/state still toggles
-  correctly, and closing the lid wakes the machine from a manually
-  triggered suspend, which suggests the GPE is only armed for wakeup.
-- On 6.18.62, GPE 0x24 shows "disabled" in
-  /sys/firmware/acpi/interrupts/ while it is "enabled" on 6.18.52.
-  Writing "enable" to it restores lid events.
-
-Backport note: a004b8f0d3bc applies to 6.18.60 and 6.18.62 with
-offsets, but does not build as is, because struct acpi_button has no
-"dev" member in 6.18.y. Using &button->pdev->dev in the two dev_dbg()
-calls is sufficient. With that change, drivers/acpi/button.o and
-drivers/acpi/acpica/evxfgpe.o build cleanly with W=1 on 6.18.62. The
-adjusted patch is attached for reference.
-
-I sadly haven't had the time to build a patched kernel to actually test
-this.
-
-Thanks,
-Florian Wagner
-
-#regzbot introduced: v6.18.52..v6.18.60
