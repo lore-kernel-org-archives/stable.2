@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794175710;
-	b=f0J7V5PdkKRkxQkUMYFZUwZvXhnBJKQOmhKakt9U9pvdCw//+ifp4jsNa++afu8bzgGw
-	 ts+ISaQoFz87qDuB0SYTfjyqjJXeASIBK2k9YCv8OIeeDHZaFMMoXaon5pAm27sO//Izs
-	 KTjWiAyko4uR6YF8FRGkECt2dkbt6itgJdzcitvNJnTh12pJH4JSqODOAmyPCYTMjjo8F
-	 M0fAEhlZLGZqdRi359K6Edl8FSAGSRrthc7W0FRS2sxdesI2GS60h3Pn8z5nHOBbePbLy
-	 2gmPLMV3kI7/+t1pzPDmUt/lKtKI7cgtx9VOHwvXM4S524gcbjSPyn3r5/UXqqM9SnQ==
+	t=1794175717;
+	b=qonv2xZ0csrnhr7C/uvd4GzxKA+WK/h+6J/N/Qxzb+Lu0PVCmUjuGmO8THFiAg////JG
+	 yQSM/WrE1xD+l3ItE/VhfLxXN11nZu0D/T/2ZbKG/f3jivQYG0tyYfr9PaXlzuPsfGNgT
+	 zfppCQcf4dyGp8n/5JvevsXup9xmTMpSdenS58V0zjRoNQ2S7wSopDdXKtcme4b81+jTF
+	 wD2qvCImPXXpxgWICMYkvlf6jknm/oIkNf6DtzdqFVUu+5n5ZFXZ3zLac0upAo2bboz1y
+	 wMbaDI+5N68PALy1fmBPw9OfdZeG4OYEQT8OiI/AlbSh1DagJVMWoqg7hMAkKZl8DhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794175710;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794175717;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=iTZBGe8G+lD7PKpVW+guhg/OgKRa7+G7PTCcyuD4K7k=;
-	b=OEM3bsz08cKAUZfYK1rIEDMLD3AJE/S+P3Qiy+F4k+VTuPuCH8Wfpt1gm7n1fRXvIIpn
-	 MaBgE64K2fmWv8KGjQA5u8msnt2gvihNppUsa8iGMhS39FiN5bgyONKw3qQbCeWKdFLFj
-	 hYzYzC+kDwQ9G+kqf25xMXE1mgR+nBrkkeR6NdKYLS49HYf/BmsNg9pBqUrHEg3s35ezn
-	 9lwwDmwTwvEeoUEU1j4Jealm74BD6n1mUKk3OUmYWXhcu2yj1yozfpy6+GxPrxqlNltFL
-	 8aw0IGfaVs13jsxtD5sai4wWI+oBGFhGZ5rhSfiCXCNXGZ+bfRm7nTBjnIp7y+oitCw==
+	bh=GPBOnH/igQQ1Y7Jgrlbm4Ff98jEBOiO/VijMzt7smks=;
+	b=cg3bJH1XMQK7KmNdh69UYHWmtt4TqllQchcOZdfUqe+R7DgfkLS8V2B/GMt5o0Jh/Ekb
+	 V+9r8RzHg4+YQjbR1rnF3jrqYRlAozW9FuSv+5LirS/gwr2GMYQPVSGeLNvwplA2qLHpk
+	 ep3x0hU58w4+WW43DzJ3nKFOz6PujdedE3wRN5KTASs2gckPV9e0dPGf1SyLezOsq8h5T
+	 YOTYK2sHCL6AIUZUEh9apdTwUGEXSHL45ZoixrI7RmMugo2/b/E/F5MmCBM6hUaCej5Ub
+	 MXNGnidP/SJOYrymACX/++rfYanro1qlxo/cwWx3E56AwQZ3wjORPX1+4siU1WnOw1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k6wBI8kG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cDMrfDHf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E401D606D810;
-	Sun,  8 Nov 2026 22:08:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4A55606A339;
+	Sun,  8 Nov 2026 22:08:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k6wBI8kG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 232631F0089F;
-	Sun,  8 Nov 2026 22:08:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cDMrfDHf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 193161F008AB;
+	Sun,  8 Nov 2026 22:08:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794175709;
-	bh=iTZBGe8G+lD7PKpVW+guhg/OgKRa7+G7PTCcyuD4K7k=;
+	s=k20260515; t=1794175711;
+	bh=GPBOnH/igQQ1Y7Jgrlbm4Ff98jEBOiO/VijMzt7smks=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=k6wBI8kG/XcVE9XlmLOiJLBUSHxx63al9ouLQqMT4/MLNoGLvJMg2uo5hYZyTCBW3
-	 KRaczsKwaEM56lUjexcJ/baDZ6AwffSWv3u8B47OzhvvQpJfW9XMwWKD5rPVxRb26i
-	 Od8LBrxblSQBUiCNhJNxwySeq+jbnZzDe0oBzyMOG03UKc34lCLJ7topGqUcrfNuES
-	 UCX8rgvRUExXI8CeeXxDFcPsALA+ScjKnF3BQa9OJdqxdV6vLMvRsHiGdZZnbd5mxp
-	 SCil7Lgecui+P3tqkqRgLP12SMe1LPmUBPv2rlkpsDnvJPBIc2WNl0A4FC7l2OLNQY
-	 W17tKvpCOKQcA==
-Subject:
- Re: [PATCH net v8 3/4] net: hsr: segment GSO before per-frame forwarding
+	b=cDMrfDHfbts2phpYASsd4ddmmm0OU4/l+LCcjj7L9r6ZVQmLVxmibfkbWfBF5ZYvP
+	 k9W2VmgxAkwQNsfPSp90RXArcHh5Z/g3N1NBULkn9wWx5Gu6hTJHY13SNLNRDOgrck
+	 nfwLtGNGvwHwPx71aUs7MnhYLdwAF/axXL5CacngFwG4nlL/+Z2eCLSUzE8tXDPOkL
+	 Wya6RFV6Y4z04gyjynlr0Qs33ZolV6m6O9wC4jzMwqQbvC1DfQrzuafvU7dMqk/eNB
+	 pt1DlawKNztyNdQ1oEoCs+WsG3lMvwyWwwsfHjKO9jjowbZnV3N13JyqcGmczj2AXl
+	 vlOabCZgMndow==
+Subject: Re: [PATCH net v8 4/4] selftests: net: hsr: verify GRO policy and
+ ordered forwarding
 From: netdev-bot+sashiko@kernel.org
 To: xiexinet@gmail.com
 Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
@@ -52,10 +52,10 @@ Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
  bigeasy@linutronix.de, xiaoliang.yang_1@nxp.com, skhawaja@google.com,
  liuhangbin@gmail.com, stable@vger.kernel.org, sdf.kernel@gmail.com,
  lukma@denx.de, fmancera@suse.de, danishanwar@ti.com
-Date: Sun, 08 Nov 2026 22:08:27 +0000
-Message-ID: <179417570768.994134.12148285775525774237@kernel.org>
-In-Reply-To: <20261107220544.20-4-xiexinet@gmail.com>
-References: <20261107220544.20-4-xiexinet@gmail.com>
+Date: Sun, 08 Nov 2026 22:08:29 +0000
+Message-ID: <179417570965.994134.712913867770028727@kernel.org>
+In-Reply-To: <20261107220544.20-5-xiexinet@gmail.com>
+References: <20261107220544.20-5-xiexinet@gmail.com>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -69,10 +69,10 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 3 potential
+Thank you for your contribution! Sashiko AI review found 2 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 1
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -80,217 +80,120 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] Setups with HSR offload now lose GSO on TX, and the commit
-  message does not mention it.
-- [Medium] hsr_forward_input() protects software segmentation only with
-  skb_share_check(), which handles skb_shared() (users > 1) by cloning.
-- [Low] hsr_forward_input() now drops every GSO skb whose effective
-  protocol is ETH_P_HSR or ETH_P_PRP (net/hsr/hsr_forward.c:916-917),…
+- [Medium] topo() in
+  tools/testing/selftests/net/hsr/hsr_gro_superpacket.py treats a…
+- [Low] ordered_wrap() in
+  tools/testing/selftests/net/hsr/hsr_gro_superpacket.py checks the…
 
 --
 
-net: hsr: segment GSO before per-frame forwarding
+selftests: net: hsr: verify GRO policy and ordered forwarding
 
-This patch adds hsr_forward_input() as the single forwarding entry point
-for master TX and slave RX. It segments GSO skbs in software before the
-per-frame HSR/PRP tagging and sequence numbering, and drops aggregates
-with inner HSR/PRP, unreadable frags or trailing data. It also removes
-NETIF_F_GSO_MASK from the master's hw_features.
+This commit adds two HSR/PRP selftests. Each is a shell entry point that
+execs a shared Python helper. hsr_gro_superpacket.sh covers the GRO policy
+on member ports, refusal of forwarding port types, and TCP over the
+interlink and PRP LANs. hsr_ordered_forwarding.sh covers the ordering of
+local and interlink data, supervision frames, concurrent producers and the
+sequence number wrap.
 
-> diff --git a/net/hsr/hsr_device.c b/net/hsr/hsr_device.c
-> index fc512204600cd..2521a72280aca 100644
-> --- a/net/hsr/hsr_device.c
-> +++ b/net/hsr/hsr_device.c
-
-[ ... ]
-
-> @@ -686,7 +684,7 @@ void hsr_dev_setup(struct net_device *dev)
->  	dev->needs_free_netdev = true;
->  
->  	dev->hw_features = NETIF_F_SG | NETIF_F_FRAGLIST | NETIF_F_HIGHDMA |
-> -			   NETIF_F_GSO_MASK | NETIF_F_HW_CSUM |
-> +			   NETIF_F_HW_CSUM |
->  			   NETIF_F_HW_VLAN_CTAG_TX |
->  			   NETIF_F_HW_VLAN_CTAG_FILTER;
-
-[Severity: Medium]
-Does removing NETIF_F_GSO_MASK here cause a TX performance regression on
-lowers with HSR tag insertion offload, such as xrs700x or icssg?
-
-Before this patch the master kept TSO even when the lowers had none. The
-master port is in hsr->ports, so hsr_features_recompute() folds in the
-master's own features:
-
-net/hsr/hsr_device.c:hsr_features_recompute() {
-    ...
-	features &= ~NETIF_F_ONE_FOR_ALL;
-	hsr_for_each_port_rtnl(hsr, port)
-		features = netdev_increment_features(features,
-						     port->dev->features,
-						     mask);
-    ...
-}
-
-On NETIF_F_HW_HSR_TAG_INS lowers, the aggregate was passed on unchanged:
-
-net/hsr/hsr_forward.c:hsr_create_tagged_frame() {
-    ...
-	} else if (port->dev->features & NETIF_F_HW_HSR_TAG_INS) {
-		return skb_clone(frame->skb_std, GFP_ATOMIC);
-	}
-    ...
-}
-
-prp_create_tagged_frame() does the same. The lower's validate_xmit_skb()
-then segmented the aggregate, and the hardware tagged and numbered each
-wire frame. So GSO already worked correctly on these setups.
-
-The mask is now removed whatever the lowers support. The core therefore
-segments every local super-packet before hsr_dev_xmit(). Each MSS-sized
-frame then goes through these steps on its own: seqnr_lock,
-fill_frame_info(), the node list lookup, hsr_register_frame_in(), a
-clone per port and dev_queue_xmit().
-
-RX is affected too. Plain aggregates that used to be delivered correctly
-are now segmented in hsr_forward_input() with features = 0. That means
-linear copies and software checksums. One example is a PRP SAN aggregate
-arriving from a veth on LAN A/B. Plain TAG_RM aggregates would be
-affected as well. In-tree offload drivers should stop producing those
-once the GRO patch in this series is applied.
-
-This patch carries a Fixes: tag, so it will be picked up for stable.
-Should the commit message mention the cost for offload setups?
-
-Could the feature removal and the segmentation apply only when software
-tagging is actually needed?
-
-> diff --git a/net/hsr/hsr_forward.c b/net/hsr/hsr_forward.c
-> index 44f6d9c83180a..c9cd5d9208795 100644
-> --- a/net/hsr/hsr_forward.c
-> +++ b/net/hsr/hsr_forward.c
+> diff --git a/tools/testing/selftests/net/hsr/hsr_gro_superpacket.py b/tools/testing/selftests/net/hsr/hsr_gro_superpacket.py
+> new file mode 100755
+> index 0000000000000..23feb0ce4df4c
+> --- /dev/null
+> +++ b/tools/testing/selftests/net/hsr/hsr_gro_superpacket.py
+> @@ -0,0 +1,1376 @@
 
 [ ... ]
 
-> @@ -794,3 +797,154 @@ void hsr_forward_skb(struct sk_buff *skb, struct hsr_port *port)
-
-[ ... ]
-
-> +void hsr_forward_input(struct sk_buff *skb, struct hsr_port *port)
-> +{
-
-[ ... ]
-
-> +	if (!skb_frags_readable(skb))
-> +		goto drop;
-> +	proto = hsr_gso_effective_proto(skb, &l3off);
-> +	if (!proto)
-> +		goto drop;
-> +	if (proto == htons(ETH_P_HSR) || proto == htons(ETH_P_PRP))
-> +		goto drop;
+> +def ordered_wrap(lab):
+> +    """The interlink sequence number wraps with both lanes intact."""
+> +    topology = topo(lab)
+> +    caps = ordered_lanes(lab, topology)
+> +    sender = ordered_socket(lab, topology["tx"], "100.64.2.1")
+> +    probe = ordered_send(lab, sender, 4, 0, 1, 5130)
+> +    # This only selects the warmup count; final loss-free captures certify it.
+> +    rows = [udp_rows(cap, {5130}) for cap in caps]
+> +    require(all(len(lane) == 1 for lane in rows) and
+> +            rows[0][0]["seq"] == rows[1][0]["seq"], "wrap probe missing or unequal")
 
 [Severity: Low]
-Will this also drop locally destined traffic from unpatched HSR senders?
 
-An unpatched HSR master advertises TSO, and hsr_create_tagged_frame()
-pushes one HSR tag onto the whole aggregate. A virtio/tap lower with
-HW_CSUM and TSO carries that skb to the peer unchanged, as a
-VIRTIO_NET_HDR_GSO_TCPV4 packet.
+Could this check run before the probe has reached the da/db captures?
+The only wait between sending the probe and reading the captures is the
+fixed drain at the end of ordered_send(), and it has no completion
+condition:
 
-Before this patch, a receiver with a tap/virtio HSR slave stripped the
-tag in create_stripped_skb_hsr(). That uses __pskb_copy(), which keeps
-the GSO metadata, and the result went to the master for local delivery.
-So local TCP worked.
+    ordered_send() {
+        ...
+        lab.observe(0.1)
+        return expected
+    }
 
-With this patch, hsr_gso_effective_proto() returns ETH_P_HSR and the skb
-is dropped before local delivery. TCP from an unpatched HSR guest to a
-patched host would then degrade to RTO-driven single-MSS
-retransmissions.
+The probe goes from t0 over the veth to dil, through the HSR rx_handler in
+NET_RX softirq, and then out on da/db. That softirq usually runs
+synchronously inside sendto(). If net_rx_action() runs out of budget, the
+remaining work is handed to ksoftirqd.
 
-The commit message covers the PRP case:
+On a loaded CI VM, can ksoftirqd take longer than 100 ms to get scheduled?
+If so, the case would fail with "wrap probe missing or unequal" even though
+the kernel behaves correctly.
 
-  "Older PRP senders can append one RCT to a whole GSO skb. Such
-  aggregates, including locally destined ones, are now dropped instead
-  of being delivered."
+The other packet checks in the script wait through lab.finish() with a
+completion predicate. Would polling lab.observe() until both lanes hold the
+probe, bounded by lab.remaining(), close this window?
 
-Should it also mention the HSR case? It only happens with mixed kernel
-versions over tap/virtio. veth cannot trigger it, because both ends run
-the same kernel.
+> +    start = rows[0][0]["seq"]
 
-> +	if (hsr_gso_trailing_data(skb, proto, l3off))
-> +		goto drop;
-> +
-> +	/* Segmentation writes skb->cb and header metadata: work on a
-> +	 * private skb if the input is still shared with a packet socket.
-> +	 */
-> +	skb = skb_share_check(skb, GFP_ATOMIC);
-> +	if (!skb) {
-> +		hsr_gso_drop_stat(port);
-> +		return;
-> +	}
-> +
-> +	/* features = 0 requests full software segmentation into single
-> +	 * wire frames; tx_path is true only for locally generated
-> +	 * traffic on the master.
-> +	 */
-> +	segs = __skb_gso_segment(skb, 0, port->type == HSR_PT_MASTER, 0);
+[ ... ]
+
+> +def topo(lab):
+> +    """SAN - interlink - HSR DUT - two LANs - receiver namespaces."""
+> +    tx, dut, rx = lab.ns(), lab.ns(), lab.ns()
+> +    for ns, dev, peer_ns, peer in ((tx, "t0", dut, "dil"),
+> +                                   (dut, "da", rx, "ra"), (dut, "db", rx, "rb")):
+> +        lab.veth(ns, dev, peer_ns, peer)
+> +        for owner, link in ((ns, dev), (peer_ns, peer)):
+> +            lab.ip(owner, "link", "set", "dev", link, "up")
+> +    hsr_attach(lab, dut, "hm", "da", "db", "dil")
+> +    attributes = link_state(lab, dut, "hm")["linkinfo"]["info_data"]
+> +    require(attributes.get("proto") == 0 and attributes.get("version") == 1 and
+> +            all(attributes.get(key) == value for key, value in
+> +                (("slave1", "da"), ("slave2", "db"), ("interlink", "dil"))),
+> +            "HSR topology has unexpected protocol/version")
 
 [Severity: Medium]
-Is skb_share_check() enough to protect the packet data here? It only
-handles skb_shared() (users > 1). A cloned skb (users == 1,
-cloned == 1) still shares its data with another holder. So does the
-clone that skb_share_check() creates itself.
 
-On RX ports tx_path is false, so __skb_gso_segment() calls
-skb_cow_head() only for CHECKSUM_NONE:
+What happens here with an iproute2 that does not print the HSR version
+attribute?
 
-net/core/gso.c:skb_needs_check() {
-	if (tx_path)
-		return skb->ip_summed != CHECKSUM_PARTIAL &&
-		       skb->ip_summed != CHECKSUM_UNNECESSARY;
+The kernel has only sent IFLA_HSR_VERSION for non-PRP devices since commit
+16a2206354d169 ("net/hsr: add protocol version to fill_info output"), in
+hsr_fill_info():
 
-	return skb->ip_summed == CHECKSUM_NONE;
-}
+    else if (nla_put_u8(skb, IFLA_HSR_VERSION, hsr->prot_version))
 
-The GSO handlers then write checksum fields into the head's linear data.
-udp4_ufo_fragment() does this for every SKB_GSO_UDP input:
+Whether a "version" key shows up in the ip -j -d link show output then
+depends on the iproute2 HSR print code. Older iproute2 releases print
+slave1, slave2, interlink, seq_nr, supervision and proto, but not version.
+In that case attributes.get("version") returns None and require() raises
+ValueError.
 
-net/ipv4/udp_offload.c:udp4_ufo_fragment() {
-    ...
-	uh->check = 0;
-	csum = skb_checksum(skb, 0, skb->len, 0);
-	uh->check = udp_v4_check(skb->len, iph->saddr, iph->daddr, csum);
-    ...
-}
+ValueError is in CASE_ERRORS, so main() reports the case as not ok. It then
+marks every later case as failed too:
 
-tcp4_gso_segment() also rewrites th->check whenever ip_summed is not
-CHECKSUM_PARTIAL.
+    for later, (other, _) in enumerate(cases[number:], number + 1):
+        print(f"not ok {later} - {other}: stopped after prior failure", flush=True)
 
-An RX skb reaching hsr_handle_frame() can be cloned. Two ways this
-happens:
+In gro mode, "natural TCP interlink" is the first caller of topo(). The six
+"PRP LAN" cases after it never call topo(), but they would still be
+reported as not ok. In ordered mode all five cases call topo(), so the
+whole test would fail.
 
-  - packet_rcv() on a non-mmap AF_PACKET socket bound to the port
-  - a tc ingress mirred mirror
+A missing interlink option in iproute2 is already reported as SKIP through
+interlink_unsupported(). Could a missing "version" key get the same
+treatment, or simply not be required?
 
-A guest or tap user can inject UFO frames through
-virtio_net_hdr_to_skb(), either on the interlink or on a PRP LAN as a
-SAN.
-
-In that case, could the other clone holder see the rewritten UDP
-checksum bytes? It could also race with them if it segments or
-checksums the same data at the same time.
-
-The comment above says segmentation writes skb->cb and header metadata,
-but it writes packet bytes as well. Before this patch, software HSR
-worked on __pskb_copy() copies with private heads, so this write appears
-to be new.
-
-Would calling skb_cow_head(skb, 0) or skb_unshare() before
-__skb_gso_segment() on the RX path close this? For reference,
-openvswitch's RX path uses the same skb_share_check() plus
-tx_path = false pattern.
-
-> +	if (IS_ERR_OR_NULL(segs))
-> +		goto drop;
+> +    lab.ip(tx, "addr", "add", "100.64.2.1/24", "dev", "t0")
 
 [ ... ]
 
