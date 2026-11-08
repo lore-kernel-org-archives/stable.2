@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794177742;
-	b=DZDKc7Tdpn69ckEtPzXV41HCH23IQeGgWDl+wP2T8Rcm9kcKtZewSpXuSEyreftnIx6y
-	 dfL0QCqfIsgCqPRBZeT15/h0lKpypoj1fSarV0vQ0Xozm3o7+hOqrnFKeFSjEq46q04z4
-	 y82T2SigUluK74lciGZ40d+5vzjzU3cJEEA9+hea4q2UGMvN92RdbEBkr2KJSGC4VL396
-	 uJI/YKqXSQfH7efgnq7pfxieq5UYe1jhfNfaFh022YuEw5DrD8igE8urDXMfzn/EpH3Be
-	 Chc7x3Cxq4HalLyTWeqMbnIWVy210ZMaktFKorVRD/oNSXqNRcNbhSsprtdp/gcLaqg==
+	t=1794177747;
+	b=BCnXnug3Nk4jo5RRdZ3MUWVRZIIL79cDZMVPSVdL3RmEdyx87vdX5MiB45XkqYE0r/tT
+	 7PpVUoriX6b3SO3YvhE5w0bHMiZbyZmeJrEJ5/ga3m0WbuuGfuwWIKMlVl6AN/N2Te/Dp
+	 Z7BBoBbhXrNGpDOn0pQK/GbCEMxueSWoRFwDeC5RQ57ZOiEsow1wQuv138ISykry3MGwb
+	 0tkoFLnfA6EdkPUXhYcGf4LRVSJsRBVfcXcSOfA9rrl5ZycDmaT8BrAapSHznurfnBR8e
+	 z8hweMUVbVwte8Zg4LjGX9lYmqbWNIl0wAgU4Lacnxvaz4FqL/NsMWj5rgAyF0DXTjw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794177742;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794177747;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=lbe9BNDMr49UztD1Swhygj7sG/vajGHKtETS4f+BRsc=;
-	b=kRQ36RYjYgjwGMejHwWI39WtVN6ArLpoh0qZer7UtunkFxvvW2BNonLY89XMOayGCgsY
-	 XcVhSDr/sRhOKe1tEQgi/ubGbePueMOx2OKfes5pxIAajDqu023KiI49ZLtPkuZWW/Qyt
-	 qn+9yboO0UEeATZGZjsm8KXsG5xAter30G/dibdNWHdoCrSDPE5ThgoIroKnBKytDtNMf
-	 NX1EPGdrQoZvgp6Wp83ZLLTcfahdVPEpZDxmrZF5z8poMeuYvwnU3xWPp+Em+ShaQNQBz
-	 PVCcgIINC9ZzI/ujRLdfxkbnZ//JB8xLgGUMEoGEMfr1WwzZjm21FtW5YSKZ5wsAufA==
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=qzHeLZPhDy5sgZl2YeSaSSmwqxhMbI/xK+PxVybiOB4=;
+	b=wPKP97SNk5j3rJzOsRvuArFzgV6DXxjJf8ZtwH4jnD4G4JXy0VItd5jd69aRIRw2S89M
+	 bSzsDFfXVAaiwy5bBkReMDZrD8WIkbGUCV2hhSjv5aUAF80B6r+MG6JX+MWOTqPqCowj4
+	 7/W0pj1gQTPtiN8AwyKjPs90rrNyEmXDte8b+30d4bhhZG7E87yLaz6hENv2U8TGA3Rwx
+	 eUQlApBLiXG2OsYbmbGt9sNDDfTX54Pz1Ty+46DEMX31Ay8aID7SWYEmxkCz8i05aqqGg
+	 i0fG3kWJNktA+SeDBE6zz/fXCHJqALGcvKPyrNZW6tVRIfA2NhLvg8Cpx9PWaF1n8DQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="xJT1q/n9";
-	arc=none smtp.remote-ip=209.85.167.177
-Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com [209.85.167.177])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Hlj0fTXC;
+	arc=none smtp.remote-ip=209.85.167.175
+Received: from mail-oi1-f175.google.com (mail-oi1-f175.google.com [209.85.167.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E145606A321
-	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 22:42:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E145606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A333606D826
+	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 22:42:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A333606D826
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xJT1q/n9
-Received: by mail-oi1-f177.google.com with SMTP id 5614622812f47-4b28d9537bcso210368b6e.0
-        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 14:42:21 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Hlj0fTXC
+Received: by mail-oi1-f175.google.com with SMTP id 5614622812f47-4b28d9537bcso210397b6e.0
+        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 14:42:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794177741; x=1794782541; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=lbe9BNDMr49UztD1Swhygj7sG/vajGHKtETS4f+BRsc=;
-        b=xJT1q/n9GOguRU28bqvGuRagX2zSp26ZTA51clxFlNZK2ZPQwAqkPBuNiiZer5WA+M
-         Updkfe1W5t6vuT3k+dnzacyHK1cJ2LP5H+0/fUOdwpeRs4WGo2p8PpmjPVd7/3FIVPXN
-         vPET8tp1/BrLYN7pEhlEXIbxKnmCGoCXQG2nxDmIGrDtTu33h3HXdqsDrtJQQlPkywBI
-         vD2UVuW98P/NNZG1qoksgn7M+kLLXxVqQx8ZWKyTYkKewfa28vQxqmHKM7+xr+QKqEdd
-         Xzn8S2kQiIonEejA8cKwCe3z4/bD0a9vu/m9jSsdJMd13aujGPBnLrRawAsP/y1pflNm
-         h5Dw==
+        d=gmail.com; s=20260707; t=1794177746; x=1794782546; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qzHeLZPhDy5sgZl2YeSaSSmwqxhMbI/xK+PxVybiOB4=;
+        b=Hlj0fTXCxV8yCmwJu4LjUB0Vf44qEZjv9f6NNP1IhwPrABj9WbrtEtvAgukZfSHY+w
+         f5HN7SmaIRAD0bhEdfqrkxdhUi19dq8j684KV/LQfC7iix3CTY6KWixYQIGNXh8HEHRe
+         j4P0KG8khsAveciJJb04vvPBlrdLxW+9kTQngCnNjb5Xqn70S9WMgb+q1zGlERTiRZ2+
+         ua4AqZh1SCdJuFn2MupfyXvdW07UlJv8gm+5KyxXYUned/btGRK/S6xof4qsbIgsKuz0
+         D/bjSfK4bYjoJ5kx7kdLI9NBtsWsvxeuCI10TBcklcce+M0iztRb1v9zbD8duP1JdPc9
+         CelA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794177741; x=1794782541;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=lbe9BNDMr49UztD1Swhygj7sG/vajGHKtETS4f+BRsc=;
-        b=LPY+5aH5vosWy1MMTPpCrtzDfIBPVCvjvRDldE3xd6l+wO03UYXEXfJ6jcB507pAEE
-         urh8CiWn9VtJXQ/7zXavQSNVSlHX8g4Jkdu0t+Qq25jmB5Q5a90ZQw1sJtEkPhLoYk+m
-         7sV5GzVRBZVKED37ifI+EinpupM/uWejfDPX+V3GqeWGlPhU7rcDyD9cXqR1moDt2n3c
-         d6iQjX4751gwoWswwzG2/kOeULa9cQ4EAKxca1hi+fCzPp4oMOh9ZcWU+8xDIU13BKs0
-         Fpc03qaZDR6IQgvxOf88PiO/+Wta9GXjbutyVA0s6E9/aZveBP4+Vh9J6WmAbLOFU5MQ
-         QF7g==
-X-Forwarded-Encrypted: i=1; AL+hErHa76/eaSYUXxgFhjuefRSrPuqpDvWEfePQ4X3dlLSYvaVM41O9pR/C0YLOODwbDHmVoE3WgMY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/NUXdPDYAg79LPY1rrJMT1v12/auNBSG8ualkU+EcwR1+8bpef
-	uYkLT+3wSLQ4cbpzZNMlxXkJWyl4YQx2ypzQ/TczZ2qINNDTpOahnfjV
-X-Gm-Gg: AYBFou3L4bDcojfZVlwZz/KkNtN10Iw/f0XXSj2rEMbQquNzCwm7V+T4IlDVirY8UWG
-	FBfNgD9wqbqf0CNyp4jvq1xqFcupC6RDiAquTqiGaXZxgzsF25JnJxF/zfLWZXQi12oksOWg/r1
-	21wNmUi856OjEIFNhiv2LKxcj+aiz2Q2kHc/qYZN4h9Qi/q4g2mCMIxn0bNFh12JMkbdy8YM1Zn
-	j7NlXZoIhargjYuzTtlFqwXQJqEtCo+4X1Qj8yrlB5+hY47EIx99uORn7F3XPxs26v4BJJbHQJV
-	4lUyKKVr7vm3quiVjMwQ+DHwiVIf5y5GomWEetnmUWcKeS/YRzgTf/X9Qv/Y5Fo12rgKLj4QvIn
-	4FQCV2DBf/XQ1LQAxDumXPBiF7zv0ya+vScsG7Q/rJ54sH2dTMLCHeMeyovNgCGuffgooTup2oW
-	3pJhNATcLEX9Coe0TG2hnn6TgpHMsA18HGPbfO5BK6/j/mI5rp5JFInDtdFwHxyv5GHkoNthcsj
-	E4h2iNgzFkrEgiJXDr/N54h3fRnEQhQt0WWWygzvV4rpVFxxFIwIOb2V7JTaCzidBphWqXiFtgG
-	+/9SS0Wi+6BGEDxiz6zX8ZXiRgQXhmgMf5XK5gJob18g+JBwdPvfZBdjUQenyjNOtgUmRukm2tK
-	ng6s2gtSZXnvt4M7EuJcumlP0hSYcMH/bMZEmNlexIll/yNzJPtaBzoL4boh8oHMQ1RKqih0cxz
-	KcyCT/bG1JOqTB5hJRHLVZzOXs4koTLOn4d8HNSvAxDrnMfmUNHOvbvQ==
-X-Received: by 2002:a05:6808:50a1:b0:55b:f88d:6e84 with SMTP id 5614622812f47-567fd57f184mr2789475b6e.37.1794177741024;
-        Sun, 08 Nov 2026 14:42:21 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794177746; x=1794782546;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qzHeLZPhDy5sgZl2YeSaSSmwqxhMbI/xK+PxVybiOB4=;
+        b=YkVLMeMl62Hom+jpVF4UdnFev3KGEFbE7jiWyGS8KM3UaqCJb8fiWDQuRJc9pI2tC/
+         GTyYcn2WzCDEyOND242ntk1XVyn1uyiwggokTkLE2CnIY+S9tWwg60VldXKKlhNxmcGL
+         boknRXq/YZrQ5e5H4K4a7seetYBKWPcdQSaZUxmCtINu3ZhaeWPPDwa1201u8e9NqUig
+         gsTE0BRRc5xACMHBS7ujrK3nk117kBAYRL3vaJGc9EamtA3GYwqFtqo/oIiD6ydxLhRd
+         t9DxWrdq2aIK/6OwZ2GrM7wFoq0YPdIGGNbHxwvJ75NC6jziH37jfzuwZxCQb/CDqArb
+         EpLg==
+X-Forwarded-Encrypted: i=1; AL+hErGWCEYPXN0opDMXEk4WCFqdMZv6aqRIhLRg9dTEMg2MJPraIJlTjzQR7Lrco2ntlwZKQjljJAI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/tozMzq/QigfQFedxuLaNtfg3RLppKvtmEQ0lyvktxVI/07rp4
+	Bows4jIvy5Yx7ho0dhshEya58dHaIH5dRFwnO6dIcz/sLM1d+kb4FgFH
+X-Gm-Gg: AYBFou3iSKG8AbRcA4Om24hHHdus6/KYVZZXxejB0ETOdMxxgPiHvzbGITr2uefYvNo
+	ad2SXfSWbvOg71JVLuyjee5WDgJCIHpjUsPBY69TqK6rFSneATnDvCCBuzAz/SotcyqiNkZOREm
+	PZjf7pYF6SwOncJ2d0WeH62UoRPhsQKqjMLhIc4sTzKrFB5R7QAwgOVrctf+WHdmignVJpvOwcN
+	SC5FUAHHcEMGR9Wmtb+WBvs/RSErhWWaqq5jtW92Q6YPLhGjcQz2OOlD1DdZQfk4Oag35pbkiXE
+	VNAZYsSx6Ky0Yv9YCBpnfzE+RusQTEHe/kcw5+bMpBDn6id8QUUz9niI4HLuMYIT4tBd1HpfIx6
+	s0LcXR4oAkTg1COZN8DJoMRassEN6ZkTOdTEJR1Vt4xXSBZWQe8hjNZsOoe5VVaB3ywb/CSjd82
+	OPzBnAXbsmVZkR///JNwovxrrX6dhxToDtnzN6za0D97a9YQyPQPjfmQ8O0KR3OIg4qHw7oGDZN
+	oL2GZ1eiinOK8JDJFyWYxxhmKKuthRr1ts+riFcPn0uIm3L6yi83HcCk1B9drMWwgsL24gMNBa1
+	4RpIUN1xMPFFUTgI/GD/7ntuSt8/4qwUE2VNidTwJev1t1467V6MrdB1zjh/nM1Robhm7fQYsi5
+	PGTv+3sldrKvOx8ZF1KWIIzHOg+CCBX+6RKQN4DeZWc9dlbwmCDgBrnvGckzRAjOL/l9j/ibtAK
+	y1gwDREB3XwxeFZw/rJQr5A7u9aa/u028O11AXuDZUK+Oq8hPCsoR8
+X-Received: by 2002:a05:6808:181d:b0:53f:b2f9:1220 with SMTP id 5614622812f47-568144741edmr1029934b6e.5.1794177746301;
+        Sun, 08 Nov 2026 14:42:26 -0800 (PST)
 Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-56813e54e39sm2859944b6e.15.2026.11.08.14.42.19
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-56813e54e39sm2859944b6e.15.2026.11.08.14.42.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 14:42:20 -0800 (PST)
+        Sun, 08 Nov 2026 14:42:25 -0800 (PST)
 From: James Hilliard <james.hilliard1@gmail.com>
-Subject: [PATCH v2 0/4] mtd: rawnand: qcom: unwind failed child
- initialization
-Date: Sun, 08 Nov 2026 15:42:07 -0700
-Message-Id: <20261108-submit-qcom-nand-child-probe-errors-v1-v2-0-4a8704cbf7b4@gmail.com>
+Date: Sun, 08 Nov 2026 15:42:11 -0700
+Subject: [PATCH v2 4/4] mtd: rawnand: qcom: scan all chips before
+ registering MTD devices
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -96,11 +96,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42OPQ7CMAxGr4IyY0haSikT90AMaeJSI5qAE6oi1
- LuTgNiRvDz/PH8vEZAJg9gvXoJxpEDeJSiWC2F67c4IZBOLQhZbpWQN4dEOFOFu/ABOOwump6u
- FG/sWAZk9BxgVdBUWtSy1qnUlkuzG2NH0eXQ8fTmZLmhitueNVgeElrUzfW4N0a6zf+1winneU
- 4ien5+ko8qeX6jdv6FSSahk05VSN6g29nAeNF1X6Uyc5nl+AwsHQcIOAQAA
-X-Change-ID: 20261107-submit-qcom-nand-child-probe-errors-v1-f5e2703a17a5
+Message-Id: <20261108-submit-qcom-nand-child-probe-errors-v1-v2-4-4a8704cbf7b4@gmail.com>
+References: <20261108-submit-qcom-nand-child-probe-errors-v1-v2-0-4a8704cbf7b4@gmail.com>
+In-Reply-To: <20261108-submit-qcom-nand-child-probe-errors-v1-v2-0-4a8704cbf7b4@gmail.com>
 To: Miquel Raynal <miquel.raynal@bootlin.com>, 
  Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
  Manivannan Sadhasivam <mani@kernel.org>, 
@@ -113,51 +111,106 @@ Cc: linux-mtd@lists.infradead.org, linux-arm-msm@vger.kernel.org,
  stable@vger.kernel.org
 X-Mailer: b4 0.15.2
 
-Keep the shared BAM transaction usable when resizing it fails, validate
-the boot-partition layout before publishing a chip, and propagate child
-probe failures after unregistering any previously published chips.
+Each NAND child is registered before the next child is scanned. Once a
+chip is published, its MTD operations can run concurrently with the next
+nand_scan(), which does not hold the controller lock. Both paths use
+controller-wide command buffers, and attaching another chip can replace
+the BAM transaction underneath an active transfer.
 
-The first three patches fix layout validation, allocation failure and
-controller-wide probe unwind. The fourth scans every chip before
-publishing any MTD devices, so initialization cannot race with I/O
-on an earlier chip using the shared controller state.
+Initialize and scan every child before registering any MTD devices. Track
+which chips have been registered so probe failure unregisters only those
+devices while cleaning up every successfully scanned chip.
 
-Assisted-by: Codex:gpt-6-astra
+Fixes: 6a3cec64f18c ("mtd: rawnand: qcom: convert driver to nand_scan()")
+Cc: stable@vger.kernel.org
+Closes: https://lore.kernel.org/r/sashiko-outbox-204074@kernel.org/
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
-
 ---
-Changes in v2:
-- Add a patch separating initialization of all chips from MTD
-  registration, addressing the concurrent BAM replacement report.
-- Track which scanned chips are registered for probe-error cleanup.
-- Link to v1: https://patch.msgid.link/20261108-submit-qcom-nand-child-probe-errors-v1-v1-0-509f30a9e14d@gmail.com
+ drivers/mtd/nand/raw/qcom_nandc.c | 28 ++++++++++++++++++----------
+ 1 file changed, 18 insertions(+), 10 deletions(-)
 
-To: Manivannan Sadhasivam <mani@kernel.org>
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Richard Weinberger <richard@nod.at>
-To: Vignesh Raghavendra <vigneshr@ti.com>
-To: Christian Marangi <ansuelsmth@gmail.com>
-To: Sricharan R <quic_srichara@quicinc.com>
-To: Md Sadre Alam <quic_mdalam@quicinc.com>
-To: Boris Brezillon <bbrezillon@kernel.org>
-Cc: linux-mtd@lists.infradead.org
-Cc: linux-arm-msm@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
+diff --git a/drivers/mtd/nand/raw/qcom_nandc.c b/drivers/mtd/nand/raw/qcom_nandc.c
+index 14bb7f3d6c36..978fa84f051d 100644
+--- a/drivers/mtd/nand/raw/qcom_nandc.c
++++ b/drivers/mtd/nand/raw/qcom_nandc.c
+@@ -89,6 +89,7 @@ struct qcom_op {
+  * @use_ecc:			request the controller to use ECC for the
+  *				upcoming read/write
+  * @bch_enabled:		flag to tell whether BCH ECC mode is used
++ * @registered:		whether the MTD device has been registered
+  */
+ struct qcom_nand_host {
+ 	struct qcom_nand_boot_partition *boot_partitions;
+@@ -118,6 +119,7 @@ struct qcom_nand_host {
+ 	bool codeword_fixup;
+ 	bool use_ecc;
+ 	bool bch_enabled;
++	bool registered;
+ };
+ 
+ static struct qcom_nand_host *to_qcom_nand_host(struct nand_chip *chip)
+@@ -2008,9 +2010,9 @@ static int qcom_nand_host_parse_boot_partitions(struct qcom_nand_controller *nan
+ 	return 0;
+ }
+ 
+-static int qcom_nand_host_init_and_register(struct qcom_nand_controller *nandc,
+-					    struct qcom_nand_host *host,
+-					    struct device_node *dn)
++static int qcom_nand_host_init(struct qcom_nand_controller *nandc,
++			       struct qcom_nand_host *host,
++			       struct device_node *dn)
+ {
+ 	struct nand_chip *chip = &host->chip;
+ 	struct mtd_info *mtd = nand_to_mtd(chip);
+@@ -2059,10 +2061,6 @@ static int qcom_nand_host_init_and_register(struct qcom_nand_controller *nandc,
+ 			goto err;
+ 	}
+ 
+-	ret = mtd_device_parse_register(mtd, probes, NULL, NULL, 0);
+-	if (ret)
+-		goto err;
+-
+ 	return 0;
+ 
+ err:
+@@ -2082,7 +2080,7 @@ static int qcom_probe_nand_devices(struct qcom_nand_controller *nandc)
+ 		if (!host)
+ 			return -ENOMEM;
+ 
+-		ret = qcom_nand_host_init_and_register(nandc, host, child);
++		ret = qcom_nand_host_init(nandc, host, child);
+ 		if (ret) {
+ 			devm_kfree(dev, host);
+ 			return ret;
+@@ -2091,6 +2089,14 @@ static int qcom_probe_nand_devices(struct qcom_nand_controller *nandc)
+ 		list_add_tail(&host->node, &nandc->host_list);
+ 	}
+ 
++	list_for_each_entry(host, &nandc->host_list, node) {
++		ret = mtd_device_parse_register(nand_to_mtd(&host->chip),
++						probes, NULL, NULL, 0);
++		if (ret)
++			return ret;
++		host->registered = true;
++	}
++
+ 	return ret;
+ }
+ 
+@@ -2100,8 +2106,10 @@ static void qcom_nandc_cleanup_chips(struct qcom_nand_controller *nandc)
+ 	int ret;
+ 
+ 	list_for_each_entry_safe(host, tmp, &nandc->host_list, node) {
+-		ret = mtd_device_unregister(nand_to_mtd(&host->chip));
+-		WARN_ON(ret);
++		if (host->registered) {
++			ret = mtd_device_unregister(nand_to_mtd(&host->chip));
++			WARN_ON(ret);
++		}
+ 		nand_cleanup(&host->chip);
+ 		list_del(&host->node);
+ 	}
 
----
-James Hilliard (4):
-      mtd: rawnand: qcom: parse boot partitions before registering MTD
-      mtd: rawnand: qcom: retain the BAM transaction if replacement fails
-      mtd: rawnand: qcom: unwind registered chips on child probe failure
-      mtd: rawnand: qcom: scan all chips before registering MTD devices
-
- drivers/mtd/nand/raw/qcom_nandc.c | 72 ++++++++++++++++++++++++---------------
- 1 file changed, 44 insertions(+), 28 deletions(-)
----
-base-commit: 30daaf3e7897b4a8d9b72e5b0c86dd6e2a4d7d85
-change-id: 20261107-submit-qcom-nand-child-probe-errors-v1-f5e2703a17a5
-
-Best regards,
---  
-James Hilliard <james.hilliard1@gmail.com>
+-- 
+2.53.0
 
