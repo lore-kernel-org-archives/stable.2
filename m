@@ -1,93 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.4
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794158042;
-	b=Y5kgV/BGAj47iiM2CXV0AzLepPPe38KMED9IgXK0EL4+/jQVYG+c7ShFw8oYMbDdQZXS
-	 MMO0ePkv8Mjkmg7n19amRv6xkuT32fD5INMWuQC4m/mMXdW7QjCRm81DPkVJmvmP8nFIt
-	 XDGHUfyVUBI+vgZ1++d5mpmckEaNRHLPnJz1usouSVFo6zhp5aiXB0UbHoY7aCcJBRjQg
-	 CknPTn0tdraHFty1KYtRc5E0tEUNlyDHmjFoDp4vHovMGd8kOoLuwX4agHJ0PaPG7vFC/
-	 PbG+bck+B0smNe5wP8r7R5Hwpsf1p/cyNuz9iZ4Gyg9k2bhwb2fm1vn1IYzapX2tIVA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794158042;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.175
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794158176;
+	b=ZU7BStTWrlOWA4aGfq6Xd4Eee77/hkMFUrrc1QNQbkQAZcuhksKF/lcVIyfKu1hD8otk
+	 JPOnbkkczksPpYjlx032j+Uufa5VfLY9f+NikOwRnbY0IoWsj1YnFpQP1E692bwSL4bC7
+	 0/8YF4rn7xo/4UV0beyCA+ZkvZk92ntoZPyzaUCvRiyzx7rznbkWFfxbxYr8j1/SRBAMZ
+	 muBUmD672/3wzK4C16Ps+lCbspSd1cN1fdhj/1RwhDs2FjFuVfS5P29zxbXJfz7I/eyOP
+	 lcgFynO+8nND4ov84BrTLIma1ZuA30kAsQKgvUwYSUcZLy931X2ubyqbthjkGl7PSow==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794158176;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=7A3DPF2MV5yooQhC2ets6IaNx1JEFDOIZBgDBHvC/CA=;
-	b=Ldzemj8/Rdhzup+DJfsQ9PbnyVjP94XTxPMjFSQP55yyfHNlk1QwL7dZ5ED3r0zUh+lA
-	 sJl2mjpN7DETpkUXSmQR14cJu5mpdPOcfrkBXbLSrL4TRaRbWV4wF2VU62Dr/E99HELv0
-	 233EUHWw7hfQQ+7vQEiy8gUAazWzEijk0OBudLH1Xbyai+eUWUurCgEUmM4qyp9E+l77I
-	 gAAqMyorF9SkkMEeaJFC3IapY4Jn+d0Ey2lcKBjHRlV5ryGSLaSvuQGHhVdJt8R1kGrtb
-	 bllnv4W93rTGu9OyUUfuVSvRUqVsV1pFDf0zjkIXPK+uhjm8LsfbQun7ATNjAGJPA0Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=elrB0jUAIbgKQ/C7FBbnNf3iANhILhG0hfcp3XkR0FQ=;
+	b=3G/JBgCCZKNNW2cjcra/Yw7RAUaoH/vrH4IZ6+HASV2m0kFdLGudJCAufwaA1TrjeIuX
+	 sREyz5824YVnbMHqCgoQHdFplee0J6fJwmQmdef6S/QChlP6dyF+a8VAdnFE3gWf2BkI/
+	 WMk6SHMktluq0rv+AyLxUicE648tQMhKUDPfAJBct/3tymNsU60wfis0VBfb84caYuOcP
+	 /X7k7gtI6s1YfZcVFoHXPrFENWjMP8fXymOd2GrNF2kWE2uNxRaAvxCpTAgpnLamLgDGR
+	 9hHTR3Pr+fKJCNbCaeb4OqvfweN7u/2m1eLn7PeUpqrrhlBNtL2XAhluY63PhVqK1bg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ina0o5wt;
-	arc=none smtp.remote-ip=74.125.229.4
-Received: from mail-dy2-f4.google.com (mail-dy2-f4.google.com [74.125.229.4])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QYLXAc8y;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3090606A31C
-	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 17:14:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3090606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2C1B606A322
+	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 17:16:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2C1B606A322
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ina0o5wt
-Received: by mail-dy2-f4.google.com with SMTP id 5a478bee46e88-36e06480786so130528eec.1
-        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 09:14:01 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QYLXAc8y
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-3712b6d9843so16984eec.1
+        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 09:16:15 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794158175; cv=none;
+        d=google.com; s=arc-20260327;
+        b=rN5AbEDHZ6t8X4Uo4bUW8D5ieptmY27XGqferCL0Vteqce0EFNSklzr3ESDg2BZDFG
+         1kEUOnp/W39N3sBgZAP7elWq/pgyemStRcX6wT+YGBdId3voJ5HQwaT3gAkWT/NiB0T1
+         /woDqUCJCKS24VAAlHGG6OJ8OGduv7kHAkcSQnaV8qf6WpuSIulNF661f/sx5gBTC9yN
+         AYgqPh0Nit4ptXwReyufhAG/PVrhopM0GHY3po3TY19ADBWBV01QOnDWuUTtlTr74I62
+         F33saZUaMzxfTd69mXgAtW8IHRWs0ccQ0g8owUwSYoitUkYmk7emvYC68bFikwx7Ulq9
+         3Y/g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=elrB0jUAIbgKQ/C7FBbnNf3iANhILhG0hfcp3XkR0FQ=;
+        fh=OvYR9zp9xTDk1Ua6APjb4SiT4tJjOufq02jTXmF0oag=;
+        b=BOKpKkaTxYvC5V9o6Bi8VJDHVpaAK/WuQh2gz8KJk461khqOmgiiRNbkmPTnarG6hM
+         tUhRuiv050hU9X1h5HulxdNcxXBvj8Vc+wJdZFnn1pSt0CgwV2GYosQ5RphvsiXGvAUV
+         +TiTLZ7+oA9U+a9xEtU/hU4af0oR4Jvgq/tEgxMKz5Qrc+zhnd5T4BTo7R9mwe3MEblI
+         f9twCEWEc5unMMsjOp77ui4ZiFLn8oNCqeqRv+K5zleU5koWwdgVaBV8WQ9VJeRubcTq
+         5SSJc4H2VixpoxmJmdXSVcOsFVMbdAn6LaFxXqmheL1Vc8ho5ThwAtldmV9+fiUOPobk
+         kdVg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794158041; x=1794762841; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7A3DPF2MV5yooQhC2ets6IaNx1JEFDOIZBgDBHvC/CA=;
-        b=ina0o5wtUHRVIk6qynyDWoufS8G/6ga/9SCmASz+euoyjuOH9eFx1yzf/prw4PZsHA
-         bHjz7cuBvhwOpF5p9T5f7b4oFdE9PerI+tBxPMw8QJEbfo6w1dgEarpz6l51HRXEahrn
-         Y7bZwf4s7tpkux3Xh/nI15oDhkU8HEPSFVYGY8lJ/xzycYrhMC5NtF2T7EI3xqPWn7dQ
-         GDFPv50NylPVFTaUWDnKR0tGRHlgOZ9YLSUOBVoo8axF8baWQQ1drF/vgqVh1HeR2B/N
-         2yUr6NaiFdS4EOZhl1nIwh6Wbfl1+4lKPeLqr7Y8Se+BdfC9rE5fBNK4x1CD4OjnNlDp
-         pCmA==
+        d=gmail.com; s=20260707; t=1794158175; x=1794762975; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=elrB0jUAIbgKQ/C7FBbnNf3iANhILhG0hfcp3XkR0FQ=;
+        b=QYLXAc8yuXsOoWrvJlkiHmQWKNxQNVXqZ/9ylB/rN4Cot0HhpnCGHWRWB5TLLG6B1N
+         LK0YMd5sTR68WUSj/cPopOlL9xKyKcWuNk4asxAVXIio/GPOPgY+eikT2z2ZwlleqWYc
+         Nvq0DstLNjdv2JelaJNYDpJ0IKCLL08ZWNle5ZviC77x5Wr38IMh6zMPSl6XpBwARBDC
+         bDMjQITwR17Rm/3cxPvhz6IsJhF2RDpMU0t0XDYChIigwm3rCSIEFbcH9xgl9A36UOCs
+         zO83E+GGWC0dEm9d1f7gGoVxhSSkEjNzd+ZZDm+V0kGQr9i9AbbG3elHWqpHWrpKrlK9
+         vcbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794158041; x=1794762841;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7A3DPF2MV5yooQhC2ets6IaNx1JEFDOIZBgDBHvC/CA=;
-        b=xIdA2EJQdHNKu1FNhDw9viZlmujHQJNzcnJkjJCuJSdAJzJcoGg/VSr4B0n6QWhjcO
-         SgmrrsGWytNaY/k+m3QstPXwkbjDivK7jXAZaHKAbf8gBGL88+x/ZfeT23e/av6y86AZ
-         tNPnTukh42WTCxIrcef19tyBKyvCr5vAN+xtIp35cdqh9f3ug3V3McqLr3KVHIXnbZZ0
-         Mi00i/RLmN10+zCwUEzw78kr2Xx0iGL/qCEhq/Qjv5zKtinSxv5tf6CM1cvFdNak45na
-         +o1rbH84eqh0qr+ogPOLPPQXOIvHkQw+BkTk3jA33eFQgognknyxAva0ylqGDLEcd9f3
-         1ktw==
-X-Gm-Message-State: APuU4Z/WJC9bX13x+cYWC/Q7w8P9eov65mkIygp9xtPo+lrMs1aOvpD/
-	lTHz02kcdYk2FuuAMEAA0wMDNNiOHuKO3235Ssty3NakosQ9yGK/fnicFRG3a9gsCr5XNQ==
-X-Gm-Gg: AYBFou1nRK4dkm9FEtJ2gteSi+jMgRB9y+67HsjDQpq1Js/BWeSR7jfkBpE0yp50lTw
-	Ms9VPdiOARvSzZisCNvVEnOMy3sNGOs6ZU84T++4lDGRRfgbAN7ckv2iFlW6VpRM79a2XLNZLjY
-	SOjcmNBW6yZxXXuzpOmF/ZF/eVAIiWQi0uoQAdB75VBjW00acgLKE9LUgrg7N4PWTyABT/z9TKc
-	ymSsXUJxGSOQLvDLZyL8xao0bfuSAf/cmDYeGX1HhlZZf/0inaH9KxyUUp8rMxihYIleZwgoSIl
-	gAv8wiON+C6XLtK9OTW9ajgYwMeeUlpJh4mGc4iIENDB7AA6dV7osPp5RzSkgQzwdHUpTUnRd7T
-	+AGzqY54Ojw7Xg6dFV61N44yU9xDTXh8/DyqFZDjkshqOyHF6h9Koc4p6vRT5SISxKrgDc6ydYV
-	SZp9XLrR+Gtir+0rfE5AFYMF0rudb8pdI/Ckls+1eVhlyZpvrraJtoXhDiosb9UrXFEoaY/YxPR
-	s/XtByGOcbT3gXXyVs3R1jTGeHzdKbkpqBF0SrmQL8e2tfXtjjzMrtaKJP8VhZEtw2aH8uHoVKC
-	l1ns3kyx0XgT3s3pye/6Ob4hOw4OemsA2blKPQQ/rVg1669MHFH6dsG2ZEQRqhJUy7T0as0=
-X-Received: by 2002:a05:7301:da8b:b0:36e:a321:5353 with SMTP id 5a478bee46e88-372543bbbf7mr4238178eec.2.1794158040615;
-        Sun, 08 Nov 2026 09:14:00 -0800 (PST)
-Received: from AERO17.taila7786d.ts.net ([45.95.212.227])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-372660f444csm9972395eec.19.2026.11.08.09.13.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 09:14:00 -0800 (PST)
-From: Pufan Jin <cyan2254650260@gmail.com>
-To: stable@vger.kernel.org
-Cc: Mark Brown <broonie@kernel.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Michal Simek <michal.simek@amd.com>
-Subject: [PATCH 5.10.y] spi: zynq-qspi: fix address buffer corruption and support 4-byte address
-Date: Mon,  9 Nov 2026 01:13:56 +0800
-Message-ID: <20261108171356.66438-1-cyan2254650260@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261107062802-failed-5.10-dc5ca34f5e8d@kernel.org>
-References: <20261107062802-failed-5.10-dc5ca34f5e8d@kernel.org>
+        d=1e100.net; s=20260707; t=1794158175; x=1794762975;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=elrB0jUAIbgKQ/C7FBbnNf3iANhILhG0hfcp3XkR0FQ=;
+        b=UmAudOsABI0DU1wamnO4VsTstPMiRxMWufcyjb23ty3EUP2gtnuYBthe4mPIuQEsHL
+         WLyGMTvHIoifoMNcWj6iq8+i3+43TpyU1qdPVCW91JpFQeDwPb4F0IdQkicGXTg5Y7jg
+         9gzIWZ9tilbVeVU4Vwm6hsDnCs97LJBn8xdwvu53zaMPB1BIQtiQyNDbMU1xPHOgKp6e
+         L6ONTnqKmkLuqlnnmG+VNQxjrXM71WNmmmxn7CkFshw9kl6zpjjo8RePt3MqPihAz+FW
+         Nxm13AhZgPRYFZ236ViqFoGqZ1+6bwI4egLUJK7EZEfFmyWT3aw/8OT0GtaL1nte6t7n
+         EtTA==
+X-Forwarded-Encrypted: i=1; AL+hErFrqhmCXyYdhHci/cFtRmhe4DeUurtmBCsACpBpSnWMBQMaXIEARF+a7yRf3i8ztzghrSstPmk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+nGn7LNn9EJTn6dUBcFX2gfMVyZqwbtao+TUnk85K07GteYG45
+	VJiVRwg4bLqay1mhspOYgOvqS2aeAYDEu8xYnnhAYA8JO+B3D6PEineXjrN/7vLLJ5YZ6/wY3jZ
+	24xxRWAdrf4Xx0PB3Usz0zq8H7CCKFq8KqGlb1Ws=
+X-Gm-Gg: AYBFou1umb0YJLD8NHmqnmsWXvG1NCZmNLpq3CJpXNhtCkZn/wFBeLD7DbNMZi4kQZL
+	1Yh7CS1CyJUf1NvfsFqDVN8yfUnpfe8N4l+gYUjHS/1E+U9vV0su7NQF7xD/3ZMtvO42gLgBVtI
+	jg0V96Os/s3mIWrL02MsXF3pefJCFKVyp16AsvzhpwhxstZkY3tY97DgXW4NgPg6UPtDdEkHqoS
+	XHxnsq6HjqKIDulWUulo0dzihX9U+GLP0LrpB8Nm1FYpQdy2p6+JJ2ReMYEWWI/WpkVqb8uwFGi
+	WZySHa1CPKESKDCM97U4koj63oZ2tGuGYsNr5KClDmmsJj5Oq6ujONxF9uoWxOFbq1rn5We0omK
+	WAME5nPeYNyDrZ7E0us8N/h/KC5vIlu1PPqQ5iZIC9HEFsXQhK7vPhILJpHMMjJzuFGRU2codA/
+	ArEgG3FblDMXCK8ng=
+X-Received: by 2002:a05:693c:42c6:b0:359:8492:20ff with SMTP id
+ 5a478bee46e88-37254d9a084mr3476444eec.12.1794158174728; Sun, 08 Nov 2026
+ 09:16:14 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -97,78 +105,30 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261107142006.3711973-1-hj351016@gmail.com> <4d6c1da5-bb74-4fde-9cd5-9f361da26bda@sirena.org.uk>
+In-Reply-To: <4d6c1da5-bb74-4fde-9cd5-9f361da26bda@sirena.org.uk>
+From: khj <hj351016@gmail.com>
+Date: Mon, 9 Nov 2026 02:16:02 +0900
+X-Gm-Features: AclHuK9i40GCpnkRR0bNNPrQH8ExOtzwwehbWdVg6Fmq930oRUagKnaGTsJ4ME0
+Message-ID: <CAGr5VtOKK=FA_PJWvXr16r-RH426M7trfsXCXGNgPZ20ROYgVg@mail.gmail.com>
+Subject: Re: [PATCH] ASoC: twl6040: cancel jack-detect work on component remove
+To: Mark Brown <broonie@kernel.org>
+Cc: Peter Ujfalusi <peter.ujfalusi@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-[ Upstream commit dc5ca34f5e8dc10c566ef39aa3b1a201a17ca734 ]
+Rebased onto current ASoC and resent as v2, thanks.
 
-In zynq_qspi_exec_mem_op(), when transmitting address bytes, the driver
-iterates over op->addr.nbytes and populates xqspi->txbuf[i]. However,
-xqspi->txbuf is never re-assigned before populating the address, meaning
-it still points to (u8 *)&op->cmd.opcode from the command phase.
-
-This causes two severe issues:
-1. Memory corruption: Writing into xqspi->txbuf writes past the opcode
-   buffer on the stack (which was passed as const struct spi_mem_op *).
-   If opcode is zero, xqspi->txbuf is uninitialized.
-2. In zynq_qspi_supports_op(), operations with op->addr.nbytes > 3 are
-   rejected. When paired with SPI NOR flashes larger than 16MB (such as
-   Winbond W25Q256), spi_nor_spimem_check_read_pp_op() tests 4-byte address
-   support, which fails and causes spi_nor_select_read() to drop all read
-   capabilities, failing probe with -EINVAL (-22).
-
-The Zynq-7000 QSPI controller hardware in manual I/O mode natively supports
-transmitting 1 to 4 address bytes via its TXD FIFO registers
-(ZYNQ_QSPI_TXD_00_00_OFFSET).
-
-Fix this by introducing a local opaddr[4] buffer in zynq_qspi_exec_mem_op()
-and explicitly setting xqspi->txbuf = opaddr before populating address
-bytes. Also allow up to 4 address bytes in zynq_qspi_supports_op().
-
-Fixes: 67dca5e580f1 ("spi: spi-mem: Add support for Zynq QSPI controller")
-Cc: stable@vger.kernel.org
-Signed-off-by: Pufan Jin <cyan2254650260@gmail.com>
-Link: https://patch.msgid.link/20261016130812.282624-1-cyan2254650260@gmail.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-[ resolved context conflict due to mem->spi->master in 5.10 ]
-Signed-off-by: Pufan Jin <cyan2254650260@gmail.com>
----
- drivers/spi/spi-zynq-qspi.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/spi/spi-zynq-qspi.c b/drivers/spi/spi-zynq-qspi.c
-index 28cb3e7f6..58a9134b2 100644
---- a/drivers/spi/spi-zynq-qspi.c
-+++ b/drivers/spi/spi-zynq-qspi.c
-@@ -231,7 +231,7 @@ static bool zynq_qspi_supports_op(struct spi_mem *mem,
- 	/*
- 	 * The number of address bytes should be equal to or less than 3 bytes.
- 	 */
--	if (op->addr.nbytes > 3)
-+	if (op->addr.nbytes > 4)
- 		return false;
- 
- 	return true;
-@@ -535,6 +535,7 @@ static int zynq_qspi_exec_mem_op(struct spi_mem *mem,
- 				 const struct spi_mem_op *op)
- {
- 	struct zynq_qspi *xqspi = spi_controller_get_devdata(mem->spi->master);
-+	u8 opaddr[4] __aligned(4);
- 	int err = 0, i;
- 	u8 *tmpbuf;
- 
-@@ -561,11 +562,12 @@ static int zynq_qspi_exec_mem_op(struct spi_mem *mem,
- 
- 	if (op->addr.nbytes) {
- 		for (i = 0; i < op->addr.nbytes; i++) {
--			xqspi->txbuf[i] = op->addr.val >>
-+			opaddr[i] = op->addr.val >>
- 					(8 * (op->addr.nbytes - i - 1));
- 		}
- 
- 		reinit_completion(&xqspi->data_completion);
-+		xqspi->txbuf = opaddr;
- 		xqspi->rxbuf = NULL;
- 		xqspi->tx_bytes = op->addr.nbytes;
- 		xqspi->rx_bytes = op->addr.nbytes;
--- 
-2.56.0
+2026=EB=85=84 11=EC=9B=94 9=EC=9D=BC (=EC=9B=94) =EC=98=A4=EC=A0=84 2:05, M=
+ark Brown <broonie@kernel.org>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
+>
+> On Sat, Nov 07, 2026 at 11:20:06PM +0900, hyunjungg wrote:
+> > From: Hyunjung Ko <hj351016@gmail.com>
+> >
+> > twl6040_remove() frees the plug IRQ but does not drain the delayed
+> > jack-detect work that the IRQ arms, so the work can run after the
+> > component and its devm-allocated private data have been freed.
+>
+> This doesn't apply against current code, please check and resend.
