@@ -1,59 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794102207;
-	b=o7Pk1czaG07bj4NqNBoIqrZBxaSrQRmEOpciRKd8Meimibaf0+Q1uoFqcbMbwq0uq7K3
-	 WlBprK05g72BAuS7MNClhEKDAlvis27Kpstb6TBFMvhCvmhz3Hcg47W72apN+9bODiY+4
-	 iBZskL+VafD6szSQfNXVHDiIrLSf9CC0YYEurgLKyATnZNUK7Z/0ZRACyLo8xk6a/FhV6
-	 FP8kS6Ho0EwlTAWxLkHmZiHHDknK7w150qa3ICc/urhaPctZA9o5okULDVIBEcS0IYaCO
-	 IlFHPYhqbRl7jywR4RO+wYQ7ppfy/dvQsk7SSD3a57j3YsLv/XRHeh8khBD2wtFCTFw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794102207;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=ZQi+wcGN8BItwBcnAAUfIFwj+xckksHXa0HxYHO7oKU=;
-	b=k3n0kf7dl/GnzIGqYjTzc+Rqx8peVegDakQyvm9LL4nnjbqLcMIkUdag5YfnScofRTIM
-	 W1SfdSj2HlGJY8/H58XN8reGUzUcnJKDn9Nuf8HnqomVBWYPs8EpykrPHJ6JflC0yCvdD
-	 95j/iVziZ0UL0uNHvt1er4ezCaQ2AfwKfxL4m79d2KRxnRDOkR0CUINiV4whTNOLWGn5S
-	 Xdl5noG59bGAL7Z48UsXA48Y248eGo78B7cat6S2KVgWNZGoBp3U784jCHRd++Yewzlyz
-	 iiNA92pzaCuLD6zDsUEpCZV++uKy8Cc9f2d2j3mdPennEWXlofFGu8icvY10ZhRG3Jg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zswwzr1b;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.169
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794102263;
+	b=kdR+pXLDZzVkL2z+q07gXzHPuSOR1A6ggqirZ6D2fNKTwdVTcIUr1ZOzjNfqZyy7pAIf
+	 v4CtmGYET3mYlRodfBd/5HmcI4EzVS92cADGkMFzvg58H4bH8J0phldUrDfXTH/GckSOB
+	 95ulTZ5aENGTQeouuu0mwoTJ/1xggDqovR0Yhzo2tJkW/KaczcBdLn81JIFhy2/QT3ydT
+	 GabHzYC1bvNXbonryjT6Jj7jtqt5TMAbyjTYd792hLH1Y5ygZeac75zk5dvmmCXy9+LGR
+	 PiThaPucSTsaAREms1PeACVdK2ZrrbDswzfS6yZO61rji5YIAGJCWK3sc/C9eoXUb2w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794102263;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=/ej/hUBV1NBOGVDMaP5rt4w8zmL+CLNc6ALzKVqxDRc=;
+	b=rWAoPrJ4Xibn9kepY3RuJqigObYtyksaIL3OV/gOogIIqwLtsKyPya6mUarh0ohOqOTw
+	 8kKd+48LzEUM6MTvWibLDwqyfEwvt1CpVypc29ShnblVUDTitYbxc+exw21i13NKyrpGW
+	 kdP5RDIPM2XUiDWKaAIdZRXx4yKt3tx5qfXv4fjDiMJ+Yk25fyMQ1JUQ5yDAxI7E+jh6v
+	 kvZ+XlPekhcVx+6yZeoP47LG3O+fpTU/l1CQkBKerbCFd5FKog5u1r5/wM7zNLeQbHT9N
+	 R/u2ZLrEkm64inM6T1H850A6kADFU0z8FjymeIr0BUqJGhVpyv3nipx/rq4/CHutpNw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cbIGgLLX;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.169
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3196606A326;
-	Sun,  8 Nov 2026 01:43:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DE6F606A330
+	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 01:44:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DE6F606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zswwzr1b
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80A091F0089F;
-	Sun,  8 Nov 2026 01:43:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794102206;
-	bh=ZQi+wcGN8BItwBcnAAUfIFwj+xckksHXa0HxYHO7oKU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Zswwzr1b91kHAuL5JCCtAuMU22HLbhIViY10SDT8yb0U90JcrVuYn+wr/XVz8hAOH
-	 zkWpFgYuE5hooD+3UcFXvuqaO9OpGqcCgBd/ixM5cogtSh9K4d38LFzsnzrmwMeyaW
-	 M9nJgQttR5LEUAvzBmowUcsv7Fq9XiczLabjfdRywMhZtVZh0iorNC2CHxvkKad074
-	 N3GBt32vYaCaTppksqq42tEkSVTDUdAGpxPiZNxp43TelIEHsz5zS2VcpJpZgFOyd6
-	 wKIh3YzBeuCEGtFF0GFwP+MoW0E+Dy3JMUUPSpoX5iy6CNp2Hy4PNRbK8pKOEKOwzp
-	 mUgE1PZQLtqCg==
-Date: Sun, 8 Nov 2026 01:43:20 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Yu Zhang <yuz08559@gmail.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH v2] iio: trigger: fix use-after-free in
- current_trigger_store() on concurrent writers
-Message-ID: <20261108014320.3f437f2c@jic23-hlaptop>
-In-Reply-To: <20261102034532.33246-1-yuz08559@gmail.com>
-References: <20261026100246.68005-1-yuz08559@gmail.com>
-	<20261102034532.33246-1-yuz08559@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cbIGgLLX
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-36ca32a0faeso8110eec.1
+        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 17:44:23 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794102263; cv=none;
+        d=google.com; s=arc-20260327;
+        b=IqnmoB6o2Hoocp8nuYVGWrg821TSVUolm6EENghPAuR0fZy5bG6azh3TRlzv4jdCgv
+         89iClY6Xh+zYRnttAa70TxpgRleOI0HrLHdM6h94aX4fCVlRv6pwP7i9TLYXIkY2Rs7r
+         5S8cnIIuLlOJMJqXKJzXQ6Vl7lA8mQFgFETw1Ktx9dygrgsz1cNUVWNI5O4xWeNKhbzI
+         uovP+/6/4aTNFmYaJFs0EkMU5lgYKjlKCQHABOFwnCZa7CDBEyVnsMK38dnNlcIKndRv
+         xL6BonRYB1eLCEyltbHrujcybA3AdKJaJsaMvZVxNBBy9e73pHWdxyJebsr91zS43LN2
+         SPYg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=/ej/hUBV1NBOGVDMaP5rt4w8zmL+CLNc6ALzKVqxDRc=;
+        fh=9sbbNvrryxnb1RJxj440xWwXCOm/IHnrxblOfaY/0rg=;
+        b=sL6LHpwqnu6cKA4upJB01Uybr/Nq9CY/XTKjENpb3Y4SkJ5fejcpchBiDTXAOTZ8W6
+         RC6MN3D56Lp+LnIe2r9HQdNQ0NdvO85l8+hj0WpY0w3kUqC+iWMLnwcq8MOeZuWuuHck
+         IJz6+Dh3YNWo40Zg6BaIRBP4r4oELdnApaFkG/deL0cNKSWORUB/kOPq/nC6p5kmink3
+         ndiVP9/JLkhMyCZwEc2wJfEqGF/FS9DVBx8kmg+JGjg66pZlNTQrcpPY7v1PzoqnKb0o
+         V/AFDa7dj9icZTorf121/6w92Bo8kfnxW4mMCyUWi/wq5zGm8+sdw9rbSFdlqLtESsyb
+         wahA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794102263; x=1794707063; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/ej/hUBV1NBOGVDMaP5rt4w8zmL+CLNc6ALzKVqxDRc=;
+        b=cbIGgLLXG2KRLPi7QiIVApc6PGg0pwg4gn+qxyUMVnHJ3Ous5ocE47XnA7aV+i6AkJ
+         XPB4HNGRf+jjDc6bVkZ4vXFAOfa89gDKsiQvQFVBI3Zlpv74oBS/9Bgk0OeCSBxAz/Xe
+         WGhA47loIodR9jFyZW/DdZ0EkRRhmo0ZEKySE+DTMqFQAbgLp2/Bb65SVOzkiWj7bvnw
+         D8wKYrqzME/sambcS7TwI2eXKOc0nWAuTvT1ZzobFGfIUwJp+wjcm7gUKdxMlSvX6VA0
+         3tW6dFHz1ld1nMsF1nrtTSFFc3OAOFU4qzGjMEQFYt65S262ES8EyJhntyk+5cGU+SAs
+         +oLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794102263; x=1794707063;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/ej/hUBV1NBOGVDMaP5rt4w8zmL+CLNc6ALzKVqxDRc=;
+        b=d/IB4FWeoGY6Y+gfU7SCrp7zwIsH6zjYH8V3vbBm3K2J22jD34oH6JKnTB4FgtPXgG
+         QLkTrjC8uKiSbaQW6Px2GSW1ZU/WovFHcFx1OzJkYfarAuZYC0C6bGOJ9HzSdIENKl0w
+         ljHeZRsXqFWeCGpGfFlxPSaC39lYFd33fD5Jo1EMdhTiocb30sScFLkU5lenvxEdmPKW
+         5kjaYEun5vzipeHV61Npo77e9cm0ODihwM/sDqgDkFYR2Mf/AuY8FTBvdM9Qpn8WBGeN
+         AxtkIPP2oYNsuCSrsCabv+6MWM9TcuMHfut+K5DIoGNdhlSSLFiHERW8n+YqjTYyj8ln
+         ZCpA==
+X-Gm-Message-State: APuU4Z+ih/ahOouG6mhM/bti1yHs2+MvSVnFUSO1/SLi/SfcuDMrXgga
+	/U23iiWospVQbcrrmUyaofN0i1oQ7JJWEl49fVpipnkHn1ytoi8GNUr1nFk9Og8p0cFT9JcH6Im
+	9oLTYpfZ0NA+hNQtnJ4xlFuM1eVMbH68=
+X-Gm-Gg: AYBFou0E2ueCMGvNZs+myTSpj2p17pYtXS5Rzp/uuYO0wTSnMjxkbBhzk/bbeqEMppt
+	LKOYF5+e1jb9k0rzSfZVreOnxPmheyzLwDDsdulfZmftINLBO/0svpFq8UwBOhCsPMMhHCx2RIP
+	rdLTESPO36w70sy+Zf3pO3/r+L/MnyEA1WcRS0Y+Cnly8068YGge7kku9iBHBgPqambJzg5X8Xb
+	Muc0RqM9HNGzZJGZ/SOax2x8VdlSjI5fHmRaP7hdTMM2/YJelE0a9MPg/JJ92Glk5yza9EMvkN7
+	BXfAzUCnF6P4JeIZZl9o5jTnfA7bgrOQ74jz/20ZB2VqSy7fc40tWv8py+zRM+YJk3v1rSXagMR
+	zowLNOesxl26dnVdWaug3Tjispn6VFGxCAsAc67AwrUXGalNGCfHeLDkw1ptR7HFKLnIL65rZQp
+	0uggEDHZL8KwaEdy4jWtqtd00Zj+cM1EUOZ7KpGWajuwHjYOCSL7HnhJerckTlx/SHRcDiLLRyA
+	eubkLRrDm/1D0n/tyzXpBRRnw+0VnS3+Od3
+X-Received: by 2002:a05:7301:6e8c:b0:36c:a1bc:6114 with SMTP id
+ 5a478bee46e88-37250050596mr1795949eec.0.1794102262529; Sat, 07 Nov 2026
+ 17:44:22 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,166 +105,33 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20261107134957.653319350@linuxfoundation.org> <20261107135011.630471081@linuxfoundation.org>
+In-Reply-To: <20261107135011.630471081@linuxfoundation.org>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Sun, 8 Nov 2026 02:44:07 +0100
+X-Gm-Features: AclHuK9nmE6X3XMNIv0YfpIZ8wppVgI9hnqEEIeGEre_LeP13ZN6imhA9BOOMSI
+Message-ID: <CANiq72kgADu2_hr0iK3E2+8HjBNww_b-w0K0_3Su9hCeLiMeYA@mail.gmail.com>
+Subject: Re: [PATCH 6.12 0505/1536] rust: allow `clippy::as_underscore` in the
+ generated bindings
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
+	John Hubbard <jhubbard@nvidia.com>, Miguel Ojeda <ojeda@kernel.org>, Sasha Levin <sashal@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon,  2 Nov 2026 13:45:32 +1000
-Yu Zhang <yuz08559@gmail.com> wrote:
+On Sat, Nov 7, 2026 at 3:23=E2=80=AFPM Greg Kroah-Hartman
+<gregkh@linuxfoundation.org> wrote:
+>
+> [ sashal: Added only the as_underscore lint allow, omitting the unrelated=
+ cast_lossless/ptr_as_ptr/ref_as_ptr context lines missing from this tree. =
+]
 
-> current_trigger_store() holds iio_dev_opaque->mlock only around the
-> INDIO_BUFFER_TRIGGERED / trig_readonly checks and then drops it. The rest
-> runs unlocked: it reads the current trigger into oldtrig, acquires the new
-> one by name, stores it into indio_dev->trig, and drops the old trigger's
-> reference with iio_trigger_put().
-> 
-> sysfs does not serialize writes to the same attribute issued through
-> different open file descriptors (each open has its own kernfs_open_file),
-> so two threads can run current_trigger_store() on the same
-> .../trigger/current_trigger concurrently. Both read the same oldtrig, both
-> overwrite indio_dev->trig, and both call iio_trigger_put(oldtrig). The
-> extra put drops the trigger's refcount to zero while it is still in use,
-> frees it, and a concurrent writer then dereferences the freed trigger.
-> 
-> With two sets of writers hammering current_trigger between two software
-> triggers on an iio_dummy device, KASAN reports:
-> 
->   refcount_t: addition on 0; use-after-free.
->   WARNING: CPU: 3 PID: 3467 at refcount_warn_saturate+0xbb/0xe0
->    kobject_get+0xf6/0x100
->    current_trigger_store+0x15c/0x4b0
->   ...
->   BUG: KASAN: slab-use-after-free in current_trigger_store+0x168/0x4b0
->   Freed by task 3468:
->    kobject_put+0x125/0x220
->    current_trigger_store+0x2cc/0x4b0
->   Allocated by task 3454:
->    __iio_trigger_alloc+0xc7/0x100
->   ...
->   Oops: general protection fault
->    __module_get+0x27/0xd0
->    current_trigger_store+0x192/0x4b0
-> 
-> Hold mlock across the whole operation so that reading oldtrig, swapping
-> indio_dev->trig and dropping the reference are atomic with respect to
-> other writers (and to buffer enable, which the -EBUSY check guards).
-> Acquiring the new trigger with iio_trigger_acquire_by_name() under mlock
-> is safe: it only takes iio_trigger_list_lock, and the buffer path already
-> calls iio_trigger_{attach,detach}_poll_func() with mlock held.
-> 
-> The trigger swap itself keeps its goto based cleanup of the newly
-> acquired trigger, so move it into a helper and take mlock with guard()
-> in current_trigger_store() around the mode checks and the helper call,
-> rather than mixing guard() and goto in one function.
-> 
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yu Zhang <yuz08559@gmail.com>
-> ---
+I guess this means the other lints (from the context) were not added,
+which is what I would expect, i.e. the upstream one was only about
+`as_underscore` (but I checked because it sounded as if somehow the
+original patch had more added).
 
-A process thing.  The change log that you have at end of
-the file goes here.
+So it looks fine, thanks!
 
-Also don't send a new version in reply to a previous one.
-Sometimes it confuses tools, but more relevantly it
-ensures that your thread is way way back in a kernel
-reviewers email so by the time the reach if if they ever
-do they are half asleep!
-
-Otherwise nothing to add on the actual patch to what Andy
-already sent.
-
->  drivers/iio/industrialio-trigger.c | 60 +++++++++++++++++-------------
->  1 file changed, 34 insertions(+), 26 deletions(-)
-> 
-> diff --git a/drivers/iio/industrialio-trigger.c b/drivers/iio/industrialio-trigger.c
-> index 76926fe..cfc6af0 100644
-> --- a/drivers/iio/industrialio-trigger.c
-> +++ b/drivers/iio/industrialio-trigger.c
-> @@ -421,37 +421,14 @@ static ssize_t current_trigger_show(struct device *dev,
->  	return 0;
->  }
->  
-> -/**
-> - * current_trigger_store() - trigger consumer sysfs set current trigger
-> - * @dev:	device associated with an industrial I/O device
-> - * @attr:	device attribute that is being processed
-> - * @buf:	string buffer that holds the name of the trigger
-> - * @len:	length of the trigger name held by buf
-> - *
-> - * For trigger consumers the current_trigger interface allows the trigger
-> - * used for this device to be specified at run time based on the trigger's
-> - * name.
-> - *
-> - * Return: negative error code on failure or length of the buffer
-> - *	   on success
-> - */
-> -static ssize_t current_trigger_store(struct device *dev,
-> -				     struct device_attribute *attr,
-> -				     const char *buf, size_t len)
-> +/* Must be called with iio_dev_opaque->mlock held. */
-> +static ssize_t iio_trigger_set_current(struct iio_dev *indio_dev,
-> +				       const char *buf, size_t len)
->  {
-> -	struct iio_dev *indio_dev = dev_to_iio_dev(dev);
-> -	struct iio_dev_opaque *iio_dev_opaque = to_iio_dev_opaque(indio_dev);
->  	struct iio_trigger *oldtrig = indio_dev->trig;
->  	struct iio_trigger *trig;
->  	int ret;
->  
-> -	scoped_guard(mutex, &iio_dev_opaque->mlock) {
-> -		if (iio_dev_opaque->currentmode == INDIO_BUFFER_TRIGGERED)
-> -			return -EBUSY;
-> -		if (iio_dev_opaque->trig_readonly)
-> -			return -EPERM;
-> -	}
-> -
->  	trig = iio_trigger_acquire_by_name(buf);
->  	if (oldtrig == trig) {
->  		ret = len;
-> @@ -492,6 +469,37 @@ out_trigger_put:
->  	return ret;
->  }
->  
-> +/**
-> + * current_trigger_store() - trigger consumer sysfs set current trigger
-> + * @dev:	device associated with an industrial I/O device
-> + * @attr:	device attribute that is being processed
-> + * @buf:	string buffer that holds the name of the trigger
-> + * @len:	length of the trigger name held by buf
-> + *
-> + * For trigger consumers the current_trigger interface allows the trigger
-> + * used for this device to be specified at run time based on the trigger's
-> + * name.
-> + *
-> + * Return: negative error code on failure or length of the buffer
-> + *	   on success
-> + */
-> +static ssize_t current_trigger_store(struct device *dev,
-> +				     struct device_attribute *attr,
-> +				     const char *buf, size_t len)
-> +{
-> +	struct iio_dev *indio_dev = dev_to_iio_dev(dev);
-> +	struct iio_dev_opaque *iio_dev_opaque = to_iio_dev_opaque(indio_dev);
-> +
-> +	guard(mutex)(&iio_dev_opaque->mlock);
-> +
-> +	if (iio_dev_opaque->currentmode == INDIO_BUFFER_TRIGGERED)
-> +		return -EBUSY;
-> +	if (iio_dev_opaque->trig_readonly)
-> +		return -EPERM;
-> +
-> +	return iio_trigger_set_current(indio_dev, buf, len);
-> +}
-> +
->  static DEVICE_ATTR_RW(current_trigger);
->  
->  static struct attribute *iio_trigger_consumer_attrs[] = {
-> ---
-> v2:
->  - Move the trigger swap into a helper, iio_trigger_set_current(), and
->    take mlock with guard() in current_trigger_store() only, so that
->    guard() and the goto based cleanup of the newly acquired trigger are
->    not mixed in one function (Jonathan Cameron, Sashiko). No change to
->    the locking itself.
-> v1: https://lore.kernel.org/all/20261026100246.68005-1-yuz08559@gmail.com/
-> 
-
+Cheers,
+Miguel
