@@ -1,64 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794135417;
-	b=Bi4CWLAhDfkIT0IuVhQj4Rdrt8PjumfGe6Zauplz/BU+2emahbIBiRMU6MGO5WBVAi5R
-	 BiNR3QPg5k7X1bj9ssrlwrb7OleL0AN4sJuuBNTgJkUmOU/Aj0uUh8xIPYJF8dxrhD5s4
-	 ogKbEw/IHunJB+W2daHCAwBWpUDjuI5nsfoQ7K+G2YmkWALWHU7Bw/nW4UoDfBDFebzhj
-	 oo5NUTPbGSwviN+Jl5ayiwIlElb6cSh7NnPL0WFCRb+wl/xCFOu1j5/PvQjHJXTi9U8qF
-	 Ro60XRD6i677ZcOpwx79LH33ujYqFBfA4TE8UG0dLODcHIcuwsqtuXn2x4Fw0zy6WUg==
+	t=1794135512;
+	b=O/Bw1Y80WTqnzOkxh6PhNcX1MryDajV8SrmW1dCBi0x2o/I+jr+5senzVEuil33cF9Du
+	 jIf5N/xbgliQOzKNT0zqN2pomfuzS6v7OXfLKW9h7vbbDFSI9HAR0Hj+ItHawT85l2KhL
+	 WObkArqPOHqO/8dp+qJGVDz0l1xFoZ7Dek+ZE6n6iYR4CaPEPqrbD2bmmwjmP3MEwrob2
+	 KhWKkkUVr8SpTnxXJOrPRmzheyR+0Lvdd5iRfrvT6M9/5lR3VEqHITIql1evGSgQz6MqM
+	 we6bC2WVX21qq/+cjxVSfspakpX99Lvr3lXNc4BFF6V2Yawz4X2fcPCexhVsoIiU6Dg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794135417;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 X-HM-Tid:X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
-	bh=I+5UhrKHWPFimXJb6iMkG7rTcVnU0t1KgM7myG4qjl4=;
-	b=RI//6+12k+EADJliGWn7pPAHL0D9N2J3bqJT+C/lsqTxuGgdz81P2HU7RJiVLXV74Jtf
-	 vx3VT35UE/DgkjccqfnIcXWgcc081NqieoNk+5C7wXrNCp31DEg1sPIzFnskzebeWY+dr
-	 dLbrF3Yr13NksUq6a5k146SAvxK26IeKToy2p0dmD+lnuTFXd8xz1FB7PpEogNXX0XQtb
-	 pg2VoghRsLCFMLO5gSigLTBhXadqdn2f+eYX7IXDP9Wk/2O6zyABwRtQxPFC0jfmBhn0p
-	 +40y2abNPEh09ON0yzZ1zoTOEaaGq6YX0Q7cqMNveOQKytXrqONAekIEHXO3lQydtug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794135512;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=xZpTSZLjpiXRLgQz+yKgZHrReimr9BjYFib1X4thl4Q=;
+	b=Jr51QnZcfGFpofpM/w6LenRXibTNYCZ5nE356iAZMQSJfWQJUYjLfEDP4RJmlfr8bCVO
+	 Dkd9oCNMwzt4cqzFGrfANsLhAl+lvqYCSiGmSC7DngUqKIS+xQBm3mcCIeQg2YR4j0Cl0
+	 j3HTMaURNb85qBx221d97Pn1SH3J32RKC+1WZRiEDJuRJLqQ4xMUIbjyYuPDNwX/cXNBJ
+	 FAr9U+Ax6DmOz30JiQnby4MYpjofGQzf3pQZnzMXoFS9N5HarfmZR4TGuscn+PxAADWyj
+	 w8oWReWubtBL3pRQ4ebmY4K0JyiEw4MqCGBkVjiFar2vMTW9qB+eUWK3dviuMyabBiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=seu.edu.cn;
-	spf=pass smtp.mailfrom=seu.edu.cn;
-	dkim=pass header.d=seu.edu.cn header.i=@seu.edu.cn header.a=rsa-sha256 header.s=default header.b=JI2SHRd+;
-	arc=none smtp.remote-ip=45.254.49.197
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cXNiNxgM;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DF6B606A335;
-	Sun,  8 Nov 2026 10:56:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DF6B606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52948606A31C;
+	Sun,  8 Nov 2026 10:58:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.a=rsa-sha256 header.s=default header.b=JI2SHRd+
-Received: from LAPTOP-99KJFSET (unknown [223.75.64.82])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 53e3dfddd;
-	Sun, 8 Nov 2026 18:56:48 +0800 (GMT+08:00)
-From: Hongyan Xu <getshell@seu.edu.cn>
-To: Bjorn Helgaas <bhelgaas@google.com>,
-	linux-pci@vger.kernel.org
-Cc: Marc Zyngier <maz@kernel.org>,
-	Daire McNamara <daire.mcnamara@microchip.com>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Robert Richter <rric@kernel.org>,
-	Zhou Wang <wangzhou1@hisilicon.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof Wilczynski <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hongyan Xu <getshell@seu.edu.cn>
-Subject: [PATCH 3/3] PCI: thunder-pem, hisi, thunder-ecam: Fix ECAM config window use-after-free
-Date: Sun,  8 Nov 2026 18:56:39 +0800
-Message-ID: <20261108105640.875-4-getshell@seu.edu.cn>
-X-Mailer: git-send-email 2.50.1.windows.1
-In-Reply-To: <20261108105640.875-1-getshell@seu.edu.cn>
-References: <20261108105640.875-1-getshell@seu.edu.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cXNiNxgM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DB911F0089F;
+	Sun,  8 Nov 2026 10:58:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794135511;
+	bh=xZpTSZLjpiXRLgQz+yKgZHrReimr9BjYFib1X4thl4Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cXNiNxgMl+fncHz5npPyFiFoO3qsK1M/5wj4XkAyv/9pmjUgjLTCzb3xH2NrYgk2M
+	 e9IO4PN3DtpdqPZLm7ps39m/edZLXv64LsV47kBRTV1t0Ho4CcSrnUPgtU+CwYpSpG
+	 DRyeQlAdLSvfcHlqoev4xuoxb5fOlx2r6VlmXAM+511X/uq5WhPaTbN9jQKpCjycrd
+	 JmCsg/g12HHxX+pzceICghVbWCeDhkcnpVdxKrXH/YjRksQREeJMrXRpD5evTdkmTx
+	 nvFpWlxzurTZYslUV95Czjnd7IQUMgFNSi3isQNX6RR7cUQnSfawu3lNm5B30+4G9L
+	 AH+Y071Nq3jJA==
+Date: Sun, 8 Nov 2026 12:58:27 +0200
+From: Mike Rapoport <rppt@kernel.org>
+To: Huacai Chen <chenhuacai@kernel.org>
+Cc: WANG Xuerui <kernel@xen0n.name>, linux-kernel@vger.kernel.org,
+	loongarch@lists.linux.dev, stable@vger.kernel.org
+Subject: Re: [PATCH] LoongArch: restore KFENCE pages through DMW on resume
+Message-ID: <avBV048xzXRp-cnC@kernel.org>
+References: <20261031-fixes-loongarch-v1-1-e0e33e3c008e@kernel.org>
+ <avAr894n6lNGD9C8@kernel.org>
+ <CAAhV-H5kDgiaDF3t9BakAeD31JxET+27jcVvNU=ZQDZv_vSBcA@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,77 +59,114 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1bacdc09e03a1kunm546e4281ce6a2
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCTh5CVk1IT0pPGE5KTk5KTFYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVTE5VTU9VQ0lZV1kWGg8SFR0UWUFZT0tIVUpLSUJDQ0
-	xVSktLVUtZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=JI2SHRd+d4qXYwm/HlVVAO5CXJVIq7ZExY8nssZU4EsKtWnijZyxuQeT3JMyDaaawUk5HhslsUmnuI1fvbGCuFfURSB68wFgSs8PE152dW45g5Ocy1+xLM5ut+eMZHZkf+nCGTUjiYDkHZjEHcrbz+9eDuV4J/m07ExRzJYtfu4=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
-	bh=I+5UhrKHWPFimXJb6iMkG7rTcVnU0t1KgM7myG4qjl4=;
-	h=date:mime-version:subject:message-id:from;
+In-Reply-To: <CAAhV-H5kDgiaDF3t9BakAeD31JxET+27jcVvNU=ZQDZv_vSBcA@mail.gmail.com>
 
-thunder-pem, hisi and thunder-ecam set .probe = pci_host_common_probe but
-have no ->remove, so unbinding only runs devres_release_all():
-gen_pci_unmap_cfg() -> pci_ecam_free() frees the ECAM config window while
-the bus tree stays registered - only pci_remove_bus() unlinks a bus, and
-only pci_host_common_remove() reaches it for a root bus.  The next config
-access in pci_ecam_map_bus() reads cfg->ops->bus_shift.
-Trigger: DT overlay removal of the node that supplied or enabled it.
+On Sun, Nov 08, 2026 at 04:17:02PM +0800, Huacai Chen wrote:
+> On Sun, Nov 8, 2026 at 3:59 PM Mike Rapoport <rppt@kernel.org> wrote:
+> >
+> > Gentle ping :)
+> Sorry for the late response, would you mind if I modify it to use
+> #ifdef? Usually it should be avoided, but I want to signal users that
+> KFENCE is not a usually enabled feature.
 
-Fix: give each driver the same .remove = pci_host_common_remove that
-pci-host-generic.c got in commit 01fcb7f777a9 ("PCI: Add support for
-unbinding the generic PCI host controller"), so the unlink comes first.
+Up to you :)
 
-Fixes: f12b76e56ada ("PCI: thunder: Add PCIe host driver for ThunderX processors")
-Fixes: a2ec1996098c ("PCI: hisi: Add DT almost-ECAM support for Hip06/Hip07 host controllers")
-Fixes: 7b6e7ba8e81a ("PCI: thunder: Add driver for ThunderX-pass{1,2} on-chip devices")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hongyan Xu <getshell@seu.edu.cn>
----
- drivers/pci/controller/dwc/pcie-hisi.c    | 1 +
- drivers/pci/controller/pci-thunder-ecam.c | 1 +
- drivers/pci/controller/pci-thunder-pem.c  | 1 +
- 3 files changed, 3 insertions(+)
-
-diff --git a/drivers/pci/controller/dwc/pcie-hisi.c b/drivers/pci/controller/dwc/pcie-hisi.c
-index 3c17897e56fc..5ed58e5db797 100644
---- a/drivers/pci/controller/dwc/pcie-hisi.c
-+++ b/drivers/pci/controller/dwc/pcie-hisi.c
-@@ -169,6 +169,7 @@ static const struct of_device_id hisi_pcie_almost_ecam_of_match[] = {
+Do you want me to resend or you can update while applying?
  
- static struct platform_driver hisi_pcie_almost_ecam_driver = {
- 	.probe  = pci_host_common_probe,
-+	.remove = pci_host_common_remove,
- 	.driver = {
- 		   .name = "hisi-pcie-almost-ecam",
- 		   .of_match_table = hisi_pcie_almost_ecam_of_match,
-diff --git a/drivers/pci/controller/pci-thunder-ecam.c b/drivers/pci/controller/pci-thunder-ecam.c
-index b5b4a958e6a2..4745f5d00b5a 100644
---- a/drivers/pci/controller/pci-thunder-ecam.c
-+++ b/drivers/pci/controller/pci-thunder-ecam.c
-@@ -358,6 +358,7 @@ static struct platform_driver thunder_ecam_driver = {
- 		.suppress_bind_attrs = true,
- 	},
- 	.probe = pci_host_common_probe,
-+	.remove = pci_host_common_remove,
- };
- builtin_platform_driver(thunder_ecam_driver);
- 
-diff --git a/drivers/pci/controller/pci-thunder-pem.c b/drivers/pci/controller/pci-thunder-pem.c
-index 5fa037fb61dc..80cabbf263be 100644
---- a/drivers/pci/controller/pci-thunder-pem.c
-+++ b/drivers/pci/controller/pci-thunder-pem.c
-@@ -474,6 +474,7 @@ static struct platform_driver thunder_pem_driver = {
- 		.suppress_bind_attrs = true,
- 	},
- 	.probe = pci_host_common_probe,
-+	.remove = pci_host_common_remove,
- };
- builtin_platform_driver(thunder_pem_driver);
- 
+> Huacai
+> 
+> >
+> > On Sat, Oct 31, 2026 at 03:21:46PM +0200, Mike Rapoport (Microsoft) wrote:
+> > > With KFENCE enabled, resume from hibernation triggers KFENCE reports while
+> > > swsusp_asm_resume() copies the image pages, for example:
+> > >
+> > >   BUG: KFENCE: use-after-free write in swsusp_asm_resume+0x20/0x94
+> > >
+> > >   Use-after-free write at 0x00000000a57ee925 (in kfence-#254):
+> > >    swsusp_asm_resume+0x20/0x94
+> > >    hibernation_restore+0x128/0x1a0
+> > >    load_image_and_restore+0x6c/0xc8
+> > >    software_resume+0x240/0x260
+> > >    do_one_initcall+0x68/0x200
+> > >    kernel_init_freeable+0x26c/0x304
+> > >    kernel_init+0x20/0x134
+> > >    ret_from_kernel_thread+0x24/0x1d0
+> > >    ret_from_kernel_thread_asm+0xc/0x98
+> > >
+> > > During resume from hibernation, the image pages that occupy physical pages
+> > > used by the restore kernel are first loaded into free pages and then, as
+> > > the very last step, swsusp_asm_resume() copies them to their final location
+> > > pointed to by pbe->orig_address, which the hibernation core sets to
+> > > page_address() of the page in the restore kernel.
+> > >
+> > > The early KFENCE pool is allocated from memblock and normally occupies the
+> > > same physical pages in the restore kernel and in the image kernel, so these
+> > > pages are usually copied by swsusp_asm_resume().
+> > >
+> > > The KFENCE pool is remapped into the KFENCE area above vm_map_base and
+> > > set_page_address() adjusts page->virtual so that page_address() returns
+> > > the page-table mapped alias rather than the DMW address of the pool pages.
+> > >
+> > > Hence, pbe->orig_address of KFENCE pages points to that alias and
+> > > swsusp_asm_resume() writes them through the page tables. But:
+> > >
+> > > * the copy loop overwrites the kernel page tables, so a TLB refill for the
+> > >   KFENCE alias may use a partially restored page table
+> > > * the KFENCE pool pages that are protected in the restore kernel fault in
+> > >   the middle of the copy
+> > >
+> > > Convert pbe->orig_address to DMW addresses before starting the copy.
+> > >
+> > > Fixes: 0ca84aeaee15 ("LoongArch: Make {virt, phys, page, pfn} translation work with KFENCE")
+> > > Cc: stable@vger.kernel.org
+> > > Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> > > ---
+> > > Reproduced with hibernation in QEMU, the KFENCE reports are gone with
+> > > this patch.
+> > > ---
+> > >  arch/loongarch/power/hibernate.c | 12 ++++++++++++
+> > >  1 file changed, 12 insertions(+)
+> > >
+> > > diff --git a/arch/loongarch/power/hibernate.c b/arch/loongarch/power/hibernate.c
+> > > index 817270410ef98..ff571ab4e8df9 100644
+> > > --- a/arch/loongarch/power/hibernate.c
+> > > +++ b/arch/loongarch/power/hibernate.c
+> > > @@ -59,6 +59,18 @@ extern int swsusp_asm_resume(void);
+> > >
+> > >  int swsusp_arch_resume(void)
+> > >  {
+> > > +     struct pbe *pbe;
+> > > +
+> > > +     /*
+> > > +      * page_address() of KFENCE pages is mapped by page tables that are
+> > > +      * overwritten during restore and may be protected by KFENCE, copy
+> > > +      * through DMW instead.
+> > > +      */
+> > > +     if (IS_ENABLED(CONFIG_KFENCE)) {
+> > > +             for (pbe = restore_pblist; pbe; pbe = pbe->next)
+> > > +                     pbe->orig_address = __va(virt_to_phys(pbe->orig_address));
+> > > +     }
+> > > +
+> > >       /* Avoid TLB mismatch during and after kernel resume */
+> > >       local_flush_tlb_all();
+> > >       return swsusp_asm_resume();
+> > >
+> > > ---
+> > > base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+> > > change-id: 20261027-fixes-loongarch-fd3755f33919
+> > >
+> > > --
+> > > Sincerely yours,
+> > > Mike.
+> > >
+> >
+> > --
+> > Sincerely yours,
+> > Mike.
+
 -- 
-2.50.1.windows.1
-
+Sincerely yours,
+Mike.
