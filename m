@@ -1,56 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794151108;
-	b=3HbJbAWjRln2VCcCukGSnYidWExzfTYewGb7ID/kLmp8CBJgd9XSunXJgJHN7hftTn+3
-	 gwIO2KwgmtppnuLRWnAIO5Wr6eZLJwM0iMRQSy6j4CScheZOGvXVp8aZvjoW0pLZgOXk1
-	 2sT0Dj8I53IRU4dgvj7StQNw6JL8jQ+EtMOPBUn2jnjWCVc8ATxjcI2QIWHwrGmKYhX4m
-	 rLf2YuCi3WzXikPbHm1Dgj/uqmIPQZ7FeMscwrmN2IbA8j9djRw02xayI9+OXvtHkPEux
-	 xI2PZ852ITlDgCj/Gb5ahbDZpXrorJ/tHGKxoRuVme+DuV4KdmEb679fqNcE4iFJb0g==
+	t=1794151158;
+	b=ZO1GB1nYFPDx5KZ/uYsXsyCF4Ti04MjNeqn0sCwoSziSF29OyMxxs7KRZSLTh/gU0xeX
+	 xa1DBou5rO3SUfL00WYbzA/Tgno9zyxb9CL81fcP6xsXeunlj7wTOnewRc7tsKAh41wSH
+	 h1dwx3R+/GI+JRwWOp+TWcExuG7mEAHmsn8IRw3FQDPpKeGuGT79QP9BG2r8Vj//TED5g
+	 n5sIMJ9pfzmUftCpfKFELhBu2Etz47IYJ3mfRpzR4ta71Fz9n2D2h/7PT0BGRa874p12L
+	 AsGNqIvIjGUB0i7GyNI0nmpgBFkDkGXSlIY9VdRZXXC/GCPcke3qK+Mbufzexy9DDTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794151108;
-	h=DMARC-Filter:DKIM-Signature:Received:MIME-Version:Date:From:To:Cc:
-	 Subject:In-Reply-To:References:User-Agent:Message-ID:X-Sender:
-	 Content-Type:Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
-	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
-	bh=e7STtpysw9I8m/43IhFTvhpryd3E0G+N/LKjSLSoWOk=;
-	b=ZhWStFCxeZsHGZjMe3x2ud47jxMZrnkOPivJi1rH5kq0vswxRJ251sWr9rbOuzkp0sg8
-	 MSxjVTGNpRIUgOqkyFUKKCSL7r2StdU6GgwRE6GRoaTSYsfaJu+wXer6YOWde+cA+rBBj
-	 z5y9hU/5zG821dblNOHT73b3RSqpmLAKOV59V9o8RAqwI+YqM+4MsqXaMUPeD1nXaOner
-	 AZjZZTS1FOhn1Gfk4PsZ0OppLbEtTbmKwi5rgEDYyJpqHOMxawfd9yv5RIrs5MM7/VFRR
-	 +N/YL3o2i1qIZEsirwxoIuFo3yz0MljXSS9BZMGYZDq7Pm90edr8pgdQrx/BNjXI4Pg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794151158;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=tS7Um5DMhxKUm027vq32NZL/bvrzTjSz3foWuqEhkjw=;
+	b=Lmvbh6Lric4K3SiRXAavBU21o9pqZ98ShfBKEnKcvp7JdprDBnA8uNEhMY8JXSf7t+Jy
+	 Hs04CCRQq3pSMfN2Kk4x6h0XEJGidOMxOzU64k8wZ6WOwkjB4iMfXOvYo2jguGSBUfcfX
+	 fdQccks0bZoGu4gXBYwXCM15kvwvLJ9ii/DiKZ+doDKGZC+WLhlp4S418K/EXfj+3W8nl
+	 mEdktyQbDRSw68zOR6HpO4jQJZI2GTXTN39GlQbTyWKiZVBDNs0GXy68fN4rmtftP4uef
+	 ZwFPs3Fu+yhQDnZVQEfeb7Z6qdRpuDThs/pg3h8Uupn6B6n2RBt5XQxqEK1uBTpAFjA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.cyber.gouv.fr;
-	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
-	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=gHjciZYY;
-	arc=none smtp.remote-ip=51.159.188.251
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="TJYC7u/C";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3CB4606A31C;
-	Sun,  8 Nov 2026 15:18:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3CB4606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97EE5606A31C;
+	Sun,  8 Nov 2026 15:19:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=gHjciZYY
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:
-	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=e7STtpysw9I8m/43IhFTvhpryd3E0G+N/LKjSLSoWOk=; b=gHjciZYY88TzSIVnH7/U8ozKZb
-	tNoKg7B4PsX5YJV/qD/c3yGeY8w2+WDXCvn7pxw4qkCi7/YMmLIWmau9hcQT966g/JzocOnUruapb
-	k4E74qQsnHmxAlroG6ZrA9VN1+OgsMrySrBgwL31qVPSLTkGNimhbKZvqQWiINFU+DdoPFz09d/9j
-	+/DlUH7duNWsyS6dKpRJ2wneT/eQzxLWFJjbx5U4L2YkG3ix1dIqfpPzkwGwQxD/5+iJcCg5CX7iT
-	4JiH8HL5TQJoFLWrVrHAc+JJUYZve9fOFyLA4sFTtjAXTnHrJoP/ZQl4zI4uSZMQwfeqFMlP4ZOFn
-	tXK11NQw==;
-Received: from [::1] (port=45926 helo=pf-012.whm.fr-par.scw.cloud)
-	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.100.1)
-	(envelope-from <jeremy.jean@oss.cyber.gouv.fr>)
-	id 1xQ4f3-00000009ldL-3ofz;
-	Sun, 08 Nov 2026 16:18:25 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TJYC7u/C
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60DE21F0089F;
+	Sun,  8 Nov 2026 15:19:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794151158;
+	bh=tS7Um5DMhxKUm027vq32NZL/bvrzTjSz3foWuqEhkjw=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=TJYC7u/CLpWP+lzfJMc9ogVFoYpkWrgWg5JbRhCFshpLRaQG/otsIs0n1LJZoFASr
+	 rWWWHMgua2gKEFRX6DHGPWFV1lB1t3Mk+Kw4isKdJUy1OPpEC81AUWd1s9S1mmlNti
+	 UOa9dfULVU8gkzxXy1DgF82nvvOSg9+pfQ2Oi1TwFDPP4kmzvZDyxgTDKXNB/cC5W8
+	 a0OsfQed83okN9EjHVZh+uyWM+GTQZEgT3+9s65fScHNciJulbYod0ch2Atk0oySXB
+	 tK/Riqpr1jDaRIxQiApBF5AoBRiWzX5LPIrAhkGaVf6D7axKdK/yl5+0e6zMHVI9Fp
+	 lcgVPdV//Ju9g==
+Subject:
+ Re: [PATCH] net: ethernet: mtk_wed: fix double free in mtk_wed_rx_reset
+From: netdev-bot+sashiko@kernel.org
+To: hujy652@gmail.com
+Cc: nbd@nbd.name, lorenzo@kernel.org, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
+ sujuan.chen@mediatek.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, sashiko-bot@kernel.org,
+ stable@vger.kernel.org
+Date: Sun, 08 Nov 2026 15:19:16 +0000
+Message-ID: <179415115690.994134.6626930296330601239@kernel.org>
+In-Reply-To: <20261104-double-free-v1-1-efa52326702f@gmail.com>
+References: <20261104-double-free-v1-1-efa52326702f@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,71 +67,118 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Sun, 08 Nov 2026 16:18:25 +0100
-From: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
-To: Simon Horman <horms@kernel.org>
-Cc: netdev-bot+sinfo@kernel.org, Subash Abhinov Kasiviswanathan
- <subash.a.kasiviswanathan@oss.qualcomm.com>, Sean Tranchetti
- <sean.tranchetti@oss.qualcomm.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net] net: qualcomm: rmnet: fix TX aggregation teardown
- race
-In-Reply-To: <20261108150339.GC18859@horms.kernel.org>
-References: <20261101233427.2050688-2-Jeremy.Jean@oss.cyber.gouv.fr>
- <179357635158.3286.10001576876397197758@kernel.org>
- <20261108150339.GC18859@horms.kernel.org>
-User-Agent: Roundcube Webmail/1.6.20
-Message-ID: <05a24913bdea1ce4482cace6d9772564@oss.cyber.gouv.fr>
-X-Sender: jeremy.jean@oss.cyber.gouv.fr
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
 
-On 2026-11-08 16:03, Simon Horman wrote:
-> On Sun, Nov 01, 2026 at 11:39:11PM +0000, netdev-bot+sinfo@kernel.org 
-> wrote:
->> Hi!
->> 
->> This is an automated message. This series looks like a fix, but its
->> commit messages seem to be missing some information:
->> 
->>  - How the issue was discovered, e.g. hit in production, hit during
->>    development, syzbot report, manual code inspection, LLM or static
->>    analysis tool scan.
->> 
->>  - Whether the issue was actually triggered, or is only theoretical
->>    (e.g. found by code inspection). If it was triggered please include
->>    the symptoms, like the stack trace or error messages.
->> 
->>  - What hardware the change was tested on. For driver fixes please
->>    mention the device (and if relevant firmware version) used for
->>    testing, or say that the change was not tested on real hardware.
->> 
->> Please do not repost the series just to address the above. Instead,
->> reply to this email with the missing information, so that reviewers
->> can take it into account. If the series needs another revision for
->> other reasons, please include the information in the commit messages
->> then.
->> 
->> The evaluation is done by an LLM so it may be wrong, if you think
->> that is the case please reply and explain.
-> 
-> Hi Jérémy,
-> 
-> As per similar requests for other patches, I would appreciate it if you
-> could take a moment to respond to the questions posed by the bot above.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-* The bug was found by LLM-assisted code review.
-* The bug was triggered by a software reproducer with a KASAN enabled
-   kernel under QEMU VM.
-* It has not been tested on real hardware.
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
+
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [High] The patch fixes the immediate double free by removing the second
+  mtk_wed_hwrro_free_buffer() call from mtk_wed_rx_reset().
+
+--
+
+net: ethernet: mtk_wed: fix double free in mtk_wed_rx_reset
+
+mtk_wed_free_rx_buffer() already calls mtk_wed_hwrro_free_buffer(). The
+patch therefore drops the second mtk_wed_hwrro_free_buffer() call from
+mtk_wed_rx_reset(), which caused a double free of the hw_rro buffers on
+WED v3.
+
+Link: https://sashiko.dev/#/map/216156
+
+> diff --git a/drivers/net/ethernet/mediatek/mtk_wed.c b/drivers/net/ethernet/mediatek/mtk_wed.c
+> index f40ac5794341c..5e9674c9e63ab 100644
+> --- a/drivers/net/ethernet/mediatek/mtk_wed.c
+> +++ b/drivers/net/ethernet/mediatek/mtk_wed.c
+> @@ -1723,7 +1723,6 @@ mtk_wed_rx_reset(struct mtk_wed_device *dev)
+>  				   false);
+>  	}
+>  	mtk_wed_free_rx_buffer(dev);
+> -	mtk_wed_hwrro_free_buffer(dev);
+
+[Severity: High]
+This removes the duplicate call, but the free helpers still never clear the
+pointers they free. Can the stale rx_buf_ring.desc, hw_rro.desc and
+hw_rro.pages still get freed a second time later?
+
+mtk_wed_free_rx_buffer() frees the descriptor ring and leaves
+dev->rx_buf_ring.desc set:
+
+drivers/net/ethernet/mediatek/mtk_wed.c:mtk_wed_free_rx_buffer() {
+	...
+	dev->wlan.release_rx_buf(dev);
+	dma_free_coherent(dev->hw->dev, dev->rx_buf_ring.size * sizeof(*desc),
+			  desc, dev->rx_buf_ring.desc_phys);
+
+	mtk_wed_hwrro_free_buffer(dev);
+}
+
+mtk_wed_hwrro_free_buffer() works the same way. It unmaps and frees the
+pages, calls dma_free_coherent() on hw_rro.desc and kfree()s hw_rro.pages,
+but leaves both pointers set.
+
+After the reset path:
+
+mtk_wed_device_dma_reset()
+  mtk_wed_reset_dma()
+    mtk_wed_rx_reset()
+      mtk_wed_free_rx_buffer()
+
+these pointers stay dangling until mtk_wed_start()->mtk_wed_rx_buffer_alloc()
+overwrites them. Some paths seem to skip that step.
+
+In mt7915_dma_start(), mtk_wed_device_start() is never called if the WO
+rx stats message fails:
+
+	ret = mt7915_mcu_wed_enable_rx_stats(dev);
+	if (ret)
+		return ret;
+
+	mtk_wed_device_start(&dev->mt76.mmio.wed, wed_irq_mask);
+
+mtk_wed_rx_buffer_alloc() returns -ENOMEM before it assigns
+dev->rx_buf_ring.desc if dma_alloc_coherent() fails.
+
+mtk_wed_hwrro_buffer_alloc() returns -ENOMEM in two places. If the
+page_list allocation fails, it returns before assigning hw_rro.pages. If
+the desc dma_alloc_coherent() fails, it returns before assigning
+hw_rro.desc.
+
+In any of these cases, the next unbind or remove would do:
+
+__mtk_wed_detach()
+  mtk_wed_free_rx_rings()
+    mtk_wed_free_rx_buffer()
+      dma_free_coherent() on the old rx_buf_ring.desc
+      mtk_wed_hwrro_free_buffer()
+        reads page_list[] from the already kfree()d hw_rro.pages
+        dma_unmap_page() and __free_page() on already freed pages
+        dma_free_coherent() on the old hw_rro.desc
+        kfree() on the old hw_rro.pages
+
+The if (!desc) and if (!page_list) checks don't help here, because the
+pointers are still non-NULL.
+
+Would it be better to set rx_buf_ring.desc, hw_rro.desc and hw_rro.pages
+to NULL in mtk_wed_free_rx_buffer() and mtk_wed_hwrro_free_buffer()? The
+commit message names the same cause:
+
+  "This would cause double free because dma_free_coherent doesn't set
+  freed desc to NULL."
+
+Clearing the pointers would also have made the removed duplicate call
+harmless.
+
+>  
+>  	return 0;
+>  }
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261104-double-free-v1-1-efa52326702f%40gmail.com
