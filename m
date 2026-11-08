@@ -1,68 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794178098;
-	b=ZCmdIXchQYZmiWha9rcvSR7S2skfNLflRCtf1GoQatmtGpta3PHHHFI3XMVFVqpXTIot
-	 ml/kWOdBl5e0DHrxjfIj5r3/99ZRrCK8Fm4H+3Y8NLrhjqJMmoC0kpcCTOla+3WfB8ANw
-	 QbwNP5hVMpBNg3dR87vKctxjTe0GRMCw09vaPPLrfnaEu3TQqSnp9uFrismhR7TT+oaTa
-	 kiy4a888AgG69f7kDMbVwa3XP1UeckpbwLthI1nGx95ahdstJr+TpLRpsdASZ7HfBYfIu
-	 QrTBMPs154JptHrgvxYtMV7VyM/xEOw7cmgmmYDANRCJXi9Hzx+veU02upsUvNJR/IA==
+	t=1794178103;
+	b=UbDQ5Yxi41tLfLGVezW/mBMf2fizXDN1TgOGlqTJJpimIjo3G2arr3qycvSb1QeDqgwM
+	 zOmqHlhbS2Vn4pRhzCLLyiuspkoS4WDXFhgdbjnctHKYbeaUUyhK8JvgGd0P+vO1s9mp6
+	 F1Xyl+GoL1xsz5MuBxzHmu2WbXKTjPfej7DFEGpcbUUhEHPceW5TmKQwFP9qC+J/T8n86
+	 JxkLrbmkNMvhdSOsA41GkcAUilBr1Maxlk0ETocN2SofPZO2/w3v/0oHGAADQcNOyoFFF
+	 FCKjOf/NnXnBMwJvIiXJKpTAP+c9VOoMhv2hKqzpMWxwYexPUbJXVHKX+xFobvSyrww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794178098;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-MBO-RS-META:X-MBO-RS-ID;
-	bh=fKEfqmxYOZU7820kF8aXFu+f7z3LClCPd6Mm3BHbyZg=;
-	b=VqnGhJK/pv3zwAxMvXMdNmlod/U7trLOeb9hCZMs9oWJSs4bwn29ADDwNRBUTKFWdE5o
-	 pbFiRXrY8VK1k51GNeGxGQ2cAcw4IlWfyRCtAi2KxG6lPCXgirS9OF3yQPxRECekMyD3l
-	 pREZ4OdZuA/iOvGc6LLTLJV/WQoAdp6adBoWStZArSRG+0WUaeoeBK7vYvIUMfTV5Twgm
-	 VTt4oF51duFhLlT5myOeYqRSIhKwo3YZBx+SWr67Gymu13KyjzzPg9GbFmEGwQ/1JLKnf
-	 +R+SQt1Z71wrYomrCaUWTc8B6kgenlxf+Djm2P2pD1Amu0wQBsEfGpLK/1mOtwNVsKw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794178103;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=uofTIzhW5+iZlj90wLZvR6NRcqUfnbP/7W7Hv/CMg7M=;
+	b=J2TvbdJNcJ/uXsAwDztIOPRLM3wlopxc/Rbl9MS6uZutjBW5B481kCYIaqKCqfVvqDf8
+	 KQvSZJvO0xn+Gy09r5sPneImL8WewiRJ/ME6ryVanO6nIX9hwL592Wdg3fXRk/bUcnqqa
+	 ZaoG3xO+m6tw3ufTWlppS02BECd1HOxmY3+N5ElbwvuNeW7EElFWNgusNR98MFMMfJYFI
+	 j8wzWio41diNLLnHoBt0dkPCMP6fFUbaebQkqE7WYzV5U+LE9FUymWfO7E5S4GccrtBK3
+	 +eEjZ69ksu5qxL+xSJ03OpdQhgYoh9JuR9t1SwcdHPxeQk0dgbfIpTAwSNnjOyfdBnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=blHPXQir;
-	arc=none smtp.remote-ip=80.241.56.171
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xVn9jfRU;
+	arc=none smtp.remote-ip=209.85.167.178
+Received: from mail-oi1-f178.google.com (mail-oi1-f178.google.com [209.85.167.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE989606A31C
-	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 22:48:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE989606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A36DE606A31C
+	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 22:48:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A36DE606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=blHPXQir
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4jN7Nl4pQPzMlDJ;
-	Sun, 08 Nov 2026 23:48:07 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1794178087;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=fKEfqmxYOZU7820kF8aXFu+f7z3LClCPd6Mm3BHbyZg=;
-	b=blHPXQir+f9k70ZLeRVdSPep5fDGpxSrTf415x3ndV6x32VnuD5e+1uuizavK6EClVQlDp
-	LMyj4H0YbmEsMz1VCriB0rP8xrOTUWSmDlCp9gBUDAKzwDmyDyV5VT693LW+WvQ86436Ps
-	rTkH09Hk+WVL1LfMKqMW3WxFjQnaa2eGc3f8vXR25AnIagYLUqacUzcJI9pgmW/BYnugCp
-	OxYhAQSQJJiBDqNEnZbX4s4aXJw1dJo+xjnVJ1Si3XbDf8efCD3/hstSwWHxwLBqYMuaZk
-	+A4+sdLHfkm1CeTyKn8oPEv0nBTWNfkHGOFRcn46THmHDrn6Q2S8Gj2VWQ0oiQ==
-From: Marek Vasut <marek.vasut+renesas@mailbox.org>
-To: stable@vger.kernel.org
-Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-	Bjorn Helgaas <bhelgaas@google.com>
-Subject: [PATCH 6.12.y 2/2] PCI: rcar-gen4: Limit Max_Read_Request_Size to 256 Bytes
-Date: Sun,  8 Nov 2026 23:47:48 +0100
-Message-ID: <20261108224801.2533200-2-marek.vasut+renesas@mailbox.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261108224801.2533200-1-marek.vasut+renesas@mailbox.org>
-References: <20261107051635-failed-6.12-f0a5c6bd797c@kernel.org>
- <20261108224801.2533200-1-marek.vasut+renesas@mailbox.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xVn9jfRU
+Received: by mail-oi1-f178.google.com with SMTP id 5614622812f47-4f699fe49b3so237568b6e.3
+        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 14:48:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794178101; x=1794782901; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=uofTIzhW5+iZlj90wLZvR6NRcqUfnbP/7W7Hv/CMg7M=;
+        b=xVn9jfRUIPFn/4JrB5FsmdWFoBxu6dJB1Nr4e/2/Z6eN6QS2nFrlEgHef9JpLYl60v
+         tAwaHp3Fwm+NwwjFDcX9ObQE0Nsjaq9J7tFcqgtkgVEVQK44jsLmQj23SwtCi7N9ZlcU
+         0Uetvkan7UZxOHzwGsiXdhjB4QaGIpZcAwasy4QA1T2ruhB7pcFHD4TcopmlH3PJfpyC
+         NrbyWwdPDR0xQcUHYfua/Ohn+5V7OhoFCtMCT4slOjD1vu+Mu8w1O4VhWUpxMuHjPtei
+         5C7UfH2G/vVmH7B+w6TDfQK8irnSKubLQzdtDbdj6nrYJwN36I2FeyrHPP3tU9RcpzCw
+         I02Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794178101; x=1794782901;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=uofTIzhW5+iZlj90wLZvR6NRcqUfnbP/7W7Hv/CMg7M=;
+        b=wdD4g5L3aLTXPbuuxF4PpAs85YMi73DhyTIeNwoer2DPh9ZybV7jUwoaPQhaHhFL6d
+         2ShUKXN4Pl/Xp6lkjDQSHB6/EkCLApXTIVooR3hlc4+akdwujKnXJwY5kgNYzG6q4nDZ
+         sTohC0ovR4KqyemFhykUQyjdPdq6z9CTcX4nhFjmYnkmPUL9WX2Gtt9ewaUnq0yucUDr
+         hoMPx2EY5/bhF5u7CW7nK4b8D8ILfurrlbBaW4gKPPQcTFxm2F7nDe3xaLJvYqdFDmEA
+         /WlofLxDWOevpLxJJBejfdPlVC1iu6Nd28bMxbJji/ikEsP6mCztvaSo8b3kJMzKeqKB
+         PWbA==
+X-Forwarded-Encrypted: i=1; AL+hErEMexXNmFi6yDhwJUyg+tQsnBJqkSYctggLwZoP3w4RISJpbHXkmtO7nXw1LVLCCLumQiVYPfA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9ZcEyCJgu8JzvcHXW9iKGGOKXvGeDULEPJ9WL8jj78nH8Q2jBy
+	ccRCds73oAoaudxo/MCOtSw9IwWM5K7NSbyTJzeuQvX9diFb+NFaK0oYbQybXQ==
+X-Gm-Gg: AYBFou13nI0ZkhQBVaDZGlXn33ddYYHX5RP/jMWPukYqAhNwSjyiD2af/HQJQBsfTZg
+	W9WAPSfvCw5jeoGH2PD/QTluwKa6JpGIYiUiK+Cr1Y2W91ZjBI69tcAWAxRJ4ByrLx6BXf5S36h
+	XhLmFH12qf8Uq2Vrk7+A6jTtvY4+mTC2vm33Mb//FMs4IOt3CwfW07S/HTnz1hsGZhuCuT7Q5t4
+	EsEQIiQPspIYr7AMp+KzSAfe+bhCAfWeeo9FDJUpIXB6VmVp0NMYoMB2QdQHCJNK5ZHRamuQVCZ
+	FVjcEWLEy9mBlqG3F0XHn9ft4Zq8rtAK0YUMwoezEKcXrEvT8mSAZ8X7a+PktnvP68arMFSIemi
+	Vb639wANyR7MI/S1Mj2KFJde4R0h6sVEnm9Pv/kvKab2nWtQNaoMCGNhD6IJDS+S6S7tPxFCP7O
+	ExnJqkj8qssjo8Ld3+wvty28VAT3g7scZ5iGA96EvK3UNi4+h7FK6JUNfIZYEYraMlUsYG088cQ
+	TqF+Rel81lRovJdeSvE+KxezG01lNHNxj6yCbaSP09tRAn53hhf2R1vxCJZLLnHB+WtBYV2uxTr
+	Cy4dAE+WvDVFgVZf5xSmUPsP49gZcTMZBGg2JSPH1PfdUVxGs5ixKp/52YTNNnukrppjeA7KZb8
+	qhx1oZFkSG2DJrb1qAQZVnmL5kc28qooSCQlxGvJ+ZHOq6HnSdoOdJbGfPJpazyLWzo9vBr+SvS
+	QST/PRpKRDOCZInFRtu9J07V707tnhvK/ciJsj/lOPjo4IDti9DRtD
+X-Received: by 2002:a05:6808:1302:b0:4fb:ac9b:b06a with SMTP id 5614622812f47-568143e3ef4mr1605617b6e.48.1794178101544;
+        Sun, 08 Nov 2026 14:48:21 -0800 (PST)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-56813e010cfsm2738303b6e.14.2026.11.08.14.48.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 14:48:20 -0800 (PST)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Sun, 08 Nov 2026 15:48:16 -0700
+Subject: [PATCH v2] mtd: retain the partition node reference across device
+ registration
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,150 +93,115 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: he8ifn5j5a6ow5ti6s5qcdzwt89jk74q
-X-MBO-RS-ID: bef619eaf7c73b906e8
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261108-submit-mtd-partition-node-reference-v1-v2-1-73e93921db68@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/41OSw6CMBC9CunaUcpPceU9jIvSDjBGimkr0RDu7
+ hTi3mRm8ebN+8zCoyP04pzMwuFEnkbLINslQvfKdghkGIsszSop0yP4VzNQgCEYeCoXKLAA7Gg
+ QHLbo0GqESUJdo241Fk1eSsFmT2bpvQZdbxtmpzvqEN3jR6M8QuOU1X08ccAh7qZivicfRvdZm
+ 04y+vxKnf4txSNBmTzNy7qsalNcukHRY6/HQdyWZfkCAh9vUw4BAAA=
+X-Change-ID: 20261107-submit-mtd-partition-node-reference-v1-99ecfce4b351
+To: Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
+ Christian Marangi <ansuelsmth@gmail.com>
+Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>
+X-Mailer: b4 0.15.2
 
-R-Car Gen4 PCIe controller has a hardware limitation of 256 Bytes
-Max_Payload_Size (MPS). PCIe specification indicates that the MPS must not
-exceed minimum MPS of any element along the packet path.  The PCI core
-already enforces this, but add a check to warn if MPS is ever set larger
-than 256.
+mtd_check_of_node() obtains a child node reference while looking up a
+partition, stores the node in the MTD device, and drops the reference.
+add_mtd_device() only takes its own reference after the helper returns.
+A concurrent dynamic DT removal can release the node in that gap.
 
-R-Car Gen4 Reference Manual, chapter 104.4.8 Usage notes for MRRS (Max Read
-Request Size) states:
+Return a referenced node from the lookup helper and transfer that reference
+to the MTD device. For an already supplied node, acquire the reference in
+the same helper. The existing registration unwind and device release paths
+remain responsible for putting it.
 
-  Please set "Max Read Request Size" to 128 bytes or 256 bytes.
-  If "Max Read Request Size" is set to anything other than the
-  above, the transferred data will not match the expected value.
-
-This limitation also seems to apply to devices doing DMA reads, i.e.,
-issuing MRd TLPs.  This limitation can be triggered by using non-HMB NVMe
-SSD with Max_Read_Request_Size 512 Bytes, for example Crucial P5 Plus.  Any
-write to the SSD (MRd TLP issued by the SSD controller) longer than 256
-Bytes wraps around at the 256 Byte boundary, and the same data are written
-to the SSD starting at offset 0 and at 256 Bytes.
-
-Limit Max_Read_Request_Size to at most 256 Bytes for each device connected
-to this PCIe controller to avoid this behavior.
-
-A non-HMB (Host Memory Buffer) NVMe SSD can be identified using the
-following command. Affected SSD reports 'hmpre' field as 0:
-
-  $ nvme id-ctrl /dev/nvme0 | grep hmpre
-  hmpre     : 0
-
-The symptom is a read from the SSD which wraps around at 256 Byte boundary.
-The test for this symptom can be implemented by writing 512 Byte of random
-data into the SSD and reading the data back. If the read back data repeat
-after 256 Bytes, the device is affected.
-
-  $ dd if=/dev/urandom of=/tmp/data.bin bs=256 count=2 ; \
-    dd if=/tmp/data.bin of=/dev/nvme0n1 bs=256 count=2 ; \
-    dd if=/dev/nvme0n1 bs=256 count=2 of=/tmp/readback.bin
-
-Expected data:
-  $ hexdump -vC /tmp/data.bin
-  00000000  97 81 b7 3b 0e 38 2b 4d  a7 d3 e0 47 ff c2 4b ca
-  00000010  c1 85 98 f0 4a ac 03 a0  3b ab f3 19 44 dd 06 8b
-  ...
-  00000100  7a ce 3c b2 e1 d5 d9 11  88 63 10 59 76 3c dc 32 <-- random
-  00000110  72 32 2a 7d a3 e1 aa 13  7c da 58 a1 7b 21 11 50 <-- data
-
-Faulty readback, collected without this change in place:
-  $ hexdump -vC /tmp/readback.bin
-  00000000  97 81 b7 3b 0e 38 2b 4d  a7 d3 e0 47 ff c2 4b ca <---.
-  00000010  c1 85 98 f0 4a ac 03 a0  3b ab f3 19 44 dd 06 8b <-. |
-  ...                                                          | |
-  00000100  97 81 b7 3b 0e 38 2b 4d  a7 d3 e0 47 ff c2 4b ca <-:-+- repeated
-  00000110  c1 85 98 f0 4a ac 03 a0  3b ab f3 19 44 dd 06 8b <-+--- data
-       ^^^
-        |
-        '--- Repeat starts at offset 0x100 = 256 Bytes
-
-Fixes: 0d0c551011df ("PCI: rcar-gen4: Add R-Car Gen4 PCIe controller support for host mode")
-Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
+Fixes: 5ab9bbf6c678 ("mtd: Fix possible refcounting issue when going through partition nodes")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260821020636.111719-1-marek.vasut+renesas@mailbox.org
-(cherry picked from commit f0a5c6bd797c2b9900034983a1118d27eb2f2f16)
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- drivers/pci/controller/dwc/pcie-rcar-gen4.c | 54 +++++++++++++++++++++
- 1 file changed, 54 insertions(+)
+Changes in v2:
+- Correct the Fixes tag to identify the commit that dropped the
+  partition-node reference before registration.
+- Link to v1: https://patch.msgid.link/20261108-submit-mtd-partition-node-reference-v1-v1-1-ad30359569d4@gmail.com
 
-diff --git a/drivers/pci/controller/dwc/pcie-rcar-gen4.c b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-index 8dcb63f813beb..a5f750709e2ce 100644
---- a/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-+++ b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-@@ -305,6 +305,57 @@ static struct rcar_gen4_pcie *rcar_gen4_pcie_alloc(struct platform_device *pdev)
- 	return rcar;
+To: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Richard Weinberger <richard@nod.at>
+To: Vignesh Raghavendra <vigneshr@ti.com>
+Cc: linux-mtd@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+---
+ drivers/mtd/mtdcore.c | 17 +++++++----------
+ 1 file changed, 7 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/mtd/mtdcore.c b/drivers/mtd/mtdcore.c
+index 491a27d0315f..f7fa895ede35 100644
+--- a/drivers/mtd/mtdcore.c
++++ b/drivers/mtd/mtdcore.c
+@@ -636,7 +636,7 @@ static int mtd_nvmem_add(struct mtd_info *mtd)
+ 	return 0;
  }
  
-+static int rcar_gen4_pcie_enable_device(struct pci_host_bridge *bridge,
-+					struct pci_dev *dev)
-+{
-+	/*
-+	 * R-Car Gen4 PCIe controller has a hardware limitation of 256 Bytes
-+	 * Max_Payload_Size (MPS). PCIe specification indicates that the MPS
-+	 * must not exceed minimum MPS of any element along the packet path.
-+	 * The controller reports Max_Payload_Size_Supported (MPSS) 256 Bytes
-+	 * for header type 0 and 128 Bytes for header type 1. The PCIe core
-+	 * will not allow MPS to be set higher than MPSS; warn here in case
-+	 * something went very wrong in the core.
-+	 *
-+	 * For details, refer to chapter "104.1.1 Features" in either of:
-+	 * R-Car S4 R19UH0161EJ0140 Rev.1.40 Jul. 31, 2026 or
-+	 * R-Car V4H R19UH0186EJ0140 Rev.1.40 Aug. 7, 2026 or
-+	 * R-Car V4M R19UH0217EJ0110 Rev.1.10 Jun. 30, 2026.
-+	 */
-+	WARN_ON(pcie_get_mps(dev) > 256);
-+
-+	/*
-+	 * R-Car Gen4 Reference Manual, chapter 104.4.8 Usage notes for
-+	 * MRRS (Max Read Request Size) states:
-+	 *
-+	 *   Please set "Max Read Request Size" to 128 bytes or 256 bytes.
-+	 *   If "Max Read Request Size" is set to anything other than the
-+	 *   above, the transferred data will not match the expected value.
-+	 *
-+	 * This limitation also seems to apply to devices issuing MRd TLPs.
-+	 * This limitation can be triggered by using non-HMB NVMe SSD with
-+	 * Max_Read_Request_Size 512 Bytes, for example Crucial P5 Plus.
-+	 * Any write into the SSD (MRd TLP issued by the SSD) longer than
-+	 * 256 Bytes wraps around at 256 Byte boundary, and the same data
-+	 * are written into the SSD starting at offset 0 and at 256 Bytes.
-+	 *
-+	 * Limit Max_Read_Request_Size to at most 256 Bytes for each
-+	 * device connected to this PCIe controller to avoid this behavior.
-+	 *
-+	 * For details, refer to aforementioned chapter in either of:
-+	 * R-Car S4 R19UH0161EJ0140 Rev.1.40 Jul. 31, 2026 or
-+	 * R-Car V4H R19UH0186EJ0140 Rev.1.40 Aug. 7, 2026 or
-+	 * R-Car V4M R19UH0217EJ0110 Rev.1.10 Jun. 30, 2026.
-+	 */
-+	bridge->no_inc_mrrs = 1;
-+	if (pcie_get_readrq(dev) > 256) {
-+		pci_info(dev, "Limiting MRRS to 256 bytes\n");
-+		pcie_set_readrq(dev, 256);
-+	}
-+
-+	return 0;
-+}
-+
- /* Host mode */
- static int rcar_gen4_pcie_host_init(struct dw_pcie_rp *pp)
+-static void mtd_check_of_node(struct mtd_info *mtd)
++static struct device_node *mtd_find_of_node(struct mtd_info *mtd)
  {
-@@ -313,6 +364,9 @@ static int rcar_gen4_pcie_host_init(struct dw_pcie_rp *pp)
- 	int ret;
- 	u32 val;
+ 	struct device_node *partitions, *parent_dn, *mtd_dn = NULL;
+ 	const char *pname, *prefix = "partition-";
+@@ -644,14 +644,14 @@ static void mtd_check_of_node(struct mtd_info *mtd)
  
-+	if (pp->bridge)
-+		pp->bridge->enable_device = rcar_gen4_pcie_enable_device;
-+
- 	gpiod_set_value_cansleep(dw->pe_rst, 1);
+ 	/* Check if MTD already has a device node */
+ 	if (mtd_get_of_node(mtd))
+-		return;
++		return of_node_get(mtd_get_of_node(mtd));
  
- 	ret = rcar_gen4_pcie_common_init(rcar);
--- 
-2.53.0
+ 	if (!mtd_is_partition(mtd))
+-		return;
++		return NULL;
+ 
+ 	parent_dn = of_node_get(mtd_get_of_node(mtd->parent));
+ 	if (!parent_dn)
+-		return;
++		return NULL;
+ 
+ 	if (mtd_is_partition(mtd->parent))
+ 		partitions = of_node_get(parent_dn);
+@@ -679,16 +679,14 @@ static void mtd_check_of_node(struct mtd_info *mtd)
+ 
+ 		plen = strlen(pname) - offset;
+ 		if (plen == mtd_name_len &&
+-		    !strncmp(mtd->name, pname + offset, plen)) {
+-			mtd_set_of_node(mtd, mtd_dn);
+-			of_node_put(mtd_dn);
++		    !strncmp(mtd->name, pname + offset, plen))
+ 			break;
+-		}
+ 	}
+ 
+ 	of_node_put(partitions);
+ exit_parent:
+ 	of_node_put(parent_dn);
++	return mtd_dn;
+ }
+ 
+ /**
+@@ -805,8 +803,7 @@ int add_mtd_device(struct mtd_info *mtd)
+ 	if (error)
+ 		goto fail_devname;
+ 	dev_set_drvdata(&mtd->dev, mtd);
+-	mtd_check_of_node(mtd);
+-	of_node_get(mtd_get_of_node(mtd));
++	mtd_set_of_node(mtd, mtd_find_of_node(mtd));
+ 	error = device_register(&mtd->dev);
+ 	if (error)
+ 		goto fail_added;
+
+---
+base-commit: 1c1a342aceec79528b3ba51f376eca2be5928fe7
+change-id: 20261107-submit-mtd-partition-node-reference-v1-99ecfce4b351
+
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
 
