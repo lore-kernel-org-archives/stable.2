@@ -1,56 +1,82 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794152740;
-	b=BDXyYmtTwnK+SRGTtXbUw5oqTW9BWGlzf5KcmxcMkiRTHasyGyJ3hiRZfkVfr7hUTlRO
-	 ZYeYrJEA1FrlwgVWUz+HlcyVOuULUOHi8cQG0RX3JSJjG8McNQCaaIW4CyU8iinmRcTVX
-	 cEPbRsImDtnqxPRYNq3qI6guO8vfumr0jJ6aZlqmXTzKvYMgE/XeQeMell9AHjjI6rfA/
-	 RHwjRlgoF4jPdbVv9khPxGuSVQIyVn4YQ/rb5doj/Di0Dd3CyuMQmlkHc1uzhj6Ibhlzy
-	 ytLvQfNlSwYfgJLkiPnBLLdi6A7I64fXq7zVOs3IDOtYzDek8ZYPweL1zyFiJicSRIg==
+	t=1794153270;
+	b=E2e4Q3QI9ChnB2zcio+b8dGrmuUT+4Z6DUFfrZlaaVIAZJmobHr/AmL6VPDqo0NkkKTJ
+	 L3aQ7X3EZv1xuVk+Mhq8tyIo0vbOFvOradtgvnMmLoNB6BJLWqtnKgMl31vwSyffdI9B0
+	 FelcFnhgH96ju+mcz0I3Q+7E8lcFGM4tQQTNWFXOnkTPXttDpLjLuON5e/UXuVg3UHA9K
+	 l7B/NyRlclBDDRsU8jwogDN7NDX6SloDGE0H0bLnDcICTOS8ugkynqgz+rj+l6L++tBqH
+	 ZaVWcldNRp3vYftKSiLVU0zg/nzQE6oOJl6zubTuabZexi1NRiybs3ZKSOB86XIB6tg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794152740;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Qv6VqrmKg3FKau8lhcdKdMQGVPG34q5ibWj5i/V4Uxk=;
-	b=QF9ZdRKpSMQL1giHRcxMiJh8JR4TyVJyi/rp6Fsgofsu/XGWhP99kYAvYNfkzt4Hc1jn
-	 7GhNiYcm0faBFjNjq8JiuUbAwONDuS2+DMZDJ4VW5ukONSJ020eulFXVmNU9s+pCBl2gD
-	 Xmz3j+A2CDdVx17kytCss21vh9atZqdcASAPvud4vY70/tGd9tVgATl0dskHFM1r6iXjY
-	 z+NfkVNBUlNHBW8XwOZj3xOwZ5eKpOXd4psO2QB96SeBwJdsOUlzVwlFkA7hTu1mtROap
-	 edNuHOTa9AL5OCJuAolQTaUmp7TVqCY8utd4s7Cri3lmxkE6oIUeaXgPDRu73jnjxxw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794153270;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=5GBHjUTFcUUKHRDe6Uz5ToMncS7KWKXWOvxbmPEhwVE=;
+	b=ulv9bpskAkhsJnq5Ac9ya+hT/GQ5w6ybCqglLj8tcWdSvapag17WLfuRK9mFDdYMQipv
+	 eAoSQDYuKThdJ822icqaKJAexVLpAQ7VGwSSx2j+m7+L0Db/0qG/t5G4pn8unv4tJDOwR
+	 leoLhQNJphQlIo9Hg79P+HOs1hBBB/8Z5hF/sRGUuUQPTnM2aMlj+5OQMbdZBCBD/zfPT
+	 +rAbfacCzwkBPCpWWMFJen8spjiFsHbf7GCYymJCAfBVFr+7bMs2RaA6h7kZiZsCM51J/
+	 HP9AC6FVdS2asPJFaPyyzU3t7DNxBvvfCJ5nGajGaL7HEopDi/HHt+G+fZRLT6usrNQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a4WU4ZOt;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZJmK8oUf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 4DA0B606A31C;
-	Sun,  8 Nov 2026 15:45:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C817606A31C;
+	Sun,  8 Nov 2026 15:54:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a4WU4ZOt
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 6081A1F0089F;
-	Sun,  8 Nov 2026 15:45:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZJmK8oUf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 041841F0089F;
+	Sun,  8 Nov 2026 15:54:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794152739;
-	bh=Qv6VqrmKg3FKau8lhcdKdMQGVPG34q5ibWj5i/V4Uxk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=a4WU4ZOtyv8lhVPK2R69tPrAh+NxEEVRu8UMt4SZyMqr38wyOnfJOtIfT5REDEUn+
-	 HXMsXb5UV6mK4xkBY8veUl6MU2kI0pFbxqjq20EwXI3h7s698sDZvjYO1d6U6YWQ59
-	 t0aQjKxVasSN+PkO4868zqlWPlHrvYyDGyTynHZDPFMYwp7ysu4fvuiMyxcTFPeZyw
-	 rkQ1uWKKNVC9yldAslb5wIdmqSWzQTOKoySgY3b7gdqJnc/QkyCS0+Tg/joVvXBsgG
-	 NHe8TAKooSalQBBwxMTHu4N4rb9ctbMokq1Wingy44/mDIjKZSu9UN42wTlaXFNBSD
-	 Vs66CIyximNIw==
-Date: Sun, 8 Nov 2026 17:45:36 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Yuansheng Yang <0xbeac@gmail.com>
-Cc: David Howells <dhowells@redhat.com>, Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>, keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v5] KEYS: Protect pkey method checks against type removal
-Message-ID: <avCZIMCsZ4um18e-@kernel.org>
-References: <au3fT5HMq7IF-M3e@kernel.org>
- <20261108131417.77287-1-0xbeac@gmail.com>
+	s=k20260515; t=1794153270;
+	bh=5GBHjUTFcUUKHRDe6Uz5ToMncS7KWKXWOvxbmPEhwVE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ZJmK8oUfB5GK4SbMw3dQ4gH4wjlNa4ufA6yaxygD3Pbs5aQPHdlk4heug6b52tepR
+	 HDxpJJlU8tRKZUgzaTxtMt5yfwa6BJUtuObFCmPlQp5ro1G/aANuVZyCqpQyvuACBd
+	 xQCn+U+Ijo6zuGkJ2P84IAnkz63BANh0VFfve8TpGzqv/J3WeIZpC75uiyvmv2YXa8
+	 TsQJxAJxz8iLLP+w6S1PYYF6XGDXOJq7Yspz2c9uANiujJOPDZ53koYaa7XAmvDESh
+	 qfV16MLzWmPUrgefTB0jcFCI8f2brVRUadBdyxsFQ5aUyC1DtJHF8qO9VpNcFrUyj0
+	 FSoBfoNzq3IQw==
+From: Miguel Ojeda <ojeda@kernel.org>
+To: gregkh@linuxfoundation.org
+Cc: achill@achill.org,
+	akpm@linux-foundation.org,
+	broonie@kernel.org,
+	conor@kernel.org,
+	f.fainelli@gmail.com,
+	hargar@microsoft.com,
+	jonathanh@nvidia.com,
+	linux-kernel@vger.kernel.org,
+	linux@roeck-us.net,
+	lkft-triage@lists.linaro.org,
+	patches@kernelci.org,
+	patches@lists.linux.dev,
+	pavel@nabladev.com,
+	rwarsow@gmx.de,
+	shuah@kernel.org,
+	sr@sladewatkins.com,
+	stable@vger.kernel.org,
+	sudipm.mukherjee@gmail.com,
+	torvalds@linux-foundation.org,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Carlos Maiolino <cem@kernel.org>,
+	linux-xfs@vger.kernel.org,
+	"Darrick J. Wong" <djwong@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	loongarch@lists.linux.dev,
+	Richard Weinberger <richard@nod.at>,
+	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	linux-um@lists.infradead.org
+Subject: Re: [PATCH 6.18 000/869] 6.18.63-rc1 review
+Date: Sun,  8 Nov 2026 16:54:16 +0100
+Message-ID: <20261108155416.119775-1-ojeda@kernel.org>
+In-Reply-To: <20261107134852.069646174@linuxfoundation.org>
+References: <20261107134852.069646174@linuxfoundation.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,94 +86,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261108131417.77287-1-0xbeac@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Nov 08, 2026 at 09:14:17PM +0800, Yuansheng Yang wrote:
-> keyctl_pkey_query(), keyctl_pkey_e_d_s() and keyctl_pkey_verify() check
-> that key->type has the ->asym_*() method they need and call it later,
-> without holding key->sem.  A reference keeps the key alive, but does not
-> pin the module that provides its type.
-> 
-> When that module is unloaded, unregister_key_type() waits for the key GC
-> to process every remaining key of the type.  For each such key, the GC
-> takes key->sem for writing, switches key->type to key_type_dead, whose
-> ->asym_*() methods are NULL, and destroys the payload.  If this happens
-> between the check and the call, the keyctl calls a NULL method:
-> 
->   KEYCTL_PKEY_SIGN task              Module unload and key GC
->   ------------------------           ------------------------
->   keyctl_pkey_e_d_s()
->     if (!key->type->asym_eds_op)     unregister_key_type()
->                                        GC: down_write(&key->sem)
->                                        GC: retype to key_type_dead
->                                        GC: up_write(&key->sem)
->                                      free_module()
->     in = memdup_user(...)
->     key->type->asym_eds_op(...)      -> NULL call
-> 
-> If it happens while the method is running, the method is left running in
-> freed module text.  In-tree, turris-signing-key provides ->asym_query()
-> and ->asym_eds_op() and can be built as a module.
-> 
-> Take key->sem for reading around each ->asym_*() call, and check the
-> method again under it, right before the call.  While key->sem is held,
-> the GC cannot switch the key to key_type_dead, so unregister_key_type(),
-> and with it the module unload, cannot complete: the type, its module and
-> the payload stay in place until the method returns.  If the type is
-> already gone when key->sem is taken, the check finds key_type_dead and
-> the keyctl fails with -EOPNOTSUPP, as it does for any key type without
-> the method.
-> 
-> Otherwise, behaviour is unchanged:
-> 
->  - The existing checks in keyctl_pkey_params_get(), keyctl_pkey_e_d_s()
->    and keyctl_pkey_verify() are kept, so key types without the method
->    still fail at the same point with the same error.  No call relies on
->    them any more.
-> 
->  - memdup_user() and copy_to_user() stay outside key->sem, as in
->    keyctl_read_key(), so no page fault is taken with key->sem held.
-> 
->  - key->sem is only taken for reading, so pkey operations and KEYCTL_READ
->    on the same key still run concurrently.  Writers such as KEYCTL_UPDATE,
->    KEYCTL_REVOKE and KEYCTL_SETPERM now wait for a pkey operation in
->    progress, as they already wait for ->read().  The in-tree ->asym_*()
->    methods do not take key->sem themselves.
-> 
-> Nothing else in the kernel calls these three methods, so the four call
-> sites below are the full coverage:
-> 
->  - keyctl_pkey_query(): ->asym_query() for KEYCTL_PKEY_QUERY
->  - keyctl_pkey_params_get_2(): ->asym_query() to check the buffer sizes
->    for KEYCTL_PKEY_ENCRYPT, _DECRYPT, _SIGN and _VERIFY
->  - keyctl_pkey_e_d_s(): ->asym_eds_op() for KEYCTL_PKEY_ENCRYPT,
->    _DECRYPT and _SIGN
->  - keyctl_pkey_verify(): ->asym_verify_signature() for
->    KEYCTL_PKEY_VERIFY
-> 
-> This problem was recently fixed for keyctl_read_key() by 925c84e3cc21
-> ("keys: Protect the read method check against type removal") and for
-> key_update() by aef3a8a4f988 ("KEYS: Protect the update method check
-> against type removal").
-> 
-> LLM assistants, OpenAI Codex (gpt-6.1-sol) and Anthropic Claude
-> (claude-opus-5-5), found this while looking for other cases of the
-> KEYCTL_READ problem, and drafted this patch and this description.
+On Sat, 07 Nov 2026 08:44:42 -0500 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
+>
+> This is the start of the stable review cycle for the 6.18.63 release.
+> There are 869 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Mon, 09 Nov 2026 13:46:08 +0000.
+> Anything received after that time might be too late.
 
-This paragrah is no longer required and can be removed. I'll make only
-sure that you know what you're doing. LLM is equal to a text editor as
-far as I'm concerned, which also LLM is neither excuse for anything.
+Boot-tested under QEMU for Rust x86_64, arm64 and riscv64; built-tested
+for loongarch64 and arm32:
 
-I think this is fine but there was a Sashiko issue left that
-still needs to be fixed.
+Tested-by: Miguel Ojeda <ojeda@kernel.org>
 
+In loongarch64, I am seeing again the XFS issue:
 
-> 
-> Fixes: 00d60fd3b932 ("KEYS: Provide keyctls to drive the new key type ops for asymmetric keys [ver #2]")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yuansheng Yang <0xbeac@gmail.com>
+  https://lore.kernel.org/stable/20261106071743.90363-1-ojeda@kernel.org/
 
+Cc: Carlos Maiolino <cem@kernel.org>
+Cc: linux-xfs@vger.kernel.org
+Cc: Darrick J. Wong <djwong@kernel.org>
+Cc: Christoph Hellwig <hch@lst.de>
 
-Br, Jarkko
+Cc: Huacai Chen <chenhuacai@kernel.org>
+Cc: WANG Xuerui <kernel@xen0n.name>
+Cc: loongarch@lists.linux.dev
+
+For completeness, for UML I have been seeing (I will skip reporting these):
+
+  arch/um/drivers/ubd_kern.c:780:13: warning: stack frame size (1480) exceeds limit (1024) in 'ubd_device_release' [-Wframe-larger-than]
+
+  lib/kunit/test.c:684:5: warning: stack frame size (1208) exceeds limit (1024) in 'kunit_run_tests' [-Wframe-larger-than]
+
+Cc: Richard Weinberger <richard@nod.at>
+Cc: Anton Ivanov <anton.ivanov@cambridgegreys.com>
+Cc: Johannes Berg <johannes@sipsolutions.net>
+Cc: linux-um@lists.infradead.org
+
+Thanks!
+
+Cheers,
+Miguel
