@@ -1,63 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=149.72.141.136
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794140993;
-	b=kKmmM0mBzMhYkopcKLKNPwhyxXT5f6QGlug+QW0nocTBy1odUSu2M/PiwZd0j9r6yIqQ
-	 0V8YwlDJO0Sop99PAMtina48NRs9zs61JkXmkdwZFvw4D9iOch1UiRBkjgZAhhKhnHZIi
-	 6IKGw6S6YNGVkH47C0MQQ718nrgUm2owITOramHt7S89IP4re2A55YbQgwM9N6MlVWr4x
-	 Ica+Q/jkxFTvp774tUNcIFnV7Qnj4PMBUf0CbGP/8coPVwz2GWrpdyi0girK45jQKhwXh
-	 GayG1wB6MR7273V8lTFfGtYuelkc6sDhBi9mL9yh1KmaiglhLT7rRNKkCeL40XQzynQ==
+	t=1794140994;
+	b=WOPFyTWhmccUHVxcXI8OKmNVl/enQ43e9tcZ2/YaBxzzVsGDJq+WINtaRuwiWGNupcla
+	 UC1KqqaLB9DchL/fCGfps9Dqxl9Lh3Zc822ghwheWVrr5EuvTBWlrCOml8peQHyyObdsS
+	 0KRNNAWSuqU5AN+JW0bG6ZNr5rYztgSmsGmpzJrwIx3DnX+LVVF8e+VeNtOXhhgs5CcjC
+	 spESj99MCUCmtXXcazETfBUqUS4JUnH079TGzuTL6SsxlVOjDXQvuIiJFmnFwnfdk2mP3
+	 HDW3fU+WnhFUWMrTY3xQRKBXsexm2HNBeKI4m46YRBvWuQZMBng1QsQN8C93Th08HGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794140993;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:X-SG-EID:To:
-	 Cc:X-Entity-ID:Content-Transfer-Encoding:Content-Type;
-	bh=ci3/uizM6qBDovrwimDa4xfj8Stkcf8UjEpLaQjo4Xg=;
-	b=cV0YqxK0ni7kfAudF0jYug/welGpd21WsZv3FCvv4G9+L1Ftd1ewEFdEpmZSt5RdmeXi
-	 KuBlaqpfkPAvDCPZiRVce+jVtHbZ+SD3Qvk8RKTtaK9GPQEqssE0alloHG7iLIhpG58bN
-	 xUtgXKaIKE1g3dkNYte1raahl10h6Lp5Krpqr5yN24jwEpe4jiRDVBFmDv3ITRowqIjBA
-	 IQcCPh+TeKZ7ASqdk2iygCXEtY5Wzi2GpayJtHVRfRmgf5YYPQtJ2JmawK/ZfnWIdG7Hz
-	 72upFLKD86perletC9EnOIWu6fZhnxJYxmkOPCHScYLMw4s1lIrooZyQ3Nbl0rfiOtA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794140994;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=nzguZBxFGT7Ld1CuDLFoowXYThcPeVDRDZD/xldyIQE=;
+	b=aD3sUJOEZf2ulnOeY2pmxwr+8JOwAGA7SFsIrmJLfnQFgH6nt99+5LG4TE1WzI3aJdSO
+	 upW1hVkFSxmGLTVqeGTy/7z595TpCu8SG8YnN4Uy16KHXdgPTDHbUKARiDCliLkxT5sKx
+	 qJxDviJLN+gs9CN/Ljw+Kwxj+cGL9VJDX4s80iekGxu0GvxQXKPrqiCW00Ny9dyA2WDpY
+	 zCuvLXRIECTIB7RYfXBVW4hRBkJv9Fs/6QRTaGu91RSIB2h0r6g4kQUgPEQ3Kev5wfOSD
+	 k4txtYn4BIf7kSMFoaK3RdN76hx/Ise13vQ9dvHXycITt3F7opevy6fT94oE81F/VbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=honeycomb.io;
-	spf=pass smtp.mailfrom=em.honeycomb.io;
-	dkim=pass header.d=honeycomb.io header.i=@honeycomb.io header.a=rsa-sha256 header.s=s1 header.b=HPYqGPG7;
-	arc=none smtp.remote-ip=149.72.141.136
-Received: from o1.ptr9745.em.honeycomb.io (o1.ptr9745.em.honeycomb.io [149.72.141.136])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MeJrhITh;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29CB4606A320
-	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 12:29:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29CB4606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=honeycomb.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=em.honeycomb.io
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 28A34606A336;
+	Sun,  8 Nov 2026 12:29:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=honeycomb.io header.i=@honeycomb.io header.a=rsa-sha256 header.s=s1 header.b=HPYqGPG7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=honeycomb.io;
-	h=from:subject:date:in-reply-to:references:mime-version:to:cc:
-	content-transfer-encoding:content-type:cc:content-type:date:from:subject:to;
-	s=s1; t=1794140992;
-	bh=ci3/uizM6qBDovrwimDa4xfj8Stkcf8UjEpLaQjo4Xg=;
-	b=HPYqGPG7FY0650zVgQWZ0bwLHBINMFyDTUvJjXybGn4uj+ArA7/CmyghFlT0kH3H4+5/
-	LBDUO4rsCwqyngRw9B3HIbVb6WAty5Zjn3PnX/09edKkYb/JshA1CoNu1M9Mf2RAmZZR9U
-	YcV7SZ7B9CNxr1pLo7vgFMLZaEb8ahSRFG4bnwzcW5vSSudk4UCbDHYrY5UfRLaGAVkh6d
-	xdJ3d0cYe4MK+40VrWHSUnBOJcjF4Ejbz4QqA1Vm+VtZMwIGh7GaFwtzuPKP3g9fKT4Oje
-	Nbei4oITXKflv9Fkgc12K1QttfoPyVaOLDcv47+cPFJrvQCUfICF2qarKDkXJYDg==
-Received: by recvd-cc8d845b-xcv2x with SMTP id recvd-cc8d845b-xcv2x-1-6AF06B40-34
-	2026-11-08 12:29:52.215065152 +0000 UTC m=+217254.257411646
-Received: from daisy.dens.ffj.family (unknown)
-	by geopod-ismtpd-22 (SG)
-	with ESMTP
-	id FUjBHN2VSM6Z1xsjDBlsNg
-	Sun, 08 Nov 2026 12:29:52.158 +0000 (UTC)
-From: Liz Fong-Jones <lizf@honeycomb.io>
-Subject: [PATCH 6.1.y] writeback: keep cleanup_offline_cgwb()'s scan out of
- syncs
-Date: Sun, 08 Nov 2026 12:29:52 +0000 (UTC)
-Message-ID: <20261108122951.601970-1-lizf@honeycomb.io>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107055328-failed-6.1-90c96612460e@kernel.org>
-References: <20261107055328-failed-6.1-90c96612460e@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MeJrhITh
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 44E091F008A2;
+	Sun,  8 Nov 2026 12:29:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794140993;
+	bh=nzguZBxFGT7Ld1CuDLFoowXYThcPeVDRDZD/xldyIQE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MeJrhIThxuIbY67XQzxLWCSK5/tU6TWBHazm1Iluy4JV40EQY26h9fNxaJ4WdeCt4
+	 wg96VZraTjbWDU+OmDr94GOzHHsD4oACB89teiJufc4UpoOs4xEbG9wF8azIo9SOqo
+	 3WSqskT5SpmPovDxGv226fpMAh70Lu6uaBe7noHYMGiRJaq7HC6EsgJYHcgSSv6G/w
+	 /jMQu5aM6FC7f5v53TiOYEAfloVWtNJ0FYrGO96RIZqa3w4z+R6KySrc734UuuMvzH
+	 i343kMyDKnPljAf/QYBvbSk+r6eW3CHHRDC2uo4zrBPVSGyeg+rcs0OXF7prd6NfL1
+	 VikjRMVNBLmFw==
+Date: Sun, 8 Nov 2026 14:29:50 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: hyunjungg <hj351016@gmail.com>
+Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
+	Tadeusz Struk <tadeusz.struk@intel.com>,
+	linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] tpm: flush timeout work outside buffer_mutex to avoid
+ deadlock
+Message-ID: <avBrPjvw_5EH_W5r@kernel.org>
+References: <20261108075848.257145-1-hj351016@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,93 +59,96 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-SG-EID: 
- =?us-ascii?Q?u001=2ECuH7N2XAoeMR1zrzr=2F6NZrhli2vbKPOHff5fJuZuba6ZIE8QPyIf9mn4Y?=
- =?us-ascii?Q?ezqeFFjUkh=2FeROy4LtnO7KN9jZmeblFZis96ejt?=
- =?us-ascii?Q?3g+cSsTtFvM91yx12IF18succ=2FhaIydbnH3umpX?=
- =?us-ascii?Q?DhwOQMCnQexGmZ98L0szJschJg58ArleNN5mv78?=
- =?us-ascii?Q?hH3swm5l8uvzwsL1MaGiVvHN=2FYNsxheba166Hbk?=
- =?us-ascii?Q?YSCPehJr8iui4ZCyBrb9XpT1VXBqaUeMLW0=2FJub?= =?us-ascii?Q?tui+?=
-To: stable@vger.kernel.org
-Cc: Sasha Levin <sashal@kernel.org>, Tejun Heo <tj@kernel.org>, Jan Kara
-	<jack@suse.cz>, Christian Brauner <brauner@kernel.org>, Liz Fong-Jones
-	<lizf@honeycomb.io>
-X-Entity-ID: u001.GRlkmHQ+Ka/CKxmoC/CxTw==
-Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261108075848.257145-1-hj351016@gmail.com>
 
-[ Upstream commit 90c96612460e6accddbda5a195e6ddaa391ecde0 ]
+On Sun, Nov 08, 2026 at 04:58:48PM +0900, hyunjungg wrote:
+> From: Hyunjung Ko <hj351016@gmail.com>
+> 
+> tpm_common_read() flushes priv->timeout_work while holding
+> priv->buffer_mutex:
+> 
+> 	mutex_lock(&priv->buffer_mutex);
+> 	...
+> 	if (!priv->response_length) {
+> 		*off = 0;
+> 		timer_delete_sync(&priv->user_read_timer);
+> 		flush_work(&priv->timeout_work);
+> 	}
+> 	mutex_unlock(&priv->buffer_mutex);
+> 
+> The flushed handler, tpm_timeout_work(), takes the same buffer_mutex at
+> its start. user_reader_timeout() schedules timeout_work from the
+> user_read_timer, which is armed while a response is pending. If that
+> timer fires and timeout_work starts running while a reader holds
+> buffer_mutex, flush_work() waits for timeout_work to finish while the
+> reader holds the mutex, and timeout_work blocks acquiring that same
+> mutex -> deadlock. lockdep would report this as a circular locking
+> dependency between buffer_mutex and the work.
+> 
+> Before commit 9488585b21be ("tpm: add support for partial reads") the
+> timer deletion and the work flush ran before buffer_mutex was taken;
+> that commit moved them into the mutex-held section, introducing the
+> flush-under-lock cycle.
+> 
+> Flush timeout_work after dropping buffer_mutex. The timer is still
+> deleted under the lock, so no new timeout work can be queued once the
+> mutex is released, and the flush no longer runs under the lock the work
+> needs.
+> 
+> Found by static analysis (a checker for cancel/flush-sync of a work
+> performed under a lock that the work's handler also takes) and confirmed
+> by code inspection. Not reproduced at runtime: it requires the
+> deprecated user-space read timeout to fire while a read holds
+> buffer_mutex, so the deadlock is established by inspection rather than an
+> observed lockdep splat.
+> 
+> Fixes: 9488585b21be ("tpm: add support for partial reads")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+> ---
+>  drivers/char/tpm/tpm-dev-common.c | 13 ++++++++++++-
+>  1 file changed, 12 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/char/tpm/tpm-dev-common.c b/drivers/char/tpm/tpm-dev-common.c
+> index 6569212..f9b18ef 100644
+> --- a/drivers/char/tpm/tpm-dev-common.c
+> +++ b/drivers/char/tpm/tpm-dev-common.c
+> @@ -132,6 +132,7 @@ ssize_t tpm_common_read(struct file *file, char __user *buf,
+>  {
+>  	struct file_priv *priv = file->private_data;
+>  	ssize_t ret_size = 0;
+> +	bool flush_timeout = false;
 
-On a filesystem mounted with lazytime, sync() and syncfs() can return
-without persisting timestamp updates of inodes attached to a dying
-cgroup wb, so a crash after the sync loses them. File data and sizes are
-not affected.
+Rename this as flush.
 
-Since commit f6988c90671e ("writeback: bound cleanup_offline_cgwb()
-rescans by rotating scanned inodes"), isw_prepare_wbs_switch() moves the
-inodes it walks to the newest end of the list. When a pass fills its isw
-before reaching an inode that got its lazytime update after a sync's
-cutoff, the walked inodes land past it on b_dirty_time, and the sync's
-queue_io(), which stops at the first inode dirtied after the cutoff,
-misses them. The late inode has to be one without a pending lazytime
-update; one already on b_dirty_time keeps its position.
+>  	int rc;
+>  
+>  	if (!size)
+> @@ -164,9 +165,19 @@ out:
+>  	if (!priv->response_length) {
+>  		*off = 0;
+>  		timer_delete_sync(&priv->user_read_timer);
+> -		flush_work(&priv->timeout_work);
+> +		flush_timeout = true;
+>  	}
+>  	mutex_unlock(&priv->buffer_mutex);
+> +
+> +	/*
+> +	 * tpm_timeout_work() acquires buffer_mutex, so flushing it while that
+> +	 * mutex is held deadlocks if the timeout work is already running and
+> +	 * waiting for the lock. Flush after dropping the mutex; the timer is
+> +	 * deleted above under the lock, so no new timeout work can be queued.
+> +	 */
+> +	if (flush_timeout)
+> +		flush_work(&priv->timeout_work);
+> +
+>  	return ret_size;
+>  }
+>  
+> -- 
+> 2.43.0
+> 
 
-The window is narrow. cleanup_offline_cgwbs_workfn() skips wbs with
-anything on b_dirty, b_io or b_more_io, so the scan has to land between
-wb_writeback() fixing dirtied_before and taking list_lock for its first
-queue_io(), unless a multi-pass drain started before the wb got dirty
-IO.
-
-Take wb_switch_rwsem for read across the scan, as
-process_inode_switch_wbs() does for the switches.
-
-Fixes: f6988c90671e ("writeback: bound cleanup_offline_cgwb() rescans by rotating scanned inodes")
-Cc: stable@vger.kernel.org
-Suggested-by: Tejun Heo <tj@kernel.org>
-Link: https://lore.kernel.org/all/0bc5d58533f10b4841807be3025daa11@kernel.org/
-Acked-by: Tejun Heo <tj@kernel.org>
-Signed-off-by: Liz Fong-Jones <lizf@honeycomb.io>
-Link: https://patch.msgid.link/20261017040710.1174009-1-lizf@honeycomb.io
-Reviewed-by: Jan Kara <jack@suse.cz>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-[ Take wb_switch_rwsem before this branch's rcu_read_lock(), as
-  down_read() can sleep. ]
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Liz Fong-Jones <lizf@honeycomb.io>
----
-Upstream's first hunk conflicts with this branch's rcu_read_lock() block, so
-the rwsem is taken before it. Same change as the 6.18.y backport, which was
-race-tested; compile-tested only here.
-
- fs/fs-writeback.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/fs/fs-writeback.c b/fs/fs-writeback.c
-index 085e0fa0cab3..44bfe24fc9d7 100644
---- a/fs/fs-writeback.c
-+++ b/fs/fs-writeback.c
-@@ -730,6 +730,13 @@ bool cleanup_offline_cgwb(struct bdi_writeback *wb)
- 		new_wb = &wb->bdi->wb; /* wb_get() is noop for bdi's wb */
- 
- 	nr = 0;
-+	/*
-+	 * The scan moves walked inodes to the newest end of b_dirty_time,
-+	 * past ones it didn't reach. If one of those was dirtied after a
-+	 * sync's cutoff, the sync's queue_io() stops there and misses the
-+	 * moved ones. Exclude syncs as process_inode_switch_wbs() does.
-+	 */
-+	down_read(&wb->bdi->wb_switch_rwsem);
- 	/*
- 	 * Paired with synchronize_rcu() in cgroup_writeback_umount().
- 	 * Holding rcu_read_lock across the SB_ACTIVE check, the inode grab
-@@ -752,6 +759,7 @@ bool cleanup_offline_cgwb(struct bdi_writeback *wb)
- 		restart = isw_prepare_wbs_switch(new_wb, isw, &wb->b_dirty_time,
- 						 &nr);
- 	spin_unlock(&wb->list_lock);
-+	up_read(&wb->bdi->wb_switch_rwsem);
- 
- 	/* no attached inodes? bail out */
- 	if (nr == 0) {
--- 
-2.53.0
-
+Br, Jarkko
