@@ -1,98 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.67
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794132782;
-	b=QckGKukM9f7c9Nh7zUgoDXIMw89/QN/zyJN9roy1KeEuP0pHyyaSY0hEwMv6B4FqzqFN
-	 wI/YgUZd3CdgrJZTFYRbvtvKrPxRmJ7dp9nA3v0V7wBvqypfLbSxljQmGaKjZ6nMsLxMx
-	 vUq8rl0EV5/FgAyLQ8od0XRg0GmMR96IsMbkQ9d0bI5QK3a6zXGuy1o256MkAm2ErnDC+
-	 8AATiv1BYSxV4YSc1wlNO0t8yYThxa/99T5Jrl1yGJ+Qw1XEWwEZJqbfOwMbfh2plxSbl
-	 Pkh/qqpiV9mHwrbSYiCWOuul55XFwt1xLgJ6m6gmNNj7HzCQW0vPgzoWltIbL/LrSkA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794132782;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=8ksh18XjN31xXg5vP3s8jmBcfw7favlG3iLeKTZVOx4=;
-	b=h7YyUhxNURYpwiUpCvALTjuaeJqdTIj+QpQrpNrxb/rRvbOFlP+mlnHEm2OMnd4Tm3ii
-	 NJgYfdroVEJziLBGFQMey4qgWKdSr6F4kUiYtEiHa3wDYsBXNFbe3hImLlKJHbKcCwQqU
-	 VYlSrPKAkyeNFEbXp6mKwEBtbYJ4ASicXmuRVCUJWHFG6ADikYEU5nWyDc7N5pAWmPqkL
-	 BzdlnBXZ5vzXi2Ez840VmeSPx0FohBopC8qYAtmUT/zfNLlspPnF2bLsYlvPH48PGxt6n
-	 IssSzYmgDqPQ8adGBCZKsy4aMhAgWp3FJjj9+eLljM5EhK7mnpDzH7zdl1een56GqYA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=mE6YxGNw;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.67
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013067.outbound.protection.outlook.com [40.93.201.67])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.197
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794135380;
+	b=k+scrzsLKOQb6TVCJpw29j2h7/ndFjgjlV43VCbU2sCaVy2TW13IXM1NstWF22vB+CQc
+	 gq9v0FAuo7tHcDD/vsRxKIt9HOjwyacZDMmYJ/W4qtGB8vs9LpMAMqev3SCtKLRs981NQ
+	 smECXMOZRX1xcUb04dVh9x6VFU+jnTVuyKmin1DDAinUmIalFW/by8JLsxgr71JpxVbvm
+	 lJJaauz5aRgQ0wBT7OWLnu1Y0m/w+nkHFEDJrX4dm5pCuuurrwzdjgrii2kDvyZ7qU6wl
+	 wS2DNit49yyFjd6Nt4RgeZgnzwGfnGy64njt0KxeMKFv9mCjS8Wa0yT0r4YUgd8o4uw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794135380;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
+	 X-HM-Spam-Status:DKIM-Signature;
+	bh=Lx5FdCJ2eSvmPiOnGEExcuHYOPXDEBy3PEtwkjj7EwY=;
+	b=Bwork02K8/+crasMPW44LTT+G1FZc8/UZpa8L1odBUYUe8o8vuuVLhPbACCplvfXI+Ge
+	 A4QeFit/zsvVYvNUJnWdV2ZwSEImjBJBoRkm/NS8JfbaMsrq52rtrne2Hk2YavmAU2uUR
+	 7L/A3q6Xytz2NB+x0mV/2lcGnpXf1qGjNLwGDXo2X/Go5k9NYYMrYHp7k7lGp4vXcV2lF
+	 EqtYiA9RBAiNxaffR7ZgLWsZKOirEON7N1HIim5gEeQ2qzVB6lw1sVKsbg0WnHC2KY7j7
+	 Glo3LEPxHo0UtRG/OqLLBL5DqNftHIV8rioZtq0AddNyI1McMidOxDHp3eZW5gO3ACQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=seu.edu.cn;
+	spf=pass smtp.mailfrom=seu.edu.cn;
+	dkim=pass header.d=seu.edu.cn header.i=@seu.edu.cn header.a=rsa-sha256 header.s=default header.b=BK4xzZgn;
+	arc=none smtp.remote-ip=45.254.49.197
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD79E606A31C;
-	Sun,  8 Nov 2026 10:13:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD79E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30256606A31C;
+	Sun,  8 Nov 2026 10:56:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30256606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=mE6YxGNw
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hmHG1DtytYWwkTBhoS/2DSxFC02hndS/APqwHcZheaVdMpsGM45uq3H8mQyX+X77K34XJCCKLyd9guhh1s+8VMmOK/qYlsVT5aonLpkmTp8WS+5/YcamR5qLYpHx6PEmsARVKuxD9vTG5YGF+JevRiejC648otxgdWqe2dZ8qQyuN+50nQDP1Au683w7riiEsiG2Dnct6/dZC95bJc10hrhXqOd5/PJ4JYd1118ZDSQJUb4Xg36+wysovHMwIc30DDw81VPR0Y6D06oVU8lMLHB+vLwhYbXeHez4FeXk4aGRWQq81rr1Mwa4p4ZYrKpmei5mh+5I6IlBFp3Twrd75A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8ksh18XjN31xXg5vP3s8jmBcfw7favlG3iLeKTZVOx4=;
- b=mImohuX8aUvMo25N5HEuEskoOb7uRj7aMudgYW1YQCWKoGDiWR3gKQwBzBX0prlUqTrh4WeU6dKCyQ5qkMhNEX+0X2//RtlwTDg6Lto+4+XkehmIcv7dGnwqiFdVdRCV4U92WS7jkfD2eavLCL7CiuEUX7WGAMllKSWa0lg0a5CcnJZFHKiGf/etzSulg2QAlmRTdfj682XFX9J9Ac7MUeCPgdO1zYAeMtMFboW+oZ0qJN4Y+3SUVdwOKXknxH6Eyu8mZP+XMzemNn+2BFGKpqAU82LnsAmlz0pVcWAJyDKiG2+R2zTsM3bXmfrC56oEEtv62Jvbwl2wnm0H1VPP3Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8ksh18XjN31xXg5vP3s8jmBcfw7favlG3iLeKTZVOx4=;
- b=mE6YxGNw9B3oZ5JZZxxTOLrLZ1zoXJneP368IOL2i8KYhoVULZ13FtoRAaI/NRdk83VqtOFw6h+9eUvF4XgGN9ZLLhBQWUKjbwP+FgmgLgTR9fl8/xLiaZ1BEWe+ylquOvut4rlTPQ9qq77BKzwVjMrbmp23P05yypc1EV4K0QQ0Mb+uzbxZvg+GecPkdMYf31eHP7JCa3HkKHSy206arDdGpUncNVrC6EXdjBFImhHYiVACO3Z02svJ1aXFxaQpF0dRratVQoDepVC16UuwkAGMwaY9sY/Z+ttl3+I+OUnoCWwi48SfXC0Xin1b0ZF72AHDVFJjnlmNMeU2R9TNaQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA4PR12MB932075.namprd12.prod.outlook.com
- (2603:10b6:207:12d::15) by DS5PPFE52C859EE.namprd12.prod.outlook.com
- (2603:10b6:f:fc00::666) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Sun, 8 Nov
- 2026 10:12:57 +0000
-Received: from IA4PR12MB932075.namprd12.prod.outlook.com
- ([fe80::5a6f:1f74:6ccb:cf2f]) by IA4PR12MB932075.namprd12.prod.outlook.com
- ([fe80::5a6f:1f74:6ccb:cf2f%5]) with mapi id 15.21.0592.010; Sun, 8 Nov 2026
- 10:12:57 +0000
-Message-ID: <04665957-efb5-4632-878a-6a45fa1553f5@nvidia.com>
-Date: Sun, 8 Nov 2026 12:12:55 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] net/mlx5e: TC, fix internal port leak when a flow is
- reoffloaded
-To: Wentao Liang <vulab@iscas.ac.cn>, Saeed Mahameed <saeedm@nvidia.com>,
- Tariq Toukan <tariqt@nvidia.com>, Mark Bloch <mbloch@nvidia.com>,
- Leon Romanovsky <leon@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org, linux-rdma@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261103102855.1340650-1-vulab@iscas.ac.cn>
-Content-Language: en-US
-From: Tariq Toukan <tariqt@nvidia.com>
-In-Reply-To: <20261103102855.1340650-1-vulab@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MR1P264CA0047.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:501:3e::19) To IA4PR12MB932075.namprd12.prod.outlook.com
- (2603:10b6:207:12d::15)
+	dkim=pass (1024-bit key, unprotected) header.d=seu.edu.cn header.i=@seu.edu.cn header.a=rsa-sha256 header.s=default header.b=BK4xzZgn
+Received: from LAPTOP-99KJFSET (unknown [223.75.64.82])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 53e3dfdce;
+	Sun, 8 Nov 2026 18:56:07 +0800 (GMT+08:00)
+From: Hongyan Xu <getshell@seu.edu.cn>
+To: Jakub Kicinski <kuba@kernel.org>,
+	Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	oss-drivers@corigine.com,
+	linux-kernel@vger.kernel.org,
+	Hongyan Xu <getshell@seu.edu.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH net] nfp: flower: hold an RCU read lock while using an offloaded MAC entry
+Date: Sun,  8 Nov 2026 18:56:05 +0800
+Message-ID: <20261108105605.1668-1-getshell@seu.edu.cn>
+X-Mailer: git-send-email 2.50.1.windows.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,137 +61,123 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA4PR12MB932075:EE_|DS5PPFE52C859EE:EE_
-X-MS-Office365-Filtering-Correlation-Id: 590df0c7-0a71-4ab0-eb2c-08df3d80dc0c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|7416014|23010399003|1800799024|921020|11063799006|56012099006|261021123027099003|261021121427099003|261022105027099003|261009223027099003|261026140227099003|261026121527099003|261028144727099003|261102123227099003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	tQsBJVOkwgE3b/vqJJdn+X7fCeW0OJpQ23qJ+OViPVn7GPm52HiYgu34FsRPNMslRPmKOmmNJPe8Y6pbps1Moe5vIeeBzyeoGYWu+GUWOD8WfAEUxpukYVGDbEjPMDGZdYpgjNdMCwWKRUMDHvvUrviR9sS0JuNSnkseLwTD/MHPZo3pkvDhwLCZrNj+LoX19H094+i702qh2iiTcKl7XF7P/fcNCaeSoiBaHxwEAMdrIWWX90LCuyH4s8Z9bP0BSqWcfloOSr+eFAhPV0o1jAXTm3HD8SzVz1vYLC+UP0p+d3n2YSWbgog6fAosnq9xJ5LzMuSUuAtMRWyA7nzEKaxhOV5Wq82BPJt2H0iY4fyqV5xCdwAvbBeUbQQMD7//fMLoA3ckKtKisz2ga/86clSieTQQML4SPXi+ZAHtp5ald0vipQ4jtOQ1SK8ZdcEYAn0u22FBvNfE0u/8PcgB6BVj0YpOo7PqcDYU1OQHfXn9ih/kBmFBdzSY1rQcySXiDUp17+Fe7VBtiJZOTpc5zEt38xwn2T/0dy/soIjDnGA+RTs8chkDcNzX48GOMdD8DemIE3u2FZnddC38ufJMfdSTC4qQ/YcLZ2mAUkWWsSvrANJkAG7etIQ6JCPdRr+7rvYfeL97VxH3wa+0kLC5VsP7h2xiS5x0cGe9rVKtdNjveW21sIC+Fw0jWc6L1lEg/egKxk8K1JKQ4hUSu8t63g==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA4PR12MB932075.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(23010399003)(1800799024)(921020)(11063799006)(56012099006)(261021123027099003)(261021121427099003)(261022105027099003)(261009223027099003)(261026140227099003)(261026121527099003)(261028144727099003)(261102123227099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SnFLdHBzWm5BZTJXa0pJeUtYTS9HOXhZOWsxOU5mYzRJb1ZDWkJVRXN6VFBF?=
- =?utf-8?B?aml2YWF4VjFRWk1jT25kY0tWM1poaVJYZzRmWTNROWdRNU5lbE50dExDbGJq?=
- =?utf-8?B?Y3F6SklmcDZxZGpoSkYzMytYQUhUSnVEc3d2K3FHVTFPdmltM2lMaXkwL0RK?=
- =?utf-8?B?RFNGeHlUMEJiRmJYU1hkV2dXM0VLZmlFT3FLOFV0WjFueW9QbzUxVXA0Ykk4?=
- =?utf-8?B?bkJhTSs3NW15dHpvZ1JUU1FERHFPc0NFSlI0SGxIZjA3TXByVyt4QXlTdFlE?=
- =?utf-8?B?SEo0T1kwS05JaXA4OVEwbFkyRlhyTEcyMWRqODdpY2NwcUVrSm1xYWRqNHRy?=
- =?utf-8?B?Nmp2VWg5NkhhZ3lmSmY1d3FBWmFBcmFQd1JsSDdLU3lwZGZERys4TWZld1pJ?=
- =?utf-8?B?ZlRvNlVBa05OeTRYUldmOWNadGlrZUQ4dXg3eUxwbTZUVnZTbjdxejhOU2c2?=
- =?utf-8?B?SVFOR2dvaUh0eHBadWVFazRpWnhyWDhLWEs0a0lIcFpmTWtMN2swdzU3R0VU?=
- =?utf-8?B?QXU2RTBYZ3hxbGxHSC9ZMHFnZnM2YnVhdTF6VWlpVlRYSHhkVE9SOCtTRHJQ?=
- =?utf-8?B?TkNKZzZFUXR0Yk12ajBKcUp2VzFRMHJNejVhWmJ4TEhrK2N5TEdQbHIzd3I0?=
- =?utf-8?B?MFdXQytNTE44T0FFLzFXZUlOMGtodUhNYjkxZzczL3dubkUydEhGb1BSL1E4?=
- =?utf-8?B?Zk54TGtZdUFCMFJkVkkray9RbVF4RnBzNldrTExDaS9oWUVRVjBhalJTV3p4?=
- =?utf-8?B?THViUmp4ZE9zU3p6NEJvQ2RmN1BKemh6c014TXlhN2RMeVdpVTZOS0FWVWRS?=
- =?utf-8?B?RmVncSt0T1dJMUprVU95VWxTOXJFb0YrblBDRHNuWHJQRXFMUUgwTHUvUy9Z?=
- =?utf-8?B?dWFjQXdkeG1yVzFkbnNOSDBVb3pNbEZURUpVVmJNd1g0M2F4S2loQTk0bVcw?=
- =?utf-8?B?U3V2Wk9NcVBlQ3FyYnVFc2poSTIwb1o3UkV3bkxzdUk2SlZLNFlkd1lQMWYx?=
- =?utf-8?B?dHhDNm05RldpckVKZHBaUENrWlQwZ2J0OU5UQmVsVXEzL3A2UXZSM0ZUakRC?=
- =?utf-8?B?dTZhQ0hDNVVmcUJzaDJ3dUd6Vm93STlkbUZvMGVwS1g5cmV2Wkx5NFQrMHN3?=
- =?utf-8?B?OHJvbWhaai9mUVdnaTUxY3ZOMmRHNVo1RUJLTm1EUVBhRXRaY0lkWXY4bm1G?=
- =?utf-8?B?c3JuMFhUcEMybUFrZGlkeG10WXIwbzhVeitOVjR3N3JBUXFlK2laN0hzeUtS?=
- =?utf-8?B?UUt6ZlY1OGFyZE9QNExYMVRvREh2eWd4Q04rZGRDYlF2Y1kyYlFLRUZzTC9G?=
- =?utf-8?B?ZVFhKysvR2NxUUNyR2hiTHlYN2lRelV6S2VCRzZjdkdLdjZZdSt2QmoxOGxH?=
- =?utf-8?B?Z2U5bU54T1VySklLYk0wZUl6K3l1ZHlJaGE5U2J2TmczbWVKV1lhSyszUEdu?=
- =?utf-8?B?YmdMTUhFbC8ydzZGV09ZOXJkaEtvQ0RUVmFFbkdxUXJ6REhCNFpKOG5rK2hE?=
- =?utf-8?B?ck8xaUNiZXRBZU45K3BCSWFXMmU1VE5UOFJyOTgxbWoxM0hsZ1VBVFZjVXVm?=
- =?utf-8?B?V1YzN1VKQlNCblBPTnlKeVdBbXhPSTNtL0JEM29CNVlYUmpIUkhPb0FaYVQ4?=
- =?utf-8?B?Nmg0eG5pVUdhRGtNRmFxLzczdjBGS01wbWZEcGJxM2dzc1E0bjdlcVFoZ0JV?=
- =?utf-8?B?ZHBub3FZYjVDWFhQaE5YYWRPSjB3ckxSNkR2SHRmanVLWE1hUnVZeDJiYkkx?=
- =?utf-8?B?RUR4U1Bid09vQkxmbUM3UW1YdEdCZkNDUkEydzJ2ZnJwRlQvNWk1S3d0TEJJ?=
- =?utf-8?B?Z2M4VHVsM29sT1hoQXhMOFNCYjBENkE2c1FWNVZ1QUhrSzRmYkgycHg3NytH?=
- =?utf-8?B?eXQzemgvcFkwRC9kNWMxN08xaFJtdjlOTmc3UjYvZ3BUbXRRUlUzcGNDSGN4?=
- =?utf-8?B?U2FuQjJPWENvUkp3a1dCbjZQYUk4Y2ZZSWhYN1JzLzV6dS9pa01JMWtBYjVV?=
- =?utf-8?B?Wk1oZEFYM0VwZ0ROS3VIYUtlYW1sQnhnN3AwcldpNUJuMXVYbkFmWjgrUmlS?=
- =?utf-8?B?bUk4WnN5U29BYUJEWjhMSDFSMDBxRElKWjZTazU1Tlk0MHk2VHB6WStTYmFa?=
- =?utf-8?B?dlZGajNPaXFhS2I5bEs3T1RuS2FEUGhTdEFWZjdtc3NYZmZLTW0rTkxrTUhB?=
- =?utf-8?B?ZlZrTDgvSk1ER0ZSVVZWdHRYQ2x4YnNRZ3BqU0tmUXN4c3dsUzN1aVZWdVlB?=
- =?utf-8?B?bDlsVzhKcUhHb1YzQ3NOVGthSUx1T1doK2xHNlVLVFJzZzRsWnowWU5BSFJC?=
- =?utf-8?B?YVc3dGt0T2ZyZTMwU3hrWGdvVjJEQkx4cHF3Mm5iekdLbklIQUd3Zz09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 590df0c7-0a71-4ab0-eb2c-08df3d80dc0c
-X-MS-Exchange-CrossTenant-AuthSource: IA4PR12MB932075.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Nov 2026 10:12:56.8475
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7l6DjHQLQF6a/Z20IitBO2uLQPEXArjJ4HsAWbrmb/0bWmCyUE9XCmUAISuycomTi87EfJCdb/kIeos5rcdkCg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPFE52C859EE
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa1bacd1c1203a1kunma22588dace61d
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDSB1PVh9JSBgdTR8eS00eH1YeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVTE5VTU9VQ0lZV1kWGg8SFR0UWUFZT0tIVUpLSUJDQ0
+	xVSktLVUtZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=BK4xzZgnNxjjLBR7jvrhOG6fV0JQvthPob0XLsYf9ulIX0ZOoawSQh6/3xhonRDsS4Mn2XW6UVBaHM/PwJZ8jS05SzVa2p47sIwKyocxMZDNd+uvA1Mum+tBUaO0KF3iXJPsURHrVPYZOd04d4LxqA2qV4a6Ve5iw+W0W0WdCCU=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
+	bh=Lx5FdCJ2eSvmPiOnGEExcuHYOPXDEBy3PEtwkjj7EwY=;
+	h=date:mime-version:subject:message-id:from;
 
+nfp_flower_xmit_pre_tun_flow() keeps using the entry the lookup returned.
 
+nfp_tunnel_lookup_offloaded_macs() wraps rhashtable_lookup_fast(), which
+takes an RCU read lock and drops it again before returning the pointer
+(include/linux/rhashtable.h:708-719), as its kerneldoc (:703-704) warns,
+so kfree_rcu() alone is not enough: a grace period only protects readers
+still inside an RCU read-side critical section. The writer is the netdev
+notifier chain under rtnl, freeing in nfp_tunnel_del_shared_mac() with
+rhashtable_remove_fast() + kfree_rcu(); the reader is the tc flower
+offload path, which holds no rtnl, only priv->nfp_fl_lock.
 
-On 03/11/2026 12:28, Wentao Liang wrote:
-> For a flow originating from an OVS internal port,
-> mlx5e_tc_add_fdb_flow() takes a reference on the internal port and stores
-> it in the flow's esw attribute.
-> 
-> If the flow cannot be offloaded because the encap route is not available
-> (-ENETUNREACH) on a multipath LAG setup, __mlx5e_add_fdb_flow() keeps the
-> flow on the unready list instead of freeing it. When
-> mlx5e_tc_reoffload_flows_work() retries, mlx5e_tc_add_fdb_flow() takes
-> another reference and overwrites the stored pointer, so the previous
-> reference is never dropped.
-> 
-> Only look up the internal port if the flow does not hold a reference
-> already; the reference is released together with the flow attributes.
-> 
-> Fixes: 166f431ec6be ("net/mlx5e: Add indirect tc offload of ovs internal port")
-> Cc: stable@vger.kernel.org
-> Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->   .../net/ethernet/mellanox/mlx5/core/en_tc.c   | 22 ++++++++++---------
->   1 file changed, 12 insertions(+), 10 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_tc.c b/drivers/net/ethernet/mellanox/mlx5/core/en_tc.c
-> index 17bd92529a44..8246378b089f 100644
-> --- a/drivers/net/ethernet/mellanox/mlx5/core/en_tc.c
-> +++ b/drivers/net/ethernet/mellanox/mlx5/core/en_tc.c
-> @@ -2005,17 +2005,19 @@ mlx5e_tc_add_fdb_flow(struct mlx5e_priv *priv,
->   			goto err_out;
->   		}
->   
-> -		int_port = mlx5e_tc_int_port_get(mlx5e_get_int_port_priv(priv),
-> -						 parse_attr->filter_dev->ifindex,
-> -						 flow_flag_test(flow, EGRESS) ?
-> -						 MLX5E_TC_INT_PORT_EGRESS :
-> -						 MLX5E_TC_INT_PORT_INGRESS);
-> -		if (IS_ERR(int_port)) {
-> -			err = PTR_ERR(int_port);
-> -			goto err_out;
-> -		}
-> +		if (!esw_attr->int_port) {
-> +			int_port = mlx5e_tc_int_port_get(mlx5e_get_int_port_priv(priv),
-> +							 parse_attr->filter_dev->ifindex,
-> +							 flow_flag_test(flow, EGRESS) ?
-> +							 MLX5E_TC_INT_PORT_EGRESS :
-> +							 MLX5E_TC_INT_PORT_INGRESS);
-> +			if (IS_ERR(int_port)) {
-> +				err = PTR_ERR(int_port);
-> +				goto err_out;
-> +			}
+Take rcu_read_lock() before the lookup and rcu_read_unlock() after the
+last use of mac_entry, so only the lookup and the read-modify-write of
+mac_entry->index are inside the section, with the index copied into a
+local variable and nfp_flower_xmit_tun_conf() (GFP_KERNEL) called after
+the unlock: the firmware payload is unchanged and kfree_rcu() is kept.
 
-Avoid re-indenting the lookup and pushing it over 80 columns, the check 
-can go into the outer condition:
+The other two callers run on the notifier chain under rtnl, unchanged.
 
-           if (netif_is_ovs_master(parse_attr->filter_dev) &&
-               !esw_attr->int_port) {
+Fixes: 14690995c141 ("nfp: flower: avoid rmmod nfp crash issues")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hongyan Xu <getshell@seu.edu.cn>
+---
+ .../netronome/nfp/flower/tunnel_conf.c        | 22 +++++++++++++++----
+ 1 file changed, 18 insertions(+), 4 deletions(-)
 
-Please also answer the NetDev bot's questions on how this was found and 
-tested.
-
->   
-> -		esw_attr->int_port = int_port;
-> +			esw_attr->int_port = int_port;
-> +		}
->   	}
->   
->   	err = post_process_attr(flow, attr, extack);
+diff --git a/drivers/net/ethernet/netronome/nfp/flower/tunnel_conf.c b/drivers/net/ethernet/netronome/nfp/flower/tunnel_conf.c
+index 0cef0e2b85d0..e1cd75f0af3c 100644
+--- a/drivers/net/ethernet/netronome/nfp/flower/tunnel_conf.c
++++ b/drivers/net/ethernet/netronome/nfp/flower/tunnel_conf.c
+@@ -188,6 +188,7 @@ enum nfp_flower_mac_offload_cmd {
+  * @ref_count:		Number of devs using this MAC address
+  * @repr_list:		List of reprs sharing this MAC address
+  * @bridge_count:	Number of bridge/internal devs with MAC
++ * @rcu:		RCU head used when freeing the entry
+  */
+ struct nfp_tun_offloaded_mac {
+ 	struct rhash_head ht_node;
+@@ -196,6 +197,7 @@ struct nfp_tun_offloaded_mac {
+ 	int ref_count;
+ 	struct list_head repr_list;
+ 	int bridge_count;
++	struct rcu_head rcu;
+ };
+ 
+ static const struct rhashtable_params offloaded_macs_params = {
+@@ -1152,7 +1154,7 @@ nfp_tunnel_add_shared_mac(struct nfp_app *app, struct net_device *netdev,
+ 	rhashtable_remove_fast(&priv->tun.offloaded_macs, &entry->ht_node,
+ 			       offloaded_macs_params);
+ err_free_entry:
+-	kfree(entry);
++	kfree_rcu(entry, rcu);
+ err_free_ida:
+ 	if (ida_idx != -1)
+ 		ida_free(&priv->tun.mac_off_ids, ida_idx);
+@@ -1241,7 +1243,7 @@ nfp_tunnel_del_shared_mac(struct nfp_app *app, struct net_device *netdev,
+ 		ida_free(&priv->tun.mac_off_ids, ida_idx);
+ 	}
+ 
+-	kfree(entry);
++	kfree_rcu(entry, rcu);
+ 
+ 	return __nfp_tunnel_offload_mac(app, mac, 0, true);
+ }
+@@ -1433,6 +1435,7 @@ int nfp_flower_xmit_pre_tun_flow(struct nfp_app *app,
+ 	struct nfp_flower_meta_tci *key_meta;
+ 	struct nfp_tun_pre_tun_rule payload;
+ 	struct net_device *internal_dev;
++	u16 mac_idx;
+ 	int err;
+ 
+ 	if (app_priv->pre_tun_rule_cnt == NFP_TUN_PRE_TUN_RULE_LIMIT)
+@@ -1447,11 +1450,19 @@ int nfp_flower_xmit_pre_tun_flow(struct nfp_app *app,
+ 	/* Lookup MAC index for the pre-tunnel rule egress device.
+ 	 * Note that because the device is always an internal port, it will
+ 	 * have a constant global index so does not need to be tracked.
++	 *
++	 * rhashtable_lookup_fast() releases its own RCU read lock before it
++	 * returns, so the entry has to be kept alive by a critical section of
++	 * our own. nfp_flower_xmit_tun_conf() allocates an skb with GFP_KERNEL
++	 * and must stay outside of it.
+ 	 */
++	rcu_read_lock();
+ 	mac_entry = nfp_tunnel_lookup_offloaded_macs(app,
+ 						     internal_dev->dev_addr);
+-	if (!mac_entry)
++	if (!mac_entry) {
++		rcu_read_unlock();
+ 		return -ENOENT;
++	}
+ 
+ 	/* Set/clear IPV6 bit. cpu_to_be16() swap will lead to MSB being
+ 	 * set/clear for port_idx.
+@@ -1462,7 +1473,10 @@ int nfp_flower_xmit_pre_tun_flow(struct nfp_app *app,
+ 	else
+ 		mac_entry->index &= ~NFP_TUN_PRE_TUN_IPV6_BIT;
+ 
+-	payload.port_idx = cpu_to_be16(mac_entry->index);
++	mac_idx = mac_entry->index;
++	rcu_read_unlock();
++
++	payload.port_idx = cpu_to_be16(mac_idx);
+ 
+ 	/* Copy mac id and vlan to flow - dev may not exist at delete time. */
+ 	flow->pre_tun_rule.vlan_tci = payload.vlan_tci;
+-- 
+2.50.1.windows.1
 
