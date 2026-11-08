@@ -1,115 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.157
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794113946;
-	b=HahRl4CZS8wtfCG94lWDePHPpHIwKE3CGPSN96xP2/0h8hIWw8Vrh4JC58VtIFnKv6Pq
-	 m1XDY4xAtjwEEvn5MoBwFLW0P4GS5/1jhTZ7k2EDF4sUKUerFqjLsOa4PN3GRCeW9w8en
-	 adHDfCCBupu2Ea58fEoiUAdYkxhXqnSoBfYOyp0CiGZeSaAEcJt+AMSRAaQkafOg8DE1y
-	 /xarTK1C/OxiRh1+W9mdoIJGJmbDw0GTlKaF659wvphLcV/zozxsVt5GT9ShqSGUCaf5Z
-	 HXFZFaNUIcQGYo6Xvj1Rcc+shIEpDCdbLV99+YxJIw0wLIDy70G/nulfXRV2sglTAAg==
+	t=1794114417;
+	b=3f4dsWeqSkcQyby4T1ev+yrJmNsaYvy5B4yUNiNQmXAst/1qyZ8fRnXbBy3LLIseEmMM
+	 qvfJNZ8lFPRozFLjtg6hX+I+2b3IR8GePX2ldlvEPMMWzw9/6l0mpcY+V3FS2ZFRLm088
+	 MAhih7QyYI2AtI3+z4kUaOcjVKKLGkQAkfDX5Fbi9TqVk9X2kdt4uRQPM11NupIOvSlll
+	 2znqaoaRbfgCmbmpzdB9KRVnuk33QLI7sdM/2lKCbOBih7LQyBKmzlzRRTviaBmyxvjHM
+	 9eIuswimnZgPiU3mtyfJtikx8XrTPzA7gYgsq/1n0n06yOaGpwdJCpjr4cJAI3S/6Yw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794113946;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:From:To:Cc:
-	 References:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=WuJ6sQHXMs2ky6wQHLjTEQYKEnIZNvDrBjByHRgWWGo=;
-	b=xZp5ho9JkJRol2nSvmExLrREd7cn1/rV8mXPSSZg9zlBiWEgWTQOJASzgJjzvEPqY4hw
-	 W/ZCPfMqHomxiVA88vsnMKWAkyURVTaJsgxDtOydEsWEtZuPUZtg8EhrcBA7DSEQNe2Z6
-	 usSXYRxNDC/Q/t+TFqc0TDcJ/nEG6VS7jWnNwQvG3s/4fJ6RsIVU2gA+/NBnSRDJoUPF8
-	 U4hDapxDLTn11Z2Q94gn0PxvLijYVqJmAp0Q1+dnX1qzRYqLnHEOz8p8QRF0dZWDPiwMb
-	 Ko13lW18MgrmV0ptffRJWbyRUA7CcqqFHDEe4r+rk6pzMdN8vG3Y8YcT+9OqiUaGLTg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794114417;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=fEUO3LKECArytxkpAMPac73CzQtXzt7C3xgXVjZFn+Y=;
+	b=og+59ivrGPD3udMDowUI1rUpy2ZXDs1jaJhMswG6k8e3Sz7S0idim4kUAs2rzTWhplvg
+	 HrWFfstOsgCsBrFJW5MdKtphbD9F5l3FFx1WC6X9auC/jAplDkyQDS/TwxUTCwewzBRLD
+	 jxTCZctE7wJ44lejGckeBPZ00qITZsk7JrkAMVUcUtTDAcSI5u8gSC5qfk6PR0JICdD3P
+	 +jB0O/YH2OeSAv3NKt5/9/gkefCMaJjKIw+1UUfFoW8gIOI6RLYLc/Uzbufa82bjYEx17
+	 e0DqCZ73OJ7HsgWGeZE7hCsws2fNgLVPdTa+wTiG7Q0QN/rrDoC3qsikNsv2n4AvMeA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pobox.com;
-	spf=pass smtp.mailfrom=pobox.com;
-	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=oIYLZ1tB;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=v24AmnZ+;
-	arc=none smtp.remote-ip=202.12.124.157
-Received: from fhigh-b6-smtp.messagingengine.com (fhigh-b6-smtp.messagingengine.com [202.12.124.157])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UycnVGWo;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE2AF606A31C
-	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 04:59:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE2AF606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4423606A320;
+	Sun,  8 Nov 2026 05:06:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=oIYLZ1tB;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=v24AmnZ+
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id B025C7A00F5
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 23:59:04 -0500 (EST)
-Received: from phl-frontend-01 ([10.202.2.160])
-  by phl-compute-01.internal (MEProxy); Sat, 07 Nov 2026 23:59:04 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1794113944;
-	 x=1794200344; bh=WuJ6sQHXMs2ky6wQHLjTEQYKEnIZNvDrBjByHRgWWGo=; b=
-	oIYLZ1tBoMXcfm6ohKNwvZL227IVOorBG3zMRtNNWJYAHgm8R2ljg3LSM4s0w+TB
-	O28MbkX6BSd4mmQnStnrklUzKXGGiATUoJMebpz0qPHYzT1FByFLzNIMmjvnQJbn
-	onSADx6YNhuL3IZvhFbh1sWgzsTS2npjUsSxE4jxEzzIYq3t+zuPTjOs1pAxVDYD
-	+yVEIjOWD3IKow3f+Bbr/hcWiE3K3jeqCzLNiWmub39z2+pbUNSQLpNjN9QxQBzG
-	oOeIJ05EWORWl1dJMiR8+7YFoLNY5R/dqEpNEjfqskm3bTz8nNiOza6e5tusXNmZ
-	hKURuCr5N+c2jVV9mJZRsA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794113944; x=
-	1794200344; bh=WuJ6sQHXMs2ky6wQHLjTEQYKEnIZNvDrBjByHRgWWGo=; b=v
-	24AmnZ+GctXU4ETSQi7D1uwHCrPDpDWxsnLo0ldrakrazmIij94JaQYDMgQ3X6dj
-	lP35QaIJFgvQPMFbEx3e3iszkra62577WLn6S8WVGmRxYwgDYLNcVGHFEqKRYLpe
-	TSSX6uxA0yMedD21JEF8cuqBNpwKzNIDIgT0yWr+MM5w6jVH5sIKmt0uU7PxLMv8
-	jcWgBL4zgJu734IYd/LM5bgZAVIhIFJ24fdIR5u+dA9YwZ+pnO0LnBbYCMHFMdup
-	o8prZh2XMkZfeEwp2nbPQ4fMo7GNpAO9elddzvrxZzc7nr7qRTbkM8t2D9b7DfRu
-	SH1jiWqb8vjROsKSJD++A==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=pobox.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794113944; d=pobox.com;
-	mf=PGJhcnJ5bkBwb2JveC5jb20+;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:NstdYHYaDlNrAoWS/VlW2H0qWK0PujHivUc6a3zOL+erSJ2
-	xpBhyFWyPpSKxCJFLfBg3RJH244O7zAqy3ySRuzLtz7lM1MlDroOzZLLIbJceDZ9
-	iwz0Q5kDECwHFojdrWTBIJH3XgRhiQB1fYLal/2Ayz2zbwiuahjhkLh64Rb1DCX0
-	tjNA/myLV3BkTLBfI3fknyHcdxloMyLRABhu5GIlIjLWSocwYnds5EgGupBH2iVx
-	93a/Tb4aZw2xYiHexJv6y9SHoHsyudVTOkyJamBppQFhum2RB/mGJBQy35mr5l6J
-	lklCpIY6CAdaxfju/mHd/gNyDwXkL0PT45atDcA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=14;
-	hn=cc,content-language,content-transfer-encoding,content-type,
-	date,feedback-id,from,in-reply-to,message-id,mime-version,
-	references,subject,to,user-agent;
-Message-Instance: m=1; h=sha256:S7xqqUEHsXvdnOJ3sbaOZojzc4EMkFHyUrmZYd6Fbzg=:2NhP3OwOeIw8AQPE8AiZL8ChlyjfFHjuxhPbpkxaciI=;
-X-ME-Sender: <xms:lwHwarKzpWAB7Kbr8_PIDkXpZdXfQxQhWbGeTxwWPP9KfcrTT6Gy2Q>
-    <xme:lwHwarC9GuYATEdB1LKEWI4-nDtPGis84JREH8Z7czPKeCHehLroI3E2oqGbsqAcs
-    -MwcS-f_uqmLD-eGKstS7H-vntSjPD0NM2ik3XAQq-3QShMAyMmTLCP_Q>
-X-ME-Received: <xmr:lwHwavPKIofWY97u8ZrRTLBvOxNt8gtwpn3XTcZBzNtVfDaNkPpFZzV4l7XS9RqVLUz7FgaPHy9mRbjw5Zj_oRRyHkfkuzlV>
-X-ME-Proxy-Cause: dmFkZTFlhusCx7UObVw2Cm68ypW8eHXNooAOS+ryzPCQRuNZJSy69S639WN4PJBrRZ3eoj
-    ++UE2FsBUkZ4fRhEPbMHZL7kG0i/Edpw11bbiHtoKvBmt5FAQX/xwLw9yXa6qMRjYBEhgp
-    V6DTYwM5j+4LEdOl1aj6la64hb/TdBDqFKUqHJDFjZIZ3Xan3FehHlOWE3y6TysZkqqfYw
-    hUKq7r7m35Rf/EHdTrmQcYSvwmLv1xiv7+whYsOuScWJEXFIoSZdiS0sVadaiY40/wNox8
-    e/iobdvzuk+sV052HPgxn6WgSwjsr937POp6JXE3hNqosYbzBnZtIH4Zx4pkQ4F3GMbMno
-    IQUjmxcArg2RzXGZ6BthayoPIJP4T8LwcgTkgXmCktWCrmq51bmBAxtdgiiV1iwVh9TGCX
-    RLqhhpP60CvcDPBugNRJ+qTSDelSCqcwaVrSg7Ku8qeqoK+1HoSEkeGanCPR88YAUMBC63
-    iDGAP3TjHHUCYU0wE1Q2sB7/2LJIXZV/55P/9DI2zmKbBZc2oAQ6mlyaPtWBn4rUkBaDho
-    0YUFr5AbX9jxF76TKK8/Tg0WKoa1N/w0gvWah464pgXBjVztvDbv6rAYv5Kxu5ekIBK1tl
-    lO9yF7KcuT28Lw7ap9/Ft2FAejCi+BAxJA9PeaYtMnayyhQVxS82H26sjLiA
-X-ME-Proxy: <xmx:lwHwaoWlnfFZSqxOsNdbUwblc8Jyu6slua-pCfHJNXFlwE0C7L7u-A>
-    <xmx:lwHwaqSw3OqthK20fvpas15LgVslir6VHdToOYa-hRL1KSSU5rehwA>
-    <xmx:lwHwam0kNhbuRA6Q-Y3kxkwCHPGYh-aC5ENW5NTKUXhhr7VexP-U8Q>
-    <xmx:lwHwaviRDT4fWJvRVQCiBkBk4PqFIUvKhMYnLtAxUOhOUSY5BvbaRQ>
-    <xmx:mAHwakeA-nG-lAxqf98fXm8aJxIU47ZItE2FYMca0F1YbPAlh7SEgudF>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 7 Nov 2026 23:59:01 -0500 (EST)
-Message-ID: <f6e0e225-a80e-49ee-9555-be300f169503@pobox.com>
-Date: Sat, 7 Nov 2026 20:59:00 -0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UycnVGWo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 162371F008A1;
+	Sun,  8 Nov 2026 05:06:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794114416;
+	bh=fEUO3LKECArytxkpAMPac73CzQtXzt7C3xgXVjZFn+Y=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=UycnVGWo2TY0N4NKVwNpGtoCwnLtIYez+UNB3BVMw3JNcfuAiGMW8XGxgnbx1dmVR
+	 xWlXATIU6d8dxzcb+9g+D3q4meTPhz+2XL09HKDf6AYPDYgKZru40dFR5v+cCWY+IR
+	 xz60lLq3rps2IKVaO/RPMJKzxn9msWneNaladiCKBWENMBGDKDkNtMB9Kci2k8ZHJG
+	 YriUWfjgVJKEcHB4Asb+mt232HLVwaSqv4Bi6peou/cIiF3zpG1MKNLQkBPjWchXbo
+	 1fSSiuoqYV7i5U5hDuisb5LBLQE1febonFE2RsmcSDgrzZ1cfknKpJAyIT47dk6td8
+	 CUw3aAabHGHXw==
+Subject: Re: [PATCH net v3] bnxt_en: Take RTNL before netif_close() when
+ aborting FW reset
+From: netdev-bot+sashiko@kernel.org
+To: bcochrane@google.com
+Cc: michael.chan@broadcom.com, pavan.chebbi@broadcom.com,
+ netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, sdf@fomichev.me,
+ joe@dama.to, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Sun, 08 Nov 2026 05:06:55 +0000
+Message-ID: <179411441563.994134.1253063049402486704@kernel.org>
+In-Reply-To: <20261104045534.79783-1-bcochrane@google.com>
+References: <20261104045534.79783-1-bcochrane@google.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -119,101 +64,191 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.3 0000/1257] 7.3.4-rc1 review
-From: "Barry K. Nathan" <barryn@pobox.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20261107134939.434104957@linuxfoundation.org>
- <f65916c7-470b-4f64-84d1-da8cf4c8e7e8@pobox.com>
-Content-Language: en-US
-In-Reply-To: <f65916c7-470b-4f64-84d1-da8cf4c8e7e8@pobox.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
-On 11/7/26 3:49 PM, Barry K. Nathan wrote:
-> On 11/7/26 5:38 AM, Greg Kroah-Hartman wrote:
->> This is the start of the stable review cycle for the 7.3.4 release.
->> There are 1257 patches in this series, all will be posted as a response
->> to this one.  If anyone has any issues with these being applied, please
->> let me know.
->>
->> Responses should be made by Mon, 09 Nov 2026 13:46:08 +0000.
->> Anything received after that time might be too late.
->>
->> The whole patch series can be found in one patch at:
->>     https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.3.4-rc1.gz
->> or in the git tree and branch at:
->>     git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.3.y
->> and the diffstat can be found below.
->>
->> thanks,
->>
->> greg k-h
-> 
-> 7.3.4-rc1, 6.18.63-rc1, and 6.12.117-rc1 are all giving me the same build
-> error with clang that I previously had with 7.3.2-rc1 and 6.18.61-rc1,
-> due to the same xfs patch as before ("xfs: cross-reference the primary
-> superblock"):
-> 
-> fs/xfs/scrub/agheader.c:123:6: error: variable 'error' is used uninitialized
->        whenever 'if' condition is true [-Werror,-Wsometimes-uninitialized]
->    123 |         if (agno == 0)
->        |             ^~~~~~~~~
-> fs/xfs/scrub/agheader.c:435:9: note: uninitialized use occurs here
->    435 |         return error;
->        |                ^~~~~
-> fs/xfs/scrub/agheader.c:123:2: note: remove the 'if' if its condition is always
->        false
->    123 |         if (agno == 0)
->        |         ^~~~~~~~~~~~~~
->    124 |                 goto out_xref;
->        |                 ~~~~~~~~~~~~~
-> fs/xfs/scrub/agheader.c:111:13: note: initialize the variable 'error' to silence
->        this warning
->    111 |         int                     error;
->        |                                      ^
->        |                                       = 0
-> 1 error generated.
-> make[4]: *** [scripts/Makefile.build:287: fs/xfs/scrub/agheader.o] Error 1
-> 
-> I sent an email about this earlier today, before the -rc was sent out:
-> https://lore.kernel.org/stable/7840e515-e7d5-4ef9-8c1d-6390374a5b33@pobox.com/
-> 
-> Reverting this patch fixes the build, or the minimal fix I proposed in
-> that email also fixes the build:
-> 
-> --- a/fs/xfs/scrub/agheader.c    2026-11-06 22:42:57.147299404 -0800
-> +++ b/fs/xfs/scrub/agheader.c    2026-11-06 22:45:59.898908897 -0800
-> @@ -108,7 +108,7 @@ xchk_superblock(
->       xfs_agnumber_t        agno = sc->sm->sm_agno;
->       uint32_t        v2_ok;
->       __be32            features_mask;
-> -    int            error;
-> +    int            error = 0;
->       __be16            vernum_mask;
-> 
->       /*
-> 
-> So far I've only tried building a minimal test config. Later today or
-> tomorrow I'll do testing with my normal configs, but (to make a long
-> story short) I will probably experience temporary health problems
-> for the next few days, so that will probably slow down my testing.
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-I took 7.3.4-rc1, reverted "sched_ext: Fix the stall watchdog testing
-and blaming the wrong sched under bypass", and added the fix to
-initialize error to 0 in xchk_superblock() in fs/xfs/scrub/agheader.c
-(quoted above).
+Critical: 0 · High: 1 · Medium: 2 · Low: 0
 
-The resulting kernel is running well on 3 different amd64 systems and
-an arm64 virtual machine, with no regressions observed. (This includes
-a successful XFS scrub on one of the amd64 systems.)
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [High] Permanent hang while holding RTNL and the netdev instance lock.
+- [Medium] The patch defers the bnxt_get_registered_vfs() failure in
+  bnxt_fw_reset() to bnxt_fw_reset_task().
+- [Medium] The patch turns a synchronous abort into an asynchronous
+  request carried only in bp->fw_reset_state.
+
+--
+
+bnxt_en: Take RTNL before netif_close() when aborting FW reset
+
+This patch takes RTNL around bnxt_fw_reset_abort() in bnxt_fw_reset_task()
+and sends the POLL_VF ABORT_ERR case through that same path. It also
+changes the bnxt_get_registered_vfs() failure path in bnxt_fw_reset(): that
+path now sets fw_reset_state to BNXT_FW_RESET_STATE_ABORT and leaves the
+netif_close() to bnxt_fw_reset_task().
+
+> diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+> index 33c4cacc8ffe3..f48e67670ccfb 100644
+> --- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+> +++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+> @@ -14860,8 +14860,8 @@ void bnxt_fw_reset(struct bnxt *bp)
+>  		if (n < 0) {
+>  			netdev_err(bp->dev, "Firmware reset aborted, rc = %d\n",
+>  				   n);
+> -			clear_bit(BNXT_STATE_IN_FW_RESET, &bp->state);
+> -			netif_close(bp->dev);
+> +			bp->fw_reset_state = BNXT_FW_RESET_STATE_ABORT;
+> +			bnxt_queue_fw_reset_work(bp, 0);
+>  			goto fw_reset_exit;
+
+[Severity: High]
+Can this hang forever, holding rtnl_mutex and the instance lock, when
+bnxt_fw_reset() is entered from devlink health recover?
+
+bnxt_fw_recover() runs in devlink netlink process context, not from
+bnxt_sp_task(). With BNXT_STATE_FW_NON_FATAL_COND set, the path is:
+
+bnxt_fw_recover()
+  __bnxt_fw_recover()
+    bnxt_fw_reset()
+      bnxt_lock_sp()              /* clears BNXT_STATE_IN_SP_TASK */
+      bnxt_get_registered_vfs()   /* returns < 0 */
+      bnxt_queue_fw_reset_work(bp, 0)
+      bnxt_unlock_sp()            /* set_bit(BNXT_STATE_IN_SP_TASK) */
+
+No sp_task is running, so nothing clears BNXT_STATE_IN_SP_TASK after this.
+
+fw_reset_task then runs on bnxt_pf_wq:
+
+bnxt_fw_reset_task()
+  rtnl_lock(); netdev_lock(bp->dev);
+  bnxt_fw_reset_abort()
+    netif_close()
+      bnxt_close()
+        bnxt_close_nic()
+          __bnxt_close_nic()
+            while (bnxt_drv_busy(bp))
+                msleep(20);
+
+bnxt_drv_busy() checks BNXT_STATE_IN_SP_TASK, and this loop has no
+timeout. For a PF, bnxt_sp_task() goes on the same ordered bnxt_pf_wq, so
+it can't run behind the blocked fw_reset_task and clear the bit.
+
+A second devlink health recover can't break the loop either.
+bnxt_fw_reset_abort() has already set SEVERITY_FATAL before calling
+netif_close(), so bnxt_fw_recover() returns -ENODEV.
+
+Before this patch, the same branch called netif_close() inline. At that
+point bnxt_lock_sp() had cleared BNXT_STATE_IN_SP_TASK, so the busy loop
+exited.
+
+The commit message says that dropping the lock would let "a concurrent
+devlink health recover enter bnxt_fw_reset() and set BNXT_STATE_IN_SP_TASK
+through bnxt_unlock_sp(), which the subsequent close would then wait on
+forever".
+
+Can the same hang still happen when the devlink health recover caller is
+itself the bnxt_fw_reset() call that defers the close?
+
+[Severity: Medium]
+Is the deferred abort safe against a concurrent bnxt_close()?
+
+After this change, bnxt_fw_reset() drops the instance lock while the
+netdev is still open and BNXT_STATE_IN_FW_RESET is set. The pending abort
+is recorded only in bp->fw_reset_state.
+
+bnxt_hwrm_if_change(), called from bnxt_close(), always reads and resets
+that state:
+
+bnxt_hwrm_if_change() {
+    ...
+	fw_reset = (bp->fw_reset_state == BNXT_FW_RESET_STATE_ABORT);
+	bp->fw_reset_state = 0;
+    ...
+}
+
+A user close (ip link set down) can run before fw_reset_task reads
+fw_reset_state. For example, work for other PFs may be queued ahead of it
+on the single-threaded bnxt_pf_wq. The close path then sets
+BNXT_STATE_ABORT_ERR and resets fw_reset_state to 0.
+
+When bnxt_fw_reset_task() runs, it sees BNXT_STATE_IN_FW_RESET set and
+fw_reset_state == 0. No case in the switch matches, and there is no
+default, so it returns. bnxt_fw_reset_abort() never runs, and
+BNXT_STATE_IN_FW_RESET is never cleared.
+
+After that, bnxt_open() -> bnxt_reinit_after_abort() fails with:
+
+	if (test_bit(BNXT_STATE_IN_FW_RESET, &bp->state))
+		return -EBUSY;
+
+As a result, the port can't be opened, and later firmware resets and
+health checks skip it. The stopped ULP is also never restarted, until the
+driver is reloaded.
+
+The other in-progress reset states such as POLL_VF have a similar
+exposure. This path, however, used to be fully synchronous.
+
+>  		} else if (n > 0) {
+
+[ ... ]
+
+> @@ -15524,6 +15524,8 @@ static void bnxt_fw_reset_task(struct work_struct *work)
+>  	}
+>  
+>  	switch (bp->fw_reset_state) {
+> +	case BNXT_FW_RESET_STATE_ABORT:
+> +		goto fw_reset_abort;
+
+[Severity: Medium]
+With bnxt_fw_reset() now setting fw_reset_state to
+BNXT_FW_RESET_STATE_ABORT before this runs, will bnxt_fw_reset_abort()
+report a fatal firmware error for a func_qcfg failure?
+
+bnxt_fw_reset_abort() {
+	clear_bit(BNXT_STATE_IN_FW_RESET, &bp->state);
+	if (bp->fw_reset_state != BNXT_FW_RESET_STATE_POLL_VF)
+		bnxt_dl_health_fw_status_update(bp, false);
+    ...
+}
+
+The POLL_VF exemption no longer applies on this path. As a result,
+bnxt_dl_health_fw_status_update(bp, false) sets SEVERITY_FATAL and
+REMEDY_POWER_CYCLE_DEVICE, and moves the devlink fw reporter to
+DEVLINK_HEALTH_REPORTER_STATE_ERROR.
+
+This is the same kind of failure as the POLL_VF n < 0 abort in
+bnxt_fw_reset_task(): a bnxt_hwrm_func_qcfg() failure before any reset
+step has run. That path skips the health update, and so did the old
+inline abort in bnxt_fw_reset().
+
+Once severity is SEVERITY_FATAL, bnxt_fw_recover() refuses manual
+recovery until a new firmware event resets the severity:
+
+	if (bp->fw_health->severity == SEVERITY_FATAL)
+		return -ENODEV;
+
+There is also a secondary effect. bnxt_dl_health_fw_status_update() calls
+devlink_health_reporter_state_update(fw_health->fw_reporter, state)
+without checking fw_reporter for NULL.
+
+__bnxt_dl_reporter_create() can leave fw_reporter NULL, and
+__bnxt_fw_recover() can still reach bnxt_fw_reset() in that case. The
+other abort paths already carry this NULL dereference risk, and this
+patch adds another way to reach it.
+
+The commit message doesn't mention this behavior change. Was it intended?
+
+>  	case BNXT_FW_RESET_STATE_POLL_VF: {
+>  		int n = bnxt_get_registered_vfs(bp);
+>  		int tmo;
+
+[ ... ]
+
 -- 
--Barry K. Nathan  <barryn@pobox.com>
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261104045534.79783-1-bcochrane%40google.com
