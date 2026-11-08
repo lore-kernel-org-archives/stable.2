@@ -1,74 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794156222;
-	b=ivTmaJRW61PpX5D71v78XehLlsV04dPVal+1snlUE0cf5BvZHXK41AOcYMQAjwciSxnF
-	 W07EmKKC7IduCZJ6DB4C+JpmPzywSwqzRjrRHyouj6PbGZEDcOC6Fcl4X/UACfkr6qf0u
-	 i05/QNIX+XJKBOkphjfwp+D0E46ZbIoZEyFMsMyaiXA5qVYWzGMRhhFhotDWCrPwRui7T
-	 2JCodIlR+Pg2uJlyqhh7RVQOgGnfqfKHQtVu1J8GVYu5B5kc8adQPuyQy9IMK71308qhL
-	 FJ+9Y6VY1BmbKKwGzWNsCZ2hE7iZ0nNDoDvQfXpoGtpZVq+VeKqKRH/JrGN4Gq2KcGg==
+	t=1794156297;
+	b=i1Phh5cbrX+s8NTm4xuOgQwyIpnTxKVyxzRHCqL2/Mj10tYlkYyc+OYs0yn0LDnr0xKn
+	 OuPsB1Vxoq+aWgVKBXPXKrglbfuVrIHix7XUvySAC2LRCWZBseGTUMT8+PSm241ErTiQ+
+	 ErQUfdoxIIxJgoPr8ApRnshIcuP9WqY6FPxzrPGWwxk8kXlHjqgt477xo/HbWlIhnxnmC
+	 BOPFMM3lMGa28Z/CWkDQ1ysk/Qo8lKdMK7GTXSPcRcRZhNq3OB5c1kcwP59CDiAqiitpe
+	 khPgfmB/96dxXiWwXJpCw5LonvZ8Qc/PWOT8L3YFidsMNxR2UbpRPyIZIfa4pt9WiJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794156222;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
-	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
-	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=7aOhoI9xQInTI2IoToIaRRagEMy9aljQDQTESt0ZIXs=;
-	b=5Dk5OglrDyz7XAU0CaktrzLoM6GIKaWdplEOY3AhTwXQymzpczxFZRnRfSFpJqkwRwmu
-	 ieP0cgp5DTv/Wx4Vn7zQX44RGSFTLGAWEgC6bf4NLgrPZCpkKaj8yumRsEORQgXrKVOdV
-	 V6IeRQPpfvcImnynQeomLyN+CoKnOSXu+Hb68poOnjSOSJhLCfwcPuVQLIX29JhaIegP5
-	 C1nHMOL3fZxvCsrCgi6Z9lO0gc7m1XFmo6uEfIzqF+Dqw2RJanSVPp2RYnab8i110a9pE
-	 H/3El4QvcxITlzr9ao26l1ucWQyrpAP+vZr+bAhaTEBXdRdbTmDIjbBuYzPdyV9ozlQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794156297;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=ocheey9ym6CpKRNuuU4ykX29RIoPZM6O0SiG9if3EI8=;
+	b=KYZVZrxm18aA+QpYi+YoorjuvT2XzlBawIWzN0qpuSVFqozIjRvJLFnr0WBZN7bGDFb4
+	 qQm90t7dxOMgm785V1dyrZvCxB3AGqExhNO8YKBsKZ77q5mUT65ov0I8sEnhv0JxN5/z4
+	 UY+l00bGz4TCD7oKoyKlqL6+P12x9TOy4IaTBb3a90cPJFffNxWq8kzx4Q+JAX0qmVP9m
+	 z/bdYUIgDxMt509rSbCmLFuPgwWwPjksCTuuK2HGrIPjgfgC5xD3eeoAb55qi09LTtx0F
+	 FPbrn2yeBTWuKi7VekSTeMonNSKxuSWQzeAOsH6syWbVDSjFN3HJEoFdZ8dxTO4pa0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=DnA3KMTn;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=nHMR73dg;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=amAPYSTF;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B5E2606A334;
-	Sun,  8 Nov 2026 16:43:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B5E2606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B8BA606A322;
+	Sun,  8 Nov 2026 16:44:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=DnA3KMTn;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=nHMR73dg
-Date: Sun, 08 Nov 2026 16:43:38 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794156220;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7aOhoI9xQInTI2IoToIaRRagEMy9aljQDQTESt0ZIXs=;
-	b=DnA3KMTnmz2Wrg6g07Zp435/r/zak4SBMMQgiwBW8Op+57QqumEqUP4xCMnLABqBtjNdnV
-	fW9DuYZanGd23PYS29kwJbQjIShRSoC48iU9yAqC++Jj5dN3WkjXep3kZeo7674mbyPSMY
-	+8J0CrEbKY3KeqqDT47fdTSNqHg15mRlzpVhuu3rFORlYFSJsGgLVXSy8WI51h7x5SXh1L
-	HFfkf17VJe9Hr+YtDC8WyM3eRo80Fhf3XTOsZNHm3d4xprlvPAh9TSOX/MyRTpykGj93fy
-	OF4+gjeSIynpbq9EzUQRyDqmUtgu0AUC0o9xCNm29IDwDqNrHZ3zYHIWD6qRWQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794156220;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7aOhoI9xQInTI2IoToIaRRagEMy9aljQDQTESt0ZIXs=;
-	b=nHMR73dgsmLJ5r5YClWwBl/ocCK/hNlSYR5aABr0aO2DGjaAiIxh7D8oxI0KVPnZ+nrpj8
-	Rtz8VBqmaB95ozDA==
-From: "tip-bot2 for Avi Weiss" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: irq/core] genirq/msi: Avoid freeing borrowed firmware nodes
-Cc: Avi Weiss <thnkslprpt@gmail.com>, Thomas Gleixner <tglx@kernel.org>,
- stable@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org,
- maz@kernel.org
-In-Reply-To: <20261025121242.2169180-1-thnkslprpt@gmail.com>
-References: <20261025121242.2169180-1-thnkslprpt@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=amAPYSTF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00C821F0089F;
+	Sun,  8 Nov 2026 16:44:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794156296;
+	bh=ocheey9ym6CpKRNuuU4ykX29RIoPZM6O0SiG9if3EI8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=amAPYSTFmSq+BATzwg+56go6sXKn7AoGQbCEcovJWUSB3BllnC0ucHrcJ4xwf5J7E
+	 NFlBxFI1wtVsixWwyOjjasEOL2zLvDpth4gFdRJP/VToblhfAgLKIEITDzezbPxfNr
+	 vR4JoY5FG21ca0Nxj3yCpCeCxJ9b6+DPos/qGuk5eWQbpsdDglZIok8CchhI7EV2bA
+	 Lzt0ckky1S80HhdQZK4lEOfvuwJ5Y932lxiocyIaxSHq4Knkc9Jw0L4uVHKPhz5qXR
+	 g8Eo0BGrbxgEaSTBLQFgVt9DoFpwo1cfpbwgpupp7tv48VjXqvrXR9k5v0urDf84nH
+	 dp5onlMWR8IaA==
+From: Sasha Levin <sashal@kernel.org>
+To: Ronald Warsow <rwarsow@gmx.de>
+Cc: Sasha Levin <sashal@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	stable@vger.kernel.org,
+	patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	torvalds@linux-foundation.org,
+	akpm@linux-foundation.org,
+	linux@roeck-us.net,
+	shuah@kernel.org,
+	patches@kernelci.org,
+	lkft-triage@lists.linaro.org,
+	pavel@nabladev.com,
+	jonathanh@nvidia.com,
+	f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com,
+	conor@kernel.org,
+	hargar@microsoft.com,
+	broonie@kernel.org,
+	achill@achill.org,
+	sr@sladewatkins.com,
+	Pascal Ernster <git@hardfalcon.net>,
+	Thorsten Leemhuis <linux@leemhuis.info>,
+	Peter Schneider <pschneider1968@googlemail.com>,
+	Joungmin Lee <leejm516@gmail.com>,
+	Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
+Subject: Re: [PATCH 7.3 0000/1257] 7.3.4-rc1 review
+Date: Sun,  8 Nov 2026 11:44:47 -0500
+Message-ID: <20261108-rc-reply-01-sched-ext-7.3.4-rc1@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <68c2efb8-e54f-40bc-9c36-76c719a590d5@gmx.de>
+References: <20261107134939.434104957@linuxfoundation.org> <68c2efb8-e54f-40bc-9c36-76c719a590d5@gmx.de>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -78,55 +81,21 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179415621861.2093942.11178552553536784469.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-The following commit has been merged into the irq/core branch of tip:
+> I need to revert (here)
+>
+> 1564da6afd7ce5297ba24f2d1e61d6a79a9ff6db
 
-Commit-ID:     b22795dece39a7e200a1eb750ee3511ac892816d
-Gitweb:        https://git.kernel.org/tip/b22795dece39a7e200a1eb750ee3511ac89=
-2816d
-Author:        Avi Weiss <thnkslprpt@gmail.com>
-AuthorDate:    Sun, 25 Oct 2026 14:12:42 +02:00
-Committer:     Thomas Gleixner <tglx@kernel.org>
-CommitterDate: Sun, 08 Nov 2026 17:39:43 +01:00
+Thanks for the reports (to Ronald, and to Pascal, Thorsten, Peter, Joungmin
+and Takeshi who hit the same thing).
 
-genirq/msi: Avoid freeing borrowed firmware nodes
+"sched_ext: Fix the stall watchdog testing and blaming the wrong sched under
+bypass" is dropped from the 7.3 queue. It needs 30fb2b1e4d41 ("sched_ext: Fix
+the running task keeping its protection into bypass") and 5809f749fbdb
+("sched_ext: Fix a bypassed task stalling on a cpu its scheduler has no caps
+on"), which provide scx_exec_sched().
 
-msi_create_device_irq_domain() uses dev->fwnode when
-MSI_FLAG_USE_DEV_FWNODE is set, but msi_remove_device_irq_domain()
-passes it to irq_domain_free_fwnode(). This triggers a warning for
-firmware nodes not allocated by the IRQ domain code.
-
-Only free the firmware node when the MSI core allocated it.
-
-Fixes: 9d1c58c80046 ("genirq/msi: Optionally use dev->fwnode for device domai=
-n")
-Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261025121242.2169180-1-thnkslprpt@gmail.com
----
- kernel/irq/msi.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/kernel/irq/msi.c b/kernel/irq/msi.c
-index b22d744..e1d8503 100644
---- a/kernel/irq/msi.c
-+++ b/kernel/irq/msi.c
-@@ -1129,7 +1129,8 @@ void msi_remove_device_irq_domain(struct device *dev, u=
-nsigned int domid)
- 	if (irq_domain_is_msi_device(domain))
- 		fwnode =3D domain->fwnode;
- 	irq_domain_remove(domain);
--	irq_domain_free_fwnode(fwnode);
-+	if (!(info->flags & MSI_FLAG_USE_DEV_FWNODE))
-+		irq_domain_free_fwnode(fwnode);
- 	kfree(container_of(info, struct msi_domain_template, info));
- }
-=20
+-- 
+Thanks,
+Sasha
