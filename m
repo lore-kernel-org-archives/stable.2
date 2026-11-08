@@ -1,88 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794177193;
-	b=DL5G9bYsGNPs3uDTEmPXppj3ZzS7cKvBzcUH3mlfZUKK9DxUsKfYi0U0bwFvLQ51xu6Q
-	 2gmOPN5Dc+1Wg8PGK1VSJby74qLDDxXB78+K0oGQ65bNyLJrvifYd2yUV3xlutP8i2JhC
-	 LcCa5dAuDHYAlxeSHlDd3ANlHRVYDoerjO3TloNsULGfj6zZQX2bxoGglGR4B8DjkOitv
-	 qQsy+xTR+PI9FFD3COY2G8lKOBNPF0+/LqjNz4r598CN3CTbNFmCpC4VcCipgD6GUqLfB
-	 vhfaF8pxWneOtvaeQYF55YHhjEIXwQ7Bk/N6+PLvJ4VsSYQAjycVtgUKBAC9lT/f40Q==
+	t=1794177360;
+	b=pxXRTVJ9wWY2nyiE//TbeCdt3InpbrK9kZT9Wc+hhSt5TwobYiKo54rR95KxdDK4x7v5
+	 I63tdyFlzn+7NbvoouQX/uUxD/qXHkVR7T0GT3K6saev2sWBVJ2spgBbb4vLnz4yZL15x
+	 xQxUfO8NQx21ZNifsu7raQ5ZNfZbX+MMC+kWQJ0sKuFrNU/pmsv1+2ecEDM1l/W4ECrzg
+	 ngKppcHh4u7J/Ian+vjTyqa2WIUdviNsXsS2gWaXfzMMayGLKH3ghl/XtHcBwyNgIPLVs
+	 JrIICOjtWYxxkYeHWnfQiN1+4YPL9TW155L8sCzI8jaV/Wu/1JzmUazj+SzQFyWqbbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794177193;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794177360;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=PkdH+wEUMUSeDLAeSoZy2bnkjMkJXd9IxOdgSs+yng8=;
-	b=r2gGSQ/a9AoyYqu7huEwpcekurGidAHCPXhNgam4DUdZPhS2v9v1SvSh5/jg7IWiIw27
-	 rmoa+2Kyx2i7lsRgn1KhZmdDKb0Q2SwlLboDMiZWz+GEvQ7u2ldWGQnMQskZFKxhtj3B2
-	 lWVaEyvWoq/8UqyZUEA5hXZyIFIq5DOto5FERzMhEiF6BD3zDC0dUdhn0yh2vEOaKjleV
-	 rs5yzxF7e9e2bBt6Y18e2VwZcfV0oj/eS4P48eQChPa6bsajclg0yC80y4biSAXO7SuFD
-	 iwNLif7baqek8hPRVqtDQjRtsJR7U14565+4AstN7P29pqlrlegRetv33Yu/35YskGQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Lg34nvpGk5bB3x2FmOllL1iUBWZczrJNM8FaVog84/s=;
+	b=i0OYDIwteuqsnY7WT5CC2BA5EGDILMXJ5PQ3vgj4l7f/nc0Rw3XvznV1sF/jdJj3ysyK
+	 Syw1X5pSowTCKZTQxFgPOi06hVm6YcpYneqBO5cvWz0MHjw5qZTG6lSsXJwHE5hl09lsJ
+	 bjsIZvyI3zipMdtt1zRMpoW+XTupaiexNUBX7cv3plNXKzZAzl+KbvCyF0GKvhIwrhe6h
+	 U5r1cmvcODdy6QVSlTa8yzIf9TDyUnB6NOSyZ6AcJLETtpjagkGHXsvaWBuIRTuSpfzjZ
+	 gmnUKzIUlcOVwULrn7ZLOoQuMz4R+Y/4XqD/Ojbo2PfmlyUBehMisvWExDc1AO13D1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=umCAbGL+;
-	arc=none smtp.remote-ip=209.85.160.48
-Received: from mail-oa1-f48.google.com (mail-oa1-f48.google.com [209.85.160.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=W1K7rhsu;
+	arc=none smtp.remote-ip=209.85.208.47
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 951B9606A333
-	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 22:33:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 951B9606A333
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77E8A606A336
+	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 22:36:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77E8A606A336
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=umCAbGL+
-Received: by mail-oa1-f48.google.com with SMTP id 586e51a60fabf-48ed0b68895so192403fac.1
-        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 14:33:13 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=W1K7rhsu
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b7221c0f2cso490015a12.3
+        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 14:36:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794177192; x=1794781992; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=PkdH+wEUMUSeDLAeSoZy2bnkjMkJXd9IxOdgSs+yng8=;
-        b=umCAbGL+7eK2RSXF3PTPeizN2u4fnldl8IaFPRWXZIv/kGAY5sLqwglRyGbID2YvAN
-         /8cx18GwT3pMgPMb7luW1s9BWY88rgn+CvKoocJMIlgqMZeo5FGdk3lP+FJ3cY1D2B/n
-         jJKmzUjV/RaYyBq3enqyfcj5iCYx9Zn44c0rGWnwX5n//vVqnVrQRoN4a7PW23Hj8Fdi
-         60bjHtbGXSsW7LYIz3ysO7lOBTHc9ooaOYDTOd8WzynPtx5n6eCyc2UMNwS3gK6IaOY9
-         +3qXO10txO/kAbkPyA9uKfPSVXgzuJgnTndbEmPhNIvgdi5tpiZXCZEua/EOOdDc8kjA
-         1VFQ==
+        d=gmail.com; s=20260707; t=1794177359; x=1794782159; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Lg34nvpGk5bB3x2FmOllL1iUBWZczrJNM8FaVog84/s=;
+        b=W1K7rhsuQi9t32f+bQcHhZGOQsL0RGDjqQOM+hwJgGqoozREYqfc0E6omTcmSvZAGO
+         hpg+3t+YpKMGd3S03fzWkLqC6NgEsCbCY2aFasjJFINDTvfzckxUQ3ZJRCK4tyDkoT1T
+         EZzcAmTN9jTnKQWoPpKzXPV2hxG70Yb4bRcGu9xgj6aQpKzWlxEBjH3+gSONSAND1jKQ
+         q4R+tVSf7d0Q4EtKepDOVrAoOVfVvl/Uus+MxXKZr0bdXQ6+vAhzdC81d04XnoXXIwWR
+         388tIorh0ozBQ9TFuIf/wddtWkenYopRM62PzNxC+92E37gDQxavAR0sGGxm4s4L7l6r
+         +TfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794177192; x=1794781992;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=PkdH+wEUMUSeDLAeSoZy2bnkjMkJXd9IxOdgSs+yng8=;
-        b=I5qaEhFF9wRujsLbxdxwLPf4imA31WK+spw6T6sk1CXCvWwbpuAsr09Ii3cN31qn+w
-         NdQSO0ouL++Kvb0gD2PLnu+lY3GGa+voqU/TC6Ov+8vISU+kjELBP8GS8HeBNhcnpiMC
-         yLemyS6WpaFEnNkBp6d1EerTsXvwzhfeMuekRO91uemk48A4D6huRA6KzS6d60HCSJ41
-         /uxLIR4x59KjtD1W944/lWHL+KRdzp7r1p/y6RohUmxehirrdLOgPkMiTfrVvkaiH7Tt
-         vl7PmDwZfMyWDo+Yq4qNRd5Q1l0vbWAk18Ae6sqsHRS7wwMyorlw1D1b2q+F60FMH+Z0
-         cCZA==
-X-Forwarded-Encrypted: i=1; AL+hErH23j47YDq0Aq/QyACSG6VL3RuyqNjEZpf6dcID/PC3fNE9IzIHyNCRYWf1vycjr0e4tDMnQ+k=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8b/WWDytVExpzKH9mI/hCd6QoxttESI4u9YiKI96C7tWPdus4l
-	F7IHn8t2tSbNtSy9cT6KUtBTha5HVWL5YTELV0eMzZpGbVkxcX6zot0TzFwS6w==
-X-Gm-Gg: AYBFou2t2mPKo9LHX9viFGOuub2TGr8F+yOxKFo2ih5hVqMGLGdHM52jlMI+pWGVLhK
-	rr1W0Qj5ynf8IxCAJ2bT5OeZZwsFOo4HTTAqslmcqMcgVfPxJBIVGuTJ+v9fJ31EWp5LNDMDWLY
-	/pX3MfFtO46TGhCXWU/27M4cCaj8j+HMhhd+l/QEDHBirfO40HAUMQPSc04cA+0as75f0zT7IUB
-	LMNjXybKP6PwbVMGKzabOs7W9s2waQ8YWWAgttwwAkn7aNhRjV8PWqPGEbx2yq63AIAALsqLDMF
-	76EocpyVNXh2o9HvCQQqKBTAzgrW/dbuXXg7eX6JbTAgj4PRX92Y0JwhNLxkjj0IyTOKyz/8SmL
-	o239Mvcdl8CrrIeWeFtUxPxZcONIJinHpUp43iQV/wGLw/EI/opNaPRt1gD0N2aXkbUymIhWhgG
-	aYEk7L522KOF/9PAXZLZ/iPp0CZoAAWw25Wi8X9cevR3oYn9/NpulcMSJgXk6D6Btp+B/2scJcs
-	rYXKf+vxdaiFqbZkSVl1faSmBYgHy6FSQzEiywkSaHNKBv0TXeQgIsxbHxL6Z6YhrEOm7La1RgI
-	cqjmzhP/XyZ0DUeO9oLYSUrI7ma6Hu4BjT3RxH8ylKi8Jx12D/gA5SBeu9GeBfGuMt+RbYfNNj3
-	oZsTHIH6kVxBealhWrrrqxcWFEc2KMzpsJ1SC9UPM069SNoP98mscDI0XfH8x/hncfns0KWVzPP
-	Zo+JWi1kQ4clTqA0h+E7RJICIRLD6RvK1a4IkmE3HrXByseJJeCH0=
-X-Received: by 2002:a05:6870:a414:b0:48f:e3f5:c41c with SMTP id 586e51a60fabf-4adecbf500fmr1245207fac.61.1794177192413;
-        Sun, 08 Nov 2026 14:33:12 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4ade6a326fdsm3563668fac.17.2026.11.08.14.33.11
+        d=1e100.net; s=20260707; t=1794177359; x=1794782159;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Lg34nvpGk5bB3x2FmOllL1iUBWZczrJNM8FaVog84/s=;
+        b=ZbwRmCr7laMZXgFm2C1zLd5Y0ByocdfxWiFGCCYrlVBpUg4uNkxUq0kw9kxv5oAfNw
+         xSRgN1dRFPsEy/Na9iyNBMgY05IpuGy7J6K6f5ZZoK8XsErtYIxgFf+4jIxiTOdrru5h
+         eCCQS4oC924ChH0oiZAwVwtXVgL9Vz5e+hJGYzWyIGBzMAWdOsbP4nu4zUyIunjDTxG3
+         3xlkLJO8F2aGlUc9iIldCk4/KtG7e7WsOd5Nl8Zexkfzbv5e8uw5mB9s1cmvV39QXof/
+         yU1SeuRrmxXDTeh5orjf0pE7gLIWkN74DrM+8Hnc0Wj7rT/3nMjVN+ZGZvNQUKgp0cgI
+         UwpQ==
+X-Forwarded-Encrypted: i=1; AL+hErFLKCo8n2Q7RauAAOeGFXNt4pAWMdyLApvtP28gWG2GDkEkP1DCuya4Bin+U/lJCRNQpOwaGoY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+2MSohOsTKzSKijwjNNxSHhIKIp8Abd5Vrhy7EeqlanFFckes4
+	Ot1pPKjtjXDoPmi7ETzit6tMg9/kNd6u3i6RN3d+98aeOd+lfPCWHxEe
+X-Gm-Gg: AYBFou3SbPF5roVezCd8q1Q5TzcaK2hXqGtq0RvZLLdO8fG/t7T6/ch16QSjZuqk2if
+	Ml4xLFCNlZ+YZWggYlE9v5jBFRDIjozlttTF6hf5XkBCzVqORPgFr3JEsVQ+1VhV0W/4BuvAfY1
+	ySMz4A69PbMDkyDEB8kkQZb+XbeBbCfXwIo8g8YCTI+F+OY1rIfkj+jfk1YuWh7NOfOQCzLGffL
+	PCLnXUFXwY7wi9gh7uWmCIIoBCQm70fMy2Ni9OFu+rZzM3RfAgXfOOu5qJ7/vEJ5Pe2/DHLFyBg
+	pQ1gkhPXZWQPWAXueD9PdovxmYz9muP4+sLr4gMfMNjTzaiPYpLXgdQcPqXyq6wQ8jGXeXulJgs
+	O/lc3cG5GN3jWkjX200f2/vqxAy6C9u4TE7nUlqKgYfLF2rDrkvccshRshkc3zEV+W5m/fB77ys
+	5+pRqgXtxa3qXKDJ/tAONTnPah7+N/7ayUCobQQR8YuBORm9gHb36gzzzmLAsXosUsOfEfAwJpa
+	WLecGkbAAr2CrPTPyQUhMNW5N+um4FZgTx4Zq3Off/XFv1YuMyWlfyxkMVzVP5vqnQPG0Q07KJE
+	IkoN73oG9yTibQDQV1g5Sl7RQIslxHewmZhF43WB9bT5T8/t2bU+Z7PuWxcnu+E7Io9kkQk=
+X-Received: by 2002:a05:6402:4501:b0:6b1:a86c:7b with SMTP id 4fb4d7f45d1cf-6b72247ff69mr1628940a12.36.1794177358857;
+        Sun, 08 Nov 2026 14:35:58 -0800 (PST)
+Received: from buildhost.darklands.se ([2001:9b1:ff:d701:51eb:176f:63d9:53f8])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b721ebc7b0sm859272a12.14.2026.11.08.14.35.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 14:33:11 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Sun, 08 Nov 2026 15:33:04 -0700
-Subject: [PATCH] mtd: rawnand: macronix: preserve OTP operation errors
+        Sun, 08 Nov 2026 14:35:58 -0800 (PST)
+From: Magnus Lindholm <linmag7@gmail.com>
+To: davem@davemloft.net,
+	andreas@gaisler.com
+Cc: sparclinux@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linmag7@gmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH 2/9] sparc32: flush the source user alias in copy_user_highpage()
+Date: Sun,  8 Nov 2026 23:34:12 +0100
+Message-ID: <20261108223516.1125534-3-linmag7@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261108223516.1125534-1-linmag7@gmail.com>
+References: <20261108223516.1125534-1-linmag7@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,76 +100,96 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261108-submit-macronix-otp-errors-v1-v1-1-8f64a2ad5a10@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM0QqDMAyF4VeRXC/MKsxurzK8qG2cGZhK2okgv
- vvqdhP4w+HbIZEyJXhUOyitnDhKCXOpwE9OXoQcSkNTNzdjaovpM8yccXZeo/CGMS9IqlETrgb
- r0badbe+m8wGKsSiNvP38Z//vArzJ5xM9F4NLhIM68dP5mnO4ipNyaMtwHF+SDBugoQAAAA==
-X-Change-ID: 20261108-submit-macronix-otp-errors-v1-0f83783917cd
-To: Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
- Arseniy Krasnov <AVKrasnov@sberdevices.ru>
-Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
-The OTP read/write helper replaces the result of enabling OTP mode or
-transferring data with the result of disabling OTP mode. Successful cleanup
-therefore hides an earlier failure. The read wrapper can report an empty
-transfer instead of the error, while the write wrapper converts it to
--ENOSPC because no bytes were reported.
+copy_user_highpage() also handles lowmem pages. A source user alias can be
+dirtied after the fork cache flush but before write protection and its TLB
+shootdown complete on another CPU. This explains why flushing at fork
+alone is insufficient; the historical tests below did not isolate that
+particular interleaving.
 
-Keep the operation result and the cleanup result separately. Return the
-original error when an operation fails, or the cleanup error when the
-operation succeeded. Still attempt to disable OTP mode after an enable
-failure, since the failed command may already have changed the device.
+The hyperSPARC external cache is virtually indexed, so index bits lie
+above the page offset and one physical page can occupy 64, 128 or 256
+distinct cache locations depending on cache size. Two mappings of a page
+do not see each other's dirty lines.
 
-Fixes: e87161321a40 ("mtd: rawnand: macronix: OTP access for MX30LFxG18AC")
+copy_user_highpage() reads the source through a kmap_local alias, so lines
+dirtied through the user mapping sit in a different set and the copy reads
+stale memory. copy_user_page() then flushes page_address(page), NULL for a
+highmem page, with no NULL check.
+
+Flush the source page's user alias with flush_cache_page() before reading
+it, and flush the destination through the address actually written.
+
+Only observable on HyperSPARC: SuperSPARC's caches are physically indexed
+and MBus snooped, so viking_flush_cache_all() is a window flush and a
+return.
+
+Fork/COW torture on a two-cpu SPARCstation 20: 7 of 20 runs lost writes
+before, 0 of 20 after.
+
+The source-alias omission predates Git history; the later folio conversion
+also removed sparc_flush_page_to_ram()'s NULL guard. This change uses the
+mapped destination address and covers both cases.
+
 Cc: stable@vger.kernel.org
-Closes: https://lore.kernel.org/r/sashiko-outbox-204080@kernel.org/
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
 ---
- drivers/mtd/nand/raw/nand_macronix.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ arch/sparc/include/asm/page_32.h |  6 ++++++
+ arch/sparc/mm/init_32.c          | 23 +++++++++++++++++++++++
+ 2 files changed, 29 insertions(+)
 
-diff --git a/drivers/mtd/nand/raw/nand_macronix.c b/drivers/mtd/nand/raw/nand_macronix.c
-index 03237310852c..16847f28b19d 100644
---- a/drivers/mtd/nand/raw/nand_macronix.c
-+++ b/drivers/mtd/nand/raw/nand_macronix.c
-@@ -377,7 +377,7 @@ static int __macronix_30lfxg18ac_rw_otp(struct mtd_info *mtd,
- 	size_t bytes_handled;
- 	off_t offs_in_page;
- 	u64 page;
--	int ret;
-+	int ret, cleanup_ret;
+diff --git a/arch/sparc/include/asm/page_32.h b/arch/sparc/include/asm/page_32.h
+index 7429291fb118..c968ec33ee98 100644
+--- a/arch/sparc/include/asm/page_32.h
++++ b/arch/sparc/include/asm/page_32.h
+@@ -28,6 +28,12 @@
+ 		(void)(vaddr);			\
+ 	} while (0)
  
- 	nand = mtd_to_nand(mtd);
- 	nand_select_target(nand, 0);
-@@ -420,14 +420,14 @@ static int __macronix_30lfxg18ac_rw_otp(struct mtd_info *mtd,
- 	if (ret)
- 		dev_err(&mtd->dev, "failed to perform OTP IO: %i\n", ret);
++#define __HAVE_ARCH_COPY_USER_HIGHPAGE
++struct page;
++struct vm_area_struct;
++void copy_user_highpage(struct page *to, struct page *from,
++			unsigned long vaddr, struct vm_area_struct *vma);
++
+ /* passing structs on the Sparc slow us down tremendously... */
  
--	ret = macronix_30lfxg18ac_otp_disable(nand);
--	if (ret)
-+	cleanup_ret = macronix_30lfxg18ac_otp_disable(nand);
-+	if (cleanup_ret)
- 		dev_err(&mtd->dev, "failed to leave OTP mode after %s\n",
- 			write ? "write" : "read");
- 
- 	nand_deselect_target(nand);
- 
--	return ret;
-+	return ret ? ret : cleanup_ret;
+ /* #define STRICT_MM_TYPECHECKS */
+diff --git a/arch/sparc/mm/init_32.c b/arch/sparc/mm/init_32.c
+index 2f693b70dbd8..7b53ee9f061f 100644
+--- a/arch/sparc/mm/init_32.c
++++ b/arch/sparc/mm/init_32.c
+@@ -103,6 +103,29 @@ void sparc_flush_page_to_ram(struct page *page)
  }
+ EXPORT_SYMBOL(sparc_flush_page_to_ram);
  
- static int macronix_30lfxg18ac_write_otp(struct mtd_info *mtd, loff_t to,
-
----
-base-commit: 30daaf3e7897b4a8d9b72e5b0c86dd6e2a4d7d85
-change-id: 20261108-submit-macronix-otp-errors-v1-0f83783917cd
-
-Best regards,
---  
-James Hilliard <james.hilliard1@gmail.com>
++/*
++ * The kernel reads the source page through a kmap alias, which on a
++ * virtually indexed cache lands in a different set than the user mapping
++ * userspace has been dirtying.  Flush that alias first, and flush the
++ * destination through the address actually written rather than
++ * page_address(), which is NULL for a highmem page.
++ */
++void copy_user_highpage(struct page *to, struct page *from,
++			unsigned long vaddr, struct vm_area_struct *vma)
++{
++	char *vfrom, *vto;
++
++	if (vma)
++		flush_cache_page(vma, vaddr, page_to_pfn(from));
++
++	vfrom = kmap_local_page(from);
++	vto = kmap_local_page(to);
++	copy_page(vto, vfrom);
++	__flush_page_to_ram((unsigned long)vto);
++	kunmap_local(vto);
++	kunmap_local(vfrom);
++}
++
+ void sparc_flush_folio_to_ram(struct folio *folio)
+ {
+ 	unsigned long vaddr = (unsigned long)folio_address(folio);
+-- 
+2.43.0
 
