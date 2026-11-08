@@ -1,54 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794136288;
-	b=3awEndJuIl3+81E+DN8JuuPjEEk4pd6gf4rHNrzoakdOV7EQwoPLuRZkuGdmpSWepn/8
-	 QhvRE9VlnqKyZfDhUtZb77BzKhgjF3XIfGwCkPy0EzbCvOmgah361zUZgZdaqHW4jMiqF
-	 e8UuvP/dWbS7SBBeaNeYKHbPGI8L6Fc580ddR27hD7k2RQq4lIgn8ya3pyKAEcvUF+Pjq
-	 WpovOh90JTqKFneiLUwQMKA7aiPJdphtqIVnQBvELgLvyGJxf3zbY39hHM0Dxi7RcZNCB
-	 wBCTJbEoJdxaxA5vSYVcbr/fzQOjj2ku+muVKG0IaxEY+Aw6DO7udvGj2UHwHYxFhPA==
+	t=1794136695;
+	b=0kBzvZ+kb4mSGbHeP/PtBJ4eptRJkHmVDYql86/vMd582Cndw6mpP8/qDHLmkRnRMUo5
+	 vhGoZ7Bn6jk6++zNXO+O1Jar0AglT1iQvQ0NYhl7QhWPBnBkHt8NQ8dz+usOGNZPXeVva
+	 qolQLH3j7aVvvew8AH6TOLBF7rKVrH0t210KX16F3lKZtTD/Y9BYHJFrHEsDfDRzBOtNu
+	 4B8I+Owf+t8yBE4LH97WunM/VxnfzXEKm3dtWweuQRBXLEIk6Iv3vWK+PvHDnYBnqFpqP
+	 /SI9nlNj8UEfOk9EwNSKVb2vRt4D2CCnvNrVaujfzFc1suXK6DqxDCWrYY0Yi4Nus6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794136288;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=fHKEKHdPjoZhYVJRZoCAKKckDq3mCm+7VXF61UEPMbE=;
-	b=tYHospvLOhStY4eBjX1u4l7KnbA2bfY59Y4X/yAuLTcJ6wrVTj7g9ZSae+kyfwXSsMOu
-	 uvbokUWaAbCrQBPcSU95ojb7igfCRkFehSa6FxJPalGhRmDHdmpMGJUWK+irPf0DRwC/q
-	 HlmJaMJWGIL9d13l+XYogceN3sfSC53MbLY2IRy2xbCvP7vaaPud531RZ+q6sKuhn6HeM
-	 1p6kta8iMti9MYgYUBYYI3o2cOHEFAo1xDRM5A8uTD0JnGdFFyM5YVPAI1TiiH3GUo+fX
-	 0MZ4Lu9a4KZt8K7W91bNTKDh3C0NW7kQXc3YYa8HOEeFkU6ue3+4BhE01Ni+81gSijA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794136695;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=cdwLi7q6otXV/9z7XEcfd3Rd+mPlyC63hV954DkWURg=;
+	b=0syGtR/B8tQyLwvjmuvjS+mKzaQFtlVilJqaawWXPWZ/c/xPAAOfJdUyxee5hudgJ05I
+	 dRvNNOl2WgCt661cnTJ0RCnM169dchoqf6c++ef5jW2kn7mMlB6/YMbMmLjUw1EmhE6OK
+	 yEy68/O1sHexIY3jcFkqwUnjbRsQuS+wm1/r2oR7vo0+uxlI5CRFW8EPmpztAM9wH0DHj
+	 F+8EQojdaQ6znwMIPlCd5uhB4Mh5Kw7axag3Z04IrzymSgnjjKmsNJC7erPHG1fSj6mJa
+	 WP+N44E9cL7iRmttku13JLDWsC6X27NLRXNi60IcDuGbiJOtA4MEz/ObZbdwlnK9+HA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.199
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90039606A31C
-	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 11:11:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90039606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-567ac848d83so31079b6e.3
-        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 03:11:28 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794136287; x=1794741087;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=fHKEKHdPjoZhYVJRZoCAKKckDq3mCm+7VXF61UEPMbE=;
-        b=k/hcCaIPKM923T9+ICPXjqpZ604/b6+r087xFgtAVlPYJNDUGeZ8c5R4X83XJqSaVL
-         wPJ/s15oYA3GRS55BQpvzZDSaTI2wolAoZUo0uvhvH37x7wiz9UMzQMYIqD6XDbpHr0O
-         jRwLQNeI9xL0Fz68UhxdnmNQ5th22BUN/jrvlO/altDJD7gPJ96IxzSqMcc4RVlFfju9
-         V5sZh5Xza9VRgo0XurajYSZMI3va4yzV0r8Kq3Q7raJVrOujsGu20W9g+B86mqTSh63t
-         oMXT38qKAdOgIN1ohf99cnZZZOasVBIobTwIs6E+HfSiOCR1gNUAbDY7Q5v2qY3dfaBO
-         kXHw==
-X-Forwarded-Encrypted: i=1; AL+hErEuNELxgPWHjwlGbdQ0l5nkzWoohxlGG+sRy/Bo6aFS1FI7ovAnEDmeWeLRaQwzbqHqLUaLWok=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9yCHTFrErmuxA+pxP9J8NHaUGIJ3WlcvsxK2RzPrAZcxqw/ryO
-	41tUDu43HPz2Ow85PEB6sRyMD6TYDBJEf+1akyChAGmQDEnH+AxhdhgVWuA7GMolXNRh9Qd+REu
-	ApxM8Il5hcY2qBvkfC0CufdA6aDJ/qlZKNqWGISXWnmZb/Bvosw08BsWXlGs=
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=X7YqH4Et;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D7F8E606A31C
+	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 11:18:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7F8E606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=X7YqH4Et
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 029B415A1;
+	Sun,  8 Nov 2026 03:18:03 -0800 (PST)
+Received: from e127648.arm.com (unknown [10.57.14.94])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 057263F632;
+	Sun,  8 Nov 2026 03:18:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794136686; bh=JvCDQcIrlwTMa1en4Kh5iLK5FCGAw2n6Qr4zYUjTolw=;
+	h=From:To:Cc:Subject:Date:From;
+	b=X7YqH4EtNyc8Mne6WKe2l/ZUNTCFFGJXXYsFFekA+6AGyOIm5oetPnf+3oleKWfGv
+	 3Ikb4UxjvgUJCaCfnp4IQ26feKVlb2Q0+rw79oyCt6p7ZAsM1JQ27LE5AVhjOPSO+B
+	 IZAOmGG7sxp86UH/u9DochdiPUgBmhxLDJxBf+cU=
+From: Christian Loehle <christian.loehle@arm.com>
+To: stable@vger.kernel.org
+Cc: gregkh@linuxfoundation.org,
+	sashal@kernel.org,
+	rafael.j.wysocki@intel.com,
+	sumitg@nvidia.com
+Subject: [PATCH 5.10] ACPI: CPPC: Validate FFH register fields before hardware access
+Date: Sun,  8 Nov 2026 11:17:51 +0000
+Message-Id: <20261108111752.2558740-1-christian.loehle@arm.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,23 +60,96 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1a0b:b0:567:f6db:8b46 with SMTP id
- 5614622812f47-568143a1689mr647675b6e.34.1794136287572; Sun, 08 Nov 2026
- 03:11:27 -0800 (PST)
-Date: Sun, 08 Nov 2026 03:11:27 -0800
-In-Reply-To: <6a6a98ca.86abc875.e5c3d.0057.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6af058df.f50b2b3a.2c0de7.0007.GAE@google.com>
-Subject: Re: [moderation] KFENCE: use-after-free read in virtqueue_get_buf_ctx
-From: syzbot <syzbot+0f659760bac1ecb01812@syzkaller.appspotmail.com>
-To: david@kernel.org, eperezma@redhat.com, jasowangio@gmail.com, 
-	linux-kernel@vger.kernel.org, mst@redhat.com, stable@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com, 
-	syzkaller-upstream-moderation@googlegroups.com, 
-	virtualization@lists.linux.dev, xuanzhuo@linux.alibaba.com, 
-	zhaimingbing@cmss.chinamobile.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Auto-closing this bug as obsolete.
-Crashes did not happen for a while, no reproducer and no activity.
+commit 6b016c5c96448c0a5f09328d37f66562d154a5e5 upstream.
+
+The x86 CPPC FFH accessors construct masks and shift values using the
+firmware's Bit Width and Bit Offset without checking that the field fits
+in an MSR. A zero-width field or a field extending beyond bit 63 can
+therefore cause an invalid shift. The safe MSR accessors only handle an
+access fault, not invalid field arithmetic after a successful read.
+
+Also, the 64-bit GAS address is implicitly narrowed to the 32-bit MSR
+number. A descriptor with nonzero upper address bits can access a different
+MSR from the one described by firmware.
+
+The arm64 AMU counter readers have the same unchecked field arithmetic.
+Validate the field bounds before reading a counter, including both
+descriptors in the paired counter path.
+
+Dispatch FFH accesses before decoding the GAS Access Size in the common
+read and write paths. Otherwise, a large access_width can trigger an
+invalid shift in GET_BIT_WIDTH() before the architecture validates its
+register. That field has architecture-specific FFH semantics and is not
+needed by the generic memory/port accessor on this path.
+
+Validate x86 MSR addresses and share the field-bounds checks between
+related accessors within each architecture.
+
+Fixes: a6cbcdd5ab5f ("ACPI / CPPC: Add support for functional fixed hardware address")
+Fixes: 68c5debcc06d ("arm64: implement CPPC FFH support using AMUs")
+Fixes: f489c948028b ("ACPI: CPPC: Fix access width used for PCC registers")
+Cc: All applicable <stable@vger.kernel.org>
+Signed-off-by: Christian Loehle <christian.loehle@arm.com>
+Tested-by: Sumit Gupta <sumitg@nvidia.com>
+Link: https://patch.msgid.link/20260916162805.1039247-17-christian.loehle@arm.com
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Signed-off-by: Christian Loehle <christian.loehle@arm.com>
+---
+Backport to 5.10.y: Retain the older cppc_msr.c filename. This tree has
+only the x86 FFH accessor; the arm64 AMU reader and generic access-width
+dispatch changes are not applicable.
+
+Tested on Blackview AMD with a full native build and boot, FFH descriptor
+validation, feedback counters and CPU hotplug. The final backport also
+passed the extracted-function UBSan regression tests and plain git am onto
+base 3a323bc22b881a5bdc1646080f93f5ecb22850bf.
+
+ arch/x86/kernel/acpi/cppc_msr.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+
+diff --git a/arch/x86/kernel/acpi/cppc_msr.c b/arch/x86/kernel/acpi/cppc_msr.c
+index b961de569e7e..37543b21ce94 100644
+--- a/arch/x86/kernel/acpi/cppc_msr.c
++++ b/arch/x86/kernel/acpi/cppc_msr.c
+@@ -4,6 +4,8 @@
+  * Copyright (c) 2016, Intel Corporation.
+  */
+ 
++#include <linux/limits.h>
++
+ #include <acpi/cppc_acpi.h>
+ #include <asm/msr.h>
+ 
+@@ -14,10 +16,20 @@ bool cpc_ffh_supported(void)
+ 	return true;
+ }
+ 
++static bool cpc_ffh_reg_valid(const struct cpc_reg *reg)
++{
++	return reg->address <= U32_MAX && reg->bit_width &&
++	       reg->bit_width <= 64 &&
++	       reg->bit_offset <= 64 - reg->bit_width;
++}
++
+ int cpc_read_ffh(int cpunum, struct cpc_reg *reg, u64 *val)
+ {
+ 	int err;
+ 
++	if (!cpc_ffh_reg_valid(reg))
++		return -EINVAL;
++
+ 	err = rdmsrl_safe_on_cpu(cpunum, reg->address, val);
+ 	if (!err) {
+ 		u64 mask = GENMASK_ULL(reg->bit_offset + reg->bit_width - 1,
+@@ -34,6 +46,9 @@ int cpc_write_ffh(int cpunum, struct cpc_reg *reg, u64 val)
+ 	u64 rd_val;
+ 	int err;
+ 
++	if (!cpc_ffh_reg_valid(reg))
++		return -EINVAL;
++
+ 	err = rdmsrl_safe_on_cpu(cpunum, reg->address, &rd_val);
+ 	if (!err) {
+ 		u64 mask = GENMASK_ULL(reg->bit_offset + reg->bit_width - 1,
