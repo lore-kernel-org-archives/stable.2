@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794103880;
-	b=OZ69h5H7GAEC7usoYNhrvkqiGuGhuPpsZN3izC5G0zZMWbpGTnG9UZ7I4pfFmX+Qlt8c
-	 Ptkob3H8QUzZd47AaE6qRT+v4UWo1pAfMtaAclKmQsERWedW8drBwQdLQA4g1yTYC10OV
-	 MflWlx2HaZK7GIB/TMd7Czw164io+x/6l5/q4ui4Z4olSTEmOwk+VCkGs54cGKCyGcdPw
-	 IR5I3KROAzt0ql4PvFAIAY4VvFs4lK4kLlKs3YwV7kHP6fq/cKTwPW4BTnioYegYG0fSG
-	 b6jT3BXhpPwi7Q93NEgYiwAK1hBS9+Y1b2VU/U4t9NB7v5Qc5tpm2FqlLRf3Y6fn8Uw==
+	t=1794103879;
+	b=DuPYKntAt0DaqFQ6sIS/Vw6Avvm8Kbq6OJnF2Tik9MlM9D6LaLy2n4QSWc+Wp2Go52IJ
+	 Ov6cCUhfp0v7r+T+ZHUNiWfo+0IPVdl6fCWDBm/dvD51MjRrR7nHi7ghfnOHtL/j34Tbi
+	 7nm2Aea9JV3pXdjSyDhUaMeBIYWN2PykQjK24g/H6K4IIMGU/rFT2BnaCXT0PDLKfqOhZ
+	 0mYb+6K5raQ9gYvLE5Kh87d3GUD4T8M2J1LaaOUFhNd2QO0TaEC4CWscMfL4bIDL0ah+a
+	 QNMhdFCZ2A3DMRAXF4bZoDoZQeINzqDcXmnJDrxP7Vm5XPqka0k2iHRWqrEVldpUE5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794103880;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794103879;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=gQaCTOTpCvF7DZ5GQ3rLnRX05Gyc9PqQ55BJs+cL+kc=;
-	b=tILXS5y1xHeBEGse9uwZgiZDK8K7zwIkWqxkGtOxyPdMrXSbbY1hptKjN9lYmz09BBVD
-	 SvRWEZn23rGDHFbNG/cKZYo/tmYqsFdEWzrst6pKXZpiOrcv6x5wPvOQCZNSm9wjzY/sw
-	 7xf826myb4liNSzDIslyFE0HsKkZDvGw6AeLI0nKWfUZ1aXfgRN+WBfFAr9bYo5RV5XJ2
-	 4Ttvv/fWOZAv6Rdhf1w0Uxr6Bejsdvrve8UaPt+NNDlSYaRUmGmpfZwXOm1+HKLDIJVgC
-	 rJK9DHioCyq94Lm0k+0kTaHt/QIeCcniKxhwqnvmg0RgCZk96dHSY/DckI+AKCJe2iQ==
+	bh=mo/Ifisr6uF13jyRhb7Rytvceb6bZ3F1oSnHvoqB9LY=;
+	b=4hncIeP35PDZNsHVhl9Oe55N8gRAzSpH9o8FiQ1OKVrHicNgQkPbxmztzHbg6cfj3u86
+	 l+PBE+0OU/su8w379kI+k6o9WdvPlXjHIwq3xcqt7iHrDmBl96E62hwsQNYtPujAMSpGD
+	 OLGD8ZFLiU5XzgM6FPpucYL0x6Tdohn3aGZUijO+VrYrrhYLtaqaixlOQA9Kddp8/Y5hk
+	 sYCUUaWfsAciPI0BkI2WWQkBgylTnz0SgrG3y1JwtJ1UKLRuTLggFOa3QPSXYtiDiDVv3
+	 UIcijC1rJU+pyBrQBysm/5REassHJrgIjaTTNYqM8ZiyZdsE+39L6bTsMii+sP8RJLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NFtJ4rs3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DoB3E8wr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAB70606A31F;
-	Sun,  8 Nov 2026 02:11:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E96CA606A31C;
+	Sun,  8 Nov 2026 02:11:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NFtJ4rs3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AB611F008A1;
-	Sun,  8 Nov 2026 02:11:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DoB3E8wr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 154651F0089F;
+	Sun,  8 Nov 2026 02:11:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794103879;
-	bh=gQaCTOTpCvF7DZ5GQ3rLnRX05Gyc9PqQ55BJs+cL+kc=;
+	s=k20260515; t=1794103878;
+	bh=mo/Ifisr6uF13jyRhb7Rytvceb6bZ3F1oSnHvoqB9LY=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=NFtJ4rs3/7TZFXLhRMyF0pX3xpa0qsqf72Jez9M70SKrM23v/ZyF1e1hu1BnuyOJm
-	 t2A2rSgfdwCwEmLA3zb3eQPTTVZ4By9iITy96X9Q0JP5thwfMf+1MCxZtIfKElhK71
-	 Yyeg6Aj9IBe2meIx1FA85UUt301+DUNGbDwjdiKBBWN7vN8l1518EphRNNjg27iuej
-	 50Np2Dacw8C3RmaihkRD1U5+iW22BVeGK3r4IUuc89srEq0sIGGwWj7PafKQ4Qgnml
-	 w2SuKHVLTrMmdSKe7CZX9jgJ4JhE4MGgvct/ETXOjWsRCjMMMdPJwC5rEfzaWSiPai
-	 KKJjaVv98D/Ig==
-Subject:
- Re: [PATCH net v2 2/2] xfrm: fix selector matching for IPv6 atomic fragments
+	b=DoB3E8wrWqNr+Z/dTJDg0FRgdJNgxXTKfwYt2uKSppCvWIyo4TY2TLqdwLAV9Fqp9
+	 H+NJm67lqgjDRWjeGriben+oOuj0tnTySkxDr0NguxJvJqkeE+sAbirkjCPTGWy4Lx
+	 YgWKgxNb1LnhI5jrsfTkzsdM+G11Kc91Yc3b+PHG17KVSWfsFyD5z7B4tBMta5rAMP
+	 1eWAh3SK7ylhZLYWkaDxw4TCvo4nRE0m1BJBU3nL0IAL/Dre+I55KV1/unXQ0HUBlG
+	 I6OGxn1u5ItJwBWbPoHUuPCtMw0c2c5cKSz/6PKnhPFepTx4kDSPxZn9j1mt15tZ8B
+	 6V+yVMzn5RjyQ==
+Subject: Re: [PATCH net v2 1/2] xfrm: fix IPv6 first-fragment protocol decode
 From: netdev-bot+sashiko@kernel.org
 To: Jeremy.Jean@oss.cyber.gouv.fr
 Cc: steffen.klassert@secunet.com, herbert@gondor.apana.org.au,
  davem@davemloft.net, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  stable@vger.kernel.org, kuba@kernel.org
-Date: Sun, 08 Nov 2026 02:11:18 +0000
-Message-ID: <179410387864.994134.9353647654476828846@kernel.org>
-In-Reply-To: <20261103225842.3204446-4-Jeremy.Jean@oss.cyber.gouv.fr>
-References: <20261103225842.3204446-4-Jeremy.Jean@oss.cyber.gouv.fr>
-X-sashiko-severity: High
+Date: Sun, 08 Nov 2026 02:11:17 +0000
+Message-ID: <179410387761.994134.6172658851496311106@kernel.org>
+In-Reply-To: <20261103225842.3204446-3-Jeremy.Jean@oss.cyber.gouv.fr>
+References: <20261103225842.3204446-3-Jeremy.Jean@oss.cyber.gouv.fr>
+X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
@@ -64,177 +63,105 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Critical: 0 · High: 2 · Medium: 0 · Low: 0
+Low priority / nit picks for your consideration:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] The new atomic-fragment shortcut in __xfrm_decode_session()
-  (net/xfrm/xfrm_policy.c) checks only the FIRST IPv6 Fragment header,…
-- [High] xfrm: out-of-bounds read via ipv6_find_hdr() in
-  __xfrm_decode_session()
+- [Low] The commit message describes the bug only as an IPv6 atomic
+  fragment followed by extension headers that is mis-classified on the…
 
 --
 
-xfrm: fix selector matching for IPv6 atomic fragments
+xfrm: fix IPv6 first-fragment protocol decode
 
-This commit changes __xfrm_decode_session() so that an IPv6 atomic
-fragment (offset 0, M=0) is decoded as a complete datagram. It clears
-FLOW_DIS_IS_FRAGMENT and recovers the ports at the transport offset found
-by the flow dissector. Real fragments keep ports, ICMPv6 type/code and GRE
-key unset.
+This commit makes __xfrm_decode_session() pass
+FLOW_DISSECTOR_F_PARSE_1ST_FRAG to the flow dissector for IPv6. With that
+flag, first fragments are walked through to the upper-layer protocol. It
+also keeps the port, ICMPv6 and GRE selector fields in decode_session6()
+zero for all fragments.
 
 > diff --git a/net/xfrm/xfrm_policy.c b/net/xfrm/xfrm_policy.c
-> index 4f6a5b81e3b5a..5acb1e0c1b02f 100644
+> index cea6842e6454d..4f6a5b81e3b5a 100644
 > --- a/net/xfrm/xfrm_policy.c
 > +++ b/net/xfrm/xfrm_policy.c
-> @@ -3530,9 +3530,25 @@ int __xfrm_decode_session(struct net *net, struct sk_buff *skb, struct flowi *fl
->  		decode_session4(&flkeys, fl, reverse);
->  		break;
->  #if IS_ENABLED(CONFIG_IPV6)
-> -	case AF_INET6:
-> +	case AF_INET6: {
-> +		struct frag_hdr _fh, *fh;
-> +		unsigned int offset = 0;
-> +
-> +		if ((flkeys.control.flags & FLOW_DIS_IS_FRAGMENT) &&
-> +		    ipv6_find_hdr(skb, &offset, NEXTHDR_FRAGMENT,
-> +				  NULL, NULL) == NEXTHDR_FRAGMENT) {
-> +			fh = skb_header_pointer(skb, offset, sizeof(_fh), &_fh);
-> +			if (fh && !(fh->frag_off & htons(IP6_OFFSET | IP6_MF))) {
-> +				flkeys.control.flags &= ~FLOW_DIS_IS_FRAGMENT;
-> +				flkeys.ports.ports = skb_flow_get_ports(skb,
-> +									flkeys.control.thoff,
-> +									flkeys.basic.ip_proto,
-> +									NULL, 0);
 
-[Severity: High]
-Is it safe to call ipv6_find_hdr() here without first making sure the
-IPv6 header is in the linear part of the skb?
+[ ... ]
 
-Everything else in __xfrm_decode_session() goes through
-__skb_flow_dissect(). That reads headers with __skb_header_pointer(),
-so it copes with a nonlinear network header. ipv6_find_hdr() does not.
-With *offset == 0 it starts with:
+> @@ -3511,10 +3517,13 @@ int __xfrm_decode_session(struct net *net, struct sk_buff *skb, struct flowi *fl
+>  			  unsigned int family, int reverse)
+>  {
+>  	struct xfrm_flow_keys flkeys;
+> +	unsigned int flags = FLOW_DISSECTOR_F_STOP_AT_ENCAP;
+>  
+>  	memset(&flkeys, 0, sizeof(flkeys));
+> +	if (family == AF_INET6)
+> +		flags |= FLOW_DISSECTOR_F_PARSE_1ST_FRAG;
+>  	__skb_flow_dissect(net, skb, &xfrm_session_dissector, &flkeys,
+> -			   NULL, 0, 0, 0, FLOW_DISSECTOR_F_STOP_AT_ENCAP);
+> +			   NULL, 0, 0, 0, flags);
 
-net/ipv6/exthdrs_core.c:ipv6_find_hdr() {
-    ...
-	u8 nexthdr = ipv6_hdr(skb)->nexthdr;
-    ...
-}
+[Severity: Low]
+This isn't a bug, but does the commit message describe a narrower scope
+than the code change? The message says:
 
-That reads skb_network_header(skb) + 6 directly. There is no
-skb_header_pointer() or pskb_may_pull() in front of it.
+    For an atomic fragment followed by extension headers, inbound policy
+    lookup can therefore see the header after Fragment instead of the
+    actual upper-layer protocol and miss protocol selectors.
 
-xfrm_icmp_flow_decode() looks like a caller where the header may not
-be linear. It clones the ICMPv6 error skb and does
-pskb_pull(newskb, hl), which drops only the outer IPv6 and ICMPv6
-headers. It then calls skb_reset_network_header(newskb) and
-xfrm_decode_session_reverse().
+The flag is set for every AF_INET6 decode. That means the change covers
+all IPv6 first fragments (offset 0, with or without MF) in every policy
+direction, not only inbound atomic fragments.
 
-Nothing pulls the quoted IPv6 header into the linear area. If that
-header sits in page frags, skb_headlen(newskb) can be 0 at this point.
-The dissector still copies the inner IPv6 and Fragment headers out of
-the frags and sets FLOW_DIS_IS_FRAGMENT. The new ipv6_find_hdr() call
-then reads ipv6_hdr(newskb)->nexthdr past skb_tail_pointer(newskb),
-into tailroom or skb_shared_info.
+On a router without nf_defrag_ipv6, fragments reach ip6_forward() without
+being reassembled. Both of these lookups go through
+__xfrm_decode_session():
 
-This is reachable from xfrm_selector_inner_icmp_match() for an incoming
-ICMPV6_DEST_UNREACH, ICMPV6_PKT_TOOBIG or ICMPV6_TIME_EXCEED message
-whose quoted packet carries a Fragment header. A remote sender can
-therefore trigger it. A BPF flow dissector that sets is_frag on a short
-or nonlinear skb would reach the same call.
+ip6_forward()
+    xfrm6_policy_check(NULL, XFRM_POLICY_FWD, skb)
+    xfrm6_route_forward(skb)
 
-Before this patch, the AF_INET6 case never read the skb directly, so
-this read is new. Could this avoid ipv6_find_hdr() and walk the
-extension header chain with skb_header_pointer() only, starting at
-skb_network_offset(skb)? Or is there a guarantee I am missing that the
-network header is linear for every caller of __xfrm_decode_session()?
-A pskb_may_pull() here would modify an skb that these paths otherwise
-only read, so I am not sure that is the better option.
-
-[Severity: High]
-Can the Fragment header checked here differ from the one that thoff and
-ip_proto describe?
-
-With target == NEXTHDR_FRAGMENT, ipv6_find_hdr() stops at the first
-Fragment header in the chain. The dissector runs with
-FLOW_DISSECTOR_F_PARSE_1ST_FRAG, so it skips past any offset-0 Fragment
-header and keeps walking:
+A non-atomic first fragment is now classified by its real L4 protocol
+(for example UDP). Non-first fragments still stop early in
+__skb_flow_dissect():
 
 net/core/flow_dissector.c:__skb_flow_dissect() {
     ...
-	key_control->flags |= FLOW_DIS_IS_FRAGMENT;
+	case NEXTHDR_FRAGMENT: {
+	...
+		ip_proto = fh->nexthdr;
 
-	nhoff += sizeof(_fh);
-	ip_proto = fh->nexthdr;
-
-	if (!(fh->frag_off & htons(IP6_OFFSET))) {
-		key_control->flags |= FLOW_DIS_FIRST_FRAG;
-		if (flags & FLOW_DISSECTOR_F_PARSE_1ST_FRAG) {
-			fdret = FLOW_DISSECT_RET_IPPROTO_AGAIN;
-			break;
+		if (!(fh->frag_off & htons(IP6_OFFSET))) {
+			key_control->flags |= FLOW_DIS_FIRST_FRAG;
+			if (flags & FLOW_DISSECTOR_F_PARSE_1ST_FRAG) {
+				fdret = FLOW_DISSECT_RET_IPPROTO_AGAIN;
+				break;
+			}
 		}
-	}
 
-	fdret = FLOW_DISSECT_RET_OUT_GOOD;
+		fdret = FLOW_DISSECT_RET_OUT_GOOD;
     ...
 }
 
-It stops at the first Fragment header with a non-zero offset. At out:,
-thoff = nhoff, so flkeys.control.thoff and flkeys.basic.ip_proto come
-from the last Fragment header it processed.
+So the first fragment of a forwarded datagram can now be matched against
+FWD and OUT policies with a different protocol than its later fragments.
+With a destination options header after Fragment, the first fragment
+uses 17 and the later ones use 60. Before this patch, all of them used
+60.
 
-Take a packet like this:
+This is close to how the decoder behaved before 7a0207094f1b, so it is
+not a functional regression. Could the commit message mention the
+forward path and non-atomic first fragments? Stable backporters with
+protocol-specific tunnel or required policies on gateways will see a
+change in how forwarded fragmented traffic is handled.
 
-  IPv6 | Frag(off=0, M=0, nexthdr=44) | Frag(off=N>0, nexthdr=UDP) | payload
+Could the message also say plainly that missing protocol selectors means
+plaintext traffic can bypass IPsec enforcement when the default policy
+accepts?
 
-This is a real non-first fragment. ipv6_frag_rcv() treats it as one: it
-skips the atomic header and then reassembles the inner header.
-
-Here, though, only the outer atomic header is checked. FLOW_DIS_IS_FRAGMENT
-is cleared, and skb_flow_get_ports() reads at an offset inside the fragment
-payload. decode_session6() then copies those payload bytes into
-fl6_sport/fl6_dport.
-
-Forwarded fragments are not reassembled unless nf_defrag_ipv6 is loaded.
-So a remote sender could get this packet matched against port-specific
-selectors through ip6_forward()->xfrm6_policy_check(XFRM_POLICY_FWD) and
-xfrm6_route_forward(). Before this patch, it could only match
-port-wildcard selectors.
-
-The opposite case also seems possible:
-
-  IPv6 | Frag(0, M=0) | Frag(0, M=1) | UDP
-
-This real first fragment would get its ports decoded. The later fragments
-of the same datagram would still get ports=0.
-
-Doesn't that bring back the per-fragment classification mismatch that
-7e3a42a12c4b removed? It also seems to contradict this part of the commit
-message:
-
-  "Leave ports, ICMPv6 type and code, and GRE key unset for real
-  fragments."
-
-Would it be safer to require that every Fragment header in the chain is
-atomic? Another option is to check that the header the dissector stopped
-at is the one tested here.
-
-> +			}
-> +		}
->  		decode_session6(&flkeys, fl, reverse);
->  		break;
-> +	}
->  #endif
->  	default:
->  		return -EAFNOSUPPORT;
+The following patch, "xfrm: fix selector matching for IPv6 atomic
+fragments", does not change this.
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261103225842.3204446-2-Jeremy.Jean%40oss.cyber.gouv.fr
