@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.190
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.246
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794129309;
-	b=Rg3JSsVOWPtjxJO0h/ELIKlK3Ff7qhENc0cRQUfDynILV6Fwksy8rd2RXmqeJYsMgAS7
-	 /rkxkIM46kS9JtHV1H5vslrP3LfNh4VpHzO0Nqi1j6Xe4rmUeRWRkEsgDVb1yZqmYPihJ
-	 GE21k403MSqKeWmgdLgBqMBObFoMFSo9uKR8EdIG7h9f3bn/xvPbiSp2xb0vXvemsDGGV
-	 OO1opioGH86XDTZrX1BcOcPWFfWdSmOWGIn7T7WQG/MN3nTVFcNOhLNK4PSEZHyhgcE7Q
-	 DWDIoljS8zaSBjerf8N6IYyKfEvDLcGto91Anz+1XkDL+THHgRL13QUzIFXHf4MWGuA==
+	t=1794129805;
+	b=TF9xHbeZUqt2a5CuFwQ/M7VvxfmoS6jnDIn6GqV9xwSVFtaO+PFgyPNzhyCvnFxic8v7
+	 6PtzKQ7vW32ew6nTfi6ne92vJMm7nMi23m3aHIFvN7O8tFVuPE24bigTGe4O4MmBplI/v
+	 pnV8ninqhkav4qrLHo2tbHFqPeW12hN519sJsqfej/6m2tAXHwB3yKCK9fwjO8nEhPIDu
+	 lFg4mrEr3vGxlRa2o8OPveOi3nJZh3VIeKGOA0BdEVv+iVdCETaW8XBV9f830XC2beefm
+	 SXOLnFIbIHdvfhz2sbP/44d6GPxmgqF1sq1SwN8Jp2mEZOtvBGToLdJhWM1svhT4b8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794129309;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794129805;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=LeQtM5VzYu47mMivuajAK9kUAFs5kDbX9OFi64Z8JXs=;
-	b=uUim7Bjiu8tkI8kdBqjTwIrqt2a6+iZo84VX87ZGPPxdoZcba8tbzeKsE/JJU1VxvmQx
-	 VhVDdpEvklz7J+Xxg/1RTKgEZ8kc57UYR6yOJ9GyJx1lgXbYO6/sH2X/Lw2WFVE6dwGAx
-	 MbozUMqSBMP+zHuUHujyg0rN2RCuRef5b/DfPXjWOqr4LlaMIXkbEZwPdjPmRqpqLnkXl
-	 uwK9jTnA9Mnaghxwu7sCGP1KGnhV3sHIukrIYe6WhbZJFhkFWH20XLP2Uapz1fnvc73wv
-	 FNgRdYGEEei4MNiZIdY/tPkvIIMlvzhJe3zLyDTKLgT77A2cQ6oRYB06hSzjZRczQwA==
+	bh=5XXct/mS8QSJCzfaXHvfDvD/GjABqbPTOqaOMdXOtqQ=;
+	b=E3qbvucfkI6/DX6cqzv5hVoponi5ZIPm83OXZlOFeUQD8iQsKwCVkCRuiu0/rdIh6g5l
+	 kFnVVICEvjQcuMh0R9UoSaPm9SQlrIhvl74h9nVz5GJIiqYFCJBoY5LZAUoBGcWkLA7+O
+	 5/8B5tm0SrK2Crb567bwKeYgQUFBHjTvg08u/I1cqPRSpUQJ7CA9qAsfTqAuucAnBNbeq
+	 ZMxA5Jzk2Wutu01bO40KVzkwDpwniKD0N9WefmU7eG08FRRAfVr6g+b9MD3YgOm+DZTJQ
+	 CKeJWn+rVFNmIOnNS1L44ir0K52htS6Az3OpvCut3puNQO2UtBJ2nVeH26kQiplsBxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=jPglDm2r;
-	arc=none smtp.remote-ip=91.218.175.190
-Received: from mta0.migadu.com (out-190.mta0.migadu.com [91.218.175.190])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=K82No4gD;
+	arc=none smtp.remote-ip=91.218.175.246
+Received: from mta0.migadu.com (out-246.mta0.migadu.com [91.218.175.246])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5A0F606A320
-	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 09:15:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5A0F606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 483B3606A320
+	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 09:23:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 483B3606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=jPglDm2r
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=K82No4gD
 X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=t4Z7aeZNT5PlqzzWkin+BcsnPWpstMOaNJUW6KAwwws=;
+DKIM-Signature: a=rsa-sha256; bh=5XXct/mS8QSJCzfaXHvfDvD/GjABqbPTOqaOMdXOtqQ=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794129304; v=1; x=1794734104;
- b=jPglDm2rDcjeZdDo5iLArbqU/YoZm7OXvO6MSf4ZypK3bkncRkj1eBPoG4CL9ApVzJNOZ92A
- XF4dMJAi6mxkFGS9cEiaQkoI/vNzJhnQt1ZGuMwpkHHHJqqPQqUxvBxcrw0DRcjzD7qncmDzYBN
- qerqr5g6hvdhXxQdmnkZ6b+M=
+ t=1794129802; v=1; x=1794734602;
+ b=K82No4gD/U0EDL8G5b0U3E/LJ/m2ZvtIurq4uACX0LgP99VkFG0/tl/mLp9yB/4+LZc8Oqyx
+ y91WHpBUYPqB+EC56RlWaLqSTWEwxtt9cN3p4O9UVS6Ss8cvT+MH9gSuujZ94cxLHGxpsZP3usU
+ bGtGN4oEaj5k9niDGR5r6uZ0=
 X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 4eda76d6e28ebe59;
-	Sun, 08 Nov 2026 09:15:04 +0000
-X-Mizu-Trace-ID: 4eda76d6e28ebe59
+Received: by smtp.migadu.com with ESMTPS id fe3ad667d8daeff1;
+	Sun, 08 Nov 2026 09:23:22 +0000
+X-Mizu-Trace-ID: fe3ad667d8daeff1
 X-Migadu-Flow: FLOW_OUT
 From: Lance Yang <lance.yang@linux.dev>
 To: david@kernel.org
@@ -65,12 +65,12 @@ Cc: akpm@linux-foundation.org,
 	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] mm: free unused page table allocated by do_set_pmd()
-Date: Sun,  8 Nov 2026 17:14:55 +0800
-Message-ID: <20261108091455.88759-1-lance.yang@linux.dev>
+Subject: Re: [PATCH v2 2/2] mm: don't allocate a page table under RCU in do_set_pmd()
+Date: Sun,  8 Nov 2026 17:23:15 +0800
+Message-ID: <20261108092315.89639-1-lance.yang@linux.dev>
 X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261106-khugepaged_set_pmd-v2-1-d2457b5e377a@kernel.org>
-References: <20261106-khugepaged_set_pmd-v2-1-d2457b5e377a@kernel.org>
+In-Reply-To: <20261106-khugepaged_set_pmd-v2-2-d2457b5e377a@kernel.org>
+References: <20261106-khugepaged_set_pmd-v2-2-d2457b5e377a@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,77 +84,39 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-On Fri, Nov 06, 2026 at 01:36:12PM +0100, David Hildenbrand (Arm) wrote:
->do_set_pmd() can allocate vmf->prealloc_pte on architectures that need a
->deposited page table, such as PowerPC with the hash MMU. If the PMD is
->no longer empty when it takes the PMD lock, it returns VM_FAULT_FALLBACK
->without consuming that table.
+On Fri, Nov 06, 2026 at 01:36:13PM +0100, David Hildenbrand (Arm) wrote:
+>do_fault_around() skips PTE table preallocation when the PMD already points
+>to a PTE table. A concurrent collapse can then retract that table and
+>clear the PMD before filemap_map_pages() locks the new PMD-sized folio.
+
+Right, having a PTE table when we check in do_fault_around() doesn't mean
+it'll still be there later ;)
+
+>filemap_map_pmd() can then call do_set_pmd() with an empty PMD and no
+>preallocated table. On PowerPC hash MMU, do_set_pmd() then tries
+>allocating a PTE table to deposit. But filemap_map_pmd() calls
+>do_set_pmd() under RCU, so allocating from that context is not good.
 >
->Since collapse_pte_mapped_thp() uses mmap_read_lock(), a concurrent
->userfaultfd operation can install a PTE table before taking the folio
->lock. If that races with set_huge_pmd(), the unused preallocated table
->is lost when its local vm_fault goes out of scope.
+>This race became possible when retract_page_tables() stopped taking the
+>mmap and VMA locks. Previously, those locks excluded retraction while
+>the fault was in progress.
 >
->Track whether do_set_pmd() allocated the table and free it after dropping
->the PMD lock if it was not consumed. Preserve any preallocated table
->supplied by the caller for PTE fallback. Successful PMD installation
->consumes the table and clears the pointer.
+>Add a may_alloc argument to do_set_pmd() and pass false from
+>filemap_map_pmd(), so we can fail with VM_FAULT_FALLBACK instead of
+>trying to allocate.
+
+YES, just fall back and let the regular fault handling take over after
+leaving RCU.
+
+>This issue should be fairly hard to hit in practice.
 >
->Returning without a preallocated table matches the existing behavior on
->architectures that do not need a deposited table. All callers
->already handle that case.
->
->Fixes: 1043173eb5eb ("mm/khugepaged: collapse_pte_mapped_thp() with mmap_read_lock()")
+>Fixes: 1d65b771bc08 ("mm/khugepaged: retract_page_tables() without mmap or vma lock")
 >Cc: stable@vger.kernel.org
->Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 >Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 >---
-> mm/memory.c | 6 ++++++
-> 1 file changed, 6 insertions(+)
->
->diff --git a/mm/memory.c b/mm/memory.c
->index becf53a2a0944..421064aef3cf0 100644
->--- a/mm/memory.c
->+++ b/mm/memory.c
->@@ -5687,6 +5687,7 @@ vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *pa
-> 	struct vm_area_struct *vma = vmf->vma;
-> 	bool write = vmf->flags & FAULT_FLAG_WRITE;
-> 	unsigned long haddr = vmf->address & HPAGE_PMD_MASK;
->+	bool pgtable_allocated = false;
-> 	pmd_t entry;
-> 	vm_fault_t ret = VM_FAULT_FALLBACK;
-> 
->@@ -5725,6 +5726,7 @@ vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *pa
-> 		vmf->prealloc_pte = pte_alloc_one(vma->vm_mm);
-> 		if (!vmf->prealloc_pte)
-> 			return VM_FAULT_OOM;
->+		pgtable_allocated = true;
-> 	}
-> 
-> 	vmf->ptl = pmd_lock(vma->vm_mm, vmf->pmd);
->@@ -5755,6 +5757,10 @@ vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *pa
-> 	count_vm_event(THP_FILE_MAPPED);
-> out:
-> 	spin_unlock(vmf->ptl);
->+	if (pgtable_allocated && vmf->prealloc_pte) {
-
-Took me a sec ... to see why we can't just check vmf->prealloc_pte here
-...
-
-Emm ... as it turns out, the caller might have supplied it for fallback :D
 
 LGTM1
 
 Reviewed-by: Lance Yang <lance.yang@linux.dev>
 
->+		pte_free(vma->vm_mm, vmf->prealloc_pte);
->+		vmf->prealloc_pte = NULL;
->+	}
-> 	return ret;
-> }
-> #else
->
->-- 
->2.43.0
->
->
+Cheers, Lance
