@@ -1,59 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794137270;
-	b=M0M4f6eRs1HMmImVSPKjSBQpKUSROrzeokG3farH50M8X2U90/S9SDg8fWbRWU7ja6hA
-	 ujyJ6zpK4hIHcdCGLCIfPbZDiFnSCORIFHiZOpZG2lMATV5qPIuYJmdjBr6AjOFexb562
-	 KRoX3vTHaenqmyTXb0oE0m8TttmWI6ddxHrJtlMxTP2+IEEcWWaIMTO/tC0H+m+3H8xnH
-	 KeaLVlYDpN40WyqOhOFNaEVmMlNfRrWSS0VAqOy7IQr4SeRcFLc5GFSRehfLR75LGscFQ
-	 2BmkQnwEpWjpcM/Cda5+TH0a3J3x2H21OL/TYF1ihjKyozoGGa6jKpKBrYXcrIiFK1Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794137270;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=uZmEdY/FcmpPWk05e56VtKqp4zxtBSOiQ0HeAUX7U4k=;
-	b=PzyjS7euzKPPSJfBP3KjpH4SLmdOnrmg/mjeRqCQ2wszmj6NtAsO7XOmY/8IA47grFDR
-	 aexQCqc9vaIcz24TQT6+VOzFeP8Qoa0Byu4ne59wW2EQSYM4IcsclQEc5lYeeR0sILLQF
-	 f1kxg8SUrG6jLrPmq4mZj7aRMzUsDNq1k1193/v4ugzndrJ415Lp7EX3ESdU1jbJiyBCW
-	 S6ua5eJ68AdBPZiOtJ4Rj8hXs2m11RQQy9poKePDp+Kc5C/C2zA4NZYADIYYZeqDYkO9c
-	 0e2MsuN9WVP6lKIIU78zrvlFQy50mv75Ppm7W6o46CmaX5HkE3ujauA0xGv7Uyx+blA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ZWThSadK;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 79B43606A323
-	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 11:27:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79B43606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794137682;
+	b=V5EieBHukdttAvnipqP9gI50PN9i1TKApWjAwPU+ELNmyh2y4MP3naYDV71vekNS/cLy
+	 OJ3kqFLSSDWXcqSAhfnqm+DhXBjfgmyL1wjBI6I20mn8i197su3WqlTatk32cTeBRcIz9
+	 94fIMhBH3F6+HbyE1s2l6KW+FCrj2d0PFuYVzeViTRRvRfV92RqKwquFrb4h1w7s5Hf4X
+	 rOI5NZjiIpMFeXF4vadxh7A4EFbRauwfrzhv+S0vfrS4YDxxd6lU6eCu9wF1IQqqNzyrf
+	 Y/f6mSmriQcT25bEzA+wBNLCfZahVocMOR2QT46SNTW7R1Tnz5+9JBgHq1aAq3rlc9A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794137682;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=irh7FtabIZf9G5NtC74mI7+F4qF39JvEMv9fHyqNNSU=;
+	b=Y1BqCg6FQT1AjtUzsLTaBZc+kZ81QLlrLa48MgGSidla6V8uYGPVruTSpDiXB/8QnadY
+	 hf+pVHBL3RTLqB2zk3MKDNyHtw7zQepY5xURKNOYXTPd8KCawJJClnWvQp3X/B3cksyq/
+	 KD6pS3DtS8YDzM5FJZ7sFjS3eOm9+j9JC5HlL5T7WBHCrGRfEaThbj0UH97xblU6q60lT
+	 TLtXSAcj8hvBeDuUHLbgLO3se+b0Ufm4XthwZ1jrriHvoPE4wvN1+DHKb411W8hYGOrIa
+	 6Std0Xel/OOPy8qzYxatKZ9HJonYgwzSEi9JojllB2BZVkOL7iVaiNhmuMShJjVjEow==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N4phKShs;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF8C5606A31C;
+	Sun,  8 Nov 2026 11:34:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ZWThSadK
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1862916F3;
-	Sun,  8 Nov 2026 03:27:46 -0800 (PST)
-Received: from e127648.arm.com (unknown [10.57.14.94])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 20AEB3F632;
-	Sun,  8 Nov 2026 03:27:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794137269; bh=2B+hGN8c05hHSZdxZVC8WSdTbtaF8sT0ew3s+avykgw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=ZWThSadKu/Bm3L9n5U8nyFmijNJwJAjs9jY+8twNv47vYD0vZr8/tVwtYsAvbqyCH
-	 4cMdhXsbvcCZxr+axfUHXZG0n18yoVammWoYaMQozcvOsIly/J8nG0ARgbiFncjzRF
-	 Pr7JjkrIu9eJJBgiJmtI98mLzbFWTBaO5vB8up0c=
-From: Christian Loehle <christian.loehle@arm.com>
-To: stable@vger.kernel.org
-Cc: gregkh@linuxfoundation.org,
-	sashal@kernel.org,
-	rafael.j.wysocki@intel.com,
-	sumitg@nvidia.com
-Subject: [PATCH 7.3 3/3] ACPI: CPPC: Accept requests to retain immutable autonomous selection
-Date: Sun,  8 Nov 2026 11:27:38 +0000
-Message-Id: <20261108112738.2566137-4-christian.loehle@arm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261108112738.2566137-1-christian.loehle@arm.com>
-References: <20261108112738.2566137-1-christian.loehle@arm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N4phKShs
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794137681;
+	b=NM9Fi8rrt5YNCNf/OeifaEVDn+bqb9ZcADo5hZrDeK9AVFO4YDlrOPREZg32BV8l9nZE
+	 AxHKX+3Op89XpxAa2zNps5XUMVytr4FtSUgEvJ9UkmphN0L+pUVqWan6Iz1YIC8aRpV0G
+	 vcOoY46ROdv8182Ht6BPF7PDul/vgJfY4wgF8njewmGUFuGSLj2kCr2L5uVjQwFRKyx0a
+	 PA81T0m4HJ1DVzEp6bNhekcDcTlinSMHz7dMILUDcjv6TU4rjF3uuVmuV7jBIJooiT0cF
+	 1OMUGb2I5YFBUpv67Es87J3b2E2/EJwy9nyAlTRpKNXzsVOcw31FNHfhBn2k7f9kPhg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794137681;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=irh7FtabIZf9G5NtC74mI7+F4qF39JvEMv9fHyqNNSU=;
+	b=S4U84FbJMTwHtvp8jyw/yToMoHC9EMp42lJH1YFIgDZsiLpW5lRaQ9Sa4bwSoK6E8v1C
+	 xO1f3i9tnTUoYZ5SwirkMqPntc9AAVmVsow9YuYTJEtHFjYZjiS6PDQLbs5p13rRunN2l
+	 ge9auoGqX6ZwAgqzv7xTXILLKDShLhIppP4UcGtlvIo+bdi0qlCkRr5/1qwkgEhdZjwN5
+	 c74qksvxTHCuINXoK9gASI9WcdVXGLSMs7gIU0zFvAgOfiuxo0CLSvfcclNuDj5B3M2SZ
+	 AjRDuo9QfUULV/MWyAItqYAgbxClinEJwPzU8QkF5dkwjWKqdKvnWqVJ/btCZuLuyzQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id C4F921F008A3;
+	Sun,  8 Nov 2026 11:34:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794137681;
+	bh=irh7FtabIZf9G5NtC74mI7+F4qF39JvEMv9fHyqNNSU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=N4phKShsnuVPT9bSG5HGbp2ly6lelu5KmPLmwis51hHqeczdww7dQTm2pe2KM1MGz
+	 xEiJVK+JKfQbvkIU/YbotXTRisgQrM4BQfbLtkjzXCqDMGFRlWQL7PuugFxSlQcSd1
+	 cwSRkNg80/7obgLeEcTgXpplOBBGdjYoYAj6n1+fgIDacNvuSC30wTO32Zrx+xKNfh
+	 +yuVH5hRhFe/gOUeDyoKHd+g+LKLZEbe06soPoZ6NBwbyHOpADdQxU2O6CQDwre4Kb
+	 8eo3RpA3ytWTCelDA35CDC8sw9JF6dDz7YL64a0fkmKg9fW+brDERPe/oHpyBflrXw
+	 BddJW6n24qnZA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 4BAB247F15;
+	Sun,  8 Nov 2026 11:34:40 +0000 (UTC)
+From: Cunhao Lu via B4 Relay <devnull+1579567540.qq.com@kernel.org>
+Date: Sun, 08 Nov 2026 19:33:30 +0800
+Subject: [PATCH net v8 03/10] can: rockchip_canfd: retry the outstanding TX
+ buffer
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,243 +83,80 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261108-rockchip-canfd-restart-close-v8-3-3e7a23fd9eae@qq.com>
+References: <20261108-rockchip-canfd-restart-close-v8-0-3e7a23fd9eae@qq.com>
+In-Reply-To: <20261108-rockchip-canfd-restart-close-v8-0-3e7a23fd9eae@qq.com>
+To: Marc Kleine-Budde <mkl@pengutronix.de>, kernel@pengutronix.de, 
+ Vincent Mailhol <mailhol@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Oliver Hartkopp <socketcan@hartkopp.net>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, 
+ Wolfgang Grandegger <wg@grandegger.com>
+Cc: Cunhao Lu <1579567540@qq.com>, linux-can@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+ linux-doc@vger.kernel.org, stable@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794137678; l=1735;
+ i=1579567540@qq.com; s=20261015; h=from:subject:message-id;
+ bh=mAdiDJWuUPvQyM82hTpk52wGLUSpbq2jpnpY6emM93U=;
+ b=5PD3i2rXvndHL9umpnZZAsui/1VjENqN/gRejX7O7unl+AadS6RIjqskIrEeKTbuOi2Z5U+n+
+ V5DughzQwSGAMzCZBZhEjnvCjwIxOfZtZl3wXwGzioCjFv+ItgjAm8I
+X-Developer-Key: i=1579567540@qq.com; a=ed25519;
+ pk=sUTWrzlIwT4C7ctjNfVZAzzg0G7QUn2XxRGpYsw4RtM=
+X-Endpoint-Received: by B4 Relay for 1579567540@qq.com/20261015 with
+ auth_id=1177
+X-Original-From: Cunhao Lu <1579567540@qq.com>
+Reply-To: 1579567540@qq.com
+Content-Transfer-Encoding: 7bit
 
-commit 4bcc60d326c5acaa28c5913259decb22a33a83a1 upstream.
+From: Cunhao Lu <1579567540@qq.com>
 
-ACPI permits Autonomous Selection Enable to be Integer 1 when the platform
-always selects performance autonomously. cppc_get_auto_sel() returns that
-value, but cppc_set_auto_sel() rejects the Integer even when asked to keep
-autonomous selection enabled. AMD shared-memory initialization consequently
-fails in active or guided mode after successfully reading the capability.
+rkcanfd_xmit_retry() uses tx_head to select the buffer for the erratum 6
+retransmission. With a TX FIFO depth of one, the masked head and tail
+indices both select buffer 0. With two buffers and one outstanding frame,
+tx_head selects the next free buffer instead of the pending one.
 
-Accept a request to keep this immutable field enabled without issuing a
-register access. Expose the immutable encoding to callers, separately from
-the current value of a writable register.
+Use tx_tail to retry the outstanding buffer. Otherwise, the pending echo
+entry can remain incomplete and leave the TX queue stopped.
 
-Before an AMD shared-memory transition to passive mode, reject immutable
-autonomous selection on any present CPU. Otherwise a guided-to-passive
-transition ignores the failed disable and reports the wrong mode, while
-active-to-passive unregisters the working driver before passive policy
-initialization fails. Check under the driver mode lock before invoking
-either transition, including known offline CPUs.
+Backports must include the preceding TX serialization fix or equivalent
+synchronization. It prevents completion and retry from observing a newly
+published head before its initial TX command and serializes the
+MODE/CMD/MODE sequences used by submission and retry.
 
-Serialize this capability query with descriptor publication and removal.
-ACPI processor removal drops the descriptor before taking the CPU hotplug
-write lock, so the caller's cpus_read_lock() alone cannot protect the
-lookup. Unpublish under the same mutex before releasing a descriptor,
-including when adding its kobject fails.
+Fixes: a5605d61c7dd ("can: rockchip_canfd: enable full TX-FIFO depth of 2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Cunhao Lu <1579567540@qq.com>
 
-The cppc-cpufreq auto_select attribute can also request one while
-autonomous selection is already enabled. If the subsequent bounds update
-fails, its rollback requests zero and clears the cached mode regardless
-of the previous state. For an immutable field the disable request fails,
-leaving the cached mode wrong. Save and restore the previous mode instead.
-This also avoids disabling an already-enabled writable control on that
-error path.
-
-Fixes: c984f5d5d45b ("ACPI: CPPC: Add auto select register read/write support")
-Fixes: ea3db45ae476 ("cpufreq: cppc: Update MIN_PERF/MAX_PERF in target callbacks")
-Cc: All applicable <stable@vger.kernel.org>
-Signed-off-by: Christian Loehle <christian.loehle@arm.com>
-Tested-by: Sumit Gupta <sumitg@nvidia.com>
-Link: https://patch.msgid.link/20260916162805.1039247-19-christian.loehle@arm.com
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-Signed-off-by: Christian Loehle <christian.loehle@arm.com>
 ---
- drivers/acpi/cppc_acpi.c       | 48 ++++++++++++++++++++++++++++++++--
- drivers/cpufreq/amd-pstate.c   | 25 ++++++++++++++----
- drivers/cpufreq/cppc_cpufreq.c |  5 ++--
- include/acpi/cppc_acpi.h       |  6 +++++
- 4 files changed, 75 insertions(+), 9 deletions(-)
+Changes in v8:
+- Apply the retry-slot correction after TX serialization.
+---
+ drivers/net/can/rockchip/rockchip_canfd-tx.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
-index 8283db4ee6fa..8aa0ce556863 100644
---- a/drivers/acpi/cppc_acpi.c
-+++ b/drivers/acpi/cppc_acpi.c
-@@ -36,6 +36,7 @@
- #include <linux/delay.h>
- #include <linux/iopoll.h>
- #include <linux/ktime.h>
-+#include <linux/mutex.h>
- #include <linux/rwsem.h>
- #include <linux/wait.h>
- #include <linux/topology.h>
-@@ -93,6 +94,16 @@ static DEFINE_PER_CPU(int, cpu_pcc_subspace_idx);
-  */
- static DEFINE_PER_CPU(struct cpc_desc *, cpc_desc_ptr);
+diff --git a/drivers/net/can/rockchip/rockchip_canfd-tx.c b/drivers/net/can/rockchip/rockchip_canfd-tx.c
+index caa71cf8e39a..8998b7855d15 100644
+--- a/drivers/net/can/rockchip/rockchip_canfd-tx.c
++++ b/drivers/net/can/rockchip/rockchip_canfd-tx.c
+@@ -63,8 +63,8 @@ static void rkcanfd_start_xmit_write_cmd(const struct rkcanfd_priv *priv,
  
-+/* Protect immutable capability queries against descriptor removal. */
-+static DEFINE_MUTEX(cpc_desc_lock);
-+
-+static void cpc_set_desc(unsigned int cpu, struct cpc_desc *desc)
-+{
-+	mutex_lock(&cpc_desc_lock);
-+	per_cpu(cpc_desc_ptr, cpu) = desc;
-+	mutex_unlock(&cpc_desc_lock);
-+}
-+
- /* pcc mapped address + header size + offset within PCC subspace */
- #define GET_PCC_VADDR(offs, pcc_ss_id) (pcc_data[pcc_ss_id]->pcc_channel->shmem + \
- 						0x8 + (offs))
-@@ -999,12 +1010,12 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
- 	}
- 
- 	/* Plug PSD data into this CPU's CPC descriptor. */
--	per_cpu(cpc_desc_ptr, pr->id) = cpc_ptr;
-+	cpc_set_desc(pr->id, cpc_ptr);
- 
- 	ret = kobject_init_and_add(&cpc_ptr->kobj, &cppc_ktype, &cpu_dev->kobj,
- 			"acpi_cppc");
- 	if (ret) {
--		per_cpu(cpc_desc_ptr, pr->id) = NULL;
-+		cpc_set_desc(pr->id, NULL);
- 		kobject_put(&cpc_ptr->kobj);
- 		goto out_free;
- 	}
-@@ -1056,6 +1067,8 @@ void acpi_cppc_processor_exit(struct acpi_processor *pr)
- 	if (!cpc_ptr)
- 		return;
- 
-+	cpc_set_desc(pr->id, NULL);
-+
- 	/* Free all the mapped sys mem areas for this CPU */
- 	for (i = 2; i < cpc_ptr->num_entries; i++) {
- 		addr = cpc_ptr->cpc_regs[i-2].sys_mem_vaddr;
-@@ -1402,6 +1415,11 @@ static int cppc_set_reg_val(int cpu, enum cppc_regs reg_idx, u64 val)
- 
- 	reg = &cpc_desc->cpc_regs[reg_idx];
- 
-+	/* Integer 1 describes autonomous selection that is always enabled. */
-+	if (reg_idx == AUTO_SEL_ENABLE && reg->type == ACPI_TYPE_INTEGER &&
-+	    reg->cpc_entry.int_value == 1)
-+		return val == 1 ? 0 : -EOPNOTSUPP;
-+
- 	/* if a register is writeable, it must be a buffer and not null */
- 	if ((reg->type != ACPI_TYPE_BUFFER) || IS_NULL_REG(&reg->cpc_entry.reg)) {
- 		pr_debug("CPC register is not supported\n");
-@@ -1929,6 +1947,32 @@ int cppc_get_auto_sel(int cpu, bool *enable)
- }
- EXPORT_SYMBOL_GPL(cppc_get_auto_sel);
- 
-+/**
-+ * cppc_auto_sel_is_immutable - Check for always-enabled autonomous selection.
-+ * @cpu: CPU whose _CPC descriptor to check.
-+ *
-+ * Context: Process context.
-+ * Return: true for Integer 1, false for a register or an absent descriptor.
-+ */
-+bool cppc_auto_sel_is_immutable(int cpu)
-+{
-+	struct cpc_desc *cpc_desc;
-+	struct cpc_register_resource *reg;
-+	bool immutable = false;
-+
-+	mutex_lock(&cpc_desc_lock);
-+	cpc_desc = per_cpu(cpc_desc_ptr, cpu);
-+	if (cpc_desc) {
-+		reg = &cpc_desc->cpc_regs[AUTO_SEL_ENABLE];
-+		immutable = reg->type == ACPI_TYPE_INTEGER &&
-+			    reg->cpc_entry.int_value == 1;
-+	}
-+	mutex_unlock(&cpc_desc_lock);
-+
-+	return immutable;
-+}
-+EXPORT_SYMBOL_GPL(cppc_auto_sel_is_immutable);
-+
- /**
-  * cppc_set_auto_sel - Write autonomous selection register.
-  * @cpu    : CPU to which to write register.
-diff --git a/drivers/cpufreq/amd-pstate.c b/drivers/cpufreq/amd-pstate.c
-index 8bfd46d60843..fe565f9643b6 100644
---- a/drivers/cpufreq/amd-pstate.c
-+++ b/drivers/cpufreq/amd-pstate.c
-@@ -1794,7 +1794,7 @@ EXPORT_SYMBOL_FOR_PSTATE_UT(amd_pstate_get_status);
- 
- int amd_pstate_update_status(const char *buf, size_t size)
+ void rkcanfd_xmit_retry(struct rkcanfd_priv *priv)
  {
--	int mode_idx;
-+	int cpu, mode_idx, ret = 0;
+-	const unsigned int tx_head = rkcanfd_get_tx_head(priv);
+-	const u32 reg_cmd = RKCANFD_REG_CMD_TX_REQ(tx_head);
++	const unsigned int tx_tail = rkcanfd_get_tx_tail(priv);
++	const u32 reg_cmd = RKCANFD_REG_CMD_TX_REQ(tx_tail);
  
- 	if (size > strlen("passive") || size < strlen("active"))
- 		return -EINVAL;
-@@ -1803,12 +1803,27 @@ int amd_pstate_update_status(const char *buf, size_t size)
- 	if (mode_idx < 0)
- 		return mode_idx;
+ 	lockdep_assert_held(&priv->tx_lock);
  
--	if (mode_state_machine[cppc_state][mode_idx]) {
--		guard(mutex)(&amd_pstate_driver_lock);
--		return mode_state_machine[cppc_state][mode_idx](mode_idx);
-+	guard(mutex)(&amd_pstate_driver_lock);
-+
-+	if (!mode_state_machine[cppc_state][mode_idx])
-+		return 0;
-+
-+	if (mode_idx == AMD_PSTATE_PASSIVE &&
-+	    !cpu_feature_enabled(X86_FEATURE_CPPC)) {
-+		cpus_read_lock();
-+		/* Check offline CPUs too, before changing or removing the driver. */
-+		for_each_present_cpu(cpu) {
-+			if (cppc_auto_sel_is_immutable(cpu)) {
-+				ret = -EOPNOTSUPP;
-+				break;
-+			}
-+		}
-+		cpus_read_unlock();
-+		if (ret)
-+			return ret;
- 	}
- 
--	return 0;
-+	return mode_state_machine[cppc_state][mode_idx](mode_idx);
- }
- EXPORT_SYMBOL_FOR_PSTATE_UT(amd_pstate_update_status);
- 
-diff --git a/drivers/cpufreq/cppc_cpufreq.c b/drivers/cpufreq/cppc_cpufreq.c
-index ad4bf1656f65..8bba33b3e7c5 100644
---- a/drivers/cpufreq/cppc_cpufreq.c
-+++ b/drivers/cpufreq/cppc_cpufreq.c
-@@ -892,6 +892,7 @@ static ssize_t store_auto_select(struct cpufreq_policy *policy,
- 				 const char *buf, size_t count)
- {
- 	struct cppc_cpudata *cpu_data = policy->driver_data;
-+	bool old_auto_sel = cpu_data->perf_ctrls.auto_sel;
- 	bool val;
- 	int ret;
- 
-@@ -920,8 +921,8 @@ static ssize_t store_auto_select(struct cpufreq_policy *policy,
- 		if (ret) {
- 			cpu_data->perf_ctrls.min_perf = old_min_perf;
- 			cpu_data->perf_ctrls.max_perf = old_max_perf;
--			cppc_set_auto_sel(policy->cpu, false);
--			cpu_data->perf_ctrls.auto_sel = false;
-+			cppc_set_auto_sel(policy->cpu, old_auto_sel);
-+			cpu_data->perf_ctrls.auto_sel = old_auto_sel;
- 			return ret;
- 		}
- 	}
-diff --git a/include/acpi/cppc_acpi.h b/include/acpi/cppc_acpi.h
-index 94a6277edab2..a32b09ec3394 100644
---- a/include/acpi/cppc_acpi.h
-+++ b/include/acpi/cppc_acpi.h
-@@ -188,6 +188,7 @@ extern int cppc_set_epp(int cpu, u64 epp_val);
- extern int cppc_get_auto_act_window(int cpu, u64 *auto_act_window);
- extern int cppc_set_auto_act_window(int cpu, u64 auto_act_window);
- extern int cppc_get_auto_sel(int cpu, bool *enable);
-+bool cppc_auto_sel_is_immutable(int cpu);
- extern int cppc_set_auto_sel(int cpu, bool enable);
- extern int cppc_get_perf_limited(int cpu, u64 *perf_limited);
- extern int cppc_set_perf_limited(int cpu, u64 bits_to_clear);
-@@ -289,6 +290,11 @@ static inline int cppc_get_auto_sel(int cpu, bool *enable)
- {
- 	return -EOPNOTSUPP;
- }
-+static inline bool cppc_auto_sel_is_immutable(int cpu)
-+{
-+	return false;
-+}
-+
- static inline int cppc_set_auto_sel(int cpu, bool enable)
- {
- 	return -EOPNOTSUPP;
+
+-- 
+2.34.1
+
+
