@@ -1,90 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794171963;
-	b=ksPiM74Bg5ZQL0ked7/nbpT0m8lh4BaVDUt8G/C+dL39VJXLjYVBt9iX9U88LEvUbDZx
-	 nwtm2PqR/JUhpC/J5wXZdJTfwyhtAGHMNYfs8J3rn6e3kFseCPstfg4/KpFUK3D37+F+q
-	 rhBEDJtE2eILIItCNwar3YLnEDTLZqbdbhr2WkExpMe8+xIOch/HBsdbn5X48DianVVEj
-	 fIEkiXV94Hy5HiECdKssxt+KgA8kK8nyRkQSTdt8YLfCSH/eGJhOovYi6SV3uN97jfhpf
-	 AJcH1dd9x106bSOdxGa6JIpVT3CHd78yBCgC9fua4/EIG5iDPb0z6eNX+TevZ1jRWFg==
+	t=1794172055;
+	b=fzAoKJh7ye8i2rHtXa70i3Nc90rHkxe+akNqsN0fPzwaXzuT6oR43sbBRDX3uQIxTcj0
+	 DkNqHf7Bl5Les7JwhfEsYdZ1d09ilJ0OQXe1ZhYOmtZvbUXA/a9gLe1fiJyQPuPZpV0e7
+	 XK1bZyP9JCrHFk1e62g2RpjTLMl9+yBKGRfgS/t9uDoslGf0KtXs7wV0y8FgGNZNQK4Zb
+	 +t8E+Mn6jYPcvIhddZdkyVMN28Uo2HO5IH/anNjzZP2RU2jjxpWRIWxR9tuDWu8lRxrrw
+	 8MjlQA/g3qcGecbelQN6z2wglvVkK17YyJKadI67xUP2hmd+unjvN5dHZGXIg2SC8EQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794171963;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794172055;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=GNWXWN4JgZ7053uqaoeB99xmhmDCtwvTAn5dZkJ9Sik=;
-	b=vFQKQV6pCA+5Jcro/DnagrDPQ8oqmOsxJko1qrk6b8SGhr1NymEPrOnxfwtbDSjUDp25
-	 TGnSKLFzg0DPVidszWQ03CKAz/kOnuZc0Fif76hn5vM7qAeFX8BqmzOGKqJMNRK3Wc/Oo
-	 dJs36PlobUk2kOaLcld0o9vB5CZWt8xWSbQMky8MiPdxgSUhhmvSPaKeSDSlKsmkmf/Gg
-	 oaoe/zYGhUZZOBGykZZemZiqnohZE+/P9FXZKXqjp0UJ6YngcgdS4BlUTtsBpEv19mLKs
-	 IOsBEGmOTakHKIcNrRL65UDI3C/nV95wExt4CPxsufi7aNwwaZ6AAQ8zuC6386rLNLg==
+	bh=EEsTvDHWsy6BHKFJlVpg36WKPFu4YHw4KdAe6UCxLUM=;
+	b=nJSYZMJXmzwM/HJKDKoTZ4LE4nTIRF+wE9LFBZPVfkFq2NNpLFbwziMcXD+70V5NPSnu
+	 OMphifw/Ah0mKpjhXGgXEzkbIdq8RV4Dxt2DbRFWwLM5eLji7YozkRVxB8n/BUAAPIRY/
+	 whV5d+3bMSBmhlNNMWj92U7CMfF9/yD8ShmnSJ5lzYKU375AB4HnQgGPnUadC37/oPNlK
+	 d4KWyhzHc9f7ie/Y+oOpYLm32um3fD2Q2bffvp+S7O41qUmJwCLUOB0j+n4ZpPo1eKWZc
+	 +AtIrdaS6TfxpZUJ3jvHQelJ1fJKcrPZa5PCHjCh9ayhaRlSyeO4JNRrPzQQduZiBFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pEOmnNMk;
-	arc=none smtp.remote-ip=209.85.210.43
-Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com [209.85.210.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nUlW3VUY;
+	arc=none smtp.remote-ip=209.85.210.41
+Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com [209.85.210.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CDCF606A320
-	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 21:06:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CDCF606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3AB0606A321
+	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 21:07:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3AB0606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pEOmnNMk
-Received: by mail-ot1-f43.google.com with SMTP id 46e09a7af769-85f39332862so91716a34.3
-        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 13:06:03 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nUlW3VUY
+Received: by mail-ot1-f41.google.com with SMTP id 46e09a7af769-85a6c747dc9so213558a34.0
+        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 13:07:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794171962; x=1794776762; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794172054; x=1794776854; darn=vger.kernel.org;
         h=cc:to:message-id:content-transfer-encoding:content-type
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=GNWXWN4JgZ7053uqaoeB99xmhmDCtwvTAn5dZkJ9Sik=;
-        b=pEOmnNMkD8sFntj+FkOJGpjj8rcZAQMLRp/9VvuUb3AzT1pihw3SfSA61TPxtOUEGm
-         GUX4v1V6qJWUWjzC7Hvb0FWsyBA8Ch9EZ87VthO/0eR9SJ0oDdX3CDZf0K6sOzeE0Fot
-         kaYJ+xE09txht8kdIuA8zNWdlKagXEkqGEwb3iKZGFv+Di8zv94zFDZphOnH0Q+w16th
-         73EOxV0NT0/ycAsVR9EOuvPddp0N6ASIopAqFHlOYJdz69r4xaLeiCRlItlvC9HWAcQw
-         WCN62W3WMtcDViHj2vYEXVwI71BiAJoBQeNmDKMLVrzqvR7k4sw+29YdGbvAhhZNqL2X
-         rciw==
+        bh=EEsTvDHWsy6BHKFJlVpg36WKPFu4YHw4KdAe6UCxLUM=;
+        b=nUlW3VUYxv/20AOy5He78UCiODQk+rJyY8JBf+kdnoHP1JRRcvrwXc+HhkmVg2gx9A
+         B8jM0YaNJW7we1B6F6cXugT6AiupWGZYIkBtZubLUXVgyUHO58fwg5dt3V8pMXJjvis0
+         rHuJQ7f0sQdIuuvnKxbHKv2Mlnln8sLDqtT2FmeXT2Xb8dsYASJ5BRLQb68HTgCOyUwO
+         o89857EcWhaTI5IdVEF9zreguiEEoJm1RjuKAac2Xjh6vJHYb5i0FSXVXGqpNbcWyzeW
+         YyzZlPwebAkL50Ak86re4I+mKVLiezfULIjFlkO5w4HuUMmNzl7oH+EBp7TCZbI1DRw1
+         DurQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794171962; x=1794776762;
+        d=1e100.net; s=20260707; t=1794172054; x=1794776854;
         h=cc:to:message-id:content-transfer-encoding:content-type
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=GNWXWN4JgZ7053uqaoeB99xmhmDCtwvTAn5dZkJ9Sik=;
-        b=2m69aBrbK5+cBAuHdqv2B0rzEppWTJUYiQR8aE1KwgH+SZ62WzfPEw+TBtI7MvqSyt
-         uWSS2uc3uZ06Sm8WOjNvkP0ghjrBxAl0qeU+uM7kn90yxtz4ehz+0U5HMkqZB7Z8SkhE
-         WwN7IKevSH9Tniu41EBR4AQiWUuVeZyM0Yab0LPzhCWt8f6eXsvp5+9g8NgsAwmLyhWT
-         PIm7kWSDlgT9q2xtnUHBpungxyrkjnbmMI04kGRxRTiyPTU6BDgRuFBmdwvUbIFf+cCM
-         xPw3kjXAu0bpX2dXaBhgSBL4zxZI3pC1payqULnTPHcQmpP24P6dHhO04/x14ca7eN+J
-         SI6w==
-X-Forwarded-Encrypted: i=1; AL+hErHazrtokNSJIFaWXQT2UQ9iAk6bxcwmNEMj7jXq09qLtxaHikpwdWSr5+BoyTXfNhb1WvPrK+c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z86DURWrqNQ7GsqzzIpAsVdFHe5n29sx8C4VYkQx1M6neWyMB0K
-	8oxTfipmbUwwfFavysp93o4vD5oIDSi1tJ69wb1andt8AZBt9RUuU/VP
-X-Gm-Gg: AYBFou1GbbzcZILYVE5TFC6CHX8qdguJ3UGIbDHnP2lq/c2WpYq2bb7offkHiaS/0Fc
-	Gq1KPSG39DHAWpUpJ6pECcivM8MdjNrObE1arBWfvqwoeLfHDiU6iTo6XMmYin2c1Px31UZWT4h
-	aMkFm5hnPR+kaUIhb3gLPZLr8ZzIBO01QuTM/eXbV2hsz6pAId2yuqYUqLI+Q7Ch7ReYFTAV6rN
-	LSkDC7vWp4pF0grpggZ3gBYu8RQzmlf3BKaWmVOmCwL6z7sWAKcj5OSxT7LIc1lO/YxBSNsU8Vp
-	83etvOP2rDJTLkh6LLx9Pr+7n9jrR7MnvnRXkevPbPfghBYM6hnzOlxLJgOzQUzlpifCMiUG2zY
-	0Y57KY/0yoqG7w03ugBpWYVa1Eyt3olS0lKcfv1PJGmaxlQfPd2Inoxuy+JWktKKToa/tvE3MUe
-	oBWyjZ72ljJU/KjZ1BK+5UwyuYktzLq2958hqAGwUM+zs86Zzg1fHTOMHwXozVepo8XN9sSgFun
-	+WqLYx0ZJagLPqhkmU8xv7PVC9JXRxPJTCNUDKqccawuOhnYQfDygChmV1SK81tEhmQRBVuPMUq
-	OP5dvS47mGhiW63Rd8mRJfHX/k0OhODn1TCa3ZOjls8rSQ/Dry9e6GdLUtx6QOjLVzLlQXj/Gh6
-	Srn2qgvY7XUoWPVAcG0PPx7x2bRf+maDFGUdXwYTz027NWymRNY8/Lvjb2XxbIHRvhjsCwoazUm
-	DGEcKpEAGdeRG2vbVwD/MhmWN+QWD07HUauzQ8rIQLszG/BQ0GuedYdvr4CvSx4gWOHatXf8odi
-	g==
-X-Received: by 2002:a05:6830:2317:b0:804:ec69:3979 with SMTP id 46e09a7af769-85f50854422mr1625444a34.21.1794171962292;
-        Sun, 08 Nov 2026 13:06:02 -0800 (PST)
+        bh=EEsTvDHWsy6BHKFJlVpg36WKPFu4YHw4KdAe6UCxLUM=;
+        b=m3g0lFczSMZyryogwezJyLyqRn2lM+FFoxwUz4ZoBSY3Cli2G9rP9zR6L1oQKyOxYK
+         HhvBh7MMqSfqeHb7Q/bWChuImKU274KvB+KYijaEsznoti/JhZDvkI0SLK6UClghR8ek
+         hjhq6sq0MJY5sik3QcJCEFeGo4z9KUdpaxOhRhWGNQN3FJkicveWIfUTBs0y0MCVtv2t
+         LpxN29c+GYJZfpKeTSecc64I6IUBV+bDwDhwR/2IRFgF/guf1V4E5ktNXsx4uGwjPEi0
+         DS4n5P0KeeiLbEAhmtyZojrMyw+rnmGHqD3PNTZawfzsAnQDgZjrxG7YTCjoIP4r9DP/
+         mvww==
+X-Forwarded-Encrypted: i=1; AL+hErExs6YJ70BzOT7JLsq7tySsWseWv7pmBHjk2vukclmkixMoXZpKVPXCdzgfITlQ/TVOV+oLAkk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9eKQmwXVYUHHcXEzmJUq376JHQnZDZHGZ9yhiSIrpT1lt4Uy9E
+	Npq2L+FgDzl1vO452AEmqQnWSmKYbe10U9TolNR6G9jdlrahcTzdz9BU
+X-Gm-Gg: AYBFou1f6MH149unieXW4Y39+oFvGOQbroS+XdEfmzrvFYlK0Q12sPbJA4FlIatpt1S
+	V9Kvf7tw2dagxZgngE+3vysLeqCtvPxjSQew3hXndRkdC4jRU6w/TeYgjVSe8OU/72UZWb2x5UH
+	EJmFyDgOPQ0nh8JDJQgJvYrarV8lYviIOaEChbyCRXqQagIy6467WhZshM9FHtxZiNXzRp/1nJd
+	Elmi57QkPbKkHlNJHacrIslkG8wmfw8kWKhkhU9jgGXUj1VHPo/cJS4ybpAwzJMFBKHYYnWVqZf
+	mRoRtPBbX5ZAezf31kuU+NLB0pBrOprLeyGuhjZWDUZzwsTYOc85pw+Q470durr2wYqlJqRIV8K
+	osBGPWfFXHvQRPhEagCfnzLjf7bog7QFNXQ8ISkz+fLWOolOUEbb4P8L2sPXP3QQRm9zXDsDLp5
+	2r/5wmUgVoKse+TuUhEMZFFN7obcVtDbQJHP+oy2I7Q9wg0tSXhaBwwx/rtwgGhWRpcBrH0MKw1
+	H4qG11DhIAsRm/ceUPaDA5yG9MgBgbAMlmwDf4NYTvTQZFP+/lVe0h3zAd796n2HbpoENUMaQNx
+	cg7ad50p689woLjnQXe7FPkWvPeH4yPfDi/htso+aIl+JIloMqN6xph0QUGKtY0zpyX4Vy4i8GU
+	8BH7sm4I9FepvXIGCNa1LXUgK199X7Fjx//9qcqwaiQrHL9VtHYK/QxWlCgo81jI4VhAq5q6OCU
+	QnNA+nZwLjs3voRcvEEuxnNNAIia3HSc4QIrN8Uh1COdBQpuAJ9YWx
+X-Received: by 2002:a05:6830:82f4:b0:85c:e511:ee04 with SMTP id 46e09a7af769-85f34abf688mr2547935a34.16.1794172053785;
+        Sun, 08 Nov 2026 13:07:33 -0800 (PST)
 Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85f4fbcef97sm2275583a34.21.2026.11.08.13.06.01
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85f4fb2b331sm2147379a34.10.2026.11.08.13.07.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 13:06:01 -0800 (PST)
+        Sun, 08 Nov 2026 13:07:33 -0800 (PST)
 From: James Hilliard <james.hilliard1@gmail.com>
-Date: Sun, 08 Nov 2026 14:05:55 -0700
-Subject: [PATCH] mtd: rawnand: tegra: drain the IRQ before disabling the
- clock
+Date: Sun, 08 Nov 2026 14:07:31 -0700
+Subject: [PATCH] mtd: rawnand: atmel: release the NFC IRQ before controller
+ cleanup
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -96,73 +95,74 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261108-submit-tegra-nand-irq-teardown-v1-v1-1-2c570ad4a22c@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXN3Q6CMAyG4VshPbZhA4M/t2I82E+BmVC0m0hCu
- Hc3PXy/NE83iCSBIlyrDYSWEMPMOfShAjcaHgiDzw2Najqt1Qnj204hYaJBDLJhj0FeOY34+cO
- 4aOxU3x0vrWrt2UF2nkJ9WH8/bvd/Z+RBLhW4XFgTCa0YdmOZpuTrItdMa4J9/wI6p3S/pQAAA
+Message-Id: <20261108-submit-atmel-nand-irq-teardown-v1-v1-1-341643c83ee3@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXN3Q6CMAyG4VshPbZhm4mot2I82E+RGim6TSQh3
+ LubHr5fmqcrJIpMCc7NCpFmTjxJCb1rwA9WboQcSoNR5qC16jC93cgZbR7pgWIlIMcXZrIxTB/
+ BWWN/UmavOq+PwUFxnpF6Xn4/Ltd/F+ROPle4XjibCF204oc6jTm0VW6Flgzb9gWEzj8YpQAAA
  A==
-X-Change-ID: 20261107-submit-tegra-nand-irq-teardown-v1-60f649303b8c
+X-Change-ID: 20261107-submit-atmel-nand-irq-teardown-v1-f902307c18db
 To: Miquel Raynal <miquel.raynal@bootlin.com>, 
  Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
- Stefan Agner <stefan@agner.ch>, Lucas Stach <dev@lynxeye.de>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>, Dmitry Osipenko <digetx@gmail.com>, 
+ Nicolas Ferre <nicolas.ferre@microchip.com>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
  Boris Brezillon <bbrezillon@kernel.org>
 Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-tegra@vger.kernel.org, stable@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org, 
  James Hilliard <james.hilliard1@gmail.com>
 X-Mailer: b4 0.15.2
 
-The managed IRQ handler remains installed until devres cleanup, after
-removal or a late probe failure has suspended the controller and disabled
-its clock. The handler can still be accessing registers at that point:
-it signals the command and DMA completions before its final register
-accesses, so waiting for a NAND operation does not drain the IRQ handler.
+The NFC interrupt is shared and devm-managed. Controller removal disables
+the clock used by the legacy binding before devres releases the handler.
+An interrupt from another device on the shared line can therefore make
+atmel_nfc_interrupt() read the NFC status with its clock disabled.
 
-Mask controller interrupts and release the managed IRQ before dropping
-the runtime PM reference. Apply the same ordering when chip initialization
-fails after the IRQ has been requested.
+Release and drain the handler before freeing the controller resources.
+Track successful IRQ registration because probe also uses this cleanup
+path when requesting the IRQ itself fails.
 
-Fixes: d7d9f8ec77fe ("mtd: rawnand: add NVIDIA Tegra NAND Flash controller driver")
+Fixes: f88fc122cc34 ("mtd: nand: Cleanup/rework the atmel_nand driver")
 Cc: stable@vger.kernel.org
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- drivers/mtd/nand/raw/tegra_nand.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ drivers/mtd/nand/raw/atmel/nand-controller.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/mtd/nand/raw/tegra_nand.c b/drivers/mtd/nand/raw/tegra_nand.c
-index 7f9eb5f042a7..1104d75b6cbe 100644
---- a/drivers/mtd/nand/raw/tegra_nand.c
-+++ b/drivers/mtd/nand/raw/tegra_nand.c
-@@ -1212,10 +1212,13 @@ static int tegra_nand_probe(struct platform_device *pdev)
+diff --git a/drivers/mtd/nand/raw/atmel/nand-controller.c b/drivers/mtd/nand/raw/atmel/nand-controller.c
+index 0bdbcbb50d94..9a724de67624 100644
+--- a/drivers/mtd/nand/raw/atmel/nand-controller.c
++++ b/drivers/mtd/nand/raw/atmel/nand-controller.c
+@@ -263,6 +263,7 @@ struct atmel_hsmc_nand_controller {
+ 	struct completion complete;
+ 	u32 cfg;
+ 	int irq;
++	bool irq_requested;
  
- 	err = tegra_nand_chips_init(ctrl->dev, ctrl);
- 	if (err)
--		goto err_put_pm;
-+		goto err_free_irq;
+ 	/* Only used when instantiating from legacy DT bindings. */
+ 	struct clk *clk;
+@@ -2334,6 +2335,9 @@ atmel_hsmc_nand_controller_remove(struct atmel_nand_controller *nc)
+ 	regmap_write(hsmc_nc->base.smc, ATMEL_HSMC_NFC_CTRL,
+ 		     ATMEL_HSMC_NFC_CTRL_DIS);
  
- 	return 0;
- 
-+err_free_irq:
-+	writel_relaxed(0, ctrl->regs + IER);
-+	devm_free_irq(ctrl->dev, ctrl->irq, ctrl);
- err_put_pm:
- 	pm_runtime_put_sync_suspend(ctrl->dev);
- 	pm_runtime_force_suspend(ctrl->dev);
-@@ -1234,6 +1237,9 @@ static void tegra_nand_remove(struct platform_device *pdev)
- 
- 	nand_cleanup(chip);
- 
-+	writel_relaxed(0, ctrl->regs + IER);
-+	devm_free_irq(ctrl->dev, ctrl->irq, ctrl);
++	if (hsmc_nc->irq_requested)
++		devm_free_irq(nc->dev, hsmc_nc->irq, hsmc_nc);
 +
- 	pm_runtime_put_sync_suspend(ctrl->dev);
- 	pm_runtime_force_suspend(ctrl->dev);
- }
+ 	if (hsmc_nc->sram.pool)
+ 		gen_pool_free(hsmc_nc->sram.pool,
+ 			      (unsigned long)hsmc_nc->sram.virt,
+@@ -2383,6 +2387,8 @@ static int atmel_hsmc_nand_controller_probe(struct platform_device *pdev,
+ 		goto err;
+ 	}
+ 
++	nc->irq_requested = true;
++
+ 	/* Initial NFC configuration. */
+ 	regmap_write(nc->base.smc, ATMEL_HSMC_NFC_CFG,
+ 		     ATMEL_HSMC_NFC_CFG_DTO_MAX);
 
 ---
 base-commit: 30daaf3e7897b4a8d9b72e5b0c86dd6e2a4d7d85
-change-id: 20261107-submit-tegra-nand-irq-teardown-v1-60f649303b8c
+change-id: 20261107-submit-atmel-nand-irq-teardown-v1-f902307c18db
 
 Best regards,
 --  
