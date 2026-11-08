@@ -1,88 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794177597;
-	b=THdpRQ/XXCWkF0h0e/Z07DU+G1CcRJC2XPvj5EtehTmlMVIk+cdQtzjxp84fYzNtKZQ3
-	 FUFsfHmuQJWMTMdQnF1GdOSwjFC6s6J/k7YxxiqbjTAegiCefAxovQKmM1rsoAiqvoQn9
-	 ISrSNczv6jOKh941QXvDsnKQlHahA5H4QOGrqd7NwMnXg3GAeK3EEIhM26OTTDOg34ISh
-	 MUkGyKkhpqerxaURXr/0wDJoOXYhAO+9f/KCRe8qxW6df1JQrgZults/QPjGyfAnFvTdw
-	 Di60Qqr2Rpr0ozJUJCi3J4OSbcGX0Fu/Rrg1icafcokeWG5M2J75ETB5DSLUuR6r6tA==
+	t=1794177743;
+	b=yTUmlRmyQd/pjOtbrmKEnZtJz4FSMU0yjUZZLThg3QOeqkVPsj8m3VQ0a5BYhkWCKvbh
+	 tbU2810GN98AfXaRf4yr76wuwXoCyRwbDvCJGbuFtKhip1W/7yFwGJMsn4pqNTRyNzBaR
+	 WVUyzoi2flxalO9ei+eEHmQNirEBW4t1BJj7tcYkw9P0NAGExDvvEpRgnQtvP6U7wQtCB
+	 I9ufPv+08I/oYHut96gRXMVyKUVHrLUbb/8HilgfnnyMZjsd9of8//wbIifbe1cOl7rzC
+	 JzC32RP1LQC7+mxZihB60KMjPQgHbuq1yq+e9zPghFsZnmq+GNTsB+MrXdzWUML3OHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794177597;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794177743;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=B8yjlxqiZsnHs1InT2MGi8hOJCH6xDuUcZ/rw+mTA3g=;
-	b=TcY8x8OONTCDWOIEg5Sk+oFWpGm2k5UcJoB2YdOAoF3hUQViWrxqGB4QDAb83SfGOenI
-	 Fe1dHc/MTJWdKJNSZJJuI4gtkFHCdCRCwlCLiKz1XUz9yGfro5NVKcPlEuyOdoTRZ0G97
-	 auYYiUVN9rVH6Q/TKLgl+rKgdIVyffUy14Jkt1+wDR3dF5ffPhCcp1U8Y6cwnMjTfQ7PV
-	 t8sMCM6d1hwkCkSt6CZKZF1ZWvzKlWdhqzFQPNUi51lvt+bpmPpf+HioyHkctnrjgQma/
-	 s/OKJmDGlyE5Sc+G/E2/z/CwInpn0mc221JtZkyJLXc/JXQFSyXA74JwS4AeS4LVg/w==
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=e1VqrTz+ewActBpDHlYQe8JX54F3teV+c5WCvWWuiYY=;
+	b=JawejseNJuZkI8HC0kIwPmUVxVUZ1A8c/OAS7kbDFs9fBqsuYqF8/nYgpbEPWmfwad7e
+	 HZ+SFqfEqzSuV2+3xddbLykXruLots1DAyyNk333P6c+5H5lrkwFSilne/II/IfX0CByf
+	 oAdV/aPVJApr+GqJshtdUOZUD9ObDdoTwlij7tGWbe4KE3Hrd7rkiMoOLoN+e+U9ymcLT
+	 golPK98ztTHmLNlXcMFDdOR29IdIuKirAr2PpH++VfmBTS5EeAk/Bj2Jn+pKEyw5r5vA9
+	 2u2pTFfv9fEAeme++8nB6MT5GtDn3atSvNOGd5oqQKj+nQm4hLrxgcooWX4ISUyZ3xA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AIcDVyCM;
-	arc=none smtp.remote-ip=209.85.161.48
-Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com [209.85.161.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VIQVU5h2;
+	arc=none smtp.remote-ip=209.85.167.171
+Received: from mail-oi1-f171.google.com (mail-oi1-f171.google.com [209.85.167.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1C8F606A33C
-	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 22:39:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1C8F606A33C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DCC9606A334
+	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 22:42:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DCC9606A334
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AIcDVyCM
-Received: by mail-oo1-f48.google.com with SMTP id 006d021491bc7-6deb848ddd7so191737eaf.0
-        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 14:39:56 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VIQVU5h2
+Received: by mail-oi1-f171.google.com with SMTP id 5614622812f47-4ed6d69bdfaso151618b6e.3
+        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 14:42:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794177596; x=1794782396; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=B8yjlxqiZsnHs1InT2MGi8hOJCH6xDuUcZ/rw+mTA3g=;
-        b=AIcDVyCMD4CMxZQaALEvvx7PHNLdDnl+kXVVYfmq/I2jnUrb2mMfudBA3TBcN7PymD
-         xbhmNc49SQSDHiokqZpi4iN/TdzinttT3dCdu2GG3aku/hLxXW/86Fm72uI6kee7WYzA
-         Omio9YsTtGfikq5cLF2BxQw3kkQMIqZsHC2hPdstNvE4dlnA1Uj3ww5EsD7phhmnd/Rx
-         W+A2Fp0vgpbXutWhNh/jytiRRnx+S5YrQ3ypfirDhpoBXtTRq/2jdNZWJvmyiZ/uexuQ
-         ZPzIjiLX/xF9dqRU37AeBXS5y59tRXu25jSTDU9Nsd04r0ytnPXcXQxpAdzTu2/jUAOf
-         K+7Q==
+        d=gmail.com; s=20260707; t=1794177742; x=1794782542; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=e1VqrTz+ewActBpDHlYQe8JX54F3teV+c5WCvWWuiYY=;
+        b=VIQVU5h26tv3OKc7TWsATktTWmtgYJAbpgl/p8DcQdl8UEZ6AvTVJSni42N9dJo/lT
+         DjZHWlI8NzZgqykUXGdy69BPtqWcHHwqwL+hsadvwI5FU7gchQY4iLM50zNnDXFI+Hgp
+         jjfpWblv6FnJFfv9wnIg7Of+7QSbBjcrzUg2RCgGSKH3dJABG0tbM+EdVOYQXfqIrzrg
+         Tm7ozyMPMvY1YsCKfbf6ZyJIxaXGoZw+eMKhqIwVOqC2Sj0rKY9yN8O7DKyUb7aZrpmU
+         koGwC58ejA8Qm+zHrxT4sDSzMiFWybsT2ImwEsF3pDa5p19ENyJtQNnUOCr25GvUMmF7
+         bGOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794177596; x=1794782396;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=B8yjlxqiZsnHs1InT2MGi8hOJCH6xDuUcZ/rw+mTA3g=;
-        b=WUWPl+sVqUqYXaYb1hGaGJj+p9E4Tvyyq0spAbx5xSV/LbeXNOpjM/qk6L3zhp+Qcw
-         Hu7ddOOlRx7M8E++TTGRRYpj2I3zDcBvonQV3fOsZ/x7MvpcMxVqaZvQizGQWaUYcTaW
-         +caKPLfF3afNQ/Beo0m4O8m6Zi4HFVvqJpZJjJCDWqdsLYgWfsJenGrHedgL/y1pHqje
-         pzUvg0gad/uJIqmW6+DQCOtlWVtVWILHwb1cY/Z8MUjWNQPTVzTN5wwr4kJtuXmrs6jV
-         c660r6QeQ9Ii3JCjz0VJUeVDpx7BIoFF4LZz9nRyRdBieMUFTK1JV5y2H2U/ilf4k7F7
-         rSEA==
-X-Forwarded-Encrypted: i=1; AL+hErF1tsPAlkSkj7+KSB/9OjzQwNS31D1DWQtZWXDpNoNkpO4eWzC5Uv0g9/lZmrlodad848DUqdw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9j4ExzESVIybxl5jzhCqtk7/KCy0tO3MvZVJw+SqFgENvAlxq7
-	Eaim7lSSgH5wnY4HQIYc1SL3M7Mh2BkhQVU1pzunF4xxEuwi+CpE1VGQ
-X-Gm-Gg: AYBFou0hMj74DSaTQBpOSg4bBlaoLeBcWND9k7W29q2WitPdxzrBnkAXs+WxCo0WluJ
-	T9nLFoN+CjtpnYMWHfM04ZrL8kg4umWYDZjNsUCSWo3EGnKlnF4rEq+kG6YrtVk2EVVeXRLtrBK
-	Hjx4ckRUW0pHpjsG9MaD4JxDma7dywCaI6oQbbzmiOsENtx4BC/pXa1d1Op1zXGPEoJRYOAYm0T
-	RH/RBef6WbYMvhb70QJaH8MzWSxBB5QDU1jinKaY767uzGaOyrIPE25qLHC4wwRDa7FkFyBE3lk
-	yFO4iT89uWE/GCZhWn3MpX2BA1YRXdagdSLRE7J2ZB5+fkOh8BAHFzTOn5eFSYArW4hjn5s+m9S
-	rxhwYCmWyLdmimkEn2Stxg4uY3h5svyQcZx1o1vU3R8ZYx6BPAF2DQGccqB+9CvibFBo1wgf5La
-	gCtQxWYK6McAY15XHvlsUdfTx9QOhXTLNegsG4xHU4lC9rstrDkaWG/vMSbJ1irSQejJhhrZMjf
-	naJI5UWsG0vfv0MZuFlPix+VYfycIxhugHWVSSqzzbHeX4wo6eqPevyDaNkZFfXRVTxxEWVuZRQ
-	aeXB5KjVmOIPMW4JIxhusk0Cc44cedVJcOeY/gMAfcwLqEoPH2bFCNVu9if7U77clNCk5JS8UYb
-	5TJmzrvMaQ1NQjb3/7llIqWQdzG9IZPepDKYLTCjVbfipxU8fdg23VCQHrALEPl2XEjYurDUVBC
-	v8fUQR3S48FTlXnJqJOXmmUTxfR9wgTQcdY9oUJ/FMhV+FZnm7w6LZ
-X-Received: by 2002:a05:6820:811:b0:716:f300:648e with SMTP id 006d021491bc7-7170f1be2bemr1233736eaf.5.1794177595688;
-        Sun, 08 Nov 2026 14:39:55 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794177742; x=1794782542;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=e1VqrTz+ewActBpDHlYQe8JX54F3teV+c5WCvWWuiYY=;
+        b=Xdpbtg12zyyAzgJIp9EkZpQFbVdSehOA/3RqjYTU/1ZTEFNa19/0TcKVCmqTh511K+
+         zKzE7N7bLeRtMh0cwKw1YJI5AtLkLcHyMII+vjMSV6h4rkBp6yaYlbbb21o2SRsBsK9e
+         0NWtDpHTylUU2nh5wVT7+XQN38xP5dZgRZJL6b8upLv3gyj/RJP006aaL7BxpO7BMN6u
+         qQ6XdwTa5cP42Xequ/Qoj3KfoTDVckocq80G8jPVHBo60dwexq27oeyFn/NdMrgp5maH
+         +RmGh3x9ef26RCpyGLGAUH1fUsfzLZeosrO5yIaPIQbKuy4n/oRNRwxfGj2M23Fx65D4
+         tyYQ==
+X-Forwarded-Encrypted: i=1; AL+hErHCqRVkq2npOwZN2Mvh0u0edTVCAtwu9VE1cVBhbxrCiEaJseE0a2N52sDlJh1lDkD7dNPwnAs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9B1r90nyYSLOmPnlD5mQJbxd0jUru0a3IgCWmXrUpX68T2+NBf
+	19s4+Er5DjRNgMTEIHqlHLVQL9t30qMIHB61y3y6UyI2xWUUMlb52MZ3
+X-Gm-Gg: AYBFou1i4mzpouj+Mln97hEmiy4WZRUGmfcKyf0jXTQTbqdoOLA5ALXt/yFzYnFOMho
+	wXxxihfyUzqU2cAg7OOSlGbi19rDU/v0CsP7fXRmnVp1Q1mZfghkJWAI32GObvtCs/TQeMxLWTU
+	mef5OJKt+rJEC9AqRRfElCiOMp4pi4ajSGrIv6uJYG6T9ByXcqmjWlL2cZq1d827ZAzDqczMA6M
+	hQlZ8uNOPl7JbjTHiEP+P1rXAxvAtxDvOtKWBsWLD98eFQLdeYZOmmNKtDDPmdX+dC3J0P2aLhF
+	BVhAxR45hPWvl4gTu7FmI46BA994xR/lbzJZeq+LTuuWjvjOzdJe+BF6/W5hN0UIaN6JLnZT4MP
+	ZJGAnwlInfsb/tWki376oqwM3ycVCjiIiSmNGhzb6JEaQ+qo4y1W2jhkvNIWIEfedDT7qvgMvgp
+	qmIYtDegCDmMg685xd6GQypqP0Wc5Vs4EFWVryJgpgL7rMVi5dH3F4trAkijIxvzLjjr4IyvhFO
+	SWoXgu+/oLymHLHxc+ezuA8FhiBXE9ZqRg8jaIX6lXxZPdLpXL3aw8zMqe8muu1y9ySYSzm/d4l
+	zs23wjJeACEIWMsAsk1JwsHLPuys67o8j2hA+vrMLPypA9Au3KP5X5w+0N8B73CQYwFtBFPZWlV
+	ryLN0KMHIyp8PnPQhMDgpnoRRWMvC6cJY+ZjTJ8Jz2wHX3CG6+Vnspna5JJ1fNU1e+q1TPwBLLL
+	ewrp9i3q0w4HnGt0yZyw6jXOdpx7y2FMsmvMU8vzTElPGseBm+VY3b8WVC1rlmkG47AKJ8x5/xE
+	Q==
+X-Received: by 2002:a05:6808:1514:b0:4c1:5614:acab with SMTP id 5614622812f47-568143a9715mr1370591b6e.37.1794177742300;
+        Sun, 08 Nov 2026 14:42:22 -0800 (PST)
 Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-7170f8cbcb9sm2087214eaf.6.2026.11.08.14.39.54
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-56813e54e39sm2859944b6e.15.2026.11.08.14.42.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 14:39:55 -0800 (PST)
+        Sun, 08 Nov 2026 14:42:21 -0800 (PST)
 From: James Hilliard <james.hilliard1@gmail.com>
-Date: Sun, 08 Nov 2026 15:39:52 -0700
-Subject: [PATCH] mtd: rawnand: nandsim: reject unrepresentable page counts
+Date: Sun, 08 Nov 2026 15:42:08 -0700
+Subject: [PATCH v2 1/4] mtd: rawnand: qcom: parse boot partitions before
+ registering MTD
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -94,67 +97,63 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261108-submit-nandsim-page-count-v1-v1-1-63e961cc1dcf@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMywqDMBBFf0Vm3cHERbD9ldJFHmOdQkZJogjiv
- zdpl+dy7jkhU2LK8OhOSLRz5kUq6FsHfrbyJuRQGQY1GK3ViHlzkQuKlZA54mqr4pdNCu4a7za
- M2qjJeeOhJtZEEx+//PP15/r/kC+t2QxnM6FLVvzcplhC39K90FHgur4GIcqpoAAAAA==
-X-Change-ID: 20261108-submit-nandsim-page-count-v1-9ad8160fbc6c
+Message-Id: <20261108-submit-qcom-nand-child-probe-errors-v1-v2-1-4a8704cbf7b4@gmail.com>
+References: <20261108-submit-qcom-nand-child-probe-errors-v1-v2-0-4a8704cbf7b4@gmail.com>
+In-Reply-To: <20261108-submit-qcom-nand-child-probe-errors-v1-v2-0-4a8704cbf7b4@gmail.com>
 To: Miquel Raynal <miquel.raynal@bootlin.com>, 
  Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
- David Woodhouse <dwmw2@infradead.org>
-Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>
+ Manivannan Sadhasivam <mani@kernel.org>, 
+ Christian Marangi <ansuelsmth@gmail.com>, 
+ Sricharan R <quic_srichara@quicinc.com>, 
+ Md Sadre Alam <quic_mdalam@quicinc.com>, 
+ Boris Brezillon <bbrezillon@kernel.org>
+Cc: linux-mtd@lists.infradead.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>, 
+ stable@vger.kernel.org
 X-Mailer: b4 0.15.2
 
-The simulator stores its total page count in an unsigned int and uses
-signed int indices to initialize and free the page array. A device size
-accepted by overridesize can exceed both limits even when the eraseblock
-count is representable. In particular, a power-of-two page count above
-UINT_MAX truncates to zero and reaches a zero-sized allocation.
+A boot-partition parsing error currently calls nand_cleanup() after the
+MTD device has already been registered, leaving a published device backed
+by freed chip resources. Registration can also invoke consumers before
+the boot-partition layout is available.
 
-Reject page counts above INT_MAX before allocating wear counters or page
-storage. This preserves the full page count and keeps the page-array
-indices representable, while reporting invalid geometry as -EINVAL.
+Parse that layout after nand_scan() supplies the geometry but before
+publishing the device. All failures then reach cleanup without leaving a
+registered MTD behind.
 
-Fixes: 6eda7a55f786 ("[MTD] [NAND] nandsim: allow for 64-bit size")
+Fixes: 862bdedd7f4b ("mtd: nand: raw: qcom_nandc: add support for unprotected spare data pages")
 Cc: stable@vger.kernel.org
-Closes: https://lore.kernel.org/r/sashiko-outbox-204066@kernel.org/
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- drivers/mtd/nand/raw/nandsim.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/mtd/nand/raw/qcom_nandc.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/mtd/nand/raw/nandsim.c b/drivers/mtd/nand/raw/nandsim.c
-index fe968037f75a..802493e01ed9 100644
---- a/drivers/mtd/nand/raw/nandsim.c
-+++ b/drivers/mtd/nand/raw/nandsim.c
-@@ -13,6 +13,7 @@
- #define pr_fmt(fmt)  "[nandsim]" fmt
+diff --git a/drivers/mtd/nand/raw/qcom_nandc.c b/drivers/mtd/nand/raw/qcom_nandc.c
+index 2d98f79b492d..f240d1effa04 100644
+--- a/drivers/mtd/nand/raw/qcom_nandc.c
++++ b/drivers/mtd/nand/raw/qcom_nandc.c
+@@ -2052,16 +2052,16 @@ static int qcom_nand_host_init_and_register(struct qcom_nand_controller *nandc,
+ 	if (ret)
+ 		return ret;
  
- #include <linux/init.h>
-+#include <linux/limits.h>
- #include <linux/types.h>
- #include <linux/module.h>
- #include <linux/moduleparam.h>
-@@ -2361,6 +2362,12 @@ static int __init ns_init_module(void)
- 		chip->pagemask = (targetsize >> chip->page_shift) - 1;
+-	ret = mtd_device_parse_register(mtd, probes, NULL, NULL, 0);
+-	if (ret)
+-		goto err;
+-
+ 	if (nandc->props->use_codeword_fixup) {
+ 		ret = qcom_nand_host_parse_boot_partitions(nandc, host, dn);
+ 		if (ret)
+ 			goto err;
  	}
  
-+	if (div_u64(nsmtd->size, nsmtd->writesize) > INT_MAX) {
-+		NS_ERR("too many pages for the simulator\n");
-+		ret = -EINVAL;
-+		goto cleanup_nand;
-+	}
++	ret = mtd_device_parse_register(mtd, probes, NULL, NULL, 0);
++	if (ret)
++		goto err;
 +
- 	ret = ns_setup_wear_reporting(nsmtd);
- 	if (ret)
- 		goto cleanup_nand;
+ 	return 0;
+ 
+ err:
 
----
-base-commit: 30daaf3e7897b4a8d9b72e5b0c86dd6e2a4d7d85
-change-id: 20261108-submit-nandsim-page-count-v1-9ad8160fbc6c
-
-Best regards,
---  
-James Hilliard <james.hilliard1@gmail.com>
+-- 
+2.53.0
 
