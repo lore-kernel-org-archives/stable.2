@@ -1,89 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794172602;
-	b=SJZnIkV0T3fwPat2V5DkDOzbdw7dE/zXPdcFGXMIqJ7trWnYUAdX6+VsKE4fsc41eUQc
-	 xq7b0Hc4EKnc0sMFnnZrryGzkPbGcmsA0iag+4zrsn1H0l4RpOkbThAGBbZKxzdPfWPvq
-	 Ii6x8DePBiaK9EBSxgUtX/PPBp57dRMZu9JMcrOTUXOhWs6IHgrHE4TKQXYLORFZ7p+Xj
-	 cCm5GfwCIcYBcZgxQvG8bQUtqquQcMem5JzfDH6IYQPpnIoi/9C7xxIAZ/GdoDTF9RhaQ
-	 5UjHpaUW6paQq6B1R99panyaQtMdL0JuCiDMsHAPCigH69iHcCaUEiEL+m9OlNP5c8w==
+	t=1794172603;
+	b=apkcgCinB8Q53N91OIrL+zqQgVHpNKIwnUKLJSL2Cs/zJpi3ePBhLfbfvfAPivLP14G2
+	 eKIfPWpr9BL/5mhvkNwhx4yTfTUX1cLHUTBGbR56+vLLu+Fr/zYzgwcORpbK46tO1GMfj
+	 ewOXJggWvoZ/dw+fudz6kDtLvgAJdGIcV5Tb9R0qfxe3WbHwQ0MdjrfDWucaQ9WJpzT+Y
+	 Jz+lT0uoBUe/u+hITl0AHuo2zACLzpx7GGa84pVKJuZOSCx88lxb4z8icBp5COsSuuIho
+	 PqEbYO5IRGr7Z1xG7hnOCp5kVnaFOogkxsBl7eDnihJcmODIsmT3EBvcdZov3o+R8Qg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794172602;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794172603;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=YqppGydY2lVpcg6U6RxDeq0X7ii+knKFWwlrA7dV7j4=;
-	b=IBp0a50xy8HeIFfEX6I4IYd1q2EY+6o7QLDTOnQqGvT0VaLIuZu2mIpCaYVJcn0yx3aA
-	 TXnoEhezVJCcZKreZDcUmAVt4Vhkd/SrEPz4+11tRhBd+/jLjkFwTxn9FTz9trep3PA7/
-	 jgBKxG2PvJKjZOaBnBGhpHGroLkEMSJmEIiNVnnUxE32R7lkw8zVf85hy1+hUAq4bmcp/
-	 RhshBuaMr3irqb2zk1hC6cHk9EnUhkMCF1wra1L0tsFxXfX+HxToKiUNekoThCOcg7uHK
-	 4O5Pmimf/ItOXUOc5mOgvCcOtuFOo10/vcZRkxUS24K4jh0WdoLPxoHDVtEtB0tjTtg==
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=e1VqrTz+ewActBpDHlYQe8JX54F3teV+c5WCvWWuiYY=;
+	b=yza8kYnvY0v+IKvk2mKtw4/C9q7bicZCDmQf5gBW4DDksC3H2K+6c2ge+L3Nf5ZqFtAY
+	 cz4n8bHPQiarxlvHkqKNvpxQwkq7xYU+8TW+aru9fbz9mCe+FY/cztLgBxpy3tWfnRCgT
+	 MQ4FLS4rznqv47lAn6vhoRHQDeBkTU7HRQfmNajLfBxHo+mF6T+q38jQi5SRU5/vzeYn8
+	 h1bLx/ayHoMZ8OpxeS9uy0D14IYgUN/3aJCbXjqY+Gc88s9qYv7+ojZMhEkq90IeYuqcg
+	 YNYvmhHPAEnuelqWHqM+nSotWpvzC5FJlVhXvPtSa5VA6FXi/u1ZMq9s1p26bA3H/wA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h8AWoA0O;
-	arc=none smtp.remote-ip=209.85.161.45
-Received: from mail-oo1-f45.google.com (mail-oo1-f45.google.com [209.85.161.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bU7xrZPo;
+	arc=none smtp.remote-ip=209.85.161.47
+Received: from mail-oo1-f47.google.com (mail-oo1-f47.google.com [209.85.161.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4070606A320
-	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 21:16:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4070606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49CA3606A321
+	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 21:16:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49CA3606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h8AWoA0O
-Received: by mail-oo1-f45.google.com with SMTP id 006d021491bc7-6dde81a6820so161232eaf.2
-        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 13:16:41 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bU7xrZPo
+Received: by mail-oo1-f47.google.com with SMTP id 006d021491bc7-6df7f544919so140596eaf.1
+        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 13:16:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794172601; x=1794777401; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=YqppGydY2lVpcg6U6RxDeq0X7ii+knKFWwlrA7dV7j4=;
-        b=h8AWoA0OWxbqjyWSNiYXEzTizNbayTb0xZvvXcqCgkbk2w6HrwjoDDPGXFLH/fsHDO
-         BDyEC1UwljkkYsQwQnpdWzQFEYIVN99b+HFiVsQrgGCKlGMGz9PcaP57xeV17t6Nz/S/
-         gHkBA4kiJt3gn1lxJxuScSF382vlSUtXxg9JA1pmbjpkCc9oovDuzn1bws859QUX2aek
-         w7pIy4d9VWt4Iaey/v74OrK9GqNo+Hz5qSlJ7kVutNNBYDHUjGLjz+Mc6L/qdDMDKG01
-         AS8nZFrBadASG1JTaDpel7dwavlnGnsHdS3p7XxN3CGMpp71D9eDK9fDgFncwCT6XS2e
-         CHqQ==
+        d=gmail.com; s=20260707; t=1794172602; x=1794777402; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=e1VqrTz+ewActBpDHlYQe8JX54F3teV+c5WCvWWuiYY=;
+        b=bU7xrZPocRyvtLJVOnoXh6L/jjLyxq00tlIIGhOgVA3WaAKC17vTodxlJPAt9hWJZ/
+         QP9aBjG4hZWizdAZeDa7k+KUpFxwyrU1AK+T5N8QOmmdUmUHBpjetaD50TVGG7UHhDIQ
+         nj0f5khFkvExeVTERE8LJ9uYXwGNrn5zkPVcSVsVyTUoP4eVdmkc8GzyayxHDp++uFiG
+         Bx7ypym1TmnccE9DhF7ZVSWQIauxUwOcWMZSNt0dC2+F/oqgrQqYCdYvAOel1AW12tSf
+         AsXzOCWOmmQNOoc4cfL2RU7qZgmSfiI3JU/pD62B06cpMOCCFE79a62D92eBS4YLAoCf
+         OUIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794172601; x=1794777401;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=YqppGydY2lVpcg6U6RxDeq0X7ii+knKFWwlrA7dV7j4=;
-        b=AF1xf3rB9KG2cGJvEQUAD01zLpSN23eHqI9LZ1uGVOZMEOdLCcm4jCgZX0GbbMVkSv
-         U7g+qW9hOy4IQSssbaqdwNR6IRAQjFDV0kF4uUXGkHTFtgqs4wCAkhXxgvXt++j7zn2n
-         NGggHotdlFT+lfRmPp3l+5A9AkKzmM8xywJxNsVKns5AEO4LWPH1n32hoy4Xylt6Q9kf
-         YVAPiAuSrxE+q+zicM0aE1fqw2UsdyFcJ5o83i5ruSaQif5uLFPHTn3kelrRi3p1k0qg
-         cx0CyhkLt/rCmk9ho8lMLlEjaG1x6yOkmEpxQnz/XFPHadQdpaTLnLKczxIUpGC7fru9
-         av0w==
-X-Forwarded-Encrypted: i=1; AL+hErE0gAfvmmyaHnpZGAqsjyeFjK80KnHK41f7Y7x0ZcEuNHWE6eNTLrDkdp0yDSJKnj3t3Dc2MTE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8xODflC8nxp6CQRwWIwUQmTHRX2vP5yYgFu1nQZ/xX/mMuLqdZ
-	TK2p1QU3KCWLV1bv5qEkzVls640T0tmBX+IANqzTBoe8EZ+vH34MVAwZ
-X-Gm-Gg: AYBFou0LQTVOorh1CXb88znVrSNWI25eoCpjWZsEPXiqliml40R0Ag+aQ7BBLkWZsDR
-	83a6v89n3iEavAZNhcZ5l/uyo4jaUjtYwdZKcNR+Z+pQdFbMdKX34PRKTyF92iuYDSi5XVAkXPr
-	mqeozgyZWJKZA80RyJaEDk9TfXJ0cTusSN9CndnoI4KKaoFkGo0WJpzuR4p3tkDWikRsUWmKY8f
-	RjGOlDVeDr2GdKaT534lMG2SlDawWWinWbPAfdYbQe3fZVZImvIjMIuqGRU1Nu//+0rEv1mmCAJ
-	vsELKn9rcJJ7h5nVzv1p1HnRfd+6T7Q51gFgPhTkf6KKBv0sLWWhlgoH03f4GbSylcl4/MPOsnY
-	tTQ/oBgHAhZ9hNSZ93B76O99guIDwGAz0+aCYeZeNbt6itZA2+VgIjYrgbIPt197XTUaXhlqqD7
-	23VDb9ywAaY9waEQINJYE20Ojxg6yB80WEZDjR7cfLkPHMI4p2Z53/CvsrHUW/26O7BKNuA9R+h
-	DC0ON9n6yprBnxM8An/+aAs4b2oGvvM+phIW56XGb+yd0JD+30i6dx4zixta7sc8F/CclzqvGAr
-	WJjdRvUgAc5D3nfYhCUcv/To5sY4cHqRQmYqENc44oh0t8T1tiLyONNk4PSGKQ1F0zaKFho/QLU
-	WJrlBLGRS2lbtBa/UPIf+EPhWArcKYaPTkd87D890f0nYKDBBRCaEaTwG5+LE48YcTnvzprrKLT
-	vgX4RUaxWNvqBo5z+r4KOphfiWniqxlS85jPclwWkZsjK+mrZiqYM=
-X-Received: by 2002:a05:6820:1381:b0:70a:df8e:8f64 with SMTP id 006d021491bc7-7170f259c8bmr1073868eaf.22.1794172600816;
-        Sun, 08 Nov 2026 13:16:40 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794172602; x=1794777402;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=e1VqrTz+ewActBpDHlYQe8JX54F3teV+c5WCvWWuiYY=;
+        b=YCv73or8C3Z5PygQ8SVTwGF/Ka+BKdKsFNt6on67jCphjFjvWnvugcq2nLWuPG+4z2
+         n3PYRBXN/n9p2SFsxf5aVjJ4KszHQ6zRVOEN2rwTcWq/HjSK9sdBWvUIpBzFMQ9RlEe9
+         o6XwieIQSCrhhT7EYjMr3so6rW5a2/Nc7gG8l8gCb2J36Tx0v8LpA5zXcApTeZNFKld0
+         eX1H6I5KEWTX/RL7Ha68kiQtTdZ2qXoycFc9G7r3DRv+A1umV4oZe4bwASMxS00uJxHC
+         ND7mtLxTaHjO08ZtaiNDSh8SVmtBHeOKEMyOkBAz63mAfRSN5w9G/jqXqYGR/OKstkAH
+         U3tA==
+X-Forwarded-Encrypted: i=1; AL+hErFt9NAmZAB1GRDD7N5iT37NnqLp/HhzTDenGAJlzEuhmnUfDok+PFlU7L2PUicAX842iAuYlWk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9eK8xIAyzrCqYFV2wQJWx4SfmqwBZtSuPSA6oFR57yI39+DUAk
+	RpBwKTwzLGP2a3b/J7EcshQGzgnw5h3pUapA0yKvy8l0iOImdJjxC5H8
+X-Gm-Gg: AYBFou1gwPhUdiKe0Zp7ekZO++joUUfKdGNmkB1RINsJSz5DwsFTCT/IZLXP7nrMT8X
+	Rausj1HQgIl+5M/n+MMbWO+IT+v2LYStKGw4N3Ix8tnn/dAX9Uf0wkiJVxzw1hvckN8ZSiTQRGZ
+	Kcr7pZaH4uh5MSIoJB5UTxmOxY8mHeEYWaNNW7nVBJfz8OsrN+M2kfhZqL9yR6gLTjB62xc609P
+	wT1ACMVJHutsewb6KafBTweVUr8cl/N8MTMu5UTTTHqbL2RIbMlGoRyIAw9gAU5431Bnua4v3xD
+	rUNAmWq5U3VSHMBSOP8n9N7T3SYlF2/vGFMHzrF92K2QwfBzyf5MuQwSq7pAmhZfBv/TW5tCBw+
+	8jsBcKWmWMabRXeHqXOdG7jnq26+OyKFXXxEnUcmVEfHJYnk9XHrYujlvjkzYUDm1xidbuuu44x
+	N9EHRnbOF5yHYIBzwcyXLglJSrL9pf/Vw033YYb6Y2bXP4/tWA2XcTWQfrhN1O1NxjzXPN9GOrw
+	nTRbFfWovLjNVmKjrE0i6UP3Rkum+iqu/UvcqCt0xGa7kkKk5EzfTwqz+v5CF+tK/L2T8PLR+v1
+	ZEkuOetsc2h7OjG1lNISf4ehoJ70Erg8EPvlaLdXzMvXIkQZf9W5nCGUnJkdOJ4+c2oaH3o7eLv
+	UmLy2t7ipUJUjz8r4hOJeyZN7X3l6xUpS8qQsFlgOoo9CxlM9pbl/yt4qAu7pchwjGCgrinLMGe
+	YlSKgOefEtJddM0BEoTMX22S5hZzTRQgCXNpv7wNAWrktyZIDBjXk=
+X-Received: by 2002:a05:6820:83c7:10b0:715:2787:e1e3 with SMTP id 006d021491bc7-7170f2b53f2mr823230eaf.14.1794172602221;
+        Sun, 08 Nov 2026 13:16:42 -0800 (PST)
 Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-7170f8fbc55sm1896378eaf.12.2026.11.08.13.16.39
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-7170f8fbc55sm1896378eaf.12.2026.11.08.13.16.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 13:16:40 -0800 (PST)
+        Sun, 08 Nov 2026 13:16:41 -0800 (PST)
 From: James Hilliard <james.hilliard1@gmail.com>
-Subject: [PATCH 0/3] mtd: rawnand: qcom: unwind failed child initialization
-Date: Sun, 08 Nov 2026 14:16:34 -0700
-Message-Id: <20261108-submit-qcom-nand-child-probe-errors-v1-v1-0-509f30a9e14d@gmail.com>
+Date: Sun, 08 Nov 2026 14:16:35 -0700
+Subject: [PATCH 1/3] mtd: rawnand: qcom: parse boot partitions before
+ registering MTD
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -95,11 +96,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXN3Q6CMAyG4VshPbaBzSCJt2I82E+RGtmwm4SEc
- O9uevh+aZ7ukEiYElybHYRWThxDCXVqwE0mPAjZlwbd6YtS3YDpY2fO+HZxxmCCRzfxy+Mi0RK
- SSJSEq8KxJz10Z6MG00PBFqGRt9+j2/3fRXqSy1WvF9YkQismuKlOc/Zt9dtAW4bj+AKcTNgMq
- gAAAA==
-X-Change-ID: 20261107-submit-qcom-nand-child-probe-errors-v1-f5e2703a17a5
+Message-Id: <20261108-submit-qcom-nand-child-probe-errors-v1-v1-1-509f30a9e14d@gmail.com>
+References: <20261108-submit-qcom-nand-child-probe-errors-v1-v1-0-509f30a9e14d@gmail.com>
+In-Reply-To: <20261108-submit-qcom-nand-child-probe-errors-v1-v1-0-509f30a9e14d@gmail.com>
 To: Miquel Raynal <miquel.raynal@bootlin.com>, 
  Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
  Manivannan Sadhasivam <mani@kernel.org>, 
@@ -112,29 +111,48 @@ Cc: linux-mtd@lists.infradead.org, linux-arm-msm@vger.kernel.org,
  stable@vger.kernel.org
 X-Mailer: b4 0.15.2
 
-Keep the shared BAM transaction usable when resizing it fails, validate
-the boot-partition layout before publishing a chip, and propagate child
-probe failures after unregistering any previously published chips.
+A boot-partition parsing error currently calls nand_cleanup() after the
+MTD device has already been registered, leaving a published device backed
+by freed chip resources. Registration can also invoke consumers before
+the boot-partition layout is available.
 
-The layout and allocation fixes make cleanup safe before the final patch
-adds the missing controller-wide probe unwind.
+Parse that layout after nand_scan() supplies the geometry but before
+publishing the device. All failures then reach cleanup without leaving a
+registered MTD behind.
 
-Assisted-by: Codex:gpt-6-astra
+Fixes: 862bdedd7f4b ("mtd: nand: raw: qcom_nandc: add support for unprotected spare data pages")
+Cc: stable@vger.kernel.org
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
-
 ---
-James Hilliard (3):
-      mtd: rawnand: qcom: parse boot partitions before registering MTD
-      mtd: rawnand: qcom: retain the BAM transaction if replacement fails
-      mtd: rawnand: qcom: unwind registered chips on child probe failure
+ drivers/mtd/nand/raw/qcom_nandc.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
- drivers/mtd/nand/raw/qcom_nandc.c | 56 ++++++++++++++++++++++-----------------
- 1 file changed, 32 insertions(+), 24 deletions(-)
----
-base-commit: 30daaf3e7897b4a8d9b72e5b0c86dd6e2a4d7d85
-change-id: 20261107-submit-qcom-nand-child-probe-errors-v1-f5e2703a17a5
+diff --git a/drivers/mtd/nand/raw/qcom_nandc.c b/drivers/mtd/nand/raw/qcom_nandc.c
+index 2d98f79b492d..f240d1effa04 100644
+--- a/drivers/mtd/nand/raw/qcom_nandc.c
++++ b/drivers/mtd/nand/raw/qcom_nandc.c
+@@ -2052,16 +2052,16 @@ static int qcom_nand_host_init_and_register(struct qcom_nand_controller *nandc,
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = mtd_device_parse_register(mtd, probes, NULL, NULL, 0);
+-	if (ret)
+-		goto err;
+-
+ 	if (nandc->props->use_codeword_fixup) {
+ 		ret = qcom_nand_host_parse_boot_partitions(nandc, host, dn);
+ 		if (ret)
+ 			goto err;
+ 	}
+ 
++	ret = mtd_device_parse_register(mtd, probes, NULL, NULL, 0);
++	if (ret)
++		goto err;
++
+ 	return 0;
+ 
+ err:
 
-Best regards,
---  
-James Hilliard <james.hilliard1@gmail.com>
+-- 
+2.53.0
 
