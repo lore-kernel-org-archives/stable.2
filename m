@@ -1,97 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794127939;
-	b=cRoy3S7/Hyb2GtJWgNixE5R8j70mAddSIMveq0AgmQ96SBTPntUx3sdti3b6TB2c1O/0
-	 iusLXExXCQVogTt877JxZCbOXaZ2FxV/VMNEQSA3I5FGXwr6k+IdzZIkU+nYoxh0LMKs9
-	 gtmbq7ekATlkJMpBT//8NAqEKgFbYMYeBNm8FpdEJTAA/95pb7TSoYcWyd7A8xvbQ2wCd
-	 DGP2nIxDwpsbXKZYQJ/V9CkicgXRMfm6tLy7FagVi7xWUZCgU4beQWcCe57jGZ9tjZMzP
-	 mwadnPCoPOgmXtBS7tbJCD2+RagHLtoTMkFS8smiKDxh7oUPwZCK+QdYudZ3SZZVeYA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794127939;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=dNhQGc3GPqKfSByEN1B7roZuoogyK4AK7uxo1IzV568=;
-	b=vVlL4qCXT84kVWf3GNUW0fzyaJsUULtc1pL8C9utmNNmZUqGQp105mOCeh5M4A8afyvU
-	 JYXwPg+TuMZ2TxJyzFjcgpSOb7HY/URdtgmTm0bJ/TpxNGBzHid7Q+oLt0FAMvjxF7ehX
-	 FN3mlfjKZiXnxQpmEAzsMbDF54bPJg13OwaTzigAGb4284FXVA/VWYIOe3ng4pe4TL6su
-	 NtS28pxi0EgaGi2DbTqwZLzlgKJLe73SMJ2MpCGVCxXH3x1IuTUWGrDP3KSTNRAZVnPoq
-	 tXOi5P1zvZMtTe28W9pdyTSnMbYoKxPzEjkXVNSptGAa6CV++bxacyn9dFVN9ZQW7aQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t6nUdRJC;
-	arc=none smtp.remote-ip=74.125.82.176
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794128490;
+	b=Jp85bq/zqIuaCJsaMqWNuRQTHQ33EwOnzqko59pPxb6JsooaVLJ9H67bejKGjJwDc+Rv
+	 IIQg7UXHS/D223QWbUcTESuR+8kfLf0aq07NC5Dq89pUNBXjPLI8naTNVIQABkk5jdg8z
+	 T/fTyKwdCbVtNjkkP/gR1VhR1PYJdwgjLt7HlYOXnhynRwpMifnUpN3e0C595Qc6aDF8V
+	 J1OwBkotCCIWW2oXMT7WUbMJiYFOzzDLt+r0IGa7usLjcc/ksdPXJ3CGsxAgWCwsr2Cl6
+	 yw45Ad8U/WxqDhpyUWDBuk0oepmMoiJnNDIwu3AOBtfH51wjnPnXd5CSqKcbx0HZJNA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794128490;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=GpRg0VY2yJJLJAO/hhT5l5/PBAi7YUoiPdqyzPaVAWE=;
+	b=KBAEaSjmxw4UMUrbVv+Vc2khPa0SJaTbCZI9ev2d/E4Cy/Fz/QftTa24ZLpt4a8qEiwH
+	 DC3KXUhE2dwauEjXGMS5oHOscrOSv9Da1iksFPl3C/KiTOOHfp8etpXNjzxYoO3oMNi//
+	 s8aU6q1uE0WZCojTqbFQP09a075cjt5B5jNpwTa2QLlw8AWPkKvuypkJGAxPjJzBtX6t3
+	 +Un5LFF1HpEHKqItPolqE9XiO+KPR5tbAdbXoOfoN0jCPzk59SBGJc0+V1KVbXAanCjTU
+	 jHSDE4quo+ehdd3xEMcdkXMx5zvAhWQpWMIlumlt05/Nkr5N+KosQvac3gU0iC+MGKQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="k/zMcDFa";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E93E606A320;
+	Sun,  8 Nov 2026 09:01:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k/zMcDFa
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794128489;
+	b=mQuTy7BYlghJ4xYVljfVdwDDF/yJPgfLkhDGElto1JnXhUU01/tiE+ljeuE4bkkQjlby
+	 GpGguOqq3hkE6ijSrVo/P4eKGHt8TDsWx0nxwObkzPkbUZVGDoUzkAZb49uIajumAQ8l2
+	 IHOniExmhHGvRjWmisKnD+c9td1+koNkq85yVO4l9ZKtTLZtXTxyxNkidBBNTVTuXvdtP
+	 JAcz4di3QT+I+7ugdC5Gp6HiDbNF4LcnLaZIHz4jzuJD+BV/2nJBbw8fGxOtLS/ixIXhg
+	 aNpz2BiTvDk2uicDdCJCJsZ6JkdvLljl5gFOxwTGFkygivwbqzdrk6fUWsE4FBgVFmA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794128489;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=GpRg0VY2yJJLJAO/hhT5l5/PBAi7YUoiPdqyzPaVAWE=;
+	b=dlapjvgQ+Mae6G5M+0oR33ef759lyoGpoBvPOgY/xGcYgi0L9B8YDV0uT6dmDrniEg9t
+	 fHbbZqAyaiTz5qQC3tipKIoqvR3lJ7zyam2x+AhGz1eEvEMSvMoPhBBePp19wpoMrxbTT
+	 N17M4K4qMd2zPUWoKHhnaiYjnxWZzOGt/Fgt/TqHOPgBLYyV/4iI392G7w65IMNyjULkW
+	 9m9z7Zj5n2ScZu5SIqemW+yCjBVyQj9ZMulDhDebsTOuOeimcBTCsgH0ZUNs1sOFF+xMD
+	 MsfPY3lcuoTzonIntEs49n1EZs5/6RVUbn1f+QsAOVIdmt64MwrAcT7Ph+KdfexieUw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B357606A320
-	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 08:52:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B357606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t6nUdRJC
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-3700ed8dbe3so751461eec.0
-        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 00:52:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794127938; x=1794732738; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dNhQGc3GPqKfSByEN1B7roZuoogyK4AK7uxo1IzV568=;
-        b=t6nUdRJCrrmLJvKtxAzPiaebfS1X9UZEi1vO0XMOtoqyCud0B7PYNRU2rBVcCg7zFZ
-         znGnhe7xhGV4o8PnHPYf+qugcDCI4ouyrbXSU8EeV2spPcoW5mmNVXOGKigOphZSpdik
-         014J/cwsGLfAedkuea2Rwx0O1mBcXS5PXX28bn580YJCqWfKx2T1lUq/V3GF+knhGrwZ
-         AenQ4R+WwWZ6CvzNoinqk3/rsV0kIgFE/MnhrRmuDrQhzOnq1e8lAJg5A4fgoCyDI+Hk
-         1EA/JRvXqiK0nekj1OYpqRAoes06dZbWjabhtvJJZJoMQijz9eSDN/WyCDSFOUnJPJ0v
-         zcsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794127938; x=1794732738;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dNhQGc3GPqKfSByEN1B7roZuoogyK4AK7uxo1IzV568=;
-        b=jQwwF1vOg0EBo03CBQEfh0hHRu/QSD3sugvjtvDphaLHbuzwsFmNcSLrNYALl1X/Ei
-         SzqN+jie9ruesImLbry7vqnXZAqkpCT4/TX0w410K2RsmZeQ0jgRyP8Y96kOBKYjxhk6
-         bws3lg25WpRT6auWYTrFPEFAFnSlGuDTwrI3Kw5m5L24rI3eXmZVyYnCDBG72AIiIrN8
-         GXzT2sQ99wXmorxpefil4KS64l7NsOgI++0Ff5E6qgtuZWGG9yqgXbopvdnuDmukt1qG
-         RETFPlKabB3E9E1IYZbXqE6A49ZSxb1QoJjnKTDgikcU+GgKmBFnBu90MKFN7a9/x8c2
-         d2NA==
-X-Forwarded-Encrypted: i=1; AL+hErF5jAJJmRWx7aXwbFKmsqr9wybpVNgu9egMqGSDQnf1ZXUQW2tBVuQETsFAtl0in5bSIYgcsBI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8fZnoeN+ihktTKxE5crGwOHpT9wFSyQU9e2PytwjO6GbjIF7Zt
-	2sDG29WP1rpobnvM2zcvfpkegScFRhdBEBWTdyqEUuE26yQ7/JbN3d1hRZFyIFCLaKQ=
-X-Gm-Gg: AYBFou2CPVKGR6eQgJxFTqBACbOQo7ThO6n3fuPfdDqnKJHKFaC+IrbvapWgGo/WpCt
-	dWssc507kZuI6nNL+h6L4ZTsHPSBkn4NIHe5CZ8dmg8zerZ9yLAKkI+aIc/N0kJobZ2Wbfkx97F
-	zCgg/ynN9N5+b8HFj0ni+MP31PfqfwrpkRpsSNpvO8vc8i549UWKMy9tLUCm8ptNXSOTpFtooYf
-	InUuNq81LvVZi0w6njFZ+qZcMv3b3bPXjZs0IARM7sUJPNZmgvATsSgRPrWvrdv33I0e9puCu2S
-	a+zoOrVX47/vZ1IbbpIQ9/T2ncHsiF+7vVzOHxpcpK21Q80ZMxC6L52UDUhAY8fmWfV6+AmfWTP
-	sYfnXsfWYcqhIXmq74HHKAAUax+viKlr3+3q5+TSOKttOnKDnEhyVNICc0N0y/yFqdYY7WsBt35
-	SlArnXo5mjmaXAl513ErX40HY3OVNfcRd43OWsB4+QNa6l86HsaNOdYJ3yi1IjGJASjpzbgZmYA
-	5wVRF0tr8isggQh25ZQKqil4UNrZRmn5jiiWTGS/3WXOrKEQqH6+qPxVqVN71lNxM7DUKCheSSV
-	23WrvIPFFPmA9FEuY0+6wIwJLzhVz3Yk8/7uWO2YCRG5i3UlZz6E9BVgepMZ
-X-Received: by 2002:a05:693c:41db:10b0:351:4866:255c with SMTP id 5a478bee46e88-3725e82af56mr2079362eec.32.1794127938349;
-        Sun, 08 Nov 2026 00:52:18 -0800 (PST)
-Received: from xploitoverload ([2409:40c1:6412:e5b:5516:cd42:6c8f:c918])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-372667d60absm4050694eec.26.2026.11.08.00.52.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 00:52:17 -0800 (PST)
-From: Kalpesh Solanki <skalpesh942@gmail.com>
-To: pkshih@realtek.com
-Cc: luka.gejak@linux.dev,
-	kvalo@kernel.org,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Kalpesh Solanki <skalpesh942@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v3 1/2] wifi: rtw88: clear RTW_FLAG_RESTARTING in rtw_ops_stop()
-Date: Sun,  8 Nov 2026 14:21:24 +0530
-Message-ID: <20261108085126.331784-2-skalpesh942@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261108085126.331784-1-skalpesh942@gmail.com>
-References: <20261108085126.331784-1-skalpesh942@gmail.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 4B2AB1F008A1;
+	Sun,  8 Nov 2026 09:01:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794128489;
+	bh=GpRg0VY2yJJLJAO/hhT5l5/PBAi7YUoiPdqyzPaVAWE=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=k/zMcDFasnTEINl1VjKcWEMRTjm5Jh0P8/CRIXuf6jX3TzWaTmApeW48wuXKXGST3
+	 IcqcpL3PBc1lm7Fc9Y88opbh0aMS2jXZwyCjwuLXtALsJZ08bMl4rAgH32EeCuB4aV
+	 lLgVRiZW7taoWoTVjdylaaUnceNwBm7BtnQeFqG6kZe3AHY18VNXOD9i69J3a+O0G1
+	 E/RHmO4pUKfsvlZVakRNhsCpXH3gV6iBzV8LVjQ5iqWHzHF8xHZZLg707jrzZzhYJ6
+	 7sv/gs0U9Zr1S0MYqVVdoBJTnrbDL2ORmG8MK+sxKRmlJ64EoeqLwgBFWbCWp8uhnq
+	 x8hm23wspqq1A==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 9C70047E8B;
+	Sun,  8 Nov 2026 09:01:28 +0000 (UTC)
+From: Weidong Wang via B4 Relay <devnull+weidongw.illinois.edu@kernel.org>
+Date: Sun, 08 Nov 2026 03:01:08 -0600
+Subject: [PATCH] scsi: libfc: Fix rport kref leak in fc_rport_enter_ready()
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,41 +82,109 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261108-h123-send-v1-1-b7672ff849f0@illinois.edu>
+X-B4-Tracking: v=1; b=H4sIAFQ68GoC/yXMTQ5AMBBA4avIrDVpK62fq4gFNRiLkg4iEXdXL
+ L/k5V3AGAgZquSCgAcxLT5CpQm4qfUjCuqjQUttlZKFmJTOBKPvRa6zFjtjjLQlxH4NOND5ver
+ mN+/djG57B3DfD6dLQpptAAAA
+X-Change-ID: 20261108-h123-send-723aeb555069
+To: Hannes Reinecke <hare@suse.de>, "Martin K. Petersen" <mkp@kernel.org>
+Cc: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Weidong Wang <weidongw@illinois.edu>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794128488; l=3067;
+ i=weidongw@illinois.edu; s=20261108; h=from:subject:message-id;
+ bh=xRn4o4Xo2uz0/atqmK0OD/T0n88c9mKnmN8e3Rc+YrY=;
+ b=ngBmio2Hk2lkCkJjxTpsOfHS9AbXORBCnJtDD9yLk5LY7hbmvytIqliR2ttZ/XpS895htJMUv
+ dse4I3xbIYjAOwbCFYb3gErrliNJKx5rQ1Es4Ysza6RL/Hu/WnCgjLQ
+X-Developer-Key: i=weidongw@illinois.edu; a=ed25519;
+ pk=DR2S1xPEa5sELrWPfOpvUphJQ2VHC+MDc/wJavE/ifg=
+X-Endpoint-Received: by B4 Relay for weidongw@illinois.edu/20261108 with
+ auth_id=1449
+X-Original-From: Weidong Wang <weidongw@illinois.edu>
+Reply-To: weidongw@illinois.edu
+Content-Transfer-Encoding: 7bit
 
-When mac80211 stops or suspends the device without WoWLAN,
-drv_reconfig_complete() is never invoked with
-IEEE80211_RECONFIG_TYPE_RESTART. If firmware recovery was queued or
-running during this transition, RTW_FLAG_RESTARTING remains set
-permanently, preventing all subsequent firmware recoveries until the
-driver is reloaded.
+From: Weidong Wang <weidongw@illinois.edu>
 
-Clear RTW_FLAG_RESTARTING in rtw_ops_stop() so that the driver always
-starts with a clean recovery state when the interface is brought back
-up.
+fc_rport_enter_ready() takes a reference on the rport unconditionally,
+but only queues event_work, whose handler drops that reference, when no
+event is pending. If rdata->event is already set, the && short-circuits
+past both queue_work() and the compensating kref_put(), so the reference
+is leaked and the fc_rport_priv is never freed.
 
-Fixes: 5c831644e1f4 ("rtw88: handle and recover when firmware crash")
+This is reachable from the wire: a PLOGI from a well-known address goes
+straight to fc_rport_enter_ready(), and a second PLOGI for the same
+S_ID while RPORT_EV_READY is still pending enters it again. After the
+rport is logged out, kmemleak reports:
+
+  unreferenced object 0xffff888... (size 512):
+  backtrace:
+    __kmalloc_noprof
+    fc_rport_create
+    fc_rport_recv_req
+    fc_lport_recv_els_req
+    fc_lport_recv
+    fcoe_receive_work
+
+Commit 823a65409c89 ("scsi: libfc: Skip additional kref updating work
+event") fixed the same pattern in fc_rport_enter_delete(). Do the same
+here: only take the reference when no event is pending, i.e. when the
+work is actually going to be queued.
+
+The issue was found with an LLM-based bug-finding tool; the reproducer,
+fix and changelog were drafted with AI assistance (Claude), then
+reviewed and tested by the submitter.
+
+Fixes: 4d2095cc42a2 ("scsi: libfc: Revisit kref handling")
 Cc: stable@vger.kernel.org
-Signed-off-by: Kalpesh Solanki <skalpesh942@gmail.com>
+Signed-off-by: Weidong Wang <weidongw@illinois.edu>
 ---
-v3:
- - New patch in v3 addressing the pre-existing RTW_FLAG_RESTARTING gap.
+Tested on v7.4-rc1 (05441d697f7f), x86_64, KASAN + kmemleak, QEMU/KVM.
+Reproducer: software FCoE instance on lo; raw FCoE ELS frames injected
+with AF_PACKET (PLOGI from well-known S_IDs 0xfffc01.., a second PLOGI
+for the same S_ID while RPORT_EV_READY is pending, then LOGO), 120 rports.
 
- drivers/net/wireless/realtek/rtw88/mac80211.c | 1 +
- 1 file changed, 1 insertion(+)
+                   2nd enter_ready with    kmemleak unreferenced
+                   event pending           fc_rport_priv (512 B)
+  unpatched        116                     99
+  patched          104                     0
 
-diff --git a/drivers/net/wireless/realtek/rtw88/mac80211.c b/drivers/net/wireless/realtek/rtw88/mac80211.c
-index 5e40cf06a9e..7c86da9e939 100644
---- a/drivers/net/wireless/realtek/rtw88/mac80211.c
-+++ b/drivers/net/wireless/realtek/rtw88/mac80211.c
-@@ -67,6 +67,7 @@ static void rtw_ops_stop(struct ieee80211_hw *hw, bool suspend)
- 	struct rtw_dev *rtwdev = hw->priv;
+READY/delete work events are processed the same with and without the
+patch; no KASAN/UBSAN/WARN splats. checkpatch clean, no new W=1 warnings.
+The reproducer can be shared on request.
+---
+ drivers/scsi/libfc/fc_rport.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/scsi/libfc/fc_rport.c b/drivers/scsi/libfc/fc_rport.c
+index c25979d96..7b0938544 100644
+--- a/drivers/scsi/libfc/fc_rport.c
++++ b/drivers/scsi/libfc/fc_rport.c
+@@ -550,10 +550,11 @@ static void fc_rport_enter_ready(struct fc_rport_priv *rdata)
  
- 	mutex_lock(&rtwdev->mutex);
-+	clear_bit(RTW_FLAG_RESTARTING, rtwdev->flags);
- 	rtw_core_stop(rtwdev);
- 	mutex_unlock(&rtwdev->mutex);
+ 	FC_RPORT_DBG(rdata, "Port is Ready\n");
+ 
+-	kref_get(&rdata->kref);
+-	if (rdata->event == RPORT_EV_NONE &&
+-	    !queue_work(rport_event_queue, &rdata->event_work))
+-		kref_put(&rdata->kref, fc_rport_destroy);
++	if (rdata->event == RPORT_EV_NONE) {
++		kref_get(&rdata->kref);
++		if (!queue_work(rport_event_queue, &rdata->event_work))
++			kref_put(&rdata->kref, fc_rport_destroy);
++	}
+ 
+ 	rdata->event = RPORT_EV_READY;
  }
--- 
-2.53.0
+
+---
+base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
+change-id: 20261108-h123-send-723aeb555069
+
+Best regards,
+--  
+Weidong Wang <weidongw@illinois.edu>
+
 
