@@ -1,101 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794154756;
-	b=EB32WB/pcscBKhSYU/wkkPWWITi0AkWLtdPI29rKXufuy/UxTkeWdgrR86XucVvadiQr
-	 x2Q3aQIPuRu2X+lQNvTJ7YshscAM7nWDyAgcAMwYLTnlDiCO+isVPO22MLiNpU+ENyjhu
-	 +jF4p1qjvRzfbEddmTVVtagP0iYtDdL8mYWvz9UlhUS8uSgRhZD6vz3ASbC2wdjP2JMfT
-	 D0OfSAWL0fNa+06INJfQ9N8Lmnz6r+VfZKgpjhiy+krg+L3jhTuBRQjQSNtEb1QW3TQbe
-	 0OBLt3g1U5bnjaXnkrHtdMrbwFFI1JaWEeZBk9TxaC/QJ4Fjzs8R3FiVQ306BxXEknQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794154756;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=et3swsdOfldP0ujJDRmFWaImEh1vX8VO0MRX9DcXPOI=;
-	b=fzHHyfM3Bd3OS0T36PpWimVdCOMZSRoz6awNunqDfKDPteHnOEjQ4/Ec9C3KN6fPRDRG
-	 0g0yEPBX+J9DhdTFLDs/L8QHA2k0yB+jmiwvaHEf3i3QqKyO4oe+vlSSNkHrBzUIzeOSe
-	 mE+V4rG/QSI+HGj0J79AeZyqVY07jjUCGuqAYY9MxKi06EDCz91nWRnZnCRUDPjFOgx1m
-	 xPkmVdqyp7hiIZgahnLalvhFX22pL7WR9Z1Rpu3txYB/LOUkMv3EOY3QY49MY5YBsjBcp
-	 6i8fA4HNqGz6bqlkZpxZRYrmEX78QqVsgs6wl6u2BPoui1H3V/qVdzBtNRAuCEhYxnw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arista.com;
-	spf=pass smtp.mailfrom=arista.com;
-	dkim=pass header.d=arista.com header.i=@arista.com header.a=rsa-sha256 header.s=google header.b=UnHJPzGX;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.52
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794154781;
+	b=rZKj/Xi3CsQUzK0EEkm5iOMEcKbtSSfBBuwSL3v4FeM7m7JcwbAnHZlt5P4aZ2Rmg9jS
+	 u95QUN1l7ll5j3ZmUtXSSo35pbGKokUuvIcQ+bxlHXZi+MOcZxNXv/hzi2m60xyitqGjW
+	 wNt2+QB08nv+W4DHJPBevd8Z0H8wDc5sRm6eIB2ZC27dhaFiGB641Kpqdq3CJuKsMhBya
+	 hzV6vJA+1jILr70T/+aTZPMtFOJfsk2J/kepHrp7JxubD5FnJX8gSgYhkAOcXFvjoQA+O
+	 fuHuW1oxvjDKZB6C7sRDsFP3aNsegaG4M8ZjUAY4s2zGTOjdKW5JLISx5OKQT8Ura5A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794154781;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=rYLFoY9JuUAWtQjVa8EfK7ekbKLIQtxVRKhNRoHNOrI=;
+	b=CVLZ4mssFcWibff3H/x4jcR8TJD+KLcXxj5NyLu7fFoBSpemBbp7ZDWr2D8Ow1Lfp4aw
+	 oisegiaJBzingYnAtLO24AvRDd0zrfLg5LuGH6zOhBqtUltHFyNHr9TpWZNN5n1Ws+zXZ
+	 EJeQ6vbWsNdzGTRDufUCoT2/tLenAn2VgiY0pNV2X8Cae3SEpBE8I6DPEQB2n/gFIgYo7
+	 5VYALLrrUs4+hOca+xHHZGO+aL1yz0o/p4TYfVZ+oWfzmkOVqnCIazSB7VGmMPhM7jdKm
+	 Jrnjttw68mMUHESLw4f2goV5fCqP2M2qjs8q+9gLiynJqKLSPwBboWPYBAwrXMbw5Gg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=grische.xyz;
+	spf=pass smtp.mailfrom=grische.xyz;
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CF73606A321
-	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 16:19:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CF73606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arista.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arista.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arista.com header.i=@arista.com header.a=rsa-sha256 header.s=google header.b=UnHJPzGX
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c4682977f9aso18173266b.1
-        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 08:19:15 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794154754; cv=none;
-        d=google.com; s=arc-20260327;
-        b=kblUzksaWrcOxEiJIzQzl0gTRYCD6LmC3kiWkY6nTtW4mWMrI4u32CCtg/gdXy+bxG
-         mPwkxIjZNYfH9H2ri4WHjNbkraq10kA0wgO4UtWrL2mPzqcj/kfrQVPDFX+Dd3QhqBZq
-         oDpYf9hZBUftguLpAXg9S5aO64DZyXZZmIUwEUbTACR/HsN+DYB03YFeO2z56RNeGugf
-         DLZd4+0+bCDZauyY1swBngufqo4HLj5AOwog72QPmenXXDanYLu2h+92h1XVWdqhyajM
-         vrLJde7rSLva/rXPZqmG7GFocMoB9rF0bf4mLutqjoqasehlWtKY4kkRISVCKBNQQSlF
-         qepg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=et3swsdOfldP0ujJDRmFWaImEh1vX8VO0MRX9DcXPOI=;
-        fh=X/7NwXo0p7k8WKtoSJUxPcrcSya5flhqnX3zMpIW+Ig=;
-        b=AlS6WZhkESQG7+Ye6i9gxtojfC31K1xJQBj6uWGC6SBkfjrma9CGgBFPMSoc+Kbri3
-         Jec5UY8D12XxwnMnpp02Y0y+crcoKWRPbQEQbXkjahU7jwusvgikUjJ8IYS0JJ9JaxuT
-         IrvyV3g59oWH+y9Vho88iyvM6Zxwwm5HJmP4uKAN37FGcxzjvdxdkuFWVvshAWcRujeW
-         qn+G2Hhi05mV412uQjM0fP3hOoXPSrVhgKeO0v3ian/HxX9iK85G59D74PKFYR2u1IzD
-         HWhRQEDPI/POJ8VKKVBTUa2LEuyXqhm8n1v16pPra8LfLGh88E4ah4B4sZ8pcUmLixjl
-         OUQQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=arista.com; s=google; t=1794154754; x=1794759554; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=et3swsdOfldP0ujJDRmFWaImEh1vX8VO0MRX9DcXPOI=;
-        b=UnHJPzGXqtf5M6DSoZKrR6UHFBMfoWqYMQ1Rv17g7fWWT+sUOEqe3QB3lY70652EHs
-         R4u9V0gcMFrFvvSx2428DKOdXjulw15zG2Gy+Qfh3Tw2JxCfbPsye6YS1qby+4Vh/LcO
-         Xzdrbu808uhG44B8h5piODGDrpJo9JOx93iFfrb/IqbcGKOeWlNJGCJ0hA5eBs0PBuPf
-         gCPhGndoxAT6kRnicgZ706hl6Gnyq556H8teishi0UUNNcmQmMprjdC/vEt+ztlS80Ks
-         vDgdeb3d6MYYHH7yqg4ylxT4o6vYu9P0xtrKBd0wphb4zuKRPhhIaLnZx88GNjKCbx1+
-         M+PA==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5FB7606A31C
+	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 16:19:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5FB7606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=grische.xyz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grische.xyz
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a60f9474c4so1656645e9.0
+        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 08:19:40 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794154754; x=1794759554;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=et3swsdOfldP0ujJDRmFWaImEh1vX8VO0MRX9DcXPOI=;
-        b=TGOOpbyX/9oNRB00p2f1fFfszRtbMmLIgBcWYqIECOrhMOYRfXJn4/6g+TvdbaUFGE
-         x/sFpt5/irfHWSfaWE33VzAj/EeR5ojJ9W7GgWBBZg1hfNVj0ltXywO3kDh/XVHffJUT
-         4N3cSHIcYY7OLFlIR+Qu/8qvej7jQOFKREtpZfv0RDLuiRMYnem/eJNeZ5w4xDK6stZ+
-         m2stcxUDjp3q8FhBE0cKg2HgJns+4RVPOwZbttsvedMrZhirshhpP/c0LwTXjjTbsp0c
-         GW032Rlz+sQ/Qk73SqaSmg98sm41i6ln0SqAS7WlzlRvAoOCPrfmNfI6IiHHVVJQWV6L
-         zm+A==
-X-Forwarded-Encrypted: i=1; AL+hErHHK1RLaEYYEgpsLZlCnuJlypQ4hxDcg16Z1evePycPeqE1ixTlAmbdGi0FmJiyFnp81GLnmmQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8pr+W5nc8wrRhek6pbRfI2UWqV6bZ7zSN5trqBUB3K9jUZT5DN
-	1TOVmHGlDZgNvkGO5YK8ByqJ2uvrm869MlCeMftHnD1JacdDm8+1OIlS4ceBm5N+WXVpB8l0CTX
-	WaZinGmGuNmu0gUAP5Yq/6uR9NHVjhXqdSyW+21FQ
-X-Gm-Gg: AYBFou3EPFGuS92+t6kovWpvNYkB4WQdeNxSLf1hHmxWLmNpOR2YQbFbPIrnCEaTZKM
-	5rRKM4wwDb69K/ferjlynkLMQxnx8ZRcllMW5vE0CwH1NEZ97v4XAQGGMyAlRZXSFBkn/PoA8QD
-	YixubsEPhvlj/xqdUCGuWWUwBlyFGjMHUP7yZIblzGrQYa4j6JWOX7z/McetCpNga+2lFaFtjpe
-	X6sEV1kxWXEleo0X5MlUrQJjIbKlaKCNukXYO+P5H7rXFIZiQTqWWVS66GIafh7ws1x0XthGafG
-	4JEp71X4rStP9JAAQ7wq4i23TERrK1bLFzCuH9HRp7nm89PSf+nayy7EHiGXC2eTTYPCtHOD8KL
-	/vTWIxMpf8DW5nUjYf8i0XsRQv80cCwM0bRiutwL+Qaxh2p5f5TWR3VpWLdYNIBwofl1or/ds1H
-	Wb801YLdnNGReKGWS8xg==
-X-Received: by 2002:a17:907:3f8f:b0:c46:7ec3:fdfb with SMTP id
- a640c23a62f3a-c4d6d1af6fbmr112340366b.7.1794154753715; Sun, 08 Nov 2026
- 08:19:13 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794154779; x=1794759579;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rYLFoY9JuUAWtQjVa8EfK7ekbKLIQtxVRKhNRoHNOrI=;
+        b=hNcGFu8zsR4Vq/d+/x5Zz23L3IWKJJdwUsTP5pehdSe8oJMRMnG2U7TCPGYlyKD20J
+         cpbQk3W6fvEnBSltzf+9uVzIA8ph8DA3YoMwlm+YvFiMkymMS4bYZ8spGRmFxr4a0cVS
+         A9etLxfG7fGbdC8uPg5ukONoNf/FEr9IGppTNvFLxmu1w91I3HBW7n6KBNLRm/XCxW83
+         XTIn3B456T1lEj7BSM7DSUaccLs2TdpX9zUAJ+s2tMCXeWBX5oBbQflOJeeLlhPr7i+7
+         7EWYGts34ML2/93kYTNlHrDbUzKcLbef/b20vRslWLYseNn8iHPCZb4SO2VsrjZBiBqR
+         cGDA==
+X-Gm-Message-State: APuU4Z/tW/jUsoLH4x1M9zobDOoahfCYWrTyXsx8cG33+SwMf71/qjIj
+	LE7X8FVb5jZxvpY51QfJqgZcApTZxC45UZtJYuNJaXwkPMEfIJTALRtvNGd4BoZs8570fO9iCbK
+	nbPDdVB/ckQ==
+X-Gm-Gg: AYBFou3QoEvTLSJsSYK1k071SY/cPfFxRxIN6M9ZxRxpZrQe5fmVGPl4LyP3Nx28csZ
+	J4ZEYwd+PefZkYLqRwRXHMg38eD+QT+4SufRPd89cDnu4FAqr+qrUUm/XKKpq+ZJ2lWIurwm/hf
+	pydxSxG5nl4vx69m7b9u2EoskwI4lL3wjCd9+zub1Xr7uVR09Vz6SPYPnEI0HWazwJDfzs+iqUH
+	s+tH5oF73UcMhN3nCIMdHWVmL6ClXcSsn4UciQOqJkltWJPAS6IGoBXXJBDGsHsCtrGaTwMTJrs
+	lKWNYaNOEajvTpSC8+Y/yBMLVmR0I3z0wqOwC8c9BJJRcn5jvt9tCsQrnJwYkEoVAye+rP/6sT9
+	eaxeSPW1r33JhHYR1yhi0/UQs7A4StbbWgEYzJBmxYyVi19iX8JlV7bQIYsZoZIyBCpeLKlmpcY
+	txnM4Cv1Xpflh/inHFvoi+XMtlTe+Y94raAfnW7evJmxl7VVO2zIaRIFqQzBNja5nU+XDZPcCgM
+	YC0Xas8O9ZpvU8FH9yeFNDGyFFP/dWsmAcZTrPAIAw/F8TwUmAk2LoEpkPXFC/ntgS2Oo89iVwE
+	qC2euIcGuYQkziyJDrR4kaZT
+X-Received: by 2002:a05:600c:8b58:b0:4a1:fe26:24f0 with SMTP id 5b1f17b1804b1-4b963c6bbb5mr29049795e9.20.1794154778714;
+        Sun, 08 Nov 2026 08:19:38 -0800 (PST)
+Received: from lake ([2a02:810d:d09:1b65:e93f:179f:cb30:5c5])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b76cb772e1sm189535415e9.0.2026.11.08.08.19.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 08:19:38 -0800 (PST)
+From: Christian Schmidbauer <opensource@grische.xyz>
+To: stable@vger.kernel.org,
+	Sasha Levin <sashal@kernel.org>
+Cc: Christian Schmidbauer <opensource@grische.xyz>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Breno Leitao <leitao@debian.org>,
+	Jeremy Kerr <jk@codeconstruct.com.au>,
+	Guillaume Nault <gnault@redhat.com>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>
+Subject: [PATCH 6.6.y 0/3] vxlan: fix stats reads after the dstats conversion
+Date: Sun,  8 Nov 2026 17:19:34 +0100
+Message-ID: <cover.1794153876.git.opensource@grische.xyz>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <2026-09-26-daily-reply-0002-re-vxlan-dstats-6-6-reader-and-tx-side@kernel.org>
+References: <20260812091127.1349673-4-sashal@kernel.org> <20260925180809.603571-1-opensource@grische.xyz> <2026-09-26-daily-reply-0002-re-vxlan-dstats-6-6-reader-and-tx-side@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,61 +88,40 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261107224733.1104094-2-Jeremy.Jean@oss.cyber.gouv.fr>
-In-Reply-To: <20261107224733.1104094-2-Jeremy.Jean@oss.cyber.gouv.fr>
-From: Dmitry Safonov <dima@arista.com>
-Date: Sun, 8 Nov 2026 16:19:00 +0000
-X-Gm-Features: AclHuK-RlKB8cK6nkN9idStz4fDt7ECu6dP4yCWsCwUDnlTQSNjJu1k9KvIrby8
-Message-ID: <CAGrbwDQFY8gBtEKi2RaSMUSEvLLVADspgoLLppwNt5XQgd-hxw@mail.gmail.com>
-Subject: Re: [PATCH net v2] tcp: fix authentication bypass via unsupported TCP
- auth options
-To: =?UTF-8?B?SsOpcsOpbXkgSmVhbg==?= <Jeremy.Jean@oss.cyber.gouv.fr>
-Cc: Eric Dumazet <edumazet@kernel.org>, Neal Cardwell <ncardwell@google.com>, 
-	Kuniyuki Iwashima <kuniyu@google.com>, Salam Noureddine <noureddine@arista.com>, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sat, Nov 7, 2026 at 10:49=E2=80=AFPM J=C3=A9r=C3=A9my Jean
-<Jeremy.Jean@oss.cyber.gouv.fr> wrote:
->
-> tcp_inbound_hash() parses both TCP-MD5 and TCP-AO options when at
-> least one of the two features is enabled. With TCP_MD5SIG=3Dy and
-> TCP_AO=3Dn, a packet carrying an AO option reaches the disabled
-> tcp_inbound_ao_hash() stub. That stub returns success, so sockets
-> configured to require MD5 authentication end up accepting
-> unauthenticated data. A forged AO option skips the unsigned fast
-> path, which is the only place where tcp_inbound_hash() can return
-> SKB_DROP_REASON_TCP_MD5NOTFOUND.
->
-> The inverse configuration with TCP_MD5SIG=3Dn and TCP_AO=3Dy has the same
-> problem for an MD5 option on AO sockets.
->
-> Note that TCP-AO depends on 64BIT: therefore, every 32-bit kernel with
-> TCP_MD5SIG=3Dy is in the vulnerable configuration.
->
-> Make the disabled stubs reject options for the unsupported
-> authentication scheme. This matches the real helpers' behavior for
-> sockets without keys. It also means that kernels with TCP_MD5SIG=3Dn and
-> TCP_AO=3Dy now drop segments carrying an MD5 option on unkeyed sockets,
-> as kernels configured with TCP_MD5SIG=3Dy already do.
->
-> Fixes: 0a3a809089eb ("net/tcp: Verify inbound TCP-AO signed segments")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: J=C3=A9r=C3=A9my Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Hi Sasha,
+
+This series backports the vxlan dstats reader side:
+
+  3e2f544dd8a3 ("net: get stats64 if device if driver is configured")
+  94b601bc4f85 ("net: core: Implement dstats-type stats collections")
+  195f88c57737 ("vxlan: Remove generic .ndo_get_stats64")
+
+3e2f544dd8a3 has no effect on 6.6 by itself, but is needed by
+94b601bc4f85 to apply cleanly.
+
+Tested on 6.6.161 with and without the series on two 32-bit boards, a
+little-endian ARMv7 Aruba AP-325 and a big-endian PowerPC Enterasys
+WS-AP3715i.
+
+Both boards miss the vxlan drops without the series and count them with
+it. On the AP-325 a stats read also hangs once rx_drops is odd, and the
+series fixes that as well.
+
+Breno Leitao (2):
+  net: get stats64 if device if driver is configured
+  vxlan: Remove generic .ndo_get_stats64
+
+Jeremy Kerr (1):
+  net: core: Implement dstats-type stats collections
+
+ drivers/net/vxlan/vxlan_core.c |  2 --
+ net/core/dev.c                 | 52 ++++++++++++++++++++++++++++++++++
+ 2 files changed, 52 insertions(+), 2 deletions(-)
 
 
-Acked-by: Dmitry Safonov <dima@arista.com>
+base-commit: b5a1dc3ad4822c6edfb53429e9a3759c9b0ac2be
+-- 
+2.54.0
 
-Thanks! Nice find.
-
-I think TCP-AO patches tried to preserve accepting MD5-signed segments
-on !CONFIG_TCP_MD5SIG kernels and AO segments on !CONFIG_TCP_AO ones.
-That's why the default stub was to accept the segments.
-
-And I prefer we don't add prematurely ifdeffery to tcp_inbound_hash()
-as long as no-one complains on this changed behaviour under kernels
-with disabled auth options.
-
-Thanks,
-           Dmitry
