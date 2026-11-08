@@ -1,97 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794103665;
-	b=LOpiZXvWDqSGCcLRdKWSQc1NDBvb4GjrrLlgMLcqWqVEPbTkgTzXMCkPP9H7rMGC/c5C
-	 oasMFRBPZkQ9QR/LcIQEiPZ1MnC6QNuA/i4VwtWZ7wlw9GIbTcTHuOK0cyphEgJODWLVO
-	 dq0I9E7T/zd1v6YIe8MpwO4ltxKa4b9OPmMWIJo83X51PAoFujhDgDUT8NpSYyntuhzoj
-	 WjCI7dpNsJAwty6nt1AF+kJlBsNznE7AdrkdgY7TkCFa0MVSRBIBBQbvrXV+kLjbp1Cjn
-	 g2iplBhdgscq4xTFVyGCDnfc36iCV2LNT/eFS3xdGUP8xUQqUv7rD3vRimMMDL0ZmuA==
+	t=1794103880;
+	b=OZ69h5H7GAEC7usoYNhrvkqiGuGhuPpsZN3izC5G0zZMWbpGTnG9UZ7I4pfFmX+Qlt8c
+	 Ptkob3H8QUzZd47AaE6qRT+v4UWo1pAfMtaAclKmQsERWedW8drBwQdLQA4g1yTYC10OV
+	 MflWlx2HaZK7GIB/TMd7Czw164io+x/6l5/q4ui4Z4olSTEmOwk+VCkGs54cGKCyGcdPw
+	 IR5I3KROAzt0ql4PvFAIAY4VvFs4lK4kLlKs3YwV7kHP6fq/cKTwPW4BTnioYegYG0fSG
+	 b6jT3BXhpPwi7Q93NEgYiwAK1hBS9+Y1b2VU/U4t9NB7v5Qc5tpm2FqlLRf3Y6fn8Uw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794103665;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=nAUid8jDWzly69ovFD3scbJRnE8PsLmVF0z4XZSSRog=;
-	b=gdhqBnj+J9o8JLlQRsVkZi+MBtlY5wEh6nvN+wE2nA+krasBeCsYe5EibCE8BIoz5C2q
-	 Jt6IjmaQdvRvRouXiGlIJB5y+LGWDFVTfos0FqLijB3NvWPHEOOMhXW5jKnEMeG+8UtpZ
-	 kL6YYEVQrfWEtrmc/fjpNwLH4Yz7pHtkyKNYx0+CQUTigdrLYJaRQkHsqD3YLFeOXp/fA
-	 aSckAQidOpIbZE987DIXH4subh1NJN2YEV5CIrRLPrjj8ha4/u320cjXomqdMzanSrFN2
-	 s4pfMRQrRLjDxt1vvyklxRgz+K3FlRom+J67cKjmPs2STnpzP5BceXul+4KMGZLnoLA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794103880;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=gQaCTOTpCvF7DZ5GQ3rLnRX05Gyc9PqQ55BJs+cL+kc=;
+	b=tILXS5y1xHeBEGse9uwZgiZDK8K7zwIkWqxkGtOxyPdMrXSbbY1hptKjN9lYmz09BBVD
+	 SvRWEZn23rGDHFbNG/cKZYo/tmYqsFdEWzrst6pKXZpiOrcv6x5wPvOQCZNSm9wjzY/sw
+	 7xf826myb4liNSzDIslyFE0HsKkZDvGw6AeLI0nKWfUZ1aXfgRN+WBfFAr9bYo5RV5XJ2
+	 4Ttvv/fWOZAv6Rdhf1w0Uxr6Bejsdvrve8UaPt+NNDlSYaRUmGmpfZwXOm1+HKLDIJVgC
+	 rJK9DHioCyq94Lm0k+0kTaHt/QIeCcniKxhwqnvmg0RgCZk96dHSY/DckI+AKCJe2iQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arista.com;
-	spf=pass smtp.mailfrom=arista.com;
-	dkim=pass header.d=arista.com header.i=@arista.com header.a=rsa-sha256 header.s=google header.b=IhKUbDQj;
-	arc=none smtp.remote-ip=74.125.82.179
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NFtJ4rs3;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACE97606A31C
-	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 02:07:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACE97606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arista.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arista.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAB70606A31F;
+	Sun,  8 Nov 2026 02:11:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arista.com header.i=@arista.com header.a=rsa-sha256 header.s=google header.b=IhKUbDQj
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-37198ed3727so663490eec.0
-        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 18:07:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=arista.com; s=google; t=1794103664; x=1794708464; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nAUid8jDWzly69ovFD3scbJRnE8PsLmVF0z4XZSSRog=;
-        b=IhKUbDQjcYwTGbkZe+oDjkxeTzfQ9brHcWJG8mz//DTeK96at5NbhgVoUSsGkrROa/
-         6vaZPnWPziU01Vrla4WrTIAT8eUgFic7dlYAamPszk6Vp2k30wWxNSIt4TT2QE6YqaP/
-         sZ8MHHCQclybKt2FpVZEgZvkT2NIpn2iz5gBvfj6wyOSe+ZFgpenJkNCCKcwcyYTwG8w
-         k7Uy23KBK40TOng7YPsY6Co+zZxCeRjUHQx2Ig7pgPhr9kv2zN9TnFHM9rzMtmfnCxeh
-         GQn+zzvj1jgR50EmhbNgftjX9wvkFdiCg5FnfH0r8Ik3AUwnfJfvEgP/Vn+Yi7JZOHwh
-         IfPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794103664; x=1794708464;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nAUid8jDWzly69ovFD3scbJRnE8PsLmVF0z4XZSSRog=;
-        b=aGwqrerUhQzKqMF57bZIhtjlrIvLgYMUEMeiGmcTpqX0KXHOhUHzQsuxlQ8hFlntX/
-         TG/pvnch8l8yXQskQFIW1ZLhsmGw4pZlE52+56oiCghDwFbjgdeLmZlUsuWfulUYUCdN
-         F+1nf8Eq1zmkmsM4mIdd5EEfVfZL5A63KHXfj12LLwWLNYcNv4F/WBRIKDbJUPbAaC+y
-         8OqMhFmSLCgKZCGqU7CzCydhveABCUCC44PvEvHoMLKktu2cm5Hq4YwPAjRbRNIX0E3/
-         x7TqWuqlT3+QOBKP75syvUdm8pEasd+pFYMJmCwOcAuQaqZsggRfRLBD32bzeaVj++WM
-         JC2w==
-X-Forwarded-Encrypted: i=1; AKwUvBwrzpHQOT/6vxK0WAo4pifeJxCyOFWT/1r8TRR1Sxt6ha6uqJQerj4eWM4Dn7AZ9Qy565js64A=@vger.kernel.org
-X-Gm-Message-State: APuU4Z84I406/8FQ/N0Qc/tQsfRhvAqQrpXUb0eiV5P9FdNQW0UipWCq
-	1QwH9zKqKVhW1y/2phv1XPcjJcaDB6Avq3h5z6IMRHcxV3h8fqgWejwmyBKYXbkR8Q==
-X-Gm-Gg: AYBFou3oza/58F/nbSrnSSRpF/O88cqntgrYk2VvWVZkWf4c8vrjlmaJcmbl7CdqD8F
-	wzDRvWpfPyWc3X2YOJ9qTqrUjl4zYiqL4ZT146OoVZfQQv/qfpvj1bZmD6PZNT11DXYoRUu3R5x
-	cJJTeDNeIiR40TNPNqj1wQeaH7hB49NG58CSygFnKhLAhlCsvvgv8Xur26PpTdZVMptMipfJCAy
-	kZIl1Ho8Y2Xev4ebxUeeAYmHOmZseEpNQDNT5Nbu8kDVli9gye72FG0s9VbevBv4zapc4wN01A9
-	+Jd7YsLv50ASfd7GND+VoP44PNFgC3CftoAMhRfvG7VXADJrQDc9m4Uv7CZVs0QwsMoQDJjAq+g
-	fNZVSxS6RuAdZkeZbo6o/q6JvjoQR2Dfd2II7VZXd/LUVgFkpJ0FGpEbTlqFXvhcXOOVDqDXaei
-	xw0DHNL3tDvkG3scEyvTN2dPQaw283BYWl5RzkwvG76SyQMF4krTz9h4OcZ1Rd0zvhTEk9f7Zga
-	XtsldVjRyPCRZraJe69fK5sfrNyDPE2RKgDJv0C48ETHcj7VVJoFdFeUo7Z/WsjJXUbwT4dfayE
-	PgAkqCFTS6kY1kHQBAbLgNvGZWRbQLo9/rhU+LwFYCldpWh+KrcZMaRsD+qSj2+r
-X-Received: by 2002:a05:7022:170d:b0:1ae:d447:6c84 with SMTP id a92af1059eb24-1b269b21bf7mr4108916c88.19.1794103663378;
-        Sat, 07 Nov 2026 18:07:43 -0800 (PST)
-Received: from mparker-home-xcrbr.sjc.aristanetworks.com ([74.123.28.17])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b37561ccabsm2133832c88.12.2026.11.07.18.07.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 18:07:42 -0800 (PST)
-From: Matthew Parker <mparker@arista.com>
-To: pratyush@kernel.org,
-	mwalle@kernel.org,
-	miquel.raynal@bootlin.com,
-	richard@nod.at,
-	vigneshr@ti.com
-Cc: linux-mtd@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Matthew Parker <mparker@arista.com>,
-	Adam Calabrigo <adamc@arista.com>
-Subject: [PATCH v2] mtd: spi-nor: issi: Add support for ISSI IS25LP512MG
-Date: Sun,  8 Nov 2026 02:07:12 +0000
-Message-ID: <20261108020712.897714-1-mparker@arista.com>
-X-Mailer: git-send-email 2.51.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NFtJ4rs3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AB611F008A1;
+	Sun,  8 Nov 2026 02:11:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794103879;
+	bh=gQaCTOTpCvF7DZ5GQ3rLnRX05Gyc9PqQ55BJs+cL+kc=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=NFtJ4rs3/7TZFXLhRMyF0pX3xpa0qsqf72Jez9M70SKrM23v/ZyF1e1hu1BnuyOJm
+	 t2A2rSgfdwCwEmLA3zb3eQPTTVZ4By9iITy96X9Q0JP5thwfMf+1MCxZtIfKElhK71
+	 Yyeg6Aj9IBe2meIx1FA85UUt301+DUNGbDwjdiKBBWN7vN8l1518EphRNNjg27iuej
+	 50Np2Dacw8C3RmaihkRD1U5+iW22BVeGK3r4IUuc89srEq0sIGGwWj7PafKQ4Qgnml
+	 w2SuKHVLTrMmdSKe7CZX9jgJ4JhE4MGgvct/ETXOjWsRCjMMMdPJwC5rEfzaWSiPai
+	 KKJjaVv98D/Ig==
+Subject:
+ Re: [PATCH net v2 2/2] xfrm: fix selector matching for IPv6 atomic fragments
+From: netdev-bot+sashiko@kernel.org
+To: Jeremy.Jean@oss.cyber.gouv.fr
+Cc: steffen.klassert@secunet.com, herbert@gondor.apana.org.au,
+ davem@davemloft.net, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, kuba@kernel.org
+Date: Sun, 08 Nov 2026 02:11:18 +0000
+Message-ID: <179410387864.994134.9353647654476828846@kernel.org>
+In-Reply-To: <20261103225842.3204446-4-Jeremy.Jean@oss.cyber.gouv.fr>
+References: <20261103225842.3204446-4-Jeremy.Jean@oss.cyber.gouv.fr>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,42 +63,178 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Add support for the ISSI IS25LP512MG 512Mbit (64 MiB) SPI NOR flash.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-The device provides JESD216B SFDP tables which accurately describe
-geometry, erase types, and read-write opcodes. Flash read, write, and
-erase operations across the full 64 MiB array have been verified on
-hardware.
+Critical: 0 · High: 2 · Medium: 0 · Low: 0
 
-Cc: stable@vger.kernel.org # v6.1+
-Co-developed-by: Adam Calabrigo <adamc@arista.com>
-Signed-off-by: Adam Calabrigo <adamc@arista.com>
-Signed-off-by: Matthew Parker <mparker@arista.com>
----
-v2:
- - Drop .name, .size, and .parse_sfdp per modern SFDP discovery
-   conventions.
- - Rely solely on JESD216B SFDP parsing with SPI_NOR_QUAD_PP.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
- drivers/mtd/spi-nor/issi.c | 3 +++
- 1 file changed, 3 insertions(+)
+- [High] The new atomic-fragment shortcut in __xfrm_decode_session()
+  (net/xfrm/xfrm_policy.c) checks only the FIRST IPv6 Fragment header,…
+- [High] xfrm: out-of-bounds read via ipv6_find_hdr() in
+  __xfrm_decode_session()
 
-diff --git a/drivers/mtd/spi-nor/issi.c b/drivers/mtd/spi-nor/issi.c
-index 2f057d731df2..d2b812050550 100644
---- a/drivers/mtd/spi-nor/issi.c
-+++ b/drivers/mtd/spi-nor/issi.c
-@@ -101,6 +101,9 @@ static const struct flash_info issi_nor_parts[] = {
- 	}, {
- 		.id = SNOR_ID(0x9d, 0x60, 0x19),
- 		.name = "is25lp256",
-+	}, {
-+		.id = SNOR_ID(0x9d, 0x60, 0x20),
-+		.flags = SPI_NOR_QUAD_PP,
- 	}, {
- 		.id = SNOR_ID(0x9d, 0x70, 0x16),
- 		.name = "is25wp032",
+--
+
+xfrm: fix selector matching for IPv6 atomic fragments
+
+This commit changes __xfrm_decode_session() so that an IPv6 atomic
+fragment (offset 0, M=0) is decoded as a complete datagram. It clears
+FLOW_DIS_IS_FRAGMENT and recovers the ports at the transport offset found
+by the flow dissector. Real fragments keep ports, ICMPv6 type/code and GRE
+key unset.
+
+> diff --git a/net/xfrm/xfrm_policy.c b/net/xfrm/xfrm_policy.c
+> index 4f6a5b81e3b5a..5acb1e0c1b02f 100644
+> --- a/net/xfrm/xfrm_policy.c
+> +++ b/net/xfrm/xfrm_policy.c
+> @@ -3530,9 +3530,25 @@ int __xfrm_decode_session(struct net *net, struct sk_buff *skb, struct flowi *fl
+>  		decode_session4(&flkeys, fl, reverse);
+>  		break;
+>  #if IS_ENABLED(CONFIG_IPV6)
+> -	case AF_INET6:
+> +	case AF_INET6: {
+> +		struct frag_hdr _fh, *fh;
+> +		unsigned int offset = 0;
+> +
+> +		if ((flkeys.control.flags & FLOW_DIS_IS_FRAGMENT) &&
+> +		    ipv6_find_hdr(skb, &offset, NEXTHDR_FRAGMENT,
+> +				  NULL, NULL) == NEXTHDR_FRAGMENT) {
+> +			fh = skb_header_pointer(skb, offset, sizeof(_fh), &_fh);
+> +			if (fh && !(fh->frag_off & htons(IP6_OFFSET | IP6_MF))) {
+> +				flkeys.control.flags &= ~FLOW_DIS_IS_FRAGMENT;
+> +				flkeys.ports.ports = skb_flow_get_ports(skb,
+> +									flkeys.control.thoff,
+> +									flkeys.basic.ip_proto,
+> +									NULL, 0);
+
+[Severity: High]
+Is it safe to call ipv6_find_hdr() here without first making sure the
+IPv6 header is in the linear part of the skb?
+
+Everything else in __xfrm_decode_session() goes through
+__skb_flow_dissect(). That reads headers with __skb_header_pointer(),
+so it copes with a nonlinear network header. ipv6_find_hdr() does not.
+With *offset == 0 it starts with:
+
+net/ipv6/exthdrs_core.c:ipv6_find_hdr() {
+    ...
+	u8 nexthdr = ipv6_hdr(skb)->nexthdr;
+    ...
+}
+
+That reads skb_network_header(skb) + 6 directly. There is no
+skb_header_pointer() or pskb_may_pull() in front of it.
+
+xfrm_icmp_flow_decode() looks like a caller where the header may not
+be linear. It clones the ICMPv6 error skb and does
+pskb_pull(newskb, hl), which drops only the outer IPv6 and ICMPv6
+headers. It then calls skb_reset_network_header(newskb) and
+xfrm_decode_session_reverse().
+
+Nothing pulls the quoted IPv6 header into the linear area. If that
+header sits in page frags, skb_headlen(newskb) can be 0 at this point.
+The dissector still copies the inner IPv6 and Fragment headers out of
+the frags and sets FLOW_DIS_IS_FRAGMENT. The new ipv6_find_hdr() call
+then reads ipv6_hdr(newskb)->nexthdr past skb_tail_pointer(newskb),
+into tailroom or skb_shared_info.
+
+This is reachable from xfrm_selector_inner_icmp_match() for an incoming
+ICMPV6_DEST_UNREACH, ICMPV6_PKT_TOOBIG or ICMPV6_TIME_EXCEED message
+whose quoted packet carries a Fragment header. A remote sender can
+therefore trigger it. A BPF flow dissector that sets is_frag on a short
+or nonlinear skb would reach the same call.
+
+Before this patch, the AF_INET6 case never read the skb directly, so
+this read is new. Could this avoid ipv6_find_hdr() and walk the
+extension header chain with skb_header_pointer() only, starting at
+skb_network_offset(skb)? Or is there a guarantee I am missing that the
+network header is linear for every caller of __xfrm_decode_session()?
+A pskb_may_pull() here would modify an skb that these paths otherwise
+only read, so I am not sure that is the better option.
+
+[Severity: High]
+Can the Fragment header checked here differ from the one that thoff and
+ip_proto describe?
+
+With target == NEXTHDR_FRAGMENT, ipv6_find_hdr() stops at the first
+Fragment header in the chain. The dissector runs with
+FLOW_DISSECTOR_F_PARSE_1ST_FRAG, so it skips past any offset-0 Fragment
+header and keeps walking:
+
+net/core/flow_dissector.c:__skb_flow_dissect() {
+    ...
+	key_control->flags |= FLOW_DIS_IS_FRAGMENT;
+
+	nhoff += sizeof(_fh);
+	ip_proto = fh->nexthdr;
+
+	if (!(fh->frag_off & htons(IP6_OFFSET))) {
+		key_control->flags |= FLOW_DIS_FIRST_FRAG;
+		if (flags & FLOW_DISSECTOR_F_PARSE_1ST_FRAG) {
+			fdret = FLOW_DISSECT_RET_IPPROTO_AGAIN;
+			break;
+		}
+	}
+
+	fdret = FLOW_DISSECT_RET_OUT_GOOD;
+    ...
+}
+
+It stops at the first Fragment header with a non-zero offset. At out:,
+thoff = nhoff, so flkeys.control.thoff and flkeys.basic.ip_proto come
+from the last Fragment header it processed.
+
+Take a packet like this:
+
+  IPv6 | Frag(off=0, M=0, nexthdr=44) | Frag(off=N>0, nexthdr=UDP) | payload
+
+This is a real non-first fragment. ipv6_frag_rcv() treats it as one: it
+skips the atomic header and then reassembles the inner header.
+
+Here, though, only the outer atomic header is checked. FLOW_DIS_IS_FRAGMENT
+is cleared, and skb_flow_get_ports() reads at an offset inside the fragment
+payload. decode_session6() then copies those payload bytes into
+fl6_sport/fl6_dport.
+
+Forwarded fragments are not reassembled unless nf_defrag_ipv6 is loaded.
+So a remote sender could get this packet matched against port-specific
+selectors through ip6_forward()->xfrm6_policy_check(XFRM_POLICY_FWD) and
+xfrm6_route_forward(). Before this patch, it could only match
+port-wildcard selectors.
+
+The opposite case also seems possible:
+
+  IPv6 | Frag(0, M=0) | Frag(0, M=1) | UDP
+
+This real first fragment would get its ports decoded. The later fragments
+of the same datagram would still get ports=0.
+
+Doesn't that bring back the per-fragment classification mismatch that
+7e3a42a12c4b removed? It also seems to contradict this part of the commit
+message:
+
+  "Leave ports, ICMPv6 type and code, and GRE key unset for real
+  fragments."
+
+Would it be safer to require that every Fragment header in the chain is
+atomic? Another option is to check that the header the dissector stopped
+at is the one tested here.
+
+> +			}
+> +		}
+>  		decode_session6(&flkeys, fl, reverse);
+>  		break;
+> +	}
+>  #endif
+>  	default:
+>  		return -EAFNOSUPPORT;
+
 -- 
-2.51.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261103225842.3204446-2-Jeremy.Jean%40oss.cyber.gouv.fr
