@@ -1,99 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.45
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794097238;
-	b=dcAH7KxX0LDcMqAbEd0u6M+Xd78z1LkKrinXoS0/y+QlZJ0y8dh3a8Tq801efO86/THJ
-	 s/8d1v+YI6AyOVF4neKAdVZ5WXsQnHbMP4mD0Qnp/QnjxHj5KtpyUAW1PdjOjRMGDOO0K
-	 bOwLTE3KeAH3rkU1bbkwd7MKOxrmyzmeUbHiyO84vfvy8JLOm7v7bREwlywm6xBfutZRY
-	 os0JZJGTCh+ETBZggZD+ZWu08xfzBFxqkbO8dHrEDju+zhnqMDmg+GYjHPt0M6QwjgL63
-	 LXRg1aL4PR+J/xAYyo/jvrm8jY+4IFEFgF5S69K3d/AehizCIeSfU6KM6OwFuzw5Nag==
+	t=1794097383;
+	b=PxQ2FCfsQ2/TSxDKuNS/tfKHLTa11+wr4JA5pe6RoZtEaQqf6Geaigmush38Lw9438DM
+	 9YwWxM+yaTjgtUKfbBjuUMmRNfHMWhF+tgmXmoHPORiWDlK5RM7VufGkGggAr0tbyWuFq
+	 WvHMgroNRxVe23BXJ+qKRys7kQxPfogMhKFyM0ASpulY8JmQC99DdSTsUui2a4jH6JbVH
+	 UfxjPG/c5S4xC/9ixKNpyJA+B4Xf/pncT2DTxrrLQSfX1yS0lDkbksRONlPdWIxswMxyS
+	 OGPt1k4lOyAqkvbZIdNWGQukBEkg31+a6gQyVgsMXlVclQfB0XxCELSPwXvKBBjuxHg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794097238;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794097383;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:From:Date:
 	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=LfTmA/OXs1u6qLuWZSk6TQ3M8alcSeTvA25XnpvO6To=;
-	b=0ZQzYbv0ReyIVzOdn6Xsgh1lEx5QM0pmq2rBXMFTc1jtJrvLFin4qAcxl7uNfLlqbduy
-	 U5a1XlJy8YpFrHEVWV8Jb181i5Trbx9ZH2ymsZUeTVWMpCpheCfMN3jTIrUStXrewV4Wf
-	 Xy7G024YtqbURJizccPt6o+NeJ5L2XpKB5fOQBwBcR1pI7gqLsStdN3qNHAGvJTOeDab/
-	 Yn6Z1+VSvZOR0yQRnEpOenPEDACy1THRoWImViBZnNwVaH3BItC9gGxZrWnZAEfoDjdFO
-	 UmCmp9FJ0+jl+xiJMWl/ChddJjy7LPjYSWNo0RiHdTUxpIYJmcqXasuu8/bL1VQmBLQ==
+	bh=ea2CBL5o6b9BYNQenIRPos251w2nWx2DahDIHlSjd90=;
+	b=cnnQYhsj4z3fhPcXcxsI6Mq2HxVwnPTDVSlQd+ZtNYhZUfg3iRTPomjATwC5PQvaetMJ
+	 HAnbmqgSzkZyqAONdOylCh82CUVQGTz7sWew6fNEPjaJ8hlpAGzT0U8MKa5iRfj1GWdpT
+	 5kJ7KEo1i3WO54yZ6jtxnkmDL14pusXchsFltwTD5fpYYeSOzXQox2iLXyFhnDgH0DTgV
+	 63Q8VUepsKempQrU3PTyWZ61D/dKh8Xviln2B1PDSWp7WjaRJWmm99L2fT8jrVOO9uhYQ
+	 10uVQsOk2lzakO6vnQzpLR8cerEAPy/3EZAI2NK2NO8WXP7abG9ennSknEwndskMQjg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Cv3XyfF1;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.45
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PL+vS0Ld;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5203606A326
-	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 00:20:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5203606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9B1A606A326
+	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 00:23:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9B1A606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Cv3XyfF1
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6b65d69f5c2so86770a12.3
-        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 16:20:37 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794097236; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PL+vS0Ld
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b581b6b0e9so74678a12.2
+        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 16:23:02 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794097381; cv=none;
         d=google.com; s=arc-20260327;
-        b=m05PtVcUJa3MqBQhQSSnxo9Qf75FLcSqpyeMxb6Bp9Euiqn0Ewa+/RVbPkGTkIesqa
-         q0ocWbfDKXkxBYqSibQQyELDtdtUif4LjNcfbSZkQ5PW2TL/O7OxqOhE/ld16kKTyF6T
-         RK2+3KFmwnF5nJtYdso7uHCD0phguCz7H3IU7RnHNcXQfY29Xz6MCNnfWVldIT/3poOr
-         xn89kCl+c9DFm5BQ9WixkBxnP7JQuEgBkCPBQNnHfa7rR3GDccvKLIMWKFWdWKzFziX0
-         VN7jjpzUb4PPwKQC0MMKSzDOH3RO8miZ4Vv5/PRCEkGek6r4E+R9FDZIQ/9zfrg62C3n
-         7d3Q==
+        b=FJRAidtiHKNgLELPxlu0mEY5vtRMxfL9JrdWknp7FnQIRH8bVMFCIZC8X7dJ7nuxb7
+         rJex5Q0OtLBFp/fvXPQKPgnRIppTyJ4nJBGQKPn9nj69XVPKkfKMRKjRUtC11jNkHk+W
+         9Sg30wNY+/QG91Io4BzBbqz73sAKUFlwlG+2uMZJzbrWh5ObMgDzqOvVO/o1hF34+rWu
+         39FFXDJUUX+O/LhdbgVKgGqTPissBIXJz4fxqS+NN2BuxB7GACMVUG0onRsyXhnYMtiw
+         rMFuLN0YKOSuGlV/AFvB8PHSBzYO7AOdxc2OQjgsE0J2QjLh+88bhpyWRq9OMPbZN3r3
+         mPgQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :mime-version:dkim-signature;
-        bh=LfTmA/OXs1u6qLuWZSk6TQ3M8alcSeTvA25XnpvO6To=;
-        fh=8PMvphGrrJHPO70po75/nO8UIDsijEyGk/2SPYAuYJM=;
-        b=Zz6TKPAA4oNJYbf3X6zwkEpsJXuAgS/lefy02oBHmJauJ1lDU5TYDdi26bSoNL9lt0
-         N72UE4IaqRH7VrEtHjMp5VMq0FShLzGC5UiV9EsxV/V/GROenlLr5/RsRybt05rt7xHo
-         TLRLLzkhlGoHRjdY6D9ugEcMjI8x7inEkssrKG325jSylNwAsqhjsPKLWoE1TC2UMFks
-         2Bx0Hnz9p7nRRkbo2u/8vBNjME0Aqs+e7vxWbbsrl5143npy1EQIAlw1OhSe8A2JYr02
-         ZD3v4ZMMyElO6pUbWgGwy4//gRGjI3VgbuXkR+NgmhIKWgz9VcVBCT9dsarXaXlwmBj6
-         IbNQ==;
+        bh=ea2CBL5o6b9BYNQenIRPos251w2nWx2DahDIHlSjd90=;
+        fh=YknLOQB75vlLPIEwI+MrJevfo/l/mBt3ZJgZTppUyOs=;
+        b=cFzAbdAUEuyitqYrIHaOVwGYmGbAAylhfQVAwejvetYe25vQ7jgPng7OXUxK6hkKYU
+         7MozuRrdtOu+x5V53DFTCiRaovQj6SGxFtRc09XFtQzD0WpPXEbze7eOTGjqmHvSfqjm
+         4s+7yUU6JtsAlVyIyUCgVsFULwuXKOS1GrY69Nm1Ejp4besDzQq+tKrV3/xnyN7i5/+P
+         3p/kQW5u7nAKhMW+mHk3DubD8HlIAPU2nmvBYZQF9wY8L9SaQ6smaRGntZ65SqdTBsYl
+         B3pMRGAjlEcw0inqmtJ0OGhjsa/mjSg1b2tPDEcXyG8dCe35GKZlldP4rfmRMDZvdQfO
+         3ZjQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794097236; x=1794702036; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794097381; x=1794702181; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=LfTmA/OXs1u6qLuWZSk6TQ3M8alcSeTvA25XnpvO6To=;
-        b=Cv3XyfF1qxq/FA1/EGe2RcOV0lLMwcD16foodQ2cuGva9pY6YsYpMFzikiLqJBmUwK
-         3eoyXVCrQuNcePrSYYKveLO7wEyrXna8RFkafM7vsE2anw3BXr8Z1sSvk+FdcJuTOOfz
-         jFL4FBUkTedaRQ2EYP+OY1jBq0fSTDf1D3X6LkjHNtJ497qII6EeHw8G2EkHHhcNNQbH
-         IUUwcvLdQXhv9+SGDMFKG+HjOvd4zPqc4L3pstM32u+DIOYwCvSd6nWkiVL/UCVLDW5K
-         lLgM7Q/sQ7QIojeKoPL5mvMg3Y9i+r2kDfQeqvSLH+chSVGL2VTYsutegaoUo/+JLYDO
-         kRMw==
+        bh=ea2CBL5o6b9BYNQenIRPos251w2nWx2DahDIHlSjd90=;
+        b=PL+vS0Ld8Xaz3qYr/Mc5w6ZDElASyUyRzK6aw84yN3tmK4Gntx4TN57sxwIJVoYpOW
+         B9U+2eDO3/B3GqWflngV7Wexh30Q8WicKPPBeU/e91v+klaB7spN/DomlHYP7lL3ncbL
+         0EcyeMkllJ60q7qldLayaCcBfCLjpxeQ2PUzdeEw9U0yeOsz5Z3DHjuPhNSavf2MBfL1
+         M4n3sdhaBB+Nid6P5TtQHAtf0pyoX13Z1AYdtFqQvkMHUAD0TcE2rqxo/IxqZyQemTcz
+         p3SmYWhQ6aAVlpUwzaegkTSb+c3d7LYxq3/4HqUgOm9/ihOK+I6BjL/EzmEAr1Us9LJ0
+         Cwaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794097236; x=1794702036;
+        d=1e100.net; s=20260707; t=1794097381; x=1794702181;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=LfTmA/OXs1u6qLuWZSk6TQ3M8alcSeTvA25XnpvO6To=;
-        b=etIhsrjGzGPyV7hPlMUcA2dLi9W1RAxzys77jcdFqhE6yKBle60mkYC/2nDzJn4QMY
-         ljSfcu9l02ZUKQ6+m7ESxnh/PwG7er3NAGprgbaAZyFQSaAga1UGa6MjSiNzvA5mq9hv
-         28LkPqzzDtMuuimj56zbHO+RsdyU68I+tmhT0gkVy+CpxdFjYwWRxgt4S86ZexOOntMU
-         MN2D+vSlgkc3WqsI6JbRlRq3SS+S33AOwCpkBkWzhuTz7ZsJ+qsEctB34HPx76vNIdLD
-         SUumM5j2vugQt+gaT5n3KlLlQMSCtH9/kzo3RelG9oAc5wHRFYQLckhRdDOdj954wGU3
-         91mg==
-X-Gm-Message-State: APuU4Z/T38T31WYLukRl7btYAN6rbMl5s7auNqrxuKl3ZMe8Ija/Okbg
-	imxtKHCqMarsNyBxYWSJpcwu1dB7kpuUnRXXe2IJtd0YT2cyz31e9smyLvb9Vy6PqhwNqbyOp4z
-	s7yLQaoK2sxtKVjEKtmEsf9WdEtf+WX/wJcJ5qcYyWw==
-X-Gm-Gg: AYBFou0LFaHzX//oj9UzX9xP4i8MZQVdu+ZzvjU0x0zHXvgyPmlCnUj6vg+u7sOdzAl
-	3l6QSduY+5newsi6orIxOA1HmkxiKXa9p+w1iJ+g0BHD6CCWndx2ffZqHBJtuAzkM/jhtVl8iYa
-	husD449QJ2U2gt37XvdiWN6CpPcLA/UDeugx7nPKsuoNasyrM909ypXutc9Mh2J9rrziB9VZMms
-	vYhAUVU7x13j8i5vRrKacWDcwxCXH+l3GVdulEMOcIGCKGmwDn4Y9AyEaWX+YDPwVj4QwxzWBS9
-	7hCuc55Xmt5vNdzWCDr2bQQPu/UtgXh1rYSKshO0FinK70I1gKikpsY7q4Fb1g1b1OZTINka1zJ
-	z56j0eYvCJ+tP0tRBVu+sz0jq4fz7lG2w1x621pJHx3nd6kcOUwCoJQTBKKXYSMvPeQ9jElVRua
-	jNW5w5vaGXzdpoX2LoYg==
-X-Received: by 2002:a05:6402:13cc:b0:6b7:1cd4:87d6 with SMTP id
- 4fb4d7f45d1cf-6b72240d407mr137434a12.13.1794097235599; Sat, 07 Nov 2026
- 16:20:35 -0800 (PST)
+        bh=ea2CBL5o6b9BYNQenIRPos251w2nWx2DahDIHlSjd90=;
+        b=ZQpsbU1x6f7v5JXNA9HEs5UT4zltQTug1nM/edLTC3PItA6GQrfP90zvHPu5Of+vaY
+         OtLprcMCoMJnjizXwrd1oqd+yMe6y9OE9KiVbNkBjxT85kWT3FekopNHK5NbeGvsvPwC
+         GMwJ8KY8g7tin1+lAa1ZOMDG27sz3SLiPdW+f0DcLTCQ9lqe1rP+u4SzDFM71a3NRpMG
+         4ennq+8LsYNZ9cA5LY61mtODw+xeZgdYAVszkMwNbdZXS/0ATAd80W4WMjUBwuCNPYTz
+         MVFIr0xGC3vkyxdj/meJ/0J5vGEd48yDy+C4p65TDRsFyRWOXHdm+rCAFQYnzU67iUqG
+         kw1Q==
+X-Gm-Message-State: APuU4Z+Mtqep9qYNCxw6u64YbAEF16siEAqG+tFtq2xL/Oxpl3qDpuVK
+	ODPC114dgQGb4Zlp0XCpAiT08Kz+srlmj5RUI/XnQbyIsmfZxE4ZT5BpG/EPC4SU11fGLOfyUXP
+	zOzEW+mPSazMwivgNxHM2LWgxUuuIehpDTucqfjZpJQ==
+X-Gm-Gg: AYBFou3hSBtzfDa4QFyiZXHOsgRm88DmdBfqHgzY7pYtH0PT3NE8l7bw4txi1aPEtbM
+	grsAVQa4sk3XxlZWfu5SfLMkBmtPyBtp81KvFockwq+TAZBnok6jPJHBSfbGODVeXS7Z5JZuvE7
+	YW4P2hWH4bvadjtteH0E5YGYVeT6ddkdO5mrdPSEXxPGCs9CpI1a7Upl79z5xJC98b25tJawCev
+	sPOo50624OxCbrNAguaBcZzGTFWCNg+DqS1Er6qiQ+d2cYOI+Ixlr2qNJhKem+cSaA3xNKofM5r
+	YZQWOYUp7NMTLcgEd3uej4P6n/S/nEUaifSrR8akFTdiT/xf8c5gMxKFah+tamPBRoNEVaw7NT4
+	7YwZ2jI6kh8waeQ96S4R7adht03ZF0V2jkApaAfgAHtV5m66J+7VjNF//AGcHbGlks1rNsX7m6i
+	fFmKq1RfyXDSEeajCayxLVgrgwMFz05ctDPVBVVSRM
+X-Received: by 2002:a05:6402:e8a:b0:6b4:87b8:1348 with SMTP id
+ 4fb4d7f45d1cf-6b722454d2bmr106410a12.27.1794097381188; Sat, 07 Nov 2026
+ 16:23:01 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,72 +104,66 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 From: Mohammed omran <sanhokh30@gmail.com>
-Date: Sun, 8 Nov 2026 03:20:23 +0300
-X-Gm-Features: AclHuK-kjxVXRdM9S9zuf9Sqoftbt75oLZt0TxuQV_WPGwwpUhGB04UbylM3jRQ
-Message-ID: <CAGwSD7R7MPL6ANw71gAh4U7YpWhfRZQyaDrSibxfvy5CnZ-SiQ@mail.gmail.com>
-Subject: [PATCH request for v5.15.y] ksmbd tree connection UAF fix missing
- (CVE-2026-89788, CVSS 9.8)
+Date: Sun, 8 Nov 2026 03:22:49 +0300
+X-Gm-Features: AclHuK_a2mPRAwpEks-bMX6Pt1cMaCXZ52tKFzWO371mbPLmoyYkH4f7LOgAPJA
+Message-ID: <CAGwSD7Q7FEw6O6Bm1CwCYb3=5pRAzB_heC7HEVheZdjNbaEAjA@mail.gmail.com>
+Subject: [PATCH request for v5.15.y] ksmbd EA alignment OOB write fix missing
+ (CVE-2026-31705, CVSS 9.8)
 To: stable@vger.kernel.org
-Cc: linkinjeon@kernel.org, cenzhang@linux.microsoft.com, 
-	stfrench@microsoft.com, gregkh@linuxfoundation.org
+Cc: linkinjeon@kernel.org, stfrench@microsoft.com, gregkh@linuxfoundation.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 Hi,
 
-the ksmbd tree-connection use-after-free fix landed upstream in
-September 2026 and was backported to 6.1.191, 6.6.160, 6.12.114, 7.2.6
-and 7.3, but did not reach 5.15.y (5.15.225, the latest release):
+the ksmbd out-of-bounds write fix for smb2_get_ea() landed upstream in
+April 2026 and was backported to six stable branches -- 6.1.175, 6.6.136,
+6.12.84, 6.18.25, 7.0.2 and 7.1 -- but did not reach 5.15.y (5.15.225):
 
-  b5ec6c462aab (7.3)        ksmbd: fix tree connection use-after-free
-                            in smb2_tree_connect() (CVE-2026-89788)
-  63f5939b5047 (6.1.191)
-  ca3a3984bf44 (6.6.160)
-  bd58a52738f7 (6.12.114)
-  4e30fbd26e84 (7.2.6)
+  ddbbc8b2a09d (6.1.175)   ksmbd: fix out-of-bounds write in
+                           smb2_get_ea() EA alignment (CVE-2026-31705)
+  ffbce350c6fd (6.6.136)
+  98f3de6ef4ef (6.12.84)
+  790304c02bf9 (6.18.25)
+  922d48fe8c19 (7.0.2)
+  30010c952077 (7.1)
 
 Evidence:
 
-- The CVE-2026-89788 affected/not-affected table lists the issue as
-  introduced into 5.15 with commit dd45db4d9bbc ("ksmbd: fix race
-  condition between tree conn lookup and disconnect", backport of
-  33b235a6e6eb, first present in 5.15.145) and fixed on every later
-  branch, but the 5.15 row has no fix commit bound. Versions before
-  5.15.145 are not affected.
+- The CVE-2026-31705 affected table lists the issue as introduced into
+  5.15 with commit f2283680a805 (backport of e2b76ab8, first present in
+  5.15.145) and fixed on every later branch, but the 5.15 row has no
+  fix commit bound (affected up to 5.16).
 
-- linux-5.15.y's history for fs/ksmbd/mgmt/tree_connect.c shows no
-  commit after 2026-02-06, so the September fix never crossed. The
-  same check for fs/ksmbd/smb2pdu.c (latest 25 commits through
-  2026-10-30; the branch is actively maintained) shows no tree
-  connection UAF fix either.
+- linux-5.15.y's history for fs/ksmbd/smb2pdu.c (latest 30 commits
+  through 2026-10-30, branch actively maintained) contains no EA
+  alignment fix. Notably, the two commits the fix description itself
+  cites as the same bug pattern -- "ksmbd: fix potencial OOB in
+  get_file_all_info() for compound requests" (beef2634f81f family) --
+  ARE present in that same 5.15.y history (2026-04-18); only the
+  smb2_get_ea() member of this query-info OOB family was missed.
 
-- The vulnerable shape is present verbatim in 5.15.y's copy of
-  fs/ksmbd/mgmt/tree_connect.c: ksmbd_tree_conn_connect() sets
-  atomic_set(&tree_conn->refcount, 1) -- the single reference --
-  then xa_store()s it into sess->tree_conns with no tree_conns_lock
-  held, and returns it, leaving the subsequently published
-  tree_conn with only the xarray owning reference while
-  smb2_tree_connect() keeps initializing it and building the
-  response. A concurrent session logoff drops that only reference
-  and frees the object.
-
-- The lookup side of the same lock discipline was hardened in place
-  when the vulnerable shape was introduced: dd45db4d9bbc itself added
-  sess->tree_conns_lock and the atomic_inc_not_zero() guard in
-  ksmbd_tree_conn_lookup() (both present in 5.15.225 today), leaving
-  ksmbd_tree_conn_connect() publishing with only the single xarray
-  reference. A follow-up concurrency fix on the same object (upstream
-  b39a1833cc4a, backported as 446beed646b2, committed 2026-02-06)
-  reworked ksmbd_tree_connect_put(). Only the create/publication side
-  of this sequence -- the September 2026 fix (CVE-2026-89788) -- never
-  reached 5.15.y. fs/ksmbd/ path form applies to the 5.15 rename, same
-  as the earlier backports.
+- The vulnerable shape is present verbatim in 5.15.225's
+  fs/ksmbd/smb2pdu.c (smb2_get_ea(), around lines 4452-4493):
+  after the value memcpy, only "if (buf_free_len < 0)" exists -- which
+  allows buf_free_len =3D=3D 0, i.e. the value fills the remainder
+  exactly -- and the 4-byte alignment memset() then fires
+  unconditionally, writing 1-3 NUL bytes past the required
+  buf_free_len boundary; buf_free_len is only decremented after the
+  write. In compound requests the response buffer is shared across
+  commands, so a preceding command can leave a tight remainder and
+  the memset overwrites past the physical kvmalloc allocation into
+  adjacent kernel heap memory. The fix itself adds a single bounds
+  check ("if (buf_free_len < alignment_bytes)") before that memset,
+  skipping the padding instead of writing when it will not fit -- a
+  one-line change, trivial to backport.
 
 - Severity per the CNA metrics: 9.8 CRITICAL
-  (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H). Upstream KASAN:
-  slab-use-after-free in smb2_tree_connect (smb2pdu.c:2872).
+  (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H).
 
-Could you please queue the fix for 5.15.y?
+Could you please queue the fix for 5.15.y? The fs/ksmbd/ path form
+applies to the 5.15 rename, same as the recent get_file_all_info()
+backport on this branch.
 
 Thanks,
-[bnomran=E2=80=94 scofaild23]
+[bnomran =E2=80=94 scofaild23]
