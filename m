@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794121169;
-	b=YHmQbAHK6n0h2o9V0C4fiKgPvgbddscoKpJEWk9d64URhcRIL9vV6bitJUZfyq0zTxXi
-	 5dxVjUb+OzP3rcgRGQoXDlE2c6yIMWFXoxZQtVf8ZqGKSWI+DYjv3nynCgSUJMCoSPo1H
-	 jZPZwwDgTp77w6rAry8gCL4S2yJbbPQDb/xoKG9b6aeTJYrKE4osMImgugwThJ64PIi3m
-	 H/yuTBT5DIeS/SMlUtw+dCbTtz1JFln1BoeL/aZcmE5zEFs7yg4mN4egm+EEuNVJ604Ke
-	 7hhD1swXRhtdU9tgF2uA0+oMHuXM7ZZRpPRD+BsJ2yIW27NKHJSWwkOf5/5/mtoAtXA==
+	t=1794121172;
+	b=E8+JFl5Gt+0zrc2jAIzEZmLlK6N1KKe5ust+lkabo+c3sKisbIZh1TTTrFrKspT81sCu
+	 zDrjFyHsvAMlObnfVz6ZSA/3+NlBCU011dKlVkLFKw7zVvofl7+vbUBA+EFyvEgIRXmSQ
+	 bLxG3EqJy+BtEj38iRcWiJ+HWpu6jjda3i7+y2CjCAHUXeE8Bw+T8OOsN3U657fzwOg/B
+	 8E251IUar4/mGE/p32Sy5UCV9pJx2xCQH07P8jsmRkSLYYdhMNY5g5H8HoJjvdUFmcsMf
+	 T2agMLCdsNrvFS47qJ9nfdC2g+NAEGBxM57CuGFqOcnshilpL3RdC/OyRKfv0HOfd2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794121169;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794121172;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=TupQffIQ2RIrTTxvmihRQ2AE3+BnRRzJKFVznFFWYHE=;
-	b=1WOsciAAQEL75crC1vXwtD2xrYViTHGSBDRrwWkfKbq8BcWzXL4lS/uenX1f9KEGxyTw
-	 rvGG59eC1NtOjDDf6XESXbTvnn7S/YCIEuN6mcya+VzNqdwmj95Ui5TcC/BovMFwll8Tj
-	 P0Jz3maLcUAgX7E7xFmihmJSq1+MV3bOG3onsAVtN9TB5XOzlodL9fcLZ5m9GnjIW2izM
-	 92hep8vw6Hi0Blhlxt/A30VdlYr3j8Xg1KljJqdW+Ot/JL0wQ6nA4C/2jH/r9+y3oyztJ
-	 oN9MYCBMnidChokn+z1H/pCYY4pmSyamWZVocsRsNyYILXo9woQMAqV9LnDN0b5l/9A==
+	bh=vva7iXLKmqzxW6bOy9Y/PVkyCGWqTmEYhH94TgnKVwQ=;
+	b=kPNe2W2YzL3oO+TGLBqJUuB2hRZiK6gC5NgIxMiejnuUzoX2xEXrPlGxJkX9qhm2FT3s
+	 VHuYBlg6v5FV5wfmQruHsxmWRjxZgzIN5Yt0hiPFiQluGjH7PWeRJBqbXodGxoUBP5T52
+	 4TLGpbQ2WSBMrV7YQD3ndybAGAbx1u8abeUJFikbPAomQcqe91e78NO0CvfO2HgvrPwGV
+	 DloCV0grr1b4GSOv3K4JARx4Thd35zY6BKNao4XPvqWdr8lJ4/Vx9fw7xs0qliWrTnjn7
+	 B9SkMsBA+0j9C3gVmy+8puSt8rsuPtRG/r2lb208UsfoaJyPDYY/xsmfj2pN9GyyEQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mZkPxRwR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=neLHx5rF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72CCF606A331;
-	Sun,  8 Nov 2026 06:59:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD2F6606A323;
+	Sun,  8 Nov 2026 06:59:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mZkPxRwR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84EA51F008A1;
-	Sun,  8 Nov 2026 06:59:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=neLHx5rF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A22F1F008A6;
+	Sun,  8 Nov 2026 06:59:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794121169;
-	bh=TupQffIQ2RIrTTxvmihRQ2AE3+BnRRzJKFVznFFWYHE=;
+	s=k20260515; t=1794121171;
+	bh=vva7iXLKmqzxW6bOy9Y/PVkyCGWqTmEYhH94TgnKVwQ=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=mZkPxRwRsVE64BANolon3xxYqB4PqdbqnPKH0+KNwG67kh+jF60AfGefQuCORxwR0
-	 yCbKpfXSM+uP2jMBbfV9j4PWeA5BAjBKj3F3FKJbUjcnHT7zxrzxFHdJYSPT4m5QlF
-	 nwvSJbnMLYxdLO28sYs9LA7DisJ6hZfJTbk+N62oya3HO9DybNBzdaEpsVHr6iqITF
-	 6erwb6zImmwUK8xDBeJss29fjaOTm27atOj7jLBBCZR1EUic20/YUeTDthttFoGjvU
-	 dF6w9N1gRhI3Iu+T9xeKcfBR7wxOCgaCZK0SBpeCVWH5M2Pj+nWdjDvBLglGC8311u
-	 AsGL9ueo0ie6Q==
-Subject:
- Re: [PATCH net 2/3] net: enc28j60: disable work before freeing the netdev
+	b=neLHx5rFirJcj1fN5b+9sWjkf513iEWsGo4ex/spWYT3B41qzfbmTqcTcwAtFDRvJ
+	 3iHTMYTIq8SA1h5Fu+J/ck1GR52vLyI8SCHOUhVjDpvLw4owvhyfnYyeXvE8a0xTII
+	 MkLhvMA1Y3wRfYvXz3BJH/8vxfcDSZYI/JQUaBR0AlFtyV7pIu4pLwa6moJ2dqw8g5
+	 SJ1hQlGa6djQmBFbAboxMSZZqqaELyRim3Ge2nGsoaHLkBcYxEY5kFziPq7R0OgTU9
+	 +JM76HfSH82JkhMjhKSm+FDgz4JFb5qr4t8mgPWkNstBO7ALbSrM5TpjxUl9GnkHxF
+	 GSALqTtGtCK8Q==
+Subject: Re: [PATCH net] net: ti: icss-iep: fix deadlock when disabling PPS
 From: netdev-bot+sashiko@kernel.org
-To: 0xbeac@gmail.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
+To: hj351016@gmail.com
+Cc: danishanwar@ti.com, rogerq@kernel.org, netdev@vger.kernel.org,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Sun, 08 Nov 2026 06:59:28 +0000
-Message-ID: <179412116809.994134.6737039110469421460@kernel.org>
-In-Reply-To: <20261104063245.23402-3-0xbeac@gmail.com>
-References: <20261104063245.23402-3-0xbeac@gmail.com>
+Date: Sun, 08 Nov 2026 06:59:30 +0000
+Message-ID: <179412117075.994134.3223982666310946745@kernel.org>
+In-Reply-To: <20261107063726.3388730-1-hj351016@gmail.com>
+References: <20261107063726.3388730-1-hj351016@gmail.com>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -67,7 +67,7 @@ MIME-Version: 1.0
 Thank you for your contribution! Sashiko AI review found 3 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 1
+Critical: 0 · High: 0 (1) · Medium: 3 · Low: 0
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -75,162 +75,242 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] The skb in flight is leaked when the device is removed, and
-  the new teardown makes this worse.
-- [Medium] net: enc28j60: tx_work and setrx_work run after
-  enc28j60_lowpower() sleep
-- [Low] The commit message justifies disable_work_sync() over
-  cancel_work_sync() because it "rejects a later queue_work(), which a…
+- [Medium] The patch moves cancel_work_sync(&iep->work) out of the
+  ptp_clk_mutex critical section in icss_iep_pps_enable()…
+- [Medium] After the patch, an icss_iep_cap_cmp_work() instance can run
+  after icss_iep_pps_enable(0) has disabled and cleared the compare…
+- [Medium] The commit message says that because the compare is disabled
+  before the drain, 'no new work can be scheduled once the mutex is…
+
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but the shared
+  iep->work is never drained when periodic output (perout) is disabled,…
 
 --
 
-net: enc28j60: disable work before freeing the netdev
+net: ti: icss-iep: fix deadlock when disabling PPS
 
-This commit adds disable_work_sync() calls for tx_work, setrx_work and
-restart_work in enc28j60_remove(). They run after unregister_netdev() and
-before free_irq() and free_netdev(). The goal is to stop the work
-handlers from touching freed private data when they are pending or
-running at remove time.
+This commit moves cancel_work_sync(&iep->work) in icss_iep_pps_enable()
+out of the ptp_clk_mutex critical section. The PPS disable path then no
+longer waits for icss_iep_cap_cmp_work() while it holds the mutex that the
+work handler needs.
 
-> Unregister the interface first so the xmit and set_rx_mode paths can no
-> longer queue work, then disable the three works synchronously before
-> freeing the IRQ and the netdev.  disable_work_sync() drains a queued or
-> running instance and rejects a later queue_work(), which a plain
-> cancel_work_sync() would not.
->
-> Fixes: 3ec9c11da033 ("add driver for enc28j60 ethernet chip")
-> Cc: stable@vger.kernel.org # 6.10+
+> diff --git a/drivers/net/ethernet/ti/icssg/icss_iep.c b/drivers/net/ethernet/ti/icssg/icss_iep.c
+> index ec085897edf09..6264061a4eab3 100644
+> --- a/drivers/net/ethernet/ti/icssg/icss_iep.c
+> +++ b/drivers/net/ethernet/ti/icssg/icss_iep.c
 
-[Severity: Low]
-Is the "rejects a later queue_work()" justification accurate for this
-driver? The only schedule_work() callers are ndo callbacks:
+[ ... ]
 
-    enc28j60_send_packet()        -> tx_work      (ndo_start_xmit)
-    enc28j60_tx_timeout()         -> restart_work (ndo_tx_timeout)
-    enc28j60_set_multicast_list() -> setrx_work   (ndo_set_rx_mode)
+> @@ -607,7 +608,7 @@ static int icss_iep_pps_enable(struct icss_iep *iep, int on)
+>  	} else {
+>  		ret = icss_iep_perout_enable_hw(iep, &rq.perout, on);
+>  		if (iep->cap_cmp_irq)
+> -			cancel_work_sync(&iep->work);
+> +			drain_work = true;
+>  	}
+>  
+>  	if (!ret)
+> @@ -616,6 +617,15 @@ static int icss_iep_pps_enable(struct icss_iep *iep, int on)
+>  exit:
+>  	mutex_unlock(&iep->ptp_clk_mutex);
 
-None of these can run once unregister_netdev() has gone through
-dev_close() and dev_deactivate(). The threaded IRQ handler queues no
-work, and none of the three work handlers queues another work.
-enc28j60_restart_work_handler() also checks netif_running() under rtnl.
+[Severity: Medium]
+Once the mutex is dropped here, can icss_iep_cap_cmp_work() run against
+compare hardware that has just been disabled and cleared?
 
-The new comment in enc28j60_remove() says the same thing: after
-unregister_netdev() the xmit and set_rx_mode paths "can no longer queue
-new work". So it looks like cancel_work_sync() would be just as correct
-here.
+There seem to be two ways for this to happen:
 
-Because the patch uses disable_work_sync(), it carries "# 6.10+", while
-the Fixes: tag points at the original driver. The 5.10, 5.15, 6.1 and
-6.6 stable trees have the same use-after-free on remove.
+  - A handler already blocked in mutex_lock(&iep->ptp_clk_mutex) now
+    continues. This is the case the patch fixes.
 
-Could the commit message be corrected? Would using cancel_work_sync()
-let the fix be backported to those older trees too?
+  - A work item that was pending but not yet started begins running
+    between mutex_unlock() and cancel_work_sync(). In that case
+    cancel_work_sync() only waits for it to finish.
 
-> diff --git a/drivers/net/ethernet/microchip/enc28j60.c b/drivers/net/ethernet/microchip/enc28j60.c
-> index d6c9491537e47..bb29a94a1e2c1 100644
-> --- a/drivers/net/ethernet/microchip/enc28j60.c
-> +++ b/drivers/net/ethernet/microchip/enc28j60.c
-> @@ -1600,7 +1600,16 @@ static void enc28j60_remove(struct spi_device *spi)
->  {
->  	struct enc28j60_net *priv = spi_get_drvdata(spi);
+The handler doesn't check pps_enabled or perout_enabled after it takes the
+mutex:
+
+icss_iep_cap_cmp_work() {
+	mutex_lock(&iep->ptp_clk_mutex);
+
+	ns = readl(iep->base + reg_offs[ICSS_IEP_CMP1_REG0]);
+	...
+	ns_next = ns + iep->period;
+	writel(lower_32_bits(ns_next),
+	       iep->base + reg_offs[ICSS_IEP_CMP1_REG0]);
+	...
+	pevent.pps_times.ts_real = ns_to_timespec64(ns);
+	pevent.type = PTP_CLOCK_PPSUSR;
+	pevent.index = 0;
+	ptp_clock_event(iep->ptp_clock, &pevent);
+	...
+}
+
+icss_iep_perout_enable_hw(on=0) has just written 0 to CMP1_REG0/REG1. The
+late handler would then set CMP1 to 0 + iep->period, which undoes the
+"clear CMP regs" step. It would also send a PTP_CLOCK_PPSUSR event with a
+zero (1970) timestamp.
+
+pps_event() doesn't check whether PPS is enabled. It records the assert,
+increments assert_sequence, wakes /dev/ppsN readers and calls
+pps_kc_event(), all after userspace has turned PPS off.
+
+Before this patch, the blocked case deadlocked and the pending case was
+cancelled under the mutex, so this behaviour is new.
+
+Should icss_iep_cap_cmp_work() return early under the mutex when neither
+pps_enabled nor perout_enabled is set?
+
 >  
 > +	/*
-> +	 * Stop the interface first so the xmit and set_rx_mode paths can no
-> +	 * longer queue new work.  Then drain the works that were already
-> +	 * queued; the IRQ handler does not queue work, so the IRQ can be
-> +	 * released after the drain and before free_netdev().
+> +	 * Drain the capture-compare work only after dropping ptp_clk_mutex.
+> +	 * icss_iep_cap_cmp_work() acquires ptp_clk_mutex itself, so calling
+> +	 * cancel_work_sync() while the mutex is held deadlocks when a handler
+> +	 * instance is already running and waiting for that same mutex.
 > +	 */
->  	unregister_netdev(priv->netdev);
-> +	disable_work_sync(&priv->tx_work);
+> +	if (drain_work)
+> +		cancel_work_sync(&iep->work);
 
 [Severity: Medium]
-Does draining tx_work and setrx_work only after unregister_netdev()
-still leave a window where they touch the chip after it has been put
-to sleep?
+The drain now runs outside ptp_clk_mutex and doesn't re-check
+pps_enabled or perout_enabled. Could it cancel work that belongs to a
+later enable?
 
-When the interface is up, unregister_netdev() goes through dev_close()
-and calls enc28j60_net_close() before any of the new
-disable_work_sync() calls run:
+pps_enable_store() and period_store() in drivers/ptp/ptp_sysfs.c call
+ops->enable() without ptp->pincfg_mux. That means they aren't serialized
+against the PTP_ENABLE_PPS ioctl path or against each other.
 
-    enc28j60_hw_disable(priv);
-    enc28j60_lowpower(priv, true);
-    netif_stop_queue(dev);
+One possible sequence:
 
-enc28j60_lowpower() clears ECON1_RXEN and waits for ESTAT_RXBUSY and
-ECON1_TXRTS to clear. Then it sets ECON2_PWRSV. Nothing in
-enc28j60_net_close() cancels or waits for tx_work or setrx_work. An
-instance queued by enc28j60_send_packet() or
-enc28j60_set_multicast_list() just before the interface went down can
-still run after enc28j60_lowpower() has returned.
+CPU0 (disable)                       CPU1 (sysfs enable)
+icss_iep_pps_enable(iep, 0)
+  pps_enabled = false
+  mutex_unlock()
+                                     icss_iep_pps_enable(iep, 1)
+                                       program CMP1, set CMP_EN
+                                       pps_enabled = true
+                                     first CMP1 hit:
+                                     icss_iep_cap_cmp_irq()
+                                       schedule_work(&iep->work)
+  cancel_work_sync(&iep->work)
+    removes the new session's work
 
-In that case enc28j60_tx_work_handler() calls enc28j60_hw_tx(). That
-writes the frame into the TX buffer and sets ECON1_TXRTS on a chip that
-is in power-save mode with EIE cleared. This is the state that
-enc28j60_lowpower() polled to avoid. enc28j60_setrx_work_handler()
-likewise writes ERXFCON after the chip went to sleep. No TX interrupt
-follows, so priv->tx_skb is also left behind, as in the leak noted
-above.
+icss_iep_cap_cmp_work() is the only code that moves CMP1 forward. Once
+its work is cancelled, no further compare events or PPS pulses are
+produced, while the driver still reports pps_enabled == true.
 
-The disable_work_sync() calls in enc28j60_remove() come too late for
-this. They cannot undo a handler that already ran between ndo_stop and
-the disable. The same window exists on a plain ifdown, and on the
-close/open cycle in enc28j60_restart_work_handler().
+The other order is possible as well. Suppose an old-session work instance
+is blocked in mutex_lock() and gets the mutex after CPU1's enable. It
+would read the new boundary B from CMP1, write B + period and send a
+PPSUSR event stamped B before time B arrives. The first real edge of the
+new session would be skipped.
 
-Would it be better to cancel tx_work and setrx_work in
-enc28j60_net_close() before enc28j60_hw_disable(), and free any pending
-priv->tx_skb there? Those two handlers appear to take only priv->lock,
-so cancel_work_sync() under rtnl looks safe for them. That is not true
-of restart_work, which takes rtnl_lock itself.
+Before this patch the cancel ran under ptp_clk_mutex, so a concurrent
+enable had to wait for it.
 
 [Severity: Medium]
-Can this leak the skb held in priv->tx_skb?
+The commit message says:
 
-After enc28j60_send_packet() hands the skb to tx_work and returns
-NETDEV_TX_OK, the driver owns it:
+    The hardware compare is
+    already disabled by icss_iep_perout_enable_hw() before the drain, so no new
+    work can be scheduled once the mutex is released.
 
-    priv->tx_skb = skb;
-    schedule_work(&priv->tx_work);
+Is that guaranteed? icss_iep_cap_cmp_irq() reads pps_enabled with no lock
+and no ordering against this path. Nothing calls
+synchronize_irq(iep->cap_cmp_irq) before the drain:
 
-    return NETDEV_TX_OK;
+icss_iep_cap_cmp_irq() {
+	val = readl(iep->base + reg_offs[ICSS_IEP_CMP_STAT_REG]);
+	if (val & BIT(1)) {
+		writel(BIT(1), iep->base + reg_offs[ICSS_IEP_CMP_STAT_REG]);
+		if (iep->pps_enabled || iep->perout_enabled)
+			schedule_work(&iep->work);
+	...
+}
 
-The skb is freed in only one place, enc28j60_tx_clear(). That function is
-reached only from the TXIF/TXERIF handling in enc28j60_irq():
+Suppose a CMP1 hit was latched just before CMP_EN was cleared, and its
+handler on CPU1 has already read pps_enabled == true.
 
-    dev_kfree_skb(priv->tx_skb);
-    priv->tx_skb = NULL;
+CPU0 can then set pps_enabled = false, drop the mutex and call
+cancel_work_sync(). That call returns immediately because nothing is
+pending.
 
-By the time disable_work_sync() runs, this call chain has already masked
-all chip interrupts:
+CPU1 then calls schedule_work(), and the work runs after PPS has been
+disabled.
 
-  unregister_netdev()->dev_close()->enc28j60_net_close()->enc28j60_hw_disable()
+On teardown, ptp_clock_unregister() -> ptp_disable_all_events() ->
+icss_iep_pps_enable(0) runs first. After that the pps source and
+ptp_clock are released, and icss_iep_exit() sets iep->ptp_clock to NULL.
+A work item queued this late could call ptp_clock_event() on a freed or
+NULL ptp_clock.
 
-    nolock_regb_write(priv, EIE, 0x00);
+On PREEMPT_RT the handler is force-threaded and can be preempted between
+the flag read and schedule_work(), so the window is wider there.
 
-If tx_work is still pending, disable_work_sync() cancels it without
-running it. If tx_work runs during or after close, the frame is written
-to the chip with interrupts masked, so no TX-complete interrupt follows.
+The old code had the same race with a larger window. However, the commit
+message's argument depends on this window being closed.
 
-Either way, free_netdev() frees priv while priv->tx_skb is still set.
-Nothing frees the skb, and its socket wmem charge is never released.
+Would a synchronize_irq() after clearing pps_enabled, together with a
+state check in the work handler, close it?
 
-The new comment says this code will "drain the works that were already
-queued". But disable_work_sync() cancels a pending instance and only
-waits for one that is already running.
-
-The skb could be freed after the disable_work_sync() calls and after
-free_irq(), since the IRQ thread can still free it and clear the
-pointer. For example, just before free_netdev():
-
-    dev_kfree_skb(priv->tx_skb);
-    priv->tx_skb = NULL;
-
-Would that work?
-
-> +	disable_work_sync(&priv->setrx_work);
-> +	disable_work_sync(&priv->restart_work);
->  	free_irq(spi->irq, priv);
->  	free_netdev(priv->netdev);
+> +
+>  	return ret;
 >  }
+>  
+
+[Severity: High]
+This isn't a bug introduced by this patch, but the perout disable path has
+a related problem. icss_iep_cap_cmp_irq() also queues iep->work when
+perout_enabled is set, but icss_iep_perout_enable(..., 0) never drains it:
+
+icss_iep_perout_enable() {
+	...
+	ret = icss_iep_perout_enable_hw(iep, req, on);
+	if (!ret)
+		iep->perout_enabled = !!on;
+
+exit:
+	mutex_unlock(&iep->ptp_clk_mutex);
+
+	return ret;
+}
+
+On teardown, icss_iep_exit() unregisters the clock and sets it to NULL
+before perout is turned off:
+
+icss_iep_exit() {
+	if (iep->ptp_clock) {
+		ptp_clock_unregister(iep->ptp_clock);
+		iep->ptp_clock = NULL;
+	}
+	icss_iep_disable(iep);
+
+	if (iep->pps_enabled)
+		icss_iep_pps_enable(iep, false);
+	else if (iep->perout_enabled)
+		icss_iep_perout_enable(iep, NULL, false);
+	...
+}
+
+The ptp_disable_all_events() call inside ptp_clock_unregister() only
+disables EXTTS and PPS. The PPS disable returns -EBUSY while perout is
+enabled, so the work isn't drained there either.
+
+Can a work item queued while perout is active run icss_iep_cap_cmp_work()
+after this point? It could be queued before teardown, or by an IRQ that
+arrives before CMP_EN is cleared. If it runs, ptp_clock_event() would use
+a NULL or freed iep->ptp_clock and pps_device.
+
+This can be reached from ndo_stop via prueth_emac_common_stop(), or from
+prueth_remove(). It needs an IEP with an iep_cap_cmp interrupt and the
+icssg_prueth clockops, which set n_per_out = 1.
+
+Also, iep->ptp_clock = NULL is assigned without holding ptp_clk_mutex.
+
+Should icss_iep_perout_enable() also call cancel_work_sync() on disable?
+And should icss_iep_exit() drain iep->work before it unregisters the
+clock?
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261104063245.23402-1-0xbeac%40gmail.com
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261107063726.3388730-1-hj351016%40gmail.com
