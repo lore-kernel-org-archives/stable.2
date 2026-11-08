@@ -1,77 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794164749;
-	b=IRwurULyhm+wTumn40tQ8aZhW7htVNwsJCWHZiiQ8SZD2o8oreVMGIPvOFCSfCokjsrd
-	 WexL9fVyOf3U4N4uZpmJqSl/wf9na9IvSd/iu8hNC8HrXCwXwXQfcWv6n+goby+NjGSbS
-	 ZmI7Dae7au3r6ijnVnmiWHZKYXEWpmRPQ0L/GZegC22pIQhJKrJbwnGzjP9BN40XFsguw
-	 29u2qU2bsIPG/SsuppzHtfMINnoj7t1X1KlUn+4sPItv3x8TsIEYwHyvsj57GTNeJ7itt
-	 eIfsxUf/eUldAY2m0qpB+Rn3Wx0Lodt08hlXCaD9ZZ1kGKH6lAZ74ZF/NXcp32+a0Lg==
+	t=1794165749;
+	b=yaWalcaLHvs7qxl9h4bVBpa6dusCtgfT3acSI1yp23g8xW/YRuaqdwtDe7KqBcov0zZK
+	 wztiC6ffAzQTU90NXuwYmNV016cdkanD1Ti7De5/vIXPUCZCWHgpTKTO3WaLZTO9BiDlp
+	 48JT4+zNLyvpgYE+NT/V6ZwuTUMd4PKhIdccIkD3jaouy0SFN4PC8Da2Mu1ir+05/tW32
+	 k9Q9vgZRuDoqNmoIyRITAiL3ih79JhTeTT2TWw9sngs+qPwroVvTc5DocYD4BHJnLjOJL
+	 YVRA/4U+Dywos0pDKAaFrwvdKCMyGRmROatpeBux6oa/CNl6F3EdLyfGjXSW6+YI2SQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794164749;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
-	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
-	bh=rLyxJwr2Q1zmyzbvbW4Jg4mYpaRFZWR35m+j3Gs4cMU=;
-	b=v5MVoTZEb+FNmsW3+mcPNHWosCAG36gbi3T/XyV2QrhOSMaZ1ZOFxtgk7l6o5uEVYxj6
-	 4HUgJMZQTrR+ak9e2t+ysnd4WIV7HPKSvsEJfJZ5TEPtjfVzw3pCvBWsPndRamfT4eBvQ
-	 /wo9PqlY+7h4lPPQnDokEuxUWN8LW4IYmW1Vu7Krjo98TXN6aExyV9ZjmjNkk+yYJhByn
-	 xISvQPLPUg5QWLZ4Brn4SgjlUtsW1lsO82lV6j9Y7LXFOKsaj4XFkooVvJWOncTuMUE9K
-	 Wk6HNRC8fWw0ZuQhuaMf6ilHclbrxgqxfxm1tlYW2S7F7ykJDd1pRMev/XEteWIhtkQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794165749;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=7xZ+n0JvDN3hrYenLHVXLkTjZ+lK0ATIB/YUR73+pmo=;
+	b=uObHt9bU+urKriHwx9gMqxsag2XizG/NUfu+nF4u4Io2L74X1USmjuQZJbwXgeWHa+0E
+	 knYQiZTcFZOAEifGI7c7TpPBnk30jhXFI1/IyNBrl99pAJ0c4B331WKk/dLW4lHNtJ3Vb
+	 h1pO4PUBJ2y+K1jfQqc5hJ3AC3Jhql/XJQ6XXGI3XhFY17bdJyXwdYedqqap44erEZ8ia
+	 gyKGUfw5cpxgaEncK5WOGPcFoSXnLwR/M/l7btaTsmKlYo97l++NVANL3ZFUcKCU0TTFs
+	 xiQw4Ssa7O9md7sG1/CBwe0ZSEB3xCNpPBQBmoJQDy5vtR6XyL/EFUNFxIphuUYVaFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.cyber.gouv.fr;
-	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
-	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=a5SwbWrC;
-	arc=none smtp.remote-ip=51.159.188.251
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JTBMMTbL;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60FB7606A320;
-	Sun,  8 Nov 2026 19:05:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60FB7606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2FAC606A320;
+	Sun,  8 Nov 2026 19:22:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=a5SwbWrC
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References;
-	bh=rLyxJwr2Q1zmyzbvbW4Jg4mYpaRFZWR35m+j3Gs4cMU=; b=a5SwbWrCywIz3dU7Pd5cFDAovJ
-	tw1hgr/BiXpgfHmDacdZlRj1+jIEe9f9QDF5XE1GMEQyMAy3ENDUBtM6fwSiIimMTgBcOZzOWKtUX
-	m+9rAKuXEtL7N7bl+bZT7OBAKuOGgyVSsVSNq5O8uufgFwtt40p3BXSI38F7m3t6/HDLkBBBWycqw
-	xhkvHRBjX9rdMgpVQnRmwtiCIXqqH/rpSGY7ixvOEyjv3dtgsbx6Wb5iLvRdNGIAgKcaPyLFzxMZn
-	WUGPxze9Lu+1LYeboGWEw3DI44JTkjYHZnxvSmCCT1HwEv8+VjhioWMfqdXE/Gumlka30XCl4wRVK
-	oZ5TfiAg==;
-Received: from [151.115.150.205] (port=41786 helo=gepetto..)
-	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
-	id 1xQ8D4-0000000GibV-17vF;
-	Sun, 08 Nov 2026 20:05:46 +0100
-From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Mike Rapoport <rppt@kernel.org>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Mimi Zohar <zohar@linux.ibm.com>,
-	Roberto Sassu <roberto.sassu@huawei.com>,
-	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>
-Cc: Eric Snowberg <eric.snowberg@oracle.com>,
-	linux-integrity@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JTBMMTbL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40A2B1F008A1;
+	Sun,  8 Nov 2026 19:22:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794165749;
+	bh=7xZ+n0JvDN3hrYenLHVXLkTjZ+lK0ATIB/YUR73+pmo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=JTBMMTbLmUld9NcT0MS7oZ0BCP8jdLSQulpaGGpnXINKh66sW+/iol7TkF1T3exKz
+	 //Fu+UMBhlvYt1A50YESr532I14L6CUWHmrZvYGcCqIakeRopKz4ruUtOaUIePHsU3
+	 zc2c4mO3304UNg4o4VPPoGSfXBdvgARmm9JkH6Eu+TwQpTPbizhqCl45na1haSDuL/
+	 TVvif5LeaTXjBL0UllBP56f7WUpx3dWIpGomfHPj+alf7ack/dgXtu8h84cKRE8WWF
+	 7Vf7z4Er4lsuS6v9sa3ap3lSh9J1SHclSLbIgXTq60u/pSz9VBkUYghIJiuWoCj8wd
+	 HTA2n9CUrAFXg==
+From: SJ Park <sj@kernel.org>
+To: stable@vger.kernel.org
+Cc: SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Usama Arif <usamaarif642@gmail.com>,
+	damon@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	kexec@lists.infradead.org,
-	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
-	stable@vger.kernel.org
-Subject: [PATCH] ima: fix kexec measurement buffer overflow after failed loads
-Date: Sun,  8 Nov 2026 19:04:04 +0000
-Message-ID: <20261108190404.1397829-2-Jeremy.Jean@oss.cyber.gouv.fr>
+	linux-mm@kvack.org
+Subject: [PATCH 6.18.y 1/5] mm/damon/core: skip applying scheme if region split for quota fails
+Date: Sun,  8 Nov 2026 11:22:16 -0800
+Message-ID: <20261108192221.114362-2-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261108192221.114362-1-sj@kernel.org>
+References: <20261108192221.114362-1-sj@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -81,107 +62,104 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
 
-When kexec_file_load() fails to install a new image, it can leave the
-global IMA scratch buffer larger than the IMA segment of the current
-image. When that image is executed, ima_update_kexec_buffer() copies
-the larger log past the end of its reserved segment. In a test, KASAN
-reports it as:
+Patch series "mm/damon: fix DAMOS bugs in core, paddr and vaddr".
 
-  BUG: KASAN: vmalloc-out-of-bounds in ima_update_kexec_buffer+0x265/0x280
-  Write of size 868426 at addr ffffc9000004e000 by task init/1
-  ...
-  Call Trace:
-   ...
-   __asan_memcpy+0x3b/0x60
-   ima_update_kexec_buffer+0x265/0x280
-   ...
-   blocking_notifier_call_chain+0x88/0xb0
-   kernel_restart_prepare+0x18/0x40
-   kernel_kexec+0xe4/0x130
+Fix misc bugs of DAMOS.  Patch 1 makes DAMOS less stress memory allocator
+under extreme situation.  Patches 2 and 3 fix wrong folios walking in
+DAMON_PADDR.  Patches 4 and 5 fix wrong folios walking in DAMON_VADDR.
+Patches 6-8 handle extreme and unlikely memory situations that can cause
+divide by zero and underflow.
 
-Limit the dump to the smaller value between the scratch size and the
-installed image segment size. Update the IMA mapping only after
-machine_kexec_post_load() succeeds.
+All bugs are discovered by Sashiko.
 
-Fixes: 9f0ec4b16f2b ("ima: kexec: move IMA log copy from kexec load to execute")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+This patch (of 8):
+
+damos_apply_scheme() splits a region and apply the action to the subregion
+if it is needed for not violating the quota.  The split operation
+(damon_split_region_at()) could fail for allocation failure.  In the case,
+the quota could be violated.  From the user's perspective, DAMOS becomes
+more aggressive than expected under the extreme situation.  Handle the
+failure.
+
+The user impact is not critical.  The failure of damon_split_region_at()
+is unlikely since it is arguably too small to fail.  Also DAMOS being
+aggressive is limited to the single region.  Users can set min_nr_regions
+to set the maximum size of each region.  If it is reasonably set, the
+transient overhead shouldn't be critical.
+
+The issue was discovered [1] by Sashiko.
+
+6.18.y porting notes.  Modify damon_split_region_at() to return
+failures.  It is a part of commit c60874860762 ("mm/damon/core: handle
+region split failure in apply_min_nr_regions()").  Without it, build
+fails.
+
+Link: https://lore.kernel.org/20260901131850.98037-1-sj@kernel.org
+Link: https://lore.kernel.org/20260901131850.98037-2-sj@kernel.org
+Link: https://lore.kernel.org/20260718171523.87547-1-sj@kernel.org [1]
+Fixes: 2b8a248d5873 ("mm/damon/schemes: implement size quota for schemes application speed control")
+Signed-off-by: SJ Park <sj@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Cc: Usama Arif <usamaarif642@gmail.com>
+Cc: <stable@vger.kernel.org> # 5.16.x
+(cherry picked from commit 90c2fa6adfed7abe0935506a43cdff3a05c1fff0)
+Signed-off-by: SJ Park <sj@kernel.org>
 ---
- kernel/kexec_file.c                | 6 ++++--
- security/integrity/ima/ima_kexec.c | 8 +++++---
- 2 files changed, 9 insertions(+), 5 deletions(-)
+ mm/damon/core.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-diff --git a/kernel/kexec_file.c b/kernel/kexec_file.c
-index b668ce8d68eed..0b3245389b758 100644
---- a/kernel/kexec_file.c
-+++ b/kernel/kexec_file.c
-@@ -206,11 +206,13 @@ kimage_validate_signature(struct kimage *image)
- 
- static int kexec_post_load(struct kimage *image, unsigned long flags)
- {
-+	int ret = machine_kexec_post_load(image);
-+
- #ifdef CONFIG_IMA_KEXEC
--	if (!(flags & KEXEC_FILE_ON_CRASH))
-+	if (!ret && !(flags & KEXEC_FILE_ON_CRASH))
- 		ima_kexec_post_load(image);
- #endif
--	return machine_kexec_post_load(image);
-+	return ret;
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index 8fa788b0d709c..4c536a9b958e4 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -1700,7 +1700,7 @@ static void kdamond_tune_intervals(struct damon_ctx *c)
+ 	damon_set_attrs(c, &new_attrs);
  }
  
- /*
-diff --git a/security/integrity/ima/ima_kexec.c b/security/integrity/ima/ima_kexec.c
-index 0d845693a1f78..f7be8d85bb9a7 100644
---- a/security/integrity/ima/ima_kexec.c
-+++ b/security/integrity/ima/ima_kexec.c
-@@ -65,7 +65,6 @@ static int ima_alloc_kexec_file_buf(size_t segment_size)
+-static void damon_split_region_at(struct damon_target *t,
++static int damon_split_region_at(struct damon_target *t,
+ 				  struct damon_region *r, unsigned long sz_r);
  
- 	ima_free_kexec_file_buf(&ima_kexec_file);
+ static bool __damos_valid_target(struct damon_region *r, struct damos *s)
+@@ -2000,7 +2000,8 @@ static void damos_apply_scheme(struct damon_ctx *c, struct damon_target *t,
+ 					c->min_sz_region);
+ 			if (!sz)
+ 				goto update_stat;
+-			damon_split_region_at(t, r, sz);
++			if (damon_split_region_at(t, r, sz))
++				goto update_stat;
+ 		}
+ 		if (damos_filter_out(c, t, r, s))
+ 			return;
+@@ -2454,15 +2455,17 @@ static void kdamond_merge_regions(struct damon_ctx *c, unsigned int threshold,
+  *
+  * r		the region to be split
+  * sz_r		size of the first sub-region that will be made
++ *
++ * Return: 0 on success, negative error code otherwise.
+  */
+-static void damon_split_region_at(struct damon_target *t,
++static int damon_split_region_at(struct damon_target *t,
+ 				  struct damon_region *r, unsigned long sz_r)
+ {
+ 	struct damon_region *new;
  
--	/* segment size can't change between kexec load and execute */
- 	ima_kexec_file.buf = vmalloc(segment_size);
- 	if (!ima_kexec_file.buf)
- 		return -ENOMEM;
-@@ -98,12 +97,14 @@ static int ima_dump_measurement_list(unsigned long *buffer_size, void **buffer,
- 	struct ima_kexec_hdr khdr;
- 	int ret = 0;
+ 	new = damon_new_region(r->ar.start + sz_r, r->ar.end);
+ 	if (!new)
+-		return;
++		return -ENOMEM;
  
--	/* segment size can't change between kexec load and execute */
- 	if (!ima_kexec_file.buf) {
- 		pr_err("Kexec file buf not allocated\n");
- 		return -EINVAL;
- 	}
+ 	r->ar.end = new->ar.start;
  
-+	/* A failed replacement load may have resized the scratch buffer. */
-+	ima_kexec_file.size = min_t(size_t, ima_kexec_file.size, segment_size);
-+
- 	memset(&khdr, 0, sizeof(khdr));
- 	khdr.version = 1;
- 	/*
-@@ -239,7 +240,8 @@ static int ima_update_kexec_buffer(struct notifier_block *self,
- 		return ret;
- 	}
+@@ -2472,6 +2475,7 @@ static void damon_split_region_at(struct damon_target *t,
+ 	new->nr_accesses = r->nr_accesses;
  
--	ret = ima_dump_measurement_list(&buf_size, &buf, kexec_segment_size);
-+	ret = ima_dump_measurement_list(&buf_size, &buf,
-+					kexec_image->ima_buffer_size);
+ 	damon_insert_region(new, r, damon_next_region(r), t);
++	return 0;
+ }
  
- 	if (ret)
- 		pr_err("Dump measurements failed. Error:%d\n", ret);
+ /* Split every region in the given target into 'nr_subs' regions */
 -- 
 2.47.3
-
