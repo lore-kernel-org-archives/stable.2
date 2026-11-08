@@ -1,95 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794160486;
-	b=LpB4PSSA7ZgXDEUS6w1cnSR1OjplDY0AyJCL7zrfuUf9gQqih31SzI+A9tc4ls1qaLNc
-	 7ACSfiw8TRkcJRaG1kLScliun9Y/KO2cwS0sJ8zMD1dAIEhnTDopiCeEq6v/yNV9ktxQD
-	 7dLusi3lk7KHq+/LbzWKQutETxQb0lBZqLGv+2woFglJgmwMckrgMNnYCJM1zmPK3DcYq
-	 Dtn1fOHUUUovk0Pu1FjaUJn6sPp+Csio9i9lVg28UB9KZ1cu8nh41LJMjz2Ni6Es9reI/
-	 VrBT6bL8p+1Qnlk5nGrjvc83fvUmQIH5Ln3/Gys6Q+MK2Qt7xS5UVSjZHDq7YDfw1Aw==
+	t=1794160920;
+	b=bxg7Iw5sKKs+60enRwYIOXfRXLdTZQ0Tbmj0wtTHbSYkihfN3Kyjan6ksayElcbF/Vm0
+	 o+g5hP88scuCkN3atAdY5qJXNkfOphX924j4YZaQZxLsaJCwGvIyP4Wzf8MmRbqaZkUOx
+	 zckcndcqxs1/9a6qVWNx58x2SvduAi5YolZS6Qudi0sm8UAQZFwZzXs4Tv7OmGo99Za1I
+	 Bb0l8e0dy53uA7qiaebZM/UYiL8FDCO5GbY8KCFgpXsMTAU1es3Bcqrajyu51exc6eMy0
+	 MItmwtgKFQ1lTYotpeMluifc/Ygorj6+0exAyY0Dz27i09F2vp16fK3NgmofTFrRh6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794160486;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794160920;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=XN+82m6XILmToReUZb14mcLlVGl4HvQRUT+BvYNhBMU=;
-	b=x3lxII1y+mKMZfSKZgqQFfteVwYCKlPBMcUMY+IZqa3zJ6+v7qZOeU+fnY9WHZ0ZR4gA
-	 qieoJQ3dqNVJdw9yicUkeXaSBcgez1bR+m7PF6rMRI36xtB6rSTyETa9m+1h2jMEqGXZR
-	 zv2B1+dBbF9d2uZBoiTIKqYg2qBmulsT0bv8O38olwR+1Nre1GIwAYbB9lAT2mME0JxOd
-	 hZpRBPU9ejHR0101CZpjpjEm9IhQfXQl1Y7Uko+ua6Wlz2vikjPTuU/8FtM5clU9MELoe
-	 X7GtkCVvQcf4nBk5Z6MXKMyrLXj5dDrp2vs8lvksZfLB/slZihJUW2kejTs4FJMM6HQ==
+	bh=AryQU7CqG24/r+NiOYec3B/lZ+GdRJNknAEAX2AGwNI=;
+	b=ufuLv5fClotYJXgN7DOZuw/9YQPOPzyTnFrfO1uiSFsvTp6R1JUjSdZUPxmujzzEYvbJ
+	 5xcy6Kc0mwWu28iClhTdb+Kedk3R0UikxX8bQqU5kXSszWSIT705pMkifS0BT10VNJ9+/
+	 44FRgrbhwgdyDX/ZuThWAAyWWe2nUYK+r7uIqIBa2crCFzMHEIZLVvB9Y+GijgEolxwtR
+	 2wKHiSW9WZ957B+Ri5zv3A2XwZf2lzYW/F3SJ0dcfS3bwDSU1w2fvlSPC4vMB8fIu6Qks
+	 QM2xU+cEIAPrQis3iHau6HeVSv4K7Zzm54K6N+ZoHz+4BPITXBhxM2H799P3Qq44wrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="w9rbpO/f";
-	arc=none smtp.remote-ip=74.125.82.173
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ctrdQGuK;
+	arc=none smtp.remote-ip=74.125.82.182
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09117606A320
-	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 17:54:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09117606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2B27606A320
+	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 18:01:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2B27606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=w9rbpO/f
-Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-372bdb942dbso308203eec.1
-        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 09:54:45 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ctrdQGuK
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-36f6295304dso200462eec.1
+        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 10:01:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794160485; x=1794765285; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794160919; x=1794765719; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XN+82m6XILmToReUZb14mcLlVGl4HvQRUT+BvYNhBMU=;
-        b=w9rbpO/fro2/aQIsj9ctujKJ+4OaThbesS0tp253vPawbzRxfHE1lc/B1jxzwhvncg
-         UlMFZ8snjPx2Y93HabO9prT68I6Tzx5bgPVaeECgfXSIsy4SFdZGfkoBZs4y10K5SwKM
-         To0utznSCySu6J5IH7rBy3DlsKv3HcOoKViax9PCzBCfHhaszeAsD0HM7mBKgJmA2gJt
-         a5ipiA8v8qzidRHlEfElIVT4pTS8TmeW1JcV+rf4gwoMgwiB727a9HX2uo5OReWHFynd
-         6/Neosestl1XtTIqkd9oEXH3z9ed18WFiNMIiUFkMuXFnCs58DV/n/7bl/X4hIlqOPH+
-         t1lQ==
+        bh=AryQU7CqG24/r+NiOYec3B/lZ+GdRJNknAEAX2AGwNI=;
+        b=ctrdQGuKBIDYxv+Pr5fuEd9lWvvp/+ykFKPPW6jyc51ty42U/81eMwrhyGbHajr0pB
+         /ECkIFQr2fzCw8v2m/8Pv8MGfPc25QEQUpZtGgfdzsdLKukCpoj83UjukbPrdjOS6Fs7
+         GvJsgbS6fNHA20ITNDawIdpcFbAYmXdDUwpbSCez3CeRPaXBZP2pAKyBGIDK7QoQ5uHM
+         XSWTh9qXlTSFjpsUjoDuLvi02LjObwJ0vwHN6ZlpH4fSZlA3Y1V7yWSvkq6clZzgok/l
+         Wcq8YUgg8Fk2Nt6SxJJ3KA5Q+nNc+dWTVXkKrtEGlMeey95GAYFtcRfZrxRoXlISLJRe
+         zzgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794160485; x=1794765285;
+        d=1e100.net; s=20260707; t=1794160919; x=1794765719;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=XN+82m6XILmToReUZb14mcLlVGl4HvQRUT+BvYNhBMU=;
-        b=y/YE0aS/FDGqmS35Q9BCgyrw/fF9Phmmx45S9wPD6Df1RImjO0MvbKZv5JDf9gOee2
-         7bc4Jc3bWDzyMPQxQJAb7pBmsVvVyQuDzBcPJGn6h8qZomfganLJ3OVej9Q+U7+oeAJt
-         BrMcmbrHhkgqAQgh9PxXzsII2pXps+eXWsgU/HzsrsiDmeXh2O4tIYEEdFFZmoObA+Fy
-         9ZSS1kyLnOk/78JdePKIdvDoCJcePwsagpgh0102QYqYHotnbrhWRN1/hsBvtE0VP9Fg
-         1/B9b2UBrOYo19gDZhsFdm/oprIJWc4poAlzQQHyys95B0+GvmVP/YVM4lAwAkA8XqmO
-         2Skw==
-X-Forwarded-Encrypted: i=1; AL+hErHfS9tao/7+5OY79KYZq4HM4jss6mPUK1Ud5xOSb6qMMt9Osf+0F9HlDaxgs7dlzha/lMyV2GE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/kSHNnNe+QEOqcRJYqr8tD88fF0XiInqvdaDGDQXX5hlLEuWuV
-	1AJN1tF4ihDMUDGOMKG6ZoLPL4UjVlXvmWNcLWhknIm58m9dXz2BY9jM
-X-Gm-Gg: AYBFou120lmtfmGGvQX4CW9s7hVDX94scY7GZDkaw43axaAicQg2XC2sRuuc8M5E1qN
-	K0noIYgVWPESClVrK6Dv8TAWupNBIGCYY4njyzZ/YGCDNVHJnudf2mtIK1IIO8w2i0I7Nq7hkI4
-	pk+E5Ay1/izGnM7wRx0ro25rzKTp7vKmjUxqe55ieSCx51hMFLxKfobquJvDRA8Lf4o4cj5hJ+g
-	ARR/LJB3I+eO4yHglzI8oCRwlER3zwKcidOYU4YdsaSzN6dhQDioAwFoKmHYWNHnK3WhMxArXDw
-	5mtCYtHKKjIZiRfqD4Ei3QKJStEIrTRy0FTJb69GRnUm2xpB09lvzvsqgU/oO/ire9oij+hZP8j
-	2on0tpFJab4Iw1jOGQ3ae+pJ5SpPtoCnsbyg7KUCoKoBdo289lPelqlZ9cLEZV+j6vEKZ/ccpos
-	VcUSMWs8TG/heoyKLGIY2amFkaDyHMlBAJABXFWZU4oBaF1AbIO3Kk4IQ4DaIK8byp7MljLWxeV
-	dnbwTXtGyPHLghod0+WfIQWSFHrg4a/a8U1JhUDjK980QXv+k8KA/9uFkcxLCEJLhipSn+xXAmo
-	MQ8diU4MUjQy/aX3RNk3D1fEO/JPXziMQcTY6rE5scgpEuXT
-X-Received: by 2002:a05:701b:260d:b0:196:7742:3928 with SMTP id a92af1059eb24-1b39fdaf0c3mr2557319c88.0.1794160484955;
-        Sun, 08 Nov 2026 09:54:44 -0800 (PST)
+        bh=AryQU7CqG24/r+NiOYec3B/lZ+GdRJNknAEAX2AGwNI=;
+        b=mBmrb38Ze/c+14xRN2vbrXJJsSgmV6hnnC8wywplH/4FsDATvtWMYb9zf60VILuyWC
+         DXsZlaBSHXTzrvqToculba5AaZ5H0KPFKpTOkni5n0h6KgiTAWgZiL+B1eqSa2EmE1ut
+         I52HeWkV6WKmbFEa8M0DJHv+FChfPECJYBJ3+1QOgf+ECznAwm5upfHVs2l4aoQ3An76
+         4bHigzi2H+wVXBboW0mNbgL2Wn4bidrqxlPXOCFgP/QgKTfupLlQlHH3E1N9WRZ1wI/h
+         9B+V95laXPK+R1XhyuG499jo6tL/Zsi5KyIf6ZW4MXSDokQM1SIunZLRJkNlJ+/HldBy
+         8b5w==
+X-Forwarded-Encrypted: i=1; AL+hErEdSnsl0yGO8iCszgcGKRGVfdKOg4zhQZN08inuMmD7mlQzbuQw/JTFvEiMzKDMxy/s3bLxxm4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8TOAgjdWbM+TJyvv3MTETqJrlaI+fMxfbHnb5xchdBT7BzyJPp
+	C+32EON53DeWbjbcyZhL4EYrVpLyYTYoWVWF3uPs0LQJFpSzT44s2ZERuszBEndm
+X-Gm-Gg: AYBFou2fmiy6C5qBsmbGYDVBZsE0m8UmrOQetT/Dg22JraqfxZtxG7h/OCJn9rbx05k
+	maa/DvkMA6e7U8qBEfZnaYZx7/c+ddqZrsNwiXrxlok7WT9nj/LkqZxB4CB7kr3LyL/LSfMVTJe
+	dm4+8/f1qvZEtkWAueFfJAD1Z59AkLIntvLX6bjYL9yqoSeOMxiInQF26tYc+YyLeiTZV/zSGo4
+	5djdvf/nwk2dzTqJft0s8hWm05JDsLmiF3hwAP7QiSCFW8mwMbWKaCYmUswyH0pRTdYoI3UDcyh
+	hWFfQeQuetBujU6aWCdbzrj7oRif86nlLS8bkCzPW9D0fUc8uWxZHsz+fOxeTiZ2P3uxEdupOi8
+	dWiQAw1hm/zd6ulUtSOzZt2dxz1Jy3yQufrN9Acuy3BRCbs7vLrSAaNPeRPMt1cGJjkV8JLE818
+	j4S01yQgA/RPfB7xnXw9v622R9Y8C6EI5aKZvEQY3ngy0jsYY5NMHuR8+ItpIwR27HOTqRKngqv
+	yUzxBCsTJtUYKKqDYHA9hA0AMNgRRCslaPUvemcY/MSCG7QF5bQKRKN7WP4U1gjts8fMIewC+XC
+	i7l1YpsIkVMfT0E44eiA+AShu7pp2/dEMvDTWzb+2TKh5culI542kbXj86qO5vH2wnh00g==
+X-Received: by 2002:a05:7300:c3a5:b0:373:5561:8d06 with SMTP id 5a478bee46e88-37355618d75mr936629eec.37.1794160918896;
+        Sun, 08 Nov 2026 10:01:58 -0800 (PST)
 Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3771ea85bsm7386310c88.18.2026.11.08.09.54.42
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-372667d60absm7072856eec.26.2026.11.08.10.01.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 09:54:44 -0800 (PST)
+        Sun, 08 Nov 2026 10:01:57 -0800 (PST)
 From: hyunjungg <hj351016@gmail.com>
-To: Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
-	Andrew Donnellan <andrew+kernel@donnellan.id.au>
-Cc: Frederic Barrat <fbarrat@linux.ibm.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linuxppc-dev@lists.ozlabs.org,
+To: Damien Le Moal <dlemoal@kernel.org>,
+	Niklas Cassel <cassel@kernel.org>
+Cc: linux-ide@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Hyunjung Ko <hj351016@gmail.com>
-Subject: [PATCH] ocxl: cancel xsl fault work before freeing the SPA to avoid use-after-free
-Date: Mon,  9 Nov 2026 02:54:35 +0900
-Message-ID: <20261108175435.725507-1-hj351016@gmail.com>
+Subject: [PATCH] ata: libahci: delete the SW activity blink timer on port stop
+Date: Mon,  9 Nov 2026 03:01:34 +0900
+Message-ID: <20261108180134.734111-1-hj351016@gmail.com>
 X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -104,50 +101,62 @@ Content-Transfer-Encoding: 8bit
 
 From: Hyunjung Ko <hj351016@gmail.com>
 
-The XSL translation-fault interrupt handler schedules
-spa->xsl_fault.fault_work (xsl_fault_handler_bh), which dereferences the
-fault and the SPA (via container_of) and acks the interrupt. free_link()
-calls release_xsl_irq() -- which frees the XSL interrupt so no new
-fault_work can be scheduled -- and then free_spa(), which frees the SPA.
-Neither cancels a fault_work that was already queued by the last
-interrupt. As it runs on the system workqueue with no timing bound, it
-can execute after the SPA has been freed, dereferencing freed memory --
-a use-after-free.
+The software activity LED support arms a per-EM-port timer (emp->timer,
+ahci_sw_activity_blink) from ahci_sw_activity() on I/O, and the timer
+callback re-arms itself while the LED is blinking. The timer lives in
+struct ahci_em_priv inside the port's ahci_port_priv, which is allocated
+with devm_kzalloc() and freed when the port is torn down.
 
-Cancel the fault work in free_spa() before the SPA is freed. By that
-point release_xsl_irq() has freed the interrupt, so the work cannot be
-re-queued and cancel_work_sync() is sufficient. The interrupt top half
-takes a reference on the faulting mm that the bottom half is expected to
-release, so if cancel_work_sync() cancels a not-yet-run work, drop that
-reference here to avoid leaking it.
+ahci_port_stop() never deletes this timer - nothing in libahci does - so
+when the SW activity LED is in use and the AHCI port is stopped (driver
+unbind / module unload) while the blink timer is still pending,
+ahci_sw_activity_blink() runs after ahci_port_priv has been freed and
+dereferences the freed ahci_em_priv (use-after-free).
 
-Fixes: 5ef3166e8a32 ("ocxl: Driver code for 'generic' opencapi devices")
+Shut the timer down in ahci_port_stop() for every link's em_priv before
+the port private data is released. Because the callback re-arms itself,
+use timer_shutdown_sync() so a concurrent re-arm cannot resurrect it.
+em_priv entries without an armed timer are zero-initialised, for which
+timer_shutdown_sync() is a no-op.
+
+Not tested on real hardware (needs an AHCI controller with SGPIO
+enclosure management and the software activity LED enabled).
+
+Fixes: 365cfa1ed5a3 ("ahci: Move generic code into libahci")
 Cc: stable@vger.kernel.org
 Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
 ---
- drivers/misc/ocxl/link.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/ata/libahci.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/drivers/misc/ocxl/link.c b/drivers/misc/ocxl/link.c
-index 7749dcd..1c2a89e 100644
---- a/drivers/misc/ocxl/link.c
-+++ b/drivers/misc/ocxl/link.c
-@@ -376,6 +376,15 @@ static void free_spa(struct ocxl_link *link)
- 		link->dev);
+diff --git a/drivers/ata/libahci.c b/drivers/ata/libahci.c
+index 001a6f5..873645c 100644
+--- a/drivers/ata/libahci.c
++++ b/drivers/ata/libahci.c
+@@ -2605,9 +2605,23 @@ static void ahci_port_stop(struct ata_port *ap)
+ {
+ 	const char *emsg = NULL;
+ 	struct ahci_host_priv *hpriv = ap->host->private_data;
++	struct ahci_port_priv *pp = ap->private_data;
+ 	void __iomem *host_mmio = hpriv->mmio;
++	struct ata_link *link;
++	struct ahci_em_priv *emp;
+ 	int rc;
  
- 	if (spa && spa->spa_mem) {
-+		/*
-+		 * A pending xsl fault bottom half holds a reference on the
-+		 * faulting mm (taken in the top half, released by the bottom
-+		 * half). If we cancel it before it runs, drop that reference
-+		 * here so it is not leaked. release_xsl_irq() has already
-+		 * freed the xsl interrupt, so no new work can be scheduled.
-+		 */
-+		if (cancel_work_sync(&spa->xsl_fault.fault_work))
-+			mmput(spa->xsl_fault.pe_data.mm);
- 		free_pages((unsigned long) spa->spa_mem, spa->spa_order);
- 		kfree(spa);
- 		link->spa = NULL;
++	/*
++	 * The SW activity LED blink timer (emp->timer) is armed from the I/O
++	 * path and re-arms itself; shut it down before the devm-allocated
++	 * ahci_port_priv it lives in is freed, or it can fire against freed
++	 * memory.  timer_shutdown_sync() also stops the self re-arm.
++	 */
++	ata_for_each_link(link, ap, EDGE) {
++		emp = &pp->em_priv[link->pmp];
++		timer_shutdown_sync(&emp->timer);
++	}
++
+ 	/* de-initialize port */
+ 	rc = ahci_deinit_port(ap, &emsg);
+ 	if (rc)
 -- 
 2.43.0
 
