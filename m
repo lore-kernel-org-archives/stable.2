@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794164059;
-	b=DDYGywVe3PewnZdGnEx/uto+cDHf1+RQJqyy/PbdrP2wFJtZg/QgVQyHAFL0lqWDeJvd
-	 wUxagHlLBaaVHz5urlzAKvWzLc4fCcziSUIx5aWHF1na4ME/ZWOLNPOx0tv42pv1JQIZt
-	 +uyf80yVsoMOuK7M6WwHfb/IMXhUtILTYvfl1Oty2Z/4HLJJogcL0CQkWcxdAJYu4Zxaa
-	 gG2SVzNc+TLalH7IfEnrXThrvDSeIQ2fqFhns2iHCUYxv9oQtmRdGaaV+7qKOqi5PsOPF
-	 VWt/YZTcYwJNR5BMp2L4E+mONPkxiFBwoaLpLgRobtL+Cud/3aRVjBr/854EdWln/fw==
+	t=1794164060;
+	b=z0RnW9nGXt4xPztEx2U1STtYv6KDfTAL2uy6Wshw/8ut+k2Ia+vXRHt0JjUCjdwD3OJ4
+	 XCas+E732ZP7XIMSdfRYMD5/3RWUgUzJseE/ktMA87CRJe2gRImxXMcKczmnhaiGc0Lx6
+	 2zuBEyM+eXNCDUUhDKGuqtgvQ4SArDmksnVy4j4xuc1eo1fBfMNRgL3jY3Fh0wfU9nBzd
+	 BiQ91E/QwzkHBfyh9i8R63IDEpUy7jpl7g6tY9Lt1DcEbkVQjFLQ8cdTrDfX07YJhb979
+	 dzcVb7kHnAUKqFqV9DcnZTBdsukuB2VfNPGLBK5pmpX+Msy3RHtYIxfifCWMtCsC9sw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794164059;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794164060;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=3vLJVwKqGHJhLlHReq62MZN5HmY6eP1Wndxuj2uS7zo=;
-	b=kUo+wyFVFcsFr1yYxfGs3WYAGKWpL6bm9BpsiQ2lXCXMZzYjAqrAW+0iHStamj3rErWp
-	 U5LL9WYs+NxmdEjU1eZmxwTxDRpAu6WHgpxpYjt0kVLq7tWwAHSB2uIpgqfDfrpvvZ+E7
-	 tvNNOEf0R1f+6+uJsYMCEiolC1C3gpIXPq3GTeM44QpKjY44Ynb5Pu0+2COmYux1unitI
-	 H+lcM87LXO08aCgFn+kQoWpaoKLdppeioB1035/9gZbj9+ddgwU1uQMlMPFuqW/fHaQqm
-	 vPaqhBIiKnpatsZVrXmYfoSZYUU8ZFxATXUo0bN7/icmE4jG9vJrJVgYtpb6NT21Bpg==
+	bh=SS+vpTwF7aYGcVFIu25OvHq8MDgMdEnsaAm/PnqTQBk=;
+	b=d+agdUEQuWqWDyHPK435XwDaw6BLGdWRMewI+Qn1wI2nMpr1tj2yRe3MhjvXZOLuxz3N
+	 sppjY0Q1G7mHb/zvdM4mzuDPUCcAl+KvzfZxmMUNlU+XmkJvN8euKb+j6Lso9VDGXWuWK
+	 FusaeJN8MrYxzp0hBtEiiXIAsjY0pM7p/jyyD4NyHmwRZE4Dq9wVMOUeZP1Mmgww121fF
+	 hc92tUXOdeV6C+raNooiiJq+0jbDom+GdD4SBUuwnMD8ehrmqGgu+ZYT/qaw+++Cb08wi
+	 0QJuanYO3QXim7sV4jH8wQON5mDXVImw0KOhPFfHCQ5kyML6ExxvUvIm8JHiW4uid6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=efficios.com;
 	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=eT0P43lH;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=qfCDaPHJ;
 	arc=none smtp.remote-ip=158.69.130.18
 Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 898A5606A33A;
-	Sun,  8 Nov 2026 18:54:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 898A5606A33A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64EE6606D80F;
+	Sun,  8 Nov 2026 18:54:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64EE6606D80F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=eT0P43lH
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=qfCDaPHJ
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=smtpout1; t=1794164057;
-	bh=3vLJVwKqGHJhLlHReq62MZN5HmY6eP1Wndxuj2uS7zo=;
+	s=smtpout1; t=1794164058;
+	bh=SS+vpTwF7aYGcVFIu25OvHq8MDgMdEnsaAm/PnqTQBk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=eT0P43lHUNGm2iheVFNAN4hIwAjXiczN4YymPdatdw6wurn57jIxSoqf3tPk7/CYv
-	 c52vlSK/WSJcYCkP7uwTPrMmbffRw2r7f8/19/MbIZyPKMY8dDCpPzxy3x/3eN8lya
-	 L0mf50xOYaKiK3h7sBP15q0VdT0/7FVkS0HeFK/+9mB+0Be8r125W4PVL+jIj7rzFj
-	 +2otLHeFYznZ6/BS5Sb/8W/tY9fvJw+M7nU1L6JKbE+2EP4tzNNH/eeyhvOmC7JUid
-	 YMMN9nb53pYwCQMNTwf4IanNrWSKUZCELKyUBTsYMBoXVcWYWxDljDv9bMqSgcB+ya
-	 u0oEuwgTMDsGw==
+	b=qfCDaPHJGAM3H6tRuzcVIxsmH9HgdSQ8k6cHJHQtMqjsFjcMrNKPq8hCOKuJ0/uB2
+	 IHJlq8PqFL1oTZCGjebA9TTu9pcmRXWg/nA/GnMsrqUHhUQ72cYoEImchpwnxCOL3O
+	 zvq2feqhkAFwvmCtRGam414wUc0f7kE/vfr8Lg2ecjxGOxDYloomY0dMRQjhlPU9iF
+	 qhpUkBZaaknBjYLKmY9IvT5EIIwJFmb9+cv82rBPXYI/OqUqIPI5S3nB0q8ADcFFl5
+	 Jp9FNkWGOLJMS50TI3Roj1LikUH8RCAilQA7jkK0fks8Z3vhRNv0kHBYhRoJ+nU/se
+	 rZKFqBVbWaJ1Q==
 Received: from thinkos.internal.efficios.com (unknown [64.58.40.251])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jN2Bx3RwbzMcs;
-	Sun, 08 Nov 2026 13:54:17 -0500 (EST)
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jN2By2bB4zMG8;
+	Sun, 08 Nov 2026 13:54:18 -0500 (EST)
 From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 To: juri.lelli@redhat.com,
 	peterz@infradead.org,
@@ -80,9 +80,9 @@ Cc: linux-kernel@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	linux-rt-devel@lists.linux.dev,
 	stable@vger.kernel.org
-Subject: [PATCH v5 03/29] sched/deadline: Do not admit bandwidth for parameters that are kept
-Date: Sun,  8 Nov 2026 13:53:40 -0500
-Message-Id: <20261108185406.1549770-4-mathieu.desnoyers@efficios.com>
+Subject: [PATCH v5 05/29] sched/deadline: Do not divide by zero active CPUs of a root domain
+Date: Sun,  8 Nov 2026 13:53:42 -0500
+Message-Id: <20261108185406.1549770-6-mathieu.desnoyers@efficios.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
 References: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
@@ -97,56 +97,109 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-__sched_setscheduler() runs the deadline admission test on a request
-with SCHED_FLAG_KEEP_PARAMS. But the task keeps its parameters: the
-call skips __setscheduler_params().
+__dl_sub() and __dl_add() divide by their cpus argument. Most callers
+pass dl_bw_cpus(), the number of active CPUs of a root domain. That
+number can be 0, and the division then traps.
 
-Commit f4dddf90d58d ("sched: Skip priority checks with
-SCHED_FLAG_KEEP_PARAMS") made sys_sched_setattr() copy the task's own
-parameters into such a request. Then the priority checks pass.
-get_params() copies them without a lock.
+Commit daec57983670 ("sched/deadline: Reclaim bandwidth not used by dl
+tasks") added extra_bw, the bandwidth that deadline tasks can reclaim
+on a runqueue. A change of a root domain's total_bw is shared by the
+extra_bw of its active CPUs.
 
-Another call can change the task's parameters before
-__sched_setscheduler() takes the runqueue lock. The request is then
-stale, and dl_param_changed() takes it for a change. sched_dl_overflow()
-would put the stale bandwidth in place of the task's own in total_bw,
-and in this_bw for a sleeping task. But the task keeps its own dl_bw.
-Its release at the 0-lag time takes that dl_bw, and the difference
-stays behind.
+During hotplug, a CPU sits in the default root domain, which can then
+have no active CPU. This lasts from the rebuild in
+sched_cpu_deactivate() to the offline, and from the online to
+sched_cpu_activate(). A debugfs write to its fair server's runtime or
+period divides there. Commit 4043f5498416 ("sched/deadline: Reject
+debugfs dl_server writes for offline CPUs") refuses the write only once
+the CPU is offline. A write of the same bandwidth passes admission in
+the window. In 8-CPU VMs of v7.4-rc1, a loop of such writes oopses at
+the first offline and online:
 
-Fix this by skipping sched_dl_overflow() for SCHED_FLAG_KEEP_PARAMS.
-There is nothing to admit for parameters that are kept.
+  Oops: divide error: 0000 [#1] SMP NOPTI
+  RIP: 0010:dl_server_apply_params+0x335/0x380
+  Call Trace:
+   sched_server_write_common.isra.0+0x1c0/0x260
+   full_proxy_write+0x58/0x90
+   vfs_write+0xcb/0x550
 
-Found by reading, after the Sashiko AI review of the first posting of
-this series raised the boosted case of the previous patch. Not
-reproduced: the parameter change must land inside that window.
+By reading, two other paths would divide by zero:
+- inactive_task_timer(), for a task that left SCHED_DEADLINE or died,
+  if its CPU went offline.
+- sched_setattr(SCHED_DEADLINE) on a task asleep on an offline CPU,
+  with admission control off.
 
-Fixes: a509a7cd7974 ("sched/uclamp: Extend sched_setattr() to support utilization clamping")
+Fix this in two places:
+- Refuse the debugfs write while the runqueue is offline. The server's
+  bandwidth is not counted then. rq->online is set under the runqueue
+  lock when the CPU joins a root domain that counts it, after
+  cpu_active() is set.
+- With no active CPU, have __dl_sub() and __dl_add() change total_bw
+  alone. This covers the other paths.
+
+With this patch, the reproducer survives 20 rounds with no warning.
+
+Fixes: daec57983670 ("sched/deadline: Reclaim bandwidth not used by dl tasks")
 Cc: stable@vger.kernel.org
 Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 ---
- kernel/sched/syscalls.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ kernel/sched/deadline.c | 11 +++++++++--
+ kernel/sched/debug.c    | 10 +++++++++-
+ 2 files changed, 18 insertions(+), 3 deletions(-)
 
-diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
-index 0e8b5c7324f6..894f93a80d5d 100644
---- a/kernel/sched/syscalls.c
-+++ b/kernel/sched/syscalls.c
-@@ -690,8 +690,13 @@ int __sched_setscheduler(struct task_struct *p,
- 	 * of a SCHED_DEADLINE task) we need to check if enough bandwidth
- 	 * is available. Keep this check last. If a later check failed,
- 	 * nothing would give back the bandwidth it reserves.
-+	 *
-+	 * With SCHED_FLAG_KEEP_PARAMS, the task keeps its parameters, so
-+	 * there is nothing to admit. The parameters in attr may also be
-+	 * stale: sys_sched_setattr() read them from the task without a lock.
- 	 */
--	if ((dl_policy(policy) || dl_task(p)) && sched_dl_overflow(p, policy, attr)) {
-+	if (!(attr->sched_flags & SCHED_FLAG_KEEP_PARAMS) &&
-+	    (dl_policy(policy) || dl_task(p)) && sched_dl_overflow(p, policy, attr)) {
- 		retval = -EBUSY;
- 		goto unlock;
+diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+index dfae08625342..b614d5fc1a1a 100644
+--- a/kernel/sched/deadline.c
++++ b/kernel/sched/deadline.c
+@@ -189,18 +189,25 @@ void __dl_update(struct dl_bw *dl_b, s64 bw)
  	}
+ }
+ 
++/*
++ * Spread a change of total_bw over the extra_bw of the active CPUs of the
++ * root domain. @cpus is their number. With no active CPU, as can happen
++ * during CPU hotplug, change total_bw alone.
++ */
+ static inline
+ void __dl_sub(struct dl_bw *dl_b, u64 tsk_bw, int cpus)
+ {
+ 	dl_b->total_bw -= tsk_bw;
+-	__dl_update(dl_b, (s32)tsk_bw / cpus);
++	if (cpus)
++		__dl_update(dl_b, (s32)tsk_bw / cpus);
+ }
+ 
+ static inline
+ void __dl_add(struct dl_bw *dl_b, u64 tsk_bw, int cpus)
+ {
+ 	dl_b->total_bw += tsk_bw;
+-	__dl_update(dl_b, -((s32)tsk_bw / cpus));
++	if (cpus)
++		__dl_update(dl_b, -((s32)tsk_bw / cpus));
+ }
+ 
+ static inline bool
+diff --git a/kernel/sched/debug.c b/kernel/sched/debug.c
+index e6a3b516c703..e0d6cd3bd607 100644
+--- a/kernel/sched/debug.c
++++ b/kernel/sched/debug.c
+@@ -410,7 +410,15 @@ static ssize_t sched_server_write_common(struct file *filp, const char __user *u
+ 			return  -EINVAL;
+ 		}
+ 
+-		if (!cpu_online(cpu_of(rq)))
++		/*
++		 * Refuse the write while the runqueue is offline. This
++		 * includes the windows where the CPU goes offline or comes
++		 * online. The root domain then does not count the server's
++		 * bandwidth, and may have no active CPU. rq->online is set
++		 * under this lock when the CPU joins a root domain that
++		 * counts it. cpu_active() is set before that.
++		 */
++		if (!rq->online)
+ 			return -EBUSY;
+ 
+ 		update_rq_clock(rq);
 -- 
 2.47.3
 
