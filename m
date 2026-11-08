@@ -1,65 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.15
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794115708;
-	b=FcECsO7cIvYChUSOPLAfIxdNDjxvS988U833rAjAFYg8ILS21VucloYbCPwEBlqfkULl
-	 NqEsnFwHzNhwCHZC4w5NSkMMgC2AGHeynE/ZvRsnTNgE8Z0l9PVavs+jKHifqE3LjGd19
-	 iAZD4BM+jOi+hTSZ6O1udElpGnjvyBGtUDz93DTxJnS5udYTj2h2TQidMepFngRWQjllS
-	 AHIrDWaDzGgkJo/VHtZEB2agV2KYGiLUuFL1Syvsvq5yUNFZcFtjGu1Y2lpAvOfV0g1Zj
-	 Yhmrjxh9GXosHmaKtpDIZ9qeIr/5nCeVlyQpuoPaNbBTLzpsB0cLcCAzREdPXDVtYHQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794115708;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=jGfSOo4/qi2MGnClnBBICNQN29SKcOZpaXj2n0mUyuc=;
-	b=pU1cH2jW9Xf4m1tKEFtGwwDPZKsFbiZ+NgpOu6fOS31EG5QolzwIJXdDKfcHsu2G8pdd
-	 Oqm4wSQVIrBiuWEYtykuAEg2qziSAPOhvbtNljUbDb2humTXJtS2IK7E44Zn1rMW/eI3z
-	 pXjVstEIXZo1G0Yt9swx+cLRz3bjhVGx16E/kAWq6fTdfnULQC/euGmAcbJuFnR8M9QS7
-	 kCPE0Ds3o1Y619VF4G5XELmgunAibpJbnRivNN+Shz+4EXokTkCLPyh80cMqVxZ/lKrOU
-	 QA9on6RJEpD0tQvFJd9cR1KWyQq8AC4aME2nZuNxs+Zkp5TahFg46Bhmk7V/wKyE0Sg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iav.lv;
-	spf=pass smtp.mailfrom=iav.lv;
-	dkim=pass header.d=iav.lv header.i=@iav.lv header.a=rsa-sha256 header.s=zoho header.b=LTSKy4jf;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.15
-Received: from sender-op-o15.zoho.eu (sender-op-o15.zoho.eu [136.143.169.15])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E12CA606A31A;
-	Sun,  8 Nov 2026 05:28:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E12CA606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iav.lv
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794115831;
+	b=uRUZJrpNzXK+jDA6GHfoLRhhPBGYB7pVnrQI7gJv4g7+PsCHDWq4U0FJ/1LzMe1yJ/H9
+	 b0jET8YPh3AeXtFbgWwjG2JPPpWlgTsoz0ZnJJ0FLX2owBLF3ceh09uDh1QTD92bvtOJ8
+	 BwFPC7mKzwX+aaTP5bKj49U/nUJoaOjoLc5mVSt7r6mbSV8frFkLHa1oHFYJ96yA1OhpW
+	 AcAkks6qLfBKfvc6Ce6XsCI38hQ0MZHjO6xQd6rjdP1YSgYTZ7hlfbgKK1SwfblgVguN8
+	 jnsAlCMKikDDr9mjIHNSdn+2BymCL5fJhAhA8qXibpqtE6jeRwK0aYo14NuWrbSlWJw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794115831;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=vbEpgxz4sVD3mNL1jqD1O1PKL8o5YBWuqb4l0sIq1ZE=;
+	b=deb7PDoLdxY+KXWpSCKN4sNsfFIaG9/7UTVlXWM1nPWfUL4V5EoH8WY1aY/spbmNGVWh
+	 3x/ILB9YLDlX5fSKmgZJMSBM4dO/YFQTjuOL+Q3cJqF0xvWOCbJVxX187nrb7L7A4QZwE
+	 E+sZXhkIYgNWewibn3w2gi1sd37lq5wilf1kb7Np/XYphYk0y6w4RwPFSAHZBnUkl8M8P
+	 wfgdV50H1YYRuwog46RqGxmIE68zpEWP64eW7c/7lJGymD3vAzKT7fQqEhXwLf6gcuag1
+	 DihIDuCd+T6B8qE5wMUnvZFAUobdRd6G+IKR0IiFzmsSO1hrX1h/1GMCUIkPRrSl8Pg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=GtXLjA2t;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B7681606A31A
+	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 05:30:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7681606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=iav.lv header.i=@iav.lv header.a=rsa-sha256 header.s=zoho header.b=LTSKy4jf
-ARC-Seal: i=1; a=rsa-sha256; t=1794115674; cv=none; 
-	d=zohomail.eu; s=zohoarc; 
-	b=XaDun2aI3VXKS8HtZd+yySF0ZLe3CF5r3ExAuLuPKKx0JPHbs0rTF+Ln4jKACVMfd3reZ0IYPK35VZSugyhKmQWCjzXRh+wi5Gyw8lePYkxmv8W1NnxYnKcbbv9KHogN1VvyarP70xjYDa4Ir/GQyAuGIfe4Z35CsUJHYe0Q8W4=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
-	t=1794115674; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=jGfSOo4/qi2MGnClnBBICNQN29SKcOZpaXj2n0mUyuc=; 
-	b=ijKjBOhklnUbfI/HrWdXM411YhCL5/tHCAGJj/SaUHjxwrIxxsDCSQjjCWmNWyGBYwGTXQKg82pZe8Kb6e37h9mcULfHleof7sEqRs++6eMId7d7//j5ffogbtQpXNgyy9d2f3AgLHQtw1vu/yRIEioQlxxyGRHrH9SimmbpW20=
-ARC-Authentication-Results: i=1; mx.zohomail.eu;
-	dkim=pass  header.i=iav.lv;
-	spf=pass  smtp.mailfrom=iav@iav.lv;
-	dmarc=pass header.from=<iav@iav.lv>
-DKIM-Signature: a=rsa-sha256; b=LTSKy4jfnYXdYo5kn8T4282HmTTFRwKWUeXdGV5PjsEDWR/48r9Fz7lrQ4RSowu+ST8yPOEU5MeHHN3b3BGMxOj0pB+zdcv2D3moehXbfNkJ19XCNZR5KIXMGTa6+vvv0D4wldWwoPKzmiADT4fTuFJELS6raoZvLwBVecAAM40=; c=relaxed/relaxed; s=zoho; d=iav.lv; v=1; bh=jGfSOo4/qi2MGnClnBBICNQN29SKcOZpaXj2n0mUyuc=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zoho.eu with SMTPS id 17941156724621020.6302714073776;
-	Sun, 8 Nov 2026 06:27:52 +0100 (CET)
-Date: Sun, 08 Nov 2026 07:27:51 +0200
-From: Igor Velkov <iav@iav.lv>
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- Jianqun Xu <jay.xu@rock-chips.com>, linux-gpio@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Igor Velkov <iav@iav.lv>
-Subject: Re: [PATCH] gpio: rockchip: restore interrupt settings after hibernation
-Message-ID: <20261108-re-heiko-gpio-rockchip-hib-1@iav.lv>
-In-Reply-To: <9970336.2WqB4rESCP@phil>
-References: <20261107-b4-gpio-rockchip-hib-v1-1-19f4d163a55e@iav.lv>
- <9970336.2WqB4rESCP@phil>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=GtXLjA2t
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C12D8152B;
+	Sat,  7 Nov 2026 21:30:25 -0800 (PST)
+Received: from thinkpad-e142931.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 570983F632;
+	Sat,  7 Nov 2026 21:30:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794115828; bh=yv49NO0eLLUbklg23CJ7sdd/RqUNVCdDN1eU5ZpyV8I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=GtXLjA2t1ZUhUYhDMJnVVvyPZSYXp+XHSjVaG3OXMl8rfHp6BNKP9rdgyJqwyYq14
+	 yBKh+871YDJw87BZR6yUYE88Pm2me+dXAH0p94zHmNKsQiHICDd4bKWfFGTb0HmHA9
+	 VqRQPukGYmwhVYyFAtsrDoPNbWNHM4XgOxAsyhV4=
+Date: Sun, 8 Nov 2026 05:30:21 +0000
+From: Wei-Lin Chang <weilin.chang@arm.com>
+To: Oliver Upton <oupton@kernel.org>, kvmarm@lists.linux.dev
+Cc: Marc Zyngier <maz@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
+	Steffen Eiden <seiden@linux.ibm.com>, Fuad Tabba <fuad.tabba@linux.dev>, stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/8] KVM: arm64: nv: Disallow KVM_CAP_ARM_MTE +
+ FEAT_EL2
+Message-ID: <nln54klqhvfxdd56uemeqcbb2bmsjyjfia3c4esglvjppcajhd@jnr3qpzgvyyg>
+References: <20261106183154.3590825-1-oupton@kernel.org>
+ <20261106183154.3590825-2-oupton@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,24 +62,92 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261106183154.3590825-2-oupton@kernel.org>
 
-Heiko Stuebner wrote:
-> This looks sensible in general, but I wonder what happens with the other
-> registers of the gpio-controller here after hibernation?
->
-> Like does the direction + output value, debounce get restored from
-> some other means?
+On Fri, Nov 06, 2026 at 10:31:47AM -0800, Oliver Upton wrote:
+> KVM's nested implementation already hides FEAT_MTE and its laundry list
+> of derivatives from an NV guest. While good, this is insonsistent with
+> the UAPI which does not explicitly prevent the combination of MTE and
+> NV.
+> 
+> Bite the bullet and refuse to create a nested VM if KVM_CAP_ARM_MTE has
+> been enabled.
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: a7484c80e5ca ("KVM: arm64: Allow userspace to request KVM_ARM_VCPU_EL2*")
+> Signed-off-by: Oliver Upton <oupton@kernel.org>
+> ---
+>  Documentation/virt/kvm/api.rst |  1 +
+>  arch/arm64/kvm/arm.c           | 16 +++++++++++-----
+>  2 files changed, 12 insertions(+), 5 deletions(-)
+> 
+> diff --git a/Documentation/virt/kvm/api.rst b/Documentation/virt/kvm/api.rst
+> index e95c9cda085d..4ce4166d415f 100644
+> --- a/Documentation/virt/kvm/api.rst
+> +++ b/Documentation/virt/kvm/api.rst
+> @@ -3602,6 +3602,7 @@ Possible features:
+>  	- KVM_ARM_VCPU_HAS_EL2: Enable Nested Virtualisation support,
+>  	  booting the guest from EL2 instead of EL1.
+>  	  Depends on KVM_CAP_ARM_EL2.
+> +          Cannot be enabled if KVM_CAP_ARM_MTE has been enabled for the VM.
+>  	  The VM is running with HCR_EL2.E2H being RES1 (VHE) unless
+>  	  KVM_ARM_VCPU_HAS_EL2_E2H0 is also set.
+>  
+> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+> index 157bf4b81202..4108ff30830c 100644
+> --- a/arch/arm64/kvm/arm.c
+> +++ b/arch/arm64/kvm/arm.c
+> @@ -480,7 +480,11 @@ int kvm_vm_ioctl_check_extension(struct kvm *kvm, long ext)
+>  		r = cpus_have_final_cap(ARM64_HAS_32BIT_EL1);
+>  		break;
+>  	case KVM_CAP_ARM_EL2:
+> -		r = cpus_have_final_cap(ARM64_HAS_NESTED_VIRT);
+> +		/* Nested virt is incompatible with MTE */
+> +		if (kvm && kvm_has_mte(kvm))
+> +			r = 0;
+> +		else
+> +			r = cpus_have_final_cap(ARM64_HAS_NESTED_VIRT);
 
-Hi Heiko,
+More of a question, do we really want to consider VM feature
+compatibility during KVM_CHECK_EXTENSION?
 
-No, the driver restores nothing else: after a power loss the bank comes
-back as the boot kernel left it. Debounce requested on a line was lost on
-both ODROID-M1 (GPIO v2) and ROCK Pi 4A (GPIO v1); direction and output
-matched only because the boot kernel sets them the same way.
+This duplicates the checks which is a bit error-prone. For example I
+think we need to also update the KVM_CAP_ARM_EL1_32BIT case to check
+kvm_has_mte() if we want to do this. Additionally the information
+reported can still become stale if userspace changes it afterwards.
 
-v2 will save and restore the output, direction and debounce registers
-too, as gpio-dwapb does.
+OTOH the KVM_CAP_ARM_MTE case becomes awkward, as its contract states it
+needs to be enabled before creating vCPUs so it is strange for it to
+check for whether there are vCPUs initialized with NV.
 
-Igor
+Thanks,
+Wei-Lin Chang
+
+>  		break;
+>  	case KVM_CAP_ARM_EL2_E2H0:
+>  		r = cpus_have_final_cap(ARM64_HAS_HCR_NV1);
+> @@ -1793,13 +1797,15 @@ static int kvm_vcpu_init_check_features(struct kvm_vcpu *vcpu,
+>  	    !test_bit(KVM_ARM_VCPU_PMU_V3, &features))
+>  		return -EINVAL;
+>  
+> +	/* MTE is incompatible with AArch32 and nested virt */
+> +	if (kvm_has_mte(vcpu->kvm) &&
+> +	    (test_bit(KVM_ARM_VCPU_EL1_32BIT, &features) ||
+> +	     test_bit(KVM_ARM_VCPU_HAS_EL2, &features)))
+> +		return -EINVAL;
+> +
+>  	if (!test_bit(KVM_ARM_VCPU_EL1_32BIT, &features))
+>  		return 0;
+>  
+> -	/* MTE is incompatible with AArch32 */
+> -	if (kvm_has_mte(vcpu->kvm))
+> -		return -EINVAL;
+> -
+>  	/* NV is incompatible with AArch32 */
+>  	if (test_bit(KVM_ARM_VCPU_HAS_EL2, &features))
+>  		return -EINVAL;
+> -- 
+> 2.47.3
+> 
