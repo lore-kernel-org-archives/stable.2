@@ -1,115 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.150
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794179668;
-	b=joiTPkA9ZdQ6APRdmyQ/JqrMDsSmlcEBRfcVFYFwBPcpH1KymsQUGCWZmLll7z3eaXiX
-	 PmBcL+G8tCtsrC6WEVBQoK4ikEq8xnu8zp/VkC9V6yfcrlBmpWeFtjtdeWVJwbB/Y0G6X
-	 sqODcnir0c0q97XJRjUrGghlerrZHz3MipXaAy7NR7Ll+ZX2EOdp/qxwLi3pSRlt9cMrI
-	 8jNToi7ysrGPT6asuiaNnBeI43jJStYFbBaIQBWtWsamGsrl/7EKsmFbHFV9KKufntmYf
-	 R922Bt9PQS1Sz1cu7z1Y4oS6s5KPkv5fAgrUZFNTK3Rqw+G9AzS1NCp+XwvRpQmvUnw==
+	t=1794180474;
+	b=qpI6id4FRQUXlMw2HDVlTEGG2OKHV7ap4wMdzzd3EqY0Vid6Qd+07kJfx9Lf3d7runPU
+	 jTVAAaTMofr6RDBOjyynUXbTXn5z81cuQsrEP7g8viYM7kFdRA1Ba/QLEsDPzYu3TqYU2
+	 gO1JoCAKN6FhU6P/CAyMJI4PqYodDIsCN0uYBl67rKlelCLK/zefFM3WvH9gUJT4n13Lk
+	 3IkZNu1xEwwCK77frL6W9S0+rSIfb0xD35MHO99conVoRN9o++rreSI4Paa3w0+rTBGjt
+	 tBrQaLSqfBcEuTtPj304lAzpDOFzyKCkdO6eyWGle1HZzSi/tK26qqFrAYYh35fuLGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794179668;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=aNB/opGGS4qMBZv8n499yIWWeHjKzqKUsbpAFqdeC60=;
-	b=XBDhq33UeiTZiBWKJ6VL3pqbdnbAZkWu2les7a1VpdHfPldCltwYgwctYRjgbXzkFoJz
-	 JkVeoOk7E+ph9biDOSXmqCVS2s/vPg2D8tfGKJuKP+CgMolStrKpgWWqd0PTDMTURqqOu
-	 kKstB86o8NnQuVFT2/cVTsvfjRuhJtPN8m9IYQrex5VwRy75B5Z3H9MEuOmomj/8/3daA
-	 XtDKG+R2Idbr16fWS0YACxuNQOpK1t6irLU0wpW4plnI2mJ6ZaizfrsYxRAVPIl+jOBZm
-	 SfzLsEOEpvegEr+g2IEoNN5xcsfZpHuev5lLgPd2e2UDo1oZ6CZ9+YhV34vp6iu924Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794180474;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=29ND1xXn3ELD+DnjwkyWpaNhwBfnd9yLmIeaLt62EPg=;
+	b=KdmM64EElTGpWDmawWkBCi+pj7A7XS1uXqdcJZ9L98yC//lJhmuyD35jXFSbkRBpUYYJ
+	 NDHrwKhlzf9OEjsz6hfcBtYZDsC1cBJ3e2nwvjQDPCrbzNP0Nr5wrZc3ZjPObcO8reWEc
+	 4d15ItkvrQr30E6WL28rvKEu7QHWmD9sDlnhBNSpG2f1HIzx+FJT3DsUrt6Qr9430fe7k
+	 XppwrVs9biJuDe7q417VKQ4t0Lu1xbWAjH8MNvzBtxIBWwwjZ79WFkqseFrQTTeyKMxHU
+	 ZRhlfPfUzDcse3yPiJ7b2uTqx2u3ZN8nXicAsegLM07R50gcvlI2yMVJb5Y3UHsjIZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pobox.com;
-	spf=pass smtp.mailfrom=pobox.com;
-	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b="KwuWbxw/";
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=X2P1bdvb;
-	arc=none smtp.remote-ip=202.12.124.150
-Received: from fout-b7-smtp.messagingengine.com (fout-b7-smtp.messagingengine.com [202.12.124.150])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=r45ucx9p;
+	arc=none smtp.remote-ip=209.85.210.54
+Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com [209.85.210.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAAF2606A320
-	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 23:14:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CAAF2606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 409AD606A320
+	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 23:27:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 409AD606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=KwuWbxw/;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=X2P1bdvb
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfout.stl.internal (Postfix) with ESMTP id 1C3891D000C6
-	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 18:14:27 -0500 (EST)
-Received: from phl-frontend-01 ([10.202.2.160])
-  by phl-compute-01.internal (MEProxy); Sun, 08 Nov 2026 18:14:27 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1794179666;
-	 x=1794266066; bh=aNB/opGGS4qMBZv8n499yIWWeHjKzqKUsbpAFqdeC60=; b=
-	KwuWbxw/zo5TLrD2TcYvheNN/qkTpIVJx+2rHWLGVioQsfRkj685yibqOrrvSz0m
-	40v9gg+I055zObbUdZTVm+XGeqqvDi6VxzpEPn5wNt17cxvL+tZLCWVomN2YuVYw
-	9rGghAxaN0H82ZOmlyWdmma5ulGYhsKzG9wlZO7gPUQkulL3No5h1ar0f6QrQ0Z3
-	kavXLZ+CILHL4N9cAEEhKlresJsgiY9VIOCt8UfqJ/hP1yXySr14AGZclPwhQJq1
-	PZKsfUag+SHY37cJ1b9FWyt38Bwf8UNnY6MTW7AhWLVc7gUSLDZ15zvyDV27S0Cd
-	tmFrX8i5EliZia0g0bzHiA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794179666; x=
-	1794266066; bh=aNB/opGGS4qMBZv8n499yIWWeHjKzqKUsbpAFqdeC60=; b=X
-	2P1bdvbQyaENQwR4FX2wXrWhFGKkE785tadR6ZvnFQ6mNGlS2obqXaoU1J8+HR18
-	K9t/5GWY5xM7QRabjotWO3EK5r1O2dDVXAG4kwZJslBKRCu5SJCPDxI7ySvlTn9N
-	f4EfR/rCZM8iriHUBmX+NllE+7bdYHq9pNfrMyFOqCIt16dZlupEhYfF7afJ1Ede
-	X+afkJpHFxQOOH2rQUZforbo5COOBvVqtWo03XvL+arNitQX3MRrgHnlZW4j/aXw
-	WAIawD5IidM5qpQSJxT2vMJheQNMovOS/1xkmmtPlW5Bf8sW4pJHmo9BOJT0jNTO
-	PZGBMPNKRkgz5yE9dccog==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=pobox.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794179666; d=pobox.com;
-	mf=PGJhcnJ5bkBwb2JveC5jb20+;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:DsUZhqNl9iU7WYY06yX5yERlThWUFOIgK1kIVVEcn3cCpih
-	vbCw77TD7+s8TwUYgeSPL5m/910Gq6ej+laRYAJESJTMc6n9zBpsZxYw+U87UDTp
-	aLSP6ZDJ/m4U4NEn91M3FcWR/lGFfnjF3BAqRXDik0tye1MaoylrM5ELq/TKIFpg
-	Ecz2xUr85cKb3z9iu52giN9pM7NOM+B5z+vKWHv42aXhkWxg9YWf7se6dOkl0X5l
-	/YlOljxvvf5v2xtNPY+T80yrXAAOigR+S2BAL/rnlQSlthtjR1OEc/d1qA1s7ve8
-	luUYh8Uo68FnyN+4fUk2q1GDvmQTVIBZjUjab3g==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=14;
-	hn=cc,content-language,content-transfer-encoding,content-type,
-	date,feedback-id,from,in-reply-to,message-id,mime-version,
-	references,subject,to,user-agent;
-Message-Instance: m=1; h=sha256:wy5u7/1MaRfs0p+iCHyBGgZdTfbVRHkS3B4qkZoX5fs=:22a1v4R3sAKcl4JqYTnxduwYEnj56hUDUbWWFqEiG6s=;
-X-ME-Sender: <xms:UQLxav3t0VLfuUkX_KpEq_uLQQq1ul4Cbz6InmOBeXBqXTQ-Py5MYA>
-    <xme:UQLxaudWfnQ98waFXqnuZkV-XVCB045yUlQ-y3qKH06NEs5vuLkruqCh5px_jhZtp
-    znt5AuRz6lJq04UFDbGiInSteypauxwEIne4al-b0L-N1CM02irt2Q>
-X-ME-Received: <xmr:UQLxahCYjAnaYot7SSkLPTeeGfZxFtsdiziAwL6M2ELzmauHEDX0Rh3200ebwJ5CZVH4U2QKdIlRF3U9swFPNUjvV91gkOi_>
-X-ME-Proxy-Cause: dmFkZTEobYK1tOekNqVcRoyz46yFPQttzPtHZOkE5HGQvatBgJILl7eANID4IzPTfJdUdp
-    7lRTRVKafPfvdv2C2D5iL3BBGJcBS2ZS9uCCBIgy9W7bM3v+yU4vqBYLYdJFvxwCDN+hU2
-    UhPeo40p9ycN04kyVW5Cpyt3vxYIyhVYaqhlMIh3b4ygMgrQ8LV9IehnFj1IEOROX9FO2b
-    OID9LPD1Gejnf5U+TwOyql+xAwBj2z4gyJhN4Ua1RlkckZ1sIPOTFSuBufrXInWv2BFzTg
-    5b+cf2SuERpEOoJAQ/4hTyus7FQtCAFqs1iffrupU5mMDAZ+mv1RF8IEh6TcNQWgSzMDp2
-    t9PotslwPd6QXg/A09izOaJWVmRn8jN+bUcpb2RTgtynov5bm8yDf9kodr2bpaGmsciVtx
-    clmCao4BHHzufX1ag0DS761SCVkXKWgy7Nm2+POjvCe4wFrJHbo20i5ysaxnj8lCRGuKbi
-    VC0przaQ6NSu1O3a/RXvmMgjkAH9AsiT+0PPn/9Vtx0opGG8QekkJIytxz3QwJi09cdZO3
-    gOoPcUF0HC2dCPPaVIU01M7t5nGdqnGwgwFAJwhZU5B49bk5OL4S+Et0ffH17aOiS69/9/
-    QG9eGYQflUXIgURzyJQdjKvT9hXtspQ25iz+LqpvcJsMBWDI0t3ubyytNLIg
-X-ME-Proxy: <xmx:UQLxag3QDA6k2_AhbXaFVBocCMQjZ8TLwXluL4IoWAhm7OZdRQ-CPA>
-    <xmx:UQLxahNIiytpZaIIoR_mxe_D_17AZzx1QCgxOZ-czerH0js2AMnV7Q>
-    <xmx:UQLxaudpTkMc6ZUc72KgfUBlsTOUe5WSkZ5V1dc7-vwIqu7X5Ay29w>
-    <xmx:UQLxatM-olQK6wwhliSmIFTe83H65vJBMhhBQQOZ_5djk0pnQeSQog>
-    <xmx:UgLxav-7w-Iu-d_gyjeD1lCT_SD5iLDvqMtwo8yztICtDV13zMwVtqKu>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 8 Nov 2026 18:14:23 -0500 (EST)
-Message-ID: <e9380707-ba1a-4728-8abb-7b1e0335f3db@pobox.com>
-Date: Sun, 8 Nov 2026 15:14:22 -0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=r45ucx9p
+Received: by mail-ot1-f54.google.com with SMTP id 46e09a7af769-854e904005cso269477a34.1
+        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 15:27:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794180472; x=1794785272; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=29ND1xXn3ELD+DnjwkyWpaNhwBfnd9yLmIeaLt62EPg=;
+        b=r45ucx9pYtzt4RdM48hMF02Iu805XHp+5VZdkW1DupekRYc8DJ3/b2zyGZ/hrhFfvp
+         4iF7ePbJ4BexBp5vC10YhlagUEdSci3OQ3Fts1qomOeZn11GLW4zD78wfzPdE/BRGCmb
+         mBMkutoQ0c9d/+RMVU0mfc0yECsFjzgfT129n4bKNQZenyot0wyjO85YsVdYMAvgO+CY
+         WT55HNO+Dge5AAHcsi5lNR8FyeNy67VwF43FqZB4GeJ5QCJdFAfZb7rBj7IQ3p6Wo1HG
+         Orhyp5qxfjumgO9KZWJt1xf9h+FEzteUT9TjON97Nv5IYIw0Bb3FOn4xSjnhMfRyl+DC
+         xbdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794180472; x=1794785272;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=29ND1xXn3ELD+DnjwkyWpaNhwBfnd9yLmIeaLt62EPg=;
+        b=h6uEXETzglAhbPI4Iv6nfxAVRd3xy7xKBSMAZvl8RN9x3u9Jk+2pgIZ4Lql6ZsLmdS
+         jk0p5q9DGGc1L7lXAq2R77ZrnhWw6KN4a34NuMAHUXCMvNUQKdJeAqP5JvgiHNL/mALt
+         eYO/S2ZpBTmvENnHk6roHYskhmjtnuak4jXlG/T7DYFJHm5x8uCiASfU4VPWVjXOSTPM
+         HXTboLGCEeMQg49YTju3CrdQQnX+bw0r3hmDHaSLrGX4T769YmbA85jsrMt8Ven1ya1L
+         nf0ycKkMYwp3CSf2apGDELBiHyout9xHGbQSnSSGvAGfQi8/X7TqlpMgZEzZXRHr3hNf
+         3N3g==
+X-Forwarded-Encrypted: i=1; AL+hErF5IsNHvL4+S7fmS8ZTkPZKYm17Pc7flua1q7Ie4x+8+XDMqfo0dPXKFYnEIN8MqYBfbtF4418=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Rq0Mq9ar2T2vIp1QqnxWfVM+gFH/LipMlXtWlbArcGKLADRqG
+	ls/3aoDewjoExmdyHCLkPH7mWzgmZF/ntRRO7O7BOI5+wSIHbAHKXSTl
+X-Gm-Gg: AYBFou1OUFWeV0UrgbmqrbdCEmLBDYbRY6w0c7O3yPhtQpz47DlTWz90dYBQgNjwu9A
+	KNpVlKCHVIvTYzMY8VOdI2BVBNZNMwhVxoNOampifxzfBVRy2NJAhT3k6NCXlqVi6LFFhodGTQa
+	EnSfT4qmbFqsLhQi6Az19Gjmu/xxody3QzNbs4VXcEnKqKumUUo1jSWaD+oOZePzobNUlUlMuIh
+	woiwi2W/D9DqtaiPBryVN7M4u1HWH25L8kworTHF9XhAu0pYoK0F98LO3t0C4lxp4ZWcAdCWd/j
+	qT7gHuaRD7TaXzjdFHajqzd57THbd8NuYu5wt7pDrrNvi5rQXen3Y2sWqOf1TIKI7Wzp4xOFbOf
+	L7QuT6VRfgk1k0Csnk6aeH/3s5rw88AgzHzyS7xI376nEsV/HOd9d0MqLP3qeNSvJSRkcbhxP87
+	J1XqEITCFQ9JfUCOB/G0K+hmjC8apGvrwoj4DN5aWDD8SGBOm5tJnWUlH4K2H+jkQotuaFcBe27
+	97PeLZ27ZmCHSF6nkSPuwgh/CwEHazRfj6ksDpf7010pbxAxN/qLWpMmrM/7elFIRR8KeWM9GJR
+	exnthbLIf89BGAqRu206AbidQJirEq0o6DgG11K1+XnjRiSEqYiNGgd6pnYSjtsBCiNhCVEXgra
+	VJaHsLN85DAcj1IQ0xcee6Pl88maRQraXDiS/GJw/4RsKmj38moq1XWpdwB1aVMd4WH6PA/gZHB
+	xruJzmoDkGmfeit0PPqj77I9BQyOeV9lGkSvUaILdfb6K/Uj5OmjI=
+X-Received: by 2002:a05:6808:1691:b0:4a4:64b0:bf5e with SMTP id 5614622812f47-568143032a5mr1010143b6e.2.1794180472163;
+        Sun, 08 Nov 2026 15:27:52 -0800 (PST)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-56813e56700sm2936856b6e.17.2026.11.08.15.27.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 15:27:51 -0800 (PST)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Sun, 08 Nov 2026 16:27:48 -0700
+Subject: [PATCH v2] mtd: rawnand: r852: preserve card changes during
+ detection work
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -119,51 +93,166 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.3 0000/1257] 7.3.4-rc1 review
-To: Sasha Levin <sashal@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org,
- patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20261107134939.434104957@linuxfoundation.org>
- <f65916c7-470b-4f64-84d1-da8cf4c8e7e8@pobox.com>
- <f6e0e225-a80e-49ee-9555-be300f169503@pobox.com>
- <20261108-rc-reply-02-xfs-sched-ext-7.3.4-rc1@kernel.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20261108-rc-reply-02-xfs-sched-ext-7.3.4-rc1@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261108-submit-r852-card-detect-lock-v1-v2-1-e3251bc3680a@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42O3Q6CMAyFX8Xs2iobDNQr38NwsZ8CUzfMNgmG8
+ O5u+AImTZNz2n49CwnoDQZy2S3E42SCGV0SbL8jahCuRzA6acIKVlNanCC8pTUR/IkzUMJr0Bh
+ RRXiO6gEThYaWsuNKn1ktSaK8PHZm3j7c2p9OiHs6ydi8IUVAkF44NWTLRn10wqWGc8zzwYQ4+
+ s8WcaKZ83+aVBQ4pxU2vCpZcb72VpjnQY2WtOu6fgEUKZLuAAEAAA==
+X-Change-ID: 20261108-submit-r852-card-detect-lock-v1-713bf5cd926b
+To: Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
+ Maxim Levitsky <maximlevitsky@gmail.com>
+Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>
+X-Mailer: b4 0.15.2
 
-On 11/8/26 8:44 AM, Sasha Levin wrote:
->>> 7.3.4-rc1, 6.18.63-rc1, and 6.12.117-rc1 are all giving me the same build
->>> error with clang that I previously had with 7.3.2-rc1 and 6.18.61-rc1,
->>> due to the same xfs patch as before ("xfs: cross-reference the primary
->>> superblock"):
-> 
->> I took 7.3.4-rc1, reverted "sched_ext: Fix the stall watchdog testing
->> and blaming the wrong sched under bypass", and added the fix to
->> initialize error to 0 in xchk_superblock() in fs/xfs/scrub/agheader.c
->> (quoted above).
-> 
-> Thanks for testing. Both problems are now dropped: the sched_ext patch from
-> 7.3, and "xfs: cross-reference the primary superblock" from 7.3, 6.18 and 6.12
-> (it had come back after the earlier drop).
+r852_update_card_detect() reads and writes the card interrupt enable
+register without holding irqlock. A card interrupt can mask detection
+interrupts and mark the card unstable between those accesses, only for
+the worker to overwrite the mask with its saved value.
 
-I took 7.3.3 and applied stable-queue as of commit
-39e32a361d2fca269cec12e8669e2bd3b84844d9 ("drop 24 patches based on RC
-review feedback"), and retested on 2 of my amd64 systems and my arm64
-virtual machine.
+The worker also calls this helper before and after registering or
+unregistering a card. An interrupt between these calls starts a new
+debounce interval, but the second call clears card_unstable and enables
+interrupts again before that interval has elapsed. The interrupt can
+also change card_detected between the worker's registration checks.
 
-It's now building successfully and working well, with no regressions
-observed.
+Hold irqlock across the interrupt mask update and leave the mask alone
+while the card is unstable. Move the transition to stable state into
+the locked card sample, and return that sample for both of the worker's
+registration decisions.
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
+Keep registration failure from overwriting a newer interrupt's card
+state, so the next delayed work invocation can process that change.
 
--- 
--Barry K. Nathan  <barryn@pobox.com>
+Fixes: 67e054e91924 ("mtd: nand: Add driver for Ricoh xD/SmartMedia reader")
+Cc: stable@vger.kernel.org
+Closes: https://lore.kernel.org/r/sashiko-outbox-204068@kernel.org/
+Closes: https://lore.kernel.org/r/sashiko-outbox-204135@kernel.org/
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+---
+Changes in v2:
+- Keep new debounce events pending until the next card-state sample.
+- Use one presence sample for the worker's registration decisions.
+- Protect the registration-failure update from newer IRQ events.
+- Link to v1: https://patch.msgid.link/20261108-submit-r852-card-detect-lock-v1-v1-1-5514e7543209@gmail.com
+
+To: Maxim Levitsky <maximlevitsky@gmail.com>
+To: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Richard Weinberger <richard@nod.at>
+To: Vignesh Raghavendra <vigneshr@ti.com>
+Cc: linux-mtd@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+---
+ drivers/mtd/nand/raw/r852.c | 35 ++++++++++++++++++++++++++---------
+ 1 file changed, 26 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/mtd/nand/raw/r852.c b/drivers/mtd/nand/raw/r852.c
+index 92c47d351c27..4c094648673b 100644
+--- a/drivers/mtd/nand/raw/r852.c
++++ b/drivers/mtd/nand/raw/r852.c
+@@ -557,15 +557,20 @@ static void r852_engine_disable(struct r852_device *dev)
+  * Test if card is present
+  */
+ 
+-static void r852_card_update_present(struct r852_device *dev)
++static bool r852_card_update_present(struct r852_device *dev)
+ {
+ 	unsigned long flags;
+ 	uint8_t reg;
++	bool present;
+ 
+ 	spin_lock_irqsave(&dev->irqlock, flags);
+ 	reg = r852_read_reg(dev, R852_CARD_STA);
+-	dev->card_detected = !!(reg & R852_CARD_STA_PRESENT);
++	present = !!(reg & R852_CARD_STA_PRESENT);
++	dev->card_detected = present;
++	dev->card_unstable = 0;
+ 	spin_unlock_irqrestore(&dev->irqlock, flags);
++
++	return present;
+ }
+ 
+ /*
+@@ -574,8 +579,14 @@ static void r852_card_update_present(struct r852_device *dev)
+  */
+ static void r852_update_card_detect(struct r852_device *dev)
+ {
+-	int card_detect_reg = r852_read_reg(dev, R852_CARD_IRQ_ENABLE);
+-	dev->card_unstable = 0;
++	unsigned long flags;
++	int card_detect_reg;
++
++	spin_lock_irqsave(&dev->irqlock, flags);
++	if (dev->card_unstable)
++		goto out;
++
++	card_detect_reg = r852_read_reg(dev, R852_CARD_IRQ_ENABLE);
+ 
+ 	card_detect_reg &= ~(R852_CARD_IRQ_REMOVE | R852_CARD_IRQ_INSERT);
+ 	card_detect_reg |= R852_CARD_IRQ_GENABLE;
+@@ -584,6 +595,8 @@ static void r852_update_card_detect(struct r852_device *dev)
+ 		R852_CARD_IRQ_REMOVE : R852_CARD_IRQ_INSERT;
+ 
+ 	r852_write_reg(dev, R852_CARD_IRQ_ENABLE, card_detect_reg);
++out:
++	spin_unlock_irqrestore(&dev->irqlock, flags);
+ }
+ 
+ static ssize_t media_type_show(struct device *sys_dev,
+@@ -632,6 +645,7 @@ static void r852_update_media_status(struct r852_device *dev)
+ static int r852_register_nand_device(struct r852_device *dev)
+ {
+ 	struct mtd_info *mtd = nand_to_mtd(dev->chip);
++	unsigned long flags;
+ 
+ 	WARN_ON(dev->card_registered);
+ 
+@@ -657,7 +671,10 @@ static int r852_register_nand_device(struct r852_device *dev)
+ 	nand_cleanup(dev->chip);
+ error1:
+ 	/* Force card redetect */
+-	dev->card_detected = 0;
++	spin_lock_irqsave(&dev->irqlock, flags);
++	if (!dev->card_unstable)
++		dev->card_detected = 0;
++	spin_unlock_irqrestore(&dev->irqlock, flags);
+ 	return -1;
+ }
+ 
+@@ -684,20 +701,20 @@ static void r852_card_detect_work(struct work_struct *work)
+ {
+ 	struct r852_device *dev =
+ 		container_of(work, struct r852_device, card_detect_work.work);
++	bool present;
+ 
+-	r852_card_update_present(dev);
++	present = r852_card_update_present(dev);
+ 	r852_update_card_detect(dev);
+-	dev->card_unstable = 0;
+ 
+ 	/* False alarm */
+-	if (dev->card_detected == dev->card_registered)
++	if (present == dev->card_registered)
+ 		goto exit;
+ 
+ 	/* Read media properties */
+ 	r852_update_media_status(dev);
+ 
+ 	/* Register the card */
+-	if (dev->card_detected)
++	if (present)
+ 		r852_register_nand_device(dev);
+ 	else
+ 		r852_unregister_nand_device(dev);
+
+---
+base-commit: 30daaf3e7897b4a8d9b72e5b0c86dd6e2a4d7d85
+change-id: 20261108-submit-r852-card-detect-lock-v1-713bf5cd926b
+
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
+
