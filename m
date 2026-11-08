@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794121172;
-	b=E8+JFl5Gt+0zrc2jAIzEZmLlK6N1KKe5ust+lkabo+c3sKisbIZh1TTTrFrKspT81sCu
-	 zDrjFyHsvAMlObnfVz6ZSA/3+NlBCU011dKlVkLFKw7zVvofl7+vbUBA+EFyvEgIRXmSQ
-	 bLxG3EqJy+BtEj38iRcWiJ+HWpu6jjda3i7+y2CjCAHUXeE8Bw+T8OOsN3U657fzwOg/B
-	 8E251IUar4/mGE/p32Sy5UCV9pJx2xCQH07P8jsmRkSLYYdhMNY5g5H8HoJjvdUFmcsMf
-	 T2agMLCdsNrvFS47qJ9nfdC2g+NAEGBxM57CuGFqOcnshilpL3RdC/OyRKfv0HOfd2A==
+	t=1794121170;
+	b=YIHSFUOqi5DOVAwp9NkaV3Lwe1EQfIFhtpmZ9hzpD6FmnhIJie97aS22Sbq7q4f7j0xs
+	 xLyLeXmezW1Ukws3jV50cXHKivQbtS6uK7nGHFqqKgJ0aEtc8lqjkAVHITCP8VgZ61ytp
+	 blr+BnJbNDTRNsnVy8x9RqelJXM6Pz7uUSTsOhi7eEvj8DDYc4PuNj07mBo0gNVfE+RHn
+	 cShltiKj7fjaXHKTw1QTHfzAEnM07hYEUbE80mCJ3lIsgaOSpvmrda3vA6zblhFgcz4S5
+	 iuaI8UbOHZZaV8PsjhOwMHjfR1MgLei5CE2AIqAgxwOJcjo6AIkfSGem/nEIaZVrXSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794121172;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794121170;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=vva7iXLKmqzxW6bOy9Y/PVkyCGWqTmEYhH94TgnKVwQ=;
-	b=kPNe2W2YzL3oO+TGLBqJUuB2hRZiK6gC5NgIxMiejnuUzoX2xEXrPlGxJkX9qhm2FT3s
-	 VHuYBlg6v5FV5wfmQruHsxmWRjxZgzIN5Yt0hiPFiQluGjH7PWeRJBqbXodGxoUBP5T52
-	 4TLGpbQ2WSBMrV7YQD3ndybAGAbx1u8abeUJFikbPAomQcqe91e78NO0CvfO2HgvrPwGV
-	 DloCV0grr1b4GSOv3K4JARx4Thd35zY6BKNao4XPvqWdr8lJ4/Vx9fw7xs0qliWrTnjn7
-	 B9SkMsBA+0j9C3gVmy+8puSt8rsuPtRG/r2lb208UsfoaJyPDYY/xsmfj2pN9GyyEQQ==
+	bh=XOzF4wHAqjx7GKBzWRVfKJ5JeQgw7NrDI7qQvZi9SXg=;
+	b=2pJKR/1jVhkqOnm9VZKIihLQ0QjGBam2H1z+k3VqhqomTagg441wstCHkMVMT1lyi6RN
+	 Gr811qqw094mHC+5S0E+F9C+Yn6mGj1CzmwygGm9kcUSPWLSrZuiODEoL4BR5FC1EBoru
+	 f89rMUAQZ+QRZDFgOrkh3kdrjE/cZD+xGm2ZfoFaggnryNRqVWQJkFVxN8ix6TQqHT266
+	 EEjG8UQSxPRG6zM9etKZAEDlAEsCbq3dFJnGLCA5N8PKvd+kKH8DfRZ+HjzPapkoEys2V
+	 POIik6Oi1j3CfzavdRBskiBTivKmA5Ag0hyw9V744MiCF1IzpZRN4OXNv6swIiD27eg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=neLHx5rF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jqbHpPJ8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD2F6606A323;
-	Sun,  8 Nov 2026 06:59:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C40F606A33D;
+	Sun,  8 Nov 2026 06:59:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=neLHx5rF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A22F1F008A6;
-	Sun,  8 Nov 2026 06:59:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jqbHpPJ8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 998431F0089F;
+	Sun,  8 Nov 2026 06:59:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794121171;
-	bh=vva7iXLKmqzxW6bOy9Y/PVkyCGWqTmEYhH94TgnKVwQ=;
+	s=k20260515; t=1794121170;
+	bh=XOzF4wHAqjx7GKBzWRVfKJ5JeQgw7NrDI7qQvZi9SXg=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=neLHx5rFirJcj1fN5b+9sWjkf513iEWsGo4ex/spWYT3B41qzfbmTqcTcwAtFDRvJ
-	 3iHTMYTIq8SA1h5Fu+J/ck1GR52vLyI8SCHOUhVjDpvLw4owvhyfnYyeXvE8a0xTII
-	 MkLhvMA1Y3wRfYvXz3BJH/8vxfcDSZYI/JQUaBR0AlFtyV7pIu4pLwa6moJ2dqw8g5
-	 SJ1hQlGa6djQmBFbAboxMSZZqqaELyRim3Ge2nGsoaHLkBcYxEY5kFziPq7R0OgTU9
-	 +JM76HfSH82JkhMjhKSm+FDgz4JFb5qr4t8mgPWkNstBO7ALbSrM5TpjxUl9GnkHxF
-	 GSALqTtGtCK8Q==
-Subject: Re: [PATCH net] net: ti: icss-iep: fix deadlock when disabling PPS
+	b=jqbHpPJ8XQrj14DsdGG1XTV3oWvr842DVUpmHzsSKSlCOA2hoTT1BREDWpEuDiiR6
+	 YuTXemeFPQBffYAAxPJDNLTb2OW96B8ZcU3tRDWkI8cKWd9I71aY8jn2BZUx4lRmS1
+	 jAZoYTlcOoS0RNuktBpNBpMPLDzDqg9150l2bc5PSQ3ED728G0N19sfOt6Cl9X12hh
+	 1PqkwkshlmKZ0452sXdgvvI20dVCEGDqYSa19SrsNnTX4EVptDpWOkj/WTq4hDy5QL
+	 liTx5YZ7zjUT7Ktytt+ZsRQOfRZ0wtzA5dF9rUXUR3hC20/eHoNxvJujYY7J4d3tay
+	 xf835mtdnDp5Q==
+Subject: Re: [PATCH net 3/3] net: xgmac: disable timeout work before teardown
 From: netdev-bot+sashiko@kernel.org
-To: hj351016@gmail.com
-Cc: danishanwar@ti.com, rogerq@kernel.org, netdev@vger.kernel.org,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, linux-arm-kernel@lists.infradead.org,
+To: 0xbeac@gmail.com
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Sun, 08 Nov 2026 06:59:30 +0000
-Message-ID: <179412117075.994134.3223982666310946745@kernel.org>
-In-Reply-To: <20261107063726.3388730-1-hj351016@gmail.com>
-References: <20261107063726.3388730-1-hj351016@gmail.com>
-X-sashiko-severity: Medium
+Date: Sun, 08 Nov 2026 06:59:29 +0000
+Message-ID: <179412116920.994134.12974909597820462141@kernel.org>
+In-Reply-To: <20261104063245.23402-4-0xbeac@gmail.com>
+References: <20261104063245.23402-4-0xbeac@gmail.com>
+X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
@@ -64,10 +63,10 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 3 potential
+Thank you for your contribution! Sashiko AI review found 4 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 (1) · Medium: 3 · Low: 0
+Critical: 0 · High: 1 (1) · Medium: 2 · Low: 1
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -75,242 +74,206 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] The patch moves cancel_work_sync(&iep->work) out of the
-  ptp_clk_mutex critical section in icss_iep_pps_enable()…
-- [Medium] After the patch, an icss_iep_cap_cmp_work() instance can run
-  after icss_iep_pps_enable(0) has disabled and cleared the compare…
-- [Medium] The commit message says that because the compare is disabled
-  before the drain, 'no new work can be scheduled once the mutex is…
+- [High] xgmac_resume() can deadlock against the timeout work.
+- [Medium] The workqueue disable count can get stuck above zero and stay
+  that way, so TX-hang recovery is lost for good.
+- [Medium] In xgmac_suspend(), netif_device_detach() (line 1887) runs
+  before disable_work_sync() (line 1893).
+- [Low] The new comments describe the enable/disable pairing wrongly.
 
 Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but the shared
-  iep->work is never drained when periodic output (perout) is disabled,…
+- [High] This problem wasn't introduced by this patch, but it sits on the
+  same stop/failed-open path.
 
 --
 
-net: ti: icss-iep: fix deadlock when disabling PPS
+net: xgmac: disable timeout work before teardown
 
-This commit moves cancel_work_sync(&iep->work) in icss_iep_pps_enable()
-out of the ptp_clk_mutex critical section. The PPS disable path then no
-longer waits for icss_iep_cap_cmp_work() while it holds the mutex that the
-work handler needs.
+This patch disables tx_timeout_work at probe and re-enables it in
+xgmac_open() and xgmac_resume(). It also synchronously disables the work
+in xgmac_stop(), xgmac_suspend() and xgmac_remove(). The goal is to keep
+the TX timeout work from running against freed DMA rings, released IRQs
+or unmapped registers.
 
-> diff --git a/drivers/net/ethernet/ti/icssg/icss_iep.c b/drivers/net/ethernet/ti/icssg/icss_iep.c
-> index ec085897edf09..6264061a4eab3 100644
-> --- a/drivers/net/ethernet/ti/icssg/icss_iep.c
-> +++ b/drivers/net/ethernet/ti/icssg/icss_iep.c
+> diff --git a/drivers/net/ethernet/calxeda/xgmac.c b/drivers/net/ethernet/calxeda/xgmac.c
+> index a2410fba6be2e..9b7aee56f2610 100644
+> --- a/drivers/net/ethernet/calxeda/xgmac.c
+> +++ b/drivers/net/ethernet/calxeda/xgmac.c
+> @@ -1023,6 +1023,9 @@ static int xgmac_open(struct net_device *dev)
+>  	if (ret < 0)
+>  		return ret;
+>  
+> +	/* xgmac_stop() disables this work before freeing the rings. */
+> +	enable_work(&priv->tx_timeout_work);
+> +
+
+[Severity: Medium]
+Can the disable count on tx_timeout_work get stuck above zero here?
+
+disable_work() and enable_work() nest, so every xgmac_stop() needs a
+matching xgmac_open() that succeeds. xgmac_change_mtu() does:
+
+	xgmac_stop(dev);
+	WRITE_ONCE(dev->mtu, new_mtu);
+	return xgmac_open(dev);
+
+If xgmac_dma_desc_rings_init() fails with -ENOMEM, xgmac_open() returns
+before enable_work() and the count stays at 1. A failed ndo_change_mtu
+does not close the device, so it stays running.
+
+A later ifdown calls xgmac_stop() again, and disable_work_sync() raises
+the count to 2. The next ifup succeeds, but its enable_work() only brings
+the count back to 1.
+
+>From then on, schedule_work() from xgmac_tx_timeout() and from the
+DMA_STATUS_TPS path in xgmac_interrupt() does nothing until the driver
+is rebound. Without this patch, a down/up cycle fully recovered the
+device.
+
+Would enabling the work on the open failure path, or tracking whether it
+is currently enabled, avoid this?
+
+[Severity: High]
+This isn't a bug introduced by this patch, but it is on the same
+xgmac_change_mtu() stop/failed-open path. The error labels in
+xgmac_dma_desc_rings_init() free the buffers without clearing the
+pointers:
+
+err_dma_tx:
+	kfree(priv->tx_skbuff);
+err_tx_skb:
+	dma_free_coherent(priv->device,
+			  DMA_RX_RING_SZ * sizeof(struct xgmac_dma_desc),
+			  priv->dma_rx, priv->dma_rx_phy);
+err_dma_rx:
+	kfree(priv->rx_skbuff);
+	return -ENOMEM;
+
+When xgmac_change_mtu()->xgmac_open() fails here, the interface stays
+running while priv->rx_skbuff, priv->dma_rx and priv->tx_skbuff can
+point at freed memory.
+
+The next ndo_stop then goes through
+xgmac_stop()->xgmac_free_dma_desc_rings(). There,
+xgmac_free_rx_skbufs() walks the freed rx_skbuff[] array, and
+dma_free_coherent() on priv->dma_rx and kfree() on
+priv->rx_skbuff/priv->tx_skbuff can run a second time.
+
+Could these error labels set the pointers to NULL after freeing them?
+
+>  	/* Enable the MAC Rx/Tx */
+>  	xgmac_mac_enable(ioaddr);
+>  
+> @@ -1046,6 +1049,13 @@ static int xgmac_stop(struct net_device *dev)
+>  {
+>  	struct xgmac_priv *priv = netdev_priv(dev);
+>  
+> +	/*
+> +	 * The timeout work programs the DMA rings that are freed below, and
+> +	 * it toggles NAPI.  Disable it synchronously before touching either;
+> +	 * xgmac_open() and xgmac_resume() enable it again.
+> +	 */
+
+[Severity: Low]
+This isn't a bug, but the comment here and the one added in
+xgmac_probe() describe a pairing that doesn't match the code. This
+comment says "xgmac_open() and xgmac_resume() enable it again". The
+probe comment says the probe-time disable_work() is the matching disable
+for "the enable_work() in xgmac_open()/xgmac_resume()".
+
+xgmac_resume() returns early when !netif_running(ndev), and the device
+is not running after dev_close()->ndo_stop. So the enable in resume can
+never balance a disable done in xgmac_stop() or probe. It is balanced by
+the disable_work_sync() in xgmac_suspend().
+
+Could the comments describe the actual pairs, probe/stop with open and
+suspend with resume?
+
+> +	disable_work_sync(&priv->tx_timeout_work);
+> +
 
 [ ... ]
 
-> @@ -607,7 +608,7 @@ static int icss_iep_pps_enable(struct icss_iep *iep, int on)
->  	} else {
->  		ret = icss_iep_perout_enable_hw(iep, &rq.perout, on);
->  		if (iep->cap_cmp_irq)
-> -			cancel_work_sync(&iep->work);
-> +			drain_work = true;
->  	}
+> @@ -1862,6 +1885,12 @@ static int xgmac_suspend(struct device *dev)
+>  		return 0;
 >  
->  	if (!ret)
-> @@ -616,6 +617,15 @@ static int icss_iep_pps_enable(struct icss_iep *iep, int on)
->  exit:
->  	mutex_unlock(&iep->ptp_clk_mutex);
-
-[Severity: Medium]
-Once the mutex is dropped here, can icss_iep_cap_cmp_work() run against
-compare hardware that has just been disabled and cleared?
-
-There seem to be two ways for this to happen:
-
-  - A handler already blocked in mutex_lock(&iep->ptp_clk_mutex) now
-    continues. This is the case the patch fixes.
-
-  - A work item that was pending but not yet started begins running
-    between mutex_unlock() and cancel_work_sync(). In that case
-    cancel_work_sync() only waits for it to finish.
-
-The handler doesn't check pps_enabled or perout_enabled after it takes the
-mutex:
-
-icss_iep_cap_cmp_work() {
-	mutex_lock(&iep->ptp_clk_mutex);
-
-	ns = readl(iep->base + reg_offs[ICSS_IEP_CMP1_REG0]);
-	...
-	ns_next = ns + iep->period;
-	writel(lower_32_bits(ns_next),
-	       iep->base + reg_offs[ICSS_IEP_CMP1_REG0]);
-	...
-	pevent.pps_times.ts_real = ns_to_timespec64(ns);
-	pevent.type = PTP_CLOCK_PPSUSR;
-	pevent.index = 0;
-	ptp_clock_event(iep->ptp_clock, &pevent);
-	...
-}
-
-icss_iep_perout_enable_hw(on=0) has just written 0 to CMP1_REG0/REG1. The
-late handler would then set CMP1 to 0 + iep->period, which undoes the
-"clear CMP regs" step. It would also send a PTP_CLOCK_PPSUSR event with a
-zero (1970) timestamp.
-
-pps_event() doesn't check whether PPS is enabled. It records the assert,
-increments assert_sequence, wakes /dev/ppsN readers and calls
-pps_kc_event(), all after userspace has turned PPS off.
-
-Before this patch, the blocked case deadlocked and the pending case was
-cancelled under the mutex, so this behaviour is new.
-
-Should icss_iep_cap_cmp_work() return early under the mutex when neither
-pps_enabled nor perout_enabled is set?
-
->  
+>  	netif_device_detach(ndev);
 > +	/*
-> +	 * Drain the capture-compare work only after dropping ptp_clk_mutex.
-> +	 * icss_iep_cap_cmp_work() acquires ptp_clk_mutex itself, so calling
-> +	 * cancel_work_sync() while the mutex is held deadlocks when a handler
-> +	 * instance is already running and waiting for that same mutex.
+> +	 * The timeout work touches the DMA registers and toggles NAPI.
+> +	 * Disable it before NAPI and the interrupts are torn down;
+> +	 * xgmac_resume() enables it again.
 > +	 */
-> +	if (drain_work)
-> +		cancel_work_sync(&iep->work);
+> +	disable_work_sync(&priv->tx_timeout_work);
 
 [Severity: Medium]
-The drain now runs outside ptp_clk_mutex and doesn't re-check
-pps_enabled or perout_enabled. Could it cancel work that belongs to a
-later enable?
+Should disable_work_sync() come before netif_device_detach() here?
 
-pps_enable_store() and period_store() in drivers/ptp/ptp_sysfs.c call
-ops->enable() without ptp->pincfg_mux. That means they aren't serialized
-against the PTP_ENABLE_PPS ioctl path or against each other.
+If xgmac_tx_timeout_work() is already running when xgmac_suspend() is
+called, disable_work_sync() waits for it to finish. The work ends with:
 
-One possible sequence:
+	netif_tx_unlock(priv->dev);
+	netif_wake_queue(priv->dev);
 
-CPU0 (disable)                       CPU1 (sysfs enable)
-icss_iep_pps_enable(iep, 0)
-  pps_enabled = false
-  mutex_unlock()
-                                     icss_iep_pps_enable(iep, 1)
-                                       program CMP1, set CMP_EN
-                                       pps_enabled = true
-                                     first CMP1 hit:
-                                     icss_iep_cap_cmp_irq()
-                                       schedule_work(&iep->work)
-  cancel_work_sync(&iep->work)
-    removes the new session's work
+That undoes the netif_tx_stop_all_queues() done by netif_device_detach().
+Nothing later in xgmac_suspend() stops the queue again. xgmac_stop(), by
+contrast, calls netif_tx_disable().
 
-icss_iep_cap_cmp_work() is the only code that moves CMP1 forward. Once
-its work is cancelled, no further compare events or PPS pulses are
-produced, while the driver still reports pps_enabled == true.
+The qdisc path (sch_direct_xmit()->dev_hard_start_xmit()) doesn't check
+netif_device_present(). Can xgmac_xmit() then write descriptors and
+XGMAC_DMA_TX_POLL while NAPI, interrupts and the MAC/DMA are being shut
+down for suspend?
 
-The other order is possible as well. Suppose an old-session work instance
-is blocked in mutex_lock() and gets the mutex after CPU1's enable. It
-would read the new boundary B from CMP1, write B + period and send a
-PPSUSR event stamped B before time B arrives. The first real edge of the
-new session would be skipped.
-
-Before this patch the cancel ran under ptp_clk_mutex, so a concurrent
-enable had to wait for it.
-
-[Severity: Medium]
-The commit message says:
-
-    The hardware compare is
-    already disabled by icss_iep_perout_enable_hw() before the drain, so no new
-    work can be scheduled once the mutex is released.
-
-Is that guaranteed? icss_iep_cap_cmp_irq() reads pps_enabled with no lock
-and no ordering against this path. Nothing calls
-synchronize_irq(iep->cap_cmp_irq) before the drain:
-
-icss_iep_cap_cmp_irq() {
-	val = readl(iep->base + reg_offs[ICSS_IEP_CMP_STAT_REG]);
-	if (val & BIT(1)) {
-		writel(BIT(1), iep->base + reg_offs[ICSS_IEP_CMP_STAT_REG]);
-		if (iep->pps_enabled || iep->perout_enabled)
-			schedule_work(&iep->work);
-	...
-}
-
-Suppose a CMP1 hit was latched just before CMP_EN was cleared, and its
-handler on CPU1 has already read pps_enabled == true.
-
-CPU0 can then set pps_enabled = false, drop the mutex and call
-cancel_work_sync(). That call returns immediately because nothing is
-pending.
-
-CPU1 then calls schedule_work(), and the work runs after PPS has been
-disabled.
-
-On teardown, ptp_clock_unregister() -> ptp_disable_all_events() ->
-icss_iep_pps_enable(0) runs first. After that the pps source and
-ptp_clock are released, and icss_iep_exit() sets iep->ptp_clock to NULL.
-A work item queued this late could call ptp_clock_event() on a freed or
-NULL ptp_clock.
-
-On PREEMPT_RT the handler is force-threaded and can be preempted between
-the flag read and schedule_work(), so the window is wider there.
-
-The old code had the same race with a larger window. However, the commit
-message's argument depends on this window being closed.
-
-Would a synchronize_irq() after clearing pps_enabled, together with a
-state check in the work handler, close it?
-
-> +
->  	return ret;
->  }
+>  	napi_disable(&priv->napi);
+>  	writel(0, priv->base + XGMAC_DMA_INTR_ENA);
+>  
+> @@ -1891,6 +1920,7 @@ static int xgmac_resume(struct device *dev)
+>  
+>  	/* Enable the MAC and DMA */
+>  	xgmac_mac_enable(ioaddr);
+> +	enable_work(&priv->tx_timeout_work);
+>  	writel(DMA_INTR_DEFAULT_MASK, ioaddr + XGMAC_DMA_STATUS);
+>  	writel(DMA_INTR_DEFAULT_MASK, ioaddr + XGMAC_DMA_INTR_ENA);
 >  
 
 [Severity: High]
-This isn't a bug introduced by this patch, but the perout disable path has
-a related problem. icss_iep_cap_cmp_irq() also queues iep->work when
-perout_enabled is set, but icss_iep_perout_enable(..., 0) never drains it:
+Can system resume deadlock against the timeout work here?
 
-icss_iep_perout_enable() {
-	...
-	ret = icss_iep_perout_enable_hw(iep, req, on);
-	if (!ret)
-		iep->perout_enabled = !!on;
+At this point NAPI is still disabled from xgmac_suspend(). The work is
+already enabled, and DMA_INTR_DEFAULT_MASK (which includes TSE) is
+unmasked before napi_enable() runs. A "transmit process stopped"
+interrupt in this window takes this path in xgmac_interrupt():
 
-exit:
-	mutex_unlock(&iep->ptp_clk_mutex);
-
-	return ret;
-}
-
-On teardown, icss_iep_exit() unregisters the clock and sets it to NULL
-before perout is turned off:
-
-icss_iep_exit() {
-	if (iep->ptp_clock) {
-		ptp_clock_unregister(iep->ptp_clock);
-		iep->ptp_clock = NULL;
+	if (intr_status & DMA_STATUS_TPS) {
+		...
+		schedule_work(&priv->tx_timeout_work);
 	}
-	icss_iep_disable(iep);
 
-	if (iep->pps_enabled)
-		icss_iep_pps_enable(iep, false);
-	else if (iep->perout_enabled)
-		icss_iep_perout_enable(iep, NULL, false);
-	...
-}
+The work then starts with napi_disable() on a NAPI that is already
+disabled:
 
-The ptp_disable_all_events() call inside ptp_clock_unregister() only
-disables EXTTS and PPS. The PPS disable returns -EBUSY while perout is
-enabled, so the work isn't drained there either.
+worker
+xgmac_tx_timeout_work()
+  napi_disable()
+    netdev_lock(n->dev)
+    napi_disable_locked()
+      loops in usleep_range() while NAPIF_STATE_SCHED is set
 
-Can a work item queued while perout is active run icss_iep_cap_cmp_work()
-after this point? It could be queued before teardown, or by an IRQ that
-arrives before CMP_EN is cleared. If it runs, ptp_clock_event() would use
-a NULL or freed iep->ptp_clock and pps_device.
+resume
+xgmac_resume()
+  napi_enable()
+    netdev_lock(n->dev)    <- blocks on the worker
 
-This can be reached from ndo_stop via prueth_emac_common_stop(), or from
-prueth_remove(). It needs an IEP with an iep_cap_cmp interrupt and the
-icssg_prueth clockops, which set n_per_out = 1.
+Only napi_enable_locked() clears SCHED, and it needs the netdev_lock the
+worker holds. Neither side can make progress.
 
-Also, iep->ptp_clock = NULL is assigned without holding ptp_clk_mutex.
+This window existed before the patch. However, the suspend hunk is meant
+to keep the work from toggling NAPI while it is down, and the
+enable_work() placement here leaves it open. xgmac_open() also enables
+the work before napi_enable(), but there the DMA interrupts stay masked
+until after napi_enable().
 
-Should icss_iep_perout_enable() also call cancel_work_sync() on disable?
-And should icss_iep_exit() drain iep->work before it unregisters the
-clock?
+Would moving enable_work() and the interrupt unmask after napi_enable()
+in xgmac_resume() avoid this?
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261107063726.3388730-1-hj351016%40gmail.com
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261104063245.23402-1-0xbeac%40gmail.com
