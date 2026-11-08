@@ -1,61 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.155
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.77
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794146179;
-	b=n775lWW01gUjmIlXpZ0QiCUttqk+31ZG68h847TFr1EsaDsUmiRmaSv7Gf8RkA/1qG0Z
-	 cvKutJ3HEHdnJdY7VjS8FEYmD/+wOIJgS7YEGXGfRqE6UEXZy9L4cUJzwCunBSsqC8G5d
-	 4XIvA5VkUgnK55R+hRDkKGg1zrPVEtY/c3KrQ2hwvMijokogLz1wPAdxYzSjLecQkHeqp
-	 4W9nuZO7C7a+eOrHOJI87Yk75eLeZaHORl0NuZafzGY1kOtp1iBjv9IxTId5jTRNJXu0V
-	 U2F/bSPZGFR1XkuCTBPAyT8sZj0oDIjAtYxe1Q1/ldxW+35ul/OblhBF1XvRh+ODBYQ==
+	t=1794146511;
+	b=ERhVYnT31oH9PaYTSBfDo5MTBldd7M6CTZAs5HKHhVhSImLRNgYDjbtnwy4B/aTzaWDO
+	 WXLZ63R3ONBEeDHVBj4wQSGgs+tZVCliGTN6KKDSpQP2f2XY+pgv4Q2RkHjosniVsnSzn
+	 a5UNTKgySuD6g4h7FtK+i9ShK+z2XyEd+zJ2pfC6Iu97iFx7GHz2srTi3+brNFrPp6RLI
+	 2IaxkmX+8wyylH4zxvvIa+tlbQSKknXW8x9/9ttsQ3ylIVTo5YXrOcc6nrppRRM5NQxap
+	 CcZLVOgQN0ALFmhmJPrDJ+Rlco019hK7kk/3SZS4b/z1mqoudfrlEJ0FYyM3EmE6yfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794146179;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794146511;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=sqtBH0a18GoP5swPUqLodYJqXwzpxujEm07G1oy5Qjg=;
-	b=jnZXhMEQX0wuA3tHsNCaOBJmuiJF9BANihWKzY4Qq/crd6eDFz99Sh8FrWTdjVkQx4aQ
-	 /+gsm8cQO4O//xKQbTIQYj0CTMFTmZw814nNqEfV3kITr8QAtitkfI6DlTzbqGGAs10+r
-	 mw8IlaGTVTYX95b+62lbrRJrPiyuoEuBdKRQBpsd9TbpABelkPzdEPoAVTUYJLgagO9co
-	 NqE+ZanFCcNt3Dp1b0ZOx3Da/A5n3X2yuEzYfURWsZmup5FstUDnGrVKgK9TJ8zi2x33u
-	 SiYbKrm3nmrZL8CEvMBBrAyfbCZxMX3rqiXHgEEk5vuPWY+RZeNkmBfOtZ9Xmyj+e/g==
+	bh=zAQJbBXK85zhqnp6Sy8iRos+KnUH1gw70gkQ2aOh+90=;
+	b=vbOuUkZ+94aY4tUoDIw5IKRxOfiAnV9BaEW+KLWautoHJ//csQRH1je9FQPsA0mvZfU5
+	 +i+ZneQoIvTA9FE8pIU3JFDJVS/JvR4FHybxwLQIvQ3Lr9VPcqhCPLESqQHn9GvwGWzHR
+	 r9k8T9q60GZzZp6yRMIwid56CDJwls6L0snWPLXmTH3MQAT/6Gd2RxsWA163tmylE2STe
+	 R7OqBfBLU53mmxuNwiLmm9VEZm+R9xGMYREhBHAfzbUBKAQBVaFhqPhf8WloCwr8Q5qwY
+	 nIZfb2iX9eKuorjx75vFCAloXRzjpKMcWSo8E/Ww3HPgKyv2sECTJAuFZQwIo9U8UWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MwxDtmUj;
-	arc=none smtp.remote-ip=95.215.58.155
-Received: from mta1.migadu.com (out-155.mta1.migadu.com [95.215.58.155])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=gyJDtw1O;
+	arc=none smtp.remote-ip=91.218.175.77
+Received: from mta0.migadu.com (out-77.mta0.migadu.com [91.218.175.77])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0045E606A31C
-	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 13:56:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0045E606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF782606A31C
+	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 14:01:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF782606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MwxDtmUj
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=gyJDtw1O
 X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=0YQTFfo6Zx+bnkQmwhR7F7qwZFMAvWmY7FYm8gNBzfY=;
+DKIM-Signature: a=rsa-sha256; bh=HjVZPtkRA01m0fgGyDnvvNCRvaaaXCOerbCRxZkDG8Q=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794146174; v=1; x=1794750974;
- b=MwxDtmUjXQQ9yh/gx6Urw71F2U/rZWSdRjMOozocxnRQiYCNY4V/a7KB5Co4PISzXjZwxrqA
- emVoGpihW4txZvJ/R2OmOMoKddUu35V7XzSLsI+ColwdlOVI3PPSxdoz79rxspr4DbyqAg8ds+L
- i1oTziYP4RyN72+Li2cIEvLs=
+ t=1794146507; v=1; x=1794751307;
+ b=gyJDtw1OHWTueJSrFbE9M6Q9FeXI7GJBm8kIILXHYJKu9jS6IFJNZx9y86K4Hx5DaNjx60WZ
+ ADzt/pSpPknIOSTAT/GIlwAu2vGthKXfOQtu8/5NqR4lbOc3yyUfBIZWbS5VJBHuExB355QJqbf
+ XH3xNmXRbW76XfiDvsfGxa+Q=
 X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 1156377d6fda6b04;
-	Sun, 08 Nov 2026 13:56:14 +0000
-X-Mizu-Trace-ID: 1156377d6fda6b04
+Received: by smtp.migadu.com with ESMTPS id 08f775a7004b422a;
+	Sun, 08 Nov 2026 14:01:47 +0000
+X-Mizu-Trace-ID: 08f775a7004b422a
 X-Migadu-Flow: FLOW_OUT
 From: Qingfang Deng <qingfang.deng@linux.dev>
 To: stable@vger.kernel.org
 Cc: Jakub Kicinski <kuba@kernel.org>
-Subject: [PATCH 6.18.y] pppoe: delete session hash entries by pointer match
-Date: Sun,  8 Nov 2026 21:56:09 +0800
-Message-Id: <20261108135609.889-1-qingfang.deng@linux.dev>
+Subject: [PATCH 6.12.y 6.6.y 6.1.y 5.15.y 5.10.y] pppoe: delete session hash entries by pointer match
+Date: Sun,  8 Nov 2026 22:01:44 +0800
+Message-Id: <20261108140144.1081-1-qingfang.deng@linux.dev>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261107051334-failed-6.18-b5b8c81836e2@kernel.org>
-References: <20261107051334-failed-6.18-b5b8c81836e2@kernel.org>
+In-Reply-To: <20261107052514-failed-6.12-b5b8c81836e2@kernel.org>
+References: <20261107052514-failed-6.12-b5b8c81836e2@kernel.org> <20261107053805-failed-6.6-b5b8c81836e2@kernel.org> <20261107055315-failed-6.1-b5b8c81836e2@kernel.org> <20261107061023-failed-5.15-b5b8c81836e2@kernel.org> <20261107062733-failed-5.10-b5b8c81836e2@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -95,10 +95,10 @@ Signed-off-by: Qingfang Deng <qingfang.deng@linux.dev>
  1 file changed, 8 insertions(+), 14 deletions(-)
 
 diff --git a/drivers/net/ppp/pppoe.c b/drivers/net/ppp/pppoe.c
-index 7ee63051a161..0bfb048c291a 100644
+index 8ff2024dde60..293b6fb1c1e9 100644
 --- a/drivers/net/ppp/pppoe.c
 +++ b/drivers/net/ppp/pppoe.c
-@@ -195,18 +195,16 @@ static int __set_item(struct pppoe_net *pn, struct pppox_sock *po)
+@@ -194,18 +194,16 @@ static int __set_item(struct pppoe_net *pn, struct pppox_sock *po)
  	return 0;
  }
  
@@ -108,19 +108,19 @@ index 7ee63051a161..0bfb048c291a 100644
  {
 -	int hash = hash_item(sid, addr);
 +	int hash = hash_item(po->pppoe_pa.sid, po->pppoe_pa.remote);
- 	struct pppox_sock *ret, __rcu **src;
+ 	struct pppox_sock *ret, **src;
  
- 	ret = rcu_dereference_protected(pn->hash_table[hash], lockdep_is_held(&pn->hash_lock));
+ 	ret = pn->hash_table[hash];
  	src = &pn->hash_table[hash];
  
  	while (ret) {
 -		if (cmp_addr(&ret->pppoe_pa, sid, addr) &&
 -		    ret->pppoe_ifindex == ifindex) {
 +		if (ret == po) {
- 			struct pppox_sock *next;
- 
- 			next = rcu_dereference_protected(ret->next,
-@@ -256,11 +254,10 @@ static inline struct pppox_sock *__get_item_by_addr(struct net *net,
+ 			*src = ret->next;
+ 			break;
+ 		}
+@@ -255,11 +253,10 @@ static inline struct pppox_sock *get_item_by_addr(struct net *net,
  	return pppox_sock;
  }
  
@@ -128,13 +128,13 @@ index 7ee63051a161..0bfb048c291a 100644
 -					char *addr, int ifindex)
 +static void delete_item(struct pppoe_net *pn, struct pppox_sock *po)
  {
- 	spin_lock(&pn->hash_lock);
+ 	write_lock_bh(&pn->hash_lock);
 -	__delete_item(pn, sid, addr, ifindex);
 +	__delete_item(pn, po);
- 	spin_unlock(&pn->hash_lock);
+ 	write_unlock_bh(&pn->hash_lock);
  }
  
-@@ -602,8 +599,7 @@ static int pppoe_release(struct socket *sock)
+@@ -599,8 +596,7 @@ static int pppoe_release(struct socket *sock)
  	 * protect "po" from concurrent updates
  	 * on pppoe_flush_dev
  	 */
@@ -144,7 +144,7 @@ index 7ee63051a161..0bfb048c291a 100644
  
  	sock_orphan(sk);
  	sock->sk = NULL;
-@@ -653,8 +649,7 @@ static int pppoe_connect(struct socket *sock, struct sockaddr *uservaddr,
+@@ -651,8 +647,7 @@ static int pppoe_connect(struct socket *sock, struct sockaddr *uservaddr,
  	if (stage_session(po->pppoe_pa.sid)) {
  		pppox_unbind_sock(sk);
  		pn = pppoe_pernet(sock_net(sk));
@@ -154,7 +154,7 @@ index 7ee63051a161..0bfb048c291a 100644
  		if (po->pppoe_dev) {
  			dev_put(po->pppoe_dev);
  			po->pppoe_dev = NULL;
-@@ -705,8 +700,7 @@ static int pppoe_connect(struct socket *sock, struct sockaddr *uservaddr,
+@@ -703,8 +698,7 @@ static int pppoe_connect(struct socket *sock, struct sockaddr *uservaddr,
  
  		error = ppp_register_net_channel(dev_net(dev), &po->chan);
  		if (error) {
