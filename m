@@ -1,100 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.41
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794147859;
-	b=Ne2XcJPzhee1X5F71Y+Jt0//XQ2N6+D1NZHh3+a2dc74oPiJiN9xkLwLryydhlfu5S8P
-	 UsRWQZRSzmmEuJPnvxteJwsY4+5iJRMLmH6zXMER+c4nL/Z63Mm0CoAHfyBTtPwQgUseN
-	 AiOUsvF8lDDvf2IyrFpgWZHcn+RK4pUsqn6XuorC2zDIcQyfh8UfVM7HU+a4yoj7QMHfe
-	 TfxBlZIu415o5dLWnsj5mGe1e7Yb+aewDTu1D3DcS9ugp2D+cBxhzYw1BEJrGk6GUqjHo
-	 K5cag03xYYI76lgVRWfcSn0felm6a5DvxSd6dSRmVPSsMY35mcB8v0JhjnfWRP17K8A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794147859;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=r5RsrNxAh7DgoouGJ4IC6isO+zYq6OCTwcMbp742YFM=;
-	b=KHjcGYyzNwg+J5JUAzWrM0L3Y4naDz3mXiHMn8FLeRSLM6aPJSLXgOrKhhrD3ffzi1Qw
-	 Azt0WCquXu3u7q0ZigcY01skDXTKXqnKTNXIQvA9mWOkKePlrDPiSwLIli/asSpsZZsxQ
-	 XX48oNTwph7BLo4ayNyERrrgRHawUqonGW5eVy4tLcbKSYQ85phB4x+KEXKOtFdOA1HfE
-	 /FT3IDK8GORnbHXdg4vuyY8m1pbVR0jYXqAMI5T4lDOjcDVmMEnShXaAC12I+iKKDCCd0
-	 DuXddmRwhAnKJkv/TTO2jvOVULlUqUtqZuaaEBp1LH+2GPjm+qG+iRglcA6kDw6bAVA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DB+hGGel;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.41
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794148020;
+	b=oLtjiEQRTrkS4x+j0fDQUHJQ8OFlaDRDuIbEeTw7ooiwHpXLzHAKITsNGrnPJBMxQP4v
+	 Z/IkP5U+bYtm2dHaHluNylzIhzeaVTvzXgTcarsr3Hlg2T0RHg2cNQq5uTBku7vHaTp//
+	 c+sXX2yLrt61fa3G1jrihgnWW5X+yb9LU6bEm7+b1LyqRDP7RL2KdqqKPPcwgG1LEsWgX
+	 FQHO7MIzUgGFymYTO4yYxkyp236SRJVxvQcKe08VTQQN/mqVRWmCUqRlhEsa30Dh4xOaR
+	 /yaOZOgy4l9K2pGaONiJuqHc6MSZmXFUQcdMpevMXWOiGRkHKarw0qQjNJhdHR/69JQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794148020;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
+	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
+	bh=kjJYkaCTSkj+Q9j29XrgaqO0snlZlTe+53ruZ6OzUM8=;
+	b=aj3cRcbYU3eq+HThcURcdZqh72KdTtkALxua7tBk5Kgj3m+Sfq6LK64QVYCloo9xiRrS
+	 J3mWZT1Hq55aoOzFzSG3t7cLk1VW5fsAdrDHC+6alhsypXmAOQspE8LBHmETZBWnhetJr
+	 nFISPhqqnu7+GYU5kZp3Q6NTn4QBZyeJe6wcvPpdB15doQw8YZEyJtY86r99uvlovLeRT
+	 ezgeMppyz1XlE08OqSnHZV8uZK6ngUpHOfKnXaeluWA5YmGc8WmgEViKhUAz299SoD3nd
+	 iVV+gblNXI6efBzOSN+tcg0xGz+Mk/FPSZHFgYlS7x71Z0A3d8jX4Helt4gkZ/gRfhQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.cyber.gouv.fr;
+	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
+	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b="Z6FlUQQ/";
+	arc=none smtp.remote-ip=51.159.188.251
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33C0F606A31C
-	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 14:24:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33C0F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 394A3606A320;
+	Sun,  8 Nov 2026 14:26:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 394A3606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DB+hGGel
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c4c9abc1824so15208666b.1
-        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 06:24:18 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794147857; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Wk7sH8qOM8yMLs2kIXBlJdLBp9lbrrmrig4Ll25WXKypnpeMh2hE9DmM/dZ3bpqTUr
-         XHl0TvUAehoZ3/ZqJDVUs1acdQNqaFIvDWe2bxw6rzm+42nRzurbwTMCckd2Oo5NFFZ7
-         CFxv4YtwiemZpel1TqL76aiGragq749aRj6LiJnwh7ywbGX0T1dJi+UrU+wRjyVRl9cR
-         Nj67ohIHVpOMtRFiQuP04JdrYnjfGbG6v7UZ8cd3uOtRHgIh7WGZjeUYKVGfWun4wIei
-         NzjNRl7TAbjT/wZbmCUTYkaJjVKeZt7nj7UOvSlLS0YrfAJ81P/+YJyVreF7RJwCom3f
-         YHPw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=r5RsrNxAh7DgoouGJ4IC6isO+zYq6OCTwcMbp742YFM=;
-        fh=ktvfpkTQygtZxCR71y0KDE1HYxsGOYmgQtxxitXWXKw=;
-        b=BlED1NtRdTo5Murbw+KShuONFuXxjULYNr2ofBgn2m8HOxyt60YHQ/mAbF5rZufnCq
-         auzBDSlBFm7182RgWpP0MrNjH+VqaShmDybeUqTW8bKsjv7wCMzIpCNWsypdaPuyNVvR
-         blIG6Iw0scCUTWMYA65lGhJZB5WDjvpKPbsadUjBv70b0Fe4Lxwb1DS5FIDiwBv5fyPK
-         bMtaSFbgwwjDzOaGC/vfzM3Y/Co3OtytDi/fHG9gjmzQJDNr3jqHst/BIGSmaEDMmgnt
-         OFhrQvd22uqogtUIZH3tIw9OgRFZyG+sCzeQ+ZCYeIqLvSG3+ThQmKSyK4W+UOZaDvLV
-         st3Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794147857; x=1794752657; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=r5RsrNxAh7DgoouGJ4IC6isO+zYq6OCTwcMbp742YFM=;
-        b=DB+hGGelTuimW9Jk6S6fyUJv64EtwmjJNy/ZcsffOUmAM4XbIG765WxolnIvcUOih8
-         8iXTo/jlplBIHduVmtrnLpO44ZUX1kzHukgMIYfyvqTVEze0iMVLT00v4YUb8z9qxHwx
-         s05wDRh/HV6mlPX07sgeXfK3tLMKC61Jn/Nlh+wgCIQASwb8c0JUeslninqQQUpOO6e3
-         ns4kGZ9MblZ+3TBnqyj7d3rvNGdClHRmPyyUCXKdrexjvS560tkrLEh46lFU066gi6es
-         cVDdE+iOnurmI7CsJGpazXxDxM5HrvHla0teHpmfm8rdwdeqwCAJ2ekBmdds+gN6M4S5
-         +60w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794147857; x=1794752657;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=r5RsrNxAh7DgoouGJ4IC6isO+zYq6OCTwcMbp742YFM=;
-        b=kmoY666kEr0DH3eQm8U8rAXTs+6FDYq6FoMKphECNEOgaRspQouYVis+pBfQyQm1J+
-         tge7na5/VW0O893exyej5tLTCAGcjKANQUiEHBUlHQLMMcHIz7TTPFe0aTL5TctXgJj8
-         TYRdvlj1AqyK3dyAXIzCyY/xWFm9mSlDjIB92tQruxsAKtqRULicw5WdxTjnkyE2fR0g
-         vh+FvuxSW3GVgvDTWEQEKC1eWeqlDTB0nCIsw8Gub5RenhbSC10fFNbD7FTNhVr3SdQh
-         qiOUaACP+kumz6BAzYbNGl2e3Y0TWVejyh4tqXYcPW3GIxEIuu/AcS1FdBSw0n20q0zm
-         7aJA==
-X-Forwarded-Encrypted: i=1; AL+hErEPARe2uoqHzoAkqLHxj3g7vdm7gVaa3z2nae0X5R19/MG3K4jpFCZqxq3gnKL8xkRNSc82/gI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/ScN1POuJHiH8Cf8yTVNPOkPfsKyTjcOS7l4k8qR6mFuMK/PS7
-	3tdEjEodlHdDkR43rmDV7QiicLQXWQTVpF5nOzEmtM+81gvX2zSPowFB5tCLVrZ3UUAnSp/3ziG
-	vOwNrK/9q6GUUSZ0jBOAbKraTqAk/HlI=
-X-Gm-Gg: AYBFou1kfMjTB9JlEY58+DX0ZP/qomDoLjL52bA6Ef3sUwCGJ/YiaKaHg7X5hpvxbuV
-	RS/SmcngFZfx7wbfgQXBQiipDr77dav3n2HB1tpXRxwJD6CuQUh1/13qbGUztTbkV5jEPITn3q6
-	Pp1wioLTs5Qp3e3IkIQz6LVGIxM6ZkmxDYlRcOk6jmBYoig9LFJwPl4eH+wSBm+8wVJnfCS6I6W
-	CGktxgwZZrhs+BBJlTf/ZibZ6FdUv/gLO9Pv0iNLBAhmyAoQ3nZY7Tuzd1D1/ZUfL9LYL+9ByE8
-	QoetGnRx16eZhX5xWcoSMflMK7gNsbDZRXLPGrlIqMRFKkIqtVol/99VH6S1fR3pbw9WD6xXIao
-	laUa3Ev+0PnJnLR6jOf4oqYSG9PgV6R52/C5A9ILfvuJISlrWqxCEtOPRvABNT/Z4yTO0kA==
-X-Received: by 2002:a17:907:7b91:b0:c46:645f:cee2 with SMTP id
- a640c23a62f3a-c4d6d994688mr122085066b.4.1794147857304; Sun, 08 Nov 2026
- 06:24:17 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=Z6FlUQQ/
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
+	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=kjJYkaCTSkj+Q9j29XrgaqO0snlZlTe+53ruZ6OzUM8=; b=Z6FlUQQ/+pORntqkaH3qI8P2O0
+	6SND5R6hgEG7pxR+Imqs0sJSaWaPekuQTOAYhyztPn4Q1aMxAJimKsFDq9KwtXXjWr1hV2lo0ac5c
+	CjUfKzENFrL5gYb3f/WpTW+X9HFHX7srKKaMEDU7tG7HXKLRd8Wx0L/+eo6eZLb/Ky4+TcRl8wkAK
+	1RLFO/pX7pq2Es4zV/tdGDsOQUNlLwWSyYk9k6nUr4jH/WUO1N6/qY/iy7msyDgQqtasckMafSkdE
+	FD671AKu/2Xsn71MGmjhdl9kGVijJ4/E5kPhY+zQjiTA3DAIa+PI7pgWOA8Yc8sueA7g9XPyTA5Kl
+	TAZrIUTA==;
+Received: from [151.115.150.205] (port=49652 helo=gepetto..)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
+	id 1xQ3rF-00000008IcJ-2sdE;
+	Sun, 08 Nov 2026 15:26:57 +0100
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+To: Steffen Klassert <steffen.klassert@secunet.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Sabrina Dubroca <sd@queasysnail.net>
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Boris Pismenny <borisp@nvidia.com>,
+	Saeed Mahameed <saeedm@nvidia.com>,
+	Leon Romanovsky <leonro@nvidia.com>,
+	Tariq Toukan <tariqt@nvidia.com>,
+	Mark Bloch <mbloch@nvidia.com>,
+	netdev@vger.kernel.org,
+	linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+	stable@vger.kernel.org
+Subject: [PATCH ipsec v2 1/7] xfrm: esp6: use the current sequence number for the IV
+Date: Sun,  8 Nov 2026 14:26:46 +0000
+Message-ID: <20261108142652.1330952-2-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261108142652.1330952-1-Jeremy.Jean@oss.cyber.gouv.fr>
+References: <20261108142652.1330952-1-Jeremy.Jean@oss.cyber.gouv.fr>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,145 +82,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261108132634.2650642-2-bestswngs@gmail.com> <74b00dcc-113f-4532-81f5-e7e0814ddc4c@efficios.com>
-In-Reply-To: <74b00dcc-113f-4532-81f5-e7e0814ddc4c@efficios.com>
-From: Weiming Shi <bestswngs@gmail.com>
-Date: Sun, 8 Nov 2026 06:23:40 -0800
-X-Gm-Features: AclHuK-RDpsKHHqs6Zf5S8zaUfD4URbw08aTNu88KBVtWVm-WrJ2tV0BX7o5hF8
-Message-ID: <CANgPUi1To9bPCj0WE95mLMSBjw9hG+0oxAAPrApLv7Pvijr_NQ@mail.gmail.com>
-Subject: Re: [PATCH v2] sched/mmcid: Synchronize exec MM teardown with
- affinity updates
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, 
-	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, 
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
-	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
-	linux-kernel@vger.kernel.org, Marco Elver <elver@google.com>, 
-	co+cab19e2ebe4d535a@bugs.sh, Xiang Mei <xmei5@asu.edu>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-Mathieu Desnoyers <mathieu.desnoyers@efficios.com> =E4=BA=8E2026=E5=B9=B411=
-=E6=9C=888=E6=97=A5=E5=91=A8=E6=97=A5 05:33=E5=86=99=E9=81=93=EF=BC=9A
->
-> On 2026-11-08 08:26, Weiming Shi wrote:
-> > set_cpus_allowed_common() passes a remote task's p->mm to
-> > mm_update_cpus_allowed(), but the scheduler locks do not stabilize that
-> > pointer against exec. A same-owner sched_setaffinity() can race the tar=
-get
-> > replacing and freeing its old mm. Current kernels are only incidentally
-> > serialized by futex_exec_done() taking p->pi_lock when CONFIG_FUTEX=3Dy=
-;
-> > valid CONFIG_FUTEX=3Dn builds remain vulnerable.
-> >
-> >    BUG: KASAN: slab-use-after-free in set_cpus_allowed_common (kernel/s=
-ched/core.c:10835 kernel/sched/core.c:2829)
-> >    Read of size 4 at addr ffff88810991b04c by task poc/5127
-> >    Call Trace:
-> >     set_cpus_allowed_common (kernel/sched/core.c:10835 kernel/sched/cor=
-e.c:2829)
-> >     set_cpus_allowed_fair (kernel/sched/fair.c:10046)
-> >     __set_cpus_allowed_ptr_locked (kernel/sched/core.c:2842 kernel/sche=
-d/core.c:3224)
-> >     __set_cpus_allowed_ptr (kernel/sched/core.c:3258)
-> >     __sched_setaffinity (kernel/sched/syscalls.c:1161)
-> >     sched_setaffinity (kernel/sched/syscalls.c:1239)
-> >     __x64_sys_sched_setaffinity (kernel/sched/syscalls.c:1275)
-> >     do_syscall_64 (arch/x86/entry/syscall_64.c:84)
-> >     entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
-> >
-> >    Freed by task 5128:
-> >     kmem_cache_free (mm/slub.c:6757)
-> >     __mmput (kernel/fork.c:1204)
-> >     mmput (kernel/fork.c:1215)
-> >     setup_new_exec (fs/exec.c:1395)
-> >     load_elf_binary (fs/binfmt_elf.c:1024)
-> >     bprm_execve (fs/exec.c:1865)
-> >     do_execveat_common.isra.0 (fs/exec.c:1963)
-> >     __x64_sys_execve (fs/exec.c:2036)
-> >     do_syscall_64 (arch/x86/entry/syscall_64.c:84)
-> >     entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
-> >
-> > After exec publishes the new p->mm, acquire and release the task's runq=
-ueue
-> > lock before the old mm can be dropped. Affinity updates already hold th=
-at
-> > lock across set_cpus_allowed_common(), so the barrier waits for any upd=
-ate
-> > that loaded the old mm. Updates that start afterwards observe the new m=
-m.
-> >
-> > This keeps allowed-mask updates synchronous, including transient affini=
-ty
-> > expansions, without changing the MM-CID fork, exit, or scheduling paths=
-.
-> >
-> > This change was developed with assistance from an LLM.
-> >
-> > Fixes: 7e019dcc470f ("sched: Improve cache locality of RSEQ concurrency=
- IDs for intermittent workloads")
-> > Cc: stable@vger.kernel.org
-> > Reported-by: <co+cab19e2ebe4d535a@bugs.sh>
-> > Signed-off-by: Weiming Shi <bestswngs@gmail.com>
-> > ---
-> > Changes in v2:
-> > - Replace the schedule-in deferral with an exec-side runqueue-lock barr=
-ier.
-> > - Keep affinity expansions synchronous, including expansions narrowed b=
-efore
-> >    the next schedule-in.
-> > - Avoid changes to the MM-CID fork, exit, and scheduling state machine.
-> >
-> >   fs/exec.c             | 1 +
-> >   include/linux/sched.h | 2 ++
-> >   kernel/sched/core.c   | 6 ++++++
-> >   3 files changed, 9 insertions(+)
-> >
-> > diff --git a/fs/exec.c b/fs/exec.c
-> > index 8d2b14e1d455..2e1cac6a3de7 100644
-> > --- a/fs/exec.c
-> > +++ b/fs/exec.c
-> > @@ -905,6 +905,7 @@ static int exec_mmap(struct linux_binprm *bprm)
-> >               BUG_ON(active_mm !=3D old_mm);
-> >               /* Defer teardown to setup_new_exec(), outside the exec l=
-ocks. */
-> >               bprm->old_mm =3D old_mm;
-> > +             sched_mm_cid_exec_mmap(tsk);
-> >       } else {
-> >               mmdrop_lazy_tlb(active_mm);
-> >       }
-> [...]
-> >
-> > +/* Wait for affinity updates that may still be using the old MM. */
-> > +void sched_mm_cid_exec_mmap(struct task_struct *t)
-> > +{
-> > +     guard(task_rq_lock)(t);
-> > +}
->
-> Using a lock side-effect as synchronization of what sits _outside_
-> of the lock is an interesting synchronization pattern. If this actually
-> works, it should be thoroughly documented.
->
-> It should come with at least one sequence diagram explaining why this
-> works, along with acquire-release MO explanation.
->
-> Thanks,
->
-> Mathieu
->
-> --
-> Mathieu Desnoyers
-> EfficiOS Inc.
-> https://www.efficios.com
+When a GSO packet is split in software for IPv6 ESP,
+validate_xmit_xfrm() calls esp6_xmit() for each segment. These
+segments have XFRM_GSO_SEGMENT set, but after the split, skb_is_gso()
+returns false for each skb, so each call increments xo->seq.low by one
+after writing the ESP sequence number.
 
+When encryption is done in software, the AES-GCM IV is generated from
+the incremented value: if the last segment has sequence number 100, it
+uses 101 to generate its IV. A bug arises when the next ordinary
+packet is processed: it also goes through esp6_xmit() with sequence
+number 101, but since it does not have XFRM_GSO_SEGMENT, no increment
+happens and the same IV is reused.
 
-Hi Mathieu,
+Save the full sequence number before incrementing xo->seq, and use
+that value to generate the IV.
 
-Thanks for the feedback.
+Fixes: 3dca3f38cfb8 ("xfrm: Separate ESP handling from segmentation for GRO packets.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+---
+ net/ipv6/esp6_offload.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-I will include the requested documentation, sequence diagram,
-acquire-release memory order explanation, and reproduction code in v3.
+diff --git a/net/ipv6/esp6_offload.c b/net/ipv6/esp6_offload.c
+index 22895521a57d0..05d13cce22e47 100644
+--- a/net/ipv6/esp6_offload.c
++++ b/net/ipv6/esp6_offload.c
+@@ -346,6 +346,7 @@ static int esp6_xmit(struct xfrm_state *x, struct sk_buff *skb,  netdev_features
+ 	}
+ 
+ 	seq = xo->seq.low;
++	esp.seqno = cpu_to_be64(seq + ((u64)xo->seq.hi << 32));
+ 
+ 	esp.esph = ip_esp_hdr(skb);
+ 	esp.esph->spi = x->id.spi;
+@@ -364,8 +365,6 @@ static int esp6_xmit(struct xfrm_state *x, struct sk_buff *skb,  netdev_features
+ 	if (xo->seq.low < seq)
+ 		xo->seq.hi++;
+ 
+-	esp.seqno = cpu_to_be64(xo->seq.low + ((u64)xo->seq.hi << 32));
+-
+ 	len = skb->len - sizeof(struct ipv6hdr);
+ 	if (len > IPV6_MAXPLEN)
+ 		len = 0;
+-- 
+2.47.3
 
-Best regards,
-Weiming Shi
