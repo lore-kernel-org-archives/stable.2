@@ -1,115 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.152
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794141806;
-	b=XMwIabkVb/wjixTQaz/qexW9YO0Hlb1mstFsBgkYklR0/RoC5MeEmyqG5zu/4WOgyAwS
-	 4A9lTr3c4C8+Xyk9IUbiLyt74uDWmi6nnmFDNZcSNDUb1xuc1R379iKZpJYPh+Tt34KRO
-	 QB/N1qiKvuaFKwansBd+6C7cgfwd23PkCuGyip/xGDB+9sBm0hbZcsY/foL/SWIoleTFW
-	 7N31vIVXesxCvypGq/SpKPAWu8DUMz6KwrWZq90yGbz8pqHMOFrk+ZIaFXgul3dXKg4pi
-	 88Okq/3yMwpyJV19709TWH+3VhEtCG3Dqg+QbQVDD7QKtqmo1jCsqJH5jx+5iW88CtA==
+	t=1794141876;
+	b=U029DUbwIF1v9Yr8xNQ0OB1wTlBzYZWdXbcMiAWyiwYJs4MGu3ezFzn3XvTab4UGzKy4
+	 VcZb4LXJVuqWXaxk9dn42of4wdMSz47+RKwz5IXpnsgXqbsI5MnH/dVuudkQZdeHjeKg/
+	 yUncMo2a0ULb2v6PcVEcf/MhGn/8OT8Hgo72iUHTEhCsNgsiGvS48bFJCvW7saDIOza8M
+	 CQrihSsRPueH1UjxrWvcaCC2aO/elsfTnH0Bl7oUrqjiU8w8PZIb2IfxuKMGsD0g6fZ4m
+	 NmvQGmW/GcwoSt+4DXkISACpa0h6QnkN5eICWOee0U0kQR2NRt/vBYGKHXT42FjKCKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794141806;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=s9QIa8+7f9x5TzsO+OL6plhe3L6scFovhOu5A4lig90=;
-	b=rMZsMe8SZgyLTWrMfJaVw9YUcE6fzY1Rn+S8RVWPKUjd5yYhTG4EcTeKnnPXSszv6isV
-	 mS1tuglYaFRwogHXaDkE9qtjYVv96neqHKBJDPeaQYA6hurQ6x3ByrEoSXxYGX9Qn6KFP
-	 A/p1Tr7Rcggu5mt+p8hoxXEwKMNG7qVSM3TAf7oe4G+DVr0PnHydabHXexeET5+V00uO1
-	 m07PkuB5qvFUOYCXbeUyauNyg7vKUdIjX0RqzAHM3VxXGr7GFLNCCZHWgPO6Lvvo6NoKl
-	 KR15S5pMunSX7uFBI8rvzFGMqQxLcBQvyH3hCLHDAVMLAesf5txtP0+WAOWutAJOT0w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794141876;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=FPR6QflJdzk9A4OElrBpNfOAyUbhBrgQgck52AktMEA=;
+	b=UbJlK6oEkTo3TG8sDBA+Q9V6p/FUPRzW4zuWBgm7q7w2btivWN5J5w4G5J7/I78QQm3m
+	 h0pctuhlKJWXx0dA6Woeqy+ivdFZTc65bwsPz76YGe2j9JJK5iK9wl/QRac+e5nDIy9Q9
+	 vjyNDEMxW1UE+2vJkl3aTCnKUPnukMLUs2U1MIruS2aBsAKu+Ufa/mYDVIZQgXrEMzvrH
+	 NVVtmGlmzyWaS36MXRbz/gWIwMtz96NdwIQDbCaW0NYhHDrf5KoB6BJuiltMyblLlBURC
+	 h9lDmkDyZcknQC7vMVKohBeIYcnmWYq/gsf2S4U2GXWLAb9bEEki7YAYXPREuoIjX3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=jannau.net;
-	spf=pass smtp.mailfrom=jannau.net;
-	dkim=pass header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=ozBbpMkA;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=UYmpYOKn;
-	arc=none smtp.remote-ip=103.168.172.152
-Received: from fhigh-a1-smtp.messagingengine.com (fhigh-a1-smtp.messagingengine.com [103.168.172.152])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WDwJJdBT;
+	arc=none smtp.remote-ip=74.125.82.49
+Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18593606D816
-	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 12:43:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18593606D816
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0390C606A323
+	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 12:44:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0390C606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=ozBbpMkA;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=UYmpYOKn
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 818011400098
-	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 07:43:25 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Sun, 08 Nov 2026 07:43:25 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1794141805;
-	 x=1794228205; bh=s9QIa8+7f9x5TzsO+OL6plhe3L6scFovhOu5A4lig90=; b=
-	ozBbpMkAzeF1FJJMig6rNU7METT9tfyI1KIg5bWqvXvGptpU6+WIpsIrj2a77XBB
-	5aK0Ulclj0RO31xoghusM73MCjsODOWrtPNLUIfORi5tPQHdHcnZMyI1dANDr6dI
-	IkCe8PAFdoidTf8q5PonO7INPvMmTWiEthAuSYsyGg9rdc80PO5E7RF1npww//TS
-	YBbHEK1ig2wHOmSl/5fOVQCnZ6uESNF7BIskbhwDh2QnAsi3A50WMpR4twF7ljRh
-	gT80mDLSJonjxh1lHfkIXtjws6SsrZl+cyiHSx9O51rJViv0dMT+Abj17iz36boE
-	wNP8spRMPciUWVCUCmGJhA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794141805; x=
-	1794228205; bh=s9QIa8+7f9x5TzsO+OL6plhe3L6scFovhOu5A4lig90=; b=U
-	YmpYOKnCXvmtzIw9JcypbP2UcV3XwZTLUHiROPu5VqZQGz/QU55Zb7iQnRcxoM9N
-	+QBywmConYnF5xzlrzUHG+c0QPDcMLzJwPrnpaOT9PHviXYWwC3bD7in8XekG0/o
-	YvMEkWK+n7nX+upY3o4HyrPMaOremgbn9vzCzvxgG2eZq68SX8xVusNVXFXMWESg
-	fQSGrW8ObMtRfTVYNLBpiUJD6OPDVuefBB+k5lybgTiEYwAZnAHSC0e91wLE72JQ
-	3TfDvZvrEDCxJDtKbVYXfDNAC+ygQtpr+0mmlLlFUC5hEmAN1j1NJklvNIxBS0bz
-	aMvrvPso9G3GRiDaa3b3A==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=jannau.net a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794141805; d=jannau.net;
-	mf=PGpAamFubmF1Lm5ldD4=; rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:bNFNFMxTHZZYeIVgCq32xwii407nOR1NRIdj+PdnWe+6vo/
-	fnJsoZuyuueFON3Vicozgl8o5m9ItFT9H/uh6BKIBawcoIaYVBE9BbMPqjOgSXQE
-	Y+5Iervb9lqGfnn09xYA4jscphyfXJMXrjOQzU/KrdyNQ3sunAsrqmHG/4TGew8v
-	NXWTsex2RlyyrUp0vqcYWz6UuiRTQjFCPT2ocDUh8Pngy186RDQTpyEhnV3yqw9z
-	avEo6KZ4ztE5YmjK0kGYTqhyVh1FuIPNO2Ut3FFXm62/zuPZQYVmNXIcM4yjSfUq
-	01FoIt40j1/ekwsex9no18fU1HNbqqh3btMDeeQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:kk1UASHmQuIheuacUzNh0kjfvNA6LVLIglo1aVI6dY4=:zjxwKrwgoQ1CDaw6s5gNTvt7+O4eaXf6uL9MVFCJTAc=;
-X-ME-Sender: <xms:bW7wauSKaPt3VJ-NIFFUwmuT9MFmAwmWkpAhuIOXZlxwDnI-ikMuFw>
-    <xme:bW7wapxyfpMjpHeluokIPgcveT66hlXAnTKIpf6d65jYSP07MWLBJe7uefMpCRMEQ
-    DDMPiH5ckIeVB8kg0aIaFhyCiHFZuKtqIQEqYC04wYOv4eW9KLLX9QP8g>
-X-ME-Received: <xmr:bW7wampdX-t62TydngDlUw4GB8HzZOpCQdAXl3Pm1cTEDspjodGCnD7dS2k6yxeU8Jw8ZLHKD7-xh5vPTiQatsYMST_jHclqQAUeIQ>
-X-ME-Proxy-Cause: dmFkZTFvpcRF2U5Eqq2oGivzePSyI52xcgAkdznKLWpxb3H76ey6ZgBIPA4VdqYaDnscX5
-    rw/WiyxacwJRwb4wAJziiEoDZPJqF7VpDXRzryvYOE97JvMlI6gHJJwukuX5E3aGQfUrhP
-    zcspf6iBJbC2JfcDbk0W2z6dMhWrS9LB/KyyX0W304P6wlYIn2Gs96QFYrkqheZA3EJsQH
-    HruypYwUGAt7hJLh+hZo8jHU9U40FuNrAvm1F/O5S6gO11QtROXNs/qiYLSb0VNyhdWq3Y
-    ldj+KznwwpIPuZF4KvrXrj5qmTsj0TUMEsb+cZ+X7RL6ZwAeAY1//VENmnWPj8YQY02Ihq
-    TvsITiC7QGebRNCbF9yrcpR2FRJ40iLArz8VyKbybSgFQ2B9TzGUopOzBptPwvnOtiaRvg
-    e2aWEw487LRp0pu81WQ7ts7TMRIQEu/c2zVLigCNK5MDWaJD468DHFaxQYy2LoxwHIkMkd
-    S5SDxcSxls7+rIMNV4F0MT/nYa8kWfqYal8Gdbw1W+CMS024oG+/xVYRXKUVmHs2gA/n37
-    rJf8AR9v4pI7ZwJ0f45i26iUcz8hR5KoxHDX0rCvbGn/KBpl6JmQC+LK9Q4x2r25utr6qI
-    kgfUPEhPRsry/jY8Q6Dia1Dh31pZun3J5sbBky98iVCP8PyOjdOMxWn2O0nQ
-X-ME-Proxy: <xmx:bW7was0SsrEYOJGnnbnOxQ_E9bABuoQ6yrueiBPOdYrs7MQImYw-Kg>
-    <xmx:bW7wamzxLEpmyQoZoN80Z4Xiqy3yMmF9TpTmuexJPrKlAicU3x1RQw>
-    <xmx:bW7waghZEpDNa0LGcfPsQek6AEej1r6_v-EATZNp8gUUIYXkvjhVQw>
-    <xmx:bW7wahpce85y6VJoRco2dB_JHxGQXyUGZ-CZ3ea7WpnSyJtIbGWNqQ>
-    <xmx:bW7wakORrmniPEli4o-0kwvIVSdrteIFwTSP5o1D6KEn8FPgbxnOP4A3>
-Feedback-ID: i47b949f6:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 8 Nov 2026 07:43:25 -0500 (EST)
-From: Janne Grunau <j@jannau.net>
-Date: Sun, 08 Nov 2026 13:42:55 +0100
-Subject: [PATCH v2 2/2] net: atlantic: AQC113: Limit multicast filters to
- available slots
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WDwJJdBT
+Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-1b3a142c6cfso5744c88.1
+        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 04:44:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794141875; x=1794746675; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FPR6QflJdzk9A4OElrBpNfOAyUbhBrgQgck52AktMEA=;
+        b=WDwJJdBTPYKg98qWxYfac7bzLCpLUyhSHTjCQxbFA9Fwjh8nqD36wcCZgl0W5Jqj7w
+         nodlErOPHpwHiAr+t2dwvUYHoLjm8q9rF5SYJ9L2NJRohIWX+emRaiQREDjGJf8v2Nl7
+         tdh9KR4gHnmv6cpHuMENVjOouJ7TSTYkop8R/p3IVM8fdejdufKym5b0cyXdf2QbVOTr
+         M6lI3kN5W+wT3/+DSRa7I6BJV3pv0sR1wisqlHA0QJmYWnA4iM54o3SLYZI9aIZKHREp
+         HICBLtOoQywIeg4COEtoa7OV4jjC2iPBh4XmHMWopg3rCFzeDNWEaO7L1JOgLGk5XsRP
+         3Pow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794141875; x=1794746675;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FPR6QflJdzk9A4OElrBpNfOAyUbhBrgQgck52AktMEA=;
+        b=YzZ2eCOQW0LOfOAbHfyi/kMa4GogufyEbmiigvWtXzdzwavQXQvPcacZkGcG85b53L
+         swJBs1VBl6MwKQ9AKbMXkcWRUwn0h+RD4EpMlK0uUBNOPpLz0Ska4sqlHlE8VnvkM9Hf
+         D6M7JLDq+oBL9r4JHtvaT1/Txddhw+ISTisICvj1ztF/GeVD0Ng6qCcgWxAMLHLCc6qn
+         oB3P+MPlYWYLKMOyfoZxO8BqHwKb/Rcp3B/v/Bfk8MpNLJdLm0KiKF1s8btuO01O6AKe
+         GJyUmhBSxF7rtvOyk3wII+TiO6cg9HizKJtgiEWBtBsB3of+BJKH5C6+G3cn7EEzYlnS
+         l5Og==
+X-Forwarded-Encrypted: i=1; AL+hErHYsrICiHXLaFRpxjI5/Pj7ONGjhJaBDizL2BUn7RRt+/z/xhgV5op6j2sn3FemmA+/S5mym/0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/ai/ojTMiW8sD7ptgfSQEP3JNf67g8N6gQR7ZCpgOaCSjlEAS5
+	lSYk2m9tEKbEOXyg+GF0dTwtcSHGxAnziKaurbLGVepElQWHx3VqmaQZqDSSxk7RRU8=
+X-Gm-Gg: AYBFou08pAT3EK4oF4NJAOd1pURS/SRUrGL4Kls8tzoIAnuJngo4fuiiOszvAERaE5J
+	fKHpDkhew25SGkmdFrtGjXcyDaDYxmXXjcodg7u1IBu1Yud8UnC8O6+zXXFAQfUVEFVRkztShro
+	yy/I+QtYyMQEwNF0GJRV/tWB5aMCXm3SKlkXWHukhxzapgGD/M9L+a2cQ9O7QvahDaxSt+zdIbw
+	KCzBsTDRM+PkNgSakAjdAMg6UOc++ad9JarBDgOZinB0fzWDKy2yL4MYYv5HKy458RdE/qvRNom
+	gnltqphkJqvfDxR/TK4DqvjqF0IjieATNdtPB9IhYTvClbP3/jqsbokFlVyp1WNk7o/yFrlx/U/
+	hmvuIG48WujY6RgIauE6pcYWkW+7lUk2PxNmRbOza3UdAGil5uzYLF86YYRBnfDkQB4Vp9V4D47
+	H1QL+/5Tmf2CPpyUpFo3cIocAFHjMiC2CGtfLG2MPeLH/KKcF+FVOX9XwiFf1OMT/twnfe291Dt
+	4Q5pxBgLZPzo7/Lncg2eH5HY+uk85qQPh3E0ko58ZWfO6+oTvxV8b3j6Ybr6f0Xt3577h7/hx3S
+	8Vc92hhEahZwlag6mLE4Wwuo0N1SSqvv8T33tmIV
+X-Received: by 2002:a05:7022:c86:b0:165:be2f:c56e with SMTP id a92af1059eb24-1b39fe8709emr3227445c88.2.1794141874868;
+        Sun, 08 Nov 2026 04:44:34 -0800 (PST)
+Received: from localhost.localdomain ([142.249.36.161])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3771e5728sm5138647c88.16.2026.11.08.04.44.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 04:44:34 -0800 (PST)
+From: Chengyu Liu <lui2012qwq@gmail.com>
+To: linux-wireless@vger.kernel.org
+Cc: jerome.pouiller@silabs.com,
+	kvalo@kernel.org,
+	Chengyu Liu <lui2012qwq@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] wifi: wfx: reserve zeroed slack for the bus alignment padding on TX
+Date: Sun,  8 Nov 2026 20:43:05 +0800
+Message-Id: <20261108124305.5962-1-lui2012qwq@gmail.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -119,185 +96,126 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261108-net-atlantic-aq113-apple-l2-filter-slots-v2-2-0b988d031c78@jannau.net>
-References: <20261108-net-atlantic-aq113-apple-l2-filter-slots-v2-0-0b988d031c78@jannau.net>
-In-Reply-To: <20261108-net-atlantic-aq113-apple-l2-filter-slots-v2-0-0b988d031c78@jannau.net>
-To: Sukhdeep Singh <sukhdeeps@marvell.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Janne Grunau <j@jannau.net>, stable@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6933; i=j@jannau.net;
- s=yk2025; h=from:subject:message-id;
- bh=zjxwKrwgoQ1CDaw6s5gNTvt7+O4eaXf6uL9MVFCJTAc=;
- b=owGbwMvMwCW2UNrmdq9+ahrjabUkhqwPeWm7lQQF7v5P18tLX3ZVcNKjBVfOLbmv+8u4XngX4
- xkPPlmmjlIWBjEuBlkxRZYk7ZcdDKtrFGNqH4TBzGFlAhnCwMUpABMxaWVk6FAtSBObGNacOynt
- 3ku5mF631mttTLbL8ueKcAU5mCb5M/wz2ekhO+WYfCVfwTfeLsuVPjaXD+Ryb+h++7vv4on7m4X
- 5AA==
-X-Developer-Key: i=j@jannau.net; a=openpgp;
- fpr=8B336A6BE4E5695E89B8532B81E806F586338419
+Content-Transfer-Encoding: 8bit
 
-Since commit 6c1ca112a6e4 ("net: atlantic: fix AQC113 HW init: ART,
-L2 filter slot, MAC address") hw_atl2_hw_multicast_list_set() uses L2
-filter slot above the firmware-assigned L2 filter slot for the MAC
-address.
-On Apple silicon systems with AQC113 the firmware returns
-`l2_filters_base_index = 9` and `l2_filter_count = 29` which is
-unfortunately less than AQ_HW_MULTICAST_ADDRESS_MAX (32).
-Add a new `struct aq_hw_ops` function pointer
-hw_get_num_multicast_addresses() so that atl2 variants can report the
-lower number of available L2 filter slots. Use this potentially smaller
-number in aq_nic_set_multicast_list() to decide when to switch to
-promiscuous mode.
+tx_helper() rounds the transfer length up to the bus alignment (4
+bytes for SPI, 64 bytes for SDIO) and passes the rounded length to
+wfx_data_write(), which reads the padding from the supplied buffer.
+However, none of the TX paths guarantees that this space is available
+and zeroed. wfx_alloc_hif() allocates only
+sizeof(struct wfx_hif_msg) + body_len, wfx_send_hif_msg_write() copies
+exactly count bytes with memdup_user(), and data frames are sent
+directly from the skb, whose tailroom is not guaranteed to be
+sufficient or zeroed.
 
-Fixes: 6c1ca112a6e4 ("net: atlantic: fix AQC113 HW init: ART, L2 filter slot, MAC address")
+so the padding is an out-of-bounds read leaking heap data to the
+device, the same defect class as the cw1200 fix "wifi: cw1200: fix TX
+padding OOB read leaking heap data to device".
+
+Reserve WFX_BUS_ALIGN_SLACK (64, the SDIO block size; SPI only needs
+4) zeroed bytes at the end of every TX buffer: extend the two exact
+allocations, and in wfx_tx_inner() ensure the skb tailroom and zero
+it, re-deriving hdr since pskb_expand_head() may reallocate the
+buffer.  Cloned skbs are uncloned as well, since the slack memset
+must not modify shared data, following the same check used by
+__skb_pad().
+
+Found by static analysis.
+
+Fixes: 4a5fb1bbcdf1 ("wfx: get out from the staging area")
 Cc: stable@vger.kernel.org
-Signed-off-by: Janne Grunau <j@jannau.net>
+Link: https://lore.kernel.org/all/7982b4a7e64f74e2068790ec389ca680a081f730@linux.dev/
+Signed-off-by: Chengyu Liu <lui2012qwq@gmail.com>
 ---
- drivers/net/ethernet/aquantia/atlantic/aq_hw.h            |  2 ++
- drivers/net/ethernet/aquantia/atlantic/aq_nic.c           |  7 ++++---
- drivers/net/ethernet/aquantia/atlantic/hw_atl/hw_atl_a0.c |  7 +++++++
- drivers/net/ethernet/aquantia/atlantic/hw_atl/hw_atl_b0.c |  7 +++++++
- drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c  | 11 ++++++++++-
- 5 files changed, 30 insertions(+), 4 deletions(-)
+ drivers/net/wireless/silabs/wfx/data_tx.c | 14 ++++++++++++++
+ drivers/net/wireless/silabs/wfx/debug.c   | 11 ++++++++---
+ drivers/net/wireless/silabs/wfx/hif_tx.c  |  4 +++-
+ drivers/net/wireless/silabs/wfx/wfx.h     |  8 ++++++++
+ 4 files changed, 33 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/net/ethernet/aquantia/atlantic/aq_hw.h b/drivers/net/ethernet/aquantia/atlantic/aq_hw.h
-index 338c956ad1f7..3a4465c11768 100644
---- a/drivers/net/ethernet/aquantia/atlantic/aq_hw.h
-+++ b/drivers/net/ethernet/aquantia/atlantic/aq_hw.h
-@@ -374,6 +374,8 @@ struct aq_hw_ops {
- 
- 	int (*hw_read_module_eeprom)(struct aq_hw_s *self, u8 dev_addr,
- 				     u8 reg_start_addr, int len, u8 *data);
+diff --git a/drivers/net/wireless/silabs/wfx/data_tx.c b/drivers/net/wireless/silabs/wfx/data_tx.c
+index a44a7403ce..985eba3378 100644
+--- a/drivers/net/wireless/silabs/wfx/data_tx.c
++++ b/drivers/net/wireless/silabs/wfx/data_tx.c
+@@ -357,8 +357,22 @@ static int wfx_tx_inner(struct wfx_vif *wvif, struct ieee80211_sta *sta, struct
+ 	WARN(skb_headroom(skb) < wmsg_len, "not enough space in skb");
+ 	WARN(offset & 1, "attempt to transmit an unaligned frame");
+ 	skb_put(skb, tx_priv->icv_size);
++	/*
++	 * The bus layer pads the transfer up to the bus alignment and
++	 * the padding is transferred from the skb.  Guarantee tailroom
++	 * for the slack, uncloning the skb if needed: the memset below
++	 * must not write into a shared buffer.
++	 */
++	if (skb_cloned(skb) || skb_tailroom(skb) < WFX_BUS_ALIGN_SLACK) {
++		int ntail = WFX_BUS_ALIGN_SLACK - skb_tailroom(skb);
 +
-+	int (*hw_get_num_multicast_addresses)(struct aq_hw_s *self);
- };
++		if (pskb_expand_head(skb, 0, max(ntail, 0), GFP_ATOMIC))
++			return -ENOMEM;
++	}
++	memset(skb_tail_pointer(skb), 0, WFX_BUS_ALIGN_SLACK);
+ 	skb_push(skb, wmsg_len);
+ 	memset(skb->data, 0, wmsg_len);
++	hdr = (struct ieee80211_hdr *)(skb->data + wmsg_len);
+ 	hif_msg = (struct wfx_hif_msg *)skb->data;
+ 	hif_msg->len = cpu_to_le16(skb->len);
+ 	hif_msg->id = HIF_REQ_ID_TX;
+diff --git a/drivers/net/wireless/silabs/wfx/debug.c b/drivers/net/wireless/silabs/wfx/debug.c
+index 454ec59fdc..f87f0e059c 100644
+--- a/drivers/net/wireless/silabs/wfx/debug.c
++++ b/drivers/net/wireless/silabs/wfx/debug.c
+@@ -255,9 +255,14 @@ static ssize_t wfx_send_hif_msg_write(struct file *file, const char __user *user
+ 	 * memory pattern may help user.
+ 	 */
+ 	memset(context->reply, 0xFF, sizeof(context->reply));
+-	request = memdup_user(user_buf, count);
+-	if (IS_ERR(request))
+-		return PTR_ERR(request);
++	/* Reserve room for the bus alignment slack */
++	request = kzalloc(count + WFX_BUS_ALIGN_SLACK, GFP_KERNEL);
++	if (!request)
++		return -ENOMEM;
++	if (copy_from_user(request, user_buf, count)) {
++		kfree(request);
++		return -EFAULT;
++	}
+ 	if (le16_to_cpu(request->len) != count) {
+ 		kfree(request);
+ 		return -EINVAL;
+diff --git a/drivers/net/wireless/silabs/wfx/hif_tx.c b/drivers/net/wireless/silabs/wfx/hif_tx.c
+index 9efb108bd8..45db1cf7f7 100644
+--- a/drivers/net/wireless/silabs/wfx/hif_tx.c
++++ b/drivers/net/wireless/silabs/wfx/hif_tx.c
+@@ -38,7 +38,9 @@ static void wfx_fill_header(struct wfx_hif_msg *hif, int if_id, unsigned int cmd
  
- struct aq_fw_ops {
-diff --git a/drivers/net/ethernet/aquantia/atlantic/aq_nic.c b/drivers/net/ethernet/aquantia/atlantic/aq_nic.c
-index 01792f7abf96..a05e12e8661b 100644
---- a/drivers/net/ethernet/aquantia/atlantic/aq_nic.c
-+++ b/drivers/net/ethernet/aquantia/atlantic/aq_nic.c
-@@ -973,6 +973,7 @@ int aq_nic_set_packet_filter(struct aq_nic_s *self, unsigned int flags)
- int aq_nic_set_multicast_list(struct aq_nic_s *self, struct net_device *ndev)
+ static void *wfx_alloc_hif(size_t body_len, struct wfx_hif_msg **hif)
  {
- 	const struct aq_hw_ops *hw_ops = self->aq_hw_ops;
-+	int num_multicast_addresses = hw_ops->hw_get_num_multicast_addresses(self->aq_hw);
- 	struct aq_nic_cfg_s *cfg = &self->aq_nic_cfg;
- 	unsigned int packet_filter = ndev->flags;
- 	struct netdev_hw_addr *ha = NULL;
-@@ -980,7 +981,7 @@ int aq_nic_set_multicast_list(struct aq_nic_s *self, struct net_device *ndev)
- 	int err = 0;
+-	*hif = kzalloc(sizeof(struct wfx_hif_msg) + body_len, GFP_KERNEL);
++	/* The kzalloc() also zeroes the bus alignment slack */
++	*hif = kzalloc(sizeof(struct wfx_hif_msg) + body_len +
++		       WFX_BUS_ALIGN_SLACK, GFP_KERNEL);
+ 	if (*hif)
+ 		return (*hif)->body;
+ 	else
+diff --git a/drivers/net/wireless/silabs/wfx/wfx.h b/drivers/net/wireless/silabs/wfx/wfx.h
+index bd0df2e1ea..6a6c8a47a8 100644
+--- a/drivers/net/wireless/silabs/wfx/wfx.h
++++ b/drivers/net/wireless/silabs/wfx/wfx.h
+@@ -25,6 +25,14 @@
+ #define USEC_PER_TXOP 32 /* see struct ieee80211_tx_queue_params */
+ #define USEC_PER_TU 1024
  
- 	self->mc_list.count = 0;
--	if (netdev_uc_count(ndev) > AQ_HW_MULTICAST_ADDRESS_MAX) {
-+	if (netdev_uc_count(ndev) > num_multicast_addresses) {
- 		packet_filter |= IFF_PROMISC;
- 	} else {
- 		netdev_for_each_uc_addr(ha, ndev) {
-@@ -990,7 +991,7 @@ int aq_nic_set_multicast_list(struct aq_nic_s *self, struct net_device *ndev)
- 
- 	cfg->is_mc_list_enabled = !!(packet_filter & IFF_MULTICAST);
- 	if (cfg->is_mc_list_enabled) {
--		if (i + netdev_mc_count(ndev) > AQ_HW_MULTICAST_ADDRESS_MAX) {
-+		if (i + netdev_mc_count(ndev) > num_multicast_addresses) {
- 			packet_filter |= IFF_ALLMULTI;
- 		} else {
- 			netdev_for_each_mc_addr(ha, ndev) {
-@@ -1000,7 +1001,7 @@ int aq_nic_set_multicast_list(struct aq_nic_s *self, struct net_device *ndev)
- 		}
- 	}
- 
--	if (i > 0 && i <= AQ_HW_MULTICAST_ADDRESS_MAX) {
-+	if (i > 0 && i <= num_multicast_addresses) {
- 		self->mc_list.count = i;
- 		err = hw_ops->hw_multicast_list_set(self->aq_hw,
- 						    self->mc_list.ar,
-diff --git a/drivers/net/ethernet/aquantia/atlantic/hw_atl/hw_atl_a0.c b/drivers/net/ethernet/aquantia/atlantic/hw_atl/hw_atl_a0.c
-index 8de2cdd09213..1d69710c6be7 100644
---- a/drivers/net/ethernet/aquantia/atlantic/hw_atl/hw_atl_a0.c
-+++ b/drivers/net/ethernet/aquantia/atlantic/hw_atl/hw_atl_a0.c
-@@ -944,6 +944,11 @@ static int hw_atl_a0_hw_fl3l4_set(struct aq_hw_s *self,
- 	return aq_hw_err_from_flags(self);
- }
- 
-+static int hw_atl_a0_get_num_multicast_addresses(struct aq_hw_s *self)
-+{
-+	return AQ_HW_MULTICAST_ADDRESS_MAX;
-+}
++/*
++ * The bus layer pads TX transfers up to the bus alignment and the
++ * padding is transferred from the message buffer, so every buffer
++ * handed to tx_helper() must carry this much zeroed slack (the SDIO
++ * block size is 64 bytes, SPI transfers are aligned to 4).
++ */
++#define WFX_BUS_ALIGN_SLACK 64
 +
- const struct aq_hw_ops hw_atl_ops_a0 = {
- 	.hw_soft_reset        = hw_atl_utils_soft_reset,
- 	.hw_prepare           = hw_atl_utils_initfw,
-@@ -978,4 +983,6 @@ const struct aq_hw_ops hw_atl_ops_a0 = {
- 	.hw_get_regs                 = hw_atl_utils_hw_get_regs,
- 	.hw_get_hw_stats             = hw_atl_utils_get_hw_stats,
- 	.hw_get_fw_version           = hw_atl_utils_get_fw_version,
-+
-+	.hw_get_num_multicast_addresses = hw_atl_a0_get_num_multicast_addresses,
- };
-diff --git a/drivers/net/ethernet/aquantia/atlantic/hw_atl/hw_atl_b0.c b/drivers/net/ethernet/aquantia/atlantic/hw_atl/hw_atl_b0.c
-index 6c25ad264b19..252455cfd106 100644
---- a/drivers/net/ethernet/aquantia/atlantic/hw_atl/hw_atl_b0.c
-+++ b/drivers/net/ethernet/aquantia/atlantic/hw_atl/hw_atl_b0.c
-@@ -1777,6 +1777,11 @@ static int hw_atl_b0_read_module_eeprom(struct aq_hw_s *self, u8 dev_addr,
- 	return err;
- }
+ struct wfx_hwbus_ops;
  
-+static int hw_atl_b0_get_num_multicast_addresses(struct aq_hw_s *self)
-+{
-+	return AQ_HW_MULTICAST_ADDRESS_MAX;
-+}
-+
- const struct aq_hw_ops hw_atl_ops_b0 = {
- 	.hw_soft_reset        = hw_atl_utils_soft_reset,
- 	.hw_prepare           = hw_atl_utils_initfw,
-@@ -1836,4 +1841,6 @@ const struct aq_hw_ops hw_atl_ops_b0 = {
- 
- 	.hw_get_mac_temp         = hw_atl_b0_get_mac_temp,
- 	.hw_read_module_eeprom   = hw_atl_b0_read_module_eeprom,
-+
-+	.hw_get_num_multicast_addresses = hw_atl_b0_get_num_multicast_addresses,
- };
-diff --git a/drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c b/drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c
-index 8d7a489aa5de..d0dc72bd098f 100644
---- a/drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c
-+++ b/drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c
-@@ -810,7 +810,7 @@ static int hw_atl2_hw_multicast_list_set(struct aq_hw_s *self,
- 	struct aq_nic_cfg_s *cfg = self->aq_nic_cfg;
- 	int err = 0;
- 
--	if (count > (HW_ATL2_MAC_MAX - HW_ATL2_MAC_MIN)) {
-+	if (count > (priv->l2_filter_count - 1)) {
- 		err = -EBADRQC;
- 		goto err_exit;
- 	}
-@@ -1635,6 +1635,13 @@ static int hw_atl2_hw_vlan_ctrl(struct aq_hw_s *self, bool enable)
- 	return aq_hw_err_from_flags(self);
- }
- 
-+static int hw_atl2_get_num_multicast_addresses(struct aq_hw_s *self)
-+{
-+	struct hw_atl2_priv *priv = self->priv;
-+
-+	return min_t(int, priv->l2_filter_count - 1, AQ_HW_MULTICAST_ADDRESS_MAX);
-+}
-+
- const struct aq_hw_ops hw_atl2_ops = {
- 	.hw_soft_reset        = hw_atl2_utils_soft_reset,
- 	.hw_prepare           = hw_atl2_utils_initfw,
-@@ -1694,4 +1701,6 @@ const struct aq_hw_ops hw_atl2_ops = {
- 	.hw_get_clk_sel          = hw_atl2_hw_get_clk_sel,
- 	.extract_hwts            = NULL,
- 	.hw_extts_gpio_enable    = NULL,
-+
-+	.hw_get_num_multicast_addresses = hw_atl2_get_num_multicast_addresses,
- };
-
+ struct wfx_dev {
 -- 
-2.56.0
+2.25.1
 
