@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794164065;
-	b=QnHYkIl0C4cVump3MnvV3l1S9K5MBhiHmI+hwepafDtD6ld9ZQsZeiUW1Df+Y1OeNG0P
-	 fPrp4THUN++Aj1gl8oqXdoRGUAPe2lxgSz57ySpEZ84pcVINOVxpFojVnQh338GB55maa
-	 b1ol0VRnKzdyIxqIwHhAE/3iu8hYO7JdwoUw+dPQ/evNOczfszXgwFeFJYsSQy5Ym3czY
-	 5lej5UfaQF224c45emtWXsL/kNIXH0UHjQawavXLXSCvIMf5+3DX8PG2We6oKauVXBf+/
-	 KLEa9QPSIsP7VmXAZSWJjUAz/Jv/69Odz+VczCCwkDdZdDrfjjElyiosXR82Coy2TaA==
+	t=1794164066;
+	b=VZTa2F2Yys4TfXmUUh9t3L+BQD7hFVW/z9xqMWPAFAgUdzwdZ4Whn/hcRHtpvHOYCqOA
+	 bRhbmf57LFR3kg9xF2fxXDc3wS0Ndt/NWvO1HGYhNID3nRdEQNEPdP+vkWGAt/xikAa5z
+	 1SntwKgzvzwzTcjBqWUvNf7gEE6pqq6zDB6vmi6swMj2sPztj2CAY+T0y1x7RS5l1P/aK
+	 iokAvr4ZLdsWWaBiBJY5iyakOs2rLYJHI8FpIKUP+GylFOVECqongJ7jN04jRU2XS6gbY
+	 iMduhKKWOlzzWrFnJX//nB1ZAumgUqa9Cs5UeLfavpHh2yijMCIx60VJMIf9TVOwJRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794164065;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794164066;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=kT+YabbCj7H599GyIGzvLRt85QG4dIHsUt6mSz31Zhc=;
-	b=p/cC/ZqR0jMU+xUR7XFLalM2Z4n1YsnGwlAHlp7/lV3gqNj2PSxZOkOX1y2/Rb/1FAtI
-	 yZ/pLdSP1zrmBsEdZiZMBNXg+F3+suov5YZO0JBtwQSGW6CnHKw+XBnASDdB4SWihfXRW
-	 BkWrKJsb3jlGb3CzIFNSJ/5UdBHEXEWkjVfYljyUAfK0d8Ed8fuFCJEbEUtW9tacIYRYk
-	 hBlz72kEtEdYineid23OutH0h0ExKpKFC5E5Riya4lmry0Fm8YoVXRBuabELm5CtRZtGD
-	 9NNN3qYAOUDUM9r7Ayo010I/10/J6P2LHYuVIap2rROZdEP7mjIaE59kbqG4bx9ymlA==
+	bh=zNBuLDDM1HotnMn/kW+8WBSFRWZhumbrgKDivZk3atQ=;
+	b=HEl4sWknVyM/uohk+86r5jAUGOwBWGUZJmvZ1Thchqcc/600XUHyaMbBoI6zfxdjuemE
+	 HuHelYZBOU6/fYmKYv0aQuRH2P941aumqA/nSpA/Ityo3qakbuqBU4Bfua2hmc1Un3gsj
+	 5BeUGkF0CAY3JgpTRQP5ugStcefWR0EJWhULdYARHO7JHcbFLJRJNUhgaczG9lNlvCJBc
+	 CFYlvaxicsqMftLRILzQq8c4NHlVRXuHWI2dlsMHSSypIhod7kxCpgHOdW90wwi5mMd++
+	 vCkKpShjXKLb0TqjRZslZFD2w74h4HmvjzVjgOizeNgyL+b+9aqXvpw65zpBXT/+BTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=efficios.com;
 	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=m49tq+TM;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=NGJu0CNS;
 	arc=none smtp.remote-ip=158.69.130.18
 Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF1CB606D816;
-	Sun,  8 Nov 2026 18:54:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF1CB606D816
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C83B6082BED;
+	Sun,  8 Nov 2026 18:54:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C83B6082BED
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=m49tq+TM
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=NGJu0CNS
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
 	s=smtpout1; t=1794164064;
-	bh=kT+YabbCj7H599GyIGzvLRt85QG4dIHsUt6mSz31Zhc=;
+	bh=zNBuLDDM1HotnMn/kW+8WBSFRWZhumbrgKDivZk3atQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=m49tq+TMj/nYRs4s+AEK6Tm5G14ZEANSdE3DU7YUjwBHEB/aKGnHBJf0CbBoiqYT5
-	 VQOEyJbUhY6H2Eryt/MmidwLRm1yWLyiIf8SwrJyy0LwfpQ/+eau4479jMqdn+R7pW
-	 eBrVPDwwuC11o7ssi78gPE+tcivLetw513XuKRJlNQD/1G0VqXMMz5JV/w1xfIPfxY
-	 YLPVFuqS3DFBVqkFX99r42LGuSJL4m0pBFEu48kGIL958Fuyj6hqo27Stm6PEnG622
-	 Hzp9en6DnalCEhO3YVSDDB6ZrSWIZuEkLataUrcbJfQPuYPKaWJFHvUT1L1OnF3o/j
-	 jdoZ+6dv/9v+A==
+	b=NGJu0CNSWPhyh06lRk8ZPb6mowt3s2lHnW6VwnGgZC8v4ZOCeC1zU+/B8McChGqSa
+	 o4tZobV9Nf5YYzw/YFs918L0Fow5je3Dr79j591RO+baIwaCAbkviigMTKCIoUxjsZ
+	 PYk+J6KgOS3POAZDgQdIYXkN2W/M6QIQYFDk8HL1JWs1PT3vw4/K5NOYnGGzkGkrw2
+	 s2k//l9am7bWzizDd3Sgy5xWX5Dfm48Ojo55CVaeum/UPyzCkqsdLxk0b+Y6hpcP3m
+	 atS09Y0W+KZCtpR+A/38MDW5YAA4h2XQ4tu7KsxkeVRFfSmAjBoCCOaT0c62j2sr7K
+	 jD3jELBDO+R6w==
 Received: from thinkos.internal.efficios.com (unknown [64.58.40.251])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jN2C35Z80zMtr;
-	Sun, 08 Nov 2026 13:54:23 -0500 (EST)
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jN2C41FHDzMts;
+	Sun, 08 Nov 2026 13:54:24 -0500 (EST)
 From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 To: juri.lelli@redhat.com,
 	peterz@infradead.org,
@@ -80,9 +80,9 @@ Cc: linux-kernel@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	linux-rt-devel@lists.linux.dev,
 	stable@vger.kernel.org
-Subject: [PATCH v5 18/29] sched/deadline: Move a task's bandwidth only where room was made
-Date: Sun,  8 Nov 2026 13:53:55 -0500
-Message-Id: <20261108185406.1549770-19-mathieu.desnoyers@efficios.com>
+Subject: [PATCH v5 19/29] cgroup/cpuset: Wait for an attach before rebuilding the sched domains
+Date: Sun,  8 Nov 2026 13:53:56 -0500
+Message-Id: <20261108185406.1549770-20-mathieu.desnoyers@efficios.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
 References: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
@@ -97,157 +97,117 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Commit 7f51412a415d ("sched/deadline: Fix bandwidth check/update when
-migrating tasks between exclusive cpusets") moves a deadline task's
-bandwidth in two halves. cpuset_can_attach() reserves it in the
-destination root domain. set_cpus_allowed_dl() then frees it in the
-source, when the task's affinity changes. Its comment relies on the
-first half: "We already made space for us in the destination domain".
+cpuset_can_attach() reserves the bandwidth of the deadline tasks it
+moves in the destination root domain. cpuset_attach() moves their
+bandwidth later, on the strength of that reservation.
 
-But set_cpus_allowed_dl() runs on every change of affinity. It frees
-the bandwidth whenever the new mask leaves the task's root domain, with
-or without a reservation. sched_setaffinity() gets there too, if the
-task's cpuset spans two root domains. With admission control on,
-__sched_setaffinity() refuses such a mask. With sched_rt_runtime_us
-at -1, nothing refuses it. The bandwidth then moves with no room made,
-and no root domain counts it any more. The destination would underflow
-when the task leaves.
+Commit 75f7a25ec6bb ("cgroup/cpuset: Prevent race between task attach
+and cpuset state change") lets cpuset_attach() rely on what
+cpuset_can_attach() set up. The writes of cpus, mems and cpus.partition
+wait for an attach in progress, in wait_attach_done_lock(). CPU hotplug
+cannot run in between either: it takes cpus_write_lock, and the attach
+holds cpus_read_lock throughout.
 
-Fix this by flagging the affinity changes that come with a reservation,
-as SCA_DL_BW_RESERVED. cpuset_attach_task() sets it, through the new
-set_cpus_allowed_bw_reserved(). set_cpus_allowed_dl() moves the
-bandwidth only with the flag. Without it, the bandwidth stays where it
-is counted, until the next rebuild of the accounting counts it anew.
+But a rebuild of the sched domains does not wait. A write of
+sched_rt_runtime_us and the energy model rebuild them through
+rebuild_sched_domains(). The cgroup v1 writes of sched_load_balance and
+sched_relax_domain_level, and hk_sd_workfn(), use cpuset_full_lock().
 
-The attach still flags a task that became a deadline task after
-cpuset_can_attach(), with nothing reserved for it. "cgroup/cpuset: Give
-back the bandwidth an attach did not move" fixes that.
+In this example, a rebuild drops the reservation. T is a deadline task
+asleep in root domain R. Thread A moves T to a partition root P, which
+has a root domain of its own. Thread B writes sched_rt_runtime_us:
 
-Fixes: 7f51412a415d ("sched/deadline: Fix bandwidth check/update when migrating tasks between exclusive cpusets")
+  A                                      B
+
+  cpuset_can_attach()
+    takes cpuset_mutex
+    cpuset_reserve_dl_bw()
+      P's total_bw += T's bandwidth
+    drops cpuset_mutex
+                                         rebuild_sched_domains()
+                                           takes cpuset_mutex
+                                           dl_rebuild_rd_accounting()
+                                             clears R's and P's total_bw
+                                             counts T in R (not moved yet)
+                                           drops cpuset_mutex
+  cpuset_attach()
+    takes cpuset_mutex
+    cpuset_attach_task(T)
+      set_cpus_allowed_dl(T)
+        R's total_bw -= T's bandwidth
+        records a CPU of P
+
+P now lacks the bandwidth of T, and admits deadline tasks beyond its
+capacity. When T leaves P, P's total_bw underflows. In testing, the
+race left a destination admitting 3 tasks of 10% too many, or P
+admitting no task at all.
+
+Fix this by waiting for an attach in progress in
+rebuild_sched_domains_cpuslocked() and in cpuset_full_lock(). The
+latter then takes its locks in the order of the writes of cpus and
+cpus.partition. A rebuild from CPU hotplug finds no attach in progress.
+The online, offline and kill of a cpuset never wait: they hold
+cgroup_mutex, which the attach holds throughout.
+
+The move_vs_rebuild case of deadline_bw_test, added later in this
+series, tests this race. Without this patch, it fails in 5 of 8 VMs with
+8 CPUs. With it, the case passes in 8 of 8. The next patch needs this
+wait too: without it, it would give back a reservation that a rebuild
+dropped already.
+
+Found by the Sashiko AI reviews of v2 (the race) and v3 (the cgroup v1
+writes) of this series.
+
+Fixes: 2ef269ef1ac0 ("cgroup/cpuset: Free DL BW in case can_attach() fails")
 Cc: stable@vger.kernel.org
 Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 ---
- include/linux/sched.h   |  2 ++
- kernel/cgroup/cpuset.c  | 13 ++++++++++++-
- kernel/sched/core.c     | 16 ++++++++++++++++
- kernel/sched/deadline.c | 14 +++++++++-----
- kernel/sched/sched.h    |  2 ++
- 5 files changed, 41 insertions(+), 6 deletions(-)
+ kernel/cgroup/cpuset.c | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
 
-diff --git a/include/linux/sched.h b/include/linux/sched.h
-index 942d9acff203..5f14005d737e 100644
---- a/include/linux/sched.h
-+++ b/include/linux/sched.h
-@@ -1979,6 +1979,8 @@ extern void set_cpus_allowed_force(struct task_struct *p, const struct cpumask *
-  * Return: zero if successful, or a negative error code
-  */
- extern int set_cpus_allowed_ptr(struct task_struct *p, const struct cpumask *new_mask);
-+extern int set_cpus_allowed_bw_reserved(struct task_struct *p,
-+					const struct cpumask *new_mask);
- extern int dup_user_cpus_ptr(struct task_struct *dst, struct task_struct *src, int node);
- extern void release_user_cpus_ptr(struct task_struct *p);
- extern int dl_task_check_affinity(struct task_struct *p, const struct cpumask *mask);
 diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-index 7628cf77bdfd..194a438e25c3 100644
+index 194a438e25c3..51b6be460794 100644
 --- a/kernel/cgroup/cpuset.c
 +++ b/kernel/cgroup/cpuset.c
-@@ -3261,6 +3261,7 @@ static cpumask_var_t cpus_attach;
- 
- static void cpuset_attach_task(struct cpuset *cs, struct task_struct *task)
- {
-+	bool reserved = false;
- 	struct mm_struct *mm;
- 
- 	lockdep_assert_cpuset_lock_held();
-@@ -3270,11 +3271,21 @@ static void cpuset_attach_task(struct cpuset *cs, struct task_struct *task)
- 	else
- 		cpumask_andnot(cpus_attach, task_cpu_possible_mask(task),
- 			       subpartitions_cpus);
-+	/*
-+	 * cpuset_reserve_dl_bw() made room in @cs for the bandwidth of the
-+	 * deadline tasks that cpuset_can_attach() counted. Flag the move, so
-+	 * that the bandwidth of this task moves with it.
-+	 */
-+	if (dl_task(task) && dl_task_needs_bw_move(task, cs->effective_cpus))
-+		reserved = true;
- 	/*
- 	 * can_attach beforehand should guarantee that this doesn't
- 	 * fail.  TODO: have a better way to handle failure here
- 	 */
--	WARN_ON_ONCE(set_cpus_allowed_ptr(task, cpus_attach));
-+	if (reserved)
-+		WARN_ON_ONCE(set_cpus_allowed_bw_reserved(task, cpus_attach));
-+	else
-+		WARN_ON_ONCE(set_cpus_allowed_ptr(task, cpus_attach));
- 
- 	if (cpuset_v2() && !attach_ctx.mems_updated)
- 		return;
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index bf722f5ff97e..030106b3d97f 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -3272,6 +3272,22 @@ int set_cpus_allowed_ptr(struct task_struct *p, const struct cpumask *new_mask)
+@@ -296,17 +296,20 @@ void lockdep_assert_cpuset_lock_held(void)
+ 	lockdep_assert_held(&cpuset_mutex);
  }
- EXPORT_SYMBOL_GPL(set_cpus_allowed_ptr);
  
-+/*
-+ * Like set_cpus_allowed_ptr(), for a caller that has made room for the
-+ * deadline bandwidth of @p in the root domain of @new_mask. Move that
-+ * bandwidth there with @p. Return 0 on success, or a negative error
-+ * code.
-+ */
-+int set_cpus_allowed_bw_reserved(struct task_struct *p, const struct cpumask *new_mask)
-+{
-+	struct affinity_context ac = {
-+		.new_mask  = new_mask,
-+		.flags     = SCA_DL_BW_RESERVED,
-+	};
++static void wait_attach_done_lock(void) __acquires(&cpuset_mutex);
 +
-+	return __set_cpus_allowed_ptr(p, &ac);
-+}
-+
- /*
-  * Change a given task's CPU affinity to the intersection of its current
-  * affinity mask and @subset_mask, writing the resulting mask to @new_mask.
-diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-index 84102368822c..b365401e7148 100644
---- a/kernel/sched/deadline.c
-+++ b/kernel/sched/deadline.c
-@@ -3564,12 +3564,16 @@ static void set_cpus_allowed_dl(struct task_struct *p,
- 	WARN_ON_ONCE(!dl_task(p));
+ /**
+  * cpuset_full_lock - Acquire full protection for cpuset modification
+  *
+  * Takes both CPU hotplug read lock (cpus_read_lock()) and cpuset mutex
+- * to safely modify cpuset data.
++ * to safely modify cpuset data. Waits for an attach in progress before
++ * it takes cpuset mutex.
+  */
+ void cpuset_full_lock(void)
+ {
+ 	mutex_lock(&cpuset_top_mutex);
+ 	cpus_read_lock();
+-	mutex_lock(&cpuset_mutex);
++	wait_attach_done_lock();
+ }
  
- 	/*
--	 * Migrating a SCHED_DEADLINE task between exclusive
--	 * cpusets (different root_domains) entails a bandwidth
--	 * update. We already made space for us in the destination
--	 * domain (see cpuset_can_attach()).
-+	 * Migrating a SCHED_DEADLINE task between exclusive cpusets
-+	 * (different root_domains) entails a bandwidth update. Move the
-+	 * bandwidth only if the caller made room for it in the destination,
-+	 * as SCA_DL_BW_RESERVED says. Only cpuset_attach_task() sets it.
-+	 * Otherwise, the bandwidth stays where it is counted, until the next
-+	 * rebuild of the accounting. Moving it without room would leave no
-+	 * root domain counting it.
- 	 */
--	if (dl_task_needs_bw_move(p, ctx->new_mask)) {
-+	if ((ctx->flags & SCA_DL_BW_RESERVED) &&
-+	    dl_task_needs_bw_move(p, ctx->new_mask)) {
- 		unsigned int src_cpu = dl_task_root_domain_cpu(p);
- 		struct dl_bw *src_dl_b = &cpu_rq(src_cpu)->rd->dl_bw;
- 		unsigned int cpu;
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index d0f5ed98ef48..d7b4cad28262 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -2957,6 +2957,8 @@ extern struct task_struct *pick_task_idle(struct rq *rq, struct rq_flags *rf);
- #define SCA_MIGRATE_DISABLE	0x02
- #define SCA_MIGRATE_ENABLE	0x04
- #define SCA_USER		0x08
-+/* The caller made room for the deadline bandwidth in the new root domain. */
-+#define SCA_DL_BW_RESERVED	0x20
+ void cpuset_full_unlock(void)
+@@ -1005,7 +1008,14 @@ void rebuild_sched_domains_locked(void)
  
- extern void update_group_capacity(struct sched_domain *sd, int cpu);
- 
+ static void rebuild_sched_domains_cpuslocked(void)
+ {
+-	mutex_lock(&cpuset_mutex);
++	/*
++	 * Wait for an attach in progress. cpuset_can_attach() has reserved
++	 * the deadline bandwidth of the moving tasks in their new root
++	 * domain, and cpuset_attach() moves it on the strength of that
++	 * reservation. A rebuild of the accounting in between would drop
++	 * the reservation.
++	 */
++	wait_attach_done_lock();
+ 	rebuild_sched_domains_locked();
+ 	mutex_unlock(&cpuset_mutex);
+ }
 -- 
 2.47.3
 
