@@ -1,73 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794170665;
-	b=1OxOuOSGstDEFoB+RjP+WrsJkCy6qmCQPwDeAU+4ssULuKd1cdZJLsacH99L2ilUjXDb
-	 52hjOYrTrpT5Zb2CbgGG26PRaHisienWx+c+0unD+eP4JPMSDz2fdXhschNiu4CuJ6l/t
-	 Y0u2lgkWlnYPqQyoCOoJap6cqoHJzk9WwLNG5o+Kd2m6IYmxyBHMMV2mlyjpMXk8fUIRM
-	 AP+HY0lA+eeZQuKwqqlFwq2l4Xfu5g0ZVsPq6eJEfeCu/KlZoW8U7v+wkRvANfRDr88xx
-	 rWkvJAdE9BxneXR+AZEpyQavVmC5tHHGOtCQ1KwKllj6/LbTuqK6puqqovTg08vH+ZQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794170665;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
-	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
-	bh=7Og0qpzuv0jL9nFblkNVAz1so7z7Y134hJP1ntQYMkQ=;
-	b=iwPq3eZyieScBrSNiJzpNJvYhCTcclR8ENG298iQkBI6r1mv0/gNEmurwjufCVn2+pSM
-	 5HLQjp//m8wi4nr/Bs+S7o91e+oMfH61VaqTfS+zoufBI8spuVMCRi++C6WsRWUg+UYlP
-	 qHw/VNq9bDd6d9uUfhmnlMjRRVklwmHhm7YekrYavSpahjTgsg1NacgfQ9/DEGVxpG/aH
-	 jk0T+RDQK/x2hI4IPY2uY34s0TgKuYm8AozlbYdfsggK8SEOfz9piBBKsdbjozGGNllCG
-	 e//1hUMIF5hUS2cyzKIlXoFhn/5f0zrJrA69/2PzIK+NS4RJ/tAIQojCcuFlhbyAJIg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.cyber.gouv.fr;
-	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
-	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=b+m9tKYS;
-	arc=none smtp.remote-ip=51.159.188.251
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794171226;
+	b=CV5NUVMON1zEC/yTf6RGZe5/wz2heySZ1jAoUgH3URdLFud2iMdsoYRFYScx4YTRVaZE
+	 sS6dCNvNZObmPk9IkKUuGplXTEagTDGEFonm8RZx4ek73lL7wE5rUuVenia0S7hbnZLn4
+	 LCKK4wpXUNJX5oRu5TaeePNLOByhNvBWT6rnMog3JzNANP4zegON2mNinH1wUEWerri6T
+	 4GuHkhMl1b2m87hum16w35c7m5nzknjCz214f6Su6QHnbhj203QtchGRoFH8b9Y6AKFPc
+	 3E+6NP3Y0vPY6wMKU0QkiRwvmeyDANdtGLrNjRX7fqljnKO4+ZXhgulFBU5BhPtbgdA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794171226;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=i5HDg/CFXsBlwdhC2HztgZaTS7W3/FOOnLOcAl13fDI=;
+	b=t2v0LXatRjdWGrhiPBLmggyPZ8VJbqn0n6K5CiHt5pYfELYTEP7wSD7WbV/NkJ4Npesu
+	 +BMSweTw9Uvu7IXf9jOguhfv5jIuZNHGpMDtmi9YtFcVxp9XAkCnpzWWa5xy9fL9Y79ax
+	 6rWtD4ojCdCmYogpKH7nk0JjUpAH9U11pYq/df4D0GN7f8RY/dPPK+gxk8IQyr0NgrSSW
+	 SScXVUzST2PfrJhJjcjQR03HhfJVUAQ1YKVahqggx4o5YPDDfItD7aX2vX9XiCnUhFOim
+	 ++cmvOEXtfy+bLQz6vvYdJqjbxCfQBoJiqJCyEKxQqQtZQrSgb025N7Dw+O5n3NCUMw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=V5BALTeJ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70632606A31C;
-	Sun,  8 Nov 2026 20:44:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70632606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC4BD606A32A;
+	Sun,  8 Nov 2026 20:53:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC4BD606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=b+m9tKYS
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References;
-	bh=7Og0qpzuv0jL9nFblkNVAz1so7z7Y134hJP1ntQYMkQ=; b=b+m9tKYSHsNWN7SQ7uZFSE2d8y
-	Y+YDvFjijmJi15NMQbFLPqrv9t12eU4YandW2AAcUtUX4W0olFQWqGsbykGhmt5EfWYln4qckpsqj
-	wETOn2m93YBNHynge8/lN0S9Gf0xCHH6aFh4tRyjFQqUHDfuq7YOJXyD+qTvEwnQK/OGJSBGp2oWY
-	gfui0pOSsQMNjyU5wpBOU3znwcgBLefCUVwuP+PbFTsw8dq20cN8GzQqCkqGurwxJuMAnxrnWuqaa
-	t7di5U+O7eQk8jAiEiCeamXlauwHFwD9TaU42qXd/sL/Q5XsSQeCY7JTNfPa8chVXpreMxep92Les
-	orA9FCbA==;
-Received: from [151.115.150.205] (port=46942 helo=gepetto..)
-	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
-	id 1xQ9kU-00000001qXt-1HpG;
-	Sun, 08 Nov 2026 21:44:22 +0100
-From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-To: tytso@mit.edu
-Cc: Andreas Dilger <adilger.kernel@dilger.ca>,
-	Baokun Li <libaokun@linux.alibaba.com>,
-	Jan Kara <jack@suse.cz>,
-	Ojaswin Mujoo <ojaswin@linux.ibm.com>,
-	"Ritesh Harjani" <ritesh.list@gmail.com>,
-	Zhang Yi <yi.zhang@huawei.com>,
-	linux-ext4@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
-	stable@vger.kernel.org
-Subject: [PATCH] ext4: fix OOB write in fast-commit replay
-Date: Sun,  8 Nov 2026 20:43:46 +0000
-Message-ID: <20261108204345.1423203-2-Jeremy.Jean@oss.cyber.gouv.fr>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=V5BALTeJ
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id E3A6D2018FE;
+	Sun, 08 Nov 2026 21:53:39 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794171219;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=i5HDg/CFXsBlwdhC2HztgZaTS7W3/FOOnLOcAl13fDI=;
+	b=V5BALTeJENP1YESVLx1Gcp7W+mqsXwBYJ2g4H9tYntdi/t2TWVSWD1ZUbEzG9Ad3s2oAAs
+	9kBbVGkIb8UPt4cpfueJioDweACCIK1mAMsefhcjJDYtXtMVRbSxnY/doigwfjvvwz3xBg
+	uLSdtVYcx6HHwDeDvcE0RT6kK/JG7TEgucP1qpqbQXk/rOA+tUgfAxuz5elFVeWy2dJyaW
+	DkHbQWV66/h97tRke/1MuJG90DcvvWIhvTj8Z6ZAvPEaGEHAne7naA5Lu56E5jFXlXrUFs
+	x97gazaF/rD9cqMiFFZ0VnLBfinKADEvXCmMmbp5LUbvQaTYScuKkH1RysJcpA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794171219;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=i5HDg/CFXsBlwdhC2HztgZaTS7W3/FOOnLOcAl13fDI=;
+	b=Q7ZrjeXkpXiNrL4JWBL3fdB5IOXw+uWTFeEPAQrO3rx6tzwUt3Azn5Mdka7FLTC8A048Mp
+	RHmIN3pbcze1SsRNqldbZGYawVcKLC3KgaHTh2RQVmIbz73TR6Q836zotD/IAwh1yzO43C
+	KzDOOlkpshj9ragHaHC5kpJrbtE+ydkIpeG7rFDlmKqOWICy3RKCRb1eQFemisyQHRnQ8Y
+	tgOl/mva8UW7f9J3tgfVT2hCNOBngVxsWqeyyFihi/IQ0MJo4IqUjz2hOT6lxaleO/nIe2
+	X1VsRTNGCVhTsTzbQ1b/EeaxFPLIf3XefV6sKEbgc+kU0UnZU9OiOaQs/HJruQ==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794171219; a=rsa-sha256;
+	cv=none;
+	b=ZbChf1Sh6/twsuXtKEeEDK73VGsuwq3KMNewBv54/TL2ElXAZhwrgLo3TOofP0FtLai6qL
+	6LM9YWcl2BvqO9TsxSYc9GhOOmRgn1xSd+X49O1GYuYV3gWvM/8zn6M6tSPu9mzrq6oX/s
+	bzlUF0/Mt5Q7jEOHA+5PV+PxcQvUsAYlrg0zUvE5B1ucV9GjJCL+/JtnLGeiD0+quLC0Ai
+	5ppWmy+20MmhX9+DIyxl+8tCJ2tRsrOPUXD5QBumeXm1aZmlDcWPgtwe/E/K24pwX4CHYj
+	UleFGp7ueAeDNIuNQT/nBxPr6ilyZmm0xcqfIqlc1xXFvPpistx+2PI1WxUAHQ==
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1xQ9tT-003EmL-2Z;
+	Sun, 08 Nov 2026 21:53:39 +0100
+Received: from hardanger.blackshift.org (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id 7DC075E3E77;
+	Sun, 08 Nov 2026 20:47:37 +0000 (UTC)
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Sun, 08 Nov 2026 21:47:25 +0100
+Subject: [PATCH can-next v5 4/6] can: gs_usb:
+ gs_usb_receive_bulk_callback(): check for overflow flag if SKB allocation
+ fails
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,60 +99,85 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261108-gs_usb-fixes-v5-4-d52dd4940d46@pengutronix.de>
+References: <20261108-gs_usb-fixes-v5-0-d52dd4940d46@pengutronix.de>
+In-Reply-To: <20261108-gs_usb-fixes-v5-0-d52dd4940d46@pengutronix.de>
+To: Vincent Mailhol <mailhol@kernel.org>, Peter Fink <pfink@christ-es.de>, 
+ Eric Evenchick <eric@evenchick.com>, 
+ Maximilian Schneider <max@schneidersoft.net>, 
+ Wolfgang Grandegger <wg@grandegger.com>
+Cc: kernel@pengutronix.de, linux-can@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Marc Kleine-Budde <mkl@pengutronix.de>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.17-dev-d7211
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1983; i=mkl@pengutronix.de;
+ h=from:subject:message-id; bh=gkhuiVcqrJlOGPMm9/NnRTfd01cTxBDmpdwQfK7dDZA=;
+ b=owGbwMvMwCV2xirl17qZay8xnlZLYsj6cP+Zj9j/ug9nOE9H2/9wOBNzzfoUX+muj6Em3+99N
+ Him1ce8uqOUhUGMi0FWTJFl6Y8TigKBDqW9LxMmwcxhZQIZwsDFKQATWV/AyNDq95Thd8eibvem
+ E/qRa2WlsyST7VrZQqdlPV3ieH5+zxmG/9W/P14tyGZyltu58ozT7RnVyW+YfA4+9Lr+X/+QZUU
+ PGyMA
+X-Developer-Key: i=mkl@pengutronix.de; a=openpgp;
+ fpr=C1400BA0B3989E6FBC7D5B5C2B5EE211C58AEA54
 
-Fast-commit recovery checks record bounds and lengths during scan.
-Replay reads the records again without these checks. A corrupt filesystem
-can make an earlier replay operation overwrite a later record. Its new
-length can make ext4_fc_replay_inode() copy past the end of an inode buffer.
-The OOB write can trigger KASAN, which reports it as a UAF:
+If the allocation of an SKB fails in gs_usb_receive_bulk_callback(), the
+function neither updates the statistics nor checks whether an overflow flag
+is set in the host frame.
 
-  BUG: KASAN: slab-use-after-free in ext4_fc_replay+0x1725/0x2de0
-  Write of size 200 at addr ffff888008598f64 by task busybox/62
-  Call Trace:
-   __asan_memcpy+0x3c/0x60
-   ext4_fc_replay+0x1725/0x2de0
-   do_one_pass+0x113c/0x2370
-   jbd2_journal_recover+0x528/0x7e0
-   jbd2_journal_load+0x7c/0x810
-   ext4_fill_super+0xaa54/0xc270
+Instead of directly resubmitting the URB, first update the dropped RX
+statistics then check if an overflow flag is set.
 
-Check record bounds and lengths again before replaying each record.
-
-Fixes: 8016e29f4362 ("ext4: fast commit recovery path")
+Closes: https://sashiko.dev/#/bug/linux-7b3fe6a0-4628-4d0e-aec0-69f4bf8ad5d4
+Fixes: d08e973a77d1 ("can: gs_usb: Added support for the GS_USB CAN devices")
+Fixes: 26949ac935e3 ("can: gs_usb: add CAN-FD support")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- fs/ext4/fast_commit.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/net/can/usb/gs_usb.c | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
 
-diff --git a/fs/ext4/fast_commit.c b/fs/ext4/fast_commit.c
-index 0cac890..9edd26a 100644
---- a/fs/ext4/fast_commit.c
-+++ b/fs/ext4/fast_commit.c
-@@ -2613,6 +2613,11 @@ static int ext4_fc_replay(journal_t *journal, struct buffer_head *bh,
- 			ext4_fc_set_bitmaps_and_counters(sb);
- 			break;
- 		}
-+		if (tl.fc_len > end - val ||
-+		    !ext4_fc_value_len_isvalid(sbi, tl.fc_tag, tl.fc_len)) {
-+			ret = -EFSCORRUPTED;
-+			break;
-+		}
+diff --git a/drivers/net/can/usb/gs_usb.c b/drivers/net/can/usb/gs_usb.c
+index 1527163e8c35..a42dba9d158e 100644
+--- a/drivers/net/can/usb/gs_usb.c
++++ b/drivers/net/can/usb/gs_usb.c
+@@ -673,8 +673,11 @@ static void gs_usb_receive_bulk_callback(struct urb *urb)
+ 	if (hf->echo_id == GS_HOST_FRAME_ECHO_ID_RX) { /* normal rx */
+ 		if (hf->flags & GS_CAN_FLAG_FD) {
+ 			skb = alloc_canfd_skb(netdev, &cfd);
+-			if (!skb)
+-				goto resubmit_urb;
++			if (!skb) {
++				stats->rx_dropped++;
++
++				goto check_overflow;
++			}
  
- 		ext4_debug("Replay phase, tag:%s\n", tag2str(tl.fc_tag));
- 		state->fc_replay_num_tags--;
+ 			cfd->can_id = le32_to_cpu(hf->can_id);
+ 			cfd->len = data_length;
+@@ -686,8 +689,11 @@ static void gs_usb_receive_bulk_callback(struct urb *urb)
+ 			memcpy(cfd->data, hf->canfd->data, data_length);
+ 		} else {
+ 			skb = alloc_can_skb(netdev, &cf);
+-			if (!skb)
+-				goto resubmit_urb;
++			if (!skb) {
++				stats->rx_dropped++;
++
++				goto check_overflow;
++			}
+ 
+ 			cf->can_id = le32_to_cpu(hf->can_id);
+ 			can_frame_set_cc_len(cf, hf->can_dlc, dev->can.ctrlmode);
+@@ -728,6 +734,7 @@ static void gs_usb_receive_bulk_callback(struct urb *urb)
+ 		netif_wake_queue(netdev);
+ 	}
+ 
++check_overflow:
+ 	if (hf->flags & GS_CAN_FLAG_OVERFLOW) {
+ 		stats->rx_over_errors++;
+ 		stats->rx_errors++;
+
 -- 
-2.47.3
+2.53.0
 
