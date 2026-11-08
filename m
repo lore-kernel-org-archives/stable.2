@@ -1,91 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794177743;
-	b=yTUmlRmyQd/pjOtbrmKEnZtJz4FSMU0yjUZZLThg3QOeqkVPsj8m3VQ0a5BYhkWCKvbh
-	 tbU2810GN98AfXaRf4yr76wuwXoCyRwbDvCJGbuFtKhip1W/7yFwGJMsn4pqNTRyNzBaR
-	 WVUyzoi2flxalO9ei+eEHmQNirEBW4t1BJj7tcYkw9P0NAGExDvvEpRgnQtvP6U7wQtCB
-	 I9ufPv+08I/oYHut96gRXMVyKUVHrLUbb/8HilgfnnyMZjsd9of8//wbIifbe1cOl7rzC
-	 JzC32RP1LQC7+mxZihB60KMjPQgHbuq1yq+e9zPghFsZnmq+GNTsB+MrXdzWUML3OHA==
+	t=1794177745;
+	b=JopjwEtKl3RQSzjVwDWR24rnWrb504MbU+Xf4hc2G5CTwszXQD92D4KpmBfhQVjnMMdB
+	 Q1f01byC5M9XM3Wzw3yuLFuiZKiqHDZ644pFaUq5RFKT2hscJ7MvTho9TaiSQ1FFgJWk8
+	 BRQYfs8IiFTl9CZ+Ii/qanXEA8g6cEdstejulUJFSvcosNuOkjoDn1CDZ5Fx7rCCfb/EL
+	 cfa5eWhkPDXbxwh7xJN2LtswzQSq4KBAmdq40govXiQvZvUVkXh9aH2ERqgbo/OSwVKmR
+	 BNmR4dXa+hah10MvJxq+p2WOTbcTH1aVUcOruOsIvkyxYj3MBZftpz87lfGQZ93Ff4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794177743;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794177745;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=e1VqrTz+ewActBpDHlYQe8JX54F3teV+c5WCvWWuiYY=;
-	b=JawejseNJuZkI8HC0kIwPmUVxVUZ1A8c/OAS7kbDFs9fBqsuYqF8/nYgpbEPWmfwad7e
-	 HZ+SFqfEqzSuV2+3xddbLykXruLots1DAyyNk333P6c+5H5lrkwFSilne/II/IfX0CByf
-	 oAdV/aPVJApr+GqJshtdUOZUD9ObDdoTwlij7tGWbe4KE3Hrd7rkiMoOLoN+e+U9ymcLT
-	 golPK98ztTHmLNlXcMFDdOR29IdIuKirAr2PpH++VfmBTS5EeAk/Bj2Jn+pKEyw5r5vA9
-	 2u2pTFfv9fEAeme++8nB6MT5GtDn3atSvNOGd5oqQKj+nQm4hLrxgcooWX4ISUyZ3xA==
+	bh=2ySxSOrcSb7uKygDj4na05JonBIKAGAKmpgaBjQ4aTs=;
+	b=DDE3rXm5eYvpQ6oV4SjYBiAyUY0X4rmZ1rO3ER2oqTff+aqnh0FDSDnOsSH30HV51KEQ
+	 oSD1YYidUhZ7MkZRuKgNBExSP1zIGMuRqWVwMuTuPN0YqQjpdjtjw9nMmj2oXLYo3dOVH
+	 5BQL78sKS5Cg7jYJpgDHn7P4wuxdqnIo5GurG731sm0Q7s2v7I1Asd/ReGOCF57juzIzC
+	 Rj7yk4ZmCUDvSq6vhq8sW1u2TazJ74T3D00m2Ihz8vNQy20Y0S41nA2EILDnPrYBy9usb
+	 LlVvPCf7nHeI1itNeWAZjHpiLdg+NRArKof8+KmqjzMtybKKAHsUzR1lk6OgXAScr6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VIQVU5h2;
-	arc=none smtp.remote-ip=209.85.167.171
-Received: from mail-oi1-f171.google.com (mail-oi1-f171.google.com [209.85.167.171])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q8OzPKdN;
+	arc=none smtp.remote-ip=209.85.161.41
+Received: from mail-oo1-f41.google.com (mail-oo1-f41.google.com [209.85.161.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DCC9606A334
-	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 22:42:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DCC9606A334
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DF73606D801
+	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 22:42:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9DF73606D801
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VIQVU5h2
-Received: by mail-oi1-f171.google.com with SMTP id 5614622812f47-4ed6d69bdfaso151618b6e.3
-        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 14:42:23 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q8OzPKdN
+Received: by mail-oo1-f41.google.com with SMTP id 006d021491bc7-7143451981fso203683eaf.3
+        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 14:42:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794177742; x=1794782542; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794177743; x=1794782543; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=e1VqrTz+ewActBpDHlYQe8JX54F3teV+c5WCvWWuiYY=;
-        b=VIQVU5h26tv3OKc7TWsATktTWmtgYJAbpgl/p8DcQdl8UEZ6AvTVJSni42N9dJo/lT
-         DjZHWlI8NzZgqykUXGdy69BPtqWcHHwqwL+hsadvwI5FU7gchQY4iLM50zNnDXFI+Hgp
-         jjfpWblv6FnJFfv9wnIg7Of+7QSbBjcrzUg2RCgGSKH3dJABG0tbM+EdVOYQXfqIrzrg
-         Tm7ozyMPMvY1YsCKfbf6ZyJIxaXGoZw+eMKhqIwVOqC2Sj0rKY9yN8O7DKyUb7aZrpmU
-         koGwC58ejA8Qm+zHrxT4sDSzMiFWybsT2ImwEsF3pDa5p19ENyJtQNnUOCr25GvUMmF7
-         bGOg==
+        bh=2ySxSOrcSb7uKygDj4na05JonBIKAGAKmpgaBjQ4aTs=;
+        b=q8OzPKdNmdLYRq1zgFWwV/LaYGoCt86qNEDdrNZOhWW/F71jWsFH4YfWBtwve9rPVL
+         6xEt0+knLMvyZe+34OrbRH64DftnHEmGQlv7xrReMfweNCdOH54J7L5M6b9u+cAjJjuT
+         Tr+VEkJ30s6z7DAgwucuydppZG+yuvBFH4knG+BMrEQ3mlME3nnwMhn3P59efq+KY4ZY
+         opSeJD2L/xjG8QWI93uib4QmDWXswlYuCmyzcEuZsmhW5l/drE4BbQWnDwiwe8HwC+R/
+         eFYsbTCXoojKiZGhNHAf/iYYKVvCZF4M3L32O+7QBlFXFyLdZvX33lGqt2u7fQo8lxAV
+         rNdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794177742; x=1794782542;
+        d=1e100.net; s=20260707; t=1794177743; x=1794782543;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=e1VqrTz+ewActBpDHlYQe8JX54F3teV+c5WCvWWuiYY=;
-        b=Xdpbtg12zyyAzgJIp9EkZpQFbVdSehOA/3RqjYTU/1ZTEFNa19/0TcKVCmqTh511K+
-         zKzE7N7bLeRtMh0cwKw1YJI5AtLkLcHyMII+vjMSV6h4rkBp6yaYlbbb21o2SRsBsK9e
-         0NWtDpHTylUU2nh5wVT7+XQN38xP5dZgRZJL6b8upLv3gyj/RJP006aaL7BxpO7BMN6u
-         qQ6XdwTa5cP42Xequ/Qoj3KfoTDVckocq80G8jPVHBo60dwexq27oeyFn/NdMrgp5maH
-         +RmGh3x9ef26RCpyGLGAUH1fUsfzLZeosrO5yIaPIQbKuy4n/oRNRwxfGj2M23Fx65D4
-         tyYQ==
-X-Forwarded-Encrypted: i=1; AL+hErHCqRVkq2npOwZN2Mvh0u0edTVCAtwu9VE1cVBhbxrCiEaJseE0a2N52sDlJh1lDkD7dNPwnAs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9B1r90nyYSLOmPnlD5mQJbxd0jUru0a3IgCWmXrUpX68T2+NBf
-	19s4+Er5DjRNgMTEIHqlHLVQL9t30qMIHB61y3y6UyI2xWUUMlb52MZ3
-X-Gm-Gg: AYBFou1i4mzpouj+Mln97hEmiy4WZRUGmfcKyf0jXTQTbqdoOLA5ALXt/yFzYnFOMho
-	wXxxihfyUzqU2cAg7OOSlGbi19rDU/v0CsP7fXRmnVp1Q1mZfghkJWAI32GObvtCs/TQeMxLWTU
-	mef5OJKt+rJEC9AqRRfElCiOMp4pi4ajSGrIv6uJYG6T9ByXcqmjWlL2cZq1d827ZAzDqczMA6M
-	hQlZ8uNOPl7JbjTHiEP+P1rXAxvAtxDvOtKWBsWLD98eFQLdeYZOmmNKtDDPmdX+dC3J0P2aLhF
-	BVhAxR45hPWvl4gTu7FmI46BA994xR/lbzJZeq+LTuuWjvjOzdJe+BF6/W5hN0UIaN6JLnZT4MP
-	ZJGAnwlInfsb/tWki376oqwM3ycVCjiIiSmNGhzb6JEaQ+qo4y1W2jhkvNIWIEfedDT7qvgMvgp
-	qmIYtDegCDmMg685xd6GQypqP0Wc5Vs4EFWVryJgpgL7rMVi5dH3F4trAkijIxvzLjjr4IyvhFO
-	SWoXgu+/oLymHLHxc+ezuA8FhiBXE9ZqRg8jaIX6lXxZPdLpXL3aw8zMqe8muu1y9ySYSzm/d4l
-	zs23wjJeACEIWMsAsk1JwsHLPuys67o8j2hA+vrMLPypA9Au3KP5X5w+0N8B73CQYwFtBFPZWlV
-	ryLN0KMHIyp8PnPQhMDgpnoRRWMvC6cJY+ZjTJ8Jz2wHX3CG6+Vnspna5JJ1fNU1e+q1TPwBLLL
-	ewrp9i3q0w4HnGt0yZyw6jXOdpx7y2FMsmvMU8vzTElPGseBm+VY3b8WVC1rlmkG47AKJ8x5/xE
-	Q==
-X-Received: by 2002:a05:6808:1514:b0:4c1:5614:acab with SMTP id 5614622812f47-568143a9715mr1370591b6e.37.1794177742300;
-        Sun, 08 Nov 2026 14:42:22 -0800 (PST)
+        bh=2ySxSOrcSb7uKygDj4na05JonBIKAGAKmpgaBjQ4aTs=;
+        b=N505FYdgOwuxTi6U1w1JK+en43w5Xo0BaIvYiDK2CQ/GKfPQe2uQjkR9dVQXu/Excu
+         YPC2BbaI0LghneEac3EwZjZtPsEsGYtuDi0l6KdUxalry9qqUZDOfJfQjbnM7rDwOwS2
+         ZyzJZaitq8b27+WdnccB4UPMDqBzrIlLf86JrkP+vrdLQJo4Zfr7rgJiGc7R2D3jw2Gf
+         GEspR7brMHds7bveStTavbY+qh5hms+PqbKpF/bPtZQo9CIGpc371R1hPAra3PkBZw52
+         Yj6SUS9vFuGN+otjIRdQrSyeBenkPUjgD8Il4w4gEFBDdrhHnx4CweQG3wvCUB+GJrqH
+         1rxg==
+X-Forwarded-Encrypted: i=1; AL+hErE4lsSlEhMHMxlF+rTc4Ytq5EiWLp3dN0uVT4UDpQCA5SChfOO1fzfg9qJBjaW+RTGdSZl1oQM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+5TAcpJZgQHDrK8Mo/KKkmj836nQxVqsCh3CIzJlTOAerU+u1Y
+	PHh9TIgZdiYR5mG4U7I1qDNLv6ELbdplUJjik1WWf8cttiLd0fjV+bRW
+X-Gm-Gg: AYBFou3H6DSlmSjb1zmUXomN4Y0OAsxvsG+0oCVbMfpkj39e8F4Q4P37hlfIakiHg8a
+	WOF1TN18ZNoy1XRabK/Uez5Xcp81g8QpCIDyGJgtWt8NtNdLmiTfB6bkLzjo0iUwd4vSFIH21Ea
+	gIZ4Cb9D9cFtLkUzw/uOrC+v6/xn3fRlLzKQ6+J09H6Imya7cA8gbaZ/Bkifqbgh50G06MRTTP6
+	xHpj7WC1sUNKvrNdoUtgSFFPrDK2Pg6xQFCuChOG/GrVUfTxTaQE97lgvdIcvGekyDpZ8B6iY7i
+	T/k8S0KKRBsMU1W4rbTKnEtxUDU7OLAVPWHptl3DtMNoN8l0+xMfJdoVXTMujuEA4VKR/IH4W5R
+	pebXarMvjHGCdifxWMlRC7BIuQ2KGu78XsCSpVNgerLiGZ25S+1zJvTAxBbMU5QiCjG5plH9e3w
+	UHkvRCwKRJiC++ui5l8Vow/WJkssXZ7MUDA+5V9xpF8EH6Q8ELlAbHSrFmSh2+SqVu1mpqcb1lw
+	/8MLHmubGBLmFmgoMZcZYbewGgSlL+Eqfzt65rvG8fEQB99K1xQB1l7rLuT2e0DxJCL+3WOjhep
+	fTTm7COQwhOamJSP3pPRileqg0b1uK425NjUMQT1rRrtstuNZ90y/5ZY3C4VjsiJt7YDJ2G8rVg
+	/yFslnpHdG27cGkLMqnnsuSn/3jalvtDD3P2rkwbXhuVV4LkctSNd3ZEVI2Bfa5i4u01xeVwyzu
+	3/RN8x7xbW9UFaCNI85s0VUMwOIQG9IrZIkd4oyGw7oxLSQfIXNNYY
+X-Received: by 2002:a05:6808:2383:b0:4d6:90d3:e18f with SMTP id 5614622812f47-56814624be0mr1364853b6e.46.1794177743647;
+        Sun, 08 Nov 2026 14:42:23 -0800 (PST)
 Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-56813e54e39sm2859944b6e.15.2026.11.08.14.42.21
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-56813e54e39sm2859944b6e.15.2026.11.08.14.42.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 14:42:21 -0800 (PST)
+        Sun, 08 Nov 2026 14:42:23 -0800 (PST)
 From: James Hilliard <james.hilliard1@gmail.com>
-Date: Sun, 08 Nov 2026 15:42:08 -0700
-Subject: [PATCH v2 1/4] mtd: rawnand: qcom: parse boot partitions before
- registering MTD
+Date: Sun, 08 Nov 2026 15:42:09 -0700
+Subject: [PATCH v2 2/4] mtd: rawnand: qcom: retain the BAM transaction if
+ replacement fails
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -97,7 +96,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261108-submit-qcom-nand-child-probe-errors-v1-v2-1-4a8704cbf7b4@gmail.com>
+Message-Id: <20261108-submit-qcom-nand-child-probe-errors-v1-v2-2-4a8704cbf7b4@gmail.com>
 References: <20261108-submit-qcom-nand-child-probe-errors-v1-v2-0-4a8704cbf7b4@gmail.com>
 In-Reply-To: <20261108-submit-qcom-nand-child-probe-errors-v1-v2-0-4a8704cbf7b4@gmail.com>
 To: Miquel Raynal <miquel.raynal@bootlin.com>, 
@@ -112,47 +111,58 @@ Cc: linux-mtd@lists.infradead.org, linux-arm-msm@vger.kernel.org,
  stable@vger.kernel.org
 X-Mailer: b4 0.15.2
 
-A boot-partition parsing error currently calls nand_cleanup() after the
-MTD device has already been registered, leaving a published device backed
-by freed chip resources. Registration can also invoke consumers before
-the boot-partition layout is available.
+Attaching a chip frees the controller's BAM transaction before allocating
+one sized for its page geometry. Allocation failure leaves bam_txn NULL,
+although later chip scans and previously registered chips still use that
+shared transaction.
 
-Parse that layout after nand_scan() supplies the geometry but before
-publishing the device. All failures then reach cleanup without leaving a
-registered MTD behind.
+Allocate the replacement before freeing the old transaction. Restore the
+old capacity on failure so the controller retains a usable transaction
+for already initialized chips, including I/O during probe cleanup.
 
-Fixes: 862bdedd7f4b ("mtd: nand: raw: qcom_nandc: add support for unprotected spare data pages")
+Fixes: ba7542eb2dd5 ("mtd: rawnand: qcom: fix memory corruption that causes panic")
 Cc: stable@vger.kernel.org
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- drivers/mtd/nand/raw/qcom_nandc.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/mtd/nand/raw/qcom_nandc.c | 19 ++++++++++---------
+ 1 file changed, 10 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/mtd/nand/raw/qcom_nandc.c b/drivers/mtd/nand/raw/qcom_nandc.c
-index 2d98f79b492d..f240d1effa04 100644
+index f240d1effa04..062fba9eaecc 100644
 --- a/drivers/mtd/nand/raw/qcom_nandc.c
 +++ b/drivers/mtd/nand/raw/qcom_nandc.c
-@@ -2052,16 +2052,16 @@ static int qcom_nand_host_init_and_register(struct qcom_nand_controller *nandc,
- 	if (ret)
- 		return ret;
+@@ -1329,21 +1329,22 @@ static int qcom_nand_attach_chip(struct nand_chip *chip)
+ 	ecc->engine_type = NAND_ECC_ENGINE_TYPE_ON_HOST;
  
--	ret = mtd_device_parse_register(mtd, probes, NULL, NULL, 0);
--	if (ret)
--		goto err;
+ 	mtd_set_ooblayout(mtd, &qcom_nand_ooblayout_ops);
+-	/* Free the initially allocated BAM transaction for reading the ONFI params */
+-	if (nandc->props->supports_bam)
+-		qcom_free_bam_transaction(nandc);
 -
- 	if (nandc->props->use_codeword_fixup) {
- 		ret = qcom_nand_host_parse_boot_partitions(nandc, host, dn);
- 		if (ret)
- 			goto err;
+-	nandc->max_cwperpage = max_t(unsigned int, nandc->max_cwperpage,
+-				     cwperpage);
+-
+ 	/* Now allocate the BAM transaction based on updated max_cwperpage */
+ 	if (nandc->props->supports_bam) {
+-		nandc->bam_txn = qcom_alloc_bam_transaction(nandc);
+-		if (!nandc->bam_txn) {
++		unsigned int old_max_cwperpage = nandc->max_cwperpage;
++		struct bam_transaction *bam_txn;
++
++		nandc->max_cwperpage = max_t(unsigned int, old_max_cwperpage,
++					     cwperpage);
++		bam_txn = qcom_alloc_bam_transaction(nandc);
++		if (!bam_txn) {
++			nandc->max_cwperpage = old_max_cwperpage;
+ 			dev_err(nandc->dev,
+ 				"failed to allocate bam transaction\n");
+ 			return -ENOMEM;
+ 		}
++		qcom_free_bam_transaction(nandc);
++		nandc->bam_txn = bam_txn;
  	}
  
-+	ret = mtd_device_parse_register(mtd, probes, NULL, NULL, 0);
-+	if (ret)
-+		goto err;
-+
- 	return 0;
- 
- err:
+ 	/*
 
 -- 
 2.53.0
