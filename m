@@ -1,61 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.77
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794146511;
-	b=ERhVYnT31oH9PaYTSBfDo5MTBldd7M6CTZAs5HKHhVhSImLRNgYDjbtnwy4B/aTzaWDO
-	 WXLZ63R3ONBEeDHVBj4wQSGgs+tZVCliGTN6KKDSpQP2f2XY+pgv4Q2RkHjosniVsnSzn
-	 a5UNTKgySuD6g4h7FtK+i9ShK+z2XyEd+zJ2pfC6Iu97iFx7GHz2srTi3+brNFrPp6RLI
-	 2IaxkmX+8wyylH4zxvvIa+tlbQSKknXW8x9/9ttsQ3ylIVTo5YXrOcc6nrppRRM5NQxap
-	 CcZLVOgQN0ALFmhmJPrDJ+Rlco019hK7kk/3SZS4b/z1mqoudfrlEJ0FYyM3EmE6yfw==
+	t=1794146548;
+	b=buLiDHD12zLjOwSbslwgCTx/i2hHYuAolbn3pO2Kp8fdVTAWd6wqiwF73yc2DtD1rA6C
+	 LLWy3LqMD5nzdF8HfZqzKmTgxVpGxDrSgpY8tTKZEEMtyl2aebKiSDlcZNGJseVKQeid7
+	 7IEkbQiUQ0qMmQU92J0LA9OkgjukF6cteAvR4NaEUTrcX+rOV5XpfsHLm8IR4xbuLAf8v
+	 r+kAqAaE8Oe0+z4AqXI1FqoczUgvZw+nNhhzb73WbomngmmCQNjbDfa3CJPEFV98LVi7O
+	 126EEo8iTR0ajNz/9YUkQUyfc/UY2wIJ0Nvfg95wMZxWwCKFxzV+/ZL7mW7yZycMorg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794146511;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=zAQJbBXK85zhqnp6Sy8iRos+KnUH1gw70gkQ2aOh+90=;
-	b=vbOuUkZ+94aY4tUoDIw5IKRxOfiAnV9BaEW+KLWautoHJ//csQRH1je9FQPsA0mvZfU5
-	 +i+ZneQoIvTA9FE8pIU3JFDJVS/JvR4FHybxwLQIvQ3Lr9VPcqhCPLESqQHn9GvwGWzHR
-	 r9k8T9q60GZzZp6yRMIwid56CDJwls6L0snWPLXmTH3MQAT/6Gd2RxsWA163tmylE2STe
-	 R7OqBfBLU53mmxuNwiLmm9VEZm+R9xGMYREhBHAfzbUBKAQBVaFhqPhf8WloCwr8Q5qwY
-	 nIZfb2iX9eKuorjx75vFCAloXRzjpKMcWSo8E/Ww3HPgKyv2sECTJAuFZQwIo9U8UWA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794146548;
+	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
+	 Subject:Message-Id:Date:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=f2tJQIyFeT6b4NlFhJH5gULAQ8arU7VxffDMLwdcOIQ=;
+	b=NNjA5sXe7OfyxFlQR/vTqIKzDbaMisigYCohKoIbeZ+mojNMIpzDtyLy20gtW/nTHgLr
+	 ivxrKX5yNTp/NZuBSLY8VwhmnY2nJlQhgZtKseTyrc4pHQs5zE6IoD3iCQyL3CI36dedM
+	 1pauDBLK6C/4O46263GnxuPXN4QZa1TkBgshgcRtjkPTFpKq6X2SGGtSznh7VEqXsQro3
+	 iiuJUhOFyy8htD+gWEZj5oQN3+9TpH06I8VsnuqmEHyZmftuBscVpc+EZun+K+j+olV/d
+	 Yc0c+rd8B8X8+oyB2dwUFDnTJ788iDTo3Yv1TioYoEh70PXYNelMdKWX/7HXezeTAtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=gyJDtw1O;
-	arc=none smtp.remote-ip=91.218.175.77
-Received: from mta0.migadu.com (out-77.mta0.migadu.com [91.218.175.77])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XxDDGYvs;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF782606A31C
-	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 14:01:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF782606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EA33606A321;
+	Sun,  8 Nov 2026 14:02:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=gyJDtw1O
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=HjVZPtkRA01m0fgGyDnvvNCRvaaaXCOerbCRxZkDG8Q=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794146507; v=1; x=1794751307;
- b=gyJDtw1OHWTueJSrFbE9M6Q9FeXI7GJBm8kIILXHYJKu9jS6IFJNZx9y86K4Hx5DaNjx60WZ
- ADzt/pSpPknIOSTAT/GIlwAu2vGthKXfOQtu8/5NqR4lbOc3yyUfBIZWbS5VJBHuExB355QJqbf
- XH3xNmXRbW76XfiDvsfGxa+Q=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 08f775a7004b422a;
-	Sun, 08 Nov 2026 14:01:47 +0000
-X-Mizu-Trace-ID: 08f775a7004b422a
-X-Migadu-Flow: FLOW_OUT
-From: Qingfang Deng <qingfang.deng@linux.dev>
-To: stable@vger.kernel.org
-Cc: Jakub Kicinski <kuba@kernel.org>
-Subject: [PATCH 6.12.y 6.6.y 6.1.y 5.15.y 5.10.y] pppoe: delete session hash entries by pointer match
-Date: Sun,  8 Nov 2026 22:01:44 +0800
-Message-Id: <20261108140144.1081-1-qingfang.deng@linux.dev>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261107052514-failed-6.12-b5b8c81836e2@kernel.org>
-References: <20261107052514-failed-6.12-b5b8c81836e2@kernel.org> <20261107053805-failed-6.6-b5b8c81836e2@kernel.org> <20261107055315-failed-6.1-b5b8c81836e2@kernel.org> <20261107061023-failed-5.15-b5b8c81836e2@kernel.org> <20261107062733-failed-5.10-b5b8c81836e2@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XxDDGYvs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF9401F0089F;
+	Sun,  8 Nov 2026 14:02:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794146548;
+	bh=f2tJQIyFeT6b4NlFhJH5gULAQ8arU7VxffDMLwdcOIQ=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=XxDDGYvsh41YUrhCWYrvUcjhEC6rK6ldz/HliXve8l9cXo5Vy516Jn+poLMjPo2XK
+	 vZA3X4B3oyuX0+1cFtn54PjLwYr5d4G5cbjW4LkOGvNGuYNQVd+DfoDm/y9fOjdaIy
+	 4ZY/5mKF1uvHGZniOYm36TKQPpSMnCwVUyQ3BeWIDMCx0pCsN5GmlDqiCE1h8JDBHf
+	 9Ze0be9UQ+ZI1ZQIaOtl2kT/j1M0/40tPC1/619K9Fg9kY/3MoF7c+Ui0mRf10OV+G
+	 eC0F6MbwdIOEHO1bJLmAuhK/rblHqoHTo/nF4GoF2hVh1F3PpcKdHjtqGeuTEQC77i
+	 LxqidiLfIlo1Q==
+Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 4CCCA2C7970B;
+	Sun, 08 Nov 2026 14:02:25 +0000 (GMT)
+From: Mark Brown <broonie@kernel.org>
+To: Chengyu Liu <lui2012qwq@gmail.com>
+Cc: lgirdwood@gmail.com, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+In-Reply-To: <20261104134838.326041-1-lui2012qwq@gmail.com>
+References: <20261104134838.326041-1-lui2012qwq@gmail.com>
+Subject: Re: [PATCH v2] regulator: disable disable_work for good in
+ regulator_unregister()
+Message-Id: <179414090868.3630016.14355012356063230829.b4-ty@b4>
+Date: Sun, 08 Nov 2026 12:28:28 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,102 +63,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1157; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=d7+mI9/geJK/cE59QnZq+hadsRrW3ExzUi6GcMNDbdg=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLI+NHz0zvDy8IhQS4jun6t6VYzXv3K3zL4vK8/yWCT3H
+ HG94bmyo5SFQYyLQVZMkSUui/tlfcnrNXwHF7bBzGFlAhnCwMUpABOxjGJkmNDrfnrWXb6k2fca
+ e5LsJ+wz+LLYWLlyrrrErYuhB3o64hgZ+kLafrkpt/EoRSjPnbzp74WOZumJEw/m94bN5168YbI
+ mGwA=
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-[ Upstream commit b5b8c81836e2bec7b444dfa2b14fd14e912e9d63 ]
+On Wed, 04 Nov 2026 21:48:38 +0800, Chengyu Liu wrote:
+> regulator: disable disable_work for good in regulator_unregister()
 
-pppoe_connect() copies the requested PPPoE address to a socket before
-attempting to insert the socket into the session hash table. If the
-tuple already exists, __set_item() returns -EALREADY, but the copied
-address and ifindex remain set on the failed socket.
+Applied to
 
-Closing that socket then deletes the existing socket's hash entry
-through pppoe_release(), preventing it from receiving further session
-traffic. An unprivileged process in the same network namespace can
-trigger this through a duplicate connection attempt.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-7.5
 
-To avoid the accidental delete, pass the pppox_sock to __delete_item(),
-and unlink only an entry whose pointer matches the requested socket.
+Thanks!
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Qingfang Deng <qingfang.deng@linux.dev>
-Link: https://patch.msgid.link/20261020092118.47416-1-qingfang.deng@linux.dev
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ Resolve conflict, and remove const qualifier of pppox_sock to match
-  hash_item(). ]
-Signed-off-by: Qingfang Deng <qingfang.deng@linux.dev>
----
- drivers/net/ppp/pppoe.c | 22 ++++++++--------------
- 1 file changed, 8 insertions(+), 14 deletions(-)
+[1/1] regulator: disable disable_work for good in regulator_unregister()
+      https://git.kernel.org/broonie/regulator/c/1d8212cdfbbe
 
-diff --git a/drivers/net/ppp/pppoe.c b/drivers/net/ppp/pppoe.c
-index 8ff2024dde60..293b6fb1c1e9 100644
---- a/drivers/net/ppp/pppoe.c
-+++ b/drivers/net/ppp/pppoe.c
-@@ -194,18 +194,16 @@ static int __set_item(struct pppoe_net *pn, struct pppox_sock *po)
- 	return 0;
- }
- 
--static void __delete_item(struct pppoe_net *pn, __be16 sid,
--					char *addr, int ifindex)
-+static void __delete_item(struct pppoe_net *pn, struct pppox_sock *po)
- {
--	int hash = hash_item(sid, addr);
-+	int hash = hash_item(po->pppoe_pa.sid, po->pppoe_pa.remote);
- 	struct pppox_sock *ret, **src;
- 
- 	ret = pn->hash_table[hash];
- 	src = &pn->hash_table[hash];
- 
- 	while (ret) {
--		if (cmp_addr(&ret->pppoe_pa, sid, addr) &&
--		    ret->pppoe_ifindex == ifindex) {
-+		if (ret == po) {
- 			*src = ret->next;
- 			break;
- 		}
-@@ -255,11 +253,10 @@ static inline struct pppox_sock *get_item_by_addr(struct net *net,
- 	return pppox_sock;
- }
- 
--static inline void delete_item(struct pppoe_net *pn, __be16 sid,
--					char *addr, int ifindex)
-+static void delete_item(struct pppoe_net *pn, struct pppox_sock *po)
- {
- 	write_lock_bh(&pn->hash_lock);
--	__delete_item(pn, sid, addr, ifindex);
-+	__delete_item(pn, po);
- 	write_unlock_bh(&pn->hash_lock);
- }
- 
-@@ -599,8 +596,7 @@ static int pppoe_release(struct socket *sock)
- 	 * protect "po" from concurrent updates
- 	 * on pppoe_flush_dev
- 	 */
--	delete_item(pn, po->pppoe_pa.sid, po->pppoe_pa.remote,
--		    po->pppoe_ifindex);
-+	delete_item(pn, po);
- 
- 	sock_orphan(sk);
- 	sock->sk = NULL;
-@@ -651,8 +647,7 @@ static int pppoe_connect(struct socket *sock, struct sockaddr *uservaddr,
- 	if (stage_session(po->pppoe_pa.sid)) {
- 		pppox_unbind_sock(sk);
- 		pn = pppoe_pernet(sock_net(sk));
--		delete_item(pn, po->pppoe_pa.sid,
--			    po->pppoe_pa.remote, po->pppoe_ifindex);
-+		delete_item(pn, po);
- 		if (po->pppoe_dev) {
- 			dev_put(po->pppoe_dev);
- 			po->pppoe_dev = NULL;
-@@ -703,8 +698,7 @@ static int pppoe_connect(struct socket *sock, struct sockaddr *uservaddr,
- 
- 		error = ppp_register_net_channel(dev_net(dev), &po->chan);
- 		if (error) {
--			delete_item(pn, po->pppoe_pa.sid,
--				    po->pppoe_pa.remote, po->pppoe_ifindex);
-+			delete_item(pn, po);
- 			goto err_put;
- 		}
- 
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
