@@ -1,92 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
 	t=1794171225;
-	b=aJ1PTLjdDxRioI25hf823Z0N+O8vNkJ0A2q7r7AMumgq3gG3qcDdk3Ka8zlvQzJTeKLd
-	 xibkYqhtnIkkbr/ikzRdBmLNJTxo8RP+ISKHh4GVnELjZ6esellrOOYhGy6w+le67VUMo
-	 2ubg9wlfkHbSGwhqwK2ONJQxnqmQ9nRJkw35b9BMmOfggyaw6sFD/V91Jb2EKbJOO1IyY
-	 TFogXYHzANwjpo0jrvriLb4w6SMkmtS7nMbkC/mV8MAFCYwC3OfaWYZFw+DdXwM9ecUIi
-	 RknVBEDaZgE0Sl/D3X+LF31ofwNbngCqk6DOUycW3bFK+8dZ4/2V9jg6xaaocrN7wtA==
+	b=h2DrRDVRujykmRNuevlp7r0QTQGlCQHFrutw5d73Cd0B0H+us6ToWt+E6+5PT0qgLhq1
+	 kEMn8cO22V+vamz8bLxjWrvipgHHMvUAGF4DGuSKDeGYu8EG5Smsgnv1aMSz4QNfpLDrJ
+	 Rkg46Xpl1Ux67liCDRUW4WKd/C3IW58DlZZUt/7zUGyxXvKfg728BAvOhVsllzP5iXdIq
+	 Yaw1n9+2/kwud13W7FQzLlwd5+Vxzkm1hsuLksXaj6fdf/bw/sbeYb3eqKktsw5l0AKE3
+	 o1s6DFyyv4C3axLsRZCD20V8kvEyq0sVSY+YO1/S0ER2/OFqxcEBeN7IiDH3UA1/PJA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794171225;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:Subject:
-	 Date:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=hQiVlfd19EixxDZ4Zmjlf7g+6tobK8NjGi6Og43YK2E=;
-	b=NAwiu+RboMfg/R1mzCfsDDgHt/69dAAQT2RHJ9JnIrI2yv28s8XsecUAe8zOdygE5VVO
-	 qL4pSd/+q++6n93PcmRolGblguFjPOBuZuDH0fbMOiOf9aVi82A+dBAh6ICXGsuIqzPXz
-	 a9glI0jBM06ttnvL7bcQb9BjRQBGbutPKyJIAXaSYI7WU9ZsOwMjniDrGrpdnjbG57gpl
-	 Nn9ihmZYLeWu0ABXXVzHPsTRIvljFdD28CF+ABlSWZNekjQCIH1UCOmjh4LeKnb2X3rK8
-	 YlpP6qdv/d/mjePkgrNvqJaU8tUA4k+64smdqnWVXs2PtVDRDL9yetud2E0LO/bXSRA==
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=6cqMOzRjZhRECM21udATCgBCEYUZW00d+/7h7UE8Xsc=;
+	b=Y8/z8GI62uWIgMEWYO7fucKU0+cUgikNRnmwK+8DxTp3gZdp25d/XnndoRWcY4taPFYX
+	 2dtANrO23rEXTV/+cx9Bf+6L+2oPxNvMxouQ4/+ZdzVKQ2XGFxmtCXvkyJ+hQ6tbtGuR3
+	 9TRQYFVF1vVRWMIFfG/MlidzcnBAzpYm7dRp/VdbMChUUg/jOTt9P0RP0lBiKMAYzZcDA
+	 XtZI/7UJb9uxlezyybDVkyq9k1FsCU3qzadg8oyqdTtwRpnSFYoINSC8f5q/mz6urDNgP
+	 8mqKNXXPyivuza/61j3cqeN7M0Zzhi9UPPrr0ZeKpoWuKKCXGNzBRsF+2Lobh5DSknw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=none header.from=pengutronix.de;
 	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=TdBvdVme;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=aeiJGcVD;
+	arc=fail smtp.remote-ip=185.203.200.13
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC3BD606A323;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC3DD606A326;
 	Sun,  8 Nov 2026 20:53:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC3BD606A323
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC3DD606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=TdBvdVme
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=aeiJGcVD
 Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
 	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id C0465201693;
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id CF73720185A;
 	Sun, 08 Nov 2026 21:53:39 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	s=20260414; t=1794171219;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=hQiVlfd19EixxDZ4Zmjlf7g+6tobK8NjGi6Og43YK2E=;
-	b=TdBvdVme0p+eHcYdQbDNCO/y5jXhItwmMe0q/qAxclzLgj50rGy4Dh7v6XHra+nThbusvC
-	nO9GFcwYh8ZjPRSh8enewXUXUi/tVJj30WFIvOVw8h6ZWh+me7LFgEdblLK2ZkC8+dUPez
-	C82rwhHFkp/kcD+kfBoJhmkHyaZLb392ilToucTZrbekXQqUgiPrIcbRyN3gLX15gjRTsU
-	ChXSbUzxGyu3NP1bKQuwgaqxvVnWraxzDP+WhjMs8fu+wk2b1WoTr/60bVD27u45bGMpEz
-	woLgyC/Y5TJmsFzyHVrbs/7UXUwEXsmfyKo53JRrfokOTkZCvAJkedVa7IWb9Q==
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6cqMOzRjZhRECM21udATCgBCEYUZW00d+/7h7UE8Xsc=;
+	b=aeiJGcVDqevSzO6BBTtjBLbQBsvRF1QSQte26PvR1Ga5wLbgV0Hbejkp30eionUg9FkNwo
+	r2OxjKO+Sjg3dt70SeWjFZ7v/1oTOQO022v5iiE4ZEj/XTAfikZZ6j/ypfIZDUVdP6vL2s
+	Kw6wiI10B/VNu7CrcrBbBSQ6CejNmr8FQ4DHDGOW9ro9sZfhG81eKWvI5kK0hRfPQjjYDw
+	/nwQEorGToSXZV72n9sBee3ZR1ADcuwSo+w8t3XJkeGHO0d7J3DCysss0iIaO2/ysn/tbE
+	Eanzx5kqz8w8Bf5wqUGeAMrK73rNl/n6Zmj+wJoSD45D/YtGSmEOjl62y7Zy7g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	s=20260414; t=1794171219;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=hQiVlfd19EixxDZ4Zmjlf7g+6tobK8NjGi6Og43YK2E=;
-	b=QzU/GUz9UVbiAncck2fp0aLQCv1OJ0ZkeW4HgKwtlFdE798ntp1tbToxZ1qvLFlHELLz7b
-	MKlg4HL3mDo8PcPFHJb5xalow4kyWghEpc4YVxoi9WkC8TVfUQrHpTo0fC50mOOEEjBlqe
-	dkdFF4bxcutchh+kLrYRMbSZ6Pwp6YxLU3zgK6jRBsNjLlw9quqvbOA1wm1CANw9ZV55sY
-	ZDL0f3w+U6c66DXuqiJOyqYSxRi/WxG3Gk/R095RQXc7mpEpBNddF1nPnS7o5ijKYyxVHx
-	+6q4q/jqUCLKzITQiKU6NWG65vxCePw8Szvst+Ff+7DRLpK4oe18L4yK4iKQSg==
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6cqMOzRjZhRECM21udATCgBCEYUZW00d+/7h7UE8Xsc=;
+	b=SZA9iB5Vww2mG0xBE/nPGLE6LitJd6dPkedCUzMQdACCexeeH3gKRx0c8jrUp8R2rqnGko
+	i0MqAiARicJCiix4w5mXq0rF9HHwXoN5j95YT0d/w3eq5iXxPjxWbrBJ0n0wbTbG4tD/GV
+	JVfxcRrYHnGPBkx8G7RRHFa39TFtYIO91hf+kR4FtXkdvufmdGSMMvVfq0whdciaH7rm38
+	GyAjPcV8TF+fwpEUr7UJ6ItOSufZq3JVTdsB849jNtHe1zqocXBBYAotk+eZdeXhRmeRNl
+	LonewIeznvQgPv4+mW5DJrc8fFWnlQ9oN03v/y2qBh5kA2zOVVo7zY/o6hCMpA==
 ARC-Authentication-Results: i=1;
 	ORIGINATING;
 	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
 ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794171219; a=rsa-sha256;
 	cv=none;
-	b=TcMDpRPU3Z6WN+YsE8inWacPiV0hmJG9MwQS137FJKQvm1ythT6jBimNGqtpUhWemUhNaY
-	1vuxCemAZaIZKB5EqaCX8sbrqvPhRXoKLeowC6f2pLvZnBcPDTP83yJ2L6QkMyA4uZuAXg
-	/yTA+TlGD3GXtIeEL9Ru3tv+0icK1m9FKZGKO4Oy5nfYGJaovpmWTF0pVI8iIaSdOrr7hv
-	9luwjDmWv9vP/463O+CAhImDtVX/FWfEQq379vL+1h9tgf8M1aIztWxTpYY/EGqVT7i6Xw
-	bf1lN/PnW4tu27RzgtXXNt5Rke3gZlJPWk8FF8ke9QjejxXLZuVcN941qG1Ymw==
+	b=cyBPSu2JCIHfyhSH9Mc31rf27CAhAqQqmbMoQqJd9nvy6D+EPdx9Drc7dll82KSFUnAwl8
+	arZV39Kb2eGT8ll06vWTy43mGQBgSiblrPR/QmuPiALKh/8PHg5p+ISgMff/wkYd68j6la
+	LDJGIPcQlMeXeLavUA+ug0Wme2u0YxQIr51QpAvnDm1X5tBnqhsOfCm2dFYjqmGBCqY5OV
+	HUSmVxtRLjdsGCk5Tobu3f1NqlQ8t/TWA84R3iaNVOBrmQlEMso9r26dloJ6w1INlAllgO
+	Le0P4kJCayp6tbrCyA0DTam5ErAUVOjyJUCzSATTnDBTe7FsklGvuB/qrEBlFQ==
 Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
 	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 	(Exim 4.96)
 	(envelope-from <mkl@pengutronix.de>)
-	id 1xQ9tT-003EmH-25;
+	id 1xQ9tT-003EmJ-2J;
 	Sun, 08 Nov 2026 21:53:39 +0100
 Received: from hardanger.blackshift.org (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(Client did not present a certificate)
 	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id 477E85E3E70;
+	by smtp.blackshift.org (Postfix) with ESMTPSA id 5FB165E3E72;
 	Sun, 08 Nov 2026 20:47:37 +0000 (UTC)
 From: Marc Kleine-Budde <mkl@pengutronix.de>
-Subject: [PATCH can-next v5 0/6] gs_usb: fixes
-Date: Sun, 08 Nov 2026 21:47:21 +0100
-Message-Id: <20261108-gs_usb-fixes-v5-0-d52dd4940d46@pengutronix.de>
+Date: Sun, 08 Nov 2026 21:47:23 +0100
+Subject: [PATCH can-next v5 2/6] can: gs_usb: gs_can_start_xmit(): don't
+ leak uninitialized memory over USB
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -98,85 +100,55 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33RwW7DIAwG4FeJOI8NMJC0p73HNE2QmJRJIS2QK
- FPVdx9Jd5i2qEfL/J+RfSUJo8dEjtWVRJx98mMohXqqSHsyoUfqu1ITwYTmTCjap48pWer8gok
- KxRw0DQBnNSmRc8StURJvpDWBBlwyeb930mQ/sc2rtr49+ZTH+LVNnvmW2B8yc8qoqyVa28nOg
- H49Y+inHMfgl+cON38WjwRRBAWqk4odaleLXQF+C/qPAEUAoxvHnRYNh11BPhLk+ocDgtWgGVP
- /hdt9TREvUzlD/tmiNQlpOw6Dz8cqYN5W+jIYH0ri9g2qSFzXwAEAAA==
-X-Change-ID: 20261025-gs_usb-fixes-250f38833107
+Message-Id: <20261108-gs_usb-fixes-v5-2-d52dd4940d46@pengutronix.de>
+References: <20261108-gs_usb-fixes-v5-0-d52dd4940d46@pengutronix.de>
+In-Reply-To: <20261108-gs_usb-fixes-v5-0-d52dd4940d46@pengutronix.de>
 To: Vincent Mailhol <mailhol@kernel.org>, Peter Fink <pfink@christ-es.de>, 
  Eric Evenchick <eric@evenchick.com>, 
  Maximilian Schneider <max@schneidersoft.net>, 
  Wolfgang Grandegger <wg@grandegger.com>
 Cc: kernel@pengutronix.de, linux-can@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Marc Kleine-Budde <mkl@pengutronix.de>, 
- Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>, 
- stable@vger.kernel.org, Shuangpeng Bai <shuangpeng.kernel@gmail.com>, 
- Vadim Fedorenko <vadim.fedorenko@linux.dev>
+ stable@vger.kernel.org
 X-Mailer: b4 0.17-dev-d7211
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2297; i=mkl@pengutronix.de;
- h=from:subject:message-id; bh=X4BrHf4PUCsESdJSVClM0SOAQpAP05QP3NA6EKX5al0=;
- b=owGbwMvMwCV2xirl17qZay8xnlZLYsj6cP/h/8yrnF6LGDLa1bnzq4Tn/nP7Y22cNe3jbc/lp
- ztNnkdf7yhlYRDjYpAVU2RZ+uOEokCgQ2nvy4RJMHNYmUCGMHBxCsBEpMoY/oe/ef5GsqjFdG+J
- nor564dn9oj4LdWS1IqqLF36NuEsbxrD/wB54ew3vdJ6xx5qPEsz//rxgPNOl7Vbk5duceAv9X/
- azwAA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1117; i=mkl@pengutronix.de;
+ h=from:subject:message-id; bh=a6NuAStUzeESNtc4MicggnAylqn/ya4PCoKR3IoI5fU=;
+ b=owGbwMvMwCV2xirl17qZay8xnlZLYsj6cP+xwjqmm7xBRipVrB4vDX3XO8XVPOK+manOc+3vP
+ qOtVRLzOkpZGMS4GGTFFFmW/jihKBDoUNr7MmESzBxWJpAhDFycAjCRb+sZ/gexOTeUVly8kvbO
+ hLHM12Xm6ZnS/6q+OvyQvJca6rR9YiTDP3W9xnk+Qa9P+QteO2p3wP7Z75ijQReCH/8IOT7V+Yj
+ NBgYA
 X-Developer-Key: i=mkl@pengutronix.de; a=openpgp;
  fpr=C1400BA0B3989E6FBC7D5B5C2B5EE211C58AEA54
 
-Hello,
+The driver allocates the transmission buffer using kmalloc(), which means
+the memory remains uninitialized. Then various headers are filled and, but
+only the actual CAN frame data payload (of length cfd->len or cf->len) is
+copied into the buffer, leaving the remaining buffer uninitialized.
 
-this series contains fixes for issues found by sashiko. Also picked up the
-patches by Ciprian Marian Costea and Shuangpeng Bai and integrated them
-into the series.
+Fix this information leak, allocate the buffer with kzalloc().
 
-regards,
-Marc
-
+Closes: https://sashiko.dev/#/bug/linux-0a8c0e8a-c623-426a-8db3-f55111f6cd84
+Fixes: 26949ac935e3 ("can: gs_usb: add CAN-FD support")
+Cc: stable@vger.kernel.org
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
-Changes in v5:
-- patch #1: add new patch
-- patch #3: gs_usb_disconnect(): first unregister_candev() all CAN
-  interfaces, then call gs_destroy_candev()
-- patch #4: update Fixes tag (pointed out by sashiko)
-- patch #4: use stats pointer directly (pointed out by sashiko)
-- patch #5: add new patch
-- Link to v4: https://patch.msgid.link/20261026-gs_usb-fixes-v4-0-59e3b6360053@pengutronix.de
+ drivers/net/can/usb/gs_usb.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Changes in v4:
-- patch #2: fix cleanup if register_candev() fails (pointed out by sashiko)
-- Link to v3: https://patch.msgid.link/20261026-gs_usb-fixes-v3-0-3a68f1f62813@pengutronix.de
+diff --git a/drivers/net/can/usb/gs_usb.c b/drivers/net/can/usb/gs_usb.c
+index cac4ce323a1d..aa90cc58f28b 100644
+--- a/drivers/net/can/usb/gs_usb.c
++++ b/drivers/net/can/usb/gs_usb.c
+@@ -861,7 +861,7 @@ static netdev_tx_t gs_can_start_xmit(struct sk_buff *skb,
+ 	if (!urb)
+ 		goto nomem_urb;
+ 
+-	hf = kmalloc(dev->hf_size_tx, GFP_ATOMIC);
++	hf = kzalloc(dev->hf_size_tx, GFP_ATOMIC);
+ 	if (!hf)
+ 		goto nomem_hf;
+ 
 
-Changes in v3:
-- patch #2: fix cleanup if register_candev() fails (pointed out by sashiko)
-- Link to v2: https://patch.msgid.link/20261025-gs_usb-fixes-v2-0-535d45097f72@pengutronix.de
-
-Changes in v2:
-- patch #2: add missing cleanup if register_candev() fails (pointed out by sashiko)
-- patch #3: do not increase rx_errors during OOM (pointed out by sashiko)
-- Link to v1: https://patch.msgid.link/20261025-gs_usb-fixes-v1-0-f74ebbd4da36@pengutronix.de
-
----
-Ciprian Marian Costea (1):
-      can: gs_usb: gs_make_candev(): check can_rx_offload_add_manual() return value
-
-Marc Kleine-Budde (4):
-      can: gs_usb: gs_can_start_xmit(): don't leak uninitialized memory over USB
-      can: gs_usb: gs_usb_probe(): init netdev completely before register_candev()
-      can: gs_usb: gs_usb_receive_bulk_callback(): check for overflow flag if SKB allocation fails
-      can: gs_usb: gs_usb_receive_bulk_callback(): add missing call to can_rx_offload_irq_finish
-
-Shuangpeng Bai (1):
-      can: gs_usb: fix hardware timestamp state for mixed channels
-
- drivers/net/can/usb/gs_usb.c | 143 +++++++++++++++++++++++++++++--------------
- 1 file changed, 96 insertions(+), 47 deletions(-)
----
-base-commit: fa5196392691051963726787944db872420dfa75
-base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next.git main
-change-id: 20261025-gs_usb-fixes-250f38833107
-
-Best regards,
---  
-Marc Kleine-Budde <mkl@pengutronix.de>
+-- 
+2.53.0
 
