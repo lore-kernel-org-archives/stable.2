@@ -1,46 +1,46 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794122308;
-	b=XhGSUtNO7gpZc/xcPAK8Y+b0K14JyKFcZQEzmnx+FiUHWXVG5MoI+IwLU2pe+q2GLE8y
-	 MwM0l/xGhBStzhXMI/envhR0u3OwUdw7lIoCJaYosfR70mlJHtnBN42nQeHARQ8BwkEnW
-	 z7QFCV4vJxDimSWlAkBCFZHWnQetV63rDVs6NtO4CYX2gNV4nUJYRbROYYp3Gjn6pLGhH
-	 dE5xPb8rn707VEQJMLXuWT+IkMEpwnfQ7MPsYpe3HUpj94w6mko2zBKryXWkVVCkMO8Zg
-	 AkZP3mR18EQckATUOBaP/J2IcGSjzfEs2GgwcJA4SgrYEw4KRYMf+WGbFCBKT5ZFk3g==
+	t=1794122310;
+	b=JByH1G4cpUMp4gu77BplOKxun0x6FZz2VtmARl44WYDd4gxsTeoCM+xFXG8WZ6RzLGlx
+	 M2Iwb2V/cTHhfWsWK6hdhXQZirezPwdm5I8lHUE5SAyep1lEE1LYHciBAoaejcaCFs4Yi
+	 0ZXV3vJywKdmqFXrZ4uzNn20teNXJcRJ28kPQRzDrZqJ4jIpm6l6XnLD8zfgWvJbovFaA
+	 bfXgSdZRTD7Jinqk8I5bTJdxFO47zD8c9kGATDEiqWOX++LiFuF5vPMTiNHKRZ6dFrZMx
+	 HdchAl2Dr3scu/KhA0uSNcAaBCcQtgZuhIXiIcMpQLB5TSqnQv2hXkl4nAsWzhMmohA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794122308;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794122310;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=rp00DiKSxgo0zNtK24eQEtuDxTngsNsV2eHoN50n1pY=;
-	b=2eJ8oO0WtIas41H+RSP9DLHaK8JYVJ3Qa2I8ufv1pEUmY7clIEr3BYA8Mxcfdlw1pxer
-	 NH5V3oYSqQR2qH1gdz8BjL6dE0XsFbvyXRaEeYwpUM8PiOrG+lRo/1GQtMAlRLFpbPKrG
-	 mU1Uch5sELG7Lt6VKT9+BmAKutCoA2tVhmhT5g5nMl4/cl2619AJ3zoBPfFU5ZPjDhd7n
-	 SBRG5yEPgkBKtYcieItQU5uS/T5uibRcGYqSE64qdoJRI8GrxSlT1Q+dliOYnIqXITg9C
-	 cbeNP5QOZc1ctOQ5kVVBwmH4Oy1HBkAH6Rp7+tTkQCwwIErrCltZlwpDfankFbvfeOA==
+	bh=LX432zGEh+m8MJzD+N0chjubKRkHI47xVg0SEDNcbSc=;
+	b=EmDVG5cAKsHIdmXbMr1rJyem+2DuIpc4Jl7eVEUl7bH3JZNKpSJ5G8BF0RTpzxuKYdVu
+	 NdOI4yDiLCO3TtSZET0lDfyvY15vQvsQUbzhmZi1GOXTBc4IQEefxUp31rggtAkDFhCK/
+	 59c6w+z6OVRKVstBPJGTjP9Gl7C7NyAOir5CuOSuyV3JiVtM9yZrvuIRr7cFoUaXbYfwL
+	 /PuLEA37GxM3qdFSkGes14v96ySp/R5vefYQKSEn5xKCxvUBlzpnH749l8bBNLx8jXOS6
+	 nP2OukWBZRy6YAZBAy+nMOxKdSQb+zkNI9ffSwdha6O3sSb3NvgGkkJhfjl8Vp6Abcg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bH1l6BqP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OHzBZAJa;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 990B0606A322;
-	Sun,  8 Nov 2026 07:18:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47128606A337;
+	Sun,  8 Nov 2026 07:18:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bH1l6BqP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0D111F008A1;
-	Sun,  8 Nov 2026 07:18:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OHzBZAJa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C98871F0089F;
+	Sun,  8 Nov 2026 07:18:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794122308;
-	bh=rp00DiKSxgo0zNtK24eQEtuDxTngsNsV2eHoN50n1pY=;
+	s=k20260515; t=1794122310;
+	bh=LX432zGEh+m8MJzD+N0chjubKRkHI47xVg0SEDNcbSc=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=bH1l6BqPf0NPLte0hdP1howIC+6VwVqzOWf8WeOFz/Rw0OhK07gIlCHCZH5AnicOF
-	 kB/NDEfmBHsEl9Mk/d6+2UHpqTziFmT/uhz5Xh/tZjjbSa3AtAe2obdNf8O7gg4wgd
-	 M4uCrouUoNZ0d5ATNHjihFfg6chwpWVWLxvfzbIiaXYi/D+EtGIqNwxkpMs9q2s6CE
-	 P3a2rPh21qW/Wr/9TR8loAAAyYn1PNfoLUOMrO41GWqDEpTOrWwkDMHJgDfeDHeyC0
-	 Ytp9rzwE/av3YJEZt7kxUBmNxQi3+vA9zQe2Ex4ogfGjXbe4LEonZwHqRRnOOEWh++
-	 CtTaNnMwl1t7w==
-Subject: Re: [PATCH net v5 3/4] igb: do not split AF_XDP zero-copy frames over
+	b=OHzBZAJa+luHdoFy3xzfBgZN2yqZjgaPoMX4qfS42DRzbE6C2rkTGRLUorzbUsLWi
+	 O3UdQV/qWReI8tM+x0apTxu70IOoELJH5VGk6t0V9sO3sSN05TFQyjR3KRIs5gkkaL
+	 I305NvQmn2sdo1VJ8hm143mNnlrChCbo6p1jeIORtxgIunGnOQe9IJTPfrNPU08G/H
+	 WttLuJ6n53WQKZ+ueCP870Shv0LfkNG7CjKu6igpWAbv3h5WhuUkRg3fsQWwTr3iiY
+	 T5u1EAUERPllCBZ1Jn6nPEbzV9lJJ9wzMjp/3pm45WoZlmhMrCJluULluAubn8tjes
+	 uabLNy14FLiXA==
+Subject: Re: [PATCH net v5 4/4] igb: drop AF_XDP zero-copy frames that span
  several Rx buffers
 From: netdev-bot+sashiko@kernel.org
 To: tkusters@aweta.nl
@@ -54,10 +54,10 @@ Cc: anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com,
  maciej.fijalkowski@intel.com, p@1g4.org, stable@vger.kernel.org,
  piotr.kwapulinski@intel.com, aleksandr.loktionov@intel.com,
  alexander.nowlin@intel.com
-Date: Sun, 08 Nov 2026 07:18:26 +0000
-Message-ID: <179412230633.994134.8603408637757773209@kernel.org>
-In-Reply-To: <20261104-igb-rx-ts-fix-v5-3-bf4b4367129a@aweta.nl>
-References: <20261104-igb-rx-ts-fix-v5-3-bf4b4367129a@aweta.nl>
+Date: Sun, 08 Nov 2026 07:18:28 +0000
+Message-ID: <179412230839.994134.10647400317567695303@kernel.org>
+In-Reply-To: <20261104-igb-rx-ts-fix-v5-4-bf4b4367129a@aweta.nl>
+References: <20261104-igb-rx-ts-fix-v5-4-bf4b4367129a@aweta.nl>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -71,10 +71,10 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 2 potential
+Thank you for your contribution! Sashiko AI review found 1 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+Critical: 0 · High: 0 (1) · Medium: 1 · Low: 0
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -82,55 +82,52 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] This patch makes igb_setup_srrctl()
-  (drivers/net/ethernet/intel/igb/igb_main.c, around line 4842) program…
-- [Low] Two new comments in drivers/net/ethernet/intel/igb/igb_xsk.c
-  contradict each other.
+- [Medium] On i354 with VFs allocated, nothing in the driver applies the
+  receive length limit that the zero-copy buffer layout now relies on.
+
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but the new
+  discard path depends on it.
 
 --
 
-igb: do not split AF_XDP zero-copy frames over several Rx buffers
+igb: drop AF_XDP zero-copy frames that span several Rx buffers
 
-This patch programs SRRCTL.BSIZEPKT for AF_XDP zero-copy rings with the
-same 2 KiB or 3 KiB buffer size as the other rings. Before, it used the
-XSK frame size, rounded down to 1 KiB granularity. It also refuses XSK
-pools and MTU changes when the frame plus the timestamp header would not
-fit the XSK frame.
+This patch makes igb_clean_rx_irq_zc() drop AF_XDP zero-copy frames that
+span more than one Rx descriptor. It frees every non-EOP buffer and the EOP
+buffer that ends such a frame. A new ring flag,
+IGB_RING_FLAG_RX_XSK_DISCARD, keeps the discard state so that a split
+frame can be dropped across NAPI polls.
 
-Link: https://lore.kernel.org/all/20261028083344.3047350-3-p@1g4.org/
+> diff --git a/drivers/net/ethernet/intel/igb/igb_xsk.c b/drivers/net/ethernet/intel/igb/igb_xsk.c
+> index fb04df82272ac..7b098069fff29 100644
+> --- a/drivers/net/ethernet/intel/igb/igb_xsk.c
+> +++ b/drivers/net/ethernet/intel/igb/igb_xsk.c
 
-> diff --git a/drivers/net/ethernet/intel/igb/igb_main.c b/drivers/net/ethernet/intel/igb/igb_main.c
-> index cf9911137bd31..b286adedad5df 100644
-> --- a/drivers/net/ethernet/intel/igb/igb_main.c
-> +++ b/drivers/net/ethernet/intel/igb/igb_main.c
-> @@ -4833,9 +4833,13 @@ void igb_setup_srrctl(struct igb_adapter *adapter, struct igb_ring *ring)
->  	u32 srrctl = 0;
->  	u32 buf_size;
+[ ... ]
+
+> @@ -390,6 +392,27 @@ int igb_clean_rx_irq_zc(struct igb_q_vector *q_vector,
+>  		dma_rmb();
 >  
-> -	if (ring->xsk_pool)
-> -		buf_size = xsk_pool_get_rx_frame_size(ring->xsk_pool);
-> -	else if (ring_uses_large_buffer(ring))
-> +	/* SRRCTL.BSIZEPKT has a 1 KiB granularity, so programming the XSK
-> +	 * frame size would round it down and split frames over several
-> +	 * buffers. XSK rings use the same buffer size as the other rings.
-> +	 * While XDP is attached, the receive length limit keeps frames
-> +	 * within the XSK frame, see igb_xsk_frame_fits().
-> +	 */
-> +	if (ring_uses_large_buffer(ring))
->  		buf_size = IGB_RXBUFFER_3072;
->  	else
->  		buf_size = IGB_RXBUFFER_2048;
+>  		xdp = rx_ring->rx_buffer_info_zc[ntc];
+> +
+> +		/* A frame should never span several buffers here, see
+> +		 * igb_xsk_frame_fits(). If one does, drop all its buffers.
+> +		 */
+> +		if (unlikely(!igb_test_staterr(rx_desc, E1000_RXD_STAT_EOP) ||
+> +			     test_bit(IGB_RING_FLAG_RX_XSK_DISCARD,
+> +				      &rx_ring->flags))) {
 
 [Severity: Medium]
-Is a receive length limit always in force here while XDP is attached?
-With 2 KiB chunks and the default headroom, the XSK frame is 1792 bytes.
-BSIZEPKT is now 2048 or 3072.
+Is the receive length limit that this comment relies on applied on i354
+when VFs are allocated?
 
-With VFs allocated, igb_set_rlpml() leaves the global RLPML at
-MAX_JUMBO_FRAME_SIZE. Only the PF pool's VMOLR carries the limit:
+After the series, igb_setup_srrctl() gives XSK rings a 2048 or 3072 byte
+hardware buffer. It relies on the length limit to keep frames inside the
+XSK frame, which is 1792 bytes with a 2 KiB chunk pool.
 
-drivers/net/ethernet/intel/igb/igb_main.c:igb_set_rlpml() {
-    ...
+When vfn != 0, igb_set_rlpml() leaves the global RLPML large:
+
 	if (igb_xdp_is_enabled(adapter)) {
 		pool_rlpml = min(pool_rlpml, adapter->max_frame_size);
 		if (!vfn)
@@ -138,88 +135,112 @@ drivers/net/ethernet/intel/igb/igb_main.c:igb_set_rlpml() {
 	}
 	wr32(E1000_RLPML, rlpml);
 
-	/* the PF pool's VMOLR is used on these MACs, see igb_set_rx_mode() */
+On i354 it then returns before it writes the PF pool's VMOLR, because
+e1000_i354 comes after e1000_i350:
+
 	if (hw->mac.type < e1000_82576 || hw->mac.type > e1000_i350)
 		return;
-    ...
-}
 
-e1000_i354 is greater than e1000_i350, so the VMOLR write is skipped
-there. igb_probe_vfs() only rules out VFs on i210, i211 and 82580, and
-igb_enable_sriov() has no MAC type check.
+igb_set_rx_mode() also skips VMOLR on i354, and igb_probe_vfs() does not
+exclude i354. An earlier commit in this series (bfd45cda) notes that the
+PF pool's VMOLR is still not written on i354. The ZC path does not seem to
+account for that.
 
-Take an i354 PF with VFs and XSK zero-copy active. Could a peer that sends
-a frame longer than the XSK frame make the NIC write up to 2048 or 3072
-bytes, plus the timestamp header, starting at chunk + headroom? That
-would run into the next UMEM chunk, or past the end of the last one. It
-would be up to 256 bytes with 2 KiB buffers. With 3 KiB buffers it would
-be about 1.3 KiB, for example MTU 1600 on 2 KiB chunks, which
-igb_xsk_frame_fits() accepts.
+igb_xsk_pool() and igb_xsk_pool_enable() only check that XDP is enabled
+and that igb_xsk_frame_fits() passes:
 
-The igb_xsk_frame_fits() checks in igb_xsk_pool(), igb_xsk_pool_enable()
-and igb_change_mtu() only compare adapter->max_frame_size against the XSK
-frame size. They only help if the MAC actually drops frames above
-max_frame_size.
+	return max_frame + IGB_TS_HDR_LEN <= xsk_pool_get_rx_frame_size(pool);
 
-igb_clean_rx_irq_zc() passes the descriptor length to xsk_buff_set_size()
-without checking it against the XSK frame size. The later patch in the
-series, "igb: drop AF_XDP zero-copy frames that span several Rx buffers",
-only drops frames without EOP. An over-long frame that fits in one 2 or
-3 KiB hardware buffer has EOP set and would still be delivered.
+This check assumes the MAC enforces max_frame_size.
 
-Before this patch, BSIZEPKT was rounded down to at most the XSK frame
-size. Frames were split, but the NIC could not write outside the frame.
+Suppose the i354 PF pool accepts long frames by default. Can a peer frame
+of 1793 to 2048 bytes then land in a single descriptor with EOP set, pass
+this check, and reach xsk_buff_set_size(xdp, size) with a size larger than
+the XSK frame? By then the NIC would already have written into the next
+UMEM chunk or past the end of the UMEM page.
 
-Two hardware details could not be verified: whether i354 silicon exposes
-SR-IOV, and whether the PF pool VMOLR, which is never programmed on i354,
-limits the length anyway.
+Longer frames are dropped here, but only after each of their buffers has
+been filled up to the hardware buffer size. The commit message of "igb: do
+not split AF_XDP zero-copy frames over several Rx buffers" says: "Without
+it, the hardware can write past the XSK frame."
 
-[ ... ]
+The i354 reset default of the PF pool's VMOLR.LPE/RLPML could not be
+confirmed, since the driver never writes that register on this MAC.
 
-> diff --git a/drivers/net/ethernet/intel/igb/igb_xsk.c b/drivers/net/ethernet/intel/igb/igb_xsk.c
-> index ce4a7b58cad2f..fb04df82272ac 100644
-> --- a/drivers/net/ethernet/intel/igb/igb_xsk.c
-> +++ b/drivers/net/ethernet/intel/igb/igb_xsk.c
-> @@ -91,7 +91,20 @@ struct xsk_buff_pool *igb_xsk_pool(struct igb_adapter *adapter,
->  	if (!igb_xdp_is_enabled(adapter))
->  		return NULL;
->  
-> -	return (pool && pool->dev) ? pool : NULL;
-> +	if (!pool || !pool->dev)
-> +		return NULL;
+Before the series, ZC rings used the XSK frame size rounded down to 1 KiB,
+so the hardware could not write past the frame.
+
+> +			if (igb_test_staterr(rx_desc, E1000_RXD_STAT_EOP))
+> +				clear_bit(IGB_RING_FLAG_RX_XSK_DISCARD,
+> +					  &rx_ring->flags);
+> +			else
+> +				set_bit(IGB_RING_FLAG_RX_XSK_DISCARD,
+> +					&rx_ring->flags);
 > +
-> +	/* the MTU check in igb_change_mtu() does not see a pool on a queue
-> +	 * that was hidden at the time, for example by SR-IOV
-> +	 */
-> +	if (!igb_xsk_frame_fits(pool, adapter->max_frame_size)) {
+> +			xsk_buff_free(xdp);
+> +			ntc++;
+> +			if (ntc == rx_ring->count)
+> +				ntc = 0;
+> +			continue;
+> +		}
 
-[ ... ]
+[Severity: High]
+This isn't a bug introduced by this patch, but the new discard path
+depends on a length == 0 sentinel that igb_alloc_rx_buffers_zc() does not
+always set.
 
-> @@ -110,6 +123,10 @@ static int igb_xsk_pool_enable(struct igb_adapter *adapter,
->  	    qid >= netdev->real_num_tx_queues)
->  		return -EINVAL;
->  
-> +	/* igb_change_mtu() keeps this true while the pool is bound */
-> +	if (!igb_xsk_frame_fits(pool, adapter->max_frame_size))
-> +		return -EOPNOTSUPP;
+A refill can wrap around the end of the ring and get fewer buffers from
+xsk_buff_alloc_batch() than it asked for (but at least one). In that case
+the early exit skips clearing the length of the new next_to_use
+descriptor:
 
-[Severity: Low]
-This isn't a bug, but does this comment contradict the one added to
-igb_xsk_pool() above? That one says igb_change_mtu() does not see a pool
-on a queue that was hidden at the time.
+	if (ntu + count >= rx_ring->count) {
+		nb_buffs_extra = igb_fill_rx_descs(xsk_pool, xdp, rx_desc,
+						   rx_ring->count - ntu);
+		if (nb_buffs_extra != rx_ring->count - ntu) {
+			ntu += nb_buffs_extra;
+			goto exit;
+		}
+	...
+	/* clear the length for the next_to_use descriptor */
+	rx_desc = IGB_RX_DESC(rx_ring, ntu);
+	rx_desc->wb.upper.length = 0;
 
-igb_change_mtu() finds pools through xsk_get_pool_from_qid(). That
-returns NULL for a queue_id at or above both real_num_rx_queues and
-real_num_tx_queues. So a pool bound on a hidden queue is not checked, and
-igb_xsk_pool() can later drop it from zero-copy. The commit message
-describes the same case.
+exit:
 
-Could this comment be reworded so it does not claim that igb_change_mtu()
-always keeps this true while the pool is bound?
+That descriptor is in the region software has already processed.
+igb_clean_rx_irq_zc() never clears the length after use, so after the
+first lap the descriptor still holds an old write-back with a non-zero
+length.
 
->  	err = xsk_pool_dma_map(pool, &adapter->pdev->dev, IGB_RX_DMA_ATTR);
->  	if (err)
->  		return err;
+Once the hardware has completed every posted descriptor,
+igb_clean_rx_irq_zc() reaches ntc == next_to_use and only checks:
+
+	size = le16_to_cpu(rx_desc->wb.upper.length);
+	if (!size)
+		break;
+
+rx_buffer_info_zc[ntc] is never set to NULL after use (ixgbe does
+bi->xdp = NULL). It can still point to an xdp_buff that was already freed,
+given to the socket, or reposted on another descriptor.
+
+Can this deliver the same UMEM chunk to user space twice, or return it to
+the pool while hardware or user space still owns it? In unaligned mode,
+xp_release() would push the same xskb onto free_heads[] a second time.
+
+Every descriptor in the unused region is stale, so the loop can run until
+the budget is used up. That leaves next_to_clean past next_to_use, which
+breaks igb_desc_unused() and later refills.
+
+With this patch, a stale non-EOP descriptor also takes the new branch.
+xsk_buff_free() is called on the stale pointer and
+IGB_RING_FLAG_RX_XSK_DISCARD is set, so the next valid frame is dropped.
+
+The branch also continues without counting against the budget. That
+leaves the missing length sentinel as the only thing that ends the loop.
+
+igc_alloc_rx_buffers_zc() clears the next descriptor's length after every
+fill, including partial ones. Would doing the same here close this?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261104-igb-rx-ts-fix-v5-0-bf4b4367129a%40aweta.nl
