@@ -1,93 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794160339;
-	b=1LO6kDws2j/Va+Iu1LWgbBE9pac5k7NawVxfRaVZpx1ki7xCmzVRH+rXRH5i6oCOY7Z8
-	 +SDcPygsRyaqxgH3pQhGLdw6Qag5h3LI16BWv7f75vrpHUojmdAvFSo7fTh7oAjKoHp96
-	 vtaZKCM84z5+uKGUIk2gNB1xMt3Xi41r3ogWuovCyT2e6DrUK0FvhyOisuFxP5siKfMTk
-	 6XdSIjE47DqYlWk6xiEITMuiKkKUjcmosijTUwViR6TmhhlJFDB8+PtflPfS9MKEU8y/T
-	 tWMy7FQGfTvVykjqXARtY3J4eo/kRjwTiUncrB12qMqm11J8xSyL28WZ3MVLHlk5kpg==
+	t=1794160486;
+	b=LpB4PSSA7ZgXDEUS6w1cnSR1OjplDY0AyJCL7zrfuUf9gQqih31SzI+A9tc4ls1qaLNc
+	 7ACSfiw8TRkcJRaG1kLScliun9Y/KO2cwS0sJ8zMD1dAIEhnTDopiCeEq6v/yNV9ktxQD
+	 7dLusi3lk7KHq+/LbzWKQutETxQb0lBZqLGv+2woFglJgmwMckrgMNnYCJM1zmPK3DcYq
+	 Dtn1fOHUUUovk0Pu1FjaUJn6sPp+Csio9i9lVg28UB9KZ1cu8nh41LJMjz2Ni6Es9reI/
+	 VrBT6bL8p+1Qnlk5nGrjvc83fvUmQIH5Ln3/Gys6Q+MK2Qt7xS5UVSjZHDq7YDfw1Aw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794160339;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794160486;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=ZbsGt/Yaewv8ArPLycAYYXmDqJHO01ChanNYScKiO+c=;
-	b=V0vd+6D87On3eHifz+NvRVFStJASir4/f4iQWBrQg6aJtx0RdP4+YT7nz+jLvVoogWJt
-	 C8qsuUqlPMaBm486rFnJfzDW2LSSQKbgbLkk9aS0Y/Vh3qm6R1qxorfF6o+egQAy8eHpb
-	 cZownfawPh1nTaP8BxYdGif4o30uOh1Ee0grCRTgwjXCtNYYNMGhWPrbyIzIMJAf0yOap
-	 A7tgPZAd759BxeGvhaOp1fJNUnmES6gnK8CMEtwgHR5JlCL+ji//h1hSeSJP6xrv0yVtS
-	 YBSfT6HakJv8Zm2l2Bz9cKZmVRJiP1nNhNw9Q1TZ0PJjmuXc7SjkjRp3PaiCjsUXLLg==
+	bh=XN+82m6XILmToReUZb14mcLlVGl4HvQRUT+BvYNhBMU=;
+	b=x3lxII1y+mKMZfSKZgqQFfteVwYCKlPBMcUMY+IZqa3zJ6+v7qZOeU+fnY9WHZ0ZR4gA
+	 qieoJQ3dqNVJdw9yicUkeXaSBcgez1bR+m7PF6rMRI36xtB6rSTyETa9m+1h2jMEqGXZR
+	 zv2B1+dBbF9d2uZBoiTIKqYg2qBmulsT0bv8O38olwR+1Nre1GIwAYbB9lAT2mME0JxOd
+	 hZpRBPU9ejHR0101CZpjpjEm9IhQfXQl1Y7Uko+ua6Wlz2vikjPTuU/8FtM5clU9MELoe
+	 X7GtkCVvQcf4nBk5Z6MXKMyrLXj5dDrp2vs8lvksZfLB/slZihJUW2kejTs4FJMM6HQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nolknHvS;
-	arc=none smtp.remote-ip=209.85.160.45
-Received: from mail-oa1-f45.google.com (mail-oa1-f45.google.com [209.85.160.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="w9rbpO/f";
+	arc=none smtp.remote-ip=74.125.82.173
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A0E9606A320
-	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 17:52:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A0E9606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09117606A320
+	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 17:54:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09117606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nolknHvS
-Received: by mail-oa1-f45.google.com with SMTP id 586e51a60fabf-48e2d5a69c4so92449fac.3
-        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 09:52:17 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=w9rbpO/f
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-372bdb942dbso308203eec.1
+        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 09:54:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794160337; x=1794765137; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794160485; x=1794765285; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZbsGt/Yaewv8ArPLycAYYXmDqJHO01ChanNYScKiO+c=;
-        b=nolknHvSLtnEw0mNYq1xDNKKwNZ80yOhtr4P6+0Cly55+qNwwJ0aLUpghOW397MonE
-         arPaf4+fjBCN7cj6gVPvczwqp/iQwZk7JFvP/O32pG1miypIAXCxNbZuClZulIsjmKtx
-         MC7mIWP4eVReH5yy1ggGYsEl5lRDNXM6zqiE4chPSAqFV/t55pzBECUIdRmvDnX29IMQ
-         S4EfhVU5QKlReigkhwALskWeIREbV+1XnrTllMuG/9OkOBzkCmyyv8VKrkUUtsFteeAM
-         AKRPgCFSrGvn9b0wXV1AQekQdPWe4/Qu0K0eSFxHdzTnDQSiMq7ZFuZKCeZ+hqzJDrqK
-         U6FA==
+        bh=XN+82m6XILmToReUZb14mcLlVGl4HvQRUT+BvYNhBMU=;
+        b=w9rbpO/fro2/aQIsj9ctujKJ+4OaThbesS0tp253vPawbzRxfHE1lc/B1jxzwhvncg
+         UlMFZ8snjPx2Y93HabO9prT68I6Tzx5bgPVaeECgfXSIsy4SFdZGfkoBZs4y10K5SwKM
+         To0utznSCySu6J5IH7rBy3DlsKv3HcOoKViax9PCzBCfHhaszeAsD0HM7mBKgJmA2gJt
+         a5ipiA8v8qzidRHlEfElIVT4pTS8TmeW1JcV+rf4gwoMgwiB727a9HX2uo5OReWHFynd
+         6/Neosestl1XtTIqkd9oEXH3z9ed18WFiNMIiUFkMuXFnCs58DV/n/7bl/X4hIlqOPH+
+         t1lQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794160337; x=1794765137;
+        d=1e100.net; s=20260707; t=1794160485; x=1794765285;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ZbsGt/Yaewv8ArPLycAYYXmDqJHO01ChanNYScKiO+c=;
-        b=BWwVuxqAwBcSCvWf1SESUSkkpdJWilSQU+c1A4reycGzjXNFsYYM14O5gvWQo5y/vL
-         dhymUoohjUvr6ilupsFJY7iTBP2yUhfdYlMsaGXXsrBsB148OrGPoKynYCPRTT2zkHjS
-         ABFwX9Vmm36efYCSSUcsBfKVt5U1zaProfK19UWPZlj/wMbGA7cbSgXNP1uWWO3iWS7s
-         VPKOGlhu5XJyivVdblktEUScOyn5ciDygqTbpyzryQvH2RcoTmm/viMIEXw7FtrRLykE
-         8+4iEuJFQ3AFxAAk/BGuCl1NPqGcHrCtQgNRQWtUVYm09jjRvtpfDJ2Mm93JST8ejKdy
-         1ESg==
-X-Forwarded-Encrypted: i=1; AL+hErHdCGZ4Gc3+8zHwyqW42P6s5QMCJsKsgkvVRguuLSFVQtbLqKzoU6w+iZ32dAWUfb9ofRgYd/0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/PlLmj23NHqAUItaCOo9gNVcD8rj53s4QO1hzxj/77eyq35Sw5
-	S0hpt0b4CmNFtwM7rpCBHlPAfOMF8YtMvmnQIHKUmjUjnp8SCv1RMmvb
-X-Gm-Gg: AYBFou2ZXKyXxyzWXCxBL5BJp1mEPr6t+C7MeA3Lb3UpnmbkyDOCunNxA6QR14ALb+o
-	n3zCdqXUtpLQ2FhHrVV/WTRU06reYIL0BnM1s4zquk3WcTO9M7ZylT8hvIPkxzjRpmizIGeOl+j
-	9LLGCIYPCpwGF3g/JuAvswlb+wqXKUdZ5g66D7rS6jyOjEe7dddt6GaYSqJE9/udOjD5/QSf0Cz
-	7u+0X05RGNrNfNyVtrdOS50yomoJcvgz8ZOrb6fGfO7VA6hwpyQtPs8FbL+OJ1w8l+RhjTERT2Z
-	6R3CE4QHK/xDwEHXjGc4PLV+cLrp8qhkboa2jbvRXXgIuNNgvxeF2eCDEqNlWdZkq1sbn/ou2Lm
-	ZQ0aGoi42YMpfkLK0BHkFVcr1yt4oUcKGguMnQHK7r0bhnn23C5gtloDref6mCr8CF25W/p4o/2
-	9hMGYBsxw2Z/CnJUnolJEAC5ZOo6Ww1A+QEBvv/rLLy7GIo904N6fQeiVljYgyUWcC+Ue3B2dbl
-	6/PaToOGaDj6IvDJ36lV8RSABzADp19HiLdjwf8weEOZ1jF0+saYVHS5A54QjoHOnxDI+7bfqw0
-	e+HExFsW0paR1T/gyEMqcmqFJKosdwkLxtjCXZVUKmEgNfAI
-X-Received: by 2002:a05:6871:3321:b0:4a6:fa51:3c89 with SMTP id 586e51a60fabf-4adecbadfb9mr1009105fac.51.1794160336736;
-        Sun, 08 Nov 2026 09:52:16 -0800 (PST)
+        bh=XN+82m6XILmToReUZb14mcLlVGl4HvQRUT+BvYNhBMU=;
+        b=y/YE0aS/FDGqmS35Q9BCgyrw/fF9Phmmx45S9wPD6Df1RImjO0MvbKZv5JDf9gOee2
+         7bc4Jc3bWDzyMPQxQJAb7pBmsVvVyQuDzBcPJGn6h8qZomfganLJ3OVej9Q+U7+oeAJt
+         BrMcmbrHhkgqAQgh9PxXzsII2pXps+eXWsgU/HzsrsiDmeXh2O4tIYEEdFFZmoObA+Fy
+         9ZSS1kyLnOk/78JdePKIdvDoCJcePwsagpgh0102QYqYHotnbrhWRN1/hsBvtE0VP9Fg
+         1/B9b2UBrOYo19gDZhsFdm/oprIJWc4poAlzQQHyys95B0+GvmVP/YVM4lAwAkA8XqmO
+         2Skw==
+X-Forwarded-Encrypted: i=1; AL+hErHfS9tao/7+5OY79KYZq4HM4jss6mPUK1Ud5xOSb6qMMt9Osf+0F9HlDaxgs7dlzha/lMyV2GE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/kSHNnNe+QEOqcRJYqr8tD88fF0XiInqvdaDGDQXX5hlLEuWuV
+	1AJN1tF4ihDMUDGOMKG6ZoLPL4UjVlXvmWNcLWhknIm58m9dXz2BY9jM
+X-Gm-Gg: AYBFou120lmtfmGGvQX4CW9s7hVDX94scY7GZDkaw43axaAicQg2XC2sRuuc8M5E1qN
+	K0noIYgVWPESClVrK6Dv8TAWupNBIGCYY4njyzZ/YGCDNVHJnudf2mtIK1IIO8w2i0I7Nq7hkI4
+	pk+E5Ay1/izGnM7wRx0ro25rzKTp7vKmjUxqe55ieSCx51hMFLxKfobquJvDRA8Lf4o4cj5hJ+g
+	ARR/LJB3I+eO4yHglzI8oCRwlER3zwKcidOYU4YdsaSzN6dhQDioAwFoKmHYWNHnK3WhMxArXDw
+	5mtCYtHKKjIZiRfqD4Ei3QKJStEIrTRy0FTJb69GRnUm2xpB09lvzvsqgU/oO/ire9oij+hZP8j
+	2on0tpFJab4Iw1jOGQ3ae+pJ5SpPtoCnsbyg7KUCoKoBdo289lPelqlZ9cLEZV+j6vEKZ/ccpos
+	VcUSMWs8TG/heoyKLGIY2amFkaDyHMlBAJABXFWZU4oBaF1AbIO3Kk4IQ4DaIK8byp7MljLWxeV
+	dnbwTXtGyPHLghod0+WfIQWSFHrg4a/a8U1JhUDjK980QXv+k8KA/9uFkcxLCEJLhipSn+xXAmo
+	MQ8diU4MUjQy/aX3RNk3D1fEO/JPXziMQcTY6rE5scgpEuXT
+X-Received: by 2002:a05:701b:260d:b0:196:7742:3928 with SMTP id a92af1059eb24-1b39fdaf0c3mr2557319c88.0.1794160484955;
+        Sun, 08 Nov 2026 09:54:44 -0800 (PST)
 Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4ade6a26d74sm2682674fac.15.2026.11.08.09.52.13
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3771ea85bsm7386310c88.18.2026.11.08.09.54.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 09:52:15 -0800 (PST)
+        Sun, 08 Nov 2026 09:54:44 -0800 (PST)
 From: hyunjungg <hj351016@gmail.com>
-To: Jiri Kosina <jikos@kernel.org>
-Cc: Benjamin Tissoires <bentiss@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	linux-input@vger.kernel.org,
+To: Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
+	Andrew Donnellan <andrew+kernel@donnellan.id.au>
+Cc: Frederic Barrat <fbarrat@linux.ibm.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linuxppc-dev@lists.ozlabs.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Hyunjung Ko <hj351016@gmail.com>
-Subject: [PATCH v2] HID: microsoft: fix use-after-free of ff_worker on teardown
-Date: Mon,  9 Nov 2026 02:52:05 +0900
-Message-ID: <20261108175205.722820-1-hj351016@gmail.com>
+Subject: [PATCH] ocxl: cancel xsl fault work before freeing the SPA to avoid use-after-free
+Date: Mon,  9 Nov 2026 02:54:35 +0900
+Message-ID: <20261108175435.725507-1-hj351016@gmail.com>
 X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -102,102 +104,50 @@ Content-Transfer-Encoding: 8bit
 
 From: Hyunjung Ko <hj351016@gmail.com>
 
-ms_play_effect() schedules ms->ff_worker to send the force-feedback
-report; ms (and ms->output_report_dmabuf) is devm-allocated, so it is
-freed by devres after ms_remove() returns. The work was never cancelled
-on teardown, so ms_ff_worker() could run against freed memory.
+The XSL translation-fault interrupt handler schedules
+spa->xsl_fault.fault_work (xsl_fault_handler_bh), which dereferences the
+fault and the SPA (via container_of) and acks the interrupt. free_link()
+calls release_xsl_irq() -- which frees the XSL interrupt so no new
+fault_work can be scheduled -- and then free_spa(), which frees the SPA.
+Neither cancels a fault_work that was already queued by the last
+interrupt. As it runs on the system workqueue with no timing bound, it
+can execute after the SPA has been freed, dereferencing freed memory --
+a use-after-free.
 
-Draining the work is not quite enough on its own:
+Cancel the fault work in free_spa() before the SPA is freed. By that
+point release_xsl_irq() has freed the interrupt, so the work cannot be
+re-queued and cancel_work_sync() is sufficient. The interrupt top half
+takes a reference on the faulting mm that the bottom half is expected to
+release, so if cancel_work_sync() cancels a not-yet-run work, drop that
+reference here to avoid leaking it.
 
- - hid_hw_stop() in ms_remove() unregisters the input device, whose
-   teardown (input_ff_flush() -> ms_play_effect()) can re-queue ff_worker,
-   so the work must be cancelled *after* hid_hw_stop(), not before;
- - ff_worker was only INIT_WORK()'d in ms_input_configured() for devices
-   with force-feedback, so cancelling it unconditionally would hit the
-   WARN_ON(!work->func) in __flush_work() for the other MS devices; and
- - if hid_hw_start() fails in ms_probe() after force-feedback was
-   registered, its unwind can likewise schedule ff_worker, which was then
-   left pending when ms_probe() returned.
-
-Initialise ff_worker unconditionally in ms_probe() (so it is always valid
-to cancel), cancel it on the hid_hw_start() error path, and cancel it in
-ms_remove() after hid_hw_stop().
-
-Not runtime-tested (requires MS force-feedback hardware).
-
-Fixes: 73c5b254c365 ("HID: microsoft: Add rumble support for Xbox One S controller")
+Fixes: 5ef3166e8a32 ("ocxl: Driver code for 'generic' opencapi devices")
 Cc: stable@vger.kernel.org
 Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
 ---
-v2: Address the review of v1 (which just added cancel_work_sync before
-    hid_hw_stop):
-    - Cancel ff_worker AFTER hid_hw_stop(), since the input-device teardown
-      in hid_hw_stop() can re-queue it via input_ff_flush() ->
-      ms_play_effect().
-    - Initialise ff_worker unconditionally in ms_probe() so cancelling it
-      does not hit WARN_ON(!work->func) for non-FF MS devices (it was only
-      INIT_WORK()'d for FF devices in ms_input_configured()).
-    - Also cancel it on the ms_probe() hid_hw_start() error path, where a
-      failed start can likewise leave the work queued.
+ drivers/misc/ocxl/link.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-    v1: https://lore.kernel.org/linux-input/20261108133821.535139-1-hj351016@gmail.com/
- drivers/hid/hid-microsoft.c | 21 ++++++++++++++++++---
- 1 file changed, 18 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/hid/hid-microsoft.c b/drivers/hid/hid-microsoft.c
-index a7d3493..1042a52 100644
---- a/drivers/hid/hid-microsoft.c
-+++ b/drivers/hid/hid-microsoft.c
-@@ -334,9 +334,6 @@ static int ms_input_configured(struct hid_device *hdev, struct hid_input *hidinp
- 	if (!list_is_first(&hidinput->list, &hdev->inputs))
- 		return 0;
+diff --git a/drivers/misc/ocxl/link.c b/drivers/misc/ocxl/link.c
+index 7749dcd..1c2a89e 100644
+--- a/drivers/misc/ocxl/link.c
++++ b/drivers/misc/ocxl/link.c
+@@ -376,6 +376,15 @@ static void free_spa(struct ocxl_link *link)
+ 		link->dev);
  
--	ms->hdev = hdev;
--	INIT_WORK(&ms->ff_worker, ms_ff_worker);
--
- 	ms->output_report_dmabuf = devm_kzalloc(&hdev->dev,
- 						sizeof(struct xb1s_ff_report),
- 						GFP_KERNEL);
-@@ -361,6 +358,14 @@ static int ms_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 
- 	hid_set_drvdata(hdev, ms);
- 
-+	/*
-+	 * Initialise ff_worker unconditionally so it is always valid to
-+	 * cancel on the probe-error and remove paths, even for devices
-+	 * without force-feedback (where it is never scheduled).
-+	 */
-+	ms->hdev = hdev;
-+	INIT_WORK(&ms->ff_worker, ms_ff_worker);
-+
- 	if (quirks & MS_NOGET)
- 		hdev->quirks |= HID_QUIRK_NOGET;
- 
-@@ -377,6 +382,7 @@ static int ms_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 				HID_CONNECT_HIDINPUT_FORCE : 0));
- 	if (ret) {
- 		hid_err(hdev, "hw start failed\n");
-+		cancel_work_sync(&ms->ff_worker);
- 		return ret;
- 	}
- 
-@@ -384,7 +390,16 @@ static int ms_probe(struct hid_device *hdev, const struct hid_device_id *id)
- }
- static void ms_remove(struct hid_device *hdev)
- {
-+	struct ms_data *ms = hid_get_drvdata(hdev);
-+
-+	/*
-+	 * hid_hw_stop() unregisters the input device, whose teardown can
-+	 * re-queue ff_worker via input_ff_flush() -> ms_play_effect(). Drain
-+	 * the work after hid_hw_stop() so it cannot run against the
-+	 * devm-freed ms once ms_remove() returns.
-+	 */
- 	hid_hw_stop(hdev);
-+	cancel_work_sync(&ms->ff_worker);
- }
- 
- static const struct hid_device_id ms_devices[] = {
+ 	if (spa && spa->spa_mem) {
++		/*
++		 * A pending xsl fault bottom half holds a reference on the
++		 * faulting mm (taken in the top half, released by the bottom
++		 * half). If we cancel it before it runs, drop that reference
++		 * here so it is not leaked. release_xsl_irq() has already
++		 * freed the xsl interrupt, so no new work can be scheduled.
++		 */
++		if (cancel_work_sync(&spa->xsl_fault.fault_work))
++			mmput(spa->xsl_fault.pe_data.mm);
+ 		free_pages((unsigned long) spa->spa_mem, spa->spa_order);
+ 		kfree(spa);
+ 		link->spa = NULL;
 -- 
 2.43.0
 
