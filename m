@@ -1,61 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794159285;
-	b=XZbKrRxpU3d1tRcNF0vXKssdvNdcOnV5uHsAIeXDmpdADKSkHVQojIpqiRTX/EuG+Z7g
-	 cogyYyayZ0TQWbg8R8bWhBWOsiC90dv10LQIYwrDIZjEpWecekcR/FPv2YZNKj6UNypRs
-	 pPZYJsnVJYz69+oifjSkM90mZmYdU+wTozQE7Qaj/3AL4gG3/T4DfeFnuAkMVXIUI5KXz
-	 5y0ZlqrG5FCX1SPOzRIGI3hyv3G8iIgQzfLRSGH4qr4xjUss3oEQqB10RWuJ+iNI0VY7P
-	 pHKVxaNch77k4PJjjDoUU4plcFC4FPCQM/XFcXyOBQKF0vDVQqN8sXUNyJAHAf/zdng==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794159285;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=h9fN+blWcYiz+Rj05u5EqHcYFX7OMSudCRxrgXVuF4E=;
-	b=4MiAb1KKLFRf7mW5wEuBN0k68Q4g/lqK8yiCiSFD5+uGz0XVUYdTCfQeZAHkr1XtQqcM
-	 1F3TcFzu6GS0eyGoWZU3TgUCKa0H2uMGobdPBvBEjeoZ249Jw3yJEQr8/PTL9TA8gTHN3
-	 F5Sc4icGl79kiZ0tQEu6Qay2WioljitP6rO+JG7NJ3T+izE7ExoNpvSyqKWFRZXphLZcJ
-	 Re7cWeCJSXpQFNxDY1sl809nnv22zJppdXulHwyCS57AbmQeZgXnyV1sC9Le5MPdVvQ0X
-	 gfBdOpGCKB+g3j7jTTJz8n5SBmh6MxNUB4K+pAhM8MENFfZDek7FCy+aPdXR9lZwEzw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ut7Gg1Hz;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.15
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794160260;
+	b=Gig31xn7Amb+pZpDWkzmQgTKUAkhc+3YS+vCtqgSMXHOuUKs7Dtxv8OKXuofEzwzA/2S
+	 p6jqP+3gXgj7Yq9RzP1Zst/ELynxrLI8WrI0uMBcVVo+1iQlmWOeKrvapt5JmMHXVzSfj
+	 7ZvG4871vh4ha0hxDQV9DlKuQ12IRHJ1qOZwS+FL5hGo6g40HyiCRuRmIax13dsrcq+qF
+	 to43toVfK40jVcPX7W9w9MiyYHVlive6Fv3dTgbaD2bebfh+vf04oKDv7LLQX0L6axBLK
+	 qdW/+CO/+0NwUYMKzCeoybX2rcA+AO9FnEB3iarp6clBUum1zUJ698t3C4+SxTZAhGQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794160260;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:In-Reply-To:References;
+	bh=Il8xXxGs1zNnrSnUmdaHBhL0nHgZZbPLCzifbQIZsf8=;
+	b=pQX8t15s2c0t6hm5tt2I5Gtd4FpY6Td1D7XdX4GATlJ0dTL6PB9oNzHtqcxd/FYj7Ov2
+	 R4TkoJg+x/v+Vt2eh2S9wdDIzJUCASSqNbea8d+EMu4Sr0mmgGnNX9/XaW7JsyhoQbbj3
+	 ASetI5Zh+dlLgrcg5Lny7Tl0PddZRTEki93oA1JAn+NCuIt4Y3i5VvKLHNoFr7RDplOZP
+	 aotRFlZ/4qcYCchz1o3VS5ADFSAq9fXvXWG++quwLYxliz8NhVJYMCQD8ygHcrlFQaL/a
+	 GlDmbqLur/EvZucT2VyEAKJg7fhbiW9gidSERDQ0mvSI0L9XNQwxEIc6XkFUvMlTQAg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=iav.lv;
+	spf=pass smtp.mailfrom=iav.lv;
+	dkim=pass header.d=iav.lv header.i=@iav.lv header.a=rsa-sha256 header.s=zoho header.b=ZXgpvEJn;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.15
+Received: from sender-op-o15.zoho.eu (sender-op-o15.zoho.eu [136.143.169.15])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E0FB606A31C;
-	Sun,  8 Nov 2026 17:34:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75F09606A31C
+	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 17:50:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75F09606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iav.lv
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ut7Gg1Hz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA9801F0089F;
-	Sun,  8 Nov 2026 17:34:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794159284;
-	bh=h9fN+blWcYiz+Rj05u5EqHcYFX7OMSudCRxrgXVuF4E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ut7Gg1Hz2MLSjXtk9vj9PkR85jCxIYPQNx6CUAlxUUQOKbGqQsQN/RuDMseiBzf4d
-	 Xqb7ME7/otbljWfqj9/oWrYCTqMGRxNT8oao96QMPHJl/EqqR4OeAsNEUdeaD7a+rA
-	 DrLA63k4CSP8qBoFiQtlXA2hLj+y7RIFVUWnmx6RDfOj+RFSB5ttV8A/ZvhsfSy1Ot
-	 mpeVtGVlJ5MYktIa10IZLMvUxgK5/imQnqHbPl3OtLsgBaWGQHqskrOng6eNUL4ADX
-	 i/B3vA3VIpfL1dib70sc5Ha6WQ5/HrLgFouDo4KZeAJ/wRafbDvIe6FDACVBxDc8WN
-	 XpogubVTrYKvg==
-Date: Sun, 8 Nov 2026 17:34:40 +0000
-From: Simon Horman <horms@kernel.org>
-To: netdev-bot+sinfo@kernel.org
-Cc: Wentao Liang <vulab@iscas.ac.cn>,
-	Marcin Wojtas <marcin.s.wojtas@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] net: mvpp2: free pending TX timestamp skbs when the port
- is stopped
-Message-ID: <20261108173440.GK18859@horms.kernel.org>
-References: <20261103100535.1310088-1-vulab@iscas.ac.cn>
- <179370062811.488859.14852630470087836565@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=iav.lv header.i=@iav.lv header.a=rsa-sha256 header.s=zoho header.b=ZXgpvEJn
+ARC-Seal: i=1; a=rsa-sha256; t=1794160249; cv=none; 
+	d=zohomail.eu; s=zohoarc; 
+	b=SFn0DEAt9TNPsnbU4A5X4EUviuHdBQpIJLLyItj73Ra38f8s+TSNeRQuEnbdirED+pVMJfaYRPywjTjk9lAb8mOVXwJCaqFc/PO2q3/uKaBxtttj8OngqI53rCdhK/QEUfPtSHDN66sp5mEHH2D/akbd8A+PGeQnS0U3ERYFZnc=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
+	t=1794160249; h=Cc:Cc:Date:Date:From:From:In-Reply-To:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=Il8xXxGs1zNnrSnUmdaHBhL0nHgZZbPLCzifbQIZsf8=; 
+	b=flfMSn5QtyaQP5Ejdo0xv0wzhpMBdVb8cpES2yHbbctWozIT/oeVeye/NvsXBZJhP9W1Oii+vcWdwxFmqYMbCfsQ61wbv20BbkgIjxluX2dy7/Hig61KmMjr/hE1dOK6kQ+G9Tnpx2DlJ1PrHfR7Eo41zjRxOYQlI3Dgx52Y92w=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+	dkim=pass  header.i=iav.lv;
+	spf=pass  smtp.mailfrom=iav@iav.lv;
+	dmarc=pass header.from=<iav@iav.lv>
+DKIM-Signature: a=rsa-sha256; b=ZXgpvEJnUKUE1MRPrDdEJy532TU+uBbU2UX6DYMEksyR0GMn5ZEqFHzUiQaVBXviqfuHuoKKM5NOPiLdYFsyX8ryKDG56Bsd2/E6YSCdhZPcrhHf31JwzoKzCQawiYpbRsUnuK30W5QlQkUmrpJd+rOcdSsI+pGpUxzADMXcuGk=; c=relaxed/relaxed; s=zoho; d=iav.lv; v=1; bh=Il8xXxGs1zNnrSnUmdaHBhL0nHgZZbPLCzifbQIZsf8=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zoho.eu with SMTPS id 1794160248552792.6191649171122;
+	Sun, 8 Nov 2026 18:50:48 +0100 (CET)
+Date: Sun, 08 Nov 2026 19:50:47 +0200
+From: Igor Velkov <iav@iav.lv>
+To: Thomas Gleixner <tglx@kernel.org>
+Cc: iav@iav.lv, Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH 6.6.y, 6.1.y, 5.15.y, 5.10.y] genirq/kexec: Do not take the bus lock of an interrupt chip on the crash path
+Message-ID: <20261108-re-tglx-kexec-backport-6-6@iav.lv>
+In-Reply-To: <877binwiyw.ffs@fw13>
+References: <20261107053823-failed-6.6-717862eac6ef@kernel.org> <877binwiyw.ffs@fw13>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,44 +62,23 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179370062811.488859.14852630470087836565@kernel.org>
 
-On Tue, Nov 03, 2026 at 10:10:28AM +0000, netdev-bot+sinfo@kernel.org wrote:
-> Hi!
-> 
-> This is an automated message. This series looks like a fix, but its
-> commit messages seem to be missing some information:
-> 
->  - How the issue was discovered, e.g. hit in production, hit during
->    development, syzbot report, manual code inspection, LLM or static
->    analysis tool scan.
-> 
->  - Whether the issue was actually triggered, or is only theoretical
->    (e.g. found by code inspection). If it was triggered please include
->    the symptoms, like the stack trace or error messages.
-> 
->  - What hardware the change was tested on. For driver fixes please
->    mention the device (and if relevant firmware version) used for
->    testing, or say that the change was not tested on real hardware.
-> 
-> Please do not repost the series just to address the above. Instead,
-> reply to this email with the missing information, so that reviewers
-> can take it into account. If the series needs another revision for
-> other reasons, please include the information in the commit messages
-> then.
-> 
-> The evaluation is done by an LLM so it may be wrong, if you think
-> that is the case please reply and explain.
+Hi Thomas,
 
-Hi Wentao,
+Thanks for the backports.
 
-In my inbox, I count 39 emails of the form above from netdev-bot+sinfo to
-you in the past week or so. And zero responses from you. If I miscounted
-then I apologise. But in case it is not clear, a response to these messages
-is required.
+> -		ret = irq_set_irqchip_state(i, IRQCHIP_STATE_ACTIVE, false);
+> +		ret = __irq_set_irqchip_state(i, IRQCHIP_STATE_ACTIVE, false);
 
-I would appreciate it if you could provided responses to all such messages
-for patches which are still active on patchwork.
+This needs desc, not i: __irq_set_irqchip_state() takes a struct irq_desc *.
+
+arm64 defconfig, gcc 13.3 and 14.2:
+  6.6.162, 6.1.192: gcc 14 fails with -Wint-conversion, gcc 13 warns
+  5.15.225, 5.10.274: both warn
+With desc, all four build without warnings. The 6.12.y patch also builds
+without warnings on 6.12.116.
+
+I built machine_kexec.o and manage.o (kexec.o and manage.o on 6.12.y)
+and ran nothing.
+
+Igor
