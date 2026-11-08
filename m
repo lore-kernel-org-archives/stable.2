@@ -1,115 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.152
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794095346;
-	b=l/iYGpkflMspuUJHTIn2v2Kq+j1SMnhCwmuwi0wYvN5wnvTa2lIoZXMuoHHCRe0xGWgC
-	 jtOqcGmqZqNU3tq1Ct7moC0yGoUmoEsRrO4Yt0nlOUL+L+iHI1ztp72e1xAcGkA9/+VI1
-	 pJNJkHaM/fA/3I99+R1/CxvQEJwAz+89Rlhrnx1vwF4dTCOjbYpEVz29K3Ox86AyvbRUu
-	 Jkw9bTJ3vngbd0vbUakLNIv7s79hCGaRllLmMv1dRcpk5cFEbKiRLijATXe4O6JDdKvAH
-	 68r2Ngr/MMYkw18Oqz3byQftYkmShSDyfFJLnOPWAvh8Yvynzn+aar0gkTfX213MGeA==
+	t=1794096043;
+	b=w+MIhLouFVtvEhD5Cr7WlWw4jtsODJpcKLOk8J4Vz/UwyvSwSd+1xMc/csWQlhMLUCTP
+	 DLjpFk6BuBDs276CRuvmtrBacHPnrN0Ds77ntstikGQGlnTto1KdWlW4tTe8tMxsHqgPG
+	 ICZb/Feav/J8JCr3+h/dl70VOC50fdc4v2XDOP9e1IAAYro2UvCwUPaxj/Jbz2BSmWuQr
+	 FVMjX80PX4rpZS/DvBZsVkwEKw/lxguQnlrjV9nF+Ws8A2+wGerZamHhdB9YzLxHAP0ZP
+	 ezJBXPvuiw7FsCGXsvGgUu60BhCRx2ShdbY/HZK9ybLkf+2aqoV8w3UYJWbHxpa/4dA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794095346;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794096043;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=gD8g1X301eqPT17aTVPdKs9fubIZ73BJDrt9THYOiPo=;
-	b=q15Ayu3otUI326INlSvYcPajwyBb4sWEciXZy5m+LpYYlRBnwVKxUTlFAYw4dD2+LuWf
-	 apI9Jps+TD3n2lOBhytNrtzwXI8u5HXvSnhUMCrRGRCk5R3QE5yUEIMHibdO8G6c3/mGn
-	 YC6lr/slpmGnaG3Tsa+qHzbahviaNnySgHfQLZeHYoEX9z5bIkgo6IBAfpRweQnwNcV6F
-	 0Kx69oO6z/NcLXzNJEYj0HZ5A9BbRJtz34QQ/3Sf+aExBqe7C+78VkT2d4CNlVetudwsO
-	 NJnFeedzmNgP9VRXmkRGUy8Q5yIJ+I0Kc8UYf4d4RW5YbO2YdsvqmTJ1hyHwLfzI2JQ==
+	bh=w1G++s9vXm09WS11CygwbQvX4YH6OudJwiFpCrR5LmM=;
+	b=i8+Zp0E4LmqYvnMDmItcwDzYmW0kpx951QfWPMZlIEYXkK8BTba6BOgRH9uJxmacjJQJ
+	 p22LAYfDVX16/vZ1fbQS/jFynf0xV+EbDTfVuWothm6aobFlM+riYs6YCPBUqxfX59118
+	 fIdNDkJ9wFCo/mu3jLhl1a7BALhJ6hqivZdo3EbjaPXWAx3PT8faX2lRlEi/I8CjgRWOO
+	 +8b2Q/U6zgDK2Mx7xUKLykKH8cAhnqB5yAzxgxWFGdwaG9xvB/1x0aQUIPw7zA6ANG8dc
+	 Nui3LW8eoW3tYvhukmbhpCZaDuWxZqoYijvSdS0CVfO8LLQlD33kx+ePSDMf3Ni4Rtw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pobox.com;
-	spf=pass smtp.mailfrom=pobox.com;
-	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=ApCQw8e3;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b="bD/9E/0q";
-	arc=none smtp.remote-ip=202.12.124.152
-Received: from fhigh-b1-smtp.messagingengine.com (fhigh-b1-smtp.messagingengine.com [202.12.124.152])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UyCcoE0V;
+	arc=none smtp.remote-ip=209.85.214.200
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D5D4606A326
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 23:49:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D5D4606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F1A4606A326
+	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 00:00:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F1A4606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=ApCQw8e3;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=bD/9E/0q
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id B867C7A015B
-	for <stable@vger.kernel.org>; Sat,  7 Nov 2026 18:49:04 -0500 (EST)
-Received: from phl-frontend-02 ([10.202.2.161])
-  by phl-compute-06.internal (MEProxy); Sat, 07 Nov 2026 18:49:04 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1794095344;
-	 x=1794181744; bh=gD8g1X301eqPT17aTVPdKs9fubIZ73BJDrt9THYOiPo=; b=
-	ApCQw8e3ecT+wWdTsZtaeV4hhoOzn0CQ7i/x2mMEm6s43lEMHOBX/OfuMEr+toV9
-	tPa5XmTtMDecyOkxbgYXLcXpLxUXVmNFyT6DbpRihCaNV9SAbJy2jYEE9LN52emz
-	Ha+QPwLsnSPrImwJz3gMGaNVS9jtSCzuiHVxZvhElyzzX/yNkUbwz/KBx1YofLjK
-	132+fw85ruhhxs+xu5kokll6cKJ0YR0UHre9B2bl6LlA1aJpsNszq/vCU4vLu6Ay
-	EPHpc9H4GzgtDvY85znsyGuOSEBhU9jUA2pc8YBK3teUj1bhrfSCAMRKu+KEdvbs
-	ZHwmw6OBS32IPqSFNJCVsA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794095344; x=
-	1794181744; bh=gD8g1X301eqPT17aTVPdKs9fubIZ73BJDrt9THYOiPo=; b=b
-	D/9E/0q4yncFEnY6C4wAq3FarAyN/rWuOs78DD/AhaxRRJ2t9/fH0USOFR6GZSia
-	+3DXXuxq5D9U0sIs24lH8APL4rBFu2oRtCb/MKtqdntuP8BYvZznPmamDZvODC2s
-	DcWxZA2w+iO3/Rb4Z7XmDN2fkeirjoS0QfQwGMojuPLEpF/O9ZO+ezao6yCxlLpP
-	SsPvBMxAvWpEV/UTvgUQvsOJn68auHKZ97l5wFv8HzhHVNd4CqvNlN3s5PChZaY3
-	/vBhAkLVFh+3QjaVbhubPrPVnA2xzJdcr0XsxhNY0LMC09RpnzCoesv5A9RZQ16+
-	Ez66znG3miZDv4l9TRfIQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=pobox.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794095344; d=pobox.com;
-	mf=PGJhcnJ5bkBwb2JveC5jb20+;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:hYY1Y55tvFUPAjHDpOiuPBSHdjOaKpKvV1jJymRZbuemcMv
-	m5CSw2IjxiYiv7OETyL39Kc+3CmXqQ4ITjT7qzgSIC0h0hXmAIRGYQhA3jkPmFE2
-	mwyi+KXBZ708B/BsEEDPbNR7W+rCSv8j7WCp88+ObevIopyZmi7v7usBUkAhdd/g
-	r3OTZcSQv7lVr3rLVWMg3DCjxtCR6Rdx6ecKh6UAnVs9ke1EAbnfOVuCl8kV84EQ
-	EF3Cay5sjEWqQImVdj118Y6UMf28uP1LD3d2Ij2oG26SX+pBmRdwbAN1AYuIHAwM
-	rf6EBISMKaudvOlE48ZQjoR8NuSqe7REVjPIvcw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=14;
-	hn=cc,content-language,content-transfer-encoding,content-type,
-	date,feedback-id,from,in-reply-to,message-id,mime-version,
-	references,subject,to,user-agent;
-Message-Instance: m=1; h=sha256:G1yivMZvsHaxIqxODo01QQV+NG1kXiYZ7/u+/h209x0=:EjN7Ysv9OPVIViPHOBJ0E4kLDesx+RpDcKED22Oc6z4=;
-X-ME-Sender: <xms:77jvapAMKZmxiAvLdvwTJtIIUqwb94Nlay1DB3ybF1NIq25jqGZO_A>
-    <xme:77jvalOgl5WNln9A8Z7Ekw__ak5eg1pveJz8Gmv8DR9iSmV2DTirWQN5H4DDCTLJp
-    -1q87oQEhVRArsaRgV8xYjSt9zch8JUC3-FAI_aAhsD_3uJ49cWtS_4>
-X-ME-Received: <xmr:77jvamW_kAUpxpB5Nz42LiWabjIYZs2mwQxMXh3_qXWke-kDxATcD1c95WG_e3qrnX7IBnU7ddCQc938TqAUgxepF3_JyAyC>
-X-ME-Proxy-Cause: dmFkZTGAB57/5P6KpLAWm7SdidvsjVYV1Nxgl3C+gZxBhFh5Q6vQTD22Axpa+2VmMWLl5R
-    thH9jfluodRwgs8DtezeugdHSI/WmUcj5akH8puA/kHeTnowufz9W94QAuPM1HAxXF+NgX
-    Mo6/NqH+7H2LBJRX2U7VWP5cuFNGaKR9IHwIJK8UjfIUAjcd5iDpF4WV+9lLMpJ1+CaY0D
-    8eEj3ZAztSaCTovFSxYIq9v+AYyTpr4LMRXTHPOuqyl3rKDc1LzZ+DmxWK1uztyMsCovk3
-    TWNKAPvncJFk3c3TNKWng85pEGHdAcKRiFeEP6LemsR0cPxBOYa323gxE2eV+5mI/w16mF
-    Xc8bk6QjlkrKwoOhhZ9ywQbdXZnx5ENplH6papQcs7BO9Av/tnLp1HpY5Hwn7u604Go7vb
-    xG4cHde/O+h3vpEPBV6Xjf4inwlQLtoiMMu3b1UpcsaWcnoTQSoun3SBndJe0NwRaRb1v/
-    Glv6BV1+ZWLptS2vHOG+OdIM6OK0zNyTBZYDmITK84vqFf/NRQ1sQv+WSJD5mGV3km7S9b
-    ++7WmY2mlpb16PDujREJyf38m+zuOOKpsNVR4y0m+Vr8sNJ8Tc5qPiVqZHGxW5N51MenmI
-    RrFHrN+Ie+6Ot9TznaTiZDHI6kded3C0XBLc9AT5rlOo5TGVSU4nuG3ewqKg
-X-ME-Proxy: <xmx:77jvagT1He2K9HS7jYpzWi6oZvVdX9I3_YbrlY9BPVyaA1iaBeeIgQ>
-    <xmx:77jvak2B7vc26cKq0WSnD7ZUfRKelvwawQVnqrR9xpLHZ5vHap2EqA>
-    <xmx:77jvalhdfttxUWHyBXzZI5XRnjpyyvcodj__TbUh-EJs8_UDxjvftQ>
-    <xmx:77jvaqaC2SML6z3N4cKT5vvZGaCiMci-Sbrxo17NRqtDI6qrJyBtZQ>
-    <xmx:8LjvalJzZpiueJt7Bl6l5ekBpZ6jlrcjx-wIxDcsxjmm09W3G9uvBb3G>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 7 Nov 2026 18:49:01 -0500 (EST)
-Message-ID: <f65916c7-470b-4f64-84d1-da8cf4c8e7e8@pobox.com>
-Date: Sat, 7 Nov 2026 15:49:00 -0800
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UyCcoE0V
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2ed05900df7so956415ad.1
+        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 16:00:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794096042; x=1794700842; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=w1G++s9vXm09WS11CygwbQvX4YH6OudJwiFpCrR5LmM=;
+        b=UyCcoE0V29D0+WvF+zsWufPX5C8Z8DXymFDtcv8QAyqBES+fmYXKtLqDv3XPrQ3tIh
+         sgwNpiiTF1tuiviis121bucGyhVnYscH7zFWgfFFi+uVKOi1YuqqLOfE2IvHRe6TbQPm
+         UM5e6C2Ab22FfJALDj7BwVYKs8xUAP1nFNc1dwTVXV13fGxch7r4rZvSjUkwvFCHE1gZ
+         +zcjE+IEFozi4CNm6wIC1x+C6tvn69zxVzaMerdegeUNDoCPg8NRbCL+Sh1MBedAlLvz
+         HINL6ZuYc1Ep21bxmM0O4mjDyzJiiZVLvQAXCTsZv4mcC/ZrA8NT5GmCYSVStV2nSq9y
+         lM8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794096042; x=1794700842;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=w1G++s9vXm09WS11CygwbQvX4YH6OudJwiFpCrR5LmM=;
+        b=AYXmyErrnU+XF9cerD9NPEEC6nt5rt5zJP6VdSzdfwN0k6r2LzgaTU8BUneR3d9NCH
+         uuqyh6gX1LmetukY1DGUu3pM3+WBSui2l2lh0/39wd/Ocpck/0cBGRMEc76TJZ1c3Ghg
+         g94AOAXBYLHAyQyDCiWjIzPlPKAbXciKqmg3qto5ASUhqk7TI8RuSfAKCqa8s4POS8TF
+         Q5HUF027P+K8Hd/isNqKOHbpFdR2lqiECCSsUexgBKIM7WgFeV64KxarcMNyrAZdDS8B
+         juHFx19Rz9lIXnc2anTjURYYcfukaDGatPDynxkwnO8obLudqaWbW/2aGFVjlgh+FySs
+         Qz5Q==
+X-Forwarded-Encrypted: i=1; AL+hErEVPhRR8VhOSUz/jvJg9IN6ltqnZQZ2gabUahiRINHvmRSR9dz75AkfAGcBaBOEfcX1xLWhyYU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9j5CANuQHHTrWsOCJGKkk+rX+pqaU4h2QETvBus+u91Flh8+nM
+	WmHv1p1CAGAJyGajfsSECI7NU+DvcwQsGlnupNzHBSCpyfGhixf1At0tfEEZ5bq2AL9mx12z2OQ
+	3VOVHAQ==
+X-Received: from plrd12.prod.google.com ([2002:a17:902:aa8c:b0:2e8:774e:e582])
+ (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:e742:b0:2e9:6645:e9a6
+ with SMTP id d9443c01a7336-2ed837c5df2mr1275865ad.59.1794096041686; Sat, 07
+ Nov 2026 16:00:41 -0800 (PST)
+Date: Sun, 8 Nov 2026 00:00:41 +0000
+In-Reply-To: <20261107224733.1104094-2-Jeremy.Jean@oss.cyber.gouv.fr>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -118,90 +79,44 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.3 0000/1257] 7.3.4-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20261107134939.434104957@linuxfoundation.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20261107134939.434104957@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+References: <20261107224733.1104094-2-Jeremy.Jean@oss.cyber.gouv.fr>
+Message-ID: <au-7VgkYOwx7ec_q@google.com>
+Subject: Re: [PATCH net v2] tcp: fix authentication bypass via unsupported TCP
+ auth options
+From: Kuniyuki Iwashima <kuniyu@google.com>
+To: "=?utf-8?B?SsOpcsOpbXk=?= Jean" <Jeremy.Jean@oss.cyber.gouv.fr>
+Cc: Eric Dumazet <edumazet@kernel.org>, Neal Cardwell <ncardwell@google.com>, 
+	Dmitry Safonov <dima@arista.com>, Francesco Ruggeri <fruggeri@arista.com>, 
+	Salam Noureddine <noureddine@arista.com>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 11/7/26 5:38 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.3.4 release.
-> There are 1257 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Mon, 09 Nov 2026 13:46:08 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.3.4-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.3.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+On Sat, 07 Nov 2026 22:47:33 +0000, J=C3=A9r=C3=A9my Jean wrote:
+> tcp_inbound_hash() parses both TCP-MD5 and TCP-AO options when at
+> least one of the two features is enabled. With TCP_MD5SIG=3Dy and
+> TCP_AO=3Dn, a packet carrying an AO option reaches the disabled
+> tcp_inbound_ao_hash() stub. That stub returns success, so sockets
+> configured to require MD5 authentication end up accepting
+> unauthenticated data. A forged AO option skips the unsigned fast
+> path, which is the only place where tcp_inbound_hash() can return
+> SKB_DROP_REASON_TCP_MD5NOTFOUND.
+>=20
+> The inverse configuration with TCP_MD5SIG=3Dn and TCP_AO=3Dy has the same
+> problem for an MD5 option on AO sockets.
+>=20
+> Note that TCP-AO depends on 64BIT: therefore, every 32-bit kernel with
+> TCP_MD5SIG=3Dy is in the vulnerable configuration.
+>=20
+> Make the disabled stubs reject options for the unsupported
+> authentication scheme. This matches the real helpers' behavior for
+> sockets without keys. It also means that kernels with TCP_MD5SIG=3Dn and
+> TCP_AO=3Dy now drop segments carrying an MD5 option on unkeyed sockets,
+> as kernels configured with TCP_MD5SIG=3Dy already do.
+>=20
+> Fixes: 0a3a809089eb ("net/tcp: Verify inbound TCP-AO signed segments")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: J=C3=A9r=C3=A9my Jean <Jeremy.Jean@oss.cyber.gouv.fr>
 
-7.3.4-rc1, 6.18.63-rc1, and 6.12.117-rc1 are all giving me the same build
-error with clang that I previously had with 7.3.2-rc1 and 6.18.61-rc1,
-due to the same xfs patch as before ("xfs: cross-reference the primary
-superblock"):
-
-fs/xfs/scrub/agheader.c:123:6: error: variable 'error' is used uninitialized
-       whenever 'if' condition is true [-Werror,-Wsometimes-uninitialized]
-   123 |         if (agno == 0)
-       |             ^~~~~~~~~
-fs/xfs/scrub/agheader.c:435:9: note: uninitialized use occurs here
-   435 |         return error;
-       |                ^~~~~
-fs/xfs/scrub/agheader.c:123:2: note: remove the 'if' if its condition is always
-       false
-   123 |         if (agno == 0)
-       |         ^~~~~~~~~~~~~~
-   124 |                 goto out_xref;
-       |                 ~~~~~~~~~~~~~
-fs/xfs/scrub/agheader.c:111:13: note: initialize the variable 'error' to silence
-       this warning
-   111 |         int                     error;
-       |                                      ^
-       |                                       = 0
-1 error generated.
-make[4]: *** [scripts/Makefile.build:287: fs/xfs/scrub/agheader.o] Error 1
-
-I sent an email about this earlier today, before the -rc was sent out:
-https://lore.kernel.org/stable/7840e515-e7d5-4ef9-8c1d-6390374a5b33@pobox.com/
-
-Reverting this patch fixes the build, or the minimal fix I proposed in
-that email also fixes the build:
-
---- a/fs/xfs/scrub/agheader.c	2026-11-06 22:42:57.147299404 -0800
-+++ b/fs/xfs/scrub/agheader.c	2026-11-06 22:45:59.898908897 -0800
-@@ -108,7 +108,7 @@ xchk_superblock(
-  	xfs_agnumber_t		agno = sc->sm->sm_agno;
-  	uint32_t		v2_ok;
-  	__be32			features_mask;
--	int			error;
-+	int			error = 0;
-  	__be16			vernum_mask;
-  
-  	/*
-
-So far I've only tried building a minimal test config. Later today or
-tomorrow I'll do testing with my normal configs, but (to make a long
-story short) I will probably experience temporary health problems
-for the next few days, so that will probably slow down my testing.
--- 
--Barry K. Nathan  <barryn@pobox.com>
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
