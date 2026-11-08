@@ -1,60 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.157.154.161
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794181512;
-	b=j1dRl9tFcR69ix3eojAGEh0BA1776YjUI8FArXxVs+5/EBKJlGSSJG4mNfJrqCO5FjDv
-	 S4gitcNEphlM31Up2f/D2TalCmbAKZjOYk5PqCKRrulpbT5fXdVyS3XfKzNfkwsDHO59K
-	 lK6vCiry0h5SWq41ROvDYnsXPGW/RVsRqxDat5F6sH0wgpp7XqcpNIbhtzAM36GpNYYvn
-	 Wy+qz9kA4yc1muizY5UWWr8gDzPHbCQRD7owR15ChkH5/DoTm7DgNaeamyZ7t3ciLV547
-	 Gi9MF1vBkXf46yQ9Py0/UQjEXsiBv/9BRQPSPGJreYI11oQP4EwtA+6iCxdKtZ2/OGQ==
+	t=1794181579;
+	b=0ZqGUh5Nxg+tTUMr63qHTo/fdFglsQhjNlRVI2F6cLu5kl1DhlT+//Xqk12Pj0GO+no4
+	 cLnnuGyPaktoSEdV0L4+t6ATi+3smkBxSEyO7EO71ThUcCGS+mF4KrurDlDN7bMejMdoc
+	 j9Ir7YJlC0Km8PtIlsci3RmYktkDCQW7yqknTzxlsvOt6Lq3R3+FHh3GrOV3Unyvy5yjz
+	 5khuj5lMnfGOdpL+r98WrDvmzBZO+0qKrKOsGtWIuhMQYnJTONFS9QgaxjY/eKyZNm213
+	 AdE9wF0pRpoptnaaEayt0nA9Cjn+cmr3pAczXVsg0lrz4eNw1YCZ/5+Jkqy09h15sGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794181512;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=VikSRRRNpdKJE0WF6UFdQBJodvSbYqajLrXcSX/fVls=;
-	b=R2QkvfkTaJkGxc8IFL2/juKnXjENeNUNzAPPwfYaoNVX7z4YWn6q5RrFYh0Pss5kBhlr
-	 DbE7p1jvRvA8wPdfkKxGm2eEtvJdE9HfqtJOw9eafNE8Hvj4gihHYTxZku0kJzccy6Vdb
-	 klfVn+YK/uBzh0yqM4tHpZvQOjM6LWwElVrV5ta8b1saJlw+gsly/LokJyeMr2it2HiaV
-	 j26uhAvGZAFtk0MIlbeNavk8ypPDx91p8LfHSI1yTmllkkHKKLNYdmFZI7Q2aMFn/Tt5x
-	 TquJFEm5GMKyWZgLJwHtJ+MDpjM3SPIwrVVihYI9m8TUjJPdkJkQIbO+O7yW+RsT/uQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794181579;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Scanned-By;
+	bh=al1EqTd4Io1g40WGE8lvrP5ZsrZEmQO4GTQA8+l1Iuc=;
+	b=lz0Ol2GA0PTOTLhlxV8MrqQ6dwmLP8Vdfkij/40uqfi7Ou1OLiZydM6JUSgZ5UMyPsxJ
+	 m62kXkPb5FIU/1PDs1FUmc+dzV/MoHebCItdQJCWIKqVN3/gfeOJpTYgWzanM+4iaRdUw
+	 mrRTFgZDsIB3BfTEgvCP9g+G58xwwdR8apUi7bK34tkgd+Hn1HRGtiWgZMyzy6nHsY4YJ
+	 rQC0Y+f9i0LaxU/TXa+0F18I7w1nsrc13gUkRSuqRpUfopGW0xn/rGtKpbP8mPE4nFDbB
+	 EhZ8dolIUVHC3lG3wWMwLAQbjD/DWJOlhJEbVIkyk43zGeNMjkGRfH04V+0l+4lD+Zw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linuxtx.org;
-	spf=pass smtp.mailfrom=linuxtx.org;
-	dkim=pass header.d=linuxtx.org header.i=@linuxtx.org header.a=rsa-sha256 header.s=protonmail header.b="o0zIiT/t";
-	arc=none smtp.remote-ip=185.70.43.18
-Received: from mail-4318.protonmail.ch (mail-4318.protonmail.ch [185.70.43.18])
+	dmarc=pass header.from=cdrolet.dev;
+	spf=pass smtp.mailfrom=cdrolet.dev;
+	dkim=pass header.d=cdrolet.dev header.i=@cdrolet.dev header.a=rsa-sha256 header.s=default header.b=i8liUIKZ;
+	arc=none smtp.remote-ip=216.157.154.161
+Received: from opentek01.opentek.ca (opentek01.opentek.ca [216.157.154.161])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1214D606A322
-	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 23:45:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1214D606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=linuxtx.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxtx.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40354606A321;
+	Sun,  8 Nov 2026 23:46:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40354606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cdrolet.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cdrolet.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linuxtx.org header.i=@linuxtx.org header.a=rsa-sha256 header.s=protonmail header.b=o0zIiT/t
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxtx.org;
-	s=protonmail; t=1794181507; x=1794440707;
-	bh=VikSRRRNpdKJE0WF6UFdQBJodvSbYqajLrXcSX/fVls=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=o0zIiT/tiBwjSHE7zGKqqHB6XIuIsQSY3I1aU6HJmdyW8KD1Czpcev33me2g9BD0E
-	 zLGmcUOqUTrZiq11hrBzYbGQyqGDzGBF8321xmCfkla/nfwfpejz1zjb8df6nn2Wo0
-	 dk278k1osBlJ/nxNCTdz8axmy2FkXaY8TVeiJ1ewVVVuDP7XZaJACASU4pl3zKqzle
-	 i9cHBYY0/BCJyvK3M9Rr2iBPRi/VCvy9OhQA4NHTs66t6M1UZImjo74u5qkB1QsBQA
-	 edMn3Fc2Sf3qerL/Vjru8HNGLYmofAWoZ3OjAcUiaGwiRMDjMJLCEm+o/IAF4D5xkT
-	 XPZLlsFaMp8gw==
-Date: Sun, 08 Nov 2026 23:44:58 +0000
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-From: Justin Forbes <jmforbes@linuxtx.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev, linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, achill@achill.org, sr@sladewatkins.com
-Subject: Re: [PATCH 7.3 0000/1257] 7.3.4-rc1 review
-Message-ID: <l47r12UjQ37KpnSfiFLGWoj3CmSMXtXpMu6w_v110bmVBq_CvgmiSZcW-ORmp53F8G8U6dklhzsqXZEIV5O_BNubJnIl30AqXxpL7hiLqWg=@linuxtx.org>
-In-Reply-To: <20261107134939.434104957@linuxfoundation.org>
-References: <20261107134939.434104957@linuxfoundation.org>
-Feedback-ID: 225434474:user:proton
-X-Pm-Message-ID: af00ea36dc055098ae50b0bf4e714589887acbfd
+	dkim=pass (2048-bit key, unprotected) header.d=cdrolet.dev header.i=@cdrolet.dev header.a=rsa-sha256 header.s=default header.b=i8liUIKZ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cdrolet.dev;
+	s=default; t=1794181571;
+	bh=al1EqTd4Io1g40WGE8lvrP5ZsrZEmQO4GTQA8+l1Iuc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=i8liUIKZRyt4Pz0BVRGSqm6RcWg9WGRlBsUAcyxIn2asoUYCA7AOFaPuqV3Wo+xTc
+	 GFflZFzIgPMVtSZUplR9WMV7pdzWRsMAiQ4N/vcE9LIEsRyV/UetfMxdalCoKyFC8C
+	 gZwhkHizlGetGKCx1OHwYep6TrV3pPr4+yoNIgkl3Ui3LilLPJ0J3IcS6CIpF4HceC
+	 O1n2eH4hZAoGFLOlAHVy6lNepQ8f+f5/28oUgt64yNoYoBVi8UyNBVefSeypTvloFk
+	 bqpM5MyTPgOdpAYHQ12c0N0eCrk/HBTa3wbeYfcGRUyLx0SY0TFr8V4QemrjMCibHA
+	 oB2jqvtcTZqcg==
+Received: from localhost (bras-base-drumpq7715w-grc-39-174-89-1-234.dsl.bell.ca [174.89.1.234])
+	by opentek01.opentek.ca (Typewire) with ESMTPSA id 4536D16A1733;
+	Sun,  8 Nov 2026 23:46:10 +0000 (UTC)
+From: Charles Drolet <linux@cdrolet.dev>
+To: devnull+b.danias.tutamail.com@kernel.org
+Cc: b.danias@tutamail.com,
+	bod@kernel.org,
+	hansg@kernel.org,
+	kieran.bingham@ideasonboard.com,
+	laurent.pinchart@ideasonboard.com,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	mchehab@kernel.org,
+	rfoss@kernel.org,
+	sakari.ailus@linux.intel.com,
+	serin.yeh@intel.com,
+	stable@vger.kernel.org,
+	Charles Drolet <linux@cdrolet.dev>
+Subject: Re: [PATCH 2/3] media: i2c: ov8856: Enable runtime PM before registering the sub-device
+Date: Sun,  8 Nov 2026 18:45:57 -0500
+Message-ID: <20261108234557.12874-1-linux@cdrolet.dev>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261104-ov8856-pm-fixes-v1-2-1958b730ce66@tutamail.com>
+References: <20261104-ov8856-pm-fixes-v1-2-1958b730ce66@tutamail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,34 +76,15 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: Typewire on 127.0.1.1
 
-On Saturday, November 7th, 2026 at 7:01 AM, Greg Kroah-Hartman <gregkh@linu=
-xfoundation.org> wrote:
+This issue occurred on my Dell Latitude 7320 Detachable about one in four
+times I rebooted. After applying this patch, it didn't recur during 10
+reboots. I also ran a very similar patch for a couple of weeks without
+seeing the issue.
 
-> This is the start of the stable review cycle for the 7.3.4 release.
-> There are 1257 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->=20
-> Responses should be made by Mon, 09 Nov 2026 13:46:08 +0000.
-> Anything received after that time might be too late.
->=20
-> The whole patch series can be found in one patch at:
-> =09https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.3.4=
--rc1.gz
-> or in the git tree and branch at:
-> =09git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.g=
-it linux-7.3.y
-> and the diffstat can be found below.
->=20
-> thanks,
->=20
-> greg k-h
+Tested on Ubuntu 26.04.1 with Linux 7.4-rc1 and a patch for TPS68470
+board data. BIOS: 1.48
 
-Tested rc1 (with the reverted problematic patch) against the Fedora build s=
-ystem (aarch64, ppc64le, s390x,x86_64), and boot tested x86_64. No regressi=
-ons noted.
-
-Tested-by: Justin M. Forbes <jforbes@fedoraproject.org>
+Tested-by: Charles Drolet <linux@cdrolet.dev>
