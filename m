@@ -1,87 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794097802;
-	b=asO9qAEqoR/RB1HQgHQ+nq5HsINq2KbE3BCqpeHOfPQPT8uoM/Gc9uZ3CVZ9t8gGSJlp
-	 +gr09NyWMeenrKu61Q6DLWUcdHzdUhQPkIvrh56EtXR6hYaIi/P33XEzpu42PbU/ei+Od
-	 IvaT+aFlxzGHnp7lAzlK92ElKrx+LWSNsFgbVg4cSu6vw7K/DpEn0fTrTB3EMBEnmMpAS
-	 kR1BpcqaIr2TAEIQPe/yRnTJVJtmr4audXFksPFaNd4E5CbH3vk+CyuLFfL/KLK/L5KKK
-	 CScGLKxQjt3DyZ5YADKsQylQON5/XugKyadNGan56Zx/NzH+K65S9wQkFwdpeI1hQhA==
+	t=1794098751;
+	b=cG9ySKZa85UE8SCzWYfkN2eCKsCFjTw8M/X3KmMAR36BpUracAuUskaKh6wbHC5HYLhJ
+	 gGHAn3ZdQWeqq84uB+Elorow6+s+nxjJUgFg6L3Yky8++qwVL7t/bZ9HidDe1m2wT/5EL
+	 vWt5AYKDW4ADHD3HiUKuWk+WeGPD8zwpqptg3Na+ocHkwb326M+quUL+M3aU1xKs79NNT
+	 2ehnr77C8fFzjcZv0xg/l5huZYnuDSmAYfK5VK/GdEfXrFuTLwxYoK2iKmrEa8fyZOY9j
+	 TkIy3jT7U9fAxdbzonj47wfQBunqkHrAKNUGFHUK/smbqATOx8+sCgTu1KqLMcplZPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794097802;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794098751;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
 	bh=gDHxHqr/ibomT/hnh0MWIWapUMs27ULmVZLfvv9myQQ=;
-	b=Eb6FuXObQXPYyLe1KyQIPn4zECZfQmygF+IhcColk1BTtCI4j5dvojKGvrUR/oSpXdtL
-	 Ij+cLcKMmUO+PbiF5+SdkNT/oDyAC9/UFutZApS9UlpWAbf0SmeHNBLStkeJr0zvrxKu1
-	 OFoWZkBYy1U+eE+WiaWtZVBxv8wp7+Tke4CMGawo0YPdfkoaNRBzT+l/C2GS4pEWUEIvw
-	 ufAf+yicYXhpAJOgYan1tJ5yznvqgtba15OIlbWBnSDczQsdHMMsvoyOWqmQcyVBOYIcI
-	 oWQRVpmkonz3hK1H4Jxm+iGN4H5eJkQ7/YCiB1sw23qX9VCjCzzReY+/fBSnXxnVm+w==
+	b=PR6MxJbUO73Lxu3mQhpAA9oyVF4j6V3zZUtRhoqPt5CIebNTkI/ATyB8foXDwBrwOeuV
+	 zZ7x+2vblzIpRLnqSakt98N7xhWc1u2S8PxFq/bUjIg0KQPkftyrPrBFMb8ArOS4RG2dP
+	 lOtj1dY0wjIzNaNXf8+dh7+w66Pa7t15h2GPBwA1+P5439SvWLfb02pvVjAG2x381lld9
+	 AuVSWql1dqb1JZCayK4SWJjqE6E2xbDUJ7H2cqgAwvqOmV3xlnHOEGw/4viQEGTQExENd
+	 y8/ICx867UyxL08hBfSU5a4OBHmySYZemwBu9Sl5/46OjhoUueJolIRKk7VjeUCztWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arista.com;
 	spf=pass smtp.mailfrom=arista.com;
-	dkim=pass header.d=arista.com header.i=@arista.com header.a=rsa-sha256 header.s=google header.b=MLQPO1dD;
-	arc=none smtp.remote-ip=74.125.82.182
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	dkim=pass header.d=arista.com header.i=@arista.com header.a=rsa-sha256 header.s=google header.b=JG2aRNNQ;
+	arc=none smtp.remote-ip=74.125.82.46
+Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11108606A326
-	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 00:30:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11108606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 563AF606A32E
+	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 00:45:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 563AF606A32E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arista.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arista.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arista.com header.i=@arista.com header.a=rsa-sha256 header.s=google header.b=MLQPO1dD
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-36eb1cb7aabso204311eec.0
-        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 16:30:00 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=arista.com header.i=@arista.com header.a=rsa-sha256 header.s=google header.b=JG2aRNNQ
+Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-1aefd1bf74aso63559c88.1
+        for <stable@vger.kernel.org>; Sat, 07 Nov 2026 16:45:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=arista.com; s=google; t=1794097800; x=1794702600; darn=vger.kernel.org;
+        d=arista.com; s=google; t=1794098749; x=1794703549; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
         bh=gDHxHqr/ibomT/hnh0MWIWapUMs27ULmVZLfvv9myQQ=;
-        b=MLQPO1dDE+oPvarGm3CN53yJG58+L+kRV93dly67pB5Hd4I1mgJi3gamgrCgC6A3/R
-         MwntnL/QJn4R3Mst6jFA8kQ7ZQRRNguPEk6OzePsKEhz9Yj0uPJOqDv/lTUPpy6SpNoU
-         NY5xlYvQj9B1vWiKS0dmbHknWgIQw7hWO4/sItn53DtadPP+TNKNf07y681nfR6lJj+K
-         2tLPVsnoSR3jcfVtBt3zMcTzqrGRpxLtNALx2qZEZD0jKQV/rNOsIW1flQWBqqwgPeXg
-         oZuUp3f0IYF+vp9hbaL3IrnZ3tydEqi4FLmRp/usnXwdoIkdDjRGKwDElTbGr7T7SH43
-         larw==
+        b=JG2aRNNQAV3DVSv4oozAdjJQGfKrSEm8Mjs0p7/VZVdIrmgSp5nf+N2rSa8woRgUEg
+         ndOi3Adv13doRcjmE+ZDEVz0EfieK4XLL3G6ZiQBe16RsRfYs+yQtIfTQ5LKT5eCzCD7
+         tqC2pXhyeCjhWIMJlE5OtXI5dutjHOP/SDsPWiTDiVadMSdywRmfrSn/eEmrolko+ZO8
+         kBd8e+UrweowcN9HuPqzPOljqbnHsso2uZCwFMD+kyD5y9FOr6tbJ+0/w0HmTo/rjEtq
+         1Ixdh7IwTwDehrkqx8QS4HcBZkGQkfu2hCIMCvM3N1ddCSb5XrMMxdT1XI3j4IwpyHWn
+         AysA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794097800; x=1794702600;
+        d=1e100.net; s=20260707; t=1794098749; x=1794703549;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
         bh=gDHxHqr/ibomT/hnh0MWIWapUMs27ULmVZLfvv9myQQ=;
-        b=oT6QdngbDO3wFpjrLrHZ6z55UBOw8mSphCIBijOMCpD9VxeRrytfeQnxUztaMiQwUn
-         pbSszbeS0QuhDJ0pKkKMExiQBF1e0s2m/73bCGAMzd9TlMyndnlz6BvVyS3wvPda/CLw
-         0dO3m0CW8BjuBkdpj6n0WNkOIXTJBN6CVWjObxaDuckRr0UbssXef5VUN2KP9yxoLd15
-         9HnNmtAF2YWNDJn2Qrwg78LkbRNOr26ttYRi51It7809bW/qDjubn9DuWHeEL8b3LNfv
-         oCYzV3yC5krfJ/wxAXCWyvQAc+E0T+lDteCpm6Yr6v6l/8wTz5xb7bygSkiDbvMZPbUv
-         /WYw==
-X-Gm-Message-State: APuU4Z9Tbuh0v5YhWundPMSmmcl1s+Rw2KLIr9/Pbp0r2i2vceE4hoI5
-	+yT+MEcwhfDLKoTlT54mjU6+dAnOQ3dKBHSO6a+CQq8D27pMeQpOIxRcS5Dj8wreQw==
-X-Gm-Gg: AYBFou2H1xyYp3N+gCzVrQRKeuggvQLitmvraLfoywsqwlmCYvgp/hNujQQblJ7a31N
-	Irgwn334KoU4diCoLijYJHb6Iux97qjHf3rVPvFH3XG3ZCsz2QF5Pc3tfS5BOyu4Mbzbm4ucDlv
-	vNUvxiM+jz8ESQU3vWY58w37wArGuUlXUqFmtYrBgFtQtrINQDwylXIe6nOPFJnrpiWWYCgJzFX
-	dpqtYOYRCK/KrpHALuJNtUH5bRcBO8QkFz9ILEFwOOTu+aeaaXx6qZ1XKLMKYdHCuaE5gVIC95p
-	/lCbJoaXeX7n/IN5EwBZdLOIu66RpJZ4HInZAPCOsSifj5GYTbb1lLxRtBZA3BW1BBtCMtbEs9K
-	smn7QRSZrQR+26846iEIF21KObyvMRAwvOkJ9HAB/FyRFUh0fiHYwyywQ4ZhpotFOHt02cD0Dvn
-	BjDhGumsBi4m+6HT52MAf7B4jQhLx1eWpfxgUAne49+4ZSAlUkcqnvyWzuKht8Fbwp5XgNWTbLA
-	gClI5+Hpw02p61Zu3g8SRSnV8HPK/DwU/aHEysvLVErJVxm7UX5z4ZWx475ASjpy1j4IGFv1GBi
-	cerV4I8lxsZVNUwyZwd3rlM4H3aF0R1cM4zux5tT7KENgthchVvKr7f1YLL7flt9
-X-Received: by 2002:a05:7301:648e:b0:36c:a390:8907 with SMTP id 5a478bee46e88-37255a4e72amr1095637eec.21.1794097799873;
-        Sat, 07 Nov 2026 16:29:59 -0800 (PST)
-Received: from mparker-home-xcrbr.sjc.aristanetworks.com ([74.123.28.17])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37265618d59sm1129474eec.6.2026.11.07.16.29.59
+        b=eiYM6vPxflAEQvST5b1s05L2/Ast2++vKYy8qenpVdFy69UZ2loCJtkmaWbJfOwS82
+         8vx09oj/J6984p+wu44aP3cg2G/Qd1RZxrumjVxYhpZg7fvdDHqSISwaLi1pXauLUabz
+         NkohHAdg6t/LFslNMKjcI4u8eCBrEvxUJTMKMVilqGapwcL1/I51h71DwEMnx7QXepol
+         Tl/acbtsozfudQYI3A8KIhtoMD9YmGsJ3txnXdySArN9q2CN0DiB9SMmDPKGmtqDyAn7
+         BcRlqqaXWyNhHKslkadH3Rk5Hbj83BoxCyr7IAREvMMqBuntaIipLpeDLIQ8AN1Chcmr
+         rjtQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwjOTAsPfjIk1VQlSZJstJBTU3YpGU0HpQMbgq4o6eUzv7maMVQWSD3Q/rzCZnRen1/HqBdfXk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+pGaL0VobpdVT3/mZWXnLGTanF4Hvc2UuQNdUy98BJ4v4K/RN4
+	LXlKsfjaF/28BLmO9WX0fzBH6DTDQPTS3CXo28g6bmxpebh7ucDDbYtAcFiFpuxXDg==
+X-Gm-Gg: AYBFou3+X7DMusKa15VPHgzhW33usSJLRZQg0S2UVouzhTI6413y2jVk3Ul0yqwR9Ol
+	K7CJON/TaoXvXh8xLHoxr9J8TXFyIyNzvBLPi7+kOQn4fpqEC7weoFQGe8qKowOc4ZAa+dYn04P
+	XfQSFCcklKrJbdmWiku448PD8TOMsFUo4OKvGNYqJZimbbm4NzVqVYnf9oUIL0vIP0Fnw9h7SrO
+	i1xe7OYrxAUst7g62MfTyJcuX9Bd/0/+/jN4DB+ZOxIRPo0v9089nlQy8E+0pDG+b7IjEnJz1pQ
+	wkrBnYTRCSTYmKH55DtZC7Qq6zRyRtir1Zo5qBDDXRWFmTJ7iHzyfKcupqu33s05prSpUF6W7H2
+	MHqn1nD353jDaUc1LMJ/OxPMPOkSymXumZuh1nR+RnDeAaDzyA8K9DMAjXLibo1BHGFdbqlTvLd
+	EEK1sy6Rpfo5lW1J5I6+nx84jmXidW7oecIIVdzISy2KhH2RoiUXAx3zHCrPSSyyXQjBKeQ++/y
+	PcrZ9EyPXAqp9Ww1P2mMtJwwUaXGW9BVo+tV72hNAhntiV/7pqx86e8reI083ZBrF9BWhsEPtQL
+	8BsujPCVoGr8AHTfsPngAxdIoFwiWy90n++jTGo9vZxMcIOAhfC5eywrvN1cCFR/
+X-Received: by 2002:a05:7022:408b:b0:1a3:cbd7:1269 with SMTP id a92af1059eb24-1b39fedb95cmr206919c88.23.1794098749215;
+        Sat, 07 Nov 2026 16:45:49 -0800 (PST)
+Received: from mparker-home-xcrbr.sjc.aristanetworks.com ([74.123.28.20])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b375604109sm2115225c88.10.2026.11.07.16.45.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 16:29:59 -0800 (PST)
+        Sat, 07 Nov 2026 16:45:48 -0800 (PST)
 From: Matthew Parker <mparker@arista.com>
-To: mparker@arista.com
-Cc: stable@vger.kernel.org,
+To: pratyush@kernel.org,
+	mwalle@kernel.org,
+	miquel.raynal@bootlin.com,
+	richard@nod.at,
+	vigneshr@ti.com
+Cc: linux-mtd@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Matthew Parker <mparker@arista.com>,
 	Adam Calabrigo <adamc@arista.com>
 Subject: [PATCH] mtd: spi-nor: issi: Add support for ISSI IS25LP512MG
-Date: Sun,  8 Nov 2026 00:29:27 +0000
-Message-ID: <20261108002927.896632-1-mparker@arista.com>
+Date: Sun,  8 Nov 2026 00:45:16 +0000
+Message-ID: <20261108004516.896887-1-mparker@arista.com>
 X-Mailer: git-send-email 2.51.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
