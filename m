@@ -1,55 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794165749;
-	b=yaWalcaLHvs7qxl9h4bVBpa6dusCtgfT3acSI1yp23g8xW/YRuaqdwtDe7KqBcov0zZK
-	 wztiC6ffAzQTU90NXuwYmNV016cdkanD1Ti7De5/vIXPUCZCWHgpTKTO3WaLZTO9BiDlp
-	 48JT4+zNLyvpgYE+NT/V6ZwuTUMd4PKhIdccIkD3jaouy0SFN4PC8Da2Mu1ir+05/tW32
-	 k9Q9vgZRuDoqNmoIyRITAiL3ih79JhTeTT2TWw9sngs+qPwroVvTc5DocYD4BHJnLjOJL
-	 YVRA/4U+Dywos0pDKAaFrwvdKCMyGRmROatpeBux6oa/CNl6F3EdLyfGjXSW6+YI2SQ==
+	t=1794165750;
+	b=E2S/DE6H3vJ8wgQCYAN5ZSc2PlEFbpK4wsTBsmmWQH9GjbSvk2tdLaY4i58iU4rngVBp
+	 9hKJN/4BDde6bmVXOfHkLnU7HvcLgRnd53GDOIYW6MJ0vqjMbI/A/FLrceyiCB1K7hmvt
+	 hbBP8NKl06tqG39+MKAooJvXLt3F4CYBgDtSv6p/SI9Rq8MPolWaGHbWxwaGBtjiK/bBu
+	 n4vUUTQckL2Auym5YqMmTQLebYWTz/V/Rwa5BGw3nY2TY8pPrEeAhC56vSep3mxWQ4Deo
+	 OSIIyCMPi3n5E0Tc7K+t0miHR9KeW5hCLcK3urXct0JeS96JFLMRWU1L9A7Cb7Mbu4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794165749;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794165750;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=7xZ+n0JvDN3hrYenLHVXLkTjZ+lK0ATIB/YUR73+pmo=;
-	b=uObHt9bU+urKriHwx9gMqxsag2XizG/NUfu+nF4u4Io2L74X1USmjuQZJbwXgeWHa+0E
-	 knYQiZTcFZOAEifGI7c7TpPBnk30jhXFI1/IyNBrl99pAJ0c4B331WKk/dLW4lHNtJ3Vb
-	 h1pO4PUBJ2y+K1jfQqc5hJ3AC3Jhql/XJQ6XXGI3XhFY17bdJyXwdYedqqap44erEZ8ia
-	 gyKGUfw5cpxgaEncK5WOGPcFoSXnLwR/M/l7btaTsmKlYo97l++NVANL3ZFUcKCU0TTFs
-	 xiQw4Ssa7O9md7sG1/CBwe0ZSEB3xCNpPBQBmoJQDy5vtR6XyL/EFUNFxIphuUYVaFA==
+	bh=1FTxpkWekBlYDp/UoERMc8KBJg6cu9CB4RQQpW9Xqac=;
+	b=jC4eD+wUC2vtCW91KR0D6mIjQzI0WkCTmlXX8mKbChsrRYgJFKrPqunveHieZtekcXV8
+	 9eIH07oLF6A58MpCJKzWUD80Jt36jxg6NXq8NF9extgdyrhBJynXCWw9M+jWwPFT8rfhO
+	 BIcGL1EqJSHww1Yxt4L3XsOZsZQRmMH3WVp595+cLeIDmB8+Atc0mC7e+jT2gNs4ofFD+
+	 U1JUGbV2MZfLmlytbCqFK0miQKhy5A9ypA83+9nWgmvOy/9cryndeyDx4ZXATqnITL7sQ
+	 xI7Z8k8k9MpYYsvUdeugDNo6BAcVPTFajH1t7Z+Au+wv5zr4EKCIGfFFbtR0B6kcv5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JTBMMTbL;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MNez8Gvo;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2FAC606A320;
-	Sun,  8 Nov 2026 19:22:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D316606A33B;
+	Sun,  8 Nov 2026 19:22:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JTBMMTbL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40A2B1F008A1;
-	Sun,  8 Nov 2026 19:22:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MNez8Gvo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 314B51F0089F;
+	Sun,  8 Nov 2026 19:22:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794165749;
-	bh=7xZ+n0JvDN3hrYenLHVXLkTjZ+lK0ATIB/YUR73+pmo=;
+	s=k20260515; t=1794165750;
+	bh=1FTxpkWekBlYDp/UoERMc8KBJg6cu9CB4RQQpW9Xqac=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JTBMMTbLmUld9NcT0MS7oZ0BCP8jdLSQulpaGGpnXINKh66sW+/iol7TkF1T3exKz
-	 //Fu+UMBhlvYt1A50YESr532I14L6CUWHmrZvYGcCqIakeRopKz4ruUtOaUIePHsU3
-	 zc2c4mO3304UNg4o4VPPoGSfXBdvgARmm9JkH6Eu+TwQpTPbizhqCl45na1haSDuL/
-	 TVvif5LeaTXjBL0UllBP56f7WUpx3dWIpGomfHPj+alf7ack/dgXtu8h84cKRE8WWF
-	 7Vf7z4Er4lsuS6v9sa3ap3lSh9J1SHclSLbIgXTq60u/pSz9VBkUYghIJiuWoCj8wd
-	 HTA2n9CUrAFXg==
+	b=MNez8Gvoa9710lsf3vMIGzAL/7zD0HV16k/FSX2nXE1SreDCo+GiB/+sIFyPldqpx
+	 ynWPwdiwqVk9Em327TYzFcdBswx7bmGCsQnonb2FzKJmI1/XvsTAUfwmfXV+NQwzgD
+	 40LINNcEADzBPC+Sn80241b41xnoOcf0kndU+6r3RcK3FQzP+MRvHFaNL61/rOrJXT
+	 sd3K/9VcEuh4Sz09IEmvreNArzscQOY8elOD9yy8kMED/sL0KWnWEgU7n/c738eo6E
+	 gbee9x+GNbUf1XuEJHj/OfLG4iV6epfLu6Pmawb5c5azkfyL0aUa2GKaqB5m1W0dyW
+	 Tm7I+g/KYqGWg==
 From: SJ Park <sj@kernel.org>
 To: stable@vger.kernel.org
 Cc: SJ Park <sj@kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>,
+	Brendan Higgins <brendan.higgins@linux.dev>,
+	David Gow <davidgow@davidgow.net>,
 	Usama Arif <usamaarif642@gmail.com>,
 	damon@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [PATCH 6.18.y 1/5] mm/damon/core: skip applying scheme if region split for quota fails
-Date: Sun,  8 Nov 2026 11:22:16 -0800
-Message-ID: <20261108192221.114362-2-sj@kernel.org>
+Subject: [PATCH 6.18.y 3/5] mm/damon/sysfs-schemes: read sysfs_filter->sz_range only once
+Date: Sun,  8 Nov 2026 11:22:18 -0800
+Message-ID: <20261108192221.114362-4-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261108192221.114362-1-sj@kernel.org>
 References: <20261108192221.114362-1-sj@kernel.org>
@@ -64,102 +66,53 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Patch series "mm/damon: fix DAMOS bugs in core, paddr and vaddr".
+DAMON sysfs interface reads the user-provided size range arguments for
+hugepage_size type DAMOS filter twice.  Once for validation, and once
+again for assignments to the variable that will be passed to the core
+layer.  If the user updates the arguments in parallel, an invalid size
+range could be passed to the core layer.  Avoid it by doing the
+assignments first, and then validating the assigned variables before
+passing those to the core layer.
 
-Fix misc bugs of DAMOS.  Patch 1 makes DAMOS less stress memory allocator
-under extreme situation.  Patches 2 and 3 fix wrong folios walking in
-DAMON_PADDR.  Patches 4 and 5 fix wrong folios walking in DAMON_VADDR.
-Patches 6-8 handle extreme and unlikely memory situations that can cause
-divide by zero and underflow.
+User impact of the bug should be trivial.  From the core layer's
+perspective, the invalid size range is not really invalid.  It just works
+as having a weird size range.  No critical issues such as a crash or a
+leak could happen.  And sane users ain't do such parallel arguments update
+anyway.  If they do, such racy behavior is arguably somewhat expected and
+deserved.  That said, there is no reason to keep such races.
 
-All bugs are discovered by Sashiko.
-
-This patch (of 8):
-
-damos_apply_scheme() splits a region and apply the action to the subregion
-if it is needed for not violating the quota.  The split operation
-(damon_split_region_at()) could fail for allocation failure.  In the case,
-the quota could be violated.  From the user's perspective, DAMOS becomes
-more aggressive than expected under the extreme situation.  Handle the
-failure.
-
-The user impact is not critical.  The failure of damon_split_region_at()
-is unlikely since it is arguably too small to fail.  Also DAMOS being
-aggressive is limited to the single region.  Users can set min_nr_regions
-to set the maximum size of each region.  If it is reasonably set, the
-transient overhead shouldn't be critical.
-
-The issue was discovered [1] by Sashiko.
-
-6.18.y porting notes.  Modify damon_split_region_at() to return
-failures.  It is a part of commit c60874860762 ("mm/damon/core: handle
-region split failure in apply_min_nr_regions()").  Without it, build
-fails.
-
-Link: https://lore.kernel.org/20260901131850.98037-1-sj@kernel.org
-Link: https://lore.kernel.org/20260901131850.98037-2-sj@kernel.org
-Link: https://lore.kernel.org/20260718171523.87547-1-sj@kernel.org [1]
-Fixes: 2b8a248d5873 ("mm/damon/schemes: implement size quota for schemes application speed control")
+Link: https://lore.kernel.org/20260914142327.92510-3-sj@kernel.org
+Fixes: ea1f204ba29a ("mm/damon/sysfs-schemes: add files for setting damos_filter->sz_range")
 Signed-off-by: SJ Park <sj@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Cc: Brendan Higgins <brendan.higgins@linux.dev>
+Cc: David Gow <davidgow@davidgow.net>
 Cc: Usama Arif <usamaarif642@gmail.com>
-Cc: <stable@vger.kernel.org> # 5.16.x
-(cherry picked from commit 90c2fa6adfed7abe0935506a43cdff3a05c1fff0)
+Cc: <stable@vger.kernel.org>
+(cherry picked from commit af19aff38d6faea35b10f26cca32d0e54f8aea5e)
 Signed-off-by: SJ Park <sj@kernel.org>
 ---
- mm/damon/core.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+ mm/damon/sysfs-schemes.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 8fa788b0d709c..4c536a9b958e4 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -1700,7 +1700,7 @@ static void kdamond_tune_intervals(struct damon_ctx *c)
- 	damon_set_attrs(c, &new_attrs);
- }
- 
--static void damon_split_region_at(struct damon_target *t,
-+static int damon_split_region_at(struct damon_target *t,
- 				  struct damon_region *r, unsigned long sz_r);
- 
- static bool __damos_valid_target(struct damon_region *r, struct damos *s)
-@@ -2000,7 +2000,8 @@ static void damos_apply_scheme(struct damon_ctx *c, struct damon_target *t,
- 					c->min_sz_region);
- 			if (!sz)
- 				goto update_stat;
--			damon_split_region_at(t, r, sz);
-+			if (damon_split_region_at(t, r, sz))
-+				goto update_stat;
+diff --git a/mm/damon/sysfs-schemes.c b/mm/damon/sysfs-schemes.c
+index 37e0a8bef4b1f..0f945ef043709 100644
+--- a/mm/damon/sysfs-schemes.c
++++ b/mm/damon/sysfs-schemes.c
+@@ -2493,12 +2493,11 @@ static int damon_sysfs_add_scheme_filters(struct damos *scheme,
+ 		} else if (filter->type == DAMOS_FILTER_TYPE_TARGET) {
+ 			filter->target_idx = sysfs_filter->target_idx;
+ 		} else if (filter->type == DAMOS_FILTER_TYPE_HUGEPAGE_SIZE) {
+-			if (sysfs_filter->sz_range.min >
+-					sysfs_filter->sz_range.max) {
++			filter->sz_range = sysfs_filter->sz_range;
++			if (filter->sz_range.min > filter->sz_range.max) {
+ 				damos_destroy_filter(filter);
+ 				return -EINVAL;
+ 			}
+-			filter->sz_range = sysfs_filter->sz_range;
  		}
- 		if (damos_filter_out(c, t, r, s))
- 			return;
-@@ -2454,15 +2455,17 @@ static void kdamond_merge_regions(struct damon_ctx *c, unsigned int threshold,
-  *
-  * r		the region to be split
-  * sz_r		size of the first sub-region that will be made
-+ *
-+ * Return: 0 on success, negative error code otherwise.
-  */
--static void damon_split_region_at(struct damon_target *t,
-+static int damon_split_region_at(struct damon_target *t,
- 				  struct damon_region *r, unsigned long sz_r)
- {
- 	struct damon_region *new;
  
- 	new = damon_new_region(r->ar.start + sz_r, r->ar.end);
- 	if (!new)
--		return;
-+		return -ENOMEM;
- 
- 	r->ar.end = new->ar.start;
- 
-@@ -2472,6 +2475,7 @@ static void damon_split_region_at(struct damon_target *t,
- 	new->nr_accesses = r->nr_accesses;
- 
- 	damon_insert_region(new, r, damon_next_region(r), t);
-+	return 0;
- }
- 
- /* Split every region in the given target into 'nr_subs' regions */
+ 		damos_add_filter(scheme, filter);
 -- 
 2.47.3
