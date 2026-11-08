@@ -1,64 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794175717;
-	b=qonv2xZ0csrnhr7C/uvd4GzxKA+WK/h+6J/N/Qxzb+Lu0PVCmUjuGmO8THFiAg////JG
-	 yQSM/WrE1xD+l3ItE/VhfLxXN11nZu0D/T/2ZbKG/f3jivQYG0tyYfr9PaXlzuPsfGNgT
-	 zfppCQcf4dyGp8n/5JvevsXup9xmTMpSdenS58V0zjRoNQ2S7wSopDdXKtcme4b81+jTF
-	 wD2qvCImPXXpxgWICMYkvlf6jknm/oIkNf6DtzdqFVUu+5n5ZFXZ3zLac0upAo2bboz1y
-	 wMbaDI+5N68PALy1fmBPw9OfdZeG4OYEQT8OiI/AlbSh1DagJVMWoqg7hMAkKZl8DhQ==
+	t=1794175960;
+	b=DfMqtBmgNsW+Ae2nX9gjkx3eGlGecu9sZhQ9X99obm/5b6eH8LJj05OAlR6wpZ/3oYCa
+	 tEzc8qPF/d7CaaFLbBDnyjEbAHs8mI+/3vKKXZNN39gHcsW2N0tyqt7iowbvWG3cDCxbX
+	 yM/43ZWvuNh+4sMsbngP2GBAPUctRcFvDh3B+c3hf3dMly21mDLPChuQUBBcMvENuaxCI
+	 v+FeVJXH6kQvmy05/BK0pjmhNWgEDJbiuNuFCtx33eBOcs6L0VE8a1plTJFGGc2Yv0fMT
+	 RbrMiObu3LgZNqKNyZ1Gxjlaf5gOZyicYyJCCuxxM8lCz1WBh+Mp8G4Wfn5MQEsPyFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794175717;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=GPBOnH/igQQ1Y7Jgrlbm4Ff98jEBOiO/VijMzt7smks=;
-	b=cg3bJH1XMQK7KmNdh69UYHWmtt4TqllQchcOZdfUqe+R7DgfkLS8V2B/GMt5o0Jh/Ekb
-	 V+9r8RzHg4+YQjbR1rnF3jrqYRlAozW9FuSv+5LirS/gwr2GMYQPVSGeLNvwplA2qLHpk
-	 ep3x0hU58w4+WW43DzJ3nKFOz6PujdedE3wRN5KTASs2gckPV9e0dPGf1SyLezOsq8h5T
-	 YOTYK2sHCL6AIUZUEh9apdTwUGEXSHL45ZoixrI7RmMugo2/b/E/F5MmCBM6hUaCej5Ub
-	 MXNGnidP/SJOYrymACX/++rfYanro1qlxo/cwWx3E56AwQZ3wjORPX1+4siU1WnOw1w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794175960;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=b2QVcEh0btg1HMk0NwMa89lrKVc8kAcQU1mXuN1qs6U=;
+	b=4agbE3JICj/xwwWdH3+ZPFUZ1a89VHe7d/dFAZNL53Zw9VaZ8MfoeXNzaKazMs2X9e3n
+	 jBfLUkJR8ZEsNzTI09Fx3LcWxBZ6lYuWVFb+UYARfmUrYLwu0NgOAr0S244TISLig6iB5
+	 Y4vttU0PghIO+vA0UO8++VxTPq9XN6wi8u3Yas20hOURc6to2jqtpIQDHAFvVi074t6/+
+	 fK1doRQA0a59K2Yc65DOnO40XXD2a7GyBx1NQlfjg9IldAxE9STjgA3h0SJgYeEsuvt2g
+	 IfMdBe5f70NBwk9b27tE5LU6OcBdMVOLwPQFz6CzYUWUbYlOI0h72mocmRBwcOvWjKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cDMrfDHf;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gx5Iof3G;
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4A55606A339;
-	Sun,  8 Nov 2026 22:08:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43C0D606A322
+	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 22:12:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43C0D606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cDMrfDHf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 193161F008AB;
-	Sun,  8 Nov 2026 22:08:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794175711;
-	bh=GPBOnH/igQQ1Y7Jgrlbm4Ff98jEBOiO/VijMzt7smks=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=cDMrfDHfbts2phpYASsd4ddmmm0OU4/l+LCcjj7L9r6ZVQmLVxmibfkbWfBF5ZYvP
-	 k9W2VmgxAkwQNsfPSp90RXArcHh5Z/g3N1NBULkn9wWx5Gu6hTJHY13SNLNRDOgrck
-	 nfwLtGNGvwHwPx71aUs7MnhYLdwAF/axXL5CacngFwG4nlL/+Z2eCLSUzE8tXDPOkL
-	 Wya6RFV6Y4z04gyjynlr0Qs33ZolV6m6O9wC4jzMwqQbvC1DfQrzuafvU7dMqk/eNB
-	 pt1DlawKNztyNdQ1oEoCs+WsG3lMvwyWwwsfHjKO9jjowbZnV3N13JyqcGmczj2AXl
-	 vlOabCZgMndow==
-Subject: Re: [PATCH net v8 4/4] selftests: net: hsr: verify GRO policy and
- ordered forwarding
-From: netdev-bot+sashiko@kernel.org
-To: xiexinet@gmail.com
-Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, andrew+netdev@lunn.ch,
- shuah@kernel.org, kees@kernel.org, petr.wozniak@gmail.com,
- qingfang.deng@linux.dev, fmaurer@redhat.com, luka.gejak@linux.dev,
- bigeasy@linutronix.de, xiaoliang.yang_1@nxp.com, skhawaja@google.com,
- liuhangbin@gmail.com, stable@vger.kernel.org, sdf.kernel@gmail.com,
- lukma@denx.de, fmancera@suse.de, danishanwar@ti.com
-Date: Sun, 08 Nov 2026 22:08:29 +0000
-Message-ID: <179417570965.994134.712913867770028727@kernel.org>
-In-Reply-To: <20261107220544.20-5-xiexinet@gmail.com>
-References: <20261107220544.20-5-xiexinet@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gx5Iof3G
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-36f6295304dso295325eec.1
+        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 14:12:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794175958; x=1794780758; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=b2QVcEh0btg1HMk0NwMa89lrKVc8kAcQU1mXuN1qs6U=;
+        b=gx5Iof3G4f/7ojo0mKeDd2o4t3xVTRL0EDnxZwdgy5KRyszugobzD1ww5AjoFNhuqf
+         FGg7xiegLMhiJHsJxurwL+dRk2g3wWgoDdHoV/i9rmI4oUDPEmE9iaeCLWKzxMoowb9m
+         SpHVDzA+Kd0iqB4m7db8AMWURwCl9NEV7gG5ei3QkzWOSsvTNhnPjrYKyNnJcTDwH33W
+         VF2lDzoFPKjN3bRHKdavz6Ipgmay+mdVM3I6uua9N9skSfhcEOLdM/pgcfkxT7S60Or9
+         zbXkVaoQW4pSaSdMFXraX3jE7ujkbGKmW2D9VM2mki/fH7ksaTLhVkWGXdJ5JgfMMhSf
+         pZGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794175958; x=1794780758;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=b2QVcEh0btg1HMk0NwMa89lrKVc8kAcQU1mXuN1qs6U=;
+        b=NAHX1u0kbABTqsxiNJcKUrFAyav8lCN5pcFotj2izp+rBpYvo39fYf1h6GAOujopWe
+         pjY+k0tYln8RsxTT4a4YnpKq9nBOqN3/DFpmGWvTtN+v/Xr7/NJRV4Z7vNYb6uDuvNSl
+         4k5VnKEWw4QhfP3PY/CCnXkeW4uD0UO5Xrzj6QCJqGX3I6XT2xtKLTzz7iwHJYgUq+Ud
+         uh9VU+shAdq3g/fiipig51imWAuF4oPHhTAZ7ylEuepWYQRDBGF5fuVz7VL1iGlDZYYc
+         Pp8H7KtfHTsCnnN6nGxhpijnqxOdWTi2xl7ZBqxVNHeG8ZqlIZ4CAx53lqVYozltQG0m
+         aKkQ==
+X-Forwarded-Encrypted: i=1; AL+hErHlATe7TD0MtAg2DJNK/H+nmq2ge2O/gLDzAtket0TV2UcnJqro/YrqcBUNIJK7wIYjeor9Xmw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+a8/s5cwYi/F+gqY1w8dzJMgbHqHfnidAM9gAs6aI8LfSzxqmU
+	31Mz9/mklPrJa8YWQIurdgLYsCfiYHI2NrO84PexB2km9Xt76AF0yfHk
+X-Gm-Gg: AYBFou3j1QQoIAgLHjZucEeIXbP+mXa/AYB1A2R5BcDZjfvSCp9t1pnPtn93QVujbio
+	j5TmatJj/UgqZtsOtfZ5JsNZ338xk1Cgo69lBBRuMI7rkzHFH4OF/BobdkT4F7da11oCH/kvaps
+	PjEclWMZQko9tVWJjpKgEz/F8PnTuRgJNpNmen4XqtRfyVFbc9y/9XeXKpCaoGvMON5sLbCA1bS
+	jSerC4B6kPEue1Itm81bw8lR+XxSRcZLnf2pVvG+tSyracVlG/jwsESM0+3tcTtULL+B/0MZcg2
+	28QRsLP8uzR+I2WXSaSCOuEpKK6rBR0Qyc5V2bfVrHIfafUnI4TjPxuhlxjLZOepwQrrYifmmno
+	fZBseadOUGTiYss6JomuAej024iD+6ThWRy2we2Dn8nqdVxGiBZuVGSCc9y42K5Kl4sElh/jgiT
+	ZCq+hlrCRy+VEP0HPoGMCSpHHd4+BH+CgNzInkNoXtbiGhiXZjPxPFD4ZST2peMMx5QHyjUyK8Z
+	72Paxr5rcbeiqDmQR/oMToRgvz/yxJAvPR+dMiI+b8wK3IPaz4benwdECs2OzToyrU66Cc3lWRk
+	LhcweIqDd9NSVN/ASY/iFj1rjXF4VjPp1axLlUlW43d52nAdISF1DYEB6kj0OrhzLw==
+X-Received: by 2002:a05:7300:d10e:b0:36e:aa5c:7851 with SMTP id 5a478bee46e88-372570db210mr4300108eec.27.1794175957931;
+        Sun, 08 Nov 2026 14:12:37 -0800 (PST)
+Received: from anon-laptop ([103.187.196.132])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-372667d78ebsm8097933eec.27.2026.11.08.14.12.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 14:12:37 -0800 (PST)
+From: Wahid Khan <wahidzk0091@gmail.com>
+To: linkinjeon@kernel.org
+Cc: hyc.lee@gmail.com,
+	ntfs@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v5] ntfs: convert a named $DATA stream safely when making room in a record
+Date: Mon,  9 Nov 2026 03:42:27 +0530
+Message-ID: <20261108221227.1083022-1-wahidzk0091@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <CAKYAXd9=crUmmGbO1vcPsdz-GmWoHxD_W_bRv2PQ_Db3Q+EkCQ@mail.gmail.com>
+References: <CAKYAXd9=crUmmGbO1vcPsdz-GmWoHxD_W_bRv2PQ_Db3Q+EkCQ@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,134 +100,271 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+When an attribute has to grow and the mft record is full,
+ntfs_resident_attr_resize() walks the other resident attributes and
+converts them to non-resident ones. For $DATA it always opens the
+unnamed data inode of the base inode, even if the attribute found is a
+named stream:
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+  tvi = ntfs_iget(sb, base_ni->mft_no);
+  ntfs_attr_make_non_resident(NTFS_I(tvi), value_len);
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+value_len is the length of the stream, so it does not match the
+attribute that ntfs_attr_make_non_resident() looks up for the unnamed
+inode, and the WARN_ON() on entry fires:
 
-- [Medium] topo() in
-  tools/testing/selftests/net/hsr/hsr_gro_superpacket.py treats a…
-- [Low] ordered_wrap() in
-  tools/testing/selftests/net/hsr/hsr_gro_superpacket.py checks the…
+  WARNING: fs/ntfs/attrib.c:2115 at ntfs_attr_make_non_resident
+   ntfs_resident_attr_resize
+   ntfs_attr_expand_locked
+   ntfs_expand_for_write
+   ntfs_file_write_iter
+   vfs_write
 
---
+It does not need a damaged volume. A file with an alternate data stream
+whose record has no room left is enough.
 
-selftests: net: hsr: verify GRO policy and ordered forwarding
+Open a named stream by name with ntfs_attr_iget(), as is done for the
+other attribute types in this loop, and keep ntfs_iget() for the
+unnamed one. The loop runs with the mft record lock held and takes no
+lock of the stream inode, so converting a stream from here needs more
+care than the plain lookup gives:
 
-This commit adds two HSR/PRP selftests. Each is a shell entry point that
-execs a shared Python helper. hsr_gro_superpacket.sh covers the GRO policy
-on member ports, refusal of forwarding port types, and TCP over the
-interlink and PRP LANs. hsr_ordered_forwarding.sh covers the ordering of
-local and interlink data, supervision frames, concurrent producers and the
-sequence number wrap.
+- A reader of the stream holds the folio lock and then takes the mft
+  record lock in ntfs_read_iomap_begin_resident(), the conversion takes
+  them the other way round and waits for folio 0. Take the folio with
+  FGP_NOWAIT in this loop and skip the attribute if it is busy. The loop
+  only tries to free space. The same inversion exists for the conversion
+  of the attribute being resized, which waited for folio 0 with the lock
+  held and hangs against an mmap fault or splice reader. Use FGP_NOWAIT
+  there too. The resize then fails with -ENOSPC while such a reader is
+  stuck on the lock, instead of hanging.
 
-> diff --git a/tools/testing/selftests/net/hsr/hsr_gro_superpacket.py b/tools/testing/selftests/net/hsr/hsr_gro_superpacket.py
-> new file mode 100755
-> index 0000000000000..23feb0ce4df4c
-> --- /dev/null
-> +++ b/tools/testing/selftests/net/hsr/hsr_gro_superpacket.py
-> @@ -0,0 +1,1376 @@
+- A stream that is in the inode cache can be open, being written, being
+  removed or already unlinked. A write that passed its residency check
+  before the conversion carries on with a non-resident attribute, and
+  a stream in the middle of ntfs_stream_finish_remove() is converted
+  under its feet. Convert only a stream that is not cached.
 
-[ ... ]
+- An attribute inode of a file that has no links left is evicted on the
+  last iput() with its dirty folio, so what was converted is lost and
+  an open file reads its extended attributes back as missing. Convert
+  nothing, of any type, in a file that is being deleted or has no links
+  left.
 
-> +def ordered_wrap(lab):
-> +    """The interlink sequence number wraps with both lanes intact."""
-> +    topology = topo(lab)
-> +    caps = ordered_lanes(lab, topology)
-> +    sender = ordered_socket(lab, topology["tx"], "100.64.2.1")
-> +    probe = ordered_send(lab, sender, 4, 0, 1, 5130)
-> +    # This only selects the warmup count; final loss-free captures certify it.
-> +    rows = [udp_rows(cap, {5130}) for cap in caps]
-> +    require(all(len(lane) == 1 for lane in rows) and
-> +            rows[0][0]["seq"] == rows[1][0]["seq"], "wrap probe missing or unequal")
+- The unnamed data is opened and converted through the file's own inode,
+  whose i_rwsem only a resize of the unnamed data itself holds. When a
+  stream or an extended attribute is being resized, a writer of the file
+  can have passed its residency check and carry on with a non-resident
+  attribute (iomap_iter warnings, recursive mrec_lock). Convert the
+  unnamed data only when it is the attribute being resized.
 
-[Severity: Low]
+- A WOF compressed file reads its WofCompressedData stream straight
+  from the device, not through the page cache. A stream converted here
+  is still dirty in the page cache, so the file reads stale clusters
+  until writeback. Leave the streams of a WOF file alone.
 
-Could this check run before the probe has reached the da/db captures?
-The only wait between sending the probe and reading the captures is the
-fixed drain at the end of ordered_send(), and it has no completion
-condition:
+- The lookup of a stream ignores case, so a stream whose name differs
+  only in case from an earlier one resolves to that one and the length
+  does not match again. Compare the names exactly.
 
-    ordered_send() {
-        ...
-        lab.observe(0.1)
-        return expected
-    }
+Fixes: 495e90fa3348 ("ntfs: update attrib operations")
+Cc: stable@vger.kernel.org # v7.1+
+Signed-off-by: Wahid Khan <wahidzk0091@gmail.com>
+---
+v5: Sashiko's review of v4 found more, each reproduced with a forced make-room
+    pass and a debug delay, fails before and passes after:
+    - the WofCompressedData stream of a WOF file was converted, and the
+      file read stale clusters until writeback (249 of 250 bytes wrong)
+    - an attribute converted in a file with no links left was evicted
+      with its dirty folio (open file reads its EA back as missing)
+    - a resize of a stream converted the unnamed data under a writer of
+      the file (iomap_iter WARNs, recursive mrec_lock)
+    - the conversion of the resized attribute itself waited for folio 0
+      with mrec_lock held (hung task against mmap fault and splice)
+    The six v4 scenarios still pass.
+v4: v3 (convert a named stream via ntfs_attr_iget()) can deadlock against
+    a reader of the stream and has other races with an open or removed
+    stream. Each is reproduced with a forced make-room pass and a debug
+    delay, fails on v3 and passes here: reader/converter deadlock
+    (hung task), write continuing on a converted attribute (iomap_iter
+    WARNINGs, recursive locking), unlinked file with an open stream (mft
+    record reported corrupt), stream converted during its own removal,
+    and a stream pair that differs only in case (WARN in
+    ntfs_attr_make_non_resident).
+v3: use ntfs_attr_iget() for a named stream instead of skipping it (v2).
+ fs/ntfs/attrib.c | 82 ++++++++++++++++++++++++++++++++++++++++++------
+ fs/ntfs/inode.c  | 19 +++++++++++
+ fs/ntfs/inode.h  |  2 ++
+ 3 files changed, 93 insertions(+), 10 deletions(-)
 
-The probe goes from t0 over the veth to dil, through the HSR rx_handler in
-NET_RX softirq, and then out on da/db. That softirq usually runs
-synchronously inside sendto(). If net_rx_action() runs out of budget, the
-remaining work is handed to ksoftirqd.
-
-On a loaded CI VM, can ksoftirqd take longer than 100 ms to get scheduled?
-If so, the case would fail with "wrap probe missing or unequal" even though
-the kernel behaves correctly.
-
-The other packet checks in the script wait through lab.finish() with a
-completion predicate. Would polling lab.observe() until both lanes hold the
-probe, bounded by lab.remaining(), close this window?
-
-> +    start = rows[0][0]["seq"]
-
-[ ... ]
-
-> +def topo(lab):
-> +    """SAN - interlink - HSR DUT - two LANs - receiver namespaces."""
-> +    tx, dut, rx = lab.ns(), lab.ns(), lab.ns()
-> +    for ns, dev, peer_ns, peer in ((tx, "t0", dut, "dil"),
-> +                                   (dut, "da", rx, "ra"), (dut, "db", rx, "rb")):
-> +        lab.veth(ns, dev, peer_ns, peer)
-> +        for owner, link in ((ns, dev), (peer_ns, peer)):
-> +            lab.ip(owner, "link", "set", "dev", link, "up")
-> +    hsr_attach(lab, dut, "hm", "da", "db", "dil")
-> +    attributes = link_state(lab, dut, "hm")["linkinfo"]["info_data"]
-> +    require(attributes.get("proto") == 0 and attributes.get("version") == 1 and
-> +            all(attributes.get(key) == value for key, value in
-> +                (("slave1", "da"), ("slave2", "db"), ("interlink", "dil"))),
-> +            "HSR topology has unexpected protocol/version")
-
-[Severity: Medium]
-
-What happens here with an iproute2 that does not print the HSR version
-attribute?
-
-The kernel has only sent IFLA_HSR_VERSION for non-PRP devices since commit
-16a2206354d169 ("net/hsr: add protocol version to fill_info output"), in
-hsr_fill_info():
-
-    else if (nla_put_u8(skb, IFLA_HSR_VERSION, hsr->prot_version))
-
-Whether a "version" key shows up in the ip -j -d link show output then
-depends on the iproute2 HSR print code. Older iproute2 releases print
-slave1, slave2, interlink, seq_nr, supervision and proto, but not version.
-In that case attributes.get("version") returns None and require() raises
-ValueError.
-
-ValueError is in CASE_ERRORS, so main() reports the case as not ok. It then
-marks every later case as failed too:
-
-    for later, (other, _) in enumerate(cases[number:], number + 1):
-        print(f"not ok {later} - {other}: stopped after prior failure", flush=True)
-
-In gro mode, "natural TCP interlink" is the first caller of topo(). The six
-"PRP LAN" cases after it never call topo(), but they would still be
-reported as not ok. In ordered mode all five cases call topo(), so the
-whole test would fail.
-
-A missing interlink option in iproute2 is already reported as SKIP through
-interlink_unsupported(). Could a missing "version" key get the same
-treatment, or simply not be required?
-
-> +    lab.ip(tx, "addr", "add", "100.64.2.1/24", "dev", "t0")
-
-[ ... ]
-
+diff --git a/fs/ntfs/attrib.c b/fs/ntfs/attrib.c
+index ce7c1b524180..5af7bf191295 100644
+--- a/fs/ntfs/attrib.c
++++ b/fs/ntfs/attrib.c
+@@ -1975,7 +1975,21 @@ int ntfs_resident_attr_value_resize(struct mft_record *m, struct attr_record *a,
+  * inode i_size is that this is not necessarily uptodate.  This happens when
+  * ntfs_attr_make_non_resident() is called in the ->truncate call path(s).
+  */
++static int __ntfs_attr_make_non_resident(struct ntfs_inode *ni, const u32 data_size,
++		bool nowait);
++
+ int ntfs_attr_make_non_resident(struct ntfs_inode *ni, const u32 data_size)
++{
++	return __ntfs_attr_make_non_resident(ni, data_size, false);
++}
++
++/*
++ * With @nowait the folio lock is only tried: a caller that holds mrec_lock
++ * must not wait for a folio lock, the read path takes them the other way
++ * round. Fails with -EAGAIN if the folio is locked.
++ */
++static int __ntfs_attr_make_non_resident(struct ntfs_inode *ni, const u32 data_size,
++		bool nowait)
+ {
+ 	s64 new_size;
+ 	struct inode *vi = VFS_I(ni);
+@@ -2056,10 +2070,11 @@ int ntfs_attr_make_non_resident(struct ntfs_inode *ni, const u32 data_size)
+ 		 * outside all ntfs locks, we need to get the folio now.
+ 		 */
+ 		folio = __filemap_get_folio(vi->i_mapping, 0,
+-					    FGP_CREAT | FGP_LOCK,
++					    FGP_CREAT | FGP_LOCK |
++					    (nowait ? FGP_NOWAIT : 0),
+ 					    mapping_gfp_mask(vi->i_mapping));
+ 		if (IS_ERR(folio)) {
+-			err = -ENOMEM;
++			err = nowait ? -EAGAIN : -ENOMEM;
+ 			goto err_out;
+ 		}
+ 
+@@ -4895,8 +4910,14 @@ static int ntfs_resident_attr_resize(struct ntfs_inode *attr_ni, const s64 newsi
+ 	/* There is not enough space in the mft record to perform the resize. */
+ 
+ 	/* Make the attribute non-resident if possible. */
+-	err = ntfs_attr_make_non_resident(attr_ni,
+-			le32_to_cpu(ctx->attr->data.resident.value_length));
++	err = __ntfs_attr_make_non_resident(attr_ni,
++			le32_to_cpu(ctx->attr->data.resident.value_length), true);
++	/*
++	 * A reader holding folio 0 waits for mrec_lock, which we hold. Do not
++	 * wait for it, try to make room some other way.
++	 */
++	if (err == -EAGAIN)
++		err = -ENOSPC;
+ 	if (!err) {
+ 		mark_mft_record_dirty(ctx->ntfs_ino);
+ 		ntfs_attr_put_search_ctx(ctx);
+@@ -4933,18 +4954,59 @@ static int ntfs_resident_attr_resize(struct ntfs_inode *attr_ni, const s64 newsi
+ 		if (a->type == AT_DATA && !value_len)
+ 			continue;
+ 
+-		if (a->type == AT_DATA)
++		/*
++		 * The attribute inode of an unlinked file is evicted on the
++		 * last iput() together with its dirty folio.
++		 */
++		if (NInoBeingDeleted(base_ni) || !VFS_I(base_ni)->i_nlink)
++			continue;
++
++		if (a->type == AT_DATA && !a->name_length) {
++			/*
++			 * Only the caller that resizes it holds the i_rwsem of
++			 * the unnamed data, a writer of another attribute does
++			 * not.
++			 */
++			if (attr_ni != base_ni)
++				continue;
+ 			tvi = ntfs_iget(sb, base_ni->mft_no);
+-		else
+-			tvi = ntfs_attr_iget(VFS_I(base_ni), a->type,
+-				(__le16 *)((u8 *)a + le16_to_cpu(a->name_offset)),
+-				a->name_length);
++		} else {
++			__le16 *name = (__le16 *)((u8 *)a +
++					le16_to_cpu(a->name_offset));
++
++			/*
++			 * A named $DATA stream is converted only if nobody has
++			 * it open: an open one can be unlinked, being removed
++			 * or in use. Its file must not be going away either,
++			 * and a WOF file reads its stream from the device, so
++			 * the stream must stay resident.
++			 */
++			if (a->type == AT_DATA) {
++				if (NInoWofCompressed(base_ni))
++					continue;
++				tvi = ntfs_attr_ilookup(VFS_I(base_ni), a->type,
++						name, a->name_length);
++				if (tvi) {
++					iput(tvi);
++					continue;
++				}
++			}
++			tvi = ntfs_attr_iget(VFS_I(base_ni), a->type, name,
++					a->name_length);
++			/* the lookup ignores case for streams, ours does not */
++			if (!IS_ERR(tvi) && a->type == AT_DATA &&
++			    memcmp(NTFS_I(tvi)->name, name,
++				   a->name_length * sizeof(__le16))) {
++				iput(tvi);
++				continue;
++			}
++		}
+ 		if (IS_ERR(tvi)) {
+ 			ntfs_error(sb, "Couldn't open attribute");
+ 			continue;
+ 		}
+ 
+-		if (ntfs_attr_make_non_resident(NTFS_I(tvi), value_len)) {
++		if (__ntfs_attr_make_non_resident(NTFS_I(tvi), value_len, true)) {
+ 			iput(tvi);
+ 			continue;
+ 		}
+diff --git a/fs/ntfs/inode.c b/fs/ntfs/inode.c
+index 62dd5bd5bb81..ec9c7b219192 100644
+--- a/fs/ntfs/inode.c
++++ b/fs/ntfs/inode.c
+@@ -287,6 +287,25 @@ struct inode *ntfs_attr_iget(struct inode *base_vi, __le32 type,
+ 	return vi;
+ }
+ 
++/*
++ * ntfs_attr_ilookup - find an attribute inode that is already in the cache
++ *
++ * Like ntfs_attr_iget() but never reads anything. Returns the inode with an
++ * increased reference count, or NULL if it is not cached.
++ */
++struct inode *ntfs_attr_ilookup(struct inode *base_vi, __le32 type,
++		__le16 *name, u32 name_len)
++{
++	struct ntfs_attr na = {
++		.mft_no = base_vi->i_ino,
++		.type = type,
++		.name = name,
++		.name_len = name_len,
++	};
++
++	return ilookup5(base_vi->i_sb, na.mft_no, ntfs_test_inode, &na);
++}
++
+ /*
+  * ntfs_index_iget - obtain a struct inode corresponding to an index
+  * @base_vi:	vfs base inode containing the index related attributes
+diff --git a/fs/ntfs/inode.h b/fs/ntfs/inode.h
+index a18cbcf1c631..7ea52c59c04b 100644
+--- a/fs/ntfs/inode.h
++++ b/fs/ntfs/inode.h
+@@ -326,6 +326,8 @@ struct ntfs_attr {
+ int ntfs_test_inode(struct inode *vi, void *data);
+ int ntfs_test_inode_rcu(struct inode *vi, void *data);
+ struct inode *ntfs_iget(struct super_block *sb, u64 mft_no);
++struct inode *ntfs_attr_ilookup(struct inode *base_vi, __le32 type,
++		__le16 *name, u32 name_len);
+ struct inode *ntfs_attr_iget(struct inode *base_vi, __le32 type,
+ 		__le16 *name, u32 name_len);
+ struct inode *ntfs_index_iget(struct inode *base_vi, __le16 *name,
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261107220544.20-1-xiexinet%40gmail.com
+2.56.0
+
