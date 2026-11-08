@@ -1,56 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794136695;
-	b=0kBzvZ+kb4mSGbHeP/PtBJ4eptRJkHmVDYql86/vMd582Cndw6mpP8/qDHLmkRnRMUo5
-	 vhGoZ7Bn6jk6++zNXO+O1Jar0AglT1iQvQ0NYhl7QhWPBnBkHt8NQ8dz+usOGNZPXeVva
-	 qolQLH3j7aVvvew8AH6TOLBF7rKVrH0t210KX16F3lKZtTD/Y9BYHJFrHEsDfDRzBOtNu
-	 4B8I+Owf+t8yBE4LH97WunM/VxnfzXEKm3dtWweuQRBXLEIk6Iv3vWK+PvHDnYBnqFpqP
-	 /SI9nlNj8UEfOk9EwNSKVb2vRt4D2CCnvNrVaujfzFc1suXK6DqxDCWrYY0Yi4Nus6g==
+	t=1794136716;
+	b=hFg+j8vbALNlrT+8ImCo7xHTPCrN2I7yddf/Mqe8XuQHTi5jjUZV7HAlFMC0zUjZdhDG
+	 /Q2Md1EYHbqJ+QuZgYj7J/DV6Ht+TGiEoZn3NjdHvJAWUgiFKDHJABXnc82wLvanIN9r4
+	 eEY/FRgcDjUFTOEh0ktm6F1IpqKD6iK+4UQ4TRMNwmNErJ3J/woRZGUI49pssrWv5J0s4
+	 MlfIr8Wx0naSo5w/pHhlSkVyhxj3CcJZmh6vWg6g9IOPXmrur4C47/ZuCv5LgPxrIomMy
+	 5bjYvLrNPBUMeA5b9k9uxD3o02euRL9xAp/rU7LYT/g97ldV0f+681S4bpUSai+vONA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794136695;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=cdwLi7q6otXV/9z7XEcfd3Rd+mPlyC63hV954DkWURg=;
-	b=0syGtR/B8tQyLwvjmuvjS+mKzaQFtlVilJqaawWXPWZ/c/xPAAOfJdUyxee5hudgJ05I
-	 dRvNNOl2WgCt661cnTJ0RCnM169dchoqf6c++ef5jW2kn7mMlB6/YMbMmLjUw1EmhE6OK
-	 yEy68/O1sHexIY3jcFkqwUnjbRsQuS+wm1/r2oR7vo0+uxlI5CRFW8EPmpztAM9wH0DHj
-	 F+8EQojdaQ6znwMIPlCd5uhB4Mh5Kw7axag3Z04IrzymSgnjjKmsNJC7erPHG1fSj6mJa
-	 WP+N44E9cL7iRmttku13JLDWsC6X27NLRXNi60IcDuGbiJOtA4MEz/ObZbdwlnK9+HA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794136716;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=GFsYetGjQGfqyMGoMWETXho8ORP/Lahdw6Uraq41F9A=;
+	b=BDTmkpUYE/l5yjE2FMckmwPZAblZE43jctZN4dHUK4QU4ZJVuRcPqdYfah//OxqmNqur
+	 Rd6w07XRJpwDqud5HwxLTE8/HtiUcEQZUcQRYKDmDMMx8l/6/aTRZrOcp3WMkmn5nlE4l
+	 mLGpZQOvG2yiS1mA9A1BIbBSydjT1OOd+uPfRLTKe08vkGC+3dJJwo2QPFE9nOPWliTQx
+	 SsK46Ka/GbLEDZF8e5X/XIU+ZpnKkWUNFhBoUdYxPDDtxpPIUU42nsAlcq87UgNaggUy+
+	 hlHP3qcUnYpg2D35YVo4+UoU+eJu+5MUpnaCRUuwsG3VuSGy3gK/djsQ61/ZxVAX9HA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=X7YqH4Et;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D7F8E606A31C
-	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 11:18:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7F8E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=X7YqH4Et
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 029B415A1;
-	Sun,  8 Nov 2026 03:18:03 -0800 (PST)
-Received: from e127648.arm.com (unknown [10.57.14.94])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 057263F632;
-	Sun,  8 Nov 2026 03:18:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794136686; bh=JvCDQcIrlwTMa1en4Kh5iLK5FCGAw2n6Qr4zYUjTolw=;
-	h=From:To:Cc:Subject:Date:From;
-	b=X7YqH4EtNyc8Mne6WKe2l/ZUNTCFFGJXXYsFFekA+6AGyOIm5oetPnf+3oleKWfGv
-	 3Ikb4UxjvgUJCaCfnp4IQ26feKVlb2Q0+rw79oyCt6p7ZAsM1JQ27LE5AVhjOPSO+B
-	 IZAOmGG7sxp86UH/u9DochdiPUgBmhxLDJxBf+cU=
-From: Christian Loehle <christian.loehle@arm.com>
-To: stable@vger.kernel.org
-Cc: gregkh@linuxfoundation.org,
-	sashal@kernel.org,
-	rafael.j.wysocki@intel.com,
-	sumitg@nvidia.com
-Subject: [PATCH 5.10] ACPI: CPPC: Validate FFH register fields before hardware access
-Date: Sun,  8 Nov 2026 11:17:51 +0000
-Message-Id: <20261108111752.2558740-1-christian.loehle@arm.com>
-X-Mailer: git-send-email 2.34.1
+	dmarc=fail header.from=isslab.korea.ac.kr;
+	spf=none smtp.mailfrom=isslab.korea.ac.kr;
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5430606A31C
+	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 11:18:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5430606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-3282db206d3so124377eec.0
+        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 03:18:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20260707.gappssmtp.com; s=20260707; t=1794136713; x=1794741513; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GFsYetGjQGfqyMGoMWETXho8ORP/Lahdw6Uraq41F9A=;
+        b=EJnjOekExMq+4XmCNDBgz8AvVL2Qyl/i2Lo1WR48gl6hs9cQXZzHDQ1HapMXFjF9kg
+         CoWyta09y4OCZXpJ1mCMFiHQCHpxRgeO1BPT4fQo9F4HK5xVnbRZfQ1u75Df10xFHntL
+         qKJvJDRq0PGo7Af196CHJ5IxuV4G8r1eq6+fJMI1l9wAciNP5ilv2Sf0PSZQoA/061tE
+         Mc8DOjlRE7/X6Hirj2CZ5tLASWT8l7h1yVhcHydsQRDvUcE/8ioh+S1Dv9FPvtVKvhUM
+         L81Dka+AVaT9V00BM5BBT/iwQEFM/WKWQMGpYprg89dAM7cXT3qn92RmeWeCWpOkeBHS
+         /z7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794136713; x=1794741513;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GFsYetGjQGfqyMGoMWETXho8ORP/Lahdw6Uraq41F9A=;
+        b=vTR4GIFR9ZJXFbkKC6Wox7x0M7XyxY7dNwv6ij43BCDy9WeVHpaMpXST3B/ypyZwee
+         K+PoBS9gg+i84k9AoT6joyWSN1GGRod10fGpzXh6UcqOC16mUot+Mx3QFJuAP1sbOVdC
+         7OLHDvQkqxbYLWJWaJpIwLklkac6AWUFyi8nLWf6AS+0ET/43KDXeJ+euOnmcP0hm1ok
+         CBYqFJ2wrlZTQHoxtzMhkTf/e7lQqHjLmnCx0z3DlkM0By3ePgmPS7VEk6VRcjRiI1Aq
+         TrDwLaEIoQUqXtGF71bTHgqRaLqzbcWzIGyG12M0fuIODryOZ9Kx4t5rQpMwQ9shgi9t
+         zNeg==
+X-Forwarded-Encrypted: i=1; AL+hErGobuCfoxu0PSgK7mHcQ/dF/qWoW36ZyCx3+uMi9XleXo436XBO3r0ENzwaNJyoM4LURG7/W3Y=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8/16ftcKav+N1Swii60sfeohcfyGC8iq4y2cjG7pF5j/m1tEM9
+	yNvFKp2kh8MY/GnZmjMUD0ZiCBdvsRacEA07jK9+5WcMQi1L9tbLbp/YlbHoS9ix83w=
+X-Gm-Gg: AYBFou0Nz+AbtjTcx3qgjmu5r06+kbasxiqNon9afjXyAuhEetRo4pcoPpd3TEQpDVd
+	Ie2S+RahjcxcQolJibf/2KlBJ/fEpXaKgu6QJZXTCYimX7lezeEhcEeVx3dJL8WcTzy6qGerUhf
+	5VZ7FVaM6e+mr1I7lL7ZlDZ/vTqO/aSUzVFTSBbbkaGYA7VDTSAdW1H5J5qgt2djYjdc9JBxswa
+	35yYKleKsGSFE73CscTOBDrcWn0KcaDl8YQqUEB5gBapgQ1Bj/F6pD0ZzAJNHcF0a1lz9yKETcI
+	6vWhdyqRow88NdkO6iGQR7TryzKi/2B4wklzKCK2SLAMy/5rHOR9OTVQmwucD3xl+4m/0seb3ZN
+	emYC62hKHCFEHkAIfiDWQMRxHaQncE37lh4eza+oelh+i0JKJZ0MP+rmDnriMoulvo/0uiIXqV4
+	0qsboZUuMFh20H50d1ge2Zj/11/P1wyc0kImbcAZQpXDFGN9yit5BRPE20dTG+QyMqzJCGJDz7O
+	/XqnTDhgc4Aos8prJybmCVGBdyRSA44Gf8pdi6jVEeoY7C0QTLRyRmcAdCapcLkPkkvw5l9Lbmf
+	0vYm4BJyftv31I/NfKN/Eqj8hjIb1HJ+fd459qT0V+XlGIMzL/AYl6panOFrnjKaVTL64J9ul9c
+	2YSOitaS8MB7gOuqaE7Vx6n6SxQ7rlNrL6K3oqw==
+X-Received: by 2002:a05:7022:2209:b0:1b3:2692:2274 with SMTP id a92af1059eb24-1b39ff060a8mr2675802c88.40.1794136713408;
+        Sun, 08 Nov 2026 03:18:33 -0800 (PST)
+Received: from localhost.localdomain ([2406:5900:1044:110c:9c49:6b89:2201:42e8])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b375728f8bsm4582119c88.15.2026.11.08.03.18.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 03:18:32 -0800 (PST)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: netdev-bot+sashiko@kernel.org
+Cc: joshwash@google.com,
+	hramamurthy@google.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	willemb@google.com,
+	pkaligineedi@google.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net] gve: bound the device reported rule count in the flow rules query
+Date: Sun,  8 Nov 2026 20:18:23 +0900
+Message-ID: <20261108111823.2803947-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <179411928865.994134.15713036918131150201@kernel.org>
+References: <20261104061329.1881388-1-yhlee@isslab.korea.ac.kr> <179411928865.994134.15713036918131150201@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,94 +107,26 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit 6b016c5c96448c0a5f09328d37f66562d154a5e5 upstream.
+> Could the commit message also
+> mention the write overflow for more than 1024 ids and the multiply wrap on
+> both paths?
 
-The x86 CPPC FFH accessors construct masks and shift values using the
-firmware's Bit Width and Bit Offset without checking that the field fits
-in an MSR. A zero-width field or a field extending beyond bit 63 can
-therefore cause an invalid shift. The safe MSR accessors only handle an
-access fault, not invalid field arithmetic after a successful read.
+All three points are correct.  1025 or more ids overrun the 4096 byte
+rule_ids_cache, and 1 << 29 rules or 1 << 30 ids wrap rule_info_len to zero
+while the count still reaches ETHTOOL_GRXCLSRULE and ETHTOOL_GRXCLSRLALL,
+neither of which needs CAP_NET_ADMIN.  The bound in this patch rejects all
+of them; only the description falls short.  I can send a v2 with it
+corrected if the maintainers want one.
 
-Also, the 64-bit GAS address is implicitly narrowed to the 32-bit MSR
-number. A descriptor with nonzero upper address bits can access a different
-MSR from the one described by firmware.
+KUnit under KASAN, harness not in the patch: a bad count from the device is
+a 4136 byte write into the 4048 byte rules_cache at 47 rules and a 4100 byte
+write into the 4096 byte rule_ids_cache at 1025 ids; both are -EINVAL with
+the patch.
 
-The arm64 AMU counter readers have the same unchecked field arithmetic.
-Validate the field bounds before reading a counter, including both
-descriptors in the paired counter path.
+> does gve_adminq_process_rss_query() in gve_adminq.c need the same kind of
+> bound?
 
-Dispatch FFH accesses before decoding the GAS Access Size in the common
-read and write paths. Otherwise, a large access_width can trigger an
-invalid shift in GET_BIT_WIDTH() before the architecture validates its
-register. That field has architecture-specific FFH semantics and is not
-needed by the generic memory/port accessor on this path.
+Yes, sent separately:
+https://lore.kernel.org/all/20261104070041.1902653-1-yhlee@isslab.korea.ac.kr/
 
-Validate x86 MSR addresses and share the field-bounds checks between
-related accessors within each architecture.
-
-Fixes: a6cbcdd5ab5f ("ACPI / CPPC: Add support for functional fixed hardware address")
-Fixes: 68c5debcc06d ("arm64: implement CPPC FFH support using AMUs")
-Fixes: f489c948028b ("ACPI: CPPC: Fix access width used for PCC registers")
-Cc: All applicable <stable@vger.kernel.org>
-Signed-off-by: Christian Loehle <christian.loehle@arm.com>
-Tested-by: Sumit Gupta <sumitg@nvidia.com>
-Link: https://patch.msgid.link/20260916162805.1039247-17-christian.loehle@arm.com
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-Signed-off-by: Christian Loehle <christian.loehle@arm.com>
----
-Backport to 5.10.y: Retain the older cppc_msr.c filename. This tree has
-only the x86 FFH accessor; the arm64 AMU reader and generic access-width
-dispatch changes are not applicable.
-
-Tested on Blackview AMD with a full native build and boot, FFH descriptor
-validation, feedback counters and CPU hotplug. The final backport also
-passed the extracted-function UBSan regression tests and plain git am onto
-base 3a323bc22b881a5bdc1646080f93f5ecb22850bf.
-
- arch/x86/kernel/acpi/cppc_msr.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
-
-diff --git a/arch/x86/kernel/acpi/cppc_msr.c b/arch/x86/kernel/acpi/cppc_msr.c
-index b961de569e7e..37543b21ce94 100644
---- a/arch/x86/kernel/acpi/cppc_msr.c
-+++ b/arch/x86/kernel/acpi/cppc_msr.c
-@@ -4,6 +4,8 @@
-  * Copyright (c) 2016, Intel Corporation.
-  */
- 
-+#include <linux/limits.h>
-+
- #include <acpi/cppc_acpi.h>
- #include <asm/msr.h>
- 
-@@ -14,10 +16,20 @@ bool cpc_ffh_supported(void)
- 	return true;
- }
- 
-+static bool cpc_ffh_reg_valid(const struct cpc_reg *reg)
-+{
-+	return reg->address <= U32_MAX && reg->bit_width &&
-+	       reg->bit_width <= 64 &&
-+	       reg->bit_offset <= 64 - reg->bit_width;
-+}
-+
- int cpc_read_ffh(int cpunum, struct cpc_reg *reg, u64 *val)
- {
- 	int err;
- 
-+	if (!cpc_ffh_reg_valid(reg))
-+		return -EINVAL;
-+
- 	err = rdmsrl_safe_on_cpu(cpunum, reg->address, val);
- 	if (!err) {
- 		u64 mask = GENMASK_ULL(reg->bit_offset + reg->bit_width - 1,
-@@ -34,6 +46,9 @@ int cpc_write_ffh(int cpunum, struct cpc_reg *reg, u64 val)
- 	u64 rd_val;
- 	int err;
- 
-+	if (!cpc_ffh_reg_valid(reg))
-+		return -EINVAL;
-+
- 	err = rdmsrl_safe_on_cpu(cpunum, reg->address, &rd_val);
- 	if (!err) {
- 		u64 mask = GENMASK_ULL(reg->bit_offset + reg->bit_width - 1,
+Yehyeong
