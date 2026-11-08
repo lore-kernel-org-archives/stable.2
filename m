@@ -1,59 +1,77 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794147496;
-	b=GwKWqnd948Q1i3CycXenzgp+WBNOyyYDDBStaRTJ19Jcir+daxmnFJFU+/mFf7jQpNjj
-	 iF1HXdH8Yf2lNiOyyb5ZQcIlBfpnFUYbm8xlly6aDtbWkAH1xno6PD0ZDb9lg2EMmBkKh
-	 2Vz6KkPQae7luobmVurpvSvQsNzDyC08X4HMoriAAFm4PJABbHXdQdx1tOA707AtZjdLg
-	 DpmP8JOsyOSqTQxBMNlPpnvF25D+RjdrkMHaOchTMWTbYmGXGzNlLqgwd02KmBuaOXJg3
-	 /A7wM382ig3fXvVdSO3BtpibpkCua2ZTPU6SfI+41uhk9CmZ2idvX710iUCw6w82ozw==
+	t=1794147513;
+	b=uB4LF9wRBiUcY1gkX/SCSbCpgUYISsEcFKgrpRTjWhc5Ddm50XTN9zrso1M92+5Q4FTo
+	 QMdP//1TDbliocqADCeDj4szGU5GKQ5j6PTqEQj8EnTLkMJ1dGAKblsT6qxByZ5xO0NsL
+	 UdGMqno2JyQhMF/40NIv2p11UIOzYWu3aHsLMsKsJWbpdANPxcLClCptk8+SngcBp3twg
+	 99NEes2pBBPx071pzBBqA83YD8WMDqpFjx17MKqlpV7GxBXZ+/bitrfK3QtezhE963rfQ
+	 Q2ZVkjbUuSeEh+jw2dlagj09eJdyFH9cw2YCNxNWYwyvepRE5bPLDPk7KXaHVQLOuiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794147496;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=abKaeZg/hOITMson77Otqz/eijU8iluUpb9OKmQ2iuQ=;
-	b=0qPdAOWoW12OOsMmL4KjF+RefYPyAypb/hmhD8xePcFljUuouanooJbY7ixtJuUoJGJS
-	 O8qeKf6IdRa/GFNt+nrnSKu6GPUgUckGdoSUbzQYmY9jj8PqmLuFWhOv7n5A3hrkg59gM
-	 Qi7DPpvcRC0ehHgVTAOEY7KG85I85C7GS1CRf/654MsLSPMZZKi2OI6n3pZYwhF6XZnaX
-	 3UkDg41JTECOtU1sJ4vxBhZwvLvMqOy50Xg+C21sd7+Le9BDe4T4cCJ/K9SXtGZQZIkVJ
-	 eJgbNnJ7S1+g10Dv5jWREsmxJP3RLS7ZhBAiUVBBvjJ57WGH/oYdpMvhCfvioqRkUZw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794147513;
+	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
+	 X-SA-Exim-Scanned;
+	bh=ghvcB3Oep4ElkXVE3zWUAz9PnP9Knjes6ZFfb+9rHos=;
+	b=00Z0U8uG+O72qmeZevbw1sKqIE7c9ReklTQ0fj6kLoDJ1oHfR4OvtziN7gVBH9vqXzl+
+	 kFZ192q+9/RIuGaDzvku3bUHRiD3Q1xiyTk5gsrmK+N5JJ0ZiDzMHXqqYLDHuBEDNrZD0
+	 XomXf3zFpOxzWYVq41o9z8XWfRqSDxC8+EkAZpryDM9DA9Tz+KQUUlUMlBrBY1P29L+O2
+	 AnuaWkPmlXdwPdxk+ULDIg5soeDETc+40mWVQbNtc9R5keC/Maxbxt0N7OzAFYlPLRDRj
+	 9R9wuCTwOnO8RTE1Ximc48+9tXCWyayBOXhW9bZID647XX7GUiS8XsjHZ5dVPPUak+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="MgyR/A7n";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H3JtE6+S;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D472606A31C;
-	Sun,  8 Nov 2026 14:18:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36022606A334;
+	Sun,  8 Nov 2026 14:18:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MgyR/A7n
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D4821F0089F;
-	Sun,  8 Nov 2026 14:18:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H3JtE6+S
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0E3A1F0089F;
+	Sun,  8 Nov 2026 14:18:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794147496;
-	bh=abKaeZg/hOITMson77Otqz/eijU8iluUpb9OKmQ2iuQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MgyR/A7n1zd+rhRyP2TYfrRwkCUkPX6G0iQjGGv/tGw96ipTBbV/IvlbNUT+oL2aW
-	 mECjBq8twEf6uIt12TQpJAqvUQc4WV0lgn9XrodWKePfYpli0IywDmyzSmmsLV4Gny
-	 EfN/YN9AR2ZLEvWcUTwPbYJNe7f+8u2jAwuSNAoDsbJskVWuPMmPVTZlxC1ELmdVm0
-	 zKBOQ0qvyJz7fRuMMJKByeW6j1QrrQ60v3s03A+97XaMhW+A7IUeOP8ApM2zxwgD0H
-	 FnupU5t8eT9By2tLt6WtoOwDcy4eG8yh77Cn4T8dwckMV113eB2CzL1cE835MRcsWB
-	 BP39hIRglbBrg==
-Date: Sun, 8 Nov 2026 14:18:12 +0000
-From: Simon Horman <horms@kernel.org>
-To: netdev-bot+sinfo@kernel.org
-Cc: =?utf-8?B?SsOpcsOpbXk=?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>,
-	Subash Abhinov Kasiviswanathan <subash.a.kasiviswanathan@oss.qualcomm.com>,
-	Sean Tranchetti <sean.tranchetti@oss.qualcomm.com>,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	s=k20260515; t=1794147512;
+	bh=ghvcB3Oep4ElkXVE3zWUAz9PnP9Knjes6ZFfb+9rHos=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=H3JtE6+SZAD59Z0SNA3Zvz10WdKGP+jyNoqW9bIBQrTLt+4IA5mHyHJpj2GCDQ+U2
+	 0mF2z6afAXUx8O2tuJl35LCgByPldWzAqtQiIoByLOm8tfWL1zwmXLxVuo53PfbHu3
+	 lJcaSibs7BCp+9QVB3dnoOGLLJLttv0SIQmdN6rGqhb+LkJ8VJiDxQkcrwQoHEJPiz
+	 vLIhaDUEleIe3Zfg718UGhfXyaq8gbnrQ11mMII9yu3RqMnicz2Oa6N9Nj4mj1ZCmE
+	 GHNhf4MJCtqtvUVOs65Y46ahDERPglOeB27qIaW9HUXTqcsY9zCJE3IZlCZj0tgSpp
+	 5/kFsc2fFMn1A==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xQ3j4-0000000Cpjj-2AGA;
+	Sun, 08 Nov 2026 14:18:30 +0000
+Date: Sun, 08 Nov 2026 14:21:53 +0000
+Message-ID: <87mrrj8ku6.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Hongyan Xu <getshell@seu.edu.cn>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	linux-pci@vger.kernel.org,
+	Daire McNamara <daire.mcnamara@microchip.com>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Robert Richter <rric@kernel.org>,
+	Zhou Wang <wangzhou1@hisilicon.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof Wilczynski <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: Re: [PATCH net] net: qualcomm: rmnet: bound TX aggregates on
- byte-limit update
-Message-ID: <20261108141812.GA18859@horms.kernel.org>
-References: <20261031221052.1642262-1-Jeremy.Jean@oss.cyber.gouv.fr>
- <20261031221052.1642262-2-Jeremy.Jean@oss.cyber.gouv.fr>
- <179348482309.3286.17799482231932078029@kernel.org>
+Subject: Re: [PATCH 1/3] PCI: apple: Fix ECAM config window use-after-free
+In-Reply-To: <20261108105640.875-2-getshell@seu.edu.cn>
+References: <20261108105640.875-1-getshell@seu.edu.cn>
+	<20261108105640.875-2-getshell@seu.edu.cn>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,40 +80,40 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <179348482309.3286.17799482231932078029@kernel.org>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: getshell@seu.edu.cn, bhelgaas@google.com, linux-pci@vger.kernel.org, daire.mcnamara@microchip.com, conor.dooley@microchip.com, rric@kernel.org, wangzhou1@hisilicon.com, lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org, robh@kernel.org, linux-arm-kernel@lists.infradead.org, linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Sat, Oct 31, 2026 at 10:13:43PM +0000, netdev-bot+sinfo@kernel.org wrote:
-> Hi!
+On Sun, 08 Nov 2026 10:56:37 +0000,
+Hongyan Xu <getshell@seu.edu.cn> wrote:
 > 
-> This is an automated message. This series looks like a fix, but its
-> commit messages seem to be missing some information:
+> pcie-apple.c has no ->remove for pci_host_common_init(), so unbinding only
+> runs devres_release_all(): gen_pci_unmap_cfg() -> pci_ecam_free() frees the
+> ECAM config window while the bus tree stays registered - only
+> pci_remove_bus() unlinks a bus, and only pci_host_common_remove() reaches
+> it for a root bus.  The next config access is a use-after-free in
+> pci_ecam_map_bus(), which reads cfg->ops->bus_shift.
+> Trigger: CONFIG_PCIE_APPLE=m; as root, one command: # rmmod apple_pcie
 > 
->  - How the issue was discovered, e.g. hit in production, hit during
->    development, syzbot report, manual code inspection, LLM or static
->    analysis tool scan.
-> 
->  - Whether the issue was actually triggered, or is only theoretical
->    (e.g. found by code inspection). If it was triggered please include
->    the symptoms, like the stack trace or error messages.
-> 
->  - What hardware the change was tested on. For driver fixes please
->    mention the device (and if relevant firmware version) used for
->    testing, or say that the change was not tested on real hardware.
-> 
-> Please do not repost the series just to address the above. Instead,
-> reply to this email with the missing information, so that reviewers
-> can take it into account. If the series needs another revision for
-> other reasons, please include the information in the commit messages
-> then.
-> 
-> The evaluation is done by an LLM so it may be wrong, if you think
-> that is the case please reply and explain.
+> Fix: add .remove = pci_host_common_remove, as pci-host-generic.c does since
+> commit 01fcb7f777a9 ("PCI: Add support for unbinding the generic PCI host
+> controller"), so pci_remove_root_bus() unlinks the bus before devres frees
+> cfg.  Scope: cfg lifetime only; its IRQ handlers stay unreleased, so the
+> module is still unsafe to unload.
 
-Hi Jérémy,
+Then this patch is pointless. Either you prevent the module from being
+unloaded, or you fully handle the removal. Any intermediate state is
+just churn.
 
-I would appreciate it if you could take a moment to respond to
-the questions posed by the bot above.
+The former is easy enough to do, and gives you the basis to deal with
+the latter.
+
+Thanks,
+
+	M.
+
+-- 
+Jazz isn't dead. It just smells funny.
