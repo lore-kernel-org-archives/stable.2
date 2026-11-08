@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794137268;
-	b=OytR1mpgy0WbA50gh36uXT4KxHEH+Z4rRy9uaRJyaVomQoHAnSyo2tJHuUc3drXeepLH
-	 M52NvcqbW7Uq+es5SQmWYZ/J6jpdhDfxspPQFLN7U9IHVCNJH7pFXTECMFQwYcokojB7F
-	 /fn4x8J/cp3YmkeBXyC6KUX6WL/MFW/MokoFnyECOIrBsCvqh6nfXzA4AqYqB0djUIM+T
-	 lFt8O9mi7gOhzoRoHkfkxrXJvUQXhs2xgdwYdOGvu2yAy2RVzbpd2J9ft+j9tXZSN1EcU
-	 jTBFwhwDS+pul2pKyvWK4NXbCAQqGqWasynjIeiPAtlt5y51itCRrUvcUWUwbrgfYiQ==
+	t=1794137269;
+	b=GQmjTjnTbV/r/aP0tm7wbG/0n+OEdH46+C5gQTtNvD5loqSLUJ11LzPS4jQbN/PRNBqL
+	 sFcKZWsJs/QBHqgU0PU+Oym00JfhNOptKWEMpAu2azM6SHashhFfF/lJtvo1Yg8vLZhEv
+	 Yh3NvGNC5oDyMuOZFGcmPG/FraELRumlcs/FEGAZalQpOMDMZQPaHvqnp02oG9NZ6NJ83
+	 KYFjW/sVzKfRxRJJxju7+rha7ML7BGsbtJRnExedSFjRZBwwqBIQRFpv+GhPdvhF98249
+	 PB6EmFqHPQg+KocaYoivJksejhCWePhvEuWekn92xlrVHZdyAiMb7PnphgHgzMwUo1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794137268;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794137269;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
 	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=rKbsyn6aq8Ab11nVyUwOE5jR2aRhteCwfWZZuQ0tI9c=;
-	b=eyyEfqWIrYrej1C/G1IZ7ZXk1vrJBPNpKe/jarkU0pIhtJUTRQEKF+8obVSg33P/+qOq
-	 MtcNx3grYSyp56sA5I0nL8gfshSJglaVvrV3hGS+Eu7Bk29LbMNDyvGJEuffXlDAJ7h/y
-	 +WQpSIF6efxN/VYcn0FNYaIY8TVQnxYcISTXCXcpENdRn5B46KRPcb/uZD9U79XwgddN7
-	 9NfleRg+zKpbmdAzUjR0h9DyJCxxq1PPITAB3iH/7KGc0Hg9GWjRwCjQJOi7ZBl8iagPn
-	 3Qm7hFjFUfk1nNjDTF2+7cJoSXXEHvnBMq1HuIb+xSf8TuLdk+HDPSGLy0oaw/f7uFA==
+	bh=sRgWEx1xkEG7bha6pneo+OgacbkO7m3k5pehHpNg07Y=;
+	b=Mw51v/PmGmrFIvfh75BnBIuJzwxmePGjOkEryJxqZqfwX+ysVrDcsqKb7XCJoHc0zajd
+	 fHyL6Xlgtm+QxzZYP4MQ6qaSZ3GCNvu58dPg8BVWUzPh5s+M2AM8t0lJFgTmwyGh71Ch7
+	 540XNgrWu22ZsrElIRniNojkUMKEtBpdSXt+XOcaWdL1BG+s/tF2djQmA51qAuL1yN7EQ
+	 yqm279YBn+ioOL1McPe41ZNj/OrQnAx/54PvF/YF2dWVkFdYG4qubEqT7Smvi8ecPx7Eu
+	 ijl+oK/T468/UusOVZL61I6leuK9vVVXtIjkTAEUSxsxtHO8fz7tke3heysIRrwXcRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=QH1W4UZO;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=eL0NSCNL;
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 34D8B606A326
-	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 11:27:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34D8B606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7897A606A322
+	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 11:27:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7897A606A322
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=QH1W4UZO
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=eL0NSCNL
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 64AB116F3;
-	Sun,  8 Nov 2026 03:27:43 -0800 (PST)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BEB6F15A1;
+	Sun,  8 Nov 2026 03:27:44 -0800 (PST)
 Received: from e127648.arm.com (unknown [10.57.14.94])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 6B9BB3F632;
-	Sun,  8 Nov 2026 03:27:45 -0800 (PST)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id C04803F632;
+	Sun,  8 Nov 2026 03:27:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794137266; bh=b8gh4HwOdPSiSKzRz1ho5qqZxW98LrhVC8pGkEteb3U=;
+	t=1794137267; bh=osYmgxXel9KZqBOJ0zuJ2xH/Kcv2famMkufOihk/Kkk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=QH1W4UZOh0FPGvfXoCsTYaa5laD9udaxswZKFmZ2BARsTDdhqXffPT75ErmpOeyko
-	 CcSJIRM/H+2qJHUlg2ewwK9M433NfxxyE6Y+jNpLYYG3qamdAIiNt6ahzYY/MJ3VYl
-	 lymbfJZmIRQyoD82bJ5Qt66gUEWc8wfu+qLczAkA=
+	b=eL0NSCNLmKKbdjbuxXQL06kK06ESrG0xrbIVDjxcv0f+ooVURw/2fFyzmm+pE4xHR
+	 li2s/WdhoTIyfZ2OzX4V2i8komQM0B5DeTBBOiK5lthnNl5H4o5wdbw639nB8JuB6g
+	 2NI98zDY2mB8UN6+/mTZztGdl6zqEeCO6rLndq3M=
 From: Christian Loehle <christian.loehle@arm.com>
 To: stable@vger.kernel.org
 Cc: gregkh@linuxfoundation.org,
 	sashal@kernel.org,
 	rafael.j.wysocki@intel.com,
 	sumitg@nvidia.com
-Subject: [PATCH 7.3 1/3] ACPI: CPPC: Validate FFH register fields before hardware access
-Date: Sun,  8 Nov 2026 11:27:36 +0000
-Message-Id: <20261108112738.2566137-2-christian.loehle@arm.com>
+Subject: [PATCH 7.3 2/3] cpufreq: CPPC: Select the frequency-invariance callback per CPU
+Date: Sun,  8 Nov 2026 11:27:37 +0000
+Message-Id: <20261108112738.2566137-3-christian.loehle@arm.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261108112738.2566137-1-christian.loehle@arm.com>
 References: <20261108112738.2566137-1-christian.loehle@arm.com>
@@ -65,166 +65,113 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-commit 6b016c5c96448c0a5f09328d37f66562d154a5e5 upstream.
+commit 21e018235d99bc86249b034c06646df8757b2852 upstream.
 
-The x86 CPPC FFH accessors construct masks and shift values using the
-firmware's Bit Width and Bit Offset without checking that the field fits
-in an MSR. A zero-width field or a field extending beyond bit 63 can
-therefore cause an invalid shift. The safe MSR accessors only handle an
-access fault, not invalid field arithmetic after a successful read.
+cppc_cpufreq_cpu_fie_init() initializes deferred work only for CPUs whose
+feedback counters use PCC. However, if any CPU in a shared policy uses PCC,
+it installs the PCC tick callback for the entire policy. With FIE enabled,
+a non-PCC CPU then queues an uninitialized irq_work and can call a NULL
+function pointer when that work runs.
 
-Also, the 64-bit GAS address is implicitly narrowed to the 32-bit MSR
-number. A descriptor with nonzero upper address bits can access a different
-MSR from the one described by firmware.
+Choose the frequency-invariance callback separately for each CPU using
+the recorded work-initialization state. Processor removal can unpublish
+the CPC descriptor before callback registration, so querying its counter
+transport again can incorrectly select direct reads for a PCC CPU.
 
-The arm64 AMU counter readers have the same unchecked field arithmetic.
-Validate the field bounds before reading a counter, including both
-descriptors in the paired counter path.
+Register the callbacks after all counter initialization has completed, so
+a failed initial read for an online CPU cannot leave a partially
+registered policy. PCC CPUs use their initialized deferred work, while
+non-PCC CPUs read their own counters directly from the tick.
 
-Dispatch FFH accesses before decoding the GAS Access Size in the common
-read and write paths. Otherwise, a large access_width can trigger an
-invalid shift in GET_BIT_WIDTH() before the architecture validates its
-register. That field has architecture-specific FFH semantics and is not
-needed by the generic memory/port accessor on this path.
-
-Validate x86 MSR addresses and share the field-bounds checks between
-related accessors within each architecture.
-
-Fixes: a6cbcdd5ab5f ("ACPI / CPPC: Add support for functional fixed hardware address")
-Fixes: 68c5debcc06d ("arm64: implement CPPC FFH support using AMUs")
-Fixes: f489c948028b ("ACPI: CPPC: Fix access width used for PCC registers")
+Fixes: 997c021abc6e ("cpufreq: CPPC: Update FIE arch_freq_scale in ticks for non-PCC regs")
 Cc: All applicable <stable@vger.kernel.org>
 Signed-off-by: Christian Loehle <christian.loehle@arm.com>
 Tested-by: Sumit Gupta <sumitg@nvidia.com>
-Link: https://patch.msgid.link/20260916162805.1039247-17-christian.loehle@arm.com
+Link: https://patch.msgid.link/20260916162805.1039247-20-christian.loehle@arm.com
 Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 Signed-off-by: Christian Loehle <christian.loehle@arm.com>
 ---
- arch/arm64/kernel/topology.c | 12 +++++++++++-
- arch/x86/kernel/acpi/cppc.c  | 15 +++++++++++++++
- drivers/acpi/cppc_acpi.c     | 10 ++++++----
- 3 files changed, 32 insertions(+), 5 deletions(-)
+Includes work-state tracking and the NULL-descriptor check from
+27954e29d7de66e65ef1be4ce5a50505066c9bb6. Apply before patch 3.
 
-diff --git a/arch/arm64/kernel/topology.c b/arch/arm64/kernel/topology.c
-index 806373aac3db..6f0e705357e0 100644
---- a/arch/arm64/kernel/topology.c
-+++ b/arch/arm64/kernel/topology.c
-@@ -470,6 +470,12 @@ static void amu_read_core_const_ctrs(void *val)
- 	cpu_read_corecnt(&ctrs->corecnt);
- }
- 
-+static bool cpc_ffh_reg_valid(const struct cpc_reg *reg)
-+{
-+	return reg->bit_width && reg->bit_width <= 64 &&
-+	       reg->bit_offset <= 64 - reg->bit_width;
-+}
-+
- static u64 cpc_ffh_extract_bits(const struct cpc_reg *reg, u64 val)
- {
- 	val &= GENMASK_ULL(reg->bit_offset + reg->bit_width - 1,
-@@ -506,7 +512,8 @@ int cpc_read_ffh_fb_ctrs(int cpu, struct cpc_reg *reg1, u64 *val1,
- 	struct amu_ffh_ctrs ctrs;
- 	int ret;
- 
--	if (!is_amu_ctr_reg(reg1) || !is_amu_ctr_reg(reg2))
-+	if (!is_amu_ctr_reg(reg1) || !is_amu_ctr_reg(reg2) ||
-+	    !cpc_ffh_reg_valid(reg1) || !cpc_ffh_reg_valid(reg2))
- 		return -EINVAL;
- 
- 	ret = counters_read_on_cpu(cpu, amu_read_core_const_ctrs, &ctrs);
-@@ -530,6 +537,9 @@ int cpc_read_ffh(int cpu, struct cpc_reg *reg, u64 *val)
- {
- 	int ret = -EOPNOTSUPP;
- 
-+	if (!cpc_ffh_reg_valid(reg))
-+		return -EINVAL;
-+
- 	switch ((u64)reg->address) {
- 	case CPC_FFH_CTR_CORE:
- 		ret = counters_read_on_cpu(cpu, cpu_read_corecnt, val);
-diff --git a/arch/x86/kernel/acpi/cppc.c b/arch/x86/kernel/acpi/cppc.c
-index bbade0da5130..174b734e8261 100644
---- a/arch/x86/kernel/acpi/cppc.c
-+++ b/arch/x86/kernel/acpi/cppc.c
-@@ -6,6 +6,8 @@
- 
- #include <linux/bitfield.h>
- 
-+#include <linux/limits.h>
-+
- #include <acpi/cppc_acpi.h>
- #include <asm/msr.h>
- #include <asm/processor.h>
-@@ -45,10 +47,20 @@ bool cpc_ffh_supported(void)
- 	return true;
- }
- 
-+static bool cpc_ffh_reg_valid(const struct cpc_reg *reg)
-+{
-+	return reg->address <= U32_MAX && reg->bit_width &&
-+	       reg->bit_width <= 64 &&
-+	       reg->bit_offset <= 64 - reg->bit_width;
-+}
-+
- int cpc_read_ffh(int cpunum, struct cpc_reg *reg, u64 *val)
- {
- 	int err;
- 
-+	if (!cpc_ffh_reg_valid(reg))
-+		return -EINVAL;
-+
- 	err = rdmsrq_safe_on_cpu(cpunum, reg->address, val);
- 	if (!err) {
- 		u64 mask = GENMASK_ULL(reg->bit_offset + reg->bit_width - 1,
-@@ -65,6 +77,9 @@ int cpc_write_ffh(int cpunum, struct cpc_reg *reg, u64 val)
- 	u64 rd_val;
- 	int err;
- 
-+	if (!cpc_ffh_reg_valid(reg))
-+		return -EINVAL;
-+
- 	err = rdmsrq_safe_on_cpu(cpunum, reg->address, &rd_val);
- 	if (!err) {
- 		u64 mask = GENMASK_ULL(reg->bit_offset + reg->bit_width - 1,
+ drivers/acpi/cppc_acpi.c       |  3 +++
+ drivers/cpufreq/cppc_cpufreq.c | 21 +++++++++++++++------
+ 2 files changed, 18 insertions(+), 6 deletions(-)
+
 diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
-index fef54fcd00b7..dc9e1c1fb071 100644
+index dc9e1c1fb071..8283db4ee6fa 100644
 --- a/drivers/acpi/cppc_acpi.c
 +++ b/drivers/acpi/cppc_acpi.c
-@@ -1133,6 +1133,9 @@ static int cpc_read(int cpu, struct cpc_register_resource *reg_res, u64 *val)
- 	}
+@@ -1615,6 +1615,9 @@ bool cppc_perf_ctrs_in_pcc_cpu(unsigned int cpu)
+ {
+ 	struct cpc_desc *cpc_desc = per_cpu(cpc_desc_ptr, cpu);
  
- 	*val = 0;
-+	if (reg->space_id == ACPI_ADR_SPACE_FIXED_HARDWARE)
-+		return cpc_read_ffh(cpu, reg, val);
++	if (!cpc_desc)
++		return false;
 +
- 	size = GET_BIT_WIDTH(reg);
+ 	return CPC_IN_PCC(&cpc_desc->cpc_regs[DELIVERED_CTR]) ||
+ 		CPC_IN_PCC(&cpc_desc->cpc_regs[REFERENCE_CTR]) ||
+ 		CPC_IN_PCC(&cpc_desc->cpc_regs[CTR_WRAP_TIME]);
+diff --git a/drivers/cpufreq/cppc_cpufreq.c b/drivers/cpufreq/cppc_cpufreq.c
+index 80893844353c..ad4bf1656f65 100644
+--- a/drivers/cpufreq/cppc_cpufreq.c
++++ b/drivers/cpufreq/cppc_cpufreq.c
+@@ -41,6 +41,7 @@ MODULE_PARM_DESC(fie_disabled, "Disable Frequency Invariance Engine (FIE)");
+ /* Frequency invariance support */
+ struct cppc_freq_invariance {
+ 	int cpu;
++	bool pcc_work_initialized;
+ 	struct irq_work irq_work;
+ 	struct kthread_work work;
+ 	struct cppc_perf_fb_ctrs prev_perf_fb_ctrs;
+@@ -149,7 +150,7 @@ static struct scale_freq_data cppc_sftd_pcc = {
  
- 	if (IS_ENABLED(CONFIG_HAS_IOPORT) &&
-@@ -1160,8 +1163,6 @@ static int cpc_read(int cpu, struct cpc_register_resource *reg_res, u64 *val)
+ static void cppc_cpufreq_cpu_fie_init(struct cpufreq_policy *policy)
+ {
+-	struct scale_freq_data *sftd = &cppc_sftd;
++	struct scale_freq_data *sftd;
+ 	struct cppc_freq_invariance *cppc_fi;
+ 	int cpu, ret;
+ 
+@@ -163,7 +164,7 @@ static void cppc_cpufreq_cpu_fie_init(struct cpufreq_policy *policy)
+ 		if (cppc_perf_ctrs_in_pcc_cpu(cpu)) {
+ 			kthread_init_work(&cppc_fi->work, cppc_scale_freq_workfn);
+ 			init_irq_work(&cppc_fi->irq_work, cppc_irq_work);
+-			sftd = &cppc_sftd_pcc;
++			cppc_fi->pcc_work_initialized = true;
+ 		}
+ 
+ 		ret = cppc_get_perf_ctrs(cpu, &cppc_fi->prev_perf_fb_ctrs);
+@@ -179,8 +180,15 @@ static void cppc_cpufreq_cpu_fie_init(struct cpufreq_policy *policy)
+ 		}
  	}
- 	else if (reg->space_id == ACPI_ADR_SPACE_SYSTEM_MEMORY)
- 		vaddr = reg_res->sys_mem_vaddr;
--	else if (reg->space_id == ACPI_ADR_SPACE_FIXED_HARDWARE)
--		return cpc_read_ffh(cpu, reg, val);
- 	else
- 		return acpi_os_read_memory((acpi_physical_address)reg->address,
- 				val, size);
-@@ -1208,6 +1209,9 @@ static int cpc_write(int cpu, struct cpc_register_resource *reg_res, u64 val)
- 	unsigned long flags;
- 	bool locked = false;
  
-+	if (reg->space_id == ACPI_ADR_SPACE_FIXED_HARDWARE)
-+		return cpc_write_ffh(cpu, reg, val);
-+
- 	size = GET_BIT_WIDTH(reg);
+-	/* Register for freq-invariance */
+-	topology_set_scale_freq_source(sftd, policy->cpus);
++	/* A shared policy may contain both PCC and non-PCC counters. */
++	for_each_cpu(cpu, policy->cpus) {
++		cppc_fi = &per_cpu(cppc_freq_inv, cpu);
++		if (cppc_fi->pcc_work_initialized)
++			sftd = &cppc_sftd_pcc;
++		else
++			sftd = &cppc_sftd;
++		topology_set_scale_freq_source(sftd, cpumask_of(cpu));
++	}
+ }
  
- 	if (IS_ENABLED(CONFIG_HAS_IOPORT) &&
-@@ -1233,8 +1237,6 @@ static int cpc_write(int cpu, struct cpc_register_resource *reg_res, u64 val)
+ /*
+@@ -203,11 +211,12 @@ static void cppc_cpufreq_cpu_fie_exit(struct cpufreq_policy *policy)
+ 	topology_clear_scale_freq_source(SCALE_FREQ_SOURCE_CPPC, policy->related_cpus);
+ 
+ 	for_each_cpu(cpu, policy->related_cpus) {
+-		if (!cppc_perf_ctrs_in_pcc_cpu(cpu))
+-			continue;
+ 		cppc_fi = &per_cpu(cppc_freq_inv, cpu);
++		if (!cppc_fi->pcc_work_initialized)
++			continue;
+ 		irq_work_sync(&cppc_fi->irq_work);
+ 		kthread_cancel_work_sync(&cppc_fi->work);
++		cppc_fi->pcc_work_initialized = false;
  	}
- 	else if (reg->space_id == ACPI_ADR_SPACE_SYSTEM_MEMORY)
- 		vaddr = reg_res->sys_mem_vaddr;
--	else if (reg->space_id == ACPI_ADR_SPACE_FIXED_HARDWARE)
--		return cpc_write_ffh(cpu, reg, val);
- 	else
- 		return acpi_os_write_memory((acpi_physical_address)reg->address,
- 				val, size);
+ }
+ 
