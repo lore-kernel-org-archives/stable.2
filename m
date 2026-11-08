@@ -1,85 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794154783;
-	b=BML2vqOxhB6HxhaUEwgtUIKA3hv+GKjdE7QVav4iZXT2MP2Ejxt+iMoEby6v9X4DQSoL
-	 r6VNSSBXnouObF8kkDrJ3hbuv22VAXS2zaCSeLDQtK7FK7zp5DcWUG9l4JHrrCB/fk10O
-	 EWMErSLxiDgU6WmULRNIz3KyJIRCYbUNHXLmwZckSFvmTdRXDAvZgOWQwNaj0Ixwg4kvZ
-	 +9fNoNt06FG7dCfVz+u/j/ZiPk1cXsZZBdMZQeZgbF94/u+Ub2wYE629oODiO+VnbMOu2
-	 wURT3HcfSDBoEOasIVxIw1Or1RtZxYo8Bl634N1yzBSbTVhBeDsov/j2KJsiaBSISbA==
+	t=1794155778;
+	b=bkVggFMOCAObkZE8AGuHVtOvd6iEqUNuhU6gm4U0TXXOLXuwqnP6S+WOGN6fLnfsDPds
+	 xiiBeUJ9nr2DMIHyvkXTXLRBCuuuN/B+5/mX8726s6tOrq9bppboyMLywC77PIA6+CLhh
+	 0udR13GBF+TLlSxLFDH5FxbgsW3bg6K/HZkQf1NfTvx8FfkIHDdj8AAN6R5zngXhiHV+9
+	 SdOs1srgSpT7PABCicZ5VzXyJqB4zVSNvvYDd67bUlJYsIHFwMNc8mi6epEMGFzj9lyPP
+	 ubXrETbqf0aljitBTi+Ep/2Lyd28qDi/KlLLae008GyBRu8VeuSkIKKXJrpcD0GFqEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794154783;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=MGdNPKADyW1UTxoQXV4ep/Cx3VnbRSDgd/3NjYhbL4c=;
-	b=O1gZjSQGGWYUNRz5vfO2RwA+HOuhxewARSV9Y7sWJ3TDRan5LT881AyXUTo62HEmcyIF
-	 sdG8cd50nAUW/5EXqXqVk+wJE3hDJ+nkMWFsXnIo+XPd6NS5J2YUrB1wxEosCer3lVtfM
-	 5IbjpBPm7kX0yOXmpvCHc1WZPL0DinomTFoOd7bjAkQr79i7Y6HmlypTxJ5i0Lu9me/yP
-	 OYPS0s1r5808De32oBIqfVPe1pE0XbA708br8N9S6bIdLQB7GB7Y9sWRNPKX0rB6MBoWj
-	 JkORbjB0nMPWYfKI3O56L7nbNTzYMPQR6tye1xxXrHvdQ1oxyxjbPXcfsY1xO95fodg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794155778;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=yB7UQp3PMsWCYdqrryq4xgyn2qyEFFfma2wfNMpg+LY=;
+	b=e0lsUQmQEztaO1UOuo0Rn8yGk5zqjbj+X2W4h2J6yyNavRN+C1Egl6xMk9Q7jt89YErn
+	 OucBFgAmA3IwH4WeogCz2YcQqm+ZEcwFdS70BnAXK5kyOsQAJYa2E3WYedzljjSDOTR6g
+	 4aiwxq/2lwY4uZRoftxXIk6JJvLa/nj5W6eS4Nwb3H2Zco0cF542rldXGUQo4Ovkwtj9h
+	 VYvrZKi5ei7SKlsSJ0dFUvLKXqwlvoanUFHRy58MErmh3mrYu6i8xWjrNSefOhsRnQIqJ
+	 D/RlZg41e86WmmLdXfH+JsJfsNiJYEkW/1H78cAQqtQ0525M+3ykdKlw+FyJjmk2sMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=grische.xyz;
-	spf=pass smtp.mailfrom=grische.xyz;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KQOJ+8aW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5408B606A322
-	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 16:19:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5408B606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=grische.xyz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grische.xyz
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a215e64962so1295665e9.1
-        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 08:19:43 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794154782; x=1794759582;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MGdNPKADyW1UTxoQXV4ep/Cx3VnbRSDgd/3NjYhbL4c=;
-        b=vWZtNDFTyGOiXQBjgsCESgadVYzjx6DMB28oVmfZGmOCCqwtIVfJicAASAM/tmyCrT
-         Ae7PrAlnto23XX5eQieQgURxIeSu9QvIHduAW0omNPqPnTCxAOIHz+Cct78cUDrrd0m/
-         RkcY+ERijV22eEod/NE95ATtWJzQS1k5p95T2KhiUoaVQHpf0omWQG3EsKEa3yW9uCZO
-         vPiwPed0wDZ5eAAaU6e10Q62v6JVuUftTOtit41B1L8mNm5Aa49Cj5zuWUn0X0gKbtVc
-         6i81+eUTB7+JBmRv9mO+aJbWVPI6T54bggyVAvkTkgUN8b6JPKBcxQSL76pOEBifUlFd
-         /s9w==
-X-Gm-Message-State: APuU4Z9k3GsJmE1Ay3zj9hSbSHCHTZHZPyTopM6Hiq/o3+NblUGVA7p+
-	Z47UYNk9ia+4pp0gr8NCcdHwqiCJYDG724R/aMoUGHHFbHpHs1kQybpYAgpOeOb6DABdZaf9Bzd
-	4unYPUCRWbA==
-X-Gm-Gg: AYBFou0N6DGs+xetI+YNTOPioTMGItCnwH4eXlETkPGOfJR8IyoCk4W9Akb2KG3FPXk
-	2TPmTzYsjomqERYJgtqYWmr+nXhPh4l6mAjGZiDpkq/Sgzvyljnl9K8TzqtjzMMK0v5tRv3eh/o
-	mXZMFp7sLssVftBGQQ6X7BGjP4jBG+RBg03oiquR6UGNor9XzoN0m33rmzxADogpYNNfpvQeEOp
-	p1ZkZ48qyapRYeQBwoosQKmN92fAs2BI9j0ybmku9DzAH4vdchfowN8pwo6pwywdcZ/aggp2TcI
-	1xxU0urInw2to7qkOqiPAEGAe9uFSnysmaaYcKl+HtAurWhOYnG53NfxZDZhHQiuQE5b7RRNUqR
-	o1HhAcMwXmxlwCkMQvYoby242lIqJFlD9BRi6LTesN8g30wLYQG9UhzowAGBoH9F3TLdodBkxUP
-	T1I+/C2Te8JMnsGVvKLtlYV2hZ0DNAX5EMCmoGMCbb0e1vnuZdgWBUIxmMlxbdqabGs3POvMMt1
-	CnnwlE5wY6gvYy3RbCwZR0C+CdCeOov0RUAHAvRCbGiQO71Kr1yekzFLKf4W/2O3Pj+m1z4OZwU
-	rUjoge8Q5+hoB26AmAJVEmnb
-X-Received: by 2002:a05:600c:4f89:b0:4a1:ac66:6ac6 with SMTP id 5b1f17b1804b1-4b963c97d7cmr39677795e9.26.1794154781696;
-        Sun, 08 Nov 2026 08:19:41 -0800 (PST)
-Received: from lake ([2a02:810d:d09:1b65:e93f:179f:cb30:5c5])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b76cb772e1sm189535415e9.0.2026.11.08.08.19.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 08:19:41 -0800 (PST)
-From: Christian Schmidbauer <opensource@grische.xyz>
-To: stable@vger.kernel.org,
-	Sasha Levin <sashal@kernel.org>
-Cc: Christian Schmidbauer <opensource@grische.xyz>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Breno Leitao <leitao@debian.org>,
-	Jeremy Kerr <jk@codeconstruct.com.au>,
-	Guillaume Nault <gnault@redhat.com>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Subbaraya Sundeep <sbhatta@marvell.com>
-Subject: [PATCH 6.6.y 3/3] vxlan: Remove generic .ndo_get_stats64
-Date: Sun,  8 Nov 2026 17:19:37 +0100
-Message-ID: <344e054b740166540e0bdb8642efb117b0e2f7b9.1794153876.git.opensource@grische.xyz>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <cover.1794153876.git.opensource@grische.xyz>
-References: <20260812091127.1349673-4-sashal@kernel.org> <20260925180809.603571-1-opensource@grische.xyz> <2026-09-26-daily-reply-0002-re-vxlan-dstats-6-6-reader-and-tx-side@kernel.org> <cover.1794153876.git.opensource@grische.xyz>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C6EF606A31C;
+	Sun,  8 Nov 2026 16:36:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KQOJ+8aW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C9641F0089F;
+	Sun,  8 Nov 2026 16:36:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794155777;
+	bh=yB7UQp3PMsWCYdqrryq4xgyn2qyEFFfma2wfNMpg+LY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=KQOJ+8aW5YX4tYfz3y9HYN2JIIQQF9NV/zVmmd4oW+hifMSX9d05cz8vRN3B8gcAD
+	 aOIZVfyHNREOBjEkUiNRK0e48rKJUM96iyX5qBTtOrsOhscTHE75imGWx6VbW6ZWWE
+	 XkFn58H2iN682xU+MF/vli9y1h58ucvsJgOqgH1wQBlVHRDtsmL1yD4FdTG8OTPUxG
+	 FRG9Q9L8wMxYKVNCzbP10SOIE2To6IMfBYdLhtbDVT0PZmWinFsx7OYda0hBwE83Jb
+	 ZtnHHfznStNuumSQCIll95MJZbwGIGNHs9BFA2XXyjKdO5fbQik3Bq/1PtGS6yW3Qz
+	 bQZjUeBAjm51A==
+From: Miguel Ojeda <ojeda@kernel.org>
+To: gregkh@linuxfoundation.org
+Cc: a.hindborg@kernel.org,
+	axboe@kernel.dk,
+	patches@lists.linux.dev,
+	pgovind2@uci.edu,
+	stable@vger.kernel.org,
+	ytan089@ucr.edu,
+	Boqun Feng <boqun@kernel.org>,
+	linux-block@vger.kernel.org,
+	rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH 6.12 0630/1536] rust: block: fix `Send` bound for `GenDisk`
+Date: Sun,  8 Nov 2026 17:36:08 +0100
+Message-ID: <20261108163608.122524-1-ojeda@kernel.org>
+In-Reply-To: <20261107135015.226523646@linuxfoundation.org>
+References: <20261107135015.226523646@linuxfoundation.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -91,48 +66,63 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Breno Leitao <leitao@debian.org>
+On Sat, 07 Nov 2026 08:44:06 -0500 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
+>
+> 6.12-stable review patch.  If anyone has any objections, please let me know.
+>
+> ------------------
+>
+> From: Andreas Hindborg <a.hindborg@kernel.org>
+>
+> commit e502b667ee70a7fa2a578e7722672ecd4fe0eb81 upstream.
+>
+> The `Send` implementation for `GenDisk<T>` was conditioned on `T: Send`.
+> This constrains the wrong type. `T` is the `Operations` implementation,
+> which is typically a zero-sized marker type that carries no data, so `T:
+> Send` says nothing about whether the data a `GenDisk` actually owns can be
+> moved to another thread.
+>
+> A `GenDisk<T>` owns the queue data `T::QueueData` (stored as the
+> `gendisk`'s `queuedata` and dropped when the `GenDisk` is dropped) and an
+> `Arc<TagSet<T>>`. These are the values transferred when a `GenDisk` is sent
+> across a thread boundary, so the `Send` bound must constrain exactly them.
+> Bound `T::QueueData: Send` and `Arc<TagSet<T>>: Send` instead.
+>
+> Fixes: 3253aba3408a ("rust: block: introduce `kernel::block::mq` module")
+> Cc: stable@vger.kernel.org
+> Reported-by: Priya Bala Govindasamy <pgovind2@uci.edu>, Dylan Zueck <dzueck@uci.edu>, Yuan Tan <ytan089@ucr.edu>
+> Closes: https://lore.kernel.org/all/cover.1780633578.git.ytan089@ucr.edu
+> Signed-off-by: Yuan Tan <ytan089@ucr.edu>
+> Link: https://msgid.link/20260709100100.604252-1-yuantan098@gmail.com
+> [ Andreas: Fix tags to make checkpatch happy. Change summary line. ]
+> Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
+> Link: https://patch.msgid.link/20260929-rust-block-for-v7-4-rc1-b4-v1-4-642a4c1aebd7@kernel.org
+> Signed-off-by: Jens Axboe <axboe@kernel.dk>
+> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-[ Upstream commit 195f88c57737f16217b5dece054a4cfd74c33550 ]
+This one breaks most Rust builds:
 
-Commit 3e2f544dd8a33 ("net: get stats64 if device if driver is
-configured") moved the callback to dev_get_tstats64() to net core, so,
-unless the driver is doing some custom stats collection, it does not
-need to set .ndo_get_stats64.
+    error[E0220]: associated type `QueueData` not found for `T`
+       --> rust/kernel/block/mq/gen_disk.rs:198:8
+        |
+    198 |     T::QueueData: Send,
+        |        ^^^^^^^^^ associated type `QueueData` not found
 
-Since this driver is now relying in NETDEV_PCPU_STAT_TSTATS, then, it
-doesn't need to set the dev_get_tstats64() generic .ndo_get_stats64
-function pointer.
+because there is no `QueueData` in 6.12.y. We would also need commit
+06dad60393f2 ("rust: block: implement `Send` and `Sync` for `TagSet`")
+for the other bound anyway.
 
-Signed-off-by: Breno Leitao <leitao@debian.org>
-Reviewed-by: Subbaraya Sundeep <sbhatta@marvell.com>
-Link: https://lore.kernel.org/r/20240311112437.3813987-2-leitao@debian.org
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Christian Schmidbauer <opensource@grische.xyz>
----
- drivers/net/vxlan/vxlan_core.c | 2 --
- 1 file changed, 2 deletions(-)
+I would suggest dropping the patch for the moment.
 
-diff --git a/drivers/net/vxlan/vxlan_core.c b/drivers/net/vxlan/vxlan_core.c
-index 355337d428e5..c3e2d78d2dd1 100644
---- a/drivers/net/vxlan/vxlan_core.c
-+++ b/drivers/net/vxlan/vxlan_core.c
-@@ -3195,7 +3195,6 @@ static const struct net_device_ops vxlan_netdev_ether_ops = {
- 	.ndo_open		= vxlan_open,
- 	.ndo_stop		= vxlan_stop,
- 	.ndo_start_xmit		= vxlan_xmit,
--	.ndo_get_stats64	= dev_get_tstats64,
- 	.ndo_set_rx_mode	= vxlan_set_multicast_list,
- 	.ndo_change_mtu		= vxlan_change_mtu,
- 	.ndo_validate_addr	= eth_validate_addr,
-@@ -3218,7 +3217,6 @@ static const struct net_device_ops vxlan_netdev_raw_ops = {
- 	.ndo_open		= vxlan_open,
- 	.ndo_stop		= vxlan_stop,
- 	.ndo_start_xmit		= vxlan_xmit,
--	.ndo_get_stats64	= dev_get_tstats64,
- 	.ndo_change_mtu		= vxlan_change_mtu,
- 	.ndo_fill_metadata_dst	= vxlan_fill_metadata_dst,
- };
--- 
-2.54.0
+Andreas: could you please take a look and see how you would like to
+resolve it, if at all?
 
+Thanks!
+
+Cc: Andreas Hindborg <a.hindborg@kernel.org>
+Cc: Boqun Feng <boqun@kernel.org>
+Cc: linux-block@vger.kernel.org
+Cc: rust-for-linux@vger.kernel.org
+
+Cheers,
+Miguel
