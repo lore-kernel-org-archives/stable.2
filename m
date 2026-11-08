@@ -1,89 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794171865;
-	b=mkwO3mzDW+DyO6rjAGlt/h6/PKZd7CTuUKHYGkFSCkzA8BvcmQd3TFpiSu0XO4SvLzvP
-	 vzYaEqNSVmeBzZAxwojzkcJr7HbYx2oaEZYbHan437DD2l1alhfplRdrT2TMJ0WhOFkTS
-	 K8GAhrufL+MHFEPEjN8LC7UWedfdn6NNBPWmK6DaKC+v8hu7KcZ/MN5j84uAQ6gagS/tO
-	 aSDHpQ2cwcM9mc5CrHaAHeHn42ni7/kt7R/vK7cX6MdhjN69DLTKo7hdPi8G5RAHjfDrF
-	 tNDZVmBNS4s5KYsmukiZbZi7BM2SKNlyreGyxqMnxfz4c6PN9DXVCiWNtpaVfWtnohw==
+	t=1794171861;
+	b=PBNtqce8W4znLMaTafB0OtXGFIENBfXsk+Q8Jrtta4X6rfU3RXOgAJyo7rJOeuebkUMj
+	 4a7P52O5zxt+2OnK3mhVr/+5A8wsIC1BmYjDheJ36+M8U9LwJiGRMQlWjQLglcqP8us2l
+	 6yTvLULQOX8w7nlbRNiC8cq391KqIIfj88xsArSR8GNuxGhIg//Voll9/0lRxGspirvMt
+	 Bg6IdaRI1zjIN14EV4E5AnqIg57INBI9XYP5/y0C4xkk4NFNLDF0nJgSsmNKClRUIHPqJ
+	 OduhWjUS7KZq1Ju4YWZHX+Yg10dLamz9biBBoQ+hEUpixWKQsnlepurmfRmYdzvh4rA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794171865;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=5GT+YOwt4Wk5UaYozi9TZs9C5IMfkSYjhBBTrIEYhmQ=;
-	b=AkYDqPGiS6B5LzBpV6Cs6l4WrIGPEWqY6Tvfr6h/i1vhNFXaQ79yFt8HO00nAsWqpxyp
-	 AG65OPThD5VZVRSKxvYBZrWkm4CqyQpsZUWqRXAfYeA9kxsMN9fKK+GmBn+GH3bFUHzyC
-	 yLOUU5S72SgcF7aZ+F2l4OudqkAbv7XZXaoYv02lVFbxDxdzHREzhxO5wELwx8CN6Fit6
-	 iG2V2B2TPQIdVPzlZC8Jhiu/4gqkwAd8lrA6+gym4pSJ3eEncsJuqwr4gyzMYnVmODEO5
-	 iJ7wdf5iUWTlg+BxkUNBk1IKSYbKkOXQnUJie/spJo7SXUV4+pc3uBVVzlJhlex+nhw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794171861;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=kM0sWvRqwyaIM4HdtAWV8nIOqnkjhOyPwGDTfyVbww8=;
+	b=fHfqVmlhg+6iBTsMN7WumKZzU3vPqFBeByCeg0CujPMOButXBY+SZxumOuE80h2/4EMO
+	 pZLDvZq990xDFa0kr5XwOVeEqsnF/v4PTnz8/c2SRXxWoD0O8gkw9MqYNEWJk09N5SNqB
+	 XSuzAw5K1wCJ8D2fC2I+M2ESq70GtdzdZbS8fTWrcp+CBIrbPWdiwPuhaAOdRTXQzzb+e
+	 QyPGbseUBwtULblUMdjNyIydj4qAoBoS9llztNNwIq2jtcYIk8udM6BkvUlSwBw7psD0R
+	 3ZdJ2y/+TGkaPhoI+hKywQQpiuB1a6aGVU//cpdPRk9ze+p60PMZnaPaSlra9GzRsRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="QtEgshp/";
-	arc=none smtp.remote-ip=209.85.160.43
-Received: from mail-oa1-f43.google.com (mail-oa1-f43.google.com [209.85.160.43])
+	dmarc=pass header.from=postmarketos.org;
+	spf=pass smtp.mailfrom=postmarketos.org;
+	dkim=pass header.d=postmarketos.org header.i=@postmarketos.org header.a=rsa-sha256 header.s=key1 header.b=iJNt7lPz;
+	arc=none smtp.remote-ip=95.215.58.200
+Received: from mta1.migadu.com (out-200.mta1.migadu.com [95.215.58.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B0B4606A332
-	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 21:04:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B0B4606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4399A606A323
+	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 21:04:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4399A606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=postmarketos.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QtEgshp/
-Received: by mail-oa1-f43.google.com with SMTP id 586e51a60fabf-49429181ce9so185060fac.0
-        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 13:04:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794171864; x=1794776664; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=5GT+YOwt4Wk5UaYozi9TZs9C5IMfkSYjhBBTrIEYhmQ=;
-        b=QtEgshp/hMdeDywBQqrU8jr4TeOfNd23D70HubU4cWYXtrvU0f8+P1tZtrSSRhL8h4
-         NkZI+unS2oj9gniScMyAsi7iQhS3EddiwtjuwolxsaNF8WYQovDw62JQ8itQ0CnZuVUc
-         LgHniQiVENtOjxwE4e2c45rUFubF6Bh3l9sMUqGK5cNNQoPhGiYcbHnyLr7vbBaTmfHW
-         IlefwwyscLyhVnL1kLE8rRtyGHXUL96gA4dGHQwBCQ7NBm/Cdp8060cDsHwJUR7KTAG/
-         dT+Xd924Q0l6IeuFJ9aA8NCbxaF86vaiFyO0u4KaY2HFwJ8ZNU5cII2Bn5x+ko+aPnIz
-         biBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794171864; x=1794776664;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=5GT+YOwt4Wk5UaYozi9TZs9C5IMfkSYjhBBTrIEYhmQ=;
-        b=TIhNCN0yd/s4+OAHhRk2zedw4VWZjhAHZA92vZmZFkUeMrL115wjZ77ch9qFlqDHE4
-         fGi4V/gMNr2Z/RV92tAH2frsEdZHtXVyhoyPNl1GwE4o02sKgJTOLEEI4CH3gOcXP7k1
-         fO1i0BucplLTBgzq9YVFHcieaYWYlMLzgtA8p+1ffjBmAPWYOp1tctPQT2UgRDSH837u
-         jQqUQlfAgYOWR86vQbN+nRD8en8jhPMxOoJWY6KIBjNNgHff/pPHkUwy1f1HBw35gNrY
-         V0AhZRCGHc5PAx7HH0la9UbXqUeveKCMTv9Fu6zgxQrQEtlfzk7qQnRayN2g/mRgjjD+
-         yrPQ==
-X-Forwarded-Encrypted: i=1; AL+hErEQBJ0TmLzIxsnNhgVgx94UMp8P5zCI3+UcITnqQxOuel8ksp8YTJ7DeLsu6Hkxt4nRwzUL/Ls=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8/bw8KxyriS2svN8wiOEW03YuPcX04Ru50t8qFwcXf+AI6PfTS
-	LnHIsUSAEmnIHFDvyGqSvhUFYCXDnHyFPPRIO4CdtbIJH4As0lBjNAul
-X-Gm-Gg: AYBFou2bCnOXLBnJXg+qWJN2n/eIzC51kv6CFD36AWEaZZ1jfQBj7TEQyOP6gvyx8OU
-	oSfS7fbSDksxBEE2iNhw1WycI2Nt3wIzshxZglZyZKKwFxg5OWPb1/mzhznc6HUHrcpHBTH/1m3
-	ZUfsM7tC4AjaT+H+iGhkJw9qhhZeJ9u/2pMhkAUlHp1eoCETanv3TXZxraaUj7QzwuJYTYNqL6I
-	NO3KDk/0kTEaxBICi/l/mbMlPt8iHZ2BcUCU1Z24SfvsPv3rVv+4F/ca8nnNMqxsMZeISX/eb9r
-	uBjyTHAs+wVhphgpaCXvdg3xxjlhbqwxh1DvVv5mBxZ+HkfOvOkKEVU8mHt2rcboH1WJBrpJRbO
-	vvLRniEKmanlrYVMVD9Jd46rVsUlUGXn986zuUs9ZRYgj8NRIeg1kIzhRNPLqyhofLQMoffCbgR
-	9ogPseaJ/bU76ZJrKS/wWN9vo6okNV7soq3K0Jg0KRz4XHRML36COBav0Qn7l+BB8oiRbMacevF
-	qVG1CNW9/U77VRZOc9NOFOkIy+ZbROhXytJC0Qi/JePLJSBY8hCUvev/2fn120dF3BSdVasg9s6
-	DXewsnY3FpBI1E4x8H39XgUluYcmhbv2PoyzBfpNgh2gAOJLyWzavoZNNbEm6iVerGKjnwl5jK+
-	kePSB1Qo2UduFE2U40g3Txjdkc2T3Ce286thoEOX+uVD4Bmjm0pClIsBmVFpGjOmzY17SrYdYV+
-	WXi64wS3RP1lzetHGNI6dmI/bgUmV382/yLRI1NKsaNGaKjL6ULQlW
-X-Received: by 2002:a05:6870:538b:b0:49d:d617:b692 with SMTP id 586e51a60fabf-4adecb98a9dmr1074710fac.49.1794171863950;
-        Sun, 08 Nov 2026 13:04:23 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4ade695a5a6sm3597440fac.10.2026.11.08.13.04.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 13:04:23 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Sun, 08 Nov 2026 14:04:21 -0700
-Subject: [PATCH] mtd: rawnand: r852: prevent card work from being requeued
- during shutdown
+	dkim=pass (2048-bit key, unprotected) header.d=postmarketos.org header.i=@postmarketos.org header.a=rsa-sha256 header.s=key1 header.b=iJNt7lPz
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=dTluY3wL/0sysZUPdwzj0pTG3UDe3WWaIsxDKVUtncE=;
+ c=simple/simple; d=postmarketos.org;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794171858; v=1; x=1794776658;
+ b=iJNt7lPzscNiipTeRHB+OOf9TBl8sVQFh98BTKVYcUCdAE3j6+v3VxSkstbwwDnnWzfp+unR
+ FqZmlmOCVkwu6S2X+pgEX2Iix43gQoU7e1e6no51v/XskDy2gLYQQSOyfj826TcqenCFtno73bs
+ k6K+63DDq3EoUrsKfCp99rHpE9YQPyfiXDliLC0vItQsyQwAn7xezcBpZJvDssPwbk3et+sxnQX
+ dqytjHCMSCVnykqBzVI6HMIImCuhWOrL0D5f/Mmm/0lIlRneuRRxbYTG1edaSutoBzZGeP2z1y0
+ WEMm+fYE2jtR5qY+W9be7W5up54SfzhU0RwjjyNza9Y/A==
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 2bcf0842cc1d433d;
+	Sun, 08 Nov 2026 21:04:18 +0000
+X-Mizu-Trace-ID: 2bcf0842cc1d433d
+X-Migadu-Flow: FLOW_OUT
+From: Paul Sajna <sajattack@postmarketos.org>
+Date: Sun, 08 Nov 2026 14:03:44 -0700
+Subject: [PATCH] arm64: dts: qcom: sdm845-lg: Fix dark corner in backlight
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -95,54 +63,72 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261108-submit-r852-shutdown-work-v1-v1-1-8e448ad7c54c@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWM2w7CIBBEf6XZZzcCltb4K8YHLltBU2qAXpKm/
- y7oyyRnMnN2SBQ9Jbg1O0RafPJTKMBPDRinwpPQ28IgmOg4Zz2mWY8+Y7xKgcnN2U5rwHWKb1w
- 4cjkQa+WlZ10LRfGJNPjtp78//lz+LzK5OutCq0SoowrG1WrM9hxUKEFbhuP4AqcfqoagAAAA
-X-Change-ID: 20261107-submit-r852-shutdown-work-v1-15fe04537064
-To: Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
- Maxim Levitsky <maximlevitsky@gmail.com>
-Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
- David Woodhouse <dwmw2@infradead.org>, stable@vger.kernel.org, 
- James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
+Message-Id: <20261108-fix-judyln-backlight-v1-1-af4b946f559f@postmarketos.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MWw5AMBAAryL7bRP1bFxFfFS7WKSkRYi4u8bnJ
+ DPzgCfH5KGOHnB0sufVBhBxBHpUdiBkExjSJC2FSCT2fOF0mHux2Ck9LzyMO3aUySLLhaZKQUg
+ 3R8H7t037vh9m3SnZZgAAAA==
+X-Change-ID: 20261108-fix-judyln-backlight-be385341ce7a
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Amir Dahan <system64fumo@tuta.io>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
+ ~postmarketos/upstreaming@lists.sr.ht, stable@vger.kernel.org, 
+ David Heidelberg <david@ixit.cz>, Paul Sajna <sajattack@postmarketos.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794171855; l=1594;
+ i=sajattack@postmarketos.org; s=20250422; h=from:subject:message-id;
+ bh=g4Z6Q6hAGik68KEMEgTB9mU2ims6k+wWZpcxRkDc0lA=;
+ b=rCWJIOWSFMq0E2D/zwNxHJ9h5pM653XnhE3C970vtLC6leQX9fU9dvCSZXTnZtFOQXoFblAg2
+ AXnSLrvLrDyBI82J6RAX5O2nWbgqPYP7tz5lhsit+Gc/Yms42gMDGhG
+X-Developer-Key: i=sajattack@postmarketos.org; a=ed25519;
+ pk=TwacvEOiRJ2P2oAdEqIDrtQTL18QS4FfcHfP/zNsxkQ=
 
-The card interrupt can queue card_detect_work after shutdown cancels it
-but before interrupts are disabled. The worker can then access the
-controller after pci_disable_device(), and can enable card interrupts
-again while processing the event.
+From: Amir Dahan <system64fumo@tuta.io>
 
-Disable and drain the delayed work before turning off interrupts and the
-PCI device. Later queue attempts are rejected while the IRQ handler can
-still acknowledge events until interrupt teardown completes.
+Restore qcom,num-strings to the default of 4.
 
-Fixes: 67e054e91924 ("mtd: nand: Add driver for Ricoh xD/SmartMedia reader")
-Cc: stable@vger.kernel.org
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+Downstream had qcom,led-strings-list = [00 01 02] set, so for upstream
+we assumed qcom,num-strings was 3. [1]
+
+However downstream also overrides qcom,num-strings to 4 in the driver [2].
+
+Therefore, the correct value is 4, and that value is already the
+default, so we don't need to set it in sdm845-lg-common at all.
+
+[1]: https://github.com/LineageOS/android_kernel_lge_sdm845/blob/lineage-22.2/arch/arm64/boot/dts/lge/sdm845-judy/sdm845-judyln_lao_com/sdm845-judyln_lao_com-panel.dtsi#L29
+[2]: https://github.com/LineageOS/android_kernel_lge_sdm845/blob/lineage-22.2/drivers/leds/leds-qpnp-wled.c#L691
+
+Fixes: c6c66aa3ef33 ("arm64: dts: qcom: sdm845-lg-judyln: Add display panel")
+
+Signed-off-by: Amir Dahan <system64fumo@tuta.io>
+Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
 ---
- drivers/mtd/nand/raw/r852.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/mtd/nand/raw/r852.c b/drivers/mtd/nand/raw/r852.c
-index 92c47d351c27..bf1c1be7f2aa 100644
---- a/drivers/mtd/nand/raw/r852.c
-+++ b/drivers/mtd/nand/raw/r852.c
-@@ -1007,7 +1007,7 @@ static void r852_shutdown(struct pci_dev *pci_dev)
- {
- 	struct r852_device *dev = pci_get_drvdata(pci_dev);
- 
--	cancel_delayed_work_sync(&dev->card_detect_work);
-+	disable_delayed_work_sync(&dev->card_detect_work);
- 	r852_disable_irqs(dev);
- 	synchronize_irq(dev->irq);
- 	pci_disable_device(pci_dev);
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
+index 84f0e1f0bcd3..e1ecd43cba0f 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
+@@ -538,7 +538,6 @@ &pmi8998_wled {
+ 	qcom,current-limit-microamp = <20000>;
+ 	qcom,ovp-millivolt = <29600>;
+ 	qcom,switching-freq = <800>;
+-	qcom,num-strings = <3>;
+ 	qcom,cabc;
+ 	status = "okay";
+ };
 
 ---
-base-commit: 30daaf3e7897b4a8d9b72e5b0c86dd6e2a4d7d85
-change-id: 20261107-submit-r852-shutdown-work-v1-15fe04537064
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
+change-id: 20261108-fix-judyln-backlight-be385341ce7a
 
 Best regards,
---  
-James Hilliard <james.hilliard1@gmail.com>
+-- 
+Paul Sajna <sajattack@postmarketos.org>
 
