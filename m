@@ -1,55 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169688;
-	b=uUp2AqiTTqWE/7XePt4A/dWoTWpJ/AUDNAX/icGEFbRyi/18fdVNkanLIe4fM6De7rwo
-	 lpbjTuZ7ppCRDdt3PXrV0q1Th2yU/e5e6lNqiI17iSSE0XzkTeJGPcU2qTB7yGS/11EA/
-	 hcwAF9J6rV1Q7xUhwCUkL7RfoFjRUnYqhMteIss7ieh7PrFTqY79my1xFSKiL9L/Nv3DK
-	 Mjo92mCIKR0c3uijzHpHU38hIIrVw6MNETi+zWt9wSuPnwgIGbMTUzl3qc15sKWH7oI16
-	 ezjyo6Tp3GH3/oKg3Qjs4N42T1jm2CAHVgrrGVk3TShUuy3CEfcQ7dKzmvmXADMFBFg==
+	t=1794169689;
+	b=S71XR5UDPjZjzMgiwS4zzDn2kaHJ0E+/gz1htmX4hO841yqLIk4ZHTdfo4g6QuiYfAQl
+	 6L1FcTncAS0ZGK/o19PulU4IOpzAJLQBBi+qv8Bwwh3Ifo0fMPzOeJj5FtmRv6FPY5ifH
+	 CxRHNyVhggqT0CUdoZ/qwac1KM3+U1O9jbaVrW0tuziCxLVz3dK1OywkpuJmb130GyXCX
+	 Jw4NDgalTvNvYIskHKkkeTvCuqg7+JMO5enpM4jgihw3LzrYNkAZK9rcE2J3eGdL9i2dl
+	 2L+mXfkDtFQuXkyG8e0NGTiso/FYcEuvfFMQ3KYnVQinOCWOWYyHY+0DzMJo8TKpI3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169688;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169689;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=5YaiTR6YvNrjuQTrS8BnXcbgh9AurDD3C2wJRI/aBVM=;
-	b=O6QA3s5Qo/Am7oEPHAAiYK6dUCU4PF40nnIMGw4ZUpVr0a3CqZkQkfNEeLV5lXpRpQiU
-	 5JSjXj3ECjZbtS9HOHJ7E86CAPXmD36kBf3gh+QsyCLnfo8LxULNruVecyZ6IpUwSsSC0
-	 S/1h65XdeQtZz4js4OZd4hBq2fyVVRkIdgsRcxnVSj73xg0xyCc/OGVhff4L5kxxUbybw
-	 8rUTzYmx6hZcpnLgJMMEs6sAL3gOaieoEwhUlrkCZuOB02VOIuRNxYCxmsPXPVUjlevwK
-	 v4jK9tXSDVqDJQBof3yBPETMD0OFicN8tGOo6Yiw01Vdu0STyh/XgQJYaQl9U0fWiHw==
+	bh=Z5j7HhXnzELbkFkJqEZQNTDWxIhKaeKvJLsv/O41RlA=;
+	b=VG/a9G+Js/3yDE4aUjwle8Gq27feebscLz7q0pCMuwxnN2C9wiDHAwC7OV11nzyAH5JA
+	 +wFmspT1ddtO6wy58j4bmCs10A942Y28G0c+Dywr+ZXO+b36GL+0U81twjbbG2kmH55em
+	 gnHYW+JPjhoBEjuUqxT7lIOSZI/w/+7DctpoAeFQg+3D9sc/WTeKVKk2oUpTuiMPEZ0Lx
+	 PNK4eZKpkkkYewBRh4kQWaPo0AYjAlvgT1n5Q20Xv+gUHoGcYIy6ilWET8g26tAPiijzF
+	 4lFZgwhaj3pqbMC6JbdnNYYEnn5Ob2Twl6xxRg7tbdBq581bwMW7Urmb7MT5T2u1viA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=drJI3pUc;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gfNPdoBK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EF16606A335;
-	Sun,  8 Nov 2026 20:28:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CE0C606A339;
+	Sun,  8 Nov 2026 20:28:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=drJI3pUc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61B2B1F008A6;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gfNPdoBK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0F7B1F008BD;
 	Sun,  8 Nov 2026 20:28:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169687;
-	bh=5YaiTR6YvNrjuQTrS8BnXcbgh9AurDD3C2wJRI/aBVM=;
+	s=k20260515; t=1794169688;
+	bh=Z5j7HhXnzELbkFkJqEZQNTDWxIhKaeKvJLsv/O41RlA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=drJI3pUcu28AmbrSo8Vp2Ld0QhvA3rTIT70Q7TlkET+5DSFDiSPMy2kwY7h7E+hjp
-	 3JZ8qRGYgwBa3/2PwT3JQ9jiN2GiESvI7N8pyEQ9fg4wQvdI0KK/t5Dnk1It2HouZU
-	 Fzxd8qKTTtguL4YRPBf8GyZdMrm9bMeZ6sXbB9nMQxirougefh3pMwmPCinLYkPB1P
-	 xMfKjDxcS/10JvYt55IS17I6ml3xRSxhOQvPwFj2KYqL8Hih6Fn0NxywxPxf1VFdEv
-	 /lxa+zT5XQAkaaeE8mYSDdxC/b5an/LHIUv/1D+Kiplz16EH8Yg9cqLiBBtbdoSmfC
-	 EqBEHhP3gIJ0g==
+	b=gfNPdoBKXcAtf6hRjx3oBKNvxuctMSQpp/iU/H5+S3lFaJwT4pILePYk9ynCAGLLH
+	 ZQJ8bqirTCcBOaXloqpNaEz2VKMDfqtY8wq4tMkfj7Ehg8JKLyIxP6QwEiN/8RBgm3
+	 zXrTuKZvl5Vrr23sVgTtroZLOxmzLMKXtdCYkWpY2T7PclwpuiIUqThyvEPj8VvwKm
+	 DKqLyBO6KsoAsvY50IdhNuQicPCA+ngvurlEjB2UN3IXpMRho/hJneE4TnKedvnJhC
+	 ehL1nyF63OVVy5QiPeDpZl6kbiEl0Xs2vCWKJueP591ZB0wWAHb9+2Eqsz54sXK6pX
+	 7YEr5HJQOZm6w==
 From: SJ Park <sj@kernel.org>
 To: stable@vger.kernel.org
 Cc: SJ Park <sj@kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>,
-	Usama Arif <usamaarif642@gmail.com>,
 	damon@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [PATCH 6.1.y 1/2] mm/damon/core: skip applying scheme if region split for quota fails
-Date: Sun,  8 Nov 2026 12:27:57 -0800
-Message-ID: <20261108202759.117377-2-sj@kernel.org>
+Subject: [PATCH 6.1.y 2/2] mm/damon/core: remove unreachable damos charge_{target,addr}_from
+Date: Sun,  8 Nov 2026 12:27:58 -0800
+Message-ID: <20261108202759.117377-3-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261108202759.117377-1-sj@kernel.org>
 References: <20261108202759.117377-1-sj@kernel.org>
@@ -64,101 +63,79 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Patch series "mm/damon: fix DAMOS bugs in core, paddr and vaddr".
+damos_quota->charge_{target,addr}_from saves the target and region the
+scheme's quota limit is reached.  damos_skip_charged_region() skips the
+target and regions before the point.  The target that was assigned to
+charge_target_from could be dynamically removed from the context by the
+runtime parameters update (aka commit) feature.  In this case,
+damos_skip_charged_region() cannot find if the point is passed or not,
+so the scheme is effectively disabled.
 
-Fix misc bugs of DAMOS.  Patch 1 makes DAMOS less stress memory allocator
-under extreme situation.  Patches 2 and 3 fix wrong folios walking in
-DAMON_PADDR.  Patches 4 and 5 fix wrong folios walking in DAMON_VADDR.
-Patches 6-8 handle extreme and unlikely memory situations that can cause
-divide by zero and underflow.
+Similarly, the user could also remove all the regions of the target
+using the runtime parameters update feature.  It would be uncommon to do
+that, but it is a supported feature.  Because the skip pointer detection
+logic (damos_skip_charged_region()) works for each region of targets,
+this result in the logic is entirely skipped and the scheme is
+effectively disabled again.
 
-All bugs are discovered by Sashiko.
+The user impact is that the DAMOS scheme could suddenly stop working
+under certain uses of the runtime parameters update feature.  It could
+surprise users. No crash or leak happens though.  Users could also
+simply work around by re-installing the scheme.
 
-This patch (of 8):
+Catch the corner cases in damos_adjust_quota() and reset the pointers.
 
-damos_apply_scheme() splits a region and apply the action to the subregion
-if it is needed for not violating the quota.  The split operation
-(damon_split_region_at()) could fail for allocation failure.  In the case,
-the quota could be violated.  From the user's perspective, DAMOS becomes
-more aggressive than expected under the extreme situation.  Handle the
-failure.
-
-The user impact is not critical.  The failure of damon_split_region_at()
-is unlikely since it is arguably too small to fail.  Also DAMOS being
-aggressive is limited to the single region.  Users can set min_nr_regions
-to set the maximum size of each region.  If it is reasonably set, the
-transient overhead shouldn't be critical.
-
-The issue was discovered [1] by Sashiko.
-
-6.1.y porting notes.  Modify damon_split_region_at() to return failures.
-It is a part of commit c60874860762 ("mm/damon/core: handle region split
-failure in apply_min_nr_regions()").  Without it, build fails.
-
-Link: https://lore.kernel.org/20260901131850.98037-1-sj@kernel.org
-Link: https://lore.kernel.org/20260901131850.98037-2-sj@kernel.org
-Link: https://lore.kernel.org/20260718171523.87547-1-sj@kernel.org [1]
-Fixes: 2b8a248d5873 ("mm/damon/schemes: implement size quota for schemes application speed control")
+Link: https://lore.kernel.org/20261020023958.108276-1-sj@kernel.org
+Fixes: da87878010e5 ("mm/damon/sysfs: support online inputs update")
 Signed-off-by: SJ Park <sj@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: Usama Arif <usamaarif642@gmail.com>
-Cc: <stable@vger.kernel.org> # 5.16.x
-(cherry picked from commit 90c2fa6adfed7abe0935506a43cdff3a05c1fff0)
+Closes: https://sashiko.dev/#/bug/linux-cd0c55fc-0cc8-45d8-9637-3334811c49b8
+Cc: <stable@vger.kernel.org> # 5.19.x
+(cherry picked from commit 5695abc4e742b947f586bfb6a080a80ad9957e5d)
 Signed-off-by: SJ Park <sj@kernel.org>
 ---
- mm/damon/core.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+ mm/damon/core.c | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
 diff --git a/mm/damon/core.c b/mm/damon/core.c
-index f0da5cb2b88a0..9206737d05ae7 100644
+index 9206737d05ae7..01f93146b92fe 100644
 --- a/mm/damon/core.c
 +++ b/mm/damon/core.c
-@@ -718,7 +718,7 @@ static void kdamond_reset_aggregated(struct damon_ctx *c)
- 	}
+@@ -860,6 +860,26 @@ static void damos_set_effective_quota(struct damos_quota *quota)
+ 	quota->esz = esz;
  }
  
--static void damon_split_region_at(struct damon_target *t,
-+static int damon_split_region_at(struct damon_target *t,
- 				  struct damon_region *r, unsigned long sz_r);
- 
- static bool __damos_valid_target(struct damon_region *r, struct damos *s)
-@@ -810,7 +810,8 @@ static void damon_do_apply_schemes(struct damon_ctx *c,
- 						DAMON_MIN_REGION);
- 				if (!sz)
- 					goto update_stat;
--				damon_split_region_at(t, r, sz);
-+				if (damon_split_region_at(t, r, sz))
-+					goto update_stat;
- 			}
- 			ktime_get_coarse_ts64(&begin);
- 			sz_applied = c->ops.apply_scheme(c, t, r, s);
-@@ -1015,15 +1016,17 @@ static void kdamond_merge_regions(struct damon_ctx *c, unsigned int threshold,
-  *
-  * r		the region to be split
-  * sz_r		size of the first sub-region that will be made
-+ *
-+ * Return: 0 on success, negative error code otherwise.
-  */
--static void damon_split_region_at(struct damon_target *t,
-+static int damon_split_region_at(struct damon_target *t,
- 				  struct damon_region *r, unsigned long sz_r)
++static void damos_fix_stale_charge_pointers(struct damon_ctx *c,
++		struct damos *s)
++{
++	struct damos_quota *quota;
++	struct damon_target *t;
++
++	quota = &s->quota;
++	if (!quota->charge_target_from)
++		return;
++	damon_for_each_target(t, c) {
++		if (t == quota->charge_target_from) {
++			if (damon_nr_regions(t) > 0)
++				return;
++			break;
++		}
++	}
++	quota->charge_target_from = NULL;
++	quota->charge_addr_from = 0;
++}
++
+ static void kdamond_apply_schemes(struct damon_ctx *c)
  {
- 	struct damon_region *new;
+ 	struct damon_target *t;
+@@ -890,6 +910,8 @@ static void kdamond_apply_schemes(struct damon_ctx *c)
+ 			damos_set_effective_quota(quota);
+ 		}
  
- 	new = damon_new_region(r->ar.start + sz_r, r->ar.end);
- 	if (!new)
--		return;
-+		return -ENOMEM;
++		damos_fix_stale_charge_pointers(c, s);
++
+ 		if (!c->ops.get_scheme_score)
+ 			continue;
  
- 	r->ar.end = new->ar.start;
- 
-@@ -1031,6 +1034,7 @@ static void damon_split_region_at(struct damon_target *t,
- 	new->last_nr_accesses = r->last_nr_accesses;
- 
- 	damon_insert_region(new, r, damon_next_region(r), t);
-+	return 0;
- }
- 
- /* Split every region in the given target into 'nr_subs' regions */
 -- 
 2.47.3
