@@ -1,101 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794136716;
-	b=hFg+j8vbALNlrT+8ImCo7xHTPCrN2I7yddf/Mqe8XuQHTi5jjUZV7HAlFMC0zUjZdhDG
-	 /Q2Md1EYHbqJ+QuZgYj7J/DV6Ht+TGiEoZn3NjdHvJAWUgiFKDHJABXnc82wLvanIN9r4
-	 eEY/FRgcDjUFTOEh0ktm6F1IpqKD6iK+4UQ4TRMNwmNErJ3J/woRZGUI49pssrWv5J0s4
-	 MlfIr8Wx0naSo5w/pHhlSkVyhxj3CcJZmh6vWg6g9IOPXmrur4C47/ZuCv5LgPxrIomMy
-	 5bjYvLrNPBUMeA5b9k9uxD3o02euRL9xAp/rU7LYT/g97ldV0f+681S4bpUSai+vONA==
+	t=1794136844;
+	b=vjUkqE+WVX19bIsNDhNn/L2nYvfPIA7IwHkRl3nRlhD9LROr/PewL5o0lggMnLMjIpIJ
+	 OZHRiHw1ewi/7RF6zfvewHGb/3sKhpsFBzNU8w3JDMaZigAfm3m3fGLnGbJ2w+YcBKLUR
+	 tj9jCowRJVGRW09HS9Jl0HPYay1LMs5aEBfl9ce8IopPQrqDCCQKz6BKPnWPj0hsJk0/1
+	 ve0J7p+GaBoY97z4sNeu+y7gIzpc4uj70xqFM8BzQrR1yb8Ndd/5mDgqROjTxb+Ty8jNn
+	 BfdCYufweB48MVafvSglibjVB1UUkJwNuQ78iJaWhMjJKZ43f68/xDlgIoRdAcvFNCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794136716;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=GFsYetGjQGfqyMGoMWETXho8ORP/Lahdw6Uraq41F9A=;
-	b=BDTmkpUYE/l5yjE2FMckmwPZAblZE43jctZN4dHUK4QU4ZJVuRcPqdYfah//OxqmNqur
-	 Rd6w07XRJpwDqud5HwxLTE8/HtiUcEQZUcQRYKDmDMMx8l/6/aTRZrOcp3WMkmn5nlE4l
-	 mLGpZQOvG2yiS1mA9A1BIbBSydjT1OOd+uPfRLTKe08vkGC+3dJJwo2QPFE9nOPWliTQx
-	 SsK46Ka/GbLEDZF8e5X/XIU+ZpnKkWUNFhBoUdYxPDDtxpPIUU42nsAlcq87UgNaggUy+
-	 hlHP3qcUnYpg2D35YVo4+UoU+eJu+5MUpnaCRUuwsG3VuSGy3gK/djsQ61/ZxVAX9HA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794136844;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=sxnt7oUMW0+LsC7UswLGsHASMXehJdFlGBqwnQyDf7A=;
+	b=3UQRduuta21Ima5FA5UBQIXhfG0JDwg+jv41vLfqLbCsT4oTbwTk5KEt82C5CJIkSDRE
+	 fitNylISz7svpym207PPrE+L2HLJIEilYP6gILdZIjbBgBHuaxkTtweb1Qf03QKp7B8Et
+	 t77j3riH3pEoA+y309ThPOQrEkmrvUO8Ci38dSjfFYtij2VoEDHkYHCm9lI+9B51LRaFJ
+	 YOUQGSx+BR6//n2ffcr76rNjRxLGGsTGQxKuW/Z/E19TMZ2Mj7ULiogDJYWTUiftNCVbE
+	 tRskJihyR7ZEyvPCecXZ5amS4BLk+/4nUkRm6cQKXsU0beMTaZsYPckarDTkENHAaJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=isslab.korea.ac.kr;
-	spf=none smtp.mailfrom=isslab.korea.ac.kr;
-	arc=none smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5430606A31C
-	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 11:18:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5430606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-3282db206d3so124377eec.0
-        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 03:18:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20260707.gappssmtp.com; s=20260707; t=1794136713; x=1794741513; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GFsYetGjQGfqyMGoMWETXho8ORP/Lahdw6Uraq41F9A=;
-        b=EJnjOekExMq+4XmCNDBgz8AvVL2Qyl/i2Lo1WR48gl6hs9cQXZzHDQ1HapMXFjF9kg
-         CoWyta09y4OCZXpJ1mCMFiHQCHpxRgeO1BPT4fQo9F4HK5xVnbRZfQ1u75Df10xFHntL
-         qKJvJDRq0PGo7Af196CHJ5IxuV4G8r1eq6+fJMI1l9wAciNP5ilv2Sf0PSZQoA/061tE
-         Mc8DOjlRE7/X6Hirj2CZ5tLASWT8l7h1yVhcHydsQRDvUcE/8ioh+S1Dv9FPvtVKvhUM
-         L81Dka+AVaT9V00BM5BBT/iwQEFM/WKWQMGpYprg89dAM7cXT3qn92RmeWeCWpOkeBHS
-         /z7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794136713; x=1794741513;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GFsYetGjQGfqyMGoMWETXho8ORP/Lahdw6Uraq41F9A=;
-        b=vTR4GIFR9ZJXFbkKC6Wox7x0M7XyxY7dNwv6ij43BCDy9WeVHpaMpXST3B/ypyZwee
-         K+PoBS9gg+i84k9AoT6joyWSN1GGRod10fGpzXh6UcqOC16mUot+Mx3QFJuAP1sbOVdC
-         7OLHDvQkqxbYLWJWaJpIwLklkac6AWUFyi8nLWf6AS+0ET/43KDXeJ+euOnmcP0hm1ok
-         CBYqFJ2wrlZTQHoxtzMhkTf/e7lQqHjLmnCx0z3DlkM0By3ePgmPS7VEk6VRcjRiI1Aq
-         TrDwLaEIoQUqXtGF71bTHgqRaLqzbcWzIGyG12M0fuIODryOZ9Kx4t5rQpMwQ9shgi9t
-         zNeg==
-X-Forwarded-Encrypted: i=1; AL+hErGobuCfoxu0PSgK7mHcQ/dF/qWoW36ZyCx3+uMi9XleXo436XBO3r0ENzwaNJyoM4LURG7/W3Y=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8/16ftcKav+N1Swii60sfeohcfyGC8iq4y2cjG7pF5j/m1tEM9
-	yNvFKp2kh8MY/GnZmjMUD0ZiCBdvsRacEA07jK9+5WcMQi1L9tbLbp/YlbHoS9ix83w=
-X-Gm-Gg: AYBFou0Nz+AbtjTcx3qgjmu5r06+kbasxiqNon9afjXyAuhEetRo4pcoPpd3TEQpDVd
-	Ie2S+RahjcxcQolJibf/2KlBJ/fEpXaKgu6QJZXTCYimX7lezeEhcEeVx3dJL8WcTzy6qGerUhf
-	5VZ7FVaM6e+mr1I7lL7ZlDZ/vTqO/aSUzVFTSBbbkaGYA7VDTSAdW1H5J5qgt2djYjdc9JBxswa
-	35yYKleKsGSFE73CscTOBDrcWn0KcaDl8YQqUEB5gBapgQ1Bj/F6pD0ZzAJNHcF0a1lz9yKETcI
-	6vWhdyqRow88NdkO6iGQR7TryzKi/2B4wklzKCK2SLAMy/5rHOR9OTVQmwucD3xl+4m/0seb3ZN
-	emYC62hKHCFEHkAIfiDWQMRxHaQncE37lh4eza+oelh+i0JKJZ0MP+rmDnriMoulvo/0uiIXqV4
-	0qsboZUuMFh20H50d1ge2Zj/11/P1wyc0kImbcAZQpXDFGN9yit5BRPE20dTG+QyMqzJCGJDz7O
-	/XqnTDhgc4Aos8prJybmCVGBdyRSA44Gf8pdi6jVEeoY7C0QTLRyRmcAdCapcLkPkkvw5l9Lbmf
-	0vYm4BJyftv31I/NfKN/Eqj8hjIb1HJ+fd459qT0V+XlGIMzL/AYl6panOFrnjKaVTL64J9ul9c
-	2YSOitaS8MB7gOuqaE7Vx6n6SxQ7rlNrL6K3oqw==
-X-Received: by 2002:a05:7022:2209:b0:1b3:2692:2274 with SMTP id a92af1059eb24-1b39ff060a8mr2675802c88.40.1794136713408;
-        Sun, 08 Nov 2026 03:18:33 -0800 (PST)
-Received: from localhost.localdomain ([2406:5900:1044:110c:9c49:6b89:2201:42e8])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b375728f8bsm4582119c88.15.2026.11.08.03.18.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 03:18:32 -0800 (PST)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: netdev-bot+sashiko@kernel.org
-Cc: joshwash@google.com,
-	hramamurthy@google.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	willemb@google.com,
-	pkaligineedi@google.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net] gve: bound the device reported rule count in the flow rules query
-Date: Sun,  8 Nov 2026 20:18:23 +0900
-Message-ID: <20261108111823.2803947-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <179411928865.994134.15713036918131150201@kernel.org>
-References: <20261104061329.1881388-1-yhlee@isslab.korea.ac.kr> <179411928865.994134.15713036918131150201@kernel.org>
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=HJv1fBMu;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9CD92606A332
+	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 11:20:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CD92606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=HJv1fBMu
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EDA171BCB;
+	Sun,  8 Nov 2026 03:20:39 -0800 (PST)
+Received: from e127648.arm.com (unknown [10.57.14.94])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id F1FD63F632;
+	Sun,  8 Nov 2026 03:20:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794136843; bh=LBzLVBXDjHjMhLOsV/AIfiarH+okvkKjw5uJm98+1Yo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=HJv1fBMuN5cth0M413WZO69j4J7f+PM5oR8X/TWRXRwAd62wGRR3FG93lN4IuT/to
+	 mEQpFKdVzEmo5D+TrmPmUUV39InIvv3Pcc0fwsJ9Gd1SQaOFVrc/A+rk3UHedzDyFO
+	 SeqrAplb++tqGL3A0eEX6aGF4SykZjYPr32Z1Ib4=
+From: Christian Loehle <christian.loehle@arm.com>
+To: stable@vger.kernel.org
+Cc: gregkh@linuxfoundation.org,
+	sashal@kernel.org,
+	rafael.j.wysocki@intel.com,
+	sumitg@nvidia.com
+Subject: [PATCH 5.15 2/2] ACPI: CPPC: Propagate errors from cross-CPU FFH calls
+Date: Sun,  8 Nov 2026 11:20:28 +0000
+Message-Id: <20261108112028.2561026-3-christian.loehle@arm.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261108112028.2561026-1-christian.loehle@arm.com>
+References: <20261108112028.2561026-1-christian.loehle@arm.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -107,26 +65,48 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Could the commit message also
-> mention the write overflow for more than 1024 ids and the multiply wrap on
-> both paths?
+commit 36e96b469da24868f727b4cd168d7cf01cbd163d upstream.
 
-All three points are correct.  1025 or more ids overrun the 4096 byte
-rule_ids_cache, and 1 << 29 rules or 1 << 30 ids wrap rule_info_len to zero
-while the count still reaches ETHTOOL_GRXCLSRULE and ETHTOOL_GRXCLSRLALL,
-neither of which needs CAP_NET_ADMIN.  The bound in this patch rejects all
-of them; only the description falls short.  I can send a v2 with it
-corrected if the maintainers want one.
+The arm64 and RISC-V CPPC FFH accessors ignore the return value of
+smp_call_function_single(). If the target CPU is offline, the call can
+return -ENXIO without running the callback. The accessors then consume
+callback output which was never initialized and may report success.
 
-KUnit under KASAN, harness not in the patch: a bad count from the device is
-a 4136 byte write into the 4048 byte rules_cache at 47 rules and a 4100 byte
-write into the 4096 byte rule_ids_cache at 1025 ids; both are -EINVAL with
-the patch.
+CPU offlining leaves the CPU's CPPC sysfs attributes present. On arm64,
+the AMU feature mask does not exclude an offline CPU, so a paired counter
+read can expose uninitialized stack values through feedback_ctrs. RISC-V
+has the same problem in both SBI and CSR reads, and its write paths also
+inspect an uninitialized callback status after a failed cross-CPU call.
 
-> does gve_adminq_process_rss_query() in gve_adminq.c need the same kind of
-> bound?
+Return the SMP call error before using callback output. The arm64 single
+and paired counter readers already check the helper's return value. For
+RISC-V, also check the callback status before copying a read value: an
+unsupported CSR sets the error but does not initialize the value.
 
-Yes, sent separately:
-https://lore.kernel.org/all/20261104070041.1902653-1-yhlee@isslab.korea.ac.kr/
+Fixes: 68c5debcc06d ("arm64: implement CPPC FFH support using AMUs")
+Fixes: 30f3ffbee86b ("ACPI: RISC-V: Add CPPC driver")
+Cc: All applicable <stable@vger.kernel.org>
+Signed-off-by: Christian Loehle <christian.loehle@arm.com>
+Tested-by: Sumit Gupta <sumitg@nvidia.com>
+Link: https://patch.msgid.link/20260916162805.1039247-18-christian.loehle@arm.com
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Signed-off-by: Christian Loehle <christian.loehle@arm.com>
+---
+ arch/arm64/kernel/topology.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-Yehyeong
+diff --git a/arch/arm64/kernel/topology.c b/arch/arm64/kernel/topology.c
+index 5feda5b55d45..a1f9053248df 100644
+--- a/arch/arm64/kernel/topology.c
++++ b/arch/arm64/kernel/topology.c
+@@ -303,9 +303,7 @@ int counters_read_on_cpu(int cpu, smp_call_func_t func, u64 *val)
+ 	if (WARN_ON_ONCE(irqs_disabled()))
+ 		return -EPERM;
+ 
+-	smp_call_function_single(cpu, func, val, 1);
+-
+-	return 0;
++	return smp_call_function_single(cpu, func, val, 1);
+ }
+ 
+ /*
