@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169687;
-	b=eNrQv1xVaDGmuS4uoHdS54CLHQryT6iIgGt7ZiDGNzXRiZhcO4/l7AD2jSL80yCUPg5x
-	 GuwtjGQHpe6MhDixa0j3K3TDFZCJo7c/x4ooaLnaHCSrlS4HJKmHs7eXFGHEoaulk86ko
-	 +ExOVTiIlTzYClVjZonEdxoKy37qyCXzbYgjxs8a7wLYOExIt7lj/3sV92r+/TT3CVu1U
-	 ZXPpodQISXcB1cb12maI6oEKR4UaPZ7KXwix/kp6yd5VP98uD1wxuYyw6nIwkUAlNNbXG
-	 sfTjKiiuwxrTciqCDwFWQPJhdMOXjiheP7LwE5x821NOz9hfqiY7dr4/yc0TgTwnkXA==
+	t=1794170174;
+	b=3IWyVsQDf870gew3mW+Egd6phHt4PyG2BJSlLz6KF4JNsYT+kUgsdtoyXKsZBvED9Urd
+	 msJnH/f8o8ngkyEo9iXhYuFyg5dzpnh73LtQi1HuIWlgz85HGCuEISg2xUBJkDR2otcRg
+	 ajHgIwSODt5r280cBktF/lF+eDemYPGLVshsK0B69pj7sdYKKykLlyMGdZTneNDj24gcq
+	 bVfs74pa0Q+nYdQaQF8MZjovexNT3Fhw/PLpofIIS04IIGRldy1qFg/vCZ4zcAgBEPMXM
+	 x4oLq4wDBa5y79HIC2zW5oThURR8Bv88I9od00s34FG7OuDjOpZ7/CMNRjc1MC1PFsw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169687;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=VCC0GT+39trwZ5tv5TKEwxsqF3LcbndkKMsSu0V1BgA=;
-	b=LNhIbMPl8BNi917wFZ2fdUrv0B/g6iaHDO4UC6H08gkZJUfB4uFWl3kfuOp89q5rLLmc
-	 VmmblQ+Hhbvx8FrMvdMzCef1UuDzk0LWUAcGsWI9KK84pXoGB7/6tZJO13xeDh+eB1NdK
-	 ZSDDuZfRM+pVO2Ph2K0iM9OK0lZ8t9xjX9XTPr6LYb9nAwVUXmJHwVrP7d5Jhhwl344aJ
-	 lwzaCTKBj+PHcCc6esT+zkrnCeSS80nEeAcC+kz7NuHdNg/feVfqaSC04a5PJdufIS52M
-	 w+EGokgrAYq3h71Uay9jExF47d6+vVtOlzw4IyqcvYcAFL8M5/3UixPj+wPKJ27n/pw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794170174;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=6SJM0ngoDq0bBIILBZZXnXuX0hTy0w2UcXjsd4RO6IY=;
+	b=rPp64S4tJNC0RlrWhWLZcTo3ck2HjldNiEMVEichfaPP+OkhIT7zyeheqiIP5a0zkK7b
+	 RAsRLE9kJu8UrfB2WgBzxgqJRTC9I/eATdQYyiGVN/Tzegm/jFZTLBIsiKV0Z0e+MtjjQ
+	 MNAr8CJkmmFO+njOIm5KVRNkvQDIudslEGGOEqEZfpfQpyO+lSFwlPDefRfDlHkr4EI3s
+	 8NEKUQ3IPTKVV6q7sife296eq2A3WHhtm+XL77T5nYK0/K8JgV5arc/I4Dzs1G6xfZQ48
+	 6f2KeyyffejmcpfGdSOqYGklP3L/ewXgSt8OxOvfB84Ax/WhTXQAPDT8TXdSbIOLw0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zk3AouPO;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aHyYDJii;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 655D5606A322;
-	Sun,  8 Nov 2026 20:28:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C143C606A33C
+	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 20:36:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zk3AouPO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0585C1F008AB;
-	Sun,  8 Nov 2026 20:28:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aHyYDJii
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27D871F008A6;
+	Sun,  8 Nov 2026 20:36:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169687;
-	bh=VCC0GT+39trwZ5tv5TKEwxsqF3LcbndkKMsSu0V1BgA=;
-	h=From:To:Cc:Subject:Date;
-	b=Zk3AouPO3OtZiNvvfPDC/JlpdAOcXBg/pmT5FDEXGMpHJBV9gAxuyjIyGrGF/C7AR
-	 RoBuKhKT9MRAPQ1TbDa9t5zzxxklEEyAxQIg5S/QPW7yWBpS7NvWCfL2vP09Dt+rDM
-	 ZOmwKRMZ7powC+6B/sMggVxushF+62vi8Cfs2unmI5G/1Jp9PfGZdZ+1O2wYkNTxHH
-	 cQwYgCaHDdXcNTUdoKkr+J67TyW0QhFY9Bn0eTfpq2uHGnXFxxwtwaTZsi9MBByGbw
-	 IhCDHSWc9N0gOiIIzVGhEnuae2XPLnTpzONtxNM0n7CWKyEX6C82HPT4yq6W5f8B2Q
-	 qRl9Iy9EBrp1A==
-From: SJ Park <sj@kernel.org>
-To: stable@vger.kernel.org
-Cc: SJ Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Usama Arif <usamaarif642@gmail.com>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH 6.1.y 0/2] mm/damon: porting fixes that cherry-pick failed on 2026-11-07
-Date: Sun,  8 Nov 2026 12:27:56 -0800
-Message-ID: <20261108202759.117377-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
+	s=k20260515; t=1794170173;
+	bh=6SJM0ngoDq0bBIILBZZXnXuX0hTy0w2UcXjsd4RO6IY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aHyYDJiibqoPE1OG66Hc7Rnm+YVqXajTwIhMjIqRgxmoalwFzUdSdHMERodAvB8qv
+	 n2rpf7B5B6rkxZG4qrVn/ygLnQShFSOe9Vhwtk/tqBLzddwgY3slbiPT0pA+qwaruk
+	 cRAsvzauQGCANi/x2p3EOfeAniY08ofLQcrEWPZ5oX/88uA+5T9eP4P3lS7PVrghr2
+	 qePLShoatiiLhEQAsBKGVk589HG3YQO8t/n1OQkKei1y298xAUq/07IkQ3WrAGP4DD
+	 vMsNEd/MHHR9kJBOdWOM9WwoPdq1b/Blsocno5AbaNqmEUa8F/H59zjldk/cuBFYmD
+	 OIvN7pN8JoZdg==
+Date: Sun, 8 Nov 2026 12:36:12 -0800
+From: Eric Biggers <ebiggers@kernel.org>
+To: Greg KH <greg@kroah.com>
+Cc: Sasha Levin <sashal@kernel.org>, aalbersh@kernel.org,
+	stable@vger.kernel.org
+Subject: Re: FAILED: patch "[PATCH] fsverity: Explicitly require FMODE_READ
+ to retrieve hashes" failed to apply to 6.18-stable tree
+Message-ID: <20261108203612.GA3277@sol>
+References: <20261107051544-failed-6.18-1acb4fd2d011@kernel.org>
+ <20261107190447.GA6049@quark>
+ <au-Ux9Sunxhat_jo@laps>
+ <20261107212633.GA137269@quark>
+ <2026110824-steerable-unopened-a5d8@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,40 +61,49 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2026110824-steerable-unopened-a5d8@gregkh>
 
-Manually port two DAMON fixes that cherry-pick failed [1,2] and turned
-out to really need to be picked.  Note that seven patches [3-9] that
-also failed in the same day were having wrong Cc:stable@ tags, so
-ignored.
+On Sun, Nov 08, 2026 at 08:47:35AM -0500, Greg KH wrote:
+> On Sat, Nov 07, 2026 at 01:26:33PM -0800, Eric Biggers wrote:
+> > On Sat, Nov 07, 2026 at 04:14:47PM -0500, Sasha Levin wrote:
+> > > So I feel we have had the Cc discussion quite a few times now. We really have
+> > > to limit how many mails end up going out: this last release had thousands of
+> > > mails which took hours to send. Adding more lists will simply kill the mail
+> > > server and will harm everyone.
+> > > 
+> > > We have solutions for that!
+> > > 
+> > > See Konstantin's writeup[1] about lei with filters like dfn: or dfhh:.
+> > > 
+> > > We're not going to change this on our end: the kernel.org folks will complain,
+> > > mails will take days, and people will be grumpy at us.
+> > > 
+> > > If this is really not something you can work around, then we can figure out a
+> > > filter to exclude your patches so that all of us can continue being happy going
+> > > forward.
+> > > 
+> > > 
+> > > [1] https://people.kernel.org/monsieuricon/lore-lei-part-1-getting-started
+> > 
+> > I've already started to use lei to work around this issue with the
+> > stable process, but everyone else will as well, which seems unlikely to
+> > work well.  This also effectively means that subsystem mailing lists are
+> > deprecated, as some of the development process is happening off-list.
+> 
+> No, all of the people involved in the patch that failed is copied.  It's
+> very odd that people who are not on the s-o-b chain would want to get
+> notice that a patch did not apply.
 
-Patches that this series is porting.
+No, it's not odd at all.  Same reason we have subsystem mailing lists at
+all: Linux kernel development is a collaborative process and lots of
+people are involved, not just the people in MAINTAINERS (who also change
+over time, may be unresponsive, go on vacation, etc.).  Just because
+someone doesn't have a tag on a commit doesn't mean they weren't
+involved or don't need to know about it.  We need to catch regressions
+and missed backports, and failing to Cc the subsystem list is a very bad
+start as then some of the people best able to help are left in the dark
+unless they happen to take the time to use the lei workaround.
 
-[1] https://lore.kernel.org/20261107054458-failed-6.1-90c2fa6adfed@kernel.org
-[2] https://lore.kernel.org/20261107055454-failed-6.1-5695abc4e742@kernel.org
-
-Patches that also cherry-pick failed but deliverately ignored.
-
-[3] https://lore.kernel.org/20261107054658-failed-6.1-cec08aad3def@kernel.org
-[4] https://lore.kernel.org/20261107054701-failed-6.1-1bfb9384ae0e@kernel.org
-[5] https://lore.kernel.org/20261107054705-failed-6.1-6f276422aded@kernel.org
-[6] https://lore.kernel.org/20261107054708-failed-6.1-a1c7fdaf1657@kernel.org
-[7] https://lore.kernel.org/20261107054711-failed-6.1-409d2ab6d982@kernel.org
-[8] https://lore.kernel.org/20261107054714-failed-6.1-1d2397b2c414@kernel.org
-[9] https://lore.kernel.org/20261107054721-failed-6.1-1c3352282063@kernel.org
-
-Changes from RFC
-- RFC: https://lore.kernel.org/20261107224800.340250-1-sj@kernel.org
-- None.
-
-SJ Park (2):
-  mm/damon/core: skip applying scheme if region split for quota fails
-  mm/damon/core: remove unreachable damos charge_{target,addr}_from
-
- mm/damon/core.c | 34 ++++++++++++++++++++++++++++++----
- 1 file changed, 30 insertions(+), 4 deletions(-)
-
-
-base-commit: 718bf49618bbf78a08ab69ed0dfffa8e8f917cfa
--- 
-2.47.3
+- Eric
