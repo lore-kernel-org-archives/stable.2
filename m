@@ -1,68 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794154781;
-	b=yHKOj+PojCDcnLWhA+wdsCyuohpbYJcUczd36cCw0kxbCH8i6qQzSf3SAINDpZHO3rNe
-	 KuqFKE7SPmW3rO06oBNGAmkoTQufU8NVpjbkL0Fzt2w/Ms5V8WJcVouljNNdRMal3THSw
-	 S1s43h2HU+ZDyT1uxwaILRWhn52LiRcZ6dQV5I5pr6yTH/cbnPRnp/gM8+cmmS6fRXsJO
-	 hWVYXNr0+4I/jrg9iMh1gMcLKRS/weR5opPRryIBe75BiYKntNBH00ipzTSvbzxHaffFY
-	 VNY/tt8wb6aPxP7sxTAgq59d/cUbob6zV3m1MRI0OPOPuhtdra/thvGn8xuekj7CXqA==
+	t=1794154782;
+	b=2KGPAm0pEm8R7ZGzPm5Rl4UhoLAqRp1kBx/60s6S4ZcvrkH+qdgoWQi151qB5H2YfqjR
+	 GwiDODi/EONKCUjTt+Chytiz1OMfo9KfVYTwTAEuLk7I0Mjdj2zzQRCRUsFc/fGKzAvKw
+	 x5HeUjoitx9+KvOb9mDAhnjEe/SEdfy9eLrfauhzcAAT7aMw7zvPW7wXVZBc/zkrVhw7A
+	 6dEZHl6iR66HLGXTKwAs587SXzLRgVk3EdH3jhzMV8whzsVDoroeB89Wc6xJMcoyWVG4N
+	 x2QcpFzZ/PyUl+3mOw9Q8g71ymlP4DurZJllwLrLELqdR+uGoiJtR4bYXQfo7IK/K5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794154781;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794154782;
 	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
 	 X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=+LhL81flwND2BRsvUeYL75EMKURLG+Fr8UdO/SlqNFo=;
-	b=EOwY8c8gFf7ZSQD7xNkwZ4yMtFKg54gOZHRYMg58FHozUTcOAvagp167SKvkh/d+Zyvb
-	 R5o37ARJMjrIihE11oI3sTuLee05wWTWEatlwctsCxt43AcFW9VMAkUHu9OTfCiV8R9uS
-	 9/JlNdjBCO4sLK7EXDzHDCtCFF9DLh7JgFTxgpr2/GbWt/dKdjr9G4TKXAWi0k6WR7qJg
-	 KQtPTE7MaDsxB9FiWkfzK2ZGb7Qbjdp4y3Rl7LYPvL59hYjHCuhtq7eKbb5u2RG19Xey8
-	 HcdpT52uC7UzlFIPplaiELhyq6iwf4PgEA5heNx0reKb4uO/WyM+JmxVkDwridAEDcQ==
+	bh=9DSuCe65qhyaJ8azYCw22UeBMXJmHmFB4MPv/bGiJYc=;
+	b=JLoSFkyegxbtNO+uug5pr0sGhghEbjQjt7DKx4qW0+HI7Io5JYAViJJ/4s5DDeEYidZA
+	 ptReUxOGQLRyfmViSrSRqkEbtixJ7OfOHGrSGmLccWrboquKp/rTcBECs24MwpA46fdwv
+	 p3QrYhMDUAa4ZUShZvJuTgKAdcRoP/DQoqy8d2sM4Q7avqS+mD4lzUEuhDsgJmw2YowW2
+	 5at57/5LzG2b0snPxK20F4FF1t9TSva6XOJRgyZpB6XxEM21TnbemLQlxLKgJFYg/qxb8
+	 1LjHj1jpbRNsUCL5yYzzjnSH7vRbQa2sIW+czb9/poqys/9Cw/hvEGJRovsXyAemjkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=grische.xyz;
 	spf=pass smtp.mailfrom=grische.xyz;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F95C606A321
-	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 16:19:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F95C606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42F80606A330
+	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 16:19:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42F80606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=grische.xyz
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=grische.xyz
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4afe2d546f9so1990105e9.3
-        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 08:19:41 -0800 (PST)
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49d05d51553so762655e9.2
+        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 08:19:42 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794154780; x=1794759580;
+        d=1e100.net; s=20260707; t=1794154781; x=1794759581;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+LhL81flwND2BRsvUeYL75EMKURLG+Fr8UdO/SlqNFo=;
-        b=itnHq/xeYa1u2VXZuBRVOR0M5/VNk1JKJv6E66ezAGogZW1y9oyXvrulRgnDj+OMzR
-         faWflDPJ1Q3y+pOkpcSYDgii/n9I77EWpT5F9qqeYWkIRQ5FblDkl2Lsig56aIaH1BRy
-         iwjtS4H+ZgpuDCQ+pf/upilcxJVcv1ggZ3K26S7IgUxXLFEk5Q5JWSBOkMjZwAAjkPgY
-         PZqNenRcXososQpUgVN21zL+o49vFkhl0PuDf9BwcQLTZ0LJUgu3PAgyxlmxxlR1DtF3
-         svkT/NTah+JWlN4PEN+jLs/ItPbMop+iK4eqa956jwG4Iqv9JgSnZ49Ehm25L32igE9Y
-         lY9A==
-X-Gm-Message-State: APuU4Z89ChDwY36I0dXceueR/Y4N+LEPLanh0sgL5OBBGqMrNGU59uTz
-	Xxudg4CUAadAVChST8pwR08zmcACLIdfNsR0x6CSU/eyyaZesq9j+PVRR3aUQ6N5oUlRBLVEEcR
-	BttoX2mmQOw==
-X-Gm-Gg: AYBFou15OlAiW3yYOwva+q5QB91CChqsbhJa1/+/P4qLVu25wBnd4u1ucBj+WDxtN8t
-	7+7VLVIVviAQZ88BtFrnFf8STcl7B3xxDMmnmF/SeZyVoHABSlCxXqPScmFIPuC/Y6auG+4Oe/g
-	ESQiVwBunrLCx1RLO698GmNmOYpSW1orRK79O2GwL0q+O27wO4+61eWMSBLx6pwMRVdpPvEs0bn
-	otLPWvqeYaOhvgXNPOWHf+cCI4IUpZBew99L5OZ0U3Jabw8DMkB76Ed/btRQHOJBkGsReqmpn8w
-	zCkaePLYYvNuGv25vty2enSVJG8X9iQEdbpfbXeJSkJtQqSlDLkrQ4iFrKaIk84hj/0MILwY6c+
-	OvBUoHzy2FwYGFi8n2jqSPb5NvjUmP2OfL0G8HwsUVlYKXlU+BTUFDdLHPCyeLQ3dk/6b+KHnV/
-	qQql3s/weenj0ou8oIQ2FuUoJei1DEiB3Lc5xe1ghrDYsl8Q9QCgZhHiCGci5mXQlfeEvPO4Ar2
-	7KpFLcFXrRCM93Tpot9tZHqNwoiKNXBMsggMIIfdTBsaumtmnI8Cyd3xvOoo+JyV2M0bf/io2lv
-	zLKfC3lYR9eBmL+jPeG8BbDDMQ==
-X-Received: by 2002:a05:600c:6209:b0:4a1:7c56:d4e2 with SMTP id 5b1f17b1804b1-4b9633cf792mr32161015e9.16.1794154779716;
-        Sun, 08 Nov 2026 08:19:39 -0800 (PST)
+        bh=9DSuCe65qhyaJ8azYCw22UeBMXJmHmFB4MPv/bGiJYc=;
+        b=BaGXEC28rK0qsUD4ZiuYAknu0HmP+qFwx6lS+FJhOu1hhvkUG8ad2ZFwbbo6sOSb34
+         KhqSl2z6yZOwDxbK8a/z+ye15ONVrUxGImHyKJfDoLexfLqVB3gNOR1CnN9TrLS7yVwV
+         BlEIiN5fq+53BuCHlZgnPal3ac/jOZIH4p/AfEYw0CgDNX6IKLCsgjKPGEir7MRkYvnj
+         xB6XPcuG+3Qe13OhtY1syw8f7Xi1eYl7RhrcooMtbGSm56gzfWDfSwccruQJqoeyAhOw
+         C2jlVLz0l0uvm9zhqu0oLoKtf5gdlGoAmrJ203LeD1k/K+nFyYF9hBkshqDfWE1rBmRg
+         FkrA==
+X-Gm-Message-State: APuU4Z9qirzB6Pe4EGiCb1hs8/oIRJK273f74Use30maJIBoLUS0ScQZ
+	1Eb64V9xQkXy32NuRlPfE2Tqg0BOdcDlAwCXycZcimsuEpYWHF2mkVyHcR4FhXCNSzOth37cjx5
+	PiMpbi/8zmQ==
+X-Gm-Gg: AYBFou0b8aJCuRb2ZNJbjRIyoOK4khN1h867UBbFzkMTrjp/v0UQ8wnK9nOye8NGiM6
+	Vste478BeJ6yjehRVrHnxW0jMX7xeCsuPensxpC7MjuMsOLCnoaGdCMj+g9jKARiGWj0GKzTg0p
+	iwHP8AVYo9NOXSFPG/OZvNZ7x9IFzcKsNaDujSeo04R5HpiEXyamP/4S3/pmFzHfAuQfZ+pRRjh
+	8rNPIcOZg7Kz7G+Tl7AQldUKY46moGiITXDJsMy1UnWSN2Vq22lvJCyPhDs+NOcLYot2X7rKPqk
+	vmuSgcjNm+FFtKwOwYamnfYBcTxL6m+osoDa22VdpC8gQ1gMxCQv8/ZEtu0NOivnycUOntHtuJP
+	NXEdoZ4pl93wD1/m4M8f4O1P+WCFO07apTmgUamB15bASmf5kqMrgELK8q2CPm4+hprfmyjDZwi
+	vyAY7jTn7lSNhZnoOP74hKFdWUNvPsFNGgQGrFXOx8CILvp56dgq0oVB/21YG7k7k09iRqQDk/O
+	crAkSFI9H+sPw13KBvjstWspW1/fyPT3N/lHJPDugxkThOCrl5bCyVgIJB0V2qds+9UE+mn5YvY
+	PA8VdYVgIOVpwEw9VjsXWdDb
+X-Received: by 2002:a05:600c:46d1:b0:4a1:7d9b:d4ae with SMTP id 5b1f17b1804b1-4b960d9c486mr37141555e9.5.1794154780732;
+        Sun, 08 Nov 2026 08:19:40 -0800 (PST)
 Received: from lake ([2a02:810d:d09:1b65:e93f:179f:cb30:5c5])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b76cb772e1sm189535415e9.0.2026.11.08.08.19.38
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b76cb772e1sm189535415e9.0.2026.11.08.08.19.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 08:19:39 -0800 (PST)
+        Sun, 08 Nov 2026 08:19:40 -0800 (PST)
 From: Christian Schmidbauer <opensource@grische.xyz>
 To: stable@vger.kernel.org,
 	Sasha Levin <sashal@kernel.org>
@@ -74,10 +74,10 @@ Cc: Christian Schmidbauer <opensource@grische.xyz>,
 	Eric Dumazet <edumazet@kernel.org>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Simon Horman <horms@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Subject: [PATCH 6.6.y 1/3] net: get stats64 if device if driver is configured
-Date: Sun,  8 Nov 2026 17:19:35 +0100
-Message-ID: <dac4a31ac43f87c2076908879bd180995769ad6e.1794153876.git.opensource@grische.xyz>
+	David Ahern <dsahern@kernel.org>
+Subject: [PATCH 6.6.y 2/3] net: core: Implement dstats-type stats collections
+Date: Sun,  8 Nov 2026 17:19:36 +0100
+Message-ID: <8cf42bcbabc4db62e4243f6d57d6e92da8db8a43.1794153876.git.opensource@grische.xyz>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <cover.1794153876.git.opensource@grische.xyz>
 References: <20260812091127.1349673-4-sashal@kernel.org> <20260925180809.603571-1-opensource@grische.xyz> <2026-09-26-daily-reply-0002-re-vxlan-dstats-6-6-reader-and-tx-side@kernel.org> <cover.1794153876.git.opensource@grische.xyz>
@@ -92,38 +92,99 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Breno Leitao <leitao@debian.org>
+From: Jeremy Kerr <jk@codeconstruct.com.au>
 
-[ Upstream commit 3e2f544dd8a33b2f650b32920b9bef103da2a7cd ]
+[ Upstream commit 94b601bc4f8528262b2b83194b7fd3fc2a6da75a ]
 
-If the network driver is relying in the net core to do stats allocation,
-then we want to dev_get_tstats64() instead of netdev_stats_to_stats64(),
-since there are per-cpu stats that needs to be taken in consideration.
+We currently have dev_get_tstats64() for collecting per-cpu stats of
+type pcpu_sw_netstats ("tstats"). However, tstats doesn't allow for
+accounting tx/rx drops. We do have a stats variant that does have stats
+for dropped packets: struct pcpu_dstats, but there are no core helpers
+for using those stats.
 
-This will also simplify the drivers in regard to statistics. Once the
-driver sets NETDEV_PCPU_STAT_TSTATS, it doesn't not need to allocate the
-stacks, neither it needs to set `.ndo_get_stats64 = dev_get_tstats64`
-for the generic stats collection function anymore.
+The VRF driver uses dstats, by providing its own collation/fetch
+functions to do so.
 
-Signed-off-by: Breno Leitao <leitao@debian.org>
+This change adds a common implementation for dstats-type collection,
+used when pcpu_stat_type == NETDEV_PCPU_STAT_DSTAT. This is based on the
+VRF driver's existing stats collator (plus the unused tx_drops stat from
+there). We will switch the VRF driver to use this in the next change.
+
+Signed-off-by: Jeremy Kerr <jk@codeconstruct.com.au>
 Reviewed-by: Simon Horman <horms@kernel.org>
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-Stable-dep-of: 94b601bc4f85 ("net: core: Implement dstats-type stats collections")
+Reviewed-by: David Ahern <dsahern@kernel.org>
+Link: https://lore.kernel.org/r/20240607-dstats-v3-2-cc781fe116f7@codeconstruct.com.au
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Christian Schmidbauer <opensource@grische.xyz>
 ---
- net/core/dev.c | 2 ++
- 1 file changed, 2 insertions(+)
+ net/core/dev.c | 50 ++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 50 insertions(+)
 
 diff --git a/net/core/dev.c b/net/core/dev.c
-index f9436563a2e8..f55b7e5ea3a6 100644
+index f55b7e5ea3a6..d989a21a72fd 100644
 --- a/net/core/dev.c
 +++ b/net/core/dev.c
-@@ -10784,6 +10784,8 @@ struct rtnl_link_stats64 *dev_get_stats(struct net_device *dev,
- 		ops->ndo_get_stats64(dev, storage);
- 	} else if (ops->ndo_get_stats) {
+@@ -10713,6 +10713,54 @@ void netdev_run_todo(void)
+ 	}
+ }
+ 
++/* Collate per-cpu network dstats statistics
++ *
++ * Read per-cpu network statistics from dev->dstats and populate the related
++ * fields in @s.
++ */
++static void dev_fetch_dstats(struct rtnl_link_stats64 *s,
++			     const struct pcpu_dstats __percpu *dstats)
++{
++	int cpu;
++
++	for_each_possible_cpu(cpu) {
++		u64 rx_packets, rx_bytes, rx_drops;
++		u64 tx_packets, tx_bytes, tx_drops;
++		const struct pcpu_dstats *stats;
++		unsigned int start;
++
++		stats = per_cpu_ptr(dstats, cpu);
++		do {
++			start = u64_stats_fetch_begin(&stats->syncp);
++			rx_packets = u64_stats_read(&stats->rx_packets);
++			rx_bytes   = u64_stats_read(&stats->rx_bytes);
++			rx_drops   = u64_stats_read(&stats->rx_drops);
++			tx_packets = u64_stats_read(&stats->tx_packets);
++			tx_bytes   = u64_stats_read(&stats->tx_bytes);
++			tx_drops   = u64_stats_read(&stats->tx_drops);
++		} while (u64_stats_fetch_retry(&stats->syncp, start));
++
++		s->rx_packets += rx_packets;
++		s->rx_bytes   += rx_bytes;
++		s->rx_dropped += rx_drops;
++		s->tx_packets += tx_packets;
++		s->tx_bytes   += tx_bytes;
++		s->tx_dropped += tx_drops;
++	}
++}
++
++/* ndo_get_stats64 implementation for dtstats-based accounting.
++ *
++ * Populate @s from dev->stats and dev->dstats. This is used internally by the
++ * core for NETDEV_PCPU_STAT_DSTAT-type stats collection.
++ */
++static void dev_get_dstats64(const struct net_device *dev,
++			     struct rtnl_link_stats64 *s)
++{
++	netdev_stats_to_stats64(s, &dev->stats);
++	dev_fetch_dstats(s, dev->dstats);
++}
++
+ /* Convert net_device_stats to rtnl_link_stats64. rtnl_link_stats64 has
+  * all the same fields in the same order as net_device_stats, with only
+  * the type differing, but rtnl_link_stats64 may have additional fields
+@@ -10786,6 +10834,8 @@ struct rtnl_link_stats64 *dev_get_stats(struct net_device *dev,
  		netdev_stats_to_stats64(storage, ops->ndo_get_stats(dev));
-+	} else if (dev->pcpu_stat_type == NETDEV_PCPU_STAT_TSTATS) {
-+		dev_get_tstats64(dev, storage);
+ 	} else if (dev->pcpu_stat_type == NETDEV_PCPU_STAT_TSTATS) {
+ 		dev_get_tstats64(dev, storage);
++	} else if (dev->pcpu_stat_type == NETDEV_PCPU_STAT_DSTATS) {
++		dev_get_dstats64(dev, storage);
  	} else {
  		netdev_stats_to_stats64(storage, &dev->stats);
  	}
