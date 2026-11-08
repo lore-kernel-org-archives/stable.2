@@ -1,63 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=149.72.141.136
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794140993;
-	b=e7yn8JZD/qTsTV7Dz+iCztzo/cnVkZY2E41VRG999wpWqwK3GO6Jnc1bzDNio8wicJbo
-	 nbhx82xhU/gwTRvrH6PnwtXsfYbO5UCBFAiSM0ycz1PHEH4TFFJOhyrsSDthnef/lcpas
-	 pgux8oV2Wk2lwSqSpR2eDU4i8V0XPurmLvWiAwG2OvsyCy2aE7G/dPSSdtQ+ey2JU/mRx
-	 Ti2s0lGrHnM05qgf0dsG8i0ZN2JcTlJkBb8klsR2nCG5eWhumZvtMyRGWOABPM27bDDmj
-	 /psZNTzXQ5Igj4PaPJGGddV8gxSqmMIQyZdpAqAGhvHP0xYw01qaHmyFwBA2yedgQIw==
+	b=kKmmM0mBzMhYkopcKLKNPwhyxXT5f6QGlug+QW0nocTBy1odUSu2M/PiwZd0j9r6yIqQ
+	 0V8YwlDJO0Sop99PAMtina48NRs9zs61JkXmkdwZFvw4D9iOch1UiRBkjgZAhhKhnHZIi
+	 6IKGw6S6YNGVkH47C0MQQ718nrgUm2owITOramHt7S89IP4re2A55YbQgwM9N6MlVWr4x
+	 Ica+Q/jkxFTvp774tUNcIFnV7Qnj4PMBUf0CbGP/8coPVwz2GWrpdyi0girK45jQKhwXh
+	 GayG1wB6MR7273V8lTFfGtYuelkc6sDhBi9mL9yh1KmaiglhLT7rRNKkCeL40XQzynQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794140993;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:X-SG-EID:To:
 	 Cc:X-Entity-ID:Content-Transfer-Encoding:Content-Type;
-	bh=3XFZuRuXfhQpadm9LvEIaRYgNvmBcTdkggZyS6p7YlY=;
-	b=lhBAZRGf782QnIY4jGntz0ncMnxxHV1VoPh4VBXPoZUiJakZvjHEGJmxA+WMxqBP1+tT
-	 YpUBvE61mK4bVjndcFv7MTTT5RAJTOsCm2d+WPzIFky+krTysavEFj5lzRPvuVdFlWMjy
-	 MG38i3Q+2m8/jpmEujLaDNDjBbSto1FDBxKxxAGBeyhyzwboAuuPyiQP86bmEeAVdPqXz
-	 KaVxa+RsTUQOpag+9tMrgAub+FfdgBVeqNwCA1HRNnKsUO5Crfiuey2EB7WXJKYDzIDmc
-	 zpBAhjKc6xzVRkiDSoNowlbZ0dDhnnroe6/Dklwf65XnM+dfsS5ELOgKgGX0W1r/Fmw==
+	bh=ci3/uizM6qBDovrwimDa4xfj8Stkcf8UjEpLaQjo4Xg=;
+	b=cV0YqxK0ni7kfAudF0jYug/welGpd21WsZv3FCvv4G9+L1Ftd1ewEFdEpmZSt5RdmeXi
+	 KuBlaqpfkPAvDCPZiRVce+jVtHbZ+SD3Qvk8RKTtaK9GPQEqssE0alloHG7iLIhpG58bN
+	 xUtgXKaIKE1g3dkNYte1raahl10h6Lp5Krpqr5yN24jwEpe4jiRDVBFmDv3ITRowqIjBA
+	 IQcCPh+TeKZ7ASqdk2iygCXEtY5Wzi2GpayJtHVRfRmgf5YYPQtJ2JmawK/ZfnWIdG7Hz
+	 72upFLKD86perletC9EnOIWu6fZhnxJYxmkOPCHScYLMw4s1lIrooZyQ3Nbl0rfiOtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=honeycomb.io;
 	spf=pass smtp.mailfrom=em.honeycomb.io;
-	dkim=pass header.d=honeycomb.io header.i=@honeycomb.io header.a=rsa-sha256 header.s=s1 header.b=FOjZirB8;
+	dkim=pass header.d=honeycomb.io header.i=@honeycomb.io header.a=rsa-sha256 header.s=s1 header.b=HPYqGPG7;
 	arc=none smtp.remote-ip=149.72.141.136
 Received: from o1.ptr9745.em.honeycomb.io (o1.ptr9745.em.honeycomb.io [149.72.141.136])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B54D9606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29CB4606A320
 	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 12:29:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B54D9606A31C
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29CB4606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=honeycomb.io
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=em.honeycomb.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=honeycomb.io header.i=@honeycomb.io header.a=rsa-sha256 header.s=s1 header.b=FOjZirB8
+	dkim=pass (2048-bit key, unprotected) header.d=honeycomb.io header.i=@honeycomb.io header.a=rsa-sha256 header.s=s1 header.b=HPYqGPG7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=honeycomb.io;
 	h=from:subject:date:in-reply-to:references:mime-version:to:cc:
 	content-transfer-encoding:content-type:cc:content-type:date:from:subject:to;
-	s=s1; t=1794140991;
-	bh=3XFZuRuXfhQpadm9LvEIaRYgNvmBcTdkggZyS6p7YlY=;
-	b=FOjZirB8nKAyOMor7F4/4XZcYw4/d9f3SWwaW/iOCIKgh/qaKbJr9cFcYvU/TJx8ebh6
-	zCfQVxQuv/7vmwgwdNYs2W9jq/3vPKd1x2jWU8UIOdOcXjVmRs/XHvcTbrbWhNBeCEiF7d
-	gu0LkSsRjB/dsmHwvEGRMHvK+o+L+cdxO7ooFi756qSVj2OEoKdKBKxhDDdfCjfXrBmMZ3
-	guPRiDrtHQasVOIo4UINJ7HGtNNI6WQ9RI/UG3QLyYDnOxq0RN/8fViqzd8/WGUWp2xaO0
-	RZwLM9jSlpag/LaZs/FfQ7oD2rlGl0pFeWwOw8JxojcC2U+47/Z+5OmptZwKTGzg==
-Received: by recvd-85667b6c89-8md2v with SMTP id recvd-85667b6c89-8md2v-1-6AF06B3F-20
-	2026-11-08 12:29:51.403349795 +0000 UTC m=+216963.094248120
+	s=s1; t=1794140992;
+	bh=ci3/uizM6qBDovrwimDa4xfj8Stkcf8UjEpLaQjo4Xg=;
+	b=HPYqGPG7FY0650zVgQWZ0bwLHBINMFyDTUvJjXybGn4uj+ArA7/CmyghFlT0kH3H4+5/
+	LBDUO4rsCwqyngRw9B3HIbVb6WAty5Zjn3PnX/09edKkYb/JshA1CoNu1M9Mf2RAmZZR9U
+	YcV7SZ7B9CNxr1pLo7vgFMLZaEb8ahSRFG4bnwzcW5vSSudk4UCbDHYrY5UfRLaGAVkh6d
+	xdJ3d0cYe4MK+40VrWHSUnBOJcjF4Ejbz4QqA1Vm+VtZMwIGh7GaFwtzuPKP3g9fKT4Oje
+	Nbei4oITXKflv9Fkgc12K1QttfoPyVaOLDcv47+cPFJrvQCUfICF2qarKDkXJYDg==
+Received: by recvd-cc8d845b-xcv2x with SMTP id recvd-cc8d845b-xcv2x-1-6AF06B40-34
+	2026-11-08 12:29:52.215065152 +0000 UTC m=+217254.257411646
 Received: from daisy.dens.ffj.family (unknown)
-	by geopod-ismtpd-18 (SG)
+	by geopod-ismtpd-22 (SG)
 	with ESMTP
-	id mLh84i8TSfmb_liPy5w9lQ
-	Sun, 08 Nov 2026 12:29:51.370 +0000 (UTC)
+	id FUjBHN2VSM6Z1xsjDBlsNg
+	Sun, 08 Nov 2026 12:29:52.158 +0000 (UTC)
 From: Liz Fong-Jones <lizf@honeycomb.io>
-Subject: [PATCH 6.6.y] writeback: keep cleanup_offline_cgwb()'s scan out of
+Subject: [PATCH 6.1.y] writeback: keep cleanup_offline_cgwb()'s scan out of
  syncs
-Date: Sun, 08 Nov 2026 12:29:51 +0000 (UTC)
-Message-ID: <20261108122950.601944-1-lizf@honeycomb.io>
+Date: Sun, 08 Nov 2026 12:29:52 +0000 (UTC)
+Message-ID: <20261108122951.601970-1-lizf@honeycomb.io>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107053814-failed-6.6-90c96612460e@kernel.org>
-References: <20261107053814-failed-6.6-90c96612460e@kernel.org>
+In-Reply-To: <20261107055328-failed-6.1-90c96612460e@kernel.org>
+References: <20261107055328-failed-6.1-90c96612460e@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,11 +69,11 @@ Precedence: list
 MIME-Version: 1.0
 X-SG-EID: 
  =?us-ascii?Q?u001=2ECuH7N2XAoeMR1zrzr=2F6NZrhli2vbKPOHff5fJuZuba6ZIE8QPyIf9mn4Y?=
- =?us-ascii?Q?ezqeFFjUkh=2FeROy4LtnO7KN9jZmeeWHBY1750Rq?=
- =?us-ascii?Q?IzeNcHJ0GVZFLIl5Lc6s9PRcn+FY+81n263y6Tx?=
- =?us-ascii?Q?FUWUI0AYJ2KrtO5uzN1xoQA+NK3LakrmkA3fLBk?=
- =?us-ascii?Q?0G8spTgeKr0gXlPWX6iNSOJ8nR=2FE9NgJKcrKuSJ?=
- =?us-ascii?Q?5+B5Aqk5ecXDkOnFUrIGCkG+Fh3YAPN4UX50D24?= =?us-ascii?Q?O4QI?=
+ =?us-ascii?Q?ezqeFFjUkh=2FeROy4LtnO7KN9jZmeblFZis96ejt?=
+ =?us-ascii?Q?3g+cSsTtFvM91yx12IF18succ=2FhaIydbnH3umpX?=
+ =?us-ascii?Q?DhwOQMCnQexGmZ98L0szJschJg58ArleNN5mv78?=
+ =?us-ascii?Q?hH3swm5l8uvzwsL1MaGiVvHN=2FYNsxheba166Hbk?=
+ =?us-ascii?Q?YSCPehJr8iui4ZCyBrb9XpT1VXBqaUeMLW0=2FJub?= =?us-ascii?Q?tui+?=
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>, Tejun Heo <tj@kernel.org>, Jan Kara
 	<jack@suse.cz>, Christian Brauner <brauner@kernel.org>, Liz Fong-Jones
@@ -129,10 +129,10 @@ race-tested; compile-tested only here.
  1 file changed, 8 insertions(+)
 
 diff --git a/fs/fs-writeback.c b/fs/fs-writeback.c
-index 58fd005d410c..70c8ba790ced 100644
+index 085e0fa0cab3..44bfe24fc9d7 100644
 --- a/fs/fs-writeback.c
 +++ b/fs/fs-writeback.c
-@@ -732,6 +732,13 @@ bool cleanup_offline_cgwb(struct bdi_writeback *wb)
+@@ -730,6 +730,13 @@ bool cleanup_offline_cgwb(struct bdi_writeback *wb)
  		new_wb = &wb->bdi->wb; /* wb_get() is noop for bdi's wb */
  
  	nr = 0;
@@ -146,7 +146,7 @@ index 58fd005d410c..70c8ba790ced 100644
  	/*
  	 * Paired with synchronize_rcu() in cgroup_writeback_umount().
  	 * Holding rcu_read_lock across the SB_ACTIVE check, the inode grab
-@@ -754,6 +761,7 @@ bool cleanup_offline_cgwb(struct bdi_writeback *wb)
+@@ -752,6 +759,7 @@ bool cleanup_offline_cgwb(struct bdi_writeback *wb)
  		restart = isw_prepare_wbs_switch(new_wb, isw, &wb->b_dirty_time,
  						 &nr);
  	spin_unlock(&wb->list_lock);
