@@ -1,126 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.157
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794162032;
-	b=Tjgz6bgbQhvjNrXoOw7+JLGzSSOxkfG9jHMliGYBfA3VRbwBV0bDuD6G9XjqhJzIf/7g
-	 Yi46xuSvCXTwsH1/JUyo4d4j1PVU7jbP0kcvESeZkXgB2nOlxPPgcLxS7+Cb/nu17yn95
-	 nQntLcZZDva3eI3WzrYEVwGDsxKqrljm1KrzyV7apyKUlvIxSJ52ab68XfvjskbJhYSOv
-	 HtmGkPxA4182Dp0eTMTsi8lIx0q9g35grRmDnx567sdBoV47pgNR9cuNER74ocf6Iuamd
-	 +vjEkzguHY8mImzWkbPkTYNnzMl5tvYgwav+2LncfYiKiJrFdDKMa9KINT1D4bxdS+g==
+	t=1794164058;
+	b=RQcbk4im+3BJuwetcSoCxoeADOMIL6vTm0sMWsz13zBMJELvFBfMhlgIzJo6ybe3kEfL
+	 5u9dbrnD5aq4W3loACx5OaWuCpUn5lNZXea6I2FU8xHXvcekpnlegsxaSLavAL970GmrC
+	 u1MybDuRoK1LRHVyJAYiP4P5nswXbOSkhEC+N9fRtQVMXdQvhzL71yPruDTnkeaPY6QS+
+	 UruKiyji1fTC82dFpLHOdOEdm4uk4ZoPb3le+Cy/4ybfktKZfwx/7fmtwv1tEHK5uM4iG
+	 9KoM2S6Jg+0mfV98W0gjVHhdEw6zkUv8MIKOy2lcmCju86KJxV4GS52u+eUDouoX5cQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794162032;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=aKjS59kYPvvrG04DHR/tX4+W2JMeIyYp/panggA/AqM=;
-	b=ZBS+dCYEv6OOMJeVe9MLCH2PTEeA7DJgKZsTBT9lt7gr0VSg2eN/wNtQx+rBywTzz5o+
-	 UMaH/wOP9MI/5WbFfRQlKPEZktqWl6ymbv+k0iplXWFLyXDCSk3cUoN4uUD02dcGB3JSu
-	 nlkVOQFMJJdEMtyt2fvml0VgyrA+82JZH2TGA60J6OUL/mlBxq7cnN01veKjezs3VDOLs
-	 S8uAYt2OhD+yT7oyI+ZZQG0I4YlOciZHOOOH7WZSFN5Frqzk57zrdRqM0hzljuYneDJVE
-	 hfpQVMvjy02jQ+u8VhdgoHtEPoltArTzLbNwH/RcsG5mqxPdG2saFQgxSWQMO9TufXQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794164058;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=86euM9Gfx67Z/jCzCvP+9zClJRgbdRmi1RRM/bKJC7A=;
+	b=mh4XyAYMwOaIoAi/BQIH1ZnA33z7+x53eHQvaDriQtj94jmItr4s3DASB/h39T1Nh0SE
+	 uYtPKy6E6manDKtsoM/ogv08ZzT6N+DTchUEhnEqXbtFL/vgfQN/Pu/BqqMRTXvBtL6Sb
+	 rShtbQ/il8Twe79ycJuKwLOtcMhpLbyutCVUuUIKRnB+94RcqK/kBbguiDKpq1buEbPl0
+	 PeqG5NhpwSZst6hgJmrAb17lEailc4NC4DKmVrg6Of5Ni5QyDjuBtxcd++HTye5WJ7OAJ
+	 tGEuBVFqyHCOkklA/4wx9BLmVpA7XbT2nazMGvSWNfGjNyMS5HMIPO71eMZRPWL9/cw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fastmail.org;
-	spf=pass smtp.mailfrom=fastmail.org;
-	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=BYwgChLf;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=EVMsFvYQ;
-	arc=none smtp.remote-ip=202.12.124.157
-Received: from fhigh-b6-smtp.messagingengine.com (fhigh-b6-smtp.messagingengine.com [202.12.124.157])
+	dmarc=pass header.from=efficios.com;
+	spf=pass smtp.mailfrom=efficios.com;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=XLwDVfxX;
+	arc=none smtp.remote-ip=158.69.130.18
+Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A930606A330
-	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 18:20:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A930606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C13E9606A322;
+	Sun,  8 Nov 2026 18:54:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C13E9606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=BYwgChLf;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=EVMsFvYQ
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 15FA47A00D3
-	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 13:20:31 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-03.internal (MEProxy); Sun, 08 Nov 2026 13:20:31 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm3; t=1794162029; x=
-	1794248429; bh=aKjS59kYPvvrG04DHR/tX4+W2JMeIyYp/panggA/AqM=; b=B
-	YwgChLfDbpqrRwctJVvnbsTQ2JXr843sX86ngFaQPjzKA3RnEX0AXKFKruAS48Re
-	oyB2zX4OnHIjpsO7n4Lv5WsZIrrmKIghwRcGs0NeUQwKgSRAtbsB6aNEg15yy3r0
-	a2T+E93AbWWT+8xE+5waRBlclzCKX3eE0BtGL+VTpp3JRkbhJg9q5nnw9bqMrCX5
-	6UYOxd8vXh5YD6WLGJF6R005yWQr1EO3ZqEmmg5YP5VRwjb4wT7f3imzavWCiPVS
-	jeKH1zlNItAEM8RsRREeovb8qXK47U46XVF1lbIjdd9DhZ+1gDnmD1dXaD1Z1Xdl
-	Bp5gvsmXh/Dq6alx0cR1w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm3; t=1794162029; x=1794248429; bh=a
-	KjS59kYPvvrG04DHR/tX4+W2JMeIyYp/panggA/AqM=; b=EVMsFvYQzUMPJmHc9
-	5ZnOLFeH4ZHur6Ek2s0Mw6x5Mwg1MyxMQ1ncyj56efatrUeAt/4szwvcPPq85hcv
-	T6JKLG7sqyKFDZCNO9ueYbXj2379E+Y22qk546WH+BA4HHzcvdgQgXXgQ1TlnDoA
-	bGQ+X/rjJ9cnSX11krahiuZPyQqYACSV0LqdP5KVnmtzi9FwKgnmlvzjJMUsIMPh
-	Jfau6khezBHBLr6pUAEmZRJhjS+3eROPs+HyI82HXA3dcMEbGr5ACNsTb4dXaEan
-	4OSqgOaBHrUQGclei/Lf+PniWaByhKK70RFiKDgkxRiCp19QbkiMNxNb+12WV/Lm
-	haEyA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=fastmail.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794162029; d=fastmail.org;
-	mf=PGljYkBmYXN0bWFpbC5vcmc+;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:B4jHApoMC+/I9t9d7WqQ01XUSDKrgaedz1eVhuOzET9eyqj
-	Dkuy7VUB5Q3Xb3U2iOSmq/DRrHxaCK7gpyg74uF3wFxtAHxudG/HfrQRMXnYh0Fe
-	qAH2IP+DpOa2rVC1jcTNemxIYY36uyUmr9mt69KR2g9NPP1ISKd+4fsaIdsWHTVC
-	6DJq1J5kGNqlbAGdZre/GZYl6FXMQ62eOmvIa4yPTd9qrmJXshzyxehVd48/lpPq
-	9skvwlP771ISCLnE2NZlP+vjqscsbRvyZgKx3VITLiyKuA/8BMuYXRzFeAawtRhY
-	LBJUV/m5wy6MzFXZXfhIucLNYm/H+2KrOgFjOSg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=11;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:kEFm+x3UboNerN0T6yzx9yLpRqZJh/w4JWGQlw8Odxw=:uH9C/9CAOyH1GlLAVj+/7VG03R5pkCI7COTggUiJqFA=;
-X-ME-Sender: <xms:bb3wauKDsR69lbH1FGvssj4jRz9FnTd7P6imlfuahIxEfLBuKwxNHg>
-    <xme:bb3waiIxIv-CK0blB1oJNYn91c-CDxbrd6S7PgRLp5m_c5D5E3Un6ps2vnCyo9g7F
-    xO5k6MTiwoLJn5JwHFdU9GNAR7H0TvEYASAO7NwpLUZ8gxhrj0FigQ>
-X-ME-Received: <xmr:bb3wag7IzqMhEtj1PC99gFJDR0JIVqSSkQLeMVgglikj8JzEetn8DmK8W_sySMmY>
-X-ME-Proxy-Cause: dmFkZTFsL2SV/UfmBPGlbC6skK2LU+RDRXw1PWK/eGZQguio/heWATNaABV3YuQcJ/fozp
-    a1SvEGCPDs9/W+ngH67dJ+MClSdRr06S1TKjOM2NHmvmJrJQ5NQpcnjLPT0RaapW88PiYh
-    BMtBv0FQBOiFnC8/EU1DRVPhmMh6MFmCk3hcdb4oFLZ8jRnXM32vHCh6GHPFJ8I/2OC2u+
-    1BYKsTrebUGb2l11LEa4vkwrEZpQJaHpornu7xWBUrdV8dLLpVdd/sG915LRVEWIMKFNF3
-    lO/ie5N+6aQ0SIDOO+vgLrcYj0Htimg7gouGL0GobK3lRlunrlFPRWKb1QVxeSV3b94rsg
-    2OIehN90aD769IhygtzHuA1c5RFzKcDqXWBR/SnnlYjqMC1fv+SuLU34MpiZbY1mV5mQO9
-    8RDHJS6R+UhpfLMpF3P+WB3fBtJlwpqKclwLY+YVfBrLh6e/h5gRZiqe95/oJpFsxQXtei
-    pL9ayCcbHz14kkEmM3RsgKYx+U7pt2Xx6Pz/qSykW2hOKcbhygqnFDr7TH3zN3/4fAQFSl
-    Np8A368IrRUsRsB1MXu8oP56ZSDuJBOJARcLtCwYgDzwpG0MZ5gnHPt9APlIs0ESKHVMAp
-    y1acyxZiITXOnSbm2z0dsyqq0jmxn4F7gVzG63T20gCa8/5OWNiDoifiOfsQ
-X-ME-Proxy: <xmx:bb3wakeiY0pa9Uf13sUYYtG5lCrldhRzAeDH1cehW22C_rZ7c6xq6A>
-    <xmx:bb3wajG3yeLee59kyaTvpjdWASgrSsEFVDRzzDYKCpVDuMtFpWY_Eg>
-    <xmx:bb3walS7MTdloIlga7k5hfOo4HMrJPf6qCyJU2ekS_OsDeyShgWupg>
-    <xmx:bb3wapZqajmIaCkmq54LFY1bkxoRV3a0bkAZFeRdAir9Y0HTslbaTw>
-    <xmx:bb3wakzk_dGRM9gp1de5-Q7PpyP9kVlavzP-CftrpWFvlhYLmMItxdwd>
-Feedback-ID: ib53e4b78:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 8 Nov 2026 13:20:29 -0500 (EST)
-From: Ian Bridges <icb@fastmail.org>
-To: linkinjeon@kernel.org
-Cc: senozhatsky@chromium.org,
-	tom@talpey.com,
-	chenxiaosong@chenxiaosong.com,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ian Bridges <icb@fastmail.org>,
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=XLwDVfxX
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+	s=smtpout1; t=1794164056;
+	bh=86euM9Gfx67Z/jCzCvP+9zClJRgbdRmi1RRM/bKJC7A=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=XLwDVfxX9AiDDInUiRtFjFwl/7zrrebQYcO3snoBQ1K+ZN0L/JLDc7zq4QXqmLV90
+	 ifWrHgzKYGNHdRmyAPltc+isnGO6/nnbT1BEXrBsWfu+VNdYtdtgMSApxc9SItPJp5
+	 SmxUWdqoMdFZQ6Dcu015Hvc3fKI2AxNHv+KJcClOp/f5l/X/LnDunP+3PIKUZim3TE
+	 8PCBh2DLlc9+IrTg3fJGVoATeHomhLkJLylzctDGwg80I4Wgev6gmkeaAppHFgh/UY
+	 SMZ1h0wTGfBy0TOHgV0QNNZK1HcBSJUC/vPC0H856gei9VeCsQHhUieiVS0pvy6HjX
+	 z3VlbvYat2v/g==
+Received: from thinkos.internal.efficios.com (unknown [64.58.40.251])
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jN2Bw4cBczMkC;
+	Sun, 08 Nov 2026 13:54:16 -0500 (EST)
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+To: juri.lelli@redhat.com,
+	peterz@infradead.org,
+	mingo@redhat.com,
+	vincent.guittot@linaro.org
+Cc: linux-kernel@vger.kernel.org,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	tglx@kernel.org,
+	will@kernel.org,
+	boqun@kernel.org,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	luca.abeni@santannapisa.it,
+	mathieu.poirier@linaro.org,
+	longman@redhat.com,
+	ridong.chen@linux.dev,
+	tj@kernel.org,
+	hannes@cmpxchg.org,
+	mkoutny@suse.com,
+	shuah@kernel.org,
+	bigeasy@linutronix.de,
+	clrkwllms@kernel.org,
+	parri.andrea@gmail.com,
+	m.szyprowski@samsung.com,
+	kayracizmeci@gmail.com,
+	weihengqiuu@gmail.com,
+	cgroups@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev,
+	Sashiko <sashiko-bot@kernel.org>,
 	stable@vger.kernel.org
-Subject: [PATCH v3 2/2] ksmbd: let the parent's DACL grant DELETE and FILE_READ_ATTRIBUTES
-Date: Sun,  8 Nov 2026 12:20:11 -0600
-Message-ID: <20261108182011.1888520-3-icb@fastmail.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261108182011.1888520-1-icb@fastmail.org>
-References: <20261108182011.1888520-1-icb@fastmail.org>
+Subject: [PATCH v5 01/29] sched: Fix cpuset_mutex double unlock in __sched_setscheduler()
+Date: Sun,  8 Nov 2026 13:53:38 -0500
+Message-Id: <20261108185406.1549770-2-mathieu.desnoyers@efficios.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
+References: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -132,240 +98,163 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-FILE_DELETE_CHILD on a directory can grant DELETE on its children.
-FILE_LIST_DIRECTORY can similarly grant FILE_READ_ATTRIBUTES. Because
-ksmbd checks only the child's DACL, it can refuse rename, deletion and
-attribute opens that the parent permits.
+From: Andrea Parri <parri.andrea@gmail.com>
 
-When the child does not grant an explicitly requested DELETE or
-FILE_READ_ATTRIBUTES, check the parent for FILE_DELETE_CHILD or
-FILE_LIST_DIRECTORY. Use exact SID matching, evaluate group allows and
-denies, and exclude guest and anonymous sessions from Authenticated
-Users. Fail closed on non-inherit-only object deny ACEs, missing or
-unreadable parent DACLs and the mount root.
+A sched_setattr() with SCHED_FLAG_KEEP_POLICY on a SCHED_DEADLINE task
+unlocks cpuset_mutex twice if the task's policy changes concurrently:
 
-For the strict parent check, let applicable group and OWNER RIGHTS ACEs
-decide before the POSIX ACL fallback. Otherwise a POSIX ACL entry can
-hide a FILE_DELETE_CHILD grant.
+  WARNING: bad unlock balance detected!
+  7.4.0-rc1 #1 Not tainted
+  -------------------------------------
+  repro/126 is trying to release lock (cpuset_mutex) at:
+  [<ffffffff9a17cacc>] __sched_setscheduler+0x9cc/0xc40
+  but there are no more locks to release!
+  ...
+  Call Trace:
+   print_unlock_imbalance_bug.part.0+0xfb/0x110
+   lock_release+0x286/0x2e0
+   __mutex_unlock_slowpath+0x1a/0x400
+   __sched_setscheduler+0x9cc/0xc40
+   __x64_sys_sched_setattr+0xa3/0x1b0
+   do_syscall_64+0x106/0x5f0
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+__sched_setscheduler() samples p->policy before taking any lock, and
+restarts from the recheck label if p->policy differs under the rq lock.
+The restart drops cpuset_mutex but leaves cpuset_locked set, so a pass
+that no longer needs the mutex still unlocks it on its way out:
+
+  CPU 1                                CPU 2
+  __sched_setscheduler(KEEP_POLICY)
+    policy = p->policy /* DEADLINE */
+                                       __sched_setscheduler(SCHED_OTHER)
+                                         p->policy = SCHED_OTHER
+    cpuset_locked = true
+    cpuset_lock()
+    rq = task_rq_lock(p)
+    oldpolicy != p->policy
+      cpuset_unlock()
+      goto recheck
+    /* no cpuset_lock() this time */
+    ...
+    if (cpuset_locked)
+      cpuset_unlock()
+
+Without CONFIG_DEBUG_MUTEXES, or CONFIG_DEBUG_RT_MUTEXES on PREEMPT_RT,
+nothing warns. The second unlock still clears the owner field regardless
+of who holds the mutex, so another task can lose cpuset_mutex inside its
+critical section. Entering SCHED_DEADLINE needs CAP_SYS_NICE, but a
+racing caller that owns the task does not need it if it samples a policy
+other than SCHED_DEADLINE.
+
+Clear cpuset_locked when dropping the mutex for the restart. This should be
+safe because the flag is only tested on the paths leaving the next pass,
+after that pass has set it again if it took the mutex.
+
+The following program, run as root, reproduces the splat, which no longer
+appears with this applied. On PREEMPT_RT it crashes the kernel within
+seconds, which this also fixes:
+
+  #define _GNU_SOURCE
+  #include <pthread.h>
+  #include <stdint.h>
+  #include <sys/syscall.h>
+  #include <unistd.h>
+
+  struct attr {
+      uint32_t size, policy;
+      uint64_t flags;
+      int32_t nice;
+      uint32_t prio;
+      uint64_t runtime, deadline, period;
+  };
+
+  static volatile int stop;
+  static volatile pid_t target;
+
+  static void set(struct attr a)
+  {
+      a.size = sizeof(a);
+      syscall(SYS_sched_setattr, target, &a, 0);
+  }
+
+  static void *sleeper(void *arg)
+  {
+      target = syscall(SYS_gettid);
+      while (!stop)
+          usleep(1000);
+      return arg;
+  }
+
+  static void *switcher(void *arg)
+  {
+      while (!stop) {
+          /* SCHED_DEADLINE, 2us every 1s */
+          set((struct attr){ .policy = 6, .runtime = 2000,
+                             .deadline = 1000000000,
+                             .period = 1000000000 });
+          set((struct attr){ .policy = 0 }); /* SCHED_OTHER */
+      }
+      return arg;
+  }
+
+  static void *racer(void *arg)
+  {
+      /* KEEP_POLICY | KEEP_PARAMS */
+      while (!stop)
+          set((struct attr){ .flags = 0x18 });
+      return arg;
+  }
+
+  int main(void)
+  {
+      pthread_t t[5];
+      int i;
+
+      pthread_create(&t[0], NULL, sleeper, NULL);
+      while (!target)
+          usleep(100);
+      pthread_create(&t[1], NULL, switcher, NULL);
+      for (i = 2; i < 5; i++)
+          pthread_create(&t[i], NULL, racer, NULL);
+      sleep(30);
+      stop = 1;
+      for (i = 0; i < 5; i++)
+          pthread_join(t[i], NULL);
+      return 0;
+  }
+
+An LLM helped find the PREEMPT_RT crash and write this patch and its test.
+
+Fixes: 111cd11bbc54 ("sched/cpuset: Bring back cpuset_mutex")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://sashiko.dev/#/patchset/20261016062629.2102883-1-sh_def%40163.com
+Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Ian Bridges <icb@fastmail.org>
+Reviewed-by: Waiman Long <longman@redhat.com>
+Reviewed-by: Kayra Cizmeci <kayracizmeci@gmail.com>
+Reviewed-by: Juri Lelli <juri.lelli@redhat.com>
+Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 ---
+ kernel/sched/syscalls.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Notes:
-    Parent-derived rights apply only when the request names DELETE or
-    FILE_READ_ATTRIBUTES. Plain MAXIMUM_ALLOWED requests and
-    maximal-access replies remain unchanged. Deriving DELETE there can
-    make an existing open fail when POSIX denies write access to the
-    parent.
-    
-    An open that requests both DELETE and a maximal-access reply can
-    still fail when the child DACL grants nothing. DELETE also continues
-    to require POSIX read access to the child.
-    
-    Other permission checks retain the existing POSIX ACL precedence
-    over group and OWNER RIGHTS ACEs.
-
- fs/smb/server/smbacl.c | 99 ++++++++++++++++++++++++++++++++++--------
- 1 file changed, 81 insertions(+), 18 deletions(-)
-
-diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
-index 50a03101cd8a..1b387c262d59 100644
---- a/fs/smb/server/smbacl.c
-+++ b/fs/smb/server/smbacl.c
-@@ -1494,6 +1494,11 @@ static bool smb_sid_is_owner_rights(const struct smb_sid *sid)
- 	       !compare_sids(sid, &sid_owner_rights);
- }
+diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
+index 45a127deeadd..2af550f92ac6 100644
+--- a/kernel/sched/syscalls.c
++++ b/kernel/sched/syscalls.c
+@@ -640,8 +640,10 @@ int __sched_setscheduler(struct task_struct *p,
+ 	if (unlikely(oldpolicy != -1 && oldpolicy != p->policy)) {
+ 		policy = oldpolicy = -1;
+ 		task_rq_unlock(rq, p, &rf);
+-		if (cpuset_locked)
++		if (cpuset_locked) {
+ 			cpuset_unlock();
++			cpuset_locked = false;
++		}
+ 		goto recheck;
+ 	}
  
-+static unsigned int smb_parent_derived_rights(struct ksmbd_conn *conn,
-+					      const struct path *path, int uid,
-+					      bool authenticated,
-+					      unsigned int want);
-+
- int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 			__le32 *pdaccess, __le32 raw_daccess, int uid,
- 			bool authenticated, bool strict)
-@@ -1514,16 +1519,19 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 	unsigned int grp_allowed = 0, grp_denied = 0, bits;
- 	struct smb_ace *others_ace = NULL;
- 	bool or_ace = false, obj_deny = false, au_ace = false, member, counted;
-+	bool grp_ace = false;
- 	struct posix_acl_entry *pa_entry;
- 	unsigned int sid_type = SIDOWNER;
- 	unsigned short ace_size;
- 	bool is_owner, owner_rights = false;
- 	bool maximal = *pdaccess & FILE_MAXIMAL_ACCESS_LE;
- 	/*
--	 * MAXIMUM_ALLOWED requests match every session against
--	 * Authenticated Users.
-+	 * MAXIMUM_ALLOWED requests that are not strict match every session
-+	 * against Authenticated Users and do not count ACEs for the
-+	 * caller's groups. Strict ones match SIDs as explicit requests do.
- 	 */
--	bool authusers = authenticated || maximal;
-+	bool open_max = maximal && !strict;
-+	bool authusers = authenticated || open_max;
- 	vfsuid_t vfsuid;
- 
- 	ksmbd_debug(SMB, "check permission using windows acl\n");
-@@ -1557,13 +1565,16 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 		/*
- 		 * An empty (present, zero-ACE) DACL grants no access to
- 		 * anyone except the object owner's implicit READ_CONTROL
--		 * and WRITE_DAC (MS-DTYP 2.4.5). Deny every other caller,
--		 * deny the owner any access beyond those two bits, and do
--		 * not let trailing bytes after a zero-ACE DACL become an
--		 * implicit grant.
-+		 * and WRITE_DAC (MS-DTYP 2.5.3.2), besides what the parent
-+		 * grants. Deny every other right, and do not let trailing
-+		 * bytes after a zero-ACE DACL become an implicit grant.
- 		 */
- 		if (is_owner)
- 			allowed = READ_CONTROL | WRITE_DAC;
-+		if (!strict)
-+			allowed |= smb_parent_derived_rights(conn, path, uid,
-+							     authenticated,
-+							     requested & ~allowed);
- 		if (maximal)
- 			requested |= allowed;
- 		if (!allowed || requested & ~allowed)
-@@ -1576,9 +1587,10 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 	/*
- 	 * Evaluate the DACL in order (MS-DTYP 2.5.3.2). access_bits collects
- 	 * the result for the ACEs that apply to the caller, without its groups
--	 * for MAXIMUM_ALLOWED. grp_granted collects what ACEs for the caller's
--	 * groups, or OWNER RIGHTS for the owner, grant. It is used when the
--	 * SID lookup and POSIX ACL fallback below do not decide.
-+	 * for a MAXIMUM_ALLOWED request that is not strict. grp_granted
-+	 * collects what ACEs for the caller's groups, or OWNER RIGHTS for the
-+	 * owner, grant. It is used when the SID lookup and POSIX ACL fallback
-+	 * below do not decide.
- 	 */
- 	ace = (struct smb_ace *)((char *)pdacl + sizeof(struct smb_acl));
- 	aces_size = pdacl_size - sizeof(struct smb_acl);
-@@ -1623,8 +1635,8 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 		     compare_sids(&sid_owner_rights, &ace->sid) &&
- 		     !member))
- 			goto next_ace;
--		/* An explicit request counts only SIDs that match exactly */
--		if (!maximal && !member &&
-+		/* Other requests count only SIDs that match exactly */
-+		if (!open_max && !member &&
- 		    !smb_sid_equal(&sid, &ace->sid) &&
- 		    !smb_sid_equal(&sid_everyone, &ace->sid) &&
- 		    !(authusers && smb_sid_equal(&sid_authusers, &ace->sid)) &&
-@@ -1634,10 +1646,11 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 		bits = le32_to_cpu(ace->access_req);
- 		switch (ace->type) {
- 		case ACCESS_ALLOWED_ACE_TYPE:
-+			grp_ace |= counted;
- 			if (counted)
- 				grp_allowed |= bits;
--			/* MAXIMUM_ALLOWED takes no group grants */
--			if (maximal && member)
-+			/* An open's MAXIMUM_ALLOWED takes no group grants */
-+			if (open_max && member)
- 				break;
- 			if (counted)
- 				grp_granted |= bits;
-@@ -1645,10 +1658,11 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 			break;
- 		case ACCESS_DENIED_ACE_TYPE:
- 		case ACCESS_DENIED_CALLBACK_ACE_TYPE:
-+			grp_ace |= counted;
- 			if (counted)
- 				grp_denied |= ~grp_allowed & bits;
--			/* MAXIMUM_ALLOWED takes no group denials either */
--			if (!(maximal && member))
-+			/* nor group denials */
-+			if (!(open_max && member))
- 				denied |= ~access_bits & bits;
- 			break;
- 		}
-@@ -1663,6 +1677,9 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 			access_bits |= READ_CONTROL | WRITE_DAC |
- 				FILE_READ_ATTRIBUTES | DELETE;
- 		access_bits &= ~denied;
-+		/* An object deny ACE could deny the parent's rights */
-+		if (!open_max && obj_deny)
-+			access_bits = 0;
- 		if ((raw_daccess & FILE_GENERIC_EXECUTE_LE) &&
- 		    S_ISREG(d_inode(path->dentry)->i_mode) &&
- 		    (access_bits & GENERIC_READ_FLAGS) == GENERIC_READ_FLAGS)
-@@ -1719,10 +1736,13 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 		posix_acls = get_inode_acl(d_inode(path->dentry), ACL_TYPE_ACCESS);
- 		/*
- 		 * An Authenticated Users ACE keeps the POSIX ACL from deciding,
--		 * also for sessions that it does not match.
-+		 * also for sessions that it does not match. For a strict
-+		 * MAXIMUM_ALLOWED request, ACEs for the caller's groups or
-+		 * OWNER RIGHTS decide before the POSIX ACL, unless the DACL has
-+		 * an object deny ACE, which ksmbd does not parse.
- 		 */
- 		if (!IS_ERR_OR_NULL(posix_acls) && !found && !others_ace &&
--		    !au_ace) {
-+		    !au_ace && !(strict && maximal && grp_ace && !obj_deny)) {
- 			unsigned int id = -1;
- 
- 			pa_entry = posix_acls->a_entries;
-@@ -1774,6 +1794,10 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 			 */
- 			if (!obj_deny)
- 				allowed |= grp_granted;
-+			if (!strict)
-+				allowed |= smb_parent_derived_rights(conn, path, uid,
-+								     authenticated,
-+								     requested & ~allowed);
- 			if (maximal)
- 				requested |= allowed;
- 			if (!allowed || requested & ~allowed) {
-@@ -1820,6 +1844,45 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- }
- EXPORT_SYMBOL_IF_KUNIT(smb_check_perm_dacl);
- 
-+/*
-+ * Return the rights in @want that @path gets from its parent directory:
-+ * DELETE if the parent's DACL grants FILE_DELETE_CHILD, and
-+ * FILE_READ_ATTRIBUTES if it grants FILE_LIST_DIRECTORY
-+ * (MS-FSA 2.1.5.1.2.1). A parent with no DACL, or with one that ksmbd
-+ * cannot read, gives nothing. Callers pass only rights that the request
-+ * names.
-+ */
-+static unsigned int smb_parent_derived_rights(struct ksmbd_conn *conn,
-+					      const struct path *path, int uid,
-+					      bool authenticated,
-+					      unsigned int want)
-+{
-+	struct path parent = { .mnt = path->mnt };
-+	__le32 granted = FILE_MAXIMAL_ACCESS_LE;
-+	unsigned int rights = 0;
-+	int rc;
-+
-+	if (!(want & (DELETE | FILE_READ_ATTRIBUTES)))
-+		return 0;
-+
-+	/* The root of the mount, or a disconnected dentry, has no parent */
-+	if (path->dentry == path->mnt->mnt_root || IS_ROOT(path->dentry))
-+		return 0;
-+
-+	parent.dentry = dget_parent(path->dentry);
-+	/* Strict, so the parent's own parent is not consulted */
-+	rc = smb_check_perm_dacl(conn, &parent, &granted, 0, uid,
-+				 authenticated, true);
-+	dput(parent.dentry);
-+	if (rc || granted == FILE_MAXIMAL_ACCESS_LE)
-+		return 0;
-+	if (granted & FILE_DELETE_CHILD_LE)
-+		rights |= DELETE;
-+	if (granted & FILE_LIST_DIRECTORY_LE)
-+		rights |= FILE_READ_ATTRIBUTES;
-+	return rights & want;
-+}
-+
- int set_info_sec(struct ksmbd_conn *conn, struct ksmbd_tree_connect *tcon,
- 		 const struct path *path, struct smb_ntsd *pntsd, int ntsd_len,
- 		 bool type_check, bool get_write, bool posix_open,
 -- 
 2.47.3
 
