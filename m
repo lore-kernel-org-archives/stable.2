@@ -1,63 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=149.72.141.136
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794140992;
-	b=E3pxMxWAtou779JpdPG8MSAXLI7RdnNInzLgnwrDZ4Qym+CCdNoGkyDWtUMvg0ukHFlC
-	 AzUgOoeXCzOnXoKgpdzQsDy6SV6v31s7I9Vpd84pNio/3CIpjlpoXZ7VFBbe/HeVGNa3d
-	 5xeOOFoaSb6DALxdJnqrpbgCNkQozUPjePu/9025+kLdpfaZeSqqGXHew+LTYub/6Njtm
-	 K+bneM3LdJH20JUg4RTmLb/peDXJv7V+5xP0gqF+iapU67Y/2ZfwEIJaYIHsqdmk/Xwg0
-	 uGooBXOD9IS+R7MYMK0RLLcB2wNR/McpKZ3hWV4IrVse/osS4tYgbqYMS7k/vEzVP9g==
+	b=3SXGFFenVWtrV6ZpK1Wboz0BjNhXSUBSIY73JbeNMSiTlrHxrQgsjzRhXgS4b33cfOXu
+	 dFTTj4MohR652igtzRNVeN5Grlanbenv7uiwXmEGmQPDKj50McXkVTVQdvKXh3ta/YMvs
+	 wkX7bWVXoCQxp7HY2PYjXkpP+BY94S5Fvd94yoHEREHJ3pkz99lblWMMTYJDtY+0WxkSO
+	 X70u/dB1VmdWYuSRPuMcw3dB8rlJgig3CxLJRYmFA/p5keJyXt5KRqPJ6KsljxQQS3QZS
+	 5TDSr9V8yBCNNz+mNVPWgBTPYf1MkwM/WQ/xkxWy3h7Bkdb0Yw0lRjJs4FdPBKS6HQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794140992;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:X-SG-EID:To:
 	 Cc:X-Entity-ID:Content-Transfer-Encoding:Content-Type;
-	bh=yzTW9mpwYO3870v3lYfOSB2zBQpfPORuUrXDOiz6USQ=;
-	b=GuIFjjoZHzZ/4Laj1utmoBGuhyi7ao58cX5mIaJ0wur4KoguIYGwdUfCNS7HuaOw57lZ
-	 mAkUmCQnvWHmeLw+D8bv0c0DkTW0ShEasta48Nlu9sBtKfber3D3VRDG9Ba0K9lX8r68E
-	 henvj4NfzoDL21bEmAKNptArQDdsaRWYIhUa8Yh0rAtARAyfFNMAupae6ryAKmTr0leVs
-	 FgCu/965lt5rsoqAhpg2ccO5gWIyTD+9VIEQVcn97174x4/0DcW2pk5Ss0laEl8m0e2NL
-	 //6Bz6JnbsPJH9o2HJJoxlYwdbMnCuaA8itt1v/829zcZ45ZZMRg8dCdLwjacfThc7Q==
+	bh=6zo9Affma3d9f2OvsvgbfKWV0Uz8drYcRyaGKjyIPS4=;
+	b=KlVw3gy7/dLOhMYc43nWQIfs76epU3sArZijZVe2Hx7kgWhsIyrkYS1orLUAJu5i7jcW
+	 ts2PW2FNgwsejomX+mvDy+nL0tyT/wNOW7i1RCqYzAoBFNPq2KW1YjiR99kmRESJG3Q7h
+	 hdKOt1hiuaeSkX0iiCw1UmAemc/4wRKPtJexQlrjvisZ1pQv5jf8U2nMpiL4lQvaPnORP
+	 hNdrA6W4uNp7pZUZxim+kwM/xPvj2VarMxvDwfJ33zWEgr8sNy7jHIRlgP9NSSJdxI5f2
+	 ISKqcfzTEna/dyxnmmGisLak0ueHk8vaPluktX/srIR+vfKZYYIfqtLevWabKsqSjJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=honeycomb.io;
 	spf=pass smtp.mailfrom=em.honeycomb.io;
-	dkim=pass header.d=honeycomb.io header.i=@honeycomb.io header.a=rsa-sha256 header.s=s1 header.b=Ka5pPBfT;
+	dkim=pass header.d=honeycomb.io header.i=@honeycomb.io header.a=rsa-sha256 header.s=s1 header.b=Qp5CJ72b;
 	arc=none smtp.remote-ip=149.72.141.136
 Received: from o1.ptr9745.em.honeycomb.io (o1.ptr9745.em.honeycomb.io [149.72.141.136])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 715F3606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDF84606A320
 	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 12:29:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 715F3606A31C
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDF84606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=honeycomb.io
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=em.honeycomb.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=honeycomb.io header.i=@honeycomb.io header.a=rsa-sha256 header.s=s1 header.b=Ka5pPBfT
+	dkim=pass (2048-bit key, unprotected) header.d=honeycomb.io header.i=@honeycomb.io header.a=rsa-sha256 header.s=s1 header.b=Qp5CJ72b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=honeycomb.io;
 	h=from:subject:date:in-reply-to:references:mime-version:to:cc:
 	content-transfer-encoding:content-type:cc:content-type:date:from:subject:to;
-	s=s1; t=1794140989;
-	bh=yzTW9mpwYO3870v3lYfOSB2zBQpfPORuUrXDOiz6USQ=;
-	b=Ka5pPBfTM16WnTciDxVlQkAhh5KcFUCpOdY/FUclP251I6Dsu6Ek5JcCxrGqdE9vqNKd
-	RD7lSz78PIaNWSWQ3sF036Jf4FRXAm0p9CgpKIIDtC528E+fu5D75pJuORfATQypGLaqsq
-	rlJ6pu1Rcsk5o22AT4jBmX6GeikogaJEghLfoBcklXc7Izr8V6XmdiBifcBo3szEqXIpON
-	NodlJzsa6bUb8wWrEtcCbYJBlXhV6wj92WV9L6+1v0DOPz3VtJ5oqWAzCpAOPRgyXQJgSD
-	U9w3QcThPgpO+NhpRqHM+48PWrLwyU3CUCVIv2ZtLnUgIHSdfmfn2pxTN//c2Orw==
-Received: by recvd-canary-84d6db54bd-wdvvx with SMTP id recvd-canary-84d6db54bd-wdvvx-1-6AF06B3D-3E
-	2026-11-08 12:29:49.858010868 +0000 UTC m=+217014.555711408
+	s=s1; t=1794140990;
+	bh=6zo9Affma3d9f2OvsvgbfKWV0Uz8drYcRyaGKjyIPS4=;
+	b=Qp5CJ72bOGsf+MZLoZVIj/v+NP9PaaXtNMNfwkEqEbmRxglrCD2gyqFO1sYCwa1PgdIH
+	7KciPLlBDUSNCYKADnrMFLiFAuPNaRgFmFuKhsuwwxKd/6m5WfmE0MpBdRcspdkmNynDQM
+	mqF6fXWWbhJT9sfqSqmgtSc+KVMnPGVdb5O9W1otUSvLCLVMX6skMZyMsqbc67F0esZvNu
+	h55DwKO2/GsdgSSebHVvBYy76oQ6kr8CCbM8uLOtLyKG5GivVvzIb0bSafuBVIKoHvBpdd
+	8BfvBbyxSGEZL5zPOKIVc4iBKN20OH0eB50JA0lJBWBkQ5oN87fbhpalJJUxdf4Q==
+Received: by recvd-65b8cfd999-6zpt9 with SMTP id recvd-65b8cfd999-6zpt9-1-6AF06B3E-62
+	2026-11-08 12:29:50.651994134 +0000 UTC m=+216962.289948740
 Received: from daisy.dens.ffj.family (unknown)
-	by geopod-ismtpd-36 (SG)
+	by geopod-ismtpd-16 (SG)
 	with ESMTP
-	id rK-9LdFAQVWeVipO3UORbQ
-	Sun, 08 Nov 2026 12:29:49.761 +0000 (UTC)
+	id ATXYnMNzRtmjbAXUyZu1Ew
+	Sun, 08 Nov 2026 12:29:50.577 +0000 (UTC)
 From: Liz Fong-Jones <lizf@honeycomb.io>
-Subject: [PATCH 6.18.y] writeback: keep cleanup_offline_cgwb()'s scan out of
+Subject: [PATCH 6.12.y] writeback: keep cleanup_offline_cgwb()'s scan out of
  syncs
-Date: Sun, 08 Nov 2026 12:29:49 +0000 (UTC)
-Message-ID: <20261108122949.601892-1-lizf@honeycomb.io>
+Date: Sun, 08 Nov 2026 12:29:50 +0000 (UTC)
+Message-ID: <20261108122950.601926-1-lizf@honeycomb.io>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261107051345-failed-6.18-90c96612460e@kernel.org>
-References: <20261107051345-failed-6.18-90c96612460e@kernel.org>
+In-Reply-To: <20261107052523-failed-6.12-90c96612460e@kernel.org>
+References: <20261107052523-failed-6.12-90c96612460e@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,12 +69,11 @@ Precedence: list
 MIME-Version: 1.0
 X-SG-EID: 
  =?us-ascii?Q?u001=2ECuH7N2XAoeMR1zrzr=2F6NZrhli2vbKPOHff5fJuZuba6ZIE8QPyIf9mn4Y?=
- =?us-ascii?Q?ezqeFFjUkh=2FeROy4LtnO7KN9jZmeW+0ckIe452j?=
- =?us-ascii?Q?dQiwB0G9corOdXIDMSjTcECRq3YjhDAYK4TgQmU?=
- =?us-ascii?Q?cCdcOBShjtmzr9xe2L3VSNhJYr7lFb2sbfO28Bn?=
- =?us-ascii?Q?HuD3CEsDBjbBpc+NQCGwCNEkIr3=2FK91Tnhrscuo?=
- =?us-ascii?Q?YfUwm=2FmsbObRt=2FI+IAkQquysKB7gvlBSaIK1fJ1?=
- =?us-ascii?Q?OPjD?=
+ =?us-ascii?Q?ezqeFFjUkh=2FeROy4LtnO7KN9jZmef1=2FqNfKkWze?=
+ =?us-ascii?Q?c66FofcWXkGT6XbwNvkOFGDaypjjBPoQxXu0aWq?=
+ =?us-ascii?Q?CrRzL3gXComSMi3g0wMYzxIP0ykWYo++MxXPujy?=
+ =?us-ascii?Q?PMK+oxKTQo=2FY2jtgsYDdIdOoct4Jt77qugrckO0?=
+ =?us-ascii?Q?yV4AyqKqwZVb3lJ2sDzjc3Sdqnn3pZLPGuQlK7X?= =?us-ascii?Q?QBHE?=
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>, Tejun Heo <tj@kernel.org>, Jan Kara
 	<jack@suse.cz>, Christian Brauner <brauner@kernel.org>, Liz Fong-Jones
@@ -123,17 +122,14 @@ Assisted-by: Claude:claude-opus-5-5
 Signed-off-by: Liz Fong-Jones <lizf@honeycomb.io>
 ---
 Upstream's first hunk conflicts with this branch's rcu_read_lock() block, so
-the rwsem is taken before it.
-
-Tested on 6.18.62 with a debug hold on the sync work: after a crash, 252
-of 300 lazytime atimes were lost without this and none with it (ext4 x3,
-xfs x1). Lockdep and DEBUG_ATOMIC_SLEEP clean.
+the rwsem is taken before it. Same change as the 6.18.y backport, which was
+race-tested; compile-tested only here.
 
  fs/fs-writeback.c | 8 ++++++++
  1 file changed, 8 insertions(+)
 
 diff --git a/fs/fs-writeback.c b/fs/fs-writeback.c
-index 094d2872881d..9c973ed0ef8b 100644
+index 48ac4f58605e..03f1bb9a2bc9 100644
 --- a/fs/fs-writeback.c
 +++ b/fs/fs-writeback.c
 @@ -756,6 +756,13 @@ bool cleanup_offline_cgwb(struct bdi_writeback *wb)
