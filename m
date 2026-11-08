@@ -1,55 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794142254;
-	b=eUTlSHhGm87zDEtWPB+K19HLHS4egwvvco6S8uzoNlW1G8D4ufR0VQK/92YvnTSyVMeZ
-	 urmgpAOS5sIqAHAKVFhLkclOjgQfsQdZ2GzPbuOPMHfrZavwB9HZ01gc8CGFYK4bzaIXh
-	 oUOpCDhRAQGSlR8JqXULiCN2BDhF3u5UxfvvlCeaAEU3BR9k0U3xG1aMvYRv9qsp91W8B
-	 K+yZBwI+zcIWJ+ZC3vqmcJCNymuDEEQiHL29BV7qglrFymxXB7YtYlEgDqn0/Ibg5IN4J
-	 ajGumj7Gt5VrjKPMF6y43yDyOvb92l7Jzd4vbRNPKDoOPdtUJWl8myT07/QCxQtdb3g==
+	t=1794142826;
+	b=sagF3OtVcvrFcozw3ZrjJe/4fJ/0skrxnrCYUN2fnG3vuPZg3JFZr0+HHQ9RKy2wtWgi
+	 RLoxXQvsLPGDM515yAmQYsHYzIM2QrBVu6TghbYakYTdBBFqWNztsD9eXLKZanfCSgRNL
+	 J9ttzmN9hAhrWGilHa2bSjKsmJ2b1G4+dRmFcIhezbhfOxbgFSjDvb9vwrmpFMOGxVh4F
+	 gvqJc5zUKTXYOeR1Jm60m3+6rII/EgWAwFkoxTP54jhul9gf5A0KgciO+QJfKtPtQmzT6
+	 K4KbOw/fxiUAnusSZfN/O7PR5FiyaHF9UXdk58uHPt6Xk26kyrHwIkukUbo4NHK04Jw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794142254;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=hitSk203Z3MDehzTSnWVcqfGrv0NFSDEbEoJVDBHWNE=;
-	b=v+UWgOHZThaTqihNx4ulTPF/LABFL41CwhA62dwUDMTCObq5MHdcK/X4OVc6MquWu2Ww
-	 W5y0c+zm+G2crf0XYwVZ8OMCVc+n93aejEoGAX/hwC1k3YCOGTC0vnzRVeR9tSk/peOGZ
-	 FmgcxX9oEcW4CncDIERZEAzShieeC0NwkfsbHljmzrcghdhDKDUYdoIUOkop5G1MHtOWe
-	 QOTr4vsjzzFOwnYmecKtUOzJD7ZrXURA/Jl4DiXWOxt1cqlRYrc1MlkhJuBSWRmFFwMQh
-	 DnLb/EUEn2rEnaUheBYvrF35OZkLyObFYLgDpaQAd2qnoJ1M+Q0ATV0lvkPv8IS7GxQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794142826;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=4mJGcnbOikGC5pyvD8OjNMA3lgdYXd+q6xrFutVPm9Q=;
+	b=TIctUoRcm7q4E/W/yj3v3dCB1hewIspKyhp/rfZGeYwglYwQ/FAeDbXYD/rOjH5K/IsB
+	 vCqCYMvaRjVvIRoaqJzwxN7uFZpuSC3oAnDTwIGXfUb8NKXIlWv90XBbsIQibDSqrZCbA
+	 vzTDQdOv1UyV6Gdbi7S5N6U8Pq9wvR6Lx3JOyrgq8DxQpO9sQ2XaDG6ULEiKWJKR1fKy9
+	 byZgciw9GUelxG8WJK928zzCTVhpKiAADGkM8d8U+aQiWGwShJS1WfrW/INpcAr28s84V
+	 d++wk8C0+om3sUDYw1NXG4PBORYdJBQFSqcucCtkz5L3hFWesVEfUA5Dzv+HIJVh3Dg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AGei4xjN;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NEt8TNJs;
+	arc=none smtp.remote-ip=209.85.216.41
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 050A1606A320
-	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 12:50:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B2A8606A322
+	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 13:00:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B2A8606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AGei4xjN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE8ED1F008A3
-	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 12:50:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794142253;
-	bh=hitSk203Z3MDehzTSnWVcqfGrv0NFSDEbEoJVDBHWNE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=AGei4xjNLRaUPimc4nH7X8n1Z4Xf2LB0U2cjSsWsnXVDMQ8qDK+kKyex1fFyrFDs3
-	 5+Ax3fhz5HaAsUih/bbiaOAt8uK69JrscOKg9+1toClqsetiE3h8f+v4Ju9qn/tS4a
-	 waFOLUfgzqXwaweUeDB2s906WCfVuDTiMC0qhBfqHLVCd3vb9VP6FuQmbKBobs2cz/
-	 Lg9etFfqaJxfy0dEwMvU4aGUpQtNVIWK0E0wN9EB3V/v8FALzZbyy6I5IgS8PCy6e7
-	 3tGfNu9lyUZLqi7bu5hy2EJE9CfmydtWbE/SGN3t8ybLLzDh7GOpKldGrGAUnE/aRW
-	 h4kxDXjd1VKfQ==
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b571979178so103848a12.2
-        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 04:50:53 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFI5Wkh++ICenb81I/PMDjWdmwNIx2HlndGTWXrrOiWS+wEb/BU9c8FI9k7FbOJuaJKW2pLieM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/WnMERHI2WiPJkHZg3czdJ6zaDFtpeRehsek7cXAWll9oQJR34
-	7muO7585orVv8jCi2V8S9lSkCfjJofsmgubtrAmrNWznBRp1GUzx5MXoLOvqUMieaCW+UMxqB60
-	wupSJhvjmTnDjWIYgNI33hi6oEhV+BQo=
-X-Received: by 2002:a05:6402:1e91:b0:6b7:170:bd17 with SMTP id
- 4fb4d7f45d1cf-6b7224624bcmr864837a12.33.1794142252407; Sun, 08 Nov 2026
- 04:50:52 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NEt8TNJs
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3acdcfa2bd3so64498a91.3
+        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 05:00:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794142826; x=1794747626; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=4mJGcnbOikGC5pyvD8OjNMA3lgdYXd+q6xrFutVPm9Q=;
+        b=NEt8TNJs6JP9BoXDg7rnJ+F20QyQc5NRQYgxlZU3sRUoaXEv/IVzqnWWf11uu2V+Ai
+         lUtYTjuUCXGyyKbyNm/GqXcTa2jBPtl8Vwf3wxfZLFWQKYlo/8Xq2vAS3TN/UiM9khAo
+         wnTZMpNN3nQcGWQ24x5ug24PXi8TuVLglrn6ZDn30jefoAQcOvkG9W3U7ZH1/JDfZZF2
+         iFrkHMtTrYB8iluJ//NMdY3WnbHEevvP3uTLOByq34K+/TOrpSDQx3HJCFOgo7ZmJXeq
+         I4EKrPmGBK3irLqcv4m9LsU/jvmqtbiHS3AIb/LbrMuZl4fwxhcHsoMSuZfF3VVvquzo
+         umdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794142826; x=1794747626;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4mJGcnbOikGC5pyvD8OjNMA3lgdYXd+q6xrFutVPm9Q=;
+        b=WZ+oujyfB+LNwVbLKQitZnqybhoFbfdRg9P7TvC2c806iiQ3Bw9x7TwtLg4ve4geIx
+         mp3b3q+MEg/ACRS7cRoYoAJ4D0HrFs9YzwSRERXQENGF6FpcNLWbySE5yS2ccHKDjK34
+         MLqFCQoJdo0nANrwg5auc2DeuwBk6pAeDvgRbGYrZjq0QbIva7hrp1EH4myc58IV1Rrl
+         3+u44yJbKTgjuaWOAWXJcLaNN96eAc8FdxGfGhSeSdZFr/AXZvN/o/LfXyIYxEv6khND
+         A4fyIytE53HMCieAX2en62KFThsBuQ9HTEEocjnpuU3CKL5n/J0xcfiWRn6ojlzBrrPT
+         tVYA==
+X-Forwarded-Encrypted: i=1; AL+hErEVhE31lyTJDpdRKEc+b5Gg93ZayD6IRdRD10B+GzHjyAzCQ6knt6wwOgQZ46ckxKVRc9mJVgY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z86gpcYZ0IpB8V6L/twidPZjyedO2EAE7KgYdnqAJ0kPYWYjDxj
+	UFUc7OxT9Di54uocJIGrq87CPuB/r35h9mETpVWMVZmQx8ViMXhRQBR3
+X-Gm-Gg: AYBFou12qXpS602V58alVnDjSpTXcAwPRkbYEOQgB5Oz02WHYoZYfQTCRHiCGSO0n2e
+	bhqW9naUAGkuTgf5hMBmmC3OLnw2b8mjSa9AIv/73Ls1bqwJ2rSEJoOBlAr/84bLZQrvqg0hsuF
+	TOODrwhSN0UGrscg4+SbJETcdpoJFHG32Osgpgc+cbshrttMUnNqy1I08+vDvJCVGUJPtOWT3Qt
+	xrZS1AgJa9bcVlWh5RWS1IEycNc2zEL/CNUmoHDjKxqZiZkVzvQDLDJJfU40pOIKBIcBe9ylLx7
+	KIQ1iWq3O8S0a8gXfJriAHQkj/ajtoN/MhA9nCgVli5RuOBvaFzi6B28wytqmAoWfrm93hRwAMN
+	ciRv3eUDwc5zAQ7KaUELMK9VB0sVj/i5W4DWnvzWSyPfHUCI2KcE2Ay6Ku8pRewuwu406o72KKU
+	khk2fsdWo31KZlIBwDXYsfJndc65BvQdGtDkDyh+jlTgyWP7/KC4YRKE8ZO3UrrBrHUJUlKiSnJ
+	W/qeHr8BETxaH3Vkgie8xsFDYB8IUkhNcXToHgtOz8v00E4uosNDLPk5Xy++UCL81gSijs1eKpz
+	LD0SnQc1oG1ViQ/YGARNGtmLReDRAFppmfPY
+X-Received: by 2002:a17:90b:3c8f:b0:3a7:b260:9ccc with SMTP id 98e67ed59e1d1-3b12d5d4c16mr1111842a91.65.1794142825530;
+        Sun, 08 Nov 2026 05:00:25 -0800 (PST)
+Received: from ubuntu24.localdomain ([124.77.124.144])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b127970954sm2986180a91.15.2026.11.08.05.00.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 05:00:24 -0800 (PST)
+From: Yuansheng Yang <0xbeac@gmail.com>
+To: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: dhowells@redhat.com,
+	paul@paul-moore.com,
+	jmorris@namei.org,
+	serge@hallyn.com,
+	keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v4] KEYS: Protect pkey method checks against type removal
+Date: Sun,  8 Nov 2026 20:59:31 +0800
+Message-ID: <20261108125932.77081-1-0xbeac@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <au3fT5HMq7IF-M3e@kernel.org>
+References: <auy1ANMSKTXZb8GE@kernel.org> <20261105193632.34363-1-0xbeac@gmail.com> <au3fT5HMq7IF-M3e@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,202 +104,79 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <CAKYAXd-68oCuAU=x0TV6BMsNJZkmBcdVZTtOQXh3iEm6BptJSg@mail.gmail.com>
- <20261108080323.468892-1-wahidzk0091@gmail.com>
-In-Reply-To: <20261108080323.468892-1-wahidzk0091@gmail.com>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Sun, 8 Nov 2026 21:50:39 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd9=crUmmGbO1vcPsdz-GmWoHxD_W_bRv2PQ_Db3Q+EkCQ@mail.gmail.com>
-X-Gm-Features: AclHuK-VpXbvUoIWbOObTZtRbEASwgLKvE2W7SQOC2nRaKVoxuPrbaCZOAMIEcE
-Message-ID: <CAKYAXd9=crUmmGbO1vcPsdz-GmWoHxD_W_bRv2PQ_Db3Q+EkCQ@mail.gmail.com>
-Subject: Re: [PATCH v4] ntfs: convert a named $DATA stream safely when making
- room in a record
-To: Wahid Khan <wahidzk0091@gmail.com>
-Cc: Hyunchul Lee <hyc.lee@gmail.com>, ntfs@lists.linux.dev, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 8bit
 
-On Sun, Nov 8, 2026 at 5:03=E2=80=AFPM Wahid Khan <wahidzk0091@gmail.com> w=
-rote:
+On Fri, Nov 06, 2026 at 04:08:15PM +0200, Jarkko Sakkinen wrote:
+> On Fri, Nov 06, 2026 at 03:36:31AM +0800, Yuansheng Yang wrote:
+> > Remove the key->type->asym_query check from keyctl_pkey_params_get(): it
+> > runs without key->sem, so key_gc_keytype() can retype the key right after
+> > it.  Instead, make keyctl_pkey_params_get_2(), keyctl_pkey_query(),
+> > keyctl_pkey_e_d_s() and keyctl_pkey_verify() each take key->sem for
+> > reading, check the key->type->asym_* method they are about to call, call
+> > it and release key->sem.
+[...]
 >
-> When an attribute has to grow and the mft record is full,
-> ntfs_resident_attr_resize() walks the other resident attributes and
-> converts them to non-resident ones. For $DATA it always opens the
-> unnamed data inode of the base inode, even if the attribute found is a
-> named stream:
->
->   tvi =3D ntfs_iget(sb, base_ni->mft_no);
->   ntfs_attr_make_non_resident(NTFS_I(tvi), value_len);
->
-> value_len is the length of the stream, so it does not match the
-> attribute that ntfs_attr_make_non_resident() looks up for the unnamed
-> inode, and the WARN_ON() on entry fires:
->
->   WARNING: fs/ntfs/attrib.c:2115 at ntfs_attr_make_non_resident
->    ntfs_resident_attr_resize
->    ntfs_attr_expand_locked
->    ntfs_expand_for_write
->    ntfs_file_write_iter
->    vfs_write
->
-> It does not need a damaged volume. A file with an alternate data stream
-> whose record has no room left is enough.
->
-> Open a named stream by name with ntfs_attr_iget(), as is done for the
-> other attribute types in this loop, and keep ntfs_iget() for the
-> unnamed one. The loop runs with the mft record lock held and takes no
-> lock of the stream inode, so converting a stream from here needs more
-> care than the plain lookup gives:
->
-> - A reader of the stream holds the folio lock and then takes the mft
->   record lock in ntfs_read_iomap_begin_resident(), the conversion takes
->   them the other way round and waits for folio 0. Take the folio with
->   FGP_NOWAIT in this loop and skip the attribute if it is busy. The loop
->   only tries to free space.
->
-> - A stream that is in the inode cache can be open, being written, being
->   removed or already unlinked. A write that passed its residency check
->   before the conversion carries on with a non-resident attribute, and
->   a stream in the middle of ntfs_stream_finish_remove() is converted
->   under its feet. Convert only a stream that is not cached, and none of
->   a file that is being deleted or has no links left.
->
-> - The lookup of a stream ignores case, so a stream whose name differs
->   only in case from an earlier one resolves to that one and the length
->   does not match again. Compare the names exactly.
->
-> Fixes: 495e90fa3348 ("ntfs: update attrib operations")
-> Cc: stable@vger.kernel.org # v7.1+
-> Signed-off-by: Wahid Khan <wahidzk0091@gmail.com>
-> ---
-> v4: v3 (convert a named stream via ntfs_attr_iget()) can deadlock against
->     a reader of the stream and has other races with an open or removed
->     stream. Each is reproduced with a forced make-room pass and a debug
->     delay, fails on v3 and passes here: reader/converter deadlock
->     (hung task), write continuing on a converted attribute (iomap_iter
->     WARNINGs, recursive locking), unlinked file with an open stream (mft
->     record reported corrupt), stream converted during its own removal,
->     and a stream pair that differs only in case (WARN in
->     ntfs_attr_make_non_resident).
-> v3: use ntfs_attr_iget() for a named stream instead of skipping it (v2).
->
->  fs/ntfs/attrib.c | 57 +++++++++++++++++++++++++++++++++++++++++-------
->  fs/ntfs/inode.c  | 19 ++++++++++++++++
->  fs/ntfs/inode.h  |  2 ++
->  3 files changed, 70 insertions(+), 8 deletions(-)
->
-> diff --git a/fs/ntfs/attrib.c b/fs/ntfs/attrib.c
-> index ce7c1b524180..c824bd3ea9fa 100644
-> --- a/fs/ntfs/attrib.c
-> +++ b/fs/ntfs/attrib.c
-> @@ -1975,7 +1975,21 @@ int ntfs_resident_attr_value_resize(struct mft_rec=
-ord *m, struct attr_record *a,
->   * inode i_size is that this is not necessarily uptodate.  This happens =
-when
->   * ntfs_attr_make_non_resident() is called in the ->truncate call path(s=
-).
->   */
-> +static int __ntfs_attr_make_non_resident(struct ntfs_inode *ni, const u3=
-2 data_size,
-> +               bool nowait);
-> +
->  int ntfs_attr_make_non_resident(struct ntfs_inode *ni, const u32 data_si=
-ze)
-> +{
-> +       return __ntfs_attr_make_non_resident(ni, data_size, false);
-> +}
-> +
-> +/*
-> + * With @nowait the folio lock is only tried: a caller that holds mrec_l=
-ock
-> + * must not wait for a folio lock, the read path takes them the other wa=
-y
-> + * round. Fails with -EAGAIN if the folio is locked.
-> + */
-> +static int __ntfs_attr_make_non_resident(struct ntfs_inode *ni, const u3=
-2 data_size,
-> +               bool nowait)
->  {
->         s64 new_size;
->         struct inode *vi =3D VFS_I(ni);
-> @@ -2056,10 +2070,11 @@ int ntfs_attr_make_non_resident(struct ntfs_inode=
- *ni, const u32 data_size)
->                  * outside all ntfs locks, we need to get the folio now.
->                  */
->                 folio =3D __filemap_get_folio(vi->i_mapping, 0,
-> -                                           FGP_CREAT | FGP_LOCK,
-> +                                           FGP_CREAT | FGP_LOCK |
-> +                                           (nowait ? FGP_NOWAIT : 0),
->                                             mapping_gfp_mask(vi->i_mappin=
-g));
->                 if (IS_ERR(folio)) {
-> -                       err =3D -ENOMEM;
-> +                       err =3D nowait ? -EAGAIN : -ENOMEM;
->                         goto err_out;
->                 }
->
-> @@ -4933,18 +4948,44 @@ static int ntfs_resident_attr_resize(struct ntfs_=
-inode *attr_ni, const s64 newsi
->                 if (a->type =3D=3D AT_DATA && !value_len)
->                         continue;
->
-> -               if (a->type =3D=3D AT_DATA)
-> +               if (a->type =3D=3D AT_DATA && !a->name_length) {
->                         tvi =3D ntfs_iget(sb, base_ni->mft_no);
-> -               else
-> -                       tvi =3D ntfs_attr_iget(VFS_I(base_ni), a->type,
-> -                               (__le16 *)((u8 *)a + le16_to_cpu(a->name_=
-offset)),
-> -                               a->name_length);
-> +               } else {
-> +                       __le16 *name =3D (__le16 *)((u8 *)a +
-> +                                       le16_to_cpu(a->name_offset));
-> +
-> +                       /*
-> +                        * A named $DATA stream is converted only if nobo=
-dy has
-> +                        * it open: an open one can be unlinked, being re=
-moved
-> +                        * or in use. Its file must not be going away eit=
-her.
-> +                        */
-> +                       if (a->type =3D=3D AT_DATA) {
-> +                               if (NInoBeingDeleted(base_ni) ||
-> +                                   !VFS_I(base_ni)->i_nlink)
-> +                                       continue;
-> +                               tvi =3D ntfs_attr_ilookup(VFS_I(base_ni),=
- a->type,
-> +                                               name, a->name_length);
-> +                               if (tvi) {
-> +                                       iput(tvi);
-> +                                       continue;
-> +                               }
-> +                       }
-> +                       tvi =3D ntfs_attr_iget(VFS_I(base_ni), a->type, n=
-ame,
-> +                                       a->name_length);
-> +                       /* the lookup ignores case for streams, ours does=
- not */
-> +                       if (!IS_ERR(tvi) && a->type =3D=3D AT_DATA &&
-> +                           memcmp(NTFS_I(tvi)->name, name,
-> +                                  a->name_length * sizeof(__le16))) {
-> +                               iput(tvi);
-> +                               continue;
-> +                       }
-> +               }
->                 if (IS_ERR(tvi)) {
->                         ntfs_error(sb, "Couldn't open attribute");
->                         continue;
->                 }
->
-> -               if (ntfs_attr_make_non_resident(NTFS_I(tvi), value_len)) =
-{
-> +               if (__ntfs_attr_make_non_resident(NTFS_I(tvi), value_len,=
- true)) {
-Can you check Sashiko's review comments?
+> This is a transliteration of the source code changes. How this helps me
+> to quickly understand them vs reading the source code changes and
+> skipping this?
 
-https://sashiko.dev/#/patchset/20261108080323.468892-1-wahidzk0091%40gmail.=
-com
+It doesn't. It just repeats the diff.
 
-Thanks.
+> I'd like to know what is that you are trying to do by doing those
+> changes, which is the higher leve question. You should know this
+> already. I see pretty much the same thing done for those sites so maybe
+> that action is what you want to describe. Action taken, why that action
+> won't cause any harm,  enumerate the coverage and address that it is the
+> full coverage.
+
+The goal is that an ->asym_*() method is only called while the key's
+type cannot go away. The action is the same at every site: take key->sem
+for reading, check the method, call it, drop key->sem. The GC needs
+key->sem for writing to switch the key to key_type_dead, and
+unregister_key_type() waits for the GC, so the type and its module stay
+until the method returns.
+
+Why it does no harm: the early checks stay, so the errors do not change
+unless the type goes away at the same time. memdup_user() and
+copy_to_user() stay outside key->sem. And key->sem is only taken for
+reading, so only writers on that key wait for the operation, as they
+already wait for ->read().
+
+Coverage: nothing calls ->asym_query(), ->asym_eds_op() or
+->asym_verify_signature() except keyctl_pkey_query(),
+keyctl_pkey_params_get_2(), keyctl_pkey_e_d_s() and
+keyctl_pkey_verify(), and all four get the change.
+
+v5 describes it in that order.
+
+> The above looks to me as if someone had literally prompted "translate
+> this source code change to English". Neither much effort thinking  done.
+
+That is close to what happened. I used LLM assistants (Codex and
+Claude) to find this bug, while looking for other cases of the
+KEYCTL_READ problem, and to draft the patch and its changelogs. I
+should have said so from v1. The v5 changelog says so, and what they
+were used for. I have gone through this description myself and can
+answer for every line of it.
+
+> > -	if (!params->key->type->asym_query)
+> > -		return -EOPNOTSUPP;
+> > -
+>
+> I'd drop this as technically it is not part of the bug fix and then you
+> have pretty much symmetric action. Helps at least with the description.
+
+Agreed. v5 keeps that check. For the same reason it also keeps the early
+asym_eds_op and asym_verify_signature checks in keyctl_pkey_e_d_s() and
+keyctl_pkey_verify(), so each of the four sites only gets the
+down_read() / check / call / up_read() block.
+
+Keeping them also fixes something I missed in v4: for a key type without
+->asym_verify_signature, such as turris-signing-key, KEYCTL_PKEY_VERIFY
+with a bad input pointer returned -EFAULT instead of -EOPNOTSUPP.
+
+I'll send v5 right after this mail.
+
+Thanks,
+Yuansheng Yang
