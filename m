@@ -1,78 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794128490;
-	b=Jp85bq/zqIuaCJsaMqWNuRQTHQ33EwOnzqko59pPxb6JsooaVLJ9H67bejKGjJwDc+Rv
-	 IIQg7UXHS/D223QWbUcTESuR+8kfLf0aq07NC5Dq89pUNBXjPLI8naTNVIQABkk5jdg8z
-	 T/fTyKwdCbVtNjkkP/gR1VhR1PYJdwgjLt7HlYOXnhynRwpMifnUpN3e0C595Qc6aDF8V
-	 J1OwBkotCCIWW2oXMT7WUbMJiYFOzzDLt+r0IGa7usLjcc/ksdPXJ3CGsxAgWCwsr2Cl6
-	 yw45Ad8U/WxqDhpyUWDBuk0oepmMoiJnNDIwu3AOBtfH51wjnPnXd5CSqKcbx0HZJNA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794128490;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=GpRg0VY2yJJLJAO/hhT5l5/PBAi7YUoiPdqyzPaVAWE=;
-	b=KBAEaSjmxw4UMUrbVv+Vc2khPa0SJaTbCZI9ev2d/E4Cy/Fz/QftTa24ZLpt4a8qEiwH
-	 DC3KXUhE2dwauEjXGMS5oHOscrOSv9Da1iksFPl3C/KiTOOHfp8etpXNjzxYoO3oMNi//
-	 s8aU6q1uE0WZCojTqbFQP09a075cjt5B5jNpwTa2QLlw8AWPkKvuypkJGAxPjJzBtX6t3
-	 +Un5LFF1HpEHKqItPolqE9XiO+KPR5tbAdbXoOfoN0jCPzk59SBGJc0+V1KVbXAanCjTU
-	 jHSDE4quo+ehdd3xEMcdkXMx5zvAhWQpWMIlumlt05/Nkr5N+KosQvac3gU0iC+MGKQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="k/zMcDFa";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E93E606A320;
-	Sun,  8 Nov 2026 09:01:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k/zMcDFa
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794128489;
-	b=mQuTy7BYlghJ4xYVljfVdwDDF/yJPgfLkhDGElto1JnXhUU01/tiE+ljeuE4bkkQjlby
-	 GpGguOqq3hkE6ijSrVo/P4eKGHt8TDsWx0nxwObkzPkbUZVGDoUzkAZb49uIajumAQ8l2
-	 IHOniExmhHGvRjWmisKnD+c9td1+koNkq85yVO4l9ZKtTLZtXTxyxNkidBBNTVTuXvdtP
-	 JAcz4di3QT+I+7ugdC5Gp6HiDbNF4LcnLaZIHz4jzuJD+BV/2nJBbw8fGxOtLS/ixIXhg
-	 aNpz2BiTvDk2uicDdCJCJsZ6JkdvLljl5gFOxwTGFkygivwbqzdrk6fUWsE4FBgVFmA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794128489;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=GpRg0VY2yJJLJAO/hhT5l5/PBAi7YUoiPdqyzPaVAWE=;
-	b=dlapjvgQ+Mae6G5M+0oR33ef759lyoGpoBvPOgY/xGcYgi0L9B8YDV0uT6dmDrniEg9t
-	 fHbbZqAyaiTz5qQC3tipKIoqvR3lJ7zyam2x+AhGz1eEvEMSvMoPhBBePp19wpoMrxbTT
-	 N17M4K4qMd2zPUWoKHhnaiYjnxWZzOGt/Fgt/TqHOPgBLYyV/4iI392G7w65IMNyjULkW
-	 9m9z7Zj5n2ScZu5SIqemW+yCjBVyQj9ZMulDhDebsTOuOeimcBTCsgH0ZUNs1sOFF+xMD
-	 MsfPY3lcuoTzonIntEs49n1EZs5/6RVUbn1f+QsAOVIdmt64MwrAcT7Ph+KdfexieUw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.190
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794129309;
+	b=Rg3JSsVOWPtjxJO0h/ELIKlK3Ff7qhENc0cRQUfDynILV6Fwksy8rd2RXmqeJYsMgAS7
+	 /rkxkIM46kS9JtHV1H5vslrP3LfNh4VpHzO0Nqi1j6Xe4rmUeRWRkEsgDVb1yZqmYPihJ
+	 GE21k403MSqKeWmgdLgBqMBObFoMFSo9uKR8EdIG7h9f3bn/xvPbiSp2xb0vXvemsDGGV
+	 OO1opioGH86XDTZrX1BcOcPWFfWdSmOWGIn7T7WQG/MN3nTVFcNOhLNK4PSEZHyhgcE7Q
+	 DWDIoljS8zaSBjerf8N6IYyKfEvDLcGto91Anz+1XkDL+THHgRL13QUzIFXHf4MWGuA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794129309;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=LeQtM5VzYu47mMivuajAK9kUAFs5kDbX9OFi64Z8JXs=;
+	b=uUim7Bjiu8tkI8kdBqjTwIrqt2a6+iZo84VX87ZGPPxdoZcba8tbzeKsE/JJU1VxvmQx
+	 VhVDdpEvklz7J+Xxg/1RTKgEZ8kc57UYR6yOJ9GyJx1lgXbYO6/sH2X/Lw2WFVE6dwGAx
+	 MbozUMqSBMP+zHuUHujyg0rN2RCuRef5b/DfPXjWOqr4LlaMIXkbEZwPdjPmRqpqLnkXl
+	 uwK9jTnA9Mnaghxwu7sCGP1KGnhV3sHIukrIYe6WhbZJFhkFWH20XLP2Uapz1fnvc73wv
+	 FNgRdYGEEei4MNiZIdY/tPkvIIMlvzhJe3zLyDTKLgT77A2cQ6oRYB06hSzjZRczQwA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=jPglDm2r;
+	arc=none smtp.remote-ip=91.218.175.190
+Received: from mta0.migadu.com (out-190.mta0.migadu.com [91.218.175.190])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 4B2AB1F008A1;
-	Sun,  8 Nov 2026 09:01:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794128489;
-	bh=GpRg0VY2yJJLJAO/hhT5l5/PBAi7YUoiPdqyzPaVAWE=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=k/zMcDFasnTEINl1VjKcWEMRTjm5Jh0P8/CRIXuf6jX3TzWaTmApeW48wuXKXGST3
-	 IcqcpL3PBc1lm7Fc9Y88opbh0aMS2jXZwyCjwuLXtALsJZ08bMl4rAgH32EeCuB4aV
-	 lLgVRiZW7taoWoTVjdylaaUnceNwBm7BtnQeFqG6kZe3AHY18VNXOD9i69J3a+O0G1
-	 E/RHmO4pUKfsvlZVakRNhsCpXH3gV6iBzV8LVjQ5iqWHzHF8xHZZLg707jrzZzhYJ6
-	 7sv/gs0U9Zr1S0MYqVVdoBJTnrbDL2ORmG8MK+sxKRmlJ64EoeqLwgBFWbCWp8uhnq
-	 x8hm23wspqq1A==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 9C70047E8B;
-	Sun,  8 Nov 2026 09:01:28 +0000 (UTC)
-From: Weidong Wang via B4 Relay <devnull+weidongw.illinois.edu@kernel.org>
-Date: Sun, 08 Nov 2026 03:01:08 -0600
-Subject: [PATCH] scsi: libfc: Fix rport kref leak in fc_rport_enter_ready()
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5A0F606A320
+	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 09:15:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5A0F606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=jPglDm2r
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=t4Z7aeZNT5PlqzzWkin+BcsnPWpstMOaNJUW6KAwwws=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794129304; v=1; x=1794734104;
+ b=jPglDm2rDcjeZdDo5iLArbqU/YoZm7OXvO6MSf4ZypK3bkncRkj1eBPoG4CL9ApVzJNOZ92A
+ XF4dMJAi6mxkFGS9cEiaQkoI/vNzJhnQt1ZGuMwpkHHHJqqPQqUxvBxcrw0DRcjzD7qncmDzYBN
+ qerqr5g6hvdhXxQdmnkZ6b+M=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 4eda76d6e28ebe59;
+	Sun, 08 Nov 2026 09:15:04 +0000
+X-Mizu-Trace-ID: 4eda76d6e28ebe59
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
+To: david@kernel.org
+Cc: akpm@linux-foundation.org,
+	ziy@nvidia.com,
+	baolin.wang@linux.alibaba.com,
+	liam@infradead.org,
+	nico.pache@linux.dev,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	baohua@kernel.org,
+	lance.yang@linux.dev,
+	usama.arif@linux.dev,
+	kas@kernel.org,
+	qi.zheng@linux.dev,
+	hughd@google.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] mm: free unused page table allocated by do_set_pmd()
+Date: Sun,  8 Nov 2026 17:14:55 +0800
+Message-ID: <20261108091455.88759-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20261106-khugepaged_set_pmd-v2-1-d2457b5e377a@kernel.org>
+References: <20261106-khugepaged_set_pmd-v2-1-d2457b5e377a@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,109 +80,81 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261108-h123-send-v1-1-b7672ff849f0@illinois.edu>
-X-B4-Tracking: v=1; b=H4sIAFQ68GoC/yXMTQ5AMBBA4avIrDVpK62fq4gFNRiLkg4iEXdXL
- L/k5V3AGAgZquSCgAcxLT5CpQm4qfUjCuqjQUttlZKFmJTOBKPvRa6zFjtjjLQlxH4NOND5ver
- mN+/djG57B3DfD6dLQpptAAAA
-X-Change-ID: 20261108-h123-send-723aeb555069
-To: Hannes Reinecke <hare@suse.de>, "Martin K. Petersen" <mkp@kernel.org>
-Cc: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Weidong Wang <weidongw@illinois.edu>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794128488; l=3067;
- i=weidongw@illinois.edu; s=20261108; h=from:subject:message-id;
- bh=xRn4o4Xo2uz0/atqmK0OD/T0n88c9mKnmN8e3Rc+YrY=;
- b=ngBmio2Hk2lkCkJjxTpsOfHS9AbXORBCnJtDD9yLk5LY7hbmvytIqliR2ttZ/XpS895htJMUv
- dse4I3xbIYjAOwbCFYb3gErrliNJKx5rQ1Es4Ysza6RL/Hu/WnCgjLQ
-X-Developer-Key: i=weidongw@illinois.edu; a=ed25519;
- pk=DR2S1xPEa5sELrWPfOpvUphJQ2VHC+MDc/wJavE/ifg=
-X-Endpoint-Received: by B4 Relay for weidongw@illinois.edu/20261108 with
- auth_id=1449
-X-Original-From: Weidong Wang <weidongw@illinois.edu>
-Reply-To: weidongw@illinois.edu
-Content-Transfer-Encoding: 7bit
-
-From: Weidong Wang <weidongw@illinois.edu>
-
-fc_rport_enter_ready() takes a reference on the rport unconditionally,
-but only queues event_work, whose handler drops that reference, when no
-event is pending. If rdata->event is already set, the && short-circuits
-past both queue_work() and the compensating kref_put(), so the reference
-is leaked and the fc_rport_priv is never freed.
-
-This is reachable from the wire: a PLOGI from a well-known address goes
-straight to fc_rport_enter_ready(), and a second PLOGI for the same
-S_ID while RPORT_EV_READY is still pending enters it again. After the
-rport is logged out, kmemleak reports:
-
-  unreferenced object 0xffff888... (size 512):
-  backtrace:
-    __kmalloc_noprof
-    fc_rport_create
-    fc_rport_recv_req
-    fc_lport_recv_els_req
-    fc_lport_recv
-    fcoe_receive_work
-
-Commit 823a65409c89 ("scsi: libfc: Skip additional kref updating work
-event") fixed the same pattern in fc_rport_enter_delete(). Do the same
-here: only take the reference when no event is pending, i.e. when the
-work is actually going to be queued.
-
-The issue was found with an LLM-based bug-finding tool; the reproducer,
-fix and changelog were drafted with AI assistance (Claude), then
-reviewed and tested by the submitter.
-
-Fixes: 4d2095cc42a2 ("scsi: libfc: Revisit kref handling")
-Cc: stable@vger.kernel.org
-Signed-off-by: Weidong Wang <weidongw@illinois.edu>
----
-Tested on v7.4-rc1 (05441d697f7f), x86_64, KASAN + kmemleak, QEMU/KVM.
-Reproducer: software FCoE instance on lo; raw FCoE ELS frames injected
-with AF_PACKET (PLOGI from well-known S_IDs 0xfffc01.., a second PLOGI
-for the same S_ID while RPORT_EV_READY is pending, then LOGO), 120 rports.
-
-                   2nd enter_ready with    kmemleak unreferenced
-                   event pending           fc_rport_priv (512 B)
-  unpatched        116                     99
-  patched          104                     0
-
-READY/delete work events are processed the same with and without the
-patch; no KASAN/UBSAN/WARN splats. checkpatch clean, no new W=1 warnings.
-The reproducer can be shared on request.
----
- drivers/scsi/libfc/fc_rport.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/scsi/libfc/fc_rport.c b/drivers/scsi/libfc/fc_rport.c
-index c25979d96..7b0938544 100644
---- a/drivers/scsi/libfc/fc_rport.c
-+++ b/drivers/scsi/libfc/fc_rport.c
-@@ -550,10 +550,11 @@ static void fc_rport_enter_ready(struct fc_rport_priv *rdata)
- 
- 	FC_RPORT_DBG(rdata, "Port is Ready\n");
- 
--	kref_get(&rdata->kref);
--	if (rdata->event == RPORT_EV_NONE &&
--	    !queue_work(rport_event_queue, &rdata->event_work))
--		kref_put(&rdata->kref, fc_rport_destroy);
-+	if (rdata->event == RPORT_EV_NONE) {
-+		kref_get(&rdata->kref);
-+		if (!queue_work(rport_event_queue, &rdata->event_work))
-+			kref_put(&rdata->kref, fc_rport_destroy);
-+	}
- 
- 	rdata->event = RPORT_EV_READY;
- }
-
----
-base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
-change-id: 20261108-h123-send-723aeb555069
-
-Best regards,
---  
-Weidong Wang <weidongw@illinois.edu>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
 
+On Fri, Nov 06, 2026 at 01:36:12PM +0100, David Hildenbrand (Arm) wrote:
+>do_set_pmd() can allocate vmf->prealloc_pte on architectures that need a
+>deposited page table, such as PowerPC with the hash MMU. If the PMD is
+>no longer empty when it takes the PMD lock, it returns VM_FAULT_FALLBACK
+>without consuming that table.
+>
+>Since collapse_pte_mapped_thp() uses mmap_read_lock(), a concurrent
+>userfaultfd operation can install a PTE table before taking the folio
+>lock. If that races with set_huge_pmd(), the unused preallocated table
+>is lost when its local vm_fault goes out of scope.
+>
+>Track whether do_set_pmd() allocated the table and free it after dropping
+>the PMD lock if it was not consumed. Preserve any preallocated table
+>supplied by the caller for PTE fallback. Successful PMD installation
+>consumes the table and clears the pointer.
+>
+>Returning without a preallocated table matches the existing behavior on
+>architectures that do not need a deposited table. All callers
+>already handle that case.
+>
+>Fixes: 1043173eb5eb ("mm/khugepaged: collapse_pte_mapped_thp() with mmap_read_lock()")
+>Cc: stable@vger.kernel.org
+>Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+>Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+>---
+> mm/memory.c | 6 ++++++
+> 1 file changed, 6 insertions(+)
+>
+>diff --git a/mm/memory.c b/mm/memory.c
+>index becf53a2a0944..421064aef3cf0 100644
+>--- a/mm/memory.c
+>+++ b/mm/memory.c
+>@@ -5687,6 +5687,7 @@ vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *pa
+> 	struct vm_area_struct *vma = vmf->vma;
+> 	bool write = vmf->flags & FAULT_FLAG_WRITE;
+> 	unsigned long haddr = vmf->address & HPAGE_PMD_MASK;
+>+	bool pgtable_allocated = false;
+> 	pmd_t entry;
+> 	vm_fault_t ret = VM_FAULT_FALLBACK;
+> 
+>@@ -5725,6 +5726,7 @@ vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *pa
+> 		vmf->prealloc_pte = pte_alloc_one(vma->vm_mm);
+> 		if (!vmf->prealloc_pte)
+> 			return VM_FAULT_OOM;
+>+		pgtable_allocated = true;
+> 	}
+> 
+> 	vmf->ptl = pmd_lock(vma->vm_mm, vmf->pmd);
+>@@ -5755,6 +5757,10 @@ vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *pa
+> 	count_vm_event(THP_FILE_MAPPED);
+> out:
+> 	spin_unlock(vmf->ptl);
+>+	if (pgtable_allocated && vmf->prealloc_pte) {
+
+Took me a sec ... to see why we can't just check vmf->prealloc_pte here
+...
+
+Emm ... as it turns out, the caller might have supplied it for fallback :D
+
+LGTM1
+
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
+
+>+		pte_free(vma->vm_mm, vmf->prealloc_pte);
+>+		vmf->prealloc_pte = NULL;
+>+	}
+> 	return ret;
+> }
+> #else
+>
+>-- 
+>2.43.0
+>
+>
