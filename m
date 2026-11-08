@@ -1,96 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794158255;
-	b=5MWaZof1QTxkAKWoGpTpK8l9M6CaRhpaEu3kaJonVbUhrr86hgmlwp2Pf10WrK1WgCdO
-	 /gMXlTeLsfUQF4E/WS0yv/AY/Z8wODEw7C0cDTSA63lA+8ZwD4qklB3WPkNFZ9Nf+7347
-	 t7haEnRMwK2iErmWKHvdRV3RuprHToZCQObc8PYeDUy5sDYqvZNpVFjGYIc9iD2ohLKnL
-	 aImLhVJK2AH0mjf6E0SgDE2LotfDDaBzOvzF+8QGrqXG/Ec1jBouxcSt4/+rZ3XW6LFuJ
-	 1hOXaMfucAcb2jUMtxTR9FVsac9mlLVDVYDxFv+aXtfTjix0ABL16/y6XRtfww1lOMw==
+	t=1794158709;
+	b=4/RXh88OD3qbHM3WSTvPr0YJRCT46+8QjS26Yx8SSvCanpOcM0fanHTlwKq37Zmcn1V6
+	 Esfc5jKROZp6T45aoFakx4aOZGXJMFt2kl4vqEi14aJi80c3K0qplSvCW8Xh3ogZUfxlC
+	 6ukxm8E2rNzZCG5e4HmGH5MzcsT24kzvN0uHVDjwJGqlWr0Y4RKkAbWYqgwcKL2gbciJa
+	 Qu7PMZDjmoHrm0o9M9XdLGkspeZ9j8/GSA6/9GouJ/gIEXzAgVJ9QsSyqZay0D/GaDNQs
+	 mxcpoS/NEa7QKmAYeWgBFxRz9FPUSdxRCQW3tUUjoNj7cFsIz37djqX10ms2W6LvBNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794158255;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=xrZCsGFBJGE8YTdUW/NXxb7L9++8m8GQvAjnd7WRUIM=;
-	b=r4YxsUg5LSybY/R4YwW62LKxXqOw4C6QTrezhbY1TqsmUjufaHdl0nvfB8y5F3VpsX8o
-	 czcxoMNLqx3EN9JkTrSuz67D2H8LrYBZ6QomHdthCOQyoeIUdRABfPNJ0mRyIJyBp8L+W
-	 6TIiZLb1J0E7TMXjBj8Yx/14Jv+ydKZiyYJo+ffZ5LuO9HSUJTW//qT9s6RFeGkayzGTy
-	 KcO1LinPS4S3Da9L+bkqVaEZv0pepOBgqgRJLwyx7aMohbJjh7PQtcn2pmf/4YxdakGIp
-	 d7hZwL0nQmQwY4Hxv/O98YVAS63hjS8Aq/BjS+2Rk+6AlKverFnibsRozl/06Ls4zLg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794158709;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=a9BmaB1EJPYoiOj3efcL7rpt7e9jF03SzioViwlwS24=;
+	b=KHl3/V4ZDFr2ejvxAqG3zOXC8QBtfAJEbIMl0MFSMiCF5kseTUiOgzYuCEgXxKZDk1a0
+	 hn9aeQhewXJ0gdWjqvl0xKf8ZOK7Iyt79j4lsZbN6OxtTOitY9zwrli/X77uGcE4Ulmqg
+	 irCLk1Y0lSu2h4ZN6NOnrI4Z0ZEQbV3LLBpNb6ZRpP7AMlGvLI2KeA2Vzt5ZY6Pqi1R6W
+	 NYnodpk3AxAmFgfH+3NFNgwrlkvuw++avd+wAjf7qdbSqIxTcxof/vstHp7Q7WReIYTTm
+	 27wLRZpQ1dngHqKWj37WF13ALuiDNTWArY44ctZHNzNVav0fJzLmDHi45bz8F8JUu2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sNb13mES;
-	arc=none smtp.remote-ip=74.125.82.51
-Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a4+6hr11;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D89CB606A320
-	for <stable@vger.kernel.org>; Sun,  8 Nov 2026 17:17:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D89CB606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58E3F606A320;
+	Sun,  8 Nov 2026 17:25:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sNb13mES
-Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-170135e43c7so258632c88.0
-        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 09:17:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794158254; x=1794763054; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xrZCsGFBJGE8YTdUW/NXxb7L9++8m8GQvAjnd7WRUIM=;
-        b=sNb13mES/0f5ALwDbw037sVMGFFC0HaA8P4+YFzDQeOJ9X+bYg58bAe6mzpznfMO/O
-         N3GTYiFjgrsMlyZgqiDrzrP98P1TNa/lnt/pEKOq/kZQAWzRhrUaQRxNRuELAip+Cplh
-         AFyFh0UZlkcs3++yk+c5i2fwiZcw47AsEKeQnNTd8lPThdwwl5hg7CdO/N9YM996ZgeB
-         ZLtv2NUqiHBNXgnesgmnkfp/z2WbZAKoDQCINcD9l3tSN9CmrEKzHrl5Jl6JnC/kFuOu
-         qTefALObcsdqTqhhlvNZZRCaFBmmuKh3mamo3V1V/DHLAMrGUODC6PNXXdiEbxOds5eg
-         Sekg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794158254; x=1794763054;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xrZCsGFBJGE8YTdUW/NXxb7L9++8m8GQvAjnd7WRUIM=;
-        b=opzwLxEett1aLssk5zukWU3RVCKHdy1n5tmE/qrab1QniLlfM4qF8xhMAcvWv6bIiT
-         njTsZGN7BtWkF2JGIRykEG1skRA/6uBzYr3wIbZX+WNQ0l4BwuPG/hRKPJYSC9mu2Zgh
-         qV2whYiRay6iiRpGI0+JPN8irmiOYmDMpV2a9H3T/9j9Z/PNY8CyWfyXVM9gOEPB0rEs
-         0Z4FNB5Mhy2sWhzGw50BclU+De+8gQ9uRM4DoZooOi0NC9SFufU4LXYt42N6T9+dnfxY
-         GlqfNBnYaGXoU0P0UdFhAX7djMTzFrEY7B6hGyMPKZ+VNzww10lpUc0GJyAk+/fQyzXo
-         W3WQ==
-X-Forwarded-Encrypted: i=1; AL+hErFycKMJUZDTwLw87rEpUXeKUQg/YngsipFUMGegALuxClRDONG9dMhqcuzcI0BL675XMW556IM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9YDoMgFbCDsKYvqK+/KIjYnmjLsjCZwPo8dr9HQkcTvaGM9241
-	xCV+9mxkoazX/1bKJF5BchDVMDGFd4TG7E2WrSdibXEZo3V9/WD3pS79
-X-Gm-Gg: AYBFou0nT7Le0obzRpRw33RuCVaphE3sm4lXuOmN5QtmZySK/NHJRbRZXKQ2Lh0EUed
-	8VoWCEh33fXx1ftg8gGhI62eXCHUeeuIDb6baPhZQoi2QFlcEiIbh3jSr3W1hR2TUtJvETmYAE4
-	g/rOxiRsargyEVxJ/oqQKZnXlMzOt/ZGyAvxzkJlHxbH0Wbk+uPjEGlc3Ozda0utBT628k7a9hl
-	2iK7SSZWd2AanU1PI8gzUrTuTa+Fzuw43ixoMogDXYj4I93gM8EGTD46sUIuIhTjFfL46XKR/8m
-	qyEIkrCCaSObh/SZI/+yvudpsiKECallq62ygHjaLBqwQ7HPsKjhxfxPc5x3Ee0iPCqe4n49a4P
-	oWjza7eUyxIIbU9+4b1BfJqQe+ln+gbsZsKAW0Xe90yXlWe8ykiiHuwv2S2hMaQFQ5ROvhMDdW5
-	/l+PGuYBJ032SttwudChnA0GtOCzKKM8MsCHevHrco1bNGhaPQ830qpBF4PeBHR6Cc8HwHEH2Yw
-	L81oYUt6dxb7vh1k9KpbvR2AgDgUmG22FTKxVR3uCjPbRag5J/x5I1DEszWr2rfHl/wNm30f14w
-	347ru+TENNTNzrItY5hIUQXTRC6aAchbfGkC02y2HeQO0bc0
-X-Received: by 2002:a05:7023:a42:b0:195:1a77:85f4 with SMTP id a92af1059eb24-1b39feefaa6mr2960462c88.24.1794158253619;
-        Sun, 08 Nov 2026 09:17:33 -0800 (PST)
-Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-372665db8bbsm5983442eec.22.2026.11.08.09.17.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 09:17:33 -0800 (PST)
-From: hyunjungg <hj351016@gmail.com>
-To: Mark Brown <broonie@kernel.org>,
-	Peter Ujfalusi <peter.ujfalusi@gmail.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hyunjung Ko <hj351016@gmail.com>
-Subject: [PATCH v2] ASoC: twl6040: cancel jack-detect work on component remove
-Date: Mon,  9 Nov 2026 02:17:22 +0900
-Message-ID: <20261108171722.695360-1-hj351016@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a4+6hr11
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DAD71F0089F;
+	Sun,  8 Nov 2026 17:25:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794158708;
+	bh=a9BmaB1EJPYoiOj3efcL7rpt7e9jF03SzioViwlwS24=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=a4+6hr11zxzaXk/87oSBanVR5Ij+H4hcZj9K75Zb41mVoRWL8jZWzndQ0SVY0+G0O
+	 O5UkvoFMnmfL3tNka6df5RB0Vtg2ZJ4oB+zo+C5XvvkJh1na9BDvq5jwGLHYQwHNZn
+	 UHmzfg3N5YXU1BgPvdktrVDaZbRW6KqeNF5sb/GSGQLMp4rSGQFVl3zEKPk4ymb+fn
+	 nR2PjmOapU5qdH7Wg2xPXzGwfJUtfzFPlUQ5UMKi70xB5hLDz5YXvXuVCGnN2QR9zm
+	 pph19OHBCCmR3+JZlb/afLcLZypLwc/NiZ8MhvzXmS+bd48gD8Jsr7UrGhe9NzKmoJ
+	 KJROYU3B7mACg==
+Date: Sun, 8 Nov 2026 17:25:04 +0000
+From: Simon Horman <horms@kernel.org>
+To: netdev-bot+sashiko@kernel.org
+Cc: vulab@iscas.ac.cn, anthony.l.nguyen@intel.com,
+	przemyslaw.kitszel@intel.com, andrew+netdev@lunn.ch,
+	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+	pabeni@redhat.com, intel-wired-lan@lists.osuosl.org,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] net: ixgbe: drop the SA reference if secpath_set() fails
+Message-ID: <20261108172504.GH18859@horms.kernel.org>
+References: <20261103100534.1310039-1-vulab@iscas.ac.cn>
+ <179405014554.994134.10719290719575125531@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,38 +62,38 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <179405014554.994134.10719290719575125531@kernel.org>
 
-From: Hyunjung Ko <hj351016@gmail.com>
+On Sat, Nov 07, 2026 at 11:15:45AM +0000, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider.
+> 
+> Critical: 0 · High: 0 (2) · Medium: 1 · Low: 0
+> 
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+> 
+> - [Medium] This patch fixes the SA reference leak in only one of the two
+>   copies of this Rx code.
 
-twl6040_remove() frees the plug IRQ but does not drain the delayed
-jack-detect work (hs_jack.work, twl6040_accessory_work) that the IRQ arms.
-hs_jack lives in the devm-allocated twl6040_data, so a work still pending
-at remove runs after the private data is freed -- a use-after-free.
+I lean towards this being a pre-existing issue that can be handled
+separately from this patch. But I do note that taken at face-value
+it severely impacts the reliability of the  teardown path and the
+usefulness of this patch in practice.
 
-Cancel it after free_irq(), which stops the work from being re-armed.
+> 
+> Pre-existing issues:
+> - [High] ixgbe_ipsec_del_sa() unlinks the rx_sa from the RCU hash table
+>   with hash_del_rcu(&rsa->hlist) (line 783) and then zeroes the same…
+> - [High] ixgbe_ipsec_find_rx_state() finds rsa->xs only under
+>   rcu_read_lock() and takes its reference with xfrm_state_hold(), which…
+> 
+> --
 
-Fixes: a2d2362edf9f ("ASoC: twl6040: Add jack support for headset and handset")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
----
-v2: Rebase onto current ASoC (did not apply, per Mark's note); trim the
-    commit message to the essentials.
- sound/soc/codecs/twl6040.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/sound/soc/codecs/twl6040.c b/sound/soc/codecs/twl6040.c
-index 650836f..826bde1 100644
---- a/sound/soc/codecs/twl6040.c
-+++ b/sound/soc/codecs/twl6040.c
-@@ -1136,6 +1136,7 @@ static void twl6040_remove(struct snd_soc_component *component)
- 	struct twl6040_data *priv = snd_soc_component_get_drvdata(component);
- 
- 	free_irq(priv->plug_irq, component);
-+	cancel_delayed_work_sync(&priv->hs_jack.work);
- }
- 
- static const struct snd_soc_component_driver soc_component_dev_twl6040 = {
--- 
-2.43.0
-
+...
