@@ -1,63 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794239616;
-	b=G2twv57cbbydmYzq3XxDiFzeX+O6gHWR6JQGCR+J0GYoTJkQk7YLpNhgcjbwPlNlh65s
-	 9t5dvbPvgzILAansUQHaovz8hEw9eFAQAmEtyz6JCRTSAoXo28KvcgeaWLvc8VWQtXBzO
-	 JP6Sm2lDCG4Ou3B4EgIQoGXiCLdwnv0JkzLPyt7fy/BAndx+q87CssX7H9FNdjwM8UcLi
-	 zoa3H5AV43+mxrR5sztGe0lfSUTWsJk+aUaAKzzuuAYJCCMSotWa+oXff+wamqR7wty6E
-	 37buVZXb4BJwDsSbjSv3lA4nI28o3rGxYVP/APjVtrH47ASa31pt/aGvF12mRCnaF1A==
+	t=1794239617;
+	b=0WJtBJEjEHCUoshguyKkDUQqEh4D3Wedf5vBOgaokgL/Obq0pJuThfiHMKkSoo+Wg68f
+	 6BhIjx8C+xaBeNFdqJEm24WHsL7KV3aqt2Z8zyO2TAt1PtVIERGxkMv/FOOzzb5OdHjdX
+	 kKSGxdj2NGgqXSvC7IHFCdTukYyl2zMs+JgEQ0rtjQujhQQv5HFnZuWmPAY+TvnnW6LKO
+	 MA8DUbx6A0RruN6evtoMHdP1lqIRi/ht05GOO5LSMff00q/DFvuPMBe3gi8BcwkVqR/RH
+	 1kttaJzIPOINOBP+zqdZdg+1LOhH8rSdmsV+MoA9bRqf6OpRnXrYdI3CLzm5mxsdKQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794239616;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794239617;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=YbGDBqU4nxW38rvN5cjz46VE+ozOGhYAeWZw2r2wWtQ=;
-	b=QFosviJBB6CcYnlPPHs7KtrkvVyTq7xrIX1XxClfL9cG1EL44QO3a/3MpqV3AdYYS8Je
-	 8Y1UA7iMitmcz54nduTSUtsPsVLl1xmGojaDlOVFD5Qa4cTg8QbdPcqqNfAiAjxBeDSLo
-	 ErzX8sNqnwYC+/sAfmSko/KLMtT5z0lOEWnZ19l9QVfWjRWEkO80x78QiYOfzqK5Cc/dJ
-	 /OrwU059lbox3oA9ZsLoQ1hgjspRnCZebdQu9Avh8G0pwLP7Mn8X1j7e+dVYyedLXpoEt
-	 hTPsdtycaqxGwDd6aloHSUpDr2GZQdr97/PMZ73VEu7qmJlnMlEP+f/z4vJuC+hMKEw==
+	bh=5109ubmeIwQrAfQ92C+eurcg8qo9u2yKEB8DC6Ju3sk=;
+	b=pJGTrf5eQNfvtpAIz/V1oMRdBJOx9HhUfIs9jrnf1pDAokfUP69Y8zDmJX6tFTO/obyw
+	 MNAaZWAkmCeVDIYBFmYNmge+qY0wFYOiVDbpGBs3pKBqzykoV6/Z8Iafg8yiyT3MOLzpZ
+	 4gcmMt1ueW75Kf9Wd8pxmFj0eVq/0xwJojuOhQB9UTzXU9rvX/Dq0R0V/6SQc3oxN+F2/
+	 +K3XiyXg9QGwQl2v/nSq04WDjQ3V+BAy9iqvyCXnkEMD2it531uF1vSNd71xsElitN/Fn
+	 QnuFx6+kalp2jqlbGyhZiNpZEkHAEY77hPfHRfiA0WtWNsgjJBoeHmPu655dfOeXjFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZD2W6ANq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nItQyesN;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AD0D606A33D;
-	Mon,  9 Nov 2026 15:53:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46130606EE93
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 15:53:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZD2W6ANq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D78E61F008A4;
-	Mon,  9 Nov 2026 15:53:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nItQyesN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58FA81F0089F;
+	Mon,  9 Nov 2026 15:53:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794239616;
-	bh=YbGDBqU4nxW38rvN5cjz46VE+ozOGhYAeWZw2r2wWtQ=;
+	s=k20260515; t=1794239617;
+	bh=5109ubmeIwQrAfQ92C+eurcg8qo9u2yKEB8DC6Ju3sk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZD2W6ANqH+nwDuzFgWpsFsA1zcRkNWiLxO/AHawwaWKnymA4Do/F+Yk/v4oqUYWjD
-	 v+fCAIHVschbqevMzl0HOkMedPkWkRMeOpbmBfb/l18Nz9xSx/doUHrxhU/N3FLJk3
-	 HUytSJv7gwmtQsUOPZjjZnZX/4XbF3JJqhZIabx3+AX2mJ7lieg0pupBpmIMIKMOha
-	 CDfeZgIMepWKOrYYoVVWxyuF+jyYn7+xYKKzdQ9FaMxOq4APVpl4yfCAPDmOVjPtKz
-	 4P3adLtS9aofXJYW+yUHUHfsRffabDS+NsC2T1ahdAYiX/1Yt6naGxIwEHJihk56M9
-	 NMk2DZfM1UNtQ==
+	b=nItQyesN+ttNBy3ECKgqbJUwXC0pOVF+rvijz33pKZdLy3/QSy0kw+OL29uyu0XqI
+	 5RrsZDtYCm/P53dBFzjUPp2dQ2Gfch1fpNpySYvPB+PC2gWSeLt++DnO6K1jsAsy/P
+	 d4RNuDUn0vF81FXOQ6pSLVyxAbdaAOhAK2TJS7gYnMqkor9xZxOtFo/DbbleEcGAtd
+	 mowKu3waak5QLa9SbSSbMYhQ6jVqutq4Jp12ZoeBx68PFeNJ5HnsjAaSw2NCkY3nKo
+	 ztrXQ4jr6ac1y0Sl0ZReMmRtRfMTv/CXFumt7GCFsD3oCw2qUZcoNsrqCaC+d+IcFz
+	 kn9o0EMCAcuPg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	SJ Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Brendan Higgins <brendan.higgins@linux.dev>,
-	David Gow <davidgow@davidgow.net>,
-	Quanmin Yan <yanquanmin1@huawei.com>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	Lian Wang <lianux.mm@gmail.com>,
-	Kunwu Chan <kunwu.chan@gmail.com>
-Subject: Re: [PATCH 6.12.y v2] mm/damon/core: handle uninitialized damos_quota_goal->last_psi_total
-Date: Mon,  9 Nov 2026 10:52:51 -0500
-Message-ID: <2026-11-09-1-daily-reply-0009-damon-psi-6.12@kernel.org>
+	Yi Cong <yicong@kylinos.cn>,
+	Felix Fietkau <nbd@nbd.name>,
+	Yi Cong <cong.yi@linux.dev>
+Subject: Re: [PATCH 6.18.y] wifi: mt76: mt792x: fix negative errno truncation in offload capability
+Date: Mon,  9 Nov 2026 10:52:52 -0500
+Message-ID: <2026-11-09-1-daily-reply-0010-mt76-6.18@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109011347.92467-1-sj@kernel.org>
-References: <20261109011347.92467-1-sj@kernel.org>
+In-Reply-To: <20261109023454.52603-1-cong.yi@linux.dev>
+References: <20261109023454.52603-1-cong.yi@linux.dev>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,9 +62,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> mm/damon/core: handle uninitialized damos_quota_goal->last_psi_total
+> wifi: mt76: mt792x: fix negative errno truncation in offload capability
 
-Queued for 6.12, thanks.
+Queued for 6.18, thanks.
 
 -- 
 Thanks,
