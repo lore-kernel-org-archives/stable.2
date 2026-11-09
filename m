@@ -1,95 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794211642;
-	b=cX5PTzSOPE0P4pjW9VZp14/mXzUlQY1CwnAlK23xIOPWlPa91bkK/bS7WRO7epL1R3Ph
-	 d+r5+AlsQsW/EY49hQ7DHAFqFeXlTZrZcJQNEPi/Nhm3QfNn5Avq0sH5wxw9NFQoU7p6J
-	 1zHMXfL61KwJU3PMgPgXsLAMFx6HJwIckoXc+xpUoy5giRcgE1kx9CSLBQH1UcIG2iCF6
-	 nsm//ZAmXtwmySmnFNhLKFpYVhUox3NB2ov4FmzRMONoOY7J+B0IKj6KIR8vmhjTKhNEt
-	 unGNmoCd+YAZR5HuEf/4Dkw4UTHmlrMCYMdjanscPvdPSKqK4hY8UcHzFv/4BiATJSA==
+	t=1794211718;
+	b=yNfZjMoAH4WcGVFhr0jIW2NcSp7mOwTSWn1JT+SrobWWvfj0MUWF9Z0hwVFIUUpBi4hH
+	 ygZMAGyDa68kvjTcE4AXUURauFONetab1PBtYoep5w/++r6N6NiBFome521Y9em5hSOnQ
+	 ymw37wTkvWjViqCD4HspY4gsZsbTLTKJNrEll6XllOp0azLuz8GfL3zDpJY+AnWA3nLA5
+	 aAn3EvFt1RhGuINlRSvRRdQrcU22CZP4sD7DeU6Dn+Pyte3wtqhQrFF9K2NFxBmru6gFt
+	 fP8baLduv4smnrqHILyooZoH25I4GRZCQkng1HqrGrme3EwtSyP2UVVIcYvOxDgQOfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794211642;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=tSuGt5zJ2pU286bCSrjG244N3zz8YI+MYqo9ROV43xA=;
-	b=gLSHqhPE0hQsX+uXeGXLDSA40gotaHz6MXd/gY+fA3NSBPzYZ4kmFiIkonSBuAHBVrza
-	 xkC6WvexKwtcDx2mmQqXb9e4Z8k4KycwIdnjOWDMmP1zdUW/iiJG1M5n0ynK6GZB6oeT+
-	 Mqe74Eavlk2d9NlEjgUgtiaa6OqJx1tOSQ2InREixIpuRk9EMcsYE5YBj2GD4AZzyA0Kh
-	 ij0KRdRIj1SuvBnhvQljEDFYwIZc+6jgSp037Jff4Th05MwoGsProJDTZtgrRbEbguQhX
-	 0KlEi1ADt6+4+22QRIW2GXzzoaZ2vG22/f7MOqjhJC9ExcivFMMGAA2GlT0TY4IC77g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794211718;
+	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
+	 X-Coremail-Antispam;
+	bh=PzuPUR91/m78fIpm/XjNz1Xs2Kf/txcuIq1pGbrFCzc=;
+	b=Yg0yKh7Kb2yZVGKm+9Wm9qj4xR6t1dFTBeUWWtFAsahvc1XEM2BqPyMPfkkxcxCFP+O5
+	 MFF8f/lr5LhR+TpAPZ//pP8Vz37hXq4ashcCsZemjjlYC2d/7A7p0ov4Q8kk1WnDs1fC/
+	 pG2NHECAEf5p+zN+EINUb3CyHns6Q/3EuqWat1kev4Zkyz1zw5tCpdcGU0UiKZxu0Ewbh
+	 4R8kFfmYaGyjReT1rWBluGXWdV6zKrIjbNZT2kQrnFtkt+7jY3zAsDMrmKWN2m1aLSPvC
+	 88HztNpzch2c/kHBFIfGmoJ/Lr1i0Bz8SRfsahNZgskIYLniEyUc4RVJOCrC1uT1l3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RIbOmdy2;
-	arc=none smtp.remote-ip=74.125.82.50
-Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CC5D606A321
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 08:07:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CC5D606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RIbOmdy2
-Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-15dd124bbe7so1145992c88.1
-        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 00:07:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794211641; x=1794816441; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=tSuGt5zJ2pU286bCSrjG244N3zz8YI+MYqo9ROV43xA=;
-        b=RIbOmdy2ib6vKnkVWcn7VT8GORG++zi3RESLnZOwHMKnhlQzuHv6n1iDPPs0KmvGmC
-         IreK21HSKKgVXbd213rMInKk2+ksnzTHAavfooHKKHqF6thg4SmrsFiMEwnVGwP5Q8f7
-         wcjYIY1hvsXS38Mp113/lTQPX2mX42r+6zib4GjlOiO0X07eKZSjjWQDjrLmV2IH+0qe
-         Hb5rxfCm4BM8MwKgstbByJq72QaOjIG3FkHzbGdALWcnNEY/eB8PFDoUClya1TusHafq
-         RgXyVt07EqNCMSZhfIFkBPeJlBdjaWZpOa4Bkyt9RsMZNNbLKDCgP+OgZ3UAJCN62yUu
-         8N3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794211641; x=1794816441;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tSuGt5zJ2pU286bCSrjG244N3zz8YI+MYqo9ROV43xA=;
-        b=uz57DkQXkaXMGB6bih1vrGzZkqckRKmooizxz83zJL10RwEwPosQugRhV9bC3Pyn3P
-         WmHFxQT39hOetgyf5jgln47XM17i93SzS5M5wA/SUsGRWKMou7RSwKDHFdeqH3G85m9j
-         4e7SGrdeLru15CHLVjOr9n7Nj6/wNHcQfwX4B9uiDBNhDoAF3RxP1Z03vjFvs8rGljqR
-         YD/+ElZ8B+W1KirpWXc/8kidCU77D933JSzL5pISz07cJQ8ani5if4WRJA64CKeAimCa
-         GCCyNkJR187+SRKT3lOLGOUdlroyzrtS/cMUERECdeNvzXHZJKiu73urXkv1n8fo2XE7
-         /hhA==
-X-Forwarded-Encrypted: i=1; AL+hErFt8f7zZdhvDJT2UjoBYmNu/nyl+OCRsEEYG9zxMn2T3+TT2amVELGQGx5yLp53PFu5b+YBipM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8dkf+R9jtqL/3Wz0bLCYPNqNwMRpzlYGwadIsJI7LwD+rHg/CL
-	7Cuwapm+qpeUY4swrwFPfLG1TU8XPa8fHIDfFU9mIkM3n4wuHYGBtPvc
-X-Gm-Gg: AYBFou1u+gjNgCkiwh+/pXGly9heDL5aLZ5X9peVIQPslWM+Zl8ukiKzCD8RSix5z7U
-	j77Ooch6vIaeDSL1Kx7nOS1xkrlX2ERADuLzp1JYrDy2WnZo5KIBhEMRRM3Xt0zxJNPFGkOFbVu
-	GV700YpdH155kg0s0cycJZSCwMs3nZMu1U5btrJg8Zv8xWQbm1BxQM4PGHnooTgHNudbsQ/k+bz
-	P80oT7iTPUAP0yptVQ9AKbKLM3mjSMmHljNYx/YD4kgVmKpJF3Fgwo/UGYMJdBlA0IcJd+5u7ds
-	Mc5krGkZnopLRv2mL1puytLM5XrVdGCYTEVtsvvDOebdbS/QWhahcelm7i0ewJ1EKLHAYq+Mb/x
-	9PXC/1jHkJGFclzllCxOQUsqDwbCHb9uXu1DdirkZOTWlZ3YyTycRJo0YHBQ0nwocXBs+djSDyl
-	GiHlbnw97TeIMtYzuqRcdLzKfNH5H2+m29BeZu3ifQnzeDZujCXo0fjhv0E7R2R5/pB6iz/+mwP
-	J/Ske7v2tJj0NcWYAIzMitGRZOqAfYggxHaUx4QhhLIKAa3qV5GvFrISL0iIJW+8IG/FHneqPq6
-	enU8U5Mr8gXJ5HtcZG7zC/p5pMBxp3IKzKRjkGhiO0KKQVJTt3g/16r7DiXfn55Z3g74bTLjA64
-	dA5LwwH0HNyWZnw==
-X-Received: by 2002:a05:7022:220a:b0:15a:2b63:a0cb with SMTP id a92af1059eb24-1b3a32c135amr6400658c88.13.1794211640937;
-        Mon, 09 Nov 2026 00:07:20 -0800 (PST)
-Received: from google.com ([2a00:79e0:2ebe:8:3588:b56:78bf:db5e])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3771fa200sm10691247c88.22.2026.11.09.00.07.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 00:07:20 -0800 (PST)
-Date: Mon, 9 Nov 2026 00:07:17 -0800
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Guanglei Zhu <zhugl3@xiaopeng.com>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	liuc63@xiaopeng.com, stable@vger.kernel.org
-Subject: Re: [PATCH v3] Input: lpc32xx-keys - reject matrices bigger than the
- hardware has
-Message-ID: <avF_I_6WkF4B7tPI@google.com>
-References: <aurPvymSFACa_kXH@google.com>
- <20261106014928.328020-1-zhugl3@xiaopeng.com>
+	dmarc=none header.from=loongson.cn;
+	spf=pass smtp.mailfrom=loongson.cn;
+	arc=none smtp.remote-ip=114.242.206.163
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7182F606A323;
+	Mon,  9 Nov 2026 08:08:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7182F606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [223.64.69.17])
+	by gateway (Coremail) with SMTP id _____8Bx69GCf_FqbL8dAA--.20041S3;
+	Mon, 09 Nov 2026 16:08:34 +0800 (CST)
+Received: from kernelserver (unknown [223.64.69.17])
+	by front1 (Coremail) with SMTP id qMiowJAxmM15f_FqWiQzAA--.37920S3;
+	Mon, 09 Nov 2026 16:08:34 +0800 (CST)
+From: Binbin Zhou <zhoubinbin@loongson.cn>
+To: Binbin Zhou <zhoubb.aaron@gmail.com>,
+	Huacai Chen <chenhuacai@loongson.cn>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Yinbo Zhu <zhuyinbo@loongson.cn>,
+	zhanghongchen <zhanghongchen@loongson.cn>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Zhang Rui <rui.zhang@intel.com>,
+	Lukasz Luba <lukasz.luba@arm.com>
+Cc: Huacai Chen <chenhuacai@kernel.org>,
+	Xuerui Wang <kernel@xen0n.name>,
+	loongarch@lists.linux.dev,
+	devicetree@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	Binbin Zhou <zhoubinbin@loongson.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH v9 1/7] thermal/drivers/loongson2: Fix negative trip conversion in set_trips
+Date: Mon,  9 Nov 2026 16:08:16 +0800
+Message-ID: <e1179acf645fdb6ea00e7e03248ee901927629d1.1794211535.git.zhoubinbin@loongson.cn>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <cover.1794211535.git.zhoubinbin@loongson.cn>
+References: <cover.1794211535.git.zhoubinbin@loongson.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,33 +68,67 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106014928.328020-1-zhugl3@xiaopeng.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJAxmM15f_FqWiQzAA--.37920S3
+X-CM-SenderInfo: p2kr3uplqex0o6or00hjvr0hdfq/1tbiAgEGCGrxOf4EQQAAsU
+X-Coremail-Antispam: 1Uk129KBj93XoW7Cw4xuFy3XFWxGw17ZF18JFc_yoW8CF18pa
+	y3C34DArZrJr4qvw1DAayrXFZ8A343tFZrWF4xGw15Cws8J3yagryUtFyUZ3yfGFy8XFyY
+	vr98trWDCF4DA3gCm3ZEXasCq-sJn29KB7ZKAUJUUUU7529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUBIb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r126r13M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
+	xVW8Jr0_Cr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07
+	AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
+	tVWrXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7V
+	AKI48JMxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY
+	6r1j6r4UMxCIbckI1I0E14v26r1Y6r17MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7
+	xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xII
+	jxv20xvE14v26r4j6ryUMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw2
+	0EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x02
+	67AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8W89tUUUUU==
 
-On Fri, Nov 06, 2026 at 09:49:28AM +0800, Guanglei Zhu wrote:
-> The scanner state array holds the last state of eight matrix
-> columns, and the interrupt handler walks the matrix size that the
-> device tree declared:
-> 
-> 	u8 lastkeystates[8];
-> 	...
-> 	for (i = 0; i < kscandat->matrix_sz; i++)
-> 		lpc32xx_mod_states(kscandat, i);
-> 
-> The probe path only checks that rows and columns match; the
-> hardware supports square matrices from 1x1 up to 8x8, but nothing
-> stops a device tree from declaring more, which makes the state
-> array index run past the field into the rest of the driver data -
-> including the keymap pointer the same code dereferences.
-> 
-> Reject matrices larger than the hardware supports.
-> 
-> Fixes: 69690bec400e ("Input: add support for key scan interface of the LPC32xx SoC")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
+The `MILLI` is defined as an unsigned long constant. When the
+temperatures passed to loongson2_thermal_set_trips() are negative, the
+expression `low / MILLI` triggers implicit conversion of the signed
+operand to unsigned long, and the division is then carried out in
+unsigned arithmetic.
 
-Applied, thank you (but dropped stable).
+For example, with a low trip of -40000 (milli-degree Celsius):
 
+    -40000 / 1000UL = 18446744073709511   /* unsigned long */
+
+After truncation to the 32-bit register field this becomes
+1271310379, instead of the expected 60 (i.e. -40 + HECTO). Writing such
+bogus value into the trip register leaves most of the upper bits set,
+which may hit status/trigger bits and cause spurious thermal interrupts.
+
+Use MILLIDEGREE_PER_DEGREE instead of MILLI so that the division is
+performed in signed arithmetic.
+
+Cc: stable@vger.kernel.org
+Fixes: e7e3a7c35791 ("thermal/drivers/loongson-2: Add thermal management support")
+Reviewed-by: Huacai Chen <chenhuacai@loongson.cn>
+Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
+---
+ drivers/thermal/loongson2_thermal.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/thermal/loongson2_thermal.c b/drivers/thermal/loongson2_thermal.c
+index 4d40fc706a53..54ddee47cb32 100644
+--- a/drivers/thermal/loongson2_thermal.c
++++ b/drivers/thermal/loongson2_thermal.c
+@@ -108,7 +108,8 @@ static int loongson2_thermal_set_trips(struct thermal_zone_device *tz, int low,
+ {
+ 	struct loongson2_thermal_data *data = thermal_zone_device_priv(tz);
+ 
+-	return loongson2_thermal_set(data, low/MILLI, high/MILLI, true);
++	return loongson2_thermal_set(data, low / MILLIDEGREE_PER_DEGREE,
++				     high / MILLIDEGREE_PER_DEGREE, true);
+ }
+ 
+ static const struct thermal_zone_device_ops loongson2_2k1000_of_thermal_ops = {
 -- 
-Dmitry
+2.52.0
+
