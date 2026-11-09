@@ -1,132 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.178
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794224303;
-	b=U3wwZzGXWk+OO9L69vzARsjDfeujuz+z1gtAaNJ6E7TPpxTFUFc+TEnjXJWjwAI/XiEm
-	 vjBGoxafAdzxwOvW30GIFrfAgbMEeatH8FSnlymEnsz0fY/V1BCYa0IBsvfr8J7XaTOfH
-	 08H02eozWs9dKSJzuR7z7z73ksFMZ31DYb4OFJsiEd8ZzyerF9HZKJPkHtOXut6zYcUlA
-	 Zhu5EQ5htq4fbqFqmyxyDu2vX+Mh9eUDhX9lTDnE7AZ5YciG0TYAMHvjp4gEJQC5DwOV7
-	 O59ttkgXZKMk3bQ0SL7W8dr3UQ3HFThnTnx+kMCxevkLE09UxNsil8MThjdT46YjuCg==
+	t=1794224662;
+	b=nBQ7RvUOO+R9LC0T8cyDesS3w6V3tgTNpwOkvJiUUxXMJzsCe4pGkttzOhhNx14OlyFm
+	 HfppSRiT2xhjHNsfjSAdANtEr9iLscIlP1U8NQdEwqfAZTSUOj48iF06rFGswq05m/nQp
+	 TXtZ4WZQDo2wHwsREVthbaPmGhWeKcgRt3GHgkBq8EhSDtDIDlZbnYD36gmgWR/xy7Jpq
+	 IZajeo8liKBrmdSr7Iw/E/vaUfaj+AyAE7GgX4D4qL/83nhB0SZozQA8jiByTYoQDyuJG
+	 DbCuosgRU/SU2fZX70SAaQ/O5AB9PxDt1K/n3wFQK5gmBus/s+p10fqVNvyj+nhDPwg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794224303;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:From:To:CC:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:Content-Transfer-Encoding:
-	 Content-Type:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=R/wWy2weJ5qgoK1EzGk6UzIAI8jB7zccSpm/wMP5Sec=;
-	b=chwmbng2GwasISxmtXSYN3FuFdzVuuKFMb21YKLynSQg6jc2l2ruVooi7ph3eNDm5OnJ
-	 n2DroUfuvYmeoOdHU3y/pdBubNlUxRWrU9qe0b+iG8ybOnySamw0hc0QyG19FBc3Z3mvK
-	 YCf2CSCgPUcFdEYpvlh2jfNZcy7H3yh/TwrCNr45NR8thxuOzuhfiEzcsXgiJ7zqYfmD9
-	 RZkOQ0iFseBcLLV1NbV3/AGbEwVdIJyDzvWKlaxu4AIaaProoIlyMgYasTxRfXv0ezki3
-	 +IqTZTO4ItpqfScvTtjqhwiL6iUQdohyQINmn7Ptsg8gFH6x6Qrx/mHwj+YYU5rOm3Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794224662;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Tudkjez28RMXxzBWfLg4pArawZDNqT2bA2wVkoHQwkA=;
+	b=vYf2DIE57xnkWfQhANc50v5/cpLoBE6tToOvmxSM36pxA4czEWPbcS3pVlHg4TK4ao9L
+	 ONKUgRk1yrDm90p5/eDj+o4ThI3cuBNpgwXitayg5JaYDGTVXJquXR8rfuDtRZONfZYru
+	 0jjEYGQLgpbp2+wEF2KNFUEh9eqKpZ6sPZ2rRo+zs/OOzAR/inYos5QfX6RGLIV965Rmh
+	 M/S5hkcyfyT+ufEJeNgLyJE92e/nQvCaz8xxLCV/EnkA2exTtYFfqxDmr9ouF7avkvulq
+	 sMaab1zzp74Z7Km2qmIv5/L7Wa5iOkIu7EUend606ZxeUKwg6k30zaaDqK5E99SHr7g==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=I4c0+oAm;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.15
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=mojatatu.com;
+	spf=none smtp.mailfrom=mojatatu.com;
+	dkim=pass header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=ZQe0wgkh;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.178
+Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AD86606A32A
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 11:38:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3AD86606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E459D606A321
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 11:44:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E459D606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=I4c0+oAm
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794224303; x=1825760303;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=AWykFOyRwtn596R8H/Z/H2jbx68oHLg7L1P0464rj90=;
-  b=I4c0+oAmC1CL4kckwzf4mttd6ivaM1vfT5XxuLMuN2DyG7K4xYRJ5N/l
-   hnHgkBneYUlPgfzGzOCU/xcV7Op73PsDgYjGHWZyFdDAU/k4Dv4/fb/LZ
-   CKtrP19o6QagqTg4unYh5FArykAY5xSLgu48rWFtmoTjaa4iiU2gtz2oj
-   Z5XRtI4wZKXY/EeLWbhJeeY8SZHe3TDMjycO0Fmm0vSVBordJTGvqvLNF
-   vlweJj9S4H+ggkfAOIuwDn4XPofvBEZpYwQNkHlAmhePN5/ehOkZdJZ/k
-   1ELEhMFoKShFKjrT+9FfdP+Q9WSaly7IEPSJu4mpuL81zQcMAI6UwW1Xe
-   Q==;
-X-CSE-ConnectionGUID: ppByOu7pSA6VRTNoRxslbQ==
-X-CSE-MsgGUID: 8YQVGTgLR8OSFUEhkZgN5Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2938495"
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="2938495"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 03:38:22 -0800
-X-CSE-ConnectionGUID: eI1dhSBATTm6va60b0WvNg==
-X-CSE-MsgGUID: pWSpXtFxTzOsxsMGZe6sYg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="8282632"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
-  by fmviesa007.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 03:38:22 -0800
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 9 Nov 2026 03:38:21 -0800
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Mon, 9 Nov 2026 03:38:21 -0800
-Received: from BN1PR04CU002.outbound.protection.outlook.com (52.101.56.18) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 9 Nov 2026 03:38:21 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Enuchqs+TvIS2sfEhxtUbWFRXa6cOZ1/yvXpu0PlB3kk19+m+wsjRrofynLYzUy5yQK/Vz0lNcB60PkRUb0Merp4HKuIYNlyEZ7/zc1KSYaslopmzzm7Q2DkpZWtYSWWLYFflIWYsdMtI0W4dQmo3nVYoi/c9MRtnYGVzaxsB2MNqnfMjKfd+kBmEkE3O7N7Wz83O0KpFV0whyuF00M4BRYanBW1x/ilh8mF2HUjsiJFjlVAYRCpQHGtZgdEHwYKp8wAIqvcXFVulVeFgB2HoLKKTjsnrphY0UZ1iabrqkbVMcdlxF3Lzv2tGjjRvBu4xMIFRedi003h6BrtluvXtg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=R/wWy2weJ5qgoK1EzGk6UzIAI8jB7zccSpm/wMP5Sec=;
- b=lEgK/+lUwdkjGk4cGfrds5hoaoaiiInD+Y2KrigyZMvO5epdRpPGXVPILZvHA5sedJow+JvynaojW5FM258nUftJMkYaw4pOlUWxyl6zgbfBQKfjPdx/qJRn1dmhcza+YQju8V0DjpNDfP1DGRY8FTfFID5Tj72chWa8q6Emg0Ffm8KeePfT9htC/pw/cWog/ZPazKxSGixq4crwZBoL6jaa29mfacusJgFJTa2TLblLB528bKn233z1+n/4pGhdKOniXdsipkVRlV/YNh0YsMkMf4t0LfvailzIpTe0piLRp2ae+KKZfnOII08ofipT6mwse1nCsNuKv/n2PAcr1g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from EAYPR11MB115281.namprd11.prod.outlook.com
- (2603:10b6:303:2fa::10) by IA1PR11MB7199.namprd11.prod.outlook.com
- (2603:10b6:208:418::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Mon, 9 Nov
- 2026 11:38:18 +0000
-Received: from EAYPR11MB115281.namprd11.prod.outlook.com
- ([fe80::5eae:5253:53f8:c769]) by EAYPR11MB115281.namprd11.prod.outlook.com
- ([fe80::5eae:5253:53f8:c769%6]) with mapi id 15.21.0592.012; Mon, 9 Nov 2026
- 11:38:18 +0000
-From: Krzysztof Karas <krzysztof.karas@intel.com>
-To: <intel-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
-CC: Andi Shyti <andi.shyti@linux.intel.com>, =?UTF-8?q?Micha=C5=82=20Grzelak?=
-	<michal.grzelak@intel.com>, Janusz Krzysztofik
-	<janusz.krzysztofik@linux.intel.com>, Sebastian Brzezinka
-	<sebastian.brzezinka@intel.com>, Krzysztof Niemiec
-	<krzysztof.niemiec@intel.com>, Krzysztof Karas <krzysztof.karas@intel.com>,
-	<stable@vger.kernel.org>
-Subject: [PATCH v8 3/6] drm/i915/gem: Free sg table on failure to acquire second folio
-Date: Mon, 9 Nov 2026 11:37:55 +0000
-Message-ID: <20261109113758.1491891-4-krzysztof.karas@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261109113758.1491891-1-krzysztof.karas@intel.com>
-References: <20261109113758.1491891-1-krzysztof.karas@intel.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: DU2PR04CA0215.eurprd04.prod.outlook.com
- (2603:10a6:10:2b1::10) To EAYPR11MB115281.namprd11.prod.outlook.com
- (2603:10b6:303:2fa::10)
+	dkim=pass (1024-bit key, unprotected) header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=ZQe0wgkh
+Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-8b31448caccso4376587b3.1
+        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 03:44:21 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794224661; cv=none;
+        d=google.com; s=arc-20260327;
+        b=LfPQH9BO6ShUmNoY3eXucIpsQDPy/HQqYRKw/PHF2AmJZj5rXPaDrTcvxvMik2W4U/
+         zgpWH+KRelK0iVt5Wl7OU73Cyw0OtU8s9R4fri74pFHHtBgk5SSCNlH5fYdh2kKefSLg
+         rlnWdNhwTx+q1a6XCXi+249ELrNYSmA9JVCPlyeXZFSRo48HS7yJRVX0PteYAcnFDq+J
+         NSY0CPke0mAA1zzxiATF44VvYmHOwkX+bxlkHae5VkFJsweRJHwqGqhCOFvrvBNLfAbv
+         byFhA3QD4YOgcK2hMG21DpUvX1rlrOIOVcoIJpaFKw8Ts7YxDKv9zHbXY6pYTel2+Kh9
+         l2Kg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Tudkjez28RMXxzBWfLg4pArawZDNqT2bA2wVkoHQwkA=;
+        fh=BOOX+QEbcwWdXeFdSB+z8pAfl2sMi1AWhWzgvdSliag=;
+        b=qbXDXiLLlUEewoVfnIGS++G+GcVXnvwM3A529YWr0lGTEsXWVZE97M6pSzczcQACbT
+         ihRu7bEXqp/VQ/HpnGOf//LNtQ3S/5cxGtWcxeDRVqfQ5P54azyIaWhzPHENuRqFbBSs
+         yDU87hPMLp/nmuk33CaIO+QkVqCgqtlukDnLBgO/Z8vYFHM1MFFVzJZsypSQjeEnTrVY
+         A4jXRaI/7OSDDSpK1s0wKZw/vZZdbh0NDUgW+wXpF1HR5i7qhssocREeTX9OrcSlJq4F
+         0BylfnE7mHQ0mQ9LbDcuSKmqsRH0MtiIaES6jP4Ex8ngipEGL7wyHqh+sHr2b6MeqVee
+         lmbQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=mojatatu.com; s=google; t=1794224661; x=1794829461; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Tudkjez28RMXxzBWfLg4pArawZDNqT2bA2wVkoHQwkA=;
+        b=ZQe0wgkh8TKbL38Yd857vJAYjnRpvdOqiSILvwF9KMhtnugEymoI3Pq2wBpyH3gY6w
+         4ymdkZXFMAxEql/8BappkuDkki9YnXxESGCXp0UrSmvwDvEAZ3dyalYLR1JYy3uGEFOa
+         B+x811mT/wl5RrnDencOUkObB42bB9GoyCAvA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794224661; x=1794829461;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Tudkjez28RMXxzBWfLg4pArawZDNqT2bA2wVkoHQwkA=;
+        b=SWAKlzL0KEWKIG9tAgnddKhd/0AlhlRjHjLfcYBrvTjW6c+4igA0WQVWkML6fxozkY
+         BKgw0w4jgxy9jgOF9ug0PsLdfBIPw67zUv1T6Kc+SxRNpiLGFwm2UVtDtIOtxppXmnNm
+         vVVr+/9A3RKG5pnDJGfb2Oaexjjn2UCibjJEUTlZmt5zyPzbSKD0Cs9Kbj7OJhuuIbWJ
+         4TmwiLExJPSzCAbVBDx7wotrwqHSNk+ALiOVBUwYjtQex4WarkCkUPDXAOcQyDfslkVs
+         moRN+XohK2l6t4T0rI3SY7CBMp0mS1/RRJWQBFUnIMnsYTgPhVL26HWWDhpQwjG85J4O
+         +AqQ==
+X-Forwarded-Encrypted: i=1; AL+hErHemO2aDVrVm7XMXPUdz7M10raZfZ7mexyhuG5DFhd2QnXqbE/hriZZGqMb711OTlA/OkligdU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9XayXJKSkUmvlEefjf9gE1+xWQGFcvizseglX53MauzYGpvqIu
+	g8brRGMMKgzzHRZixxw+3dv89UZEN69O6Pnl/pRLmpJMi6LPyX59kbDjTOXEwAnIFlpmDK/MF5H
+	i7fHPUeWf36rmUrSVY6XP4cAXuug/SL70qt/Z8L89
+X-Gm-Gg: AYBFou3sn5Qfd0as7a+E+nALwy0gF5kcXK1x2KlNnN4Da3imfypJayFvy3Mm9DAEUOO
+	eaHJCLWEK5SrbACdJrd6hW2jC94adCYCiRtL3hAJ+Oh+LDLOw+Y9Wd7y4EvJDQpll7MFM3sxirZ
+	qKJb2L/eQ9uLslTk6RO4rzkzfsTK9Uj8ctUMUptcDmcXH/V4JqnaUiMyHapHaBKPU/xIcqFcWZr
+	scchhFeSu16J739HA8cpl2pLeE+SqCFX8rSnhVhUGPrgjNZ3nugHzObD7bQgWX1lxNGvYWcFZiD
+	oCPmQ4hrGEIWab4TmisrL/KqKKmcbp+Fb3Yc02V43f9J7tQQgqKXKkddemN2yNdvvUt9xyNb82P
+	unsKsg/4+G3DHRpNXdnEzcez86DhbpjZl3CQM5AbNCwf3Gbsv3F/k1eTGyn0uwrmpy+1Zu2uIO/
+	DFyuiB4NERArOBwLA=
+X-Received: by 2002:a05:690e:191c:b0:67c:295d:5836 with SMTP id
+ 956f58d0204a3-67c3d96bfd4mr2294772d50.17.1794224660803; Mon, 09 Nov 2026
+ 03:44:20 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -136,82 +102,182 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: EAYPR11MB115281:EE_|IA1PR11MB7199:EE_
-X-MS-Office365-Filtering-Correlation-Id: bd99ab2d-c3d8-4d67-3adf-08df3e55f36d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|366016|376014|1800799024|22082099003|18002099003|10067099003|11063799006|56012099006|261028144727099003|261102123227099003|261022105027099003|261021123027099003|261021121427099003|261026140227099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info: j8ith/3MybqaPmsT2VTqxHghp18ju6VG1+Tl21ZY+SOyRXiYS3ARm9MfEmxKPcMXaj3CM4YMiAyAmmERsNWmhWAco4ywq1hLLUm+9+JoK1n7+s4k+r3QZJQm4qruxkHtufzGeUVWlwRQ05KPtWUn7+x5tLC8MujNDAKTS2UgHqgDTr/HeNrSw25n6AxHV2rK7u3kp3NmWTVuCx0Ayv4uc1eED5c6ZrvSLtgdJo/DPGYE2k9mrW7Rl/HueH/fCQUqdw5XlaytWjIPG4n37hhJh4ohAVYkSCcc9X8yXudFxoCul5t1FVEdbrtNp2K5w5FUy/rcyw2h6OBaBEQ9J/RQmppiDY7oxYOuEwzkGYW3KPWaE4xN3kvoT1r0MdJnN/fCsyg2LDttuicR7cL5Xg17IsykhD8wJFb3jcQLKJoVPu/Q/y1whHNmoec1pJzeC5SnmfG31lJTKXwzuAo2MVAsP8bvggOTvW4JWubray1MuwgrjlBH/5QOBW6GNescgyPEllwNFrnBeE/mnW1KnwnXQudnwRkTInhIYHdj4suAt39EgvrdLXB8GXXApCvnw8ifkOR+7gaZP/ldhaBqWTLiYaXZZCq1bnfm+yeBU66oOFROcYYAN7gEBk7UgjC035qGoAKIdifdCG4d0jz9lJBnBGzJojZVkFDcsVm0hYUDyDM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:EAYPR11MB115281.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(22082099003)(18002099003)(10067099003)(11063799006)(56012099006)(261028144727099003)(261102123227099003)(261022105027099003)(261021123027099003)(261021121427099003)(261026140227099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?OGw4i2uHByQ+LP3CTnh/Dd7ukp5+WcbkrGOOhW7fnKHO7Skd54Ce4/t53uQ2?=
- =?us-ascii?Q?j4IUhwm09NX7qXJvlheCAcZMIvA8/5ReMXi4rSJ6qrR8eFZpcojA/nMaTxeR?=
- =?us-ascii?Q?S+un3VutygQJwhsPvnVmZa3MzOjQhC0cDv8JUh4LSNJpUsK5oUKtU09EBPbh?=
- =?us-ascii?Q?rlX0ivI17zzpL7dp7J6VsEcD8FtTqlREfxs5sCwFi/ikcxvcK5o6JrQPfDCo?=
- =?us-ascii?Q?H/QwdRXf27yfR5Acpz/9qfd+Mv0htPBewbCgXp4oPIdKTKZApWfMd5pnevGV?=
- =?us-ascii?Q?JkhBjedS4l0GXQAjOljCgvnJTxkmMHwr67kUr0U/LgnEgVNrqagUx3PduNQU?=
- =?us-ascii?Q?ImK4NN48sGpcjQhBmiaura8C5g98jRvLRdwcs7m7laH8VOlOGwU6y+JbCfi/?=
- =?us-ascii?Q?6atU5XGlCYHlU8hOT2OeJNGPOW01v9LRQDpQQ143vCV8QlxOeXYu1mtlwzV7?=
- =?us-ascii?Q?QTMgbCkuw75J1llD0/QTePvOF5m9lNiq2IVxsbUr/1vi3xbhOstfOo1xQMUf?=
- =?us-ascii?Q?hLkHeRFhZ04ACCFFSsxgSgrogxff4IjnCtvOUhGV97+v2FTXauvh2PMfvkka?=
- =?us-ascii?Q?Bom23SZNMeEqmjLzXVkKAudaoJrk00+zXn4Gz6ACG2edA+5IL2LFic7t3CVg?=
- =?us-ascii?Q?a3ka3F6PMNd2rjrUGvGXzz75339sR2X1tUYs2DrScta7uG8/UpZ9NEEyYOGq?=
- =?us-ascii?Q?eJioUH8Q7iWg9MbnYc1Go+YRX2dRKHZ01UA0s7UO5Jy8ptP+BoLCnbJ4Hfg/?=
- =?us-ascii?Q?YRoGK7bGimwIiSwzzfSQtnJ5FxE3ez5B8nGWQw+qJQY/A8IU1+Swo2BGakWh?=
- =?us-ascii?Q?TWwlaR45FKd4/ITXVCUd9/B0W3Lw5mh+g/n+b0Oguqudwq6KyMzf4IwyuxXe?=
- =?us-ascii?Q?6641UUQYwG68zixE33fBiaJhr9b3zaGr1MKUZcxNEtQ3mL1u6ashzXsQ/z97?=
- =?us-ascii?Q?KsvI1c19iySe1Z/2lgjiLc54peKYiHAsxtiTQHIBPVyvHT3A0S+qsjJ5WTs+?=
- =?us-ascii?Q?9MjUYTLmyldQH2J7Pc6Z7SQvWmRJHxeGpwTRQuKS5SVOZLcexijWfdaPEFN1?=
- =?us-ascii?Q?MpsT0ZmxJCFrHgalzYJcW3NiaURgWKv4j4q+tvyIpNhaRlBw1Gud757q89jT?=
- =?us-ascii?Q?AovGTmMbxuEhaEbLzPBkld2gaWDtZyoFaunw3bs4QeT/l7EYVMYZw7ipKIH7?=
- =?us-ascii?Q?OqOZeJmCqTASNHVjDgdfrNy1p7EAl9moT9yksvXPSmCjIbp0fjIcjnIUayhg?=
- =?us-ascii?Q?wpg6Zku/sRoZGB0XBFKl3q7n6/zUYrhk+PHBGryFLJ1CajkhjRo2afGtYlOg?=
- =?us-ascii?Q?N0sIw7FdumzhLN9Jrvv78ncyXajctbn4nKMXmJ2tcSMPp+imDm8vQ6XRImrT?=
- =?us-ascii?Q?b7Y6pPU7WFO3IAr2gFjvMUupdXpAYfKGUpZCQkTvYbcAoNEVsqMYMSUYgfJJ?=
- =?us-ascii?Q?0uSHZLEDJTzRHlk4o4UHik6HUdcS4lTsHELk2V939RG0gZg79QYLnO1gWhN9?=
- =?us-ascii?Q?0A35a9TAbjtlnPCtckmOcx1zX/hEFeB8z6S64KVLFOIRfuOI9ejnnZHmJmpN?=
- =?us-ascii?Q?obnYwEC/hGO1y8C52eMTWtyqmJGZbWVGzZNFi3l1gZRu5k0LRw0cXA+dQEn0?=
- =?us-ascii?Q?+hPeUq8LaozUqq8xNNNpoSUpglm92k5a/Kcx3bk2BP8Jil5vyizRmGLHihFA?=
- =?us-ascii?Q?nB/OZrYRbNjuJRZRPfKVvKy/q9IHUiL9+nznhCO5kWk9CedJkI5FlXI3yKcx?=
- =?us-ascii?Q?wQfqwOmMrDUCmlMSEiXh/GoKM7+cH3w=3D?=
-X-Exchange-RoutingPolicyChecked: rRrtdUTbbueFb9xg7zJEMo8+J7bqKA9Uv7pYJXCwWLLt9Ns1/nSrNuBazihvph62DS8QO3ui1PBGDasDntg3rtlKmiLphyyO09YhnZzHFj0i6IVlW/17ZN4CdDfmA/Es2mmKqCt4w0AGEgjIyqEa5uOY2VbmMZLwOWGMqroOyjXN4xXhiZYtIL1jByXzq64HAyJ4wDNSgvoTQDBxzTERCEEr70l4pbRP3g5kcc2J2HdaNwmgo37QWeB/DLvgTBAam+VHAZQDnN4UjlrzJoSN3uiPXb/AtMDoWZXBFKTFqraZEm9FL+E7tZLGzqDWQk8EohnvS/fY0QBPJ41S5LrsFA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: bd99ab2d-c3d8-4d67-3adf-08df3e55f36d
-X-MS-Exchange-CrossTenant-AuthSource: EAYPR11MB115281.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 11:38:18.9191
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0qhtPP2e9ioeLYGgU4n7yGEKu5DxUTEd9eRsBJVbRfk5xKNHtdScdi9PflMckem88Jpo2Q2LP1LbfdWTb40KrCHwNjSis9uozXjrOffnQVY=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR11MB7199
-X-OriginatorOrg: intel.com
+References: <QDISC-6HS9.v3.r0.20261103062649-2@mojatatu.com> <179406458348.994134.6942745655171316289@kernel.org>
+In-Reply-To: <179406458348.994134.6942745655171316289@kernel.org>
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+Date: Mon, 9 Nov 2026 06:44:09 -0500
+X-Gm-Features: AclHuK8mvVB_TGgtxN6qXQS6xYcYAMbCidFBmEaOpBy02Kh9E4kbueKy3al45cY
+Message-ID: <CAM0EoMnprPstSvZEj+FKtK_kM6JB-jkrhYRwSd_mmN3WAMFQFQ@mail.gmail.com>
+Subject: Re: [PATCH net v3 2/2] net/sched: sch_teql: keep skb->dev consistent
+ on the arp-queue path
+To: netdev-bot+sashiko@kernel.org
+Cc: netdev@vger.kernel.org, victor@mojatatu.com, jiri@resnulli.us, 
+	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, 
+	horms@kernel.org, stable@vger.kernel.org, sashiko-bot@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-We should release folios if the first entry was populated, but
-loop failed before sg advanced (st->nents == 1 && sg == st->sgl).
+On Sat, Nov 7, 2026 at 10:16=E2=80=AFAM <netdev-bot+sashiko@kernel.org> wro=
+te:
+>
+> Thank you for your contribution! Sashiko AI review found 2 potential
+> issue(s) to consider.
+>
+> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 1
+>
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
+>
+> - [Medium] The new gate in neigh_update_process_arp_queue()
+>   (net/core/neighbour.c), `if (!n1->dev->header_ops) skb->dev =3D=E2=80=
+=A6
+> - [Low] The comment added in neigh_update_process_arp_queue()
+>   (net/core/neighbour.c), '/* headerless outputs (teql, shaper) transmit=
+=E2=80=A6
+>
 
-Fixes: 957ad9a02be6 ("drm/i915/gem: Avoid iterating an empty list")
-Cc: stable@vger.kernel.org
-Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
-Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
----
- drivers/gpu/drm/i915/gem/i915_gem_shmem.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+I think i missed responding to this one. Sashiko-nipa responses are
+very erratic. For some threads (not mine) a review shows up 2-3 days
+later. For mine the average time seems to be 7 days and sometimes a vN
+review appears a few days later after a vN+1.
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-index d57b5c67d47b..f4a2a3f34c36 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-@@ -204,7 +204,7 @@ int shmem_sg_alloc_table(struct drm_i915_private *i915, struct sg_table *st,
- 	return 0;
- err_sg:
- 	sg_mark_end(sg);
--	if (sg != st->sgl) {
-+	if (st->nents) {
- 		shmem_sg_free_table(st, mapping, false, false);
- 	} else {
- 		mapping_clear_unevictable(mapping);
--- 
-2.34.1
+Summary: I will not be spinning anything for this series since there
+are no new code change requirements. I have addressed the
+neigh_update_process_arp_queue() issue as a separate (producer) issue
+in the past; it's a separate net-next focusing on producers. The
+comment (Low) i would have rectified if there was something meaningful
+to make me respin.
 
+cheers,
+jamal
+
+> --
+>
+> net/sched: sch_teql: keep skb->dev consistent on the arp-queue path
+>
+> The commit sets skb->dev to the teql slave before teql_resolve(). This
+> means an skb parked on the slave's arp_queue no longer points at a master
+> that teql_exit() can free on module unload. It also changes
+> neigh_update_process_arp_queue() to set skb->dev to the top-level
+> neighbour's device when that device has no header_ops, so the skb goes
+> back through teql_master_xmit().
+>
+> Link: https://lore.kernel.org/netdev/20260824115928.4099988-1-victor@moja=
+tatu.com/
+> Link: https://lore.kernel.org/netdev/20261026160747.283702-1-horms@kernel=
+.org/
+> Link: https://lore.kernel.org/netdev/20261031165925.780930-1-horms@kernel=
+.org/
+> Link: https://lore.kernel.org/netdev/179363700308.3131.117781795382902514=
+34@kernel.org/
+>
+> > diff --git a/net/core/neighbour.c b/net/core/neighbour.c
+> > index d6e9c7c59a892..541cf699abae4 100644
+> > --- a/net/core/neighbour.c
+> > +++ b/net/core/neighbour.c
+> > @@ -1339,6 +1339,9 @@ static void neigh_update_process_arp_queue(struct=
+ neighbour *neigh)
+> >                       if (n2)
+> >                               n1 =3D n2;
+> >               }
+> > +             /* headerless outputs (teql, shaper) transmit on skb->dev=
+ */
+>
+> [Severity: Low]
+> This isn't a bug, but the shaper driver is no longer in the tree. There
+> is no entry for it in drivers/net/Makefile, and the older comment block
+> just above also names it.
+>
+> Would it be clearer to name in-tree devices this gate is meant for, such
+> as teql and eql?
+>
+> > +             if (!n1->dev->header_ops)
+> > +                     skb->dev =3D n1->dev;
+> > +             READ_ONCE(n1->output)(n1, skb);
+>
+> [Severity: Medium]
+> This gate is in generic neighbour code, and it doesn't check whether
+> sch_teql parked the skb. n1 comes from the skb's retained dst via
+> dst_neigh_lookup_skb().
+>
+> Can it fire for any skb parked on an arp_queue whose original route uses
+> a device with NULL header_ops? Examples include ppp, geneve in L3 mode,
+> vxlan when header_ops is NULL, rmnet, qmi_wwan, mhi_net, ipa, iosm,
+> mhi_wwan_mbim, eql and teql.
+>
+> Two producers park skbs on another device's neighbour while keeping the
+> original dst.
+>
+> The first is nft_fwd_neigh_eval(), which nft_fwd_validate() allows on
+> NF_NETDEV_EGRESS:
+>
+>         ip_decrease_ttl(iph);
+>         ...
+>         skb->dev =3D dev;
+>         skb_clear_tstamp(skb);
+>
+>         nf_dev_xmit_recursion_inc();
+>         neigh_xmit(neigh_table, dev, addr, skb);
+>
+> The second is bpf_redirect_neigh() with an explicit nexthop.
+> __bpf_redirect_neigh_v4() replaces the dst only when nh =3D=3D NULL:
+>
+>         if (!nh) {
+>         ...
+>                 skb_dst_drop(skb);
+>                 skb_dst_set(skb, &rt->dst);
+>         }
+>
+> bpf_out_neigh_v4() then sets skb->dev to the target and calls
+> neigh_output() with the old dst still attached.
+>
+> When the target device X's neighbour resolves, the drain takes this path
+> (Y is the original route device):
+>
+> neigh_update_process_arp_queue()
+>   dst_neigh_lookup_skb()  -> Y's neighbour (Y has no header_ops)
+>   skb->dev =3D Y
+>   neigh_direct_output()
+>     dev_queue_xmit() on Y
+>
+> Does this run Y's egress hooks a second time? In __dev_queue_xmit(),
+> nf_hook_egress() runs before nf_skip_egress(skb, true) is set, so the
+> nft egress chain runs again. sch_handle_egress() and tc BPF also run
+> again.
+>
+> For nft fwd, this would decrement TTL/hop_limit twice. A packet that
+> reaches Y's egress with TTL 2 would then be dropped.
+>
+> Counters, quotas and limits would also be applied twice. A tc BPF program
+> that encapsulates could encapsulate twice. If the second pass gives a
+> different verdict, the packet would leave through Y and not through the
+> device it was forwarded to.
+>
+> Before this patch these skbs went out X without a link header, which was
+> also wrong. Running Y's egress hooks a second time is new, though.
+>
+> The commit message acknowledges this:
+>
+>   "Those forwards supply their own device and nexthop and do not consult
+>   the retained dst, so dropping it at those two sites is where that is
+>   fixed; that is a separate change to the producers, not part of this
+>   series."
+>
+> The patch is tagged Cc: stable. Would stable trees get the new behaviour
+> without the producer-side fix?
+>
+> Should the dst drop in nft_fwd_neigh_eval() and in the bpf_redirect_neigh=
+()
+> explicit nexthop path go in the same series as this change?
+>
+> >               if (n2)
+> >                       neigh_release(n2);
+>
+> --
+> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
+set/QDISC-6HS9.v3.r0.20261103062649%40mojatatu.com
