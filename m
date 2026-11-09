@@ -1,56 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794236007;
-	b=qKe4au7tDGpuVRJcYmuOnAXojb7hCek081/a2lUO0cY1c2Ijv5H+o+KojnB0tEnCjKQn
-	 yzviIFv/TQGwhhbU0+dWZmYvZOwUxm9WhDeaelkpzrq1YHCldV/oXSxocaH0q7AVD4rHR
-	 3LI+rXvVgSChW0s3KK7HSCYBuzctpn+xwL8DRSWVSyGb9g8UfD/CQ5xhqaTqKoYhAAwif
-	 n0ItRkrGz33utncGAZ48E16eQRYaswNxkZ8ezkQwkTwvzn/cIqilwbR+BRna7qxVe3OoI
-	 IrjbzI+ud5b4Sl07pOu8gkDzm2o/7+yTQzCUZmE+RthMSq60TjS1BaZrxtitSG8tJaw==
+	t=1794236206;
+	b=kVuBr3FiXHJ7rus9PukupAhPUAvwzpV0OmeI/bMTYWg0eeVGMdRbJgQ1gCORoTfsBARF
+	 /5n4ckMxZHOb6LYKqXZfswKC44hfdEhPs+JGkaZuravXDTxU0IhuoNfuspmmBI05UIK5n
+	 +9ejeuWoipg10DNqAOWxjPZT3Yd3ikO/5/gcfbQySzjpK+c6Zqfb7Bdf0MZHtWUB6F+GS
+	 v1bMFAe7UCnfa+ye+EVEcx1UNsKsyxhIQFv0Kd0gL7i1ekpehz0ZjrK4ZO6R7rniWF9kj
+	 o0+ZH0ppo19blNrHztdlb9V8PTHFAYXMsZ351gI9Pu23jS0GDA1wFt0E7tx7PlIwHeg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794236007;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794236206;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=q8CwJiaFiSjS0iS4+EMVQ2CzO0fMWeYXrQPCP5tU0EI=;
-	b=A0oTVSHUeAIc9k6KJjZxV2zbupWEqFur/e7Fc0J3yklaeoOiNpC0iW/F/jzHITGb/0nB
-	 /sgYpuKTNgNc0lnBki1394YD9Nis0PtcZCdWdqpp6BuykLOviYCxhU/jSHLPp5yLL7UMh
-	 B+1bSdwlbxbMm+5ZIqlcwAPXR9FOFfRYNz15RDY3MAn/IQ1Um9/8mLMiE05sUFjlY8LT8
-	 3YXpdvhTfggDu8u4TAAFqisQzSN7TD48uIwgllhcfNUfQ8gsHR7HOJftD2Vj+XNxUbn3d
-	 Dnnk/Zp4P0GWKzt+JhrPpc5cc8NtDszrwSrzurS72q3u7pWVkiZIxUQtVnuP6llgtIg==
+	bh=SemDBtKLwrfbPZLwR+LX5x5eoAOLCTArAvt1XOzS2hs=;
+	b=d8T2BCaEWwf9dphT7b9Zn1vMDTiuCAyRtYENjj8mXzchmMCoymTXlK2uQDSkSynIBdbv
+	 XfFFYPiFeY7a7AdC5X92PzFbslWLcPtEDIjXKAKo6w1wUVAjI8E7yisQvOgjP7cQj40Pl
+	 qunVpX5R59xc0bcLADVFWlf6/oFVlIhB4Ogjr9IPes50rhaeq8gYAPPW1NcpIxtEHTWDo
+	 lhc0AiR+r00ufPE4zvTdOUK5aZRgZ4dq5tDkk0+vmGLsaQcDNjtuTGAQQYAupc/wXb39S
+	 cUgaT9N4lhInodfGhOVnfVLMDjRR8no8vheQ8J2uDX/RF4Gcj8bCyniBnQ9ZLcIYZ6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D4OrgX+y;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JQXDyNKB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CCF6606A31C
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 14:53:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04377606A31C;
+	Mon,  9 Nov 2026 14:56:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D4OrgX+y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C58CC1F008A1;
-	Mon,  9 Nov 2026 14:53:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JQXDyNKB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63C7E1F0089F;
+	Mon,  9 Nov 2026 14:56:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794236007;
-	bh=q8CwJiaFiSjS0iS4+EMVQ2CzO0fMWeYXrQPCP5tU0EI=;
+	s=k20260515; t=1794236205;
+	bh=SemDBtKLwrfbPZLwR+LX5x5eoAOLCTArAvt1XOzS2hs=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=D4OrgX+yVgnOeEEAbr7CE8aCzlhXZX7gBQAzd0/Q4D6cany0LbFaGc0YLVB5HyjVo
-	 daD1lbcBUXeFI1f00RmR6oI7lb+/IZMG8blkRTQlRJV8IL09Sv6LivDXY1s6vAZFaV
-	 u5WaxWxmWCPkZHz8fWLNEz/ze5W0yQjRNslY1ZyKiVtEgmrw3cggZb1RM+Ja9KJN4U
-	 0bfoXYhho3zYy9HLwoh0plHDb26JcJ6iA3Qbx9UXR237A4sFELOoRTQ+YD8sRWYT9J
-	 VyMY7qmbbtItnBEeSjzBKtDdnKLGhhL4JAoGuG24GEE13azXIdEPMIzaYYgiHA9Z7x
-	 gQDOWXz81Z+ow==
-Date: Mon, 9 Nov 2026 14:53:25 +0000
-From: Harry Yoo <harry@kernel.org>
-To: Kiryl Shutsemau <kirill@shutemov.name>
-Cc: stable@vger.kernel.org, "Kiryl Shutsemau (Meta)" <kas@kernel.org>, 
-	akpm@linux-foundation.org, vbabka@kernel.org, hannes@cmpxchg.org, david@kernel.org, 
-	usama.arif@linux.dev, surenb@google.com, mhocko@suse.com, brendan.jackman@linux.dev, 
-	ziy@nvidia.com, shakeel.butt@linux.dev, kernel-team@meta.com
-Subject: Re: [PATCH 6.18.y] mm: page_alloc: make defrag_mode retries follow
- the promoted order
-Message-ID: <avGwIEOdJ5Z4gmGD@thinkstation>
-References: <20261107051426-failed-6.18-4cd78a2dcfbb@kernel.org>
- <20261109113007.46714-1-kirill@shutemov.name>
+	b=JQXDyNKBNRqHNLoZgiIEi2j10l3uSHijHbnXRdkZO4eolUWQmHto641HSSV057+Q6
+	 510Mow01Gmk0d+VNLO9dkxsnDoJktmGd3bD2ItDcv9LrznVct1xYWxfDRkrBcXmNAH
+	 6qAKQnHq1U+w0jYfeZFb2x0FnlAhmielDCDaJiOx6Rv645rP7o/PirTjclOeCfs+wA
+	 Bcqgz96NeRtXrt4aulnJ0f5faaogo2AoDxp2AuARb8a/rWt8Y1uoCkbYLcHQ/ul9GS
+	 3iiuLzskV56ja/lGHM++PwpewhbrRFbTtFKipMUg9K70deT/rbujjnn/Lvn5urTwBO
+	 /VCHbOwiyVv0w==
+Date: Mon, 9 Nov 2026 15:56:41 +0100
+From: Niklas Cassel <cassel@kernel.org>
+To: Tobias Kriebisch <tobias.kriebisch@tecbeast.gmbh>
+Cc: Damien Le Moal <dlemoal@kernel.org>, linux-ide@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] ata: libata-core: Add NO_NCQ_TRIM quirk for Samsung
+ PM893 (MZ7L3)
+Message-ID: <avHfKaY-skamodEr@ryzen>
+References: <20261109134541.3766394-1-tobias.kriebisch@tecbeast.gmbh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,101 +59,75 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261109113007.46714-1-kirill@shutemov.name>
+In-Reply-To: <20261109134541.3766394-1-tobias.kriebisch@tecbeast.gmbh>
 
-On Mon, Nov 09, 2026 at 11:30:06AM +0000, Kiryl Shutsemau wrote:
-> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+Hello Tobias,
+
+On Mon, Nov 09, 2026 at 02:45:41PM +0100, Tobias Kriebisch wrote:
+> Samsung PM893 SATA SSDs (model prefix MZ7L3), the successor of the PM883
+> (MZ7LH), misbehave during trim on an AMD 600 Series chipset AHCI
+> controller (1022:43f6). The drives are three SAMSUNG MZ7L37T6HBLA-00A07
+> with firmware JXTC304Q, and the kernel reports "Features: Trust
+> NCQ-sndrcv" for them.
 > 
-> commit 4cd78a2dcfbb13f049f841b98763896a3d1d7750 upstream.
+> During a full-device trim, queued DSM TRIM commands are aborted:
 > 
-> Since commit 7e8756d7ad22 ("mm: page_alloc: fix non-movable reclaim storm
-> in defrag_mode"), direct reclaim and compaction for non-movable requests
-> under defrag_mode run at pageblock_order, to produce the whole blocks that
-> ALLOC_NOFRAGMENT needs.  The retry decisions that follow still use the
-> request order.  An order-0 request can therefore retry indefinitely
-> without ever reaching the ALLOC_NOFRAGMENT fallback:
+>   ata3.00: exception Emask 0x0 SAct 0x40e0740 SErr 0x0 action 0x0
+>   ata3.00: irq_stat 0x40000001
+>   ata3.00: failed command: SEND FPDMA QUEUED
+>   ata3.00: cmd 64/01:88:00:00:00/00:00:00:00:00/a0 tag 17 ncq dma 512 out
+>   ata3.00: status: { DRDY ERR }
+>   ata3.00: error: { ABRT }
 > 
-> - Reclaim at pageblock_order gives up after one pass as soon as a zone
->   looks compaction_ready(), and do_try_to_free_pages() then returns 1
->   even though nothing was reclaimed. It returns before the retry that
->   would reclaim memory.low-protected cgroups, so when most memory is
->   protected, the pass that did run finds next to nothing.
+> In the same time windows, queued reads and writes time out and the link
+> is hard reset:
 > 
-> - Compaction at pageblock_order fails or is deferred.
+>   ata2.00: exception Emask 0x0 SAct 0x4 SErr 0x0 action 0x6 frozen
+>   ata2.00: failed command: READ FPDMA QUEUED
+>   ata2.00: cmd 60/08:10:c0:82:f0/00:00:d4:02:00/40 tag 2 ncq dma 4096 in
+>   ata2.00: status: { DRDY }
+>   ata2: hard resetting link
 > 
-> - should_reclaim_retry() takes the reported progress as progress for
->   the order-0 request and resets no_progress_loops. The request
->   retries.
+> Both kinds of errors occur on all three ports. In one case the system
+> hung and panicked shortly after the trim started.
 > 
-> Order 1-3 requests loop the same way, and should_compact_retry() also
-> checks their pageblock_order compaction result against the request order.
+> Booting with libata.force=noncqtrim,nolpm makes the same full trim
+> complete without any ATA errors.
 > 
-> On a production host (64G, defrag_mode, memory.low covering most of the
-> workload), 95% of direct reclaim runs were order-9 runs that returned 1
-> with nothing reclaimed, at up to 60k runs per second.  Across ~200M
-> should_reclaim_retry() calls in a day, no_progress_loops never left 0.
-> The spinning allocations were SLUB slab refills for inode and dentry
-> caches.  The time spent registers as memory pressure, and pressure-based
-> OOM killing takes down both workloads and system services.
+> Add an entry for "SAMSUNG*MZ7L3*" with the same quirks as the existing
+> PM883 entry, which was added in commit ead089577e0f ("ata: libata-core:
+> Disable READ LOG DMA EXT for Samsung MZ7LH") for SEND FPDMA QUEUED
+> failures on AMD controllers.
 > 
-> For promoted requests:
+> Only ATA_QUIRK_NO_NCQ_TRIM and ATA_QUIRK_NO_LPM_ON_ATI_AND_AMD (the
+> equivalent of noncqtrim and nolpm on this controller) were tested.
+> ATA_QUIRK_ZERO_AFTER_TRIM and ATA_QUIRK_NO_NCQ_ON_ATI mirror the PM883
+> entry. ATA_QUIRK_NO_NCQ_ON_ATI only applies to ATI (1002) controllers,
+> which were not available for testing.
 > 
-> - Reclaim progress does not reset no_progress_loops, as for costly
->   orders.
-> 
-> - should_compact_retry() checks the compaction result at the promoted
->   order and does not retry COMPACT_SKIPPED, since the request can fall
->   back. The compaction priority floor and the COMPACT_SUCCESS retry
->   limit stay those of the request order, so a non-costly request still
->   gets its COMPACT_PRIO_SYNC_FULL pass before it falls back.
-> 
-> When a promoted request takes the fallback, reset the retry counters, so
-> that the fallback attempt gets a full retry budget before the OOM killer
-> is considered.  A request whose reclaim was not promoted spent its budget
-> on the request itself and keeps its counters, as Usama Arif pointed out.
-> 
-> __alloc_pages_slowpath() computes the promoted order once per iteration
-> and keeps it in alloc_context for direct reclaim, direct compaction and
-> the two retry helpers, so no callee has to recompute it.  Harry Yoo asked
-> for the promoted order to be explicit rather than derived in each callee,
-> and Vlastimil Babka suggested alloc_context over new function parameters.
-> 
-> In a VM reproducer (32G, defrag_mode, inode churn under memory.low):
-> 
->                                         before    after
->     should_reclaim_retry() calls           63M     293k
->     peak memory pressure (PSI some avg10)  99%      12%
-> 
-> File creation runs 5.7x faster.
-> 
-> [kas@kernel.org: s/order_nofrag_promoted/order_defrag_promoted/, per hannes]
->   Link: https://lore.kernel.org/atDL-nSFP2KVU7cI@thinkstation
-> Link: https://lore.kernel.org/as5q14OsbK2CmOrh@thinkstation
-> Fixes: 7e8756d7ad22 ("mm: page_alloc: fix non-movable reclaim storm in defrag_mode")
-> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-> Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-> Assisted-by: LLM
-> Cc: Johannes Weiner <hannes@cmpxchg.org>
-> Cc: David Hildenbrand <david@kernel.org>
-> Cc: Harry Yoo <harry@kernel.org>
-> Cc: Usama Arif <usama.arif@linux.dev>
-> Cc: Suren Baghdasaryan <surenb@google.com>
-> Cc: Michal Hocko <mhocko@suse.com>
-> Cc: Brendan Jackman <brendan.jackman@linux.dev>
-> Cc: Zi Yan <ziy@nvidia.com>
-> Cc: Shakeel Butt <shakeel.butt@linux.dev>
-> Cc: <stable@vger.kernel.org>
-> [ kas: alloc_context is in mm/internal.h and compaction_zonelist_suitable()
->   takes no gfp_mask in 6.18. 6.18 also tries compaction once before the
->   retry loop; set reclaim_compact_order there as well, or that attempt
->   sees order 0 and is skipped. ]
-> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Tobias Kriebisch <tobias.kriebisch@tecbeast.gmbh>
 > ---
+> 
+> Notes:
+>     The patch itself was only build-tested (defconfig,
+>     drivers/ata/libata-core.o on top of for-7.4-fixes) and has not been
+>     booted. The runtime test was the equivalent
+>     libata.force=noncqtrim,nolpm on 6.18.60.
 
-The backport looks good to me,
-Acked-by: Harry Yoo (Meta) <harry@kernel.org>
 
--- 
-Cheers,
-Harry / Hyeonggon
+6.18 was released a year ago.
+
+Please boot the latest kernel, 7.4-rc2, and verify that the problem still
+exists.
+
+If the problem still exist on the latest kernel, apply the minimal set of
+quirks needed to fix the problem.
+
+And yes, build and boot a kernel with your patch to verify that the problem
+is actually solved. (Don't take for granted that your patch will behave the
+same as libata.force.)
+
+
+Kind regards,
+Niklas
