@@ -1,88 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794219938;
-	b=yHobOMorP9Qy74qCV03RxFVvHh6xL9b7bFssh2Y4xvODglW6osLKSuS5sfgZcAs/6L9B
-	 47Ie9p69yFT53w/qs066g0Hg1flyExLdGVO+MwvkVYj6pdEHdkh4Sqw1iPsjIpyN/QpnO
-	 wXfDiwGw/RzzXg+Hi8Wn7TicZMnGn1qdWG7Rdr9m6Ucj9cY4/vH68GHzE3aIZPG2V0VrF
-	 fMpJ/ayUXlTbDqwv/v+cMkqIdjCwGeunI7r/8rOZiWRA7/LB0ERIjsQgdw9sjojzmqlT2
-	 z9pdsq9zD/OC5iKiBJnLR2C31VVJmpT3JnrYhv+lYD4fqFXTynThZL0qGYA3H2YkORg==
+	t=1794220032;
+	b=g7C+uG2oyRyUV32s0evHKxlY7/U2x5Uc37rwmw4n/5Mexf0+kyaJvKPqjRhywCNJPDh/
+	 b4Z23kJS5bF0w557Cb7g5w95pNobqjT8WPsAZCQzf0r7F0h3uztDFwxvNldrbOjBUWXnx
+	 ebNIQvy0uKehKcFz2MlrbOqrVEqbDWaucUr62cAlwrYcuBlc+gKagSP4auAPVXtBWpKCL
+	 tPRF1fCsA52bBuW9EamgFVN516kdpg0L78FmX3J+hhFQGRUwM6RJ/IT7mCKFm3C2NFGOh
+	 /bwhiN9U46Jit9T85fNh8Ifzg7ueffpwmH1XvB6Yb4jov+gmSxX4ba6a6AveCyOQeVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794219938;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=S+EuBSGaK4YOu+FEw+Tb1D5cwuOQcvEDWrfjmQfxZFs=;
-	b=QFMS4JFUtD9L4bebFhp6TrKCRx0zLQC0cbyhp1Ej6yBhPh7sKPxyte38kvdPnyQ6EriT
-	 mHeK3qzsIIvO4KvQSUB1SoFijYVwV0PS40COH2YfQxb3A8KIOnPTyB4+d2+CXL4zU0y9G
-	 QgUYGyo8Yp+N76lro/5RjevXbcsKbMvAa/JaCFW3I+wqZuE+fWUnoBdVh31YF3m8Dqyrc
-	 o6tYyp7w/goSUK8KgjkxcdtSqLMXQHoFqhnSIJNYMqpxEcm6gcIfh/6VToH7Jd8IjJImw
-	 13H86tS5Ml07XrV+CWgjkw+kw4YEMxVhpD0Mbu6Si0HQy9vZ1DJbfGeMSPOjD9BVVcg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794220032;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=EVqF7yN6G/1zex48NwJMs4JSG7UiDgF1W9WYPytnZWk=;
+	b=y9jJ9no/qwoTPcRM/vHeKmTahMxSDaiJyeDD44w21PrZ+D1VASnSTm6gzr2Ovs6CQi8F
+	 scD/RTGoV56UQNpExKUvonayRiv3l6uuiE1o8gTaCMyS67mUZ3B1hlZSdPKhqy+Y9RIof
+	 BwMD62YO2J7Id2BfNDFWccEG//CA57+7P7Km4RNEJob4vYYczRWy2lbBqnc4KjelElYAI
+	 7RUnG7tlClKSP5N9pVq1hL0abzbmeQsbRp88sH9vdewbIEe39YCnG4Yj7UNRf/u8dji5B
+	 fO3SfYnjKSMbrg6S/UrY8PTI5iyaXPx6gCBl8FtX743t8TKn06lUZIOVIfSEumIVVVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uk2T4Dr4;
-	arc=none smtp.remote-ip=209.85.221.50
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NPI+jH8B;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=cBZkSLIs;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C506606A330
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 10:25:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C506606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EEBC606A323
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 10:27:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9EEBC606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uk2T4Dr4
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-490d59c3edaso513478f8f.1
-        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 02:25:37 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NPI+jH8B;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=cBZkSLIs
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9AJBra4127150
+	for <stable@vger.kernel.org>; Mon, 9 Nov 2026 10:27:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=EVqF7yN6G/1zex48NwJMs4
+	JSG7UiDgF1W9WYPytnZWk=; b=NPI+jH8BRZuCpgxPfoArgDiP7bCMD0sJE9MmtL
+	z8aYHQJxO6+rD6+2gEg9qAPnexHoU2sQl1wQ3iXGi+kxwQ0Ta99CBpQssbFwQn2D
+	eGJXqZo4dvcD5GsaXIikizPLqLEpNBK4S1utSBD+LQU1RxPM6y2cU7yDaiy6+pKH
+	/A8hO5xACb+5zG/e6cMdTKxJvJSNXaE+eo5X4om5ARKLkHBcWzBcdGS2GcqUxq4n
+	mM7tQeECeqsnI6+9pFvuFXFgYQj/TBlscVpnwBP2t8/lNtQMnwWV/IyjrKucPNwB
+	NoiM10LAtuOPMy8sDGKPJOTvMkTY/BBTEBzhwSVkRmMpG34g==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hucap80y0-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Mon, 09 Nov 2026 10:27:10 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-91eacf20364so14307586d6.0
+        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 02:27:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794219936; x=1794824736; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=S+EuBSGaK4YOu+FEw+Tb1D5cwuOQcvEDWrfjmQfxZFs=;
-        b=uk2T4Dr4GZTjEVSeZcxFCEEn2VyKvKuqar3yC/PtzjVaEOzUWbCrPIPPU57mI85JH5
-         VQvhv5VOS3zCBKd8AXiThuHQ5m8nC5kJM0fMwHqIuZqaWRWCYKYC3J2D+TJIt7airiei
-         w0eSPJfsM8dVhZ4vEGajVNhagC12YjKc1xCS45PnACKUi6R3sr21S4Wm9NGz66c761FV
-         Y8jqY/hS82ZxwH3HaswY7gAlnD33JPnh37k4oXCjY8Bvl7BXgFsYVkBHf6pnKB3mEYdy
-         Rhl7C0p/At+lWDpyZznmlapl/nIYaBHsy8XuU0DWObQ0QeiI5vxlEh42neSNsHEOUOO6
-         fh+g==
+        d=oss.qualcomm.com; s=google; t=1794220030; x=1794824830; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=EVqF7yN6G/1zex48NwJMs4JSG7UiDgF1W9WYPytnZWk=;
+        b=cBZkSLIsrdT30FhWhYqQkiZtVgS3yIgYyfOuXmR21lb5HC9Cmqz3nHGSic2Z9W/GjK
+         crJtxuSYEXD5yjWeUUQ6KPiHAr+RZS1ApBb8TytxQIWkr+zude91N8OyqiBr22OaxzrO
+         NrKpKHpICUS71p5Xpg84RJZXO+WHd1rdp/kkMpw/RD1z+yCiNuDTV3Qj+cN7V7tchfZv
+         vXcx4BHLljAhDyZPCQhgnP0lAJOWytkJdN4tiWiQkRrLuGihbrN4j3yNa7XBpg9SocTl
+         /dycZD1+8xMThkXrFoTvTlBKnR6aZRu1F3he7bHRzI5RNGYmH2sFbCYHzxKp/WqKj8z1
+         fJtQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794219936; x=1794824736;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=S+EuBSGaK4YOu+FEw+Tb1D5cwuOQcvEDWrfjmQfxZFs=;
-        b=Sd5arrDYi6GFdRg6fbVWJGWjmYDBJP3owhxcxYgPH8dHb4aaNJku8kmY3GkWU/30QA
-         8PDZqPdDKvBavkwMlBbgxarGnwvg58oP+vIo9e7M5D56lyGkXNtAleWyE0ZACM1QkNWx
-         4CnSBTOD4LMddQg4eoVsdwiPssdt1CWG1zFZ0TN1qtyhqZSVpErvh1ywNsNF61VHGcvt
-         3aDPpVrVT77BPHkys+XuQv97mJwFKDIgaKVTJDYGNPBIrUXr72y6AdQ0uj9LXECdrY9z
-         cmSVM79Xj3t+Jffx9uoCJNlFF5/wltm0diYpt8qCM29f4J2732wJAQOURV1VYCnANcoP
-         uHag==
-X-Forwarded-Encrypted: i=1; AL+hErHACYFPEYT1e/Wl6npvIOORmJRZrFBpdGFXwl1bTZ0+l3m4m4AG+wF49gL2nq8w8lUsuJpuVWs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z84gm7g5f7+85HoJ776x3rWHRwb9R5bokV9maFa3csIfxjcXl4Z
-	DxAXiWrAdwsKd1gOUsbFuCqNGIMlAsM52hrieL7EmIjIToS9v7O8HBVF
-X-Gm-Gg: AYBFou0GpmbJWZG2Ult3OBeNNq+5oKhXFcJ2CzzvRL0So8UK1hoUP+C2jbD3BANKtgn
-	eVQGB05ZXY11+a9UE/Tpc5nqxRuaedBWKKp/9PJ+fUZuFxNRR32txqQwu8iAqWnazMT7rHDw/rL
-	uyVfsLEhXdMTFD9W9L7TzJqFs71K8oAeH5+Pd3GuhZuM68bbU0iIm1ZZSBDPkYqv4syXKM/QjEi
-	kfGCf5lbp/lTx+npItjW3Aw8DFrf8iqVAgdcPlT5tDfdxL+LqsA65GuawLw3NwnWuDM1nvNK8wY
-	6FxREBCUtLNAQSJ+B5mBcoYhhDpXoLQayVk5un032SFvzzm5KuPe/krbby5Kf3KENzNuVHoYnNV
-	UfPh5EGIsI8J+hHKfppjWUnU3Ci6Idr2Q4bB8VKviSjzFbqMixG8YJVRdRsavC5yv+MhEm1o6T+
-	BkSQHiB+i7kM69HN/C25HoEtZneikRyNv/nxxjAOSfWI1bIFErMmMb6eXcna4KpqwQwXZaNCW8P
-	6XM2rrckjXVoqVoSPFqSLd7zy22V95Bu4rTNVxZwBuDMVHs0TL7GdCEHx5JRkyvX6E0NtXmVSn6
-	H9W81TRaT4+z8+R7OtX1GzM=
-X-Received: by 2002:a05:6000:41d3:b0:491:632f:2c8f with SMTP id ffacd0b85a97d-4941f75cac1mr12200348f8f.2.1794219935759;
-        Mon, 09 Nov 2026 02:25:35 -0800 (PST)
-Received: from [192.168.1.22] ([83.231.69.9])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49597371cc4sm8791060f8f.36.2026.11.09.02.25.33
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 09 Nov 2026 02:25:35 -0800 (PST)
-Message-ID: <ad09d3f5-986b-4337-9e32-1de4e5b18d71@gmail.com>
-Date: Mon, 9 Nov 2026 11:25:32 +0100
+        d=1e100.net; s=20260707; t=1794220030; x=1794824830;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=EVqF7yN6G/1zex48NwJMs4JSG7UiDgF1W9WYPytnZWk=;
+        b=y/31YQlj4CUP/uLKWBUninpwj6AhzazvN1R+sjmz00TOgP2EV4wHUttkON8jvPXjkG
+         DtHnp5DqbfQGiH22Pu+QtvZ7CmLxDoqup+qxU3QWjfMT1gs/3CL5vuVHHQi1Y8iK4jyw
+         fHJQfPzAnAZtZwB69wFWElDQ9as9vBgwV1W+eeMMjlk5zVE+XmQuF8iHB05J9w3blXr6
+         LZooy2fTziLYKt+tbJsRNb9W1bQ1uT440xn57WAivRve9p5SJoxKB2Hv+hsvpHDR6bj9
+         RP5F0LkVurpsC7q5xk2tw7D5XC+6prL0jKofXYzx542DfDF89/rjrWdwbiEzDnZFMOQf
+         Arbw==
+X-Forwarded-Encrypted: i=1; AL+hErG2rRIvR6DZu9rgxVylsXAUrexSl2euoYAcCwxpbsOc7/jMmO7Mmrm5ylgZQIUJFWR0iHEzQ94=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+hokJxhjACr2PfkdTd7MIQMP1nY4cir9s8PfW1gnetUYC7xvi1
+	JHGPyreYLQ+XtEkYbi+lgj5zLqusI7aQwulj5jU/rJtzva1XvU/v09y76gpqSv54EtkdGRxt8Ub
+	/ceFZWQfTkjpQ2eJljrNRegkknwxZ2XnSVztQ64co8paxxlVj7LwPQyHJNzI=
+X-Gm-Gg: AYBFou08FiG/Tabsf++dTAJsVnB8ZmUKBMPSQmpN6KNOhZLk9giDTz6WgGkjqFc5jPr
+	CFSOWNldW06BhDkF/1TIr90HmcM0udR5YPjvfvay3+vpTzFe8hZz/Ob0zveFArsjmsdFqHPcs3F
+	urlWCHQ3n/G82/PgH3nFsvSa1T3s7yPPKXMN3xGHJ8xGmg2KzMcVv3zn3qpDnRXx04sZ+Wff8yk
+	Ot0Cn/tsf6kmPhKhPYu3Izgcbq1PCSPBsM/eiDhySbwI/Rd611N0PLZiPzTDM/x0YL5kDl+INqI
+	kPFgC84R8Li/UmMAvxwI9eduoVaBFL898nndrXJ/h4XmT5nRIZuj0gQiRkYZlwHmuU1QRn1TvGd
+	5qY+02WWnJUsk+a5JIIfpyBndjd3cC7crduv5QItJIbDW8SyAgPcamLVPN30G1OdMZG2KxrYliq
+	iTpOPzsHgKjuceN/Ox9uD/s5j5P53DZI1aAWrW/5IQc0BdTWV27BVBcPIJr8glNR4=
+X-Received: by 2002:a05:620a:4087:b0:93f:34b0:4880 with SMTP id af79cd13be357-947841eb130mr558990785a.22.1794220029914;
+        Mon, 09 Nov 2026 02:27:09 -0800 (PST)
+X-Received: by 2002:a05:620a:4087:b0:93f:34b0:4880 with SMTP id af79cd13be357-947841eb130mr558988485a.22.1794220029468;
+        Mon, 09 Nov 2026 02:27:09 -0800 (PST)
+Received: from brgl-qcom.local (2a01cb1d00dc7e0089167b9b97a26c96.ipv6.abo.wanadoo.fr. [2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7e32ad4d1sm237381545e9.5.2026.11.09.02.27.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 02:27:08 -0800 (PST)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: [PATCH v2 0/5] gpiolib: improve concurrent access to the flags
+ field of struct gpio_desc
+Date: Mon, 09 Nov 2026 11:27:04 +0100
+Message-Id: <20261109-gpio-desc-flags-atomic-v2-0-c4c54b476628@oss.qualcomm.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,227 +116,103 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/5] mm: limit pagecache folio refcount when splicing
- into pipes
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
- Gregory Price <gourry@gourry.net>, Ying Huang
- <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
- Peter Xu <peterx@redhat.com>, Johannes Weiner <hannes@cmpxchg.org>,
- Song Liu <songliubraving@fb.com>, Rik van Riel <riel@surriel.com>,
- Miklos Szeredi <miklos@szeredi.hu>, Alexander Viro
- <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>,
- Hugh Dickins <hughd@google.com>, Will Deacon <will@kernel.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
- <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
- Arnd Bergmann <arnd@arndb.de>, Jason Gunthorpe <jgg@ziepe.ca>,
- Kevin Tian <kevin.tian@intel.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
- Robin Murphy <robin.murphy@arm.com>,
- Steve Sistare <steven.sistare@oracle.com>, John Hubbard
- <jhubbard@nvidia.com>, Josef Bacik <josef@toxicpanda.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, fuse-devel@lists.linux.dev,
- linux-arch@vger.kernel.org, iommu@lists.linux.dev, stable@vger.kernel.org
-References: <20261107-refcount_overflow_stable-v2-0-c38f6809b106@kernel.org>
- <20261107-refcount_overflow_stable-v2-2-c38f6809b106@kernel.org>
- <a9fb2d3c-d518-49d3-9479-a25fa2cfc5b3@gmail.com>
- <8d23b1eb-72aa-479d-9486-dbfd86d8414c@kernel.org>
- <43fc45ff-8636-4961-a80a-29844c15d7a1@kernel.org>
- <aa6ea9df-f767-4092-ad8f-f10305e27c3e@kernel.org>
-Content-Language: en-US
-From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-In-Reply-To: <aa6ea9df-f767-4092-ad8f-f10305e27c3e@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAPif8WoC/4WNQQqDMBBFryJZdySJRbCr3qO4SCcTHVBjMyot4
+ t2beoFuPrwP//1dCSUmUbdiV4k2Fo5TBnspFPZu6gjYZ1ZW29oYfYVu5gieBCEMrhNwSxwZAbG
+ pK2cQg9cqj+dEgd+n+NFm7lmWmD7nz2Z+7V/lZkAD2QrJh9o0T3ePIuVrdQPGcSxzqPY4ji877
+ bAHwwAAAA==
+X-Change-ID: 20261104-gpio-desc-flags-atomic-cc963a1ccfd0
+To: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+        Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+        Kent Gibson <warthog618@gmail.com>,
+        Adrian Ambrozewicz <aambrozewicz@nvidia.com>
+Cc: linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        stable@vger.kernel.org
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1696;
+ i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
+ bh=wBn3LR2/K6DWqnzwS6Fqakc7fXqzC6CyL5/wmD47UVs=;
+ b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBq8Z/7DxfuE8KBV0EGa/dclW8NxrhzXxSHbP/FS
+ epRXi6YF/CJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCavGf+wAKCRAFnS7L/zaE
+ w7MgD/wP3c8P8b+nS+Zs7CW/IqFwVgsvyzhhBxOmQ09mTzrjQRinnRdl0UDu1EsAeRcEC4dJYP1
+ HxUND+Pk6hRShGOCnQLSZ4FiSuiQKJ0xxCdH6XJkAz6eDEp93zasDvJLpqGsLPEt6UeQUZGDyiN
+ GIx7FrkqbXKVFv7xPZyjOpgyAzhvyI9uYfMQ65qE3/379+putWWvp9nUQ6CXj3onfv+xv4eHOLf
+ qLTdFWe4q+qx2x3i1YrFMU75R+mV9Ij6LIxDJ5vmZFPsFRtDP08e7d+IQgBcT/HWx75627KlWGs
+ ds6W2SMD2uvL2tH5GR13b7LB4XYr/7ud894TpJdKUEwttngOAOC1OcOM5pWtLxqgIM3jzpOq6pD
+ TubuAjzOonWAphTjMIYbzeCPtt9xmBMUZ6KhEQWGcM2AeYqyqdWk76hv5Ls6Y3H5EWjvusUG4rd
+ f9S/NZa0cyBNz5ma2LArYdnEhbEAwv2qXtfELC6kLlTHCR4C/mBNBV2LYbV5Y7gnYsah+B60JKu
+ Fv3IOWsHn2MeamD/Oe6+LF+c3lCvFUSMesmX4suJdgb3JQgZ93GroOVDrhijZXJuVH9HilHhW75
+ UoZqUeQr8d03/ivgaC6iYqmoJoWTcDhw9ob1YOtU38aHfJYNPsIHRl24/HnHC3XWxuLma1sgPvc
+ t6GjX8Fez8klXTA==
+X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
+ fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA0MCBTYWx0ZWRfX5x5JqJJiS0Xc
+ iuYYTzvpO942Do2Ey98laWgCaR8yfF1MHLh+/9UB48SUrp/Cs172wFjrdFD61obj3stiwDHh4Q8
+ GXOg3v9Oi+1yMhohWhCyPpaSqzjncjf1kBul2TE97u8DsguzNUVThrjVJ/Val7Sr5RqE70JxN6r
+ EvsIQVdzlS4D6rrKNYcxZwd4SCE4VB4bXy180MMZF3Pjd95c9XxweGinUk9r1cGil8cBAk3vlzc
+ 22PC4QgxCobmcTyWvCanbto+A7pEiWLZL/EfvM/aqRnaJgS5qJhkFMw1/NzECx4i1xS6vHsgwt0
+ +k2gPTlUUPVXtYZ6cfwMO03TdFUBlJsrCWHU/I4NtzUHL25kIQ/sxTCYfpY401mYbEgqEI8CZ5n
+ O572+6F5cFl4+1Oh/XT0VgO/y+MMJpjvslkI5+0pLomKcHInRMBymcI6IReFx94UhtqONMPS9Re
+ FKjaIve/XUuwskmiT1A==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA0MCBTYWx0ZWRfX/FD7v6mPX4BM
+ 9BB06gWHNubaGsydn6F1IcHvWs74J9UOQM5rtJjffg468RR09ODs5QnsR9znpdmxt4JOPPXYa4M
+ QFGvEeBtlMv9ZS6Gs8PuSOCB5HuXONc=
+X-Proofpoint-ORIG-GUID: zMfw8o6xW_hM1HkAZ-k3WfULZYjcaY8Q
+X-Authority-Analysis: v=2.4 cv=TaQDJhQh c=1 sm=1 tr=0 ts=6af19ffe cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=VwQbUJbxAAAA:8
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=D8W7ssISyP8QuMM01yIA:9 a=QEXdDO2ut3YA:10
+ a=pJ04lnu7RYOZP9TFuWaZ:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-GUID: zMfw8o6xW_hM1HkAZ-k3WfULZYjcaY8Q
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-09_04,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 impostorscore=0 adultscore=0 lowpriorityscore=0
+ malwarescore=0 clxscore=1015 bulkscore=0 spamscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090040
 
-On 11/9/26 11:08 AM, David Hildenbrand (Arm) wrote:
-> On 11/9/26 10:49, David Hildenbrand (Arm) wrote:
->> On 11/9/26 10:30, David Hildenbrand (Arm) wrote:
->>> On 11/9/26 09:57, Jose A. Perez de Azpillaga wrote:
->>>>
->>>> here it can't tell where the -EOVERFLOW came from, if another file
->>>> returns -EOVERFLOW (i.e. tty_fops uses copy_splice_read, and
->>>> n_hdlc_tty_read() returns -EOVERFLOW after dropping the frame), it now
->>>> gets a second read.
->>>
->>>
->>> That's what claude told me during review, and when asked whether that actually
->>> happened in practice it said no ;)
->>>
->>> So is that actually a problem?
->>
->> Double checked, claude managed to confuse itself.
->>
->> n_hdlc_tty_read() can indeed return -EOVERFLOW.
->>
->> I should just have let splice keep failing, dealing with copy fallback starts to
->> get annoying.
->>
->> I guess switching to -ETOOMANYREFS should work (and might be a better fitting error)
-> 
-> Yeah, the following should do I think, please double check:
-> 
-> From 7ce030711737e8c26fb5500f2705940e93da0d44 Mon Sep 17 00:00:00 2001
-> From: "David Hildenbrand (Arm)" <david@kernel.org>
-> Date: Wed, 4 Nov 2026 19:02:48 +0100
-> Subject: [PATCH] mm: limit pagecache folio refcount when splicing into pipes
-> 
-> Similar to mapping pagecache folios into page tables, let's reject
-> additional references when splicing folios into a pipe if the refcount
-> is at its limit, similar to how we handle it during GUP.
-> 
-> This will prevent more cases of possible folio refcount overflows with
-> large pagecache folios.
-> 
-> Let's keep it simple and check in the two callers of
-> splice_folio_into_pipe(). Return -ETOOMANYREFS if the limit prevents any
-> progress, so do_splice_read() can fall back to copy_splice_read() when
-> read_iter is available. This keeps sendfile() and other splice users
-> working when ordinary reads would still succeed.
-> 
-> Also fall back to copying in FUSE when taking another reference through
-> fuse_ref_folio() would exceed the limit.
-> 
-> Also check in try_get_page() to cover pipe-buffer duplication by tee()
-> and partial pipe-to-pipe splicing.
-> 
-> Fixes: 800d8c63b2e9 ("shmem: add huge pages support")
-> Fixes: 99cb0dbd47a1 ("mm,thp: add read-only THP support for (non-shmem) FS")
-> Fixes: 793917d997df ("mm/readahead: Add large folio readahead")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
->  fs/fuse/dev.c      |  5 +++--
->  fs/splice.c        |  8 +++++++-
->  include/linux/mm.h |  9 ++++++---
->  mm/filemap.c       | 11 ++++++++---
->  mm/shmem.c         |  4 ++++
->  5 files changed, 28 insertions(+), 9 deletions(-)
-> 
-> diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
-> index 3641abb90d6bb..4f6b7b42bfd3e 100644
-> --- a/fs/fuse/dev.c
-> +++ b/fs/fuse/dev.c
-> @@ -1265,9 +1265,10 @@ int fuse_copy_folio(struct fuse_copy_state *cs, struct folio **foliop,
->  		if (cs->write && cs->pipebufs && folio) {
->  			/*
->  			 * Can't control lifetime of pipe buffers, so always
-> -			 * copy user pages.
-> +			 * copy user pages. Also copy folios at their refcount limit.
->  			 */
-> -			if (cs->req->args->user_pages) {
-> +			if (cs->req->args->user_pages ||
-> +			    unlikely(folio_ref_count_over_limit(folio))) {
->  				err = fuse_copy_fill(cs);
->  				if (err)
->  					return err;
-> diff --git a/fs/splice.c b/fs/splice.c
-> index e6d43329ed3f0..2fc1279628af5 100644
-> --- a/fs/splice.c
-> +++ b/fs/splice.c
-> @@ -956,6 +956,7 @@ static ssize_t do_splice_read(struct file *in, loff_t *ppos,
->  			      unsigned int flags)
->  {
->  	unsigned int p_space;
-> +	ssize_t ret;
->  
->  	if (unlikely(!(in->f_mode & FMODE_READ)))
->  		return -EBADF;
-> @@ -977,7 +978,12 @@ static ssize_t do_splice_read(struct file *in, loff_t *ppos,
->  	 */
->  	if ((in->f_flags & O_DIRECT) || IS_DAX(in->f_mapping->host))
->  		return copy_splice_read(in, ppos, pipe, len, flags);
-> -	return in->f_op->splice_read(in, ppos, pipe, len, flags);
-> +	ret = in->f_op->splice_read(in, ppos, pipe, len, flags);
-> +
-> +	/* Fallback to copying when hitting folio refcount limits. */
-> +	if (unlikely(ret == -ETOOMANYREFS) && in->f_op->read_iter)
-> +		ret = copy_splice_read(in, ppos, pipe, len, flags);
-> +	return ret;
->  }
->  
->  /**
-> diff --git a/include/linux/mm.h b/include/linux/mm.h
-> index 3356f7a670d1e..dd50262a70758 100644
-> --- a/include/linux/mm.h
-> +++ b/include/linux/mm.h
-> @@ -2288,10 +2288,13 @@ static inline void get_page(struct page *page)
->  
->  static inline __must_check bool try_get_page(struct page *page)
->  {
-> -	page = compound_head(page);
-> -	if (WARN_ON_ONCE(page_ref_count(page) <= 0))
-> +	struct folio *folio = page_folio(page);
-> +
-> +	if (WARN_ON_ONCE(folio_ref_count(folio) <= 0))
->  		return false;
-> -	page_ref_inc(page);
-> +	if (unlikely(folio_ref_count_over_limit(folio)))
-> +		return false;
-> +	folio_ref_inc(folio);
->  	return true;
->  }
->  
-> diff --git a/mm/filemap.c b/mm/filemap.c
-> index 920bbf86dfdff..44b23c51ea45f 100644
-> --- a/mm/filemap.c
-> +++ b/mm/filemap.c
-> @@ -3094,9 +3094,10 @@ size_t splice_folio_into_pipe(struct pipe_inode_info *pipe,
->   * Return: On success, the number of bytes read will be returned and *@ppos
->   * will be updated if appropriate; 0 will be returned if there is no more data
->   * to be read; -EAGAIN will be returned if the pipe had no space, and some
-> - * other negative error code will be returned on error.  A short read may occur
-> - * if the pipe has insufficient space, we reach the end of the data or we hit a
-> - * hole.
-> + * other negative error code will be returned on error; -ETOOMANYREFS will be
-> + * returned if the folio's refcount is too high and the caller can fall back to
-> + * copying.  A short read may occur if the pipe has insufficient space, we reach
-> + * the end of the data or we hit a hole.
->   */
->  ssize_t filemap_splice_read(struct file *in, loff_t *ppos,
->  			    struct pipe_inode_info *pipe,
-> @@ -3168,6 +3169,10 @@ ssize_t filemap_splice_read(struct file *in, loff_t *ppos,
->  			if (writably_mapped)
->  				flush_dcache_folio(folio);
->  
-> +			if (unlikely(folio_ref_count_over_limit(folio))) {
-> +				error = -ETOOMANYREFS;
-> +				goto out;
-> +			}
->  			n = min_t(loff_t, len, isize - *ppos);
->  			n = splice_folio_into_pipe(pipe, folio, *ppos, n);
->  			if (!n)
-> diff --git a/mm/shmem.c b/mm/shmem.c
-> index be4ab228cf67c..0b30b1de81a7c 100644
-> --- a/mm/shmem.c
-> +++ b/mm/shmem.c
-> @@ -3830,6 +3830,10 @@ static ssize_t shmem_file_splice_read(struct file *in, loff_t *ppos,
->  			 * Ok, we have the page, and it's up-to-date, so we can
->  			 * now splice it into the pipe.
->  			 */
-> +			if (unlikely(folio_ref_count_over_limit(folio))) {
-> +				error = -ETOOMANYREFS;
-> +				break;
-> +			}
->  			n = splice_folio_into_pipe(pipe, folio, *ppos, part);
->  			folio_put(folio);
->  			folio = NULL;
+This is a follow-up to our discussion[1] about desc->flags and possible
+races with users who don't/can't synchronize with other means.
 
-this LGTM :)
+It's an attempt to use try_cmpxchg() to update only the required flags
+atomically where needed + minor fixes using atomic variants of bitops
+where it makes sense.
 
-Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+[1] https://lore.kernel.org/all/20261015153714.GA105746@rigel/
 
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+---
+Changes in v2:
+- Drop the custom gpiod_update_flags() function and use the existing
+  set_mask_bits() macro instead
+- Add a patch clearing debounce_period_us before GPIOD_FLAG_REQUESTED as
+  suggested by Kent
+- Rename the functions updating flags in gpiolib-cdev.c
+- Don't rename the flags variable
+- Link to v1: https://patch.msgid.link/20261104-gpio-desc-flags-atomic-v1-0-e23cedf619ba@oss.qualcomm.com
+
+---
+Bartosz Golaszewski (5):
+      gpiolib: don't overwrite the entire flags field in gpiod_get_direction()
+      gpio: shared: use atomic set_bit() for descriptor flags
+      gpiolib: clear debounce period before the "requested" flag
+      gpiolib: don't overwrite the entire flags field in gpiod_free_commit()
+      gpio: cdev: don't overwrite the whole flags field when configuring lines
+
+ drivers/gpio/gpiolib-cdev.c   | 111 +++++++++++++++++++++++-------------------
+ drivers/gpio/gpiolib-shared.c |   6 +--
+ drivers/gpio/gpiolib.c        |  36 +++++++-------
+ 3 files changed, 83 insertions(+), 70 deletions(-)
+---
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
+change-id: 20261104-gpio-desc-flags-atomic-cc963a1ccfd0
+
+Best regards,
 -- 
-cheers,
-jose a. p-a
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+
