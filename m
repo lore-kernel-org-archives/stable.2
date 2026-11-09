@@ -1,100 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794255250;
-	b=E4BFu9iQWUqARMMxcKQfa/b9UzsFzfkN46sWpxtEgulP8nSY424aJzRGV0DLP0/70b/L
-	 9BrnIxjfrbALKsrDK99IPuOoic6bATwg0h4SK2bM2vXZQMT0fqmi/uSCTXh4L2Ro6a4Sd
-	 m3ubvQ7PjqrwxEzMdAnhOATbuh47LpF5w6HviYySGXO+9JhQnHy2j3cGx0xFqHQ9aEADQ
-	 jfHsr6oyaCRgp5Hj2bvdzu3bvK7xdJ5Q9qKg2cblVPOCoaJ2CCJaxX7iyRNoAoUwixJ9f
-	 Y9ANEJ4ONTdhhvCzGlccpKbcDz9zLSfWxswh0H2RKgeiNtJYWBZyTP2RqZIPWUfSTbQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794255250;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=VXIL8vk5nLZY9woNoUytKHIxYR4kPI/WQboSs45p1R8=;
-	b=n/cC5M/yJQJAvvye3bjFBirLUNOi/fs7huKHZEEH1wuf4I9Hyi3ZDlyru0nd5TR805g5
-	 2OG914u+yc/PBS53QIYpuw2HRK1hmgAFoidMu6pkBvCalOzuXd/E44j4Iwo3omCQnjJ6j
-	 H/cSH60R/kfNNzFNr0C9jBJ0TzX27wVxhM8SewWEC0lvWFVzf0mUdDDCfR8uR+agvOK+V
-	 DIsSGjSjJn6Bw7pTZH/TxVQCVxwhjfq2Vt0YFlvJnzbHAtGH5037LU7nFv3v3YxxZ3+5b
-	 t5koqHDJETI6aKf4KTfyMumYE6u6fWrYJnRLcAkwt8MQsJm4n2mzJaQXUHtBD7BnHAA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=paul-moore.com;
-	spf=pass smtp.mailfrom=paul-moore.com;
-	dkim=pass header.d=paul-moore.com header.i=@paul-moore.com header.a=rsa-sha256 header.s=google header.b=bPMMvzll;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.52
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794255302;
+	b=GJroU0+0w4uPYyheOBFumhLPUT7ewphX5ZSLopLFAUEWbPCA491pIfLv1rrY49bPswYs
+	 UDiMEHJmPxCEw2r3kx3ahLvj5fi4fbSCJu4tMiXn3zFAPLOwutzefxjT/T4M40vX67aqd
+	 fU8XhNLEe56ws04ZJkcXrN84g4Srm09cAFMFb69WQBAzRPnHSXbgioL/QElKxHQMAqrIl
+	 xNY/3+/t1mmQONiYnoJJIOPPs1kbhg07kg3esEnx3QCWe5lXEUOk9gozw++ZO+q1swlqb
+	 Xg9pICZ1VH0cr4i70ElyM1DxTalubOkXVbBnCWf9WsZvYukiMpTUcND+2AkmNSfMO4g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794255302;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
+	 User-Agent:MIME-Version;
+	bh=FoxVs0lzm+EWWwB8m+Smx/prpVCN9fk/Ey2Oni4TNLc=;
+	b=2JdtPPaW/Qhhdro1L4mfQt67jjIMMNo2HJeejJg4iMHCkDMoZRQ0larA8ig4BNQ+wW/F
+	 gaFt7P/P65Y0tAfXN52v4pgIBZ+RoRg2cc8Ylm1OaXlGGLluJ8xVzPGHK6Oh8VgCSEpaK
+	 4H7Ed6zjJHDPLsFEz2BYZjwk+ik7bSOEi/PT7jj5VV0Cb5dpOm3kN6ZloGEIIzRJoTiR3
+	 lAXDDQt4s5bwtB19UKnxMt2HUE7GrwE5qmMj1tHHnSk5a34ru7/jIJh4cOXj+WrGO8F9M
+	 ZPvzbDgst44cI2QcNQQwJAT0sv+3UFwXX4Q+pKVQTy07YGOIlYJMklfCMR+EMhPUm0w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=o3HD5sT1;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AB3E606A338
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 20:14:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1AB3E606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39493606A325;
+	Mon,  9 Nov 2026 20:15:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39493606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.a=rsa-sha256 header.s=google header.b=bPMMvzll
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3ad787e0593so729571a91.3
-        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 12:14:09 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794255249; cv=none;
-        d=google.com; s=arc-20260327;
-        b=CRlB5SbS/1T2pWALT5gDK7esCkWIY9w5PW3Tv0jw6VFWOrhdKbgaizxNl2IS6linF0
-         GuQrrvSuq6Eqz41buhstfNd4FmmmXfgJNeEU0kx02DmyvCYI+0seOSv9Fq+lDaKUQemB
-         JpVQC7rH5DDUCZOGA7NedjDHIyKM4qatPk7j+tpIqwLPJ3Gth8HduHQUixqZB6E4o1WW
-         UJgH6JqhmWsXmrdezV8Sb/lIFvn0u2U9EmcNezOJzBBEUBpxdPJry0G+zGBfl4T9UK8B
-         NnCCMYK+6FAWGNuI4G5fJIIRknmCWzSwCTzO/R4ROKrjzkgxTRibkM6MjUb4lZoGFH5G
-         98BA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=VXIL8vk5nLZY9woNoUytKHIxYR4kPI/WQboSs45p1R8=;
-        fh=eW66oBzBOuue0jGHMJphlhQ0AuxCCYbVe6kwKf4rHYo=;
-        b=Dz0VqkDuUFbfmYrkJcVcw+fVKuGXSdvMJG4LH37QCWy3P94lMPIHsf728a67BsUsgV
-         zyhGRxoLrq1pJXB4xDOX7fnmtOY39O4LvxnyJPBYKdK7B1hRWbUKKjdN33Az4YpLSfx2
-         tkR2CjKks2tRSx4CUk4fUJvaLUBopcVJAn8uliG7MbxqsVtPG+WZw4gEtBaea22t42W5
-         Glljfn5hwtyPHNIsG201StPGznjojRBEZ/y5jQfW8dNfuDanyTtSv53/eBpK9T6Go7Xe
-         c0NZy3LC8mGnDlHXeu+xvdOASAbkwL6SduXlNpE+mFwC0C1e9D/H6t6AA4aecvGllGeT
-         MasQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=paul-moore.com; s=google; t=1794255249; x=1794860049; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VXIL8vk5nLZY9woNoUytKHIxYR4kPI/WQboSs45p1R8=;
-        b=bPMMvzllU0yTQQX3RK6h5UbI6bmYfHGmNNP5VaRJ5GDzkjEjLchbGFjBkHWEHWVEK2
-         UVDCQ/Oq+cuY5K28yKE33O/gdrHWK2TsOlIpihV1+nrZJAk6wpYBe72IS4kJq9D9D7S/
-         C+ATpmS4If8e9tGs/YMSBnDvsJXO5L48Wfr0GIxatVJTgOHI1eAkPn5yJpjzpyWSBJzH
-         EE2xD9Du9nOx8VLIHcCMDu84GpRqn9QthLL6xH79XsJhVZoG7KLfwySEMsHLt4TvjAaa
-         B7CkeP8mxW9zMB9eeQzgd+Hh+Tq11ml6UIUa7rXVebk4yGV1EII2xqGWl+Y5bJhJyz+N
-         8V1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794255249; x=1794860049;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VXIL8vk5nLZY9woNoUytKHIxYR4kPI/WQboSs45p1R8=;
-        b=k8j2+eYEEWrn0U8xP6JI8ECobbmR7+vxdxgEWutvZov0j7ofQBhWz9RVczzrLM8fAL
-         j5iQ+kyLNNPKjdYPIiX34IOTyFgawrwBL4GJX7FBv/Y5oFpMr/xm2Erjx7s0opWKdikx
-         Fknj1s81puAYVR3SesX6itweYeFSCvl0hlkYimwiIY/LLZ/jsUpENMpY9umh30Ih9A5Y
-         /vKJomaZR+6uapRHNOGpHW7mtGjNIEo7ed5qhMAwPU3XPcmp6Be0+V1IN9Bl2nmfVkTI
-         ulxixw5g6xiopz3cHMVbkCsrf3YEZzbIOsLISG/71zzIZ5e+Pg9ZYqbb6GlS3OZpV0zn
-         8ZVw==
-X-Forwarded-Encrypted: i=1; AL+hErExOuOsKGeEsEbyu9f3FbUXZDVbv2RRqACYTtpp6p7NrSTD3hkU8L1lxvoNYAy5VyIWl3etmuE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/xoZj1/t30yndH4/YAgp9w6602mORySoEw1zhRXTzQXlOsgzod
-	xpCBoEBUTi4qbXiLoJu97HVs6OiQOHLDn1Ycv9G2PAnIlNe7wp5LcCcTCp5fadvXuEZLrfIlAd6
-	3BS/ED68Lo6rH4lK333AC6/L1IkAKSieh4GPcH5VQ
-X-Gm-Gg: AYBFou37Xsn8yDbxyzYJM0UqvqqotjJD6VHx8f7y4KoPsidJWJho+XFn6TTw67Bfu+T
-	7g5i4AHQqNGodZqlPuNSWx68mbhLw4uFNwvdIJDXVSdq7ydvTj9T5tkcAnL8qjrbHVZy/xN3lSG
-	d+QCrMl8AuHaFJqkUNrxjzUxY6UqAQoo1gZ1a9GVDgUmc6nn1y6bYyU+GFDk89xTKGC33kiUpA9
-	ytpJgRyEVjL8AiD1np1h3jM5FovAQCS7pR8cXOwqt31Pxu1i7kOGgZYGQcJmTf0tlTvWvAkobsu
-	8oeKhvwewCExNmDaM0GJQgXkQ8wcz+MnPZu24Y5n3VFfy5yIXCn9Tz8NAylyENzEcbhhkGk0qHh
-	8djPyYLzmRlc9hj++TZxVKFcUUGaCys81U2SD+IMWOIv9OtgLnJzsc2VpY8AIOW2ZPeH6
-X-Received: by 2002:a17:90b:4c49:b0:3ac:4e18:238c with SMTP id
- 98e67ed59e1d1-3b166d1dfe4mr716868a91.49.1794255249343; Mon, 09 Nov 2026
- 12:14:09 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=o3HD5sT1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1794255300;
+	bh=N1uMDEJ15LlMOkMdvFMaUU6VCm39ARI9V8pnLrmhems=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=o3HD5sT1HbBcSDCC7dDr/wyQeOlGdIsY9qO7fZBschoxDabUzbDyIE/Mz2aW8Ty/l
+	 B8UlO1MHkhY2gZuyzL4q0L6nSlGEJwBOeijJEtR4zC2fx2VH8QQdxkG8TquuEXcP07
+	 5NIjidMFYeNmA5YLmvrgNZwjL3y8onM6nkHVQctISrNmMEUXcF3HI8l0wxETfb9I2y
+	 Mp5dpB8aMmeKiGzf+Ppk58bnqTL2aSYvanOh/mgotbxvyNcAFM7izQUMSVAZYCjlGa
+	 FcCmMPQQDtYkOLQoU0A7/xLFq+CO3SvWz+GrkcfpyfjqtBNrKJE63ZN18JhAocYjkf
+	 l0BTkFB2p099w==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 7B5DE17E0269;
+	Mon, 09 Nov 2026 21:14:58 +0100 (CET)
+Message-ID: <d8ba9d67a9452bc44be219d5327aa9d7ad83275f.camel@collabora.com>
+Subject: Re: [PATCH 3/3] media: verisilicon: leave room for the JPEG header
+ and one stream burst
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: shomenkow@gmail.com, Benjamin Gaignard
+ <benjamin.gaignard@collabora.com>,  Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil
+	 <hverkuil@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Ezequiel Garcia
+	 <ezequiel@vanguardiasur.com.ar>, Chen-Yu Tsai <wenst@chromium.org>, Hugues
+ Fruchet <hugues.fruchet@foss.st.com>, linux-media@vger.kernel.org, 
+	linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Date: Mon, 09 Nov 2026 15:14:57 -0500
+In-Reply-To: <20261109-hantro-buflimit-v1-3-f0b86ce61e66@gmail.com>
+References: <20261109-hantro-buflimit-v1-0-f0b86ce61e66@gmail.com>
+	 <20261109-hantro-buflimit-v1-3-f0b86ce61e66@gmail.com>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-OjhiqkHAYs9mqbhDUydw"
+User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,61 +93,92 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261106-cipso-rcuopts-v1-1-31ae931d7a0f@google.com>
-In-Reply-To: <20261106-cipso-rcuopts-v1-1-31ae931d7a0f@google.com>
-From: Paul Moore <paul@paul-moore.com>
-Date: Mon, 9 Nov 2026 15:13:57 -0500
-X-Gm-Features: AclHuK_EGvlYUSv_8gjZT2YZHLuHJRnj0DOmSE59Zf5Dm3hlbe4f7hFETs2MdEE
-Message-ID: <CAHC9VhR+U3i8xNce8Ps8k76EZr_AeVf+fHET_Ncu1+yO1G2zSQ@mail.gmail.com>
-Subject: Re: [PATCH net] cipso: stop modifying live ip_options_rcu
-To: Jann Horn <jannh@google.com>
-Cc: "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, James Morris <jmorris@namei.org>, 
-	"Serge E. Hallyn" <serge@hallyn.com>, Simon Horman <horms@kernel.org>, 
-	Stephen Smalley <stephen.smalley.work@gmail.com>, =?UTF-8?B?T25kcmVqIE1vc27DocSNZWs=?= <omosnacek@gmail.com>, 
-	Casey Schaufler <casey@schaufler-ca.com>, netdev@vger.kernel.org, 
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	selinux@vger.kernel.org, stable@vger.kernel.org
+
+--=-OjhiqkHAYs9mqbhDUydw
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Nov 6, 2026 at 4:40=E2=80=AFPM Jann Horn <jannh@google.com> wrote:
->
-> cipso_v4_delopt() operates on the ip_options_rcu of a socket or a request
-> socket, and tries to remove CIPSO options from the middle by moving all
-> subsequent options.
-> That's not allowed - ip_options_rcu can be read locklessly and must alway=
-s
-> be consistent. For example, ip_options_undo() reads trusted offsets and
-> length values from the options buffer.
-> Fix it by doing the modification in a copy.
->
-> The core change is in cipso_v4_delopt(), the rest is ugly plumbing to
-> propagate memory allocation failures.
->
-> Triggering this bug requires that the system is configured to use CIPSO.
-> (Setting up CIPSO requires privileges in init_user_ns.)
->
-> Fixes: f6d8bd051c39 ("inet: add RCU protection to inet->opt")
+Le lundi 09 novembre 2026 =C3=A0 16:43 +0300, Sergei Khomenkov via B4 Relay=
+ a =C3=A9crit=C2=A0:
+> From: Sergei Khomenkov <shomenkow@gmail.com>
+>=20
+> hantro_try_fmt() keeps any non-zero sizeimage on the JPEG encoder's
+> CAPTURE queue, however small, and hantro_buf_prepare() then accepts a
+> plane of that size. hantro_jpeg_header_assemble() writes the 624-byte
+> header into the plane with the CPU before the hardware starts, and a
+> plane smaller than the header also makes the WARN_ON() in
+> hantro_h1_jpeg_enc_set_buffers() and
+> rockchip_vpu2_jpeg_enc_set_buffers() fire on every job, which userspace
+> can trigger at will. After the header the encoder writes its stream in
+> bursts, one of them even when the stream limit is 0; on the RK3026
+> VEPU1 a burst is 64 bytes. A plane smaller than the header plus 64 bytes
+> is therefore written past its end.
+>=20
+> Raise a smaller request to header_size + 64, so that every plane the
+> driver accepts holds the header and at least one such burst.
+>=20
+> Found with an LLM coding assistant while porting mainline Linux to a
+> Rockchip RK3026 board (VEPU1); the assistant also drafted the code and
+> this message. Tested on that board: a 640x480 CAPTURE format set with
+> sizeimage 1, 600, 656 and 689 reads back 688, 688, 688 and 689, a
+> 656-byte DMABUF plane is then refused with EINVAL, and frames that do
+> not fit a 688-byte plane stop exactly at its end and come back with the
+> ERROR flag. A request of 600, now raised to 688, encodes with no
+> warning; before this change it was kept, and the encode hit the
+> WARN_ON() at hantro_h1_jpeg_enc.c:50 (hantro_h1_jpeg_enc_set_buffers(),
+> reported in hantro_h1_jpeg_enc_run()). Also before it, with 32 and 8
+> bytes after the header (a stream limit of 0), the encoder wrote one
+> burst, 32 and 56 bytes past the plane. The burst size is measured there
+> only; not tested on other SoCs.
+
+Trim this.
+
+>=20
+> Fixes: 775fec69008d ("media: add Rockchip VPU JPEG encoder driver")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Jann Horn <jannh@google.com>
+> Signed-off-by: Sergei Khomenkov <shomenkow@gmail.com>
 > ---
-> I've sent a separate mail with a reproducer to Paul Moore.
-> ---
->  include/net/cipso_ipv4.h     | 11 ++++++-----
->  include/net/netlabel.h       | 11 ++++++-----
->  net/ipv4/cipso_ipv4.c        | 16 +++++++++++++---
->  net/netlabel/netlabel_kapi.c | 24 ++++++++++--------------
->  security/selinux/netlabel.c  |  5 +++--
->  security/smack/smack_lsm.c   | 14 +++++++++-----
->  6 files changed, 47 insertions(+), 34 deletions(-)
+>  drivers/media/platform/verisilicon/hantro_v4l2.c | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+>=20
+> diff --git a/drivers/media/platform/verisilicon/hantro_v4l2.c b/drivers/m=
+edia/platform/verisilicon/hantro_v4l2.c
+> index 83af9fa1ce94..cc35beac8338 100644
+> --- a/drivers/media/platform/verisilicon/hantro_v4l2.c
+> +++ b/drivers/media/platform/verisilicon/hantro_v4l2.c
+> @@ -394,6 +394,16 @@ static int hantro_try_fmt(const struct hantro_ctx *c=
+tx,
+>  =09=09 */
+>  =09=09pix_mp->plane_fmt[0].sizeimage =3D fmt->header_size +
+>  =09=09=09pix_mp->width * pix_mp->height * fmt->max_depth;
+> +=09} else if (fmt->codec_mode =3D=3D HANTRO_MODE_JPEG_ENC) {
+> +=09=09/*
+> +=09=09 * The JPEG encoder writes the header with the CPU, then the
+> +=09=09 * stream in bursts, one of them even when the stream limit
+> +=09=09 * is 0. Leave room for both; a burst is 64 bytes on the
+> +=09=09 * RK3026 VEPU1.
+> +=09=09 */
+> +=09=09pix_mp->plane_fmt[0].sizeimage =3D
+> +=09=09=09max_t(u32, pix_mp->plane_fmt[0].sizeimage,
+> +=09=09=09      fmt->header_size + 64);
 
-Thanks Jann, this looks good to me.  In a perfect world it would be
-nice to get Casey's ACK on the Smack changes, but since they are very
-minor and basically just pass the return code through I think it's
-okay to merge this in another day or so if we don't hear from him.
+Did you mean to align to 64 instead ?
 
-Acked-by: Paul Moore <paul@paul-moore.com>
+>  =09}
+> =20
+>  =09return 0;
 
---=20
-paul-moore.com
+--=-OjhiqkHAYs9mqbhDUydw
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCavIpwQAKCRDZQZRRKWBy
+9JhRAP0Uyg+Q//c+hMJ7bQhqP6NRUPies38ldLRzcUIRtFGSFgEA8yxBDE2ptokv
+twYKX3KCvRjzKE802b1cKw7220Hddgg=
+=AjfV
+-----END PGP SIGNATURE-----
+
+--=-OjhiqkHAYs9mqbhDUydw--
