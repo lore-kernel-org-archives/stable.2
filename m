@@ -1,126 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794236960;
-	b=rZFXgTBAQEY6Ew2B/YH3dsWBkao1e4rW1Yiej1rnujQl4q/BsBF51NLYv9+EI6Q10ig8
-	 ISXhnnWu1omR6ktNuu6Jv/j/7RTT5fePu0NG9cBx7Ue5QLQ+02KoLZosYpBQ5VqObY6uP
-	 Y9JCkD84tdfG14tHB3clq7JGWwV62tEaFPct/k0zfav5CwdUCgRlHxOVpCy1fWxQEqGFf
-	 ua1jR1uPNU6xghkw8DxaQWly49HLEMgUS67nGjHuxzmMaomUyK3vgFnousKn66WjTLgpL
-	 4H95j0rRc0pw2PNBcok/PJ+hFSMLfv8ptpBdXYDLqPSm2KP+G5Mpj9W/4Yp+/mG06cw==
+	t=1794237419;
+	b=NY1AvXUg65i8jhdynjsiB98WC57lEQLx0V6emY/+WIv8bzaU3NzxARXLbnrT/WnQiV7C
+	 S2jmw2Yf4YQx9lkIepiGDbLaR4y2WRenEWUGPDZQ4rLbVi/9bY6tQRVQlOuTY9XaKr6ww
+	 g9Q6oPcVwexPv54JC0c/J2cxCaMyt79v+AG538Lm3X1vZiGi+WHsOFm9ok2U3peTBMQPu
+	 OFD6Lgw++ubdgsDsK3wMUOzZ+HRxf9Ztf+9ECNV/DACPNejTKJTuULqHndS0u5WzeB4oJ
+	 0/3Ujj3rSZiHnW0XdiULY0yxskXFK0uRUA5p7D4fyGKk1uplFcCbb8j1jjS8MtJWRFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794236960;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794237419;
 	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ehk/Gi0k4ynJUIsecQ39iaSJWX96HxZZqDpEX10WpqA=;
-	b=rbsTIt3z2CeMaef7o3zGGSGHRvkXPWVnNyRO5UnERvzMqqsxUfd0+oO7EQDjTN8/QGXU
-	 2hQGueg/AdHgoO58uINCywG6Q/n5d0wTx2Wuzdy5Gxb72bU8iItWBfZaQSLdzqTXlzZa3
-	 pYDTHHYGaISNUS8VEep3ihOLr2zP9Ib7GwsUorydKX8T13Vv6N3smT5btr33w1/tPGaXv
-	 XzTQlEHEXvht8Pnforv7n9dWrGq0hYjBOf40qi6ybZR+bWi9ZazInIBDu7GicexW2wADq
-	 oPrvPOIRfG439AY9uCeLZhXgZG8Rg1bl1fQkEE9Vf6pTzuu1s6yvd3jg8ZjexDN+A4Q==
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Date:From:To:cc:Subject:
+	 In-Reply-To:Message-ID:References:MIME-Version:Content-Type:
+	 X-Scanned-By;
+	bh=dIFanPHsi2uzKVkdR3E3+ACI83Kw4fKElWH0D2yD5fE=;
+	b=A/dqIH0EiStnHW/Yy0E1MwiEwlkHbA0LSJMNTt52K4sC+1fQt22vMJWE5LEcP9W1cKgz
+	 JB42XNwV4iOVP6gbtD7iNhKMgurHvHUVvLZ8MXmcmthWdQEIYm/+9TFdn0wLHs1ghV6nm
+	 zSrfe/F+AgH9eeWuHtO7s+n2lMcFUxmOT7YyCBw514qIQdXpvD7V/t0dadXIkIjByE0tF
+	 PMo5VgtK5aDVGKPM3pouL/WbXXifyal2gfRGCAHLUaNJPdqaz+sbgFTzNzIEQdNCBFcV+
+	 0a0tkWtjEHXega9UKZA4Ge8hqm9/CxfeKFll2YxVhPbeidP9QGzvnkWM9LFK2uRGugg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=redhat.com;
 	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=NBPytV81;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=LTIsuBLa;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=a4CCx2It;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86F1B606A321
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 15:09:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86F1B606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38270606A332
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 15:16:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38270606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=NBPytV81;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=LTIsuBLa
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=a4CCx2It
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794236958;
+	s=mimecast20190719; t=1794237418;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=ehk/Gi0k4ynJUIsecQ39iaSJWX96HxZZqDpEX10WpqA=;
-	b=NBPytV81+7IQ1bsURrkG9p3gBWD4pBjXPu9W1Zpig2qF91IchzVeWY2UaFkJ5ZYL17VDcL
-	wa7qbofyx6q56Epg4YDYYC88bo1P9d2EurOueQ0Ie9CTj4+si1qdoXJJ/RE9MGsiWUt8ut
-	YS6EcLvqonfgwrKtcrKGXAyADl4coHM=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-199-vFQgIt-rNN-Ti7UE4nawlg-1; Mon, 09 Nov 2026 10:09:17 -0500
-X-MC-Unique: vFQgIt-rNN-Ti7UE4nawlg-1
-X-Mimecast-MFC-AGG-ID: vFQgIt-rNN-Ti7UE4nawlg_1794236956
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4ad3d35e899so7644735e9.1
-        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 07:09:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794236956; x=1794841756; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ehk/Gi0k4ynJUIsecQ39iaSJWX96HxZZqDpEX10WpqA=;
-        b=LTIsuBLaTJuFbm754tSh3DeL+OrbAxHo5FnRP/90ZuKvbnEDj7v8rOVgTVoP9+/9c8
-         CQPD2ixbWQqhUKx/pDu4v6PA/pMkf1xzvIUn/bez4yFIkpU8JnNoULhad5PSW/2DGP1L
-         FKiNt9gOjCE2HOGezsfk3wZnGVm3JdxxSurhkZNUbmdTbL57/knVw7gvuEcmp/xyfq76
-         4OCeBZPwWgTINF0Vpr0y6QgI1eUSkJfPivCYwlt4AgEAmtR6vPZR4no3b5R30BzYkdI0
-         nVrDG9rmcrdpPzOLAgziSE4torSay4ZfeVzjGKJAjFYJ8yCI7ABuD4Y6MsOBGO2W0Q1Q
-         l13Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794236956; x=1794841756;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ehk/Gi0k4ynJUIsecQ39iaSJWX96HxZZqDpEX10WpqA=;
-        b=hFaR+zeA63mHF5XwjBs6FfOVcCOisxSHYlOMLYOWBXmNvHc0YIglpc7y0ZShRRy5mH
-         Oiu6vAruxXHC1Ra142vfFo5spO0uQQPMYCapWfJ/S1Z0W7/g75y7DeRApjXh4k30WDC0
-         VEeva8qSuU3On5IM0GprzJKykntWQCYJlfrOPONfS6bFTH+JrkS0EeRykeB1wNrzFoMC
-         akuFdcHTDXLNbq8WeO2M6i6d2eSI9+0Zi/NEAut2sEDJw/uJviI/C6aIxH8725ES68Pt
-         5Ba3K+U9B4fFZcnO0f3exB3HzCMKt1AdBglpvzSWJ6VNE5DoooFc6bra7udzkVHi3iLn
-         zmvA==
-X-Forwarded-Encrypted: i=1; AL+hErGQ48XvR4NSbJuIJKqmK0DynkALnN+TP+z1DIGKwnvkq0zwAfwRRuh11TKk1ZqVAEEROa2oxGA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8LhIYuysLgLCwjiXqD4hOJ63eup5oMlqT2x0T9CxnXv0UkJnc5
-	nX165bnW7WBnTibanJzFoHmt/0Q3g+B0TuMj9RawpyyWxt9QY/iQMqHJHZBBngq1iG1y7FNogYa
-	EfKj+elHRV59MQ4+L1NOO3oeMGbj/PJ+/RFz6sB9CFB42eFicPA1dOqf1zw==
-X-Gm-Gg: AYBFou0+BAL45Y5Loac2q7nB8ep/sJptK7L96GHzQd90rq9/YRG/H/3EYBakGNHcvSX
-	ZKrFBeIlyhkjTJ5fkkyXacjLLVgbhwn2BXEHGkaOMMpFi7c8U6/ho2NoubpxDF0D8ypJuPIn/eI
-	sDSABCYtonNxpPJDCKe/SS66cysSkYdakGpFch1v7TPAEDOOm2VSW2wwmKQv9K+ns6+4J1pCMgA
-	VoznJgedYwD20z4RpZIGIVdAeLrEpVDlmEKMxeq34BJuyMr3ZcKO0OmCtDu0J/tlk9wQlW27lOv
-	WY/lk5DS7n7HK+HGlKpgvajhTnBFkffsbPKlX3bPpJZdgbP0QpWXdaxFZKgibzlJJxtcSTr//tG
-	RHKBRo1IPI4wxZPSAQHAfELRLxhskM0ShEhwocsDZ8bZpEH6lSX7OvolvLwlAcwt7SFN8hFGC3r
-	rE3w==
-X-Received: by 2002:a05:600d:82ea:b0:4a7:7f3f:6f8e with SMTP id 5b1f17b1804b1-4b943f76d81mr96595545e9.0.1794236956048;
-        Mon, 09 Nov 2026 07:09:16 -0800 (PST)
-X-Received: by 2002:a05:600d:82ea:b0:4a7:7f3f:6f8e with SMTP id 5b1f17b1804b1-4b943f76d81mr96594555e9.0.1794236955393;
-        Mon, 09 Nov 2026 07:09:15 -0800 (PST)
-Received: from jlelli-thinkpadt14gen4.remote.csb ([151.29.158.90])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7e32ad4d1sm255269375e9.5.2026.11.09.07.09.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 07:09:14 -0800 (PST)
-Date: Mon, 9 Nov 2026 16:09:12 +0100
-From: Juri Lelli <juri.lelli@redhat.com>
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: peterz@infradead.org, mingo@redhat.com, vincent.guittot@linaro.org,
-	linux-kernel@vger.kernel.org, tglx@kernel.org, will@kernel.org,
-	boqun@kernel.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
-	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
-	kprateek.nayak@amd.com, luca.abeni@santannapisa.it,
-	mathieu.poirier@linaro.org, longman@redhat.com,
-	ridong.chen@linux.dev, tj@kernel.org, hannes@cmpxchg.org,
-	mkoutny@suse.com, shuah@kernel.org, bigeasy@linutronix.de,
-	clrkwllms@kernel.org, parri.andrea@gmail.com,
-	m.szyprowski@samsung.com, kayracizmeci@gmail.com,
-	weihengqiuu@gmail.com, cgroups@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, linux-rt-devel@lists.linux.dev,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v5 05/29] sched/deadline: Do not divide by zero active
- CPUs of a root domain
-Message-ID: <avHiGH_4WBizEaBJ@jlelli-thinkpadt14gen4.remote.csb>
-References: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
- <20261108185406.1549770-6-mathieu.desnoyers@efficios.com>
- <avHY7oNeuvjsLT4I@jlelli-thinkpadt14gen4.remote.csb>
- <3e6677a8-b972-4081-a080-e925fe1df3b0@efficios.com>
+	bh=dIFanPHsi2uzKVkdR3E3+ACI83Kw4fKElWH0D2yD5fE=;
+	b=a4CCx2ItBU+BOCc8dXKj7T6pGYnFLaYyKve8EMLNoe8L07FBt8CcsXDQ2ewhOI3JRRTmcR
+	KbeZo8MH8Z3Gmi2/7QykZ/mlHCGq9wtI2yJr4fC9wmzS3cxje45qpArFgMsTrOsCc5JQ8/
+	zl/P+qW126SorafC8ZcfcOLwHvCAieU=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-682-tjhm9eS_Me2GEPyqgPmpsA-1; Mon,
+ 09 Nov 2026 10:16:52 -0500
+X-MC-Unique: tjhm9eS_Me2GEPyqgPmpsA-1
+X-Mimecast-MFC-AGG-ID: tjhm9eS_Me2GEPyqgPmpsA_1794237411
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 8F9B21955F17;
+	Mon,  9 Nov 2026 15:16:50 +0000 (UTC)
+Received: from mpatocka-thinkpadx1carbongen12.rmtcz.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 4E1F926C;
+	Mon,  9 Nov 2026 15:16:47 +0000 (UTC)
+Date: Mon, 9 Nov 2026 16:16:45 +0100 (CET)
+From: Mikulas Patocka <mpatocka@redhat.com>
+To: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
+cc: dm-devel@lists.linux.dev, agk@redhat.com, snitzer@kernel.org, 
+    linux-kernel@vger.kernel.org, 
+    syzbot+4b232570d625662eaab4@syzkaller.appspotmail.com, 
+    stable@vger.kernel.org
+Subject: Re: [PATCH] dm crypt: fix use of uninitialized percpu_counter in
+ ctr error path
+In-Reply-To: <20261109023753.1278-1-zhaofeng2@cmss.chinamobile.com>
+Message-ID: <0ea4f803-33bf-1ba3-b7f0-a11c676c8086@redhat.com>
+References: <20261109023753.1278-1-zhaofeng2@cmss.chinamobile.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -130,29 +80,85 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3e6677a8-b972-4081-a080-e925fe1df3b0@efficios.com>
+Content-Type: text/plain; charset=US-ASCII
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-On 09/11/26 09:57, Mathieu Desnoyers wrote:
-> On 2026-11-09 09:30, Juri Lelli wrote:
-> [...]
-> > This 2nd hunk complements and tightens 4043f54984161 ("sched/deadline:
-> > Reject debugfs dl_server writes for offline CPUs") which has Fixes:
-> > d741f297bcea ("sched/fair: Fair server interface"). Do we need both
-> > fixes (if that is allowed) or maybe we need to split this change in two
-> > (as this second part won't apply to old kernels w/o dl-servers)?
-> 
-> Good point. I will split it in two in the next version:
-> 
-> - __dl_sub() and __dl_add() skip the division when the root domain has
->   no active CPU. Fixes: daec57983670. This alone removes the divide
->   error, on the debugfs path too.
-> - The debugfs write is refused while the runqueue is offline. Fixes:
->   4043f5498416, which it completes for the hotplug windows. It only
->   applies where that commit is.
+Accepted, thanks.
 
-Hummm, I'm not sure we can say it fixes 4043f5498416, which was a
-correct, but only incomplete, fix for d741f297bcea (which the second
-hunk fixes properly).
+Mikulas
+
+
+
+On Mon, 9 Nov 2026, Zhao Feng wrote:
+
+> If percpu_counter_init() fails in crypt_ctr() (e.g. when the
+> underlying percpu allocation fails under memory pressure or fault
+> injection), the error path jumps to "bad", which calls
+> crypt_dtr().  crypt_dtr() then evaluates
+> WARN_ON(percpu_counter_sum(&cc->n_allocated_pages) != 0) and calls
+> percpu_counter_destroy() on a counter that was never initialized,
+> because __percpu_counter_init_many() returns -ENOMEM before
+> calling raw_spin_lock_init() on fbc->lock.
+> 
+> With lockdep enabled this triggers "INFO: trying to register
+> non-static key" in __percpu_counter_sum(), as reported by syzbot.
+> The console additionally shows "crypt: Unknown error (-ENOMEM)"
+> because this failure path sets no ti->error.
+> 
+> Move percpu_counter_init() to right after the allocation of cc,
+> before ti->private is set and before any "goto bad" can happen.
+> On failure, set ti->error and free cc directly, so that
+> crypt_dtr() is only ever called with an initialized counter.
+> 
+> Reported-by: syzbot+4b232570d625662eaab4@syzkaller.appspotmail.com
+> Closes: https://syzbot.org/bug?extid=4b232570d625662eaab4
+> Fixes: 5059353df86e ("dm crypt: limit the number of allocated pages")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
+> ---
+> Not runtime-tested (the syzbot report has no reproducer; the
+> failure requires percpu_counter_init() to fail).  The affected
+> crypt_ctr() code is identical in current upstream master, so the
+> patch applies there as-is.  The Fixes hash was verified against
+> the upstream commit that introduced both the init call in
+> crypt_ctr() and the teardown in crypt_dtr().
+> 
+>  drivers/md/dm-crypt.c | 12 ++++++++----
+>  1 file changed, 8 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/md/dm-crypt.c b/drivers/md/dm-crypt.c
+> index 1ff16b8264..3e69dcc366 100644
+> --- a/drivers/md/dm-crypt.c
+> +++ b/drivers/md/dm-crypt.c
+> @@ -3249,6 +3249,14 @@ static int crypt_ctr(struct dm_target *ti, unsigned int argc, char **argv)
+>  		ti->error = "Cannot allocate encryption context";
+>  		return -ENOMEM;
+>  	}
+> +
+> +	ret = percpu_counter_init(&cc->n_allocated_pages, 0, GFP_KERNEL);
+> +	if (ret < 0) {
+> +		ti->error = "Cannot initialize page counter";
+> +		kfree_sensitive(cc);
+> +		return ret;
+> +	}
+> +
+>  	cc->key_size = key_size;
+>  	cc->sector_size = (1 << SECTOR_SHIFT);
+>  	cc->sector_shift = 0;
+> @@ -3260,10 +3268,6 @@ static int crypt_ctr(struct dm_target *ti, unsigned int argc, char **argv)
+>  	crypt_calculate_pages_per_client();
+>  	spin_unlock(&dm_crypt_clients_lock);
+>  
+> -	ret = percpu_counter_init(&cc->n_allocated_pages, 0, GFP_KERNEL);
+> -	if (ret < 0)
+> -		goto bad;
+> -
+>  	/* Optional parameters need to be read before cipher constructor */
+>  	if (argc > 5) {
+>  		ret = crypt_ctr_optional(ti, argc - 5, &argv[5]);
+> -- 
+> 2.39.2
+> 
+> 
+> 
 
