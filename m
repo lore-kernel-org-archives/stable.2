@@ -1,59 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794214195;
-	b=TMXZMknhupjSOJI7eg0rSvT2oVp1NwicXSKhg0ZURu73LmDlG5H2viX1gdPvpOhQ+OJ2
-	 sN9pVhX7/LnLrgM0MgeS69vjCiFfqWi6jWSrdTud6tUlZ9XwXPLMoNJ/H/5JPfCMYPLQ4
-	 uQeLMKVh1VY2shFxqFAikHEFJmF2wImuGKLEXgomWizYtqnZ7Q8I50ka1CA6bVXxe+sXy
-	 wmNg4IOjUEWF4HHImcPM56cg2zH1FZxs3PkNxj6fmGcE0Nn/SqjppDrcLiWxh38VNL9Ii
-	 sn8LoVkv3tkOzq3FCqCiTP4rDmBxSaDtH28R6zFYwP/epoXPKtg8V8cnzT2mRdmLmow==
+	t=1794214299;
+	b=q/XQlMXBUfQ4DdXdj7JwdrS7FcVh3vJrWXVdFLFQ+hbpNcKqgiIL06IWxiCcWkNB7kev
+	 XiRrtN2W0EExjYynE7iLHJ7/4EXp34ZiIpK6iwPswIx+PcabPyQaaIoFKN5TV+uDnKqxi
+	 Ptl2lEuan6nKxWjxnjg5Kr9V2+Z90d+tNDz99bKk/uwcNcb6f2n9AWx7WowQKFa3tfl76
+	 YdmfdsLJ3O0EApof5NAZTphfvKyZx9OSQYk/NyyP3AnIjW9/WstVma5U7ZSDO83J74zTB
+	 vQZjYDyLY4u78XSdsaWUqbwsJJ+vI3+CiY2rFNR+92iTLqFj8nGna2lz96yfvCrYrDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794214195;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=HQ35mHfqr5BP8Q6j3XzqWeTinQG71M7XJLfQgHXsqNk=;
-	b=Wcsr7TXaXbG7tj5RutPL8MpIvbfbxO3fHKWjzSSqTZaeIS+86fivud4nuzn59x0iyWvs
-	 mUvbK6/W/vEJvn+somH2vmpKZrsQShAUUMlIvzyZbs9mZtV2CqYuQXNzXv/6Dr6kT0LM1
-	 TzcUh4f4I1CSHLa7o+PGF4W2ZtJ/F2fogLqz4YfJ+AW5t+dxkiqOzTOwvHPfjHcVK57Zh
-	 O0gMTtToL5T0Ik1LSGsULbVuyHMTUqPj54FsUFueq9xDv+DP7jTR55bsu+tzVVMsHr0cC
-	 4goj/60L/TJkVqNBQlTqSzeZLuFrwRJZkfZHjLG2u30RQ2PforE5FyTODt32MgHhASQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794214299;
+	h=Received:DKIM-Signature:Mime-Version:Content-Type:Date:Message-Id:
+	 Subject:Cc:From:To:X-Mailer:References:In-Reply-To;
+	bh=9N499Ob7uCXTQeit1tcbXdiS0x8hkEdAz+plrn1iml4=;
+	b=o6xYahJjCLs5TCkwK/G9To8QZz38NQcYycU6eljFoTyTvfuSHoHRdEz35k6A2aZYYcmb
+	 wKgx7pg2jMHjs7QKCVeb3M0S1grreA3oufZKGHQiAy1AjEyxxGfZrqNjg1EFneQbfoN8V
+	 IqPcIkNpc2zwuNYNioaobVuVsU47f/NRKV34m0Tiwpe4NibZwLVGh1r3t4J1s2wTdutFT
+	 GFA7NQdtpwxj2qLx17UaVxhAeek3Q5LKvuU2B5iX5SpgYXfJPcF7RCC5l6K2cy0GHeyRa
+	 I9+GRAKJovpH5FeB1Y+UyrR8wZZQBf8lIAhTvjJp8lKjkgZB3v6MG2gi917FLnOwrrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=uq8XmEk+;
-	arc=none smtp.remote-ip=115.124.30.130
-Received: from out30-130.freemail.mail.aliyun.com (out30-130.freemail.mail.aliyun.com [115.124.30.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O3v3idTh;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 924D8606D825;
-	Mon,  9 Nov 2026 08:49:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 924D8606D825
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id D8608606A325;
+	Mon,  9 Nov 2026 08:51:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=uq8XmEk+
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1794214188; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=HQ35mHfqr5BP8Q6j3XzqWeTinQG71M7XJLfQgHXsqNk=;
-	b=uq8XmEk+daPltY+282MUkEKxL9N2QtaK9hJgNfT/ArHWTsQp89eAkLR50cjgNSZnmCEtSaqTBk6DMXeEvW6q+u/CFEdXEfiAcs8AP9m/CoqBGA1M+2cGyRUPkXi1zqP0JcNnqN9DLa2Y1W4fiDCl2yaepH0Gb/QXgPt8D+YtZUo=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R661e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0XEMNcY3_1794214187;
-Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XEMNcY3_1794214187 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 09 Nov 2026 16:49:47 +0800
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-To: Sasha Levin <sashal@kernel.org>,
-	Chuck Lever <cel@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>
-Cc: stable@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Joseph Qi <joseph.qi@linux.alibaba.com>
-Subject: [PATCH 6.6.y] nfsd: fix NULL dereference in nfsd4_free_layout_stateid()
-Date: Mon,  9 Nov 2026 16:49:32 +0800
-Message-Id: <20261109084932.3861080-1-joseph.qi@linux.alibaba.com>
-X-Mailer: git-send-email 2.39.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O3v3idTh
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id C845C1F0089F;
+	Mon,  9 Nov 2026 08:51:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794214298;
+	bh=9N499Ob7uCXTQeit1tcbXdiS0x8hkEdAz+plrn1iml4=;
+	h=Date:Subject:Cc:From:To:References:In-Reply-To;
+	b=O3v3idThEM4V5gHX3fry8tzWZHqk+mjUtvHCqv9QoPe3U7/1BtL/5mbMCmDa2ri5Y
+	 lzg9rNfXtlYdh5QF0T5n50CkQ78M0QdRejumr8jZK/46cra00FOPsIo/OdFzOMGMQO
+	 MxF+2mgZNDYgLUQ3NeKgZFJ71G/i3Qqr9qgK6AzWReJV75ugbAgUSeoxACaWhu25XR
+	 LuDjUKdLBGs93HfkNWJ+OGCTo1/NaatjxsrpxfHl7rlu4InRKei34gFU54YzUI9xmH
+	 t/QMUVuJxhwE3xFwmg2qmjuQsch9+QGSSv1RUvPBKrOZc/cISRtk8wjSvD02Hva12H
+	 ScvnRz6sarI/Q==
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,55 +47,85 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=2959569091a881720d3f0e7e7081a33726b4f4f00782f60b01c059725bad;
+ micalg=pgp-sha384; protocol="application/pgp-signature"
+Date: Mon, 09 Nov 2026 09:51:34 +0100
+Message-Id: <DMQJVVTSK5MO.2VQC80RTHL9LN@kernel.org>
+Subject: Re: [PATCH] mtd: spi-nor: gigadevice: Add support for GigaDevice
+ GD25B512
+Cc: <linux-mtd@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ <stable@vger.kernel.org>, "Adam Calabrigo" <adamc@arista.com>
+From: "Michael Walle" <mwalle@kernel.org>
+To: "Matthew Parker" <mparker@arista.com>, <pratyush@kernel.org>,
+ <miquel.raynal@bootlin.com>, <richard@nod.at>, <vigneshr@ti.com>
+X-Mailer: aerc 0.20.0
+References: <20261108022011.898185-1-mparker@arista.com>
+In-Reply-To: <20261108022011.898185-1-mparker@arista.com>
 
-Commit d12af460df27 ("nfsd: fix BUG_ON in nfsd4_alloc_layout_stateid on
-racing delegation revoke") replaced BUG_ON(!ls->ls_file) with a bail-out
-that calls nfs4_put_stid() on the partially initialized layout stateid.
+--2959569091a881720d3f0e7e7081a33726b4f4f00782f60b01c059725bad
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-nfs4_alloc_stid() leaves sc_count at 1 and nothing takes another
-reference before that bail-out, so the put runs sc_free, which is
-nfsd4_free_layout_stateid().  That function uses ls->ls_file
-unconditionally, both for vfs_setlease() and for nfsd_file_put(), and
-nfsd_file_put() does not accept NULL either.  The new error path thus
-turns the race it was meant to handle gracefully into a NULL pointer
-dereference.  The nfsd4_layout_setlease() failure path that already
-called nfs4_put_stid() was safe only because the BUG_ON guaranteed
-ls_file was non-NULL.
+Hi Matthew,
 
-Upstream does not have this problem because its destructor goes through
-nfsd4_close_layout(), which tests the pointer before using it.  That
-helper came in with the admin-revoke series, which is not in 6.6, so
-just add the NULL test here.
+On Sun Nov 8, 2026 at 3:20 AM CET, Matthew Parker wrote:
+> Add support for the GigaDevice GD25B512 512Mbit (64 MiB) SPI NOR flash.
+>
+> The chip exposes valid JESD216B SFDP tables including 4-byte address
+> instruction tables, from which geometry and opcodes are discovered.
+> Stateless 4-byte opcodes and status register locking are enabled. Read,
+> write, and erase functionality across the full memory array have been
+> tested on hardware.
+>
+> Cc: stable@vger.kernel.org # v6.1+
+> Co-developed-by: Adam Calabrigo <adamc@arista.com>
 
-Fixes: d12af460df27 ("nfsd: fix BUG_ON in nfsd4_alloc_layout_stateid on racing delegation revoke")
-Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
----
- fs/nfsd/nfs4layouts.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+Co-developed-by for just adding an id?
 
-diff --git a/fs/nfsd/nfs4layouts.c b/fs/nfsd/nfs4layouts.c
-index bea7513a0de90..7c3f0948a610c 100644
---- a/fs/nfsd/nfs4layouts.c
-+++ b/fs/nfsd/nfs4layouts.c
-@@ -168,9 +168,13 @@ nfsd4_free_layout_stateid(struct nfs4_stid *stid)
- 	list_del_init(&ls->ls_perfile);
- 	spin_unlock(&fp->fi_lock);
- 
--	if (!nfsd4_layout_ops[ls->ls_layout_type]->disable_recalls)
--		vfs_setlease(ls->ls_file->nf_file, F_UNLCK, NULL, (void **)&ls);
--	nfsd_file_put(ls->ls_file);
-+	/* ls_file is NULL if nfsd4_alloc_layout_stateid() bailed out early */
-+	if (ls->ls_file) {
-+		if (!nfsd4_layout_ops[ls->ls_layout_type]->disable_recalls)
-+			vfs_setlease(ls->ls_file->nf_file, F_UNLCK, NULL,
-+				     (void **)&ls);
-+		nfsd_file_put(ls->ls_file);
-+	}
- 
- 	if (ls->ls_recalled)
- 		atomic_dec(&ls->ls_stid.sc_file->fi_lo_recalls);
--- 
-2.39.3
+Please note that we have some requirements for new flashes, see [1].
+Same for the your other patch.
 
+-michael
+
+[1] https://docs.kernel.org/driver-api/mtd/spi-nor.html
+
+> Signed-off-by: Adam Calabrigo <adamc@arista.com>
+> Signed-off-by: Matthew Parker <mparker@arista.com>
+> ---
+>  drivers/mtd/spi-nor/gigadevice.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+>
+> diff --git a/drivers/mtd/spi-nor/gigadevice.c b/drivers/mtd/spi-nor/gigad=
+evice.c
+> index 6a2e6ebda148..de96cefde516 100644
+> --- a/drivers/mtd/spi-nor/gigadevice.c
+> +++ b/drivers/mtd/spi-nor/gigadevice.c
+> @@ -64,6 +64,10 @@ static const struct flash_info gigadevice_nor_parts[] =
+=3D {
+>  		.id =3D SNOR_ID(0xc8, 0x40, 0x19),
+>  		.name =3D "gd25q256",
+>  		.flags =3D SPI_NOR_HAS_LOCK | SPI_NOR_HAS_TB | SPI_NOR_TB_SR_BIT6,
+> +	}, {
+> +		.id =3D SNOR_ID(0xc8, 0x47, 0x1a),
+> +		.flags =3D SPI_NOR_HAS_LOCK,
+> +		.fixup_flags =3D SPI_NOR_4B_OPCODES,
+>  	}, {
+>  		.id =3D SNOR_ID(0xc8, 0x60, 0x16),
+>  		.name =3D "gd25lq32",
+
+
+--2959569091a881720d3f0e7e7081a33726b4f4f00782f60b01c059725bad
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iKgEABMJADAWIQTIVZIcOo5wfU/AngkSJzzuPgIf+AUCavGJlhIcbXdhbGxlQGtl
+cm5lbC5vcmcACgkQEic87j4CH/iKtwF/XafQtXrjmkWVp7htuglmkvXC5qEsgkhq
++aM4igg92sBank0syXm1X1BDBT1ZKGb2AX9DEZp5Vh0mDuxMgyOXr6DsTvfM79Dr
+F1FXIheSWeOe0eF8EmH4AP7TEJI787tHRpo=
+=ZdXO
+-----END PGP SIGNATURE-----
+
+--2959569091a881720d3f0e7e7081a33726b4f4f00782f60b01c059725bad--
