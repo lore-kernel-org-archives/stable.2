@@ -1,79 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794203744;
-	b=gy8xJm1IjLLrTWdc4jaEyrc0q8I1YiLr3yaRXnfHUf86pn9+Yk+zSMvsGuF+z93wYmxB
-	 jpJsxWiRFYnWTfOlB7845hX+Fisp5sPhJtRVS2LTM0DEpgRASLPz9eAwRz401B3vjoQvy
-	 KXkoS/7Sfx1VWoZJpDo1Z+nx8atlCjmXSlmDtjJrosJJ3mWZV0ExPFWh0srptjlO0GxGd
-	 TqhZP5AF6t2URxf8jfi35OJC2DM7GRfHMzCl1HPJpOzFW3EKHxH39ifQUnvhtUgnofy8S
-	 sEf+Bj4YzgaZ/qpyG766UY1Ns+y/tKmenmKP1x2KNy3tUxhtFQVgrNwod/oExhOCDMQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794203744;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=+8zu6JFXVibAB97Q9yxckB/ueOt/mDgkczf1Z0EUMjo=;
-	b=iWG/kGHDnkp1ZaB37Ydvz+76JGTjFKjS1uro8F7ycy2B4qcPdia69nVllhhTMRvrspTo
-	 qnwiWxJUV2jvO7SfKj1znE63X9y/onnNgW4ZY4q+bImZLVG/HeOXdkWr1V9Gor/hTBB5d
-	 GPDyapAl/2o5uPXSuxAQRYCQ4frt9R4oNWm8ZJkSM7MhIEyAXMYvp+SMwOmHTuABODUvk
-	 2Bvk8JLx3bOaciTJhWNA3YhHtXHx9yqf2XRg73Sdrpm74gaYfVb4YCcYrJVfAMLXtrtYc
-	 O92knLts663nmtmIzcm/eMI+sglAHk5ma2AvLvNnZdYZnbQl7bExezIH81qIGQ/oCqQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Znztl/jn";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D64A606A322;
-	Mon,  9 Nov 2026 05:55:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Znztl/jn
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794203743;
-	b=s62NqadJYrm8GVOheYWshEquuyQmqz8vuyRT6QMAd9w3VXv/F3A1Gzyq5aw6FMRxIuzU
-	 4T/XXfeFlYouJRfRZr0fERDExc/AOTb5TZLLCyFJdDgo2hgTaHFQCCnOshE6GefvdUT1s
-	 WUalYIMbYj0tpGj8k9ThNT8vuLR0C8xeFaMn6czgaT5/FqILnxQ57SdzJQqFNZzsnpQzX
-	 fqHEoVPRDYtSuzKygELAcVzPkbyBjb83Om3e5FPA+1Q7Lq+2o6ZqHR+u4t25zBb9Q3ccy
-	 RxVa+v0s1et+rVzA3T12WaxIiIjDdpnENe//1vDUoTl+Xu7lgOgT7wXz7FL9Hmx0XeA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794203743;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=+8zu6JFXVibAB97Q9yxckB/ueOt/mDgkczf1Z0EUMjo=;
-	b=IsATBadIgi76aiMOE6zADLl32i+ZfmnxeCD597dzUiQe1ny3M6kHPEFUNjMXBNQ93v1D
-	 kzXc3ua2QO+TrC3L310ME2fsS5+xp2NXh3JDpGzUZ8O+KU7sqPER/XPCG2zhUYJ24Lrtx
-	 /8olzf8VFZsg9B1vhfOiuHYZQcH9R4aQd2JIDCSErUjMMv8yJNiVyqq1lW3U27CGcmKSw
-	 OnIniFgg+xlSm4wczqPd4ZlWBD8ohczLiwjPcK9rFJcxt4WwfCdB8IK3k9LwnqkksMVA6
-	 z9B8E6lxeKU3x9YPPJhtq30rp5gRhqVAUoeovR7M7Rd410UFma2gNfaJZ2S24sviiFA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794204420;
+	b=hAuQm79O5m4CUXZFFKtyj0CY44rffbuyebZqffAy1pcQHyVunCglB8ZBVITcrro0WFvZ
+	 rjMlX8KtduDtZJ2wHqCPXiYEgxNetyvl1zkso5ubzVXxFt5sX4opnXVl8XjJOgfGzyIHG
+	 aKVyFVIiMzokaCU63OOLrrqfAgTE8ecxP4h4xnZT6AxWNwHHjutKTVB8o+8KDTQNxtRgS
+	 8tLWuxlOorburfe7wAXhpqcGW5phcc7E+5Ply1QzjsYQMJIZWP0AEgHreQNch6jAfxhoa
+	 aOR/dvXD2VMFghhhaAHE395zhsxGzN1QtnWDpT40Lls2ZjzpUhJmMvoNSB723MiJhuw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794204420;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=RDa0JQRpSFd64FcDNqu+A8RXC4M3Gvi3sCFSGQLCqvI=;
+	b=XKnw/sgx2S7UB5psYGJuIRZ6eB43ign7728kSYIYOI8IoLBoYbXXdUAbbzPO+Bm1r0/T
+	 kUIH1ciz5ngpIn9EFzRJIpisuXWK1yaXa/wam/El+qWo9RtN0wCnbuFy4OwarURv+HqZb
+	 DVO7NLsA/KoX7DSe1HwzXxkHKUUEuUTP82WYnw2qwwvQ40C16Gt5CuLyUik4ZUIyOQ5ur
+	 jg4uhY5VgMu+XsgG+q/SXGn6GWS8hC6OzBEoEVxMwwwQRQh8YjqIpZq1w+VYkmU9HiUhj
+	 UVwONbJjryoeNaJxBNOj7vPRw/XpD1Ymcy5cDAAGF752BpBkKVPs/pXevmhs1I7LUAw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PDeq9vm0;
+	arc=none smtp.remote-ip=74.125.82.170
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 149D01F008A1;
-	Mon,  9 Nov 2026 05:55:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794203743;
-	bh=+8zu6JFXVibAB97Q9yxckB/ueOt/mDgkczf1Z0EUMjo=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=Znztl/jncLtUdrUs9HcbGM5LQW6sHXCkTvd3gNKeAgTGwE7k6Pru44WusuJSPue3p
-	 pUsm9TbV7PglBBF96uafhXLW+hEnieui/u9xCvdxnemk9KE0eW/AmTOhqNg2ifrqSK
-	 c2F6OWxAZB1KlR6zzf+StDUqrRXoRRxhRE90i449AkuXeUwxjxCbQeMWmyFi0cWlcq
-	 rNR63W1uXv2uUx7GrrY8TgHiZeSw21rbkAH9X34ZsNGX/vJ01xr/Ms9DAlqcb17B2N
-	 RwIY0gvwZmX84NqXJfEHTZ/z0fj/uwxTXT5qxWi/ECUDMoMDfxCPMgoLUThe3sAefM
-	 OLv36XOUiUqoA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 8CE51482D8;
-	Mon,  9 Nov 2026 05:55:41 +0000 (UTC)
-From: Jing Lin via B4 Relay <devnull+kayano050408.gmail.com@kernel.org>
-Date: Mon, 09 Nov 2026 13:55:40 +0800
-Subject: [PATCH v5 2/3] usb: gadget: gadgetfs: prevent ep0 event counter
- underflow
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBD64606A31C
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 06:06:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBD64606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PDeq9vm0
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-36f8cdd30beso1225739eec.1
+        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 22:06:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794204419; x=1794809219; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RDa0JQRpSFd64FcDNqu+A8RXC4M3Gvi3sCFSGQLCqvI=;
+        b=PDeq9vm01rgqhK9bmX/OE7GH1VuLm23QvDHZcZASR1CG5FzPfl69ejROO6OSHTh5Av
+         +146DoFfzA/7XNgUDpLF/6NUKyTahSnPOykgCDIqcxGxt8mcJiZ0LPp2rpeZGlY9o1ay
+         nSw1hL+32akar+tBTnv/C45ZN20l50zUOa0W5s4DIAGmRjlMAFUGJ519y1/FobQY1lIS
+         OMZt32c9RwhrUG22nzMvhoGWT0mHGpfTyb2dnxNM3L1AL/qRTNDMNxPHo7EhLcGC0MAZ
+         5aqyvWG8UhY+58BvW8FbrGKqJepydJpUrq7yoYvR8i9KSGbKtbJU6QHsTn6JEsci+zdG
+         0iYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794204419; x=1794809219;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RDa0JQRpSFd64FcDNqu+A8RXC4M3Gvi3sCFSGQLCqvI=;
+        b=tqazhq44JPg579knpjqGZxYYuseovyNjMNiQz+HhpyJV6PqJKb+LOPBfKNx8CVeIeI
+         VTmzPpCyHLFehG6xc3Skz4JFbLIUiqyKt6xvZ41+O+sKWnIglR+X6kiVoWY8Pet1lbcq
+         s4PwFsFsBKh1dMBAjnUBsEBarOVTkbSVyLn/KcrCuci3wQR9ymQ+JdB4Yj4So2T6WNIa
+         i3GUeGN4CXCouTjvHzYPc4th1ZvrDdBvGu5UNad59BZDOS0PUnNTcLeL7Dcnnmrdipp1
+         ZplQ9fU0wBzI0GBmxm3/6ZuaQyLoTPvRfSYk4ehF0fLUFNKfzjaFWLBYLzVD9kT1ZqpO
+         9tuw==
+X-Forwarded-Encrypted: i=1; AL+hErHAwdnCeqvzia5UczEZA7F/FKKrWMRwKV2wsER9MIxMBNHkGS6x5kc60llVe2kWUPSdn3baMh0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/AuZhtCaw4ivRFGuTwyYSMD26xp+zY2FHFAt1G8Jah8aS/mjTS
+	Kolgf1T4tMEBRi4U6i93SG2S0Se77/3ie6zsN/zE9HxAeQ7X+KEnSXZE
+X-Gm-Gg: AYBFou25x1F75o2HxY5c2JbkEF7rp9fcZ/BQXWzEHFM2VBmOHmqO/c7D1Vg/S8z1s3m
+	bRHYqFUF3vb2CkhpS6ExfQHiWNnmv/oZTptnAJ8i57EdfMrvkQrnH82eeY5yw4o8woBlEowwTIt
+	xqZUx5Vur4NGfIdBz1/ugsZpKsUDzDG6SxvD9830g+kMc/jlUmpHpCNljqdS3Jj+6griBx5wg3z
+	ASaYKEkAjQlZZXf9G4HBPhLC2oHQjycMAVGWUBj+J7gk0hHYZCQdJlI7Lavh4nlq/VNgp6FT0dg
+	L0jsrmgpKn9cemGnAjZqZsiSNzFESYmJwEfpdoycI8BFb+jRcdjunFtNpCARMHjuBizs6BBvzMz
+	V9/C22ujZ99XoL6mnMbBrejoiMPTMmaiAeYPEFQHhYObGgQCHXRtrXbcbIYw3r5v4cmEG1KDsVm
+	YPaeKa1WKKyvOijJe8IitYgPRamS5EmozXREt9r9F1BXHJWDwx1aHWstt+Ji/QnfwuVm4xYEAk2
+	OuBgsISh+Q+jldN60UydpyGtpdwuSN2BGXYYWYPDscbHu3Zw/lPbnAxADwdSw4hz/d9IQ9moyqg
+	0cmKclqEZTQRQKYHTbPqv9DeghInw1xrWsWUZsSQn24ndzzD
+X-Received: by 2002:a05:7300:6a9c:b0:358:3426:d601 with SMTP id 5a478bee46e88-3725b461998mr5714163eec.2.1794204418800;
+        Sun, 08 Nov 2026 22:06:58 -0800 (PST)
+Received: from hj.. ([163.239.22.29])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3726561851esm10754270eec.4.2026.11.08.22.06.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 22:06:58 -0800 (PST)
+From: hyunjungg <hj351016@gmail.com>
+To: Jiri Kosina <jikos@kernel.org>
+Cc: Benjamin Tissoires <bentiss@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hyunjung Ko <hj351016@gmail.com>
+Subject: [PATCH v3] HID: microsoft: fix use-after-free of ff_worker on teardown
+Date: Mon,  9 Nov 2026 15:06:33 +0900
+Message-ID: <20261109060633.1231417-1-hj351016@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,91 +98,84 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261109-b4-gadgetfs-ep0-v5-2-f16d0b648bc2@gmail.com>
-References: <20261109-b4-gadgetfs-ep0-v5-0-f16d0b648bc2@gmail.com>
-In-Reply-To: <20261109-b4-gadgetfs-ep0-v5-0-f16d0b648bc2@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Neill Kapron <nkapron@google.com>
-Cc: Jing Lin <kayano050408@gmail.com>, 
- syzbot+c73e1942197af9f54ca3@syzkaller.appspotmail.com, 
- Alan Stern <stern@rowland.harvard.edu>, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, linux-usb@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794203739; l=2063;
- i=kayano050408@gmail.com; s=default; h=from:subject:message-id;
- bh=vqwB+Wlcpj/WeJeMyvBHLGgJ+JSJZK1Q6iHMWRJUsu0=;
- b=jP/KXYyXBBEv1X8X/NIF7qL7n36OvBHWCi/dJEuX/gS8U9WtJygerBK8rmYPA14uTGd2i1xZ9
- yyjiZof0HrADZslBDPG3A+P6v1IjQvfb0iS13CVMQn20Duy8MEex7A1
-X-Developer-Key: i=kayano050408@gmail.com; a=ed25519;
- pk=pr6i8RN1WEON1jbXPdghSglxaBSzfuJjXNGFknX//+A=
-X-Endpoint-Received: by B4 Relay for kayano050408@gmail.com/default with
- auth_id=1441
-X-Original-From: Jing Lin <kayano050408@gmail.com>
-Reply-To: kayano050408@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Jing Lin <kayano050408@gmail.com>
+From: Hyunjung Ko <hj351016@gmail.com>
 
-ep0_read() snapshots dev->ev_next, drops dev->lock while copy_to_user()
-runs directly from dev->event[], and subtracts the snapshot afterwards.
-A concurrent disconnect, connect, setup, or another reader can reset,
-deduplicate, or consume the queue in that window. This races on
-dev->event[], can drop newly arrived GADGETFS_SETUP events, and wraps
-dev->ev_next if the queue shrinks below the snapshot.
+ms_play_effect() schedules ms->ff_worker to send the force-feedback
+report; ms (and ms->output_report_dmabuf) is devm-allocated and freed
+after ms_remove() returns, and the work was never cancelled on teardown,
+so ms_ff_worker() could run against freed memory.
 
-Dequeue the events into the local buffer and update dev->ev_next before
-dropping dev->lock for copy_to_user().
+hid_hw_stop() in ms_remove() unregisters the input device, whose teardown
+(input_ff_flush() -> ms_play_effect()) re-queues ff_worker, and a work
+left running after ll_driver->stop() would also issue an output report on
+an already-stopped transport. Disable the work with disable_work_sync()
+*before* hid_hw_stop(), so it is drained while the transport is still live
+and cannot be re-queued during teardown.
 
-Fixes: 1da177e4c3f41 ("Linux-2.6.12-rc2")
+ff_worker was only INIT_WORK()'d in ms_input_configured() for
+force-feedback devices, so initialise it unconditionally in ms_probe()
+(making disable_work_sync() always valid) and also disable it on the
+hid_hw_start() error path, whose unwind can likewise schedule it.
+
+Not runtime-tested (requires MS force-feedback hardware).
+
+Fixes: 1cfc77a64b71 ("HID: microsoft: move FF initialization to .input_configured()")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jing Lin <kayano050408@gmail.com>
+Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
 ---
- drivers/usb/gadget/legacy/inode.c | 26 ++++++++++----------------
- 1 file changed, 10 insertions(+), 16 deletions(-)
-
-diff --git a/drivers/usb/gadget/legacy/inode.c b/drivers/usb/gadget/legacy/inode.c
-index e9380538e..4635a603e 100644
---- a/drivers/usb/gadget/legacy/inode.c
-+++ b/drivers/usb/gadget/legacy/inode.c
-@@ -1196,25 +1196,19 @@ ep0_read (struct file *fd, char __user *buf, size_t len, loff_t *ptr)
- 				break;
- 			}
- 		}
--		spin_unlock_irq (&dev->lock);
--		len = n * sizeof (struct usb_gadgetfs_event);
--		if (copy_to_user (buf, &dev->event, len))
-+		len = n * sizeof(struct usb_gadgetfs_event);
-+		memcpy(tmp, &dev->event, len);
-+		if (dev->ev_next > n) {
-+			memmove(&dev->event[0], &dev->event[n],
-+				sizeof(struct usb_gadgetfs_event)
-+					* (dev->ev_next - n));
-+		}
-+		dev->ev_next -= n;
-+		spin_unlock_irq(&dev->lock);
-+		if (copy_to_user(buf, tmp, len))
- 			retval = -EFAULT;
- 		else
- 			retval = len;
--		if (len > 0) {
--			/* NOTE this doesn't guard against broken drivers;
--			 * concurrent ep0 readers may lose events.
--			 */
--			spin_lock_irq (&dev->lock);
--			if (dev->ev_next > n) {
--				memmove(&dev->event[0], &dev->event[n],
--					sizeof (struct usb_gadgetfs_event)
--						* (dev->ev_next - n));
--			}
--			dev->ev_next -= n;
--			spin_unlock_irq (&dev->lock);
--		}
- 		return retval;
+diff --git a/drivers/hid/hid-microsoft.c b/drivers/hid/hid-microsoft.c
+index a7d3493a6141..5e4218beec92 100644
+--- a/drivers/hid/hid-microsoft.c
++++ b/drivers/hid/hid-microsoft.c
+@@ -335,7 +335,6 @@ static int ms_input_configured(struct hid_device *hdev, struct hid_input *hidinp
+ 		return 0;
+ 
+ 	ms->hdev = hdev;
+-	INIT_WORK(&ms->ff_worker, ms_ff_worker);
+ 
+ 	ms->output_report_dmabuf = devm_kzalloc(&hdev->dev,
+ 						sizeof(struct xb1s_ff_report),
+@@ -361,6 +360,13 @@ static int ms_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 
+ 	hid_set_drvdata(hdev, ms);
+ 
++	/* ff_worker can be scheduled from input_ff_flush() during a failed
++	 * hid_hw_start() unwind and on removal, so initialise it
++	 * unconditionally before hid_hw_start() rather than only for
++	 * force-feedback devices in ms_input_configured().
++	 */
++	INIT_WORK(&ms->ff_worker, ms_ff_worker);
++
+ 	if (quirks & MS_NOGET)
+ 		hdev->quirks |= HID_QUIRK_NOGET;
+ 
+@@ -377,6 +383,7 @@ static int ms_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 				HID_CONNECT_HIDINPUT_FORCE : 0));
+ 	if (ret) {
+ 		hid_err(hdev, "hw start failed\n");
++		disable_work_sync(&ms->ff_worker);
+ 		return ret;
  	}
- 	if (fd->f_flags & O_NONBLOCK) {
-
+ 
+@@ -384,6 +391,16 @@ static int ms_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ }
+ static void ms_remove(struct hid_device *hdev)
+ {
++	struct ms_data *ms = hid_get_drvdata(hdev);
++
++	/*
++	 * hid_hw_stop() tears down the input device, whose input_ff_flush()
++	 * -> ms_play_effect() path re-queues ff_worker, and a work still
++	 * running after ll_driver->stop() would issue an output report on a
++	 * stopped transport.  Disable the work first so it is drained while
++	 * the transport is live and cannot be re-queued during teardown.
++	 */
++	disable_work_sync(&ms->ff_worker);
+ 	hid_hw_stop(hdev);
+ }
+ 
 -- 
-Git-155)
-
+2.43.0
 
