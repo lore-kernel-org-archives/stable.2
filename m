@@ -1,89 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794187768;
-	b=xZsTPhJVni4l3IdCfYW1YyTFMnbnS/9naTYkiduIya2hopGW+IpYHTjFWU+IpuZlG8th
-	 qeqVitASYlqFVonjvf21dDITSxL18NwemtmCz02gk7XamUFYTBQA6l7Nnwu6ZnHx3TGDY
-	 kWpTGslHFXKDcz/iD3vU7cQaJagOm+GOZv0NqwJgiRpVkn12NlpIIVIgF9Ng1r1TcpCo0
-	 i0zrqoQn7qJk5pzS/iJj1yEGpr1EzDLv//K9wpKmPrYSzTi1jF+TlS6e/385Byc6IKCs3
-	 PfypPGXgAJe8Y9WkotYAFuChNqJc7GNZ5af5CUzpaM9S5yJwDcqnDLQEkKCKRTmKZ8Q==
+	t=1794188024;
+	b=BwuRdsVekHL3ZyGR2scFZwZgKdIWwibl6bq2MHGwHshiBJbM2pJtzHlWFZ6BUEy5+0jH
+	 C0JfrIKPDoXcPKVjCpM5h8n7YvybLpzHPLhg0TxODbZYSY++ZrnFjaX4QUI3jUd7Fugu7
+	 pBTzO2/rKKfoGybCvJgTHWYWx6eqPEfaZxsV4+k2RDaXUUpHz0DFq81ZnS5zAPPSn9T2s
+	 F2cLF6cXKqLyBxO/S/Od3vxk+tnOMlVhBdG8uaQPxpPDqB0VW8bTzdRChONxgHe8shjsN
+	 YrNCi45nyBh0HDhYlkJqLqztjQiFBxuo1yI7Rc3lBicDRKc9YZfSlZBRN8ZFtFeovMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794187768;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=3IT9ZF3wWg0/NDcCITM9rGC2ffWPOuz4O4zGIuPGi6Q=;
-	b=v2oZ/Ge7HiJy2sIUtlRY5zTRftUCyjX2uCeIUKfDQWzej+0Ta28UyB9ELmUrflfZIcer
-	 TQetSX+0xCnTC59AQ6nOCeUd6FEEUZkpp8uFSQivsDK5C1HI76CwpHv1ByhbMQ5Ria8UJ
-	 SyD/M3whhyCMKeJjRAPEz00DwxF8utjEFQGez0s0gOlZXywITxYUZDXjIqgG2JO7nfhui
-	 fQW4gMLLetMEwdy+GV8acZJUvncRmAgoECHtMvD89TJxhlfyavPyQI2y6OStsTM1YSXlh
-	 ky1Ae9MOCECqx2iSSYt6/FD7xUtUW9XxErhjrlchK4huyYLaSyakusXW4UsDuuOGIcg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794188024;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=BhteyzlsA9AHFknqXbHWkQrum6QaM3/9EY4gqsJCK3Q=;
+	b=vKOn3Da4bKU2spzuaEg3lTmSbcGzyzdtjZVAv1pyFFoc5izZBVhT8mBk0NXeEGsWAkxH
+	 tRgXxGLDuPaByzZ7B8Bkqagpu9IlHX4Tq1G19yHMTSFtWWCmFg0UH4zBrqalTHRsmRyaU
+	 dR799+I61LdU49dHj0Y5rok0tMGI5GMQegbPAkCLLw420TtvkmD+8RYfDMevPgxqk+bOZ
+	 s5byn0RHjQlbBnM0djoan5wTL68uii6aFCnkQUZJAp1Xlcr6Yr/uyMutAdma5mBqCdsJH
+	 8siAuIVo8YgWbAIAFP2NAV6hlXqpA8NY46KUnaqyYMNqXD1OXyc1HVXPaHRR4tI6hcA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=T78GkiWr;
-	arc=none smtp.remote-ip=209.85.160.43
-Received: from mail-oa1-f43.google.com (mail-oa1-f43.google.com [209.85.160.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD1B1606A321
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 01:29:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD1B1606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=bV00zcj9;
+	arc=none smtp.remote-ip=111.22.67.139
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4B59F606A31C;
+	Mon,  9 Nov 2026 01:33:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B59F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=T78GkiWr
-Received: by mail-oa1-f43.google.com with SMTP id 586e51a60fabf-4adea5b7a2fso180941fac.2
-        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 17:29:27 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=bV00zcj9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794187767; x=1794792567; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=3IT9ZF3wWg0/NDcCITM9rGC2ffWPOuz4O4zGIuPGi6Q=;
-        b=T78GkiWrHNeT2swXbg6OyiFqCfiDi1+Hd1EeIZCwmMvJRZU/2YSstTMP/wMq50rbKv
-         KawJrjWmcFeBRmTmEYiWEF6tj1savR34Bqw1V1f7205qRhXUWsEygxJ+tkw4wHy4rweP
-         M1FqBjEaEpxz2JFDntWkZm18OgoR4iQPlBZx+mxuXj0GH+WreVOPwvtsMcRiQUwIWMNh
-         bhSp3wP1XKZn4+MU5Fg19RwoCA2MgtA6UFzSpBhElgby0Qi2tp7AgKDZpln3D3eiJ9Qh
-         Ru9mDhSdRnwIDfn5YmNlj9zq//WmJ2p68NfNp4UbZl5MZYniz9nu7McOl9MfrhkCwyDl
-         XQqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794187767; x=1794792567;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=3IT9ZF3wWg0/NDcCITM9rGC2ffWPOuz4O4zGIuPGi6Q=;
-        b=w13T/p6aJDEpVD11D1oknhOb+bLz7l/w5oluhRRSsEfuo22d/ZuohI3zo+RzAqfBlf
-         /1J3n1AyoBZxRnMgYzo6V6YzsIk9rBcKohPvr6iNQlVwVdP3PYQ3vEyqPpI7WAhJrhWW
-         6dBU0XgmeP7t3hbmLMVWkjDokiAbzenUyFxErL2teKeUeuYH6nRVvBgIYnMKAshDf9Lq
-         rbsecX9yvi/s7nbslyV9Bf40i3ZAhPph4YObuk0tChvN5/AJpJFcmIz41oV9dWhRGQ4s
-         rB4IP8i5LYDiAhY4/PG7gmYrNP1H2+C3ytzyvreINYiisYXJKivhNkwCWI2kza1gH+ZT
-         ny9A==
-X-Forwarded-Encrypted: i=1; AL+hErGhgYkLPGsfpiRqaWk0GItyU0FpJryk2Y0STYhSu8H1Mwk1Ic6G2zNGeaFeDn1j4MLBZbJvTkA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8VReDAO2bCuSA0YfyjXcSg7yZI3rpHd9bKxu2gqnV5YNfL/DFq
-	Mikc/GdnagojeiJwqEUgFz0MaZEjmXVeO41amBZQJhyj/FjKFCm+3oDS
-X-Gm-Gg: AYBFou2sO1J8vrw2iirEgKfWjaR9KjJ4slwlSFHKyO7aLhoyBnzKv8kNZDe3upNwa95
-	8H+nSLdssPxkz1uh6Zi6/vDzZ/hBxV+nGbNU75arrp+Xaub1fxTe+8hFbylrcHpjEdD52S4ZzqX
-	Mfe5Zy81M/dUurmefD36LVpzBzSaZI+auWHQVeuxyyBvHThCwq5vGb6P4qbYtGiUHhpb9VhTuOl
-	gN1PxBBw6iKMjodWWt+q9Y8YbPqK28Z5Z1P1u6C8okymkjR54QpWbJSZ9vaeEs5fYzsBo9kw8d8
-	7PIBTZa/TPjw8Wza3VKSB63btt9N5Ax5IwZ2xHarw+C0SmZG0GicqDBxPVjMkpcIV0v04UsSGeP
-	Wiv6q++3/yXe1Y0hXTiL2tH/ue5V34bak+lkoYxFzwyjsDXJFdqAzX5NbjMz6F+eASk2JXRqHQR
-	yxlfqj8tPg6J6n0HnNSkmDmLBV3Uf6urYrWBuc1dCARPx8Yu01R4BVAg3o9UTpqdDYyNxZtm5+p
-	b8qV1DF7HsM2NhnV1uCMNd6hDjc4JQ98d2KUxyDQY/Ys+Fb5Ocf5z1kgOL0SW+f58SspXtKtrSb
-	Zpa+P45X9fQVZ5zG8ziUT+6lUfT2osoprAAPQpAYw8CH834V7kCJxnfy4hi2wtshKOhxe+Q3cYG
-	t0/lsAe0Plvh2WZFhiGnJRVjt9wVB+Oml5Svb8dEijklCMQ69kVZTYkB8PLgVo3zp+Kf1N7noxV
-	BXMfGRK6wrdOotOxtb4eeJMzDzXO77Bg7xtgEd+VL5fzJATWDGwRc1
-X-Received: by 2002:a05:6871:825:b0:491:6c73:817e with SMTP id 586e51a60fabf-4adeb44512cmr1457682fac.5.1794187766772;
-        Sun, 08 Nov 2026 17:29:26 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4ade695a5a6sm4225818fac.10.2026.11.08.17.29.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 17:29:26 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Subject: [PATCH 0/4] mtd: rawnand: restore SmartMedia setup in r852
-Date: Sun, 08 Nov 2026 18:29:19 -0700
-Message-Id: <20261108-submit-r852-smartmedia-attach-v1-v1-0-56d08c0571a2@gmail.com>
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=bV00zcj9Xwgs8wUHgD3Z+TRPtAQ5SdZbSgMqwv033cyuLyhlhlM1h6iPu17tFlfwp+vx6EXzhExtf
+	 8LI0yZs1ZqxDzsxbGElK1qHAVO0S2d9E3osfUlavu2yXqjgsMBXkuo/wtHXoMH/ao79Dc/ADeQ1yod
+	 yh0p7E557XKIzToo=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16af122f4e3a-9a1ad;
+	Mon, 09 Nov 2026 09:33:40 +0800 (CST)
+X-RM-TRANSID:2ee16af122f4e3a-9a1ad
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from Z04181456177947 (unknown[10.55.1.71])
+	by rmsmtp-syy-appsvr09-12009 (RichMail) with SMTP id 2ee96af122f063a-7bfd3;
+	Mon, 09 Nov 2026 09:33:39 +0800 (CST)
+X-RM-TRANSID:2ee96af122f063a-7bfd3
+From: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
+To: greybus-dev@lists.linaro.org
+Cc: johan@kernel.org,
+	elder@kernel.org,
+	gregkh@linuxfoundation.org,
+	elder@ieee.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+693652ded53d3eb9cb91@syzkaller.appspotmail.com,
+	Zhao Feng <zhaofeng2@cmss.chinamobile.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] greybus: reject messages with claimed size smaller than header
+Date: Mon,  9 Nov 2026 09:33:36 +0800
+Message-ID: <20261109013336.1122-1-zhaofeng2@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.55.0.windows.5
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -93,52 +73,72 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWNwQrCMBBEf6Xs2cUkoLT+injYJKtZIVGStRRK/
- 91ULwNvGN6s0LgKN7gMK1SepcmrdLCHAUKi8mCU2BmccWdrzYjt47Mo1vHksGWqmjkKIalSSDh
- bdJOZJkvEhgi65l35Lsvv4nr7c3c8Oeju3ReeGqOvVELaq6zxWKj04EVh277+bkYYpAAAAA==
-X-Change-ID: 20261108-submit-r852-smartmedia-attach-v1-290991aae0aa
-To: Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>
-Cc: Maxim Levitsky <maximlevitsky@gmail.com>, 
- Boris Brezillon <bbrezillon@kernel.org>, 
- Brian Norris <computersforpeace@gmail.com>, linux-mtd@lists.infradead.org, 
- linux-kernel@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
-r852 installs its own NAND controller, but the shared SmartMedia setup is
-still attached to the unused legacy dummy controller. Run that setup from
-r852's attach_chip callback so the media-specific OOB layout, bad-block
-handling and page-size checks take effect. Restore the hardware-ECC
-default during probe so the PCI path selects a valid engine without a
-NAND device-tree node.
+gb_connection_recv() performs two sanity checks on received
+messages: the receive buffer must hold at least a full message
+header, and it must hold at least the message size claimed in the
+header.  Neither check verifies that the claimed message size
+covers the header itself.
 
-Before restoring the shared setup, correct the first ECC region's offset,
-remove recursive NAND locking from the bad-block marking path, and select
-the standard OOB writer for r852's contiguous spare area. These keep ECC
-bytes away from the metadata and bad-block writes within the spare area.
+A message claiming a size smaller than sizeof(struct
+gb_operation_msg_hdr) (e.g. 7) passes both checks when 8 or more
+bytes were received, and the claimed size is then used as the
+message size:
 
-Assisted-by: Codex:gpt-6-astra
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+- gb_operation_create_incoming() computes
+  request_size = msg_size - sizeof(header), which underflows to
+  SIZE_MAX.  The request handler then reads payload from a message
+  whose payload size is SIZE_MAX; syzbot reported this as a KASAN
+  global-buffer-overflow read in gb_svc_request_handler().
+- gb_connection_recv_response() similarly computes
+  payload_size = size - sizeof(*header) for accepted short
+  responses, which underflows the same way.
 
+Reject such messages up front in gb_connection_recv().  A claimed
+size equal to the header size is valid (header only, no payload),
+so the comparison must be strict.
+
+Reported-by: syzbot+693652ded53d3eb9cb91@syzkaller.appspotmail.com
+Closes: https://syzbot.org/bug?extid=693652ded53d3eb9cb91
+Cc: stable@vger.kernel.org
+Signed-off-by: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
 ---
-James Hilliard (4):
-      mtd: rawnand: sm_common: restore the first ECC region offset
-      mtd: rawnand: sm_common: avoid recursive locking when marking bad blocks
-      mtd: rawnand: r852: use the standard OOB write operation
-      mtd: rawnand: r852: restore SmartMedia and ECC initialization
+No Fixes tag: the missing validation dates back to the original
+greybus import; the introducing commit could not be verified with
+the trees available to me.
 
- drivers/mtd/nand/raw/r852.c      |  9 +++++++
- drivers/mtd/nand/raw/sm_common.c | 55 ++++++++++++++++++++++------------------
- drivers/mtd/nand/raw/sm_common.h |  3 +++
- 3 files changed, 42 insertions(+), 25 deletions(-)
----
-base-commit: 30daaf3e7897b4a8d9b72e5b0c86dd6e2a4d7d85
-change-id: 20261108-submit-r852-smartmedia-attach-v1-290991aae0aa
+Not runtime-tested (no greybus hardware).  The affected function is
+identical in current upstream master, so the patch applies there
+as-is.
 
-Best regards,
---  
-James Hilliard <james.hilliard1@gmail.com>
+This also answers the question raised on the syzbot thread about
+whether the underflow is reachable: it is, because the existing
+checks compare the *received* size against the claimed size, never
+the claimed size against the header size.
+
+ drivers/greybus/operation.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/drivers/greybus/operation.c b/drivers/greybus/operation.c
+index 8459e9bc07..83b16c78f7 100644
+--- a/drivers/greybus/operation.c
++++ b/drivers/greybus/operation.c
+@@ -1046,6 +1046,12 @@ void gb_connection_recv(struct gb_connection *connection,
+ 	/* Use memcpy as data may be unaligned */
+ 	memcpy(&header, data, sizeof(header));
+ 	msg_size = le16_to_cpu(header.size);
++	if (msg_size < sizeof(header)) {
++		dev_err_ratelimited(dev,
++				    "%s: malformed message received (%zu < %zu)\n",
++				    connection->name, msg_size, sizeof(header));
++		return;
++	}
+ 	if (size < msg_size) {
+ 		dev_err_ratelimited(dev,
+ 				    "%s: incomplete message 0x%04x of type 0x%02x received (%zu < %zu)\n",
+-- 
+2.39.2
+
+
 
