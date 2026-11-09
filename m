@@ -1,112 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.49
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794244521;
-	b=5gXcL12tpALTZL/sr+LI2qta2XAbilReITiTj4OVt70a0Yva+rqhbWux+ffdl4nfuBRg
-	 FChBLJsJQHzoFphf+ErRRuUDJdcLLOI1fukbgmYE/pLYNG0Czdu8hDJ0aP/lPy6nXL5BB
-	 Ua9/lQZsMYy6bpzfWZzNGb/K4SRJMrIHtycAyK9ICOi4w6tjPFC3+kaGd+EbnpUDG4JrT
-	 wNNNadPv/bTPvpw5Qb7xu2rp6h9kWXxLIdaZwoWYUMQ7zd70Bzx4h412ee7MHrO6ZM/UA
-	 MiNTD9h5PpJqfvwriZPtTj2GHrSwDMUPdg/JSBFRLDajy7A4KBJ/CZd9RFfB84MSMyg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794244521;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:Content-Type:
-	 X-Originating-IP:X-ClientProxiedBy:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=0IMeLB1dRvtT+Gu7UebExq027PIbf1THrmDYlH4ys4c=;
-	b=crG2EaKnJWpcAEQ17fl7DPPv0IVJaoKqiJ/0XHg22rXNqwbSL02loZ5UVcb8JZVMrBkK
-	 su6YlzoQY7mnBAAQroUW1b/1jIuQ43K73a18hcDPPNR38F1wyQ/VNjuBmp5DypZzVnCOY
-	 fOTNrN/Ln6GbBMUk8iZxCNO4p4LU5BoznS+mIj8zHub0T/gjb2VeHcPnbeV8+Ej8RoxrK
-	 A3fX89/AKwnl4P/KMFkBfuEO/bKZGcd3Rzwxuae0g4DsKqVYFsmsiEHd3Xgce5Ke2u94n
-	 zPniV8b3dFaqQnNLLiZnTRNfO16v7i68Kv5ajIrYEtUs+/O6Squniev+mgsRV0d+k8Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=foss.st.com;
-	spf=pass smtp.mailfrom=foss.st.com;
-	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=HlpyJv9C;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.49
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013049.outbound.protection.outlook.com [52.101.83.49])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794244544;
+	b=g9B8c6VTlcLfFsx642Hm7ogq29fkIqu9GPNuYdL4x/nbsVFG6m/RUpwqgkaW5Iw9wHmE
+	 DLiwxid01qC3VaSvUIJcf8vlR/33p+O1UsyH5RtzxvUzfmZQNbQ6/rtTLuRXPQzXcpU+w
+	 MC4WY+8YXnZN1wbWK2StUnm9nH1jYun3/qZazghw2omIQBtWL9H8OX8LQV//hY2wOJiGl
+	 /V1AuUXKOUKFbkRPu9wKYt/2AcDCG5OW2mYFC+GCU6ti/BDx0l3ukxp7AVF/IcYuF1HcP
+	 1/FKVQ0UdtfJC0ocz3zzBQyl8RU4Q35E0kXrboKfkQHGq/6ygPuQ9nGvRE9tIZ/AC5Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794244544;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=FV/gOIEqM460iJY+njk1sy17xCRYfoeAfz2fjXVt/zQ=;
+	b=WhCLnlOzQEUFX52HGONsyzaFn2JyLte15c2jP99FvHvs58CbB+HbhNkQ0fXOR4RxeYdu
+	 8ts2TdvBApgxNJJXDnzDqj5jAMeFTxh9a/Z0DNooM9LoXjaIgf0d9bp868JnFq/iolqXB
+	 jrzeD2Yi6mC9Gfd01usKEmPGcG0VWo8PISKL8FVLtbMX2GSgEGqyCPfv9jNes2OP+FdkT
+	 PsuLJRtdaF3bkg5F+t5XmmXyQe9zGObAgZoyE1EKwV16lrL7udIxkzjeY8ze9xf+2uCBa
+	 +BnE6ZY91wf1LKnb6CIklvvbg6SH9MS9xExQTp6HYuumyUQKevxoJaZS4D+dQ4Dp4pg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QcnUzuS5;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAD65606A321;
-	Mon,  9 Nov 2026 17:15:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAD65606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A43A0606A325;
+	Mon,  9 Nov 2026 17:15:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=HlpyJv9C
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fRqgl46EiX7tUsfNgL8n49O4+GEQili33pbxTuSIZNfObKG4WiyTjFOt6fWld2957hZZ+GJLz2XLH7vNAresVw8hrMna4qKNDVGYGtEy4gO8NdBYrZsXvOlHcAn8PLu1JM0V5dapS44mH3nSeLOx+cLn2EWGCNqZgHik4yYT2QE1LgWTNEgvjcG2dR52/V+uRPT0STKV+JLLXVGV1zAKKBQ94QpfCydL9QfG24OCoAeiQfc+BNSWmoP8fvWLRpzNx2lSElz9fvoX4jKGqgCInYi7osU58wmpdO7mWRhtyuEwE7v/P1UGLZojGFdUjs5J5nsRIulJcoR8mXfFMo42rg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0IMeLB1dRvtT+Gu7UebExq027PIbf1THrmDYlH4ys4c=;
- b=W1ooQZIkdtC0wpf29TWrVVdA+Xp25PBDRCk3mI2unjguDul4nOjAQmJZJFJd6kbfEpea6XhhqiNHgv8UJzi3lWdXi2P1yS9G1HAgWoiHeIDF6nVnRHDo2NIEqzTO3HhnyNQOblB+KvzgcatDvmBbBh5K1OfSYFzBT4RNAypWb+undRkpk8tPtCO879IytB72sroWdEFkTUEckFvFFmjAIgqS98m5jxqvryDK/MdIJTzl8JSjx5MucuAiET9PqKiMyLyfFbc28PhfFOdG/Vpy+649FVlgx8k1TLNmVNNk1fKCyLmdIydu5wXkurRJftqNszaBn8ztYRZpGCFzKeF5UQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=linuxfoundation.org
- smtp.mailfrom=foss.st.com; dmarc=fail (p=none sp=none pct=100) action=none
- header.from=foss.st.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0IMeLB1dRvtT+Gu7UebExq027PIbf1THrmDYlH4ys4c=;
- b=HlpyJv9Czsfu+WWA9evxz2/Ahw7U0zT8jqdg/ShY1DhyOKjn5p+Uz07Q+Zdtv6E/AIaNYzwhxlKbBZAmBOCnoQgxMcWBoLvSR361j+AhNKrrbm7mEEY3l9hgBXEF2Fyx2/Ja+fcC+Eb00AczspMfZzuDh91OnQGeTr+ob2+XTJoOyC2a5/yhZ+Xz2iY+oUOvS2jpd8gNoqC3g0ucxDsSuoTpjQ918FRMKoUp1hH4B1A35lPy5HC0DxscjDdT62jGiG32SF65HbPVZxK/In5+GagnWq07C+ZuwAo4ei8bV0JPUjBMY57PlRuxKDBEf0gcPA5xCRKMYrus6x3NAEmxwg==
-Received: from PA7P264CA0095.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:348::6)
- by GV1PR10MB6660.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:150:86::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.7; Mon, 9 Nov 2026
- 17:15:11 +0000
-Received: from MI3PEPF00008490.eurprd03.prod.outlook.com
- (2603:10a6:102:348:cafe::24) by PA7P264CA0095.outlook.office365.com
- (2603:10a6:102:348::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.13 via Frontend Transport; Mon, 9
- Nov 2026 17:15:11 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 164.130.1.60) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- MI3PEPF00008490.mail.protection.outlook.com (10.167.240.151) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Mon, 9 Nov 2026 17:15:11 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 9 Nov
- 2026 18:16:07 +0100
-Received: from localhost (10.48.87.238) by STKDAG1NODE2.st.com (10.75.128.133)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 9 Nov
- 2026 18:15:10 +0100
-From: Valentin Caron <valentin.caron@foss.st.com>
-To: <gregkh@linuxfoundation.org>, <stable@vger.kernel.org>
-CC: <Paschalis.Mpeis@arm.com>, <aaupov@meta.com>, <acme@redhat.com>,
-	<corbet@lwn.net>, <irogers@google.com>, <james.clark@linaro.org>,
-	<jolsa@kernel.org>, <leo.yan@arm.com>, <linux-doc@vger.kernel.org>,
-	<mike.leach@arm.com>, <namhyung@kernel.org>, <patches@lists.linux.dev>,
-	<robert.walker@arm.com>, <sashal@kernel.org>, <skhan@linuxfoundation.org>,
-	<suzuki.poulose@arm.com>, <amelie.delaunay@foss.st.com>,
-	<valentin.caron@foss.st.com>
-Subject: [PATCH 6.6.y] perf cs-etm: fix a compilation issue in cs_etm_decoder__set_tid()
-Date: Mon, 9 Nov 2026 18:14:57 +0100
-Message-ID: <20261109171457.1233670-1-valentin.caron@foss.st.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260912065621.463708027@linuxfoundation.org>
-References: <20260912065621.463708027@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QcnUzuS5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 716D51F008A3;
+	Mon,  9 Nov 2026 17:15:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794244543;
+	bh=FV/gOIEqM460iJY+njk1sy17xCRYfoeAfz2fjXVt/zQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QcnUzuS5LTfs+FxCMi1X6w0Ur2hdM50fYhVpXhOh5BKqXzA+mAsBFp1XzUgsorXsV
+	 Ot2Et44aWuFTNwk7BK0NIHgALfpUaC8zndjBYR7K9gMLEH8R+OP9HcF6KYW7NTlsFr
+	 OshGPel1lfW0Arg+9GIls0X7KmHq7uAPx7QgyK+crZB2h6rF8UISk72qQfiQMOReOM
+	 22Mpk9fibez8Q50iO0VSn7m0B23/zsVxWLMlOG1+1aQgYZ3/BctllzopDKEPv9F1jC
+	 PahI0erKUUBPfH55nJc6fGWkF/RAG59tbLkneH3T0FqCebOi9bWjW4hSsoU4vAnGlx
+	 FmyeLvhOlKPbg==
+Date: Mon, 9 Nov 2026 17:15:39 +0000
+From: Simon Horman <horms@kernel.org>
+To: Jamal Hadi Salim <jhs@mojatatu.com>
+Cc: netdev@vger.kernel.org, Victor Nogueira <victor@mojatatu.com>,
+	Jiri Pirko <jiri@resnulli.us>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	stable@vger.kernel.org, sashiko-bot@kernel.org
+Subject: Re: [PATCH net v3 1/2] net/sched: sch_teql: unshare the header
+ before writing and fix retry strip
+Message-ID: <20261109171539.GU18859@horms.kernel.org>
+References: <QDISC-6HS9.v3.r0.20261103062649@mojatatu.com>
+ <QDISC-6HS9.v3.r0.20261103073017-1@mojatatu.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -116,71 +62,64 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PEPF00008490:EE_|GV1PR10MB6660:EE_
-X-MS-Office365-Filtering-Correlation-Id: 568e8cb3-bb19-4e88-6392-08df3e85030e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|82310400026|36860700016|1800799024|23010399003|261009223027099003|261102123227099003|261028144727099003|261021121427099003|261021123027099003|261022105027099003|261026140227099003|11063799006|56012099006|6133799003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	pKgsyZ/GrPps3f7En5UekHdV76FXJ4qyboOHF+hd+e0fMkoXpGsm+JN1Acq7Xj3xcRZCwsgOhyLsaQLsa9lQPYP32OKRX0zWN9d7PWmBQkgocC8g8r/Dv12c7GNTeEiejO/S5efhXy9F5TzLyUI/jIdG28yXNxX7CN+f8k4e73DRh98vQK+1ttjv3ntEV+eqK+03OCLzbWjwLazbMV7YG41ZAS5pOJCQsn5N/gWp+UyMW8wfRE8uTMcpYRi/ATL0x5fd4A+5E0N8M3MDCnIvhbV8bA9h+jJomWaWBldqMcwGbdzMbtdKUOvwWdfzSkKOzI01OL1ppDgQA/fZhsKzr6O7DrWjrKlQMbEeavGgDJTYyP3HPKLgLYPr9YOHJ0/5R8MYd84P6tpwPijfdR+cntPeHqOKR6FxwNt2O5+V4HzZyGHalzZ7dBnW+mZunT0XBKxZ15LHP2HL5Ml9r+/ikJXpKyz7D/tlJzH7a9RamguOkwf1PkX6JOvjpdEwXEnXStPjurmb5MdFUvSNouORgM14hXjniu1Fs0Xlq5s2kpg4mmikJ01y7ajOVjhDfXD9CquxU/M0sKqmljqKHoOnrhbeE4RLE2wZEXgRzOYCBheM5b3nw8tRAZ/YspQ628RmJO2WR1f3rn8XfmGXCr/mKcK1QTHIVxVI8QoKlFVHDTAqIjPIt6z6WY9lTENK7K7Sz6xRSaGdAdYbwueDlu539Q==
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(82310400026)(36860700016)(1800799024)(23010399003)(261009223027099003)(261102123227099003)(261028144727099003)(261021121427099003)(261021123027099003)(261022105027099003)(261026140227099003)(11063799006)(56012099006)(6133799003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	TspQH7CsYYrqRHqZalDPPdGOrwyZL8ANpaQDHMXNXRnNd2s4LoBkp09bOkwr2jmeH9TzwH9KZy7MDb4Xerr5nTv4z3txlLrGUDPGEWFRQE1wKV7UIq2jl8YkAl/M/WLHaaWIB1UbFvv6OkQhvFNK3vWjornBfGV0P+5L1UngI1nUiPRn+3r+Qr8suwqpNax3fZy5b7shEhxPdxmNC6jf7MxH9rPa3TPkDg8J5Dak/rV8tgP9TrnGQtqCcp9qla4OktFq8KgmQkCvLNuM2xzhUbfJUs+MeDXvthy3nhhXfIMBcXR4WW+z7XVCHsfxgMmPv2Nm/2w8J2mSbTAcE48pXlnE23yp/7dueBX7XLjXPIozp+DGOJeh6OnZpgWT5znORzPkmimUEF34H40f9vZjrkJtdfJ0erBmKqNIFISOg9sbVvWeZpzoSc4aSH+bWXB9
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 17:15:11.2021
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 568e8cb3-bb19-4e88-6392-08df3e85030e
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MI3PEPF00008490.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR10MB6660
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <QDISC-6HS9.v3.r0.20261103073017-1@mojatatu.com>
 
-When compiling coresight tool with the command:
-make -C tools/perf CORESIGHT=1 all
+On Tue, Nov 03, 2026 at 07:39:15AM -0500, Jamal Hadi Salim wrote:
+> The issue:
+> teql_master_xmit() writes the slave's link header into the skb in
+> teql_resolve() and on retry pulls it back with __skb_pull().  Two bugs:
+> 
+> 1. When the skb's header is cloned (e.g. a tc-mirred action on a
+>    physical device's clsact egress redirects to the teql master), the
+>    write corrupts the other clone.  Call skb_cow_head() first.
+> 
+> 2. The pull always removes skb_network_offset() bytes.  For an
+>    AF_PACKET/SOCK_RAW frame with no dst entry, teql_resolve() adds no
+>    header, so the retry strips the user-supplied one.  Pull back only
+>    the length this slave added.
+> 
+> The Fix:
+> Track the added length per iteration; a header-cloned skb is unshared
+> before the write and an AF_PACKET frame retries with its header intact.
+> 
+> Conditions to recreate the bug:
+> CONFIG_NET_SCH_TEQL=y and CONFIG_VETH=y, run as root. A teql master with
+> two veth slaves, the first slave returning NETDEV_TX_BUSY without
+> consuming the skb so that teql retries the frame on the second one:
+> 
+>   ip link add vethBAD type veth peer name vethBADp
+>   ip link add vethGOOD type veth peer name vethGOODp
+>   ip link set vethBAD up;  ip link set vethBADp up
+>   ip link set vethGOOD up; ip link set vethGOODp up
+>   tc qdisc add dev vethBAD root teql0
+>   tc qdisc add dev vethGOOD root teql0
+>   ip link set teql0 up
+> 
+> Send a SOCK_RAW frame that carries its own link header on teql0 and
+> capture it on the second slave's peer. A veth transmit does not return
+> NETDEV_TX_BUSY on its own; to hold the skb pending this reproduction used
+> a test-only IFF_DEBUG accelerator in veth_xmit(), which is not part of
+> this patch and was applied to both the unfixed and the fixed build.
+> 
+> On the unfixed tree the captured frame arrives with its header stripped
+> (176 of the 208 bytes sent, starting at the payload) because the retry
+> pulls skb_network_offset() bytes while this slave added none. With the
+> patch the frame arrives intact.
+> 
+> The shared headroom case needs a cloned skb: a PF_PACKET tap on the
+> master whose socket is never drained keeps the clone alive across the
+> transmit. A kprobe on eth_header then reports cloned=1 on the unfixed
+> tree and cloned=0 with the patch.
+> 
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Reported-by: Sashiko (gemini) <sashiko-bot@kernel.org>
+> Closes: https://sashiko.dev/#/patchset/20260824115928.4099988-1-victor@mojatatu.com
+> Link: https://lore.kernel.org/netdev/20260824115928.4099988-1-victor@mojatatu.com/
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Victor Nogueira <victor@mojatatu.com>
+> Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
 
-The following build issue occurs:
-util/cs-etm-decoder/cs-etm-decoder.c:551:15: error: too many arguments to
-function 'cs_etm_decoder__buffer_packet'
-  551 |         ret = cs_etm_decoder__buffer_packet(etmq, packet_queue,
-      |               ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Fix this by removing the parameter "etmq" from function call to match its
-declaration:
-cs_etm_decoder__buffer_packet(struct cs_etm_packet_queue *packet_queue,
-			      const u8 trace_chan_id,
-			      enum cs_etm_sample_type sample_type)
-
-Fixes: 99d324594165 ("perf cs-etm: Queue context packets for frontend")
-Signed-off-by: Valentin Caron <valentin.caron@foss.st.com>
----
- tools/perf/util/cs-etm-decoder/cs-etm-decoder.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/tools/perf/util/cs-etm-decoder/cs-etm-decoder.c b/tools/perf/util/cs-etm-decoder/cs-etm-decoder.c
-index 277da9f767b9d..caacab8c92e26 100644
---- a/tools/perf/util/cs-etm-decoder/cs-etm-decoder.c
-+++ b/tools/perf/util/cs-etm-decoder/cs-etm-decoder.c
-@@ -548,7 +548,7 @@ cs_etm_decoder__set_tid(struct cs_etm_queue *etmq,
- 				elem->context.exception_level, tid))
- 		return OCSD_RESP_FATAL_SYS_ERR;
- 
--	ret = cs_etm_decoder__buffer_packet(etmq, packet_queue, trace_chan_id,
-+	ret = cs_etm_decoder__buffer_packet(packet_queue, trace_chan_id,
- 					    CS_ETM_CONTEXT);
- 	if (ret != OCSD_RESP_CONT && ret != OCSD_RESP_WAIT)
- 		return ret;
--- 
-2.43.0
+Reviewed-by: Simon Horman <horms@kernel.org>
 
