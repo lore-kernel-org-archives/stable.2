@@ -1,52 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794229109;
-	b=KGK3Dt11xGu99aEo2tCMmZnJwdrKr+lT2MlfcEYfFNuCp3gYIcS9B7mfaYJN+Cxpg7Ai
-	 +WCX6P9JOBycc3/okd+JhQU+SlRsdCbMVZ4sHnIOyBy97D5qwj0gQci84WxsELS6+85tY
-	 NslBekTh61ipALzUTKy/XuV9lpHh+DzM7Kp5N1+5lV+Vn7n79v9CfneR9J6oYJe5+MPaA
-	 Pl+VCJd/C5j8QPY854MWM8cxJHkmfAJmT2LvqWK+pbo6q3Co/2hprmRtRw10C1CQ/OvGP
-	 KEmI5+0YWWOQNnryHoUQ9re7crXu14Y+JsjuAUCFM6JZrD4zI+LZRW2zXcbIoPVQMdQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794229109;
-	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Last-TLS-Session-Version;
-	bh=n3PkCkDPnKV8p/iqmyGp7B/JsDJVTkvtOgECOHF++nY=;
-	b=B2BzQW+lYFUinCX4n4rKQrOEAQpBqdD/tQx8PXukxA4IuSGtxP9Wc7IfIxsNteYTZv/B
-	 e+i5EtdU4rXXu7XQ2AgKoM7xdRXhJIeLbR8qF2GHIeouGuMVqrEPKQFpdKu3yTbrY+QrN
-	 uMO4xokxLWpi7Z0ZSFob48xMsdoZ5uN0pfOIg3we0aa4a0Y9wFQRxR9U7H50iQ3fQU96/
-	 gzypxtmMYyvSsZjCns4yZW2clFY4sz0R1i3sa7BYRiDNFEAsGDpbofas6X4DB0fLT0ARu
-	 m2lQmhoyaT2q8GFyCpkaUxjT9sQa8RhYhWs6BNEtGr20R2pI/5VIkHQ/LsLwg8kD39g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=tipi-net.de;
-	spf=pass smtp.mailfrom=tipi-net.de;
-	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=UL6hyKPi;
-	arc=none smtp.remote-ip=194.13.80.246
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794229117;
+	b=1/a3eJzLQTIyiOqvO/NpPh4iEHH1rAbEvB1jvy8vJ8tL1BUrhn50/62UEnKN9UCH14up
+	 LSkPwhTB/PuYMvS+NJsPkAzjS3/a4Rg3mJfaEtaDN3J9Liz9eaV2PTbHTifUDfGR3+zeD
+	 SGWvlEommDKcdcJiwRjFs2iTQ+HhKVhNoS0a4/CIZwnteP9ZOX6L/U+/Js8vzqdI8uPVl
+	 L1PWpbHXQogkLIbeuQQVc9CWNvIZZ37FoUkm22+/mfvqA25KP2d7fy/yp9ajls/0iMgIW
+	 X1lO76XcolWl241fNsddVDvSkC25oszlMxM+icP36qcmjh+N87vaq35UuaMdnAbw1/A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794229117;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=q75vlc6esDYIJIWoOj2faBZYA7/uN4xpfj3g+F9w3P4=;
+	b=IDq2QfEaKz+df6wyxEvfdem8U9q2CQqb0yjmMMQFTf2DgGCcihuj+VhdnA6SbIvPXr8f
+	 Ok+MRydMK9PdE0ny6J1Cemn/x4urUQd0tdjd0NodfPvwfFBl3zxgu0vy/UUDPRfu5u+XW
+	 NBfB4rLJQyDE0OKRn7NOi/vc6xcu26PQzlXoyX0ReIrTbH3ojixpxEK+MqXcdqFQFHNgx
+	 GtNWdhsPnXfXG7K3cYg25QXsd2975mLeQl/4qPXZCmjfaAvg1aPTrh7MDWZXEqAhdiaOb
+	 bvNBnuV+5MNJlDJTnrEzxPAK3iL5nV/peud+cW2+MNmfbIkyOvRO7HDFUIYt+ghVV0g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b="GKbwP+Y/";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69B56606A325;
-	Mon,  9 Nov 2026 12:58:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69B56606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92707606A339;
+	Mon,  9 Nov 2026 12:58:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92707606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=UL6hyKPi
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7EA97A12EB;
-	Mon, 09 Nov 2026 13:58:24 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1794229105; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=n3PkCkDPnKV8p/iqmyGp7B/JsDJVTkvtOgECOHF++nY=;
-	b=UL6hyKPiXBLAdPxwsOTZLOI6bcNx5FnnF/GkvaOIBEn9Gx77MlqBJ2FMguorUAFwzSdPHJ
-	7YCKZ2GAPnl7efJJ7CNEH4rEwfu20aqdI126Pb7ljO5FNnoa17hoT9RR14sF90BF1K2xq/
-	1h/XR0U9ZySB3aNkOnF0+7DlLucTT7EzlZn6ul974/UwiZniGMIukXns4O/TlraGvczqGJ
-	dwW2z0zKcADfJkKB7Xws9mcu3nyKpfiskvH2YWYhkuBfvLbdvp8RVeXB0RJTskuidQfLy/
-	s4AJQsKTfagt+XlNzcVnI7+Jt3awC714Kf5jF0+XInmTa2TFFKhqUOahZKhc/A==
-From: Nicolai Buchwitz <nb@tipi-net.de>
-Date: Mon, 09 Nov 2026 13:58:22 +0100
-Subject: [PATCH 7.3.y] net: macb: wait for a running xmit before resetting
- BQL on close
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=GKbwP+Y/
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 6CCE42008BB;
+	Mon, 09 Nov 2026 13:58:33 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794229113;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=q75vlc6esDYIJIWoOj2faBZYA7/uN4xpfj3g+F9w3P4=;
+	b=GKbwP+Y/AVGQSp2OgvmywE4GBeChAMvC7uU53ZKAe2uf6VjA/MwL4bwJ7SBd2tQ+XM5+Nc
+	MTnFWdE8zemEtnMBlQwZUQTuYSztC2EsoL6EJOcScexRhrJfzpt3mR68vxnjo6JX3fhGdS
+	GfG9ov99vlKNTD/XM7jP+tcIpe0cP41rV4YEG1fgNGpcUUcTt+HUQp01B06FCC7i7idcCF
+	loYqDwGtA+sO4vV0Pw4Bygr0KLSubvORmzWp8Y6djhglX3BI6WnJfHQC/agaHNHkmRfuRm
+	ZxCCtJZdQjQVC9SFpvG/O2Nv6iX/PbnIlJ+nwFmGifLM7JtbSdv9m5lUU0Pm/w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794229113;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=q75vlc6esDYIJIWoOj2faBZYA7/uN4xpfj3g+F9w3P4=;
+	b=XgkT7RpSqAQXgWgtEUjwPCBC3FJOdXy8Rct4sYkITDXTeQkEUva3R7AZR4zc+d/x9rWomL
+	a4g8x9tpXL2WaN6KurTEInyEbkkzpelimSIc/IORT3P2OMgXa4GE0/0OKucsp6NGf9eK2D
+	r7lo6RqC11FwfUljrU47+qx9tjbDMSBI3uq05T3SoOXRXaTvKQ7jDNtCfCxakl0HLSdpQr
+	bA2fxI9z9jbz24gqd6Du63Rw7PgzVzdHPl3uvewYdklBIP8yteHxm5Tqay3/5wvdCMqJwd
+	ttK8JB+Rz+AcJhsh4i6gnjf1V6sphDyvsZ+zkcc330ftPe5/6sfV+iwiowIpUw==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794229113; a=rsa-sha256;
+	cv=none;
+	b=eAYoNj7QD+WWlAcTPPDQPlPMP29u6X8F2uFe36FSs3zFJvbl0G0sb2t7+vSAovGZTMb1Rj
+	lGgwkg+fFdIaNmp8C6F6H6u+frDaluvPLyMOgEUXyKujg+X7bARULWX16A+Z71oriPavXP
+	tUg9fKcIpnnKBcPSLyYOdHO6NpriWBPjoZA0AV9AUxIp2RO1XfouDjvnA4Km0CQ3pAN6AJ
+	PlL1vI98dtWxu4cY9q2bQxRML3pkuWH6tWuuVK4JqEgQTS7X6rdGeBHq9uVHOlPoTK8+XB
+	7VshG3LdBKP+STdBBKP47TvWnQ7DPXQhHymFbhwB6/eENROzOG/AfeT3APPpsw==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1xQOxF-003LRW-12;
+	Mon, 09 Nov 2026 13:58:33 +0100
+Received: from pengutronix.de (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id 075125E54C2;
+	Mon, 09 Nov 2026 12:58:32 +0000 (UTC)
+Date: Mon, 9 Nov 2026 13:58:32 +0100
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: Vadim Fedorenko <vadim.fedorenko@linux.dev>
+Cc: Vincent Mailhol <mailhol@kernel.org>, Peter Fink <pfink@christ-es.de>, 
+	Eric Evenchick <eric@evenchick.com>, Maximilian Schneider <max@schneidersoft.net>, 
+	Wolfgang Grandegger <wg@grandegger.com>, kernel@pengutronix.de, linux-can@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Shuangpeng Bai <shuangpeng.kernel@gmail.com>, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH can-next v5 6/6] can: gs_usb: fix hardware timestamp
+ state for mixed channels
+Message-ID: <20261109-singing-lyrebird-of-bloom-ed3c85-mkl@pengutronix.de>
+References: <20261108-gs_usb-fixes-v5-0-d52dd4940d46@pengutronix.de>
+ <20261108-gs_usb-fixes-v5-6-d52dd4940d46@pengutronix.de>
+ <b2c7d556-a6f2-4b3c-b141-49c3b558da87@linux.dev>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -56,81 +105,106 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261109-nb-macb-close-7-3-y-v1-1-5c506e2077fd@tipi-net.de>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQ6CMBAAv0L27JJuGyH4FeOhLQuskWK6aiSEv
- 1v1OJPMbKCchRVO1QaZX6KypAJ0qCBOPo2M0hcGa2xDZDpMAWcfA8bboowtOlyRvOntYByFYwO
- lvGce5P27nqGtXb3C5a/1Ga4cH98j7PsHFIwA9X4AAAA=
-X-Change-ID: 20261109-nb-macb-close-7-3-y-1a0d2f031b56
-To: stable@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Sasha Levin <sashal@kernel.org>, Russell King <linux@armlinux.org.uk>
-Cc: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>, 
- Conor Dooley <conor.dooley@microchip.com>, 
- Nicolas Ferre <nicolas.ferre@microchip.com>, 
- Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Sean Anderson <sean.anderson@linux.dev>, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Nicolai Buchwitz <nb@tipi-net.de>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="hk7cwk4ko7grop4m"
+Content-Disposition: inline
+In-Reply-To: <b2c7d556-a6f2-4b3c-b141-49c3b558da87@linux.dev>
 
-macb_close() stops the queues without waiting for an xmit still
-running on another CPU. That frame charges BQL after the reset and
-never completes, so after the reopen the queue stays stopped with an
-empty ring and the watchdog fires until the next close.
 
-Seen on a Raspberry Pi CM5 with ethtool -G under load.
+--hk7cwk4ko7grop4m
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH can-next v5 6/6] can: gs_usb: fix hardware timestamp
+ state for mixed channels
+MIME-Version: 1.0
 
-Upstream fixed this as part of the context swap rework in commit
-dcc3288b9433a ("net: macb: use context swapping in .set_ringparam()"),
-which is too large for stable.
+On 09.11.2026 12:40:14, Vadim Fedorenko wrote:
+> > diff --git a/drivers/net/can/usb/gs_usb.c b/drivers/net/can/usb/gs_usb.c
+> > index 6327069f63c9..0a1cd14c940c 100644
+> > --- a/drivers/net/can/usb/gs_usb.c
+> > +++ b/drivers/net/can/usb/gs_usb.c
+> > @@ -337,6 +337,7 @@ struct gs_usb {
+> >   	unsigned int hf_size_rx;
+> >   	u8 active_channels;
+> > +	u8 active_timestamp_channels;
+> >   	u8 channel_cnt;
+> >   	unsigned int pipe_in;
+> > @@ -481,18 +482,35 @@ static void gs_usb_timestamp_init(struct gs_usb *=
+parent)
+> >   	cc->mult =3D clocksource_hz2mult(GS_USB_TIMESTAMP_TIMER_HZ, cc->shif=
+t);
+> >   	spin_lock_init(&parent->tc_lock);
+> > -	spin_lock_bh(&parent->tc_lock);
+> > -	timecounter_init(&parent->tc, &parent->cc, ktime_get_real_ns());
+> > -	spin_unlock_bh(&parent->tc_lock);
+> >   	INIT_DELAYED_WORK(&parent->timestamp, gs_usb_timestamp_work);
+> > +	disable_delayed_work(&parent->timestamp);
+> > +}
+> > +
+> > +static void gs_usb_timestamp_start(struct gs_usb *parent)
+> > +{
+> > +	scoped_guard(spinlock_bh, &parent->tc_lock) {
+> > +		parent->active_timestamp_channels++;
+> > +		if (parent->active_timestamp_channels > 1)
+> > +			return;
+> > +
+> > +		timecounter_init(&parent->tc, &parent->cc, ktime_get_real_ns());
+> > +	}
+> > +
+> > +	enable_delayed_work(&parent->timestamp);
+> >   	schedule_delayed_work(&parent->timestamp,
+> >   			      GS_USB_TIMESTAMP_WORK_DELAY_SEC * HZ);
+> >   }
+> >   static void gs_usb_timestamp_stop(struct gs_usb *parent)
+> >   {
+> > -	cancel_delayed_work_sync(&parent->timestamp);
+> > +	scoped_guard(spinlock_bh, &parent->tc_lock) {
+> > +		parent->active_timestamp_channels--;
+> > +		if (parent->active_timestamp_channels > 0)
+> > +			return;
+> > +	}
+> > +
+> > +	disable_delayed_work_sync(&parent->timestamp);
+> >   }
+>
+> That's quite defensive code. You have both disable/enable delayed_work
+> and active_timestamp_channels counter just to be sure to schedule
+> timestamp worker only once.
 
-Fixes: e6a532185daa ("net: cadence: macb: Implement BQL")
-Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
----
-Fixes a close race in 6.18.y and 7.3.y. Older LTS kernels have no BQL
-in macb and 7.4 has the fix through Théo's context swap series, so let's
-keep the fix small instead of pulling that whole series in.
+disable is needed to stop the worker from self-scheduling.
 
-The stall was observed on a Raspberry Pi CM5 (2/30 close/open cycles under
-load stalled), so it is worth fixing.
----
- drivers/net/ethernet/cadence/macb_main.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+Sadly workers only support multiple levels of disable, but not of
+enable. So we have use active_timestamp_channels, too.
 
-diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-index 261a7e87520a4..9b3008b888bc4 100644
---- a/drivers/net/ethernet/cadence/macb_main.c
-+++ b/drivers/net/ethernet/cadence/macb_main.c
-@@ -3236,14 +3236,16 @@ static int macb_close(struct net_device *netdev)
- 	unsigned long flags;
- 	unsigned int q;
- 
--	netif_tx_stop_all_queues(netdev);
--
- 	for (q = 0, queue = bp->queues; q < bp->num_queues; ++q, ++queue) {
- 		napi_disable(&queue->napi_rx);
- 		napi_disable(&queue->napi_tx);
--		netdev_tx_reset_queue(netdev_get_tx_queue(netdev, q));
- 	}
- 
-+	netif_tx_disable(netdev);
-+
-+	for (q = 0; q < bp->num_queues; ++q)
-+		netdev_tx_reset_queue(netdev_get_tx_queue(netdev, q));
-+
- 	cancel_delayed_work_sync(&bp->tx_lpi_work);
- 
- 	phylink_stop(bp->phylink);
+> Just wonder cannot we keep this worker running regardless of channels?
 
----
-base-commit: d50d994bffa3c7c6db2d8bc4c5f0c55e3f46b0cd
-change-id: 20261109-nb-macb-close-7-3-y-1a0d2f031b56
+For proper power management (on the Linux and on the =C2=B5C side) I don't
+want to keep it running if the interface is down.
 
-Best regards,
---  
-Nicolai Buchwitz <nb@tipi-net.de>
+There are also (more or less) gs_usb compatible devices which implement
+(more or less) independent USB interfaces. All of those interfaces have
+a common clock, so I want to share the HW timestamp infrastructure
+between them.
 
+regards,
+Marc
+
+--=20
+Pengutronix e.K.                 | Marc Kleine-Budde          |
+Embedded Linux                   | https://www.pengutronix.de |
+Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
+Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
+
+--hk7cwk4ko7grop4m
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCavHDdgAKCRDMOmT6rpmt
+0hFjAP92TkKVnrL3ILSGScPGwz183HyjTpO6DV0QrU8iM/0xswD9HSpuIbYwSUxl
+A9qyzKqP7wTPlfE+SWkH6NRuqbyJNwc=
+=eEax
+-----END PGP SIGNATURE-----
+
+--hk7cwk4ko7grop4m--
