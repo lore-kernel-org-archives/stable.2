@@ -1,75 +1,76 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794213488;
-	b=WS0oefYsFU1jVwjTjV1heKf/OyAhdzVi5hp2gszSX6hZt+ofZflYBVwmrv5FJsPDCWF8
-	 y4ZNatZggcbs/uVLKPsS4lNoDd21xDT4jKcXYd9mVZ1RVMMRsH59G1e3DNc0Iv2L+xbI5
-	 dB0ckCISogoQXdFwTv/wqJoF6B6cH5851iukoEhEIlADKlkf8L4PdhMHIih7sFNetWT1I
-	 H5Iza6hG6XEsdwpPNU0MjSNV/OxRZdZxMC4z8UFSrJG3KV9V+OMpdlzITLi7i/3mAXC3v
-	 k81CDoYl8A96Nr1WvZQl5SG3W9fvwiLYzH7Fz+FcJGtnOI692Hdd8sce7w2PLknHNLw==
+	t=1794213496;
+	b=Zz11dC1Q7clbl3yRpbDTDRrUdtH0NTgO3EcjD4xfQZQHkIMsOxS5/HTJcvl1s/xg2TBE
+	 Kw+IIMN+WWAeoTjn2A6pWNqCrW53vpEhD3qvoOM0c92yvkuPXTXOXBkLGaHbh1Y+ILYSi
+	 DPpKSEubS3ZONyUdZc06o/Db5zUwpQM3sPNXLM8MI+UxlUn3JeOxaR4rl8la6RXLp+pdt
+	 qCideLWFgWreHwQAwyva7L3Iq4swMlo1CeFVyOnG+B9UvkBx9YrMHNY632zp467NqcdKE
+	 B2/D10cw8Y5wWan+9Z7MjFgGn25NM1qjEO4LtaC5VYZOfQ2NVyXRxPCJkMEUI/TqSwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794213488;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794213496;
 	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
 	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
 	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=DexF6N5HtJTlHyuSYF0/pzcFrVMrsZPBvnJHzEWC4Vs=;
-	b=l/Fgfi6m/S9dKnzffUYRolOhl6GETH4vDFikYrNQRfFh4JMouMHj+Z5OPYFOfnB71w7c
-	 sJoQmbVDlrarWuCeuxTSGh8QHuBV41PrFfvVekOpfQgMnv9PdtbflVKouucnKlmTKBZce
-	 6a+v6f51FGDAjB5jM9aO+H8D9NYcSrBY5k5gA13/lwFtcggJ/W+S0CnqgIkLmJEclMBK4
-	 +Nm3oEHrNcsdM+mLztIped6dve4neimw8RhzsH2WUBIsjuDzpkQdnB29XqX//Bok/+BrJ
-	 zKfR+zYacYhT9HxYhV0dXnzAPdD3tjuIvhOT51NHs4TD3ML7XB/6U2ox2aPQfu9NwTA==
+	bh=O0s5Y7/ofYpglePzVzvQEZQKQGmvpeMT5X+6lVvxlw4=;
+	b=rbeAM5krb1CiDK+qehkGyG7Bu/TBeTzVxNVVcShh7x4f+F/jgrua266Icqh0zaQXouiS
+	 2aBLu3cP+2zHQT3jrtVrbI2AVP2uLOz5QMOLQrO23g/0xNdE2noMyKCgQxByXiTRGAJ8g
+	 aff6/iQ261UFSIC/qdW+ZNVmQMGfcTReUSc1iZFbqx/XWNHEYgrY5OHRcMLDmED0DiGen
+	 32Xs80BoEAuQPeZfCMl3BOklrb0310WriMkodWcaHD0a+HDFCN5wztdzJQZY3c8vFQ3Cd
+	 YNShxtNQnJ4w01fUl3gvsgD0mtwZucKJpNzkG7PZVFXTzB/v/N4mpPIUEprCYK1wlbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linutronix.de;
 	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=GNvtUzNH;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=esdTI3ce;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b="NPYbj1X/";
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b="Ea/yb275";
 	arc=none smtp.remote-ip=193.142.43.55
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C368606EE8F;
-	Mon,  9 Nov 2026 08:38:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C368606EE8F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98A38606A330;
+	Mon,  9 Nov 2026 08:38:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98A38606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=GNvtUzNH;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=esdTI3ce
-Date: Mon, 09 Nov 2026 08:38:04 -0000
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=NPYbj1X/;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=Ea/yb275
+Date: Mon, 09 Nov 2026 08:38:11 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794213486;
+	s=2020; t=1794213494;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=DexF6N5HtJTlHyuSYF0/pzcFrVMrsZPBvnJHzEWC4Vs=;
-	b=GNvtUzNH4g5F4BkYeCJtsDTtmIqleAsPz8wZuc5xrd2LT4d4Qz3Nuy5ojm9BOqN5mC7cr+
-	l70uH+RHJnUQijvsGDimSUiEkZFVvmeHERSqcsO+BGWFqrAJ+49nKqUoBp8+BHbpn8ZVv6
-	/VMSY11k3MJQHsmg6xZVTNcCpnJftqdAqvHpb4yTNR9BcEsqQDoo8IbqnYVeeqWiRli9Nw
-	VxgJlIS9zxAluBhPf5hBuMMBqcjVVqJdqEYsOyiN5iDe8CegZVMzKLhO8JPVfsIOtIeY4q
-	OlQPNrw9K5NNU1EkjLan9uzOk3doyV4N6YU+2l+6OB93vs7A1PBTaX21wOBqog==
+	bh=O0s5Y7/ofYpglePzVzvQEZQKQGmvpeMT5X+6lVvxlw4=;
+	b=NPYbj1X/3vM3OvsFmRNm0i0xKVXQ16DgPEN4/DrEnPDJZnj8WYjWGMxie9opd11t1xs+RV
+	Wrk1PetUDKl3yZA4FDA1L6U7NTX34/uPdFWEukajyGX51xpbuW/eITHNQEG9X/A7AcN5t9
+	lfIosr7e1Yyn/nkeMl+/wQAbwIbwtXfNV4sFVePw7vQ/FrC6cxetEoE8XnjqhEXi9AI/gb
+	nAoXrC2ZBqc552anrBQuKLlmqLfT79shjOo1SUlPRw2zuT5m6MNA4G/5TdPXA6cpEhl9P0
+	vYW0lJuw3PnZc0uYjornlxIpZu4dr2hfrMthDhydkmIQNHVO9Doz7bj9EH++TQ==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794213486;
+	s=2020e; t=1794213494;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=DexF6N5HtJTlHyuSYF0/pzcFrVMrsZPBvnJHzEWC4Vs=;
-	b=esdTI3cebGNn7iA7zr/abi+nZikY1tzKupuA3/c1q70clXbAVEAMyglpSjtg1NVPbaupjC
-	ysNvb+9D1RfRfYCA==
-From: "tip-bot2 for Paolo Bertinetti" <tip-bot2@linutronix.de>
+	bh=O0s5Y7/ofYpglePzVzvQEZQKQGmvpeMT5X+6lVvxlw4=;
+	b=Ea/yb275A17L35iBGsgOqMc+3WOUI/wt1sjvX42VoDRCoh7EKJoHx1QAN8OPMJxW+vmv0e
+	QGW+jTr21bOhkVDA==
+From: "tip-bot2 for Seiji Nishikawa" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
-Subject: [tip: perf/urgent] tracing/perf: Clear stop state in perf_trace_add()
-Cc: Francesco Nigro <nigro.fra@gmail.com>,
- Paolo Bertinetti <paolobertinetti200f4@proton.me>,
+Subject: [tip: sched/urgent] sched/core: Do not touch SMT siblings that have
+ not joined the core yet
+Cc: syzbot+681e729b2cf0d4860042@syzkaller.appspotmail.com,
+ Seiji Nishikawa <snishika@redhat.com>,
  "Peter Zijlstra (Intel)" <peterz@infradead.org>, stable@vger.kernel.org,
  x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261103130732.764081-2-paolobertinetti200f4@proton.me>
-References: <20261103130732.764081-2-paolobertinetti200f4@proton.me>
+In-Reply-To: <20261104022004.3810619-1-snishika@redhat.com>
+References: <20261104022004.3810619-1-snishika@redhat.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -79,7 +80,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179421348457.2093942.5595845354188628427.tip-bot2@tip-bot2>
+Message-ID: <179421349199.2093942.11307110206851251116.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -87,63 +88,182 @@ Precedence: bulk
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 
-The following commit has been merged into the perf/urgent branch of tip:
+The following commit has been merged into the sched/urgent branch of tip:
 
-Commit-ID:     fb3f6b21b04f1e8b8982e90e9bf62db9f0dcb5e4
-Gitweb:        https://git.kernel.org/tip/fb3f6b21b04f1e8b8982e90e9bf62db9f0d=
-cb5e4
-Author:        Paolo Bertinetti <paolobertinetti200f4@proton.me>
-AuthorDate:    Tue, 03 Nov 2026 13:07:48=20
+Commit-ID:     bfee16fd01d4d5c3352a050f560a5ff05a277956
+Gitweb:        https://git.kernel.org/tip/bfee16fd01d4d5c3352a050f560a5ff05a2=
+77956
+Author:        Seiji Nishikawa <snishika@redhat.com>
+AuthorDate:    Wed, 04 Nov 2026 11:20:04 +09:00
 Committer:     Peter Zijlstra <peterz@infradead.org>
-CommitterDate: Fri, 06 Nov 2026 11:45:14 +01:00
+CommitterDate: Fri, 06 Nov 2026 11:45:18 +01:00
 
-tracing/perf: Clear stop state in perf_trace_add()
+sched/core: Do not touch SMT siblings that have not joined the core yet
 
-Since commit 18dbcbfabfff ("perf: Fix the POLL_HUP delivery breakage"),
-__perf_event_overflow() stops the event with pmu->stop() and disables
-it when the PERF_EVENT_IOC_REFRESH limit is reached. When userspace
-re-arms the event with PERF_EVENT_IOC_REFRESH, the event is enabled
-again and pmu->add() is called with PERF_EF_START.
+When a CPU comes online, it is added to cpu_smt_mask() of its siblings
+before sched_core_cpu_starting() sets its rq->core to the core leader.
+For example, on x86, ap_starting() calls set_cpu_sibling_map() first,
+and calls notify_cpu_starting() after that. This order is intended.
 
-perf_trace_add() sets PERF_HES_STOPPED when PERF_EF_START is missing,
-but never clears it. The flag set by pmu->stop() stays, and
-perf_tp_event_match() drops every later hit. A tracepoint, kprobe or
-uprobe event re-armed this way delivers only its first overflow. This
-breaks self-profilers such as async-profiler, and the "Event re-armed
-with PERF_EVENT_IOC_REFRESH" perf test fails:
+Before sched_core_cpu_starting() runs, rq->core of the new CPU still
+points to its own rq. But rq->core_enabled of the new CPU is already
+set. __sched_core_flip() sets it for all possible CPUs, also for
+offline CPUs, and CPU offline does not clear it. So __rq_lockp() of the
+new CPU returns its own rq->__lock. It does not return the core wide
+lock.
 
-  1000 events, count 1, 1 overflows (1 POLL_HUP), re-arm errno 0
-  Tracepoint event : FAILED!
+If a sibling CPU runs pick_next_task() for SCHED_CORE at this time, it
+checks all CPUs in cpu_smt_mask(). It calls update_rq_clock() and
+pick_task() for the rq of the new CPU. But it holds only its own core
+lock, not the lock of the new CPU. Then lockdep shows this warning in
+update_rq_clock().
 
-Set the state from PERF_EF_START on every add, as perf_swevent_add()
-does.
+  debug_locks && !(lock_is_held(&(__rq_lockp(rq))->dep_map) !=3D 0)
+  WARNING: kernel/sched/sched.h:1666 at update_rq_clock+0x40a/0xd20 kernel/sc=
+hed/core.c:875, CPU#0: syz-executor251/5712
+  Call Trace:
+   <TASK>
+   pick_next_task kernel/sched/core.c:6375 [inline]
+   __schedule+0x1c69/0x6920 kernel/sched/core.c:7199
+   preempt_schedule_irq+0x4e/0x90 kernel/sched/core.c:7606
 
-Fixes: 18dbcbfabfff ("perf: Fix the POLL_HUP delivery breakage")
-Closes: https://lore.kernel.org/r/20261021131006.2101248-1-nigro.fra@gmail.co=
-m/
-Reported-by: Francesco Nigro <nigro.fra@gmail.com>
-Assisted-by: LLM
-Signed-off-by: Paolo Bertinetti <paolobertinetti200f4@proton.me>
+The next loops in pick_next_task() also change rq_i->core_pick of this
+rq, and can call resched_curr() for it, without its lock.
+resched_curr() has the same lockdep_assert_rq_held() check.
+__sched_core_account_forceidle() also checks all CPUs in the same mask.
+
+CPU offline does not have this problem. remove_siblinginfo() and
+sched_core_cpu_dying() both run in take_cpu_down() under stop_machine.
+So no sibling CPU can be in pick_next_task() at that time.
+
+Fix this. In these loops, skip a sibling CPU if its rq->core is
+different from our rq->core. At run time, rq->core of a CPU is changed
+by sched_core_cpu_starting(), sched_core_cpu_deactivate() and
+sched_core_cpu_dying(). The first two hold sched_core_lock(), and
+sched_core_lock() takes the rq locks of all CPUs in the SMT mask. The
+last one runs under stop_machine, as written above. So while we hold
+our core lock, the result of this check does not change. A CPU that is
+not in the core yet will pick its own tasks. The comment in the
+reschedule loop of pick_next_task() already expects this case.
+
+I tested this with the syzbot C reproducer in QEMU. The two vCPUs were
+SMT siblings (-smp 2,sockets=3D1,cores=3D1,threads=3D2). Without this patch,
+the warning came after about 100 seconds. Just before the warning, a
+debug print showed that the loop on CPU 0 saw CPU 1 with rq->core
+pointing to CPU 1 itself, and cpu_online() was false for CPU 1. With
+this patch, the same state still happened, but there was no warning
+in more than 2 hours.
+
+Fixes: 3c474b3239f1 ("sched: Fix Core-wide rq->lock for uninitialized CPUs")
+Closes: https://syzkaller.appspot.com/bug?extid=3D681e729b2cf0d4860042
+Reported-by: syzbot+681e729b2cf0d4860042@syzkaller.appspotmail.com
+Signed-off-by: Seiji Nishikawa <snishika@redhat.com>
 Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Link: https://github.com/async-profiler/async-profiler/issues/1813
+Link: https://patch.msgid.link/20261104022004.3810619-1-snishika@redhat.com
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261103130732.764081-2-paolobertinetti200f4@p=
-roton.me
 ---
- kernel/trace/trace_event_perf.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ kernel/sched/core.c       |  9 +++------
+ kernel/sched/core_sched.c |  3 +--
+ kernel/sched/sched.h      | 19 +++++++++++++++++++
+ 3 files changed, 23 insertions(+), 8 deletions(-)
 
-diff --git a/kernel/trace/trace_event_perf.c b/kernel/trace/trace_event_perf.c
-index 5b27285..a549897 100644
---- a/kernel/trace/trace_event_perf.c
-+++ b/kernel/trace/trace_event_perf.c
-@@ -354,8 +354,7 @@ int perf_trace_add(struct perf_event *p_event, int flags)
- 	struct trace_event_call *tp_event =3D p_event->tp_event;
- 	struct hw_perf_event *hwc =3D &p_event->hw;
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index 1a088d4..5ed660f 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -6297,7 +6297,6 @@ pick_next_task(struct rq *rq, struct rq_flags *rf)
+ 	__must_hold(__rq_lockp(rq))
+ {
+ 	struct task_struct *next, *p, *max;
+-	const struct cpumask *smt_mask;
+ 	bool fi_before =3D false;
+ 	bool core_clock_updated =3D (rq =3D=3D rq->core);
+ 	unsigned long cookie;
+@@ -6344,8 +6343,6 @@ pick_next_task(struct rq *rq, struct rq_flags *rf)
 =20
--	if (!(flags & PERF_EF_START))
--		p_event->hw.state =3D PERF_HES_STOPPED;
-+	hwc->state =3D (flags & PERF_EF_START) ? 0 : PERF_HES_STOPPED;
+ 	prev_balance(rq, rf);
 =20
- 	if (is_sampling_event(p_event)) {
- 		hwc->last_period =3D hwc->sample_period;
+-	smt_mask =3D cpu_smt_mask(cpu);
+-
+ restart:
+ 	need_sync |=3D !!rq->core->core_cookie;
+=20
+@@ -6413,7 +6410,7 @@ restart:
+ 	 * Tie-break prio towards the current CPU
+ 	 */
+ 	max =3D NULL;
+-	for_each_cpu_wrap(i, smt_mask, cpu) {
++	for_each_core_cpu_wrap(i, rq) {
+ 		rq_i =3D cpu_rq(i);
+=20
+ 		/*
+@@ -6446,7 +6443,7 @@ restart:
+ 	 * For each thread: try and find a runnable task that matches @max or
+ 	 * force idle.
+ 	 */
+-	for_each_cpu(i, smt_mask) {
++	for_each_core_cpu(i, rq) {
+ 		rq_i =3D cpu_rq(i);
+ 		p =3D rq_i->core_pick;
+=20
+@@ -6491,7 +6488,7 @@ restart:
+ 	 * their task. This ensures there is no inter-sibling overlap between
+ 	 * non-matching user state.
+ 	 */
+-	for_each_cpu(i, smt_mask) {
++	for_each_core_cpu(i, rq) {
+ 		rq_i =3D cpu_rq(i);
+=20
+ 		/*
+diff --git a/kernel/sched/core_sched.c b/kernel/sched/core_sched.c
+index 43e0bde..d56be1c 100644
+--- a/kernel/sched/core_sched.c
++++ b/kernel/sched/core_sched.c
+@@ -241,7 +241,6 @@ out:
+ /* REQUIRES: rq->core's clock recently updated. */
+ void __sched_core_account_forceidle(struct rq *rq)
+ {
+-	const struct cpumask *smt_mask =3D cpu_smt_mask(cpu_of(rq));
+ 	u64 delta, now =3D rq_clock(rq->core);
+ 	struct rq *rq_i;
+ 	struct task_struct *p;
+@@ -273,7 +272,7 @@ void __sched_core_account_forceidle(struct rq *rq)
+ 		delta =3D div_u64(delta, rq->core->core_forceidle_occupation);
+ 	}
+=20
+-	for_each_cpu(i, smt_mask) {
++	for_each_core_cpu(i, rq) {
+ 		rq_i =3D cpu_rq(i);
+ 		p =3D rq_i->core_pick ?: rq_i->curr;
+=20
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index 1d76950..92134ce 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -1534,6 +1534,25 @@ static inline raw_spinlock_t *__rq_lockp(struct rq *rq)
+ 	return &rq->__lock;
+ }
+=20
++/*
++ * A CPU coming online is set in cpu_smt_mask() before
++ * sched_core_cpu_starting() links its rq->core to the core leader.
++ * Until then it does not share the core-wide lock, so it must not be
++ * touched as part of the core.
++ */
++static inline bool sched_core_sibling(struct rq *rq, struct rq *rq_i)
++{
++	return rq_i->core =3D=3D rq->core;
++}
++
++#define for_each_core_cpu(i, rq) \
++	for_each_cpu(i, cpu_smt_mask(rq->cpu)) \
++		if (sched_core_sibling(rq, cpu_rq(i)))
++
++#define for_each_core_cpu_wrap(i, rq) \
++	for_each_cpu_wrap(i, cpu_smt_mask(rq->cpu), rq->cpu) \
++		if (sched_core_sibling(rq, cpu_rq(i)))
++
+ extern bool
+ cfs_prio_less(const struct task_struct *a, const struct task_struct *b, bool=
+ fi);
+=20
