@@ -1,57 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794184495;
-	b=vKPVht8eHGbUQe/sOd1bJbjvtCGJCdYLLz2ta1ldulMS5vladOBRSdgLd9gvnFtaZgFH
-	 HDpMuvAqOLHBdneReFnjGBRHTsjpXvJvi/W92u+k/kT3Un7fqiI7pzozYTknOgK+sZRcf
-	 rZhL07aHluAhtrcWcTRx3nNfyDzn3WncfBli/nzjIWYlbsy/i338FonweLqep908+EQlq
-	 BAsgaC4T/+MPMH9oStNLTBPLL+zyYe3ooS5hskp5nUfC2KOV1t1rOQQIGztOAO4+07TYd
-	 LWts/CF9y2CSNB2kCWQcO9S3rH7/fzFc+fXIZvPXfZsCBfWLeqgzKYzOQNLc+eQOZ+A==
+	t=1794184492;
+	b=r4wtPf0QmST3Jcxl1y2ATAFmYN3HrFx39Etkrlef/AB8OTvy1V2EkZ9w7kjzdXc7FDis
+	 ru5SMLQF+3TwlzLUQXNP+spQltLIFrES/eiiOA4B6tZyUuW3+xgUAw/rmdDzRmW5jjLIg
+	 U/OzS/k5lrX4EYsry3Bp40UfrS8HXIIQqSmgpUn7bi109CqCk4c+ESmBkJfcIafaTqRbm
+	 jsUxnemNI9z/QqDtzKm+wb4JN+XfXJSDjfW8i5GtdXUpgJxMf+uX52vfUNfPMyoB+beti
+	 tfdTiFK9RaoyEaZxZjo4Vlw8YVGGsiuwBjhtmf/2DoP+k3cuLpboKgaQr8FDOPu63PA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794184495;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794184492;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Fzi1sBVhAZ2SvyIrd2jzBsCWolwB251QpONkbZrY9JA=;
-	b=BgCBDOP2IzEIQuXRxQHIdDTA4ucR4pjlZ2QqHUV3kCS4HXZM9ny79sCqhvzGi8DEvgHy
-	 znL6VGiROEUCXhWVnJv5eQsb/f9E1I81CLk9+uckKasxRlVRD63y1jWc2AplryqU3qCKP
-	 dgqymzh8CjTVNcy3TGaiij1on0Y4oUGTmZAK/YnWs8DMKwmpRdlX43Ux1qmUSx+ybswdo
-	 O3o0Mb2j8SpCxpvJqnIToBr59rOKPNbAt0EiuOWcwGeuRxlBXaDMChJ/UA/je22GeuHFd
-	 dSp81xUX9oDyzme2YN+G+H9+qa6ZvMAOqFnQ3J0gvS+VQQl3uvK6sEK6dgRz77Pm57g==
+	bh=7OCudfXEDg6cig4yHI+UL63p9GsP6rZU26NzHz6BN+I=;
+	b=XtA6lQbUnK6yBVYSz/Iwm1JVB+X6pn0ePtEnNOOxSBGxpawWPOcdgqA3NxNqtKG5MjDe
+	 oqKJDekzwXtjIV4ww6qfcwb7HeqXlsZOX7Hj3ZxM6SLkLsUhc+vd0lYnyI0G4zf2j81uR
+	 IJBzurDqKwx0MM/zUmLSKuh3NNM0zx8Ht4g9dZvebrPJgGPFy3CFf0e8MExZyEWV3kC90
+	 ongenilGj1snUVD8RgtIrEoDxj83x3d2SJStdoyMi1viCjuf6SDlTUbEYTKXDFd+nLf5+
+	 ald8CPxBjAeYgFPtZU2w9Y5cPqRINQPCOKWraGbgotKx+OtOYezhtUuLDBVN0icIZrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WCZ8e7ii;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ebr0IUwg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F22C60A383B
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 00:34:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A068A6082BE2;
+	Mon,  9 Nov 2026 00:34:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WCZ8e7ii
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4215E1F00929;
-	Mon,  9 Nov 2026 00:34:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ebr0IUwg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00B7F1F008A3;
+	Mon,  9 Nov 2026 00:34:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794184494;
-	bh=Fzi1sBVhAZ2SvyIrd2jzBsCWolwB251QpONkbZrY9JA=;
+	s=k20260515; t=1794184492;
+	bh=7OCudfXEDg6cig4yHI+UL63p9GsP6rZU26NzHz6BN+I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WCZ8e7iilc3nB9tst8NHiOXuMldMopBjaEGZyvvuy702m7eSy0DQFph8VnbsINP1n
-	 FF5hjvvdOhCWRYQAV6utF/gknhbkSstcY0+z/ou/lNK/4HjDW8jkfNU60zy38aT/TK
-	 5SXKJ8TvipQ6gtGBY+fOuftolkRN1aAmSebSoKVhqm1IL30rhzoJxSFBVyMsBaxNXA
-	 Vwe1RXI0yCUjLxGAdRqJELSLy7J61R/Fk1Fh2Weouc4lOxipDs/OmKTr5rHDz45GYM
-	 CodYVnZpGQRHsubOeu+rQ6IDsSAShgt96cEH6mLaa5MhMlQ3yNcRYqlEd/jk2STDNj
-	 S/vpM0YmFVdqg==
+	b=ebr0IUwgo91kruwpo9Hk3mbBwDRDTrBS6j7Ob50y75nFR8MmrRUyk6EB47MxXB772
+	 08VUMfY1hsSWTKbXCpLVubJCmAi1kNLNoDSImKenxeWhQbOL2IJmETIz2ekO3JKBn/
+	 A7HKMcdwLVKBaia4SYBC3dxPViIQOo+qwWeiz2d/Yc4LvLVb44UNbTCMWQsab7WExQ
+	 gvzIXHHsMeDDu1RcC7x+qY4pOsN2YvlpXgd1OG5XbybiHIN+Mwb1Yp5hnvpm264UFd
+	 eoAit+l/jZS5+pYH4ecbP11wbPkbZBzVrB06jqHENA4MCR0XXgZjw3y7qAKvzmMp3q
+	 sOAdv2ROJWYCg==
 From: Sasha Levin <sashal@kernel.org>
-To: gregkh@linuxfoundation.org
+To: SJ Park <sj@kernel.org>
 Cc: Sasha Levin <sashal@kernel.org>,
-	jeff.johnson@oss.qualcomm.com,
-	toke@toke.dk,
 	stable@vger.kernel.org,
-	Rosen Penev <rosenp@gmail.com>
-Subject: Re: FAILED: patch "[PATCH] wifi: ath9k: delete channel-context timers on deinit" failed to apply to 5.10-stable tree
-Date: Sun,  8 Nov 2026 19:34:40 -0500
-Message-ID: <2026-11-08-1-daily-reply-0012-ath9k-5-10@kernel.org>
+	Andrew Morton <akpm@linux-foundation.org>,
+	Brendan Higgins <brendan.higgins@linux.dev>,
+	David Gow <davidgow@davidgow.net>,
+	Quanmin Yan <yanquanmin1@huawei.com>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	Lian Wang <lianux.mm@gmail.com>,
+	Kunwu Chan <kunwu.chan@gmail.com>
+Subject: Re: [RFC PATCH 6.12.y 3/5] mm/damon/core: handle uninitialized damos_quota_goal->last_psi_total
+Date: Sun,  8 Nov 2026 19:34:37 -0500
+Message-ID: <2026-11-08-1-daily-reply-0009-damon-6-12-psi@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <CAKxU2N8QChO59Z=ncdNfvq-hNZp5Q2UsGFcovqn52G5mQso6hg@mail.gmail.com>
-References: <CAKxU2N8QChO59Z=ncdNfvq-hNZp5Q2UsGFcovqn52G5mQso6hg@mail.gmail.com>
+In-Reply-To: <20261107214525.304638-4-sj@kernel.org>
+References: <20261107214525.304638-4-sj@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,13 +69,16 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> git cherry-pick -x 81394dfb9a7905472957628b560ae894eae3a30f
->
-> works locally. No idea what the issue is here.
+> When DAMOS_QUOTA_SOME_MEM_PSI_US metric damos quota goal is set, the PSI
+> delta for the feedback loop is calculated using
+> damos_quota_goal->last_psi_total.
 
-The cherry-pick applies, but 5.10 has no timer_shutdown_sync() (added in 6.2),
-so 81394dfb9a79 ("wifi: ath9k: delete channel-context timers on deinit")
-doesn't build there. A 5.10.y patch using del_timer_sync() is welcome.
+Patches 1, 2, 4 and 5 are queued for 6.12.
+
+This one doesn't apply: 610c4438fb66 ("mm/damon/core: error
+damos_commit_quota_goal() for zero target_value") is queued for 6.12 and made
+damos_commit_quota_goal() return int, so the `return 0;` has to be kept. Please
+rebase it on the queue and resend.
 
 -- 
 Thanks,
