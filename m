@@ -1,85 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=37.230.196.243
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794220239;
-	b=IUKX+/rR33KCgfHEHpkcQv9pDzsDEkS/kwuPOrVNhcB42G+jFWv0fHtanlKSjmSJ9Ppb
-	 h/f72FrnNTo2F7uMWUs2EzxtVaYHIq1fs/QRRrJunn/S0gH8Kdjz9MuJsSInB2j+xn2ON
-	 QXXIMmk2vjUEBVy/e/8OuSwPgk5+CU7vYDJ789qyqcphEUg50d6B+ER3fURzAAEpQituv
-	 9xYvlZd+mFSKLGGoure+Hz3klxr61ZjKvMBTsuYTHh/W4IhtMfnD7G55c1fODVoxIfmqf
-	 5B4e3xgUbf4S9Gwahcxs9iVfERd+Eid3jKXav/DdegACs8kDh938AHp+4t/N/8RJqkw==
+	t=1794220292;
+	b=3glWaFLg5Wvx9W3kUn1XonqT1i7byzY3WmjYuVhxuzosmNBSAnORHJM5d1NpYnIngqiG
+	 onoMPyHfa1Izy7cKNqw0koDYtTAZCRD8WXGaJc+EXryBGxQOWJSFcVDgpinsaSd5pMNs2
+	 brPRJF3S+3mlTiuXRijz51U/ybuVdsRl88H2DboIWz6zZdCN7kFOXiSFQTbINu9n93FPm
+	 MgPJp80YjBpZzCbamzYcAh+tUgJmPS/5TtUNARGk1CaeToEY9IwmTQN5pnVtedzHdL++w
+	 IvZ86l+noQbmvfyEf0NGtYOkXPJIbbEzMmDWV8UvwIdLAgJUDo/pxZuQAJct8J7gPCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794220239;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-KSMG-AntiPhishing:X-KSMG-AntiSpam-Auth:
-	 X-KSMG-AntiSpam-Envelope-From:X-KSMG-AntiSpam-Info:
-	 X-KSMG-AntiSpam-Interceptor-Info:X-KSMG-AntiSpam-Lua-Profiles:
-	 X-KSMG-AntiSpam-Method:X-KSMG-AntiSpam-Rate:X-KSMG-AntiSpam-Status:
-	 X-KSMG-AntiSpam-Version:X-KSMG-AntiVirus:X-KSMG-AntiVirus-Status:
-	 X-KSMG-LinksScanning:X-KSMG-Message-Action:X-KSMG-Rule-ID;
-	bh=N5fjvvMg5v+YqmRbm1DHrHR2Quq9Ia0pKK7R5BqyqzI=;
-	b=ZW3bQBmpCp8t8rh5gcoM0d+Bj0HiwwuV0z8MfU5gfZazmpc3/xWv5GZZdeX4qifKRnVg
-	 GHB+M/cZz2ZgV6PPS242HnVotiQfYMKK+InyPpAQJ+P9fpO0DWTB/FPGaooYJsmpaHqI+
-	 xEMvNMGj8++DA+hNd8oe7U6nRwoLNwrbHwk/Y3mRjvuQEDkFKCsy96fs7zY/GEQwYiHZ0
-	 wqYeHSFcaOC2hRJbAtvjecaEm6+fxR5QnPFh/NTzGcLDFQEXt0jV5xufs7VPN2HKhVNEJ
-	 QHB6WFKaJbYBygDgRrd8czuv9R/xmUk0j3+s4FTW2jFnQlwPVFCNJ8toTIKhjwNQw5g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794220292;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=FwG5jJ6NCBj6pBUW5ha/+byf2Kcii+aXYvfkc6YAing=;
+	b=nn6INBXAoO6mVezQfwRViC5yWP2apofXe7qAi/WhAkk+Rl7dN3HWVYOXF3wF0vzvcrKT
+	 STuZv+gPk2ude9m96C14En6RFaLXSZDvjmQFOT263dY9jkVJxDcBRgwC9SXAzxkMK0SRW
+	 LyvnHkQhaiUriCPCqfQ7xEOHWeFg4womp5fYkBj8ECsbwY78UR54LeGkRzlrdVygoclzz
+	 Cz64zlRQttYFZORiafX9wd+55cycoVTjlFMkKN1SQzL7GLEwQSs9PW2eRpwinIBjFI+rs
+	 lUQLC+jkG0HfTFrsPXXVJ0Q3znqpWy4v904p+Q/3XT7UTKHVrSJ1iOZSyYUxGmbK5jQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=astralinux.ru;
-	spf=pass smtp.mailfrom=astralinux.ru;
-	dkim=pass header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=s+stk8VQ;
-	arc=none smtp.remote-ip=37.230.196.243
-Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=OYhe96o2;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBEB9606A321;
-	Mon,  9 Nov 2026 10:30:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBEB9606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73F35606A31C
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 10:31:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73F35606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=s+stk8VQ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
-	s=mail; t=1794220234;
-	bh=yTeRKXu9YZgUz+dbgWl4/sCZ4/3dKWKlHh3NLNjeWsw=;
-	h=From:To:Cc:Subject:Date:From;
-	b=s+stk8VQuKT1y1LGI3WuOadMU7yH2fUe6nkiErYHvrLwd3LGOavJshhugrWPx9UxA
-	 gwRMPKsFlVk5boHImKOh8uKjdCUUm2E7nr1SO4FY1GTTI21JUtoVWeGTw0ILRJwI1x
-	 qhsvUSta2xhEdJ35gzZeUwaAobiEnMLzx7S5mqwwNHkv9jF6MjnVb6DF0HlsvWxU6Z
-	 cE+7esN6QeWj4gtkyiY+FFOsxmYfDoSJBiil3+lA4gdtNsSN95EOmbHuZ/+v5Hde4P
-	 VboObL6l2m4nM/wnV3uRRtYHsTJtX+b8MMfgBgwKA6CN9eU4qvnLAEXgZ1YV0cLxcv
-	 CyNzRdy03MaAg==
-Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
-	by mail-gw01.astralinux.ru (Postfix) with ESMTP id 532DB25549;
-	Mon,  9 Nov 2026 13:30:34 +0300 (MSK)
-Received: from new-mail.astralinux.ru (unknown [10.205.207.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
-	Mon,  9 Nov 2026 13:30:31 +0300 (MSK)
-Received: from DESKTOP-D46TNHI (unknown [10.198.16.213])
-	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4jNQzC0xjXz2mqy;
-	Mon, 09 Nov 2026 13:30:31 +0300 (MSK)
-From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Nicolai Buchwitz <nb@tipi-net.de>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org
-Subject: [PATCH 5.10/5.15] net: phy: clean the sfp upstream if phy probing fails
-Date: Mon,  9 Nov 2026 13:30:23 +0300
-Message-ID: <20261109103024.1413-1-mdmitrichenko@astralinux.ru>
-X-Mailer: git-send-email 2.54.0.windows.1
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=OYhe96o2
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9AEi123131492
+	for <stable@vger.kernel.org>; Mon, 9 Nov 2026 10:31:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=FwG5jJ
+	6NCBj6pBUW5ha/+byf2Kcii+aXYvfkc6YAing=; b=OYhe96o2wYFcU4mu2YXmYo
+	wivbybr8dTAazHPZ7wzASAG/JdaTu7AkD17BbyxqQQUnrhjpo25AhKvJdX03fveZ
+	7d4WzD/BpCRaIq+U9aN9hJqIOWw29w8wHI6TK1iCeUs36J8ShnKfNTQ5DtH6aoD8
+	FFBLPrMhJ2/f0yBX/K3FtUv/6pHtro8gCdySp5e8YZjRKRYW3xUeO2SeRKRBHE9f
+	F0aGitWrQR3T2ihTxt0DlqQ+2x21zc/oQLGMiOasWQfOlk8E1LysbD6qdxPCflTo
+	2C2mxtOFafESpfo2C9nAckhP4tu0191Tuxy5sOEasneYbyz4vS9WdKY6fvNEGMLQ
+	==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hsumukxhu-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT)
+	for <stable@vger.kernel.org>; Mon, 09 Nov 2026 10:31:30 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9A4xZa4099090
+	for <stable@vger.kernel.org>; Mon, 9 Nov 2026 10:31:29 GMT
+Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hth0xxtxq-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+	for <stable@vger.kernel.org>; Mon, 09 Nov 2026 10:31:29 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A9AVPWW29032848
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 9 Nov 2026 10:31:25 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id D065020043;
+	Mon,  9 Nov 2026 10:31:25 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 8952920040;
+	Mon,  9 Nov 2026 10:31:25 +0000 (GMT)
+Received: from [9.68.16.159] (unknown [9.68.16.159])
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon,  9 Nov 2026 10:31:25 +0000 (GMT)
+Message-ID: <2f2c8c57-7f41-4582-b465-b83331ebc36e@linux.ibm.com>
+Date: Mon, 9 Nov 2026 11:31:25 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -89,72 +85,62 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-KSMG-AntiPhishing: NotDetected, bases: 2026/11/09 09:26:00
-X-KSMG-AntiSpam-Auth: dkim=none
-X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
-X-KSMG-AntiSpam-Info: LuaCore: 133 0.3.133 d508d579b02cdb6df47808421a9b9e12fc9fb75b, {date_rfc_vio_soft_silent}, {Tracking_one_susp_tld}, {Tracking_uf_ne_domains}, {Tracking_from_domain_doesnt_match_to}, new-mail.astralinux.ru:7.1.1;127.0.0.199:7.1.2;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;astralinux.ru:7.1.1;patch.msgid.link:7.1.1, FromAlignment: s
-X-KSMG-AntiSpam-Interceptor-Info: scan successful
-X-KSMG-AntiSpam-Lua-Profiles: 207345 [Nov 09 2026]
-X-KSMG-AntiSpam-Method: none
-X-KSMG-AntiSpam-Rate: 0
-X-KSMG-AntiSpam-Status: not_detected
-X-KSMG-AntiSpam-Version: 6.1.1.27
-X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/11/09 08:07:00 #28826469
-X-KSMG-AntiVirus-Status: NotDetected, skipped
-X-KSMG-LinksScanning: NotDetected, bases: 2026/11/09 09:26:00
-X-KSMG-Message-Action: skipped
-X-KSMG-Rule-ID: 1
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5.10.y-6.18.y] s390/vmcp: Initialize full session info to
+ zero
+To: stable@vger.kernel.org
+Cc: Heiko Carstens <hca@linux.ibm.com>
+References: <20261107061856-failed-5.10-f63eb4ee4a30@kernel.org>
+ <20261109102946.664117-1-borntraeger@linux.ibm.com>
+Content-Language: en-US
+From: Christian Borntraeger <borntraeger@linux.ibm.com>
+In-Reply-To: <20261109102946.664117-1-borntraeger@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA0MCBTYWx0ZWRfX1ddkby1Mdh70
+ CfUgtYPp5krzgEf4fqtCE7NKUodLEvdGmkzCBhBAlYDspZk7kdh/aDd/j/CrSXzsRXeAoCun9c4
+ 3/iaILVN4Gj2H3o0XH/GWflZ63FT+zk=
+X-Authority-Analysis: v=2.4 cv=GISdgeNK c=1 sm=1 tr=0 ts=6af1a102 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=i2OM96_FbZGJKM9_qW8A:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: p6K4nsLAc_oAyW_DGscdeXE90dRsrkdJ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA0MCBTYWx0ZWRfX0foAF2OCshsm
+ 4L+XB0OE+YZf3c0r9WGGlGmCGtduEUAqMO8DWWtWdeAkbR0TjS0s4BVhmFwQuzoY3mnGzDasBOa
+ Z7zwz4XrN5fLv94jundkiDOlPGaCzPkjcch+NeRDDhTSVyNhbROzaifSlUo3KPnHv4N7AwcoC/j
+ /A1SXs7bK6QwKWi4GidCqNLQV1gG+wYJzob+HPXSc4r7nrZMziqFBbLK8v/0R+YcidLELqK1Py2
+ wHKojUfNEbpiv/YNoPjeaP2/md5R5LbLeKlx1ICj5ZImv9tKBMXr3a+Msjmu/kCO5w4+R61kHah
+ oeB16jSBjRAdw1sWIMMzWiB8dItJSVcCCU35QdYv+NFXFCIhBuGcewDfJbnFkdog7W50f0Z3PpG
+ zl34H/QMx9IeR9yIasZwJ127db07uCgtEPlsGZNpVOAOhxohQ0kQsackn8bvWgwHzrcmixrbpUG
+ eveV1BY+DUUfsmmnhWg==
+X-Proofpoint-ORIG-GUID: p6K4nsLAc_oAyW_DGscdeXE90dRsrkdJ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-09_04,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 bulkscore=0 impostorscore=0 clxscore=1011 adultscore=0
+ priorityscore=1501 phishscore=0 spamscore=0 malwarescore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090040
 
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
 
-commit 48774e87bbaa0056819d4b52301e4692e50e3252 upstream.
+Am 09.11.26 um 11:29 schrieb Christian Borntraeger:
+> The cma_alloc bit as well as the response can contain old data.
+> cma_release will not free the kmalloced memory in that case and
+> the response code might leak kernel stack data to CAP_SYS_ADMIN
+> users.
+> 
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Christian Borntraeger <borntraeger@linux.ibm.com>
+> Reviewed-by: Heiko Carstens <hca@linux.ibm.com>
+> Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
+> [borntraeger@linux.ibm.com: use kzalloc instead of kzalloc_obj for older versions]
+> Signed-off-by: Christian Borntraeger <borntraeger@linux.ibm.com>
 
-Sashiko reported that we don't call sfp_bus_del_upstream() in the probe
-failure path, so let's add it, otherwise the sfp-bus is left with a
-dangling 'upstream' field, that may be used later on during SFP events.
+This was commit f63eb4ee4a30fc5d8de07a229d92310e3c8d560c
+     s390/vmcp: Initialize full session info to zero
 
-This issue existed before the generic phylib sfp support, back when
-drivers were calling phy_sfp_probe themselves.
-
-Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
-Fixes: 298e54fa810e ("net: phy: add core phylib sfp support")
-Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Link: https://patch.msgid.link/20260604092819.723505-2-maxime.chevallier@bootlin.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[mdmitrichenko: Adjust the phy_probe() error-path context: 5.10/5.15
- register LED triggers only after probing succeeds.]
-Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
----
-Backport fix for CVE-2026-53232
-
- drivers/net/phy/phy_device.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
-index 665952e64e9b0..2ba1f1833336d 100644
---- a/drivers/net/phy/phy_device.c
-+++ b/drivers/net/phy/phy_device.c
-@@ -1275,6 +1275,9 @@ int phy_sfp_probe(struct phy_device *phydev,
- 
- 		ret = sfp_bus_add_upstream(bus, phydev, ops);
- 		sfp_bus_put(bus);
-+
-+		if (ret)
-+			phydev->sfp_bus = NULL;
- 	}
- 	return ret;
- }
-@@ -2903,6 +2906,9 @@ static int phy_probe(struct device *dev)
- 	return 0;
- 
- out:
-+	sfp_bus_del_upstream(phydev->sfp_bus);
-+	phydev->sfp_bus = NULL;
-+
- 	/* Re-assert the reset signal on error */
- 	phy_device_reset(phydev, 1);
- 
--- 
-2.43.0
+and failed for all stable kernels 6.18 and older.
 
