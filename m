@@ -1,102 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.6
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794223359;
-	b=u5UxmdXx6KZ50jDwYbyFOa0FHW3IOFoBBuO34Aaq8127RI5YONrltJSxYfnGPCLyCnfo
-	 kH9aNYJgfG9eG4KkWUieuFxTD85dRnHatIZXluNIjMUUYP9gummdUIrskS/+MMaBvjYxt
-	 MMxcQ1wBjSEAb+DtYMlULYdzlRpdN52H2lzh6BARo+SWUfPeh31dmVC/s7NPc6kE8nmoy
-	 X7zPttkssLZpy5+fon3oKJZADfeK9xzj8K0dKIx7YbPRCkbJfJSNFS32ygyi4cDdIkz7o
-	 1V/R27GOotHDwnbIQUeEXSWlRvgMuvA11qV/G1UXq2rjJfljq4eQXlRQH501kRlimPA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794223359;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=JjBXpe0KdFPKejnpWaZtnhed9E6HNLPQzaWogJHVOfw=;
-	b=mKNhyseBxQOhVhgclQ2bOU9bD/wBus69w204tUTOE5GEh/iGX+qjd6sNmYhcQMXag+JJ
-	 mVbxRqJkHxnuCnILmdeBlRnXO9bUZvOBWyA9fmhXGl6muYJ59NS942gURA6eyByNwcCvH
-	 hW+VezKaOJU/JLV1wGXIybYfisdH4gOAL3MDK8aYr0rsKB+H0mn13KhL+usfehXS0GWOe
-	 Pjz7YH87t3rzlGa+BILmDc0hhmttCPLEbpeVNQAsL5xtB3swlTjZJP2Q8SSqlcoPklr6u
-	 64RNibCTQ7iJGUzK4VAM8yy9q4LQnRLG88rnqJ7bkVUUmxlpylAPkNcIwzGvdAsZNXg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="B/l+1HOV";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.6
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013006.outbound.protection.outlook.com [40.107.201.6])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794223497;
+	b=SNAbSIw2jTSvGziaNHdysffKSaF4QCxS4JpIG0zOEGhZ6W6CfbKAMvfsJ5g6+D8aqFo8
+	 vlSrMedaO4MwCYB6c8tG0g0pgE7c3C5MFGuAKLYfrme5b9kYZsQzkUXy2btdE1Y/4QHAQ
+	 8SFVToZKfrhHr++8estGtfe7SCSZ/mLBofe2Plih6r+aBinhPU0nkV4n3Eq4L/A/tRHvL
+	 xfVifQKwefZIe45suelxXDbv4iyrEbUBCBvSVpg5DcP2I00s57zV66Srz5n+09/Jd1lYN
+	 pvXmzG2scg/psck8zkvzZ05DzYzwZIOL9J647a3ISZp18nBrMXeqelNdhab+UT2WbdA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794223497;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=WkXk8UeMIidM85N3aQ+wC/0a5G6Gf28wjQOq2oq5ouE=;
+	b=hg+ufHyWZyLymbbsNaE3IMFd7eqwOoGZZk6zEYqsM6ZHUx6qxbrApmYL5dt23wbJe3vp
+	 ZzBBXg/+LA8CkEqab8c7ARrBSEre1VsqbFs7RHZOdGTsXy0/jFg4Ro5IfrhmMVvOnYc3L
+	 7gMsZVpDplTF9cfQy8qqz1k1OCs8udcCf9r3UhrAgw47PA5NCsKQn7dhuJCdPqn3zDPQ0
+	 ShbxulmSzEzqKYIbg6OL+QkNwbxkV+fL367f+fClJZYnQKiUF7fG3pZRdwdpVbCAeQ/cv
+	 odoxn/CuopaoMF1V1A6gY/Sv2kAtjNz36oe1PUdfFaMo43Qfp4yEwUcfUnjslaANI7Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j1P9jweV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A50E2606A31C;
-	Mon,  9 Nov 2026 11:22:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A50E2606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C652606A31C;
+	Mon,  9 Nov 2026 11:24:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=B/l+1HOV
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=J+m0PJwXtvl8P9DHSfKMaPr+j8EL4OQmuAWuTgBsaUMXQbQJiNb6fuy6hcPfCrQ8AiTc6OdofsYl94TRaTXVyAEUyfRFoFzkta8hHQEZzSUtduN/tuqVKLpknyH6bu0hy4qK+t60moiWSdtMqHpmfgcuSK/+eYkDuzq7amD8bKqqXiUtBF+nTPRIc1+0BZTtq48Ug8DAxVBh1pcZCjp5xg6f8nf1JhqwR6CrUh/ubJnkt+Io3D5jzJ/TslRC3+R+V6w3yB62YK/5EdfI9jHLSC9FrAdD+BmgfTLGmWJrWCLprSNxzkX0tP4R4RD96GjM+D75CbtVNoz9DcV+RS0ICg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JjBXpe0KdFPKejnpWaZtnhed9E6HNLPQzaWogJHVOfw=;
- b=vxllmiakqBFhI/MIylaB91X/DfwgOkuK1AmOs/QUDgbMYYKJ9Q1F8VXu8djcI0b/4UfFxRiCcMXaIMhat/lhZfRZKecd91hHfGLGWaGCOAH7jrs/aj/0v0gsPQaWTI1IAOa1YfE2bfRUjxEsup7k1iuOgDs5xqzC0uTf+7E8jUkFYjdEMCccQhiNN4Y1VMMtUw5JDhOCYESlN3Ke8oa7S7RIaX/szR1DwFcibnlWXvVl/v2LTSWvOd6OWiX+bKrtSficujBpfdI5dTp5vlu5mqr+m/b+3xwMShaLWatcVGGwLMwPH34RHqbuIwsK5RHfqibebeK/vg2RsyfI1tvDUw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JjBXpe0KdFPKejnpWaZtnhed9E6HNLPQzaWogJHVOfw=;
- b=B/l+1HOVNp58Go9qg5KAQhXBIDiyyNJ/qZ+3mBqpX0eGnUzPr13hI4DxZyLOJ5Ij8/1FykeqpQjTwcmB5CSdMXdTWyYkjoaa4ECVCK1EcwAN2E4pvCsVQxYxvxyahfJ2xp/15MsLMagX8Uh0qkw6MQRQsHC/Xdr+OYAE/UQKVuxn/bhOru72oXHJc1uGUJZwAn9j+72FwMkpcEKE4L2BB/GvVh8nYVGHj90fvoqrxOSbefOBuFWRAdFRk0kaw8741AKKmtwlAScZVeJ1nNIUHkBruDKZsU0EfuqafswHxh7jafk9AwZFo7foEPGWvuJf6zPoLQxftK/NS5F8oPpgPg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from PH8PR12MB7110.namprd12.prod.outlook.com (2603:10b6:510:22e::11)
- by MN2PR12MB4456.namprd12.prod.outlook.com (2603:10b6:208:266::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Mon, 9 Nov
- 2026 11:22:35 +0000
-Received: from PH8PR12MB7110.namprd12.prod.outlook.com
- ([fe80::736a:e1be:ec64:5740]) by PH8PR12MB7110.namprd12.prod.outlook.com
- ([fe80::736a:e1be:ec64:5740%6]) with mapi id 15.21.0592.012; Mon, 9 Nov 2026
- 11:22:35 +0000
-Message-ID: <e3ff8145-13c7-4282-925c-b4196bef6337@nvidia.com>
-Date: Mon, 9 Nov 2026 11:22:26 +0000
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.12 0000/1536] 6.12.117-rc1 review
-To: Pavel Machek <pavel@nabladev.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
- linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
- akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
- patches@kernelci.org, lkft-triage@lists.linaro.org, f.fainelli@gmail.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com,
- "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>
-References: <20261107134957.653319350@linuxfoundation.org>
- <avGXNkyWQfNqN46v@duo.ucw.cz>
-From: Jon Hunter <jonathanh@nvidia.com>
-Content-Language: en-US
-In-Reply-To: <avGXNkyWQfNqN46v@duo.ucw.cz>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MM0P280CA0015.SWEP280.PROD.OUTLOOK.COM
- (2603:10a6:190:a::20) To PH8PR12MB7110.namprd12.prod.outlook.com
- (2603:10b6:510:22e::11)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j1P9jweV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AB081F0089F;
+	Mon,  9 Nov 2026 11:24:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794223496;
+	bh=WkXk8UeMIidM85N3aQ+wC/0a5G6Gf28wjQOq2oq5ouE=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=j1P9jweVtKFreXVlXGX4OQRWUqQL1IbwZVuAbemRauaDZ/+Tmhb9J1ana7IuoCwT1
+	 ap/RS00ZiEV8AKpvU03iZKOpWyc3ATpOzZpZYNsK4Lxgh7kWs7n3/FzIH0fwJjBdMh
+	 TjYfowfE7MFEqQo40qb0LtNHfoAZFI930zGSIVSM/U+oKCKYh80nAyfHvptERGNYXt
+	 hOastcYc3BFYquSex+hrsv6LMMSzHIyr5cd9Sf5KkN/AaIjzAT2NME7R/WjltNVQDQ
+	 42gHLAsGhU02pNoYSMhLb8tslSUohki00SmyGE/e886/BibgkKiBH/SrVQ2Vna5Vgf
+	 4G3/O/coCspxw==
+Subject: Re: [PATCH net] nfp: flower: hold an RCU read lock while using an
+ offloaded MAC entry
+From: netdev-bot+sashiko@kernel.org
+To: getshell@seu.edu.cn
+Cc: kuba@kernel.org, horms@kernel.org, netdev@vger.kernel.org,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ pabeni@redhat.com, oss-drivers@corigine.com, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Date: Mon, 09 Nov 2026 11:24:55 +0000
+Message-ID: <179422349578.994134.14069907207951136090@kernel.org>
+In-Reply-To: <20261108105605.1668-1-getshell@seu.edu.cn>
+References: <20261108105605.1668-1-getshell@seu.edu.cn>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,99 +64,131 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB7110:EE_|MN2PR12MB4456:EE_
-X-MS-Office365-Filtering-Correlation-Id: 243f4ead-fe33-4b53-b105-08df3e53c0f1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|23010399003|10070799003|1800799024|366016|11063799006|4143699003|56012099006|261009223027099003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	MGeMGWkAFwsos3z7kZyMCDgxOoCF5GfHjy2pJ1jsrDfwHx53JaBw66t68/CREI+WE/JozjFhT/by/nTVVs0mCG1f4H1SX6QoSLu4+MS9JB5MKDZCeTWbLYHhBC3J0Aq6y/tt/vvINRr+sAcCsEaDPpPfnmgvKqIxCvwTAVOy9ZnyfBlw4v7UyqSzPejwsL86RPF/t31J+gNygAQIR51R0buoO3XlNrfmxxUqiIZZvPui8lT6EkVtpygoC69FbVaf3jTPByg59ewn28nL2eSTQJb5zBn5Ii/Gpbj/aHFuO9j4d5UTbYojNF7sJML3j2+ygvZmM0g7kp7BKEK7q7PwYWKo0nfUhY1o5f5cH1ZWdXlB1TET5oxJC98DP33T0jxLqacbyuEUeF6Hi3+HwDDjMXR2OXXmbO1ASXkEVBFtFPmlFudpcDk2vCS0mjZAih7FtXE0NeaNw+1O9Z2QlbDHpKc/KgzwiWgdMmfYllkWLpH/tVrPMAKJRQodig7fHP/PS+0qK9/8KDl0eExO9balOFfQ8mgoFNdM+ekg6SWE0d68Jh5660PZiRVpRfEemhnPum7wgIgF+aFZGUA1UX8KN54qLnqH6+MKp0mvUOT7KVrN71YIlKM5onQt3E/DoScAlVOwg7ey9JD2Ud3qybqwE6QfRr41nMLIG0GCacQMSgE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB7110.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(10070799003)(1800799024)(366016)(11063799006)(4143699003)(56012099006)(261009223027099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SjRBUEZ6OHMwRU1kMmxyM1FkbjVjZzZiVTJqRUlUNmlWcDdTSTIrN093djhk?=
- =?utf-8?B?d09oMEI5ZjlGR0ZJb1N6bkdjSDM2WHdQTTU0Ly9SdHZQem0zR0JLN24wL0hx?=
- =?utf-8?B?M25VQkEyc3RXK24vbU1QNUt4cUdKckM3WG50Yi9iaU1xNnY4RWJBNkZUbTNz?=
- =?utf-8?B?UlgyYlAyMTRDVnhGOFA0T2tMSnhoNEIxeFh6UkEzVzVIay9kNTV4bUtYd3lS?=
- =?utf-8?B?dWovZ2ExQ3kzVExPRXRiZWJIQWxzZ1FFT01RaHFLYlMxS2tja2lYaFZNRytP?=
- =?utf-8?B?TWNuS3JpbmYwTzkzbk01YmVFRkl1azFHdFc4UllHWDRMaGRvTTA2NTc0UitG?=
- =?utf-8?B?TFhnNmFjb3BHOGhDRldTV09taGVrUVdJUCtmTkczeGZxaTJVN2JvaTJPSW1T?=
- =?utf-8?B?ZGdubGZNRWFubUhtVTdCMWRSSjdMU1pCSlJsNjNXRm5QTU9hLzl1Z2g3M3A5?=
- =?utf-8?B?WFpFeU1IbHl5YW44dkRSZEhRY2JGSksyWEgveEMvL0RwWmJLM3hDQmdoOXZD?=
- =?utf-8?B?Y1ZiVjlKRDVLYmcvK25WanN1bDVZaDlyRnNFMy9sREJvbTBXN3B3ZWdUSG5J?=
- =?utf-8?B?YjdFOTl2WkFPbXZGdzFoclV0WDVkdHhacGZDTFF4VFAyYys1Ynp1WldMcFUx?=
- =?utf-8?B?TGQ1VEZ0bGJrcHVpd25DbG1HWW81bDYrMmQ0dUMxVUM1djRRNmREK1RFdkhp?=
- =?utf-8?B?RkZuaEc3dGowTFhid0F0VkhIR0d3YU9pUnlwRmphWHBScS9OMGJuS1V2QUNu?=
- =?utf-8?B?clBRdkxYZEtLNnp2akhqOTdyZUZVZ1RIMEhGcTJPWndmUC9CalNPUmh1RkR5?=
- =?utf-8?B?Q2VrNm1oUWZtYVhtNnJpblM2QkFES0xpcWdmcFZqcVM5N3pBTlp1WjJLQW53?=
- =?utf-8?B?dHZXMWpJQnNIVHh1RE9HaHFaSHl2NWhOM3RnOXdCYS9BTnVEYmgzenl1Rm8w?=
- =?utf-8?B?TmYyMWhPNkx6NXBzSkFMUXdHVnpzQmsvVW5LVHFTdVBaVXZBejdaK2YvOWFC?=
- =?utf-8?B?TjRVSUpCRnNKemdsK1BqL3I3UDRYNUZLeG0vTDlXVHV2ZmpiY3p4QytlSWNo?=
- =?utf-8?B?V2xYdkhTaEdObk9mOXFaY1h1cHYvMEtoVGFYOHpBdXhEdStwMnFkUFVoam5m?=
- =?utf-8?B?Q1c3cFFnVm1NbWI4YkZKYWx4VmFJeWp0THdIRUlWOXdOV0NSOGk0NndITy9z?=
- =?utf-8?B?U3ZPdnkxcllVZFVPNDQzUWI4bm5yM0NQUURNRkd1MnlDTWNLQ1l3WWhoVlVq?=
- =?utf-8?B?dnVuUVFwZERCWU9YK0pqTzZaWVhUZlRtQjRTS2ZaZUJqZWN5L1NMNTZCc0VN?=
- =?utf-8?B?amFxR2E2dllhak5IdnBxUmkybkFId1RzeXdkQUZZdmNQcTBNRVBNYmN1RjJL?=
- =?utf-8?B?TmwyQkQ2enFtWmxTTDVQRmdSTmRRUWpXenl3VHJwcDJXS0hGdTBWMXcyVzJM?=
- =?utf-8?B?S2wzZERsT0pJdEJwdm1EK3k2WE5QKzlxd1ltOTEzVmFjcFZ6WHp0N1M2cGhi?=
- =?utf-8?B?TjQ3Zmw3OXl6N2dacHlmK1RzaEIzMmVvR0E0bkdjbDJZeWUyOGlTOHVSVHFG?=
- =?utf-8?B?cnhkajFaWkhSZGY5d0s3SXl5YTlzNUJKancwT2JmdU1LZHdWZERubXg5THZr?=
- =?utf-8?B?TTVYNDAyeS96SlBiY3BsMGQ2OEcyZEdoMUMrYUdUMkUrRmdCdHpDcmhCSWZT?=
- =?utf-8?B?WitzM2plN3I5by9HWHZ3bW9sMms2WG5DaHZHaExJaXdqc2o5bDlwc0Y4UXpr?=
- =?utf-8?B?aGsyR3lYUWppb0RFOTUzbFFaWGRxRGIveEVsbk5LeFBRQ2txL1lwMDVucFda?=
- =?utf-8?B?RG55N0tIM3VhcjNtZlFuZ2hqRTBoQWVjYXBQckN1QTZUeGZxTmlmd3gxd1Vm?=
- =?utf-8?B?Nlg3cjU1OWpFT1BLK2tPU1R0bWxkTUMwQjR0RUJmU2VzQXVsVktHU3hOWk1z?=
- =?utf-8?B?NjZ0bUE5aWpvYjlCQ2ZlVkplQ3BNQWxocVM2R01QRkh3YVZTSE1GWXRZbHVU?=
- =?utf-8?B?eHJOZDhxK1IvTmVmRk5hVnNtMkhxbDFBOUpNU2tzbTZJOExSYXpES2QyUThr?=
- =?utf-8?B?RUVsT002Z1Rldlpremg1Snp2RHF0ZGdaRjI5ODd1WFBRMEpNancxN04wWnVE?=
- =?utf-8?B?a3BxQmlUa1VocEo0bkFla2FBeTRGMHBuYmJVNXhvTVU3NjNRSFQ2ZkVnTy9m?=
- =?utf-8?B?TDBYaG5sMUZVWHVSamVBdytqMDhXemJKTEZMa25NTDlWRlBJdGsxM3JtUGxC?=
- =?utf-8?B?UGVCM0hNL3RuS1NlUndrVFM2Snduc3lrb2kvMGtDaUtLSUxHNHVNOVJ4WDVq?=
- =?utf-8?B?V3JiZVJ0VnlkUTF3RDZoQ3BjbVR5RkNaWHNLUVR2ZFViUFowYm5wMzNSYU9I?=
- =?utf-8?Q?QPeDBxKTJ+DpI3eYYikWkxvMHfD+IRmFvv6kslOzAaE/o?=
-X-MS-Exchange-AntiSpam-MessageData-1: jcpFNCdxujw4NQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 243f4ead-fe33-4b53-b105-08df3e53c0f1
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7110.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 11:22:35.2780
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zsDV4x/mDc5Y3QIYh5TeqkBYWzRWjwx5w1ZTZbNg6R9TZvfmj509XInsyg/EqhijIF9yFFCEVBqP+TUgMUA/+g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4456
 
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-On 09/11/2026 09:49, Pavel Machek wrote:
-> Hi!
-> 
->> This is the start of the stable review cycle for the 6.12.117 release.
->> There are 1536 patches in this series, all will be posted as a response
->> to this one.  If anyone has any issues with these being applied, please
->> let me know.
-> 
-> I see build problems in -cip testing:
-> 
-> arch/arm/mach-imx/pm-imx6.c: In function 'imx6q_suspend_init':
-> 618
-> 16:02:42
-> arch/arm/mach-imx/pm-imx6.c:589:17: error: implicit declaration of function 'cfi_get_func_hash' [-Wimplicit-function-declaration]
-> 619
-> 16:02:42
->   589 |                 cfi_get_func_hash((void *)((uintptr_t)&imx6_suspend & ~1UL));
-> 620
-> 16:02:42
->       |                 ^~~~~~~~~~~~~~~~~
-> 621
+Critical: 0 · High: 0 · Medium: 2 · Low: 0
 
-I am observing the same build issue with this update.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Jon
+- [Medium] The commit message gets the pre-patch state wrong and leaves
+  out half of the fix.
+- [Medium] nfp: flower: RMW race on mac_entry->index in
+  nfp_flower_xmit_pre_tun_flow()
+
+--
+
+nfp: flower: hold an RCU read lock while using an offloaded MAC entry
+
+This commit takes rcu_read_lock() around the offloaded MAC lookup in
+nfp_flower_xmit_pre_tun_flow() and around the update of mac_entry->index.
+The index is copied into a local before nfp_flower_xmit_tun_conf() is
+called. The patch also adds an rcu_head to struct nfp_tun_offloaded_mac
+and converts the kfree(entry) calls in nfp_tunnel_add_shared_mac() and
+nfp_tunnel_del_shared_mac() to kfree_rcu().
+
+> so kfree_rcu() alone is not enough: a grace period only protects readers
+> still inside an RCU read-side critical section. The writer is the netdev
+> notifier chain under rtnl, freeing in nfp_tunnel_del_shared_mac() with
+> rhashtable_remove_fast() + kfree_rcu(); the reader is the tc flower
+> offload path, which holds no rtnl, only priv->nfp_fl_lock.
+
+[ ... ]
+
+> the unlock: the firmware payload is unchanged and kfree_rcu() is kept.
+
+[Severity: Medium]
+Is this an accurate description of the code before the patch?
+
+Before this patch, struct nfp_tun_offloaded_mac had no rcu_head, and
+nfp_tunnel_del_shared_mac() freed the entry with a plain kfree(). This
+patch adds both the field and the conversion:
+
+    struct nfp_tun_offloaded_mac {
+    ...
+    	int bridge_count;
+    +	struct rcu_head rcu;
+    };
+
+and in nfp_tunnel_del_shared_mac():
+
+    -	kfree(entry);
+    +	kfree_rcu(entry, rcu);
+
+So kfree_rcu() is not "kept". It is introduced here.
+
+The patch also converts the err_free_entry path in
+nfp_tunnel_add_shared_mac(). That path is reached from err_remove_hash
+after the entry has already been inserted into offloaded_macs, but the
+commit message does not mention it:
+
+    err_remove_hash:
+    	rhashtable_remove_fast(&priv->tun.offloaded_macs, &entry->ht_node,
+    			       offloaded_macs_params);
+    err_free_entry:
+    -	kfree(entry);
+    +	kfree_rcu(entry, rcu);
+
+The patch carries Cc: stable. Could the commit message, and maybe the
+subject, say that the original bug was an immediate kfree() with no grace
+period? It would also help to say that the fix adds the rcu_head and
+converts both kfree() calls, not just the reader-side lock. Otherwise a
+backport could take only the rcu_read_lock()/rcu_read_unlock() part and
+keep the immediate kfree().
+
+[ ... ]
+
+> diff --git a/drivers/net/ethernet/netronome/nfp/flower/tunnel_conf.c b/drivers/net/ethernet/netronome/nfp/flower/tunnel_conf.c
+> --- a/drivers/net/ethernet/netronome/nfp/flower/tunnel_conf.c
+> +++ b/drivers/net/ethernet/netronome/nfp/flower/tunnel_conf.c
+> @@ -1462,7 +1473,10 @@ int nfp_flower_xmit_pre_tun_flow(struct nfp_app *app,
+>  	else
+>  		mac_entry->index &= ~NFP_TUN_PRE_TUN_IPV6_BIT;
+>  
+> -	payload.port_idx = cpu_to_be16(mac_entry->index);
+> +	mac_idx = mac_entry->index;
+> +	rcu_read_unlock();
+> +
+> +	payload.port_idx = cpu_to_be16(mac_idx);
+>  
+>  	/* Copy mac id and vlan to flow - dev may not exist at delete time. */
+>  	flow->pre_tun_rule.vlan_tci = payload.vlan_tci;
+
+[Severity: Medium]
+The commit message says the read-modify-write of mac_entry->index is
+now inside the RCU read-side section, but rcu_read_lock() only keeps
+the entry from being freed. It does not serialize setting or clearing
+NFP_TUN_PRE_TUN_IPV6_BIT here against the writers in
+nfp_tunnel_add_shared_mac() and nfp_tunnel_del_shared_mac(). Those
+assign entry->index from the netdev notifier under rtnl, while this
+path holds only priv->nfp_fl_lock. Either side's update to
+entry->index can be lost.
+
+Writing the IPv6 bit back into the shared entry also seems to corrupt
+the index those writers rely on. NFP_TUN_PRE_TUN_IPV6_BIT is BIT(7),
+and nfp_tunnel_is_mac_idx_global() compares the whole low byte of the
+index against NFP_FLOWER_CMSG_PORT_TYPE_OTHER_PORT. After an IPv6
+pre-tunnel rule has been offloaded, the low byte of entry->index has
+0x80 set.
+
+Later, nfp_tunnel_del_shared_mac() drops the last reference. It only
+masks off NFP_TUN_PRE_TUN_IDX_BIT before calling
+nfp_tunnel_is_mac_idx_global(), so the check fails. The ida_free() on
+priv->tun.mac_off_ids is then skipped, which leaks the ID. The stale
+bit is also carried into the index that the bridge_count revert path
+sends through __nfp_tunnel_offload_mac().
+
+This behaviour predates the patch. Since mac_idx is now a local copy
+anyway, would it make sense to read mac_entry->index once with
+READ_ONCE() under rcu_read_lock() and apply NFP_TUN_PRE_TUN_IPV6_BIT
+only to mac_idx? flow->pre_tun_rule.port_idx is taken from
+payload.port_idx, so the delete path should still see the IPv6 bit.
+Or is there a reason the bit has to be stored in the shared entry?
 
 -- 
-nvpublic
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261108105605.1668-1-getshell%40seu.edu.cn
