@@ -1,57 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794184485;
-	b=375RvWnYArJRBmd6Nzlq/nz8a5CgwW/y81qznVHS+N+0t2bHuzzlZT25bhDmKppgnUsg
-	 +izgbsXhdMboAHix4a0ITCiAMfMO7W3UZoueM3uXQPRLDHQmozlK9gKR8KUt2EvcWNp6H
-	 SdC/cUXgQXim+5zfHjV/sphWRx5mtXun4pg/BarP16xDhYM0l9pwetbGggk3XIREKxAJx
-	 +bL0uFx22vAk4MMBLcJYEEaojWWQF7MngDq49iZCgzRqXYAAbSY+u6bOFHaXJEWg7MSjZ
-	 RsEoQz2/TnZk5w/kWgEr3ltV8ziOQAiROUsF9JxgyQtc6ag3w98C8VfGHcdMVyUWB2g==
+	t=1794184486;
+	b=ZPRXedwIbXRiXld08WApjODlwnCXuM5F2QixDj8FMtEsQULsWceX6JNqyaQD+Ux4+09Y
+	 6KZnRhqDfiz2HlRAXfyUrr9bj+rHBuHO+D9RCC/OMPb2JExODj80Pf7Y5x+lNoJD2nVv+
+	 IuYtnYKBMCOGylbpgEqNobah+A4xcU9gLRmo9IkYgk5SaB7UKHv3UewMBC/wCXhwSgqaM
+	 V0p7sU9H1LKnjZywCBo6OteKWpt5hmkDeVR5nEgmr8SQaWZqroqKrMSNobRRc41YWF4ln
+	 PlZDfdf61nheT30xJSgRk/aPtSEyzPwi8HZXwigjgGh6V9Bow0MH8qSZkoqWkzQmL5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794184485;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794184486;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=7Zgvxy9nCRbIGP3Vs98dFUWI/fdNtaBQwo1qW2JnK6g=;
-	b=WjxFfX4/gGUvLbgONP4CXn4w27V19NKT6hPC+mZ/RwiKwuwV2+itKK3df3lHg17Q2qPR
-	 raPYByJS6VPtpWaMzFt+12s1Y/xHCRJsHZdr4QDi2vkGNqzYA1ljgEP8TevkyVcKe3BHQ
-	 Zws4LAVEWouYZmZdao0+2m7BMkQ+1B0akeX4PEcOSky/+fijF4pcrlN0ugj4AjEExutWh
-	 BBapO0PiDWAKmCd1AZI7Z21+szU38IThmUqPEWknXM7V3q420eORyoR7lIPm5F7gTcrST
-	 HwWONTMgWBb6vJFcCfhHLI2pjNKR9vXOP/dtXGfKIy/hO0wBOKriavec7xpoj6fUf5w==
+	bh=QNZVl5b+HgE9UeZXo5/shDDDByZ5nVgAEtH+ycjMTmQ=;
+	b=NHEdwq2xS/PRfXlTjcUNktRJWu6S2gutqcX2XT87Pp+hNns71sjePhXOLTJT0jsKVgvn
+	 9B0r+Eqa6KKPGI27YvmhLY94+arNtbqj2VDdt+UESvQ1440sS4fjjrHE8yPVO++LAjKqZ
+	 9Tg5AwsP+yOy+ZT6gD61CepI/8PSg/3VWTeuVRBGiP2yXcNPTURryotVFcpe4lQHHpxL6
+	 g6JMjDqfMgj4T/941rBuODD4y+1l2AzogFGl0X6QfB9BVamDNjLUgoplQnM8BVWUG6E78
+	 OtbTFb+ysyFyIQyq08E0PPy+MtuUqoeY0/QWS8l/MjMYYrcjgDZqOqP9hBf8hWJLl0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MWyQavHw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="GLe/0pdt";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECEDD606EE83;
-	Mon,  9 Nov 2026 00:34:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0DB3606A33B
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 00:34:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MWyQavHw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D8211F00930;
-	Mon,  9 Nov 2026 00:34:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GLe/0pdt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17EB01F008BC;
+	Mon,  9 Nov 2026 00:34:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794184484;
-	bh=7Zgvxy9nCRbIGP3Vs98dFUWI/fdNtaBQwo1qW2JnK6g=;
+	s=k20260515; t=1794184485;
+	bh=QNZVl5b+HgE9UeZXo5/shDDDByZ5nVgAEtH+ycjMTmQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MWyQavHw6+0HGA5IK5iNGDbeAIgx9OTwLgnM2i86ZZBozd9Yo6DjksIui3PdnksfY
-	 1HnbyzkNO527dCvWK7ibuQ2Ln2y7w3/IC01j/POBilnhd9Ae0XLn9t5yNq/u5XAClO
-	 bp5WjmL5WDI55JC61I3+kp9+R5bnsDN9CEOQAd0zvK/ihODhLS3Ct/L2zAduJv5BNR
-	 IiGjuWk8cL5S/fZ+NcYtPus1zmg1aUKb/GxPseylKIWTqMN9fNZDKvuS5zkCALe1rV
-	 xbzTXJH/M5Jj3EY3iApp6acE0/nfnzZH2gBa7QLOWW3W7C7W540wBJM9anXNUE10T7
-	 apPhaR3Hv2zog==
+	b=GLe/0pdt9R7lSQBUt1V5QoV07VY0VycNy6cW5XvR9aV8xJqcjVH6u7zNyAFwb/NkL
+	 VQo+QZzX7UynNFP35xZJHtVHYpsb88SmjQVykHTU9YxAwC2fQG6s2kw4FOYZGe2qAU
+	 XAp158bCORrujoSaCXTvbVD0NR3tT8r8IDSc/vQvkiJLdxEHYtqy39dqAe5ORK9j9o
+	 2wrwt41RQpMGmmWmUbLKjOoRA9N1rTdNAnj856Za+NMR4yc2vpMYES7p+pfBufl2hw
+	 vDNqm9OmsJfh3tgVg74wyTY6WeNMyZfbNZUMztw1eb2mRSFM63g/ixZwHaVa5jMNGC
+	 D2FmjylgWehYA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	regressions@lists.linux.dev,
-	linux-acpi@vger.kernel.org,
-	rafael@kernel.org,
-	Florian Wagner <florian@wagner-flo.de>
-Subject: Re: [REGRESSION 6.18.y] ACPI: button: lid events lost since 6.18.57, please backport a004b8f0d3bc
-Date: Sun,  8 Nov 2026 19:34:30 -0500
-Message-ID: <2026-11-08-1-daily-reply-0002-acpi-button-6-18@kernel.org>
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+	Siwei Zhang <oss@fourdim.xyz>
+Subject: Re: [PATCH 5.15.y 2/3] Bluetooth: L2CAP: Only accept connection responses to outstanding requests
+Date: Sun,  8 Nov 2026 19:34:31 -0500
+Message-ID: <2026-11-08-1-daily-reply-0003-l2cap-a2mp-5-15@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261108143640.6252e6a8@teclador>
-References: <20261108143640.6252e6a8@teclador>
+In-Reply-To: <20261108000542.1969015-3-oss@fourdim.xyz>
+References: <20261108000542.1969015-3-oss@fourdim.xyz>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,12 +61,18 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Backport note: a004b8f0d3bc applies to 6.18.60 and 6.18.62 with
-> offsets, but does not build as is, because struct acpi_button has no
-> "dev" member in 6.18.y. Using &button->pdev->dev in the two dev_dbg()
-> calls is sufficient.
+> +	/* Only handle the response to our own Discover Request */
+> +	if (!test_and_clear_bit(DISCOVER_REQ_SENT, &mgr->state))
+> +		return 0;
+> +
 
-A backport that works would be much appreciated :)
+This early return skips the skb_pull(skb, le16_to_cpu(hdr->len)) that every
+other A2MP handler does. a2mp_chan_recv_cb() loops while skb->len >=
+sizeof(hdr), so the payload of an unsolicited Discover Response gets parsed as
+the next A2MP command header.
+
+Please pull the payload before returning (or drop the A2MP extras from the
+patch) and resend the 5.15 series. The 7.3 through 6.1 versions are queued.
 
 -- 
 Thanks,
