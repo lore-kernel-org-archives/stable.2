@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794234376;
-	b=CrSza2jdpVE3x0mz0fXwv6JJ3U7EIIX/il8EXUa5GlDbueIMRP8CEiKPbDL8zzPBq1Pt
-	 t4pucIxB1hOKt41LBlWLwEdItKqM3PInB9wS14CFN4Sr74EhvFnsdGWfosB3i6uM58Q0Y
-	 iWXhZ7UEatoi9WCo6LtzbB7nLeaGT2IlU5nBWKKc1B5EwThKYpVHywKAAJbtlYOs9f68J
-	 j41LaTN3BUURmCGTTZ1c74jiHSICJISwxacEz+EdOYnLjn0iDD0rbqEtoMD0lXegBRwWd
-	 p3Gm97LxZn53gCe6ZsiJEPm/ngW3b5gQn9BYnKm6uCOmyokejdMbLrhLL7xMhbXUJTw==
+	t=1794234442;
+	b=RgDAtg5RQxpg4dwZZDpUZ3GL7wBmo+futaYb0cob0FSe5Ym17oTPmgQdzQZOi1mR6+9I
+	 3ZFnsLc1VSzvbPT+fOaDiD0BvLg0EoMIcBk7kCZHnOREO1wlz2vSh00D3bHn4vzTFtZ4O
+	 GsSnrt3P61lxbWceSbBauxVzxaOVfxJ1IPMvvS9Ebmmj8EsmiNRBvNh+3lykhUXRtf4HN
+	 5bZYbkMpOwKVTKqNrj6CLJv52sBxq3yvYwGfIx/bepB0EZFHSeaVn8V8qJWODMcHct0ln
+	 99qMun3UswMuOPMKo/5iS94oexfTgqms1UY7NNqgGXQPqcieQAeIE3wY5G23jg4hAgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794234376;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794234442;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=B9llKXUjtBg6NYHrvZa2RZ0JKeiVE2awkqQc7/d86Ts=;
-	b=KeGUNAj1x/xYut8DAjKrAU5n1w2K8e5x/tKknu5i4kfArXpnTjuTLnzB3oO3QLinMNel
-	 sdiOKqsrwcaeBnWxeVGBkfhwvhRd63Uuv9etpGnFAu5tmBjNZZnW+X5cflfap+s6+G9uB
-	 pPmpzxLC3M+V+jwlPo7hMPRnOLLqKFugqwYVJV2JbpcciV28CRRwETRDlFsZBcFwyO/VY
-	 6ROhLkqJSWVwSR03f/9RdCgJazBCgHpPJVUCeDumySNj5+cD+S+GzIemtjxLFyU7u2Y5b
-	 8WmT63iTLzfKQzs9x5MaEllBKGWgb8tJ91NrUeEJ3T13KZwMomZpBI2pPpyxs/dSeLQ==
+	bh=DQBR/dBCMcYTXkdOeOOog1rJR98U8AmPJCb23jPzIvA=;
+	b=AlhI2kHAc6NsWIVR1SBbOjwINFc7aAOgIExbhqyW5yXqyOPgpz/jPWZgx0YLPpLHoMEx
+	 0nzJycpMcavClExChuOar+PWUjvaWh9fF5qhgC7koH2KBKH9Cu92m0GZQ7jDL8+wNetrW
+	 RWV3QuZLagM3VRb0/BO2jx41Y609gyDHdGdvhBk9+90VXQwTzDijHatjZQFu1Li4cuagZ
+	 rcnzn1xTABDlQ3zfcPeDz+zBja6aioPDzO1RQRJKxtgtkbqsD1zTQvfU0VzhkkKOR02AA
+	 OcZiBQ0cuSNmA8I83auyKoQii4/m5sDNG9GuY3xOJb3U2yMYnI8ax+kQMMiZLJMdGIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DMOktpQ7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C3H8wQYE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3231E606A321;
-	Mon,  9 Nov 2026 14:26:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4763606A326;
+	Mon,  9 Nov 2026 14:27:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DMOktpQ7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7199F1F0089F;
-	Mon,  9 Nov 2026 14:26:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C3H8wQYE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E83B31F0089F;
+	Mon,  9 Nov 2026 14:27:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794234375;
-	bh=B9llKXUjtBg6NYHrvZa2RZ0JKeiVE2awkqQc7/d86Ts=;
+	s=k20260515; t=1794234441;
+	bh=DQBR/dBCMcYTXkdOeOOog1rJR98U8AmPJCb23jPzIvA=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=DMOktpQ73zOGC8v05iI/+U/1YfqHpq9vNS608Oycv4UNs8X1mYegSrCtypjvxWnF6
-	 L4DV3s1GLDSfcLfCzBFgTmIIEfFwCXb5WYu+pWDZsjFgBHslsKmwVy831p+zDvPFnU
-	 zGRlYzuxhnJnMZ2V0bJYk3maeqoanOEScQayztjdOZsLdbkhgHFf1RXkus0Vpczaft
-	 mGnaoV5SYoXQUWqb4GQ+UkRlNz0iMVjc9vlSolytFBzEM6yxdlx12vvU+ctoUAKATB
-	 +9Wc5UDGNQzrPuPHc2NvGxxYeTpI0F7H5ZizL2UrMXvVw4NIfnZ7n/opOWFU9rjEu4
-	 8qPoSrS3USUTA==
-Message-ID: <788856b1-754b-44cb-a5ca-676400d29a76@kernel.org>
-Date: Mon, 9 Nov 2026 15:26:10 +0100
+	b=C3H8wQYEaereW5Y+ykz1l50Et0cRmZvNz5OyubO8k6Mzm3JRcJ8ZwAzbIpn1O0VnW
+	 WoQZamewYE3OxZzQIlKv3AdsQpU4iqUvDUDOUFFBxGhaas9ujo4Rviw5CnK1wasFNZ
+	 BUbvNzWWpx8nshdFgRq/q4q6yeNnrkSKKxHXxuWA1lNtb1Qdi219igtdjcLi+Ld4bM
+	 PZPeinVRzFXxJ1Ls9Oa8cCwUWPLcmMFskJLS5DmV9kGsMA4Qcpf6ev0HbUWLZBFjBw
+	 eLU5zsQLYsYo7mXGzMGvrSGOBEjSMBn1GmAXyNmOInW70mml0WujDbfWK6rByi2MN5
+	 ZGKuwK5yM2DAw==
+Message-ID: <07b298ca-d258-4cda-b5ae-0231ec39e033@kernel.org>
+Date: Mon, 9 Nov 2026 15:27:15 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,7 +52,7 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] mm: free unused page table allocated by
+Subject: Re: [PATCH v2 2/2] mm: don't allocate a page table under RCU in
  do_set_pmd()
 To: Usama Arif <usama.arif@linux.dev>
 Cc: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
@@ -63,7 +63,7 @@ Cc: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
  Kiryl Shutsemau <kas@kernel.org>, Qi Zheng <qi.zheng@linux.dev>,
  Hugh Dickins <hughd@google.com>, linux-mm@kvack.org,
  linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261106153414.2938216-1-usama.arif@linux.dev>
+References: <20261106155604.3999641-1-usama.arif@linux.dev>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -110,45 +110,41 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20261106153414.2938216-1-usama.arif@linux.dev>
+In-Reply-To: <20261106155604.3999641-1-usama.arif@linux.dev>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11/6/26 16:34, Usama Arif wrote:
-> On Fri, 06 Nov 2026 13:36:12 +0100 "David Hildenbrand (Arm)" <david@kernel.org> wrote:
+On 11/6/26 16:56, Usama Arif wrote:
+> On Fri, 06 Nov 2026 13:36:13 +0100 "David Hildenbrand (Arm)" <david@kernel.org> wrote:
 > 
->> do_set_pmd() can allocate vmf->prealloc_pte on architectures that need a
->> deposited page table, such as PowerPC with the hash MMU. If the PMD is
->> no longer empty when it takes the PMD lock, it returns VM_FAULT_FALLBACK
->> without consuming that table.
+>> do_fault_around() skips PTE table preallocation when the PMD already points
+>> to a PTE table. A concurrent collapse can then retract that table and
+>> clear the PMD before filemap_map_pages() locks the new PMD-sized folio.
 >>
->> Since collapse_pte_mapped_thp() uses mmap_read_lock(), a concurrent
->> userfaultfd operation can install a PTE table before taking the folio
->> lock. If that races with set_huge_pmd(), the unused preallocated table
->> is lost when its local vm_fault goes out of scope.
+>> filemap_map_pmd() can then call do_set_pmd() with an empty PMD and no
+>> preallocated table. On PowerPC hash MMU, do_set_pmd() then tries
+>> allocating a PTE table to deposit. But filemap_map_pmd() calls
+>> do_set_pmd() under RCU, so allocating from that context is not good.
 >>
->> Track whether do_set_pmd() allocated the table and free it after dropping
->> the PMD lock if it was not consumed. Preserve any preallocated table
->> supplied by the caller for PTE fallback. Successful PMD installation
->> consumes the table and clears the pointer.
+>> This race became possible when retract_page_tables() stopped taking the
+>> mmap and VMA locks. Previously, those locks excluded retraction while
+>> the fault was in progress.
 >>
->> Returning without a preallocated table matches the existing behavior on
->> architectures that do not need a deposited table. All callers
->> already handle that case.
+>> Add a may_alloc argument to do_set_pmd() and pass false from
+>> filemap_map_pmd(), so we can fail with VM_FAULT_FALLBACK instead of
+>> trying to allocate.
 >>
->> Fixes: 1043173eb5eb ("mm/khugepaged: collapse_pte_mapped_thp() with mmap_read_lock()")
->> Cc: stable@vger.kernel.org
->> Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
->> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->> ---
->>  mm/memory.c | 6 ++++++
->>  1 file changed, 6 insertions(+)
+>> This issue should be fairly hard to hit in practice.
+>>
 > 
-> Acked-by: Usama Arif <usama.arif@linux.dev>
-> 
-> Reminded me of lazy pagetable deposit series :)
+> Yes, I imagine it was very difficult to reproduce, doing a sleeping
+> pte_alloc_one() inside filemap_map_pmd()'s RCU read-side section
+> when a concurrent retract_page_tables() empties the PMD. Only
+> possible on PowerPC.
 
-Not just you. haha :)
+Yes. Did I express how much I hate us having to support this ppc handling?
+
+I'll buy you a double digit number of beers if you manage to rip that out ;)
 
 -- 
 Cheers,
