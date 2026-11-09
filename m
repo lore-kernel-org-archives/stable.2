@@ -1,76 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794260426;
-	b=sA1NkYb9U+8fR98OvCGXdONC4dKckZaz+ABdmF1FnXwpe/gi7Hk3/dXKIYalmoOeLNWf
-	 AzPDI6USHrpGXF09MG6EFkjBCX9sD6i0a+9l/v2LZqJ4puTOD1ACYjIs8lTNgdUNA9MfA
-	 UF/mwc+eOmbGy2nXMy1+/WcU6NhmEdAIYIqbOzoLqiUCvSRC00assWA6GJuTe+hOWRGwG
-	 ul0lgAMjc1Q+sZqZOKO/GJL/cDc0pxwag3TEy2As7wgyMj1SxVHX/N5r1/CUjKxPBeP8z
-	 ZBEB3cgJan9hhL9UmQ6s3+xuvw4lXU7v2TUYRECHEmDl97/aPHUrt7yqZwilbxZybEQ==
+	t=1794260437;
+	b=voE0RFdNFRuSZRc5sENgYzqI2RtEN3B9C6qcuRuYxj7urmIS71sLykPe2IymF0bdwoaG
+	 LemOffK0Bzk88yWR4p4AzM59zMv8W7ZLBfds742FaX++ZKBdIt43LTI15202zuCxwmpG4
+	 40unBqeXtvgC6n9ShtUqqcdVF29HprjuBL5JUiBHikRN3qyYQbtH8BiX0W1HOELZR/yHH
+	 x7Mu7qvKA+a1y+SjY6T+Vj1iMO5UsdHY+omXNq6fvnvvrkg3+Zm5ZbNjd8Vr8rQftEObk
+	 4psOsubF/EpTbrpmj/7iaNhR2l2kh/SRF3syLQPIcGLnFtB2WE9/RQyFoSl0iLK0abQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794260426;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=kbXpWsGA6wjP0sgcEePfgquKyUEPpPh/l8eqP/BlFbU=;
-	b=GEljXpMlPXt5eMiyBSGES6vZkaIK+4lATdOS046yhF4ZB/zD54AfgLV+mLo6gerNvYW3
-	 Z+0oQqTmTws5hNj44yyo23xvCxBLOvAPBdCUmcg7vSwSLZhE0CX3JTUoaddcoRv9et7TN
-	 hlD/7lSSgqnkrwVuetl0TNhKuvgsxlVp6CGjjupL8ghT00e1kKTQzrLegn3UrwAonIhjO
-	 1xu0voNdqzWtup+HHjObV3ZcztPM+cFQOUD8tzwUVx+upKg2LPaI95749VJ3ssHLgpGOi
-	 IISLYKk17uaKiQrwDAZmIbJhGs8Hh4eGcGcDAvakaTe0327WqCFq/yaEemwugcSz9Sg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794260437;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=LoJnZn1Il1sWKFvMJMPHOvzJNNPDmZXqYG4FvZ/7nwo=;
+	b=KhAom6n6Ojdfb2e/XwM27dc6oTAH5KYsifhBXmdVxdizg4gq3PU95EFlZrQ1x4buzNy0
+	 nEzom3VNtco4k0A4v8JaZnaHmUZ7DwzGxW8JgmiByS6N5lAt0awq3Ij7rwSyQFSs505v+
+	 /zlN1ZIObGdQmUtK/uE9bRpXEX0usKtp1f6Zezf5l26kJVLNzEnMtskbGF98SKU+GhYpj
+	 +PTYIegYc5ULVbSzqUQyZowhcYSzB3qm6pSJ51NFxPJG2MhApw2s4HlLTk5vlSqS6NJV1
+	 s1o653GNNnyp1pInyIWms5lCEqh5uGKedMHwW54fn33ozH+im7S3o5gZQsFIW8LTaXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=b7Gc1CB4;
-	arc=none smtp.remote-ip=198.175.65.11
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ddpLBIRF;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 424C7606A321;
-	Mon,  9 Nov 2026 21:40:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 424C7606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36378606A335;
+	Mon,  9 Nov 2026 21:40:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=b7Gc1CB4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794260425; x=1825796425;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=5NVSwZOPfn0jj1MPptSgjkG5ckE1/OJgvnBjUPbvvjQ=;
-  b=b7Gc1CB41EaIKUg/0YAxvkZvKWjVsyN4jPjyI3y/pB7BjZ5F5d8HJnrh
-   95wA2dkFt24iAdKKKi5Im3DYNbWoXTY7VMU+6BLJqgTmi92w5y8pOiI1L
-   PcmG6hge2GJHZaOdZx12LLzilDaC4HWKypMOuRgVfTGz6ZYVvLgnA6K3N
-   sAMV8RLPwIQO3/Xh9MqqMUWmc7bL5qjAmVt9nPbVxAW0uiUJmtmKyV4Wg
-   SjGDXJ7r+goxD22SmlAkk5OZyTuFs516SfdymtuvSkiIyPrrzZovCcPrL
-   hnXLtwGZo4xkpDlqqHY5BVlcPQgixlpYj3o0XYm8AjC8fmAz0DGoBI58x
-   Q==;
-X-CSE-ConnectionGUID: RZjJT9jPQ5CGR0Wu66Ht7w==
-X-CSE-MsgGUID: zZ13kACRSB2H5tiTt5+sBw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2883929"
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="2883929"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 13:40:25 -0800
-X-CSE-ConnectionGUID: MSujhSu6TWWx9FrasFgZjQ==
-X-CSE-MsgGUID: ElzKqfZjQLmrvIcNW8Q4dg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="7989377"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 13:40:23 -0800
-Date: Mon, 9 Nov 2026 23:40:21 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: raoxu <raoxu@uniontech.com>
-Cc: lee@kernel.org, mika.westerberg@linux.intel.com, mfd@lists.linux.dev,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] mfd: intel-lpss: Clamp latency tolerance to the register
- value mask
-Message-ID: <avI9xV5PbYvKdFe1@ashevche-desk.local>
-References: <82545EC5E5ABC9F0+20261109094242.3783672-1-raoxu@uniontech.com>
- <avI9fDRmwFyIfTDv@ashevche-desk.local>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ddpLBIRF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 287431F0089F;
+	Mon,  9 Nov 2026 21:40:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794260436;
+	bh=LoJnZn1Il1sWKFvMJMPHOvzJNNPDmZXqYG4FvZ/7nwo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ddpLBIRFALacXUpP337oA9bvFrqBIgu86DmWbayhwPmBQb5wSW6+4zk9dRrRXw7Hq
+	 POXgqIU6C1/vbtTtcwJlr/eLY7vWJ1MLYOcaM0fVdz16LTbUahtSRlDqAMq74fa4j7
+	 RyhHI65b9UG81jxDJR6FdP0nyvbT8QoxsmTyMcvru2S5mqpW3enH8pLJeOhP7qty2p
+	 h0hrlxV97X5+gcSl6B7wy8eUR8xoR7NaAKF8go6reFbVvT0h6f7bX1RUQ948XmuD/9
+	 UsJaFFG+I5r0YwQtZN9Kyu0k6B8kRTExS0Tjq+pqr4sA0uJ0MEU/c8UbJFx072pbMR
+	 wT3prnbX/oGaw==
+Date: Tue, 10 Nov 2026 08:40:28 +1100
+From: Dave Chinner <dgc@kernel.org>
+To: Stian Halseth <stian@itx.no>
+Cc: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org,
+	"Darrick J . Wong" <djwong@kernel.org>, sparclinux@vger.kernel.org,
+	Jan Engelhardt <jengelh@inai.de>, stable@vger.kernel.org
+Subject: Re: [PATCH] xfs: read rmapbt high key offsets with get_unaligned()
+ in scrub
+Message-ID: <avI9zGQRG_kh0l2w@dread>
+References: <20261109134853.1659991-1-stian@itx.no>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,62 +60,63 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <avI9fDRmwFyIfTDv@ashevche-desk.local>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20261109134853.1659991-1-stian@itx.no>
 
-On Mon, Nov 09, 2026 at 11:39:12PM +0200, Andy Shevchenko wrote:
-> On Mon, Nov 09, 2026 at 05:42:42PM +0800, raoxu wrote:
-> > 
-> > The PM QoS latency tolerance interface accepts non-negative s32 values,
-> > but the LPSS active and idle LTR registers have only a ten-bit value
-> > field. intel_lpss_ltr_set() selects the larger scale for requests above
-> > 1023 us and ORs val >> 5 into the register without limiting its width.
-> > 
-> > For a request of 32768 us, the shifted value is 1024 and the latency
-> > value field becomes zero. A request of 100000 us leaves only 53 in the
-> > value field. Still larger requests can set bits outside both the value
-> > and scale fields. Thus a relaxed latency request can produce a much
-> > stricter tolerance and unnecessarily restrict power saving.
-> > 
-> > Clamp the shifted value to LPSS_PRIV_LTR_VALUE_MASK before combining it
-> > with LPSS_PRIV_LTR_SCALE_32US. This saturates oversized requests instead
-> > of wrapping the field, matching the Intel LTR handling in sdhci-pci.
-> > Negative values and PM_QOS_LATENCY_ANY retain their existing handling.
+On Mon, Nov 09, 2026 at 02:48:53PM +0100, Stian Halseth wrote:
+> An rmapbt node stores each key as a low/high pair of packed 20-byte
+> struct xfs_rmap_key, so every high key is only 4-byte aligned.
+> union xfs_btree_key is 8-byte aligned, which lets the compiler read
+> rm_offset through it with an 8-byte load.  On sparc64 every high key
+> checked by xchk_rmapbt_check_unwritten_in_keyflags() then takes an
+> unaligned access trap:
 > 
-> Shouldn't we rather forbid to apply wrong values?
+>   Kernel unaligned access at TPC[105a54d8] xchk_rmapbt_check_unwritten_in_keyflags+0xb8/0x160 [xfs]
 > 
-> > The supplied fix was reviewed and this commit message prepared with
-> > OpenCode AI assistance.
+> Use get_unaligned() for the high key.
 > 
-> This paragraph should go after '---' line below.
-
-...
-
-> > Fixes: 4b45efe85263 ("mfd: Add support for Intel Sunrisepoint LPSS devices")
-> > Signed-off-by: Xu Rao <raoxu@uniontech.com>
-> > Cc: stable@vger.kernel.org
-
-Ah, and it's not a fix, it's just improving user experience. The interface even
-not a sysfs one IIRC.
-
-> > ---
-
-...
-
-> >  		if (val > LPSS_PRIV_LTR_VALUE_MASK)
-> > -			ltr |= LPSS_PRIV_LTR_SCALE_32US | val >> 5;
-> > +			ltr |= LPSS_PRIV_LTR_SCALE_32US |
-> > +			       min_t(u32, val >> 5, LPSS_PRIV_LTR_VALUE_MASK);
+> Fixes: 38384569a2a8 ("xfs: detect unwritten bit set in rmapbt node block keys")
+> Reported-by: Jan Engelhardt <jengelh@inai.de>
+> Closes: https://github.com/sparclinux/issues/issues/115
+> Cc: stable@vger.kernel.org # v6.4+
+> Signed-off-by: Stian Halseth <stian@itx.no>
+> ---
+> Tested on sparc64 (T4, 7.3.3) by scrubbing the rmapbt of a loop-mounted
+> image: alignment faults per scrub went from about 4000 to 0.
 > 
-> No min_t() in a new code. You mentioned clamping, use clamp(),
-> it's exactly for that.
+>  fs/xfs/scrub/rmap.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> >  		else
-> >  			ltr |= LPSS_PRIV_LTR_SCALE_1US | val;
+> diff --git a/fs/xfs/scrub/rmap.c b/fs/xfs/scrub/rmap.c
+> index 68e2847c962bb..d0578800f3e41 100644
+> --- a/fs/xfs/scrub/rmap.c
+> +++ b/fs/xfs/scrub/rmap.c
+> @@ -174,7 +174,7 @@ xchk_rmapbt_check_unwritten_in_keyflags(
+>  			}
+>  
+>  			hkey = xfs_btree_high_key_addr(cur, ptr, keyblock);
+> -			if (hkey->rmap.rm_offset & badflag) {
+> +			if (get_unaligned(&hkey->rmap.rm_offset) & badflag) {
+>  				xchk_btree_set_preen(sc, cur, level);
+>  				break;
+>  			}
 
+That just looks wrong to begin with. Decoding an on-disk structure
+without using be64_to_cpu() to get it in the correct endian order
+first?
+
+Oh... the code plays "I'm too smart for my own good" micro-
+optimisation games by endian swapping the badflag variable to avoid
+needing to endian swap the rm_offset field.
+
+It seems to me that the correct fix here is to stop endian swapping
+the badflag variable, and endian swap the rmap.rm_offset fetches for
+both the low key and high keys, like all the other places that
+dereference rmap.rm_offset direct from pointers returned by
+xfs_btree_key_addr()/xfs_btree_high_key_addr().
+
+Cheers,
+
+Dave.
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+Dave Chinner
+dgc@kernel.org
