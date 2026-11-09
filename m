@@ -1,62 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.98
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794226905;
-	b=YKIcqWOq2WP39ASr5/DEw2Xkcz//4EYup5wfj18vbL8BnhYzlSoj6mgLiaEgPfYilxFf
-	 BP4uApDtGM/kLoXYu5fiva931/cNXaWDMk+2V0JuEcTtO13WdXAOyze+vavSedI6PUK/X
-	 D/t5KGIeeZ4ug+4Y6/Dnoy1/0ywaNRTr0mbu13qhKlCNL9LFDWUN/Ue/eZUJ9oW1chsCp
-	 8eZSzv1VJKt8GEB/SGFuBPgsaTKA+BgdRdfGP67507SoJM9hZqwNYukTi1LYvtTYn5Pqe
-	 bSAUyP04aO9LtPqJAk9WzkyPRjmgbWIzQbcyejkr70fx2lE/4xgcNcNeHurpwZvOs/Q==
+	t=1794226906;
+	b=rrtG5/f0dCAhLXGFX9STS4pqSuI/mxJudJS8uhGVQw6kUWtv9XMOhoV+/RYoVemLQFJv
+	 8b9ilOEN+vvZAZwfpXTtBRkAayeuYn6cfd+RhxKaRb2ZnaHAvM/CkTr78lpvmkUq62TZv
+	 3H3iYnNLDfXm7kNKcKsh+kqfjI4cqaeSgTVqBu/ZBElGj8T8JQQAhcn3VG8VFErWoH8gg
+	 C+ZIDVrpMhDgZJNTmvbmBtWv+1Ex6dQhKAJ2UAcaT5HDxwflxh6Nj6syT3oA/x0CcabrN
+	 a/XRvyZEMifeI5OVyg2JWbhcvWYYXqS73dTm1iz91EMum+jvcVG8Sr/WkZdWjXZmFAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794226905;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=ly/DHPYaYtg4H5d7I4tI+XKSj5VHoc0rWfr4sQj575E=;
-	b=UkKMfhsV7WKEDR/flKY5qYInD8CJT6J9vl/+MQq6206HDAzXiFTH8m62kQdI3+30crAR
-	 GETPpQkpDIreUQNqYvGqF3Bpjz1Rgp28+KW6t/RH+UnfqhWP83yf3EbPS6Wlh0TAu3Ggd
-	 c/J/2xhAmuDJMdYBnWj5xEssUbXJo2xlokeDfT+LEoK74mLDS8322Ch3ibCEL8jxnWRCt
-	 BcZCBE9xNWzpiFyJjy4tn26nMIQ/xzUk0BQl47TVQCII2G+m4R+8HhVA1Df6r2/XVd/sJ
-	 mnGFzLg+mXGVm6el1Hi0n1fuDWv5N5UGIJKQoggAHltUJo+DPxmCgsQrKx6hwVIlEww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794226906;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Received:Date:In-Reply-To:Mime-Version:
+	 References:X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=dh8J4WIzy/Sl92ybMwtL5Uf6n1C8v5ZRxzClxO+l8mI=;
+	b=OmnYYfvEpSN4yEjZ4iBQUFiUeQ/CvNndg9zrZpvlHJWmO0Hm4CoB1gT6J4EOatxf9Wxa
+	 7lfqsZxwjZyxt+aK4nwPsgVjjcumP/LNg9EoggDpw8GUsAIcsXDQhxqWXX1RYXxchNLkT
+	 RJ/pOx4xc+1gkjEMuzRoPs8ibs3VRxlmaXZSFm6gz+Lw8AhFrfg2Vlqoo8iw0a0FCZcQX
+	 kAhn0xFrobEM0yK3Xrfl9SGHr9tpmBYuVwWGM59KIylAi0LR5Tcb280zWDuTnHrTSvFKX
+	 9PIImJ3b4i5HL7v+dyGxdk8koEdqojU2/OHS9XcHyzdNv9Ej9E9BiCc76eiVEe/v7Mg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=G+wzzvKx;
-	arc=none smtp.remote-ip=115.124.30.98
-Received: from out30-98.freemail.mail.aliyun.com (out30-98.freemail.mail.aliyun.com [115.124.30.98])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--ardb.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=cyondodg;
+	arc=none smtp.remote-ip=209.85.128.70
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com [209.85.128.70])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6342C606A321;
-	Mon,  9 Nov 2026 12:21:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6342C606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F26E1606A31C
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 12:21:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F26E1606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=G+wzzvKx
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1794226895; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=ly/DHPYaYtg4H5d7I4tI+XKSj5VHoc0rWfr4sQj575E=;
-	b=G+wzzvKxiI+kD7xKoJSHBxKN2vlcy1BHW6ov8WKUXZccLJVqCeSOONjr1H8rKj4mbCijhyZ+hBXvAj/fU/8oDGPIvkrqyLWcB1BuW/PQmvoFF5mp9vkTYxAxp7isdTT5rlhQSJPUC8p5/Wo0R87vRC0MG/If2Z9FOqrM5dHeyG4=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R111e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=8;SR=0;TI=SMTPD_---0XEOZNct_1794226894;
-Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XEOZNct_1794226894 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 09 Nov 2026 20:21:35 +0800
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Heming Zhao <heming.zhao@suse.com>
-Cc: Mark Fasheh <mark@fasheh.com>,
-	Joel Becker <jlbec@evilplan.org>,
-	ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Joseph Qi <joseph.qi@linux.alibaba.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v3 01/31] ocfs2: exempt orphaned dinodes from the zero nlink check
-Date: Mon,  9 Nov 2026 20:20:51 +0800
-Message-Id: <20261109122121.21473-2-joseph.qi@linux.alibaba.com>
-X-Mailer: git-send-email 2.39.3
-In-Reply-To: <20261109122121.21473-1-joseph.qi@linux.alibaba.com>
-References: <20261109122121.21473-1-joseph.qi@linux.alibaba.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=cyondodg
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a20e41008cso5730365e9.1
+        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 04:21:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794226904; x=1794831704; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dh8J4WIzy/Sl92ybMwtL5Uf6n1C8v5ZRxzClxO+l8mI=;
+        b=cyondodglzYVSXdMVm67DKsysVmpLxXgwFwy1ps39y09WZ3aN2Y0qLnb5AWeNKzM89
+         nz6b8pefY3YOcsuiby1hNe469WUPmqPaLeGYBS0XQcM57UUDVMPYkJAIod5ybpGi80V/
+         EkMBHtl6a3vonzuBhPKsvi0DWc8gjjvj6rp0EFob++xdQr2gyjUqH0qCfVWWcx62kgQL
+         O/0o29Hb6Eh1RKr/+zzym1mRHwKGiJIdHhApieBnPSYjB39s1t7cppPwfAWWCAZ8QJUa
+         aZq+Ru5H4mETYhmSmMqZErgw18IIeLGXzNKGzKdJiVuDuLGeb4QfQswIdYpKczaEpOlN
+         ns7w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794226904; x=1794831704;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dh8J4WIzy/Sl92ybMwtL5Uf6n1C8v5ZRxzClxO+l8mI=;
+        b=A0pM0FbAyVTBzvbjDhDuOcNSz9DD9qiKdTQQRxPm2TIeAt3nSPbYasiRYOX7Kc5+Tl
+         jxLjZhdVz5kvEzbNFO4jD2cacLETFTTcp7XDHc58JgdWlb03ns2/EOz/gdgEK0GjTP7O
+         euGJj5qz9tJZSenWZRFevTIA9O8X9oVKf7fIoTi++VoKG05qLf8Dyy0IJc8QnzrigEyG
+         16EXYKVLuXZBrmfMuHdCI+uUXsCrw/nQlyz5vgQQFcsGIEYRKGhoh25kRZ8KmigBvjRD
+         Wis+5q4MkgttxDuYR5+Ie+zfA97W0qFOLMDrYU5755BV8tCLYebsoK2gDaPT0C5tIjfu
+         pzVQ==
+X-Gm-Message-State: APuU4Z9zCINeqlEGcFxHMpPm9hGfrle0Ic8Zq0V1kKt8xLxMN3kUAQYE
+	gC03YAOxQ70EEKQjWwwW5eaXTSmsbUylJHbAWxCoCgiuGuF8Wl5X84WkhiqMFkFny1RCiuVLDX4
+	i9QACnvXdr/IU8PZvHI7ucmV+lLS6aknu/h30jTMA6kh+WF0E3b5VgwfGVshBNnyJ65hFiO/7cF
+	6qUf/9nhSuwZrajzYn+PyrjOGJgQ==
+X-Received: from wrrn17.prod.google.com ([2002:adf:fe11:0:b0:48d:ed12:7c4c])
+ (user=ardb job=prod-delivery.src-stubby-dispatcher) by 2002:a05:600c:3e0a:b0:4b7:6aac:7406
+ with SMTP id 5b1f17b1804b1-4b94d762f58mr73006055e9.3.1794226903857; Mon, 09
+ Nov 2026 04:21:43 -0800 (PST)
+Date: Mon,  9 Nov 2026 13:21:30 +0100
+In-Reply-To: <20261107052256-failed-6.12-4c86b5f3fa78@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,73 +77,54 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261107052256-failed-6.12-4c86b5f3fa78@kernel.org>
+X-Mailer: git-send-email 2.56.0.455.g6c5a503b38-goog
+Message-ID: <20261109122129.1396402-2-ardb+git@google.com>
+Subject: [PATCH -stable] efi/libstub: arm64: Don't use the platform register x18
+From: Ard Biesheuvel <ardb+git@google.com>
+To: stable@vger.kernel.org
+Cc: Ard Biesheuvel <ardb@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-An open-unlinked inode legitimately has a zero link count on disk.
-ocfs2_unlink() drops the last link and writes it out with
-ocfs2_set_links_count(), ocfs2_orphan_add() then sets OCFS2_ORPHANED_FL,
-and OCFS2_VALID_FL is only cleared much later by ocfs2_remove_inode().
-The zero nlink check added by the commit below rejects such an inode as
--EFSCORRUPTED even though it is perfectly valid.
+From: Ard Biesheuvel <ardb@kernel.org>
 
-That commit describes its own change as a check for "(i_mode == 0,
-i_nlink == 0, non-orphan)", but the code it added has no orphan exemption
-and ORs the two conditions rather than ANDing them, so a zero link count
-alone is enough to fail even when i_mode is valid.  Add the exemption the
-changelog describes.
+commit 4c86b5f3fa78347fa9cbc9e8ec06615b2f80e397 upstream
 
-Orphan recovery hits this on every pass.  OCFS2_FI_FLAG_ORPHAN_RECOVERY
-clears can_lock in ocfs2_read_locked_inode(), so the block is read with
-ocfs2_read_blocks_sync() and then validated by the explicit
-ocfs2_validate_inode_block() call in that branch.  The read helper having
-no validate callback of its own does not mean the path skips validation.
-ocfs2_orphan_filldir() then ignores the resulting ocfs2_iget() failure
-("Skip bad inodes so that recovery can continue"), so the orphan is never
-wiped: its space is leaked permanently and the "Corrupt state" message is
-logged again on every mount.
+The UEFI specification designates x18, the platform register, as "do not
+use" on AArch64, so that UEFI code is compatible both with an OS that
+assigns a fixed role to x18, and with one that uses it as a temporary
+register.
 
-The same applies to an orphaned dinode read through
-ocfs2_read_inode_block(), for example from ocfs2_delete_inode() once the
-buffer has been evicted.
+The arm64 EFI stub and the EFI zboot decompressor only avoid x18 if the
+kernel is built with shadow call stacks, as that is the only case where
+-ffixed-x18 is added to KBUILD_CFLAGS, which the stub inherits.
+Otherwise, the compiler is free to use x18 as a temporary register, and
+it does so.
 
-Note that a zero i_mode is already rejected by the later
-ocfs2_valid_inode_mode() check, since fs_umode_to_ftype(0) is FT_UNKNOWN,
-so the nlink arm was not what protected against the zombie inode the
-original commit was fixing.
+So pass -ffixed-x18 unconditionally when building the stub for arm64,
+so that the image can be run by loaders that rely on x18 being left
+alone, such as a kernel that uses it for its shadow call stack.
 
-DIO orphans need no exemption: ocfs2_add_inode_to_orphan() is the only
-caller that passes dio=true to ocfs2_orphan_add(), and it never drops a
-link, so those inodes keep a positive link count.
-
-Fixes: 7efb45f9685f ("ocfs2: invalidate inode if i_mode is zero after block read")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Cc: <stable@vger.kernel.org> # 6.12.y and older
+Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
 ---
- fs/ocfs2/inode.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ drivers/firmware/efi/libstub/Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/ocfs2/inode.c b/fs/ocfs2/inode.c
-index 7005e59519b2..371857673712 100644
---- a/fs/ocfs2/inode.c
-+++ b/fs/ocfs2/inode.c
-@@ -1482,7 +1482,15 @@ int ocfs2_validate_inode_block(struct super_block *sb,
- 		goto bail;
- 	}
+diff --git a/drivers/firmware/efi/libstub/Makefile b/drivers/firmware/efi/libstub/Makefile
+index 1141cd06011f..d33c02e58717 100644
+--- a/drivers/firmware/efi/libstub/Makefile
++++ b/drivers/firmware/efi/libstub/Makefile
+@@ -22,7 +22,7 @@ cflags-$(CONFIG_X86)		+= -m$(BITS) -D__KERNEL__ -std=gnu11 \
  
--	if ((!di->i_links_count && !di->i_links_count_hi) || !di->i_mode) {
-+	/*
-+	 * An open-unlinked inode legitimately has a zero link count on disk:
-+	 * ocfs2_unlink() drops the last link and ocfs2_orphan_add() sets
-+	 * OCFS2_ORPHANED_FL, while OCFS2_VALID_FL is only cleared later by
-+	 * ocfs2_remove_inode().  DIO orphans keep their link count, so they
-+	 * need no exemption here.
-+	 */
-+	if (!(le32_to_cpu(di->i_flags) & OCFS2_ORPHANED_FL) &&
-+	    ((!di->i_links_count && !di->i_links_count_hi) || !di->i_mode)) {
- 		mlog(ML_ERROR, "Invalid dinode #%llu: "
- 			"Corrupt state (nlink = %u or mode = %u) detected!\n",
- 		        (unsigned long long)bh->b_blocknr,
+ # arm64 uses the full KBUILD_CFLAGS so it's necessary to explicitly
+ # disable the stackleak plugin
+-cflags-$(CONFIG_ARM64)		+= -fpie $(DISABLE_STACKLEAK_PLUGIN) \
++cflags-$(CONFIG_ARM64)		+= -fpie $(DISABLE_STACKLEAK_PLUGIN) -ffixed-x18 \
+ 				   -fno-unwind-tables -fno-asynchronous-unwind-tables
+ cflags-$(CONFIG_ARM)		+= -DEFI_HAVE_STRLEN -DEFI_HAVE_STRNLEN \
+ 				   -DEFI_HAVE_MEMCHR -DEFI_HAVE_STRRCHR \
 -- 
-2.39.3
+2.56.0.455.g6c5a503b38-goog
 
