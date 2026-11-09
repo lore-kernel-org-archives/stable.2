@@ -1,100 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=83.149.199.84
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794212667;
-	b=FBPrc43vGbzPcVnINl79d0bmlVsBid+oFso8DcznSiuyKU3iTUngIky1o+v6TL+DjLjD
-	 rbYw/YqHgBk3wONGUUNZvkXA1Ng+Kz4orrd4OvxqFJCx6M7kM+16eFcHvCLMuvVmBmTYC
-	 qvxusCMrWR1SwYL4tuA+Ve7s+E49EPn9WjXH+GG58agjNTzLUHlf6ofETJZgMq83jrpzV
-	 R944ARBrkhnQVytFNIfEsLqukWwcy35cvmlSz7W5fFYICQZBGxQr6tRUqJ11jLCcVy3mA
-	 o0qG9XcSeGNUrZMtC0vE3T3uMxWjyUiE0aLfY8SJGJl+q6++24B4gd7CDv2vLBLPbfg==
+	t=1794212677;
+	b=pclfjHnKj899IjKvga0GjmWsF9lKAFSsghtlPRcldKATfDluIFLvrTSpckyyGHHcnOmm
+	 MckHU4XPVM8ISJpCcFP0bht5WBqWNI7C3aBQDXx0pZQ8cbxmam8PzJjz0+yNthi/388kO
+	 3Am77N4pl1krqlW/eDdKEL3MUI9g91JY4v861069/pfJWD93dCevZX0TslQI3aM0PHvuP
+	 fGAtb+5/nBrlH+NCXKIu1q+chWubbfTILE6pzQyHOGCpp0Mm6pU0FldodSkmiuAT/H8sI
+	 p0JZIzSKTRJrE5lhRnpTmHsL5WiPeCLLAHV+RDHb4ZsmkkdUfY87Y/FzC5e2dKdgjZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794212667;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=pgRFFSuqTaLzsyNQiW1C7k3T12ue183QKOBEGRFvIJQ=;
-	b=Nm1MHOsgpMI3cEcKEF2S98qM1YbXG2L1dISMXewaS+Rjmgrcps+HRe7KvCjoZPf+hDaE
-	 TU3/2lGyqoBlMeuYqkSdx/ay9oUugtVr0lK3y/GZqVB7hwdUNTY+xzSa0jnPCtecnHmx9
-	 Kbo7mXEmLhqtf6usI4qLAzbZ+j1RPMBOxtg1PKk8ePCSqkuI2yHZbvbcWN5TvV21g2fHg
-	 DI7WzeroSKCmEjWLRik/q3VKEQ2LYaZaHXO4zYYTvBGiLHTz/hybNksxMZvNTbMXow0nZ
-	 kCscM4FjP70MRWfhFI3Dr/N1k9AR2SI/TiZJkcVhzpVAzf3U2gUqS95qIERHmp4sEAA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794212677;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=OVoz92oNs2Ezhha7zJNPmA71hCd662/09DGYXCdVKRM=;
+	b=T/L4Jf9BoRMaV7TK7y+7U/ButHAh2uss5dW3Pp8PSj3U7kT8aVLWsDutAmAsy16DH+U+
+	 WmR6Kc/+IHLliNriF9Nm1+CrW/oI/osXa8q+S/Pjscv3mPuxDz4XCRJqkc3hGyXdmEolA
+	 Ssnnlxs5het0jovT75LFYtDVrxbDsSWB4Lw8UGl4EjwmEua9OpOeeRgddJ+SGrhnZqd4M
+	 IIwj8150kqYfaW6K0v1HNI29yQlD/qjO3oI7AWXKHxkD6sZG65sfLFwlNSOBo2B/wRPyV
+	 AeW6E0fETQqi40+M3yr+SZ4/Q7ZhuybaGmDjkGv6bLtmWuYEjWEBRYhis6TDjWW0/+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jb7gnq7H;
-	arc=none smtp.remote-ip=74.125.82.49
-Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F1DB606A334
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 08:24:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F1DB606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=ispras.ru;
+	spf=pass smtp.mailfrom=ispras.ru;
+	dkim=pass header.d=ispras.ru header.i=@ispras.ru header.a=rsa-sha256 header.s=default header.b=F9LvWubu;
+	arc=none smtp.remote-ip=83.149.199.84
+Received: from mail.ispras.ru (mail.ispras.ru [83.149.199.84])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C7F0B606A322;
+	Mon,  9 Nov 2026 08:24:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7F0B606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ispras.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ispras.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jb7gnq7H
-Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-1b1ce85287aso522564c88.0
-        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 00:24:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794212666; x=1794817466; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pgRFFSuqTaLzsyNQiW1C7k3T12ue183QKOBEGRFvIJQ=;
-        b=jb7gnq7Hqictrz3L/FLiEVrQ+NRlVrpet0Uz3+I7cxsNZo5UwtsZn0rk2VLcEv+rmQ
-         enOG9HdHEtnqIwS7VOSazpVCB3kTEIHhsK4+F0MWqiBaw3B90xJ0M1AaHDx20CKhiS0o
-         iV/OseRs9IMuLBWhLgfKe+fD8igMC+6uYV7ncvIjfpuviudWymzGh4C6XxSv1tm6QNbA
-         +Unu0mf/Ws1sFiThhU7RApWc/2GQejxOkIe3EOWiWqVFymgDOQ+vBuJsTKx1FqJNzP9E
-         FEux7mrRTiDKTPEkI0GRmh5ZjZXm0JcqvTrpQRK75yQ5Sve7hbO2OKLKAqh0f378Bniq
-         nqCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794212666; x=1794817466;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pgRFFSuqTaLzsyNQiW1C7k3T12ue183QKOBEGRFvIJQ=;
-        b=BlWj4qy7APcACc4JVVJUTr1JS1WvESLF7rs4IAQ93WhEJZAYYs4qhu5g934gEawA4H
-         rPNJepHBNvBBlc8ce+jBWCvWCjyuKWueC/bPDHlBYxmOlemh6y9EDCnGVW0UKtQ0JrUz
-         39QeoWWA11LWFiTaNS7UdxtstPW8KStwvpgNIO472LKQL7ZpkttpzMmNJztD75vEu86S
-         2zbQKJF+9LBriCtr1RnpvvVosYcXw8GyQYoDGhQs8Hiws0nD7zGHuNVICYWChEQGmoWJ
-         QSZGlh7BZMiT7VCwmnFDYaMMheYU48fGFAxYeSz4a+AmoQnNQJbFSt9fQrnCOXovCcNZ
-         2plw==
-X-Forwarded-Encrypted: i=1; AL+hErFAxnOUreSVuf5IUfUpkvsT98dnywjh26PBsPvpANC7aUMbZNdk0X8sCmr0N3ZRatg5KViDNxU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9ZyeZ7rVQh7D3arsafoEukOU6Crea2/Gipu1rPc/s9Ytq4XPa+
-	iKK/usv0a51SqDv5rCnHRnCcxPs/lKm4N8egdXcWm8W1FuScSy9mDB9Y
-X-Gm-Gg: AYBFou3n6mDOjPrSStq3Dgk0z5VwA34Gwz4cLswJyxn/rhHVqj5MA8VG9V5mcymbRbu
-	q1d3EUH3w2siyUSYOp6kgw0kZI4EKUPhD6oJoqRTUwSUBWnCk/ElhdVAubdH0S4H7k/zhzuXPw/
-	FFZ5vV81ZTII1cjP1EEtGOLktsgY4+9npGvqjEV+gugQJOvuOBNjwUh7N8O27M5EELe3awW2C7D
-	6HkVuxAGD3wBGZ776fqhgwFcuzz7hBvoq0g5JOxsQelzsMJ0MEFo3JcB8A8uTTtXkli+5qWKPvz
-	/O8WdK4lekT1trl2nEJrxxaMor8yUBNPy73bBnSm7udMySJB0RbMlYafj8oxf5uKSyde1WR+rVi
-	N05jBwpfbIzIJg8gYV8eWPlxIz5pbNuy+2ERckymu1Hm23QrHLFYBVK7F/WOtvxU8/PibSn4YuJ
-	DpxdgAne/30qKMmqybYs+NqVlifmUHkJcG1tZfJ+P0fQPKkklq5Gp2wOUW1sZ/en65Mh5/0toPy
-	lMyPeDUbEngfu12jSknrDMe1ch0vtM9vELALfZXpfaPuXF3/xR1pJrOlxktgM+5f7ovib20Spvc
-	Up3zUhz9Cf13qjv6X0+S5J3aQvcp9fOdvu3ckj6Y06XxlfnxoH4sPO39mnBrNSwZBMe1FPd1Ig+
-	wcVfoetRYMNE5gFsH
-X-Received: by 2002:a05:7022:5f0a:b0:144:fd7c:84fe with SMTP id a92af1059eb24-1b39fec31bamr5133858c88.35.1794212666093;
-        Mon, 09 Nov 2026 00:24:26 -0800 (PST)
-Received: from s1lverbox.orsomething.local (47-144-201-183.lsan.ca.frontiernet.net. [47.144.201.183])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3731487edsm12521742c88.2.2026.11.09.00.24.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 00:24:25 -0800 (PST)
-From: Jean-Paul Sergent <jpsergent@gmail.com>
-To: netdev@vger.kernel.org
-Cc: Jean-Paul Sergent <jpsergent@gmail.com>,
-	stable@vger.kernel.org,
-	Ilya Maximets <i.maximets@ovn.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Sridhar Samudrala <sridhar.samudrala@intel.com>,
-	Kees Cook <kees@kernel.org>
-Subject: [PATCH net v3] net: dst_metadata: fix memcmp overread in skb_metadata_dst_cmp
-Date: Mon,  9 Nov 2026 00:24:10 -0800
-Message-ID: <20261109082410.206140-1-jpsergent@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key, unprotected) header.d=ispras.ru header.i=@ispras.ru header.a=rsa-sha256 header.s=default header.b=F9LvWubu
+Received: from localhost (unknown [10.10.165.10])
+	by mail.ispras.ru (Postfix) with ESMTPSA id A6F97400E772;
+	Mon,  9 Nov 2026 08:19:21 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.ispras.ru A6F97400E772
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ispras.ru;
+	s=default; t=1794212361;
+	bh=OVoz92oNs2Ezhha7zJNPmA71hCd662/09DGYXCdVKRM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:From;
+	b=F9LvWubupRXGAcSfSH9giFamWz6O47z59ApQhw9G+Ei8ds5M8ip4UtqtrlblIwyTS
+	 S6OOmp3Me9BqcipSZ3cYU/luvfkHaAQQSvvvCsbAEvFgWRJCYI36rfHbuWKG6br+yo
+	 Nep3zfCUHanU8xyp7TiiY/X4py1iVf/idQ2OWGXc=
+Date: Mon, 9 Nov 2026 11:19:21 +0300
+From: Fedor Pchelkin <pchelkin@ispras.ru>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Sasha Levin <sashal@kernel.org>, patches@lists.linux.dev, Steve French <smfrench@gmail.com>, 
+	Tom Talpey <tom@talpey.com>, Long Li <longli@microsoft.com>, 
+	Namjae Jeon <linkinjeon@kernel.org>, linux-cifs@vger.kernel.org, samba-technical@lists.samba.org, 
+	Stefan Metzmacher <metze@samba.org>, Steve French <stfrench@microsoft.com>, 
+	lvc-project@linuxtesting.org
+Subject: Re: [PATCH 6.1 0847/1887] smb: client: let smbd_destroy() call
+ disable_work_sync(&info->post_send_credits_work)
+Message-ID: <20261109105427-98d730a74a61a1220d868813-pchelkin@ispras>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,70 +62,103 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261028170518.701562757@linuxfoundation.org>
 
-Commit 3fcece12bc1b6 ("net: store port/representator id in
-metadata_dst") dropped the options_len equality check when converting
-skb_metadata_dst_cmp() to a type switch, so the memcmp length is taken
-from skb a alone.  When skb b carries fewer options than a, the
-comparison reads past b's allocation.
+Hi Greg, Sasha
 
-Hit in practice with Cilium geneve GRO aggregation, comparing an skb
-carrying 12 bytes of tunnel options against one carrying none:
+please see below on what may be potentially improved in managing these
+huge amounts of backports, many of which come with adaptations to old
+stable kernels.
 
-  memcmp: detected buffer overflow: 108 byte read of buffer size 96
-  WARNING: CPU: 0 PID: 15 at lib/string_helpers.c:1036 __fortify_report
-   __fortify_panic+0x9/0x10
-   skb_metadata_dst_cmp+0x11b/0x120
-   dev_gro_receive+0x303/0x620
-   gro_cell_poll+0x67/0xa0
+Greg Kroah-Hartman wrote:
+> 6.1-stable review patch.  If anyone has any objections, please let me know.
+> 
+> ------------------
+> 
+> From: Stefan Metzmacher <metze@samba.org>
+> 
+> [ Upstream commit d9dcbbcf9145b68aa85c40947311a6907277e097 ]
+> 
+> In smbd_destroy() we may destroy the memory so we better
+> wait until post_send_credits_work is no longer pending
+> and will never be started again.
+> 
+> I actually just hit the case using rxe:
+> 
+> WARNING: CPU: 0 PID: 138 at drivers/infiniband/sw/rxe/rxe_verbs.c:1032 rxe_post_recv+0x1ee/0x480 [rdma_rxe]
+> ...
+> [ 5305.686979] [    T138]  smbd_post_recv+0x445/0xc10 [cifs]
+> [ 5305.687135] [    T138]  ? srso_alias_return_thunk+0x5/0xfbef5
+> [ 5305.687149] [    T138]  ? __kasan_check_write+0x14/0x30
+> [ 5305.687185] [    T138]  ? __pfx_smbd_post_recv+0x10/0x10 [cifs]
+> [ 5305.687329] [    T138]  ? __pfx__raw_spin_lock_irqsave+0x10/0x10
+> [ 5305.687356] [    T138]  ? srso_alias_return_thunk+0x5/0xfbef5
+> [ 5305.687368] [    T138]  ? srso_alias_return_thunk+0x5/0xfbef5
+> [ 5305.687378] [    T138]  ? _raw_spin_unlock_irqrestore+0x11/0x60
+> [ 5305.687389] [    T138]  ? srso_alias_return_thunk+0x5/0xfbef5
+> [ 5305.687399] [    T138]  ? get_receive_buffer+0x168/0x210 [cifs]
+> [ 5305.687555] [    T138]  smbd_post_send_credits+0x382/0x4b0 [cifs]
+> [ 5305.687701] [    T138]  ? __pfx_smbd_post_send_credits+0x10/0x10 [cifs]
+> [ 5305.687855] [    T138]  ? __pfx___schedule+0x10/0x10
+> [ 5305.687865] [    T138]  ? __pfx__raw_spin_lock_irq+0x10/0x10
+> [ 5305.687875] [    T138]  ? queue_delayed_work_on+0x8e/0xa0
+> [ 5305.687889] [    T138]  process_one_work+0x629/0xf80
+> [ 5305.687908] [    T138]  ? srso_alias_return_thunk+0x5/0xfbef5
+> [ 5305.687917] [    T138]  ? __kasan_check_write+0x14/0x30
+> [ 5305.687933] [    T138]  worker_thread+0x87f/0x1570
+> ...
+> 
+> It means rxe_post_recv was called after rdma_destroy_qp().
+> This happened because put_receive_buffer() was triggered
+> by ib_drain_qp() and called:
+> queue_work(info->workqueue, &info->post_send_credits_work);
+> 
+> Cc: Steve French <smfrench@gmail.com>
+> Cc: Tom Talpey <tom@talpey.com>
+> Cc: Long Li <longli@microsoft.com>
+> Cc: Namjae Jeon <linkinjeon@kernel.org>
+> Cc: linux-cifs@vger.kernel.org
+> Cc: samba-technical@lists.samba.org
+> Fixes: f198186aa9bb ("CIFS: SMBD: Establish SMB Direct connection")
+> Signed-off-by: Stefan Metzmacher <metze@samba.org>
+> Signed-off-by: Steve French <stfrench@microsoft.com>
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+>  fs/smb/client/smbdirect.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/fs/smb/client/smbdirect.c b/fs/smb/client/smbdirect.c
+> index 9b16840952c09..d2878973c1476 100644
+> --- a/fs/smb/client/smbdirect.c
+> +++ b/fs/smb/client/smbdirect.c
+> @@ -1358,6 +1358,9 @@ void smbd_destroy(struct TCP_Server_Info *server)
+>  			info->transport_status == SMBD_DISCONNECTED);
+>  	}
+>  
+> +	log_rdma_event(INFO, "cancelling post_send_credits_work\n");
+> +	cancel_work_sync(&info->post_send_credits_work);
+> +
+>  	log_rdma_event(INFO, "destroying qp\n");
+>  	ib_drain_qp(info->id->qp);
+>  	rdma_destroy_qp(info->id);
 
-Restore the check: unequal options_len means different metadata and no
-aggregation; the memcmp only runs when both sides carry the same
-options length.
+It would be good to see a small backporter's comment, you know, on the
+reasons behind the performed backport adaptation.  Upstream commit adds a
+call to disable_work_sync(), while the backport only does
+cancel_work_sync() - and doesn't look to solve the problem completely.
+The commit's message says the work can be queued again during ib_drain_qp()
+processing a few lines below.  So canceling is not enough.
 
-Fixes: 3fcece12bc1b6 ("net: store port/representator id in metadata_dst")
-Cc: stable@vger.kernel.org
-Cc: Ilya Maximets <i.maximets@ovn.org>
-Cc: Sasha Levin <sashal@kernel.org>
-Cc: Jakub Kicinski <kuba@kernel.org>
-Cc: "David S. Miller" <davem@davemloft.net>
-Cc: Eric Dumazet <edumazet@kernel.org>
-Cc: Paolo Abeni <pabeni@redhat.com>
-Cc: Simon Horman <horms@kernel.org>
-Cc: Sridhar Samudrala <sridhar.samudrala@intel.com>
-Cc: Kees Cook <kees@kernel.org>
-Signed-off-by: Jean-Paul Sergent <jpsergent@gmail.com>
----
-v3:
- - Restore options_len equality check as a one-liner; drop two-stage
-   compare entirely (Ilya Maximets).
- - Update Fixes: tag to 3fcece12bc1b instead of 69050f8d6d07
-   (Ilya Maximets, Sasha Levin).
- - Add author Signed-off-by, drop Reported-by (Ilya Maximets).
- - Drop redundant Closes: tag (Ilya Maximets).
- - Add maintainer Cc list via get_maintainer.pl (Ilya Maximets).
- - Remove superfluous in-code comments and trim commit log
-   (Ilya Maximets).
-v2: https://lore.kernel.org/netdev/20261003005449.2675.3@jpsergent.gmail.com/
- - Fix subject prefix to [PATCH net]; no code changes.
-v1: https://lore.kernel.org/netdev/20261003005449.2675.2@jpsergent.gmail.com/
- include/net/dst_metadata.h | 2 ++
- 1 file changed, 2 insertions(+)
+However, there is no info on why cancel_work_sync() was chosen still: to
+reduce the existing race window as best effort, or maybe just calling
+cancel_work_sync() is actually fine on 6.1 and fixes the bug properly?
 
-diff --git a/include/net/dst_metadata.h b/include/net/dst_metadata.h
-index f45d1e3163f0..02fffbb85099 100644
---- a/include/net/dst_metadata.h
-+++ b/include/net/dst_metadata.h
-@@ -116,6 +116,8 @@ static inline int skb_metadata_dst_cmp(const struct sk_buff *skb_a,
- 		return memcmp(&a->u.port_info, &b->u.port_info,
- 			      sizeof(a->u.port_info));
- 	case METADATA_IP_TUNNEL:
-+		if (a->u.tun_info.options_len != b->u.tun_info.options_len)
-+			return 1;
- 		return memcmp(&a->u.tun_info, &b->u.tun_info,
- 			      sizeof(a->u.tun_info) +
- 					 a->u.tun_info.options_len);
--- 
-2.56.0
+I guess that adding a brief backporter's comment explaining the rationale
+behind the adaptation won't be too resource-consuming on your side,
+especially if major part is already done with AI stuff.  But it will make
+things clearer on whether the backport fix is correct and complete.
 
+--
+Fedor
