@@ -1,85 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.39
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794265264;
-	b=I9dp8wU4jPpIxAW4Y8eNluzaT1QvOUz/VSEDeZQ9wJpw4XvJCBh2TX06KCTWtuA6s1Dg
-	 aUnWsDw7E2oI1PjuZQcqTX6ajMN8uXJN3oB0fesM6lEF/G+MpofvL09njpA61Vs1tjq5T
-	 cXnWQZtylqQfSeC+Mm//zACEbvr6467IGCtNZ2JXkIw1v6as3f15//sYJG+9yeKNBu6MQ
-	 RosB7RxX6yXI29G3H192fr/qeNWekwFJWFBfZ00BevnF8m/PFqDdeJBHwYm39b4uNfJsq
-	 2oMEOwivCAvjaGtuABrYCS5Ar89rHVf+FO9iDPeKJZBxX7JagJHH+e/8dnnzaZePmUA==
+	t=1794265510;
+	b=RxRWgBtik2rZO3ce4KMmnaU2xgcgWFvKfEP9RD0uDwoTLBNFeYF71ZTWBp9ou9sKZ6pR
+	 R3hyjUelsxkaK8wpccEQSVndILLx/GzeVl1JVDdh+GDDIUaYi4Ks5oiP3cvmZtzoJkrYS
+	 CoTuyQCvbfJpPqcbWYc1daYsuLm/dNBSajwNSNeEQBfKrZ1qNaICyHQOJNTRyUCn4dkv7
+	 K3tc5SA24wSV/V5T3xLlct1RxAVZdcS0nqu/eaqXZJD9a0lSOCtj0d6ML4TeZlUeGwlrn
+	 pQRWNHwSYijL3MphmnT9O3aexm0U7Z41s9hZzOCMeZuAabkxKXOfxlJ9H5VlwIDb5hA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794265264;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
-	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
-	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
-	 X-Local-Domain:X-CMAE-Envelope;
-	bh=zL8FK8P5Vsdfkx0MZ8+/mUpFCsZNRdF7JxzCjScEi5g=;
-	b=iFpbjK1b9UCAk77e+xDlgMN7XPICpdpQ+a3r5TRiAdNXWtmFLOmlu7lwFftBH0on6fck
-	 JSb/EA2Af69VOphpIJK0f+2qznEyiiy3CflXCcyHgAeGALpDh1me1x+SZlMddgA91o/Fv
-	 Q95xAOvrCN+IktRa11KnFhF0BCFp8bERG9E1OyGZXM01uBkz9R8CJj0gyieOT2g7AJ2xh
-	 T7RVRwomJG89crESWmb7g7FlRCKwIl8U5nWp5sy+V6Hbd2IXJuItG6Lrko20H5PJgu8PB
-	 +iZ1yPcKuzrfJANLjNZ9EM8veJHrueavk1yxwy5im8TT+BtMOB871jL9V8Ovqr7wUxg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794265510;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=P8PjP82o/EfTnqFYs8D8gKcmhgQE30cCvqMNx1IE1ck=;
+	b=3/edabUZMm3bMvN4KEC80w/yUZ96tFFL1YXDETp+8thAopnfcTt+3KeCFUEviLQvO/U1
+	 a3x27aMyyrTESSkcXeK7E7AP/c/z7gyNlp5yr/+W+ZONvmpQYsaCAbs0zaF0/jk4rVuIR
+	 3r7L/1nxbSz1RMYlRQtc2prEAvEkswjkMNjUmPiu51jCz4NNhqXSb7Cr5WjkWzaBBZno7
+	 PN0jcQZ2dkRnqecKif7/K3l5F9+KfVA9VlWdAGK5eEvzJ+Zj8+vDZIXYVbviqbbBAConv
+	 t+7J63OuLGX516swYWt4XYNaBSoAiYyQxYY1hVPxPpBqG01ihbyk7I9rgq7gUSWIQpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=oEqpXKT3;
-	arc=none smtp.remote-ip=44.202.169.39
-Received: from omta040.useast.a.cloudfilter.net (omta040.useast.a.cloudfilter.net [44.202.169.39])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DIj2VjLX;
+	arc=none smtp.remote-ip=74.125.229.8
+Received: from mail-dy2-f8.google.com (mail-dy2-f8.google.com [74.125.229.8])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2E70606A333
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 23:01:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2E70606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A524606A31C
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 23:05:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A524606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=oEqpXKT3
-Received: from eig-obgw-6002b.ext.cloudfilter.net ([10.0.30.203])
-	by cmsmtp with ESMTPS
-	id QUb5x6vWUOOJnQYMJx7CuY; Mon, 09 Nov 2026 23:01:03 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id QYMIx6fwn8cn4QYMIxBM0R; Mon, 09 Nov 2026 23:01:02 +0000
-X-Authority-Analysis: v=2.4 cv=Qrde3Uyd c=1 sm=1 tr=0 ts=6af250ae
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=VwQbUJbxAAAA:8
- a=pGLkceISAAAA:8 a=XwxYKhIv0tpjMc_zibUA:9 a=CjuIK1q_8ugA:10
- a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
-	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
-	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=zL8FK8P5Vsdfkx0MZ8+/mUpFCsZNRdF7JxzCjScEi5g=; b=oEqpXKT3wYL1wg/DZ1OCAmn/KQ
-	8jKL+gRhBFw50kw3/1IbtF+x3BKxyHO8/ZHuegflaUFp2X23elHmIUyEI0IVUD7Mygm00WsTG6ceO
-	JdulNAYghF6uY2e6jDXSkzFEmMkUNdPGavsBr/HVrzI5TO5K6PvbnI/THmShWtqcMHS9lOyBYbyUs
-	RWywmG6oBdddctKk8NwopLi1ceUUvqlrfkfydPoOVyqiIWoye4Fs+5P3RD/H4ypAbRDN4ekm+pXZ3
-	/z2LXMfAIkRCZJArqkzHeEjxwUsJTCSbqMzWIS16vBnedaTksTU+Lo4KeEvhybi+KVl+gSYZZke62
-	u8Musk0g==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:54458 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xQYMF-00000000mLs-46PO;
-	Tue, 10 Nov 2026 04:31:00 +0530
-Date: Mon, 9 Nov 2026 15:00:58 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: Stanislav Aleksandrov <lightofmysoul@gmail.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Hrishabh Rajput <hrishabh.rajput@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Pavankumar Kondeti <pavan.kondeti@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org, linux-watchdog@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] watchdog: gunyah_wdt: Re-enable the watchdog on resume
-Message-ID: <bbff9c33-0647-4608-9cd7-07a6801791e0@roeck-us.net>
-References: <20261109-gunyah-wdt-resume-v1-1-fbd84545ce92@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DIj2VjLX
+Received: by mail-dy2-f8.google.com with SMTP id 5a478bee46e88-36a6ce64b95so999847eec.1
+        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 15:05:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794265509; x=1794870309; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=P8PjP82o/EfTnqFYs8D8gKcmhgQE30cCvqMNx1IE1ck=;
+        b=DIj2VjLX4eAFVTOHI6Kqq6l4dSHUr7pFdsnTWediAx4c0ALGEPr9xd6nA40yAlM4t5
+         ue61UyjI1THSMVJ6GcIK4xK+4wEjmasTgWACNJFLl/3jaX3GbDpWMCQUcpgld8EpIqNY
+         n2xlRuFEkW0aC/WVX/SFqJeFFW3YUoB4AcdJJom/gbkSwtlRxAMSwMYqFwGH4IbWgynf
+         atcZOH7LA41lJqAar+56HK4Qo/fCh3yKwKJDgbk+fFP5+JJR09j7jB6853FqUMe79alM
+         RyFrGC1YEkNQF4bu4h+zNqBMli39rmwxmghxvAFYjktkK5ISLbRp6ix4rIgkDyXHHRuN
+         Nk1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794265509; x=1794870309;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=P8PjP82o/EfTnqFYs8D8gKcmhgQE30cCvqMNx1IE1ck=;
+        b=g6/NOLGl8WOHojZuLO8QhfPIOAQk8KN5d/D1nglgTfUBLR/Uo8qO6UmEnsKpieL7Zc
+         v9WnWrUAMCUu8EpJ33DZOQsZArHvjCZt+xT+GA4QNESLif52VQeu3tVJc0lGD83XIBdf
+         iwDXXBaC/5GNPZ3Zu+lbiiR5i2aJaIGFPs+J5nfu+zP4+JP5MORwLxMHSBs3wJSe4ixy
+         GcKPONDrsq5GipggYQdM8rH231lZnKr3gvSQZkN+4/90FCrFtbPfmQAdqHTayuWZClM2
+         BmVU8SLGQaL66k88/6RxEFvWOwSIpYYUH1FBlj4bakzJL4Ejid8Ti3mQJy4n/RhKsUSs
+         lVrg==
+X-Gm-Message-State: APuU4Z/UZ1RpYgJ32FIMPJ0FOQPl+b0HGSTA3ylSHx1BVy8J+nBvPSwW
+	58xE/xcSDzFWlJp9fuNHl51OHDfHWYSDWPATx6JbHTDFO4gkohSyYUt/rr2O6Mvh8TW+Kw==
+X-Gm-Gg: AYBFou3gA257mTHxfXqlZQmZ6PFMGMYakCVhWSAC/2So0RXoppz4e+EgY1lm9H60OSi
+	5ptuBR0yLD9AqY8YQ++BmMjNRSjPU/wRerueUg1mbiCLOoT5e4/IIav0L2EcAqmApImK5FEJm+K
+	qgGy9i4iyXfHjVbfxy30CtrcZ3nqx1YaFTH/OrKVcA0MVvA9GpI0AkuOhrKj1jBLZSiIEFpF3tn
+	DFS/BDzhmTBOpu+m6FJKyl30Ux6ccJnuQ8lO3+QlfmD2y0MgZWMAoDtvo064yBI8eaJ60j8pwT1
+	Qt9Ns4iQHnf6CRHsHNjdCtAQJgBD8+lJoSt1AvZxRLGk0LLhfTbrOBdvXMfZzgSngfhzquOnNBp
+	i5xPThCv0ao6If8zfDwVmqSTJy1svgKBjoWcUe0sU/fOFMOuSSJdtMRppCfYUDHcFGx4qGImeaN
+	miLLxokhSW/icvlEEQIVNRLqouojNesegJg4eg+zLkRmKrqAH4jx1NOjedR55AqEv1VpcBpUUZA
+	haKsfBvWGRMj2NL6WVnLZo+Nn+H9Pok7W3Af+gjDuFzKJdPTU5TTDf9/iqIeQLTQeZ43H4TFjvV
+	QTGApE8K9R3jqQ9IkMMUXyVZguwFaLOQWlUOWmfrfvak2f5/K8Mqim8bS2mKiedYP0943jwVa8N
+	WW9h9n+RFO8Q4j0IuFWFyp/MWsA5pu0kVY2Du2A==
+X-Received: by 2002:a05:7022:5f19:b0:144:eaa7:2763 with SMTP id a92af1059eb24-1b3b60001f1mr1136139c88.16.1794265508993;
+        Mon, 09 Nov 2026 15:05:08 -0800 (PST)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37520512ec1sm1420888eec.12.2026.11.09.15.05.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 15:05:08 -0800 (PST)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: stable@vger.kernel.org
+Cc: sashal@kernel.org,
+	tglx@kernel.org,
+	dennylin0707@gmail.com
+Subject: [PATCH 5.15.y] posix-timers: Accept NULL clock_getres() output in stubs
+Date: Mon,  9 Nov 2026 23:05:00 +0000
+Message-ID: <20261109230500.10899-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261107061155-failed-5.15-5b819071e434@kernel.org>
+References: <20261107061155-failed-5.15-5b819071e434@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -89,54 +98,60 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109-gunyah-wdt-resume-v1-1-fbd84545ce92@gmail.com>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xQYMF-00000000mLs-46PO
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:54458
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 1
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfBQzpwgKdvL6aJZmZ7p0Bbd0I7m2WpmTEhB5xVznEWxeMC4ZnjadyvLymtXv2BeHgjk3wiUSik2fVh2FdsPlzhW/FnmwgAYiz0BjuEzoUknVEGFqPe0Q
- 4ZRg5gKsMq6kvtL0w+vZp9ZeraLI+RBth2cNtlyB6c9vguBbN8Vb6gvsGq8mM77ntZi3gjcFgGGl8dM0A21v/Xs6iXozUpVJqunQ9BQDFje0tETnDWshw6KY
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 09, 2026 at 08:26:52AM +0000, Stanislav Aleksandrov wrote:
-> gunyah_wdt_suspend() disables an active watchdog, and
-> gunyah_wdt_resume() enables it again with gunyah_wdt_start(). start()
-> first disables the watchdog, which fails with -EINVAL when it is
-> already disabled. start() ignores that only while the watchdog is
-> inactive, but on resume it is still active for the watchdog core, so
-> start() returns before it enables the watchdog:
-> 
->   gunyah-wdt gunyah-wdt: gunyah_wdt_start: Failed to stop gunyah wdt -22
-> 
-> So after every system suspend, the watchdog is left disabled.
-> 
-> Move setting the timeout and enabling the watchdog into
-> gunyah_wdt_enable(), and call it on resume, where the watchdog is
-> already disabled.
-> 
-> Tested on the Samsung Galaxy XR (Qualcomm Halliday) with s2idle and
-> deep suspend.
-> 
-> Fixes: ca316e145c35 ("watchdog: Add driver for Gunyah Watchdog")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Stanislav Aleksandrov <lightofmysoul@gmail.com>
+[ Upstream commit 5b819071e4346256c4edbae5cc2095dff25694fc ]
 
-Applied.
+With CONFIG_POSIX_TIMERS disabled, clock_getres() returns -EFAULT for a
+supported clock when the result pointer is NULL. POSIX permits a NULL
+result pointer to suppress returning the clock resolution.
 
-Thanks,
-Guenter
+Only copy the result when a destination is provided, in both the native
+and time32 stubs. This matches the full POSIX timer implementation and
+preserves clock ID validation.
+
+Fixes: baa73d9e478f ("posix-timers: Make them configurable")
+Fixes: d822cdcce43f ("posix-timers: Move compat versions of clock_gettime/settime/getres")
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20261020161121.85042-1-dennylin0707@gmail.com
+---
+Applies cleanly to v5.15.225 (29c6cdaac04a) without changing the
+upstream code diff. Built with GCC 13.3.0 and W=1.
+
+QEMU, CONFIG_POSIX_TIMERS=n, uid=65534:
+  x86_64 native + i386 time32/time64 syscalls
+  Before: 159 passed, 9 failed (supported clocks with NULL output)
+  After:  168 passed, 0 failed
+
+ kernel/time/posix-stubs.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/kernel/time/posix-stubs.c b/kernel/time/posix-stubs.c
+index 3783d07d60ba..4eb4d7cb6179 100644
+--- a/kernel/time/posix-stubs.c
++++ b/kernel/time/posix-stubs.c
+@@ -116,7 +116,7 @@ SYSCALL_DEFINE2(clock_getres, const clockid_t, which_clock, struct __kernel_time
+ 	case CLOCK_REALTIME:
+ 	case CLOCK_MONOTONIC:
+ 	case CLOCK_BOOTTIME:
+-		if (put_timespec64(&rtn_tp, tp))
++		if (tp && put_timespec64(&rtn_tp, tp))
+ 			return -EFAULT;
+ 		return 0;
+ 	default:
+@@ -210,7 +210,7 @@ SYSCALL_DEFINE2(clock_getres_time32, clockid_t, which_clock,
+ 	case CLOCK_REALTIME:
+ 	case CLOCK_MONOTONIC:
+ 	case CLOCK_BOOTTIME:
+-		if (put_old_timespec32(&rtn_tp, tp))
++		if (tp && put_old_timespec32(&rtn_tp, tp))
+ 			return -EFAULT;
+ 		return 0;
+ 	default:
+
+base-commit: 29c6cdaac04a6989a7ed4ae4275ce4244e617f58
+-- 
+2.43.0
+
