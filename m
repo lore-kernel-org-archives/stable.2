@@ -1,87 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794244596;
-	b=lb98sujgbdAMI12GKqs1RjEKYpXqT7me0GJs+msjf8E711gCS52jdY6eu7KzzNr4fVN3
-	 qAPz/i2Q5qH601O8gV+bS+gblY9IW+wRIDbcMmsR8WeQOvZA/iNfk0c9JPmZn+OHgJu9r
-	 h5do6IrJJ7pNFGfrQUP8p5AORt7lNsjYtarM8mWyxpzuaspe3QjT5oGry52N0QrDhpA6s
-	 pcG026SkiWcS18EQU2ZvU1Yu4E0ZsVu0bwAO0qsSiMSreirLs4wKVEKQBJckrlX7IhH4y
-	 N7EHUNHiyNxoHcZPYyFmnzIOOSbUN3dTkkkacBhXylatjtQARDpZiL9d6xaPlGEZsaA==
+	t=1794244905;
+	b=TrrCr0FDFNcmJIj5cNjDZpwSc5RnLzu3rt00HYk9ZbU9tkTtcrU6lsJ20MeJ3dQlw8qp
+	 twHLyQXnMW4iNbpk0QHXZgrmZBhavPX3oS80xrXN/iq77vHZX1ObJPhsWgHJvvgmJ5SZj
+	 E56F+uwLrjfhZxU+GuDboTJNk5UH/ddnfdUEVJAzl3D8iasuoTEPAaXY7FWiVuKGv7sid
+	 vVSTSGy0v76Gw/1wXNWCu5Yu3wZ38bqwUvU4/UxlBZtUqtfmBbdNdpfp9sM2yBHHBSND+
+	 S3XwfPWMyBKNCNg/VOFC35U2Ljwz97mWco04dfoPh3rDJsmeTSQ3MXyRYWwXcVSvKYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794244596;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=j6CW/1Tx0ekOFiRNdAR2OG0dMWkU4FJDAABQ/X0bHfs=;
-	b=zNeRClS+NuDllY3lWhtV8dWsNDBwZoruMQjnD5CfFngDCV3W0hdE5ML4pKjpMgA9ZEFf
-	 iQlESD/yGI0l2Rj2YinymXuGu5yozCwozk5+RUvlpAy/+bo7lBTKUQPP659csxDYgwfR0
-	 TTZKEL8XlRc8WxkmoDenEVHG4SsPfjvODIS+DqJpjU5q5BQSETkPoGCfu4r3BCh5KR4yD
-	 r//cHbSb5UsmZxIxYINTROTHKk9GnJhs9z5SQukguA+JUnu5u416RGhkjqJN/bxZVeszb
-	 Yj6iKASHlrEroDUuntI6gxkhZnUpFTIHDly+iUS6JN8iZnpWx/1YPTCIcRwXUJJ3QJg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794244905;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=EYatP+6kphd4sDxDGzxqCkF4Bitbwr9mDBucDIlhFks=;
+	b=D818MtRxhg2VM9WQf3VyPYaeM5a5P9+XhsiO9+pMLCPwAhgZ49LdS2qiBw1V+vQlXQhG
+	 23zK2G6W5FpxxD9d4pRHXDHJPNh8HIi6DMW3twgHDNHvqZGzxKEYbWC5uRc4u0ernKEFi
+	 cn5qGxrErZotnNx1w+PDfCNBmaGZbP2PZcjLi2I+x9/JqvdlXNQOM1urLXS06nELCC6Im
+	 azkimFhxEx4RnuYBncdRkZvkdUCIu6ZcPpcjxLrusAEsQxguFU03PHKLonCb68upr3aq4
+	 aQ4aWnRrhAiHUQTFHss9M6YWJTFfXH7bqZ0XbkWgI1Xm+Ca1PlivVunjPjjbTLzAnDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S5mnmvZ3;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VlUjpfwF;
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A995606A31C
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 17:16:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56886606A321
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 17:21:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56886606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S5mnmvZ3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9A851F0089F;
-	Mon,  9 Nov 2026 17:16:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794244596;
-	bh=j6CW/1Tx0ekOFiRNdAR2OG0dMWkU4FJDAABQ/X0bHfs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=S5mnmvZ36QyMB3PKa1QOlaF8M6++BvEsviRir2wFFKZKhIGSfG7yw7wclXGxpDxxw
-	 EwNnTsa+biPnrA+66hoZnjS4wLEuYUh00iHBBHNmfL8Iv3m8wJJpuTLunscdf9mwSz
-	 iaiLjdRDkJas6Kb/uPRQXfibPZdu54Ivi7gdAhSxbViqX8bx8Na8CcbnurDXpPdCIY
-	 PHU04Qlq+IZSg2X2ag7KYYtpZWZZHFi5s6Ti9nb4+Iq4qLhfNf7TreGsfQ9LgyzfUv
-	 OERYrXHNd3uGl5kmdSnF6gdsFppUEr+eNJW5EEY8A66kbWUJirlf+YY0uL+KKXbea+
-	 o3ZQg3L8tBDgw==
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfauth.ams.internal (Postfix) with ESMTP id ED8A21980052;
-	Mon,  9 Nov 2026 12:16:30 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Mon, 09 Nov 2026 12:16:33 -0500
-X-ME-Sender: <xms:7v_xalaHW1t7fI0I_R3gU1CMnkRqpNp-XA0_0Fg4v6R8ft-Wq42eyw>
-    <xme:7v_xauuH0RV3MQ4Pb7C71_fo3nIvY8TKk73odKl0VDOnY6aGOxhGfw_G6R7EFVftK
-    PP7mjWjYSR9xtZ3dITdTypD8rckq-CevRhw78qxqEzbznFyCDKKkmQ>
-X-ME-Received: <xmr:7v_xampey70JtFaVA0GRMnJ_YQpvE6-UFpEySSD0K4td5NanbeGCdOUx6SQ>
-X-ME-Proxy-Cause: dmFkZTERlrsw/TgcMaQYagBEnXGdzeOR8l8ctOzfJRMC5gmxQrqcjviMIQVm5fCxzjFNKI
-    IeEbuGRKdFHZmLlvXbmrb9fzt7wQqlOtts94l4qY4D2oFWPXKUHMZO0fRI3X08tvy9QJCn
-    A02mYLG5Juy4RlqXdNpii+MXz8cX4yViexmP+/uUYcJ6+OgX4AckbkH8/NNN1SUFpaFgZD
-    n2e4j0GcraBJvUYshJyxQ7o0JndZ7qx7mMNaDnlKl5yzwxdTV0LKgn7Ck/ar5g7k/NnUdD
-    MQoixdGSru5Lk8amtpUzoV+E0VbdBuHQaAAffX2SmgNaVbFEpdrDauAk7bC3vfXTmEtfBI
-    Z73zrmDnsjHnFh3mBSDLndWiNeFU7k8H2Yaa0bbgNOzke45sxWlCdMDpPVJGhsVs2o3nmm
-    to4vqIxSuhz5nFQjAHiMRyRiVURSlMkn626DYbwDbLkPF3YJ0yGUiVkZZY7eXn+zv/VvZ/
-    v2z2cyJz8Kwk7XMhHpy+sRocofQ+UeNlH8ITiGkKN+VwZ08StrSHm1SiWOYvd7W1laHE46
-    lfRCr97z5nT70hUbQyd7NJTgfMpvQk2YnsBB7GYEoEPSKa/7QGHKzdfXTX60zC58DCBbio
-    kBeIOZFZ8Q8sdt8ykdj871CNWYVTKNOGXfcpp0XJASlbd0nOwFqrpV/YFP6Q
-X-ME-Proxy: <xmx:7v_xagmFT_VPHYNx8UGLXIzR-urF8KP1t2JDhY7f4OriXzqjVBNSjw>
-    <xmx:7v_xauTXPvS4e2WvouH9HmJdc4zo-6wYkBs5v3Fd4uebeTeLHRPMKQ>
-    <xmx:7v_xahR0uGKU3D4qmpVO7TuCxu9ooZh7OLQ9UBn4yl0t8vNU81R8mw>
-    <xmx:7v_xan56uCWHbpPe3MBvfmUB_jdX1viF3Wqyw4QjjNSZZa_xaiNR-w>
-    <xmx:7v_xanRDMpyKfqo0Gor9YLT1IUstCHJMDkz5hOoLDO4n7m0QQ0WqGX-c>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 9 Nov 2026 12:16:29 -0500 (EST)
-Date: Mon, 9 Nov 2026 17:16:28 +0000
-From: Kiryl Shutsemau <kas@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Qi Zheng <qi.zheng@linux.dev>, Hugh Dickins <hughd@google.com>, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] mm: don't allocate a page table under RCU in
- do_set_pmd()
-Message-ID: <avH_38C4vO6BDywb@thinkstation>
-References: <20261106-khugepaged_set_pmd-v2-0-d2457b5e377a@kernel.org>
- <20261106-khugepaged_set_pmd-v2-2-d2457b5e377a@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VlUjpfwF
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-36f6295304dso1424237eec.1
+        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 09:21:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794244904; x=1794849704; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EYatP+6kphd4sDxDGzxqCkF4Bitbwr9mDBucDIlhFks=;
+        b=VlUjpfwFh7SM9knIKPWquQkjWd4L0VGLqKxIuu29C5PXA8aus5Er5PaTadj54NB3KX
+         JRQKh7kKzcFc8NMkgL+yz6tjt5vD7rQSewpK3D/mcZ2RVDbFxxG9ILW1ohvgF/zcumGe
+         34RBYBy6ZDuplsxD7JZBNyhXRtL/SnR3LQkEe7UnMVTfLTck27ow+POHGdmhcgX3G9Er
+         r/rtmHeXiLH1EB/hO1ZFl0PPbnqa5e+wqxnxRZTz1FnRhNq4j4A/rQKczew8tskUFI41
+         PPQsZQCJFOiS4dKpyo+5MMishhxhUwEBx62B9WseyOguFbV+CRSXXpH5cG65zK5ezp7R
+         ReEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794244904; x=1794849704;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EYatP+6kphd4sDxDGzxqCkF4Bitbwr9mDBucDIlhFks=;
+        b=YWCrDyFy09OxjmVH9w5fOmsqM0zWhlru6mgJNRP9ShBOuEeG7+2eldTnIZKjUkJmaE
+         hg+Z0sjW8ya6OA3pEUIQ13FzAuAiPZlpe2LA/46ePZAtSOELav41gSA9A8JqSy0YsJAf
+         d9IYXzIZpnFEodxh78LBLddv95dqUGSSGFGKqqKirP2T3JmhaxqniEwFIJ6x/s+hnhOr
+         9Ni8vO5cJQ0o0CMIeooJ4FMplhZo8O6M3vVrKFkBNbwEvXiRW9hNxuRmgcyxO9IR9arE
+         4TuWKXrcRVT2/VcMtUemBdNO/zCISnXQLgWLlgzlCb6FMAelZbs0QYDv+P7QFEyt7ixV
+         j5LA==
+X-Forwarded-Encrypted: i=1; AL+hErEDtkP6+f5PWZNdyHirGGAb9mxkI4oQgDUtG+eRGxO6SjwDX/bS7Q5uFsIdaXxn3rTqm5bqRe8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8TgSqm30nTX7bj+mlFsRU6rs8FsELxFpu/mF+43XrH6rajf2Qh
+	+94106qumIVqVkT62yeLWRCgeeMqDZQieJmgg1azPA8ItHsgUDPeIJOa
+X-Gm-Gg: AYBFou09OEwA6TJJIl/6KgysNpiQ5rjOjIMei1gx3rEHKowfN8NOEE2a7C8Okz/VQVm
+	yZyfq733y1jWElEhb1h6Yh6Tqslg/0lClaz2tjy5dyag8gprxol8eD8MySro2gXOmTfpyw9PlD5
+	sF/nFAcFDOS9mRlP6BHGigknWcp5EQ6q+j2D6LJus5GibPMz06EG57rZTVJju6sMAgd4BWvP22O
+	SZvMKhRJIEo8e5LVvAuhz85IGJGFYXppqILOdu9bwMPCUU+2JBYKJxRHLqwp580zmnfco7IodvU
+	JFfnf1zCwcctu9JLypIrrTO4U517lCZK90W3S5vKnYdlsaGfZju7GhLY3m960NkOqW4RH0JcomI
+	8gC7Sg8r30tAus1ADBFPevf3G1VLRUtIiXLjzbs/4Zeh/u4jjrqgfl+Li+0rfGWCh8TXZ8b3zvp
+	jSVqOIG+KTs7fQS/ASQl04tXNddhcuo3ob7+E86ymRfiv0sVgusIOAfPKMaibNiZ/mORVGQrQyV
+	zDkHH1JwEpFsyNwY6ZN8Cc3uAU4at2YgtzTVoDBGbK1CRv9T/EK3WcD1grolxzwh4NtD5YPZ5pa
+	by4+bXc4pcvjwzJ0qhwq3XxkaHKifI+9QyySl5goJsQ+NbC+
+X-Received: by 2002:a05:693c:87c9:10b0:369:ef92:bd7b with SMTP id 5a478bee46e88-37257c94c98mr8368198eec.41.1794244904244;
+        Mon, 09 Nov 2026 09:21:44 -0800 (PST)
+Received: from hj.. ([163.239.22.29])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-372665db8bbsm13069322eec.22.2026.11.09.09.21.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 09:21:43 -0800 (PST)
+From: Hyunjung Ko <hj351016@gmail.com>
+To: Oder Chiou <oder_chiou@realtek.com>
+Cc: Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hyunjung Ko <hj351016@gmail.com>
+Subject: [PATCH] ASoC: rt5668: cancel jack detect work on removal to avoid use-after-free
+Date: Tue, 10 Nov 2026 02:21:34 +0900
+Message-ID: <20261109172134.1850973-1-hj351016@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -91,35 +100,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106-khugepaged_set_pmd-v2-2-d2457b5e377a@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 06, 2026 at 01:36:13PM +0100, David Hildenbrand (Arm) wrote:
-> do_fault_around() skips PTE table preallocation when the PMD already points
-> to a PTE table. A concurrent collapse can then retract that table and
-> clear the PMD before filemap_map_pages() locks the new PMD-sized folio.
-> 
-> filemap_map_pmd() can then call do_set_pmd() with an empty PMD and no
-> preallocated table. On PowerPC hash MMU, do_set_pmd() then tries
-> allocating a PTE table to deposit. But filemap_map_pmd() calls
-> do_set_pmd() under RCU, so allocating from that context is not good.
-> 
-> This race became possible when retract_page_tables() stopped taking the
-> mmap and VMA locks. Previously, those locks excluded retraction while
-> the fault was in progress.
-> 
-> Add a may_alloc argument to do_set_pmd() and pass false from
-> filemap_map_pmd(), so we can fail with VM_FAULT_FALLBACK instead of
-> trying to allocate.
-> 
-> This issue should be fairly hard to hit in practice.
-> 
-> Fixes: 1d65b771bc08 ("mm/khugepaged: retract_page_tables() without mmap or vma lock")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+rt5668_jack_detect_handler() runs from the delayed work jack_detect_work,
+which is queued from the jack IRQ handler rt5668_irq() and from
+rt5668_set_jack_detect(), and re-arms itself while a button is held. The
+handler and the delayed work jd_check_work dereference the driver data
+via container_of().
 
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+struct rt5668_priv and the jack IRQ are both allocated with devm against
+the i2c device. The i2c driver has no .remove callback, and the component
+.remove and the .shutdown callback only reset the chip; neither disables
+the IRQ nor cancels the delayed work. On unbind devres frees the IRQ and
+rt5668_priv while jack_detect_work (or jd_check_work) can still be queued,
+so the pending work then runs against freed memory (use-after-free).
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+Disable the IRQ and cancel both delayed works before the chip reset, and
+wire that teardown into a new i2c .remove callback so it runs on unbind,
+mirroring the sibling rt5682 driver.
+
+Found by static analysis and code review; not runtime-reproduced (needs
+RT5668B hardware).
+
+Fixes: d59fb2856223 ("ASoC: rt5668: add rt5668B codec driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+---
+ sound/soc/codecs/rt5668.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/sound/soc/codecs/rt5668.c b/sound/soc/codecs/rt5668.c
+index 0000000..0000000 100644
+--- a/sound/soc/codecs/rt5668.c
++++ b/sound/soc/codecs/rt5668.c
+@@ -2566,9 +2566,19 @@ static void rt5668_i2c_shutdown(struct i2c_client *client)
+ {
+ 	struct rt5668_priv *rt5668 = i2c_get_clientdata(client);
+
++	if (client->irq)
++		disable_irq(client->irq);
++	cancel_delayed_work_sync(&rt5668->jack_detect_work);
++	cancel_delayed_work_sync(&rt5668->jd_check_work);
++
+ 	rt5668_reset(rt5668->regmap);
+ }
+
++static void rt5668_i2c_remove(struct i2c_client *client)
++{
++	rt5668_i2c_shutdown(client);
++}
++
+ #ifdef CONFIG_OF
+ static const struct of_device_id rt5668_of_match[] = {
+ 	{.compatible = "realtek,rt5668b"},
+@@ -2592,6 +2602,7 @@ static struct i2c_driver rt5668_i2c_driver = {
+ 		.acpi_match_table = ACPI_PTR(rt5668_acpi_match),
+ 	},
+ 	.probe = rt5668_i2c_probe,
++	.remove = rt5668_i2c_remove,
+ 	.shutdown = rt5668_i2c_shutdown,
+ 	.id_table = rt5668_i2c_id,
+ };
+--
+2.43.0
