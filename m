@@ -1,60 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794196546;
-	b=y7Zgf3VaO6gyMnnsNGnsju3HO70dg0xa90K1l3ab3IiEcxnfViEPf752fZcZNaQruxhY
-	 ToQA3gzyegsvUedlUyXIvSvhrNwrHiQPZ4E2Pog8nEco0Wqh08HiWvV+ekmx7CbLngXbI
-	 jZYVjGJnQ0Y/tlxJ9BEnPOX+TM9Ht08fRok40h+Hd760X9baPr7Q/RIgPgQfnPtd+whpH
-	 +Z2K48yn2Nwy+6wZVa5drF3zzb/Y/OpxliHYTjIDd0/IM7mp+0UPCuDEHCaGhlO5O2iWM
-	 +ZjXTV9uFnpVoH6OF4YNnDkCVHuhjCpOezXtk4kwMAYRQ8/dobFvmoG/ZpKjaoOVAjg==
+	t=1794196542;
+	b=WQJ3AO0Lnvi4acOKVp3P3t/RIM2LUxmqNQEBHGd7oQO7CaXQPSttxVajJDBYeFz3RIHL
+	 6w2e810hoYnrLqWDLCiZ2ajwyGjn21/E1cZCzrOGUF3w7Mlj3X1db3H8/V/hP/J+x1Gyp
+	 WWmdM7X/7BDlchPPUDS94Xfzac+1mEfT75eYpZ9jdnATxnxncqz3fftfjQFHzOg98aqcP
+	 hV5OlFKiy5udAsUjQJ7yrbdxNblYSLxqrq9U6XIFPsGjpGze8wt/yAS60NvtNYc3w90vz
+	 tUHNh3TMamEVhM7yuWW2w2NR3NutmKGIp6UzrzETOukqLJIoctg04D0/lixF8KMjaOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794196546;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794196542;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=2Hhffl64yBNN25IaNaa/RCK/SwEV54eln5oc5w+qX2E=;
-	b=5EkGKahiYJRudhBsVTi7HEadB7H2tD2al9MtexxYFJ287Y1QLB++fWLPg6DQhMBY9cyr
-	 e+Mt90rkUG15uQjOh9xsKiGRL5fCL2/QrlxEytZJghYs80iMsTYuww5v8LCg8egjK2kLT
-	 OQV6VZJSb2Vy/OZIYXTPK1m/GZLyq6+r04qGouN9EeHyKHK31IrTG+S1xCY8M3qAUFUJ7
-	 raq2biZIeFowrOAFNSVRLtsQo03aCNhxF/jqtEQtZhK7gNT9T8p6YNBvdqlJ6QaPYTZ+s
-	 Dugll6FCW9w1EIv5zU21q3iWcZK0bP2aIqo5bPqJLMxzrsJES6EKGKfJwATJhDuldiQ==
+	bh=qL1PHWR+UFgKZbvNDIunq2Agijkm94RmUs2cUI64v70=;
+	b=TPXPKNsXwAS7xs5kfKbudlXAo6+mHUQSj6IdcYev2maOsNHRhsex9TEb62T8daCEqjue
+	 Gzdja9ouuhI7uMrr4kt5hOx0c5CJSrJRL+1h5ymRlAYl7Lnh+gIgMNMoby1Oa02zm5jzV
+	 K9aQcfVB+GEpAX9C5lDieCU7TW8k9uDot8CbhtgFoKJ+kgU+vRyNFLiWnUaJirS0jZFzC
+	 XcStp0p1lfRwO6CNLRvG0CTYDcdAefWgIIm4oZKmuwtF5BR20w5ZBvtws/XrwJ+udy16B
+	 Smzi4Z21yOfjKMHLxYv4Ya1sL+pWYscjNYfMWI6eC3ZGuGeoTaCnAKqjix9vmh/ey8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aqkMQrMk;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b7+AmU61;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2B34606A33A;
-	Mon,  9 Nov 2026 03:55:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67BA0606D807;
+	Mon,  9 Nov 2026 03:55:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aqkMQrMk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F06111F00902;
-	Mon,  9 Nov 2026 03:55:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b7+AmU61
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68CE61F008A1;
+	Mon,  9 Nov 2026 03:55:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794196545;
-	bh=2Hhffl64yBNN25IaNaa/RCK/SwEV54eln5oc5w+qX2E=;
+	s=k20260515; t=1794196542;
+	bh=qL1PHWR+UFgKZbvNDIunq2Agijkm94RmUs2cUI64v70=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aqkMQrMk8aimyTm29gZ5sTznqObxHcjn7VVB1WnL50PA4V3HxUXA1HToxtX1PjgCj
-	 NrXhG1pmcnswlT27LpkPQvY3UJIwG+Q0tMEp2A1WHgUEwkRZOOstUGP6lFS2x0CnPS
-	 D2gWxMmUW3a5z3wyynNWgAvYMJ+5D5QOopwncaos/ZPwx09AqK0H1bq3jVKF0I7e7O
-	 bU3l7Tv6NNIL1YQ34CykZkI3jk/ciZaI6tDqSc5DULMrnAYjws57WVgPD+7n4NePTq
-	 f5/rlpql7R8XWAv1mK8JWZQMOkBptaLt7zUKBmElP0CNaZiPgt1wz9TYysIf3bO2xT
-	 atjmX54vykZAg==
+	b=b7+AmU61OAbBPX4FvtbiLu467QqZUR0IR4tfPhJHxyFXobxL1YFmg5qFnJGGP1lCU
+	 NDj9yiAOWB9xMFNq649EPaH1lXZIc47Dd7VN+rHAfnqwv/bTAjKj8eS2IdmfsKTsH1
+	 U6UADOm8lctG/2CQFt9HaFCSTq8+5HikfaCfH2t2D5CHHUqjJRNVbT3bdq9knEC+Kr
+	 K9h8OVmGiKIxRFcznvWeI825YOB3ckYWnvEV/U8D/rjrNxhcGLB60sI+ZEQZHb4ImJ
+	 AjHbE09YNG6B/r1Z6c/l3amDU1OlaT1OogZTaUMcRsU6yx7/A/TkxpMVcHorbwJ0TL
+	 xn4dsDon0HCgA==
 From: "Martin K. Petersen (Oracle)" <mkp@kernel.org>
-To: sathya.prakash@broadcom.com,
-	kashyap.desai@broadcom.com,
-	sumit.saxena@broadcom.com,
-	sreekanth.reddy@broadcom.com,
-	"Martin K. Petersen" <mkp@kernel.org>,
-	"Milan P. Gandhi" <mgandhi@redhat.com>
-Cc: linux-scsi@vger.kernel.org,
+To: Ciro Iriarte <ciro.iriarte+software@gmail.com>
+Cc: "Martin K . Petersen" <mkp@kernel.org>,
+	target-devel@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: Re: [PATCH v2] scsi: mpi3mr: Validate reply frame size bounds
-Date: Sun,  8 Nov 2026 22:55:26 -0500
-Message-ID: <179419615243.1941224.17714090451921058754.b4-ty@b4>
+Subject: Re: [PATCH] scsi: target: core: Parse APTPL res_type and res_scope as hex
+Date: Sun,  8 Nov 2026 22:55:23 -0500
+Message-ID: <179419615241.1941224.11662554715359026347.b4-ty@b4>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261105122401.266559-1-mgandhi@redhat.com>
-References: <20261105122401.266559-1-mgandhi@redhat.com>
+In-Reply-To: <ea903e6c-09b5-4a11-80e8-6e1387f39ef5@gmail.com>
+References: <ea903e6c-09b5-4a11-80e8-6e1387f39ef5@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,25 +65,23 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-On Thu, 05 Nov 2026 17:54:01 +0530, Milan P. Gandhi wrote:
+On Sat, 31 Oct 2026 22:21:39 -0300, Ciro Iriarte wrote:
 
-> Firmware provides reply_frame_size in dwords, which the driver multiplies
-> by 4 to compute facts.reply_sz (u16). If the reported size exceeds
-> U16_MAX / 4, the multiplication overflows u16 before assignment, causing
-> under-allocated DMA reply buffers.
-> 
-> Furthermore, several paths assume a minimal reply frame size:
-> - logdata_entry_sz calculations underflow or hit zero when reply_sz <= 20
->   bytes, leading to zero-size allocations and divide-by-zero crashes.
-> - Unsolicited status descriptors and fixed replies (such as struct
->   mpi3_iounit_control_reply, 64 bytes) require at least 16 dwords.
+> core_scsi3_update_aptpl_buf() saves the reservation holder's type and
+> scope to the APTPL metadata file as zero-padded hex ("res_type=%02x",
+> "res_scope=%02x"), but target_pr_res_aptpl_metadata_store() reads them
+> back with "%d" tokens and match_int(), which parse with base 0. A
+> leading zero selects octal, so match_token() parses only the "0" of
+> "res_type=08", the trailing "8" makes the token not match, and the field
+> is ignored as unknown. An Exclusive Access - All Registrants holder
+> (type 0x8) is left with type 0 and the write fails with -EINVAL and
 > 
 > [...]
 
 Applied to 7.4/scsi-fixes, thanks!
 
-[1/1] scsi: mpi3mr: Validate reply frame size bounds
-      https://git.kernel.org/mkp/scsi/c/e550f2b2b4aa
+[1/1] scsi: target: core: Parse APTPL res_type and res_scope as hex
+      https://git.kernel.org/mkp/scsi/c/08f08a6d49ef
 
 -- 
 Martin K. Petersen
