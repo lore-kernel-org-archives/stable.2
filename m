@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794234347;
-	b=whlwEbKwEDUs8dOO2p9U2uWQdKjH2wGysFJiJCrVNS5Oa7kc/f6M/nL3y/8qaUgkc8Do
-	 cgLzq8lxbgab9zKA5hW0Kc4KgooVd0oyVBYBfe74k3RQrybsgNldYLr3FXKuJl9ZANx4m
-	 VEC/VDvywHmzNmjovHCpKiRmGgYDOjCTk821h9lJybPe+zKz0aQIJypDSPUolhkbJ3iH8
-	 Gji5KrkDSM3EcXYTGOv1lKU5qUkYbpLvohNC1dJ9wrvEV66CmjcI8G780RJd4OW3cgb+l
-	 3IdYyOHDWL56EGM1ZiF5XwERdain03git7eyIu6ctIiRWIH5Q7EWvSQgIfEW4mBpufg==
+	t=1794234376;
+	b=CrSza2jdpVE3x0mz0fXwv6JJ3U7EIIX/il8EXUa5GlDbueIMRP8CEiKPbDL8zzPBq1Pt
+	 t4pucIxB1hOKt41LBlWLwEdItKqM3PInB9wS14CFN4Sr74EhvFnsdGWfosB3i6uM58Q0Y
+	 iWXhZ7UEatoi9WCo6LtzbB7nLeaGT2IlU5nBWKKc1B5EwThKYpVHywKAAJbtlYOs9f68J
+	 j41LaTN3BUURmCGTTZ1c74jiHSICJISwxacEz+EdOYnLjn0iDD0rbqEtoMD0lXegBRwWd
+	 p3Gm97LxZn53gCe6ZsiJEPm/ngW3b5gQn9BYnKm6uCOmyokejdMbLrhLL7xMhbXUJTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794234347;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794234376;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=pyAb7uutdcjK3DrEF9ZJ1ufyFQKGxeOU/iSNrYyd/3U=;
-	b=auagi6rSSx0xq10PtsLT2MLTqXa9EAvEpwTswaqEjeQJqh/D2WSjL7xs+QlYs/qFx2cU
-	 Uy+9YVLa2NAtn162NsIeLY7AkmmpNKUOA90YZLh2iqefI0hBzOir/Wds0GfOocD8kY0wP
-	 rHWU9mT64Ew3LxuM9RNRgQ5GTBDk5LLRb0tBOBPx53uWPzq8X72EN+kGTw1r3nseFYKpO
-	 pLLJBl4t9DqrUJY3v1JzPb3nFO/l/UZ0L6DOuFJLWY2dCY2Kjtz2WTsMhvKcXTii9oDtB
-	 JL0qUlegfameiLUlV18bZJSFOe4LXZ7lWT2Wy3LSxFbqFbFoCivKgWyeIQyt/nGPivA==
+	bh=B9llKXUjtBg6NYHrvZa2RZ0JKeiVE2awkqQc7/d86Ts=;
+	b=KeGUNAj1x/xYut8DAjKrAU5n1w2K8e5x/tKknu5i4kfArXpnTjuTLnzB3oO3QLinMNel
+	 sdiOKqsrwcaeBnWxeVGBkfhwvhRd63Uuv9etpGnFAu5tmBjNZZnW+X5cflfap+s6+G9uB
+	 pPmpzxLC3M+V+jwlPo7hMPRnOLLqKFugqwYVJV2JbpcciV28CRRwETRDlFsZBcFwyO/VY
+	 6ROhLkqJSWVwSR03f/9RdCgJazBCgHpPJVUCeDumySNj5+cD+S+GzIemtjxLFyU7u2Y5b
+	 8WmT63iTLzfKQzs9x5MaEllBKGWgb8tJ91NrUeEJ3T13KZwMomZpBI2pPpyxs/dSeLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H6LTKG6Z;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DMOktpQ7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC7F4606A31C;
-	Mon,  9 Nov 2026 14:25:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3231E606A321;
+	Mon,  9 Nov 2026 14:26:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H6LTKG6Z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 069781F0089F;
-	Mon,  9 Nov 2026 14:25:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DMOktpQ7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7199F1F0089F;
+	Mon,  9 Nov 2026 14:26:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794234346;
-	bh=pyAb7uutdcjK3DrEF9ZJ1ufyFQKGxeOU/iSNrYyd/3U=;
+	s=k20260515; t=1794234375;
+	bh=B9llKXUjtBg6NYHrvZa2RZ0JKeiVE2awkqQc7/d86Ts=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=H6LTKG6ZydDAo1DzAKoJVuPxQqp1iKvDEHkMDVo7XCBdavDijZS0f+ueP/EiRea4E
-	 Kw0m9lNhSSueaupP17xzBmtY7gAkZwyErXyTzAriXK9zKzawDojgdl2cNX1tKIdkeL
-	 JFG4iFBdswMzi8UaiZXIGO87Z8eIWs6H9NH08nxKRZHbHXulE00GyOd06DQO6vXL83
-	 U5aif9Ubr8/0uHGIxvyBbXwyxcpI+oKqzGwfmu3vQ50C39dkkI89NJqklDqff5siEC
-	 SaAYSXPVdlHhQkyT9H4feaDhmTIift58eP5er4xPbqxjZbXWUf2p29M9DthoebZ//K
-	 6R7DdazKEnDTA==
-Message-ID: <2e3287d7-19d5-4441-8750-bd351df5574a@kernel.org>
-Date: Mon, 9 Nov 2026 15:25:40 +0100
+	b=DMOktpQ73zOGC8v05iI/+U/1YfqHpq9vNS608Oycv4UNs8X1mYegSrCtypjvxWnF6
+	 L4DV3s1GLDSfcLfCzBFgTmIIEfFwCXb5WYu+pWDZsjFgBHslsKmwVy831p+zDvPFnU
+	 zGRlYzuxhnJnMZ2V0bJYk3maeqoanOEScQayztjdOZsLdbkhgHFf1RXkus0Vpczaft
+	 mGnaoV5SYoXQUWqb4GQ+UkRlNz0iMVjc9vlSolytFBzEM6yxdlx12vvU+ctoUAKATB
+	 +9Wc5UDGNQzrPuPHc2NvGxxYeTpI0F7H5ZizL2UrMXvVw4NIfnZ7n/opOWFU9rjEu4
+	 8qPoSrS3USUTA==
+Message-ID: <788856b1-754b-44cb-a5ca-676400d29a76@kernel.org>
+Date: Mon, 9 Nov 2026 15:26:10 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,14 +54,16 @@ MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v2 1/2] mm: free unused page table allocated by
  do_set_pmd()
-To: Lance Yang <lance.yang@linux.dev>
-Cc: akpm@linux-foundation.org, ziy@nvidia.com, baolin.wang@linux.alibaba.com,
- liam@infradead.org, nico.pache@linux.dev, ryan.roberts@arm.com,
- dev.jain@arm.com, baohua@kernel.org, usama.arif@linux.dev, kas@kernel.org,
- qi.zheng@linux.dev, hughd@google.com, linux-mm@kvack.org,
+To: Usama Arif <usama.arif@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Qi Zheng <qi.zheng@linux.dev>,
+ Hugh Dickins <hughd@google.com>, linux-mm@kvack.org,
  linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261106-khugepaged_set_pmd-v2-1-d2457b5e377a@kernel.org>
- <20261108091455.88759-1-lance.yang@linux.dev>
+References: <20261106153414.2938216-1-usama.arif@linux.dev>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -108,13 +110,13 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20261108091455.88759-1-lance.yang@linux.dev>
+In-Reply-To: <20261106153414.2938216-1-usama.arif@linux.dev>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11/8/26 10:14, Lance Yang wrote:
+On 11/6/26 16:34, Usama Arif wrote:
+> On Fri, 06 Nov 2026 13:36:12 +0100 "David Hildenbrand (Arm)" <david@kernel.org> wrote:
 > 
-> On Fri, Nov 06, 2026 at 01:36:12PM +0100, David Hildenbrand (Arm) wrote:
 >> do_set_pmd() can allocate vmf->prealloc_pte on architectures that need a
 >> deposited page table, such as PowerPC with the hash MMU. If the PMD is
 >> no longer empty when it takes the PMD lock, it returns VM_FAULT_FALLBACK
@@ -139,42 +141,14 @@ On 11/8/26 10:14, Lance Yang wrote:
 >> Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 >> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 >> ---
->> mm/memory.c | 6 ++++++
->> 1 file changed, 6 insertions(+)
->>
->> diff --git a/mm/memory.c b/mm/memory.c
->> index becf53a2a0944..421064aef3cf0 100644
->> --- a/mm/memory.c
->> +++ b/mm/memory.c
->> @@ -5687,6 +5687,7 @@ vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *pa
->> 	struct vm_area_struct *vma = vmf->vma;
->> 	bool write = vmf->flags & FAULT_FLAG_WRITE;
->> 	unsigned long haddr = vmf->address & HPAGE_PMD_MASK;
->> +	bool pgtable_allocated = false;
->> 	pmd_t entry;
->> 	vm_fault_t ret = VM_FAULT_FALLBACK;
->>
->> @@ -5725,6 +5726,7 @@ vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *pa
->> 		vmf->prealloc_pte = pte_alloc_one(vma->vm_mm);
->> 		if (!vmf->prealloc_pte)
->> 			return VM_FAULT_OOM;
->> +		pgtable_allocated = true;
->> 	}
->>
->> 	vmf->ptl = pmd_lock(vma->vm_mm, vmf->pmd);
->> @@ -5755,6 +5757,10 @@ vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *pa
->> 	count_vm_event(THP_FILE_MAPPED);
->> out:
->> 	spin_unlock(vmf->ptl);
->> +	if (pgtable_allocated && vmf->prealloc_pte) {
+>>  mm/memory.c | 6 ++++++
+>>  1 file changed, 6 insertions(+)
 > 
-> Took me a sec ... to see why we can't just check vmf->prealloc_pte here
-> ...
+> Acked-by: Usama Arif <usama.arif@linux.dev>
 > 
-> Emm ... as it turns out, the caller might have supplied it for fallback :D
-> 
+> Reminded me of lazy pagetable deposit series :)
 
-Yeah, it's all ... complicated :)
+Not just you. haha :)
 
 -- 
 Cheers,
