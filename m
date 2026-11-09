@@ -1,115 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.158
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.216
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794217236;
-	b=FrMBjvuJrL0USeWJJK9S5EQ8H5bl7RFWPVSQbmgN/l4IJOkenuRkFEO4/ARhF8k68uci
-	 1izMWKAhSuZh+x/DI8F0+9M/NqRBxxzkb2ydV4EYg/Awox4/1LfgnVTb9hjcteEK1TEFa
-	 L9pSb7L3lAxbQaTbzCotALm1k0NtQ9NuekmYL7+xrM4N1NjDZREe5HjKCTOxMf0NDCPBg
-	 NfoDEG0eLTS5rDGXKqebJZv9Y8ix+rzYitv97UbUXsUrk34w2bD3WAb8bGbHFjLNjwhAs
-	 fLzayEh0e7Ged5FtDDLv+PAwJEt9TJYKq0OJhDW5uyuAqVC9uZ5PQG8sIrf8u2R06hw==
+	t=1794217235;
+	b=O3dsijkIsTxl/zBVLu0fukIhFUUL3hO+nHAJPcIxOlnI6pJVWdjZFJ0W5bXbZ3pCdFm6
+	 y3T0bK8tZhu2LiUZM6mdahsscferzmSeIGJK2NGthd9S9JvG0klIlEREd76UW0TZXrXG2
+	 SoG3ZUpjPRQj/D1Migp9GLp5BtPuxMVkSp1/aheUjS/FZn9GEOBeUlzZHlRcAvId3rkes
+	 vjSCWyBeQwJs6xJcpJfoDj4rHGBfPvQS5PZYCegLCfiPv/jnBeZs87hTU1QBszQjeHfby
+	 eQTlfbda+YyZ5PAcgDSOpGNJONG4spP7LmhQHSBn44VwOYr/Znrzoc31NEFg6f4i8Wg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794217236;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=PB66Y9MaZYNl68MYlsrU5pArSwHdL9SHQj8fzOt+DQ4=;
-	b=ugPZzc+AKC3402qw4MQm3/NL1zs7gJgDfXa20PhTY75eAQks0IyHYWdjI8Pim+RiG9WL
-	 HmpAdYc49sGgGk9Lr1XFJ8DGhHcLUUJoaQtcqDztKfvGyIOGWL/qvznZmGeJLOqD1dBtA
-	 N+E8wnVBISeCdXofbN7tMzL4NV2UvLxTbW/Uop4qLZRoaUapUhei34FyDuKEjbDUwYD9/
-	 lSfmb6MMDy47pORHwxjJezEPxYKR/FSf2BaESgSBTAiTpaZ9H1tBLkg0NY6vocAFXdnnM
-	 2Jmqv7KwVu4EukdLrQ7CrTPErUlb3yAu7FvW/oWo0RB2LW5DX78AArXveWO2OOwxVIA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794217235;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=dDWEgytPPKV+HivhmAiQbllvi873e/vHkc9VeSbfZaA=;
+	b=JhKjIiHPHj+WvvZYhWZG4ZxP7cTN/IW8zkhlmCXR+M1Kjfwa/nMkQ9FF2ENKZ7bq11jq
+	 zfF6HS3ZYeZeSQ3V+iMZoZc7vpmB7/dwg6iG5aMs4DHQU9w46kc9WQnYXvLkfkBZdfYDF
+	 FrPadFsd9XJI6K+CLn27pc47ZczzCfuH2jLaVhs2vZPvdBtBd6ldAJWGkaALhLAqPREE6
+	 WbqZuVx1e5Up+/3zxMIxOyf6DbVL2LpHH7/aBp+u3ABcAkXKjRjIgbOZKM5HxsavRFTHd
+	 9HndE+IBDsLRbNU4uoBVS2uGyep599dZx2gKz7VBXShDpDwCQT1k3Dcw7Is+7vgsmpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pobox.com;
-	spf=pass smtp.mailfrom=pobox.com;
-	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=LxC+7+eq;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=z54cX5AR;
-	arc=none smtp.remote-ip=103.168.172.158
-Received: from fhigh-a7-smtp.messagingengine.com (fhigh-a7-smtp.messagingengine.com [103.168.172.158])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=vNgPCbao;
+	arc=none smtp.remote-ip=113.46.200.216
+Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C46A5606A31C
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 09:40:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C46A5606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34F36606A323;
+	Mon,  9 Nov 2026 09:40:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34F36606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=LxC+7+eq;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=z54cX5AR
-Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id EF8F31400156
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 04:40:28 -0500 (EST)
-Received: from phl-frontend-02 ([10.202.2.161])
-  by phl-compute-11.internal (MEProxy); Mon, 09 Nov 2026 04:40:28 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1794217228;
-	 x=1794303628; bh=PB66Y9MaZYNl68MYlsrU5pArSwHdL9SHQj8fzOt+DQ4=; b=
-	LxC+7+eq/K3BnvjrHL0M0QDWyjDG5QzvPt6sMwr4Ku2mh+iZD2FVNTPaNPWSRrlk
-	7suAbLuuHqzTjdVe+s+PeqzPECZNbFjLrLHIG02ply/OrqMzSmHgv1wuXOuzJgvH
-	oCV8fuixD99ud87jtqQ2uW9ZPHtuiCzUTArR/xZBg1gahqzJDnJ6ezYn3Y2OLnHJ
-	2QmqR5bSoYUFUGsNtcGAw0ZacPz2FFWW3aWngJwk2ifDq8s70UYfzUUt3zOTtxdh
-	3oaTz7GIaV1iK24Lrlm/HPumTianaI1IHt/cGz1yBXCVGqZdOfSgO4HhbTHGDZr1
-	6zK5EUQjz0Ljgfcwdk17eg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794217228; x=
-	1794303628; bh=PB66Y9MaZYNl68MYlsrU5pArSwHdL9SHQj8fzOt+DQ4=; b=z
-	54cX5ARP98a1bT8b1LqoccvD3VjjdcJRY6sXTaz4aWbn+MrtHZGT1/NNwJlPmh7U
-	OVAQ3IjLvVS+tPDRXGA0jHFxrf6MnwWsk7G5mzRso6lv5ujqZHDiSiUQeBHCw1R0
-	G/Y2cvwHOw4u+IWJTXNYR+Z2jyShXVAeD89CmqPNlUDI31lYZpfuHYcNAnzrsZuY
-	kmVRjKeIvMQv62h3n2TnhDEH3OBvzqKzYIrQN+rCGThJusfHK5r5khVMdEm9Zm9b
-	VwShcGIQPCtbCSGP50bdkF3pTpmYHEqzCnUg2itpFkasJKLa/CtkNJTHpOgDZAZN
-	tw+CjBRw8LhxIuXlmbAyA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=pobox.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794217228; d=pobox.com;
-	mf=PGJhcnJ5bkBwb2JveC5jb20+;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:aUvv0iCW2fhUPVrMMF2SQ1Be/cO3X8V9imzDAlGmzS7wA//
-	D2hdlDu9JY2UFBdXtTyY+2GaEI6d2iQPAqKlDQTwdLWeGczdNFCJjxiuOjOisyT0
-	qOsRLfwvJ2LVCYTR31pxVGukQJz9XXHY9LHT5kScrnMhDauym6EPMLjlDwwZMiGW
-	B+4CC9w4FwaORrj5FYQykRNZGnJuUAoQKI7cL0sXpdvJnIs6N0QYdcKDdDcDAznK
-	4RzX7IleyCxOywF3PmaF172PKQaRweTzg0XYy+FEiHZxa/7Cl1ozMG8HHrkR0ntO
-	OIhSo8V3TgxmfrOHS1hilmwQFHzREkP4AyZndRg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=14;
-	hn=cc,content-language,content-transfer-encoding,content-type,
-	date,feedback-id,from,in-reply-to,message-id,mime-version,
-	references,subject,to,user-agent;
-Message-Instance: m=1; h=sha256:OkVipFi8E5Ktm3ZpzNFnloonNXGKEh6OFTuzi/kZ0Kg=:wE6zOE7uqD6R1gTlzonajC+ElazdVPqc2XU5HRSr1yU=;
-X-ME-Sender: <xms:C5XxalG7F-rjqszrMUWX5X-yrrdjHARMi6WZv2-2kWOkBs3SW_bjbQ>
-    <xme:C5XxamPWFMfjEw6KNaejHhRudQhgk2xs_pp7_oPUTk_gbwMrKzDB3q8wdGzPz28Ae
-    dy08nkRQtYUEcB0g3sWEFuN5itcNggE1HOdJJp3ktJEMoW4JDGL3bPO>
-X-ME-Received: <xmr:C5Xxaioh1AJYyIvPDkkrnrqsyT0X5Jc4HFR4wTzJlSJYXACRe_eFC1qplz0OTcU-C2PPl2rib8JPSCdBiYv_OhF5WK0zWOCR>
-X-ME-Proxy-Cause: dmFkZTGnZe2GvT2gfoWgG13EbEStaj7gxjVBeZBtfrNL6VkTuhZRkS+iuGyiDI62SMPXNp
-    PAJZG3ILMH8OgGo8/Dx2YdZpuDquzAXeJmI3UUdX+Hy4WfoNJn22rfiYUVz82IfAm5eJY9
-    mnMQ0Khip1Utgst2oUCdm6QUYrziKT+2+50jE2VVh+Xh9ZmDNp/nMNiLtWuCsNCH4k4RNH
-    BALW6y+HVaUBKSn/EUc++uFeYRDN5JttqYXiYzXUFa7JD32poKR9SjbtGDx68Ru/96SewQ
-    wKSEE2OqRViMrl6yPdMBzBLMPGLERTvvD8xm2I+V6zWejyQZIB7B4M1vQLv+4X+WQ7TRgA
-    mJfIgHuY7C8Uxqmtl0di+DDsfNt4Ducbxtfiq153F9kQH4V00Trq6cvVb7JViiJ1wpqK2s
-    r1zqfx/DiKLfqvVbC3QskYOiBOzGveQU/SIAb9UiX5JjVRkf8Hi7Y+1ptSlJsBX2UY7gQS
-    j9RALDxmKEFwmG9H79TNW5TY4MZ23cmOHzDxLVB5Iwdlq8lTLCCE9gob+UzvwVp75mAcSy
-    f/TowSZymCTJjzL1oW/pHn4gjrNXIcGDRARNPlgEjif8ez6RgDCNeyho4CSlo/S4OUGiqh
-    M56+tztioXA9I7rKs4Z2mgdWzb5d0bMpsdXWhuR62JEkc3HveOS+yCIiqcXg
-X-ME-Proxy: <xmx:C5XxavDESBzMKjbqEswYQv9XqgH6wCJxClmGq9HZG4sxTVUBgexXFQ>
-    <xmx:C5XxajMzl5TmuVHuJ66Px4mRYSj5_Yvyc5E8nTB6DmxV2gMPxXBYqQ>
-    <xmx:C5XxalA1wEnFEhMdErtkiRMrEcQMrbzC--yZIK_ru26r6ejpoaM3bw>
-    <xmx:C5Xxap-0Rqbqqx6Po4i-iHBZ8gmaNW0RrSzNJIey2lLL2Zc0esEl5w>
-    <xmx:DJXxalbrcx4H1yud408iSG1gxqkgxH9wRqQtIS0hqW7bBEaTc6cTBgmh>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 9 Nov 2026 04:40:25 -0500 (EST)
-Message-ID: <d4dd6e3d-2f99-4912-be9d-aaf8a80e68ae@pobox.com>
-Date: Mon, 9 Nov 2026 01:40:24 -0800
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=vNgPCbao
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=dDWEgytPPKV+HivhmAiQbllvi873e/vHkc9VeSbfZaA=;
+	b=vNgPCbaoamGgr1YIYPnbh1Q2JgGBeBa2zgZQAQBiCCRVKLEO9SxwNdAUPwQJDF6s+rhwjwSyD
+	p6LMnhC1QiSCzmaHkr65lMQBQFtMKYjv/DT65pQYc7p2Tj8onuV9zRaeH2WuFP7QIDdQENHScGR
+	yHQjN3TlSV79Jv3aSExi0Gk=
+Received: from mail.maildlp.com (unknown [172.19.162.144])
+	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4jNPry28cSz1T4Fv;
+	Mon,  9 Nov 2026 17:40:02 +0800 (CST)
+Received: from whupemk100010.china.huawei.com (unknown [7.152.184.41])
+	by mail.maildlp.com (Postfix) with ESMTPS id 247114056D;
+	Mon,  9 Nov 2026 17:40:29 +0800 (CST)
+Received: from vm.huawei.com (7.238.34.231) by whupemk100010.china.huawei.com
+ (7.152.184.41) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 9 Nov
+ 2026 17:40:28 +0800
+From: Pengfei Lv <lvpengfei20@huawei.com>
+To: <gregkh@linuxfoundation.org>
+CC: <linux-usb@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<stern@rowland.harvard.edu>, <michal.pecio@gmail.com>,
+	<stable@vger.kernel.org>, <xuhaiyang5@hisilicon.com>, <xuetao09@huawei.com>,
+	<caiyadong@huawei.com>, <suzhuangluan@hisilicon.com>, Pengfei Lv
+	<lvpengfei20@huawei.com>
+Subject: [PATCH v3] usb: core: hub: Re-guess ep0 maxpacket size after reset
+Date: Mon, 9 Nov 2026 17:39:35 +0800
+Message-ID: <20261109093935.2634235-1-lvpengfei20@huawei.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261106031625.1824732-1-lvpengfei20@huawei.com>
+References: <20261106031625.1824732-1-lvpengfei20@huawei.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -119,51 +73,143 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 000/869] 6.18.63-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20261107134852.069646174@linuxfoundation.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20261107134852.069646174@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ whupemk100010.china.huawei.com (7.152.184.41)
 
-On 11/7/26 5:44 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.18.63 release.
-> There are 869 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Mon, 09 Nov 2026 13:46:08 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.63-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+Per USB 2.0 spec section 5.5.3, the ep0 maxpacket size is fixed for
+all device speeds except full-speed devices, where it can be 8, 16,
+32, or 64 bytes and can only be determined by reading the device
+descriptor.  During initial enumeration the USB core guesses 64 bytes
+for full-speed devices; after reading the descriptor, the real value
+is stored in udev->ep0.desc.wMaxPacketSize and applied to hardware by
+usb_ep0_reinit().
 
-I took 6.18.62 and applied the stable-queue as of commit
-85f15de479e79a3a7515d926437bde0a0f16306a ("Fixes for all trees").
-This drops the build-breaking XFS patch and is the current
-stable-queue as of this writing.
+Commit ff33299ec8bb ("USB: core: Fix race by not overwriting
+udev->descriptor in hub_port_init()") guarded the ep0 maxpacket guess
+block with "if (initial)", so on the reset path the guess is skipped
+and the host keeps using the value from the previous enumeration.  If
+a buggy full-speed device responds with one 8-byte packet and NAKs
+all further polling, the HC doesn't recognize a short transfer but
+keeps polling for the rest of the descriptor till unlink, and the
+device cannot be re-enumerated.
 
-Tested on my Lenovo ThinkPad T14 Gen 1 and an arm64 virtual machine.
-Working well, no regressions observed.
+This was observed in production on a 6.6 LTS kernel with a full-speed
+USB banking token (bMaxPacketSize0 = 8) in a virtual-machine USB
+passthrough scenario; the reset re-enumeration hangs 100% of the time
+after the VM issues USBDEVFS_RESET.  The device is not strictly
+compliant (it should continue answering IN tokens), but this class of
+USB banking token is widely deployed in enterprise environments, and
+the regression breaks a configuration that previously worked.
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
+The 18-byte GET_DESCRIPTOR that runs after SET_ADDRESS (wLength=18)
+is unaffected: the device sends the full 18 bytes as 8 + 8 + 2, and
+the final 2-byte packet is always a short packet regardless of
+maxpacket.  This is why the device completes initial enumeration yet
+hangs on reset re-enumeration.
 
+Fix this by removing the "if (initial)" guard so that the ep0
+maxpacket size is re-guessed on every reset, and by calling
+usb_ep0_reinit() before each device-descriptor read so that the
+re-guessed value is applied to hardware before the GET_DESCRIPTOR
+data stage.
+
+Fixes: ff33299ec8bb ("USB: core: Fix race by not overwriting udev->descriptor in hub_port_init()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Pengfei Lv <lvpengfei20@huawei.com>
+
+---
+
+v3: Per review by Alan Stern and Michal Pecio, drop the !initial guard
+and move the usb_ep0_reinit() calls from after the re-guess block to
+right before each get_bMaxPacketSize0() invocation, so that ep0 is
+re-initialised before every descriptor read.  The commit message is
+reworded to be HCD-agnostic.
+
+v2: https://lore.kernel.org/linux-usb/20261106031625.1824732-1-lvpengfei20@huawei.com/
+---
+ drivers/usb/core/hub.c | 52 +++++++++++++++++++++++-------------------
+ 1 file changed, 28 insertions(+), 24 deletions(-)
+
+diff --git a/drivers/usb/core/hub.c b/drivers/usb/core/hub.c
+index 199d3f535a89..d86bbba1457c 100644
+--- a/drivers/usb/core/hub.c
++++ b/drivers/usb/core/hub.c
+@@ -4969,31 +4969,29 @@ hub_port_init(struct usb_hub *hub, struct usb_device *udev, int port1,
+ 	}
+ 	oldspeed = udev->speed;
+ 
+-	if (initial) {
+-		/* USB 2.0 section 5.5.3 talks about ep0 maxpacket ...
+-		 * it's fixed size except for full speed devices.
++	/* USB 2.0 section 5.5.3 talks about ep0 maxpacket ...
++	 * it's fixed size except for full speed devices.
++	 */
++	switch (udev->speed) {
++	case USB_SPEED_SUPER_PLUS:
++	case USB_SPEED_SUPER:
++		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(512);
++		break;
++	case USB_SPEED_HIGH:		/* fixed at 64 */
++		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
++		break;
++	case USB_SPEED_FULL:		/* 8, 16, 32, or 64 */
++		/* to determine the ep0 maxpacket size, try to read
++		 * the device descriptor to get bMaxPacketSize0 and
++		 * then correct our initial guess.
+ 		 */
+-		switch (udev->speed) {
+-		case USB_SPEED_SUPER_PLUS:
+-		case USB_SPEED_SUPER:
+-			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(512);
+-			break;
+-		case USB_SPEED_HIGH:		/* fixed at 64 */
+-			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
+-			break;
+-		case USB_SPEED_FULL:		/* 8, 16, 32, or 64 */
+-			/* to determine the ep0 maxpacket size, try to read
+-			 * the device descriptor to get bMaxPacketSize0 and
+-			 * then correct our initial guess.
+-			 */
+-			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
+-			break;
+-		case USB_SPEED_LOW:		/* fixed at 8 */
+-			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(8);
+-			break;
+-		default:
+-			goto fail;
+-		}
++		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
++		break;
++	case USB_SPEED_LOW:		/* fixed at 8 */
++		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(8);
++		break;
++	default:
++		goto fail;
+ 	}
+ 
+ 	speed = usb_speed_string(udev->speed);
+@@ -5062,6 +5060,9 @@ hub_port_init(struct usb_hub *hub, struct usb_device *udev, int port1,
+ 				goto fail;
+ 			}
+ 
++			/* Sync the guessed ep0 maxpacket size to hardware if needed */
++			usb_ep0_reinit(udev);
++
+ 			maxp0 = get_bMaxPacketSize0(udev, buf,
+ 					GET_DESCRIPTOR_BUFSIZE, retries == 0);
+ 			if (maxp0 > 0 && !initial &&
+@@ -5127,6 +5128,9 @@ hub_port_init(struct usb_hub *hub, struct usb_device *udev, int port1,
+ 		if (do_new_scheme)
+ 			break;
+ 
++		/* Sync the guessed ep0 maxpacket size to hardware if needed */
++		usb_ep0_reinit(udev);
++
+ 		maxp0 = get_bMaxPacketSize0(udev, buf, 8, retries == 0);
+ 		if (maxp0 < 0) {
+ 			retval = maxp0;
 -- 
--Barry K. Nathan  <barryn@pobox.com>
+2.34.1
+
