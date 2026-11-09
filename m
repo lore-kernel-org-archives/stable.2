@@ -1,58 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794184494;
-	b=Wm/cGKzgwpSrflSIUUMPYE8bFw2Cvq5DQANv4D8HqaO1GCBrTvvcWKcs7ANCfS2/APGA
-	 C69/iorwRvm0AC6UaczvPJjEbYJTwpm3Sp3dSkMA8t4gfJHfvPgBDoMjpOGNIqLwSu8uA
-	 YH8DX0eckdNrRN6+DqF8pTIuW6kivKuVoyJhSY1mjgTPog7tXlzGPWWEIWQzqg/veCdEz
-	 ZY8GcvhkkFjtg7cmMy1pIj1bWds6taV5ijhOZARh8wTrrolxu1EMnX1bR2D12wkpsq4Sq
-	 A07X1V2AlhB/dhvlOCqMpEM5lJk0Uz6NH6wuIQ6yz2s0AVrEBBLUl3CjVcO+b2e8XRg==
+	t=1794184490;
+	b=OnwWUBw8H8Y26UUR1pz2K5+g2aZF6rdMI8AV52xWyqDQaG27BvXSPDV2Z0jUfcEWLYoL
+	 lysvYrAxiVnu+3Jj59Ujh2wpuPg4zI3X6gh4yrvvIRYCCv439+wszPc2fTCWMbq8iJ/r5
+	 mh12O+/b4UVxP246ImpUH2UOoWzikpDvRmzC6FVo3jf+5sG08KFvGDIquMnFnjmBCNdbE
+	 +KD//mSEdtQGn0PLerh2HIHPwohXl1m0lrJ7PcKqkWQj9nId6iColVHkJhv8XV/wg4K8L
+	 P6qYP+Vat/1qThrGzWcBClI3diBW+AzWGobkrAIcAAFpRbABreod82sMOoRrRT528Sg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794184494;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794184490;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=xl1uHkh0YFazEsJHZdHR/BuAnw8mD4ZxAEBabTwSKvk=;
-	b=B0hx28qC5w2OglH55aMoAM++IoO22odyBDpOCl71JQbcRn7b2TTCh+cM+7QB49anLU1J
-	 hB/Iaw4OnqNEaGituQ6m5Rs+olcuVmpCnFuEZa9H89MhlhxVxvDFYJF6rAo6JvzN2PIJX
-	 AbJ2ngiwTBZKf++jBTZemz4Ip6/oyyOi+ZeqRW64vU7Si2gv8p1N3+9xfmA6eb5TqSJyE
-	 M7COoD8o/rjFAvgK5Ut0cvLc5aQV51PDiKx9b/mU3w2nKKcFZzE6byVInTGTNxj6wZxpg
-	 7GB4MafNgjK4PbXYrJZc2f/xyb/9lqyuW4OW+vqmZLsziUgBeUbGQ1gQeYPwm7evMgA==
+	bh=mQLS8kfkESIX41BEju9LI6mfLU2iWBdkxx0IrXLaQRc=;
+	b=EjFqgaV6G6Xwq29CFT8HwGQNx7Uo3prPR2aZcpOZ2De/xSXICa2w7+SweOaI3NNhbdHO
+	 JvGQSDzt7DzwxPezOkPdOz2LKtLIYub0SiXYfqWGhQOl3MUzfuogPJBH/e4h+kppAoeIK
+	 gosCrJCaeV0h6zH9EnZ74nSsqoYttW0k2FiDla+MTv5LzEIA7XF8xzFu4VWO0of6OsO2B
+	 Z+s/ZXYFmaGKMKe5coLOND25ePahGQkYMVFu7ZHovLlaw4vVcCddyeL2D/2lguRYz1FYd
+	 rQW8ELyqUrZXhwdf20qCaTcHENoELEeugVkt4GiWWNIcrYnoX72U1sGrTjbO7bjE+uQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rrjv6iwi;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cscvp72P;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25D7A6082BEA;
-	Mon,  9 Nov 2026 00:34:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13EF6606D811
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 00:34:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rrjv6iwi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C00F1F00933;
-	Mon,  9 Nov 2026 00:34:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cscvp72P
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 402E81F008A2;
+	Mon,  9 Nov 2026 00:34:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794184494;
-	bh=xl1uHkh0YFazEsJHZdHR/BuAnw8mD4ZxAEBabTwSKvk=;
+	s=k20260515; t=1794184489;
+	bh=mQLS8kfkESIX41BEju9LI6mfLU2iWBdkxx0IrXLaQRc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Rrjv6iwiOsdMi7oO1pFZMq/5rKZmepfksq89qEg58CmJrdEONi458I4NBKHQ5TKcB
-	 eAnEnw5QYchuIATDNrtmkjZ9xmrF/KbW9FcrPLU52ypTYSEYQVZmNvhiRvQGn8vq0y
-	 UgkaTNOSiRo4bvImFeP7Ua5tBso3SH4t5to15zfMCkF+gR0MS5duNblwhdnlBO0Jga
-	 7grNdSHO8eFtySuvrf9Z8dPXTsJeYmd3rLh7B60Kms4zFXmffb298r2IydHK62Nft/
-	 NRlCPFF3c6Ifi77pztIc8rXbH8aMsDQU71KNt5PPymPjMM9sh4SXGQxWrXwLUkoLqc
-	 76zcc29339Fow==
+	b=cscvp72PmrE8kq6VVrsQHdbYsO5c/3QYAeqRf3EdSFpjOt4IV6rPRJqw7TNvOsVl+
+	 jS4RgLsyTpeWcHlmtWK91+HnYrXauKICUAOg/VCNPxJoPeg/3R7CKAE6iNNhsbTnIK
+	 xXp/ZkdlQ3FDozXB4nyTKiAF1JYKauljA+8aCAlFAiknXgdib1pbubVHmv3rNfwbfN
+	 xLh8YYsmRs0Qwe6hbA4NOPu/dejPU4IIbkO6uUu2k5xJ0gQBeciOQhZhlaz/N5mGJ6
+	 qLm2q68xCKfJ57EXsXTjOUS7yb1ZgK4dyxeoFhRrylFN8XinghjPckMMYUwhkWnZvx
+	 905UZvM0EOujg==
 From: Sasha Levin <sashal@kernel.org>
-To: Kuniyuki Iwashima <kuniyu@google.com>
+To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	stable@vger.kernel.org,
-	lee@kernel.org,
-	netdev@vger.kernel.org,
-	Rodrigo Zaiden <rodrigo.zaiden@canonical.com>,
-	Tamir Awad <tamir@auth.ink>
-Subject: Re: [PATCH 5.15.y] af_unix: Clear oob_skb in scan_inflight()
-Date: Sun,  8 Nov 2026 19:34:39 -0500
-Message-ID: <2026-11-08-1-daily-reply-0011-af-unix-5-15-v2@kernel.org>
+	gregkh@linuxfoundation.org,
+	rafael.j.wysocki@intel.com,
+	sumitg@nvidia.com,
+	Christian Loehle <christian.loehle@arm.com>
+Subject: Re: [PATCH 7.3 2/3] cpufreq: CPPC: Select the frequency-invariance callback per CPU
+Date: Sun,  8 Nov 2026 19:34:35 -0500
+Message-ID: <2026-11-08-1-daily-reply-0007-cppc-7-3-p2@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <08E5C4C3-189B-4B0D-94F5-5C049EAF6DA8@auth.ink>
-References: <08E5C4C3-189B-4B0D-94F5-5C049EAF6DA8@auth.ink>
+In-Reply-To: <20261108112738.2566137-3-christian.loehle@arm.com>
+References: <20261108112738.2566137-3-christian.loehle@arm.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,12 +63,16 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Hi, is there an update on this?
+> commit 21e018235d99bc86249b034c06646df8757b2852 upstream.
+> cppc_cpufreq_cpu_fie_init() initializes deferred work only for CPUs whose
+> feedback counters use PCC.
 
-Sorry for the delay. The patch as it reached the list had its whitespace
-mangled and doesn't apply, so there is nothing to queue yet.
+Patches 1 and 3 are queued for 7.3.
 
-Could you send a clean v2 with git send-email?
+This one doesn't apply to the current 7.3 queue: 995e7d468070 ("cpufreq: CPPC:
+Create the FIE worker before enabling PCC callbacks") adds
+cppc_fie_kworker_init() in the PCC branch of cppc_cpufreq_cpu_fie_init().
+Please rebase it on the queue and resend.
 
 -- 
 Thanks,
