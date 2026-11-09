@@ -1,100 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.177
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794225008;
-	b=cqxHCRuVdmsPq09cTGm24xVxxt8BPw2Ga1G09OFqhTIR0tbFBhxXuEvBPdNnHXpXYQik
-	 RS52lfCG84sc136aCuFvBGCnI8ENZ3vrpNUzz/AlNnKRRsiYyXaRzUL6w/OtKYKPc6QKK
-	 /Fv5E4EpLetJPisdUTh5RvWMWXFrF1Wd/btAPzlie8YJd59LShaf+DDGUUFx1fivKyB1v
-	 6xgGeGMpEjskHWZWgn7Gn+1muHSlIAhzy6TKILTFEvIeX61AWoXMgMNlmVDGmNfH1umUb
-	 nCnF3FPSPQtqOajzA2DbiclOJAUlGO7DqsaWxjYDQ579ZPc8ap+n1sDG3nG4jgIzbgg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794225008;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.51
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794225057;
+	b=JN1ozW3oemOpqRAXUy2L6W5QWKoJUFPsuYkZrm2QLeYevuRFkZL3ze9QTEqMQL9LT/M2
+	 3EOfk3vK6JS93AxZwqVWSvQZ4NXPlTvSh0HbXbMoFGeLjFpacnCwra0otJ/GYTjfe1chw
+	 IbAaajzSI+kjIvvYapu1RsP+g6fyEGOhQ44VWsW2/IdZNiaIYaXx3m3VEqy0BvaBSlshe
+	 ugqx0mC+wW7vhSOgmcIS/Pla99agLlFBUKvH9OZOQGv2Rz3L5/35UZnBnLc2cpJq53FI8
+	 egad2zSt0ueRTU3pcOD6b94vZZJDyYxptt1Q/iHzsAoCTE0Bu5kp9oPHC655aoAri4Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794225057;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=u0TI0VRhkkEuzSSXfjCVwhEWLOzK7uV4x4syO3ophfI=;
-	b=Jlbc1SHEIX6d+akWQ53snfoIWH7RHf/FLP4qgPdyDLuAMqVjOujYYaSi361CzGiFi/gi
-	 hOQCuLuMrCkq+nKnpNQI9tdlExOA0F9orGM4wYwnsyUcTEDSBRHbDYnFcVCPWuOAEoEl6
-	 cfgwCxFws7r3yMZcAXiH3vuirWu4gn2Vc/5Ii0Ocjek9QLeuld5D8f03qqZ7V2sAyc70q
-	 +LOjnPY7qNtQ94BGmvGYr8EEsbil59h+PsuIV+SkjZzuoWhjIQcvJMozJrc2aIgp8glA0
-	 YUtBSSrz9CtI7WkWn9F6DPqsFZTOA4r13GxioaP7AZqrPeb2Xzv2kUUXwQHDzBRRbYw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Z6bscx+xVoDHG6nk05Y2GvjGVXrUF0HJS/uHEwq9jUk=;
+	b=D670PuToNueRB5IpM28p2722uzZGV+n1iI4zs+frkqQ4/lt2/OMC6OB7ML+wl1ZnivH1
+	 sAEzEDT+8pE7xesLd0ZuyBzNBX8oXaxcf4zCKkTJnJ1lc098PsoxnOHn5V7nsEM3/TeEU
+	 rjdjtxNSXYZuHUai8oG53nBlJ6LKxawMUNIGdOaZH/aW+mxrMvmFDi4GXHZyp0fk+3L42
+	 E2S9DcPXUdT1XmE7Rd5e0eLz64zZdVHX9ewBbhtva+Dl+MELLpnANrNbTCVuNGGwpa39l
+	 0rLCBaoXC7lk2nsRMnBqNTEzCosdYwqsh2i0YkwhWGdA3H6jWT4QZ8RPrtCgCEbTyTg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="zW/EhxmY";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S87JFWNJ;
+	arc=none smtp.remote-ip=209.85.218.51
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F135606D80E
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 11:50:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F135606D80E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3B4F606A31C
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 11:50:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3B4F606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zW/EhxmY
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-33fb4680717so1749041eec.1
-        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 03:50:06 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794225006; cv=none;
-        d=google.com; s=arc-20260327;
-        b=RvA5+zxeKMSI8UWNYtetnfJ9L/0R4p5tOoknAaa8FpwfibMYI5xH0uChhDCXEXM6wt
-         EbHhqA2GnFpiLRUsE/qxbomtLpRuLzyuO+Al8Nmfz83x7+OFP8oeKoIjmpgukKAikhTZ
-         Kb9lz3wD7ZjQc0FofK8RBWpsZo6mdNWSp+RYWIrrbkHSKkKeNXr/UI0JDwrvi7Pu9F+d
-         rR7eWTwcjdK2TxcagAwnaYLOYX1lNdU3SSvhfBcfpqaehx02eyHyN6RcLpJX2L9OVbJ5
-         JieyosYxG1oij7lc0NZ6UcNIMzroJkoAZ/bH3/rF7lp0Md3FkwEKnj86hbhWBcY1H2Gc
-         z7/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=u0TI0VRhkkEuzSSXfjCVwhEWLOzK7uV4x4syO3ophfI=;
-        fh=iIZTJOd+Z7BJq6jrDU6f8VkUZreMUsugT6QRSc+AP0g=;
-        b=dmGrDfUrXO1FX0wFMUerYvfkEfNf3XPouTHK930UxuNFJSiUf76vDgiJOcHyKcFsVN
-         qf3C9ziEx8F1QeJiAN8J2WNX1zB4C+Lz1G8HeF/jDERCSAMblK+Un2b8Tp5XsNt3XTpB
-         6ReWuunNSzIGW4O13/V8mkuSfCCpvyOOEUqN9gr1peOlK6IqWS5Jyk/mYVT+PMCQ9h4g
-         4rawYsOEqdWqTiabvP+cg3TNQPzpbHzSwS8kkJ3F+k/7qs60L45A6mw9ydX21Zo01xBd
-         M+nHuz9pDn44K3bIbXzNC7d8hSHb4207nXv8rmnDOfYXSWOp7uLJMhJ06kLTIQYGrFpa
-         POng==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S87JFWNJ
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c3f8d72d7ceso107939066b.3
+        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 03:50:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794225006; x=1794829806; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=u0TI0VRhkkEuzSSXfjCVwhEWLOzK7uV4x4syO3ophfI=;
-        b=zW/EhxmYBy/BH6jzgIF4YiDgBBl9udT8iHk9JOMG7UZUecSr8e48+v/LACrv4tmjsQ
-         /5EywIHSkdJRWDUDQ98DAZOwkeVv4v52yltTq/WYZWH5K4kQgEMvr7Mn/MEuJpZidd0R
-         5mLFGVSepeI/fsd5S22nLYbZSXWLyIGkdcbcsici3dWHXs1K3cSQ4xiMMSeQrLCyTl0/
-         eXswSKEkOxQ/dAf9Bj6AL4QIhjdbItOEc/ez4DTHRy+Ed8H3mX0BhWHFlkJw6sTJ6VAQ
-         y6jpIxM14f+1Mbo24GNnPLb+jqElocrtQOdMkEEtiwGVYbJtc7u+qmWqQoNKZ53+hVdX
-         JItA==
+        d=gmail.com; s=20260707; t=1794225055; x=1794829855; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Z6bscx+xVoDHG6nk05Y2GvjGVXrUF0HJS/uHEwq9jUk=;
+        b=S87JFWNJydoMxIV7mKMHe7x/pGXcmHCujJzMCyS8AHDCJy2Wp88bNO75387DA8g0j0
+         jo07ecG0bZ7l17c1PgxWnOXUU9299sIPuQxkA2eCs2vE50tulaL+Y53DllCL7hvP0QSW
+         LvrmjST5KtjYrh6qk5wXNwnSSO5REcGgKauM49JhCcrJC8i2XPnPtIucLBTv4HfKvLxG
+         lPUx5SQB3KolAP2gsHDHAQm4SVcx20ceEsECKfrQ+826XTCuGQTFrog2nYR53V31w1Dc
+         nPQlAw5hLesIB6RBmyp5rP1oN0269RlmSx5+RqokZvZ2vtL6l1SMMkQ1Z2X2wDlDxkHQ
+         g/tQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794225006; x=1794829806;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=u0TI0VRhkkEuzSSXfjCVwhEWLOzK7uV4x4syO3ophfI=;
-        b=buXnAEo90+2w93ehNgYpemYYtBgV7GPtcr1Mnqw8wi7wIAjrGPVPmdF/Uon4qDKi8e
-         XuFLcld9dG8MFdxxJXCNFRqXnhvYkr6eleGi3A2T9StT7xdcEKmf5wlBDovcnKMUCY1g
-         EVk4ppNVpxN0Tja2OujMLrEUjFuWOksEQl7oRKphicc09GJ/vX8mI8wu8tlOAMB56cJJ
-         LWQ+Swx+fxDIeWIgUMwOFnx261OxN2u8QYCUSLSsaC3gbjbqttdHq7THAhsxo/yo9I/t
-         3+9Stm4XvQLoQG0rDzixSwQVX36gKkRjni2eikgMf0sW22qgn+avYlhm3iuslt3e4z69
-         vyRw==
-X-Forwarded-Encrypted: i=1; AL+hErEoqiiBn5+PpZGjzIb812Y862QbXVYws5E504mZRw89/bUxXcuViLMwPiqNcKYQCFtkx4R6VvY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8RCJOSlL4YeDRwGLuA3ipMdN0XnD6B+Fmtuq5Z8pPYo9XA5sbs
-	uXipvd3wb5iU1/+BZTIl95SgLrjBJjpEis/L3UkeHBzKYhKXbTKZSdq52eocIx+RgV2V3r5afol
-	lX8KQteAwWF8ltS6Nl4yBUWVJ304hh2g=
-X-Gm-Gg: AYBFou1tjv7qlwGCtuWIzaAL4GGm2AJP1QGbvmS0VRyihKgO2Y244LUMLSjeW1mNbQ0
-	eotDgfu8W7UsesJnX/DeJZWU9WlZOxw6ggujlMcOA6A2WJM8JP5z4wVQlIZWiWG+e27rAUIS1te
-	mW1UtiKdvJaAdD1ZlxLNV9DSfmkIDQ24EF5XkeU3B50Jvk/HzaHTIGNsug/0QQb83f9N+tQffhj
-	CFNsI75Jcp5WzLjDppGqvotFRR7tX0BACmrnVRkCtcirgzt+ZFwWmX8qr34+m5p7ubkJiTH5s9Z
-	QzAWda6qEtpr+FHhZYL0BhykpsepWSXntRVFE8jzbommcHqoi1m50iTqZDesdtofQrmVo8ZGvEp
-	xKT0dJunq4wK+NtHaFjMkcxnqj5H46Xb8iX8NQcUlPA/O3aHx5C6LAWsV/6194DCr53g0
-X-Received: by 2002:a05:7301:d809:10b0:36e:9773:84b9 with SMTP id
- 5a478bee46e88-37256df029cmr6649578eec.23.1794225005998; Mon, 09 Nov 2026
- 03:50:05 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794225055; x=1794829855;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Z6bscx+xVoDHG6nk05Y2GvjGVXrUF0HJS/uHEwq9jUk=;
+        b=2JZojrUNeiOWR2sPfwXo0QUVLR7Hr5c1Tfja31YwOOOveRLi0RO9Kfv1IrdXv+weH6
+         1VMTZBZ5G+q4yPUJ6zfZkVEoxDYLtwXSYeC8VmEbt2Uk6VSaNiNone9NbE2zE79jvFM/
+         nLn0WtAssqNxZ7yf2deo2bdY/fsTwPYu9DkXTs2Wil78zprttQZ0ntP7VAQnFNIihQfs
+         PjPqR4N7VKmXbZhwxeSw4Hk9GrMnHIWO30RuSEnBM7G/41TCsnGUWm1qRY+lBXCvymnj
+         sgnu5oy1ZJ5ht1M40WZykt3lQWShksnqfn0sUeuWdUCR3orbTmVzhPitfwBHBE6TgGz5
+         yAuQ==
+X-Forwarded-Encrypted: i=1; AL+hErE/3f0P3LUCnjzuHwT796OvvqnqFzGv796xerPRCpR5vL9f2LtHT4wO7JSXof39i4c66m8n/Xc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+/hPTjC96DE0wzgnqAk3SjlQndulTwf7CDfqEbaxVqApXIswaD
+	kB2yDwo2yo3lAPrf7bJyFb32Rz109LKEFZcsj/QN/1mtPlVCt8oRnpPJ
+X-Gm-Gg: AYBFou1C0YGs/GmzDSew+E/DCovtFzEEwZVx8h6whi/n0nv8iHEZbTT9heRd6NOekRS
+	z0QnHOkghUEMOvKdFHbArTsBKMkCzTXWExEZ0Z8Df7YwyjAWq7YWzbmVoPhXqIo1CVJAANbb6ho
+	6Y/RvHsroC+7OUfj6RkFFhDinZRcMv4QDsgZ0t/EcaPHeKaLcZ75JUk42IuX5p926Mru3d4sEgg
+	z2+2je0tSQ02aNC/fPcWTxmHPl91g72Uysb/hkHQTSqnsj5d0vXFZOH2/2B8wa2TPnvNTp3s5c2
+	b/L4RRepJWNPeOfWqVkasKWh1+Tgsb2RNtK4NbYwem/o94rwNqkDFdp2L3CnTW3WziKOufa1uJA
+	zBAYLcvnFrTjx1dRMiS/Hf9tMBSzRSvP1peEDTAwPyg7ZK/9Em97XWrynbYF+Tp75ViV9sJsv6j
+	he0s3H+K39xo9VOLGQ/NrVVwF9wXxR6VxmxvaD+/d3HQtd7AYDu1ikRnXBLX1v03fdlzL+YT2jS
+	FWhEMUFmskH3Y80lnEt5n+9sr0+ootMHIXB8X8mf5PIJ5A3gNadAgifKLln2MbeCjpskW8Hi7kd
+	drsIHIm9PM4AdfP9qziY5QJgoLXPU36tD3tNeSS9F3zbjInB+jzQD1MZ1VxeBIWDyYzdzuRZhbM
+	RI4aku3vK6A8IvA2s/YTFTrqKvYbX6AsB
+X-Received: by 2002:a17:907:c5ce:b0:c2e:856:2a08 with SMTP id a640c23a62f3a-c4d6d15a580mr277220066b.1.1794225055037;
+        Mon, 09 Nov 2026 03:50:55 -0800 (PST)
+Received: from localhost (178-84-201-199.dynamic.upc.nl. [178.84.201.199])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d68d52cf9sm153627266b.2.2026.11.09.03.50.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 03:50:54 -0800 (PST)
+From: Amir Goldstein <amir73il@gmail.com>
+To: Miklos Szeredi <miklos@szeredi.hu>
+Cc: Giuseppe Scrivano <giuseppe@scrivano.org>,
+	linux-unionfs@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] ovl: do not allow nfs_export with data-only layers
+Date: Mon,  9 Nov 2026 12:50:54 +0100
+Message-ID: <20261109115054.4031784-1-amir73il@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,145 +96,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261109113121.1534929-1-hj351016@gmail.com> <TY3PR01MB113466938179F6797D7406F0B86732@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-In-Reply-To: <TY3PR01MB113466938179F6797D7406F0B86732@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-From: khj <hj351016@gmail.com>
-Date: Mon, 9 Nov 2026 20:49:53 +0900
-X-Gm-Features: AclHuK-Q7RAQrlbltV2_yA6asy4NURVFS_s2TMwZElMAGdCfnMAGwiTLjN8f_BU
-Message-ID: <CAGr5VtOoyaNcLbBeZwA1gb08c1_qfvpVvWC07iEHjp5GnWFZEg@mail.gmail.com>
-Subject: Re: [PATCH v2] phy: rcar-gen3-usb2: cancel OTG work on unbind to
- avoid use-after-free
-To: Biju Das <biju.das.jz@bp.renesas.com>
-Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, Vinod Koul <vkoul@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, 
-	"linux-phy@lists.infradead.org" <linux-phy@lists.infradead.org>, 
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
- Hi Biju,
+Since data-only layers no longer require metacopy=on, which conflicts
+with nfs_export=on, an overlay with data-only layers can be mounted
+with nfs_export=on.
 
- Thanks for the review :)
+Decoding a file handle of a lower metacopy file whose data is in a
+data-only layer builds the inode only from the decoded lower dentry,
+without the lazy lowerdata redirect, so the data of the file would be
+read from the metacopy file in the lower layer.
 
- devm_add_action_or_reset() runs the action once immediately if it
-fails to register it, and then returns the error. So on failure
-rcar_gen3_phy_usb2_cancel_work() is called right away, i.e.
-cancel_work_sync(&channel->work).
+Fail the mount with explicit nfs_export=on and data-only layers and
+otherwise disable nfs_export with data-only layers.
 
- That is safe here: channel->work has already been INIT_WORK()'d on
-the line above, and the IRQ that schedules it (rcar_gen3_phy_usb2_irq)
-is only requested after this call succeeds, so at that point the work
-has never been queued. cancel_work_sync() on an
-initialised-but-never-queued work is a no-op -- it just returns false.
-(Unlike a timer, a work_struct has no uninitialised-object check on
-the cancel path once INIT_WORK() has run.)
+Fixes: 5ef7bcdeecc9 ("ovl: relax redirect/metacopy requirements for lower -> data redirect")
+Cc: stable@vger.kernel.org
+Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+---
+ fs/overlayfs/params.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
- So both paths are fine: either devres registers the cancel and runs
-it on unbind, or registration fails, the cancel runs once immediately
-(a harmless no-op), and probe returns the error.
+diff --git a/fs/overlayfs/params.c b/fs/overlayfs/params.c
+index ad7f30177ef4c..7a4e1be5225fa 100644
+--- a/fs/overlayfs/params.c
++++ b/fs/overlayfs/params.c
+@@ -931,6 +931,16 @@ int ovl_fs_params_verify(const struct ovl_fs_context *ctx,
+ 		}
+ 	}
+ 
++	/* Resolve nfs_export -> !data-only layers dependency */
++	if (config->nfs_export && ctx->nr_data) {
++		if (set.nfs_export) {
++			pr_err("NFS export is not supported with data-only layers\n");
++			return -EINVAL;
++		}
++		pr_info("disabling nfs_export due to data-only layers\n");
++		config->nfs_export = false;
++	}
++
+ 	/* Resolve nfs_export -> index dependency */
+ 	if (config->nfs_export && !config->index) {
+ 		if (!config->upperdir &&
+-- 
+2.56.0
 
- Thanks,
- Hyunjung
-
-2026=EB=85=84 11=EC=9B=94 9=EC=9D=BC (=EC=9B=94) =EC=98=A4=ED=9B=84 8:45, B=
-iju Das <biju.das.jz@bp.renesas.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
->
-> Hi hyunjungg,
->
-> Thanks for the patch.
->
-> > -----Original Message-----
-> > From: hyunjungg <hj351016@gmail.com>
-> > Sent: 09 November 2026 11:31
-> > Subject: [PATCH v2] phy: rcar-gen3-usb2: cancel OTG work on unbind to a=
-void use-after-free
-> >
-> > From: Hyunjung Ko <hj351016@gmail.com>
-> >
-> > The OTG role/VBUS interrupt (rcar_gen3_phy_usb2_irq) and the role sysfs=
- attribute schedule channel-
-> > >work (rcar_gen3_phy_usb2_work), whose handler dereferences the channel=
- (ch->extcon). The channel is
-> > devm-allocated, so it is freed at unbind, but nothing cancels channel->=
-work:
-> > rcar_gen3_phy_usb2_remove() only drops the role sysfs file. A work sche=
-duled just before unbind can
-> > run after the channel has been freed, a use-after-free.
-> >
-> > Cancel the work via devm, registered before the interrupt is requested =
-so that on unbind devm frees
-> > the interrupt first (no new work can be
-> > scheduled) and then runs the cancel action before the channel is freed.
-> >
-> > Fixes: c14f8a4032ef ("phy: rcar-gen3-usb2: fix mutex_lock calling in in=
-terrupt")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
-> > ---
-> > Changes in v2 (thanks to the Sashiko AI review):
-> >  - correct the Fixes: tag to c14f8a4032ef, which introduced channel->wo=
-rk
-> >    and rcar_gen3_phy_usb2_work(), rather than 2b38543c8db1 which only a=
-dded
-> >    synchronous extcon handling
-> >  drivers/phy/renesas/phy-rcar-gen3-usb2.c | 18 ++++++++++++++++++
-> >  1 file changed, 18 insertions(+)
-> >
-> > diff --git a/drivers/phy/renesas/phy-rcar-gen3-usb2.c b/drivers/phy/ren=
-esas/phy-rcar-gen3-usb2.c
-> > index b5ba751..35e519a 100644
-> > --- a/drivers/phy/renesas/phy-rcar-gen3-usb2.c
-> > +++ b/drivers/phy/renesas/phy-rcar-gen3-usb2.c
-> > @@ -1171,6 +1171,13 @@ static int rcar_gen3_phy_usb2_vbus_regulator_reg=
-ister(struct rcar_gen3_chan
-> > *cha
-> >       return rcar_gen3_phy_usb2_vbus_regulator_get_exclusive_enable(cha=
-nnel, enable);  }
-> >
-> > +static void rcar_gen3_phy_usb2_cancel_work(void *data) {
-> > +     struct rcar_gen3_chan *channel =3D data;
-> > +
-> > +     cancel_work_sync(&channel->work);
-> > +}
-> > +
-> >  static int rcar_gen3_phy_usb2_probe(struct platform_device *pdev)  {
-> >       struct device *dev =3D &pdev->dev;
-> > @@ -1277,6 +1284,17 @@ static int rcar_gen3_phy_usb2_probe(struct platf=
-orm_device *pdev)
-> >               return irq;
-> >       } else if (irq > 0) {
-> >               INIT_WORK(&channel->work, rcar_gen3_phy_usb2_work);
-> > +             /*
-> > +              * Registered before the IRQ so that, on unbind, devm fre=
-es the
-> > +              * IRQ first (no more work can be scheduled) and then can=
-cels any
-> > +              * work still pending before the channel is freed.
-> > +              */
-> > +             ret =3D devm_add_action_or_reset(dev,
-> > +                                            rcar_gen3_phy_usb2_cancel_=
-work,
-> > +                                            channel);
-> > +             if (ret < 0)
-> > +                     return ret;
->
-> I have a question,
->
-> What happens if this return error? Is it ok to call
-> cancel_work_sync() before scheduling it?
->
-> Cheers,
-> Biju
->
-> > +
-> >               ret =3D devm_request_irq(dev, irq, rcar_gen3_phy_usb2_irq=
-,
-> >                                      IRQF_SHARED, dev_name(dev), channe=
-l);
-> >               if (ret < 0)
-> > --
-> > 2.43.0
-> >
->
