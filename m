@@ -1,79 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794212660;
-	b=N+7gb5WipEGR0kbi09OcfbkAZ1C/7r/RBtDwC40a7YB4i8u/vH+qQorUW6pYCG8D1Tg2
-	 +YKj+QUAjV6Ve5MzjwS//CZGfcLz5uleaQvBl4fuIph9w/O78n6I/n2h/YNOB6euQ2EyK
-	 /JtUUjAUKAmMoI2tQAmJXUGGczYyd3KgKv6hgLyFi5Xla1wRIEH7BJdAOzeYX8c8hoiYP
-	 Ac5HaBA7CbFQ+hO+8H+7/8/mgDAMSqFJ7oAdSf8Oi304/6lC5yrI13TrJ/NahI+5Oa93c
-	 A25cFskWF82IkQEM7l6wo9bUxBnt/KEgk1qx371aOIJpOdt5z/H66sMKVW6gAdloloQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794212660;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=ZKeqBS047+Pa27H8S0Szofh5TDu9ixoEKn6/UhBf5Lo=;
-	b=enLSZ3tkHHXmKcKs3VRwKyW+zoUB2gSeYr1yDTLJO47lgREeCxrcSmEVABDp/dVpIKLX
-	 W4M9YzOd3a8bTY/4pNi+CX+XospIGox3G6vwgUjk9SazWRVYqTctOyFU/BZgxUtHUkg79
-	 melhDDfcX3ztdtvzfKFBQre/enIosVCfRX0ybk5HH0AnYre53LrhtR8Y3q+f/SIG2SoZv
-	 uHb/vpIXN2TZ/ca4PP3Vfp2aT/mTQ+RLFx8J1xSMProNixC29j/Ge4wRbVP/lM2ttZfqU
-	 nmrWklikxoTZYi+saYJCN9UX/UhGwohNazWKVmP40Q9wLEwU2N2wsh7gWOPkzRw9Pgg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RTdczEx2;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65605606A31C;
-	Mon,  9 Nov 2026 08:24:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RTdczEx2
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794212659;
-	b=GiX0S6H0b9wMaVVXYRYbLBkAnNCZsOQ9MYHx9hhmMKTQ2E+lC9J3QEswGm4XYLlZR1p4
-	 F3M+C5kecMWBmUq9lSf6LsrrezT/mIHUsrKrW94nE0KqiU4KdK+0Ln7QR2F1lsTpXV8aW
-	 EkUn6r9EMKghDZwTu7sKtiEw9X61aqfozQlNO+AdEoyNRWUY8vYtKFMAvRknMaE8AJGjK
-	 TmCloApoYAvGQVXqIo+BGcZkzpasiMPwayBCCjXARWRZg/mTlU2yDmMzzmU3B0NtCnyVh
-	 Rn5RZgbNm1uSF32+DPGvSEnS59ZwkYAtMjHUA/4BCtCsQ9L8h4iLnsDf1W790xxxwgQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794212659;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=ZKeqBS047+Pa27H8S0Szofh5TDu9ixoEKn6/UhBf5Lo=;
-	b=0w9aF2DGo/hFTAtg3IVDyUULSGg0AG3f0B47kzqnEuXRn0AePLfmA0tLL0ts3IKUrFVZ
-	 VZV/qZWxFKaPrO1ygBmxUyOfoNi0blG74FAT5HtLcvw3Z8WLO84yw8MLLNBv6zM+baYdc
-	 r6550zI/3GQVKw5Z/wIrpQm1+CD7E/YJai8olh9FfvDXguDTX/jMopU7fm/unY41EnSz3
-	 q17pH25dNxfyaCSgkKPLhv9h+0SP85RhC3jZoDzA1YoWV8Oh84p3GWm0MqojUB2fYOCf6
-	 cTEGuFqhOdzY8R/lzW8IPJlR/DB/+PHRgNtvWkaIRwi7TvzjYwqsWx/ANiTQc9BQ8sw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.49
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794212667;
+	b=FBPrc43vGbzPcVnINl79d0bmlVsBid+oFso8DcznSiuyKU3iTUngIky1o+v6TL+DjLjD
+	 rbYw/YqHgBk3wONGUUNZvkXA1Ng+Kz4orrd4OvxqFJCx6M7kM+16eFcHvCLMuvVmBmTYC
+	 qvxusCMrWR1SwYL4tuA+Ve7s+E49EPn9WjXH+GG58agjNTzLUHlf6ofETJZgMq83jrpzV
+	 R944ARBrkhnQVytFNIfEsLqukWwcy35cvmlSz7W5fFYICQZBGxQr6tRUqJ11jLCcVy3mA
+	 o0qG9XcSeGNUrZMtC0vE3T3uMxWjyUiE0aLfY8SJGJl+q6++24B4gd7CDv2vLBLPbfg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794212667;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=pgRFFSuqTaLzsyNQiW1C7k3T12ue183QKOBEGRFvIJQ=;
+	b=Nm1MHOsgpMI3cEcKEF2S98qM1YbXG2L1dISMXewaS+Rjmgrcps+HRe7KvCjoZPf+hDaE
+	 TU3/2lGyqoBlMeuYqkSdx/ay9oUugtVr0lK3y/GZqVB7hwdUNTY+xzSa0jnPCtecnHmx9
+	 Kbo7mXEmLhqtf6usI4qLAzbZ+j1RPMBOxtg1PKk8ePCSqkuI2yHZbvbcWN5TvV21g2fHg
+	 DI7WzeroSKCmEjWLRik/q3VKEQ2LYaZaHXO4zYYTvBGiLHTz/hybNksxMZvNTbMXow0nZ
+	 kCscM4FjP70MRWfhFI3Dr/N1k9AR2SI/TiZJkcVhzpVAzf3U2gUqS95qIERHmp4sEAA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jb7gnq7H;
+	arc=none smtp.remote-ip=74.125.82.49
+Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 4E4811F0089F;
-	Mon,  9 Nov 2026 08:24:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794212659;
-	bh=ZKeqBS047+Pa27H8S0Szofh5TDu9ixoEKn6/UhBf5Lo=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=RTdczEx28kGsWBqBjtijV/wx7tw+zw20WgWk0KI+fh0v3lxkBhSNo9QgEZmHcjdX5
-	 LeCchxBSDDPOv5Uy2L8+MC93HyNrIIxkemhQoIOtZqzqGOIdzu35Af4evEBRFnk0C0
-	 +RnFZYLh38wqjsMh7oa9zfZSpnqxjXSE5v86xSDYJxD4J3c+OxQIFSGvJB1Z64GNaN
-	 gueJQLix5B7w4drau+0HjX/dNIxtFJjFYmLWvzD2VgUkU5SeJbmYKIcxhKxI7QdxEE
-	 NPQGZGBAGDc982pNH+SaX3YC9tYtuRCsEav6NuV4b8Wh6HtQqUJ/q6R5Zd4SAXC+iR
-	 kEtMDB2wzoQxg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id A0F9F48353;
-	Mon,  9 Nov 2026 08:24:18 +0000 (UTC)
-From: =?utf-8?q?Dominik_Dvo=C5=99=C3=A1k_via_B4_Relay?= <devnull+Dominik.Dvorak.econ.muni.cz@kernel.org>
-Date: Mon, 09 Nov 2026 09:24:10 +0100
-Subject: [PATCH iwl-net v2] ice: fix Rx byte accounting for dropped XDP
- frames
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F1DB606A334
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 08:24:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F1DB606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jb7gnq7H
+Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-1b1ce85287aso522564c88.0
+        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 00:24:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794212666; x=1794817466; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pgRFFSuqTaLzsyNQiW1C7k3T12ue183QKOBEGRFvIJQ=;
+        b=jb7gnq7Hqictrz3L/FLiEVrQ+NRlVrpet0Uz3+I7cxsNZo5UwtsZn0rk2VLcEv+rmQ
+         enOG9HdHEtnqIwS7VOSazpVCB3kTEIHhsK4+F0MWqiBaw3B90xJ0M1AaHDx20CKhiS0o
+         iV/OseRs9IMuLBWhLgfKe+fD8igMC+6uYV7ncvIjfpuviudWymzGh4C6XxSv1tm6QNbA
+         +Unu0mf/Ws1sFiThhU7RApWc/2GQejxOkIe3EOWiWqVFymgDOQ+vBuJsTKx1FqJNzP9E
+         FEux7mrRTiDKTPEkI0GRmh5ZjZXm0JcqvTrpQRK75yQ5Sve7hbO2OKLKAqh0f378Bniq
+         nqCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794212666; x=1794817466;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pgRFFSuqTaLzsyNQiW1C7k3T12ue183QKOBEGRFvIJQ=;
+        b=BlWj4qy7APcACc4JVVJUTr1JS1WvESLF7rs4IAQ93WhEJZAYYs4qhu5g934gEawA4H
+         rPNJepHBNvBBlc8ce+jBWCvWCjyuKWueC/bPDHlBYxmOlemh6y9EDCnGVW0UKtQ0JrUz
+         39QeoWWA11LWFiTaNS7UdxtstPW8KStwvpgNIO472LKQL7ZpkttpzMmNJztD75vEu86S
+         2zbQKJF+9LBriCtr1RnpvvVosYcXw8GyQYoDGhQs8Hiws0nD7zGHuNVICYWChEQGmoWJ
+         QSZGlh7BZMiT7VCwmnFDYaMMheYU48fGFAxYeSz4a+AmoQnNQJbFSt9fQrnCOXovCcNZ
+         2plw==
+X-Forwarded-Encrypted: i=1; AL+hErFAxnOUreSVuf5IUfUpkvsT98dnywjh26PBsPvpANC7aUMbZNdk0X8sCmr0N3ZRatg5KViDNxU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9ZyeZ7rVQh7D3arsafoEukOU6Crea2/Gipu1rPc/s9Ytq4XPa+
+	iKK/usv0a51SqDv5rCnHRnCcxPs/lKm4N8egdXcWm8W1FuScSy9mDB9Y
+X-Gm-Gg: AYBFou3n6mDOjPrSStq3Dgk0z5VwA34Gwz4cLswJyxn/rhHVqj5MA8VG9V5mcymbRbu
+	q1d3EUH3w2siyUSYOp6kgw0kZI4EKUPhD6oJoqRTUwSUBWnCk/ElhdVAubdH0S4H7k/zhzuXPw/
+	FFZ5vV81ZTII1cjP1EEtGOLktsgY4+9npGvqjEV+gugQJOvuOBNjwUh7N8O27M5EELe3awW2C7D
+	6HkVuxAGD3wBGZ776fqhgwFcuzz7hBvoq0g5JOxsQelzsMJ0MEFo3JcB8A8uTTtXkli+5qWKPvz
+	/O8WdK4lekT1trl2nEJrxxaMor8yUBNPy73bBnSm7udMySJB0RbMlYafj8oxf5uKSyde1WR+rVi
+	N05jBwpfbIzIJg8gYV8eWPlxIz5pbNuy+2ERckymu1Hm23QrHLFYBVK7F/WOtvxU8/PibSn4YuJ
+	DpxdgAne/30qKMmqybYs+NqVlifmUHkJcG1tZfJ+P0fQPKkklq5Gp2wOUW1sZ/en65Mh5/0toPy
+	lMyPeDUbEngfu12jSknrDMe1ch0vtM9vELALfZXpfaPuXF3/xR1pJrOlxktgM+5f7ovib20Spvc
+	Up3zUhz9Cf13qjv6X0+S5J3aQvcp9fOdvu3ckj6Y06XxlfnxoH4sPO39mnBrNSwZBMe1FPd1Ig+
+	wcVfoetRYMNE5gFsH
+X-Received: by 2002:a05:7022:5f0a:b0:144:fd7c:84fe with SMTP id a92af1059eb24-1b39fec31bamr5133858c88.35.1794212666093;
+        Mon, 09 Nov 2026 00:24:26 -0800 (PST)
+Received: from s1lverbox.orsomething.local (47-144-201-183.lsan.ca.frontiernet.net. [47.144.201.183])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3731487edsm12521742c88.2.2026.11.09.00.24.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 00:24:25 -0800 (PST)
+From: Jean-Paul Sergent <jpsergent@gmail.com>
+To: netdev@vger.kernel.org
+Cc: Jean-Paul Sergent <jpsergent@gmail.com>,
+	stable@vger.kernel.org,
+	Ilya Maximets <i.maximets@ovn.org>,
+	Sasha Levin <sashal@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Sridhar Samudrala <sridhar.samudrala@intel.com>,
+	Kees Cook <kees@kernel.org>
+Subject: [PATCH net v3] net: dst_metadata: fix memcmp overread in skb_metadata_dst_cmp
+Date: Mon,  9 Nov 2026 00:24:10 -0800
+Message-ID: <20261109082410.206140-1-jpsergent@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,137 +104,70 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261109-ice-xdp-rx-bytes-v2-1-7d6035e687e2@econ.muni.cz>
-X-B4-Tracking: v=1; b=H4sIACmD8WoC/3WNwQ6CMBBEf4Xs2SW0CCSe/A/DobSrbKItaWstE
- v7dhruHObxM5s0GgTxTgEu1gafEgZ0tIE8V6FnZByGbwiAb2QvRdMiaMJsFfcZpjRTwrLQqaUh
- qCWW2eLpzPpQ34M8TLUUYSzFziM6vx1USR/3fmgQK7Fujhqmj1gz9lbSz9ettudZfGPd9/wH60
- G/KvAAAAA==
-X-Change-ID: 20261105-ice-xdp-rx-bytes-4aca4ac0e2c2
-To: intel-wired-lan@lists.osuosl.org
-Cc: netdev@vger.kernel.org, 
- Maciej Fijalkowski <maciej.fijalkowski@intel.com>, 
- Tony Nguyen <anthony.l.nguyen@intel.com>, 
- Przemek Kitszel <przemyslaw.kitszel@intel.com>, 
- Alexander Lobakin <aleksander.lobakin@intel.com>, 
- Michal Kubiak <michal.kubiak@intel.com>, stable@vger.kernel.org, 
- =?utf-8?q?Dominik_Dvo=C5=99=C3=A1k?= <Dominik.Dvorak@econ.muni.cz>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794212658; l=4363;
- i=Dominik.Dvorak@econ.muni.cz; s=20261105; h=from:subject:message-id;
- bh=vmGpEja47/xI/Jmt7BtvYvGqCuVgtx1xmRCp+kyKWls=;
- b=IUXEjKuIWDxIAsEwrR8yZRdNiFvc5O1T2EZAU4prXwahNs++vMgJN659Lbp2URQ/UOT7PTy0n
- i9YXxyyo62UD2CK2c3U+UETs7d+DAs3B4L55DyES1l3lQ857mr7Gljt
-X-Developer-Key: i=Dominik.Dvorak@econ.muni.cz; a=ed25519;
- pk=RTZ8nGbFvBgcLsYzcjFd1S3jciozWEBDwMVtwC7jkGI=
-X-Endpoint-Received: by B4 Relay for Dominik.Dvorak@econ.muni.cz/20261105
- with auth_id=1418
-X-Original-From: =?utf-8?q?Dominik_Dvo=C5=99=C3=A1k?= <Dominik.Dvorak@econ.muni.cz>
-Reply-To: Dominik.Dvorak@econ.muni.cz
 Content-Transfer-Encoding: 8bit
 
-From: Dominik Dvořák <Dominik.Dvorak@econ.muni.cz>
+Commit 3fcece12bc1b6 ("net: store port/representator id in
+metadata_dst") dropped the options_len equality check when converting
+skb_metadata_dst_cmp() to a type switch, so the memcmp length is taken
+from skb a alone.  When skb b carries fewer options than a, the
+comparison reads past b's allocation.
 
-Since the Rx path was converted to page pool and libeth, ice_run_xdp()
-returns the buffer itself via libeth_xdp_return_buff() on XDP_DROP,
-XDP_ABORTED and on a failed XDP_TX or XDP_REDIRECT. That helper also
-sets xdp->data to NULL. ice_clean_rx_irq() then calls xdp_get_buff_len()
-on the same buffer to update the Rx byte counter, which evaluates
-xdp->data_end - NULL and adds the low 32 bits of a kernel address to
-the ring's byte counter for every such frame. For multi-buffer frames
-it would also read skb_shared_info from a page that has already been
-returned to the page pool.
+Hit in practice with Cilium geneve GRO aggregation, comparing an skb
+carrying 12 bytes of tunnel options against one carrying none:
 
-On an E810 with an XDP blocklist attached to an 802.3ad bond, this shows
-up as jumps of up to 4 GiB in the per-queue and netdev rx_bytes counters,
-one per dropped packet, while the packet counters and the hardware byte
-counter (rx_bytes.nic) stay correct. The bogus values are also exposed
-to unprivileged users through the netdev statistics.
+  memcmp: detected buffer overflow: 108 byte read of buffer size 96
+  WARNING: CPU: 0 PID: 15 at lib/string_helpers.c:1036 __fortify_report
+   __fortify_panic+0x9/0x10
+   skb_metadata_dst_cmp+0x11b/0x120
+   dev_gro_receive+0x303/0x620
+   gro_cell_poll+0x67/0xa0
 
-Count the frame length once, before running the XDP program, and use it
-for the byte counter on every path; this also drops the duplicate
-skb->len accounting that the XDP_PASS path did afterwards. The frame
-length as received is counted, rather than the length after a possible
-bpf_xdp_adjust_head()/bpf_xdp_adjust_tail().
+Restore the check: unequal options_len means different metadata and no
+aggregation; the memcmp only runs when both sides carry the same
+options length.
 
-The problem was tracked down and this fix written with the help of
-Claude Opus 5.5 (Anthropic), working from netdev and ethtool counters
-collected on the affected system and from the driver source.
-
-Tested on an E810-XXV (7.0.14 kernel, same code as current master) with
-an XDP blocklist attached to an 802.3ad bond: without the fix, each
-dropped packet added about 2.5 GB to rx_queue_N_bytes; with the fix, 40
-dropped packets produced no such jumps.
-
-Fixes: 93f53db9f9dc ("ice: switch to Page Pool")
-Cc: stable@vger.kernel.org # 6.18.x
-Link: https://lore.kernel.org/netdev/DB7PR03MB460158B90A64D025962670E0D5772@DB7PR03MB4601.eurprd03.prod.outlook.com/
-Signed-off-by: Dominik Dvořák <Dominik.Dvorak@econ.muni.cz>
+Fixes: 3fcece12bc1b6 ("net: store port/representator id in metadata_dst")
+Cc: stable@vger.kernel.org
+Cc: Ilya Maximets <i.maximets@ovn.org>
+Cc: Sasha Levin <sashal@kernel.org>
+Cc: Jakub Kicinski <kuba@kernel.org>
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Eric Dumazet <edumazet@kernel.org>
+Cc: Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>
+Cc: Sridhar Samudrala <sridhar.samudrala@intel.com>
+Cc: Kees Cook <kees@kernel.org>
+Signed-off-by: Jean-Paul Sergent <jpsergent@gmail.com>
 ---
-Based on the stable v7.0.14 tree, which is what the affected box runs;
-the changed code is identical in current master. Tested on that box
-with the fixed module built against the 7.0.14-26-pve headers.
----
-Changes in v2:
-- Account for Rx bytes and packets once, before ice_run_xdp(), and drop
-  the separate skb->len accounting on the XDP_PASS path (Olek).
-- Add Cc: stable with the minimum affected version (Olek).
----
- drivers/net/ethernet/intel/ice/ice_txrx.c | 15 +++++++--------
- 1 file changed, 7 insertions(+), 8 deletions(-)
+v3:
+ - Restore options_len equality check as a one-liner; drop two-stage
+   compare entirely (Ilya Maximets).
+ - Update Fixes: tag to 3fcece12bc1b instead of 69050f8d6d07
+   (Ilya Maximets, Sasha Levin).
+ - Add author Signed-off-by, drop Reported-by (Ilya Maximets).
+ - Drop redundant Closes: tag (Ilya Maximets).
+ - Add maintainer Cc list via get_maintainer.pl (Ilya Maximets).
+ - Remove superfluous in-code comments and trim commit log
+   (Ilya Maximets).
+v2: https://lore.kernel.org/netdev/20261003005449.2675.3@jpsergent.gmail.com/
+ - Fix subject prefix to [PATCH net]; no code changes.
+v1: https://lore.kernel.org/netdev/20261003005449.2675.2@jpsergent.gmail.com/
+ include/net/dst_metadata.h | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/net/ethernet/intel/ice/ice_txrx.c b/drivers/net/ethernet/intel/ice/ice_txrx.c
-index 4ca1a0602307d076153f77671e8c9a6ff4f8dd28..8e4cda9a34b673a6c5a75e5aa7492c18bb0f3f19 100644
---- a/drivers/net/ethernet/intel/ice/ice_txrx.c
-+++ b/drivers/net/ethernet/intel/ice/ice_txrx.c
-@@ -1028,14 +1028,19 @@ static int ice_clean_rx_irq(struct ice_rx_ring *rx_ring, int budget)
- 		if (ice_is_non_eop(rx_ring, rx_desc) || unlikely(!xdp->data))
- 			continue;
- 
-+		/* Account for Rx bytes here, before ice_run_xdp() may free the
-+		 * buffer and clear xdp->data; the XDP and skb paths share the
-+		 * same length.
-+		 */
-+		total_rx_bytes += xdp_get_buff_len(&xdp->base);
-+		total_rx_pkts++;
-+
- 		xdp_verdict = ice_run_xdp(rx_ring, xdp, xdp_prog, xdp_ring, rx_desc);
- 		if (xdp_verdict == ICE_XDP_PASS)
- 			goto construct_skb;
- 
- 		if (xdp_verdict & (ICE_XDP_TX | ICE_XDP_REDIR))
- 			xdp_xmit |= xdp_verdict;
--		total_rx_bytes += xdp_get_buff_len(&xdp->base);
--		total_rx_pkts++;
- 
- 		xdp->data = NULL;
- 		continue;
-@@ -1053,18 +1058,12 @@ static int ice_clean_rx_irq(struct ice_rx_ring *rx_ring, int budget)
- 
- 		vlan_tci = ice_get_vlan_tci(rx_desc);
- 
--		/* probably a little skewed due to removing CRC */
--		total_rx_bytes += skb->len;
--
- 		/* populate checksum, VLAN, and protocol */
- 		ice_process_skb_fields(rx_ring, rx_desc, skb);
- 
- 		ice_trace(clean_rx_irq_indicate, rx_ring, rx_desc, skb);
- 		/* send completed skb up the stack */
- 		ice_receive_skb(rx_ring, skb, vlan_tci);
--
--		/* update budget accounting */
--		total_rx_pkts++;
- 	}
- 
- 	rx_ring->next_to_clean = ntc;
-
----
-base-commit: 458c6079fc1d41d564c37679c8ace02cd83ee817
-change-id: 20261105-ice-xdp-rx-bytes-4aca4ac0e2c2
-
-Best regards,
+diff --git a/include/net/dst_metadata.h b/include/net/dst_metadata.h
+index f45d1e3163f0..02fffbb85099 100644
+--- a/include/net/dst_metadata.h
++++ b/include/net/dst_metadata.h
+@@ -116,6 +116,8 @@ static inline int skb_metadata_dst_cmp(const struct sk_buff *skb_a,
+ 		return memcmp(&a->u.port_info, &b->u.port_info,
+ 			      sizeof(a->u.port_info));
+ 	case METADATA_IP_TUNNEL:
++		if (a->u.tun_info.options_len != b->u.tun_info.options_len)
++			return 1;
+ 		return memcmp(&a->u.tun_info, &b->u.tun_info,
+ 			      sizeof(a->u.tun_info) +
+ 					 a->u.tun_info.options_len);
 -- 
-Dominik Dvořák <Dominik.Dvorak@econ.muni.cz>
-
+2.56.0
 
