@@ -1,47 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794228493;
-	b=hQxmBY/U+Jnt0TKX7UAPolaCbfnObWoYNY+hlSxxC9ae5ssT/QaWg1MUQ2gVugiie/gz
-	 yjudggUSOVz9ibirtHGuPkgGdirwpcCSYz5oXrhnNd9JRb6paRCE+WhwNoCxBONxckhwn
-	 NoTi9T9xdQYh5WCg1lVYhnAc3VNO9dqcXd4/tuDk//DJ7BO56qhIX7dmw0Q/hAyFznH0z
-	 YH5Rjr3jcgFIi4Fm0QD5cZtvvDZHNOLAZ5Y5i8j2LcMDsxwqzx9FuuafRI2hfHvg99X1f
-	 +Ay04yewAMO7As0g9Uux6k/TWNR4y+jDKqV1zFzc/QvRa/KZOVu5QKZQEArx4oMhJhg==
+	t=1794228587;
+	b=V/WOe1PDknVgj+aGR0jsjhdIUoFenrtGMRk2v078TfgLOcEMO+A1nqaDZ3+TJUtJ91Ff
+	 BnSomuUKA5u4ptF8yvIng/ahES5knRt8JeJaynTKRdTB/Vmj+nvSYZvi+jLZEQqP68MTo
+	 uW51FZWP/b7X3HqGXH/6NnGMwGGtnf3Nyb9q4iJKaSw5Xodl0bhgz5xak8M+0vDAAq2Bf
+	 aJQyWWN91s3HsiW/K2yTJFnTBJuHnKQND5YSFRymr1LANGQd2+S1lU5HMTv1siEO2RonV
+	 vHUVyn4mFF/3GOgpVqkdbvmntBr9vSqZagvIfvDC2MQJCdTr/fC6TFhvzA8l4gJfQdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794228493;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=tR2fXYvbYzceYpXDplcuWbUFZ68vlDLDkowV6ErqxpA=;
-	b=RFLjAQPa+NntzDb8LVAzb8v976HaC/5XP/SJRR7yVPOtGJvNvdsfd7MByViijg4kjlXR
-	 Mu6oaqcc1mAnNft/MLtIDMN3YC/g60sthvrxq8Z/3l5hM5m8EyK2ssoitrzHchYmvRTEh
-	 OP5yvE0oj1//UUyHYdhcw0TlGjbTjqLInHj6qHOyeiCdzAoYXvr0Uf4eOwRrj6TLKEOlz
-	 VuApzYppwUrh4Cf+qoIyEguOst7QF/cn86dcQIG97mHSDUlETwW5Y5VcNS27Rjn4XWKrD
-	 GbL13XOFpp8CXxHW4OWl/dtAHF3ulP8Zve6ZZPbLAJLkAtEPW31Hr5xPTW+reRDnwVw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794228587;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=mG9Y8k2vnChqxaqg4HKskuIcpQ6X4WU53zywg6kGBHQ=;
+	b=zFk4I8oZCG+dQ7rtNmlbI0bKJRSpGTSOTHCCAw9o5bnXgIH2ywcpMFQnKboLU6vOnKl/
+	 5mbmlA2h4+TxeQ7QGicIWxC9ClNodfO8i2Oxs6XZMkKrFJx4GbhGIH9nituehKN0RAgDN
+	 zYeSQr3IKc0s7z1fPTR/oZ6m5j0rCC6OY+KndEttI6LHGoYGo+0xqY3aiIPRPYqVnuY70
+	 syjG9dlZOapx5vKEpf4tHqNfIyBW68HysGukRTpdEyRPKL6rJ13UmR2zHvd5swMWKUH/+
+	 FM9qVp87Vgl5u/VJh8CaUGtw6AIxtXLEdVrMTQFmqGT6MMAr8GadpyOR73Rhlsfh0dQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HtVoaHDo;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oof0SMWW;
+	arc=none smtp.remote-ip=209.85.210.46
+Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com [209.85.210.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85D3F606D80D;
-	Mon,  9 Nov 2026 12:48:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AADB606D812
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 12:49:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0AADB606D812
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HtVoaHDo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 392511F008A1;
-	Mon,  9 Nov 2026 12:47:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794228493;
-	bh=tR2fXYvbYzceYpXDplcuWbUFZ68vlDLDkowV6ErqxpA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=HtVoaHDoc1kU+xDJjyUeaPgKzzK84HWxKjWBFjieuSF10g9LLyEHGl9ozCguORLVJ
-	 d/Ucx214bDxbbrIK/uR0dBY3S5DNSioDHu+ldgPkQOTfZyMLyO3jsWIh38SfW31/96
-	 Qwcf6J8TgeevGbjgPWsbpmOldWrrva7tJqkcTwpvPYSlDuC9jd+YHfTNrgmywKzI9m
-	 rlWPOqnZSFdK2pD7Cr57Xgex87oxYNg7YZMPZRRgXHY/UIQhieLLx4h80U5R6pWK6C
-	 1OqX6SZuQ22bSvpkrLi23gfRgQScLjZ/QH+B6BSHGByojnfnj4lV686wReK9fmXRK2
-	 YvSckuZNyzZ6g==
-Message-ID: <e5045cba-d7b7-40f4-b0e3-93f919617a23@kernel.org>
-Date: Mon, 9 Nov 2026 13:47:54 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oof0SMWW
+Received: by mail-ot1-f46.google.com with SMTP id 46e09a7af769-845788309b4so332016a34.1
+        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 04:49:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794228586; x=1794833386; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mG9Y8k2vnChqxaqg4HKskuIcpQ6X4WU53zywg6kGBHQ=;
+        b=oof0SMWWrTw7FAV1sR7haIUYvt37AGp5bvoFIQrQqKl5y3EQHSNObrqGZoA43pTS6/
+         vQ7kyrQns04frayvawgKvXrnk9MiPVvt92jHDHu9jcnmECI53hw4K1kVIzXNEhQLX6KQ
+         szK/zf6NWtZOiGpPvIZlEdWYrgCNc7e/0oPsm9fnuurtXeL60+h7Jug7EoeLUoKxrLdT
+         T1BTuZIVSA2vkrrBOvrJhpwQM3JonL3TONgmJu6ExAtrP//EsJb1M9piyWeHwn3yrWrh
+         mevuVNdPNwX+c4Zlw6GIWl1au12qv6htBKq8z5z6DyvrsB9ZTlsRvQy0RlnTBSsJLQso
+         mVVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794228586; x=1794833386;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mG9Y8k2vnChqxaqg4HKskuIcpQ6X4WU53zywg6kGBHQ=;
+        b=MQ04uwkENm9Fr48g7P0ehwHquR+sAbCTDUURPySKIPTe6A3nNuLVyT/lKRq8Z/LNbi
+         i/OCHtnXEXs7JXou3Tpd0+XpmpPM4H3LQFoFmOi+pezma0C9dallxwnWC4ds9MVD11vJ
+         Cxvb+JVDtTmto/vzNezKDrg4Sono4SHjVyTlntV7thmbb19zgd2xX/UY1IPjWd1UAX9X
+         d57i21yPAlouv5ca/AQJouDuaOLrcOslPO9b3Qdh6GhmV5RmAtbaQGeet5GVaCsENhKz
+         vFx/8nYIdot+1H11thKPRgDUCklQyMu3lTbVcSIzS4dyKLuA7WEK1YtGTRYgRXvH5Dug
+         zkvQ==
+X-Forwarded-Encrypted: i=1; AL+hErEw9YTS0LlzF7G5o/P8TpzezFOq/YuNUbs70NQ1XQfmQ9U4SafICN3Cc+b3yrJCleGlNNNHI7Q=@vger.kernel.org
+X-Gm-Message-State: APuU4Z//ZVioV/IGIwP8QzFKAoUBJS50xTz7P6GlMEtwcyKtFe1FDAEL
+	7BOtV08/bGh5rOs3dm98NEO3la/CWGb96BIejWcMrBC2Lc9guqqTD6t1
+X-Gm-Gg: AYBFou2/+FV5MnGfd4LktFeUhSR0IaUXnMJhUAK3Ont5LBEoQyvbgOWOzvnp4J/yxcM
+	HdYF6/Zp7K1ACWBaoA6N03hJGe9M/wJxzsr4qwn+nlXKnPqx2YmC0NXf7xDgkbpO+RQBrTNazMR
+	oXqEo9sgqOx6lxw+1sqwPHVMhaRwxuShhKzct9udrhCx3bX0nxTBm/nA1qYlrAqLUgRI+tc0P1B
+	TEkgGew+HgXP0EwG6dNWv4byZhRpV9qIu/ZF76cNcLoUB6eqv8rQ211v19ehQpY4VIQB3HyiWZ9
+	0Dr3P/3hPRfVUBYFka9YR8HDDvA6T5nPpz2Cs27fcDZPqUSRDy6C0RVAlpzZIfXtFF+Va5OHz4a
+	ahUIsC5ROwb7wd603VwIe1UZJNFy/oOzXj+Y8pPgrHeaYIhRNPtElv+WNwng3peDS65jB0zxV9A
+	QDk18fIc6geefO5QymPFTtc1UPfFMrYcC/4HpBsG395OhrmTUmffLUoxtTfovwMW6vRhMGufD46
+	aNLEUH44dblN5kw0CmyAmzVQjPtYFOlldNcvSQUze7weC2ADw0AKXW3rN2jxIVFNLAzLepAs8vw
+	/7JUa5qatPnoGdD/l6jbQW/xMXeO6n9s/MYnEQHKDjMvzBxB
+X-Received: by 2002:a05:6830:6810:b0:823:38f9:ea5d with SMTP id 46e09a7af769-85f5078a13cmr3054227a34.11.1794228585816;
+        Mon, 09 Nov 2026 04:49:45 -0800 (PST)
+Received: from hj.. ([163.239.22.29])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85f4fbce9cdsm3565509a34.20.2026.11.09.04.49.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 04:49:45 -0800 (PST)
+From: hyunjungg <hj351016@gmail.com>
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: Sergey Ryazanov <ryazanov.s.a@gmail.com>,
+	M Chetan Kumar <m.chetan.kumar@linux.intel.com>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hyunjung Ko <hj351016@gmail.com>
+Subject: [PATCH net] net: wwan: iosm: cancel adb_timer on cleanup to avoid use-after-free
+Date: Mon,  9 Nov 2026 21:49:33 +0900
+Message-ID: <20261109124933.1603575-1-hj351016@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,143 +104,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 09/47] mm/rmap: handle device-exclusive entries in
- folio_referenced_one()
-To: "Garg, Shivank" <shivankg@amd.com>,
- "pratyush@kernel.org" <pratyush@kernel.org>,
- "ying.huang@linux.alibaba.com" <ying.huang@linux.alibaba.com>,
- "xu.xin@linux.dev" <xu.xin@linux.dev>,
- "aneesh.kumar@kernel.org" <aneesh.kumar@kernel.org>,
- "baoquan.he@linux.dev" <baoquan.he@linux.dev>,
- "riel@surriel.com" <riel@surriel.com>,
- "usama.arif@linux.dev" <usama.arif@linux.dev>,
- "mhocko@suse.com" <mhocko@suse.com>,
- "ryan.roberts@arm.com" <ryan.roberts@arm.com>,
- "hannes@cmpxchg.org" <hannes@cmpxchg.org>,
- "pfalcato@suse.de" <pfalcato@suse.de>,
- "kasong@tencent.com" <kasong@tencent.com>, "jack@suse.cz" <jack@suse.cz>,
- "shakeel.butt@linux.dev" <shakeel.butt@linux.dev>,
- "weixugc@google.com" <weixugc@google.com>, "kees@kernel.org"
- <kees@kernel.org>, "liam@infradead.org" <liam@infradead.org>,
- "gourry@gourry.net" <gourry@gourry.net>,
- "lance.yang@linux.dev" <lance.yang@linux.dev>,
- "jannh@google.com" <jannh@google.com>, "chrisl@kernel.org"
- <chrisl@kernel.org>, "yuanchu@google.com" <yuanchu@google.com>,
- "youngjun.park@lge.com" <youngjun.park@lge.com>,
- "peterz@infradead.org" <peterz@infradead.org>,
- "rakie.kim@sk.com" <rakie.kim@sk.com>,
- "joshua.hahnjy@gmail.com" <joshua.hahnjy@gmail.com>,
- "rppt@kernel.org" <rppt@kernel.org>,
- "axelrasmussen@google.com" <axelrasmussen@google.com>,
- "jgg@ziepe.ca" <jgg@ziepe.ca>, "willy@infradead.org" <willy@infradead.org>,
- "osalvador@suse.de" <osalvador@suse.de>,
- "surenb@google.com" <surenb@google.com>,
- "peterx@redhat.com" <peterx@redhat.com>,
- "matthew.brost@intel.com" <matthew.brost@intel.com>,
- "minchan@kernel.org" <minchan@kernel.org>,
- "baolin.wang@linux.alibaba.com" <baolin.wang@linux.alibaba.com>,
- "will@kernel.org" <will@kernel.org>, "hughd@google.com" <hughd@google.com>,
- "nico.pache@linux.dev" <nico.pache@linux.dev>,
- "qi.zheng@linux.dev" <qi.zheng@linux.dev>,
- "baohua@kernel.org" <baohua@kernel.org>,
- "muchun.song@linux.dev" <muchun.song@linux.dev>,
- "harry@kernel.org" <harry@kernel.org>, "nphamcs@gmail.com"
- <nphamcs@gmail.com>, "dev.jain@arm.com" <dev.jain@arm.com>,
- "apopple@nvidia.com" <apopple@nvidia.com>,
- "chengming.zhou@linux.dev" <chengming.zhou@linux.dev>,
- "vbabka@kernel.org" <vbabka@kernel.org>, "ziy@nvidia.com" <ziy@nvidia.com>,
- "shikemeng@huaweicloud.com" <shikemeng@huaweicloud.com>,
- "npiggin@gmail.com" <npiggin@gmail.com>, "ljs@kernel.org" <ljs@kernel.org>,
- "akpm@linux-foundation.org" <akpm@linux-foundation.org>,
- "jhubbard@nvidia.com" <jhubbard@nvidia.com>,
- "pasha.tatashin@soleen.com" <pasha.tatashin@soleen.com>,
- "kas@kernel.org" <kas@kernel.org>, "mhocko@kernel.org" <mhocko@kernel.org>
-Cc: "kexec@lists.infradead.org" <kexec@lists.infradead.org>,
- "linux-mm@kvack.org" <linux-mm@kvack.org>,
- "linux-cxl@vger.kernel.org" <linux-cxl@vger.kernel.org>,
- "linux-arch@vger.kernel.org" <linux-arch@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "josef@toxicpanda.com" <josef@toxicpanda.com>,
- "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>,
- "usama.anjum@arm.com" <usama.anjum@arm.com>
-References: <20261031-fixes_core-v3-0-d6437171ecc3@kernel.org>
- <20261031-fixes_core-v3-9-d6437171ecc3@kernel.org>
- <50c50262c50da19f6a2b27f848324772b0e3c707.camel@amd.com>
- <db93735f-2452-453f-bfe2-f1cef00f143a@kernel.org>
- <7194ff7d170f8b47eec8361fa9e195ff2d1581c9.camel@amd.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <7194ff7d170f8b47eec8361fa9e195ff2d1581c9.camel@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/9/26 11:30, Garg, Shivank wrote:
-> On Mon, 2026-11-09 at 10:51 +0100, David Hildenbrand (Arm) wrote:
->> On 11/9/26 06:22, Garg, Shivank wrote:
->>>
->>> This was the only caller of clear_flush_young_ptes_notify(), so this
->>> leaves both definitions in mm/internal.h unused.
->>>
->>> Would you prefer to remove them, or keep them for company with their
->>> still used test_and_clear_young_ptes_notify friend?
->>
->> Can you send a cleanup? Thanks!
-> 
-> Sure, thanks. Will do.
-> 
-> I'll include it in V2 of my previous series [1].
+From: Hyunjung Ko <hj351016@gmail.com>
 
-Please send this one separately against the core.git/for-next branch. Likely,
-the other series would best be split up for MM components to pick them (some
-stuff can go through the page_alloc tree, for example).
+ipc_imem holds five hrtimers.  ipc_imem_cleanup() cancels four of them
+(td_alloc_timer, tdupdate_timer, fast_update_timer and startup_timer)
+but not adb_timer.  adb_timer is armed at runtime from the MUX uplink
+aggregation path (ipc_imem_adb_timer_start(), reached from the encode
+path) whenever aggregation is active.
 
+If the device is torn down (modem reset, PCIe unbind) while an
+aggregation window is open, adb_timer can still be queued when
+ipc_imem_cleanup() returns and ipc_imem is freed.  When it then expires,
+ipc_imem_adb_timer_cb() runs container_of() on the freed ipc_imem and
+queues a task against it, a use-after-free.
+
+Cancel adb_timer alongside the other hrtimers in ipc_imem_cleanup().
+
+Found by static analysis; not tested on real hardware (needs an Intel
+M.2 7360 WWAN modem).
+
+Fixes: 1f52d7b62285 ("net: wwan: iosm: Enable M.2 7360 WWAN card support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+---
+ drivers/net/wwan/iosm/iosm_ipc_imem.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/net/wwan/iosm/iosm_ipc_imem.c b/drivers/net/wwan/iosm/iosm_ipc_imem.c
+index 4405c85..20f8da5 100644
+--- a/drivers/net/wwan/iosm/iosm_ipc_imem.c
++++ b/drivers/net/wwan/iosm/iosm_ipc_imem.c
+@@ -1239,6 +1239,7 @@ void ipc_imem_cleanup(struct iosm_imem *ipc_imem)
+ 	hrtimer_cancel(&ipc_imem->tdupdate_timer);
+ 	hrtimer_cancel(&ipc_imem->fast_update_timer);
+ 	hrtimer_cancel(&ipc_imem->startup_timer);
++	hrtimer_cancel(&ipc_imem->adb_timer);
+ 
+ 	/* cancel the workqueue */
+ 	cancel_work_sync(&ipc_imem->run_state_worker);
 -- 
-Cheers,
+2.43.0
 
-David
