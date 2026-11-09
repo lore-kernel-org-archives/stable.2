@@ -1,72 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794247338;
-	b=5UUJkkCuSKEpW9rtR2zfgC41GLhZ3JIXS1ygwwOd74iiCTZvXzBq1xMKkpLjgwGvF06G
-	 ZE9k9i03eev+BKdqkNs9oBt/ak0Z9jQqg3NrTwScM+VmjDsr8eIAVxYX0orLWCYXUky/7
-	 bhffwqjK4SoE6kWkIGyW2xEIrSk6dNLo2xDdCjmnP53NAQj/4o//9KgwDGPItFm38vkeS
-	 +HN8557gHsl/67or3ON4Vew2QGJ5V1qsdXgeQGDpcSQVNrPZMx87qM2kno3L2/sVIJGI1
-	 C9nGrHUMlcJqYbwsXB8ZCQlfwYWadN7uW3sZQ3qT8FHZ9ceVkMWlhbI3DLSsCNVaufw==
+	t=1794247476;
+	b=XwaSy/VPti6F65uFmaE+WrlYWaAX/vjU3uyahZ3TkFD8lMk4ABrTA/dWge4YWs4a9R3d
+	 fFQbk0HB3eZBPEgGtt4shn2DMVVF4f5xwpwzaAgxBGTpva+BdyHwDKc6LOCKtpYOeXvXz
+	 +vdnNZNSrrsCTkzvH6uJm0KeCEoaehQWPklXFL/t24XPTKEHGTSjmDvvlFAQ6NP+Vx3Cl
+	 qGoVfKeZU/F8kOOr+XY8Cql1A+FSR5/HPjghLLnlGN/AvHRqKVQzSczdlH6E0BZyxxs13
+	 qZFWzOzKozYB/VABRDfam+GmR0xnOxHZRXVyoyJ1ULCn/nKn33ui8ijf6kYDxJZKbuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794247338;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=yefN13qKn7cHBxXTB3+WOf8D0NdfFELlnIRgX37ptCs=;
-	b=Y6K7aqaNGSN3wVfpjjiunaFEPhyZPj4N97BZbZ6YpfieyV0OiCdxdAF3VtF/lVovD57k
-	 bRR6vyBfKzpBeRRTVQcNuCw4yiIR7ZDTq/qA6stNoN55chKr22AgIZq8kM2z1m89+ffy1
-	 kxDGKpPYejPxtS/buPY7RjVxpcle+RNLPEaNeDs8J+Q3hDH3/NMFppRDXgaEAOBolVbxE
-	 olyZX/wAoLhADIxpTTBDlXKYZl4TNifmQAe79k/Zkol0Jhbp5UkPU2LCwAInNh3Am/n7I
-	 x7M1eaUAGfSWSsJ2HLPkewMPhEhguJSQJiajI61RWCjC+N/ceF3ckqQVr6aLUsevziw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794247476;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=qiJ7xcOjNXyII+yiz+zZqioSWqQJ99faJ7nKZxybbn4=;
+	b=r+FPk2vfWj2JE+wbBBTutNXJO989kp6eR29QQ5RNyWtsNvKZypgColGPgLI0somZsbY5
+	 u7F6Ozf/AwiSajX97lSxOfLF/PspAThXKeHErEGkq3sPlX2a1dHQIppCuIR8WDxDimbXU
+	 lCOJID+OfpvPFSJz6H6/a3OvDb8nulQs/03WV07ivtGx6NarnsUntbnr0XFdDsfcEZWlx
+	 hM2xPzR8C7woa40pC+CG+Ttwz9zwPMid+pmnbNfYMyNVgEukCdY3OG4tzrqTBBR1eAGhH
+	 43iJ4wqK2NIwcGa0wtBgle2KVjh9AX0oScNCAJkF8tpRIHs3D5gWEqdzhbpQ3SzKyVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ewxSO0/U";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JfS6SNA+;
+	arc=none smtp.remote-ip=198.175.65.9
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AB37606A31C;
-	Mon,  9 Nov 2026 18:02:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 370BF606A31C;
+	Mon,  9 Nov 2026 18:04:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 370BF606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ewxSO0/U
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5C891F008A3;
-	Mon,  9 Nov 2026 18:02:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794247337;
-	bh=yefN13qKn7cHBxXTB3+WOf8D0NdfFELlnIRgX37ptCs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ewxSO0/Ub17VE2yrembD890C4Ax1TshJMw+iVLp0MXH1MsgyR/XOtoOspnuHYew5R
-	 UIdszN785+zKpqMQR/OiOOhwCES/XwloG/u5vOnw3mm06RoCEVjPz4YV45BAgGxSTn
-	 WOjr7ggUVl8ovA9q8/BAVja+cBJwhB5x4iVIofv7aZxsoW0JnK0COhZcbzBy+37nO1
-	 aJWJsyD2RJ0q18HFn4fwXxH8wYR6Pi4RzBk+eCjkITo6LNxOFEf1CQWxfSQmmtAX7t
-	 RFoakL1igUW2Og2ob+8eEyffGUO1+WMfW6y6p5gE1u0VH4jGIhoKr+WHv/FQYP4Shn
-	 0LDDAF57WmAxw==
-From: Sasha Levin <sashal@kernel.org>
-To: Pavel Machek <pavel@nabladev.com>
-Cc: Sasha Levin <sashal@kernel.org>,
-	Jon Hunter <jonathanh@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	stable@vger.kernel.org,
-	patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	torvalds@linux-foundation.org,
-	akpm@linux-foundation.org,
-	linux@roeck-us.net,
-	shuah@kernel.org,
-	patches@kernelci.org,
-	lkft-triage@lists.linaro.org,
-	f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com,
-	rwarsow@gmx.de,
-	conor@kernel.org,
-	hargar@microsoft.com,
-	broonie@kernel.org,
-	achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 6.12 0000/1536] 6.12.117-rc1 review
-Date: Mon,  9 Nov 2026 13:02:12 -0500
-Message-ID: <20261109130001.imx-cfi-612-drop@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <avGXNkyWQfNqN46v@duo.ucw.cz>
-References: <20261107134957.653319350@linuxfoundation.org> <avGXNkyWQfNqN46v@duo.ucw.cz>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JfS6SNA+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794247476; x=1825783476;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=PwpaDGj8GyOkiCWitGngWvUI379OhhscqTT8voYCpFk=;
+  b=JfS6SNA+qxXuwLaAAHsrkfwwaIxSMC2FHqxirqlVSo+nEijMqBx8qfHx
+   V1HKA9JhNVti9VHRvGymsSeDjN7m9OSU+187AJpmGzayjAJlUwppirasN
+   nYOvrRNlWb9X16tGkGNv1p9qTd4Vz7vNL/AKZNUaLrjT6atV1x4JNCu+e
+   9gEYKgdVQ5hAfHD5+u0PZmgQ4fs6Ghq1tpZbd6PX2Yt8376GoQ5yXAQ7r
+   lvjgWCuGHB7lU2mWp1WQCoieYRVfxdprj7yX/WKQic/bS/5gkguj2203u
+   a13w4ZFXd2HmNpDtfoa5lPNc4dKp/ffvuZYHC+U82NbXttLbg9FiPbiil
+   g==;
+X-CSE-ConnectionGUID: T1hYD3iGSkSv7h+Bb6yPDQ==
+X-CSE-MsgGUID: aGj4kNATR+eqhaKmezj5ng==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2877641"
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="2877641"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 10:04:36 -0800
+X-CSE-ConnectionGUID: hZ6m/+OiTE2G7CON2L9ZNg==
+X-CSE-MsgGUID: XoLv/KaHTYqwEe1jgRTFtQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="7790832"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 10:04:34 -0800
+Date: Mon, 9 Nov 2026 20:04:31 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Linus Walleij <linusw@kernel.org>, linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] gpiolib: synchronize updates of descriptor labels
+Message-ID: <avILL4gd737gmDR2@ashevche-desk.local>
+References: <20261105-gpiolib-set-desc-label-corruption-v1-1-fa84726ceac0@oss.qualcomm.com>
+ <auyYVmSaLBS--52n@ashevche-desk.local>
+ <zgvjoccnnhhjmlejoazmz7mpfmndbhi2filwbtudq5i6s46boy@szoywmokacny>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -76,20 +81,29 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <zgvjoccnnhhjmlejoazmz7mpfmndbhi2filwbtudq5i6s46boy@szoywmokacny>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, Nov 09, 2026 at 10:49:42AM +0100, Pavel Machek wrote:
-> I see build problems in -cip testing:
+On Fri, Nov 06, 2026 at 10:22:07AM +0100, Bartosz Golaszewski wrote:
+> On Thu, Nov 05, 2026 at 04:53:10PM +0200, Andy Shevchenko wrote:
+> > On Thu, Nov 05, 2026 at 02:23:45PM +0100, Bartosz Golaszewski wrote:
+> > > desc_set_label() swaps desc->label with rcu_replace_pointer() but
+> > > without any synchronization of concurrent updates. The swap is a plain
+> > > read + write: two threads can observe the same old label and then call
+> > 
+> > s/call//
 > 
-> arch/arm/mach-imx/pm-imx6.c: In function 'imx6q_suspend_init':
-> arch/arm/mach-imx/pm-imx6.c:589:17: error: implicit declaration of function 'cfi_get_func_hash' [-Wimplicit-function-declaration]
+> Why? It's "call $function_name" which happens to be call_srcu().
 
-"ARM: imx: Fix suspend/resume crash with Clang CFI" (upstream 242757d109bd) was
-already dropped from the 6.12 queue on 11-08 (stable-queue commit 39e32a361d),
-after 6.12.117-rc1 had been generated, so it will not be in the 6.12 release.
+Because with that kind of name it sounds not good (tautological).
 
-Thanks for the report.
+> > > call_scru() on the same SRCU head corrupting the state of the chain.
 
 -- 
-Thanks,
-Sasha
+With Best Regards,
+Andy Shevchenko
+
+
