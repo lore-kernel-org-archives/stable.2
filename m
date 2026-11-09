@@ -1,77 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.77.101.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794213502;
-	b=Aic4Wmypyk6EBUSZ/9dfhpi49z7dantyTTNNpMMYpwswFm8KJ+5V3f9ix89uCF8Pr7H1
-	 RMHjif2NAjUQ3VSYYFfeqRmgiRlpvcdNzJqirJca6FjH+R6dJcx/peIF9IJ8pHa360/re
-	 Jnv/csPbLtPC8FipO20ZzSZGNzANyOmscM0hi0lkxSYwiCDeODPkOcH8nkyOJMTn9eGh+
-	 ZDKnTBEBggP3nA7XhKXC7ddgopkaCyvu9RodE2sQSjjopdAKMsg02ZDDlqeZICHvt2Ej4
-	 UWEw0l+AmuNBAoHoLX/XThZgx5jqdqx6DdtQvLPivfH92W5cn8VfXqc9LcvguKNGOFA==
+	t=1794213650;
+	b=r4FYi1M1GZMlnd89BO5JvfDxsvp8MqP5RovZL2S6ssVB/hApHiKw1HQA/W5C5OXzwjKt
+	 hzU2E6a/Jn4tepVNyLuXg0BOlZxzSIJvAM6CYVCg9guJAOzA0SOGt4RvOxLB6NnA7u8AF
+	 dEn1MgAvTI6UVDL8g4oAg8NATx4FMAdKZNT/SUgtyeelrVk7OoXNfKgE7HqVfHE64PfYW
+	 QTWFO9IN3bB8ugALJPL1ejWHspPnCGHPnj9LArBre5KaA2yel20bApsJg8kXS6RQ3Ppbp
+	 8+3/vpKA+v1RlBgnPPXpL7dRBhOvVGfMCAZTSzgxBjrwjmqZaG3ouAgOgKHQa2KfTtg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794213502;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
-	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
-	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=mVa2lilbv8uq0yf/ZskiQXN0DwUpKZwzrsJdgEhPOHM=;
-	b=mcfoyKgDYW57ZLT3X7OaZo4RXEMUC5JsXfuHveqJGVasvn9ACXzHHZfL1xQYukkmznJe
-	 c41u3tvQmEePYRzq6an041McDT5seGfKF5lGRYO5jYokNRPFNZNnebCCyjBeKSjJQ/iWp
-	 VzT9DH7SlX66SnbjQqWgsO/MYrhnEVkzSaXrh6GwBT6g0GJXIV4GDqoNxS29X/Y/vK5cm
-	 nPVxTtXgMCMZNMcyJmY5A0KEjIdEVmCFfi/Tt8KN3TwuQP+c3C0EbRXUUf9MeAZapISoR
-	 Pe8PS+Zewny2lx2hFTyh8ggNlUXCYVfRAMmUB4FS4SgsLgkmAWgIKaUcUaaAgUfe89A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794213650;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
+	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-WP-MailID:X-WP-AV:X-WP-SPAM;
+	bh=fU038faxmgtGWWgICkAf+S6DW9OdwnQXWfH0oWvoq9k=;
+	b=WJOuK4LUyoAkL1EPmEOWW5FTSsnqIUzjBL5tyEts7DlMVc2uEkDp+foHNhXKbSlxJNR2
+	 yRC+CLdAx4LB/MuJygJfP17c+8eQhLEVf5M/IaKMclxM91hXI8kMoLWdppg7Q0u4XN8x5
+	 cORFEp7DIsGk+XFAGSdZZJiyDzgCpVyBpGoR9JURQPbzvpGk657zEmGyCy05NfoFjdzRg
+	 q81QZKv9vnWNzEYU9ECua+mdElYuMeT2JPjkHCOso5F4lc/Q6zxWfJTgwSgba/jHkl24P
+	 xEbJdEi0IGEaT5R+/vnFbnx0hiFtA5+ccvFClh7qtz512Bh8oxdzRZ3fs+bVWriwmaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=bmhTnKI0;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=RqcBP8+t;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dmarc=pass header.from=wp.pl;
+	spf=pass smtp.mailfrom=wp.pl;
+	dkim=pass header.d=wp.pl header.i=@wp.pl header.a=rsa-sha256 header.s=s20261001 header.b="lGW0La8/";
+	arc=none smtp.remote-ip=212.77.101.10
+Received: from mx3.wp.pl (mx3.wp.pl [212.77.101.10])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D67606082BEA;
-	Mon,  9 Nov 2026 08:38:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D67606082BEA
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ECA5606A31C
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 08:40:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2ECA5606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wp.pl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wp.pl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=bmhTnKI0;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=RqcBP8+t
-Date: Mon, 09 Nov 2026 08:38:18 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794213500;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=mVa2lilbv8uq0yf/ZskiQXN0DwUpKZwzrsJdgEhPOHM=;
-	b=bmhTnKI0mZpyldGsEmDKXTLlZ9jVQixLmrBuhLBEzj2ahlNwf6KoEvq3XiM6YtlGj9ujwZ
-	XyLwQUZpPecOowOcmBTNfcjTTZLzXKQsQBL99FHS/EfDcFwTpAiijqoaCmaWHTMEYt0CoH
-	5e8+8MeCh04YzeN6BYikzkQ3ADqEEBtvYrXPWMRNU5vJ/aQyuUmvijlyJyJ7LVBTCnk7qI
-	gS9sHehG+P52L8dYdgEabsTqaIVLNhM3Kjcf7lJjb9pCPnIbgjQ9xy8MvNxlN6Md/kAgJd
-	OAFI434RZFaRNRFcREDaGQPhrUz9zcJF4aKkcZpsV5i2TV6n2do0uqscIXoZmQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794213500;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=mVa2lilbv8uq0yf/ZskiQXN0DwUpKZwzrsJdgEhPOHM=;
-	b=RqcBP8+t3wHevbO4sREYfaNy/bHDK/4+nx9CsgaDAUeDgjE+OmGkk7FRE2pcUSrURXgPwj
-	PghpI4NJ6rvK3MBQ==
-From: "tip-bot2 for Andrea Parri" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: sched/urgent] sched/deadline: Fix spurious -EPERM for
- migration-disabled tasks
-Cc: Andrea Parri <parri.andrea@gmail.com>,
- "Peter Zijlstra (Intel)" <peterz@infradead.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Juri Lelli <juri.lelli@redhat.com>, stable@vger.kernel.org, x86@kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261102135420.244745-1-parri.andrea@gmail.com>
-References: <20261102135420.244745-1-parri.andrea@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=wp.pl header.i=@wp.pl header.a=rsa-sha256 header.s=s20261001 header.b=lGW0La8/
+Received: (wp-smtpd smtp.wp.pl 13249 invoked from network); 9 Nov 2026 09:40:39 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wp.pl; s=s20261001;
+          t=1794213639; bh=fU038faxmgtGWWgICkAf+S6DW9OdwnQXWfH0oWvoq9k=;
+          h=From:To:Cc:Subject;
+          b=lGW0La8/5tA/x9j4LEXq+wzUdMRXSoyqf0KGwoflKg5xmLsDI6CnOe9GX8XgsX+Ay
+           BcWgbNouUONTxSkl93zP+5Dz4QGP1SnHy8/fsEbd9RXJegfuGW3zxdd4i9I+M2n+la
+           p4UHReund4Ry/JgJvo5caFCd3hgY4GIB0J3XhEUjW2r+Df+WqzdeWdePSSswnvO++r
+           jUDmyCURaOqXXNNVvpmuvgnvk+1q6kKTYEAJA8zabjXOZjtrZd4YhIFIfBJFYFHEp3
+           2LlEJRoRmlYKVdjsRZhjweQ4ltxaQYg9d6r7ZJVKzvotOc7ZXJjB4y/zF2QgXY6S+3
+           TOKpskkh6aTzw==
+Received: from localhost (77-236-11-168.static.play.pl [77.236.11.168])
+          (envelope-sender <stf_xl@wp.pl>)
+          by smtp.wp.pl (WP-SMTPD) with TLS_AES_256_GCM_SHA384 encrypted SMTP
+          for <stable@vger.kernel.org>; 9 Nov 2026 09:40:39 +0100
+From: Stanislaw Gruszka <stf_xl@wp.pl>
+To: stable@vger.kernel.org
+Cc: Stanislaw Gruszka <stf_xl@wp.pl>,
+	Johannes Berg <johannes.berg@intel.com>
+Subject: [PATCH 6.18.y] wifi: mac80211: queue frames while off-channel
+Date: Mon,  9 Nov 2026 09:40:16 +0100
+Message-Id: <20261109084016.5722-1-stf_xl@wp.pl>
+X-Mailer: git-send-email 2.25.4
+In-Reply-To: <20261107050628-failed-6.18-13e51269b665@kernel.org>
+References: <20261107050628-failed-6.18-13e51269b665@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -81,156 +66,157 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179421349866.2093942.393014353261319289.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-WP-MailID: de27a02e19fc345fbb2d92c4de9759a7
+X-WP-AV: skaner antywirusowy Poczty Wirtualnej Polski
+X-WP-SPAM: NO 000000A [odNU]                               
 
-The following commit has been merged into the sched/urgent branch of tip:
+Drivers without FAST_XMIT and hardware scan support currently drop TX
+frames during software scanning while being off-channel. This happens
+in ieee80211_tx_h_check_assoc() before frames reach internal TX queue.
 
-Commit-ID:     a98679d5e0bb07175cb39bf66c16ac6f861d2965
-Gitweb:        https://git.kernel.org/tip/a98679d5e0bb07175cb39bf66c16ac6f861=
-d2965
-Author:        Andrea Parri <parri.andrea@gmail.com>
-AuthorDate:    Mon, 02 Nov 2026 14:54:19 +01:00
-Committer:     Peter Zijlstra <peterz@infradead.org>
-CommitterDate: Fri, 06 Nov 2026 11:45:16 +01:00
+Move the off-channel check to invoke_tx_handlers_late(), after
+ieee80211_queue_skb(). Frames can then remain queued and be transmitted
+when the interface returns on-channel. This how TX works currently when
+code goes via ieee80211_xmit_fast() path.
 
-sched/deadline: Fix spurious -EPERM for migration-disabled tasks
+Below is rt2x00 driver ping output example while scanning, before and
+after the fix. After the fix, packets are no longer lost. Some have
+increased latency, what is expected behavior.
 
-sched_setattr() can refuse to make a task SCHED_DEADLINE with -EPERM,
-even though the task's affinity covers the whole root domain. A retry
-can succeed, but the error blames an affinity the task does not have.
+BEFORE:
+64 bytes from 192.168.0.1: icmp_seq=29 ttl=64 time=3.61 ms
+64 bytes from 192.168.0.1: icmp_seq=31 ttl=64 time=3.33 ms # Missed 30
+64 bytes from 192.168.0.1: icmp_seq=32 ttl=64 time=4.03 ms
+64 bytes from 192.168.0.1: icmp_seq=34 ttl=64 time=3.10 ms # Missed 33
+64 bytes from 192.168.0.1: icmp_seq=36 ttl=64 time=3.04 ms # Missed 35
+64 bytes from 192.168.0.1: icmp_seq=38 ttl=64 time=3.05 ms # Missed 37
+64 bytes from 192.168.0.1: icmp_seq=40 ttl=64 time=4.14 ms # Missed 39
+64 bytes from 192.168.0.1: icmp_seq=41 ttl=64 time=4.50 ms
 
-__sched_setscheduler() tests p->cpus_ptr, which is not always the task's
-affinity. When a task is scheduled out inside a migrate_disable() section,
-migrate_disable_switch() points p->cpus_ptr at the current CPU until
-migrate_enable(). On PREEMPT_RT every spinlock_t holder is in such a
-section, so ordinary kernel work opens the window. Elsewhere, seccomp
-filters run in one.
+AFTER:
+64 bytes from 192.168.0.1: icmp_seq=29 ttl=64 time=3.40 ms
+64 bytes from 192.168.0.1: icmp_seq=30 ttl=64 time=6.10 ms
+64 bytes from 192.168.0.1: icmp_seq=31 ttl=64 time=4.69 ms
+64 bytes from 192.168.0.1: icmp_seq=32 ttl=64 time=4.49 ms
+64 bytes from 192.168.0.1: icmp_seq=33 ttl=64 time=148 ms
+64 bytes from 192.168.0.1: icmp_seq=34 ttl=64 time=6.83 ms
+64 bytes from 192.168.0.1: icmp_seq=35 ttl=64 time=8.66 ms
+64 bytes from 192.168.0.1: icmp_seq=36 ttl=64 time=13.0 ms
+64 bytes from 192.168.0.1: icmp_seq=37 ttl=64 time=4.78 ms
+64 bytes from 192.168.0.1: icmp_seq=38 ttl=64 time=3.85 ms
 
-Test p->cpus_mask instead, which keeps the task's affinity and is what
-sched_getaffinity() reports. This should be safe because an admitted
-task's cpus_mask covers the root domain, so set_cpus_allowed_dl() moves
-no bandwidth when migrate_enable() restores p->cpus_ptr.
-
-The following program, run as root, had 553679, 453720 and 424623 of its
-1000000 requests refused on three boots of a 4-CPU PREEMPT_RT guest, and
-236182, 217174 and 237183 without PREEMPT_RT. With this applied the count
-is 0, also with lockdep, and a task pinned to one CPU is still refused:
-
-  #define _GNU_SOURCE
-  #include <errno.h>
-  #include <linux/filter.h>
-  #include <linux/seccomp.h>
-  #include <pthread.h>
-  #include <stddef.h>
-  #include <stdint.h>
-  #include <stdio.h>
-  #include <sys/syscall.h>
-  #include <unistd.h>
-
-  #define REQUESTS 1000000
-  #define INSNS 300
-
-  struct attr {
-      uint32_t size, policy;
-      uint64_t flags;
-      int32_t nice;
-      uint32_t prio;
-      uint64_t runtime, deadline, period;
-  };
-
-  static volatile int stop;
-  static volatile pid_t target;
-
-  static long set(struct attr a)
-  {
-      a.size =3D sizeof(a);
-      return syscall(SYS_sched_setattr, target, &a, 0);
-  }
-
-  static void *worker(void *arg)
-  {
-      struct sock_filter f[INSNS + 1];
-      struct sock_fprog prog =3D { .len =3D INSNS + 1, .filter =3D f };
-      int i;
-
-      /* Reading the arguments keeps seccomp from caching the result */
-      for (i =3D 0; i < INSNS; i++)
-          f[i] =3D (struct sock_filter)
-              BPF_STMT(BPF_LD | BPF_W | BPF_ABS,
-                       offsetof(struct seccomp_data, args));
-      f[INSNS] =3D (struct sock_filter)
-          BPF_STMT(BPF_RET | BPF_K, SECCOMP_RET_ALLOW);
-      syscall(SYS_seccomp, SECCOMP_SET_MODE_FILTER, 0, &prog);
-
-      target =3D syscall(SYS_gettid);
-      while (!stop)
-          syscall(SYS_getppid);
-      return arg;
-  }
-
-  static void *hog(void *arg)
-  {
-      while (!stop)
-          ;
-      return arg;
-  }
-
-  int main(void)
-  {
-      pthread_t t[9];
-      long refused =3D 0;
-      int i;
-
-      pthread_create(&t[0], NULL, worker, NULL);
-      while (!target)
-          usleep(100);
-      for (i =3D 1; i < 9; i++)
-          pthread_create(&t[i], NULL, hog, NULL);
-      for (i =3D 0; i < REQUESTS; i++) {
-          /* SCHED_DEADLINE, 2us every 1s */
-          if (set((struct attr){ .policy =3D 6, .runtime =3D 2000,
-                                 .deadline =3D 1000000000,
-                                 .period =3D 1000000000 }) && errno =3D=3D EP=
-ERM)
-              refused++;
-          set((struct attr){ .policy =3D 0 }); /* SCHED_OTHER */
-      }
-      stop =3D 1;
-      for (i =3D 0; i < 9; i++)
-          pthread_join(t[i], NULL);
-      printf("%ld of %d requests refused\n", refused, REQUESTS);
-      return 0;
-  }
-
-An LLM helped find this bug and write this patch and its test.
-
-Fixes: af449901b84c ("sched: Add migrate_disable()")
-Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Acked-by: Juri Lelli <juri.lelli@redhat.com>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261102135420.244745-1-parri.andrea@gmail.com
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Stanislaw Gruszka <stf_xl@wp.pl>
+Link: https://patch.msgid.link/20260908124651.2995-1-stf_xl@wp.pl
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
+(cherry picked from commit 13e51269b6656768dc595ed6025e4974f2026543)
+Signed-off-by: Stanislaw Gruszka <stf_xl@wp.pl>
 ---
- kernel/sched/syscalls.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ net/mac80211/tx.c | 55 ++++++++++++++++++++++++-----------------------
+ 1 file changed, 28 insertions(+), 27 deletions(-)
 
-diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
-index 45a127d..fb8f332 100644
---- a/kernel/sched/syscalls.c
-+++ b/kernel/sched/syscalls.c
-@@ -628,7 +628,7 @@ change:
- 			 * the entire root_domain to become SCHED_DEADLINE. We
- 			 * will also fail if there's no bandwidth available.
- 			 */
--			if (!cpumask_subset(span, p->cpus_ptr) ||
-+			if (!cpumask_subset(span, &p->cpus_mask) ||
- 			    rq->rd->dl_bw.bw =3D=3D 0) {
- 				retval =3D -EPERM;
- 				goto unlock;
+diff --git a/net/mac80211/tx.c b/net/mac80211/tx.c
+index 63867702ab08..b012451f4525 100644
+--- a/net/mac80211/tx.c
++++ b/net/mac80211/tx.c
+@@ -269,7 +269,6 @@ ieee80211_tx_h_dynamic_ps(struct ieee80211_tx_data *tx)
+ static ieee80211_tx_result debug_noinline
+ ieee80211_tx_h_check_assoc(struct ieee80211_tx_data *tx)
+ {
+-
+ 	struct ieee80211_hdr *hdr = (struct ieee80211_hdr *)tx->skb->data;
+ 	struct ieee80211_tx_info *info = IEEE80211_SKB_CB(tx->skb);
+ 	bool assoc = false;
+@@ -277,23 +276,6 @@ ieee80211_tx_h_check_assoc(struct ieee80211_tx_data *tx)
+ 	if (unlikely(info->flags & IEEE80211_TX_CTL_INJECTED))
+ 		return TX_CONTINUE;
+ 
+-	if (unlikely(test_bit(SCAN_SW_SCANNING, &tx->local->scanning)) &&
+-	    test_bit(SDATA_STATE_OFFCHANNEL, &tx->sdata->state) &&
+-	    !ieee80211_is_probe_req(hdr->frame_control) &&
+-	    !ieee80211_is_any_nullfunc(hdr->frame_control))
+-		/*
+-		 * When software scanning only nullfunc frames (to notify
+-		 * the sleep state to the AP) and probe requests (for the
+-		 * active scan) are allowed, all other frames should not be
+-		 * sent and we should not get here, but if we do
+-		 * nonetheless, drop them to avoid sending them
+-		 * off-channel. See the link below and
+-		 * ieee80211_start_scan() for more.
+-		 *
+-		 * http://article.gmane.org/gmane.linux.kernel.wireless.general/30089
+-		 */
+-		return TX_DROP;
+-
+ 	if (tx->sdata->vif.type == NL80211_IFTYPE_OCB)
+ 		return TX_CONTINUE;
+ 
+@@ -806,6 +788,33 @@ ieee80211_tx_h_rate_ctrl(struct ieee80211_tx_data *tx)
+ 	return TX_CONTINUE;
+ }
+ 
++static ieee80211_tx_result debug_noinline
++ieee80211_tx_h_check_offchannel(struct ieee80211_tx_data *tx)
++{
++	struct ieee80211_hdr *hdr = (struct ieee80211_hdr *)tx->skb->data;
++	struct ieee80211_tx_info *info = IEEE80211_SKB_CB(tx->skb);
++
++	if (unlikely(info->flags & IEEE80211_TX_CTL_INJECTED))
++		return TX_CONTINUE;
++
++	if (unlikely(test_bit(SCAN_SW_SCANNING, &tx->local->scanning)) &&
++	    test_bit(SDATA_STATE_OFFCHANNEL, &tx->sdata->state) &&
++	    !ieee80211_is_probe_req(hdr->frame_control) &&
++	    !ieee80211_is_any_nullfunc(hdr->frame_control)) {
++		/*
++		 * When software scanning only nullfunc frames (to notify
++		 * the sleep state to the AP) and probe requests (for the
++		 * active scan) are allowed, all other frames should not be
++		 * sent and we should not get here, but if we do
++		 * nonetheless, drop them to avoid sending them
++		 * off-channel. See __ieee80211_start_scan() for more.
++		 */
++		return TX_DROP;
++	}
++
++	return TX_CONTINUE;
++}
++
+ static __le16 ieee80211_tx_next_seq(struct sta_info *sta, int tid)
+ {
+ 	u16 *seq = &sta->tid_seq[tid];
+@@ -1852,6 +1861,7 @@ static int invoke_tx_handlers_late(struct ieee80211_tx_data *tx)
+ 		goto txh_done;
+ 	}
+ 
++	CALL_TXH(ieee80211_tx_h_check_offchannel);
+ 	CALL_TXH(ieee80211_tx_h_michael_mic_add);
+ 	CALL_TXH(ieee80211_tx_h_sequence);
+ 	CALL_TXH(ieee80211_tx_h_fragment);
+@@ -4691,10 +4701,6 @@ static void ieee80211_8023_xmit(struct ieee80211_sub_if_data *sdata,
+ 	queue = ieee80211_select_queue(sdata, sta, skb);
+ 	skb_set_queue_mapping(skb, queue);
+ 
+-	if (unlikely(test_bit(SCAN_SW_SCANNING, &local->scanning)) &&
+-	    test_bit(SDATA_STATE_OFFCHANNEL, &sdata->state))
+-		goto out_free;
+-
+ 	skb = skb_share_check(skb, GFP_ATOMIC);
+ 	if (unlikely(!skb))
+ 		return;
+@@ -4771,11 +4777,6 @@ static void ieee80211_8023_xmit(struct ieee80211_sub_if_data *sdata,
+ 	ieee80211_tpt_led_trig_tx(local, len);
+ 
+ 	ieee80211_tx_8023(sdata, skb, sta, false);
+-
+-	return;
+-
+-out_free:
+-	kfree_skb(skb);
+ }
+ 
+ static bool ieee80211_check_mcast_offload(struct ieee80211_sub_if_data *sdata,
+-- 
+2.25.4
+
