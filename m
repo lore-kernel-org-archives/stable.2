@@ -1,48 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.37.83.207
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794252096;
-	b=K0KLbccdYep0preLkKqzlmXRT7v/BfkbQDrbdIXd4qX7qBD8EXQyWWmDrjIl6tUfs8aI
-	 /PkUOHEJ268vVb67lvbquWKOf6nkOp+i3BNZJvdo/j3Z0eyGG1dnCl6a2dW2p+cwzk9mk
-	 NV4JPM+KSlmYiXLxhC77FQwG80wP3oIhHdsuysOn9j6Z+bpUkuK0Gzq1C/nAisckHok6Z
-	 BWWX2ognnqRoMvibi2Itv1/ynmMQZDuecrQtOwVg8Yiuep4grJqHmMbp/ywMQEiSC+Gxa
-	 4peGDDgHUwdOm7jm1Awf2tQgowjbRcnD5dMzkKD4Keh1J+tdQIwYqXLSg6dMMo5DFrw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794252096;
-	h=DMARC-Filter:DKIM-Signature:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer;
-	bh=nSaxNJoqEqkrIFzNH5TInpbrikbcFyPUBF2JjDBni20=;
-	b=dlgOucLHLBuqIvDy/t/CIlApeZnDSDS7CusjYXFFY55VX98/0mwHKArXFMjwBKioSzW1
-	 korxRpjCi2VEOPs8wXcBK3c2aml6minVqBh7wEsYjfH2hm7Dfvtn2dCDBAbxufyi5PTtf
-	 NDgU29Boo3fySUXzhkW2rCMpS6obATIRJr6BvFYvusuQnwjsGrNgvyBSzPAxkvYykTWM6
-	 NITkIyZ7+aGENXVq11DGQ+WZSSIp+t9l16RI9DWAk+EPNfWbwgTBq8TaazbjMcmNCRe3F
-	 noYla8+h9ONEw7WTLLVOnkZ6sVrp2Tbq0/DP4njL/UsySuUAw+78xgKuMvU8Hr54SLQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=dfb.sh;
-	spf=pass smtp.mailfrom=dfb.sh;
-	dkim=pass header.d=dfb.sh header.i=@dfb.sh header.a=rsa-sha256 header.s=frkn header.b=eJVHz1+S;
-	arc=none smtp.remote-ip=54.37.83.207
-Received: from frkn.dfb.sh (frkn.dfb.sh [54.37.83.207])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.214.169
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794252163;
+	b=ONwCQSBmpkY3YMmiGVCviARbzgf0RGY2PjTiYlBKoOAxlprU/WdHxaMHqEy8EEYa7jDV
+	 tKZOYxCpuKvF3MCelCtzhFJPzZZpzmhxxa1yOo6YV/tAZ87BeRdjSweTYQbs9jMpNK+kM
+	 vI0hEyWe5qwHe4ef10wa+FkCJW2Qfwee1Br11WN93EBWoBCk1vifa62rQSZHFuvSABRAX
+	 i7kVXPNaDVX2ZvN3KXTUDMAChG/aosDFgN9N4X+UzqzCQdVM2/U1/T8vQsBxTnFvWTDhh
+	 v3aaYm5eB7tcrbCB89LD5kna80+rjzvSXElP6OWy9Qdpi98FjT6ICAJv1WLvMpCeVrw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794252163;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=LLao974SFbGrAFOc9ZItbe9BnZuev5xDOa9+ftx6B9Q=;
+	b=oW+0NEeWt9fEDS924Rk63U2nsnKNZbz71AJncKvFjUiGPzK93up0aq1thNO7nvsMuw15
+	 A3ZUS7NjvuBw9M7EF6sBf0qfMwDn6ddWxYijzWQtpMJIBihbDty7NTb77K0F3AnXmFB5y
+	 DiLJJh5er5XyIRBmlyJF7kI4g5XPldVinjxo8lruhp5lS36SUHOnax+ry8eObfEq5WpAL
+	 x+uEyLgAa5Uy+aouW1GC6/NlXtPkXZijAx0ZpMd/2O7xTSE5n9t2Mrp8nZjq6PS6kloC0
+	 6kR/oisBUbwW+X1EUw6fQMzWKoTb1gMKF/Mab55MEoyAq7hKTTYXvVgd6RFB2aDipyA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Q7W6CbW2;
+	arc=fail smtp.remote-ip=209.85.214.169
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DC3B606A31C;
-	Mon,  9 Nov 2026 19:21:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DC3B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dfb.sh
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dfb.sh
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44EA7606A325
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 19:22:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44EA7606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=dfb.sh header.i=@dfb.sh header.a=rsa-sha256 header.s=frkn header.b=eJVHz1+S
-DKIM-Signature: v=1; a=rsa-sha256; s=frkn; d=dfb.sh; c=relaxed/relaxed; r=y;
-	h=To:Message-Id:Subject:Date:From; t=1794252093; bh=nSaxNJoqEqkrIFzNH5TInpb
-	rikbcFyPUBF2JjDBni20=; b=eJVHz1+Si42yXRSxY4QMFC80Ghx8xUDOOVK7/i1mcJoTsi0OiH
-	pUdn2KJi1JsQWPP41C4FjtpKHK3/rP1CC5+PPBjnpA7PojBMfY4eEj9Zu7BnDOXcJ3ACBeRuxpC
-	GGwUNru1lDIqcJm7CcIrLGuUb4iti+BSsIm1kRbIQtreqYfByIdpD/MP2yYMzj1/Gslh4CWmKTJ
-	pWJXxF6LdT8ByPyt7anGYr57iC3x00c0RYgGLJBzzzJsLsrNkCblgeAU2hLvT8blrZWNGIWh9qa
-	cnC5iJjHH6ZF8Ipu7jy+Wkwa8B5xOyI1QXU9T90vRUQ2prV+tpf5h1w4tdw2AoYZUGw==;
-From: Vladimir Petrzhikovskii <vladimir@dfb.sh>
-Date: Mon, 09 Nov 2026 20:21:28 +0100
-Subject: [PATCH] vdpa/mlx5: Bound the KLM count of the user MR
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Q7W6CbW2
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2eb0a52d605so8715ad.0
+        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 11:22:42 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794252162; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Iu1Q8L1SQirUvEd/DZsaKdboQKcQLD2zbO4KdZAzPwpjdmfz/F09DncyWsICEkZGVo
+         kPoUQTZCsibS21bzor5CtsdAZ80z/wiw7VFMNbGz3EsxW7dVjQEY4JGqvW+zYpmF4IPE
+         HB27MEIb47s1Z8leBinYKrcP9bHjFrjswTRJO8g7NKCfphhsNeLeimkTfMOMYyulObYd
+         G4+0eINa/w/AjwCU9ebo1sNzIAG5kPZynsRlqsSgTbdA7O+nKq9twyjf7uF6E/70p+MP
+         8dhjKZt6blNyuhnuQjZ4BfzCP4IZcHoK1ZyDDkrr7jVQVs2CGJBxS1koyJz1EDD5R0Qs
+         QVFg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=LLao974SFbGrAFOc9ZItbe9BnZuev5xDOa9+ftx6B9Q=;
+        fh=UlRV4RwetZ4FOUfqUeKG+CtplhMsk1TeI6ou94413Wc=;
+        b=Vt/wYRCCYip/QCh5O47QEjeoV65uQO8RzgGL5EzQw4AfG1quLKUc+4X2NRaVE7dvMB
+         R536q4qItvjK9+nbtKY6BkmcCz5H2V4ovrZUXnmr/i4QFDsKwAC7yQ2NRTbP3M1KGUuP
+         C5ayvaxnSSysfxyulF+BeINH5DX1i5z10RWf2F5hboHDuin8EKxInb/geVLNLlYg9wMt
+         jb4zh201bf2tL0SmphelZx18inJ4hPGb5SW26kzLXpKAwwSZ+3QsFaXlMY4CS6WdzdNC
+         RhhdppAQIAC6NVIBDb/0So5dz+cuJUTZ0aoCGa2Yt03Lp5gsK5jxMkaV07T7qTJU4tLt
+         FabQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794252162; x=1794856962; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=LLao974SFbGrAFOc9ZItbe9BnZuev5xDOa9+ftx6B9Q=;
+        b=Q7W6CbW2DnMmN8nOmW0oV5cTwDlZWqZv46jbh2BGl5piP5k0dPOvNu6QGatCKYTqav
+         4Jpo7Pc0hCxzIrF/9fjFYDSJ2Cbhc+N8EFLc5CM52PxkXSDxG9hWOlg90UTA1OBnJc3y
+         lNiQkq4AamASV5/qd/Z/tlbVmSAOOsQ1xUeyEefy2P8t3DS4q9F6skjUEqCrb4cOcUeZ
+         XfvARrykJfhdjsmhygS0DbDFVqDkYfVLOeHkiifyTLlS0JZUONWBpHh3txgzXVxOWj1r
+         TCu38lBlOgRroxC2XrHOfajBfBkpFJcnsGXJSsLKFIhHZy7RyqoX3Iam+m4CjX5V3Ovl
+         wpvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794252162; x=1794856962;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LLao974SFbGrAFOc9ZItbe9BnZuev5xDOa9+ftx6B9Q=;
+        b=iujfUOelGyQcHWMOCV0IQhKIMF8y7ohaCaMZtty8ioxH1b5rwkv9qVrcQxEPG6ihOY
+         AH2RXgndonzrQQJeYlHGUvJHaR2ALB1GRSjNUEybhVifBxuvqV78sZegZvw1keaBSpNK
+         1rEAitRvX9eORWUVYkbV9AZJLHEJpMj1WC9KC+PoII3dgnKzUm++ksOhwf4rHggE9yLB
+         kaVzMbtQsem0olwYu3LN8GehISYBIaqVKFxxA5LfraZMjkLdK8XaHxPZ6JHLMnMw3c97
+         6FQBF31G6bZ/TVvgNMvGxgMWRTH7GUOUVjrw53gKyw4FBYNk1qlEiVTjJwQlbp6bEEe9
+         vClw==
+X-Forwarded-Encrypted: i=1; AL+hErHiAQX9J0mTjbqaw7EdpJMr2ob/uD7xkr5+TpGuzVZMIrDGOyqSGYD0GC6dRy8W4It1dhY9aWk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9jyY4Gz4vYLRjdB7daIyZOG/hid3tx5+b15Pej4OUyGWY6WjR9
+	BSjoZGRuy2iJEiSCDbfexc+IkRhhGJj3fJSEW2bn48Q3YlM5LMQWuekbceERm6YrnqvV615BEFr
+	fjAS3uMy6M5R2yOFYzVkJTDJwdjiGPUV+e/YXP+Vx
+X-Gm-Gg: AYBFou1/d21pnRhJEdZipTTG/0nOZGTsCQ97MooiU9lB5X6eaoaEHL5q3CBshrrQKhe
+	kI9AdzSST/bv2HTrqjfJv/nfs3ubvSr06RUmduAe6dGf1cgCtEo5VTVlFYTnDNcAzr5OJ1nBwZm
+	go1g7ybvO1uAnu5WbPycEH+NIYv06hyNUugQKzrNPNH2NPDEoV6BrnpFeSMaI6nY4c2t/w4PdKQ
+	tr0+juRYFywki+f1JX9gYxI9AnNEbgiWkM2Ny33H6fNehNd8OEJqFVz74gRrPtVkIC1uxDsBBWu
+	iK6Z2qBOsIRRYZerli8tExEAfheUpbCNl827wFJ9rFWy4IDhnXcEedSBvVIZkpVKABrzl2PrMyY
+	IUZH4QpETPVALBzRUsYalzFlQvASEMVj3jPzP0XdCOlvD6JCZIDRQ2l3jiMurHKTSRZCqLLt9bu
+	0Pm4vvjV0O+WThNrMh1Qw/qjyieGi6VTjI9EYI+g==
+X-Received: by 2002:a17:902:d50b:b0:2c7:f0cc:dafa with SMTP id
+ d9443c01a7336-2edb818a98amr440015ad.5.1794252160963; Mon, 09 Nov 2026
+ 11:22:40 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,176 +105,225 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261109-b4-mlx5-klm-v1-1-787b45145719@dfb.sh>
-X-B4-Tracking: v=1; b=H4sIADcd8moC/yWMwQ6CMBBEf4Xs2U0oilp/xXjY1lWqtJhdICSEf
- 7fVwxzeZOatoCyBFS7VCsJz0DCkDGZXge8oPRnDPTM0dXM0prboDhj7pcV3H/Fkz7TPMa1lyI+
- P8CMsP9v19med3Iv9WBRl4UgZnVDyXaki6cgC2/YFd7vRtIgAAAA=
-X-Change-ID: 20261109-b4-mlx5-klm-798a398a159e
-To: Dragos Tatulea <dtatulea@nvidia.com>, 
- "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>
-Cc: =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
- Xuan Zhuo <xuanzhuo@linux.alibaba.com>, virtualization@lists.linux.dev, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Nikolai Kalinin <nikolai@kalinidze.me>, 
- Vladimir Petrzhikovskii <vladimir@dfb.sh>
-X-Mailer: b4 0.15.2
+References: <20261104061329.1881388-1-yhlee@isslab.korea.ac.kr>
+In-Reply-To: <20261104061329.1881388-1-yhlee@isslab.korea.ac.kr>
+From: Harshitha Ramamurthy <hramamurthy@google.com>
+Date: Mon, 9 Nov 2026 11:22:29 -0800
+X-Gm-Features: AclHuK-dSXSOZJcdql0F-e1NjY7WlxygjqtWsM5ArXziTxSc4EqUQRQSgcxZ4fo
+Message-ID: <CAEAWyHdJNjhV4biOFR+cw0MWNMZHUT638+AT9Q83s9G7wyBsgw@mail.gmail.com>
+Subject: Re: [PATCH net] gve: bound the device reported rule count in the flow
+ rules query
+To: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Cc: Joshua Washington <joshwash@google.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Willem de Bruijn <willemb@google.com>, 
+	Praveen Kaligineedi <pkaligineedi@google.com>, Jeroen de Borst <jeroendb@google.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-create_user_mr() builds one indirect MKey that covers the whole vhost
-IOTLB. It fills each gap between two mappings with null KLMs, one per
-GiB, and never checks the total number of KLMs against the device
-limit, MLX5_CAP_GEN(log_max_klm_list_size).
+On Tue, Nov 3, 2026 at 10:13=E2=80=AFPM Yehyeong Lee <yhlee@isslab.korea.ac=
+.kr> wrote:
+>
+> gve_adminq_process_flow_rules_query() turns num_queried_rules, which the
+> device wrote into the admin queue buffer, into a copy length:
+>
+>         num_queried_rules =3D be32_to_cpu(descriptor->num_queried_rules);
+>         rule_info =3D (void *)(descriptor + 1);
+>         ...
+>         rule_info_len =3D num_queried_rules *
+>                         sizeof(*flow_rules_cache->rules_cache);
+>         if (sizeof(*descriptor) + rule_info_len !=3D total_memory_len) {
+>                 dev_err(&priv->dev->dev, "flow rules query is out of memo=
+ry.\n");
+>                 return -ENOMEM;
+>         }
+>
+>         memcpy(flow_rules_cache->rules_cache, rule_info, rule_info_len);
+>
+> Nothing bounds that length.  The test above does not, because
+> total_memory_len is descriptor->total_length and the same device wrote it=
+,
+> so it only asks the device to agree with itself.
+>
+> There are two consequences.  For GVE_FLOW_RULE_QUERY_RULES the copy runs
+> past the cache: at 47 rules it writes 4136 bytes into the 4048 byte
+> rules_cache, and rules_cache_num is then set to that count for the ethtoo=
+l
+> paths to walk.  For GVE_FLOW_RULE_QUERY_IDS the destination is large
+> enough, but the descriptor and the rule array share one
+> GVE_ADMINQ_BUFFER_SIZE block and the array starts after the descriptor, s=
+o
+> counts of 1021 to 1024 read past that 4096 byte block.  Those words reach
+> userspace through ETHTOOL_GRXCLSRLALL, which needs no CAP_NET_ADMIN
+> because net/ethtool/ioctl.c exempts it, and gve_get_flow_rule_ids() asks
+> the device again on every call.
+>
+> Bound the count by the space the array actually has, the admin queue
+> buffer less the descriptor, before the multiply that cannot then overflow
+> either.  That is 46 rules and 1020 ids, and it is never larger than the
+> destination cache.  The total_length test stays, since it still catches a
+> descriptor whose payload was truncated.
+>
+> Reproduced with a KUnit harness that injects the device reply and is not
+> part of this patch.  Unpatched, 47 rules gave the report below, and 1021
 
-With a virtio-IOMMU the guest chooses the IOVAs: the VMM (QEMU)
-forwards each map the guest makes to the vhost-vDPA device. If the
-guest maps one page at IOVA 0 and one at IOVA 2^58, the driver needs
-more than 2^28 KLMs. create_indirect_key() computes the buffer size in
-an int, which overflows: the driver allocates 336 bytes, and
-fill_indir() then writes 16 bytes per KLM, 4 GiB in total, far past
-the end of the buffer.
+gve, like other drivers, trusts device responses per
+Documentation/process/threat-model.rst ('Non-conforming devices and
+media') documented at
+https://docs.kernel.org/process/threat-model.html.
 
-nnuls is an int, so a gap of 2^61 bytes or more is miscounted on every
-architecture, and on 32-bit the unsigned long num_klms wraps. The gap
-is rounded up to whole GiB as (size + 2^30 - 1) >> 30. For a gap
-larger than 2^64 - 2^30, for example below a page mapped in the top
-GiB, that addition wraps and the driver counts no null KLMs for the
-gap, while fill_indir() still writes one for every GiB of it.
+The driver already communicates an 'available_length' field to the
+device as part of gve_adminq_query_flow_rules() and no real device
+would violate that. We don't harden against arbitrary devices. This
+should be dropped.
 
-Count KLMs in u64 and round the gap up without the overflowing
-addition. Before creating any direct key, return -E2BIG with a
-rate-limited warning if the MR needs more KLMs than the device limit,
-or more than fit in a CREATE_MKEY command whose length is an int.
-Allocate the command with kvzalloc(), because a list within the device
-limit can be too large for kzalloc(). A normal guest is unaffected:
-memory at 0-3 GiB and 4-68 GiB needs 68 KLMs.
-
-Found by an LLM code review agent auditing vhost-vDPA backends. We have
-no mlx5 hardware, so the fix is untested on it; it builds with W=1 on
-x86_64 and i386.
-
-Fixes: 94abbccdf291 ("vdpa/mlx5: Add shared memory registration code")
-Cc: stable@vger.kernel.org
-Co-developed-by: Nikolai Kalinin <nikolai@kalinidze.me>
-Signed-off-by: Nikolai Kalinin <nikolai@kalinidze.me>
-Signed-off-by: Vladimir Petrzhikovskii <vladimir@dfb.sh>
----
-Dragos, one question on the limit: the patch takes
-MLX5_CAP_GEN(log_max_klm_list_size) as the largest KLM list an indirect
-CREATE_MKEY accepts, as mlx5_ib does for fast-reg lists. If firmware
-applies a different limit to CREATE_MKEY, please say so and I will
-change the bound.
-
-The guest kernel change used for the reachability check is available
-on request.
----
- drivers/vdpa/mlx5/core/mlx5_vdpa.h |  2 +-
- drivers/vdpa/mlx5/core/mr.c        | 30 +++++++++++++++++++++++++-----
- 2 files changed, 26 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/vdpa/mlx5/core/mlx5_vdpa.h b/drivers/vdpa/mlx5/core/mlx5_vdpa.h
-index 42f2f44b383c..1d84824ca429 100644
---- a/drivers/vdpa/mlx5/core/mlx5_vdpa.h
-+++ b/drivers/vdpa/mlx5/core/mlx5_vdpa.h
-@@ -32,7 +32,7 @@ struct mlx5_vdpa_mr {
- 	/* list of direct MRs descendants of this indirect mr */
- 	struct list_head head;
- 	unsigned long num_directs;
--	unsigned long num_klms;
-+	u64 num_klms;
- 
- 	struct vhost_iotlb *iotlb;
- 
-diff --git a/drivers/vdpa/mlx5/core/mr.c b/drivers/vdpa/mlx5/core/mr.c
-index b0c5ff23d022..03db8345c1bb 100644
---- a/drivers/vdpa/mlx5/core/mr.c
-+++ b/drivers/vdpa/mlx5/core/mr.c
-@@ -206,6 +206,16 @@ static int klm_byte_size(int nklms)
- 	return 16 * ALIGN(nklms, 4);
- }
- 
-+/* Largest KLM count whose CREATE_MKEY input length still fits in an int. */
-+#define MLX5_VDPA_MAX_KLMS_INLEN \
-+	ALIGN_DOWN((INT_MAX - MLX5_ST_SZ_BYTES(create_mkey_in)) / 16, 4)
-+
-+static u64 max_klms(struct mlx5_vdpa_dev *mvdev)
-+{
-+	return min_t(u64, BIT_ULL(MLX5_CAP_GEN(mvdev->mdev, log_max_klm_list_size)),
-+		     MLX5_VDPA_MAX_KLMS_INLEN);
-+}
-+
- #define MLX5_VDPA_MTT_ALIGN 16
- 
- static int create_direct_keys(struct mlx5_vdpa_dev *mvdev, struct mlx5_vdpa_mr *mr)
-@@ -338,7 +348,7 @@ static int create_indirect_key(struct mlx5_vdpa_dev *mvdev, struct mlx5_vdpa_mr
- 		return -EINVAL;
- 
- 	inlen = MLX5_ST_SZ_BYTES(create_mkey_in) + klm_byte_size(mr->num_klms);
--	in = kzalloc(inlen, GFP_KERNEL);
-+	in = kvzalloc(inlen, GFP_KERNEL);
- 	if (!in)
- 		return -ENOMEM;
- 
-@@ -355,7 +365,7 @@ static int create_indirect_key(struct mlx5_vdpa_dev *mvdev, struct mlx5_vdpa_mr
- 	MLX5_SET(create_mkey_in, in, translations_octword_actual_size, mr->num_klms);
- 	fill_indir(mvdev, mr, in);
- 	err = mlx5_vdpa_create_mkey(mvdev, &mr->mkey, in, inlen);
--	kfree(in);
-+	kvfree(in);
- 	return err;
- }
- 
-@@ -501,6 +511,7 @@ static int create_user_mr(struct mlx5_vdpa_dev *mvdev,
- {
- 	struct mlx5_vdpa_direct_mr *dmr;
- 	struct mlx5_vdpa_direct_mr *n;
-+	u64 klm_limit = max_klms(mvdev);
- 	struct vhost_iotlb_map *map;
- 	u32 pperm = U16_MAX;
- 	u64 last = U64_MAX;
-@@ -508,7 +519,7 @@ static int create_user_mr(struct mlx5_vdpa_dev *mvdev,
- 	u64 pe = U64_MAX;
- 	u64 start = 0;
- 	int err = 0;
--	int nnuls;
-+	u64 nnuls;
- 
- 	INIT_LIST_HEAD(&mr->head);
- 	for (map = vhost_iotlb_itree_first(iotlb, start, last); map;
-@@ -521,9 +532,10 @@ static int create_user_mr(struct mlx5_vdpa_dev *mvdev,
- 				if (pe < map->start) {
- 					/* We have a hole in the map. Check how
- 					 * many null keys are required to fill it.
-+					 * The hole can be nearly 2^64 bytes, so
-+					 * round up without adding to its size.
- 					 */
--					nnuls = MLX5_DIV_ROUND_UP_POW2(map->start - pe,
--								       LOG_MAX_KLM_SIZE);
-+					nnuls = ((map->start - pe - 1) >> LOG_MAX_KLM_SIZE) + 1;
- 					mr->num_klms += nnuls;
- 				}
- 				err = add_direct_chain(mvdev, mr, ps, pe - ps, pperm, iotlb);
-@@ -539,6 +551,14 @@ static int create_user_mr(struct mlx5_vdpa_dev *mvdev,
- 	if (err)
- 		goto err_chain;
- 
-+	if (mr->num_klms > klm_limit) {
-+		dev_warn_ratelimited(mvdev->mdev->device,
-+				     "map needs %llu KLMs, limit is %llu\n",
-+				     mr->num_klms, klm_limit);
-+		err = -E2BIG;
-+		goto err_chain;
-+	}
-+
- 	err = create_direct_keys(mvdev, mr);
- 	if (err)
- 		goto err_chain;
-
----
-base-commit: d48723711bae9b8cdc56719c448ba42fef28cbee
-change-id: 20261109-b4-mlx5-klm-798a398a159e
-
-Best regards,
---  
-Vladimir Petrzhikovskii <vladimir@dfb.sh>
-
+> and 1024 ids copied 4084 and 4096 bytes from the descriptor's end, 4 and
+> 16 bytes past the block.  With the patch all three are rejected with
+> -EINVAL, and 46 rules and 1020 ids still work.
+>
+>   BUG: KASAN: slab-out-of-bounds in gve_adminq_process_flow_rules_query+0=
+xe7/0x390
+>   Write of size 4136 at addr ffff8880027ae000 by task kunit_try_catch/33
+>
+>   CPU: 0 UID: 0 PID: 33 Comm: kunit_try_catch Tainted: G                 =
+N  7.3.0-dirty #8 PREEMPT(lazy)
+>   Tainted: [N]=3DTEST
+>   Call Trace:
+>    <TASK>
+>    dump_stack_lvl+0x3f/0x50
+>    print_report+0xcd/0x620
+>    ? gve_adminq_process_flow_rules_query+0xe7/0x390
+>    kasan_report+0xde/0x110
+>    ? gve_adminq_process_flow_rules_query+0xe7/0x390
+>    kasan_check_range+0x105/0x1b0
+>    __asan_memcpy+0x3c/0x60
+>    gve_adminq_process_flow_rules_query+0xe7/0x390
+>    gve_fr_rules_overflow_test+0xc9/0x430
+>    ? __pfx_gve_fr_rules_overflow_test+0x10/0x10
+>    ? __pfx___set_cpus_allowed_ptr+0x10/0x10
+>    ? __pfx_read_tsc+0x10/0x10
+>    ? ktime_get_ts64+0x192/0x250
+>    kunit_try_run_case+0x1ca/0x4b0
+>    ? __pfx_kunit_try_run_case+0x10/0x10
+>    ? kthread_affine_node+0x247/0x360
+>    ? __pfx_kthread_affine_node+0x10/0x10
+>    ? __pfx_kunit_try_run_case+0x10/0x10
+>    ? __pfx_kunit_generic_run_threadfn_adapter+0x10/0x10
+>    kunit_generic_run_threadfn_adapter+0x7b/0xe0
+>    kthread+0x36a/0x4f0
+>    ? __pfx_kthread+0x10/0x10
+>    ret_from_fork+0x34d/0x620
+>    ? __pfx_ret_from_fork+0x10/0x10
+>    ? __switch_to+0x22/0xde0
+>    ? __pfx_kthread+0x10/0x10
+>    ret_from_fork_asm+0x19/0x30
+>    </TASK>
+>
+>   Allocated by task 33:
+>    kasan_save_stack+0x33/0x60
+>    kasan_save_track+0x14/0x30
+>    __kasan_kmalloc+0x8f/0xa0
+>    __kvmalloc_node_noprof+0x1e8/0x4e0
+>    gve_fr_ctx_init+0x24d/0x920
+>    gve_fr_rules_overflow_test+0xae/0x430
+>    kunit_try_run_case+0x1ca/0x4b0
+>    kunit_generic_run_threadfn_adapter+0x7b/0xe0
+>    kthread+0x36a/0x4f0
+>    ret_from_fork+0x34d/0x620
+>    ret_from_fork_asm+0x19/0x30
+>
+>   The buggy address belongs to the object at ffff8880027ae000
+>    which belongs to the cache kmalloc-4k of size 4096
+>   The buggy address is located 0 bytes inside of
+>    allocated 4048-byte region [ffff8880027ae000, ffff8880027aefd0)
+>
+>   The buggy address belongs to the physical page:
+>   page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x27=
+a8
+>   head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
+>   flags: 0x4000000000000040(head|zone=3D1)
+>   page_type: f5(slab)
+>   raw: 4000000000000040 ffff888001042140 dead000000000122 000000000000000=
+0
+>   raw: 0000000000000000 0000000000040004 00000000f5000000 000000000000000=
+0
+>   head: 4000000000000040 ffff888001042140 dead000000000122 00000000000000=
+00
+>   head: 0000000000000000 0000000000040004 00000000f5000000 00000000000000=
+00
+>   head: 4000000000000003 ffffea000009ea01 00000000ffffffff 00000000ffffff=
+ff
+>   head: 0000000000000000 0000000000000000 00000000ffffffff 00000000000000=
+00
+>   page dumped because: kasan: bad access detected
+>
+>   Memory state around the buggy address:
+>    ffff8880027aee80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+>    ffff8880027aef00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+>   >ffff8880027aef80: 00 00 00 00 00 00 00 00 00 00 fc fc fc fc fc fc
+>                                                    ^
+>    ffff8880027af000: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+>    ffff8880027af080: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+>
+> Fixes: 57718b60df9b ("gve: Add flow steering adminq commands")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+> ---
+>  drivers/net/ethernet/google/gve/gve_adminq.c | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+>
+> diff --git a/drivers/net/ethernet/google/gve/gve_adminq.c b/drivers/net/e=
+thernet/google/gve/gve_adminq.c
+> index 8b215fca9c1b63..02c1f398f6e395 100644
+> --- a/drivers/net/ethernet/google/gve/gve_adminq.c
+> +++ b/drivers/net/ethernet/google/gve/gve_adminq.c
+> @@ -1542,14 +1542,20 @@ static int gve_adminq_process_flow_rules_query(st=
+ruct gve_priv *priv, u16 query_
+>  {
+>         struct gve_flow_rules_cache *flow_rules_cache =3D &priv->flow_rul=
+es_cache;
+>         u32 num_queried_rules, total_memory_len, rule_info_len;
+> +       u32 rule_info_max_len;
+>         void *rule_info;
+>
+>         total_memory_len =3D be32_to_cpu(descriptor->total_length);
+>         num_queried_rules =3D be32_to_cpu(descriptor->num_queried_rules);
+>         rule_info =3D (void *)(descriptor + 1);
+> +       rule_info_max_len =3D GVE_ADMINQ_BUFFER_SIZE - sizeof(*descriptor=
+);
+>
+>         switch (query_opcode) {
+>         case GVE_FLOW_RULE_QUERY_RULES:
+> +               if (num_queried_rules >
+> +                   rule_info_max_len / sizeof(*flow_rules_cache->rules_c=
+ache))
+> +                       return -EINVAL;
+> +
+>                 rule_info_len =3D num_queried_rules * sizeof(*flow_rules_=
+cache->rules_cache);
+>                 if (sizeof(*descriptor) + rule_info_len !=3D total_memory=
+_len) {
+>                         dev_err(&priv->dev->dev, "flow rules query is out=
+ of memory.\n");
+> @@ -1560,6 +1566,10 @@ static int gve_adminq_process_flow_rules_query(str=
+uct gve_priv *priv, u16 query_
+>                 flow_rules_cache->rules_cache_num =3D num_queried_rules;
+>                 break;
+>         case GVE_FLOW_RULE_QUERY_IDS:
+> +               if (num_queried_rules >
+> +                   rule_info_max_len / sizeof(*flow_rules_cache->rule_id=
+s_cache))
+> +                       return -EINVAL;
+> +
+>                 rule_info_len =3D num_queried_rules * sizeof(*flow_rules_=
+cache->rule_ids_cache);
+>                 if (sizeof(*descriptor) + rule_info_len !=3D total_memory=
+_len) {
+>                         dev_err(&priv->dev->dev, "flow rule ids query is =
+out of memory.\n");
+>
+> base-commit: 787268686c64be60023743b527645a907e38ccca
+> --
+> 2.43.0
+>
