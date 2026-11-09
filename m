@@ -1,56 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794257274;
-	b=2DspxKZa3N1wSD1uiwXjbE/lXVaFVgqAGUchUf8hWmOt+rO0ctf//Fh+FkR/WrpenfPM
-	 tuym2hBHeR4QrLptO2aOJk69XKjfbw/3/k7BDrbBJSqFxuoQSjpncis2TWr0Sgv4BiFN/
-	 GH/ju9WSX1KMi4Aq2S+y6Jv3gwpe7gs7mFJPThi7xJpQHxY/8chjCZd60S6oBr1TZ9zMG
-	 Wf/jfRkH8kRLkpYh9sbS40SahElo5Xc9xpvNscvWT38kZX4mWC5+mrcsz/oEPtQ4wNpxV
-	 p7InPXuIw9WFR7o8M51jGWwWjJWE4GpAg0PZ0so2o05WxyYbuQLKE1egQVoTUloD2zg==
+	t=1794257496;
+	b=0QQFonSlou7IEpIWv/5K1D0TnvplDV2U/uXOmmSBWVxP0nOZpghKH3xCOlvEZ41X6RaO
+	 WheVOhLxjivEoY8BTgxUgRlV+Nwoai/owDVqwpNziwy9zNzJY7J+369n9lq4y5Vdr4+JT
+	 ssuyCZ7encZuMwSBxmMn+hjzGp/WjEMURWWbykjMJ+oMra3l3O1iDAxRYbUb9Up/PD4BO
+	 +GrD/uJrnRJGIXpAs4GXdEGV6AnqEM8VDyS0qp+QHjd9l0Grx6OFO/TmjxeSdrvGOioXZ
+	 QCmC11An7K5HeOuAYM2pAOQfZTeeUUXbwPWD479A2qwMJxocAlHDKfGTC1X2XnHdGlQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794257274;
-	h=DMARC-Filter:DKIM-Signature:Received:MIME-Version:Date:From:To:Cc:
-	 Subject:In-Reply-To:References:User-Agent:Message-ID:X-Sender:
-	 Content-Type:Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
-	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
-	bh=Qjc3lND2Szj+ZbTboPnK/vG9bXC4WbRqnD1x9RUtNhU=;
-	b=MR7XC1sL4AKaIqE6eHNbbzsiHqwWmjNRgQ7XIvkvva7CReepKARQYm86XcXxXJG81luo
-	 YppJSCUDEdQb8mPQVF5ApCaj4l6EW49DmIxhZZm704uD6BpOA0u63DzIMmf6vcH6BgELd
-	 SeRj48Khb91Vap0p/ZyEmD5RxxjANIcNZzTFdCTC9j6x0WVZYIP/WzD9XIrVcPQHkyu50
-	 AFT/9Q9m0eUxwVzxWUYI5NRG0tTY4hlw33GJbv7QNC2pMshJz9pELpjxf3w5Zy7KgzHF/
-	 4nTTD4LZeAqX9go4j5XZMMXxhz5S2yfmWeOjyREf9QT6//jHRgXD0fsdYVoSoUvqCug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794257496;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=2EnKYM1O2foiG13flnejDTAFyfiNY9oWVxa4iq2fMgU=;
+	b=NcfKx6MyfaceJhRCN1ZHxP5BRC/lekhTfauOykaxLqBDzybY+FJxw7quQUX9hK9yFJ4H
+	 aOZ6Vk0g+atsqDOVMFSDV1x/7VuDmHCAw6dTRIg+YhCchNNt5r8jvuzOdSQeHEV3tZ5Ia
+	 576dHA6ShJTgzSRQpT0lFLDW8Cp6cA1AqALHWbA+SJuvjvDW0ultEsxuNXfQZzjZoR5XD
+	 ZpHUP6heeDaHdYH/K3ht5/QfBNdk8nhsdES//YYTbyayskcP/Csw0bpw1rcoGB7zC7G9U
+	 K4qYOWgDGH3XLsF7aqnwfRsqzTGOFEL2P6Hc922apqTncL71DT1jShvBuQqeNZmnHww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.cyber.gouv.fr;
-	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
-	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=mpG5CXlN;
-	arc=none smtp.remote-ip=51.159.188.251
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=linux.win;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.218.51
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0A3D606A321;
-	Mon,  9 Nov 2026 20:47:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0A3D606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=mpG5CXlN
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:
-	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=Qjc3lND2Szj+ZbTboPnK/vG9bXC4WbRqnD1x9RUtNhU=; b=mpG5CXlNlPYFghudAsxPbpQbhu
-	pZ5GpX195PfyZU6zwJ6KgrFHVBQF6c+n198g/P2cqQtXWngP/N2UZKbT9X5eQCLcrUcTUtb4xn/+i
-	nW/jN3Dr0hOhIpNsX8zyXz1zuG5U0z9uLPkOkWXCEJpRQCBWsszSg7x9kKeAdGmWY+VnvzRpPdknh
-	Z3lBLXE4riqv24BSRCAv611VqjSK7y8lBC9cRXewdv/k4jJiv1RofEzjXCNHJPLNwhrRlYtEPfHWH
-	OMOC+l4wKsjbu2h2whj2C83inIlw3bgxCkPq4W34IGT5VcenhqQbVv5hZ+ereRJ/+pTxxGPfPN0hZ
-	XUZLyNZA==;
-Received: from [::1] (port=46436 helo=pf-012.whm.fr-par.scw.cloud)
-	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.100.1)
-	(envelope-from <jeremy.jean@oss.cyber.gouv.fr>)
-	id 1xQWHQ-0000000DrgI-1qSY;
-	Mon, 09 Nov 2026 21:47:52 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8693D606A31C
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 20:51:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8693D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.win
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c247f6687dcso228734566b.2
+        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 12:51:35 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794257494; x=1794862294;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2EnKYM1O2foiG13flnejDTAFyfiNY9oWVxa4iq2fMgU=;
+        b=l2V5Ajk6e7xr9kzP/IbZwQpZ1sxBcKTft/POBnVy6aXWvgyceQ/rActj1kpLDdjEpy
+         G5fc/7vlOXrqw1u4HkF+J6YFOwtaIv8j8lkcFoLHs2HI4gOz5Qhi88yDVknlO14tlKRk
+         DecoaT6UDTs650cShSLh8UobyxLzBt8B8uekMVAt9Bh6h5bV2SEssPA3V2FwH9XKQ+Zy
+         trHT+OTvuAwp2cwiAZkfsVl3zDZR5gDxxDgT/Sfu3hMZUiU3+CGVMcitBtPu3DrRgRoZ
+         MzZ+sJh2P96UoDksUzIuqJ+OL2cPyNRLrOTMKp1fUgTi+rZLrm1OBzIYuDPh+KXbqeMI
+         gqvg==
+X-Forwarded-Encrypted: i=1; AL+hErHmWNS577FZn7P+HG1p9Didc8v5EG7mq/W7UA6F3geAiGcLU4cR3Y5N6B9MPTgL5huBLTR17e4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9ky/gx9upDDY5ZNwaABeuUDTsfjNcK2MGrwuJouYnpkFuaYcw4
+	cWCfVVkrfClHsSigvCiHTK+rpJh0N4G7G/M/Lq0RBXVR0tNwGKdkRy6gtUftfeQDH7k=
+X-Gm-Gg: AYBFou3/zndPqo39F5lX+dbrkifGcnxsjK+uWiWYapB4ULKu7WlxsJwyXfly9NaDe4a
+	0kB30sWT+3AwiZ9qjPQKA3n0X7E0fDhI9yn8Yq0s34kVNqciQCR/XUT1LInFioBiwu5vqQPlpmr
+	RpGFOsm5uXry0VEGbswsN/9WdpRApGjTwudmij9HDV6Xv5KD8N9zZRr3eev6OOXkS839fB7El8M
+	DMBweMDrmaiH8ojM9IK0u8viS95qzGXUo5o/U/BCRBoPfMuGi0/pHjsUq8hOjBkFDUW4DtdvzGw
+	DJUH8RnV1nqk4BeBh0p1XedMEARv85TgrfoOWOLjTzhCsKtCVmiLIMw+zk3HD0fi41mToVMHYq6
+	cXGEN8b+jtgsob/W5GBMoZgkdMkD6UptKzWCMnmm3wdsHcOY71ldHIDk3D4Hs+eqzhQHDHNFnIq
+	2lzN7fB4ZfFafddgJBHnaIrbtCEN7rWGkc69vS4e//BFTeyp0IrcOI9GYhOtkPleVRBhPCmsOwh
+	eEAgonwCtrWP1nYF5wAsDKP8wM6ajBu2wzqv3Dyc3b09KdbxADmKULtdTdDTdK3ARqDkABYuKZO
+	Xi/owGcc/zDFzwJvr8SxI4oEF9QzHAyKtCAGDPLSxr+QoG6tI4YXyESalb0=
+X-Received: by 2002:a17:906:d54e:b0:c46:5c4c:7f66 with SMTP id a640c23a62f3a-c504952be5dmr44270466b.14.1794257493644;
+        Mon, 09 Nov 2026 12:51:33 -0800 (PST)
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com. [209.85.218.54])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a67c64dsm14389266b.78.2026.11.09.12.51.33
+        for <stable@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 09 Nov 2026 12:51:33 -0800 (PST)
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c247f6687dcso228732366b.2
+        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 12:51:33 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFrNYRerOgAUgEBKNyZYQsBZQ778K/stXwc6GFA/hOMSYZ+S/z8TF1pu3hfs3m42ayXjvWwYrk=@vger.kernel.org
+X-Received: by 2002:a17:906:6205:b0:c4c:f85f:aa12 with SMTP id
+ a640c23a62f3a-c50495f0330mr43846166b.31.1794257492995; Mon, 09 Nov 2026
+ 12:51:32 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,53 +81,106 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Mon, 09 Nov 2026 21:47:51 +0100
-From: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
-To: Jan Kara <jack@suse.cz>
-Cc: tytso@mit.edu, Andreas Dilger <adilger.kernel@dilger.ca>, Baokun Li
- <libaokun@linux.alibaba.com>, Ojaswin Mujoo <ojaswin@linux.ibm.com>, Ritesh
- Harjani <ritesh.list@gmail.com>, Zhang Yi <yi.zhang@huawei.com>,
- linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH] ext4: fix OOB write in fast-commit replay
-In-Reply-To: <idqh5j5m3rhjsdu77h7dchk5vxj47fcsls7tcdhu4wdf75cthu@sxwipa7u2hyl>
-References: <20261108204345.1423203-2-Jeremy.Jean@oss.cyber.gouv.fr>
- <idqh5j5m3rhjsdu77h7dchk5vxj47fcsls7tcdhu4wdf75cthu@sxwipa7u2hyl>
-User-Agent: Roundcube Webmail/1.6.20
-Message-ID: <038be9b9541cbcc43ed35cf7950b9361@oss.cyber.gouv.fr>
-X-Sender: jeremy.jean@oss.cyber.gouv.fr
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+References: <20261105072708.30722-1-pepe.schlehofer@gmail.com>
+In-Reply-To: <20261105072708.30722-1-pepe.schlehofer@gmail.com>
+From: Ignat Korchagin <ignat@linux.win>
+Date: Mon, 9 Nov 2026 20:51:21 +0000
+X-Gmail-Original-Message-ID: <CAOs+rJWmmUbYqU34Yb4qJvJsZ92=AztNwNsqX+xD8WaH8tVz-w@mail.gmail.com>
+X-Gm-Features: AclHuK9En0QmOUBY4k-RnKbFBU3eXagm58QT4NOxyknJnRPCI_HjRETQwg25oKY
+Message-ID: <CAOs+rJWmmUbYqU34Yb4qJvJsZ92=AztNwNsqX+xD8WaH8tVz-w@mail.gmail.com>
+Subject: Re: [PATCH] dm-crypt: defer async write submission to write thread
+To: Josef Schlehofer <pepe.schlehofer@gmail.com>
+Cc: Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>, 
+	Mikulas Patocka <mpatocka@redhat.com>, Benjamin Marzinski <bmarzins@redhat.com>, dm-devel@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Damien Le Moal <dlemoal@kernel.org>, Milan Broz <gmazyland@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 2026-11-09 14:19, Jan Kara wrote:
-> On Sun 08-11-26 20:43:46, Jérémy Jean wrote:
->> Fast-commit recovery checks record bounds and lengths during scan.
->> Replay reads the records again without these checks. A corrupt 
->> filesystem
->> can make an earlier replay operation overwrite a later record. Its new
-> 
-> This fact looks like the real problem. I think we should validate the
-> replay does not corrupt the journal. How does this happen? Otherwise we
-> have to fully redo the validation of each record done in
-> ext4_fc_replay_scan().
+On Thu, Nov 5, 2026 at 7:27=E2=80=AFAM Josef Schlehofer
+<pepe.schlehofer@gmail.com> wrote:
+>
+> With no_write_workqueue, kcryptd_crypt_write_io_submit() submits the
+> bio directly, even when called from kcryptd_async_done(). An async
+> cipher may run this callback in softirq or with BH disabled, where
+> submit_bio_noacct() must not be called because it can sleep.
+>
+> Submit inline only when async is false. Async completions are sent to
+> the write thread, as is already done for submit_from_crypt_cpus. Use
+> the async flag rather than in_interrupt(), since callback context
+> depends on the cipher driver. Sync ciphers still submit inline.
 
-The replay can corrupt the journal because a corrupted image can make
-metadata blocks used during replay overlap with fast-commit blocks. I
-agree that making sure that replay does not corrupt the journal would
-be a stronger fix, but I'm not sure I see a simple way to fix this
-properly. Rechecking bounds as I proposed fixes a memory issue but it
-indeed does not address the root cause.
+At the very least I think it may be an unexpected/undesirable setup
+for the user: they enable "no_write_workqueue" expecting a fully
+inline setup, but still get io offloaded. Perhaps in such cases we can
+do a pr_warn_once() to let the user know their setup is impossible?
 
-Regards,
-Jérémy
+>
+> Tested with cryptd in QEMU (x86_64 and arm64) with
+> CONFIG_DEBUG_ATOMIC_SLEEP, and on a P2020 running 6.18.55 without it.
+>
+> In QEMU:
+>
+> - 4k writes logging "sleeping function called from invalid context":
+>   100/100 unpatched, 0/155 patched.
+> - nr_requests=3D4 on a loop device: 0/6 unpatched runs completed,
+>   4/4 patched runs completed.
+>
+> On the P2020, a warning in blk_mq_run_hw_queue() appeared in the
+> 6th unpatched run and did not appear in 30 patched runs.
+>
+> Fixes: 39d42fa96ba1 ("dm crypt: add flags to optionally bypass kcryptd wo=
+rkqueues")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
+> ---
+> Based on dm-7.4 (dab527d83462).
+>
+> To reproduce, with CONFIG_DEBUG_ATOMIC_SLEEP, DM_CRYPT, BLK_DEV_LOOP,
+> CRYPTO_CRYPTD, CRYPTO_XTS and CRYPTO_AES:
+>
+>   modprobe -a cryptd dm_crypt loop
+>   truncate -s 256M /dev/shm/nowq.img
+>   L=3D$(losetup -f)
+>   losetup "$L" /dev/shm/nowq.img
+>   KEY=3D$(od -An -v -tx1 -N64 /dev/urandom | tr -d ' \n')
+>   dmsetup create nowq --table "0 $((256 * 2048)) crypt capi:cryptd(xts-ae=
+s-lib)-plain64 $KEY 0 $L 0 2 no_read_workqueue no_write_workqueue"
+>   D=3D/dev/dm-$(dmsetup info -c --noheadings -o minor nowq)
+>   dd if=3D/dev/urandom of=3D"$D" bs=3D4k count=3D1 conv=3Dfsync
+>   dmesg | grep 'sleeping function called'
+>
+> For the nr_requests=3D4 case, run this instead of the dd. The writes did
+> not finish without this patch:
+>
+>   echo 4 > /sys/block/${L##*/}/queue/nr_requests
+>   for i in 1 2 3 4; do dd if=3D/dev/urandom of=3D"$D" bs=3D64k count=3D51=
+2 seek=3D$((i * 512)) conv=3Dfsync & done; wait
+>
+>  drivers/md/dm-crypt.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/md/dm-crypt.c b/drivers/md/dm-crypt.c
+> index 8853e9af1c3d..c0552a300e62 100644
+> --- a/drivers/md/dm-crypt.c
+> +++ b/drivers/md/dm-crypt.c
+> @@ -1982,8 +1982,9 @@ static void kcryptd_crypt_write_io_submit(struct dm=
+_crypt_io *io, int async)
+>         /* crypt_convert should have filled the clone bio */
+>         BUG_ON(io->ctx.iter_out.bi_size);
+>
+> -       if ((likely(!async) && test_bit(DM_CRYPT_NO_OFFLOAD, &cc->flags))=
+ ||
+> -           test_bit(DM_CRYPT_NO_WRITE_WORKQUEUE, &cc->flags)) {
+> +       if (likely(!async) &&
+> +           (test_bit(DM_CRYPT_NO_OFFLOAD, &cc->flags) ||
+> +            test_bit(DM_CRYPT_NO_WRITE_WORKQUEUE, &cc->flags))) {
+>                 dm_submit_bio_remap(io->base_bio, clone);
+>                 return;
+>         }
+> --
+> 2.54.0 (Apple Git-157)
+>
+>
+
+Ignat
