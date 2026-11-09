@@ -1,80 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.192
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794192103;
-	b=FJWyuVfv2p60gUxCuDmbE4HGkxEfIVNj3d05Jr57Q2NKTAX2a1hGazGln4Cy4y2FEYii
-	 fvWLjX6UP/supeE6EE+Bx36ZYSgkzdJmIc4JsVNNLnToGXjsXSwzuN/QIk5b80IoYZxsj
-	 +3maj5rm5SeLzRjJJw/KhoHisvM66zH67sAWNQGH8iJJIng2mrWxoOcJR82rQPp7ApJm7
-	 V2Qw5d7yNsBkiMzkHaAlY3ErrJdKRFkE4dXsTpvrQy2kXczpHLozJrvksGBIOi7h5yeX5
-	 gmXM6dE/XbBq17440leiJLUWMoO7cssswRX3yeFXgcfYEtdZJF+wAVnXFyIB8/UEaFA==
+	t=1794192191;
+	b=Lvi8JLOmwTehLnk4/fdxAKrOZXv1sTKK2QApSyHiwMczXm9/ZLdqCgYecJ3kU/LlMW+V
+	 VrIk9ig1uwbxhI8EEZlrhekyp2gF7xvk9XPBCeTjAFTiGu7M95Gg0N07VStYr3hzszNim
+	 omY5+jE+WEuE5DWU4EnuPBlJFFk9h+9NvcBP/8j3+FZcc7hiVP/s4p6qfgkgVtQugDot4
+	 /VnZz5IEaF9zF16Yh+am4EWXn3XbpX/rlA132BrQXpAGoKSn7kLcocT6U8fMjkP69doQq
+	 l2mUTfV3QL0Hp7y3w45FeY2aFxSX7bf5hXIgEu9+WtEe/ZY49cgavFoK175IWY0rnGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794192103;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=7Oaet72IvSMtzXaUg0NEIECqrGi+MmFL4ZFRzLknTqI=;
-	b=uXtDTnE/ZOXI5C8CHEyU2DrM41M+svyz1WUN+CQ2CRVrrX26Q//aQtzVUPIswrCE0kHF
-	 LKCe7mzYNdP1nIm9n0QOhUZdB5bF2kKXoAfPZ6aXuDeE19sJkk+mtigl49KW3uPbLnuoM
-	 SvfmMPA1iNVw8IhKYcg9SRTJWv9JjBrIFAXxW93bWrwDMrVP3UuaRyuLMmWcVpNqJvq4J
-	 z3ODo/1WXgddL4kPD4/nSUrqOs/WKGgmvap+RNjVHxULQym3ZO+XxQs5FMQwWuOleMT3K
-	 N8vStcO3bgPBXHgtNTkzA9lpC82NDcsBODKHsKCGk/I0Z/aeCoHHOPKfr03U2kvIUAA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794192191;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=lbsHrjkpK1cq0QRwZ9oauLF2GZ88NqZOcvz5poLBJyg=;
+	b=5gX/tESPiEldqSXAPIuAltr7p0YvmTxktOO/jzNbgfOXWyLj4910BTz24dKiGDyhjbGp
+	 D4kC+4PD48ZmhZwyMrykVMCsWA75wGQA+DP8yqaXzHTzHMoVv1HZKXLTgykliOW2Jvkv/
+	 8sH7hvaHq3JhwxGGUsRGShNrEVoB22HUQVi/mG/v0yjDkUJ1Qwmm1NRgcaRZfxYqoU5BO
+	 Tb92hSXy6I17r6x3PZbE1MKlxYEi/90OgYPGpsci+bgBiZBg/C3xSxaJ65ononv9Lzq2X
+	 EDFW8ieQiQcDBKmeCpxHpc70npOxisTzF/IFKSYm3q2PFm2CPAjs0xlIb3/PWrP66/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=foxmail.com;
-	spf=pass smtp.mailfrom=foxmail.com;
-	dkim=pass header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=rWOopgiE;
-	arc=none smtp.remote-ip=203.205.221.192
-Received: from out203-205-221-192.mail.qq.com (out203-205-221-192.mail.qq.com [203.205.221.192])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=rowland.harvard.edu;
+	spf=fail smtp.mailfrom=g.harvard.edu;
+	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=cbxiXzcB;
+	arc=none smtp.remote-ip=209.85.219.47
+Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com [209.85.219.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BBEF606A31C;
-	Mon,  9 Nov 2026 02:41:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BBEF606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B14D6606A322
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 02:43:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B14D6606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=rWOopgiE
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
-	s=s201512; t=1794192097;
-	bh=7Oaet72IvSMtzXaUg0NEIECqrGi+MmFL4ZFRzLknTqI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=rWOopgiEHK1q4WHZL/AlV2073gW+V3gZAMwMyxI8bxN7SXTNinr0gz8VCy9siesfk
-	 ePzhUU/sypy1qy38nMn/97nOCZdZ63mAS1mXJvugb4JHBNfmrOa4jH7aTNquuvBJ7g
-	 QDClkO3dKmLRgpXWFQ6sb4Cg5tRVfYIqpc8EKNU0=
-Received: from HAPYCAO-MC1.tencent.com ([101.226.143.240])
-	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
-	id A628646A; Mon, 09 Nov 2026 10:41:34 +0800
-X-QQ-mid: xmsmtpt1794192094tble5wlj5
-Message-ID: <tencent_3455CE5C67BEF809176851A476321557E70A@qq.com>
-X-QQ-XMAILINFO: MJf32pulH481VJxcL+chNSP4XMn7WwZ1fKHh5wH4lUPYryecSU5RCPxXI+qnk+
-	 hJz3p9hMgYkOEkoW1egWyF8mnDd+ZsOJM642LwYBBrDlH6mUZvr/aiRP7Cup6AjPh1Hq8SIp/F0l
-	 TNYLWAo1NTqkVpGLqckeNY46ZOm6PRz0ai8Qz6aNH/ag9oWptPELp5ponF6a7YJ4CfhRe68hHWUK
-	 5MhD5x6v73AmCeuS4zw41zHkikdxWjeIc0h9m8UMsGyM/J1BcLnmKYfRtJcqTa8tcUHBbGWjpnG2
-	 RD/6lAYstyLR+oHeAE7nKcO92cgHX7tSDvn/1Dkr+j7S6GZMI4lviFVspsvslU4WZiep5FScnzSN
-	 xq3iFuIFdteC6jzUQVXkMzkN7HcDsvZpZ78raWbqMFrpARNPDD4jWB7kGlTIMlY/KEEKn/VYf+5U
-	 IoVUDT5G85auvsHFZEEXIBMAVF6TNXb7Jrhsjo3mm+zBnmOLAQyuNwGgLkIVvjjsAHcTAzMXbWQF
-	 CgJIz0xgBG02I9lZ2bYQ0WCI0zJqOTuJQLAdvAaTvg4a9O0NN8b6iGD2gpe7bDDvUY55+bAta/Cx
-	 YlwUFLSwWoFoofe++9hptYRXnlhNJPOOP942vxpA2Tx88mDgJK8+XKcg7sdOHH9paLQSQrAHuDbJ
-	 33ORYNkI3n7DGeaJ8fcndXL+McvqSvloGqHVyLTERolaYBHqWkZFW6ojnm8nRqnacvGpREtf54wK
-	 z2db9a6Ds3QrNKAawXEe/50WiAzA8qcu3LmTVW7qm4JNWRMYPGazC4bGtGyEVou+zC54aP2tn8RZ
-	 6PvV9tOJ7AMweUlIZCggn3pzSg+fjG3mU5rCPKI2O0TFEH7kV7rIMY8PWPIhF4qYBqBQYN6csb89
-	 RDRUaTk/eTwWMe22eH48NlleFpyC+nvWzVeWs0nxd9jEfXKmhKqpUrKxkh6GXkFBX1HcnB2lBefn
-	 uhgjHepZDVlD1OViMQhyOTinxryO2h5L3KytYdh+vyaZXKZ6uT9+V9985ACODeyN8TYmGFDVCwlT
-	 G9UBLgkNEUHggaanInWikx32g4PsHnD0+fgYhBNfsJpUnrmbx65FmszsbefJs=
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
-From: bo cao <treebacker@foxmail.com>
-To: andrii.nakryiko@gmail.com
-Cc: andrii@kernel.org,
-	ast@kernel.org,
-	bpf@vger.kernel.org,
-	daniel@iogearbox.net,
-	netdev@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=cbxiXzcB
+Received: by mail-qv1-f47.google.com with SMTP id 6a1803df08f44-91ea5600c9cso4964416d6.1
+        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 18:43:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=rowland.harvard.edu; s=google; t=1794192190; x=1794796990; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=lbsHrjkpK1cq0QRwZ9oauLF2GZ88NqZOcvz5poLBJyg=;
+        b=cbxiXzcBq1YTRCRTQ5SpDNs57XNcRCOklDPWlZDn2EVhGusLShQSlRFpqQp4aJNUGm
+         TzAfh2JvnGlVH1xt6ca5uwisyuC/guT42PwIC1/gjLSVdqvPdKgHokbMEzSkXZECnaow
+         YtJEeG2TMwYHywh6hmjFXAwRDdSRYzQ0of8bg2ZsdIEt1bsu8POrC8NUg4D2mhgXgZ4l
+         yXQUA0OxTzasWnvl1UxIkKeBh0N/n5E2tioPhTevlGXrzWO1O9nvB6osZY69KUbUqc7G
+         rmCS62U+mF3PyNnfR5iyO1yR01jv3iYytpSMgnr9cMV6Cg1tMhQg68ZstJeLpTW5SMSe
+         aHZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794192190; x=1794796990;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lbsHrjkpK1cq0QRwZ9oauLF2GZ88NqZOcvz5poLBJyg=;
+        b=uA+Y++BuEJCT2S+nJLxJKW7D0PWS3TcnTgeM+zuvfwcDZoNDYBEu5C3iAvZCeJ6fnn
+         GTFg9xjxfwpxxoiNccjF1zcIub3anqEHVVMN5o1zTIjbaQkkkWB6H6g1koBs3MUyO9ZA
+         nncQZQzTfno9PLfpiH2izMDea4UT0qHU5lDAKg60W3RIT+ZlCTPoUtNdkZ5hsaD+005b
+         VsD78m5U9C7HBkgKfMyMamVPj6HiETbPcD6EE+4WQgdGR59yXeG6z6u4IqbgiigC8tBw
+         h/vGFQxWHMq09y1X8Gtpws9TllD2qfe5WE4fy2VKOJlcLlJoaDr0IgHwqMBCd47EFePA
+         Sg+A==
+X-Forwarded-Encrypted: i=1; AL+hErHLzm5wqIRmCx8B/kC5KBS2VejuJYqWq8RkH3DrgVpxZtBp2X7aabl2HK0Wk5b0jYHiHtsRI5U=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/xIH9v/60V043vjcPHAwTthGEgcm/WLdbQcOvRXTsRkITmuDLW
+	ymFro1GJrBn340/JposOkibw5HPgsWXw53DTVGFdNXLc1AcdANlyYPS8bPnycEODWg==
+X-Gm-Gg: AYBFou2B4l+IucDZXbjpTlj9IZt366PL0JyUzvJOj67+1UdBTMqSF62lR/c0I/VNWP4
+	ftVr082kSsr7PUDgc/rJUjHo1DLXU1QijrBUysHN/iiMKX6WcADC3s2B1uDttdupxa/Zb/8BhxM
+	hvfQWHpy1r7qY1toU5MEP2qzHj8Dn5ugSy3IoiVthLU9LOnuyB3ACHqOVbatbQV4kIvqPhMDrGT
+	aVtbYYCkA5iIDXfD1YBsfWRQtTyisOD8m5wLJQCI1O6Dmf+ARbJQ6WAbEzBCMJDCCZM+IfUI30P
+	pFT+PmBRy3JIxjZVQsIQJSJm+A8z6KOU80n2TJXiNKoBcdUALY77gXL8jrt6kdKoRYmmgv9Ne0o
+	8AWiSm5ZGkcSM/vHvHCwyMoI4KXx1AR768uasxFYggq8Jq+34rJXY6Sszr71cZbajT7PCF6k1d0
+	BTtnwO916ANOFkP9oVNF7xRNF3XBWWXyWfQS3nqbIlJkDGyNWnAvRyNRYB25D4fvfE+ZzKqqb8R
+	sFssMYBjJQBJgMwJ6jRsA4kTWeBN0aZyGd52kCN25b+JvsolKbfusL4AjJYojcayMWhsmYRcmy5
+	zRm3vFx88wVwfusBm0gNIj3H8gDb
+X-Received: by 2002:a05:6214:c4b:b0:91c:8ff2:51ed with SMTP id 6a1803df08f44-91ebd14d862mr87689676d6.2.1794192189470;
+        Sun, 08 Nov 2026 18:43:09 -0800 (PST)
+Received: from rowland.harvard.edu ([2601:19b:d01:d210::66b0])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ecee18a77sm32078146d6.26.2026.11.08.18.43.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 18:43:08 -0800 (PST)
+Date: Sun, 8 Nov 2026 21:43:05 -0500
+From: Alan Stern <stern@rowland.harvard.edu>
+To: kayano050408@gmail.com
+Cc: Neill Kapron <nkapron@google.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	syzbot+c73e1942197af9f54ca3@syzkaller.appspotmail.com,
 	stable@vger.kernel.org
-Subject: Re: [PATCH bpf] bpf: check cpu_possible() in per-cpu helpers
-Date: Mon,  9 Nov 2026 10:41:34 +0800
-X-OQ-MSGID: <20261109024134.771-1-treebacker@foxmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <CAEf4BzYDmzNoN-5Rnfj4RrAU8wKnZe+tDFApng61L0mubXqung@mail.gmail.com>
-References: <CAEf4BzYDmzNoN-5Rnfj4RrAU8wKnZe+tDFApng61L0mubXqung@mail.gmail.com>
+Subject: Re: [PATCH v4 0/2] usb: gadget: gadgetfs: fix ep0 request lifetime
+ and event counter
+Message-ID: <071e601f-4a8d-4ff6-bf1f-bae9606ade0d@rowland.harvard.edu>
+References: <20261107-b4-gadgetfs-ep0-v4-0-86bdfd684b54@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,48 +100,35 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261107-b4-gadgetfs-ep0-v4-0-86bdfd684b54@gmail.com>
 
+On Sat, Nov 07, 2026 at 09:46:12PM +0900, Jing Lin via B4 Relay wrote:
+> gadgetfs_unbind() frees the preallocated ep0 request after disconnecting
+> the gadget, assuming that no I/O remains active. With dummy_hcd, a
+> delayed userspace response can leave the request queued when it is freed,
+> which triggers the warning in dummy_free_request() and a use-after-free
+> when dummy_udc_stop() drains the endpoint queue.
 
-> please trim the commit message down, it's way too verbose
+That's right; gadget drivers in general are responsible for cancelling 
+any outstanding ep0 requests when they unbind, and not submitting any 
+new ones.
 
-Will do -- a trimmed version follows as v4.
+Another thing worth fixing is near the start of gadgetfs_setup(), 
+where it casts away the constness of ctrl.  This may not cause problems 
+in practice, but it definitely has a bad look.
 
-> not sure this is right, bpf_per_cpu_ptr_proto specifies
->
->  .ret_type      = RET_PTR_TO_MEM_OR_BTF_ID | PTR_MAYBE_NULL | MEM_RDONLY,
->
-> it already is marked as maybe_null
+> gadgetfs_setup() and ep0_write() also race on dev->req and req->buf
+> while a control transfer is in flight or while a completed delegated OUT
+> transfer is waiting for ep0_read() to copy the payload to userspace.
 
-The proto is marked, but check_helper_call() drops the flag on the
-path this hunk touches.  For BPF_FUNC_per_cpu_ptr with a percpu obj
-argument (R1 tagged MEM_RCU), returns_cpu_specific_alloc_ptr is set,
-and the return type is then assigned as:
+Can you explain these races in greater detail, showing how they occur?
 
-	if (returns_cpu_specific_alloc_ptr) {
-		regs[BPF_REG_0].type = PTR_TO_BTF_ID | MEM_ALLOC | MEM_RCU;
-	} else {
-		/* MEM_RDONLY may be carried from ret_flag, but it
-		 * doesn't apply on PTR_TO_BTF_ID.  Fold it, otherwise ...
-		 */
-		ret_flag &= ~MEM_RDONLY;
-		regs[BPF_REG_0].type = PTR_TO_BTF_ID | ret_flag;
-	}
+> Overwriting req->buf with a descriptor pointer causes clean_req() to
+> free the descriptor buffer instead of the request buffer.
 
-The cpu-specific branch does not carry ret_flag at all, so
-PTR_MAYBE_NULL never reaches R0 there -- only the ksym path (the
-else branch) keeps it.  Nothing after the switch re-adds the flag
-for this case either: the code below only assigns an id when the
-register type is already maybe-null, and clears the flag for
-ptr-cast functions.
+Can some of these problems be solved more simply, by using a new mutex 
+to protect dev->req and related values?
 
-Since bpf_per_cpu_ptr() does return NULL for cpu >= nr_cpu_ids
-(since 01cc55af9388), a program that calls it on a percpu obj and
-writes through the result without the NULL test passes verification
-and oopses on NULL + offset at run time.  The hunk carries
-(ret_flag & PTR_MAYBE_NULL) into that branch, which only restores
-what the proto already declares.
-
-Thanks,
-Bo Cao
-
+Alan Stern
