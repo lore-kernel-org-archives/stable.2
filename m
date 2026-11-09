@@ -1,94 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.169
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794236237;
-	b=3Ai2XyHwHgbhRaLtRWHW1RQe00FiFOBliwDjbGDEDDX0EQJ+LMUVM/NRs3esXsZb0EjW
-	 P+pBuK223KD2YNDjBZw1tQ2dMGuyeoLK9B/WnP/mFsVPq43ZDG/KPS2RooTRNPU/WkfHt
-	 U09CSbadPxmmc7T9cskfwTZNFBEPhYTlgv4okmAF3Q2b0xCbPT5Mel3DQt/TNZs2VJfbE
-	 Ivo0M6wcGjo8yyz1Z1alpPzi3JF8+QU3f+FUceWOvDKyOQbKmj24C7V70Wj98okHS162u
-	 Div73uM6dKj35kXNa3NyWEDkDhIkcVuo9TVRjA7U1FKolSk426HJfdTU1GeVMxKA9ew==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794236237;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Sender:From:To:Cc:In-Reply-To:References:Subject:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=WnGcSIDD8xsihnvux7kQF612pALMJnteuiV/uKYZ0Nc=;
-	b=bSY12dnIIskPN4giT80Eb5uBe6ilpRBGysRstB76ehnlczQFGb6aP8qOazPGr9tAg+le
-	 LK83HU8gCFXUhUL0WEx5MiDwFCTKlXgi9C9NiFbxmIQlrVdFoFo6CYpVKQLwqosYVOI5n
-	 PbEHGaSX6/I3SxQheBRQyn0bcFT0mYmVodUeX9Cc2VCExtA3tE8JOnwdCcO/zGlyM6h28
-	 yi4VwHjSrLMBYODUOCDXNxGD6mFYKy77yj7MSwZMUt/rZQBSuV6/t5lW7BI6xr5KYByAz
-	 SmDQQRzrhcWjOD+iOqYrrUJL5/ildYB9MKKRM/SiqExHAb96bymqRXF3w6xM/J9QXng==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sgWDoxDB;
-	arc=none smtp.remote-ip=209.85.128.169
-Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com [209.85.128.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.189.136
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794236260;
+	b=cAETi+kwPxSTYAY/wEepg8Do0ZW2MzjwVnqGvGLlxnOmLVhY2xv4VPN1cF9h/dVeD2rr
+	 N0pbxewB/nSK22fYx+gP5lWNfsgLw+m4YXFh7qHTKg2wokVXD3lkBUAZQpvV321q0nwmN
+	 Vh0P2aWLUeVAHCBkbKdM7Bd/y1Dzd9Ptmk1DqoX5CMG4hJkzFRH4cuaTi/3ZsF3MyvixY
+	 6UxCBM6QITjQWMGjhGGSZXydZaQ+fUZFQQlI87p/wZG2FDYzzxzHSJocAB8LPI7LHvKEv
+	 YDn/uQRrYKX2IeQakdIBK91UZ6TsNBqmM0IVAO8NAUYnSXpuULVg8J6G0/PDqjyzlQA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794236260;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=OyyFReT5N8UocIVCCCGsAeyZZyWd4EPzbzk5M2E6UGI=;
+	b=Pl1RYAgmxBMnG6gbTcELtpLuiWHEAgaeDwjBZbylSj9uFTb52cxKcL0EKEVBHFAmKQ3L
+	 5gzc0K99glPYRzYhAMnza3hdmZN3rRWtcGD/s87ypsFtPnb0uffgLGcGAkmpE8eorCJEJ
+	 S63lKnFvthovMFlU5BYQ3bBJi/mQRjueuLaRSGctBCfcX6ngPNiWRMORO53YfFHabGN22
+	 4URcWgsVwNKlGOKqD7iAyDIr1ffTX9kBkIg7A2t947DsJRqcE1NHITw/d2357hJeIr1y1
+	 kbMVQBFxvRaeEGbgGoJFZ6EJevHnRhP4BQ/Po9mwM20yx+5p39FqLgmJCQ1ybJzAUNw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=efficios.com;
+	spf=pass smtp.mailfrom=efficios.com;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b=QgjOiPTE;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.189.136
+Received: from YT3PR01CU008.outbound.protection.outlook.com (mail-canadacentralazon11020136.outbound.protection.outlook.com [52.101.189.136])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92A11606A322
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 14:57:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92A11606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5489D606A31C;
+	Mon,  9 Nov 2026 14:57:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5489D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sgWDoxDB
-Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-8b354d27917so7043087b3.0
-        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 06:57:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794236235; x=1794841035; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:references:in-reply-to:cc:to:from:sender:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=WnGcSIDD8xsihnvux7kQF612pALMJnteuiV/uKYZ0Nc=;
-        b=sgWDoxDB9GBkZ5cRKpqIm9Car53R0jvltFnT3c93vi7tnQMMfsvSx8ddfcb2gmfwe9
-         gK8kJUSV5QcvTGlLUq/i8fzhND/XKrxbI/VWOXEl6YPFn4HCEre2ftX4gwtD4ww5EoVZ
-         JMqXr0sWdOG7hUu+1z3yq9fUMO9Bf1qQlCz2xDvnRFwIJu1UhPhSufztgH/UfDDfZqNk
-         rlpLPs330hEvuM55M0W6DNIl7xL60CJEpcn3PfuOpTQn+tkDnUJcCMaJw/CHlERZiLd3
-         ZVMnSQEqed7CVjyJwY6g6N7Fc7Yu/l6seM2eY+mqzEERpH9BvhxQ6Ud85AVLQGZ/uK96
-         CZ2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794236235; x=1794841035;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:references:in-reply-to:cc:to:from:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WnGcSIDD8xsihnvux7kQF612pALMJnteuiV/uKYZ0Nc=;
-        b=ts88o4E71eDIMcNXUumIUa6HTm2dOC578n8KkZ6giSVRXJaEPdHIQMP2qrXNzQlh82
-         cFS2zp8HJ2wEBQ9/2UXBjFbx2HBVOwEh9Kbh7/qvNoagi/VCck23LsusBBkEkujVzO5W
-         /sVgJbDh2C0bi4dpWGxMk/dFI8e2do9p7oyn+zhpaKV6coXx3nCd+R0HNp6hUJ/V8hW7
-         Dcx1jk9f9mj9WZ0ZusXPv3raXKSWTmCqKYiF2tqbtGGEgTW5huTF6S9JXBbifZf9EuWi
-         zBjsR4pnkocZEf2YGhAiZBhZ2M5pt1L+QDg20/Sjj7xA1vDr4gEuzeD0/D0l4a5jLkOg
-         n99w==
-X-Forwarded-Encrypted: i=1; AL+hErH+HwZY7qgssK9gdLyeqwJdJyUjIytmzQB3p5+cefk24YbxpezLZTEJ0DlG1iXmzpMwIekUKlE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Z2oY+tQpgRQZm4Hh0OC/JbunSSObkfEyt8rEwNUxbE82lL6gJ
-	webGhvgZzp3DIGSZ3T8Z/+Sju9gd+Uyczd6MbEz6A0zz2ErovEj8OI2G
-X-Gm-Gg: AYBFou0GQNmerKPUTrk6VAOIspG8DUVKd1psEoFFJLWnYOMe+X2Ab9Vm/peGjSLiiV/
-	ZChjP8Wk9VlMN6RQmL1o50J9W6ls07Bw7IV4sLn6ehcOmlovXS90zHTQwvuEFbyD+5gANQbM7zq
-	0cgsuF4ZSkW04xjQK7Whx3UlPb5vI4Q04GqaotB3969ccdnbVIGAr0YuZ0GywJF6tEoF8iMYadO
-	bnVGPVtlB0+icpRlwQlDbg8Q5bNq8lHHqsw7qZjDyUvdtHmBp3x+JfMcqHW3ssJzNNIQCQGJG/c
-	1UY3SAdx9jYZWKMroYqgw5/BvRAxA5pi0h5NZeVBs55Ts5oh1fdLb1kBqmQ9SswdFUd1B1zCqiO
-	44rpF/0w+p53q4G1dz1DQt/2dUpvLXafXHvck9q8KJJwIL0ik//ZU21JPpnBqwq/vxpbnhBAt+R
-	WVmMGw7Pb5HxPmpvnwY2DGEWSub/TacsiTF9rkLhK+O9NM9FawJvztLu6hAIjshWJ2Y3ckNkak1
-	TuIwbfljRWym0Kk1inRoAaQ/O/0oR9EV7muMSdE/4609C2SOgCglXiwHMNtm096UpSxyZamstCu
-	qno51pHovmMEqL59hRSEOMuCKeXm5LRN0ALJGdAvcFiy/puYdFIUELeSQrA04h7H61CPH4Afmg=
-	=
-X-Received: by 2002:a05:690c:399:b0:8b3:90db:a7d3 with SMTP id 00721157ae682-8b390dbcf9emr105627b3.40.1794236235307;
-        Mon, 09 Nov 2026 06:57:15 -0800 (PST)
-Received: from nb-x1-03 ([181.120.144.175])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b36bbe8ce7sm37040637b3.25.2026.11.09.06.57.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 06:57:14 -0800 (PST)
-Sender: Ciro Iriarte <ciro.iriarte@gmail.com>
-From: Ciro Iriarte <ciro.iriarte+software@gmail.com>
-To: "Martin K. Petersen" <mkp@kernel.org>
-Cc: target-devel@vger.kernel.org, linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <591ac67a-fa1e-4395-9573-2d9405cfe0b6@gmail.com>
-References: <591ac67a-fa1e-4395-9573-2d9405cfe0b6@gmail.com>
-Subject: [PATCH v2] scsi: target: compare all six ISID bytes when identifying a nexus
-Date: Mon, 09 Nov 2026 11:31:01 -0300
-Message-ID: <8b1ac7d9-b0e4-42ac-b8a2-c4c70cccdddc@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b=QgjOiPTE
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VWkokMvSetqMd3IY52Z8ClYvIOcxVhUJDAptvizwMR0T5iBEjibA2DDSz0W81pI8XQtaK3P9ZKMhmqJTeBXgPwhPM0wuxyTpsJF+PtfJhcB8NVuMqtTCLapBYJAztc/cdqIzCEZ2tyxNhWMskGLNt0sc2Ad0I8g5wy+cvbWePzsrXSiz7GuLq7d196oR4vABAGBsfbd6Oz9jYi6d7Tb5KHOKrIUMMNilLTl0YslEdyL3FYp3Y63tLMgSk8O4S5OsTcAFFD5aaDekkGrkdTPyVEnEzLoCRaRMiW+f2N9Jp+SvLKgXh3gtx24zpcc+KI4Sd3snA22sOEfvUk1LdagAjA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OyyFReT5N8UocIVCCCGsAeyZZyWd4EPzbzk5M2E6UGI=;
+ b=ReUfVo9uqBfP/eT+YzeGMsYEP0P/9ZpTT/1MR7MITacqfQHl74wgyDTucSn9MwnD1eBKVUrOPfrWstIteWKNx95AdEyzfK8D6gC0Jp/y8xcOU/R5yDXPWmXvdwkA9pL69fz2yNkwEyooKLTu2vq12T7rzXkozPeuXkmdYTnQMPo3NKnqwa2rHmVFje2Ni+KST4LtYOUSqfro9irU/OFVpEglNtmLoB8tPI7g5+Cu2IboN8BFWmJzcVgL9s/aUabmOAWjP7TFEQIWTZDoeJ7YNicWHpEGXk8B5chcPFzuCluzwLVohys+RDfPxMbSzmsfTJpuYGV5eevBDhC24jSokw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=efficios.com; dmarc=pass action=none header.from=efficios.com;
+ dkim=pass header.d=efficios.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OyyFReT5N8UocIVCCCGsAeyZZyWd4EPzbzk5M2E6UGI=;
+ b=QgjOiPTE4J3JM/CJo7IipdRR4H7+paxdiabI3RAUtJuAYiY5ITixdHcAXACThWOt0m+q6CuKT+BloCtI9QugE89/AuNkoRz7Y5vHqp2pleaLyijkPUSaZxjSXn7MJDF2Nz146fQwGIM9R6CDHTXOCPinnvjBubSTNlQs9j3t15GUbzPPIADMhcAeckoaS+UN2sTTydcfukIKSVUmWZNSTzwlFUNk/JBj9dCNsHK/h9L3vLoCPMDzM4mhj18WAHT16gzVhDpXIpXj65NwjvDicVsESF+LyVnmi+gZoNIpl+kkVmmVl8UWASMTMXwW+93Hhpmk4UBCLZhEZO+qGTegXw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=efficios.com;
+Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1d0::10) by YT6PR01MB134462.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1c3::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Mon, 9 Nov
+ 2026 14:57:35 +0000
+Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::6b9e:a901:67c5:7ddc]) by YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::6b9e:a901:67c5:7ddc%6]) with mapi id 15.21.0592.012; Mon, 9 Nov 2026
+ 14:57:35 +0000
+Message-ID: <3e6677a8-b972-4081-a080-e925fe1df3b0@efficios.com>
+Date: Mon, 9 Nov 2026 09:57:33 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 05/29] sched/deadline: Do not divide by zero active
+ CPUs of a root domain
+To: Juri Lelli <juri.lelli@redhat.com>
+Cc: peterz@infradead.org, mingo@redhat.com, vincent.guittot@linaro.org,
+ linux-kernel@vger.kernel.org, tglx@kernel.org, will@kernel.org,
+ boqun@kernel.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
+ bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
+ kprateek.nayak@amd.com, luca.abeni@santannapisa.it,
+ mathieu.poirier@linaro.org, longman@redhat.com, ridong.chen@linux.dev,
+ tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, shuah@kernel.org,
+ bigeasy@linutronix.de, clrkwllms@kernel.org, parri.andrea@gmail.com,
+ m.szyprowski@samsung.com, kayracizmeci@gmail.com, weihengqiuu@gmail.com,
+ cgroups@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-rt-devel@lists.linux.dev, stable@vger.kernel.org
+References: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
+ <20261108185406.1549770-6-mathieu.desnoyers@efficios.com>
+ <avHY7oNeuvjsLT4I@jlelli-thinkpadt14gen4.remote.csb>
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Content-Language: en-US
+In-Reply-To: <avHY7oNeuvjsLT4I@jlelli-thinkpadt14gen4.remote.csb>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQBPR0101CA0117.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:5::20) To YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1d0::10)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -98,226 +109,93 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: YT6PR01MB491026:EE_|YT6PR01MB134462:EE_
+X-MS-Office365-Filtering-Correlation-Id: 002df278-64c0-42e7-09ba-08df3e71ca41
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|7416014|18002099003|22082099003|10067099003|4143699003|261028144727099003|261022105027099003|56012099006|261026121527099003|261026140227099003;
+X-Microsoft-Antispam-Message-Info:
+	g7/aO+9CGi609Hjb6ITcZqCF9rSXAbNwx5bXd21ihSDNuTtvaMcDe4ReyN2FFhGgncN8zQmqcE9Drymm99sgvGa8HL1D7+Bded4pGJxsu3N0NjzeURS62IUoMJoEw+mEW246vURXh+YZJS9zLOde40RNjJS6Tw0R0hGdhR9FaZ+jTWYyUAwnH2YCD6gS9mHghzGaFnmLTdDG6RAATcz0czpdqEZtfVwCxuARvSyjvqu5w5zeg8LcjgZPGcr3gm7Z62EMZOjBIpeDztjCtVmHp550BO9Lci6TPjkizeikNa6KDZiJzY22gH+lJgn4WH5mBO9qOX1KNLmrpqRsBDJkuqfRxRhpZWT3P/zyioYq/D/s9iTncczDKOLZEbM0yaR0imfIvmutjGhCBW8xgqBZVu2Aq/CNok/6H0fOXoWv1xp0kzDqGvXbNJcI31Rd/e/zIunue/g9ibQkJnymEy7MSfHD7Vbc4m4GEWzUo0inNEzegiRFVorOJu2ttSaHxVQxxI0/tae4DFgn+dG0nFAGlsn5FXobs9UXGTTsisxZZIJAofB5+m7LaadqnITuP52c6kF+6eCGBDrV1cM7sInIKpCjlDEQXIMSGObFbViGt7k=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(7416014)(18002099003)(22082099003)(10067099003)(4143699003)(261028144727099003)(261022105027099003)(56012099006)(261026121527099003)(261026140227099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SEVibHdLakFGazN0NmYzSHBJMDAzeENNMTNGbnNwcm1nOGg1TU5LeVJNcUdM?=
+ =?utf-8?B?UFVVcXFFQW1lZmdtUDVRTmJMSE92bzd5RHE2TmRoVFNMY2xyYkVGRmkvUXZt?=
+ =?utf-8?B?VEZESkF4T25qZnhhZFp3c3RrUEVvemlWNElCUnhoZWJsYW9sN0VvdEVIbFcv?=
+ =?utf-8?B?T3cvUTJFb3p6TzlxTG9RYysyV1VVM2NvQ01XQWw4WWdtcHUxWWtac0FqZW85?=
+ =?utf-8?B?MUFjSGx5Rk5jKzcvV3Y4TFFaOVgrVEtEMlJ6a2FyaC9OQ2Exa1hWaCtEa3Jq?=
+ =?utf-8?B?R2VSL2FuT2FrS1RhS3BIUEVwZTM1bjQ4N0c5R3VBRFBCVlJQUEdlb2RqdU40?=
+ =?utf-8?B?aEdaNVUxQmV5MW8wZVJaOTFxNUZCeXJvckFzdE1DZVdOWGI0ckx2dnVkdmI5?=
+ =?utf-8?B?Ui9qSXdGc0JWeW5VWCtvK2lYUDA0ODJuSE92aDMzTGY0Uk96ZkVYL0ZmRnF1?=
+ =?utf-8?B?Mmc5MmpoeGdFTnhSdFBmcWpqTEZCaEV4UDZ0VlV1cXRLbVIrZjJsdVZJSWpY?=
+ =?utf-8?B?aG1mTWJ4dk1ieHNTaHF1TUdKdkdYS1NvcVlWSlBHSnpxdnd2cEp5aGZJTmtr?=
+ =?utf-8?B?Z0wvTTRLVkhXY2x5Q3RQRWRMc0tnT3VXVzY2TC83OGk0T0x0d1VUb2RVNjVU?=
+ =?utf-8?B?L0xTeW01MGRsV1ZpcCtXNTdoc0RIUExNRUMrdTZtRnNpZDFXcXg2RDZUM2dH?=
+ =?utf-8?B?dVFMYVhDMEhGSDVsakNkVzVBa09TY0p6YUp5NWlUa2ZsdXJSVE1xMnZEd0pT?=
+ =?utf-8?B?ZytjQUJmRVVCWDVsTE0ySTBHVFBFUytobVU0cU81a1JSMTV6WFNtOHNnU2pH?=
+ =?utf-8?B?Z2s5VnVqRU5lRXpkK0Vuemh1RG1vWERuTlF4eUFJa3paRm5kT0Y1ZDdlbmN0?=
+ =?utf-8?B?Um9udW9JQUp0UFpIbDkxUk1MYS81Q09iSG9kakNyOVVYUnZwaG5LZnpGNUVM?=
+ =?utf-8?B?eis5UU9raWpCS09LWFpNeHZGL09QeGprTDY3L2hrNzltQk1scUVHcjNQa0Qr?=
+ =?utf-8?B?c1N3bjFSNDk0eC9sOExkeWVxQlBHbXpsUkVnaVFITDcwMUdoWlJkNytJN1NZ?=
+ =?utf-8?B?MHpSVkgwU1pjUVBMNmtTa3VJZ093OTRHSnpscXlUaUhIbjNkb3RLalNNU2FN?=
+ =?utf-8?B?RnJ5NFB2c1JMSmZhUVRxaE1Bb1lYMUU4MENzNlp0ak1FK1RvUXV2TitHTGFJ?=
+ =?utf-8?B?aHZlRVBzMzZOckd3bGdoRDNTWmQ5aEdQVk14VkxqYldERngrNTBnK1E4b0VE?=
+ =?utf-8?B?bkM0dGRHNkhRL2tnQXRzcTVYRGJPYWEyNitzZmFCbWovSWV1cjlidmtkb0hU?=
+ =?utf-8?B?VDdYTGp5bFpRZnd1Mnhwc0Y0K1JGdWZielQ5T1BuZitvQTVxY2JIMU41eHdv?=
+ =?utf-8?B?NzVSZjN2clhqQU9GMU90ZGVpZE85Z3U5SkNoUHgvRVpRMGFpaklkUHIxaWM0?=
+ =?utf-8?B?NGF5OWF3ZUhWWGp1UnF4ZnJKQXdVa2NsZzlKbGsxTVUwb2V2bGFZSUpmT1Ez?=
+ =?utf-8?B?RUwydnJab2VzcGVycWM0bHpySnNGUzNKRXdxdUdSUmdoOG1veGQ4SGg1OWRx?=
+ =?utf-8?B?aHN1bEx0cmFTRVl2ZUVYUStHTFR4NDhyVVRaWi8xUHdrUy91dEFLRVI1N2tB?=
+ =?utf-8?B?VlVZeXFOcFZvNmJVWHY5dU15bmsyZ3RTbVBxRFhJNGpmeDRCcjJxbnRrTE4x?=
+ =?utf-8?B?emM5WWtZZG5WbXNLOVlMcG9hTjNKa0hGVlJwTkxzT3FadVlLTDI4dlRqSDAr?=
+ =?utf-8?B?Si9OZ2NZaGJkMXZNL3hIV05pRVB1cVp1Z2JVQmw0ZGJTRjcyK05TWTRMZGVL?=
+ =?utf-8?B?ZE1XYWFrV1FCYmNEeGdjVm5EUlhHVkhYRzdsakxqQkw2TUpVaE5aME5md2pL?=
+ =?utf-8?B?ekNNWlhPbGNxL0c2UWF5a0lPRUg3c3BUUHl6VjBtL09BaGMvMmxxdGpWTVdM?=
+ =?utf-8?B?OFYwZXcwTnRWTkkxeXJqTjZuelZwWmxYOTZMcnRrUS9HSEtzT1ZjcWo3aWt2?=
+ =?utf-8?B?ZDFNdVlJSDY3ZDVDK3E2ZkNwOUpVSEdhMWVnOFBleHdIVnUxSnNlZGE0NEM0?=
+ =?utf-8?B?c2tYQjZkVUhURTRUaFg2aTVOMllObmROZHFMaVQ2VkgyZ0VuYnQyakVkY1FD?=
+ =?utf-8?B?bUgxZ1RabFhFRDVyajNheFVXRkFHNHhOS3k0dE5XTlppa0tFZVpUY0h0ektH?=
+ =?utf-8?B?TUFBZkRPNE1DOE9SNXdwSkJISmlwdVdrYlJ4K1NNSUpBQmhiZ2FwUFpNTHg0?=
+ =?utf-8?B?QWdtZlhtam95aHY2Ti8rcXp3KzcrLzJ0aDAzalRZYjJzUGt1MnIveFE4YTlx?=
+ =?utf-8?B?bkhsSFByMHNlMGV2cHpGenVLemVrWll4eVNFcDd3U3ZsK0xzMXJDV2Z5Nlp0?=
+ =?utf-8?Q?j3E47ERA88i+l2MB+q3hVMsk2Ef8HaHm2tSJX?=
+X-OriginatorOrg: efficios.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 002df278-64c0-42e7-09ba-08df3e71ca41
+X-MS-Exchange-CrossTenant-AuthSource: YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 14:57:35.6286
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4f278736-4ab6-415c-957e-1f55336bd31e
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: wzEQmhutz7VXHu+vdKS3oBGyozPzVIZ6I9bMMN7b7MZKBStkpUvWZEe7mcqdUdSrIFtAFZloswwtKnBafWlNW5nW6tr1uhU9u1R9XQWEXF4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: YT6PR01MB134462
 
-lio_sess_get_initiator_sid() reports the ISID as twelve hex digits, and
-iSCSI TransportIDs carry the same digits. __transport_register_session(),
-__core_scsi3_do_alloc_registration() and
-core_scsi3_alloc_aptpl_registration() turn that text into
-sess_bin_isid and pr_reg_bin_isid with get_unaligned_be64(), which takes
-the first eight characters, i.e. the first four ISID bytes.
+On 2026-11-09 09:30, Juri Lelli wrote:
+[...]
+> This 2nd hunk complements and tightens 4043f54984161 ("sched/deadline:
+> Reject debugfs dl_server writes for offline CPUs") which has Fixes:
+> d741f297bcea ("sched/fair: Fair server interface"). Do we need both
+> fixes (if that is allowed) or maybe we need to split this change in two
+> (as this second part won't apply to old kernels w/o dl-servers)?
 
-open-iscsi ISIDs start with 00023d00 and differ only in the qualifier in
-the last two bytes, so every session of one initiator gets the same
-binary ISID. target_scsi2_reservation_check() and
-target_scsi3_pr_reservation_check() then treat any session of the
-reservation holder's initiator as the holder:
+Good point. I will split it in two in the next version:
 
-- after RESERVE(6) on one session, another session of the same
-  initiator can still write;
-- with a Write Exclusive persistent reservation, another session that
-  is not registered, or registered but not the holder, can still write.
+- __dl_sub() and __dl_add() skip the division when the root domain has
+   no active CPU. Fixes: daec57983670. This alone removes the divide
+   error, on the debugfs path too.
+- The debugfs write is refused while the runqueue is offline. Fixes:
+   4043f5498416, which it completes for the hotplug windows. It only
+   applies where that commit is.
 
-Reproduced with two open-iscsi sessions (ifaces default and if2) to a
-ramdisk LUN: on v6.12.113 every TEST UNIT READY, READ(10) and WRITE(10)
-the test sent from the second session completed with GOOD, under
-RESERVE(6) and under each persistent reservation type, whether or not
-that session was registered.
+Thanks,
 
-Convert all six bytes. Text that is not exactly twelve hex digits keeps
-the old conversion of its first eight characters, now copied into a
-zeroed buffer so that a shorter string, such as an initiator_sid written
-to res_aptpl_metadata, is not read past its end.
+Mathieu
 
-An all-zero ISID now converts to 0, which
-target_scsi2_reservation_reserve() took to mean "no ISID". Set
-DRF_SPC2_RESERVATIONS_WITH_ISID when the fabric reports ISIDs instead.
-Also update the TransportID parser comment that referred to the
-get_unaligned_be64() read.
-
-With distinct ISIDs, target_scsi3_pr_reservation_check() now sets
-isid_mismatch for the holder initiator's other sessions, and
-core_scsi3_pr_seq_non_holder() treated every such session as
-unregistered: DEF_PR_REG_ACTIVE is kept per se_dev_entry, which all
-sessions of the initiator share, so it cannot tell them apart. A
-session that registered its own key would then get RESERVATION
-CONFLICT for writes under a Registrants Only or All Registrants
-reservation, and for PREEMPT, CLEAR and RELEASE. Look up that session's
-own registration with core_scsi3_locate_pr_reg() instead.
-
-With this patch, TEST UNIT READY and WRITE(10) from the second session
-under RESERVE(6) return RESERVATION CONFLICT. Under Write Exclusive,
-WRITE(10) from the second session conflicts whether or not it is
-registered, and READ(10) is allowed. Under the Registrants Only and All
-Registrants types, WRITE(10) from the second session conflicts until it
-registers, as does READ(10) under the Exclusive Access types; once
-registered it has access and can PREEMPT the holder.
-
-Initiators that relied on the old behaviour, reserving through one
-session and writing through another without registering it, will now
-see RESERVATION CONFLICT, as SPC requires.
-
-Fixes: c66ac9db8d4a ("[SCSI] target: Add LIO target core v4.0.0-rc6")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ciro Iriarte <ciro.iriarte+software@gmail.com>
----
-v2:
-- core_scsi3_pr_seq_non_holder(): on an ISID mismatch, look up the
-  session's own registration instead of treating it as unregistered.
-  v1 made that path reachable for the holder initiator's other sessions,
-  so a registered second session got RESERVATION CONFLICT under the
-  Registrants Only / All Registrants types and for PREEMPT, CLEAR and
-  RELEASE (Sashiko review). Re-tested on v6.12.113 with types 1, 5-8
-  and PREEMPT/RELEASE/CLEAR from the second session.
-- Fixes: now points at c66ac9db8d4a, which added the get_unaligned_be64()
-  conversion; e48354ce078c only made it reachable (Sashiko review).
-- Reworded the TransportID parser comment.
-
-v1: https://lore.kernel.org/r/591ac67a-fa1e-4395-9573-2d9405cfe0b6@gmail.com
- drivers/target/target_core_fabric_lib.c |  9 ++---
- drivers/target/target_core_pr.c         | 46 ++++++++++++++++++++++---
- drivers/target/target_core_pr.h         |  1 +
- drivers/target/target_core_transport.c  |  2 +-
- 4 files changed, 49 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/target/target_core_fabric_lib.c b/drivers/target/target_core_fabric_lib.c
-index ad024009d..ccfeba645 100644
---- a/drivers/target/target_core_fabric_lib.c
-+++ b/drivers/target/target_core_fabric_lib.c
-@@ -372,10 +372,11 @@ static bool iscsi_parse_pr_out_transport_id(
- 			return false;
- 		}
- 		/*
--		 * The registration code reads the ISID as a C string,
--		 * and its first 8 bytes with get_unaligned_be64(), so
--		 * require 8 bytes after the separator and a NUL inside
--		 * the rest of the descriptor.
-+		 * The registration code reads the ISID as a C string, so
-+		 * require a NUL inside the rest of the descriptor.  Keep the
-+		 * existing minimum of 8 bytes after the separator: a valid
-+		 * ISID is twelve hex digits, and target_isid_to_bin() falls
-+		 * back to the first eight characters of anything else.
- 		 */
- 		if (buf + tid_len - p < 8 || !memchr(p, '\0', buf + tid_len - p)) {
- 			pr_err("Incomplete or unterminated ISID in iSCSI Initiator port TransportID\n");
-diff --git a/drivers/target/target_core_pr.c b/drivers/target/target_core_pr.c
-index ca1a2802a..0f2ff9d42 100644
---- a/drivers/target/target_core_pr.c
-+++ b/drivers/target/target_core_pr.c
-@@ -19,6 +19,7 @@
- #include <linux/fcntl.h>
- #include <linux/fs.h>
- #include <linux/fs_struct.h>
-+#include <linux/hex.h>
- #include <scsi/scsi_proto.h>
- #include <linux/unaligned.h>
- 
-@@ -30,6 +31,28 @@
- #include "target_core_pr.h"
- #include "target_core_ua.h"
- 
-+/*
-+ * lio_sess_get_initiator_sid() prints the six ISID bytes as twelve hex
-+ * digits, and iSCSI TransportIDs carry the same digits.  Convert all six
-+ * bytes: reading the first eight digits as a big-endian u64 keeps only the
-+ * first four ISID bytes, so two sessions of one initiator that differ only
-+ * in the qualifier, the usual case, would compare equal.  Text in any other
-+ * format keeps the old conversion of its first eight characters, without
-+ * reading past the end of a shorter string.
-+ */
-+u64 target_isid_to_bin(const char *isid)
-+{
-+	u8 bin[6];
-+	char raw[8] = {};
-+
-+	if (strnlen(isid, 2 * sizeof(bin) + 1) == 2 * sizeof(bin) &&
-+	    !hex2bin(bin, isid, sizeof(bin)))
-+		return get_unaligned_be48(bin);
-+
-+	memcpy(raw, isid, strnlen(isid, sizeof(raw)));
-+	return get_unaligned_be64(raw);
-+}
-+
- /*
-  * Used for Specify Initiator Ports Capable Bit (SPEC_I_PT)
-  */
-@@ -285,7 +308,11 @@ target_scsi2_reservation_reserve(struct se_cmd *cmd)
- 
- 	dev->reservation_holder = sess;
- 	dev->dev_reservation_flags |= DRF_SPC2_RESERVATIONS;
--	if (sess->sess_bin_isid != 0) {
-+	/*
-+	 * An all-zero ISID converts to 0, so test whether the fabric has
-+	 * ISIDs rather than the value.
-+	 */
-+	if (tpg->se_tpg_tfo->sess_get_initiator_sid) {
- 		dev->dev_res_bin_isid = sess->sess_bin_isid;
- 		dev->dev_reservation_flags |= DRF_SPC2_RESERVATIONS_WITH_ISID;
- 	}
-@@ -323,7 +350,18 @@ static int core_scsi3_pr_seq_non_holder(struct se_cmd *cmd, u32 pr_reg_type,
- 			 * RESERVATION CONFLICT on some CDBs */
- 
- 	if (isid_mismatch) {
--		registered_nexus = 0;
-+		struct t10_pr_registration *pr_reg;
-+
-+		/*
-+		 * Another I_T nexus of the holder's initiator.  DEF_PR_REG_ACTIVE
-+		 * is shared by all of its sessions, so look for a registration
-+		 * made through this one.
-+		 */
-+		pr_reg = core_scsi3_locate_pr_reg(cmd->se_dev, nacl, se_sess);
-+		if (pr_reg) {
-+			registered_nexus = 1;
-+			core_scsi3_put_pr_reg(pr_reg);
-+		}
- 	} else {
- 		struct se_dev_entry *se_deve;
- 
-@@ -674,7 +712,7 @@ static struct t10_pr_registration *__core_scsi3_do_alloc_registration(
- 	 * save it to the registration now.
- 	 */
- 	if (isid != NULL) {
--		pr_reg->pr_reg_bin_isid = get_unaligned_be64(isid);
-+		pr_reg->pr_reg_bin_isid = target_isid_to_bin(isid);
- 		snprintf(pr_reg->pr_reg_isid, PR_REG_ISID_LEN, "%s", isid);
- 		pr_reg->isid_present_at_reg = 1;
- 	}
-@@ -866,7 +904,7 @@ int core_scsi3_alloc_aptpl_registration(
- 	 * SCSI Initiator Port, restore it now.
- 	 */
- 	if (isid != NULL) {
--		pr_reg->pr_reg_bin_isid = get_unaligned_be64(isid);
-+		pr_reg->pr_reg_bin_isid = target_isid_to_bin(isid);
- 		snprintf(pr_reg->pr_reg_isid, PR_REG_ISID_LEN, "%s", isid);
- 		pr_reg->isid_present_at_reg = 1;
- 	}
-diff --git a/drivers/target/target_core_pr.h b/drivers/target/target_core_pr.h
-index b793c9963..4debfe4be 100644
---- a/drivers/target/target_core_pr.h
-+++ b/drivers/target/target_core_pr.h
-@@ -72,6 +72,7 @@ extern void core_scsi3_free_pr_reg_from_nacl(struct se_device *,
- 					     struct se_node_acl *);
- extern void core_scsi3_free_all_registrations(struct se_device *);
- extern unsigned char *core_scsi3_pr_dump_type(int);
-+u64 target_isid_to_bin(const char *isid);
- 
- extern sense_reason_t target_scsi3_emulate_pr_in(struct se_cmd *);
- extern sense_reason_t target_scsi3_emulate_pr_out(struct se_cmd *);
-diff --git a/drivers/target/target_core_transport.c b/drivers/target/target_core_transport.c
-index 927861c30..4629c9343 100644
---- a/drivers/target/target_core_transport.c
-+++ b/drivers/target/target_core_transport.c
-@@ -419,7 +419,7 @@ void __transport_register_session(
- 			memset(&buf[0], 0, PR_REG_ISID_LEN);
- 			se_tpg->se_tpg_tfo->sess_get_initiator_sid(se_sess,
- 					&buf[0], PR_REG_ISID_LEN);
--			se_sess->sess_bin_isid = get_unaligned_be64(&buf[0]);
-+			se_sess->sess_bin_isid = target_isid_to_bin(buf);
- 		}
- 
- 		spin_lock_irqsave(&se_nacl->nacl_sess_lock, flags);
 -- 
-2.55.0
-
+Mathieu Desnoyers
+EfficiOS Inc.
+https://www.efficios.com
