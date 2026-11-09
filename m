@@ -1,67 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.243.244.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=14.137.139.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794215238;
-	b=jlUWtuGYrNLLU5dRHwd8l4QzcFTAr1FCvfH+TELV5r3ChW5MKvBUwx4nhxBoxtt5aF2u
-	 maqmUvr1DkxC5ocmLQGOKN91uJ1DcLtN+BO64qnIX/bzrD6pDHFazgXIUAcHAtLXIr0IK
-	 ZZrA001AjuCgm+I6bCqfYQs5plBWC79IKtM2zGcPPFOly7JdaFyAS3Pwx+hH+Ft360Zg8
-	 MwfRwsxCHU86/qxZJCE6UI8n8d/VGcF42ySIug28YAzzYg6DeR6gm/bhxnjptzrddGnAY
-	 aUAK6+Z4/r4CO9iYk5itZ+ftXQa2ZniRdiW/YVEb4p0n4oi0WgjZdRYmVb0dJVaJWyg==
+	t=1794215299;
+	b=JKVxaX5mXb7iWpEphqlN1oSdNh12f7RgPbFzgDogv8+AIUgvdYoUC7H2DnEHIRccjRft
+	 L+soDJr7TK5cqEIq91hHUmXrBlnAqciZOaya1QAIPuvvEj8Nal7D4dgF8ji6Iy/CJA7HR
+	 349pO4dckpqHslxKU5bZl9J4KJ3TUx1RQH83gjY8kVHivyLFqfs+3FYOZ2rPqUFg5KSSg
+	 +XLHTqcM/SOTJwlhN0siJSEzSCIgHJAJ1wPsyM9ktXCfXLcEGXEr4qlbMokusSJn40r/z
+	 ami8VJLNXnll/sv/fSJz6w8nTh18hoXrB2VC7SAQQ+k01xwVgOeLJ2gx5rY37sZgtmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794215238;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
-	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=whC+VMiXAPUTUgOglDxaMp+60RaaaVmq7RPmjGD/+W8=;
-	b=hMXaeDfqaYHqF9/bhmqiLrv8N2f9+CmwZNR2vIoj5TRmgEmlXDha4oEUFfUgwCKXCqdC
-	 h4aF3cD0t8hL1tQuipZL6fd9NHeyD2uskZr51u6wr/uj2q/l+X0bHhsOT7QIPXk1q/SvL
-	 pS1H2bjp5UZelRJtbBpxGLPsx+Un0JsoXltvCJaPiPuadX06ZI3jMqV38UlOgiFuRx69v
-	 IjZu+D5YGEhmNhgkXPJsGkP20t1IBulDg5xsNACfWL5az9izUp0Qp64uPkHPuBU7Fh24e
-	 j3z8XX7y8DFR+isOI9uhZhqOI/J9fiCQqFBYc7P9fl/qvh1WBEHt1CsMPWIz1WxtQww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794215299;
+	h=DMARC-Filter:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=WNYcEhnvU8wcHU8zemgPXvta2itTQnZpRv+qT216orI=;
+	b=Y3xTv58d0EL/88fJxAgb/g1b8FixWp/KUQ9iarB+1lHiUpATMHHZP6ztNrYka4AiGQn3
+	 QuFAhgD6XlMQWmw/pBvIIiGYEOYMTDsa6pT9RACu/MJkLRGtY1FqItGp8YUi4frjkkyQf
+	 OFEA8SnoE/OgxYjZVrwx+ypgoBAFXF0/kxDOoZNTlzI91FEdRGdzKs78q3COgEYfjGI1S
+	 6ImhvApYZiFfo4jyBiSnLqUZ+mySRcDL0waifTGpbrnECSGWrDlqEmjyKtCsoABWE3Lag
+	 z2ru2+WhzkMw9Qi365xAYuh39ys4ZYXGxF3Bl4YJEVINhvXzjre6zWQ5B92XpfzfA8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uniontech.com;
-	spf=pass smtp.mailfrom=uniontech.com;
-	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=XySRePvY;
-	arc=none smtp.remote-ip=54.243.244.52
-Received: from smtpbguseast3.qq.com (smtpbguseast3.qq.com [54.243.244.52])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=huaweicloud.com;
+	spf=pass smtp.mailfrom=huaweicloud.com;
+	arc=none smtp.remote-ip=14.137.139.46
+Received: from frasgout13.his.huawei.com (frasgout13.his.huawei.com [14.137.139.46])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90903606A323;
-	Mon,  9 Nov 2026 09:07:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90903606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=XySRePvY
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1794215213;
-	bh=whC+VMiXAPUTUgOglDxaMp+60RaaaVmq7RPmjGD/+W8=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=XySRePvY/WdXCsKXDE4GTwSgfLioSXbO6yedslgJuUQgEXHa/URvYh5d8cYuNGj95
-	 ASOIJ5IN3iZAps90sbELj2bk2Weu99K56Z+yIjEnlpfPnYTQKYWFn68vvXmjTzQhMU
-	 x5OExMIeeO5zSubILctVRpgmoPV9zxabSVeqM8Co=
-X-QQ-mid: zesmtpgz6t1794215197t346d00b5
-X-QQ-Originating-IP: WQqp4mf3MsnLgBQ3+XZfeZNdYNfI8ePL6pA5y8Z2lEY=
-Received: from PEN202512010004 ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 09 Nov 2026 17:06:35 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 2241864079019500270
-EX-QQ-RecipientCnt: 7
-From: raoxu <raoxu@uniontech.com>
-To: lgirdwood@gmail.com
-Cc: broonie@kernel.org,
-	robh@kernel.org,
-	mka@chromium.org,
-	linux-kernel@vger.kernel.org,
-	raoxu@uniontech.com,
-	stable@vger.kernel.org
-Subject: [PATCH] regulator: vctrl: Calculate OVP delay before updating selector
-Date: Mon,  9 Nov 2026 17:06:34 +0800
-Message-ID: <4B7D8523DA6FC75F+20261109090634.3762484-1-raoxu@uniontech.com>
-X-Mailer: git-send-email 2.50.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCE3B606A31C;
+	Mon,  9 Nov 2026 09:08:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BCE3B606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.18.224.235])
+	by frasgout13.his.huawei.com (SkyGuard) with ESMTPS id 4jNP7h5QBLzpV8h;
+	Mon,  9 Nov 2026 17:07:44 +0800 (CST)
+Received: from mail02.huawei.com (unknown [7.182.16.157])
+	by mail.maildlp.com (Postfix) with ESMTP id 7ECA14055C;
+	Mon,  9 Nov 2026 17:08:07 +0800 (CST)
+Received: from [10.221.98.11] (unknown [10.221.98.11])
+	by dep2_app1 (Coremail) with UTF8SMTPA id nRC2B0AmB11vjfFqZ2IPAA--.4181S2;
+	Mon, 09 Nov 2026 10:08:07 +0100 (CET)
+Message-ID: <98d6c26c-3dc4-4659-8284-a7ab0629bb40@huaweicloud.com>
+Date: Mon, 9 Nov 2026 10:07:48 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -71,73 +51,124 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] evm: fix TOCTOU heap OOB in protected xattr reads
+To: =?UTF-8?B?SsOpcsOpbXkgSmVhbg==?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+ Mimi Zohar <zohar@linux.ibm.com>, Roberto Sassu <roberto.sassu@huawei.com>,
+ Dmitry Kasatkin <dmitry.kasatkin@gmail.com>
+Cc: Eric Snowberg <eric.snowberg@oracle.com>,
+ linux-integrity@vger.kernel.org, linux-security-module@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261107230514.1108379-2-Jeremy.Jean@oss.cyber.gouv.fr>
+Content-Language: en-US
+From: Roberto Sassu <roberto.sassu@huaweicloud.com>
+In-Reply-To: <20261107230514.1108379-2-Jeremy.Jean@oss.cyber.gouv.fr>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: MTGYztYhR5ETyfZumcjdLN4B0Gr1nGsZ158O6UAHnTEKwg1ZOp3occ02
-	4LKD6aO1ERSsNwXO18OeYozD6gFob5QsAiSujnXMIYSAUP1DDpR/qFwoPtZrJkey9TMba+w
-	gAnr05GW+dGp+ycMhmCCIEkCQxO3xeyqdZeq34vF94XB7Q/czl5psCOjlWdbsfrrL1qytGW
-	kcCT/YDnrXILnsnTrvc+JvVY6TLKVfYzdkAB0g1FNKcQ2CHmg8RQOCXGaPl7Oa1YH4S/cCA
-	/dPcY8knq9WI9yqAu+rSQch+WMAUBgVqgklGMIy5FEDlKBBFyXGlYwhpWuMSqQTTOa0aCp7
-	MS7ikw7gll+MpZzK1myT72cVkaJMUlh3djZsQXD0h9S0Js56HVd8/ciZVEJKeoFeizCXEZe
-	hnImSk9stoRxmvdUN5A1giBdLaDVxH2xB2IgzBo6r5x/M3gLqVzPZmkohQjVkglYwiZOCcY
-	BbhJKC42KwEQAqwAMu/2pjcevAutz0dKPhiNMoYLXdtZdd/WvC9t0W0r5rTHfww/XjZY0Bo
-	NZbYo4wrLKqi8MHbmh/9T7p5PQCep2x2nXG2Umvh5V4bSGjF/WWAPrF2LvgWFfeLauMcWB2
-	MDwmahH7NBprAl1ts6JuXDb3GAvY4YH5+AyNquZgBxoROyYpFtuD+Zl/f7dMLmjoarV9f9F
-	6Cuk49Z8nys1qAO+nOIB8DaSsdulidlb2xGCW4JpY5lk1aNHFYwOSlpKiBntX6mCca8Ln2S
-	eLeTTUzt6Bv5Kf/T2RRB7PCvv2FjEH1SQyWLPMxVOJMSzLnh9aBZ+81IvAg/E0oFubXrICA
-	eLfrvjl5adQi2rEUTNxmuWQUx7X8kpeFKVXaXjPRetQIbyprdANfXnYC901TBrHv1TpAUh6
-	RAXAUPMOsSIkE3tgqzBbBwumXF5RSML3IFVgqWnvoys/+EHNjfDJrvBKu7JwlqSiHU8XLFg
-	l++EPmltxlDoA3XsxYuXDbulttN6c1n2Hq/0Q11zlNFvAXoCeJM5TbQRqnzqyFQLAB3ZZAL
-	4LCsHb0nJSJdPmGlyw9fdbGeVHZSNeUNrcNcpV9zg9K60Jj0nDQJVGyuvRxfQ=
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
-X-QQ-RECHKSPAM: 0
+X-CM-TRANSID:nRC2B0AmB11vjfFqZ2IPAA--.4181S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxCFy7ZryDZr45KFW7trW5ZFb_yoW5Cr45pF
+	90kFW3tr45t34Ikr9rtF13Aa4Fk34DXw1Uu3yxG3W2yan09rs5ZrySgrWjgryxCrnrXwn7
+	Aa90qFnYkw1qvaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUyvb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k2
+	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
+	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7Cj
+	xVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVWUJVW8JwA2z4x0Y4vEx4A2jsIEc7CjxV
+	AFwI0_Jr0_Gr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2
+	j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7x
+	kEbVWUJVW8JwACjcxG0xvEwIxGrwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxG
+	rwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4
+	vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IY
+	x2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26c
+	xKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAF
+	wI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU17KsUUUUUU==
+X-CM-SenderInfo: purev21wro2thvvxqx5xdzvxpfor3voofrz/1tbiAgASDWrxOrk8KAACsT
 
-From: Xu Rao <raoxu@uniontech.com>
+On 11/8/2026 12:05 AM, Jérémy Jean wrote:
+> ima_eventinodexattrs_init_common() queries the total size of protected
+> xattrs, allocates that amount, and calls evm_read_protected_xattrs()
+> again to fill the buffer. This creates a TOCTOU window: if the
+> protected xattr changes between the two calls to
+> evm_read_protected_xattrs(), names and lengths are written without
+> checking whether the data still fits in the target buffer. This can
+> yield an OOB heap write that KASAN reports as:
+> 
+>    BUG: KASAN: slab-out-of-bounds in evm_read_protected_xattrs+0x15e/0x280
+>    Write of size 20 at addr ffff888002c59bcd by task init/62
+> 
+> Reject fields that no longer fit in the target buffer. For xattr
+> values, also check the length returned by the copy before accounting it.
+> This also handles the case where a size of 0 is treated as a length
+> query.
+> 
+> Fixes: 8314b6732ae4e ("ima: Define new template fields xattrnames, xattrlengths and xattrvalues")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+> ---
+> Changes since v1 (after review from Sashiko):
+> - Handle the 0 case.
 
-When lowering the voltage with OVP enabled and a discrete control
-regulator, vctrl_set_voltage_sel() splits the transition into steps
-and waits for the output voltage to settle after each step.
+Hi Jeremy
 
-However, it assigns next_sel to vctrl->sel before calculating the
-voltage drop. Both voltage table lookups then refer to the same entry,
-so the calculated delay is always zero. Consecutive downward steps
-can therefore outpace the output voltage decay and trigger an unwanted
-OVP shutdown.
+I already sent a patch to the mailing list to fix the same problem (it 
+is similar to yours):
 
-Calculate the delay before updating vctrl->sel. The voltage difference
-in microvolts divided by min-slew-down-rate in microvolts per microsecond
-gives the settling time, as documented in the vctrl regulator binding.
-This matches the continuous-voltage path and preserves selector tracking
-for subsequent steps and error recovery.
+https://lore.kernel.org/linux-integrity/20261029142707.2602008-1-roberto.sassu@huaweicloud.com/
 
-The supplied fix was reviewed and this commit message prepared with
-OpenCode AI assistance.
+Thanks
 
-Fixes: 9dee7a72d0c7 ("regulator: Add driver for voltage controlled regulators")
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
-Cc: stable@vger.kernel.org
----
- drivers/regulator/vctrl-regulator.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Roberto
 
-diff --git a/drivers/regulator/vctrl-regulator.c b/drivers/regulator/vctrl-regulator.c
-index 2796580a3a3c..d585eaae0433 100644
---- a/drivers/regulator/vctrl-regulator.c
-+++ b/drivers/regulator/vctrl-regulator.c
-@@ -197,11 +197,11 @@ static int vctrl_set_voltage_sel(struct regulator_dev *rdev,
- 				vctrl->vtable[next_sel].ctrl);
- 			goto err;
- 		}
--		vctrl->sel = next_sel;
-
- 		delay = DIV_ROUND_UP(vctrl->vtable[vctrl->sel].out -
- 				     vctrl->vtable[next_sel].out,
- 				     vctrl->min_slew_down_rate);
-+		vctrl->sel = next_sel;
- 		usleep_range(delay, delay + DIV_ROUND_UP(delay, 10));
- 	}
-
---
-2.50.1
+> v1: https://lore.kernel.org/all/20261107194909.1061154-2-Jeremy.Jean@oss.cyber.gouv.fr/
+> Sashiko: https://sashiko.dev/#/message/20261107194909.1061154-2-Jeremy.Jean%40oss.cyber.gouv.fr
+> 
+>   security/integrity/evm/evm_main.c | 16 ++++++++++++++++
+>   1 file changed, 16 insertions(+)
+> 
+> diff --git a/security/integrity/evm/evm_main.c b/security/integrity/evm/evm_main.c
+> index ac8328812e6ef..2ed0b67b9109b 100644
+> --- a/security/integrity/evm/evm_main.c
+> +++ b/security/integrity/evm/evm_main.c
+> @@ -389,6 +389,10 @@ int evm_read_protected_xattrs(struct dentry *dentry, u8 *buffer,
+>   		case 'n':
+>   			size = strlen(xattr->name) + 1;
+>   			if (buffer) {
+> +				if (total_size > buffer_size ||
+> +				    size > buffer_size - total_size)
+> +					return -ERANGE;
+> +
+>   				if (total_size)
+>   					*(buffer + total_size - 1) = '|';
+>   
+> @@ -398,6 +402,10 @@ int evm_read_protected_xattrs(struct dentry *dentry, u8 *buffer,
+>   		case 'l':
+>   			size = sizeof(u32);
+>   			if (buffer) {
+> +				if (total_size > buffer_size ||
+> +				    size > buffer_size - total_size)
+> +					return -ERANGE;
+> +
+>   				if (canonical_fmt)
+>   					rc = (__force int)cpu_to_le32(rc);
+>   
+> @@ -407,12 +415,20 @@ int evm_read_protected_xattrs(struct dentry *dentry, u8 *buffer,
+>   		case 'v':
+>   			size = rc;
+>   			if (buffer) {
+> +				if (total_size > buffer_size ||
+> +				    size > buffer_size - total_size)
+> +					return -ERANGE;
+> +
+>   				rc = __vfs_getxattr(dentry,
+>   					d_backing_inode(dentry), xattr->name,
+>   					buffer + total_size,
+>   					buffer_size - total_size);
+>   				if (rc < 0)
+>   					return rc;
+> +				/* A size of 0 may be treated as a query. */
+> +				if (rc > buffer_size - total_size)
+> +					return -ERANGE;
+> +				size = rc;
+>   			}
+>   			break;
+>   		default:
 
