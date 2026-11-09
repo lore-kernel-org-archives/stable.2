@@ -1,93 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794217385;
-	b=X4Twxp3p6W3mJihTGJW6h4QqiVKZYhAXi9fw+9hjwbMgPoU5uoQKJQ3qIprMx0cs4/DE
-	 fH6NIJLjsux35vs9AqPesYNbVdovVpOzNS0LCr9P0pdny+1Rf7cWzEhfXM82pUjw74MBt
-	 uOj56LAvlkUhzF64LAM2kKuOU0i32pNTgOWcRUw442EcXRemdCVh86m/JsjvXC+T8YWX2
-	 VKJJFG2dVpuVEv2GJECUovL3Y9I8OAGh3YQGxqbQ6s02Jbul37sqwRyp5nyKwhp0UwMNE
-	 Z4eFBz/E+UINXnyCvU5lPAgAqifUbEny9nsmGYaaYoAMcunkhg2PczRdthrXhjYsH0A==
+	t=1794217404;
+	b=RUfctvAcb25xa7XcQolE92kqxX9HklzODFgu791AI2wKs/JMyHinYjKuNv61TW/dEXYd
+	 MP33jx0Uvl1zqDGSTvr0XhApND3dGlbdWVczQNuKV4GZG6cjxdi4jCcNnNZIaE8y/5aCf
+	 1fIem/XkXT1O3dqUVL0mO0h77NFmEsTYMUAhpysZMAKBrPU3WHvX6i33YB1W0Za7SViA6
+	 WRbAkaAnt64BMSs5avhgffjEbsxRxfWhnN9l/ZEZxXpvqhop9z8rLa8RgnhTlKnxtactB
+	 DlZhdgLLEzHfplPAwkW5yJ8GQnIdo11OQ1PTh+gKoTGF0DJihuyYJW3ctGRxhItnktg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794217385;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=gqkduDJsU90RYsspBtEDgzAr8laZJiGJQKiyzYsJO0s=;
-	b=BI0x3ev17CIgjRxdeC/mBAQNjSG39asip+vMSV5fCS5Rn/6oWu0sSlz+SE3Q6XAyJZi+
-	 yp2nPAhAGwSRL8Rw9MwhihcL8a/XX4NA1doeZFcnPcUQ/cXAR5FmQTp/AhwNJ52uNl1EL
-	 QBKKO56zlmJdy0htLX0IirltkVbcY96SzOYWS4fqaWw/YAh1URw6vvV7CflW6yvIf+Uiv
-	 SBSFiQNcbElHZPuLb5iP3pZNRHz7glMaD2QbPZKdoYZD60VbIicJc5ppxVVwW4QOIrr6S
-	 +xWPPGsNg/80rShk5gHGYg1cqFcj09jY4noJMKz02s9Gv4bS0Ei3vPkM7vUY6r68Ibg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794217404;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
+	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
+	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
+	bh=yi1ow+G90thtWMFWQw3RlqtN48nJc3tJpdrsLfQiqXU=;
+	b=Rnedf0u93yMUXZ0gwPxElsD7yZlu5sRWEh9Zr0gFNKVLEA/QLjLThnFA1uwPwYaxds7R
+	 WzA44VCvNNQ2IKXzKpSNIFwE6dwkiFMnyY/UpomKbrpCaq2ajTteGAnH3zSVUV1iNTZF9
+	 BkTmuuTcTxdehUkh2chlBWQiLe0i9riKLteNljlSj5gJb2mXK/S+dKnp3OXiLAfOBIkoC
+	 wDr4ldCbps9Zv+QLRBplcjg/E+GbYwo/+CkiTR5g0YuCAmDXDK43MJiZ9iPKNCiLHd4D2
+	 2HrLF0poiXibcXDdfN173LHlp+8iHLdQ2ckhn3ZbE5YbG1VKacm6zDIovJu2Es0KUZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qHWq1h8k;
-	arc=none smtp.remote-ip=74.125.82.180
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=w6rz.net;
+	spf=pass smtp.mailfrom=w6rz.net;
+	dkim=pass header.d=w6rz.net header.i=@w6rz.net header.a=rsa-sha256 header.s=default header.b=2pyVIKuz;
+	arc=none smtp.remote-ip=35.89.44.35
+Received: from omta36.uswest2.a.cloudfilter.net (omta36.uswest2.a.cloudfilter.net [35.89.44.35])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52563606A321
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 09:43:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52563606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BBB7606A31C
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 09:43:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BBB7606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qHWq1h8k
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso241348eec.0
-        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 01:43:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794217383; x=1794822183; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gqkduDJsU90RYsspBtEDgzAr8laZJiGJQKiyzYsJO0s=;
-        b=qHWq1h8kuhl8AnKXCghZeFn5xVLptWCV/ciN7hxaj5pXpeSOCQxm8wsMuipKyOPZwA
-         PfR2oEtDNbO+wRHq8IpdTgYmyxXk3mWbaWHHdy893/JNZxhMWuUL1LzXHhf607xQQ1bE
-         mDlbhIJTCEFXBY2s54BrA5Xw4TemH0YB1aIjQmSXesWrL0PE0d2qksQX92gZXSaFAMSn
-         uOMFoHxqllV0o1N3oKtjoHIsWTnqHA8PMlrxzNXZTvwt9HCu5SEHhZVvFZCm5CxivgPF
-         2tLebjJr+Dg9D1ijz7P/+9id1mlghHRBOgh+jfsF74RDO1wAx+bAqjFtl+wivzHo3kEC
-         N0yQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794217383; x=1794822183;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gqkduDJsU90RYsspBtEDgzAr8laZJiGJQKiyzYsJO0s=;
-        b=hbTzamrAc18CLTexJcBQz4jIINfYuiT2xGEhE/3XF1AkDKXJLY7fpu6eSrv+sFxkU9
-         MNtLhGzL0PTOGTTgu/imQRV2fov55T6NFeGr7kxy0K9IrAPZf0TvYL08RHw58oiY84Vm
-         GhNL9JCjq+6VXswtzDYFMFPK4+iUYBgyZhMDX+oVbyDeLXuLNTbje87pcZ/ogu5nWvuA
-         Vc4WRsBn4OuNs+/1674Il7TwnaoxNwI0AOA4TFHo+Ye9Xf/xI1xNayxBCnL10QfZdEVf
-         ivHYa8Kx5SCN0ZUM5GHLoJPrfgG8i5DuEqYXlBqV8PqcEhmalS8fSDgfbOT0Mf/Mo4Rg
-         Ecnw==
-X-Forwarded-Encrypted: i=1; AL+hErFcaM4UTafVpWQMamW9IcJYZLkMFE0TQt3jlCZ+2URoaYaUAyY8s2IGvwxdvvMb5VBeXg+jlIw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8YE9AyyqXUuBFvc1WPDPYR9B+VlO33nBWNKoJLdxM+k5lYY5c9
-	LRREbSc1HOqw+kF02MlZ3cSou4pHUHzk/LxvGr1oqERTR1Ac153fqrPxRMsD5w==
-X-Gm-Gg: AYBFou2c9MDtogpz2brSJfO8e9aq7DufGBWJE4YBOJiB6JVzHcw17z7J7ZydYc7UkRK
-	8VI2qa8mv2Ezeozeq19etoWk5FECGskF5kdXNe7TG1wcpTK7JjajQKDWPBW0/y/trqTDmByK2yd
-	ehVse9hvyeCjoiJanraPIkHydULkoXdNluqF+l1FyGzxYlpCY61kE2rbdHoCoBCBK9ifdrSK1Yo
-	/VwVsVYRg11obgj7j9LUu+XldTSFOMFedxkFdDeJXtuQ9LypiXMj9J9Y9We6528YZRPdPNCqPyu
-	ODuv9RRjAEvgRyJtjUffaunRbDGylquYgFYfr9OniBaEZznQCKqB3ji5pqIzB6riuZ4LmQBNrrg
-	0JXreqmmHM1UrNSGuLaelfQG1oHo7tMDJT4vE/9y7xKbq6RJhQ1x/PbosPb+Yj+6i4xxUzI8pxF
-	WVPTUrtKWKE3pfSuGCR8ID6FXIVkIG1IxQjQ1+oLWCP7p1A5KvCQOKf+RxX1ekNefYqC8pncYU8
-	dfcKTZQ60iuRUNqtkxQOOzQxaa0UcyathnMn3455uvX0h/Q1EA2QCfrgE1WwtqMZ43qTnq780G8
-	ASlXcqERed3ZQwYE8pVAXSrWx/wKcYBI6RPEYrQi
-X-Received: by 2002:a05:693c:8801:10b0:351:207d:bff4 with SMTP id 5a478bee46e88-3725302c1fdmr7378443eec.4.1794217383012;
-        Mon, 09 Nov 2026 01:43:03 -0800 (PST)
-Received: from buddy.mshome.net ([104.192.108.9])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37265a179c1sm11189758eec.11.2026.11.09.01.42.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 01:43:02 -0800 (PST)
-From: Jun Yao <yaojun8558363@gmail.com>
-To: miklos@szeredi.hu
-Cc: fuse-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	security@kernel.org,
-	Jun Yao <yaojun8558363@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] fuse: hold inode reference across d_splice_alias()
-Date: Mon,  9 Nov 2026 17:40:06 +0800
-Message-ID: <20261109094006.205170-1-yaojun8558363@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.a=rsa-sha256 header.s=default header.b=2pyVIKuz
+Received: from eig-obgw-5001b.ext.cloudfilter.net ([10.0.29.181])
+	by cmsmtp with ESMTPS
+	id Q0d1xkH1tRiNxQLuMxHE7h; Mon, 09 Nov 2026 09:43:23 +0000
+Received: from box5620.bluehost.com ([162.241.219.59])
+	by cmsmtp with ESMTPS
+	id QLuMxOHqFxmi7QLuMxzBVI; Mon, 09 Nov 2026 09:43:22 +0000
+X-Authority-Analysis: v=2.4 cv=KuFN2XWN c=1 sm=1 tr=0 ts=6af195ba
+ a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
+ a=HaFmDPmJAAAA:8 a=49j0FZ7RFL9ueZfULrUA:9 a=QEXdDO2ut3YA:10
+ a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=yi1ow+G90thtWMFWQw3RlqtN48nJc3tJpdrsLfQiqXU=; b=2pyVIKuzjdUTdaJnBEWHWWr6mQ
+	+7ouAwbeyIN2sPhEnSub57XusAYAnkL2jlFZR8DKg3QInmhOkriEcR/txIb7c72HHXeJMhear5fae
+	DX/qPaXYzBHKzsjzwJfeVndEHF/VTnPf5ssF6QShmqbtAZSU9b/vO85J67NCQ79ENbbOWzn02RDo4
+	wjbwdeziYucIBsnEbis8Bz6PQoYIqZ32dT0QphmYeKJX/meDAwUEf3diIXQjEUoA2nq+Wkxc+6yYv
+	jEoqKcU+AP5ZW6G5SC1/BurMAXxsUWbmM6iOGbg04rvwf6W9GhqvfjBeomZMvSYCnbRxp52v+JYXO
+	AWA2Hy7A==;
+Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:53826 helo=[10.0.1.180])
+	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.100.1)
+	(envelope-from <re@w6rz.net>)
+	id 1xQLuL-00000001Z40-1Q8E;
+	Mon, 09 Nov 2026 02:43:21 -0700
+Message-ID: <a0116c6c-e947-4a65-9202-6a8b06a7e127@w6rz.net>
+Date: Mon, 9 Nov 2026 01:43:19 -0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -97,53 +76,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.12 0000/1536] 6.12.117-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261107134957.653319350@linuxfoundation.org>
+Content-Language: en-US
+From: Ron Economos <re@w6rz.net>
+In-Reply-To: <20261107134957.653319350@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - box5620.bluehost.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - w6rz.net
+X-BWhitelist: no
+X-Source-IP: 73.162.206.103
+X-Source-L: No
+X-Exim-ID: 1xQLuL-00000001Z40-1Q8E
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:53826
+X-Source-Auth: re@w6rz.net
+X-Email-Count: 59
+X-Org: HG=bhshared;ORG=bluehost;
+X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfPS4YbWe1ru1i+LfWSaScUl4lW91ItjAmMzNOPVYVByEK0drihjcbiNpiBmCWwkgCGZeUPFmcVvihulM4ZzGkoJVX0TbeQfJ45+2LpmyeIDPfj0FzXDU
+ 25DDt3OaS6adunWjaDk3b4NH/7TD3exyhCinpS62jGsaOoOLIckZf6mVrEtCj8NmQXq0kA706kv47g==
 
-When fuse_direntplus_link() calls d_splice_alias() with an inode
-returned by fuse_iget(), d_splice_alias() can drop that reference
-before returning an error. In particular, __d_unalias() can return
--ESTALE when it cannot move the old directory alias. The caller then
-decrements nlookup through the inode pointer. A concurrent
-FUSE_NOTIFY_INVAL_ENTRY can drop the last alias and let RCU free the
-fuse_inode before that access.
+On 11/7/26 05:33, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.12.117 release.
+> There are 1536 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Mon, 09 Nov 2026 13:46:08 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.117-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
 
-Take an extra inode reference before d_splice_alias() and release it after
-the nlookup rollback or after a successful splice.
+Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
 
-Fixes: b8bd342d50cb ("fuse: nlookup missing decrement in fuse_direntplus_link")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jun Yao <yaojun8558363@gmail.com>
+Tested-by: Ron Economos <re@w6rz.net>
 
----
- fs/fuse/readdir.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/fs/fuse/readdir.c b/fs/fuse/readdir.c
-index 1f6cf5654..aca25e5db 100644
---- a/fs/fuse/readdir.c
-+++ b/fs/fuse/readdir.c
-@@ -238,8 +238,11 @@ static int fuse_direntplus_link(struct file *file,
- 		inode = fuse_iget(dir->i_sb, o->nodeid, o->generation,
- 				  &o->attr, ATTR_TIMEOUT(o),
- 				  attr_version, evict_ctr);
-+		/* Keep inode alive if d_splice_alias() drops its reference. */
- 		if (!inode)
- 			inode = ERR_PTR(-ENOMEM);
-+		else
-+			ihold(inode);
- 
- 		alias = d_splice_alias(inode, dentry);
- 		d_lookup_done(dentry);
-@@ -254,9 +257,12 @@ static int fuse_direntplus_link(struct file *file,
- 				spin_lock(&fi->lock);
- 				fi->nlookup--;
- 				spin_unlock(&fi->lock);
-+				iput(inode);
- 			}
- 			return PTR_ERR(dentry);
- 		}
-+		if (!IS_ERR(inode))
-+			iput(inode);
- 	}
- 	if (fc->readdirplus_auto)
- 		set_bit(FUSE_I_INIT_RDPLUS, &get_fuse_inode(inode)->state);
