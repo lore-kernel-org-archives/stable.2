@@ -1,56 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794254745;
-	b=m0flV/ovqpAmGROus+8mwctMhPY8g+ctALsS5GG8wOs5jtF1yLW1QJDYokU8ODJrmi6V
-	 KQyYMAve/TUKJD5UQQVn7qlp4AdM4f7Yb9zYreBWx1GjXCwTQBKQs81e/++sOiwaYuXnF
-	 KkZkj0cob9WOJBHZ5E6ufTKmzeEAmk7ohq4OqEfQ6Cpuh7/DkfeLy1FrrQfM8P0bMN6tR
-	 xJj3FG/dJTWc1Z6tWQzK8B4xx+k+VYo6bYEFcWPJX86VZyrzUMnBeKrOrDzmCTV7ccHN5
-	 Q80zTuV1RjRLBym2tMjDsJAXmqWnsQQ7MLBEXDjYCBSuMnumJ0YmUPGZq1kk+K6USIw==
+	t=1794254802;
+	b=JYAJipvL1k3NaAz3EQp2XDOIHX//QrkvEoJQREf0TpCwICXaQ+U+5aVq8peO/OO2eqUC
+	 ZSGFxbtCs/j/HX1afGZmTFeWjoHizc59lMugM3YLL8xH5AChxG8593NlBru+GNOwc9kb6
+	 ZzMcXp/SHnnAH1sNUUVkF0O0y68n7bbDYR1lIvBy4eZ57p997VGA770YGQatLNo8+0dgt
+	 Uz0worLLU2+aJcS/FAB20FDla7qBTa0pRWk/KsjlV0Y+yJGxCu4GFSv2WR1/MXxBarSej
+	 8k6LnrbgXwWUtPOlyxtondHaV/NbHJ/mwu5mTeI+gyHLukJAi8qgYY6F+FXxFmNWFaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794254745;
-	h=DMARC-Filter:DKIM-Signature:Received:MIME-Version:Date:From:To:Cc:
-	 Subject:In-Reply-To:References:User-Agent:Message-ID:X-Sender:
-	 Content-Type:Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
-	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
-	bh=4vmyvjoTFDza/4rNuP8XGMaF0SoNMuAA7S3rSuXFKkk=;
-	b=0ygct9s9R1frnrhglcNSQS+c94RB2Auq6gCmQ1JttiAKcUfw/soh74Y9p++uP1iYXVxe
-	 zipq74TV211akUVBxP/1hI5kbLYkK/d/Iy1s/g6N1irTkBlu4NTysbTwu1LfZYcG7YacN
-	 EE0yJx10LMJ7r3kvBr6ESypNrGOAtEmWwPcuMMedRvPXDZ5xbV8lRX+oBRo5KG1Gkiw/v
-	 R6D62EwTiOGQh8lMsSMO6rQsubDeB8MTcVIz0xlRSgMNDkLcJqmxJhg8VZSK0VK0rokwj
-	 idh7oY3oaDNZ/wbs8zCR+HNoZoT20rVqGvNSGeDc2nPtXKV1NxXQGkWDHC2rp0RAvbA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794254802;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=foef8cSuDtXRvHW/3i9rIYIPK5SqXDCZtNX9m115QFs=;
+	b=d42tKoPFovuillJTpq4jJxlAI35KTG8HTIqyqpKjmT2jDcOn+ym1Pps1BENiaHpLN/jf
+	 tPH/2xXTLeN1OQoAcPIdHakGJPk9xVBhKWhIoHVNe5EcFbbcSpuDBC8XQGOYQyR0wuVqp
+	 GrkwGNRJCrzCX8towgSeP26z31REI/fqvGzekVigiPsN4vYXHGDcoPDl4zwhWGbReriSZ
+	 e1PZN7j4lhalHqLQzRGEIIqZvBh/TtdYBDEClIyHy/sFN8ryQThpzlkaugkdWMlP/XBjT
+	 LUPLm7KfbXVg7hC1Xl9oI6aiaKCHE+3oD1/5/qy9gpN8DC1OhUQxUQfwXja/2fZmIqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.cyber.gouv.fr;
-	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
-	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=KICpPmxk;
-	arc=none smtp.remote-ip=51.159.188.251
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linuxfoundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=cVvTdYl4;
+	arc=none smtp.remote-ip=209.85.160.49
+Received: from mail-oa1-f49.google.com (mail-oa1-f49.google.com [209.85.160.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31E90606A333;
-	Mon,  9 Nov 2026 20:05:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31E90606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BC2F606A326
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 20:06:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BC2F606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=KICpPmxk
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:
-	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=4vmyvjoTFDza/4rNuP8XGMaF0SoNMuAA7S3rSuXFKkk=; b=KICpPmxkG/61LxMV32kPCdqImb
-	XbrXB1Zgs8kJUpjKTAlyy6r4xeude2Y/DRcT4uIktaBry0ACw67WKfqldJ01DcOKmb0PT65VEr2dT
-	khN900kgAgLfPJRVk1NmKS+DPsBenVH2ijsdWn8gU71BFYPQNzpbkuI8vAUue9kw7jUhC4z+IwEun
-	4cotAhvwUXZqU8+Gf6NJ0ASwfyPKh2wRwdUEmbtd6JFY2uvsd1dcH6CW/rzpioN14MM8f3kzzuePj
-	46TJOlpxgj8C+hsnlJY7kouN0tlHOdZJ25OV79qFNg64WSvpLmjmadYisdntTSrVTsrCNM2/5qLio
-	DkDEBeOg==;
-Received: from [::1] (port=46560 helo=pf-012.whm.fr-par.scw.cloud)
-	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.100.1)
-	(envelope-from <jeremy.jean@oss.cyber.gouv.fr>)
-	id 1xQVcc-0000000Chxv-24H3;
-	Mon, 09 Nov 2026 21:05:42 +0100
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=cVvTdYl4
+Received: by mail-oa1-f49.google.com with SMTP id 586e51a60fabf-4a77761ff8aso856228fac.2
+        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 12:06:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google; t=1794254800; x=1794859600; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=foef8cSuDtXRvHW/3i9rIYIPK5SqXDCZtNX9m115QFs=;
+        b=cVvTdYl4kccJQlT5I7ztVkIB/bXt38Xc7QVaFvkYYF2ogaFkq+gPt0cnz9z6UtIqfq
+         nxis9FJQ66sZZT7P9sfkKbJA0IojsZPj0sQimSMJ1yQKjc++kzhT1NYyQEXI/PqWvjB3
+         qQpxMPtDr36zh0FrkF9HbooW4vDbBLEi7a9bc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794254800; x=1794859600;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=foef8cSuDtXRvHW/3i9rIYIPK5SqXDCZtNX9m115QFs=;
+        b=ECozKBJtK56Wp7n4dqKvacIrUJrbNQ1iwY9+i4UqFnkpj0EaT5v3BqV0hZ2WsqihZI
+         UnJ2ia84X+CYAB5geHxvYnPwzw3Hkt0MPhom1YhccyNDR6BDw1204A9mi/KEnIEDlb3V
+         YCL1FilmEKHVrD9foODiMByxgLz0oyU1O3lg/cVZwvs6coAWgGmQzq7c0BbsZVTJPjFd
+         p7/5OCBuNlZ2tbGA+Qr/s87kJdglPlcMcoABbtUOXY+spOVHS85zZa0FYLxzSubhW0f8
+         rzbHTZywug3nESg0PTRaZakb3y58bW2754TaZjMAgPpWw8oRgihrJb1G5fDPQcBb4ExQ
+         ThyA==
+X-Forwarded-Encrypted: i=1; AL+hErF9IBT/xGRxcODENIlFDmp38j216gKajEOtsYwPFx+YjKYsQNVabp+ewtSh/5xXCuZsKAVNNjU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+xC6f/4oXTjfu4mdMjs4qVvV9T2LneiT8MHrFk3qHtJCvuIMuU
+	6QKo0mtMh8w/Kea42wAYMEnMjlIKIXMYucEDtUCjoBXtsvc6kB4yi0YmkeklkW/iIWc=
+X-Gm-Gg: AYBFou2Utjek0pHAAEIHpsyp4ZVjzhhiOLuxuk0xogyOFBph2UShyR0SVWoqaw9pCfp
+	ZS1ZQYCN33jishiDEccn58ZSbabemXgvhXDCm6EEHvDUHvRfrXjbWTJXxeOvbEiy0SizkuJXE7S
+	Fs7Srq5gNAc0G3qRU48M4Yx2Jb1SxRsNksssfxoX1kORR6kCdicBgonztjoUi6wIl+aFKo0ILeH
+	EpVyIrPhPVa4Jt2Qy0MbW7BPE7p7QLe8xpm5PWKx+ugS/fKry1rmDh17qPTiY3FP22kp5gq/EW6
+	nOBpyY43Mk2yW3bVyK/xT9pmj6631UlPXAuIJV+TdBmXJuXqUbq/Gnf6lCN4vRowvL53WpUwPLl
+	kef4PsI2OlyYmIT3tXpCt4Ps5pM3zTFfSzDFzgUR8r68jDVfD7LHXCsO0uxM16HZhIhCG7fDR9b
+	tC9alyYQv+UuQzwRPJwFCulosQV7hcuK3rFj4eS0m0ZR+AHrS0I8BFkvtKs1uP1MYYUq6EToTNF
+	7jLaoDyCas8JUu2PsuMZFtApJDV86P4H1y+N5+dKjHFCEabgAaNH2/HIP64xuHl1HXVYAEIZ876
+	f8Amksl/0r9pE2r58xjrQNAj5Ng1VKf42RIhxg==
+X-Received: by 2002:a05:6871:d212:b0:475:e066:7711 with SMTP id 586e51a60fabf-4ae22612a18mr178123fac.24.1794254799938;
+        Mon, 09 Nov 2026 12:06:39 -0800 (PST)
+Received: from [192.168.1.128] ([38.15.57.99])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4ae2308e3ccsm85800fac.15.2026.11.09.12.06.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 09 Nov 2026 12:06:39 -0800 (PST)
+Message-ID: <73aaf4d1-3cfd-4128-9c2e-b8bda16d535a@linuxfoundation.org>
+Date: Mon, 9 Nov 2026 13:06:35 -0700
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,79 +89,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Mon, 09 Nov 2026 21:05:40 +0100
-From: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
-To: Roberto Sassu <roberto.sassu@huaweicloud.com>
-Cc: Mimi Zohar <zohar@linux.ibm.com>, Roberto Sassu
- <roberto.sassu@huawei.com>, Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
- Eric Snowberg <eric.snowberg@oracle.com>, linux-integrity@vger.kernel.org,
- linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH v2] evm: fix TOCTOU heap OOB in protected xattr reads
-In-Reply-To: <98d6c26c-3dc4-4659-8284-a7ab0629bb40@huaweicloud.com>
-References: <20261107230514.1108379-2-Jeremy.Jean@oss.cyber.gouv.fr>
- <98d6c26c-3dc4-4659-8284-a7ab0629bb40@huaweicloud.com>
-User-Agent: Roundcube Webmail/1.6.20
-Message-ID: <10660aa25fd9d868a391a1c092fe8b33@oss.cyber.gouv.fr>
-X-Sender: jeremy.jean@oss.cyber.gouv.fr
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.12 0000/1536] 6.12.117-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com,
+ Shuah Khan <skhan@linuxfoundation.org>
+References: <20261107134957.653319350@linuxfoundation.org>
+Content-Language: en-US
+From: Shuah Khan <skhan@linuxfoundation.org>
+In-Reply-To: <20261107134957.653319350@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 2026-11-09 10:07, Roberto Sassu wrote:
-> On 11/8/2026 12:05 AM, Jérémy Jean wrote:
->> ima_eventinodexattrs_init_common() queries the total size of protected
->> xattrs, allocates that amount, and calls evm_read_protected_xattrs()
->> again to fill the buffer. This creates a TOCTOU window: if the
->> protected xattr changes between the two calls to
->> evm_read_protected_xattrs(), names and lengths are written without
->> checking whether the data still fits in the target buffer. This can
->> yield an OOB heap write that KASAN reports as:
->> 
->>    BUG: KASAN: slab-out-of-bounds in 
->> evm_read_protected_xattrs+0x15e/0x280
->>    Write of size 20 at addr ffff888002c59bcd by task init/62
->> 
->> Reject fields that no longer fit in the target buffer. For xattr
->> values, also check the length returned by the copy before accounting 
->> it.
->> This also handles the case where a size of 0 is treated as a length
->> query.
->> 
->> Fixes: 8314b6732ae4e ("ima: Define new template fields xattrnames, 
->> xattrlengths and xattrvalues")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
->> ---
->> Changes since v1 (after review from Sashiko):
->> - Handle the 0 case.
+On 11/7/26 06:33, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.12.117 release.
+> There are 1536 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 > 
-> Hi Jeremy
+> Responses should be made by Mon, 09 Nov 2026 13:46:08 +0000.
+> Anything received after that time might be too late.
 > 
-> I already sent a patch to the mailing list to fix the same problem (it 
-> is similar to yours):
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.117-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
+> and the diffstat can be found below.
 > 
-> https://lore.kernel.org/linux-integrity/20261029142707.2602008-1-roberto.sassu@huaweicloud.com/
+> thanks,
 > 
-> Thanks
+> greg k-h
 > 
-> Roberto
+Compiled and booted on my test system. No dmesg regressions.
 
-Hello Roberto,
+Tested-by: Shuah Khan <skhan@linuxfoundation.org>
 
-Argh, I missed it when I prepared my fix, and even wasted time preparing 
-a v2.
-Thanks for the pointer though, good that this will get fixed.
-
-Regards,
-Jérémy
+thanks,
+-- Shuah
