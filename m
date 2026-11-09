@@ -1,59 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794233410;
-	b=Rc7ZcqlrnJ5pNF99A/UQltBzDqAg0zxV6v4lUnAdKFPR6f7O1jAppLE1fBut968rDMf6
-	 BlCBxfJ/yT3HVqfUYqs9Bfw0hxbrz82OdnHqDDLhA3RZrnrGnkowkaBwVk3hlwl9FRxE4
-	 CJa1OAAZmYbtxR4G9O2Qp31uxp3rLALRbtvpUfaxj9TxATpe6I7U/hGGsKXZYFdxCUe/b
-	 3euIgYY04V01Mfa/t1ICQGfPU4w4KJDg3m4KvHlV9+fB/2j5gtu0Gn7qP3WzLmtK8KZVD
-	 98BsYH8TtjfNsdf0D51TvfUZSHfIppYe+dOUV3sevuAl+RQNjpFy0Ok8Y+Ft4JEyBxA==
+	t=1794233455;
+	b=qpfFCGYVovsT1adwwtuR9N9ljWYVQUErIn05KjRTwZD6o5+LLJ34hdBgyhg1iYDWQksr
+	 9V5IIZSv7zpH1A/kNqtf4lkovdGByjiDqHZyQPgKDCwE1bHfEEsuF28kkbbnz/qjggU3D
+	 llPQtVIxOw9Bejw+YUI1FdpDuLbu8oq3Ou9NScAPAXX4YD3cIz9CF25PfX0GWjUJdOlVI
+	 5MHux5bsWnseFVsoIpDeaWJ2y2brNPah8/YBzCbTxaCpjPm8s5Yut6dMk2jzGhFKAbSUr
+	 D65es6ghaiAcbvQ/CK4lWZUVNHN8tMfQFiXs/05SjyAfNl8nQgh67V5bSOG0kWHkdtQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794233410;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=zXDzhjAT9R0FNsl85MpNlLYfFlMVbyNabR7bM1DWwJk=;
-	b=pC2U/5MX4LhxHit9leKUfiRUvMGK8lV5OVAikuQbNbO2bVSlfaKFdVn9VU70tj932jH5
-	 zbJ1UUhPpRi7rEJAbOjewsi0agysEz3PQVq7ZjgdHYB+UqVBLGjtvWGeahlLHsRfZLgdZ
-	 bY78s+4nI6Uqs3GQHBwD4Dq4KzZ5DERSg7yWC8PC1f0dcfPp8Z+k/HJ+pIXvhlMf+jMZH
-	 xRt/8fWniAdioLLmhOLhmjG7PjimzUepQ/qnF26YDlSVTTBbWReJN0Sf99Ot85gQ2/1wc
-	 Ot8VtUdgiC8e/W3ChwtUA/kz17jsPBwRgQvPSCVvN7CLVL/iNlmSxsvLZDBSbs73RTw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794233455;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=yVtq2nS1pNBQLks32Ihq45xmwXelCBNqMEzzLtmVQRA=;
+	b=GHZ/9NUVlpwX5D1qAHXGkhsIK43PW1CzVmX7fXBXA7MN990U9pQTcLHZtX3pRnM7ZaCT
+	 iNmwnieJmnLojAw54Bq7avylX/HuEJy6VZleefIaaa3ciYKr+APFF6eBMhBhjcU4qPcfK
+	 UIIftT0wwMD/s5hLk8oBFAARryJP+wmVNTxw8g6+poch2LXHmTFUDlFreL5GvMY0i8Nkw
+	 e6oDEU7u5mvF5gynIZX1U/GuHonIar9h0ZstfIvFqj63EsbwhHcF7g2FmUHNf74I/eaOr
+	 kQXybCM3G/xBQLRjWIcIUu504hDjbz3qpe7gA6KC5EqZRd8Cp3CzIIEFJrliBLeC27A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ApsSWzCr;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83A5B606EE8D;
-	Mon,  9 Nov 2026 14:10:09 +0000 (UTC)
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=MubioLQt;
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D41E7606A33C;
+	Mon,  9 Nov 2026 14:10:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D41E7606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ApsSWzCr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D87611F008A2;
-	Mon,  9 Nov 2026 14:10:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794233409;
-	bh=zXDzhjAT9R0FNsl85MpNlLYfFlMVbyNabR7bM1DWwJk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ApsSWzCrvMXScR+CmxaKL8Ulf9qAm6QEctwM6iy8b82NIWwEqLnwAavPY8S17B4pi
-	 8ZWLxyZWBDDIr8TmsKXh6Sb7XvCtI3SpeYvW8Ts6mU5LilnkQT2iBfVlxaxMKu2Ij/
-	 CkhzJbxUMmc3YosYNCcUGzG/Wfhxa9rv5ezVWJqQ=
-Date: Mon, 9 Nov 2026 09:10:06 -0500
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Nicolai Buchwitz <nb@tipi-net.de>
-Cc: stable@vger.kernel.org, Sasha Levin <sashal@kernel.org>,
-	=?iso-8859-1?Q?Th=E9o?= Lebrun <theo.lebrun@bootlin.com>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Sean Anderson <sean.anderson@linux.dev>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 6.18.y] net: macb: wait for a running xmit before
- resetting BQL on close
-Message-ID: <2026110940-familiar-slick-4d2e@gregkh>
-References: <20261109-nb-macb-close-6-18-y-v1-1-51af4b20dffb@tipi-net.de>
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=MubioLQt
+Received: by linux.microsoft.com (Postfix, from userid 1216)
+	id 8D91320B7168; Mon,  9 Nov 2026 06:10:52 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 8D91320B7168
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1794233452;
+	bh=yVtq2nS1pNBQLks32Ihq45xmwXelCBNqMEzzLtmVQRA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=MubioLQtoV93Ztb6myuphui6K4IaqKbrqScvQ4g5Teu90SR5ZXVSW9/TWUS8AgYoY
+	 GMaxMn7GPAAra5sRJ8GAP/P2h0kbZ4AQhKVw9lBy4sQ3k8TSLYKAFBm84fxO+VugWT
+	 HefTVn4YU+xOi9eepfHQF1YnAP0YrdYdnvmSokmY=
+Date: Mon, 9 Nov 2026 09:10:52 -0500
+From: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
+To: linux-ext4@vger.kernel.org
+Cc: tytso@mit.edu, Andreas Dilger <adilger.kernel@dilger.ca>,
+	Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>,
+	Ojaswin Mujoo <ojaswin@linux.ibm.com>,
+	Ritesh Harjani <ritesh.list@gmail.com>,
+	Zhang Yi <yi.zhang@huawei.com>, stable@vger.kernel.org,
+	Simon Brakhane <simon@brakhane.net>
+Subject: Re: [PATCH] ext4: validate inode block references during fast commit
+ replay
+Message-ID: <avHUbO6ep08U7b6S@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+References: <20261026164853.3125835-1-hamzamahfooz@linux.microsoft.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,22 +64,56 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261109-nb-macb-close-6-18-y-v1-1-51af4b20dffb@tipi-net.de>
+In-Reply-To: <20261026164853.3125835-1-hamzamahfooz@linux.microsoft.com>
 
-On Mon, Nov 09, 2026 at 01:57:09PM +0100, Nicolai Buchwitz wrote:
-> macb_close() stops the queues without waiting for an xmit still
-> running on another CPU. That frame charges BQL after the reset and
-> never completes, so after the reopen the queue stays stopped with an
-> empty ring and the watchdog fires until the next close.
+On Mon, Oct 26, 2026 at 12:48:53PM -0400, Hamza Mahfooz wrote:
+> __ext4_iget() currently skips ext4_ext_check_inode() and
+> ext4_ind_check_inode() when EXT4_FC_REPLAY is set in s_mount_state.
+> As a result, an extent-mapped inode loaded from disk during fast commit
+> replay never has its in-inode extent header or root extent entries
+> validated before replay paths such as ext4_fc_replay_inode() and
+> ext4_fc_replay_add_range() walk or modify i_data[].
 > 
-> Seen on a Raspberry Pi CM5 with ethtool -G under load.
+> A crafted filesystem image with a fast commit journal and an inode whose
+> eh_max / eh_entries exceed the four-extent capacity of i_data[] triggers
+> slab-out-of-bounds reads in ext4_cache_extents() and slab-out-of-bounds
+> writes in ext4_ext_insert_extent() into adjacent fields of struct
+> ext4_inode_info and beyond the ext4_inode_cache slab allocation.
 > 
-> Upstream fixed this as part of the context swap rework in commit
-> dcc3288b9433a ("net: macb: use context swapping in .set_ringparam()"),
-> which is too large for stable.
+> ext4_ext_check_inode() and ext4_ind_check_inode() only validate the
+> in-inode extent header and check block numbers against static superblock
+> bounds via ext4_inode_block_valid(), not block allocation bitmaps. So,
+> drop the EXT4_FC_REPLAY exemption in __ext4_iget() so inodes read during
+> fast commit replay are validated.
+> 
 
-Why is that too large?  Please backport that instead.
+Ping?
 
-thanks,
-
-greg k-h
+> Cc: stable@vger.kernel.org
+> Reported-by: Simon Brakhane <simon@brakhane.net>
+> Fixes: 8016e29f4362 ("ext4: fast commit recovery path")
+> Signed-off-by: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
+> ---
+>  fs/ext4/inode.c | 7 +++----
+>  1 file changed, 3 insertions(+), 4 deletions(-)
+> 
+> diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
+> index 26f0f9714f03..cf74c5014fa7 100644
+> --- a/fs/ext4/inode.c
+> +++ b/fs/ext4/inode.c
+> @@ -5582,10 +5582,9 @@ struct inode *__ext4_iget(struct super_block *sb, unsigned long ino,
+>  		goto bad_inode;
+>  	} else if (!ext4_has_inline_data(inode)) {
+>  		/* validate the block references in the inode */
+> -		if (!(EXT4_SB(sb)->s_mount_state & EXT4_FC_REPLAY) &&
+> -			(S_ISREG(inode->i_mode) || S_ISDIR(inode->i_mode) ||
+> -			(S_ISLNK(inode->i_mode) &&
+> -			!ext4_inode_is_fast_symlink(inode)))) {
+> +		if (S_ISREG(inode->i_mode) || S_ISDIR(inode->i_mode) ||
+> +		    (S_ISLNK(inode->i_mode) &&
+> +		     !ext4_inode_is_fast_symlink(inode))) {
+>  			if (ext4_test_inode_flag(inode, EXT4_INODE_EXTENTS))
+>  				ret = ext4_ext_check_inode(inode);
+>  			else
+> -- 
+> 2.56.0
