@@ -1,110 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=49.13.36.206
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794231937;
-	b=b0ZorXmqtZVgHTK86H8z0l5K5TTaKUoVV9mrc6LijLjvcyFWVOx+BZON3YLsGMYa/NrL
-	 ehoxrnFnmiohuTEmXc9uA5rw1hEkhap8V5SRJYxgClDtKVHAp4BqfOSQuvhC5b0yS9LAi
-	 wivtM7TbuErxWbGwih9EM/71kLAPT9/U33hfJUoqNB3EMmA3TSopigD02xEII5D1Z/WFg
-	 shqTIqUe7uX9UzVC/k8En2qrlAl5ZoytGdfXq8zKLUjsk6Yckn9M8OvOM61IICafQrL5R
-	 KmeKIEa/CVIrg2FPMo+AfBdACBXjpcpFLAM6udqBSQLttjff00BQK1Fzmv6xv+ff4YA==
+	t=1794231960;
+	b=yvkEmcKNS3ocDefaIqIV46a2PuIvSEx583HCG74W7hFeIK42Nd7wmtvmJMEvuo/gHWWi
+	 uUPIXsYIiURIW2s78jeURGsB8ffzz5oYejLqVFStWnHyHJa5//g7Xr+rjBcRV55jcNv1G
+	 vgB1AKpbWPH2j1AGxQ1pDMElpmSKpJWgtukwhy6og/9DAqvkAFVfd+NS8rvGrNXb+E5yh
+	 2J+NK+lsNmW6enwHfQQZ6klH8SIUcmUG/7wV6rvbzSIr9YlI/nI0EQmEkPgvTXiuc+yhp
+	 11KsjSDq2ZcVyMSYV3HG4fAZck4ZtIW8MApTFWH8S8pML/GcWjmMEiELr95zaxYbtUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794231937;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=wXHNHwyHqZyMWvC89h3xRMVsL0F7PlcQnNFtH9sdpDM=;
-	b=XL2ivqZ6wyO7Jtiwvz7bMFoj1P8EDs/1JcGEW6YOLL/zN23QyoUTDAFvSYIhbyIpm2x/
-	 25aDMC18cM2Zvmt1CmdhB9ukf5vu96NNr94OX/vVc7fyfzreEIKNxyvVyg2VdhFYrIl78
-	 Mn3HsFd9PAc1j+e/dir5Ch2Exgi53XnrPuw0cNPsmf3sYZe/lISBlA0cZqZjVD11QgiLP
-	 V3xqg54WkJ8HJ//qWWrcqemAacQqHVgIjKB23JNRDsr55zYRwfh32jj6LXMgt+65V95/s
-	 z3T0wYxttZaHNOQy530DwPS4S0v3F0mT2N8SYM+7kfeHCplVHpmecxrLmICm5Sn0yNg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794231960;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=clexaisj2vvqzqmivUmQF8+XLbqhORqIyALEMqQ0/Nc=;
+	b=otGa7BCKSQPevrsizerIpeyvd8am9N82dkDszyQpiRyINLwcfGrEdszWjn6ljiEBMNVw
+	 ekklTA2xev33+OETioDSwZgRjEF5BLetIpkSugn/EWiJ6F9wZDwyLJPKMs9mD3jvPhZcz
+	 TqqmUtlkzZZoiQjAVKYo4BUZsmltBDp202swTkN/9J1uNn3ZFizYA8lE3alVQBxMrDQFC
+	 Lhm9iA/fD2kzvsbmmm7yWJXjXj9KEiufQxzItRSN/G2w3PZUnsC3vhYMPWuloa5iouhbt
+	 A1TYmsQH9toUFrKTproaBkytC3nVY0ateiSKHaTtgA4eh+V4dCzTJWgdg2pzOU2Mngg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ML8NWqVv;
-	arc=none smtp.remote-ip=209.85.214.170
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=tecbeast.gmbh;
+	spf=pass smtp.mailfrom=tecbeast.gmbh;
+	dkim=pass header.d=tecbeast.gmbh header.i=@tecbeast.gmbh header.a=rsa-sha256 header.s=mail header.b=OkuI8MJb;
+	arc=none smtp.remote-ip=49.13.36.206
+Received: from smtp.tecbeast.gmbh (smtp.tecbeast.gmbh [49.13.36.206])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 370F7606A321
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 13:45:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 370F7606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2529606A32A;
+	Mon,  9 Nov 2026 13:45:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2529606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tecbeast.gmbh
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tecbeast.gmbh
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ML8NWqVv
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2e946155442so6698095ad.3
-        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 05:45:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794231936; x=1794836736; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wXHNHwyHqZyMWvC89h3xRMVsL0F7PlcQnNFtH9sdpDM=;
-        b=ML8NWqVvehIScf3YeJPDyqwR7Sq+DsRldBMwGKpOSjUFrkHlf0iAJuLc3ijanriryM
-         EOFUr3tJvLiezYub615EhDjHVxG/uF0T0Ql42/VBcjraMQ44p0tXJAELx8HYcIw8SSIH
-         bbq7bc5+d2/nxF3dC6owyoyZlzm52IdkwKJDrNW5Bnbm9LarPk5i+JjsybWa0nJho6aI
-         wrl23jRwnx1I4xlcwMdra83YpSG6Ync5H0kZMykIXkbF+6RBmptts/d3CCBtIi897z1B
-         VGgnM6JZ5JXqg9eT4PQliXY08YdM66zeO2SSKvBM4vNUEVmj7DA/GW7PtcYH9397yHyP
-         houQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794231936; x=1794836736;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wXHNHwyHqZyMWvC89h3xRMVsL0F7PlcQnNFtH9sdpDM=;
-        b=J+frGcw99lDXYSY8E9jhd08sj1G80EzXPIBcC/XRmO2/VYzDWxdDPC2KtRqOd/Lflb
-         kwfXO/b+J3MNwYQjUtPioLsEMx2//FriSwncTknrAOEJbMeGi6yY8FV4NcJfz4QFvO5U
-         GNoqHMAUoJiMxhqu2v6LMjMOftTp9eGCXvJwKTF7Xf28tqk+2smruYMhaJYPtlplN8rL
-         i+q3BrUlx5K15VlYH1kpLV4vNfdi9LnXBsZshjd9mw37HgsiXoVY/47FkO9/xs4t9wjn
-         bKlWfLCSsGg/HRm/kytVIqUq6iu8G66FpNI+phIIwiQsiBparTG3VQOWigSOtrtdXVxA
-         HnYQ==
-X-Forwarded-Encrypted: i=1; AL+hErEMtHeVBHv9EbAwAsZqlTokOlL021QkdrNnNwrOt69PgB/C5DCB+ZRCzpHeu6hdfnI5T0v3D08=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+J5izKx8AoycXVxmvYg9HJrkAVkBUVzuseaSpMDjSWU63iLMrY
-	7RGk/rN6nSCufACFP/G5RDkgVkFjmPE3uDhz0hEjc3KA5VJQyNtVjcJZ
-X-Gm-Gg: AYBFou3pBoVpRCS+Ylmiq1g+dqlfu8fMk8aBKTavhMe6RPoCaoaJyFN6HjWwmkQe7bh
-	UcGrQs7fNjLdH8zoBWpBzVr2rGGofWzCocqODOSdSx2MNq9HfJmWsVanY5chndMrjke8aRhg5Gi
-	xDLjLORW8b7+h3dvOxrjTkcocdCsRhLwlmFcVRhDMAeQhzt/ql9ihYY9J2/DQxZcoLrQBrR6NQH
-	pmKSgTuMygUvjmttzXUCZquAyhJBO6WsypeFGJiVRX6pm6UwxHq2RjH+MwtQ6pULTV6IyzVJo4y
-	wGKkYmmt8YKH3LQTSQFWbVEi6f4WfrBXoPoFm+d7hmXy4o52tmFw09mbfqB4bCdNYWE4wfMAjY6
-	6wUWaNKJqnHwixVnxwhRdRR/a3tO45QrmS4vYIqZwJhmQySxGPbiCNqtJpfHoOdU+axn0EpQ6pE
-	2TdfvyBRSHqPLf73JQLo8OyJA10v3fOtzxHYcNAFVXk6cQqu+Sm0+4pnGVHduirmCPPcHtzxVa0
-	OMW/GtkPU4Wdf/qym+dt90aJPsS/Rolu6Zx5YeuwhCMgVj6s1uk9iuBokEJd/uVXf2dhAm8kvnM
-	yMrZ6fXtmzxaQGitTFZOEV4qemY/
-X-Received: by 2002:a17:902:e949:b0:2dd:c100:a5df with SMTP id d9443c01a7336-2ed837a98a2mr40597565ad.51.1794231935615;
-        Mon, 09 Nov 2026 05:45:35 -0800 (PST)
-Received: from server227.. ([39.170.101.209])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed81727f9bsm11014285ad.57.2026.11.09.05.45.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 05:45:35 -0800 (PST)
-From: Zxyan Zhu <zxyan0222@gmail.com>
-To: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	maxime.chevallier@bootlin.com
-Cc: mcoquelin.stm32@gmail.com,
-	alexandre.torgue@foss.st.com,
-	richardcochran@gmail.com,
-	muhammad.nazim.amirul.nazle.asmade@altera.com,
-	rohan.g.thomas@altera.com,
-	rmk+kernel@armlinux.org.uk,
-	o.rempel@pengutronix.de,
-	wojciech.drewek@intel.com,
-	netdev@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org,
+	dkim=pass (1024-bit key, unprotected) header.d=tecbeast.gmbh header.i=@tecbeast.gmbh header.a=rsa-sha256 header.s=mail header.b=OkuI8MJb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=tecbeast.gmbh;
+	s=mail; t=1794231951;
+	bh=jTlDq/tXWc0qcdpmS8+/uDDYqTZFLnImDEPfWiFC57c=;
+	h=From:To:Cc:Subject:Date;
+	b=OkuI8MJb1B4cPpZPGiyiqNayrztuYJg2YN+qP9bw9uHnQRphKN+xpD5k56I96OUw+
+	 Lc/SjlnBDJRTzPaYZyEAOPHyjBgWLCnnpwE9ldHdd0sb8u3r+F+jIOXf2LDPc52jIC
+	 zS3RccSSqrWnz4BXjyGDiVtQb0YqKtWNjvUAfDgU=
+Received: from threadbeast-workstation.tecbeast.tailnet (unknown [91.106.186.171])
+	by smtp.tecbeast.gmbh (Postfix) with ESMTPSA id C4DB711F805;
+	Mon, 09 Nov 2026 13:45:50 +0000 (UTC)
+From: Tobias Kriebisch <tobias.kriebisch@tecbeast.gmbh>
+To: Damien Le Moal <dlemoal@kernel.org>,
+	Niklas Cassel <cassel@kernel.org>
+Cc: linux-ide@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Zxyan Zhu <zxyan0222@gmail.com>,
+	Tobias Kriebisch <tobias.kriebisch@tecbeast.gmbh>,
 	stable@vger.kernel.org
-Subject: [PATCH net-next v10 2/3] net: stmmac: guard against a zero channel in the aux snapshot handler
-Date: Mon,  9 Nov 2026 21:45:05 +0800
-Message-Id: <20261109134506.2794160-3-zxyan0222@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261109134506.2794160-1-zxyan0222@gmail.com>
-References: <20261109134506.2794160-1-zxyan0222@gmail.com>
+Subject: [PATCH] ata: libata-core: Add NO_NCQ_TRIM quirk for Samsung PM893 (MZ7L3)
+Date: Mon,  9 Nov 2026 14:45:41 +0100
+Message-ID: <20261109134541.3766394-1-tobias.kriebisch@tecbeast.gmbh>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -116,44 +64,88 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The generic timestamp_interrupt() handler derives the EXTTS channel
-index with ilog2() applied directly to the PTP_ACR channel mask, with
-no check for a zero mask.  ilog2(0) yields -1, which ends up in
-event.index as 0xffffffff, and ptp_clock_event() uses that index in
-test_bit() against a PTP_MAX_CHANNELS bitmap without range validation,
-reading far past the allocation from hard IRQ context.
+Samsung PM893 SATA SSDs (model prefix MZ7L3), the successor of the PM883
+(MZ7LH), misbehave during trim on an AMD 600 Series chipset AHCI
+controller (1022:43f6). The drives are three SAMSUNG MZ7L37T6HBLA-00A07
+with firmware JXTC304Q, and the kernel reports "Features: Trust
+NCQ-sndrcv" for them.
 
-The zero-mask window is reachable: stmmac_enable() sets
-STMMAC_FLAG_EXT_SNAPSHOT_EN before it programs PTP_ACR, so an EXTTS
-interrupt arriving in between passes the flag check while the mask is
-still clear (snapshots can also linger in the FIFO from a previous
-enable, as only PTP_ACR_ATSFC clears them).
+During a full-device trim, queued DSM TRIM commands are aborted:
 
-Check the mask before applying the ilog2().
+  ata3.00: exception Emask 0x0 SAct 0x40e0740 SErr 0x0 action 0x0
+  ata3.00: irq_stat 0x40000001
+  ata3.00: failed command: SEND FPDMA QUEUED
+  ata3.00: cmd 64/01:88:00:00:00/00:00:00:00:00/a0 tag 17 ncq dma 512 out
+  ata3.00: status: { DRDY ERR }
+  ata3.00: error: { ABRT }
 
-Fixes: 8851346912a1 ("net: stmmac: Assign configured channel value to EXTTS event")
+In the same time windows, queued reads and writes time out and the link
+is hard reset:
+
+  ata2.00: exception Emask 0x0 SAct 0x4 SErr 0x0 action 0x6 frozen
+  ata2.00: failed command: READ FPDMA QUEUED
+  ata2.00: cmd 60/08:10:c0:82:f0/00:00:d4:02:00/40 tag 2 ncq dma 4096 in
+  ata2.00: status: { DRDY }
+  ata2: hard resetting link
+
+Both kinds of errors occur on all three ports. In one case the system
+hung and panicked shortly after the trim started.
+
+Booting with libata.force=noncqtrim,nolpm makes the same full trim
+complete without any ATA errors.
+
+Add an entry for "SAMSUNG*MZ7L3*" with the same quirks as the existing
+PM883 entry, which was added in commit ead089577e0f ("ata: libata-core:
+Disable READ LOG DMA EXT for Samsung MZ7LH") for SEND FPDMA QUEUED
+failures on AMD controllers.
+
+Only ATA_QUIRK_NO_NCQ_TRIM and ATA_QUIRK_NO_LPM_ON_ATI_AND_AMD (the
+equivalent of noncqtrim and nolpm on this controller) were tested.
+ATA_QUIRK_ZERO_AFTER_TRIM and ATA_QUIRK_NO_NCQ_ON_ATI mirror the PM883
+entry. ATA_QUIRK_NO_NCQ_ON_ATI only applies to ATI (1002) controllers,
+which were not available for testing.
+
 Cc: stable@vger.kernel.org
-Signed-off-by: Zxyan Zhu <zxyan0222@gmail.com>
+Signed-off-by: Tobias Kriebisch <tobias.kriebisch@tecbeast.gmbh>
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c
-index 870c740b4a50..fd1142344950 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c
-@@ -245,7 +245,10 @@ static void timestamp_interrupt(struct stmmac_priv *priv)
- 		       GMAC_TIMESTAMP_ATSNS_SHIFT;
+Notes:
+    The patch itself was only build-tested (defconfig,
+    drivers/ata/libata-core.o on top of for-7.4-fixes) and has not been
+    booted. The runtime test was the equivalent
+    libata.force=noncqtrim,nolpm on 6.18.60.
+    
+    Stable: ATA_QUIRK_NO_LPM_ON_ATI_AND_AMD was introduced by commit
+    e6bae5034ef4 ("ata: libata-core: Extend Samsung LPM quirk to AMD
+    controllers") in v7.3-rc5, which is not tagged for stable. Older trees
+    need that commit or an adjusted backport. With only
+    ATA_QUIRK_NO_LPM_ON_ATI, LPM would stay enabled on AMD controllers such
+    as this one.
+    
+    I used an AI coding assistant to draft the changelog from my notes and
+    kernel logs, and to run checkpatch and the build test. The hardware
+    testing and log data are mine, and I reviewed the patch.
+
+ drivers/ata/libata-core.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/ata/libata-core.c b/drivers/ata/libata-core.c
+index 5ff45a5cbfe4..a679988d5cd3 100644
+--- a/drivers/ata/libata-core.c
++++ b/drivers/ata/libata-core.c
+@@ -4443,6 +4443,10 @@ static const struct ata_dev_quirks_entry __ata_dev_quirks[] = {
+ 						ATA_QUIRK_ZERO_AFTER_TRIM |
+ 						ATA_QUIRK_NO_NCQ_ON_ATI |
+ 						ATA_QUIRK_NO_LPM_ON_ATI_AND_AMD },
++	{ "SAMSUNG*MZ7L3*",		NULL,	ATA_QUIRK_NO_NCQ_TRIM |
++						ATA_QUIRK_ZERO_AFTER_TRIM |
++						ATA_QUIRK_NO_NCQ_ON_ATI |
++						ATA_QUIRK_NO_LPM_ON_ATI_AND_AMD },
+ 	{ "FCCT*M500*",			NULL,	ATA_QUIRK_NO_NCQ_TRIM |
+ 						ATA_QUIRK_ZERO_AFTER_TRIM },
  
- 	acr_value = readl(priv->ptpaddr + PTP_ACR);
--	channel = ilog2(FIELD_GET(PTP_ACR_MASK, acr_value));
-+	channel = FIELD_GET(PTP_ACR_MASK, acr_value);
-+	if (!channel)
-+		return;
-+	channel = ilog2(channel);
- 
- 	for (i = 0; i < num_snapshot; i++) {
- 		read_lock_irqsave(&priv->ptp_lock, flags);
+
+base-commit: a4845f077415ef32fe672c841e2fc58ae9e28273
 -- 
-2.34.1
+2.56.0
 
