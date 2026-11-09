@@ -1,72 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.206.16.166
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794217404;
-	b=RUfctvAcb25xa7XcQolE92kqxX9HklzODFgu791AI2wKs/JMyHinYjKuNv61TW/dEXYd
-	 MP33jx0Uvl1zqDGSTvr0XhApND3dGlbdWVczQNuKV4GZG6cjxdi4jCcNnNZIaE8y/5aCf
-	 1fIem/XkXT1O3dqUVL0mO0h77NFmEsTYMUAhpysZMAKBrPU3WHvX6i33YB1W0Za7SViA6
-	 WRbAkaAnt64BMSs5avhgffjEbsxRxfWhnN9l/ZEZxXpvqhop9z8rLa8RgnhTlKnxtactB
-	 DlZhdgLLEzHfplPAwkW5yJ8GQnIdo11OQ1PTh+gKoTGF0DJihuyYJW3ctGRxhItnktg==
+	t=1794217422;
+	b=yjjlrcoUBd69BL0vAlNlLa4z1TaSPpuONGHUHleUf3BTdOL5JbA4hb1gCLz18Zlr9T6q
+	 RGS5s/ek5TwuYOgFIFb1LOceoeDJmQQajG2LbuvD7EwI/1mbYEIQaLDS+q6C+dx3NOLOK
+	 /mtyY4AzHxnvr/yeRjaDTh4KtovmwgDlpDVFI8yzetqLgMrTJvwbNRI6Z0B68NYhWtznQ
+	 Qcmt9UJKOs+D5j2lxane+zumcRyCXtqrca2hhSa+lGtWr4FXaTC90pKNmanQh5XrV1uYi
+	 XwKIEKn4evuoJ2nvrMB+B5fwpo8STl7FjdIO5cv9tX/FfloM+tUPAVuh2fmNfpM5/HQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794217404;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
-	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
-	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
-	bh=yi1ow+G90thtWMFWQw3RlqtN48nJc3tJpdrsLfQiqXU=;
-	b=Rnedf0u93yMUXZ0gwPxElsD7yZlu5sRWEh9Zr0gFNKVLEA/QLjLThnFA1uwPwYaxds7R
-	 WzA44VCvNNQ2IKXzKpSNIFwE6dwkiFMnyY/UpomKbrpCaq2ajTteGAnH3zSVUV1iNTZF9
-	 BkTmuuTcTxdehUkh2chlBWQiLe0i9riKLteNljlSj5gJb2mXK/S+dKnp3OXiLAfOBIkoC
-	 wDr4ldCbps9Zv+QLRBplcjg/E+GbYwo/+CkiTR5g0YuCAmDXDK43MJiZ9iPKNCiLHd4D2
-	 2HrLF0poiXibcXDdfN173LHlp+8iHLdQ2ckhn3ZbE5YbG1VKacm6zDIovJu2Es0KUZA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794217422;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
+	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=X3no4rhRBLwR+s1F99TECEwct/nFZ4Xb+FSwo1OAE4M=;
+	b=1cykN/K8wIjnH1UfiiuRS955KmrDoClIhvqPWlktYwQbX7jrM8ts6DvBA4YRCYUQCBf4
+	 8kL1qdtMcs6BxLArhc828ZxpZdxO2RPuRHOkkbpumnTKTItbT29KmsLYeC/oEIBuBJck6
+	 XdH6WCoBsDHT+h7882o1tvefQ/pQ42f3LBkt29wu8fZCr62CNVoAJ2JHczvG1IlijPud3
+	 hlWwDVSNWlyThl5Xey8qt5wisVMNgMnoG56XoZPek2JNfsk2w0n3A3zQHnxqPUNV4ap3Q
+	 KgeCnIrZF8MKbSTpwpADHORd5GMICHgkCIpfjop2qOHR+J9IBiYFVJ5UOOOHFflLXfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=w6rz.net;
-	spf=pass smtp.mailfrom=w6rz.net;
-	dkim=pass header.d=w6rz.net header.i=@w6rz.net header.a=rsa-sha256 header.s=default header.b=2pyVIKuz;
-	arc=none smtp.remote-ip=35.89.44.35
-Received: from omta36.uswest2.a.cloudfilter.net (omta36.uswest2.a.cloudfilter.net [35.89.44.35])
+	dmarc=pass header.from=uniontech.com;
+	spf=pass smtp.mailfrom=uniontech.com;
+	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=Or10fogX;
+	arc=none smtp.remote-ip=54.206.16.166
+Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BBB7606A31C
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 09:43:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BBB7606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B61EC606A31C;
+	Mon,  9 Nov 2026 09:43:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B61EC606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.a=rsa-sha256 header.s=default header.b=2pyVIKuz
-Received: from eig-obgw-5001b.ext.cloudfilter.net ([10.0.29.181])
-	by cmsmtp with ESMTPS
-	id Q0d1xkH1tRiNxQLuMxHE7h; Mon, 09 Nov 2026 09:43:23 +0000
-Received: from box5620.bluehost.com ([162.241.219.59])
-	by cmsmtp with ESMTPS
-	id QLuMxOHqFxmi7QLuMxzBVI; Mon, 09 Nov 2026 09:43:22 +0000
-X-Authority-Analysis: v=2.4 cv=KuFN2XWN c=1 sm=1 tr=0 ts=6af195ba
- a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
- a=HaFmDPmJAAAA:8 a=49j0FZ7RFL9ueZfULrUA:9 a=QEXdDO2ut3YA:10
- a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
-	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=yi1ow+G90thtWMFWQw3RlqtN48nJc3tJpdrsLfQiqXU=; b=2pyVIKuzjdUTdaJnBEWHWWr6mQ
-	+7ouAwbeyIN2sPhEnSub57XusAYAnkL2jlFZR8DKg3QInmhOkriEcR/txIb7c72HHXeJMhear5fae
-	DX/qPaXYzBHKzsjzwJfeVndEHF/VTnPf5ssF6QShmqbtAZSU9b/vO85J67NCQ79ENbbOWzn02RDo4
-	wjbwdeziYucIBsnEbis8Bz6PQoYIqZ32dT0QphmYeKJX/meDAwUEf3diIXQjEUoA2nq+Wkxc+6yYv
-	jEoqKcU+AP5ZW6G5SC1/BurMAXxsUWbmM6iOGbg04rvwf6W9GhqvfjBeomZMvSYCnbRxp52v+JYXO
-	AWA2Hy7A==;
-Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:53826 helo=[10.0.1.180])
-	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.100.1)
-	(envelope-from <re@w6rz.net>)
-	id 1xQLuL-00000001Z40-1Q8E;
-	Mon, 09 Nov 2026 02:43:21 -0700
-Message-ID: <a0116c6c-e947-4a65-9202-6a8b06a7e127@w6rz.net>
-Date: Mon, 9 Nov 2026 01:43:19 -0800
+	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=Or10fogX
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1794217382;
+	bh=X3no4rhRBLwR+s1F99TECEwct/nFZ4Xb+FSwo1OAE4M=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=Or10fogXCO0pmNftiL0piJuUzesuy9c1Cgp9BSiekQpvLT5f+5Ks9cVwVYgKerfrD
+	 ZvLYeAYzsQRUrETMrA69ElISuxq5A0ejDAyIfJhpuRURfiUtSfU5R7p+mv4Xs+ecp2
+	 qVzHWol9w35CPzcMg/LVodXr058AeMt48xQhjYs8=
+X-QQ-mid: esmtpgz15t1794217364tc6710433
+X-QQ-Originating-IP: P0dnXr+JG4T4lzEZSen4qEVvFKsIsadQAKCqDVMiyDE=
+Received: from PEN202512010004 ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 09 Nov 2026 17:42:43 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 12239275079439126609
+EX-QQ-RecipientCnt: 7
+From: raoxu <raoxu@uniontech.com>
+To: lee@kernel.org
+Cc: andriy.shevchenko@linux.intel.com,
+	mika.westerberg@linux.intel.com,
+	mfd@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	raoxu@uniontech.com,
+	stable@vger.kernel.org
+Subject: [PATCH] mfd: intel-lpss: Clamp latency tolerance to the register value mask
+Date: Mon,  9 Nov 2026 17:42:42 +0800
+Message-ID: <82545EC5E5ABC9F0+20261109094242.3783672-1-raoxu@uniontech.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -76,63 +71,78 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.12 0000/1536] 6.12.117-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20261107134957.653319350@linuxfoundation.org>
-Content-Language: en-US
-From: Ron Economos <re@w6rz.net>
-In-Reply-To: <20261107134957.653319350@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - box5620.bluehost.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - w6rz.net
-X-BWhitelist: no
-X-Source-IP: 73.162.206.103
-X-Source-L: No
-X-Exim-ID: 1xQLuL-00000001Z40-1Q8E
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:53826
-X-Source-Auth: re@w6rz.net
-X-Email-Count: 59
-X-Org: HG=bhshared;ORG=bluehost;
-X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfPS4YbWe1ru1i+LfWSaScUl4lW91ItjAmMzNOPVYVByEK0drihjcbiNpiBmCWwkgCGZeUPFmcVvihulM4ZzGkoJVX0TbeQfJ45+2LpmyeIDPfj0FzXDU
- 25DDt3OaS6adunWjaDk3b4NH/7TD3exyhCinpS62jGsaOoOLIckZf6mVrEtCj8NmQXq0kA706kv47g==
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: MgRO26CFjEybQMBXp1qWv6NdK5NnRWXIQdRB5R0BsRKjsStbbh4o0z3U
+	Hz13Hnk60NCRo4GQiVJBptQLcgAZLHOw6gf0GBOXpxvlVxGGdlOgx+M92ywCf8pxK4dHLFd
+	jHmIpHfQKs7o19eXtdjk34YatuJ7or4w0aP1fTkXreM9KXhidw5cHtNqL59VtqyZrDRueLG
+	ow92OQWllBnHcmYBDQkgg9cOgBtl1lnxD4zc+y3kAKnsIYdm8UYami9dexDHrjGjKEfOcAS
+	5UwqDKb3S8M9CWgHuAo7HvacGqfwR/mgL7BbxMhWaU9jij23PtKx0Jjlx+fZIuN0kPC5QBM
+	/b4tph6RV9u6CQSbTtFPmSdMP7KUCqn5Mc1rlRnKfrzRBXAA2DYKilixcA9mMfarez3dWP5
+	xqyyX2x/9f5xyGD81yrzFofvDphvJF4NQ/hi8s66tvtDhlO5LqdTAzOQMv9+T/4S0QDCE9O
+	5kwSSdGmG+BtLfSftEp2icp2SDm1VYTgGFW0Ak+HHJmMD1LNK894djNLmpOR6MDYCOHT9FN
+	EDf8obz2TFRfg0moSm7OIskiO0anYwgvDs2WBtc/f5d35OeRWLnsTCY0KWFFTIz+zjLydQ1
+	54zVBBrY9YSywAGYiy0ZQLg25YMHpl7meD2nsw0taN2EEKhRS8nJqJC/oraevxGu+tZN+yA
+	wuQ2fjDgoohbrvOvgdRVVLdzWHdgeNb/+Uo2xeulTZvNJCNFpGSpBBsqys1aOkiksTlpLjR
+	oCT/xeaiKSnC97HNBqYI0/2dnh6Vx1oBlr77H7aii84YbXBehuaD6EFwXn81ItwsUJuyvLa
+	NqQAIqTDpmHcIHxgyPV6t0YROGr4rHa1qXKysCvpjur92whN/UHZzf8viJnDhG9B7KTS/Wp
+	yGFXnxRSV/nDsgJimzaJu7TkQvcbV2C/liwxL5wmYWf+bMWA5l0Bv+sRu+Dv7wMYoUtiqaX
+	g/dnpXKyQgi5cLNyo9JjPyNAyuzQ95MvNBnaI5/TcfMOqCa+pMgNxorzGFWnYR41ZTnaNta
+	oon4SVZrFALRBcMNvM4c/yd0cXkbpr0zlLnvUeKeZ4z04UU36CAcJVq3xspYg=
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+X-QQ-RECHKSPAM: 0
 
-On 11/7/26 05:33, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.12.117 release.
-> There are 1536 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Mon, 09 Nov 2026 13:46:08 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.117-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
+From: Xu Rao <raoxu@uniontech.com>
 
-Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
+The PM QoS latency tolerance interface accepts non-negative s32 values,
+but the LPSS active and idle LTR registers have only a ten-bit value
+field. intel_lpss_ltr_set() selects the larger scale for requests above
+1023 us and ORs val >> 5 into the register without limiting its width.
 
-Tested-by: Ron Economos <re@w6rz.net>
+For a request of 32768 us, the shifted value is 1024 and the latency
+value field becomes zero. A request of 100000 us leaves only 53 in the
+value field. Still larger requests can set bits outside both the value
+and scale fields. Thus a relaxed latency request can produce a much
+stricter tolerance and unnecessarily restrict power saving.
+
+Clamp the shifted value to LPSS_PRIV_LTR_VALUE_MASK before combining it
+with LPSS_PRIV_LTR_SCALE_32US. This saturates oversized requests instead
+of wrapping the field, matching the Intel LTR handling in sdhci-pci.
+Negative values and PM_QOS_LATENCY_ANY retain their existing handling.
+
+The supplied fix was reviewed and this commit message prepared with
+OpenCode AI assistance.
+
+Fixes: 4b45efe85263 ("mfd: Add support for Intel Sunrisepoint LPSS devices")
+Signed-off-by: Xu Rao <raoxu@uniontech.com>
+Cc: stable@vger.kernel.org
+---
+ drivers/mfd/intel-lpss.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/mfd/intel-lpss.c b/drivers/mfd/intel-lpss.c
+index 29f30ef0da99..3c3e75c23720 100644
+--- a/drivers/mfd/intel-lpss.c
++++ b/drivers/mfd/intel-lpss.c
+@@ -23,6 +23,7 @@
+ #include <linux/io.h>
+ #include <linux/ioport.h>
+ #include <linux/mfd/core.h>
++#include <linux/minmax.h>
+ #include <linux/module.h>
+ #include <linux/pm.h>
+ #include <linux/pm_qos.h>
+@@ -179,7 +180,8 @@ static void intel_lpss_ltr_set(struct device *dev, s32 val)
+ 		ltr &= ~LPSS_PRIV_LTR_VALUE_MASK;
+
+ 		if (val > LPSS_PRIV_LTR_VALUE_MASK)
+-			ltr |= LPSS_PRIV_LTR_SCALE_32US | val >> 5;
++			ltr |= LPSS_PRIV_LTR_SCALE_32US |
++			       min_t(u32, val >> 5, LPSS_PRIV_LTR_VALUE_MASK);
+ 		else
+ 			ltr |= LPSS_PRIV_LTR_SCALE_1US | val;
+ 	}
+--
+2.50.1
 
