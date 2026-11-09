@@ -1,62 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.99
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794191705;
-	b=H0DHEIeaqU+xPZ/Kx7E2DzI+CQtBCgyQRKaENTh4FyUrO6uKFewXWZUYg8N/VdkFpUgQ
-	 PYUnCgTjNDBz6InjSO3VF621LB+5gR5o0huxLLIvQdroBwLpNL0mijBkDV0U9JEiMbGdC
-	 V7sOKoDQxsP+so8K7O6y7SmbHZCetd0hskbe44iD5UiVj1MuA6ZUwvspz9yhM+PXqV+lA
-	 yeJSOnab0xHD4Eyu6f31SA7OjesrHAFvXIz0nsDJw6Kq8dw7Z0rGg6oKvWBo2+6DATuwX
-	 nLULTK+uENn7yBK2rsM9q5QsMNGUGb6KbYvUIc5oTWuDvDiASTI9l62jnKOtNUQ1DVg==
+	t=1794191971;
+	b=MA2sVFkII7l2D1DgWC7M+jpvl9vn2w7F2P2eG0BNPfoDxScmu9ovQDkhGQmTmJAQ2AcB
+	 K7Gdbel3JeHNLCflSqbMv0413sakKbTpc3xK+rABKV3W2LJVOKt97qPJX+wxMVoY3ZtoZ
+	 olzUdnj8QtPqow3E3kg/f6ovGU8ZmfuPtyx2l+J2y/VgDESMl3Of5uDa0am9mM/tcXpEA
+	 RCdiIBgRL8Banjm8c6dBxwffllcxfxTRrDVotiVc/5SrKcuX/UDuFklC548OEypYa5WOo
+	 59SOvY4uSxvuANyAM0CvsOFxT1pMawXm1mYlcmgNV47BdRqh3JyfQi1cw98vg9FQoMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794191705;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794191971;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=Pld/ypOEzvUZ1Xv2JYaevgXucwA7AzT9S4ayBCKuL5Y=;
-	b=qadpgAc1hsN9ZagwG49Z2h3o6apPaHr+WRUrg3htZqvstzCwLJYlbxjseoOkLxypdxF3
-	 XJnseukKmvGONsjiUXWtTRZPGyRKZoWRXX9t8dYg+4Xmho0FykPHb77TjnXSdM9S2zlfW
-	 0nDGH0x7s/y/5NyZUMwUZ2QlNrtvL0txQAPOyKX/4t9MXg8F7VYkxkF3q34g3Ujid1190
-	 vk5KRL7G7KUergETtQDB23U7sFyW1YoFt6WycW4m1qs0RvZHVR22Pj6upgiHIui7C4Sx7
-	 50qU0tAuOLmXrJOxgc/kdpknqGvVNHXmddUhz7Mj58WP+w4E+JQNuifvGUz33HpDUPw==
+	bh=4GpeMPp9esUWNHQVrf4y4sbUF5AJ0dox7FxpZYGLtcA=;
+	b=bZpy//3GvRuMXosFZVsF2rbJvHumoHrfE4Ovckp1TNE2y6wTkTUJZ17ldtUYsVQdDlwJ
+	 j3RPCNI7D4yEpouZq99c/GbZFIPvGRdjr/yflXItBT0CYhmPEvc3TnMiIcFsa2pVYw4H8
+	 jkkD6KUrfRwCL5FTukeM7qawOCrxN1wWHv6//PhtTMcnRAxqYArMvAm6MkwZ6dolR2P4v
+	 KNPoms0KQph13uDPZ4VXMXnI+/qYQVraJpx4OTF3Q5K/7ogvvtkOMpNjuH2rsuGvv/7hx
+	 72vJ6kOPAFlA34Ps4xJtwz39lRxDED2jn7TwWINcpPkpeSAuEmqgGq79GfuFS6HhkyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=teqADy5g;
-	arc=none smtp.remote-ip=91.218.175.99
-Received: from mta0.migadu.com (out-99.mta0.migadu.com [91.218.175.99])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E014606A322
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 02:35:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E014606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=LaDROMfk;
+	arc=none smtp.remote-ip=111.22.67.135
+Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9B5CC606A31C;
+	Mon,  9 Nov 2026 02:39:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B5CC606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=teqADy5g
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=2lyP7MNsW9NOFL7Y9LVDi2zqIu+RzquUmDDPyYap5Rs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794191702; v=1; x=1794796502;
- b=teqADy5gls3z69Ns7Kr74fMniykMQIWn/YKKXLPLdpQR7WOk+tuqgGCzKMeOxP9+KT6ujd7i
- 7AQ66/1S2b35G6K6ar77i+QecOEzbBEka2C6px+lHk4rFFPJ1QK0uH7ZQCH19TyU/lllD0gazNz
- FqREk8kOQZ9Arcq84w08PIcE=
-X-Envelope-To: stable@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 5df9f00c67852b27;
-	Mon, 09 Nov 2026 02:35:02 +0000
-X-Mizu-Trace-ID: 5df9f00c67852b27
-X-Migadu-Flow: FLOW_OUT
-From: Yi Cong <cong.yi@linux.dev>
-To: stable@vger.kernel.org
-Cc: Yi Cong <yicong@kylinos.cn>,
-	Felix Fietkau <nbd@nbd.name>
-Subject: [PATCH 6.18.y] wifi: mt76: mt792x: fix negative errno truncation in offload capability
-Date: Mon,  9 Nov 2026 10:34:54 +0800
-Message-Id: <20261109023454.52603-1-cong.yi@linux.dev>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261107050921-failed-6.18-d0115096429c@kernel.org>
-References: <20261107050921-failed-6.18-d0115096429c@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=LaDROMfk
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=LaDROMfkLni22zaf2pme8CxZCcy2q29gPFJ3Iu8CC77PRXHnyx46yEIrfy+0GEMznqNR0ueM1AOMU
+	 2v2lZ3gZpOkT3I7bFeeeWQbBfaseSAjflMNP0Q54Z6Xr33VvhTF2J9Pu4abqgcto+h4RZeGIqyVx3b
+	 y8rQi/G7KAqhdpyQ=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app03-12003 (RichMail) with SMTP id 2ee36af13260230-8b943;
+	Mon, 09 Nov 2026 10:39:28 +0800 (CST)
+X-RM-TRANSID:2ee36af13260230-8b943
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from Z04181456177947 (unknown[10.55.1.71])
+	by rmsmtp-syy-appsvr08-12008 (RichMail) with SMTP id 2ee86af132011c9-7db93;
+	Mon, 09 Nov 2026 10:37:55 +0800 (CST)
+X-RM-TRANSID:2ee86af132011c9-7db93
+From: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
+To: dm-devel@lists.linux.dev
+Cc: agk@redhat.com,
+	snitzer@kernel.org,
+	mpatocka@redhat.com,
+	linux-kernel@vger.kernel.org,
+	syzbot+4b232570d625662eaab4@syzkaller.appspotmail.com,
+	Zhao Feng <zhaofeng2@cmss.chinamobile.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] dm crypt: fix use of uninitialized percpu_counter in ctr error path
+Date: Mon,  9 Nov 2026 10:37:53 +0800
+Message-ID: <20261109023753.1278-1-zhaofeng2@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.55.0.windows.5
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,56 +74,73 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yi Cong <yicong@kylinos.cn>
+If percpu_counter_init() fails in crypt_ctr() (e.g. when the
+underlying percpu allocation fails under memory pressure or fault
+injection), the error path jumps to "bad", which calls
+crypt_dtr().  crypt_dtr() then evaluates
+WARN_ON(percpu_counter_sum(&cc->n_allocated_pages) != 0) and calls
+percpu_counter_destroy() on a counter that was never initialized,
+because __percpu_counter_init_many() returns -ENOMEM before
+calling raw_spin_lock_init() on fbc->lock.
 
-Returning a negative errno as u8 turned -ENOENT into 0xfe, wrongly
-enabling CNM and NAN caps. Return int and default to no caps on error.
+With lockdep enabled this triggers "INFO: trying to register
+non-static key" in __percpu_counter_sum(), as reported by syzbot.
+The console additionally shows "crypt: Unknown error (-ENOMEM)"
+because this failure path sets no ti->error.
 
-Fixes: e8a264ccd2de ("wifi: mt76: mt7921: move init shared code in mt792x-lib module")
+Move percpu_counter_init() to right after the allocation of cc,
+before ti->private is set and before any "goto bad" can happen.
+On failure, set ti->error and free cc directly, so that
+crypt_dtr() is only ever called with an initialized counter.
+
+Reported-by: syzbot+4b232570d625662eaab4@syzkaller.appspotmail.com
+Closes: https://syzbot.org/bug?extid=4b232570d625662eaab4
+Fixes: 5059353df86e ("dm crypt: limit the number of allocated pages")
 Cc: stable@vger.kernel.org
-Signed-off-by: Yi Cong <yicong@kylinos.cn>
-Link: https://patch.msgid.link/20260824021429.43761-1-cong.yi@linux.dev
-Signed-off-by: Felix Fietkau <nbd@nbd.name>
-(cherry picked from commit d0115096429ca090a592770c7645f9553a839954)
+Signed-off-by: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
 ---
- drivers/net/wireless/mediatek/mt76/mt792x_core.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+Not runtime-tested (the syzbot report has no reproducer; the
+failure requires percpu_counter_init() to fail).  The affected
+crypt_ctr() code is identical in current upstream master, so the
+patch applies there as-is.  The Fixes hash was verified against
+the upstream commit that introduced both the init call in
+crypt_ctr() and the teardown in crypt_dtr().
 
-diff --git a/drivers/net/wireless/mediatek/mt76/mt792x_core.c b/drivers/net/wireless/mediatek/mt76/mt792x_core.c
-index 96c50a501c1a..d00807075c71 100644
---- a/drivers/net/wireless/mediatek/mt76/mt792x_core.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt792x_core.c
-@@ -704,7 +704,7 @@ int mt792x_init_wiphy(struct ieee80211_hw *hw)
- }
- EXPORT_SYMBOL_GPL(mt792x_init_wiphy);
- 
--static u8
-+static int
- mt792x_get_offload_capability(struct device *dev, const char *fw_wm)
- {
- 	const struct mt76_connac2_fw_trailer *hdr;
-@@ -766,13 +766,20 @@ mt792x_get_mac80211_ops(struct device *dev,
- 			void *drv_data, u8 *fw_features)
- {
- 	struct ieee80211_ops *ops;
-+	int ret;
- 
- 	ops = devm_kmemdup(dev, mac80211_ops, sizeof(struct ieee80211_ops),
- 			   GFP_KERNEL);
- 	if (!ops)
- 		return NULL;
- 
--	*fw_features = mt792x_get_offload_capability(dev, drv_data);
-+	ret = mt792x_get_offload_capability(dev, drv_data);
+ drivers/md/dm-crypt.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/md/dm-crypt.c b/drivers/md/dm-crypt.c
+index 1ff16b8264..3e69dcc366 100644
+--- a/drivers/md/dm-crypt.c
++++ b/drivers/md/dm-crypt.c
+@@ -3249,6 +3249,14 @@ static int crypt_ctr(struct dm_target *ti, unsigned int argc, char **argv)
+ 		ti->error = "Cannot allocate encryption context";
+ 		return -ENOMEM;
+ 	}
++
++	ret = percpu_counter_init(&cc->n_allocated_pages, 0, GFP_KERNEL);
 +	if (ret < 0) {
-+		dev_warn(dev, "failed to read firmware offload caps: %d\n", ret);
-+		*fw_features = 0;
-+	} else {
-+		*fw_features = ret;
++		ti->error = "Cannot initialize page counter";
++		kfree_sensitive(cc);
++		return ret;
 +	}
- 	if (!(*fw_features & MT792x_FW_CAP_CNM)) {
- 		ops->remain_on_channel = NULL;
- 		ops->cancel_remain_on_channel = NULL;
++
+ 	cc->key_size = key_size;
+ 	cc->sector_size = (1 << SECTOR_SHIFT);
+ 	cc->sector_shift = 0;
+@@ -3260,10 +3268,6 @@ static int crypt_ctr(struct dm_target *ti, unsigned int argc, char **argv)
+ 	crypt_calculate_pages_per_client();
+ 	spin_unlock(&dm_crypt_clients_lock);
+ 
+-	ret = percpu_counter_init(&cc->n_allocated_pages, 0, GFP_KERNEL);
+-	if (ret < 0)
+-		goto bad;
+-
+ 	/* Optional parameters need to be read before cipher constructor */
+ 	if (argc > 5) {
+ 		ret = crypt_ctr_optional(ti, argc - 5, &argv[5]);
 -- 
-2.25.1
+2.39.2
+
+
 
