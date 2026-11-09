@@ -1,87 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794228587;
-	b=V/WOe1PDknVgj+aGR0jsjhdIUoFenrtGMRk2v078TfgLOcEMO+A1nqaDZ3+TJUtJ91Ff
-	 BnSomuUKA5u4ptF8yvIng/ahES5knRt8JeJaynTKRdTB/Vmj+nvSYZvi+jLZEQqP68MTo
-	 uW51FZWP/b7X3HqGXH/6NnGMwGGtnf3Nyb9q4iJKaSw5Xodl0bhgz5xak8M+0vDAAq2Bf
-	 aJQyWWN91s3HsiW/K2yTJFnTBJuHnKQND5YSFRymr1LANGQd2+S1lU5HMTv1siEO2RonV
-	 vHUVyn4mFF/3GOgpVqkdbvmntBr9vSqZagvIfvDC2MQJCdTr/fC6TFhvzA8l4gJfQdA==
+	t=1794228607;
+	b=5rCRVa9EdP0WCqz/h/gAFRiali2wXuunRfZiPd+mV61iGk6/kG0MjjTTkye5ONkdsjBr
+	 xPTindVMhlTCA94/g8I4buquBSsissmCrbxXck1YOVcyycTpL0r+cB2f3GwSB3I2FUQZk
+	 v4llNoltDR2fOBbdRJ6lTP6MuIFwIRTwAFegX6vu3T3rTD2fuITBYogS6XC4plULLikAW
+	 eccQdE/9+jn1sMFjB9SxKZDISnhw9FVY/73NCyktLe07/fj8zUOoN6N1LSMJS+EE9pCQk
+	 9xqsiI0IedD1KKfo53pArihw4V4syoWc6f7ArSF/Wi5e64LuP5NzozT/DajUyaagODQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794228587;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794228607;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=mG9Y8k2vnChqxaqg4HKskuIcpQ6X4WU53zywg6kGBHQ=;
-	b=zFk4I8oZCG+dQ7rtNmlbI0bKJRSpGTSOTHCCAw9o5bnXgIH2ywcpMFQnKboLU6vOnKl/
-	 5mbmlA2h4+TxeQ7QGicIWxC9ClNodfO8i2Oxs6XZMkKrFJx4GbhGIH9nituehKN0RAgDN
-	 zYeSQr3IKc0s7z1fPTR/oZ6m5j0rCC6OY+KndEttI6LHGoYGo+0xqY3aiIPRPYqVnuY70
-	 syjG9dlZOapx5vKEpf4tHqNfIyBW68HysGukRTpdEyRPKL6rJ13UmR2zHvd5swMWKUH/+
-	 FM9qVp87Vgl5u/VJh8CaUGtw6AIxtXLEdVrMTQFmqGT6MMAr8GadpyOR73Rhlsfh0dQ==
+	bh=ULzCO0JjMJTSMtXSK5ToDUte4FnYbn3iov4P4pXWrOs=;
+	b=tiCHXGGCpg6K68QbBZ3IraNKsmYHho3/YonCmuvB1N3FPwdclXl0oVce+/tOxIcP9+Pj
+	 9DAg/Qalh6yKRP4Q7wl7RgNzzShcH6wE/oJOF4r+Aw949IJvZnNp7weM9Ga6zyJ8SbDrM
+	 X3w6XAcoKSRJmS+llQ1AJRvf7t7aoQI+y7X59lXL+K1dk9hq4E3MUzLpLGmwwK/Hzrf16
+	 vaWzPCNAV6/nKlV+J4Z/SZNYSR4779Uw90nkjCe3mFocoptCeladm0UV+0xKnDM2g5YjX
+	 u5ntXCjAJCCuonblxoErWIZ8hL0d3Y4p8HIPjTiIBt/GbE7/TUL+annfPb6iTg+/Ogw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oof0SMWW;
-	arc=none smtp.remote-ip=209.85.210.46
-Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com [209.85.210.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VWSEio55;
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AADB606D812
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 12:49:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0AADB606D812
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E173606A33E
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 12:50:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E173606A33E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oof0SMWW
-Received: by mail-ot1-f46.google.com with SMTP id 46e09a7af769-845788309b4so332016a34.1
-        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 04:49:46 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VWSEio55
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-37000e7234bso625294eec.1
+        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 04:50:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794228586; x=1794833386; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794228606; x=1794833406; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mG9Y8k2vnChqxaqg4HKskuIcpQ6X4WU53zywg6kGBHQ=;
-        b=oof0SMWWrTw7FAV1sR7haIUYvt37AGp5bvoFIQrQqKl5y3EQHSNObrqGZoA43pTS6/
-         vQ7kyrQns04frayvawgKvXrnk9MiPVvt92jHDHu9jcnmECI53hw4K1kVIzXNEhQLX6KQ
-         szK/zf6NWtZOiGpPvIZlEdWYrgCNc7e/0oPsm9fnuurtXeL60+h7Jug7EoeLUoKxrLdT
-         T1BTuZIVSA2vkrrBOvrJhpwQM3JonL3TONgmJu6ExAtrP//EsJb1M9piyWeHwn3yrWrh
-         mevuVNdPNwX+c4Zlw6GIWl1au12qv6htBKq8z5z6DyvrsB9ZTlsRvQy0RlnTBSsJLQso
-         mVVQ==
+        bh=ULzCO0JjMJTSMtXSK5ToDUte4FnYbn3iov4P4pXWrOs=;
+        b=VWSEio55nDx45swB4s1+3i/yAB+YajUhF3GaZcaZ7QhmGyeEeDwdL5vIbNGBT5YE3k
+         q+1Bg4f+Jx7sm/LjeiV30LCtDJ/eTaXYYxB19uRBRdvsWkrNfcA80S8wkQ1VAAL4RdZP
+         Q4LhjnwbHYDacfReX+O3dpkl3E5vQaV2yzca2A5bg61YoyXn8Yl6Y0ANaEGHUwMGUdya
+         x55v81jk+GK5zZ3PJ2eaYABty7C6oCbOj7Q4LImkYG9XVLeYGr/UfynJoVvhy2w+vnRm
+         U9CqDwr/2oNc1bNt1/WXslmgCBGC676tXwonBZAI7ktN5HLLstyu0AqnOvUiugk2EAS3
+         Eunw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794228586; x=1794833386;
+        d=1e100.net; s=20260707; t=1794228606; x=1794833406;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=mG9Y8k2vnChqxaqg4HKskuIcpQ6X4WU53zywg6kGBHQ=;
-        b=MQ04uwkENm9Fr48g7P0ehwHquR+sAbCTDUURPySKIPTe6A3nNuLVyT/lKRq8Z/LNbi
-         i/OCHtnXEXs7JXou3Tpd0+XpmpPM4H3LQFoFmOi+pezma0C9dallxwnWC4ds9MVD11vJ
-         Cxvb+JVDtTmto/vzNezKDrg4Sono4SHjVyTlntV7thmbb19zgd2xX/UY1IPjWd1UAX9X
-         d57i21yPAlouv5ca/AQJouDuaOLrcOslPO9b3Qdh6GhmV5RmAtbaQGeet5GVaCsENhKz
-         vFx/8nYIdot+1H11thKPRgDUCklQyMu3lTbVcSIzS4dyKLuA7WEK1YtGTRYgRXvH5Dug
-         zkvQ==
-X-Forwarded-Encrypted: i=1; AL+hErEw9YTS0LlzF7G5o/P8TpzezFOq/YuNUbs70NQ1XQfmQ9U4SafICN3Cc+b3yrJCleGlNNNHI7Q=@vger.kernel.org
-X-Gm-Message-State: APuU4Z//ZVioV/IGIwP8QzFKAoUBJS50xTz7P6GlMEtwcyKtFe1FDAEL
-	7BOtV08/bGh5rOs3dm98NEO3la/CWGb96BIejWcMrBC2Lc9guqqTD6t1
-X-Gm-Gg: AYBFou2/+FV5MnGfd4LktFeUhSR0IaUXnMJhUAK3Ont5LBEoQyvbgOWOzvnp4J/yxcM
-	HdYF6/Zp7K1ACWBaoA6N03hJGe9M/wJxzsr4qwn+nlXKnPqx2YmC0NXf7xDgkbpO+RQBrTNazMR
-	oXqEo9sgqOx6lxw+1sqwPHVMhaRwxuShhKzct9udrhCx3bX0nxTBm/nA1qYlrAqLUgRI+tc0P1B
-	TEkgGew+HgXP0EwG6dNWv4byZhRpV9qIu/ZF76cNcLoUB6eqv8rQ211v19ehQpY4VIQB3HyiWZ9
-	0Dr3P/3hPRfVUBYFka9YR8HDDvA6T5nPpz2Cs27fcDZPqUSRDy6C0RVAlpzZIfXtFF+Va5OHz4a
-	ahUIsC5ROwb7wd603VwIe1UZJNFy/oOzXj+Y8pPgrHeaYIhRNPtElv+WNwng3peDS65jB0zxV9A
-	QDk18fIc6geefO5QymPFTtc1UPfFMrYcC/4HpBsG395OhrmTUmffLUoxtTfovwMW6vRhMGufD46
-	aNLEUH44dblN5kw0CmyAmzVQjPtYFOlldNcvSQUze7weC2ADw0AKXW3rN2jxIVFNLAzLepAs8vw
-	/7JUa5qatPnoGdD/l6jbQW/xMXeO6n9s/MYnEQHKDjMvzBxB
-X-Received: by 2002:a05:6830:6810:b0:823:38f9:ea5d with SMTP id 46e09a7af769-85f5078a13cmr3054227a34.11.1794228585816;
-        Mon, 09 Nov 2026 04:49:45 -0800 (PST)
+        bh=ULzCO0JjMJTSMtXSK5ToDUte4FnYbn3iov4P4pXWrOs=;
+        b=JHiwyQxLU5Y71WQenzR82Y7+p9OQ6QCGJM353uphsOIV06Gg6il3WD46cAencpN1nx
+         Q/Y8H06UQRq54fPwz93ld9xeXumKkjl2gAachwod141N0tlGuI25gchk9k4ExfXZq08p
+         FKB+C4GxXDc0P6skkXSGaz6nhkVcNuj3eY54jiBqpO4TPb/kZCOBowrhi3ReCbvCLMR7
+         ngrBHD0uk5UPJ+tNMJxNG8GTTYThaRRffNZVtysBqiQ5MWFDwa7nULSX/QvnT9f98/Da
+         +aO0pKawxIgjYwwlGj7kVeAmA9IGJtmgjIuVV+NCRSOhCAKLSA0TKaOJgzpFXYXzk7Ib
+         DdBQ==
+X-Forwarded-Encrypted: i=1; AL+hErEY4qDEOevaJo/kPdQ5yphfMExC9A2DNUcdHo6ZodQAUhigxC235Ut/yVyNQ3wLJA10ZIQ27is=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9BQQA3+IUhPKmjt0H3NQMF9RmF2uckOiGQDdV8VAzTCo3kJ/f3
+	Oy1jw7XIb7YqmzLHZJr+vc/RwN+ZcMxywLB/VROKv9Xwf/4GS2LH4kpu
+X-Gm-Gg: AYBFou3W9kwon9MIsEH6EK5tzeysgc3u5scD1UUiSWnAeNL5ji1FefeqogCWXahxOFH
+	X52T2a932mqriRMlfk2uCfuIp6eRBCh/MfiwlMtuyS1/2rgbsLRbb+hTPDlWrJwOwTHtcZExd1w
+	9/gb8YiccNNm90/sRLkWt9B1b+jzowHWTmEF8cwLur3h9KGWsWXkJH9/y1bzD64GYSiJ0ApbEVu
+	114P2A7X6RH/Q8RBplwsVrynE++1ymggoKTEdyNKdpRo7vFG679PC/NUcamEII3D6pxFafnx7vg
+	uTJYSIeWHZYDYFqQULdveG6ioZ8KZ/o1kkR31tiNWJG+FTZsjTLrs0Te3HA2RGDIR92dOOAXwgd
+	YdvpTWswTEr8Xcx0O+j4z9pr4bpUXRuZKiF/ZebP2I5HgeyAc9U9qx0KQttiTtuoagSFKaF75+F
+	MXOxCksDEkp8XuSPnp/st+nLYKMxXvSQCyqUl5c8/+YqqDXngAI8XCUAs4J3CEXXNDDZClJxPup
+	GnvkzHqNn56PzUzmmWgHEueCBYB4uWafX2ARrp7t63xRjZ/yxYswzzG7nR2G3tomj/d1IlXBQlz
+	wXkLFsv5WGuvKvFzBrsxBnhyY5qd0eESu8m74Vd5lGpQetGh
+X-Received: by 2002:a05:7300:a223:b0:36a:5042:85b1 with SMTP id 5a478bee46e88-3725302be58mr7671219eec.2.1794228605882;
+        Mon, 09 Nov 2026 04:50:05 -0800 (PST)
 Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85f4fbce9cdsm3565509a34.20.2026.11.09.04.49.41
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-372660f444csm20376602eec.19.2026.11.09.04.50.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 04:49:45 -0800 (PST)
+        Mon, 09 Nov 2026 04:50:05 -0800 (PST)
 From: hyunjungg <hj351016@gmail.com>
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: Sergey Ryazanov <ryazanov.s.a@gmail.com>,
-	M Chetan Kumar <m.chetan.kumar@linux.intel.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
+To: Alexandru Tachici <alexandru.tachici@analog.com>
+Cc: Lennart Franzen <lennart@lfdomain.com>,
 	Andrew Lunn <andrew+netdev@lunn.ch>,
 	"David S . Miller" <davem@davemloft.net>,
 	Eric Dumazet <edumazet@kernel.org>,
@@ -91,9 +89,9 @@ Cc: Sergey Ryazanov <ryazanov.s.a@gmail.com>,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Hyunjung Ko <hj351016@gmail.com>
-Subject: [PATCH net] net: wwan: iosm: cancel adb_timer on cleanup to avoid use-after-free
-Date: Mon,  9 Nov 2026 21:49:33 +0900
-Message-ID: <20261109124933.1603575-1-hj351016@gmail.com>
+Subject: [PATCH net] net: adin1110: flush rx_mode_work on stop to avoid use-after-free
+Date: Mon,  9 Nov 2026 21:49:53 +0900
+Message-ID: <20261109124953.1604903-1-hj351016@gmail.com>
 X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -108,42 +106,43 @@ Content-Transfer-Encoding: 8bit
 
 From: Hyunjung Ko <hj351016@gmail.com>
 
-ipc_imem holds five hrtimers.  ipc_imem_cleanup() cancels four of them
-(td_alloc_timer, tdupdate_timer, fast_update_timer and startup_timer)
-but not adb_timer.  adb_timer is armed at runtime from the MUX uplink
-aggregation path (ipc_imem_adb_timer_start(), reached from the encode
-path) whenever aggregation is active.
+adin1110_set_rx_mode() defers the hardware filter update to rx_mode_work
+(adin1110_rx_mode_work), which dereferences the port private data via
+container_of(). adin1110_net_stop() flushes tx_work but not rx_mode_work,
+and nothing else ever cancels it.
 
-If the device is torn down (modem reset, PCIe unbind) while an
-aggregation window is open, adb_timer can still be queued when
-ipc_imem_cleanup() returns and ipc_imem is freed.  When it then expires,
-ipc_imem_adb_timer_cb() runs container_of() on the freed ipc_imem and
-queues a task against it, a use-after-free.
+The netdevs are registered with devm_register_netdev(), so on unbind the
+port_priv (netdev_priv) memory is freed by devres. A rx-mode update
+queued shortly before the interface goes down can therefore still be
+pending after the device is freed, and adin1110_rx_mode_work() then runs
+against freed memory (use-after-free).
 
-Cancel adb_timer alongside the other hrtimers in ipc_imem_cleanup().
+Flush rx_mode_work in adin1110_net_stop(), next to the existing tx_work
+flush, so both deferred works are drained before the device can be torn
+down. adin1110_rx_mode_work() does not re-queue itself.
 
-Found by static analysis; not tested on real hardware (needs an Intel
-M.2 7360 WWAN modem).
+Found by static analysis and code review; not tested on real hardware
+(needs an ADIN1110/ADIN2111 SPI Ethernet device).
 
-Fixes: 1f52d7b62285 ("net: wwan: iosm: Enable M.2 7360 WWAN card support")
+Fixes: bc93e19d088b ("net: ethernet: adi: Add ADIN1110 support")
 Cc: stable@vger.kernel.org
 Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
 ---
- drivers/net/wwan/iosm/iosm_ipc_imem.c | 1 +
+ drivers/net/ethernet/adi/adin1110.c | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/drivers/net/wwan/iosm/iosm_ipc_imem.c b/drivers/net/wwan/iosm/iosm_ipc_imem.c
-index 4405c85..20f8da5 100644
---- a/drivers/net/wwan/iosm/iosm_ipc_imem.c
-+++ b/drivers/net/wwan/iosm/iosm_ipc_imem.c
-@@ -1239,6 +1239,7 @@ void ipc_imem_cleanup(struct iosm_imem *ipc_imem)
- 	hrtimer_cancel(&ipc_imem->tdupdate_timer);
- 	hrtimer_cancel(&ipc_imem->fast_update_timer);
- 	hrtimer_cancel(&ipc_imem->startup_timer);
-+	hrtimer_cancel(&ipc_imem->adb_timer);
+diff --git a/drivers/net/ethernet/adi/adin1110.c b/drivers/net/ethernet/adi/adin1110.c
+index 53fac3d..788cf4d 100644
+--- a/drivers/net/ethernet/adi/adin1110.c
++++ b/drivers/net/ethernet/adi/adin1110.c
+@@ -956,6 +956,7 @@ static int adin1110_net_stop(struct net_device *net_dev)
  
- 	/* cancel the workqueue */
- 	cancel_work_sync(&ipc_imem->run_state_worker);
+ 	netif_stop_queue(port_priv->netdev);
+ 	flush_work(&port_priv->tx_work);
++	flush_work(&port_priv->rx_mode_work);
+ 	phy_stop(port_priv->phydev);
+ 
+ 	return 0;
 -- 
 2.43.0
 
