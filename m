@@ -1,62 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794184488;
-	b=bY3j7ZGnrgYXOpST7HhW42Z19mOpab8mHrGNoBcd0IFbyBMD47WDmC/vFEn49y3QG6Ej
-	 SzM3ohA8MsUsz7OOIRiEALWbdyS+FRt7ZU2P+WSAmFuIt2tlWNpbEk/xvoprCNBd3QMzY
-	 haq68+7E66VWd8/aCORLCMvzWfKAer0BLb4y/rUBO9/PeXhnBDz3i2Qfy+bSY2OT6cu7F
-	 xNYq9pZP8N+B7ibTr4HBKKZ+X9yOg0uxiL16jXKZAGsP0lRVaFhkz/7YQU9dmkz1q0lnR
-	 py8RKYJrcTuT2HpuxAeSu/fcnjK9wAWiCtjsvEHzZnkIWV695dkeJJZgi+5frMtyYSg==
+	t=1794184491;
+	b=4KSWFvpTGMKGr6opdPiD5zSF4pSoN9UZ+pMbPyS02tmlcZU/a/d8af/WuN9FPdUiHs/j
+	 dB+VG3eJ89GgEvQ0gsF+CsFKwolzJIuVkFtXzbeZB5N3JPIQZCE29uMLj7c5JsWe/CRle
+	 630PV3P2B1m+oEjtn8AQUvmMn+bndxkeOT5avzTSckfcVM5zdDb/+QB2cMbQCCmjFBLtv
+	 e9H6OBbDhP/lZSg4g8PryWLFiNbOOb5BONlCc/0BmCka/VAGL2R4F3LCUC3IzBoD7qbYy
+	 B40KXWP9+3IW5BLz0qL2COBQcz40bLPgXy5lmf8pImpiZzQYmKJmoEKK3arGksj0bmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794184488;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794184491;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=xMr/7dznR2e6AQLXjKgj8idxsvTRjg4+NbujeiI4b24=;
-	b=ehtPZE7ztq8G1jYcAlFo1ZneWu9OaAZTSTHInT/Jas+1T6qbORoQqTFOA+FWZHsQLwy6
-	 ZRDL0konLVfytbhU6v+Znii3/hrDswGK9ASlUWvjasSVooH3r/SEDmqg4grXMz1iEu6hj
-	 A837mzPdWkPkByAW5HmLNXImsAS8xXRHHvcq3koRVauJzBROc7kyf13IRfcr+v5J58XsV
-	 M52tf78N0MQaQB39Jdgc0uJu9/7gCt8QevrCw7MpeYaGS5pbniLud39FU5KaxhH0It4Ly
-	 AVk+Y9zEvcj0xQ8sWSC94mtoAAzEfa958++j2VaIG+WCXVlsvZwwLgrsylav9rtulWw==
+	bh=9Bo9AS7Swq2CvNAJp1BGWwJ4ueU2VCtoYeAywO7Zrag=;
+	b=dBx0to8iCnDMVII9OHWc3NnTIkGK21Iyczgh0UGqDIa/IPUQEw1o694hX3Z6f7zsSouz
+	 pttI6ijscTj9QfOLK0rdq+7tVNlLoxJ71TqDJo/Kr8GRdV6yLxbDPTuqMzj8fvbgofCi3
+	 aZFNYvb/S8ajugZhmmD9cKy3u00rPOiOGhjP0wHlZkC3uWW45Dd5uQUloaHQVnkXQWlCX
+	 VhA4PrmEMUK0s5bk5BVzbEgYOp9fOOgYEdweh2bVNRx17lmjcn9t0m83jLWrgeqTg9zGZ
+	 81q51v2V6txb4BeuP2RFahuQJKM62OfJGQf1E7uNwejGuIca1W7PfkpnsIaf4NTms4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YBaCPAGo;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gj+pgrfy;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 016F0606EE81
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 00:34:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18977606EE92
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 00:34:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YBaCPAGo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96EF91F00A0A;
-	Mon,  9 Nov 2026 00:34:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gj+pgrfy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32DAD1F008A1;
+	Mon,  9 Nov 2026 00:34:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794184487;
-	bh=xMr/7dznR2e6AQLXjKgj8idxsvTRjg4+NbujeiI4b24=;
+	s=k20260515; t=1794184490;
+	bh=9Bo9AS7Swq2CvNAJp1BGWwJ4ueU2VCtoYeAywO7Zrag=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YBaCPAGo//NQOEpuqqqFHTSL4k7DihQA5fwABbTUg8mFsVngdSrCan4WHR3xrEGEw
-	 thlrO3NU7jRWtIN2LXsyjoQznSo/5VWlk/QPbjjysMh+HGK0adHrYTsABENuzQNRu5
-	 mAY1efcTJP5JcMpHB/+llojF6+prBkRXA/y1j7Z5BX2PXbvdiIEhCAbQlkKLEfpsn3
-	 T/e37NjmtEW6RYztD2b0rM5yPY7UVjxACQu5Ds5s92FGtaUBQawCqKIsiP9d0lRWIX
-	 +678HN/d2pE0mc4ZhOhTpSyqYoLFpDHhBtEceZLvjpE+9YsG+tINoPbcv1D3U561Yo
-	 04ru7jwHv4nhw==
+	b=Gj+pgrfyse+MmNoqaF4wJw/QckeaSrwPxJGhPBQmjlSuN1fYGQ6G68CI+Kv2cj513
+	 x/OMcCLSCic4QGZrOMamQsBHKU7k+bm5+OjKgTqHcUbKxa/qwLcTtTuuKX92/3ynaC
+	 PcPjiouSqFagrMavJxe2yVdEvQX1SyAOxxPnJi9S2rSxtNOpUqMFe1sg5efcfQ7eCe
+	 xkfWp7dHHKpY6S7nU3HqAID9hTScSYSXULi8U3cgj8e8Ll5OPI/YlUDLf+WfFazDx0
+	 hn+Mw+5pmxfpbgWpxSj+YeOkuQ75JklQKIiXi5ZbzwqGkB7GMCNbx1vyfNPrEQj+Qk
+	 UW3u3HcpgYw2A==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: Thomas Gleixner <tglx@kernel.org>,
+	iav@iav.lv
 Cc: Sasha Levin <sashal@kernel.org>,
-	linux-mm@kvack.org,
-	david@kernel.org,
-	yangge <yangge1116@126.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Barry Song <21cnbao@gmail.com>,
-	David Hildenbrand <david@redhat.com>,
-	SeongJae Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Mark Bundschuh <mkbund@amazon.com>
-Subject: Re: [PATCH v2 6.12 1/2] mm: replace free hugepage folios after migration
-Date: Sun,  8 Nov 2026 19:34:33 -0500
-Message-ID: <2026-11-08-1-daily-reply-0005-hugetlb-6-12-v3@kernel.org>
+	stable@vger.kernel.org
+Subject: Re: [PATCH 6.6.y, 6.1.y, 5.15.y, 5.10.y] genirq/kexec: Do not take the bus lock of an interrupt chip on the crash path
+Date: Sun,  8 Nov 2026 19:34:36 -0500
+Message-ID: <2026-11-08-1-daily-reply-0008-genirq-kexec-6-6@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261106220835.2878368-2-mkbund@amazon.com>
-References: <20261106220835.2878368-2-mkbund@amazon.com>
+In-Reply-To: <877binwiyw.ffs@fw13>
+References: <877binwiyw.ffs@fw13>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,15 +61,15 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> [ Upstream commit 04f13d241b8b146b23038bffd907cb8278391d07 ]
+> -		ret = irq_set_irqchip_state(i, IRQCHIP_STATE_ACTIVE, false);
+> +		ret = __irq_set_irqchip_state(i, IRQCHIP_STATE_ACTIVE, false);
 
-This doesn't apply to the current 6.12 queue: 30cef82bc6e8 ("mm/hugetlb: rename
-avoid_reserve to cow_from_owner") is queued for 6.12 and the
-include/linux/hugetlb.h and mm/hugetlb.c context in this patch no longer
-matches.
+The 6.12 version is queued.
 
-Could you rebase the 6.12 series on the current queue and send a v3? The 6.6,
-6.1 and 5.15 series have to wait until 6.12 is covered.
+This combined backport passes the irq number i here, but
+__irq_set_irqchip_state() takes a struct irq_desc *, and upstream passes desc.
+The arm64 build fails with -Wint-conversion on 6.6, 6.1 and 5.15 (and 5.10 has
+the same hunk). Could you resend it passing desc?
 
 -- 
 Thanks,
