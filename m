@@ -1,62 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.77.101.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.77.101.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794213650;
-	b=r4FYi1M1GZMlnd89BO5JvfDxsvp8MqP5RovZL2S6ssVB/hApHiKw1HQA/W5C5OXzwjKt
-	 hzU2E6a/Jn4tepVNyLuXg0BOlZxzSIJvAM6CYVCg9guJAOzA0SOGt4RvOxLB6NnA7u8AF
-	 dEn1MgAvTI6UVDL8g4oAg8NATx4FMAdKZNT/SUgtyeelrVk7OoXNfKgE7HqVfHE64PfYW
-	 QTWFO9IN3bB8ugALJPL1ejWHspPnCGHPnj9LArBre5KaA2yel20bApsJg8kXS6RQ3Ppbp
-	 8+3/vpKA+v1RlBgnPPXpL7dRBhOvVGfMCAZTSzgxBjrwjmqZaG3ouAgOgKHQa2KfTtg==
+	t=1794214087;
+	b=zB225dCZbixCTHnh39jq4DOnP3Qv9Uz+1QIdYDQcfTmYb7AIrEDTEgcM2qoNADmU3xOR
+	 kNaZcNnflq01b0dkpQSsVcmU77z3a46oKVnNbq4NyVL3JpOVSBCYGsqX+LrbQF7oPQNC8
+	 8AcyYzBPbGE2/wLqMF3R7m340gzI7EICZMvxOe4ufW6VSqUC5/jIcKG/L5HoN4fg7krdq
+	 0Ejk75dy6ifoxoXjze7t9pLE/r5Hu7VHgEl19QZtflqOBWyMmDVl5Q3yTmfbiA7gq4v8Y
+	 fQJucz4gcX2GQAByLSctrF6GYrLjyghJltRfBl+UKDOZpM2/pJVPBfzncBsb1ta53Tg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794213650;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794214087;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
 	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-WP-MailID:X-WP-AV:X-WP-SPAM;
-	bh=fU038faxmgtGWWgICkAf+S6DW9OdwnQXWfH0oWvoq9k=;
-	b=WJOuK4LUyoAkL1EPmEOWW5FTSsnqIUzjBL5tyEts7DlMVc2uEkDp+foHNhXKbSlxJNR2
-	 yRC+CLdAx4LB/MuJygJfP17c+8eQhLEVf5M/IaKMclxM91hXI8kMoLWdppg7Q0u4XN8x5
-	 cORFEp7DIsGk+XFAGSdZZJiyDzgCpVyBpGoR9JURQPbzvpGk657zEmGyCy05NfoFjdzRg
-	 q81QZKv9vnWNzEYU9ECua+mdElYuMeT2JPjkHCOso5F4lc/Q6zxWfJTgwSgba/jHkl24P
-	 xEbJdEi0IGEaT5R+/vnFbnx0hiFtA5+ccvFClh7qtz512Bh8oxdzRZ3fs+bVWriwmaQ==
+	bh=8V+3XeNypufLe5uMPR1QCFK7+WCaXz7H0csVgmVA1Dg=;
+	b=NVFJsla5JArH5dhrystMbuaeLZmZ/H5lKf7D5EGqdjX4efo6hjFl+In11tn+3gXgnsFB
+	 0CHH6WZe6Jao/2gqnilXr+e8oKvcyQyyxdAN20JFq3Nz1IV9RzBO9ZZzRCE8qp9DuqGU/
+	 QP7qtI59Cy06HiIMfVHeswQQ1QLtQUQFqWMFMsZtum4fbCbvP2l4m6vJ4aQkY9DWQ2dcv
+	 lGV0Ngwfn+YLHA6XqIXk+tp8lrQd8iR3QX6G+IYQb64OCNwTmp1OkVyHPd7NC3mq6/Kv2
+	 lymS6t8MfJRxQu717FvsnO8ME2VviVCN3Thhhqo2wBg6MFyYDMedUjgfPjVI1m/jPMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=wp.pl;
 	spf=pass smtp.mailfrom=wp.pl;
-	dkim=pass header.d=wp.pl header.i=@wp.pl header.a=rsa-sha256 header.s=s20261001 header.b="lGW0La8/";
-	arc=none smtp.remote-ip=212.77.101.10
-Received: from mx3.wp.pl (mx3.wp.pl [212.77.101.10])
+	dkim=pass header.d=wp.pl header.i=@wp.pl header.a=rsa-sha256 header.s=s20261001 header.b=KWM8hJO9;
+	arc=none smtp.remote-ip=212.77.101.9
+Received: from mx3.wp.pl (mx3.wp.pl [212.77.101.9])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ECA5606A31C
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 08:40:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2ECA5606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70D9A606A31C
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 08:48:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70D9A606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wp.pl
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wp.pl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=wp.pl header.i=@wp.pl header.a=rsa-sha256 header.s=s20261001 header.b=lGW0La8/
-Received: (wp-smtpd smtp.wp.pl 13249 invoked from network); 9 Nov 2026 09:40:39 +0100
+	dkim=pass (2048-bit key) header.d=wp.pl header.i=@wp.pl header.a=rsa-sha256 header.s=s20261001 header.b=KWM8hJO9
+Received: (wp-smtpd smtp.wp.pl 14042 invoked from network); 9 Nov 2026 09:47:55 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wp.pl; s=s20261001;
-          t=1794213639; bh=fU038faxmgtGWWgICkAf+S6DW9OdwnQXWfH0oWvoq9k=;
+          t=1794214075; bh=8V+3XeNypufLe5uMPR1QCFK7+WCaXz7H0csVgmVA1Dg=;
           h=From:To:Cc:Subject;
-          b=lGW0La8/5tA/x9j4LEXq+wzUdMRXSoyqf0KGwoflKg5xmLsDI6CnOe9GX8XgsX+Ay
-           BcWgbNouUONTxSkl93zP+5Dz4QGP1SnHy8/fsEbd9RXJegfuGW3zxdd4i9I+M2n+la
-           p4UHReund4Ry/JgJvo5caFCd3hgY4GIB0J3XhEUjW2r+Df+WqzdeWdePSSswnvO++r
-           jUDmyCURaOqXXNNVvpmuvgnvk+1q6kKTYEAJA8zabjXOZjtrZd4YhIFIfBJFYFHEp3
-           2LlEJRoRmlYKVdjsRZhjweQ4ltxaQYg9d6r7ZJVKzvotOc7ZXJjB4y/zF2QgXY6S+3
-           TOKpskkh6aTzw==
+          b=KWM8hJO9GwcsFnip+hfL61SKx+jwJGqZErERqUTWH2hzuK5FRQsI6TDD0fBFIsXa/
+           PpsjoH8iLDp6NwmbWW6FU52Nq5b+CDghUx4kxCZh0YWCyU1w/R5Rq9TYMVLZVGvFOj
+           j12XI8iouEiaKKrPgmDR53CEFCJK5gXPR7xLJs3R9b+TiflKzhRKOr5yZMl+gMCmlN
+           CwOG1MWBIXRg0CQs4b/3WGDC7n9Se1WaYBIYsveF11QuKRoesTDVbmI6PW+VKUZcdL
+           y+8k2q8CIQA9QL/i3GPFdoPeVwzLU8m2Mxby6Ot5/yRkOhJCxH4LBgkL9CUBFljm4Z
+           B5mSLqr4zMN/w==
 Received: from localhost (77-236-11-168.static.play.pl [77.236.11.168])
           (envelope-sender <stf_xl@wp.pl>)
           by smtp.wp.pl (WP-SMTPD) with TLS_AES_256_GCM_SHA384 encrypted SMTP
-          for <stable@vger.kernel.org>; 9 Nov 2026 09:40:39 +0100
+          for <stable@vger.kernel.org>; 9 Nov 2026 09:47:55 +0100
 From: Stanislaw Gruszka <stf_xl@wp.pl>
 To: stable@vger.kernel.org
 Cc: Stanislaw Gruszka <stf_xl@wp.pl>,
 	Johannes Berg <johannes.berg@intel.com>
-Subject: [PATCH 6.18.y] wifi: mac80211: queue frames while off-channel
-Date: Mon,  9 Nov 2026 09:40:16 +0100
-Message-Id: <20261109084016.5722-1-stf_xl@wp.pl>
+Subject: [PATCH 6.12.y] wifi: mac80211: queue frames while off-channel
+Date: Mon,  9 Nov 2026 09:47:44 +0100
+Message-Id: <20261109084744.5999-1-stf_xl@wp.pl>
 X-Mailer: git-send-email 2.25.4
-In-Reply-To: <20261107050628-failed-6.18-13e51269b665@kernel.org>
-References: <20261107050628-failed-6.18-13e51269b665@kernel.org>
+In-Reply-To: <20261107051639-failed-6.12-13e51269b665@kernel.org>
+References: <20261107051639-failed-6.12-13e51269b665@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,9 +67,9 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-WP-MailID: de27a02e19fc345fbb2d92c4de9759a7
+X-WP-MailID: 5739e55e286a7ea2bcf21b0870f70d6f
 X-WP-AV: skaner antywirusowy Poczty Wirtualnej Polski
-X-WP-SPAM: NO 000000A [odNU]                               
+X-WP-SPAM: NO 000000A [ocME]                               
 
 Drivers without FAST_XMIT and hardware scan support currently drop TX
 frames during software scanning while being off-channel. This happens
@@ -117,10 +117,10 @@ Signed-off-by: Stanislaw Gruszka <stf_xl@wp.pl>
  1 file changed, 28 insertions(+), 27 deletions(-)
 
 diff --git a/net/mac80211/tx.c b/net/mac80211/tx.c
-index 63867702ab08..b012451f4525 100644
+index 0fad278d8f24..3b01934a6e80 100644
 --- a/net/mac80211/tx.c
 +++ b/net/mac80211/tx.c
-@@ -269,7 +269,6 @@ ieee80211_tx_h_dynamic_ps(struct ieee80211_tx_data *tx)
+@@ -276,7 +276,6 @@ ieee80211_tx_h_dynamic_ps(struct ieee80211_tx_data *tx)
  static ieee80211_tx_result debug_noinline
  ieee80211_tx_h_check_assoc(struct ieee80211_tx_data *tx)
  {
@@ -128,7 +128,7 @@ index 63867702ab08..b012451f4525 100644
  	struct ieee80211_hdr *hdr = (struct ieee80211_hdr *)tx->skb->data;
  	struct ieee80211_tx_info *info = IEEE80211_SKB_CB(tx->skb);
  	bool assoc = false;
-@@ -277,23 +276,6 @@ ieee80211_tx_h_check_assoc(struct ieee80211_tx_data *tx)
+@@ -284,23 +283,6 @@ ieee80211_tx_h_check_assoc(struct ieee80211_tx_data *tx)
  	if (unlikely(info->flags & IEEE80211_TX_CTL_INJECTED))
  		return TX_CONTINUE;
  
@@ -152,7 +152,7 @@ index 63867702ab08..b012451f4525 100644
  	if (tx->sdata->vif.type == NL80211_IFTYPE_OCB)
  		return TX_CONTINUE;
  
-@@ -806,6 +788,33 @@ ieee80211_tx_h_rate_ctrl(struct ieee80211_tx_data *tx)
+@@ -810,6 +792,33 @@ ieee80211_tx_h_rate_ctrl(struct ieee80211_tx_data *tx)
  	return TX_CONTINUE;
  }
  
@@ -186,7 +186,7 @@ index 63867702ab08..b012451f4525 100644
  static __le16 ieee80211_tx_next_seq(struct sta_info *sta, int tid)
  {
  	u16 *seq = &sta->tid_seq[tid];
-@@ -1852,6 +1861,7 @@ static int invoke_tx_handlers_late(struct ieee80211_tx_data *tx)
+@@ -1853,6 +1862,7 @@ static int invoke_tx_handlers_late(struct ieee80211_tx_data *tx)
  		goto txh_done;
  	}
  
@@ -194,7 +194,7 @@ index 63867702ab08..b012451f4525 100644
  	CALL_TXH(ieee80211_tx_h_michael_mic_add);
  	CALL_TXH(ieee80211_tx_h_sequence);
  	CALL_TXH(ieee80211_tx_h_fragment);
-@@ -4691,10 +4701,6 @@ static void ieee80211_8023_xmit(struct ieee80211_sub_if_data *sdata,
+@@ -4667,10 +4677,6 @@ static void ieee80211_8023_xmit(struct ieee80211_sub_if_data *sdata,
  	queue = ieee80211_select_queue(sdata, sta, skb);
  	skb_set_queue_mapping(skb, queue);
  
@@ -205,7 +205,7 @@ index 63867702ab08..b012451f4525 100644
  	skb = skb_share_check(skb, GFP_ATOMIC);
  	if (unlikely(!skb))
  		return;
-@@ -4771,11 +4777,6 @@ static void ieee80211_8023_xmit(struct ieee80211_sub_if_data *sdata,
+@@ -4748,11 +4754,6 @@ static void ieee80211_8023_xmit(struct ieee80211_sub_if_data *sdata,
  	ieee80211_tpt_led_trig_tx(local, len);
  
  	ieee80211_tx_8023(sdata, skb, sta, false);
