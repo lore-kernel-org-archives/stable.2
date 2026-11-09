@@ -1,82 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=37.230.196.243
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794215330;
-	b=AUT9aIvapkaeNAcA1qQAJQ6RQdKhGJSfL4OH9MVGlS+a/44MYvw8Vc6Z3DYisbpo2haa
-	 thegUeFpBjUHJ0pMJy++efT5caJ/oGLJmbsSZiWLD5/U6z/06Is1P90XCfyeNV2Ltyy3E
-	 TBX2CFCPhLTO14fClLooHCH6BaH3mksNkJQk+zO55VZmMR3xd8VyPTVCnFslhGca4tuAd
-	 HxgXEfwQq3IInOK1bbbXJ4wwwGjvtGDxcUapg5nTpeEby8D3b2I3owhuU6Bpoi6obD5Lj
-	 +EwCraZHJgEQCSZO3o3W9mxmVLTIYMR9socqDlfWBQrziQtHcVnxoJQKiSLJ9BNNKBg==
+	t=1794215360;
+	b=0i7fb1CmpRFCH+nXJihsYIYvqp69DRFEnQxSeip5KdDBbEdl8lQCalKsKiAeFAbYygOm
+	 1CglcggcGV82JeEExGln9IZM5dlBq/CgbA1rDMKglSFkGIWNIFRGI8YInCuoLYUjOFTR2
+	 tVdfT1xenX98Q+4TGsEaKEwAJkbVX5dVXtap0HvYDlxwiRpGn6BaNsjK4Yi9qBMZcRpW6
+	 yFW6DW1UATanODmg0tj+S9hlWhiLYvaBeXZlQIIrqmOC3ZAUSlEUF9KgZNAcdE/52mLZO
+	 9YNgG8B7ytAp/T8l0kuFKsiTfKj/e8lLDjN5uGSh3f2SFd1B8aL8hKn4MSvPvCMivIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794215330;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-KSMG-AntiPhishing:X-KSMG-AntiSpam-Auth:
-	 X-KSMG-AntiSpam-Envelope-From:X-KSMG-AntiSpam-Info:
-	 X-KSMG-AntiSpam-Interceptor-Info:X-KSMG-AntiSpam-Lua-Profiles:
-	 X-KSMG-AntiSpam-Method:X-KSMG-AntiSpam-Rate:X-KSMG-AntiSpam-Status:
-	 X-KSMG-AntiSpam-Version:X-KSMG-AntiVirus:X-KSMG-AntiVirus-Status:
-	 X-KSMG-LinksScanning:X-KSMG-Message-Action:X-KSMG-Rule-ID;
-	bh=bAjv5jztQ8jh+iGi9AbS/QPrQZz+pxTt/UWPKu5c9Ow=;
-	b=q++poS196zPTnWEzHjirZsZfX0SAmvIPLkdtN+OqN1+7L8UfgW/m56i57qWZG/ySwfEf
-	 84uUOWChtyYt+G0QbrHfQic/kyCMkdc7KTn5NMOaEUDxjWXN15lTtKPObCC3tiGe7UCb3
-	 AT5kPvId+lVQJzD0OfG8706N5GFygaHureHzPzpuisEK0pAEQxnhfM1RPcPFvtNyjVp+j
-	 g2yG/NnwGPa2i0EwVf6TWOZgJH0NW+1KQxXWV0YzvFbg278nX7Ij6I2V3dulIsmqFM5Wc
-	 AahWa8WIbXyZCF4LNYEVnoLK7wfHZ120UuN30rf4yF82mzcitcEnkMKLisJVHMIgzGg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794215360;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=+KBLzQyqsR334QCpiwaANoenKn13j8vn07qxRoKBlVI=;
+	b=Pm1jVuJMYSuMTSgruWq/1tEEezN1EyGtNACxvMQr4+Rk447t01EcmIO68C+KHiCMTlr8
+	 G6LHNcOdQRyc4xlHnlU+HFr558iV+gUWDphoqdzehEDpwMHXBQw17uIDQmwmMVmUTdEVJ
+	 lneIoNqf/ytgFHxKelonThM6HqJtfMum3qj/1+ohEbsO3xIGjsZTOgR1gD7NOtAr9OR15
+	 lYoOMmTuY3snwtB7Nxwh2A0zFK7RdXkCBgYdgZG45/uOwFhrwr+XmNMQXT0bPp1XAknYo
+	 INIVouzg6PBCHkH/Y1GFwOtluOTbmWlbIJkpyQy3z6PbVo03BdgjNiXfXb+HyDZPgHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=astralinux.ru;
-	spf=pass smtp.mailfrom=astralinux.ru;
-	dkim=pass header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=iYKek6U6;
-	arc=none smtp.remote-ip=37.230.196.243
-Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=wirenboard.com;
+	spf=pass smtp.mailfrom=wirenboard.com;
+	dkim=pass header.d=wirenboard.com header.i=@wirenboard.com header.a=rsa-sha256 header.s=google header.b=GP56uGAf;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 670DE606A321;
-	Mon,  9 Nov 2026 09:08:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 670DE606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFCAF606A336
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 09:09:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFCAF606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wirenboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wirenboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=iYKek6U6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
-	s=mail; t=1794215319;
-	bh=jAokk+Zfx8ZmaPMvbaEBUYWJIuTkacUKL7Qyb4uWvvg=;
-	h=From:To:Cc:Subject:Date:From;
-	b=iYKek6U6XtbshWVb1vaedkcO22OtsM6XrxXfH+4O0gilHQ/tAYdzq+V03yMsWqgt3
-	 gHCdSrixbsZhTiMPmxubhrqp6lK6KfZkMlVno8r2kS/4YLJQsDhhtbltK8HjGZu+uI
-	 7A8jnu01s9H5dBQBeea3pIzId8B5GKjHgKN1NBv4A9sKEmqEU39WsKTDDQq5y/c2Wl
-	 QueqBwOf54LVaY+FGZ34Tm2xurut8bM/YiA110fImNaYkYErHlYbI33S2F/TsLeHfL
-	 j8+tthGIqeM6SvjXkO2CHmg/9E0DWh5mO2csXKgnKG3+cgG70ie1zQrHGqHbuf3rCJ
-	 olerSOja1V6Lw==
-Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
-	by mail-gw01.astralinux.ru (Postfix) with ESMTP id 5DC0124FCA;
-	Mon,  9 Nov 2026 12:08:39 +0300 (MSK)
-Received: from new-mail.astralinux.ru (unknown [10.205.207.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
-	Mon,  9 Nov 2026 12:08:20 +0300 (MSK)
-Received: from DESKTOP-D46TNHI (unknown [10.198.52.177])
-	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4jNP8N1BSfz2lh4;
-	Mon, 09 Nov 2026 12:08:20 +0300 (MSK)
-From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
-	Vasant Hegde <vasant.hegde@amd.com>,
-	Joerg Roedel <joro@8bytes.org>,
-	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	iommu@lists.linux.dev,
+	dkim=pass (2048-bit key) header.d=wirenboard.com header.i=@wirenboard.com header.a=rsa-sha256 header.s=google header.b=GP56uGAf
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a2069b9710so5049105e9.2
+        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 01:09:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=wirenboard.com; s=google; t=1794215358; x=1794820158; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+KBLzQyqsR334QCpiwaANoenKn13j8vn07qxRoKBlVI=;
+        b=GP56uGAfqelAtz+ZKaQKSFJnHPlW7rl/XXFsOM4NhpYtf3oyCLoe/DAXcg/bArFdH5
+         8MBGX+H3d0by1/+cPEYkqvKdwXrYv2aP8og9SOSauz5bDB/24hphmYKSGLIBwIMPay37
+         90CIcMv7qfHO8+oJjghypJNcIEojMyuwI3z/w7Uc4YDSx4s4Zit+6DlQqdWztnua88kU
+         m5WmvkAC/6oI7auisFFVKxYleskNY1zUgtSuopvyeFcQLNGA8pHqhmHfiJVUNZ4lqmxj
+         b3g1UhBiwXbpd3fFqofeHZxJ/N2Txu0LjHKTCAuLunbblAdyLBr6gNZiYjiX8iIaNRGz
+         2Qqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794215358; x=1794820158;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+KBLzQyqsR334QCpiwaANoenKn13j8vn07qxRoKBlVI=;
+        b=bQC+nsrg9MYxjYo4zf3Xo3h4ens7D84B55c8dfEg9W2UnZwDksgcVBokx4Hl3G4F+y
+         6TxFDhNjGWboQtmQNZIeGCXl14eh5S+/UPa4P4nHUlhdaXqSmD5eklu679SwH2Rde+MI
+         bMWJBKU0veos37LySXgP7+rAko0pCquqnx06uKt2MTdaltVgw0P0hzTJ7mx7099nCJtk
+         bDKnzaJzl3zPC82LQPWuIXNe//5RCi7YBdjhOK+AAuddXiWGjZci2MoA2kzHY0/k/BUL
+         Gxi671UdG+Swhnl2RkHjzbM4Ozr6NvAWaR8pQXsQUWWcGAXkbA7dFk8vYCsW/6qe6ZaJ
+         jhgg==
+X-Forwarded-Encrypted: i=1; AL+hErHv2wugljOEeiRWaeiuE2on1SPvGAkGMiQmS8pmmVSUW4PT68eDhSRiQs/APf2MVMghPOlZWM4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/JhqOXXZFCQ74MU4mTlisTdH7ir1WhcxgB4jbnWLLIDYQgqI2E
+	OmmaldTmH+/OmgIrjCYR3e1MQCYls/UrAysb1nt3iP2EUiSp4/uTTJ7oFuTd4Gz3ETI=
+X-Gm-Gg: AYBFou2bjx9y93uLkGXxqhBPyDBsNIfF9cwbro/wP482/diB85jnVOHk6rXilr1UTHa
+	UGQCIYAveG/5RwHnuM7NGJ7DfSqA/JHF5Cift4sr8Id4mnHozZqNBUyMSPYdGZpq+E0uKVMRhR+
+	rQBmPJNOOlfEp8DeOgGSbsQr4/pI6k76kX2ZXQ1PlNHPQF9xj8LYsw2uETHWt8dSAI8Ut6fmcIO
+	9XdlbB+C+dFuzOL2QEHv0sNiW+JNDGfdTaU1w8DyDw0vy3WpXrHPqnZB6JHYzSNlwmSh6izdLvB
+	iLOBJavlfIGyHI13TLHarxwb1ywDe8QemJj5FLT9Epbx3LZMdsPYjWGoEIJjFfarUS2zIobptc8
+	XRDOcAmqI52ddMj0m38FSuRUVoXZhW/Wv009ZwVuF5KRuL3c2oRSTuNfMGUxkpmgItgVm1FXGHt
+	yrYRcToz6xG83a6FyyAaPYIpMKV55G5FFMdJoJ+dtOLWUh0TGYZGM88heuUheom8o/KvPQVEt40
+	ADXOJ8Levl38daMgN549v4P4kW+Xwp1Lke3W1cecEcp/3sxAszMsCTOTMD+ADzPZnJTcpoC1rjE
+	I6hMS1XPAdQfKQsT8Ex1DB+/i3AufAc8KSJPCUzDOtpFJUWTL0YSp5BdEEbElXg=
+X-Received: by 2002:a05:600c:474a:b0:4b5:2c72:651c with SMTP id 5b1f17b1804b1-4b963c6cac0mr68998635e9.5.1794215358048;
+        Mon, 09 Nov 2026 01:09:18 -0800 (PST)
+Received: from localhost.localdomain ([85.137.25.106])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49592f398a4sm8250905f8f.6.2026.11.09.01.09.16
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 09 Nov 2026 01:09:17 -0800 (PST)
+From: Ilya Titov <ilya.titov@wirenboard.com>
+To: sboyd@kernel.org,
+	wens@kernel.org,
+	jernej.skrabec@gmail.com,
+	samuel@sholland.org,
+	andre.przywara@arm.com
+Cc: bmasney+clk@redhat.com,
+	jbrunet+clk@baylibre.com,
+	linux-clk@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org,
-	Joerg Roedel <joerg.roedel@amd.com>
-Subject: [PATCH 5.10/5.15] iommu/amd: Fix clone_alias() to use the original device's devid
-Date: Mon,  9 Nov 2026 12:07:31 +0300
-Message-ID: <20261109090732.1565-1-mdmitrichenko@astralinux.ru>
-X-Mailer: git-send-email 2.54.0.windows.1
+	stable@vger.kernel.org,
+	Ilya Titov <ilya.titov@wirenboard.com>
+Subject: [PATCH] clk: sunxi-ng: h616: register CPU PLL notifier before mux notifier
+Date: Mon,  9 Nov 2026 12:09:14 +0300
+Message-ID: <20261109090914.46872-1-ilya.titov@wirenboard.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -87,79 +105,54 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-KSMG-AntiPhishing: NotDetected
-X-KSMG-AntiSpam-Auth: dkim=none
-X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
-X-KSMG-AntiSpam-Info: LuaCore: 133 0.3.133 d508d579b02cdb6df47808421a9b9e12fc9fb75b, {date_rfc_vio_soft_silent}, {Tracking_from_domain_doesnt_match_to}, astralinux.ru:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;127.0.0.199:7.1.2;new-mail.astralinux.ru:7.1.1, FromAlignment: s
-X-KSMG-AntiSpam-Interceptor-Info: scan successful
-X-KSMG-AntiSpam-Lua-Profiles: 207338 [Nov 09 2026]
-X-KSMG-AntiSpam-Method: none
-X-KSMG-AntiSpam-Rate: 0
-X-KSMG-AntiSpam-Status: not_detected
-X-KSMG-AntiSpam-Version: 6.1.1.27
-X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/11/09 08:07:00 #28826469
-X-KSMG-AntiVirus-Status: NotDetected, skipped
-X-KSMG-LinksScanning: NotDetected
-X-KSMG-Message-Action: skipped
-X-KSMG-Rule-ID: 1
 
-From: Vasant Hegde <vasant.hegde@amd.com>
+Currently the CPU mux notifier is registered first, so on
+POST_RATE_CHANGE the CPU is switched back to PLL_CPUX before the PLL
+notifier re-locks it. The CPU then runs from the PLL while it is still
+settling. The comment for ccu_pll_notifier_cb() says it must be
+registered first, and the other sunxi-ng drivers (A33, H3, R40, A64,
+A100) do it in that order.
 
-commit faad224fe0f0857a04ff2eb3c90f0de57f47d0f3 upstream.
+We see random hangs and oopses on T507 based boards when cpufreq
+switches frequency often. In the oopses and JTAG dumps we captured, CPU0
+was always in ccu_mux_notifier_cb() or ccu_pll_notifier_cb(). Other
+CPUs were usually stuck on dsb after tlbi, waiting for CPU0.
 
-Currently clone_alias() assumes first argument (pdev) is always the
-original device pointer. This function is called by
-pci_for_each_dma_alias() which based on topology decides to send
-original or alias device details in first argument.
+Running a random walk over all OPPs with some load on other cores, two
+boards hung 20+ times in about 3 days. With the PLL notifier registered
+first there were no hangs in the same time.
 
-This meant that the source devid used to look up and copy the DTE
-may be incorrect, leading to wrong or stale DTE entries being
-propagated to alias device.
-
-Fix this by passing the original pdev as the opaque data argument to
-both the direct clone_alias() call and pci_for_each_dma_alias(). Inside
-clone_alias(), retrieve the original device from data and compute devid
-from it.
-
-Fixes: 3332364e4ebc ("iommu/amd: Support multiple PCI DMA aliases in device table")
-Signed-off-by: Vasant Hegde <vasant.hegde@amd.com>
-Signed-off-by: Joerg Roedel <joerg.roedel@amd.com>
-[mdmitrichenko: Replace iommu->pci_seg->alias_table with the global
- amd_iommu_alias_table used by 5.10/5.15.]
-Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+Fixes: 087b4083d3f9 ("clk: sunxi-ng: h616: Reparent CPU clock during frequency changes")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ilya Titov <ilya.titov@wirenboard.com>
 ---
-Backport fix for CVE-2026-53053.
+ drivers/clk/sunxi-ng/ccu-sun50i-h616.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
- drivers/iommu/amd/iommu.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/iommu/amd/iommu.c b/drivers/iommu/amd/iommu.c
-index 334303b1d27bb..d8af774124a98 100644
---- a/drivers/iommu/amd/iommu.c
-+++ b/drivers/iommu/amd/iommu.c
-@@ -216,8 +216,9 @@ static struct iommu_dev_data *search_dev_data(u16 devid)
- 	return NULL;
- }
+diff --git a/drivers/clk/sunxi-ng/ccu-sun50i-h616.c b/drivers/clk/sunxi-ng/ccu-sun50i-h616.c
+index 955c614830fa..00b7811f3a84 100644
+--- a/drivers/clk/sunxi-ng/ccu-sun50i-h616.c
++++ b/drivers/clk/sunxi-ng/ccu-sun50i-h616.c
+@@ -1235,13 +1235,16 @@ static int sun50i_h616_ccu_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return ret;
  
--static int clone_alias(struct pci_dev *pdev, u16 alias, void *data)
-+static int clone_alias(struct pci_dev *pdev_origin, u16 alias, void *data)
- {
-+	struct pci_dev *pdev = data;
- 	u16 devid = pci_dev_id(pdev);
++	/*
++	 * Re-lock the CPU PLL after any rate changes. Must be registered
++	 * before the mux notifier, so CPU goes back to a locked PLL.
++	 */
++	ccu_pll_notifier_register(&sun50i_h616_pll_cpu_nb);
++
+ 	/* Reparent CPU during CPU PLL rate changes */
+ 	ccu_mux_notifier_register(pll_cpux_clk.common.hw.clk,
+ 				  &sun50i_h616_cpu_nb);
  
- 	if (devid == alias)
-@@ -242,9 +243,9 @@ static void clone_aliases(struct pci_dev *pdev)
- 	 * part of the PCI DMA aliases if it's bus differs
- 	 * from the original device.
- 	 */
--	clone_alias(pdev, amd_iommu_alias_table[pci_dev_id(pdev)], NULL);
-+	clone_alias(pdev, amd_iommu_alias_table[pci_dev_id(pdev)], pdev);
- 
--	pci_for_each_dma_alias(pdev, clone_alias, NULL);
-+	pci_for_each_dma_alias(pdev, clone_alias, pdev);
- }
- 
- static struct pci_dev *setup_aliases(struct device *dev)
+-	/* Re-lock the CPU PLL after any rate changes */
+-	ccu_pll_notifier_register(&sun50i_h616_pll_cpu_nb);
+-
+ 	/* Reparent GPU during GPU PLL rate changes */
+ 	ccu_mux_notifier_register(pll_gpu_clk.common.hw.clk,
+ 				  &sun50i_h616_gpu_nb);
 -- 
-2.43.0
+2.54.0 (Apple Git-157)
 
