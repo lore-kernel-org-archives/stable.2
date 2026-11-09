@@ -1,96 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794192191;
-	b=Lvi8JLOmwTehLnk4/fdxAKrOZXv1sTKK2QApSyHiwMczXm9/ZLdqCgYecJ3kU/LlMW+V
-	 VrIk9ig1uwbxhI8EEZlrhekyp2gF7xvk9XPBCeTjAFTiGu7M95Gg0N07VStYr3hzszNim
-	 omY5+jE+WEuE5DWU4EnuPBlJFFk9h+9NvcBP/8j3+FZcc7hiVP/s4p6qfgkgVtQugDot4
-	 /VnZz5IEaF9zF16Yh+am4EWXn3XbpX/rlA132BrQXpAGoKSn7kLcocT6U8fMjkP69doQq
-	 l2mUTfV3QL0Hp7y3w45FeY2aFxSX7bf5hXIgEu9+WtEe/ZY49cgavFoK175IWY0rnGA==
+	t=1794192472;
+	b=vLfFjWGEkZpr1Q86+FCDE19ahBHQvbk3cWRVp3SiMKKKtTohwy/Gy679UBBDzLihwwqh
+	 njyFqs1MIEOJbCpxYHXs10jwT0zK/KgvMeaMw0kcMZ/addq3AbElNNEniG3VAvot+/z/C
+	 FHBBWAoGoZFYCb44DXTIU2H+q2CZe7P17mlQULE/4OZxb+1S2ic5a+1Jp0FIyTPHa1FPB
+	 cotRjPI7torcEmjbMJR2AggObJqdpOTpNRVZr3frwOzNNX7mRs3hTAxiGBy0/NNBdRdPJ
+	 X6Wl0y3gG4DBleuVsZD+/YqoslQvod/nqk5ztz9DrN3ev73vuethkvJTLqyIQlN4U9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794192191;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=lbsHrjkpK1cq0QRwZ9oauLF2GZ88NqZOcvz5poLBJyg=;
-	b=5gX/tESPiEldqSXAPIuAltr7p0YvmTxktOO/jzNbgfOXWyLj4910BTz24dKiGDyhjbGp
-	 D4kC+4PD48ZmhZwyMrykVMCsWA75wGQA+DP8yqaXzHTzHMoVv1HZKXLTgykliOW2Jvkv/
-	 8sH7hvaHq3JhwxGGUsRGShNrEVoB22HUQVi/mG/v0yjDkUJ1Qwmm1NRgcaRZfxYqoU5BO
-	 Tb92hSXy6I17r6x3PZbE1MKlxYEi/90OgYPGpsci+bgBiZBg/C3xSxaJ65ononv9Lzq2X
-	 EDFW8ieQiQcDBKmeCpxHpc70npOxisTzF/IFKSYm3q2PFm2CPAjs0xlIb3/PWrP66/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794192472;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=GRkGWJdow7LnKbpX5JlZPVilDl9b6ZVAJ9cwufjvibU=;
+	b=NOXz2JOi/W36fcgqNr2rS+hsm5weMN7sjMVqwzS6QGZNlLBGz8ukjDjUi5Mxk31tyxPF
+	 absiBcm3FieISTmRsRfrdDOPXwWdYPhni89WVK+eJq8nQ+zy6fA1UNaOx1af5wmIimhao
+	 tbu7tQcRDphqcvVLrKrojZoTY/gRtzqIAPYXm7nkxoRnzv+UqpNdUZB4CKk05MeQIEPUX
+	 Aqy2GVFoOjBsuk5Bhgjm0BJzaQLEhR5Up8URsR8vlmlVbku+ZQxD04BCilfJW2ijQp4K0
+	 e/tMJlglm5DAYY8Ngg+9b9KG91s5i9CI8qSvNssxbMXBVx4BeBUfCdnlwKhkBLqBTSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rowland.harvard.edu;
-	spf=fail smtp.mailfrom=g.harvard.edu;
-	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=cbxiXzcB;
-	arc=none smtp.remote-ip=209.85.219.47
-Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com [209.85.219.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YTXdwLkQ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B14D6606A322
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 02:43:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B14D6606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 008B9606A31C;
+	Mon,  9 Nov 2026 02:47:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=cbxiXzcB
-Received: by mail-qv1-f47.google.com with SMTP id 6a1803df08f44-91ea5600c9cso4964416d6.1
-        for <stable@vger.kernel.org>; Sun, 08 Nov 2026 18:43:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1794192190; x=1794796990; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=lbsHrjkpK1cq0QRwZ9oauLF2GZ88NqZOcvz5poLBJyg=;
-        b=cbxiXzcBq1YTRCRTQ5SpDNs57XNcRCOklDPWlZDn2EVhGusLShQSlRFpqQp4aJNUGm
-         TzAfh2JvnGlVH1xt6ca5uwisyuC/guT42PwIC1/gjLSVdqvPdKgHokbMEzSkXZECnaow
-         YtJEeG2TMwYHywh6hmjFXAwRDdSRYzQ0of8bg2ZsdIEt1bsu8POrC8NUg4D2mhgXgZ4l
-         yXQUA0OxTzasWnvl1UxIkKeBh0N/n5E2tioPhTevlGXrzWO1O9nvB6osZY69KUbUqc7G
-         rmCS62U+mF3PyNnfR5iyO1yR01jv3iYytpSMgnr9cMV6Cg1tMhQg68ZstJeLpTW5SMSe
-         aHZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794192190; x=1794796990;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lbsHrjkpK1cq0QRwZ9oauLF2GZ88NqZOcvz5poLBJyg=;
-        b=uA+Y++BuEJCT2S+nJLxJKW7D0PWS3TcnTgeM+zuvfwcDZoNDYBEu5C3iAvZCeJ6fnn
-         GTFg9xjxfwpxxoiNccjF1zcIub3anqEHVVMN5o1zTIjbaQkkkWB6H6g1koBs3MUyO9ZA
-         nncQZQzTfno9PLfpiH2izMDea4UT0qHU5lDAKg60W3RIT+ZlCTPoUtNdkZ5hsaD+005b
-         VsD78m5U9C7HBkgKfMyMamVPj6HiETbPcD6EE+4WQgdGR59yXeG6z6u4IqbgiigC8tBw
-         h/vGFQxWHMq09y1X8Gtpws9TllD2qfe5WE4fy2VKOJlcLlJoaDr0IgHwqMBCd47EFePA
-         Sg+A==
-X-Forwarded-Encrypted: i=1; AL+hErHLzm5wqIRmCx8B/kC5KBS2VejuJYqWq8RkH3DrgVpxZtBp2X7aabl2HK0Wk5b0jYHiHtsRI5U=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/xIH9v/60V043vjcPHAwTthGEgcm/WLdbQcOvRXTsRkITmuDLW
-	ymFro1GJrBn340/JposOkibw5HPgsWXw53DTVGFdNXLc1AcdANlyYPS8bPnycEODWg==
-X-Gm-Gg: AYBFou2B4l+IucDZXbjpTlj9IZt366PL0JyUzvJOj67+1UdBTMqSF62lR/c0I/VNWP4
-	ftVr082kSsr7PUDgc/rJUjHo1DLXU1QijrBUysHN/iiMKX6WcADC3s2B1uDttdupxa/Zb/8BhxM
-	hvfQWHpy1r7qY1toU5MEP2qzHj8Dn5ugSy3IoiVthLU9LOnuyB3ACHqOVbatbQV4kIvqPhMDrGT
-	aVtbYYCkA5iIDXfD1YBsfWRQtTyisOD8m5wLJQCI1O6Dmf+ARbJQ6WAbEzBCMJDCCZM+IfUI30P
-	pFT+PmBRy3JIxjZVQsIQJSJm+A8z6KOU80n2TJXiNKoBcdUALY77gXL8jrt6kdKoRYmmgv9Ne0o
-	8AWiSm5ZGkcSM/vHvHCwyMoI4KXx1AR768uasxFYggq8Jq+34rJXY6Sszr71cZbajT7PCF6k1d0
-	BTtnwO916ANOFkP9oVNF7xRNF3XBWWXyWfQS3nqbIlJkDGyNWnAvRyNRYB25D4fvfE+ZzKqqb8R
-	sFssMYBjJQBJgMwJ6jRsA4kTWeBN0aZyGd52kCN25b+JvsolKbfusL4AjJYojcayMWhsmYRcmy5
-	zRm3vFx88wVwfusBm0gNIj3H8gDb
-X-Received: by 2002:a05:6214:c4b:b0:91c:8ff2:51ed with SMTP id 6a1803df08f44-91ebd14d862mr87689676d6.2.1794192189470;
-        Sun, 08 Nov 2026 18:43:09 -0800 (PST)
-Received: from rowland.harvard.edu ([2601:19b:d01:d210::66b0])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ecee18a77sm32078146d6.26.2026.11.08.18.43.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 18:43:08 -0800 (PST)
-Date: Sun, 8 Nov 2026 21:43:05 -0500
-From: Alan Stern <stern@rowland.harvard.edu>
-To: kayano050408@gmail.com
-Cc: Neill Kapron <nkapron@google.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	syzbot+c73e1942197af9f54ca3@syzkaller.appspotmail.com,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YTXdwLkQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AC6A1F0089F;
+	Mon,  9 Nov 2026 02:47:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794192471;
+	bh=GRkGWJdow7LnKbpX5JlZPVilDl9b6ZVAJ9cwufjvibU=;
+	h=From:To:Cc:Subject:Date;
+	b=YTXdwLkQ7A76X+YsKQWOO9LHtIXvgozb27OOGdfMy1nB3k0Gckke3O1oPfZJyLSy5
+	 pvDNWfdUUROYtJBPTnEsENqRgft47eiU8nhRUtgHM0rBoDVg4H+ngX6EJY4IYpQdAN
+	 DBwSBFjNMMGFUiPY9l1i6U5esIPT7COeOFMzGivHJ120uZ6e7qgfZBSDFat7Kilf6P
+	 N//oxW61Gf42mGWLXJ3keeE28qXc4jYLFfbeML64saaxagtxRZQlAK4qPJpW2aYa2F
+	 O/HDt6U8mG7cVH5YjjOaLBJAvHsZFG8LW02IU5Z5G9ZSvfN8Q9ddxz74MzmovKgqd0
+	 1I7Fst2eXDSkA==
+From: Jonathan Cameron <jic23@kernel.org>
+To: iio@vger.kernel.org,
+	Per-Daniel Olsson <perdaniel.olsson@axis.com>,
+	Kurt Borja <kuurtb@gmail.com>
+Cc: David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH v4 0/2] usb: gadget: gadgetfs: fix ep0 request lifetime
- and event counter
-Message-ID: <071e601f-4a8d-4ff6-bf1f-bae9606ade0d@rowland.harvard.edu>
-References: <20261107-b4-gadgetfs-ep0-v4-0-86bdfd684b54@gmail.com>
+Subject: [PATCH] iio: light: opt4060: fix inverted own trigger check
+Date: Mon,  9 Nov 2026 02:47:45 +0000
+Message-ID: <20261109024746.1253593-1-jic23@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,35 +62,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261107-b4-gadgetfs-ep0-v4-0-86bdfd684b54@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Sat, Nov 07, 2026 at 09:46:12PM +0900, Jing Lin via B4 Relay wrote:
-> gadgetfs_unbind() frees the preallocated ep0 request after disconnecting
-> the gadget, assuming that no I/O remains active. With dummy_hcd, a
-> delayed userspace response can leave the request queued when it is freed,
-> which triggers the warning in dummy_free_request() and a use-after-free
-> when dummy_udc_stop() drains the endpoint queue.
+From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 
-That's right; gadget drivers in general are responsible for cancelling 
-any outstanding ep0 requests when they unbind, and not submitting any 
-new ones.
+opt4060_set_driver_state() is meant to keep sampling and the interrupt
+on every conversion enabled while the buffer is in use with the
+driver's own trigger, as that interrupt is what fires the trigger.
 
-Another thing worth fixing is near the start of gadgetfs_setup(), 
-where it casts away the constness of ctrl.  This may not cause problems 
-in practice, but it definitely has a bad look.
+When converted to use IIO_DEV_GUARD_CURRENT_MODE() the negation of
+iio_trigger_validate_own_device(), which returns 0 for the device's own
+trigger, was lost. As a result, with the driver's own trigger in use,
+enabling or disabling a threshold event switches the interrupt to
+thresholds only and buffered capture stops. With another trigger in
+use, the one shot conversions requested by opt4060_trigger_new_samples()
+are instead forced to continuous mode.
 
-> gadgetfs_setup() and ep0_write() also race on dev->req and req->buf
-> while a control transfer is in flight or while a completed delegated OUT
-> transfer is waiting for ep0_read() to copy the payload to userspace.
+Restore the negation so the code matches the comment above it.
 
-Can you explain these races in greater detail, showing how they occur?
+Fixes: 8284a4985416 ("iio: light: opt4060: Use IIO cleanup helpers")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+---
+This was found by an LLM whilst doing a refactor of related code.
+Indeed seems there was a change of behavior in the sited patch that
+wasn't as intended.
+---
+ drivers/iio/light/opt4060.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> Overwriting req->buf with a descriptor pointer causes clean_req() to
-> free the descriptor buffer instead of the request buffer.
+diff --git a/drivers/iio/light/opt4060.c b/drivers/iio/light/opt4060.c
+index 8253a6a8bee4..1a7d429453be 100644
+--- a/drivers/iio/light/opt4060.c
++++ b/drivers/iio/light/opt4060.c
+@@ -310,7 +310,7 @@ static int opt4060_set_driver_state(struct iio_dev *indio_dev,
+ 	 * IRQ and sampling must go to or remain continuous.
+ 	 */
+ 	if (iio_buffer_enabled(indio_dev) &&
+-	    iio_trigger_validate_own_device(indio_dev->trig, indio_dev))
++	    !iio_trigger_validate_own_device(indio_dev->trig, indio_dev))
+ 		return opt4060_set_state_common(chip, true, true);
+ 
+ 	/*
+-- 
+2.56.0
 
-Can some of these problems be solved more simply, by using a new mutex 
-to protect dev->req and related values?
-
-Alan Stern
