@@ -1,78 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794192925;
-	b=CnmL+/tYt6a3dmSoEn76/3sRGRb6X+CflkMLVw/TnRjkyOh3qMJQMK7pYVxYICK1rkzm
-	 YoG7/zuefHO80sOS052xHdmIMfa+tXpgAMq0sjJ5PXu4L6hxlrUalQq6iWDc3WbkR+h5c
-	 Ggev3g6t/kJ6KvMeToTAbLUJbxkdtaztil+1gD+x2rpuap/+DjYJ7hzmbsgIB3Q4ULh/P
-	 B9N5PpTCoIhq1UrQy9Ya8UYu0hOnAqYqYqIerVaiUcTm7E/S3Wr4myAq4ZPT2yU1A2YXb
-	 P/YW0EoUKSbzMMSeUsqBjJxB+RW1uroyCo1T97zbZGThPnxB77rHASOM0jV4A+Vtdpw==
+	t=1794192929;
+	b=aVweX6zdUk3W8o7It1BiEarBomltLwKePdv15ZEswLB/e+awRqLDkVA/7eqyyS1FKUfy
+	 NLM3iGrPBkgBDhBjxmU/RQ7YndzkqUgaWuT+Zxd7ayKKz9FLgi/BbBgLi5iWX61Tg1mP4
+	 13JPXFPkgU9MkWkay16MJdzpbr4UL8x9pxecWBCev7tj287klzGJrd4h7K4drYKIRmIPF
+	 VjITxGTMTkHjijBoKU4UbaqDe1QlniMd+l3GMJvZvMgr060f65ftw1rgewzfWz2FJmtBp
+	 GD+hRQHCJ2J6sJQdtUUGfhVhlAQU1aG0SRwrHFvHOazDuFu2kU+cNMse317uWWPMYkw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794192925;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794192929;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=vkkouqD3eOmaURIuuANcpABZWjGjROFkU+zwwnKEs6w=;
-	b=MDhK/ODOP/o2JkzwYiyFZ0d3bXt28vxaWIOExikADxDpU2Kjw+MEWKPdLEq9R+TckorP
-	 yZ9dsirBWoNxAkjxW0XFMmpKhlYKMyfh0z9jd0ZBy94x4Es32VnVcKSyu03Gsmh5m86hc
-	 XS/3wQqwSV6Z3PlZN2RWaYBf6FB4sBVSeT6+VwEXIvOUb1pqiTBUlsl817Xzt5oa/HdmG
-	 XFD+3ak7PgHDQ7SktwU6XwWDjcO56s8PRvUgI3+KJqKNPcSrDOBwG9Qy4l+t9D5DfFBqr
-	 U7JObgkWiETmJIPWO3T/RYxtzXht59Sf/UvTh9KBHtomzEJJLCyvBTc+aRueg9G1w1A==
+	bh=Vysd62ktjSIcOycS1ZnevzG04JVAWFgGHG9Ws7rDxoY=;
+	b=ubHsYMj6jvxcv+K16y0g0ZQAFNyk2/8GDy/1t91K+ACBBcwhEBWJaxZNmGbEbYw0iaLb
+	 89Vj5dSJKK22StWZLgIjWGdKQb13npnoxe6KgYCk95iyhn3z+im+eRu6O9M+5GxhUW3cO
+	 lG3OeCCEq1vub+T+5Y+tQVnV1JjJMpByR+QmAApo0lBpblZYQs80/9C5TGIIKVDDOLlME
+	 VY5rJ6Znh2nev23EaDGexRd91xpzf8YCgkmJ6UpsbjJTZWrGUsg7RbBkHszp7fmgaCuq9
+	 De5i7S1iqUmYZqEBQAS4wQvZPchz3CBxMG+F5J9N5A36HLjkacC6QWpYZvtmKVnzlSA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FicrlcsA;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dEMJ6HU+;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF8C2606A325
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 02:55:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5BE7606A321
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 02:55:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FicrlcsA
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dEMJ6HU+
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794192924;
-	b=FZgPPhN93WyVh+zg7uS3voezj8Ouyrjx4OX70prirJlqzgf4r7+BKu9KE2FlyBVE4s1Y
-	 GKMlXiF7cl95maPeHjMMQ91jZ7jfqzjw8flff2zkaRRw5XDphKCBYTONyZpE+j0JekN33
-	 OzfghcQeURaaY4DJWQ3l8VfL/RtuPDVuUJldFnFy3UD1R3/++AuyQtEvz+CTEH6jQHKWM
-	 ldI/LJujxt//aVL410bNg99xb2DArSSKk5484tFYSREU5exauWvScBihjOJoM8YfrGsKv
-	 hEODYP+dvznov1rXborIG/dhk7Rh0q1NIwbKHlnWCRwhRFGHCSnP6bhesgIhmCnDG9g==
+	t=1794192928;
+	b=ZEmf3dMylRbbKT3JORH6gcFjeiBG4wgxNMjFERyK1LWrsrLbdS5TB7D96j/p5WQg0OMX
+	 MkAlFZfN2OnpqBmAlhbQ573DeV1cwoUYd6+g9bd+47z0LSff1r+zK/jjY/VXdNkgBBO5t
+	 7SGvuJGY/uJT88nJS9n7aXSxHvHTTqT3qoNz2VhAxn5W2rv+LkBCrcWAvUTpZz04vQScP
+	 So9hgvAYcZO3qxCZnu/25e0n7I/Ogz7yeCC7KH/GvJtTL7GU8QYHPcp0c04xy/wzuKs/k
+	 qAJJIrg7mrnYKsyk27VJ+C6vRvspOi0YIA+8/EkH/YY0/MHXeQhk2gwnuZ2DcMT+qHg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794192924;
+	c=relaxed/relaxed; t=1794192928;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
 	 Content-Transfer-Encoding;
-	bh=vkkouqD3eOmaURIuuANcpABZWjGjROFkU+zwwnKEs6w=;
-	b=ZLlX8XMGWJIsjjQOcE0KL2N5fPe1BTjYgsEQS8z7LcSF6NrfuHp1vhvhw4+nwrmeKyhm
-	 YZCxmDT/1VA4X1H4/BoPZQ0wZRi6pPXnZ8RYEwkoCPy5euONIoGXeQaZC39sSrqRzRo+i
-	 KZcvJRe4oRG73Oi8fat1pyJtNlB4p7IqP3xM1tOfx5WP9m59ONt7hyXI1c62aWc8JtXZL
-	 hdaL3FtFCvimPdg11UguWXjCIwQ+/shhXdA/znMIDAlJhcfQnMaytYGAVIypDLVC6h3K9
-	 SWLjkA5/JYNb3brokH6Cj+tnN4CuPdFCeLSKUG7B2bem+42jqaBjxqba3CNMT40W0ng==
+	bh=Vysd62ktjSIcOycS1ZnevzG04JVAWFgGHG9Ws7rDxoY=;
+	b=wPeLC5djZOB8uJKghzFUa2gXtcRZJD2kSL5jdg+o7uxcBrACDB8jJrdq1lo3rKI8IbGc
+	 Y/Oj/E2YmdSeNx45N7G7cBgcXbJx6B5pLMFldmpsldy2KNpgGcKLehfYXiaeopUIci2x4
+	 0pVlYWJew4J1dkTvelmBWrKT/sJPUfDQXwWj/C5bMYuwwNYlmbKVSRXXYbE/zpEPCJjof
+	 VQ0cRv6wN4daXj3PMFxmMbTN9HY5wRMV1vJToabkj+wggiW9yV3WHt4cneBruyPCeoDWM
+	 sBTNQS3/N6pfq32MDqdXR3ovjN1z4PfsfzuUcDla0mMro2LYlqXBx1XHFmxTSW8zbfg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 0A5EB1F008BC;
-	Mon,  9 Nov 2026 02:55:23 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id E4DC61F0089F;
+	Mon,  9 Nov 2026 02:55:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794192924;
-	bh=vkkouqD3eOmaURIuuANcpABZWjGjROFkU+zwwnKEs6w=;
+	s=k20260515; t=1794192928;
+	bh=Vysd62ktjSIcOycS1ZnevzG04JVAWFgGHG9Ws7rDxoY=;
 	h=From:Date:Subject:To:Cc:Reply-To;
-	b=FicrlcsA8IC/QmfgFwVhGava0+CNIkIfDMi4ZYaeCHoijcE/raVn8eoi9LDvz8pQU
-	 ngG8dCefMdx7wvGSadskk13jRdxFkdMsy5BjT/rE3bZPnn04Q4sDxHUhCHoWEF8UMq
-	 I8FeRBf5G/IuiIeHCe5PqrZ9wcsw4z5ndwIVKfKZLhpLq//7NWw79I2R3gCPFVMzpM
-	 kQbvY7+7U8yY4Zhh7zWsxo+FXoIWkaNyqHiEqgCybSgg27PJy/3kZaALnEW6O1ba6o
-	 EfeHaap8SIl5dY4SioX6hapmcejxi2/4xADZHBRsGr1DJvW62NFnKXqOhQ9x38B19V
-	 iQm+oR8UgDqeg==
+	b=dEMJ6HU+Wjc66qOrtDEmCtIDlMMzcsTAqioqAaQS7nGaMlBFPeNqo8uzjhPQLUFlh
+	 AvT+dgy97wLgnuO9Kl3udTw2NJYLDeYtAAH3Wu4R9yRR31dWZEFEcHmIzbsI0Ypx0G
+	 afZ+AUH4fGPa6zN0TphUi/0L4tMzIrPueXppIMusUqYTsLrJ7VrL59VJ+dU/Xl0n6u
+	 PxEgTWzcybG0zTrpPv9tm46EAlk33EtkPUW3inNBn/VYgzak93LtKmFJa+Od9QiZzs
+	 cHQtpkt0xzQVa8ih1SFklId6gNGQrTBn8aZWpudXw0j8Zp4SOatpGTjEWQZ2fJkZ0I
+	 efw3mkylPCJmA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 925774820F;
-	Mon,  9 Nov 2026 02:55:22 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 78F804820F;
+	Mon,  9 Nov 2026 02:55:27 +0000 (UTC)
 From: Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org>
-Date: Mon, 09 Nov 2026 11:55:23 +0900
-Subject: [PATCH 5.15.y] jbd2: don't advance j_fc_off before the buffer is
+Date: Mon, 09 Nov 2026 11:55:28 +0900
+Subject: [PATCH 5.10.y] jbd2: don't advance j_fc_off before the buffer is
  recorded
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -84,20 +84,20 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261109-jbd2-fcoff-5-15-y-v1-1-bdc09d7a5941@samsung.com>
-X-B4-Tracking: v=1; b=H4sIABo28WoC/x3MTQqEMAxA4atI1kZMpf5dZZiFtonGhUoLMkW8+
- xSX3+K9GyIH5QhjcUPgS6MeewaVBbh12hdG9dlgatMS1QNuszco7hBBi2QxoWv6bjY0tV4ayN0
- ZWPT3Pj9gK7JVgu/z/AG4GjEnawAAAA==
+Message-Id: <20261109-jbd2-fcoff-5-10-y-v1-1-7e8776914093@samsung.com>
+X-B4-Tracking: v=1; b=H4sIAB828WoC/x3MQQ5AMBBA0avIrI3MVBCuIha0U8YCaRMh4u4ay
+ 7f4/4EoQSVClz0Q5NSo+5bAeQZ2GbdZUF0yGDI1M7W4Ts6gt7v3WCET3jiyWEdiGykZUncE8Xr
+ 9zx6qgqm4YXjfD4vhPNprAAAA
 To: stable@vger.kernel.org
 Cc: stable@kernel.org, Yu Junzhe <junzheyu1@gmail.com>, 
  Daejun Park <daejun7.park@samsung.com>, Jan Kara <jack@suse.cz>, 
  Theodore Ts'o <tytso@mit.edu>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794192922; l=3814;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794192927; l=3814;
  i=daejun7.park@samsung.com; s=20261006; h=from:subject:message-id;
- bh=aNMRLzNGeQ2Hr9k5cA1DrM/EJdykIjHPjOOgkVLRuQE=;
- b=M9ntVClVhk+1VHfYFUJ6+B+mKTe1se5Z0ZbC9u+ZeToT8a+ySuFKyzpm/LJ2JbXJwyxA0rhnl
- ifP5/usBecfAiwE44dNlTGSpQnzVCNPFH63E29nqjsQhmVzzXbn2Vjt
+ bh=jNg7fCEqlITeuBHL8iWeTRYL2C6UibsFVXsTp24IYfQ=;
+ b=S8BkF0GcE8dW8jMlbLmBFuPe8TI2qRvK8lr5iyPd2HTgdKg/xe3jzKV4WXTP+aoteVi7uYIQf
+ Xob7BI3k8QGA/U+3AmjrYC2lJJN0ntrkoww0Qwg+3lIefyHIl7TOEVH
 X-Developer-Key: i=daejun7.park@samsung.com; a=ed25519;
  pk=4yUfDqGRZTIj0Ik43z1GoMZRWCNm/rgX6uJuM9dtNIg=
 X-Endpoint-Received: by B4 Relay for daejun7.park@samsung.com/20261006 with
@@ -148,7 +148,7 @@ the read of the never-written slot visible:
 With this patch the same run leaves j_fc_off at 0 across repeated
 __getblk() failures and completes cleanly.
 
-[ Context: in 5.15.y, jbd2_fc_get_buf() still advances j_fc_off inside
+[ Context: in 5.10.y, jbd2_fc_get_buf() still advances j_fc_off inside
   the if/else bounds check, so the increment is removed from there.
   The change is otherwise the same as upstream. ]
 
@@ -162,7 +162,7 @@ Link: https://patch.msgid.link/20260819060939epcms2p37bb8589b2f8a52a2b14bef38fad
 Signed-off-by: Theodore Ts'o <tytso@mit.edu>
 Signed-off-by: Daejun Park <daejun7.park@samsung.com>
 ---
-Tested on 5.15.225 with KASAN and slub_debug=P, using the reproducer
+Tested on 5.10.274 with KASAN and slub_debug=P, using the reproducer
 from the upstream commit. Without the patch the second fsync hits a
 KASAN wild-memory-access and a GPF in jbd2_fc_release_bufs(). With
 the patch all six fsyncs complete cleanly.
@@ -171,7 +171,7 @@ the patch all six fsyncs complete cleanly.
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/fs/jbd2/journal.c b/fs/jbd2/journal.c
-index 96fc25907c..449b4a1286 100644
+index 526d2971f1..cc2d3209a4 100644
 --- a/fs/jbd2/journal.c
 +++ b/fs/jbd2/journal.c
 @@ -884,7 +884,6 @@ int jbd2_fc_get_buf(journal_t *journal, struct buffer_head **bh_out)
@@ -192,8 +192,8 @@ index 96fc25907c..449b4a1286 100644
  
 
 ---
-base-commit: 29c6cdaac04a6989a7ed4ae4275ce4244e617f58
-change-id: 20261109-jbd2-fcoff-5-15-y-c387b21a6df3
+base-commit: 3a323bc22b881a5bdc1646080f93f5ecb22850bf
+change-id: 20261109-jbd2-fcoff-5-10-y-a1ecd0ec7e31
 
 Best regards,
 -- 
