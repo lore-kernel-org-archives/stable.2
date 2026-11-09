@@ -1,75 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794232981;
-	b=4PAuKlXAp0e6lR8SG9lFxid6yQGMw3TPa+Um0Tn4cjfEIiRBoYMb4p+ZWylClmokuTnH
-	 lv6qo9GYcd+9qdqld8D/28V6SbZ2VEeaZ8gLM5FECzkQ28CPYvIDePVU71yaZwB9JU+hf
-	 IaDNe4nUlgsWGXtgBHF1hk0Pyw6ouuKocZgCnIYRb6pgngB5cEGaFkFCeSMCL7h/FhZjN
-	 8aeFbAqe6aLNLLVgY6LFGaexBb7shXVqmoWOQ/M4EkpcLBxRIYhUEt4NuipfIQ/FbgYvj
-	 ipa5EJP1jbUebD0XEC7QHOW4YVlkPkPSyX6yQMElcT4T3GFtcA1snVI5qwFpqP8/9Ew==
+	t=1794233379;
+	b=s79rU2o1MpS4qYGOvvHrCCtzau5Vj+JCgdUSCctnzDhkp9UpDWEGw3UZMgJXVBCmNV46
+	 1CKmrUS6BGZ1vII7XqPGTNQZCgv2erRmYANBG1iubK1dI1mOQ98AAgoVRhqDQR2MsW/5Z
+	 jqPwWeSFTnnKikkAmShpNbj3idKjgYYJnxPlg3gPpuUc582BcZryQKhOdeiqOLJEwOg7t
+	 REvH0uSHKVy2hHrrvfuhBjsfhJfbEBffaCn++Lzc2FR6yHbvNLAxBElA8RqTolq6M90zy
+	 iQ4TQ5Jwghjb3KWRZn0ud5FJwRuWyaoOBj+XTE6nxAN4W2TBR/XADvq3OB8JU30WkHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794232981;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
-	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
-	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=/wZaGJR7Mv8C0oFPRANDNKg3ptxz8mbh24FxUb/IyHE=;
-	b=Lgmjk4HSfgj3C9hVPOXy+/QFczAnxryT2Nz7A+ip5BJqaKj+CFSfAxoVBGUjNvn0/aw0
-	 5QmUrfAD6RSctgxEdJssSWwMXmABVzPcfOZOkC2BOq58ZVFpO5xPvHQhBNiaSOqo4smkY
-	 ZByQ1gBB99CggKZ38FBmOHna43zW/gAv+BT8ViOVpmIkkGb/ESX8D9/FbrZqPdbSCMW8n
-	 ILc3IqTtytHy2jTpO9BUFDNZ8WlvqU4jLKYZBg2aw3TGRPlNzL+qlb6UabKwg1F+5xfT+
-	 QrP7PzdibGe80dp+O/ReLHMn3UO1joU7ONnyC9QdkTGRfiaOM13tyfo/qDxzw9DgNXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794233379;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=BwG6pO180ts3EsXk8dPvrXRrI1JUEETTIVLE0jahKVc=;
+	b=dXsj0ZyKJmjTKUPEzNavIHdmULAJCENW2fiZpCzMR6G2376eR8ZDxzPxMrIDuVgRQDix
+	 qd2Ls/ZV4Hz5WXm68s18K0YfCX0KBZorgB8m6X90xkp6pbZasVrltcWCMDCA+rIfOMCTs
+	 ZGlW3LlsaR3cjU05ooAWdH+gT8/2RHsWREnRZU4YI2go21FyR2j4MLbjsgxRuC7SZ74LS
+	 yzTpa7kvGRz0Uq59cdn2kTr424toUYEc3on4aW4YcId6jgDlDP4LOz++8RmuxpbBu7kvn
+	 8mgolS9trShGD0wJQEiaozVDpWlbkQuc91j0dXtkwShb4tEpm3oMuXBtD9DflrFhtKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b="m9ANW4L/";
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=uKN5liah;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=P7kFwtu+;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1D08606A322;
-	Mon,  9 Nov 2026 14:03:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1D08606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C839606D830;
+	Mon,  9 Nov 2026 14:09:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C839606D830
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=m9ANW4L/;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=uKN5liah
-Date: Mon, 09 Nov 2026 14:02:57 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794232979;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/wZaGJR7Mv8C0oFPRANDNKg3ptxz8mbh24FxUb/IyHE=;
-	b=m9ANW4L/fkEmx9KtItFuYlyDPL9p82A05SwhH6fNCwBL1CMSVgYMy0ujEvEG1eVpjhINnF
-	DrHNHaYUSjW/hmK5p+863dvtiL2xCA4KOsZK7ReifitJeYuAb9AVD06c+PGuBu7zQWdRRG
-	uP5susOpZOhU1cmhdmdom9qGj9APxALDHUvH0I/P5r0wL7f5u7W4EUyhZWxuFH2iig+M1a
-	rmJaUhgtFN9UdE7u71A95Xo9muxytH2FMAGoDgDZc2V5bDAmnUi/mdt+e2XlNjkochyyOW
-	f271pe/CMOC7kRjs42SBlMZR2XxTd91qU0y3YHfQg04sd35hsdQbuZcSTjlQmw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794232979;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/wZaGJR7Mv8C0oFPRANDNKg3ptxz8mbh24FxUb/IyHE=;
-	b=uKN5liahxi10Ep4ZmtW5d27IFe0OIMv6P3UOe9U00JwKKqFVrNtPUtaPaPfYHbepKXltGA
-	BDXAEr8ZlIUHT3Aw==
-From: "tip-bot2 for Avi Weiss" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: irq/core] genirq/matrix: Update availability for offline
- managed IRQ changes
-Cc: Avi Weiss <thnkslprpt@gmail.com>, Thomas Gleixner <tglx@kernel.org>,
- stable@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org,
- maz@kernel.org
-In-Reply-To: <20261025164045.2513933-2-thnkslprpt@gmail.com>
-References: <20261025164045.2513933-2-thnkslprpt@gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=P7kFwtu+
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id BBBB5C79A81;
+	Mon,  9 Nov 2026 14:09:37 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id D0C2560051;
+	Mon,  9 Nov 2026 14:09:36 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C862E10328531;
+	Mon,  9 Nov 2026 15:09:32 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1794233375; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=BwG6pO180ts3EsXk8dPvrXRrI1JUEETTIVLE0jahKVc=;
+	b=P7kFwtu+VUr7p3IVa3c3beqy+cB1UjM2mVxU0spPBZBmCGzp5q/DJAx6hm7QJHDJwvBZ0g
+	8WV2aa+miX7VBLTGGaD2W6RSn3tJ1582xVQcKsbtyX1jU7+Jau1LTTEYpjTrveBEL0YMhR
+	as7/WSVTAJxZ+Coxk37abQehBQKDLEURQjY9PKArOLUvsBUduV0X4M9TNfvz3LvNvvevQZ
+	dSMFEI+nHHQgONc7xVJEGinvzfxDX/tMPfGA0IhVvgz67mnliR8ikCwj/J6M1TkjtTVOj3
+	zp2EwfKHSnSznZN4UCuRjCfhrFvCu61mof4olf6NpbOcqmN0tMDPyiLyKp/XMA==
+From: Herve Codina <herve.codina@bootlin.com>
+To: Andrew Lunn <andrew@lunn.ch>,
+	Rob Herring <robh@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Kalle Niemi <kaleposti@gmail.com>,
+	Matti Vaittinen <mazziesaccount@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Johan Hovold <johan@kernel.org>
+Cc: driver-core@lists.linux.dev,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Allan Nielsen <allan.nielsen@microchip.com>,
+	Horatiu Vultur <horatiu.vultur@microchip.com>,
+	Daniel Machon <daniel.machon@microchip.com>,
+	Steen Hegelund <steen.hegelund@microchip.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Sashiko <sashiko-bot@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH v9 1/4] bus: simple-pm-bus: Avoid inconsistencies between probe() and remove()
+Date: Mon,  9 Nov 2026 15:08:39 +0100
+Message-ID: <20261109140916.90625-2-herve.codina@bootlin.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261109140916.90625-1-herve.codina@bootlin.com>
+References: <20261109140916.90625-1-herve.codina@bootlin.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -79,78 +88,74 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179423297780.2093942.15095289769443065495.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-The following commit has been merged into the irq/core branch of tip:
+At probe(), operations done depends on device_has_driver_override().
 
-Commit-ID:     c3f7de51aac3f5b7a369222acb06509922268feb
-Gitweb:        https://git.kernel.org/tip/c3f7de51aac3f5b7a369222acb065099222=
-68feb
-Author:        Avi Weiss <thnkslprpt@gmail.com>
-AuthorDate:    Sun, 25 Oct 2026 18:40:46 +02:00
-Committer:     Thomas Gleixner <tglx@kernel.org>
-CommitterDate: Mon, 09 Nov 2026 14:59:39 +01:00
+At remove() a call to device_has_driver_override() is also present to
+identify operations that need to be done in order to revert operations
+previously done at probe().
 
-genirq/matrix: Update availability for offline managed IRQ changes
+Nothing prevents device_has_driver_override() to return a different
+value when called at probe() and when called at remove(). Indeed, a user
+can set driver_override (or clear it) after the probe() call and before
+the remove() call.
 
-The IRQ matrix caches available vectors after a CPU's first online
-transition. Managed IRQ reservations can be added or removed while
-the CPU is offline, but irq_matrix_reserve_managed() and
-irq_matrix_remove_managed() only update cm->available for online CPUs.
+In that case, inconsistencies are present between pm_runtime_enable()
+called at probe() and pm_runtime_disable() called at remove().
 
-When the CPU comes back online, irq_matrix_online() adds the stale
-count to m->global_available, causing vector availability to be
-overestimated (or potentially underestimated).
+In order to ensure that pm_runtime_disable() is called only if
+pm_runtime_enable() has been called at probe(), use the devres version
+of pm_runtime_enable().
 
-Update cm->available whenever the CPU matrix has been initialized,
-regardless of its online state. Continue updating global availability
-only for online CPUs, leaving first-time initialization to account
-for existing reservations.
-
-Fixes: 651ca2c00405 ("genirq/matrix: Handle CPU offlining proper")
-Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://lore.kernel.org/all/20260630105701.7D0471F00A3A@smtp.kernel.org/
+Fixes: 98e96cf80045 ("drivers: bus: simple-pm-bus: Add support for probing simple bus only devices")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261025164045.2513933-2-thnkslprpt@gmail.com
+Signed-off-by: Herve Codina <herve.codina@bootlin.com>
 ---
- kernel/irq/matrix.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/bus/simple-pm-bus.c | 12 ++++--------
+ 1 file changed, 4 insertions(+), 8 deletions(-)
 
-diff --git a/kernel/irq/matrix.c b/kernel/irq/matrix.c
-index faafb43..5a6adf8 100644
---- a/kernel/irq/matrix.c
-+++ b/kernel/irq/matrix.c
-@@ -225,10 +225,10 @@ int irq_matrix_reserve_managed(struct irq_matrix *m, co=
-nst struct cpumask *msk)
- 		if (bit >=3D m->alloc_end)
- 			goto cleanup;
- 		cm->managed++;
--		if (cm->online) {
-+		if (cm->initialized)
- 			cm->available--;
-+		if (cm->online)
- 			m->global_available--;
--		}
- 		trace_irq_matrix_reserve_managed(bit, cpu, m, cm);
- 	}
- 	return 0;
-@@ -275,10 +275,10 @@ void irq_matrix_remove_managed(struct irq_matrix *m, co=
-nst struct cpumask *msk)
- 		clear_bit(bit, cm->managed_map);
-=20
- 		cm->managed--;
--		if (cm->online) {
-+		if (cm->initialized)
- 			cm->available++;
-+		if (cm->online)
- 			m->global_available++;
--		}
- 		trace_irq_matrix_remove_managed(bit, cpu, m, cm);
- 	}
+diff --git a/drivers/bus/simple-pm-bus.c b/drivers/bus/simple-pm-bus.c
+index c920bd6fbaaf..4322a778e801 100644
+--- a/drivers/bus/simple-pm-bus.c
++++ b/drivers/bus/simple-pm-bus.c
+@@ -29,6 +29,7 @@ static int simple_pm_bus_probe(struct platform_device *pdev)
+ 	struct device_node *np = dev->of_node;
+ 	const struct of_device_id *match;
+ 	struct simple_pm_bus *bus;
++	int ret;
+ 
+ 	/*
+ 	 * Allow user to use driver_override to bind this driver to a
+@@ -66,7 +67,9 @@ static int simple_pm_bus_probe(struct platform_device *pdev)
+ 
+ 	dev_dbg(&pdev->dev, "%s\n", __func__);
+ 
+-	pm_runtime_enable(&pdev->dev);
++	ret = devm_pm_runtime_enable(&pdev->dev);
++	if (ret)
++		return dev_err_probe(&pdev->dev, ret, "failed enable pm_runtime\n");
+ 
+ 	if (np)
+ 		of_platform_populate(np, NULL, lookup, &pdev->dev);
+@@ -76,14 +79,7 @@ static int simple_pm_bus_probe(struct platform_device *pdev)
+ 
+ static void simple_pm_bus_remove(struct platform_device *pdev)
+ {
+-	const void *data = of_device_get_match_data(&pdev->dev);
+-
+-	if (device_has_driver_override(&pdev->dev) || data)
+-		return;
+-
+ 	dev_dbg(&pdev->dev, "%s\n", __func__);
+-
+-	pm_runtime_disable(&pdev->dev);
  }
+ 
+ static int simple_pm_bus_runtime_suspend(struct device *dev)
+-- 
+2.56.0
+
