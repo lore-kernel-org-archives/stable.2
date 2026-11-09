@@ -1,59 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.110
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794228483;
-	b=c6i4FjXvU+HXwpJyVoEokr5YyTvfLk4sNtpAywN8HFJ3XVXH+giG/3fVfIWQCmWtqNW2
-	 +x79ITMKgpxMbGbIIvce6oDlFxa8bMAC7XZwZdugsEPqjpg/RIwvVRCCLVGfeEM4Gkxp4
-	 GlJJKzQ9Y8LHJ1ezdmC4K+IEB9K8bq1YL8mtyskSOLSxdUS14vgAqvZCFZ/uou4QlRxoq
-	 RUI6UIemvlrnsl0YhTnQolosiBbr0ydYoqlXiCHBDP3SlPqpwDK62RJ7EP2cxXhB9OluV
-	 KU3wGfaijL26IKTEvAQ4VoeAXFKjgFFVt4mOkixE8Nzojzv7HU+Y3DcJLNnYjlp4wbw==
+	t=1794228488;
+	b=NpXAOUvJ05Fs+SExk/HKSOVd/rUPYO0S+F9F5xaDYwCEf6dxMUiKbb2vOVp5FES8+K+R
+	 gedcqiGVplG50M3u0nQa81oY4CsdB8yYoiCkLvhuT3Rw71OtRRbgVPakJ/+HaQmtS2Kjg
+	 bd+0QD4WSM//Frv34q+Ea7vb3r9WbDCpKnBEp9Wx3DRTOyNGwTVfySW76Q4At7NqwqrrZ
+	 ASOTuLv2JmTiCbOYi1KZ7/4IOwbS6Cv+wMCzao3U6Rer1Txn+fgQTXkzLanTiji93CJlU
+	 C1hcKSDK03idSW4syD0LceyYA6O/1YgZhdI5vKmwwxddR6MaYW4WaKnhPFrzVUmbyoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794228483;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=N/mOy7lW3l4hL8+zQEQuOXv6mkK9QO8yU2VnRL8Y1/E=;
-	b=WSvygW/onLsP9tg8z43eKu70rEnlXlVGrurRSyNPJWaoq9lIx+hnUp+sStbAX9b7D8h1
-	 i9+/ZFj5Mvh0spKABj50Mxtp99fmI6UBQ8OU8fzx4f032xa1cFmYwVU0AOr8m40c5Ab8Y
-	 5roeuGeUzWO730EAmeneZ+cxt1VM9XEVeUhtjLYUyK5LYYJv/sBgHtlKq3KdXYf11pfAn
-	 GKYewkjqqWX3GJJ57f3WS21YhWtvcPsoWKl6Uc4+gzocMHHA1iJnORPFg5BKtH8B1UzpF
-	 n7l+L1PlEeZmD20lnsmpDMXsInhz8H1BUVhYAHeYHOYCXw6ndtceKvRfTEK8uhnUT3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794228488;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=1X9s5IVbMUai+Vm6HPMBjGkej0DDcgknG4OycOL8pUw=;
+	b=tq7qygiEGBT3w/yQD9ATgXi8uRUy6Tffa8ADUaBZbupWE28nLkgcskDAZevS7s87nQFT
+	 yfP3EvJDBQEk9u6FOHQg93H5f+vJh6DHV0BNGCueKKQYzL0wjm0x5uxzevfadW0CZV6+4
+	 hzxetopwE+yT5104wJXk0/BqJLRHBdUaPWS+bi38QaX+ogJRmqe5PeenCr8yJjuNkidh5
+	 r+dpA15mrW0VhM8vps+GC0N3rE3zcB+8watlGGOkOqqt7/F+hU92quNAsFG6p2geL6vzx
+	 Nw1GUZfiFg4BkuysX+tgXjAA1m54CP7SFvmfByO56IO1kbEuDObQJhDT4rMoK4tCwQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=TRoCU+5z;
-	arc=none smtp.remote-ip=115.124.30.110
-Received: from out30-110.freemail.mail.aliyun.com (out30-110.freemail.mail.aliyun.com [115.124.30.110])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JtOrCjKW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B1EC606D821;
-	Mon,  9 Nov 2026 12:47:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B1EC606D821
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90995606D801
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 12:48:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=TRoCU+5z
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1794228477; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=N/mOy7lW3l4hL8+zQEQuOXv6mkK9QO8yU2VnRL8Y1/E=;
-	b=TRoCU+5zrJ3ASE1iGbRcpfXn542ic5V2vCtWaVnvWMObgKTv2Om0WjQ5+CdeBYQztXLyVRNFCvBI0fQGGxv5OG07rmAitc9buQ7hOhKuy9gbFCS3THS2Vi32vPZEqHLld0q+7c4NnGBixaBg7Oth89EiQVGLYBvU0m0bndcpNRs=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R431e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0XEP8iIg_1794228476;
-Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XEP8iIg_1794228476 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 09 Nov 2026 20:47:56 +0800
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-To: Sasha Levin <sashal@kernel.org>,
-	David Sterba <dsterba@suse.com>
-Cc: Chris Mason <mason@kernel.org>,
-	stable@vger.kernel.org,
-	linux-btrfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Joseph Qi <joseph.qi@linux.alibaba.com>
-Subject: [PATCH 6.6.y] btrfs: fix unfinished ordered extent when cow_file_range() fails
-Date: Mon,  9 Nov 2026 20:47:50 +0800
-Message-Id: <20261109124750.64205-1-joseph.qi@linux.alibaba.com>
-X-Mailer: git-send-email 2.39.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JtOrCjKW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E68A81F008A3;
+	Mon,  9 Nov 2026 12:48:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794228488;
+	bh=1X9s5IVbMUai+Vm6HPMBjGkej0DDcgknG4OycOL8pUw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JtOrCjKWYALGyur1/jNlt2Xj6Rmz1LfH815Wvu29Dn7eKSZg0H/PQIlYo8PUYESac
+	 A1T8poP2LU0ju6HggHKjDMQA45ke7eKfnA+tID0/a9lje+EphToS/hKUWFjIX+2HAP
+	 DsDZgBNawcyKHY9yBpROqyN4of8SzEQ/Y67mpQIfjo+2iV8SBa0ZfIals0mFPAJ0wU
+	 c74CbeHB7ET9ZdldVAjtaP2ChDADwNXxh0KUt6FH4LLIq7udVe5hwKBJMQ87VuzKlN
+	 MRkdFot5mG6Itp3T97dsSSaAA+ytfSmUYeGeSpuWRu9Ked2msuE6UFDdR5Ib+uJh1w
+	 JSpRCh1DXp2WQ==
+Date: Mon, 9 Nov 2026 07:48:06 -0500
+From: Sasha Levin <sashal@kernel.org>
+To: Pablo Neira Ayuso <pablo@netfilter.org>
+Cc: Abdifatah Suruur <suruurism@gmail.com>, stable@vger.kernel.org,
+	Florian Westphal <fw@strlen.de>,
+	Greg KH <gregkh@linuxfoundation.org>
+Subject: Re: [PATCH 6.12.y 1/2] Revert "netfilter: nft_byteorder: remove
+ multi-register support"
+Message-ID: <avHBBj7mqIlk4vdm@laps>
+References: <179422696909.5131.4005481731765358036@gmail.com>
+ <179422697447.5131.3947908931395034167@gmail.com>
+ <avG7oLUJ39PZCken@chamomile>
+ <avG95PtnRweYD0KJ@chamomile>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,68 +61,34 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <avG95PtnRweYD0KJ@chamomile>
 
-Commit 4ace6fb49c8b ("btrfs: do proper folio cleanup when cow_file_range()
-failed") moved the extent and folio unlock out of the allocation loop.
-The per-iteration PAGE_SET_ORDERED went with it, and the replacement
-after the loop only runs on success, so the range that already has
-ordered extents is now cleaned up with PAGE_UNLOCK, PAGE_START_WRITEBACK
-and PAGE_END_WRITEBACK only.
+On Mon, Nov 09, 2026 at 01:34:44PM +0100, Pablo Neira Ayuso wrote:
+>On Mon, Nov 09, 2026 at 01:25:08PM +0100, Pablo Neira Ayuso wrote:
+>> Hi,
+>>
+>> On Mon, Nov 09, 2026 at 03:22:54PM +0300, Abdifatah Suruur wrote:
+>> > This reverts commit 3c5fb3a6c8118d15e60295e76fb5b879021eef43.
+>> >
+>> > The upstream change removes multi-register byteorder support and is
+>> > tagged stable+noautosel because nftables versions before 1.1.0 can
+>> > generate length/size combinations that the removal rejects.  Backporting
+>> > it to stable can make existing rulesets fail to load.
+>>
+>> Yes, so why are you posting this as is?
+>
+>Apologies, I got this all wrong.
+>
+>I thought you wanted to pull in "netfilter: nft_byteorder: remove
+> multi-register support" but this already slipped through -stable?
 
-Upstream can do that because btrfs_run_delalloc_range() passes NULL to
-btrfs_cleanup_ordered_extents(), which then accounts the whole range
-without consulting any page bit.  Where that function still takes
-@locked_page it skips it instead, leaving its share of the ordered
-extent to the caller, which finishes it through
-btrfs_mark_ordered_io_finished() with the page argument.
-can_finish_ordered_extent() returns early when the Ordered bit is not
-set, so that share is never accounted and bytes_left never reaches zero.
-btrfs_wait_ordered_range() then waits forever, and a later write to the
-same offset can reach the -EEXIST btrfs_panic() in
-insert_ordered_extent().
+We were asked[1] to backport it.
 
-Both callers that rely on this are affected: __extent_writepage(), and
-submit_uncompressed_range(), the compression fallback, which reaches
-cow_file_range() through run_delalloc_cow().
 
-Set PAGE_SET_ORDERED again for that range.  The cleanup still skips
-@locked_page and accounts the rest with a NULL page, so the two ranges
-do not overlap and nothing is accounted twice.
+[1] https://lore.kernel.org/all/ataIP3xm8DDtO82v@strlen.de/
 
-Upstream fixed this differently, in "btrfs: fix double accounting race
-when btrfs_run_delalloc_range() failed", which is earlier in the same
-series.  That commit depends on the writepage_delalloc() rework and the
-folio conversion of extent_io.c, so restore the flag here instead.
-
-Fixes: 4ace6fb49c8b ("btrfs: do proper folio cleanup when cow_file_range() failed")
-Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
----
- fs/btrfs/inode.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/fs/btrfs/inode.c b/fs/btrfs/inode.c
-index c8034d86f844f..a40201596b80f 100644
---- a/fs/btrfs/inode.c
-+++ b/fs/btrfs/inode.c
-@@ -1532,10 +1532,16 @@ static noinline int cow_file_range(struct btrfs_inode *inode,
- 	 *
- 	 * So here we only clear EXTENT_LOCKED and EXTENT_DELALLOC flag, and
- 	 * finish the writeback of the involved folios, which will be never submitted.
-+	 *
-+	 * PAGE_SET_ORDERED is still needed here:
-+	 * btrfs_cleanup_ordered_extents() skips @locked_page and leaves
-+	 * its share of the ordered extent to the caller, which can only
-+	 * account for it while the Ordered bit is set.
- 	 */
- 	if (orig_start < start) {
- 		clear_bits = EXTENT_LOCKED | EXTENT_DELALLOC;
--		page_ops = PAGE_UNLOCK | PAGE_START_WRITEBACK | PAGE_END_WRITEBACK;
-+		page_ops = PAGE_UNLOCK | PAGE_SET_ORDERED |
-+			   PAGE_START_WRITEBACK | PAGE_END_WRITEBACK;
- 
- 		if (!locked_page)
- 			mapping_set_error(inode->vfs_inode.i_mapping, ret);
 -- 
-2.39.3
-
+Thanks,
+Sasha
