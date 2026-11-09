@@ -1,75 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.37.83.207
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794252032;
-	b=Pv5sH/0QdzvvzKRHbR5Enxinp39D/2kLyQBNXwIu2pBp0Pi5QrdQ57+6tX+GJta5a33i
-	 l81PFMho9Ez2asGjFA/jz8azvITATyLEZ2VyM4YTivgvjquoBoUTTqr3NyMAiphUxPNqQ
-	 g22QURxabV/9vh8zfzeNgGwdTyOc2F/KDq00OMSLM3L9Ev1rbtMb4xqY/BssTPsHEIJ/X
-	 MtGuXqYYLqgKSYiauqrrFt9wEtZp/SARlx1Rjs+3E8IabEbSx34KJvtsS0AJRRtr88W0W
-	 DpkftmXaVpnRelpAAoPlHZFbrYmHqi+a9xA8sn0ZuwY8N04h8M5CIqrZ9r8d9xWRWyg==
+	t=1794252096;
+	b=K0KLbccdYep0preLkKqzlmXRT7v/BfkbQDrbdIXd4qX7qBD8EXQyWWmDrjIl6tUfs8aI
+	 /PkUOHEJ268vVb67lvbquWKOf6nkOp+i3BNZJvdo/j3Z0eyGG1dnCl6a2dW2p+cwzk9mk
+	 NV4JPM+KSlmYiXLxhC77FQwG80wP3oIhHdsuysOn9j6Z+bpUkuK0Gzq1C/nAisckHok6Z
+	 BWWX2ognnqRoMvibi2Itv1/ynmMQZDuecrQtOwVg8Yiuep4grJqHmMbp/ywMQEiSC+Gxa
+	 4peGDDgHUwdOm7jm1Awf2tQgowjbRcnD5dMzkKD4Keh1J+tdQIwYqXLSg6dMMo5DFrw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794252032;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
-	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
-	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=Rvcjc6PqYVgkvvfwOJd4GAtJx7r2l+4o4rkGqARQJHE=;
-	b=sxpwxKlGuNJAwCd/Gcy5UIYWGigwXefN37d8A04AuPXFnxlddSI8beSfHK1ojHCMhafT
-	 d2okRPDefkWeDicUi1RR/P+D5p6deL51l50lHsDhru5oe4GaVfXhlVzyXB/bflkg4/OaV
-	 R4kc7eU5y4Gc53f6RgZ22lYRj67yiXfo4I4fYAhxx3w0/fAJcW3ModFLOpfgtL/b+1WXQ
-	 2QGooe+RNTEfmineOLZhMHZUhRz+B6AFxXj0U8yH2lDMjrjMQDz1QCqSuK57Ot/ysmel8
-	 /HPt7I8hE5qg7p3GGFe4YTLXbFI1E8+1ng+bOGmCkJvO8k5e12nHbadkFgOBIxISqDg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794252096;
+	h=DMARC-Filter:DKIM-Signature:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer;
+	bh=nSaxNJoqEqkrIFzNH5TInpbrikbcFyPUBF2JjDBni20=;
+	b=dlgOucLHLBuqIvDy/t/CIlApeZnDSDS7CusjYXFFY55VX98/0mwHKArXFMjwBKioSzW1
+	 korxRpjCi2VEOPs8wXcBK3c2aml6minVqBh7wEsYjfH2hm7Dfvtn2dCDBAbxufyi5PTtf
+	 NDgU29Boo3fySUXzhkW2rCMpS6obATIRJr6BvFYvusuQnwjsGrNgvyBSzPAxkvYykTWM6
+	 NITkIyZ7+aGENXVq11DGQ+WZSSIp+t9l16RI9DWAk+EPNfWbwgTBq8TaazbjMcmNCRe3F
+	 noYla8+h9ONEw7WTLLVOnkZ6sVrp2Tbq0/DP4njL/UsySuUAw+78xgKuMvU8Hr54SLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=rCDDp9cB;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=P0hjlzfG;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dmarc=pass header.from=dfb.sh;
+	spf=pass smtp.mailfrom=dfb.sh;
+	dkim=pass header.d=dfb.sh header.i=@dfb.sh header.a=rsa-sha256 header.s=frkn header.b=eJVHz1+S;
+	arc=none smtp.remote-ip=54.37.83.207
+Received: from frkn.dfb.sh (frkn.dfb.sh [54.37.83.207])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71F99606A33D;
-	Mon,  9 Nov 2026 19:20:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71F99606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DC3B606A31C;
+	Mon,  9 Nov 2026 19:21:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DC3B606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dfb.sh
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dfb.sh
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=rCDDp9cB;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=P0hjlzfG
-Date: Mon, 09 Nov 2026 19:20:28 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794252029;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Rvcjc6PqYVgkvvfwOJd4GAtJx7r2l+4o4rkGqARQJHE=;
-	b=rCDDp9cBykavpr7fBJBE8QoqairmUx+xeLjZJ5HgzF3e8APqkYaaexmFBUc0CoNdGEENbT
-	FNCh6FnFqe0BpBNHjkZd1hFNadfm16UQQj8h7DxUkK2S2g7VZ0DXLp0jD6xSsM8B6ImaL9
-	l+E9pxOR9kOUK7VcYLHMbuYRwXq+acln+Mu2c0C3GZDKhE+q4C+jMfoVX8VnEs9XssEFSw
-	IKEwQCZ2rhC3WQ1wzUDDyBVUTO8D7jyxKOVFpL3kW+haQJvkl+NfZjWzK9X/PT4i/qNv9/
-	RZPXU2TlrbTVE9pVuNINqH9cpYh9e6+TNDKx7+KhZNpNog4z4R71w2bGc2rQPw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794252029;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Rvcjc6PqYVgkvvfwOJd4GAtJx7r2l+4o4rkGqARQJHE=;
-	b=P0hjlzfG0W8ld4H9pWuAmpjTo8mfpkat2luY4bEZdfTxMDxaYcDfFVHnxCTV65Kl6RkC9S
-	50SXEdUuqfR7ncAw==
-From: "tip-bot2 for Hungyu Lin" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: timers/urgent] timekeeping: Read getboottime64() offsets under
- the sequence counter
-Cc: Hungyu Lin <dennylin0707@gmail.com>, Thomas Gleixner <tglx@kernel.org>,
- John Stultz <jstultz@google.com>, stable@vger.kernel.org, x86@kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261030054227.35453-2-dennylin0707@gmail.com>
-References: <20261030054227.35453-2-dennylin0707@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=dfb.sh header.i=@dfb.sh header.a=rsa-sha256 header.s=frkn header.b=eJVHz1+S
+DKIM-Signature: v=1; a=rsa-sha256; s=frkn; d=dfb.sh; c=relaxed/relaxed; r=y;
+	h=To:Message-Id:Subject:Date:From; t=1794252093; bh=nSaxNJoqEqkrIFzNH5TInpb
+	rikbcFyPUBF2JjDBni20=; b=eJVHz1+Si42yXRSxY4QMFC80Ghx8xUDOOVK7/i1mcJoTsi0OiH
+	pUdn2KJi1JsQWPP41C4FjtpKHK3/rP1CC5+PPBjnpA7PojBMfY4eEj9Zu7BnDOXcJ3ACBeRuxpC
+	GGwUNru1lDIqcJm7CcIrLGuUb4iti+BSsIm1kRbIQtreqYfByIdpD/MP2yYMzj1/Gslh4CWmKTJ
+	pWJXxF6LdT8ByPyt7anGYr57iC3x00c0RYgGLJBzzzJsLsrNkCblgeAU2hLvT8blrZWNGIWh9qa
+	cnC5iJjHH6ZF8Ipu7jy+Wkwa8B5xOyI1QXU9T90vRUQ2prV+tpf5h1w4tdw2AoYZUGw==;
+From: Vladimir Petrzhikovskii <vladimir@dfb.sh>
+Date: Mon, 09 Nov 2026 20:21:28 +0100
+Subject: [PATCH] vdpa/mlx5: Bound the KLM count of the user MR
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -79,61 +52,176 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179425202812.2093942.1394999067957654911.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261109-b4-mlx5-klm-v1-1-787b45145719@dfb.sh>
+X-B4-Tracking: v=1; b=H4sIADcd8moC/yWMwQ6CMBBEf4Xs2U0oilp/xXjY1lWqtJhdICSEf
+ 7fVwxzeZOatoCyBFS7VCsJz0DCkDGZXge8oPRnDPTM0dXM0prboDhj7pcV3H/Fkz7TPMa1lyI+
+ P8CMsP9v19med3Iv9WBRl4UgZnVDyXaki6cgC2/YFd7vRtIgAAAA=
+X-Change-ID: 20261109-b4-mlx5-klm-798a398a159e
+To: Dragos Tatulea <dtatulea@nvidia.com>, 
+ "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>
+Cc: =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>, virtualization@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Nikolai Kalinin <nikolai@kalinidze.me>, 
+ Vladimir Petrzhikovskii <vladimir@dfb.sh>
+X-Mailer: b4 0.15.2
 
-The following commit has been merged into the timers/urgent branch of tip:
+create_user_mr() builds one indirect MKey that covers the whole vhost
+IOTLB. It fills each gap between two mappings with null KLMs, one per
+GiB, and never checks the total number of KLMs against the device
+limit, MLX5_CAP_GEN(log_max_klm_list_size).
 
-Commit-ID:     385b5ec1f31dd39297578eed42be74b07ae74017
-Gitweb:        https://git.kernel.org/tip/385b5ec1f31dd39297578eed42be74b07ae=
-74017
-Author:        Hungyu Lin <dennylin0707@gmail.com>
-AuthorDate:    Fri, 30 Oct 2026 05:42:26=20
-Committer:     Thomas Gleixner <tglx@kernel.org>
-CommitterDate: Mon, 09 Nov 2026 20:15:58 +01:00
+With a virtio-IOMMU the guest chooses the IOVAs: the VMM (QEMU)
+forwards each map the guest makes to the vhost-vDPA device. If the
+guest maps one page at IOVA 0 and one at IOVA 2^58, the driver needs
+more than 2^28 KLMs. create_indirect_key() computes the buffer size in
+an int, which overflows: the driver allocates 336 bytes, and
+fill_indir() then writes 16 bytes per KLM, 4 GiB in total, far past
+the end of the buffer.
 
-timekeeping: Read getboottime64() offsets under the sequence counter
+nnuls is an int, so a gap of 2^61 bytes or more is miscounted on every
+architecture, and on 32-bit the unsigned long num_klms wraps. The gap
+is rounded up to whole GiB as (size + 2^30 - 1) >> 30. For a gap
+larger than 2^64 - 2^30, for example below a page mapped in the top
+GiB, that addition wraps and the driver counts no null KLMs for the
+gap, while fill_indir() still writes one for every GiB of it.
 
-getboottime64() computes the wall-clock boot timestamp from offs_real
-minus offs_boot without checking tk_core.seq. A concurrent timekeeping
-update can leave the reader with an inconsistent pair of offsets or,
-on 32-bit systems, a torn 64-bit offset, producing an incorrect boot
-timestamp.
+Count KLMs in u64 and round the gap up without the overflowing
+addition. Before creating any direct key, return -E2BIG with a
+rate-limited warning if the MR needs more KLMs than the device limit,
+or more than fit in a CREATE_MKEY command whose length is an int.
+Allocate the command with kvzalloc(), because a list within the device
+limit can be too large for kzalloc(). A normal guest is unaffected:
+memory at 0-3 GiB and 4-68 GiB needs 68 KLMs.
 
-Read both offsets under tk_core.seq and retry if an update overlaps
-the sample. Convert the resulting local value to a timespec64 afterward.
+Found by an LLM code review agent auditing vhost-vDPA backends. We have
+no mlx5 hardware, so the fix is untested on it; it builds with W=1 on
+x86_64 and i386.
 
-Fixes: 7c3f1a573237 ("Introduce boot based time")
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Acked-by: John Stultz <jstultz@google.com>
+Fixes: 94abbccdf291 ("vdpa/mlx5: Add shared memory registration code")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261030054227.35453-2-dennylin0707@gmail.com
+Co-developed-by: Nikolai Kalinin <nikolai@kalinidze.me>
+Signed-off-by: Nikolai Kalinin <nikolai@kalinidze.me>
+Signed-off-by: Vladimir Petrzhikovskii <vladimir@dfb.sh>
 ---
- kernel/time/timekeeping.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+Dragos, one question on the limit: the patch takes
+MLX5_CAP_GEN(log_max_klm_list_size) as the largest KLM list an indirect
+CREATE_MKEY accepts, as mlx5_ib does for fast-reg lists. If firmware
+applies a different limit to CREATE_MKEY, please say so and I will
+change the bound.
 
-diff --git a/kernel/time/timekeeping.c b/kernel/time/timekeeping.c
-index dcf47f1..7d7a737 100644
---- a/kernel/time/timekeeping.c
-+++ b/kernel/time/timekeeping.c
-@@ -2700,7 +2700,13 @@ void update_wall_time(void)
- void getboottime64(struct timespec64 *ts)
- {
- 	struct timekeeper *tk =3D &tk_core.timekeeper;
--	ktime_t t =3D ktime_sub(tk->offs_real, tk->offs_boot);
-+	unsigned int seq;
-+	ktime_t t;
-+
-+	do {
-+		seq =3D read_seqcount_begin(&tk_core.seq);
-+		t =3D ktime_sub(tk->offs_real, tk->offs_boot);
-+	} while (read_seqcount_retry(&tk_core.seq, seq));
-=20
- 	*ts =3D ktime_to_timespec64(t);
+The guest kernel change used for the reachability check is available
+on request.
+---
+ drivers/vdpa/mlx5/core/mlx5_vdpa.h |  2 +-
+ drivers/vdpa/mlx5/core/mr.c        | 30 +++++++++++++++++++++++++-----
+ 2 files changed, 26 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/vdpa/mlx5/core/mlx5_vdpa.h b/drivers/vdpa/mlx5/core/mlx5_vdpa.h
+index 42f2f44b383c..1d84824ca429 100644
+--- a/drivers/vdpa/mlx5/core/mlx5_vdpa.h
++++ b/drivers/vdpa/mlx5/core/mlx5_vdpa.h
+@@ -32,7 +32,7 @@ struct mlx5_vdpa_mr {
+ 	/* list of direct MRs descendants of this indirect mr */
+ 	struct list_head head;
+ 	unsigned long num_directs;
+-	unsigned long num_klms;
++	u64 num_klms;
+ 
+ 	struct vhost_iotlb *iotlb;
+ 
+diff --git a/drivers/vdpa/mlx5/core/mr.c b/drivers/vdpa/mlx5/core/mr.c
+index b0c5ff23d022..03db8345c1bb 100644
+--- a/drivers/vdpa/mlx5/core/mr.c
++++ b/drivers/vdpa/mlx5/core/mr.c
+@@ -206,6 +206,16 @@ static int klm_byte_size(int nklms)
+ 	return 16 * ALIGN(nklms, 4);
  }
+ 
++/* Largest KLM count whose CREATE_MKEY input length still fits in an int. */
++#define MLX5_VDPA_MAX_KLMS_INLEN \
++	ALIGN_DOWN((INT_MAX - MLX5_ST_SZ_BYTES(create_mkey_in)) / 16, 4)
++
++static u64 max_klms(struct mlx5_vdpa_dev *mvdev)
++{
++	return min_t(u64, BIT_ULL(MLX5_CAP_GEN(mvdev->mdev, log_max_klm_list_size)),
++		     MLX5_VDPA_MAX_KLMS_INLEN);
++}
++
+ #define MLX5_VDPA_MTT_ALIGN 16
+ 
+ static int create_direct_keys(struct mlx5_vdpa_dev *mvdev, struct mlx5_vdpa_mr *mr)
+@@ -338,7 +348,7 @@ static int create_indirect_key(struct mlx5_vdpa_dev *mvdev, struct mlx5_vdpa_mr
+ 		return -EINVAL;
+ 
+ 	inlen = MLX5_ST_SZ_BYTES(create_mkey_in) + klm_byte_size(mr->num_klms);
+-	in = kzalloc(inlen, GFP_KERNEL);
++	in = kvzalloc(inlen, GFP_KERNEL);
+ 	if (!in)
+ 		return -ENOMEM;
+ 
+@@ -355,7 +365,7 @@ static int create_indirect_key(struct mlx5_vdpa_dev *mvdev, struct mlx5_vdpa_mr
+ 	MLX5_SET(create_mkey_in, in, translations_octword_actual_size, mr->num_klms);
+ 	fill_indir(mvdev, mr, in);
+ 	err = mlx5_vdpa_create_mkey(mvdev, &mr->mkey, in, inlen);
+-	kfree(in);
++	kvfree(in);
+ 	return err;
+ }
+ 
+@@ -501,6 +511,7 @@ static int create_user_mr(struct mlx5_vdpa_dev *mvdev,
+ {
+ 	struct mlx5_vdpa_direct_mr *dmr;
+ 	struct mlx5_vdpa_direct_mr *n;
++	u64 klm_limit = max_klms(mvdev);
+ 	struct vhost_iotlb_map *map;
+ 	u32 pperm = U16_MAX;
+ 	u64 last = U64_MAX;
+@@ -508,7 +519,7 @@ static int create_user_mr(struct mlx5_vdpa_dev *mvdev,
+ 	u64 pe = U64_MAX;
+ 	u64 start = 0;
+ 	int err = 0;
+-	int nnuls;
++	u64 nnuls;
+ 
+ 	INIT_LIST_HEAD(&mr->head);
+ 	for (map = vhost_iotlb_itree_first(iotlb, start, last); map;
+@@ -521,9 +532,10 @@ static int create_user_mr(struct mlx5_vdpa_dev *mvdev,
+ 				if (pe < map->start) {
+ 					/* We have a hole in the map. Check how
+ 					 * many null keys are required to fill it.
++					 * The hole can be nearly 2^64 bytes, so
++					 * round up without adding to its size.
+ 					 */
+-					nnuls = MLX5_DIV_ROUND_UP_POW2(map->start - pe,
+-								       LOG_MAX_KLM_SIZE);
++					nnuls = ((map->start - pe - 1) >> LOG_MAX_KLM_SIZE) + 1;
+ 					mr->num_klms += nnuls;
+ 				}
+ 				err = add_direct_chain(mvdev, mr, ps, pe - ps, pperm, iotlb);
+@@ -539,6 +551,14 @@ static int create_user_mr(struct mlx5_vdpa_dev *mvdev,
+ 	if (err)
+ 		goto err_chain;
+ 
++	if (mr->num_klms > klm_limit) {
++		dev_warn_ratelimited(mvdev->mdev->device,
++				     "map needs %llu KLMs, limit is %llu\n",
++				     mr->num_klms, klm_limit);
++		err = -E2BIG;
++		goto err_chain;
++	}
++
+ 	err = create_direct_keys(mvdev, mr);
+ 	if (err)
+ 		goto err_chain;
+
+---
+base-commit: d48723711bae9b8cdc56719c448ba42fef28cbee
+change-id: 20261109-b4-mlx5-klm-798a398a159e
+
+Best regards,
+--  
+Vladimir Petrzhikovskii <vladimir@dfb.sh>
+
