@@ -1,77 +1,76 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794213499;
-	b=wRK471Q1ddqkxKir+9DRExEJSu8SDuZK1rml9FrxswnuyOwOy3nI16oXmrOzA00GXTbv
-	 pQHCqBDA/TpGlbKYXzdUeDF9YfQwC7w6ytN9lFYu6TcuwuuL6iDaokI43hqKgncAZxhQu
-	 qFiZlYt3ql34HQ+cZ5yhPDUYEIIs/YFPuPVB+D324SzzKmoD44bPPDkvtqI1as4fjmNrQ
-	 nwIQYGnzBBJfro0pm2ZbhQSlzBn5Gc6OSsgHxDjCGjcken6dN35q5Z41b2eoZeVoaK26F
-	 65qmg8RFVmjt3T3q2Cmf2x5ocylpZQ/StrRceysy2jLk5EaZOCA4Hu0K+gu/uIjhjXA==
+	t=1794213501;
+	b=ZbXVQZASSLek47B0WkvExYniY0RLK1TxNBHT0ODSGoBd1Y8gqYIb/fXtBhlzTC0yfcNy
+	 j7mUw7c8maL7bmCADmVn1HPL1fRPGNEJwKnH0wDZNGVsL4kUKbBAPZ7D2LSGjjoW9NI0X
+	 jN97UBlLN+1J35RVWMHLlZ1nq5S4GgMqFn+9Ls4iXywrCdG4e8pjyCuugeiWXwM30U9SE
+	 xM8MXznRwtMMS2y1M7QOmcGL0XunyLy87kY42X/jIFg77cXcZpB3sNln7Sl6xLygh7CKq
+	 l2kKFCG0cxO7oaLWP95ZIdRMbV0vM0cswD7lSnnQ7PjyYnO2Q6HVLxdEDtXIG57WoOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794213499;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794213501;
 	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
 	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
 	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=FBDLV/EoKl28Ol/xyBl61MA3kGvnoSRF5fzvP1+IGQc=;
-	b=UzkS9bGfEU14HIiPYXZLrGjiDWR0qRmN92Fr33YZPKzuxWNzvjdEoeT690sJmZXRhrFa
-	 vxBU9n7NxNrlDyDJuE2NGVnD/ITGGOXP0hf8kJhqGwKQDoVeGVK/H5cYcBecxZu6gkRND
-	 xwotdKvu/qcp+d6U/i9wXwzPc/Gydk0wfwrj7Dpjqp03TdTT4USPfvqOZiAyZa8xO9Ol3
-	 VyJAysYv+By4WpaoezXsM1eXrC7atn799u9MbVYXmw3pcls8+VkO0cWHxvjCbpFv+GUZ1
-	 kNIoFEFqnQcpkFQbx3J+Tzagc7e8eB8ZBe2OrvWNAiuyZT5hfoxqAlg898qAmbVT7oA==
+	bh=GF/UXLZB93QI4FOeXnZFKqyRgXfDe86kIWZK8QxzUcI=;
+	b=kkSU5RSn/IgL0O5uF7NYmqHMkfkhpdeTYx9OxZR7QqZ3lr6dwUwdjVgi2VVWXgwm+G5L
+	 wSkmBa4M4ihGeFOPNjNBZhqv0KDSg/U5HJqyYlyd/rPHvvM8O5hVCUzCMzOVr88g5wzaO
+	 IhTbJM+p6SQvHdjChZzHmhwq9neH3RSmhr0ntSQHRNCc/0AXnRzC8GNf9vcxNajr1RjIJ
+	 Ba+v9+An5viusMCNcL+7SJ5w9QE8T+g/UczN6yZwRbdXTm3Mp4vizq0hAH01SlUWlv52F
+	 2qu02dNHHXEHG1id6UfpzKbSZuCb1LcyCFJuxm+Ol4uj7IE6+WIEOo7P/qOQj+rg5Yw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linutronix.de;
 	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=mrJx8++s;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=opqgERrm;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=dbHhSDUb;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=3vzS6oXX;
 	arc=none smtp.remote-ip=193.142.43.55
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 051976082BC6;
-	Mon,  9 Nov 2026 08:38:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 051976082BC6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 733346082BD7;
+	Mon,  9 Nov 2026 08:38:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 733346082BD7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=mrJx8++s;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=opqgERrm
-Date: Mon, 09 Nov 2026 08:38:15 -0000
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=dbHhSDUb;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=3vzS6oXX
+Date: Mon, 09 Nov 2026 08:38:17 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794213497;
+	s=2020; t=1794213498;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=FBDLV/EoKl28Ol/xyBl61MA3kGvnoSRF5fzvP1+IGQc=;
-	b=mrJx8++sk+iqJu6DByNCHlQlQkLNbPX48eWnvsGeGSGZyHodDbUGolEN6KnxYQLjLf/ALl
-	Qu7+m2a7q9IYYjfphSivU65mMCRJTFofbENWTmuZ/E50MEG2J6CKhlvtybmiSf3SNFBS93
-	PlyzjfzhC4GawQgQpf3gvthwcpwPe6Syodj1q0TLxyppyA18wYVYlBUbYrPS0V2IpN1kLR
-	UC0SeMvXdML2dsc5ls1ypTMxQ1kT5+HQyxnelIxbhCpd5yV6GDRdLpdQ86RrPn4nB6MYTj
-	Auc9V07iLrhnM6s570P4HuLiyRj7lEmO2uhvEzdexDERb/6KVXtrjGF2J05teA==
+	bh=GF/UXLZB93QI4FOeXnZFKqyRgXfDe86kIWZK8QxzUcI=;
+	b=dbHhSDUbR2Xwkh/FtTqF0HSl8TXEEaxS6yF6v9JcQXiqyYnSoQix2XS39uNuoDTqt5uR0f
+	fl7Kw358SXUThnDFjfj04KpcXcch+gcTet8m/zrBNHOXvG2Mvt1yFiAW22QEZG+OWipOkL
+	yctGexU03sZSlJW33d4uqHrBvgtd+ayfVlGz3aKb5Gxwb/fJr/VzdTef5aUcDeBEpuic0q
+	XYDjw/wxx6mHldq0hJevARg+JZTzzePr546J+ekfOMkunp0xAnuB/KYdMKddCr7yUdjQPS
+	NBoggPcy4CUVJwzmwHcK6ulgj2U48yrr2igZBtEr6y03m8x8HOY+GWR+3Bfp4g==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794213497;
+	s=2020e; t=1794213498;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=FBDLV/EoKl28Ol/xyBl61MA3kGvnoSRF5fzvP1+IGQc=;
-	b=opqgERrmc+uP6eQuYJ//ZeZQVFle1ynqykjnzZuMPUbYI7yjwPdgUfYx2jAe4pHaimOM+w
-	APuqYCXBe458J9Bg==
+	bh=GF/UXLZB93QI4FOeXnZFKqyRgXfDe86kIWZK8QxzUcI=;
+	b=3vzS6oXXdE1tUcCHJEOX7RZSpQ/AG4OlkyJ6n0DKkqqzH3+SpjYsBflBU3ayExmLTI3JBc
+	xKd6jRkd6kj1f0DA==
 From: "tip-bot2 for Andrea Parri" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
-Subject: [tip: sched/urgent] sched: Fix cpuset_mutex double unlock in
- __sched_setscheduler()
+Subject: [tip: sched/urgent] sched/uclamp: Reject clamp values above
+ SCHED_CAPACITY_SCALE
 Cc: Sashiko <sashiko-bot@kernel.org>, Andrea Parri <parri.andrea@gmail.com>,
  "Peter Zijlstra (Intel)" <peterz@infradead.org>,
- Waiman Long <longman@redhat.com>, Kayra Cizmeci <kayracizmeci@gmail.com>,
- Juri Lelli <juri.lelli@redhat.com>, stable@vger.kernel.org, x86@kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261102134606.242743-1-parri.andrea@gmail.com>
-References: <20261102134606.242743-1-parri.andrea@gmail.com>
+ Vincent Guittot <vincent.guittot@linaro.org>, stable@vger.kernel.org,
+ x86@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261102134831.243255-1-parri.andrea@gmail.com>
+References: <20261102134831.243255-1-parri.andrea@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -81,7 +80,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179421349532.2093942.7837275632332518113.tip-bot2@tip-bot2>
+Message-ID: <179421349704.2093942.6710700509880950896.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -91,75 +90,67 @@ Content-Transfer-Encoding: quoted-printable
 
 The following commit has been merged into the sched/urgent branch of tip:
 
-Commit-ID:     986efdec58355e41e213bbef125da2d2b766eee0
-Gitweb:        https://git.kernel.org/tip/986efdec58355e41e213bbef125da2d2b76=
-6eee0
+Commit-ID:     0c07ea075182bf8cb1048dbc6baa337908ee0bbe
+Gitweb:        https://git.kernel.org/tip/0c07ea075182bf8cb1048dbc6baa337908e=
+e0bbe
 Author:        Andrea Parri <parri.andrea@gmail.com>
-AuthorDate:    Mon, 02 Nov 2026 14:46:05 +01:00
+AuthorDate:    Mon, 02 Nov 2026 14:48:30 +01:00
 Committer:     Peter Zijlstra <peterz@infradead.org>
 CommitterDate: Fri, 06 Nov 2026 11:45:17 +01:00
 
-sched: Fix cpuset_mutex double unlock in __sched_setscheduler()
+sched/uclamp: Reject clamp values above SCHED_CAPACITY_SCALE
 
-A sched_setattr() with SCHED_FLAG_KEEP_POLICY on a SCHED_DEADLINE task
-unlocks cpuset_mutex twice if the task's policy changes concurrently:
+sched_setattr() accepts sched_util_min and sched_util_max values that do
+not fit in uclamp_se::value. A single thread can do:
 
-  WARNING: bad unlock balance detected!
-  7.4.0-rc1 #1 Not tainted
-  -------------------------------------
-  repro/126 is trying to release lock (cpuset_mutex) at:
-  [<ffffffff9a17cacc>] __sched_setscheduler+0x9cc/0xc40
-  but there are no more locks to release!
-  ...
+  sched_setattr(max =3D 800)		returns 0
+  sched_setattr(min =3D 0xfffffffe)	returns 0
+  sched_getattr()			min=3D2046 max=3D800
+
+which leaves the minimum above both SCHED_CAPACITY_SCALE and the task's own
+maximum.
+
+The range check in uclamp_validate() relies on the + 1 wrapping -1, the
+reset value, to 0:
+
+	if (util_min + 1 > SCHED_CAPACITY_SCALE + 1)
+
+That only works for an unsigned type. util_min and util_max are int and
+SCHED_CAPACITY_SCALE is a long, so every negative value passes the check,
+and so does INT_MAX, whose + 1 wraps.
+
+uclamp_se_set() then truncates what got through to the 11 bits of
+uclamp_se::value, but computes the bucket from the full value. A minimum
+of 0xfffff800 is stored as 0 in the top bucket, where uclamp_rq_max_value()
+takes it for the highest active clamp once a higher value leaves the rq.
+The rq clamp falls below what the remaining tasks requested, and emptying
+their bucket trips the WARN_ON_ONCE() in uclamp_rq_dec_id(), without any
+privilege:
+
+  WARNING: kernel/sched/core.c:1862 at dequeue_task+0x2a3/0x2b0, CPU#0: repro=
+/126
   Call Trace:
-   print_unlock_imbalance_bug.part.0+0xfb/0x110
-   lock_release+0x286/0x2e0
-   __mutex_unlock_slowpath+0x1a/0x400
-   __sched_setscheduler+0x9cc/0xc40
-   __x64_sys_sched_setattr+0xa3/0x1b0
-   do_syscall_64+0x106/0x5f0
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+   __schedule+0x933/0x1320
+   schedule+0x36/0x100
+   do_nanosleep+0x61/0x190
+   hrtimer_nanosleep+0xb5/0x1d0
 
-__sched_setscheduler() samples p->policy before taking any lock, and
-restarts from the recheck label if p->policy differs under the rq lock.
-The restart drops cpuset_mutex but leaves cpuset_locked set, so a pass
-that no longer needs the mutex still unlocks it on its way out:
+Make util_min and util_max unsigned int, so that -1 is the only value that
+wraps. The pair check below is unaffected, since it skips -1 explicitly and
+anything else is at most SCHED_CAPACITY_SCALE by then.
 
-  CPU 1                                CPU 2
-  __sched_setscheduler(KEEP_POLICY)
-    policy =3D p->policy /* DEADLINE */
-                                       __sched_setscheduler(SCHED_OTHER)
-                                         p->policy =3D SCHED_OTHER
-    cpuset_locked =3D true
-    cpuset_lock()
-    rq =3D task_rq_lock(p)
-    oldpolicy !=3D p->policy
-      cpuset_unlock()
-      goto recheck
-    /* no cpuset_lock() this time */
-    ...
-    if (cpuset_locked)
-      cpuset_unlock()
+Requests that were only accepted because of this now fail with -EINVAL.
 
-Without CONFIG_DEBUG_MUTEXES, or CONFIG_DEBUG_RT_MUTEXES on PREEMPT_RT,
-nothing warns. The second unlock still clears the owner field regardless
-of who holds the mutex, so another task can lose cpuset_mutex inside its
-critical section. Entering SCHED_DEADLINE needs CAP_SYS_NICE, but a
-racing caller that owns the task does not need it if it samples a policy
-other than SCHED_DEADLINE.
-
-Clear cpuset_locked when dropping the mutex for the restart. This should be
-safe because the flag is only tested on the paths leaving the next pass,
-after that pass has set it again if it took the mutex.
-
-The following program, run as root, reproduces the splat, which no longer
-appears with this applied. On PREEMPT_RT it crashes the kernel within
-seconds, which this also fixes:
+The following program triggers the warning when run by any user outside
+a child cpu cgroup. With this applied, its 0xfffff800 request fails with
+-EINVAL and the warning no longer appears:
 
   #define _GNU_SOURCE
   #include <pthread.h>
+  #include <sched.h>
   #include <stdint.h>
   #include <sys/syscall.h>
+  #include <time.h>
   #include <unistd.h>
 
   struct attr {
@@ -168,92 +159,99 @@ seconds, which this also fixes:
       int32_t nice;
       uint32_t prio;
       uint64_t runtime, deadline, period;
+      uint32_t util_min, util_max;
   };
 
   static volatile int stop;
-  static volatile pid_t target;
 
-  static void set(struct attr a)
+  static void set_min(uint32_t v)
   {
-      a.size =3D sizeof(a);
-      syscall(SYS_sched_setattr, target, &a, 0);
+      /* KEEP_POLICY | KEEP_PARAMS | UTIL_CLAMP_MIN */
+      struct attr a =3D { .size =3D sizeof(a), .flags =3D 0x38, .util_min =3D=
+ v };
+
+      syscall(SYS_sched_setattr, 0, &a, 0);
   }
 
-  static void *sleeper(void *arg)
+  static void burn(long us)
   {
-      target =3D syscall(SYS_gettid);
+      struct timespec s, n;
+
+      clock_gettime(CLOCK_MONOTONIC, &s);
+      do
+          clock_gettime(CLOCK_MONOTONIC, &n);
+      while ((n.tv_sec - s.tv_sec) * 1000000 +
+             (n.tv_nsec - s.tv_nsec) / 1000 < us);
+  }
+
+  static void *bogus(void *arg)
+  {
+      set_min(0xfffff800);
       while (!stop)
-          usleep(1000);
+          burn(1000);
       return arg;
   }
 
-  static void *switcher(void *arg)
+  static void *worker(void *arg)
   {
+      long v =3D (long)arg;
+
+      set_min(v);
       while (!stop) {
-          /* SCHED_DEADLINE, 2us every 1s */
-          set((struct attr){ .policy =3D 6, .runtime =3D 2000,
-                             .deadline =3D 1000000000,
-                             .period =3D 1000000000 });
-          set((struct attr){ .policy =3D 0 }); /* SCHED_OTHER */
+          burn(v =3D=3D 800 ? 300 : 1500);
+          usleep(100);
       }
-      return arg;
-  }
-
-  static void *racer(void *arg)
-  {
-      /* KEEP_POLICY | KEEP_PARAMS */
-      while (!stop)
-          set((struct attr){ .flags =3D 0x18 });
       return arg;
   }
 
   int main(void)
   {
-      pthread_t t[5];
+      pthread_t t[3];
+      cpu_set_t c;
       int i;
 
-      pthread_create(&t[0], NULL, sleeper, NULL);
-      while (!target)
-          usleep(100);
-      pthread_create(&t[1], NULL, switcher, NULL);
-      for (i =3D 2; i < 5; i++)
-          pthread_create(&t[i], NULL, racer, NULL);
-      sleep(30);
+      CPU_ZERO(&c);
+      CPU_SET(0, &c);
+      sched_setaffinity(0, sizeof(c), &c);
+      pthread_create(&t[0], NULL, bogus, NULL);
+      usleep(50000);
+      pthread_create(&t[1], NULL, worker, (void *)500L);
+      pthread_create(&t[2], NULL, worker, (void *)800L);
+      sleep(15);
       stop =3D 1;
-      for (i =3D 0; i < 5; i++)
+      for (i =3D 0; i < 3; i++)
           pthread_join(t[i], NULL);
       return 0;
   }
 
-An LLM helped find the PREEMPT_RT crash and write this patch and its test.
+An LLM helped find the warning and write this patch and its tests.
 
-Fixes: 111cd11bbc54 ("sched/cpuset: Bring back cpuset_mutex")
+Fixes: 480a6ca2dc6e ("sched/uclamp: Allow to reset a task uclamp constraint v=
+alue")
 Reported-by: Sashiko <sashiko-bot@kernel.org>
 Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
 Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Reviewed-by: Waiman Long <longman@redhat.com>
-Reviewed-by: Kayra Cizmeci <kayracizmeci@gmail.com>
-Reviewed-by: Juri Lelli <juri.lelli@redhat.com>
+Reviewed-by: Vincent Guittot <vincent.guittot@linaro.org>
 Link: https://sashiko.dev/#/patchset/20261016062629.2102883-1-sh_def%40163.com
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261102134606.242743-1-parri.andrea@gmail.com
+Link: https://patch.msgid.link/20261102134831.243255-1-parri.andrea@gmail.com
 ---
- kernel/sched/syscalls.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ kernel/sched/syscalls.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
-index 98be11a..0ec401a 100644
+index fb8f332..98be11a 100644
 --- a/kernel/sched/syscalls.c
 +++ b/kernel/sched/syscalls.c
-@@ -640,8 +640,10 @@ change:
- 	if (unlikely(oldpolicy !=3D -1 && oldpolicy !=3D p->policy)) {
- 		policy =3D oldpolicy =3D -1;
- 		task_rq_unlock(rq, p, &rf);
--		if (cpuset_locked)
-+		if (cpuset_locked) {
- 			cpuset_unlock();
-+			cpuset_locked =3D false;
-+		}
- 		goto recheck;
- 	}
+@@ -318,8 +318,8 @@ static inline void __setscheduler_dl_pi(int newprio, int =
+policy,
+ static int uclamp_validate(struct task_struct *p,
+ 			   const struct sched_attr *attr)
+ {
+-	int util_min =3D p->uclamp_req[UCLAMP_MIN].value;
+-	int util_max =3D p->uclamp_req[UCLAMP_MAX].value;
++	unsigned int util_min =3D p->uclamp_req[UCLAMP_MIN].value;
++	unsigned int util_max =3D p->uclamp_req[UCLAMP_MAX].value;
 =20
+ 	if (attr->sched_flags & SCHED_FLAG_UTIL_CLAMP_MIN) {
+ 		util_min =3D attr->sched_util_min;
