@@ -1,63 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794217888;
-	b=i07nuv/Aot8I8m2NAj9fgtiHtO5imNs9INKCTqv+fDVK3uS5baZjuYFwE+d6hX8CiKho
-	 QGcLF4PAI8T+ub/x6ysMd1OzYCerSWUDmFosFDgU0MPVKVZy3rUoPJTmwrQIqQ6PtK3k2
-	 TwM0+bpBIcWeRF5vwP5ogbpgAZkiEK8HX704DIMGO+j7aFLkU5NuvFwUDVUdSPlWOISZR
-	 EL3dPPBuivZOVBZC1yEOxNPY8CdGLRsdWbLgi2zf72RTnaJrmmUZG7i4agaS9a3KVVGvG
-	 aPdrQyr/yL+Ojtlojibhh6OykOV/3o5YZajw2PVDLyARenTdHPxs2mFcp+D/NLHm91w==
+	t=1794217916;
+	b=AoN4gvXvfb/rXR5bYv88dRHLQjvx3hAQbEnxMGGNvMYzeaRnJs1iF7w0VcUYo9PYnnP0
+	 q8LFHXZaYnFihxaOrgA7mO+03Hh0xA0Ws7jPpBe1UV+fLsMbpcyWxpWplYb4bYFbWxy0+
+	 D5jEDxbM6jID3a1K32LwDtHYDlsVsAEp9+ks9adWhABIc+jVHT7kCX0jzWYPl7pre3+0O
+	 qkZMQ+/0en3PzwaSmMWffr9nrM6+ye31hSsV8t54Zr4ifKsTGGqdx8ncGdCUyEUuVJRUE
+	 DHSGI3D5+62LZgrso3xQHpKU5XnbnuTu95Ect6vC4DGiKDEFtLSYm1j/al1X3lPQ8tg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794217888;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Last-TLS-Session-Version;
-	bh=ezNOCMrbd9p4oAuHMi4rq419vdcjfc42j5tDoLcIzx0=;
-	b=0bFaMSN5eMesolpx6kpkS8M4qChveZA0Oj7Gto4iwiPIMaJfIuJwkiz3grq4FDp6PO2Z
-	 4HJt7lDrF9ryYUCR3vEUaqrRF0LFlZHy7Jm8fXaZDXuzTcuEbN50aXSmzyp8jOVL6qSwV
-	 3TpV3V7gfYqKTWSqC8kUe7h87c4SjykmL8px6+fSzNv2qc5CQL9Kf0+Xsa/3Mr+ZQzHZO
-	 8CwBO7JoDqWwGQ04Gs1pwBsWVeggwiBGEN9HVe5Tc1aesnS2ZTOlbp4oNXut7q3ZDrmVl
-	 ePqI9SqdmsNFR0fwj7qIBBjs+nafr+F5S/MXvthVyxJbdgL4pSjktbAq7zaxtnV8Lfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794217916;
+	h=DMARC-Filter:DKIM-Signature:Received:X-Originating-IP:Date:
+	 X-CM-HeaderCharset:From:To:Cc:Subject:X-Priority:X-Mailer:In-Reply-To:
+	 References:Content-Transfer-Encoding:Content-Type:MIME-Version:
+	 Message-ID:X-Coremail-Locale:X-CM-TRANSID:X-CM-SenderInfo:
+	 X-Coremail-Antispam;
+	bh=XA7B63YEOoPoc69XLHUfY2ziq2BhVYlvpPt16lzHQhk=;
+	b=YBaf3vzCv027QSfuRFEH6kJVUtRiVq9civJfVPaeyGB3dEsDJA1f0W0M/NyyXmKqGwFC
+	 4maq2rMHLXLAlsSDZJwRkVLd1o3/Al3UitBkv1drf4dWsblwUmpWiYySV3s+dMVqOTZZ2
+	 iz/d+g7NG4gGTMb33695YjueuLIqSARxPqLNcBSLupZrUo+pGw+wlitkRta9z0Xk7CtRh
+	 MB4LbDB/5h8+W4dzzgldlUkjjfuFGJJWGUvlXAVeLrJkCKznT/1bP3IEKrPMDp1v1D1hx
+	 ixNcysUmw69rgf7Hx/WhaRKWgw3RkPmEoBvLt+gvHPNZgj9s0n/Zs1d94T1svR0y1ng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nabladev.com;
-	spf=pass smtp.mailfrom=nabladev.com;
-	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=gN76syU0;
-	arc=none smtp.remote-ip=178.251.229.89
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C0D5606A323;
-	Mon,  9 Nov 2026 09:51:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C0D5606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	dmarc=pass header.from=mails.tsinghua.edu.cn;
+	spf=pass smtp.mailfrom=mails.tsinghua.edu.cn;
+	dkim=fail reason="signature verification failed" header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.a=rsa-sha256 header.s=dkim header.b=IizY26EI;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 353EB606D810;
+	Mon,  9 Nov 2026 09:51:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 353EB606D810
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=gN76syU0
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 69BED10C082;
-	Mon, 09 Nov 2026 10:51:20 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1794217881;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=ezNOCMrbd9p4oAuHMi4rq419vdcjfc42j5tDoLcIzx0=;
-	b=gN76syU0YfAf3f/w5NXJuxEyDjFVJqGz7hNh57wHqHYRaQhJToc8oGBXlQs51gkFi0BkXk
-	Cw6E3HtIbFJqZt2UY0oyV6HQB8oWhP6caXyYn7l/0ucZyxPX8r32dw0Py7C4xsbmdpMzjd
-	+t91IbyG9R2FOw45pIYP0UuICiFdNjpc8wZojDDMoYH+k+pnpQyusbDs0KSmikdsXL8aqA
-	nQvzuwXYN+jhgjb6qo8152h+9KPDlfGUs2abxwScAL5gp81fNglevrK+mtY8+OVGoLC9wS
-	AXiqWK4wgQw02yeBQTjZERlnBV+jJwALAtR74HYpn9D/HZN2hIjKKJx0qWUPCw==
-Date: Mon, 9 Nov 2026 10:51:19 +0100
-From: Pavel Machek <pavel@nabladev.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 7.3 0000/1257] 7.3.4-rc1 review
-Message-ID: <avGXl7Uy2PkEjPhH@duo.ucw.cz>
-References: <20261107134939.434104957@linuxfoundation.org>
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.a=rsa-sha256 header.s=dkim header.b=IizY26EI
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=mails.tsinghua.edu.cn; s=dkim; h=Received:Date:From:To:Cc:
+	Subject:In-Reply-To:References:Content-Transfer-Encoding:
+	Content-Type:MIME-Version:Message-ID; bh=3HsrWzOE7DDbArLklASgrUy
+	VLEgk980VLxEZaQWsK9M=; b=IizY26EIsvlgZxr7czGr3xwnyv2flxyAEd4dH8M
+	kfqvK575XjMlY3S4XJmo/RwzD4eTBqcPx+jSPwKV1BusAA4x4Ms2sbajDo4hKtL1
+	KXeSUzMqg3X7ajg52L2CzMeaAWKA5Ol5rjPM2Y98lF9Zkk1MOmddnzbWm+SNOMM1
+	hu9I=
+Received: from zhangmh25$mails.tsinghua.edu.cn ( [183.173.160.112] ) by
+ ajax-webmail-web1 (Coremail) ; Mon, 9 Nov 2026 17:51:34 +0800 (GMT+08:00)
+Date: Mon, 9 Nov 2026 17:51:34 +0800 (GMT+08:00)
+X-CM-HeaderCharset: UTF-8
+From: zhangmh25@mails.tsinghua.edu.cn
+To: "Ido Schimmel" <idosch@nvidia.com>
+Cc: netdev@vger.kernel.org, dsahern@kernel.org, davem@davemloft.net,
+	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+	horms@kernel.org, pshelar@nicira.com, stable@vger.kernel.org
+Subject: Re: Re: [PATCH net] net: ipv4: fix tnl_update_pmtu negative MTU
+ advertisement
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2024.2-cmXT5 build
+ 20261010(691d8f62) Copyright (c) 2002-2026 www.mailtech.cn
+ mispb-4df55a87-4b50-4a66-85a0-70f79cb6c8b5-tsinghua.edu.cn
+In-Reply-To: <20261103151844.GA1234870@shredder>
+References: <20261102155444.2658518-1-zhangmh25@mails.tsinghua.edu.cn>
+ <20261103151844.GA1234870@shredder>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,41 +69,22 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="fMg5DBF/WS7L0yPR"
-Content-Disposition: inline
-In-Reply-To: <20261107134939.434104957@linuxfoundation.org>
-X-Last-TLS-Session-Version: TLSv1.3
+Message-ID: <d8f76d6.23b1e.1a1bfb862e2.Coremail.zhangmh25@mails.tsinghua.edu.cn>
+X-Coremail-Locale: en_US
+X-CM-TRANSID:yAQGZQCXDj+ml_FqaFwaAg--.28789W
+X-CM-SenderInfo: x2kd0wlpkskqxpdlz2oowvx0pjkxthxhgxhubq/1tbiAgAGB2rw+M
+	7ntAAIs0
+X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VW7Jw
+	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
+	daVFxhVjvjDU=
 
-
---fMg5DBF/WS7L0yPR
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-Hi!
-
-> This is the start of the stable review cycle for the 7.3.4 release.
-> There are 1257 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-
-CIP testing did not find any problems here:
-
-https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/tree/linux-7.3.y
-
-Tested-by: Pavel Machek (CIP) <pavel@nabladev.com>
-
-Best regards,
-                                                                Pavel
-
---fMg5DBF/WS7L0yPR
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCavGXlwAKCRAw5/Bqldv6
-8va6AKCebkyoVCc+WnL20xljuFGKvNL+0wCfdEXXnne74yZJryfDUneVvvzL+o8=
-=s0/j
------END PGP SIGNATURE-----
-
---fMg5DBF/WS7L0yPR--
+SGkgSWRvLAoKVGhhbmtzIGZvciB0aGUgcmV2aWV3LCBhbmQgc29ycnkgZm9yIHRoZSBkZWxheWVk
+IHJlcGx5LgoKSSBhZ3JlZSB0aGF0IHRoZSByb3V0ZSBNVFUgdXNlZCBpbiB0aGlzIHJlcHJvZHVj
+ZXIgYWxyZWFkeSBtYWtlcyB0aGUgdHVubmVsIHVudXNhYmxlLiBUaGUgdGVzdCBkZW1vbnN0cmF0
+ZXMgaW5jb3JyZWN0IElDTVAgZmVlZGJhY2sgaW4gdGhhdCBjb25maWd1cmF0aW9uLCBidXQgZG9l
+cyBub3QgZXN0YWJsaXNoIGFuIGFkZGl0aW9uYWwgb3BlcmF0aW9uYWwgaW1wYWN0LiBBIHNlbmRl
+ciB3aG9zZSBjdXJyZW50IFBNVFUgaXMgc21hbGxlciB0aGFuIHRoZSBhZHZlcnRpc2VkIHZhbHVl
+IHNob3VsZCBhbHNvIGlnbm9yZSBpdC4KCkkgd2lsbCBzZXQgdGhpcyBwYXRjaCBhc2lkZSBmb3Ig
+bm93LiBJZiBJIGZpbmQgYSBwcmFjdGljYWwgY2FzZSB3aGVyZSB0aGUgYmVoYXZpb3IgYWZmZWN0
+cyBhbiBvdGhlcndpc2UgdXNhYmxlIGNvbmZpZ3VyYXRpb24sIEkgd2lsbCBmb2xsb3cgdXAgd2l0
+aCB0aGUgcmVsZXZhbnQgZXZpZGVuY2UuCgpUaGFua3MsCk1pbmdoYW8gWmhhbmcK
