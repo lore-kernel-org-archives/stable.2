@@ -1,102 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794222309;
-	b=I899nSuJFdcch/pH/bkMPgvcMvjWjOtxpLR1fvuJYw8rWLa5IcpZ97PoMABckW9/r4Lv
-	 PR8vCNg3yyewvq/fYQ6N5oGA1hlC/p6GmJoxZ7+jznoLkyud/rXsEfBwdFIeI3XfIaDgj
-	 0QbTNgapG415Zt0NZM8zdKnhQ9T8U7bpcETk38bD0L4pBW9KfGHDYfd0DppKMqkrZcffr
-	 r3AsMa0ieSduDeFffdlOKLg/DCmclu/+FwU/xPjnacyzHaAJF2suwZODsfgiZUy4Tlq8u
-	 TZ5Mqw4ucwd13pjjE26A5r5cQWKYptO8GmOQDCHlMNfUJewiQiHT5T8bjMI3bh/rq0A==
+	t=1794222368;
+	b=WslDM2mPGPnCQVckkFIyh/kc7bclcHUQHvkS6MfHSCFykjCEw1Zr7qtACZ5GVQ1zdbon
+	 VkHVe0Nblt5Rjqf9+cRavzJreG5CwV3CQXqtRSdQzFAmNGIFhktbQ6NeelKUri/SdWc25
+	 HqICkyAcbvvRBN1uw4Q+Q2bDrgcm47Ycf9H1qATO5k2NIHjwnTHGwQpUUVUVxZS9xMTSP
+	 3txOR4/jpYRV+RkKz1JtYi8Yp+AH82qhYnHG0OmAETG5kvofbDdZvCbQe0iHj6p+h5sq6
+	 Oq4ppyBnMsQYe3LAMBZt2zOfPqvsbKN1aTPxfT4v8YqYWOiZP/UUA6LSkdD0DjybfiA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794222309;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Mailer;
-	bh=gruXRLrwC50Q+01zYBAKobujyZnt2WH+acLyGLcBGqA=;
-	b=YDyNli0nfU4OYmZqxmkC+MDAbaPIiBDNhO7gSloi8YNZzy+TzO+WbtJmrqayR1D8nUDG
-	 MUeQMR71VuWnTGVTOgZtaJzXw7oBFc+sZIHEgKG1/WO+8TLp3V8zuFgELexN63SBVatI+
-	 bAVDNYdTipDQhcyJQ90mqz0a0Fd5nAvOVJ0pMrvRrLxwremZp02dpKsV9cscd6gFy8Ekv
-	 SDkR0h8zq0Vrvmd8EElsh/c3GjrW3fcAJE1qMflJxcsfuyhGjIEX+/6sjQQ+EHqOIDG91
-	 GI9nyBZttSMquMwURCAT5XVYtav5iIy6FQnc/asWw5I5pYMkRCAPLMIej1bbAsIqw9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794222368;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
+	 X-Proofpoint-Reinject:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=xxg0UqRxYEUrKq/Q8BY+QBId1hBHt/fyVMnZzjc96lI=;
+	b=Xn4POvaw+6Yqdr6cODdvgDGXFBJJYKKY6o7vwdVSVoQ0eviyKob/oziqYtPREptryCK7
+	 1CVSZHnH/AS75bDUY+4II219ERHPEOI8hoKO5SuTjqM9T0l55RHfshwLz9MRF9PlEh+I3
+	 5ozTE/rUqXBJwHr1i3nRvAZGcm6P+TILlR6Yyf4R2kTHO10lSiwtEztg8wK9fZBMk2xqY
+	 xhSu6yd2lRf6O8P8pj8rfTMpoPZkC6XpgsvjN1af/p8PfrLnxj8/OfI/P7bFNBrOzk7re
+	 Rojetw3lK0LlZaCcu0xmjV9yeJcmKVnL8lPOfe3Gb41HP8TI5txQ/XglDJhqHTy4V6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=NSykZstp;
-	arc=none smtp.remote-ip=209.85.221.44
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=HH6ZqzdG;
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EF3D606A321
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 11:05:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EF3D606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADE79606A31C;
+	Mon,  9 Nov 2026 11:06:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ADE79606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=NSykZstp
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48e20ed3b9dso638417f8f.2
-        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 03:05:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794222308; x=1794827108; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gruXRLrwC50Q+01zYBAKobujyZnt2WH+acLyGLcBGqA=;
-        b=NSykZstp9oTiKUgFJ3UzxLehU62aPWxwFq90PnmqrOYywES4i4AcOzHYZySAY1pVwq
-         vwmj6DHH3dVkrhVibCHxQeVt+OxzQ5uX7hZAH05pO/IwWLrsGoc9ifYl79A1NCVf6A17
-         IoynvVz/C3YGak6RNV2fLBOpdZMypVS2K47ZFJrlTWQ990UhOgQWQ3c1ir05/s+hZJS3
-         HRJISrQT5YoW7RzT89EFMH7RBi6fKBzrKxwQ+L19Ps9oopbaBFlubCxu8MnCwlhIeiLj
-         RJjHDHMDIim/9IDvZQ4j4IwWOOMgf0O00+xYtIM6x+s2hBymV3bGjwWA1h8Kw2d4rg5B
-         TqFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794222308; x=1794827108;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gruXRLrwC50Q+01zYBAKobujyZnt2WH+acLyGLcBGqA=;
-        b=mYel7Oh49TK4V4+puEivfqrqLf+9gkA5aiysw+/eWQfDDCicSQWtzPeZ3PdkAJAzUI
-         U/8c3Ro6TSURNu1Jxy9hBm5uhS4j4eHVEVWU834YMFq46wg4XpJX62LR4xsf27/5qtY5
-         UuWcIrUKCVQyBgVQwMP7URoDbu5SJp/06hWIQQWD8NGAFQw5qPLC3zAVf+Xxy2N5y4Jd
-         PgB1GtsjcwUydcFVshCaCJYCSuBFA3jkOsNhwnzFUyiT356XZFWMaIwrn2B/KIdYFYCZ
-         aXKl1K9pKv0qIGbgUVbDDc4ZTl8xewUqhPDyQg3Z2zF4auI9mtwSIhhqdcJ6c57P/Yn0
-         lsEw==
-X-Forwarded-Encrypted: i=1; AL+hErEPvhCn/NJH8ldv8w3pAvrh8X0Qaz4EOqF8NR2M3J+7M1dbeIbNq0BF0fXN8drqjdXUtPxw1X8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8ULwtw0IApqavIrLsEn5R/ntyYzUaaoZYvftByW9uoudKHp95c
-	R1C1uK7dHZD7YT/ESd9S1I4y7gZZiHI+jKK/0UYNK7EDnuVLFNZ5tKjNEyk+ByFz2oE=
-X-Gm-Gg: AYBFou1e3MjRBGauoWj3kNZQfb2/WNdDX+UutlNDCASQDTeC+I3eTqUlSdS8KcRLRPJ
-	X6j3ai3MYUIiKZuyjVyZlVzVC0w8JBbp9SsHcCMBvmch7YAeaTsYQAmyiJhysuC9c4hXsE7R7yp
-	xc3zYdtN0o/ZO9dA1y6at/Vku8YxzDxaWeKkdD8qL9Zjyq2DYmguR1u8Eq0gIl3d8JIQgPCzban
-	KvXHwUWjbl2rR8/SOn68NtGNFQnivUWd10gJIJrRdL1FcEnS/C45X88YP9VlcC2wvpdCX5Ky1cV
-	AhzmYW65momY36wCoBFivTI8xgFTBZqQxBRmlqIbSkVXVMoUsoxT8UYtZrNainnmNvpyu8jDv4C
-	inREgGF/lrkeRPKUYhc8APE9Z1TpcXGQtuKZVTMyg8SRbS/xjR/hVKbnXe6E+5/SgqK5Z3RaxLb
-	0MnWXbfKY3MrsEw7NiU8PT2reZ0Q5ZoYiu4Huk42TngAXi8XhoGUaHDYH9Cn0Zj8GJksZz3P3ol
-	+/zfOnpZC7TQoUdDzZkTsZ4vse3Eh3MDlyLk1GDoqELh4CL1e6wTApEIi/vCdIfueA2/S6LKHlR
-	UjV++I8XCUuhDEh5LYdHQBysOGzNxEE6w6EMrQS6BUo=
-X-Received: by 2002:a05:6000:2501:b0:48d:f460:2c62 with SMTP id ffacd0b85a97d-4958c0beec1mr7604586f8f.33.1794222307486;
-        Mon, 09 Nov 2026 03:05:07 -0800 (PST)
-Received: from arrakeen-2.home ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49596f9ab09sm8970489f8f.28.2026.11.09.03.05.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 03:05:04 -0800 (PST)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Nicolas Belin <nbelin@baylibre.com>, 
- Jagan Teki <jagan@amarulasolutions.com>, 
- Shigeaki Asai <y-asai.0816@docomonet.jp>
-Cc: dri-devel@lists.freedesktop.org, linux-amlogic@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, John Williams <porschemad911@gmail.com>
-In-Reply-To: <20261004-meson-gamma-v1-1-6347558e2bb3@docomonet.jp>
-References: <20261004-meson-gamma-v1-1-6347558e2bb3@docomonet.jp>
-Subject: Re: [PATCH] drm/meson: encoder_dsi: load ENCL gamma table while
- ENCL is disabled
-Message-Id: <179422230388.1497673.3746542387809770384.b4-ty@b4>
-Date: Mon, 09 Nov 2026 12:05:03 +0100
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=HH6ZqzdG
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9AE6n03322054;
+	Mon, 9 Nov 2026 11:05:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=xxg0Uq
+	RxYEUrKq/Q8BY+QBId1hBHt/fyVMnZzjc96lI=; b=HH6ZqzdGOij0KkpSjUG5ud
+	1SUNetgDFBKny0B1XE6nHLMEDduwB7fKwN2XrXrF/0eCPakp9S/in2BsvtX1/FR+
+	xIDLnCNpmaH7XpiOqCTJ2F05fooxdqeT8uiGobHMTWq5O4gVZJSRPWEjhqLAueXj
+	l6QwlfNalYhoO9B48SbrGrPkFIsoQQusGKj4TJnvf3dBsdw69mMuApdwHARn8ssz
+	RoXzvIy5uldqC3jaRRZQiIHJN5DAbQ+IpJs8XDUDVBDu0V4gz/YI1UVLpa2wb9v2
+	jHvMVvs/jftf3iZn6z6/q6dzC10MOnFtuMx6S45U+RNR1HxKx23ZrdCFG3MGqYTw
+	==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hsug5vn61-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 09 Nov 2026 11:05:54 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9AJogF4093682;
+	Mon, 9 Nov 2026 11:05:53 GMT
+Received: from smtprelay04.wdc07v.mail.ibm.com ([172.16.1.71])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4htepvqgm2-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 09 Nov 2026 11:05:53 +0000 (GMT)
+Received: from smtpav01.dal12v.mail.ibm.com (smtpav01.dal12v.mail.ibm.com [10.241.53.100])
+	by smtprelay04.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A9B5rop40370818
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 9 Nov 2026 11:05:53 GMT
+Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 2B3AD58059;
+	Mon,  9 Nov 2026 11:05:53 +0000 (GMT)
+Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 0364C58058;
+	Mon,  9 Nov 2026 11:05:49 +0000 (GMT)
+Received: from [9.61.101.130] (unknown [9.61.101.130])
+	by smtpav01.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Mon,  9 Nov 2026 11:05:48 +0000 (GMT)
+Message-ID: <e562995a-dbde-4c6b-9373-1d47b789adef@linux.ibm.com>
+Date: Mon, 9 Nov 2026 16:35:47 +0530
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,28 +86,121 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] blk-mq: take quiesce_lock when removing a queue from
+ the tag set
+To: mt4022@columbia.edu, Jens Axboe <axboe@kernel.dk>
+Cc: Mohamed Khalfella <mkhalfella@purestorage.com>,
+        Keith Busch <kbusch@kernel.org>, Ming Lei <tom.leiming@gmail.com>,
+        Bart Van Assche <bvanassche@acm.org>, Christoph Hellwig <hch@lst.de>,
+        Josef Bacik <josef@toxicpanda.com>, linux-block@vger.kernel.org,
+        linux-kernel@vger.kernel.org, tz2294@columbia.edu,
+        stable@vger.kernel.org
+References: <20261106-blk-mq-del-quiesce-lock-v2-1-cd4f72a6eb03@columbia.edu>
+Content-Language: en-US
+From: Nilay Shroff <nilay@linux.ibm.com>
+In-Reply-To: <20261106-blk-mq-del-quiesce-lock-v2-1-cd4f72a6eb03@columbia.edu>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: q4ZXlQ6vjS07HfIoR1c6Huw6xN7545dt
+X-Authority-Analysis: v=2.4 cv=PeVqFShd c=1 sm=1 tr=0 ts=6af1a913 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8
+ a=WTJdmG3rAAAA:8 a=VnNF1IyMAAAA:8 a=npNqatxc2sd5QBqGfiMA:9 a=QEXdDO2ut3YA:10
+ a=q3NGepEMMmKWaCv8Sx90:22
+X-Proofpoint-GUID: jEaq0M2rO7FPtIYS8bgGuG88Iao1FqLq
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA0MiBTYWx0ZWRfX3Hkkski1muN8
+ kzXY+XPtCyZ8kWHiFOaDaqs2zC0308SvqoiotyXnrEsRxCWA+38Zxbfe4mKgrje/HWTK0gMjXgV
+ JA/0KPINRE26VCCkZXZY/6+iflQ+uodCYlbS5NUM0xcPtelpg9hqXQp5gDeOPeNGxZc1O0dxy4p
+ gAfU4zOMh6jdlPae/b35BkfKHQqM+FxodbQhEUxjXJYvn819BIgkiWh2+1V2XAOX36GwzjG53GB
+ DYxKrqZ+o+4x+O3YjQMq7JdgX8dRIeobd4tK2gnn+db3+kTSOtqMrSCdkJo4PU47yw1FSxjUXTe
+ ilFv+N4OcDwnnPPtgdvZivcopYuXvz9NMyK8IsJA54icXGTTP7VaAst/iR0F87wyNT8MouMTCag
+ UQTNzaFiawqE38LF5Vq/eXtwO7vFy9y8KLXCUE87jWuY5w8P9eyJtzlg8qgdQ5iDNhb1+bbprd9
+ rmobPnRzaOP+02QHEhw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA0MiBTYWx0ZWRfXz/GmBHuoY8oW
+ Ap73ExYvU9VMwkgBUkLxk+uOZtZmZISPuj9l9pKBnW3uNIrIUDP4NdAToH149fhULd1bDBeIMyk
+ uMsQZAEWjkDmRiQMlQAa1ZXOAVTC7BY=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-09_04,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 phishscore=0 suspectscore=0 impostorscore=0 priorityscore=1501
+ lowpriorityscore=0 spamscore=0 malwarescore=0 clxscore=1015 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090042
 
-Hi,
-
-On Sun, 04 Oct 2026 23:50:17 +0900, Shigeaki Asai wrote:
-> meson_encoder_dsi_atomic_enable() programmed the ENCL gamma LUT right
-> after meson_venc_mipi_dsi_mode_set(), i.e. while the ENCL timing
-> generator was already running (ENCL_VIDEO_EN=1). Writing the LUT
-> during active video stalls the hardware: L_GAMMA_CNTL_PORT
-> WR_RDY/ADR_RDY deassert and the ENCL line counter (ENCL_INFO_READ)
-> freezes, so every remaining write times out (~8s total at boot) and
-> the panel ends up with a corrupted gamma table (wrong colors).
+On 11/6/26 10:23 PM, Mani Tofigh via B4 Relay wrote:
+> From: Mani Tofigh<mt4022@columbia.edu>
 > 
-> [...]
+> Unquiescing a tag set can run the hw queues of a queue whose hctxs were
+> already freed.  blk_mq_unquiesce_tagset() walks the tag set's queues
+> under quiesce_lock and rcu_read_lock().  Commit 71ec3c7d6db8 ("blk-mq:
+> quiesce a queue that joins a quiesced tag set") added quiesce_lock to
+> the walks and to adding a queue, but blk_mq_del_queue_tag_set() still
+> removes a queue without it.  The hctxs are then freed right away since
+> RCU only keeps the request_queue itself alive:
+> 
+>    Task A (controller reset)            Task B (namespace removal)
+>    blk_mq_unquiesce_tagset()
+>      /* finds q */
+>                                         blk_mq_del_queue_tag_set(q)
+>                                         blk_mq_release(q)
+>                                           /* frees the hctxs */
+>      blk_mq_run_hw_queues(q)
+>        /* reads freed hctxs */
+> 
+> The window is short.  On PREEMPT_RT quiesce_lock is a sleeping lock and
+> the walk can be preempted inside it, which is how it's hit here:
+> 
+>    [  399.851277] BUG: KASAN: slab-use-after-free in blk_mq_run_hw_queues+0x4bd/0x550
+>    [  399.851328] Read of size 8 at addr ff11000003014148 by task kworker/u9:2/116
+>    [  399.851352] CPU: 1 UID: 0 PID: 116 Comm: kworker/u9:2 Not tainted 7.3.0-16299-g81cb9aa43246 #1 PREEMPT_RT
+>    [  399.851425] Workqueue: nvme-reset-wq nvme_loop_reset_ctrl_work
+>    [  399.851441] Call Trace:
+>    [  399.851457]  <TASK>
+>    [  399.851551]  blk_mq_run_hw_queues+0x4bd/0x550
+>    [  399.851564]  blk_mq_unquiesce_tagset+0x128/0x210
+>    [  399.851576]  nvme_loop_reset_ctrl_work+0x78/0x4c0
+>    [  399.851600]  process_one_work+0x92b/0x16d0
+>    [  399.851660]  worker_thread+0x4e6/0xd60
+>    [  399.851707]  kthread+0x300/0x3e0
+>    [  399.851727]  ret_from_fork+0x4f0/0x6f0
+>    [  399.851776]  ret_from_fork_asm+0x1a/0x30
+>    [  399.851793]  </TASK>
+>    ...
+>    [  399.851988] Freed by task 111:
+>    [  399.852040]  kfree+0x1b3/0x4b0
+>    [  399.852050]  blk_mq_release+0x400/0x550
+>    [  399.852060]  blk_put_queue+0x94/0x120
+>    [  399.852068]  disk_release+0x1bd/0x3f0
+>    [  399.852102]  nvme_free_ns+0x39/0x270
+>    [  399.852113]  nvme_remove_nsid_range+0x2d1/0x4a0
+>    [  399.852123]  nvme_scan_ns_list+0x2cc/0x390
+>    [  399.852134]  nvme_scan_work+0x421/0x9f0
+>    ...
+> 
+> With BLK_CGROUP the disk's root blkg holds the queue until a grace
+> period later, which hides this for NVMe namespaces.  It's still open
+> without BLK_CGROUP, and from reading the code also for queues freed
+> without a disk (e.g., SCSI device queues on a UFS host).
+> 
+> Take quiesce_lock around the list_del_rcu() as well so that the walk
+> either finishes with a queue before it leaves the list or never sees
+> it, and say so in the comment of quiesce_lock.  With the fix, KASAN
+> doesn't report the use-after-free anymore.
+> 
+> This bug was identified and confirmed with the help of a deterministic
+> hypervisor currently under development.  The C reproducer below however
+> hits it about once every 20 minutes on a PREEMPT_RT kernel.
+> 
+> Fixes: 59e25ef2b413 ("block: Use RCU in blk_mq_[un]quiesce_tagset() instead of set->tag_list_lock")
+> Cc:stable@vger.kernel.org
+> Reviewed-by: Mohamed Khalfella<mkhalfella@purestorage.com>
+> Signed-off-by: Mani Tofigh<mt4022@columbia.edu>
 
-Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-fixes)
+Looks good to me:
 
-[1/1] drm/meson: encoder_dsi: load ENCL gamma table while ENCL is disabled
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/0cb7f6d9e4b1d0a411b628ccf78695ad41c66570
-
--- 
-Neil
-
+Reviewed-by: Nilay Shroff <nilay@linux.ibm.com>
