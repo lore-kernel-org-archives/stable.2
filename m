@@ -1,52 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794237600;
-	b=2trozRvF0Gww6b+kdJAi8l9hwjqlmHGW/A3WuM2IvslHtd8C5txHqyESowp6KNGPdk83
-	 0BUhuhZizuFtTzaQkZfiyLIBa9XZ+GEqTRJ8Dn+h0KiSpIA+LVwcEpQt0dDIinA1fGOrH
-	 sZzpV3x+hW+Plw9TRva+z6tNpNva5D6erDWjNzdwpOD/dE0d4yJPNhMiwQjuFrPB0Ff03
-	 9UPz0aTu23IIirNgWkHfGgXT9Hx4uuILLRZtztLUP0Iz0fC4bHQHfirdbgO6wPzNtbVwp
-	 CjkjcAa+oJT8LXWObdnV5ud+p2n3YislsQj0h6v7xpEAdS6YtSOvOHapm7h9st+6Ykg==
+	t=1794237660;
+	b=LitvM5sO7iCqWf7o+OKhB7QAT8b7OH5qU6PGbd7S3ZZ3+AhwSosDvB0BQhAWPs46p3w2
+	 LzUDDCWKdNBPmXp6utYVyXK3xNf6cB26vFZq/+LNOrLOuSBRvKboeRStKI48OPLXRnu0/
+	 zKJ3lKA7/m9E2lE1Qs4kE9QRcp/s0ErNcOHBAEwnm1TJwZADiBZ9YGpcMzrB3T/csPH9k
+	 fLdKOxVbZ/9uBVT8WTGuSS6T5vu60CpA7aE1BFVR1+KjbkHhCnK/c0IJNo1TVYvZhrcof
+	 9azNnKvb7MV2GjikKFXb8Oh4oVNVpaHVgNoDP8EbYks7n/GZ8NZQSA+F8cRLvbPzF8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794237600;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=qvqUJi1pItpI83LRxCu4hVk1nrPP0WYemL0+nUGEoTg=;
-	b=Kh8HXEwwCTgq0gKX01Yyc8UWRvwQ6oIr++L3DBlkMi1xQfgsaY3Qnkevzg94HA6lt0S3
-	 zszHOEkeioDfoDAG/iacvweKhZ8G2sw5wTyhI8k5BH13kQKCKUV9Lr5vMJSmeRsXwvlWR
-	 U1qrBfgAteotiO33GAlJBN1FqCApC+QxQYi9SDwcbuFp8KqPAiayt1OsHOU4fdaXutTVI
-	 qjJ7nnzzhpa4W9TIgKmScgiJaCN3SNF8HxAuBjysxsiZjaNPk+F4HCLCPvkILFX/ix2My
-	 VEWQ6fHfje/fbJgfkUdFnLRkEn7jV93rxHghz9k5RofwqCTu8xFm0tK/S6YYjZBQ2BA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794237660;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=ZEDcgpZXv7tELS5BnebtNXmUzNMs+qj+jNMbQJ/Z9P0=;
+	b=li0FaudPbXXmOFVdBRwxcce8Hw7+rKeKhf+fU58iw/SQ6m0tqCC0Xk3PR7YObLSBMwvb
+	 IjEuWY6rGDeP9nF2ZDVi8sbRe+C9bOCwtbMtJDoYKqYZ2v8c6zdmNZOVAqQlfF2/kqkyV
+	 eL4OSGbihjN/Dy1uRljhsCW4fRaywEbmzaYNW++l37SYI9RTB/elo2kl94sLtNyLNQsBo
+	 sjQkrSskGkAADREsfNTsuOXICaXHb9rrHUp/mZ78B7DFwy9LoEakOXYj2NhdCCJiEqGUG
+	 rYBPLdBkXCQ1Oca8Qch00d93pA40aDUS2wPKV6cKRGP4PjhLfjcCdgI61txstcSOPVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BMGinqmy;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jZBBah3C;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DE0E606A333;
-	Mon,  9 Nov 2026 15:20:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28880606A335;
+	Mon,  9 Nov 2026 15:20:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BMGinqmy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E13541F0089F;
-	Mon,  9 Nov 2026 15:19:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jZBBah3C
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E30061F008A1;
+	Mon,  9 Nov 2026 15:20:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794237600;
-	bh=qvqUJi1pItpI83LRxCu4hVk1nrPP0WYemL0+nUGEoTg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BMGinqmyNNhf2sLE4SZGpI3cb8Pr6q1qNFUmrSxSLaa/W7Bn8+uhWD3vp1CgKS05a
-	 N/tO+aJjrGdjlFZHN4HH5hsQEdLWlSH5PqsLPb5rS2cVqTt/EH/aEVkCv6GTZiw+c+
-	 xcG6vOpE2SJCWRrzOrXb+OcwmlZt4joJFu0O+lHgpXFB4REAZvYDFkd4zdj6XPr0V9
-	 q0QSE3vj+xpm0g2SQheGI49I/yMxz0DbegiNL5t0XpphXYnhAnWrlsqTwm1FRkEE3m
-	 wsLTKmmIuyZqYHfE6sTBEtdHAG3Sm3JW0ev6wvm3PKVIskGelF9ylPpMwIpxhuRtLe
-	 X7tCPHUeCveTg==
-Date: Mon, 9 Nov 2026 16:19:56 +0100
-From: Niklas Cassel <cassel@kernel.org>
-To: shao.mingyin@zte.com.cn
-Cc: dlemoal@kernel.org, linux-ide@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] ata: ahci_dwc: reject invalid device tree port numbers
-Message-ID: <avHknBRJnZPpAIke@ryzen>
-References: <20261104221318841yKO89PGcSNeaV4KutBOUJ@zte.com.cn>
+	s=k20260515; t=1794237659;
+	bh=ZEDcgpZXv7tELS5BnebtNXmUzNMs+qj+jNMbQJ/Z9P0=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=jZBBah3CEkuczstxqzX0W1hJaSHbQ6sNIED+xrfJzrJGbzEChuY2EKDdrLMgSbkx2
+	 ylxbq0P2ml//UkOYXNdWLTf7OEKwJLrIIOBBsQzmEMKCK3SqADe5F4WZETLTb7zA8A
+	 a47U9w+I1CUP434aQL5ZGT8Vpnc6yJmOdRqhXhE1Iq/NRtkx+EEHAd0RocqzRIYMTl
+	 KbOIaHSefN+6vUoujGxCFTKjtpG13FR2TIMuVE/85q7B5ZW6Yfpg1Cxw75XRB4/YbZ
+	 aSDJUlCg4uxrqcUu7EvPpseuAO5gOZeN0bVMBsX2ZeIaUMG0LsSovmxxkn3TATm6sj
+	 lFUrBAIRsOSNw==
+Subject: Re: [PATCH net 2/2] wireguard: noise: recheck replay and flood under
+ write lock on initiation
+From: netdev-bot+sashiko@kernel.org
+To: alex@badcode.im
+Cc: Jason@zx2c4.com, wireguard@lists.zx2c4.com, netdev@vger.kernel.org,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Date: Mon, 09 Nov 2026 15:20:58 +0000
+Message-ID: <179423765848.994134.12106914820524986319@kernel.org>
+In-Reply-To: <20261105141006.95083-3-alex@badcode.im>
+References: <20261105141006.95083-3-alex@badcode.im>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -56,73 +64,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104221318841yKO89PGcSNeaV4KutBOUJ@zte.com.cn>
 
-On Wed, Nov 04, 2026 at 10:13:18PM +0800, shao.mingyin@zte.com.cn wrote:
-> From: Shao Mingyin <shao.mingyin@zte.com.cn>
-> 
-> ahci_dwc_init_dmacr() reads the "reg" property of every available child
-> node and uses it directly as a port number, both to compute the port
-> MMIO base and as an index into dpriv->dmacr[], which has AHCI_MAX_PORTS
-> entries.  ahci_platform_get_resources(), which runs earlier, checks the
-> same property against hpriv->nports and skips invalid child nodes, but
-> this second walk does not.
-> 
-> A device tree that describes one valid port and one port with a "reg"
-> value above AHCI_MAX_PORTS therefore makes the driver write past
-> dpriv->dmacr[] and access MMIO beyond the mapped region.  Apply the same
-> check as the resource loop and skip invalid child nodes with a warning.
-> 
-> Fixes: 33629d35090f ("ata: ahci: Add DWC AHCI SATA controller support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
-> ---
-> Tested on 7.3.0-next-20261030 (QEMU/TCG arm64 guest, KASAN) with a
-> TEST-ONLY device tree.  The DT adds a snps,dwc-ahci node with port@0
-> and port@100; the TEST-ONLY printk hook in ahci_dwc_init_dmacr() is
-> applied to both kernels.  mem=512M keeps the fake MMIO window outside
-> System RAM.
-> 
->   unpatched                            patched
->   KASAN: slab-out-of-bounds            no KASAN report
->   in ahci_dwc_probe                    port 100 skipped, boot
-> 
-> diff --git a/drivers/ata/ahci_dwc.c b/drivers/ata/ahci_dwc.c
-> index feb8a8539b8e..9094eb19e19f 100644
-> --- a/drivers/ata/ahci_dwc.c
-> +++ b/drivers/ata/ahci_dwc.c
-> @@ -225,6 +225,12 @@ static int ahci_dwc_init_dmacr(struct ahci_host_priv *hpriv)
->  		if (of_property_read_u32(child, "reg", &port))
->  			return -EINVAL;
->  
-> +		if (port >= hpriv->nports) {
-> +			dev_warn(&dpriv->pdev->dev,
-> +				 "invalid port number %u\n", port);
-> +			continue;
-> +		}
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Again, this warning is reduntant, as it is already printed by
-ahci_platform_get_resources().
+Low priority / nit picks for your consideration:
 
-Perhaps:
---- a/drivers/ata/ahci_dwc.c
-+++ b/drivers/ata/ahci_dwc.c
-@@ -225,6 +225,10 @@ static int ahci_dwc_init_dmacr(struct ahci_host_priv *hpriv)
-             if (of_property_read_u32(child, "reg", &port))
-                     return -EINVAL;
+- [Low] The commit message names the response-side fix as `commit
+  2a73c9b2c0ca ("wireguard: noise: reject response consumption after…
 
-+            /* Already reported by ahci_platform_get_resources() */
-+            if (port >= hpriv->nports)
-+                    continue;
-+
-             port_mmio = __ahci_port_base(hpriv, port);
+--
 
+wireguard: noise: recheck replay and flood under write lock on initiation
 
-And please send this as a patch 2/2 with the libahci_platform patch as a
-patch 1/2.
+This commit makes wg_noise_handshake_consume_initiation() run the replay
+and flood checks a second time after taking handshake->lock for writing.
+Without the second check, two copies of the same initiation processed in
+parallel could both get past the read-locked check. The read-locked check
+stays as a fast path for rejecting replays.
 
+> This is the initiation-side counterpart of the response-side race fixed
+> by:
+> commit 2a73c9b2c0ca ("wireguard: noise: reject response consumption after intermediate initiation")
 
-Kind regards,
-Niklas
+[Severity: Low]
+Is this the right hash for the referenced commit? 2a73c9b2c0ca doesn't
+resolve here. git log reports it as an unknown revision.
+
+The commit with this subject appears to be:
+
+commit d0305f8d9002 ("wireguard: noise: reject response consumption after intermediate initiation")
+
+Running git blame on the response-side recheck under down_write() in
+wg_noise_handshake_consume_response() also points to d0305f8d9002:
+
+    if (handshake->state != state ||
+        crypto_memneq(handshake->ephemeral_private, ephemeral_private, NOISE_PUBLIC_KEY_LEN)) {
+
+Could the reference be changed to d0305f8d9002? This patch is tagged for
+stable, so readers who follow the cited hash to the related fix would
+find the right commit.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261105141006.95083-1-alex%40badcode.im
