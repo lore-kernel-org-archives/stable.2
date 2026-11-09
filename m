@@ -1,78 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794212817;
-	b=I24ZaZFxLkCEm3+DCzUtlTxizigQ0r0Lqj0tHPZ6f+4L4K5JOLG/L3Iog1D84ZrkKMqJ
-	 LOwGkPYisOTSPTjQtvMlT6G3R2ZxmaatRNH0fhDLwZM6sjKJuqkYNTbKHb7iCQU5PHmXA
-	 1DovUIfohgQWkngII1Ykeqx0eliGsK+Ru5oFQwHMPlaPrAxpdoaSHC8F9KsHdp3GOt2Q7
-	 G7wPR4lYiDTKYo6djvYBbut3/rj5ji2vU00AdI8KZz8152cjWO3t4BKyrX1KeeRhexW+t
-	 Q39KQ0Hz6VMOF4reOm1srMh1OZSniQH8LCwsVN4/FT8AIK/cdwM6L1EzjoFVWAscHTw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794212817;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=fmPtUa1J/S7UkBf8oBBBIHWEPV+ZOOAq6ygmojPUylg=;
-	b=2IEW2rw+zX8fOP2Evm7KgKrnSpqrgvWRdZGhykckbO4Le+1zlE9GHor+AoCJtcYGs1UZ
-	 E9Gw3TERAA2jJq3k10SzNErIqmGbnI6nRUJMGzCtC+VeW0oKJFelpFRW+25/aTlpVGMyt
-	 EJBCFGkc6MzAZUnvIKu+30Lh6uIqk0UvDuzOlknjJXFtJmT4SKJcAB5R0bW2cmouXYjEc
-	 gDRTxwl1X5oXJIIn55tORReSWUjDFsdIiMSdmnUYBedvJkFCMJ6lV0suHfuKvC7gqEF+b
-	 gVC7C0seR4/uj+EgDD4biDWfsJnrc5rLwIVZL8gC8/KvcGdzcMb3Q+7cgMGU+xlJ/5A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AF9kwyPI;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33925606A31C;
-	Mon,  9 Nov 2026 08:26:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AF9kwyPI
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794212816;
-	b=juYA10biWMrGsanfET1lNoh++ehAZsGGq5W6lmBvw2xviEA5gLWD79XjCFr8ExuN0TvG
-	 tvgY1tluwHy17TAyMvVKBFKLDrC0X8ykmiTmoiXBiYPFV27ONWTiB1b9W/2ZDNktjclY8
-	 iKOGk6fzbrW1B+GR/ZHYgJpnZDnANprPxgzy8xnBROOj8d8pqGggVBlmyY2jWA/nXjd48
-	 iA+Hrx2pVxbQG1yMQ+vgui68Ojxrg79wBkgjL6BSwVuMSatS450AgPdkEykoNln03E7Ks
-	 FdK0y5yDUpxfdtiuSc4Ove5kuJoFQLRdMpxBGUFEFfKQhpcAe7rS4CGi9+MPeHjfXqw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794212816;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
-	 Content-Transfer-Encoding;
-	bh=fmPtUa1J/S7UkBf8oBBBIHWEPV+ZOOAq6ygmojPUylg=;
-	b=NEflHJTzXGMsgx1PfGVz1Gx6424a3XHKqLxzY4bAeel1QKPFqkB4UA7OcqwRwI5PG8ux
-	 JKxaVFjH1PEfUhrutDtds72MgNudTsxxU701ZrEyjjmz1uva9+I+8R/+KMq6wv2iJUhFZ
-	 WGvRLSeyJqiyrRWMy+pQkzEWMgw8tn5O/4eF7zOaps6+ptSHSAbn24GgZhTm+3M+OSP5e
-	 nHhHFqa1xPhleMIuqWhuMQ01CHaPX2rTHpnBPrUZvdUVgkp2niptpv0YhvwWSpI0QhXSl
-	 b+xgisvQefRtlf2Ltu+iWkk6dze8w93sKLzQqiiWzzBlAiSkEDIwSdiI5JnAvmCisOA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794212819;
+	b=isHdZzOPn/BRT34voPW0cuyUn2/3ZOM5m0rAwPWJ1vryUB+2wdM2qTTzWipSuVyLLC8f
+	 EqiLKxw2EaZL6QhclW7Onc1DrL0fGJwnuYDfsIki/GADKRmusx6PHUZO25B4dAOZLWGzc
+	 ESpbjBdQCHotHBsEMpMnpKMF9WsvSAoWV1k2eqPZqjytJoQsuTr46t/U7zA7sM3FxLD55
+	 BvugrcQl32CFqSHSe75F7ruOSewIP53ze8vkrO17sTP1aFd8yaQgS0TNMuHntonbufjTj
+	 WXogJC6Jb1KWtJ7fL/3mhBjw6irCzWkHQJULCSMwlSdqTpTjxjsxuIbf9O5UV5qxb3A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794212819;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=IWGbInK1jdqWzqaTB9EgR+W+5CoWAJO2TLJFxQVt21I=;
+	b=lSxNMtozvIT9Hu2fuzj0A/ddcvQgsMOmqb5GiTmxtf5KZlRjtOv67HeIDmZX3QCSq5wl
+	 FGn2x1Ga+TKIf6AmQP5/WaaqEPFyMXDISBGdAglPNRE4shw3ayYuqVC6TVYeGS3tU7ful
+	 OQ/6B77gzFXyPDri1Su5NyuodRq8v/W92Alm+GOo3A7dYoFZC4m+XahIl54EeBA7uYqxE
+	 gQnVp+HhY9YZydgPvvarNJwdEkn4jbmC5Wi84TKZqQxrnqELHdln/9rbNtJJxK4bWeTzt
+	 LfxkzKPQLbfN13pSu3pHPSD7Cn8Hb6egbzsDea2rkHYpTEEbro3H/+rkOFSkY5Jkahw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oWP+Rohp;
+	arc=none smtp.remote-ip=209.85.221.44
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 57F681F0089F;
-	Mon,  9 Nov 2026 08:26:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794212816;
-	bh=fmPtUa1J/S7UkBf8oBBBIHWEPV+ZOOAq6ygmojPUylg=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=AF9kwyPIkjTMvQOH1okBvb4fYBmUnsCzrbn/P1ZKyvqZYlHJONQAWGhVAX79hC4WX
-	 jzl0NVRt7E2NgdwGrufgjSeUiVfmzR00Dv29IYD5s69+BTzSy0ftkK+6PyvMg0cJ+b
-	 kXZ6/UZ087jUt6/u4yyGSax3bXdE3S+PJsok9XFR2cp9FhN5/AblN9hXFe0EpXLyyp
-	 uwAF2uHcK/8oI2LSRYsmLv5pV1LJjNeRX8WD3bEG06+D7DhUysSbVpt0grZ56dDQhe
-	 a2uRQwZxPhIQPJBJ8/SAE593lqFZ/sLOrj2Zzhjv1zRY/HXjGw8oo7THVxIWO5fBQC
-	 xnwTx+2NI3cYw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id C676248357;
-	Mon,  9 Nov 2026 08:26:55 +0000 (UTC)
-From: Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org>
-Date: Mon, 09 Nov 2026 17:26:56 +0900
-Subject: [PATCH] xfs: break layouts before swapping extents
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3BB5606A336
+	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 08:26:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3BB5606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oWP+Rohp
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48e09aa5264so313902f8f.2
+        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 00:26:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794212817; x=1794817617; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=IWGbInK1jdqWzqaTB9EgR+W+5CoWAJO2TLJFxQVt21I=;
+        b=oWP+Rohp/ZJqGkQ+oORUcfZmPncX/8Tq39EQaGWxPWIS52HRy425y5lFRzPPC3Chpl
+         /R7Jba9ogvC+/fZs6IAAZLC3jvceX5rU0N7ivWgRMFm8SIrKMTFw+1zt0ASAEIaa5JAu
+         UiwHcK/EI2ZqUTaK8ufuyQaNuPAmmgTyJ62mcVKWNy4xbc1yJKoEzMxYi1VmdnGuwMKF
+         0lpR5fsyxrbB5W39WxkLI46qF1McQOggOviPNfVmhqipl5VHYpLizq1dXBzyHZIs8QOV
+         7ekEv63CMreUCjyBhkEpfNMx5f2L/Yxte8iqYzHEvOv2NaGv2E2dLtPqZ4wEAyPxeMF5
+         uCnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794212817; x=1794817617;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=IWGbInK1jdqWzqaTB9EgR+W+5CoWAJO2TLJFxQVt21I=;
+        b=rIH9pvo3ci/5t/ZnZlLZUq6wq5FrUghG9FZhLZUqqM06ZD6GS7TZjJlpRz0zZjx9GF
+         dnWgtn8snA2TRKjYmT/WNaZGWfz2n+Cz43k4ZUglgEGql6u4hbR1JXSiHIlGC+95PkMb
+         Vs7MkCVX7csy0QMmJpxjCT5wycK7lqtrgp7kBJJPl8uMsLMT3srS+y+XASz6yRBS4VTz
+         En8OaiaKdSV+QiO5OMu0/4RVehGqJ4MKFaP2OktAjDEHPYn6d79Kqwwq1iVO1qauUV+e
+         5/y/+5briqrMavn5JLtJmzbAIips5pHsvbVHkxMmh+8KukDwGk5vtYQEoZCbc4NrZGb9
+         xu/g==
+X-Forwarded-Encrypted: i=1; AL+hErGqhUCq8IIW9yoj5BnESA3FzLLUCAU+HKbM9ygmpqdnRr9dPFsP/denMXnnX++8EMGftCFwDXU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8mAZ6o0sAOoRjX8BnQ/9bk8eQ5hVzUt272LRVEFCXsacCQBTmm
+	9A3fj13Pr5FjVZs/D50VahWqELZWzt+U7N90aSpvHR9JvhH7F9NB6xi/
+X-Gm-Gg: AYBFou3+jrgGfCOtevf2GaBiCTA6f6N2raOeIZiTkMAnnnlMicysri4M9pySIvw8ZBU
+	77/fc+Z/g+nS4uaq9lxy9vGrQXkmeKMzsZ873nkUTvxnkUJqQ/B7gaHXiqofUVipHRow2b8O02C
+	dQqClEImgSBibfEmpL3AKAPsiJ3U1hzveRXZ2x/jcySrHFh5NLK6HY0DFZTfDuRcB7NXv8TqTW2
+	1LLX0VPhF9XiC7Wm9GOz1RotwB2rcooFjd31IbfeSr1EAtthyd/W03f1JwIoQhc+G1iR0IFAbIU
+	RppligIuhnHhjzi/PtnDR0do/9dQR/45ke5FQoLv0s4mZnZGumtveO5j+Kyz5sM9cyI7nVpL4EI
+	WoB15sZ2J8tU8Pt8tSFIZVCl7Rwp6n5glBZ4wG35Tk7pt+9zawbGQW+QCaEZ4V/s4SmMfb+VZdZ
+	jbPPc2k9JtWDb8KRjgwgGAZ3bRlbQhqpMeOoRdoPcw5SSrGU4Vpsx6bZ/Uxq5VPNxDInc4VY+vP
+	2ZHj7sup7QkWCBmrK0zyLmySfuT+L4vvs+D/73BAN4tLWzaq4imK28NRCZpNicRrW+EnZTryfbY
+	4H7Y+3t7BBx3+Pkac0+cpIMk1ORhplWIFkp60ZSVrw==
+X-Received: by 2002:a05:6000:4b0f:b0:492:dddc:64c3 with SMTP id ffacd0b85a97d-49583deb6d6mr5829208f8f.41.1794212816806;
+        Mon, 09 Nov 2026 00:26:56 -0800 (PST)
+Received: from [192.168.10.105] ([212.58.121.92])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-495b90701c7sm10520949f8f.10.2026.11.09.00.26.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 00:26:56 -0800 (PST)
+From: Stanislav Aleksandrov <lightofmysoul@gmail.com>
+Date: Mon, 09 Nov 2026 08:26:52 +0000
+Subject: [PATCH] watchdog: gunyah_wdt: Re-enable the watchdog on resume
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,93 +92,127 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261109-xfs-swapext-break-layout-v1-1-7f6f137d18bb@samsung.com>
-X-B4-Tracking: v=1; b=H4sIAM+D8WoC/x3MQQ5EQBBA0atIrVWiOwiuIhbNVFEhSJcZPRF31
- 7F8i/8vUPJCCk1ygaefqGxrhEkTGCa3joTyiQab2dKYrMbAinq6ncKBvSc34+L+2/fAqubB5lz
- 0VDHEfPfEEt512933A+YM3WxqAAAA
-To: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org
-Cc: Christoph Hellwig <hch@lst.de>, Dave Chinner <david@fromorbit.com>, 
- "Darrick J. Wong" <djwong@kernel.org>, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Daejun Park <daejun7.park@samsung.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794212815; l=2472;
- i=daejun7.park@samsung.com; s=20261006; h=from:subject:message-id;
- bh=CaEz7uBoybLqkkBn52P/NyxwhKH05LuHzbS9Eqv03SQ=;
- b=VPEoMQhIVld/k5YkvBH0AmoaVyqS9gkXEFvSLrjzHvbtu6mNXWyDh3wo6FhDsy6jKs0aYJQya
- 2BYjMR7naZFAAH8bvnhjLivZQ4J/AU5u8wSaXH7hsKTkYBawyIGnFaz
-X-Developer-Key: i=daejun7.park@samsung.com; a=ed25519;
- pk=4yUfDqGRZTIj0Ik43z1GoMZRWCNm/rgX6uJuM9dtNIg=
-X-Endpoint-Received: by B4 Relay for daejun7.park@samsung.com/20261006 with
- auth_id=1122
-X-Original-From: Daejun Park <daejun7.park@samsung.com>
-Reply-To: daejun7.park@samsung.com
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261109-gunyah-wdt-resume-v1-1-fbd84545ce92@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAMuD8WoC/yXMyw6CMBBG4Vchs3YSWi8JvopxUYZfGBOr6VCEE
+ N7dqstvcc5KhqQwOlcrJUxq+owFbleRDCH2YO2Kydf+5FzdcJ/jEgZ+dyMnWH6A/bEN0ogc9gF
+ UulfCTeff83L923J7h4zfEW3bB7URElB1AAAA
+X-Change-ID: 20261109-gunyah-wdt-resume-25bac9cc43ae
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Wim Van Sebroeck <wim@linux-watchdog.org>, 
+ Guenter Roeck <linux@roeck-us.net>, 
+ Hrishabh Rajput <hrishabh.rajput@oss.qualcomm.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Pavankumar Kondeti <pavan.kondeti@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-watchdog@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Stanislav Aleksandrov <lightofmysoul@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794212814; l=3385;
+ i=lightofmysoul@gmail.com; s=20261108; h=from:subject:message-id;
+ bh=JhBHgp9sr8F6eF0LAjuuKHo+Dq8rxxMvSwyeg83jF/c=;
+ b=ql8wh3203NCheD2G7gbJkVZlyVz94Lq19rmDLGGQXmLsGxxXzrNYlSbxL6ypH2s0BQ2gF1EVT
+ IX7uthTFwsADMsIVAQSWkq77pwMbZ+82PV+GrQp+s6yAdIRlgcFvv2k
+X-Developer-Key: i=lightofmysoul@gmail.com; a=ed25519;
+ pk=jeRUlfmkhE53CJPoeIIXgu7rTE0ybDRH0HQrEwbydzg=
 
-From: Daejun Park <daejun7.park@samsung.com>
+gunyah_wdt_suspend() disables an active watchdog, and
+gunyah_wdt_resume() enables it again with gunyah_wdt_start(). start()
+first disables the watchdog, which fails with -EINVAL when it is
+already disabled. start() ignores that only while the watchdog is
+inactive, but on resume it is still active for the watchdog core, so
+start() returns before it enables the watchdog:
 
-XFS_IOC_SWAPEXT does not break pNFS layouts. A client can keep writing
-to blocks that the swap moved to the temporary file. xfs_fsr frees
-those blocks when it closes that file. The writes then land in whatever
-reuses them.
+  gunyah-wdt gunyah-wdt: gunyah_wdt_start: Failed to stop gunyah wdt -22
 
-Lock with xfs_ilock2_io_mmap(), as the exchange-range ioctls do.
+So after every system suspend, the watchdog is left disabled.
 
-Fixes: 781355c6e5ae ("xfs: recall pNFS layouts on conflicting access")
+Move setting the timeout and enabling the watchdog into
+gunyah_wdt_enable(), and call it on resume, where the watchdog is
+already disabled.
+
+Tested on the Samsung Galaxy XR (Qualcomm Halliday) with s2idle and
+deep suspend.
+
+Fixes: ca316e145c35 ("watchdog: Add driver for Gunyah Watchdog")
 Cc: stable@vger.kernel.org
-Signed-off-by: Daejun Park <daejun7.park@samsung.com>
+Signed-off-by: Stanislav Aleksandrov <lightofmysoul@gmail.com>
 ---
-xfs_fsr uses SWAPEXT on kernels without XFS_IOC_COMMIT_RANGE, on
-filesystems without exchange-range, and in all xfsprogs before 6.12.
+gunyah_wdt binds on the Samsung Galaxy XR (Qualcomm Halliday) with this
+SCM patch:
+https://lore.kernel.org/r/20261109-qcom-scm-gunyah-uid-v1-1-2776343f9a3b@gmail.com
 
-When both files are DAX, xfs_ilock2_io_mmap() also breaks DAX layouts.
-With two DAX files whose pages had been faulted in, SWAPEXT hit the
-WARN_ON_ONCE in truncate_folio_batch_exceptionals() in 3 of 3 boots
-before this patch and in 0 of 3 after it. A DAX file swapped with a
-non-DAX file still hits it.
-
-Tested with a pynfs client holding an RW block layout while the MDS ran
-"xfs_io -c swapext". Before, the client's writes overwrote other files'
-data and a directory block. After, the swap recalls the layout first.
-The fstests fsr and swapext tests pass with and without the patch.
+This work was made together with Claude.
+Reviewed and tested on my Galaxy XR. Without this patch the watchdog
+doesn't bite after a suspend. With it, it bites again after both s2idle
+and deep suspend.
 ---
- fs/xfs/xfs_bmap_util.c | 10 ++++------
- 1 file changed, 4 insertions(+), 6 deletions(-)
+ drivers/watchdog/gunyah_wdt.c | 27 +++++++++++++++++----------
+ 1 file changed, 17 insertions(+), 10 deletions(-)
 
-diff --git a/fs/xfs/xfs_bmap_util.c b/fs/xfs/xfs_bmap_util.c
-index 865aec3ae5a..595b7ea3ac9 100644
---- a/fs/xfs/xfs_bmap_util.c
-+++ b/fs/xfs/xfs_bmap_util.c
-@@ -1554,9 +1554,9 @@ xfs_swap_extents(
- 	 * page cache safely. Once we have done this we can take the ilocks and
- 	 * do the rest of the checks.
- 	 */
--	lock_two_nondirectories(VFS_I(ip), VFS_I(tip));
--	filemap_invalidate_lock_two(VFS_I(ip)->i_mapping,
--				    VFS_I(tip)->i_mapping);
-+	error = xfs_ilock2_io_mmap(ip, tip);
-+	if (error)
-+		return error;
+diff --git a/drivers/watchdog/gunyah_wdt.c b/drivers/watchdog/gunyah_wdt.c
+index 557a78306d18..348c7ccddde0 100644
+--- a/drivers/watchdog/gunyah_wdt.c
++++ b/drivers/watchdog/gunyah_wdt.c
+@@ -62,19 +62,12 @@ static int gunyah_wdt_call(unsigned long func_id, unsigned long arg1,
+ 	return gunyah_error_remap(res.a0);
+ }
  
- 	/* Verify that both files have the same format */
- 	if ((VFS_I(ip)->i_mode & S_IFMT) != (VFS_I(tip)->i_mode & S_IFMT)) {
-@@ -1762,9 +1762,7 @@ xfs_swap_extents(
- 	xfs_iunlock(ip, XFS_ILOCK_EXCL);
- 	xfs_iunlock(tip, XFS_ILOCK_EXCL);
- out_unlock:
--	filemap_invalidate_unlock_two(VFS_I(ip)->i_mapping,
--				      VFS_I(tip)->i_mapping);
--	unlock_two_nondirectories(VFS_I(ip), VFS_I(tip));
-+	xfs_iunlock2_io_mmap(ip, tip);
- 	return error;
+-static int gunyah_wdt_start(struct watchdog_device *wdd)
++static int gunyah_wdt_enable(struct watchdog_device *wdd)
+ {
+-	unsigned int timeout_ms;
++	unsigned int timeout_ms = wdd->timeout * 1000;
+ 	struct device *dev = wdd->parent;
+ 	int ret;
  
- out_trans_cancel:
+-	ret = gunyah_wdt_call(GUNYAH_WDT_CONTROL, WDT_CTRL_DISABLE, 0);
+-	if (ret && watchdog_active(wdd)) {
+-		dev_err(dev, "%s: Failed to stop gunyah wdt %d\n", __func__, ret);
+-		return ret;
+-	}
+-
+-	timeout_ms = wdd->timeout * 1000;
+ 	ret = gunyah_wdt_call(GUNYAH_WDT_SET_TIME, timeout_ms, timeout_ms);
+ 	if (ret) {
+ 		dev_err(dev, "%s: Failed to set timeout for gunyah wdt %d\n",
+@@ -89,6 +82,20 @@ static int gunyah_wdt_start(struct watchdog_device *wdd)
+ 	return ret;
+ }
+ 
++static int gunyah_wdt_start(struct watchdog_device *wdd)
++{
++	struct device *dev = wdd->parent;
++	int ret;
++
++	ret = gunyah_wdt_call(GUNYAH_WDT_CONTROL, WDT_CTRL_DISABLE, 0);
++	if (ret && watchdog_active(wdd)) {
++		dev_err(dev, "%s: Failed to stop gunyah wdt %d\n", __func__, ret);
++		return ret;
++	}
++
++	return gunyah_wdt_enable(wdd);
++}
++
+ static int gunyah_wdt_stop(struct watchdog_device *wdd)
+ {
+ 	return gunyah_wdt_call(GUNYAH_WDT_CONTROL, WDT_CTRL_DISABLE, 0);
+@@ -224,7 +231,7 @@ static int gunyah_wdt_resume(struct device *dev)
+ 	struct watchdog_device *wdd = dev_get_drvdata(dev);
+ 
+ 	if (watchdog_active(wdd))
+-		gunyah_wdt_start(wdd);
++		gunyah_wdt_enable(wdd);
+ 
+ 	return 0;
+ }
 
 ---
-base-commit: 1e17fc56469d62d1c1ac45c137a2456d14456f1d
-change-id: 20261109-xfs-swapext-break-layout-89fc24f5be8f
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261109-gunyah-wdt-resume-25bac9cc43ae
 
 Best regards,
--- 
-Daejun Park <daejun7.park@samsung.com>
-
+--  
+Stanislav Aleksandrov <lightofmysoul@gmail.com>
 
