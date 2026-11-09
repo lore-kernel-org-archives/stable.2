@@ -1,99 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794227020;
-	b=fxV4TlTMrPl2OaREe8JB2+2/tF85zZHwuHdBgkIgSx9o7X/Jyn1j1fspKDzt6lrQ5dSE
-	 MobEJi5jMX/1YcZGQhGmCp2kU2CwhSwW2kLN73tQNOpYIDw+OYLAh77BaMvxCCCAnXP42
-	 r0ZlE4SPfoXU7x0vW7c4+4bMC0xwxUmzaKMZwTJDHlXbbsFtGwyFr95RR6xpUzNvbNWNZ
-	 Swi9US6K/aET3SLWFwQFw9mGsiA078qusSDo7N5ObTq96fSbJYYZiO9hTv5tmn+9UJRg8
-	 j8JwK3BOKe8h5i6voB3MGOMNugUkGQO4yU7GNG4+5Ww5IxwouHDOW5CJ0Uo5Tbvjj9w==
+	b=eSjMFEPX5tlfV6BHs3NyURMq/qi1S9hy0NgPIIDZel6xry1IhTLBPmXHpNSUXPSSQ2E7
+	 IZWPg29bvm58EF0mGl5gJH8n1jXinWHdBySBSlAzTVw50hdxIc95MRA6RP0kmlUHHYIjf
+	 kjXImb//8Z7rnpKKU9LQgeqfimRBva+J0bfyz7DdMDL/ywvpICFDQsgUlPRMx6kRVEHkg
+	 zsjnGym6Bh0Jc7+lwL/8f1QDcy4cVBJ/wprbESqj7HpnZnqCNpYEyCIf4bQXyDPl3dZCo
+	 wKjfb6Zvr/1mPCA6e47uzGzMdbyXtTS52rh/Sc/FRpQ+GN8LxJtXlUS8VeQaF2PiOqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794227020;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=MdOqoOEupQFbfi4QuNxY8pxCO+41UFytiQ7mtp1SJ10=;
-	b=5P5MYPfQajDnWFqBvZiBg2F/6uvuSj7uNiCdn4UOip0MQjY7HczaBJOgUTbwG52oUrTP
-	 uV/1Njjub57OXv+NVClebsQDxNtYI43mlS2Jg9ogHguyh2tEJ3RvFSD+N9gMRnwFN0ZjG
-	 wZrvdLWIwReMbbGEZFJ+pLcwZZ6Qs3BTggV1bGVERqEjztaVlTWtOHxn1+CaQqgQefef3
-	 XekfntBTM/mOmpWOH0PWdUvQafrHPn8BTVGvhfjUFX2xOT4yl8hyk84hL5BpNmEkfW3fb
-	 kvLoA2FsC8LduGtG70Vu76z8Y+sR9PxQN5V38paJWMKF3X6XKTsYw8qHSMw2ijyn7xA==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=uqkPwKdBphh8svxG0i7NhcNwoYudscGxRvBCQXii6DU=;
+	b=EliPwAY6AHvRxx6EDHST58/QfCS0VDiqcOW50zJ2MnEEkwC0eOtNp/OnMDFvrXMpmYST
+	 eP+54oupDrj6aCFb161V4QKtjda0hmvi0bERZAYDq26p4ywKOfe1JwHSsopm1wc1ckQMx
+	 oxfU6vgTwTCnGRwzOnPch3RcWXQWz31EL5ZZaElHuYodE+8CmeEoZK84jW62PorrftcV0
+	 3lAN8CpnGkKnMI/QpqdAlseGbod90ql4qLi0TozvU1kSmNJoJg65cHBSW8M28ED4UNFq7
+	 xs2cUR4dc/IbKiWVgw6/wCvMAChBhM2yqQP+U+xUuySogQax3m+i2LmYSCTues2RLag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=isslab.korea.ac.kr;
-	spf=none smtp.mailfrom=isslab.korea.ac.kr;
-	dkim=pass header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=STY0ySgF;
-	arc=none smtp.remote-ip=209.85.215.173
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Wb7L+Ebg;
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74BB86082BCF
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE34D6082BD1
 	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 12:23:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74BB86082BCF
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE34D6082BD1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20260707.gappssmtp.com header.i=@isslab-korea-ac-kr.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=STY0ySgF
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cd8ba7c2694so256818a12.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Wb7L+Ebg
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a4d7ae1ae9so7049605e9.1
         for <stable@vger.kernel.org>; Mon, 09 Nov 2026 04:23:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20260707.gappssmtp.com; s=20260707; t=1794227019; x=1794831819; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MdOqoOEupQFbfi4QuNxY8pxCO+41UFytiQ7mtp1SJ10=;
-        b=STY0ySgFQct71N6fSXFw7gPHNK9fh1uk/HKydCqbkruXIWcuy3S4z/jNdEXBQ4XwfU
-         C9aFa47b4YtQtk9chb0ztOYkd4nntbwk2ATEiP33A9H2UR8HKwyg3OSWZfewrhyjS/qB
-         QNHHUgkANKW4G+nH+kPJEBG661VnKBnrCLo9oM9MpCsh01oV+V20luewPyAnc/buVSVA
-         5GXrWnbP01TX1Z2vxaMlYC6vOY38ICJKs+vELMCLG+G1+PsGj8ru8tVz6ND3gF3f1G9o
-         irgKd7nQxwHW8Uqy5uc+ihnMPuQHOS7e/9e9VYBrWiha4meZv/hlmxXlyXiIDBcxVufS
-         2JmA==
+        d=gmail.com; s=20260707; t=1794227018; x=1794831818; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=uqkPwKdBphh8svxG0i7NhcNwoYudscGxRvBCQXii6DU=;
+        b=Wb7L+EbgbfshuHOTA2DuNBCvwfnhVtbUsk8AFZahJYuPodOPs1oCGjtqiqYAZ4poT/
+         wbCvbkVBv2k4xPQz3ccID18nQtK4HgGRWKU6tPvAdyGjzT0IfJr9+nfI70Bf8v1QcBQt
+         LHxPsQif2FBfI9J2RY8l3KilTzLyTM0+F9vqQAx7JYnIj4YqhTE7FRLVpyG+jNg1iCbl
+         AIFIPI+4TeDlVsv8FAaevmdzINoeJQ4A3F8irZagt2S3G9a72Coc0vJf9rwz8gAhTePb
+         DJsezHzg4x/UFmJRRZU1mbhEoI0hiTb/5t8WaRk+pnlXFgi1n885Br0ptlsY3xVy9xtu
+         ZFVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794227019; x=1794831819;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MdOqoOEupQFbfi4QuNxY8pxCO+41UFytiQ7mtp1SJ10=;
-        b=o/3Pt5Mqan9ACABvcAUbhE8OTb0Nh058mpHCD66dYS5UdGX32FMJ9XoM4ncZ6CSIoD
-         DoNLLPDWm9Wr7AMRZ0reGGmh8eCnMSLH/6Am4vgi9gghBUsLJ1zu3mH7zrmZYozx7vSq
-         mdY/+QYou8hfwf3yosuoaxAueoE52q+916cdRWgwIB3mDdhUvmba+HwD9hj2cfoSHSU4
-         blCGmvY2IpOdyrAuoTzTWwHL7DeH/Ve8o8hLvP6crPCFnOuBmVoF+LJjwPCGw6+dMnpy
-         uhqq/elzEw77pOb+DFWcaXBtpO2IJbdtwpW131ki1MBgUuHwikNvivy5WINHqjrvfo1Z
-         /Jxg==
-X-Forwarded-Encrypted: i=1; AL+hErFKQ4ov7MkOroiQkfLqB/SkjQ8USxCLZrAXStwpOn6vVjuqyyEYY7LXf/djcj37jmMp8s/j5Do=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+urD68P+zayJnwHXn7mawhDOu8dl2goJM5S7vBtWHekcq34kkx
-	M2QWBBA7VQK1dxI5qhyjaEYkygKhrqG1BerivrKovZcwTE2/o+r5X1sEmqL2K/tZr1zilcJPllg
-	OMIv77dA=
-X-Gm-Gg: AYBFou0FXISSL66CjQw3D7x21qZ+VyVPPL2mSrygd8ofF8JPT50L43OD7255CWyubl2
-	acBJ3u0Hms4gVwfvkYQrqZz+S8W+QDSuHxdMvEVz78WBszT66p3JPr35BBbNrWloZTWIW2wJzU4
-	+w9PzEkgH9xqb+AHWCcX+rE4qHAUqA4k5Zbq0U35ncu+PWFaOCxx6aew1OzhJe5SL62zClwPb7D
-	ryixTh6p9Pt6BmWA5d0U/GKA38klZDONjqTAiFzue9RXAu4w3J2UBAt51aPL6gU0/726rJmDRyP
-	PgLVqDaCk+jpG65NgbxhS+W0Ju2tqzbEI6NRLg4C7K2uxHqYFZJrf3IvXswYIXFB33GyvlAm/l7
-	uO6pPzCPcTdHFgQWri/efRqGh6ShTnJU7FQhoBzQonFdwL1QLtlJhSOGE8Y24hiRHzjMOQnp5f3
-	OfKMiNQjznsLqr+MnyNpO/ZKd32garrV6b5pbl8osfS6y6KonxtCW69/2W5oZmqduNWU98FD6QM
-	ugv+MNVs+QQZ4B44HRAxd1CKbS9fo6aa4t2PGFuCUiICvXDjkyjosGmAWnzuPk7n2Aoh5g6iPgo
-	yUCPOZKWX4YAw7rZ8PcZqxGlQz6Jdg/3rWu8civHaNaMqeyz900/mTBLp9zEUmg8BngOKzJtl3Y
-	BZ6TLLfzkIhOMEqDizhe2Zw/gMVHS/ZhAwr2upQ==
-X-Received: by 2002:a17:90b:2547:b0:3ac:8af9:4a77 with SMTP id 98e67ed59e1d1-3b12d4204e3mr3448890a91.10.1794227018821;
-        Mon, 09 Nov 2026 04:23:38 -0800 (PST)
-Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:3d70:1891:1a66:b169])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b127912d62sm6836905a91.11.2026.11.09.04.23.36
+        d=1e100.net; s=20260707; t=1794227018; x=1794831818;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uqkPwKdBphh8svxG0i7NhcNwoYudscGxRvBCQXii6DU=;
+        b=OBt5yoNPwdbD6mqET9mSa/L57t7L1YbNTOGmQZXgsoULJkET4cRz9XROCI9MMyG08e
+         ROWRFCgcSd9CTUm9v6JQUM9TzCXGejb3X/duM2Srv/pv5wb8N8Ne4inF+nPqmc4gtzBP
+         wXxf8SiZ1kO4h7RUfEXrkpVLoTJzb/+XQijh2tDUt3NZu7y/3AXs0nUB9huNVXLDKOet
+         QQqbVu4mj6EGNHOje6JKl0nRoljP3llLBfFlg9fWI2bQWYTB3RUzMwE/7D/xwV7OHmzn
+         cE2FMsh3hLn3B3KE4cO7qy3wWmGAZ0v0HvdYTZW7ofbk6tLcOXssPT5rcleX+FihebX5
+         GQ/A==
+X-Gm-Message-State: APuU4Z9s9aFAuEWYXnxQWwvIC6EmNKkw74u30ARcLlbjaXS3f4lHdJKr
+	Q8OtU1mjbphPPxEU7Wt7jsvPJgvc0ILlxnB60/fM/aykYBbNRVF73QYi+Eky24u3
+X-Gm-Gg: AYBFou2QuNc8lCBnao8N1xhd4aq4UQIcU/CJWcj9W5ytrWIUkUxV8qYdK9oVfkf0e93
+	bmBd5r1Oxj8DEpmqJY+Q26hzBxKNf6sxoW93ZugRfiM+qMsbNoztX6SyFvrzyP1VeNpLiwO3SSR
+	EfaRUPUnYQuGRONBth50bpx2Soz3FmHnwfU/sD6cWvpX/cZOSMloyANYjIp2yovHdaxgAPXZtL2
+	fMmdixe3cc67+im2gwFH6XSzvB/47yVDEx1Ta4Ar5X43i3XeGM+bqt4d/GUabUqfe0dTJ6d5+mD
+	Lr9a3pOvhXFc6aT54u7/IyX5GdjqBd5S2qhDF9TCgoEroX+qED51gAbUcmCLKSkOW5qy2BGwwcM
+	u3fE9fYdq/7VAauQI6hB12/iOM1aWeH2Gca10w2BPwgeWQnqyzf6yfxU2Gdu8vNM8tfZPV4KuG+
+	GofouqFQo+ZcDn9/GtdS+ApqC3/PziNhLj1KohbolRbkhodWnSas++ABTLpwmLel36lAwxW53xT
+	bT2neVvbtMTxG50tr14T03rlU7tHtvrZ9zxjwL3fAVt5eh5ejhd5oJEI7FT3ylDyQmlimLdLJP9
+	x/O7Ecw0oXuwFH/r0SULZq3A6z60CMxxkVp5Ij/nZPJzVgCTCzw8DO5Cc3zSanTE5k6YlDxwZ/z
+	D8hX5/4Tk5peAjkpVW2O/xL0Xdjc=
+X-Received: by 2002:a05:600c:8b88:b0:4a5:e6fd:65e5 with SMTP id 5b1f17b1804b1-4b963c8921cmr71803085e9.31.1794227017980;
+        Mon, 09 Nov 2026 04:23:37 -0800 (PST)
+Received: from SurHub.localdomain ([196.188.113.144])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b90f1117fasm155695025e9.13.2026.11.09.04.23.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 04:23:38 -0800 (PST)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: jgross@suse.com,
-	sstabellini@kernel.org
-Cc: oleksandr_tyshchenko@epam.com,
-	boris.ostrovsky@oracle.com,
-	xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH 2/2] xen/pvcalls: destroy the per-socket workqueue on release
-Date: Mon,  9 Nov 2026 21:23:24 +0900
-Message-ID: <20261109122324.30134-3-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261109122324.30134-1-yhlee@isslab.korea.ac.kr>
-References: <20261109122324.30134-1-yhlee@isslab.korea.ac.kr>
+        Mon, 09 Nov 2026 04:23:37 -0800 (PST)
+From: Abdifatah Suruur <suruurism@gmail.com>
+To: stable@vger.kernel.org
+Cc: Pablo Neira Ayuso <pablo@netfilter.org>, Florian Westphal <fw@strlen.de>,
+ Greg KH <gregkh@linuxfoundation.org>, Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/2] netfilter: nft_byteorder: initialise the marked
+ destination span
+Date: Mon, 09 Nov 2026 15:22:59 +0300
+Message-ID: <179422697983.5131.11029262939381173340@gmail.com>
+In-Reply-To: <179422696909.5131.4005481731765358036@gmail.com>
+References: <179422696909.5131.4005481731765358036@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,43 +100,54 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-pvcalls_new_active_socket() gives every active socket its own ordered
-workqueue:
+nft_byteorder_eval() writes only priv->len / priv->size whole elements,
+while nft_parse_register_store() marks DIV_ROUND_UP(priv->len, 4) full
+32-bit words as initialised.  For len/size combinations that do not fill
+the last marked word -- for example size 2 with len 1, which writes no
+element at all -- the control plane still accepts a later load of the
+whole word from another expression.  That load reads stale bytes from
+the struct nft_regs stack slot in nft_do_chain(), which is not
+zero-initialised.
 
-	map->ioworker.wq = alloc_ordered_workqueue("pvcalls_io", 0);
+Zero the span that the control plane marks as initialised before the
+conversion, but only when the source and destination registers differ.
+nft_reg_overlap() allows an in-place conversion (sreg =3D=3D dreg), and the
+source is already initialised in that case; zeroing it would corrupt
+the value.
 
-and nothing ever destroys it.  pvcalls_back_release_active() flushes
-map->ioworker.register_work and frees map, but the workqueue and its
-pool_workqueues stay allocated, so a frontend leaks a workqueue per socket
-it connects and releases - a loop a guest can run as long as it likes.
+This preserves multi-register support and does not reject any rule, so
+old nftables versions that generate len !=3D size continue to load.  It
+only removes the dependency on some other initialisation of the
+register file.  Builds with CONFIG_INIT_STACK_ALL_ZERO mask the leak,
+but nft_byteorder must not rely on that.
 
-Destroy it after the IRQ is unbound, so no new work can be queued, and
-before map is freed.  pvcalls_back_ioworker() takes no locks, in
-particular not fedata->socket_lock, which the backend_disconnect() caller
-holds here, so draining it from this point is safe; the flush_work() just
-above already has the same requirement.
-
-Fixes: 5db4d286a8ef ("xen/pvcalls: implement connect command")
+Fixes: 14fb07130c7d ("netfilter: nf_tables: allow loads only when register is=
+ initialized")
 Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Signed-off-by: Abdifatah Suruur <suruurism@gmail.com>
 ---
- drivers/xen/pvcalls-back.c | 1 +
- 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/xen/pvcalls-back.c b/drivers/xen/pvcalls-back.c
-index dcefa91a40cd05..27aa06289a7b92 100644
---- a/drivers/xen/pvcalls-back.c
-+++ b/drivers/xen/pvcalls-back.c
-@@ -456,6 +456,7 @@ static int pvcalls_back_release_active(struct xenbus_device *dev,
- 	xenbus_unmap_ring_vfree(dev, map->bytes);
- 	xenbus_unmap_ring_vfree(dev, (void *)map->ring);
- 	unbind_from_irqhandler(map->irq, map);
-+	destroy_workqueue(map->ioworker.wq);
- 
- 	sock_release(map->sock);
- 	kfree(map);
--- 
-2.43.0
-
+diff --git a/net/netfilter/nft_byteorder.c b/net/netfilter/nft_byteorder.c
+--- a/net/netfilter/nft_byteorder.c
++++ b/net/netfilter/nft_byteorder.c
+@@ -33,6 +33,17 @@ void nft_byteorder_eval(const struct nft_expr *expr,
+ 	u16 *s16, *d16;
+ 	unsigned int i;
+=20
++	/*
++	 * nft_parse_register_store() marks DIV_ROUND_UP(priv->len, 4)
++	 * words as initialised, but this function only writes whole
++	 * len/size elements.  Zero the marked span so that a later load
++	 * cannot read uninitialised stack data.  Do not touch it when
++	 * source and destination are the same register: the source is
++	 * already initialised and zeroing it would corrupt the value.
++	 */
++	if (priv->sreg !=3D priv->dreg)
++		memset(dst, 0, DIV_ROUND_UP(priv->len, 4) * sizeof(u32));
++
+ 	s16 =3D (void *)src;
+ 	d16 =3D (void *)dst;
+=20
+--=20
+2.53.0
