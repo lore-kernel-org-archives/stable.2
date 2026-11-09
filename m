@@ -1,77 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794216542;
-	b=ZLByJlD4tFcB11Dg3mED2eAls5bvWEocGjhD7kbUEFxvsXHTGjPmOVfgwqd14pM284hp
-	 hVhKG2k0eZy5r7DrNw3MLvaKC3dX+rhl3ZM8cK0CnogPDYRT5FGEWdT8+HdRmsGPSSsNd
-	 Cd8EElxkVQ4aiodNfzEAfpOqRr5SrEGv7Co5T4RpWvfDSlqev1oG8iwT9/kOo5YmgYHiC
-	 iMbRSKdouJkA0wGIaRoVR1z7ymVA/uEP4e5ZFIvBo6AzIDKvircbHINCyiNqwa/Aujzrt
-	 y26FnbS+P7ILkfRK+tXEkQCU5qPA8/SJ+5e0KEhQSzvY/4TaIRXL6ePq+rouO9yI3Zg==
+	t=1794216545;
+	b=iVqVraTlcMEWQdPkOW50lTQR2vetedogCQGaS3YCvuUSES2YVC6NlDA74Byish+MWdet
+	 9P1UKvrMmBGYE0neyK8F9LqGTZwfpKaZ83d0npBWLmPDP7HIXV3LpE5EISrbFYkmp438g
+	 txSDaSPX1Ieezl0DBMDBwvvxql37G+Rfilce+GaKA4rs6Rtd++alDaQLEx/7Yue3ZwD36
+	 EojzpS3YgZOMqQViV/VM8n3C8rZ2xxbLvbKxsKP7QKrBgRpbemIEn7QGo4AbC5ZGHvdwc
+	 s/LDHewCqpd8Usoqr90BNGBEI6HP6H6WlFF3s6areOhtzcpjsGsCgoi2PnGO6qMTclQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794216542;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794216545;
 	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
 	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
 	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=DtDuV9+DNLMCOx4WI8othldQ2OXDeK3bq3UTOQXllzU=;
-	b=H9MbVgNrDPFbt5licJoczfbwDG069fe01D2DZTwp50S6p5AXrds8eUhJfuCYP0Xh7Xfm
-	 SHCOPkBvoDK3/19zRwuZmMDXRM4m4QsCdEg7giaqbUV+oPgIosfF8KHzZorEMO8dbWIvB
-	 ZMibGF4wCa/ZT8JrWxIQOPR7GnU3ZNowMXzOsmF6NzOtidL+ZjaKFIDzMGraJzaOiX1ge
-	 DByIroZtImPnog/n7SC7ku4Ap8i7U0btpLXOSdaen2jd4RgjKHqNqh5EFVV0f5c6QZ3e4
-	 6ZJguewNUgm0yB8WvJyPQvxH+DIxRQhAfQ/xwx9PTerpBQ7PqPhC0UGcg4Rmcq64aJA==
+	bh=Sa1td0rCt1lLV7O1f8BLy+9KXYJIgGhFJNgo6A6IutY=;
+	b=aqLXUtVRL6xZh99Pnai0FIHwwBbmKpmhevmeI75BY2i3Cyfbkowzu5x0KK6bMfpD22sW
+	 grbJ0QFOwfzBA6uQwH09KvPHEAXffV3+huQlWniqIirVsqQymHy9rUcpHFku+r0XE4cl3
+	 EL1KkMowkDeLI2TdIaf1IpCshrg3NaMoRA1kFAdJUswxuopfqO75Xn2tOeujuuVqkIZSo
+	 vjP20EFz/xu2ukYDDVGwRxWfdPFuKItsdaplp98YiBn4v4eN3GnwfrLOAAu7+bKtgu3zi
+	 bXeBVwAgTH2AEvDd5yZepETmXk5ZpfGcHRl/4mgT1N+L8C9swou4D/kF6lblrdQXJWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linutronix.de;
 	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=WnO29ofA;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b="/4NJubqM";
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b="Ow2C6L/T";
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=8bBmyiFj;
 	arc=none smtp.remote-ip=193.142.43.55
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A9AD60A2613;
-	Mon,  9 Nov 2026 09:29:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A9AD60A2613
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C326460A381B;
+	Mon,  9 Nov 2026 09:29:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C326460A381B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=WnO29ofA;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=/4NJubqM
-Date: Mon, 09 Nov 2026 09:28:58 -0000
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=Ow2C6L/T;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=8bBmyiFj
+Date: Mon, 09 Nov 2026 09:29:01 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794216540;
+	s=2020; t=1794216543;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=DtDuV9+DNLMCOx4WI8othldQ2OXDeK3bq3UTOQXllzU=;
-	b=WnO29ofACIuoX5XXG341quEjI5ZghgC6e1qfOnu7K4PKsNHDCyXJOHmMousbmOCNttUvSS
-	0gP8PiZuwA1QxB2F5JBku14NhjwK0221OVqcHq3faSrYELJriB5RDrLl71g8Z18rpp7e92
-	m4u99qxOPlhhgzzwjmo68zwklThl/CGG9GuPDgh3nqtpRQpMzNCcF9Z0JYskKSy87TR2le
-	L9evIjAQKkwnkHqnLJRWLw9yNjDDiH06mRGwFzuU5yBjH6I0o64Qy+Pn2CcpgULNmccuk3
-	XRUGYL+IRtPiH5qEwdAIFZtMyXjtsMFJO+xslSW5d8ucdK3VPQMOLf276BD6Xw==
+	bh=Sa1td0rCt1lLV7O1f8BLy+9KXYJIgGhFJNgo6A6IutY=;
+	b=Ow2C6L/Tg8g7GzVGLtEVMct4IqP2fv6ez4r+Jz488raiXLsXsIKtXsPAh0fJSqHxfCuZc2
+	I5ZBt+eTFx8ErUaycNWu7xcFyw4MATCasnNEqQ5t7WEpIeNz9/nTNgZiuOPYiJST7xL5Fl
+	BCJECRDCGaSlQDaNiXRlj5V6DNkjlRLy7dH3LWnCSjIg7b44gt0i8SExbMWMlyYy2xX4cn
+	xrySwBD+FnhqTVp+5iRs2TzzjwwhbDQHOth/7D9j1MhpfV2jX8xefUsBC/eRUucp6LQWU1
+	FnpdOYYaPrHxNugnGRb8XRRl1Ln/2WdYAlvbNER7ooV+njoJGIIM4nUaLssMTQ==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794216540;
+	s=2020e; t=1794216543;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=DtDuV9+DNLMCOx4WI8othldQ2OXDeK3bq3UTOQXllzU=;
-	b=/4NJubqMQIEzDDYcu31UWFA65XiU1sO3qIX0z6TJLLW0TBMprR7xD7gw8D7LwjXnKCeQR9
-	BCJ9+XY1GB/8OmAA==
+	bh=Sa1td0rCt1lLV7O1f8BLy+9KXYJIgGhFJNgo6A6IutY=;
+	b=8bBmyiFjnld/l39mBWcmIKWttu21Tv6cLMSM1MlghrD+EkrPnB4O9ysG5J+Mnx7OxJ1J1m
+	CZpOR+EVifcGZaBQ==
 From: "tip-bot2 for Andrea Parri" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
-Subject: [tip: sched/core] sched/core: Fix cpuset_mutex double unlock in
- __sched_setscheduler()
-Cc: Sashiko <sashiko-bot@kernel.org>, Andrea Parri <parri.andrea@gmail.com>,
+Subject: [tip: sched/core] sched/deadline: Fix spurious -EPERM for
+ migration-disabled tasks
+Cc: Andrea Parri <parri.andrea@gmail.com>,
  "Peter Zijlstra (Intel)" <peterz@infradead.org>,
- Ingo Molnar <mingo@kernel.org>, Waiman Long <longman@redhat.com>,
- Kayra Cizmeci <kayracizmeci@gmail.com>, Juri Lelli <juri.lelli@redhat.com>,
- stable@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261102134606.242743-1-parri.andrea@gmail.com>
-References: <20261102134606.242743-1-parri.andrea@gmail.com>
+ Ingo Molnar <mingo@kernel.org>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Juri Lelli <juri.lelli@redhat.com>, stable@vger.kernel.org, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261102135420.244745-1-parri.andrea@gmail.com>
+References: <20261102135420.244745-1-parri.andrea@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -81,7 +82,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179421653833.2093942.14995996685714651787.tip-bot2@tip-bot2>
+Message-ID: <179421654135.2093942.2082186434797343921.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -91,76 +92,50 @@ Content-Transfer-Encoding: quoted-printable
 
 The following commit has been merged into the sched/core branch of tip:
 
-Commit-ID:     f7141257dd67d4936f906a6cfd1d0007721f6898
-Gitweb:        https://git.kernel.org/tip/f7141257dd67d4936f906a6cfd1d0007721=
-f6898
+Commit-ID:     6616bffa9b52da1338cf8bff9882404e02b9e361
+Gitweb:        https://git.kernel.org/tip/6616bffa9b52da1338cf8bff9882404e02b=
+9e361
 Author:        Andrea Parri <parri.andrea@gmail.com>
-AuthorDate:    Mon, 02 Nov 2026 14:46:05 +01:00
+AuthorDate:    Mon, 02 Nov 2026 14:54:19 +01:00
 Committer:     Ingo Molnar <mingo@kernel.org>
-CommitterDate: Mon, 09 Nov 2026 10:09:18 +01:00
+CommitterDate: Mon, 09 Nov 2026 10:08:59 +01:00
 
-sched/core: Fix cpuset_mutex double unlock in __sched_setscheduler()
+sched/deadline: Fix spurious -EPERM for migration-disabled tasks
 
-A sched_setattr() with SCHED_FLAG_KEEP_POLICY on a SCHED_DEADLINE task
-unlocks cpuset_mutex twice if the task's policy changes concurrently:
+sched_setattr() can refuse to make a task SCHED_DEADLINE with -EPERM,
+even though the task's affinity covers the whole root domain. A retry
+can succeed, but the error blames an affinity the task does not have.
 
-  WARNING: bad unlock balance detected!
-  7.4.0-rc1 #1 Not tainted
-  -------------------------------------
-  repro/126 is trying to release lock (cpuset_mutex) at:
-  [<ffffffff9a17cacc>] __sched_setscheduler+0x9cc/0xc40
-  but there are no more locks to release!
-  ...
-  Call Trace:
-   print_unlock_imbalance_bug.part.0+0xfb/0x110
-   lock_release+0x286/0x2e0
-   __mutex_unlock_slowpath+0x1a/0x400
-   __sched_setscheduler+0x9cc/0xc40
-   __x64_sys_sched_setattr+0xa3/0x1b0
-   do_syscall_64+0x106/0x5f0
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+__sched_setscheduler() tests p->cpus_ptr, which is not always the task's
+affinity. When a task is scheduled out inside a migrate_disable() section,
+migrate_disable_switch() points p->cpus_ptr at the current CPU until
+migrate_enable(). On PREEMPT_RT every spinlock_t holder is in such a
+section, so ordinary kernel work opens the window. Elsewhere, seccomp
+filters run in one.
 
-__sched_setscheduler() samples p->policy before taking any lock, and
-restarts from the recheck label if p->policy differs under the rq lock.
-The restart drops cpuset_mutex but leaves cpuset_locked set, so a pass
-that no longer needs the mutex still unlocks it on its way out:
+Test p->cpus_mask instead, which keeps the task's affinity and is what
+sched_getaffinity() reports. This should be safe because an admitted
+task's cpus_mask covers the root domain, so set_cpus_allowed_dl() moves
+no bandwidth when migrate_enable() restores p->cpus_ptr.
 
-  CPU 1                                CPU 2
-  __sched_setscheduler(KEEP_POLICY)
-    policy =3D p->policy /* DEADLINE */
-                                       __sched_setscheduler(SCHED_OTHER)
-                                         p->policy =3D SCHED_OTHER
-    cpuset_locked =3D true
-    cpuset_lock()
-    rq =3D task_rq_lock(p)
-    oldpolicy !=3D p->policy
-      cpuset_unlock()
-      goto recheck
-    /* no cpuset_lock() this time */
-    ...
-    if (cpuset_locked)
-      cpuset_unlock()
-
-Without CONFIG_DEBUG_MUTEXES, or CONFIG_DEBUG_RT_MUTEXES on PREEMPT_RT,
-nothing warns. The second unlock still clears the owner field regardless
-of who holds the mutex, so another task can lose cpuset_mutex inside its
-critical section. Entering SCHED_DEADLINE needs CAP_SYS_NICE, but a
-racing caller that owns the task does not need it if it samples a policy
-other than SCHED_DEADLINE.
-
-Clear cpuset_locked when dropping the mutex for the restart. This should be
-safe because the flag is only tested on the paths leaving the next pass,
-after that pass has set it again if it took the mutex.
-
-The following program, run as root, reproduces the splat, which no longer
-appears with this applied. On PREEMPT_RT it crashes the kernel within
-seconds, which this also fixes:
+The following program, run as root, had 553679, 453720 and 424623 of its
+1000000 requests refused on three boots of a 4-CPU PREEMPT_RT guest, and
+236182, 217174 and 237183 without PREEMPT_RT. With this applied the count
+is 0, also with lockdep, and a task pinned to one CPU is still refused:
 
   #define _GNU_SOURCE
+  #include <errno.h>
+  #include <linux/filter.h>
+  #include <linux/seccomp.h>
   #include <pthread.h>
+  #include <stddef.h>
   #include <stdint.h>
+  #include <stdio.h>
   #include <sys/syscall.h>
   #include <unistd.h>
+
+  #define REQUESTS 1000000
+  #define INSNS 300
 
   struct attr {
       uint32_t size, policy;
@@ -173,88 +148,91 @@ seconds, which this also fixes:
   static volatile int stop;
   static volatile pid_t target;
 
-  static void set(struct attr a)
+  static long set(struct attr a)
   {
       a.size =3D sizeof(a);
-      syscall(SYS_sched_setattr, target, &a, 0);
+      return syscall(SYS_sched_setattr, target, &a, 0);
   }
 
-  static void *sleeper(void *arg)
+  static void *worker(void *arg)
   {
+      struct sock_filter f[INSNS + 1];
+      struct sock_fprog prog =3D { .len =3D INSNS + 1, .filter =3D f };
+      int i;
+
+      /* Reading the arguments keeps seccomp from caching the result */
+      for (i =3D 0; i < INSNS; i++)
+          f[i] =3D (struct sock_filter)
+              BPF_STMT(BPF_LD | BPF_W | BPF_ABS,
+                       offsetof(struct seccomp_data, args));
+      f[INSNS] =3D (struct sock_filter)
+          BPF_STMT(BPF_RET | BPF_K, SECCOMP_RET_ALLOW);
+      syscall(SYS_seccomp, SECCOMP_SET_MODE_FILTER, 0, &prog);
+
       target =3D syscall(SYS_gettid);
       while (!stop)
-          usleep(1000);
+          syscall(SYS_getppid);
       return arg;
   }
 
-  static void *switcher(void *arg)
+  static void *hog(void *arg)
   {
-      while (!stop) {
-          /* SCHED_DEADLINE, 2us every 1s */
-          set((struct attr){ .policy =3D 6, .runtime =3D 2000,
-                             .deadline =3D 1000000000,
-                             .period =3D 1000000000 });
-          set((struct attr){ .policy =3D 0 }); /* SCHED_OTHER */
-      }
-      return arg;
-  }
-
-  static void *racer(void *arg)
-  {
-      /* KEEP_POLICY | KEEP_PARAMS */
       while (!stop)
-          set((struct attr){ .flags =3D 0x18 });
+          ;
       return arg;
   }
 
   int main(void)
   {
-      pthread_t t[5];
+      pthread_t t[9];
+      long refused =3D 0;
       int i;
 
-      pthread_create(&t[0], NULL, sleeper, NULL);
+      pthread_create(&t[0], NULL, worker, NULL);
       while (!target)
           usleep(100);
-      pthread_create(&t[1], NULL, switcher, NULL);
-      for (i =3D 2; i < 5; i++)
-          pthread_create(&t[i], NULL, racer, NULL);
-      sleep(30);
+      for (i =3D 1; i < 9; i++)
+          pthread_create(&t[i], NULL, hog, NULL);
+      for (i =3D 0; i < REQUESTS; i++) {
+          /* SCHED_DEADLINE, 2us every 1s */
+          if (set((struct attr){ .policy =3D 6, .runtime =3D 2000,
+                                 .deadline =3D 1000000000,
+                                 .period =3D 1000000000 }) && errno =3D=3D EP=
+ERM)
+              refused++;
+          set((struct attr){ .policy =3D 0 }); /* SCHED_OTHER */
+      }
       stop =3D 1;
-      for (i =3D 0; i < 5; i++)
+      for (i =3D 0; i < 9; i++)
           pthread_join(t[i], NULL);
+      printf("%ld of %d requests refused\n", refused, REQUESTS);
       return 0;
   }
 
-An LLM helped find the PREEMPT_RT crash and write this patch and its test.
+An LLM helped find this bug and write this patch and its test.
 
-Fixes: 111cd11bbc54 ("sched/cpuset: Bring back cpuset_mutex")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
+Fixes: af449901b84c ("sched: Add migrate_disable()")
 Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
 Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 Signed-off-by: Ingo Molnar <mingo@kernel.org>
-Reviewed-by: Waiman Long <longman@redhat.com>
-Reviewed-by: Kayra Cizmeci <kayracizmeci@gmail.com>
-Reviewed-by: Juri Lelli <juri.lelli@redhat.com>
+Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Acked-by: Juri Lelli <juri.lelli@redhat.com>
 Cc: stable@vger.kernel.org
-Link: https://sashiko.dev/#/patchset/20261016062629.2102883-1-sh_def%40163.com
-Link: https://patch.msgid.link/20261102134606.242743-1-parri.andrea@gmail.com
+Link: https://patch.msgid.link/20261102135420.244745-1-parri.andrea@gmail.com
 ---
- kernel/sched/syscalls.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ kernel/sched/syscalls.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
-index 98be11a..0ec401a 100644
+index 45a127d..fb8f332 100644
 --- a/kernel/sched/syscalls.c
 +++ b/kernel/sched/syscalls.c
-@@ -640,8 +640,10 @@ change:
- 	if (unlikely(oldpolicy !=3D -1 && oldpolicy !=3D p->policy)) {
- 		policy =3D oldpolicy =3D -1;
- 		task_rq_unlock(rq, p, &rf);
--		if (cpuset_locked)
-+		if (cpuset_locked) {
- 			cpuset_unlock();
-+			cpuset_locked =3D false;
-+		}
- 		goto recheck;
- 	}
-=20
+@@ -628,7 +628,7 @@ change:
+ 			 * the entire root_domain to become SCHED_DEADLINE. We
+ 			 * will also fail if there's no bandwidth available.
+ 			 */
+-			if (!cpumask_subset(span, p->cpus_ptr) ||
++			if (!cpumask_subset(span, &p->cpus_mask) ||
+ 			    rq->rd->dl_bw.bw =3D=3D 0) {
+ 				retval =3D -EPERM;
+ 				goto unlock;
