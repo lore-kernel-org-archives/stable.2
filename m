@@ -1,74 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794256773;
-	b=2WEmQVQ6PFLmOVn7tUTMY17U9MCfJmruvxZIaiVThdXWUXcsqoxMVecEaFDNYdpjqRGh
-	 IBhwJzmL9j8V8R6XH0a/ANsGd3qP0if0M7pelQzWjKjxjBAvd8Ks8/FdaGvIafEEH39de
-	 VyLX0pteNldknPbGTsFGaKvKjlw6X1qmFpUrRGynXuUODvqWXhkEpMqAgOvNkhizaU+U9
-	 vj3MahgwCrpnZahz9nWfZhbICZcklfGI7L1tUNgAgj37TLSs/9VWuFSSOz1jOOKFA6OnC
-	 fSy9pUyDvIzThB7W6WAZw7YOAJD+jUZAG/kNEdFgofyn0Jk1Zo7K2/7HhlB/UVkgWFQ==
+	t=1794257274;
+	b=2DspxKZa3N1wSD1uiwXjbE/lXVaFVgqAGUchUf8hWmOt+rO0ctf//Fh+FkR/WrpenfPM
+	 tuym2hBHeR4QrLptO2aOJk69XKjfbw/3/k7BDrbBJSqFxuoQSjpncis2TWr0Sgv4BiFN/
+	 GH/ju9WSX1KMi4Aq2S+y6Jv3gwpe7gs7mFJPThi7xJpQHxY/8chjCZd60S6oBr1TZ9zMG
+	 Wf/jfRkH8kRLkpYh9sbS40SahElo5Xc9xpvNscvWT38kZX4mWC5+mrcsz/oEPtQ4wNpxV
+	 p7InPXuIw9WFR7o8M51jGWwWjJWE4GpAg0PZ0so2o05WxyYbuQLKE1egQVoTUloD2zg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794256773;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=KuRvvkTR2R4DVquqy1RATu/MBL+QfBo9KPmiMXo7Ohw=;
-	b=IWntVtvXPIRp+u5CuJ4rF/5eKEJw7bGAkAXX2b1UGT4xOhDcKvV8715JKvr8qoMLH3PJ
-	 J/w9zPdH9EivKDH25uwRJIIsYYecNi8W33heWErPBoxWF5ovAW+7xE3RDB10BwOb9+7Qm
-	 U+6r5tSnGvNB7+mmMLO7HKfdS2v4ZNpKe6ssmPCc9nRaFTSDVk6ZsDLehlyDTy/EjlOs9
-	 J09egpmbDkZsymxiDho6CD5FUh9YCAQmyS+n6iEugSSpDhmPu4hfoenoBloaRDilMV33/
-	 /2uVIvNqHEjiQKwGObO439KeyMjmMR949DY4YqTmYaSI0f7zghmOUvm18zATWx2DvNg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794257274;
+	h=DMARC-Filter:DKIM-Signature:Received:MIME-Version:Date:From:To:Cc:
+	 Subject:In-Reply-To:References:User-Agent:Message-ID:X-Sender:
+	 Content-Type:Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
+	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
+	bh=Qjc3lND2Szj+ZbTboPnK/vG9bXC4WbRqnD1x9RUtNhU=;
+	b=MR7XC1sL4AKaIqE6eHNbbzsiHqwWmjNRgQ7XIvkvva7CReepKARQYm86XcXxXJG81luo
+	 YppJSCUDEdQb8mPQVF5ApCaj4l6EW49DmIxhZZm704uD6BpOA0u63DzIMmf6vcH6BgELd
+	 SeRj48Khb91Vap0p/ZyEmD5RxxjANIcNZzTFdCTC9j6x0WVZYIP/WzD9XIrVcPQHkyu50
+	 AFT/9Q9m0eUxwVzxWUYI5NRG0tTY4hlw33GJbv7QNC2pMshJz9pELpjxf3w5Zy7KgzHF/
+	 4nTTD4LZeAqX9go4j5XZMMXxhz5S2yfmWeOjyREf9QT6//jHRgXD0fsdYVoSoUvqCug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--chriswiseman.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=I15LjJy9;
-	arc=none smtp.remote-ip=74.125.82.197
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.cyber.gouv.fr;
+	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
+	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=mpG5CXlN;
+	arc=none smtp.remote-ip=51.159.188.251
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBBB0606A31C
-	for <stable@vger.kernel.org>; Mon,  9 Nov 2026 20:39:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBBB0606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--chriswiseman.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0A3D606A321;
+	Mon,  9 Nov 2026 20:47:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0A3D606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=I15LjJy9
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-341eff9e381so3058917eec.1
-        for <stable@vger.kernel.org>; Mon, 09 Nov 2026 12:39:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794256772; x=1794861572; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KuRvvkTR2R4DVquqy1RATu/MBL+QfBo9KPmiMXo7Ohw=;
-        b=I15LjJy9mP9tULEb+W4bsL6Q5Eu9Q26SiAOKrUnwNo8slVan6k9OpIQsKkdexDAmsp
-         ip6P6f2Gxqsm0rHX5ia/eH5Si1w/fG7fXzuJMVfqGDfnNx8m6W+8GB/vF0nV4MuBiz0y
-         dVqr+EO6d3fe1carWLOL8NK6adH6qachw0ZdnRlz7e5k1ZNzV/iuQfnDIDdINqunUvtH
-         2lEQhtMEl5QHFjohSm9aFg8o0vwOozS+TXd9IgNPU4kR/t3kwlMBUQAcytdTWDBkao3W
-         0pseqssl9BlIJS8tSIKus2sCFmsRseI9rqkkCJz7ax5EmAA50+2jYGTKKgPAGgAFFMGT
-         pL3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794256772; x=1794861572;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KuRvvkTR2R4DVquqy1RATu/MBL+QfBo9KPmiMXo7Ohw=;
-        b=wUAsQSaz5Cb8Bs8NVkgdIf1XgO9kuWfNwxBnXiajEWKwq+n8be03X5+/PxnrwIabtH
-         dA153SlWhW7M5v4bDYPERwghzlwb/o/DktWdBLJMF7mHDEbTVnBEXIg6VEvwaGJkxFxN
-         5QtNdQEZQEm1dWEWc9DDMzyC9Au22O0wZWSuAIHdoEfRgEUCHvvLjZUWAAhUt/3GJ5FD
-         RKtMTCjbYsmETE09afgfqBKhpOBSCsjrhIw85GW4nH+LLZzUAyuuDs8yn07hRW0QHj/g
-         Wfqe+De/JTsG2CJVyGL/Hn7n2+4cIFRBoTdCNHssnWrlxl92iuPXbdNivwwV+eBmMJSj
-         L7hw==
-X-Forwarded-Encrypted: i=1; AL+hErFG7mxH/nEVWTSebLfx52AoT/kRjtln+v0wYWhK2DhhEIk/kEJSrhCwDL9nIiIBR0qn7JNCfFw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/BkWev8LvfnVtz8rSm+dHWaqQJuE+g0+2NSe7guWw+VwaIydOZ
-	JvuE6HRsj3K/Vw+UsmLbzo8aAGLOkTHg0LpG+75OH4BhQGkSTD2yWCUQYuG5jUuQL8vnqm4GLhe
-	UPK14yL0MwKGervG+DxjPsQ+SPN5uNw==
-X-Received: from dycog13.prod.google.com ([2002:a05:7301:9a8d:b0:36e:8352:e26a])
- (user=chriswiseman job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:693c:4146:10b0:35e:7bfd:4613 with SMTP id 5a478bee46e88-37520219af5mr543711eec.40.1794256771693;
- Mon, 09 Nov 2026 12:39:31 -0800 (PST)
-Date: Mon, 09 Nov 2026 20:39:30 GMT
-In-Reply-To: <avIb1n3zk7KKdFfj@google.com>
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=mpG5CXlN
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:
+	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=Qjc3lND2Szj+ZbTboPnK/vG9bXC4WbRqnD1x9RUtNhU=; b=mpG5CXlNlPYFghudAsxPbpQbhu
+	pZ5GpX195PfyZU6zwJ6KgrFHVBQF6c+n198g/P2cqQtXWngP/N2UZKbT9X5eQCLcrUcTUtb4xn/+i
+	nW/jN3Dr0hOhIpNsX8zyXz1zuG5U0z9uLPkOkWXCEJpRQCBWsszSg7x9kKeAdGmWY+VnvzRpPdknh
+	Z3lBLXE4riqv24BSRCAv611VqjSK7y8lBC9cRXewdv/k4jJiv1RofEzjXCNHJPLNwhrRlYtEPfHWH
+	OMOC+l4wKsjbu2h2whj2C83inIlw3bgxCkPq4W34IGT5VcenhqQbVv5hZ+ereRJ/+pTxxGPfPN0hZ
+	XUZLyNZA==;
+Received: from [::1] (port=46436 helo=pf-012.whm.fr-par.scw.cloud)
+	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.100.1)
+	(envelope-from <jeremy.jean@oss.cyber.gouv.fr>)
+	id 1xQWHQ-0000000DrgI-1qSY;
+	Mon, 09 Nov 2026 21:47:52 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,42 +59,54 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <18e61a85b0d13e9c.3137322e32332e3235332e313736.9c152.0000sendgmr@google.com>
- <avIb1n3zk7KKdFfj@google.com>
-Message-ID: <18e67b07084c1b9e.3137322e32332e3235332e313736.b064c.0000sendgmr@google.com>
-Subject: Re: [PATCH 1/2] rust_binder: reject sync transaction with pending
- sync work
-From: Chris Wiseman <chriswiseman@google.com>
-To: Carlos Llamas <cmllamas@google.com>
-Cc: Alice Ryhl <aliceryhl@google.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	=?UTF-8?B?QXJ2ZSBIasO4bm5ldsOlZw==?= <arve@android.com>, 
-	Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, Chris Wiseman <chriswiseman@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Date: Mon, 09 Nov 2026 21:47:51 +0100
+From: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
+To: Jan Kara <jack@suse.cz>
+Cc: tytso@mit.edu, Andreas Dilger <adilger.kernel@dilger.ca>, Baokun Li
+ <libaokun@linux.alibaba.com>, Ojaswin Mujoo <ojaswin@linux.ibm.com>, Ritesh
+ Harjani <ritesh.list@gmail.com>, Zhang Yi <yi.zhang@huawei.com>,
+ linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] ext4: fix OOB write in fast-commit replay
+In-Reply-To: <idqh5j5m3rhjsdu77h7dchk5vxj47fcsls7tcdhu4wdf75cthu@sxwipa7u2hyl>
+References: <20261108204345.1423203-2-Jeremy.Jean@oss.cyber.gouv.fr>
+ <idqh5j5m3rhjsdu77h7dchk5vxj47fcsls7tcdhu4wdf75cthu@sxwipa7u2hyl>
+User-Agent: Roundcube Webmail/1.6.20
+Message-ID: <038be9b9541cbcc43ed35cf7950b9361@oss.cyber.gouv.fr>
+X-Sender: jeremy.jean@oss.cyber.gouv.fr
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-On Mon, Nov 09, 2026 at 07:15:34PM +0000, Carlos Llamas wrote:
-> If the issue happens when there is already a pending transaction, would
-> it be better to relocate the new check to top_of_transaction_stack(),
-> before we execute Transaction::new()? If possible, we can skip all the
-> unwinding associated with this. If not....
-> Reviewed-by: Carlos Llamas <cmllamas@google.com>
+On 2026-11-09 14:19, Jan Kara wrote:
+> On Sun 08-11-26 20:43:46, Jérémy Jean wrote:
+>> Fast-commit recovery checks record bounds and lengths during scan.
+>> Replay reads the records again without these checks. A corrupt 
+>> filesystem
+>> can make an earlier replay operation overwrite a later record. Its new
+> 
+> This fact looks like the real problem. I think we should validate the
+> replay does not corrupt the journal. How does this happen? Otherwise we
+> have to fully redo the validation of each record done in
+> ext4_fc_replay_scan().
 
-Good catch - moving the check into top_of_transaction_stack() is much
-cleaner.
+The replay can corrupt the journal because a corrupted image can make
+metadata blocks used during replay overlap with fast-commit blocks. I
+agree that making sure that replay does not corrupt the journal would
+be a stronger fix, but I'm not sure I see a simple way to fix this
+properly. Rechecking bounds as I proposed fixes a memory issue but it
+indeed does not address the root cause.
 
-Since the thread is not in process.ready_threads during the write phase
-and is at the tip of its own transaction chain, no new incoming
-synchronous transaction can be queued onto inner.work_list while
-self.inner.lock() is dropped across Transaction::new().  Checking
-inner.work_list inside top_of_transaction_stack() (where
-self.inner.lock() is already held) lets us fail fast before
-Transaction::new() allocates the target buffer or translates binder
-objects.
-
-I will move the check into top_of_transaction_stack() in v2 with your
-Reviewed-by.
-
-Thanks,
-Chris
+Regards,
+Jérémy
